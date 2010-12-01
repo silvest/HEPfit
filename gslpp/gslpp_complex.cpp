@@ -39,7 +39,7 @@ namespace gslpp
   complex::complex(const double& real=0., const double& imag=0., bool polar=false)
   {
     assign(real, imag, polar);
-  };
+  }
   /** Copy constructor  */
   complex::complex(const complex& z)
   {
