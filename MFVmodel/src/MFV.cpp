@@ -36,6 +36,30 @@ MFV::MFV(double mQtilde_i, double mUtilde_i, double mDtilde_i,
     mHp = mHp_i;
 }
 
+MFV::MFV(double mQtilde_i, double mUtilde_i, double mDtilde_i,
+        double Au_i, double Ad_i, double mLtilde_i, double mEtilde_i,
+        double mNtilde_i, double Ae_i, double An_i, double m1_i,
+        double m2_i, double m3_i, double muH_i, double tanb_i, double mHp_i,
+        const StandardModel& SM_i) : StandardModel(SM_i)
+{
+    mQtilde = mQtilde_i;
+    mUtilde = mUtilde_i;
+    mDtilde = mDtilde_i,
+    Au = Au_i;
+    Ad = Ad_i;
+    mLtilde = mLtilde_i;
+    mEtilde = mEtilde_i;
+    mNtilde = mNtilde_i;
+    Ae = Ae_i;
+    An = An_i;
+    m1 = m1_i;
+    m2 = m2_i;
+    m3 = m3_i;
+    muH = muH_i;
+    tanb = tanb_i;
+    mHp = mHp_i;
+}
+
 MFV::MFV(const MFV& orig) : StandardModel(orig.GetVCKM(), orig.GetMu(),
         orig.GetMd(), orig.GetMc(), orig.GetMs(), orig.GetMt(), orig.GetMb(),
         orig.GetUPMNS(), orig.GetMe(), orig.GetMmu(), orig.GetMtau(),

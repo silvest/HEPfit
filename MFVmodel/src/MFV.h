@@ -34,7 +34,20 @@ public:
      * @param muH_i superpotential @f$\mu@f$ term
      * @param tanb_i @f$\tan \beta @f$
      * @param mHp_i charged Higgs mass @f$m_{H^+}@f$
-     * @param SM_i reference to a StandardModel object
+     * @param VCKM_i The CKM matrix
+     * @param mu_i up quark mass at 2 GeV
+     * @param md_i down quark mass at 2 GeV
+     * @param mc_i charm quark mass mc(mc)
+     * @param ms_i strange quark mass at 2 GeV
+     * @param mt_i top quark mass mt(mt)
+     * @param mb_i bottom quark mass mb(mb)
+     * @param UPMNS_i The PMNS matrix
+     * @param me_i electron mass
+     * @param mmu_i muon mass
+     * @param mtau_i tau mass
+     * @param mnu1_i lightest neutrino mass
+     * @param mnu2_i middle neutrino mass
+     * @param mnu3_i hevier neutrino mass
      */
     MFV(double mQtilde_i, double mUtilde_i, double mDtilde_i,
             double Au_i, double Ad_i, double mLtilde_i, double mEtilde_i,
@@ -45,6 +58,32 @@ public:
             double mb_i, const gslpp::matrix<gslpp::complex>& UPMNS_i,
             double me_i, double mmu_i, double mtau_i, double mnu1_i,
             double mnu2_i, double mnu3_i);
+
+     /**
+     * @brief MFV constructor
+     * @param mQtilde_i squark doublet universal soft DRbar mass @f$\tilde{m}_{Q}(\tilde{m}_{Q})@f$
+     * @param mUtilde_i right-handed up-type universal squark soft DRbar mass @f$\tilde{m}_{U}(\tilde{m}_{U})@f$
+     * @param mDtilde_i right-handed down-type universal squark soft DRbar mass @f$\tilde{m}_{D}(\tilde{m}_{D})@f$
+     * @param Au_i universal trilinear up-type squark coupling
+     * @param Ad_i universal trilinear down-type squark coupling
+     * @param mLtilde_i slepton doublet universal soft DRbar mass @f$\tilde{m}_{L}(\tilde{m}_{L})@f$
+     * @param mEtilde_i right-handed charged slepton universal soft DRbar mass @f$\tilde{m}_{E}(\tilde{m}_{E})@f$
+     * @param mNtilde_i right-handed sneutrino universal soft DRbar mass @f$\tilde{m}_{N}(\tilde{m}_{N})@f$
+     * @param Ae_i universal trilinear charged slepton coupling
+     * @param An_i universal trilinear sneutrino coupling
+     * @param m1_i bino soft DRbar mass @f$m_{1}(m_{1})@f$
+     * @param m2_i wino soft DRbar mass @f$m_{2}(m_{2})@f$
+     * @param m3_i gluino soft DRbar mass @f$m_{3}(m_{3})@f$
+     * @param muH_i superpotential @f$\mu@f$ term
+     * @param tanb_i @f$\tan \beta @f$
+     * @param mHp_i charged Higgs mass @f$m_{H^+}@f$
+     * @param SM_i reference to a StandardModel object
+     */
+   MFV(double mQtilde_i, double mUtilde_i, double mDtilde_i,
+            double Au_i, double Ad_i, double mLtilde_i, double mEtilde_i,
+            double mNtilde_i, double Ae_i, double An_i, double m1_i,
+            double m2_i, double m3_i, double muH_i, double tanb_i, double mHp_i,
+            const StandardModel &SM_i);
 
     /**
      * @brief MFV copy contructor
@@ -256,4 +295,3 @@ private:
 };
 
 #endif	/* MFV_H */
-
