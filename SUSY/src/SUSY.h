@@ -9,6 +9,7 @@
 #define	SUSY_H
 
 #include <StandardModel.h>
+
 /**
  * @class SUSY
  * @brief generic SUSY model
@@ -141,11 +142,7 @@ public:
      * @brief set tan beta, sin beta and cos beta
      * @param tanb tan beta
      */
-    void setTanb(double tanb) {
-        sinb = tanb*sqrt(1./(1.+tanb*tanb));
-        cosb = sqrt(1./(1.+tanb*tanb));
-        this->tanb = tanb;
-    }
+    void setTanb(double tanb);
 
     /**
      *
@@ -159,11 +156,7 @@ public:
      * @brief set tan beta, sin beta and cos beta
      * @param sinb sin beta
      */
-    void setSinb(double sinb) {
-        cosb = sqrt(1.-sinb*sinb);
-        tanb = sinb/cosb;
-        this->sinb = sinb;
-    }
+    void setSinb(double sinb);
 
     /**
      *
@@ -177,11 +170,7 @@ public:
      * @brief set tan beta, sin beta and cos beta
      * @param cosb cos beta
      */
-    void setCosb(double cosb) {
-        sinb = sqrt(1.-cosb*cosb);
-        tanb = sinb/cosb;
-        this->cosb = cosb;
-    }
+    void setCosb(double cosb);
 
     /**
      * 
