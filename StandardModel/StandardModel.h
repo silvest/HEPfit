@@ -51,162 +51,271 @@ public:
     virtual ~StandardModel();
 
     /**
+     * @return the VEV 
+     */
+    double v();
+
+    /**
+     *
+     * @return sin theta_weak^2
+     */
+    double sin2tw() {return 0.;};
+
+    /**
      * @return the PMNS matrix
      */
-    gslpp::matrix<gslpp::complex> GetUPMNS() const { return UPMNS; }
+    gslpp::matrix<gslpp::complex> getUPMNS() const { return UPMNS; }
 
     /**
      * @brief set the PMNS matrix
      * @param UPMNS the PMNS matrix
      */
-    void SetUPMNS(gslpp::matrix<gslpp::complex> UPMNS) { this->UPMNS = UPMNS; }
+    void setUPMNS(gslpp::matrix<gslpp::complex> UPMNS) { this->UPMNS = UPMNS; }
 
     /**
      * @return the CKM matrix
      */
-    gslpp::matrix<gslpp::complex> GetVCKM() const { return VCKM; }
+    gslpp::matrix<gslpp::complex> getVCKM() const { return VCKM; }
 
     /**
      * @brief set the CKM matrix
      * @param VCKM the CKM matrix
      */
-    void SetVCKM(gslpp::matrix<gslpp::complex> VCKM) { this->VCKM = VCKM; }
+    void setVCKM(gslpp::matrix<gslpp::complex> VCKM) { this->VCKM = VCKM; }
 
     /**
      * @return the bottom mass
      */
-    double GetMb() const { return mb; }
+    double getMb() const { return mb; }
 
     /**
      * @brief set the bottom mass
      * @param mb the bottom mass mb(mb)
      */
-    void SetMb(double mb) { this->mb = mb; }
+    void setMb(double mb) { this->mb = mb; }
 
     /**
      * @return the charm mass
      */
-    double GetMc() const { return mc; }
+    double getMc() const { return mc; }
 
     /**
      * @brief set the charm mass
      * @param mc the charm mass mc(mc)
      */
-    void SetMc(double mc) { this->mc = mc; }
+    void setMc(double mc) { this->mc = mc; }
 
     /**
      * @return the down mass
      */
-    double GetMd() const { return md; }
+    double getMd() const { return md; }
 
     /**
      * @brief set the down mass
      * @param md the down mass at 2 GeV
      */
-     void SetMd(double md) { this->md = md; }
+     void setMd(double md) { this->md = md; }
 
     /**
      * @return the electron mass
      */
-    double GetMe() const { return me; }
+    double getMe() const { return me; }
 
     /**
      * @brief set the electron mass
      * @param me the electron mass
      */
-     void SetMe(double me) { this->me = me; }
+     void setMe(double me) { this->me = me; }
 
     /**
      * @return the muon mass
      */
-    double GetMmu() const { return mmu; }
+    double getMmu() const { return mmu; }
 
     /**
      * @brief set the muon mass
      * @param mmu the muon mass
      */
-     void SetMmu(double mmu) { this->mmu = mmu; }
+     void setMmu(double mmu) { this->mmu = mmu; }
 
     /**
      * @return the lightest neutrino mass
      */
-    double GetMnu1() const { return mnu1; }
+    double getMnu1() const { return mnu1; }
 
     /**
      * @brief set the lightest neutrino mass
      * @param mnu1 the lightest neutrino mass
      */
-     void SetMnu1(double mnu1) { this->mnu1 = mnu1; }
+     void setMnu1(double mnu1) { this->mnu1 = mnu1; }
 
     /**
      * @return the middle neutrino mass
      */
-    double GetMnu2() const { return mnu2; }
+    double getMnu2() const { return mnu2; }
 
     /**
      * @brief set the middle neutrino mass
      * @param mnu2 the middle neutrino mass
      */
-     void SetMnu2(double mnu2) { this->mnu2 = mnu2; }
+     void setMnu2(double mnu2) { this->mnu2 = mnu2; }
 
     /**
      * @return the heaviest neutrino mass
      */
-    double GetMnu3() const { return mnu3; }
+    double getMnu3() const { return mnu3; }
 
     /**
      * @brief set the heaviest neutrino mass
      * @param mnu3 the heaviest neutrino mass
      */
-     void SetMnu3(double mnu3) { this->mnu3 = mnu3; }
+     void setMnu3(double mnu3) { this->mnu3 = mnu3; }
 
     /**
      * @return the strange mass
      */
-    double GetMs() const { return ms; }
+    double getMs() const { return ms; }
 
     /**
      * @brief set the strange mass
      * @param ms the strange mass at 2 GeV
      */
-     void SetMs(double ms) { this->ms = ms; }
+     void setMs(double ms) { this->ms = ms; }
 
     /**
      * @return the top mass
      */
-    double GetMt() const { return mt; }
+    double getMt() const { return mt; }
 
     /**
      * @brief set the top mass
      * @param mt the top mass mt(mt)
      */
-     void SetMt(double mt) { this->mt = mt; }
+     void setMt(double mt) { this->mt = mt; }
 
     /**
      * @return the tau mass
      */
-    double GetMtau() const { return mtau; }
+    double getMtau() const { return mtau; }
 
     /**
      * @brief set the tau mass
      * @param mtau the tau mass
      */
-     void SetMtau(double mtau) { this->mtau = mtau; }
+     void setMtau(double mtau) { this->mtau = mtau; }
 
     /**
      * @return the up mass
      */
-    double GetMu() const { return mu; }
+    double getMu() const { return mu; }
 
      /**
      * @brief set the up mass
      * @param mu the up mass at 2 GeV
      */
-    void SetMu(double mu) { this->mu = mu; }
+    void setMu(double mu) { this->mu = mu; }
+    
+    /**
+     * 
+     * @return the Fermi constant
+     */
+    double getGF() const {
+        return GF;
+    }
 
-private:
-    gslpp::matrix<gslpp::complex> VCKM,UPMNS;
+    /**
+     * @brief set the Fermi constant
+     * @param GF the Fermi constant
+     */
+    void setGF(double GF) {
+        this->GF = GF;
+    }
+
+    /**
+     *
+     * @return the electromagnetic coupling
+     */
+    double getAlphae() const {
+        return alphae;
+    }
+
+    /**
+     * @brief set the electromagnetic coupling
+     * @param alphae the electromagnetic coupling
+     */
+    void setAlphae(double alphae) {
+        this->alphae = alphae;
+    }
+
+    /**
+     *
+     * @return the Higgs mass
+     */
+    double getMHl() const {
+        return mHl;
+    }
+
+    /**
+     * @brief set the Higgs mass
+     * @param mHl the Higgs mass
+     */
+    void setMHl(double mHl) {
+        this->mHl = mHl;
+    }
+
+    /**
+     *
+     * @return the Z boson mass
+     */
+    double getMZ() const {
+        return mZ;
+    }
+
+    /**
+     * @brief set the Z boson mass
+     * @param mZ the Z boson mass
+     */
+    void setMZ(double mZ) {
+        this->mZ = mZ;
+    }
+
+    /**
+     * 
+     * @return down Yukawa matrix 
+     */
+    gslpp::matrix<gslpp::complex> getYd() const {
+        return Yd;
+    }
+
+    /**
+     *
+     * @return charged lepton Yukawa matrix
+     */
+    gslpp::matrix<gslpp::complex> getYe() const {
+        return Ye;
+    }
+
+    /**
+     *
+     * @return neutrino Yukawa matrix
+     */
+    gslpp::matrix<gslpp::complex> getYn() const {
+        return Yn;
+    }
+
+    /**
+     *
+     * @return up Yukawa matrix
+     */
+    gslpp::matrix<gslpp::complex> getYu() const {
+        return Yu;
+    }
+
+
+protected:
+    gslpp::matrix<gslpp::complex> VCKM, UPMNS, Yd, Yu, Ye, Yn;
     double mu, md, mc, ms, mt, mb, me, mmu, mtau, mnu1, mnu2, mnu3;
+    double mHl, alphae, mZ, GF;
 
 };
 
