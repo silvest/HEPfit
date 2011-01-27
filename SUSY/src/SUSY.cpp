@@ -6,6 +6,7 @@
  */
 
 #include "SUSY.h"
+#include <math.h>
 
 SUSY::SUSY(const gslpp::matrix<gslpp::complex>& VCKM_i,
         double mu_i, double md_i, double mc_i, double ms_i, double mt_i,
@@ -62,4 +63,22 @@ void SUSY::setY(double tanb_i) {
     Yu.assign(1,1,mc/v2()*sqrt(2.));
     Yu.assign(2,2,mt/v2()*sqrt(2.));
     Yu = Yu*VCKM;
+}
+
+void SUSY::setTanb(double tanb) {
+    sinb = tanb * sqrt(1. / (1. + tanb * tanb));
+    cosb = sqrt(1. / (1. + tanb * tanb));
+    this->tanb = tanb;
+}
+
+void SUSY::setSinb(double sinb) {
+    cosb = sqrt(1. - sinb * sinb);
+    tanb = sinb / cosb;
+    this->sinb = sinb;
+}
+
+void SUSY::setCosb(double cosb) {
+    sinb = sqrt(1. - cosb * cosb);
+    tanb = sinb / cosb;
+    this->cosb = cosb;
 }
