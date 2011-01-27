@@ -33,7 +33,7 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/StandardModel.o
+	${OBJECTDIR}/src/StandardModel.o
 
 # Test Directory
 TESTDIR=build/${CND_CONF}/${CND_PLATFORM}/tests
@@ -68,10 +68,10 @@ dist/Release/GNU-Linux-x86/libstandardmodel.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a ${OBJECTFILES} 
 	$(RANLIB) dist/Release/GNU-Linux-x86/libstandardmodel.a
 
-${OBJECTDIR}/StandardModel.o: StandardModel.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/StandardModel.o: src/StandardModel.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/StandardModel.o StandardModel.cpp
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StandardModel.o src/StandardModel.cpp
 
 # Subprojects
 .build-subprojects:
@@ -82,20 +82,20 @@ ${OBJECTDIR}/StandardModel.o: StandardModel.cpp
 ${TESTDIR}/tests/StandardModelTest.o: tests/StandardModelTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StandardModelTest.o tests/StandardModelTest.cpp
+	$(COMPILE.cc) -O2 -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StandardModelTest.o tests/StandardModelTest.cpp
 
 
-${OBJECTDIR}/StandardModel_nomain.o: ${OBJECTDIR}/StandardModel.o StandardModel.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/StandardModel.o`; \
+${OBJECTDIR}/src/StandardModel_nomain.o: ${OBJECTDIR}/src/StandardModel.o src/StandardModel.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/StandardModel.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/StandardModel_nomain.o StandardModel.cpp;\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StandardModel_nomain.o src/StandardModel.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/StandardModel.o ${OBJECTDIR}/StandardModel_nomain.o;\
+	    ${CP} ${OBJECTDIR}/src/StandardModel.o ${OBJECTDIR}/src/StandardModel_nomain.o;\
 	fi
 
 # Run Test Targets
