@@ -65,10 +65,12 @@ dist/Debug/GNU-Linux-x86/libsusy.a: ${OBJECTFILES}
 ${OBJECTDIR}/src/SUSY.o: src/SUSY.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/SUSY.o src/SUSY.cpp
+	$(COMPILE.cc) -g -I../StandardModel/src -I../gslpp/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/SUSY.o src/SUSY.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../gslpp && ${MAKE}  -f Makefile CONF=Debug
+	cd ../StandardModel && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -77,6 +79,8 @@ ${OBJECTDIR}/src/SUSY.o: src/SUSY.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd ../gslpp && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../StandardModel && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
