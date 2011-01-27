@@ -62,6 +62,7 @@ namespace gslpp
       matrix(const matrix<double>& m);
       matrix(const gsl_matrix& m);
       matrix(const gsl_matrix* m);
+      matrix(const vector<double>& v);
       /** Destructor */
       ~matrix();
       /** Get element (i,j)*/
@@ -70,7 +71,8 @@ namespace gslpp
       double& operator()(const size_t& i, const size_t& j);
       /** Assign */
       matrix<double>& operator=(const matrix<double>& m);
-      /** Get matrix size */
+      void assign(const size_t& i, const size_t& j, const matrix<double>& a);
+     /** Get matrix size */
       size_t size_i() const;
       size_t size_j() const;
       /** Identity matrix */
