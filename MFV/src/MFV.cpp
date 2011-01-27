@@ -6,6 +6,7 @@
  */
 
 #include "MFV.h"
+#include <math.h>
 
 MFV::MFV(const gslpp::matrix<gslpp::complex>& VCKM_i, double mu_i, double md_i,
         double mc_i, double ms_i, double mt_i, double mb_i,
