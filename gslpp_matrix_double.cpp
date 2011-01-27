@@ -55,6 +55,15 @@ namespace gslpp
     gsl_matrix_memcpy(_matrix, m);
   }
 
+  matrix<double>::matrix(const vector<double>& v)
+  {
+    size_t i, size = v.size();
+    _matrix = gsl_matrix_alloc(size, size);
+    gsl_matrix_set_all(_matrix, 0.);
+    for(i=0; i<size; ++i)
+        gsl_matrix_set(_matrix, i, i, v(i));
+  }
+
   /** Destructor */
   matrix<double>::~matrix()
   {
@@ -78,8 +87,33 @@ namespace gslpp
   /** Assign */
   matrix<double>& matrix<double>::operator=(const matrix<double>& m)
   {
-    gsl_matrix_memcpy(_matrix, m.as_gsl_type_ptr());
+      if(size_i()==m.size_i() && size_j()==m.size_j())
+           gsl_matrix_memcpy(_matrix, m.as_gsl_type_ptr());
+      else
+      {
+          std::cout << "\n ** Wrong size assign in matrix<complex> operator =" << std::endl;
+          exit(EXIT_FAILURE);
+      }
     return *this;
+  }
+
+  /** Assign submatrix */
+  void matrix<double>::assign(const size_t& i, const size_t& j, const matrix<double>& a)
+  {
+      size_t ki,kj;
+      double *x;
+      if(i+a.size_i() <= size_i() && j+a.size_j() <= size_j())
+          for(ki=i;ki<i+a.size_i();ki++)
+              for(kj=j;kj<j+a.size_j();kj++)
+              {
+                  x = gsl_matrix_ptr(_matrix, ki, kj);
+                  *x = a(ki-i,kj-j);
+              }
+      else
+      {
+          std::cout << "\n ** Wrong size assign in matrix<double> assign submatrix" << std::endl;
+          exit(EXIT_FAILURE);
+      }
   }
 
   /** Get matrx size  */

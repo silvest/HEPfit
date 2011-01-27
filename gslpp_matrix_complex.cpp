@@ -119,7 +119,13 @@ namespace gslpp
   /** Assign */
   matrix<complex>& matrix<complex>::operator=(const matrix<complex>& m)
   {
-    gsl_matrix_complex_memcpy(_matrix, m.as_gsl_type_ptr());
+      if(size_i()==m.size_i() && size_j()==m.size_j())
+          gsl_matrix_complex_memcpy(_matrix, m.as_gsl_type_ptr());
+      else
+      {
+          std::cout << "\n ** Wrong size assign in matrix<complex> operator =" << std::endl;
+          exit(EXIT_FAILURE);
+      }
     return *this;
   }
 
@@ -134,6 +140,31 @@ namespace gslpp
   {
     gsl_complex *x = gsl_matrix_complex_ptr(_matrix, i, j);
     *x = complex(a).as_gsl_type();
+  }
+
+  /** Assign submatrix */
+  void matrix<complex>::assign(const size_t& i, const size_t& j, const matrix<complex>& z)
+  {
+      size_t ki,kj;
+      gsl_complex *x;
+      if(i+z.size_i() <= size_i() && j+z.size_j() <= size_j())
+          for(ki=i;ki<i+z.size_i();ki++)
+              for(kj=j;kj<j+z.size_j();kj++)
+              {
+                  x = gsl_matrix_complex_ptr(_matrix, ki, kj);
+                  *x = z(ki-i,kj-j).as_gsl_type();
+              }
+      else
+      {
+          std::cout << "\n ** Wrong size assign in matrix<complex> assign submatrix" << std::endl;
+          exit(EXIT_FAILURE);
+      }
+  }
+
+  void matrix<complex>::assign(const size_t& i, const size_t& j, const matrix<double>& a)
+  {
+      matrix<complex> z(a);
+      assign(i,j,z);
   }
 
   /** Get matrix size */
@@ -311,6 +342,7 @@ namespace gslpp
     }
     return m1;
   }
+
   /** Multiplication operator (matrix complex) */
   matrix<complex> matrix<complex>::operator*(const matrix<complex>& m)
   {
@@ -328,6 +360,31 @@ namespace gslpp
        m.as_gsl_type_ptr(), z2, m1.as_gsl_type_ptr()))
     {
       std::cout << "\n ** Error in matrix<complex> *" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+    return m1;
+  }
+
+ /** Addition operator (matrix) */
+  matrix<complex> matrix<complex>::operator+(const matrix<double>& m)
+  {
+    matrix<complex> m1(_matrix);
+    matrix<complex> m2(m);
+    if (gsl_matrix_complex_add(m1.as_gsl_type_ptr(), m2.as_gsl_type_ptr()))
+    {
+      std::cout << "\n ** Error in matrix<complex> +" << std::endl;
+      exit(EXIT_FAILURE);
+    }
+    return m1;
+  }
+  /** Subtraction operator (matrix) */
+  matrix<complex> matrix<complex>::operator-(const matrix<double>& m)
+  {
+    matrix<complex> m1(_matrix);
+    matrix<complex> m2(-m);
+    if (gsl_matrix_complex_add(m1.as_gsl_type_ptr(), m2.as_gsl_type_ptr()))
+    {
+      std::cout << "\n ** Error in matrix<complex> +" << std::endl;
       exit(EXIT_FAILURE);
     }
     return m1;
@@ -535,9 +592,33 @@ namespace gslpp
     }
     return output;
   }
+
   /** @{
    * @name Operations on matrix<complex>
    */
+   /** Add a double matrix to a complex matrix
+   * @ingroup matrix
+   * @param m1 Double matrix
+   * @param m2 Complex matrix
+   * @return @f$ m2 + m1 @f$
+   */
+  matrix<complex> operator+(matrix<double> m1, matrix<complex> m2) {
+      return m2 + m1;
+  }
+
+  /** @{
+    * @name Operations on matrix<complex>
+    */
+  /** Subtract a double matrix to a complex matrix
+   * @ingroup matrix
+   * @param m1 Double matrix
+   * @param m2 Complex matrix
+   * @return @f$ -m2 + m1 @f$
+   */
+  matrix<complex> operator-(matrix<double> m1, matrix<complex> m2) {
+      return -m2 + m1;
+  }
+
   /** Add a complex number to a complex matrix
    * @ingroup matrix
    * @param z Complex number
