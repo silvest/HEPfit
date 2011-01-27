@@ -44,8 +44,9 @@
       <compileType>
         <ccTool>
           <incDir>
-            <pElem>../gslpp</pElem>
-            <pElem>../StandardModel</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../SUSY/src</pElem>
           </incDir>
         </ccTool>
         <archiverTool>
@@ -55,7 +56,7 @@
                         CT="3"
                         CN="Debug"
                         AC="true"
-                        BL="false"
+                        BL="true"
                         WD="../gslpp"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
@@ -65,11 +66,21 @@
                         CT="3"
                         CN="Debug"
                         AC="true"
-                        BL="false"
+                        BL="true"
                         WD="/afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="dist/Debug/GNU-Linux-x86/libstandardmodel.a">
+          </makeArtifact>
+          <makeArtifact PL="../SUSY"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../SUSY"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="dist/Debug/GNU-Linux-x86/libsusy.a">
           </makeArtifact>
         </requiredProjects>
       </compileType>
@@ -78,10 +89,14 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
@@ -118,10 +133,14 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
