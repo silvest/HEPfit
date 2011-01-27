@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include <StandardModel.h>
+#include "../src/StandardModel.h"
 
 /*
  * Simple C++ Test Suite
