@@ -92,6 +92,8 @@ namespace gslpp
       /** Assign element */
       void assign(const size_t& i, const size_t& j, const complex& z);
       void assign(const size_t& i, const size_t& j, const double& a);
+      void assign(const size_t& i, const size_t& j, const matrix<complex>& z);
+      void assign(const size_t& i, const size_t& j, const matrix<double>& a);
       /** Get matrix size */
       size_t size_i() const;
       size_t size_j() const;
@@ -127,11 +129,14 @@ namespace gslpp
       matrix<complex> operator-(const matrix<complex>& m);
       /** Multiplication operator */
       matrix<complex> operator*(const matrix<complex>& m);
+      /** Addition operator */
+      matrix<complex> operator+(const matrix<double>& m);
+      /** Subtraction operator */
+      matrix<complex> operator-(const matrix<double>& m);
       /** Multiplication operator */
       matrix<complex> operator*(const matrix<double>& m);
       /** Multiplication operator */
       vector<complex> operator*(const vector<complex>& v);
-      /** Multiplication operator */
       vector<complex> operator*(const vector<double>& v);
       /** Addition assignment  */
       matrix<complex>& operator+=(const matrix<complex>& m);
@@ -174,6 +179,28 @@ namespace gslpp
 
       /** friend functions */
       friend std::ostream& operator<<(std::ostream& output, const matrix<complex>& v);
+
+     /** @{
+       * @name Operations on matrix<complex>
+       */
+      /** Add a double matrix to a complex matrix
+       * @ingroup matrix
+       * @param m1 Double matrix
+       * @param m2 Complex matrix
+       * @return @f$ m2 + m1 @f$
+       */
+      friend matrix<complex> operator+(matrix<double> m1, matrix<complex> m2);
+
+     /** @{
+       * @name Operations on matrix<complex>
+       */
+      /** Subtract a double matrix to a complex matrix
+       * @ingroup matrix
+       * @param m1 Double matrix
+       * @param m2 Complex matrix
+       * @return @f$ -m2 + m1 @f$
+       */
+      friend matrix<complex> operator-(matrix<double> m1, matrix<complex> m2);
 
       /** @{
        * @name Operations on matrix<complex>
