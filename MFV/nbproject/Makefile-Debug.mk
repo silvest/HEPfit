@@ -60,21 +60,24 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/libmfvmodel.a
+	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/libmfv.a
 
-dist/Debug/GNU-Linux-x86/libmfvmodel.a: ${OBJECTFILES}
+dist/Debug/GNU-Linux-x86/libmfv.a: ${OBJECTFILES}
 	${MKDIR} -p dist/Debug/GNU-Linux-x86
-	${RM} dist/Debug/GNU-Linux-x86/libmfvmodel.a
-	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmfvmodel.a ${OBJECTFILES} 
-	$(RANLIB) dist/Debug/GNU-Linux-x86/libmfvmodel.a
+	${RM} dist/Debug/GNU-Linux-x86/libmfv.a
+	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmfv.a ${OBJECTFILES} 
+	$(RANLIB) dist/Debug/GNU-Linux-x86/libmfv.a
 
 ${OBJECTDIR}/src/MFV.o: src/MFV.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp -I../StandardModel -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MFV.o src/MFV.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../SUSY/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MFV.o src/MFV.cpp
 
 # Subprojects
 .build-subprojects:
+	cd ../gslpp && ${MAKE}  -f Makefile CONF=Debug
+	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel && ${MAKE}  -f Makefile CONF=Debug
+	cd ../SUSY && ${MAKE}  -f Makefile CONF=Debug
 
 # Build Test Targets
 .build-tests-conf: .build-conf ${TESTFILES}
@@ -82,7 +85,7 @@ ${OBJECTDIR}/src/MFV.o: src/MFV.cpp
 ${TESTDIR}/tests/MFVtest.o: tests/MFVtest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I../gslpp -I../StandardModel -MMD -MP -MF $@.d -o ${TESTDIR}/tests/MFVtest.o tests/MFVtest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I../gslpp/src -I../StandardModel/src -I../SUSY/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/MFVtest.o tests/MFVtest.cpp
 
 
 ${OBJECTDIR}/src/MFV_nomain.o: ${OBJECTDIR}/src/MFV.o src/MFV.cpp 
@@ -93,7 +96,7 @@ ${OBJECTDIR}/src/MFV_nomain.o: ${OBJECTDIR}/src/MFV.o src/MFV.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I../gslpp -I../StandardModel -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MFV_nomain.o src/MFV.cpp;\
+	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../SUSY/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MFV_nomain.o src/MFV.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/MFV.o ${OBJECTDIR}/src/MFV_nomain.o;\
 	fi
@@ -110,10 +113,13 @@ ${OBJECTDIR}/src/MFV_nomain.o: ${OBJECTDIR}/src/MFV.o src/MFV.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Debug
-	${RM} dist/Debug/GNU-Linux-x86/libmfvmodel.a
+	${RM} dist/Debug/GNU-Linux-x86/libmfv.a
 
 # Subprojects
 .clean-subprojects:
+	cd ../gslpp && ${MAKE}  -f Makefile CONF=Debug clean
+	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../SUSY && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

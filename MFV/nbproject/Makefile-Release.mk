@@ -60,13 +60,13 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/GNU-Linux-x86/libmfvmodel.a
+	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/GNU-Linux-x86/libmfv.a
 
-dist/Release/GNU-Linux-x86/libmfvmodel.a: ${OBJECTFILES}
+dist/Release/GNU-Linux-x86/libmfv.a: ${OBJECTFILES}
 	${MKDIR} -p dist/Release/GNU-Linux-x86
-	${RM} dist/Release/GNU-Linux-x86/libmfvmodel.a
-	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmfvmodel.a ${OBJECTFILES} 
-	$(RANLIB) dist/Release/GNU-Linux-x86/libmfvmodel.a
+	${RM} dist/Release/GNU-Linux-x86/libmfv.a
+	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmfv.a ${OBJECTFILES} 
+	$(RANLIB) dist/Release/GNU-Linux-x86/libmfv.a
 
 ${OBJECTDIR}/src/MFV.o: src/MFV.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -82,7 +82,7 @@ ${OBJECTDIR}/src/MFV.o: src/MFV.cpp
 ${TESTDIR}/tests/MFVtest.o: tests/MFVtest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/MFVtest.o tests/MFVtest.cpp
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/MFVtest.o tests/MFVtest.cpp
 
 
 ${OBJECTDIR}/src/MFV_nomain.o: ${OBJECTDIR}/src/MFV.o src/MFV.cpp 
@@ -110,7 +110,7 @@ ${OBJECTDIR}/src/MFV_nomain.o: ${OBJECTDIR}/src/MFV.o src/MFV.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Release
-	${RM} dist/Release/GNU-Linux-x86/libmfvmodel.a
+	${RM} dist/Release/GNU-Linux-x86/libmfv.a
 
 # Subprojects
 .clean-subprojects:
