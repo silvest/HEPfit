@@ -7,7 +7,7 @@
 
 #include <stdlib.h>
 #include <iostream>
-#include <MFV.h>
+#include "../src/MFV.h"
 
 /*
  * Simple C++ Test Suite
