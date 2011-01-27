@@ -212,6 +212,10 @@ void test1() {
   std::cout << "md1(=(3)) = " << md1 << std::endl;
   matrix<double> md2(md1);
   std::cout << "md2(=md1) = " << md2 << std::endl;
+  matrix<double> mdsub(2,2,2.);
+  std::cout << "md2sub = " << mdsub << std::endl;
+  md2.assign(1,1,mdsub);
+  std::cout << "md2.assign(1,1,mdsub) = " << md2 << std::endl;
   std::cout << "size_i(md2) = " << md2.size_i() << std::endl;
   std::cout << "size_j(md2) = " << md2.size_j() << std::endl;
   matrix<double> md3(3,3,0.);
@@ -261,6 +265,12 @@ void test1() {
   std::cout << "mc1(=(3+2i)) = " << mc1 << std::endl;
   matrix<complex> mc2(mc1);
   std::cout << "mc2(=mc1) = " << mc2 << std::endl;
+  matrix<complex> mcsub(2,2,2.+complex::i());
+  std::cout << "mcsub = " << mcsub << std::endl;
+  mc2.assign(1,1,mcsub);
+  std::cout << "mc2.assign(1,1,mcsub) = " << mc2 << std::endl;
+  mc2.assign(1,1,mdsub);
+  std::cout << "mc2.assign(1,1,mdsub) = " << mc2 << std::endl;
   std::cout << "size_i(mc2) = " << mc2.size_i() << std::endl;
   std::cout << "size_j(mc2) = " << mc2.size_j() << std::endl;
   matrix<complex> mc3(3,3,0.);
@@ -304,6 +314,8 @@ void test1() {
   std::cout << "mc1*vd1 = " << mc1*vd1 << std::endl;
   std::cout << "vd2*mc2 = " << vd2*mc2 << std::endl;
 
+  std::cout << "md1 + mc1 = " << md1 + mc1 << std::endl;
+  std::cout << "md1 - mc1 = " << md1 - mc1 << std::endl;
 }
 
 void test2() {
