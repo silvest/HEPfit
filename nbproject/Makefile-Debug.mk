@@ -33,11 +33,11 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/gslpp_vector_double.o \
-	${OBJECTDIR}/gslpp_complex.o \
-	${OBJECTDIR}/gslpp_matrix_complex.o \
-	${OBJECTDIR}/gslpp_vector_complex.o \
-	${OBJECTDIR}/gslpp_matrix_double.o
+	${OBJECTDIR}/src/gslpp_vector_double.o \
+	${OBJECTDIR}/src/gslpp_matrix_complex.o \
+	${OBJECTDIR}/src/gslpp_complex.o \
+	${OBJECTDIR}/src/gslpp_vector_complex.o \
+	${OBJECTDIR}/src/gslpp_matrix_double.o
 
 # Test Directory
 TESTDIR=build/${CND_CONF}/${CND_PLATFORM}/tests
@@ -72,30 +72,30 @@ dist/Debug/GNU-Linux-x86/libgslpp.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a ${OBJECTFILES} 
 	$(RANLIB) dist/Debug/GNU-Linux-x86/libgslpp.a
 
-${OBJECTDIR}/gslpp_vector_double.o: gslpp_vector_double.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/gslpp_vector_double.o: src/gslpp_vector_double.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/gslpp_vector_double.o gslpp_vector_double.cpp
+	$(COMPILE.cc) -g -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/gslpp_vector_double.o src/gslpp_vector_double.cpp
 
-${OBJECTDIR}/gslpp_complex.o: gslpp_complex.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/gslpp_matrix_complex.o: src/gslpp_matrix_complex.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/gslpp_complex.o gslpp_complex.cpp
+	$(COMPILE.cc) -g -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/gslpp_matrix_complex.o src/gslpp_matrix_complex.cpp
 
-${OBJECTDIR}/gslpp_matrix_complex.o: gslpp_matrix_complex.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/gslpp_complex.o: src/gslpp_complex.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/gslpp_matrix_complex.o gslpp_matrix_complex.cpp
+	$(COMPILE.cc) -g -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/gslpp_complex.o src/gslpp_complex.cpp
 
-${OBJECTDIR}/gslpp_vector_complex.o: gslpp_vector_complex.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/gslpp_vector_complex.o: src/gslpp_vector_complex.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/gslpp_vector_complex.o gslpp_vector_complex.cpp
+	$(COMPILE.cc) -g -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/gslpp_vector_complex.o src/gslpp_vector_complex.cpp
 
-${OBJECTDIR}/gslpp_matrix_double.o: gslpp_matrix_double.cpp 
-	${MKDIR} -p ${OBJECTDIR}
+${OBJECTDIR}/src/gslpp_matrix_double.o: src/gslpp_matrix_double.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/gslpp_matrix_double.o gslpp_matrix_double.cpp
+	$(COMPILE.cc) -g -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/gslpp_matrix_double.o src/gslpp_matrix_double.cpp
 
 # Subprojects
 .build-subprojects:
@@ -106,72 +106,72 @@ ${OBJECTDIR}/gslpp_matrix_double.o: gslpp_matrix_double.cpp
 ${TESTDIR}/tests/gslpptest.o: tests/gslpptest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/gslpptest.o tests/gslpptest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -Isrc -MMD -MP -MF $@.d -o ${TESTDIR}/tests/gslpptest.o tests/gslpptest.cpp
 
 
-${OBJECTDIR}/gslpp_vector_double_nomain.o: ${OBJECTDIR}/gslpp_vector_double.o gslpp_vector_double.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/gslpp_vector_double.o`; \
+${OBJECTDIR}/src/gslpp_vector_double_nomain.o: ${OBJECTDIR}/src/gslpp_vector_double.o src/gslpp_vector_double.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/gslpp_vector_double.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/gslpp_vector_double_nomain.o gslpp_vector_double.cpp;\
+	    $(COMPILE.cc) -g -I. -Isrc -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/gslpp_vector_double_nomain.o src/gslpp_vector_double.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/gslpp_vector_double.o ${OBJECTDIR}/gslpp_vector_double_nomain.o;\
+	    ${CP} ${OBJECTDIR}/src/gslpp_vector_double.o ${OBJECTDIR}/src/gslpp_vector_double_nomain.o;\
 	fi
 
-${OBJECTDIR}/gslpp_complex_nomain.o: ${OBJECTDIR}/gslpp_complex.o gslpp_complex.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/gslpp_complex.o`; \
+${OBJECTDIR}/src/gslpp_matrix_complex_nomain.o: ${OBJECTDIR}/src/gslpp_matrix_complex.o src/gslpp_matrix_complex.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/gslpp_matrix_complex.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/gslpp_complex_nomain.o gslpp_complex.cpp;\
+	    $(COMPILE.cc) -g -I. -Isrc -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/gslpp_matrix_complex_nomain.o src/gslpp_matrix_complex.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/gslpp_complex.o ${OBJECTDIR}/gslpp_complex_nomain.o;\
+	    ${CP} ${OBJECTDIR}/src/gslpp_matrix_complex.o ${OBJECTDIR}/src/gslpp_matrix_complex_nomain.o;\
 	fi
 
-${OBJECTDIR}/gslpp_matrix_complex_nomain.o: ${OBJECTDIR}/gslpp_matrix_complex.o gslpp_matrix_complex.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/gslpp_matrix_complex.o`; \
+${OBJECTDIR}/src/gslpp_complex_nomain.o: ${OBJECTDIR}/src/gslpp_complex.o src/gslpp_complex.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/gslpp_complex.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/gslpp_matrix_complex_nomain.o gslpp_matrix_complex.cpp;\
+	    $(COMPILE.cc) -g -I. -Isrc -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/gslpp_complex_nomain.o src/gslpp_complex.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/gslpp_matrix_complex.o ${OBJECTDIR}/gslpp_matrix_complex_nomain.o;\
+	    ${CP} ${OBJECTDIR}/src/gslpp_complex.o ${OBJECTDIR}/src/gslpp_complex_nomain.o;\
 	fi
 
-${OBJECTDIR}/gslpp_vector_complex_nomain.o: ${OBJECTDIR}/gslpp_vector_complex.o gslpp_vector_complex.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/gslpp_vector_complex.o`; \
+${OBJECTDIR}/src/gslpp_vector_complex_nomain.o: ${OBJECTDIR}/src/gslpp_vector_complex.o src/gslpp_vector_complex.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/gslpp_vector_complex.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/gslpp_vector_complex_nomain.o gslpp_vector_complex.cpp;\
+	    $(COMPILE.cc) -g -I. -Isrc -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/gslpp_vector_complex_nomain.o src/gslpp_vector_complex.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/gslpp_vector_complex.o ${OBJECTDIR}/gslpp_vector_complex_nomain.o;\
+	    ${CP} ${OBJECTDIR}/src/gslpp_vector_complex.o ${OBJECTDIR}/src/gslpp_vector_complex_nomain.o;\
 	fi
 
-${OBJECTDIR}/gslpp_matrix_double_nomain.o: ${OBJECTDIR}/gslpp_matrix_double.o gslpp_matrix_double.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/gslpp_matrix_double.o`; \
+${OBJECTDIR}/src/gslpp_matrix_double_nomain.o: ${OBJECTDIR}/src/gslpp_matrix_double.o src/gslpp_matrix_double.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/gslpp_matrix_double.o`; \
 	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/gslpp_matrix_double_nomain.o gslpp_matrix_double.cpp;\
+	    $(COMPILE.cc) -g -I. -Isrc -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/gslpp_matrix_double_nomain.o src/gslpp_matrix_double.cpp;\
 	else  \
-	    ${CP} ${OBJECTDIR}/gslpp_matrix_double.o ${OBJECTDIR}/gslpp_matrix_double_nomain.o;\
+	    ${CP} ${OBJECTDIR}/src/gslpp_matrix_double.o ${OBJECTDIR}/src/gslpp_matrix_double_nomain.o;\
 	fi
 
 # Run Test Targets
