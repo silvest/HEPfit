@@ -5,13 +5,13 @@
                    displayName="Header Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
-      <itemPath>gslpp_complex.h</itemPath>
-      <itemPath>gslpp_matrix_base.h</itemPath>
-      <itemPath>gslpp_matrix_complex.h</itemPath>
-      <itemPath>gslpp_matrix_double.h</itemPath>
-      <itemPath>gslpp_vector_base.h</itemPath>
-      <itemPath>gslpp_vector_complex.h</itemPath>
-      <itemPath>gslpp_vector_double.h</itemPath>
+      <itemPath>src/gslpp_complex.h</itemPath>
+      <itemPath>src/gslpp_matrix_base.h</itemPath>
+      <itemPath>src/gslpp_matrix_complex.h</itemPath>
+      <itemPath>src/gslpp_matrix_double.h</itemPath>
+      <itemPath>src/gslpp_vector_base.h</itemPath>
+      <itemPath>src/gslpp_vector_complex.h</itemPath>
+      <itemPath>src/gslpp_vector_double.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -22,11 +22,11 @@
                    displayName="Source Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
-      <itemPath>gslpp_complex.cpp</itemPath>
-      <itemPath>gslpp_matrix_complex.cpp</itemPath>
-      <itemPath>gslpp_matrix_double.cpp</itemPath>
-      <itemPath>gslpp_vector_complex.cpp</itemPath>
-      <itemPath>gslpp_vector_double.cpp</itemPath>
+      <itemPath>src/gslpp_complex.cpp</itemPath>
+      <itemPath>src/gslpp_matrix_complex.cpp</itemPath>
+      <itemPath>src/gslpp_matrix_double.cpp</itemPath>
+      <itemPath>src/gslpp_vector_complex.cpp</itemPath>
+      <itemPath>src/gslpp_vector_double.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -61,6 +61,7 @@
         <ccTool>
           <incDir>
             <pElem>.</pElem>
+            <pElem>src</pElem>
           </incDir>
         </ccTool>
         <archiverTool>
@@ -71,10 +72,12 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
@@ -111,10 +114,12 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
