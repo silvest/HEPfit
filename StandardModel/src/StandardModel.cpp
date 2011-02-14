@@ -51,25 +51,37 @@ StandardModel::~StandardModel() {
 double StandardModel::v() {
     return 1./sqrt(sqrt(2.)*GF);
 }
-double StandardModel::mW(){
- const double Mw0=80.3800;
-   const double c1=0.05253;
-   const double c2=0.010345;
-   const double c3=0.001021;
-   const double c4=-0.000070;
-   const double c5=1.077;
-   const double c6=0.5270;
-   const double c7=0.0698;
-   const double c8=0.004055;
-   const double c9=0.000110;
-   const double c10=0.0716;
-   const double c11=115.0;
-   double dH=log(mHl/100.0);
-   double dh=pow((mHl/100.0),2.0);
-   double dt=pow((mt/174.3),2.0)-1.0;
-   double dZ=mZ/91.1875-1.0;
-   double dalpha=deltaalpha/0.05907-1.0;
-   double dalphas=alphasmZ/0.119-1.0;
-   double mw=Mw0-c1*dH-c2*dH*dH+c3*pow((dH),4.0)+c4*(dh-1.0)-c5*dalpha+c6*dt-c7*dt*dt-c8*dH*dt+c9*dh*dt-c10*dalphas+c11*dZ;
-   return mw;
-} 
+
+double StandardModel::mW() const {
+    // Eqs. (6), (7) and (9) in hep-ph/0311148
+    // applicable for 100 GeV <= mHl <= 1 TeV
+
+    const double Mw0 = 80.3800;
+    const double c1 = 0.05253;
+    const double c2 = 0.010345;
+    const double c3 = 0.001021;
+    const double c4 = -0.000070;
+    const double c5 = 1.077;
+    const double c6 = 0.5270;
+    const double c7 = 0.0698;
+    const double c8 = 0.004055;
+    const double c9 = 0.000110;
+    const double c10 = 0.0716;
+    const double c11 = 115.0;
+
+    // mt, mZ, deltaalphae and alphasmZ have to be varied within their
+    // combined 2 sigma region around their central values adopted below.
+    double dH = log(mHl/100.0);
+    double dh = pow((mHl/100.0), 2.0);
+    double dt = pow((mt/174.3), 2.0) - 1.0;
+    double dZ = mZ/91.1875 - 1.0;
+    double dalphae = deltaalphae/0.05907 - 1.0;
+    double dalphas = alphasmZ/0.119 - 1.0;
+
+    double mw = Mw0 - c1*dH - c2*dH*dH + c3*pow(dH, 4.0)
+                + c4*(dh - 1.0) - c5*dalphae + c6*dt - c7*dt*dt
+                - c8*dH*dt + c9*dh*dt - c10*dalphas + c11*dZ;
+    return mw;
+}
+
+

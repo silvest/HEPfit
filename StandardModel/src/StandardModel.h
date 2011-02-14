@@ -279,42 +279,43 @@ public:
         this->mZ = mZ;
     }
 
-
-        /**
+    /**
      *
-     * @return strong coupling at mZ
+     * @return the strong coupling at mZ
      */
-    double getAlphasmZ() const {
+    double getAlphasMZ() const {
         return alphasmZ;
     }
-/**
- * @brief set strong coupling at mZ
- * @param alphasmZ  strong coupling at mZ
- */
-    void setAlphasmZ(double alphasmZ) {
+
+    /**
+     * @brief set the strong coupling at mZ
+     * @param alphasmZ the strong coupling at mZ
+     */
+    void setAlphasMZ(double alphasmZ) {
         this->alphasmZ = alphasmZ;
     }
-/**
- *
- * @return hadronic correction to alpha at mZ
- */
-    double getDeltaalpha() const {
-        return deltaalpha;
-    }
+
     /**
-     * @brief set hadronic correction at mZ
-     * @param deltaalpha hadronic correction at mZ
+     *
+     * @return the hadronic correction to the electromagnetic coupling at mZ
      */
-    void setDeltaalpha(double deltaalpha) {
-        this->deltaalpha = deltaalpha;
+    double getDeltaAlphae() const {
+        return deltaalphae;
     }
 
-/**
- *
- * @return W boson mass
- */
-    double mW();
+    /**
+     * @brief set the hadronic correction to the electromagnetic coupling at mZ
+     * @param deltaalphae the hadronic correction to the electromagnetic coupling at mZ
+     */
+    void setDeltaAlphae(double deltaalphae) {
+        this->deltaalphae = deltaalphae;
+    }
 
+    /**
+     *
+     * @return the W boson mass
+     */
+    double mW() const;
 
     /**
      *
@@ -352,7 +353,7 @@ public:
 protected:
     gslpp::matrix<gslpp::complex> VCKM, UPMNS, Yd, Yu, Ye, Yn;
     double mu, md, mc, ms, mt, mb, me, mmu, mtau, mnu1, mnu2, mnu3;
-    double mHl, alphae, mZ, GF,deltaalpha,alphasmZ;
+    double mHl, mZ, GF, alphae, deltaalphae, alphasmZ;
 
 };
 
