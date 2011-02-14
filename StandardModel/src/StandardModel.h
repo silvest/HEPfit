@@ -43,13 +43,15 @@ public:
      * @param ale_i the electromagnetic coupling
      * @param mZ_i the Z boson mass
      * @param dAle5Mz_i @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
+     * @param mHl_i the Higgs mass
      */
     StandardModel(const gslpp::matrix<gslpp::complex>& VCKM_i, double mu_i,
             double md_i, double mc_i, double ms_i, double mt_i,
             double mb_i, const gslpp::matrix<gslpp::complex>& UPMNS_i,
             double me_i, double mmu_i, double mtau_i,
             double mnu1_i, double mnu2_i, double mnu3_i, double GF_i,
-            double alsMz_i, double ale_i, double mZ_i, double dAle5Mz_i);
+            double alsMz_i, double ale_i, double mZ_i, double dAle5Mz_i,
+            double mHl_i);
 
     /**
      * StandardModel constructor taking as input a Parameters object
@@ -72,12 +74,6 @@ public:
      * @return the VEV
      */
     double v();
-
-    /**
-     *
-     * @return sin theta_weak^2
-     */
-    double sin2tw() {return 0.;};
 
     /**
      * @return the PMNS matrix
@@ -299,12 +295,6 @@ public:
 
     /**
      *
-     * @return the W boson mass
-     */
-    double mW() const;
-
-    /**
-     *
      * @return down Yukawa matrix
      */
     gslpp::matrix<gslpp::complex> getYd() const {
@@ -366,6 +356,91 @@ public:
     void setDAle5Mz(double dAle5Mz) {
         this->dAle5Mz = dAle5Mz;
     }
+
+    /**
+     * @return the W boson mass
+     */
+    double mW() const;
+
+    /**
+     * @return the effective leptonic weak mixing angle @f$\sin^2\theta_{\mathrm{eff}}^\ell@f$
+     */
+    double sin2thw() const;
+
+    /**
+     * @return the total W width
+     */
+    double GammaW() const;
+
+    /**
+     * @return the total Z width
+     */
+    double GammaZ() const;
+
+    /**
+     * @return the hadronic pole cross section of Z
+     */
+    double sigma_had() const;
+
+    /**
+     * @return @f$\Gamma_{\mathrm{{had}}/\Gamma_\ell@f$
+     */
+    double R_l() const;
+
+    /**
+     * @return @f$\Gamma_c/\Gamma_{\mathrm{{had}}@f$
+     */
+    double R_c() const;
+
+    /**
+     * @return @f$\Gamma_b/\Gamma_{\mathrm{{had}}@f$
+     */
+    double R_b() const;
+
+    /**
+     * @return the forward-backward asymmetry for leptons
+     */
+    double AFB_l() const;
+
+    /**
+     * @return the forward-backward asymmetry for the c quark
+     */
+    double AFB_c() const;
+
+    /**
+     * @return the forward-backward asymmetry for the b quark
+     */
+    double AFB_b() const;
+
+    /**
+     * @return the asymmetry parameter for leptons
+     */
+    double A_l() const;
+
+    /**
+     * @return the asymmetry parameter for the c quark
+     */
+    double A_c() const;
+
+    /**
+     * @return the asymmetry parameter for the b quark
+     */
+    double A_b() const;
+
+    /**
+     * @return oblique parameter S
+     */
+    double S() const;
+
+    /**
+     * @return oblique parameter T
+     */
+    double T() const;
+
+    /**
+     * @return oblique parameter U
+     */
+    double U() const;
 
 
 protected:
