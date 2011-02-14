@@ -294,38 +294,6 @@ public:
 
     /**
      *
-     * @return the strong coupling at mZ
-     */
-    double getAlphasMZ() const {
-        return alphasmZ;
-    }
-
-    /**
-     * @brief set the strong coupling at mZ
-     * @param alphasmZ the strong coupling at mZ
-     */
-    void setAlphasMZ(double alphasmZ) {
-        this->alphasmZ = alphasmZ;
-    }
-
-    /**
-     *
-     * @return the hadronic correction to the electromagnetic coupling at mZ
-     */
-    double getDeltaAlphae() const {
-        return deltaalphae;
-    }
-
-    /**
-     * @brief set the hadronic correction to the electromagnetic coupling at mZ
-     * @param deltaalphae the hadronic correction to the electromagnetic coupling at mZ
-     */
-    void setDeltaAlphae(double deltaalphae) {
-        this->deltaalphae = deltaalphae;
-    }
-
-    /**
-     *
      * @return the W boson mass
      */
     double mW() const;
