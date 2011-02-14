@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   StandardModel.h
  * Author: silvest
  *
@@ -51,7 +51,7 @@ public:
     virtual ~StandardModel();
 
     /**
-     * @return the VEV 
+     * @return the VEV
      */
     double v();
 
@@ -214,9 +214,9 @@ public:
      * @param mu the up mass at 2 GeV
      */
     void setMu(double mu) { this->mu = mu; }
-    
+
     /**
-     * 
+     *
      * @return the Fermi constant
      */
     double getGF() const {
@@ -279,9 +279,46 @@ public:
         this->mZ = mZ;
     }
 
+
+        /**
+     *
+     * @return strong coupling at mZ
+     */
+    double getAlphasmZ() const {
+        return alphasmZ;
+    }
+/**
+ * @brief set strong coupling at mZ
+ * @param alphasmZ  strong coupling at mZ
+ */
+    void setAlphasmZ(double alphasmZ) {
+        this->alphasmZ = alphasmZ;
+    }
+/**
+ *
+ * @return hadronic correction to alpha at mZ
+ */
+    double getDeltaalpha() const {
+        return deltaalpha;
+    }
     /**
-     * 
-     * @return down Yukawa matrix 
+     * @brief set hadronic correction at mZ
+     * @param deltaalpha hadronic correction at mZ
+     */
+    void setDeltaalpha(double deltaalpha) {
+        this->deltaalpha = deltaalpha;
+    }
+
+/**
+ *
+ * @return W boson mass
+ */
+    double mW();
+
+
+    /**
+     *
+     * @return down Yukawa matrix
      */
     gslpp::matrix<gslpp::complex> getYd() const {
         return Yd;
@@ -315,7 +352,7 @@ public:
 protected:
     gslpp::matrix<gslpp::complex> VCKM, UPMNS, Yd, Yu, Ye, Yn;
     double mu, md, mc, ms, mt, mb, me, mmu, mtau, mnu1, mnu2, mnu3;
-    double mHl, alphae, mZ, GF;
+    double mHl, alphae, mZ, GF,deltaalpha,alphasmZ;
 
 };
 
