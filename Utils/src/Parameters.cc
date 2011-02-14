@@ -3,7 +3,7 @@
 #include "Parameters.h"
 
 const std::string Parameters::TypeList[NumberOfTypes] = {"int", "double",
-"complex", "string"};
+"complex", "string", "gslpp::matrix<double>", "gslpp::matrix<gslpp::complex>"};
 
 Parameters::Parameters(Parameters& P)
 {
@@ -11,6 +11,8 @@ Parameters::Parameters(Parameters& P)
   Doubles = P.getDoubles();
   Complexes = P.getComplexes();
   Strings = P.getStrings();
+  ComplexMatrices = P.getComplexMatrices();
+  DoubleMatrices = P.getDoubleMatrices();
 }
 
 std::map<std::string, int> Parameters::getInts()
@@ -31,6 +33,16 @@ std::map<std::string, gslpp::complex> Parameters::getComplexes()
 std::map<std::string, std::string> Parameters::getStrings()
 {
   return Strings;
+}
+
+std::map<std::string, gslpp::matrix<double> > Parameters::getDoubleMatrices()
+{
+  return DoubleMatrices;
+}
+
+std::map<std::string, gslpp::matrix<gslpp::complex> > Parameters::getComplexMatrices()
+{
+  return ComplexMatrices;
 }
 
 void Parameters::Set(std::string s, int i)
@@ -57,6 +69,18 @@ void Parameters::Set(std::string s, std::string t)
   Strings[s] = t;
 }
 
+void Parameters::Set(std::string s, gslpp::matrix<double> md)
+{
+  InOtherMaps(s, DOUBLE_MATRIX);
+  DoubleMatrices.insert(DoubleMatrices.find(s),std::make_pair(s,md));
+}
+
+void Parameters::Set(std::string s, gslpp::matrix<gslpp::complex> mc)
+{
+  InOtherMaps(s, COMPLEX_MATRIX);
+  ComplexMatrices.insert(ComplexMatrices.find(s),std::make_pair(s,mc));
+}
+
 void Parameters::Get(std::string s, int& i)
 {
   InMap(s, INT);
@@ -81,6 +105,18 @@ void Parameters::Get(std::string s, std::string& t)
   t = Strings[s];
 }
 
+void Parameters::Get(std::string s, gslpp::matrix<double> & md)
+{
+  InMap(s, DOUBLE_MATRIX);
+  md = DoubleMatrices.find(s)->second;
+}
+
+void Parameters::Get(std::string s, gslpp::matrix<gslpp::complex> & mc)
+{
+  InMap(s, COMPLEX_MATRIX);
+  mc = ComplexMatrices.find(s)->second;
+}
+
 void Parameters::InOtherMaps(std::string s, MapType m)
 {
   int n = -1;
@@ -89,6 +125,10 @@ void Parameters::InOtherMaps(std::string s, MapType m)
   else if(m != DOUBLE && Doubles.find(s) != Doubles.end()) n = DOUBLE;
   else if(m != COMPLEX && Complexes.find(s) != Complexes.end()) n = COMPLEX;
   else if(m != STRING && Strings.find(s) != Strings.end()) n = STRING;
+  else if(m != DOUBLE_MATRIX && DoubleMatrices.find(s) != DoubleMatrices.end())
+      n = DOUBLE_MATRIX;
+  else if(m != COMPLEX_MATRIX && ComplexMatrices.find(s) != ComplexMatrices.end())
+      n = COMPLEX_MATRIX;
   if(n != -1)
     {
       std::cout << "ERROR: requested "<< TypeList[m] << " key \""
@@ -109,6 +149,10 @@ void Parameters::InMap(std::string s, MapType m)
       if(Complexes.find(s) != Complexes.end()) return;
     case STRING:
       if(Strings.find(s) != Strings.end()) return;
+    case DOUBLE_MATRIX:
+      if(DoubleMatrices.find(s) != DoubleMatrices.end()) return;
+    case COMPLEX_MATRIX:
+      if(ComplexMatrices.find(s) != ComplexMatrices.end()) return;
   }
   std::cout << "ERROR: wrong type or key \"" << s << "\" not found" << std::endl;
   exit(EXIT_FAILURE);

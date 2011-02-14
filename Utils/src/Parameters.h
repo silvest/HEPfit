@@ -1,6 +1,7 @@
 #include <string>
 #include <map>
-#include <gslpp_complex.h>
+#include <gslpp_matrix_double.h>
+#include <gslpp_matrix_complex.h>
 
 
 /**
@@ -9,7 +10,7 @@
  */
 class Parameters {
   public:
-    static const int NumberOfTypes = 4;
+    static const int NumberOfTypes = 6;
     static const std::string TypeList[NumberOfTypes]; 
 
     /**
@@ -45,6 +46,18 @@ class Parameters {
     std::map<std::string, std::string> getStrings();
 
     /**
+     * get the Double Matrices map
+    * @return the Double Matrices map
+    */
+    std::map<std::string, gslpp::matrix<double> > getDoubleMatrices();
+
+    /**
+     * get the Complex Matrices map
+    * @return the Complex Matrices map
+    */
+    std::map<std::string, gslpp::matrix<gslpp::complex> > getComplexMatrices();
+
+    /**
      * Set the value of an integer
      * @param s the key
      * @param i the value
@@ -68,6 +81,18 @@ class Parameters {
      * @param t the value
      */
     void Set(std::string s, std::string t);
+    /**
+     * Set the value of a Double Matrix
+     * @param s the key
+     * @param md the value
+     */
+    void Set(std::string s, gslpp::matrix<double> md);
+    /**
+     * Set the value of a Complex Matrix
+     * @param s the key
+     * @param mc the value
+     */
+    void Set(std::string s, gslpp::matrix<gslpp::complex> mc);
 
     /**
      * Get the value of an integer
@@ -93,13 +118,27 @@ class Parameters {
      * @param t the value
      */
     void Get(std::string s, std::string& t);
+    /**
+     * Get the value of a Double Matrix
+     * @param s the key
+     * @param md the value
+     */
+    void Get(std::string s, gslpp::matrix<double>& md);
+    /**
+     * Get the value of a Complex Matrix
+     * @param s the key
+     * @param mc the value
+     */
+    void Get(std::string s, gslpp::matrix<gslpp::complex>& mc);
 
   private:
-    enum MapType {INT, DOUBLE, COMPLEX, STRING};
+    enum MapType {INT, DOUBLE, COMPLEX, STRING, DOUBLE_MATRIX, COMPLEX_MATRIX};
     std::map<std::string, int> Ints;
     std::map<std::string, double> Doubles;
     std::map<std::string, gslpp::complex> Complexes;
     std::map<std::string, std::string> Strings;
+    std::map<std::string, gslpp::matrix<double> > DoubleMatrices;
+    std::map<std::string, gslpp::matrix<gslpp::complex> > ComplexMatrices;
 
     void InOtherMaps(std::string s, MapType m);
     void InMap(std::string s, MapType m);
