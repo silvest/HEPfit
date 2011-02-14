@@ -9,6 +9,7 @@
 #include <boost/assign/list_of.hpp> // for 'map_list_of()'
 #include <math.h>
 
+/*
 const std::map<std::string,std::string[] > Deps =
     boost::assign::map_list_of
         ("mZ",{"mW"})
@@ -17,6 +18,7 @@ const std::map<std::string,std::string[] > Deps =
         ("alsMz",{"mW"})
         ("mHl",{"mW"})
         ("GF",{"v"});
+*/
 
 StandardModel::StandardModel(const gslpp::matrix<gslpp::complex>& VCKM_i,
         double mu_i, double md_i, double mc_i, double ms_i, double mt_i,
@@ -95,7 +97,8 @@ StandardModel::StandardModel(const StandardModel& orig) :
     StandardModel(orig.getVCKM(), orig.getMu(), orig.getMd(), orig.getMc(),
             orig.getMs(), orig.getMt(), orig.getMb(), orig.getUPMNS(),
             orig.getMe(), orig.getMmu(), orig.getMtau(), orig.getMnu1(),
-            orig.getMnu2(), orig.getMnu3(), orig.GF);
+            orig.getMnu2(), orig.getMnu3(), orig.getGF(), orig.getAlsMz(),
+            orig.getAle(), orig.getMZ(), orig.getDAle5Mz() );
 }
 
 StandardModel::~StandardModel() {

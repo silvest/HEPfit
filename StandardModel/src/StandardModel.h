@@ -39,12 +39,17 @@ public:
      * @param mnu2_i middle neutrino mass
      * @param mnu3_i hevier neutrino mass
      * @param GF_i the Fermi constant
+     * @param alsMz_i @f$\alpha_s(M_Z)@f$
+     * @param ale_i the electromagnetic coupling
+     * @param mZ_i the Z boson mass
+     * @param dAle5Mz_i @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
      */
     StandardModel(const gslpp::matrix<gslpp::complex>& VCKM_i, double mu_i,
             double md_i, double mc_i, double ms_i, double mt_i,
             double mb_i, const gslpp::matrix<gslpp::complex>& UPMNS_i,
             double me_i, double mmu_i, double mtau_i,
-            double mnu1_i, double mnu2_i, double mnu3_i, double GF_i);
+            double mnu1_i, double mnu2_i, double mnu3_i, double GF_i,
+            double alsMz_i, double ale_i, double mZ_i, double dAle5Mz_i);
 
     /**
      * StandardModel constructor taking as input a Parameters object
