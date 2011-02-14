@@ -71,7 +71,7 @@ dist/Debug/GNU-Linux-x86/libstandardmodel.a: ${OBJECTFILES}
 ${OBJECTDIR}/src/StandardModel.o: src/StandardModel.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StandardModel.o src/StandardModel.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -Isrc -I../Utils/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StandardModel.o src/StandardModel.cpp
 
 # Subprojects
 .build-subprojects:
@@ -82,7 +82,7 @@ ${OBJECTDIR}/src/StandardModel.o: src/StandardModel.cpp
 ${TESTDIR}/tests/StandardModelTest.o: tests/StandardModelTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I../gslpp/src -Isrc -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StandardModelTest.o tests/StandardModelTest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I../gslpp/src -Isrc -I../Utils/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StandardModelTest.o tests/StandardModelTest.cpp
 
 
 ${OBJECTDIR}/src/StandardModel_nomain.o: ${OBJECTDIR}/src/StandardModel.o src/StandardModel.cpp 
@@ -93,7 +93,7 @@ ${OBJECTDIR}/src/StandardModel_nomain.o: ${OBJECTDIR}/src/StandardModel.o src/St
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I../gslpp/src -Isrc -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StandardModel_nomain.o src/StandardModel.cpp;\
+	    $(COMPILE.cc) -g -I../gslpp/src -Isrc -I../Utils/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StandardModel_nomain.o src/StandardModel.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/StandardModel.o ${OBJECTDIR}/src/StandardModel_nomain.o;\
 	fi

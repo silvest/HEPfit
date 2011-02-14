@@ -8,7 +8,13 @@
 #ifndef STANDARDMODEL_H
 #define	STANDARDMODEL_H
 
+#include <gslpp_complex.h>
+#include <gslpp_vector_double.h>
+#include <gslpp_vector_complex.h>
+#include <gslpp_matrix_double.h>
 #include <gslpp_matrix_complex.h>
+#include <Parameters.h>
+#include <vector>
 
 /**
  * @class StandardModel
@@ -32,12 +38,19 @@ public:
      * @param mnu1_i lightest neutrino mass
      * @param mnu2_i middle neutrino mass
      * @param mnu3_i hevier neutrino mass
+     * @param GF_i the Fermi constant
      */
     StandardModel(const gslpp::matrix<gslpp::complex>& VCKM_i, double mu_i,
             double md_i, double mc_i, double ms_i, double mt_i,
             double mb_i, const gslpp::matrix<gslpp::complex>& UPMNS_i,
             double me_i, double mmu_i, double mtau_i,
-            double mnu1_i, double mnu2_i, double mnu3_i);
+            double mnu1_i, double mnu2_i, double mnu3_i, double GF_i);
+
+    /**
+     * StandardModel constructor taking as input a Parameters object
+     * @param Par a Parameters object containing all SM parameters listed in the explicit SM constructor
+     */
+    StandardModel(Parameters& Par);
 
     /**
      * @brief copy constructor
@@ -235,16 +248,16 @@ public:
      *
      * @return the electromagnetic coupling
      */
-    double getAlphae() const {
-        return alphae;
+    double getAle() const {
+        return ale;
     }
 
     /**
      * @brief set the electromagnetic coupling
-     * @param alphae the electromagnetic coupling
+     * @param ale the electromagnetic coupling
      */
-    void setAlphae(double alphae) {
-        this->alphae = alphae;
+    void setale(double ale) {
+        this->ale = ale;
     }
 
     /**
@@ -349,11 +362,44 @@ public:
         return Yu;
     }
 
+    /**
+     * 
+     * @return @f$\alpha_s(M_Z)@f$ 
+     */
+    double getAlsMz() const {
+        return alsMz;
+    }
+
+    /**
+     * set @f$\alpha_s(M_Z)@f$
+     * @param alsMz @f$\alpha_s(M_Z)@f$
+     */
+    void setAlsMz(double alsMz) {
+        this->alsMz = alsMz;
+    }
+
+    /**
+     *
+     * @return @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
+     */
+    double getDAle5Mz() const {
+        return dAle5Mz;
+    }
+
+    /**
+     * set @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
+     * @param dAle5Mz @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
+     */
+    void setDAle5Mz(double dAle5Mz) {
+        this->dAle5Mz = dAle5Mz;
+    }
+
 
 protected:
     gslpp::matrix<gslpp::complex> VCKM, UPMNS, Yd, Yu, Ye, Yn;
     double mu, md, mc, ms, mt, mb, me, mmu, mtau, mnu1, mnu2, mnu3;
-    double mHl, mZ, GF, alphae, deltaalphae, alphasmZ;
+    double mHl, alsMz, ale, mZ, GF, dAle5Mz;
+    static const std::map<std::string,std::string[] > Deps;
 
 };
 
