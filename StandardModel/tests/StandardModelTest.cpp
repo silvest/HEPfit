@@ -17,11 +17,16 @@ void test1() {
     std::cout << "StandardModelTest test 1" << std::endl;
     gslpp::matrix<gslpp::complex> VCKM_i(3,3,1.);
     gslpp::matrix<gslpp::complex> UPMNS_i(3,3,2.);
-    StandardModel SM(VCKM_i, 0.15, .02, 1.5, 0.1, 170., 4.5,
-            UPMNS_i, 0.0005, 0.1, 1.5, 0., 0., 0.,
-            1.16639E-5, 0.119, 1.0/137.0360, 91.18760, 0.05907);
+    StandardModel SM(VCKM_i, .003, .007, 1.5, .1, 174., 4.28,
+            UPMNS_i, 0.0005, 0.1, 1.7, 0., 0., 0.,
+            1.16639E-5, 0.119, 1.0/137.0360, 91.18760, 0.05907, 130.);
     std::cout << SM.getMt() << "  " << SM.getMc() << std::endl;
     std::cout << SM.getVCKM()(2,2) << std::endl;
+
+
+    std::cout << "EWPO:" << std::endl;
+    std::cout << "  mW = " << SM.mW() << " GeV" << std::endl;
+    std::cout << "  sin^2theta = " << SM.sin2thw() << std::endl;
 }
 
 void test2() {
@@ -29,28 +34,33 @@ void test2() {
     gslpp::matrix<gslpp::complex> VCKM_i(3,3,1.);
     gslpp::matrix<gslpp::complex> UPMNS_i(3,3,2.);
     Parameters Par;
-    Par.Set("VCKM",VCKM_i);
-    Par.Set("mu",.003);
-    Par.Set("md",.007);
-    Par.Set("mc",1.5);
-    Par.Set("ms",.1);
-    Par.Set("mt",174.);
-    Par.Set("mb",4.28);
-    Par.Set("UPMNS",UPMNS_i);
-    Par.Set("me",.5e-3);
-    Par.Set("mmu",.1);
-    Par.Set("mtau",1.7);
-    Par.Set("mnu1",1.e-10);
-    Par.Set("mnu2",1.e-11);
-    Par.Set("mnu3",1.e-12);
+    Par.Set("VCKM", VCKM_i);
+    Par.Set("mu", .003);
+    Par.Set("md", .007);
+    Par.Set("mc", 1.5);
+    Par.Set("ms", .1);
+    Par.Set("mt", 174.);
+    Par.Set("mb", 4.28);
+    Par.Set("UPMNS", UPMNS_i);
+    Par.Set("me", .5e-4);
+    Par.Set("mmu", .1);
+    Par.Set("mtau", 1.7);
+    Par.Set("mnu1", 0.);
+    Par.Set("mnu2", 0.);
+    Par.Set("mnu3", 0.);
     Par.Set("GF", 1.16639E-5);
-    Par.Set("alsmZ",0.119);
-    Par.Set("ale",1.0/137.0360);
-    Par.Set("mZ",91.18760);
-    Par.Set("dAle5Mz",0.05907);
+    Par.Set("alsMz", 0.119);
+    Par.Set("ale", 1.0/137.0360);
+    Par.Set("mZ", 91.18760);
+    Par.Set("dAle5Mz", 0.05907);
+    Par.Set("mHl", 130.);
     StandardModel SM(Par);
     std::cout << SM.getMt() << "  " << SM.getMc() << std::endl;
     std::cout << SM.getVCKM()(2,2) << std::endl;
+
+    std::cout << "EWPO:" << std::endl;
+    std::cout << "  mW = " << SM.mW() << " GeV" << std::endl;
+    std::cout << "  sin^2theta = " << SM.sin2thw() << std::endl;
 }
 
 int main(int argc, char** argv) {
