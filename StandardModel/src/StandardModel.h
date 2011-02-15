@@ -383,17 +383,17 @@ public:
     double sigma_had() const;
 
     /**
-     * @return @f$\Gamma_{\mathrm{{had}}/\Gamma_\ell@f$
+     * @return @f$\Gamma_{\mathrm{had}}/\Gamma_\ell@f$
      */
     double R_l() const;
 
     /**
-     * @return @f$\Gamma_c/\Gamma_{\mathrm{{had}}@f$
+     * @return @f$\Gamma_c/\Gamma_{\mathrm{had}}@f$
      */
     double R_c() const;
 
     /**
-     * @return @f$\Gamma_b/\Gamma_{\mathrm{{had}}@f$
+     * @return @f$\Gamma_b/\Gamma_{\mathrm{had}}@f$
      */
     double R_b() const;
 
