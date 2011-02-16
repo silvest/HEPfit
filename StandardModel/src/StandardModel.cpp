@@ -251,12 +251,12 @@ double StandardModel::sin2thw() {
      const double d2[3] = {2.07*0.00001,2.07*0.00001,2.03*0.00001};
      const double d3[3] = {3.85*0.000001,3.85*0.000001 ,3.94*0.000001};
      const double d4[3] = {-1.85*0.000001,-1.85*0.000001,-1.84*0.000001};
-     const double d5[3] = {0.0207,0.0206,0.0208};
+     const double d5[3] = {0.0207,0.0207,0.0208};
      const double d6[3] = {-0.002851,-0.002853,-9.93*0.0001};
      const double d7[3] = {1.82*0.0001,1.83*0.0001,7.08*0.00001};
      const double d8[3] = {-9.74*0.000001,-9.73*0.000001,-7.61*0.000001};
      const double d9[3] = {3.98*0.0001,3.98*0.0001,4.03*0.0001};
-     const double d10[3] = {-0.655,0.655,0.661};
+     const double d10[3] = {-0.655,-0.655,0.661};
 
     double L_H = log(mHl/100.0);
     double Delta_H = mHl/100.0;
@@ -264,17 +264,17 @@ double StandardModel::sin2thw() {
     double Delta_t = pow((mt/178.0), 2.0) - 1.0;
     double Delta_alphas = alsMz/0.117 - 1.0;
     double Delta_Z = mZ/91.1876 - 1.0;
-    int i=0;
-    if(ferm=="l") {i=1;}
-       else {  if(ferm=="c"){i=2;}
-                   else{  if (ferm=="b"){i=3;}
-                   else  { std::cout << "ERROR: ferm parameter can be equal to l,c,b \n";}}
-            }
+    int i=4;
+    if(ferm=="l") {i=0;}
+    if(ferm=="c"){i=1;}
+    if(ferm=="b"){i=2;}
 
- double sin2t= s0[i] + d1[i]*L_H + d2[i]*L_H*L_H + d3[i]*L_H*L_H*L_H*L_H
+
+    double sin2t;
+    if(i!=4) {sin2t= s0[i] + d1[i]*L_H + d2[i]*L_H*L_H + d3[i]*L_H*L_H*L_H*L_H
                  + d4[i]*(Delta_H*Delta_H - 1.0) + d5[i]*Delta_alphae + d6[i]*Delta_t
                  + d7[i]*Delta_t*Delta_t + d8[i]*Delta_t*(Delta_H - 1.0)
-                 + d9[i]*Delta_alphas + d10[i]*Delta_Z;     ;
+                 + d9[i]*Delta_alphas + d10[i]*Delta_Z;}
 
         return sin2t;
      }
