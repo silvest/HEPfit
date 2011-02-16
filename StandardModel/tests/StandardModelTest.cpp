@@ -27,6 +27,11 @@ void test1() {
     std::cout << "EWPO:" << std::endl;
     std::cout << "  mW = " << SM.mW() << " GeV" << std::endl;
     std::cout << "  sin^2theta = " << SM.sin2thw() << std::endl;
+    SM.setMZ(99.);
+    std::cout << "  mW = " << SM.mW() << " GeV" << std::endl;
+    std::cout << "  sin^2theta = " << SM.sin2thw() << std::endl;
+    std::cout << "  mW = " << SM.mW() << " GeV" << std::endl;
+    std::cout << "  sin^2theta = " << SM.sin2thw() << std::endl;
 }
 
 void test2() {

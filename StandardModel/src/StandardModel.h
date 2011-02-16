@@ -22,7 +22,8 @@
  */
 class StandardModel {
 public:
-    /**
+//static const std::map<std::string,std::vector<std::string> > Deps;
+/**
      * @brief StandardModel constructor
      * @param VCKM_i The CKM matrix
      * @param mu_i up quark mass at 2 GeV
@@ -360,12 +361,12 @@ public:
     /**
      * @return the W boson mass
      */
-    double mW() const;
+    double mW();
 
     /**
      * @return the effective leptonic weak mixing angle @f$\sin^2\theta_{\mathrm{eff}}^\ell@f$
      */
-    double sin2thw() const;
+    double sin2thw();
 /**
  *
  * @return the effective b quark weak mixing angle @f$\sin^2\theta_{\mathrm{eff}}^\ell@f$
@@ -447,13 +448,13 @@ public:
      */
     double U() const;
 
-
 protected:
     gslpp::matrix<gslpp::complex> VCKM, UPMNS, Yd, Yu, Ye, Yn;
     double mu, md, mc, ms, mt, mb, me, mmu, mtau, mnu1, mnu2, mnu3;
     double mHl, alsMz, ale, mZ, GF, dAle5Mz;
-    static const std::map<std::string,std::string[] > Deps;
-
+//    static const std::vector<std::string> pino;
+    std::map<std::string,double> Hashes;
+    std::map<std::string,double> DValues;
 };
 
 #endif	/* STANDARDMODEL_H */

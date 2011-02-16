@@ -6,19 +6,20 @@
  */
 
 #include "StandardModel.h"
-#include <boost/assign/list_of.hpp> // for 'map_list_of()'
+//#include <boost/assign/list_of.hpp> // for 'map_list_of()'
+#include <iostream>
 #include <math.h>
 
-/*
-const std::map<std::string,std::string[] > Deps =
-    boost::assign::map_list_of
-        ("mZ",{"mW"})
-        ("mt",{"mW"})
-        ("dAle5Mz",{"mW"})
-        ("alsMz",{"mW"})
-        ("mHl",{"mW"})
-        ("GF",{"v"});
-*/
+//const std::vector<std::string> pino = boost::assign::list_of("A")("BC");
+//
+//const std::map<std::string,std::vector<std::string> > StandardModel::Deps =
+//   boost::assign::map_list_of
+////    ("mt",pino)
+//    ("mZ",(std::vector<std::string>)boost::assign::list_of("mW")("sin2thw"))
+//    ("dAle5Mz",boost::assign::list_of("mW")("sin2thw"))
+//    ("alsMz",boost::assign::list_of("mW")("sin2thw"))
+//    ("mHl",boost::assign::list_of("mW")("sin2thw"))
+//    ("GF",boost::assign::list_of("v")("pino"));
 
 StandardModel::StandardModel(const gslpp::matrix<gslpp::complex>& VCKM_i,
         double mu_i, double md_i, double mc_i, double ms_i, double mt_i,
@@ -107,72 +108,102 @@ StandardModel::~StandardModel() {
 }
 
 double StandardModel::v() {
-    return 1./sqrt(sqrt(2.)*GF);
+    if(Hashes["v"]!=GF)
+    {
+        Hashes["v"]=GF;
+        DValues["v"]=1./sqrt(sqrt(2.)*GF);
+    }
+    return DValues["v"];
 }
 
-double StandardModel::mW() const {
-    // Eqs. (6), (7) and (9) in hep-ph/0311148
-    // applicable for 100 GeV <= mHl <= 1 TeV
+double StandardModel::mW() {
 
-    const double Mw0 = 80.3800;
-    const double c1 = 0.05253;
-    const double c2 = 0.010345;
-    const double c3 = 0.001021;
-    const double c4 = -0.000070;
-    const double c5 = 1.077;
-    const double c6 = 0.5270;
-    const double c7 = 0.0698;
-    const double c8 = 0.004055;
-    const double c9 = 0.000110;
-    const double c10 = 0.0716;
-    const double c11 = 115.0;
+    double hash=mHl+mt+mZ+alsMz+dAle5Mz;
+    if(Hashes["mW"]!=hash)
+    {
 
-    // mt, mZ, dAle5Mz and alsMz have to be varied within their combined 
-    // 2 sigma region around their central values (year 2003) adopted below.
-    double dH = log(mHl/100.0);
-    double dh = pow((mHl/100.0), 2.0);
-    double dt = pow((mt/174.3), 2.0) - 1.0;
-    double dZ = mZ/91.1875 - 1.0;
-    double dalphae = dAle5Mz/0.05907 - 1.0;
-    double dalphas = alsMz/0.119 - 1.0;
+        // Eqs. (6), (7) and (9) in hep-ph/0311148
+        // applicable for 100 GeV <= mHl <= 1 TeV
 
-    double mw = Mw0 - c1*dH - c2*dH*dH + c3*pow(dH, 4.0)
-                + c4*(dh - 1.0) - c5*dalphae + c6*dt - c7*dt*dt
-                - c8*dH*dt + c9*dh*dt - c10*dalphas + c11*dZ;
-    return mw;
+        if(mHl<100.||mHl>1000.)
+        {
+            std::cout << "Higgs mass out of range in mW()" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+
+        const double Mw0 = 80.3800;
+        const double c1 = 0.05253;
+        const double c2 = 0.010345;
+        const double c3 = 0.001021;
+        const double c4 = -0.000070;
+        const double c5 = 1.077;
+        const double c6 = 0.5270;
+        const double c7 = 0.0698;
+        const double c8 = 0.004055;
+        const double c9 = 0.000110;
+        const double c10 = 0.0716;
+        const double c11 = 115.0;
+
+        // mt, mZ, dAle5Mz and alsMz have to be varied within their combined
+        // 2 sigma region around their central values (year 2003) adopted below.
+        double dH = log(mHl/100.0);
+        double dh = pow((mHl/100.0), 2.0);
+        double dt = pow((mt/174.3), 2.0) - 1.0;
+        double dZ = mZ/91.1875 - 1.0;
+        double dalphae = dAle5Mz/0.05907 - 1.0;
+        double dalphas = alsMz/0.119 - 1.0;
+
+        Hashes["mW"] = hash;
+        DValues["mW"] = Mw0 - c1*dH - c2*dH*dH + c3*pow(dH, 4.0)
+                    + c4*(dh - 1.0) - c5*dalphae + c6*dt - c7*dt*dt
+                    - c8*dH*dt + c9*dh*dt - c10*dalphas + c11*dZ;
+    }
+    return DValues["mW"];
 }
 
-double StandardModel::sin2thw() const {
+double StandardModel::sin2thw() {
+    double hash=mHl+mt+mZ+alsMz+dAle5Mz;
     // Effective leptonic weak mixing angle
     // hep-ph/0407317, hep-ph/0608099
     // applicable for 10 GeV <= mHl <= 1 TeV
 
-    const double s0 = 0.2312527;
-    const double d1 = 4.729*0.0001;
-    const double d2 = 2.07*0.00001;
-    const double d3 = 3.85*0.000001;
-    const double d4 = -1.85*0.000001;
-    const double d5 = 0.0207;
-    const double d6 = -0.002851;
-    const double d7 = 1.82*0.0001;
-    const double d8 = -9.74*0.000001;
-    const double d9 = 3.98*0.0001;
-    const double d10 = -0.655;
+    if(Hashes["sin2thw"]!=hash)
+    {
 
-    // mt, mZ, dAle5Mz and alsMz have to be varied within their combined
-    // 2 sigma region around their central values (year 2003) adopted below.
-    double L_H = log(mHl/100.0);
-    double Delta_H = mHl/100.0;
-    double Delta_alphae = dAle5Mz/0.05907 - 1.0;
-    double Delta_t = pow((mt/178.0), 2.0) - 1.0;
-    double Delta_alphas = alsMz/0.117 - 1.0;
-    double Delta_Z = mZ/91.1876 - 1.0;
+        if(mHl<10.||mHl>1000.)
+        {
+            std::cout << "Higgs mass out of range in sin2thw()" << std::endl;
+            exit(EXIT_FAILURE);
+        }
 
-    double sin2t = s0 + d1*L_H + d2*L_H*L_H + d3*L_H*L_H*L_H*L_H
-                 + d4*(Delta_H*Delta_H - 1.0) + d5*Delta_alphae + d6*Delta_t
-                 + d7*Delta_t*Delta_t + d8*Delta_t*(Delta_H - 1.0)
-                 + d9*Delta_alphas + d10*Delta_Z;
-    return sin2t;
+        const double s0 = 0.2312527;
+        const double d1 = 4.729*0.0001;
+        const double d2 = 2.07*0.00001;
+        const double d3 = 3.85*0.000001;
+        const double d4 = -1.85*0.000001;
+        const double d5 = 0.0207;
+        const double d6 = -0.002851;
+        const double d7 = 1.82*0.0001;
+        const double d8 = -9.74*0.000001;
+        const double d9 = 3.98*0.0001;
+        const double d10 = -0.655;
+
+        // mt, mZ, dAle5Mz and alsMz have to be varied within their combined
+        // 2 sigma region around their central values (year 2003) adopted below.
+        double L_H = log(mHl/100.0);
+        double Delta_H = mHl/100.0;
+        double Delta_alphae = dAle5Mz/0.05907 - 1.0;
+        double Delta_t = pow((mt/178.0), 2.0) - 1.0;
+        double Delta_alphas = alsMz/0.117 - 1.0;
+        double Delta_Z = mZ/91.1876 - 1.0;
+
+        Hashes["sin2thw"] = hash;
+        DValues["sin2thw"] = s0 + d1*L_H + d2*L_H*L_H + d3*L_H*L_H*L_H*L_H
+                     + d4*(Delta_H*Delta_H - 1.0) + d5*Delta_alphae + d6*Delta_t
+                     + d7*Delta_t*Delta_t + d8*Delta_t*(Delta_H - 1.0)
+                     + d9*Delta_alphas + d10*Delta_Z;
+    }
+    return DValues["sin2thw"];
 }
 
     double StandardModel::sin2thwb() const{
