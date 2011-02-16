@@ -175,6 +175,34 @@ double StandardModel::sin2thw() const {
     return sin2t;
 }
 
+    double StandardModel::sin2thwb() const{
+    //Effective mixing angle for b quarks
+    //http://arXiv.org/abs/0811.1364v2
+    // applicable for 10 GeV <= mHl <= 1 TeV
+        double const s0=0.2327580;
+        double const d1=4.749*0.0001;  
+        double const d2=2.03*0.00001;  
+        double const d3=3.94*0.000001;
+        double const d4=-1.84*0.000001;
+        double const d5=2.08*0.01;
+        double const d6=-9.93*0.0001;
+        double const d7=7.08*0.00001;
+        double const d8=-7.61*0.000001;
+        double const d9=4.03*0.0001;
+        double const d10=0.661;
+        
+        double deltaa=dAle5Mz/0.05907-1.0;
+        double deltas=alsMz/0.117-1.0;
+        double  Lh=log(mHl/100.0);
+        double deltH=mHl/100.0;
+        double deltt=(mt/178)*(mt/178)-1.0;
+        double deltz=mZ/91.1876-1.0;
+        double deltw=mW()/80.404-1.0;
+        double sin2b=s0 + d1*Lh + d2*Lh*Lh + d3*pow(Lh,4.0)+d4*(deltH*deltH-1.0)+d5*deltaa
+                     + d6*deltt + d7*deltt*deltt + d8*deltt*(deltH-1.0) + d9*deltas + d10*deltz  ;
+        return sin2b;
+     }
+
 double StandardModel::GammaW() const {
     return 0.0;
 }

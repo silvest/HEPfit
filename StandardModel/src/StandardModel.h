@@ -366,6 +366,11 @@ public:
      * @return the effective leptonic weak mixing angle @f$\sin^2\theta_{\mathrm{eff}}^\ell@f$
      */
     double sin2thw() const;
+/**
+ *
+ * @return the effective b quark weak mixing angle @f$\sin^2\theta_{\mathrm{eff}}^\ell@f$
+ */
+    double sin2thwb() const;
 
     /**
      * @return the total W width
