@@ -373,6 +373,13 @@ public:
  */
     double sin2thwb() const;
 
+     /**
+     *
+     * @param ferm defines the type of the fermions: leptons -"l", charm -"c", or b quark "b"
+     * @return sin theta effective for the given fermion ferm @f$\sin^2\theta_{\mathrm{eff}}^\ell$@f
+     */
+    double sin2thwall(const std::string& ferm) const;
+
     /**
      * @return the total W width
      */

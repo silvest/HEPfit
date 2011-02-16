@@ -206,33 +206,80 @@ double StandardModel::sin2thw() {
     return DValues["sin2thw"];
 }
 
-    double StandardModel::sin2thwb() const{
+
+   double StandardModel::sin2thwb() const{
     //Effective mixing angle for b quarks
     //http://arXiv.org/abs/0811.1364v2
     // applicable for 10 GeV <= mHl <= 1 TeV
-        double const s0=0.2327580;
-        double const d1=4.749*0.0001;  
-        double const d2=2.03*0.00001;  
-        double const d3=3.94*0.000001;
-        double const d4=-1.84*0.000001;
-        double const d5=2.08*0.01;
-        double const d6=-9.93*0.0001;
-        double const d7=7.08*0.00001;
-        double const d8=-7.61*0.000001;
-        double const d9=4.03*0.0001;
-        double const d10=0.661;
-        
-        double deltaa=dAle5Mz/0.05907-1.0;
-        double deltas=alsMz/0.117-1.0;
-        double  Lh=log(mHl/100.0);
-        double deltH=mHl/100.0;
-        double deltt=(mt/178)*(mt/178)-1.0;
-        double deltz=mZ/91.1876-1.0;
-        double deltw=mW()/80.404-1.0;
-        double sin2b=s0 + d1*Lh + d2*Lh*Lh + d3*pow(Lh,4.0)+d4*(deltH*deltH-1.0)+d5*deltaa
-                     + d6*deltt + d7*deltt*deltt + d8*deltt*(deltH-1.0) + d9*deltas + d10*deltz  ;
-        return sin2b;
+       const double  s0=0.2327580;
+       const double  d1=4.749*0.0001;
+       const double  d2=2.03*0.00001;
+       const double  d3=3.94*0.000001;
+       const double  d4=-1.84*0.000001;
+       const double  d5=2.08*0.01;
+       const double  d6=-9.93*0.0001;
+       const double  d7=7.08*0.00001;
+       const double  d8=-7.61*0.000001;
+       const double  d9=4.03*0.0001;
+       const double  d10=0.661;
+
+
+    double L_H = log(mHl/100.0);
+    double Delta_H = mHl/100.0;
+    double Delta_alphae = dAle5Mz/0.05907 - 1.0;
+    double Delta_t = pow((mt/178.0), 2.0) - 1.0;
+    double Delta_alphas = alsMz/0.117 - 1.0;
+    double Delta_Z = mZ/91.1876 - 1.0;
+
+    double sin2b = s0 + d1*L_H + d2*L_H*L_H + d3*L_H*L_H*L_H*L_H
+                 + d4*(Delta_H*Delta_H - 1.0) + d5*Delta_alphae + d6*Delta_t
+                 + d7*Delta_t*Delta_t + d8*Delta_t*(Delta_H - 1.0)
+                 + d9*Delta_alphas + d10*Delta_Z;
+    return sin2b;
+
+    }
+
+
+    double StandardModel::sin2thwall(const std::string& ferm) const{
+    //Effective mixing angle for leptons,and c,b quarks
+    //http://arXiv.org/abs/0811.1364v2, http://arXiv.org/abs/hep-ph/0608099v2
+    // applicable for 10 GeV <= mHl <= 1 TeV
+
+        //order is charged lepton, c, b quark
+     const double s0[3] ={0.2312527,0.2311395,0.2327580};
+     const double d1[3] = {4.729*0.0001,4.726*0.0001,4.749*0.0001};
+     const double d2[3] = {2.07*0.00001,2.07*0.00001,2.03*0.00001};
+     const double d3[3] = {3.85*0.000001,3.85*0.000001 ,3.94*0.000001};
+     const double d4[3] = {-1.85*0.000001,-1.85*0.000001,-1.84*0.000001};
+     const double d5[3] = {0.0207,0.0206,0.0208};
+     const double d6[3] = {-0.002851,-0.002853,-9.93*0.0001};
+     const double d7[3] = {1.82*0.0001,1.83*0.0001,7.08*0.00001};
+     const double d8[3] = {-9.74*0.000001,-9.73*0.000001,-7.61*0.000001};
+     const double d9[3] = {3.98*0.0001,3.98*0.0001,4.03*0.0001};
+     const double d10[3] = {-0.655,0.655,0.661};
+
+    double L_H = log(mHl/100.0);
+    double Delta_H = mHl/100.0;
+    double Delta_alphae = dAle5Mz/0.05907 - 1.0;
+    double Delta_t = pow((mt/178.0), 2.0) - 1.0;
+    double Delta_alphas = alsMz/0.117 - 1.0;
+    double Delta_Z = mZ/91.1876 - 1.0;
+    int i=0;
+    if(ferm=="l") {i=1;}
+       else {  if(ferm=="c"){i=2;}
+                   else{  if (ferm=="b"){i=3;}
+                   else  { std::cout << "ERROR: ferm parameter can be equal to l,c,b \n";}}
+            }
+
+ double sin2t= s0[i] + d1[i]*L_H + d2[i]*L_H*L_H + d3[i]*L_H*L_H*L_H*L_H
+                 + d4[i]*(Delta_H*Delta_H - 1.0) + d5[i]*Delta_alphae + d6[i]*Delta_t
+                 + d7[i]*Delta_t*Delta_t + d8[i]*Delta_t*(Delta_H - 1.0)
+                 + d9[i]*Delta_alphas + d10[i]*Delta_Z;     ;
+
+        return sin2t;
      }
+
+
 
 double StandardModel::GammaW() const {
     return 0.0;
