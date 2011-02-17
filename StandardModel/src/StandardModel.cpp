@@ -107,107 +107,85 @@ StandardModel::StandardModel(const StandardModel& orig) :
 StandardModel::~StandardModel() {
 }
 
-double StandardModel::v() {
-    if(Hashes["v"]!=GF)
-    {
-        Hashes["v"]=GF;
-        DValues["v"]=1./sqrt(sqrt(2.)*GF);
-    }
-    return DValues["v"];
+double StandardModel::v() const {
+    return 1./sqrt(sqrt(2.)*GF);
 }
 
-double StandardModel::mW() {
+double StandardModel::mW() const {
+    // Eqs. (6), (7) and (9) in hep-ph/0311148
+    // applicable for 100 GeV <= mHl <= 1 TeV
 
-    double hash=mHl+mt+mZ+alsMz+dAle5Mz;
-    if(Hashes["mW"]!=hash)
+    if(mHl<100.||mHl>1000.)
     {
-
-        // Eqs. (6), (7) and (9) in hep-ph/0311148
-        // applicable for 100 GeV <= mHl <= 1 TeV
-
-        if(mHl<100.||mHl>1000.)
-        {
-            std::cout << "Higgs mass out of range in mW()" << std::endl;
-            exit(EXIT_FAILURE);
-        }
-
-        const double Mw0 = 80.3800;
-        const double c1 = 0.05253;
-        const double c2 = 0.010345;
-        const double c3 = 0.001021;
-        const double c4 = -0.000070;
-        const double c5 = 1.077;
-        const double c6 = 0.5270;
-        const double c7 = 0.0698;
-        const double c8 = 0.004055;
-        const double c9 = 0.000110;
-        const double c10 = 0.0716;
-        const double c11 = 115.0;
-
-        // mt, mZ, dAle5Mz and alsMz have to be varied within their combined
-        // 2 sigma region around their central values (year 2003) adopted below.
-        double dH = log(mHl/100.0);
-        double dh = pow((mHl/100.0), 2.0);
-        double dt = pow((mt/174.3), 2.0) - 1.0;
-        double dZ = mZ/91.1875 - 1.0;
-        double dalphae = dAle5Mz/0.05907 - 1.0;
-        double dalphas = alsMz/0.119 - 1.0;
-
-        Hashes["mW"] = hash;
-        DValues["mW"] = Mw0 - c1*dH - c2*dH*dH + c3*pow(dH, 4.0)
-                    + c4*(dh - 1.0) - c5*dalphae + c6*dt - c7*dt*dt
-                    - c8*dH*dt + c9*dh*dt - c10*dalphas + c11*dZ;
+        std::cout << "Higgs mass out of range in mW()" << std::endl;
+        exit(EXIT_FAILURE);
     }
-    return DValues["mW"];
+
+    const double Mw0 = 80.3800;
+    const double c1 = 0.05253;
+    const double c2 = 0.010345;
+    const double c3 = 0.001021;
+    const double c4 = -0.000070;
+    const double c5 = 1.077;
+    const double c6 = 0.5270;
+    const double c7 = 0.0698;
+    const double c8 = 0.004055;
+    const double c9 = 0.000110;
+    const double c10 = 0.0716;
+    const double c11 = 115.0;
+
+    // mt, mZ, dAle5Mz and alsMz have to be varied within their combined
+    // 2 sigma region around their central values (year 2003) adopted below.
+    double dH = log(mHl/100.0);
+    double dh = pow((mHl/100.0), 2.0);
+    double dt = pow((mt/174.3), 2.0) - 1.0;
+    double dZ = mZ/91.1875 - 1.0;
+    double dalphae = dAle5Mz/0.05907 - 1.0;
+    double dalphas = alsMz/0.119 - 1.0;
+
+    return (Mw0 - c1*dH - c2*dH*dH + c3*pow(dH, 4.0)
+                + c4*(dh - 1.0) - c5*dalphae + c6*dt - c7*dt*dt
+                - c8*dH*dt + c9*dh*dt - c10*dalphas + c11*dZ);
 }
 
-double StandardModel::sin2thw() {
-    double hash=mHl+mt+mZ+alsMz+dAle5Mz;
+double StandardModel::sin2thw() const {
     // Effective leptonic weak mixing angle
     // hep-ph/0407317, hep-ph/0608099
     // applicable for 10 GeV <= mHl <= 1 TeV
-
-    if(Hashes["sin2thw"]!=hash)
+    if(mHl<10.||mHl>1000.)
     {
-
-        if(mHl<10.||mHl>1000.)
-        {
-            std::cout << "Higgs mass out of range in sin2thw()" << std::endl;
-            exit(EXIT_FAILURE);
-        }
-
-        const double s0 = 0.2312527;
-        const double d1 = 4.729*0.0001;
-        const double d2 = 2.07*0.00001;
-        const double d3 = 3.85*0.000001;
-        const double d4 = -1.85*0.000001;
-        const double d5 = 0.0207;
-        const double d6 = -0.002851;
-        const double d7 = 1.82*0.0001;
-        const double d8 = -9.74*0.000001;
-        const double d9 = 3.98*0.0001;
-        const double d10 = -0.655;
-
-        // mt, mZ, dAle5Mz and alsMz have to be varied within their combined
-        // 2 sigma region around their central values (year 2003) adopted below.
-        double L_H = log(mHl/100.0);
-        double Delta_H = mHl/100.0;
-        double Delta_alphae = dAle5Mz/0.05907 - 1.0;
-        double Delta_t = pow((mt/178.0), 2.0) - 1.0;
-        double Delta_alphas = alsMz/0.117 - 1.0;
-        double Delta_Z = mZ/91.1876 - 1.0;
-
-        Hashes["sin2thw"] = hash;
-        DValues["sin2thw"] = s0 + d1*L_H + d2*L_H*L_H + d3*L_H*L_H*L_H*L_H
-                     + d4*(Delta_H*Delta_H - 1.0) + d5*Delta_alphae + d6*Delta_t
-                     + d7*Delta_t*Delta_t + d8*Delta_t*(Delta_H - 1.0)
-                     + d9*Delta_alphas + d10*Delta_Z;
+        std::cout << "Higgs mass out of range in sin2thw()" << std::endl;
+        exit(EXIT_FAILURE);
     }
-    return DValues["sin2thw"];
+
+    const double s0 = 0.2312527;
+    const double d1 = 4.729*0.0001;
+    const double d2 = 2.07*0.00001;
+    const double d3 = 3.85*0.000001;
+    const double d4 = -1.85*0.000001;
+    const double d5 = 0.0207;
+    const double d6 = -0.002851;
+    const double d7 = 1.82*0.0001;
+    const double d8 = -9.74*0.000001;
+    const double d9 = 3.98*0.0001;
+    const double d10 = -0.655;
+
+    // mt, mZ, dAle5Mz and alsMz have to be varied within their combined
+    // 2 sigma region around their central values (year 2003) adopted below.
+    double L_H = log(mHl/100.0);
+    double Delta_H = mHl/100.0;
+    double Delta_alphae = dAle5Mz/0.05907 - 1.0;
+    double Delta_t = pow((mt/178.0), 2.0) - 1.0;
+    double Delta_alphas = alsMz/0.117 - 1.0;
+    double Delta_Z = mZ/91.1876 - 1.0;
+
+    return(s0 + d1*L_H + d2*L_H*L_H + d3*L_H*L_H*L_H*L_H
+                 + d4*(Delta_H*Delta_H - 1.0) + d5*Delta_alphae + d6*Delta_t
+                 + d7*Delta_t*Delta_t + d8*Delta_t*(Delta_H - 1.0)
+                 + d9*Delta_alphas + d10*Delta_Z);
 }
 
-
-   double StandardModel::sin2thwb() const{
+double StandardModel::sin2thwb() const{
     //Effective mixing angle for b quarks
     //http://arXiv.org/abs/0811.1364v2
     // applicable for 10 GeV <= mHl <= 1 TeV

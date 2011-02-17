@@ -74,7 +74,7 @@ public:
     /**
      * @return the VEV
      */
-    double v();
+    double v() const;
 
     /**
      * @return the PMNS matrix
@@ -361,12 +361,12 @@ public:
     /**
      * @return the W boson mass
      */
-    double mW();
+    double mW() const;
 
     /**
      * @return the effective leptonic weak mixing angle @f$\sin^2\theta_{\mathrm{eff}}^\ell@f$
      */
-    double sin2thw();
+    double sin2thw() const;
 /**
  *
  * @return the effective b quark weak mixing angle @f$\sin^2\theta_{\mathrm{eff}}^\ell@f$
@@ -460,8 +460,8 @@ protected:
     double mu, md, mc, ms, mt, mb, me, mmu, mtau, mnu1, mnu2, mnu3;
     double mHl, alsMz, ale, mZ, GF, dAle5Mz;
 //    static const std::vector<std::string> pino;
-    std::map<std::string,double> Hashes;
-    std::map<std::string,double> DValues;
+    mutable std::map<std::string,double> Hashes;
+    mutable std::map<std::string,double> DValues;
 };
 
 #endif	/* STANDARDMODEL_H */
