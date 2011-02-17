@@ -32,6 +32,10 @@ void test1() {
     std::cout << "  sin^2theta = " << SM.sin2thw() << std::endl;
     std::cout << "  mW = " << SM.mW() << " GeV" << std::endl;
     std::cout << "  sin^2theta = " << SM.sin2thw() << std::endl;
+    double xx[1000000];
+    for(int i=0; i<10000000; i++)
+        xx[i%1000000]=SM.mW();
+
 }
 
 void test2() {
