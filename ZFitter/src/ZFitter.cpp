@@ -71,6 +71,81 @@ double ZFitter::getCommonWidths(int INDF) {
 
 ///////////////////////////////////////////////////////////////////////////
 
+double ZFitter::getCommonARROFZ(int INDF) {
+    if (INDF < 12) {
+        return cdzrkz_.ARROFZ[INDF];
+    } else {
+        std::cout << "ARROFZ[INDF] < 12" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonARKAFZ(int INDF) {
+    if (INDF < 12) {
+        return cdzrkz_.ARKAFZ[INDF];
+    } else {
+        std::cout << "ARKAFZ[INDF] < 12" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonARVEFZ(int INDF) {
+    if (INDF < 12) {
+        return cdzrkz_.ARVEFZ[INDF];
+    } else {
+        std::cout << "ARVEFZ[INDF] < 12" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonARSEFZ(int INDF) {
+    if (INDF < 12) {
+        return cdzrkz_.ARSEFZ[INDF];
+    } else {
+        std::cout << "ARSEFZ[INDF] < 12" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonAROTFZ(int INDF) {
+    if (INDF < 12) {
+        return cdzrkz_.AROTFZ[INDF];
+    } else {
+        std::cout << "AROTFZ[INDF] < 12" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonAIROFZ(int INDF) {
+    if (INDF < 12) {
+        return cdzrkz_.AIROFZ[INDF];
+    } else {
+        std::cout << "AIROFZ[INDF] < 12" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonAIKAFZ(int INDF) {
+    if (INDF < 12) {
+        return cdzrkz_.AIKAFZ[INDF];
+    } else {
+        std::cout << "AIKAFZ[INDF] < 12" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonAIVEFZ(int INDF) {
+    if (INDF < 12) {
+        return cdzrkz_.AIVEFZ[INDF];
+    } else {
+        std::cout << "AIVEFZ[INDF] < 12" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+
+///////////////////////////////////////////////////////////////////////////
+
 void ZFitter::test(const int IMISC) { zftest_(&IMISC); }
 
 void ZFitter::init(const int IPRINT) { zuinit_(&IPRINT); }
@@ -122,29 +197,29 @@ void ZFitter::calcXS(const int INDF, const double SQRS, const double GAMZ0,
     zuxsec_(&INDF, &SQRS, &ZMASS, &GAMZ0, &GAMEE, &GAMFF, &XS[INDF]);
 }
 
-void ZFitter::calcXS_AFB(const int INDF, const double SQRS, const double GAMZ0,
-                         const int MODE, const double GVE, const double XE,
-                         const double GVF, const double XF) {
+void ZFitter::calcXS_AFB_2(const int INDF, const double SQRS, const double GAMZ0,
+                           const int MODE, const double GVE, const double XE,
+                           const double GVF, const double XF) {
     zuxsa_(&INDF, &SQRS, &ZMASS, &GAMZ0, &MODE, &GVE, &XE, &GVF, &XF, 
             &XS[INDF], &AFB[INDF]);
 }
 
-void ZFitter::calcXS_AFB(const int INDF, const double SQRS, const double GAMZ0,
-                         const int MODE, const double GV2, const double X2) {
+void ZFitter::calcXS_AFB_3(const int INDF, const double SQRS, const double GAMZ0,
+                           const int MODE, const double GV2, const double X2) {
     zuxsa2_(&INDF, &SQRS, &ZMASS, &GAMZ0, &MODE, &GV2, &X2, 
             &XS[INDF], &AFB[INDF]);
 }
 
-void ZFitter::calcXS_AFB(const int INDF, const double SQRS, const double GAMZ0,
-                         const double PFOUR, const double PVAE2,
-                         const double PVAF2) {
+void ZFitter::calcXS_AFB_4(const int INDF, const double SQRS, const double GAMZ0,
+                           const double PFOUR, const double PVAE2,
+                           const double PVAF2) {
     zuxafb_(&INDF, &SQRS, &ZMASS, &GAMZ0, &PFOUR, &PVAE2, &PVAF2, 
             &XS[INDF], &AFB[INDF]);
 }
 
-void ZFitter::calcTauPol(const double SQRS, const double GAMZ0, const int MODE,
-                         const double GVE, const double XE, const double GVF,
-                         const double XF) {
+void ZFitter::calcTauPol_2(const double SQRS, const double GAMZ0, const int MODE,
+                           const double GVE, const double XE, const double GVF,
+                           const double XF) {
     zutau_(&SQRS, &ZMASS, &GAMZ0, &MODE, &GVE, &XE, &GVF, &XF, &TAUPOL, &TAUAFB);
 }
 
