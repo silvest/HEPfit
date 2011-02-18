@@ -23,15 +23,20 @@ ZFITTER6_43_LIB = -L../../ZFitter6_43/lib
 ZFITTER_INC = -I../src
 ZFITTER_LIB = -L../$(LIB_DIR) 
 
-INC_DIRS = $(GSLPP_INC) $(UTILS_INC) $(SM_INC) $(ZFITTER6_43_INC) $(ZFITTER_INC)
-LIB_DIRS = $(GSLPP_LIB) $(UTILS_LIB) $(SM_LIB) $(ZFITTER_LIB)
+INC_DIRS = $(ZFITTER6_43_INC) $(ZFITTER_INC)
+LIB_DIRS = $(ZFITTER_LIB)
+LIBS = -lzfitter
 ifeq ($(SYS),Darwin)
 LIB_DIRS += $(ZFITTER6_43_LIB)
-LIBS = -lzfitter6_43
+LIBS += -lzfitter6_43
 else
-LIBS = ../../ZFitter6_43/src/*.o # the commands ar and ranlib don't produce a correct library.
+# in case the commands ar and ranlib don't produce a correct library
+LIBS += ../../ZFitter6_43/src/*.o 
 endif
-LIBS += -lzfitter -lstandardmodel -lutils -lgslpp -lgslcblas -lgsl
+
+#INC_DIRS += $(GSLPP_INC) $(UTILS_INC) $(SM_INC)
+#LIB_DIRS += $(GSLPP_LIB) $(UTILS_LIB) $(SM_LIB)
+#LIBS += -lstandardmodel -lutils -lgslpp -lgslcblas -lgsl
 
 all: $(EXE)
 
