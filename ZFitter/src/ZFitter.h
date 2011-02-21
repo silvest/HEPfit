@@ -14,13 +14,9 @@
  *
  *  Constants:
  *   - G_F^mu and alpha(0) are set in CONST1() in zfbib6_40.f and EWINIT()
- *     in zfbib6_40.f.
+ *     in zfbib6_40.f as well as in GF() and alpha() in this class for the
+ *     computations of the oblique parameters. 
  *   - All lepton and effective quark masses (u,d,s,c,b) are set in CONST1().
- *
- *
- *
- *  To do:
- *   - calcSTU()
  *
  */
 
@@ -94,6 +90,11 @@ extern "C" {
     //    double RENFAC[11]; // R_f
     //    double SRENFC[11]; // \sqrt{R_f}
     //} cdzaux_;
+
+    extern struct {
+         double ALQEDZ; // alpha(mZ)
+         double ALQEDS;
+    } calqed_;
 
 }
 
@@ -630,69 +631,149 @@ public:
     void printInputs();
 
     /**
-     * @brief ptints results
+     * @brief prints intermediate results
      */
-    void printResults();
+    void printIntermediateResults();
+
+
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief calculates pseudo observables
-     * @param[out] mW the mass of the W boson in GeV
-     * @param[out] Gamma_W the total width of the W boson in GeV
-     * @param[out] sw2 the weak mixing angle
-     * @param[out] Gamma_inv the invisible width of the Z boson in GeV
-     * @param[out] Gamma_had the hadronic width of the Z boson in GeV
-     * @param[out] Gamma_Z the total width of the Z boson in GeV
-     * @param[out] sigma0_e electric pole cross section of the Z boson in GeV^-2
-     * @param[out] sigma0_mu muonic pole cross section of the Z boson in GeV^-2
-     * @param[out] sigma0_tau tauonic pole cross section of the Z boson in GeV^-2
-     * @param[out] sigma0_had hadronic pole cross section of the Z boson in GeV^-2
-     * @param[out] R0_e Gamma_had/Gamma_e
-     * @param[out] R0_mu Gamma_had/Gamma_mu
-     * @param[out] R0_tau Gamma_had/Gamma_tau
-     * @param[out] R0_b Gamma_b/Gamma_had
-     * @param[out] R0_c Gamma_c/Gamma_had
-     * @param[out] R0_s Gamma_s/Gamma_had
-     * @param[out] A_e the asymmetry parameter for the e+ e- mode
-     * @param[out] A_mu the asymmetry parameter for the mu+ mu- mode
-     * @param[out] A_tau the asymmetry parameter for the tau^+ tau- mode
-     * @param[out] A_b the asymmetry parameter for the b-bbar mode
-     * @param[out] A_c the asymmetry parameter for the c-cbar mode
-     * @param[out] A_s the asymmetry parameter for the s-sbar mode
-     * @param[out] AFB0_e the forward-backward asymmetry for the e+ e- mode
-     * @param[out] AFB0_mu the forward-backward asymmetry for the mu+ mu- mode
-     * @param[out] AFB0_tau the forward-backward asymmetry for the tau^+ tau- mode
-     * @param[out] AFB0_b the forward-backward asymmetry for the b-bbar mode
-     * @param[out] AFB0_c the forward-backward asymmetry for the c-cbar mode
-     * @param[out] AFB0_s the forward-backward asymmetry for the s-sbar mode
-     * @param[out] s2teff_e the effective weak mixing angle for the e+ e- mode
-     * @param[out] s2teff_mu the effective weak mixing angle for the mu+ mu- mode
-     * @param[out] s2teff_tau the effective weak mixing angle for the tau^+ tau- mode
-     * @param[out] s2teff_b the effective weak mixing angle for the b-bbar mode
-     * @param[out] s2teff_c the effective weak mixing angle for the c-cbar mode
-     * @param[out] s2teff_s the effective weak mixing angle for the s-sbar mode
+     * @param[in] flavour the flavour of the final states [e, mu, tau, b, c, s]
+     * @return the integer value associated with the flavour
      */
-    void calcPO(double *mW, double *Gamma_W, double *sw2,
-                double *Gamma_inv, double *Gamma_had, double *Gamma_Z,
-                double *sigma0_e, double *sigma0_mu, double *sigma0_tau, 
-                double *sigma0_had,
-                double *R0_e, double *R0_mu, double *R0_tau,
-                double *R0_b, double *R0_c, double *R0_s,
-                double *A_e, double *A_mu, double *A_tau,
-                double *A_b, double *A_c, double *A_s,
-                double *AFB0_e, double *AFB0_mu, double *AFB0_tau,
-                double *AFB0_b, double *AFB0_c, double *AFB0_s,
-                double *s2teff_e, double *s2teff_mu, double *s2teff_tau,
-                double *s2teff_b, double *s2teff_c, double *s2teff_s);
+    int flavour_st_to_int(const std::string flavour);
 
     /**
-     * @brief calculates the oblique parameters S, T and U
-     * @param[out] S the oblique parameter S
-     * @param[out] T the oblique parameter T
-     * @param[out] U the oblique parameter U
+     * @return the mass of the W boson in GeV
      */
-    void calcSTU(double *S, double *T, double *U);
+    double mW();
+
+    /**
+     * @return the total width of the W boson in GeV
+     */
+    double Gamma_W();
+
+    /**
+     * @return the weak mixing angle
+     */
+    double sw2();
+
+    /**
+     * @param[in] flavour the flavour of the final states [e, mu, tau, b, c, s]
+     * @return the partial decay width of the Z boson in GeV
+     */
+    double Gamma_f(const std::string flavour);
+
+    /**
+     * @return the invisible width of the Z boson in GeV
+     */
+    double Gamma_inv();
+
+    /**
+     * @return the hadronic width of the Z boson in GeV
+     */
+    double Gamma_had();
+
+    /**
+     * @return the total width of the Z boson in GeV
+     */
+    double Gamma_Z();
+
+    /**
+     * @param[in] flavour_l the flavour of the final states [e, mu, tau]
+     * @return pole cross section of the Z boson in GeV^-2
+     */
+    double sigma0_l(const std::string flavour_l);
+
+    /**
+     * @return hadronic pole cross section of the Z boson in GeV^-2
+     */
+    double sigma0_had();
+
+    /**
+     * @param[in] flavour_l the flavour of the final states [e, mu, tau]
+     * @return Gamma_had/Gamma_l
+     */
+    double R0_l(const std::string flavour_l);
+
+    /**
+     * @param[in] flavour_q the flavour of the final states [b, c, s]
+     * @return Gamma_q/Gamma_had
+     */
+    double R0_q(const std::string flavour_q);
+
+    /**
+     * @param[in] flavour the flavour of the final states [e, mu, tau, b, c, s]
+     * @return the asymmetry parameter
+     */
+    double A_f(const std::string flavour);
+
+    /**
+     * @param flavour the flavour of the final states [e, mu, tau, b, c, s]
+     * @return the forward-backward asymmetry
+     */
+    double AFB0_f(const std::string flavour);
+
+    /**
+     * @param flavour the flavour of the final states [e, mu, tau, b, c, s]
+     * @return the effective weak mixing angle
+     */
+    double s2teff_f(const std::string flavour);
+
+    /**
+     * @return the oblique parameter epsilon_1
+     */
+    double obliqueEpsilon1();
+
+    /**
+     * @return the oblique parameter epsilon_2
+     */
+    double obliqueEpsilon2();
+
+    /**
+     * @return the oblique parameter epsilon_3
+     */
+    double obliqueEpsilon3();
+
+    /**
+     * @return the oblique parameter S
+     */
+    double obliqueS();
+
+    /**
+     * @return the oblique parameter T
+     */
+    double obliqueT();
+
+    /**
+     * @return the oblique parameter U
+     */
+    double obliqueU();
+
+    /**
+     * @brief ptints precision observables
+     */
+    void printPO();
 
 
+    ///////////////////////////////////////////////////////////////////////////
+    /* G_F^mu and alpha(0) are set in CONST1() in zfbib6_40.f and EWINIT()
+     * in zfbib6_40.f, but it is hard to access them directly from the ZFitter 
+     * class. Therefore, we redefine them here (see also the source file)
+     * for the calculateions of the oblique parameters. */
+
+    /**
+     * @return G_F
+     */
+    double GF() const;
+
+    /**
+     * @return the fine structure constant alpha(0)
+     */
+    double alpha() const;
+
+    
     ///////////////////////////////////////////////////////////////////////////
 
 private:

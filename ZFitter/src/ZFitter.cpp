@@ -365,8 +365,8 @@ void ZFitter::printInputs() {
     std::cout << std::endl;
 }
 
-void ZFitter::printResults() {
-    std::cout << "----- Results -----" << std::endl;
+void ZFitter::printIntermediateResults() {
+    std::cout << "----- Intermediate Results -----" << std::endl;
 
     double mW = ZMASS*sqrt(1.0-getCommonSIN2TW());
     std::cout << "mW = " << mW << "  sin^2(theta_W) = "
@@ -421,80 +421,249 @@ void ZFitter::printResults() {
 
 }
 
-void ZFitter::calcPO(double *mW, double *Gamma_W, double *sw2,
-                     double *Gamma_inv, double *Gamma_had, double *Gamma_Z,
-                     double *sigma0_e, double *sigma0_mu, double *sigma0_tau,
-                     double *sigma0_had,
-                     double *R0_e, double *R0_mu, double *R0_tau,
-                     double *R0_b, double *R0_c, double *R0_s,
-                     double *A_e, double *A_mu, double *A_tau,
-                     double *A_b, double *A_c, double *A_s,
-                     double *AFB0_e, double *AFB0_mu, double *AFB0_tau,
-                     double *AFB0_b, double *AFB0_c, double *AFB0_s,
-                     double *s2teff_e, double *s2teff_mu, double *s2teff_tau,
-                     double *s2teff_b, double *s2teff_c, double *s2teff_s) {
 
-    *mW = ZMASS*sqrt(1.0-getCommonSIN2TW());
-    *Gamma_W =getCommonPARTW(2);
-    *sw2 = getCommonSIN2TW();
+///////////////////////////////////////////////////////////////////////////
 
-    double Gamma_e = getCommonWIDTHS(1);
-    double Gamma_mu = getCommonWIDTHS(2);
-    double Gamma_tau = getCommonWIDTHS(3);
-    double Gamma_hadron = getCommonWIDTHS(10);
-    double Gamma_total = getCommonWIDTHS(11);
-
-    *Gamma_inv = 3.0*getCommonWIDTHS(0);
-    *Gamma_had = Gamma_hadron;
-    *Gamma_Z = Gamma_total;
-
-    *sigma0_e = 12.0*M_PI*Gamma_e*Gamma_e
-                /ZMASS/ZMASS/Gamma_total/Gamma_total;
-    *sigma0_mu = 12.0*M_PI*Gamma_e*Gamma_mu
-                 /ZMASS/ZMASS/Gamma_total/Gamma_total;
-    *sigma0_tau = 12.0*M_PI*Gamma_e*Gamma_tau
-                  /ZMASS/ZMASS/Gamma_total/Gamma_total;
-    *sigma0_had = 12.0*M_PI*Gamma_e*Gamma_hadron
-                  /ZMASS/ZMASS/Gamma_total/Gamma_total;
-
-    *R0_e = Gamma_hadron/Gamma_e;
-    *R0_mu = Gamma_hadron/Gamma_mu;
-    *R0_tau = Gamma_hadron/Gamma_tau;
-    *R0_b = getCommonWIDTHS(9)/Gamma_hadron;
-    *R0_c = getCommonWIDTHS(6) / Gamma_hadron;
-    *R0_s = getCommonWIDTHS(7) / Gamma_hadron;
-
-    double Re_gZ_e = getCommonARVEFZ(1);
-    double Re_gZ_mu = getCommonARVEFZ(2);
-    double Re_gZ_tau = getCommonARVEFZ(3);
-    double Re_gZ_b = getCommonARVEFZ(9);
-    double Re_gZ_c = getCommonARVEFZ(6);
-    double Re_gZ_s = getCommonARVEFZ(7);
-    *A_e = 2.0*Re_gZ_e/(Re_gZ_e*Re_gZ_e + 1.0);
-    *A_mu = 2.0*Re_gZ_mu/(Re_gZ_mu*Re_gZ_mu + 1.0);
-    *A_tau = 2.0*Re_gZ_tau/(Re_gZ_tau*Re_gZ_tau + 1.0);
-    *A_b = 2.0*Re_gZ_b/(Re_gZ_b*Re_gZ_b + 1.0);
-    *A_c = 2.0*Re_gZ_c/(Re_gZ_c*Re_gZ_c + 1.0);
-    *A_s = 2.0*Re_gZ_s/(Re_gZ_s*Re_gZ_s + 1.0);
-
-    *AFB0_e = 3.0/4.0* (*A_e) * (*A_e);
-    *AFB0_mu = 3.0/4.0* (*A_e) * (*A_mu);
-    *AFB0_tau = 3.0/4.0* (*A_e) * (*A_tau);
-    *AFB0_b = 3.0/4.0* (*A_e) * (*A_b);
-    *AFB0_c = 3.0/4.0* (*A_e) * (*A_c);
-    *AFB0_s = 3.0/4.0* (*A_e) * (*A_s);
-
-    *s2teff_e = getCommonARSEFZ(1);
-    *s2teff_mu = getCommonARSEFZ(2);
-    *s2teff_tau = getCommonARSEFZ(3);
-    *s2teff_b = getCommonARSEFZ(9);
-    *s2teff_c = getCommonARSEFZ(6);
-    *s2teff_s = getCommonARSEFZ(7);
+int ZFitter::flavour_st_to_int(const std::string flavour) {
+    if (flavour == "e") {
+        return 1;
+    } else if (flavour == "mu") {
+        return 2;
+    } else if (flavour == "tau") {
+        return 3;
+    } else if (flavour == "b") {
+        return 9;
+    } else if (flavour == "c") {
+        return 6;
+    } else if (flavour == "s") {
+        return 7;
+    } else {
+        std::cout << "flavour = e, mu, tau, b, c, s" << std::endl;
+        exit(EXIT_FAILURE);
+    }
 }
 
-void ZFitter::calcSTU(double *S, double *T, double *U) {
+double ZFitter::mW() {
+    return ( ZMASS*sqrt(1.0 - getCommonSIN2TW()) );
+}
 
+double ZFitter::Gamma_W() {
+    return ( getCommonPARTW(2) );
+}
+
+double ZFitter::sw2() {
+    return ( getCommonSIN2TW() );
+}
+
+double ZFitter::Gamma_f(const std::string flavour) {
+    return ( getCommonWIDTHS(flavour_st_to_int(flavour)) );
+}
+
+double ZFitter::Gamma_inv() {
+    return ( 3.0*getCommonWIDTHS(0) );
+}
+
+double ZFitter::Gamma_had() {
+    return ( getCommonWIDTHS(10) );
+}
+
+double ZFitter::Gamma_Z() {
+    return ( getCommonWIDTHS(11) );
+}
+
+double ZFitter::sigma0_l(const std::string flavour_l) {
+    if (flavour_l!="e" && flavour_l!="mu" && flavour_l!="tau") {
+        std::cout << "flavour_l = e, mu, tau" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    return ( 12.0*M_PI*Gamma_f("e")*Gamma_f(flavour_l)
+            /ZMASS/ZMASS/Gamma_Z()/Gamma_Z() );
+}
+
+double ZFitter::sigma0_had() {
+    return ( 12.0*M_PI*Gamma_f("e")*Gamma_had()
+             /ZMASS/ZMASS/Gamma_Z()/Gamma_Z() );
+}
+
+double ZFitter::R0_l(const std::string flavour_l) {
+    if (flavour_l!="e" && flavour_l!="mu" && flavour_l!="tau") {
+        std::cout << "flavour_l = e, mu, tau" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    return ( Gamma_had()/Gamma_f(flavour_l) );
+}
+
+double ZFitter::R0_q(const std::string flavour_q) {
+    if (flavour_q!="b" && flavour_q!="c" && flavour_q!="s") {
+        std::cout << "flavour_q = b, c, s" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    return ( Gamma_f(flavour_q)/Gamma_had() );
+}
+
+double ZFitter::A_f(const std::string flavour) {
+    double Re_gZ_f = getCommonARVEFZ(flavour_st_to_int(flavour));
+    return ( 2.0*Re_gZ_f/(Re_gZ_f*Re_gZ_f + 1.0) );
+}
+
+double ZFitter::AFB0_f(const std::string flavour) {
+    return ( 3.0/4.0*A_f("e")*A_f(flavour) );
+}
+
+double ZFitter::s2teff_f(const std::string flavour) {
+    return ( getCommonARSEFZ(flavour_st_to_int(flavour)) );
+}
+
+double ZFitter::obliqueEpsilon1() {
+    double Delta_rho = 2.0*(sqrt(getCommonAROTFZ(1)) - 1.0);
+
+    return Delta_rho;
+}
+
+double ZFitter::obliqueEpsilon2() {
+    double alpha_mZ = calqed_.ALQEDZ;
+    double Delta_rW = 1.0 - M_PI*alpha_mZ/sqrt(2.0)/GF()
+                            /( 1.0 - mW()*mW()/ZMASS/ZMASS )/mW()/mW();
+    double Delta_rho = 2.0*(sqrt(getCommonAROTFZ(1)) - 1.0);
+    double s02 = 0.5 - sqrt(0.25 - M_PI*alpha_mZ/sqrt(2.0)/GF()/ZMASS/ZMASS);
+    double c02 = 1.0 - s02;
+    double Delta_k = s2teff_f("e")/s02 - 1.0;
+
+    //std::cout << "  Delta_rW = " << Delta_rW << std::endl; // TEST
+    //std::cout << "  Delta_rho = " << Delta_rho << std::endl; // TEST
+    //std::cout << "  Delta_k = " << Delta_k << std::endl; // TEST
+    //std::cout << "  s02 = " << s02 << std::endl << std::endl; // TEST
+
+    return ( c02*Delta_rho + s02*Delta_rW/(c02-s02) - 2.0*s02*Delta_k );
+}
+
+double ZFitter::obliqueEpsilon3() {
+    double alpha_mZ = calqed_.ALQEDZ; 
+    double Delta_rho = 2.0*(sqrt(getCommonAROTFZ(1)) - 1.0);
+    double s02 = 0.5 - sqrt(0.25 - M_PI*alpha_mZ/sqrt(2.0)/GF()/ZMASS/ZMASS);
+    double c02 = 1.0 - s02;
+    double Delta_k = s2teff_f("e")/s02 - 1.0;
+
+    return ( c02*Delta_rho + (c02-s02)*Delta_k );
+}
+
+double ZFitter::obliqueS() {
+    double alpha_mZ = calqed_.ALQEDZ;
+    double s02 = 0.5 - sqrt(0.25 - M_PI*alpha_mZ/sqrt(2.0)/GF()/ZMASS/ZMASS);
     
-
+    return ( obliqueEpsilon3()/alpha()*4.0*s02 );
 }
+
+double ZFitter::obliqueT() {
+    return ( obliqueEpsilon1()/alpha() );
+}
+
+double ZFitter::obliqueU() {
+    double alpha_mZ = calqed_.ALQEDZ;
+    double s02 = 0.5 - sqrt(0.25 - M_PI*alpha_mZ/sqrt(2.0)/GF()/ZMASS/ZMASS);
+    
+    return ( - obliqueEpsilon2()/alpha()*4.0*s02 );
+}
+
+void ZFitter::printPO() {
+
+    // GeV^{-2} --> nb
+    const double GeVminus2_to_nb = pow(10.0, -6.0)
+                                   / pow(10.0, -28.0)
+                                   / pow(299792458.0, -2.0)
+                                   / pow(6.58211899 * pow(10.0, -22.0), -2.0)
+                                   * pow(10.0, 9.0);
+
+    std::cout << std::setw(15) << "m_W [GeV]" << std::setw(13)
+              << mW() << std::endl
+              << std::setw(15) << "Gamma_W [GeV]" << std::setw(13)
+              << Gamma_W() << std::endl
+              << std::setw(15) << "sin^2(th_W)" << std::setw(13)
+              << sw2() << std::endl
+              << std::setw(15) << "Gamma_inv [GeV]" << std::setw(13)
+              << Gamma_inv() << std::endl
+              << std::setw(15) << "Gamma_had [GeV]" << std::setw(13)
+              << Gamma_had() << std::endl
+              << std::setw(15) << "Gamma_Z [GeV]" << std::setw(13)
+              << Gamma_Z() << std::endl
+              << std::setw(15) << "sigma0_e [nb]" << std::setw(13)
+              << sigma0_l("e")*GeVminus2_to_nb << std::endl
+              << std::setw(15) << "sigma0_mu [nb]" << std::setw(13)
+              << sigma0_l("mu")*GeVminus2_to_nb << std::endl
+              << std::setw(15) << "sigma0_tau [nb]" << std::setw(13)
+              << sigma0_l("tau")*GeVminus2_to_nb << std::endl
+              << std::setw(15) << "sigma0_had [nb]" << std::setw(13)
+              << sigma0_had()*GeVminus2_to_nb << std::endl
+              << std::setw(15) << "R0_e" << std::setw(13)
+              << R0_l("e") << std::endl
+              << std::setw(15) << "R0_mu" << std::setw(13)
+              << R0_l("mu") << std::endl
+              << std::setw(15) << "R0_tau" << std::setw(13)
+              << R0_l("tau") << std::endl
+              << std::setw(15) << "R0_b" << std::setw(13)
+              << R0_q("b") << std::endl
+              << std::setw(15) << "R0_c" << std::setw(13)
+              << R0_q("c") << std::endl
+              << std::setw(15) << "R0_s" << std::setw(13)
+              << R0_q("s") << std::endl
+              << std::setw(15) << "A_e" << std::setw(13)
+              << A_f("e") << std::endl
+              << std::setw(15) << "A_mu" << std::setw(13)
+              << A_f("mu") << std::endl
+              << std::setw(15) << "A_tau" << std::setw(13)
+              << A_f("tau") << std::endl
+              << std::setw(15) << "A_b" << std::setw(13)
+              << A_f("b") << std::endl
+              << std::setw(15) << "A_c" << std::setw(13)
+              << A_f("c") << std::endl
+              << std::setw(15) << "A_s" << std::setw(13)
+              << A_f("s") << std::endl
+              << std::setw(15) << "AFB0_e" << std::setw(13)
+              << AFB0_f("e") << std::endl
+              << std::setw(15) << "AFB0_mu" << std::setw(13)
+              << AFB0_f("mu") << std::endl
+              << std::setw(15) << "AFB0_tau" << std::setw(13)
+              << AFB0_f("tau") << std::endl
+              << std::setw(15) << "AFB0_b" << std::setw(13)
+              << AFB0_f("b") << std::endl
+              << std::setw(15) << "AFB0_c" << std::setw(13)
+              << AFB0_f("c") << std::endl
+              << std::setw(15) << "AFB0_s" << std::setw(13)
+              << AFB0_f("s") << std::endl
+              << std::setw(15) << "sin^2(teff_e)" << std::setw(13)
+              << s2teff_f("e") << std::endl
+              << std::setw(15) << "sin^2(teff_mu)" << std::setw(13)
+              << s2teff_f("mu") << std::endl
+              << std::setw(15) << "sin^2(teff_tau)" << std::setw(13)
+              << s2teff_f("tau") << std::endl
+              << std::setw(15) << "sin^2(teff_b)" << std::setw(13)
+              << s2teff_f("b") << std::endl
+              << std::setw(15) << "sin^2(teff_c)" << std::setw(13)
+              << s2teff_f("c") << std::endl
+              << std::setw(15) << "sin^2(teff_s)" << std::setw(13)
+              << s2teff_f("s") << std::endl
+              << std::endl;
+
+    std::cout << "  epsilon1 = " << obliqueEpsilon1() << std::endl
+              << "  epsilon2 = " << obliqueEpsilon2() << std::endl
+              << "  epsilon3 = " << obliqueEpsilon3() << std::endl
+              << "         S = " << obliqueS() << std::endl
+              << "         T = " << obliqueT() << std::endl
+              << "         U = " << obliqueU() << std::endl
+              << std::endl;
+}
+
+
+///////////////////////////////////////////////////////////////////////////
+
+double ZFitter::GF() const {
+    //return (1.166388e-5); // for GFER=0
+    //return (1.16639e-5);  // for GFER=1
+    return (1.16637e-5);  // for GFER=2
+}
+
+double ZFitter::alpha() const {
+    return (1.0/137.0359895);
+}
+
 
