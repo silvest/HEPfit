@@ -651,34 +651,38 @@ public:
      * @param[out] R0_tau Gamma_had/Gamma_tau
      * @param[out] R0_b Gamma_b/Gamma_had
      * @param[out] R0_c Gamma_c/Gamma_had
+     * @param[out] R0_s Gamma_s/Gamma_had
      * @param[out] A_e the asymmetry parameter for the e+ e- mode
      * @param[out] A_mu the asymmetry parameter for the mu+ mu- mode
      * @param[out] A_tau the asymmetry parameter for the tau^+ tau- mode
      * @param[out] A_b the asymmetry parameter for the b-bbar mode
      * @param[out] A_c the asymmetry parameter for the c-cbar mode
+     * @param[out] A_s the asymmetry parameter for the s-sbar mode
      * @param[out] AFB0_e the forward-backward asymmetry for the e+ e- mode
      * @param[out] AFB0_mu the forward-backward asymmetry for the mu+ mu- mode
      * @param[out] AFB0_tau the forward-backward asymmetry for the tau^+ tau- mode
      * @param[out] AFB0_b the forward-backward asymmetry for the b-bbar mode
      * @param[out] AFB0_c the forward-backward asymmetry for the c-cbar mode
+     * @param[out] AFB0_s the forward-backward asymmetry for the s-sbar mode
      * @param[out] s2teff_e the effective weak mixing angle for the e+ e- mode
      * @param[out] s2teff_mu the effective weak mixing angle for the mu+ mu- mode
      * @param[out] s2teff_tau the effective weak mixing angle for the tau^+ tau- mode
      * @param[out] s2teff_b the effective weak mixing angle for the b-bbar mode
      * @param[out] s2teff_c the effective weak mixing angle for the c-cbar mode
+     * @param[out] s2teff_s the effective weak mixing angle for the s-sbar mode
      */
     void calcPO(double *mW, double *Gamma_W, double *sw2,
                 double *Gamma_inv, double *Gamma_had, double *Gamma_Z,
                 double *sigma0_e, double *sigma0_mu, double *sigma0_tau, 
                 double *sigma0_had,
                 double *R0_e, double *R0_mu, double *R0_tau,
-                double *R0_b, double *R0_c,
+                double *R0_b, double *R0_c, double *R0_s,
                 double *A_e, double *A_mu, double *A_tau,
-                double *A_b, double *A_c,
+                double *A_b, double *A_c, double *A_s,
                 double *AFB0_e, double *AFB0_mu, double *AFB0_tau,
-                double *AFB0_b, double *AFB0_c,
+                double *AFB0_b, double *AFB0_c, double *AFB0_s,
                 double *s2teff_e, double *s2teff_mu, double *s2teff_tau,
-                double *s2teff_b, double *s2teff_c);
+                double *s2teff_b, double *s2teff_c, double *s2teff_s);
 
     /**
      * @brief calculates the oblique parameters S, T and U
