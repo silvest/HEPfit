@@ -27,15 +27,20 @@ void test1() {
     std::cout << "EWPO:" << std::endl;
     std::cout << "  mW = " << SM.mW() << " GeV" << std::endl;
     std::cout << "  sin^2theta = " << SM.sin2thw() << std::endl;
-    SM.setMZ(99.);
     std::cout << "  mW = " << SM.mW() << " GeV" << std::endl;
     std::cout << "  sin^2theta = " << SM.sin2thw() << std::endl;
     std::cout << "  mW = " << SM.mW() << " GeV" << std::endl;
     std::cout << "  sin^2theta = " << SM.sin2thw() << std::endl;
-    double xx[1000000];
-    for(int i=0; i<10000000; i++)
-        xx[i%1000000]=SM.mW();
+    std::cout << "  mZ = " << SM.getMZ() << std::endl;
+    std::cout << "  als(Mz) = " << SM.als(SM.getMZ()) << std::endl;
+    std::cout << "  als(4.5) = " << SM.als(4.5) << std::endl;
 
+    std::cout << "  als(4.5,0) = " << SM.als(4.5,0) << std::endl;
+    std::cout << "  lambda4 NLO = " << SM.lambda4(1) << std::endl;
+    std::cout << "  lambda4 LO = " << SM.lambda4(0) << std::endl;
+    double mbpole = SM.mbar2mp(4.5);
+    std::cout << "  mbpole = " << mbpole << std::endl;
+    std::cout << " back to mbar... " << SM.mp2mbar(mbpole) << std::endl;
 }
 
 void test2() {
