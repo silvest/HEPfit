@@ -5,21 +5,34 @@
  * Created on February 15, 2011, 11:15 PM
  */
 
+/*
+ *  Documents of ZFITTER:
+ *    hep-ph/9412201
+ *    hep-ph/9908433 for v6.21
+ *    hep-ph/0507146 for v6.42
+ *
+ *
+ *  Constants:
+ *   - G_F^mu and alpha(0) are set in CONST1() in zfbib6_40.f and EWINIT()
+ *     in zfbib6_40.f.
+ *   - All lepton and effective quark masses (u,d,s,c,b) are set in CONST1().
+ *
+ *
+ *
+ *  To do:
+ *   - calcSTU()
+ *
+ */
+
 #ifndef ZFITTER_H
 #define	ZFITTER_H
 
 #include <iostream>
-#include <string>
-
-
-/*  Documents of ZFITTER:
- *     hep-ph/9412201
- *     hep-ph/9908433 for v6.21
- *     hep-ph/0507146 for v6.42  */
+#include <cstring>
 
 
 /* complex double structure defined for ewform_ */
-struct dcomplex { double real, imag; };
+//struct dcomplex { double real, imag; };
 
 
 /* ZFITTER common blocks (glocal variables in ZFITTER)
@@ -32,8 +45,8 @@ extern "C" {
         double QCDCOR[15];
         double ALPHST;
         double SIN2TW;
-        double S2TEFF[12];
-        double WIDTHS[12];
+        double S2TEFF[12]; // do not correspond to the usual sin^2(th_eff^f)
+        double WIDTHS[12]; // in MeV
     } zupars_;
 
     /* electroweak form factors */
@@ -44,15 +57,16 @@ extern "C" {
 
     /* the charges and masses of fermions 
      * note: ALLCH[10,11] and ALLMS[10,11] are not used */
-    //extern struct {
-    //    double ALLCH[12]; // the fermion charges
-    //    double ALLMS[12]; // the fermion masses
-    //} zfchms_;
+    extern struct {
+        double ALLCH[12]; // the fermion charges
+        double ALLMS[12]; // the fermion masses in GeV
+    } zfchms_;
 
-    //extern struct {
-    //    double PARTZ[12]; // \Gamma_f : partial Z-decay widths
-    //    double PARTW[3];
-    //} partzw_;
+    /* widths */
+    extern struct {
+        double PARTZ[12]; // in MeV
+        double PARTW[3];  // in MeV
+    } partzw_;
             
 }
 
@@ -190,14 +204,12 @@ public:
      * @param[in] HMASS_i the pole mass of the Higgs in GeV [10-1000]
      * @param[in] ALFAS_i the strong coupling constant at mZ
      * @param[in] DAL5H_i the 5-quark flavour hadronic vacuum polarization at mZ
-     * @param[in] ALFA_i the fine-structure constant
      * @param[in] V_TB_i the CKM element V_tb
      * @param[in] UMASS_i the constituent mass of the up quark (for calcAPV())
      * @param[in] DMASS_i the constituent mass of the down quark (for calcAPV())
      */
     ZFitter(double ZMASS_i, double TMASS_i, double HMASS_i, double ALFAS_i,
-            double DAL5H_i, double ALFA_i, double V_TB_i, double UMASS_i,
-            double DMASS_i);
+            double DAL5H_i, double V_TB_i, double UMASS_i, double DMASS_i);
 
     /**
      * @brief ZFitter copy constructor
@@ -212,7 +224,6 @@ public:
 
 
     ///////////////////////////////////////////////////////////////////////////
-
     
     /**
      * @return the pole mass of Z in GeV
@@ -270,17 +281,6 @@ public:
     void setDAL5H(double DAL5H) { this->DAL5H = DAL5H; }
 
     /**
-     * @return the fine-structure constant
-     */
-    double getALFA() const { return ALFA; }
-
-    /**
-     * @brief set the fine-structure constant
-     * @param[in] ALFA the fine-structure constant
-     */
-    void setALFA(double ALFA) { this->ALFA = ALFA; }
-
-    /**
      * @return the CKM element V_tb
      */
     double getV_TB() const { return V_TB; }
@@ -317,85 +317,106 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // get variables from Common blocks of ZFITTER
 
-
     /**
      * @return alpha_s(mZ)
      */
-    double getCommonAlphas();
+    double getCommonALPHST();
 
     /**
      * @return sin^2theta_w = 1 - mW^2/mZ^2
      */
-    double getCommonSin2thetaW();
+    double getCommonSIN2TW();
 
     /**
      * @param[in] INDF fermion index
-     * @return effective weak mixing angles @f$\sin^2\theta_{\mathrm{eff}}^f@f$
+     * @return an auxiliary quantity, which do not coincide withtheeffective weak mixing angle
      */
-    double getCommonS2TEFF(int INDF);
+    double getCommonS2TEFF(const int INDF);
 
     /**
      * @param[in] INDF fermion index
-     * @return partial and total decay widths of Z in MeV
+     * @return partial and total decay widths of Z in GeV
      */
-    double getCommonWidths(int INDF);
+    double getCommonWIDTHS(const int INDF);
+
+    /**
+     * @param INDF fermion index
+     * @return fermion charge
+     */
+    double getCommonALLCH(const int INDF);
+
+    /**
+     * @param INDF fermion index
+     * @return fermion mass in GeV
+     */
+    double getCommonALLMS(const int INDF);
+
+    /**
+     * @param[in] INDF fermion index
+     * @return partial or total Z widths in GeV
+     */
+    double getCommonPARTZ(const int INDF);
+   
+    /**
+     * @param[in] i 0:leptons, 1:quarks, 3:total
+     * @return partial or total W widths in GeV
+     */
+    double getCommonPARTW(const int i);
 
 
     ///////////////////////////////////////////////////////////////////////////
     // get variables from Common blocks of DIZET
 
-
     /**
      * @param INDF[in] INDF fermion index
      * @return (\rho_Z^f)'
      */
-    double getCommonARROFZ(int INDF);
+    double getCommonARROFZ(const int INDF);
 
     /**
      * @param INDF[in] INDF fermion index
      * @return Re[\kappa_Z^f]
      */
-    double getCommonARKAFZ(int INDF);
+    double getCommonARKAFZ(const int INDF);
 
     /**
      * @param INDF[in] INDF fermion index
      * @return Re[g_Z^f]
      */
-    double getCommonARVEFZ(int INDF);
+    double getCommonARVEFZ(const int INDF);
 
     /**
      * @param INDF[in] INDF fermion index
      * @return effective weak mixing angles \sin^2\theta_{eff}^f
      */
-    double getCommonARSEFZ(int INDF);
+    double getCommonARSEFZ(const int INDF);
 
     /**
      * @param INDF[in] INDF fermion index
      * @return Re[\rho_Z^f]
      */
-    double getCommonAROTFZ(int INDF);
+    double getCommonAROTFZ(const int INDF);
 
     /**
      * @param INDF[in] INDF fermion index
      * @return Im[\rho_Z^f]
      */
-    double getCommonAIROFZ(int INDF);
+    double getCommonAIROFZ(const int INDF);
 
     /**
      * @param INDF[in] INDF fermion index
      * @return Im[\kappa_Z^f]
      */
-    double getCommonAIKAFZ(int INDF);
+    double getCommonAIKAFZ(const int INDF);
 
     /**
      * @param INDF[in] INDF fermion index
      * @return Im[g_Z^f]
      */
-    double getCommonAIVEFZ(int INDF);
+    double getCommonAIVEFZ(const int INDF);
 
 
     ///////////////////////////////////////////////////////////////////////////
-
     
     /**
      * @brief Test program calculates cross sections and asymmetries as functions of @f$\sqrt{s}@f$
@@ -411,7 +432,7 @@ public:
     void init(const int IPRINT);
 
     /**
-     * @brief prints flag or cut info
+     * @brief prints flag or cut info using a ZFITTER subroutine
      * @param[in] MODE 0(1) for printing flag(cut) info
      */
     void info(const int MODE);
@@ -447,37 +468,48 @@ public:
     /**
      * @brief calculates a cross section and a forward-backward asymmetry
      * @param[in] INDF fermion index
-     * @param[in] SQRS sqrt(s) 
+     * @param[in] SQRS sqrt(s)
+     * @param[out] XS cross section in nb
+     * @param[out] AFB forward-backward asymmetry
      */
-    void calcXS_AFB(const int INDF, const double SQRS);
+    void calcXS_AFB(const int INDF, const double SQRS, double *XS, double *AFB);
 
     /**
      * @brief calculates a differential cross section w.r.t cos(theta)
      * @param[in] INDF fermion index
      * @param[in] SQRS sqrt(s)
      * @param[in] CSA cosine of scattering angle
+     * @param[out] DXS differential cross section
      */
-    void calcDXS(const int INDF, const double SQRS, const double CSA);
+    void calcDXS(const int INDF, const double SQRS, const double CSA, double *DXS);
 
     /**
      * @brief calculates the tau polarization and tau polarization asymmetry
      * @param[in] SQRS sqrt(s)
+     * @param[out] TAUPOL tau polarization
+     * @param[out] TAUAFB tau polarization forward-backward asymmetry
      */
-    void calcTauPol(const double SQRS);
+    void calcTauPol(const double SQRS, double *TAUPOL, double *TAUAFB);
 
     /**
      * @brief calculates a left-right polarization asymmetry
      * @param[in] INDF fermion index 
      * @param[in] SQRS sqrt(s)
      * @param[in] POL degree of the longitudinal e^- polarization
+     * @param[out] XSPL cross section for a given +POL
+     * @param[out] XSMI cross section for a given -POL
      */
-    void calcALR(const int INDF, const double SQRS, const double POL);
-
+    void calcALR(const int INDF, const double SQRS, const double POL,
+                 double *XSPL, double *XSMI);
 
     /**
      * @brief calculates C_1u, C_1d, C_2u and C_2d with an exp. input from atomic parity violation measurements in heavy atoms
+     * @param[out] C1U coupling in the electron-quark parity-violating Hamiltonian
+     * @param[out] C1D coupling in the electron-quark parity-violating Hamiltonian
+     * @param[out] C2U coupling in the electron-quark parity-violating Hamiltonian
+     * @param[out] C2D coupling in the electron-quark parity-violating Hamiltonian
      */
-    void calcAPV();
+    void calcAPV(double *C1U, double *C1D, double *C2U, double *C2D);
 
     /** 
      * @brief calculates a cross section as a function of s, mZ, Gamma_Z, Gamma_e, Gamma_f
@@ -486,9 +518,10 @@ public:
      * @param[in] GAMZ0 the total width of Z
      * @param[in] GAMEE the e^+e^- partial width of Z
      * @param[in] GAMFF the f\bar{f} partial width of Z
+     * @param[out] XS cross section in nb
      */
     void calcXS(const int INDF, const double SQRS, const double GAMZ0,
-                const double GAMEE, const double GAMFF);
+                const double GAMEE, const double GAMFF, double *XS);
 
     /**
      * @brief calculates a cross section and a forward-backward asymmetry as functions of s, mZ, Gamma_Z and the weak couplings
@@ -500,10 +533,12 @@ public:
      * @param[in] XE axial vector coupling or rho (electron)
      * @param[in] GVF effective vector coupling (fermion)
      * @param[in] XF axial vector coupling or rho (fermion)
+     * @param[out] XS cross section in nb
+     * @param[out] AFB forward-backward asymmetry
      */
     void calcXS_AFB_2(const int INDF, const double SQRS, const double GAMZ0,
                       const int MODE, const double GVE, const double XE,
-                      const double GVF, const double XF);
+                      const double GVF, const double XF, double *XS, double *AFB);
 
     /**
      * @brief calculates a cross section and a forward-backward asymmetry as functions of s, mZ, Gamma_Z and the weak couplings, assuming lepton universality
@@ -514,9 +549,12 @@ public:
      * @param[in] MODE meaning of X2, 0 for axial vector coupling squared, 1 for rho squared
      * @param[in] GV2 effective vector coupling squared
      * @param[in] X2 eff. axial vector coupling or rho, squared
+     * @param[out] XS cross section in nb
+     * @param[out] AFB forward-backward asymmetry
      */
     void calcXS_AFB_3(const int INDF, const double SQRS, const double GAMZ0,
-                      const int MODE, const double GV2, const double X2);
+                      const int MODE, const double GV2, const double X2,
+                      double *XS, double *AFB);
 
     /**
      * @brief calculates a cross section and a forward-backward asymmetry as functions of s, mZ, Gamma_Z and the weak couplings
@@ -526,9 +564,12 @@ public:
      * @param[in] PFOUR VE*AE*VF*AF
      * @param[in] PVAE2 VE**2+AE**2
      * @param[in] PVAF2 VF**2+AF**2
+     * @param[out] XS cross section in nb
+     * @param[out] AFB forward-backward asymmetry
      */
     void calcXS_AFB_4(const int INDF, const double SQRS, const double GAMZ0,
-                      const double PFOUR, const double PVAE2, const double PVAF2);
+                      const double PFOUR, const double PVAE2, const double PVAF2,
+                      double *XS, double *AFB);
 
     /**
      * @brief calculates the tau polarization and tau polarization asymmetry as functions of s, mZ, Gamma_Z and the weak couplings
@@ -539,23 +580,113 @@ public:
      * @param[in] XE axial vector coupling or rho (electron)
      * @param[in] GVF effective vector coupling (fermion)
      * @param[in] XF axial vector coupling or rho (fermion)
+     * @param[out] TAUPOL tau polarization
+     * @param[out] TAUAFB tau polarization forward-backward asymmetry
      */
     void calcTauPol_2(const double SQRS, const double GAMZ0, const int MODE,
                       const double GVE, const double XE, const double GVF,
-                      const double XF);
+                      const double XF, double *TAUPOL, double *TAUAFB);
 
 
     ///////////////////////////////////////////////////////////////////////////
 
-    /* Outputs */
-    double XS[12]; // cross section in nb
-    double DXS[12]; // differential cross section
-    double AFB[12]; // forward-backward asymmetry
-    double TAUPOL; // tau polarization
-    double TAUAFB; // tau polarization forward-backward asymmetry
-    double XSPL[12]; // cross section for a given +POL
-    double XSMI[12]; // cross section for a given -POL
-    double C1U, C1D, C2U, C2D; // couplings in the electron-quark parity-violating Hamiltonian
+    /**
+     * @brief sets flags (see Appendix B.2 in hep-ph/0507146)
+     * @param[in] flags the array of the flags
+     * @param[in] flagPrint prints flags if flagPrint=1
+     */
+    void setAllFlags(const int flags[46], const int flagPrint);
+
+    /**
+     * @brief sets cuts
+     * @param[in] ICUT controls thekinds of cuts to be used
+     * @param[in] ACOL acolinearity cut
+     * @param[in] EMIN minimum fermion energy
+     * @param[in] S_PR s' (variable related to maximum photon energy)
+     * @param[in] ANG0 minimum polar angle theta (deg)
+     * @param[in] ANG1 maximum polar angle theta (deg)
+     * @param[in] SPP s cut for for the secondary pairs, ISPP+FSPP
+     * @param[in] flagPrint prints flags if flagPrint=1
+     */
+    void setAllCuts(const int ICUT[12], const double ACOL[12],
+                    const double EMIN[12], const double S_PR[12],
+                    const double ANG0[12], const double ANG1[12],
+                    const double SPP[12], const int flagPrint);
+
+    /**
+     * @param[in] INDF fermion index
+     * @return string of the channel corresponding to INDF
+     */
+    std::string convertINDF(const int INDF);
+
+    /**
+     * @brief prints constants defined in ZFITTER
+     */
+    void printConstants();
+
+    /**
+     * @brief prints input prameters
+     */
+    void printInputs();
+
+    /**
+     * @brief ptints results
+     */
+    void printResults();
+
+    /**
+     * @brief calculates pseudo observables
+     * @param[out] mW the mass of the W boson in GeV
+     * @param[out] Gamma_W the total width of the W boson in GeV
+     * @param[out] sw2 the weak mixing angle
+     * @param[out] Gamma_inv the invisible width of the Z boson in GeV
+     * @param[out] Gamma_had the hadronic width of the Z boson in GeV
+     * @param[out] Gamma_Z the total width of the Z boson in GeV
+     * @param[out] sigma0_e electric pole cross section of the Z boson in GeV^-2
+     * @param[out] sigma0_mu muonic pole cross section of the Z boson in GeV^-2
+     * @param[out] sigma0_tau tauonic pole cross section of the Z boson in GeV^-2
+     * @param[out] sigma0_had hadronic pole cross section of the Z boson in GeV^-2
+     * @param[out] R0_e Gamma_had/Gamma_e
+     * @param[out] R0_mu Gamma_had/Gamma_mu
+     * @param[out] R0_tau Gamma_had/Gamma_tau
+     * @param[out] R0_b Gamma_b/Gamma_had
+     * @param[out] R0_c Gamma_c/Gamma_had
+     * @param[out] A_e the asymmetry parameter for the e+ e- mode
+     * @param[out] A_mu the asymmetry parameter for the mu+ mu- mode
+     * @param[out] A_tau the asymmetry parameter for the tau^+ tau- mode
+     * @param[out] A_b the asymmetry parameter for the b-bbar mode
+     * @param[out] A_c the asymmetry parameter for the c-cbar mode
+     * @param[out] AFB0_e the forward-backward asymmetry for the e+ e- mode
+     * @param[out] AFB0_mu the forward-backward asymmetry for the mu+ mu- mode
+     * @param[out] AFB0_tau the forward-backward asymmetry for the tau^+ tau- mode
+     * @param[out] AFB0_b the forward-backward asymmetry for the b-bbar mode
+     * @param[out] AFB0_c the forward-backward asymmetry for the c-cbar mode
+     * @param[out] s2teff_e the effective weak mixing angle for the e+ e- mode
+     * @param[out] s2teff_mu the effective weak mixing angle for the mu+ mu- mode
+     * @param[out] s2teff_tau the effective weak mixing angle for the tau^+ tau- mode
+     * @param[out] s2teff_b the effective weak mixing angle for the b-bbar mode
+     * @param[out] s2teff_c the effective weak mixing angle for the c-cbar mode
+     */
+    void calcPO(double *mW, double *Gamma_W, double *sw2,
+                double *Gamma_inv, double *Gamma_had, double *Gamma_Z,
+                double *sigma0_e, double *sigma0_mu, double *sigma0_tau, 
+                double *sigma0_had,
+                double *R0_e, double *R0_mu, double *R0_tau,
+                double *R0_b, double *R0_c,
+                double *A_e, double *A_mu, double *A_tau,
+                double *A_b, double *A_c,
+                double *AFB0_e, double *AFB0_mu, double *AFB0_tau,
+                double *AFB0_b, double *AFB0_c,
+                double *s2teff_e, double *s2teff_mu, double *s2teff_tau,
+                double *s2teff_b, double *s2teff_c);
+
+    /**
+     * @brief calculates the oblique parameters S, T and U
+     * @param[out] S the oblique parameter S
+     * @param[out] T the oblique parameter T
+     * @param[out] U the oblique parameter U
+     */
+    void calcSTU(double *S, double *T, double *U);
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -568,12 +699,12 @@ private:
     double HMASS; // the pole mass of the Higgs in GeV [10-1000]
     double ALFAS; // the strong coupling constant at mZ
     double DAL5H; // the 5-quark flavour hadronic vacuum polarization at mZ
-    double ALFA;  // the fine-structure constant
     double V_TB;  // the CKM element V_tb
     double UMASS; // the constituent mass of the up quark
     double DMASS; // the constituent mass of the down quark
 
 };
 
-#endif	/* ZFITTER_H */
 
+#endif	/* ZFITTER_H */
+    
