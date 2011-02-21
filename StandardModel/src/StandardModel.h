@@ -14,13 +14,13 @@
 #include <gslpp_matrix_double.h>
 #include <gslpp_matrix_complex.h>
 #include <Parameters.h>
-#include <vector>
+#include "QCD.h"
 
 /**
  * @class StandardModel
  * @brief Standard Model Class
  */
-class StandardModel {
+class StandardModel: public QCD {
 public:
 //static const std::map<std::string,std::vector<std::string> > Deps;
 /**
@@ -99,39 +99,6 @@ public:
     void setVCKM(gslpp::matrix<gslpp::complex> VCKM) { this->VCKM = VCKM; }
 
     /**
-     * @return the bottom mass
-     */
-    double getMb() const { return mb; }
-
-    /**
-     * @brief set the bottom mass
-     * @param mb the bottom mass mb(mb)
-     */
-    void setMb(double mb) { this->mb = mb; }
-
-    /**
-     * @return the charm mass
-     */
-    double getMc() const { return mc; }
-
-    /**
-     * @brief set the charm mass
-     * @param mc the charm mass mc(mc)
-     */
-    void setMc(double mc) { this->mc = mc; }
-
-    /**
-     * @return the down mass
-     */
-    double getMd() const { return md; }
-
-    /**
-     * @brief set the down mass
-     * @param md the down mass at 2 GeV
-     */
-     void setMd(double md) { this->md = md; }
-
-    /**
      * @return the electron mass
      */
     double getMe() const { return me; }
@@ -187,28 +154,6 @@ public:
      void setMnu3(double mnu3) { this->mnu3 = mnu3; }
 
     /**
-     * @return the strange mass
-     */
-    double getMs() const { return ms; }
-
-    /**
-     * @brief set the strange mass
-     * @param ms the strange mass at 2 GeV
-     */
-     void setMs(double ms) { this->ms = ms; }
-
-    /**
-     * @return the top mass
-     */
-    double getMt() const { return mt; }
-
-    /**
-     * @brief set the top mass
-     * @param mt the top mass mt(mt)
-     */
-     void setMt(double mt) { this->mt = mt; }
-
-    /**
      * @return the tau mass
      */
     double getMtau() const { return mtau; }
@@ -218,17 +163,6 @@ public:
      * @param mtau the tau mass
      */
      void setMtau(double mtau) { this->mtau = mtau; }
-
-    /**
-     * @return the up mass
-     */
-    double getMu() const { return mu; }
-
-     /**
-     * @brief set the up mass
-     * @param mu the up mass at 2 GeV
-     */
-    void setMu(double mu) { this->mu = mu; }
 
     /**
      *
@@ -457,11 +391,11 @@ public:
 
 protected:
     gslpp::matrix<gslpp::complex> VCKM, UPMNS, Yd, Yu, Ye, Yn;
-    double mu, md, mc, ms, mt, mb, me, mmu, mtau, mnu1, mnu2, mnu3;
+    double me, mmu, mtau, mnu1, mnu2, mnu3;
     double mHl, alsMz, ale, mZ, GF, dAle5Mz;
 //    static const std::vector<std::string> pino;
-    mutable std::map<std::string,double> Hashes;
-    mutable std::map<std::string,double> DValues;
+//    mutable std::map<std::string,double> Hashes;
+//    mutable std::map<std::string,double> DValues;
 };
 
 #endif	/* STANDARDMODEL_H */

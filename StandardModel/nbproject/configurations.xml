@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>src/QCD.h</itemPath>
       <itemPath>src/StandardModel.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -16,6 +17,7 @@
                    displayName="Source Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>src/QCD.cpp</itemPath>
       <itemPath>src/StandardModel.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -47,9 +49,9 @@
       <compileType>
         <ccTool>
           <incDir>
-            <pElem>../gslpp/src</pElem>
-            <pElem>src</pElem>
             <pElem>../Utils/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>/usr/include/root</pElem>
           </incDir>
         </ccTool>
         <archiverTool>
@@ -85,10 +87,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -131,10 +139,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

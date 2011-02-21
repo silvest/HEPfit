@@ -9,6 +9,9 @@
 //#include <boost/assign/list_of.hpp> // for 'map_list_of()'
 #include <iostream>
 #include <math.h>
+#include <TF1.h>
+#include "Math/WrappedTF1.h"
+#include "Math/BrentRootFinder.h"
 
 //const std::vector<std::string> pino = boost::assign::list_of("A")("BC");
 //
@@ -26,8 +29,9 @@ StandardModel::StandardModel(const gslpp::matrix<gslpp::complex>& VCKM_i,
         double mb_i, const gslpp::matrix<gslpp::complex>& UPMNS_i, double me_i,
         double mmu_i, double mtau_i, double mnu1_i, double mnu2_i,
         double mnu3_i, double GF_i, double alsMz_i, double ale_i, double mZ_i,
-        double dAle5Mz_i, double mHl_i) : UPMNS(UPMNS_i), VCKM(VCKM_i),
-        Yd(3,3,0.), Yu(3,3,0.), Ye(3,3,0.), Yn(3,3,0.) {
+        double dAle5Mz_i, double mHl_i) : QCD(alsMz_i, mZ_i, mt_i, mb_i, mc_i),
+        UPMNS(UPMNS_i), VCKM(VCKM_i), Yd(3,3,0.), Yu(3,3,0.), Ye(3,3,0.),
+        Yn(3,3,0.) {
     GF = GF_i;
     alsMz = alsMz_i;
     ale = ale_i;
@@ -91,6 +95,14 @@ StandardModel::StandardModel(Parameters& Par): UPMNS(3,3,0.), VCKM(3,3,0.),
     Par.Get("mZ", mZ);
     Par.Get("dAle5Mz", dAle5Mz);
     Par.Get("mHl", mHl);
+    if(Par.Find("mu1") == Parameters::DOUBLE) Par.Get("mu1", mu1);
+    else mu1 = mt;
+    if(Par.Find("mu2") == Parameters::DOUBLE) Par.Get("mu2", mu2);
+    else mu2 = mb;
+    if(Par.Find("mu3") == Parameters::DOUBLE) Par.Get("mu3", mu3);
+    else mu3 = mc;
+    AlsM = alsMz;
+    M = mZ;
 }
 
 
@@ -214,27 +226,26 @@ double StandardModel::sin2thwb() const{
                  + d7*Delta_t*Delta_t + d8*Delta_t*(Delta_H - 1.0)
                  + d9*Delta_alphas + d10*Delta_Z;
     return sin2b;
+}
 
-    }
 
-
-    double StandardModel::sin2thwall(const std::string& ferm) const{
+double StandardModel::sin2thwall(const std::string& ferm) const {
     //Effective mixing angle for leptons,and c,b quarks
     //http://arXiv.org/abs/0811.1364v2, http://arXiv.org/abs/hep-ph/0608099v2
     // applicable for 10 GeV <= mHl <= 1 TeV
 
-        //order is charged lepton, c, b quark
-     const double s0[3] ={0.2312527,0.2311395,0.2327580};
-     const double d1[3] = {4.729*0.0001,4.726*0.0001,4.749*0.0001};
-     const double d2[3] = {2.07*0.00001,2.07*0.00001,2.03*0.00001};
-     const double d3[3] = {3.85*0.000001,3.85*0.000001 ,3.94*0.000001};
-     const double d4[3] = {-1.85*0.000001,-1.85*0.000001,-1.84*0.000001};
-     const double d5[3] = {0.0207,0.0207,0.0208};
-     const double d6[3] = {-0.002851,-0.002853,-9.93*0.0001};
-     const double d7[3] = {1.82*0.0001,1.83*0.0001,7.08*0.00001};
-     const double d8[3] = {-9.74*0.000001,-9.73*0.000001,-7.61*0.000001};
-     const double d9[3] = {3.98*0.0001,3.98*0.0001,4.03*0.0001};
-     const double d10[3] = {-0.655,-0.655,0.661};
+    //order is charged lepton, c, b quark
+    const double s0[3] ={0.2312527,0.2311395,0.2327580};
+    const double d1[3] = {4.729*0.0001,4.726*0.0001,4.749*0.0001};
+    const double d2[3] = {2.07*0.00001,2.07*0.00001,2.03*0.00001};
+    const double d3[3] = {3.85*0.000001,3.85*0.000001 ,3.94*0.000001};
+    const double d4[3] = {-1.85*0.000001,-1.85*0.000001,-1.84*0.000001};
+    const double d5[3] = {0.0207,0.0207,0.0208};
+    const double d6[3] = {-0.002851,-0.002853,-9.93*0.0001};
+    const double d7[3] = {1.82*0.0001,1.83*0.0001,7.08*0.00001};
+    const double d8[3] = {-9.74*0.000001,-9.73*0.000001,-7.61*0.000001};
+    const double d9[3] = {3.98*0.0001,3.98*0.0001,4.03*0.0001};
+    const double d10[3] = {-0.655,-0.655,0.661};
 
     double L_H = log(mHl/100.0);
     double Delta_H = mHl/100.0;
@@ -253,9 +264,8 @@ double StandardModel::sin2thwb() const{
                  + d4[i]*(Delta_H*Delta_H - 1.0) + d5[i]*Delta_alphae + d6[i]*Delta_t
                  + d7[i]*Delta_t*Delta_t + d8[i]*Delta_t*(Delta_H - 1.0)
                  + d9[i]*Delta_alphas + d10[i]*Delta_Z;}
-
-        return sin2t;
-     }
+    return sin2t;
+}
 
 
 
@@ -318,7 +328,4 @@ double StandardModel::T() const {
 double StandardModel::U() const {
     return 0.0;
 }
-
-
-
 
