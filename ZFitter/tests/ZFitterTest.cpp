@@ -13,14 +13,6 @@
 #include "../src/ZFitter.h"
 
 
-// GeV^{-2} --> nb
-const double GeVminus2_to_nb = pow(10.0, -6.0)
-                               / pow(10.0, -28.0)
-                               / pow(299792458.0, -2.0)
-                               / pow(6.58211899*pow(10.0,-22.0), -2.0)
-                               * pow(10.0, 9.0);
-
-
 /* Test for functions in Zfitter class */
 void test_ZFitterClass(ZFitter& ZF) {
 
@@ -106,9 +98,9 @@ void test_ZFitterClass(ZFitter& ZF) {
     ZF.printConstants();
 
     /* print intermediate retults */
-    std::cout << "##### call ZFitter::printResults() #####"
+    std::cout << "##### call ZFitter::printIntermediateResults() #####"
               << std::endl << std::endl;
-    ZF.printResults();
+    ZF.printIntermediateResults();
     
     /* Atomic Patity Violation */
     std::cout << "##### call ZFitter::calcAPV() #####" << std::endl << std::endl;
@@ -292,60 +284,8 @@ void test_ZFitterClass(ZFitter& ZF) {
     }
     std::cout << std::endl;
 
-    std::cout << "##### call ZFitter::calcPO() #####" << std::endl << std::endl;
-    double mW, Gamma_W, sw2;
-    double Gamma_inv, Gamma_had, Gamma_total;
-    double sigma0_e, sigma0_mu, sigma0_tau, sigma0_had;
-    double R0_e, R0_mu, R0_tau, R0_b, R0_c, R0_s;
-    double A_e, A_mu, A_tau, A_b, A_c, A_s;
-    double AFB0_e, AFB0_mu, AFB0_tau, AFB0_b, AFB0_c, AFB0_s;
-    double s2teff_e, s2teff_mu, s2teff_tau, s2teff_b, s2teff_c, s2teff_s;
-    ZF.calcPO(&mW, &Gamma_W, &sw2,
-              &Gamma_inv, &Gamma_had, &Gamma_total,
-              &sigma0_e, &sigma0_mu, &sigma0_tau, &sigma0_had,
-              &R0_e, &R0_mu, &R0_tau, &R0_b, &R0_c, &R0_s,
-              &A_e, &A_mu, &A_tau, &A_b, &A_c, &A_s,
-              &AFB0_e, &AFB0_mu, &AFB0_tau, &AFB0_b, &AFB0_c, &AFB0_s,
-              &s2teff_e, &s2teff_mu, &s2teff_tau, &s2teff_b, &s2teff_c, &s2teff_s);
-    std::cout << std::setw(15) << "m_W [GeV]" << std::setw(13)<< mW << std::endl
-              << std::setw(15) << "Gamma_W [GeV]" << std::setw(13) << Gamma_W << std::endl
-              << std::setw(15) << "sin^2(th_W)" << std::setw(13) << sw2 << std::endl
-              << std::setw(15) << "Gamma_inv [GeV]" << std::setw(13) << Gamma_inv << std::endl
-              << std::setw(15) << "Gamma_had [GeV]" << std::setw(13) << Gamma_had << std::endl
-              << std::setw(15) << "Gamma_Z [GeV]" << std::setw(13) << Gamma_total << std::endl
-              << std::setw(15) << "sigma0_e [nb]" << std::setw(13)
-              << sigma0_e*GeVminus2_to_nb << std::endl
-              << std::setw(15) << "sigma0_mu [nb]" << std::setw(13)
-              << sigma0_mu*GeVminus2_to_nb << std::endl
-              << std::setw(15) << "sigma0_tau [nb]" << std::setw(13)
-              << sigma0_tau*GeVminus2_to_nb << std::endl
-              << std::setw(15) << "sigma0_had [nb]" << std::setw(13)
-              << sigma0_had*GeVminus2_to_nb << std::endl
-              << std::setw(15) << "R0_e" << std::setw(13) << R0_e << std::endl
-              << std::setw(15) << "R0_mu" << std::setw(13) << R0_mu << std::endl
-              << std::setw(15) << "R0_tau" << std::setw(13) << R0_tau << std::endl
-              << std::setw(15) << "R0_b" << std::setw(13) << R0_b << std::endl
-              << std::setw(15) << "R0_c" << std::setw(13) << R0_c << std::endl
-              << std::setw(15) << "R0_s" << std::setw(13) << R0_s << std::endl
-              << std::setw(15) << "A_e" << std::setw(13) << A_e << std::endl
-              << std::setw(15) << "A_mu" << std::setw(13) << A_mu << std::endl
-              << std::setw(15) << "A_tau" << std::setw(13) << A_tau << std::endl
-              << std::setw(15) << "A_b" << std::setw(13) << A_b << std::endl
-              << std::setw(15) << "A_c" << std::setw(13) << A_c << std::endl
-              << std::setw(15) << "A_s" << std::setw(13) << A_s << std::endl
-              << std::setw(15) << "AFB0_e" << std::setw(13) << AFB0_e << std::endl
-              << std::setw(15) << "AFB0_mu" << std::setw(13) << AFB0_mu << std::endl
-              << std::setw(15) << "AFB0_tau" << std::setw(13) << AFB0_tau << std::endl
-              << std::setw(15) << "AFB0_b" << std::setw(13) << AFB0_b << std::endl
-              << std::setw(15) << "AFB0_c" << std::setw(13) << AFB0_c << std::endl
-              << std::setw(15) << "AFB0_s" << std::setw(13) << AFB0_s << std::endl
-              << std::setw(15) << "sin^2(teff_e)" << std::setw(13) << s2teff_e << std::endl
-              << std::setw(15) << "sin^2(teff_mu)" << std::setw(13) << s2teff_mu << std::endl
-              << std::setw(15) << "sin^2(teff_tau)" << std::setw(13) << s2teff_tau << std::endl
-              << std::setw(15) << "sin^2(teff_b)" << std::setw(13) << s2teff_b << std::endl
-              << std::setw(15) << "sin^2(teff_c)" << std::setw(13) << s2teff_c << std::endl
-              << std::setw(15) << "sin^2(teff_s)" << std::setw(13) << s2teff_s << std::endl
-              << std::endl;
+    std::cout << "##### call ZFitter::printPO() #####" << std::endl << std::endl;
+    ZF.printPO();
 
     
     /* Outputs from ZFITTER subroutines (for tests) */
@@ -392,7 +332,7 @@ int main(int argc, char** argv) {
             /* test with Subroutine ZFTEST in ZFITTER */
             test_ZFTEST(ZF);
         } else {
-            std::cout << "use the option -t for ZFTEST" << std::endl;
+            std::cout << "use the option -t for ZFTEST()" << std::endl;
         }
     } else {
         /* compute EW precision observables */
