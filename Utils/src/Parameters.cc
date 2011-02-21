@@ -157,3 +157,13 @@ void Parameters::InMap(std::string s, MapType m)
   std::cout << "ERROR: wrong type or key \"" << s << "\" not found" << std::endl;
   exit(EXIT_FAILURE);
 }
+
+int Parameters::Find(std::string s) const {
+    if(Ints.find(s) != Ints.end()) return(INT);
+    if(Doubles.find(s) != Doubles.end()) return(DOUBLE);
+    if(Complexes.find(s) != Complexes.end()) return(COMPLEX);
+    if(Strings.find(s) != Strings.end()) return(STRING);
+    if(DoubleMatrices.find(s) != DoubleMatrices.end()) return(DOUBLE_MATRIX);
+    if(ComplexMatrices.find(s) != ComplexMatrices.end()) return(COMPLEX_MATRIX);
+    return(-1);
+}

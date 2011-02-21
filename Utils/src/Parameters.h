@@ -12,7 +12,7 @@ class Parameters {
   public:
     static const int NumberOfTypes = 6;
     static const std::string TypeList[NumberOfTypes]; 
-
+    enum MapType {INT, DOUBLE, COMPLEX, STRING, DOUBLE_MATRIX, COMPLEX_MATRIX};
     /**
      * @brief Void constructor
      */
@@ -131,8 +131,9 @@ class Parameters {
      */
     void Get(std::string s, gslpp::matrix<gslpp::complex>& mc);
 
+    int Find(std::string s) const;
+
   private:
-    enum MapType {INT, DOUBLE, COMPLEX, STRING, DOUBLE_MATRIX, COMPLEX_MATRIX};
     std::map<std::string, int> Ints;
     std::map<std::string, double> Doubles;
     std::map<std::string, gslpp::complex> Complexes;
