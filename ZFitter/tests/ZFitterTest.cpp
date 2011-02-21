@@ -296,17 +296,17 @@ void test_ZFitterClass(ZFitter& ZF) {
     double mW, Gamma_W, sw2;
     double Gamma_inv, Gamma_had, Gamma_total;
     double sigma0_e, sigma0_mu, sigma0_tau, sigma0_had;
-    double R0_e, R0_mu, R0_tau, R0_b, R0_c;
-    double A_e, A_mu, A_tau, A_b, A_c;
-    double AFB0_e, AFB0_mu, AFB0_tau, AFB0_b, AFB0_c;
-    double s2teff_e, s2teff_mu, s2teff_tau, s2teff_b, s2teff_c;
+    double R0_e, R0_mu, R0_tau, R0_b, R0_c, R0_s;
+    double A_e, A_mu, A_tau, A_b, A_c, A_s;
+    double AFB0_e, AFB0_mu, AFB0_tau, AFB0_b, AFB0_c, AFB0_s;
+    double s2teff_e, s2teff_mu, s2teff_tau, s2teff_b, s2teff_c, s2teff_s;
     ZF.calcPO(&mW, &Gamma_W, &sw2,
               &Gamma_inv, &Gamma_had, &Gamma_total,
               &sigma0_e, &sigma0_mu, &sigma0_tau, &sigma0_had,
-              &R0_e, &R0_mu, &R0_tau, &R0_b, &R0_c,
-              &A_e, &A_mu, &A_tau, &A_b, &A_c,
-              &AFB0_e, &AFB0_mu, &AFB0_tau, &AFB0_b, &AFB0_c,
-              &s2teff_e, &s2teff_mu, &s2teff_tau, &s2teff_b, &s2teff_c);
+              &R0_e, &R0_mu, &R0_tau, &R0_b, &R0_c, &R0_s,
+              &A_e, &A_mu, &A_tau, &A_b, &A_c, &A_s,
+              &AFB0_e, &AFB0_mu, &AFB0_tau, &AFB0_b, &AFB0_c, &AFB0_s,
+              &s2teff_e, &s2teff_mu, &s2teff_tau, &s2teff_b, &s2teff_c, &s2teff_s);
     std::cout << std::setw(15) << "m_W [GeV]" << std::setw(13)<< mW << std::endl
               << std::setw(15) << "Gamma_W [GeV]" << std::setw(13) << Gamma_W << std::endl
               << std::setw(15) << "sin^2(th_W)" << std::setw(13) << sw2 << std::endl
@@ -326,21 +326,25 @@ void test_ZFitterClass(ZFitter& ZF) {
               << std::setw(15) << "R0_tau" << std::setw(13) << R0_tau << std::endl
               << std::setw(15) << "R0_b" << std::setw(13) << R0_b << std::endl
               << std::setw(15) << "R0_c" << std::setw(13) << R0_c << std::endl
+              << std::setw(15) << "R0_s" << std::setw(13) << R0_s << std::endl
               << std::setw(15) << "A_e" << std::setw(13) << A_e << std::endl
               << std::setw(15) << "A_mu" << std::setw(13) << A_mu << std::endl
               << std::setw(15) << "A_tau" << std::setw(13) << A_tau << std::endl
               << std::setw(15) << "A_b" << std::setw(13) << A_b << std::endl
               << std::setw(15) << "A_c" << std::setw(13) << A_c << std::endl
+              << std::setw(15) << "A_s" << std::setw(13) << A_s << std::endl
               << std::setw(15) << "AFB0_e" << std::setw(13) << AFB0_e << std::endl
               << std::setw(15) << "AFB0_mu" << std::setw(13) << AFB0_mu << std::endl
               << std::setw(15) << "AFB0_tau" << std::setw(13) << AFB0_tau << std::endl
               << std::setw(15) << "AFB0_b" << std::setw(13) << AFB0_b << std::endl
               << std::setw(15) << "AFB0_c" << std::setw(13) << AFB0_c << std::endl
+              << std::setw(15) << "AFB0_s" << std::setw(13) << AFB0_s << std::endl
               << std::setw(15) << "sin^2(teff_e)" << std::setw(13) << s2teff_e << std::endl
               << std::setw(15) << "sin^2(teff_mu)" << std::setw(13) << s2teff_mu << std::endl
               << std::setw(15) << "sin^2(teff_tau)" << std::setw(13) << s2teff_tau << std::endl
               << std::setw(15) << "sin^2(teff_b)" << std::setw(13) << s2teff_b << std::endl
               << std::setw(15) << "sin^2(teff_c)" << std::setw(13) << s2teff_c << std::endl
+              << std::setw(15) << "sin^2(teff_s)" << std::setw(13) << s2teff_s << std::endl
               << std::endl;
 
     

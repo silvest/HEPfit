@@ -426,13 +426,13 @@ void ZFitter::calcPO(double *mW, double *Gamma_W, double *sw2,
                      double *sigma0_e, double *sigma0_mu, double *sigma0_tau,
                      double *sigma0_had,
                      double *R0_e, double *R0_mu, double *R0_tau,
-                     double *R0_b, double *R0_c,
+                     double *R0_b, double *R0_c, double *R0_s,
                      double *A_e, double *A_mu, double *A_tau,
-                     double *A_b, double *A_c,
+                     double *A_b, double *A_c, double *A_s,
                      double *AFB0_e, double *AFB0_mu, double *AFB0_tau,
-                     double *AFB0_b, double *AFB0_c,
+                     double *AFB0_b, double *AFB0_c, double *AFB0_s,
                      double *s2teff_e, double *s2teff_mu, double *s2teff_tau,
-                     double *s2teff_b, double *s2teff_c) {
+                     double *s2teff_b, double *s2teff_c, double *s2teff_s) {
 
     *mW = ZMASS*sqrt(1.0-getCommonSIN2TW());
     *Gamma_W =getCommonPARTW(2);
@@ -462,29 +462,34 @@ void ZFitter::calcPO(double *mW, double *Gamma_W, double *sw2,
     *R0_tau = Gamma_hadron/Gamma_tau;
     *R0_b = getCommonWIDTHS(9)/Gamma_hadron;
     *R0_c = getCommonWIDTHS(6) / Gamma_hadron;
+    *R0_s = getCommonWIDTHS(7) / Gamma_hadron;
 
     double Re_gZ_e = getCommonARVEFZ(1);
     double Re_gZ_mu = getCommonARVEFZ(2);
     double Re_gZ_tau = getCommonARVEFZ(3);
     double Re_gZ_b = getCommonARVEFZ(9);
     double Re_gZ_c = getCommonARVEFZ(6);
+    double Re_gZ_s = getCommonARVEFZ(7);
     *A_e = 2.0*Re_gZ_e/(Re_gZ_e*Re_gZ_e + 1.0);
     *A_mu = 2.0*Re_gZ_mu/(Re_gZ_mu*Re_gZ_mu + 1.0);
     *A_tau = 2.0*Re_gZ_tau/(Re_gZ_tau*Re_gZ_tau + 1.0);
     *A_b = 2.0*Re_gZ_b/(Re_gZ_b*Re_gZ_b + 1.0);
     *A_c = 2.0*Re_gZ_c/(Re_gZ_c*Re_gZ_c + 1.0);
+    *A_s = 2.0*Re_gZ_s/(Re_gZ_s*Re_gZ_s + 1.0);
 
     *AFB0_e = 3.0/4.0* (*A_e) * (*A_e);
     *AFB0_mu = 3.0/4.0* (*A_e) * (*A_mu);
     *AFB0_tau = 3.0/4.0* (*A_e) * (*A_tau);
     *AFB0_b = 3.0/4.0* (*A_e) * (*A_b);
     *AFB0_c = 3.0/4.0* (*A_e) * (*A_c);
+    *AFB0_s = 3.0/4.0* (*A_e) * (*A_s);
 
     *s2teff_e = getCommonARSEFZ(1);
     *s2teff_mu = getCommonARSEFZ(2);
     *s2teff_tau = getCommonARSEFZ(3);
     *s2teff_b = getCommonARSEFZ(9);
     *s2teff_c = getCommonARSEFZ(6);
+    *s2teff_s = getCommonARSEFZ(7);
 }
 
 void ZFitter::calcSTU(double *S, double *T, double *U) {
