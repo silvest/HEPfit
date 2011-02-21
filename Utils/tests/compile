@@ -1,0 +1,1 @@
+g++ -I ../src -I ../../gslpp/src UtilsTest.cpp -L ../../gslpp/dist/Debug/GNU-Linux-x86 -L ../dist/Debug/GNU-Linux-x86 -lgslpp -lgsl -lgslcblas -lutils
