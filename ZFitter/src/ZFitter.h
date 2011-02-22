@@ -13,7 +13,6 @@
  *
  *  Oblique parameters:
  *    NPB369, 3 (1992)
- *    Appendix E.1 in hep-ex/0509008
  *
  *  Constants defined in the ZFITTER fortran codes:
  *   - G_F^mu and alpha(0) are set in CONST1() in zfbib6_40.f and EWINIT()
@@ -784,7 +783,7 @@ public:
     double obliqueU();
 
     /**
-     * @brief ptints precision observables
+     * @brief prints precision observables
      */
     void printPO();
 
