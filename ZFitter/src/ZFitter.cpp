@@ -550,21 +550,21 @@ double ZFitter::obliqueEpsilon3() {
 double ZFitter::obliqueS() {
     double alpha_mZ = calqed_.ALQEDZ;
     double s02 = 0.5 - sqrt(0.25 - M_PI*alpha_mZ/sqrt(2.0)/GF()/ZMASS/ZMASS);
-    
-    return ( obliqueEpsilon3()/alpha_mZ*4.0*s02 ); // alpha_mZ or alpha()?
+
+    /* not devided by alpha_mZ, since alpha(0) is used in the ZFITTER codes
+     * for the self-energy corrections which corresponds to epsilon's. */
+    return ( obliqueEpsilon3()/alpha()*4.0*s02 ); 
 }
 
 double ZFitter::obliqueT() {
-    double alpha_mZ = calqed_.ALQEDZ;
-
-    return ( obliqueEpsilon1()/alpha_mZ ); // alpha_mZ or alpha()?
+    return ( obliqueEpsilon1()/alpha() );
 }
 
 double ZFitter::obliqueU() {
     double alpha_mZ = calqed_.ALQEDZ;
     double s02 = 0.5 - sqrt(0.25 - M_PI*alpha_mZ/sqrt(2.0)/GF()/ZMASS/ZMASS);
     
-    return ( - obliqueEpsilon2()/alpha_mZ*4.0*s02 ); // alpha_mZ or alpha()?
+    return ( - obliqueEpsilon2()/alpha()*4.0*s02 );
 }
 
 void ZFitter::printPO() {
