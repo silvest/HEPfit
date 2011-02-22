@@ -11,12 +11,44 @@
  *    hep-ph/9908433 for v6.21
  *    hep-ph/0507146 for v6.42
  *
+ *  Oblique parameters:
+ *    NPB369, 3 (1992)
+ *    Appendix E.1 in hep-ex/0509008
  *
- *  Constants:
+ *  Constants defined in the ZFITTER fortran codes:
  *   - G_F^mu and alpha(0) are set in CONST1() in zfbib6_40.f and EWINIT()
- *     in zfbib6_40.f as well as in GF() and alpha() in this class for the
- *     computations of the oblique parameters. 
- *   - All lepton and effective quark masses (u,d,s,c,b) are set in CONST1().
+ *     in zfbib6_40.f (and other places?). 
+ *   - All lepton and quark masses (u,d,s,c,b) are set in CONST1().
+ *   - Since it is hard to access some of these constants from the current
+ *     class, the constants G_F^mu and alpha(0), which are necessary for
+ *     the computations of the oblique parameters, are also set here in
+ *     GF() and alpha().
+ *
+ *  How to use (see ZFitterTest-2.cpp for detail):
+ *   1. call a constructor
+ *        ZFitter(double ZMASS_i, double TMASS_i, double HMASS_i, double ALFAS_i,
+ *                double DAL5H_i, double V_TB_i, double UMASS_i, double DMASS_i)
+ *   2. set flags, if necessary to change from their default values
+ *        setAllFlags(const int flags[46], const int flagPrint)
+ *          or
+ *        flag(const std::string CHFLAG, const int IVALUE)
+ *   3. compute the effective couplings, the partial widths, the effective
+ *      weak mixing angle, etc.
+ *        calcCommonBlocks()
+ *   4. calcualte and get EW precision obserbables
+ *        mW(), Gamma_W(), etc. (see printPO())
+ *
+ *  ZFITTER flags:
+ *   - flags which should be changed from their defaults
+ *       AMT4 = 6 : with complete two-loop corrections to mW and fermionic
+ *                  two-loop corrections to sin^2(theta_eff^lept)
+ *       ALEM = 2 : DAL5H is supplied by the user as input. 
+ *   - flags used with their default value:
+ *       AFBC, SCAL, SCRE, BORN, BOXD, CONV, FINR, FOT2, GAMS, DIAG, INTF, 
+ *       BARB, PART, POWR, PRNT, QCDC, VPOL, WEAK, FTJR, EXPR, EXPF, HIGS,
+ *       AFMT, CZAK, PREC, HIG2, ALE2, GFER, ISPP, FSRS, MISC, MISD, IPFC,
+ *       IPSC, IPTO, FBHO, FSPP, FUNA, ASCR, SFSR, ENUE, TUPV, DMWW, DSWW
+ * 
  *
  */
 
