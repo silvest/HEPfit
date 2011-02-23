@@ -26,6 +26,19 @@ ZFitter::ZFitter(double ZMASS_i, double TMASS_i, double HMASS_i, double ALFAS_i,
     init(0);
 }
 
+ZFitter::ZFitter(const StandardModel& StandardModel_i) {
+    setZMASS(StandardModel_i.getMZ());
+    setTMASS(StandardModel_i.getMt());
+    setHMASS(StandardModel_i.getMHl());
+    setALFAS(StandardModel_i.getAlsMz());
+    setDAL5H(StandardModel_i.getDAle5Mz());
+    setV_TB(1.0); // V_{tb} = 1
+    setUMASS(0.1);// constituent u-quark mass
+    setDMASS(0.1);// constituent d-quark mass
+    
+    init(0);
+}
+
 ZFitter::ZFitter(const ZFitter& orig) {
     ZMASS = orig.getZMASS();
     TMASS = orig.getTMASS();

@@ -72,7 +72,7 @@ dist/Debug/GNU-MacOSX/libzfitter.a: ${OBJECTFILES}
 ${OBJECTDIR}/src/ZFitter.o: src/ZFitter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ZFitter.o src/ZFitter.cpp
+	$(COMPILE.cc) -g -I../StandardModel/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ZFitter.o src/ZFitter.cpp
 
 # Subprojects
 .build-subprojects:
@@ -83,13 +83,13 @@ ${OBJECTDIR}/src/ZFitter.o: src/ZFitter.cpp
 ${TESTDIR}/tests/ZFitterTest.o: tests/ZFitterTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ZFitterTest.o tests/ZFitterTest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I../StandardModel/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ZFitterTest.o tests/ZFitterTest.cpp
 
 
 ${TESTDIR}/tests/ZFitterTest-2.o: tests/ZFitterTest-2.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ZFitterTest-2.o tests/ZFitterTest-2.cpp
+	$(COMPILE.cc) -g -I. -I. -I../StandardModel/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ZFitterTest-2.o tests/ZFitterTest-2.cpp
 
 
 ${OBJECTDIR}/src/ZFitter_nomain.o: ${OBJECTDIR}/src/ZFitter.o src/ZFitter.cpp 
@@ -100,7 +100,7 @@ ${OBJECTDIR}/src/ZFitter_nomain.o: ${OBJECTDIR}/src/ZFitter.o src/ZFitter.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ZFitter_nomain.o src/ZFitter.cpp;\
+	    $(COMPILE.cc) -g -I../StandardModel/src -I../gslpp/src -I../Utils/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ZFitter_nomain.o src/ZFitter.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/ZFitter.o ${OBJECTDIR}/src/ZFitter_nomain.o;\
 	fi
