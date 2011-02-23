@@ -27,6 +27,8 @@
  *   1. call a constructor
  *        ZFitter(double ZMASS_i, double TMASS_i, double HMASS_i, double ALFAS_i,
  *                double DAL5H_i, double V_TB_i, double UMASS_i, double DMASS_i)
+ *          or
+ *        ZFitter(const StandardModel& StandardModel_i)
  *   2. set flags, if necessary to change from their default values
  *        setAllFlags(const int flags[46], const int flagPrint)
  *          or
@@ -56,6 +58,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <StandardModel.h>
 
 
 /* complex double structure defined for ewform_ */
@@ -242,6 +245,12 @@ public:
      */
     ZFitter(double ZMASS_i, double TMASS_i, double HMASS_i, double ALFAS_i,
             double DAL5H_i, double V_TB_i, double UMASS_i, double DMASS_i);
+
+    /**
+     * @brief ZFitter constructor
+     * @param StandardModel_i reference to a StandardModel object
+     */
+    ZFitter(const StandardModel& StandardModel_i);
 
     /**
      * @brief ZFitter copy constructor
