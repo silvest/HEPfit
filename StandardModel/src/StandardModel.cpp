@@ -29,7 +29,7 @@ StandardModel::StandardModel(const gslpp::matrix<gslpp::complex>& VCKM_i,
         double mb_i, const gslpp::matrix<gslpp::complex>& UPMNS_i, double me_i,
         double mmu_i, double mtau_i, double mnu1_i, double mnu2_i,
         double mnu3_i, double GF_i, double alsMz_i, double ale_i, double mZ_i,
-        double dAle5Mz_i, double mHl_i) : QCD(alsMz_i, mZ_i, mt_i, mb_i, mc_i),
+        double dAle5Mz_i, double mHl_i) : QCD(alsMz_i, mZ_i,mu_i,md_i,ms_i,mc_i,mb_i,mt_i),
         UPMNS(UPMNS_i), VCKM(VCKM_i), Yd(3,3,0.), Yu(3,3,0.), Ye(3,3,0.),
         Yn(3,3,0.) {
     GF = GF_i;
