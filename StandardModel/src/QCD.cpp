@@ -11,17 +11,17 @@
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_roots.h>
-#include "QCD.h"
 #include <TF1.h>
-#include "Math/WrappedTF1.h"
-#include "Math/BrentRootFinder.h"
+#include <Math/WrappedTF1.h>
+#include <Math/BrentRootFinder.h>
+#include "QCD.h"
 
 QCD::QCD() {
     Nc = 3.;
 }
 
 QCD::QCD(double AlsM_i, double M_i, double mu_i, double md_i, double ms_i,
-    double mc_i, double mb_i, double mt_i) {
+        double mc_i, double mb_i, double mt_i) {
     QCD(AlsM_i, M_i, mu_i, md_i, ms_i, mc_i, mb_i, mt_i, mt_i, mb_i, mc_i);
 }
 
@@ -31,20 +31,22 @@ QCD::QCD(double AlsM_i, double M_i, double mu_i, double md_i, double ms_i,
     Nc = 3.;
     AlsM = AlsM_i;
     M = M_i;
-    mu = mu_i;
-    md = md_i;
-    ms = ms_i;
-    mc = mc_i;
-    mb = mb_i;
-    mt = mt_i;
+    particle[UP].setMass(mu_i);
+    particle[DOWN].setMass(md_i);
+    particle[CHARM].setMass(mc_i);
+    particle[STRANGE].setMass(ms_i);
+    particle[TOP].setMass(mt_i);
+    particle[BOTTOM].setMass(mb_i);
     mu1 = mu1_i;
     mu2 = mu2_i;
     mu3 = mu3_i;
 }
 
 QCD::QCD(const QCD& orig) {
-   QCD(orig.AlsM, orig.M, orig.mu, orig.md, orig.ms, orig.mc, orig.mb, orig.mt, 
-           orig.mu1, orig.mu2, orig.mu3) ;
+   QCD(orig.AlsM, orig.M, orig.particle[UP].getMass(),
+           orig.particle[DOWN].getMass(), orig.particle[STRANGE].getMass(),
+           orig.particle[CHARM].getMass(), orig.particle[BOTTOM].getMass(),
+           orig.particle[TOP].getMass(), orig.mu1, orig.mu2, orig.mu3);
 }
 
 QCD::~QCD() {
@@ -247,6 +249,8 @@ double QCD::mp2mbara(double * mu, double * mp) const
 double QCD::mp2mbar(double mp) const {
 
     int i;
+    double ms = particle[STRANGE].getMass(),
+           mc = particle[CHARM].getMass();
     double alsmp = als(mp);
     for(i=0;i<5;i++)
         if(alsmp == mp2mbar_cache[0][i] || ms == mp2mbar_cache[1][i] ||
@@ -281,7 +285,8 @@ double QCD::mbar2mp(double mbar) const {
         double a,D=5.;
         a=als(mbar)/M_PI;
         if(mbar < 50.)
-            D=4.-4./3.*(ms+mc)/mbar; //only for the b quark
+            D=4.-4./3.*(particle[STRANGE].getMass()+
+                    particle[CHARM].getMass())/mbar; //only for the b quark
 
         return(mbar*(1.+4./3.*a+a*a*(13.44434-1.0414*D)));
     }

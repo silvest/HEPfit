@@ -5,13 +5,14 @@
  * Created on November 30, 2010, 1:27 PM
  */
 
-#include "StandardModel.h"
+
 //#include <boost/assign/list_of.hpp> // for 'map_list_of()'
 #include <iostream>
 #include <math.h>
 #include <TF1.h>
-#include "Math/WrappedTF1.h"
-#include "Math/BrentRootFinder.h"
+#include <Math/WrappedTF1.h>
+#include <Math/BrentRootFinder.h>
+#include "StandardModel.h"
 
 //const std::vector<std::string> pino = boost::assign::list_of("A")("BC");
 //
@@ -29,33 +30,32 @@ StandardModel::StandardModel(const gslpp::matrix<gslpp::complex>& VCKM_i,
         double mb_i, const gslpp::matrix<gslpp::complex>& UPMNS_i, double me_i,
         double mmu_i, double mtau_i, double mnu1_i, double mnu2_i,
         double mnu3_i, double GF_i, double alsMz_i, double ale_i, double mZ_i,
-        double dAle5Mz_i, double mHl_i) : QCD(alsMz_i, mZ_i,mu_i,md_i,ms_i,mc_i,mb_i,mt_i),
-        UPMNS(UPMNS_i), VCKM(VCKM_i), Yd(3,3,0.), Yu(3,3,0.), Ye(3,3,0.),
-        Yn(3,3,0.) {
+        double dAle5Mz_i, double mHl_i) : UPMNS(UPMNS_i), VCKM(VCKM_i),
+        Yd(3,3,0.), Yu(3,3,0.), Ye(3,3,0.), Yn(3,3,0.) {
     GF = GF_i;
     alsMz = alsMz_i;
     ale = ale_i;
     mZ = mZ_i;
     dAle5Mz = dAle5Mz_i;
     mHl = mHl_i;
-    mu = mu_i;
-    md = md_i;
-    mc = mc_i;
-    ms = ms_i;
-    mt = mt_i;
-    mb = mb_i;
+    setMu(mu_i);
+    setMd(md_i);
+    setMc(mc_i);
+    setMs(ms_i);
+    setMt(mt_i);
+    setMb(mb_i);
     me = me_i;
     mmu = mmu_i;
     mtau = mtau_i;
     mnu1 = mnu1_i;
     mnu2 = mnu2_i;
     mnu3 = mnu3_i;
-    Yd.assign(0,0,md/v()*sqrt(2.));
-    Yd.assign(1,1,ms/v()*sqrt(2.));
-    Yd.assign(2,2,mb/v()*sqrt(2.));
-    Yu.assign(0,0,mu/v()*sqrt(2.));
-    Yu.assign(1,1,mc/v()*sqrt(2.));
-    Yu.assign(2,2,mt/v()*sqrt(2.));
+    Yd.assign(0,0,getMd()/v()*sqrt(2.));
+    Yd.assign(1,1,getMs()/v()*sqrt(2.));
+    Yd.assign(2,2,getMb()/v()*sqrt(2.));
+    Yu.assign(0,0,getMu()/v()*sqrt(2.));
+    Yu.assign(1,1,getMc()/v()*sqrt(2.));
+    Yu.assign(2,2,getMt()/v()*sqrt(2.));
     Yu = Yu*VCKM;
     Ye.assign(0,0,me/v()*sqrt(2.));
     Ye.assign(1,1,mmu/v()*sqrt(2.));
@@ -68,24 +68,31 @@ StandardModel::StandardModel(const gslpp::matrix<gslpp::complex>& VCKM_i,
 
 StandardModel::StandardModel(Parameters& Par): UPMNS(3,3,0.), VCKM(3,3,0.),
         Yd(3,3,0.), Yu(3,3,0.), Ye(3,3,0.), Yn(3,3,0.) {
-    Par.Get("mu",mu);
-    Par.Get("md",md);
-    Par.Get("mc",mc);
-    Par.Get("ms",ms);
-    Par.Get("mt",mt);
-    Par.Get("mb",mb);
+    double m;
+    Par.Get("mu",m);
+    setMu(m);
+    Par.Get("md",m);
+    setMd(m);
+    Par.Get("mc",m);
+    setMc(m);
+    Par.Get("ms",m);
+    setMs(m);
+    Par.Get("mt",m);
+    setMt(m);
+    Par.Get("mb",m);
+    setMb(m);
     Par.Get("me",me);
     Par.Get("mmu",mmu);
     Par.Get("mtau",mtau);
     Par.Get("mnu1",mnu1);
     Par.Get("mnu2",mnu2);
     Par.Get("mnu3",mnu3);
-    Yd.assign(0,0,md/v()*sqrt(2.));
-    Yd.assign(1,1,ms/v()*sqrt(2.));
-    Yd.assign(2,2,mb/v()*sqrt(2.));
-    Yu.assign(0,0,mu/v()*sqrt(2.));
-    Yu.assign(1,1,mc/v()*sqrt(2.));
-    Yu.assign(2,2,mt/v()*sqrt(2.));
+    Yd.assign(0,0,getMd()/v()*sqrt(2.));
+    Yd.assign(1,1,getMs()/v()*sqrt(2.));
+    Yd.assign(2,2,getMb()/v()*sqrt(2.));
+    Yu.assign(0,0,getMu()/v()*sqrt(2.));
+    Yu.assign(1,1,getMc()/v()*sqrt(2.));
+    Yu.assign(2,2,getMt()/v()*sqrt(2.));
     Par.Get("VCKM",VCKM);
     Par.Get("UPMNS",UPMNS);
     Yu = Yu*VCKM;
@@ -96,11 +103,11 @@ StandardModel::StandardModel(Parameters& Par): UPMNS(3,3,0.), VCKM(3,3,0.),
     Par.Get("dAle5Mz", dAle5Mz);
     Par.Get("mHl", mHl);
     if(Par.Find("mu1") == Parameters::DOUBLE) Par.Get("mu1", mu1);
-    else mu1 = mt;
+    else mu1 = getMt();
     if(Par.Find("mu2") == Parameters::DOUBLE) Par.Get("mu2", mu2);
-    else mu2 = mb;
+    else mu2 = getMb();
     if(Par.Find("mu3") == Parameters::DOUBLE) Par.Get("mu3", mu3);
-    else mu3 = mc;
+    else mu3 = getMc();
     AlsM = alsMz;
     M = mZ;
 }
@@ -150,7 +157,7 @@ double StandardModel::mW() const {
     // 2 sigma region around their central values (year 2003) adopted below.
     double dH = log(mHl/100.0);
     double dh = pow((mHl/100.0), 2.0);
-    double dt = pow((mt/174.3), 2.0) - 1.0;
+    double dt = pow((getMt()/174.3), 2.0) - 1.0;
     double dZ = mZ/91.1875 - 1.0;
     double dalphae = dAle5Mz/0.05907 - 1.0;
     double dalphas = alsMz/0.119 - 1.0;
@@ -187,7 +194,7 @@ double StandardModel::sin2thw() const {
     double L_H = log(mHl/100.0);
     double Delta_H = mHl/100.0;
     double Delta_alphae = dAle5Mz/0.05907 - 1.0;
-    double Delta_t = pow((mt/178.0), 2.0) - 1.0;
+    double Delta_t = pow((getMt()/178.0), 2.0) - 1.0;
     double Delta_alphas = alsMz/0.117 - 1.0;
     double Delta_Z = mZ/91.1876 - 1.0;
 
@@ -217,7 +224,7 @@ double StandardModel::sin2thwb() const{
     double L_H = log(mHl/100.0);
     double Delta_H = mHl/100.0;
     double Delta_alphae = dAle5Mz/0.05907 - 1.0;
-    double Delta_t = pow((mt/178.0), 2.0) - 1.0;
+    double Delta_t = pow((getMt()/178.0), 2.0) - 1.0;
     double Delta_alphas = alsMz/0.117 - 1.0;
     double Delta_Z = mZ/91.1876 - 1.0;
 
@@ -250,7 +257,7 @@ double StandardModel::sin2thwall(const std::string& ferm) const {
     double L_H = log(mHl/100.0);
     double Delta_H = mHl/100.0;
     double Delta_alphae = dAle5Mz/0.05907 - 1.0;
-    double Delta_t = pow((mt/178.0), 2.0) - 1.0;
+    double Delta_t = pow((getMt()/178.0), 2.0) - 1.0;
     double Delta_alphas = alsMz/0.117 - 1.0;
     double Delta_Z = mZ/91.1876 - 1.0;
     int i=4;
@@ -328,4 +335,3 @@ double StandardModel::T() const {
 double StandardModel::U() const {
     return 0.0;
 }
-
