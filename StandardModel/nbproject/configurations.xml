@@ -5,7 +5,8 @@
                    displayName="Header Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
-      <itemPath>src/EWPOSM.h</itemPath>
+      <itemPath>src/Model.h</itemPath>
+      <itemPath>src/Particle.h</itemPath>
       <itemPath>src/QCD.h</itemPath>
       <itemPath>src/StandardModel.h</itemPath>
     </logicalFolder>
@@ -18,7 +19,8 @@
                    displayName="Source Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
-      <itemPath>src/EWPOSM.cpp</itemPath>
+      <itemPath>src/Model.cpp</itemPath>
+      <itemPath>src/Particle.cpp</itemPath>
       <itemPath>src/QCD.cpp</itemPath>
       <itemPath>src/StandardModel.cpp</itemPath>
     </logicalFolder>
@@ -54,8 +56,6 @@
             <pElem>../Utils/src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>/usr/include/root</pElem>
-            <pElem>../../../root/include</pElem>
-            <pElem>../gslpp/src</pElem>
           </incDir>
         </ccTool>
         <archiverTool>
@@ -96,12 +96,10 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -154,12 +152,10 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

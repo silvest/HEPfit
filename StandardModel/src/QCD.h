@@ -8,7 +8,10 @@
 #ifndef QCD_H
 #define	QCD_H
 
-class QCD {
+#include "Model.h"
+#include "Particle.h"
+
+class QCD: public Model {
 public:
     /**
      * default constructor
@@ -211,72 +214,6 @@ public:
     }
 
     /**
-     * @return the bottom mass
-     */
-    double getMb() const { return mb; }
-
-    /**
-     * @brief set the bottom mass
-     * @param mb the bottom mass mb(mb)
-     */
-    void setMb(double mb) { this->mb = mb; }
-
-    /**
-     * @return the charm mass
-     */
-    double getMc() const { return mc; }
-
-    /**
-     * @brief set the charm mass
-     * @param mc the charm mass mc(mc)
-     */
-    void setMc(double mc) { this->mc = mc; }
-
-    /**
-     * @return the down mass
-     */
-    double getMd() const { return md; }
-
-    /**
-     * @brief set the down mass
-     * @param md the down mass at 2 GeV
-     */
-    void setMd(double md) { this->md = md; }
-
-    /**
-     * @return the strange mass
-     */
-    double getMs() const { return ms; }
-
-    /**
-     * @brief set the strange mass
-     * @param ms the strange mass at 2 GeV
-     */
-     void setMs(double ms) { this->ms = ms; }
-
-    /**
-     * @return the top mass
-     */
-    double getMt() const { return mt; }
-
-    /**
-     * @brief set the top mass
-     * @param mt the top mass mt(mt)
-     */
-     void setMt(double mt) { this->mt = mt; }
-
-    /**
-     * @return the up mass
-     */
-    double getMu() const { return mu; }
-
-     /**
-     * @brief set the up mass
-     * @param mu the up mass at 2 GeV
-     */
-    void setMu(double mu) { this->mu = mu; }
-
-    /**
      * the running quark mass @f$m(\mu)@f$
      * @param mu the scale @f$\mu@f$ in GeV
      * @param m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
@@ -284,6 +221,7 @@ public:
      * @param le the order (=0 for LO, =1 for LO+NLO, =-1 for NLO)
      * @return the running quark mass @f$m(\mu)@f$
      */
+
     double mrun(double mu, double m, double nf, int le) const;
     /**
      * the running quark mass @f$m(\mu)@f$ at the LO+NLO
@@ -307,18 +245,19 @@ public:
     double mp2mbar(double mp) const;
 
 protected:
+    enum Particles {UP,DOWN,CHARM,STRANGE,TOP,BOTTOM};
     double Nc, AlsM, M, mu1, mu2, mu3;
-    double mu, md, mc, ms, mt, mb;
+    Particle particle[6];
 
 private:
     double thresholds(int i) const;
     double aboveth(double mu) const;
     double belowth(double mu) const;
     mutable double als_cache[5][5], lambda4_cache[2][5], mp2mbar_cache[4][5];
+
     double zero(double *x, double *) const;
     double mp2mbara(double * mu, double * mp) const;
     void CacheShift(double cache[][5], int n) const;
-
 };
 
 #endif	/* QCD_H */
