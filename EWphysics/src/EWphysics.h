@@ -9,11 +9,11 @@
 #define	EWPHYSICS_H
 
 #include <gslpp_complex.h>
-#include <iostream>
+//#include <iostream>
 #include <cstring>
-//#include <QCD.h>
+#include <QCD.h>
 //#include <StandardModel.h>
-#include <EWPOSM.h>
+//#include <EWPOSM.h>
 
 
 class EWphysics {
@@ -24,34 +24,29 @@ public:
      * @param[in] gZf_i the ratio of the effective vector coupling constants @f$g_Z^f=g_V^f/g_A^f@f$ [0-9]
      * @param[in] rho_i the weak form factors [0-9]
      * @param[in] Delta_r_i the radiative corrections @f$\Delta r@f$
-     * @param[in] mu
-     * @param[in] mc
-     * @param[in] mt
-     * @param[in] md
-     * @param[in] ms
-     * @param[in] mb
-     * @param[in] mnu1
-     * @param[in] mnu2
-     * @param[in] mnu3
-     * @param[in] me
-     * @param[in] mmu
-     * @param[in] mtau
-     * @param[in] mZ
-     * @param[in] mHl
-     * @param[in] alsMz
-     * @param[in] GF
-     * @param[in] ale
-     * @param[in] aleMz
-     * @return
+     * @param[in] mu_i up quark mass at 2 GeV
+     * @param[in] md_i down quark mass at 2 GeV
+     * @param[in] mc_i charm quark mass mc(mc)
+     * @param[in] ms_i strange quark mass at 2 GeV
+     * @param[in] mt_i top quark mass mt(mt)
+     * @param[in] mb_i bottom quark mass mb(mb)
+     * @param[in] me_i
+     * @param[in] mmu_i
+     * @param[in] mtau_i
+     * @param[in] mZ_i
+     * @param[in] mHl_i
+     * @param[in] alsMz_i
+     * @param[in] GF_i
+     * @param[in] ale_i
+     * @param[in] aleMz_i
      */
     EWphysics(gslpp::complex gZf_i[10], gslpp::complex rhoZf_i[10],
               double Delta_r_i,
-              double mu, double mc, double mt,
-              double md, double ms, double mb,
-              double mnu1, double mnu2, double mnu3,
-              double me, double mmu, double mtau,
-              double mZ, double mHl, double alsMz, double GF, 
-              double ale, double aleMz);
+              double mu_i, double md_i, double mc_i,
+              double ms_i, double mt_i, double mb_i,
+              double me_i, double mmu_i, double mtau_i,
+              double mZ_i, double mHl_i, double alsMz_i, double GF_i,
+              double ale_i, double aleMz_i);
 
 
     /**
@@ -122,11 +117,11 @@ public:
     }
 
     /**
-     * @brief set @f$\Delta r@f$ for INDF
-     * @param[in] INDF fermion index [0-9]
+     * @brief set @f$\Delta r@f$
+     * @param[in] Delta_r the radiative-correction factor @f$\Delta r@f$
      */
-    void setDelta_r(double Delta_r_INDF) {
-        this->Delta_r = Delta_r_INDF;
+    void setDelta_r(double Delta_r) {
+        this->Delta_r = Delta_r;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -137,7 +132,7 @@ public:
      */
     int flavour_st_to_int(const std::string flavour);
 
-
+    
     ///////////////////////////////////////////////////////////////////////////
     
     /**
@@ -156,13 +151,25 @@ public:
     double sw2();
 
     /**
-     * @param flavour the flavour of the final states [e, mu, tau, b, c, s]
+     * @param flavour the flavour of the final states [nu, e, mu, tau, u, d, c, s, b]
      * @return the effective weak mixing angle
      */
     double s2teff_f(const std::string flavour);
 
     /**
-     * @param[in] flavour the flavour of the final states [e, mu, tau, b, c, s]
+     * @param[in] flavour_l the flavour of the final states [nu, e, mu, tau]
+     * @return the partial decay width of the Z boson in GeV
+     */
+    double Gamma_l(const std::string flavour_l);
+
+    /**
+     * @param[in] flavour_q the flavour of the final states [u, d, c, s, b]
+     * @return the partial decay width of the Z boson in GeV
+     */
+    double Gamma_q(const std::string flavour_q);
+
+    /**
+     * @param[in] flavour the flavour of the final states [nu, e, mu, tau, u, d, c, s, b]
      * @return the partial decay width of the Z boson in GeV
      */
     double Gamma_f(const std::string flavour);
@@ -251,16 +258,15 @@ public:
     ///////////////////////////////////////////////////////////////////////////
 
 private:
-    double mu, mc, mt, md, ms, mb;
-    double mnu1, mnu2, mnu3, me, mmu, mtau;
-    double mZ, mHl, alsMz, GF, ale;
-    double aleMz;
-
     gslpp::complex gZf[10], rhoZf[10]; // gZf = gVf/gAf
     double Delta_r;
 
-
-    
+    double mcMz, mbMz; /* charm and bottom quak masses at mZ */
+    double mt;
+    double me, mmu, mtau;
+    double mZ, mHl, alsMz, GF, ale;
+    double aleMz;
+   
 };
 
 #endif	/* EWPHYSICS_H */
