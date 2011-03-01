@@ -35,6 +35,12 @@ OBJECTDIR=build/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/EWphysics.o
 
+# Test Directory
+TESTDIR=build/${CND_CONF}/${CND_PLATFORM}/tests
+
+# Test Files
+TESTFILES= \
+	${TESTDIR}/TestFiles/f1
 
 # C Compiler Flags
 CFLAGS=
@@ -69,6 +75,37 @@ ${OBJECTDIR}/src/EWphysics.o: src/EWphysics.cpp
 
 # Subprojects
 .build-subprojects:
+
+# Build Test Targets
+.build-tests-conf: .build-conf ${TESTFILES}
+
+${TESTDIR}/tests/EWphysicsTest.o: tests/EWphysicsTest.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -g -I. -Isrc -I../gslpp/src -I../Utils/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EWphysicsTest.o tests/EWphysicsTest.cpp
+
+
+${OBJECTDIR}/src/EWphysics_nomain.o: ${OBJECTDIR}/src/EWphysics.o src/EWphysics.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/EWphysics.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -Isrc -I../gslpp/src -I../Utils/src -I../StandardModel/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWphysics_nomain.o src/EWphysics.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/EWphysics.o ${OBJECTDIR}/src/EWphysics_nomain.o;\
+	fi
+
+# Run Test Targets
+.test-conf:
+	@if [ "${TEST}" = "" ]; \
+	then  \
+	    ${TESTDIR}/TestFiles/f1 || true; \
+	else  \
+	    ./${TEST} || true; \
+	fi
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
