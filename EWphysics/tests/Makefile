@@ -2,9 +2,9 @@ EXE = ./a.out
 
 SYS := $(shell uname -s)
 ifeq ($(SYS),Darwin)
-CC = llvm-g++
+CC = /opt/local/bin/g++
 PLATFORM = GNU-MacOSX
-CFLAGS = -lgfortran -Wall
+CFLAGS = -lgfortran
 else
 CC = g++
 PLATFORM = GNU-Linux-x86
@@ -36,22 +36,18 @@ ZFITTER_LIB = -L../../ZFitter/$(LIB_DIR)
 EWPHYSICS_INC = -I../src
 EWPHYSICS_LIB = -L../$(LIB_DIR)
 
-INC_DIRS = $(GSLPP_INC) $(UTILS_INC) $(ZFITTER6_43_INC) $(ZFITTER_INC) $(EWPHYSICS_INC)
-LIB_DIRS = $(GSLPP_LIB) $(UTILS_LIB) $(ZFITTER_LIB) $(EWPHYSICS_LIB)
+INC_DIRS = $(ROOTCFLAGS) $(GSLPP_INC) $(UTILS_INC) $(SM_INC) $(ZFITTER6_43_INC) \
+$(ZFITTER_INC) $(EWPHYSICS_INC)
+LIB_DIRS = $(GSLPP_LIB) $(UTILS_LIB) $(SM_LIB) $(ZFITTER_LIB) $(EWPHYSICS_LIB)
 LIBS = -lewphysics -lzfitter
 ifeq ($(SYS),Darwin)
 LIB_DIRS += $(ZFITTER6_43_LIB)
 LIBS += -lzfitter6_43
 else
-# in case the commands ar and ranlib don't produce a correct library
+#-- in case the commands ar and ranlib don't produce a correct library --
 LIBS += ../../ZFitter6_43/src/*.o 
 endif
-
-INC_DIRS += $(ROOTCFLAGS)
-LIBS += -lgslpp -lgslcblas -lgsl $(ROOTLIBS)
-INC_DIRS += $(SM_INC)
-#LIB_DIRS += $(SM_LIB)
-#LIBS += -lstandardmodel -lutils
+LIBS += -lstandardmodel -lutils -lgslpp -lgslcblas -lgsl $(ROOTLIBS)
 
 all: $(EXE)
 

@@ -542,6 +542,7 @@ double ZFitter::obliqueEpsilon2() {
     double c02 = 1.0 - s02;
     double Delta_k = s2teff_f("e")/s02 - 1.0;
 
+    //std::cout << "alpha_mZ = " << alpha_mZ << std::endl; // TEST
     //std::cout << "  Delta_rW = " << Delta_rW << std::endl; // TEST
     //std::cout << "  Delta_rho = " << Delta_rho << std::endl; // TEST
     //std::cout << "  Delta_k = " << Delta_k << std::endl; // TEST
@@ -598,6 +599,18 @@ void ZFitter::printPO() {
               << Gamma_W() << std::endl
               << std::setw(15) << "sin^2(th_W)" << std::setw(13)
               << sw2() << std::endl
+              << std::setw(15) << "sin^2(teff_e)" << std::setw(13)
+              << s2teff_f("e") << std::endl
+              << std::setw(15) << "sin^2(teff_mu)" << std::setw(13)
+              << s2teff_f("mu") << std::endl
+              << std::setw(15) << "sin^2(teff_tau)" << std::setw(13)
+              << s2teff_f("tau") << std::endl
+              << std::setw(15) << "sin^2(teff_b)" << std::setw(13)
+              << s2teff_f("b") << std::endl
+              << std::setw(15) << "sin^2(teff_c)" << std::setw(13)
+              << s2teff_f("c") << std::endl
+              << std::setw(15) << "sin^2(teff_s)" << std::setw(13)
+              << s2teff_f("s") << std::endl
               << std::setw(15) << "Gamma_inv [GeV]" << std::setw(13)
               << Gamma_inv() << std::endl
               << std::setw(15) << "Gamma_had [GeV]" << std::setw(13)
@@ -648,18 +661,6 @@ void ZFitter::printPO() {
               << AFB0_f("c") << std::endl
               << std::setw(15) << "AFB0_s" << std::setw(13)
               << AFB0_f("s") << std::endl
-              << std::setw(15) << "sin^2(teff_e)" << std::setw(13)
-              << s2teff_f("e") << std::endl
-              << std::setw(15) << "sin^2(teff_mu)" << std::setw(13)
-              << s2teff_f("mu") << std::endl
-              << std::setw(15) << "sin^2(teff_tau)" << std::setw(13)
-              << s2teff_f("tau") << std::endl
-              << std::setw(15) << "sin^2(teff_b)" << std::setw(13)
-              << s2teff_f("b") << std::endl
-              << std::setw(15) << "sin^2(teff_c)" << std::setw(13)
-              << s2teff_f("c") << std::endl
-              << std::setw(15) << "sin^2(teff_s)" << std::setw(13)
-              << s2teff_f("s") << std::endl
               << std::endl;
 
     std::cout << "  epsilon1 = " << obliqueEpsilon1() << std::endl
