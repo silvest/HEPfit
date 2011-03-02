@@ -3,6 +3,8 @@
 #include <gslpp_matrix_double.h>
 #include <gslpp_matrix_complex.h>
 
+#ifndef PARAMETERS_H
+#define PARAMETERS_H
 
 /**
  * @class Parameters
@@ -10,9 +12,10 @@
  */
 class Parameters {
   public:
-    static const int NumberOfTypes = 6;
+    static const int NumberOfTypes = 7;
     static const std::string TypeList[NumberOfTypes]; 
-    enum MapType {INT, DOUBLE, COMPLEX, STRING, DOUBLE_MATRIX, COMPLEX_MATRIX};
+    enum MapType {INT, DOUBLE, COMPLEX, STRING, DOUBLE_MATRIX, COMPLEX_MATRIX,
+    DOUBLE_VECTOR};
     /**
      * @brief Void constructor
      */
@@ -58,6 +61,12 @@ class Parameters {
     std::map<std::string, gslpp::matrix<gslpp::complex> > getComplexMatrices();
 
     /**
+     * get the Double Vectors map
+    * @return the Double Vectors map
+    */
+    std::map<std::string, gslpp::vector<double> > getDoubleVectors();
+
+    /**
      * Set the value of an integer
      * @param s the key
      * @param i the value
@@ -93,6 +102,12 @@ class Parameters {
      * @param mc the value
      */
     void Set(std::string s, gslpp::matrix<gslpp::complex> mc);
+    /**
+     * Set the value of a Double Vector
+     * @param s the key
+     * @param v the value
+     */
+    void Set(std::string s, gslpp::vector<double> v);
 
     /**
      * Get the value of an integer
@@ -130,6 +145,12 @@ class Parameters {
      * @param mc the value
      */
     void Get(std::string s, gslpp::matrix<gslpp::complex>& mc);
+    /**
+     * Get the value of a Double Vector
+     * @param s the key
+     * @param v the value
+     */
+    void Get(std::string s, gslpp::vector<double>& v);
 
     int Find(std::string s) const;
 
@@ -140,7 +161,10 @@ class Parameters {
     std::map<std::string, std::string> Strings;
     std::map<std::string, gslpp::matrix<double> > DoubleMatrices;
     std::map<std::string, gslpp::matrix<gslpp::complex> > ComplexMatrices;
+    std::map<std::string, gslpp::vector<double> > DoubleVectors;
 
     void InOtherMaps(std::string s, MapType m);
     void InMap(std::string s, MapType m);
 };
+
+#endif	/* PARAMETERS_H */
