@@ -10,8 +10,7 @@
 
 /*
  *  To do:
- *    - Gamma_W()
- *    - checks and tests -- errors in Gamma_q()
+ *    - Gamma_W(), if necessary
  *    - constructors with StandardModel, SUSY and MFV objects
  *
  */
@@ -32,12 +31,9 @@ public:
      * @param[in] gZf_i the ratio of the effective vector coupling constants g_Z^f=g_V^f/g_A^f [0-9]
      * @param[in] rho_i the weak form factors [0-9]
      * @param[in] Delta_r_i the radiative corrections Delta r
-     * @param[in] mu_i the up quark mass at 2 GeV
-     * @param[in] md_i the down quark mass at 2 GeV
-     * @param[in] mc_i the charm quark mass mc(mc)
-     * @param[in] ms_i the strange quark mass at 2 GeV
+     * @param[in] mcMz_i the charm quark mass at mZ, mc(mZ)
+     * @param[in] mbMz_i the bottom quark mass at mZ, mb(mZ)
      * @param[in] mt_i the top quark mass mt(mt)
-     * @param[in] mb_i the bottom quark mass mb(mb)
      * @param[in] me_i the electron mass
      * @param[in] mmu_i the muon mass
      * @param[in] mtau_i the tau mass
@@ -50,8 +46,7 @@ public:
      */
     EWphysics(gslpp::complex gZf_i[10], gslpp::complex rhoZf_i[10],
               double Delta_r_i,
-              double mu_i, double md_i, double mc_i,
-              double ms_i, double mt_i, double mb_i,
+              double mcMz_i, double mbMz_i, double mt, 
               double me_i, double mmu_i, double mtau_i,
               double mZ_i, double mHl_i, double alsMz_i, double GF_i,
               double ale_i, double aleMz_i);
