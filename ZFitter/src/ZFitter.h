@@ -675,14 +675,14 @@ public:
      */
     void printIntermediateResults();
 
-
-    ///////////////////////////////////////////////////////////////////////////
-
     /**
      * @param[in] flavour the flavour of the final states [e, mu, tau, b, c, s]
      * @return the integer value associated with the flavour
      */
     int flavour_st_to_int(const std::string flavour);
+
+
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * @return the mass of the W boson in GeV
@@ -791,10 +791,22 @@ public:
      */
     double obliqueU();
 
+
+    ///////////////////////////////////////////////////////////////////////////
+    
     /**
      * @brief prints precision observables
      */
     void printPO();
+
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @brief computes Delta r from the W-boson mass mW()
+     * @return the radiative correction Delta r
+     */
+    double Delta_r();
 
 
     ///////////////////////////////////////////////////////////////////////////

@@ -9,6 +9,15 @@ PLATFORM = GNU-Linux-x86
 CFLAGS = -lgfortran
 endif
 
+ifeq ($(strip $(ROOTSYS)),)
+$(error "Please set ROOTSYS.")
+else
+ROOTCFLAGS = $(shell root-config --cflags)
+ROOTLIBS = $(shell root-config --libs)
+#ROOTLIBS += -lMinuit
+#ROOTGLIBS = $(shell root-config --glibs) # for GUI
+endif
+
 LIB_DIR = dist/Debug/$(PLATFORM)
 #LIB_DIR = dist/Release/$(PLATFORM)
 
@@ -23,20 +32,18 @@ ZFITTER6_43_LIB = -L../../ZFitter6_43/lib
 ZFITTER_INC = -I../src
 ZFITTER_LIB = -L../$(LIB_DIR) 
 
-INC_DIRS = $(ZFITTER6_43_INC) $(ZFITTER_INC)
-LIB_DIRS = $(ZFITTER_LIB)
+INC_DIRS = $(ROOTCFLAGS) $(GSLPP_INC) $(UTILS_INC) $(SM_INC) $(ZFITTER6_43_INC) \
+$(ZFITTER_INC)
+LIB_DIRS = $(GSLPP_LIB) $(UTILS_LIB) $(SM_LIB) $(ZFITTER_LIB) 
 LIBS = -lzfitter
 ifeq ($(SYS),Darwin)
 LIB_DIRS += $(ZFITTER6_43_LIB)
 LIBS += -lzfitter6_43
 else
-# in case the commands ar and ranlib don't produce a correct library
-LIBS += ../../ZFitter6_43/src/*.o 
+#-- in case the commands ar and ranlib don't produce a correct library --
+LIBS += ../../ZFitter6_43/src/*.o
 endif
-
-#INC_DIRS += $(GSLPP_INC) $(UTILS_INC) $(SM_INC)
-#LIB_DIRS += $(GSLPP_LIB) $(UTILS_LIB) $(SM_LIB)
-#LIBS += -lstandardmodel -lutils -lgslpp -lgslcblas -lgsl
+LIBS += -lstandardmodel -lutils -lgslpp -lgslcblas -lgsl $(ROOTLIBS)
 
 all: $(EXE)
 

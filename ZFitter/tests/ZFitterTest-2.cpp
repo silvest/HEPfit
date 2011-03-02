@@ -91,6 +91,9 @@ int main(int argc, char** argv) {
     ZF.calcCommonBlocks();
     std::cout << std::endl;
 
+    /* ptint constants defiend in ZFITTER */
+    ZF.printConstants();
+
     /* calcualte and print EW precision obserbables */
     std::cout << "###  see Table 6.1 in hep-ph/0507146  ###" << std::endl;
     ZF.printPO();

@@ -28,7 +28,7 @@ ZFitter::ZFitter(double ZMASS_i, double TMASS_i, double HMASS_i, double ALFAS_i,
 
 ZFitter::ZFitter(const StandardModel& StandardModel_i) {
     setZMASS(StandardModel_i.getMZ());
-    setTMASS(StandardModel_i.getMt());
+    setTMASS(StandardModel_i.getMass(StandardModel_i.TOP));
     setHMASS(StandardModel_i.getMHl());
     setALFAS(StandardModel_i.getAlsMz());
     setDAL5H(StandardModel_i.getDAle5Mz());
@@ -434,9 +434,6 @@ void ZFitter::printIntermediateResults() {
 
 }
 
-
-///////////////////////////////////////////////////////////////////////////
-
 int ZFitter::flavour_st_to_int(const std::string flavour) {
     if (flavour == "e") {
         return 1;
@@ -455,6 +452,9 @@ int ZFitter::flavour_st_to_int(const std::string flavour) {
         exit(EXIT_FAILURE);
     }
 }
+
+
+///////////////////////////////////////////////////////////////////////////
 
 double ZFitter::mW() {
     return ( ZMASS*sqrt(1.0 - getCommonSIN2TW()) );
@@ -580,6 +580,9 @@ double ZFitter::obliqueU() {
     return ( - obliqueEpsilon2()/alpha()*4.0*s02 );
 }
 
+
+///////////////////////////////////////////////////////////////////////////
+
 void ZFitter::printPO() {
 
     // GeV^{-2} --> nb
@@ -668,6 +671,14 @@ void ZFitter::printPO() {
               << std::endl;
 }
 
+
+///////////////////////////////////////////////////////////////////////////
+
+double ZFitter::Delta_r() {
+    return ( ( 1.0 - pow(2.0*mW()*mW()/ZMASS/ZMASS - 1.0, 2.0) )
+              *sqrt(2.0)*GF()*ZMASS*ZMASS/4.0/M_PI/alpha() - 1.0 );
+}
+ 
 
 ///////////////////////////////////////////////////////////////////////////
 
