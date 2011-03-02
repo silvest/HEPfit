@@ -27,10 +27,21 @@ EWphysics::EWphysics(gslpp::complex gZf_i[10], gslpp::complex rhoZf_i[10],
     }
     Delta_r = Delta_r_i;
 
-    QCD QCDrunning(alsMz_i, mZ_i, mu_i, md_i, ms_i, mc_i, mb_i, mt_i);
+//    QCD QCDrunning(alsMz_i, mZ_i, mu_i, md_i, ms_i, mc_i, mb_i, mt_i);
+//    mcMz = QCDrunning.mrun(mZ, QCDrunning.mrun(mb_i, mc_i, 4.0), 5.0);;
+//    mbMz = QCDrunning.mrun(mZ, mb_i, 5.0);
 
-    mcMz = QCDrunning.mrun(mZ, QCDrunning.mrun(mb_i, mc_i, 4.0), 5.0);;
-    mbMz = QCDrunning.mrun(mZ, mb_i, 5.0);
+    /*!!! TEST !!!*/
+//    mcMz = mc_i * pow(alsMz_i, 12.0/25.0)
+//            * (1.0 + 1.0141*alsMz_i + 1.3892*alsMz_i*alsMz_i
+//               + 1.0905*alsMz_i*alsMz_i*alsMz_i);
+//    mbMz = mb_i * pow(alsMz_i, 12.0/23.0)
+//            * (1.0 + 1.1755*alsMz_i + 1.5007*alsMz_i*alsMz_i
+//               + 0.1725*alsMz_i*alsMz_i*alsMz_i);
+
+    mcMz = 0.563817;
+    mbMz = 2.81944;
+
     mt = mt_i;
     me = me_i;
     mmu = mmu_i;
@@ -44,6 +55,15 @@ EWphysics::EWphysics(gslpp::complex gZf_i[10], gslpp::complex rhoZf_i[10],
     aleMz = aleMz_i;
 }
 
+//EWphysics::EWphysics(StandardModel& StandardModel_i) {
+//}
+
+//EWphysics::EWphysics(SUSY& SUSY_i) {
+//}
+
+//EWphysics::EWphysics(MFV& MFV_i) {
+//}
+
 EWphysics::EWphysics(const EWphysics& orig) {
     int INDF;
     for(INDF=0; INDF<10; INDF++) {
@@ -52,21 +72,19 @@ EWphysics::EWphysics(const EWphysics& orig) {
     }
     Delta_r = orig.getDelta_r();
 
-    /*
-    mcMz =
-    mbMz =
-    mt =
-    me =
-    mmu =
-    mtau =
+    mcMz = orig.getMcMz();
+    mbMz = orig.getMbMz();
+    mt = orig.getMt();
+    me = orig.getMe();
+    mmu = orig.getMmu();
+    mtau = orig.getMtau();
 
-    mZ = 
-    mHl = 
-    alsMz = 
-    GF = 
-    ale = 
-    aleMz = 
-     */
+    mZ = orig.getMZ();
+    mHl = orig.getMHl();
+    alsMz = orig.getAlsMz();
+    GF = orig.getGF();
+    ale = orig.getAle();
+    aleMz = orig.getAleMz();
 }
 
 EWphysics::~EWphysics() {
@@ -102,14 +120,48 @@ int EWphysics::flavour_st_to_int(const std::string flavour) {
     }
 }
 
+std::string EWphysics::flavour_int_to_st(const int INDF) {
+    std::string channel;
+    if (INDF==0) channel="nu,nubar";
+    if (INDF==1) channel="e+,e-";
+    if (INDF==2) channel="mu+,mu-";
+    if (INDF==3) channel="tau+,tau-";
+    if (INDF==4) channel="u,ubar";
+    if (INDF==5) channel="d,dbar";
+    if (INDF==6) channel="c,cbar";
+    if (INDF==7) channel="s,sbar";
+    if (INDF==8) channel="t,tbar";
+    if (INDF==9) channel="b,bbar";
+    if (INDF==10) channel="hadron";
+    if (INDF==11) channel="total";
+    return channel;
+}
+
+double EWphysics::Qf(const int INDF) {
+    if (INDF == 0) {
+        return (0.0);
+    } else if (INDF == 1 || INDF == 2 || INDF == 3) {
+        return (-1.0);
+    } else if (INDF == 4 || INDF == 6 || INDF == 8) {
+        return (2.0/3.0);
+    } else if (INDF == 5 || INDF == 7 || INDF == 9) {
+        return (-1.0/3.0);
+    } else {
+        std::cout << "Qf(INDF = 0-9)" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+
 ///////////////////////////////////////////////////////////////////////////
 
 double EWphysics::mW() {
-    return ( mZ/2.0*(1.0
-             + sqrt(1.0 - 4.0*M_PI*ale/sqrt(2.0)/mZ/mZ/GF*(1.0+Delta_r))) );
+    return ( mZ/sqrt(2.0)
+             * sqrt(1.0 + sqrt(1.0 - 4.0*M_PI*ale/sqrt(2.0)/mZ/mZ/GF*(1.0+Delta_r))) );
 }
 
 double EWphysics::Gamma_W() {
+    std::cout << "No code for Gamma_W()" << std::endl;
     return ( 0.0 ); //!!!!! 
 }
 
@@ -117,47 +169,39 @@ double EWphysics::sw2() {
     return ( 1.0 - mW()*mW()/mZ/mZ );
 }
 
-double EWphysics::s2teff_f(const std::string flavour) {
-    int INDF = flavour_st_to_int(flavour);
-    double Qf[10] = {0., -1., -1., -1., 2./3., -1./3., 2./3., -1./3., 2./3., -1./3.};
-    double Re_gZf = gZf[INDF].real();
-
-    // nu?
-    // add an error message for top
-
-    return ( (1.0-Re_gZf)/4.0/abs(Qf[INDF]) );
-}
-
-double EWphysics::Gamma_l(const std::string flavour_l) {
-    if (flavour_l!="nu" && flavour_l!="e" && flavour_l!="mu" && flavour_l!="tau") {
-        std::cout << "Gamma_l(flavour_l = nu, e, mu, tau)" << std::endl;
+double EWphysics::s2teff_f(const int INDF) {
+    if (INDF < 0 || INDF > 9) {
+        std::cout << "s2teff_f(INDF = 0-9)" << std::endl;
         exit(EXIT_FAILURE);
     }
-    int INDF = flavour_st_to_int(flavour_l);
+    if (INDF==0 || INDF==8) return 0.0; /* neutrinos, top quark */
+    double Re_gZf = gZf[INDF].real();
+    //std::cout << abs(-1.0/3.0) << std::endl;      // TEST --> 0
+    //std::cout << std::abs(-1.0/3.0) << std::endl; // TEST --> 0.33333
+    return ( (1.0-Re_gZf)/4.0/std::abs(Qf(INDF)) );
+}
+
+double EWphysics::Gamma_l(const int INDF_l) {
+    if (INDF_l < 0 || INDF_l > 3) {
+        std::cout << "Gamma_l(INDF_l = 0-4)" << std::endl;
+        exit(EXIT_FAILURE);
+    }
     
     double m_l[4] = {0., me, mmu, mtau};
-    double Qf[4] = {0., -1., -1., -1.};
 
-    // If2 is already incorporated into gZf in the EWPOSM class
-    //double If2 = 35.0/18.0*aleMz*aleMz*( 1 - 8.0/3.0*s2teff_f(flavour_l) );
-    //gZf[INDF] -= 4.0 * abs(Qf[INDF]) * If2;
-
-    double xl = m_l[INDF]*m_l[INDF]/mZ/mZ;
+    double xl = m_l[INDF_l]*m_l[INDF_l]/mZ/mZ;
     double G0 = GF*mZ*mZ*mZ/24.0/sqrt(2.0)/M_PI;
-    double Gamma = G0 * rhoZf[INDF].abs() * sqrt(1.0 - 4.0*xl)
-                   * ( (1.0 + 2.0*xl)*(gZf[INDF].abs2() + 1.0) - 6.0*xl)
-                   * (1.0 + 3.0/4.0*aleMz/M_PI*Qf[INDF]*Qf[INDF]);
-
+    double Gamma = G0 * rhoZf[INDF_l].abs() * sqrt(1.0 - 4.0*xl)
+                   * ( (1.0 + 2.0*xl)*(gZf[INDF_l].abs2() + 1.0) - 6.0*xl )
+                   * ( 1.0 + 3.0/4.0*aleMz/M_PI*Qf(INDF_l)*Qf(INDF_l) );
     return Gamma;
 }
 
-double EWphysics::Gamma_q(const std::string flavour_q) {
-     if (flavour_q!="u" && flavour_q!="d" && flavour_q!="c" 
-         && flavour_q!="s" && flavour_q!="b") {
-        std::cout << "Gamma_q(flavour_q = u, d, c, s, b)" << std::endl;
+double EWphysics::Gamma_q(const int INDF_q) {
+     if (INDF_q < 4 || INDF_q > 9) {
+        std::cout << "Gamma_q(INDF_q = 4-9)" << std::endl;
         exit(EXIT_FAILURE);
     }
-    int INDF = flavour_st_to_int(flavour_q);
 
     /* Radiator functions from the final-state QED and QCD corrections
      * to the vector and axial-vector currents */
@@ -166,21 +210,20 @@ double EWphysics::Gamma_q(const std::string flavour_q) {
     double Delta_EWQCD;
     /* z-component of isospin */
     double I3q;
-    /* electric charge */
-    double Qf;
+    /* electric charge squared */
+    double Qf2 = Qf(INDF_q)*Qf(INDF_q);
 
-    if (flavour_q=="u" || flavour_q=="c") {
+    if (INDF_q==4 || INDF_q==6) { /* up and charm */
         Delta_EWQCD = -0.000113;
         I3q = 1.0/2.0;
-        Qf = 2.0/3.0;
-    } else if (flavour_q=="d" || flavour_q=="s") {
+    } else if (INDF_q==5 || INDF_q==7) { /* down and strange */
         Delta_EWQCD = -0.000160;
         I3q = -1.0/2.0;
-        Qf = -1.0/3.0;
-    } else if (flavour_q=="b") {
+    } else if (INDF_q==9) { /* bottom */
         Delta_EWQCD = -0.000040;
         I3q = -1.0/2.0;
-        Qf = -1.0/3.0;
+    } else if (INDF_q==8) { /* top */
+        return (0.0);
     }
 
     /* s = mZ^2 */
@@ -190,12 +233,12 @@ double EWphysics::Gamma_q(const std::string flavour_q) {
     double mcMz2 = mcMz*mcMz;
     double mbMz2 = mbMz*mbMz;
     double mqMz2, mqdash4;
-    if (flavour_q == "b") {
+    if (INDF_q==9) {
         mqMz2 = mbMz*mbMz;
         mqdash4 = mcMz2*mcMz2;
-    } else if (flavour_q == "c") {
+    } else if (INDF_q==6) {
         mqMz2 = mcMz*mcMz;
-        mqdash4 = mbMz2 * mbMz2;
+        mqdash4 = mbMz2*mbMz2;
     } else {
         mqMz2 = 0.0;
         mqdash4 = 0.0;
@@ -206,18 +249,11 @@ double EWphysics::Gamma_q(const std::string flavour_q) {
     double log_c = log(mcMz2/s);
     double log_b = log(mbMz2/s);
     double log_q;
-    if (flavour_q == "b" || flavour_q == "c") {
+    if (INDF_q==9 || INDF_q==6) {
         log_q = log(mqMz2/s);
     } else {
         log_q = 0.0;
     }
-
-    /* strong coupling constant */
-    double alsMz2 = alsMz*alsMz;
-    double alsMz3 = alsMz2*alsMz;
-    double alsMz4 = alsMz3*alsMz;
-    double alsMz5 = alsMz4*alsMz;
-    double alsMz6 = alsMz5*alsMz;
 
     /* the active number of flavour */
     double nf = 5.0;
@@ -236,9 +272,9 @@ double EWphysics::Gamma_q(const std::string flavour_q) {
                     - 25.0/9.0*zeta5)*nf
                  + (151.0/162.0 - zeta2/18.0 - 19.0/27.0*zeta3)*nf*nf;
     double C04 = -156.61 + 18.77*nf - 0.7974*nf*nf + 0.0215*nf*nf*nf;
-    std::cout << "C02 = " << C02 << std::endl;// TEST (should be 1.40923)
-    std::cout << "C03 = " << C03 << std::endl;// TEST (should be -12.7671)
-    std::cout << "C04 = " << C04 << std::endl;// TEST (should be -80.0075)
+    //std::cout << "TEST: C02 = " << C02 << std::endl;// TEST (should be 1.40923)
+    //std::cout << "TEST: C03 = " << C03 << std::endl;// TEST (should be -12.7671)
+    //std::cout << "TEST: C04 = " << C04 << std::endl;// TEST (should be -80.0075)
 
     /* quadratic massive corrections */
     double C23  = -80.0 + 60.0*zeta3 + (32.0/9.0 - 8.0/3.0*zeta3)*nf;
@@ -283,132 +319,133 @@ double EWphysics::Gamma_q(const std::string flavour_q) {
     /* singlet vector corrections */
     //double RVh; /* not used */
 
+    /* rescaled strong coupling constant */
+    double alsMzPi  = alsMz/M_PI;
+    double alsMzPi2 = alsMzPi*alsMzPi;
+    double alsMzPi3 = alsMzPi2*alsMzPi;
+    double alsMzPi4 = alsMzPi3*alsMzPi;
+    double alsMzPi5 = alsMzPi4*alsMzPi;
+    double alsMzPi6 = alsMzPi5*alsMzPi;
+
     /* radiator function to the vector current */
-    RVf = 1.0 + 3.0/4.0*Qf*Qf*aleMz/M_PI + alsMz - Qf*Qf/4.0*aleMz/M_PI*alsMz
-            + (C02 + C2t)*alsMz2 + C03*alsMz3 + C04*alsMz4
-            //+ deltaC05*alsMz5 /* theoretical uncertainty */
-            + (mcMz2 + mbMz2)/s*C23*alsMz3
-            + mqMz2/s*(C21V*alsMz + C22V*alsMz2 + C23V*alsMz3)
-            + mcMz2*mcMz2/s/s*(C42 - log_c)*alsMz2
-            + mbMz2*mbMz2/s/s*(C42 - log_b)*alsMz2
-            + mqMz2*mqMz2/s/s*(C41V*alsMz + (C42V + C42VL*log_q)*alsMz2)
-            + 12.0*mqdash4/s/s*alsMz2
+    RVf = 1.0 + 3.0/4.0*Qf2*aleMz/M_PI + alsMzPi - Qf2/4.0*aleMz/M_PI*alsMzPi
+            + (C02 + C2t)*alsMzPi2 + C03*alsMzPi3 + C04*alsMzPi4
+            //+ deltaC05*alsMzPi5 /* theoretical uncertainty */
+            + (mcMz2 + mbMz2)/s*C23*alsMzPi3
+            + mqMz2/s*(C21V*alsMzPi + C22V*alsMzPi2 + C23V*alsMzPi3)
+            + mcMz2*mcMz2/s/s*(C42 - log_c)*alsMzPi2
+            + mbMz2*mbMz2/s/s*(C42 - log_b)*alsMzPi2
+            + mqMz2*mqMz2/s/s*(C41V*alsMzPi + (C42V + C42VL*log_q)*alsMzPi2)
+            + 12.0*mqdash4/s/s*alsMzPi2
             - mqMz2*mqMz2*mqMz2/s/s/s
-              *(8.0+16.0/27.0*(155.0 + 6.0*log_q)*alsMz);
+              *(8.0+16.0/27.0*(155.0 + 6.0*log_q)*alsMzPi);
 
     /* radiator function to the axial-vector current */
-    RAf = 1.0 + 3.0/4.0*Qf*Qf*aleMz/M_PI + alsMz - Qf*Qf/4.0*aleMz/M_PI*alsMz
-            + (C02 + C2t - 2.0*I3q*I2)*alsMz2
-            + (C03 - 2.0*I3q*I3)*alsMz3
-            + C04*alsMz4
-            //- 2.0*I3q*deltaI4*alsMz4 /* theoretical uncertainty */
-            //+ deltaC05*alsMz5 /* theoretical uncertainty */
-            + (mcMz2 + mbMz2)/s*C23*alsMz3
-            + mqMz2/s*(C20A + C21A*alsMz + C22A*alsMz2
-                       + 6.0*(3.0 + log_t)*alsMz2 + C23A*alsMz3)
-            - 10.0*mqMz2/mt/mt*(8.0/81.0 + log_t/54.0)*alsMz2
-            + mcMz2*mcMz2/s/s*(C42 - log_c)*alsMz2
-            + mbMz2*mbMz2/s/s*(C42 - log_b)*alsMz2
-            + mqMz2*mqMz2/s/s*(C40A + C41A*alsMz + (C42A + C42AL*log_q)*alsMz2)
-            - 12.0*mqdash4/s/s*alsMz2;
-
-    // If2 is already incorporated into gZf in the EWPOSM class
-    //double If2 = 35.0/18.0*aleMz*aleMz*( 1 - 8.0/3.0*s2teff_f(flavour_q) );
-    //gZf[INDF] -= 4.0 * abs(Qf) * If2;
+    RAf = 1.0 + 3.0/4.0*Qf2*aleMz/M_PI + alsMzPi - Qf2/4.0*aleMz/M_PI*alsMzPi
+            + (C02 + C2t - 2.0*I3q*I2)*alsMzPi2
+            + (C03 - 2.0*I3q*I3)*alsMzPi3
+            + C04*alsMzPi4
+            //- 2.0*I3q*deltaI4*alsMzPi4 /* theoretical uncertainty */
+            //+ deltaC05*alsMzPi5 /* theoretical uncertainty */
+            + (mcMz2 + mbMz2)/s*C23*alsMzPi3
+            + mqMz2/s*(C20A + C21A*alsMzPi + C22A*alsMzPi2
+                       + 6.0*(3.0 + log_t)*alsMzPi2 + C23A*alsMzPi3)
+            - 10.0*mqMz2/mt/mt*(8.0/81.0 + log_t/54.0)*alsMzPi2
+            + mcMz2*mcMz2/s/s*(C42 - log_c)*alsMzPi2
+            + mbMz2*mbMz2/s/s*(C42 - log_b)*alsMzPi2
+            + mqMz2*mqMz2/s/s*(C40A + C41A*alsMzPi
+            + (C42A + C42AL*log_q)*alsMzPi2)
+            - 12.0*mqdash4/s/s*alsMzPi2
+            ;
 
     double G0 = GF*mZ*mZ*mZ/24.0/sqrt(2.0)/M_PI;
-    double Gamma = 3.0 * G0 * rhoZf[INDF].abs()
-                   * ( gZf[INDF].abs2()*RVf + RAf ) + Delta_EWQCD;
-
+    double Gamma = 3.0 * G0 * rhoZf[INDF_q].abs()
+                   * ( gZf[INDF_q].abs2()*RVf + RAf ) + Delta_EWQCD;
     return Gamma;
 }
 
-double EWphysics::Gamma_f(const std::string flavour) {
-    if (flavour=="nu" || flavour=="e" || flavour=="mu" || flavour=="tau") {
-        return ( Gamma_l(flavour) );
-    } else if (flavour=="u" || flavour=="d" || flavour=="c"
-               || flavour=="s" || flavour=="b") {
-        return ( Gamma_q(flavour) );
+double EWphysics::Gamma_f(const int INDF) {
+    if (INDF >= 0 && INDF <= 3) {
+        return ( Gamma_l(INDF) );
+    } else if (INDF >= 4 && INDF <= 9) {
+        return ( Gamma_q(INDF) );
     } else {
-        std::cout << "Gamma_f(flavour = nu, e, mu, tau, u, d, c, s, b)" << std::endl;
+        std::cout << "Gamma_f(INDF = 0-9)" << std::endl;
         exit(EXIT_FAILURE);
     }
 }
 
 double EWphysics::Gamma_inv() {
-    return ( 3.0*Gamma_f("nu") );
+    return ( 3.0*Gamma_f(0) );
 }
 
 double EWphysics::Gamma_had() {
-    return ( Gamma_f("u") + Gamma_f("d")
-             + Gamma_f("c") + Gamma_f("s") + Gamma_f("b") );
+    return ( Gamma_f(3) + Gamma_f(5) + Gamma_f(6) + Gamma_f(7) + Gamma_f(9) );
 }
 
 double EWphysics::Gamma_Z() {
-    return ( Gamma_f("e") + Gamma_f("mu") + Gamma_f("tau")
-             + Gamma_inv() + Gamma_had() );
+    return ( Gamma_f(1) + Gamma_f(2) + Gamma_f(3) + Gamma_inv() + Gamma_had() );
 }
 
-double EWphysics::sigma0_l(const std::string flavour_l) {
-    if (flavour_l!="e" && flavour_l!="mu" && flavour_l!="tau") {
-        std::cout << "sigma0_l(flavour_l = e, mu, tau)" << std::endl;
+double EWphysics::sigma0_l(const int INDF_l) {
+    if (INDF_l < 0 || INDF_l > 3) {
+        std::cout << "sigma0_l(INDF_l = 0-3)" << std::endl;
         exit(EXIT_FAILURE);
     }
-    return ( 12.0*M_PI*Gamma_f("e")*Gamma_f(flavour_l)
+    return ( 12.0*M_PI*Gamma_f(1)*Gamma_f(INDF_l)
             /mZ/mZ/Gamma_Z()/Gamma_Z() );
 }
 
 double EWphysics::sigma0_had() {
-    return ( 12.0*M_PI*Gamma_f("e")*Gamma_had()
+    return ( 12.0*M_PI*Gamma_f(1)*Gamma_had()
              /mZ/mZ/Gamma_Z()/Gamma_Z() );
 }
 
-double EWphysics::R0_l(const std::string flavour_l) {
-    if (flavour_l!="e" && flavour_l!="mu" && flavour_l!="tau") {
-        std::cout << "R0_l(flavour_l = e, mu, tau)" << std::endl;
+double EWphysics::R0_l(const int INDF_l) {
+    if (INDF_l < 0 || INDF_l > 3) {
+        std::cout << "R0_l(INDF_l = 0-3)" << std::endl;
         exit(EXIT_FAILURE);
-    }
-    return ( Gamma_had()/Gamma_f(flavour_l) );
+    }  
+    return ( Gamma_had()/Gamma_f(INDF_l) );
 }
 
-double EWphysics::R0_q(const std::string flavour_q) {
-    if (flavour_q!="b" && flavour_q!="c" && flavour_q!="s") {
-        std::cout << "R0_q(flavour_q = b, c, s)" << std::endl;
+double EWphysics::R0_q(const int INDF_q) {
+    if (INDF_q < 4 || INDF_q > 9) {
+        std::cout << "R0_q(INDF_q = 4-9)" << std::endl;
         exit(EXIT_FAILURE);
     }
-    return ( Gamma_f(flavour_q)/Gamma_had() );
+    return ( Gamma_f(INDF_q)/Gamma_had() );
 }
 
-double EWphysics::A_f(const std::string flavour) {
-    double Re_gZf = gZf[flavour_st_to_int(flavour)].real();
-
-    //!! alternatively use the two-loop result of sin^2\theta_eff^f
+double EWphysics::A_f(const int INDF) {
+    if (INDF < 0 || INDF > 9) {
+        std::cout << "A_f(INDF = 0-9)" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    double Re_gZf = gZf[INDF].real();
     return ( 2.0*Re_gZf/(Re_gZf*Re_gZf + 1.0) ); //!!!!!
 }
 
-double EWphysics::AFB0_f(const std::string flavour) {
-    return ( 3.0/4.0*A_f("e")*A_f(flavour) );
+double EWphysics::AFB0_f(const int INDF) {
+    if (INDF < 0 || INDF > 9) {
+        std::cout << "AFB0_f(INDF = 0-9)" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    return ( 3.0/4.0*A_f(1)*A_f(INDF) );
 }
 
 double EWphysics::obliqueEpsilon1() {
     double Delta_rho = 2.0*(sqrt(rhoZf[1].real()) - 1.0);
-
     return Delta_rho;
 }
 
 double EWphysics::obliqueEpsilon2() {
     double Delta_rW = 1.0 - M_PI*aleMz/sqrt(2.0)/GF
                             /( 1.0 - mW()*mW()/mZ/mZ )/mW()/mW();
-    double Delta_rho = 2.0*(rhoZf[1].real() - 1.0);
+    double Delta_rho = 2.0*(sqrt(rhoZf[1].real()) - 1.0);
     double s02 = 0.5 - sqrt(0.25 - M_PI*aleMz/sqrt(2.0)/GF/mZ/mZ);
     double c02 = 1.0 - s02;
-    double Delta_k = s2teff_f("e")/s02 - 1.0;
-
-    //std::cout << "  Delta_rW = " << Delta_rW << std::endl; // TEST
-    //std::cout << "  Delta_rho = " << Delta_rho << std::endl; // TEST
-    //std::cout << "  Delta_k = " << Delta_k << std::endl; // TEST
-    //std::cout << "  s02 = " << s02 << std::endl << std::endl; // TEST
-
+    double Delta_k = s2teff_f(1)/s02 - 1.0;
     return ( c02*Delta_rho + s02*Delta_rW/(c02-s02) - 2.0*s02*Delta_k );
 }
 
@@ -416,14 +453,12 @@ double EWphysics::obliqueEpsilon3() {
     double Delta_rho = 2.0*(sqrt(rhoZf[1].real()) - 1.0);
     double s02 = 0.5 - sqrt(0.25 - M_PI*aleMz/sqrt(2.0)/GF/mZ/mZ);
     double c02 = 1.0 - s02;
-    double Delta_k = s2teff_f("e")/s02 - 1.0;
-
+    double Delta_k = s2teff_f(1)/s02 - 1.0;
     return ( c02*Delta_rho + (c02-s02)*Delta_k );
 }
 
 double EWphysics::obliqueS() {
     double s02 = 0.5 - sqrt(0.25 - M_PI*aleMz/sqrt(2.0)/GF/mZ/mZ);
-
     return ( obliqueEpsilon3()/ale*4.0*s02 );
 }
 
@@ -433,6 +468,45 @@ double EWphysics::obliqueT() {
 
 double EWphysics::obliqueU() {
     double s02 = 0.5 - sqrt(0.25 - M_PI*aleMz/sqrt(2.0)/GF/mZ/mZ);
-
     return ( - obliqueEpsilon2()/ale*4.0*s02 );
 }
+
+
+///////////////////////////////////////////////////////////////////////////
+
+double EWphysics::s2teff_f(const std::string flavour) {
+    return ( s2teff_f(flavour_st_to_int(flavour)) );
+}
+
+double EWphysics::Gamma_l(const std::string flavour_l) {
+    return ( Gamma_l(flavour_st_to_int(flavour_l)) );
+}
+
+double EWphysics::Gamma_q(const std::string flavour_q) {
+    return ( Gamma_q(flavour_st_to_int(flavour_q)) );
+}
+
+double EWphysics::Gamma_f(const std::string flavour) {
+    return ( Gamma_f(flavour_st_to_int(flavour)) );
+}
+
+double EWphysics::sigma0_l(const std::string flavour_l) {
+    return ( sigma0_l(flavour_st_to_int(flavour_l)) );
+}
+
+double EWphysics::R0_l(const std::string flavour_l) {
+    return ( R0_l(flavour_st_to_int(flavour_l)) );
+}
+
+double EWphysics::R0_q(const std::string flavour_q) {
+    return ( R0_q(flavour_st_to_int(flavour_q)) );
+}
+
+double EWphysics::A_f(const std::string flavour) {
+    return ( A_f(flavour_st_to_int(flavour)) );
+}
+
+double EWphysics::AFB0_f(const std::string flavour) {
+    return ( AFB0_f(flavour_st_to_int(flavour)) );
+}
+
