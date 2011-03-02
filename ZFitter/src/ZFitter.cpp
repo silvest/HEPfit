@@ -542,7 +542,7 @@ double ZFitter::obliqueEpsilon2() {
     double c02 = 1.0 - s02;
     double Delta_k = s2teff_f("e")/s02 - 1.0;
 
-    //std::cout << "alpha_mZ = " << alpha_mZ << std::endl; // TEST
+    //std::cout << "  alpha_mZ = " << std::setprecision(10) << alpha_mZ << std::endl; // TEST
     //std::cout << "  Delta_rW = " << Delta_rW << std::endl; // TEST
     //std::cout << "  Delta_rho = " << Delta_rho << std::endl; // TEST
     //std::cout << "  Delta_k = " << Delta_k << std::endl; // TEST

@@ -15,8 +15,7 @@
 
 EWphysics::EWphysics(gslpp::complex gZf_i[10], gslpp::complex rhoZf_i[10],
                      double Delta_r_i,
-                     double mu_i, double md_i, double mc_i,
-                     double ms_i, double mt_i, double mb_i,
+                     double mcMz_i, double mbMz_i, double mt_i, 
                      double me_i, double mmu_i, double mtau_i,
                      double mZ_i, double mHl_i, double alsMz_i, double GF_i,
                      double ale_i, double aleMz_i){
@@ -27,20 +26,8 @@ EWphysics::EWphysics(gslpp::complex gZf_i[10], gslpp::complex rhoZf_i[10],
     }
     Delta_r = Delta_r_i;
 
-//    QCD QCDrunning(alsMz_i, mZ_i, mu_i, md_i, ms_i, mc_i, mb_i, mt_i);
-//    mcMz = QCDrunning.mrun(mZ, QCDrunning.mrun(mb_i, mc_i, 4.0), 5.0);;
-//    mbMz = QCDrunning.mrun(mZ, mb_i, 5.0);
-
-    /*!!! TEST !!!*/
-//    mcMz = mc_i * pow(alsMz_i, 12.0/25.0)
-//            * (1.0 + 1.0141*alsMz_i + 1.3892*alsMz_i*alsMz_i
-//               + 1.0905*alsMz_i*alsMz_i*alsMz_i);
-//    mbMz = mb_i * pow(alsMz_i, 12.0/23.0)
-//            * (1.0 + 1.1755*alsMz_i + 1.5007*alsMz_i*alsMz_i
-//               + 0.1725*alsMz_i*alsMz_i*alsMz_i);
-
-    mcMz = 0.563817;
-    mbMz = 2.81944;
+    mcMz = mcMz_i;
+    mbMz = mbMz_i;
 
     mt = mt_i;
     me = me_i;
@@ -286,7 +273,7 @@ double EWphysics::Gamma_q(const int INDF_q) {
                   + (125.0/54.0 - 2.0/3.0*zeta2)*nf*nf;
     double C20A = -6.0;
     double C21A = -22.0;
-    double C22A = -8221.0/24.0 + 57.0*zeta2 +117.0*zeta3
+    double C22A = -8221.0/24.0 + 57.0*zeta2 + 117.0*zeta3
                   + (151.0/12.0 - 2.0*zeta2 - 4.0*zeta3)*nf;
     double C23A = -4544045.0/864.0 + 1340.0*zeta2 + 118915.0/36.0*zeta3
                   - 127.0*zeta5
@@ -330,7 +317,7 @@ double EWphysics::Gamma_q(const int INDF_q) {
     /* radiator function to the vector current */
     RVf = 1.0 + 3.0/4.0*Qf2*aleMz/M_PI + alsMzPi - Qf2/4.0*aleMz/M_PI*alsMzPi
             + (C02 + C2t)*alsMzPi2 + C03*alsMzPi3 + C04*alsMzPi4
-            //+ deltaC05*alsMzPi5 /* theoretical uncertainty */
+            //+ deltaC05*alsMzPi5 /* theoretical uncertainty (absent in ZFITTER) */
             + (mcMz2 + mbMz2)/s*C23*alsMzPi3
             + mqMz2/s*(C21V*alsMzPi + C22V*alsMzPi2 + C23V*alsMzPi3)
             + mcMz2*mcMz2/s/s*(C42 - log_c)*alsMzPi2
@@ -344,9 +331,9 @@ double EWphysics::Gamma_q(const int INDF_q) {
     RAf = 1.0 + 3.0/4.0*Qf2*aleMz/M_PI + alsMzPi - Qf2/4.0*aleMz/M_PI*alsMzPi
             + (C02 + C2t - 2.0*I3q*I2)*alsMzPi2
             + (C03 - 2.0*I3q*I3)*alsMzPi3
-            + C04*alsMzPi4
+            + C04*alsMzPi4 /* (absent in ZFITTER) */
             //- 2.0*I3q*deltaI4*alsMzPi4 /* theoretical uncertainty */
-            //+ deltaC05*alsMzPi5 /* theoretical uncertainty */
+            //+ deltaC05*alsMzPi5 /* theoretical uncertainty (absent in ZFITTER) */
             + (mcMz2 + mbMz2)/s*C23*alsMzPi3
             + mqMz2/s*(C20A + C21A*alsMzPi + C22A*alsMzPi2
                        + 6.0*(3.0 + log_t)*alsMzPi2 + C23A*alsMzPi3)
@@ -354,9 +341,8 @@ double EWphysics::Gamma_q(const int INDF_q) {
             + mcMz2*mcMz2/s/s*(C42 - log_c)*alsMzPi2
             + mbMz2*mbMz2/s/s*(C42 - log_b)*alsMzPi2
             + mqMz2*mqMz2/s/s*(C40A + C41A*alsMzPi
-            + (C42A + C42AL*log_q)*alsMzPi2)
-            - 12.0*mqdash4/s/s*alsMzPi2
-            ;
+                               + (C42A + C42AL*log_q)*alsMzPi2)
+            - 12.0*mqdash4/s/s*alsMzPi2 ;
 
     double G0 = GF*mZ*mZ*mZ/24.0/sqrt(2.0)/M_PI;
     double Gamma = 3.0 * G0 * rhoZf[INDF_q].abs()
@@ -380,7 +366,7 @@ double EWphysics::Gamma_inv() {
 }
 
 double EWphysics::Gamma_had() {
-    return ( Gamma_f(3) + Gamma_f(5) + Gamma_f(6) + Gamma_f(7) + Gamma_f(9) );
+    return ( Gamma_f(4) + Gamma_f(5) + Gamma_f(6) + Gamma_f(7) + Gamma_f(9) );
 }
 
 double EWphysics::Gamma_Z() {
