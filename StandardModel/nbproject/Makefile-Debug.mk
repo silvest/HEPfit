@@ -36,7 +36,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/Model.o \
 	${OBJECTDIR}/src/StandardModel.o \
 	${OBJECTDIR}/src/Particle.o \
-	${OBJECTDIR}/src/QCD.o
+	${OBJECTDIR}/src/QCD.o \
+	${OBJECTDIR}/src/CKM.o
 
 # Test Directory
 TESTDIR=build/${CND_CONF}/${CND_PLATFORM}/tests
@@ -74,22 +75,27 @@ dist/Debug/GNU-Linux-x86/libstandardmodel.a: ${OBJECTFILES}
 ${OBJECTDIR}/src/Model.o: src/Model.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Model.o src/Model.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Model.o src/Model.cpp
 
 ${OBJECTDIR}/src/StandardModel.o: src/StandardModel.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StandardModel.o src/StandardModel.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StandardModel.o src/StandardModel.cpp
 
 ${OBJECTDIR}/src/Particle.o: src/Particle.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Particle.o src/Particle.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Particle.o src/Particle.cpp
 
 ${OBJECTDIR}/src/QCD.o: src/QCD.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/QCD.o src/QCD.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/QCD.o src/QCD.cpp
+
+${OBJECTDIR}/src/CKM.o: src/CKM.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/CKM.o src/CKM.cpp
 
 # Subprojects
 .build-subprojects:
@@ -100,7 +106,7 @@ ${OBJECTDIR}/src/QCD.o: src/QCD.cpp
 ${TESTDIR}/tests/StandardModelTest.o: tests/StandardModelTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I../Utils/src -I../gslpp/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StandardModelTest.o tests/StandardModelTest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I../gslpp/src -I../Utils/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StandardModelTest.o tests/StandardModelTest.cpp
 
 
 ${OBJECTDIR}/src/Model_nomain.o: ${OBJECTDIR}/src/Model.o src/Model.cpp 
@@ -111,7 +117,7 @@ ${OBJECTDIR}/src/Model_nomain.o: ${OBJECTDIR}/src/Model.o src/Model.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Model_nomain.o src/Model.cpp;\
+	    $(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Model_nomain.o src/Model.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Model.o ${OBJECTDIR}/src/Model_nomain.o;\
 	fi
@@ -124,7 +130,7 @@ ${OBJECTDIR}/src/StandardModel_nomain.o: ${OBJECTDIR}/src/StandardModel.o src/St
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StandardModel_nomain.o src/StandardModel.cpp;\
+	    $(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StandardModel_nomain.o src/StandardModel.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/StandardModel.o ${OBJECTDIR}/src/StandardModel_nomain.o;\
 	fi
@@ -137,7 +143,7 @@ ${OBJECTDIR}/src/Particle_nomain.o: ${OBJECTDIR}/src/Particle.o src/Particle.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Particle_nomain.o src/Particle.cpp;\
+	    $(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Particle_nomain.o src/Particle.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Particle.o ${OBJECTDIR}/src/Particle_nomain.o;\
 	fi
@@ -150,9 +156,22 @@ ${OBJECTDIR}/src/QCD_nomain.o: ${OBJECTDIR}/src/QCD.o src/QCD.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/QCD_nomain.o src/QCD.cpp;\
+	    $(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/QCD_nomain.o src/QCD.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/QCD.o ${OBJECTDIR}/src/QCD_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/CKM_nomain.o: ${OBJECTDIR}/src/CKM.o src/CKM.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/CKM.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/CKM_nomain.o src/CKM.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/CKM.o ${OBJECTDIR}/src/CKM_nomain.o;\
 	fi
 
 # Run Test Targets

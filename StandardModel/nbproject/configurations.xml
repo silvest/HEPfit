@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>src/CKM.h</itemPath>
       <itemPath>src/Model.h</itemPath>
       <itemPath>src/Particle.h</itemPath>
       <itemPath>src/QCD.h</itemPath>
@@ -19,6 +20,7 @@
                    displayName="Source Files"
                    projectFiles="true"
                    kind="SOURCE_LOGICAL_FOLDER">
+      <itemPath>src/CKM.cpp</itemPath>
       <itemPath>src/Model.cpp</itemPath>
       <itemPath>src/Particle.cpp</itemPath>
       <itemPath>src/QCD.cpp</itemPath>
@@ -53,8 +55,8 @@
       <compileType>
         <ccTool>
           <incDir>
-            <pElem>../Utils/src</pElem>
             <pElem>../gslpp/src</pElem>
+            <pElem>../Utils/src</pElem>
             <pElem>/usr/include/root</pElem>
           </incDir>
         </ccTool>
@@ -96,10 +98,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -152,10 +158,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

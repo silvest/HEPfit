@@ -36,7 +36,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/Model.o \
 	${OBJECTDIR}/src/StandardModel.o \
 	${OBJECTDIR}/src/Particle.o \
-	${OBJECTDIR}/src/QCD.o
+	${OBJECTDIR}/src/QCD.o \
+	${OBJECTDIR}/src/CKM.o
 
 # Test Directory
 TESTDIR=build/${CND_CONF}/${CND_PLATFORM}/tests
@@ -91,6 +92,11 @@ ${OBJECTDIR}/src/QCD.o: src/QCD.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/QCD.o src/QCD.cpp
 
+${OBJECTDIR}/src/CKM.o: src/CKM.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/CKM.o src/CKM.cpp
+
 # Subprojects
 .build-subprojects:
 
@@ -100,7 +106,7 @@ ${OBJECTDIR}/src/QCD.o: src/QCD.cpp
 ${TESTDIR}/tests/StandardModelTest.o: tests/StandardModelTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StandardModelTest.o tests/StandardModelTest.cpp
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StandardModelTest.o tests/StandardModelTest.cpp
 
 
 ${OBJECTDIR}/src/Model_nomain.o: ${OBJECTDIR}/src/Model.o src/Model.cpp 
@@ -153,6 +159,19 @@ ${OBJECTDIR}/src/QCD_nomain.o: ${OBJECTDIR}/src/QCD.o src/QCD.cpp
 	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/QCD_nomain.o src/QCD.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/QCD.o ${OBJECTDIR}/src/QCD_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/CKM_nomain.o: ${OBJECTDIR}/src/CKM.o src/CKM.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/CKM.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/CKM_nomain.o src/CKM.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/CKM.o ${OBJECTDIR}/src/CKM_nomain.o;\
 	fi
 
 # Run Test Targets
