@@ -17,7 +17,7 @@ Particle::Particle(double mass) {
 }
 
 Particle::Particle(const Particle& orig) {
-    Particle(orig.GetMass(), orig.GetWidth());
+    Particle(orig.getMass(), orig.getWidth());
 }
 
 
