@@ -321,7 +321,7 @@ void test1() {
 void test2() {
     std::cout << "gslpptest test 2" << std::endl;
     matrix<complex> m(3,3,0.);
-
+    m.assign(0,0,1.);
     m.assign(0,0,1.+0.*complex::i());
     m.assign(0,1,complex(1.435,.7548,true));
     m.assign(0,2,complex(0.2,.25,true));
