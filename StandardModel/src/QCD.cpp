@@ -16,38 +16,116 @@
 #include <Math/BrentRootFinder.h>
 #include "QCD.h"
 
-QCD::QCD() {
-    Nc = 3.;
+//void QCD::init(double AlsM_i, double M_i, double mu_i, double md_i, double ms_i,
+//        double mc_i, double mb_i, double mt_i, double mu1_i, double mu2_i,
+//        double mu3_i) {
+//    Nc = 3.;
+//    AlsM = AlsM_i;
+//    M = M_i;
+//    setMass(UP, mu_i);
+//    setMass(DOWN, md_i);
+//    setMass(CHARM, mc_i);
+//    setMass(STRANGE, ms_i);
+//    setMass(TOP, mt_i);
+//    setMass(BOTTOM, mb_i);
+//    mu1 = mu1_i;
+//    mu2 = mu2_i;
+//    mu3 = mu3_i;
+//}
+
+const std::string QCD::QCDvars[NQCDvars] = {"AlsMz","Mz","mup","mdown","mcharm",
+"mstrange","mtop","mbottom","mu1_qcd","mu2_qcd","mu3_qcd","MBd","MBs","MBp",
+"MK0","MKp","FBd","BBd"};
+
+void QCD::update(const Parameters& Par) {
+    double m_i;
+    std::vector <double> v;
+    if(Par.Find("AlsMz")!=-1) Par.Get("AlsMz",AlsM);
+    if(Par.Find("Mz")!=-1) Par.Get("Mz",M);
+    if(Par.Find("mup")!=-1) {
+        Par.Get("mup",m_i);
+        setMass(UP, m_i);
+    }
+    if(Par.Find("mdown")!=-1) {
+        Par.Get("mdown",m_i);
+        setMass(DOWN, m_i);
+    }
+    if(Par.Find("mcharm")!=-1) {
+        Par.Get("mcharm",m_i);
+        setMass(CHARM, m_i);
+    }
+    if(Par.Find("mstrange")!=-1) {
+        Par.Get("mstrange",m_i);
+        setMass(STRANGE, m_i);
+    }
+    if(Par.Find("mtop")!=-1) {
+        Par.Get("mtop",m_i);
+        setMass(TOP, m_i);
+    }
+    if(Par.Find("mbottom")!=-1) {
+        Par.Get("mbottom",m_i);
+        setMass(BOTTOM, m_i);
+    }
+    if(Par.Find("mu1_qcd")!=-1) Par.Get("mu1_qcd",mu1);
+    if(Par.Find("mu2_qcd")!=-1) Par.Get("mu2_qcd",mu2);
+    if(Par.Find("mu3_qcd")!=-1) Par.Get("mu3_qcd",mu3);
+    if(Par.Find("MBd")!=-1) {
+        Par.Get("MBd",m_i);
+        setMass(B_D, m_i);
+    }
+    if(Par.Find("FBd")!=-1) {
+        Par.Get("FBd",m_i);
+        particles[B_D].setDecayconst(m_i);
+    }
+    if(Par.Find("BBd")!=-1) {
+        Par.Get("BBd",v);
+        particles[B_D].setBpars(v);
+    }
+    if(Par.Find("MBs")!=-1) {
+        Par.Get("MBs",m_i);
+        setMass(B_S, m_i);
+    }
+    if(Par.Find("MBp")!=-1) {
+        Par.Get("MBp",m_i);
+        setMass(B_P, m_i);
+    }
+    if(Par.Find("MK0")!=-1) {
+        Par.Get("MK0",m_i);
+        setMass(K_0, m_i);
+    }
+    if(Par.Find("MKp")!=-1) {
+        Par.Get("MKp",m_i);
+        setMass(K_P, m_i);
+    }
+
 }
 
-QCD::QCD(double AlsM_i, double M_i, double mu_i, double md_i, double ms_i,
-        double mc_i, double mb_i, double mt_i) {
-    QCD(AlsM_i, M_i, mu_i, md_i, ms_i, mc_i, mb_i, mt_i, mt_i, mb_i, mc_i);
+QCD::QCD(const Parameters& Par) : Model() {
+    for(int i=0; i<NQCDvars; i++)
+        if(Par.Find(QCDvars[i])==-1) {
+            std::cout << "missing " << QCDvars[i] << "initialization in QCD" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+    update(Par);
 }
 
-QCD::QCD(double AlsM_i, double M_i, double mu_i, double md_i, double ms_i,
-        double mc_i, double mb_i, double mt_i, double mu1_i, double mu2_i,
-        double mu3_i) {
-    Nc = 3.;
-    AlsM = AlsM_i;
-    M = M_i;
-    particle[UP].setMass(mu_i);
-    particle[DOWN].setMass(md_i);
-    particle[CHARM].setMass(mc_i);
-    particle[STRANGE].setMass(ms_i);
-    particle[TOP].setMass(mt_i);
-    particle[BOTTOM].setMass(mb_i);
-    mu1 = mu1_i;
-    mu2 = mu2_i;
-    mu3 = mu3_i;
-}
+//QCD::QCD(double AlsM_i, double M_i, double mu_i, double md_i, double ms_i,
+//        double mc_i, double mb_i, double mt_i) : Model() {
+//    init(AlsM_i, M_i, mu_i, md_i, ms_i, mc_i, mb_i, mt_i, mt_i, mb_i, mc_i);
+//}
+//
+//QCD::QCD(double AlsM_i, double M_i, double mu_i, double md_i, double ms_i,
+//        double mc_i, double mb_i, double mt_i, double mu1_i, double mu2_i,
+//        double mu3_i) : Model() {
+//    init(AlsM_i, M_i, mu_i, md_i, ms_i, mc_i, mb_i, mt_i, mu1_i, mu2_i, mu3_i);
+//}
 
-QCD::QCD(const QCD& orig) {
-   QCD(orig.AlsM, orig.M, orig.particle[UP].getMass(),
-           orig.particle[DOWN].getMass(), orig.particle[STRANGE].getMass(),
-           orig.particle[CHARM].getMass(), orig.particle[BOTTOM].getMass(),
-           orig.particle[TOP].getMass(), orig.mu1, orig.mu2, orig.mu3);
-}
+//QCD::QCD(const QCD& orig) : Model() {
+//   init(orig.AlsM, orig.M, orig.getMass(UP),
+//           orig.getMass(DOWN), orig.getMass(STRANGE),
+//           orig.getMass(CHARM), orig.getMass(BOTTOM),
+//           orig.getMass(TOP), orig.mu1, orig.mu2, orig.mu3);
+//}
 
 QCD::~QCD() {
 }
@@ -183,7 +261,7 @@ double QCD::zero(double *x, double *y) const {
 
 double QCD::lambda4(int le) const {
 
-    if(le!=0 || le!=1){
+    if(le!=0 && le!=1){
         std::cout<< "error in order selection in lambda4" << std::endl;
         exit(EXIT_FAILURE);
     }
@@ -249,8 +327,7 @@ double QCD::mp2mbara(double * mu, double * mp) const
 double QCD::mp2mbar(double mp) const {
 
     int i;
-    double ms = particle[STRANGE].getMass(),
-           mc = particle[CHARM].getMass();
+    double ms = getMass(STRANGE), mc = getMass(CHARM);
     double alsmp = als(mp);
     for(i=0;i<5;i++)
         if(alsmp == mp2mbar_cache[0][i] || ms == mp2mbar_cache[1][i] ||
@@ -285,8 +362,7 @@ double QCD::mbar2mp(double mbar) const {
         double a,D=5.;
         a=als(mbar)/M_PI;
         if(mbar < 50.)
-            D=4.-4./3.*(particle[STRANGE].getMass()+
-                    particle[CHARM].getMass())/mbar; //only for the b quark
+            D=4.-4./3.*(getMass(STRANGE)+getMass(CHARM))/mbar; //only for the b quark
 
         return(mbar*(1.+4./3.*a+a*a*(13.44434-1.0414*D)));
     }
