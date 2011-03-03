@@ -84,7 +84,7 @@ namespace gslpp
       /** Destructor */
       ~matrix();
       /** Get i-th element */
-      const complex operator()(const size_t& i, const size_t& j) const;
+      complex operator()(const size_t& i, const size_t& j) const;
       /** Set i-th element */
 //      complex& operator()(const size_t& i, const size_t& j);
       /** Assign */
