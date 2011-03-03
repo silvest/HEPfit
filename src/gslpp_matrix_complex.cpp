@@ -103,9 +103,9 @@ namespace gslpp
   }
 
   /** Get i-th element */
-  const complex matrix<complex>::operator()(const size_t& i, const size_t& j) const
+  complex matrix<complex>::operator()(const size_t& i, const size_t& j) const
   {
-    const gsl_complex *x = gsl_matrix_complex_const_ptr(_matrix, i, j);
+    gsl_complex *x = gsl_matrix_complex_ptr(_matrix, i, j);
     return complex(x);
   }
 
