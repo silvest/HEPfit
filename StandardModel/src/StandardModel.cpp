@@ -13,6 +13,9 @@
 #include <Math/WrappedTF1.h>
 #include <Math/BrentRootFinder.h>
 #include "StandardModel.h"
+#include <gsl/gsl_sf_dilog.h>
+
+#define LEPS 1.e-5 // tolerance in the limit of S(x,y) to S(x)
 
 //const std::vector<std::string> pino = boost::assign::list_of("A")("BC");
 //
@@ -25,102 +28,173 @@
 //    ("mHl",boost::assign::list_of("mW")("sin2thw"))
 //    ("GF",boost::assign::list_of("v")("pino"));
 
-StandardModel::StandardModel(const gslpp::matrix<gslpp::complex>& VCKM_i,
-        double mu_i, double md_i, double mc_i, double ms_i, double mt_i,
-        double mb_i, const gslpp::matrix<gslpp::complex>& UPMNS_i, double me_i,
-        double mmu_i, double mtau_i, double mnu1_i, double mnu2_i,
-        double mnu3_i, double GF_i, double alsMz_i, double ale_i, double mZ_i,
-        double dAle5Mz_i, double mHl_i) : UPMNS(UPMNS_i), VCKM(VCKM_i),
-        Yd(3,3,0.), Yu(3,3,0.), Ye(3,3,0.), Yn(3,3,0.) {
-    GF = GF_i;
-    alsMz = alsMz_i;
-    ale = ale_i;
-    mZ = mZ_i;
-    dAle5Mz = dAle5Mz_i;
-    mHl = mHl_i;
-    setMu(mu_i);
-    setMd(md_i);
-    setMc(mc_i);
-    setMs(ms_i);
-    setMt(mt_i);
-    setMb(mb_i);
-    me = me_i;
-    mmu = mmu_i;
-    mtau = mtau_i;
-    mnu1 = mnu1_i;
-    mnu2 = mnu2_i;
-    mnu3 = mnu3_i;
-    Yd.assign(0,0,getMd()/v()*sqrt(2.));
-    Yd.assign(1,1,getMs()/v()*sqrt(2.));
-    Yd.assign(2,2,getMb()/v()*sqrt(2.));
-    Yu.assign(0,0,getMu()/v()*sqrt(2.));
-    Yu.assign(1,1,getMc()/v()*sqrt(2.));
-    Yu.assign(2,2,getMt()/v()*sqrt(2.));
+//void StandardModel::init(
+//        double mu_i, double md_i, double ms_i, double mc_i, double mb_i,
+//        double mt_i, double me_i,
+//        double mmu_i, double mtau_i, double mnu1_i, double mnu2_i,
+//        double mnu3_i, double GF_i, double alsMz_i, double ale_i, double mZ_i,
+//        double dAle5Mz_i, double mHl_i, double mu1_i, double mu2_i,
+//        double mu3_i) {
+//    QCD::init(alsMz_i, mZ_i, mu_i, md_i, ms_i, mc_i, mb_i, mt_i, mu1_i, mu2_i,
+//            mu3_i);
+//    setMass(NEUTRINO_1, mnu1_i);
+//    setMass(NEUTRINO_2, mnu2_i);
+//    setMass(NEUTRINO_3, mnu3_i);
+//    setMass(ELECTRON, me_i);
+//    setMass(MU, mmu_i);
+//    setMass(TAU, mtau_i);
+//    GF = GF_i;
+//    alsMz = alsMz_i;
+//    ale = ale_i;
+//    mZ = mZ_i;
+//    dAle5Mz = dAle5Mz_i;
+//    mHl = mHl_i;
+//    Yd.assign(0,0,md_i/v()*sqrt(2.)); // cambiare le scale!!!
+//    Yd.assign(1,1,ms_i/v()*sqrt(2.));
+//    Yd.assign(2,2,mb_i/v()*sqrt(2.));
+//    Yu.assign(0,0,mu_i/v()*sqrt(2.));
+//    Yu.assign(1,1,mc_i/v()*sqrt(2.));
+//    Yu.assign(2,2,mt_i/v()*sqrt(2.));
+//    Yu = Yu*VCKM;
+//    Ye.assign(0,0,me_i/v()*sqrt(2.));
+//    Ye.assign(1,1,mmu_i/v()*sqrt(2.));
+//    Ye.assign(2,2,mtau_i/v()*sqrt(2.));
+//    Yn.assign(0,0,mnu1_i/v()*sqrt(2.));
+//    Yn.assign(1,1,mnu2_i/v()*sqrt(2.));
+//    Yn.assign(2,2,mnu3_i/v()*sqrt(2.));
+//    Yn = Yn*UPMNS.hconjugate();
+//}
+
+const std::string StandardModel::SMvars[NSMvars] = {"GF","mneutrino_1","mneutrino_2",
+"mneutrino_3","melectron","mmu","mtau","VCKM","UPMNS","ale","dAle5Mz","mHl","muw"};
+
+void StandardModel::update(Parameters& Par) {
+    QCD::update(Par);
+    // within the SM and in the MonteCarlo we force AlsM=alsMz and M=Mz
+    alsMz = AlsM;
+    mZ = M;
+    if(Par.Find("GF")!=-1) Par.Get("GF",GF);
+    if(Par.Find("muw")!=-1) Par.Get("muw",muw);
+    double m_i;
+    bool compute_Yn=false;
+
+    if(Par.Find("mneutrino_1")!=-1) {
+        Par.Get("mneutrino_1",m_i);
+        setMass(NEUTRINO_1, m_i);
+        Yn.assign(0,0,m_i/v()*sqrt(2.));
+        compute_Yn=true;
+    }
+    if(Par.Find("mneutrino_2")!=-1) {
+        Par.Get("mneutrino_2",m_i);
+        setMass(NEUTRINO_2, m_i);
+        Yn.assign(1,1,m_i/v()*sqrt(2.));
+        compute_Yn=true;
+    }
+    if(Par.Find("mneutrino_3")!=-1) {
+        Par.Get("mneutrino_3",m_i);
+        setMass(NEUTRINO_3, m_i);
+        Yn.assign(2,2,m_i/v()*sqrt(2.));
+        compute_Yn=true;
+    }
+    if(Par.Find("melectron")!=-1) {
+        Par.Get("melectron",m_i);
+        setMass(ELECTRON, m_i);
+        Ye.assign(0,0,m_i/v()*sqrt(2.));
+    }
+    if(Par.Find("mmu")!=-1) {
+        Par.Get("mmu",m_i);
+        setMass(MU, m_i);
+        Ye.assign(1,1,m_i/v()*sqrt(2.));
+    }
+    if(Par.Find("mtau")!=-1) {
+        Par.Get("mtau",m_i);
+        setMass(TAU, m_i);
+        Ye.assign(2,2,m_i/v()*sqrt(2.));
+    }
+    if(Par.Find("ale")!=-1) Par.Get("ale",ale);
+    if(Par.Find("dAle5Mz")!=-1) Par.Get("dAle5Mz",dAle5Mz);
+    if(Par.Find("mHl")!=-1) Par.Get("mHl",mHl);
+    for(int i=0; i<3; i++)
+    {
+        Yu.assign(i,i,this->QCD::particles[quark(UP)+2*i].getMass()/v()*sqrt(2.));
+        Yd.assign(i,i,this->QCD::particles[quark(UP)+1+2*i].getMass()/v()*sqrt(2.));
+    }
+    if(Par.Find("VCKM")!=-1) Par.Get("VCKM",VCKM);
     Yu = Yu*VCKM;
-    Ye.assign(0,0,me/v()*sqrt(2.));
-    Ye.assign(1,1,mmu/v()*sqrt(2.));
-    Ye.assign(2,2,mtau/v()*sqrt(2.));
-    Yn.assign(0,0,mnu1/v()*sqrt(2.));
-    Yn.assign(1,1,mnu2/v()*sqrt(2.));
-    Yn.assign(2,2,mnu3/v()*sqrt(2.));
-    Yn = Yn*UPMNS.hconjugate();
+    if(Par.Find("UPMNS")!=-1) {
+        Par.Get("UPMNS",UPMNS);
+        compute_Yn=true;
+    }
+    if(compute_Yn) Yn = Yn*UPMNS.hconjugate();
 }
 
-StandardModel::StandardModel(Parameters& Par): UPMNS(3,3,0.), VCKM(3,3,0.),
-        Yd(3,3,0.), Yu(3,3,0.), Ye(3,3,0.), Yn(3,3,0.) {
-    double m;
-    Par.Get("mu",m);
-    setMu(m);
-    Par.Get("md",m);
-    setMd(m);
-    Par.Get("mc",m);
-    setMc(m);
-    Par.Get("ms",m);
-    setMs(m);
-    Par.Get("mt",m);
-    setMt(m);
-    Par.Get("mb",m);
-    setMb(m);
-    Par.Get("me",me);
-    Par.Get("mmu",mmu);
-    Par.Get("mtau",mtau);
-    Par.Get("mnu1",mnu1);
-    Par.Get("mnu2",mnu2);
-    Par.Get("mnu3",mnu3);
-    Yd.assign(0,0,getMd()/v()*sqrt(2.));
-    Yd.assign(1,1,getMs()/v()*sqrt(2.));
-    Yd.assign(2,2,getMb()/v()*sqrt(2.));
-    Yu.assign(0,0,getMu()/v()*sqrt(2.));
-    Yu.assign(1,1,getMc()/v()*sqrt(2.));
-    Yu.assign(2,2,getMt()/v()*sqrt(2.));
-    Par.Get("VCKM",VCKM);
-    Par.Get("UPMNS",UPMNS);
-    Yu = Yu*VCKM;
-    Par.Get("GF", GF);
-    Par.Get("alsMz", alsMz);
-    Par.Get("ale", ale);
-    Par.Get("mZ", mZ);
-    Par.Get("dAle5Mz", dAle5Mz);
-    Par.Get("mHl", mHl);
-    if(Par.Find("mu1") == Parameters::DOUBLE) Par.Get("mu1", mu1);
-    else mu1 = getMt();
-    if(Par.Find("mu2") == Parameters::DOUBLE) Par.Get("mu2", mu2);
-    else mu2 = getMb();
-    if(Par.Find("mu3") == Parameters::DOUBLE) Par.Get("mu3", mu3);
-    else mu3 = getMc();
-    AlsM = alsMz;
-    M = mZ;
-}
+//StandardModel::StandardModel(const matrix<complex>& VCKM_i,
+//        double mu_i, double md_i, double ms_i, double mc_i, double mb_i,
+//        double mt_i, const matrix<complex>& UPMNS_i, double me_i,
+//        double mmu_i, double mtau_i, double mnu1_i, double mnu2_i,
+//        double mnu3_i, double GF_i, double alsMz_i, double ale_i, double mZ_i,
+//        double dAle5Mz_i, double mHl_i, double mu1_i, double mu2_i,
+//        double mu3_i) : UPMNS(UPMNS_i), VCKM(VCKM_i), Yd(3,3,0.),
+//        Yu(3,3,0.), Ye(3,3,0.), Yn(3,3,0.) {
+//    init(mu_i, md_i, ms_i, mc_i, mb_i, mt_i, me_i, mmu_i,
+//            mtau_i, mnu1_i, mnu2_i, mnu3_i, GF_i, alsMz_i, ale_i, mZ_i,
+//            dAle5Mz_i, mHl_i, mu1_i, mu2_i, mu3_i);
+//}
+//
+//StandardModel::StandardModel(Parameters& Par): UPMNS(3,3,0.), VCKM(3,3,0.),
+//        Yd(3,3,0.), Yu(3,3,0.), Ye(3,3,0.), Yn(3,3,0.) {
+//    double mu, md, mc, ms, mt, mb, me, mmu, mtau, mnu1, mnu2, mnu3;
+//    Par.Get("mu",mu);
+//    Par.Get("md",md);
+//    Par.Get("mc",mc);
+//    Par.Get("ms",ms);
+//    Par.Get("mt",mt);
+//    Par.Get("mb",mb);
+//    Par.Get("me",me);
+//    Par.Get("mmu",mmu);
+//    Par.Get("mtau",mtau);
+//    Par.Get("mnu1",mnu1);
+//    Par.Get("mnu2",mnu2);
+//    Par.Get("mnu3",mnu3);
+//    Par.Get("VCKM",VCKM);
+//    Par.Get("UPMNS",UPMNS);
+//    Par.Get("GF", GF);
+//    Par.Get("alsMz", alsMz);
+//    Par.Get("ale", ale);
+//    Par.Get("mZ", mZ);
+//    Par.Get("dAle5Mz", dAle5Mz);
+//    Par.Get("mHl", mHl);
+//    if(Par.Find("mu1") == Parameters::DOUBLE) Par.Get("mu1", mu1);
+//    else mu1 = mt;
+//    if(Par.Find("mu2") == Parameters::DOUBLE) Par.Get("mu2", mu2);
+//    else mu2 = mb;
+//    if(Par.Find("mu3") == Parameters::DOUBLE) Par.Get("mu3", mu3);
+//    else mu3 = mc;
+//    init(mu, md, ms, mc, mb, mt, me, mmu, mtau, mnu1,
+//            mnu2, mnu3, GF, alsMz, ale, mZ, dAle5Mz, mHl, mu1, mu2, mu3);
+//}
 
 
-StandardModel::StandardModel(const StandardModel& orig) :
-        UPMNS(orig.getUPMNS()), VCKM(orig.getVCKM()), Yd(3,3,0.), Yu(3,3,0.),
-        Ye(3,3,0.), Yn(3,3,0.) {
-    StandardModel(orig.getVCKM(), orig.getMu(), orig.getMd(), orig.getMc(),
-            orig.getMs(), orig.getMt(), orig.getMb(), orig.getUPMNS(),
-            orig.getMe(), orig.getMmu(), orig.getMtau(), orig.getMnu1(),
-            orig.getMnu2(), orig.getMnu3(), orig.getGF(), orig.getAlsMz(),
-            orig.getAle(), orig.getMZ(), orig.getDAle5Mz(), orig.getMHl() );
+//StandardModel::StandardModel(const StandardModel& orig) :
+//        UPMNS(orig.getUPMNS()), VCKM(orig.getVCKM()), Yd(3,3,0.), Yu(3,3,0.),
+//        Ye(3,3,0.), Yn(3,3,0.) {
+//    Init(orig.getMass(UP), orig.getMass(DOWN), orig.getMass(STRANGE),
+//            orig.getMass(CHARM), orig.getMass(BOTTOM), orig.getMass(TOP),
+//            orig.getMass(ELECTRON), orig.getMass(MU), orig.getMass(TAU),
+//            orig.getMass(NEUTRINO_1), orig.getMass(NEUTRINO_2),
+//            orig.getMass(NEUTRINO_3), orig.getGF(), orig.getAlsMz(),
+//            orig.getAle(), orig.getMZ(), orig.getDAle5Mz(), orig.getMHl(),
+//            orig.getMu1(), orig.getMu2(), orig.getMu3());
+//}
+
+StandardModel::StandardModel(Parameters& Par) : QCD(Par), UPMNS(3,3,0.),
+        VCKM(3,3,0.), Yd(3,3,0.), Yu(3,3,0.), Ye(3,3,0.), Yn(3,3,0.){
+    for(int i=0; i<NSMvars; i++)
+        if(Par.Find(SMvars[i])==-1) {
+            std::cout << "missing " << SMvars[i] << "initialization in SM" << std::endl;
+            exit(EXIT_FAILURE);
+        }
+    update(Par);
 }
 
 StandardModel::~StandardModel() {
@@ -157,7 +231,7 @@ double StandardModel::mW() const {
     // 2 sigma region around their central values (year 2003) adopted below.
     double dH = log(mHl/100.0);
     double dh = pow((mHl/100.0), 2.0);
-    double dt = pow((getMt()/174.3), 2.0) - 1.0;
+    double dt = pow((getMass(TOP)/174.3), 2.0) - 1.0;
     double dZ = mZ/91.1875 - 1.0;
     double dalphae = dAle5Mz/0.05907 - 1.0;
     double dalphas = alsMz/0.119 - 1.0;
@@ -194,7 +268,7 @@ double StandardModel::sin2thw() const {
     double L_H = log(mHl/100.0);
     double Delta_H = mHl/100.0;
     double Delta_alphae = dAle5Mz/0.05907 - 1.0;
-    double Delta_t = pow((getMt()/178.0), 2.0) - 1.0;
+    double Delta_t = pow((getMass(TOP)/178.0), 2.0) - 1.0;
     double Delta_alphas = alsMz/0.117 - 1.0;
     double Delta_Z = mZ/91.1876 - 1.0;
 
@@ -224,7 +298,7 @@ double StandardModel::sin2thwb() const{
     double L_H = log(mHl/100.0);
     double Delta_H = mHl/100.0;
     double Delta_alphae = dAle5Mz/0.05907 - 1.0;
-    double Delta_t = pow((getMt()/178.0), 2.0) - 1.0;
+    double Delta_t = pow((getMass(TOP)/178.0), 2.0) - 1.0;
     double Delta_alphas = alsMz/0.117 - 1.0;
     double Delta_Z = mZ/91.1876 - 1.0;
 
@@ -257,7 +331,7 @@ double StandardModel::sin2thwall(const std::string& ferm) const {
     double L_H = log(mHl/100.0);
     double Delta_H = mHl/100.0;
     double Delta_alphae = dAle5Mz/0.05907 - 1.0;
-    double Delta_t = pow((getMt()/178.0), 2.0) - 1.0;
+    double Delta_t = pow((getMass(TOP)/178.0), 2.0) - 1.0;
     double Delta_alphas = alsMz/0.117 - 1.0;
     double Delta_Z = mZ/91.1876 - 1.0;
     int i=4;
@@ -334,4 +408,137 @@ double StandardModel::T() const {
 
 double StandardModel::U() const {
     return 0.0;
+}
+
+// Angles
+
+double StandardModel::getBeta() const {
+  return (-VCKM(1,0)*VCKM(1,2).conjugate()/(VCKM(2,0)*VCKM(2,2).conjugate())).arg();
+}
+
+double StandardModel::getGamma() const {
+  return (-VCKM(0,0)*VCKM(0,2).conjugate()/(VCKM(1,0)*VCKM(1,2).conjugate())).arg();
+}
+
+double StandardModel::getAlpha() const {
+  return (-VCKM(2,0)*VCKM(2,2).conjugate()/(VCKM(0,0)*VCKM(0,2).conjugate())).arg();
+}
+
+double StandardModel::getBetas() const {
+  return (-VCKM(2,1)*VCKM(2,2).conjugate()/(VCKM(1,1)*VCKM(1,2).conjugate())).arg();
+}
+
+// Lambda_q
+
+gslpp::complex StandardModel::getlamt() const {
+  return VCKM(2,0)*VCKM(2,1).conjugate();
+}
+
+gslpp::complex StandardModel::getlamc() const {
+  return VCKM(1,0)*VCKM(1,1).conjugate();
+}
+
+gslpp::complex StandardModel::getlamu() const {
+  return VCKM(0,0)*VCKM(0,1).conjugate();
+}
+
+
+gslpp::complex StandardModel::getlamt_d() const {
+  return VCKM(2,0)*VCKM(2,2).conjugate();
+}
+
+gslpp::complex StandardModel::getlamc_d() const {
+  return VCKM(1,0)*VCKM(1,2).conjugate();
+}
+
+gslpp::complex StandardModel::getlamu_d() const {
+  return VCKM(0,0)*VCKM(0,2).conjugate();
+}
+
+
+gslpp::complex StandardModel::getlamt_s() const {
+  return VCKM(2,1)*VCKM(2,2).conjugate();
+}
+
+gslpp::complex StandardModel::getlamc_s() const {
+  return VCKM(1,1)*VCKM(1,2).conjugate();
+}
+
+gslpp::complex StandardModel::getlamu_s() const {
+  return VCKM(0,1)*VCKM(0,2).conjugate();
+}
+
+double StandardModel::S(double x, double y) const { // Buras 2000 Appendix
+  if(fabs(1.-y/x)<LEPS)
+    return((x*(-4. + 15.*x - 12.*x*x + pow(x,3.) +
+       6.*x*x*log(x)))/(4.*pow(-1. + x,3.)));
+  else
+    return(x*y*((1./4. + 3./2./(1. - x) - 3./4./pow(1. - x,2.))*
+		log(x)/(x - y) +
+		(1./4. + 3./2./(1. - y) - 3./4./pow(1. - y,2.))*
+		log(y)/(y - x) -
+		3./4./(1. - x)/(1.-y)));
+}
+
+double StandardModel::kt_sing_a(const double x) const
+{
+  return(x*(-4.+18.*x+3.*pow(x,2.)+pow(x,3.))/4./pow(x-1.,3.)
+         -9.*pow(x,3.)/2./pow(x-1.,4.)*log(x));
+}
+
+double StandardModel::kt_sing(const double x) const
+{
+  return(x*(4.-39.*x+168.*pow(x,2.)+11.*pow(x,3.))/4./pow(x-1.,3.)
+         +3.*pow(x,3.)*gsl_sf_dilog(1.-x)*(5.+x)/pow(x-1.,3.)
+         +3.*x*log(x)*(-4.+24.*x-36.*pow(x,2.)-7.*pow(x,3.)-pow(x,4.))/2.
+         /pow(x-1.,4.)+3.*pow(x,3.)*pow(log(x),2.)*(13.+4.*x+pow(x,2.))/2.
+         /pow(x-1.,4.));
+}
+
+double StandardModel::kt_oct(const double x) const
+{
+  return((-64.+68.*x+17.*pow(x,2.)-11.*pow(x,3.))/4./pow(x-1.,2.)
+         +pow(M_PI,2.)*8./3./x+2.*gsl_sf_dilog(1.-x)*(8.-24.*x+20.*pow(x,2.)
+           -pow(x,3.)+7.*pow(x,4.)-pow(x,5.))/x/pow(x-1.,3.)
+         +log(x)*(-32.+68.*x-32.*pow(x,2.)+28.*pow(x,3.)-3.*pow(x,4.))
+         /2./pow(x-1.,3.)+pow(x,2.)*pow(log(x),2.)*(4.-7.*x+7.*pow(x,2.)
+         -2.*pow(x,3.))/2./pow(x-1.,4.));
+}
+
+double StandardModel::kt(const double x, const double mu) const
+{
+//  printf("%e\n",4./3.*kt_sing(x)+1./3.*kt_oct(x));
+  return(4./3.*(kt_sing(x)+12.*log(mu/mW())*kt_sing_a(x))
+         +1./3.*(kt_oct(x)+12.*log(mu/mW())*S(x,x))
+         +(4.+5./3.)*S(x,x));
+}
+
+double StandardModel::eta2bbar(const int LE) const
+{
+  double eta2b,xt;
+  double g0p,g1p5,jp5;
+
+  g0p = 4.;
+  g1p5 = -7.+20./9.;
+  jp5 = g0p*beta1(5.)/2./pow(beta0(5.),2.)-g1p5/2./beta0(5.);
+
+  xt = pow(mrun(muw,particles[TOP].getMass(),5.,LE)/mW(),2.);
+
+  eta2b = pow(als(muw,LE)/als(particles[BOTTOM].getMass(),LE),
+          g0p/2./beta0(5.))*(1.+(LE == 1 ? 1. : 0.)/4./M_PI*
+          (als(muw,LE)*(-jp5+kt(xt,muw)/S(xt,xt))+
+          als(particles[BOTTOM].getMass(),LE)*jp5));
+
+//  printf("%e %e\n",eta2b*pow(als(Mb_v,le),-g0p/2./beta0(5.))*(1.+le/4./PI*als(Mb_v,le)*jp5),als(Mb_v,le));
+  return(eta2b);
+}
+
+gslpp::complex StandardModel::getDBD2Amplitude(const int LE) const {
+    double xtW = mrun(muw,particles[TOP].getMass(),5.,1)/mW();
+    xtW*=xtW;
+    return((GF/4./M_PI*mW())*(GF/4./M_PI*mW())*eta2bbar(LE)*getlamt_d()*
+          getlamt_d()*S(xtW,xtW)*
+          particles[B_D].getDecayconst()*
+          particles[B_D].getDecayconst()*particles[B_D].getBpars()[0]*4./3.*
+          particles[B_D].getMass());
 }

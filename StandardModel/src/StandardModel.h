@@ -13,59 +13,64 @@
 #include <gslpp_vector_complex.h>
 #include <gslpp_matrix_double.h>
 #include <gslpp_matrix_complex.h>
+#include <vector>
 #include <Parameters.h>
 #include "QCD.h"
 
+using namespace gslpp;
 /**
  * @class StandardModel
  * @brief Standard Model Class
  */
 class StandardModel: public QCD {
 public:
-//static const std::map<std::string,std::vector<std::string> > Deps;
-/**
-     * @brief StandardModel constructor
-     * @param VCKM_i The CKM matrix
-     * @param mu_i up quark mass at 2 GeV
-     * @param md_i down quark mass at 2 GeV
-     * @param mc_i charm quark mass mc(mc)
-     * @param ms_i strange quark mass at 2 GeV
-     * @param mt_i top quark mass mt(mt)
-     * @param mb_i bottom quark mass mb(mb)
-     * @param UPMNS_i The PMNS matrix
-     * @param me_i electron mass
-     * @param mmu_i muon mass
-     * @param mtau_i tau mass
-     * @param mnu1_i lightest neutrino mass
-     * @param mnu2_i middle neutrino mass
-     * @param mnu3_i hevier neutrino mass
-     * @param GF_i the Fermi constant
-     * @param alsMz_i @f$\alpha_s(M_Z)@f$
-     * @param ale_i the electromagnetic coupling
-     * @param mZ_i the Z boson mass
-     * @param dAle5Mz_i @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
-     * @param mHl_i the Higgs mass
-     */
-    StandardModel(const gslpp::matrix<gslpp::complex>& VCKM_i, double mu_i,
-            double md_i, double mc_i, double ms_i, double mt_i,
-            double mb_i, const gslpp::matrix<gslpp::complex>& UPMNS_i,
-            double me_i, double mmu_i, double mtau_i,
-            double mnu1_i, double mnu2_i, double mnu3_i, double GF_i,
-            double alsMz_i, double ale_i, double mZ_i, double dAle5Mz_i,
-            double mHl_i);
-
+    enum lepton {NEUTRINO_1=quark(BOTTOM)+1,ELECTRON,NEUTRINO_2,MU,
+    NEUTRINO_3,TAU};
+    static const int NSMvars = 13;
+    static const std::string SMvars[NSMvars];
+///**
+//     * @brief StandardModel constructor
+//     * @param VCKM_i The CKM matrix
+//     * @param mu_i up quark mass at 2 GeV
+//     * @param md_i down quark mass at 2 GeV
+//     * @param mc_i charm quark mass mc(mc)
+//     * @param ms_i strange quark mass at 2 GeV
+//     * @param mt_i top quark mass mt(mt)
+//     * @param mb_i bottom quark mass mb(mb)
+//     * @param UPMNS_i The PMNS matrix
+//     * @param me_i electron mass
+//     * @param mmu_i muon mass
+//     * @param mtau_i tau mass
+//     * @param mnu1_i lightest neutrino mass
+//     * @param mnu2_i middle neutrino mass
+//     * @param mnu3_i hevier neutrino mass
+//     * @param GF_i the Fermi constant
+//     * @param alsMz_i @f$\alpha_s(M_Z)@f$
+//     * @param ale_i the electromagnetic coupling
+//     * @param mZ_i the Z boson mass
+//     * @param dAle5Mz_i @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
+//     * @param mHl_i the Higgs mass
+//     */
+//    StandardModel(const matrix<complex>& VCKM_i, double mu_i,
+//            double md_i, double ms_i, double mc_i, double mb_i,
+//            double mt_i, const matrix<complex>& UPMNS_i,
+//            double me_i, double mmu_i, double mtau_i,
+//            double mnu1_i, double mnu2_i, double mnu3_i, double GF_i,
+//            double alsMz_i, double ale_i, double mZ_i, double dAle5Mz_i,
+//            double mHl_i, double mu1_i, double mu2_i, double mu3_i);
+//
     /**
      * StandardModel constructor taking as input a Parameters object
      * @param Par a Parameters object containing all SM parameters listed in the explicit SM constructor
      */
     StandardModel(Parameters& Par);
 
-    /**
-     * @brief copy constructor
-     * @param orig reference to a StandardModel object
-     */
-    StandardModel(const StandardModel& orig);
-
+//    /**
+//     * @brief copy constructor
+//     * @param orig reference to a StandardModel object
+//     */
+//    StandardModel(const StandardModel& orig);
+//
     /**
      * @brief StandardModel destructor
      */
@@ -79,90 +84,24 @@ public:
     /**
      * @return the PMNS matrix
      */
-    gslpp::matrix<gslpp::complex> getUPMNS() const { return UPMNS; }
+    matrix<complex> getUPMNS() const { return UPMNS; }
 
     /**
      * @brief set the PMNS matrix
      * @param UPMNS the PMNS matrix
      */
-    void setUPMNS(gslpp::matrix<gslpp::complex> UPMNS) { this->UPMNS = UPMNS; }
+    void setUPMNS(matrix<complex> UPMNS) { this->UPMNS = UPMNS; }
 
     /**
      * @return the CKM matrix
      */
-    gslpp::matrix<gslpp::complex> getVCKM() const { return VCKM; }
+    matrix<complex> getVCKM() const { return VCKM; }
 
     /**
      * @brief set the CKM matrix
      * @param VCKM the CKM matrix
      */
-    void setVCKM(gslpp::matrix<gslpp::complex> VCKM) { this->VCKM = VCKM; }
-
-    /**
-     * @return the electron mass
-     */
-    double getMe() const { return me; }
-
-    /**
-     * @brief set the electron mass
-     * @param me the electron mass
-     */
-     void setMe(double me) { this->me = me; }
-
-    /**
-     * @return the muon mass
-     */
-    double getMmu() const { return mmu; }
-
-    /**
-     * @brief set the muon mass
-     * @param mmu the muon mass
-     */
-     void setMmu(double mmu) { this->mmu = mmu; }
-
-    /**
-     * @return the lightest neutrino mass
-     */
-    double getMnu1() const { return mnu1; }
-
-    /**
-     * @brief set the lightest neutrino mass
-     * @param mnu1 the lightest neutrino mass
-     */
-     void setMnu1(double mnu1) { this->mnu1 = mnu1; }
-
-    /**
-     * @return the middle neutrino mass
-     */
-    double getMnu2() const { return mnu2; }
-
-    /**
-     * @brief set the middle neutrino mass
-     * @param mnu2 the middle neutrino mass
-     */
-     void setMnu2(double mnu2) { this->mnu2 = mnu2; }
-
-    /**
-     * @return the heaviest neutrino mass
-     */
-    double getMnu3() const { return mnu3; }
-
-    /**
-     * @brief set the heaviest neutrino mass
-     * @param mnu3 the heaviest neutrino mass
-     */
-     void setMnu3(double mnu3) { this->mnu3 = mnu3; }
-
-    /**
-     * @return the tau mass
-     */
-    double getMtau() const { return mtau; }
-
-    /**
-     * @brief set the tau mass
-     * @param mtau the tau mass
-     */
-     void setMtau(double mtau) { this->mtau = mtau; }
+    void setVCKM(matrix<complex> VCKM) { this->VCKM = VCKM; }
 
     /**
      *
@@ -232,7 +171,7 @@ public:
      *
      * @return down Yukawa matrix
      */
-    gslpp::matrix<gslpp::complex> getYd() const {
+    matrix<complex> getYd() const {
         return Yd;
     }
 
@@ -240,7 +179,7 @@ public:
      *
      * @return charged lepton Yukawa matrix
      */
-    gslpp::matrix<gslpp::complex> getYe() const {
+    matrix<complex> getYe() const {
         return Ye;
     }
 
@@ -248,7 +187,7 @@ public:
      *
      * @return neutrino Yukawa matrix
      */
-    gslpp::matrix<gslpp::complex> getYn() const {
+    matrix<complex> getYn() const {
         return Yn;
     }
 
@@ -256,7 +195,7 @@ public:
      *
      * @return up Yukawa matrix
      */
-    gslpp::matrix<gslpp::complex> getYu() const {
+    matrix<complex> getYu() const {
         return Yu;
     }
 
@@ -291,6 +230,14 @@ public:
     void setDAle5Mz(double dAle5Mz) {
         this->dAle5Mz = dAle5Mz;
     }
+
+//    double getMass(int p) const {
+//        return(particles[p].getMass());
+//    }
+//
+//    void setMass(const int p, double m) {
+//        particles[p].setMass(m);
+//    }
 
     /**
      * @return the W boson mass
@@ -389,13 +336,64 @@ public:
      */
     double U() const;
 
+    /**
+     * updates the SM parameters found in the argument
+     * @param a Parameters object containing the parameters to be updated
+     */
+    void update(Parameters&);
+
+    // Angles
+    double getBeta() const;
+    double getGamma() const;
+    double getAlpha() const;
+    double getBetas() const;
+
+    // Lambda_q
+    gslpp::complex getlamt() const;
+    gslpp::complex getlamc() const;
+    gslpp::complex getlamu() const;
+
+    gslpp::complex getlamt_d() const;
+    gslpp::complex getlamc_d() const;
+    gslpp::complex getlamu_d() const;
+
+    gslpp::complex getlamt_s() const;
+    gslpp::complex getlamc_s() const;
+    gslpp::complex getlamu_s() const;
+
+    // Sides
+    double getRt() const;
+    double getRts() const;
+    double getRb() const;
+
+    /**
+     * get the @f$\Delta B=\Delta D=2@f$ amplitude
+     * @return @f$\langle \bar B_d \vert \mathcal{H}_\mathrm{eff}\vert B_d\rangle@f$ //CHECK!!
+     */    
+    gslpp::complex getDBD2Amplitude(const int LE) const;
+
 protected:
-    gslpp::matrix<gslpp::complex> VCKM, UPMNS, Yd, Yu, Ye, Yn;
-    double me, mmu, mtau, mnu1, mnu2, mnu3;
-    double mHl, alsMz, ale, mZ, GF, dAle5Mz;
+    matrix<complex> VCKM, UPMNS, Yd, Yu, Ye, Yn;
+    double mHl, alsMz, ale, mZ, GF, dAle5Mz, muw;
+    Particle particles[lepton(TAU)+1];
 //    static const std::vector<std::string> pino;
 //    mutable std::map<std::string,double> Hashes;
 //    mutable std::map<std::string,double> DValues;
+
+private:
+    double eta2bbar(const int) const;
+    double kt_sing_a(const double x) const;
+    double kt_sing(const double x) const;
+    double kt_oct(const double x) const;
+    double kt(const double x, const double mu) const;
+    double S(double, double) const;
+//    void init(double mu_i,
+//            double md_i, double ms_i, double mc_i, double mb_i,
+//            double mt_i,
+//            double me_i, double mmu_i, double mtau_i,
+//            double mnu1_i, double mnu2_i, double mnu3_i, double GF_i,
+//            double alsMz_i, double ale_i, double mZ_i, double dAle5Mz_i,
+//            double mHl_i, double mu1_i, double mu2_i, double mu3_i);
 };
 
 #endif	/* STANDARDMODEL_H */
