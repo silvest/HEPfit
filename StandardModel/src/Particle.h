@@ -57,8 +57,25 @@ public:
         return(HCUT/width);
     }
 
+    std::vector<double> getBpars() const {
+        return bpars;
+    }
+
+    void setBpars(std::vector<double> bpars) {
+        this->bpars = bpars;
+    }
+
+    double getDecayconst() const {
+        return decayconst;
+    }
+
+    void setDecayconst(double decayconst) {
+        this->decayconst = decayconst;
+    }
+
 private:
-    double mass, width;
+    double mass, width, decayconst;
+    std::vector<double> bpars;
 };
 
 #endif	/* PARTICLE_H */
