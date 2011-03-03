@@ -1,5 +1,6 @@
 #include <string>
 #include <map>
+#include <vector>
 #include <gslpp_matrix_double.h>
 #include <gslpp_matrix_complex.h>
 
@@ -31,40 +32,40 @@ class Parameters {
     * get the Integers map
     * @return the Integers map
     */
-    std::map<std::string, int> getInts();
+    std::map<std::string, int> getInts() const;
     /**
      * get the Doubles map
     * @return the Doubles map
     */
-    std::map<std::string, double> getDoubles();
+    std::map<std::string, double> getDoubles() const;
     /**
      * get the Complexes map
     * @return the Complexes map
     */
-    std::map<std::string, gslpp::complex> getComplexes();
+    std::map<std::string, gslpp::complex> getComplexes() const;
     /**
      * get the Strings map
     * @return the Strings map
     */
-    std::map<std::string, std::string> getStrings();
+    std::map<std::string, std::string> getStrings() const;
 
     /**
      * get the Double Matrices map
     * @return the Double Matrices map
     */
-    std::map<std::string, gslpp::matrix<double> > getDoubleMatrices();
+    std::map<std::string, gslpp::matrix<double> > getDoubleMatrices() const;
 
     /**
      * get the Complex Matrices map
     * @return the Complex Matrices map
     */
-    std::map<std::string, gslpp::matrix<gslpp::complex> > getComplexMatrices();
+    std::map<std::string, gslpp::matrix<gslpp::complex> > getComplexMatrices() const;
 
     /**
      * get the Double Vectors map
     * @return the Double Vectors map
     */
-    std::map<std::string, gslpp::vector<double> > getDoubleVectors();
+    std::map<std::string, std::vector<double> > getDoubleVectors() const;
 
     /**
      * Set the value of an integer
@@ -107,50 +108,50 @@ class Parameters {
      * @param s the key
      * @param v the value
      */
-    void Set(std::string s, gslpp::vector<double> v);
+    void Set(std::string s, std::vector<double> v);
 
     /**
      * Get the value of an integer
      * @param s the key
      * @param i the value
      */
-    void Get(std::string s, int& i);
+    void Get(std::string s, int& i) const;
      /**
      * Get the value of a double
      * @param s the key
      * @param d the value
      */
-    void Get(std::string s, double& d);
+    void Get(std::string s, double& d) const;
     /**
      * Get the value of a complex
      * @param s the key
      * @param z the value
      */
-    void Get(std::string s, gslpp::complex& z);
+    void Get(std::string s, gslpp::complex& z) const;
     /**
      * Get the value of a string
      * @param s the key
      * @param t the value
      */
-    void Get(std::string s, std::string& t);
+    void Get(std::string s, std::string& t) const;
     /**
      * Get the value of a Double Matrix
      * @param s the key
      * @param md the value
      */
-    void Get(std::string s, gslpp::matrix<double>& md);
+    void Get(std::string s, gslpp::matrix<double>& md) const;
     /**
      * Get the value of a Complex Matrix
      * @param s the key
      * @param mc the value
      */
-    void Get(std::string s, gslpp::matrix<gslpp::complex>& mc);
+    void Get(std::string s, gslpp::matrix<gslpp::complex>& mc) const;
     /**
      * Get the value of a Double Vector
      * @param s the key
      * @param v the value
      */
-    void Get(std::string s, gslpp::vector<double>& v);
+    void Get(std::string s, std::vector<double>& v) const;
 
     int Find(std::string s) const;
 
@@ -161,10 +162,10 @@ class Parameters {
     std::map<std::string, std::string> Strings;
     std::map<std::string, gslpp::matrix<double> > DoubleMatrices;
     std::map<std::string, gslpp::matrix<gslpp::complex> > ComplexMatrices;
-    std::map<std::string, gslpp::vector<double> > DoubleVectors;
+    std::map<std::string, std::vector<double> > DoubleVectors;
 
-    void InOtherMaps(std::string s, MapType m);
-    void InMap(std::string s, MapType m);
+    void InOtherMaps(std::string s, MapType m) const;
+    void InMap(std::string s, MapType m) const;
 };
 
 #endif	/* PARAMETERS_H */

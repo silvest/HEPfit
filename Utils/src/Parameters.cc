@@ -4,7 +4,7 @@
 
 const std::string Parameters::TypeList[NumberOfTypes] = {"int", "double",
 "complex", "string", "gslpp::matrix<double>", "gslpp::matrix<gslpp::complex>",
-"gslpp::vector<double>"};
+"std::vector<double>"};
 
 Parameters::Parameters(Parameters& P)
 {
@@ -17,37 +17,37 @@ Parameters::Parameters(Parameters& P)
   DoubleVectors = P.getDoubleVectors();
 }
 
-std::map<std::string, int> Parameters::getInts()
+std::map<std::string, int> Parameters::getInts() const
 {
   return Ints;
 }
 
-std::map<std::string, double> Parameters::getDoubles()
+std::map<std::string, double> Parameters::getDoubles() const
 {
   return Doubles;
 }
 
-std::map<std::string, gslpp::complex> Parameters::getComplexes()
+std::map<std::string, gslpp::complex> Parameters::getComplexes() const
 {
   return Complexes;
 }
 
-std::map<std::string, std::string> Parameters::getStrings()
+std::map<std::string, std::string> Parameters::getStrings() const
 {
   return Strings;
 }
 
-std::map<std::string, gslpp::matrix<double> > Parameters::getDoubleMatrices()
+std::map<std::string, gslpp::matrix<double> > Parameters::getDoubleMatrices() const
 {
   return DoubleMatrices;
 }
 
-std::map<std::string, gslpp::matrix<gslpp::complex> > Parameters::getComplexMatrices()
+std::map<std::string, gslpp::matrix<gslpp::complex> > Parameters::getComplexMatrices() const
 {
   return ComplexMatrices;
 }
 
-std::map<std::string, gslpp::vector<double> > Parameters::getDoubleVectors()
+std::map<std::string, std::vector<double> > Parameters::getDoubleVectors() const
 {
   return DoubleVectors;
 }
@@ -88,55 +88,55 @@ void Parameters::Set(std::string s, gslpp::matrix<gslpp::complex> mc)
   ComplexMatrices.insert(ComplexMatrices.find(s),std::make_pair(s,mc));
 }
 
-void Parameters::Set(std::string s, gslpp::vector<double> v)
+void Parameters::Set(std::string s, std::vector<double> v)
 {
   InOtherMaps(s, DOUBLE_VECTOR);
   DoubleVectors.insert(DoubleVectors.find(s),std::make_pair(s,v));
 }
 
-void Parameters::Get(std::string s, int& i)
+void Parameters::Get(std::string s, int& i) const
 {
   InMap(s, INT);
-  i = Ints[s];
+  i = Ints.find(s)->second;
 }
 
-void Parameters::Get(std::string s, double& d)
+void Parameters::Get(std::string s, double& d) const
 {
   InMap(s, DOUBLE);
-  d = Doubles[s];
+  d = Doubles.find(s)->second;
 }
 
-void Parameters::Get(std::string s, gslpp::complex& z)
+void Parameters::Get(std::string s, gslpp::complex& z) const
 {
   InMap(s, COMPLEX);
-  z = Complexes[s];
+  z = Complexes.find(s)->second;
 }
 
-void Parameters::Get(std::string s, std::string& t)
+void Parameters::Get(std::string s, std::string& t) const
 {
   InMap(s, STRING);
-  t = Strings[s];
+  t = Strings.find(s)->second;
 }
 
-void Parameters::Get(std::string s, gslpp::matrix<double> & md)
+void Parameters::Get(std::string s, gslpp::matrix<double> & md) const
 {
   InMap(s, DOUBLE_MATRIX);
   md = DoubleMatrices.find(s)->second;
 }
 
-void Parameters::Get(std::string s, gslpp::matrix<gslpp::complex> & mc)
+void Parameters::Get(std::string s, gslpp::matrix<gslpp::complex> & mc) const
 {
   InMap(s, COMPLEX_MATRIX);
   mc = ComplexMatrices.find(s)->second;
 }
 
-void Parameters::Get(std::string s, gslpp::vector<double> & v)
+void Parameters::Get(std::string s, std::vector<double> & v) const
 {
   InMap(s, DOUBLE_VECTOR);
   v = DoubleVectors.find(s)->second;
 }
 
-void Parameters::InOtherMaps(std::string s, MapType m)
+void Parameters::InOtherMaps(std::string s, MapType m) const
 {
   int n = -1;
 
@@ -158,7 +158,7 @@ void Parameters::InOtherMaps(std::string s, MapType m)
     }
 }
 
-void Parameters::InMap(std::string s, MapType m)
+void Parameters::InMap(std::string s, MapType m) const
 {
   switch(m)
   {
