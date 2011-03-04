@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=GNU-MacOSX
 CND_CONF=Debug
 CND_DISTDIR=dist
 
@@ -54,18 +54,18 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/libsusy.a
+	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-MacOSX/libsusy.a
 
-dist/Debug/GNU-Linux-x86/libsusy.a: ${OBJECTFILES}
-	${MKDIR} -p dist/Debug/GNU-Linux-x86
-	${RM} dist/Debug/GNU-Linux-x86/libsusy.a
+dist/Debug/GNU-MacOSX/libsusy.a: ${OBJECTFILES}
+	${MKDIR} -p dist/Debug/GNU-MacOSX
+	${RM} dist/Debug/GNU-MacOSX/libsusy.a
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusy.a ${OBJECTFILES} 
-	$(RANLIB) dist/Debug/GNU-Linux-x86/libsusy.a
+	$(RANLIB) dist/Debug/GNU-MacOSX/libsusy.a
 
 ${OBJECTDIR}/src/SUSY.o: src/SUSY.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../StandardModel/src -I../gslpp/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/SUSY.o src/SUSY.cpp
+	$(COMPILE.cc) -g -I../StandardModel/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/SUSY.o src/SUSY.cpp
 
 # Subprojects
 .build-subprojects:
@@ -75,7 +75,7 @@ ${OBJECTDIR}/src/SUSY.o: src/SUSY.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Debug
-	${RM} dist/Debug/GNU-Linux-x86/libsusy.a
+	${RM} dist/Debug/GNU-MacOSX/libsusy.a
 
 # Subprojects
 .clean-subprojects:

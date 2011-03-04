@@ -59,6 +59,13 @@ public:
 //            double alsMz_i, double ale_i, double mZ_i, double dAle5Mz_i,
 //            double mHl_i, double mu1_i, double mu2_i, double mu3_i);
 //
+
+    /**
+     * updates the SM parameters found in the argument
+     * @param a Parameters object containing the parameters to be updated
+     */
+    void update(Parameters&);
+
     /**
      * StandardModel constructor taking as input a Parameters object
      * @param Par a Parameters object containing all SM parameters listed in the explicit SM constructor
@@ -76,10 +83,27 @@ public:
      */
     virtual ~StandardModel();
 
+
+    ///////////////////////////////////////////////////////////////////////////
+    
     /**
      * @return the VEV
      */
     double v() const;
+
+
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @return the CKM matrix
+     */
+    matrix<complex> getVCKM() const { return VCKM; }
+
+    /**
+     * @brief set the CKM matrix
+     * @param VCKM the CKM matrix
+     */
+    void setVCKM(matrix<complex> VCKM) { this->VCKM = VCKM; }
 
     /**
      * @return the PMNS matrix
@@ -93,15 +117,36 @@ public:
     void setUPMNS(matrix<complex> UPMNS) { this->UPMNS = UPMNS; }
 
     /**
-     * @return the CKM matrix
+     *
+     * @return up Yukawa matrix
      */
-    matrix<complex> getVCKM() const { return VCKM; }
+    matrix<complex> getYu() const {
+        return Yu;
+    }
 
     /**
-     * @brief set the CKM matrix
-     * @param VCKM the CKM matrix
+     *
+     * @return down Yukawa matrix
      */
-    void setVCKM(matrix<complex> VCKM) { this->VCKM = VCKM; }
+    matrix<complex> getYd() const {
+        return Yd;
+    }
+
+    /**
+     *
+     * @return neutrino Yukawa matrix
+     */
+    matrix<complex> getYn() const {
+        return Yn;
+    }
+
+    /**
+     *
+     * @return charged lepton Yukawa matrix
+     */
+    matrix<complex> getYe() const {
+        return Ye;
+    }
 
     /**
      *
@@ -117,6 +162,22 @@ public:
      */
     void setGF(double GF) {
         this->GF = GF;
+    }
+
+   /**
+     *
+     * @return @f$\alpha_s(M_Z)@f$
+     */
+    double getAlsMz() const {
+        return alsMz;
+    }
+
+    /**
+     * set @f$\alpha_s(M_Z)@f$
+     * @param alsMz @f$\alpha_s(M_Z)@f$
+     */
+    void setAlsMz(double alsMz) {
+        this->alsMz = alsMz;
     }
 
     /**
@@ -137,18 +198,18 @@ public:
 
     /**
      *
-     * @return the Higgs mass
+     * @return @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
      */
-    double getMHl() const {
-        return mHl;
+    double getDAle5Mz() const {
+        return dAle5Mz;
     }
 
     /**
-     * @brief set the Higgs mass
-     * @param mHl the Higgs mass
+     * set @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
+     * @param dAle5Mz @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
      */
-    void setMHl(double mHl) {
-        this->mHl = mHl;
+    void setDAle5Mz(double dAle5Mz) {
+        this->dAle5Mz = dAle5Mz;
     }
 
     /**
@@ -169,179 +230,79 @@ public:
 
     /**
      *
-     * @return down Yukawa matrix
+     * @return the Higgs mass
      */
-    matrix<complex> getYd() const {
-        return Yd;
+    double getMHl() const {
+        return mHl;
     }
 
     /**
-     *
-     * @return charged lepton Yukawa matrix
+     * @brief set the Higgs mass
+     * @param mHl the Higgs mass
      */
-    matrix<complex> getYe() const {
-        return Ye;
+    void setMHl(double mHl) {
+        this->mHl = mHl;
     }
 
-    /**
-     *
-     * @return neutrino Yukawa matrix
-     */
-    matrix<complex> getYn() const {
-        return Yn;
-    }
 
+    ///////////////////////////////////////////////////////////////////////////
+    /* Functions for EW precision observables */
+    
     /**
-     *
-     * @return up Yukawa matrix
+     * @return leptonic correction to alpha at mZ at the three-loop level
      */
-    matrix<complex> getYu() const {
-        return Yu;
-    }
+    double dAleLepMz() const;
 
     /**
-     * 
-     * @return @f$\alpha_s(M_Z)@f$ 
+     * @return top-quark corection to alpha at mZ up to second order in alpha_s
      */
-    double getAlsMz() const {
-        return alsMz;
-    }
+    double dAleTopMz() const;
 
     /**
-     * set @f$\alpha_s(M_Z)@f$
-     * @param alsMz @f$\alpha_s(M_Z)@f$
+     * @return total correction to alpha at mZ
      */
-    void setAlsMz(double alsMz) {
-        this->alsMz = alsMz;
-    }
+    double dAleTotalMz() const;
 
     /**
-     *
-     * @return @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
+     * @return the electromagnetic coupling alpha at mZ
      */
-    double getDAle5Mz() const {
-        return dAle5Mz;
-    }
+    double aleMz() const;
 
     /**
-     * set @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
-     * @param dAle5Mz @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
+     * @return the charm-quak mass at mZ, mc(mZ)
      */
-    void setDAle5Mz(double dAle5Mz) {
-        this->dAle5Mz = dAle5Mz;
-    }
-
-//    double getMass(int p) const {
-//        return(particles[p].getMass());
-//    }
-//
-//    void setMass(const int p, double m) {
-//        particles[p].setMass(m);
-//    }
+    double mcMz() const;
 
     /**
-     * @return the W boson mass
+     * @return the bottom-quak mass at mZ, mb(mZ)
      */
-    double mW() const;
+    double mbMz() const;
 
     /**
-     * @return the effective leptonic weak mixing angle @f$\sin^2\theta_{\mathrm{eff}}^\ell@f$
+     * @return the W boson mass, including radiative corrections
      */
-    double sin2thw() const;
-/**
- *
- * @return the effective b quark weak mixing angle @f$\sin^2\theta_{\mathrm{eff}}^\ell@f$
- */
-    double sin2thwb() const;
-
-     /**
-     *
-     * @param ferm defines the type of the fermions: leptons -"l", charm -"c", or b quark "b"
-     * @return sin theta effective for the given fermion ferm @f$\sin^2\theta_{\mathrm{eff}}^\ell$@f
-     */
-    double sin2thwall(const std::string& ferm) const;
+    virtual double mW() const;
 
     /**
-     * @return the total W width
+     * @param[in] INDF fermion index [0-9] (see EWphysics::flavour_st_to_int())
+     * @return the ratio of the effective vector coupling constants @f$g_Z^f=g_V^f/g_A^f@f$ for INDF
      */
-    double GammaW() const;
+    virtual gslpp::complex gZf(const int INDF) const; // gZf = gVf/gAf
 
     /**
-     * @return the total Z width
+     * @param[in] INDF fermion index [0-9] (see EWphysics::flavour_st_to_int())
+     * @return the weak form factor for INDF
      */
-    double GammaZ() const;
+    virtual gslpp::complex rhoZf(const int INDF) const;
 
     /**
-     * @return the hadronic pole cross section of Z
+     * @return the radiative-correction factor @f$\Delta r@f$
      */
-    double sigma_had() const;
+    virtual double Delta_r() const;
 
-    /**
-     * @return @f$\Gamma_{\mathrm{had}}/\Gamma_\ell@f$
-     */
-    double R_l() const;
 
-    /**
-     * @return @f$\Gamma_c/\Gamma_{\mathrm{had}}@f$
-     */
-    double R_c() const;
-
-    /**
-     * @return @f$\Gamma_b/\Gamma_{\mathrm{had}}@f$
-     */
-    double R_b() const;
-
-    /**
-     * @return the forward-backward asymmetry for leptons
-     */
-    double AFB_l() const;
-
-    /**
-     * @return the forward-backward asymmetry for the c quark
-     */
-    double AFB_c() const;
-
-    /**
-     * @return the forward-backward asymmetry for the b quark
-     */
-    double AFB_b() const;
-
-    /**
-     * @return the asymmetry parameter for leptons
-     */
-    double A_l() const;
-
-    /**
-     * @return the asymmetry parameter for the c quark
-     */
-    double A_c() const;
-
-    /**
-     * @return the asymmetry parameter for the b quark
-     */
-    double A_b() const;
-
-    /**
-     * @return oblique parameter S
-     */
-    double S() const;
-
-    /**
-     * @return oblique parameter T
-     */
-    double T() const;
-
-    /**
-     * @return oblique parameter U
-     */
-    double U() const;
-
-    /**
-     * updates the SM parameters found in the argument
-     * @param a Parameters object containing the parameters to be updated
-     */
-    void update(Parameters&);
-
+    ////////////////////////////////////////////////////////////////////////
+    
     // Angles
     double getBeta() const;
     double getGamma() const;
@@ -372,9 +333,13 @@ public:
      */    
     gslpp::complex getDBD2Amplitude(const int LE) const;
 
+
+    ///////////////////////////////////////////////////////////////////////////
+
 protected:
-    matrix<complex> VCKM, UPMNS, Yd, Yu, Ye, Yn;
-    double mHl, alsMz, ale, mZ, GF, dAle5Mz, muw;
+    matrix<complex> VCKM, UPMNS, Yu, Yd, Yn, Ye;
+    double GF, alsMz, ale, dAle5Mz, mZ, mHl;
+    double muw;
     Particle particles[lepton(TAU)+1];
 //    static const std::vector<std::string> pino;
 //    mutable std::map<std::string,double> Hashes;

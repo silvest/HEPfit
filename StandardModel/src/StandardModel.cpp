@@ -14,6 +14,7 @@
 #include <Math/BrentRootFinder.h>
 #include "StandardModel.h"
 #include <gsl/gsl_sf_dilog.h>
+#include <gsl/gsl_sf_zeta.h>
 
 #define LEPS 1.e-5 // tolerance in the limit of S(x,y) to S(x)
 
@@ -191,7 +192,7 @@ StandardModel::StandardModel(Parameters& Par) : QCD(Par), UPMNS(3,3,0.),
         VCKM(3,3,0.), Yd(3,3,0.), Yu(3,3,0.), Ye(3,3,0.), Yn(3,3,0.){
     for(int i=0; i<NSMvars; i++)
         if(Par.Find(SMvars[i])==-1) {
-            std::cout << "missing " << SMvars[i] << "initialization in SM" << std::endl;
+            std::cout << "missing " << SMvars[i] << " initialization in SM" << std::endl;
             exit(EXIT_FAILURE);
         }
     update(Par);
@@ -200,215 +201,147 @@ StandardModel::StandardModel(Parameters& Par) : QCD(Par), UPMNS(3,3,0.),
 StandardModel::~StandardModel() {
 }
 
+
+///////////////////////////////////////////////////////////////////////////
+
 double StandardModel::v() const {
     return 1./sqrt(sqrt(2.)*GF);
 }
 
+
+////////////////////////////////////////////////////////////////////////
+
+double StandardModel::dAleLepMz() const {
+    /*
+     * Eqs.(14-15) in J.H.Kuhn, M.Steinhauser, PLB437,425(1998) [hep-ph/9802241]
+     * Eqs.(5-10) in M.Steinhauser, PLB429,158(1998) [hep-ph/9803313]
+     *
+     * oneLoop=314.19007, twoLoop=0.77617, threeLoop=0.01063
+     * sum=314.97686
+     *
+     * Notes: oneLoop and twoLoop are OK for me=0.00051099907, mmu=0.105658389,
+     *        mtau=1.777, ale=1.0/137.0359895 and mZ=91.187, but only threeLoop
+     *        differs from the above value by 5% (Why?).
+     */
+    double xl[3] = {mZ*mZ/getMass(ELECTRON)/getMass(ELECTRON),
+                    mZ*mZ/getMass(MU)/getMass(MU),
+                    mZ*mZ/getMass(TAU)/getMass(TAU)};
+    double log_l[3] = {log(xl[0]), log(xl[1]), log(xl[2])};
+    double log2 = log(2.0);
+
+    /* TESTS */
+    //std::cout << "Me= " << particles[ELECTRON].getMass() << std::endl; // WRONG!
+    //std::cout << "Me= " << getMass(ELECTRON) << std::endl;             // OK!
+
+    /* zeta functions */
+    double zeta2 = gsl_sf_zeta_int(2);
+    double zeta3 = gsl_sf_zeta_int(3);
+    double zeta5 = gsl_sf_zeta_int(5);
+
+    double oneLoop[3], twoLoop[3], threeLoop[3];
+    for (int i=0; i<3; i++) {
+        oneLoop[i] = - 5.0/9.0 + log_l[i]/3.0 - 2.0/xl[i];
+        twoLoop[i] = - 5.0/24.0 + zeta3 + log_l[i]/4.0 + 3.0/xl[i]*log_l[i];
+        threeLoop[i] = - 121.0/48.0 + (-5.0 + 8.0*log2)*zeta2 - 99.0/16.0*zeta3
+                       + 10.0*zeta5 + log_l[i]/8.0;
+        for (int j=0; j<3; j++) {
+            if (i>j) { /* Pi^{(2)}_l */
+                threeLoop[i] += - 116.0/27.0 + 4.0/3.0*zeta2 + 38.0/9.0*zeta3
+                                + 14.0/9.0*log_l[i]
+                                + (5.0/18.0 - 4.0/3.0*zeta3)*log_l[j]
+                                + log_l[i]*log_l[i]/6.0
+                                - log_l[i]*log_l[j]/3.0;
+            } else if (i==j) { /* Pi^{(2)}_F */
+                threeLoop[i] += - 307.0/216.0 - 8.0/3.0*zeta2 + 545.0/144.0*zeta3
+                                + (11.0/6.0 - 4.0/3.0*zeta3)*log_l[i]
+                                - log_l[i]*log_l[i]/6.0;
+            } else { /* Pi^{(2)}_h */
+                threeLoop[i] += - 37.0/6.0 + 38.0/9.0*zeta3
+                                + (11.0/6.0 - 4.0/3.0*zeta3)*log_l[j]
+                                - log_l[j]*log_l[j]/6.0;
+            }
+        }
+        threeLoop[i] /= -4.0;
+    }
+
+    /* TESTS */
+    //for (int i=0; i<3; i++) {
+    //    std::cout << ale/M_PI*oneLoop[i] << "  "
+    //              << ale/M_PI*ale/M_PI*twoLoop[i] << "  "
+    //              << ale/M_PI*ale/M_PI*ale/M_PI*threeLoop[i] << std::endl;
+    //}
+
+    return ( ale/M_PI*(oneLoop[0] + oneLoop[1] + oneLoop[2])
+             + ale/M_PI*ale/M_PI*(twoLoop[0] + twoLoop[1] + twoLoop[2])
+             + ale/M_PI*ale/M_PI*ale/M_PI
+               *(threeLoop[0] + threeLoop[1] + threeLoop[2]) );
+}
+
+double StandardModel::dAleTopMz() const {
+    /*
+     * Eq.(12) in J.H.Kuhn, M.Steinhauser, PLB437,425(1998) [hep-ph/9802241]
+     *
+     * (-0.70+-0.05)*10^{-4} for mt=175.6+-5.5 and alpha_s(mZ)=0.118
+     */
+    double xt = mZ*mZ/getMass(TOP)/getMass(TOP);
+    double log_t = log(xt);
+
+    return ( -4.0/45.0*ale/M_PI*xt
+             * (1.0 + 5.062*alsMz/M_PI
+                + (28.220 + 9.702*log_t)*alsMz/M_PI*alsMz/M_PI
+                + xt * (0.1071 + 0.8315*alsMz/M_PI
+                        + (6.924 + 1.594*log_t)*alsMz/M_PI*alsMz/M_PI)) );
+}
+
+double StandardModel::dAleTotalMz() const {
+    return ( dAle5Mz + dAleLepMz() + dAleTopMz() );
+}
+
+double StandardModel::aleMz() const {
+    return ( ale/(1.0 - dAleTotalMz()) );
+}
+
+double StandardModel::mcMz() const {
+
+    std::cout << "Write codes for StandardModel::mcMz() " << std::endl;
+    return ( 0.563817 );
+}
+
+double StandardModel::mbMz() const {
+
+    //return ( mrun(mZ, particles[BOTTOM].getMass(), 5.0) );
+    std::cout << "Write codes for StandardModel::mbMz() " << std::endl;
+    return (2.819440);
+}
+
 double StandardModel::mW() const {
-    // Eqs. (6), (7) and (9) in hep-ph/0311148
-    // applicable for 100 GeV <= mHl <= 1 TeV
 
-    if(mHl<100.||mHl>1000.)
-    {
-        std::cout << "Higgs mass out of range in mW()" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-
-    const double Mw0 = 80.3800;
-    const double c1 = 0.05253;
-    const double c2 = 0.010345;
-    const double c3 = 0.001021;
-    const double c4 = -0.000070;
-    const double c5 = 1.077;
-    const double c6 = 0.5270;
-    const double c7 = 0.0698;
-    const double c8 = 0.004055;
-    const double c9 = 0.000110;
-    const double c10 = 0.0716;
-    const double c11 = 115.0;
-
-    // mt, mZ, dAle5Mz and alsMz have to be varied within their combined
-    // 2 sigma region around their central values (year 2003) adopted below.
-    double dH = log(mHl/100.0);
-    double dh = pow((mHl/100.0), 2.0);
-    double dt = pow((getMass(TOP)/174.3), 2.0) - 1.0;
-    double dZ = mZ/91.1875 - 1.0;
-    double dalphae = dAle5Mz/0.05907 - 1.0;
-    double dalphas = alsMz/0.119 - 1.0;
-
-    return (Mw0 - c1*dH - c2*dH*dH + c3*pow(dH, 4.0)
-                + c4*(dh - 1.0) - c5*dalphae + c6*dt - c7*dt*dt
-                - c8*dH*dt + c9*dh*dt - c10*dalphas + c11*dZ);
+    std::cout << "Write codes for StandardModel::mW() " << std::endl;
+    return (80.3613);
 }
 
-double StandardModel::sin2thw() const {
-    // Effective leptonic weak mixing angle
-    // hep-ph/0407317, hep-ph/0608099
-    // applicable for 10 GeV <= mHl <= 1 TeV
-    if(mHl<10.||mHl>1000.)
-    {
-        std::cout << "Higgs mass out of range in sin2thw()" << std::endl;
-        exit(EXIT_FAILURE);
-    }
+gslpp::complex StandardModel::gZf(const int INDF) const {
 
-    const double s0 = 0.2312527;
-    const double d1 = 4.729*0.0001;
-    const double d2 = 2.07*0.00001;
-    const double d3 = 3.85*0.000001;
-    const double d4 = -1.85*0.000001;
-    const double d5 = 0.0207;
-    const double d6 = -0.002851;
-    const double d7 = 1.82*0.0001;
-    const double d8 = -9.74*0.000001;
-    const double d9 = 3.98*0.0001;
-    const double d10 = -0.655;
-
-    // mt, mZ, dAle5Mz and alsMz have to be varied within their combined
-    // 2 sigma region around their central values (year 2003) adopted below.
-    double L_H = log(mHl/100.0);
-    double Delta_H = mHl/100.0;
-    double Delta_alphae = dAle5Mz/0.05907 - 1.0;
-    double Delta_t = pow((getMass(TOP)/178.0), 2.0) - 1.0;
-    double Delta_alphas = alsMz/0.117 - 1.0;
-    double Delta_Z = mZ/91.1876 - 1.0;
-
-    return(s0 + d1*L_H + d2*L_H*L_H + d3*L_H*L_H*L_H*L_H
-                 + d4*(Delta_H*Delta_H - 1.0) + d5*Delta_alphae + d6*Delta_t
-                 + d7*Delta_t*Delta_t + d8*Delta_t*(Delta_H - 1.0)
-                 + d9*Delta_alphas + d10*Delta_Z);
+    std::cout << "Write codes for StandardModel::gZf() " << std::endl;
+    gslpp::complex tmp(0.0738065, -0.0120949, false);
+    return (tmp);
 }
 
-double StandardModel::sin2thwb() const{
-    //Effective mixing angle for b quarks
-    //http://arXiv.org/abs/0811.1364v2
-    // applicable for 10 GeV <= mHl <= 1 TeV
-       const double  s0=0.2327580;
-       const double  d1=4.749*0.0001;
-       const double  d2=2.03*0.00001;
-       const double  d3=3.94*0.000001;
-       const double  d4=-1.84*0.000001;
-       const double  d5=2.08*0.01;
-       const double  d6=-9.93*0.0001;
-       const double  d7=7.08*0.00001;
-       const double  d8=-7.61*0.000001;
-       const double  d9=4.03*0.0001;
-       const double  d10=0.661;
+gslpp::complex StandardModel::rhoZf(const int INDF) const {
 
+    std::cout << "Write codes for StandardModel::rhoZf() " << std::endl;
+    gslpp::complex tmp(1.00516, -0.00473674, false);
+    return (tmp);
+}
 
-    double L_H = log(mHl/100.0);
-    double Delta_H = mHl/100.0;
-    double Delta_alphae = dAle5Mz/0.05907 - 1.0;
-    double Delta_t = pow((getMass(TOP)/178.0), 2.0) - 1.0;
-    double Delta_alphas = alsMz/0.117 - 1.0;
-    double Delta_Z = mZ/91.1876 - 1.0;
+double StandardModel::Delta_r() const {
 
-    double sin2b = s0 + d1*L_H + d2*L_H*L_H + d3*L_H*L_H*L_H*L_H
-                 + d4*(Delta_H*Delta_H - 1.0) + d5*Delta_alphae + d6*Delta_t
-                 + d7*Delta_t*Delta_t + d8*Delta_t*(Delta_H - 1.0)
-                 + d9*Delta_alphas + d10*Delta_Z;
-    return sin2b;
+    std::cout << "Write codes for StandardModel::Delta_r() " << std::endl;
+    return (0.0378211);
 }
 
 
-double StandardModel::sin2thwall(const std::string& ferm) const {
-    //Effective mixing angle for leptons,and c,b quarks
-    //http://arXiv.org/abs/0811.1364v2, http://arXiv.org/abs/hep-ph/0608099v2
-    // applicable for 10 GeV <= mHl <= 1 TeV
-
-    //order is charged lepton, c, b quark
-    const double s0[3] ={0.2312527,0.2311395,0.2327580};
-    const double d1[3] = {4.729*0.0001,4.726*0.0001,4.749*0.0001};
-    const double d2[3] = {2.07*0.00001,2.07*0.00001,2.03*0.00001};
-    const double d3[3] = {3.85*0.000001,3.85*0.000001 ,3.94*0.000001};
-    const double d4[3] = {-1.85*0.000001,-1.85*0.000001,-1.84*0.000001};
-    const double d5[3] = {0.0207,0.0207,0.0208};
-    const double d6[3] = {-0.002851,-0.002853,-9.93*0.0001};
-    const double d7[3] = {1.82*0.0001,1.83*0.0001,7.08*0.00001};
-    const double d8[3] = {-9.74*0.000001,-9.73*0.000001,-7.61*0.000001};
-    const double d9[3] = {3.98*0.0001,3.98*0.0001,4.03*0.0001};
-    const double d10[3] = {-0.655,-0.655,0.661};
-
-    double L_H = log(mHl/100.0);
-    double Delta_H = mHl/100.0;
-    double Delta_alphae = dAle5Mz/0.05907 - 1.0;
-    double Delta_t = pow((getMass(TOP)/178.0), 2.0) - 1.0;
-    double Delta_alphas = alsMz/0.117 - 1.0;
-    double Delta_Z = mZ/91.1876 - 1.0;
-    int i=4;
-    if(ferm=="l") {i=0;}
-    if(ferm=="c"){i=1;}
-    if(ferm=="b"){i=2;}
-
-
-    double sin2t;
-    if(i!=4) {sin2t= s0[i] + d1[i]*L_H + d2[i]*L_H*L_H + d3[i]*L_H*L_H*L_H*L_H
-                 + d4[i]*(Delta_H*Delta_H - 1.0) + d5[i]*Delta_alphae + d6[i]*Delta_t
-                 + d7[i]*Delta_t*Delta_t + d8[i]*Delta_t*(Delta_H - 1.0)
-                 + d9[i]*Delta_alphas + d10[i]*Delta_Z;}
-    return sin2t;
-}
-
-
-
-double StandardModel::GammaW() const {
-    return 0.0;
-}
-
-double StandardModel::GammaZ() const {
-    return 0.0;
-}
-
-double StandardModel::sigma_had() const {
-    return 0.0;
-}
-
-double StandardModel::R_l() const {
-    return 0.0;
-}
-
-double StandardModel::R_c() const {
-    return 0.0;
-}
-
-double StandardModel::R_b() const {
-    return 0.0;
-}
-
-double StandardModel::AFB_l() const {
-    return 0.0;
-}
-
-double StandardModel::AFB_c() const {
-    return 0.0;
-}
-
-double StandardModel::AFB_b() const {
-    return 0.0;
-}
-
-double StandardModel::A_l() const {
-    return 0.0;
-}
-
-double StandardModel::A_c() const {
-    return 0.0;
-}
-
-double StandardModel::A_b() const {
-    return 0.0;
-}
-
-double StandardModel::S() const {
-    return 0.0;
-}
-
-double StandardModel::T() const {
-    return 0.0;
-}
-
-double StandardModel::U() const {
-    return 0.0;
-}
+////////////////////////////////////////////////////////////////////////
 
 // Angles
 
@@ -522,19 +455,19 @@ double StandardModel::eta2bbar(const int LE) const
   g1p5 = -7.+20./9.;
   jp5 = g0p*beta1(5.)/2./pow(beta0(5.),2.)-g1p5/2./beta0(5.);
 
-  xt = pow(mrun(muw,particles[TOP].getMass(),5.,LE)/mW(),2.);
+  xt = pow(mrun(muw,getMass(TOP),5.,LE)/mW(),2.);
 
-  eta2b = pow(als(muw,LE)/als(particles[BOTTOM].getMass(),LE),
+  eta2b = pow(als(muw,LE)/als(getMass(BOTTOM),LE),
           g0p/2./beta0(5.))*(1.+(LE == 1 ? 1. : 0.)/4./M_PI*
           (als(muw,LE)*(-jp5+kt(xt,muw)/S(xt,xt))+
-          als(particles[BOTTOM].getMass(),LE)*jp5));
+          als(getMass(BOTTOM),LE)*jp5));
 
 //  printf("%e %e\n",eta2b*pow(als(Mb_v,le),-g0p/2./beta0(5.))*(1.+le/4./PI*als(Mb_v,le)*jp5),als(Mb_v,le));
   return(eta2b);
 }
 
 gslpp::complex StandardModel::getDBD2Amplitude(const int LE) const {
-    double xtW = mrun(muw,particles[TOP].getMass(),5.,1)/mW();
+    double xtW = mrun(muw,getMass(TOP),5.,1)/mW();
     xtW*=xtW;
     return((GF/4./M_PI*mW())*(GF/4./M_PI*mW())*eta2bbar(LE)*getlamt_d()*
           getlamt_d()*S(xtW,xtW)*

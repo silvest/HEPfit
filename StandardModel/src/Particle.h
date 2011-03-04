@@ -8,6 +8,8 @@
 #ifndef PARTICLE_H
 #define	PARTICLE_H
 
+#include <vector>
+
 #define HCUT 6.58211899E-25 // GeV sec
 
 class Particle {

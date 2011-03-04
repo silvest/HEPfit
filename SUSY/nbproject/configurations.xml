@@ -36,13 +36,14 @@
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <compilerSet>GNU|GNU</compilerSet>
-        <platform>2</platform>
+        <platform>4</platform>
       </toolsSet>
       <compileType>
         <ccTool>
           <incDir>
             <pElem>../StandardModel/src</pElem>
             <pElem>../gslpp/src</pElem>
+            <pElem>../Utils/src</pElem>
           </incDir>
         </ccTool>
         <archiverTool>
@@ -75,7 +76,7 @@
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <compilerSet>GNU|GNU</compilerSet>
-        <platform>2</platform>
+        <platform>4</platform>
       </toolsSet>
       <compileType>
         <cTool>

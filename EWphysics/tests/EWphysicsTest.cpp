@@ -11,6 +11,7 @@
 #include <cmath>
 #include <ZFitter.h>
 #include "EWphysics.h"
+#include <StandardModel.h>
 
 
 int main(int argc, char** argv) {
@@ -18,44 +19,104 @@ int main(int argc, char** argv) {
     /*----- set parameters (same as in ZFitterTest-2) -----*/
 
     double mZ_i = 91.1875;
-    double mHl_i = 150.0;
     double alsMz_i = 0.118;
-    double dalpha5h_i = 0.02758; /*not used */
     double GF_i = 1.16637e-5;
     double ale_i = 1.0/137.0359895;
-    //double aleMz_i = ale_i/(1.0 - 0.031419 - dalpha5h_i + 0.00007);
     double aleMz_i = 0.007754972109; /* used in ZFitterTest-2 */
+    double mcMz_i = 0.563817;
+    double mbMz_i = 2.81944;
     double mt_i = 175.0;
     double me_i = 0.000510999;
     double mmu_i = 0.105658;
     double mtau_i = 1.77705;
     //
     /* additional inputs for ZFitter class */
+    double mHl_i = 150.0;
+    double dAle5Mz_i = 0.02758;
     double vtb = 1.0;
     double mu_constituent = 0.1;
     double md_constituent = 0.1;
 
-    /* charm and bottom quark masses at mZ */
-    /*QCD QCDrunning(alsMz_i, mZ_i, mu_i, md_i, ms_i, mc_i, mb_i, mt_i);
-    double mcMz_i = QCDrunning.mrun(mZ_i, QCDrunning.mrun(mb_i, mc_i, 4.0), 5.0);;
-    double mbMz_i = QCDrunning.mrun(mZ_i, mb_i, 5.0);*/
+    //
+    /* additional inputs for StandardModel class */
+    double mc_i = 1.5;
+    double mb_i = 4.7;
 
-    /*!!! TEST !!!*/
-    /*double mcMz_i = mc_i * pow(alsMz_i, 12.0/25.0)
-            * (1.0 + 1.0141*alsMz_i + 1.3892*alsMz_i*alsMz_i
-               + 1.0905*alsMz_i*alsMz_i*alsMz_i);
-    double mbMz_i = mb_i * pow(alsMz_i, 12.0/23.0)
-            * (1.0 + 1.1755*alsMz_i + 1.5007*alsMz_i*alsMz_i
-               + 0.1725*alsMz_i*alsMz_i*alsMz_i);*/
+    std::cout << std::setprecision(6);
+    std::cout << "Inputs:" << std::endl;
+    std::cout << "     m_Z      = " << mZ_i << std::endl;
+    std::cout << "    m_Hl      = " << mHl_i << std::endl;
+    std::cout << "     m_t      = " << mt_i << std::endl;
+    std::cout << " alpha_s(m_Z) = " << alsMz_i << std::endl;
+    std::cout << "      GF      = " << GF_i << std::endl;
+    std::cout << "   alpha(0)   = " << ale_i << std::endl;
+    std::cout << "   alpha(mZ)  = " << aleMz_i << std::endl;
+    std::cout << "    m_c(m_Z)  = " << mcMz_i << std::endl;
+    std::cout << "    m_b(m_Z)  = " << mbMz_i << std::endl;
+    std::cout << "     m_e      = " << me_i << std::endl;
+    std::cout << "     m_mu     = " << mmu_i << std::endl;
+    std::cout << "     m_tau    = " << mtau_i << std::endl;
+    std::cout << std::endl;
+    std::cout << std::setprecision(6);
 
-    double mcMz_i = 0.563817;
-    double mbMz_i = 2.81944;
+    /* Constuct a SM object from the above inputs */
+    gslpp::matrix<gslpp::complex> VCKM_i(3,3,1.);
+    gslpp::matrix<gslpp::complex> UPMNS_i(3,3,2.);
+    std::vector<double> bpars_i;
+    Parameters Par;
+    //
+    Par.Set("AlsMz", alsMz_i);
+    Par.Set("Mz", mZ_i);
+    Par.Set("mup", 0.003);
+    Par.Set("mdown", 0.007);
+    Par.Set("mcharm", mc_i);
+    Par.Set("mstrange", 0.1);
+    Par.Set("mtop", mt_i);
+    Par.Set("mbottom", mb_i);
+    Par.Set("mu1_qcd", mt_i);
+    Par.Set("mu2_qcd", mb_i);
+    Par.Set("mu3_qcd", mc_i);
+    Par.Set("MBd", 0.0);
+    Par.Set("MBs", 0.0);
+    Par.Set("MBp", 0.0);
+    Par.Set("MK0", 0.0);
+    Par.Set("MKp", 0.0);
+    Par.Set("FBd", 0.0);
+    Par.Set("BBd", bpars_i);
+    //
+    Par.Set("GF", GF_i);
+    Par.Set("mneutrino_1", 0.0);
+    Par.Set("mneutrino_2", 0.0);
+    Par.Set("mneutrino_3", 0.0);
+    Par.Set("melectron", me_i);
+    Par.Set("mmu", mmu_i);
+    Par.Set("mtau", mtau_i);
+    Par.Set("VCKM", VCKM_i);
+    Par.Set("UPMNS", UPMNS_i);
+    Par.Set("ale", ale_i);
+    Par.Set("dAle5Mz", dAle5Mz_i);
+    Par.Set("mHl", mHl_i);
+    Par.Set("muw", 90.0);
+
+    StandardModel SM(Par);
+
+    /* TESTS */
+    //std::cout << "Me= " << SM.getMass(SM.ELECTRON) << std::endl;
+    //std::cout << SM.getAle() << std::endl;
+    //std::cout << SM.getDAle5Mz() << std::endl;
+    //std::cout << SM.dAleLepMz() << std::endl;
+    //std::cout << SM.dAleTopMz() << std::endl;
+    //std::cout << SM.aleMz() << std::endl;
+
 
     /*-----------------------------------------------------*/
+ 
+    std::cout << "#######################  ZFitter class  "
+              << "#######################" << std::endl << std::endl;
 
     /* call a constructor of ZFitter with the above parameters (essential)
      * set flags and cuts to be their defalut values */
-    ZFitter ZF(mZ_i, mt_i, mHl_i, alsMz_i, dalpha5h_i, 
+    ZFitter ZF(mZ_i, mt_i, mHl_i, alsMz_i, dAle5Mz_i,
                vtb, mu_constituent, md_constituent);
 
     /* sqrt(s) = mZ */
@@ -69,10 +130,6 @@ int main(int argc, char** argv) {
  
     /* calculate EW common blocks (necessary before computing observables) */
     ZF.calcCommonBlocks();
-    std::cout << std::endl;
-
-    std::cout << "#######################  ZFitter class  "
-              << "#######################" << std::endl << std::endl;
 
     /* print intermediate results */
     ZF.printIntermediateResults();
@@ -80,6 +137,12 @@ int main(int argc, char** argv) {
 
     /* calcualte and print EW precision obserbables */
     ZF.printPO();
+
+
+    /*-----------------------------------------------------*/
+
+    std::cout << "#######################  EWphysics class  "
+              << "#######################" << std::endl << std::endl;
 
     gslpp::complex gZf_i[10];
     gslpp::complex rhoZf_i[10];
@@ -94,13 +157,21 @@ int main(int argc, char** argv) {
     }
     Delta_r_i = ZF.Delta_r();
 
+
+#ifndef ZFITTER
+    ////////////////////////////////////////////////////////////
+    /* using the SM object */
+
+    EWphysics EWP(&SM);
+
+    
+#else
+    ////////////////////////////////////////////////////////////
+    /* not using the SM object */
+
     EWphysics EWP(gZf_i, rhoZf_i, Delta_r_i,
                   mcMz_i, mbMz_i, mt_i, me_i, mmu_i, mtau_i,
-                  mZ_i, mHl_i, alsMz_i, GF_i, ale_i, aleMz_i);
-
-
-    std::cout << "##############  This test program (EWphysics class)  "
-              << "###############" << std::endl << std::endl;
+                  mZ_i, alsMz_i, GF_i, ale_i, aleMz_i);
 
     std::cout << "--- Inputs from the ZFitter class to the EWphysics class ---"
               << std::endl << std::endl;
@@ -112,18 +183,21 @@ int main(int argc, char** argv) {
               << std::endl;
     for (indexFermion = 0; indexFermion < 10; indexFermion++) {
         std::cout << std::setw(10) << EWP.flavour_int_to_st(indexFermion)
-                  << std::setw(12) << EWP.getGZf(indexFermion).real()
-                  << std::setw(13) << EWP.getGZf(indexFermion).imag()
-                  << std::setw(12) << EWP.getRhoZf(indexFermion).real()
-                  << std::setw(14) << EWP.getRhoZf(indexFermion).imag()
+                  << std::setw(12) << ZF.getCommonARVEFZ(indexFermion)
+                  << std::setw(13) << ZF.getCommonAIVEFZ(indexFermion)
+                  << std::setw(12) << ZF.getCommonAROTFZ(indexFermion)
+                  << std::setw(14) << ZF.getCommonAIROFZ(indexFermion)
                   << std::endl;
     }
     std::cout << std::endl;
-    std::cout << "  Delta r = " << EWP.getDelta_r() << std::endl << std::endl;
+    std::cout << "  Delta r = " << ZF.Delta_r() << std::endl << std::endl;
 
+    ////////////////////////////////////////////////////////////
+#endif
+
+    
     std::cout << "--- Outputs from EWphysics class ---"
               << std::endl << std::endl;
-
 
     std::cout << "Partial widths of the Z boson" << std::endl;
     for (indexFermion = 0; indexFermion < 10; indexFermion++) {

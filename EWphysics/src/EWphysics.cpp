@@ -13,11 +13,37 @@
 #include "EWphysics.h"
 
 
+EWphysics::EWphysics(StandardModel* StandardModel_i) {
+
+    MyModel = StandardModel_i;
+
+    for(int INDF=0; INDF<10; INDF++) {
+        gZf[INDF] = MyModel->gZf(INDF);
+        rhoZf[INDF] = MyModel->rhoZf(INDF);
+    }
+    Delta_r = MyModel->Delta_r();
+    
+    mcMz = MyModel->mcMz();
+    mbMz = MyModel->mbMz();
+
+    mt = MyModel->getMass(MyModel->TOP);
+    me = MyModel->getMass(MyModel->ELECTRON);
+    mmu = MyModel->getMass(MyModel->MU);
+    mtau = MyModel->getMass(MyModel->TAU);
+
+    mZ = MyModel->getMZ();
+    alsMz = MyModel->getAlsMz();
+    GF = MyModel->getGF();
+    ale = MyModel->getAle();
+    aleMz = MyModel->aleMz();
+}
+
+
 EWphysics::EWphysics(gslpp::complex gZf_i[10], gslpp::complex rhoZf_i[10],
                      double Delta_r_i,
                      double mcMz_i, double mbMz_i, double mt_i, 
                      double me_i, double mmu_i, double mtau_i,
-                     double mZ_i, double mHl_i, double alsMz_i, double GF_i,
+                     double mZ_i, double alsMz_i, double GF_i,
                      double ale_i, double aleMz_i){
     int INDF;
     for(INDF=0; INDF<10; INDF++) {
@@ -35,44 +61,14 @@ EWphysics::EWphysics(gslpp::complex gZf_i[10], gslpp::complex rhoZf_i[10],
     mtau = mtau_i;
 
     mZ = mZ_i;
-    mHl = mHl_i;
     alsMz = alsMz_i;
     GF = GF_i;
     ale = ale_i;
     aleMz = aleMz_i;
 }
 
-//EWphysics::EWphysics(StandardModel& StandardModel_i) {
+//EWphysics::EWphysics(const EWphysics& orig) {
 //}
-
-//EWphysics::EWphysics(SUSY& SUSY_i) {
-//}
-
-//EWphysics::EWphysics(MFV& MFV_i) {
-//}
-
-EWphysics::EWphysics(const EWphysics& orig) {
-    int INDF;
-    for(INDF=0; INDF<10; INDF++) {
-        gZf[INDF] = orig.getGZf(INDF);
-        rhoZf[INDF] = orig.getRhoZf(INDF);
-    }
-    Delta_r = orig.getDelta_r();
-
-    mcMz = orig.getMcMz();
-    mbMz = orig.getMbMz();
-    mt = orig.getMt();
-    me = orig.getMe();
-    mmu = orig.getMmu();
-    mtau = orig.getMtau();
-
-    mZ = orig.getMZ();
-    mHl = orig.getMHl();
-    alsMz = orig.getAlsMz();
-    GF = orig.getGF();
-    ale = orig.getAle();
-    aleMz = orig.getAleMz();
-}
 
 EWphysics::~EWphysics() {
 }
@@ -143,6 +139,10 @@ double EWphysics::Qf(const int INDF) {
 ///////////////////////////////////////////////////////////////////////////
 
 double EWphysics::mW() {
+    if ( 1.0 - 4.0*M_PI*ale/sqrt(2.0)/mZ/mZ/GF*(1.0+Delta_r) < 0.0) {
+        std::cout << "Error in EWphysics::mW() " << std::endl;
+        exit(EXIT_FAILURE);
+    }
     return ( mZ/sqrt(2.0)
              * sqrt(1.0 + sqrt(1.0 - 4.0*M_PI*ale/sqrt(2.0)/mZ/mZ/GF*(1.0+Delta_r))) );
 }
