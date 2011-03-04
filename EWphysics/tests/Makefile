@@ -1,5 +1,7 @@
 EXE = ./a.out
 
+#MACRO = -DZFITTER# use the effective couplings, etc. computed by ZFITTER
+
 SYS := $(shell uname -s)
 ifeq ($(SYS),Darwin)
 CC = /opt/local/bin/g++
@@ -52,7 +54,7 @@ LIBS += -lstandardmodel -lutils -lgslpp -lgslcblas -lgsl $(ROOTLIBS)
 all: $(EXE)
 
 $(EXE): EWphysicsTest.cpp Makefile
-	$(CC) -o $@ $(INC_DIRS) $< $(CFLAGS) $(LIB_DIRS) $(LIBS)
+	$(CC) $(MACRO) -o $@ $(INC_DIRS) $< $(CFLAGS) $(LIB_DIRS) $(LIBS)
 
 clean:
 	rm -f $(EXE)

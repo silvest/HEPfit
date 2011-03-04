@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=GNU-MacOSX
 CND_CONF=Release
 CND_DISTDIR=dist
 
@@ -54,13 +54,13 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/GNU-Linux-x86/libsusy.a
+	"${MAKE}"  -f nbproject/Makefile-Release.mk dist/Release/GNU-MacOSX/libsusy.a
 
-dist/Release/GNU-Linux-x86/libsusy.a: ${OBJECTFILES}
-	${MKDIR} -p dist/Release/GNU-Linux-x86
-	${RM} dist/Release/GNU-Linux-x86/libsusy.a
+dist/Release/GNU-MacOSX/libsusy.a: ${OBJECTFILES}
+	${MKDIR} -p dist/Release/GNU-MacOSX
+	${RM} dist/Release/GNU-MacOSX/libsusy.a
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusy.a ${OBJECTFILES} 
-	$(RANLIB) dist/Release/GNU-Linux-x86/libsusy.a
+	$(RANLIB) dist/Release/GNU-MacOSX/libsusy.a
 
 ${OBJECTDIR}/src/SUSY.o: src/SUSY.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -73,7 +73,7 @@ ${OBJECTDIR}/src/SUSY.o: src/SUSY.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Release
-	${RM} dist/Release/GNU-Linux-x86/libsusy.a
+	${RM} dist/Release/GNU-MacOSX/libsusy.a
 
 # Subprojects
 .clean-subprojects:

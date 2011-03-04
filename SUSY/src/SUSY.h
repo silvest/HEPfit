@@ -33,11 +33,11 @@ public:
      * @param mnu2_i middle neutrino mass
      * @param mnu3_i hevier neutrino mass
      */
-    SUSY(const gslpp::matrix<gslpp::complex>& VCKM_i,
-        double mu_i, double md_i, double mc_i, double ms_i, double mt_i,
-        double mb_i, const gslpp::matrix<gslpp::complex>& UPMNS_i,
-        double me_i, double mmu_i, double mtau_i, double mnu1_i,
-        double mnu2_i, double mnu3_i, double tanb_i, gslpp::complex muH_i);
+//    SUSY(const gslpp::matrix<gslpp::complex>& VCKM_i,
+//        double mu_i, double md_i, double mc_i, double ms_i, double mt_i,
+//        double mb_i, const gslpp::matrix<gslpp::complex>& UPMNS_i,
+//        double me_i, double mmu_i, double mtau_i, double mnu1_i,
+//        double mnu2_i, double mnu3_i, double tanb_i, gslpp::complex muH_i);
     /**
      * @brief SUSY constructor
      * @param StandardModel_i reference to a StandardModel object
@@ -48,11 +48,14 @@ public:
      * @brief SUSY constructor
      * @param orig reference to a SUSY object
      */
-    SUSY(const SUSY& orig);
+//    SUSY(const SUSY& orig);
     /**
      * @brief SUSY destructor
      */
     virtual ~SUSY();
+
+
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * 
@@ -65,6 +68,9 @@ public:
      * @return the up-type VEV
      */
     double v2();
+
+
+    ///////////////////////////////////////////////////////////////////////////
 
     /**
      * 
@@ -395,6 +401,35 @@ public:
     void setV(gslpp::matrix<gslpp::complex> V) {
         this->V = V;
     }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    /* Functions for EW precision observables */
+
+    /**
+     * @return the W boson mass, including radiative corrections
+     */
+    double mW() const;
+
+    /**
+     * @param[in] INDF fermion index [0-9] (see EWphysics::flavour_st_to_int())
+     * @return the ratio of the effective vector coupling constants @f$g_Z^f=g_V^f/g_A^f@f$ for INDF
+     */
+    gslpp::complex gZf(const int INDF) const; // gZf = gVf/gAf
+
+    /**
+     * @param[in] INDF fermion index [0-9] (see EWphysics::flavour_st_to_int())
+     * @return the weak form factor for INDF
+     */
+    gslpp::complex rhoZf(const int INDF) const;
+
+    /**
+     * @return the radiative-correction factor @f$\Delta r@f$
+     */
+    double Delta_r() const;
+
+
+    ///////////////////////////////////////////////////////////////////////////
 
 private:
     void setY(double tanb_i);

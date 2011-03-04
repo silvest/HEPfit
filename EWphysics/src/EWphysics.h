@@ -11,20 +11,25 @@
 /*
  *  To do:
  *    - Gamma_W(), if necessary
- *    - constructors with StandardModel, SUSY and MFV objects
  *
  */
 
 #include <cstring>
 #include <gslpp_complex.h>
 #include <QCD.h>
-//#include <StandardModel.h>
+#include <StandardModel.h>
 //#include <SUSY.h>
 //#include <MFV.h>
 
 
 class EWphysics {
 public:
+
+    /** 
+     * @brief EWphysics constructor
+     * @param[in] StandardModel_i pointer to an object of StandardModel or its extension
+     */
+    EWphysics(StandardModel* StandardModel_i);
 
     /**
      * @brief EWphysics constructor
@@ -38,42 +43,23 @@ public:
      * @param[in] mmu_i the muon mass
      * @param[in] mtau_i the tau mass
      * @param[in] mZ_i the Z boson mass
-     * @param[in] mHl_i the Higgs mass
-     * @param[in] alsMz_i the strong coupling constant alpha_s(M_Z^2)
+     * @param[in] alsMz_i the strong coupling constant at mZ, alpha_s(M_Z^2)
      * @param[in] GF_i the Fermi constant
-     * @param[in] ale_i the electromagnetic coupling at alpha(0)
-     * @param[in] aleMz_i the electromagnetic coupling at alpha(mZ^2)
+     * @param[in] ale_i the electromagnetic coupling alpha(0)
+     * @param[in] aleMz_i the electromagnetic coupling at mZ, alpha(mZ^2)
      */
     EWphysics(gslpp::complex gZf_i[10], gslpp::complex rhoZf_i[10],
               double Delta_r_i,
               double mcMz_i, double mbMz_i, double mt, 
               double me_i, double mmu_i, double mtau_i,
-              double mZ_i, double mHl_i, double alsMz_i, double GF_i,
+              double mZ_i, double alsMz_i, double GF_i,
               double ale_i, double aleMz_i);
-
-    /**
-     * @brief EWphysics constructor
-     * @param[in] StandardModel_i reference to a StandardModel object
-     */
-    //EWphysics(StandardModel& StandardModel_i);
-
-    /**
-     * @brief EWphysics constructor
-     * @param[in] SUSY_i reference to a SUSY object
-     */
-    //EWphysics(SUSY& SUSY_i);
-
-    /**
-     * @brief EWphysics constructor
-     * @param[in] MFV_i reference to an MFV object
-     */
-    //EWphysics(MFV& MFV_i);
 
     /**
      * @brief EWphysics copy constructor
      * @param[in] orig reference to an EWphysics object
      */
-    EWphysics(const EWphysics& orig);
+    //EWphysics(const EWphysics& orig);
 
     /**
      * @brief EWphysics destructor
@@ -83,238 +69,6 @@ public:
     
     ///////////////////////////////////////////////////////////////////////////
 
-    /**
-     * @param[in] INDF fermion index [0-9]
-     * @return the ratio of the effective vector coupling constants @f$g_Z^f=g_V^f/g_A^f@f$ for INDF
-     */
-    gslpp::complex getGZf(int INDF) const {
-        return gZf[INDF];
-    }
-
-    /**
-     * @brief set the ratio of the effective coupling constants @f$g_Z^f=g_V^f/g_A^f@f$ for INDF
-     * @param[in] INDF fermion index [0-9]
-     * @param[in] gZf_INDF the ratio of the effective coupling constants for INDF
-     */
-    void setGZf(int INDF, gslpp::complex gZf_INDF) {
-        this->gZf[INDF] = gZf_INDF;
-    }
-
-    /**
-     * @param[in] INDF fermion index [0-9]
-     * @return the weak form factor for INDF
-     */
-    gslpp::complex getRhoZf(int INDF) const {
-        return rhoZf[INDF];
-    }
-
-    /**
-     * @brief set the weak form factor for INDF
-     * @param[in] INDF fermion index [0-9]
-     * @param[in] rhoZf_INDF the weak form factor for INDF
-     */
-    void setRhoZf(int INDF, gslpp::complex rhoZf_INDF) {
-        this->rhoZf[INDF] = rhoZf_INDF;
-    }
-
-    /**
-     * @return @f$\Delta r@f$
-     */
-    double getDelta_r() const {
-        return Delta_r;
-    }
-
-    /**
-     * @brief set @f$\Delta r@f$
-     * @param[in] Delta_r the radiative-correction factor @f$\Delta r@f$
-     */
-    void setDelta_r(double Delta_r) {
-        this->Delta_r = Delta_r;
-    }
-
-    /**
-     * @return the charm quak masses at mZ, mc(mZ)
-     */
-    double getMcMz() const {
-        return mcMz;
-    }
-
-    /**
-     * @brief set the charm quak masses at mZ, mc(mZ)
-     * @param[in] mcMz the charm quak masses at mZ, mc(mZ)
-     */
-    void setMcMz(double mcMz) {
-        this->mcMz = mcMz;
-    }
-
-    /**
-     * @return the bottom quak masses at mZ, mb(mZ)
-     */
-    double getMbMz() const {
-        return mbMz;
-    }
-
-    /**
-     * @brief set the bottom quak masses at mZ, mb(mZ)
-     * @param[in] mbMz the bottom quak masses at mZ, mb(mZ)
-     */
-    void setMbMz(double mbMz) {
-        this->mbMz = mbMz;
-    }
-
-    /**
-     * @return the top quark mass mt(mt)
-     */
-    double getMt() const {
-        return mt;
-    }
-
-    /**
-     * @brief set the top quark mass mt(mt)
-     * @param[in] mt the top quark mass mt(mt)
-     */
-    void setMt(double mt) {
-        this->mt = mt;
-    }
-
-    /**
-     * @return the electron mass
-     */
-    double getMe() const {
-        return me;
-    }
-
-    /**
-     * @brief set the electron mass
-     * @return the electron mass
-     */
-    void setMe(double me) {
-        this->me = me;
-    }
-
-    /**
-     * @return the muon mass
-     */
-    double getMmu() const {
-        return mmu;
-    }
-
-    /**
-     * @brief set the muon mass
-     * @param[in] mmu the muon mass
-     */
-    void setMmu(double mmu) {
-        this->mmu = mmu;
-    }
-
-    /**
-     * @return the tau mass
-     */
-    double getMtau() const {
-        return mtau;
-    }
-
-    /**
-     * @brief set the tau mass
-     * @param[in] mtau the tau mass
-     */
-    void setMtau(double mtau) {
-        this->mtau = mtau;
-    }
-
-    /**
-     * @return the Z boson mass
-     */
-    double getMZ() const {
-        return mZ;
-    }
-
-    /**
-     * @brief set the Z boson mass
-     * @param[in] mZ the Z boson mass
-     */
-    void setMZ(double mZ) {
-        this->mZ = mZ;
-    }
-
-    /**
-     * @return the Higgs mass
-     */
-    double getMHl() const {
-        return mHl;
-    }
-
-    /**
-     * @brief set the Higgs mass
-     * @param[in] mHl the Higgs mass
-     */
-    void setMHl(double mHl) {
-        this->mHl = mHl;
-    }
-
-    /**
-     * @return the strong coupling constant alpha_s(M_Z^2)
-     */
-    double getAleMz() const {
-        return aleMz;
-    }
-
-    /**
-     * @brief set the strong coupling constant alpha_s(M_Z^2)
-     * @param[in] aleMz the strong coupling constant alpha_s(M_Z^2)
-     */
-    void setAleMz(double aleMz) {
-        this->aleMz = aleMz;
-    }
-
-    /**
-     * @return the Fermi constant
-     */
-    double getGF() const {
-        return GF;
-    }
-
-    /**
-     * @brief set the Fermi constant
-     * @param[in] GF the Fermi constant
-     */
-    void setGF(double GF) {
-        this->GF = GF;
-    }
-
-    /**
-     * @return the electromagnetic coupling at alpha(0)
-     */
-    double getAle() const {
-        return ale;
-    }
-
-    /**
-     * @brief set the electromagnetic coupling at alpha(0)
-     * @param[in] ale the electromagnetic coupling at alpha(0)
-     */
-    void setAle(double ale) {
-        this->ale = ale;
-    }
-
-    /**
-     * @return the electromagnetic coupling at alpha(mZ^2)
-     */
-    double getAlsMz() const {
-        return alsMz;
-    }
-
-    /**
-     * @brief set the electromagnetic coupling at alpha(mZ^2)
-     * @param[in] alsMz the electromagnetic coupling at alpha(mZ^2)
-     */
-    void setAlsMz(double alsMz) {
-        this->alsMz = alsMz;
-    }
-
-
-    ///////////////////////////////////////////////////////////////////////////
-    
     /**
      * @param[in] flavour the flavour of the final states [nu, e, mu, tau, u, d, c, s, t, b]
      * @return the integer value associated with the flavour
@@ -516,15 +270,17 @@ public:
     ///////////////////////////////////////////////////////////////////////////
 
 private:
+    StandardModel *MyModel;
+
     gslpp::complex gZf[10];   // gZf = gVf/gAf
     gslpp::complex rhoZf[10];
-    double Delta_r; 
+    double Delta_r;
 
     double mcMz, mbMz; /* charm and bottom quak masses at mZ */
     double mt;         /* top quark mass mt(mt) */
-    double me, mmu, mtau;
-    double mZ, mHl, alsMz, GF, ale;
-    double aleMz;      /* alpha at mZ */
+    double me, mmu, mtau; /* charged lepton masses */
+    double mZ, alsMz, GF, ale;
+    double aleMz; /* alpha at mZ */
    
 };
 
