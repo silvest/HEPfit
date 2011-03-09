@@ -230,7 +230,7 @@ double StandardModel::dAleLepMz() const {
     double log2 = log(2.0);
 
     /* TESTS */
-    //std::cout << "Me= " << particles[ELECTRON].getMass() << std::endl; // WRONG!
+    //std::cout << "Me= " << particles[ELECTRON].getMass() << std::endl; // OK!
     //std::cout << "Me= " << getMass(ELECTRON) << std::endl;             // OK!
 
     /* zeta functions */
