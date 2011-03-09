@@ -101,6 +101,7 @@ void QCD::update(const Parameters& Par) {
 }
 
 QCD::QCD(const Parameters& Par) : Model() {
+    Nc=3.;
     for(int i=0; i<NQCDvars; i++)
         if(Par.Find(QCDvars[i])==-1) {
             std::cout << "missing " << QCDvars[i] << "initialization in QCD" << std::endl;
