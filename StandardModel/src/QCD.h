@@ -236,7 +236,7 @@ public:
      * @param m mass of the particle in GeV
      */
     virtual void setMass(int p, double m) {
-        std::cout << sizeof(particles)/sizeof(particles[0]) << "  " << p << std::endl;
+        //std::cout << sizeof(particles)/sizeof(particles[0]) << "  " << p << std::endl;
         particles[p].setMass(m);
     }
 

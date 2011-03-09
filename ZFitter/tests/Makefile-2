@@ -9,14 +9,14 @@ PLATFORM = GNU-Linux-x86
 CFLAGS = -lgfortran
 endif
 
-ifeq ($(strip $(ROOTSYS)),)
-$(error "Please set ROOTSYS.")
-else
+#ifeq ($(strip $(ROOTSYS)),)
+#$(error "Please set ROOTSYS.")
+#else
 ROOTCFLAGS = $(shell root-config --cflags)
 ROOTLIBS = $(shell root-config --libs)
 #ROOTLIBS += -lMinuit
 #ROOTGLIBS = $(shell root-config --glibs) # for GUI
-endif
+#endif
 
 LIB_DIR = dist/Debug/$(PLATFORM)
 #LIB_DIR = dist/Release/$(PLATFORM)

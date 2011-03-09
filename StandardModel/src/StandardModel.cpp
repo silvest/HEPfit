@@ -302,16 +302,26 @@ double StandardModel::aleMz() const {
 }
 
 double StandardModel::mcMz() const {
+    double mc_at_mb = mrun(getMass(BOTTOM), getMass(CHARM), 4.0);
+    double mc_at_mZ =  mrun(mZ, mc_at_mb, 5.0);
 
-    std::cout << "Write codes for StandardModel::mcMz() " << std::endl;
-    return ( 0.563817 );
+    /* TEST */
+    //std::cout << "mc(mc)= " << getMass(CHARM) << std::endl;
+    //std::cout << "mc(mb)_LO+NLO= " << mc_at_mb << std::endl;
+    //std::cout << "mc(mZ)_LO+NLO= " << mc_at_mZ << std::endl;
+
+    return ( mc_at_mZ );
+   //return ( 0.563817 );// <--- used in ZFITTER with the effective mass mc=1.5
 }
 
 double StandardModel::mbMz() const {
+    /* TEST */
+    //std::cout << "mb(mb)= " << getMass(BOTTOM) << std::endl;
+    //std::cout << "mb(mZ)_LO= " << mrun(mZ, getMass(BOTTOM), 5.0, 0) << std::endl;
+    //std::cout << "mb(mZ)_LO+NLO= " << mrun(mZ, getMass(BOTTOM), 5.0, 1) << std::endl;
 
-    //return ( mrun(mZ, particles[BOTTOM].getMass(), 5.0) );
-    std::cout << "Write codes for StandardModel::mbMz() " << std::endl;
-    return (2.819440);
+    return ( mrun(mZ, getMass(BOTTOM), 5.0) );
+    //return (2.819440);// <--- used in ZFITTER with the effective mass mb=4.7
 }
 
 double StandardModel::mW() const {

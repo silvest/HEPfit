@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
     //
     /* additional inputs for StandardModel class */
     double mc_i = 1.5;
-    double mb_i = 4.7;
+    double mb_i = 4.2;
 
     std::cout << std::setprecision(6);
     std::cout << "Inputs:" << std::endl;
@@ -101,13 +101,19 @@ int main(int argc, char** argv) {
     StandardModel SM(Par);
 
     /* TESTS */
-    //std::cout << "Me= " << SM.getMass(SM.ELECTRON) << std::endl;
-    //std::cout << SM.getAle() << std::endl;
-    //std::cout << SM.getDAle5Mz() << std::endl;
-    //std::cout << SM.dAleLepMz() << std::endl;
-    //std::cout << SM.dAleTopMz() << std::endl;
-    //std::cout << SM.aleMz() << std::endl;
-
+    std::cout << "TESTS for the StandardModel class: " << std::endl;
+    std::cout << "  me= " << SM.getMass(SM.ELECTRON) << std::endl;
+    std::cout << "  mc(mc)= " << SM.getMass(SM.CHARM) << std::endl;
+    std::cout << "  mb(mb)= " << SM.getMass(SM.BOTTOM) << std::endl;
+    std::cout << "  1/getAle()= " << 1.0/SM.getAle() << std::endl;
+    std::cout << "  getDAle5Mz()= " << SM.getDAle5Mz() << std::endl;
+    std::cout << "  dAleLepMz()= " << SM.dAleLepMz() << std::endl;
+    std::cout << "  dAleTopMz()= " << SM.dAleTopMz() << std::endl;
+    std::cout << "  1/aleMz()= " << 1.0/SM.aleMz() << std::endl;
+    std::cout << "  mc(mZ)= " << SM.mcMz() << std::endl;
+    std::cout << "  mb(mZ)= " << SM.mbMz() << std::endl;
+    std::cout << std::endl;
+    
 
     /*-----------------------------------------------------*/
  
