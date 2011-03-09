@@ -92,6 +92,24 @@ public:
     double v() const;
 
 
+    /**
+     *
+     * @param p particle index
+     * @return mass of the particle in GeV
+     */
+    double getMass(int p) const {
+        return(particles[p].getMass());
+    }
+
+    /**
+     * set the mass of a particle
+     * @param p particle index
+     * @param m mass of the particle in GeV
+     */
+    void setMass(int p, double m) {
+        particles[p].setMass(m);
+    }
+
     ///////////////////////////////////////////////////////////////////////////
 
     /**

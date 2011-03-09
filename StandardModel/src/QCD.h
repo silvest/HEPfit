@@ -226,7 +226,7 @@ public:
      * @param p particle index
      * @return mass of the particle in GeV
      */
-    double getMass(int p) const {
+    virtual double getMass(int p) const {
         return(particles[p].getMass());
     }
 
@@ -235,7 +235,8 @@ public:
      * @param p particle index
      * @param m mass of the particle in GeV
      */
-    void setMass(int p, double m) {
+    virtual void setMass(int p, double m) {
+        std::cout << sizeof(particles)/sizeof(particles[0]) << "  " << p << std::endl;
         particles[p].setMass(m);
     }
 
