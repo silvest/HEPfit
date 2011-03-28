@@ -13,16 +13,17 @@
 
 class Observable {
 public:
-    Observable(const std::string name, const bool tMCMC, const double min,
-    const double max, const std::string distr);
-    Observable(const std::string name, const bool tMCMC, const double min,
-    const double max, const std::string distr, const std::string filename);
-    Observable(const std::string name, const bool tMCMC, const double min,
-    const double max, const std::string distr, const double ave,
-    const double errg, const double errf);
+	Observable(const std::string name);
     Observable(const Observable& orig);
     virtual double getTheoryValue() = 0;
     virtual ~Observable();
+	void Set(const bool tMCMC, const double min,
+    const double max, const std::string distr);
+    void Set(const bool tMCMC, const double min,
+    const double max, const std::string distr, const std::string filename);
+    void Set(const bool tMCMC, const double min,
+    const double max, const std::string distr, const double ave,
+    const double errg, const double errf);
 //    void computeEvent(const Parameters&) const;
 //    void SetHistogram(const Histopar&) const;
     std::string name, distr, filename;
@@ -30,7 +31,7 @@ public:
     bool tMCMC;
     friend std::ostream& operator<<(std::ostream& output, const Observable& o);
 private:
-    void Init(const std::string name, const bool tMCMC, const double min,
+    void Init(const bool tMCMC, const double min,
     const double max, const std::string distr, const std::string filename, const
     double ave, const double errg, const double errf);
 };
