@@ -14,7 +14,7 @@
 
 class Particle {
 public:
-    Particle() {};
+    Particle() : bpars(5) {};
     Particle(double mass);
     Particle(double mass, double width);
     Particle(const Particle& orig);
@@ -63,8 +63,12 @@ public:
         return bpars;
     }
 
-    void setBpars(std::vector<double> bpars) {
-        this->bpars = bpars;
+    void setBpars(std::vector<double> v) {
+        this->bpars = v;
+    }
+
+    void setBpars(const int i, const double value) {
+        this->bpars.at(i-1) = value;
     }
 
     double getDecayconst() const {

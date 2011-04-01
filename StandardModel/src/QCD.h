@@ -18,55 +18,21 @@ public:
     enum quark {UP=mesons(K_P)+1,DOWN,CHARM,STRANGE,TOP,BOTTOM};
                            // update StandardModel::lepton if changed!!!!!!
 
-    static const int NQCDvars = 18;
+    static const int NQCDvars = 24;
     /**
      * array containing the labels under which all QCD parameters must be
      * stored in a Parameters object
      */
+
     static const std::string QCDvars[NQCDvars];
-//    /**
-//     * default constructor
-//     */
-//    QCD();
-//    /**
-//     * constructor with default thresholds
-//     * @param AlsM_i @f$\alpha_s(M)@f$
-//     * @param M_i the scale @f$M@f$ at which @f$\alpha_s(M)@f$ is given
-//     * @param mu_i up quark mass at 2 GeV
-//     * @param md_i down quark mass at 2 GeV
-//     * @param mc_i charm quark mass mc(mc)
-//     * @param ms_i strange quark mass at 2 GeV
-//     * @param mt_i top quark mass mt(mt)
-//     * @param mb_i bottom quark mass mb(mb)
-//     */
-//    QCD(double AlsM_i, double M_i, double mu_i, double md_i, double ms_i,
-//    double mc_i, double mb_i, double mt_i);
-//    /**
-//     * constructor with explicit thresholds
-//     * @param AlsM_i @f$\alpha_s(M)@f$
-//     * @param M_i the scale @f$M@f$ at which @f$\alpha_s(M)@f$ is given
-//     * @param mu_i up quark mass at 2 GeV
-//     * @param md_i down quark mass at 2 GeV
-//     * @param mc_i charm quark mass mc(mc)
-//     * @param ms_i strange quark mass at 2 GeV
-//     * @param mt_i top quark mass mt(mt)
-//     * @param mb_i bottom quark mass mb(mb)
-//     * @param mu1_i threshold between six- and five-flavour theory
-//     * @param mu2_i threshold between five- and four-flavour theory
-//     * @param mu3_i threshold between four- and three-flavour theory
-//     */
-//    QCD(double AlsM_i, double M_i, double mu_i, double md_i, double ms_i,
-//    double mc_i, double mb_i, double mt_i, double mu1_i, double mu2_i, double mu3_i);
-//    /**
-//     * copy constructor
-//     * @param orig a QCD object
-//     */
-//    QCD(const QCD& orig);
     /**
      * Constructor for QCD
      * @param a Parameters object that must contain all the labels appearing in QCDvars
      */
-    QCD(const Parameters&);
+ //   QCD(const Parameters&);
+    
+    QCD(){};
+
     virtual ~QCD();
     /**
      * the @f$\beta_0@f$ coefficient
@@ -281,13 +247,27 @@ public:
 
     /**
      * updates the QCD parameters found in the argument
+     * @param a map containing the parameters (all as double) to be updated
+     */
+    bool init(const std::map<std::string, double>&);
+
+    /**
+     * updates the QCD parameters found in the argument
+     * @param a map containing the parameters (all as double) to be updated
+     */
+    void update(const std::map<std::string, double>&);
+
+    /**
+     * updates the QCD parameters found in the argument
      * @param a Parameters object containing the parameters to be updated
      */
-    void update(const Parameters&);
+//    void update(const Parameters&);
 
 protected:
     double Nc, AlsM, M, mu1, mu2, mu3;
     Particle particles[quark(BOTTOM)+1];
+    void SetQCDParameter(std::string, double);
+    bool computeYu, computeYd;
 
 //    void init(double AlsM_i, double M_i, double mu_i, double md_i, double ms_i,
 //    double mc_i, double mb_i, double mt_i, double mu1_i, double mu2_i,
@@ -297,8 +277,8 @@ private:
     double aboveth(double mu) const;
     double belowth(double mu) const;
     mutable double als_cache[5][5], lambda4_cache[2][5], mp2mbar_cache[4][5];
-
-
+    bool computeFBd, computeBd;
+    double BBsoBBd, FBsoFBd;
     double zero(double *x, double *) const;
     double mp2mbara(double * mu, double * mp) const;
     void CacheShift(double cache[][5], int n) const;

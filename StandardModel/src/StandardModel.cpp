@@ -13,6 +13,7 @@
 #include <Math/WrappedTF1.h>
 #include <Math/BrentRootFinder.h>
 #include "StandardModel.h"
+#include "CKM.h"
 #include <gsl/gsl_sf_dilog.h>
 #include <gsl/gsl_sf_zeta.h>
 
@@ -67,67 +68,170 @@
 //}
 
 const std::string StandardModel::SMvars[NSMvars] = {"GF","mneutrino_1","mneutrino_2",
-"mneutrino_3","melectron","mmu","mtau","VCKM","UPMNS","ale","dAle5Mz","mHl","muw"};
+"mneutrino_3","melectron","mmu","mtau","lambda","A","rhob","etab","ale","dAle5Mz","mHl","muw"};
 
-void StandardModel::update(Parameters& Par) {
-    QCD::update(Par);
-    // within the SM and in the MonteCarlo we force AlsM=alsMz and M=Mz
-    alsMz = AlsM;
-    mZ = M;
-    if(Par.Find("GF")!=-1) Par.Get("GF",GF);
-    if(Par.Find("muw")!=-1) Par.Get("muw",muw);
-    double m_i;
-    bool compute_Yn=false;
-
-    if(Par.Find("mneutrino_1")!=-1) {
-        Par.Get("mneutrino_1",m_i);
-        setMass(NEUTRINO_1, m_i);
-        Yn.assign(0,0,m_i/v()*sqrt(2.));
-        compute_Yn=true;
+void StandardModel::update(const std::map<std::string, double>& DPars) {
+    computeCKM = false; 
+    computeYe = false;
+    computeYn = false;
+    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++) 
+        SetSMParameter(it->first,it->second);
+    if(computeCKM){
+        myCKM.setWolfenstein(lambda,A,rhob,etab);
+        myCKM.getCKM(VCKM);
     }
-    if(Par.Find("mneutrino_2")!=-1) {
-        Par.Get("mneutrino_2",m_i);
-        setMass(NEUTRINO_2, m_i);
-        Yn.assign(1,1,m_i/v()*sqrt(2.));
-        compute_Yn=true;
+    if(computeYu || computeCKM) {
+        Yu=gslpp::matrix<complex>::Id(3);
+        for (int i = 0; i < 3; i++) 
+            Yu.assign(i, i, this->QCD::particles[quark(UP) + 2 * i].getMass() / v() * sqrt(2.));
+        Yu = Yu*VCKM;
     }
-    if(Par.Find("mneutrino_3")!=-1) {
-        Par.Get("mneutrino_3",m_i);
-        setMass(NEUTRINO_3, m_i);
-        Yn.assign(2,2,m_i/v()*sqrt(2.));
-        compute_Yn=true;
+    if(computeYd){
+         for (int i = 0; i < 3; i++) 
+            Yd.assign(i, i, this->QCD::particles[quark(DOWN) + 2 * i].getMass() / v() * sqrt(2.));       
     }
-    if(Par.Find("melectron")!=-1) {
-        Par.Get("melectron",m_i);
-        setMass(ELECTRON, m_i);
-        Ye.assign(0,0,m_i/v()*sqrt(2.));
+    if(computeYe){
+         for (int i = 0; i < 3; i++) 
+            Ye.assign(i, i, this->particles[lepton(ELECTRON) + 2 * i].getMass() / v() * sqrt(2.));
     }
-    if(Par.Find("mmu")!=-1) {
-        Par.Get("mmu",m_i);
-        setMass(MU, m_i);
-        Ye.assign(1,1,m_i/v()*sqrt(2.));
+    if(computeYn){
+        Yn=gslpp::matrix<complex>::Id(3);
+        for (int i = 0; i < 3; i++) 
+            Yn.assign(i, i, this->particles[lepton(NEUTRINO_1) + 2 * i].getMass() / v() * sqrt(2.));
+        Yn = Yn*UPMNS.hconjugate();
     }
-    if(Par.Find("mtau")!=-1) {
-        Par.Get("mtau",m_i);
-        setMass(TAU, m_i);
-        Ye.assign(2,2,m_i/v()*sqrt(2.));
-    }
-    if(Par.Find("ale")!=-1) Par.Get("ale",ale);
-    if(Par.Find("dAle5Mz")!=-1) Par.Get("dAle5Mz",dAle5Mz);
-    if(Par.Find("mHl")!=-1) Par.Get("mHl",mHl);
-    for(int i=0; i<3; i++)
-    {
-        Yu.assign(i,i,this->QCD::particles[quark(UP)+2*i].getMass()/v()*sqrt(2.));
-        Yd.assign(i,i,this->QCD::particles[quark(UP)+1+2*i].getMass()/v()*sqrt(2.));
-    }
-    if(Par.Find("VCKM")!=-1) Par.Get("VCKM",VCKM);
-    Yu = Yu*VCKM;
-    if(Par.Find("UPMNS")!=-1) {
-        Par.Get("UPMNS",UPMNS);
-        compute_Yn=true;
-    }
-    if(compute_Yn) Yn = Yn*UPMNS.hconjugate();
 }
+
+void StandardModel::SetSMParameter(std::string name, double value) { 
+    if(name.compare("GF")==0)
+        GF = value;
+    else if(name.compare("ale")==0)
+        ale = value;
+    else if(name.compare("dAle5Mz")==0)
+        dAle5Mz = value;
+    else if(name.compare("mHl")==0)
+        mHl = value;
+    else if(name.compare("muw")==0)
+        muw = value;
+    else if(name.compare("mneutrino_1")==0){
+        setMass(NEUTRINO_1,value);
+        computeYn=true;
+    }
+    else if(name.compare("mneutrino_2")==0){
+        setMass(NEUTRINO_2,value);
+        computeYn=true;
+    }
+    else if(name.compare("mneutrino_3")==0){
+        setMass(NEUTRINO_3,value);
+        computeYn=true;
+    }
+    else if(name.compare("melectron")==0){
+        setMass(ELECTRON,value);
+        computeYe=true;
+    }
+    else if(name.compare("mmu")==0){
+        setMass(MU,value);
+        computeYe=true;
+    }
+    else if(name.compare("mtau")==0){
+        setMass(TAU,value);
+        computeYe=true;
+    }
+     else if(name.compare("lambda")==0){
+        lambda = value;
+        computeCKM=true;
+    }
+    else if(name.compare("A")==0){
+        A = value;
+        computeCKM=true;
+    }
+    else if(name.compare("rhob")==0){
+        rhob = value;
+        computeCKM=true;
+    }
+    else if(name.compare("etab")==0){
+        etab = value;   
+        computeCKM=true;
+    }
+    else QCD::SetQCDParameter(name,value);
+}
+
+bool StandardModel::init(const std::map<std::string, double>& DPars) {
+    for(int i=0;i<NSMvars;i++) {
+            if(DPars.find(SMvars[i])==DPars.end()){
+                std::cout << SMvars[i] << std::endl;
+                return false;
+            }
+    }
+    for(int i=0;i<NQCDvars;i++) {
+            if(DPars.find(QCDvars[i])==DPars.end()){
+                std::cout << QCDvars[i] << std::endl;
+                return false;
+            }
+    }
+    update(DPars);
+    return true;
+}
+ 
+//void StandardModel::update(Parameters& Par) {
+//    QCD::update(Par);
+//    // within the SM and in the MonteCarlo we force AlsM=alsMz and M=Mz
+//    alsMz = AlsM;
+//    mZ = M;
+//    if(Par.Find("GF")!=-1) Par.Get("GF",GF);
+//    if(Par.Find("muw")!=-1) Par.Get("muw",muw);
+//    double m_i;
+//    bool compute_Yn=false;
+//
+//    if(Par.Find("mneutrino_1")!=-1) {
+//        Par.Get("mneutrino_1",m_i);
+//        setMass(NEUTRINO_1, m_i);
+//        Yn.assign(0,0,m_i/v()*sqrt(2.));
+//        compute_Yn=true;
+//    }
+//    if(Par.Find("mneutrino_2")!=-1) {
+//        Par.Get("mneutrino_2",m_i);
+//        setMass(NEUTRINO_2, m_i);
+//        Yn.assign(1,1,m_i/v()*sqrt(2.));
+//        compute_Yn=true;
+//    }
+//    if(Par.Find("mneutrino_3")!=-1) {
+//        Par.Get("mneutrino_3",m_i);
+//        setMass(NEUTRINO_3, m_i);
+//        Yn.assign(2,2,m_i/v()*sqrt(2.));
+//        compute_Yn=true;
+//    }
+//    if(Par.Find("melectron")!=-1) {
+//        Par.Get("melectron",m_i);
+//        setMass(ELECTRON, m_i);
+//        Ye.assign(0,0,m_i/v()*sqrt(2.));
+//    }
+//    if(Par.Find("mmu")!=-1) {
+//        Par.Get("mmu",m_i);
+//        setMass(MU, m_i);
+//        Ye.assign(1,1,m_i/v()*sqrt(2.));
+//    }
+//    if(Par.Find("mtau")!=-1) {
+//        Par.Get("mtau",m_i);
+//        setMass(TAU, m_i);
+//        Ye.assign(2,2,m_i/v()*sqrt(2.));
+//    }
+//    if(Par.Find("ale")!=-1) Par.Get("ale",ale);
+//    if(Par.Find("dAle5Mz")!=-1) Par.Get("dAle5Mz",dAle5Mz);
+//    if(Par.Find("mHl")!=-1) Par.Get("mHl",mHl);
+//    for(int i=0; i<3; i++)
+//    {
+//        Yu.assign(i,i,this->QCD::particles[quark(UP)+2*i].getMass()/v()*sqrt(2.));
+//        Yd.assign(i,i,this->QCD::particles[quark(UP)+1+2*i].getMass()/v()*sqrt(2.));
+//    }
+//    if(Par.Find("VCKM")!=-1) Par.Get("VCKM",VCKM);
+//    Yu = Yu*VCKM;
+//    if(Par.Find("UPMNS")!=-1) {
+//        Par.Get("UPMNS",UPMNS);
+//        compute_Yn=true;
+//    }
+//    if(compute_Yn) Yn = Yn*UPMNS.hconjugate();
+//}
 
 //StandardModel::StandardModel(const matrix<complex>& VCKM_i,
 //        double mu_i, double md_i, double ms_i, double mc_i, double mb_i,
@@ -188,15 +292,19 @@ void StandardModel::update(Parameters& Par) {
 //            orig.getMu1(), orig.getMu2(), orig.getMu3());
 //}
 
-StandardModel::StandardModel(Parameters& Par) : QCD(Par), UPMNS(3,3,0.),
-        VCKM(3,3,0.), Yd(3,3,0.), Yu(3,3,0.), Ye(3,3,0.), Yn(3,3,0.){
-    for(int i=0; i<NSMvars; i++)
-        if(Par.Find(SMvars[i])==-1) {
-            std::cout << "missing " << SMvars[i] << " initialization in SM" << std::endl;
-            exit(EXIT_FAILURE);
-        }
-    update(Par);
-}
+//StandardModel::StandardModel(Parameters& Par) : QCD(Par), VCKM(3,3,0.),
+//        UPMNS(3,3,0.), Yu(3,3,0.), Yd(3,3,0.), Yn(3,3,0.), Ye(3,3,0.){
+//    for(int i=0; i<NSMvars; i++)
+//        if(Par.Find(SMvars[i])==-1) {
+//            std::cout << "missing " << SMvars[i] << " initialization in SM" << std::endl;
+//            exit(EXIT_FAILURE);
+//        }
+//    update(Par);
+//}
+
+StandardModel::StandardModel() : QCD(), VCKM(3,3,0.), UPMNS(3,3,0.), Yu(3,3,0.),
+        Yd(3,3,0.), Yn(3,3,0.), Ye(3,3,0.){
+   }
 
 StandardModel::~StandardModel() {
 }
@@ -326,7 +434,7 @@ double StandardModel::mbMz() const {
 
 double StandardModel::mW() const {
 
-    std::cout << "Write codes for StandardModel::mW() " << std::endl;
+    //std::cout << "Write codes for StandardModel::mW() " << std::endl;
     return (80.3613);
 }
 
@@ -482,6 +590,6 @@ gslpp::complex StandardModel::getDBD2Amplitude(const int LE) const {
     return((GF/4./M_PI*mW())*(GF/4./M_PI*mW())*eta2bbar(LE)*getlamt_d()*
           getlamt_d()*S(xtW,xtW)*
           particles[B_D].getDecayconst()*
-          particles[B_D].getDecayconst()*particles[B_D].getBpars()[0]*4./3.*
+          particles[B_D].getDecayconst()*particles[B_D].getBpars().at(0)*4./3.*
           particles[B_D].getMass());
 }

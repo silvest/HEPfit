@@ -8,6 +8,7 @@
 #ifndef CKM_H
 #define	CKM_H
 
+#include <math.h>
 #include <gslpp_complex.h>
 #include <gslpp_matrix_complex.h>
 
@@ -20,7 +21,7 @@ public:
   void setWolfenstein(double, double, double, double);
   void setCKM(double, double, double, double);
 
-  void getCKM(const gslpp::matrix<gslpp::complex> & );
+  void getCKM(gslpp::matrix<gslpp::complex> &);
 
   // Wolfenstein parameters
   double getRho();

@@ -7,16 +7,16 @@
 
 #include "Particle.h"
 
-Particle::Particle(double mass, double width) {
+Particle::Particle(double mass, double width) : bpars(5) {
     this->mass = mass;
     this->width = width;
 }
 
-Particle::Particle(double mass) {
+Particle::Particle(double mass) : bpars(5) {
     Particle(mass, 0.);
 }
 
-Particle::Particle(const Particle& orig) {
+Particle::Particle(const Particle& orig) : bpars(orig.getBpars()) {
     Particle(orig.getMass(), orig.getWidth());
 }
 

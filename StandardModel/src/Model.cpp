@@ -7,14 +7,11 @@
 
 #include "Model.h"
 
-Model::Model() {
-}
-
-Model::Model(const Model& orig) {
-}
-
-Model::~Model() {
-}
-
-gslpp::complex Model::getDBD2Amplitude(const int LE) const {
-}
+//Model::Model() {
+//}
+//
+//Model::Model(const Model& orig) {
+//}
+//
+//Model::~Model() {
+//}
