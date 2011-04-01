@@ -10,30 +10,28 @@
 
 #include <string>
 #include <iostream>
+#include "ThObservable.h"
 
 class Observable {
 public:
-	Observable(const std::string name);
+    Observable(const std::string name_i, const bool tMCMC_i, 
+        const double min_i, const double max_i, ThObservable * tho_i);
     Observable(const Observable& orig);
-    virtual double getTheoryValue() = 0;
+    double getTheoryValue();
     virtual ~Observable();
-	void Set(const bool tMCMC, const double min,
-    const double max, const std::string distr);
-    void Set(const bool tMCMC, const double min,
-    const double max, const std::string distr, const std::string filename);
-    void Set(const bool tMCMC, const double min,
-    const double max, const std::string distr, const double ave,
-    const double errg, const double errf);
-//    void computeEvent(const Parameters&) const;
-//    void SetHistogram(const Histopar&) const;
-    std::string name, distr, filename;
-    double ave,errg,errf,min,max;
+    void Set(const std::string distr);
+    void Set(const std::string distr, const std::string filename, const std::string histoname);
+    void Set(const std::string distr, const double ave,
+            const double errg, const double errf);
+    std::string name, distr, filename, histoname;
+    double ave, errg, errf, min, max;
     bool tMCMC;
     friend std::ostream& operator<<(std::ostream& output, const Observable& o);
 private:
-    void Init(const bool tMCMC, const double min,
-    const double max, const std::string distr, const std::string filename, const
-    double ave, const double errg, const double errf);
+    void Init(const std::string distr, const std::string filename, 
+            const std::string histoname, const double ave, 
+            const double errg, const double errf);
+    ThObservable * tho;
 };
 
 #endif	/* OBSERVABLE_H */

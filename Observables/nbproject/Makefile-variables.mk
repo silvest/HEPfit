@@ -22,3 +22,15 @@ CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/libobservables.a
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux-x86/package
 CND_PACKAGE_NAME_Release=Observables.tar
 CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/Observables.tar
+#
+# include compiler specific variables
+#
+# dmake command
+ROOT:sh = test -f nbproject/private/Makefile-variables.mk || \
+	mkdir -p nbproject/private && \
+	touch nbproject/private/Makefile-variables.mk
+#
+# gmake command
+.PHONY: $(shell test -f nbproject/private/Makefile-variables.mk || mkdir -p nbproject/private && touch nbproject/private/Makefile-variables.mk)
+#
+include nbproject/private/Makefile-variables.mk
