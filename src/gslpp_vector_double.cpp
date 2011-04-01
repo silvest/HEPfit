@@ -38,6 +38,12 @@ namespace gslpp
     gsl_vector_set_all(_vector, a);
   }
 
+  vector<double>::vector(const size_t& size)
+  {
+    _vector = gsl_vector_alloc(size);
+    gsl_vector_set_all(_vector, 0.);
+  }
+
   /** Copy constructor */
   vector<double>::vector(const vector<double>& v)
   {

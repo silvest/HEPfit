@@ -43,6 +43,7 @@ namespace gslpp
 
     public:
       /** Constructor */
+      vector(const size_t& size);
       vector(const size_t& size, const double& a);
       /** Copy constructor */
       vector(const vector<double>& v);
