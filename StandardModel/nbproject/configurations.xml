@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="69">
-  <logicalFolder name="root" displayName="root" projectFiles="true">
+<configurationDescriptor version="79">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
-                   projectFiles="true"
-                   kind="SOURCE_LOGICAL_FOLDER">
+                   projectFiles="true">
       <itemPath>src/CKM.h</itemPath>
       <itemPath>src/Model.h</itemPath>
       <itemPath>src/Particle.h</itemPath>
@@ -13,13 +12,11 @@
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
-                   projectFiles="true"
-                   kind="SOURCE_LOGICAL_FOLDER">
+                   projectFiles="true">
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
-                   projectFiles="true"
-                   kind="SOURCE_LOGICAL_FOLDER">
+                   projectFiles="true">
       <itemPath>src/CKM.cpp</itemPath>
       <itemPath>src/Model.cpp</itemPath>
       <itemPath>src/Particle.cpp</itemPath>
@@ -30,6 +27,12 @@
                    displayName="Test Files"
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f2"
+                     displayName="New C++ Simple Test"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/newsimpletest.cpp</itemPath>
+      </logicalFolder>
       <logicalFolder name="f1"
                      displayName="StandardModelTest"
                      projectFiles="true"
@@ -48,9 +51,8 @@
   <confs>
     <conf name="Debug" type="3">
       <toolsSet>
-        <developmentServer>localhost</developmentServer>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>GNU|GNU</compilerSet>
-        <platform>2</platform>
       </toolsSet>
       <compileType>
         <ccTool>
@@ -59,6 +61,7 @@
             <pElem>../Utils/src</pElem>
             <pElem>/usr/include/root</pElem>
           </incDir>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
         </archiverTool>
@@ -100,10 +103,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -122,12 +131,28 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
     </conf>
     <conf name="Release" type="3">
       <toolsSet>
-        <developmentServer>localhost</developmentServer>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>GNU|GNU</compilerSet>
-        <platform>2</platform>
       </toolsSet>
       <compileType>
         <cTool>
@@ -160,6 +185,9 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
@@ -176,10 +204,30 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
     </conf>

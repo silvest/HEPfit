@@ -16,6 +16,7 @@
 #include <vector>
 #include <Parameters.h>
 #include "QCD.h"
+#include "CKM.h"
 
 using namespace gslpp;
 /**
@@ -26,51 +27,32 @@ class StandardModel: public QCD {
 public:
     enum lepton {NEUTRINO_1=quark(BOTTOM)+1,ELECTRON,NEUTRINO_2,MU,
     NEUTRINO_3,TAU};
-    static const int NSMvars = 13;
+    static const int NSMvars = 15;
     static const std::string SMvars[NSMvars];
-///**
-//     * @brief StandardModel constructor
-//     * @param VCKM_i The CKM matrix
-//     * @param mu_i up quark mass at 2 GeV
-//     * @param md_i down quark mass at 2 GeV
-//     * @param mc_i charm quark mass mc(mc)
-//     * @param ms_i strange quark mass at 2 GeV
-//     * @param mt_i top quark mass mt(mt)
-//     * @param mb_i bottom quark mass mb(mb)
-//     * @param UPMNS_i The PMNS matrix
-//     * @param me_i electron mass
-//     * @param mmu_i muon mass
-//     * @param mtau_i tau mass
-//     * @param mnu1_i lightest neutrino mass
-//     * @param mnu2_i middle neutrino mass
-//     * @param mnu3_i hevier neutrino mass
-//     * @param GF_i the Fermi constant
-//     * @param alsMz_i @f$\alpha_s(M_Z)@f$
-//     * @param ale_i the electromagnetic coupling
-//     * @param mZ_i the Z boson mass
-//     * @param dAle5Mz_i @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
-//     * @param mHl_i the Higgs mass
-//     */
-//    StandardModel(const matrix<complex>& VCKM_i, double mu_i,
-//            double md_i, double ms_i, double mc_i, double mb_i,
-//            double mt_i, const matrix<complex>& UPMNS_i,
-//            double me_i, double mmu_i, double mtau_i,
-//            double mnu1_i, double mnu2_i, double mnu3_i, double GF_i,
-//            double alsMz_i, double ale_i, double mZ_i, double dAle5Mz_i,
-//            double mHl_i, double mu1_i, double mu2_i, double mu3_i);
-//
 
     /**
      * updates the SM parameters found in the argument
      * @param a Parameters object containing the parameters to be updated
      */
-    void update(Parameters&);
+//    void update(Parameters&);
 
+    /**
+     * updates the SM parameters found in the argument
+     * @param a map containing the parameters (all as double) to be updated
+     */
+    void update(const std::map<std::string, double>&);
+
+    bool init(const std::map<std::string, double>&);
+    
+    void SetSMParameter(std::string, double);
+    
+    StandardModel();
+    
     /**
      * StandardModel constructor taking as input a Parameters object
      * @param Par a Parameters object containing all SM parameters listed in the explicit SM constructor
      */
-    StandardModel(Parameters& Par);
+//    StandardModel(Parameters& Par);
 
 //    /**
 //     * @brief copy constructor
@@ -351,13 +333,17 @@ public:
      */    
     gslpp::complex getDBD2Amplitude(const int LE) const;
 
-
+    CKM getMyCKM() const {
+        return myCKM;
+    }
+    
     ///////////////////////////////////////////////////////////////////////////
 
 protected:
-    matrix<complex> VCKM, UPMNS, Yu, Yd, Yn, Ye;
-    double GF, alsMz, ale, dAle5Mz, mZ, mHl;
+    gslpp::matrix<gslpp::complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
+    double GF, alsMz, ale, dAle5Mz, mZ, mHl, lambda, A, rhob, etab;
     double muw;
+    CKM myCKM;
     Particle particles[lepton(TAU)+1];
 //    static const std::vector<std::string> pino;
 //    mutable std::map<std::string,double> Hashes;
@@ -370,6 +356,7 @@ private:
     double kt_oct(const double x) const;
     double kt(const double x, const double mu) const;
     double S(double, double) const;
+    bool computeCKM, computeYe, computeYn;
 //    void init(double mu_i,
 //            double md_i, double ms_i, double mc_i, double mb_i,
 //            double mt_i,
