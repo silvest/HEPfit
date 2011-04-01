@@ -41,7 +41,7 @@ namespace gslpp
     assign(0., 0., false);
   }
 
-  complex::complex(const double& real=0., const double& imag=0., bool polar=false)
+  complex::complex(const double& real, const double& imag, bool polar)
   {
     assign(real, imag, polar);
   }
