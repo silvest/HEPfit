@@ -49,7 +49,7 @@ namespace gslpp
       static const complex& i();
       /** Constructor */
       complex();
-      complex(const double& real, const double& imag, bool polar);
+      complex(const double& real, const double& imag, bool polar = false);
       /** Copy constructor */
       complex(const complex& z);
       complex(const double& a);
