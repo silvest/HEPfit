@@ -19,7 +19,6 @@ CCC=g++
 CXX=g++
 FC=gfortran
 AS=as
-PROC=proc
 
 # Macros
 CND_PLATFORM=GNU-Linux-x86
@@ -39,7 +38,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/StandardModel.o \
 	${OBJECTDIR}/src/Particle.o \
 	${OBJECTDIR}/src/QCD.o \
-	${OBJECTDIR}/src/CKM.o
+	${OBJECTDIR}/src/CKM.o \
+	${OBJECTDIR}/src/EWPOSM.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -100,6 +100,11 @@ ${OBJECTDIR}/src/CKM.o: src/CKM.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/CKM.o src/CKM.cpp
 
+${OBJECTDIR}/src/EWPOSM.o: src/EWPOSM.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWPOSM.o src/EWPOSM.cpp
+
 # Subprojects
 .build-subprojects:
 
@@ -117,13 +122,13 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/StandardModelTest.o ${OBJECTFILES:%.o=
 ${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
+	$(COMPILE.cc) -O2 -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
 
 
 ${TESTDIR}/tests/StandardModelTest.o: tests/StandardModelTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StandardModelTest.o tests/StandardModelTest.cpp
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StandardModelTest.o tests/StandardModelTest.cpp
 
 
 ${OBJECTDIR}/src/Model_nomain.o: ${OBJECTDIR}/src/Model.o src/Model.cpp 
@@ -189,6 +194,19 @@ ${OBJECTDIR}/src/CKM_nomain.o: ${OBJECTDIR}/src/CKM.o src/CKM.cpp
 	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/CKM_nomain.o src/CKM.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/CKM.o ${OBJECTDIR}/src/CKM_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/EWPOSM_nomain.o: ${OBJECTDIR}/src/EWPOSM.o src/EWPOSM.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/EWPOSM.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWPOSM_nomain.o src/EWPOSM.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/EWPOSM.o ${OBJECTDIR}/src/EWPOSM_nomain.o;\
 	fi
 
 # Run Test Targets
