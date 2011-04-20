@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-MacOSX
+CND_PLATFORM=GNU-Linux-x86
 CND_CONF=Debug
 CND_DISTDIR=dist
 
@@ -60,13 +60,13 @@ LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-MacOSX/libewphysics.a
+	"${MAKE}"  -f nbproject/Makefile-Debug.mk dist/Debug/GNU-Linux-x86/libewphysics.a
 
-dist/Debug/GNU-MacOSX/libewphysics.a: ${OBJECTFILES}
-	${MKDIR} -p dist/Debug/GNU-MacOSX
-	${RM} dist/Debug/GNU-MacOSX/libewphysics.a
+dist/Debug/GNU-Linux-x86/libewphysics.a: ${OBJECTFILES}
+	${MKDIR} -p dist/Debug/GNU-Linux-x86
+	${RM} dist/Debug/GNU-Linux-x86/libewphysics.a
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libewphysics.a ${OBJECTFILES} 
-	$(RANLIB) dist/Debug/GNU-MacOSX/libewphysics.a
+	$(RANLIB) dist/Debug/GNU-Linux-x86/libewphysics.a
 
 ${OBJECTDIR}/src/EWphysics.o: src/EWphysics.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -82,7 +82,7 @@ ${OBJECTDIR}/src/EWphysics.o: src/EWphysics.cpp
 ${TESTDIR}/tests/EWphysicsTest.o: tests/EWphysicsTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -Isrc -I../gslpp/src -I../Utils/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EWphysicsTest.o tests/EWphysicsTest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -Isrc -I../gslpp/src -I../Utils/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EWphysicsTest.o tests/EWphysicsTest.cpp
 
 
 ${OBJECTDIR}/src/EWphysics_nomain.o: ${OBJECTDIR}/src/EWphysics.o src/EWphysics.cpp 
@@ -110,7 +110,7 @@ ${OBJECTDIR}/src/EWphysics_nomain.o: ${OBJECTDIR}/src/EWphysics.o src/EWphysics.
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r build/Debug
-	${RM} dist/Debug/GNU-MacOSX/libewphysics.a
+	${RM} dist/Debug/GNU-Linux-x86/libewphysics.a
 
 # Subprojects
 .clean-subprojects:

@@ -10,7 +10,7 @@ CFLAGS = -lgfortran
 else
 CC = g++
 PLATFORM = GNU-Linux-x86
-CFLAGS = -lgfortran
+CFLAGS =  -g -Wall -lgfortran
 endif
 
 #ifeq ($(strip $(ROOTSYS)),)

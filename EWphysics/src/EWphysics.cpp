@@ -26,10 +26,10 @@ EWphysics::EWphysics(StandardModel* StandardModel_i) {
     mcMz = MyModel->mcMz();
     mbMz = MyModel->mbMz();
 
-    mt = MyModel->getMass(MyModel->TOP);
-    me = MyModel->getMass(MyModel->ELECTRON);
-    mmu = MyModel->getMass(MyModel->MU);
-    mtau = MyModel->getMass(MyModel->TAU);
+    mt = MyModel->getQuarks(MyModel->TOP).getMass();
+    me = MyModel->getLeptons(MyModel->ELECTRON).getMass();
+    mmu = MyModel->getLeptons(MyModel->MU).getMass();
+    mtau = MyModel->getLeptons(MyModel->TAU).getMass();
 
     mZ = MyModel->getMZ();
     alsMz = MyModel->getAlsMz();
