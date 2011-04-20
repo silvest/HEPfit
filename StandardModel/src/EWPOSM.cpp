@@ -15,14 +15,14 @@
 
 
 EWPOSM::EWPOSM(StandardModel& sm) {
-    me = sm.getMass(sm.ELECTRON);
-    mmu = sm.getMass(sm.MU);
-    mtau = sm.getMass(sm.TAU);
+    me = sm.getLeptons(sm.ELECTRON).getMass();
+    mmu = sm.getLeptons(sm.MU).getMass();
+    mtau = sm.getLeptons(sm.TAU).getMass();
     
-    mu = sm.getMass(sm.UP);
-    md = sm.getMass(sm.DOWN);
-    ms = sm.getMass(sm.STRANGE);
-    mt = sm.getMass(sm.TOP);
+    mu = sm.getQuarks(sm.UP).getMass();
+    md = sm.getQuarks(sm.DOWN).getMass();
+    ms = sm.getQuarks(sm.STRANGE).getMass();
+    mt = sm.getQuarks(sm.TOP).getMass();
 
     mc = sm.mcMz();
     mb = sm.mbMz();
