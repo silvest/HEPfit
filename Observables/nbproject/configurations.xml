@@ -8,6 +8,7 @@
       <itemPath>src/Likelihood.h</itemPath>
       <itemPath>src/ModelParameter.h</itemPath>
       <itemPath>src/Observable.h</itemPath>
+      <itemPath>src/Observable2D.h</itemPath>
       <itemPath>src/ThObservable.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -21,6 +22,7 @@
       <itemPath>src/Likelihood.cpp</itemPath>
       <itemPath>src/ModelParameter.cpp</itemPath>
       <itemPath>src/Observable.cpp</itemPath>
+      <itemPath>src/Observable2D.cpp</itemPath>
       <itemPath>src/ThObservable.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
