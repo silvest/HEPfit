@@ -9,13 +9,13 @@
 #define	PARTICLE_H
 
 #include <vector>
+#include <iostream>
 
 #define HCUT 6.58211899E-25 // GeV sec
 
 class Particle {
 public:
-    Particle() : bpars(5) {};
-    Particle(double mass);
+    Particle() {};
     Particle(double mass, double width);
     Particle(const Particle& orig);
     virtual ~Particle() {};
@@ -51,37 +51,8 @@ public:
         this->width = width;
     }
 
-    /**
-     *
-     * @return the particle lifetime in sec
-     */
-    double getLifetime() const {
-        return(HCUT/width);
-    }
-
-    std::vector<double> getBpars() const {
-        return bpars;
-    }
-
-    void setBpars(std::vector<double> v) {
-        this->bpars = v;
-    }
-
-    void setBpars(const int i, const double value) {
-        this->bpars.at(i-1) = value;
-    }
-
-    double getDecayconst() const {
-        return decayconst;
-    }
-
-    void setDecayconst(double decayconst) {
-        this->decayconst = decayconst;
-    }
-
-private:
-    double mass, width, decayconst;
-    std::vector<double> bpars;
+protected:
+    double mass, width;
 };
 
 #endif	/* PARTICLE_H */

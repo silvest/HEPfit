@@ -9,13 +9,13 @@
 #define	QCD_H
 
 #include "Model.h"
-#include "Particle.h"
+#include "Meson.h"
 #include <Parameters.h>
 
 class QCD: public Model {
 public:
-    enum mesons {B_D, B_S, B_P, K_0, K_P}; // update quark if changed!!!!!!
-    enum quark {UP=mesons(K_P)+1,DOWN,CHARM,STRANGE,TOP,BOTTOM};
+    enum meson {B_D, B_S, B_P, K_0, K_P, MESON_END}; 
+    enum quark {UP,DOWN,CHARM,STRANGE,TOP,BOTTOM};
                            // update StandardModel::lepton if changed!!!!!!
 
     static const int NQCDvars = 24;
@@ -31,7 +31,9 @@ public:
      */
  //   QCD(const Parameters&);
     
-    QCD(){};
+    QCD() {
+        Nc=3.;
+    };
 
     virtual ~QCD();
     /**
@@ -188,25 +190,6 @@ public:
     }
 
     /**
-     *
-     * @param p particle index
-     * @return mass of the particle in GeV
-     */
-    virtual double getMass(int p) const {
-        return(particles[p].getMass());
-    }
-
-    /**
-     * set the mass of a particle
-     * @param p particle index
-     * @param m mass of the particle in GeV
-     */
-    virtual void setMass(int p, double m) {
-        //std::cout << sizeof(particles)/sizeof(particles[0]) << "  " << p << std::endl;
-        particles[p].setMass(m);
-    }
-
-    /**
      * set the threshold between four- and three-flavour theory
      * @param mu3 the threshold between four- and three-flavour theory in GeV
      */
@@ -265,7 +248,8 @@ public:
 
 protected:
     double Nc, AlsM, M, mu1, mu2, mu3;
-    Particle particles[quark(BOTTOM)+1];
+    Particle quarks[6];
+    Meson mesons[MESON_END];
     void SetQCDParameter(std::string, double);
     bool computeYu, computeYd;
 

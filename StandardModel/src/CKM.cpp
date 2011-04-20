@@ -11,6 +11,29 @@ CKM::CKM() {
 }
 
 CKM::CKM(const CKM& orig) {
+    Rho = orig.Rho;
+    Eta = orig.Eta;
+    Lambda = orig.Lambda;
+    A = orig.A;
+  
+    s12 = orig.s12;
+    s13= orig.s13;
+    s23= orig.s23;
+    delta = orig.delta;
+    c12 = orig.c12; 
+    c23 = orig.c23;
+    c13 = orig.c13;
+
+    Vud = orig.Vud;
+    Vcd = orig.Vcd;
+    Vtd = orig.Vtd;
+    Vus = orig.Vus;
+    Vcs = orig.Vcs;
+    Vts = orig.Vts;
+    Vub = orig.Vub;
+    Vcb = orig.Vcb;
+    Vtb = orig.Vtb;
+
 }
 
 CKM::~CKM() {
