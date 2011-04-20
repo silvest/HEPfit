@@ -19,7 +19,6 @@ CCC=g++
 CXX=g++
 FC=gfortran
 AS=as
-PROC=proc
 
 # Macros
 CND_PLATFORM=GNU-Linux-x86
@@ -35,6 +34,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/ThFactory.o \
 	${OBJECTDIR}/src/InputParser.o
 
 # Test Directory
@@ -70,6 +70,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a
 
+${OBJECTDIR}/src/ThFactory.o: src/ThFactory.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -I. -I../Observables/src -I. -I. -I../StandardModel/src -I../Flavour/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThFactory.o src/ThFactory.cpp
+
 ${OBJECTDIR}/src/InputParser.o: src/InputParser.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
@@ -88,8 +93,21 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/newsimpletest.o ${OBJECTFILES:%.o=%_no
 ${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I../Observables/src -I. -I. -I../StandardModel/src -I../Flavour/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I../Observables/src -I. -I. -I../StandardModel/src -I../Flavour/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
 
+
+${OBJECTDIR}/src/ThFactory_nomain.o: ${OBJECTDIR}/src/ThFactory.o src/ThFactory.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/ThFactory.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -I. -I../Observables/src -I. -I. -I../StandardModel/src -I../Flavour/src -I../gslpp/src -I../Utils/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThFactory_nomain.o src/ThFactory.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/ThFactory.o ${OBJECTDIR}/src/ThFactory_nomain.o;\
+	fi
 
 ${OBJECTDIR}/src/InputParser_nomain.o: ${OBJECTDIR}/src/InputParser.o src/InputParser.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
