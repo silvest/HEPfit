@@ -19,7 +19,6 @@ CCC=g++
 CXX=g++
 FC=gfortran
 AS=as
-PROC=proc
 
 # Macros
 CND_PLATFORM=GNU-Linux-x86
@@ -35,6 +34,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/src/Observable2D.o \
 	${OBJECTDIR}/src/Observable.o \
 	${OBJECTDIR}/src/ModelParameter.o \
 	${OBJECTDIR}/src/Likelihood.o \
@@ -67,6 +67,11 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a: ${OBJECTFILES}
 	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a
+
+${OBJECTDIR}/src/Observable2D.o: src/Observable2D.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Observable2D.o src/Observable2D.cpp
 
 ${OBJECTDIR}/src/Observable.o: src/Observable.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

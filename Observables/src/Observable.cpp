@@ -7,61 +7,41 @@
 
 #include "Observable.h"
 
-void Observable::Init(const std::string distr_i, const std::string filename_i,
-        const std::string histoname_i, const double ave_i, const double errg_i, const double errf_i) {
-    distr = distr_i;
-    filename = filename_i;
-    histoname = histoname_i;
-    ave = ave_i;
-    errg = errg_i;
-    errf = errf_i;
-}
-
-Observable::Observable (const std::string name_i, const bool tMCMC_i, 
-        const double min_i, const double max_i, ThObservable * tho_i) {
+Observable::Observable (const std::string name_i, const std::string thname_i,
+        const std::string label_i, const bool tMCMC_i, const double min_i,
+        const double max_i, ThObservable * tho_i) {
     name = name_i;
+    thname = thname_i;
+    label = label_i;
     min = min_i;
     max = max_i;
     tMCMC = tMCMC_i;
     tho = tho_i;
+    distr = "";
+    filename = "";
+    histoname = "";
+    ave = 0.;
+    errg = 0.;
+    errf = 0.;
 }
 
 Observable::Observable(const Observable& orig) {
     name = orig.name;
+    thname = orig.thname;
+    label = orig.label;
     min = orig.min;
     max = orig.max;
     tMCMC = orig.tMCMC;
     tho = orig.tho;
-    Init(orig.distr, orig.filename, orig.histoname,orig.ave, orig.errg, orig.errf);
+    distr = orig.distr; 
+    filename = orig.filename; 
+    histoname = orig.histoname;
+    ave = orig.ave; 
+    errg = orig.errg; 
+    errf = orig.errf;
 }
 
 Observable::~Observable() {
-}
-
-void Observable::Set(const std::string distr_i) {
-    if((distr_i.compare("noweight")!=0) || tMCMC) {
-        std::cout << "Wrong Observable set called: Set(" <<
-                 name <<", " <<  distr_i << ")"<<std::endl;
-    }
-    Init(distr_i, "", "", 0., 0., 0.);
-}
-
-void Observable::Set(const std::string distr_i, const std::string filename_i, const std::string histoname_i) {
-    if(distr_i.compare("file")!=0) {
-        std::cout << "Wrong Observable set called: Set(" << 
-                name <<", "  << distr_i << ", " << filename_i << ", " << histoname_i << ")"<<std::endl;
-    }
-    Init(distr_i, filename_i, histoname_i, 0., 0., 0.);
-}
-
-void Observable::Set(const std::string distr_i, const double ave_i,
-    const double errg_i, const double errf_i) {
-    if(distr_i.compare("weight")!=0) {
-        std::cout << "Wrong Observable set called: Set(" <<
-                name <<", "  << distr_i
-                << ", " << ave_i <<", " << errg_i <<", " << errf_i <<", "  << ")"<<std::endl;
-    }
-    Init(distr_i, "", "", ave_i, errg_i, errf_i);
 }
 
 std::ostream& operator<<(std::ostream& output, const Observable& o)
