@@ -19,7 +19,6 @@ CCC=g++
 CXX=g++
 FC=gfortran
 AS=as
-PROC=proc
 
 # Macros
 CND_PLATFORM=GNU-Linux-x86
@@ -52,7 +51,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/root -L../Flavour/dist/Debug/GNU-Linux-x86 -L../gslpp/dist/Debug/GNU-Linux-x86 -L../Observables/dist/Debug/GNU-Linux-x86 -L../InputParser/dist/Debug/GNU-Linux-x86 -L../StandardModel/dist/Debug/GNU-Linux-x86 -L../Utils/dist/Debug/GNU-Linux-x86 -L../MonteCarlo/dist/Debug/GNU-Linux-x86 -lgsl -lgslcblas -lBAT -lBATmodels ../MonteCarlo/dist/Debug/GNU-Linux-x86/libmontecarlo.a ../InputParser/dist/Debug/GNU-Linux-x86/libinputparser.a ../Flavour/dist/Debug/GNU-Linux-x86/libflavour.a ../Observables/dist/Debug/GNU-Linux-x86/libobservables.a ../StandardModel/dist/Debug/GNU-Linux-x86/libstandardmodel.a ../Utils/dist/Debug/GNU-Linux-x86/libutils.a ../gslpp/dist/Debug/GNU-Linux-x86/libgslpp.a
+LDLIBSOPTIONS=-L/usr/lib/root -L../Flavour/dist/Debug/GNU-Linux-x86 -L../gslpp/dist/Debug/GNU-Linux-x86 -L../Observables/dist/Debug/GNU-Linux-x86 -L../InputParser/dist/Debug/GNU-Linux-x86 -L../StandardModel/dist/Debug/GNU-Linux-x86 -L../Utils/dist/Debug/GNU-Linux-x86 -L../MonteCarlo/dist/Debug/GNU-Linux-x86 -L../BAT/lib -lgsl -lgslcblas -lBAT -lBATmodels ../MonteCarlo/dist/Debug/GNU-Linux-x86/libmontecarlo.a ../InputParser/dist/Debug/GNU-Linux-x86/libinputparser.a ../Flavour/dist/Debug/GNU-Linux-x86/libflavour.a ../Observables/dist/Debug/GNU-Linux-x86/libobservables.a ../StandardModel/dist/Debug/GNU-Linux-x86/libstandardmodel.a ../Utils/dist/Debug/GNU-Linux-x86/libutils.a ../gslpp/dist/Debug/GNU-Linux-x86/libgslpp.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -79,7 +78,7 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis: ${OBJECTFILES}
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../Utils/src -I../Observables/src -I../MonteCarlo/src -I../gslpp/src -I../Flavour/src -I../StandardModel/src -I../InputParser/src -I/usr/local/include/BAT -I/usr/include/ -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I../Utils/src -I../Observables/src -I../MonteCarlo/src -I../gslpp/src -I../Flavour/src -I../StandardModel/src -I../InputParser/src -I../BAT/include -I/usr/include/ -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
