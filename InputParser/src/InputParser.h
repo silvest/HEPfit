@@ -8,7 +8,9 @@
 #ifndef INPUTPARSER_H
 #define	INPUTPARSER_H
 
+#include "ThFactory.h"
 #include <Observable.h>
+#include <Observable2D.h>
 #include <ThObservable.h>
 #include <ModelParameter.h>
 #include <StandardModel.h>
@@ -25,14 +27,14 @@ public:
     InputParser(const InputParser& orig);
     virtual ~InputParser();
     void ReadParameters(const char *, std::vector<ModelParameter>&,
-    std::vector<Observable>&);
+        std::vector<Observable>&,  std::vector<Observable2D>&);
     Model* GetMyModel() const {
         return myModel;
     }
 private:
     Model * myModel; 
     Flavour * myFlavour;
-    ThObservable * ThFactory(const std::string& name);
+    ThFactory * thf;
 };
 
 #endif	/* INPUTPARSER_H */
