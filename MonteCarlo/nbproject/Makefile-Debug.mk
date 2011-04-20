@@ -19,7 +19,6 @@ CCC=g++
 CXX=g++
 FC=gfortran
 AS=as
-PROC=proc
 
 # Macros
 CND_PLATFORM=GNU-Linux-x86
@@ -74,7 +73,7 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmontecarlo.a: ${OBJECTFILES}
 ${OBJECTDIR}/src/MonteCarlo.o: src/MonteCarlo.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I/usr/local/include/BAT -I../Observables/src -I../StandardModel/src -I../gslpp/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MonteCarlo.o src/MonteCarlo.cpp
+	$(COMPILE.cc) -g -I../BAT/include -I../Observables/src -I../StandardModel/src -I../gslpp/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MonteCarlo.o src/MonteCarlo.cpp
 
 # Subprojects
 .build-subprojects:
@@ -93,13 +92,13 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/newsimpletest.o ${OBJECTFILES:%.o=%_no
 ${TESTDIR}/tests/MCtest.o: tests/MCtest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I/usr/local/include/BAT -I../Observables/src -I../StandardModel/src -I../gslpp/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/MCtest.o tests/MCtest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I../BAT/include -I../Observables/src -I../StandardModel/src -I../gslpp/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/MCtest.o tests/MCtest.cpp
 
 
 ${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I/usr/local/include/BAT -I../Observables/src -I../StandardModel/src -I../gslpp/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
+	$(COMPILE.cc) -g -I. -I. -I../BAT/include -I../Observables/src -I../StandardModel/src -I../gslpp/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
 
 
 ${OBJECTDIR}/src/MonteCarlo_nomain.o: ${OBJECTDIR}/src/MonteCarlo.o src/MonteCarlo.cpp 
@@ -110,7 +109,7 @@ ${OBJECTDIR}/src/MonteCarlo_nomain.o: ${OBJECTDIR}/src/MonteCarlo.o src/MonteCar
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I/usr/local/include/BAT -I../Observables/src -I../StandardModel/src -I../gslpp/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MonteCarlo_nomain.o src/MonteCarlo.cpp;\
+	    $(COMPILE.cc) -g -I../BAT/include -I../Observables/src -I../StandardModel/src -I../gslpp/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MonteCarlo_nomain.o src/MonteCarlo.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/MonteCarlo.o ${OBJECTDIR}/src/MonteCarlo_nomain.o;\
 	fi
