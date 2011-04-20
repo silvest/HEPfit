@@ -144,7 +144,6 @@ int main(int argc, char** argv) {
     /* calcualte and print EW precision obserbables */
     ZF.printPO();
 
-
     /*-----------------------------------------------------*/
 
     std::cout << "#######################  EWphysics class  "

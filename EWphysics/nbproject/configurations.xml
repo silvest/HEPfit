@@ -43,7 +43,7 @@
       <toolsSet>
         <developmentServer>localhost</developmentServer>
         <compilerSet>GNU|GNU</compilerSet>
-        <platform>4</platform>
+        <platform>2</platform>
       </toolsSet>
       <compileType>
         <ccTool>
@@ -94,18 +94,19 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
-          <linkerLibItems>
-            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
-          </linkerLibItems>
         </linkerTool>
       </folder>
     </conf>
@@ -135,10 +136,14 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
