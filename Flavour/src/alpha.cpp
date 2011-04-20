@@ -19,5 +19,5 @@ alpha::~alpha() {
 }
 
 double alpha::getThValue() { 
-    return((myModel->getMyCKM()).getAlpha());
+    return((myModel->getMyCKM()).getAlpha()/M_PI*180.);
 }
