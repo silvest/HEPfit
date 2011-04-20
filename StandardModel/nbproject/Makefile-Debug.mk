@@ -39,7 +39,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/Particle.o \
 	${OBJECTDIR}/src/QCD.o \
 	${OBJECTDIR}/src/CKM.o \
-	${OBJECTDIR}/src/EWPOSM.o
+	${OBJECTDIR}/src/EWPOSM.o \
+	${OBJECTDIR}/src/Meson.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -105,6 +106,11 @@ ${OBJECTDIR}/src/EWPOSM.o: src/EWPOSM.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I../gslpp/src -I../Utils/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWPOSM.o src/EWPOSM.cpp
 
+${OBJECTDIR}/src/Meson.o: src/Meson.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -Wall -I../gslpp/src -I../Utils/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Meson.o src/Meson.cpp
+
 # Subprojects
 .build-subprojects:
 
@@ -122,13 +128,13 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/StandardModelTest.o ${OBJECTFILES:%.o=
 ${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -I. -I. -I. -I../gslpp/src -I../Utils/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
+	$(COMPILE.cc) -g -Wall -I. -I. -I. -I. -I../gslpp/src -I../Utils/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
 
 
 ${TESTDIR}/tests/StandardModelTest.o: tests/StandardModelTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I../gslpp/src -I../Utils/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StandardModelTest.o tests/StandardModelTest.cpp
+	$(COMPILE.cc) -g -Wall -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I../gslpp/src -I../Utils/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StandardModelTest.o tests/StandardModelTest.cpp
 
 
 ${OBJECTDIR}/src/Model_nomain.o: ${OBJECTDIR}/src/Model.o src/Model.cpp 
@@ -207,6 +213,19 @@ ${OBJECTDIR}/src/EWPOSM_nomain.o: ${OBJECTDIR}/src/EWPOSM.o src/EWPOSM.cpp
 	    $(COMPILE.cc) -g -Wall -I../gslpp/src -I../Utils/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWPOSM_nomain.o src/EWPOSM.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/EWPOSM.o ${OBJECTDIR}/src/EWPOSM_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/Meson_nomain.o: ${OBJECTDIR}/src/Meson.o src/Meson.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/Meson.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -Wall -I../gslpp/src -I../Utils/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Meson_nomain.o src/Meson.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/Meson.o ${OBJECTDIR}/src/Meson_nomain.o;\
 	fi
 
 # Run Test Targets

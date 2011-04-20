@@ -25,7 +25,7 @@ using namespace gslpp;
  */
 class StandardModel: public QCD {
 public:
-    enum lepton {NEUTRINO_1=quark(BOTTOM)+1,ELECTRON,NEUTRINO_2,MU,
+    enum lepton {NEUTRINO_1,ELECTRON,NEUTRINO_2,MU,
     NEUTRINO_3,TAU};
     static const int NSMvars = 15;
     static const std::string SMvars[NSMvars];
@@ -72,25 +72,6 @@ public:
      * @return the VEV
      */
     double v() const;
-
-
-    /**
-     *
-     * @param p particle index
-     * @return mass of the particle in GeV
-     */
-    double getMass(int p) const {
-        return(particles[p].getMass());
-    }
-
-    /**
-     * set the mass of a particle
-     * @param p particle index
-     * @param m mass of the particle in GeV
-     */
-    void setMass(int p, double m) {
-        particles[p].setMass(m);
-    }
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -340,11 +321,11 @@ public:
     ///////////////////////////////////////////////////////////////////////////
 
 protected:
-    gslpp::matrix<gslpp::complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
+    matrix<complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
     double GF, alsMz, ale, dAle5Mz, mZ, mHl, lambda, A, rhob, etab;
     double muw;
     CKM myCKM;
-    Particle particles[lepton(TAU)+1];
+    Particle leptons[6];
 //    static const std::vector<std::string> pino;
 //    mutable std::map<std::string,double> Hashes;
 //    mutable std::map<std::string,double> DValues;
