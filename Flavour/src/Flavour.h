@@ -14,6 +14,7 @@
 #include "Vcb.h"
 #include "Vub.h"
 #include "alpha.h"
+#include "alpha_2a.h"
 #include "gamma.h"
 
 class Flavour {

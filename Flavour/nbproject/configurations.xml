@@ -11,6 +11,7 @@
       <itemPath>src/Vud.h</itemPath>
       <itemPath>src/Vus.h</itemPath>
       <itemPath>src/alpha.h</itemPath>
+      <itemPath>src/alpha_2a.h</itemPath>
       <itemPath>src/gamma.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -27,6 +28,7 @@
       <itemPath>src/Vud.cpp</itemPath>
       <itemPath>src/Vus.cpp</itemPath>
       <itemPath>src/alpha.cpp</itemPath>
+      <itemPath>src/alpha_2a.cpp</itemPath>
       <itemPath>src/gamma.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"

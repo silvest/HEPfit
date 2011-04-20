@@ -19,7 +19,6 @@ CCC=g++
 CXX=g++
 FC=gfortran
 AS=as
-PROC=proc
 
 # Macros
 CND_PLATFORM=GNU-Linux-x86
@@ -39,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/gamma.o \
 	${OBJECTDIR}/src/Vus.o \
 	${OBJECTDIR}/src/Vub.o \
+	${OBJECTDIR}/src/alpha_2a.o \
 	${OBJECTDIR}/src/alpha.o \
 	${OBJECTDIR}/src/Vud.o \
 	${OBJECTDIR}/src/Flavour.o \
@@ -90,6 +90,11 @@ ${OBJECTDIR}/src/Vub.o: src/Vub.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Vub.o src/Vub.cpp
+
+${OBJECTDIR}/src/alpha_2a.o: src/alpha_2a.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/alpha_2a.o src/alpha_2a.cpp
 
 ${OBJECTDIR}/src/alpha.o: src/alpha.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

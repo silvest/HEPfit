@@ -19,5 +19,5 @@ gammac::~gammac() {
 }
 
 double gammac::getThValue() { 
-    return((myModel->getMyCKM()).getGamma());
+    return((myModel->getMyCKM()).getGamma()/M_PI*180.);
 }
