@@ -246,6 +246,15 @@ public:
      */
 //    void update(const Parameters&);
 
+    Meson getMesons(const int i) const {
+        return mesons[i];
+    }
+
+    Particle getQuarks(const int i) const {
+        return quarks[i];
+    }
+
+    
 protected:
     double Nc, AlsM, M, mu1, mu2, mu3;
     Particle quarks[6];

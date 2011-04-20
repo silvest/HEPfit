@@ -320,6 +320,10 @@ public:
     
     ///////////////////////////////////////////////////////////////////////////
 
+    Particle getLeptons(const int p) const {
+        return leptons[p];
+    }
+
 protected:
     matrix<complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
     double GF, alsMz, ale, dAle5Mz, mZ, mHl, lambda, A, rhob, etab;
