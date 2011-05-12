@@ -827,7 +827,7 @@ gslpp::complex EWPOSM::delta_rho_rem(const std::string ferm) {
     
     gslpp::complex d(0.0);
     d=sigmaFzz1a();
-    d=d+sigmaBFMz1()-delta_rho_Z_F()-11.0/2.0+5.0/8.0*cw2()*(1+cw2())
+    d=d+sigmaBFMz1()-delta_rho_W_F()-11.0/2.0+5.0/8.0*cw2()*(1+cw2())
             -9.0/4.0*cw2()/sw2()*log(cw2())+2.0*uf(ferm);
     d=ale/4.0/M_PI/sw2()*d;
     return d;
@@ -845,11 +845,9 @@ gslpp::complex EWPOSM::delta_k_rem(const std::string ferm) {
     gslpp::complex k(0.0);
     double qf = Qf(ferm);
     //delta_rho_Z_F()-delta_rho_W_F() is total delta rho^F 
-    k = delta_rho_Z_F()-delta_rho_W_F();
     gslpp::complex v1z(v1Z(mZ*mZ));
-    
     // why here is k.real I do not know I just copied it from ZFitter code ...
-    k=-cw2()/sw2()*k.real()-piZg()+XAMM1()+sw2()*sw2()/cw2()*qf*qf*v1z-uf(ferm);
+    k=-piZg()+XAMM1()+sw2()*sw2()/cw2()*qf*qf*v1z-uf(ferm);
     //std::cout<<-piZg()<<"\n";
     //std::cout<<"v1z"<<v1z*sw2()*sw2()/cw2()*qf*qf<<"\n";
     //std::cout<<"uf"<<uf(ferm)<<"\n";
