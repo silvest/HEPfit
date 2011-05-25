@@ -12,6 +12,6 @@ double DmBd::getThValue() {
 }
 
 double DmBd::getDmBd(int I) { 
-    gslpp::complex amp = SM.getDBD2Amplitude(I);
+    gslpp::complex amp = 0.;// SM.getDBD2Amplitude(I);
     return(amp.abs());
 }
