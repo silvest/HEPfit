@@ -40,10 +40,23 @@ namespace gslpp
     gsl_matrix_complex_set_all(_matrix, z.as_gsl_type());
   }
 
+  matrix<complex>::matrix(const size_t& size_i, const complex& z)
+  {
+    _matrix = gsl_matrix_complex_alloc(size_i, size_i);
+    gsl_matrix_complex_set_all(_matrix, z.as_gsl_type());
+  }
+
   matrix<complex>::matrix(const size_t& size_i, const size_t& size_j, const double& a)
   {
     complex z(a);
     _matrix = gsl_matrix_complex_alloc(size_i, size_j);
+    gsl_matrix_complex_set_all(_matrix, z.as_gsl_type());
+  }
+
+  matrix<complex>::matrix(const size_t& size_i, const double& a)
+  {
+    complex z(a);
+    _matrix = gsl_matrix_complex_alloc(size_i, size_i);
     gsl_matrix_complex_set_all(_matrix, z.as_gsl_type());
   }
   /** Copy constructor  */
@@ -255,7 +268,7 @@ namespace gslpp
   
   void matrix<complex>::eigensystem(matrix<complex> &U, vector<double> &S)
   {
-      matrix m(*this);
+      matrix<complex> m(*this);
 
       gsl_eigen_hermv_workspace *ws;
 
