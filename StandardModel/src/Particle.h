@@ -9,7 +9,6 @@
 #define	PARTICLE_H
 
 #include <vector>
-#include <iostream>
 
 #define HCUT 6.58211899E-25 // GeV sec
 
