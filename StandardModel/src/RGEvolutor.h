@@ -17,7 +17,7 @@ using namespace gslpp;
 class RGEvolutor : public WilsonTemplate<matrix<double> > {
 public:
     RGEvolutor(unsigned int dim, schemes scheme, orders order) : 
-    WilsonTemplate<matrix<double> >(dim, scheme, order) {};
+    WilsonTemplate(dim, scheme, order) {};
     
     matrix<double>** getEvol() const {
         return (matrix<double>**) elem;
