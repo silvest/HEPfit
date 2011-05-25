@@ -10,7 +10,7 @@
 #include <QCD.h>
 
 HeffDF2::HeffDF2(const StandardModel & SM) : model(SM), coeffDF2(8, NDR, NLO), 
-        uDF2(8, NDR, NLO, SM.getNc()), drNDRLRI(5, 5, 0) {
+        uDF2(8, NDR, NLO, SM), drNDRLRI(5, 5, 0) {
     double Nc = model.getNc();
     drNDRLRI(0,0) = -(((-1. + Nc)*(-7. + log(4096.)))/Nc);
     drNDRLRI(1,1) = (-2.*(-1. + 6.*Nc*Nc - 8.*log(2.) + Nc*(-13. + log(1024.))))/(3.*Nc);
@@ -37,7 +37,7 @@ vector<complex>** HeffDF2::Coeff(double mu, schemes scheme) {
         for (int j = LO; j <= ordDF2; j++)
             for (int k = LO; k <= j; k++)
                 coeffDF2.setCoeff(*coeffDF2.Coeff(orders(j)) +
-                    Df2Evol(mu, mc[i].getScale(), mc[i].getScheme(), orders(k)) *
+                    uDF2.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                     (*(mc[i].Coeff(orders(j - k)))), orders(j));
 
     ChangeScheme(scheme, mc[0].getScheme(), ordDF2);

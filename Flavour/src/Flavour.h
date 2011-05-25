@@ -10,6 +10,7 @@
 
 #include <ThObsType.h>
 #include <StandardModel.h>
+#include <HeffDF2.h>
 #include <DmBd.h>
 #include <DmBd0.h>
 #include <Vud.h>

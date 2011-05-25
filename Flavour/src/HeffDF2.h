@@ -10,7 +10,7 @@
 
 #include <StandardModel.h>
 #include <WilsonCoefficient.h>
-#include <RGEvolutor.h>
+#include <EvolDF2.h>
 
 using namespace gslpp;
 
@@ -19,7 +19,6 @@ public:
     HeffDF2(const StandardModel & SM);
     virtual ~HeffDF2();
 //    vector<complex>& getCoeff(double mu, schemes scheme = NDR, orders order = NLO); 
-    matrix<double>& Df2Evol(double mu, double M, schemes scheme);
     void ChangeScheme(schemes schout, schemes schin, orders order);
     vector<complex>** Coeff(double mu, schemes scheme);
     matrix<double> AnomalousDimension(orders order, unsigned int nf = 0) const;
@@ -33,7 +32,7 @@ private:
     const StandardModel& model;
     std::vector<WilsonCoefficient> mcDF2;
     WilsonCoefficient coeffDF2;
-    RGEvolutor uDF2;
+    EvolDF2 uDF2;
 };
 
 #endif	/* HEFFDF2_H */
