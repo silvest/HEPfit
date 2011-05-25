@@ -10,7 +10,9 @@
             <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
+                <make-dep-project>/afs/infn.it/roma1/project/susy/susy/SusyFit/gslpp</make-dep-project>
                 <make-dep-project>../Utils</make-dep-project>
+                <make-dep-project>/afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel</make-dep-project>
             </make-dep-projects>
             <sourceRootList/>
             <confList>
