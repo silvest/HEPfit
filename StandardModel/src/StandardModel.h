@@ -35,9 +35,9 @@ public:
      * updates the SM parameters found in the argument
      * @param a map containing the parameters (all as double) to be updated
      */
-    void update(const std::map<std::string, double>&);
+    void Update(const std::map<std::string, double>&);
 
-    bool init(const std::map<std::string, double>&);
+    bool Init(const std::map<std::string, double>&);
     
     void SetSMParameter(std::string, double);
     
