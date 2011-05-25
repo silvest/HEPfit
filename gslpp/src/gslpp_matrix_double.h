@@ -58,6 +58,7 @@ namespace gslpp
     public:
       /** Constructor */
       matrix(const size_t& size_i, const size_t& size_j, const double& a);
+      matrix(const size_t& size_i, const double& a);
       /** Copy constructor */
       matrix(const matrix<double>& m);
       matrix(const gsl_matrix& m);
@@ -71,6 +72,7 @@ namespace gslpp
       double& operator()(const size_t& i, const size_t& j);
       /** Assign */
       matrix<double>& operator=(const matrix<double>& m);
+      matrix<double>& operator=(double a);
       void assign(const size_t& i, const size_t& j, const matrix<double>& a);
      /** Get matrix size */
       size_t size_i() const;
@@ -81,6 +83,8 @@ namespace gslpp
       matrix<double> transpose();
       /** Inverse matrix */
       matrix<double> inverse();
+      /** Eigenvalues and eigenvectors */
+      void eigensystem(matrix<complex> &U, vector<complex> &S);
       /** Conversion */
       gsl_matrix* as_gsl_type_ptr() const;
       gsl_matrix& as_gsl_type();
