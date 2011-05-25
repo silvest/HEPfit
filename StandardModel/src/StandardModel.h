@@ -8,15 +8,10 @@
 #ifndef STANDARDMODEL_H
 #define	STANDARDMODEL_H
 
-#include <gslpp_complex.h>
-#include <gslpp_vector_double.h>
-#include <gslpp_vector_complex.h>
-#include <gslpp_matrix_double.h>
-#include <gslpp_matrix_complex.h>
-#include <vector>
-#include <Parameters.h>
+#include <gslpp.h>
 #include "QCD.h"
 #include "CKM.h"
+#include "WilsonCoefficient.h"
 
 using namespace gslpp;
 /**
@@ -27,7 +22,7 @@ class StandardModel: public QCD {
 public:
     enum lepton {NEUTRINO_1,ELECTRON,NEUTRINO_2,MU,
     NEUTRINO_3,TAU};
-    static const int NSMvars = 15;
+    static const int NSMvars = 17;
     static const std::string SMvars[NSMvars];
 
     /**
@@ -48,21 +43,6 @@ public:
     
     StandardModel();
     
-    /**
-     * StandardModel constructor taking as input a Parameters object
-     * @param Par a Parameters object containing all SM parameters listed in the explicit SM constructor
-     */
-//    StandardModel(Parameters& Par);
-
-//    /**
-//     * @brief copy constructor
-//     * @param orig reference to a StandardModel object
-//     */
-//    StandardModel(const StandardModel& orig);
-//
-    /**
-     * @brief StandardModel destructor
-     */
     virtual ~StandardModel();
 
 
@@ -225,6 +205,11 @@ public:
         this->mHl = mHl;
     }
 
+    virtual const double matchingScale() const {
+        return muw;
+    }
+
+    virtual const std::vector<WilsonCoefficient>& CMdf2() const;
 
     ///////////////////////////////////////////////////////////////////////////
     /* Functions for EW precision observables */
@@ -268,13 +253,13 @@ public:
      * @param[in] INDF fermion index [0-9] (see EWphysics::flavour_st_to_int())
      * @return the ratio of the effective vector coupling constants @f$g_Z^f=g_V^f/g_A^f@f$ for INDF
      */
-    virtual gslpp::complex gZf(const int INDF) const; // gZf = gVf/gAf
+    virtual complex gZf(const int INDF) const; // gZf = gVf/gAf
 
     /**
      * @param[in] INDF fermion index [0-9] (see EWphysics::flavour_st_to_int())
      * @return the weak form factor for INDF
      */
-    virtual gslpp::complex rhoZf(const int INDF) const;
+    virtual complex rhoZf(const int INDF) const;
 
     /**
      * @return the radiative-correction factor @f$\Delta r@f$
@@ -291,30 +276,24 @@ public:
     double getBetas() const;
 
     // Lambda_q
-    gslpp::complex getlamt() const;
-    gslpp::complex getlamc() const;
-    gslpp::complex getlamu() const;
+    complex getlamt() const;
+    complex getlamc() const;
+    complex getlamu() const;
 
-    gslpp::complex getlamt_d() const;
-    gslpp::complex getlamc_d() const;
-    gslpp::complex getlamu_d() const;
+    complex getlamt_d() const;
+    complex getlamc_d() const;
+    complex getlamu_d() const;
 
-    gslpp::complex getlamt_s() const;
-    gslpp::complex getlamc_s() const;
-    gslpp::complex getlamu_s() const;
+    complex getlamt_s() const;
+    complex getlamc_s() const;
+    complex getlamu_s() const;
 
     // Sides
     double getRt() const;
     double getRts() const;
     double getRb() const;
 
-    /**
-     * get the @f$\Delta B=\Delta D=2@f$ amplitude
-     * @return @f$\langle \bar B_d \vert \mathcal{H}_\mathrm{eff}\vert B_d\rangle@f$ //CHECK!!
-     */    
-    gslpp::complex getDBD2Amplitude(const int LE) const;
-
-    CKM getMyCKM() const {
+    CKM getCKM() const {
         return myCKM;
     }
     
@@ -327,28 +306,20 @@ public:
 protected:
     matrix<complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
     double GF, alsMz, ale, dAle5Mz, mZ, mHl, lambda, A, rhob, etab;
-    double muw;
+    double muw, mub, muc;
     CKM myCKM;
     Particle leptons[6];
-//    static const std::vector<std::string> pino;
-//    mutable std::map<std::string,double> Hashes;
-//    mutable std::map<std::string,double> DValues;
+    mutable std::vector<WilsonCoefficient> vmc;
 
 private:
-    double eta2bbar(const int) const;
-    double kt_sing_a(const double x) const;
-    double kt_sing(const double x) const;
-    double kt_oct(const double x) const;
-    double kt(const double x, const double mu) const;
-    double S(double, double) const;
+    double S0(double, double) const;
+    double S0(double) const;
+    double S0p(double x) const;
+    double S11(double x) const;
+    double S18(double x) const;
+    double S1(double x) const;
     bool computeCKM, computeYe, computeYn;
-//    void init(double mu_i,
-//            double md_i, double ms_i, double mc_i, double mb_i,
-//            double mt_i,
-//            double me_i, double mmu_i, double mtau_i,
-//            double mnu1_i, double mnu2_i, double mnu3_i, double GF_i,
-//            double alsMz_i, double ale_i, double mZ_i, double dAle5Mz_i,
-//            double mHl_i, double mu1_i, double mu2_i, double mu3_i);
+    mutable WilsonCoefficient mcdf2;
 };
 
 #endif	/* STANDARDMODEL_H */
