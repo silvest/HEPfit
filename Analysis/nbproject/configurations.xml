@@ -69,6 +69,7 @@
             <linkerLibLibItem>gslcblas</linkerLibLibItem>
             <linkerLibLibItem>BAT</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
+            <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"
                             CT="3"
@@ -153,8 +154,27 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibLibItem>Core</linkerLibLibItem>
+            <linkerLibLibItem>Cint</linkerLibLibItem>
+            <linkerLibLibItem>RIO</linkerLibLibItem>
+            <linkerLibLibItem>Net</linkerLibLibItem>
+            <linkerLibLibItem>Hist</linkerLibLibItem>
+            <linkerLibLibItem>Graf</linkerLibLibItem>
+            <linkerLibLibItem>Graf3d</linkerLibLibItem>
+            <linkerLibLibItem>Gpad</linkerLibLibItem>
+            <linkerLibLibItem>Tree</linkerLibLibItem>
+            <linkerLibLibItem>Rint</linkerLibLibItem>
+            <linkerLibLibItem>Postscript</linkerLibLibItem>
+            <linkerLibLibItem>Matrix</linkerLibLibItem>
+            <linkerLibLibItem>Physics</linkerLibLibItem>
+            <linkerLibLibItem>MathCore</linkerLibLibItem>
+            <linkerLibLibItem>Minuit</linkerLibLibItem>
+            <linkerLibLibItem>Thread</linkerLibLibItem>
+            <linkerLibLibItem>Gui</linkerLibLibItem>
+            <linkerLibLibItem>m</linkerLibLibItem>
+            <linkerLibLibItem>dl</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>-L/usr/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMinuit -lThread -lGui -pthread -lm -ldl -rdynamic</commandLine>
+          <commandLine>-pthread -rdynamic</commandLine>
         </linkerTool>
         <requiredProjects>
           <makeArtifact PL="../Flavour"

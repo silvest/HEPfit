@@ -51,7 +51,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/root -L../Flavour/dist/Debug/GNU-Linux-x86 -L../gslpp/dist/Debug/GNU-Linux-x86 -L../Observables/dist/Debug/GNU-Linux-x86 -L../InputParser/dist/Debug/GNU-Linux-x86 -L../StandardModel/dist/Debug/GNU-Linux-x86 -L../Utils/dist/Debug/GNU-Linux-x86 -L../MonteCarlo/dist/Debug/GNU-Linux-x86 -L../BAT/lib -lgsl -lgslcblas -lBAT -lBATmodels ../MonteCarlo/dist/Debug/GNU-Linux-x86/libmontecarlo.a ../InputParser/dist/Debug/GNU-Linux-x86/libinputparser.a ../Flavour/dist/Debug/GNU-Linux-x86/libflavour.a ../Observables/dist/Debug/GNU-Linux-x86/libobservables.a ../StandardModel/dist/Debug/GNU-Linux-x86/libstandardmodel.a ../Utils/dist/Debug/GNU-Linux-x86/libutils.a ../gslpp/dist/Debug/GNU-Linux-x86/libgslpp.a
+LDLIBSOPTIONS=-L/usr/lib/root -L../Flavour/dist/Debug/GNU-Linux-x86 -L../gslpp/dist/Debug/GNU-Linux-x86 -L../Observables/dist/Debug/GNU-Linux-x86 -L../InputParser/dist/Debug/GNU-Linux-x86 -L../StandardModel/dist/Debug/GNU-Linux-x86 -L../Utils/dist/Debug/GNU-Linux-x86 -L../MonteCarlo/dist/Debug/GNU-Linux-x86 -L../BAT/lib -lgsl -lgslcblas -lBAT -lBATmodels -lboost_program_options ../MonteCarlo/dist/Debug/GNU-Linux-x86/libmontecarlo.a ../InputParser/dist/Debug/GNU-Linux-x86/libinputparser.a ../Flavour/dist/Debug/GNU-Linux-x86/libflavour.a ../Observables/dist/Debug/GNU-Linux-x86/libobservables.a ../StandardModel/dist/Debug/GNU-Linux-x86/libstandardmodel.a ../Utils/dist/Debug/GNU-Linux-x86/libutils.a ../gslpp/dist/Debug/GNU-Linux-x86/libgslpp.a -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMinuit -lThread -lGui -lm -ldl
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -73,7 +73,7 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis: ../gslpp/dist/Debug/GNU-Lin
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -L/usr/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMinuit -lThread -lGui -pthread -lm -ldl -rdynamic -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis ${OBJECTFILES} ${LDLIBSOPTIONS} 
+	${LINK.cc} -pthread -rdynamic -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis ${OBJECTFILES} ${LDLIBSOPTIONS} 
 
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
