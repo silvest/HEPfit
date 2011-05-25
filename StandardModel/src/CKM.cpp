@@ -39,7 +39,7 @@ CKM::CKM(const CKM& orig) {
 CKM::~CKM() {
 }
 
-void CKM::getCKM(gslpp::matrix<gslpp::complex> & x){
+void CKM::getCKM(matrix<complex> & x){
     x.assign(0,0,Vud);
     x.assign(0,1,Vus);
     x.assign(0,2,Vub);
@@ -58,34 +58,34 @@ void CKM::setWolfenstein(double Lambda_v, double A_v, double Rho_v, double Eta_v
   Lambda=Lambda_v;
   A=A_v;
 
-  gslpp::complex num(Rho,Eta);
+  complex num(Rho,Eta);
   num = num*sqrt(1-pow(A,2.)*pow(Lambda,4.));
-  gslpp::complex den=sqrt(1-pow(Lambda,2.))*gslpp::complex(1-pow(A,2.)*pow(Lambda,4.)*Rho, -pow(A,2.)*pow(Lambda,4.)*Eta);
-  gslpp::complex ratio=num/den;
+  complex den=sqrt(1-pow(Lambda,2.))*complex(1-pow(A,2.)*pow(Lambda,4.)*Rho, -pow(A,2.)*pow(Lambda,4.)*Eta);
+  complex ratio=num/den;
 
   double rho_nb=ratio.real();
   double eta_nb=ratio.imag();
 
   double s12=Lambda;
   s23=A*pow(Lambda,2.);
-  s13=(gslpp::complex(A*pow(Lambda,3.)*rho_nb, -A*pow(Lambda,3.)*eta_nb)).abs();
-  delta=-(gslpp::complex(A*pow(Lambda,3.)*rho_nb, -A*pow(Lambda,3.)*eta_nb)).arg();
+  s13=(complex(A*pow(Lambda,3.)*rho_nb, -A*pow(Lambda,3.)*eta_nb)).abs();
+  delta=-(complex(A*pow(Lambda,3.)*rho_nb, -A*pow(Lambda,3.)*eta_nb)).arg();
 
   c12=sqrt(1-pow(s12,2.));
   c23=sqrt(1-pow(s23,2.));
   c13=sqrt(1-pow(s13,2.));
 
-  Vud = gslpp::complex(c12*c13,0.);
-  Vus = gslpp::complex(s12*c13,0.);
-  Vub = gslpp::complex(s13, -delta, true);
+  Vud = complex(c12*c13,0.);
+  Vus = complex(s12*c13,0.);
+  Vub = complex(s13, -delta, true);
 
-  Vcd = -s12*c23-gslpp::complex(c12*s23*s13, delta, true);
-  Vcs = c12*c23-gslpp::complex(s12*s23*s13, delta, true);
-  Vcb = gslpp::complex(s23*c13, 0.);
+  Vcd = -s12*c23-complex(c12*s23*s13, delta, true);
+  Vcs = c12*c23-complex(s12*s23*s13, delta, true);
+  Vcb = complex(s23*c13, 0.);
 
-  Vtd = s12*s23-gslpp::complex(c12*c23*s13, delta, true);
-  Vts = -c12*s23-gslpp::complex(s12*c23*s13, delta, true);
-  Vtb = gslpp::complex(c23*c13, 0.);
+  Vtd = s12*s23-complex(c12*c23*s13, delta, true);
+  Vts = -c12*s23-complex(s12*c23*s13, delta, true);
+  Vtb = complex(c23*c13, 0.);
 
   return;
 }
@@ -101,22 +101,22 @@ void CKM::setCKM(double Vud_v, double Vcb_v, double Vub_v, double gamma_v) {
   double a=c12*s13*s23/s12/c23;
   delta=2.*atan((1.+sqrt(1.-(a*a-1.)*pow(tan(gamma_v),2.))*(cos(gamma_v)<0.? 1.:(-1.)))/(a-1.)/tan(gamma_v));
 
-  Vud = gslpp::complex(c12*c13,0.);
-  Vus = gslpp::complex(s12*c13,0.);
-  Vub = gslpp::complex(s13, -delta, true);
+  Vud = complex(c12*c13,0.);
+  Vus = complex(s12*c13,0.);
+  Vub = complex(s13, -delta, true);
 
-  Vcd = -s12*c23-gslpp::complex(c12*s23*s13, delta, true);
-  Vcs = c12*c23-gslpp::complex(s12*s23*s13, delta, true);
-  Vcb = gslpp::complex(s23*c13, 0.);
+  Vcd = -s12*c23-complex(c12*s23*s13, delta, true);
+  Vcs = c12*c23-complex(s12*s23*s13, delta, true);
+  Vcb = complex(s23*c13, 0.);
 
-  Vtd = s12*s23-gslpp::complex(c12*c23*s13, delta, true);
-  Vts = -c12*s23-gslpp::complex(s12*c23*s13, delta, true);
-  Vtb = gslpp::complex(c23*c13, 0.);
+  Vtd = s12*s23-complex(c12*c23*s13, delta, true);
+  Vts = -c12*s23-complex(s12*c23*s13, delta, true);
+  Vtb = complex(c23*c13, 0.);
 
 // Wolfenstein to all orders
   Lambda=s12;
   A=s23/Lambda/Lambda;
-  gslpp::complex Rb=Vud*Vub.conjugate()/(Vcd*Vcb.conjugate());
+  complex Rb=Vud*Vub.conjugate()/(Vcd*Vcb.conjugate());
   Rho=-Rb.real();
   Eta=-Rb.imag();
 
@@ -281,80 +281,80 @@ double CKM::getBetas() {
 
 // Lambda_q
 
-gslpp::complex CKM::getlamt() {
+complex CKM::getlamt() {
   return Vtd*Vts.conjugate();
 }
 
-gslpp::complex CKM::getlamc() {
+complex CKM::getlamc() {
   return Vcd*Vcs.conjugate();
 }
 
-gslpp::complex CKM::getlamu() {
+complex CKM::getlamu() {
   return Vud*Vus.conjugate();
 }
 
 
-gslpp::complex CKM::getlamt_d() {
+complex CKM::getlamt_d() {
   return Vtd*Vtb.conjugate();
 }
 
-gslpp::complex CKM::getlamc_d() {
+complex CKM::getlamc_d() {
   return Vcd*Vcb.conjugate();
 }
 
-gslpp::complex CKM::getlamu_d() {
+complex CKM::getlamu_d() {
   return Vud*Vub.conjugate();
 }
 
 
-gslpp::complex CKM::getlamt_s() {
+complex CKM::getlamt_s() {
   return Vts*Vtb.conjugate();
 }
 
-gslpp::complex CKM::getlamc_s() {
+complex CKM::getlamc_s() {
   return Vcs*Vcb.conjugate();
 }
 
-gslpp::complex CKM::getlamu_s() {
+complex CKM::getlamu_s() {
   return Vus*Vub.conjugate();
 }
 
 
 //Complex values of CKM elements
 
-gslpp::complex CKM::V_ud() {
+complex CKM::V_ud() {
   return Vud;
 }
 
-gslpp::complex CKM::V_us() {
+complex CKM::V_us() {
   return Vus;
 }
 
-gslpp::complex CKM::V_ub() {
+complex CKM::V_ub() {
   return Vub;
 }
 
-gslpp::complex CKM::V_cd() {
+complex CKM::V_cd() {
   return Vcd;
 }
 
-gslpp::complex CKM::V_cs() {
+complex CKM::V_cs() {
   return Vcs;
 }
 
-gslpp::complex CKM::V_cb() {
+complex CKM::V_cb() {
   return Vcb;
 }
 
-gslpp::complex CKM::V_td() {
+complex CKM::V_td() {
   return Vtd;
 }
 
-gslpp::complex CKM::V_ts() {
+complex CKM::V_ts() {
   return Vts;
 }
 
-gslpp::complex CKM::V_tb() {
+complex CKM::V_tb() {
   return Vtb;
 }
 
