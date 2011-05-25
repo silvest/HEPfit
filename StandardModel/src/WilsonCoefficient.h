@@ -29,7 +29,7 @@ public:
 
     void setCoeff(unsigned int i, complex z, orders order_i);
 
-    vector<complex>* Coeff(orders ord) { return Elem(ord); };
+    vector<complex>* Coeff(orders ord) const { return Elem(ord); };
 
 };
 
