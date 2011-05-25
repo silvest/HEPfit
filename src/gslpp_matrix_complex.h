@@ -67,6 +67,7 @@ namespace gslpp
 	 * \param z initial value of entries (complex)
 	 */
       matrix(const size_t& size_i, const size_t& size_j, const complex& z);
+      matrix(const size_t& size_i, const complex& z);
 	/**
 	 * \brief Constructor
 	 * \param size_i number of rows
@@ -74,6 +75,7 @@ namespace gslpp
 	 * \param a initial value of entries (double)
 	 */
       matrix(const size_t& size_i, const size_t& size_j, const double& a);
+      matrix(const size_t& size_i, const double& a);
       /** Copy constructor */
       matrix(const matrix<complex>& m);
       matrix(const matrix<double>& m);
