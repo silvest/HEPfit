@@ -23,6 +23,9 @@
 #ifndef __GSL_LINALG_H__
 #include <gsl/gsl_linalg.h>
 #endif
+#ifndef __GSL_EIGEN_H__
+#include <gsl/gsl_eigen.h>
+#endif
 #ifndef GSLPP_MATRIX_DOUBLE_H
 #include "gslpp_matrix_double.h"
 #endif
@@ -33,6 +36,12 @@ namespace gslpp
   matrix<double>::matrix(const size_t& size_i, const size_t& size_j, const double &a)
   {
     _matrix = gsl_matrix_alloc(size_i, size_j);
+    gsl_matrix_set_all(_matrix, a);
+  }
+
+  matrix<double>::matrix(const size_t& size_i, const double &a)
+  {
+    _matrix = gsl_matrix_alloc(size_i, size_i);
     gsl_matrix_set_all(_matrix, a);
   }
 
@@ -94,6 +103,12 @@ namespace gslpp
           std::cout << "\n ** Wrong size assign in matrix<complex> operator =" << std::endl;
           exit(EXIT_FAILURE);
       }
+    return *this;
+  }
+  
+  matrix<double>& matrix<double>::operator=(double a)
+  {
+    gsl_matrix_set_all(_matrix, a);
     return *this;
   }
 
@@ -186,6 +201,19 @@ namespace gslpp
     }
     gsl_permutation_free(p);
     return m2;
+  }
+  
+  void matrix<double>::eigensystem(matrix<complex> &U, vector<complex> &S) {
+      matrix<double> m(*this);
+
+      gsl_eigen_nonsymmv_workspace *ws;
+
+      ws = gsl_eigen_nonsymmv_alloc(size_i());
+
+      gsl_eigen_nonsymmv(m.as_gsl_type_ptr(), S.as_gsl_type_ptr(),
+              U.as_gsl_type_ptr(), ws);
+
+      gsl_eigen_nonsymmv_free(ws);
   }
 
   /** Conversion */
