@@ -9,12 +9,42 @@
 #define	WILSONTEMPLATE_H
 
 #include "OrderScheme.h"
+#include <sstream>
 
-template <typename T> class WilsonTemplate {
+template <class T> class WilsonTemplate {
 public:
-    WilsonTemplate(unsigned int dim, schemes scheme, orders order);
-    WilsonTemplate(const WilsonTemplate<T> & orig);
-    virtual ~WilsonTemplate();
+    WilsonTemplate(unsigned int dim, schemes scheme_i, orders order_i){
+    size = dim;
+    scheme = scheme_i;
+    order = order_i;
+    mu = -1.;
+    for (int i = LO; i <= MAXORDER; i++)
+        if (i <= order)
+            elem[i] = new T(size, 0.);
+        else
+            elem[i] = NULL;
+    };
+    
+    WilsonTemplate(const WilsonTemplate<T> & orig) {
+    size = orig.getSize();
+    scheme = orig.getScheme();
+    order = orig.getOrder();
+    mu = orig.getMu();
+
+    for (int i = LO; i <= MAXORDER; i++) {
+        orders ord = orders(i);
+        if (orig.Elem(ord) != NULL)
+            elem[ord] = new T(*(orig.Elem(ord)));
+        else
+            elem[ord] = NULL;
+    }
+    };
+    
+    virtual ~WilsonTemplate(){
+    for (int i = LO; i <= MAXORDER; i++)
+        if (elem[i] != NULL)
+            delete elem[i];
+    };
 
     orders getOrder() const {
         return order;
@@ -43,15 +73,31 @@ public:
     }
 
 protected:
-    T* elem[MAXORDER+1];
+    T* elem[MAXORDER + 1];
     unsigned int size;
     double mu;
     schemes scheme;
     orders order;
 
-    T * Elem(orders order) const;
+    T * Elem(orders order) const {
+        if (order > this->order) {
+            std::stringstream out;
+            out << order;
+            throw "WilsonTemplate::getElem(): requested order " + out.str() +
+                    "not present in the object";
+        }
+        return elem[order];
+    };
 
-    void setElem(const T &v, orders order_i);
+    void setElem(const T & v, orders order_i) {
+        if (order_i > order) {
+            std::stringstream out;
+            out << order_i;
+            throw "MatchingCondition::setElem(): order " + out.str() +
+                    " not implemented ";
+        }
+        *elem[order_i] = v;
+    };
 };
 
 #endif	/* WILSONTEMPLATE_H */
