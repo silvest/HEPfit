@@ -28,9 +28,10 @@ InputParser::~InputParser() {
         delete thf;
 }
 
-void InputParser::ReadParameters(const char * filename, std::vector<ModelParameter>&
+std::string InputParser::ReadParameters(const std::string filename, std::vector<ModelParameter>&
         ModelPars, std::vector<Observable>& Observables, std::vector<Observable2D>& Observables2D) {
-    std::ifstream ifile(filename);
+    std::string modname = "";
+    std::ifstream ifile(filename.c_str());
     std::string line;
     while (!getline(ifile, line).eof()) {
         if (line.empty() || line.at(0) == '#')
@@ -39,9 +40,9 @@ void InputParser::ReadParameters(const char * filename, std::vector<ModelParamet
         boost::tokenizer<boost::char_separator<char> > tok(line, sep);
         boost::tokenizer<boost::char_separator<char> >::iterator beg = tok.begin();
         if (beg->compare("StandardModel") == 0) {
+            modname = *beg;
             myModel = new StandardModel();
-            myFlavour = new Flavour((StandardModel&) * myModel);
-            thf = new ThFactory((StandardModel *) myModel);
+            thf = new ThFactory(*myModel);
             continue;
         }
         std::string type = *beg;
@@ -134,4 +135,5 @@ void InputParser::ReadParameters(const char * filename, std::vector<ModelParamet
             exit(EXIT_FAILURE);
         }
     }
+    return(modname);
 }
