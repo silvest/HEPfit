@@ -73,15 +73,18 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a: ${OBJECTFILES}
 ${OBJECTDIR}/src/ThFactory.o: src/ThFactory.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I../Observables/src -I. -I. -I../StandardModel/src -I../Flavour/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThFactory.o src/ThFactory.cpp
+	$(COMPILE.cc) -g -I. -I../Observables/src -I../StandardModel/src -I../Flavour/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThFactory.o src/ThFactory.cpp
 
 ${OBJECTDIR}/src/InputParser.o: src/InputParser.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I../Observables/src -I. -I. -I../StandardModel/src -I../Flavour/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/InputParser.o src/InputParser.cpp
+	$(COMPILE.cc) -g -I. -I../Observables/src -I../StandardModel/src -I../Flavour/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/InputParser.o src/InputParser.cpp
 
 # Subprojects
 .build-subprojects:
+	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/Flavour && ${MAKE}  -f Makefile CONF=Debug
+	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel && ${MAKE}  -f Makefile CONF=Debug
+	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/Observables && ${MAKE}  -f Makefile CONF=Debug
 
 # Build Test Targets
 .build-tests-conf: .build-conf ${TESTFILES}
@@ -93,7 +96,7 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/newsimpletest.o ${OBJECTFILES:%.o=%_no
 ${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I../Observables/src -I. -I. -I../StandardModel/src -I../Flavour/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I. -I../Observables/src -I../StandardModel/src -I../Flavour/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
 
 
 ${OBJECTDIR}/src/ThFactory_nomain.o: ${OBJECTDIR}/src/ThFactory.o src/ThFactory.cpp 
@@ -104,7 +107,7 @@ ${OBJECTDIR}/src/ThFactory_nomain.o: ${OBJECTDIR}/src/ThFactory.o src/ThFactory.
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I. -I../Observables/src -I. -I. -I../StandardModel/src -I../Flavour/src -I../gslpp/src -I../Utils/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThFactory_nomain.o src/ThFactory.cpp;\
+	    $(COMPILE.cc) -g -I. -I../Observables/src -I../StandardModel/src -I../Flavour/src -I../gslpp/src -I../Utils/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThFactory_nomain.o src/ThFactory.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/ThFactory.o ${OBJECTDIR}/src/ThFactory_nomain.o;\
 	fi
@@ -117,7 +120,7 @@ ${OBJECTDIR}/src/InputParser_nomain.o: ${OBJECTDIR}/src/InputParser.o src/InputP
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I. -I../Observables/src -I. -I. -I../StandardModel/src -I../Flavour/src -I../gslpp/src -I../Utils/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/InputParser_nomain.o src/InputParser.cpp;\
+	    $(COMPILE.cc) -g -I. -I../Observables/src -I../StandardModel/src -I../Flavour/src -I../gslpp/src -I../Utils/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/InputParser_nomain.o src/InputParser.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/InputParser.o ${OBJECTDIR}/src/InputParser_nomain.o;\
 	fi
@@ -138,6 +141,9 @@ ${OBJECTDIR}/src/InputParser_nomain.o: ${OBJECTDIR}/src/InputParser.o src/InputP
 
 # Subprojects
 .clean-subprojects:
+	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/Flavour && ${MAKE}  -f Makefile CONF=Debug clean
+	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel && ${MAKE}  -f Makefile CONF=Debug clean
+	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/Observables && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl

@@ -57,8 +57,6 @@
           <incDir>
             <pElem>.</pElem>
             <pElem>../Observables/src</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../Flavour/src</pElem>
             <pElem>../gslpp/src</pElem>
@@ -67,6 +65,38 @@
         </ccTool>
         <archiverTool>
         </archiverTool>
+        <requiredProjects>
+          <makeArtifact PL="/afs/infn.it/roma1/project/susy/susy/SusyFit/Flavour"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="/afs/infn.it/roma1/project/susy/susy/SusyFit/Flavour"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+          </makeArtifact>
+          <makeArtifact PL="/afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="/afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
+          </makeArtifact>
+          <makeArtifact PL="/afs/infn.it/roma1/project/susy/susy/SusyFit/Observables"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="/afs/infn.it/roma1/project/susy/susy/SusyFit/Observables"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
       <folder path="TestFiles">
         <linkerTool>
@@ -82,10 +112,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -135,10 +169,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
