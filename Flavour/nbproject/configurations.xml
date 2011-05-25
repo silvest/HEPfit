@@ -4,8 +4,11 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>src/Dmb.h</itemPath>
+      <itemPath>src/DmBd.h</itemPath>
+      <itemPath>src/DmBd0.h</itemPath>
+      <itemPath>src/EvolDF2.h</itemPath>
       <itemPath>src/Flavour.h</itemPath>
+      <itemPath>/afs/infn.it/roma1/project/susy/susy/SusyFit/Flavour/src/HeffDF2.h</itemPath>
       <itemPath>src/Vcb.h</itemPath>
       <itemPath>src/Vub.h</itemPath>
       <itemPath>src/Vud.h</itemPath>
@@ -21,8 +24,10 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>src/Dmb.cpp</itemPath>
-      <itemPath>src/Flavour.cpp</itemPath>
+      <itemPath>src/DmBd.cpp</itemPath>
+      <itemPath>src/DmBd0.cpp</itemPath>
+      <itemPath>src/EvolDF2.cpp</itemPath>
+      <itemPath>/afs/infn.it/roma1/project/susy/susy/SusyFit/Flavour/src/HeffDF2.cpp</itemPath>
       <itemPath>src/Vcb.cpp</itemPath>
       <itemPath>src/Vub.cpp</itemPath>
       <itemPath>src/Vud.cpp</itemPath>
@@ -42,6 +47,7 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>/afs/infn.it/roma1/project/susy/sm/nonlepdevel/hep/Math/NewMagicDF2.nb</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -57,6 +63,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../Utils/src</pElem>
+            <pElem>./src</pElem>
           </incDir>
         </ccTool>
         <archiverTool>
@@ -71,6 +78,16 @@
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
+          </makeArtifact>
+          <makeArtifact PL="/afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="/afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
           </makeArtifact>
         </requiredProjects>
       </compileType>
