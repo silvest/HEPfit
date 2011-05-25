@@ -9,8 +9,9 @@
 #define	CKM_H
 
 #include <math.h>
-#include <gslpp_complex.h>
-#include <gslpp_matrix_complex.h>
+#include <gslpp.h>
+
+using namespace gslpp;
 
 class CKM {
 public:
@@ -21,7 +22,7 @@ public:
   void setWolfenstein(double, double, double, double);
   void setCKM(double, double, double, double);
 
-  void getCKM(gslpp::matrix<gslpp::complex> &);
+  void getCKM(matrix<complex> &);
 
   // Wolfenstein parameters
   double getRho();
@@ -66,15 +67,15 @@ public:
   double getArgVtb();
 
   //Complex values of CKM elements
-  gslpp::complex V_ud();
-  gslpp::complex V_us();
-  gslpp::complex V_ub();
-  gslpp::complex V_cd();
-  gslpp::complex V_cs();
-  gslpp::complex V_cb();
-  gslpp::complex V_td();
-  gslpp::complex V_ts();
-  gslpp::complex V_tb();
+  complex V_ud();
+  complex V_us();
+  complex V_ub();
+  complex V_cd();
+  complex V_cs();
+  complex V_cb();
+  complex V_td();
+  complex V_ts();
+  complex V_tb();
 
   // Angles
   double getBeta();
@@ -83,17 +84,17 @@ public:
   double getBetas();
 
 // Lambda_q
-  gslpp::complex getlamt();
-  gslpp::complex getlamc();
-  gslpp::complex getlamu();
+  complex getlamt();
+  complex getlamc();
+  complex getlamu();
 
-  gslpp::complex getlamt_d();
-  gslpp::complex getlamc_d();
-  gslpp::complex getlamu_d();
+  complex getlamt_d();
+  complex getlamc_d();
+  complex getlamu_d();
 
-  gslpp::complex getlamt_s();
-  gslpp::complex getlamc_s();
-  gslpp::complex getlamu_s();
+  complex getlamt_s();
+  complex getlamc_s();
+  complex getlamu_s();
 
 // Sides
   double getRt();
@@ -105,9 +106,9 @@ private:
   double s12, s13, s23, delta;
   double c12, c23, c13;
 
-  gslpp::complex Vud, Vcd, Vtd;
-  gslpp::complex Vus, Vcs, Vts;
-  gslpp::complex Vub, Vcb, Vtb;
+  complex Vud, Vcd, Vtd;
+  complex Vus, Vcs, Vts;
+  complex Vub, Vcb, Vtb;
 
 };
 
