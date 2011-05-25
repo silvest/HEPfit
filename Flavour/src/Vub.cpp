@@ -7,17 +7,6 @@
 
 #include "Vub.h"
 
-Vub::Vub(StandardModel * myModel_i) {
-    myModel = myModel_i;
-}
-
-Vub::Vub(const Vub& orig) {
-    myModel = orig.myModel;
-}
-
-Vub::~Vub() {
-}
-
 double Vub::getThValue() { 
-    return((myModel->getMyCKM()).getVub());
+    return(SM.getCKM().getVub());
 }

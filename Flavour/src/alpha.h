@@ -8,18 +8,16 @@
 #ifndef ALPHA_H
 #define	ALPHA_H
 
-#include <StandardModel.h>
 #include <ThObservable.h>
+#include <ThObsType.h>
 
-class alpha : public ThObservable {
+class Alpha : public ThObservable {
 public:
-    alpha(StandardModel *);
-    alpha(const alpha& orig);
-    virtual ~alpha();
+    Alpha(const ThObsType& ObsType) : ThObservable(ObsType) {};
+    Alpha(const Alpha& orig) : ThObservable(orig.ObsType) {};
+    virtual ~Alpha() {};
+
     double getThValue();
-private:
-    StandardModel * myModel;
 };
 
 #endif	/* ALPHA_H */
-

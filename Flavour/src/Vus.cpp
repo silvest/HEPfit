@@ -7,17 +7,6 @@
 
 #include "Vus.h"
 
-Vus::Vus(StandardModel * myModel_i) {
-    myModel = myModel_i;
-}
-
-Vus::Vus(const Vus& orig) {
-    myModel = orig.myModel;
-}
-
-Vus::~Vus() {
-}
-
 double Vus::getThValue() { 
-    return((myModel->getMyCKM()).getVus());
+    return(SM.getCKM().getVus());
 }

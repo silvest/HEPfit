@@ -7,17 +7,6 @@
 
 #include "Vcb.h"
 
-Vcb::Vcb(StandardModel * myModel_i) {
-    myModel = myModel_i;
-}
-
-Vcb::Vcb(const Vcb& orig) {
-    myModel = orig.myModel;
-}
-
-Vcb::~Vcb() {
-}
-
 double Vcb::getThValue() { 
-    return((myModel->getMyCKM()).getVcb());
+    return(SM.getCKM().getVcb());
 }
