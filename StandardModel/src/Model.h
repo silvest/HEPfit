@@ -14,13 +14,12 @@
 
 class Model {
 public:
-    virtual void update(const std::map<std::string, double>&) = 0;
-    virtual bool init(const std::map<std::string, double>&) = 0;
+    virtual void Update(const std::map<std::string, double>&) = 0;
+    virtual bool Init(const std::map<std::string, double>&) = 0;
     /**
      * get the @f$\Delta B=\Delta D=2@f$ amplitude
      * @return @f$\langle \bar B_d \vert \mathcal{H}_\mathrm{eff}\vert B_d\rangle@f$ //CHECK!!
      */
-    virtual gslpp::complex getDBD2Amplitude(const int LE) const = 0;
 private:
 
 };
