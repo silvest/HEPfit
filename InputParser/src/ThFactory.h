@@ -10,15 +10,17 @@
 
 #include <ThObservable.h>
 #include <StandardModel.h>
+#include <Flavour.h>
 
 class ThFactory {
 public:
-    ThFactory(StandardModel * myModel);
+    ThFactory(const StandardModel& myModel);
     ThFactory(const ThFactory& orig);
     virtual ~ThFactory();
-    ThObservable * getThMethod(const std::string& name);
+    ThObservable* getThMethod(const std::string& name);
 private:
     std::map<std::string,ThObservable *> thobs;
+    Flavour myFlavour;
 };
 
 #endif	/* THFACTORY_H */
