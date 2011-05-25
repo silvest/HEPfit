@@ -10,7 +10,7 @@
 
 #include "Model.h"
 #include "Meson.h"
-#include <Parameters.h>
+#include "OrderScheme.h"
 
 class QCD: public Model {
 public:
@@ -33,6 +33,7 @@ public:
     
     QCD() {
         Nc=3.;
+        CF = Nc/2.-1./(2.*Nc);
     };
 
     virtual ~QCD();
@@ -41,13 +42,13 @@ public:
      * @param nf the number of active flavours
      * @return the @f$\beta_0@f$ coefficient
      */
-    double beta0(double nf) const;
+    double Beta0(double nf) const;
     /**
      * the @f$\beta_1@f$ coefficient
      * @param nf the number of active flavours
      * @return the @f$\beta_1@f$ coefficient
      */
-    double beta1(double nf) const;
+    double Beta1(double nf) const;
     /**
      * the number of active flavour at scale @f$\mu@f$
      * @param mu the scale @f$\mu@f$ in GeV
@@ -59,47 +60,41 @@ public:
      * @param mu the scale @f$\mu@f$ in GeV
      * @param lam @f$\Lambda_\mathrm{QCD}@f$ with @f$n_f@f$ active flavours in GeV
      * @param nf the number of active flavours @f$n_f@f$
-     * @param le order (=0 for LO, =1 for LO+NLO, =-1 for NLO)
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return @f$\alpha_s@f$
      */
-    double als(double mu, double lam, double nf, int le) const;
+    double Als(double mu, double lam, double nf, orders order) const;
     /**
      * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
      * @param mu the scale @f$\mu@f$ in GeV
      * @param nf the number of active flavours
      * @param alsi the initial condition @f$\alpha_s(m_i)@f$
      * @param mi the scale @f$m_i@f$ in GeV
-     * @param le order (=0 for LO, =1 for LO+NLO, =-1 for NLO)
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return @f$\alpha_s@f$
      */
-    double als(double mu, double nf, double alsi, double mi, int le) const;
+    double Als(double mu, double nf, double alsi, double mi, orders order) const;
     /**
      * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
      * @param mu the scale @f$\mu@f$ in GeV
      * @param nfmu the number of active flavours at the scale @f$\mu@f$
-     * @param le order (=0 for LO, =1 for LO+NLO, =-1 for NLO)
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return @f$\alpha_s@f$
      */
-    double als(double mu, double nfmu, int le) const;
+    double Als(double mu, double nfmu, orders order) const;
     /**
      * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
      * @param mu the scale @f$\mu@f$ in GeV
-     * @param le order (=0 for LO, =1 for LO+NLO, =-1 for NLO)
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return @f$\alpha_s@f$
      */
-    double als(double mu, int le) const;
-    /**
-     * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
-     * @param mu the scale @f$\mu@f$ in GeV
-     * @return @f$\alpha_s@f$ at the LO+NLO
-     */
-    double als(double mu) const;
+    double Als(double mu, orders order = FULLNLO) const;
     /**
      * @f$\Lambda_\mathrm{QCD}@f$ with four active flavours in GeV
-     * @param le order (=0 for LO, =1 for LO+NLO)
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return @f$\Lambda_\mathrm{QCD}@f$
      */
-    double lambda4(int le) const;
+    double Lambda4(orders order) const;
 
     /**
      *
@@ -202,43 +197,34 @@ public:
      * @param mu the scale @f$\mu@f$ in GeV
      * @param m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
      * @param nf the number of active flavours
-     * @param le the order (=0 for LO, =1 for LO+NLO, =-1 for NLO)
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return the running quark mass @f$m(\mu)@f$
      */
-
-    double mrun(double mu, double m, double nf, int le) const;
-    /**
-     * the running quark mass @f$m(\mu)@f$ at the LO+NLO
-     * @param mu the scale @f$\mu@f$ in GeV
-     * @param m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
-     * @param nf the number of active flavours
-     * @return the running quark mass @f$m(\mu)@f$
-     */
-    double mrun(double mu, double m, double nf) const;
-    /**
+     double Mrun(double mu, double m, double nf, orders order = FULLNLO) const;
+     /**
      * convert the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ to the pole mass
      * @param mbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
      * @return the pole mass in GeV
      */
-    double mbar2mp(double mbar) const;
+    double Mbar2Mp(double mbar) const;
     /**
      * convert the pole mass to the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
      * @param mp the pole mass in GeV
      * @return the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
      */
-    double mp2mbar(double mp) const;
+    double Mp2Mbar(double mp) const;
 
     /**
      * updates the QCD parameters found in the argument
      * @param a map containing the parameters (all as double) to be updated
      */
-    bool init(const std::map<std::string, double>&);
+    bool Init(const std::map<std::string, double>&);
 
     /**
      * updates the QCD parameters found in the argument
      * @param a map containing the parameters (all as double) to be updated
      */
-    void update(const std::map<std::string, double>&);
+    void Update(const std::map<std::string, double>&);
 
     /**
      * updates the QCD parameters found in the argument
@@ -256,24 +242,22 @@ public:
 
     
 protected:
-    double Nc, AlsM, M, mu1, mu2, mu3;
+    double Nc, CF, AlsM, M, mu1, mu2, mu3;
     Particle quarks[6];
     Meson mesons[MESON_END];
     void SetQCDParameter(std::string, double);
     bool computeYu, computeYd;
 
-//    void init(double AlsM_i, double M_i, double mu_i, double md_i, double ms_i,
-//    double mc_i, double mb_i, double mt_i, double mu1_i, double mu2_i,
-//        double mu3_i);
+    double Thresholds(int i) const;
+    double AboveTh(double mu) const;
+    double BelowTh(double mu) const;
+
 private:
-    double thresholds(int i) const;
-    double aboveth(double mu) const;
-    double belowth(double mu) const;
     mutable double als_cache[5][5], lambda4_cache[2][5], mp2mbar_cache[4][5];
     bool computeFBd, computeBd;
     double BBsoBBd, FBsoFBd;
-    double zero(double *x, double *) const;
-    double mp2mbara(double * mu, double * mp) const;
+    double Zero(double *x, double *) const;
+    double Mp2Mbara(double * mu, double * mp) const;
     void CacheShift(double cache[][5], int n) const;
 };
 
