@@ -240,6 +240,9 @@ public:
         return quarks[i];
     }
 
+    double Thresholds(int i) const;
+    double AboveTh(double mu) const;
+    double BelowTh(double mu) const;
     
 protected:
     double Nc, CF, AlsM, M, mu1, mu2, mu3;
@@ -247,10 +250,6 @@ protected:
     Meson mesons[MESON_END];
     void SetQCDParameter(std::string, double);
     bool computeYu, computeYd;
-
-    double Thresholds(int i) const;
-    double AboveTh(double mu) const;
-    double BelowTh(double mu) const;
 
 private:
     mutable double als_cache[5][5], lambda4_cache[2][5], mp2mbar_cache[4][5];
