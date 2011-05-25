@@ -99,6 +99,12 @@ namespace gslpp
     return *this;
   }
 
+  vector<complex>& vector<complex>::operator=(double a)
+  {
+    gsl_vector_complex_set_all(_vector, complex(a).as_gsl_type());
+    return *this;
+  }
+
   /** Assign element */
   void vector<complex>::assign(const size_t& i, const complex& z)
   {

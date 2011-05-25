@@ -57,6 +57,7 @@ namespace gslpp
 //      complex& operator()(const size_t& i);
       /** Assign */
       vector<complex>& operator=(const vector<complex>& v);
+      vector<complex>& operator=(double a);
       /** Assign element */
       void assign(const size_t& i, const complex& z);
       void assign(const size_t& i, const double& a);
