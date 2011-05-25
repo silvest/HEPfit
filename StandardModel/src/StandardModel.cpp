@@ -24,13 +24,13 @@ const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutr
     "mneutrino_3", "melectron", "mmu", "mtau", "lambda", "A", "rhob", "etab", "ale",
     "dAle5Mz", "mHl", "muw", "mub", "muc"};
 
-void StandardModel::update(const std::map<std::string, double>& DPars) {
+void StandardModel::Update(const std::map<std::string, double>& DPars) {
     computeCKM = false;
     computeYe = false;
     computeYn = false;
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         SetSMParameter(it->first, it->second);
-    QCD::update(DPars);
+    QCD::Update(DPars);
     if (computeCKM) {
         myCKM.setWolfenstein(lambda, A, rhob, etab);
         myCKM.getCKM(VCKM);
@@ -106,7 +106,7 @@ void StandardModel::SetSMParameter(std::string name, double value) {
         SetQCDParameter(name, value);
 }
 
-bool StandardModel::init(const std::map<std::string, double>& DPars) {
+bool StandardModel::Init(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NSMvars; i++) {
         if (DPars.find(SMvars[i]) == DPars.end()) {
             std::cout << "missing mandatory SM parameter " << SMvars[i] << std::endl;
@@ -119,7 +119,7 @@ bool StandardModel::init(const std::map<std::string, double>& DPars) {
             return false;
         }
     }
-    update(DPars);
+    Update(DPars);
     return true;
 }
 
