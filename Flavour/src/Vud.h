@@ -8,18 +8,16 @@
 #ifndef VUD_H
 #define	VUD_H
 
-#include <StandardModel.h>
 #include <ThObservable.h>
+#include <ThObsType.h>
 
 class Vud : public ThObservable {
 public:
-    Vud(StandardModel *);
-    Vud(const Vud& orig);
-    virtual ~Vud();
+    Vud(const ThObsType& ObsType) : ThObservable(ObsType) {};
+    Vud(const Vud& orig) : ThObservable(orig.ObsType) {};
+    virtual ~Vud() {};
+
     double getThValue();
-private:
-    StandardModel * myModel;
 };
 
 #endif	/* VUD_H */
-

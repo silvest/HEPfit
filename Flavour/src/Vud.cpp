@@ -7,17 +7,6 @@
 
 #include "Vud.h"
 
-Vud::Vud(StandardModel * myModel_i) {
-    myModel = myModel_i;
-}
-
-Vud::Vud(const Vud& orig) {
-    myModel = orig.myModel;
-}
-
-Vud::~Vud() {
-}
-
 double Vud::getThValue() { 
-    return((myModel->getMyCKM()).getVud());
+    return((SM.getCKM()).getVud());
 }

@@ -7,17 +7,6 @@
 
 #include "alpha.h"
 
-alpha::alpha(StandardModel * myModel_i) {
-    myModel = myModel_i;
-}
-
-alpha::alpha(const alpha& orig) {
-    myModel = orig.myModel;
-}
-
-alpha::~alpha() {
-}
-
-double alpha::getThValue() { 
-    return((myModel->getMyCKM()).getAlpha()/M_PI*180.);
+double Alpha::getThValue() {
+    return(SM.getCKM().getAlpha()/M_PI*180.);
 }

@@ -8,18 +8,16 @@
 #ifndef GAMMA_H
 #define	GAMMA_H
 
-#include <StandardModel.h>
 #include <ThObservable.h>
+#include <ThObsType.h>
 
-class gammac : public ThObservable {
+class Gamma : public ThObservable {
 public:
-    gammac(StandardModel *);
-    gammac(const gammac& orig);
-    virtual ~gammac();
+    Gamma(const ThObsType& ObsType) : ThObservable(ObsType) {};
+    Gamma(const Gamma& orig) : ThObservable(orig.ObsType) {};
+    virtual ~Gamma() {};
+
     double getThValue();
-private:
-    StandardModel * myModel;
 };
 
 #endif	/* GAMMA_H */
-

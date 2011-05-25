@@ -8,18 +8,16 @@
 #ifndef VCB_H
 #define	VCB_H
 
-#include <StandardModel.h>
 #include <ThObservable.h>
+#include <ThObsType.h>
 
 class Vcb : public ThObservable {
 public:
-    Vcb(StandardModel *);
-    Vcb(const Vcb& orig);
-    virtual ~Vcb();
+    Vcb(const ThObsType& ObsType) : ThObservable(ObsType) {};
+    Vcb(const Vcb& orig) : ThObservable(orig.ObsType) {};
+    virtual ~Vcb() {};
+
     double getThValue();
-private:
-    StandardModel * myModel;
 };
 
 #endif	/* VCB_H */
-
