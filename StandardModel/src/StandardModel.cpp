@@ -9,6 +9,7 @@
 //#include <boost/assign/list_of.hpp> // for 'map_list_of()'
 #include <iostream>
 #include <math.h>
+#include <stdlib.h>
 #include <TF1.h>
 #include <Math/WrappedTF1.h>
 #include <Math/BrentRootFinder.h>
@@ -20,7 +21,8 @@
 #define LEPS 1.e-5 // tolerance in the limit of S(x,y) to S(x)
 
 const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutrino_2",
-    "mneutrino_3", "melectron", "mmu", "mtau", "lambda", "A", "rhob", "etab", "ale", "dAle5Mz", "mHl", "muw"};
+    "mneutrino_3", "melectron", "mmu", "mtau", "lambda", "A", "rhob", "etab", "ale",
+    "dAle5Mz", "mHl", "muw", "mub", "muc"};
 
 void StandardModel::update(const std::map<std::string, double>& DPars) {
     computeCKM = false;
@@ -66,6 +68,10 @@ void StandardModel::SetSMParameter(std::string name, double value) {
         mHl = value;
     else if (name.compare("muw") == 0)
         muw = value;
+    else if (name.compare("mub") == 0)
+        mub = value;
+    else if (name.compare("muc") == 0)
+        muc = value;
     else if (name.compare("mneutrino_1") == 0) {
         leptons[NEUTRINO_1].setMass(value);
         computeYn = true;
@@ -118,7 +124,7 @@ bool StandardModel::init(const std::map<std::string, double>& DPars) {
 }
 
 StandardModel::StandardModel() : QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.),
-Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
+Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.), mcdf2((unsigned int) 8, NDR, NLO) {
 }
 
 StandardModel::~StandardModel() {
@@ -221,8 +227,8 @@ double StandardModel::aleMz() const {
 }
 
 double StandardModel::mcMz() const {
-    double mc_at_mb = mrun(quarks[BOTTOM].getMass(), quarks[CHARM].getMass(), 4.0);
-    double mc_at_mZ = mrun(mZ, mc_at_mb, 5.0);
+    double mc_at_mb = Mrun(quarks[BOTTOM].getMass(), quarks[CHARM].getMass(), 4.0);
+    double mc_at_mZ = Mrun(mZ, mc_at_mb, 5.0);
 
     /* TEST */
     //std::cout << "mc(mc)= " << quarks[CHARM].getMass() << std::endl;
@@ -239,7 +245,7 @@ double StandardModel::mbMz() const {
     //std::cout << "mb(mZ)_LO= " << mrun(mZ, quarks[BOTTOM].getMass(), 5.0, 0) << std::endl;
     //std::cout << "mb(mZ)_LO+NLO= " << mrun(mZ, quarks[BOTTOM].getMass(), 5.0, 1) << std::endl;
 
-    return ( mrun(mZ, quarks[BOTTOM].getMass(), 5.0));
+    return ( Mrun(mZ, quarks[BOTTOM].getMass(), 5.0));
     //return (2.819440);// <--- used in ZFITTER with the effective mass mb=4.7
 }
 
@@ -328,9 +334,13 @@ complex StandardModel::getlamu_s() const {
     return VCKM(0, 1) * VCKM(0, 2).conjugate();
 }
 
-double StandardModel::S(double x, double y) const { // Buras 2000 Appendix
+double StandardModel::S0(double x) const {
+    return S0(x, x);
+}
+
+double StandardModel::S0(double x, double y) const { // Buras 2000 Appendix
     if (fabs(1. - y / x) < LEPS)
-        return ((x * (-4. + 15. * x - 12. * x * x + pow(x, 3.) +
+        return ((x * (-4. + 15. * x - 12. * x * x + x*x*x +
             6. * x * x * log(x))) / (4. * pow(-1. + x, 3.)));
     else
         return (x * y * ((1. / 4. + 3. / 2. / (1. - x) - 3. / 4. / pow(1. - x, 2.)) *
@@ -340,58 +350,69 @@ double StandardModel::S(double x, double y) const { // Buras 2000 Appendix
             3. / 4. / (1. - x) / (1. - y)));
 }
 
-double StandardModel::kt_sing_a(const double x) const {
-    return (x * (-4. + 18. * x + 3. * pow(x, 2.) + pow(x, 3.)) / 4. / pow(x - 1., 3.)
-            - 9. * pow(x, 3.) / 2. / pow(x - 1., 4.) * log(x));
+double StandardModel::S0p( double x) const {
+    return (x * (-4. + 18. * x + 3. * x*x + x*x*x) / 4. / pow(x - 1., 3.)
+            - 9. * x*x*x / 2. / pow(x - 1., 4.) * log(x));
 }
 
-double StandardModel::kt_sing(const double x) const {
-    return (x * (4. - 39. * x + 168. * pow(x, 2.) + 11. * pow(x, 3.)) / 4. / pow(x - 1., 3.)
-            + 3. * pow(x, 3.) * gsl_sf_dilog(1. - x)*(5. + x) / pow(x - 1., 3.)
-            + 3. * x * log(x)*(-4. + 24. * x - 36. * pow(x, 2.) - 7. * pow(x, 3.) - pow(x, 4.)) / 2.
-            / pow(x - 1., 4.) + 3. * pow(x, 3.) * pow(log(x), 2.)*(13. + 4. * x + pow(x, 2.)) / 2.
+double StandardModel::S11(double x) const {
+    return (x * (4. - 39. * x + 168. * x*x + 11. * x*x*x) / 4. / pow(x - 1., 3.)
+            + 3. * x*x*x * gsl_sf_dilog(1. - x)*(5. + x) / pow(x - 1., 3.)
+            + 3. * x * log(x)*(-4. + 24. * x - 36. * x*x - 7. * x*x*x - x*x*x*x) / 2.
+            / pow(x - 1., 4.) + 3. * x*x*x * pow(log(x), 2.)*(13. + 4. * x + x*x) / 2.
             / pow(x - 1., 4.));
 }
 
-double StandardModel::kt_oct(const double x) const {
-    return ((-64. + 68. * x + 17. * pow(x, 2.) - 11. * pow(x, 3.)) / 4. / pow(x - 1., 2.)
-            + pow(M_PI, 2.)*8. / 3. / x + 2. * gsl_sf_dilog(1. - x)*(8. - 24. * x + 20. * pow(x, 2.)
-            - pow(x, 3.) + 7. * pow(x, 4.) - pow(x, 5.)) / x / pow(x - 1., 3.)
-            + log(x)*(-32. + 68. * x - 32. * pow(x, 2.) + 28. * pow(x, 3.) - 3. * pow(x, 4.))
-            / 2. / pow(x - 1., 3.) + pow(x, 2.) * pow(log(x), 2.)*(4. - 7. * x + 7. * pow(x, 2.)
-            - 2. * pow(x, 3.)) / 2. / pow(x - 1., 4.));
+double StandardModel::S18(double x) const {
+    return ((-64. + 68. * x + 17. * x*x - 11. * x*x*x) / 4. / pow(x - 1., 2.)
+            + pow(M_PI, 2.)*8. / 3. / x + 2. * gsl_sf_dilog(1. - x)*(8. - 24. * x
+            + 20. * x*x - x*x*x + 7. * x*x*x*x - pow(x, 5.)) / x / pow(x - 1., 3.)
+            + log(x)*(-32. + 68. * x - 32. * x*x + 28. * x*x*x - 3. * x*x*x*x)
+            / 2. / pow(x - 1., 3.) + x*x * pow(log(x), 2.)*(4. - 7. * x + 7. * x*x
+            - 2. * x*x*x) / 2. / pow(x - 1., 4.));
 }
 
-double StandardModel::kt(const double x, const double mu) const {    //  printf("%e\n",4./3.*kt_sing(x)+1./3.*kt_oct(x));
-    return (4. / 3. * (kt_sing(x) + 12. * log(mu / mW()) * kt_sing_a(x))
-            + 1. / 3. * (kt_oct(x) + 12. * log(mu / mW()) * S(x, x))
-            +(4. + 5. / 3.) * S(x, x));
+double StandardModel::S1(double x) const {
+    return (CF * S11(x) + (Nc-1.)/2./Nc * S18(x)); 
 }
 
-double StandardModel::eta2bbar(const int LE) const {
-    double eta2b, xt;
-    double g0p, g1p5, jp5;
+const std::vector<WilsonCoefficient>& StandardModel::CMdf2() const {
+    
+    double gammam = 8.;
+    double Bt;
+    double xt = pow(Mrun(muw, quarks[TOP].getMass(), 5., mcdf2.getOrder()) / mW(), 2.);
+    complex co = GF / 4. / M_PI * mW() * getlamt_d();
 
-    g0p = 4.;
-    g1p5 = -7. + 20. / 9.;
-    jp5 = g0p * beta1(5.) / 2. / pow(beta0(5.), 2.) - g1p5 / 2. / beta0(5.);
+    vmc.clear();
 
-    xt = pow(mrun(muw, quarks[TOP].getMass(), 5., LE) / mW(), 2.);
+    switch (mcdf2.getScheme()) {
+        case NDR:
+            Bt = 5. * (Nc - 1.) / 2. / Nc + 3. * CF;
+            break;
+        case HV:
+        case LRI:
+        default:
+            std::stringstream out;
+            out << mcdf2.getScheme();
+            throw "StandardModel::CMdf2(): scheme " + out.str() + "not implemented";
+    }
 
-    eta2b = pow(als(muw, LE) / als(quarks[BOTTOM].getMass(), LE),
-            g0p / 2. / beta0(5.))*(1. + (LE == 1 ? 1. : 0.) / 4. / M_PI *
-            (als(muw, LE)*(-jp5 + kt(xt, muw) / S(xt, xt)) +
-            als(quarks[BOTTOM].getMass(), LE) * jp5));
+    mcdf2.setMu(muw);
 
-    return (eta2b);
-}
+    switch (mcdf2.getOrder()) {
+        case NNLO:
+        case NLO:
+            mcdf2.setCoeff(0, co * co * (Als(muw, NLO) / 4. / M_PI * (S1(xt) +
+                    Bt * S0(xt, xt) + 2. * gammam * S0p(xt) * log(muw / mW()))), NLO);
+        case LO:
+            mcdf2.setCoeff(0, co * co * S0(xt, xt), LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcdf2.getOrder();
+            throw "StandardModel::CMdf2(): order " + out.str() + "not implemented";
+    }
 
-complex StandardModel::getDBD2Amplitude(const int LE) const {
-    double xtW = mrun(muw, quarks[TOP].getMass(), 5., 1) / mW();
-    xtW *= xtW;
-    return ((GF / 4. / M_PI * mW())*(GF / 4. / M_PI * mW()) * eta2bbar(LE) * getlamt_d() *
-            getlamt_d() * S(xtW, xtW) *
-            mesons[B_D].getDecayconst() *
-            mesons[B_D].getDecayconst() * mesons[B_D].getBpars().at(0)*4. / 3. *
-            mesons[B_D].getMass());
+    vmc.push_back(mcdf2);
+    return(vmc);
 }
