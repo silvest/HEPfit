@@ -71,36 +71,38 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a: ${OBJECTFILES}
 ${OBJECTDIR}/src/Observable2D.o: src/Observable2D.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Observable2D.o src/Observable2D.cpp
+	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Observable2D.o src/Observable2D.cpp
 
 ${OBJECTDIR}/src/Observable.o: src/Observable.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Observable.o src/Observable.cpp
+	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Observable.o src/Observable.cpp
 
 ${OBJECTDIR}/src/ModelParameter.o: src/ModelParameter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ModelParameter.o src/ModelParameter.cpp
+	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ModelParameter.o src/ModelParameter.cpp
 
 ${OBJECTDIR}/src/Likelihood.o: src/Likelihood.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Likelihood.o src/Likelihood.cpp
+	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Likelihood.o src/Likelihood.cpp
 
 ${OBJECTDIR}/src/GaussianLikelihood.o: src/GaussianLikelihood.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/GaussianLikelihood.o src/GaussianLikelihood.cpp
+	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/GaussianLikelihood.o src/GaussianLikelihood.cpp
 
 ${OBJECTDIR}/src/ThObservable.o: src/ThObservable.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThObservable.o src/ThObservable.cpp
+	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThObservable.o src/ThObservable.cpp
 
 # Subprojects
 .build-subprojects:
+	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/gslpp && ${MAKE}  -f Makefile CONF=Debug
 	cd ../Utils && ${MAKE}  -f Makefile CONF=Debug
+	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -109,7 +111,9 @@ ${OBJECTDIR}/src/ThObservable.o: src/ThObservable.cpp
 
 # Subprojects
 .clean-subprojects:
+	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/gslpp && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../Utils && ${MAKE}  -f Makefile CONF=Debug clean
+	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
