@@ -7,12 +7,13 @@
 
 #include "ThObservable.h"
 
-ThObservable::ThObservable() {
+ThObservable::ThObservable(const ThObsType& ObsType_i) : ObsType(ObsType_i), 
+        SM(ObsType_i.getModel()) {
 }
 
-ThObservable::ThObservable(const ThObservable& orig) {
+ThObservable::ThObservable(const ThObservable& orig) : ObsType(orig.ObsType),
+        SM(orig.SM) {
 }
 
 ThObservable::~ThObservable() {
 }
-

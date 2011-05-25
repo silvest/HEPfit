@@ -8,14 +8,18 @@
 #ifndef THOBSERVABLE_H
 #define	THOBSERVABLE_H
 
+#include <StandardModel.h>
+#include "ThObsType.h"
+
 class ThObservable {
 public:
-    ThObservable();
+    ThObservable(const ThObsType& ObsType_i);
     ThObservable(const ThObservable& orig);
     virtual ~ThObservable();
     virtual double getThValue() = 0;
-private:
+protected:
+    const ThObsType& ObsType;
+    const StandardModel& SM;
 };
 
 #endif	/* THOBSERVABLE_H */
-
