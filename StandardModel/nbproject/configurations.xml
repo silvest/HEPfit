@@ -5,12 +5,16 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>src/CKM.h</itemPath>
-      <itemPath>src/Meson.h</itemPath>
       <itemPath>src/EWPOSM.h</itemPath>
+      <itemPath>src/Meson.h</itemPath>
       <itemPath>src/Model.h</itemPath>
+      <itemPath>src/OrderScheme.h</itemPath>
       <itemPath>src/Particle.h</itemPath>
       <itemPath>src/QCD.h</itemPath>
+      <itemPath>src/RGEvolutor.h</itemPath>
       <itemPath>src/StandardModel.h</itemPath>
+      <itemPath>src/WilsonCoefficient.h</itemPath>
+      <itemPath>src/WilsonTemplate.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -20,12 +24,15 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/CKM.cpp</itemPath>
-      <itemPath>src/Meson.cpp</itemPath>
       <itemPath>src/EWPOSM.cpp</itemPath>
+      <itemPath>src/Meson.cpp</itemPath>
       <itemPath>src/Model.cpp</itemPath>
       <itemPath>src/Particle.cpp</itemPath>
       <itemPath>src/QCD.cpp</itemPath>
+      <itemPath>src/RGEvolutor.cpp</itemPath>
       <itemPath>src/StandardModel.cpp</itemPath>
+      <itemPath>src/WilsonCoefficient.cpp</itemPath>
+      <itemPath>src/WilsonTemplate.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -111,10 +118,18 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -143,10 +158,18 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -197,10 +220,18 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -229,10 +260,18 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
