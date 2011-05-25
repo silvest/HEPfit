@@ -9,17 +9,21 @@
 #define	EVOLDF2_H
 
 #include <RGEvolutor.h>
+#include <StandardModel.h>
+#include <sstream>
 
 class EvolDF2 : public RGEvolutor {
 public:
     EvolDF2(unsigned int dim, schemes scheme, orders order,
-            const QCD& model);
+            const StandardModel& model);
     virtual ~EvolDF2();
     matrix<double> AnomalousDimension(orders order, unsigned int nf) const;
-    matrix<double>& EvolDF2::Df2Evol(double mu, double M, orders order, 
+    matrix<double>& Df2Evol(double mu, double M, orders order, 
             schemes scheme = NDR);
 private:
-    double b[5][5][5], c[3][5][5][5], d[3][5][5][5];
+        matrix<double> Df2Evol(double mu, double M, double nf, orders order, 
+        schemes scheme);
+        double a[5], b[5][5][5], c[3][5][5][5], d[3][5][5][5];
     const StandardModel& model;
 };
 
