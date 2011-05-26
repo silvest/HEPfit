@@ -204,7 +204,7 @@ double MonteCarloEngine::LogLikelihood(std::vector <double> parameters) {
         DPars[GetParameter(k)->GetName()]=parameters[k];
     }
 
-    Mod->update(DPars);
+    Mod->Update(DPars);
     // std::cout << "loglike" << parameters[0];
     for (std::vector<Observable>::iterator it = Obs_MCMC.begin(); it < Obs_MCMC.end(); it++) {
         double th = it->getTheoryValue();
@@ -235,7 +235,7 @@ void MonteCarloEngine::MCMCIterationInterface() {
             DPars[GetParameter(k)->GetName()] = fMCMCx.at(i * npar + k);
         }
 
-        Mod->update(DPars);
+        Mod->Update(DPars);
 
         // fill the histograms for all observables
         int k = 0, kweight = 0;

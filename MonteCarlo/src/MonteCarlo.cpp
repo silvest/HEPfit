@@ -34,7 +34,7 @@ void MonteCarlo::Run() {
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++)
             DP[it->name] = it->ave;
 
-        if (!myInputParser.GetMyModel()->init(DP)) {
+        if (!myInputParser.GetMyModel()->Init(DP)) {
             std::cout << "parameter(s) missing in model initialization" << std::endl;
             exit(EXIT_FAILURE);
         }
