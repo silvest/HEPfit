@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-Linux-x86
+CND_PLATFORM=GNU-MacOSX
 CND_CONF=Debug
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -100,9 +100,9 @@ ${OBJECTDIR}/src/ThObservable.o: src/ThObservable.cpp
 
 # Subprojects
 .build-subprojects:
-	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/gslpp && ${MAKE}  -f Makefile CONF=Debug
+	cd ../gslpp && ${MAKE}  -f Makefile CONF=Debug
 	cd ../Utils && ${MAKE}  -f Makefile CONF=Debug
-	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel && ${MAKE}  -f Makefile CONF=Debug
+	cd ../StandardModel && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -111,9 +111,9 @@ ${OBJECTDIR}/src/ThObservable.o: src/ThObservable.cpp
 
 # Subprojects
 .clean-subprojects:
-	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/gslpp && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../gslpp && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../Utils && ${MAKE}  -f Makefile CONF=Debug clean
-	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../StandardModel && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
