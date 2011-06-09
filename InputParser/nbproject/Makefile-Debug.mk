@@ -82,10 +82,10 @@ ${OBJECTDIR}/src/InputParser.o: src/InputParser.cpp
 
 # Subprojects
 .build-subprojects:
-	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/Flavour && ${MAKE}  -f Makefile CONF=Debug
+	cd ../Flavour && ${MAKE}  -f Makefile CONF=Debug
 	cd ../EW && ${MAKE}  -f Makefile CONF=Debug
-	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel && ${MAKE}  -f Makefile CONF=Debug
-	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/Observables && ${MAKE}  -f Makefile CONF=Debug
+	cd ../StandardModel && ${MAKE}  -f Makefile CONF=Debug
+	cd ../Observables && ${MAKE}  -f Makefile CONF=Debug
 
 # Build Test Targets
 .build-tests-conf: .build-conf ${TESTFILES}
@@ -142,10 +142,10 @@ ${OBJECTDIR}/src/InputParser_nomain.o: ${OBJECTDIR}/src/InputParser.o src/InputP
 
 # Subprojects
 .clean-subprojects:
-	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/Flavour && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../Flavour && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../EW && ${MAKE}  -f Makefile CONF=Debug clean
-	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel && ${MAKE}  -f Makefile CONF=Debug clean
-	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/Observables && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../StandardModel && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../Observables && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
