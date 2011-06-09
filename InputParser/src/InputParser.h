@@ -15,6 +15,7 @@
 #include <ModelParameter.h>
 #include <StandardModel.h>
 #include <Flavour.h>
+#include <EW.h>
 #include <iostream>
 #include <fstream>
 #include <istream>
@@ -37,6 +38,7 @@ public:
 private:
     StandardModel* myModel; 
     Flavour* myFlavour;
+    EW* myEW;
     ThFactory* thf;
 };
 

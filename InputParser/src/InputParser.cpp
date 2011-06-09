@@ -10,12 +10,14 @@
 InputParser::InputParser() {
     myModel = NULL;
     myFlavour = NULL;
+    myEW = NULL;
     thf = NULL;
 }
 
 InputParser::InputParser(const InputParser& orig) {
     myModel = orig.myModel;
     myFlavour = orig.myFlavour;
+    myEW = orig.myEW;
     thf = orig.thf;
 }
 
@@ -24,6 +26,8 @@ InputParser::~InputParser() {
         delete myModel;
     if (myFlavour != NULL)
         delete myFlavour;
+    if (myEW != NULL)
+        delete myEW;    
     if (thf != NULL)
         delete thf;
 }
