@@ -10,10 +10,10 @@
             <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
-                <make-dep-project>/afs/infn.it/roma1/project/susy/susy/SusyFit/Observables</make-dep-project>
+                <make-dep-project>../Flavour</make-dep-project>
                 <make-dep-project>../EW</make-dep-project>
-                <make-dep-project>/afs/infn.it/roma1/project/susy/susy/SusyFit/Flavour</make-dep-project>
-                <make-dep-project>/afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel</make-dep-project>
+                <make-dep-project>../Observables</make-dep-project>
+                <make-dep-project>../StandardModel</make-dep-project>
             </make-dep-projects>
             <sourceRootList>
                 <sourceRootElem>src</sourceRootElem>

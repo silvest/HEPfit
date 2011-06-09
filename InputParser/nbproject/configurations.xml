@@ -67,12 +67,12 @@
         <archiverTool>
         </archiverTool>
         <requiredProjects>
-          <makeArtifact PL="/afs/infn.it/roma1/project/susy/susy/SusyFit/Flavour"
+          <makeArtifact PL="../Flavour"
                         CT="3"
                         CN="Debug"
                         AC="true"
                         BL="true"
-                        WD="/afs/infn.it/roma1/project/susy/susy/SusyFit/Flavour"
+                        WD="../Flavour"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
@@ -87,22 +87,22 @@
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
           </makeArtifact>
-          <makeArtifact PL="/afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel"
+          <makeArtifact PL="../StandardModel"
                         CT="3"
                         CN="Debug"
                         AC="true"
                         BL="true"
-                        WD="/afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel"
+                        WD="../StandardModel"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
           </makeArtifact>
-          <makeArtifact PL="/afs/infn.it/roma1/project/susy/susy/SusyFit/Observables"
+          <makeArtifact PL="../Observables"
                         CT="3"
                         CN="Debug"
                         AC="true"
                         BL="true"
-                        WD="/afs/infn.it/roma1/project/susy/susy/SusyFit/Observables"
+                        WD="../Observables"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
