@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="79">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>src/AFBbottom.h</itemPath>
+      <itemPath>src/AFBcharm.h</itemPath>
+      <itemPath>src/AFBlepton.h</itemPath>
+      <itemPath>src/Abottom.h</itemPath>
+      <itemPath>src/Acharm.h</itemPath>
+      <itemPath>src/Alepton.h</itemPath>
+      <itemPath>src/EW.h</itemPath>
+      <itemPath>src/EWObservables.h</itemPath>
+      <itemPath>src/GammaW.h</itemPath>
+      <itemPath>src/GammaZ.h</itemPath>
+      <itemPath>src/PtauPol.h</itemPath>
+      <itemPath>src/Rbottom.h</itemPath>
+      <itemPath>src/Rcharm.h</itemPath>
+      <itemPath>src/Rlepton.h</itemPath>
+      <itemPath>src/mW.h</itemPath>
+      <itemPath>src/obliqueEpsilon1.h</itemPath>
+      <itemPath>src/obliqueEpsilon2.h</itemPath>
+      <itemPath>src/obliqueEpsilon3.h</itemPath>
+      <itemPath>src/obliqueS.h</itemPath>
+      <itemPath>src/obliqueShat.h</itemPath>
+      <itemPath>src/obliqueT.h</itemPath>
+      <itemPath>src/obliqueThat.h</itemPath>
+      <itemPath>src/obliqueU.h</itemPath>
+      <itemPath>src/obliqueW.h</itemPath>
+      <itemPath>src/obliqueY.h</itemPath>
+      <itemPath>src/sigmaHadron.h</itemPath>
+      <itemPath>src/sin2thetaEff.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>src/AFBbottom.cpp</itemPath>
+      <itemPath>src/AFBcharm.cpp</itemPath>
+      <itemPath>src/AFBlepton.cpp</itemPath>
+      <itemPath>src/Abottom.cpp</itemPath>
+      <itemPath>src/Acharm.cpp</itemPath>
+      <itemPath>src/Alepton.cpp</itemPath>
+      <itemPath>src/EW.cpp</itemPath>
+      <itemPath>src/GammaW.cpp</itemPath>
+      <itemPath>src/GammaZ.cpp</itemPath>
+      <itemPath>src/PtauPol.cpp</itemPath>
+      <itemPath>src/Rbottom.cpp</itemPath>
+      <itemPath>src/Rcharm.cpp</itemPath>
+      <itemPath>src/Rlepton.cpp</itemPath>
+      <itemPath>src/mW.cpp</itemPath>
+      <itemPath>src/obliqueEpsilon1.cpp</itemPath>
+      <itemPath>src/obliqueEpsilon2.cpp</itemPath>
+      <itemPath>src/obliqueEpsilon3.cpp</itemPath>
+      <itemPath>src/obliqueS.cpp</itemPath>
+      <itemPath>src/obliqueShat.cpp</itemPath>
+      <itemPath>src/obliqueT.cpp</itemPath>
+      <itemPath>src/obliqueThat.cpp</itemPath>
+      <itemPath>src/obliqueU.cpp</itemPath>
+      <itemPath>src/obliqueW.cpp</itemPath>
+      <itemPath>src/obliqueY.cpp</itemPath>
+      <itemPath>src/sigmaHadron.cpp</itemPath>
+      <itemPath>src/sin2thetaEff.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="3">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../Observables/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../Utils/src</pElem>
+          </incDir>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+        <requiredProjects>
+          <makeArtifact PL="../Observables"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../Observables"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
+          </makeArtifact>
+        </requiredProjects>
+      </compileType>
+    </conf>
+    <conf name="Release" type="3">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+    </conf>
+  </confs>
+</configurationDescriptor>
