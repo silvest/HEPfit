@@ -59,6 +59,7 @@
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../Flavour/src</pElem>
+            <pElem>../EW/src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../Utils/src</pElem>
           </incDir>
@@ -75,6 +76,16 @@
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+          </makeArtifact>
+          <makeArtifact PL="../EW"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../EW"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
           </makeArtifact>
           <makeArtifact PL="/afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel"
                         CT="3"
@@ -114,10 +125,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -171,10 +184,12 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

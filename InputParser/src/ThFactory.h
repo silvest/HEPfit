@@ -11,6 +11,7 @@
 #include <ThObservable.h>
 #include <StandardModel.h>
 #include <Flavour.h>
+#include <EW.h>
 
 class ThFactory {
 public:
@@ -21,6 +22,7 @@ public:
 private:
     std::map<std::string,ThObservable *> thobs;
     Flavour myFlavour;
+    EW myEW;
 };
 
 #endif	/* THFACTORY_H */
