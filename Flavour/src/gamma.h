@@ -14,10 +14,10 @@
 class Gamma : public ThObservable {
 public:
     Gamma(const ThObsType& ObsType) : ThObservable(ObsType) {};
-    Gamma(const Gamma& orig) : ThObservable(orig.ObsType) {};
-    virtual ~Gamma() {};
 
-    double getThValue();
+    double getThValue() { 
+        return(SM.getCKM().getGamma()/M_PI*180.);
+    };
 };
 
 #endif	/* GAMMA_H */

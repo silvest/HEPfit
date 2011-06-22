@@ -8,15 +8,17 @@
 #ifndef DMBD0_H
 #define	DMBD0_H
 
-#include "DmBd.h"
+#include <ThObservable.h>
+#include <Flavour.h>
+#include <AmpDB2.h>
 
-class DmBd0 : public DmBd {
+class DmBd0 : public ThObservable, AmpDB2 {
 public:
-    DmBd0(const ThObsType& ObsType) : DmBd(ObsType) {};
-    DmBd0(const DmBd0& orig) : DmBd(orig.ObsType) {};
-    virtual ~DmBd0() {};
+    DmBd0(Flavour& Flavour) : ThObservable(Flavour), AmpDB2(Flavour) {};
 
-    double getThValue();
+    double getThValue() {
+        return(2.*Amp(LO).abs());
+    };
 };
 
 #endif	/* DMBD0_H */

@@ -13,6 +13,8 @@ EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order,
     matrix<double> v(5, 5, 0.);
     vector<double> e(5, 0.);
 
+    // Magic numbers in the basis of Gabbiani et al.
+    
     e(0) = 6. / Nc;
     e(1) = 6. * (-1. + Nc) / Nc;
     e(2) = -6. * (-1. + Nc * Nc) / Nc;
@@ -78,6 +80,9 @@ matrix<double> EvolDF2::AnomalousDimension(orders order, unsigned int nf) const 
             ad(4, 4) = 6. / Nc;
             break;
         case NLO:
+            
+            // MSbar-NDR scheme with evanescent operators of Buras, Misiak & Urban
+            
             if (!(nf == 3 || nf == 4 || nf == 5 || nf == 6))
                 throw "EvolDF2::AnomalousDimension(): wrong number of flavours";
             ad(0, 0) = -(-1. + Nc)*(-171. + 19. * Nc * Nc + Nc * (63. - 4. * nf)) / (6. * Nc * Nc);
@@ -95,91 +100,74 @@ matrix<double> EvolDF2::AnomalousDimension(orders order, unsigned int nf) const 
             ad(4, 4) = (45. + 137. * Nc * Nc - 44. * Nc * nf) / (6. * Nc * Nc);
             break;
         default:
-            throw "EvolDF2::AnomalousDimension(): scheme not implemented";
+            throw "EvolDF2::AnomalousDimension(): order not implemented";
     }
     return (ad);
 }
 
 matrix<double>& EvolDF2::Df2Evol(double mu, double M, orders order, schemes scheme) {
     switch (scheme) {
-        case LRI:
-            break;
         case NDR:
+            break;
+        case LRI:
         case HV:
         default:
             std::stringstream out;
             out << scheme;
-            throw "HeffDF2::Df2Evol(): scheme " + out.str() + " not implemented ";
+            throw "EvolDF2::Df2Evol(): scheme " + out.str() + " not implemented ";
     }
-    
-    if(mu == this->mu && M == this->M && scheme == this->scheme)
-        return(*Evol(order));
-    
-    double eta = model.Als(M) / model.Als(mu);
 
-    setScales(mu, M); // also assign evol to zero
+    if (mu == this->mu && M == this->M && scheme == this->scheme)
+        return (*Evol(order));
 
-    matrix<double> ev(5, 5, 0.);
-    for (int ord = LO; ord < MAXORDER; ord++) {
-        ev = 0.;
-        if (ord <= this->order) {
-            if (mu >= model.BelowTh(M))
-                ev = Df2Evol(mu, M, model.Nf(M), orders(ord), scheme);
-            else {
-                double nterm = model.Nf(M) - model.Nf(mu)- 2;
-                for (int ord1 = LO; ord1 <= ord; ord1++)
-                    for (int ord2 = LO; ord2 <= ord1; ord2++) {
-                        ev += Df2Evol(model.BelowTh(M), M, model.Nf(M), orders(ord1), scheme);
-                        for (int n = model.Nf(M) - 1; n > model.Nf(mu); n--)
-                            ev = Df2Evol(model.Thresholds(7 - n), model.Thresholds(8 - n),
-                                n, LO, scheme) * ev; //todo
-                        ev += Df2Evol(mu, model.AboveTh(mu), model.Nf(mu), orders(ord - ord1 - ord2),
-                                scheme) * ev;
-                    }
+    if (M < mu) {
+        std::stringstream out;
+        out << "M = " << M << " < mu = " << mu;
+        throw out.str();
+    }
+
+    setScales(mu, M); // also assign evol to identity
+
+    double m_down = mu;
+    double m_up = model.AboveTh(m_down);
+    double nf = model.Nf(m_down);
+
+    while (m_up < M) {
+        Df2Evol(m_down, m_up, nf, scheme);
+        m_down = m_up;
+        m_up = model.AboveTh(m_down);
+        nf += 1.;
+    }
+    Df2Evol(m_down, M, nf, scheme);
+    return (*Evol(order));
+}
+
+void EvolDF2::Df2Evol(double mu, double M, double nf, schemes scheme) {
+
+    matrix<double> resLO(5, 0.), resNLO(5, 0.), resNNLO(5, 0.);
+
+    int l = 6 - (int) nf;
+    double alsM = model.Als(M) / 4. / M_PI;
+    double alsmu = model.Als(mu) / 4. / M_PI;
+
+    double eta = alsM / alsmu;
+
+    for (int k = 0; k < 5; k++) {
+        double etap = pow(eta, a[k] / 2. / model.Beta0(nf));
+        for (int i = 0; i < 5; i++)
+            for (int j = 0; j < 5; j++) {
+                resNNLO(i, j) += 0.;
+                resNLO(i, j) += c[l][i][j][k] * etap * alsmu;
+                resNLO(i, j) += d[l][i][j][k] * etap * alsM;
+                resLO(i, j) += b[i][j][k] * etap;
             }
-            setEvol(ev, orders(ord));
-        }
+    }
+    switch(order) {
+        case NNLO:
+            *elem[NNLO] = 0.; // Marco can implement it if he wishes to!
+        case NLO:
+            *elem[NLO] = (*elem[LO]) * resNLO + (*elem[NLO]) * resLO;
+        case LO:
+            *elem[LO] = (*elem[LO]) * resLO;
     }
 }
-
-matrix<double> EvolDF2::Df2Evol(double mu, double M, double nf, orders order, 
-        schemes scheme) {
-        for (int i = 0; i < 5; i++) {
-            double eta = model.Als(M) / model.Als(mu);
-        double etap = pow(eta, a[i]);
-        for (int s = 0; s < 5; s++) {
-//            switch (getOrder()) {
-//                case NNLO:
-//                    setEvol = 0.;
-//                    *(uDF2.Evol(NNLO))(1, s) += 0.;
-//                    *(uDF2.Evol(NNLO))(2, s) += 0.;
-//                    *(uDF2.Evol(NNLO))(3, s) += 0.;
-//                    *(uDF2.Evol(NNLO))(4, s) += 0.;
-//                    *(uDF2.Evol(NNLO))(5, s) += 0.;
-//                    *(uDF2.Evol(NNLO))(6, s) += 0.;
-//                    *(uDF2.Evol(NNLO))(7, s) += 0.;
-//                case NLO:
-//                    *(uDF2.Evol(NLO))(0, s) += eta * c1[s][i] * etap;
-//                    *(uDF2.Evol(NLO))(1, s) += eta * c2[s][i] * etap;
-//                    *(uDF2.Evol(NLO))(2, s) += eta * c3[s][i] * etap;
-//                    *(uDF2.Evol(NLO))(3, s) += eta * c4[s][i] * etap;
-//                    *(uDF2.Evol(NLO))(4, s) += eta * c5[s][i] * etap;
-//                    *(uDF2.Evol(NLO))(5, s) += eta * c1[s][i] * etap;
-//                    *(uDF2.Evol(NLO))(6, s) += eta * c2[s][i] * etap;
-//                    *(uDF2.Evol(NLO))(7, s) += eta * c3[s][i] * etap;
-//                case LO:
-//                    *(uDF2.Evol(LO))(0, s) += b1[s][i] * etap;
-//                    *(uDF2.Evol(LO))(1, s) += b2[s][i] * etap;
-//                    *(uDF2.Evol(LO))(2, s) += b3[s][i] * etap;
-//                    *(uDF2.Evol(LO))(3, s) += b4[s][i] * etap;
-//                    *(uDF2.Evol(LO))(4, s) += b5[s][i] * etap;
-//                    *(uDF2.Evol(LO))(5, s) += b1[s][i] * etap;
-//                    *(uDF2.Evol(LO))(6, s) += b2[s][i] * etap;
-//                    *(uDF2.Evol(LO))(7, s) += b3[s][i] * etap;
-//            }
-
-        }
-    }
-
-}
-
