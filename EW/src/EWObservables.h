@@ -32,7 +32,7 @@
 #include "obliqueT.h"
 #include "obliqueU.h"
 #include "obliqueShat.h"
-#include "ObliqueThat.h"
+#include "obliqueThat.h"
 #include "obliqueW.h"
 #include "obliqueY.h"
 

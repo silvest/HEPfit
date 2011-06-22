@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-MacOSX
+CND_PLATFORM=GNU-Linux-x86
 CND_CONF=Debug
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -44,8 +44,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/obliqueS.o \
 	${OBJECTDIR}/src/Rbottom.o \
 	${OBJECTDIR}/src/obliqueY.o \
-	${OBJECTDIR}/src/obliqueT.o \
 	${OBJECTDIR}/src/obliqueW.o \
+	${OBJECTDIR}/src/obliqueT.o \
 	${OBJECTDIR}/src/sigmaHadron.o \
 	${OBJECTDIR}/src/obliqueThat.o \
 	${OBJECTDIR}/src/GammaZ.o \
@@ -138,15 +138,15 @@ ${OBJECTDIR}/src/obliqueY.o: src/obliqueY.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueY.o src/obliqueY.cpp
 
-${OBJECTDIR}/src/obliqueT.o: src/obliqueT.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} $@.d
-	$(COMPILE.cc) -g -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueT.o src/obliqueT.cpp
-
 ${OBJECTDIR}/src/obliqueW.o: src/obliqueW.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueW.o src/obliqueW.cpp
+
+${OBJECTDIR}/src/obliqueT.o: src/obliqueT.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueT.o src/obliqueT.cpp
 
 ${OBJECTDIR}/src/sigmaHadron.o: src/sigmaHadron.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
