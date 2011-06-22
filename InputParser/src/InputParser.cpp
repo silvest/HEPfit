@@ -11,19 +11,23 @@ InputParser::InputParser() {
     myModel = NULL;
     myFlavour = NULL;
     myEW = NULL;
+    myModelMatching = NULL;
     thf = NULL;
 }
 
 InputParser::InputParser(const InputParser& orig) {
-    myModel = orig.myModel;
-    myFlavour = orig.myFlavour;
-    myEW = orig.myEW;
-    thf = orig.thf;
+    myModel = new StandardModel(*orig.myModel);
+    myFlavour = new Flavour(*orig.myFlavour);
+    myModelMatching = new StandardModelMatching(*orig.myModelMatching);
+    myEW = new EW(*orig.myEW);
+    thf = new ThFactory(*orig.thf);
 }
 
 InputParser::~InputParser() {
     if (myModel != NULL)
         delete myModel;
+    if (myModelMatching != NULL)
+        delete myModelMatching;
     if (myFlavour != NULL)
         delete myFlavour;
     if (myEW != NULL)
@@ -46,7 +50,8 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
         if (beg->compare("StandardModel") == 0) {
             modname = *beg;
             myModel = new StandardModel();
-            thf = new ThFactory(*myModel);
+            myModelMatching = new StandardModelMatching(*myModel);
+            thf = new ThFactory(*myModel,*myModelMatching);
             continue;
         }
         std::string type = *beg;
