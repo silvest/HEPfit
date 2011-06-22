@@ -57,8 +57,8 @@ void MonteCarloEngine::Initialize(Model* Mod_i) {
             Histo1D[it->getThname()] = bchisto;
         }
     }
-    obval = new double[fMCMCNChains * k];
-    obweight = new double[fMCMCNChains * kweight];
+    kmax = k;
+    kwmax = kweight;
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin();
             it < Obs2D_ALL.end(); it++) {
         if ((it->getDistr()).compare("file") == 0) {
@@ -102,12 +102,18 @@ void MonteCarloEngine::Initialize(Model* Mod_i) {
     DefineParameters();
 };
 
+void MonteCarloEngine::SetNChains(unsigned int i) {
+    MCMCSetNChains(i);
+    obval = new double[fMCMCNChains * kmax];
+    obweight = new double[fMCMCNChains * kwmax];
+}
+
 // ---------------------------------------------------------
 
 MonteCarloEngine::~MonteCarloEngine()
 // default destructor
 {
-    delete obval, obweight;
+    delete [] obval, obweight;
     for (std::map<std::string, BCH1D *>::iterator it = Histo1D.begin();
             it != Histo1D.end(); it++)
         delete it->second;
@@ -221,18 +227,13 @@ double MonteCarloEngine::LogLikelihood(std::vector <double> parameters) {
 }
 
 void MonteCarloEngine::MCMCIterationInterface() {
-    // get number of chains
-    int nchains = MCMCGetNChains();
 
-    // get number of parameters
-    int npar = GetNParameters();
-
-    for (int i = 0; i < nchains; ++i) {
-        for (int k = 0; k < npar; k++) {
+    for (int i = 0; i < fMCMCNChains; ++i) {
+        for (int k = 0; k < fMCMCNParameters; k++) {
             //        std::string pippo = GetParameter(k)->GetName();
             //        double pluto = parameters[k];
             //        DPars[pippo]=pluto;
-            DPars[GetParameter(k)->GetName()] = fMCMCx.at(i * npar + k);
+            DPars[GetParameter(k)->GetName()] = fMCMCx.at(i * fMCMCNParameters + k);
         }
 
         Mod->Update(DPars);
@@ -244,10 +245,10 @@ void MonteCarloEngine::MCMCIterationInterface() {
             double th = it->getTheoryValue();
             Histo1D[it->getThname()]->GetHistogram()->Fill(th);
             if (!it->isTMCMC()) {
-                obval[(i + 1)*(k + 1) - 1] = th;
+                obval[i * kmax + k] = th;
                 k++;
                 if (it->getDistr().compare("noweight") != 0) {
-                    obweight[(i + 1)*(kweight + 1) - 1] = Weight(*it, th);
+                    obweight[i * kwmax + kweight] = Weight(*it, th);
                     kweight++;
                 }
             }
@@ -285,13 +286,13 @@ void MonteCarloEngine::AddChains() {
             it < Obs_ALL.end(); it++) {
         if (!it->isTMCMC()) {
             for (int i = 0; i < fMCMCNChains; ++i)
-                fMCMCTrees[i]->Branch(it->getName().c_str(), &obval[(i + 1)*(k + 1) - 1],
-                    (it->getName() + "/D").c_str());
+              fMCMCTrees[i]->Branch(it->getName().c_str(), &obval[i * kmax + k],
+                   (it->getName() + "/D").c_str());
             k++;
             if (it->getDistr().compare("noweight") == 0) {
                 for (int i = 0; i < fMCMCNChains; ++i)
                     fMCMCTrees[i]->Branch((it->getName() + "_weight").c_str(),
-                        &obweight[(i + 1)*(kweight + 1) - 1], (it->getName() + "_weight/D").c_str());
+                        &obweight[i * kwmax + kweight], (it->getName() + "_weight/D").c_str());
                 kweight++;
             }
         }

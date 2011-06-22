@@ -15,13 +15,7 @@ myInputParser(), MCEngine(ModPars, Obs, Obs2D) {
     ModelConf = ModelConf_i;
     MCMCConf = MonteCarloConf_i;
     OutFile = OutFile_i;
-}
-
-MonteCarlo::MonteCarlo(const MonteCarlo& orig) :
-myInputParser(), MCEngine(ModPars, Obs, Obs2D) {
-    ModelConf = orig.ModelConf;
-    MCMCConf = orig.MCMCConf;
-    OutFile = orig.OutFile;
+    PrintAllMarginalized = false;
 }
 
 MonteCarlo::~MonteCarlo() {
@@ -34,15 +28,15 @@ void MonteCarlo::Run() {
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++)
             DP[it->name] = it->ave;
 
-        if (!myInputParser.GetMyModel()->Init(DP)) {
+        if (!myInputParser.getMyModel()->Init(DP)) {
             std::cout << "parameter(s) missing in model initialization" << std::endl;
             exit(EXIT_FAILURE);
         }
 
+        bool writechains = false;
         std::cout << ModPars.size() << " parameters defined." << std::endl;
         std::cout << Obs.size() << " observables defined." << std::endl;
-        MCEngine.Initialize(myInputParser.GetMyModel());
-        BCModelOutput out(&MCEngine, OutFile.c_str());
+        MCEngine.Initialize(myInputParser.getMyModel());
         //MonteCarlo configuration parser
         std::ifstream ifile(MCMCConf.c_str());
         std::string line;
@@ -53,7 +47,7 @@ void MonteCarlo::Run() {
             boost::tokenizer<boost::char_separator<char> >::iterator beg = tok.begin();
             if (beg->compare("NChains") == 0) {
                 ++beg;
-                MCEngine.MCMCSetNChains(atoi((*beg).c_str()));
+                MCEngine.SetNChains(atoi((*beg).c_str()));
             } else if (beg->compare("PrerunMaxIter") == 0) {
                 ++beg;
                 MCEngine.MCMCSetNIterationsMax(atoi((*beg).c_str()));
@@ -67,9 +61,12 @@ void MonteCarlo::Run() {
                 MCEngine.MCMCSetNIterationsRun(atoi((*beg).c_str()));
             } else if (beg->compare("WriteChain") == 0) {
                 ++beg;
+                if (beg->compare("true") == 0) 
+                    writechains = true;
+            } else if (beg->compare("PrintAllMarginalized") == 0) {
+                ++beg;
                 if (beg->compare("true") == 0) {
-                    out.WriteMarkovChain(true);
-                    MCEngine.AddChains();
+                    PrintAllMarginalized = true;
                 }
             } else {
                 std::cout << "wrong keyword in MonteCarlo config file: " << *beg << std::endl;
@@ -77,6 +74,12 @@ void MonteCarlo::Run() {
             }
         }
 
+        BCModelOutput out(&MCEngine, OutFile.c_str());
+        if (writechains) {
+            out.WriteMarkovChain(true);
+            MCEngine.AddChains();
+        }
+        
         // set nicer style for drawing than the ROOT default
         BCAux::SetStyle();
 
@@ -91,7 +94,8 @@ void MonteCarlo::Run() {
         //    MCEngine.FindMode(MCEngine.GetBestFitParameters());
 
         // draw all marginalized distributions into a PostScript file
-        MCEngine.PrintAllMarginalized("MonteCarlo_plots.ps");
+        if(PrintAllMarginalized)
+            MCEngine.PrintAllMarginalized("MonteCarlo_plots.ps");
 
         // print results of the analysis into a text file
         MCEngine.PrintResults("MonteCarlo_results.txt");

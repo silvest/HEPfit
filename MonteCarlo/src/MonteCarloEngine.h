@@ -41,6 +41,7 @@ public:
     double LogLikelihood(std::vector <double> parameters);
     void PrintHistogram(BCModelOutput& out);
     void MCMCIterationInterface();
+    void SetNChains(unsigned int i);
     void AddChains();
     double Weight(const Observable& obs, const double& th);
     double Weight(const Observable2D& obs, const double& th1, const double& th2); 
@@ -58,6 +59,7 @@ private:
     std::map<std::string, BCH2D * > Histo2D;
     std::map<std::string, TH2D * > InHisto2D;
     double *obval, *obweight;
+    unsigned int kwmax, kmax;
 };
 // ---------------------------------------------------------
 
