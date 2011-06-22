@@ -10,9 +10,10 @@
 #include <EW.h>
 #include <EWObservables.h>
 
-ThFactory::ThFactory(const StandardModel& myModel) : myFlavour(myModel), myEW(myEW) {
-    thobs["Dmd0"] = new DmBd(myFlavour);
-    thobs["Dmd1"] = new DmBd0(myFlavour);
+ThFactory::ThFactory(const StandardModel& myModel, StandardModelMatching& myModelMatching) : 
+myFlavour(myModel, myModelMatching), myEW(myModel) {
+    thobs["Dmd0"] = new DmBd0(myFlavour);
+    thobs["Dmd1"] = new DmBd(myFlavour);
     thobs["Vud"] = new Vud(myFlavour);
     thobs["Vus"] = new Vus(myFlavour);
     thobs["Vub"] = new Vub(myFlavour);
@@ -20,7 +21,7 @@ ThFactory::ThFactory(const StandardModel& myModel) : myFlavour(myModel), myEW(my
     thobs["alpha"] = new Alpha(myFlavour);
     thobs["alpha_2a"] = new Alpha_2a(myFlavour);
     thobs["gamma"] = new Gamma(myFlavour);
-    
+    thobs["SJPsiK"] = new SJPsiK(myFlavour);
     thobs["mW"] = new mW(myEW);
     thobs["GammaW"] = new GammaW(myEW);
     thobs["GammaZ"] = new GammaZ(myEW);
@@ -46,11 +47,6 @@ ThFactory::ThFactory(const StandardModel& myModel) : myFlavour(myModel), myEW(my
     thobs["ObliqueThat"] = new obliqueThat(myEW);
     thobs["obliqueW"] = new obliqueW(myEW);
     thobs["obliqueY"] = new obliqueY(myEW);
-}
-
-ThFactory::ThFactory(const ThFactory& orig) :
-myFlavour(orig.myFlavour.getModel()), myEW(orig.myEW.getModel()) {
-    thobs = orig.thobs;
 }
 
 ThFactory::~ThFactory() {

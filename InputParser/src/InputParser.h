@@ -14,6 +14,7 @@
 #include <ThObservable.h>
 #include <ModelParameter.h>
 #include <StandardModel.h>
+#include <StandardModelMatching.h>
 #include <Flavour.h>
 #include <EW.h>
 #include <iostream>
@@ -32,11 +33,17 @@ public:
             std::vector<Observable>& Observables,
             std::vector<Observable2D>& Observables2D);
 
-    StandardModel* GetMyModel() const {
+    StandardModel* getMyModel() const {
         return myModel;
     }
+    
+    StandardModelMatching* getMyModelMatching() const {
+        return myModelMatching;
+    }
+
 private:
     StandardModel* myModel; 
+    StandardModelMatching* myModelMatching;
     Flavour* myFlavour;
     EW* myEW;
     ThFactory* thf;
