@@ -24,21 +24,18 @@ public:
         else
             elem[i] = NULL;
     };
-    
-    WilsonTemplate(const WilsonTemplate<T> & orig) {
-    size = orig.getSize();
-    scheme = orig.getScheme();
-    order = orig.getOrder();
-    mu = orig.getMu();
 
-    for (int i = LO; i <= MAXORDER; i++) {
-        orders ord = orders(i);
-        if (orig.Elem(ord) != NULL)
-            elem[ord] = new T(*(orig.Elem(ord)));
-        else
-            elem[ord] = NULL;
+    WilsonTemplate<T>(const WilsonTemplate<T>& orig) {
+        size = orig.size;
+        scheme = orig.scheme;
+        order = orig.order;
+        mu = orig.mu;
+        for (int i = LO; i <= MAXORDER; i++)
+            if (orig.elem[i]!= NULL)
+                elem[i] = new T(*(orig.elem[i]));
+            else
+                elem[i] = NULL;
     }
-    };
     
     virtual ~WilsonTemplate(){
     for (int i = LO; i <= MAXORDER; i++)
@@ -54,7 +51,7 @@ public:
         return mu;
     }
 
-    void setMu(double mu) {
+    virtual void setMu(double mu) {
         this->mu = mu;
         for(int i = LO; i <= order; i++)
             *(elem[i]) = 0.;

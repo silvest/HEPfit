@@ -9,18 +9,20 @@
 #define	MESON_H
 
 #include "Particle.h"
+#include "BParameter.h"
+
+using namespace gslpp;
 
 class Meson : public Particle {
 public:
 
-    Meson() : bpars(5) {};
+    Meson() {};
     Meson(double mass, double width, double decayconst);
-    Meson(const Meson& orig);
     virtual ~Meson();
 
     /**
      *
-     * @return the particle lifetime in sec
+     * @return the particle lifetime in ps
      */
     double Lifetime() const {
         return (HCUT / width);
@@ -34,22 +36,8 @@ public:
         this->decayconst = decayconst;
     }
 
-    std::vector<double> getBpars() const {
-        return bpars;
-    }
-
-    void setBpars(std::vector<double> v) {
-        this->bpars = v;
-    }
-
-    void setBpars(const int i, const double value) {
-        this->bpars.at(i - 1) = value;
-    }
-
-
 private:
     double decayconst;
-    std::vector<double> bpars;
 
 };
 

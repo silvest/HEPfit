@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/BParameter.h</itemPath>
       <itemPath>src/CKM.h</itemPath>
       <itemPath>src/EWPOSM.h</itemPath>
       <itemPath>src/Meson.h</itemPath>
@@ -13,6 +14,7 @@
       <itemPath>src/QCD.h</itemPath>
       <itemPath>src/RGEvolutor.h</itemPath>
       <itemPath>src/StandardModel.h</itemPath>
+      <itemPath>src/StandardModelMatching.h</itemPath>
       <itemPath>src/WilsonCoefficient.h</itemPath>
       <itemPath>src/WilsonTemplate.h</itemPath>
     </logicalFolder>
@@ -31,18 +33,13 @@
       <itemPath>src/QCD.cpp</itemPath>
       <itemPath>src/RGEvolutor.cpp</itemPath>
       <itemPath>src/StandardModel.cpp</itemPath>
+      <itemPath>src/StandardModelMatching.cpp</itemPath>
       <itemPath>src/WilsonCoefficient.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
-      <logicalFolder name="f2"
-                     displayName="New C++ Simple Test"
-                     projectFiles="true"
-                     kind="TEST">
-        <itemPath>tests/newsimpletest.cpp</itemPath>
-      </logicalFolder>
       <logicalFolder name="f1"
                      displayName="StandardModelTest"
                      projectFiles="true"
@@ -122,10 +119,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -151,6 +154,31 @@
         </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerAddLib>
+            <pElem>/usr/lib/root</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibLibItem>gsl</linkerLibLibItem>
+            <linkerLibLibItem>gslcblas</linkerLibLibItem>
+            <linkerLibFileItem>../gslpp/dist/Debug/GNU-Linux-x86/libgslpp.a</linkerLibFileItem>
+            <linkerLibLibItem>Core</linkerLibLibItem>
+            <linkerLibLibItem>Cint</linkerLibLibItem>
+            <linkerLibLibItem>RIO</linkerLibLibItem>
+            <linkerLibLibItem>Net</linkerLibLibItem>
+            <linkerLibLibItem>Hist</linkerLibLibItem>
+            <linkerLibLibItem>Graf</linkerLibLibItem>
+            <linkerLibLibItem>Graf3d</linkerLibLibItem>
+            <linkerLibLibItem>Gpad</linkerLibLibItem>
+            <linkerLibLibItem>Tree</linkerLibLibItem>
+            <linkerLibLibItem>Rint</linkerLibLibItem>
+            <linkerLibLibItem>Postscript</linkerLibLibItem>
+            <linkerLibLibItem>Matrix</linkerLibLibItem>
+            <linkerLibLibItem>Physics</linkerLibLibItem>
+            <linkerLibLibItem>MathCore</linkerLibLibItem>
+            <linkerLibLibItem>Thread</linkerLibLibItem>
+            <linkerLibLibItem>Gui</linkerLibLibItem>
+          </linkerLibItems>
+          <commandLine>-pthread -lm -ldl -rdynamic</commandLine>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
@@ -164,10 +192,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -228,10 +262,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -270,10 +310,16 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>

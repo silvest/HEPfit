@@ -10,7 +10,7 @@
 
 #define MAXORDER NNLO
 
-enum schemes {NDR, HV, LRI};
+enum schemes {NDR=0, HV, LRI};
 enum orders {LO=0, NLO, NNLO, FULLNLO, FULLNNLO};
 
 #endif	/* ORDERSCHEME_H */

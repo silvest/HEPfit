@@ -12,8 +12,3 @@ Particle::Particle(double mass, double width = 0.) {
     this->width = width;
 }
 
-Particle::Particle(const Particle& orig) {
-    Particle(orig.getMass(), orig.getWidth());
-}
-
-

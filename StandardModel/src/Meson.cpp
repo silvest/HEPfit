@@ -7,14 +7,10 @@
 
 #include "Meson.h"
 
-Meson::Meson(double mass, double width=0., double decayconst=0.) : bpars(5) {
+Meson::Meson(double mass, double width=0., double decayconst=0.) {
     this->mass = mass;
     this->width = width;
     this->decayconst = decayconst;
-}
-
-Meson::Meson(const Meson& orig) : bpars(orig.getBpars()) {
-    Meson(orig.getMass(), orig.getWidth(), orig.getDecayconst());
 }
 
 Meson::~Meson() {

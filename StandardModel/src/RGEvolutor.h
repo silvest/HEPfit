@@ -17,7 +17,7 @@ using namespace gslpp;
 class RGEvolutor : public WilsonTemplate<matrix<double> > {
 public:
     RGEvolutor(unsigned int dim, schemes scheme, orders order) : 
-    WilsonTemplate(dim, scheme, order) {};
+    WilsonTemplate<matrix<double> >(dim, scheme, order) {};
     
     matrix<double>** getEvol() const {
         return (matrix<double>**) elem;
@@ -31,21 +31,27 @@ public:
         this->M = M;
         this->mu = mu;
         for(int i = LO; i <= order; i++)
-          *(elem[i]) = 0.;
+          *(elem[i]) = matrix<double>::Id(size);
     }
 
     void setM(double M) {
         this->M = M;
         for(int i = LO; i <= order; i++)
-          *(elem[i]) = 0.;
+          *(elem[i]) = matrix<double>::Id(size);
     }
     
-void setEvol(unsigned int i, unsigned int j, double x, orders order_i);
+    void setMu(double mu) {
+        this->mu = mu;
+        for(int i = LO; i <= order; i++)
+          *(elem[i]) = matrix<double>::Id(size);
+    }
+    
+    void setEvol(unsigned int i, unsigned int j, double x, orders order_i);
 
-void setEvol(const matrix<double>& m, orders order_i) { 
-        setElem(m, order_i); };
-
-matrix<double>* Evol(orders order) { return Elem(order); };
+    void setEvol(const matrix<double>& m, orders order_i) { 
+        setElem(m, order_i); }
+    
+    matrix<double>* Evol(orders order) { return Elem(order); };
 
 protected:
     double M;

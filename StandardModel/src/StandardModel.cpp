@@ -18,8 +18,6 @@
 #include <gsl/gsl_sf_dilog.h>
 #include <gsl/gsl_sf_zeta.h>
 
-#define LEPS 1.e-5 // tolerance in the limit of S(x,y) to S(x)
-
 const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutrino_2",
     "mneutrino_3", "melectron", "mmu", "mtau", "lambda", "A", "rhob", "etab", "ale",
     "dAle5Mz", "mHl", "muw", "mub", "muc"};
@@ -124,12 +122,8 @@ bool StandardModel::Init(const std::map<std::string, double>& DPars) {
 }
 
 StandardModel::StandardModel() : QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.),
-Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.), mcdf2((unsigned int) 8, NDR, NLO) {
+Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
 }
-
-StandardModel::~StandardModel() {
-}
-
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -334,85 +328,3 @@ complex StandardModel::getlamu_s() const {
     return VCKM(0, 1) * VCKM(0, 2).conjugate();
 }
 
-double StandardModel::S0(double x) const {
-    return S0(x, x);
-}
-
-double StandardModel::S0(double x, double y) const { // Buras 2000 Appendix
-    if (fabs(1. - y / x) < LEPS)
-        return ((x * (-4. + 15. * x - 12. * x * x + x*x*x +
-            6. * x * x * log(x))) / (4. * pow(-1. + x, 3.)));
-    else
-        return (x * y * ((1. / 4. + 3. / 2. / (1. - x) - 3. / 4. / pow(1. - x, 2.)) *
-            log(x) / (x - y) +
-            (1. / 4. + 3. / 2. / (1. - y) - 3. / 4. / pow(1. - y, 2.)) *
-            log(y) / (y - x) -
-            3. / 4. / (1. - x) / (1. - y)));
-}
-
-double StandardModel::S0p( double x) const {
-    return (x * (-4. + 18. * x + 3. * x*x + x*x*x) / 4. / pow(x - 1., 3.)
-            - 9. * x*x*x / 2. / pow(x - 1., 4.) * log(x));
-}
-
-double StandardModel::S11(double x) const {
-    return (x * (4. - 39. * x + 168. * x*x + 11. * x*x*x) / 4. / pow(x - 1., 3.)
-            + 3. * x*x*x * gsl_sf_dilog(1. - x)*(5. + x) / pow(x - 1., 3.)
-            + 3. * x * log(x)*(-4. + 24. * x - 36. * x*x - 7. * x*x*x - x*x*x*x) / 2.
-            / pow(x - 1., 4.) + 3. * x*x*x * pow(log(x), 2.)*(13. + 4. * x + x*x) / 2.
-            / pow(x - 1., 4.));
-}
-
-double StandardModel::S18(double x) const {
-    return ((-64. + 68. * x + 17. * x*x - 11. * x*x*x) / 4. / pow(x - 1., 2.)
-            + pow(M_PI, 2.)*8. / 3. / x + 2. * gsl_sf_dilog(1. - x)*(8. - 24. * x
-            + 20. * x*x - x*x*x + 7. * x*x*x*x - pow(x, 5.)) / x / pow(x - 1., 3.)
-            + log(x)*(-32. + 68. * x - 32. * x*x + 28. * x*x*x - 3. * x*x*x*x)
-            / 2. / pow(x - 1., 3.) + x*x * pow(log(x), 2.)*(4. - 7. * x + 7. * x*x
-            - 2. * x*x*x) / 2. / pow(x - 1., 4.));
-}
-
-double StandardModel::S1(double x) const {
-    return (CF * S11(x) + (Nc-1.)/2./Nc * S18(x)); 
-}
-
-const std::vector<WilsonCoefficient>& StandardModel::CMdf2() const {
-    
-    double gammam = 8.;
-    double Bt;
-    double xt = pow(Mrun(muw, quarks[TOP].getMass(), 5., mcdf2.getOrder()) / mW(), 2.);
-    complex co = GF / 4. / M_PI * mW() * getlamt_d();
-
-    vmc.clear();
-
-    switch (mcdf2.getScheme()) {
-        case NDR:
-            Bt = 5. * (Nc - 1.) / 2. / Nc + 3. * CF;
-            break;
-        case HV:
-        case LRI:
-        default:
-            std::stringstream out;
-            out << mcdf2.getScheme();
-            throw "StandardModel::CMdf2(): scheme " + out.str() + "not implemented";
-    }
-
-    mcdf2.setMu(muw);
-
-    switch (mcdf2.getOrder()) {
-        case NNLO:
-        case NLO:
-            mcdf2.setCoeff(0, co * co * (Als(muw, NLO) / 4. / M_PI * (S1(xt) +
-                    Bt * S0(xt, xt) + 2. * gammam * S0p(xt) * log(muw / mW()))), NLO);
-        case LO:
-            mcdf2.setCoeff(0, co * co * S0(xt, xt), LO);
-            break;
-        default:
-            std::stringstream out;
-            out << mcdf2.getOrder();
-            throw "StandardModel::CMdf2(): order " + out.str() + "not implemented";
-    }
-
-    vmc.push_back(mcdf2);
-    return(vmc);
-}

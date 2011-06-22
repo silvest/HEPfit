@@ -18,9 +18,9 @@
 
 const std::string QCD::QCDvars[NQCDvars] = {
     "AlsMz","Mz","mup","mdown","mcharm","mstrange",
-    "mtop","mbottom","mu1_qcd","mu2_qcd","mu3_qcd","MBd",
+    "mtop","mbottom","mut","mub","muc","MBd",
     "MBs","MBp","MK0","MKp","FBs","FBsoFBd",
-    "BBsoBBd","BBs1","BBs2","BBs3","BBs4","BBs5"
+    "BBsoBBd","BBs1","BBs2","BBs3","BBs4","BBs5", "BBsscale", "BBsscheme"
 };
 
 void QCD::Update(const std::map<std::string, double>& DPars) {
@@ -33,7 +33,7 @@ void QCD::Update(const std::map<std::string, double>& DPars) {
     if(computeFBd)
         mesons[B_D].setDecayconst(mesons[B_S].getDecayconst()/FBsoFBd);
     if(computeBd)
-        mesons[B_D].setBpars(1,mesons[B_S].getBpars().at(0)/BBsoBBd);
+        BBd.setBpars(0, BBs.getBpars()(0)/BBsoBBd);
 }
 
 void QCD::SetQCDParameter(std::string name, double value) {
@@ -65,12 +65,12 @@ void QCD::SetQCDParameter(std::string name, double value) {
         quarks[BOTTOM].setMass(value);
         computeYd = true;
     }
-    else if(name.compare("mu1_qcd")==0)
-        mu1 = value;
-    else if(name.compare("mu2_qcd")==0)
-        mu2 = value;
-    else if(name.compare("mu3_qcd")==0)
-        mu3 = value;
+    else if(name.compare("mut")==0)
+        mut = value;
+    else if(name.compare("mub")==0)
+        mub = value;
+    else if(name.compare("muc")==0)
+        muc = value;
     else if(name.compare("MBd")==0)
         mesons[B_D].setMass(value);
     else if(name.compare("MBs")==0)
@@ -92,22 +92,30 @@ void QCD::SetQCDParameter(std::string name, double value) {
         computeBd = true;
     }
     else if(name.compare("BBs1")==0)
-        mesons[B_S].setBpars(1,value);
+        BBs.setBpars(0,value);
     else if(name.compare("BBs2")==0) {
-        mesons[B_D].setBpars(2,value);
-        mesons[B_S].setBpars(2,value);
+        BBd.setBpars(1,value);
+        BBs.setBpars(1,value);
     }
     else if(name.compare("BBs3")==0) {
-        mesons[B_D].setBpars(3,value);
-        mesons[B_S].setBpars(3,value);
+        BBd.setBpars(2,value);
+        BBs.setBpars(2,value);
     }
     else if(name.compare("BBs4")==0){
-        mesons[B_D].setBpars(4,value);
-        mesons[B_S].setBpars(4,value);
+        BBd.setBpars(3,value);
+        BBs.setBpars(3,value);
     }
     else if(name.compare("BBs5")==0){
-        mesons[B_D].setBpars(5,value);
-        mesons[B_S].setBpars(5,value);
+        BBd.setBpars(4,value);
+        BBs.setBpars(4,value);
+    }    
+    else if(name.compare("BBsscale")==0){
+        BBd.setMu(value);
+        BBs.setMu(value);
+    }    
+    else if(name.compare("BBsscheme")==0){
+        BBd.setScheme((schemes) value);
+        BBs.setScheme((schemes) value);
     }    
 //    else {
 //        std::cout << "cannot set parameter " << name << " in SetQCDParameter" << std::endl;
@@ -126,9 +134,6 @@ bool QCD::Init(const std::map<std::string, double>& DPars) {
     return true;
 }
 
-QCD::~QCD() {
-}
-
 double QCD::Beta0(double nf) const {
     return((11.*Nc-2.*nf)/3.);
 }
@@ -139,15 +144,15 @@ double QCD::Beta1(double nf) const {
 
 double QCD::Thresholds(int i) const
 {
-    if(!(mu1 > mu2 && mu2 > mu3)) {
+    if(!(mut > mub && mub > muc)) {
         std::cout << "inverted thresholds!" << std::endl;
         exit(EXIT_FAILURE);
     }
     switch(i) {
         case 0: return(1.0E10);
-        case 1: return(mu1);
-        case 2: return(mu2);
-        case 3: return(mu3);
+        case 1: return(mut);
+        case 2: return(mub);
+        case 3: return(muc);
         default: return(0.);
     }
 }
@@ -251,7 +256,7 @@ double QCD::Als(double mu, orders order) const {
 }
 
 double QCD::Zero(double *x, double *y) const {
-    return(Als(mu2, *x, 4., (orders) *y) - Als(mu2, (orders) *y));
+    return(Als(mub, *x, 4., (orders) *y) - Als(mub, (orders) *y));
 }
 
 double QCD::Lambda4(orders order) const {
@@ -262,13 +267,13 @@ double QCD::Lambda4(orders order) const {
     }
 
     int i;
-    double alsmu2 = Als(mu2,order);
+    double alsmub = Als(mub,order);
     for(i=0;i<5;i++)
-        if(alsmu2 ==  lambda4_cache[0][i])
+        if(alsmub ==  lambda4_cache[0][i])
             return lambda4_cache[1][i];
 
     CacheShift(lambda4_cache,2);
-    lambda4_cache[0][0] = alsmu2;
+    lambda4_cache[0][0] = alsmub;
 
     double xmin = 0.01, xmax = 0.8;
     TF1 f = TF1("f",this,&QCD::Zero,xmin,xmax,1,"QCD","zero");

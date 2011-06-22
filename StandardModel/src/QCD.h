@@ -18,7 +18,7 @@ public:
     enum quark {UP,DOWN,CHARM,STRANGE,TOP,BOTTOM};
                            // update StandardModel::lepton if changed!!!!!!
 
-    static const int NQCDvars = 24;
+    static const int NQCDvars = 26;
     /**
      * array containing the labels under which all QCD parameters must be
      * stored in a Parameters object
@@ -31,12 +31,21 @@ public:
      */
  //   QCD(const Parameters&);
     
-    QCD() {
+    QCD() : BBs(5), BBd(5) {
         Nc=3.;
         CF = Nc/2.-1./(2.*Nc);
+        //to be moved to the Als class
+        for (int i = 0; i < 5; i++)
+        {
+            for (int j = 0; j < 5; j++)
+                als_cache[j][i] = 0.;
+            for (int j = 0; j < 2; j++)
+                lambda4_cache[j][i] = 0.;
+            for (int j = 0; j < 4; j++)
+                mp2mbar_cache[j][i] = 0.;
+        }
     };
 
-    virtual ~QCD();
     /**
      * the @f$\beta_0@f$ coefficient
      * @param nf the number of active flavours
@@ -148,48 +157,48 @@ public:
      *
      * @return the threshold between six- and five-flavour theory in GeV
      */
-    double getMu1() const {
-        return mu1;
+    double getMut() const {
+        return mut;
     }
 
     /**
      * set the threshold between six- and five-flavour theory
-     * @param mu1 the threshold between six- and five-flavour theory in GeV
+     * @param mut the threshold between six- and five-flavour theory in GeV
      */
-    void setMu1(double mu1) {
-        this->mu1 = mu1;
+    void setMut(double mut) {
+        this->mut = mut;
     }
 
     /**
      *
      * @return the threshold between five- and four-flavour theory in GeV
      */
-    double getMu2() const {
-        return mu2;
+    double getMub() const {
+        return mub;
     }
 
     /**
      * set the threshold between five- and four-flavour theory
-     * @param mu2 the threshold between five- and four-flavour theory in GeV
+     * @param mub the threshold between five- and four-flavour theory in GeV
      */
-    void setMu2(double mu2) {
-        this->mu2 = mu2;
+    void setMub(double mub) {
+        this->mub = mub;
     }
 
     /**
      *
      * @return the threshold between four- and three-flavour theory in GeV
      */
-    double getMu3() const {
-        return mu3;
+    double getMuc() const {
+        return muc;
     }
 
     /**
      * set the threshold between four- and three-flavour theory
-     * @param mu3 the threshold between four- and three-flavour theory in GeV
+     * @param muc the threshold between four- and three-flavour theory in GeV
      */
-    void setMu3(double mu3) {
-        this->mu3 = mu3;
+    void setMuc(double muc) {
+        this->muc = muc;
     }
 
     /**
@@ -243,11 +252,23 @@ public:
     double Thresholds(int i) const;
     double AboveTh(double mu) const;
     double BelowTh(double mu) const;
-    
+    double getCF() const {
+        return CF;
+    }
+
+    BParameter getBBd() const {
+        return BBd;
+    }
+
+    BParameter getBBs() const {
+        return BBs;
+    }
+
 protected:
-    double Nc, CF, AlsM, M, mu1, mu2, mu3;
+    double Nc, CF, AlsM, M, mut, mub, muc;
     Particle quarks[6];
     Meson mesons[MESON_END];
+    BParameter BBs, BBd;
     void SetQCDParameter(std::string, double);
     bool computeYu, computeYd;
 

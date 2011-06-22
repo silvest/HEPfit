@@ -10,14 +10,12 @@
 
 #include <vector>
 
-#define HCUT 6.58211899E-25 // GeV sec
+#define HCUT 6.58211899E-13 // GeV psec
 
 class Particle {
 public:
     Particle() {};
     Particle(double mass, double width);
-    Particle(const Particle& orig);
-    virtual ~Particle() {};
     /**
      * 
      * @return the particle mass in GeV
