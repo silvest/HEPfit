@@ -12,12 +12,18 @@
             <make-dep-projects>
                 <make-dep-project>../gslpp</make-dep-project>
                 <make-dep-project>../SUSY</make-dep-project>
-                <make-dep-project>/afs/infn.it/roma1/project/susy/susy/SusyFit/StandardModel</make-dep-project>
+                <make-dep-project>../StandardModel</make-dep-project>
             </make-dep-projects>
             <sourceRootList/>
             <confList>
-                <confElem>Debug</confElem>
-                <confElem>Release</confElem>
+                <confElem>
+                    <name>Debug</name>
+                    <type>3</type>
+                </confElem>
+                <confElem>
+                    <name>Release</name>
+                    <type>3</type>
+                </confElem>
             </confList>
         </data>
     </configuration>
