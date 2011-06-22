@@ -9,17 +9,16 @@
 #define	DMBD_H
 
 #include <ThObservable.h>
-#include <ThObsType.h>
+#include <Flavour.h>
+#include <AmpDB2.h>
 
-class DmBd : public ThObservable {
+class DmBd : public ThObservable, AmpDB2 {
 public:
-    DmBd(const ThObsType& ObsType) : ThObservable(ObsType) {};
-    DmBd(const DmBd& orig) : ThObservable(orig.ObsType) {};
-    virtual ~DmBd() {};
+    DmBd(Flavour& ObsType) : ThObservable(ObsType), AmpDB2(ObsType) {};
 
-    virtual double getThValue();
-protected:
-    double getDmBd(int I);
+    virtual double getThValue() {
+        return(2.*Amp(NLO).abs());
+    };
 };
 
 #endif	/* DMBD_H */

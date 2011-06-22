@@ -11,32 +11,26 @@
 #include <ThObsType.h>
 #include <StandardModel.h>
 #include <HeffDF2.h>
-#include <DmBd.h>
-#include <DmBd0.h>
-#include <Vud.h>
-#include <Vus.h>
-#include <Vcb.h>
-#include <Vub.h>
-#include <alpha.h>
-#include <alpha_2a.h>
-#include <gamma.h>
 
 using namespace gslpp;
 
 class Flavour : public ThObsType {
 public:
 
-    Flavour(const StandardModel& SM_i) : ThObsType(SM_i), DF2(SM_i) {
+    Flavour(const StandardModel& SM_i, StandardModelMatching& SM_Matching_i) : ThObsType(SM_i), 
+            HDF2(SM_i, SM_Matching_i) {
     };
 
-    Flavour(const Flavour& orig) : ThObsType(orig.SM), DF2(orig.SM) {
-     };
-
-    virtual ~Flavour() {
-    };
+    const HeffDF2& getHDF2() const {
+        return HDF2;
+    }
+    
+    vector<complex>** ComputeCoeff(double mu, schemes scheme = NDR) {
+        return HDF2.ComputeCoeff(mu, scheme);
+    }
 
 private:
-    HeffDF2 DF2;
+    HeffDF2 HDF2;
 };
 
 #endif	/* FLAVOUR_H */

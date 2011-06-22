@@ -14,8 +14,6 @@
 class Alpha_2a : public ThObservable {
 public:
     Alpha_2a(const ThObsType& ObsType) : ThObservable(ObsType) {};
-    Alpha_2a(const Alpha_2a& orig) : ThObservable(orig.ObsType) {};
-    virtual ~Alpha_2a() {};
 
     double getThValue();
 };

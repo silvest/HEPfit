@@ -21,8 +21,7 @@ public:
     matrix<double>& Df2Evol(double mu, double M, orders order, 
             schemes scheme = NDR);
 private:
-        matrix<double> Df2Evol(double mu, double M, double nf, orders order, 
-        schemes scheme);
+        void Df2Evol(double mu, double M, double nf, schemes scheme);
         double a[5], b[5][5][5], c[3][5][5][5], d[3][5][5][5];
     const StandardModel& model;
 };

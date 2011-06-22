@@ -14,8 +14,6 @@
 class Vud : public ThObservable {
 public:
     Vud(const ThObsType& ObsType) : ThObservable(ObsType) {};
-    Vud(const Vud& orig) : ThObservable(orig.ObsType) {};
-    virtual ~Vud() {};
 
     double getThValue();
 };

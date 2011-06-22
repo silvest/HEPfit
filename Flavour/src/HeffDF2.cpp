@@ -9,10 +9,11 @@
 #include <sstream>
 #include <QCD.h>
 
-HeffDF2::HeffDF2(const StandardModel & SM) : model(SM), coeffDF2(8, NDR, NLO), 
-        uDF2(8, NDR, NLO, SM), drNDRLRI(5, 5, 0) {
-    double Nc = model.getNc();
-    drNDRLRI(0,0) = -(((-1. + Nc)*(-7. + log(4096.)))/Nc);
+HeffDF2::HeffDF2(const StandardModel & SM, StandardModelMatching & SM_Matching) :
+        model(SM), modelmatching(SM_Matching), coeff(5, NDR, NLO),
+        u(5, NDR, NLO, SM), drNDRLRI(5, 5, 0) {
+    double Nc = SM.getNc();
+    drNDRLRI(0, 0) = -(((-1. + Nc)*(-7. + log(4096.))) / Nc);
     drNDRLRI(1,1) = (-2.*(-1. + 6.*Nc*Nc - 8.*log(2.) + Nc*(-13. + log(1024.))))/(3.*Nc);
     drNDRLRI(1,2) = (-2.*(13. - 10.*log(2.) + Nc*(-5. + log(256.))))/(3.*Nc);
     drNDRLRI(2,1) = (-8. + 6.*Nc*Nc + 20.*log(2.) - 8.*Nc*(1. + log(4.)))/(3.*Nc);
@@ -26,28 +27,42 @@ HeffDF2::HeffDF2(const StandardModel & SM) : model(SM), coeffDF2(8, NDR, NLO),
 HeffDF2::~HeffDF2() {
 }
 
-vector<complex>** HeffDF2::Coeff(double mu, schemes scheme) {
+vector<complex>** HeffDF2::ComputeCoeff(double mu, schemes scheme) {
 
-    const std::vector<WilsonCoefficient>& mc = model.CMdf2();
+    const std::vector<WilsonCoefficient>& mc = modelmatching.CMdf2(model);
 
-    coeffDF2.setMu(mu); // also assign coeff to zero
+    coeff.setMu(mu); // also assign coeff to zero
 
-    orders ordDF2 = coeffDF2.getOrder();
+    orders ordDF2 = coeff.getOrder();
     for (int i = 0; i < mc.size(); i++)
         for (int j = LO; j <= ordDF2; j++)
             for (int k = LO; k <= j; k++)
-                coeffDF2.setCoeff(*coeffDF2.Coeff(orders(j)) +
-                    uDF2.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
-                    (*(mc[i].Coeff(orders(j - k)))), orders(j));
+                coeff.setCoeff(*coeff.getCoeff(orders(j)) +
+                    u.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                    (*(mc[i].getCoeff(orders(j - k)))), orders(j));
 
     ChangeScheme(scheme, mc[0].getScheme(), ordDF2);
 
-    return coeffDF2.getCoeff();
+    coeff.setScheme(scheme);
+
+    return coeff.getCoeff();
 }
 
 void HeffDF2::ChangeScheme(schemes schout, schemes schin, orders order) {
     if (schout == schin) return;
-    //...
-    coeffDF2.setScheme(schout);
+    switch(schin) {
+        case NDR:
+            switch(schout) {
+                case LRI:
+                    coeff.setCoeff(*coeff.getCoeff(NLO) -
+                    model.Als(coeff.getMu())/4./M_PI*drNDRLRI.transpose()*
+                    (*coeff.getCoeff(LO)), NLO);
+                    break;
+                default:
+                    throw "HeffDF2::ChangeScheme(): out scheme not implemented";
+            }
+        default:
+            throw "HeffDF2::ChangeScheme(): in scheme not implemented";
+    }
 }
 
