@@ -51,7 +51,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/lib/root -L../Flavour/dist/Debug/GNU-Linux-x86 -L../gslpp/dist/Debug/GNU-Linux-x86 -L../Observables/dist/Debug/GNU-Linux-x86 -L../InputParser/dist/Debug/GNU-Linux-x86 -L../StandardModel/dist/Debug/GNU-Linux-x86 -L../Utils/dist/Debug/GNU-Linux-x86 -L../MonteCarlo/dist/Debug/GNU-Linux-x86 -L../BAT/lib -lgsl -lgslcblas -lBAT -lBATmodels -lboost_program_options ../MonteCarlo/dist/Debug/GNU-Linux-x86/libmontecarlo.a ../InputParser/dist/Debug/GNU-Linux-x86/libinputparser.a ../Flavour/dist/Debug/GNU-Linux-x86/libflavour.a ../Observables/dist/Debug/GNU-Linux-x86/libobservables.a ../StandardModel/dist/Debug/GNU-Linux-x86/libstandardmodel.a ../Utils/dist/Debug/GNU-Linux-x86/libutils.a ../gslpp/dist/Debug/GNU-Linux-x86/libgslpp.a -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMinuit -lThread -lGui -lm -ldl
+LDLIBSOPTIONS=-L/usr/lib/root -L../Flavour/dist/Debug/GNU-Linux-x86 -L../EW/dist/Debug/GNU-Linux-x86 -L../gslpp/dist/Debug/GNU-Linux-x86 -L../Observables/dist/Debug/GNU-Linux-x86 -L../InputParser/dist/Debug/GNU-Linux-x86 -L../StandardModel/dist/Debug/GNU-Linux-x86 -L../Utils/dist/Debug/GNU-Linux-x86 -L../MonteCarlo/dist/Debug/GNU-Linux-x86 -L../BAT/lib -lgsl -lgslcblas -lBAT -lBATmodels -lboost_program_options ../MonteCarlo/dist/Debug/GNU-Linux-x86/libmontecarlo.a ../InputParser/dist/Debug/GNU-Linux-x86/libinputparser.a ../Flavour/dist/Debug/GNU-Linux-x86/libflavour.a /afs/infn.it/roma1/project/susy/susy/SusyFit/EW/dist/Debug/GNU-Linux-x86/libew.a ../Observables/dist/Debug/GNU-Linux-x86/libobservables.a ../StandardModel/dist/Debug/GNU-Linux-x86/libstandardmodel.a ../Utils/dist/Debug/GNU-Linux-x86/libutils.a ../gslpp/dist/Debug/GNU-Linux-x86/libgslpp.a -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lMinuit -lThread -lGui -lm -ldl
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -62,6 +62,8 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis: ../MonteCarlo/dist/Debug/GN
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis: ../InputParser/dist/Debug/GNU-Linux-x86/libinputparser.a
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis: ../Flavour/dist/Debug/GNU-Linux-x86/libflavour.a
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis: /afs/infn.it/roma1/project/susy/susy/SusyFit/EW/dist/Debug/GNU-Linux-x86/libew.a
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis: ../Observables/dist/Debug/GNU-Linux-x86/libobservables.a
 
@@ -78,13 +80,14 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis: ${OBJECTFILES}
 ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../Utils/src -I../Observables/src -I../MonteCarlo/src -I../gslpp/src -I../Flavour/src -I../StandardModel/src -I../InputParser/src -I../BAT/include -I/usr/include/ -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -I../Utils/src -I../Observables/src -I../MonteCarlo/src -I../gslpp/src -I../Flavour/src -I../StandardModel/src -I../InputParser/src -I../BAT/include -I../EW/src -I/usr/include/ -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
 	cd ../MonteCarlo && ${MAKE}  -f Makefile CONF=Debug
 	cd ../InputParser && ${MAKE}  -f Makefile CONF=Debug
 	cd ../Flavour && ${MAKE}  -f Makefile CONF=Debug
+	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/EW && ${MAKE}  -f Makefile CONF=Debug
 	cd ../Observables && ${MAKE}  -f Makefile CONF=Debug
 	cd ../StandardModel && ${MAKE}  -f Makefile CONF=Debug
 	cd ../Utils && ${MAKE}  -f Makefile CONF=Debug
@@ -96,6 +99,7 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp
 	cd ../Observables && ${MAKE}  -f Makefile CONF=Debug
 	cd ../StandardModel && ${MAKE}  -f Makefile CONF=Debug
 	cd ../Utils && ${MAKE}  -f Makefile CONF=Debug
+	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/EW && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
@@ -107,6 +111,7 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp
 	cd ../MonteCarlo && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../InputParser && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../Flavour && ${MAKE}  -f Makefile CONF=Debug clean
+	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/EW && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../Observables && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../StandardModel && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../Utils && ${MAKE}  -f Makefile CONF=Debug clean
@@ -118,6 +123,7 @@ ${OBJECTDIR}/main.o: nbproject/Makefile-${CND_CONF}.mk main.cpp
 	cd ../Observables && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../StandardModel && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../Utils && ${MAKE}  -f Makefile CONF=Debug clean
+	cd /afs/infn.it/roma1/project/susy/susy/SusyFit/EW && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
 .dep.inc: .depcheck-impl
