@@ -267,14 +267,14 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput& out) {
     //print the BAT histograms to an eps file
     for (std::vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end();
             it++) {
-//        std::string fname = "Observables/" + it->name + ".pdf";
-//        Histo1D[it->name]->Print(fname.c_str());
+        std::string fname = "Observables/" + it->getThname() + ".pdf";
+        Histo1D[it->getThname()]->Print(fname.c_str());
         out.Write(Histo1D[it->getThname()]->GetHistogram());
     }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end();
             it++) {
-//        std::string fname = "Observables/" + it->name + ".pdf";
-//        Histo1D[it->name]->Print(fname.c_str());
+        std::string fname = "Observables/" + it->getThname() + ".pdf";
+        Histo2D[it->getThname()]->Print(fname.c_str());
         out.Write(Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram());
     }
 }
