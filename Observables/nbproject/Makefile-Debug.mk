@@ -100,8 +100,8 @@ ${OBJECTDIR}/src/ThObservable.o: src/ThObservable.cpp
 
 # Subprojects
 .build-subprojects:
-	cd ../gslpp && ${MAKE}  -f Makefile CONF=Debug
 	cd ../Utils && ${MAKE}  -f Makefile CONF=Debug
+	cd ../gslpp && ${MAKE}  -f Makefile CONF=Debug
 	cd ../StandardModel && ${MAKE}  -f Makefile CONF=Debug
 
 # Clean Targets
@@ -111,8 +111,8 @@ ${OBJECTDIR}/src/ThObservable.o: src/ThObservable.cpp
 
 # Subprojects
 .clean-subprojects:
-	cd ../gslpp && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../Utils && ${MAKE}  -f Makefile CONF=Debug clean
+	cd ../gslpp && ${MAKE}  -f Makefile CONF=Debug clean
 	cd ../StandardModel && ${MAKE}  -f Makefile CONF=Debug clean
 
 # Enable dependency checking
