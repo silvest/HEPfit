@@ -17,7 +17,7 @@ class WilsonCoefficient : public WilsonTemplate<vector<complex> > {
 public:
 
     WilsonCoefficient(unsigned int dim, schemes scheme, orders order) :
-    WilsonTemplate(dim, scheme, order) {
+    WilsonTemplate<vector<complex> >(dim, scheme, order) {
     };
 
     vector<complex>** getCoeff() const {
@@ -30,7 +30,7 @@ public:
 
     void setCoeff(unsigned int i, complex z, orders order_i);
 
-    vector<complex>* Coeff(orders ord) const { return Elem(ord); };
+    vector<complex>* getCoeff(orders ord) const { return Elem(ord); };
 
 };
 

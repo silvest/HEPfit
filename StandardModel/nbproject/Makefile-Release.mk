@@ -40,6 +40,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/Particle.o \
 	${OBJECTDIR}/src/WilsonCoefficient.o \
 	${OBJECTDIR}/src/QCD.o \
+	${OBJECTDIR}/src/StandardModelMatching.o \
 	${OBJECTDIR}/src/CKM.o \
 	${OBJECTDIR}/src/EWPOSM.o \
 	${OBJECTDIR}/src/Meson.o
@@ -49,7 +50,6 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 
 # Test Files
 TESTFILES= \
-	${TESTDIR}/TestFiles/f2 \
 	${TESTDIR}/TestFiles/f1
 
 # C Compiler Flags
@@ -108,6 +108,11 @@ ${OBJECTDIR}/src/QCD.o: src/QCD.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/QCD.o src/QCD.cpp
 
+${OBJECTDIR}/src/StandardModelMatching.o: src/StandardModelMatching.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StandardModelMatching.o src/StandardModelMatching.cpp
+
 ${OBJECTDIR}/src/CKM.o: src/CKM.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
@@ -128,25 +133,15 @@ ${OBJECTDIR}/src/Meson.o: src/Meson.cpp
 
 # Build Test Targets
 .build-tests-conf: .build-conf ${TESTFILES}
-${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/newsimpletest.o ${OBJECTFILES:%.o=%_nomain.o}
-	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}   -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS} 
-
 ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/StandardModelTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc}   -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} 
 
 
-${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.cpp 
-	${MKDIR} -p ${TESTDIR}/tests
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
-
-
 ${TESTDIR}/tests/StandardModelTest.o: tests/StandardModelTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StandardModelTest.o tests/StandardModelTest.cpp
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StandardModelTest.o tests/StandardModelTest.cpp
 
 
 ${OBJECTDIR}/src/Model_nomain.o: ${OBJECTDIR}/src/Model.o src/Model.cpp 
@@ -227,6 +222,19 @@ ${OBJECTDIR}/src/QCD_nomain.o: ${OBJECTDIR}/src/QCD.o src/QCD.cpp
 	    ${CP} ${OBJECTDIR}/src/QCD.o ${OBJECTDIR}/src/QCD_nomain.o;\
 	fi
 
+${OBJECTDIR}/src/StandardModelMatching_nomain.o: ${OBJECTDIR}/src/StandardModelMatching.o src/StandardModelMatching.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/StandardModelMatching.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StandardModelMatching_nomain.o src/StandardModelMatching.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/StandardModelMatching.o ${OBJECTDIR}/src/StandardModelMatching_nomain.o;\
+	fi
+
 ${OBJECTDIR}/src/CKM_nomain.o: ${OBJECTDIR}/src/CKM.o src/CKM.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/CKM.o`; \
@@ -270,7 +278,6 @@ ${OBJECTDIR}/src/Meson_nomain.o: ${OBJECTDIR}/src/Meson.o src/Meson.cpp
 .test-conf:
 	@if [ "${TEST}" = "" ]; \
 	then  \
-	    ${TESTDIR}/TestFiles/f2 || true; \
 	    ${TESTDIR}/TestFiles/f1 || true; \
 	else  \
 	    ./${TEST} || true; \

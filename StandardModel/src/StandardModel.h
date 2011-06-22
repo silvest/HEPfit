@@ -42,9 +42,6 @@ public:
     void SetSMParameter(std::string, double);
     
     StandardModel();
-    
-    virtual ~StandardModel();
-
 
     ///////////////////////////////////////////////////////////////////////////
     
@@ -209,8 +206,6 @@ public:
         return muw;
     }
 
-    virtual const std::vector<WilsonCoefficient>& CMdf2() const;
-
     ///////////////////////////////////////////////////////////////////////////
     /* Functions for EW precision observables */
     
@@ -303,23 +298,19 @@ public:
         return leptons[p];
     }
 
+    double getMuw() const {
+        return muw;
+    }
+
 protected:
     matrix<complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
     double GF, alsMz, ale, dAle5Mz, mZ, mHl, lambda, A, rhob, etab;
     double muw, mub, muc;
     CKM myCKM;
     Particle leptons[6];
-    mutable std::vector<WilsonCoefficient> vmc;
 
 private:
-    double S0(double, double) const;
-    double S0(double) const;
-    double S0p(double x) const;
-    double S11(double x) const;
-    double S18(double x) const;
-    double S1(double x) const;
     bool computeCKM, computeYe, computeYn;
-    mutable WilsonCoefficient mcdf2;
 };
 
 #endif	/* STANDARDMODEL_H */
