@@ -74,12 +74,12 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmontecarlo.a: ${OBJECTFILES}
 ${OBJECTDIR}/src/MonteCarlo.o: src/MonteCarlo.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../BAT/include -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../InputParser/src -I../Flavour/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MonteCarlo.o src/MonteCarlo.cpp
+	$(COMPILE.cc) -g -I../BAT/include -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../InputParser/src -I../Flavour/src -I/usr/include/root -I../EW/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MonteCarlo.o src/MonteCarlo.cpp
 
 ${OBJECTDIR}/src/MonteCarloEngine.o: src/MonteCarloEngine.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../BAT/include -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../InputParser/src -I../Flavour/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MonteCarloEngine.o src/MonteCarloEngine.cpp
+	$(COMPILE.cc) -g -I../BAT/include -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../InputParser/src -I../Flavour/src -I/usr/include/root -I../EW/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MonteCarloEngine.o src/MonteCarloEngine.cpp
 
 # Subprojects
 .build-subprojects:
@@ -98,13 +98,13 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/newsimpletest.o ${OBJECTFILES:%.o=%_no
 ${TESTDIR}/tests/MCtest.o: tests/MCtest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I. -I. -I../BAT/include -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../InputParser/src -I../Flavour/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/MCtest.o tests/MCtest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I. -I. -I. -I../BAT/include -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../InputParser/src -I../Flavour/src -I/usr/include/root -I../EW/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/MCtest.o tests/MCtest.cpp
 
 
 ${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I../BAT/include -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../InputParser/src -I../Flavour/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I../BAT/include -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../InputParser/src -I../Flavour/src -I/usr/include/root -I../EW/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
 
 
 ${OBJECTDIR}/src/MonteCarlo_nomain.o: ${OBJECTDIR}/src/MonteCarlo.o src/MonteCarlo.cpp 
@@ -115,7 +115,7 @@ ${OBJECTDIR}/src/MonteCarlo_nomain.o: ${OBJECTDIR}/src/MonteCarlo.o src/MonteCar
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I../BAT/include -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../InputParser/src -I../Flavour/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MonteCarlo_nomain.o src/MonteCarlo.cpp;\
+	    $(COMPILE.cc) -g -I../BAT/include -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../InputParser/src -I../Flavour/src -I/usr/include/root -I../EW/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MonteCarlo_nomain.o src/MonteCarlo.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/MonteCarlo.o ${OBJECTDIR}/src/MonteCarlo_nomain.o;\
 	fi
@@ -128,7 +128,7 @@ ${OBJECTDIR}/src/MonteCarloEngine_nomain.o: ${OBJECTDIR}/src/MonteCarloEngine.o 
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I../BAT/include -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../InputParser/src -I../Flavour/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MonteCarloEngine_nomain.o src/MonteCarloEngine.cpp;\
+	    $(COMPILE.cc) -g -I../BAT/include -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../InputParser/src -I../Flavour/src -I/usr/include/root -I../EW/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/MonteCarloEngine_nomain.o src/MonteCarloEngine.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/MonteCarloEngine.o ${OBJECTDIR}/src/MonteCarloEngine_nomain.o;\
 	fi

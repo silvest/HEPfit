@@ -15,7 +15,6 @@ class MonteCarlo {
 public:
     MonteCarlo(const std::string& ModelConf_i, const std::string& 
             MonteCarloConf_i, const std::string& OutFile_i);
-    MonteCarlo(const MonteCarlo& orig);
     virtual ~MonteCarlo();
     void Run();
 private:
@@ -25,6 +24,7 @@ private:
     std::vector<Observable> Obs;
     std::vector<Observable2D> Obs2D;   
     std::string ModelConf, MCMCConf, OutFile;
+    bool PrintAllMarginalized;
 };
 
 #endif	/* MONTECARLO_H */
