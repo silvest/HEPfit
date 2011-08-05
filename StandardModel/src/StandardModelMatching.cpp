@@ -10,7 +10,8 @@
 #include <gsl/gsl_sf_zeta.h>
 
 
-StandardModelMatching::StandardModelMatching(const StandardModel& SM_i) : mcdf2((unsigned int) 5, NDR, NLO) {
+StandardModelMatching::StandardModelMatching(const StandardModel& SM_i) : mcdbd2((unsigned int) 5, NDR, NLO),  
+        mcdbs2((unsigned int) 5, NDR, NLO) {
     SM = SM_i;
 }
 
@@ -19,9 +20,10 @@ double StandardModelMatching::S0(double x) const {
 }
 
 double StandardModelMatching::S0(double x, double y) const { // Buras 2000 Appendix
-    if (fabs(1. - y / x) < LEPS)
+    if (fabs(1. - y / x) < LEPS){
         return ((x * (-4. + 15. * x - 12. * x * x + x*x*x +
             6. * x * x * log(x))) / (4. * pow(-1. + x, 3.)));
+    }
     else
         return (x * y * ((1. / 4. + 3. / 2. / (1. - x) - 3. / 4. / pow(1. - x, 2.)) *
             log(x) / (x - y) +
@@ -56,7 +58,7 @@ double StandardModelMatching::S1(double x) const {
     return (SM.getCF() * S11(x) + (SM.getNc()-1.)/2./SM.getNc() * S18(x)); 
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMdf2(const StandardModel& SM_i) {
+const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2(const StandardModel& SM_i) {
    
 //    if(SM_i == SM)
 //        return(vmc);
@@ -70,9 +72,9 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdf2(const Standar
     complex co = SM.getGF() / 4. / M_PI * SM.mW() * SM.getlamt_d();
     double Nc = SM.getNc();
 
-    vmc.clear();
+    vmcdb.clear();
 
-    switch (mcdf2.getScheme()) {
+    switch (mcdbd2.getScheme()) {
         case NDR:
             Bt = 5. * (Nc - 1.) / 2. / Nc + 3. * SM.getCF();
             break;
@@ -80,27 +82,74 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdf2(const Standar
         case LRI:
         default:
             std::stringstream out;
-            out << mcdf2.getScheme();
-            throw "StandardModel::CMdf2(): scheme " + out.str() + "not implemented";
+            out << mcdbd2.getScheme();
+            throw "StandardModel::CMdb2(): scheme " + out.str() + "not implemented";
     }
 
-    mcdf2.setMu(SM.getMuw());
+    mcdbd2.setMu(SM.getMuw());
  
-    switch (mcdf2.getOrder()) {
+    switch (mcdbd2.getOrder()) {
         case NNLO:
         case NLO:
-            mcdf2.setCoeff(0, co * co * 4. * (SM.Als(SM.getMuw()) / 4. / M_PI * (S1(xt) +
+            mcdbd2.setCoeff(0, co * co * 4. * (SM.Als(SM.getMuw()) / 4. / M_PI * (S1(xt) +
                     Bt * S0(xt, xt) + 2. * gammam * S0p(xt) * log(SM.getMuw() / SM.mW()))), NLO);
         case LO:
-            mcdf2.setCoeff(0, co * co * 4. * S0(xt, xt), LO);
+            mcdbd2.setCoeff(0, co * co * 4. * S0(xt, xt), LO);
             break;
         default:
             std::stringstream out;
-            out << mcdf2.getOrder();
-            throw "StandardModelMatching::CMdf2(): order " + out.str() + "not implemented";
+            out << mcdbd2.getOrder();
+            throw "StandardModelMatching::CMdbd2(): order " + out.str() + "not implemented";
     }
 
-    vmc.push_back(mcdf2);
-    return(vmc);
+    vmcdb.push_back(mcdbd2);
+    return(vmcdb);
 }
 
+const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbs2(const StandardModel& SM_i) {
+   
+//    if(SM_i == SM)
+//        return(vmc);
+    
+    SM = SM_i;
+    
+    double gammam = 8.;
+    double Bt;
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), 5.)
+            / SM.mW(), 2.); // always FULLNLO
+    complex co = SM.getGF() / 4. / M_PI * SM.mW() * SM.getlamt_s();
+    double Nc = SM.getNc();
+
+    vmcds.clear();
+
+    switch (mcdbs2.getScheme()) {
+        case NDR:
+            Bt = 5. * (Nc - 1.) / 2. / Nc + 3. * SM.getCF();
+            break;
+        case HV:
+        case LRI:
+        default:
+            std::stringstream out;
+            out << mcdbs2.getScheme();
+            throw "StandardModel::CMdbs2(): scheme " + out.str() + "not implemented";
+    }
+
+    mcdbs2.setMu(SM.getMuw());
+ 
+    switch (mcdbs2.getOrder()) {
+        case NNLO:
+        case NLO:
+            mcdbs2.setCoeff(0, co * co * 4. * (SM.Als(SM.getMuw()) / 4. / M_PI * (S1(xt) +
+                    Bt * S0(xt, xt) + 2. * gammam * S0p(xt) * log(SM.getMuw() / SM.mW()))), NLO);
+        case LO:
+            mcdbs2.setCoeff(0, co * co * 4. * S0(xt, xt), LO);
+            break;
+        default:
+            std::stringstream out;
+            out << mcdbs2.getOrder();
+            throw "StandardModelMatching::CMdbs2(): order " + out.str() + "not implemented";
+    }
+
+    vmcds.push_back(mcdbs2);
+    return(vmcds);
+}
