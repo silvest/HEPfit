@@ -81,8 +81,10 @@ void QCD::SetQCDParameter(std::string name, double value) {
         mesons[K_0].setMass(value);
     else if(name.compare("MKp")==0)
         mesons[K_P].setMass(value);
-    else if(name.compare("FBs")==0)
+    else if(name.compare("FBs")==0) {
         mesons[B_S].setDecayconst(value);
+        computeFBd = true;
+    }
     else if(name.compare("FBsoFBd")==0) {
         FBsoFBd = value;
         computeFBd = true;
@@ -91,9 +93,11 @@ void QCD::SetQCDParameter(std::string name, double value) {
         BBsoBBd = value;
         computeBd = true;
     }
-    else if(name.compare("BBs1")==0)
+    else if(name.compare("BBs1")==0) {
         BBs.setBpars(0,value);
-    else if(name.compare("BBs2")==0) {
+        computeBd = true;
+    }
+   else if(name.compare("BBs2")==0) {
         BBd.setBpars(1,value);
         BBs.setBpars(1,value);
     }
@@ -326,7 +330,7 @@ double QCD::Mp2Mbar(double mp) const {
     double ms = quarks[STRANGE].getMass(), mc = quarks[CHARM].getMass();
     double alsmp = Als(mp);
     for(i=0;i<5;i++)
-        if(alsmp == mp2mbar_cache[0][i] || ms == mp2mbar_cache[1][i] ||
+        if(alsmp == mp2mbar_cache[0][i] && ms == mp2mbar_cache[1][i] &&
                mc == mp2mbar_cache[2][i] )
             return mp2mbar_cache[3][i];
 

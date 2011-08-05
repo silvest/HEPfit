@@ -30,8 +30,9 @@ public:
     void setScales(double mu, double M) {
         this->M = M;
         this->mu = mu;
-        for(int i = LO; i <= order; i++)
-          *(elem[i]) = matrix<double>::Id(size);
+        *(elem[LO]) = matrix<double>::Id(size);
+        for(int i = NLO; i <= order; i++)
+          *(elem[i]) = 0.;
     }
 
     void setM(double M) {

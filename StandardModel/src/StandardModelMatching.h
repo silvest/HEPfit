@@ -15,9 +15,10 @@
 class StandardModelMatching {
 public:
     StandardModelMatching(const StandardModel& SM_i);
-    virtual const std::vector<WilsonCoefficient>& CMdf2(const StandardModel& SM_i);
+    virtual const std::vector<WilsonCoefficient>& CMdbd2(const StandardModel& SM_i);
+    virtual const std::vector<WilsonCoefficient>& CMdbs2(const StandardModel& SM_i);
 protected:
-    std::vector<WilsonCoefficient> vmc;
+    std::vector<WilsonCoefficient> vmcdb, vmcds;
 private:
     StandardModel SM;
     double S0(double, double) const;
@@ -26,7 +27,7 @@ private:
     double S11(double x) const;
     double S18(double x) const;
     double S1(double x) const;
-    WilsonCoefficient mcdf2;
+    WilsonCoefficient mcdbd2, mcdbs2;
 };
 
 #endif	/* STANDARDMODELMATCHING_H */
