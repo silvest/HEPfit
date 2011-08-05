@@ -17,7 +17,7 @@ public:
     DmBd(Flavour& ObsType) : ThObservable(ObsType), AmpDB2(ObsType) {};
 
     virtual double getThValue() {
-        return(2.*Amp(NLO).abs());
+        return(2.*AmpBd(NLO).abs());
     };
 };
 

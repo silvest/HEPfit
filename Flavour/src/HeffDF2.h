@@ -21,16 +21,20 @@ public:
     virtual ~HeffDF2();
 //    vector<complex>& getCoeff(double mu, schemes scheme = NDR, orders order = NLO); 
 
-    void ChangeScheme(schemes schout, schemes schin, orders order);
+    void ChangeScheme(schemes schout, schemes schin, orders order, int j);
     
-    vector<complex>** ComputeCoeff(double mu, schemes scheme = NDR);
+    vector<complex>** ComputeCoeffBd(double mu, schemes scheme = NDR);
+    vector<complex>** ComputeCoeffBs(double mu, schemes scheme = NDR);
     
     matrix<double> AnomalousDimension(orders order, unsigned int nf = 0) const;
 
-    WilsonCoefficient getCoeff() const {
-        return coeff;
+    WilsonCoefficient getCoeffBd() const {
+        return coeffbd;
     }
 
+    WilsonCoefficient getCoeffBs() const {
+        return coeffbs;
+    }
     EvolDF2 getUDF2() const {
         return u;
     }
@@ -47,7 +51,7 @@ private:
     matrix<double> drNDRLRI;
     const StandardModel& model;
     StandardModelMatching& modelmatching;
-    WilsonCoefficient coeff;
+    WilsonCoefficient coeffbd, coeffbs;
     EvolDF2 u;
 };
 

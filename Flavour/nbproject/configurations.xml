@@ -7,6 +7,8 @@
       <itemPath>src/AmpDB2.h</itemPath>
       <itemPath>src/DmBd.h</itemPath>
       <itemPath>src/DmBd0.h</itemPath>
+      <itemPath>src/DmBs.h</itemPath>
+      <itemPath>src/DmBs0.h</itemPath>
       <itemPath>src/EvolDF2.h</itemPath>
       <itemPath>src/Flavour.h</itemPath>
       <itemPath>src/FlavourObservables.h</itemPath>

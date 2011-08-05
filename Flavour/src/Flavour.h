@@ -25,8 +25,12 @@ public:
         return HDF2;
     }
     
-    vector<complex>** ComputeCoeff(double mu, schemes scheme = NDR) {
-        return HDF2.ComputeCoeff(mu, scheme);
+    vector<complex>** ComputeCoeffBd(double mu, schemes scheme = NDR) {
+        return HDF2.ComputeCoeffBd(mu, scheme);
+    }
+
+    vector<complex>** ComputeCoeffBs(double mu, schemes scheme = NDR) {
+        return HDF2.ComputeCoeffBs(mu, scheme);
     }
 
 private:
