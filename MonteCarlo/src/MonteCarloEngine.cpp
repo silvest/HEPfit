@@ -274,7 +274,7 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput& out) {
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end();
             it++) {
         std::string fname = "Observables/" + it->getThname() + ".pdf";
-        Histo2D[it->getThname()]->Print(fname.c_str());
+        Histo2D[it->getThname() + "_vs_" + it->getThname2()]->Print(fname.c_str());
         out.Write(Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram());
     }
 }
@@ -289,7 +289,7 @@ void MonteCarloEngine::AddChains() {
               fMCMCTrees[i]->Branch(it->getName().c_str(), &obval[i * kmax + k],
                    (it->getName() + "/D").c_str());
             k++;
-            if (it->getDistr().compare("noweight") == 0) {
+            if (it->getDistr().compare("noweight") != 0) {
                 for (int i = 0; i < fMCMCNChains; ++i)
                     fMCMCTrees[i]->Branch((it->getName() + "_weight").c_str(),
                         &obweight[i * kwmax + kweight], (it->getName() + "_weight/D").c_str());
