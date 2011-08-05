@@ -14,6 +14,8 @@ ThFactory::ThFactory(const StandardModel& myModel, StandardModelMatching& myMode
 myFlavour(myModel, myModelMatching), myEW(myModel) {
     thobs["Dmd0"] = new DmBd0(myFlavour);
     thobs["Dmd1"] = new DmBd(myFlavour);
+    thobs["Dms0"] = new DmBs0(myFlavour);
+    thobs["Dms1"] = new DmBs(myFlavour);
     thobs["Vud"] = new Vud(myFlavour);
     thobs["Vus"] = new Vus(myFlavour);
     thobs["Vub"] = new Vub(myFlavour);
