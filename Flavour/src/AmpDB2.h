@@ -18,7 +18,8 @@ public:
     AmpDB2(Flavour& Flavour);
 
 protected:
-    complex Amp(orders order);
+    complex AmpBd(orders order);
+    complex AmpBs(orders order);
 
 private:
     Flavour& myFlavour;
