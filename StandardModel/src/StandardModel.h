@@ -50,6 +50,11 @@ public:
      */
     double v() const;
 
+    /**
+     * @return the W boson mass, including radiative corrections
+     */
+    virtual double mW() const;    
+    
     ///////////////////////////////////////////////////////////////////////////
 
     /**
@@ -205,62 +210,6 @@ public:
     virtual const double matchingScale() const {
         return muw;
     }
-
-    ///////////////////////////////////////////////////////////////////////////
-    /* Functions for EW precision observables */
-    
-    /**
-     * @return leptonic correction to alpha at mZ at the three-loop level
-     */
-    double dAleLepMz() const;
-
-    /**
-     * @return top-quark corection to alpha at mZ up to second order in alpha_s
-     */
-    double dAleTopMz() const;
-
-    /**
-     * @return total correction to alpha at mZ
-     */
-    double dAleTotalMz() const;
-
-    /**
-     * @return the electromagnetic coupling alpha at mZ
-     */
-    double aleMz() const;
-
-    /**
-     * @return the charm-quak mass at mZ, mc(mZ)
-     */
-    double mcMz() const;
-
-    /**
-     * @return the bottom-quak mass at mZ, mb(mZ)
-     */
-    double mbMz() const;
-
-    /**
-     * @return the W boson mass, including radiative corrections
-     */
-    virtual double mW() const;
-
-    /**
-     * @param[in] INDF fermion index [0-9] (see EWphysics::flavour_st_to_int())
-     * @return the ratio of the effective vector coupling constants @f$g_Z^f=g_V^f/g_A^f@f$ for INDF
-     */
-    virtual complex gZf(const int INDF) const; // gZf = gVf/gAf
-
-    /**
-     * @param[in] INDF fermion index [0-9] (see EWphysics::flavour_st_to_int())
-     * @return the weak form factor for INDF
-     */
-    virtual complex rhoZf(const int INDF) const;
-
-    /**
-     * @return the radiative-correction factor @f$\Delta r@f$
-     */
-    virtual double Delta_r() const;
-
 
     ////////////////////////////////////////////////////////////////////////
     
