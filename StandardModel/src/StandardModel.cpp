@@ -135,9 +135,9 @@ double StandardModel::v() const {
     return 1. / sqrt(sqrt(2.) * GF);
 }
 
-double StandardModel::mW() const {
+double StandardModel::Mw() const {
 
-    //std::cout << "Write codes for EWSM::mW() " << std::endl;
+    //std::cout << "Write codes! " << std::endl;
     return (80.3613);
 }
 

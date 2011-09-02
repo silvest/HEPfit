@@ -68,8 +68,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2(const Standa
     double gammam = 8.;
     double Bt;
     double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-            / SM.mW(), 2.); // always FULLNLO
-    complex co = SM.getGF() / 4. / M_PI * SM.mW() * SM.getlamt_d();
+            / SM.Mw(), 2.); // always FULLNLO
+    complex co = SM.getGF() / 4. / M_PI * SM.Mw() * SM.getlamt_d();
     double Nc = SM.getNc();
 
     vmcdb.clear();
@@ -92,7 +92,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2(const Standa
         case NNLO:
         case NLO:
             mcdbd2.setCoeff(0, co * co * 4. * (SM.Als(SM.getMuw()) / 4. / M_PI * (S1(xt) +
-                    Bt * S0(xt, xt) + 2. * gammam * S0p(xt) * log(SM.getMuw() / SM.mW()))), NLO);
+                    Bt * S0(xt, xt) + 2. * gammam * S0p(xt) * log(SM.getMuw() / SM.Mw()))), NLO);
         case LO:
             mcdbd2.setCoeff(0, co * co * 4. * S0(xt, xt), LO);
             break;
@@ -116,8 +116,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbs2(const Standa
     double gammam = 8.;
     double Bt;
     double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-            / SM.mW(), 2.); // always FULLNLO
-    complex co = SM.getGF() / 4. / M_PI * SM.mW() * SM.getlamt_s();
+            / SM.Mw(), 2.); // always FULLNLO
+    complex co = SM.getGF() / 4. / M_PI * SM.Mw() * SM.getlamt_s();
     double Nc = SM.getNc();
 
     vmcds.clear();
@@ -140,7 +140,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbs2(const Standa
         case NNLO:
         case NLO:
             mcdbs2.setCoeff(0, co * co * 4. * (SM.Als(SM.getMuw()) / 4. / M_PI * (S1(xt) +
-                    Bt * S0(xt, xt) + 2. * gammam * S0p(xt) * log(SM.getMuw() / SM.mW()))), NLO);
+                    Bt * S0(xt, xt) + 2. * gammam * S0p(xt) * log(SM.getMuw() / SM.Mw()))), NLO);
         case LO:
             mcdbs2.setCoeff(0, co * co * 4. * S0(xt, xt), LO);
             break;
