@@ -74,27 +74,27 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a
 
-${OBJECTDIR}/src/gslpp_vector_double.o: src/gslpp_vector_double.cpp 
+${OBJECTDIR}/src/gslpp_vector_double.o: nbproject/Makefile-${CND_CONF}.mk src/gslpp_vector_double.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/gslpp_vector_double.o src/gslpp_vector_double.cpp
 
-${OBJECTDIR}/src/gslpp_matrix_complex.o: src/gslpp_matrix_complex.cpp 
+${OBJECTDIR}/src/gslpp_matrix_complex.o: nbproject/Makefile-${CND_CONF}.mk src/gslpp_matrix_complex.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/gslpp_matrix_complex.o src/gslpp_matrix_complex.cpp
 
-${OBJECTDIR}/src/gslpp_complex.o: src/gslpp_complex.cpp 
+${OBJECTDIR}/src/gslpp_complex.o: nbproject/Makefile-${CND_CONF}.mk src/gslpp_complex.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/gslpp_complex.o src/gslpp_complex.cpp
 
-${OBJECTDIR}/src/gslpp_vector_complex.o: src/gslpp_vector_complex.cpp 
+${OBJECTDIR}/src/gslpp_vector_complex.o: nbproject/Makefile-${CND_CONF}.mk src/gslpp_vector_complex.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/gslpp_vector_complex.o src/gslpp_vector_complex.cpp
 
-${OBJECTDIR}/src/gslpp_matrix_double.o: src/gslpp_matrix_double.cpp 
+${OBJECTDIR}/src/gslpp_matrix_double.o: nbproject/Makefile-${CND_CONF}.mk src/gslpp_matrix_double.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/gslpp_matrix_double.o src/gslpp_matrix_double.cpp
@@ -116,13 +116,13 @@ ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/newsimpletest.o ${OBJECTFILES:%.o=%_no
 ${TESTDIR}/tests/gslpptest.o: tests/gslpptest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -MMD -MP -MF $@.d -o ${TESTDIR}/tests/gslpptest.o tests/gslpptest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -MMD -MP -MF $@.d -o ${TESTDIR}/tests/gslpptest.o tests/gslpptest.cpp
 
 
 ${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -Isrc -MMD -MP -MF $@.d -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I. -Isrc -MMD -MP -MF $@.d -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
 
 
 ${OBJECTDIR}/src/gslpp_vector_double_nomain.o: ${OBJECTDIR}/src/gslpp_vector_double.o src/gslpp_vector_double.cpp 
