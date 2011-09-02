@@ -92,11 +92,11 @@ void SUSY::setCosb(double cosb) {
 
 ///////////////////////////////////////////////////////////////////////////
 
-double SUSY::mW() const {
+double SUSY::Mw() const {
 
     /* SM + MSSM */
 
-    std::cout << "Write codes for SUSY::mW() " << std::endl;
+    std::cout << "Write codes for SUSY::Mw() " << std::endl;
     return (80.3613);
 }
 

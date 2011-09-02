@@ -27,13 +27,13 @@
 //    std::cout << SM.getAlsM() << std::endl;
 //
 //    std::cout << "EWPO:" << std::endl;
-//    std::cout << "  mW = " << SM.mW() << " GeV" << std::endl;
+//    std::cout << "  Mw = " << SM.Mw() << " GeV" << std::endl;
 //    std::cout << "  sin^2theta = " << SM.sin2thw() << std::endl;
-//    std::cout << "  mW = " << SM.mW() << " GeV" << std::endl;
+//    std::cout << "  Mw = " << SM.Mw() << " GeV" << std::endl;
 //    std::cout << "  sin^2theta = " << SM.sin2thw() << std::endl;
-//    std::cout << "  mW = " << SM.mW() << " GeV" << std::endl;
+//    std::cout << "  Mw = " << SM.Mw() << " GeV" << std::endl;
 //    std::cout << "  sin^2theta = " << SM.sin2thw() << std::endl;
-//    std::cout << "  mZ = " << SM.getMZ() << std::endl;
+//    std::cout << "  Mz = " << SM.getMZ() << std::endl;
 //    std::cout << "  als(Mz) = " << SM.als(SM.getMZ()) << std::endl;
 //    std::cout << "  als(4.5) = " << SM.als(4.5) << std::endl;
 //
@@ -65,9 +65,9 @@
 //    Par.Set("mnu2", 0.);
 //    Par.Set("mnu3", 0.);
 //    Par.Set("GF", 1.16639E-5);
-//    Par.Set("alsMz", 0.119);
+//    Par.Set("AlsMz", 0.119);
 //    Par.Set("ale", 1.0/137.0360);
-//    Par.Set("mZ", 91.18760);
+//    Par.Set("Mz", 91.18760);
 //    Par.Set("dAle5Mz", 0.05907);
 //    Par.Set("mHl", 130.);
 //    StandardModel SM(Par);
@@ -75,7 +75,7 @@
 //    std::cout << SM.getVCKM()(2,2) << std::endl;
 //
 //    std::cout << "EWPO:" << std::endl;
-//    std::cout << "  mW = " << SM.mW() << " GeV" << std::endl;
+//    std::cout << "  Mw = " << SM.Mw() << " GeV" << std::endl;
 //    std::cout << "  sin^2theta = " << SM.sin2thw() << std::endl;
 //}
 void test3() {
