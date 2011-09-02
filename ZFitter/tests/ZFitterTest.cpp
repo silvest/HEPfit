@@ -1,8 +1,6 @@
 /* 
  * File:   ZFitterTest.cpp
  * Author: mishima
- *
- * Created on Feb 15, 2011, 11:25:35 PM
  */
 
 #include <stdlib.h>
@@ -10,11 +8,13 @@
 #include <iomanip>
 #include <cstring>
 #include <cmath>
-#include "../src/ZFitter.h"
+#include <StandardModel.h>
+#include "ZFitter.h"
+#include "ZFitterObservables.h"
 
 
-/* Test for functions in Zfitter class */
-void test_ZFitterClass(ZFitter& ZF) {
+/* Test function */
+void test_ZFitterClass(ZFitterObservables& ZFO) {
 
     /* Outputs */
     double XS[12];
@@ -28,14 +28,14 @@ void test_ZFitterClass(ZFitter& ZF) {
 
     int indexFermion;
 
-    /* sqrt(s) = mZ */
-    double sqrt_s = ZF.getZMASS();
+    /* sqrt(s) = Mz */
+    double sqrt_s = ZFO.getZMASS();
     double s = sqrt_s*sqrt_s;
 
     /* print input parameters */
     std::cout << std::endl << "##### call ZFitter::printInputs() #####"
               << std::endl << std::endl;
-    ZF.printInputs();
+    ZFO.printInputs();
 
     /* set flags */
     std::cout << "##### call ZFitter::setAllFlags() #####" << std::endl << std::endl;
@@ -55,7 +55,7 @@ void test_ZFitterClass(ZFitter& ZF) {
                      FTJR, EXPR, EXPF, HIGS, AFMT, CZAK, PREC, HIG2, ALE2, GFER,
                      ISPP, FSRS, MISC, MISD, IPFC, IPSC, IPTO, FBHO, FSPP, FUNA,
                      ASCR, SFSR, ENUE, TUPV, DMWW, DSWW};
-    ZF.setAllFlags(flags, 1);
+    ZFO.setAllFlags(flags, 1);
 
     /* set cuts */
     std::cout << "##### call ZFitter::setAllCuts() #####" << std::endl << std::endl;
@@ -77,34 +77,34 @@ void test_ZFitterClass(ZFitter& ZF) {
     ANG0[11] = 35.0;
     ANG1[11] = 145.0;
     SPP[11]  = 0.0;
-    ZF.setAllCuts(ICUT, ACOL, EMIN, S_PR, ANG0, ANG1, SPP, 1);
+    ZFO.setAllCuts(ICUT, ACOL, EMIN, S_PR, ANG0, ANG1, SPP, 1);
     std::cout << std::endl; 
 
     /* calculate EW common blocks */
     std::cout << "##### call ZFitter::calcCommonBlocks() #####" << std::endl;
-    ZF.calcCommonBlocks();
+    ZFO.calcCommonBlocks();
     std::cout << std::endl;
 
     /* print input parameters */
     std::cout << std::endl << "##### call ZFitter::printInputs() #####"
               << std::endl << std::endl;
-    ZF.printInputs();
+    ZFO.printInputs();
     std::cout << "  Note: DAL5H is calculated in calcCommonBlocks(), "
               << "if ALEM=0 or 3. " << std::endl;
     
     /* ptint constants defiend in ZFITTER */
     std::cout << std::endl << "##### call ZFitter::printConstants() #####"
               << std::endl << std::endl;
-    ZF.printConstants();
+    ZFO.printConstants();
 
     /* print intermediate retults */
     std::cout << "##### call ZFitter::printIntermediateResults() #####"
               << std::endl << std::endl;
-    ZF.printIntermediateResults();
+    ZFO.printIntermediateResults();
     
     /* Atomic Patity Violation */
     std::cout << "##### call ZFitter::calcAPV() #####" << std::endl << std::endl;
-    ZF.calcAPV(&C1U, &C1D, &C2U, &C2D);
+    ZFO.calcAPV(&C1U, &C1D, &C2U, &C2D);
     std::cout << "  C1U = " << C1U << " "
               << "  C1D = " << C1D << " "
               << "  C2U = " << C2U << " "
@@ -114,9 +114,9 @@ void test_ZFitterClass(ZFitter& ZF) {
     std::cout << "  sqrt(s) = " << sqrt_s << std::endl << std::endl;
     std::cout << "  Channel, Cross sections, FB asymmetries" << std::endl;
     for (indexFermion=0; indexFermion<12; indexFermion++) {
-        ZF.calcXS_AFB(indexFermion, sqrt_s,
+        ZFO.calcXS_AFB(indexFermion, sqrt_s,
                       &XS[indexFermion], &AFB[indexFermion]);
-        std::cout << std::setw(9) << ZF.convertINDF(indexFermion)
+        std::cout << std::setw(9) << ZFO.convertINDF(indexFermion)
                   << "  " << XS[indexFermion] << "  ";
         if (indexFermion!=0&&indexFermion!=10) std::cout << AFB[indexFermion];
         std::cout << std::endl;
@@ -128,13 +128,13 @@ void test_ZFitterClass(ZFitter& ZF) {
     std::cout << "  Channel, Cross sections" << std::endl;
     for (indexFermion=0; indexFermion<12; indexFermion++) {
         /* get the total and partial decay widths */
-        double Gamma_Z = ZF.getCommonWIDTHS(11);
-        double Gamma_e = ZF.getCommonWIDTHS(1);
+        double Gamma_Z = ZFO.getCommonWIDTHS(11);
+        double Gamma_e = ZFO.getCommonWIDTHS(1);
         double Gamma_f = Gamma_e;
-        if (indexFermion!=11) Gamma_f = ZF.getCommonWIDTHS(indexFermion);
-        ZF.calcXS(indexFermion, sqrt_s, Gamma_Z, Gamma_e, Gamma_f,
+        if (indexFermion!=11) Gamma_f = ZFO.getCommonWIDTHS(indexFermion);
+        ZFO.calcXS(indexFermion, sqrt_s, Gamma_Z, Gamma_e, Gamma_f,
                   &XS[indexFermion]);
-        std::cout << std::setw(9) << ZF.convertINDF(indexFermion)
+        std::cout << std::setw(9) << ZFO.convertINDF(indexFermion)
                   << "  " << XS[indexFermion]
                   << std::endl;
     }
@@ -145,21 +145,21 @@ void test_ZFitterClass(ZFitter& ZF) {
     std::cout << "  Channel, Cross sections, FB asymmetries" << std::endl;
     for (indexFermion=0; indexFermion<12; indexFermion++) {
         /* get the total width */
-        double Gamma_Z = ZF.getCommonWIDTHS(11);
+        double Gamma_Z = ZFO.getCommonWIDTHS(11);
         /* get the effective vector and axial-vector couplings */
-        double GAE = sqrt(ZF.getCommonAROTFZ(1))*0.5;
-        double GVE = ZF.getCommonARVEFZ(1)*GAE;
+        double GAE = sqrt(ZFO.getCommonAROTFZ(1))*0.5;
+        double GVE = ZFO.getCommonARVEFZ(1)*GAE;
         double GVF, GAF;
         if (indexFermion<11) {
-            GAF = sqrt(ZF.getCommonAROTFZ(indexFermion))*0.5;
-            GVF = ZF.getCommonARVEFZ(indexFermion)*GAF;
+            GAF = sqrt(ZFO.getCommonAROTFZ(indexFermion))*0.5;
+            GVF = ZFO.getCommonARVEFZ(indexFermion)*GAF;
         } else {
             GAF = GAE;
-            GVF = ZF.getCommonARVEFZ(1)*GAF;
+            GVF = ZFO.getCommonARVEFZ(1)*GAF;
         }
-        std::cout << std::setw(9) << ZF.convertINDF(indexFermion) << "  ";
+        std::cout << std::setw(9) << ZFO.convertINDF(indexFermion) << "  ";
         if (indexFermion!=0&&indexFermion!=10) {
-            ZF.calcXS_AFB_2(indexFermion, sqrt_s, Gamma_Z, 0,
+            ZFO.calcXS_AFB_2(indexFermion, sqrt_s, Gamma_Z, 0,
                             GVE, GAE, GVF, GAF,
                             &XS[indexFermion], &AFB[indexFermion]);
             std::cout << XS[indexFermion] << "  " << AFB[indexFermion];
@@ -173,21 +173,21 @@ void test_ZFitterClass(ZFitter& ZF) {
     std::cout << "  Channel, Cross sections, FB asymmetries" << std::endl;
     for (indexFermion=0; indexFermion<12; indexFermion++) {
         /* get the total width */
-        double Gamma_Z = ZF.getCommonWIDTHS(11);
+        double Gamma_Z = ZFO.getCommonWIDTHS(11);
         /* get the effective vector and axial-vector couplings */
         double GVF, GAF;
         if (indexFermion<11) {
-            GAF = sqrt(ZF.getCommonAROTFZ(indexFermion))*0.5;
-            GVF = ZF.getCommonARVEFZ(indexFermion)*GAF;
+            GAF = sqrt(ZFO.getCommonAROTFZ(indexFermion))*0.5;
+            GVF = ZFO.getCommonARVEFZ(indexFermion)*GAF;
         } else {
-            GAF = sqrt(ZF.getCommonAROTFZ(1))*0.5;
-            GVF = ZF.getCommonARVEFZ(1)*GAF;
+            GAF = sqrt(ZFO.getCommonAROTFZ(1))*0.5;
+            GVF = ZFO.getCommonARVEFZ(1)*GAF;
         }
-        std::cout << std::setw(9) << ZF.convertINDF(indexFermion) << "  ";
+        std::cout << std::setw(9) << ZFO.convertINDF(indexFermion) << "  ";
         double GVF2 = GVF*GVF;
         double GAF2 = GAF*GAF;
         if (indexFermion==1||indexFermion==2||indexFermion==3||indexFermion==11) {
-            ZF.calcXS_AFB_3(indexFermion, sqrt_s, Gamma_Z, 0, GVF2, GAF2,
+            ZFO.calcXS_AFB_3(indexFermion, sqrt_s, Gamma_Z, 0, GVF2, GAF2,
                             &XS[indexFermion], &AFB[indexFermion]);
             std::cout << XS[indexFermion] << "  " << AFB[indexFermion];
         }
@@ -200,24 +200,24 @@ void test_ZFitterClass(ZFitter& ZF) {
     std::cout << "  Channel, Cross sections, FB asymmetries" << std::endl;
     for (indexFermion=0; indexFermion<12; indexFermion++) {
         /* get the total width */
-        double Gamma_Z = ZF.getCommonWIDTHS(11);
+        double Gamma_Z = ZFO.getCommonWIDTHS(11);
         /* get the effective vector and axial-vector couplings */
-        double GAE = sqrt(ZF.getCommonAROTFZ(1))*0.5;
-        double GVE = ZF.getCommonARVEFZ(1)*GAE;
+        double GAE = sqrt(ZFO.getCommonAROTFZ(1))*0.5;
+        double GVE = ZFO.getCommonARVEFZ(1)*GAE;
         double GVF, GAF;
         if (indexFermion<11) {
-            GAF = sqrt(ZF.getCommonAROTFZ(indexFermion))*0.5;
-            GVF = ZF.getCommonARVEFZ(indexFermion)*GAF;
+            GAF = sqrt(ZFO.getCommonAROTFZ(indexFermion))*0.5;
+            GVF = ZFO.getCommonARVEFZ(indexFermion)*GAF;
         } else {
             GAF = GAE;
-            GVF = ZF.getCommonARVEFZ(1)*GAF;
+            GVF = ZFO.getCommonARVEFZ(1)*GAF;
         }
         double PFOUR = GVE*GAE*GVF*GAF;
         double PVAE2 = GVE*GVE + GAE*GAE;
         double PVAF2 = GVF*GVF + GAF*GAF;
-        std::cout << std::setw(9) << ZF.convertINDF(indexFermion) << "  ";
+        std::cout << std::setw(9) << ZFO.convertINDF(indexFermion) << "  ";
         if (indexFermion==1||indexFermion==2||indexFermion==3) {
-            ZF.calcXS_AFB_4(indexFermion, sqrt_s, Gamma_Z, PFOUR, PVAE2, PVAF2,
+            ZFO.calcXS_AFB_4(indexFermion, sqrt_s, Gamma_Z, PFOUR, PVAE2, PVAF2,
                             &XS[indexFermion], &AFB[indexFermion]);
             std::cout << XS[indexFermion] << "  " << AFB[indexFermion];
         }
@@ -230,8 +230,8 @@ void test_ZFitterClass(ZFitter& ZF) {
     std::cout << "  sqrt(s) = " << sqrt_s << std::endl << std::endl;
     std::cout << "  Channel, Tau polarization, Tau polarization asymmetry"
               << std::endl;
-    ZF.calcTauPol(sqrt_s, &TAUPOL, &TAUAFB);
-    std::cout << std::setw(9) << ZF.convertINDF(3) << "  "
+    ZFO.calcTauPol(sqrt_s, &TAUPOL, &TAUAFB);
+    std::cout << std::setw(9) << ZFO.convertINDF(3) << "  "
               << TAUPOL << "  " << TAUAFB << std::endl
               << std::endl;
 
@@ -241,14 +241,14 @@ void test_ZFitterClass(ZFitter& ZF) {
     std::cout << "  Channel, Tau polarization, Tau polarization asymmetry"
               << std::endl;
     /* get the total width */
-    double Gamma_Z = ZF.getCommonWIDTHS(11);
+    double Gamma_Z = ZFO.getCommonWIDTHS(11);
     /* get the effective vector and axial-vector couplings */
-    double GAE = sqrt(ZF.getCommonAROTFZ(1))*0.5;
-    double GVE = ZF.getCommonARVEFZ(1) * GAE;
-    double GAF = sqrt(ZF.getCommonAROTFZ(3))*0.5;
-    double GVF = ZF.getCommonARVEFZ(3) * GAF;
-    ZF.calcTauPol_2(sqrt_s, Gamma_Z, 0, GVE, GAE, GVF, GAF, &TAUPOL, &TAUAFB);
-    std::cout << std::setw(9) << ZF.convertINDF(3) << "  "
+    double GAE = sqrt(ZFO.getCommonAROTFZ(1))*0.5;
+    double GVE = ZFO.getCommonARVEFZ(1) * GAE;
+    double GAF = sqrt(ZFO.getCommonAROTFZ(3))*0.5;
+    double GVF = ZFO.getCommonARVEFZ(3) * GAF;
+    ZFO.calcTauPol_2(sqrt_s, Gamma_Z, 0, GVE, GAE, GVF, GAF, &TAUPOL, &TAUAFB);
+    std::cout << std::setw(9) << ZFO.convertINDF(3) << "  "
               << TAUPOL << "  " << TAUAFB << std::endl
               << std::endl;
 
@@ -258,11 +258,11 @@ void test_ZFitterClass(ZFitter& ZF) {
     double POL = 0.63;
     double ALRI;
     for (indexFermion=0; indexFermion<10; indexFermion++) {
-        ZF.calcALR(indexFermion, sqrt_s, POL,
+        ZFO.calcALR(indexFermion, sqrt_s, POL,
                    &XSPL[indexFermion], &XSMI[indexFermion]);
         ALRI = (XSMI[indexFermion] - XSPL[indexFermion])
                 / (XSMI[indexFermion] + XSPL[indexFermion]) / POL;
-        std::cout << std::setw(9) << ZF.convertINDF(indexFermion) << "  ";
+        std::cout << std::setw(9) << ZFO.convertINDF(indexFermion) << "  ";
         if (indexFermion!=8) std::cout << ALRI;
         std::cout << std::endl;
     }
@@ -270,14 +270,14 @@ void test_ZFitterClass(ZFitter& ZF) {
 
     std::cout << "##### call ZFitter::calcDXS() "
               << "with the flag ISPP=2 #####" << std::endl << std::endl;
-    ZF.flag("ISPP", 2); // default: 2
+    ZFO.flag("ISPP", 2); // default: 2
     std::cout << "  sqrt(s) = " << sqrt_s << std::endl << std::endl;
     std::cout << "  Channel, Differential cross sections" << std::endl;
     for (indexFermion = 0; indexFermion < 11; indexFermion++) {
-        std::cout << std::setw(9) << ZF.convertINDF(indexFermion) << "  ";
+        std::cout << std::setw(9) << ZFO.convertINDF(indexFermion) << "  ";
         for (int i=0; i<=6; i++) {
             double CSA = -1.0 + 2.0/6.0*(double)i; // cos(theta)
-            ZF.calcDXS(indexFermion, sqrt_s, CSA, &DXS[indexFermion]);
+            ZFO.calcDXS(indexFermion, sqrt_s, CSA, &DXS[indexFermion]);
             std::cout << std::setw(9) << DXS[indexFermion] << "  ";
         }
         std::cout << std::endl;
@@ -285,7 +285,7 @@ void test_ZFitterClass(ZFitter& ZF) {
     std::cout << std::endl;
 
     std::cout << "##### call ZFitter::printPO() #####" << std::endl << std::endl;
-    ZF.printPO();
+    ZFO.printPO();
 
     
     /* Outputs from ZFITTER subroutines (for tests) */
@@ -293,50 +293,100 @@ void test_ZFitterClass(ZFitter& ZF) {
     //std::cout << "##### call ZFitter::info(0) #####"
     //          << std::endl << std::endl;
     //std::cout << " ------------- Flag info ---------------" << std::endl;
-    //ZF.info(0); // output flag info
+    //ZFO.FlagInfo(); // output flag info
     //
     //std::cout << std::endl << "##### call ZFitter::info(1) #####"
     //          << std::endl << std::endl;
     //std::cout << " ------------------------ Cut info --------------------------";
-    //ZF.info(1); // print cut info
+    //ZFO.CutInfo(); // print cut info
 
 }
 
 
 /* Test with ZFITTER subroutine ZFTEST() */
-void test_ZFTEST(ZFitter& ZF) {
-    ZF.test(0);
-    //ZF.test(1);
+void test_ZFTEST(ZFitterObservables& ZFO) {
+    ZFO.test(0);
+    //ZFO.test(1);
+}
+
+
+void setSMparameters(StandardModel& SM_i) {
+    std::map<std::string, double> Parameters;
+    // 17 parameters defined in StandardModel
+    Parameters["GF"] = 1.16637E-5;
+    Parameters["mneutrino_1"] = 0.0;
+    Parameters["mneutrino_2"] = 0.0;
+    Parameters["mneutrino_3"] = 0.0;
+    Parameters["melectron"] = 0.54857990943e-3;
+    Parameters["mmu"] = 0.1134289256;
+    Parameters["mtau"] = 1.77682;
+    Parameters["lambda"] = 0.2253;
+    Parameters["A"] = 0.808;
+    Parameters["rhob"] = 0.132;
+    Parameters["etab"] = 0.341;
+    Parameters["ale"] = 1.0/137.035999679;
+    Parameters["dAle5Mz"] = 0.02758; // not used when ALEM=3
+    Parameters["mHl"] = 130.0;
+    Parameters["muw"] = 0.0;
+    Parameters["mub"] = 0.0;
+    Parameters["muc"] = 0.0;
+    // 26 parameters defined in QCD    
+    Parameters["AlsMz"] = 0.1184;
+    Parameters["Mz"] = 91.1876;
+    Parameters["mup"] = 0.003;
+    Parameters["mdown"] = 0.007;
+    Parameters["mcharm"] = 1.5;
+    Parameters["mstrange"] = 0.1;
+    Parameters["mtop"] = 174.0;
+    Parameters["mbottom"] = 4.28;
+    Parameters["mut"] = 0.0;
+    Parameters["mub"] = 0.0;
+    Parameters["muc"] = 0.0;
+    Parameters["MBd"] = 0.0;
+    Parameters["MBs"] = 0.0;
+    Parameters["MBp"] = 0.0;
+    Parameters["MK0"] = 0.0;
+    Parameters["MKp"] = 0.0;
+    Parameters["FBs"] = 0.0;
+    Parameters["FBsoFBd"] = 0.0;
+    Parameters["BBsoBBd"] = 0.0;
+    Parameters["BBs1"] = 0.0;
+    Parameters["BBs2"] = 0.0;
+    Parameters["BBs3"] = 0.0;
+    Parameters["BBs4"] = 0.0;
+    Parameters["BBs5"] = 0.0;
+    Parameters["BBsscale"] = 0.0;
+    Parameters["BBsscheme"] = 0.0;
+
+    /* TEST for ZFITTER */
+    Parameters["Mz"] = 91.1876;
+    Parameters["mtop"] = 178.0;    
+    Parameters["mHl"] = 100.0;
+    Parameters["AlsMz"] = 0.117;
+    Parameters["dAle5Mz"] = 0.027572;
+    
+    SM_i.Init(Parameters);
 }
 
 
 
 int main(int argc, char** argv) {
 
-    /* set parameters */
-    double mZ = 91.1876;
-    double mt = 178.0;
-    double mh = 100.0;
-    double alphas = 0.117;
-    double dalpha5h = 0.027572;
-    double vtb = 1.0;
-    double mu_constituent = 0.1;
-    double md_constituent = 0.1;
-
-    /* call a constructor of ZFitter */
-    ZFitter ZF(mZ, mt, mh, alphas, dalpha5h, vtb,
-               mu_constituent, md_constituent);
+    StandardModel* myModel;
+    myModel = new StandardModel();
+    setSMparameters(*myModel);
+    ZFitterObservables ZFO(*myModel);
 
     if (argc>1) {
         if (strcmp(argv[1], "-t")==0) {
-            /* test with Subroutine ZFTEST in ZFITTER */
-            test_ZFTEST(ZF);
+            /* test with Subroutine ZFTEST */
+            test_ZFTEST(ZFO);
         } else {
             std::cout << "use the option -t for ZFTEST()" << std::endl;
         }
     } else {
         /* compute EW precision observables */
-        test_ZFitterClass(ZF);
+        test_ZFitterClass(ZFO);
     }
     
     return (EXIT_SUCCESS);
