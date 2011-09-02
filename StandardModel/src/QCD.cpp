@@ -38,9 +38,9 @@ void QCD::Update(const std::map<std::string, double>& DPars) {
 
 void QCD::SetQCDParameter(std::string name, double value) {
     if(name.compare("AlsMz")==0)
-        AlsM = value;
+        AlsMz = value;
     else if(name.compare("Mz")==0)
-        M = value;
+        Mz = value;
     else if(name.compare("mup")==0){
         quarks[UP].setMass(value);
         computeYu = true;
@@ -220,9 +220,9 @@ double QCD::Als(double mu, double nf, double alsi, double mi, orders order) cons
 }
 
 double QCD::Als(double mu, double nfmu, orders order) const {
-    double nfz = Nf(M), m, nfs;
+    double nfz = Nf(Mz), m, nfs;
 
-    if(nfmu == nfz) return(Als(mu, nfmu, AlsM, M, order));
+    if(nfmu == nfz) return(Als(mu, nfmu, AlsMz, Mz, order));
     if(nfmu > nfz) {
         m = BelowTh(mu);
         nfs = nfmu-1;
@@ -246,14 +246,14 @@ double QCD::Als(double mu, orders order) const {
     int i;
     for(i=0;i<5;i++)
         if((mu ==  als_cache[0][i]) && (order == als_cache[1][i]) &&
-                (AlsM == als_cache[2][i]) && (M == als_cache[3][i]))
+                (AlsMz == als_cache[2][i]) && (Mz == als_cache[3][i]))
             return als_cache[4][i];
 
     CacheShift(als_cache,5);
     als_cache[0][0] = mu;
     als_cache[1][0] = order;
-    als_cache[2][0] = AlsM;
-    als_cache[3][0] = M;
+    als_cache[2][0] = AlsMz;
+    als_cache[3][0] = Mz;
     als_cache[4][0] = Als(mu, Nf(mu), order);
 
     return(als_cache[4][0]);

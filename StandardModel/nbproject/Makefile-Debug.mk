@@ -42,7 +42,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/QCD.o \
 	${OBJECTDIR}/src/StandardModelMatching.o \
 	${OBJECTDIR}/src/CKM.o \
-	${OBJECTDIR}/src/EWPOSM.o \
 	${OBJECTDIR}/src/Meson.o
 
 # Test Directory
@@ -79,52 +78,47 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a
 
-${OBJECTDIR}/src/Model.o: src/Model.cpp 
+${OBJECTDIR}/src/Model.o: nbproject/Makefile-${CND_CONF}.mk src/Model.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I../gslpp/src -I../Utils/src -I/usr/include/root -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Model.o src/Model.cpp
 
-${OBJECTDIR}/src/RGEvolutor.o: src/RGEvolutor.cpp 
+${OBJECTDIR}/src/RGEvolutor.o: nbproject/Makefile-${CND_CONF}.mk src/RGEvolutor.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I../gslpp/src -I../Utils/src -I/usr/include/root -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/RGEvolutor.o src/RGEvolutor.cpp
 
-${OBJECTDIR}/src/StandardModel.o: src/StandardModel.cpp 
+${OBJECTDIR}/src/StandardModel.o: nbproject/Makefile-${CND_CONF}.mk src/StandardModel.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I../gslpp/src -I../Utils/src -I/usr/include/root -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StandardModel.o src/StandardModel.cpp
 
-${OBJECTDIR}/src/Particle.o: src/Particle.cpp 
+${OBJECTDIR}/src/Particle.o: nbproject/Makefile-${CND_CONF}.mk src/Particle.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I../gslpp/src -I../Utils/src -I/usr/include/root -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Particle.o src/Particle.cpp
 
-${OBJECTDIR}/src/WilsonCoefficient.o: src/WilsonCoefficient.cpp 
+${OBJECTDIR}/src/WilsonCoefficient.o: nbproject/Makefile-${CND_CONF}.mk src/WilsonCoefficient.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I../gslpp/src -I../Utils/src -I/usr/include/root -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/WilsonCoefficient.o src/WilsonCoefficient.cpp
 
-${OBJECTDIR}/src/QCD.o: src/QCD.cpp 
+${OBJECTDIR}/src/QCD.o: nbproject/Makefile-${CND_CONF}.mk src/QCD.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I../gslpp/src -I../Utils/src -I/usr/include/root -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/QCD.o src/QCD.cpp
 
-${OBJECTDIR}/src/StandardModelMatching.o: src/StandardModelMatching.cpp 
+${OBJECTDIR}/src/StandardModelMatching.o: nbproject/Makefile-${CND_CONF}.mk src/StandardModelMatching.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I../gslpp/src -I../Utils/src -I/usr/include/root -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StandardModelMatching.o src/StandardModelMatching.cpp
 
-${OBJECTDIR}/src/CKM.o: src/CKM.cpp 
+${OBJECTDIR}/src/CKM.o: nbproject/Makefile-${CND_CONF}.mk src/CKM.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I../gslpp/src -I../Utils/src -I/usr/include/root -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/CKM.o src/CKM.cpp
 
-${OBJECTDIR}/src/EWPOSM.o: src/EWPOSM.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -I../gslpp/src -I../Utils/src -I/usr/include/root -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWPOSM.o src/EWPOSM.cpp
-
-${OBJECTDIR}/src/Meson.o: src/Meson.cpp 
+${OBJECTDIR}/src/Meson.o: nbproject/Makefile-${CND_CONF}.mk src/Meson.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -Wall -I../gslpp/src -I../Utils/src -I/usr/include/root -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Meson.o src/Meson.cpp
@@ -146,13 +140,13 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/StandardModelTest.o ${OBJECTFILES:%.o=
 ${TESTDIR}/tests/RunningMass.o: tests/RunningMass.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -I. -I. -Isrc -I../gslpp/src -I../Utils/src -I/usr/include/root -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/RunningMass.o tests/RunningMass.cpp
+	$(COMPILE.cc) -g -Wall -I. -I. -I. -I. -Isrc -I../gslpp/src -I../Utils/src -I/usr/include/root -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/RunningMass.o tests/RunningMass.cpp
 
 
 ${TESTDIR}/tests/StandardModelTest.o: tests/StandardModelTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -Wall -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I../gslpp/src -I../Utils/src -I/usr/include/root -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StandardModelTest.o tests/StandardModelTest.cpp
+	$(COMPILE.cc) -g -Wall -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I../gslpp/src -I../Utils/src -I/usr/include/root -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StandardModelTest.o tests/StandardModelTest.cpp
 
 
 ${OBJECTDIR}/src/Model_nomain.o: ${OBJECTDIR}/src/Model.o src/Model.cpp 
@@ -257,19 +251,6 @@ ${OBJECTDIR}/src/CKM_nomain.o: ${OBJECTDIR}/src/CKM.o src/CKM.cpp
 	    $(COMPILE.cc) -g -Wall -I../gslpp/src -I../Utils/src -I/usr/include/root -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/CKM_nomain.o src/CKM.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/CKM.o ${OBJECTDIR}/src/CKM_nomain.o;\
-	fi
-
-${OBJECTDIR}/src/EWPOSM_nomain.o: ${OBJECTDIR}/src/EWPOSM.o src/EWPOSM.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/EWPOSM.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -Wall -I../gslpp/src -I../Utils/src -I/usr/include/root -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWPOSM_nomain.o src/EWPOSM.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/EWPOSM.o ${OBJECTDIR}/src/EWPOSM_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/Meson_nomain.o: ${OBJECTDIR}/src/Meson.o src/Meson.cpp 

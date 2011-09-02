@@ -107,34 +107,34 @@ public:
 
     /**
      *
-     * @return @f$\alpha_s(M)@f$
+     * @return @f$\alpha_s(Mz)@f$
      */
-    double getAlsM() const {
-        return AlsM;
+    double getAlsMz() const {
+        return AlsMz;
     }
 
     /**
-     * set the initial condition @f$\alpha_s(M)@f$
-     * @param AlsM the initial condition @f$\alpha_s(M)@f$
+     * set the initial condition @f$\alpha_s(Mz)@f$
+     * @param AlsMz the initial condition @f$\alpha_s(Mz)@f$
      */
-    void setAlsM(double AlsM) {
-        this->AlsM = AlsM;
+    void setAlsM(double AlsMz) {
+        this->AlsMz = AlsMz;
     }
 
     /**
      *
-     * @return the scale M at which the initial condition for @f$\alpha_s(M)@f$ is given
+     * @return the scale Mz at which the initial condition for @f$\alpha_s(Mz)@f$ is given
      */
-    double getM() const {
-        return M;
+    double getMz() const {
+        return Mz;
     }
 
     /**
      * set the scale M at which the initial condition for @f$\alpha_s(M)@f$ is given
      * @param M the scale M in GeV
      */
-    void setM(double M) {
-        this->M = M;
+    void setMz(double Mz) {
+        this->Mz = Mz;
     }
 
     /**
@@ -265,7 +265,7 @@ public:
     }
 
 protected:
-    double Nc, CF, AlsM, M, mut, mub, muc;
+    double Nc, CF, AlsMz, Mz, mut, mub, muc;
     Particle quarks[6];
     Meson mesons[MESON_END];
     BParameter BBs, BBd;

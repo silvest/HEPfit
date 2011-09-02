@@ -127,6 +127,10 @@ Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
 
 ///////////////////////////////////////////////////////////////////////////
 
+const double StandardModel::matchingScale() const {
+        return muw;
+    }
+
 double StandardModel::v() const {
     return 1. / sqrt(sqrt(2.) * GF);
 }
