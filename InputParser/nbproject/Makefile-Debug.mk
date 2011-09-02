@@ -70,12 +70,12 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a
 
-${OBJECTDIR}/src/ThFactory.o: src/ThFactory.cpp 
+${OBJECTDIR}/src/ThFactory.o: nbproject/Makefile-${CND_CONF}.mk src/ThFactory.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I. -I../Observables/src -I../StandardModel/src -I../Flavour/src -I../EW/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThFactory.o src/ThFactory.cpp
 
-${OBJECTDIR}/src/InputParser.o: src/InputParser.cpp 
+${OBJECTDIR}/src/InputParser.o: nbproject/Makefile-${CND_CONF}.mk src/InputParser.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I. -I../Observables/src -I../StandardModel/src -I../Flavour/src -I../EW/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/InputParser.o src/InputParser.cpp
@@ -97,7 +97,7 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/newsimpletest.o ${OBJECTFILES:%.o=%_no
 ${TESTDIR}/tests/newsimpletest.o: tests/newsimpletest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I../Observables/src -I../StandardModel/src -I../Flavour/src -I../EW/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I../Observables/src -I../StandardModel/src -I../Flavour/src -I../EW/src -I../gslpp/src -I../Utils/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/newsimpletest.o tests/newsimpletest.cpp
 
 
 ${OBJECTDIR}/src/ThFactory_nomain.o: ${OBJECTDIR}/src/ThFactory.o src/ThFactory.cpp 
