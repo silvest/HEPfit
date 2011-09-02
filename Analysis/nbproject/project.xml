@@ -12,7 +12,8 @@
             <make-dep-projects>
                 <make-dep-project>../Flavour</make-dep-project>
                 <make-dep-project>../InputParser</make-dep-project>
-                <make-dep-project>/afs/infn.it/roma1/project/susy/susy/SusyFit/EW</make-dep-project>
+                <make-dep-project>../EW</make-dep-project>
+                <make-dep-project>../Flavour</make-dep-project>
                 <make-dep-project>../gslpp</make-dep-project>
                 <make-dep-project>../Utils</make-dep-project>
                 <make-dep-project>../Observables</make-dep-project>
