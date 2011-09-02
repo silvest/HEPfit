@@ -1,8 +1,6 @@
 /* 
  * File:   AFBcharm.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:42 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "AFBcharm.h"
 
-AFBcharm::AFBcharm(const EW& myEW) : ThObservable(myEW) {
+AFBcharm::AFBcharm(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double AFBcharm::getThValue() {   

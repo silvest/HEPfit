@@ -1,8 +1,6 @@
 /* 
  * File:   obliqueS.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:46 PM
  */
 
 #ifndef OBLIQUES_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief obliqueS constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    obliqueS(const EW& myEW);
+    obliqueS(const EW& EW_i);
 
     /**
      * @return the oblique parameter S

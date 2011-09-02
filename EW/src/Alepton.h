@@ -1,8 +1,6 @@
 /* 
  * File:   Alepton.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:43 PM
  */
 
 #ifndef ALEPTON_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief Alepton constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    Alepton(const EW& myEW);
+    Alepton(const EW& EW_i);
 
     /**
      * @return the left-right asymmetry of a leptonic channel

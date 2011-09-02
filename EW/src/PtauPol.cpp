@@ -1,8 +1,6 @@
 /* 
  * File:   PtauPol.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:42 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "PtauPol.h"
 
-PtauPol::PtauPol(const EW& myEW) : ThObservable(myEW) {
+PtauPol::PtauPol(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double PtauPol::getThValue() {   

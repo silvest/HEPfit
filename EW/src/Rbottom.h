@@ -1,8 +1,6 @@
 /* 
  * File:   Rbottom.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:44 PM
  */
 
 #ifndef RBOTTOM_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief Rbottom constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    Rbottom(const EW& myEW);
+    Rbottom(const EW& EW_i);
 
     /**
      * @return the ratio of the b-bbar width to the hadronic width

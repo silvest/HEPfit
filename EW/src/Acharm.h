@@ -1,8 +1,6 @@
 /* 
  * File:   Acharm.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:43 PM
  */
 
 #ifndef ACHARM_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief Acharm constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    Acharm(const EW& myEW);
+    Acharm(const EW& EW_i);
 
     /**
      * @return the left-right asymmetry of the c-cbar channel

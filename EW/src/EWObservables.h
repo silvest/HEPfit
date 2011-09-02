@@ -1,8 +1,6 @@
 /* 
  * File:   EWObservables.h
  * Author: mishima
- *
- * Created on June 8, 2011, 6:08 PM
  */
 
 #ifndef EWOBSERVABLES_H
@@ -10,7 +8,7 @@
 
 #include "EW.h"
 
-#include "mW.h"
+#include "Mw.h"
 #include "GammaW.h"
 #include "GammaZ.h"
 #include "AFBlepton.h"

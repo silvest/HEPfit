@@ -1,8 +1,6 @@
 /* 
  * File:   Alepton.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:43 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "Alepton.h"
 
-Alepton::Alepton(const EW& myEW) : ThObservable(myEW) {
+Alepton::Alepton(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double Alepton::getThValue() {   

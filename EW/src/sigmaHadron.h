@@ -1,8 +1,6 @@
 /* 
  * File:   sigmaHadron.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:44 PM
  */
 
 #ifndef SIGMAHADRON_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief sigmaHadron constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    sigmaHadron(const EW& myEW);
+    sigmaHadron(const EW& EW_i);
 
     /**
      * @return the hadronic cross section 

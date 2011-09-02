@@ -1,8 +1,6 @@
 /* 
  * File:   PtauPol.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:42 PM
  */
 
 #ifndef PTAUPOL_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief PtauPol constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    PtauPol(const EW& myEW);
+    PtauPol(const EW& EW_i);
 
     /**
      * @return the longitudinal polarization of the tau-taubar channel

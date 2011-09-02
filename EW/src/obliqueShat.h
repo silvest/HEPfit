@@ -1,8 +1,6 @@
 /* 
  * File:   obliqueShat.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:46 PM
  */
 
 #ifndef OBLIQUESHAT_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief obliqueShat constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    obliqueShat(const EW& myEW);
+    obliqueShat(const EW& EW_i);
 
     /**
      * @return the oblique parameter S-hat

@@ -1,8 +1,6 @@
 /* 
  * File:   GammaZ.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:41 PM
  */
 
 #ifndef GAMMAZ_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief GammaZ constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    GammaZ(const EW& myEW);
+    GammaZ(const EW& EW_i);
 
     /**
      * @return the total width of the Z boson

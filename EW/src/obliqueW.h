@@ -1,8 +1,6 @@
 /* 
  * File:   obliqueW.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:47 PM
  */
 
 #ifndef OBLIQUEW_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief obliqueW constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    obliqueW(const EW& myEW);
+    obliqueW(const EW& EW_i);
 
     /**
      * @return the oblique parameter W

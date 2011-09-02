@@ -1,8 +1,6 @@
 /* 
  * File:   AFBcharm.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:42 PM
  */
 
 #ifndef AFBCHARM_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief AFBcharm constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    AFBcharm(const EW& myEW);
+    AFBcharm(const EW& EW_i);
 
     /**
      * @return the forward-backward asymmetry of the c-cbar channel

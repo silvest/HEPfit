@@ -1,8 +1,6 @@
 /* 
  * File:   Acharm.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:43 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "Acharm.h"
 
-Acharm::Acharm(const EW& myEW) : ThObservable(myEW) {
+Acharm::Acharm(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double Acharm::getThValue() {   

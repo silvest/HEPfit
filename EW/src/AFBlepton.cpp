@@ -1,8 +1,6 @@
 /* 
  * File:   AFBlepton.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:41 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "AFBlepton.h"
 
-AFBlepton::AFBlepton(const EW& myEW) : ThObservable(myEW) {
+AFBlepton::AFBlepton(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double AFBlepton::getThValue() {   

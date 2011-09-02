@@ -1,8 +1,6 @@
 /* 
  * File:   obliqueShat.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:46 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "obliqueShat.h"
 
-obliqueShat::obliqueShat(const EW& myEW) : ThObservable(myEW) {
+obliqueShat::obliqueShat(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double obliqueShat::getThValue() {   

@@ -1,8 +1,6 @@
 /* 
  * File:   Rlepton.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:44 PM
  */
 
 #ifndef RLEPTON_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief Rlepton constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    Rlepton(const EW& myEW);
+    Rlepton(const EW& EW_i);
 
     /**
      * @return the ratio of the hadronic width to the leptonic width

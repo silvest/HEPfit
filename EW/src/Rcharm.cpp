@@ -1,8 +1,6 @@
 /* 
  * File:   Rcharm.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:44 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "Rcharm.h"
 
-Rcharm::Rcharm(const EW& myEW) : ThObservable(myEW) {
+Rcharm::Rcharm(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double Rcharm::getThValue() {   
