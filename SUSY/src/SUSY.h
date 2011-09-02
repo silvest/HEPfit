@@ -409,7 +409,7 @@ public:
     /**
      * @return the W boson mass, including radiative corrections
      */
-    double mW() const;
+    double Mw() const;
 
     /**
      * @param[in] INDF fermion index [0-9] (see EWphysics::flavour_st_to_int())

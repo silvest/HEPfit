@@ -72,19 +72,19 @@ void MFV::setParameters(double a1, double a2, double a3, gslpp::complex a4,
 
     //SUPER-CKM Basis
 
-    mD2.assign(0, 0, mQ2a+mqd2+I*(mZ*mZ*cos2b*(-0.5+1./3.*sin2tw())));
+    mD2.assign(0, 0, mQ2a+mqd2+I*(Mz*Mz*cos2b*(-0.5+1./3.*sin2tw())));
     mD2.assign(0, 3, v1()/sqrt(2.)*Ada.hconjugate()-muH*mqd*tanb);
     mD2.assign(3, 0, v1()/sqrt(2.)*Ada-muH.conjugate()*mqd*tanb);
-    mD2.assign(3, 3, mD2a+mqd2+I*(mZ*mZ*cos2b*(-1./3.*sin2tw())));
+    mD2.assign(3, 3, mD2a+mqd2+I*(Mz*Mz*cos2b*(-1./3.*sin2tw())));
 
     mD2.eigensystem(Rd, Msd2);
     
     mU2.assign(0, 0, VCKM*mQ2a*VCKM.hconjugate()+mqu2+I*
-    (mZ*mZ*cos2b*(0.5-2./3.*sin2tw())));
+    (Mz*Mz*cos2b*(0.5-2./3.*sin2tw())));
     mU2.assign(0, 3, v2()/sqrt(2.)*VCKM*Aua.hconjugate()-muH*mqu/tanb);
     mU2.assign(3, 0, v2()/sqrt(2.)*Aua*VCKM.hconjugate()-
     muH.conjugate()*mqu/tanb);
-    mU2.assign(3, 3, mU2a+mqu2+I*(mZ*mZ*cos2b*(2./3.*sin2tw())));
+    mU2.assign(3, 3, mU2a+mqu2+I*(Mz*Mz*cos2b*(2./3.*sin2tw())));
 
     std::cout<< mU2 << std::endl;
 
