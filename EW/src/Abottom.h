@@ -1,8 +1,6 @@
 /* 
  * File:   Abottom.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:43 PM
  */
 
 #ifndef ABOTTOM_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief Abottom constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    Abottom(const EW& myEW);
+    Abottom(const EW& EW_i);
 
     /**
      * @return the left-right asymmetry of the b-bbar channel

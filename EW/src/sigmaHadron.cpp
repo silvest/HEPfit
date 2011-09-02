@@ -1,8 +1,6 @@
 /* 
  * File:   sigmaHadron.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:44 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "sigmaHadron.h"
 
-sigmaHadron::sigmaHadron(const EW& myEW) : ThObservable(myEW) {
+sigmaHadron::sigmaHadron(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double sigmaHadron::getThValue() {   

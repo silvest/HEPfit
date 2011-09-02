@@ -1,8 +1,6 @@
 /* 
  * File:   obliqueEpsilon2.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:45 PM
  */
 
 #ifndef OBLIQUEEPSILON2_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief obliqueEpsilon2 constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    obliqueEpsilon2(const EW& myEW);
+    obliqueEpsilon2(const EW& EW_i);
 
     /**
      * @return the oblique parameter epsilon_2

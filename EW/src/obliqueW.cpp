@@ -1,8 +1,6 @@
 /* 
  * File:   obliqueW.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:47 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "obliqueW.h"
 
-obliqueW::obliqueW(const EW& myEW) : ThObservable(myEW) {
+obliqueW::obliqueW(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double obliqueW::getThValue() {   

@@ -1,8 +1,6 @@
 /* 
  * File:   obliqueEpsilon1.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:45 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "obliqueEpsilon1.h"
 
-obliqueEpsilon1::obliqueEpsilon1(const EW& myEW) : ThObservable(myEW) {
+obliqueEpsilon1::obliqueEpsilon1(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double obliqueEpsilon1::getThValue() {   

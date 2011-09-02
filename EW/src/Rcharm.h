@@ -1,8 +1,6 @@
 /* 
  * File:   Rcharm.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:44 PM
  */
 
 #ifndef RCHARM_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief Rcharm constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    Rcharm(const EW& myEW);
+    Rcharm(const EW& EW_i);
 
     /**
      * @return the ratio of the c-cbar width to the hadronic width

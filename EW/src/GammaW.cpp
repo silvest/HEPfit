@@ -1,8 +1,6 @@
 /* 
  * File:   GammaW.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:41 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "GammaW.h"
 
-GammaW::GammaW(const EW& myEW) : ThObservable(myEW) {
+GammaW::GammaW(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double GammaW::getThValue() {   

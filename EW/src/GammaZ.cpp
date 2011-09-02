@@ -1,8 +1,6 @@
 /* 
  * File:   GammaZ.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:41 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "GammaZ.h"
 
-GammaZ::GammaZ(const EW& myEW) : ThObservable(myEW) {
+GammaZ::GammaZ(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double GammaZ::getThValue() {   

@@ -1,8 +1,6 @@
 /* 
  * File:   Rlepton.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:43 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "Rlepton.h"
 
-Rlepton::Rlepton(const EW& myEW) : ThObservable(myEW) {
+Rlepton::Rlepton(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double Rlepton::getThValue() {   

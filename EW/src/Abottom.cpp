@@ -1,8 +1,6 @@
 /* 
  * File:   Abottom.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:43 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "Abottom.h"
 
-Abottom::Abottom(const EW& myEW) : ThObservable(myEW) {
+Abottom::Abottom(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double Abottom::getThValue() {   

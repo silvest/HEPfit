@@ -1,8 +1,6 @@
 /* 
  * File:   AFBbottom.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:42 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "AFBbottom.h"
 
-AFBbottom::AFBbottom(const EW& myEW) : ThObservable(myEW) {
+AFBbottom::AFBbottom(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double AFBbottom::getThValue() {   

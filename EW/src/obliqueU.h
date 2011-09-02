@@ -1,8 +1,6 @@
 /* 
  * File:   obliqueU.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:46 PM
  */
 
 #ifndef OBLIQUEU_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief obliqueU constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    obliqueU(const EW& myEW);
+    obliqueU(const EW& EW_i);
 
     /**
      * @return the oblique parameter U

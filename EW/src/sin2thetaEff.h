@@ -1,8 +1,6 @@
 /* 
  * File:   sin2thetaEff.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:45 PM
  */
 
 #ifndef SIN2THETAEFF_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief sin2thetaEff constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    sin2thetaEff(const EW& myEW);
+    sin2thetaEff(const EW& EW_i);
 
     /**
      * @return the effective weak mixing angle for a leptonic channel

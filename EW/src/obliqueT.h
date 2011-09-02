@@ -1,8 +1,6 @@
 /* 
  * File:   obliqueT.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:46 PM
  */
 
 #ifndef OBLIQUET_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief obliqueT constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    obliqueT(const EW& myEW);
+    obliqueT(const EW& EW_i);
 
     /**
      * @return the oblique parameter T

@@ -1,8 +1,6 @@
 /* 
  * File:   sin2thetaEff.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:45 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "sin2thetaEff.h"
 
-sin2thetaEff::sin2thetaEff(const EW& myEW) : ThObservable(myEW) {
+sin2thetaEff::sin2thetaEff(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double sin2thetaEff::getThValue() {   

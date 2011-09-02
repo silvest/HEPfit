@@ -1,8 +1,6 @@
 /* 
  * File:   obliqueThat.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:47 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "obliqueThat.h"
 
-obliqueThat::obliqueThat(const EW& myEW) : ThObservable(myEW) {
+obliqueThat::obliqueThat(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double obliqueThat::getThValue() {   

@@ -1,8 +1,6 @@
 /* 
  * File:   Rbottom.cpp
  * Author: mishima
- * 
- * Created on June 9, 2011, 3:44 PM
  */
 
 #include <cstdlib>
@@ -11,7 +9,7 @@
 #include <cmath>
 #include "Rbottom.h"
 
-Rbottom::Rbottom(const EW& myEW) : ThObservable(myEW) {
+Rbottom::Rbottom(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double Rbottom::getThValue() {   

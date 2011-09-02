@@ -1,8 +1,6 @@
 /* 
  * File:   obliqueThat.h
  * Author: mishima
- *
- * Created on June 9, 2011, 3:47 PM
  */
 
 #ifndef OBLIQUETHAT_H
@@ -16,9 +14,9 @@ public:
 
     /**
      * @brief obliqueThat constructor
-     * @param[in] myEW an object of EW class
+     * @param[in] EW_i an object of EW class
      */
-    obliqueThat(const EW& myEW);
+    obliqueThat(const EW& EW_i);
 
     /**
      * @return the oblique parameter T-hat
