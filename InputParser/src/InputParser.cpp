@@ -9,17 +9,13 @@
 
 InputParser::InputParser() {
     myModel = NULL;
-    myFlavour = NULL;
-    myEW = NULL;
     myModelMatching = NULL;
     thf = NULL;
 }
 
 InputParser::InputParser(const InputParser& orig) {
     myModel = new StandardModel(*orig.myModel);
-    myFlavour = new Flavour(*orig.myFlavour);
     myModelMatching = new StandardModelMatching(*orig.myModelMatching);
-    myEW = new EW(*orig.myEW);
     thf = new ThFactory(*orig.thf);
 }
 
@@ -28,10 +24,6 @@ InputParser::~InputParser() {
         delete myModel;
     if (myModelMatching != NULL)
         delete myModelMatching;
-    if (myFlavour != NULL)
-        delete myFlavour;
-    if (myEW != NULL)
-        delete myEW;    
     if (thf != NULL)
         delete thf;
 }

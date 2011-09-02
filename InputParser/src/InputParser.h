@@ -44,8 +44,6 @@ public:
 private:
     StandardModel* myModel; 
     StandardModelMatching* myModelMatching;
-    Flavour* myFlavour;
-    EW* myEW;
     ThFactory* thf;
 };
 
