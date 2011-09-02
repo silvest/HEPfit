@@ -16,7 +16,7 @@ class SJPsiK : public ThObservable, AmpDB2 {
 public:
     SJPsiK(Flavour& Flavour) : ThObservable(Flavour), AmpDB2(Flavour) {};
 
-    virtual double getThValue() {
+    double getThValue() {
         return sin(-AmpBd(NLO).arg());
     };
 };

@@ -71,47 +71,47 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a
 
-${OBJECTDIR}/src/Vcb.o: src/Vcb.cpp 
+${OBJECTDIR}/src/Vcb.o: nbproject/Makefile-${CND_CONF}.mk src/Vcb.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../Utils/src -I./src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Vcb.o src/Vcb.cpp
 
-${OBJECTDIR}/src/Vus.o: src/Vus.cpp 
+${OBJECTDIR}/src/Vus.o: nbproject/Makefile-${CND_CONF}.mk src/Vus.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../Utils/src -I./src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Vus.o src/Vus.cpp
 
-${OBJECTDIR}/src/HeffDF2.o: src/HeffDF2.cpp 
+${OBJECTDIR}/src/HeffDF2.o: nbproject/Makefile-${CND_CONF}.mk src/HeffDF2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../Utils/src -I./src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/HeffDF2.o src/HeffDF2.cpp
 
-${OBJECTDIR}/src/Vub.o: src/Vub.cpp 
+${OBJECTDIR}/src/Vub.o: nbproject/Makefile-${CND_CONF}.mk src/Vub.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../Utils/src -I./src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Vub.o src/Vub.cpp
 
-${OBJECTDIR}/src/alpha_2a.o: src/alpha_2a.cpp 
+${OBJECTDIR}/src/alpha_2a.o: nbproject/Makefile-${CND_CONF}.mk src/alpha_2a.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../Utils/src -I./src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/alpha_2a.o src/alpha_2a.cpp
 
-${OBJECTDIR}/src/alpha.o: src/alpha.cpp 
+${OBJECTDIR}/src/alpha.o: nbproject/Makefile-${CND_CONF}.mk src/alpha.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../Utils/src -I./src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/alpha.o src/alpha.cpp
 
-${OBJECTDIR}/src/Vud.o: src/Vud.cpp 
+${OBJECTDIR}/src/Vud.o: nbproject/Makefile-${CND_CONF}.mk src/Vud.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../Utils/src -I./src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Vud.o src/Vud.cpp
 
-${OBJECTDIR}/src/AmpDB2.o: src/AmpDB2.cpp 
+${OBJECTDIR}/src/AmpDB2.o: nbproject/Makefile-${CND_CONF}.mk src/AmpDB2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../Utils/src -I./src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AmpDB2.o src/AmpDB2.cpp
 
-${OBJECTDIR}/src/EvolDF2.o: src/EvolDF2.cpp 
+${OBJECTDIR}/src/EvolDF2.o: nbproject/Makefile-${CND_CONF}.mk src/EvolDF2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Observables/src -I../StandardModel/src -I../gslpp/src -I../Utils/src -I./src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EvolDF2.o src/EvolDF2.cpp
