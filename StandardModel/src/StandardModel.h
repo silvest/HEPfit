@@ -132,15 +132,15 @@ public:
      * @return @f$\alpha_s(M_Z)@f$
      */
     double getAlsMz() const {
-        return alsMz;
+        return AlsMz;
     }
 
     /**
      * set @f$\alpha_s(M_Z)@f$
-     * @param alsMz @f$\alpha_s(M_Z)@f$
+     * @param AlsMz @f$\alpha_s(M_Z)@f$
      */
-    void setAlsMz(double alsMz) {
-        this->alsMz = alsMz;
+    void setAlsMz(double AlsMz) {
+        this->AlsMz = AlsMz;
     }
 
     /**
@@ -179,16 +179,16 @@ public:
      *
      * @return the Z boson mass
      */
-    double getMZ() const {
-        return mZ;
+    double getMz() const {
+        return Mz;
     }
 
     /**
      * @brief set the Z boson mass
-     * @param mZ the Z boson mass
+     * @param Mz the Z boson mass
      */
-    void setMZ(double mZ) {
-        this->mZ = mZ;
+    void setMz(double Mz) {
+        this->Mz = Mz;
     }
 
     /**
@@ -207,9 +207,7 @@ public:
         this->mHl = mHl;
     }
 
-    virtual const double matchingScale() const {
-        return muw;
-    }
+    virtual const double matchingScale() const ;
 
     ////////////////////////////////////////////////////////////////////////
     
@@ -253,7 +251,7 @@ public:
 
 protected:
     matrix<complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
-    double GF, alsMz, ale, dAle5Mz, mZ, mHl, lambda, A, rhob, etab;
+    double GF, AlsMz, ale, dAle5Mz, Mz, mHl, lambda, A, rhob, etab;
     double muw, mub, muc;
     CKM myCKM;
     Particle leptons[6];

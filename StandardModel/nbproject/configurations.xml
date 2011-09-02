@@ -6,7 +6,6 @@
                    projectFiles="true">
       <itemPath>src/BParameter.h</itemPath>
       <itemPath>src/CKM.h</itemPath>
-      <itemPath>src/EWPOSM.h</itemPath>
       <itemPath>src/Meson.h</itemPath>
       <itemPath>src/Model.h</itemPath>
       <itemPath>src/OrderScheme.h</itemPath>
@@ -26,7 +25,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/CKM.cpp</itemPath>
-      <itemPath>src/EWPOSM.cpp</itemPath>
       <itemPath>src/Meson.cpp</itemPath>
       <itemPath>src/Model.cpp</itemPath>
       <itemPath>src/Particle.cpp</itemPath>
@@ -66,6 +64,7 @@
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>GNU|GNU</compilerSet>
+        <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
@@ -173,10 +172,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -237,10 +240,14 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>src</pElem>
           </incDir>
@@ -325,10 +332,14 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -364,10 +375,14 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
