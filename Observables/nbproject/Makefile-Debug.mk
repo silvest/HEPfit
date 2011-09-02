@@ -21,7 +21,7 @@ FC=gfortran
 AS=as
 
 # Macros
-CND_PLATFORM=GNU-MacOSX
+CND_PLATFORM=GNU-Linux-x86
 CND_CONF=Debug
 CND_DISTDIR=dist
 CND_BUILDDIR=build
@@ -68,32 +68,32 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a
 
-${OBJECTDIR}/src/Observable2D.o: src/Observable2D.cpp 
+${OBJECTDIR}/src/Observable2D.o: nbproject/Makefile-${CND_CONF}.mk src/Observable2D.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Observable2D.o src/Observable2D.cpp
 
-${OBJECTDIR}/src/Observable.o: src/Observable.cpp 
+${OBJECTDIR}/src/Observable.o: nbproject/Makefile-${CND_CONF}.mk src/Observable.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Observable.o src/Observable.cpp
 
-${OBJECTDIR}/src/ModelParameter.o: src/ModelParameter.cpp 
+${OBJECTDIR}/src/ModelParameter.o: nbproject/Makefile-${CND_CONF}.mk src/ModelParameter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ModelParameter.o src/ModelParameter.cpp
 
-${OBJECTDIR}/src/Likelihood.o: src/Likelihood.cpp 
+${OBJECTDIR}/src/Likelihood.o: nbproject/Makefile-${CND_CONF}.mk src/Likelihood.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Likelihood.o src/Likelihood.cpp
 
-${OBJECTDIR}/src/GaussianLikelihood.o: src/GaussianLikelihood.cpp 
+${OBJECTDIR}/src/GaussianLikelihood.o: nbproject/Makefile-${CND_CONF}.mk src/GaussianLikelihood.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/GaussianLikelihood.o src/GaussianLikelihood.cpp
 
-${OBJECTDIR}/src/ThObservable.o: src/ThObservable.cpp 
+${OBJECTDIR}/src/ThObservable.o: nbproject/Makefile-${CND_CONF}.mk src/ThObservable.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../Utils/src -I../gslpp/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThObservable.o src/ThObservable.cpp
