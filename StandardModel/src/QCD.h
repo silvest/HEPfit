@@ -117,7 +117,7 @@ public:
      * set the initial condition @f$\alpha_s(Mz)@f$
      * @param AlsMz the initial condition @f$\alpha_s(Mz)@f$
      */
-    void setAlsM(double AlsMz) {
+    void setAlsMz(double AlsMz) {
         this->AlsMz = AlsMz;
     }
 

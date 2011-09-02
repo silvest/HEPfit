@@ -20,8 +20,7 @@ using namespace gslpp;
  */
 class StandardModel: public QCD {
 public:
-    enum lepton {NEUTRINO_1,ELECTRON,NEUTRINO_2,MU,
-    NEUTRINO_3,TAU};
+    enum lepton {NEUTRINO_1,ELECTRON,NEUTRINO_2,MU,NEUTRINO_3,TAU};
     static const int NSMvars = 17;
     static const std::string SMvars[NSMvars];
 
@@ -53,7 +52,7 @@ public:
     /**
      * @return the W boson mass, including radiative corrections
      */
-    virtual double mW() const;    
+    virtual double Mw() const;    
     
     ///////////////////////////////////////////////////////////////////////////
 
@@ -127,21 +126,21 @@ public:
         this->GF = GF;
     }
 
-   /**
-     *
-     * @return @f$\alpha_s(M_Z)@f$
-     */
-    double getAlsMz() const {
-        return AlsMz;
-    }
-
-    /**
-     * set @f$\alpha_s(M_Z)@f$
-     * @param AlsMz @f$\alpha_s(M_Z)@f$
-     */
-    void setAlsMz(double AlsMz) {
-        this->AlsMz = AlsMz;
-    }
+//   /**
+//     *
+//     * @return @f$\alpha_s(M_Z)@f$
+//     */
+//    double getAlsMz() const {
+//        return AlsMz;
+//    }
+//
+//    /**
+//     * set @f$\alpha_s(M_Z)@f$
+//     * @param AlsMz @f$\alpha_s(M_Z)@f$
+//     */
+//    void setAlsMz(double AlsMz) {
+//        this->AlsMz = AlsMz;
+//    }
 
     /**
      *
@@ -175,21 +174,21 @@ public:
         this->dAle5Mz = dAle5Mz;
     }
 
-    /**
-     *
-     * @return the Z boson mass
-     */
-    double getMz() const {
-        return Mz;
-    }
-
-    /**
-     * @brief set the Z boson mass
-     * @param Mz the Z boson mass
-     */
-    void setMz(double Mz) {
-        this->Mz = Mz;
-    }
+//    /**
+//     *
+//     * @return the Z boson mass
+//     */
+//    double getMz() const {
+//        return Mz;
+//    }
+//
+//    /**
+//     * @brief set the Z boson mass
+//     * @param Mz the Z boson mass
+//     */
+//    void setMz(double Mz) {
+//        this->Mz = Mz;
+//    }
 
     /**
      *
@@ -251,7 +250,8 @@ public:
 
 protected:
     matrix<complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
-    double GF, AlsMz, ale, dAle5Mz, Mz, mHl, lambda, A, rhob, etab;
+    //double AlsMz, Mz;
+    double GF, ale, dAle5Mz, mHl, lambda, A, rhob, etab;
     double muw, mub, muc;
     CKM myCKM;
     Particle leptons[6];
