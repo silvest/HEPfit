@@ -1,48 +1,99 @@
 /* 
  * File:   ZFitterTest-2.cpp
  * Author: mishima
- *
- * Created on Feb 21, 2011, 5:00:52 AM
  */
 
 /*
  *  Test for Table 6.1 in hep-ph/0507146
- *
  */
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <iostream>
 #include <iomanip>
 #include <cstring>
 #include <cmath>
-#include "../src/ZFitter.h"
+#include <StandardModel.h>
+#include "ZFitter.h"
+#include "ZFitterObservables.h"
+
+
+void setSMparameters(StandardModel& SM_i) {
+    std::map<std::string, double> Parameters;
+    // 17 parameters defined in StandardModel
+    Parameters["GF"] = 1.16637E-5;
+    Parameters["mneutrino_1"] = 0.0;
+    Parameters["mneutrino_2"] = 0.0;
+    Parameters["mneutrino_3"] = 0.0;
+    Parameters["melectron"] = 0.54857990943e-3;
+    Parameters["mmu"] = 0.1134289256;
+    Parameters["mtau"] = 1.77682;
+    Parameters["lambda"] = 0.2253;
+    Parameters["A"] = 0.808;
+    Parameters["rhob"] = 0.132;
+    Parameters["etab"] = 0.341;
+    Parameters["ale"] = 1.0/137.035999679;
+    //Parameters["dAle5Mz"] = 0.02758;
+    //Parameters["mHl"] = 130.0;
+    Parameters["muw"] = 0.0;
+    Parameters["mub"] = 0.0;
+    Parameters["muc"] = 0.0;
+    // 26 parameters defined in QCD    
+    //Parameters["AlsMz"] = 0.1184;
+    //Parameters["Mz"] = 91.1876;
+    Parameters["mup"] = 0.003;
+    Parameters["mdown"] = 0.007;
+    Parameters["mcharm"] = 1.5;
+    Parameters["mstrange"] = 0.1;
+    //Parameters["mtop"] = 174.0;
+    Parameters["mbottom"] = 4.28;
+    Parameters["mut"] = 0.0;
+    Parameters["mub"] = 0.0;
+    Parameters["muc"] = 0.0;
+    Parameters["MBd"] = 0.0;
+    Parameters["MBs"] = 0.0;
+    Parameters["MBp"] = 0.0;
+    Parameters["MK0"] = 0.0;
+    Parameters["MKp"] = 0.0;
+    Parameters["FBs"] = 0.0;
+    Parameters["FBsoFBd"] = 0.0;
+    Parameters["BBsoBBd"] = 0.0;
+    Parameters["BBs1"] = 0.0;
+    Parameters["BBs2"] = 0.0;
+    Parameters["BBs3"] = 0.0;
+    Parameters["BBs4"] = 0.0;
+    Parameters["BBs5"] = 0.0;
+    Parameters["BBsscale"] = 0.0;
+    Parameters["BBsscheme"] = 0.0;
+
+    /* TEST for Table 6.1 in hep-ph/0507146*/
+    Parameters["Mz"] = 91.1875;
+    Parameters["mtop"] = 175.0;    
+    Parameters["mHl"] = 150.0;
+    Parameters["AlsMz"] = 0.118;
+    Parameters["dAle5Mz"] = 0.02758;
+    
+    SM_i.Init(Parameters);
+}
 
 
 int main(int argc, char** argv) {
  
-    /* set parameters */
-    double mZ = 91.1875;
-    double mt = 175.0;
-    double mh = 150.0;
-    double alphas = 0.118;
-    double dalpha5h = 0.02758;
-    double vtb = 1.0;
-    double mu_constituent = 0.1;
-    double md_constituent = 0.1;
-
+    StandardModel* myModel;
+    myModel = new StandardModel();
+    setSMparameters(*myModel);
+    
     /* call a constructor of ZFitter with the above parameters (essential)
      * set flags and cuts to be their defalut values */
-    ZFitter ZF(mZ, mt, mh, alphas, dalpha5h, vtb,
-               mu_constituent, md_constituent);
-
+    ZFitterObservables ZFO(*myModel);
+    
     int indexFermion;
 
-    /* sqrt(s) = mZ */
-    double sqrt_s = ZF.getZMASS();
-    double s = sqrt_s*sqrt_s;
+    /* sqrt(s) = Mz */
+    //double sqrt_s = ZFO.getZMASS();
+    //double s = sqrt_s*sqrt_s;
 
     /* print input parameters (not essential) */
-    ZF.printInputs();
+    ZFO.printInputs();
 
     /* set flags (not necessary if using the default flags) */
     // default: AMT4=4, ALEM=3
@@ -61,7 +112,7 @@ int main(int argc, char** argv) {
                      FTJR, EXPR, EXPF, HIGS, AFMT, CZAK, PREC, HIG2, ALE2, GFER,
                      ISPP, FSRS, MISC, MISD, IPFC, IPSC, IPTO, FBHO, FSPP, FUNA,
                      ASCR, SFSR, ENUE, TUPV, DMWW, DSWW};
-    ZF.setAllFlags(flags, 1);
+    ZFO.setAllFlags(flags, 1);
 
     /* set cuts (not necessary if using the default cuts) */
     /*
@@ -83,20 +134,20 @@ int main(int argc, char** argv) {
     ANG0[11] = 35.0;
     ANG1[11] = 145.0;
     SPP[11]  = 0.0;
-    ZF.setAllCuts(ICUT, ACOL, EMIN, S_PR, ANG0, ANG1, SPP, 1);
+    ZFO.setAllCuts(ICUT, ACOL, EMIN, S_PR, ANG0, ANG1, SPP, 1);
     std::cout << std::endl;
      */
 
     /* calculate EW common blocks (necessary before computing observables) */
-    ZF.calcCommonBlocks();
+    ZFO.calcCommonBlocks();
     std::cout << std::endl;
 
     /* ptint constants defiend in ZFITTER */
-    ZF.printConstants();
+    ZFO.printConstants();
 
     /* calcualte and print EW precision obserbables */
     std::cout << "###  see Table 6.1 in hep-ph/0507146  ###" << std::endl;
-    ZF.printPO();
+    ZFO.printPO();
 
     return (EXIT_SUCCESS);
 }
