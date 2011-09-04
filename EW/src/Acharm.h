@@ -9,6 +9,7 @@
 #include <ThObservable.h>
 #include "EW.h"
 
+
 class Acharm : public ThObservable {
 public:
 
@@ -23,8 +24,10 @@ public:
      */
     double getThValue();
 
+    
 private:
-
+    double A_c;
+    
 };
 
 #endif	/* ACHARM_H */

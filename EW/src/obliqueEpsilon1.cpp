@@ -3,21 +3,18 @@
  * Author: mishima
  */
 
-#include <cstdlib>
-#include <iostream>
-#include <iomanip>
 #include <cmath>
 #include "obliqueEpsilon1.h"
 
+
 obliqueEpsilon1::obliqueEpsilon1(const EW& EW_i) : ThObservable(EW_i) {
+    double DeltaRhoPrime;
+    DeltaRhoPrime = 2.0*(sqrt(EW_i.getRhoZ_l(SM.ELECTRON).real()) - 1.0);
+    epsilon_1 = DeltaRhoPrime;
 }
 
 double obliqueEpsilon1::getThValue() {   
-    
-    std::cout << "Write codes!" << std::endl;
-    exit(EXIT_FAILURE); 
-    
-    return (0.0);
+    return epsilon_1;
 }
         
 

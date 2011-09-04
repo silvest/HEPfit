@@ -3,21 +3,15 @@
  * Author: mishima
  */
 
-#include <cstdlib>
-#include <iostream>
-#include <iomanip>
-#include <cmath>
 #include "Rcharm.h"
 
+
 Rcharm::Rcharm(const EW& EW_i) : ThObservable(EW_i) {
+    R0_c = EW_i.Gamma_q(SM.CHARM)/EW_i.Gamma_had();
 }
 
 double Rcharm::getThValue() {   
-    
-    std::cout << "Write codes!" << std::endl;
-    exit(EXIT_FAILURE); 
-    
-    return (0.0);
+    return R0_c;
 }
         
 

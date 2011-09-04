@@ -9,6 +9,7 @@
 #include <ThObservable.h>
 #include "EW.h"
 
+
 class Rbottom : public ThObservable {
 public:
 
@@ -23,7 +24,9 @@ public:
      */
     double getThValue();
 
+    
 private:
+    double R0_b;
 
 };
 

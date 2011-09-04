@@ -9,6 +9,7 @@
 #include <ThObservable.h>
 #include "EW.h"
 
+
 class sigmaHadron : public ThObservable {
 public:
 
@@ -23,8 +24,10 @@ public:
      */
     double getThValue();
 
-private:
 
+private:
+    double sigma_had;
+    
 };
 
 #endif	/* SIGMAHADRON_H */

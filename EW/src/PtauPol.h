@@ -9,6 +9,7 @@
 #include <ThObservable.h>
 #include "EW.h"
 
+
 class PtauPol : public ThObservable {
 public:
 
@@ -23,8 +24,10 @@ public:
      */
     double getThValue();
 
+    
 private:
-
+    double P_tau_pol;
+    
 };
 
 #endif	/* PTAUPOL_H */

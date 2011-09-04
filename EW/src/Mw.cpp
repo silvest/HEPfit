@@ -3,21 +3,14 @@
  * Author: mishima
  */
 
-#include <cstdlib>
-#include <iostream>
-#include <iomanip>
-#include <cmath>
 #include "Mw.h"
 
+
 Mw::Mw(const EW& EW_i) : ThObservable(EW_i) {
+    myMw = EW_i.getMw();
 }
 
 double Mw::getThValue() {   
-    
-    std::cout << "Write codes!" << std::endl;
-    exit(EXIT_FAILURE); 
-    
-    return (0.0);
+    return myMw;
 }
-        
 

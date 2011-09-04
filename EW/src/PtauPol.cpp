@@ -3,20 +3,14 @@
  * Author: mishima
  */
 
-#include <cstdlib>
-#include <iostream>
-#include <iomanip>
-#include <cmath>
 #include "PtauPol.h"
 
+
 PtauPol::PtauPol(const EW& EW_i) : ThObservable(EW_i) {
+    P_tau_pol = EW_i.A_l(SM.TAU);
 }
 
 double PtauPol::getThValue() {   
-    
-    std::cout << "Write codes!" << std::endl;
-    exit(EXIT_FAILURE); 
-    
-    return (0.0);
+    return P_tau_pol;
 }
         

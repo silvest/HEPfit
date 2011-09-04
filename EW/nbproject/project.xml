@@ -11,7 +11,6 @@
             <make-dep-projects>
                 <make-dep-project>../EWSM</make-dep-project>
                 <make-dep-project>../ZFitter</make-dep-project>
-                <make-dep-project>../Utils</make-dep-project>
                 <make-dep-project>../gslpp</make-dep-project>
                 <make-dep-project>../ZFitter6_43</make-dep-project>
                 <make-dep-project>../Observables</make-dep-project>

@@ -9,12 +9,13 @@
 #include <cmath>
 #include "obliqueY.h"
 
+
 obliqueY::obliqueY(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double obliqueY::getThValue() {   
     
-    std::cout << "Write codes!" << std::endl;
+    std::cout << "Write codes for obliqueY::getThValue()!" << std::endl;
     exit(EXIT_FAILURE); 
     
     return (0.0);

@@ -9,6 +9,7 @@
 #include <ThObservable.h>
 #include "EW.h"
 
+
 class obliqueShat : public ThObservable {
 public:
 
@@ -22,6 +23,7 @@ public:
      * @return the oblique parameter S-hat
      */
     double getThValue();
+
 
 private:
 

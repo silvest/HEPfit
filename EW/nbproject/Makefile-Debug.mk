@@ -17,7 +17,7 @@ RANLIB=ranlib
 CC=gcc
 CCC=g++
 CXX=g++
-FC=gfortran
+FC=gfortran-mp-4.5
 AS=as
 
 # Macros
@@ -35,8 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/Alepton.o \
-	${OBJECTDIR}/src/AFBcharm.o \
 	${OBJECTDIR}/src/obliqueShat.o \
+	${OBJECTDIR}/src/AFBcharm.o \
 	${OBJECTDIR}/src/Acharm.o \
 	${OBJECTDIR}/src/PtauPol.o \
 	${OBJECTDIR}/src/Rlepton.o \
@@ -44,8 +44,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/obliqueS.o \
 	${OBJECTDIR}/src/Rbottom.o \
 	${OBJECTDIR}/src/obliqueY.o \
-	${OBJECTDIR}/src/obliqueT.o \
 	${OBJECTDIR}/src/obliqueW.o \
+	${OBJECTDIR}/src/obliqueT.o \
 	${OBJECTDIR}/src/sigmaHadron.o \
 	${OBJECTDIR}/src/obliqueThat.o \
 	${OBJECTDIR}/src/GammaZ.o \
@@ -76,7 +76,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=
+LDLIBSOPTIONS=-lcppunit ../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a ../Observables/dist/Debug/GNU-MacOSX/libobservables.a ../StandardModel/dist/Debug/GNU-MacOSX/libstandardmodel.a
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -91,132 +91,132 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a: ${OBJECTFILES}
 ${OBJECTDIR}/src/Alepton.o: src/Alepton.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Alepton.o src/Alepton.cpp
-
-${OBJECTDIR}/src/AFBcharm.o: src/AFBcharm.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AFBcharm.o src/AFBcharm.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Alepton.o src/Alepton.cpp
 
 ${OBJECTDIR}/src/obliqueShat.o: src/obliqueShat.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueShat.o src/obliqueShat.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueShat.o src/obliqueShat.cpp
+
+${OBJECTDIR}/src/AFBcharm.o: src/AFBcharm.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AFBcharm.o src/AFBcharm.cpp
 
 ${OBJECTDIR}/src/Acharm.o: src/Acharm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Acharm.o src/Acharm.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Acharm.o src/Acharm.cpp
 
 ${OBJECTDIR}/src/PtauPol.o: src/PtauPol.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PtauPol.o src/PtauPol.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PtauPol.o src/PtauPol.cpp
 
 ${OBJECTDIR}/src/Rlepton.o: src/Rlepton.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Rlepton.o src/Rlepton.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Rlepton.o src/Rlepton.cpp
 
 ${OBJECTDIR}/src/Mw.o: src/Mw.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Mw.o src/Mw.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Mw.o src/Mw.cpp
 
 ${OBJECTDIR}/src/obliqueS.o: src/obliqueS.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueS.o src/obliqueS.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueS.o src/obliqueS.cpp
 
 ${OBJECTDIR}/src/Rbottom.o: src/Rbottom.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Rbottom.o src/Rbottom.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Rbottom.o src/Rbottom.cpp
 
 ${OBJECTDIR}/src/obliqueY.o: src/obliqueY.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueY.o src/obliqueY.cpp
-
-${OBJECTDIR}/src/obliqueT.o: src/obliqueT.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueT.o src/obliqueT.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueY.o src/obliqueY.cpp
 
 ${OBJECTDIR}/src/obliqueW.o: src/obliqueW.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueW.o src/obliqueW.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueW.o src/obliqueW.cpp
+
+${OBJECTDIR}/src/obliqueT.o: src/obliqueT.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueT.o src/obliqueT.cpp
 
 ${OBJECTDIR}/src/sigmaHadron.o: src/sigmaHadron.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/sigmaHadron.o src/sigmaHadron.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/sigmaHadron.o src/sigmaHadron.cpp
 
 ${OBJECTDIR}/src/obliqueThat.o: src/obliqueThat.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueThat.o src/obliqueThat.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueThat.o src/obliqueThat.cpp
 
 ${OBJECTDIR}/src/GammaZ.o: src/GammaZ.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/GammaZ.o src/GammaZ.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/GammaZ.o src/GammaZ.cpp
 
 ${OBJECTDIR}/src/AFBbottom.o: src/AFBbottom.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AFBbottom.o src/AFBbottom.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AFBbottom.o src/AFBbottom.cpp
 
 ${OBJECTDIR}/src/GammaW.o: src/GammaW.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/GammaW.o src/GammaW.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/GammaW.o src/GammaW.cpp
 
 ${OBJECTDIR}/src/obliqueEpsilon1.o: src/obliqueEpsilon1.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueEpsilon1.o src/obliqueEpsilon1.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueEpsilon1.o src/obliqueEpsilon1.cpp
 
 ${OBJECTDIR}/src/Rcharm.o: src/Rcharm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Rcharm.o src/Rcharm.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Rcharm.o src/Rcharm.cpp
 
 ${OBJECTDIR}/src/sin2thetaEff.o: src/sin2thetaEff.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/sin2thetaEff.o src/sin2thetaEff.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/sin2thetaEff.o src/sin2thetaEff.cpp
 
 ${OBJECTDIR}/src/obliqueEpsilon3.o: src/obliqueEpsilon3.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueEpsilon3.o src/obliqueEpsilon3.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueEpsilon3.o src/obliqueEpsilon3.cpp
 
 ${OBJECTDIR}/src/EW.o: src/EW.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EW.o src/EW.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EW.o src/EW.cpp
 
 ${OBJECTDIR}/src/obliqueU.o: src/obliqueU.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueU.o src/obliqueU.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueU.o src/obliqueU.cpp
 
 ${OBJECTDIR}/src/Abottom.o: src/Abottom.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Abottom.o src/Abottom.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Abottom.o src/Abottom.cpp
 
 ${OBJECTDIR}/src/AFBlepton.o: src/AFBlepton.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AFBlepton.o src/AFBlepton.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AFBlepton.o src/AFBlepton.cpp
 
 ${OBJECTDIR}/src/obliqueEpsilon2.o: src/obliqueEpsilon2.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Utils/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueEpsilon2.o src/obliqueEpsilon2.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../EWSM/src -I../ZFitter/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueEpsilon2.o src/obliqueEpsilon2.cpp
 
 # Subprojects
 .build-subprojects:

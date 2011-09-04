@@ -9,12 +9,13 @@
 #include <cmath>
 #include "GammaW.h"
 
+
 GammaW::GammaW(const EW& EW_i) : ThObservable(EW_i) {
 }
 
 double GammaW::getThValue() {   
     
-    std::cout << "Write codes!" << std::endl;
+    std::cout << "Write codes for GammaW::getThValue()!" << std::endl;
     exit(EXIT_FAILURE); 
     
     return (0.0);

@@ -23,6 +23,8 @@ public:
     enum schemes_EW {NORESUM=0, OMSI, INTERMEDIATE, OMSII, schemes_EW_size};    
     
     
+    //////////////////////////////////////////////////////////////////////// 
+        
     /**
      * @brief EW constructor
      * @param[in] SM_i an object of StandardModel class
@@ -44,12 +46,12 @@ public:
     //////////////////////////////////////////////////////////////////////// 
 
     /**
-     * @return a reference to an EWSM object
+     * @return a reference to the EWSM object in EW class
      */
     const EWSM& getEWSM() const { return this->myEWSM; }
     
     /**
-     * @return a reference to a ZFitter object
+     * @return a reference to the ZFitter object in EW class
      */
     const ZFitter& getZFitter() const { return this->myZFitter; }
     
@@ -107,7 +109,7 @@ public:
 
     
     ////////////////////////////////////////////////////////////////////////     
-    
+        
     /**
      * @brief computes M_W and the effective weak couplings
      */
@@ -117,6 +119,83 @@ public:
      * @brief computes M_W and the effective weak couplings with ZFITTER
      */
     void ComputeZFitter();
+    
+
+    //////////////////////////////////////////////////////////////////////// 
+
+    /**
+     * @param[in] l name of a lepton
+     * @return electric charge of lepton "l"
+     */
+    double Qf(const StandardModel::lepton l) const;
+    
+    /**
+     * @param[in] q name of a quark
+     * @return electric charge of quark "q"
+     */
+    double Qf(const StandardModel::quark q) const;
+    
+    /**
+     * @param[in] l name of a lepton
+     * @return the effective mixing angle for lepton "l"
+     */
+    double sin2thetaEff(const StandardModel::lepton l) const;
+    
+     /**
+     * @param[in] q name of a quark
+     * @return the effective mixing angle for quark "q"
+     */
+    double sin2thetaEff(const StandardModel::quark q) const;   
+    
+    /**
+     * @param[in] l name of a lepton
+     * @return the partial width of Z decay into an l\bar{l} pair 
+     */
+    double Gamma_l(const StandardModel::lepton l) const;
+        
+    /**
+     * @param[in] q name of a quark
+     * @return the partial width of Z decay into a q\bar{q} pair 
+     */
+    double Gamma_q(const StandardModel::quark q) const;
+        
+    /**
+     * @return the partial width of Z decay into neutrinos
+     */
+    double Gamma_inv() const;
+
+    /**
+     * @return the hadronic width of the Z boson
+     */
+    double Gamma_had() const;
+
+    /**
+     * @return the total width of the Z boson
+     */
+    double Gamma_Z() const;
+    
+    /**
+     * @param[in] l name of a lepton
+     * @return the cross section for e^+e^- -> Z -> l\bar{l}
+     */
+    double sigma0_l(const StandardModel::lepton l) const;
+
+    /**
+     * @return the cross section e^+e^- -> Z -> hadrons
+     */
+    double sigma0_had() const; 
+ 
+    /**
+     * @param[in] l name of a lepton
+     * @return asymmetry parameter for Z->l\bar{l}
+     */
+    double A_l(const StandardModel::lepton l) const;
+
+    /**
+     * @param[in] q name of a quark
+     * @return asymmetry parameter for Z->q\bar{q}
+     */
+    double A_q(const StandardModel::quark q) const;
     
     
     ////////////////////////////////////////////////////////////////////////     
@@ -129,6 +208,8 @@ private:
     double Mw;
     complex rhoZ_l[6], rhoZ_q[6];
     complex kappaZ_l[6], kappaZ_q[6];
+    
+    double mcMz, mbMz;
     
 };
 

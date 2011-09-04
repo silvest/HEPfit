@@ -9,6 +9,7 @@
 #include <ThObservable.h>
 #include "EW.h"
 
+
 class obliqueEpsilon2 : public ThObservable {
 public:
 
@@ -23,8 +24,10 @@ public:
      */
     double getThValue();
 
+    
 private:
-
+    double epsilon_2;
+    
 };
 
 #endif	/* OBLIQUEEPSILON2_H */

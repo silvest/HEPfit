@@ -9,6 +9,7 @@
 #include <ThObservable.h>
 #include "EW.h"
 
+
 class AFBcharm : public ThObservable {
 public:
 
@@ -23,7 +24,9 @@ public:
      */
     double getThValue();
 
+    
 private:
+    double AFB_c;
 
 };
 
