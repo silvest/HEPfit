@@ -188,61 +188,61 @@ void ZFitter::calcCommonBlocks() {
     alphaMZ = calqed_.ALQEDZ;
     Mw = ZMASS*sqrt(1.0 - getCommonSIN2TW());
   
-    rhoZ_l[SM.NEUTRINO_1].real() = getCommonARROFZ(0);
-    rhoZ_l[SM.ELECTRON].real() = getCommonARROFZ(1);
-    rhoZ_l[SM.NEUTRINO_2].real() = getCommonARROFZ(0);
-    rhoZ_l[SM.MU].real() = getCommonARROFZ(2);
-    rhoZ_l[SM.NEUTRINO_3].real() = getCommonARROFZ(0);
-    rhoZ_l[SM.TAU].real() = getCommonARROFZ(3);            
+    rhoZ_l[SM.NEUTRINO_1].real() = getCommonAROTFZ(0);
+    rhoZ_l[SM.ELECTRON].real() = getCommonAROTFZ(1);
+    rhoZ_l[SM.NEUTRINO_2].real() = getCommonAROTFZ(0);
+    rhoZ_l[SM.MU].real() = getCommonAROTFZ(2);
+    rhoZ_l[SM.NEUTRINO_3].real() = getCommonAROTFZ(0);
+    rhoZ_l[SM.TAU].real() = getCommonAROTFZ(3);            
 
-    rhoZ_l[SM.NEUTRINO_1].imag() = getCommonAROTFZ(0);    
-    rhoZ_l[SM.ELECTRON].imag() = getCommonAROTFZ(1);
-    rhoZ_l[SM.NEUTRINO_2].imag() = getCommonAROTFZ(0);
-    rhoZ_l[SM.MU].imag() = getCommonAROTFZ(2);
-    rhoZ_l[SM.NEUTRINO_3].imag() = getCommonAROTFZ(0);
-    rhoZ_l[SM.TAU].imag() = getCommonAROTFZ(3);            
+    rhoZ_l[SM.NEUTRINO_1].imag() = getCommonAIROFZ(0);    
+    rhoZ_l[SM.ELECTRON].imag() = getCommonAIROFZ(1);
+    rhoZ_l[SM.NEUTRINO_2].imag() = getCommonAIROFZ(0);
+    rhoZ_l[SM.MU].imag() = getCommonAIROFZ(2);
+    rhoZ_l[SM.NEUTRINO_3].imag() = getCommonAIROFZ(0);
+    rhoZ_l[SM.TAU].imag() = getCommonAIROFZ(3);            
     
-    rhoZ_q[SM.UP].real() = getCommonARROFZ(4);
-    rhoZ_q[SM.DOWN].real() = getCommonARROFZ(5);
-    rhoZ_q[SM.CHARM].real() = getCommonARROFZ(6);
-    rhoZ_q[SM.STRANGE].real() = getCommonARROFZ(7);
+    rhoZ_q[SM.UP].real() = getCommonAROTFZ(4);
+    rhoZ_q[SM.DOWN].real() = getCommonAROTFZ(5);
+    rhoZ_q[SM.CHARM].real() = getCommonAROTFZ(6);
+    rhoZ_q[SM.STRANGE].real() = getCommonAROTFZ(7);
     rhoZ_q[SM.TOP].real() = 0.0;
-    rhoZ_q[SM.BOTTOM].real() = getCommonARROFZ(9);
+    rhoZ_q[SM.BOTTOM].real() = getCommonAROTFZ(9);
     
-    rhoZ_q[SM.UP].imag() = getCommonAROTFZ(4);
-    rhoZ_q[SM.DOWN].imag() = getCommonAROTFZ(5);
-    rhoZ_q[SM.CHARM].imag() = getCommonAROTFZ(6);
-    rhoZ_q[SM.STRANGE].imag() = getCommonAROTFZ(7);
+    rhoZ_q[SM.UP].imag() = getCommonAIROFZ(4);
+    rhoZ_q[SM.DOWN].imag() = getCommonAIROFZ(5);
+    rhoZ_q[SM.CHARM].imag() = getCommonAIROFZ(6);
+    rhoZ_q[SM.STRANGE].imag() = getCommonAIROFZ(7);
     rhoZ_q[SM.TOP].imag() = 0.0;
-    rhoZ_q[SM.BOTTOM].imag() = getCommonAROTFZ(9);    
+    rhoZ_q[SM.BOTTOM].imag() = getCommonAIROFZ(9);    
     
-    kappaZ_l[SM.NEUTRINO_1].real() = getCommonAIVEFZ(0);
-    kappaZ_l[SM.ELECTRON].real() = getCommonAIVEFZ(1);
-    kappaZ_l[SM.NEUTRINO_2].real() = getCommonAIVEFZ(0);
-    kappaZ_l[SM.MU].real() = getCommonAIVEFZ(2);
-    kappaZ_l[SM.NEUTRINO_3].real() = getCommonAIVEFZ(0);
-    kappaZ_l[SM.TAU].real() = getCommonAIVEFZ(3);            
+    kappaZ_l[SM.NEUTRINO_1].real() = getCommonARKAFZ(0);
+    kappaZ_l[SM.ELECTRON].real() = getCommonARKAFZ(1);
+    kappaZ_l[SM.NEUTRINO_2].real() = getCommonARKAFZ(0);
+    kappaZ_l[SM.MU].real() = getCommonARKAFZ(2);
+    kappaZ_l[SM.NEUTRINO_3].real() = getCommonARKAFZ(0);
+    kappaZ_l[SM.TAU].real() = getCommonARKAFZ(3);            
 
-    kappaZ_l[SM.NEUTRINO_1].imag() = getCommonARKAFZ(0);    
-    kappaZ_l[SM.ELECTRON].imag() = getCommonARKAFZ(1);
-    kappaZ_l[SM.NEUTRINO_2].imag() = getCommonARKAFZ(0);
-    kappaZ_l[SM.MU].imag() = getCommonARKAFZ(2);
-    kappaZ_l[SM.NEUTRINO_3].imag() = getCommonARKAFZ(0);
-    kappaZ_l[SM.TAU].imag() = getCommonARKAFZ(3);            
+    kappaZ_l[SM.NEUTRINO_1].imag() = getCommonAIKAFZ(0);    
+    kappaZ_l[SM.ELECTRON].imag() = getCommonAIKAFZ(1);
+    kappaZ_l[SM.NEUTRINO_2].imag() = getCommonAIKAFZ(0);
+    kappaZ_l[SM.MU].imag() = getCommonAIKAFZ(2);
+    kappaZ_l[SM.NEUTRINO_3].imag() = getCommonAIKAFZ(0);
+    kappaZ_l[SM.TAU].imag() = getCommonAIKAFZ(3);            
     
-    kappaZ_q[SM.UP].real() = getCommonAIVEFZ(4);
-    kappaZ_q[SM.DOWN].real() = getCommonAIVEFZ(5);
-    kappaZ_q[SM.CHARM].real() = getCommonAIVEFZ(6);
-    kappaZ_q[SM.STRANGE].real() = getCommonAIVEFZ(7);
+    kappaZ_q[SM.UP].real() = getCommonARKAFZ(4);
+    kappaZ_q[SM.DOWN].real() = getCommonARKAFZ(5);
+    kappaZ_q[SM.CHARM].real() = getCommonARKAFZ(6);
+    kappaZ_q[SM.STRANGE].real() = getCommonARKAFZ(7);
     kappaZ_q[SM.TOP].real() = 0.0;
-    kappaZ_q[SM.BOTTOM].real() = getCommonAIVEFZ(9);
+    kappaZ_q[SM.BOTTOM].real() = getCommonARKAFZ(9);
     
-    kappaZ_q[SM.UP].imag() = getCommonARKAFZ(4);
-    kappaZ_q[SM.DOWN].imag() = getCommonARKAFZ(5);
-    kappaZ_q[SM.CHARM].imag() = getCommonARKAFZ(6);
-    kappaZ_q[SM.STRANGE].imag() = getCommonARKAFZ(7);
+    kappaZ_q[SM.UP].imag() = getCommonAIKAFZ(4);
+    kappaZ_q[SM.DOWN].imag() = getCommonAIKAFZ(5);
+    kappaZ_q[SM.CHARM].imag() = getCommonAIKAFZ(6);
+    kappaZ_q[SM.STRANGE].imag() = getCommonAIKAFZ(7);
     kappaZ_q[SM.TOP].imag() = 0.0;
-    kappaZ_q[SM.BOTTOM].imag() = getCommonARKAFZ(9);    
+    kappaZ_q[SM.BOTTOM].imag() = getCommonAIKAFZ(9);    
 }
 
 
