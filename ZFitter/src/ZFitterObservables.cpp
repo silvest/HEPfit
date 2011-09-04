@@ -496,13 +496,15 @@ double ZFitterObservables::Delta_r() {
 ////////////////////////////////////////////////////////////////////////
 
 double ZFitterObservables::GF() const {
-    //return (1.166388e-5); // for GFER=0
-    //return (1.16639e-5);  // for GFER=1
-    return (1.16637e-5);  // for GFER=2
+    //return (1.166388e-5); // defined in ZFITTER codes for GFER=0
+    //return (1.16639e-5);  // defined in ZFITTER codes for GFER=1
+    return (1.16637e-5);  // defined in ZFITTER codes for GFER=2  
+    //return SM.getGF();
 }
 
 double ZFitterObservables::alpha() const {
-    return (1.0/137.0359895);
+    return (1.0/137.0359895); // defined in ZFITTER codes
+    //return SM.getAle();
 }
 
 

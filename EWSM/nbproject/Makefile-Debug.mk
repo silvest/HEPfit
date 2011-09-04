@@ -17,7 +17,7 @@ RANLIB=ranlib
 CC=gcc
 CCC=g++
 CXX=g++
-FC=gfortran
+FC=gfortran-mp-4.5
 AS=as
 
 # Macros
@@ -58,7 +58,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a ../Observables/dist/Debug/GNU-MacOSX/libobservables.a ../StandardModel/dist/Debug/GNU-MacOSX/libstandardmodel.a
+LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -73,42 +73,42 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libewsm.a: ${OBJECTFILES}
 ${OBJECTDIR}/src/TwoLoopQCD.o: src/TwoLoopQCD.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/TwoLoopQCD.o src/TwoLoopQCD.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/TwoLoopQCD.o src/TwoLoopQCD.cpp
 
 ${OBJECTDIR}/src/TwoLoopEW.o: src/TwoLoopEW.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/TwoLoopEW.o src/TwoLoopEW.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/TwoLoopEW.o src/TwoLoopEW.cpp
 
 ${OBJECTDIR}/src/ThreeLoopEW.o: src/ThreeLoopEW.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopEW.o src/ThreeLoopEW.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopEW.o src/ThreeLoopEW.cpp
 
 ${OBJECTDIR}/src/EWSM.o: src/EWSM.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSM.o src/EWSM.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSM.o src/EWSM.cpp
 
 ${OBJECTDIR}/src/OneLoopEW.o: src/OneLoopEW.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/OneLoopEW.o src/OneLoopEW.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/OneLoopEW.o src/OneLoopEW.cpp
 
 ${OBJECTDIR}/src/EWSMcommon.o: src/EWSMcommon.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSMcommon.o src/EWSMcommon.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSMcommon.o src/EWSMcommon.cpp
 
 ${OBJECTDIR}/src/ThreeLoopEW2QCD.o: src/ThreeLoopEW2QCD.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopEW2QCD.o src/ThreeLoopEW2QCD.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopEW2QCD.o src/ThreeLoopEW2QCD.cpp
 
 ${OBJECTDIR}/src/ThreeLoopQCD.o: src/ThreeLoopQCD.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Isrc -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopQCD.o src/ThreeLoopQCD.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopQCD.o src/ThreeLoopQCD.cpp
 
 # Subprojects
 .build-subprojects:
