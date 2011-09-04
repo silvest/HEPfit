@@ -98,13 +98,13 @@ ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/ZFitterTest-2.o ${OBJECTFILES:%.o=%_no
 ${TESTDIR}/tests/ZFitterTest.o: tests/ZFitterTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../gslpp/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ZFitterTest.o tests/ZFitterTest.cpp
+	$(COMPILE.cc) -g -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../gslpp/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ZFitterTest.o tests/ZFitterTest.cpp
 
 
 ${TESTDIR}/tests/ZFitterTest-2.o: tests/ZFitterTest-2.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../gslpp/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ZFitterTest-2.o tests/ZFitterTest-2.cpp
+	$(COMPILE.cc) -g -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../gslpp/src -I../StandardModel/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ZFitterTest-2.o tests/ZFitterTest-2.cpp
 
 
 ${OBJECTDIR}/src/ZFitter_nomain.o: ${OBJECTDIR}/src/ZFitter.o src/ZFitter.cpp 

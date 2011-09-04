@@ -76,7 +76,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lcppunit ../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a ../Observables/dist/Debug/GNU-MacOSX/libobservables.a ../StandardModel/dist/Debug/GNU-MacOSX/libstandardmodel.a
+LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}

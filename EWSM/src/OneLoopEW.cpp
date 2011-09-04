@@ -5,7 +5,6 @@
 
 #include "OneLoopEW.h"
 #include <PVfunctions.h>
-#include "EWSMcommon.h"
 
 
 OneLoopEW::OneLoopEW(const EWSMcommon& EWSMC_i) : EWSMcommon(EWSMC_i) {

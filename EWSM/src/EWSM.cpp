@@ -189,9 +189,6 @@ void EWSM::Compute() {
 
 ////////////////////////////////////////////////////////////////////////
 
-// double EWSM::aleMz() const {
-//     return ( ale/(1.0 - dAle5Mz - dAleLepMz() ));
-// }
 
 // double EWSM::mcMz() const {
 //     double mc_at_mb = Mrun(quarks[BOTTOM].getMass(), quarks[CHARM].getMass(), 4.0);
