@@ -230,13 +230,13 @@ public:
 
     /**
      * @param INDF[in] INDF fermion index
-     * @return (\rho_Z^f)'
+     * @return (rho_Z^f)'
      */
     double getCommonARROFZ(const int INDF);
 
     /**
      * @param INDF[in] INDF fermion index
-     * @return Re[\kappa_Z^f]
+     * @return Re[kappa_Z^f]
      */
     double getCommonARKAFZ(const int INDF);
 
@@ -254,19 +254,19 @@ public:
 
     /**
      * @param INDF[in] INDF fermion index
-     * @return Re[\rho_Z^f]
+     * @return Re[rho_Z^f]
      */
     double getCommonAROTFZ(const int INDF);
 
     /**
      * @param INDF[in] INDF fermion index
-     * @return Im[\rho_Z^f]
+     * @return Im[rho_Z^f]
      */
     double getCommonAIROFZ(const int INDF);
 
     /**
      * @param INDF[in] INDF fermion index
-     * @return Im[\kappa_Z^f]
+     * @return Im[kappa_Z^f]
      */
     double getCommonAIKAFZ(const int INDF);
 
