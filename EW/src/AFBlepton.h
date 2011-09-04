@@ -9,6 +9,7 @@
 #include <ThObservable.h>
 #include "EW.h"
 
+
 class AFBlepton : public ThObservable {
 public:
  
@@ -23,8 +24,10 @@ public:
      */
     double getThValue();
 
+    
 private:
-
+    double AFB_l;
+    
 };
 
 #endif	/* AFBLEPTON_H */

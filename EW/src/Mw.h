@@ -9,6 +9,7 @@
 #include <ThObservable.h>
 #include "EW.h"
 
+
 class Mw : public ThObservable {
 public:
 
@@ -22,8 +23,10 @@ public:
      * @return the W-boson mass
      */
     double getThValue();
+
     
 private:
+    double myMw;
 
 };
 

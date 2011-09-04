@@ -3,21 +3,15 @@
  * Author: mishima
  */
 
-#include <cstdlib>
-#include <iostream>
-#include <iomanip>
-#include <cmath>
 #include "Rbottom.h"
 
+
 Rbottom::Rbottom(const EW& EW_i) : ThObservable(EW_i) {
+    R0_b = EW_i.Gamma_q(SM.BOTTOM)/EW_i.Gamma_had();
 }
 
 double Rbottom::getThValue() {   
-    
-    std::cout << "Write codes!" << std::endl;
-    exit(EXIT_FAILURE); 
-    
-    return (0.0);
+    return R0_b;
 }
         
 

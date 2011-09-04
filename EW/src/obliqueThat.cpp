@@ -14,7 +14,7 @@ obliqueThat::obliqueThat(const EW& EW_i) : ThObservable(EW_i) {
 
 double obliqueThat::getThValue() {   
     
-    std::cout << "Write codes!" << std::endl;
+    std::cout << "Write codes for obliqueThat::getThValue()!" << std::endl;
     exit(EXIT_FAILURE); 
     
     return (0.0);

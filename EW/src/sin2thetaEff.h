@@ -9,6 +9,7 @@
 #include <ThObservable.h>
 #include "EW.h"
 
+
 class sin2thetaEff : public ThObservable {
 public:
 
@@ -23,8 +24,10 @@ public:
      */
     double getThValue();
 
+    
 private:
-
+    double sin2_theta_eff;
+    
 };
 
 #endif	/* SIN2THETAEFF_H */
