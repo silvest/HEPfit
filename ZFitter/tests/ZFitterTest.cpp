@@ -13,6 +13,44 @@
 #include "ZFitterObservables.h"
 
 
+
+void printPO(ZFitterObservables& ZFO_i) {
+
+    // GeV^{-2} --> nb
+    const double GeVminus2_to_nb = pow(10.0, -6.0)
+                                   / pow(10.0, -28.0)
+                                   / pow(299792458.0, -2.0)
+                                   / pow(6.58211899 * pow(10.0, -22.0), -2.0)
+                                   * pow(10.0, 9.0);
+
+    std::cout << std::setw(15) << "m_W [GeV]" << std::setw(13)
+              << ZFO_i.getMw() << std::endl
+              << std::setw(15) << "Gamma_W [GeV]" << std::setw(13)
+              << ZFO_i.Gamma_W() << std::endl
+              << std::setw(15) << "sin^2(th_W)" << std::setw(13)
+              << ZFO_i.sw2() << std::endl
+              << std::setw(15) << "sin^2(teff_e)" << std::setw(13)
+              << ZFO_i.s2teff_f(1) << std::endl
+              << std::setw(15) << "sin^2(teff_mu)" << std::setw(13)
+              << ZFO_i.s2teff_f(2) << std::endl
+              << std::setw(15) << "sin^2(teff_tau)" << std::setw(13)
+              << ZFO_i.s2teff_f(3) << std::endl
+              << std::setw(15) << "sin^2(teff_b)" << std::setw(13)
+              << ZFO_i.s2teff_f(9) << std::endl
+              << std::setw(15) << "sin^2(teff_c)" << std::setw(13)
+              << ZFO_i.s2teff_f(6) << std::endl
+              << std::setw(15) << "sin^2(teff_s)" << std::setw(13)
+              << ZFO_i.s2teff_f(7) << std::endl
+              << std::setw(15) << "Gamma_inv [GeV]" << std::setw(13)
+              << ZFO_i.Gamma_inv() << std::endl
+              << std::setw(15) << "Gamma_had [GeV]" << std::setw(13)
+              << ZFO_i.Gamma_had() << std::endl
+              << std::setw(15) << "Gamma_Z [GeV]" << std::setw(13)
+              << ZFO_i.Gamma_Z() << std::endl
+              << std::endl;
+}
+
+
 /* Test function */
 void test_ZFitterClass(ZFitterObservables& ZFO) {
 
@@ -285,7 +323,7 @@ void test_ZFitterClass(ZFitterObservables& ZFO) {
     std::cout << std::endl;
 
     std::cout << "##### call ZFitter::printPO() #####" << std::endl << std::endl;
-    ZFO.printPO();
+    printPO(ZFO);
 
     
     /* Outputs from ZFITTER subroutines (for tests) */

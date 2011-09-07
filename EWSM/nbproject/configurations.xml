@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/ApproximateFormulae.h</itemPath>
       <itemPath>src/EWSM.h</itemPath>
       <itemPath>src/EWSMcommon.h</itemPath>
       <itemPath>src/OneLoopEW.h</itemPath>
@@ -20,6 +21,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/ApproximateFormulae.cpp</itemPath>
       <itemPath>src/EWSM.cpp</itemPath>
       <itemPath>src/EWSMcommon.cpp</itemPath>
       <itemPath>src/OneLoopEW.cpp</itemPath>

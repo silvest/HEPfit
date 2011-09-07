@@ -224,10 +224,16 @@ public:
     double sw2();
 
     /**
-     * @param[in] flavour the flavour of the final states [e, mu, tau, b, c, s]
+     * @param[in] INDF fermion index
+     * @return the effective weak mixing angle
+     */
+    double s2teff_f(const int INDF);
+    
+    /**
+     * @param[in] INDF fermion index
      * @return the partial decay width of the Z boson in GeV
      */
-    double Gamma_f(const std::string flavour);
+    double Gamma_f(const int INDF);
 
     /**
      * @return the invisible width of the Z boson in GeV
@@ -244,86 +250,7 @@ public:
      */
     double Gamma_Z();
 
-    /**
-     * @param[in] flavour_l the flavour of the final states [e, mu, tau]
-     * @return pole cross section of the Z boson in GeV^-2
-     */
-    double sigma0_l(const std::string flavour_l);
-
-    /**
-     * @return hadronic pole cross section of the Z boson in GeV^-2
-     */
-    double sigma0_had();
-
-    /**
-     * @param[in] flavour_l the flavour of the final states [e, mu, tau]
-     * @return Gamma_had/Gamma_l
-     */
-    double R0_l(const std::string flavour_l);
-
-    /**
-     * @param[in] flavour_q the flavour of the final states [b, c, s]
-     * @return Gamma_q/Gamma_had
-     */
-    double R0_q(const std::string flavour_q);
-
-    /**
-     * @param[in] flavour the flavour of the final states [e, mu, tau, b, c, s]
-     * @return the asymmetry parameter
-     */
-    double A_f(const std::string flavour);
-
-    /**
-     * @param flavour the flavour of the final states [e, mu, tau, b, c, s]
-     * @return the forward-backward asymmetry
-     */
-    double AFB0_f(const std::string flavour);
-
-    /**
-     * @param flavour the flavour of the final states [e, mu, tau, b, c, s]
-     * @return the effective weak mixing angle
-     */
-    double s2teff_f(const std::string flavour);
-
-    /**
-     * @return the oblique parameter epsilon_1
-     */
-    double obliqueEpsilon1();
-
-    /**
-     * @return the oblique parameter epsilon_2
-     */
-    double obliqueEpsilon2();
-
-    /**
-     * @return the oblique parameter epsilon_3
-     */
-    double obliqueEpsilon3();
-
-    /**
-     * @return the oblique parameter S
-     */
-    double obliqueS();
-
-    /**
-     * @return the oblique parameter T
-     */
-    double obliqueT();
-
-    /**
-     * @return the oblique parameter U
-     */
-    double obliqueU();
-
-
-    ////////////////////////////////////////////////////////////////////////
-    
-    /**
-     * @brief prints precision observables
-     */
-    void printPO();
-
-
+ 
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -346,38 +273,6 @@ public:
      * @brief prints intermediate results
      */
     void printIntermediateResults();
-
-    /**
-     * @param[in] flavour the flavour of the final states [e, mu, tau, b, c, s]
-     * @return the integer value associated with the flavour
-     */
-    int flavour_st_to_int(const std::string flavour);
-
-
-    ////////////////////////////////////////////////////////////////////////
-
-    /**
-     * @brief computes Delta r from the W-boson mass Mw
-     * @return the radiative correction Delta r
-     */
-    double Delta_r();
-
-
-    ////////////////////////////////////////////////////////////////////////
-    /* G_F^mu and alpha(0) are set in CONST1() in zfbib6_40.f and EWINIT()
-     * in zfbib6_40.f, but it is hard to access them directly from the ZFitter 
-     * class. Therefore, we redefine them here (see also the source file)
-     * for the calculations of the oblique parameters. */
-
-    /**
-     * @return G_F
-     */
-    double GF() const;
-
-    /**
-     * @return the fine structure constant alpha(0)
-     */
-    double alpha() const;
 
     
     ////////////////////////////////////////////////////////////////////////    

@@ -10,8 +10,17 @@
 
 EW::EW(const StandardModel& SM_i) : ThObsType(SM_i), myEWSM(SM_i), myZFitter(SM_i) {
 
-    mcMz = 0.580624; // TEST!!!
-    mbMz = 2.84386; // TEST!!!
+    //mcMz = 0.580624; // TEST!!!
+    //mbMz = 2.84386; // TEST!!!
+
+    //mcMz = 0.55696435; 
+    //mbMz = 2.8095955;
+
+
+    mcMz = 0.55381685; 
+    mbMz = 2.8194352;
+
+
 }
 
 //EW::EW(const EW& orig) : ThObsType(orig.SM), EWSM(orig.SM) {
@@ -23,11 +32,17 @@ EW::~EW() {
 
 ////////////////////////////////////////////////////////////////////////
 
-void EW::ComputeEWSM() {
+void EW::ComputeEWSM(const EWSM::schemes_EW schemeMw, 
+                     const EWSM::schemes_EW schemeRhoZ,
+                     const EWSM::schemes_EW schemeKappaZ,
+                     const bool flag_order[EWSM::orders_EW_size]) {
+
+    myEWSM.setFlags(schemeMw, schemeRhoZ, schemeKappaZ, flag_order);
     myEWSM.Compute();
-    
-    alphaMZ = myEWSM.getAlphaMZ();
-    Mw = myEWSM.getMw();    
+
+    /* Outputs */
+    alphaMZ = myEWSM.getAlphaMz();    
+    Mw = myEWSM.getMw();
     for (int i=0; i<6; i++) {
         StandardModel::lepton i_l = (StandardModel::lepton) i;
         StandardModel::quark i_q = (StandardModel::quark) i;
@@ -38,14 +53,27 @@ void EW::ComputeEWSM() {
     }
 }
 
-void EW::ComputeZFitter() {
-    /* set flags (not necessary if using the default flags) 
-     *   default: AMT4=4, ALEM=3 */
-    myZFitter.flag("AMT4", 4);
-    //myZFitter.flag("AMT4", 6);
-    myZFitter.flag("ALEM", 2); // DAL5H is supplied by the user as input. 
+void EW::ComputeZFitter(const EWSM::schemes_EW schemeMw, 
+                        const EWSM::schemes_EW schemeRhoZ,
+                        const EWSM::schemes_EW schemeKappaZ,
+                        const bool flag_order[EWSM::orders_EW_size]) {
+
+    // DAL5H is supplied by the user as input. 
+    myZFitter.flag("ALEM", 2); 
+
+    if (schemeMw==EWSM::NORESUM 
+        && schemeRhoZ==EWSM::NORESUM && schemeKappaZ==EWSM::NORESUM) {
+            myZFitter.flag("AMT4", 0); 
+    } else if (schemeMw==EWSM::APPROXIMATEFORMULA
+               && schemeKappaZ==EWSM::APPROXIMATEFORMULA) {
+            myZFitter.flag("AMT4", 6);
+    } else {
+        throw "Write codes in EW::ComputeZFitter()";
+    }
+
     myZFitter.calcCommonBlocks();
     
+    /* Outputs */
     alphaMZ = myZFitter.getAlphaMZ();
     Mw = myZFitter.getMw();
     for (int i=0; i<6; i++) {

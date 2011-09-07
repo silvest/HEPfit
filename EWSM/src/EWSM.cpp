@@ -15,6 +15,21 @@ EWSM::EWSM(const StandardModel& SM_i) : SM(SM_i) {
     myTwoLoopEW = new TwoLoopEW(*EWSMC);
     myThreeLoopEW2QCD = new ThreeLoopEW2QCD(*EWSMC);
     myThreeLoopEW = new ThreeLoopEW(*EWSMC);
+
+    /* Initializations */
+    for (int j=0; j<=orders_EW_size; j++) {
+        DeltaAlpha_l[j] = 0.0;
+        DeltaAlpha_t[j] = 0.0;
+        DeltaRho[j] = 0.0;
+        DeltaR_rem[j] = 0.0;
+        for (int i=0; i<6; i++) {
+            deltaRho_rem_l[j][i] = 0.0;
+            deltaRho_rem_q[j][i] = 0.0;
+            deltaKappa_rem_l[j][i] = 0.0;
+            deltaKappa_rem_q[j][i] = 0.0;
+        }
+    }
+    DeltaRbar_rem = 0.0;
 }
 
 EWSM::EWSM(const EWSM& orig) : SM(orig.SM) {
@@ -25,6 +40,14 @@ EWSM::EWSM(const EWSM& orig) : SM(orig.SM) {
     myTwoLoopEW = new TwoLoopEW(*EWSMC);
     myThreeLoopEW2QCD = new ThreeLoopEW2QCD(*EWSMC);
     myThreeLoopEW = new ThreeLoopEW(*EWSMC);
+
+    schemeMw = orig.getSchemeMw();
+    schemeRhoZ = orig.getSchemeRhoZ();
+    schemeKappaZ = orig.getSchemeKappaZ();
+    for (int j=0; j<orders_EW_size; j++) {
+        EWSM::orders_EW j_order = (EWSM::orders_EW) j;
+        flag_order[j] = orig.getFlag_order(j_order);
+    }    
     
     for (int j=0; j<=orders_EW_size; j++) {
         EWSM::orders_EW j_order = (EWSM::orders_EW) j;
@@ -43,9 +66,10 @@ EWSM::EWSM(const EWSM& orig) : SM(orig.SM) {
     }
     DeltaRbar_rem = orig.getDeltaRbar_rem();
 
-    alphaMZ = orig.getAlphaMZ();
+    alphaMz = orig.getAlphaMz();
+    DeltaAlpha = orig.getDeltaAlpha();
+    Mw_tree = orig.getMw_tree();
     Mw = orig.getMw();
-    DeltaR = orig.getDeltaR();
     for (int i=0; i<6; i++) {
         StandardModel::lepton i_l = (StandardModel::lepton) i;
         StandardModel::quark i_q = (StandardModel::quark) i;
@@ -69,121 +93,328 @@ EWSM::~EWSM() {
 
 ////////////////////////////////////////////////////////////////////////
 
-void EWSM::TEST() const {
-    std::cout << "Mw_tree = " << EWSMC->GetMW_tree() << std::endl;    
+void EWSM::setFlags(const schemes_EW schemeMw_i, 
+                    const schemes_EW schemeRhoZ_i, const schemes_EW schemeKappaZ_i, 
+                    const bool flag_order_i[orders_EW_size]) {
+    
+    schemeMw = schemeMw_i;
+    schemeRhoZ = schemeRhoZ_i;
+    schemeKappaZ = schemeKappaZ_i;
+    for (int j=0; j<orders_EW_size; j++) {
+        flag_order[j] = flag_order_i[j];
+    }
 }
 
 void EWSM::Compute() {
-    
-    Mw = EWSMC->GetMW_tree(); /* !! TEST !! */
-    EWSMC->Compute(Mw);
-    
-    DeltaAlpha_l[TREE] = 0.0;
-    DeltaAlpha_l[EW1] = myOneLoopEW->DeltaAlpha_l();
-    DeltaAlpha_l[EW1QCD] = myTwoLoopQCD->DeltaAlpha_l();
-    DeltaAlpha_l[EW1QCD2] = myThreeLoopQCD->DeltaAlpha_l();
-    DeltaAlpha_l[EW2] = myTwoLoopEW->DeltaAlpha_l();
-    DeltaAlpha_l[EW2QCD1] = myThreeLoopEW2QCD->DeltaAlpha_l();
-    DeltaAlpha_l[EW3] = myThreeLoopEW->DeltaAlpha_l();
-    
-    DeltaAlpha_t[TREE] = 0.0;
-    DeltaAlpha_t[EW1] = myOneLoopEW->DeltaAlpha_t();
-    DeltaAlpha_t[EW1QCD] = myTwoLoopQCD->DeltaAlpha_t();
-    DeltaAlpha_t[EW1QCD2] = myThreeLoopQCD->DeltaAlpha_t();
-    DeltaAlpha_t[EW2] = myTwoLoopEW->DeltaAlpha_t();
-    DeltaAlpha_t[EW2QCD1] = myThreeLoopEW2QCD->DeltaAlpha_t();
-    DeltaAlpha_t[EW3] = myThreeLoopEW->DeltaAlpha_t();
-    
-    DeltaRho[TREE] = 0.0;
-    DeltaRho[EW1] = myOneLoopEW->DeltaRho();
-    DeltaRho[EW1QCD] = myTwoLoopQCD->DeltaRho();
-    DeltaRho[EW1QCD2] = myThreeLoopQCD->DeltaRho();
-    DeltaRho[EW2] = myTwoLoopEW->DeltaRho();
-    DeltaRho[EW2QCD1] = myThreeLoopEW2QCD->DeltaRho();
-    DeltaRho[EW3] = myThreeLoopEW->DeltaRho();
-    
-    DeltaR_rem[TREE] = 0.0;    
-    DeltaR_rem[EW1] = myOneLoopEW->DeltaR_rem();
-    DeltaR_rem[EW1QCD] = myTwoLoopQCD->DeltaR_rem();
-    DeltaR_rem[EW1QCD2] = myThreeLoopQCD->DeltaR_rem();
-    DeltaR_rem[EW2] = myTwoLoopEW->DeltaR_rem();
-    DeltaR_rem[EW2QCD1] = myThreeLoopEW2QCD->DeltaR_rem();
-    DeltaR_rem[EW3] = myThreeLoopEW->DeltaR_rem();    
-    
-    DeltaRbar_rem = myOneLoopEW->DeltaRbar_rem();
+    ComputeAlphaMz();
+    ComputeMw();
+    ComputeRhoZ();
+    ComputeKappaZ();
+}
 
-    for (int i=0; i<6; i++) {
-        StandardModel::lepton i_l = (StandardModel::lepton) i;
-        StandardModel::quark i_q = (StandardModel::quark) i;
 
-        deltaRho_rem_l[TREE][i_l] = 0.0;
-        deltaRho_rem_l[EW1][i_l] = myOneLoopEW->deltaRho_rem_l(i_l);
-        deltaRho_rem_l[EW1QCD][i_l] = myTwoLoopQCD->deltaRho_rem_l(i_l);
-        deltaRho_rem_l[EW1QCD2][i_l] = myThreeLoopQCD->deltaRho_rem_l(i_l);
-        deltaRho_rem_l[EW2][i_l] = myTwoLoopEW->deltaRho_rem_l(i_l);
-        deltaRho_rem_l[EW2QCD1][i_l] = myThreeLoopEW2QCD->deltaRho_rem_l(i_l);
-        deltaRho_rem_l[EW3][i_l] = myThreeLoopEW->deltaRho_rem_l(i_l);
-        
-        deltaRho_rem_q[TREE][i_q] = 0.0;
-        deltaRho_rem_q[EW1][i_q] = myOneLoopEW->deltaRho_rem_q(i_q);
-        deltaRho_rem_q[EW1QCD][i_q] = myTwoLoopQCD->deltaRho_rem_q(i_q);
-        deltaRho_rem_q[EW1QCD2][i_q] = myThreeLoopQCD->deltaRho_rem_q(i_q);
-        deltaRho_rem_q[EW2][i_q] = myTwoLoopEW->deltaRho_rem_q(i_q);
-        deltaRho_rem_q[EW2QCD1][i_q] = myThreeLoopEW2QCD->deltaRho_rem_q(i_q);
-        deltaRho_rem_q[EW3][i_q] = myThreeLoopEW->deltaRho_rem_q(i_q);
-        
-        deltaKappa_rem_l[TREE][i_l] = 0.0;
-        deltaKappa_rem_l[EW1][i_l] = myOneLoopEW->deltaKappa_rem_l(i_l);
-        deltaKappa_rem_l[EW1QCD][i_l] = myTwoLoopQCD->deltaKappa_rem_l(i_l);
-        deltaKappa_rem_l[EW1QCD2][i_l] = myThreeLoopQCD->deltaKappa_rem_l(i_l);
-        deltaKappa_rem_l[EW2][i_l] = myTwoLoopEW->deltaKappa_rem_l(i_l);
-        deltaKappa_rem_l[EW2QCD1][i_l] = myThreeLoopEW2QCD->deltaKappa_rem_l(i_l);
-        deltaKappa_rem_l[EW3][i_l] = myThreeLoopEW->deltaKappa_rem_l(i_l);
-        
-        deltaKappa_rem_q[TREE][i_q] = 0.0;
-        deltaKappa_rem_q[EW1][i_q] = myOneLoopEW->deltaKappa_rem_q(i_q);
-        deltaKappa_rem_q[EW1QCD][i_q] = myTwoLoopQCD->deltaKappa_rem_q(i_q);
-        deltaKappa_rem_q[EW1QCD2][i_q] = myThreeLoopQCD->deltaKappa_rem_q(i_q);
-        deltaKappa_rem_q[EW2][i_q] = myTwoLoopEW->deltaKappa_rem_q(i_q);
-        deltaKappa_rem_q[EW2QCD1][i_q] = myThreeLoopEW2QCD->deltaKappa_rem_q(i_q);
-        deltaKappa_rem_q[EW3][i_q] = myThreeLoopEW->deltaKappa_rem_q(i_q);
-    }
+////////////////////////////////////////////////////////////////////////
 
-    /* Total */
-    DeltaAlpha_l[orders_EW_size] = 0.0;
-    DeltaAlpha_t[orders_EW_size] = 0.0;
-    DeltaRho[orders_EW_size] = 0.0;
-    DeltaR_rem[orders_EW_size] = 0.0;
-    for (int i=0; i<6; i++) {
-        deltaRho_rem_l[orders_EW_size][i] = 0.0;
-        deltaRho_rem_q[orders_EW_size][i] = 0.0;
-        deltaKappa_rem_l[orders_EW_size][i] = 0.0;
-        deltaKappa_rem_q[orders_EW_size][i] = 0.0;
-    }
+void EWSM::ComputeAlphaMz() {
+    if (flag_order[EW1]==true) 
+        DeltaAlpha_l[EW1] = myOneLoopEW->DeltaAlpha_l();
+    if (flag_order[EW1QCD1]==true) 
+        DeltaAlpha_l[EW1QCD1] = myTwoLoopQCD->DeltaAlpha_l();
+    if (flag_order[EW1QCD2]==true) 
+        DeltaAlpha_l[EW1QCD2] = myThreeLoopQCD->DeltaAlpha_l();
+    if (flag_order[EW2]==true) 
+        DeltaAlpha_l[EW2] = myTwoLoopEW->DeltaAlpha_l();
+    if (flag_order[EW2QCD1]==true) 
+        DeltaAlpha_l[EW2QCD1] = myThreeLoopEW2QCD->DeltaAlpha_l();
+    if (flag_order[EW3]==true) 
+        DeltaAlpha_l[EW3] = myThreeLoopEW->DeltaAlpha_l();
+    
+    if (flag_order[EW1]==true) 
+        DeltaAlpha_t[EW1] = myOneLoopEW->DeltaAlpha_t();
+    if (flag_order[EW1QCD1]==true) 
+        DeltaAlpha_t[EW1QCD1] = myTwoLoopQCD->DeltaAlpha_t();
+    if (flag_order[EW1QCD2]==true) 
+        DeltaAlpha_t[EW1QCD2] = myThreeLoopQCD->DeltaAlpha_t();
+    if (flag_order[EW2]==true) 
+        DeltaAlpha_t[EW2] = myTwoLoopEW->DeltaAlpha_t();
+    if (flag_order[EW2QCD1]==true) 
+        DeltaAlpha_t[EW2QCD1] = myThreeLoopEW2QCD->DeltaAlpha_t();
+    if (flag_order[EW3]==true) 
+        DeltaAlpha_t[EW3] = myThreeLoopEW->DeltaAlpha_t();
+    
+    /* The sum of the corrections */
     for (int j=0; j<orders_EW_size; j++) {
         DeltaAlpha_l[orders_EW_size] += DeltaAlpha_l[j];
         DeltaAlpha_t[orders_EW_size] += DeltaAlpha_t[j];
-        DeltaRho[orders_EW_size] += DeltaRho[j];
-        DeltaR_rem[orders_EW_size] += DeltaR_rem[j];
+    }
+
+    DeltaAlpha = DeltaAlpha_l[orders_EW_size] 
+                 + DeltaAlpha_t[orders_EW_size] + SM.getDAle5Mz();
+    alphaMz = SM.getAle()/(1.0 - DeltaAlpha);
+}
+
+void EWSM::ComputeMw() {    
+    double tmp = 4.0*M_PI*SM.getAle()/sqrt(2.0)/SM.getGF()/SM.getMz()/SM.getMz();
+    Mw_tree = SM.getMz()/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp));
+    
+    if (schemeMw==APPROXIMATEFORMULA) {
+        myApproximateFormulae = new ApproximateFormulae(SM, DeltaAlpha);
+        Mw = myApproximateFormulae->Mw();        
+        delete myApproximateFormulae;
+    } else {
+        EWSMC->Compute(Mw_tree);
+        
+        if (flag_order[EW1]==true) 
+            DeltaRho[EW1] = myOneLoopEW->DeltaRho();
+        if (flag_order[EW1QCD1]==true) 
+            DeltaRho[EW1QCD1] = myTwoLoopQCD->DeltaRho();
+        if (flag_order[EW1QCD2]==true) 
+            DeltaRho[EW1QCD2] = myThreeLoopQCD->DeltaRho();
+        if (flag_order[EW2]==true) 
+            DeltaRho[EW2] = myTwoLoopEW->DeltaRho();
+        if (flag_order[EW2QCD1]==true) 
+            DeltaRho[EW2QCD1] = myThreeLoopEW2QCD->DeltaRho();
+        if (flag_order[EW3]==true) 
+            DeltaRho[EW3] = myThreeLoopEW->DeltaRho();
+        
+        if (flag_order[EW1]==true) 
+            DeltaR_rem[EW1] = myOneLoopEW->DeltaR_rem();
+        if (flag_order[EW1QCD1]==true) 
+            DeltaR_rem[EW1QCD1] = myTwoLoopQCD->DeltaR_rem();
+        if (flag_order[EW1QCD2]==true) 
+            DeltaR_rem[EW1QCD2] = myThreeLoopQCD->DeltaR_rem();
+        if (flag_order[EW2]==true) 
+            DeltaR_rem[EW2] = myTwoLoopEW->DeltaR_rem();
+        if (flag_order[EW2QCD1]==true) 
+            DeltaR_rem[EW2QCD1] = myThreeLoopEW2QCD->DeltaR_rem();
+        if (flag_order[EW3]==true) 
+            DeltaR_rem[EW3] = myThreeLoopEW->DeltaR_rem();    
+    
+        /* The sum of the corrections */
+        for (int j=0; j<orders_EW_size; j++) {
+            DeltaRho[orders_EW_size] += DeltaRho[j];
+            DeltaR_rem[orders_EW_size] += DeltaR_rem[j];
+        }
+
+        resummationMw();
+        
+        // iterations 
+
+        
+    }
+
+    EWSMC->Compute(Mw);
+}    
+
+void EWSM::ComputeRhoZ() {
+    DeltaRbar_rem = myOneLoopEW->DeltaRbar_rem();    
+    
+    for (int i=0; i<6; i++) {
+        StandardModel::lepton i_l = (StandardModel::lepton) i;
+        StandardModel::quark i_q = (StandardModel::quark) i;
+        
+        if (flag_order[EW1]==true) 
+            deltaRho_rem_l[EW1][i_l] = myOneLoopEW->deltaRho_rem_l(i_l);
+        if (flag_order[EW1QCD1]==true) 
+            deltaRho_rem_l[EW1QCD1][i_l] = myTwoLoopQCD->deltaRho_rem_l(i_l);
+        if (flag_order[EW1QCD2]==true) 
+            deltaRho_rem_l[EW1QCD2][i_l] = myThreeLoopQCD->deltaRho_rem_l(i_l);
+        if (flag_order[EW2]==true) 
+            deltaRho_rem_l[EW2][i_l] = myTwoLoopEW->deltaRho_rem_l(i_l);
+        if (flag_order[EW2QCD1]==true) 
+            deltaRho_rem_l[EW2QCD1][i_l] = myThreeLoopEW2QCD->deltaRho_rem_l(i_l);
+        if (flag_order[EW3]==true) 
+            deltaRho_rem_l[EW3][i_l] = myThreeLoopEW->deltaRho_rem_l(i_l);
+        
+        if (flag_order[EW1]==true) 
+            deltaRho_rem_q[EW1][i_q] = myOneLoopEW->deltaRho_rem_q(i_q);
+        if (flag_order[EW1QCD1]==true) 
+            deltaRho_rem_q[EW1QCD1][i_q] = myTwoLoopQCD->deltaRho_rem_q(i_q);
+        if (flag_order[EW1QCD2]==true) 
+            deltaRho_rem_q[EW1QCD2][i_q] = myThreeLoopQCD->deltaRho_rem_q(i_q);
+        if (flag_order[EW2]==true) 
+            deltaRho_rem_q[EW2][i_q] = myTwoLoopEW->deltaRho_rem_q(i_q);
+        if (flag_order[EW2QCD1]==true) 
+            deltaRho_rem_q[EW2QCD1][i_q] = myThreeLoopEW2QCD->deltaRho_rem_q(i_q);
+        if (flag_order[EW3]==true) 
+            deltaRho_rem_q[EW3][i_q] = myThreeLoopEW->deltaRho_rem_q(i_q);
+    }
+
+    /* The sum of the corrections */
+    for (int j=0; j<orders_EW_size; j++) {
         for (int i=0; i<6; i++) {
             deltaRho_rem_l[orders_EW_size][i] += deltaRho_rem_l[j][i];
             deltaRho_rem_q[orders_EW_size][i] += deltaRho_rem_q[j][i];
+        }
+    }
+
+    resummationRhoZ();
+}
+    
+void EWSM::ComputeKappaZ() {     
+    DeltaRbar_rem = myOneLoopEW->DeltaRbar_rem();    
+    
+    for (int i=0; i<6; i++) {
+        StandardModel::lepton i_l = (StandardModel::lepton) i;
+        StandardModel::quark i_q = (StandardModel::quark) i;
+        
+        if (flag_order[EW1]==true) 
+            deltaKappa_rem_l[EW1][i_l] = myOneLoopEW->deltaKappa_rem_l(i_l);
+        if (flag_order[EW1QCD1]==true) 
+            deltaKappa_rem_l[EW1QCD1][i_l] = myTwoLoopQCD->deltaKappa_rem_l(i_l);
+        if (flag_order[EW1QCD2]==true) 
+            deltaKappa_rem_l[EW1QCD2][i_l] = myThreeLoopQCD->deltaKappa_rem_l(i_l);
+        if (flag_order[EW2]==true) 
+            deltaKappa_rem_l[EW2][i_l] = myTwoLoopEW->deltaKappa_rem_l(i_l);
+        if (flag_order[EW2QCD1]==true) 
+            deltaKappa_rem_l[EW2QCD1][i_l] = myThreeLoopEW2QCD->deltaKappa_rem_l(i_l);
+        if (flag_order[EW3]==true) 
+            deltaKappa_rem_l[EW3][i_l] = myThreeLoopEW->deltaKappa_rem_l(i_l);
+        
+        if (flag_order[EW1]==true) 
+            deltaKappa_rem_q[EW1][i_q] = myOneLoopEW->deltaKappa_rem_q(i_q);
+        if (flag_order[EW1QCD1]==true) 
+            deltaKappa_rem_q[EW1QCD1][i_q] = myTwoLoopQCD->deltaKappa_rem_q(i_q);
+        if (flag_order[EW1QCD2]==true) 
+            deltaKappa_rem_q[EW1QCD2][i_q] = myThreeLoopQCD->deltaKappa_rem_q(i_q);
+        if (flag_order[EW2]==true) 
+            deltaKappa_rem_q[EW2][i_q] = myTwoLoopEW->deltaKappa_rem_q(i_q);
+        if (flag_order[EW2QCD1]==true) 
+            deltaKappa_rem_q[EW2QCD1][i_q] = myThreeLoopEW2QCD->deltaKappa_rem_q(i_q);
+        if (flag_order[EW3]==true) 
+            deltaKappa_rem_q[EW3][i_q] = myThreeLoopEW->deltaKappa_rem_q(i_q);
+    }
+    
+    /* The sum of the corrections */
+    for (int j=0; j<orders_EW_size; j++) {
+        for (int i=0; i<6; i++) {
             deltaKappa_rem_l[orders_EW_size][i] += deltaKappa_rem_l[j][i];
             deltaKappa_rem_q[orders_EW_size][i] += deltaKappa_rem_q[j][i];
         }
     }
+    
+    resummationKappaZ();
 
-    double DeltaAlpha = DeltaAlpha_l[orders_EW_size] 
-                        + DeltaAlpha_t[orders_EW_size] + SM.getDAle5Mz();
-    alphaMZ = SM.getAle()/(1.0 - DeltaAlpha);
+    // Write codes for Im[kappa_Z^f]
+    
+    
+    
+    
+    
+    
+    /* Using the approximate formula for the real parts */
+    if (schemeKappaZ==APPROXIMATEFORMULA) {
+        myApproximateFormulae = new ApproximateFormulae(SM, DeltaAlpha);
+        double sin2thetaEff_l, sin2thetaEff_q;
+        for (int i=0; i<6; i++) {
+            StandardModel::lepton i_l = (StandardModel::lepton) i;
+            StandardModel::quark i_q = (StandardModel::quark) i;        
+            sin2thetaEff_l = myApproximateFormulae->sin2thetaEff(i_l);
+            sin2thetaEff_q = myApproximateFormulae->sin2thetaEff(i_q);
+            kappaZ_l[i_l].real() = sin2thetaEff_l/EWSMC->GetSW2(); 
+            kappaZ_q[i_q].real() = sin2thetaEff_q/EWSMC->GetSW2();
+        }
+        delete myApproximateFormulae;
+    }   
+}
+        
+void EWSM::resummationMw() {
+ 
+    double cW2_to_sW2 = EWSMC->GetCW2()/EWSMC->GetSW2();
+    double tmp = 4.0*M_PI*SM.getAle()/sqrt(2.0)/SM.getGF()/SM.getMz()/SM.getMz();
+    double DeltaR;
+    
+    switch (schemeMw) {
+        case NORESUM: 
+            DeltaR = DeltaAlpha - cW2_to_sW2*DeltaRho[orders_EW_size]
+                     + DeltaR_rem[orders_EW_size];            
+            Mw = SM.getMz()/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp*(1.0 + DeltaR)));
+            break;
+        case OMSI:
+            throw "Write codes for EWSM::resummationMw()";
+            break;
+        case INTERMEDIATE:
+            throw "Write codes for EWSM::resummationMw()";            
+            break;        
+        case OMSII:
+            throw "Write codes for EWSM::resummationMw()";            
+            break;
+        default:
+            throw "Error in EWSM::resummationMw()";            
+            break;
+    }   
+}
 
-    //Mw
-    //DeltaR    
-    //rhoZ_l[6]
-    //rhoZ_q[6]
-    //kappaZ_l[6]
-    //kappaZ_q[6]
+void EWSM::resummationRhoZ() {
+    double cW2_to_sW2 = EWSMC->GetCW2()/EWSMC->GetSW2();
+    
+    /* Real parts */
+    switch (schemeRhoZ) {
+        case NORESUM: 
+            for (int i=0; i<6; i++) {
+                rhoZ_l[i].real() = 1.0 + DeltaRho[orders_EW_size] 
+                                   + deltaRho_rem_l[orders_EW_size][i].real();
+                rhoZ_q[i].real() = 1.0 + DeltaRho[orders_EW_size] 
+                                   + deltaRho_rem_q[orders_EW_size][i].real(); 
+            }
+            break;
+        case OMSI:
+            throw "Write codes for EWSM::resummationRhoZ()";
+            break;
+        case INTERMEDIATE:
+            throw "Write codes for EWSM::resummationRhoZ()";
+            break;        
+        case OMSII:
+            throw "Write codes for EWSM::resummationRhoZ()";
+            break;
+        default:
+            throw "Error in EWSM::resummationRhoZ()";
+            break;
+    }
 
+    /* Imaginary parts */
+    for (int i=0; i<6; i++) {            
+        rhoZ_l[i].imag() = deltaRho_rem_l[orders_EW_size][i].imag();
+        rhoZ_q[i].imag() = deltaRho_rem_q[orders_EW_size][i].imag();  
+    }     
+}
+
+void EWSM::resummationKappaZ() {
+    double cW2_to_sW2 = EWSMC->GetCW2()/EWSMC->GetSW2();
+    
+    /* Real parts */
+    switch (schemeKappaZ) {
+        case NORESUM: 
+            for (int i=0; i<6; i++) {
+                kappaZ_l[i].real() = 1.0 + cW2_to_sW2*DeltaRho[orders_EW_size]
+                                     + deltaKappa_rem_l[orders_EW_size][i].real();  
+                kappaZ_q[i].real() = 1.0 + cW2_to_sW2*DeltaRho[orders_EW_size]
+                                     + deltaKappa_rem_q[orders_EW_size][i].real();  
+            }
+            break;
+        case OMSI:
+            throw "Write codes for EWSM::resummationKappaZ()";
+            break;
+        case INTERMEDIATE:
+            throw "Write codes for EWSM::resummationKappaZ()";
+            break;        
+        case OMSII:
+            throw "Write codes for EWSM::resummationKappaZ()";
+            break;
+        case APPROXIMATEFORMULA:
+            /* The real parts are given by the approximate formulae. 
+             * See ComputeKappaZ() */
+            break;
+        default:
+            throw "Error in EWSM::resummationKappaZ()";
+            break;
+    }
+
+    /* Imaginary parts */
+    for (int i=0; i<6; i++) {            
+        kappaZ_l[i].imag() = deltaKappa_rem_l[orders_EW_size][i].imag();
+        kappaZ_q[i].imag() = deltaKappa_rem_q[orders_EW_size][i].imag();  
+    } 
 }
 
 

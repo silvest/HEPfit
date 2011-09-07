@@ -167,8 +167,12 @@ double ZFitterObservables::sw2() {
     return ( getCommonSIN2TW() );
 }
 
-double ZFitterObservables::Gamma_f(const std::string flavour) {
-    return ( getCommonWIDTHS(flavour_st_to_int(flavour)) );
+double ZFitterObservables::s2teff_f(const int INDF) {
+    return ( getCommonARSEFZ(INDF) );
+}
+
+double ZFitterObservables::Gamma_f(const int INDF) {
+    return ( getCommonWIDTHS(INDF) );
 }
 
 double ZFitterObservables::Gamma_inv() {
@@ -181,188 +185,6 @@ double ZFitterObservables::Gamma_had() {
 
 double ZFitterObservables::Gamma_Z() {
     return ( getCommonWIDTHS(11) );
-}
-
-double ZFitterObservables::sigma0_l(const std::string flavour_l) {
-    if (flavour_l!="e" && flavour_l!="mu" && flavour_l!="tau") {
-        std::cout << "flavour_l = e, mu, tau" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    return ( 12.0*M_PI*Gamma_f("e")*Gamma_f(flavour_l)
-            /ZMASS/ZMASS/Gamma_Z()/Gamma_Z() );
-}
-
-double ZFitterObservables::sigma0_had() {
-    return ( 12.0*M_PI*Gamma_f("e")*Gamma_had()
-             /ZMASS/ZMASS/Gamma_Z()/Gamma_Z() );
-}
-
-double ZFitterObservables::R0_l(const std::string flavour_l) {
-    if (flavour_l!="e" && flavour_l!="mu" && flavour_l!="tau") {
-        std::cout << "flavour_l = e, mu, tau" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    return ( Gamma_had()/Gamma_f(flavour_l) );
-}
-
-double ZFitterObservables::R0_q(const std::string flavour_q) {
-    if (flavour_q!="b" && flavour_q!="c" && flavour_q!="s") {
-        std::cout << "flavour_q = b, c, s" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    return ( Gamma_f(flavour_q)/Gamma_had() );
-}
-
-double ZFitterObservables::A_f(const std::string flavour) {
-    double Re_gZ_f = getCommonARVEFZ(flavour_st_to_int(flavour));
-    return ( 2.0*Re_gZ_f/(Re_gZ_f*Re_gZ_f + 1.0) );
-}
-
-double ZFitterObservables::AFB0_f(const std::string flavour) {
-    return ( 3.0/4.0*A_f("e")*A_f(flavour) );
-}
-
-double ZFitterObservables::s2teff_f(const std::string flavour) {
-    return ( getCommonARSEFZ(flavour_st_to_int(flavour)) );
-}
-
-double ZFitterObservables::obliqueEpsilon1() {
-    double Delta_rho = 2.0*(sqrt(getCommonAROTFZ(1)) - 1.0);
-    return Delta_rho;
-}
-
-double ZFitterObservables::obliqueEpsilon2() {
-    double Delta_rW = 1.0 - M_PI*alphaMZ/sqrt(2.0)/GF()
-                            /( 1.0 - Mw*Mw/ZMASS/ZMASS )/Mw/Mw;
-    double Delta_rho = 2.0*(sqrt(getCommonAROTFZ(1)) - 1.0);
-    double s02 = 0.5 - sqrt(0.25 - M_PI*alphaMZ/sqrt(2.0)/GF()/ZMASS/ZMASS);
-    double c02 = 1.0 - s02;
-    double Delta_k = s2teff_f("e")/s02 - 1.0;
-
-    //std::cout << "  Delta_rW = " << Delta_rW << std::endl; // TEST
-    //std::cout << "  Delta_rho = " << Delta_rho << std::endl; // TEST
-    //std::cout << "  Delta_k = " << Delta_k << std::endl; // TEST
-    //std::cout << "  s02 = " << s02 << std::endl << std::endl; // TEST
-
-    return ( c02*Delta_rho + s02*Delta_rW/(c02-s02) - 2.0*s02*Delta_k );
-}
-
-double ZFitterObservables::obliqueEpsilon3() {
-    double Delta_rho = 2.0*(sqrt(getCommonAROTFZ(1)) - 1.0);
-    double s02 = 0.5 - sqrt(0.25 - M_PI*alphaMZ/sqrt(2.0)/GF()/ZMASS/ZMASS);
-    double c02 = 1.0 - s02;
-    double Delta_k = s2teff_f("e")/s02 - 1.0;
-
-    return ( c02*Delta_rho + (c02-s02)*Delta_k );
-}
-
-double ZFitterObservables::obliqueS() {
-    double s02 = 0.5 - sqrt(0.25 - M_PI*alphaMZ/sqrt(2.0)/GF()/ZMASS/ZMASS);
-
-    /* Belos alpha(0) is used, since it is used in the ZFITTER codes
-     * for the self-energy corrections which corresponds to epsilon's. */
-    return ( obliqueEpsilon3()/alpha()*4.0*s02 ); 
-}
-
-double ZFitterObservables::obliqueT() {
-    return ( obliqueEpsilon1()/alpha() );
-}
-
-double ZFitterObservables::obliqueU() {
-    double s02 = 0.5 - sqrt(0.25 - M_PI*alphaMZ/sqrt(2.0)/GF()/ZMASS/ZMASS);
-    
-    return ( - obliqueEpsilon2()/alpha()*4.0*s02 );
-}
-
-
-////////////////////////////////////////////////////////////////////////
-
-void ZFitterObservables::printPO() {
-
-    // GeV^{-2} --> nb
-    const double GeVminus2_to_nb = pow(10.0, -6.0)
-                                   / pow(10.0, -28.0)
-                                   / pow(299792458.0, -2.0)
-                                   / pow(6.58211899 * pow(10.0, -22.0), -2.0)
-                                   * pow(10.0, 9.0);
-
-    std::cout << std::setw(15) << "m_W [GeV]" << std::setw(13)
-              << Mw << std::endl
-              << std::setw(15) << "Gamma_W [GeV]" << std::setw(13)
-              << Gamma_W() << std::endl
-              << std::setw(15) << "sin^2(th_W)" << std::setw(13)
-              << sw2() << std::endl
-              << std::setw(15) << "sin^2(teff_e)" << std::setw(13)
-              << s2teff_f("e") << std::endl
-              << std::setw(15) << "sin^2(teff_mu)" << std::setw(13)
-              << s2teff_f("mu") << std::endl
-              << std::setw(15) << "sin^2(teff_tau)" << std::setw(13)
-              << s2teff_f("tau") << std::endl
-              << std::setw(15) << "sin^2(teff_b)" << std::setw(13)
-              << s2teff_f("b") << std::endl
-              << std::setw(15) << "sin^2(teff_c)" << std::setw(13)
-              << s2teff_f("c") << std::endl
-              << std::setw(15) << "sin^2(teff_s)" << std::setw(13)
-              << s2teff_f("s") << std::endl
-              << std::setw(15) << "Gamma_inv [GeV]" << std::setw(13)
-              << Gamma_inv() << std::endl
-              << std::setw(15) << "Gamma_had [GeV]" << std::setw(13)
-              << Gamma_had() << std::endl
-              << std::setw(15) << "Gamma_Z [GeV]" << std::setw(13)
-              << Gamma_Z() << std::endl
-              << std::setw(15) << "sigma0_e [nb]" << std::setw(13)
-              << sigma0_l("e")*GeVminus2_to_nb << std::endl
-              << std::setw(15) << "sigma0_mu [nb]" << std::setw(13)
-              << sigma0_l("mu")*GeVminus2_to_nb << std::endl
-              << std::setw(15) << "sigma0_tau [nb]" << std::setw(13)
-              << sigma0_l("tau")*GeVminus2_to_nb << std::endl
-              << std::setw(15) << "sigma0_had [nb]" << std::setw(13)
-              << sigma0_had()*GeVminus2_to_nb << std::endl
-              << std::setw(15) << "R0_e" << std::setw(13)
-              << R0_l("e") << std::endl
-              << std::setw(15) << "R0_mu" << std::setw(13)
-              << R0_l("mu") << std::endl
-              << std::setw(15) << "R0_tau" << std::setw(13)
-              << R0_l("tau") << std::endl
-              << std::setw(15) << "R0_b" << std::setw(13)
-              << R0_q("b") << std::endl
-              << std::setw(15) << "R0_c" << std::setw(13)
-              << R0_q("c") << std::endl
-              << std::setw(15) << "R0_s" << std::setw(13)
-              << R0_q("s") << std::endl
-              << std::setw(15) << "A_e" << std::setw(13)
-              << A_f("e") << std::endl
-              << std::setw(15) << "A_mu" << std::setw(13)
-              << A_f("mu") << std::endl
-              << std::setw(15) << "A_tau" << std::setw(13)
-              << A_f("tau") << std::endl
-              << std::setw(15) << "A_b" << std::setw(13)
-              << A_f("b") << std::endl
-              << std::setw(15) << "A_c" << std::setw(13)
-              << A_f("c") << std::endl
-              << std::setw(15) << "A_s" << std::setw(13)
-              << A_f("s") << std::endl
-              << std::setw(15) << "AFB0_e" << std::setw(13)
-              << AFB0_f("e") << std::endl
-              << std::setw(15) << "AFB0_mu" << std::setw(13)
-              << AFB0_f("mu") << std::endl
-              << std::setw(15) << "AFB0_tau" << std::setw(13)
-              << AFB0_f("tau") << std::endl
-              << std::setw(15) << "AFB0_b" << std::setw(13)
-              << AFB0_f("b") << std::endl
-              << std::setw(15) << "AFB0_c" << std::setw(13)
-              << AFB0_f("c") << std::endl
-              << std::setw(15) << "AFB0_s" << std::setw(13)
-              << AFB0_f("s") << std::endl
-              << std::endl;
-
-    std::cout << "  epsilon1 = " << obliqueEpsilon1() << std::endl
-              << "  epsilon2 = " << obliqueEpsilon2() << std::endl
-              << "  epsilon3 = " << obliqueEpsilon3() << std::endl
-              << "         S = " << obliqueS() << std::endl
-              << "         T = " << obliqueT() << std::endl
-              << "         U = " << obliqueU() << std::endl
-              << std::endl;
 }
 
 
@@ -465,46 +287,5 @@ void ZFitterObservables::printIntermediateResults() {
 
 }
 
-int ZFitterObservables::flavour_st_to_int(const std::string flavour) {
-    if (flavour == "e") {
-        return 1;
-    } else if (flavour == "mu") {
-        return 2;
-    } else if (flavour == "tau") {
-        return 3;
-    } else if (flavour == "b") {
-        return 9;
-    } else if (flavour == "c") {
-        return 6;
-    } else if (flavour == "s") {
-        return 7;
-    } else {
-        std::cout << "flavour = e, mu, tau, b, c, s" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-}
-
-
-////////////////////////////////////////////////////////////////////////
-
-double ZFitterObservables::Delta_r() {
-    return ( ( 1.0 - pow(2.0*Mw*Mw/ZMASS/ZMASS - 1.0, 2.0) )
-              *sqrt(2.0)*GF()*ZMASS*ZMASS/4.0/M_PI/alpha() - 1.0 );
-}
- 
-
-////////////////////////////////////////////////////////////////////////
-
-double ZFitterObservables::GF() const {
-    //return (1.166388e-5); // defined in ZFITTER codes for GFER=0
-    //return (1.16639e-5);  // defined in ZFITTER codes for GFER=1
-    return (1.16637e-5);  // defined in ZFITTER codes for GFER=2  
-    //return SM.getGF();
-}
-
-double ZFitterObservables::alpha() const {
-    return (1.0/137.0359895); // defined in ZFITTER codes
-    //return SM.getAle();
-}
 
 

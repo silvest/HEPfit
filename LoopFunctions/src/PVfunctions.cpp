@@ -20,7 +20,7 @@ PVfunctions::~PVfunctions() {
 
 double PVfunctions::A0(const double mu, const double m) {
     if ( mu<=0.0 || m<0.0 ) {
-        throw "Invalid argument for PVfunctions::B0()";
+        throw "Invalid argument for PVfunctions::A0()";
     }
     return ( -m*m*(-log(m*m/mu/mu)+1.0) );    
 }
@@ -64,6 +64,7 @@ complex PVfunctions::B0(const double mu, const double p2,
         } else {
             // the case of p2=M2
             // B0 += 0.0;
+            throw "Write codes for B0(M2,0,M2) in PVfunctions::B0().";
         }
     } else if ( p2==0.0 && m0==0.0 && m1!=0.0 ) {
         B0 = - log(m12/mu2) + 1.0;
@@ -87,7 +88,7 @@ complex PVfunctions::B0(const double mu, const double p2,
 complex PVfunctions::C0(const double p2, 
                         const double m0, const double m1, const double m2) {
     if ( p2<0.0 || m0<0.0 || m1<0.0 || m2<0.0 ) {
-        throw "Invalid argument for PVfunctions::B0()";
+        throw "Invalid argument for PVfunctions::C0()";
     }
     double m02=m0*m0, m12=m1*m1, m22=m2*m2;
     complex C0(0.0, 0.0, false);

@@ -47,13 +47,6 @@ public:
     //////////////////////////////////////////////////////////////////////// 
     
     /**
-     * @return the W boson mass at tree level
-     */
-    double GetMW_tree() const {
-        return Mw_tree;
-    }
-    
-    /**
      * @return the W boson mass
      */
     double GetMW() const {
@@ -141,8 +134,6 @@ public:
     //////////////////////////////////////////////////////////////////////// 
 
 protected:
-    double Mw_tree;
-
     double Mw;
     double sW2, cW2;
     

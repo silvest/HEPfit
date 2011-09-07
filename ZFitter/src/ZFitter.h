@@ -28,10 +28,9 @@
  *        setAllFlags(const int flags[46], const int flagPrint)
  *          or
  *        flag(const std::string CHFLAG, const int IVALUE)
- *   3. compute the effective couplings, the partial widths, the effective
- *      weak mixing angle, etc.
+ *   3. compute the effective couplings
  *        calcCommonBlocks()
- *   4. calculale and get EW precision observables
+ *   4. get the partial widths, the effective weak mixing angle, etc.
  *        ---> use ZFitterObservables class or another method
  *
  *  ZFITTER flags:
