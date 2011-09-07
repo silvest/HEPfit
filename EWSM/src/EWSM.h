@@ -3,25 +3,6 @@
  * Author: mishima
  */
 
-
-/*
- * DeltaAlpha_l[] : Leptonic contribution to alpha
- *   Eqs.(14-15) in J.H.Kuhn, M.Steinhauser, PLB437,425(1998) [hep-ph/9802241]
- *   Eqs.(5-10) in M.Steinhauser, PLB429,158(1998) [hep-ph/9803313]
- *   According to the latter paper, 
- *   oneLoop=314.19007, twoLoop=0.77617, threeLoop=0.01063 (x10^-4) 
- *   sum=314.97686 (x10^-4) 
- *   Notes: oneLoop and twoLoop are OK for me=0.00051099907, mmu=0.105658389,
- *          mtau=1.777, ale=1.0/137.0359895 and Mz=91.187, but only threeLoop
- *          differs from the above value by 5% (Why?).
- */
- 
-/*
- * DeltaAlpha_t[] : top-quark contribution to alpha
- *   Eq.(12) in J.H.Kuhn, M.Steinhauser, PLB437,425(1998) [hep-ph/9802241]
- *   (-0.70+-0.05)*10^{-4} for mt=175.6+-5.5 and alpha_s(Mz)=0.118
- */
-
 #ifndef EWSM_H
 #define	EWSM_H
 
@@ -33,6 +14,8 @@
 #include "TwoLoopEW.h"
 #include "ThreeLoopEW2QCD.h"
 #include "ThreeLoopEW.h"
+#include "Schemes.h"
+#include "Resummations.h"
 #include "ApproximateFormulae.h"
 
 using namespace gslpp;
@@ -40,13 +23,6 @@ using namespace gslpp;
 
 class EWSM {
 public:
-
-    /**
-     * @brief schemes for the resummations in Mw, rho_Z^f and kappa_Z^f
-     * 
-     * ApproximateFormula for the use of an approximate formula
-     */
-    enum schemes_EW {NORESUM=0, OMSI, INTERMEDIATE, OMSII, APPROXIMATEFORMULA};    
     
     /**
      * @brief the order of radiative corrections
@@ -207,12 +183,19 @@ public:
     }   
 
     /**
-     * @return the radiative corrections to alpha at Mz
+     * @return the total radiative corrections to alpha at Mz
      */
     double getDeltaAlpha() const {
         return DeltaAlpha;
     }
 
+    /**
+     * @return the leptonic and 5-flavour hadronic corrections to alpha at Mz
+     */
+    double getDeltaAlpha_l5q() const {
+        return DeltaAlpha_l5q;
+    }    
+    
     /**
      * @return the W boson mass at tree level
      */
@@ -301,6 +284,7 @@ private:
     ThreeLoopEW2QCD* myThreeLoopEW2QCD;
     ThreeLoopEW* myThreeLoopEW;
     ApproximateFormulae* myApproximateFormulae;
+    Resummations myResum;
     
     /* flags */
     schemes_EW schemeMw, schemeRhoZ, schemeKappaZ;
@@ -315,7 +299,7 @@ private:
     complex deltaKappa_rem_l[orders_EW_size+1][6], deltaKappa_rem_q[orders_EW_size+1][6];
     double DeltaRbar_rem;
     
-    double alphaMz, DeltaAlpha;    
+    double alphaMz, DeltaAlpha, DeltaAlpha_l5q;    
     double Mw_tree, Mw;
     complex rhoZ_l[6], rhoZ_q[6];
     complex kappaZ_l[6], kappaZ_q[6];
@@ -348,21 +332,6 @@ private:
      * EWSM::ComputeAlphaMz() and EWSM::CoumuteMw() have to be called in advance. 
      */
     void ComputeKappaZ();
-    
-    /**
-     * @brief resummation for Mw
-     */
-    void resummationMw();
-    
-    /**
-     * @brief resummation for rho_Z^f
-     */
-    void resummationRhoZ();        
-    
-    /**
-     * @brief resummation for kappa_Z^f
-     */
-    void resummationKappaZ(); 
     
     
     ////////////////////////////////////////////////////////////////////////

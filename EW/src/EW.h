@@ -10,6 +10,7 @@
 #include <StandardModel.h>
 #include <EWSM.h>
 #include <ZFitter.h>
+#include "Schemes.h"
 
 using namespace gslpp;
 
@@ -109,9 +110,9 @@ public:
      * @param[in] schemeKappaZ resummation scheme for kappa_Z^f
      * @param[in] flag_order
      */
-    void ComputeEWSM(const EWSM::schemes_EW schemeMw, 
-                     const EWSM::schemes_EW schemeRhoZ,
-                     const EWSM::schemes_EW schemeKappaZ,
+    void ComputeEWSM(const schemes_EW schemeMw, 
+                     const schemes_EW schemeRhoZ,
+                     const schemes_EW schemeKappaZ,
                      const bool flag_order[EWSM::orders_EW_size]);
     
     /**
@@ -121,9 +122,9 @@ public:
      * @param[in] schemeKappaZ resummation scheme for kappa_Z^f
      * @param[in] flag_order
      */
-    void ComputeZFitter(const EWSM::schemes_EW schemeMw, 
-                        const EWSM::schemes_EW schemeRhoZ,
-                        const EWSM::schemes_EW schemeKappaZ,
+    void ComputeZFitter(const schemes_EW schemeMw, 
+                        const schemes_EW schemeRhoZ,
+                        const schemes_EW schemeKappaZ,
                         const bool flag_order[EWSM::orders_EW_size]);
     
 

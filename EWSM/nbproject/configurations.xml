@@ -8,6 +8,8 @@
       <itemPath>src/EWSM.h</itemPath>
       <itemPath>src/EWSMcommon.h</itemPath>
       <itemPath>src/OneLoopEW.h</itemPath>
+      <itemPath>src/Resummations.h</itemPath>
+      <itemPath>src/Schemes.h</itemPath>
       <itemPath>src/ThreeLoopEW.h</itemPath>
       <itemPath>src/ThreeLoopEW2QCD.h</itemPath>
       <itemPath>src/ThreeLoopQCD.h</itemPath>
@@ -25,6 +27,7 @@
       <itemPath>src/EWSM.cpp</itemPath>
       <itemPath>src/EWSMcommon.cpp</itemPath>
       <itemPath>src/OneLoopEW.cpp</itemPath>
+      <itemPath>src/Resummations.cpp</itemPath>
       <itemPath>src/ThreeLoopEW.cpp</itemPath>
       <itemPath>src/ThreeLoopEW2QCD.cpp</itemPath>
       <itemPath>src/ThreeLoopQCD.cpp</itemPath>
@@ -42,6 +45,7 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>README</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -93,6 +97,8 @@
           </makeArtifact>
         </requiredProjects>
       </compileType>
+      <item path="README" ex="true" tool="3" flavor="0">
+      </item>
       <folder path="TestFiles">
         <ccTool>
           <incDir>
