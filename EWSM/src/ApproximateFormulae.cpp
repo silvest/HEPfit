@@ -23,6 +23,8 @@ ApproximateFormulae::~ApproximateFormulae() {
 double ApproximateFormulae::Mw() const {
     double Mw0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11;    
     if( SM.getMHl() >= 100.0 && SM.getMHl() <= 1000.0 ) {
+#define TEST_DEBUG
+#ifndef TEST_DEBUG
         // applicable for 100 GeV <= mHl <= 1 TeV
         Mw0 = 80.3800;
         c1 = 0.05253;
@@ -37,6 +39,8 @@ double ApproximateFormulae::Mw() const {
         c10 = 0.0716;
         c11 = 115.0;
     } else if (SM.getMHl() >= 10.0 && SM.getMHl() < 100.0 ) {        
+#endif
+        
         // applicable for 10 GeV <= mHl <= 1 TeV
         Mw0 = 80.3799;
         c1 = 0.05429;

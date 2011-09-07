@@ -32,9 +32,9 @@ EW::~EW() {
 
 ////////////////////////////////////////////////////////////////////////
 
-void EW::ComputeEWSM(const EWSM::schemes_EW schemeMw, 
-                     const EWSM::schemes_EW schemeRhoZ,
-                     const EWSM::schemes_EW schemeKappaZ,
+void EW::ComputeEWSM(const schemes_EW schemeMw, 
+                     const schemes_EW schemeRhoZ,
+                     const schemes_EW schemeKappaZ,
                      const bool flag_order[EWSM::orders_EW_size]) {
 
     myEWSM.setFlags(schemeMw, schemeRhoZ, schemeKappaZ, flag_order);
@@ -53,24 +53,47 @@ void EW::ComputeEWSM(const EWSM::schemes_EW schemeMw,
     }
 }
 
-void EW::ComputeZFitter(const EWSM::schemes_EW schemeMw, 
-                        const EWSM::schemes_EW schemeRhoZ,
-                        const EWSM::schemes_EW schemeKappaZ,
+void EW::ComputeZFitter(const schemes_EW schemeMw, 
+                        const schemes_EW schemeRhoZ,
+                        const schemes_EW schemeKappaZ,
                         const bool flag_order[EWSM::orders_EW_size]) {
 
     // DAL5H is supplied by the user as input. 
     myZFitter.flag("ALEM", 2); 
 
-    if (schemeMw==EWSM::NORESUM 
-        && schemeRhoZ==EWSM::NORESUM && schemeKappaZ==EWSM::NORESUM) {
-            myZFitter.flag("AMT4", 0); 
-    } else if (schemeMw==EWSM::APPROXIMATEFORMULA
-               && schemeKappaZ==EWSM::APPROXIMATEFORMULA) {
+    if (schemeMw==NORESUM 
+        && schemeRhoZ==NORESUM && schemeKappaZ==NORESUM) {
+            myZFitter.flag("AMT4", 0); // Does this option work correctly? 
+    } else if (schemeMw==OMSI   
+               && schemeRhoZ==OMSI && schemeKappaZ==OMSI) {    
+            myZFitter.flag("AMT4", 4);
+            myZFitter.flag("IFACR", 0);    
+            myZFitter.flag("IFACT", 0);
+    } else if (schemeMw==INTERMEDIATE
+               && schemeRhoZ==INTERMEDIATE && schemeKappaZ==INTERMEDIATE) {    
+            myZFitter.flag("AMT4", 4);
+            myZFitter.flag("IFACR", 1);    
+            myZFitter.flag("IFACT", 1);            
+    } else if (schemeMw==OMSII  
+               && schemeRhoZ==OMSII && schemeKappaZ==OMSII) {    
+            myZFitter.flag("AMT4", 4);
+            myZFitter.flag("IFACR", 2);    
+            myZFitter.flag("IFACT", 2);
+     } else if (schemeMw==APPROXIMATEFORMULA
+               && schemeKappaZ==APPROXIMATEFORMULA) {
             myZFitter.flag("AMT4", 6);
+            if (schemeRhoZ==OMSI) myZFitter.flag("IFACT", 0);
+            if (schemeRhoZ==INTERMEDIATE) myZFitter.flag("IFACT", 1);
+            if (schemeRhoZ==OMSII) myZFitter.flag("IFACT", 2);    
     } else {
         throw "Write codes in EW::ComputeZFitter()";
     }
 
+    for (int i=0; i<EWSM::orders_EW_size; i++) {
+        if (flag_order[i]!=true) 
+        throw "Inputs for flag_order[] is not allowed in EW::ComputeZFitter()";
+    }    
+    
     myZFitter.calcCommonBlocks();
     
     /* Outputs */
