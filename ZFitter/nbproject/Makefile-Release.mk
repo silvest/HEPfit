@@ -42,8 +42,7 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 
 # Test Files
 TESTFILES= \
-	${TESTDIR}/TestFiles/f1 \
-	${TESTDIR}/TestFiles/f2
+	${TESTDIR}/TestFiles/f1
 
 # C Compiler Flags
 CFLAGS=
@@ -74,12 +73,12 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter.a: ${OBJECTFILES}
 ${OBJECTDIR}/src/ZFitter.o: src/ZFitter.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ZFitter.o src/ZFitter.cpp
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ZFitter.o src/ZFitter.cpp
 
 ${OBJECTDIR}/src/ZFitterObservables.o: src/ZFitterObservables.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ZFitterObservables.o src/ZFitterObservables.cpp
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ZFitterObservables.o src/ZFitterObservables.cpp
 
 # Subprojects
 .build-subprojects:
@@ -90,21 +89,11 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/ZFitterTest.o ${OBJECTFILES:%.o=%_noma
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc}   -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} 
 
-${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/ZFitterTest-2.o ${OBJECTFILES:%.o=%_nomain.o}
-	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}   -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS} 
-
 
 ${TESTDIR}/tests/ZFitterTest.o: tests/ZFitterTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ZFitterTest.o tests/ZFitterTest.cpp
-
-
-${TESTDIR}/tests/ZFitterTest-2.o: tests/ZFitterTest-2.cpp 
-	${MKDIR} -p ${TESTDIR}/tests
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ZFitterTest-2.o tests/ZFitterTest-2.cpp
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/ZFitterTest.o tests/ZFitterTest.cpp
 
 
 ${OBJECTDIR}/src/ZFitter_nomain.o: ${OBJECTDIR}/src/ZFitter.o src/ZFitter.cpp 
@@ -115,7 +104,7 @@ ${OBJECTDIR}/src/ZFitter_nomain.o: ${OBJECTDIR}/src/ZFitter.o src/ZFitter.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ZFitter_nomain.o src/ZFitter.cpp;\
+	    $(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ZFitter_nomain.o src/ZFitter.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/ZFitter.o ${OBJECTDIR}/src/ZFitter_nomain.o;\
 	fi
@@ -128,7 +117,7 @@ ${OBJECTDIR}/src/ZFitterObservables_nomain.o: ${OBJECTDIR}/src/ZFitterObservable
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ZFitterObservables_nomain.o src/ZFitterObservables.cpp;\
+	    $(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ZFitterObservables_nomain.o src/ZFitterObservables.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/ZFitterObservables.o ${OBJECTDIR}/src/ZFitterObservables_nomain.o;\
 	fi
@@ -138,7 +127,6 @@ ${OBJECTDIR}/src/ZFitterObservables_nomain.o: ${OBJECTDIR}/src/ZFitterObservable
 	@if [ "${TEST}" = "" ]; \
 	then  \
 	    ${TESTDIR}/TestFiles/f1 || true; \
-	    ${TESTDIR}/TestFiles/f2 || true; \
 	else  \
 	    ./${TEST} || true; \
 	fi

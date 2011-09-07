@@ -25,9 +25,6 @@ EWSMcommon::~EWSMcommon() {
 
 void EWSMcommon::SetConstants() {
  
-    double tmp = 4.0*M_PI*ale/sqrt(2.0)/GF/Mz/Mz;
-    Mw_tree = Mz/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp));
-    
     /* zeta functions */
     zeta2 = gsl_sf_zeta_int(2);
     zeta3 = gsl_sf_zeta_int(3);

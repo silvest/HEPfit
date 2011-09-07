@@ -18,14 +18,6 @@ class EW : public ThObsType {
 public:
 
     /**
-     * @brief scheme for the resummations in Delta r, rho_Z^f and kappa_Z^f
-     */
-    enum schemes_EW {NORESUM=0, OMSI, INTERMEDIATE, OMSII, schemes_EW_size};    
-    
-    
-    //////////////////////////////////////////////////////////////////////// 
-        
-    /**
      * @brief EW constructor
      * @param[in] SM_i an object of StandardModel class
      */
@@ -105,20 +97,34 @@ public:
      */
     complex getKappaZ_q(const StandardModel::quark q) const {
         return kappaZ_q[q];
-        }
+    }
 
     
     ////////////////////////////////////////////////////////////////////////     
         
     /**
-     * @brief computes M_W and the effective weak couplings
+     * @brief computes M_W and the effective weak couplings with EWSM class
+     * @param[in] schemeMw resummation scheme for Mw
+     * @param[in] schemeRhoZ resummation scheme for rho_Z^f
+     * @param[in] schemeKappaZ resummation scheme for kappa_Z^f
+     * @param[in] flag_order
      */
-    void ComputeEWSM();
+    void ComputeEWSM(const EWSM::schemes_EW schemeMw, 
+                     const EWSM::schemes_EW schemeRhoZ,
+                     const EWSM::schemes_EW schemeKappaZ,
+                     const bool flag_order[EWSM::orders_EW_size]);
     
     /**
-     * @brief computes M_W and the effective weak couplings with ZFITTER
+     * @brief computes M_W and the effective weak couplings with ZFITTER class
+     * @param[in] schemeMw resummation scheme for Mw
+     * @param[in] schemeRhoZ resummation scheme for rho_Z^f
+     * @param[in] schemeKappaZ resummation scheme for kappa_Z^f
+     * @param[in] flag_order
      */
-    void ComputeZFitter();
+    void ComputeZFitter(const EWSM::schemes_EW schemeMw, 
+                        const EWSM::schemes_EW schemeRhoZ,
+                        const EWSM::schemes_EW schemeKappaZ,
+                        const bool flag_order[EWSM::orders_EW_size]);
     
 
     //////////////////////////////////////////////////////////////////////// 

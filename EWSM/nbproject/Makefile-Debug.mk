@@ -40,6 +40,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/EWSM.o \
 	${OBJECTDIR}/src/OneLoopEW.o \
 	${OBJECTDIR}/src/EWSMcommon.o \
+	${OBJECTDIR}/src/ApproximateFormulae.o \
 	${OBJECTDIR}/src/ThreeLoopEW2QCD.o \
 	${OBJECTDIR}/src/ThreeLoopQCD.o
 
@@ -99,6 +100,11 @@ ${OBJECTDIR}/src/EWSMcommon.o: src/EWSMcommon.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSMcommon.o src/EWSMcommon.cpp
+
+${OBJECTDIR}/src/ApproximateFormulae.o: src/ApproximateFormulae.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ApproximateFormulae.o src/ApproximateFormulae.cpp
 
 ${OBJECTDIR}/src/ThreeLoopEW2QCD.o: src/ThreeLoopEW2QCD.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

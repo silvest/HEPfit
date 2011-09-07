@@ -33,22 +33,29 @@
 #include "TwoLoopEW.h"
 #include "ThreeLoopEW2QCD.h"
 #include "ThreeLoopEW.h"
+#include "ApproximateFormulae.h"
 
 using namespace gslpp;
 
 
 class EWSM {
 public:
+
+    /**
+     * @brief schemes for the resummations in Mw, rho_Z^f and kappa_Z^f
+     * 
+     * ApproximateFormula for the use of an approximate formula
+     */
+    enum schemes_EW {NORESUM=0, OMSI, INTERMEDIATE, OMSII, APPROXIMATEFORMULA};    
     
     /**
      * @brief the order of radiative corrections
      * 
      * The number of elements is set in "orders_EW_size".
      */
-    enum orders_EW {TREE=0, EW1, EW1QCD, EW1QCD2, EW2, EW2QCD1, EW3, 
-                    orders_EW_size};    
+    enum orders_EW {EW1=0, EW1QCD1, EW1QCD2, EW2, EW2QCD1, EW3, orders_EW_size};    
 
- 
+                    
     //////////////////////////////////////////////////////////////////////// 
     
     /**
@@ -70,6 +77,38 @@ public:
 
     
     //////////////////////////////////////////////////////////////////////// 
+
+    /**
+     * @return resummation scheme for Mw
+     */
+    schemes_EW getSchemeMw() const {
+        return schemeMw;
+    }
+
+    /**
+     * @return resummation scheme for rho_Z^f
+     */
+    schemes_EW getSchemeRhoZ() const {
+        return schemeRhoZ;
+    }
+
+    /**
+     * @return resummation scheme for kappa_Z^f
+     */
+    schemes_EW getSchemeKappaZ() const {
+        return schemeKappaZ;
+    }
+
+    /**
+     * @param[in] order
+     * @return 
+     */
+    bool getFlag_order(orders_EW order) const {
+        return flag_order[order];
+    }    
+    
+    
+    ////////////////////////////////////////////////////////////////////////     
     
     /**
      * @brief leptonic contribution to alpha
@@ -163,25 +202,31 @@ public:
      * @brief electromagnetic coupling alpha at Mz
      * @return alpha(Mz)
      */
-    double getAlphaMZ() const {
-        return alphaMZ;
+    double getAlphaMz() const {
+        return alphaMz;
+    }   
+
+    /**
+     * @return the radiative corrections to alpha at Mz
+     */
+    double getDeltaAlpha() const {
+        return DeltaAlpha;
+    }
+
+    /**
+     * @return the W boson mass at tree level
+     */
+    double getMw_tree() const {
+        return Mw_tree;
     }   
     
     /**
-     * @brief the W bosn mass
+     * @brief the W-boson mass
      * @return M_W
      */
     double getMw() const {
         return Mw;
     }    
-
-    /**
-     * @brief the radiative corrections to the W-boson mass
-     * @return Deltaa R
-     */
-    double getDeltaR() const {
-        return DeltaR;
-    }
     
     /**
      * @brief effective coupling rho_Z^l
@@ -218,19 +263,27 @@ public:
     complex getKappaZ_q(const StandardModel::quark q) const {
         return kappaZ_q[q];
     }
-
+    
 
     //////////////////////////////////////////////////////////////////////// 
 
     /**
-     * @brief test function
+     * @brief 
+     * @param[in] schemeMw_i resummation scheme for Mw
+     * @param[in] schemeRhoZ_i resummation scheme for rho_Z^f
+     * @param[in] schemeKappaZ_i resummation scheme for kappa_Z^f
+     * @param[in] flag_order_i
      */
-    void TEST() const;
+    void setFlags(const schemes_EW schemeMw_i, 
+                  const schemes_EW schemeRhoZ_i, const schemes_EW schemeKappaZ_i,
+                  const bool flag_order_i[orders_EW_size]);
     
     /**
-     * @brief computes radiative corrections
+     * @brief computes alpha(Mz), the W-boson mass, and rho_Z^f and kappa_Z^f
+     * 
+     * EWSM::setFlags() has to be called in advance.
      */
-    void Compute();    
+    void Compute();
     
     
     ////////////////////////////////////////////////////////////////////////     
@@ -247,6 +300,11 @@ private:
     TwoLoopEW* myTwoLoopEW;
     ThreeLoopEW2QCD* myThreeLoopEW2QCD;
     ThreeLoopEW* myThreeLoopEW;
+    ApproximateFormulae* myApproximateFormulae;
+    
+    /* flags */
+    schemes_EW schemeMw, schemeRhoZ, schemeKappaZ;
+    bool flag_order[orders_EW_size];
     
     /* The last elements store the total contribution.  */
     double DeltaAlpha_l[orders_EW_size+1];
@@ -255,15 +313,57 @@ private:
     double DeltaR_rem[orders_EW_size+1];
     complex deltaRho_rem_l[orders_EW_size+1][6], deltaRho_rem_q[orders_EW_size+1][6];
     complex deltaKappa_rem_l[orders_EW_size+1][6], deltaKappa_rem_q[orders_EW_size+1][6];
-
     double DeltaRbar_rem;
     
-    double alphaMZ;
-    double Mw;
-    double DeltaR;
+    double alphaMz, DeltaAlpha;    
+    double Mw_tree, Mw;
     complex rhoZ_l[6], rhoZ_q[6];
     complex kappaZ_l[6], kappaZ_q[6];
+    
+    
+   //////////////////////////////////////////////////////////////////////// 
 
+    /**
+     * @brief computes alpha(Mz)
+     */
+    void ComputeAlphaMz();    
+
+    /**
+     * @brief computes the W-boson mass
+     * 
+     * EWSM::AlphaMz() has to be called in advance. 
+     */
+    void ComputeMw();  
+    
+    /**
+     * @brief computes rho_Z^f
+     * 
+     * EWSM::ComputeAlphaMz() and EWSM::CoumuteMw() have to be called in advance. 
+     */
+    void ComputeRhoZ();
+    
+     /**
+     * @brief computes kappa_Z^f
+     * 
+     * EWSM::ComputeAlphaMz() and EWSM::CoumuteMw() have to be called in advance. 
+     */
+    void ComputeKappaZ();
+    
+    /**
+     * @brief resummation for Mw
+     */
+    void resummationMw();
+    
+    /**
+     * @brief resummation for rho_Z^f
+     */
+    void resummationRhoZ();        
+    
+    /**
+     * @brief resummation for kappa_Z^f
+     */
+    void resummationKappaZ(); 
+    
     
     ////////////////////////////////////////////////////////////////////////
     
