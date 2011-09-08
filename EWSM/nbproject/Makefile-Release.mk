@@ -38,8 +38,8 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/TwoLoopEW.o \
 	${OBJECTDIR}/src/ThreeLoopEW.o \
 	${OBJECTDIR}/src/EWSM.o \
-	${OBJECTDIR}/src/EWSMcommon.o \
 	${OBJECTDIR}/src/OneLoopEW.o \
+	${OBJECTDIR}/src/EWSMcommon.o \
 	${OBJECTDIR}/src/ApproximateFormulae.o \
 	${OBJECTDIR}/src/ThreeLoopEW2QCD.o \
 	${OBJECTDIR}/src/ThreeLoopQCD.o
@@ -91,15 +91,15 @@ ${OBJECTDIR}/src/EWSM.o: src/EWSM.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSM.o src/EWSM.cpp
 
-${OBJECTDIR}/src/EWSMcommon.o: src/EWSMcommon.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSMcommon.o src/EWSMcommon.cpp
-
 ${OBJECTDIR}/src/OneLoopEW.o: src/OneLoopEW.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/OneLoopEW.o src/OneLoopEW.cpp
+
+${OBJECTDIR}/src/EWSMcommon.o: src/EWSMcommon.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSMcommon.o src/EWSMcommon.cpp
 
 ${OBJECTDIR}/src/ApproximateFormulae.o: src/ApproximateFormulae.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
