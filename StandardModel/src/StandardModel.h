@@ -50,6 +50,11 @@ public:
     double v() const;
 
     /**
+     * @return the W boson mass at tree level
+     */
+    double Mw_tree() const;    
+    
+    /**
      * @return the W boson mass, including radiative corrections
      */
     virtual double Mw() const;    
