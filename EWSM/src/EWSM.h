@@ -14,8 +14,6 @@
 #include "TwoLoopEW.h"
 #include "ThreeLoopEW2QCD.h"
 #include "ThreeLoopEW.h"
-#include "Schemes.h"
-#include "Resummations.h"
 #include "ApproximateFormulae.h"
 
 using namespace gslpp;
@@ -31,7 +29,14 @@ public:
      */
     enum orders_EW {EW1=0, EW1QCD1, EW1QCD2, EW2, EW2QCD1, EW3, orders_EW_size};    
 
-                    
+    /**
+     * @brief schemes for the resummations in Mw, rho_Z^f and kappa_Z^f
+     * 
+     * APPROXIMATEFORMULA for the use of approximate formulae
+     */
+    enum schemes_EW {NORESUM=0, OMSI, INTERMEDIATE, OMSII, APPROXIMATEFORMULA}; 
+
+    
     //////////////////////////////////////////////////////////////////////// 
     
     /**
@@ -284,7 +289,6 @@ private:
     ThreeLoopEW2QCD* myThreeLoopEW2QCD;
     ThreeLoopEW* myThreeLoopEW;
     ApproximateFormulae* myApproximateFormulae;
-    Resummations myResum;
     
     /* flags */
     schemes_EW schemeMw, schemeRhoZ, schemeKappaZ;
@@ -332,6 +336,21 @@ private:
      * EWSM::ComputeAlphaMz() and EWSM::CoumuteMw() have to be called in advance. 
      */
     void ComputeKappaZ();
+    
+    /**
+     * @brief resummation for Mw
+     */
+    void resumMw();
+    
+    /**
+     * @brief resummation for rho_Z^f
+     */
+    void resumRhoZ();
+    
+    /**
+     * @return resummation for kappa_Z^f
+     */
+    void resumKappaZ();
     
     
     ////////////////////////////////////////////////////////////////////////
