@@ -32,72 +32,115 @@ EW::~EW() {
 
 ////////////////////////////////////////////////////////////////////////
 
-void EW::ComputeEWSM(const EWSM::schemes_EW schemeMw, 
-                     const EWSM::schemes_EW schemeRhoZ,
-                     const EWSM::schemes_EW schemeKappaZ,
+void EW::ComputeEWSM(const schemes_EW schemeMw, 
+                     const schemes_EW schemeRhoZ,
+                     const schemes_EW schemeKappaZ,
                      const bool flag_order[EWSM::orders_EW_size]) {
 
-    myEWSM.setFlags(schemeMw, schemeRhoZ, schemeKappaZ, flag_order);
-    myEWSM.Compute();
+    myEWSM.ComputeDeltaAlpha(flag_order);
+    
+    DeltaAlpha_l5q = myEWSM.getDeltaAlpha_l(EWSM::orders_EW_size) + SM.getDAle5Mz();
+    DeltaAlpha = DeltaAlpha_l5q + myEWSM.getDeltaAlpha_t(EWSM::orders_EW_size);
+    
+#define TEST_DEBUG
+#ifdef TEST_DEBUG
+    DeltaAlpha = 0.10;
+#endif    
+    
+    alphaMz = SM.getAle()/(1.0 - DeltaAlpha);
+    
+    if (schemeMw==APPROXIMATEFORMULA) {
+        myApproximateFormulae = new ApproximateFormulae(SM, DeltaAlpha);
+        Mw = myApproximateFormulae->Mw();        
+        delete myApproximateFormulae;
+    } else {
+        myEWSM.ComputeCC(SM.Mw_tree(), flag_order);
+        Mw = resumMw(schemeMw);
+        
+        /* Mw from iterations */
+        double Mw_org = 0.0;
+        while (fabs(Mw - Mw_org) > 0.000001) {
+            Mw_org = Mw;
+            myEWSM.ComputeCC(Mw, flag_order);
+            Mw = resumMw(schemeMw);
+            std::cout << "TEST: Mw_org = " << Mw_org 
+                      << "  Mw_new = " << Mw << std::endl;
+        }
+    }
 
-    /* Outputs */
-    alphaMZ = myEWSM.getAlphaMz();    
-    Mw = myEWSM.getMw();
+    myEWSM.ComputeNC(Mw, flag_order);
+
+    /* Resummations */    
     for (int i=0; i<6; i++) {
         StandardModel::lepton i_l = (StandardModel::lepton) i;
-        StandardModel::quark i_q = (StandardModel::quark) i;
-        rhoZ_l[i] = myEWSM.getRhoZ_l(i_l);
-        rhoZ_q[i] = myEWSM.getRhoZ_q(i_q);
-        kappaZ_l[i] = myEWSM.getKappaZ_l(i_l);
-        kappaZ_q[i] = myEWSM.getKappaZ_q(i_q);
+        StandardModel::quark i_q = (StandardModel::quark) i;   
+        double deltaRho_rem_l_real[EWSM::orders_EW_size+1],
+               deltaRho_rem_q_real[EWSM::orders_EW_size+1],
+               deltaKappa_rem_l_real[EWSM::orders_EW_size+1],
+               deltaKappa_rem_q_real[EWSM::orders_EW_size+1];
+        for (int j=0; j<=EWSM::orders_EW_size; j++) {
+            EWSM::orders_EW j_order = (EWSM::orders_EW) j;
+            deltaRho_rem_l_real[j] = myEWSM.getDeltaRho_rem_l(i_l,j_order).real();
+            deltaRho_rem_q_real[j] = myEWSM.getDeltaRho_rem_q(i_q,j_order).real(); 
+            deltaKappa_rem_l_real[j] = myEWSM.getDeltaRho_rem_l(i_l,j_order).real();
+            deltaKappa_rem_q_real[j] = myEWSM.getDeltaRho_rem_q(i_q,j_order).real();
+        }
+        rhoZ_l[i].real() = resumRhoZ(schemeRhoZ, deltaRho_rem_l_real);
+        rhoZ_q[i].real() = resumRhoZ(schemeRhoZ, deltaRho_rem_q_real);
+        kappaZ_l[i].real() = resumKappaZ(schemeKappaZ, deltaKappa_rem_l_real);
+        kappaZ_q[i].real() = resumKappaZ(schemeKappaZ, deltaKappa_rem_q_real);
     }
+
+    /* Imaginary parts */
+    for (int i=0; i<6; i++) {
+        StandardModel::lepton i_l = (StandardModel::lepton) i;
+        StandardModel::quark i_q = (StandardModel::quark) i;   
+        rhoZ_l[i].imag() = myEWSM.getDeltaRho_rem_l(i_l,EWSM::orders_EW_size).imag();    
+        rhoZ_q[i].imag() = myEWSM.getDeltaRho_rem_q(i_q,EWSM::orders_EW_size).imag();    
+        kappaZ_l[i].imag() = myEWSM.getDeltaKappa_rem_l(i_l,EWSM::orders_EW_size).imag();    
+        kappaZ_q[i].imag() = myEWSM.getDeltaKappa_rem_q(i_q,EWSM::orders_EW_size).imag();            
+    }
+    
+    /* Other contributions to Im[kappa_Z^f] */
+    double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
+    double cW2 = 1.0 - sW2;
+    for (int i=0; i<6; i++) {
+//        kappaZ_l[i].imag() -= SM.getAle()*SM.getAlsMz()/24.0/M_PI*(cW2-sW2)/sW2/sW2; //???
+//        kappaZ_q[i].imag() -= SM.getAle()*SM.getAlsMz()/24.0/M_PI*(cW2-sW2)/sW2/sW2; //???
+    
+//        kappaZ_l[i].imag() -= 3.0*Xt/f_AlphaToGF*pow()*
+//        kappaZ_q[i].imag() -=    
+    }
+    
+    /* Using the approximate formula for the real parts of kappa_Z^f*/
+    if (schemeKappaZ==EW::APPROXIMATEFORMULA) {
+        myApproximateFormulae = new ApproximateFormulae(SM, DeltaAlpha);
+        double sin2thetaEff_l[6], sin2thetaEff_q[6];
+        double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
+        for (int i=0; i<6; i++) {
+            StandardModel::lepton i_l = (StandardModel::lepton) i;
+            StandardModel::quark i_q = (StandardModel::quark) i;        
+            sin2thetaEff_l[i] = myApproximateFormulae->sin2thetaEff(i_l);
+            sin2thetaEff_q[i] = myApproximateFormulae->sin2thetaEff(i_q);
+            kappaZ_l[i].real() = sin2thetaEff_l[i]/sW2; 
+            kappaZ_q[i].real() = sin2thetaEff_q[i]/sW2;
+        }
+        delete myApproximateFormulae;
+    }    
 }
 
-void EW::ComputeZFitter(const EWSM::schemes_EW schemeMw, 
-                        const EWSM::schemes_EW schemeRhoZ,
-                        const EWSM::schemes_EW schemeKappaZ,
+void EW::ComputeZFitter(const schemes_EW schemeMw, 
+                        const schemes_EW schemeRhoZ,
+                        const schemes_EW schemeKappaZ,
                         const bool flag_order[EWSM::orders_EW_size]) {
 
-    // DAL5H is supplied by the user as input. 
-    myZFitter.flag("ALEM", 2); 
-
-    if (schemeMw==EWSM::NORESUM 
-        && schemeRhoZ==EWSM::NORESUM && schemeKappaZ==EWSM::NORESUM) {
-            myZFitter.flag("AMT4", 0); // Does this option work correctly? 
-    } else if (schemeMw==EWSM::OMSI   
-               && schemeRhoZ==EWSM::OMSI && schemeKappaZ==EWSM::OMSI) {    
-            myZFitter.flag("AMT4", 4);
-            myZFitter.flag("IFACR", 0);    
-            myZFitter.flag("IFACT", 0);
-    } else if (schemeMw==EWSM::INTERMEDIATE
-               && schemeRhoZ==EWSM::INTERMEDIATE && schemeKappaZ==EWSM::INTERMEDIATE) {    
-            myZFitter.flag("AMT4", 4);
-            myZFitter.flag("IFACR", 1);    
-            myZFitter.flag("IFACT", 1);            
-    } else if (schemeMw==EWSM::OMSII  
-               && schemeRhoZ==EWSM::OMSII && schemeKappaZ==EWSM::OMSII) {    
-            myZFitter.flag("AMT4", 4);
-            myZFitter.flag("IFACR", 2);    
-            myZFitter.flag("IFACT", 2);
-     } else if (schemeMw==EWSM::APPROXIMATEFORMULA
-               && schemeKappaZ==EWSM::APPROXIMATEFORMULA) {
-            myZFitter.flag("AMT4", 6);
-            if (schemeRhoZ==EWSM::OMSI) myZFitter.flag("IFACT", 0);
-            if (schemeRhoZ==EWSM::INTERMEDIATE) myZFitter.flag("IFACT", 1);
-            if (schemeRhoZ==EWSM::OMSII) myZFitter.flag("IFACT", 2);    
-    } else {
-        throw "Write codes in EW::ComputeZFitter()";
-    }
-
-    for (int i=0; i<EWSM::orders_EW_size; i++) {
-        if (flag_order[i]!=true) 
-        throw "Inputs for flag_order[] is not allowed in EW::ComputeZFitter()";
-    }    
-    
+    SetZFitterFlags(schemeMw, schemeRhoZ, schemeKappaZ, flag_order);
     myZFitter.calcCommonBlocks();
     
     /* Outputs */
-    alphaMZ = myZFitter.getAlphaMZ();
+    alphaMz = myZFitter.getAlphaMZ();
+    DeltaAlpha = 1.0 - 1.0/alphaMz*SM.getAle();
+    DeltaAlpha_l5q = DeltaAlpha - SM.getDAle5Mz();
     Mw = myZFitter.getMw();
     for (int i=0; i<6; i++) {
         StandardModel::lepton i_l = (StandardModel::lepton) i;
@@ -159,7 +202,7 @@ double EW::Gamma_l(const StandardModel::lepton l) const {
     double G0 = SM.getGF()*pow(SM.getMz(),3.0)/24.0/sqrt(2.0)/M_PI;
     double Gamma = G0*rhoZ_l[l].abs()*sqrt(1.0 - 4.0*xl)
                    * ( (1.0 + 2.0*xl)*(gV_over_gA.abs2() + 1.0) - 6.0*xl )
-                   * ( 1.0 + 3.0/4.0*alphaMZ/M_PI*Qf(l)*Qf(l) );
+                   * ( 1.0 + 3.0/4.0*alphaMz/M_PI*Qf(l)*Qf(l) );
     return Gamma;
 }
 
@@ -306,7 +349,7 @@ double EW::Gamma_q(const StandardModel::quark q) const {
     double AlsMzPi4 = AlsMzPi3*AlsMzPi;
 
     /* radiator function to the vector current */
-    RVf = 1.0 + 3.0/4.0*Qf2*alphaMZ/M_PI + AlsMzPi - Qf2/4.0*alphaMZ/M_PI*AlsMzPi
+    RVf = 1.0 + 3.0/4.0*Qf2*alphaMz/M_PI + AlsMzPi - Qf2/4.0*alphaMz/M_PI*AlsMzPi
             + (C02 + C2t)*AlsMzPi2 + C03*AlsMzPi3 + C04*AlsMzPi4
             //+ deltaC05*AlsMzPi5 /* theoretical uncertainty (absent in ZFITTER) */
             + (mcMz2 + mbMz2)/s*C23*AlsMzPi3
@@ -319,7 +362,7 @@ double EW::Gamma_q(const StandardModel::quark q) const {
               *(8.0+16.0/27.0*(155.0 + 6.0*log_q)*AlsMzPi);
 
     /* radiator function to the axial-vector current */
-    RAf = 1.0 + 3.0/4.0*Qf2*alphaMZ/M_PI + AlsMzPi - Qf2/4.0*alphaMZ/M_PI*AlsMzPi
+    RAf = 1.0 + 3.0/4.0*Qf2*alphaMz/M_PI + AlsMzPi - Qf2/4.0*alphaMz/M_PI*AlsMzPi
             + (C02 + C2t - 2.0*I3q*I2)*AlsMzPi2
             + (C03 - 2.0*I3q*I3)*AlsMzPi3
             + C04*AlsMzPi4 /* (absent in ZFITTER) */
@@ -380,8 +423,187 @@ double EW::A_q(const StandardModel::quark q) const {
 }
 
 
+////////////////////////////////////////////////////////////////////////
 
+double EW::resumMw(const schemes_EW schemeMw) {
+    double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
+    double cW2 = 1.0 - sW2;
+    double cW2_to_sW2 = cW2/sW2;
+    double R;
 
+    if (myEWSM.getDeltaR_rem(EWSM::EW1QCD2)!=0.0) throw "Error in EW::resumMw()";
+    if (myEWSM.getDeltaR_rem(EWSM::EW2QCD1)!=0.0) throw "Error in EW::resumMw()";
+    if (myEWSM.getDeltaR_rem(EWSM::EW3)!=0.0) throw "Error in EW::resumMw()";
+    
+    switch (schemeMw) {
+        case NORESUM: 
+            // R = 1 + DeltaRho
+            R = 1.0 + DeltaAlpha_l5q 
+                - cW2_to_sW2*myEWSM.getDeltaRho(EWSM::orders_EW_size)
+                + myEWSM.getDeltaR_rem(EWSM::orders_EW_size);
+            break;
+        case OMSI:
+            // R = 1/(1 - DeltaRho)
+            R = 1.0/(1.0 + cW2_to_sW2*myEWSM.getDeltaRho(EWSM::orders_EW_size))
+                /(1.0 - DeltaAlpha_l5q 
+                  - myEWSM.getDeltaR_rem(EWSM::EW1)
+                  - myEWSM.getDeltaR_rem(EWSM::EW1QCD1) 
+                  - myEWSM.getDeltaR_rem(EWSM::EW2));
+            break;
+        case INTERMEDIATE:
+            // R = 1/(1 - DeltaRho)
+            R = 1.0/( (1.0 + cW2_to_sW2*myEWSM.getDeltaRho(EWSM::orders_EW_size))
+                      *(1.0 - DeltaAlpha_l5q - myEWSM.getDeltaR_rem(EWSM::EW1)) 
+                      - myEWSM.getDeltaR_rem(EWSM::EW1QCD1) 
+                      - myEWSM.getDeltaR_rem(EWSM::EW2) );
+            break;        
+        case OMSII:
+            // R = 1/(1 - DeltaRho)
+            R = 1.0/( (1.0 + cW2_to_sW2*myEWSM.getDeltaRho(EWSM::orders_EW_size))
+                      *(1.0 - DeltaAlpha_l5q)
+                      - (1.0 + cW2_to_sW2*myEWSM.getDeltaRho(EWSM::EW1))
+                        *myEWSM.getDeltaR_rem(EWSM::EW1)
+                      - myEWSM.getDeltaR_rem(EWSM::EW1QCD1)
+                      - myEWSM.getDeltaR_rem(EWSM::EW2) );
+            break;
+        default:
+            throw "Error in EW::resumMw()";            
+            break;
+    }   
 
+    double tmp = 4.0*M_PI*SM.getAle()/sqrt(2.0)/SM.getGF()/SM.getMz()/SM.getMz();
+    return (SM.getMz()/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp*R)));
+}
 
+double EW::resumRhoZ(const schemes_EW schemeRhoZ, 
+                     const double deltaRho_rem[EWSM::orders_EW_size]) {
+    double rhoZ;
+    double deltaRho_rem_G = deltaRho_rem[EWSM::EW1]
+                            + deltaRho_rem[EWSM::EW1QCD1];
+    if (deltaRho_rem[EWSM::EW1QCD2]!=0.0) throw "Error in EW::resumRhoZ()";
+    if (deltaRho_rem[EWSM::EW2QCD1]!=0.0) throw "Error in EW::resumRhoZ()";    
+    if (deltaRho_rem[EWSM::EW3]!=0.0) throw "Error in EW::resumRhoZ()";    
+    
+    /* Real parts */
+    switch (schemeRhoZ) {
+        case NORESUM: 
+            rhoZ = 1.0 + myEWSM.getDeltaRho(EWSM::orders_EW_size)
+                   + deltaRho_rem[EWSM::orders_EW_size];
+            break;
+        case OMSI:
+            rhoZ = (1.0 + deltaRho_rem_G + deltaRho_rem[EWSM::EW2])
+                   /(1.0 - myEWSM.getDeltaRho(EWSM::orders_EW_size)
+                           *(1.0 - myEWSM.getDeltaRbar_rem()));
+            break;
+        case INTERMEDIATE:
+            rhoZ = (1.0 + deltaRho_rem_G)
+                   /(1.0 - myEWSM.getDeltaRho(EWSM::orders_EW_size)
+                            *(1.0 - myEWSM.getDeltaRbar_rem()))
+                   + deltaRho_rem[EWSM::EW2];            
+            break;        
+        case OMSII:
+            rhoZ = 1.0 + myEWSM.getDeltaRho(EWSM::orders_EW_size)
+                   + pow(myEWSM.getDeltaRho(EWSM::EW1), 2.0) 
+                   - myEWSM.getDeltaRho(EWSM::EW1)*myEWSM.getDeltaRbar_rem()
+                   + deltaRho_rem_G*(1.0 + myEWSM.getDeltaRho(EWSM::EW1))
+                   + deltaRho_rem[EWSM::EW2];  
+            break;
+        default:
+            throw "Error in EW::resumRhoZ()";
+            break;
+    }
 
+    return rhoZ;
+}
+
+double EW::resumKappaZ(const schemes_EW schemeKappaZ, 
+                       const double deltaKappa_rem[EWSM::orders_EW_size]) {
+    double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
+    double cW2 = 1.0 - sW2;
+    double cW2_to_sW2 = cW2/sW2;
+    double kappaZ;
+    double deltaKappa_rem_G = deltaKappa_rem[EWSM::EW1] 
+                              + deltaKappa_rem[EWSM::EW1QCD1] 
+                              + deltaKappa_rem[EWSM::EW1QCD2];
+    if (deltaKappa_rem[EWSM::EW2QCD1]!=0.0) throw "Error in EW::resumKappaZ()";    
+    if (deltaKappa_rem[EWSM::EW3]!=0.0) throw "Error in EW::resumKappaZ()";     
+    
+    /* Real parts */
+    switch (schemeKappaZ) {
+        case NORESUM: 
+            kappaZ = 1.0 + cW2_to_sW2*myEWSM.getDeltaRho(EWSM::orders_EW_size)
+                     + deltaKappa_rem[EWSM::orders_EW_size];
+            break;
+        case OMSI:
+            kappaZ = (1.0 + deltaKappa_rem_G 
+                      + deltaKappa_rem[EWSM::EW2])
+                     *(1.0 + cW2_to_sW2*myEWSM.getDeltaRho(EWSM::orders_EW_size)
+                             *(1.0 - myEWSM.getDeltaRbar_rem()));
+            break;
+        case INTERMEDIATE:
+            kappaZ = (1.0 + deltaKappa_rem_G)
+                     *(1.0 + cW2_to_sW2*myEWSM.getDeltaRho(EWSM::orders_EW_size)
+                             *(1.0 - myEWSM.getDeltaRbar_rem()))
+                     + deltaKappa_rem[EWSM::EW2];
+            break;        
+        case OMSII:
+            kappaZ = 1.0 + cW2_to_sW2*myEWSM.getDeltaRho(EWSM::orders_EW_size)
+                     - cW2_to_sW2*myEWSM.getDeltaRho(EWSM::EW1)
+                       *myEWSM.getDeltaRbar_rem()
+                     + deltaKappa_rem_G
+                       *(1.0 + cW2_to_sW2*myEWSM.getDeltaRho(EWSM::EW1))
+                     + deltaKappa_rem[EWSM::EW2];
+            break;
+        case APPROXIMATEFORMULA:
+            /* The real parts are given by the approximate formulae. 
+             * See ComputeKappaZ() */
+            kappaZ = 0.0; // dummy
+            break;
+        default:
+            throw "Error in EW::resumKappaZ()";
+            break;
+    }
+
+    return kappaZ;
+}
+
+void EW::SetZFitterFlags(const schemes_EW schemeMw, 
+                         const schemes_EW schemeRhoZ,
+                         const schemes_EW schemeKappaZ,
+                         const bool flag_order[EWSM::orders_EW_size]) {
+    // DAL5H is supplied by the user as input. 
+    myZFitter.flag("ALEM", 2); 
+
+    if (schemeMw==NORESUM 
+        && schemeRhoZ==NORESUM && schemeKappaZ==NORESUM) {
+            myZFitter.flag("AMT4", 0); // Does this option work correctly? 
+    } else if (schemeMw==OMSI   
+               && schemeRhoZ==OMSI && schemeKappaZ==OMSI) {    
+            myZFitter.flag("AMT4", 4);
+            myZFitter.flag("IFACR", 0);    
+            myZFitter.flag("IFACT", 0);
+    } else if (schemeMw==INTERMEDIATE
+               && schemeRhoZ==INTERMEDIATE && schemeKappaZ==INTERMEDIATE) {    
+            myZFitter.flag("AMT4", 4);
+            myZFitter.flag("IFACR", 1);    
+            myZFitter.flag("IFACT", 1);            
+    } else if (schemeMw==OMSII  
+               && schemeRhoZ==OMSII && schemeKappaZ==OMSII) {    
+            myZFitter.flag("AMT4", 4);
+            myZFitter.flag("IFACR", 2);    
+            myZFitter.flag("IFACT", 2);
+     } else if (schemeMw==APPROXIMATEFORMULA
+               && schemeKappaZ==APPROXIMATEFORMULA) {
+            myZFitter.flag("AMT4", 6);
+            if (schemeRhoZ==OMSI) myZFitter.flag("IFACT", 0);
+            if (schemeRhoZ==INTERMEDIATE) myZFitter.flag("IFACT", 1);
+            if (schemeRhoZ==OMSII) myZFitter.flag("IFACT", 2);    
+    } else {
+        throw "Write codes in EW::ComputeZFitter()";
+    }
+
+    for (int i=0; i<EWSM::orders_EW_size; i++) {
+        if (flag_order[i]!=true) 
+        throw "Invalid flag_order[] in EW::SetZFitterFlags()";
+    }    
+}
