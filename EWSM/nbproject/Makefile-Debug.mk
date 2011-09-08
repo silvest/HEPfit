@@ -17,7 +17,7 @@ RANLIB=ranlib
 CC=gcc
 CCC=g++
 CXX=g++
-FC=gfortran
+FC=gfortran-mp-4.5
 AS=as
 
 # Macros
@@ -40,7 +40,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/EWSM.o \
 	${OBJECTDIR}/src/EWSMcommon.o \
 	${OBJECTDIR}/src/OneLoopEW.o \
-	${OBJECTDIR}/src/Resummations.o \
 	${OBJECTDIR}/src/ApproximateFormulae.o \
 	${OBJECTDIR}/src/ThreeLoopEW2QCD.o \
 	${OBJECTDIR}/src/ThreeLoopQCD.o
@@ -101,11 +100,6 @@ ${OBJECTDIR}/src/OneLoopEW.o: src/OneLoopEW.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/OneLoopEW.o src/OneLoopEW.cpp
-
-${OBJECTDIR}/src/Resummations.o: src/Resummations.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Resummations.o src/Resummations.cpp
 
 ${OBJECTDIR}/src/ApproximateFormulae.o: src/ApproximateFormulae.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src

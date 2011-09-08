@@ -205,13 +205,7 @@ void EWSM::ComputeMw() {
             DeltaR_rem[orders_EW_size] += DeltaR_rem[j];
         }
 
-        double cW2_to_sW2 = EWSMC->GetCW2()/EWSMC->GetSW2();
-        double X = myResum.ONEplusDeltaR(schemeMw, cW2_to_sW2, DeltaAlpha_l5q, 
-                                         DeltaRho[orders_EW_size], 
-                                         DeltaR_rem[orders_EW_size]);
-        double tmp = 4.0*M_PI*SM.getAle()/sqrt(2.0)/SM.getGF()/SM.getMz()/SM.getMz();
-        Mw = SM.getMz()/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp*X));
-        
+        resumMw();
         
         // iterations 
 
@@ -263,15 +257,7 @@ void EWSM::ComputeRhoZ() {
         }
     }
 
-    double cW2_to_sW2 = EWSMC->GetCW2()/EWSMC->GetSW2();    
-    for (int i=0; i<6; i++) {
-        rhoZ_l[i] = myResum.rhoZ(schemeRhoZ, cW2_to_sW2, 
-                                 DeltaRho[orders_EW_size], 
-                                 deltaRho_rem_l[orders_EW_size][i]);
-        rhoZ_q[i] = myResum.rhoZ(schemeRhoZ, cW2_to_sW2, 
-                                 DeltaRho[orders_EW_size], 
-                                 deltaRho_rem_q[orders_EW_size][i]);
-    }
+    resumRhoZ();
 }
     
 void EWSM::ComputeKappaZ() {     
@@ -316,15 +302,7 @@ void EWSM::ComputeKappaZ() {
         }
     }
     
-    double cW2_to_sW2 = EWSMC->GetCW2()/EWSMC->GetSW2(); 
-    for (int i=0; i<6; i++) {
-        kappaZ_l[i] = myResum.kappaZ(schemeKappaZ, cW2_to_sW2, 
-                                     DeltaRho[orders_EW_size], 
-                                     deltaKappa_rem_l[orders_EW_size][i]);
-        kappaZ_q[i] = myResum.kappaZ(schemeKappaZ, cW2_to_sW2, 
-                                     DeltaRho[orders_EW_size], 
-                                     deltaKappa_rem_q[orders_EW_size][i]);
-    }
+    resumKappaZ();
 
     // Write codes for Im[kappa_Z^f]
     
@@ -349,6 +327,103 @@ void EWSM::ComputeKappaZ() {
     }   
 }
         
+void EWSM::resumMw() {
+    double cW2_to_sW2 = EWSMC->GetCW2()/EWSMC->GetSW2();
+    double R;
+
+    switch (schemeMw) {
+        case NORESUM: 
+            R = DeltaAlpha_l5q - cW2_to_sW2*DeltaRho[orders_EW_size] 
+                + DeltaR_rem[orders_EW_size];
+            break;
+        case OMSI:
+            throw "Write codes for resummationMw()";
+            break;
+        case INTERMEDIATE:
+            throw "Write codes for resummationMw()";            
+            break;        
+        case OMSII:
+            throw "Write codes for resummationMw()";            
+            break;
+        default:
+            throw "Error in resummationMw()";            
+            break;
+    }   
+
+    double tmp = 4.0*M_PI*SM.getAle()/sqrt(2.0)/SM.getGF()/SM.getMz()/SM.getMz();
+    Mw = SM.getMz()/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp*R));
+}
+
+void EWSM::resumRhoZ() {
+    /* Real parts */
+    switch (schemeRhoZ) {
+        case NORESUM: 
+            for (int i=0; i<6; i++) {
+                rhoZ_l[i].real() = 1.0 + DeltaRho[orders_EW_size] 
+                                   + deltaRho_rem_l[orders_EW_size][i].real();
+                rhoZ_q[i].real() = 1.0 + DeltaRho[orders_EW_size] 
+                                   + deltaRho_rem_q[orders_EW_size][i].real();
+            }
+            break;
+        case OMSI:
+            throw "Write codes for resummationRhoZ()";
+            break;
+        case INTERMEDIATE:
+            throw "Write codes for resummationRhoZ()";
+            break;        
+        case OMSII:
+            throw "Write codes for resummationRhoZ()";
+            break;
+        default:
+            throw "Error in resummationRhoZ()";
+            break;
+    }
+
+    /* Imaginary parts */
+    for (int i=0; i<6; i++) {
+        rhoZ_l[i].imag() = deltaRho_rem_l[orders_EW_size][i].imag();
+        rhoZ_q[i].imag() = deltaRho_rem_q[orders_EW_size][i].imag();    
+    }
+}
+
+void EWSM::resumKappaZ() {
+    double cW2_to_sW2 = EWSMC->GetCW2()/EWSMC->GetSW2(); 
+    
+    /* Real parts */
+    switch (schemeKappaZ) {
+        case NORESUM: 
+            for (int i=0; i<6; i++) {
+                kappaZ_l[i].real() = 1.0 + cW2_to_sW2*DeltaRho[orders_EW_size] 
+                                     + deltaKappa_rem_l[orders_EW_size][i].real();
+                kappaZ_q[i].real() = 1.0 + cW2_to_sW2*DeltaRho[orders_EW_size] 
+                                     + deltaKappa_rem_q[orders_EW_size][i].real();
+            }
+            break;
+        case OMSI:
+            throw "Write codes for resummationKappaZ()";
+            break;
+        case INTERMEDIATE:
+            throw "Write codes for resummationKappaZ()";
+            break;        
+        case OMSII:
+            throw "Write codes for resummationKappaZ()";
+            break;
+        case APPROXIMATEFORMULA:
+            /* The real parts are given by the approximate formulae. 
+             * See ComputeKappaZ() */
+            break;
+        default:
+            throw "Error in resummationKappaZ()";
+            break;
+    }
+
+    /* Imaginary parts */
+    for (int i=0; i<6; i++) {
+        kappaZ_l[i].imag() = deltaKappa_rem_l[orders_EW_size][i].imag();
+        kappaZ_q[i].imag() = deltaKappa_rem_q[orders_EW_size][i].imag();    
+    }
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 
