@@ -135,10 +135,13 @@ double StandardModel::v() const {
     return 1. / sqrt(sqrt(2.) * GF);
 }
 
-double StandardModel::Mw() const {
+double StandardModel::Mw_tree() const {
+    double tmp = 4.0*M_PI*ale/sqrt(2.0)/GF/Mz/Mz;
+    return ( Mz/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp)) );
+}
 
-    //std::cout << "Write codes! " << std::endl;
-    return (80.3613);
+double StandardModel::Mw() const {
+    throw "Codes for StandardModel::Mw() is missing!";
 }
 
 ////////////////////////////////////////////////////////////////////////
