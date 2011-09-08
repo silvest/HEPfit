@@ -137,46 +137,46 @@ public:
 
     /**
      * @brief remainder contribution to rho_Z^l
-     * @param[in] order the order of the contribution
      * @param[in] l name of a lepton 
+     * @param[in] order the order of the contribution
      * @return delta rho_{rem}^l at each order
      */        
-    complex getDeltaRho_rem_l(const orders_EW order, 
-                              const StandardModel::lepton l) const {
-        return deltaRho_rem_l[order][l];
+    complex getDeltaRho_rem_l(const StandardModel::lepton l,
+                              const orders_EW order) const {
+        return deltaRho_rem_l[l][order];
     }
 
     /**
      * @brief remainder contribution to rho_Z^q
-     * @param[in] order the order of the contribution
      * @param[in] q name of a quark
+     * @param[in] order the order of the contribution 
      * @return delta rho_{rem}^q at each order
      */
-    complex getDeltaRho_rem_q(const orders_EW order, 
-                              const StandardModel::quark q) const {
-        return deltaRho_rem_q[order][q];
+    complex getDeltaRho_rem_q(const StandardModel::quark q,
+                              const orders_EW order) const {
+        return deltaRho_rem_q[q][order];
     }
     
     /**
      * @brief remainder contribution to kappa_Z^l
-     * @param[in] order the order of the contribution
      * @param[in] l name of a lepton 
+     * @param[in] order the order of the contribution
      * @return delta kappa_{rem}^l at each order
      */
-    complex getDeltaKappa_rem_l(const orders_EW order, 
-                                const StandardModel::lepton l) const {
-        return deltaKappa_rem_l[order][l];
+    complex getDeltaKappa_rem_l(const StandardModel::lepton l,
+                                const orders_EW order) const {
+        return deltaKappa_rem_l[l][order];
     }
 
     /**
      * @brief remainder contribution to kappa_Z^q
-     * @param[in] order the order of the contribution
      * @param[in] q name of a quark
+     * @param[in] order the order of the contribution
      * @return delta kappa_{rem}^q at each order
      */
-    complex getDeltaKappa_rem_q(const orders_EW order, 
-                                const StandardModel::quark q) const {
-        return deltaKappa_rem_q[order][q];
+    complex getDeltaKappa_rem_q(const StandardModel::quark q,
+                                const orders_EW order) const {
+        return deltaKappa_rem_q[q][order];
     }
     
     /**
@@ -299,8 +299,8 @@ private:
     double DeltaAlpha_t[orders_EW_size+1];
     double DeltaRho[orders_EW_size+1];
     double DeltaR_rem[orders_EW_size+1];
-    complex deltaRho_rem_l[orders_EW_size+1][6], deltaRho_rem_q[orders_EW_size+1][6];
-    complex deltaKappa_rem_l[orders_EW_size+1][6], deltaKappa_rem_q[orders_EW_size+1][6];
+    complex deltaRho_rem_l[6][orders_EW_size+1], deltaRho_rem_q[6][orders_EW_size+1];
+    complex deltaKappa_rem_l[6][orders_EW_size+1], deltaKappa_rem_q[6][orders_EW_size+1];
     double DeltaRbar_rem;
     
     double alphaMz, DeltaAlpha, DeltaAlpha_l5q;    
@@ -338,19 +338,19 @@ private:
     void ComputeKappaZ();
     
     /**
-     * @brief resummation for Mw
+     * @return resummed Mw
      */
-    void resumMw();
+    double resumMw();
     
     /**
-     * @brief resummation for rho_Z^f
+     * @return resummed rho_Z^f
      */
-    void resumRhoZ();
+    complex resumRhoZ(const complex deltaRho_rem[orders_EW_size+1]);
     
     /**
-     * @return resummation for kappa_Z^f
+     * @return resummed kappa_Z^f
      */
-    void resumKappaZ();
+    complex resumKappaZ(const complex deltaKappa_rem[orders_EW_size+1]);
     
     
     ////////////////////////////////////////////////////////////////////////
