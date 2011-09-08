@@ -18,6 +18,16 @@ class EW : public ThObsType {
 public:
 
     /**
+     * @brief schemes for the resummations in Mw, rho_Z^f and kappa_Z^f
+     * 
+     * APPROXIMATEFORMULA for the use of approximate formulae
+     */
+    enum schemes_EW {NORESUM=0, OMSI, INTERMEDIATE, OMSII, APPROXIMATEFORMULA}; 
+
+    
+    //////////////////////////////////////////////////////////////////////// 
+    
+    /**
      * @brief EW constructor
      * @param[in] SM_i an object of StandardModel class
      */
@@ -51,10 +61,24 @@ public:
      * @brief electromagnetic coupling alpha at Mz
      * @return alpha(Mz)
      */
-    double getAlphaMZ() const {
-        return alphaMZ;
+    double getAlphaMz() const {
+        return alphaMz;
     }
 
+    /**
+     * @return the total radiative corrections to alpha at Mz
+     */
+    double getDeltaAlpha() const {
+        return DeltaAlpha;
+    }
+
+    /**
+     * @return the leptonic and 5-flavour hadronic corrections to alpha at Mz
+     */
+    double getDeltaAlpha_l5q() const {
+        return DeltaAlpha_l5q;
+    }     
+    
     /**
      * @brief the W bosn mass
      * @return M_W
@@ -109,10 +133,10 @@ public:
      * @param[in] schemeKappaZ resummation scheme for kappa_Z^f
      * @param[in] flag_order
      */
-    void ComputeEWSM(const EWSM::schemes_EW schemeMw, 
-                     const EWSM::schemes_EW schemeRhoZ,
-                     const EWSM::schemes_EW schemeKappaZ,
-                     const bool flag_order[EWSM::orders_EW_size]);
+    virtual void ComputeEWSM(const schemes_EW schemeMw, 
+                             const schemes_EW schemeRhoZ,
+                             const schemes_EW schemeKappaZ,
+                             const bool flag_order[EWSM::orders_EW_size]);
     
     /**
      * @brief computes M_W and the effective weak couplings with ZFITTER class
@@ -121,10 +145,10 @@ public:
      * @param[in] schemeKappaZ resummation scheme for kappa_Z^f
      * @param[in] flag_order
      */
-    void ComputeZFitter(const EWSM::schemes_EW schemeMw, 
-                        const EWSM::schemes_EW schemeRhoZ,
-                        const EWSM::schemes_EW schemeKappaZ,
-                        const bool flag_order[EWSM::orders_EW_size]);
+    virtual void ComputeZFitter(const schemes_EW schemeMw, 
+                                const schemes_EW schemeRhoZ,
+                                const schemes_EW schemeKappaZ,
+                                const bool flag_order[EWSM::orders_EW_size]);
     
 
     //////////////////////////////////////////////////////////////////////// 
@@ -209,13 +233,51 @@ public:
 private:
     EWSM myEWSM;
     ZFitter myZFitter;
+    ApproximateFormulae* myApproximateFormulae;
     
-    double alphaMZ;
+    double alphaMz, DeltaAlpha, DeltaAlpha_l5q;
     double Mw;
     complex rhoZ_l[6], rhoZ_q[6];
     complex kappaZ_l[6], kappaZ_q[6];
     
     double mcMz, mbMz;
+
+    
+    ////////////////////////////////////////////////////////////////////////     
+    
+    /**
+     * @param[in] schemeMw
+     * @return resummed Mw
+     */
+    double resumMw(const schemes_EW schemeMw);
+    
+    /**
+     * @param[in] schemeRhoZ resummation scheme for rho_Z^f
+     * @param[in] deltaRho_rem 
+     * @return resummed Re[rho_Z^f]
+     */
+    double resumRhoZ(const schemes_EW schemeRhoZ, 
+                     const double deltaRho_rem[EWSM::orders_EW_size]);
+    
+    /**
+     * @param[in] schemeMw resummation scheme for Mw
+     * @param[in] deltaKappa_rem 
+     * @return resummed Re[kappa_Z^f]
+     */
+    double resumKappaZ(const schemes_EW schemeKappaZ,
+                       const double deltaKappa_rem[EWSM::orders_EW_size]);
+        
+    /**
+     * @brief sets flags for ZFITTER
+     * @param[in] schemeMw resummation scheme for Mw
+     * @param[in] schemeRhoZ resummation scheme for rho_Z^f
+     * @param[in] schemeKappaZ resummation scheme for kappa_Z^f
+     * @param[in] flag_order
+     */
+    void SetZFitterFlags(const schemes_EW schemeMw, 
+                         const schemes_EW schemeRhoZ,
+                         const schemes_EW schemeKappaZ,
+                         const bool flag_order[EWSM::orders_EW_size]);
     
 };
 
