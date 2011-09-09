@@ -4,6 +4,9 @@
  */
 
 #include "EW.h"
+#include <cstdlib>
+#include <iostream>
+#include <iomanip>
 #include <cmath>
 #include <gsl/gsl_sf_zeta.h>
 
@@ -59,12 +62,15 @@ void EW::ComputeEWSM(const schemes_EW schemeMw,
         
         /* Mw from iterations */
         double Mw_org = 0.0;
-        while (fabs(Mw - Mw_org) > 0.000001) {
+        while (fabs(Mw - Mw_org) > 0.0000001) {
             Mw_org = Mw;
             myEWSM.ComputeCC(Mw, flag_order);
             Mw = resumMw(schemeMw);
-            std::cout << "TEST: Mw_org = " << Mw_org 
+            /* TEST */
+            int prec_def = std::cout.precision();
+            std::cout << std::setprecision(12) << "TEST: Mw_org = " << Mw_org 
                       << "  Mw_new = " << Mw << std::endl;
+            std::cout.precision(prec_def);
         }
     }
 
@@ -472,6 +478,8 @@ double EW::resumMw(const schemes_EW schemeMw) {
     }   
 
     double tmp = 4.0*M_PI*SM.getAle()/sqrt(2.0)/SM.getGF()/SM.getMz()/SM.getMz();
+    if (tmp*R > 1.0) throw "Negative (1-tmp*R) in EW::resumMw()";
+    
     return (SM.getMz()/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp*R)));
 }
 

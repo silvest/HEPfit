@@ -15,21 +15,6 @@ EWSM::EWSM(const StandardModel& SM_i) : SM(SM_i) {
     myTwoLoopEW = new TwoLoopEW(*EWSMC);
     myThreeLoopEW2QCD = new ThreeLoopEW2QCD(*EWSMC);
     myThreeLoopEW = new ThreeLoopEW(*EWSMC);
-
-    /* Initializations */
-    for (int j=0; j<=orders_EW_size; j++) {
-        DeltaAlpha_l[j] = 0.0;
-        DeltaAlpha_t[j] = 0.0;
-        DeltaRho[j] = 0.0;
-        DeltaR_rem[j] = 0.0;
-        for (int i=0; i<6; i++) {
-            deltaRho_rem_l[i][j] = 0.0;
-            deltaRho_rem_q[i][j] = 0.0;
-            deltaKappa_rem_l[i][j] = 0.0;
-            deltaKappa_rem_q[i][j] = 0.0;
-        }
-    }
-    DeltaRbar_rem = 0.0;
 }
 
 EWSM::EWSM(const EWSM& orig) : SM(orig.SM) {
@@ -99,7 +84,9 @@ void EWSM::ComputeDeltaAlpha(const bool flag_order[orders_EW_size]) {
     if (flag_order[EW3]==true) 
         DeltaAlpha_t[EW3] = myThreeLoopEW->DeltaAlpha_t();
     
-    /* The sum of the corrections */
+    /* The sums of the corrections */
+    DeltaAlpha_l[orders_EW_size] = 0.0;
+    DeltaAlpha_t[orders_EW_size] = 0.0;
     for (int j=0; j<orders_EW_size; j++) {
         DeltaAlpha_l[orders_EW_size] += DeltaAlpha_l[j];
         DeltaAlpha_t[orders_EW_size] += DeltaAlpha_t[j];
@@ -114,7 +101,7 @@ void EWSM::ComputeCC(double Mw_i, const bool flag_order[orders_EW_size]) {
     if (flag_order[EW1QCD1]==true) 
         DeltaRho[EW1QCD1] = myTwoLoopQCD->DeltaRho();
     if (flag_order[EW1QCD2]==true) 
-        DeltaRho[EW1QCD2] = myThreeLoopQCD->DeltaRho();
+       DeltaRho[EW1QCD2] = myThreeLoopQCD->DeltaRho();
     if (flag_order[EW2]==true) 
         DeltaRho[EW2] = myTwoLoopEW->DeltaRho();
     if (flag_order[EW2QCD1]==true) 
@@ -135,7 +122,9 @@ void EWSM::ComputeCC(double Mw_i, const bool flag_order[orders_EW_size]) {
     if (flag_order[EW3]==true) 
         DeltaR_rem[EW3] = myThreeLoopEW->DeltaR_rem();    
     
-    /* The sum of the corrections */
+    /* The sums of the corrections */
+    DeltaRho[orders_EW_size] = 0.0;
+    DeltaR_rem[orders_EW_size] = 0.0;
     for (int j=0; j<orders_EW_size; j++) {
         DeltaRho[orders_EW_size] += DeltaRho[j];
         DeltaR_rem[orders_EW_size] += DeltaR_rem[j];
@@ -205,7 +194,13 @@ void EWSM::ComputeNC(double Mw_i, const bool flag_order[orders_EW_size]) {
             deltaKappa_rem_q[i][EW3] = myThreeLoopEW->deltaKappa_rem_q(i_q);
     }
     
-    /* The sum of the corrections */
+    /* The sums of the corrections */
+    for (int i=0; i<6; i++) {
+        deltaRho_rem_l[i][orders_EW_size] = 0.0;
+        deltaRho_rem_q[i][orders_EW_size] = 0.0;
+        deltaKappa_rem_l[i][orders_EW_size] = 0.0;
+        deltaKappa_rem_q[i][orders_EW_size] = 0.0;
+    }
     for (int j=0; j<orders_EW_size; j++) {
         for (int i=0; i<6; i++) {
             deltaRho_rem_l[i][orders_EW_size] += deltaRho_rem_l[i][j];
