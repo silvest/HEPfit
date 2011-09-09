@@ -6,7 +6,7 @@
 #include "ThreeLoopEW2QCD.h"
 
 
-ThreeLoopEW2QCD::ThreeLoopEW2QCD(const EWSMcommon& EWSMC_i) : EWSMcommon(EWSMC_i) {
+ThreeLoopEW2QCD::ThreeLoopEW2QCD(const EWSMcommon& EWSMC_i) : EWSMC(EWSMC_i) {
 }
 
 //ThreeLoopEW2QCD::ThreeLoopEW2QCD(const ThreeLoopEW2QCD& orig) {

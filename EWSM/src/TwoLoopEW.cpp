@@ -4,9 +4,11 @@
  */
 
 #include "TwoLoopEW.h"
+#include "TwoLoopQCD.h"
+#include "ApproximateFormulae.h"
 
 
-TwoLoopEW::TwoLoopEW(const EWSMcommon& EWSMC_i) : EWSMcommon(EWSMC_i) {
+TwoLoopEW::TwoLoopEW(const EWSMcommon& EWSMC_i) : EWSMC(EWSMC_i) {
 }
 
 //TwoLoopEW::TwoLoopEW(const TwoLoopEW& orig) {
@@ -19,18 +21,24 @@ TwoLoopEW::~TwoLoopEW() {
 ////////////////////////////////////////////////////////////////////////
 
 double TwoLoopEW::DeltaAlpha_l() const {
-    double xl[3] = { pow(Mz/getLeptons(ELECTRON).getMass(), 2.0), 
-                     pow(Mz/getLeptons(MU).getMass(), 2.0), 
-                     pow(Mz/getLeptons(TAU).getMass(), 2.0) };
-    double log_l[3] = { 2.0*logMZtoME, 2.0*logMZtoMMU, 2.0*logMZtoMTAU };    
+    double xl[3] = { pow(EWSMC.GetSM().getMz()
+                     /EWSMC.GetSM().getLeptons(EWSMC.GetSM().ELECTRON).getMass(), 2.0), 
+                     pow(EWSMC.GetSM().getMz()
+                     /EWSMC.GetSM().getLeptons(EWSMC.GetSM().MU).getMass(), 2.0), 
+                     pow(EWSMC.GetSM().getMz()
+                     /EWSMC.GetSM().getLeptons(EWSMC.GetSM().TAU).getMass(), 2.0) };
+    double log_l[3] = { 2.0*EWSMC.GetLogMZtoME(), 
+                        2.0*EWSMC.GetLogMZtoMMU(), 
+                        2.0*EWSMC.GetLogMZtoMTAU() };
 
     double twoLoop[3];
     for (int i = 0; i < 3; i++) {
-        twoLoop[i] = - 5.0/24.0 + zeta3 + log_l[i]/4.0 
+        twoLoop[i] = - 5.0/24.0 + EWSMC.GetZeta3() + log_l[i]/4.0 
                      + 3.0/xl[i]*log_l[i];
     }
             
-    return ( pow(ale/M_PI, 2.0)*(twoLoop[0] + twoLoop[1] + twoLoop[2]) );
+    return ( pow(EWSMC.GetSM().getAle()/M_PI, 2.0)
+             *(twoLoop[0] + twoLoop[1] + twoLoop[2]) );
 }    
 
 double TwoLoopEW::DeltaAlpha_t() const {   
@@ -71,6 +79,8 @@ complex TwoLoopEW::deltaKappa_rem_q(const StandardModel::quark q) const {
     return a;      
 }
 
+
+////////////////////////////////////////////////////////////////////////   `
 
 
 

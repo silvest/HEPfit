@@ -12,7 +12,7 @@
 using namespace gslpp;
 
 
-class TwoLoopEW : public EWSMcommon {
+class TwoLoopEW {
 
 public:
 
@@ -92,9 +92,7 @@ public:
     ////////////////////////////////////////////////////////////////////////        
     
 private:
-
-
-    ////////////////////////////////////////////////////////////////////////    
+    const EWSMcommon& EWSMC;
      
 
 };

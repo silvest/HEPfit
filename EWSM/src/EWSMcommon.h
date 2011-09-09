@@ -7,9 +7,10 @@
 #define	EWSMCOMMON_H
 
 #include <StandardModel.h>
+#include <PVfunctions.h>
 
 
-class EWSMcommon : public StandardModel {
+class EWSMcommon {
 
 public:
 
@@ -45,7 +46,14 @@ public:
 
     
     //////////////////////////////////////////////////////////////////////// 
-    
+
+    /**
+     * @return a reference to the StandardModel object in this class
+     */
+    const StandardModel& GetSM() const {
+        return SM;
+    }
+
     /**
      * @return the W boson mass
      */
@@ -131,17 +139,63 @@ public:
     }
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    double GetAlsMt() const {
+        return AlsMt;
+    }
+
+    double GetB4() const {
+        return B4;
+    }
+
+    double GetD3() const {
+        return D3;
+    }
+
+    double GetMw() const {
+        return Mw;
+    }
+
+    double GetS2() const {
+        return S2;
+    }
+
+    double GetXt() const {
+        return Xt;
+    }
+
+    double GetZeta4() const {
+        return zeta4;
+    }
+
     //////////////////////////////////////////////////////////////////////// 
 
 protected:
+    const StandardModel& SM;
+    PVfunctions PV;
+    
     double Mw;
     double sW2, cW2;
     
     double f_AlphaToGF;
     
-    double zeta2, zeta3, zeta5, log2;
-    double logMZtoME, logMZtoMMU, logMZtoMTAU, logMZtoMTOP;    
+    double Xt;
+    double AlsMt; /* alpha_s(M_t) */
     
+    double S2, D3, B4;
+    
+    double zeta2, zeta3, zeta4, zeta5, log2;
+    double logMZtoME, logMZtoMMU, logMZtoMTAU, logMZtoMTOP;    
+        
 };
 
 #endif	/* EWSMCOMMON_H */

@@ -12,7 +12,7 @@
 using namespace gslpp;
 
 
-class OneLoopEW : public EWSMcommon {
+class OneLoopEW {
     
 public:
 
@@ -98,8 +98,9 @@ public:
     ////////////////////////////////////////////////////////////////////////    
     
 private:
+    const EWSMcommon& EWSMC;
 
-
+    
     ////////////////////////////////////////////////////////////////////////    
        
 

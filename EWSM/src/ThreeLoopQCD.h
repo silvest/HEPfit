@@ -12,7 +12,7 @@
 using namespace gslpp;
 
 
-class ThreeLoopQCD : public EWSMcommon {
+class ThreeLoopQCD {
 
 public:
 
@@ -92,10 +92,21 @@ public:
     ////////////////////////////////////////////////////////////////////////        
     
 private:
+    const EWSMcommon& EWSMC;
 
-
-    ////////////////////////////////////////////////////////////////////////    
-      
+    
+    ////////////////////////////////////////////////////////////////////////        
+    
+    /**
+     * @return delta^QCD_3 for the leading contribution to Delta rho
+     */
+    double deltaQCD_3() const;    
+    
+    /**
+     * @return delta^QCD_{kappa,3} for the remainder contribution
+     */
+    complex deltaQCD_kappa3() const;
+    
     
 };
 

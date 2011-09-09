@@ -72,6 +72,7 @@ public:
     
 private:
     const StandardModel& SM;
+    
     double myDeltaAlpha;
     
 };
