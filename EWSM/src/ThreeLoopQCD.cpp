@@ -35,7 +35,7 @@ double ThreeLoopQCD::DeltaAlpha_t() const {
 }
 
 double ThreeLoopQCD::DeltaRho() const {
-    return ( 3.0*EWSMC.GetXt()*pow(EWSMC.GetAlsMt()/M_PI,2.0)*deltaQCD_3());     
+    return ( 3.0*EWSMC.GetXt_alpha()*pow(EWSMC.GetAlsMt()/M_PI,2.0)*deltaQCD_3());     
 }
 
 double ThreeLoopQCD::DeltaR_rem() const {
@@ -53,13 +53,13 @@ complex ThreeLoopQCD::deltaRho_rem_q(const StandardModel::quark q) const {
 }
 
 complex ThreeLoopQCD::deltaKappa_rem_l(const StandardModel::lepton l) const {
-    return ( - 3.0*EWSMC.GetXt()*EWSMC.GetCW2()/EWSMC.GetSW2()
+    return ( - 3.0*EWSMC.GetXt_alpha()*EWSMC.GetCW2()/EWSMC.GetSW2()
                *pow(EWSMC.GetAlsMt()/M_PI,2.0)
                *(deltaQCD_3()+deltaQCD_kappa3()) ); 
 }
 
 complex ThreeLoopQCD::deltaKappa_rem_q(const StandardModel::quark q) const {
-    return ( - 3.0*EWSMC.GetXt()*EWSMC.GetCW2()/EWSMC.GetSW2()
+    return ( - 3.0*EWSMC.GetXt_alpha()*EWSMC.GetCW2()/EWSMC.GetSW2()
                *pow(EWSMC.GetAlsMt()/M_PI,2.0)
                *(deltaQCD_3()+deltaQCD_kappa3()) ); 
 }

@@ -47,8 +47,20 @@ double OneLoopEW::DeltaAlpha_t() const {
 }
 
 double OneLoopEW::DeltaRho() const {
+    double DeltaRho = 0.0;
+    
+    
     /* !! Write codes !!*/
-    return (0.0);
+
+
+    
+    
+    
+    
+    
+   ;
+    
+    return DeltaRho;
 }
 
 double OneLoopEW::DeltaR_rem() const {

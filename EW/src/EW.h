@@ -88,6 +88,20 @@ public:
     }    
     
     /**
+     * @return s_W^2 = 1 - Mw^2/Mz^2
+     */    
+    double getSW2() const {
+        return sW2;
+    }
+    
+    /**
+     * @return c_W^2 = Mw^2/Mz^2 
+     */
+    double getCW2() const {
+        return cW2;
+    }
+    
+    /**
      * @brief effective coupling rho_Z^l
      * @param[in] l name of a lepton 
      * @return rho_Z^l for lepton "l" 
@@ -236,7 +250,7 @@ private:
     ApproximateFormulae* myApproximateFormulae;
     
     double alphaMz, DeltaAlpha, DeltaAlpha_l5q;
-    double Mw;
+    double Mw, sW2, cW2;
     complex rhoZ_l[6], rhoZ_q[6];
     complex kappaZ_l[6], kappaZ_q[6];
     
@@ -244,7 +258,7 @@ private:
 
     
     ////////////////////////////////////////////////////////////////////////     
-    
+
     /**
      * @param[in] schemeMw
      * @return resummed Mw

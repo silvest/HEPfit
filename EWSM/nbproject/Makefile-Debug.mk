@@ -17,7 +17,7 @@ RANLIB=ranlib
 CC=gcc
 CCC=g++
 CXX=g++
-FC=gfortran
+FC=gfortran-mp-4.5
 AS=as
 
 # Macros
@@ -49,8 +49,8 @@ OBJECTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-Wall
+CXXFLAGS=-Wall
 
 # Fortran Compiler Flags
 FFLAGS=

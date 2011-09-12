@@ -53,6 +53,13 @@ public:
     //////////////////////////////////////////////////////////////////////// 
 
     /**
+     * @return a pointer to the EWSMcommon object in EWSM class
+     */
+    EWSMcommon* getEWSMC() const {
+        return EWSMC;
+    }
+
+    /**
      * @brief leptonic contribution to alpha
      * @param[in] order the order of the contribution
      * @return Delta alpha_{lept} at each order
@@ -179,13 +186,12 @@ private:
     ThreeLoopEW2QCD* myThreeLoopEW2QCD;
     ThreeLoopEW* myThreeLoopEW;
     
-    /* The last elements store the total contribution.  */
-    double DeltaAlpha_l[orders_EW_size+1];
-    double DeltaAlpha_t[orders_EW_size+1];
-    double DeltaRho[orders_EW_size+1];
-    double DeltaR_rem[orders_EW_size+1];
-    complex deltaRho_rem_l[6][orders_EW_size+1], deltaRho_rem_q[6][orders_EW_size+1];
-    complex deltaKappa_rem_l[6][orders_EW_size+1], deltaKappa_rem_q[6][orders_EW_size+1];
+    double DeltaAlpha_l[orders_EW_size];
+    double DeltaAlpha_t[orders_EW_size];
+    double DeltaRho[orders_EW_size];
+    double DeltaR_rem[orders_EW_size];
+    complex deltaRho_rem_l[6][orders_EW_size], deltaRho_rem_q[6][orders_EW_size];
+    complex deltaKappa_rem_l[6][orders_EW_size], deltaKappa_rem_q[6][orders_EW_size];
     double DeltaRbar_rem;
 
     
