@@ -19,12 +19,6 @@ ThreeLoopEW::~ThreeLoopEW() {
 ////////////////////////////////////////////////////////////////////////
 
 double ThreeLoopEW::DeltaAlpha_l() const {
-    double xl[3] = { pow(EWSMC.GetSM().getMz()
-                     /EWSMC.GetSM().getLeptons(EWSMC.GetSM().ELECTRON).getMass(), 2.0), 
-                     pow(EWSMC.GetSM().getMz()
-                     /EWSMC.GetSM().getLeptons(EWSMC.GetSM().MU).getMass(), 2.0), 
-                     pow(EWSMC.GetSM().getMz()
-                     /EWSMC.GetSM().getLeptons(EWSMC.GetSM().TAU).getMass(), 2.0) };
     double log_l[3] = { 2.0*EWSMC.GetLogMZtoME(), 
                         2.0*EWSMC.GetLogMZtoMMU(), 
                         2.0*EWSMC.GetLogMZtoMTAU() };    
@@ -64,37 +58,64 @@ double ThreeLoopEW::DeltaAlpha_t() const {
 }
 
 double ThreeLoopEW::DeltaRho() const {
-    /* !! Write codes !!*/
-    return (0.0);    
+    double mh = EWSMC.GetSM().getMHl();
+    double Mt = EWSMC.GetSM().getQuarks(EWSMC.GetSM().TOP).getMass();
+    double DeltaRho;
+    if (mh==0.0) {
+        DeltaRho = 3.0*( 68.0 + 729.0*EWSMC.GetS2() + 36.0*EWSMC.GetD3() 
+                         + 96.0*EWSMC.GetZeta2()*EWSMC.GetLog2()
+                         + 6.0*EWSMC.GetZeta2() - 612.0*EWSMC.GetZeta3() 
+                         + 324.0*EWSMC.GetZeta4() - 72.0*EWSMC.GetB4() 
+                         + 3.0*( - 6572.0/15.0 - 4374.0/5.0*EWSMC.GetS2()
+                                 + 1472.0/15.0*EWSMC.GetZeta2() 
+                                 + 440.0*EWSMC.GetZeta3() ) );
+    } else if (mh > 0.0 && mh <= 2.5*Mt) {
+        double delta = mh/Mt -1.0;
+        DeltaRho = 95.92 - 111.98*delta + 8.099*delta*delta 
+                   + 9.36*pow(delta, 3.0) + 7.27*pow(delta, 4.0) 
+                   - 15.60*pow(delta, 5.0);
+    } else if (mh > 2.5*Mt) {
+        double Y = 4.0*pow(Mt/mh,2.0);
+        double logY = 2.0*(EWSMC.GetLog2() + EWSMC.GetLogMTOPtoMH());
+        double logY2 = logY*logY;
+        double logY3 = logY2*logY;        
+        DeltaRho = 1.0/Y*( -3.17 - 83.25*logY ) 
+                   - 189.93 - 231.48*logY - 142.06*logY2 + 2.75*logY3
+                   + Y*( -332.34 + 77.71*logY - 68.67*logY2 + 51.79*logY3 )
+                   + Y*Y*( 227.55 - 510.55*logY + 87.77*logY2 + 6.41*logY3 )
+                   + Y*Y*Y*( -58.40 - 329.18*logY + 20.42*logY2 + 14.54*logY3 )
+                   + Y*Y*Y*Y*( -36.14 - 381.88*logY + 18.63*logY2 + 15.04*logY3 )
+                   + Y*Y*Y*Y*Y*( -39.08 - 416.36*logY + 13.76*logY2 + 17.19*logY3 );
+    } else {
+        throw "Higgs mass is out of range in ThreeLoopEW::DeltaRho()";
+    
+    }
+    DeltaRho *= pow(EWSMC.GetXt_alpha(), 3.0);
+    return DeltaRho;    
 }
 
 double ThreeLoopEW::DeltaR_rem() const {
-    /* !! Write codes !!*/
     return (0.0);    
 }
 
 complex ThreeLoopEW::deltaRho_rem_l(const StandardModel::lepton l) const {
-    /* !! Write codes !!*/
-    complex a(0.0,0.0,false);
-    return a;      
+    complex zero(0.0,0.0,false);
+    return zero;      
 }
 
 complex ThreeLoopEW::deltaRho_rem_q(const StandardModel::quark q) const {
-    /* !! Write codes !!*/
-    complex a(0.0,0.0,false);
-    return a;      
+    complex zero(0.0,0.0,false);
+    return zero;      
 }
 
 complex ThreeLoopEW::deltaKappa_rem_l(const StandardModel::lepton l) const {
-    /* !! Write codes !!*/
-    complex a(0.0,0.0,false);
-    return a;      
+    complex zero(0.0,0.0,false);
+    return zero;      
 }
 
 complex ThreeLoopEW::deltaKappa_rem_q(const StandardModel::quark q) const {
-    /* !! Write codes !!*/
-    complex a(0.0,0.0,false);
-    return a;      
+    complex zero(0.0,0.0,false);
+    return zero;       
 }
 
 

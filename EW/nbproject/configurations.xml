@@ -95,6 +95,7 @@
             <pElem>../EWSM/src</pElem>
             <pElem>../ZFitter/src</pElem>
           </incDir>
+          <commandLine>-Wall</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>

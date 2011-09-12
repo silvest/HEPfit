@@ -31,31 +31,29 @@ double TwoLoopQCD::DeltaAlpha_t() const {
 } 
 
 double TwoLoopQCD::DeltaRho() const {
-    return ( 3.0*EWSMC.GetXt()*EWSMC.GetAlsMt()/M_PI*deltaQCD_2() );     
+    return ( 3.0*EWSMC.GetXt_alpha()*EWSMC.GetAlsMt()/M_PI*deltaQCD_2() );     
 }
 
 double TwoLoopQCD::DeltaR_rem() const {
-    return ( 2.0*DeltaR_ud() + DeltaR_tb() 
+    return ( (2.0*DeltaR_ud() + DeltaR_tb())
              + EWSMC.GetCW2()/EWSMC.GetSW2()/EWSMC.GetF_AlphaToGF()*DeltaRho() );     
 }
 
 complex TwoLoopQCD::deltaRho_rem_l(const StandardModel::lepton l) const {
-    return ( EWSMC.GetF_AlphaToGF()*(2.0*DeltaRho_ud() + DeltaRho_tb())
-             - DeltaRho() );       
+    return ( (2.0*DeltaRho_ud() + DeltaRho_tb()) - DeltaRho() );       
 }
 
 complex TwoLoopQCD::deltaRho_rem_q(const StandardModel::quark q) const {
-    return ( EWSMC.GetF_AlphaToGF()*(2.0*DeltaRho_ud() + DeltaRho_tb())
-             - DeltaRho() );    
+    return ( (2.0*DeltaRho_ud() + DeltaRho_tb()) - DeltaRho() );    
 }
 
 complex TwoLoopQCD::deltaKappa_rem_l(const StandardModel::lepton l) const {
-    return ( EWSMC.GetF_AlphaToGF()*(2.0*DeltaKappa_ud() + DeltaKappa_tb())
+    return ( (2.0*DeltaKappa_ud() + DeltaKappa_tb())
              - EWSMC.GetCW2()/EWSMC.GetSW2()*DeltaRho() );  
 }
 
 complex TwoLoopQCD::deltaKappa_rem_q(const StandardModel::quark q) const {
-    return ( EWSMC.GetF_AlphaToGF()*(2.0*DeltaKappa_ud() + DeltaKappa_tb())
+    return ( (2.0*DeltaKappa_ud() + DeltaKappa_tb())
              - EWSMC.GetCW2()/EWSMC.GetSW2()*DeltaRho() );    
 }
 

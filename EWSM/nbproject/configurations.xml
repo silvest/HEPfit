@@ -58,6 +58,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
           </incDir>
+          <commandLine>-Wall</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>

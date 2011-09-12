@@ -50,7 +50,7 @@ public:
 
     /**
      * @brief leading contribution to Delta r
-     * @return Delta rho^{G}
+     * @return Delta rho^{alpha}
      */
     double DeltaRho() const;
 
@@ -62,35 +62,35 @@ public:
 
     /**
      * @brief remainder contribution for rho_Z^f and kappa_Z^f
-     * @return Delta rbar_{rem}^{G}
+     * @return Delta rbar_{rem}^{alpha}
      */
     double DeltaRbar_rem() const;
 
     /**
      * @brief remainder contribution to rho_Z^l
      * @param[in] l name of a lepton 
-     * @return delta rho_{rem}^{l, G}
+     * @return delta rho_{rem}^{l, alpha}
      */
     complex deltaRho_rem_l(const StandardModel::lepton l) const;
 
     /**
      * @brief remainder contribution to rho_Z^q
      * @param[in] q name of a quark 
-     * @return delta rho_{rem}^{q, G}
+     * @return delta rho_{rem}^{q, alpha}
      */
     complex deltaRho_rem_q(const StandardModel::quark q) const;
 
     /**
      * @brief remainder contribution to kappa_Z^l
      * @param[in] l name of a lepton 
-     * @return delta kappa_{rem}^{l, G}
+     * @return delta kappa_{rem}^{l, alpha}
      */
     complex deltaKappa_rem_l(const StandardModel::lepton l) const;
 
     /**
      * @brief remainder contribution to kappa_Z^q
      * @param[in] q name of a quark 
-     * @return delta kappa_{rem}^{q, G}
+     * @return delta kappa_{rem}^{q, alpha}
      */
     complex deltaKappa_rem_q(const StandardModel::quark q) const;
     

@@ -14,7 +14,6 @@
 
 
 EWSMcommon::EWSMcommon(const StandardModel& SM_i) : SM(SM_i) {
-    SetConstants();
 }
 
 //EWSMcommon::EWSMcommon(const EWSMcommon& orig) {
@@ -40,9 +39,11 @@ void EWSMcommon::SetConstants() {
     logMZtoMMU = log( SM.getMz()/SM.getLeptons(SM.MU).getMass() );    
     logMZtoMTAU = log( SM.getMz()/SM.getLeptons(SM.TAU).getMass() );    
     logMZtoMTOP = log( SM.getMz()/SM.getQuarks(SM.TOP).getMass() );
-
-    Xt = SM.getGF()*pow(SM.getQuarks(SM.TOP).getMass(), 2.0)
-         /8.0/sqrt(2.0)/M_PI/M_PI;
+    logMTOPtoMH = log( SM.getQuarks(SM.TOP).getMass()/SM.getMHl() );
+    
+    /* X_t with G_F */
+    Xt_GF = SM.getGF()*pow(SM.getQuarks(SM.TOP).getMass(), 2.0)
+            /8.0/sqrt(2.0)/M_PI/M_PI;    
     
     /* TEST */
     AlsMt = 0.1074432788;
@@ -53,10 +54,6 @@ void EWSMcommon::SetConstants() {
     //double Li4_1_2 = ;
     //B4 = 16.0*Li4_1_2 - 4.0*zeta2*log2*log2 + 2.0/3.0*pow(log2,4.0) - 13.0/2.0*zeta4;
     B4 = - 1.76280008707377;
-    //int prec_def = std::cout.precision();
-    //std::cout << std::setprecision(15) 
-    //          << "TEST: S2=" << S2 << " D3=" << D3 << " B4=" << B4 << std::endl;
-    //std::cout.precision(prec_def);
 
     
     
@@ -71,6 +68,8 @@ void EWSMcommon::Compute(const double Mw_i) {
     sW2 = 1.0 - cW2;    
     
     f_AlphaToGF = sqrt(2.0)*SM.getGF()*pow(SM.getMz(),2.0)*sW2*cW2/M_PI/SM.getAle();
-      
+
+    /* X_t with alpha(0) */
+    Xt_alpha = Xt_GF/f_AlphaToGF;
     
 }

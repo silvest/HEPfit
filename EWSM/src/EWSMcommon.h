@@ -169,14 +169,20 @@ public:
         return S2;
     }
 
-    double GetXt() const {
-        return Xt;
+    double GetXt_alpha() const {
+        return Xt_alpha;
     }
 
     double GetZeta4() const {
         return zeta4;
     }
 
+    double GetLogMTOPtoMH() const {
+        return logMTOPtoMH;
+    }
+
+    
+    
     //////////////////////////////////////////////////////////////////////// 
 
 protected:
@@ -188,13 +194,14 @@ protected:
     
     double f_AlphaToGF;
     
-    double Xt;
+    double Xt_GF, Xt_alpha;
     double AlsMt; /* alpha_s(M_t) */
     
     double S2, D3, B4;
     
     double zeta2, zeta3, zeta4, zeta5, log2;
-    double logMZtoME, logMZtoMMU, logMZtoMTAU, logMZtoMTOP;    
+    double logMZtoME, logMZtoMMU, logMZtoMTAU, logMZtoMTOP; 
+    double logMTOPtoMH;
         
 };
 
