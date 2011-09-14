@@ -17,7 +17,7 @@ RANLIB=ranlib
 CC=gcc
 CCC=g++
 CXX=g++
-FC=gfortran-mp-4.5
+FC=gfortran
 AS=as
 
 # Macros
@@ -48,8 +48,8 @@ TESTFILES= \
 CFLAGS=
 
 # CC Compiler Flags
-CCFLAGS=
-CXXFLAGS=
+CCFLAGS=-Wall
+CXXFLAGS=-Wall
 
 # Fortran Compiler Flags
 FFLAGS=
@@ -92,19 +92,19 @@ ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/LoopFunctionsTest.o ${OBJECTFILES:%.o=
 ${TESTDIR}/tests/LF_CppUnitTestClass.o: tests/LF_CppUnitTestClass.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I../gslpp/src -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LF_CppUnitTestClass.o tests/LF_CppUnitTestClass.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I../gslpp/src -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LF_CppUnitTestClass.o tests/LF_CppUnitTestClass.cpp
 
 
 ${TESTDIR}/tests/LF_CppUnitTestRunner.o: tests/LF_CppUnitTestRunner.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I../gslpp/src -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LF_CppUnitTestRunner.o tests/LF_CppUnitTestRunner.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I../gslpp/src -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LF_CppUnitTestRunner.o tests/LF_CppUnitTestRunner.cpp
 
 
 ${TESTDIR}/tests/LoopFunctionsTest.o: tests/LoopFunctionsTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LoopFunctionsTest.o tests/LoopFunctionsTest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LoopFunctionsTest.o tests/LoopFunctionsTest.cpp
 
 
 ${OBJECTDIR}/src/PVfunctions_nomain.o: ${OBJECTDIR}/src/PVfunctions.o src/PVfunctions.cpp 
