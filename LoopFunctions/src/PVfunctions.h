@@ -1,8 +1,6 @@
 /* 
  * File:   PVfunctions.h
  * Author: mishima
- *
- * Created on June 10, 2011, 2:47 PM
  */
 
 #ifndef PVFUNCTIONS_H
@@ -39,6 +37,50 @@ public:
      */
     complex B0(const double mu, const double p2, 
                const double m0, const double m1); 
+    
+    /**
+     * @brief the vector two-point Passarino-Veltman function
+     * @param[in] mu renormalization scale
+     * @param[in] p2 p squared
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the finite part of the vector two-point PV function at the scale mu
+     */
+    complex B1(const double mu, const double p2, 
+               const double m0, const double m1); 
+    
+    /**
+     * @brief a tensor two-point Passarino-Veltman function
+     * @param[in] mu renormalization scale
+     * @param[in] p2 p squared
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the finite part of a tensor two-point PV function B_{21} at the scale mu
+     */
+    complex B21(const double mu, const double p2, 
+                const double m0, const double m1);     
+    
+    /**
+     * @brief a tensor two-point Passarino-Veltman function
+     * @param[in] mu renormalization scale
+     * @param[in] p2 p squared
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the finite part of a tensor two-point PV function B_{22} at the scale mu
+     */
+    //complex B22(const double mu, const double p2, 
+    //            const double m0, const double m1);       
+    
+    /**
+     * @brief a sum of two-point Passarino-Veltman functions
+     * @param[in] mu renormalization scale
+     * @param[in] p2 p squared
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the finite part of a sum of two-point PV function at the scale mu
+     */
+    complex Bf(const double mu, const double p2, 
+               const double m0, const double m1);       
     
     /**
      * @brief the scalar three-point Passarino-Veltman function
