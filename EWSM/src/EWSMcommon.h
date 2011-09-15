@@ -48,16 +48,85 @@ public:
     //////////////////////////////////////////////////////////////////////// 
 
     /**
-     * @return a reference to the StandardModel object in this class
+     * @param[in] l name of a lepton
+     * @return electric charge of lepton "l"
+     */
+    double Qf(const StandardModel::lepton l) const;
+    
+    /**
+     * @param[in] q name of a quark
+     * @return electric charge of quark "q"
+     */
+    double Qf(const StandardModel::quark q) const;    
+    
+    /**
+     * @param[in] l name of a lepton
+     * @return the tree-level vector coupling for Z->l+lbar
+     * @attention depends on sW2
+     */
+    double vf(const StandardModel::lepton l) const;
+
+    /**
+     * @param[in] q name of a quark
+     * @return the tree-level vector coupling for Z->q+qbar
+     * @attention depends on sW2
+     */    
+    double vf(const StandardModel::quark q) const;    
+    
+    /**
+     * @param[in] l name of a lepton
+     * @return the tree-level axial-vector coupling for Z->l+lbar
+     */
+    double af(const StandardModel::lepton l) const;
+
+    /**
+     * @param[in] q name of a quark
+     * @return the tree-level axial-vector coupling for Z->q+qbar
+     */    
+    double af(const StandardModel::quark q) const;  
+
+    /**
+     * @param[in] l name of a lepton
+     * @return |v_f+a_f| for f=l
+     * @attention depends on sW2
+     */
+    double sigmaf(const StandardModel::lepton l) const;
+
+    /**
+     * @param[in] q name of a quark
+     * @return |v_f+a_f| for f=q
+     * @attention depends on sW2
+     */
+    double sigmaf(const StandardModel::quark q) const;    
+    
+    /**
+     * @param[in] l name of a lepton
+     * @return v_f-a_f for f=l
+     * @attention depends on sW2
+     */    
+    double deltaf(const StandardModel::lepton l) const;    
+    
+    /**
+     * @param[in] q name of a quark
+     * @return v_f-a_f for f=q
+     * @attention depends on sW2
+     */    
+    double deltaf(const StandardModel::quark q) const; 
+    
+    
+    ////////////////////////////////////////////////////////////////////////     
+    
+    /**
+     * @return a reference to the StandardModel object in EWSMcommon class
      */
     const StandardModel& GetSM() const {
         return SM;
     }
-
+    
     /**
      * @return the W boson mass
      */
-    double GetMW() const {
+    double GetMw() const {
         return Mw;
     }
 
@@ -161,10 +230,6 @@ public:
         return D3;
     }
 
-    double GetMw() const {
-        return Mw;
-    }
-
     double GetS2() const {
         return S2;
     }
@@ -182,6 +247,108 @@ public:
     }
 
     
+    
+    
+    
+    
+    double GetA0_Mw() const {
+        return A0_Mw;
+    }
+
+    double GetA0_Mz() const {
+        return A0_Mz;
+    }
+
+    double GetA0_mh() const {
+        return A0_mh;
+    }
+
+    complex GetB0_Mw2_0_Mw() const {
+        return B0_Mw2_0_Mw;
+    }
+
+    complex GetB0_Mw2_Mz_Mw() const {
+        return B0_Mw2_Mz_Mw;
+    }
+
+    complex GetB0_Mw2_mh_Mw() const {
+        return B0_Mw2_mh_Mw;
+    }
+    complex GetB0_0_0_Mw() const {
+        return B0_0_0_Mw;
+    }
+
+    complex GetB0_0_Mz_Mw() const {
+        return B0_0_Mz_Mw;
+    }
+
+    complex GetB0_0_mh_Mw() const {
+        return B0_0_mh_Mw;
+    }
+    
+    
+    
+    complex GetB0_Mz2_Mw_Mw() const {
+        return B0_Mz2_Mw_Mw;
+    }
+
+    complex GetB0_Mz2_mh_Mw() const {
+        return B0_Mz2_mh_Mw;
+    }
+
+    
+    complex GetB0_Mz2_mh_Mz() const {
+        return B0_Mz2_mh_Mz;
+    }
+
+    complex GetB0_Mz2_ml_ml(const StandardModel::lepton l) const {
+        return B0_Mz2_ml_ml[l];
+    }
+
+    complex GetB0_Mz2_mq_mq(const StandardModel::quark q) const {
+        return B0_Mz2_mq_mq[q];
+    }
+
+    complex GetBf_Mz2_ml_ml(const StandardModel::lepton l) const {
+        return Bf_Mz2_ml_ml[l];
+    }
+
+    complex GetBf_Mz2_mq_mq(const StandardModel::quark q) const {
+        return Bf_Mz2_mq_mq[q];
+    }
+
+    complex GetB1_Mw2_ml_mlprime(const int gen) const {
+        return B1_Mw2_ml_mlprime[gen];
+    }
+
+    complex GetB1_Mw2_mq_mqprime(const int gen) const {
+        return B1_Mw2_mq_mqprime[gen];
+    }
+
+    complex GetBf_Mw2_ml_mlprime(const int gen) const {
+        return Bf_Mw2_ml_mlprime[gen];
+    }
+
+    complex GetBf_Mw2_mq_mqprime(const int gen) const {
+        return Bf_Mw2_mq_mqprime[gen];
+    }    
+    
+    complex GetB1_Mw2_mlprime_ml(const int gen) const {
+        return B1_Mw2_mlprime_ml[gen];
+    }
+
+    complex GetB1_Mw2_mqprime_mq(const int gen) const {
+        return B1_Mw2_mqprime_mq[gen];
+    }
+
+    complex GetBf_Mw2_mlprime_ml(const int gen) const {
+        return Bf_Mw2_mlprime_ml[gen];
+    }
+
+    complex GetBf_Mw2_mqprime_mq(const int gen) const {
+        return Bf_Mw2_mqprime_mq[gen];
+    }
+
     
     //////////////////////////////////////////////////////////////////////// 
 
@@ -202,7 +369,35 @@ protected:
     double zeta2, zeta3, zeta4, zeta5, log2;
     double logMZtoME, logMZtoMMU, logMZtoMTAU, logMZtoMTOP; 
     double logMTOPtoMH;
-        
+
+    /* One-loop functions */
+    double A0_Mw;
+    double A0_Mz;    
+    double A0_mh;
+    complex B0_Mw2_Mz_Mw;
+    complex B0_Mw2_0_Mw;
+    complex B0_Mw2_mh_Mw;
+    complex B0_0_Mz_Mw;
+    complex B0_0_0_Mw;
+    complex B0_0_mh_Mw;
+    complex B0_Mz2_Mw_Mw;
+    complex B0_Mz2_mh_Mw;
+    complex B0_Mz2_mh_Mz;    
+    complex B0_Mz2_ml_ml[6];
+    complex B0_Mz2_mq_mq[6];
+    complex Bf_Mz2_ml_ml[6];
+    complex Bf_Mz2_mq_mq[6];
+    complex Bf_Mw2_ml_mlprime[3];
+    complex Bf_Mw2_mq_mqprime[3];
+    complex B1_Mw2_ml_mlprime[3];
+    complex B1_Mw2_mq_mqprime[3];
+    complex Bf_Mw2_mlprime_ml[3];
+    complex Bf_Mw2_mqprime_mq[3];
+    complex B1_Mw2_mlprime_ml[3];
+    complex B1_Mw2_mqprime_mq[3];
+    
+    
+    
 };
 
 #endif	/* EWSMCOMMON_H */

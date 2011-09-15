@@ -67,21 +67,24 @@ void EW::ComputeEWSM(const schemes_EW schemeMw,
         delete myApproximateFormulae;
     } else {
         Mw = SM.Mw_tree();
+
+        std::cout << std::setprecision(12) << "TEST: Mw_tree = " << Mw << std::endl;
+        
         myEWSM.ComputeCC(Mw, flag_order);
         Mw = resumMw(schemeMw);
         
         /* Mw from iterations */
-        double Mw_org = SM.Mw_tree();
-        while (fabs(Mw - Mw_org) > 0.0000001) {
-            Mw_org = Mw;
-            myEWSM.ComputeCC(Mw, flag_order);
-            Mw = resumMw(schemeMw);
-            /* TEST */
-            int prec_def = std::cout.precision();
-            std::cout << std::setprecision(12) << "TEST: Mw_org = " << Mw_org 
-                      << "  Mw_new = " << Mw << std::endl;
-            std::cout.precision(prec_def);
-        }
+//        double Mw_org = SM.Mw_tree();
+//        while (fabs(Mw - Mw_org) > 0.0000001) {
+//            Mw_org = Mw;
+//            myEWSM.ComputeCC(Mw, flag_order);
+//            Mw = resumMw(schemeMw);
+//            /* TEST */
+//            int prec_def = std::cout.precision();
+//            std::cout << std::setprecision(12) << "TEST: Mw_org = " << Mw_org 
+//                      << "  Mw_new = " << Mw << std::endl;
+//            std::cout.precision(prec_def);
+//        }
     }
 
     /* computes s_W^2 and c_W^2 */
@@ -176,36 +179,6 @@ void EW::ComputeZFitter(const schemes_EW schemeMw,
 
 ////////////////////////////////////////////////////////////////////////
 
-double EW::Qf(const StandardModel::lepton l) const {
-    switch(l) {
-        case StandardModel::NEUTRINO_1:
-        case StandardModel::NEUTRINO_2:
-        case StandardModel::NEUTRINO_3:
-            return (0.0);
-        case StandardModel::ELECTRON:
-        case StandardModel::MU:
-        case StandardModel::TAU:
-            return (-1.0);
-        default:
-            throw "Error in EW::Qf()";  
-    }
-}
-
-double EW::Qf(const StandardModel::quark q) const {
-    switch(q) {
-        case StandardModel::UP:
-        case StandardModel::CHARM:
-        case StandardModel::TOP:
-            return (2.0/3.0);
-        case StandardModel::DOWN:
-        case StandardModel::STRANGE:
-        case StandardModel::BOTTOM:
-            return (-1.0/3.0);
-        default:
-            throw "Error in EW::Qf()";  
-    }
-}
-
 double EW::sin2thetaEff(const StandardModel::lepton l) const {
     return (  kappaZ_l[l].real() * sW2 );
 }
@@ -215,17 +188,17 @@ double EW::sin2thetaEff(const StandardModel::quark q) const {
 }
 
 double EW::Gamma_l(const StandardModel::lepton l) const {
-    complex gV_over_gA = 1.0 - 4.0*fabs(Qf(l))*kappaZ_l[l]*sW2;
+    complex gV_over_gA = 1.0 - 4.0*fabs(myEWSM.getEWSMC()->Qf(l))*kappaZ_l[l]*sW2;
     double xl = pow(SM.getLeptons(l).getMass()/SM.getMz(), 2.0);
     double G0 = SM.getGF()*pow(SM.getMz(),3.0)/24.0/sqrt(2.0)/M_PI;
     double Gamma = G0*rhoZ_l[l].abs()*sqrt(1.0 - 4.0*xl)
                    * ( (1.0 + 2.0*xl)*(gV_over_gA.abs2() + 1.0) - 6.0*xl )
-                   * ( 1.0 + 3.0/4.0*alphaMz/M_PI*Qf(l)*Qf(l) );
+                   * ( 1.0 + 3.0/4.0*alphaMz/M_PI*pow(myEWSM.getEWSMC()->Qf(l),2.0) );
     return Gamma;
 }
 
 double EW::Gamma_q(const StandardModel::quark q) const {
-    complex gV_over_gA = 1.0 - 4.0*fabs(Qf(q))*kappaZ_q[q]*sW2;
+    complex gV_over_gA = 1.0 - 4.0*fabs(myEWSM.getEWSMC()->Qf(q))*kappaZ_q[q]*sW2;
 
     /* Radiator functions from the final-state QED and QCD corrections
      * to the vector and axial-vector currents */
@@ -235,7 +208,7 @@ double EW::Gamma_q(const StandardModel::quark q) const {
     /* z-component of isospin */
     double I3q;
     /* electric charge squared */
-    double Qf2 = Qf(q)*Qf(q);
+    double Qf2 = pow(myEWSM.getEWSMC()->Qf(q),2.0);
 
     switch(q) {
         case StandardModel::UP:
@@ -428,12 +401,12 @@ double EW::sigma0_had() const {
 }
 
 double EW::A_l(const StandardModel::lepton l) const {
-    double Re_gV_over_gA = 1.0 - 4.0*fabs(Qf(l))*kappaZ_l[l].real()*sW2;
+    double Re_gV_over_gA = 1.0 - 4.0*fabs(myEWSM.getEWSMC()->Qf(l))*kappaZ_l[l].real()*sW2;
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
 }
 
 double EW::A_q(const StandardModel::quark q) const {
-    double Re_gV_over_gA = 1.0 - 4.0*fabs(Qf(q))*kappaZ_q[q].real()*sW2;
+    double Re_gV_over_gA = 1.0 - 4.0*fabs(myEWSM.getEWSMC()->Qf(q))*kappaZ_q[q].real()*sW2;
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
 }
 
