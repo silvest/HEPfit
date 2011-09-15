@@ -103,8 +103,71 @@ private:
     
     ////////////////////////////////////////////////////////////////////////    
        
+    /**
+     * @param[in] s momentum-squared
+     * @return the bosonic contribution to the self-energy function of the W boson for mu=Mz
+     */
+    complex SigmaWW_bos(const double s) const;
+
+    /**
+     * @param[in] s momentum-squared
+     * @return the bosonic contribution to the self-energy function of the Z boson for mu=Mz
+     */
+    complex SigmaZZ_bos(const double s) const;    
+
+    /**
+     * @param[in] s momentum-squared
+     * @return the bosonic contribution to the self-energy function of the photon for mu=Mz
+     */
+    complex PiGammaGamma_bos(const double s) const;
+
+    /**
+     * @param[in] s momentum-squared
+     * @return the bosonic contribution to the self-energy function of the Z-gamma mixing for mu=Mz
+     */
+    complex PiZgamma_bos(const double s) const;
+ 
+    /**
+     * @param[in] s momentum-squared
+     * @return the fermionic contribution to the self-energy function of the W boson for mu=Mz
+     */
+    complex SigmaWW_fer(const double s) const;
+    
+    /**
+     * @param[in] s momentum-squared
+     * @return the fermionic contribution to the self-energy function of the Z boson for mu=Mz
+     */
+    complex SigmaZZ_fer(const double s) const;
+  
+    /**
+     * @param[in] s momentum-squared
+     * @return the fermionic contribution to the self-energy function of the photon for mu=Mz
+     */
+    complex PiGammaGamma_fer(const double s) const;
+
+    /**
+     * @param[in] s momentum-squared
+     * @return the fermionic contribution to the self-energy function of the Z-gamma mixing for mu=Mz
+     */    
+    complex PiZgamma_fer(const double s) const;
 
     
+    ////////////////////////////////////////////////////////////////////////   
+    
+    /**
+     * @brief TEST function
+     * @return Delta Rhobar^{bos,F} for mu=Mw
+     * @attention The renormalization scale is fixed to be mu=Mw.
+     */
+    double TEST_DeltaRhobar_bos() const;
+
+    
+    /**
+     * @return Delta Rhobar_W^{bos,F}
+     */
+    double DeltaRhobarW_bos() const;    
+
+
 };
 
 #endif	/* ONELOOPEW_H */

@@ -20,7 +20,12 @@ double PVfunctions::A0(const double mu, const double m) {
     if ( mu<=0.0 || m<0.0 ) {
         throw "Invalid argument for PVfunctions::A0()";
     }
-    return ( -m*m*(-log(m*m/mu/mu)+1.0) );    
+    
+    if (m==0.0) {
+        return ( 0.0 );
+    } else {
+        return ( -m*m*(-log(m*m/mu/mu)+1.0) ); 
+    }
 }
 
 complex PVfunctions::B0(const double mu, const double p2, 
@@ -74,7 +79,7 @@ complex PVfunctions::B0(const double mu, const double p2,
             B0 += M_PI*complex::i();// imaginary part    
         }
     } else if ( p2==0.0 && m0==0.0 && m1==0.0 ) {           
-        throw "PVfunctions::B0() is IR divergent.";            
+        throw "PVfunctions::B0() is IR divergent. (vanishes in DR)";            
     } else {
         throw "Missing case in the codes of PVfunctions::B0().";
     }
@@ -91,13 +96,22 @@ complex PVfunctions::B1(const double mu, const double p2,
     complex B1(0.0, 0.0, false);
     
     if (p2==0.0) {
-        double F0 = - log(m12/m02);
-        double F1 = - 1.0 + m02/DeltaM2*F0;
-        double F2 = - 1.0/2.0 + m02/DeltaM2*F1;
-        B1.real() = 1.0/2.0*( log(m12/mu2) + F2 );
+        if (m02!=0.0 && m12!=0.0) {
+            double F0 = - log(m12/m02);
+            double F1 = - 1.0 + m02/DeltaM2*F0;
+            double F2 = - 1.0/2.0 + m02/DeltaM2*F1;
+            B1.real() = 1.0/2.0*( log(m12/mu2) + F2 );
+        } else if (m02==0.0 && m12!=0.0) {
+            throw "PVfunctions::B1() is undefined.";           
+        } else if (m02!=0.0 && m12==0.0) { 
+            throw "PVfunctions::B1() is undefined.";                     
+        } else {                
+            throw "PVfunctions::B1() is IR divergent.";            
+        }
     } else {
-        B1 = -1.0/2.0/p2*(A0(mu,m0) - A0(mu,m1) + (DeltaM2 + p2)*B0(mu,p2,m0,m1));
-    } 
+        B1 = -1.0/2.0/p2*(A0(mu,m0) - A0(mu,m1) 
+                          + (DeltaM2 + p2)*B0(mu,p2,m0,m1));
+    }
     return B1;
 }
 
@@ -111,17 +125,25 @@ complex PVfunctions::B21(const double mu, const double p2,
     complex B21(0.0, 0.0, false);
 
     if (p2==0.0) {
-        double F0 = - log(m12/m02);
-        double F1 = - 1.0 + m02/DeltaM2*F0;
-        double F2 = - 1.0/2.0 + m02/DeltaM2*F1;
-        double F3 = - 1.0/3.0 + m02/DeltaM2*F2;
-        B21.real() = - 1.0/3.0*( log(m12/mu2) + F3 );        
+        if (m02!=0.0 && m12!=0.0) {
+            double F0 = - log(m12/m02);
+            double F1 = - 1.0 + m02/DeltaM2*F0;
+            double F2 = - 1.0/2.0 + m02/DeltaM2*F1;
+            double F3 = - 1.0/3.0 + m02/DeltaM2*F2;
+            B21.real() = - 1.0/3.0*( log(m12/mu2) + F3 );        
+        } else if (m02==0.0 && m12!=0.0) {
+            throw "PVfunctions::B21() is undefined.";           
+        } else if (m02!=0.0 && m12==0.0) { 
+            throw "PVfunctions::B21() is undefined.";                     
+        } else {                
+            throw "PVfunctions::B21() is undefined."; 
+        }        
     } else {
-        double Lambda2 = fabs((p2-m02-m12)*(p2-m02-m12) - 4.0*m02*m12);
+        double Lambdabar2 = (p2-m02-m12)*(p2-m02-m12) - 4.0*m02*m12;
         B21 = - (3.0*(m02 + m12) - p2)/18.0/p2 
               + (DeltaM2 + p2)/3.0/p2/p2*A0(mu,m0) 
               - (DeltaM2 + 2.0*p2)/3.0/p2/p2*A0(mu,m1) 
-              + (Lambda2 + 2.0*p2*m02)/3.0/p2/p2*B0(mu,p2,m0,m1);
+              + (Lambdabar2 + 3.0*p2*m02)/3.0/p2/p2*B0(mu,p2,m0,m1);
     }
     return B21;
 }
@@ -142,7 +164,8 @@ complex PVfunctions::Bf(const double mu, const double p2,
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw "Invalid argument for PVfunctions::Bf()";
     }
-    complex Bf = 2.0*(B21(mu,p2,m0,m1) + B1(mu,p2,m0,m1));
+    complex Bf(0.0, 0.0, false);
+    Bf = 2.0*(B21(mu,p2,m0,m1) + B1(mu,p2,m0,m1));
     return Bf;
 }
 

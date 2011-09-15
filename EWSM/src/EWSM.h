@@ -184,7 +184,7 @@ private:
     ThreeLoopQCD* myThreeLoopQCD;
     TwoLoopEW* myTwoLoopEW;
     ThreeLoopEW2QCD* myThreeLoopEW2QCD;
-    ThreeLoopEW* myThreeLoopEW;
+    ThreeLoopEW* myThreeLoopEW; 
     
     double DeltaAlpha_l[orders_EW_size];
     double DeltaAlpha_t[orders_EW_size];

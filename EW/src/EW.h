@@ -166,18 +166,6 @@ public:
     
 
     //////////////////////////////////////////////////////////////////////// 
-
-    /**
-     * @param[in] l name of a lepton
-     * @return electric charge of lepton "l"
-     */
-    double Qf(const StandardModel::lepton l) const;
-    
-    /**
-     * @param[in] q name of a quark
-     * @return electric charge of quark "q"
-     */
-    double Qf(const StandardModel::quark q) const;
     
     /**
      * @param[in] l name of a lepton
