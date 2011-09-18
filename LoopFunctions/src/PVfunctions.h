@@ -83,6 +83,61 @@ public:
                const double m0, const double m1);       
     
     /**
+     * @brief the derivative of B_0
+     * @param[in] mu renormalization scale
+     * @param[in] p2 p squared
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the finite part of B_{0p}
+     */
+    complex B0p(const double mu, const double p2, 
+                const double m0, const double m1); 
+    
+    /**
+     * @brief the derivative of B_1
+     * @param[in] mu renormalization scale
+     * @param[in] p2 p squared
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the finite part of B_{1p}
+     */
+    complex B1p(const double mu, const double p2, 
+                const double m0, const double m1); 
+    
+    /**
+     * @brief the derivative of B_{21}
+     * @param[in] mu renormalization scale
+     * @param[in] p2 p squared
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the finite part of B_{21p}
+     */
+    complex B21p(const double mu, const double p2, 
+                 const double m0, const double m1);     
+    
+    /**
+     * @brief the derivative of B_{22}
+     * @param[in] mu renormalization scale
+     * @param[in] p2 p squared
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the finite part of B_{22p}
+     */
+    //complex B22p(const double mu, const double p2, 
+    //             const double m0, const double m1);       
+    
+    /**
+     * @brief the derivative of B_{f}
+     * @param[in] mu renormalization scale
+     * @param[in] p2 p squared
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the finite part of B_{fp}
+     */
+    complex Bfp(const double mu, const double p2, 
+                const double m0, const double m1);       
+    
+    /**
      * @brief the scalar three-point Passarino-Veltman function
      * @param[in] p2 p squared
      * @param[in] m0 mass m_0
