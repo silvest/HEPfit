@@ -60,60 +60,47 @@ void EWSMcommon::SetConstants() {
 void EWSMcommon::Compute(const double Mw_i) {
     
     Mw = Mw_i;
-    cW2 = Mw*Mw/SM.getMz()/SM.getMz();
+    double Mz = SM.getMz();
+    cW2 = Mw*Mw/Mz/Mz;
     sW2 = 1.0 - cW2;    
     
-    f_AlphaToGF = sqrt(2.0)*SM.getGF()*pow(SM.getMz(),2.0)*sW2*cW2/M_PI/SM.getAle();
+    f_AlphaToGF = sqrt(2.0)*SM.getGF()*pow(Mz,2.0)*sW2*cW2/M_PI/SM.getAle();
 
     /* X_t with alpha(0) */
     Xt_alpha = Xt_GF/f_AlphaToGF;
     
-    
-    
-    double scale = SM.getMz();
-    
-    scale = Mw; std::cout << "scale = Mw" << std::endl;
-    
-    
-    A0_Mw = PV.A0(scale, Mw);
-    A0_Mz = PV.A0(scale, SM.getMz());
-    A0_mh = PV.A0(scale, SM.getMHl());
-    B0_Mw2_Mz_Mw = PV.B0(scale, Mw*Mw, SM.getMz(), Mw);
-    B0_Mw2_0_Mw = PV.B0(scale, Mw*Mw, 0.0, Mw);
-    B0_Mw2_mh_Mw = PV.B0(scale, Mw*Mw, SM.getMHl(), Mw);
-    B0_0_Mz_Mw = PV.B0(scale, 0.0, SM.getMz(), Mw);
-    B0_0_0_Mw = PV.B0(scale, 0.0, 0.0, Mw);
-    B0_0_mh_Mw = PV.B0(scale, 0.0, SM.getMHl(), Mw);   
-    
-    B0_Mz2_Mw_Mw = PV.B0(scale, SM.getMz()*SM.getMz(), Mw, Mw);
-    B0_Mz2_mh_Mw = PV.B0(scale, SM.getMz()*SM.getMz(), SM.getMHl(), Mw);
-    B0_Mz2_mh_Mz = PV.B0(scale, SM.getMz()*SM.getMz(), SM.getMHl(), SM.getMz());    
+    A0_Mz_Mw = PV.A0(Mz, Mw);
+    A0_Mz_Mz = PV.A0(Mz, Mz);
+    A0_Mz_mh = PV.A0(Mz, SM.getMHl());
+    B0_Mz_Mw2_Mz_Mw = PV.B0(Mz, Mw*Mw, Mz, Mw);
+    B0_Mz_Mw2_0_Mw = PV.B0(Mz, Mw*Mw, 0.0, Mw);
+    B0_Mz_Mw2_mh_Mw = PV.B0(Mz, Mw*Mw, SM.getMHl(), Mw);
+    B0_Mz_0_Mz_Mw = PV.B0(Mz, 0.0, Mz, Mw);
+    B0_Mz_0_0_Mw = PV.B0(Mz, 0.0, 0.0, Mw);
+    B0_Mz_0_mh_Mw = PV.B0(Mz, 0.0, SM.getMHl(), Mw);   
+    B0_Mz_Mz2_Mw_Mw = PV.B0(Mz, Mz*Mz, Mw, Mw);
+    B0_Mz_Mz2_mh_Mw = PV.B0(Mz, Mz*Mz, SM.getMHl(), Mw);
+    B0_Mz_Mz2_mh_Mz = PV.B0(Mz, Mz*Mz, SM.getMHl(), Mz);    
     
     double ml[6], mq[6];
     for (int i=0; i<6; i++) {
         ml[i] = SM.getLeptons((StandardModel::lepton) i).getMass();
         mq[i] = SM.getQuarks((StandardModel::quark) i).getMass();
-        B0_Mz2_ml_ml[i] = PV.B0(scale, SM.getMz()*SM.getMz(), ml[i], ml[i]);
-        B0_Mz2_mq_mq[i] = PV.B0(scale, SM.getMz()*SM.getMz(), mq[i], mq[i]);
-        Bf_Mz2_ml_ml[i] = PV.Bf(scale, SM.getMz()*SM.getMz(), ml[i], ml[i]);
-        Bf_Mz2_mq_mq[i] = PV.Bf(scale, SM.getMz()*SM.getMz(), mq[i], mq[i]);
+        B0_Mz_Mz2_ml_ml[i] = PV.B0(Mz, Mz*Mz, ml[i], ml[i]);
+        B0_Mz_Mz2_mq_mq[i] = PV.B0(Mz, Mz*Mz, mq[i], mq[i]);
+        Bf_Mz_Mz2_ml_ml[i] = PV.Bf(Mz, Mz*Mz, ml[i], ml[i]);
+        Bf_Mz_Mz2_mq_mq[i] = PV.Bf(Mz, Mz*Mz, mq[i], mq[i]);
     }
     for (int gen=0; gen<3; gen++) {
-        Bf_Mw2_ml_mlprime[gen] = PV.Bf(scale, Mw*Mw, ml[2*gen], ml[2*gen+1]);
-        Bf_Mw2_mq_mqprime[gen] = PV.Bf(scale, Mw*Mw, mq[2*gen], mq[2*gen+1]);            
-        B1_Mw2_ml_mlprime[gen] = PV.B1(scale, Mw*Mw, ml[2*gen], ml[2*gen+1]);
-        B1_Mw2_mq_mqprime[gen] = PV.B1(scale, Mw*Mw, mq[2*gen], mq[2*gen+1]);
-        Bf_Mw2_mlprime_ml[gen] = PV.Bf(scale, Mw*Mw, ml[2*gen+1], ml[2*gen]);
-        Bf_Mw2_mqprime_mq[gen] = PV.Bf(scale, Mw*Mw, mq[2*gen+1], mq[2*gen]);            
-        B1_Mw2_mlprime_ml[gen] = PV.B1(scale, Mw*Mw, ml[2*gen+1], ml[2*gen]);
-        B1_Mw2_mqprime_mq[gen] = PV.B1(scale, Mw*Mw, mq[2*gen+1], mq[2*gen]);
+        Bf_Mz_Mw2_ml_mlprime[gen] = PV.Bf(Mz, Mw*Mw, ml[2*gen], ml[2*gen+1]);
+        Bf_Mz_Mw2_mq_mqprime[gen] = PV.Bf(Mz, Mw*Mw, mq[2*gen], mq[2*gen+1]);            
+        B1_Mz_Mw2_ml_mlprime[gen] = PV.B1(Mz, Mw*Mw, ml[2*gen], ml[2*gen+1]);
+        B1_Mz_Mw2_mq_mqprime[gen] = PV.B1(Mz, Mw*Mw, mq[2*gen], mq[2*gen+1]);
+        Bf_Mz_Mw2_mlprime_ml[gen] = PV.Bf(Mz, Mw*Mw, ml[2*gen+1], ml[2*gen]);
+        Bf_Mz_Mw2_mqprime_mq[gen] = PV.Bf(Mz, Mw*Mw, mq[2*gen+1], mq[2*gen]);            
+        B1_Mz_Mw2_mlprime_ml[gen] = PV.B1(Mz, Mw*Mw, ml[2*gen+1], ml[2*gen]);
+        B1_Mz_Mw2_mqprime_mq[gen] = PV.B1(Mz, Mw*Mw, mq[2*gen+1], mq[2*gen]);
     }    
-    
-    //std::cout << "XL1 = " << 2.0*(B0_Mw2_mh_Mw + log(SM.getMHl()/Mw) - ((SM.getMHl()*SM.getMHl()-Mw*Mw)/Mw/Mw)*log(Mw/SM.getMHl()) - 2.0) << std::endl;    
-    //std::cout << "XL2 = " << 2.0*(B0_Mw2_Mz_Mw  + log(SM.getMz()/Mw) - ((SM.getMz()*SM.getMz()-Mw*Mw)/Mw/Mw)*log(Mw/SM.getMz()) - 2.0) << std::endl;
-    //std::cout << "XL3 = " << 2.0/cW2*(B0_Mz2_mh_Mz + log(SM.getMHl()*SM.getMz()/Mw/Mw) - ((SM.getMHl()*SM.getMHl()-SM.getMz()*SM.getMz())/SM.getMz()/SM.getMz())*log(SM.getMz()/SM.getMHl()) - 2.0) << std::endl;
-    //std::cout << "XL4 = " << 2.0/cW2*(B0_Mz2_Mw_Mw - 2.0) << std::endl;    
-    
     
 }
 
