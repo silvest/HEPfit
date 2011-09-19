@@ -90,17 +90,47 @@ void EWSMcommon::Compute(const double Mw_i) {
         B0_Mz_Mz2_mq_mq[i] = PV.B0(Mz, Mz*Mz, mq[i], mq[i]);
         Bf_Mz_Mz2_ml_ml[i] = PV.Bf(Mz, Mz*Mz, ml[i], ml[i]);
         Bf_Mz_Mz2_mq_mq[i] = PV.Bf(Mz, Mz*Mz, mq[i], mq[i]);
+        if (ml[i]!=0.0) Bf_Mz_0_ml_ml[i] = PV.Bf(Mz, 0.0, ml[i], ml[i]);
+        if (mq[i]!=0.0) Bf_Mz_0_mq_mq[i] = PV.Bf(Mz, 0.0, mq[i], mq[i]);
+        B0p_Mz_Mz2_ml_ml[i] = PV.B0p(Mz, Mz*Mz, ml[i], ml[i]);
+        B0p_Mz_Mz2_mq_mq[i] = PV.B0p(Mz, Mz*Mz, mq[i], mq[i]);
+        Bfp_Mz_Mz2_ml_ml[i] = PV.Bfp(Mz, Mz*Mz, ml[i], ml[i]);
+        Bfp_Mz_Mz2_mq_mq[i] = PV.Bfp(Mz, Mz*Mz, mq[i], mq[i]);
     }
     for (int gen=0; gen<3; gen++) {
-        Bf_Mz_Mw2_ml_mlprime[gen] = PV.Bf(Mz, Mw*Mw, ml[2*gen], ml[2*gen+1]);
-        Bf_Mz_Mw2_mq_mqprime[gen] = PV.Bf(Mz, Mw*Mw, mq[2*gen], mq[2*gen+1]);            
+        //Bf_Mz_Mw2_ml_mlprime[gen] = PV.Bf(Mz, Mw*Mw, ml[2*gen], ml[2*gen+1]);
+        //Bf_Mz_Mw2_mq_mqprime[gen] = PV.Bf(Mz, Mw*Mw, mq[2*gen], mq[2*gen+1]);            
         B1_Mz_Mw2_ml_mlprime[gen] = PV.B1(Mz, Mw*Mw, ml[2*gen], ml[2*gen+1]);
         B1_Mz_Mw2_mq_mqprime[gen] = PV.B1(Mz, Mw*Mw, mq[2*gen], mq[2*gen+1]);
         Bf_Mz_Mw2_mlprime_ml[gen] = PV.Bf(Mz, Mw*Mw, ml[2*gen+1], ml[2*gen]);
         Bf_Mz_Mw2_mqprime_mq[gen] = PV.Bf(Mz, Mw*Mw, mq[2*gen+1], mq[2*gen]);            
         B1_Mz_Mw2_mlprime_ml[gen] = PV.B1(Mz, Mw*Mw, ml[2*gen+1], ml[2*gen]);
         B1_Mz_Mw2_mqprime_mq[gen] = PV.B1(Mz, Mw*Mw, mq[2*gen+1], mq[2*gen]);
+        //Bf_Mz_0_ml_mlprime[gen] = PV.Bf(Mz, 0.0, ml[2*gen], ml[2*gen+1]);
+        //Bf_Mz_0_mq_mqprime[gen] = PV.Bf(Mz, 0.0, mq[2*gen], mq[2*gen+1]);            
+        B1_Mz_0_ml_mlprime[gen] = PV.B1(Mz, 0.0, ml[2*gen], ml[2*gen+1]);
+        B1_Mz_0_mq_mqprime[gen] = PV.B1(Mz, 0.0, mq[2*gen], mq[2*gen+1]);
+        Bf_Mz_0_mlprime_ml[gen] = PV.Bf(Mz, 0.0, ml[2*gen+1], ml[2*gen]);
+        Bf_Mz_0_mqprime_mq[gen] = PV.Bf(Mz, 0.0, mq[2*gen+1], mq[2*gen]);            
+        B1_Mz_0_mlprime_ml[gen] = PV.B1(Mz, 0.0, ml[2*gen+1], ml[2*gen]);
+        B1_Mz_0_mqprime_mq[gen] = PV.B1(Mz, 0.0, mq[2*gen+1], mq[2*gen]);
+        B1p_Mz_Mw2_mlprime_ml[gen] = PV.B1p(Mz, Mw*Mw, ml[2*gen+1], ml[2*gen]);
+        B1p_Mz_Mw2_mqprime_mq[gen] = PV.B1p(Mz, Mw*Mw, mq[2*gen+1], mq[2*gen]);
+        B1p_Mz_Mw2_ml_mlprime[gen] = PV.B1p(Mz, Mw*Mw, ml[2*gen], ml[2*gen+1]);
+        B1p_Mz_Mw2_mq_mqprime[gen] = PV.B1p(Mz, Mw*Mw, mq[2*gen], mq[2*gen+1]);
+        Bfp_Mz_Mw2_mlprime_ml[gen] = PV.Bfp(Mz, Mw*Mw, ml[2*gen+1], ml[2*gen]);
+        Bfp_Mz_Mw2_mqprime_mq[gen] = PV.Bfp(Mz, Mw*Mw, mq[2*gen+1], mq[2*gen]);
     }    
+    
+    B0p_Mz_Mw2_Mz_Mw = PV.B0p(Mz, Mw*Mw, Mz, Mw);
+    B0p_Mz_Mw2_0_Mw = PV.B0p(Mz, Mw*Mw, 0.0, Mw);
+    B0p_Mz_Mw2_mh_Mw = PV.B0p(Mz, Mw*Mw, SM.getMHl(), Mw);
+    B0p_Mz_0_Mz_Mw = PV.B0p(Mz, 0.0, Mz, Mw);
+    B0p_Mz_0_mh_Mw = PV.B0p(Mz, 0.0, SM.getMHl(), Mw);
+    B0p_Mz_Mz2_Mw_Mw = PV.B0p(Mz, Mz*Mz, Mw, Mw);
+    B0p_Mz_Mz2_mh_Mz = PV.B0p(Mz, Mz*Mz, SM.getMHl(), Mz);
+    
+    
     
 }
 

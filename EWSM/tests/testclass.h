@@ -59,6 +59,15 @@ class testclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(DeltaRhobar_fer_Mz);
     CPPUNIT_TEST(TEST_DeltaRhobar_bos_Mw);
     CPPUNIT_TEST(TEST_DeltaRhobarW_bos_Mw);
+    CPPUNIT_TEST(SigmaPrimeWW_bos_Mw_Mw2_real);
+    CPPUNIT_TEST(SigmaPrimeWW_bos_Mw_Mw2_imag);
+    CPPUNIT_TEST(SigmaPrimeWW_fer_Mw_Mw2_real);
+    CPPUNIT_TEST(SigmaPrimeWW_fer_Mw_Mw2_imag);
+    CPPUNIT_TEST(SigmaPrimeZZ_bos_Mw_Mz2_real); 
+    CPPUNIT_TEST(SigmaPrimeZZ_bos_Mw_Mz2_imag); 
+    CPPUNIT_TEST(SigmaPrimeZZ_fer_Mw_Mz2_real); 
+    CPPUNIT_TEST(SigmaPrimeZZ_fer_Mw_Mz2_imag);
+    
     
     
     CPPUNIT_TEST_SUITE_END();
@@ -127,9 +136,14 @@ private:
     void TEST_DeltaRhobar_bos_Mw();
     void TEST_DeltaRhobarW_bos_Mw();    
     
-
-    
-    
+    void SigmaPrimeWW_bos_Mw_Mw2_real();
+    void SigmaPrimeWW_bos_Mw_Mw2_imag();
+    void SigmaPrimeWW_fer_Mw_Mw2_real();
+    void SigmaPrimeWW_fer_Mw_Mw2_imag();
+    void SigmaPrimeZZ_bos_Mw_Mz2_real(); 
+    void SigmaPrimeZZ_bos_Mw_Mz2_imag(); 
+    void SigmaPrimeZZ_fer_Mw_Mz2_real(); 
+    void SigmaPrimeZZ_fer_Mw_Mz2_imag();     
     
     
     

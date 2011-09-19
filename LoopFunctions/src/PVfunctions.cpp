@@ -214,9 +214,9 @@ complex PVfunctions::B0p(const double mu, const double p2,
             if (m0!=0.0) M2 = m02;
             if (m1!=0.0) M2 = m12;            
             if ( p2<M2 ) {
-                B0p = - M2/p2/p2*log(1.0 - p2/M2) + 1.0/M2;
+                B0p = - M2/p2/p2*log(1.0 - p2/M2) - 1.0/p2;
             } else if ( p2>M2 ) {
-                B0p = - M2/p2/p2*log(p2/M2 - 1.0) + 1.0/M2;
+                B0p = - M2/p2/p2*log(p2/M2 - 1.0) - 1.0/p2;
                 B0p += M2/p2/p2*M_PI*complex::i();// imaginary part        
             } else { /* p2=M2 */
                 B0p = 1.0/2.0/M2*(log(M2/mu2) - 2.0);
@@ -235,13 +235,14 @@ complex PVfunctions::B1p(const double mu, const double p2,
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw "Invalid argument for PVfunctions::B1p()";
     }
-    double p4 = p2*p2;
     complex B1p(0.0, 0.0, false);
     
     if (p2==0.0) {
         throw "PVfunctions::B1p() is undefined.";                     
     } else {
-        B1p = ( B1(mu,p2,m0,m1) - p2*B0(mu,p2,m0,m1) - p4*B0p(mu,p2,m0,m1) )/2.0/p4;
+        double DeltaM2 = m0*m0 - m1*m1;
+        B1p = - ( 2.0*B1(mu,p2,m0,m1) + B0(mu,p2,m0,m1) 
+                 + (DeltaM2 + p2)*B0p(mu,p2,m0,m1) )/2.0/p2;
     }
     return B1p;
 }
@@ -262,7 +263,8 @@ complex PVfunctions::B21p(const double mu, const double p2,
         double Lambdabar2 = (p2-m02-m12)*(p2-m02-m12) - 4.0*m02*m12;
         B21p = (m02 + m12)/6.0/p4 - (2.0*DeltaM2 + p2)/3.0/p6*A0(mu,m0)
                 + 2.0*(DeltaM2 + p2)/3.0/p6*A0(mu,m1)
-                + (2.0*m12 - m02)/3.0/p4*B0(mu,p2,m0,m1) 
+//                + (2.0*m12 - m02)/3.0/p4*B0(mu,p2,m0,m1) 
+                - (2.0*DeltaM2*DeltaM2 + p2*m02 - 2.0*p2*m12)/3.0/p6*B0(mu,p2,m0,m1) 
                 + (Lambdabar2 + 3.0*p2*m02)/3.0/p4*B0p(mu,p2,m0,m1);
     }
     return B21p;
