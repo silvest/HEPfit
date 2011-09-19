@@ -314,6 +314,14 @@ public:
         return Bf_Mz_Mz2_mq_mq[q];
     }
 
+    complex GetBf_Mz_0_ml_ml(const StandardModel::lepton l) const {
+        return Bf_Mz_0_ml_ml[l];
+    }
+
+    complex GetBf_Mz_0_mq_mq(const StandardModel::quark q) const {
+        return Bf_Mz_0_mq_mq[q];
+    }    
+    
     complex GetB1_Mz_Mw2_ml_mlprime(const int gen) const {
         return B1_Mz_Mw2_ml_mlprime[gen];
     }
@@ -322,13 +330,13 @@ public:
         return B1_Mz_Mw2_mq_mqprime[gen];
     }
 
-    complex GetBf_Mz_Mw2_ml_mlprime(const int gen) const {
-        return Bf_Mz_Mw2_ml_mlprime[gen];
-    }
-
-    complex GetBf_Mz_Mw2_mq_mqprime(const int gen) const {
-        return Bf_Mz_Mw2_mq_mqprime[gen];
-    }    
+//    complex GetBf_Mz_Mw2_ml_mlprime(const int gen) const {
+//        return Bf_Mz_Mw2_ml_mlprime[gen];
+//    }
+//
+//    complex GetBf_Mz_Mw2_mq_mqprime(const int gen) const {
+//        return Bf_Mz_Mw2_mq_mqprime[gen];
+//    }    
     
     complex GetB1_Mz_Mw2_mlprime_ml(const int gen) const {
         return B1_Mz_Mw2_mlprime_ml[gen];
@@ -345,7 +353,107 @@ public:
     complex GetBf_Mz_Mw2_mqprime_mq(const int gen) const {
         return Bf_Mz_Mw2_mqprime_mq[gen];
     }
+    
+    complex GetB1_Mz_0_ml_mlprime(const int gen) const {
+        return B1_Mz_0_ml_mlprime[gen];
+    }
 
+    complex GetB1_Mz_0_mq_mqprime(const int gen) const {
+        return B1_Mz_0_mq_mqprime[gen];
+    }
+
+//    complex GetBf_Mz_0_ml_mlprime(const int gen) const {
+//        return Bf_Mz_0_ml_mlprime[gen];
+//    }
+//
+//    complex GetBf_Mz_0_mq_mqprime(const int gen) const {
+//        return Bf_Mz_0_mq_mqprime[gen];
+//    }    
+    
+    complex GetB1_Mz_0_mlprime_ml(const int gen) const {
+        return B1_Mz_0_mlprime_ml[gen];
+    }
+
+    complex GetB1_Mz_0_mqprime_mq(const int gen) const {
+        return B1_Mz_0_mqprime_mq[gen];
+    }
+
+    complex GetBf_Mz_0_mlprime_ml(const int gen) const {
+        return Bf_Mz_0_mlprime_ml[gen];
+    }
+
+    complex GetBf_Mz_0_mqprime_mq(const int gen) const {
+        return Bf_Mz_0_mqprime_mq[gen];
+    }
+    
+    complex GetB0p_Mz_Mw2_0_Mw() const {
+        return B0p_Mz_Mw2_0_Mw;
+    }
+
+    complex GetB0p_Mz_Mw2_Mz_Mw() const {
+        return B0p_Mz_Mw2_Mz_Mw;
+    }
+
+    complex GetB0p_Mz_Mw2_mh_Mw() const {
+        return B0p_Mz_Mw2_mh_Mw;
+    }
+        
+    complex GetB0p_Mz_0_Mz_Mw() const {
+        return B0p_Mz_0_Mz_Mw;
+    }
+
+    complex GetB0p_Mz_0_mh_Mw() const {
+        return B0p_Mz_0_mh_Mw;
+    }
+    
+    complex GetB0p_Mz_Mz2_Mw_Mw() const {
+        return B0p_Mz_Mz2_Mw_Mw;
+    }
+
+    complex GetB0p_Mz_Mz2_mh_Mz() const {
+        return B0p_Mz_Mz2_mh_Mz;
+    }
+    
+    complex GetB0p_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
+        return B0p_Mz_Mz2_ml_ml[l];
+    }
+
+    complex GetB0p_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
+        return B0p_Mz_Mz2_mq_mq[q];
+    }
+
+    complex GetB1p_Mz_Mw2_ml_mlprime(const int gen) const {
+        return B1p_Mz_Mw2_ml_mlprime[gen];
+    }
+
+    complex GetB1p_Mz_Mw2_mlprime_ml(const int gen) const {
+        return B1p_Mz_Mw2_mlprime_ml[gen];
+    }
+
+    complex GetB1p_Mz_Mw2_mq_mqprime(const int gen) const {
+        return B1p_Mz_Mw2_mq_mqprime[gen];
+    }
+
+    complex GetB1p_Mz_Mw2_mqprime_mq(const int gen) const {
+        return B1p_Mz_Mw2_mqprime_mq[gen];
+    }
+
+    complex GetBfp_Mz_Mw2_mlprime_ml(const int gen) const {
+        return Bfp_Mz_Mw2_mlprime_ml[gen];
+    }
+
+    complex GetBfp_Mz_Mw2_mqprime_mq(const int gen) const {
+        return Bfp_Mz_Mw2_mqprime_mq[gen];
+    }
+
+    complex GetBfp_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
+        return Bfp_Mz_Mz2_ml_ml[l];
+    }
+
+    complex GetBfp_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
+        return Bfp_Mz_Mz2_mq_mq[q];
+    }
+    
     
     //////////////////////////////////////////////////////////////////////// 
 
@@ -384,15 +492,41 @@ protected:
     complex B0_Mz_Mz2_mq_mq[6];
     complex Bf_Mz_Mz2_ml_ml[6];
     complex Bf_Mz_Mz2_mq_mq[6];
-    complex Bf_Mz_Mw2_ml_mlprime[3];
-    complex Bf_Mz_Mw2_mq_mqprime[3];
+    complex Bf_Mz_0_ml_ml[6];
+    complex Bf_Mz_0_mq_mq[6];
+    //complex Bf_Mz_Mw2_ml_mlprime[3];
+    //complex Bf_Mz_Mw2_mq_mqprime[3];
     complex B1_Mz_Mw2_ml_mlprime[3];
     complex B1_Mz_Mw2_mq_mqprime[3];
     complex Bf_Mz_Mw2_mlprime_ml[3];
     complex Bf_Mz_Mw2_mqprime_mq[3];
     complex B1_Mz_Mw2_mlprime_ml[3];
     complex B1_Mz_Mw2_mqprime_mq[3];
-    
+    //complex Bf_Mz_0_ml_mlprime[3];
+    //complex Bf_Mz_0_mq_mqprime[3];
+    complex B1_Mz_0_ml_mlprime[3];
+    complex B1_Mz_0_mq_mqprime[3];
+    complex Bf_Mz_0_mlprime_ml[3];
+    complex Bf_Mz_0_mqprime_mq[3];
+    complex B1_Mz_0_mlprime_ml[3];
+    complex B1_Mz_0_mqprime_mq[3];
+    complex B0p_Mz_Mw2_Mz_Mw;
+    complex B0p_Mz_Mw2_0_Mw;
+    complex B0p_Mz_Mw2_mh_Mw;
+    complex B0p_Mz_0_Mz_Mw;
+    complex B0p_Mz_0_mh_Mw; 
+    complex B0p_Mz_Mz2_Mw_Mw;
+    complex B0p_Mz_Mz2_mh_Mz;  
+    complex B0p_Mz_Mz2_ml_ml[6];
+    complex B0p_Mz_Mz2_mq_mq[6];    
+    complex Bfp_Mz_Mz2_ml_ml[6];
+    complex Bfp_Mz_Mz2_mq_mq[6];    
+    complex B1p_Mz_Mw2_mlprime_ml[3];
+    complex B1p_Mz_Mw2_mqprime_mq[3];    
+    complex B1p_Mz_Mw2_ml_mlprime[3];
+    complex B1p_Mz_Mw2_mq_mqprime[3];    
+    complex Bfp_Mz_Mw2_mlprime_ml[3];
+    complex Bfp_Mz_Mw2_mqprime_mq[3];    
     
     
 };

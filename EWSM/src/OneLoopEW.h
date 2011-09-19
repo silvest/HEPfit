@@ -100,59 +100,86 @@ public:
     /**
      * @param[in] mu renormalization scale
      * @param[in] s momentum-squared
-     * @return the bosonic contribution to the self-energy function of the W boson for mu=Mz
+     * @return the bosonic contribution to the self-energy function of the W boson
      */
     complex SigmaWW_bos(const double mu, const double s) const;
  
     /**
      * @param[in] mu renormalization scale
      * @param[in] s momentum-squared
-     * @return the fermionic contribution to the self-energy function of the W boson for mu=Mz
+     * @return the fermionic contribution to the self-energy function of the W boson
      */
     complex SigmaWW_fer(const double mu, const double s) const;
     
     /**
      * @param[in] mu renormalization scale
      * @param[in] s momentum-squared
-     * @return the bosonic contribution to the self-energy function of the Z boson for mu=Mz
+     * @return the bosonic contribution to the self-energy function of the Z boson
      */
     complex SigmaZZ_bos(const double mu, const double s) const;    
     
     /**
      * @param[in] mu renormalization scale
      * @param[in] s momentum-squared
-     * @return the fermionic contribution to the self-energy function of the Z boson for mu=Mz
+     * @return the fermionic contribution to the self-energy function of the Z boson
      */
     complex SigmaZZ_fer(const double mu, const double s) const;
     
     /**
      * @param[in] mu renormalization scale
      * @param[in] s momentum-squared
-     * @return the bosonic contribution to the self-energy function of the photon for mu=Mz
+     * @return the bosonic contribution to the self-energy function of the photon
      */
     complex PiGammaGamma_bos(const double mu, const double s) const;
 
     /**
      * @param[in] mu renormalization scale
      * @param[in] s momentum-squared
-     * @return the fermionic contribution to the self-energy function of the photon for mu=Mz
+     * @return the fermionic contribution to the self-energy function of the photon
      */
     complex PiGammaGamma_fer(const double mu, const double s) const;
 
     /**
      * @param[in] mu renormalization scale
      * @param[in] s momentum-squared
-     * @return the bosonic contribution to the self-energy function of the Z-gamma mixing for mu=Mz
+     * @return the bosonic contribution to the self-energy function of the Z-gamma mixing
      */
     complex PiZgamma_bos(const double mu, const double s) const;
 
     /**
      * @param[in] mu renormalization scale
      * @param[in] s momentum-squared
-     * @return the fermionic contribution to the self-energy function of the Z-gamma mixing for mu=Mz
+     * @return the fermionic contribution to the self-energy function of the Z-gamma mixing
      */    
     complex PiZgamma_fer(const double mu, const double s) const;
 
+    
+    ////////////////////////////////////////////////////////////////////////   
+    
+    /**
+     * @param[in] mu renormalization scale
+     * @return the bosonic contribution to the wave-function renormalization of the W boson with s=Mw^2
+     */   
+    complex SigmaPrime_WW_bos_Mw2(const double mu) const;
+    
+     /**
+     * @param[in] mu renormalization scale
+     * @return the fermionic contribution to the wave-function renormalization of the W boson with s=Mw^2
+     */   
+    complex SigmaPrime_WW_fer_Mw2(const double mu) const;   
+    
+     /**
+     * @param[in] mu renormalization scale
+     * @return the bosonic contribution to the wave-function renormalization of the Z boson with s=Mz^2
+     */   
+    complex SigmaPrime_ZZ_bos_Mz2(const double mu) const;
+    
+     /**
+     * @param[in] mu renormalization scale
+      * @return the fermionic contribution to the wave-function renormalization of the Z boson with s=Mz^2
+     */   
+    complex SigmaPrime_ZZ_fer_Mz2(const double mu) const;     
+    
     
     ////////////////////////////////////////////////////////////////////////   
     
@@ -166,6 +193,7 @@ public:
     /**
      * @brief TEST function
      * @return Delta Rhobar_W^{bos,F}
+     * @attention The renormalization scale is fixed to be mu=Mw.
      */
     double TEST_DeltaRhobarW_bos() const;    
 
