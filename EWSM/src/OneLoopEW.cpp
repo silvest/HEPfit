@@ -58,10 +58,8 @@ double OneLoopEW::DeltaRho() const {
     
     std::cout << -SigmaPrime_WW_bos_Mw2(Mw) << std::endl;    
     std::cout << -SigmaPrime_WW_fer_Mw2(Mw) << std::endl;    
-    std::cout << -SigmaPrime_ZZ_bos_Mz2(Mw)/EWSMC.GetCW2() << " " 
-              << -SigmaPrime_ZZ_bos_Mz2(Mz)/EWSMC.GetCW2() << std::endl;    
-    std::cout << -SigmaPrime_ZZ_fer_Mz2(Mw)/EWSMC.GetCW2() << " " 
-              << -SigmaPrime_ZZ_fer_Mz2(Mz)/EWSMC.GetCW2() << std::endl;
+    std::cout << -SigmaPrime_ZZ_bos_Mz2(Mw)/EWSMC.GetCW2() << std::endl;
+    std::cout << -SigmaPrime_ZZ_fer_Mz2(Mw)/EWSMC.GetCW2() << std::endl;
     
     
     return DeltaRho;
@@ -696,6 +694,7 @@ complex OneLoopEW::SigmaPrime_ZZ_bos_Mz2(const double mu) const {
             + (1.0 + 4.0*cW2)/3.0/cW2*A0_Mw/Mz2
             - (1.0 - rz)/12.0/cW2*(A0_Mz - A0_mh)/Mz2
             + 2.0/9.0/cW2 - 10.0/9.0 + 4.0/3.0*cW2;
+    Sigma *= cW2;
     return Sigma;        
 }
 
@@ -742,18 +741,14 @@ complex OneLoopEW::SigmaPrime_ZZ_fer_Mz2(const double mu) const {
         ml2 = ml[i]*ml[i];
         vl2 = pow(EWSMC.vf((StandardModel::lepton) i), 2.0);
         al2 = pow(EWSMC.af((StandardModel::lepton) i), 2.0);            
-        Sigma += 
-                - (vl2 + al2)*(Bf_Mz2_ml_ml[i] + Mz2*Bfp_Mz2_ml_ml[i])
-                 - 2.0*al2*ml2*B0p_Mz2_ml_ml[i]
-                ;
+        Sigma += - (vl2 + al2)*(Bf_Mz2_ml_ml[i] + Mz2*Bfp_Mz2_ml_ml[i])
+                 - 2.0*al2*ml2*B0p_Mz2_ml_ml[i];
         //
         mq2 = mq[i]*mq[i];
         vq2 = pow(EWSMC.vf((StandardModel::quark) i), 2.0);
         aq2 = pow(EWSMC.af((StandardModel::quark) i), 2.0);
-        Sigma += 
-                - 3.0*(vl2 + al2)*(Bf_Mz2_mq_mq[i] + Mz2*Bfp_Mz2_mq_mq[i])
-                 - 6.0*al2*mq2*B0p_Mz2_mq_mq[i]
-                ;
+        Sigma += - 3.0*(vq2 + aq2)*(Bf_Mz2_mq_mq[i] + Mz2*Bfp_Mz2_mq_mq[i])
+                 - 6.0*aq2*mq2*B0p_Mz2_mq_mq[i];
     }
     return Sigma;    
 }
