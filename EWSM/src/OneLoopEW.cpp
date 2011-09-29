@@ -54,25 +54,43 @@ double OneLoopEW::DeltaRho() const {
     double DeltaRho = ( SigmaWW_bos(Mw,Mw2).real() + SigmaWW_fer(Mw,Mw2).real() 
                         - SigmaZZ_bos(Mw,Mz2).real() - SigmaZZ_fer(Mw,Mz2).real() )/Mw2;
     DeltaRho *= - EWSMC.GetSM().getAle()/4.0/M_PI/EWSMC.GetSW2();
- 
-    
-    std::cout << -SigmaPrime_WW_bos_Mw2(Mw) << std::endl;    
-    std::cout << -SigmaPrime_WW_fer_Mw2(Mw) << std::endl;    
-    std::cout << -SigmaPrime_ZZ_bos_Mz2(Mw)/EWSMC.GetCW2() << std::endl;
-    std::cout << -SigmaPrime_ZZ_fer_Mz2(Mw)/EWSMC.GetCW2() << std::endl;
-    
-    
     return DeltaRho;
 }
 
 double OneLoopEW::DeltaR_rem() const {
-    /* !! Write codes !!*/
-    return (0.0);    
+    double Mw = EWSMC.GetMw();
+    double Mw2 = Mw*Mw;
+    double Mz = EWSMC.GetSM().getMz();
+    double Mz2 = Mz*Mz;
+    double sW2 = EWSMC.GetSW2();
+    double cW2 = EWSMC.GetCW2();
+    double PiGammaGamma_t_0 = PiGammaGamma_fer(Mz,0.0,StandardModel::TOP).real();
+    double PiGammaGamma_l5q_Mz2 = PiGammaGamma_fer(Mz,Mz2).real() 
+                                  - PiGammaGamma_fer(Mz,Mz2,StandardModel::TOP).real();
+    double DRhobarW = ( SigmaWW_bos(Mw,0.0).real() + SigmaWW_fer(Mw,0.0).real() 
+                      - SigmaWW_bos(Mw,Mw2).real() - SigmaWW_fer(Mw,Mw2).real() )/Mw2;
+    double DR_rem = - 2.0/3.0*sW2 + sW2*PiGammaGamma_t_0
+                     + sW2*PiGammaGamma_l5q_Mz2 + DRhobarW
+                     + (- 24.0/6.0 + 2.0/3.0*12.0 - 1.0/6.0 - 7.0*cW2)*log(cW2)
+                     + 11.0/2.0 - 5.0/8.0*cW2*(1.0 + cW2) 
+                     + 9.0*cW2/4.0/sW2*log(cW2);
+    DR_rem *= EWSMC.GetSM().getAle()/4.0/M_PI/sW2;
+    return DR_rem;    
 }
 
 double OneLoopEW::DeltaRbar_rem() const {
-    /* !! Write codes !!*/
-    return (0.0);    
+    double Mw = EWSMC.GetMw();
+    double Mw2 = Mw*Mw;
+    double sW2 = EWSMC.GetSW2();
+    double cW2 = EWSMC.GetCW2();
+    double DRhobarW = ( SigmaWW_bos(Mw,0.0).real() + SigmaWW_fer(Mw,0.0).real() 
+                      - SigmaWW_bos(Mw,Mw2).real() - SigmaWW_fer(Mw,Mw2).real() )/Mw2;
+    double DRbar_rem = - 2.0/3.0*sW2 + DRhobarW
+                       + (- 24.0/6.0 + 2.0/3.0*12.0 - 1.0/6.0 - 7.0*cW2)*log(cW2)
+                       + 11.0/2.0 - 5.0/8.0*cW2*(1.0 + cW2) 
+                       + 9.0*cW2/4.0/sW2*log(cW2);
+    DRbar_rem *= EWSMC.GetSM().getAle()/4.0/M_PI/sW2;
+    return DRbar_rem;     
 }
 
 complex OneLoopEW::deltaRho_rem_l(const StandardModel::lepton l) const {
@@ -409,86 +427,99 @@ complex OneLoopEW::PiGammaGamma_bos(const double mu, const double s) const {
             B0_s_Mw_Mw = myPV->B0(mu, s, Mw, Mw);
             delete myPV;  
         }    
-        Pi = RW*( (4.0 + 17.0/3.0/RW - 4.0/3.0/RW2 - 1.0/12.0/RW3)*B0_s_Mw_Mw
-                  + (4.0 - 4.0/3.0/RW - 1.0/6.0/RW2)*(A0_Mw/Mw2 + 1.0)
-                  - 1.0/18.0/RW2*(1.0/RW - 13.0) );
+        Pi = - RW*( (4.0 + 17.0/3.0/RW - 4.0/3.0/RW2 - 1.0/12.0/RW3)*B0_s_Mw_Mw
+                    + (4.0 - 4.0/3.0/RW - 1.0/6.0/RW2)*(A0_Mw/Mw2 + 1.0)
+                    - 1.0/18.0/RW2*(1.0/RW - 13.0) );
     }
     return Pi;
 }
 
-complex OneLoopEW::PiGammaGamma_fer(const double mu, const double s) const {
-    double ml[6], mq[6];
-    for (int i=0; i<6; i++) { 
-        ml[i] = EWSMC.GetSM().getLeptons((StandardModel::lepton) i).getMass();
-        mq[i] = EWSMC.GetSM().getQuarks((StandardModel::quark) i).getMass();
-    }
+complex OneLoopEW::PiGammaGamma_fer(const double mu, const double s, 
+                                    const StandardModel::lepton l) const {
+    double ml = EWSMC.GetSM().getLeptons(l).getMass();
     double Mz = EWSMC.GetSM().getMz();    
     double Mz2 = Mz*Mz;
 
     /* Loop functions */
-    complex Bf_s_ml_ml[6], Bf_s_mq_mq[6];
-    
-    complex Pi(0.0,0.0,false);
+    complex Bf_s_ml_ml;
     if (mu==Mz && s==Mz2) {
-        for (int i=0; i<6; i++) {
-            if (ml[i]==0.0) { 
-                Bf_s_ml_ml[i] = 0.0; 
-            } else {
-                Bf_s_ml_ml[i] = EWSMC.GetBf_Mz_Mz2_ml_ml((StandardModel::lepton) i);
-            }
-            if (mq[i]==0.0) { 
-                Bf_s_mq_mq[i] = 0.0;
-            } else {
-                Bf_s_mq_mq[i] = EWSMC.GetBf_Mz_Mz2_mq_mq((StandardModel::quark) i);         
-            }
+        if (ml==0.0) { 
+            Bf_s_ml_ml = 0.0; 
+        } else {
+            Bf_s_ml_ml = EWSMC.GetBf_Mz_Mz2_ml_ml(l);
         }
     } else {  /* including s==0.0 */
         if (mu==Mz && s==0.0) {        
-            for (int i=0; i<6; i++) {
-                if (ml[i]==0.0) {
-                    Bf_s_ml_ml[i] = 0.0; 
-                } else {
-                    Bf_s_ml_ml[i] = EWSMC.GetBf_Mz_0_ml_ml((StandardModel::lepton) i);
-                }
-                if (mq[i]==0.0) {
-                    Bf_s_mq_mq[i] = 0.0; 
-                } else {
-                    Bf_s_mq_mq[i] = EWSMC.GetBf_Mz_0_mq_mq((StandardModel::quark) i);       
-                }
+            if (ml==0.0) {
+                Bf_s_ml_ml = 0.0; 
+            } else {
+                Bf_s_ml_ml = EWSMC.GetBf_Mz_0_ml_ml(l);
             }
         } else {
             PVfunctions* myPV;
             myPV = new PVfunctions();
-            for (int i=0; i<6; i++) {
-                if (ml[i]==0.0) {
-                    Bf_s_ml_ml[i] = 0.0; 
-                } else {
-                    Bf_s_ml_ml[i] = myPV->Bf(mu,s,ml[i],ml[i]);
-                }
-                if (mq[i]==0.0) {
-                    Bf_s_mq_mq[i] = 0.0; 
-                } else {
-                    Bf_s_mq_mq[i] = myPV->Bf(mu,s,mq[i],mq[i]);            
-                }
+            if (ml==0.0) {
+                Bf_s_ml_ml = 0.0; 
+            } else {
+                Bf_s_ml_ml = myPV->Bf(mu,s,ml,ml);
             }
             delete myPV;
         }
     }
     
-    double Ql, Qq;
+    double Ql = EWSMC.Qf(l);
+    return ( - 4.0*Ql*Ql*Bf_s_ml_ml);
+}
+
+complex OneLoopEW::PiGammaGamma_fer(const double mu, const double s, 
+                                    const StandardModel::quark q) const {
+    double mq = EWSMC.GetSM().getQuarks(q).getMass();
+    double Mz = EWSMC.GetSM().getMz();    
+    double Mz2 = Mz*Mz;
+
+    /* Loop functions */
+    complex Bf_s_mq_mq;
+    if (mu==Mz && s==Mz2) {
+        if (mq==0.0) { 
+            Bf_s_mq_mq = 0.0; 
+        } else {
+            Bf_s_mq_mq = EWSMC.GetBf_Mz_Mz2_mq_mq(q);
+        }
+    } else {  /* including s==0.0 */
+        if (mu==Mz && s==0.0) {        
+            if (mq==0.0) {
+                Bf_s_mq_mq = 0.0; 
+            } else {
+                Bf_s_mq_mq = EWSMC.GetBf_Mz_0_mq_mq(q);
+            }
+        } else {
+            PVfunctions* myPV;
+            myPV = new PVfunctions();
+            if (mq==0.0) {
+                Bf_s_mq_mq = 0.0; 
+            } else {
+                Bf_s_mq_mq = myPV->Bf(mu,s,mq,mq);
+            }
+            delete myPV;
+        }
+    }
+    
+    double Qq = EWSMC.Qf(q);
+    return ( - 4.0*3.0*Qq*Qq*Bf_s_mq_mq);
+}
+
+complex OneLoopEW::PiGammaGamma_fer(const double mu, const double s) const {
+    complex Pi(0.0,0.0,false);
     for (int i=0; i<6; i++) {
-        Ql = EWSMC.Qf((StandardModel::lepton) i);
-        Pi += 4.0*Ql*Ql*Bf_s_ml_ml[i];
-        //
-        Qq = EWSMC.Qf((StandardModel::quark) i);
-        Pi += 4.0*3.0*Qq*Qq*Bf_s_mq_mq[i];
+        Pi += PiGammaGamma_fer(mu, s, (StandardModel::lepton) i);
+        Pi += PiGammaGamma_fer(mu, s, (StandardModel::quark) i);        
     }
     return Pi;
 }
 
 complex OneLoopEW::PiZgamma_bos(const double mu, const double s) const {
     double cW2 = EWSMC.GetCW2();
-    return (PiGammaGamma_bos(mu,s)*cW2);
+    return ( - PiGammaGamma_bos(mu,s)*cW2);
 }
 
 complex OneLoopEW::PiZgamma_fer(const double mu, const double s) const {
@@ -579,7 +610,7 @@ complex OneLoopEW::SigmaPrime_WW_bos_Mw2(const double mu) const {
     complex Sigma(0.0,0.0,false);
     Sigma = - (1.0/12.0/cW4 + 2.0/3.0/cW2 + 2.0*cW2)*B0_Mw2_Mz_Mw
             + (1.0/12.0/cW4 + 4.0/3.0/cW2 - 17.0/3.0 - 4.0*cW2)*Mw2*B0p_Mw2_Mz_Mw
-            - 2.0*sW2*B0_Mw2_0_Mw - 4.0*sW2*Mw2*B0p_Mw2_0_Mw
+            - 29.0/6.0*sW2*B0_Mw2_0_Mw - 4.0*sW2*Mw2*B0p_Mw2_0_Mw
             + rw/6.0*(1.0 - rw/2.0)*B0_Mw2_mh_Mw
             + (1.0 - rw/3.0 + rw*rw/12.0)*Mw2*B0p_Mw2_0_Mw
             + (1.0/cW2 + 8.0 + rw)/12.0*A0_Mw/Mw2

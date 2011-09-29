@@ -67,7 +67,15 @@ class testclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(SigmaPrimeZZ_bos_Mw_Mz2_imag); 
     CPPUNIT_TEST(SigmaPrimeZZ_fer_Mw_Mz2_real); 
     CPPUNIT_TEST(SigmaPrimeZZ_fer_Mw_Mz2_imag);
-    
+    CPPUNIT_TEST(C0_Mz2_Mt_Mw_Mt_real);
+    CPPUNIT_TEST(C0_Mz2_Mt_Mw_Mt_imag);    
+    CPPUNIT_TEST(C0_Mz2_0_Mw_0_real);
+    CPPUNIT_TEST(C0_Mz2_0_Mw_0_imag);
+    CPPUNIT_TEST(C0_Mz2_Mw_Mt_Mw_real);
+    CPPUNIT_TEST(C0_Mz2_Mw_Mt_Mw_imag);
+    CPPUNIT_TEST(C0_Mz2_Mw_0_Mw_real);
+    CPPUNIT_TEST(C0_Mz2_Mw_0_Mw_imag);
+
     
     
     CPPUNIT_TEST_SUITE_END();
@@ -87,7 +95,7 @@ private:
     OneLoopEW* myOLEW;
     
     double epsilon;
-    double Mw, Mw2, Mz, Mz2, cW2, sW2;
+    double Mw, Mw2, Mz, Mz2, cW2, sW2, Mt;
     
     void setSMparameters(StandardModel& SM_i);
     
@@ -145,6 +153,15 @@ private:
     void SigmaPrimeZZ_fer_Mw_Mz2_real(); 
     void SigmaPrimeZZ_fer_Mw_Mz2_imag();     
     
+    void C0_Mz2_Mt_Mw_Mt_real();
+    void C0_Mz2_Mt_Mw_Mt_imag();
+    void C0_Mz2_0_Mw_0_real();
+    void C0_Mz2_0_Mw_0_imag();
+    void C0_Mz2_Mw_Mt_Mw_real();
+    void C0_Mz2_Mw_Mt_Mw_imag();
+    void C0_Mz2_Mw_0_Mw_real();
+    void C0_Mz2_Mw_0_Mw_imag();
+
     
     
 };

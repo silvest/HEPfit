@@ -5,7 +5,10 @@
 
 #include <iostream>
 #include <cmath>
+#include <gsl/gsl_complex.h>
+#include <gsl/gsl_sf.h>
 #include "PVfunctions.h"
+
 
 PVfunctions::PVfunctions() {
 }
@@ -296,15 +299,51 @@ complex PVfunctions::C0(const double p2,
     if ( p2<0.0 || m0<0.0 || m1<0.0 || m2<0.0 ) {
         throw "Invalid argument for PVfunctions::C0()";
     }
-    double m02=m0*m0, m12=m1*m1, m22=m2*m2;
-    complex C0(0.0, 0.0, false);
-    
-    throw "Write codes for PVfunctions::C0()";
 
-    
-    
-    
-    
+    complex C0(0.0, 0.0, false);    
+    if (p2==0.0) {
+        throw "PVfunctions::C0() is undefined.";
+    } else {
+        if (m0==m2 && m0!=m1) {
+            double m02 = m0*m0;
+            double m12 = m1*m1;
+            double epsilon = 1.0e-12;
+            gsl_complex tmp = gsl_complex_rect(1.0 - 4.0*m02/p2, epsilon);
+            tmp = gsl_complex_sqrt(tmp);
+            complex tmp_complex(GSL_REAL(tmp), GSL_IMAG(tmp), false);
+            complex x0 = 1.0 - (m02 - m12)/p2;
+            complex x1 = (1.0 + tmp_complex)/2.0;
+            complex x2 = (1.0 - tmp_complex)/2.0;            
+            complex x3 = m02/(m02 - m12);
+
+            if ( x0==x1 || x0==x2 || x0==x3) {
+                throw "PVfunctions::C0() is undefined.";
+            }
+
+            complex arg[6];
+            arg[0] = (x0 - 1.0)/(x0 - x1);
+            arg[1] = x0/(x0 - x1);
+            arg[2] = (x0 - 1.0)/(x0 - x2);
+            arg[3] = x0/(x0 - x2);
+            arg[4] = (x0 - 1.0)/(x0 - x3);
+            arg[5] = x0/(x0 - x3);
+            
+            complex Li2[6];
+            for (int i=0; i<6; i++) {
+                gsl_sf_result re, im;
+                gsl_sf_complex_dilog_xy_e(arg[i].real(), arg[i].imag(), &re, &im);
+                Li2[i].real() = re.val;
+                Li2[i].imag() = im.val;
+                
+                /* Check the sizes of errors */
+                //std::cout << "re.val=" << re.val << "  re.err=" << re.err << std::endl;
+                //std::cout << "im.val=" << im.val << "  im.err=" << im.err << std::endl;                
+            }
+            C0 = - 1.0/p2*( Li2[0] - Li2[1] + Li2[2] - Li2[3] - Li2[4] + Li2[5]);        
+        } else {
+            throw "PVfunctions::C0() is undefined.";            
+        }
+    }
     return C0;
 }
         

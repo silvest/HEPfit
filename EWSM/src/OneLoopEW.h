@@ -132,6 +132,24 @@ public:
      */
     complex PiGammaGamma_bos(const double mu, const double s) const;
 
+     /**
+     * @param[in] mu renormalization scale
+     * @param[in] s momentum-squared
+     * @param[in] l name of a lepton
+     * @return the lepton "l" contribution to the self-energy function of the photon
+     */
+    complex PiGammaGamma_fer(const double mu, const double s, 
+                             const StandardModel::lepton l) const;
+    
+    /**
+     * @param[in] mu renormalization scale
+     * @param[in] s momentum-squared
+     * @param[in] q name of a quark 
+     * @return the quark "q" contribution to the self-energy function of the photon
+     */
+    complex PiGammaGamma_fer(const double mu, const double s, 
+                             const StandardModel::quark q) const;
+    
     /**
      * @param[in] mu renormalization scale
      * @param[in] s momentum-squared
