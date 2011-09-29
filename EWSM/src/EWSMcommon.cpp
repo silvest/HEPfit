@@ -129,7 +129,7 @@ void EWSMcommon::Compute(const double Mw_i) {
     B0p_Mz_0_mh_Mw = PV.B0p(Mz, 0.0, SM.getMHl(), Mw);
     B0p_Mz_Mz2_Mw_Mw = PV.B0p(Mz, Mz*Mz, Mw, Mw);
     B0p_Mz_Mz2_mh_Mz = PV.B0p(Mz, Mz*Mz, SM.getMHl(), Mz);
-    
+ 
     
     
 }

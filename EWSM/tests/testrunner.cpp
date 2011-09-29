@@ -25,7 +25,7 @@ int main() {
     /* Options for outputs */
     int prec_def = 8;
     cout.precision(prec_def);
-    int wd = prec_def + 7;
+    //int wd = prec_def + 7;
     cout.setf(ios::floatfield);
     //cout.setf(ios::scientific);
     
