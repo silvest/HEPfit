@@ -192,9 +192,9 @@ public:
      */   
     complex SigmaPrime_ZZ_bos_Mz2(const double mu) const;
     
-     /**
+    /**
      * @param[in] mu renormalization scale
-      * @return the fermionic contribution to the wave-function renormalization of the Z boson with s=Mz^2
+     * @return the fermionic contribution to the wave-function renormalization of the Z boson with s=Mz^2
      */   
     complex SigmaPrime_ZZ_fer_Mz2(const double mu) const;     
     
@@ -217,7 +217,80 @@ public:
 
 
     ////////////////////////////////////////////////////////////////////////    
+
+    /**
+     * @param[in] s momentum-squared
+     * @return abelian-type vertex corrections with virtual Z in the chiral limit
+     */
+    complex FZa_0(const double s) const;
+
+    /**
+     * @param[in] s momentum-squared
+     * @return abelian-type vertex corrections with virtual W in the chiral limit
+     */    
+    complex FWa_0(const double s) const;
+
+    /**
+     * @param[in] s momentum-squared
+     * @return non-abelian-type vertex corrections with virtual W in the chiral limit
+     */     
+    complex FbarWa_0(const double s) const;
+
+    /**
+     * @param[in] s momentum-squared
+     * @return non-abelian-type vertex corrections with virtual W in the chiral limit
+     */        
+    complex FWn_0(const double s) const;
     
+    /**
+     * @param[in] s momentum-squared
+     * @return abelian-type vertex corrections with virtual W and top-quark for Zbb
+     */  
+    complex FWa_t(const double s) const;
+
+    /**
+     * @param[in] s momentum-squared
+     * @return abelian-type vertex corrections with virtual W and top-quark for Zbb
+     */      
+    complex FbarWa_t(const double s) const;
+
+    /**
+     * @param[in] s momentum-squared
+     * @return non-abelian-type vertex corrections with virtual W and top-quark for Zbb
+     */     
+    complex FWn_t(const double s) const;
+
+    /**
+     * @param[in] s momentum-squared
+     * @return Unified form factor F_Z
+     */      
+    complex FZ(const double s) const;
+    
+    /**
+     * @param[in] s momentum-squared
+     * @param[in] l name of a lepton
+     * @return Unified form factor F_W for the l-lbar channel
+     */  
+    complex FW(const double s, const StandardModel::lepton l) const;
+    
+    /**
+     * @param[in] s momentum-squared
+     * @param[in] q name of a quark, except for TOP
+     * @return Unified form factor F_W for the q-qbar channel
+     */  
+    complex FW(const double s, const StandardModel::quark q) const;
+    
+    /**
+     * @brief TEST function
+     * @param[in] s momentum-squared
+     * @param[in] mf the mass of the fermion in the loop
+     * @return FWn_0 + FWn_t   
+     */
+    complex TEST_FWn(const double s, const double mf) const;
+    
+    
+    ////////////////////////////////////////////////////////////////////////    
+
 private:
     const EWSMcommon& EWSMC;    
     

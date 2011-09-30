@@ -51,12 +51,7 @@ void EW::ComputeEWSM(const schemes_EW schemeMw,
     for (int j=0; j<EWSM::orders_EW_size; j++) {        
         EWSM::orders_EW j_order = (EWSM::orders_EW) j;
         DeltaAlpha += myEWSM.getDeltaAlpha_t(j_order);
-    }
-    
-#define TEST_DEBUG
-#ifdef TEST_DEBUG
-    DeltaAlpha = 0.10;
-#endif    
+    }  
     
     alphaMz = SM.getAle()/(1.0 - DeltaAlpha);
     

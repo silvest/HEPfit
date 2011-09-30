@@ -32,7 +32,9 @@ void testclass::setUp() {
     sW2 = 1.0 - cW2;
     Mt = myEWSMC->GetSM().getQuarks(StandardModel::TOP).getMass();
     
-    epsilon = 1.0e-10; // accuracy for CPPUNIT_ASSERT_DOUBLES_EQUAL 
+    /* accuracy for CPPUNIT_ASSERT_DOUBLES_EQUAL */
+    //epsilon = 1.0e-10; 
+    epsilon = 1.0e-7;
 
 }
 
@@ -453,6 +455,33 @@ void testclass::TEST_DeltaRhobarW_bos_Mw() {
     CPPUNIT_ASSERT_DOUBLES_EQUAL(test_result, result, delta);    
 }
 
+void testclass::SCALE() {
+    double SCALE = -0.002574576533187; /* ZFITTER result*/    
+    double result = - myEWSMC->GetSM().getAle()/4.0/M_PI/myEWSMC->GetSW2()
+                      * (myOLEW->SigmaWW_bos(Mw,Mw2).real()
+                         + myOLEW->SigmaWW_fer(Mw,Mw2).real()
+                         - myOLEW->SigmaZZ_bos(Mw,Mz2).real()
+                         - myOLEW->SigmaZZ_fer(Mw,Mz2).real())/Mw2
+                    - myOLEW->DeltaRho();
+    result *= myEWSMC->GetCW2()/myEWSMC->GetSW2();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(SCALE, result, delta);         
+}
+ 
+void testclass::DeltaRho() {
+    double ZFITTER =    0.012013822484982; /* ZFITTER result*/  
+    double result = myOLEW->DeltaRho();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+} 
+
+void testclass::DeltaR_rem() {
+    double DRREMN = 0.011412292032499; /* ZFITTER result*/   
+    double result = myOLEW->DeltaR_rem();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(DRREMN, result, delta);
+}
+    
 void testclass::SigmaPrimeWW_bos_Mw_Mw2_real() {
     double XWFM1 = 2.066448743517876; /* ZFITTER result*/
     double result = myOLEW->SigmaPrime_WW_bos_Mw2(Mw).real();
@@ -525,7 +554,8 @@ void testclass::C0_Mz2_Mt_Mw_Mt_imag() {
     myPV = new PVfunctions();
     double result = myPV->C0(Mz2,Mt,Mw,Mt).imag();
     delete myPV;
-    double delta = fabs(epsilon*result);
+    //double delta = fabs(epsilon*result);
+    double delta = pow(10.0, -10.0);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XS3T, result, delta);    
 }
 
@@ -565,7 +595,8 @@ void testclass::C0_Mz2_Mw_Mt_Mw_imag() {
     myPV = new PVfunctions();
     double result = myPV->C0(Mz2,Mw,Mt,Mw).imag();
     delete myPV;
-    double delta = fabs(epsilon*result);
+    //double delta = fabs(epsilon*result);
+    double delta = pow(10.0, -10.0);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XS3W, result, delta);    
 }
 
@@ -585,13 +616,97 @@ void testclass::C0_Mz2_Mw_0_Mw_imag() {
     myPV = new PVfunctions();
     double result = myPV->C0(Mz2,Mw,0.0,Mw).imag();
     delete myPV;
-    double delta = fabs(epsilon*result);
+    //double delta = fabs(epsilon*result);
+    double delta = pow(10.0, -10.0);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XS3W0, result, delta);    
 }
 
+void testclass::FZa_0_real() {
+    double V1ZZ = 1.079736267392905; /* ZFITTER result*/
+    double result = myOLEW->FZa_0(Mz*Mz).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(V1ZZ, result, delta);    
+}
 
+void testclass::FZa_0_imag() {
+    double V1ZIM = 1.712725454479850; /* ZFITTER result*/
+    double result = myOLEW->FZa_0(Mz*Mz).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(V1ZIM, result, delta);    
+}
+ 
+void testclass::FWa_0_real() {
+    double V1ZW = 1.175174904301009; /* ZFITTER result*/
+    double result = myOLEW->FWa_0(Mz*Mz).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(V1ZW, result, delta);    
+}
 
+void testclass::FWa_0_imag() {
+    double V1WIM = 2.082775456731280; /* ZFITTER result*/
+    double result = myOLEW->FWa_0(Mz*Mz).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(V1WIM, result, delta);    
+}
 
+void testclass::FWn_0_real() {
+    double V2ZWW = -1.359807932212667; /* ZFITTER result*/
+    double result = myOLEW->FWn_0(Mz*Mz).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(V2ZWW, result, delta);    
+}
+
+void testclass::FWn_0_imag() {
+    double ZFITTER = 0.000000000000000; /* ZFITTER result*/
+    double result = myOLEW->FWn_0(Mz*Mz).imag();
+    //double delta = fabs(epsilon*result);
+    double delta = pow(10.0, -10.0);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);    
+}
+
+void testclass::FWa_t_real() {
+    double WWv11 = -0.695682295633803; /* ZFITTER result*/
+    double result = myOLEW->FWa_t(Mz*Mz).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(WWv11, result, delta);    
+}
+
+void testclass::FbarWa_t_real() {
+    double WWv12 = 3.496220258654953; /* ZFITTER result*/
+    double result = myOLEW->FbarWa_t(Mz*Mz).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(WWv12, result, delta);    
+}
+
+void testclass::FWn_t_real() {
+    double WWv2 = -1.460637744310193; /* ZFITTER result*/
+    double result = myOLEW->FWn_t(Mz*Mz).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(WWv2, result, delta);      
+}
+
+void testclass::TEST_FWn_0_real() {
+   double V2ZWW = -1.359807932212667; /* ZFITTER result*/
+    double result = myOLEW->TEST_FWn(Mz*Mz, 0.0).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(V2ZWW, result, delta);    
+}
+
+void testclass::TEST_FWn_t_real() {
+    double WWv2 = -1.460637744310193; /* ZFITTER result*/
+    double result = myOLEW->TEST_FWn(Mz*Mz, mySM->getQuarks(mySM->TOP).getMass()).real()
+                    - myOLEW->TEST_FWn(Mz*Mz, 0.0).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(WWv2, result, delta);    
+}
+
+void testclass::FW_diff_bb_dd_real() {
+    double VTB = -2.649420610060205; /* ZFITTER result*/
+    double result = myOLEW->FW(Mz*Mz, mySM->BOTTOM).real()
+                    - myOLEW->FW(Mz*Mz, mySM->DOWN).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(VTB, result, delta);    
+}
 
 
 
