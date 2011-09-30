@@ -20,6 +20,7 @@ void testclass::setUp() {
     testclass::setSMparameters(*mySM);   
     
     myEWSMC = new EWSMcommon(*mySM);
+    myEWSMC->SetConstants();
     myEWSMC->Compute(mySM->Mw_tree());
     
     myOLEW = new OneLoopEW(*myEWSMC);
