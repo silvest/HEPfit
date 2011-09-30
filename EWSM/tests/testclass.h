@@ -3,6 +3,16 @@
  * Author: mishima
  */
 
+/* 
+ * In ZFITTER, we have fixed some parameters to be 
+ *  DALFA = 0.059007553452
+ *  AMW2 = 80.938629121305610**2 
+ * 
+ */
+
+
+
+
 #ifndef TESTCLASS_H
 #define	TESTCLASS_H
 
@@ -59,6 +69,9 @@ class testclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(DeltaRhobar_fer_Mz);
     CPPUNIT_TEST(TEST_DeltaRhobar_bos_Mw);
     CPPUNIT_TEST(TEST_DeltaRhobarW_bos_Mw);
+    CPPUNIT_TEST(SCALE);
+    CPPUNIT_TEST(DeltaRho);
+    CPPUNIT_TEST(DeltaR_rem);
     CPPUNIT_TEST(SigmaPrimeWW_bos_Mw_Mw2_real);
     CPPUNIT_TEST(SigmaPrimeWW_bos_Mw_Mw2_imag);
     CPPUNIT_TEST(SigmaPrimeWW_fer_Mw_Mw2_real);
@@ -75,7 +88,19 @@ class testclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(C0_Mz2_Mw_Mt_Mw_imag);
     CPPUNIT_TEST(C0_Mz2_Mw_0_Mw_real);
     CPPUNIT_TEST(C0_Mz2_Mw_0_Mw_imag);
-
+    CPPUNIT_TEST(FZa_0_real);
+    CPPUNIT_TEST(FZa_0_imag);
+    CPPUNIT_TEST(FWa_0_real);
+    CPPUNIT_TEST(FWa_0_imag);
+    CPPUNIT_TEST(FWn_0_real);
+    CPPUNIT_TEST(FWn_0_imag);
+    CPPUNIT_TEST(FWa_t_real);
+    CPPUNIT_TEST(FbarWa_t_real);
+    CPPUNIT_TEST(FWn_t_real);
+    CPPUNIT_TEST(TEST_FWn_0_real);    
+    CPPUNIT_TEST(TEST_FWn_t_real);    
+    CPPUNIT_TEST(FW_diff_bb_dd_real);
+    
     
     
     CPPUNIT_TEST_SUITE_END();
@@ -144,6 +169,11 @@ private:
     void TEST_DeltaRhobar_bos_Mw();
     void TEST_DeltaRhobarW_bos_Mw();    
     
+    void SCALE();
+    
+    void DeltaRho();
+    void DeltaR_rem();
+    
     void SigmaPrimeWW_bos_Mw_Mw2_real();
     void SigmaPrimeWW_bos_Mw_Mw2_imag();
     void SigmaPrimeWW_fer_Mw_Mw2_real();
@@ -162,6 +192,18 @@ private:
     void C0_Mz2_Mw_0_Mw_real();
     void C0_Mz2_Mw_0_Mw_imag();
 
+    void FZa_0_real();
+    void FZa_0_imag();
+    void FWa_0_real();
+    void FWa_0_imag();
+    void FWn_0_real();
+    void FWn_0_imag();
+    void FWa_t_real();
+    void FbarWa_t_real();
+    void FWn_t_real();
+    void TEST_FWn_0_real();
+    void TEST_FWn_t_real();
+    void FW_diff_bb_dd_real();
     
     
 };
