@@ -470,7 +470,7 @@ void testclass::SCALE() {
 }
  
 void testclass::DeltaRho() {
-    double ZFITTER =    0.012013822484982; /* ZFITTER result*/  
+    double ZFITTER = 0.012013822484982; /* ZFITTER result*/  
     double result = myOLEW->DeltaRho();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
@@ -687,7 +687,7 @@ void testclass::FWn_t_real() {
 }
 
 void testclass::TEST_FWn_0_real() {
-   double V2ZWW = -1.359807932212667; /* ZFITTER result*/
+    double V2ZWW = -1.359807932212667; /* ZFITTER result*/
     double result = myOLEW->TEST_FWn(Mz*Mz, 0.0).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(V2ZWW, result, delta);    
@@ -709,7 +709,348 @@ void testclass::FW_diff_bb_dd_real() {
     CPPUNIT_ASSERT_DOUBLES_EQUAL(VTB, result, delta);    
 }
 
+void testclass::f_convert() {
+    double RENORM = 1.000000066522376; /* ZFITTER result*/    
+    double result = myEWSMC->GetF_AlphaToGF();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(RENORM, result, delta);  
+}
 
+void testclass::Xt_GF() {
+    double TOPX2 = 0.003198951884234; /* ZFITTER result*/
+    double result = myEWSMC->GetXt_GF();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(TOPX2, result, delta);    
+}
+
+void testclass::DeltaRho_CORRHO() {
+    double CORRHO = -0.012013821860868; /* ZFITTER result*/  
+    double result = myOLEW->DeltaRho();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(-CORRHO, result, delta);
+} 
+
+void testclass::DeltaRho_G() {
+    double DROBLO = 0.012013822660056; /* ZFITTER result*/  
+    double result = myOLEW->DeltaRho()*myEWSMC->GetF_AlphaToGF();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(DROBLO, result, delta);
+} 
+
+void testclass::DeltaRbar_rem() {
+    double DRREMD = 0.004147533794130; /* ZFITTER result*/   
+    double result = myOLEW->DeltaRbar_rem();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(DRREMD, result, delta);
+}
+
+void testclass::deltaRho_rem_NEUTRINO_1_real() {
+    double ZFITTER = -0.002782064784372; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_l(mySM->NEUTRINO_1).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_NEUTRINO_2_real() {
+    double ZFITTER = -0.002782064784372; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_l(mySM->NEUTRINO_2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_NEUTRINO_3_real() {
+    double ZFITTER = -0.002782064784372; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_l(mySM->NEUTRINO_3).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_ELECTRON_real() {
+    double ZFITTER = -0.005521418369662; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_l(mySM->ELECTRON).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_MU_real() {
+    double ZFITTER = -0.005521418369662; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_l(mySM->MU).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_TAU_real() {
+    double ZFITTER = -0.005521418369662; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_l(mySM->TAU).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_UP_real() {
+    double ZFITTER = -0.004833425187129; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_q(mySM->UP).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_DOWN_real() {
+    double ZFITTER = -0.003920307325366; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_q(mySM->DOWN).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_CHARM_real() {
+    double ZFITTER = -0.004833425187129; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_q(mySM->CHARM).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_STRANGE_real() {
+    double ZFITTER = -0.003920307325366; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_q(mySM->STRANGE).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_NEUTRINO_1_imag() {
+    double ZFITTER = -0.000306748149922; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_l(mySM->NEUTRINO_1).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_NEUTRINO_2_imag() {
+    double ZFITTER = -0.000306748149922; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_l(mySM->NEUTRINO_2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_NEUTRINO_3_imag() {
+    double ZFITTER = -0.000306748149922; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_l(mySM->NEUTRINO_3).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_ELECTRON_imag() {
+    double ZFITTER = -0.004905987091482; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_l(mySM->ELECTRON).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_MU_imag() {
+    double ZFITTER = -0.004905987091482; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_l(mySM->MU).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_TAU_imag() {
+    double ZFITTER = -0.004905987091482; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_l(mySM->TAU).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_UP_imag() {
+    double ZFITTER = -0.003730010174095; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_q(mySM->UP).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_DOWN_imag() {
+    double ZFITTER = -0.002196930526908; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_q(mySM->DOWN).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_CHARM_imag() {
+    double ZFITTER = -0.003730010174095; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_q(mySM->CHARM).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_STRANGE_imag() {
+    double ZFITTER = -0.002196930526908; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_q(mySM->STRANGE).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_NEUTRINO_1_real() {
+    double ZFITTER = -0.000632678087666; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_l(mySM->NEUTRINO_1).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_NEUTRINO_2_real() {
+    double ZFITTER = -0.000632678087666; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_l(mySM->NEUTRINO_2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_NEUTRINO_3_real() {
+    double ZFITTER = -0.000632678087666; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_l(mySM->NEUTRINO_3).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_ELECTRON_real() {
+    double ZFITTER = 0.000905842214402; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_l(mySM->ELECTRON).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_MU_real() {
+    double ZFITTER = 0.000905842214402; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_l(mySM->MU).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_TAU_real() {
+    double ZFITTER = 0.000905842214402; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_l(mySM->TAU).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_UP_real() {
+    double ZFITTER = 0.000468043673456; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_q(mySM->UP).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_DOWN_real() {
+    double ZFITTER = -0.000044796427233; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_q(mySM->DOWN).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_CHARM_real() {
+    double ZFITTER = 0.000468043673456; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_q(mySM->CHARM).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_STRANGE_real() {
+    double ZFITTER = -0.000044796427233; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_q(mySM->STRANGE).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_NEUTRINO_1_imag() {
+    double ZFITTER = 0.012600619942910; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_l(mySM->NEUTRINO_1).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_NEUTRINO_2_imag() {
+    double ZFITTER = 0.012600619942910; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_l(mySM->NEUTRINO_2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_NEUTRINO_3_imag() {
+    double ZFITTER = 0.012600619942910; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_l(mySM->NEUTRINO_3).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_ELECTRON_imag() {
+    double ZFITTER = 0.015168066461039; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_l(mySM->ELECTRON).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_MU_imag() {
+    double ZFITTER = 0.015168066461039; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_l(mySM->MU).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_TAU_imag() {
+    double ZFITTER = 0.015168066461039; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_l(mySM->TAU).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_UP_imag() {
+    double ZFITTER = 0.014431285198263; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_q(mySM->UP).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_DOWN_imag() {
+    double ZFITTER = 0.013575469692220; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_q(mySM->DOWN).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_CHARM_imag() {
+    double ZFITTER = 0.014431285198263; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_q(mySM->CHARM).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_STRANGE_imag() {
+    double ZFITTER = 0.013575469692220; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_q(mySM->STRANGE).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_BOTTOM_real() {
+    double ZFITTER = -0.018424185462565; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_q(mySM->BOTTOM).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaRho_rem_BOTTOM_imag() {
+    double ZFITTER = 0.0; /* ZFITTER result*/
+    double result = myOLEW->deltaRho_rem_q(mySM->BOTTOM).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_BOTTOM_real() {
+    double ZFITTER = 0.007207144744207; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_q(mySM->BOTTOM).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
+
+void testclass::deltaKappa_rem_BOTTOM_imag() {
+    double ZFITTER = 0.0; /* ZFITTER result*/
+    double result = myOLEW->deltaKappa_rem_q(mySM->BOTTOM).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
+}
 
 
 

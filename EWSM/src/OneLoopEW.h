@@ -67,6 +67,13 @@ public:
     double DeltaRbar_rem() const;
 
     /**
+     * @brief remainder contribution to rho_Z^f for a given u_f
+     * @param[in] uf a combination of the unified form factors
+     * @return delta rho_{rem}^{f, alpha}(u_f)
+     */
+    complex deltaRho_rem_tmp(const complex u_f) const;
+    
+    /**
      * @brief remainder contribution to rho_Z^l
      * @param[in] l name of a lepton 
      * @return delta rho_{rem}^{l, alpha}
@@ -80,6 +87,14 @@ public:
      */
     complex deltaRho_rem_q(const StandardModel::quark q) const;
 
+    /**
+     * @brief remainder contribution to kappa_Z^l for given delta_f and u_f
+     * @param[in] deltaf a combination of the effective couplings 
+     * @param[in] uf a combination of the unified form factors
+     * @return delta kappa_{rem}^{f, alpha}(delta_f, u_f)
+     */
+    complex deltaKappa_rem_tmp(const double deltaf, const complex uf) const;    
+    
     /**
      * @brief remainder contribution to kappa_Z^l
      * @param[in] l name of a lepton 
@@ -198,6 +213,20 @@ public:
      */   
     complex SigmaPrime_ZZ_fer_Mz2(const double mu) const;     
     
+    ////////////////////////////////////////////////////////////////////////       
+    
+    /**
+     * @param[in] mu renormalization scale
+     * @return Delta Rhobar^{F} for the renormalization scale mu
+     */
+    double DeltaRhobar(const double mu) const;
+    
+    /**
+     * @param[in] mu renormalization scale
+     * @return Delta Rhobar_W^{F} for the renormalization scale mu
+     */
+    double DeltaRhobarW(const double mu) const;
+    
     
     ////////////////////////////////////////////////////////////////////////   
     
@@ -279,6 +308,9 @@ public:
      * @return Unified form factor F_W for the q-qbar channel
      */  
     complex FW(const double s, const StandardModel::quark q) const;
+    
+    
+    ////////////////////////////////////////////////////////////////////////        
     
     /**
      * @brief TEST function

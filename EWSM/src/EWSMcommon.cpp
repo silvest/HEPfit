@@ -1,8 +1,6 @@
 /* 
  * File:   EWSMcommon.cpp
  * Author: mishima
- * 
- * Created on August 31, 2011, 2:30 AM
  */
 
 #include "EWSMcommon.h"
