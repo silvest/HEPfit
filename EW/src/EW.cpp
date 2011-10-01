@@ -62,24 +62,23 @@ void EW::ComputeEWSM(const schemes_EW schemeMw,
         delete myApproximateFormulae;
     } else {
         Mw = SM.Mw_tree();
-
-        std::cout << std::setprecision(12) << "TEST: Mw_tree = " << Mw << std::endl;
-        
+        //std::cout << std::setprecision(12) << "TEST: Mw_tree = " << Mw << std::endl;
         myEWSM.ComputeCC(Mw, flag_order);
         Mw = resumMw(schemeMw);
-        
+
         /* Mw from iterations */
-//        double Mw_org = SM.Mw_tree();
-//        while (fabs(Mw - Mw_org) > 0.0000001) {
-//            Mw_org = Mw;
-//            myEWSM.ComputeCC(Mw, flag_order);
-//            Mw = resumMw(schemeMw);
-//            /* TEST */
-//            int prec_def = std::cout.precision();
-//            std::cout << std::setprecision(12) << "TEST: Mw_org = " << Mw_org 
-//                      << "  Mw_new = " << Mw << std::endl;
-//            std::cout.precision(prec_def);
-//        }
+        double Mw_org = SM.Mw_tree();
+        double Mw_error = 0.00001; /* 0.01 MeV */
+        while (fabs(Mw - Mw_org) > Mw_error) {
+            Mw_org = Mw;
+            myEWSM.ComputeCC(Mw, flag_order);
+            Mw = resumMw(schemeMw);
+            /* TEST */
+            //int prec_def = std::cout.precision();
+            //std::cout << std::setprecision(12) << "TEST: Mw_org = " << Mw_org 
+            //        << "  Mw_new = " << Mw << std::endl;
+            //std::cout.precision(prec_def);
+        }
     }
 
     /* computes s_W^2 and c_W^2 */

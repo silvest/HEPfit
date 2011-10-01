@@ -100,6 +100,55 @@ class testclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(TEST_FWn_0_real);    
     CPPUNIT_TEST(TEST_FWn_t_real);    
     CPPUNIT_TEST(FW_diff_bb_dd_real);
+    CPPUNIT_TEST(f_convert);
+    CPPUNIT_TEST(Xt_GF);
+    CPPUNIT_TEST(DeltaRho_CORRHO);
+    CPPUNIT_TEST(DeltaRho_G);
+    CPPUNIT_TEST(DeltaRbar_rem);
+    CPPUNIT_TEST(deltaRho_rem_NEUTRINO_1_real);;    
+    CPPUNIT_TEST(deltaRho_rem_NEUTRINO_2_real);
+    CPPUNIT_TEST(deltaRho_rem_NEUTRINO_3_real);    
+    CPPUNIT_TEST(deltaRho_rem_ELECTRON_real);
+    CPPUNIT_TEST(deltaRho_rem_MU_real);    
+    CPPUNIT_TEST(deltaRho_rem_TAU_real);    
+    CPPUNIT_TEST(deltaRho_rem_UP_real);
+    CPPUNIT_TEST(deltaRho_rem_DOWN_real);    
+    CPPUNIT_TEST(deltaRho_rem_CHARM_real);   
+    CPPUNIT_TEST(deltaRho_rem_STRANGE_real);    
+    CPPUNIT_TEST(deltaRho_rem_NEUTRINO_1_imag);    
+    CPPUNIT_TEST(deltaRho_rem_NEUTRINO_2_imag);
+    CPPUNIT_TEST(deltaRho_rem_NEUTRINO_3_imag);    
+    CPPUNIT_TEST(deltaRho_rem_ELECTRON_imag);
+    CPPUNIT_TEST(deltaRho_rem_MU_imag);    
+    CPPUNIT_TEST(deltaRho_rem_TAU_imag);    
+    CPPUNIT_TEST(deltaRho_rem_UP_imag);
+    CPPUNIT_TEST(deltaRho_rem_DOWN_imag);    
+    CPPUNIT_TEST(deltaRho_rem_CHARM_imag);   
+    CPPUNIT_TEST(deltaRho_rem_STRANGE_imag);    
+    CPPUNIT_TEST(deltaKappa_rem_NEUTRINO_1_real);;    
+    CPPUNIT_TEST(deltaKappa_rem_NEUTRINO_2_real);
+    CPPUNIT_TEST(deltaKappa_rem_NEUTRINO_3_real);    
+    CPPUNIT_TEST(deltaKappa_rem_ELECTRON_real);
+    CPPUNIT_TEST(deltaKappa_rem_MU_real);    
+    CPPUNIT_TEST(deltaKappa_rem_TAU_real);    
+    CPPUNIT_TEST(deltaKappa_rem_UP_real);
+    CPPUNIT_TEST(deltaKappa_rem_DOWN_real);    
+    CPPUNIT_TEST(deltaKappa_rem_CHARM_real);   
+    CPPUNIT_TEST(deltaKappa_rem_STRANGE_real);    
+    CPPUNIT_TEST(deltaKappa_rem_NEUTRINO_1_imag);    
+    CPPUNIT_TEST(deltaKappa_rem_NEUTRINO_2_imag);
+    CPPUNIT_TEST(deltaKappa_rem_NEUTRINO_3_imag);    
+    CPPUNIT_TEST(deltaKappa_rem_ELECTRON_imag);
+    CPPUNIT_TEST(deltaKappa_rem_MU_imag);    
+    CPPUNIT_TEST(deltaKappa_rem_TAU_imag);    
+    CPPUNIT_TEST(deltaKappa_rem_UP_imag);
+    CPPUNIT_TEST(deltaKappa_rem_DOWN_imag);    
+    CPPUNIT_TEST(deltaKappa_rem_CHARM_imag);   
+    CPPUNIT_TEST(deltaKappa_rem_STRANGE_imag);
+    CPPUNIT_TEST(deltaRho_rem_BOTTOM_real);   
+    CPPUNIT_TEST(deltaRho_rem_BOTTOM_imag);       
+    CPPUNIT_TEST(deltaKappa_rem_BOTTOM_real);
+    CPPUNIT_TEST(deltaKappa_rem_BOTTOM_imag);
     
     
     
@@ -205,6 +254,60 @@ private:
     void TEST_FWn_t_real();
     void FW_diff_bb_dd_real();
     
+    void f_convert();
+    void Xt_GF();
+    void DeltaRho_CORRHO();
+    void DeltaRho_G();
+    void DeltaRbar_rem();
+
+    void deltaRho_rem_NEUTRINO_1_real();
+    void deltaRho_rem_NEUTRINO_2_real();
+    void deltaRho_rem_NEUTRINO_3_real();    
+    void deltaRho_rem_ELECTRON_real();
+    void deltaRho_rem_MU_real();    
+    void deltaRho_rem_TAU_real();    
+    void deltaRho_rem_UP_real();
+    void deltaRho_rem_DOWN_real();    
+    void deltaRho_rem_CHARM_real();   
+    void deltaRho_rem_STRANGE_real();    
+    
+    void deltaRho_rem_NEUTRINO_1_imag();        
+    void deltaRho_rem_NEUTRINO_2_imag();
+    void deltaRho_rem_NEUTRINO_3_imag();    
+    void deltaRho_rem_ELECTRON_imag();
+    void deltaRho_rem_MU_imag();    
+    void deltaRho_rem_TAU_imag();    
+    void deltaRho_rem_UP_imag();
+    void deltaRho_rem_DOWN_imag();    
+    void deltaRho_rem_CHARM_imag();   
+    void deltaRho_rem_STRANGE_imag(); 
+
+    void deltaKappa_rem_NEUTRINO_1_real();
+    void deltaKappa_rem_NEUTRINO_2_real();
+    void deltaKappa_rem_NEUTRINO_3_real();    
+    void deltaKappa_rem_ELECTRON_real();
+    void deltaKappa_rem_MU_real();    
+    void deltaKappa_rem_TAU_real();    
+    void deltaKappa_rem_UP_real();
+    void deltaKappa_rem_DOWN_real();    
+    void deltaKappa_rem_CHARM_real();   
+    void deltaKappa_rem_STRANGE_real();    
+    
+    void deltaKappa_rem_NEUTRINO_1_imag();        
+    void deltaKappa_rem_NEUTRINO_2_imag();
+    void deltaKappa_rem_NEUTRINO_3_imag();    
+    void deltaKappa_rem_ELECTRON_imag();
+    void deltaKappa_rem_MU_imag();    
+    void deltaKappa_rem_TAU_imag();    
+    void deltaKappa_rem_UP_imag();
+    void deltaKappa_rem_DOWN_imag();    
+    void deltaKappa_rem_CHARM_imag();   
+    void deltaKappa_rem_STRANGE_imag();    
+
+    void deltaRho_rem_BOTTOM_real();    
+    void deltaRho_rem_BOTTOM_imag();
+    void deltaKappa_rem_BOTTOM_real();    
+    void deltaKappa_rem_BOTTOM_imag();    
     
 };
 

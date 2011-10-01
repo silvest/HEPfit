@@ -17,7 +17,7 @@ RANLIB=ranlib
 CC=gcc
 CCC=g++
 CXX=g++
-FC=gfortran
+FC=gfortran-mp-4.5
 AS=as
 
 # Macros
@@ -136,13 +136,13 @@ ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/testclass.o ${TESTDIR}/tests/testrunne
 ${TESTDIR}/tests/testclass.o: tests/testclass.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/testclass.o tests/testclass.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/testclass.o tests/testclass.cpp
 
 
 ${TESTDIR}/tests/testrunner.o: tests/testrunner.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/testrunner.o tests/testrunner.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/testrunner.o tests/testrunner.cpp
 
 
 ${OBJECTDIR}/src/TwoLoopQCD_nomain.o: ${OBJECTDIR}/src/TwoLoopQCD.o src/TwoLoopQCD.cpp 
