@@ -1,8 +1,6 @@
 /* 
  * File:   LoopFunctionsTest.cpp
  * Author: mishima
- *
- * Created on Aug 5, 2011, 2:00:06 AM
  */
 
 #include <stdlib.h>

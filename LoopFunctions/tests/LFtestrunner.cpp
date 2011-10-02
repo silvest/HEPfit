@@ -1,8 +1,6 @@
 /*
- * File:   LF_CppUnitTestRunner.cpp
+ * File:   LFtestrunner.cpp
  * Author: mishima
- *
- * Created on Aug 5, 2011, 12:36:51 AM
  */
 
 #include <cppunit/BriefTestProgressListener.h>
