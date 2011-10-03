@@ -6,12 +6,12 @@
 #ifndef CLAUSENFUNCTIONS_H
 #define	CLAUSENFUNCTIONS_H
 
-#include <gsl/gsl_math.h>
 #include <gslpp.h>
+#include "BernoulliNumbers.h"
 using namespace gslpp;
 
 
-class ClausenFunctions {
+class ClausenFunctions : public BernoulliNumbers {
 public:
     
     /**
@@ -42,7 +42,7 @@ public:
     /**
      * @param[in] phi
      * @return Clausen function of index 3, Cl_3(phi)
-     * @attention phi=0.0 is not allowed. 
+     * @attention applicable for 0<=phi<=Pi 
      */
     double Cl3(const double phi) const;
     
@@ -51,10 +51,6 @@ public:
     
 private:
 
-    struct my_f_params { double phi; };
-    
-    static double integrand_for_Li3_imag(double *k, size_t dim, void *phi);
-    
     
 };
 

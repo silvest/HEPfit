@@ -6,12 +6,12 @@
 #ifndef POLYLOGARITHMS_H
 #define	POLYLOGARITHMS_H
 
-#include <gsl/gsl_math.h>
 #include <gslpp.h>
+#include "BernoulliNumbers.h"
 using namespace gslpp;
 
 
-class Polylogarithms {
+class Polylogarithms : public BernoulliNumbers {
 public:
 
     /**
@@ -36,7 +36,7 @@ public:
     /**
      * @param[in] x 
      * @return trilogarithm Li_3(x)
-     * @attention valid only for x <= 1. 
+     * @attention applicable only for real x and x <= 1. 
      */
     double Li3(const double x) const;
 
@@ -44,16 +44,8 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
 private:
-    double B0[19]; /* Bernoulli numbers */
+
   
-    /**
-     * @param[in] k the value for the argument x
-     * @param[in] dim dim=1
-     * @param[in] params this parameter is unnecessary. 
-     * @return Li_2(x)/x
-     */
-    static double integrand_for_Li3(double *k, size_t dim, void *params);
-        
     
 };
 

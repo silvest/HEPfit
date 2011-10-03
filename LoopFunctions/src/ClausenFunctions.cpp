@@ -5,8 +5,6 @@
 
 #include <cstdlib>
 #include <cmath>
-#include <gsl/gsl_monte.h>
-#include <gsl/gsl_monte_vegas.h>
 #include <gsl/gsl_sf.h>
 #include "ClausenFunctions.h"
 
@@ -28,39 +26,24 @@ double ClausenFunctions::Cl2(const double phi) const {
 }
 
 double ClausenFunctions::Cl3(const double phi) const {
-    struct ClausenFunctions::my_f_params params = { phi }; 
+    if (phi < 0.0 || phi > M_PI) 
+        throw "phi is out of range in ClausenFunctions::Cl3()";
     
-    // Randam number generator
-    const gsl_rng_type *T;
-    gsl_rng *r;
-    gsl_rng_env_setup();
-    T = gsl_rng_default;
-    r = gsl_rng_alloc(T);        
-    // gsl_momte_vegas  
-    size_t calls = 50000, itmx = 5, dim = 1;
-    double xl[1] = {0}, xu[1] = {1};
-    double res, err;
-    gsl_monte_function func = {ClausenFunctions::integrand_for_Li3_imag, dim, &params};
-    gsl_monte_vegas_state *st = gsl_monte_vegas_alloc(dim);
-    st->iterations = itmx;
-    gsl_monte_vegas_integrate(&func, xl, xu, dim, calls/50, r, st, &res, &err);
-    do {
-        gsl_monte_vegas_integrate(&func, xl, xu, dim, calls/5, r, st, &res, &err);
-    } while (fabs(st->chisq - 1.0) > 0.5);	
-    gsl_monte_vegas_free(st);
-    gsl_rng_free(r);        
-
-    return res;    
+    if (phi==0.0) return ( gsl_sf_zeta_int(3) );
+    
+    double TMP = 0.0, l_double = 0.0, lfactorial = 1.0, sign = 1.0;
+    for (int l=2; l<19; l++) {
+        l_double = (double)l;
+        lfactorial *= l_double;
+        if (l%4) { sign = - 1.0; } else { sign = 1.0; }
+        TMP += B[l]*pow(phi,l_double)/l_double/(l_double + 1.0)/(l_double + 2.0)
+               /lfactorial * sign;
+    }
+    return ( gsl_sf_zeta_int(3) - phi*phi*(3.0/4.0 - log(phi)/2.0 - TMP) );
 }
 
-double ClausenFunctions::integrand_for_Li3_imag(double *k, size_t dim, void *params) {
-    struct my_f_params* fp = (struct my_f_params*)params;
-    double phi = fp->phi;
-    if (1.0 - 2.0*k[0]*cos(phi) + k[0]*k[0]==0.0 || k[0]==0.0) 
-        throw "Error in ClausenFunctions::integrand_for_Li3_imag()";
-    double log_k0 = log(k[0]);
-    return ( log_k0*log_k0*sin(phi)/(1.0 - 2.0*k[0]*cos(phi) + k[0]*k[0])/2.0 );
-}
+
+
 
 
 

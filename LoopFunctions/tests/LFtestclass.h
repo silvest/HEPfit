@@ -7,8 +7,16 @@
 #define	LFTESTCLASS_H
 
 #include <cppunit/extensions/HelperMacros.h>
+#include <cstdlib>
+#include <iostream>
+#include <iomanip>
+#include <cstring>
+#include <cmath>
+#include <map>
 #include "Polylogarithms.h"
 #include "ClausenFunctions.h"
+using namespace std;
+
 
 class LFtestclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST_SUITE(LFtestclass);
@@ -23,7 +31,6 @@ class LFtestclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(Li3_0752);
     CPPUNIT_TEST(Li3_09999999);    
     CPPUNIT_TEST(Li3_1);    
-    CPPUNIT_TEST(Cl3_m1); 
     CPPUNIT_TEST(Cl3_0002);    
     CPPUNIT_TEST(Cl3_1);    
     CPPUNIT_TEST(Cl3_Pi);    
@@ -53,7 +60,6 @@ private:
     void Li3_09999999();
     void Li3_1();
 
-    void Cl3_m1();
     void Cl3_0002();
     void Cl3_1();
     void Cl3_Pi();    
