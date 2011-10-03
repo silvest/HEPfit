@@ -3,16 +3,6 @@
  * Author: mishima
  */
 
-/* 
- * In ZFITTER, we have fixed some parameters to be 
- *  DALFA = 0.059007553452
- *  AMW2 = 80.938629121305610**2 
- * 
- */
-
-
-
-
 #ifndef TESTCLASS_H
 #define	TESTCLASS_H
 
@@ -30,6 +20,7 @@ using namespace std;
 
 class testclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST_SUITE(testclass);
+    CPPUNIT_TEST(DeltaAlpha_l);
     CPPUNIT_TEST(SigmaWW_bos_Mw_0);
     CPPUNIT_TEST(SigmaWW_fer_Mw_0);
     CPPUNIT_TEST(SigmaWW_bos_Mw_Mw2_real);
@@ -150,8 +141,6 @@ class testclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(deltaKappa_rem_BOTTOM_real);
     CPPUNIT_TEST(deltaKappa_rem_BOTTOM_imag);
     
-    
-    
     CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -161,17 +150,16 @@ public:
     void tearDown();
 
 private:
-    void testMethod();
-    void testFailedMethod();   
-    
     StandardModel* mySM;
     EWSMcommon* myEWSMC;
     OneLoopEW* myOLEW;
     
-    double epsilon;
+    double epsilon, epsilon_Li2;
     double Mw, Mw2, Mz, Mz2, cW2, sW2, Mt;
     
     void setSMparameters(StandardModel& SM_i);
+    
+    void DeltaAlpha_l();
     
     void SigmaWW_bos_Mw_0();
     void SigmaWW_fer_Mw_0();    

@@ -8,6 +8,8 @@
 
 #include <StandardModel.h>
 #include <PVfunctions.h>
+#include <Polylogarithms.h>
+#include <ClausenFunctions.h>
 
 
 class EWSMcommon {
@@ -35,12 +37,13 @@ public:
     //////////////////////////////////////////////////////////////////////// 
     
     /**
-     * @brief computes common variables
+     * @brief computes common variables which are independent of the W boson mass
      */
     void SetConstants();
 
     /**
-     * @ computes variables which depend on Mw
+     * @param[in] Mw_i the W boson mass
+     * @brief computes variables which depend on the W boson mass
      */
     void Compute(const double Mw_i);
 
@@ -244,7 +247,35 @@ public:
 
     double GetLog_cW2() const {
         return log_cW2;
-    }  
+    }
+    
+    double GetLi2_MW2toMTOP2() const {
+        return Li2_MW2toMTOP2;
+    }
+
+    double GetLi3_MW2toMTOP2() const {
+        return Li3_MW2toMTOP2;
+    }
+
+    double GetLi3_for_F1() const {
+        return Li3_for_F1;
+    }
+    
+    double GetCl2_2Phi() const {
+        return Cl2_2Phi;
+    }
+
+    double GetCl2_4Phi() const {
+        return Cl2_4Phi;
+    }
+
+    double GetCl3_2Phi() const {
+        return Cl3_2Phi;
+    }
+
+    double GetCl3_4Phi() const {
+        return Cl3_4Phi;
+    }
     
     double GetA0_Mz_Mw() const {
         return A0_Mz_Mw;
@@ -427,6 +458,8 @@ public:
 protected:
     const StandardModel& SM;
     PVfunctions PV;
+    ClausenFunctions Clausen;
+    Polylogarithms PolyLog;
     
     double Mw;
     double cW2, sW2;    
@@ -444,6 +477,13 @@ protected:
     double logMZtoME, logMZtoMMU, logMZtoMTAU, logMZtoMTOP; 
     double logMTOPtoMH;
     double log_cW2;
+    
+    /* Dilogarithm and Trilogarithm */
+    double Li2_MW2toMTOP2;
+    double Li3_MW2toMTOP2, Li3_for_F1;
+      
+    /* Clausen functions */
+    double Cl3_2Phi, Cl3_4Phi, Cl2_2Phi, Cl2_4Phi;
     
     /* One-loop functions in self-energies */
     double A0_Mz_Mw;

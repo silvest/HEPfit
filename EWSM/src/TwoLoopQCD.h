@@ -88,12 +88,6 @@ public:
      */
     complex deltaKappa_rem_q(const StandardModel::quark q) const;
     
-    
-    ////////////////////////////////////////////////////////////////////////        
-    
-private:
-    const EWSMcommon& EWSMC;
-    
 
     ////////////////////////////////////////////////////////////////////////        
     
@@ -103,35 +97,62 @@ private:
     double deltaQCD_2() const;
 
     /**
-     * @return Delta r^{ud} contribution to Delta r from the light-quark doublets
+     * @param[in] x x=s/M_t^2
+     * @return F_1(x)
+     * @attention valid for 0<=x<1
+     */
+    double F1(const double x) const;
+    
+    /**
+     * @param[in] r r=s/(4M_t^2)
+     * @return V_1(r)
+     * @attention valid for 0<=r<1
+     */
+    double V1(const double r) const;
+        
+    /**
+     * @param[in] r r=s/(4M_t^2)
+     * @return FA_1(r)
+     * @attention valid for 0<=r<1
+     */
+    double A1(const double r) const;
+
+    /**
+     * @return Delta r^{ud}, contribution to Delta r from the light-quark doublets
      */
     double DeltaR_ud() const;
 
     /**
-     * @return Delta r^{tb} contribution to Delta r from the top-bottom doublet
+     * @return Delta r^{tb}, contribution to Delta r from the top-bottom doublet
      */
     double DeltaR_tb() const;
         
     /**
-     * @return Delta rho^{ud} contribution to rho_Z^f from the light-quark doublets
+     * @return Delta rho^{ud}, contribution to rho_Z^f from the light-quark doublets
      */
     double DeltaRho_ud() const;
 
     /**
-     * @return Delta rho^{tb} contribution to rho_Z^f from the top-bottom doublet
+     * @return Delta rho^{tb}, contribution to rho_Z^f from the top-bottom doublet
      */
     complex DeltaRho_tb() const;
     
     /**
-     * @return Delta kappa^{ud} contribution to kappa_Z^f from the light-quark doublets
+     * @return Delta kappa^{ud}, contribution to kappa_Z^f from the light-quark doublets
      */
     double DeltaKappa_ud() const;
     
     /**
-     * @return Delta kappa^{tb} contribution to kappa_Z^f from the top-bottom doublet
+     * @return Delta kappa^{tb}, contribution to kappa_Z^f from the top-bottom doublet
      */
     complex DeltaKappa_tb() const;
      
+    
+    ////////////////////////////////////////////////////////////////////////        
+    
+private:
+    const EWSMcommon& EWSMC;
+    
     
 };
 

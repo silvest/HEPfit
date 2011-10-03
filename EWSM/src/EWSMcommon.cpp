@@ -40,7 +40,7 @@ void EWSMcommon::SetConstants() {
     zeta5 = gsl_sf_zeta_int(5);
 
     /* Constants for three-loop contribution */
-    double Cl2_Pi_3 = gsl_sf_clausen(M_PI/3.0); /* Clausen function */
+    double Cl2_Pi_3 = Clausen.Cl2(M_PI/3.0);
     S2 = 4.0/9.0/sqrt(3.0)*Cl2_Pi_3;
     D3 = 6.0*zeta3 - 15.0/4.0*zeta4 - 6.0*Cl2_Pi_3*Cl2_Pi_3;
     //double Li4_1_2 = ;
@@ -54,6 +54,13 @@ void EWSMcommon::SetConstants() {
     logMZtoMTAU = log( SM.getMz()/SM.getLeptons(SM.TAU).getMass() );    
     logMZtoMTOP = log( SM.getMz()/SM.getQuarks(SM.TOP).getMass() );
     logMTOPtoMH = log( SM.getQuarks(SM.TOP).getMass()/SM.getMHl() );
+    
+    /* Clausen functions for two-loop QCD corrections */
+    double Phi= asin(Mz/2.0/SM.getQuarks(SM.TOP).getMass());            
+    Cl3_2Phi = Clausen.Cl3(2.0*Phi);
+    Cl3_4Phi = Clausen.Cl3(4.0*Phi);    
+    Cl2_2Phi = Clausen.Cl2(2.0*Phi); 
+    Cl2_4Phi = Clausen.Cl2(4.0*Phi);     
     
     /* One-loop functions */
     A0_Mz_Mz = PV.A0(Mz, Mz);
@@ -97,10 +104,15 @@ void EWSMcommon::Compute(const double Mw_i) {
     
     f_AlphaToGF = sqrt(2.0)*SM.getGF()*pow(Mz,2.0)*sW2*cW2/M_PI/SM.getAle();
     Xt_alpha = Xt_GF/f_AlphaToGF;
-    
+
     /* Logarithms */
     log_cW2 = log(cW2);
 
+    /* Dilogarithm and Trilogarithm */
+    Li2_MW2toMTOP2 = gsl_sf_dilog(Mw*Mw/Mt/Mt);
+    Li3_MW2toMTOP2 = PolyLog.Li3(Mw*Mw/Mt/Mt);
+    Li3_for_F1 = PolyLog.Li3(-Mw*Mw/Mt/Mt/(1.0 - Mw*Mw/Mt/Mt)); 
+    
     /* One-loop functions */
     A0_Mz_Mw = PV.A0(Mz, Mw);
     B0_Mz_Mw2_Mz_Mw = PV.B0(Mz, Mw*Mw, Mz, Mw);
