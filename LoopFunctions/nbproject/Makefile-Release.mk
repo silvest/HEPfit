@@ -17,7 +17,7 @@ RANLIB=ranlib
 CC=gcc
 CCC=g++
 CXX=g++
-FC=gfortran-mp-4.5
+FC=gfortran
 AS=as
 
 # Macros
@@ -36,7 +36,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 OBJECTFILES= \
 	${OBJECTDIR}/src/Polylogarithms.o \
 	${OBJECTDIR}/src/PVfunctions.o \
-	${OBJECTDIR}/src/ClausenFunctions.o
+	${OBJECTDIR}/src/ClausenFunctions.o \
+	${OBJECTDIR}/src/BernoulliNumbers.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -75,17 +76,22 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a: ${OBJECTFILES}
 ${OBJECTDIR}/src/Polylogarithms.o: src/Polylogarithms.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Polylogarithms.o src/Polylogarithms.cpp
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Polylogarithms.o src/Polylogarithms.cpp
 
 ${OBJECTDIR}/src/PVfunctions.o: src/PVfunctions.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PVfunctions.o src/PVfunctions.cpp
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PVfunctions.o src/PVfunctions.cpp
 
 ${OBJECTDIR}/src/ClausenFunctions.o: src/ClausenFunctions.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ClausenFunctions.o src/ClausenFunctions.cpp
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ClausenFunctions.o src/ClausenFunctions.cpp
+
+${OBJECTDIR}/src/BernoulliNumbers.o: src/BernoulliNumbers.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BernoulliNumbers.o src/BernoulliNumbers.cpp
 
 # Subprojects
 .build-subprojects:
@@ -104,19 +110,19 @@ ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/LoopFunctionsTest.o ${OBJECTFILES:%.o=
 ${TESTDIR}/tests/LFtestclass.o: tests/LFtestclass.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LFtestclass.o tests/LFtestclass.cpp
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LFtestclass.o tests/LFtestclass.cpp
 
 
 ${TESTDIR}/tests/LFtestrunner.o: tests/LFtestrunner.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LFtestrunner.o tests/LFtestrunner.cpp
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LFtestrunner.o tests/LFtestrunner.cpp
 
 
 ${TESTDIR}/tests/LoopFunctionsTest.o: tests/LoopFunctionsTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LoopFunctionsTest.o tests/LoopFunctionsTest.cpp
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LoopFunctionsTest.o tests/LoopFunctionsTest.cpp
 
 
 ${OBJECTDIR}/src/Polylogarithms_nomain.o: ${OBJECTDIR}/src/Polylogarithms.o src/Polylogarithms.cpp 
@@ -127,7 +133,7 @@ ${OBJECTDIR}/src/Polylogarithms_nomain.o: ${OBJECTDIR}/src/Polylogarithms.o src/
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Polylogarithms_nomain.o src/Polylogarithms.cpp;\
+	    $(COMPILE.cc) -O2 -I. -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Polylogarithms_nomain.o src/Polylogarithms.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/Polylogarithms.o ${OBJECTDIR}/src/Polylogarithms_nomain.o;\
 	fi
@@ -140,7 +146,7 @@ ${OBJECTDIR}/src/PVfunctions_nomain.o: ${OBJECTDIR}/src/PVfunctions.o src/PVfunc
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PVfunctions_nomain.o src/PVfunctions.cpp;\
+	    $(COMPILE.cc) -O2 -I. -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PVfunctions_nomain.o src/PVfunctions.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/PVfunctions.o ${OBJECTDIR}/src/PVfunctions_nomain.o;\
 	fi
@@ -153,9 +159,22 @@ ${OBJECTDIR}/src/ClausenFunctions_nomain.o: ${OBJECTDIR}/src/ClausenFunctions.o 
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O2 -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ClausenFunctions_nomain.o src/ClausenFunctions.cpp;\
+	    $(COMPILE.cc) -O2 -I. -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ClausenFunctions_nomain.o src/ClausenFunctions.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/ClausenFunctions.o ${OBJECTDIR}/src/ClausenFunctions_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/BernoulliNumbers_nomain.o: ${OBJECTDIR}/src/BernoulliNumbers.o src/BernoulliNumbers.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/BernoulliNumbers.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O2 -I. -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/BernoulliNumbers_nomain.o src/BernoulliNumbers.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/BernoulliNumbers.o ${OBJECTDIR}/src/BernoulliNumbers_nomain.o;\
 	fi
 
 # Run Test Targets

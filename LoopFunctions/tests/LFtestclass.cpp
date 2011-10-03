@@ -3,6 +3,7 @@
  * Author: mishima
  */
 
+#include <cmath>
 #include "LFtestclass.h"
 #include "ClausenFunctions.h"
 
@@ -106,33 +107,25 @@ void LFtestclass::Li3_1() {
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
 }
 
- void LFtestclass::Cl3_m1() {
-    double expect = - 0.942869236784111;
-    double result = myClausen->Cl3(-1.0);
-    double delta = fabs(epsilon*result);
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
-}
-
  void LFtestclass::Cl3_0002() {
-    double expect = 0.003286727207710;
+     /* Mathematica: SetPrecision[Re[PolyLog[3,Exp[I 0.002]]],15] */
+    double expect = 1.20204147394334;
     double result = myClausen->Cl3(0.002);
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
 }
  
  void LFtestclass::Cl3_1() {
-    /* Mathematica: SetPrecision[PolyLog[3,Exp[I 1.0]],15] */
-    double expect = 0.942869236784111;
+    double expect = 0.448573007280017;
     double result = myClausen->Cl3(1.0);
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
 }
  
  void LFtestclass::Cl3_Pi() {
-    double expect = 0.0;
+    double expect = -0.90154267736970;
     double result = myClausen->Cl3(M_PI);
-    //double delta = fabs(epsilon*result);
-    double delta = pow(10.0, -10.0);
+    double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
 }
  
