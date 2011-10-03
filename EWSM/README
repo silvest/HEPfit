@@ -10,7 +10,6 @@
 
    Adopting different parameters: 
      e.g. 0.0314977085 from ZFITTER vs. 0.031497714 from this class
-      ===> OK!
  
  
 * DeltaAlpha_t[] : top-quark contribution to alpha
@@ -20,4 +19,11 @@
     DeltaAlpha_t is slightly different from ZFITTER: 
       e.g. -6.79214e-5 from ZFITTER vs. -7.0160623e-5 from this class
            <--- no \alpha\alpha_s^2 corrections in ZFITTER?
+
+* Tests (in "tests" directory): 
+
+  To obtain ZFITTER results, we have fixed some parameters to be 
+    DALFA = 0.059007553452D0
+    AMW2 = 80.938629121305610D0**2 
+  and have removed a bug in Delta\alpha_lep from ZFITTER codes.
 
