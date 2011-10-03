@@ -35,7 +35,8 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/src/Polylogarithms.o \
-	${OBJECTDIR}/src/PVfunctions.o
+	${OBJECTDIR}/src/PVfunctions.o \
+	${OBJECTDIR}/src/ClausenFunctions.o
 
 # Test Directory
 TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
@@ -80,6 +81,11 @@ ${OBJECTDIR}/src/PVfunctions.o: src/PVfunctions.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -g -I../gslpp/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PVfunctions.o src/PVfunctions.cpp
+
+${OBJECTDIR}/src/ClausenFunctions.o: src/ClausenFunctions.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -g -I../gslpp/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ClausenFunctions.o src/ClausenFunctions.cpp
 
 # Subprojects
 .build-subprojects:
@@ -137,6 +143,19 @@ ${OBJECTDIR}/src/PVfunctions_nomain.o: ${OBJECTDIR}/src/PVfunctions.o src/PVfunc
 	    $(COMPILE.cc) -g -I../gslpp/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PVfunctions_nomain.o src/PVfunctions.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/PVfunctions.o ${OBJECTDIR}/src/PVfunctions_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/ClausenFunctions_nomain.o: ${OBJECTDIR}/src/ClausenFunctions.o src/ClausenFunctions.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/ClausenFunctions.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -g -I../gslpp/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ClausenFunctions_nomain.o src/ClausenFunctions.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/ClausenFunctions.o ${OBJECTDIR}/src/ClausenFunctions_nomain.o;\
 	fi
 
 # Run Test Targets

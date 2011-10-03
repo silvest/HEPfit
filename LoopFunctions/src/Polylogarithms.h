@@ -32,7 +32,20 @@ public:
 
 
     ////////////////////////////////////////////////////////////////////////
-    
+
+    /**
+     * @param[in] x 
+     * @return trilogarithm Li_3(x)
+     * @attention valid only for x <= 1. 
+     */
+    double Li3(const double x) const;
+
+
+    ////////////////////////////////////////////////////////////////////////
+
+private:
+    double B0[19]; /* Bernoulli numbers */
+  
     /**
      * @param[in] k the value for the argument x
      * @param[in] dim dim=1
@@ -40,24 +53,7 @@ public:
      * @return Li_2(x)/x
      */
     static double integrand_for_Li3(double *k, size_t dim, void *params);
-    
-    /**
-     * @param[in] x 
-     * @return Polylogarithm of order three Li_3(x)
-     * @attention valid only for x <= 1. 
-     */
-    double Li3(const double x) const;
-    
-    
-    
-    
-
-    ////////////////////////////////////////////////////////////////////////
-
-private:
-    double B0[19]; /* Bernoulli numbers */
-  
-    
+        
     
 };
 
