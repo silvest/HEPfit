@@ -8,6 +8,7 @@
 
 #include <cppunit/extensions/HelperMacros.h>
 #include "Polylogarithms.h"
+#include "ClausenFunctions.h"
 
 class LFtestclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST_SUITE(LFtestclass);
@@ -22,6 +23,10 @@ class LFtestclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(Li3_0752);
     CPPUNIT_TEST(Li3_09999999);    
     CPPUNIT_TEST(Li3_1);    
+    CPPUNIT_TEST(Cl3_m1); 
+    CPPUNIT_TEST(Cl3_0002);    
+    CPPUNIT_TEST(Cl3_1);    
+    CPPUNIT_TEST(Cl3_Pi);    
     
     CPPUNIT_TEST_SUITE_END();
 
@@ -33,6 +38,7 @@ public:
 
 private:
     Polylogarithms *myPL;
+    ClausenFunctions *myClausen;
     double epsilon;
     
     void Li3_m52131231311();
@@ -46,7 +52,11 @@ private:
     void Li3_0752();
     void Li3_09999999();
     void Li3_1();
-    
+
+    void Cl3_m1();
+    void Cl3_0002();
+    void Cl3_1();
+    void Cl3_Pi();    
     
 };
 

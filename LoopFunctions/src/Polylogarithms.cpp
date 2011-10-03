@@ -28,10 +28,6 @@ Polylogarithms::~Polylogarithms() {
 
 ////////////////////////////////////////////////////////////////////////
 
-double Polylogarithms::integrand_for_Li3(double *k, size_t dim, void *params) {
-        return ( gsl_sf_dilog(k[0])/k[0] );
-}
-
 double Polylogarithms::Li3(const double x) const {
     double Li3;
     if (x < 0.0) {
@@ -83,8 +79,11 @@ double Polylogarithms::Li3(const double x) const {
 }
 
 
+////////////////////////////////////////////////////////////////////////
 
-
+double Polylogarithms::integrand_for_Li3(double *k, size_t dim, void *params) {
+    return ( gsl_sf_dilog(k[0])/k[0] );
+}
 
 
 

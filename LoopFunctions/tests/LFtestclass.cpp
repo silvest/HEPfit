@@ -4,6 +4,7 @@
  */
 
 #include "LFtestclass.h"
+#include "ClausenFunctions.h"
 
 
 CPPUNIT_TEST_SUITE_REGISTRATION(LFtestclass);
@@ -15,7 +16,8 @@ LFtestclass::~LFtestclass() {
 }
 
 void LFtestclass::setUp() {
-    myPL = new Polylogarithms;
+    myPL = new Polylogarithms();
+    myClausen = new ClausenFunctions();
 
     /* accuracy for CPPUNIT_ASSERT_DOUBLES_EQUAL */
     epsilon = 1.0e-10; 
@@ -24,6 +26,7 @@ void LFtestclass::setUp() {
 
 void LFtestclass::tearDown() {
     delete myPL;
+    delete myClausen;
 }
 
 void LFtestclass::Li3_m52131231311() {
@@ -103,4 +106,35 @@ void LFtestclass::Li3_1() {
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
 }
 
+ void LFtestclass::Cl3_m1() {
+    double expect = - 0.942869236784111;
+    double result = myClausen->Cl3(-1.0);
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
+}
+
+ void LFtestclass::Cl3_0002() {
+    double expect = 0.003286727207710;
+    double result = myClausen->Cl3(0.002);
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
+}
+ 
+ void LFtestclass::Cl3_1() {
+    /* Mathematica: SetPrecision[PolyLog[3,Exp[I 1.0]],15] */
+    double expect = 0.942869236784111;
+    double result = myClausen->Cl3(1.0);
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
+}
+ 
+ void LFtestclass::Cl3_Pi() {
+    double expect = 0.0;
+    double result = myClausen->Cl3(M_PI);
+    //double delta = fabs(epsilon*result);
+    double delta = pow(10.0, -10.0);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
+}
+ 
+ 
  

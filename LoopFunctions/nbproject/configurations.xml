@@ -4,7 +4,9 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/ClausenFunctions.h</itemPath>
       <itemPath>src/PVfunctions.h</itemPath>
+      <itemPath>src/Polylogarithms.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -13,9 +15,9 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/ClausenFunctions.cpp</itemPath>
       <itemPath>src/PVfunctions.cpp</itemPath>
       <itemPath>src/Polylogarithms.cpp</itemPath>
-      <itemPath>src/Polylogarithms.h</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
