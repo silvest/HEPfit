@@ -112,14 +112,23 @@ double TwoLoopQCD::V1(const double r) const {
     
     if (r == 0.0) return (0.0); 
     
-    double Phi= asin(sqrt(r));
-    double gamma = log(2.0*sqrt(r));
-    double h = log(2.0*sqrt(1.0-r));
-    
+    double Mz = EWSMC.GetSM().getMz(); 
+    double Mt = EWSMC.GetSM().getQuarks(EWSMC.GetSM().TOP).getMass(); 
+
+    /* Logarithms etc */
+    double Phi, gamma, h;
+    if (r==Mz*Mz/4.0/Mt/Mt) {
+        Phi = EWSMC.GetPhi_QCD2();
+        gamma = EWSMC.GetGamma_QCD2();
+        h = EWSMC.GetH_QCD2();
+    } else {
+        Phi= asin(sqrt(r));
+        gamma = log(2.0*sqrt(r));
+        h = log(2.0*sqrt(1.0-r));
+    }
+        
     /* Clausen functions */
     double Cl3_2Phi, Cl3_4Phi, Cl2_2Phi, Cl2_4Phi;
-    double Mz = EWSMC.GetSM().getMz();   
-    double Mt = EWSMC.GetSM().getQuarks(EWSMC.GetSM().TOP).getMass();     
     if (r == Mz*Mz/4.0/Mt/Mt) {
         Cl3_2Phi = EWSMC.GetCl3_2Phi();
         Cl3_4Phi = EWSMC.GetCl3_4Phi();
@@ -155,14 +164,23 @@ double TwoLoopQCD::A1(const double r) const {
         
     if (r == 0.0) return (3.0*(7.0/4.0 - zeta_2 - 2.0*zeta_3));         
      
-    double Phi= asin(sqrt(r));
-    double gamma = log(2.0*sqrt(r));
-    double h = log(2.0*sqrt(1.0-r));
+    double Mz = EWSMC.GetSM().getMz();   
+    double Mt = EWSMC.GetSM().getQuarks(EWSMC.GetSM().TOP).getMass();     
+
+    /* Logarithms etc */
+    double Phi, gamma, h;
+    if (r==Mz*Mz/4.0/Mt/Mt) {
+        Phi = EWSMC.GetPhi_QCD2();
+        gamma = EWSMC.GetGamma_QCD2();
+        h = EWSMC.GetH_QCD2();
+    } else {
+        Phi= asin(sqrt(r));
+        gamma = log(2.0*sqrt(r));
+        h = log(2.0*sqrt(1.0-r));
+    }
     
     /* Clausen functions */
     double Cl3_2Phi, Cl3_4Phi, Cl2_2Phi, Cl2_4Phi;
-    double Mz = EWSMC.GetSM().getMz();   
-    double Mt = EWSMC.GetSM().getQuarks(EWSMC.GetSM().TOP).getMass();     
     if (r == Mz*Mz/4.0/Mt/Mt) {
         Cl3_2Phi = EWSMC.GetCl3_2Phi();
         Cl3_4Phi = EWSMC.GetCl3_4Phi();
@@ -189,36 +207,143 @@ double TwoLoopQCD::A1(const double r) const {
     return A1;
 }
 
+double TwoLoopQCD::V1prime(const double r) const {
+    if (fabs(r) >= 1.0) throw "r is out of range in TwoLoopQCD::V1prime()";
+    /* Zeta functions */
+    double zeta_3 = EWSMC.GetZeta3();     
+    return (4.0*zeta_3 - 5.0/6.0 + 656.0/81.0*r );
+}
+
+double TwoLoopQCD::A1prime(const double r) const {
+    if (fabs(r) >= 1.0) throw "r is out of range in TwoLoopQCD::A1prime()";
+    /* Zeta functions */
+    double zeta_3 = EWSMC.GetZeta3();     
+    return (4.0*zeta_3 - 49.0/18.0 + 1378.0/405.0*r );    
+}
+
 double TwoLoopQCD::DeltaR_ud() const {
-    /* !! Write codes !!*/
-    return (0.0);      
+    double sW2 = EWSMC.GetSW2();
+    double cW2 = EWSMC.GetCW2();
+    
+    /* Logarithm */
+    double log_cW2 = EWSMC.GetLog_cW2();     
+    
+    double DeltaR;
+    DeltaR = - log_cW2;
+    DeltaR *= (cW2 - sW2)/4.0/sW2/sW2;
+    DeltaR *= EWSMC.GetSM().getAle()*EWSMC.GetSM().getAlsMz()/M_PI/M_PI;
+    return DeltaR;   
 }
 
 double TwoLoopQCD::DeltaR_tb() const {
-    /* !! Write codes !!*/
-    return (0.0);      
+    double Mw = EWSMC.GetMw();
+    double Mz = EWSMC.GetSM().getMz();  
+    double sW2 = EWSMC.GetSW2();
+    double cW2 = EWSMC.GetCW2();
+    double Mt = EWSMC.GetSM().getQuarks(EWSMC.GetSM().TOP).getMass();
+    double wt = Mt*Mt/Mw/Mw;
+    double zt = Mt*Mt/Mz/Mz;
+    double rZ4t = Mz*Mz/4.0/Mt/Mt;
+    double xWt = Mw*Mw/Mt/Mt;
+    
+    double vt = EWSMC.vf(EWSMC.GetSM().TOP);
+    double at = EWSMC.af(EWSMC.GetSM().TOP);
+    double vb = EWSMC.vf(EWSMC.GetSM().BOTTOM);
+    double ab = EWSMC.af(EWSMC.GetSM().BOTTOM);
+    
+    /* Zeta functions */
+    double zeta_2 = EWSMC.GetZeta2();
+    
+    /* Logarithm */
+    double log_zt = - 2.0*EWSMC.GetLogMZtoMTOP();
+    
+    double DeltaR;
+    DeltaR = pow(EWSMC.Qf(EWSMC.GetSM().TOP), 2.0)*V1prime(0.0)
+             + cW2/sW2/sW2*wt/4.0*(zeta_2 + 1.0/2.0)
+             - zt/sW2/sW2*( vt*vt*V1(rZ4t) + at*at*(A1(rZ4t) - A1(0.0)) )
+             + (cW2 - sW2)/sW2/sW2*wt*(F1(xWt) - F1(0.0))
+             - vb*ab/2.0/sW2/sW2*log_zt;
+    DeltaR *= EWSMC.GetSM().getAle()*EWSMC.GetAlsMt()/M_PI/M_PI;
+    return DeltaR;  
 }
 
 double TwoLoopQCD::DeltaRho_ud() const {
-    /* !! Write codes !!*/
-    return (0.0);      
+    double sW2 = EWSMC.GetSW2();
+    double cW2 = EWSMC.GetCW2();
+    
+    double DeltaRho;
+    DeltaRho = pow(EWSMC.vf(EWSMC.GetSM().UP), 2.0) 
+               + pow(EWSMC.vf(EWSMC.GetSM().DOWN), 2.0)
+               + pow(EWSMC.af(EWSMC.GetSM().UP), 2.0) 
+               + pow(EWSMC.af(EWSMC.GetSM().DOWN), 2.0); 
+    DeltaRho /= 4.0*sW2*cW2;    
+    DeltaRho *= EWSMC.GetSM().getAle()*EWSMC.GetSM().getAlsMz()/M_PI/M_PI;
+    return DeltaRho;      
 }
 
-complex TwoLoopQCD::DeltaRho_tb() const {
-    /* !! Write codes !!*/
-    complex a(0.0,0.0,false);
-    return a;        
+double TwoLoopQCD::DeltaRho_tb() const {
+    double Mz = EWSMC.GetSM().getMz();  
+    double sW2 = EWSMC.GetSW2();
+    double cW2 = EWSMC.GetCW2();
+    double Mt = EWSMC.GetSM().getQuarks(EWSMC.GetSM().TOP).getMass();
+    double zt = Mt*Mt/Mz/Mz;
+    double rZ4t = Mz*Mz/4.0/Mt/Mt;
+    
+    double vt = EWSMC.vf(EWSMC.GetSM().TOP);
+    double at = EWSMC.af(EWSMC.GetSM().TOP);
+    
+    double DeltaRho;
+    DeltaRho = - (vt*vt*V1prime(rZ4t) + at*at*A1prime(rZ4t))
+               + 4.0*zt*(vt*vt*V1(rZ4t) + at*at*A1(rZ4t))
+               - 4.0*zt*F1(0.0);
+    DeltaRho /= 4.0*sW2*cW2;
+    DeltaRho *= EWSMC.GetSM().getAle()*EWSMC.GetAlsMt()/M_PI/M_PI;
+    return DeltaRho;   
 }
 
-double TwoLoopQCD::DeltaKappa_ud() const {
-    /* !! Write codes !!*/
-    return (0.0);      
+complex TwoLoopQCD::DeltaKappa_ud() const {
+    double sW2 = EWSMC.GetSW2();
+    double cW2 = EWSMC.GetCW2();
+    
+    /* Logarithm */
+    double log_cW2 = EWSMC.GetLog_cW2();     
+        
+    complex DeltaKappa(0.0,0.0,false);
+    DeltaKappa = cW2/4.0/sW2/sW2*log_cW2 
+                 + M_PI/4.0/sW2*(1.0 - 20.0/9.0*sW2)*(complex::i());
+    DeltaKappa *= EWSMC.GetSM().getAle()*EWSMC.GetSM().getAlsMz()/M_PI/M_PI;
+    return DeltaKappa;     
 }
 
 complex TwoLoopQCD::DeltaKappa_tb() const {
-    /* !! Write codes !!*/
-    complex a(0.0,0.0,false);
-    return a;       
+    double Mw = EWSMC.GetMw();
+    double Mz = EWSMC.GetSM().getMz();  
+    double sW2 = EWSMC.GetSW2();
+    double cW2 = EWSMC.GetCW2();
+    double Mt = EWSMC.GetSM().getQuarks(EWSMC.GetSM().TOP).getMass();
+    double wt = Mt*Mt/Mw/Mw;
+    double zt = Mt*Mt/Mz/Mz;
+    double rZ4t = Mz*Mz/4.0/Mt/Mt;
+    double xWt = Mw*Mw/Mt/Mt;
+    
+    double vt = EWSMC.vf(EWSMC.GetSM().TOP);
+    double at = EWSMC.af(EWSMC.GetSM().TOP);
+    double Qt = EWSMC.Qf(EWSMC.GetSM().TOP);
+    double vb = EWSMC.vf(EWSMC.GetSM().BOTTOM);
+    double ab = EWSMC.af(EWSMC.GetSM().BOTTOM);
+    double Qb = EWSMC.Qf(EWSMC.GetSM().BOTTOM);
+    
+    /* Logarithm */
+    double log_zt = - 2.0*EWSMC.GetLogMZtoMTOP();    
+    
+    complex DeltaKappa(0.0,0.0,false);
+    DeltaKappa = 4.0*cW2*wt*(vt*vt*V1(rZ4t) + at*at*A1(rZ4t) - F1(xWt))
+                 + 4.0*sW2*(fabs(Qt) - 4.0*sW2*Qt*Qt)*zt*V1(rZ4t)
+                 + (vb*vb + ab*ab + sW2*(fabs(Qb) - 4.0*sW2*Qb*Qb))*log_zt;
+    DeltaKappa += M_PI*sW2*(1.0/3.0 - 4.0/9.0*sW2)*(complex::i());
+    DeltaKappa /= 4.0*sW2*sW2;
+    DeltaKappa *= EWSMC.GetSM().getAle()*EWSMC.GetAlsMt()/M_PI/M_PI;
+    return DeltaKappa;   
 }
 
 

@@ -118,6 +118,20 @@ public:
     double A1(const double r) const;
 
     /**
+     * @param[in] r r=s/(4M_t^2)
+     * @return the derivative of V_1(r)
+     * @attention valid for r << 1
+     */
+    double V1prime(const double r) const;
+    
+    /**
+     * @param[in] r r=s/(4M_t^2)
+     * @return the derivative of A_1(r)
+     * @attention valid for r << 1
+     */
+    double A1prime(const double r) const;
+    
+    /**
      * @return Delta r^{ud}, contribution to Delta r from the light-quark doublets
      */
     double DeltaR_ud() const;
@@ -135,12 +149,12 @@ public:
     /**
      * @return Delta rho^{tb}, contribution to rho_Z^f from the top-bottom doublet
      */
-    complex DeltaRho_tb() const;
+    double DeltaRho_tb() const;
     
     /**
      * @return Delta kappa^{ud}, contribution to kappa_Z^f from the light-quark doublets
      */
-    double DeltaKappa_ud() const;
+    complex DeltaKappa_ud() const;
     
     /**
      * @return Delta kappa^{tb}, contribution to kappa_Z^f from the top-bottom doublet

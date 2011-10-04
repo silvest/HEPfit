@@ -25,6 +25,7 @@ EWSMcommon::~EWSMcommon() {
 
 void EWSMcommon::SetConstants() {
     double Mz = SM.getMz();
+    double Mt = SM.getQuarks(SM.TOP).getMass();
     
     /* X_t with G_F */
     Xt_GF = SM.getGF()*pow(SM.getQuarks(SM.TOP).getMass(), 2.0)
@@ -53,10 +54,16 @@ void EWSMcommon::SetConstants() {
     logMZtoMMU = log( SM.getMz()/SM.getLeptons(SM.MU).getMass() );    
     logMZtoMTAU = log( SM.getMz()/SM.getLeptons(SM.TAU).getMass() );    
     logMZtoMTOP = log( SM.getMz()/SM.getQuarks(SM.TOP).getMass() );
-    logMTOPtoMH = log( SM.getQuarks(SM.TOP).getMass()/SM.getMHl() );
+    logMTOPtoMH = log( Mt/SM.getMHl() );
+    
+    /* Logarithms etc for two-loop QCD corrections */
+    double r_QCD2 = Mz*Mz/4.0/Mt/Mt;
+    Phi_QCD2 = asin(sqrt(r_QCD2));
+    gamma_QCD2 = log(2.0*sqrt(r_QCD2));
+    h_QCD2 = log(2.0*sqrt(1.0-r_QCD2));
     
     /* Clausen functions for two-loop QCD corrections */
-    double Phi= asin(Mz/2.0/SM.getQuarks(SM.TOP).getMass());            
+    double Phi= asin(Mz/2.0/Mt);            
     Cl3_2Phi = Clausen.Cl3(2.0*Phi);
     Cl3_4Phi = Clausen.Cl3(4.0*Phi);    
     Cl2_2Phi = Clausen.Cl2(2.0*Phi); 

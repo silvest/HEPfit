@@ -32,6 +32,8 @@ void QCD2testclass::setUp() {
     sW2 = 1.0 - cW2;
     Mt = myEWSMC->GetSM().getQuarks(StandardModel::TOP).getMass();
     
+    AlsMt_ratio = 0.107443278759216/myEWSMC->GetAlsMt();
+    
     /* accuracy for CPPUNIT_ASSERT_DOUBLES_EQUAL */
     epsilon = 1.0e-7; 
 
@@ -159,6 +161,109 @@ void QCD2testclass::A1_0() {
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);   
 }
+
+void QCD2testclass::DeltaRho() {
+    double ZFITTER = -0.000938665868188; /* ZFITTER result*/
+    double result = myQCD2->DeltaRho();
+    result *= AlsMt_ratio;
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);     
+}
+
+void QCD2testclass::DeltaR_ud() {
+    double ZFITTER = 0.000066523629089; /* ZFITTER result*/
+    double result = myQCD2->DeltaR_ud();
+    result *= AlsMt_ratio;
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);    
+}
+
+void QCD2testclass::DeltaR_tb() {
+    double XTBQCD_real = 0.003850296748989; /* ZFITTER result*/
+    double result = myQCD2->DeltaR_tb();
+    result *= AlsMt_ratio;
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(XTBQCD_real, result, delta);     
+}
+
+void QCD2testclass::DeltaR_rem() {
+    double ZFITTER = 0.000497564669985; /* ZFITTER result*/
+    double result = myQCD2->DeltaR_rem();
+    result *= AlsMt_ratio;
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);        
+}
+    
+void QCD2testclass::DeltaRho_ud() {
+    double ZFITTER = 0.000088177162158; /* ZFITTER result*/
+    double result = myQCD2->DeltaRho_ud();
+    result *= AlsMt_ratio;
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);        
+}
+
+void QCD2testclass::DeltaRho_tb() {
+    double ZFITTER = -0.000899010923276; /* ZFITTER result*/
+    double result = myQCD2->DeltaRho_tb();
+    result *= AlsMt_ratio;
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);        
+}
+
+void QCD2testclass::DeltaKappa_ud_real() {
+    double ZFITTER = -0.000091039011232; /* ZFITTER result*/
+    double result = myQCD2->DeltaKappa_ud().real();
+    result *= AlsMt_ratio;
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);        
+}
+
+void QCD2testclass::DeltaKappa_tb_real() {
+    double ZFITTER = -0.003834690219081; /* ZFITTER result*/
+    double result = myQCD2->DeltaKappa_tb().real();
+    result *= AlsMt_ratio;
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);        
+}
+   
+void QCD2testclass::deltaRho_rem_l_real() {
+    double ZFITTER = 0.000216009269228; /* ZFITTER result*/
+    double result = myQCD2->deltaRho_rem_l(mySM->NEUTRINO_1).real();
+    result *= AlsMt_ratio;
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);        
+}
+
+void QCD2testclass::deltaRho_rem_q_real() {
+    double ZFITTER = 0.000216009269228; /* ZFITTER result*/
+    double result = myQCD2->deltaRho_rem_q(mySM->UP).real();
+    result *= AlsMt_ratio;
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);        
+}
+
+void QCD2testclass::deltaKappa_rem_l_real() {
+    double ZFITTER = -0.000530988904362; /* ZFITTER result*/
+    double result = myQCD2->deltaKappa_rem_l(mySM->NEUTRINO_1).real();
+    result *= AlsMt_ratio;
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);        
+}
+
+void QCD2testclass::deltaKappa_rem_q_real() {
+    double ZFITTER = -0.000530988904362; /* ZFITTER result*/
+    double result = myQCD2->deltaKappa_rem_q(mySM->UP).real();
+    result *= AlsMt_ratio;
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);        
+}
+
+
+
+
+
+
+
 
 
 
