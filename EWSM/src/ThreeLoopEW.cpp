@@ -104,6 +104,7 @@ complex ThreeLoopEW::deltaRho_rem_l(const StandardModel::lepton l) const {
 }
 
 complex ThreeLoopEW::deltaRho_rem_q(const StandardModel::quark q) const {
+    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     complex zero(0.0,0.0,false);
     return zero;      
 }
@@ -114,6 +115,7 @@ complex ThreeLoopEW::deltaKappa_rem_l(const StandardModel::lepton l) const {
 }
 
 complex ThreeLoopEW::deltaKappa_rem_q(const StandardModel::quark q) const {
+    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     complex zero(0.0,0.0,false);
     return zero;       
 }

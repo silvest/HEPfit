@@ -194,23 +194,6 @@ private:
     complex deltaKappa_rem_l[6][orders_EW_size], deltaKappa_rem_q[6][orders_EW_size];
     double DeltaRbar_rem;
 
-    
-    ////////////////////////////////////////////////////////////////////////
-    
-
-//    /**
-//     * @return the charm-quak mass at Mz, mc(Mz)
-//     */
-//    double mcMz() const;
-//
-//    /**
-//     * @return the bottom-quak mass at Mz, mb(Mz)
-//     */
-//    double mbMz() const;
-//
-
-
-
 };
 
 #endif	/* EWSM_H */

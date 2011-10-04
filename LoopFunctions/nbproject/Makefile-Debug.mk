@@ -61,7 +61,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-lcppunit ../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a
+LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -110,19 +110,19 @@ ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/LoopFunctionsTest.o ${OBJECTFILES:%.o=
 ${TESTDIR}/tests/LFtestclass.o: tests/LFtestclass.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -Isrc -I../gslpp/src -I. -I. -I. -I. -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LFtestclass.o tests/LFtestclass.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -Isrc -I../gslpp/src -I. -I. -I. -I. -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LFtestclass.o tests/LFtestclass.cpp
 
 
 ${TESTDIR}/tests/LFtestrunner.o: tests/LFtestrunner.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -Isrc -I../gslpp/src -I. -I. -I. -I. -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LFtestrunner.o tests/LFtestrunner.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -Isrc -I../gslpp/src -I. -I. -I. -I. -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LFtestrunner.o tests/LFtestrunner.cpp
 
 
 ${TESTDIR}/tests/LoopFunctionsTest.o: tests/LoopFunctionsTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -Isrc -I../gslpp/src -I. -I. -I. -I. -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LoopFunctionsTest.o tests/LoopFunctionsTest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -Isrc -I../gslpp/src -I. -I. -I. -I. -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LoopFunctionsTest.o tests/LoopFunctionsTest.cpp
 
 
 ${OBJECTDIR}/src/Polylogarithms_nomain.o: ${OBJECTDIR}/src/Polylogarithms.o src/Polylogarithms.cpp 

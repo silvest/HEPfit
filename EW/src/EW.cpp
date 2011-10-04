@@ -13,17 +13,21 @@
 
 EW::EW(const StandardModel& SM_i) : ThObsType(SM_i), myEWSM(SM_i), myZFitter(SM_i) {
 
-    //mcMz = 0.580624; // TEST!!!
-    //mbMz = 2.84386; // TEST!!!
-
+    /* accuracy in the iterative calculation of Mw in ComputeEWSM() */
+    Mw_error = 0.00001; /* 0.01 MeV */    
+    
+    /* TEST */
+    //mcMz = 0.580624;
+    //mbMz = 2.84386;
     //mcMz = 0.55696435; 
     //mbMz = 2.8095955;
-
-
     mcMz = 0.55381685; 
     mbMz = 2.8194352;
 
-
+    //double mc_at_mb = SM.Mrun(SM.getQuarks(SM.BOTTOM).getMass(), 
+    //                          SM.getQuarks(SM.CHARM).getMass(), 4.0);
+    //mcMz = SM.Mrun(SM.getMz(), mc_at_mb, 5.0);
+    //mbMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), 5.0);
 }
 
 //EW::EW(const EW& orig) : ThObsType(orig.SM), EWSM(orig.SM) {
@@ -40,22 +44,22 @@ void EW::ComputeEWSM(const schemes_EW schemeMw,
                      const schemes_EW schemeKappaZ,
                      const bool flag_order[EWSM::orders_EW_size]) {
 
+    /* Common constants */
+    myEWSM.getEWSMC()->SetConstants();
+
+    /* Delta alpha */
     myEWSM.ComputeDeltaAlpha(flag_order);
-    
     DeltaAlpha_l5q = SM.getDAle5Mz();
     for (int j=0; j<EWSM::orders_EW_size; j++) {    
-        EWSM::orders_EW j_order = (EWSM::orders_EW) j;
-        DeltaAlpha_l5q += myEWSM.getDeltaAlpha_l(j_order);
+        DeltaAlpha_l5q += myEWSM.getDeltaAlpha_l((EWSM::orders_EW) j);
     }
     DeltaAlpha = DeltaAlpha_l5q;
     for (int j=0; j<EWSM::orders_EW_size; j++) {        
-        EWSM::orders_EW j_order = (EWSM::orders_EW) j;
-        DeltaAlpha += myEWSM.getDeltaAlpha_t(j_order);
+        DeltaAlpha += myEWSM.getDeltaAlpha_t((EWSM::orders_EW) j);
     }  
-    
     alphaMz = SM.getAle()/(1.0 - DeltaAlpha);
     
-    /* computes M_W */
+    /* M_W */
     if (schemeMw==APPROXIMATEFORMULA) {
         myApproximateFormulae = new ApproximateFormulae(SM, DeltaAlpha);
         Mw = myApproximateFormulae->Mw();        
@@ -68,7 +72,6 @@ void EW::ComputeEWSM(const schemes_EW schemeMw,
 
         /* Mw from iterations */
         double Mw_org = SM.Mw_tree();
-        double Mw_error = 0.00001; /* 0.01 MeV */
         while (fabs(Mw - Mw_org) > Mw_error) {
             Mw_org = Mw;
             myEWSM.ComputeCC(Mw, flag_order);
@@ -81,13 +84,14 @@ void EW::ComputeEWSM(const schemes_EW schemeMw,
         }
     }
 
-    /* computes s_W^2 and c_W^2 */
+    /* s_W^2 and c_W^2 */
     sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
     cW2 = 1.0 - sW2;
     
+    /* effective couplings rho_Z^f and kappa_Z^f */
     myEWSM.ComputeNC(Mw, flag_order);
     
-    /* Resummations */    
+    /* Re[rho_Z^f] and Re[kappa_Z^f] with resummations */    
     for (int i=0; i<6; i++) {
         StandardModel::lepton i_l = (StandardModel::lepton) i;
         StandardModel::quark i_q = (StandardModel::quark) i;   
@@ -106,9 +110,23 @@ void EW::ComputeEWSM(const schemes_EW schemeMw,
         rhoZ_q[i].real() = resumRhoZ(schemeRhoZ, deltaRho_rem_q_real);
         kappaZ_l[i].real() = resumKappaZ(schemeKappaZ, deltaKappa_rem_l_real);
         kappaZ_q[i].real() = resumKappaZ(schemeKappaZ, deltaKappa_rem_q_real);
+
+        if (i_q==StandardModel::TOP) {
+            rhoZ_q[i].real() = 0.0;
+            kappaZ_q[i].real() = 0.0;
+        }
     }
 
-    /* Imaginary parts */
+    /* O(alpha^2) correction to Re[kappa_Z^f] from the Z-gamma mixing */
+    for (int i=0; i<6; i++) {
+        kappaZ_l[i].real() += 35.0*alphaMz*alphaMz/18.0/sW2
+                                *(1.0 - 8.0/3.0*kappaZ_l[i].real()*sW2);
+        kappaZ_q[i].real() += 35.0*alphaMz*alphaMz/18.0/sW2
+                                *(1.0 - 8.0/3.0*kappaZ_q[i].real()*sW2);        
+        if (i==(int)StandardModel::TOP) kappaZ_q[i].real() = 0.0;
+    }
+    
+    /* Im[rho_Z^f] and Im[kappa_Z^f] without resummations */
     for (int i=0; i<6; i++) {
         StandardModel::lepton i_l = (StandardModel::lepton) i;
         StandardModel::quark i_q = (StandardModel::quark) i;   
@@ -118,20 +136,22 @@ void EW::ComputeEWSM(const schemes_EW schemeMw,
         kappaZ_q[i].imag() = 0.0;        
         for (int j=0; j<EWSM::orders_EW_size; j++) { 
             EWSM::orders_EW j_order = (EWSM::orders_EW) j;
-            rhoZ_l[i].imag() = myEWSM.getDeltaRho_rem_l(i_l,j_order).imag();    
-            rhoZ_q[i].imag() = myEWSM.getDeltaRho_rem_q(i_q,j_order).imag();    
-            kappaZ_l[i].imag() = myEWSM.getDeltaKappa_rem_l(i_l,j_order).imag();    
-            kappaZ_q[i].imag() = myEWSM.getDeltaKappa_rem_q(i_q,j_order).imag();            
+            rhoZ_l[i].imag() += myEWSM.getDeltaRho_rem_l(i_l,j_order).imag();    
+            rhoZ_q[i].imag() += myEWSM.getDeltaRho_rem_q(i_q,j_order).imag();    
+            kappaZ_l[i].imag() += myEWSM.getDeltaKappa_rem_l(i_l,j_order).imag();    
+            kappaZ_q[i].imag() += myEWSM.getDeltaKappa_rem_q(i_q,j_order).imag();            
         }
+
+        //!! conversion factor f??? 
+        
     }
     
-    /* Other contributions to Im[kappa_Z^f] taken from ZFITTER codes */
-    //for (int i=0; i<6; i++) {
-    //    kappaZ_l[i].imag() -= SM.getAle()*SM.getAlsMz()/24.0/M_PI*(cW2-sW2)/sW2/sW2;
-    //    kappaZ_q[i].imag() -= SM.getAle()*SM.getAlsMz()/24.0/M_PI*(cW2-sW2)/sW2/sW2;
-    //}
+    /* Corrections to the Z-b-bbar vertex */    
+    // Write codes?!!
     
-    /* Using the approximate formula for the real parts of kappa_Z^f*/
+    
+    
+    /* Re[kappa_Z^f] from the approximate formula of the effective weak mixing angle */
     if (schemeKappaZ==EW::APPROXIMATEFORMULA) {
         myApproximateFormulae = new ApproximateFormulae(SM, DeltaAlpha);
         double sin2thetaEff_l[6], sin2thetaEff_q[6];
@@ -247,7 +267,7 @@ double EW::Gamma_q(const StandardModel::quark q) const {
             break;
     }
 
-    /* logs */
+    /* Logarithms */
     double log_t = log(pow(SM.getQuarks(SM.TOP).getMass(),2.0)/s);
     double log_c = log(mcMz2/s);
     double log_b = log(mbMz2/s);
@@ -418,8 +438,7 @@ double EW::resumMw(const schemes_EW schemeMw) {
     double f_AlphaToGF, DeltaRho_sum = 0.0, DeltaRho_G;
     if (schemeMw==NORESUM) {
         for (int j=0; j<EWSM::orders_EW_size; j++) { 
-            EWSM::orders_EW j_order = (EWSM::orders_EW) j;
-            DeltaRho_sum += myEWSM.getDeltaRho(j_order);
+            DeltaRho_sum += myEWSM.getDeltaRho((EWSM::orders_EW) j);
         }
     } else {
         // conversion: alpha(0) --> G_F
@@ -478,13 +497,12 @@ double EW::resumRhoZ(const schemes_EW schemeRhoZ,
     if (deltaRho_rem[EWSM::EW1QCD2]!=0.0) throw "Error in EW::resumRhoZ()";
     if (deltaRho_rem[EWSM::EW2QCD1]!=0.0) throw "Error in EW::resumRhoZ()";    
     if (deltaRho_rem[EWSM::EW3]!=0.0) throw "Error in EW::resumRhoZ()";  
-    
+
     double f_AlphaToGF, DeltaRho_sum = 0.0, DeltaRho_G, deltaRho_rem_sum=0.0;
     double DeltaRbar_rem_G, deltaRho_rem_G, deltaRho_rem_G2;
     if (schemeRhoZ==NORESUM) {
         for (int j=0; j<EWSM::orders_EW_size; j++) { 
-            EWSM::orders_EW j_order = (EWSM::orders_EW) j;
-            DeltaRho_sum += myEWSM.getDeltaRho(j_order);
+            DeltaRho_sum += myEWSM.getDeltaRho((EWSM::orders_EW) j);
             deltaRho_rem_sum += deltaRho_rem[j];
         }
     } else {
@@ -538,8 +556,7 @@ double EW::resumKappaZ(const schemes_EW schemeKappaZ,
     double DeltaRbar_rem_G, deltaKappa_rem_G, deltaKappa_rem_G2;
     if (schemeKappaZ==NORESUM) {
         for (int j=0; j<EWSM::orders_EW_size; j++) { 
-            EWSM::orders_EW j_order = (EWSM::orders_EW) j;
-            DeltaRho_sum += myEWSM.getDeltaRho(j_order);
+            DeltaRho_sum += myEWSM.getDeltaRho((EWSM::orders_EW) j);
             deltaKappa_rem_sum += deltaKappa_rem[j];
         }
     } else {

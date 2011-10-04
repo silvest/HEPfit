@@ -122,6 +122,8 @@ complex OneLoopEW::deltaRho_rem_l(const StandardModel::lepton l) const {
 }
 
 complex OneLoopEW::deltaRho_rem_q(const StandardModel::quark q) const {
+    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+    
     double Mz = EWSMC.GetSM().getMz(); 
     complex uf = ( 3.0*EWSMC.vf(q)*EWSMC.vf(q) + EWSMC.af(q)*EWSMC.af(q) )
                  /4.0/EWSMC.GetCW2()*FZ(Mz*Mz) + FW(Mz*Mz, q);
@@ -152,10 +154,12 @@ complex OneLoopEW::deltaKappa_rem_l(const StandardModel::lepton l) const {
 }
 
 complex OneLoopEW::deltaKappa_rem_q(const StandardModel::quark q) const {
+    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+    
     double Mz = EWSMC.GetSM().getMz(); 
     complex uf = ( 3.0*EWSMC.vf(q)*EWSMC.vf(q) + EWSMC.af(q)*EWSMC.af(q) )
                  /4.0/EWSMC.GetCW2()*FZ(Mz*Mz) + FW(Mz*Mz, q);
-    return ( deltaKappa_rem_tmp(EWSMC.deltaf(q), uf) );     
+    return ( deltaKappa_rem_tmp(EWSMC.deltaf(q), uf) );
 }
 
 
@@ -410,11 +414,6 @@ complex OneLoopEW::SigmaZZ_fer(const double mu, const double s) const {
             Sigma += - 3.0*2.0*aq2*mq2*B0_s_mq_mq[i];
         }
     }   
- 
-    /* added O(alpha^2) contribution from the Z-gamma mixing */
-    //double Mw2 = pow(EWSMC.GetMw(), 2.0);
-    //Sigma += - Mw2*pow(PiZgamma_fer(mu,Mz2), 2.0)*EWSMC.GetSM().getAle()/4.0/M_PI;
-    
     return Sigma;
 }
 

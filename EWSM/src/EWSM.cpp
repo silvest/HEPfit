@@ -58,7 +58,6 @@ EWSM::~EWSM() {
 ////////////////////////////////////////////////////////////////////////
 
 void EWSM::ComputeDeltaAlpha(const bool flag_order[orders_EW_size]) {
-    EWSMC->SetConstants();
     
     if (flag_order[EW1]) 
         DeltaAlpha_l[EW1] = myOneLoopEW->DeltaAlpha_l();
@@ -181,30 +180,5 @@ void EWSM::ComputeNC(double Mw_i, const bool flag_order[orders_EW_size]) {
 }
     
     
-////////////////////////////////////////////////////////////////////////
-
-
-// double EWSM::mcMz() const {
-//     double mc_at_mb = Mrun(quarks[BOTTOM].getMass(), quarks[CHARM].getMass(), 4.0);
-//     double mc_at_Mz = Mrun(Mz, mc_at_mb, 5.0);
-
-//     /* TEST */
-//     //std::cout << "mc(mc)= " << quarks[CHARM].getMass() << std::endl;
-//     //std::cout << "mc(mb)_LO+NLO= " << mc_at_mb << std::endl;
-//     //std::cout << "mc(Mz)_LO+NLO= " << mc_at_Mz << std::endl;
-
-//     return ( mc_at_Mz);
-//     //return ( 0.563817 );// <--- used in ZFITTER with the effective mass mc=1.5
-// }
-
-// double EWSM::mbMz() const {
-//     /* TEST */
-//     //std::cout << "mb(mb)= " << quarks[BOTTOM].getMass() << std::endl;
-//     //std::cout << "mb(Mz)_LO= " << mrun(Mz, quarks[BOTTOM].getMass(), 5.0, 0) << std::endl;
-//     //std::cout << "mb(Mz)_LO+NLO= " << mrun(Mz, quarks[BOTTOM].getMass(), 5.0, 1) << std::endl;
-
-//     return ( Mrun(Mz, quarks[BOTTOM].getMass(), 5.0));
-//     //return (2.819440);// <--- used in ZFITTER with the effective mass mb=4.7
-// }
 
 
