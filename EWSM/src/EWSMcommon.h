@@ -261,6 +261,18 @@ public:
         return Li3_for_F1;
     }
     
+    double GetPhi_QCD2() const {
+        return Phi_QCD2;
+    }
+
+    double GetGamma_QCD2() const {
+        return gamma_QCD2;
+    }
+
+    double GetH_QCD2() const {
+        return h_QCD2;
+    }
+    
     double GetCl2_2Phi() const {
         return Cl2_2Phi;
     }
@@ -481,8 +493,11 @@ protected:
     /* Dilogarithm and Trilogarithm */
     double Li2_MW2toMTOP2;
     double Li3_MW2toMTOP2, Li3_for_F1;
-      
-    /* Clausen functions */
+    
+    /* Logarithms etc for two-loop QCD corrections */
+    double Phi_QCD2, gamma_QCD2, h_QCD2;
+    
+    /* Clausen functions for two-loop QCD corrections */
     double Cl3_2Phi, Cl3_4Phi, Cl2_2Phi, Cl2_4Phi;
     
     /* One-loop functions in self-energies */

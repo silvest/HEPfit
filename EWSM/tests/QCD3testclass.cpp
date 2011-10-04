@@ -31,6 +31,8 @@ void QCD3testclass::setUp() {
     cW2 = Mw2/Mz2;
     sW2 = 1.0 - cW2;
     Mt = myEWSMC->GetSM().getQuarks(StandardModel::TOP).getMass();
+
+    AlsMt_ratio = 0.107443278759216/myEWSMC->GetAlsMt();    
     
     /* accuracy for CPPUNIT_ASSERT_DOUBLES_EQUAL */
     epsilon = 1.0e-10; 
@@ -124,6 +126,49 @@ void QCD3testclass::setSMparameters(StandardModel& SM_i) {
     
     SM_i.Init(Parameters);
 }
+
+void QCD3testclass::DeltaRho() {
+    double ZFITTER = -0.000204951302281; /* ZFITTER result*/
+    double result = myQCD3->DeltaRho();
+    result *= AlsMt_ratio*AlsMt_ratio;
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);     
+}
+
+void QCD3testclass::deltaKappa_rem_l_real() {
+    double ZFITTER = -0.000025563165772; /* ZFITTER result*/
+    double result = myQCD3->deltaKappa_rem_l(mySM->NEUTRINO_1).real();
+    result *= AlsMt_ratio*AlsMt_ratio;
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);     
+}
+
+void QCD3testclass::deltaKappa_rem_q_real() {
+    double ZFITTER = -0.000025563165772; /* ZFITTER result*/
+    double result = myQCD3->deltaKappa_rem_q(mySM->UP).real();
+    result *= AlsMt_ratio*AlsMt_ratio;
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);     
+}
+
+void QCD3testclass::deltaKappa_rem_l_imag() {
+    double ZFITTER = 0.0; /* ZFITTER result*/
+    double result = myQCD3->deltaKappa_rem_l(mySM->NEUTRINO_1).imag();
+    result *= AlsMt_ratio*AlsMt_ratio;
+    //double delta = fabs(epsilon*result);
+    double delta = pow(10.0, -10.0);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);     
+}
+
+void QCD3testclass::deltaKappa_rem_q_imag() {
+    double ZFITTER = 0.0; /* ZFITTER result*/
+    double result = myQCD3->deltaKappa_rem_q(mySM->UP).imag();
+    result *= AlsMt_ratio*AlsMt_ratio;
+    //double delta = fabs(epsilon*result);
+    double delta = pow(10.0, -10.0);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);     
+}
+
 
 
 
