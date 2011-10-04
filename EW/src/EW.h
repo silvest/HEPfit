@@ -237,6 +237,8 @@ private:
     ZFitter myZFitter;
     ApproximateFormulae* myApproximateFormulae;
         
+    double Mw_error;    
+    
     double alphaMz, DeltaAlpha, DeltaAlpha_l5q;
     double Mw, sW2, cW2;
     complex rhoZ_l[6], rhoZ_q[6];

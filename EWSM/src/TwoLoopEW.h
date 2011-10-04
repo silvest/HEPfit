@@ -87,6 +87,20 @@ public:
      * @return delta kappa_{rem}^{q, alpha^2}
      */
     complex deltaKappa_rem_q(const StandardModel::quark q) const;
+
+    
+    ////////////////////////////////////////////////////////////////////////        
+    
+    /**
+     * @return O(alpha^2 Mt^4/M_Z^4) contribution to Delta rho
+     */
+    complex rho_2() const;
+    
+    
+    /**
+     * @return O(alpha^2 Mt^4/M_Z^4) contribution to the Z-b-bbar vertex
+     */
+    complex tau_2() const;
     
     
     ////////////////////////////////////////////////////////////////////////        

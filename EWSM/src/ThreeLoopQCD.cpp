@@ -48,6 +48,7 @@ complex ThreeLoopQCD::deltaRho_rem_l(const StandardModel::lepton l) const {
 }
 
 complex ThreeLoopQCD::deltaRho_rem_q(const StandardModel::quark q) const {
+    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     complex zero(0.0,0.0,false);
     return zero;        
 }
@@ -59,6 +60,7 @@ complex ThreeLoopQCD::deltaKappa_rem_l(const StandardModel::lepton l) const {
 }
 
 complex ThreeLoopQCD::deltaKappa_rem_q(const StandardModel::quark q) const {
+    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     return ( - 3.0*EWSMC.GetXt_alpha()*EWSMC.GetCW2()/EWSMC.GetSW2()
                *pow(EWSMC.GetAlsMt()/M_PI,2.0)
                *(deltaQCD_3()+deltaQCD_kappa3().real()) ); 

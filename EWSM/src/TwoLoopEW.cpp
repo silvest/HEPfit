@@ -46,6 +46,12 @@ double TwoLoopEW::DeltaAlpha_t() const {
 }
 
 double TwoLoopEW::DeltaRho() const {
+
+    /* added O(alpha^2) contribution from the Z-gamma mixing */
+    //double Mw2 = pow(EWSMC.GetMw(), 2.0);
+    //SigmaZZ += - Mw2*pow(PiZgamma_fer(mu,Mz2), 2.0)*EWSMC.GetSM().getAle()/4.0/M_PI;
+    
+    
     /* !! Write codes !!*/
     return (0.0);    
 }
@@ -62,6 +68,8 @@ complex TwoLoopEW::deltaRho_rem_l(const StandardModel::lepton l) const {
 }
 
 complex TwoLoopEW::deltaRho_rem_q(const StandardModel::quark q) const {
+    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+   
     /* !! Write codes !!*/
     complex a(0.0,0.0,false);
     return a;      
@@ -74,6 +82,8 @@ complex TwoLoopEW::deltaKappa_rem_l(const StandardModel::lepton l) const {
 }
 
 complex TwoLoopEW::deltaKappa_rem_q(const StandardModel::quark q) const {
+    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+    
     /* !! Write codes !!*/
     complex a(0.0,0.0,false);
     return a;      
@@ -81,6 +91,21 @@ complex TwoLoopEW::deltaKappa_rem_q(const StandardModel::quark q) const {
 
 
 ////////////////////////////////////////////////////////////////////////   `
+
+complex TwoLoopEW::rho_2() const {
+    /* !! Write codes !!*/
+    complex a(0.0,0.0,false);
+    return a;    
+}
+
+complex TwoLoopEW::tau_2() const {
+    /* !! Write codes !!*/
+    complex a(0.0,0.0,false);
+    return a;  
+}
+
+
+
 
 
 

@@ -45,15 +45,24 @@ complex TwoLoopQCD::deltaRho_rem_l(const StandardModel::lepton l) const {
 }
 
 complex TwoLoopQCD::deltaRho_rem_q(const StandardModel::quark q) const {
+    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     return ( (2.0*DeltaRho_ud() + DeltaRho_tb()) - DeltaRho() );    
 }
 
 complex TwoLoopQCD::deltaKappa_rem_l(const StandardModel::lepton l) const {
     return ( (2.0*DeltaKappa_ud() + DeltaKappa_tb())
               - EWSMC.GetCW2()/EWSMC.GetSW2()*DeltaRho() );  
+
+    /* Other contributions to Im[kappa_Z^f] taken from ZFITTER codes ??? */
+    //for (int i=0; i<6; i++) {
+    //    kappaZ_l[i].imag() -= SM.getAle()*SM.getAlsMz()/24.0/M_PI*(cW2-sW2)/sW2/sW2;
+    //    kappaZ_q[i].imag() -= SM.getAle()*SM.getAlsMz()/24.0/M_PI*(cW2-sW2)/sW2/sW2;
+    //}
+
 }
 
 complex TwoLoopQCD::deltaKappa_rem_q(const StandardModel::quark q) const {
+    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     return ( (2.0*DeltaKappa_ud() + DeltaKappa_tb())
               - EWSMC.GetCW2()/EWSMC.GetSW2()*DeltaRho() );    
 }
