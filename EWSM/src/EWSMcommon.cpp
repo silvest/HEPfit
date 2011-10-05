@@ -61,6 +61,12 @@ void EWSMcommon::SetConstants() {
     Phi_QCD2 = asin(sqrt(r_QCD2));
     gamma_QCD2 = log(2.0*sqrt(r_QCD2));
     h_QCD2 = log(2.0*sqrt(1.0-r_QCD2));
+    gsl_complex OneMinusE2Iphi = gsl_complex_rect(1.0-cos(2.0*Phi_QCD2), 
+                                                  -sin(2.0*Phi_QCD2));
+    gsl_complex OneMinusE4Iphi = gsl_complex_rect(1.0-cos(4.0*Phi_QCD2), 
+                                                  -sin(4.0*Phi_QCD2));
+    logV1primeAndA1prime = GSL_REAL(gsl_complex_log(OneMinusE2Iphi))
+                           - 2.0*GSL_REAL(gsl_complex_log(OneMinusE4Iphi));
     
     /* Clausen functions for two-loop QCD corrections */
     double Phi= asin(Mz/2.0/Mt);            
