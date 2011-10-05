@@ -273,6 +273,10 @@ public:
         return h_QCD2;
     }
     
+    double GetLogV1primeAndA1prime() const {
+        return logV1primeAndA1prime;
+    }
+    
     double GetCl2_2Phi() const {
         return Cl2_2Phi;
     }
@@ -496,6 +500,7 @@ protected:
     
     /* Logarithms etc for two-loop QCD corrections */
     double Phi_QCD2, gamma_QCD2, h_QCD2;
+    double logV1primeAndA1prime;
     
     /* Clausen functions for two-loop QCD corrections */
     double Cl3_2Phi, Cl3_4Phi, Cl2_2Phi, Cl2_4Phi;
