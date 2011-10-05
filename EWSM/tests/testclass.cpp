@@ -1054,13 +1054,19 @@ void testclass::deltaKappa_rem_BOTTOM_imag() {
     CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
 }
 
-void testclass::rho_GammaW_NuE_E() {
-    double ZFITTER = 0.0; /* ZFITTER result*/
-    double result = myOLEW->rho_GammaW(mySM->NEUTRINO_1, mySM->ELECTRON);
+void testclass::rho_GammaW_leptons() {
+    double ROW = 0.996736176315242; /* ZFITTER result*/
+    double result = myOLEW->rho_GammaW_l(mySM->NEUTRINO_1, mySM->ELECTRON);
     double delta = fabs(epsilon_Li2*result);
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);   
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ROW, result, delta);   
 }
 
+void testclass::rho_GammaW_quarks() {
+    double ROW = 0.996281153730537; /* ZFITTER result*/
+    double result = myOLEW->rho_GammaW_q(mySM->UP, mySM->DOWN);
+    double delta = fabs(epsilon_Li2*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ROW, result, delta);   
+}
 
 
 

@@ -162,33 +162,52 @@ complex OneLoopEW::deltaKappa_rem_q(const StandardModel::quark q) const {
     return ( deltaKappa_rem_tmp(EWSMC.deltaf(q), uf) );
 }
 
-double OneLoopEW::rho_GammaW(const StandardModel::lepton li, 
-                             const StandardModel::lepton lj) const {
+double OneLoopEW::rho_GammaW_tmp(const double Qi, const double Qj) const { 
+    double QiQj = Qi*Qj;
     double Mw = EWSMC.GetMw();
     double Mz = EWSMC.GetSM().getMz();  
     double sW2 = EWSMC.GetSW2();
     double cW2 = EWSMC.GetCW2();
 
+    /* Logarithm and one-loop functions */
+    double log_cW2 = EWSMC.GetLog_cW2(); 
+    complex B0_Mw_Mw2_Mz_Mw = EWSMC.GetB0_Mw_Mw2_Mz_Mw();
+    complex C0_Mw2_Mw_0_Mz = EWSMC.GetC0_Mw2_Mw_0_Mz();
     
-    PVfunctions* myPV;
-    myPV = new PVfunctions();
     double V1 = FZa_0(Mw*Mw).real() - 3.0/2.0;
-    double V2 = - 2.0*(2.0 + cW2)*Mz*Mz*(myPV->C0(Mw*Mw,Mw,0.0,Mz).real())
-                - (1.0/12.0/cW2/cW2 + 5.0/3.0/cW2 + 1.0)
-                  *(myPV->B0(Mw,Mw*Mw,Mz,Mw).real())
-                + (1.0/12.0/cW2/cW2 + 1.0/cW2 + 1.0)*log(cW2) 
+    double V2 = - 2.0*(2.0 + cW2)*Mz*Mz*C0_Mw2_Mw_0_Mz.real()
+                - (1.0/12.0/cW2/cW2 + 5.0/3.0/cW2 + 1.0)*B0_Mw_Mw2_Mz_Mw.real()
+                + (1.0/12.0/cW2/cW2 + 1.0/cW2 + 1.0)*log_cW2 
                 + 1.0/12.0/cW2/cW2 + 13.0/12.0/cW2 + 59.0/18.0;
-    delete myPV;
     
-    /* TEST */
-    std::cout << V1 << "  " << V2 << std::endl;
-    
-    
+    double deltafij_W, deltafij_QED;
+    deltafij_W = - DeltaRhobarW(Mw) 
+                 - SigmaPrime_WW_bos_Mw2(Mw).real() 
+                 - SigmaPrime_WW_fer_Mw2(Mw).real()
+                 + 5.0/8.0*cW2*(1.0 + cW2) - 11.0/2.0 - 9.0*cW2/4.0/sW2*log_cW2
+                 + (-1.0 + 1.0/2.0/cW2 + 2.0*sW2*sW2/cW2*QiQj)*(V1 + 3.0/2.0)
+                 + 2.0*cW2*(V2 + 3.0/2.0);
+    deltafij_W *= EWSMC.GetSM().getAle()/4.0/M_PI/sW2;
+
+    deltafij_QED = 85.0/18.0 - M_PI*M_PI/3.0 + 3.0/4.0*QiQj;
+    deltafij_QED *= EWSMC.GetSM().getAle()/M_PI;
+
+    return ( 1.0 + deltafij_W + deltafij_QED );    
 }
 
-double OneLoopEW::rho_GammaW(const StandardModel::quark qi, 
-                             const StandardModel::quark qj) const {
-    
+double OneLoopEW::rho_GammaW_l(const StandardModel::lepton li, 
+                               const StandardModel::lepton lj) const {
+    if ( ((int)li+(int)lj+3)%2 ) 
+        throw "Inapproptiate arguments in OneLoopEW::rho_GammaW_l()";
+    return ( rho_GammaW_tmp(EWSMC.Qf(li), EWSMC.Qf(lj)) );
+}
+
+double OneLoopEW::rho_GammaW_q(const StandardModel::quark qi, 
+                               const StandardModel::quark qj) const {
+    if ( ((int)qi+(int)qj+3)%2 ) 
+        throw "Inapproptiate arguments in OneLoopEW::rho_GammaW_q()";
+    if (qi==StandardModel::TOP || qj==StandardModel::TOP) return (0.0);
+    return ( rho_GammaW_tmp(EWSMC.Qf(qi), EWSMC.Qf(qj)) );    
 }
 
 
@@ -622,25 +641,37 @@ complex OneLoopEW::SigmaPrime_WW_bos_Mw2(const double mu) const {
     double A0_Mw, A0_Mz, A0_mh;
     complex B0_Mw2_Mz_Mw, B0_Mw2_0_Mw, B0_Mw2_mh_Mw;
     complex B0p_Mw2_Mz_Mw, B0p_Mw2_0_Mw, B0p_Mw2_mh_Mw;
-    PVfunctions* myPV;
-    myPV = new PVfunctions();
-    A0_Mw = myPV->A0(mu, Mw);
-    A0_Mz = myPV->A0(mu, Mz);
-    A0_mh = myPV->A0(mu, mh);
-    B0_Mw2_Mz_Mw = myPV->B0(mu, Mw2, Mz, Mw);
-    B0_Mw2_0_Mw = myPV->B0(mu, Mw2, 0.0, Mw);
-    B0_Mw2_mh_Mw = myPV->B0(mu, Mw2, mh, Mw);
-    B0p_Mw2_Mz_Mw = myPV->B0p(mu, Mw2, Mz, Mw);
-    B0p_Mw2_0_Mw = myPV->B0p(mu, Mw2, 0.0, Mw);
-    B0p_Mw2_mh_Mw = myPV->B0p(mu, Mw2, mh, Mw);
-    delete myPV;
+    if (mu==Mw) {
+        A0_Mw = EWSMC.GetA0_Mw_Mw();
+        A0_Mz = EWSMC.GetA0_Mw_Mz();
+        A0_mh = EWSMC.GetA0_Mw_mh();
+        B0_Mw2_Mz_Mw = EWSMC.GetB0_Mw_Mw2_Mz_Mw();
+        B0_Mw2_0_Mw = EWSMC.GetB0_Mw_Mw2_0_Mw();
+        B0_Mw2_mh_Mw = EWSMC.GetB0_Mw_Mw2_mh_Mw();
+        B0p_Mw2_Mz_Mw = EWSMC.GetB0p_Mw_Mw2_Mz_Mw();
+        B0p_Mw2_0_Mw = EWSMC.GetB0p_Mw_Mw2_0_Mw();
+        B0p_Mw2_mh_Mw = EWSMC.GetB0p_Mw_Mw2_mh_Mw();
+    } else {
+        PVfunctions* myPV;
+        myPV = new PVfunctions();
+        A0_Mw = myPV->A0(mu, Mw);
+        A0_Mz = myPV->A0(mu, Mz);
+        A0_mh = myPV->A0(mu, mh);
+        B0_Mw2_Mz_Mw = myPV->B0(mu, Mw2, Mz, Mw);
+        B0_Mw2_0_Mw = myPV->B0(mu, Mw2, 0.0, Mw);
+        B0_Mw2_mh_Mw = myPV->B0(mu, Mw2, mh, Mw);
+        B0p_Mw2_Mz_Mw = myPV->B0p(mu, Mw2, Mz, Mw);
+        B0p_Mw2_0_Mw = myPV->B0p(mu, Mw2, 0.0, Mw);
+        B0p_Mw2_mh_Mw = myPV->B0p(mu, Mw2, mh, Mw);
+        delete myPV;
+    }
     
     complex Sigma(0.0,0.0,false);
     Sigma = - (1.0/12.0/cW4 + 2.0/3.0/cW2 + 2.0*cW2)*B0_Mw2_Mz_Mw
             + (1.0/12.0/cW4 + 4.0/3.0/cW2 - 17.0/3.0 - 4.0*cW2)*Mw2*B0p_Mw2_Mz_Mw
-            - 29.0/6.0*sW2*B0_Mw2_0_Mw - 4.0*sW2*Mw2*B0p_Mw2_0_Mw
+            - 2.0*sW2*B0_Mw2_0_Mw - 4.0*sW2*Mw2*B0p_Mw2_0_Mw
             + rw/6.0*(1.0 - rw/2.0)*B0_Mw2_mh_Mw
-            + (1.0 - rw/3.0 + rw*rw/12.0)*Mw2*B0p_Mw2_0_Mw
+            + (1.0 - rw/3.0 + rw*rw/12.0)*Mw2*B0p_Mw2_mh_Mw
             + (1.0/cW2 + 8.0 + rw)/12.0*A0_Mw/Mw2
             - (1.0/cW2 + 9.0 - 8.0*cW2 - 12.0*cW4)/12.0*A0_Mz/Mw2
             - (rw - 1.0)/12.0*A0_mh/Mw2 + 4.0/9.0;
@@ -662,19 +693,32 @@ complex OneLoopEW::SigmaPrime_WW_fer_Mw2(const double mu) const {
     complex Bfp_Mw2_mlprime_ml[3], Bfp_Mw2_mqprime_mq[3];    
     complex B1p_Mw2_mlprime_ml[3], B1p_Mw2_mqprime_mq[3];  
     complex B1p_Mw2_ml_mlprime[3], B1p_Mw2_mq_mqprime[3];    
-    PVfunctions* myPV;
-    myPV = new PVfunctions();
-    for (int gen=0; gen<3; gen++) {
-        Bf_Mw2_mlprime_ml[gen] = myPV->Bf(mu,Mw2,ml[2*gen+1],ml[2*gen]);
-        Bf_Mw2_mqprime_mq[gen] = myPV->Bf(mu,Mw2,mq[2*gen+1],mq[2*gen]);            
-        Bfp_Mw2_mlprime_ml[gen] = myPV->Bfp(mu,Mw2,ml[2*gen+1],ml[2*gen]);
-        Bfp_Mw2_mqprime_mq[gen] = myPV->Bfp(mu,Mw2,mq[2*gen+1],mq[2*gen]);            
-        B1p_Mw2_ml_mlprime[gen] = myPV->B1p(mu,Mw2,ml[2*gen],ml[2*gen+1]);
-        B1p_Mw2_mq_mqprime[gen] = myPV->B1p(mu,Mw2,mq[2*gen],mq[2*gen+1]);
-        B1p_Mw2_mlprime_ml[gen] = myPV->B1p(mu,Mw2,ml[2*gen+1],ml[2*gen]);
+    if (mu==Mw) {
+        for (int gen=0; gen<3; gen++) {
+            Bf_Mw2_mlprime_ml[gen] = EWSMC.GetBf_Mw_Mw2_mlprime_ml(gen);
+            Bf_Mw2_mqprime_mq[gen] = EWSMC.GetBf_Mw_Mw2_mqprime_mq(gen);              
+            Bfp_Mw2_mlprime_ml[gen] = EWSMC.GetBfp_Mw_Mw2_mlprime_ml(gen);
+            Bfp_Mw2_mqprime_mq[gen] = EWSMC.GetBfp_Mw_Mw2_mqprime_mq(gen);            
+            B1p_Mw2_ml_mlprime[gen] = EWSMC.GetB1p_Mw_Mw2_ml_mlprime(gen);
+            B1p_Mw2_mq_mqprime[gen] = EWSMC.GetB1p_Mw_Mw2_mq_mqprime(gen);
+            B1p_Mw2_mlprime_ml[gen] = EWSMC.GetB1p_Mw_Mw2_mlprime_ml(gen);
+            B1p_Mw2_mqprime_mq[gen] = EWSMC.GetB1p_Mw_Mw2_mqprime_mq(gen);
+        }
+    } else {
+        PVfunctions* myPV;
+        myPV = new PVfunctions();
+        for (int gen=0; gen<3; gen++) {
+            Bf_Mw2_mlprime_ml[gen] = myPV->Bf(mu,Mw2,ml[2*gen+1],ml[2*gen]);
+            Bf_Mw2_mqprime_mq[gen] = myPV->Bf(mu,Mw2,mq[2*gen+1],mq[2*gen]);            
+            Bfp_Mw2_mlprime_ml[gen] = myPV->Bfp(mu,Mw2,ml[2*gen+1],ml[2*gen]);
+            Bfp_Mw2_mqprime_mq[gen] = myPV->Bfp(mu,Mw2,mq[2*gen+1],mq[2*gen]);            
+            B1p_Mw2_ml_mlprime[gen] = myPV->B1p(mu,Mw2,ml[2*gen],ml[2*gen+1]);
+            B1p_Mw2_mq_mqprime[gen] = myPV->B1p(mu,Mw2,mq[2*gen],mq[2*gen+1]);
+            B1p_Mw2_mlprime_ml[gen] = myPV->B1p(mu,Mw2,ml[2*gen+1],ml[2*gen]);
             B1p_Mw2_mqprime_mq[gen] = myPV->B1p(mu,Mw2,mq[2*gen+1],mq[2*gen]);
-    }        
-    delete myPV;
+        }        
+        delete myPV;
+    }
 
     complex Sigma(0.0,0.0,false);
     double ml2, mlprime2, mq2, mqprime2;

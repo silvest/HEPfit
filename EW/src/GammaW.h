@@ -26,7 +26,8 @@ public:
 
     
 private:
-
+    double Gamma_W;
+    
 };
 
 #endif	/* GAMMAW_H */

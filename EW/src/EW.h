@@ -229,6 +229,30 @@ public:
      */
     double A_q(const StandardModel::quark q) const;
     
+    /**
+     * @param[in] li name of neutrinos
+     * @param[in] lj name of charged leptons
+     * @return the partial width of W^+ decay into an l_i\bar{l_j} pair 
+     * @attention Mixings in the lepton sector are neglected. 
+     * @attention Fermion masses are neglected. 
+     */
+    double Gamma_W_l(const StandardModel::lepton li, 
+                     const StandardModel::lepton lj) const;
+        
+    /**
+     * @param[in] qi name of up-type quark
+     * @param[in] qj name of down-type quark
+     * @return the partial width of W^+ decay into a q_i\bar{q_j} pair 
+     * @attention Fermion masses are neglected. 
+     */
+    double Gamma_W_q(const StandardModel::quark qi, 
+                     const StandardModel::quark qj) const;
+
+    /**
+     * @return the total width of the W boson
+     */
+    double Gamma_W() const;    
+    
     
     ////////////////////////////////////////////////////////////////////////     
     

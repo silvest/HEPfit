@@ -146,8 +146,16 @@ public:
                                 const orders_EW order) const {
         return deltaKappa_rem_q[q][order];
     }
-    
 
+    double getRho_GammaW_leptons() const {
+        return rho_GammaW_leptons;
+    }
+
+    double getRho_GammaW_quarks() const {
+        return rho_GammaW_quarks;
+    }
+
+    
     //////////////////////////////////////////////////////////////////////// 
 
     /**
@@ -165,6 +173,7 @@ public:
     
     /**
      * @brief computes radiative corrections to Neutral-Current interactions 
+     * as well as those to the partial widths of the W boson 
      * @param[in] Mw_i
      * @param[in] flag_order
      */
@@ -190,9 +199,10 @@ private:
     double DeltaAlpha_t[orders_EW_size];
     double DeltaRho[orders_EW_size];
     double DeltaR_rem[orders_EW_size];
+    double DeltaRbar_rem;
     complex deltaRho_rem_l[6][orders_EW_size], deltaRho_rem_q[6][orders_EW_size];
     complex deltaKappa_rem_l[6][orders_EW_size], deltaKappa_rem_q[6][orders_EW_size];
-    double DeltaRbar_rem;
+    double rho_GammaW_leptons, rho_GammaW_quarks;
 
 };
 
