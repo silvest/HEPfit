@@ -162,6 +162,35 @@ complex OneLoopEW::deltaKappa_rem_q(const StandardModel::quark q) const {
     return ( deltaKappa_rem_tmp(EWSMC.deltaf(q), uf) );
 }
 
+double OneLoopEW::rho_GammaW(const StandardModel::lepton li, 
+                             const StandardModel::lepton lj) const {
+    double Mw = EWSMC.GetMw();
+    double Mz = EWSMC.GetSM().getMz();  
+    double sW2 = EWSMC.GetSW2();
+    double cW2 = EWSMC.GetCW2();
+
+    
+    PVfunctions* myPV;
+    myPV = new PVfunctions();
+    double V1 = FZa_0(Mw*Mw).real() - 3.0/2.0;
+    double V2 = - 2.0*(2.0 + cW2)*Mz*Mz*(myPV->C0(Mw*Mw,Mw,0.0,Mz).real())
+                - (1.0/12.0/cW2/cW2 + 5.0/3.0/cW2 + 1.0)
+                  *(myPV->B0(Mw,Mw*Mw,Mz,Mw).real())
+                + (1.0/12.0/cW2/cW2 + 1.0/cW2 + 1.0)*log(cW2) 
+                + 1.0/12.0/cW2/cW2 + 13.0/12.0/cW2 + 59.0/18.0;
+    delete myPV;
+    
+    /* TEST */
+    std::cout << V1 << "  " << V2 << std::endl;
+    
+    
+}
+
+double OneLoopEW::rho_GammaW(const StandardModel::quark qi, 
+                             const StandardModel::quark qj) const {
+    
+}
+
 
 //////////////////////////////////////////////////////////////////////// 
 

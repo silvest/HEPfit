@@ -140,6 +140,8 @@ class testclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(deltaRho_rem_BOTTOM_imag);       
     CPPUNIT_TEST(deltaKappa_rem_BOTTOM_real);
     CPPUNIT_TEST(deltaKappa_rem_BOTTOM_imag);
+    CPPUNIT_TEST(rho_GammaW_NuE_E);
+    
     
     CPPUNIT_TEST_SUITE_END();
 
@@ -296,6 +298,9 @@ private:
     void deltaRho_rem_BOTTOM_imag();
     void deltaKappa_rem_BOTTOM_real();    
     void deltaKappa_rem_BOTTOM_imag();    
+    
+    void rho_GammaW_NuE_E();
+    
     
 };
 
