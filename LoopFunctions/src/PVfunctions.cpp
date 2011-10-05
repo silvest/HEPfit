@@ -340,6 +340,34 @@ complex PVfunctions::C0(const double p2,
                 //std::cout << "im.val=" << im.val << "  im.err=" << im.err << std::endl;                
             }
             C0 = - 1.0/p2*( Li2[0] - Li2[1] + Li2[2] - Li2[3] - Li2[4] + Li2[5]);        
+        } else if (m0!=0.0 && m2!=0.0 && m0!=m2 && m1==0.0) {
+            double m02 = m0*m0;
+            double m22 = m2*m2;
+            double epsilon = 1.0e-12;
+            double tmp_real = pow((m02+m22-p2),2.0) - 4.0*m02*m22;
+            gsl_complex tmp = gsl_complex_rect(tmp_real, epsilon);
+            tmp = gsl_complex_sqrt(tmp);
+            complex tmp_complex(GSL_REAL(tmp), GSL_IMAG(tmp), false);
+            complex x1 = (p2 - m02 + m22 + tmp_complex)/2.0/p2;
+            complex x2 = (p2 - m02 + m22 - tmp_complex)/2.0/p2;            
+
+            if ( x1==0.0 || x1==1.0 || x2==0.0 || x2==1.0 ) {
+                throw "PVfunctions::C0() is undefined.";
+            }            
+            
+            complex arg1 = (x1 - 1.0)/x1;
+            complex arg2 = x2/(x2 - 1.0);
+            gsl_complex arg1_tmp = gsl_complex_rect(arg1.real(), arg1.imag());
+            gsl_complex arg2_tmp = gsl_complex_rect(arg2.real(), arg2.imag());            
+            
+            C0.real() = - 1.0/p2*( GSL_REAL(gsl_complex_log(arg1_tmp))
+                                    *GSL_REAL(gsl_complex_log(arg2_tmp))
+                                   - GSL_IMAG(gsl_complex_log(arg1_tmp))
+                                     *GSL_IMAG(gsl_complex_log(arg2_tmp)) );
+            C0.imag() = - 1.0/p2*( GSL_REAL(gsl_complex_log(arg1_tmp))
+                                    *GSL_IMAG(gsl_complex_log(arg2_tmp))
+                                   + GSL_IMAG(gsl_complex_log(arg1_tmp))
+                                      *GSL_REAL(gsl_complex_log(arg2_tmp)) );            
         } else {
             throw "PVfunctions::C0() is undefined.";            
         }

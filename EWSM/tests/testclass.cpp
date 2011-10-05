@@ -1054,6 +1054,12 @@ void testclass::deltaKappa_rem_BOTTOM_imag() {
     CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
 }
 
+void testclass::rho_GammaW_NuE_E() {
+    double ZFITTER = 0.0; /* ZFITTER result*/
+    double result = myOLEW->rho_GammaW(mySM->NEUTRINO_1, mySM->ELECTRON);
+    double delta = fabs(epsilon_Li2*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);   
+}
 
 
 
