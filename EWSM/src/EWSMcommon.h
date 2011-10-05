@@ -468,6 +468,78 @@ public:
         return C0_Mz2_Mw_Mt_Mw;
     }
     
+    double GetA0_Mw_Mw() const {
+        return A0_Mw_Mw;
+    }
+
+    double GetA0_Mw_Mz() const {
+        return A0_Mw_Mz;
+    }
+
+    double GetA0_Mw_mh() const {
+        return A0_Mw_mh;
+    }
+
+    complex GetB0_Mw_Mw2_0_Mw() const {
+        return B0_Mw_Mw2_0_Mw;
+    }
+
+    complex GetB0_Mw_Mw2_Mz_Mw() const {
+        return B0_Mw_Mw2_Mz_Mw;
+    }
+
+    complex GetB0_Mw_Mw2_mh_Mw() const {
+        return B0_Mw_Mw2_mh_Mw;
+    }
+
+    complex GetB0p_Mw_Mw2_0_Mw() const {
+        return B0p_Mw_Mw2_0_Mw;
+    }
+
+    complex GetB0p_Mw_Mw2_Mz_Mw() const {
+        return B0p_Mw_Mw2_Mz_Mw;
+    }
+
+    complex GetB0p_Mw_Mw2_mh_Mw() const {
+        return B0p_Mw_Mw2_mh_Mw;
+    }
+
+    complex GetB1p_Mw_Mw2_ml_mlprime(const int gen) const {
+        return B1p_Mw_Mw2_ml_mlprime[gen];
+    }
+
+    complex GetB1p_Mw_Mw2_mlprime_ml(const int gen) const {
+        return B1p_Mw_Mw2_mlprime_ml[gen];
+    }
+
+    complex GetB1p_Mw_Mw2_mq_mqprime(const int gen) const {
+        return B1p_Mw_Mw2_mq_mqprime[gen];
+    }
+
+    complex GetB1p_Mw_Mw2_mqprime_mq(const int gen) const {
+        return B1p_Mw_Mw2_mqprime_mq[gen];
+    }
+
+    complex GetBf_Mw_Mw2_mlprime_ml(const int gen) const {
+        return Bf_Mw_Mw2_mlprime_ml[gen];
+    }
+
+    complex GetBf_Mw_Mw2_mqprime_mq(const int gen) const {
+        return Bf_Mw_Mw2_mqprime_mq[gen];
+    }
+
+    complex GetBfp_Mw_Mw2_mlprime_ml(const int gen) const {
+        return Bfp_Mw_Mw2_mlprime_ml[gen];
+    }
+
+    complex GetBfp_Mw_Mw2_mqprime_mq(const int gen) const {
+        return Bfp_Mw_Mw2_mqprime_mq[gen];
+    }
+    
+    complex GetC0_Mw2_Mw_0_Mz() const {
+        return C0_Mw2_Mw_0_Mz;
+    }
+
     
     //////////////////////////////////////////////////////////////////////// 
 
@@ -509,7 +581,6 @@ protected:
     double A0_Mz_Mw;
     double A0_Mz_Mz;    
     double A0_Mz_mh;
-    //
     complex B0_Mz_Mw2_Mz_Mw;
     complex B0_Mz_Mw2_0_Mw;
     complex B0_Mz_Mw2_mh_Mw;
@@ -520,7 +591,6 @@ protected:
     complex B0_Mz_0_mh_Mw;
     complex B0_Mz_Mz2_ml_ml[6];
     complex B0_Mz_Mz2_mq_mq[6];
-    //
     complex B1_Mz_Mw2_ml_mlprime[3];
     complex B1_Mz_Mw2_mq_mqprime[3];
     complex B1_Mz_Mw2_mlprime_ml[3];
@@ -529,7 +599,6 @@ protected:
     complex B1_Mz_0_mq_mqprime[3];
     complex B1_Mz_0_mlprime_ml[3];
     complex B1_Mz_0_mqprime_mq[3];
-    //
     complex Bf_Mz_Mw2_mlprime_ml[3];
     complex Bf_Mz_Mw2_mqprime_mq[3];
     complex Bf_Mz_0_mlprime_ml[3];
@@ -538,14 +607,12 @@ protected:
     complex Bf_Mz_Mz2_mq_mq[6]; 
     complex Bf_Mz_0_ml_ml[6];
     complex Bf_Mz_0_mq_mq[6];    
-    //
     complex B0p_Mz_0_Mz_Mw;
     complex B0p_Mz_0_mh_Mw; 
     complex B0p_Mz_Mz2_Mw_Mw;
     complex B0p_Mz_Mz2_mh_Mz; 
     complex B0p_Mz_Mz2_ml_ml[6];
     complex B0p_Mz_Mz2_mq_mq[6];    
-    //
     complex Bfp_Mz_Mz2_ml_ml[6];
     complex Bfp_Mz_Mz2_mq_mq[6];    
     
@@ -558,7 +625,25 @@ protected:
     complex C0_Mz2_Mw_0_Mw;    
     complex C0_Mz2_Mw_Mt_Mw;    
     
-    
+    /* One-loop functions in the WF renormalization of the W boson */
+    double A0_Mw_Mw;
+    double A0_Mw_Mz;
+    double A0_Mw_mh;
+    complex B0_Mw_Mw2_Mz_Mw;
+    complex B0_Mw_Mw2_0_Mw;
+    complex B0_Mw_Mw2_mh_Mw;
+    complex B0p_Mw_Mw2_Mz_Mw;
+    complex B0p_Mw_Mw2_0_Mw;
+    complex B0p_Mw_Mw2_mh_Mw;
+    complex Bf_Mw_Mw2_mlprime_ml[3];
+    complex Bf_Mw_Mw2_mqprime_mq[3];              
+    complex Bfp_Mw_Mw2_mlprime_ml[3];
+    complex Bfp_Mw_Mw2_mqprime_mq[3];            
+    complex B1p_Mw_Mw2_ml_mlprime[3];
+    complex B1p_Mw_Mw2_mq_mqprime[3];
+    complex B1p_Mw_Mw2_mlprime_ml[3];
+    complex B1p_Mw_Mw2_mqprime_mq[3];
+    complex C0_Mw2_Mw_0_Mz;
     
 };
 

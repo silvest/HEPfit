@@ -88,7 +88,8 @@ void EW::ComputeEWSM(const schemes_EW schemeMw,
     sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
     cW2 = 1.0 - sW2;
     
-    /* effective couplings rho_Z^f and kappa_Z^f */
+    /* effective couplings rho_Z^f and kappa_Z^f 
+     * as well as rho^W_ij for Gamma_W */
     myEWSM.ComputeNC(Mw, flag_order);
     
     /* Re[rho_Z^f] and Re[kappa_Z^f] with resummations */    
@@ -422,6 +423,64 @@ double EW::A_l(const StandardModel::lepton l) const {
 double EW::A_q(const StandardModel::quark q) const {
     double Re_gV_over_gA = 1.0 - 4.0*fabs(myEWSM.getEWSMC()->Qf(q))*kappaZ_q[q].real()*sW2;
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
+}
+
+double EW::Gamma_W_l(const StandardModel::lepton li, 
+                     const StandardModel::lepton lj) const {
+    if ( ((int)li+2)%2 || ((int)lj+3)%2 ) 
+        throw "Inapproptiate arguments in EW::Gamma_W_l()";
+    
+    complex VMNS(0.0,0.0,false);
+    if ( li==StandardModel::NEUTRINO_1 && lj==StandardModel::ELECTRON ||
+         li==StandardModel::NEUTRINO_2 && lj==StandardModel::MU ||
+         li==StandardModel::NEUTRINO_3 && lj==StandardModel::TAU ) {          
+        VMNS.real() = 1.0;
+    }
+        
+    double G0 = SM.getGF()*pow(Mw,3.0)/6.0/sqrt(2.0)/M_PI;    
+    return ( VMNS.abs2()*G0*myEWSM.getRho_GammaW_leptons() );   
+}
+
+double EW::Gamma_W_q(const StandardModel::quark qi, 
+                     const StandardModel::quark qj) const {
+    if ( ((int)qi+2)%2 || ((int)qj+3)%2 ) 
+        throw "Inapproptiate arguments in EW::Gamma_W_q()";
+    if (qi==StandardModel::TOP || qj==StandardModel::TOP) return (0.0);
+    
+    complex VCKM(0.0,0.0,false);
+    if ( qi==StandardModel::UP && qj==StandardModel::DOWN ) {
+        VCKM = SM.getCKM().V_ud();
+    } else if ( qi==StandardModel::UP && qj==StandardModel::STRANGE ) {
+        VCKM = SM.getCKM().V_us();
+    } else if ( qi==StandardModel::UP && qj==StandardModel::BOTTOM ) {
+        VCKM = SM.getCKM().V_ub();
+    } else if ( qi==StandardModel::CHARM && qj==StandardModel::DOWN ) {
+        VCKM = SM.getCKM().V_cd();
+    } else if ( qi==StandardModel::CHARM && qj==StandardModel::STRANGE ) {
+        VCKM = SM.getCKM().V_cs();
+    } else if ( qi==StandardModel::CHARM && qj==StandardModel::BOTTOM ) {
+        VCKM = SM.getCKM().V_cb();
+    } else {
+        throw "Error in EW::Gamma_W_q()";
+    }
+    //std::cout << "VCKM: " << qi << " " << qj << " " << VCKM << std::endl;
+    
+    /* alpha_s(M_w) */
+    double AlsMw = SM.Als(Mw, 5.0, SM.getAlsMz(), SM.getMz(), FULLNLO); 
+    //std::cout << "AlsMw = " << AlsMw << std::endl;
+    
+    double G0 = SM.getGF()*pow(Mw,3.0)/6.0/sqrt(2.0)/M_PI;    
+    return ( 3.0*VCKM.abs2()*G0*myEWSM.getRho_GammaW_quarks()
+             *(1.0 + AlsMw/M_PI) );    
+}
+
+double EW::Gamma_W() const {
+    return ( Gamma_W_l(SM.NEUTRINO_1, SM.ELECTRON) 
+             + Gamma_W_l(SM.NEUTRINO_2, SM.MU) 
+             + Gamma_W_l(SM.NEUTRINO_3, SM.TAU)             
+             + Gamma_W_q(SM.UP, SM.DOWN) + Gamma_W_q(SM.UP, SM.STRANGE) 
+             + Gamma_W_q(SM.UP, SM.BOTTOM) + Gamma_W_q(SM.CHARM, SM.DOWN)
+             + Gamma_W_q(SM.CHARM, SM.STRANGE) + Gamma_W_q(SM.CHARM, SM.BOTTOM) );
 }
 
 

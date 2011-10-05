@@ -108,22 +108,30 @@ public:
      * @return delta kappa_{rem}^{q, alpha}
      */
     complex deltaKappa_rem_q(const StandardModel::quark q) const;
+
+    /**
+     * @param[in] Qi the electric charge of f_i
+     * @param[in] Qj the electric charge of f_j
+     * @return O(alpha) contribution to the width of W -> f_i bar{f}_j for given Q_i and Q_j
+     * @attention masses for virtual fermions are neglected. 
+     */
+    double rho_GammaW_tmp(const double Qi, const double Qj) const;    
     
     /**
      * @param[in] li name of lepton
      * @param[in] lj name of lepton
      * @return O(alpha) contribution to the width of W -> l_i bar{l}_j
      */
-    double rho_GammaW(const StandardModel::lepton li, 
-                      const StandardModel::lepton lj) const;
+    double rho_GammaW_l(const StandardModel::lepton li, 
+                        const StandardModel::lepton lj) const;
 
      /**
      * @param[in] qi name of quark
      * @param[in] qj name of quark
      * @return O(alpha) contribution to the width of W -> q_i bar{q}_j
      */
-    double rho_GammaW(const StandardModel::quark qi, 
-                      const StandardModel::quark qj) const;
+    double rho_GammaW_q(const StandardModel::quark qi, 
+                        const StandardModel::quark qj) const;
 
     
     ////////////////////////////////////////////////////////////////////////    

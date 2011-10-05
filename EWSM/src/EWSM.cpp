@@ -42,6 +42,8 @@ EWSM::EWSM(const EWSM& orig) : SM(orig.SM) {
         }
     }
     DeltaRbar_rem = orig.getDeltaRbar_rem();
+    rho_GammaW_leptons = orig.getRho_GammaW_leptons();
+    rho_GammaW_quarks = orig.getRho_GammaW_quarks();
 }
 
 EWSM::~EWSM() {
@@ -177,8 +179,20 @@ void EWSM::ComputeNC(double Mw_i, const bool flag_order[orders_EW_size]) {
         if (flag_order[EW3]) 
             deltaKappa_rem_q[i][EW3] = myThreeLoopEW->deltaKappa_rem_q(i_q);
     }
+
+    if (flag_order[EW1]) {
+        /* independent of fermion masses */
+        rho_GammaW_leptons = myOneLoopEW->rho_GammaW_l(StandardModel::NEUTRINO_1,
+                                                       StandardModel::ELECTRON);
+        rho_GammaW_quarks = myOneLoopEW->rho_GammaW_q(StandardModel::UP, 
+                                                      StandardModel::DOWN);
+    }
 }
     
-    
+
+
+
+
+
 
 

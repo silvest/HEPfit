@@ -113,6 +113,7 @@ void EWSMcommon::Compute(const double Mw_i) {
     double Mz = SM.getMz();
     cW2 = Mw*Mw/Mz/Mz;
     sW2 = 1.0 - cW2;    
+    double mh = SM.getMHl();
     double Mt = SM.getQuarks(SM.TOP).getMass();
     
     f_AlphaToGF = sqrt(2.0)*SM.getGF()*pow(Mz,2.0)*sW2*cW2/M_PI/SM.getAle();
@@ -158,6 +159,28 @@ void EWSMcommon::Compute(const double Mw_i) {
     C0_Mz2_Mt_Mw_Mt = PV.C0(Mz*Mz, Mt, Mw, Mt);
     C0_Mz2_Mw_0_Mw = PV.C0(Mz*Mz, Mw, 0.0, Mw);   
     C0_Mz2_Mw_Mt_Mw = PV.C0(Mz*Mz, Mw, Mt, Mw);    
+    //
+    A0_Mw_Mw = PV.A0(Mw, Mw);
+    A0_Mw_Mz = PV.A0(Mw, Mz);
+    A0_Mw_mh = PV.A0(Mw, mh);
+    B0_Mw_Mw2_Mz_Mw = PV.B0(Mw, Mw*Mw, Mz, Mw);
+    B0_Mw_Mw2_0_Mw = PV.B0(Mw, Mw*Mw, 0.0, Mw);
+    B0_Mw_Mw2_mh_Mw = PV.B0(Mw, Mw*Mw, mh, Mw);
+    B0p_Mw_Mw2_Mz_Mw = PV.B0p(Mw, Mw*Mw, Mz, Mw);
+    B0p_Mw_Mw2_0_Mw = PV.B0p(Mw, Mw*Mw, 0.0, Mw);
+    B0p_Mw_Mw2_mh_Mw = PV.B0p(Mw, Mw*Mw, mh, Mw);
+    for (int gen=0; gen<3; gen++) {  
+        Bf_Mw_Mw2_mlprime_ml[gen] = PV.Bf(Mw, Mw*Mw, ml[2*gen+1], ml[2*gen]);
+        Bf_Mw_Mw2_mqprime_mq[gen] = PV.Bf(Mw, Mw*Mw, mq[2*gen+1], mq[2*gen]);               
+        Bfp_Mw_Mw2_mlprime_ml[gen] = PV.Bfp(Mw, Mw*Mw, ml[2*gen+1], ml[2*gen]);
+        Bfp_Mw_Mw2_mqprime_mq[gen] = PV.Bfp(Mw, Mw*Mw, mq[2*gen+1], mq[2*gen]);          
+        B1p_Mw_Mw2_ml_mlprime[gen] = PV.B1p(Mw, Mw*Mw, ml[2*gen], ml[2*gen+1]);
+        B1p_Mw_Mw2_mq_mqprime[gen] = PV.B1p(Mw, Mw*Mw, mq[2*gen], mq[2*gen+1]);
+        B1p_Mw_Mw2_mlprime_ml[gen] = PV.B1p(Mw, Mw*Mw, ml[2*gen+1], ml[2*gen]);
+        B1p_Mw_Mw2_mqprime_mq[gen] = PV.B1p(Mw, Mw*Mw, mq[2*gen+1], mq[2*gen]);
+    }
+    C0_Mw2_Mw_0_Mz = PV.C0(Mw*Mw, Mw, 0.0, Mz);
+    
     
 }
 
