@@ -19,8 +19,8 @@ void QCD2testclass::setUp() {
     QCD2testclass::setSMparameters(*mySM);   
     
     myEWSMC = new EWSMcommon(*mySM);
-    myEWSMC->SetConstants();
-    myEWSMC->Compute(mySM->Mw_tree());
+    myEWSMC->ComputeForCC(mySM->Mw_tree());
+    myEWSMC->ComputeForNC(mySM->Mw_tree());
     
     myQCD2 = new TwoLoopQCD(*myEWSMC);
 

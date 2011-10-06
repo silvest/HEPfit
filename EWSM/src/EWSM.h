@@ -53,6 +53,36 @@ public:
     //////////////////////////////////////////////////////////////////////// 
 
     /**
+     * @brief computes radiative corrections to alpha
+     * @param[in] flag_order an array of boolean switches to control radiative corrections
+     */
+    void ComputeDeltaAlpha(const bool flag_order[orders_EW_size]);    
+
+    /**
+     * @brief computes radiative corrections to Charged-Current interactions
+     * @param[in] Mw_i the W boson mass
+     * @param[in] flag_order an array of boolean switches to control radiative corrections
+     */
+    void ComputeCC(double Mw_i, const bool flag_order[orders_EW_size]);  
+    
+    /**
+     * @brief computes radiative corrections to Neutral-Current interactions 
+     * @param[in] Mw_i the W boson mass
+     * @param[in] flag_order an array of boolean switches to control radiative corrections
+     */
+    void ComputeNC(double Mw_i, const bool flag_order[orders_EW_size]);
+     
+    /**
+     * @brief computes radiative corrections to the partial widths of the W boson 
+     * @param[in] Mw_i the W boson mass
+     * @param[in] flag_order an array of boolean switches to control radiative corrections
+     */     
+    void ComputeRhoWij(double Mw_i, const bool flag_order[orders_EW_size]);
+    
+        
+    //////////////////////////////////////////////////////////////////////// 
+
+    /**
      * @return a pointer to the EWSMcommon object in EWSM class
      */
     EWSMcommon* getEWSMC() const {
@@ -147,39 +177,23 @@ public:
         return deltaKappa_rem_q[q][order];
     }
 
+    /**
+     * @return the O(alpha) corrections to the width of W -> l_i bar{l}_j
+     * @attention independent of the flavours of the final-state leptons
+     */
     double getRho_GammaW_leptons() const {
         return rho_GammaW_leptons;
     }
 
+    /**
+     * @return the O(alpha) corrections to the width of W -> q_i bar{q}_j
+     * @attention independent of the flavours of the final-state quarks
+     */
     double getRho_GammaW_quarks() const {
         return rho_GammaW_quarks;
     }
 
-    
-    //////////////////////////////////////////////////////////////////////// 
 
-    /**
-     * @brief computes radiative corrections to alpha
-     * @param[in] flag_order_i
-     */
-    void ComputeDeltaAlpha(const bool flag_order_i[orders_EW_size]);    
-
-    /**
-     * @brief computes radiative corrections to Charged-Current interactions
-     * @param[in] Mw_i
-     * @param[in] flag_order
-     */
-    void ComputeCC(double Mw_i, const bool flag_order[orders_EW_size]);  
-    
-    /**
-     * @brief computes radiative corrections to Neutral-Current interactions 
-     * as well as those to the partial widths of the W boson 
-     * @param[in] Mw_i
-     * @param[in] flag_order
-     */
-    void ComputeNC(double Mw_i, const bool flag_order[orders_EW_size]);
-     
-    
     ////////////////////////////////////////////////////////////////////////     
     
 protected:

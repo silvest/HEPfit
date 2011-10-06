@@ -89,7 +89,7 @@ void EWSM::ComputeDeltaAlpha(const bool flag_order[orders_EW_size]) {
 }
  
 void EWSM::ComputeCC(double Mw_i, const bool flag_order[orders_EW_size]) {    
-    EWSMC->Compute(Mw_i);
+    EWSMC->ComputeForCC(Mw_i);
         
     if (flag_order[EW1]) 
         DeltaRho[EW1] = myOneLoopEW->DeltaRho();
@@ -119,7 +119,7 @@ void EWSM::ComputeCC(double Mw_i, const bool flag_order[orders_EW_size]) {
 }    
 
 void EWSM::ComputeNC(double Mw_i, const bool flag_order[orders_EW_size]) {
-    EWSMC->Compute(Mw_i);
+    EWSMC->ComputeForNC(Mw_i);
     
     DeltaRbar_rem = myOneLoopEW->DeltaRbar_rem();    
 
@@ -179,6 +179,10 @@ void EWSM::ComputeNC(double Mw_i, const bool flag_order[orders_EW_size]) {
         if (flag_order[EW3]) 
             deltaKappa_rem_q[i][EW3] = myThreeLoopEW->deltaKappa_rem_q(i_q);
     }
+}
+
+void EWSM::ComputeRhoWij(double Mw_i, const bool flag_order[orders_EW_size]) {
+    EWSMC->ComputeForRhoWij(Mw_i);
 
     if (flag_order[EW1]) {
         /* independent of fermion masses */

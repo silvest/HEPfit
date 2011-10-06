@@ -37,7 +37,7 @@ double TwoLoopQCD::DeltaRho() const {
 
 double TwoLoopQCD::DeltaR_rem() const {
     return ( (2.0*DeltaR_ud() + DeltaR_tb())
-              + EWSMC.GetCW2()/EWSMC.GetSW2()/EWSMC.GetF_AlphaToGF()*DeltaRho() );     
+              + EWSMC.GetCW2()/EWSMC.GetSW2()*DeltaRho() );     
 }
 
 complex TwoLoopQCD::deltaRho_rem_l(const StandardModel::lepton l) const {

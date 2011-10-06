@@ -43,10 +43,6 @@ void EW::ComputeEWSM(const schemes_EW schemeMw,
                      const schemes_EW schemeRhoZ,
                      const schemes_EW schemeKappaZ,
                      const bool flag_order[EWSM::orders_EW_size]) {
-
-    /* Common constants */
-    myEWSM.getEWSMC()->SetConstants();
-
     /* Delta alpha */
     myEWSM.ComputeDeltaAlpha(flag_order);
     DeltaAlpha_l5q = SM.getDAle5Mz();
@@ -88,8 +84,7 @@ void EW::ComputeEWSM(const schemes_EW schemeMw,
     sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
     cW2 = 1.0 - sW2;
     
-    /* effective couplings rho_Z^f and kappa_Z^f 
-     * as well as rho^W_ij for Gamma_W */
+    /* effective couplings rho_Z^f and kappa_Z^f */
     myEWSM.ComputeNC(Mw, flag_order);
     
     /* Re[rho_Z^f] and Re[kappa_Z^f] with resummations */    
@@ -166,6 +161,10 @@ void EW::ComputeEWSM(const schemes_EW schemeMw,
         }
         delete myApproximateFormulae;
     }    
+
+    /* rho^W_ij for Gamma_W */
+    myEWSM.ComputeRhoWij(Mw, flag_order);
+
 }
 
 void EW::ComputeZFitter(const schemes_EW schemeMw, 
