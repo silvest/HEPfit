@@ -12,6 +12,7 @@
 
 
 EWSMcommon::EWSMcommon(const StandardModel& SM_i) : SM(SM_i) {
+    SetConstants();
 }
 
 //EWSMcommon::EWSMcommon(const EWSMcommon& orig) {
@@ -24,12 +25,16 @@ EWSMcommon::~EWSMcommon() {
 //////////////////////////////////////////////////////////////////////// 
 
 void EWSMcommon::SetConstants() {
-    double Mz = SM.getMz();
-    double Mt = SM.getQuarks(SM.TOP).getMass();
+    Mz = SM.getMz();
+    mh = SM.getMHl();    
+    Mt = SM.getQuarks(SM.TOP).getMass();
+    for (int i=0; i<6; i++) {
+        ml[i] = SM.getLeptons((StandardModel::lepton) i).getMass();
+        mq[i] = SM.getQuarks((StandardModel::quark) i).getMass();
+    }
     
     /* X_t with G_F */
-    Xt_GF = SM.getGF()*pow(SM.getQuarks(SM.TOP).getMass(), 2.0)
-            /8.0/sqrt(2.0)/M_PI/M_PI;    
+    Xt_GF = SM.getGF()*Mt*Mt/8.0/sqrt(2.0)/M_PI/M_PI;    
     
     /* TEST (should be modified later!!) */
     AlsMt = 0.1074432788;
@@ -44,19 +49,19 @@ void EWSMcommon::SetConstants() {
     double Cl2_Pi_3 = Clausen.Cl2(M_PI/3.0);
     S2 = 4.0/9.0/sqrt(3.0)*Cl2_Pi_3;
     D3 = 6.0*zeta3 - 15.0/4.0*zeta4 - 6.0*Cl2_Pi_3*Cl2_Pi_3;
-    //double Li4_1_2 = ;
+    //double Li4_1_2 = ??;
     //B4 = 16.0*Li4_1_2 - 4.0*zeta2*log2*log2 + 2.0/3.0*pow(log2,4.0) - 13.0/2.0*zeta4;
     B4 = - 1.76280008707377;
     
     /* Logarithms */
     log2 = log(2.0);
-    logMZtoME = log( SM.getMz()/SM.getLeptons(SM.ELECTRON).getMass() );
-    logMZtoMMU = log( SM.getMz()/SM.getLeptons(SM.MU).getMass() );    
-    logMZtoMTAU = log( SM.getMz()/SM.getLeptons(SM.TAU).getMass() );    
-    logMZtoMTOP = log( SM.getMz()/SM.getQuarks(SM.TOP).getMass() );
-    logMTOPtoMH = log( Mt/SM.getMHl() );
+    logMZtoME = log( Mz/SM.getLeptons(SM.ELECTRON).getMass() );
+    logMZtoMMU = log( Mz/SM.getLeptons(SM.MU).getMass() );    
+    logMZtoMTAU = log( Mz/SM.getLeptons(SM.TAU).getMass() );    
+    logMZtoMTOP = log( Mz/Mt );
+    logMTOPtoMH = log( Mt/mh );
     
-    /* Logarithms etc for two-loop QCD corrections */
+    /* Logarithms, Clausen functions, etc for two-loop QCD corrections */
     double r_QCD2 = Mz*Mz/4.0/Mt/Mt;
     Phi_QCD2 = asin(sqrt(r_QCD2));
     gamma_QCD2 = log(2.0*sqrt(r_QCD2));
@@ -67,8 +72,6 @@ void EWSMcommon::SetConstants() {
                                                   -sin(4.0*Phi_QCD2));
     logV1primeAndA1prime = GSL_REAL(gsl_complex_log(OneMinusE2Iphi))
                            - 2.0*GSL_REAL(gsl_complex_log(OneMinusE4Iphi));
-    
-    /* Clausen functions for two-loop QCD corrections */
     double Phi= asin(Mz/2.0/Mt);            
     Cl3_2Phi = Clausen.Cl3(2.0*Phi);
     Cl3_4Phi = Clausen.Cl3(4.0*Phi);    
@@ -78,12 +81,9 @@ void EWSMcommon::SetConstants() {
     /* One-loop functions */
     A0_Mz_Mz = PV.A0(Mz, Mz);
     A0_Mz_mh = PV.A0(Mz, SM.getMHl());    
-    B0_Mz_Mz2_mh_Mz = PV.B0(Mz, Mz*Mz, SM.getMHl(), Mz);        
-    B0p_Mz_Mz2_mh_Mz = PV.B0p(Mz, Mz*Mz, SM.getMHl(), Mz);    
-    double ml[6], mq[6];
+    B0_Mz_Mz2_mh_Mz = PV.B0(Mz, Mz*Mz, mh, Mz);        
+    B0p_Mz_Mz2_mh_Mz = PV.B0p(Mz, Mz*Mz, mh, Mz);    
     for (int i=0; i<6; i++) {
-        ml[i] = SM.getLeptons((StandardModel::lepton) i).getMass();
-        mq[i] = SM.getQuarks((StandardModel::quark) i).getMass();
         B0_Mz_Mz2_ml_ml[i] = PV.B0(Mz, Mz*Mz, ml[i], ml[i]);
         B0_Mz_Mz2_mq_mq[i] = PV.B0(Mz, Mz*Mz, mq[i], mq[i]);
         Bf_Mz_Mz2_ml_ml[i] = PV.Bf(Mz, Mz*Mz, ml[i], ml[i]);
@@ -103,18 +103,15 @@ void EWSMcommon::SetConstants() {
         B1_Mz_0_mlprime_ml[gen] = PV.B1(Mz, 0.0, ml[2*gen+1], ml[2*gen]);
         B1_Mz_0_mqprime_mq[gen] = PV.B1(Mz, 0.0, mq[2*gen+1], mq[2*gen]);
     } 
-    //        
-    C0_Mz2_0_Mz_0 = PV.C0(Mz*Mz, 0.0, Mz, 0.0);   
     
+    /* One-loop function in vertex corrections */
+    C0_Mz2_0_Mz_0 = PV.C0(Mz*Mz, 0.0, Mz, 0.0);     
 }
 
-void EWSMcommon::Compute(const double Mw_i) {
+void EWSMcommon::ComputeForCC(const double Mw_i) {
     Mw = Mw_i;
-    double Mz = SM.getMz();
     cW2 = Mw*Mw/Mz/Mz;
     sW2 = 1.0 - cW2;    
-    double mh = SM.getMHl();
-    double Mt = SM.getQuarks(SM.TOP).getMass();
     
     f_AlphaToGF = sqrt(2.0)*SM.getGF()*pow(Mz,2.0)*sW2*cW2/M_PI/SM.getAle();
     Xt_alpha = Xt_GF/f_AlphaToGF;
@@ -122,28 +119,22 @@ void EWSMcommon::Compute(const double Mw_i) {
     /* Logarithms */
     log_cW2 = log(cW2);
 
-    /* Dilogarithm and Trilogarithm */
+    /* Dilogarithm and Trilogarithm for two-loop QCD corrections */
     Li2_MW2toMTOP2 = gsl_sf_dilog(Mw*Mw/Mt/Mt);
     Li3_MW2toMTOP2 = PolyLog.Li3(Mw*Mw/Mt/Mt);
     Li3_for_F1 = PolyLog.Li3(-Mw*Mw/Mt/Mt/(1.0 - Mw*Mw/Mt/Mt)); 
     
-    /* One-loop functions */
+    /* One-loop functions in Delta r */
     A0_Mz_Mw = PV.A0(Mz, Mw);
     B0_Mz_Mw2_Mz_Mw = PV.B0(Mz, Mw*Mw, Mz, Mw);
     B0_Mz_Mw2_0_Mw = PV.B0(Mz, Mw*Mw, 0.0, Mw);
-    B0_Mz_Mw2_mh_Mw = PV.B0(Mz, Mw*Mw, SM.getMHl(), Mw);
+    B0_Mz_Mw2_mh_Mw = PV.B0(Mz, Mw*Mw, mh, Mw);
     B0_Mz_0_Mz_Mw = PV.B0(Mz, 0.0, Mz, Mw);
     B0_Mz_0_0_Mw = PV.B0(Mz, 0.0, 0.0, Mw);
-    B0_Mz_0_mh_Mw = PV.B0(Mz, 0.0, SM.getMHl(), Mw);   
+    B0_Mz_0_mh_Mw = PV.B0(Mz, 0.0, mh, Mw);   
     B0_Mz_Mz2_Mw_Mw = PV.B0(Mz, Mz*Mz, Mw, Mw);
     B0p_Mz_0_Mz_Mw = PV.B0p(Mz, 0.0, Mz, Mw);
-    B0p_Mz_0_mh_Mw = PV.B0p(Mz, 0.0, SM.getMHl(), Mw);
-    B0p_Mz_Mz2_Mw_Mw = PV.B0p(Mz, Mz*Mz, Mw, Mw);
-    double ml[6], mq[6];
-    for (int i=0; i<6; i++) {
-        ml[i] = SM.getLeptons((StandardModel::lepton) i).getMass();
-        mq[i] = SM.getQuarks((StandardModel::quark) i).getMass();
-    }
+    B0p_Mz_0_mh_Mw = PV.B0p(Mz, 0.0, mh, Mw);
     for (int gen=0; gen<3; gen++) {
         B1_Mz_Mw2_ml_mlprime[gen] = PV.B1(Mz, Mw*Mw, ml[2*gen], ml[2*gen+1]);
         B1_Mz_Mw2_mq_mqprime[gen] = PV.B1(Mz, Mw*Mw, mq[2*gen], mq[2*gen+1]);
@@ -151,15 +142,28 @@ void EWSMcommon::Compute(const double Mw_i) {
         Bf_Mz_Mw2_mqprime_mq[gen] = PV.Bf(Mz, Mw*Mw, mq[2*gen+1], mq[2*gen]);            
         B1_Mz_Mw2_mlprime_ml[gen] = PV.B1(Mz, Mw*Mw, ml[2*gen+1], ml[2*gen]);
         B1_Mz_Mw2_mqprime_mq[gen] = PV.B1(Mz, Mw*Mw, mq[2*gen+1], mq[2*gen]);
-    }    
-    //
+    }     
+}
+
+void EWSMcommon::ComputeForNC(const double Mw_i) {    
+    ComputeForCC(Mw_i);
+
+    /* One-loop function in OneLoopEW::SigmaPrime_ZZ_bos_Mz2() */
+    B0p_Mz_Mz2_Mw_Mw = PV.B0p(Mz, Mz*Mz, Mw, Mw);
+    
+    /* One-loop functions in vertex corrections */    
     B0_Mw_Mz2_Mw_Mw = PV.B0(Mw, Mz*Mz, Mw, Mw);
     B0_Mw_Mz2_Mt_Mt = PV.B0(Mw, Mz*Mz, Mt, Mt);
     C0_Mz2_0_Mw_0 = PV.C0(Mz*Mz, 0.0, Mw, 0.0);
     C0_Mz2_Mt_Mw_Mt = PV.C0(Mz*Mz, Mt, Mw, Mt);
     C0_Mz2_Mw_0_Mw = PV.C0(Mz*Mz, Mw, 0.0, Mw);   
-    C0_Mz2_Mw_Mt_Mw = PV.C0(Mz*Mz, Mw, Mt, Mw);    
-    //
+    C0_Mz2_Mw_Mt_Mw = PV.C0(Mz*Mz, Mw, Mt, Mw);   
+}
+
+void EWSMcommon::ComputeForRhoWij(const double Mw_i) {
+    ComputeForCC(Mw_i);    
+    
+    /* One-loop functions in vertex corrections to Gamma_W */
     A0_Mw_Mw = PV.A0(Mw, Mw);
     A0_Mw_Mz = PV.A0(Mw, Mz);
     A0_Mw_mh = PV.A0(Mw, mh);
@@ -179,9 +183,8 @@ void EWSMcommon::Compute(const double Mw_i) {
         B1p_Mw_Mw2_mlprime_ml[gen] = PV.B1p(Mw, Mw*Mw, ml[2*gen+1], ml[2*gen]);
         B1p_Mw_Mw2_mqprime_mq[gen] = PV.B1p(Mw, Mw*Mw, mq[2*gen+1], mq[2*gen]);
     }
-    C0_Mw2_Mw_0_Mz = PV.C0(Mw*Mw, Mw, 0.0, Mz);
-    
-    
+    C0_Mw2_0_Mz_0 = PV.C0(Mw*Mw, 0.0, Mz, 0.0); 
+    C0_Mw2_Mw_0_Mz = PV.C0(Mw*Mw, Mw, 0.0, Mz); 
 }
 
 

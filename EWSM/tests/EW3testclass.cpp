@@ -19,8 +19,8 @@ void EW3testclass::setUp() {
     EW3testclass::setSMparameters(*mySM);   
     
     myEWSMC = new EWSMcommon(*mySM);
-    myEWSMC->SetConstants();
-    myEWSMC->Compute(mySM->Mw_tree());
+    myEWSMC->ComputeForCC(mySM->Mw_tree());
+    myEWSMC->ComputeForNC(mySM->Mw_tree());
     
     myEW3 = new ThreeLoopEW(*myEWSMC);
 

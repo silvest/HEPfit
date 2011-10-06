@@ -19,8 +19,8 @@ void EW2testclass::setUp() {
     EW2testclass::setSMparameters(*mySM);   
     
     myEWSMC = new EWSMcommon(*mySM);
-    myEWSMC->SetConstants();
-    myEWSMC->Compute(mySM->Mw_tree());
+    myEWSMC->ComputeForCC(mySM->Mw_tree());
+    myEWSMC->ComputeForNC(mySM->Mw_tree());
     
     myEW2 = new TwoLoopEW(*myEWSMC);
 

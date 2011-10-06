@@ -38,15 +38,28 @@ public:
     
     /**
      * @brief computes common variables which are independent of the W boson mass
+     * @attention called from the constructor of the current class
      */
     void SetConstants();
 
     /**
      * @param[in] Mw_i the W boson mass
-     * @brief computes variables which depend on the W boson mass
+     * @brief computes Mw-dependent variables for computations of Mw
      */
-    void Compute(const double Mw_i);
+    void ComputeForCC(const double Mw_i);
 
+    /**
+     * @param[in] Mw_i the W boson mass
+     * @brief computes Mw-dependent variables for computations of rho_Z^f and kappa_Z^f
+     */    
+    void ComputeForNC(const double Mw_i);    
+    
+    /**
+     * @param[in] Mw_i the W boson mass
+     * @brief computes Mw-dependent variables for computations of rho^W_{ij}
+     */       
+    void ComputeForRhoWij(const double Mw_i);
+    
     
     //////////////////////////////////////////////////////////////////////// 
 
@@ -536,6 +549,10 @@ public:
         return Bfp_Mw_Mw2_mqprime_mq[gen];
     }
     
+    complex GetC0_Mw2_0_Mz_0() const {
+        return C0_Mw2_0_Mz_0;
+    }
+
     complex GetC0_Mw2_Mw_0_Mz() const {
         return C0_Mw2_Mw_0_Mz;
     }
@@ -551,6 +568,10 @@ protected:
     
     double Mw;
     double cW2, sW2;    
+
+    /* local variables, copies of the corresponding ones in StandardModel */
+    double Mz, mh, Mt, ml[6], mq[6]; 
+
     double f_AlphaToGF;    
     double Xt_GF; /* X_t with G_F */
     double Xt_alpha; /* X_t with alpha(0) */
@@ -570,11 +591,9 @@ protected:
     double Li2_MW2toMTOP2;
     double Li3_MW2toMTOP2, Li3_for_F1;
     
-    /* Logarithms etc for two-loop QCD corrections */
+    /* Logarithms, Clausen functions, etc for two-loop QCD corrections */
     double Phi_QCD2, gamma_QCD2, h_QCD2;
     double logV1primeAndA1prime;
-    
-    /* Clausen functions for two-loop QCD corrections */
     double Cl3_2Phi, Cl3_4Phi, Cl2_2Phi, Cl2_4Phi;
     
     /* One-loop functions in self-energies */
@@ -643,6 +662,7 @@ protected:
     complex B1p_Mw_Mw2_mq_mqprime[3];
     complex B1p_Mw_Mw2_mlprime_ml[3];
     complex B1p_Mw_Mw2_mqprime_mq[3];
+    complex C0_Mw2_0_Mz_0;
     complex C0_Mw2_Mw_0_Mz;
     
 };

@@ -468,8 +468,8 @@ complex OneLoopEW::SigmaZZ_fer(const double mu, const double s) const {
 complex OneLoopEW::PiGammaGamma_bos(const double mu, const double s) const {
     double Mw = EWSMC.GetMw();
     double Mw2 = Mw*Mw;
-    //double Mz = EWSMC.GetSM().getMz();    
-    //double Mz2 = Mz*Mz;
+    double Mz = EWSMC.GetSM().getMz();    
+    double Mz2 = Mz*Mz;
     //double cW2 = EWSMC.GetCW2();
     double RW = pow(EWSMC.GetMw(), 2.0)/s;
     double RW2 = RW*RW;
@@ -478,11 +478,16 @@ complex OneLoopEW::PiGammaGamma_bos(const double mu, const double s) const {
     /* Loop functions */
     double A0_Mw;
     complex B0_s_Mw_Mw;
-    PVfunctions* myPV;
-    myPV = new PVfunctions();
-    A0_Mw = myPV->A0(mu, Mw);
-    B0_s_Mw_Mw = myPV->B0(mu, s, Mw, Mw);
-    delete myPV; 
+    if (mu==Mz && s==Mz2) {
+        A0_Mw = EWSMC.GetA0_Mz_Mw();
+        B0_s_Mw_Mw = EWSMC.GetB0_Mz_Mz2_Mw_Mw();
+    } else {
+        PVfunctions* myPV;
+        myPV = new PVfunctions();
+        A0_Mw = myPV->A0(mu, Mw);
+        B0_s_Mw_Mw = myPV->B0(mu, s, Mw, Mw);
+        delete myPV; 
+    }
     
     complex Pi(0.0,0.0,false);
     if (s==0.0) {
@@ -509,23 +514,21 @@ complex OneLoopEW::PiGammaGamma_fer(const double mu, const double s,
         } else {
             Bf_s_ml_ml = EWSMC.GetBf_Mz_Mz2_ml_ml(l);
         }
-    } else {
-        if (mu==Mz && s==0.0) {        
-            if (ml==0.0) {
-                Bf_s_ml_ml = 0.0; 
-            } else {
-                Bf_s_ml_ml = EWSMC.GetBf_Mz_0_ml_ml(l);
-            }
+    } else if (mu==Mz && s==0.0) {        
+        if (ml==0.0) {
+            Bf_s_ml_ml = 0.0; 
         } else {
-            PVfunctions* myPV;
-            myPV = new PVfunctions();
-            if (ml==0.0) {
-                Bf_s_ml_ml = 0.0; 
-            } else {
-                Bf_s_ml_ml = myPV->Bf(mu,s,ml,ml);
-            }
-            delete myPV;
+            Bf_s_ml_ml = EWSMC.GetBf_Mz_0_ml_ml(l);
         }
+    } else {
+        PVfunctions* myPV;
+        myPV = new PVfunctions();
+        if (ml==0.0) {
+            Bf_s_ml_ml = 0.0; 
+        } else {
+            Bf_s_ml_ml = myPV->Bf(mu,s,ml,ml);
+        }
+        delete myPV;
     }
     
     double Ql = EWSMC.Qf(l);
@@ -546,23 +549,21 @@ complex OneLoopEW::PiGammaGamma_fer(const double mu, const double s,
         } else {
             Bf_s_mq_mq = EWSMC.GetBf_Mz_Mz2_mq_mq(q);
         }
-    } else {
-        if (mu==Mz && s==0.0) {        
-            if (mq==0.0) {
-                Bf_s_mq_mq = 0.0; 
-            } else {
-                Bf_s_mq_mq = EWSMC.GetBf_Mz_0_mq_mq(q);
-            }
+    } else if (mu==Mz && s==0.0) {        
+        if (mq==0.0) {
+            Bf_s_mq_mq = 0.0; 
         } else {
-            PVfunctions* myPV;
-            myPV = new PVfunctions();
-            if (mq==0.0) {
-                Bf_s_mq_mq = 0.0; 
-            } else {
-                Bf_s_mq_mq = myPV->Bf(mu,s,mq,mq);
-            }
-            delete myPV;
+            Bf_s_mq_mq = EWSMC.GetBf_Mz_0_mq_mq(q);
         }
+    } else {
+        PVfunctions* myPV;
+        myPV = new PVfunctions();
+        if (mq==0.0) {
+            Bf_s_mq_mq = 0.0; 
+        } else {
+            Bf_s_mq_mq = myPV->Bf(mu,s,mq,mq);
+        }
+        delete myPV;
     }
     
     double Qq = EWSMC.Qf(q);
@@ -909,26 +910,25 @@ double OneLoopEW::TEST_DeltaRhobarW_bos() const {
 //////////////////////////////////////////////////////////////////////// 
 
 complex OneLoopEW::FZa_0(const double s) const {
+    double Mw = EWSMC.GetMw();
     double Mz = EWSMC.GetSM().getMz();   
     double Rz = Mz*Mz/s;
 
-    /* Three-point one-loop functions */
+    /* Logarithm and three-point one-loop functions */
+    double log_Rz;
     complex C0_s_0_Mz_0;
     if (s==Mz*Mz) {
+        log_Rz = 0.0;
         C0_s_0_Mz_0 = EWSMC.GetC0_Mz2_0_Mz_0();
+    } else if (s==Mw*Mw) {
+        log_Rz = - EWSMC.GetLog_cW2();
+        C0_s_0_Mz_0 = EWSMC.GetC0_Mw2_0_Mz_0();
     } else {
+        log_Rz = log(Rz);
         PVfunctions* myPV;
         myPV = new PVfunctions();
         C0_s_0_Mz_0 = myPV->C0(s,0.0,Mz,0.0);
         delete myPV;
-    }
-    
-    /* Logarithm */
-    double log_Rz;
-    if (s==Mz*Mz) { 
-        log_Rz = 0.0;
-    } else {
-        log_Rz = log(Rz);
     }
     
     complex FZa(0.0,0.0,false);
@@ -942,23 +942,18 @@ complex OneLoopEW::FWa_0(const double s) const {
     double Mz = EWSMC.GetSM().getMz();   
     double Rw = Mw*Mw/s;
 
-    /* Three-point one-loop functions */
+    /* Logarithm and three-point one-loop functions */
+    double log_Rw;
     complex C0_s_0_Mw_0;
     if (s==Mz*Mz) {    
+        log_Rw = EWSMC.GetLog_cW2();
         C0_s_0_Mw_0 = EWSMC.GetC0_Mz2_0_Mw_0(); 
     } else {
+        log_Rw = log(Rw);
         PVfunctions* myPV;
         myPV = new PVfunctions();
         C0_s_0_Mw_0 = myPV->C0(s,0.0,Mw,0.0);
         delete myPV;    
-    }
-
-    /* Logarithm */
-    double log_Rw;
-    if (s==Mz*Mz) {  
-        log_Rw = EWSMC.GetLog_cW2();
-    } else {
-        log_Rw = log(Rw);
     }
     
     complex FWa(0.0,0.0,false);
@@ -1005,29 +1000,24 @@ complex OneLoopEW::FWa_t(const double s) const {
     double Mt = EWSMC.GetSM().getQuarks(EWSMC.GetSM().TOP).getMass();
     double wt = Mt*Mt/Mw/Mw; 
 
-    /* Two- and three-point one-loop functions */
+    /* Logarithm and two- and three-point one-loop functions */
+    double log_wt = - 2.0*EWSMC.GetLogMZtoMTOP() - EWSMC.GetLog_cW2();
+    double log_Rw;
     complex B0_Mw_s_Mt_Mt;
     complex C0_s_Mt_Mw_Mt, C0_s_0_Mw_0;
     if (s==Mz*Mz) {
+        log_Rw = EWSMC.GetLog_cW2();
         B0_Mw_s_Mt_Mt = EWSMC.GetB0_Mw_Mz2_Mt_Mt();
         C0_s_Mt_Mw_Mt = EWSMC.GetC0_Mz2_Mt_Mw_Mt();
         C0_s_0_Mw_0 = EWSMC.GetC0_Mz2_0_Mw_0();
     } else {
+        log_Rw = log(Rw);
         PVfunctions* myPV;
         myPV = new PVfunctions();
         B0_Mw_s_Mt_Mt = myPV->B0(Mw,s,Mt,Mt); 
         C0_s_Mt_Mw_Mt = myPV->C0(s,Mt,Mw,Mt);
         C0_s_0_Mw_0 = myPV->C0(s,0.0,Mw,0.0);
         delete myPV;      
-    }
-    
-    /* Logarithm */
-    double log_wt = - 2.0*EWSMC.GetLogMZtoMTOP() - EWSMC.GetLog_cW2();
-    double log_Rw;
-    if (s==Mz*Mz) {
-        log_Rw = EWSMC.GetLog_cW2();
-    } else {
-        log_Rw = log(Rw);
     }
     
     complex FWa(0.0,0.0,false);    
@@ -1048,7 +1038,8 @@ complex OneLoopEW::FbarWa_t(const double s) const {
     double Mt = EWSMC.GetSM().getQuarks(EWSMC.GetSM().TOP).getMass();
     double wt = Mt*Mt/Mw/Mw; 
 
-    /* Two- and three-point one-loop functions */
+    /* Logarithm and two- and three-point one-loop functions */
+    double log_wt = - 2.0*EWSMC.GetLogMZtoMTOP() - EWSMC.GetLog_cW2();
     complex B0_Mw_s_Mt_Mt;
     complex C0_s_Mt_Mw_Mt;    
     if (s==Mz*Mz) {
@@ -1061,9 +1052,6 @@ complex OneLoopEW::FbarWa_t(const double s) const {
         C0_s_Mt_Mw_Mt = myPV->C0(s,Mt,Mw,Mt);    
         delete myPV;   
     }
-    
-    /* Logarithm */
-    double log_wt = - 2.0*EWSMC.GetLogMZtoMTOP() - EWSMC.GetLog_cW2();
     
     complex FbarWa(0.0,0.0,false);        
     FbarWa = - wt*( (Rw + 2.0 - wt*(2.0 - wt)*Rw)*Mw*Mw*C0_s_Mt_Mw_Mt
@@ -1079,9 +1067,10 @@ complex OneLoopEW::FWn_t(const double s) const {
     double Mt = EWSMC.GetSM().getQuarks(EWSMC.GetSM().TOP).getMass();
     double wt = Mt*Mt/Mw/Mw; 
 
-    /* Two- and three-point one-loop functions */
-        complex B0_Mw_s_Mw_Mw;
-        complex C0_s_Mw_Mt_Mw, C0_s_Mw_0_Mw;
+    /* Logarithm and two- and three-point one-loop functions */
+    double log_wt = - 2.0*EWSMC.GetLogMZtoMTOP() - EWSMC.GetLog_cW2();  
+    complex B0_Mw_s_Mw_Mw;
+    complex C0_s_Mw_Mt_Mw, C0_s_Mw_0_Mw;
     if (s==Mz*Mz) {
         B0_Mw_s_Mw_Mw = EWSMC.GetB0_Mw_Mz2_Mw_Mw();
         C0_s_Mw_Mt_Mw = EWSMC.GetC0_Mz2_Mw_Mt_Mw();
@@ -1094,9 +1083,6 @@ complex OneLoopEW::FWn_t(const double s) const {
         C0_s_Mw_0_Mw = myPV->C0(s,Mw,0.0,Mw);    
         delete myPV;     
     }
-
-    /* Logarithm */
-    double log_wt = - 2.0*EWSMC.GetLogMZtoMTOP() - EWSMC.GetLog_cW2();  
     
     complex FWn(0.0,0.0,false);        
     FWn = - 2.0*(Rw + 2.0)*Mw*Mw*(C0_s_Mw_Mt_Mw - C0_s_Mw_0_Mw)
@@ -1185,7 +1171,8 @@ complex OneLoopEW::TEST_FWn(const double s, const double mf) const {
     double Rw = Mw*Mw/s;
     double wf = mf*mf/Mw/Mw; 
 
-    /* Two- and three-point one-loop functions */
+    /* Logarithm and two- and three-point one-loop functions */
+    double log_wf = log(wf);  
     PVfunctions* myPV;
     myPV = new PVfunctions();
     double A0_Mw = myPV->A0(Mw, Mw);
@@ -1195,9 +1182,6 @@ complex OneLoopEW::TEST_FWn(const double s, const double mf) const {
     complex C0_s_Mw_mf_Mw = myPV->C0(s,Mw,mf,Mw);
     complex C0_s_Mw_0_Mw = myPV->C0(s,Mw,0.0,Mw);    
     delete myPV;     
-
-    /* Logarithm */
-    double log_wf = log(wf);  
     
     complex FWn(0.0,0.0,false);        
     /* Eq.(5.586) in Bardin and Passarino's book */
