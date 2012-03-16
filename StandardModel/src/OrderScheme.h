@@ -9,9 +9,11 @@
 #define	ORDERSCHEME_H
 
 #define MAXORDER NNLO
+#define MAXORDER_EW NLO_ew
 
 enum schemes {NDR=0, HV, LRI};
 enum orders {LO=0, NLO, NNLO, FULLNLO, FULLNNLO};
+enum orders_ew {NULL_ew = orders(MAXORDER+1), LO_ew, NLO_ew};
 
 #endif	/* ORDERSCHEME_H */
 

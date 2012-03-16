@@ -19,8 +19,10 @@
 const std::string QCD::QCDvars[NQCDvars] = {
     "AlsMz","Mz","mup","mdown","mcharm","mstrange",
     "mtop","mbottom","mut","mub","muc","MBd",
-    "MBs","MBp","MK0","MKp","FBs","FBsoFBd",
-    "BBsoBBd","BBs1","BBs2","BBs3","BBs4","BBs5", "BBsscale", "BBsscheme"
+    "MBs","MBp","MK0","MKp","MD","FBs","FBsoFBd", "FD",
+    "BBsoBBd","BBs1","BBs2","BBs3","BBs4","BBs5", "BBsscale", "BBsscheme",
+    "BD1","BD2","BD3","BD4","BD5", "BDscale", "BDscheme",
+    "BK1","BK2","BK3","BK4","BK5", "BKscale", "BKscheme"
 };
 
 void QCD::Update(const std::map<std::string, double>& DPars) {
@@ -81,6 +83,8 @@ void QCD::SetQCDParameter(std::string name, double value) {
         mesons[K_0].setMass(value);
     else if(name.compare("MKp")==0)
         mesons[K_P].setMass(value);
+    else if(name.compare("MD")==0)
+        mesons[D_0].setMass(value);
     else if(name.compare("FBs")==0) {
         mesons[B_S].setDecayconst(value);
         computeFBd = true;
@@ -88,6 +92,9 @@ void QCD::SetQCDParameter(std::string name, double value) {
     else if(name.compare("FBsoFBd")==0) {
         FBsoFBd = value;
         computeFBd = true;
+    }
+    else if(name.compare("FD")==0) {
+        mesons[D_0].setDecayconst(value);
     }
     else if(name.compare("BBsoBBd")==0) {
         BBsoBBd = value;
@@ -120,7 +127,47 @@ void QCD::SetQCDParameter(std::string name, double value) {
     else if(name.compare("BBsscheme")==0){
         BBd.setScheme((schemes) value);
         BBs.setScheme((schemes) value);
+    }
+    else if(name.compare("BD1")==0) {
+        BD.setBpars(0,value);
+    }
+    else if(name.compare("BD2")==0) {
+        BD.setBpars(1,value);
+    }
+    else if(name.compare("BD3")==0) {
+        BD.setBpars(2,value);
+    }
+    else if(name.compare("BD4")==0){
+        BD.setBpars(3,value);}
+    else if(name.compare("BD5")==0){
+        BD.setBpars(4,value);
     }    
+    else if(name.compare("BDscale")==0){
+        BD.setMu(value);
+    }    
+    else if(name.compare("BDscheme")==0){
+        BD.setScheme((schemes) value);
+    }
+    else if(name.compare("BK1")==0) {
+        BK.setBpars(0,value);
+    }
+   else if(name.compare("BK2")==0) {
+        BK.setBpars(1,value);
+   }
+    else if(name.compare("BK3")==0) {
+        BK.setBpars(2,value);
+    }
+    else if(name.compare("BK4")==0){
+        BK.setBpars(3,value);}
+    else if(name.compare("BK5")==0){
+        BK.setBpars(4,value);
+    }    
+    else if(name.compare("BKscale")==0){
+        BK.setMu(value);
+    }    
+    else if(name.compare("BKscheme")==0){
+        BK.setScheme((schemes) value);
+    }
 //    else {
 //        std::cout << "cannot set parameter " << name << " in SetQCDParameter" << std::endl;
 //        exit(EXIT_FAILURE);
