@@ -11,6 +11,7 @@
 #include <root/TMath.h>
 #include <root/TTree.h>
 #include <root/TROOT.h>
+#include <root/TH1.h>
 
 MonteCarloEngine::MonteCarloEngine(
         const std::vector<ModelParameter>& ModPars_i,
@@ -60,7 +61,7 @@ void MonteCarloEngine::Initialize(Model* Mod_i) {
     kmax = k;
     kwmax = kweight;
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin();
-            it < Obs2D_ALL.end(); it++) {
+            it < Obs2D_ALL.end(); it++) { 
         if ((it->getDistr()).compare("file") == 0) {
             TFile *lik2 = new TFile((it->getFilename() + ".root").c_str(), "read");
             TH2D *htmp2 = (TH2D*) (lik2->Get(it->getHistoname().c_str()));
@@ -175,7 +176,12 @@ double MonteCarloEngine::Weight(const Observable& obs, const double& th) {
     } 
     else if (obs.getDistr().compare("file") == 0) {
         TH1D * h = InHisto1D[obs.getFilename()+obs.getHistoname()];
-       logprob = log(h->GetBinContent(h->FindBin(th)));
+       int i = h->FindBin(th);
+        if(h->IsBinOverflow(i)||h->IsBinUnderflow(i))
+         logprob = log(0.);
+         else
+         logprob = log(h->GetBinContent(i));
+        //logprob = log(h->GetBinContent(h->FindBin(th)));
     }
     else {
         std::cout << "Weight called without weight! " << obs.getName() << std::endl;
@@ -188,7 +194,12 @@ double MonteCarloEngine::Weight(const Observable2D& obs, const double& th1, cons
     double logprob;
     if (obs.getDistr().compare("file") == 0) {
         TH2D * h = InHisto2D[obs.getFilename()+obs.getHistoname()];
-        logprob = log(h->GetBinContent(h->GetXaxis()->FindBin(th1),h->GetYaxis()->FindBin(th2)));
+        int i = h->FindBin(th1,th2);
+        if(h->IsBinOverflow(i)||h->IsBinUnderflow(i))
+         logprob = log(0.);
+         else
+         logprob = log(h->GetBinContent(i));
+        //logprob = log(h->GetBinContent(h->GetXaxis()->FindBin(th1),h->GetYaxis()->FindBin(th2)));
     }
     else {
         std::cout << "2D Weight called without file! " << obs.getName() << std::endl;
