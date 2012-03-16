@@ -12,6 +12,7 @@
             <make-dep-projects>
                 <make-dep-project>../Flavour</make-dep-project>
                 <make-dep-project>../EW</make-dep-project>
+                <make-dep-project>../SUSYMassInsertion</make-dep-project>
                 <make-dep-project>../Observables</make-dep-project>
                 <make-dep-project>../StandardModel</make-dep-project>
             </make-dep-projects>

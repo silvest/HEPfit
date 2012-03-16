@@ -16,6 +16,10 @@ myFlavour(myModel, myModelMatching), myEW(myModel) {
     thobs["Dmd1"] = new DmBd(myFlavour);
     thobs["Dms0"] = new DmBs0(myFlavour);
     thobs["Dms1"] = new DmBs(myFlavour);
+    thobs["M12D"] = new M12D(myFlavour);
+    thobs["ArgD"] = new ArgD(myFlavour);
+    thobs["EpsilonK"] = new EpsilonK(myFlavour) ;
+    thobs["DmK"] = new DmK(myFlavour);
     thobs["Vud"] = new Vud(myFlavour);
     thobs["Vus"] = new Vus(myFlavour);
     thobs["Vub"] = new Vub(myFlavour);
