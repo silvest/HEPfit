@@ -14,11 +14,11 @@
 
 class QCD: public Model {
 public:
-    enum meson {B_D, B_S, B_P, K_0, K_P, MESON_END}; 
+    enum meson {B_D, B_S, B_P, K_0, K_P, D_0, MESON_END}; 
     enum quark {UP,DOWN,CHARM,STRANGE,TOP,BOTTOM};
                            // update StandardModel::lepton if changed!!!!!!
 
-    static const int NQCDvars = 26;
+    static const int NQCDvars = 42;//26;
     /**
      * array containing the labels under which all QCD parameters must be
      * stored in a Parameters object
@@ -31,7 +31,7 @@ public:
      */
  //   QCD(const Parameters&);
     
-    QCD() : BBs(5), BBd(5) {
+    QCD() : BBs(5), BBd(5), BD(5), BK(5) {
         Nc=3.;
         CF = Nc/2.-1./(2.*Nc);
         //to be moved to the Als class
@@ -263,12 +263,24 @@ public:
     BParameter getBBs() const {
         return BBs;
     }
+    
+    BParameter getBD() const {
+        return BD;
+    }
+    
+    BParameter getBK() const {
+        return BK;
+    }
+    
+    /*BParameter getBD() const {
+        return BD;
+    }*/
 
 protected:
     double Nc, CF, AlsMz, Mz, mut, mub, muc;
     Particle quarks[6];
     Meson mesons[MESON_END];
-    BParameter BBs, BBd;
+    BParameter BBs, BBd, BD, BK;
     void SetQCDParameter(std::string, double);
     bool computeYu, computeYd;
 

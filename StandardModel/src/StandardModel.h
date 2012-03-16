@@ -21,7 +21,7 @@ using namespace gslpp;
 class StandardModel: public QCD {
 public:
     enum lepton {NEUTRINO_1,ELECTRON,NEUTRINO_2,MU,NEUTRINO_3,TAU};
-    static const int NSMvars = 17;
+    static const int NSMvars = 22;
     static const std::string SMvars[NSMvars];
 
     /**
@@ -194,6 +194,22 @@ public:
 //    void setMz(double Mz) {
 //        this->Mz = Mz;
 //    }
+    
+    /**
+     * @brief set the value Standard Model contribution to \f$ \Delta m_{K} \f$
+     * @param Dmk Standard Model contribution to \f$ \Delta m_{K} \f$
+     */
+    void setDmk(double Dmk) {
+        this->Dmk = Dmk;
+    }
+    
+    /**
+     * 
+     * @return the value of Standard Model contribution to \f$ \Delta m_{K} \f$
+     */
+    double getDmk() const {
+        return Dmk;
+    }
 
     /**
      *
@@ -209,6 +225,14 @@ public:
      */
     void setMHl(double mHl) {
         this->mHl = mHl;
+    }
+    
+    /**
+     * 
+     * @return the Standard Model amplitude of the \f$ D^{0} - \bar{D}^{0} \f$ mixing
+     */
+    double getSM_M12D() const {
+        return SM_M12D;
     }
 
     virtual const double matchingScale() const ;
@@ -252,12 +276,23 @@ public:
     double getMuw() const {
         return muw;
     }
-
+    
+    double getKbarEpsK() const {
+        return KbarEpsK;
+    }
+    
+    double getphiEpsK() const {
+        return phiEpsK;
+    }
+    
+    double getDeltaMK() const {
+        return DeltaMK;
+    }
+    
 protected:
     matrix<complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
-    //double AlsMz, Mz;
-    double GF, ale, dAle5Mz, mHl, lambda, A, rhob, etab;
-    double muw, mub, muc;
+    double GF, alsMz, ale, dAle5Mz, mZ, mHl, lambda, A, rhob, etab, Dmk;
+    double muw, mub, muc, KbarEpsK, phiEpsK, DeltaMK, SM_M12D;
     CKM myCKM;
     Particle leptons[6];
 
@@ -266,3 +301,4 @@ private:
 };
 
 #endif	/* STANDARDMODEL_H */
+

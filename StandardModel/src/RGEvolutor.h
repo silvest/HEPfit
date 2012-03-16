@@ -19,6 +19,9 @@ public:
     RGEvolutor(unsigned int dim, schemes scheme, orders order) : 
     WilsonTemplate<matrix<double> >(dim, scheme, order) {};
     
+    RGEvolutor(unsigned int dim, schemes scheme, orders order, orders_ew order_ew) : 
+    WilsonTemplate<matrix<double> >(dim, scheme, order, order_ew) {};
+    
     matrix<double>** getEvol() const {
         return (matrix<double>**) elem;
     }
@@ -33,29 +36,55 @@ public:
         *(elem[LO]) = matrix<double>::Id(size);
         for(int i = NLO; i <= order; i++)
           *(elem[i]) = 0.;
+        
+        if (order_ew != NULL_ew){
+            for(int i = NLO_ew; i <= order_ew; i++)
+                *(elem[i]) = 0.;
+        }
     }
 
     void setM(double M) {
         this->M = M;
-        for(int i = LO; i <= order; i++)
-          *(elem[i]) = matrix<double>::Id(size);
+        *(elem[LO]) = matrix<double>::Id(size);
+        for(int i = NLO; i <= order; i++)
+          *(elem[i]) = 0.;
+        
+        if (order_ew != NULL_ew){
+            for(int i = NLO_ew; i <= order_ew; i++)
+                *(elem[i]) = 0.;
+        }
     }
     
     void setMu(double mu) {
         this->mu = mu;
-        for(int i = LO; i <= order; i++)
-          *(elem[i]) = matrix<double>::Id(size);
+        *(elem[LO]) = matrix<double>::Id(size);
+        for(int i = NLO; i <= order; i++)
+          *(elem[i]) = 0.;
+        
+        if (order_ew != NULL_ew){
+            for(int i = NLO_ew; i <= order_ew; i++)
+                *(elem[i]) = 0.;
+        }
     }
     
     void setEvol(unsigned int i, unsigned int j, double x, orders order_i);
+    void setEvol(unsigned int i, unsigned int j, double x, orders order_i, orders_ew order_ew) ;
 
     void setEvol(const matrix<double>& m, orders order_i) { 
         setElem(m, order_i); }
     
-    matrix<double>* Evol(orders order) { return Elem(order); };
-
+    void setEvol(const matrix<double>& m, orders_ew order_ew_i) { 
+        setElem(m, order_ew_i); }
+    
+    matrix<double>* Evol(orders order) { 
+        return Elem(order);}
+        
+    matrix<double>* Evol(orders_ew order_ew) { 
+        return Elem(order_ew);}
+    
 protected:
     double M;
 };
 
 #endif	/* RGEVOLUTOR_H */
+
