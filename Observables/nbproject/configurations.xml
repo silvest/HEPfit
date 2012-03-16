@@ -52,6 +52,7 @@
             <pElem>../Utils/src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../StandardModel/src</pElem>
+            <pElem>../SUSYMassInsertion/src</pElem>
           </incDir>
         </ccTool>
         <archiverTool>
