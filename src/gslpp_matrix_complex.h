@@ -96,6 +96,8 @@ namespace gslpp
       void assign(const size_t& i, const size_t& j, const double& a);
       void assign(const size_t& i, const size_t& j, const matrix<complex>& z);
       void assign(const size_t& i, const size_t& j, const matrix<double>& a);
+      void assignre(const size_t& i, const size_t& j,const double& a);
+      void assignim(const size_t& i, const size_t& j,const double& a);
       /** Get matrix size */
       size_t size_i() const;
       size_t size_j() const;
