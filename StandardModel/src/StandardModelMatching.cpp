@@ -404,7 +404,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() {
     
     
     double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-            / SM.mW(), 2.);
+            / SM.Mw_tree(), 2.);
     complex co = (- 4. * SM.getGF() / sqrt(2)) * SM.getlamt_s();
     
     vmcbsg.clear();
@@ -453,7 +453,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order){
     
     if (xcache == 0.) {
     
-    sw =  sqrt( (M_PI * SM.getAle() )/( sqrt(2) * SM.getGF() * SM.mW() * SM.mW()) ) ;
+    sw =  sqrt( (M_PI * SM.getAle() )/( sqrt(2) * SM.getGF() * SM.Mw_tree() * SM.Mw_tree()) ) ;
 
     for (int j=0; j<10; j++) {
         CWbsgArrayLO[j] = 0.;
@@ -538,7 +538,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlep
     }
     
     double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-                / SM.mW(), 2.);
+                / SM.Mw_tree(), 2.);
     double co = ( SM.getGF() / sqrt(2));
     
     vmcbnlep.clear();
@@ -616,7 +616,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC
     }
     
     double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-                / SM.mW(), 2.);
+                / SM.Mw_tree(), 2.);
     double co = ( SM.getGF() / sqrt(2));
     
     vmcbnlepCC.clear();
@@ -673,7 +673,7 @@ double StandardModelMatching::setWCbnlep(int i, double x, orders order) {
         CWbnlepArrayNLOqcd[j] = 0.;
     };
     
-    sw =  sqrt( (M_PI * SM.getAle() )/( sqrt(2) * SM.getGF() * SM.mW() * SM.mW()) );
+    sw =  sqrt( (M_PI * SM.getAle() )/( sqrt(2) * SM.getGF() * SM.Mw_tree() * SM.Mw_tree()) );
     
     switch (order){
         case NNLO:
@@ -724,7 +724,7 @@ double StandardModelMatching::setWCbnlepEW(int i, double x) {
         CWbnlepArrayNLOew[j] = 0.;
         };
         
-    sw =  sqrt( (M_PI * SM.getAle() )/( sqrt(2) * SM.getGF() * SM.mW() * SM.mW()) ) ;
+    sw =  sqrt( (M_PI * SM.getAle() )/( sqrt(2) * SM.getGF() * SM.Mw_tree() * SM.Mw_tree()) ) ;
     
     CWbnlepArrayNLOew[1] = - 35./18.;
     CWbnlepArrayNLOew[2] = 2./(3. *sw*sw) * ( 2. *B0b(x) + C0b(x) );
@@ -744,18 +744,18 @@ double StandardModelMatching::setWCbnlepEW(int i, double x) {
 
 complex StandardModelMatching::S0c() const {
     double xc = pow(SM.Mrun(SM.getMuc(), SM.getQuarks(QCD::CHARM).getMass(), 4.)
-                / SM.mW(), 2.);
-    complex co = SM.getGF() / 4. / M_PI * SM.mW() * SM.getlamc();
+                / SM.Mw_tree(), 2.);
+    complex co = SM.getGF() / 4. / M_PI * SM.Mw_tree() * SM.getlamc();
     
     return(co*co*xc);    
 }
 
 complex StandardModelMatching::S0ct() const {
     double xc = pow(SM.Mrun(SM.getMuc(), SM.getQuarks(QCD::CHARM).getMass(), 4.)
-                / SM.mW(), 2.);
+                / SM.Mw_tree(), 2.);
     double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-                / SM.mW(), 2.);
-    double co = SM.getGF() / 4. / M_PI * SM.mW();
+                / SM.Mw_tree(), 2.);
+    double co = SM.getGF() / 4. / M_PI * SM.Mw_tree();
     
     return( co*co*2.*SM.getlamc()*SM.getlamt().conjugate()*xc*(log(xt/xc) - 3.*xt/4./(1.-xt) - 
             3.*xt*xt*log(xt)/4./(1-xt)/(1-xt)) );
@@ -764,7 +764,7 @@ complex StandardModelMatching::S0ct() const {
 double StandardModelMatching::S1tt() const {
     double N = SM.getNc();
     double x =pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-                / SM.mW(), 2.);
+                / SM.Mw_tree(), 2.);
     double Li2 = gsl_sf_dilog(1-x);
     
     double S18 = - (64. - 68.*x - 17.*x*x + 11.*x*x*x)/(4.*(1.-x)*(1.-x)) +
@@ -813,7 +813,7 @@ double StandardModelMatching::S1tt() const {
 
 double StandardModelMatching::S0tt() const{
     double x = pow(SM.Mrun(SM.getMut(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-                / SM.mW(), 2.);
+                / SM.Mw_tree(), 2.);
     
     return ( (4.*x - 11.*x*x + x*x*x)/4./(1.-x)/(1.-x) - 
             3.*x*x*x/2./(1.-x)/(1.-x)/(1.-x) * log(x) );
