@@ -154,7 +154,19 @@ namespace gslpp
     gsl_complex *x = gsl_matrix_complex_ptr(_matrix, i, j);
     *x = complex(a).as_gsl_type();
   }
-
+  
+  void matrix<complex>::assignre(const size_t& i, const size_t& j,const double& a)
+  {
+    gsl_complex *x = gsl_matrix_complex_ptr(_matrix, i, j);
+    GSL_SET_REAL(x,a);
+  }
+  
+  void matrix<complex>::assignim(const size_t& i, const size_t& j,const double& a)
+  {
+    gsl_complex *x = gsl_matrix_complex_ptr(_matrix, i, j);
+    GSL_SET_IMAG(x,a);
+  }
+  
   /** Assign submatrix */
   void matrix<complex>::assign(const size_t& i, const size_t& j, const matrix<complex>& z)
   {
