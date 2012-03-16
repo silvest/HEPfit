@@ -15,7 +15,9 @@ InputParser::InputParser() {
 
 InputParser::InputParser(const InputParser& orig) {
     myModel = new StandardModel(*orig.myModel);
+    myFlavour = new Flavour(*orig.myFlavour);
     myModelMatching = new StandardModelMatching(*orig.myModelMatching);
+    myEW = new EW(*orig.myEW);
     thf = new ThFactory(*orig.thf);
 }
 
@@ -39,10 +41,18 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
         boost::char_separator<char> sep(" ");
         boost::tokenizer<boost::char_separator<char> > tok(line, sep);
         boost::tokenizer<boost::char_separator<char> >::iterator beg = tok.begin();
-        if (beg->compare("StandardModel") == 0) {
+       if (beg->compare("StandardModel") == 0) {
             modname = *beg;
             myModel = new StandardModel();
             myModelMatching = new StandardModelMatching(*myModel);
+            thf = new ThFactory(*myModel,*myModelMatching);
+            continue;
+        }
+        else if (beg->compare("SusyMI") == 0) {
+            modname = *beg;
+            SUSYMassInsertion* LocalPointer = new SUSYMassInsertion();
+            myModel = LocalPointer;
+            myModelMatching = new SUSYMassInsertionMatching(*LocalPointer);
             thf = new ThFactory(*myModel,*myModelMatching);
             continue;
         }
@@ -126,7 +136,7 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
                 o2.setMin2(atof((*beg).c_str()));
                 ++beg;
                 o2.setMax2(atof((*beg).c_str()));
-                Observables2D.push_back(o2);
+                Observables2D.push_back(o2); 
                 ++beg;
                 if (beg != tok.end()) std::cout << "warning: unread information in observable "
                         << Observables.back().getName() << std::endl;
@@ -138,3 +148,4 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
     }
     return(modname);
 }
+
