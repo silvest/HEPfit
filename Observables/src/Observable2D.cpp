@@ -30,6 +30,14 @@ Observable2D::Observable2D(const Observable& o1d) :  Observable (o1d){
 
 Observable2D::Observable2D(const Observable2D& orig) :  Observable (orig.name, orig.thname,
         orig.label, orig.tMCMC, orig.min, orig.max, orig.tho){
+   
+    distr = orig.distr; 
+    filename = orig.filename; 
+    histoname = orig.histoname;
+    ave = orig.ave; 
+    errg = orig.errg; 
+    errf = orig.errf;
+    
     thname2 = orig.thname2;
     label2 = orig.label2;
     min2 = orig.min2;
