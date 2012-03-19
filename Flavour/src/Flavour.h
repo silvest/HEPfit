@@ -10,7 +10,7 @@
 
 #include <ThObsType.h>
 #include <StandardModel.h>
-#include <HeffDF2.h>
+#include "HeffDF2.h"
 
 using namespace gslpp;
 
@@ -33,6 +33,14 @@ public:
         return HDF2.ComputeCoeffBs(mu, scheme);
     }
 
+    vector<complex>** ComputeCoeffdd(double mu, schemes scheme = NDR) {
+        return HDF2.ComputeCoeffdd(mu, scheme);
+    }
+    
+    vector<complex>** ComputeCoeffK(double mu, schemes scheme = NDR) {
+        return HDF2.ComputeCoeffK(mu, scheme);
+    }
+    
 private:
     HeffDF2 HDF2;
 };

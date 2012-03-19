@@ -8,9 +8,9 @@
 #ifndef DMBD_H
 #define	DMBD_H
 
-#include <ThObservable.h>
+#include <ThObservable.h> 
 #include <Flavour.h>
-#include <AmpDB2.h>
+#include <AmpDB2.h> 
 
 class DmBd : public ThObservable, AmpDB2 {
 public:

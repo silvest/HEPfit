@@ -9,7 +9,7 @@
 #define	AMPDB2_H
 
 #include <gslpp_complex.h>
-#include <Flavour.h>
+#include "Flavour.h"
 
 using namespace gslpp;
 
