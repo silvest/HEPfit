@@ -28,7 +28,7 @@ myFlavour(myModel, myModelMatching), myEW(myModel) {
     thobs["alpha_2a"] = new Alpha_2a(myFlavour);
     thobs["gamma"] = new Gamma(myFlavour);
     thobs["SJPsiK"] = new SJPsiK(myFlavour);
-    thobs["Mw"] = new Mw(myEW);
+    thobs["mW"] = new mW(myEW);
     thobs["GammaW"] = new GammaW(myEW);
     thobs["GammaZ"] = new GammaZ(myEW);
     thobs["AFBlepton"] = new AFBlepton(myEW);
