@@ -211,18 +211,11 @@ public:
     complex S0ct() const;
     
     /**
-     * 
-     * @brief hep-ph/9512380
-     * @return the NLO corrective factor to the top-top contribution to the Delta S = 2 effective hamiltonian
-     */
-    double S1tt() const;
-    
-    /**
      *  
      * @brief hep-ph/9512380
      * @return the loop function for the top-top contribution to the Delta S = 2 effective hamiltonian
      */
-    double S0tt() const;
+    complex S0tt() const;
     
 protected:
     std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2;
@@ -271,8 +264,8 @@ private:
     double CWbnlepArrayLOqcd[10], CWbnlepArrayNLOqcd[10];
     double CWbnlepArrayLOew[10], CWbnlepArrayNLOew[10];
     
-    double sw; //sen(theta_W) tree level
-    double xcache, xcacheb, xcachec; // caching
+    double sw, swa, swb, swc; //sen(theta_W) tree level
+    double xcachea, xcacheb, xcachec; // caching
 };
 
 #endif	/* STANDARDMODELMATCHING_H */

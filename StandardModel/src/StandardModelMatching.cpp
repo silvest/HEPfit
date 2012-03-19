@@ -17,7 +17,19 @@ StandardModelMatching::StandardModelMatching(const StandardModel& SM_i) : ModelM
                 mcbnlepCC(10, NDR, NLO), mcd1(10, NDR, NLO), 
                 mcd1Buras(10, NDR, NLO) {
    
-    xcache = 0.;  xcacheb = 0.; xcachec = 0.;
+    swa = 0.;  swb = 0.; swc = 0.;
+    xcachea = 0.; xcacheb = 0.; xcachec = 0.;
+    
+    for (int j=0; j<10; j++) {
+        CWbsgArrayLO[j] = 0.;
+        CWbsgArrayNLO[j] = 0.;
+        CWD1ArrayLO[j] = 0.; 
+        CWD1ArrayNLO[j] = 0.;
+        CWbnlepArrayLOqcd[j] = 0.;
+        CWbnlepArrayNLOqcd[j] = 0.;
+        CWbnlepArrayLOew[j] = 0.;
+        CWbnlepArrayNLOew[j] = 0.;
+    };
 }
 
 double StandardModelMatching::S0(double x) const {
@@ -451,22 +463,33 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() {
 
 double StandardModelMatching::setWCbsg(int i, double x, orders order){
     
-    if (xcache == 0.) {
-    
     sw =  sqrt( (M_PI * SM.getAle() )/( sqrt(2) * SM.getGF() * SM.Mw_tree() * SM.Mw_tree()) ) ;
 
-    for (int j=0; j<10; j++) {
-        CWbsgArrayLO[j] = 0.;
-        CWbsgArrayNLO[j] = 0.;
-    };
-    // this function returns Misiak effective Wilson coefficients if  CWbsgArrayNLO[7] = C8NLOeff(x);
-    //                                                                CWbsgArrayNLO[6] = C7NLOeff(x);
-    //                                                                CWbsgArrayLO[6] = C7LOeff(x);
-    //                                                                CWbsgArrayLO[7] = C8LOeff(x);
-    // or Misiak standard ones if CWbsgArrayNLO[7] = -0.5 * A0t(x)- 23./36.;
-    //                            CWbsgArrayNLO[6] = -0.5 * F0t(x)- 1./3.;
-    //                            CWbsgArrayLO[6] = 0.;
-    //                            CWbsgArrayLO[7] = 0.;
+    if ( swa == sw && xcachea == x){
+        switch (order){
+        case NNLO:
+        case NLO:
+            return ( CWbsgArrayNLO[i] );
+            break;
+        case LO:
+            return ( CWbsgArrayLO[i] );
+            break;
+        default:
+            std::stringstream out;
+            out << order;
+            throw "order" + out.str() + "not implemeted";
+        }
+    }
+    
+    swa = sw; xcachea = x;
+    // this function returns the effective Wilson coefficients if  CWbsgArrayNLO[7] = C8NLOeff(x);
+    //                                                             CWbsgArrayNLO[6] = C7NLOeff(x);
+    //                                                             CWbsgArrayLO[6] = C7LOeff(x);
+    //                                                             CWbsgArrayLO[7] = C8LOeff(x);
+    // or the standard one if CWbsgArrayNLO[7] = -0.5 * A0t(x)- 23./36.;
+    //                        CWbsgArrayNLO[6] = -0.5 * F0t(x)- 1./3.;
+    //                        CWbsgArrayLO[6] = 0.;
+    //                        CWbsgArrayLO[7] = 0.;
     switch (order){
         case NNLO:
         case NLO:
@@ -488,27 +511,19 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order){
             throw "order" + out.str() + "not implemeted";
             }
     
-    xcache = x;
-    }
-    
-    if ( xcache == x) {
     switch (order){
         case NNLO:
         case NLO:
             return ( CWbsgArrayNLO[i] );
-            if (i == 9) {xcache = 0.;}
             break;
         case LO:
             return ( CWbsgArrayLO[i] );
-            if (i == 9) {xcache = 0.;}
             break;
         default:
             std::stringstream out;
             out << order;
-            throw "order" + out.str() + "not implemeted";     
+            throw "order" + out.str() + "not implemeted";
         }
-    }
-    return (0.);
 }
 
 /******************************************************************************/
@@ -568,9 +583,6 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlep
         case LO:
             for (int j=0; j<10; j++){
                 mcbnlep.setCoeff(j, co * lambda *  setWCbnlep(j, xt,  LO), LO);
-                
-                //std::cout<<"LO, "<< j << "->" << setWCbnlep(j, xt,  LO) <<std::endl;
-                        
                 mcbnlep.setCoeff(j, 0., LO_ew); 
                 }                   
             break;
@@ -579,7 +591,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlep
             out << mcbnlep.getOrder();
             throw "StandardModelMatching::CMbsg(): order " + out.str() + "not implemented";
     }
-    
+
     vmcbnlep.push_back(mcbnlep);
     return(vmcbnlep);
 }
@@ -654,8 +666,6 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC
             out << mcbnlepCC.getOrder();
             throw "StandardModelMatching::CMbsg(): order " + out.str() + "not implemented";
     }
-    
-    xcache = 0.; xcacheb = 0.;
 
     vmcbnlepCC.push_back(mcbnlepCC);
     return(vmcbnlepCC);
@@ -666,14 +676,25 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC
  * ****************************************************************************/
 double StandardModelMatching::setWCbnlep(int i, double x, orders order) {
     
-    if ( xcacheb == 0.) {
-    
-    for (int j=0; j<10; j++) {
-        CWbnlepArrayLOqcd[j] = 0.;
-        CWbnlepArrayNLOqcd[j] = 0.;
-    };
-    
     sw =  sqrt( (M_PI * SM.getAle() )/( sqrt(2) * SM.getGF() * SM.Mw_tree() * SM.Mw_tree()) );
+    
+    if ( swb == sw && xcacheb == x){
+        switch (order){
+        case NNLO:
+        case NLO:
+            return (CWbnlepArrayNLOqcd[i]);
+            break;
+        case LO:
+            return (CWbnlepArrayLOqcd[i]);
+            break;
+        default:
+            std::stringstream out;
+            out << order;
+            throw "order" + out.str() + "not implemeted";     
+        }
+    }
+    
+    swb = sw; xcacheb = x;
     
     switch (order){
         case NNLO:
@@ -693,59 +714,44 @@ double StandardModelMatching::setWCbnlep(int i, double x, orders order) {
             throw "order" + out.str() + "not implemeted";
         }
     
-    xcacheb = x;
-    }
-    
-    if (xcacheb == x) {
     switch (order){
         case NNLO:
         case NLO:
             return (CWbnlepArrayNLOqcd[i]);
-            if (i == 9) {xcacheb = 0.;}
             break;
         case LO:
             return (CWbnlepArrayLOqcd[i]);
-            if (i == 9) {xcacheb = 0.;}
             break;
         default:
             std::stringstream out;
             out << order;
             throw "order" + out.str() + "not implemeted";     
         }
-    }
-    return (0.);
 }
 
 double StandardModelMatching::setWCbnlepEW(int i, double x) {
-    if ( xcachec == 0.) {
-    
-    for (int j=0; j<10; j++) {
-        CWbnlepArrayLOew[j] = 0.;
-        CWbnlepArrayNLOew[j] = 0.;
-        };
-        
+     
     sw =  sqrt( (M_PI * SM.getAle() )/( sqrt(2) * SM.getGF() * SM.Mw_tree() * SM.Mw_tree()) ) ;
+    
+    if ( swb == sw && xcacheb == x){
+        return (CWbnlepArrayNLOew[i]);
+    }
+    
+    swc = sw; xcachec = x;
     
     CWbnlepArrayNLOew[1] = - 35./18.;
     CWbnlepArrayNLOew[2] = 2./(3. *sw*sw) * ( 2. *B0b(x) + C0b(x) );
     CWbnlepArrayNLOew[6] = 2./3. * (4. *C0b(x) + D0b(x) - 4./9.);
     CWbnlepArrayNLOew[8] = 2./3. * (4.*C0b(x) + D0b(x) - 4./9. + (1./(sw*sw)) *
                            (10.*B0b(x) - 4.*C0b(x)) );
-    xcachec = x;
-    }
     
-    if ( xcachec == x) {
-            return (CWbnlepArrayNLOew[i]);
-            if (i == 9) {xcachec = 0.;}
-        }
-    
-    return (0.);
+    return (CWbnlepArrayNLOew[i]);
 }
 
 complex StandardModelMatching::S0c() const {
     double xc = pow(SM.Mrun(SM.getMuc(), SM.getQuarks(QCD::CHARM).getMass(), 4.)
                 / SM.Mw_tree(), 2.);
-    complex co = SM.getGF() / 4. / M_PI * SM.Mw_tree() * SM.getlamc();
+    complex co = SM.getGF() / 2. / M_PI * SM.Mw_tree() * SM.getlamc().conjugate();
     
     return(co*co*xc);    
 }
@@ -753,68 +759,19 @@ complex StandardModelMatching::S0c() const {
 complex StandardModelMatching::S0ct() const {
     double xc = pow(SM.Mrun(SM.getMuc(), SM.getQuarks(QCD::CHARM).getMass(), 4.)
                 / SM.Mw_tree(), 2.);
-    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), 5.)
+    double xt = pow(SM.Mrun(SM.getMut(), SM.getQuarks(QCD::TOP).getMass(), 5.)
                 / SM.Mw_tree(), 2.);
-    double co = SM.getGF() / 4. / M_PI * SM.Mw_tree();
+    double co = SM.getGF() / 2. / M_PI * SM.Mw_tree();
     
-    return( co*co*2.*SM.getlamc()*SM.getlamt().conjugate()*xc*(log(xt/xc) - 3.*xt/4./(1.-xt) - 
-            3.*xt*xt*log(xt)/4./(1-xt)/(1-xt)) );
+    return( co*co*2.*SM.getlamc().conjugate()*SM.getlamt().conjugate()* xc *
+            (log(xt/xc) - 3.*xt/4./(1.-xt) - 3.*xt*xt*log(xt)/4./(1.-xt)/(1.-xt)) );
 }
 
-double StandardModelMatching::S1tt() const {
-    double N = SM.getNc();
-    double x =pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-                / SM.Mw_tree(), 2.);
-    double Li2 = gsl_sf_dilog(1-x);
-    
-    double S18 = - (64. - 68.*x - 17.*x*x + 11.*x*x*x)/(4.*(1.-x)*(1.-x)) +
-                (32. - 68.*x + 32.*x*x - 28.*x*x*x + 3.*x*x*x*x)/2./(1.-x)/(1.-x)/(1.-x) * log(x)
-                + (x*x*(4. - 7.*x + 7.*x*x - 2.*x*x*x))/2./(1.-x)/(1.-x)/(1.-x)/(1.-x) * log(x) * log(x)
-                + (2.*x*(4. - 7.*x - 7*x*x + x*x*x))/(1.-x)/(1.-x)/(1.-x) * Li2
-                + (16./x)*(M_PI * M_PI/6. - Li2);
-    
-    double S11 = - x*(4. - 39.*x + 168.*x*x + 11.*x*x*x)/4./(1.-x)/(1.-x)/(1.-x) -
-                 3.*x*(4. - 24.*x + 36.*x*x + 7.*x*x*x + x*x*x*x)/2./(1.-x)/(1.-x)/(1.-x)/(1.-x) * log(x)
-                 + 3.*x*x*x*(13. + 4.*x + x*x)/2./(1.-x)/(1.-x)/(1.-x)/(1.-x) * log(x) * log(x) -
-                 3.*x*x*x*(5. + x)/(1.-x)/(1.-x)/(1.-x)*Li2;
-    
-    double S1tt = (N - 1.)/2./N * S18 + (N*N - 1.)/2./N * S11 ;
-   
-    double eta = 0.;
-    double Bt = 5.*(N - 1.)/2./N + 3.*(N*N - 1.)/2./N;
-    
-    double gamma0 = 6.*(N - 1.)/N;
-    
-    double gamma1[4] = {0.}, J[4] = {0.};
-    
-    for(int i=0; i<4; i++){
-        gamma1[i] = (N - 1.)/(2.*N) * (-21. + 57./N - 19./3.*N + 4./3.*(i+3.));
-    }
-    
-    for(int k=0; k<4; k++){
-        J[k] = gamma0 * SM.Beta1(3+k)/2./SM.Beta0(3+k)/SM.Beta0(3+k)
-               - gamma1[k]/2./SM.Beta0(3+k);
-    }
-        
-    double b = (4. - 22.*x + 15.*x*x + 2.*x*x*x + x*x*x*x - 18.*x*x*log(x))
-               /((-1. + x)*(-2. + 15.*x - 12.*x*x + x*x*x + 6.*x*x*log(x)));
-    
-    eta = pow(SM.Als(SM.getMuc()), 6./27.) *
-          pow(SM.Als(SM.getMub())/SM.Als(SM.getMuc()), 6./25.) *
-          pow(SM.Als(SM.getMut())/SM.Als(SM.getMub()), 6./23.) *
-          (1. + SM.Als(SM.getMuc())/4./M_PI * (J[1]-J[0]) + 
-          SM.Als(SM.getMub())/4./M_PI * (J[2]-J[1]) 
-          + SM.Als(SM.getMut())/4./M_PI * (S1tt/S0tt()
-          + Bt - J[2] + gamma0*log(SM.getMut()/SM.getMuw()) + 
-          12.*(3./2.-1./6.)*log(SM.getMut()/SM.getMuw())*b));
-    
-    return (eta);
-}
-
-double StandardModelMatching::S0tt() const{
+complex StandardModelMatching::S0tt() const{
     double x = pow(SM.Mrun(SM.getMut(), SM.getQuarks(QCD::TOP).getMass(), 5.)
                 / SM.Mw_tree(), 2.);
+    complex co = SM.getGF() / 2. / M_PI * SM.Mw_tree() * SM.getlamt().conjugate();
     
-    return ( (4.*x - 11.*x*x + x*x*x)/4./(1.-x)/(1.-x) - 
-            3.*x*x*x/2./(1.-x)/(1.-x)/(1.-x) * log(x) );
+    return ( co * co * ((4.*x - 11.*x*x + x*x*x)/4./(1.-x)/(1.-x) - 
+            3.*x*x*x/2./(1.-x)/(1.-x)/(1.-x) * log(x)) );
 }
