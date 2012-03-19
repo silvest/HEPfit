@@ -5,14 +5,27 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>src/AmpDB2.h</itemPath>
+      <itemPath>src/AmpDD2.h</itemPath>
+      <itemPath>src/AmpDK2.h</itemPath>
+      <itemPath>src/ArgD.h</itemPath>
       <itemPath>src/DmBd.h</itemPath>
       <itemPath>src/DmBd0.h</itemPath>
       <itemPath>src/DmBs.h</itemPath>
       <itemPath>src/DmBs0.h</itemPath>
+      <itemPath>src/DmK.h</itemPath>
+      <itemPath>src/EpsilonK.h</itemPath>
+      <itemPath>src/EvolDC1.h</itemPath>
+      <itemPath>src/EvolDC1Buras.h</itemPath>
+      <itemPath>src/EvolDF1bsg.h</itemPath>
+      <itemPath>src/EvolDF1nlep.h</itemPath>
       <itemPath>src/EvolDF2.h</itemPath>
       <itemPath>src/Flavour.h</itemPath>
       <itemPath>src/FlavourObservables.h</itemPath>
+      <itemPath>src/HeffDC1.h</itemPath>
+      <itemPath>src/HeffDF1bnlep.h</itemPath>
+      <itemPath>src/HeffDF1bsg.h</itemPath>
       <itemPath>src/HeffDF2.h</itemPath>
+      <itemPath>src/M12D.h</itemPath>
       <itemPath>src/SJPsiK.h</itemPath>
       <itemPath>src/Vcb.h</itemPath>
       <itemPath>src/Vub.h</itemPath>
@@ -30,7 +43,18 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/AmpDB2.cpp</itemPath>
+      <itemPath>src/AmpDD2.cpp</itemPath>
+      <itemPath>src/AmpDK2.cpp</itemPath>
+      <itemPath>src/DmK.cpp</itemPath>
+      <itemPath>src/EpsilonK.cpp</itemPath>
+      <itemPath>src/EvolDC1.cpp</itemPath>
+      <itemPath>src/EvolDC1Buras.cpp</itemPath>
+      <itemPath>src/EvolDF1bsg.cpp</itemPath>
+      <itemPath>src/EvolDF1nlep.cpp</itemPath>
       <itemPath>src/EvolDF2.cpp</itemPath>
+      <itemPath>src/HeffDC1.cpp</itemPath>
+      <itemPath>src/HeffDF1bnlep.cpp</itemPath>
+      <itemPath>src/HeffDF1bsg.cpp</itemPath>
       <itemPath>src/HeffDF2.cpp</itemPath>
       <itemPath>src/Vcb.cpp</itemPath>
       <itemPath>src/Vub.cpp</itemPath>
@@ -66,7 +90,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../Utils/src</pElem>
-            <pElem>./src</pElem>
+            <pElem>../SUSYMassInsertion/src</pElem>
           </incDir>
         </ccTool>
         <archiverTool>
@@ -81,16 +105,6 @@
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
-          </makeArtifact>
-          <makeArtifact PL="../StandardModel"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../StandardModel"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
           </makeArtifact>
         </requiredProjects>
       </compileType>

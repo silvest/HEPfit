@@ -14,11 +14,11 @@ complex AmpDB2::AmpBd(orders order) {
     if (myFlavour.getHDF2().getCoeffBd().getOrder() < order)
         throw "DmBd::getThValue(): requires cofficient of order not computed";
 
-    vector<complex> ** allcoeff = myFlavour.ComputeCoeffBd(
-            myFlavour.getModel().getBBd().getMu(),
-            myFlavour.getModel().getBBd().getScheme());
+    vector<complex> ** allcoeff = myFlavour.ComputeCoeffBd( 
+            myFlavour.getModel().getBBd().getMu(), 
+        myFlavour.getModel().getBBd().getScheme()); 
 
-    vector<double> me(myFlavour.getModel().getBBd().getBpars());
+    vector<double> me(myFlavour.getModel().getBBd().getBpars()); 
     double MBd = myFlavour.getModel().getMesons(QCD::B_D).getMass();
     double Mb = myFlavour.getModel().getQuarks(QCD::BOTTOM).getMass();
     double Md = myFlavour.getModel().getQuarks(QCD::DOWN).getMass();
@@ -30,7 +30,6 @@ complex AmpDB2::AmpBd(orders order) {
     me(3) *= 1./4.*KBd*MBd*Fb*Fb;
     me(4) *= 1./12.*KBd*MBd*Fb*Fb;
 
-    complex res(0.);
     switch(order) {
         case NLO:
             return((*(allcoeff[LO]) + *(allcoeff[NLO])) * me / HCUT);
@@ -61,7 +60,7 @@ complex AmpDB2::AmpBs(orders order) {
     me(3) *= 1./4.*KBs*MBs*Fbs*Fbs;
     me(4) *= 1./12.*KBs*MBs*Fbs*Fbs;
 
-    complex res(0.);
+    
     switch(order) {
         case NLO:
             return((*(allcoeff[LO]) + *(allcoeff[NLO])) * me / HCUT);

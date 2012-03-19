@@ -21,6 +21,10 @@
 #include <alpha_2a.h>
 #include <gamma.h>
 #include <SJPsiK.h>
+#include <M12D.h>
+#include <ArgD.h>
+#include <EpsilonK.h>
+#include <DmK.h>
 
 #endif	/* FLAVOUROBSERVABLES_H */
 
