@@ -8,18 +8,12 @@
 #ifndef MODEL_H
 #define	MODEL_H
 
-#include "Particle.h"
-#include <gslpp_complex.h>
 #include <map>
 
 class Model {
 public:
     virtual void Update(const std::map<std::string, double>&) = 0;
     virtual bool Init(const std::map<std::string, double>&) = 0;
-    /**
-     * get the @f$\Delta B=\Delta D=2@f$ amplitude
-     * @return @f$\langle \bar B_d \vert \mathcal{H}_\mathrm{eff}\vert B_d\rangle@f$ //CHECK!!
-     */
 private:
 
 };
