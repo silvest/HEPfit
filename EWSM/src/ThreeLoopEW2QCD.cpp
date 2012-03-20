@@ -3,7 +3,7 @@
  * Author: mishima
  */
 
-#include <root/TError.h>
+#include <TError.h>
 
 #include "ThreeLoopEW2QCD.h"
 
