@@ -150,6 +150,10 @@ double StandardModel::Mw_tree() const {
     return ( Mz/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp)) );
 }
 
+double StandardModel::Mw() const {
+    throw "Codes for StandardModel::Mw() is missing!";
+}
+
 ////////////////////////////////////////////////////////////////////////
 
 // Angles
