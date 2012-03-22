@@ -8,42 +8,11 @@
 #include "SUSY.h"
 #include <math.h>
 
-//SUSY::SUSY(const gslpp::matrix<gslpp::complex>& VCKM_i,
-//        double mu_i, double md_i, double mc_i, double ms_i, double mt_i,
-//        double mb_i, const gslpp::matrix<gslpp::complex>& UPMNS_i,
-//        double me_i, double mmu_i, double mtau_i, double mnu1_i,
-//        double mnu2_i, double mnu3_i, double tanb_i, gslpp::complex muH_i) :
-//        StandardModel(VCKM_i, mu_i, md_i, mc_i,
-//        ms_i, mt_i, mb_i, UPMNS_i, me_i, mmu_i, mtau_i,mnu1_i, mnu2_i, mnu3_i),
-//        Ru(6,6,0.), Rd(6,6,0.), Rl(6,6,0.), Rn(6,6,0), U(2,2,0.), V(2,2,0.),
-//        N(4,4,0.), Msu2(6,0.), Msd2(6,0.), Msl2(6,0.), Msn2(6,0.), Mch(2,0.),
-//        Mneu(4,0.), muH(muH_i)
-//{
-//    setY(tanb_i);
-//}
-
-SUSY::SUSY(const StandardModel& SM_i, double tanb_i, gslpp::complex muH_i) :
-        StandardModel(SM_i), Ru(6,6,0.), Rd(6,6,0.), Rl(6,6,0.), Rn(6,6,0),
+SUSY::SUSY() :
+        StandardModel(), Ru(6,6,0.), Rd(6,6,0.), Rl(6,6,0.), Rn(6,6,0),
         U(2,2,0.), V(2,2,0.), N(4,4,0.), Msu2(6,0.), Msd2(6,0.), Msl2(6,0.),
         Msn2(6,0.), Mch(2,0.), Mneu(4,0.), muH(muH_i){
-    setY(tanb_i);
 }
-
-//SUSY::SUSY(const SUSY& orig) : StandardModel(orig.getVCKM(), orig.getMu(),
-//        orig.getMd(), orig.getMc(), orig.getMs(), orig.getMt(), orig.getMb(),
-//        orig.getUPMNS(), orig.getMe(), orig.getMmu(), orig.getMtau(),
-//        orig.getMnu1(), orig.getMnu2(), orig.getMnu3()),
-//        Ru(6,6,0.), Rd(6,6,0.), Rl(6,6,0.), Rn(6,6,0), U(2,2,0.), V(2,2,0.),
-//        N(4,4,0.), Msu2(6,0.), Msd2(6,0.), Msl2(6,0.), Msn2(6,0.), Mch(2,0.),
-//        Mneu(4,0.), muH(orig.getMuH()) {
-//    tanb = orig.getTanb();
-//    Yd = orig.getYd();
-//    Yu = orig.getYu();
-//}
-
-SUSY::~SUSY() {
-}
-
 
 ///////////////////////////////////////////////////////////////////////////
 
