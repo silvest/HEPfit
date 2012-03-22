@@ -26,12 +26,6 @@ public:
 
     /**
      * updates the SM parameters found in the argument
-     * @param a Parameters object containing the parameters to be updated
-     */
-//    void update(Parameters&);
-
-    /**
-     * updates the SM parameters found in the argument
      * @param a map containing the parameters (all as double) to be updated
      */
     void Update(const std::map<std::string, double>&);
