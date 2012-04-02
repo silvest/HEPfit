@@ -18,14 +18,27 @@ using namespace gslpp;
 
 class HeffDF1bsg {
 public:
+    /**
+     * @brief constructor
+     * @param SM
+     * @param SM_Matching
+     */
     HeffDF1bsg(const StandardModel & SM, StandardModelMatching & SM_Matching);
+    
+    /**
+     * 
+     * @brief destructor
+     */
     virtual ~HeffDF1bsg();
     
-    gslpp::vector<complex>** ComputeCoeffBsg(double mu, schemes scheme = NDR);
+    /**
+     * 
+     * @param mu is the low energy scale
+     * @param scheme indicates the renormalization scheme
+     * @return the effective hamiltonian at the scale mu B -> s gamma decay, Misiak basis, Chetyrkin et al hep-ph/9612313
+     */
+    vector<complex>** ComputeCoeffBsg(double mu, schemes scheme = NDR);
     
-    WilsonCoefficient getCoeffbsg() const {
-        return coeffbsg;
-    }
     
     EvolDF1bsg getUDF1() const {
         return u;
