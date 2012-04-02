@@ -13,20 +13,55 @@
 #include <WilsonCoefficient.h>
 #include "EvolDF1nlep.h"
 #include <sstream>
-//#include <QCD.h>
 
 using namespace gslpp;
 
 class HeffDF1bnlep {
 public:
+    /**
+     * @brief constructor
+     * @param SM
+     * @param modelmatching
+     */
     HeffDF1bnlep(const StandardModel & SM, StandardModelMatching& modelmatching);
+    
+    /**
+     * 
+     * @brief destructor
+     */
     virtual ~HeffDF1bnlep();
     
-
-    gslpp::vector<complex>** ComputeCoeffBnlep00(double mu, schemes scheme = NDR);
-    gslpp::vector<complex>** ComputeCoeffBnlep10(double mu, schemes scheme = NDR);
-    gslpp::vector<complex>** ComputeCoeffBnlep01(double mu, schemes scheme = NDR);
-    gslpp::vector<complex>** ComputeCoeffBnlep11(double mu, schemes scheme = NDR);
+    /**
+     * 
+     * @param mu is the low energy scale
+     * @param scheme indicates the reonrmalization scheme
+     * @return the effective hamiltonian at the scale mu for B decays, \f$ |\Delta C = 0 | \f$, \f$ |\Delta S = 0 | \f$
+     */
+    vector<complex>** ComputeCoeffBnlep00(double mu, schemes scheme = NDR);
+    
+    /**
+     * 
+     * @param mu is the low energy scale
+     * @param scheme indicates the renormalization scheme
+     * @return the effective hamiltonian at the scale mu for B decays, \f$ |\Delta C = 1 | \f$, \f$ |\Delta S = 0 | \f$
+     */
+    vector<complex>** ComputeCoeffBnlep10(double mu, schemes scheme = NDR);
+    
+    /**
+     * 
+     * @param mu is the low energy scale
+     * @param scheme indicates the renormalization scheme
+     * @return the effective hamiltonian at the scale mu for B decays, \f$ |\Delta C = 0 | \f$, \f$ |\Delta S = 1 | \f$
+     */
+    vector<complex>** ComputeCoeffBnlep01(double mu, schemes scheme = NDR);
+    
+    /**
+     * 
+     * @param mu is the low energy scale
+     * @param scheme indicates the renormalization scheme
+     * @return the effective hamiltonian at the scale mu for B decays, \f$ |\Delta C = 1 | \f$, \f$ |\Delta S = 1 | \f$
+     */
+    vector<complex>** ComputeCoeffBnlep11(double mu, schemes scheme = NDR);
     
     WilsonCoefficient getCoeffbnlep00() const {
         return coeffbnlep00;
