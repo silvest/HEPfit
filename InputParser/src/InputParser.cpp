@@ -48,6 +48,13 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             thf = new ThFactory(*myModel,*myModelMatching);
             continue;
         }
+        else if (beg->compare("MFV") == 0) {
+            modname = *beg;
+            myModel = new MFV();
+            myModelMatching = new StandardModelMatching(*myModel);
+            thf = new ThFactory(*myModel,*myModelMatching);
+            continue;
+        }
         else if (beg->compare("SusyMI") == 0) {
             modname = *beg;
             SUSYMassInsertion* LocalPointer = new SUSYMassInsertion();
