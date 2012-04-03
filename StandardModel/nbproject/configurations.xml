@@ -86,33 +86,12 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../Utils/src</pElem>
             <pElem>/usr/include/root</pElem>
+            <pElem>../EWSM/src</pElem>
           </incDir>
           <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
         </archiverTool>
-        <requiredProjects>
-          <makeArtifact PL="../Utils"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../Utils"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="dist/Debug/GNU-Linux-x86/libutils.a">
-          </makeArtifact>
-          <makeArtifact PL="../gslpp"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../gslpp"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="dist/Debug/GNU-Linux-x86/libgslpp.a">
-          </makeArtifact>
-        </requiredProjects>
       </compileType>
       <folder path="TestFiles">
         <linkerTool>

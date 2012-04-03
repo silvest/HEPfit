@@ -13,6 +13,8 @@
 class Model {
 public:
     virtual void Update(const std::map<std::string, double>&) = 0;
+    virtual bool CheckParameters(const std::map<std::string, double>&) = 0;
+    virtual void SetParameter(const std::string, const double&) = 0;
     virtual bool Init(const std::map<std::string, double>&) = 0;
 private:
 

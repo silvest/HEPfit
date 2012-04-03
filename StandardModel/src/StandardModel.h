@@ -27,12 +27,34 @@ public:
     /**
      * updates the SM parameters found in the argument
      * @param a map containing the parameters (all as double) to be updated
+     * "GF"
+     * "mneutrino_1"
+     * "mneutrino_2"
+     * "mneutrino_3"
+     * "melectron"
+     * "mmu"
+     * "mtau"
+     * "lambda"
+     * "A"
+     * "rhob"
+     * "etab"
+     * "ale"
+     * "dAle5Mz"
+     * "mHl"
+     * "muw"
+     * "mub"
+     * "muc"
+     * "phiEpsK"
+     * "DeltaMK"
+     * "KbarEpsK"
+     * "Dmk"
+     * "SM_M12D" 
      */
-    void Update(const std::map<std::string, double>&);
+    virtual void Update(const std::map<std::string, double>&);
 
-    bool Init(const std::map<std::string, double>&);
-    
-    void SetSMParameter(std::string, double);
+    virtual bool Init(const std::map<std::string, double>&);
+        
+    virtual bool CheckParameters(const std::map<std::string, double>&);
     
     StandardModel();
 
@@ -282,8 +304,25 @@ public:
     double getDeltaMK() const {
         return DeltaMK;
     }
+
+    double GetA() const {
+        return A;
+    }
+
+    double GetEtab() const {
+        return etab;
+    }
+
+    double GetLambda() const {
+        return lambda;
+    }
+
+    double GetRhob() const {
+        return rhob;
+    }
     
 protected:
+    virtual void SetParameter(const std::string, const double&);
     matrix<complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
     double GF, alsMz, ale, dAle5Mz, mZ, mHl, lambda, A, rhob, etab, Dmk;
     double muw, mub, muc, KbarEpsK, phiEpsK, DeltaMK, SM_M12D;

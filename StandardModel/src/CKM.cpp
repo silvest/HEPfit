@@ -39,7 +39,7 @@ CKM::CKM(const CKM& orig) {
 CKM::~CKM() {
 }
 
-void CKM::getCKM(matrix<complex> & x){
+void CKM::getCKM(matrix<complex> & x) const {
     x.assign(0,0,Vud);
     x.assign(0,1,Vus);
     x.assign(0,2,Vub);
@@ -125,19 +125,19 @@ void CKM::setCKM(double Vud_v, double Vcb_v, double Vub_v, double gamma_v) {
 }
 // Wolfenstein parameters
 
-double CKM::getRho() {
+double CKM::getRho() const {
   return Rho;
 }
 
-double CKM::getEta() {
+double CKM::getEta() const {
   return Eta;
 }
 
-double CKM::getLambda() {
+double CKM::getLambda() const {
   return Lambda;
 }
 
-double CKM::getA() {
+double CKM::getA() const {
   return A;
 }
 

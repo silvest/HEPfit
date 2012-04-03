@@ -30,17 +30,22 @@ void QCD::Update(const std::map<std::string, double>& DPars) {
     computeYd = false;
     computeBd = false; 
     computeFBd = false;
+    computemt = false;
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++) 
-        SetQCDParameter(it->first,it->second);
+        SetParameter(it->first,it->second);
     if(computeFBd)
         mesons[B_D].setDecayconst(mesons[B_S].getDecayconst()/FBsoFBd);
     if(computeBd)
         BBd.setBpars(0, BBs.getBpars()(0)/BBsoBBd);
+    if(computemt)
+        quarks[TOP].setMass(Mp2Mbar(mtpole));
 }
 
-void QCD::SetQCDParameter(std::string name, double value) {
-    if(name.compare("AlsMz")==0)
+void QCD::SetParameter(const std::string name, const double& value) {
+    if(name.compare("AlsMz")==0){
         AlsMz = value;
+        computemt = true;
+    }
     else if(name.compare("Mz")==0)
         Mz = value;
     else if(name.compare("mup")==0){
@@ -60,8 +65,9 @@ void QCD::SetQCDParameter(std::string name, double value) {
         computeYd = true;
     }
     else if(name.compare("mtop")==0){
-        quarks[TOP].setMass(value);
+        mtpole = value;
         computeYu = true;
+        computemt = true;
     }
     else if(name.compare("mbottom")==0){
         quarks[BOTTOM].setMass(value);
@@ -175,14 +181,18 @@ void QCD::SetQCDParameter(std::string name, double value) {
 
 }
 
-bool QCD::Init(const std::map<std::string, double>& DPars) {
+bool QCD::CheckParameters(const std::map<std::string, double>& DPars) {
     for(int i=0;i<NQCDvars;i++)
         if(DPars.find(QCDvars[i])==DPars.end()) {
-            std::cout << QCDvars[i] << std::endl;
+            std::cout << "missing mandatory QCD parameter " << QCDvars[i] << std::endl;
             return false;
         }
-    Update(DPars);
     return true;
+}
+
+bool QCD::Init(const std::map<std::string, double>& DPars) {
+    Update(DPars);
+    return(CheckParameters(DPars));
 }
 
 double QCD::Beta0(double nf) const {
@@ -345,21 +355,64 @@ double QCD::Lambda4(orders order) const {
 }
 
 // running da m(m) a m(mu)
-double QCD::Mrun(double mu, double m, double nf, orders order) const
+double QCD::Mrun(double mu, double m, orders order) const
 {
-    double j;
+    return(Mrun(mu,m,m,order));
+}
 
-    j = -(4./3.*(4.+97.-10./3.*nf))/2./Beta0(nf)+4.*Beta1(nf)/pow(Beta0(nf),2.);
+// running da m(mu_i) a m(mu_f)
+double QCD::Mrun(double mu_f, double mu_i, double m, orders order) const
+{
+    int i;
+    for(i=0;i<5;i++)
+        if((mu_f ==  mrun_cache[0][i]) && (mu_i == mrun_cache[1][i]) &&
+                (m == mrun_cache[2][i]) && (order == mrun_cache[3][i])&&
+                (AlsMz == mrun_cache[4][i]))
+            return mrun_cache[5][i];
+
+    double mx, nfx;
+    double nfi = Nf(mu_i), nff = Nf(mu_f);
+
+    if(nff == nfi || (nff == nfi - 1 && mu_i == AboveTh(mu_f))) 
+            return(Mrun(mu_f, mu_i, m, nff, order));
+    if(nff > nfi) {
+        mx = AboveTh(mu_i);
+        nfx = nfi;
+    }
+    else {
+        mx = BelowTh(mu_i);
+        nfx = nfi-1;
+    }
+
+    double mrun = Mrun(mu_f, mx, Mrun(mx, mu_i, m, nfx, order), order);
+
+    CacheShift(mrun_cache,6);
+    mrun_cache[0][0] = mu_f;
+    mrun_cache[1][0] = mu_i;
+    mrun_cache[2][0] = m;
+    mrun_cache[3][0] = order;
+    mrun_cache[4][0] = AlsMz;
+    mrun_cache[5][0] = mrun;
+    
+    return(mrun);
+}
+
+// running da m(mu_i) a m(mu_f) a nf fissato
+double QCD::Mrun(double mu_f, double mu_i, double m, double nf, orders order) const
+{
+  double j;
+
+    j = -(4./3.*(4.+97.-10./3.*nf))/2./Beta0(nf)+4.*Beta1(nf)/(Beta0(nf)*Beta0(nf));
 
     switch(order) {
         case LO:
-            return(m*pow(Als(mu,order)/Als(m,order),4./Beta0(nf)));
+            return(m*pow(Als(mu_f,order)/Als(mu_i,order),4./Beta0(nf)));
         case FULLNLO:
-            return(m*pow(Als(mu,order)/Als(m,order),4./Beta0(nf))*(1.+(Als(m,order)-
-                    Als(mu,order))/4./M_PI*j));
+            return(m*pow(Als(mu_f,order)/Als(mu_i,order),4./Beta0(nf))*(1.+(Als(mu_i,order)-
+                    Als(mu_f,order))/4./M_PI*j));
         case NLO:
-            return(m*pow(Als(mu,order)/Als(m,order),4./Beta0(nf))*(Als(m,order)-
-                    Als(mu,order))/4./M_PI*j);
+            return(m*pow(Als(mu_f,order)/Als(mu_i,order),4./Beta0(nf))*(Als(mu_i,order)-
+                    Als(mu_f,order))/4./M_PI*j);
         default:
             std::cerr << "mrun: order not defined\n" << std::endl;
             exit(EXIT_FAILURE);
@@ -420,3 +473,6 @@ double QCD::Mbar2Mp(double mbar) const {
     }
 }
 
+double QCD::MS2DRqmass(const double& MSbar) const {
+    return(MSbar/(1.+Als(MSbar)/4./M_PI*CF));
+}
