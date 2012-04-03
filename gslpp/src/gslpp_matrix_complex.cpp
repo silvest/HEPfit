@@ -330,6 +330,10 @@ namespace gslpp
     return const_cast<gsl_matrix_complex&>(*_matrix);
   }
 
+  bool matrix<complex>::is_equal(const matrix<complex>& m1, const matrix<complex>& m2){
+      return gsl_matrix_complex_equal(m1.as_gsl_type_ptr(),m2.as_gsl_type_ptr());
+  }
+  
   /** Unary minus */
   matrix<complex> matrix<complex>::operator-() const
   {
