@@ -39,6 +39,8 @@ public:
         {
             for (int j = 0; j < 5; j++)
                 als_cache[j][i] = 0.;
+            for (int j = 0; j < 6; j++)
+                mrun_cache[j][i] = 0.;
             for (int j = 0; j < 2; j++)
                 lambda4_cache[j][i] = 0.;
             for (int j = 0; j < 4; j++)
@@ -201,15 +203,36 @@ public:
         this->muc = muc;
     }
 
-    /**
+      /**
      * the running quark mass @f$m(\mu)@f$
      * @param mu the scale @f$\mu@f$ in GeV
      * @param m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
-     * @param nf the number of active flavours
      * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return the running quark mass @f$m(\mu)@f$
      */
-     double Mrun(double mu, double m, double nf, orders order = FULLNLO) const;
+     double Mrun(double mu, double m, orders order = FULLNLO) const;
+    
+    /**
+     * runs the quark mass from @f$\mu_i@f$ to @f$\mu_f@f$
+     * @param mu_f the scale @f$\mu_f@f$ in GeV
+     * @param mu_i the scale @f$\mu_i@f$ in GeV
+     * @param m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(mu_i)@f$
+      * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
+     * @return the running quark mass @f$m(\mu_f)@f$
+     */
+     double Mrun(double mu_f, double mu_i, double m, orders order = FULLNLO) const;
+
+    /**
+     * runs the quark mass from @f$\mu_i@f$ to @f$\mu_f@f$ at fixed nf
+     * @param mu_f the scale @f$\mu_f@f$ in GeV
+     * @param mu_i the scale @f$\mu_i@f$ in GeV
+     * @param m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(mu_i)@f$
+     * @param nf the number of active flavours
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
+     * @return the running quark mass @f$m(\mu_f)@f$
+     */
+     double Mrun(double mu_f, double mu_i, double m, double nf, orders order = FULLNLO) const;
+
      /**
      * convert the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ to the pole mass
      * @param mbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
@@ -224,16 +247,71 @@ public:
     double Mp2Mbar(double mp) const;
 
     /**
-     * updates the QCD parameters found in the argument
+     * convert @f$\overline{\mathrm{MS}}@f$ to @f$\overline{\mathrm{DR}}@f$ quark masses
+     * @param MSbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
+     * @return the @f$\overline{\mathrm{DR}}@f$ mass @f$m(m)@f$
+     */
+    double MS2DRqmass(const double& MSbar) const;
+    
+    /**
+     * Initializes the QCD parameters found in the argument
+     * @param a map containing the parameters (all as double) to be updated
+     * "AlsMz"
+     * "Mz"
+     * "mup" @f$\overline{\mathrm{MS}}@f$ mass @f$m_u(2\mathrm{GeV})@f$
+     * "mdown" @f$\overline{\mathrm{MS}}@f$ mass @f$m_d(2\mathrm{GeV})@f$
+     * "mcharm" @f$\overline{\mathrm{MS}}@f$ mass @f$m_c(m_c)@f$
+     * "mstrange" @f$\overline{\mathrm{MS}}@f$ mass @f$m_s(2\mathrm{GeV})@f$
+     * "mtop" the top quark pole mass @f$m_t@f$
+     * "mbottom" @f$\overline{\mathrm{MS}}@f$ mass @f$m_b(m_b)@f$
+     * "mut"
+     * "mub"
+     * "muc"
+     * "MBd"
+     * "MBs"
+     * "MBp"
+     * "MK0"
+     * "MKp"
+     * "MD"
+     * "FBs"
+     * "FBsoFBd"
+     * "FD"
+     * "BBsoBBd"
+     * "BBs1"
+     * "BBs2"
+     * "BBs3"
+     * "BBs4"
+     * "BBs5"
+     * "BBsscale"
+     * "BBsscheme"
+     * "BD1"
+     * "BD2"
+     * "BD3"
+     * "BD4"
+     * "BD5"
+     * "BDscale"
+     * "BDscheme"
+     * "BK1"
+     * "BK2"
+     * "BK3"
+     * "BK4"
+     * "BK5"
+     * "BKscale"
+     * "BKscheme"
+     */
+    virtual bool Init(const std::map<std::string, double>&);
+
+    /**
+     * Checks that all required parameters are present
      * @param a map containing the parameters (all as double) to be updated
      */
-    bool Init(const std::map<std::string, double>&);
+    virtual bool CheckParameters(const std::map<std::string, double>&);
 
     /**
      * updates the QCD parameters found in the argument
      * @param a map containing the parameters (all as double) to be updated
      */
-    void Update(const std::map<std::string, double>&);
+    virtual void Update(const std::map<std::string, double>&);
 
     /**
      * updates the QCD parameters found in the argument
@@ -277,16 +355,17 @@ public:
     }*/
 
 protected:
-    double Nc, CF, AlsMz, Mz, mut, mub, muc;
+    double Nc, CF, AlsMz, Mz, mut, mub, muc, mtpole;
     Particle quarks[6];
     Meson mesons[MESON_END];
     BParameter BBs, BBd, BD, BK;
-    void SetQCDParameter(std::string, double);
+    virtual void SetParameter(const std::string, const double&);
     bool computeYu, computeYd;
 
 private:
-    mutable double als_cache[5][5], lambda4_cache[2][5], mp2mbar_cache[4][5];
-    bool computeFBd, computeBd;
+    mutable double als_cache[5][5], lambda4_cache[2][5], mp2mbar_cache[4][5],
+            mrun_cache[6][5];
+    bool computeFBd, computeBd, computemt;
     double BBsoBBd, FBsoFBd;
     double Zero(double *x, double *) const;
     double Mp2Mbara(double * mu, double * mp) const;

@@ -22,13 +22,13 @@ public:
   void setWolfenstein(double, double, double, double);
   void setCKM(double, double, double, double);
 
-  void getCKM(matrix<complex> &);
+  void getCKM(matrix<complex> &) const;
 
   // Wolfenstein parameters
-  double getRho();
-  double getEta();
-  double getLambda();
-  double getA();
+  double getRho() const;
+  double getEta() const ;
+  double getLambda() const;
+  double getA() const ;
   double getRhoNB();
   double getEtaNB();
 

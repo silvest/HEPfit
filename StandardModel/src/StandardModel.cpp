@@ -27,7 +27,7 @@ void StandardModel::Update(const std::map<std::string, double>& DPars) {
     computeYe = false;
     computeYn = false;
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        SetSMParameter(it->first, it->second);
+        SetParameter(it->first, it->second);
     QCD::Update(DPars);
     if (computeCKM) {
         myCKM.setWolfenstein(lambda, A, rhob, etab);
@@ -37,7 +37,7 @@ void StandardModel::Update(const std::map<std::string, double>& DPars) {
         Yu = matrix<complex>::Id(3);
         for (int i = 0; i < 3; i++)
             Yu.assign(i, i, this->quarks[UP + 2 * i].getMass() / v() * sqrt(2.));
-        Yu = Yu*VCKM;
+        Yu = VCKM.transpose()*Yu;
     }
     if (computeYd) {
         for (int i = 0; i < 3; i++)
@@ -55,7 +55,7 @@ void StandardModel::Update(const std::map<std::string, double>& DPars) {
     }
 }
 
-void StandardModel::SetSMParameter(std::string name, double value) {
+void StandardModel::SetParameter(const std::string name, const double& value) {
     if (name.compare("GF") == 0)
         GF = value;
     else if (name.compare("ale") == 0)
@@ -111,24 +111,22 @@ void StandardModel::SetSMParameter(std::string name, double value) {
         etab = value;
         computeCKM = true;
     } else
-        SetQCDParameter(name, value);
+        QCD::SetParameter(name, value);
 }
 
 bool StandardModel::Init(const std::map<std::string, double>& DPars) {
+    Update(DPars);
+    return(CheckParameters(DPars));
+}
+
+bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NSMvars; i++) {
         if (DPars.find(SMvars[i]) == DPars.end()) {
             std::cout << "missing mandatory SM parameter " << SMvars[i] << std::endl;
             return false;
         }
     }
-    for (int i = 0; i < NQCDvars; i++) {
-        if (DPars.find(QCDvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory QCD parameter " << QCDvars[i] << std::endl;
-            return false;
-        }
-    }
-    Update(DPars);
-    return true;
+    return(QCD::CheckParameters(DPars));
 }
 
 StandardModel::StandardModel() : QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.),
