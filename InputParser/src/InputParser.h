@@ -17,6 +17,8 @@
 #include "StandardModelMatching.h"
 #include "SUSYMassInsertion.h"
 #include "SUSYMassInsertionMatching.h"
+#include "MFV.h"
+#include "SUSY.h"
 #include <Flavour.h>
 #include <EW.h>
 #include <iostream>
