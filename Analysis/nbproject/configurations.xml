@@ -61,6 +61,9 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../ZFitter/src</pElem>
             <pElem>../ZFitter6_43/src</pElem>
+            <pElem>../MFV/src</pElem>
+            <pElem>../SUSY/src</pElem>
+            <pElem>../FeynHiggs/include</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
@@ -68,14 +71,22 @@
           <linkerAddLib>
             <pElem>/usr/lib/root</pElem>
             <pElem>../Flavour/dist/Debug/GNU-Linux-x86</pElem>
+            <pElem>../ZFitter/dist/Debug/GNU-Linux-x86</pElem>
+            <pElem>../EWSM/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../EW/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../gslpp/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../Observables/dist/Debug/GNU-Linux-x86</pElem>
+            <pElem>../SUSYMassInsertion/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../InputParser/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../StandardModel/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../Utils/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../MonteCarlo/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../BAT/lib</pElem>
+            <pElem>../LoopFunctions/dist/Debug/GNU-Linux-x86</pElem>
+            <pElem>../ZFitter6_43/dist/Debug/GNU-Linux-x86</pElem>
+            <pElem>../MFV/dist/Debug/GNU-Linux-x86</pElem>
+            <pElem>../SUSY/dist/Debug/GNU-Linux-x86</pElem>
+            <pElem>../FeynHiggs/lib64</pElem>
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>../BAT/lib</pElem>
@@ -83,8 +94,6 @@
           <linkerLibItems>
             <linkerLibLibItem>gsl</linkerLibLibItem>
             <linkerLibLibItem>gslcblas</linkerLibLibItem>
-            <linkerLibLibItem>BAT</linkerLibLibItem>
-            <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"
@@ -135,6 +144,30 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../EWSM"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../EWSM"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libewsm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LoopFunctions"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../LoopFunctions"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../Observables"
                             CT="3"
                             CN="Debug"
@@ -144,6 +177,30 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MFV"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../MFV"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmfv.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSY"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../SUSY"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusy.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -168,6 +225,42 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ZFitter"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../ZFitter"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ZFitter6_43"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../ZFitter6_43"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter6_43.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSYMassInsertion"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../SUSYMassInsertion"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusymassinsertion.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -201,202 +294,13 @@
             <linkerLibLibItem>Gui</linkerLibLibItem>
             <linkerLibLibItem>m</linkerLibLibItem>
             <linkerLibLibItem>dl</linkerLibLibItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../EWSM"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../EWSM"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libewsm.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../LoopFunctions"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../LoopFunctions"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../SUSYMassInsertion"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../SUSYMassInsertion"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusymassinsertion.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../ZFitter"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../ZFitter"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../ZFitter6_43"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../ZFitter6_43"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter6_43.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
+            <linkerLibLibItem>BAT</linkerLibLibItem>
+            <linkerLibLibItem>BATmodels</linkerLibLibItem>
+            <linkerLibLibItem>FH</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>-pthread -rdynamic</commandLine>
         </linkerTool>
-        <requiredProjects>
-          <makeArtifact PL="../Flavour"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../Flavour"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
-          </makeArtifact>
-          <makeArtifact PL="../gslpp"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../gslpp"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
-          </makeArtifact>
-          <makeArtifact PL="../InputParser"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../InputParser"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a">
-          </makeArtifact>
-          <makeArtifact PL="../MonteCarlo"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../MonteCarlo"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmontecarlo.a">
-          </makeArtifact>
-          <makeArtifact PL="../Observables"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../Observables"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
-          </makeArtifact>
-          <makeArtifact PL="../StandardModel"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../StandardModel"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
-          </makeArtifact>
-          <makeArtifact PL="../Utils"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../Utils"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.a">
-          </makeArtifact>
-          <makeArtifact PL="../EW"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../EW"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
-          </makeArtifact>
-          <makeArtifact PL="../EWSM"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../EWSM"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libewsm.a">
-          </makeArtifact>
-          <makeArtifact PL="../LoopFunctions"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../LoopFunctions"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
-          </makeArtifact>
-          <makeArtifact PL="../SUSYMassInsertion"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../SUSYMassInsertion"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusymassinsertion.a">
-          </makeArtifact>
-          <makeArtifact PL="../ZFitter"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../ZFitter"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter.a">
-          </makeArtifact>
-          <makeArtifact PL="../ZFitter6_43"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="true"
-                        WD="../ZFitter6_43"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter6_43.a">
-          </makeArtifact>
-        </requiredProjects>
       </compileType>
       <folder path="TestFiles/f1">
         <cTool>
