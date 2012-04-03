@@ -12,10 +12,10 @@
 #include <BAT/BCH1D.h>
 #include <BAT/BCH2D.h>
 #include <BAT/BCModelOutput.h>
-#include <root/TH1D.h>
-#include <root/TH2D.h>
-#include <root/TFile.h>
-#include <root/TRandom3.h>
+#include <TH1D.h>
+#include <TH2D.h>
+#include <TFile.h>
+#include <TRandom3.h>
 #include <Observable.h>
 #include <Observable2D.h>
 #include <ModelParameter.h>
