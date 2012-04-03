@@ -232,6 +232,10 @@ namespace gslpp
     return const_cast<gsl_matrix&>(*_matrix);
   }
 
+  bool matrix<double>::is_equal(const matrix<double>& m1, const matrix<double>& m2){
+      return gsl_matrix_equal (m1.as_gsl_type_ptr(),m2.as_gsl_type_ptr());
+  }
+  
   /** Unary minus */
   matrix<double> matrix<double>::operator-() const
   {

@@ -89,6 +89,13 @@ namespace gslpp
       gsl_matrix* as_gsl_type_ptr() const;
       gsl_matrix& as_gsl_type();
       const gsl_matrix& as_gsl_type() const;
+      /**
+       * check whether two matrices are equal
+       * @param m1 the first matrix
+       * @param m2 the second matrix
+       * @return true if equal, false otherwise
+       */
+      bool is_equal(const matrix<double>& m1, const matrix<double>& m2);
       /** Unary minus (matrix) */
       matrix<double> operator-() const;
       /** Addition operator (matrix) */

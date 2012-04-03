@@ -125,6 +125,13 @@ namespace gslpp
       gsl_matrix_complex* as_gsl_type_ptr() const;
       gsl_matrix_complex& as_gsl_type();
       const gsl_matrix_complex& as_gsl_type() const;
+      /**
+       * check whether two matrices are equal
+       * @param m1 the first matrix
+       * @param m2 the second matrix
+       * @return true if equal, false otherwise
+       */
+      bool is_equal(const matrix<complex>& m1, const matrix<complex>& m2);
       /** Unary minus */
       matrix<complex> operator-() const;
       /** Addition operator */
