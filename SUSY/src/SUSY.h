@@ -9,6 +9,7 @@
 #define	SUSY_H
 
 #include <StandardModel.h>
+#include <CFeynHiggs.h>
 
 using namespace gslpp;
 /**
@@ -17,11 +18,14 @@ using namespace gslpp;
  */
 class SUSY: public StandardModel {
 public:
+    static const int NSUSYvars = 11;
+    static const std::string SUSYvars[NSUSYvars];
     /**
      * @brief SUSY constructor
      */
     SUSY();
 
+    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
    ///////////////////////////////////////////////////////////////////////////
 
     /**
@@ -48,27 +52,11 @@ public:
     }
 
     /**
-     * @brief set the gluino mass
-     * @param m3 gluino mass
-     */
-    void setM3(double m3) {
-        this->m3 = m3;
-    }
-
-    /**
      *
      * @return pseudoscalar Higgs mass
      */
     double getMHa() const {
-        return mHa;
-    }
-
-    /**
-     * @brief set the pseudoscalar Higgs mass
-     * @param mA pseudoscalar Higgs mass
-     */
-    void setMHa(double mHa) {
-        this->mHa = mHa;
+        return mh[2];
     }
 
     /**
@@ -76,15 +64,7 @@ public:
      * @return heavy Higgs mass
      */
     double getMHh() const {
-        return mHh;
-    }
-
-    /**
-     * @brief set the heavy Higgs mass
-     * @param mH heavy Higgs mass
-     */
-    void setMHh(double mHh) {
-        this->mHh = mHh;
+        return mh[1];
     }
 
     /**
@@ -400,12 +380,32 @@ public:
 
 private:
     void setY(double tanb_i);
+    matrix<complex> CMsQ2, CMsU2, CMsD2, CMsL2, CMsE2, CMsN2, CTU, CTD, CTE, CTN;
+    double  CQ;
+    double  Cm3, CmHp, Ctanb;
+    complex Cm1, Cm2, CmuH;
 
 protected:
-    matrix<complex> Ru, Rd, Rl, Rn, U, V, N;
+    void SetParameter(const std::string, const double&);    
+    void SetFeynHiggsPars(void);
+    void CalcHiggsSpectrum(void);
+    void CalcHiggsCouplings(void);
+    void CalcHiggsProd(const double&);
+    void CalcConstraints(void);
+    void CalcFlavour(void);
+    void CalcSpectrum(void);
+    matrix<complex> Ru, Rd, Rl, Rn, U, V, N, UH, ZH;
     vector<double> Msu2, Msd2, Msl2, Msn2, Mch, Mneu;
-    double mHh, mHa, mHp, tanb, sinb, cosb, m3;
-    complex muH;
+    double FHgm2, FHdeltarho, FHMWMSSM, FHMWSM, FHSW2MSSM, FHSW2SM, FHedmeTh, 
+    FHedmn, FHedmHg, FHMGl, FHMHtree[4], FHSAtree;
+    double FHbsgMSSM, FHbsgSM, FHdeltaMsMSSM, FHdeltaMsSM, FHbsmumuMSSM, FHbsmumuSM;
+    complex FHDeltab;
+    /**
+     soft breaking terms for squarks and sleptons in the SCKM basis at the scale Q*/
+    matrix<complex> MsQ2, MsU2, MsD2, MsL2, MsE2, MsN2, TU, TD, TE, TN;
+    double  Q;
+    double  m3, mHp, tanb, sinb, cosb, mh[4];
+    complex m1, m2, muH, saeff;
 };
 
 #endif	/* SUSY_H */

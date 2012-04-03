@@ -9,14 +9,17 @@
             <cpp-extensions>cpp</cpp-extensions>
             <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
-            <make-dep-projects>
-                <make-dep-project>../gslpp</make-dep-project>
-                <make-dep-project>../StandardModel</make-dep-project>
-            </make-dep-projects>
+            <make-dep-projects/>
             <sourceRootList/>
             <confList>
-                <confElem>Debug</confElem>
-                <confElem>Release</confElem>
+                <confElem>
+                    <name>Debug</name>
+                    <type>3</type>
+                </confElem>
+                <confElem>
+                    <name>Release</name>
+                    <type>3</type>
+                </confElem>
             </confList>
         </data>
     </configuration>
