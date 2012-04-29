@@ -15,9 +15,7 @@ InputParser::InputParser() {
 
 InputParser::InputParser(const InputParser& orig) {
     myModel = new StandardModel(*orig.myModel);
-    myFlavour = new Flavour(*orig.myFlavour);
     myModelMatching = new StandardModelMatching(*orig.myModelMatching);
-    myEW = new EW(*orig.myEW);
     thf = new ThFactory(*orig.thf);
 }
 

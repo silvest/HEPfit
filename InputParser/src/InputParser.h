@@ -13,14 +13,12 @@
 #include <Observable2D.h>
 #include <ThObservable.h>
 #include <ModelParameter.h>
-#include "StandardModel.h"
-#include "StandardModelMatching.h"
-#include "SUSYMassInsertion.h"
-#include "SUSYMassInsertionMatching.h"
-#include "MFV.h"
-#include "SUSY.h"
-#include <Flavour.h>
-#include <EW.h>
+#include <StandardModel.h>
+#include <StandardModelMatching.h>
+#include <SUSYMassInsertion.h>
+#include <SUSYMassInsertionMatching.h>
+#include <MFV.h>
+#include <SUSY.h>
 #include <iostream>
 #include <fstream>
 #include <istream>
@@ -49,8 +47,6 @@ private:
     StandardModel* myModel; 
     StandardModelMatching* myModelMatching;
    
-    Flavour* myFlavour;
-    EW* myEW;
     ThFactory* thf;
     std::string modname;
 };
