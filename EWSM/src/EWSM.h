@@ -7,6 +7,7 @@
 #define	EWSM_H
 
 #include <StandardModel.h>
+#include "EWModel.h"
 #include "EWSMcommon.h"
 #include "OneLoopEW.h"
 #include "TwoLoopQCD.h"
@@ -19,7 +20,7 @@
 using namespace gslpp;
 
 
-class EWSM {
+class EWSM : public EWModel {
 public:
     
     /**
@@ -52,6 +53,86 @@ public:
     
     //////////////////////////////////////////////////////////////////////// 
 
+    
+    /**
+     * @return the total radiative corrections to alpha at Mz
+     */
+    virtual double DeltaAlpha() {
+
+//                
+//        /* Delta alpha */
+//        myEWSM.ComputeDeltaAlpha(flag_order);
+//        DeltaAlpha_l5q = SM.getDAle5Mz();
+//        for (int j=0; j<EWSM::orders_EW_size; j++) {    
+//            DeltaAlpha_l5q += myEWSM.getDeltaAlpha_l((EWSM::orders_EW) j);
+//        }
+//        DeltaAlpha = DeltaAlpha_l5q;
+//        for (int j=0; j<EWSM::orders_EW_size; j++) {        
+//            DeltaAlpha += myEWSM.getDeltaAlpha_t((EWSM::orders_EW) j);
+//        }  
+//
+//        
+//        
+//        return DeltaAlpha_SM()
+        return 0.0;
+    }
+    
+    
+        
+    virtual double DeltaR() {
+
+//        return DeltaR_SM() + DeltaR_THDM();
+        return 0.0;
+    }
+    
+
+    /**
+     * @brief effective coupling g_V^l
+     * @param[in] l name of a lepton 
+     * @return g_V^l for lepton "l" 
+     */
+    virtual complex deltaGV_l(const StandardModel::lepton l) {
+        throw "EWModel::deltaGV_l() is undefined.";
+    complex a(0.0,0.0,false);
+    return a; 
+    };
+
+    /**
+     * @brief effective coupling g_V^q
+     * @param[in] q name of a quark
+     * @return g_V^q for quark "q" 
+     */    
+    virtual complex deltaGV_q(const StandardModel::quark q) {
+        throw "EWModel::deltaGV_q() is undefined.";
+     complex a(0.0,0.0,false);
+    return a; 
+    };
+    
+    /**
+     * @brief effective coupling g_A^l
+     * @param[in] l name of a lepton 
+     * @return g_A^l for lepton "l" 
+     */
+    virtual complex deltaGA_l(const StandardModel::lepton l) {
+        throw "EWModel::deltaGA_l() is undefined.";
+     complex a(0.0,0.0,false);
+    return a; 
+    };
+    
+    /**
+     * @brief effective coupling g_A^q
+     * @param[in] q name of a quark
+     * @return g_A^q for quark "q" 
+     */
+    virtual complex deltaGA_q(const StandardModel::quark q) {
+        throw "EWModel::deltaGA_q() is undefined.";
+     complex a(0.0,0.0,false);
+    return a; 
+    };
+
+    
+    //////////////////////////////////////////////////////////////////////// 
+    
     /**
      * @brief computes radiative corrections to alpha
      * @param[in] flag_order an array of boolean switches to control radiative corrections
@@ -89,6 +170,28 @@ public:
         return EWSMC;
     }
 
+    /**
+     * @return the O(alpha) corrections to the width of W -> l_i bar{l}_j
+     * @attention independent of the flavours of the final-state leptons
+     */
+    double getRho_GammaW_leptons() const {
+        return rho_GammaW_leptons;
+    }
+
+    /**
+     * @return the O(alpha) corrections to the width of W -> q_i bar{q}_j
+     * @attention independent of the flavours of the final-state quarks
+     */
+    double getRho_GammaW_quarks() const {
+        return rho_GammaW_quarks;
+    }
+
+    
+    ////////////////////////////////////////////////////////////////////////     
+protected:
+
+    const StandardModel& SM;
+    
     /**
      * @brief leptonic contribution to alpha
      * @param[in] order the order of the contribution
@@ -177,30 +280,10 @@ public:
         return deltaKappa_rem_q[q][order];
     }
 
-    /**
-     * @return the O(alpha) corrections to the width of W -> l_i bar{l}_j
-     * @attention independent of the flavours of the final-state leptons
-     */
-    double getRho_GammaW_leptons() const {
-        return rho_GammaW_leptons;
-    }
-
-    /**
-     * @return the O(alpha) corrections to the width of W -> q_i bar{q}_j
-     * @attention independent of the flavours of the final-state quarks
-     */
-    double getRho_GammaW_quarks() const {
-        return rho_GammaW_quarks;
-    }
-
-
-    ////////////////////////////////////////////////////////////////////////     
     
-protected:
-    const StandardModel& SM;
-
-    
+    ////////////////////////////////////////////////////////////////////////         
 private:
+
     EWSMcommon* EWSMC;
     OneLoopEW* myOneLoopEW;
     TwoLoopQCD* myTwoLoopQCD;
@@ -218,6 +301,23 @@ private:
     complex deltaKappa_rem_l[6][orders_EW_size], deltaKappa_rem_q[6][orders_EW_size];
     double rho_GammaW_leptons, rho_GammaW_quarks;
 
+    
+    
+    
+    
+    // Cache
+    static const int CacheSize = 5;
+    mutable double cache[CacheSize];
+    void CacheShift(double cache[][CacheSize], int n) const {
+        int i,j;
+        for(i=CacheSize-1;i>0;i--)
+            for(j=0;j<n;j++)
+                cache[j][i] = cache[j][i-1];
+    }
+    
+    
+    
+    
 };
 
 #endif	/* EWSM_H */

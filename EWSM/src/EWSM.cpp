@@ -7,7 +7,10 @@
 #include <cmath>
 
 
-EWSM::EWSM(const StandardModel& SM_i) : SM(SM_i) {
+const int EWSM::CacheSize;
+
+
+EWSM::EWSM(const StandardModel& SM_i) : EWModel(), SM(SM_i) {
     EWSMC = new EWSMcommon(SM);
     myOneLoopEW = new OneLoopEW(*EWSMC);
     myTwoLoopQCD = new TwoLoopQCD(*EWSMC);
@@ -60,6 +63,21 @@ EWSM::~EWSM() {
 ////////////////////////////////////////////////////////////////////////
 
 void EWSM::ComputeDeltaAlpha(const bool flag_order[orders_EW_size]) {
+    
+//    for(int i=0; i<5; i++)
+//            if((mu ==  als_cache[0][i]) && (order == als_cache[1][i]) &&
+//                    (AlsMz == als_cache[2][i]) && (Mz == als_cache[3][i]))
+//                return als_cache[4][i];
+//
+//        CacheShift(als_c = mu;
+//        als_cache[1][0] = order;
+//        als_cache[2][0] = AlsMz;
+//        als_cache[3][0] = Mz;
+//        als_cache[4][0] = Als(mu, Nf(mu), order);
+//        
+//        return(als_cache[4][0]);
+//    
+    
     
     if (flag_order[EW1]) 
         DeltaAlpha_l[EW1] = myOneLoopEW->DeltaAlpha_l();
