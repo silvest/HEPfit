@@ -566,6 +566,13 @@ protected:
     ClausenFunctions Clausen;
     Polylogarithms PolyLog;
     
+    
+    // Cache
+    static const int CacheSize = 5;
+    mutable double cache[CacheSize];
+    
+    
+    
     double Mw;
     double cW2, sW2;    
 

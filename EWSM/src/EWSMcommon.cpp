@@ -24,6 +24,9 @@ EWSMcommon::~EWSMcommon() {
 
 //////////////////////////////////////////////////////////////////////// 
 
+const int EWSMcommon::CacheSize;
+
+
 void EWSMcommon::SetConstants() {
     Mz = SM.getMz();
     mh = SM.getMHl();    

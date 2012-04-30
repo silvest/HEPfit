@@ -84,47 +84,47 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libewsm.a: ${OBJECTFILES}
 ${OBJECTDIR}/src/TwoLoopQCD.o: src/TwoLoopQCD.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/TwoLoopQCD.o src/TwoLoopQCD.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/TwoLoopQCD.o src/TwoLoopQCD.cpp
 
 ${OBJECTDIR}/src/TwoLoopEW.o: src/TwoLoopEW.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/TwoLoopEW.o src/TwoLoopEW.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/TwoLoopEW.o src/TwoLoopEW.cpp
 
 ${OBJECTDIR}/src/ThreeLoopEW.o: src/ThreeLoopEW.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopEW.o src/ThreeLoopEW.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopEW.o src/ThreeLoopEW.cpp
 
 ${OBJECTDIR}/src/EWSM.o: src/EWSM.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSM.o src/EWSM.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSM.o src/EWSM.cpp
 
 ${OBJECTDIR}/src/OneLoopEW.o: src/OneLoopEW.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/OneLoopEW.o src/OneLoopEW.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/OneLoopEW.o src/OneLoopEW.cpp
 
 ${OBJECTDIR}/src/EWSMcommon.o: src/EWSMcommon.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSMcommon.o src/EWSMcommon.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSMcommon.o src/EWSMcommon.cpp
 
 ${OBJECTDIR}/src/ApproximateFormulae.o: src/ApproximateFormulae.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ApproximateFormulae.o src/ApproximateFormulae.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ApproximateFormulae.o src/ApproximateFormulae.cpp
 
 ${OBJECTDIR}/src/ThreeLoopEW2QCD.o: src/ThreeLoopEW2QCD.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopEW2QCD.o src/ThreeLoopEW2QCD.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopEW2QCD.o src/ThreeLoopEW2QCD.cpp
 
 ${OBJECTDIR}/src/ThreeLoopQCD.o: src/ThreeLoopQCD.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopQCD.o src/ThreeLoopQCD.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopQCD.o src/ThreeLoopQCD.cpp
 
 # Subprojects
 .build-subprojects:
@@ -134,83 +134,83 @@ ${OBJECTDIR}/src/ThreeLoopQCD.o: src/ThreeLoopQCD.cpp
 .build-tests-conf: .build-conf ${TESTFILES}
 ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/testclass.o ${TESTDIR}/tests/testrunner.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}  -L/usr/lib/root -L/usr/local/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} -lcppunit -lgsl -lgslcblas ../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a ../StandardModel/dist/Debug/GNU-MacOSX/libstandardmodel.a ../LoopFunctions/dist/Debug/GNU-MacOSX/libloopfunctions.a 
+	${LINK.cc} -L/opt/local/lib -L/usr/lib/root -L/usr/local/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl  -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} -lgsl -lgslcblas ../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a ../StandardModel/dist/Debug/GNU-MacOSX/libstandardmodel.a ../LoopFunctions/dist/Debug/GNU-MacOSX/libloopfunctions.a -lcppunit 
 
 ${TESTDIR}/TestFiles/f5: ${TESTDIR}/tests/EW3testclass.o ${TESTDIR}/tests/EW3testrunner.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}  -L/usr/lib/root -L/usr/local/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -o ${TESTDIR}/TestFiles/f5 $^ ${LDLIBSOPTIONS} -lcppunit -lgsl -lgslcblas ../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a ../StandardModel/dist/Debug/GNU-MacOSX/libstandardmodel.a ../LoopFunctions/dist/Debug/GNU-MacOSX/libloopfunctions.a 
+	${LINK.cc} -L/opt/local/lib -L/usr/lib/root -L/usr/local/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl  -o ${TESTDIR}/TestFiles/f5 $^ ${LDLIBSOPTIONS} -lgsl -lgslcblas ../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a ../StandardModel/dist/Debug/GNU-MacOSX/libstandardmodel.a ../LoopFunctions/dist/Debug/GNU-MacOSX/libloopfunctions.a -lcppunit 
 
 ${TESTDIR}/TestFiles/f3: ${TESTDIR}/tests/QCD3testclass.o ${TESTDIR}/tests/QCD3testrunner.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}  -L/usr/lib/root -L/usr/local/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS} -lcppunit -lgsl -lgslcblas ../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a ../StandardModel/dist/Debug/GNU-MacOSX/libstandardmodel.a ../LoopFunctions/dist/Debug/GNU-MacOSX/libloopfunctions.a 
+	${LINK.cc} -L/opt/local/lib -L/usr/lib/root -L/usr/local/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl  -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS} -lgsl -lgslcblas ../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a ../StandardModel/dist/Debug/GNU-MacOSX/libstandardmodel.a ../LoopFunctions/dist/Debug/GNU-MacOSX/libloopfunctions.a -lcppunit 
 
 ${TESTDIR}/TestFiles/f4: ${TESTDIR}/tests/EW2testclass.o ${TESTDIR}/tests/EW2testrunner.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}  -L/usr/lib/root -L/usr/local/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -o ${TESTDIR}/TestFiles/f4 $^ ${LDLIBSOPTIONS} -lcppunit -lgsl -lgslcblas ../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a ../StandardModel/dist/Debug/GNU-MacOSX/libstandardmodel.a ../LoopFunctions/dist/Debug/GNU-MacOSX/libloopfunctions.a 
+	${LINK.cc} -L/opt/local/lib -L/usr/lib/root -L/usr/local/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl  -o ${TESTDIR}/TestFiles/f4 $^ ${LDLIBSOPTIONS} -lgsl -lgslcblas ../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a ../StandardModel/dist/Debug/GNU-MacOSX/libstandardmodel.a ../LoopFunctions/dist/Debug/GNU-MacOSX/libloopfunctions.a -lcppunit 
 
 ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/QCD2testclass.o ${TESTDIR}/tests/QCD2testrunner.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}  -L/usr/lib/root -L/usr/local/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS} -lcppunit -lcppunit -lgsl -lgslcblas ../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a ../StandardModel/dist/Debug/GNU-MacOSX/libstandardmodel.a ../LoopFunctions/dist/Debug/GNU-MacOSX/libloopfunctions.a 
+	${LINK.cc} -L/opt/local/lib -L/usr/lib/root -L/usr/local/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl  -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS} -lgsl -lgslcblas ../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a ../StandardModel/dist/Debug/GNU-MacOSX/libstandardmodel.a ../LoopFunctions/dist/Debug/GNU-MacOSX/libloopfunctions.a -lcppunit -lcppunit 
 
 
 ${TESTDIR}/tests/testclass.o: tests/testclass.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/testclass.o tests/testclass.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/testclass.o tests/testclass.cpp
 
 
 ${TESTDIR}/tests/testrunner.o: tests/testrunner.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/testrunner.o tests/testrunner.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/testrunner.o tests/testrunner.cpp
 
 
 ${TESTDIR}/tests/EW3testclass.o: tests/EW3testclass.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EW3testclass.o tests/EW3testclass.cpp
+	$(COMPILE.cc) -g -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EW3testclass.o tests/EW3testclass.cpp
 
 
 ${TESTDIR}/tests/EW3testrunner.o: tests/EW3testrunner.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EW3testrunner.o tests/EW3testrunner.cpp
+	$(COMPILE.cc) -g -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EW3testrunner.o tests/EW3testrunner.cpp
 
 
 ${TESTDIR}/tests/QCD3testclass.o: tests/QCD3testclass.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/QCD3testclass.o tests/QCD3testclass.cpp
+	$(COMPILE.cc) -g -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/QCD3testclass.o tests/QCD3testclass.cpp
 
 
 ${TESTDIR}/tests/QCD3testrunner.o: tests/QCD3testrunner.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/QCD3testrunner.o tests/QCD3testrunner.cpp
+	$(COMPILE.cc) -g -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/QCD3testrunner.o tests/QCD3testrunner.cpp
 
 
 ${TESTDIR}/tests/EW2testclass.o: tests/EW2testclass.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EW2testclass.o tests/EW2testclass.cpp
+	$(COMPILE.cc) -g -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EW2testclass.o tests/EW2testclass.cpp
 
 
 ${TESTDIR}/tests/EW2testrunner.o: tests/EW2testrunner.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EW2testrunner.o tests/EW2testrunner.cpp
+	$(COMPILE.cc) -g -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EW2testrunner.o tests/EW2testrunner.cpp
 
 
 ${TESTDIR}/tests/QCD2testclass.o: tests/QCD2testclass.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/QCD2testclass.o tests/QCD2testclass.cpp
+	$(COMPILE.cc) -g -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/QCD2testclass.o tests/QCD2testclass.cpp
 
 
 ${TESTDIR}/tests/QCD2testrunner.o: tests/QCD2testrunner.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/QCD2testrunner.o tests/QCD2testrunner.cpp
+	$(COMPILE.cc) -g -I. -Isrc -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -MMD -MP -MF $@.d -o ${TESTDIR}/tests/QCD2testrunner.o tests/QCD2testrunner.cpp
 
 
 ${OBJECTDIR}/src/TwoLoopQCD_nomain.o: ${OBJECTDIR}/src/TwoLoopQCD.o src/TwoLoopQCD.cpp 
@@ -221,7 +221,7 @@ ${OBJECTDIR}/src/TwoLoopQCD_nomain.o: ${OBJECTDIR}/src/TwoLoopQCD.o src/TwoLoopQ
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/TwoLoopQCD_nomain.o src/TwoLoopQCD.cpp;\
+	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/TwoLoopQCD_nomain.o src/TwoLoopQCD.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/TwoLoopQCD.o ${OBJECTDIR}/src/TwoLoopQCD_nomain.o;\
 	fi
@@ -234,7 +234,7 @@ ${OBJECTDIR}/src/TwoLoopEW_nomain.o: ${OBJECTDIR}/src/TwoLoopEW.o src/TwoLoopEW.
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/TwoLoopEW_nomain.o src/TwoLoopEW.cpp;\
+	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/TwoLoopEW_nomain.o src/TwoLoopEW.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/TwoLoopEW.o ${OBJECTDIR}/src/TwoLoopEW_nomain.o;\
 	fi
@@ -247,7 +247,7 @@ ${OBJECTDIR}/src/ThreeLoopEW_nomain.o: ${OBJECTDIR}/src/ThreeLoopEW.o src/ThreeL
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopEW_nomain.o src/ThreeLoopEW.cpp;\
+	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopEW_nomain.o src/ThreeLoopEW.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/ThreeLoopEW.o ${OBJECTDIR}/src/ThreeLoopEW_nomain.o;\
 	fi
@@ -260,7 +260,7 @@ ${OBJECTDIR}/src/EWSM_nomain.o: ${OBJECTDIR}/src/EWSM.o src/EWSM.cpp
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSM_nomain.o src/EWSM.cpp;\
+	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSM_nomain.o src/EWSM.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/EWSM.o ${OBJECTDIR}/src/EWSM_nomain.o;\
 	fi
@@ -273,7 +273,7 @@ ${OBJECTDIR}/src/OneLoopEW_nomain.o: ${OBJECTDIR}/src/OneLoopEW.o src/OneLoopEW.
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/OneLoopEW_nomain.o src/OneLoopEW.cpp;\
+	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/OneLoopEW_nomain.o src/OneLoopEW.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/OneLoopEW.o ${OBJECTDIR}/src/OneLoopEW_nomain.o;\
 	fi
@@ -286,7 +286,7 @@ ${OBJECTDIR}/src/EWSMcommon_nomain.o: ${OBJECTDIR}/src/EWSMcommon.o src/EWSMcomm
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSMcommon_nomain.o src/EWSMcommon.cpp;\
+	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSMcommon_nomain.o src/EWSMcommon.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/EWSMcommon.o ${OBJECTDIR}/src/EWSMcommon_nomain.o;\
 	fi
@@ -299,7 +299,7 @@ ${OBJECTDIR}/src/ApproximateFormulae_nomain.o: ${OBJECTDIR}/src/ApproximateFormu
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ApproximateFormulae_nomain.o src/ApproximateFormulae.cpp;\
+	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ApproximateFormulae_nomain.o src/ApproximateFormulae.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/ApproximateFormulae.o ${OBJECTDIR}/src/ApproximateFormulae_nomain.o;\
 	fi
@@ -312,7 +312,7 @@ ${OBJECTDIR}/src/ThreeLoopEW2QCD_nomain.o: ${OBJECTDIR}/src/ThreeLoopEW2QCD.o sr
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopEW2QCD_nomain.o src/ThreeLoopEW2QCD.cpp;\
+	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopEW2QCD_nomain.o src/ThreeLoopEW2QCD.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/ThreeLoopEW2QCD.o ${OBJECTDIR}/src/ThreeLoopEW2QCD_nomain.o;\
 	fi
@@ -325,7 +325,7 @@ ${OBJECTDIR}/src/ThreeLoopQCD_nomain.o: ${OBJECTDIR}/src/ThreeLoopQCD.o src/Thre
 	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
 	then  \
 	    ${RM} $@.d;\
-	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopQCD_nomain.o src/ThreeLoopQCD.cpp;\
+	    $(COMPILE.cc) -g -I../gslpp/src -I../StandardModel/src -I../LoopFunctions/src -I/usr/include/root -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/ThreeLoopQCD_nomain.o src/ThreeLoopQCD.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/ThreeLoopQCD.o ${OBJECTDIR}/src/ThreeLoopQCD_nomain.o;\
 	fi

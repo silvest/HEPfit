@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>src/ApproximateFormulae.h</itemPath>
+      <itemPath>src/EWModel.h</itemPath>
       <itemPath>src/EWSM.h</itemPath>
       <itemPath>src/EWSMcommon.h</itemPath>
       <itemPath>src/OneLoopEW.h</itemPath>
@@ -188,7 +189,7 @@
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
-          <commandLine>-L/usr/lib/root -L/usr/local/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl</commandLine>
+          <commandLine>-L/opt/local/lib -L/usr/lib/root -L/usr/local/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl</commandLine>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f1">
