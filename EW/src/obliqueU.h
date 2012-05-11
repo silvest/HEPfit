@@ -8,7 +8,6 @@
 
 #include <ThObservable.h>
 #include "EW.h"
-#include "obliqueEpsilon2.h"
 
 
 class obliqueU : public ThObservable {
@@ -27,7 +26,6 @@ public:
 
     
 private:
-    obliqueEpsilon2 epsilon_2;
     double U;
     
 };

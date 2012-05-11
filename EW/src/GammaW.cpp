@@ -11,7 +11,7 @@
 
 
 GammaW::GammaW(const EW& EW_i) : ThObservable(EW_i) {
-    Gamma_W = EW_i.Gamma_W();
+    Gamma_W = EW_i.getEWSM().GammaW();
 }
 
 double GammaW::getThValue() {   

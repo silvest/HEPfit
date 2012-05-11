@@ -20,21 +20,21 @@ public:
     /**
      * @return the W boson mass
      */
-    virtual double Mw() {
+    virtual double Mw() const {
         throw "EWModel::Mw() is undefined.";
     };
 
     /**
      * @return Mw^2/Mz^2
      */
-    virtual double cW2() {
+    virtual double cW2() const {
         throw "EWModel::cW2() is undefined.";
     };
     
     /**
      * @return 1-Mw^2/Mz^2
      */
-    virtual double sW2() {
+    virtual double sW2() const {
         throw "EWModel::sW2() is undefined.";
     };
     
@@ -43,7 +43,7 @@ public:
      * @param[in] l name of a lepton 
      * @return rho_Z^l
      */
-    virtual complex rhoZ_l(const StandardModel::lepton l) {
+    virtual complex rhoZ_l(const StandardModel::lepton l) const {
         throw "EWModel::rhoZ_l() is undefined.";
     };
 
@@ -52,7 +52,7 @@ public:
      * @param[in] q name of a quark
      * @return rho_Z^q
      */
-    virtual complex rhoZ_q(const StandardModel::quark q) {
+    virtual complex rhoZ_q(const StandardModel::quark q) const {
         throw "EWModel::rhoZ_q() is undefined.";
     };
     
@@ -61,7 +61,7 @@ public:
      * @param[in] l name of a lepton 
      * @return g_V^l/g_A^l
      */
-    virtual complex gZl_over_gAl(const StandardModel::lepton l) {
+    virtual complex gZl_over_gAl(const StandardModel::lepton l) const {
         throw "EWModel::gZl_over_gAl() is undefined.";
     };
     
@@ -70,15 +70,36 @@ public:
      * @param[in] q name of a quark
      * @return g_V^q/g_A^q
      */
-    virtual complex gZq_over_gAq(const StandardModel::quark q) {
+    virtual complex gZq_over_gAq(const StandardModel::quark q) const {
         throw "EWModel::gZq_over_gAq() is undefined.";
     };
 
     /**
      * @return the total width of the W boson
      */
-    virtual double GammaW() {
+    virtual double GammaW() const {
         throw "EWModel::GammaW() is undefined.";
+    };
+    
+    /**
+     * @return NP contribution to oblique parameter S
+     */
+    virtual double obliqueS() const {
+        throw "EWModel::obliqueS() is undefined.";
+    };
+        
+    /**
+     * @return NP contribution to oblique parameter T
+     */
+    virtual double obliqueT() const {
+        throw "EWModel::obliqueT() is undefined.";
+    };
+    
+    /**
+     * @return NP contribution to oblique parameter U
+     */
+    virtual double obliqueU() const {
+        throw "EWModel::obliqueU() is undefined.";
     };
     
     
