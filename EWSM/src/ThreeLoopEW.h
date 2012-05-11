@@ -22,17 +22,6 @@ public:
      */
     ThreeLoopEW(const EWSMcommon& EWSMC_i);
 
-    /**
-     * @brief ThreeLoopEW copy constructor
-     * @param[in] orig reference to a ThreeLoopEW object
-     */
-    //ThreeLoopEW(const ThreeLoopEW& orig);
-
-    /**
-     * @brief ThreeLoopEW destructor
-     */
-    virtual ~ThreeLoopEW();
-
     
     ////////////////////////////////////////////////////////////////////////
 

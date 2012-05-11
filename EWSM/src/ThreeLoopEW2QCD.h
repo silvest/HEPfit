@@ -22,17 +22,6 @@ public:
      */
     ThreeLoopEW2QCD(const EWSMcommon& EWSMC_i);
 
-    /**
-     * @brief ThreeLoopEW2QCD copy constructor
-     * @param[in] orig reference to a ThreeLoopEW2QCD object
-     */
-    //ThreeLoopEW2QCD(const ThreeLoopEW2QCD& orig);
-
-    /**
-     * @brief ThreeLoopEW2QCD destructor
-     */
-    virtual ~ThreeLoopEW2QCD();
-
     
     ////////////////////////////////////////////////////////////////////////
     

@@ -11,12 +11,6 @@
 TwoLoopEW::TwoLoopEW(const EWSMcommon& EWSMC_i) : EWSMC(EWSMC_i) {
 }
 
-//TwoLoopEW::TwoLoopEW(const TwoLoopEW& orig) {
-//}
-
-TwoLoopEW::~TwoLoopEW() {
-}
-
 
 ////////////////////////////////////////////////////////////////////////
 

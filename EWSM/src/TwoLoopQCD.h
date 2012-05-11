@@ -22,17 +22,6 @@ public:
      */
     TwoLoopQCD(const EWSMcommon& EWSMC_i);
 
-    /**
-     * @brief TwoLoopQCD copy constructor
-     * @param[in] orig reference to a TwoLoopQCD object
-     */
-    //TwoLoopQCD(const TwoLoopQCD& orig);
-
-    /**
-     * @brief TwoLoopQCD destructor
-     */
-    virtual ~TwoLoopQCD();
-
 
     ////////////////////////////////////////////////////////////////////////
 

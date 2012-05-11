@@ -11,21 +11,14 @@
 #include <gsl/gsl_sf.h>
 
 
+const int EWSMcommon::CacheSize;
+
+
 EWSMcommon::EWSMcommon(const StandardModel& SM_i) : SM(SM_i) {
-    SetConstants();
-}
-
-//EWSMcommon::EWSMcommon(const EWSMcommon& orig) {
-//}
-
-EWSMcommon::~EWSMcommon() {
 }
 
 
 //////////////////////////////////////////////////////////////////////// 
-
-const int EWSMcommon::CacheSize;
-
 
 void EWSMcommon::SetConstants() {
     Mz = SM.getMz();
@@ -112,6 +105,8 @@ void EWSMcommon::SetConstants() {
 }
 
 void EWSMcommon::ComputeForCC(const double Mw_i) {
+    SetConstants();
+    
     Mw = Mw_i;
     cW2 = Mw*Mw/Mz/Mz;
     sW2 = 1.0 - cW2;    
