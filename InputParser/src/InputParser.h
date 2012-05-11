@@ -15,6 +15,7 @@
 #include <ModelParameter.h>
 #include <StandardModel.h>
 #include <StandardModelMatching.h>
+#include <EWSM.h>
 #include <SUSYMassInsertion.h>
 #include <SUSYMassInsertionMatching.h>
 #include <MFV.h>
@@ -43,9 +44,14 @@ public:
         return myModelMatching;
     }
     
+    EWSM* getMyEWModel() const {
+        return myEWModel;
+    }    
+    
 private:
     StandardModel* myModel; 
     StandardModelMatching* myModelMatching;
+    EWSM* myEWModel;
    
     ThFactory* thf;
     std::string modname;

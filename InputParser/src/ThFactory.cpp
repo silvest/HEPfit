@@ -6,12 +6,12 @@
  */
 
 #include "ThFactory.h"
-#include <Flavour.h>
-#include <EW.h>
+#include <FlavourObservables.h>
 #include <EWObservables.h>
 
-ThFactory::ThFactory(const StandardModel& myModel, StandardModelMatching& myModelMatching) : 
-myFlavour(myModel, myModelMatching), myEW(myModel) {
+ThFactory::ThFactory(const StandardModel& myModel, 
+        StandardModelMatching& myModelMatching, const EWSM& myEWModel) : 
+        myFlavour(myModel, myModelMatching), myEW(myModel, myEWModel) {
     thobs["Dmd0"] = new DmBd0(myFlavour);
     thobs["Dmd1"] = new DmBd(myFlavour);
     thobs["Dms0"] = new DmBs0(myFlavour);
@@ -28,8 +28,10 @@ myFlavour(myModel, myModelMatching), myEW(myModel) {
     thobs["alpha_2a"] = new Alpha_2a(myFlavour);
     thobs["gamma"] = new Gamma(myFlavour);
     thobs["SJPsiK"] = new SJPsiK(myFlavour);
+
     thobs["Mw"] = new Mw(myEW);
     thobs["GammaW"] = new GammaW(myEW);
+    thobs["sin2thetaEff"] = new sin2thetaEff(myEW);
     thobs["GammaZ"] = new GammaZ(myEW);
     thobs["AFBlepton"] = new AFBlepton(myEW);
     thobs["AFBcharm"] = new AFBcharm(myEW);
@@ -42,17 +44,9 @@ myFlavour(myModel, myModelMatching), myEW(myModel) {
     thobs["Rcharm"] = new Rcharm(myEW);
     thobs["Rbottom"] = new Rbottom(myEW);
     thobs["sigmaHadron"] = new sigmaHadron(myEW);
-    thobs["sin2thetaEff"] = new sin2thetaEff(myEW);
-    thobs["obliqueEpsilon1"] = new obliqueEpsilon1(myEW);
-    thobs["obliqueEpsilon2"] = new obliqueEpsilon2(myEW);
-    thobs["obliqueEpsilon3"] = new obliqueEpsilon3(myEW);
     thobs["obliqueS"] = new obliqueS(myEW);
     thobs["obliqueT"] = new obliqueT(myEW);
     thobs["obliqueU"] = new obliqueU(myEW);
-    thobs["obliqueShat"] = new obliqueShat(myEW);
-    thobs["ObliqueThat"] = new obliqueThat(myEW);
-    thobs["obliqueW"] = new obliqueW(myEW);
-    thobs["obliqueY"] = new obliqueY(myEW);
 }
 
 ThFactory::~ThFactory() {
