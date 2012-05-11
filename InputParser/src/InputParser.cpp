@@ -10,12 +10,14 @@
 InputParser::InputParser() {
     myModel = NULL;
     myModelMatching = NULL;
+    myEWModel = NULL;
     thf = NULL;
 }
 
 InputParser::InputParser(const InputParser& orig) {
     myModel = new StandardModel(*orig.myModel);
     myModelMatching = new StandardModelMatching(*orig.myModelMatching);
+    myEWModel = new EWSM(*orig.myEWModel);
     thf = new ThFactory(*orig.thf);
 }
 
@@ -24,6 +26,8 @@ InputParser::~InputParser() {
         delete myModel;
     if (myModelMatching != NULL)
         delete myModelMatching;
+    if (myEWModel != NULL)
+        delete myEWModel;
     if (thf != NULL)
         delete thf;
 }
@@ -43,14 +47,16 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             modname = *beg;
             myModel = new StandardModel();
             myModelMatching = new StandardModelMatching(*myModel);
-            thf = new ThFactory(*myModel,*myModelMatching);
+            myEWModel = new EWSM(*myModel);
+            thf = new ThFactory(*myModel,*myModelMatching,*myEWModel);
             continue;
         }
         else if (beg->compare("MFV") == 0) {
             modname = *beg;
             myModel = new MFV();
             myModelMatching = new StandardModelMatching(*myModel);
-            thf = new ThFactory(*myModel,*myModelMatching);
+            myEWModel = new EWSM(*myModel);            
+            thf = new ThFactory(*myModel,*myModelMatching,*myEWModel);
             continue;
         }
         else if (beg->compare("SusyMI") == 0) {
@@ -58,7 +64,8 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             SUSYMassInsertion* LocalPointer = new SUSYMassInsertion();
             myModel = LocalPointer;
             myModelMatching = new SUSYMassInsertionMatching(*LocalPointer);
-            thf = new ThFactory(*myModel,*myModelMatching);
+            myEWModel = new EWSM(*myModel);
+            thf = new ThFactory(*myModel,*myModelMatching,*myEWModel);
             continue;
         }
         std::string type = *beg;

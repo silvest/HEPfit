@@ -11,12 +11,14 @@
 #include <ThObservable.h>
 #include <StandardModel.h>
 #include <StandardModelMatching.h>
-#include <FlavourObservables.h>
+#include <EWSM.h>
+#include <Flavour.h>
 #include <EW.h>
 
 class ThFactory {
 public:
-    ThFactory(const StandardModel& myModel, StandardModelMatching& myModelMatching);
+    ThFactory(const StandardModel& myModel, 
+              StandardModelMatching& myModelMatching, const EWSM& myEWModel);
     virtual ~ThFactory();
     ThObservable* getThMethod(const std::string& name);
 private:
