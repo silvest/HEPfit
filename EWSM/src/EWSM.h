@@ -47,6 +47,16 @@ public:
     EWSM(const StandardModel& SM_i);
 
     
+    ////////////////////////////////////////////////////////////////////////     
+
+    /**
+     * @return a reference to the EWSMcommon object
+     */
+    const EWSMcommon* getEWSMC() const {
+        return EWSMC;
+    }
+    
+    
     //////////////////////////////////////////////////////////////////////// 
 
     /**
@@ -60,7 +70,7 @@ public:
     double DeltaAlphaL5q() const;
     
     /**
-     * @return the total radiative corrections to alpha at Mz
+     * @return the total (leptonic+hadronic+top) corrections to alpha at Mz
      */
     double DeltaAlpha() const;
     
@@ -76,55 +86,81 @@ public:
     /**
      * @return the W boson mass
      */
-    virtual double Mw();
+    virtual double Mw() const;
 
     /**
      * @return Mw^2/Mz^2
      */
-    virtual double cW2();
+    virtual double cW2() const;
     
     /**
      * @return 1-Mw^2/Mz^2
      */
-    virtual double sW2();
+    virtual double sW2() const;
     
     /**
      * @brief effective coupling rho_Z^l
      * @param[in] l name of a lepton 
      * @return rho_Z^l
      */
-    virtual complex rhoZ_l(const StandardModel::lepton l);
+    virtual complex rhoZ_l(const StandardModel::lepton l) const;
 
     /**
      * @brief 
      * @param[in] q name of a quark
      * @return rho_Z^q
      */
-    virtual complex rhoZ_q(const StandardModel::quark q);
+    virtual complex rhoZ_q(const StandardModel::quark q) const;
     
     /**
      * @brief the ratio of the effective couplings for neutral-current interactions
      * @param[in] l name of a lepton 
      * @return g_V^l/g_A^l
      */
-    virtual complex gZl_over_gAl(const StandardModel::lepton l);
+    virtual complex gZl_over_gAl(const StandardModel::lepton l) const;
     
     /**
      * @brief the ratio of the effective couplings for neutral-current interactions
      * @param[in] q name of a quark
      * @return g_V^q/g_A^q
      */
-    virtual complex gZq_over_gAq(const StandardModel::quark q);
+    virtual complex gZq_over_gAq(const StandardModel::quark q) const;
 
     /**
      * @return the total width of the W boson
      */
-    virtual double GammaW();    
+    virtual double GammaW() const;    
+    
+    /**
+     * @return NP contribution to oblique parameter S
+     */
+    virtual double obliqueS() const {
+        return 0.0;
+    };
+        
+    /**
+     * @return NP contribution to oblique parameter T
+     */
+    virtual double obliqueT() const {
+        return 0.0;
+    };
+    
+    /**
+     * @return NP contribution to oblique parameter U
+     */
+    virtual double obliqueU() const {
+        return 0.0;
+    };
     
     
     ////////////////////////////////////////////////////////////////////////     
 protected:
-    
+
+    const StandardModel& SM;
+
+            
+    ////////////////////////////////////////////////////////////////////////           
+        
     /**
      * @return the W boson mass in the SM
      */
@@ -267,23 +303,7 @@ protected:
      * @return the total width of the W boson in a NP model from oblique parameters
      */    
     double GammaW_NP_fromSTU(const double S, const double T, const double U);    
-    
-    
-    ////////////////////////////////////////////////////////////////////////     
 
-    /**
-     * @return a pointer to the EWSMcommon object in EWSM class
-     */
-    EWSMcommon* getEWSMC() const {
-        return EWSMC;
-    }
-
-    
-    ////////////////////////////////////////////////////////////////////////     
-protected:
-
-    const StandardModel& SM;
-    
     
     ////////////////////////////////////////////////////////////////////////         
 private:

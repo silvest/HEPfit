@@ -87,35 +87,35 @@ double EWSM::alphaMz() const {
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSM::Mw() {
+double EWSM::Mw() const {
     return Mw_SM();
 }
 
-double EWSM::cW2() {
+double EWSM::cW2() const {
     return cW2_SM();
 }
 
-double EWSM::sW2() {
+double EWSM::sW2() const {
     return sW2_SM();    
 }
     
-complex EWSM::rhoZ_l(const StandardModel::lepton l) {
+complex EWSM::rhoZ_l(const StandardModel::lepton l) const {
     return rhoZ_l_SM(l);
 }
 
-complex EWSM::rhoZ_q(const StandardModel::quark q) {
+complex EWSM::rhoZ_q(const StandardModel::quark q) const {
     return rhoZ_q_SM(q);   
 }
     
-complex EWSM::gZl_over_gAl(const StandardModel::lepton l) {
+complex EWSM::gZl_over_gAl(const StandardModel::lepton l) const {
     return ( 1.0 - 4.0*fabs(EWSMC->Qf(l))*kappaZ_l_SM(l)*sW2_SM() );
 }
     
-complex EWSM::gZq_over_gAq(const StandardModel::quark q) {
+complex EWSM::gZq_over_gAq(const StandardModel::quark q) const {
     return ( 1.0 - 4.0*fabs(EWSMC->Qf(q))*kappaZ_q_SM(q)*sW2_SM() );
 }
 
-double EWSM::GammaW() {
+double EWSM::GammaW() const {
     return GammaW_SM();
 }
 
