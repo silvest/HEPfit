@@ -22,17 +22,6 @@ public:
      */
     TwoLoopEW(const EWSMcommon& EWSMC_i);
 
-    /**
-     * @brief TwoLoopEW copy constructor
-     * @param[in] orig reference to a TwoLoopEW object
-     */
-    //TwoLoopEW(const TwoLoopEW& orig);
-
-    /**
-     * @brief TwoLoopEW destructor
-     */
-    virtual ~TwoLoopEW();
-
     
     ////////////////////////////////////////////////////////////////////////
 

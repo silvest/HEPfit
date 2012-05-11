@@ -1,4 +1,4 @@
-/* 
+/* 　
  * File:   EWSM.h
  * Author: mishima
  */
@@ -30,7 +30,14 @@ public:
      */
     enum orders_EW {EW1=0, EW1QCD1, EW1QCD2, EW2, EW2QCD1, EW3, orders_EW_size};    
 
-
+    /**
+     * @brief schemes for the resummations in Mw, rho_Z^f and kappa_Z^f
+     * 
+     * APPROXIMATEFORMULA for the use of approximate formulae
+     */
+    enum schemes_EW {NORESUM=0, OMSI, INTERMEDIATE, OMSII, APPROXIMATEFORMULA};
+    
+    
     //////////////////////////////////////////////////////////////////////// 
     
     /**
@@ -39,129 +46,230 @@ public:
      */
     EWSM(const StandardModel& SM_i);
 
-    /**
-     * @brief EWSM copy constructor
-     * @param[in] orig reference to an EWSM object
-     */
-    EWSM(const EWSM& orig);
-    
-    /**
-     * @brief EWSM destructor
-     */
-    virtual ~EWSM();
-
     
     //////////////////////////////////////////////////////////////////////// 
 
+    /**
+     * @return the leptonic corrections to alpha at Mz
+     */
+    double DeltaAlphaLepton() const;    
+
+    /**
+     * @return the sum of the leptonic and hadronic corrections to alpha at Mz
+     */
+    double DeltaAlphaL5q() const;
     
     /**
      * @return the total radiative corrections to alpha at Mz
      */
-    virtual double DeltaAlpha() {
-
-//                
-//        /* Delta alpha */
-//        myEWSM.ComputeDeltaAlpha(flag_order);
-//        DeltaAlpha_l5q = SM.getDAle5Mz();
-//        for (int j=0; j<EWSM::orders_EW_size; j++) {    
-//            DeltaAlpha_l5q += myEWSM.getDeltaAlpha_l((EWSM::orders_EW) j);
-//        }
-//        DeltaAlpha = DeltaAlpha_l5q;
-//        for (int j=0; j<EWSM::orders_EW_size; j++) {        
-//            DeltaAlpha += myEWSM.getDeltaAlpha_t((EWSM::orders_EW) j);
-//        }  
-//
-//        
-//        
-//        return DeltaAlpha_SM()
-        return 0.0;
-    }
+    double DeltaAlpha() const;
     
-    
-        
-    virtual double DeltaR() {
-
-//        return DeltaR_SM() + DeltaR_THDM();
-        return 0.0;
-    }
-    
-
     /**
-     * @brief effective coupling g_V^l
-     * @param[in] l name of a lepton 
-     * @return g_V^l for lepton "l" 
+     * @brief electromagnetic coupling alpha at Mz
+     * @return alpha(Mz)
      */
-    virtual complex deltaGV_l(const StandardModel::lepton l) {
-        throw "EWModel::deltaGV_l() is undefined.";
-    complex a(0.0,0.0,false);
-    return a; 
-    };
+    double alphaMz() const;
+
+    
+    ////////////////////////////////////////////////////////////////////////     
+    
+    /**
+     * @return the W boson mass
+     */
+    virtual double Mw();
 
     /**
-     * @brief effective coupling g_V^q
+     * @return Mw^2/Mz^2
+     */
+    virtual double cW2();
+    
+    /**
+     * @return 1-Mw^2/Mz^2
+     */
+    virtual double sW2();
+    
+    /**
+     * @brief effective coupling rho_Z^l
+     * @param[in] l name of a lepton 
+     * @return rho_Z^l
+     */
+    virtual complex rhoZ_l(const StandardModel::lepton l);
+
+    /**
+     * @brief 
      * @param[in] q name of a quark
-     * @return g_V^q for quark "q" 
+     * @return rho_Z^q
+     */
+    virtual complex rhoZ_q(const StandardModel::quark q);
+    
+    /**
+     * @brief the ratio of the effective couplings for neutral-current interactions
+     * @param[in] l name of a lepton 
+     * @return g_V^l/g_A^l
+     */
+    virtual complex gZl_over_gAl(const StandardModel::lepton l);
+    
+    /**
+     * @brief the ratio of the effective couplings for neutral-current interactions
+     * @param[in] q name of a quark
+     * @return g_V^q/g_A^q
+     */
+    virtual complex gZq_over_gAq(const StandardModel::quark q);
+
+    /**
+     * @return the total width of the W boson
+     */
+    virtual double GammaW();    
+    
+    
+    ////////////////////////////////////////////////////////////////////////     
+protected:
+    
+    /**
+     * @return the W boson mass in the SM
+     */
+    double Mw_SM() const;
+    
+    /** 
+     * @brief computes Delta r from Mw()
+     * @return Delta r in the SM
+     */
+    double DeltaR_SM() const;
+    
+    /**
+     * @return Mw^2/Mz^2 in the SM
+     */
+    double cW2_SM() const;
+    
+    /**
+     * @return 1-Mw^2/Mz^2 in the SM
+     */
+    double sW2_SM() const;
+    
+    /**
+     * @brief SM contribution to effective coupling rho_Z^l
+     * @param[in] l name of a lepton 
+     * @return rho_Z^l in the SM
+     */
+    complex rhoZ_l_SM(const StandardModel::lepton l) const;
+
+    /**
+     * @brief SM contribution to effective coupling rho_Z^q
+     * @param[in] q name of a quark
+     * @return rho_Z^q in the SM
+     */
+    complex rhoZ_q_SM(const StandardModel::quark q) const;
+    
+    /**
+     * @brief SM contribution to effective coupling kappa_Z^l
+     * @param[in] l name of a lepton 
+     * @return kappa_Z^l in the SM
+     */
+    complex kappaZ_l_SM(const StandardModel::lepton l) const;
+    
+    /**
+     * @brief SM contribution to effective coupling kappa_Z^q
+     * @param[in] q name of a quark
+     * @return kappa_Z^q in the SM
+     */
+    complex kappaZ_q_SM(const StandardModel::quark q) const;
+    
+    /**
+     * @return rho_ij^W for Gamma(W->l nu) in the SM
+     * @attention Fermion masses are neglected. 
+     */
+    double rho_GammaW_l_SM() const;
+    
+    /**
+     * @return rho_ij^W for Gamma(W->q qbar) in the SM
+     * @attention Fermion masses are neglected. 
+     */
+    double rho_GammaW_q_SM() const;
+    
+    /**
+     * @param[in] li name of neutrinos
+     * @param[in] lj name of charged leptons
+     * @return the partial width of W^+ decay into an l_i\bar{l_j} pair in the SM
+     * @attention Mixings in the lepton sector are neglected. 
+     * @attention Fermion masses are neglected. 
+     */
+    double GammaW_l_SM(const StandardModel::lepton li, 
+                       const StandardModel::lepton lj) const;
+        
+    /**
+     * @param[in] qi name of up-type quark
+     * @param[in] qj name of down-type quark
+     * @return the partial width of W^+ decay into a q_i\bar{q_j} pair in the SM 
+     * @attention Fermion masses are neglected. 
+     */
+    double GammaW_q_SM(const StandardModel::quark qi, 
+                       const StandardModel::quark qj) const;
+
+    /**
+     * @return the total width of the W boson in the SM
+     */
+    double GammaW_SM() const;   
+    
+
+    ////////////////////////////////////////////////////////////////////////     
+    // The functions below are used in NP models with S, T and U parameters. 
+    
+    /**
+     * @param[in] S oblique parameter
+     * @param[in] T oblique parameter
+     * @param[in] U oblique parameter
+     * @return the W-boson mass in a NP model from oblique parameters
+     */
+    double Mw_NP_fromSTU(const double S, const double T, const double U);
+    
+    /**
+     * @brief effective coupling rho_Z^l
+     * @param[in] l name of a lepton 
+     * @param[in] S oblique parameter
+     * @param[in] T oblique parameter
+     * @return rho_Z^l in a NP model from oblique parameters
+     */
+    complex rhoZ_l_NP_fromSTU(const StandardModel::lepton l, const double T);
+
+    /**
+     * @brief effective coupling rho_Z^q
+     * @param[in] q name of a quark
+     * @param[in] S oblique parameter
+     * @param[in] T oblique parameter
+     * @return rho_Z^q in a NP model from oblique parameters
+     */
+    complex rhoZ_q_NP_fromSTU(const StandardModel::quark q, const double T);
+    
+    /**
+     * @brief the ratio of the effective couplings for neutral-current interactions
+     * @param[in] l name of a lepton 
+     * @param[in] S oblique parameter
+     * @param[in] T oblique parameter
+     * @return g_V^l/g_A^l in a NP model from oblique parameters
+     */
+    complex gZl_over_gAl_NP_fromSTU(const StandardModel::lepton l,
+                                    const double S, const double T);
+    
+    /**
+     * @brief the ratio of the effective couplings for neutral-current interactions
+     * @param[in] q name of a quark
+     * @param[in] S oblique parameter
+     * @param[in] T oblique parameter
+     * @return g_V^q/g_A^q in a NP model from oblique parameters
+     */
+    complex gZq_over_gAq_NP_fromSTU(const StandardModel::quark q, 
+                                    const double S, const double T);
+    
+    /**
+     * @param[in] S oblique parameter
+     * @param[in] T oblique parameter
+     * @param[in] U oblique parameter
+     * @return the total width of the W boson in a NP model from oblique parameters
      */    
-    virtual complex deltaGV_q(const StandardModel::quark q) {
-        throw "EWModel::deltaGV_q() is undefined.";
-     complex a(0.0,0.0,false);
-    return a; 
-    };
+    double GammaW_NP_fromSTU(const double S, const double T, const double U);    
     
-    /**
-     * @brief effective coupling g_A^l
-     * @param[in] l name of a lepton 
-     * @return g_A^l for lepton "l" 
-     */
-    virtual complex deltaGA_l(const StandardModel::lepton l) {
-        throw "EWModel::deltaGA_l() is undefined.";
-     complex a(0.0,0.0,false);
-    return a; 
-    };
     
-    /**
-     * @brief effective coupling g_A^q
-     * @param[in] q name of a quark
-     * @return g_A^q for quark "q" 
-     */
-    virtual complex deltaGA_q(const StandardModel::quark q) {
-        throw "EWModel::deltaGA_q() is undefined.";
-     complex a(0.0,0.0,false);
-    return a; 
-    };
-
-    
-    //////////////////////////////////////////////////////////////////////// 
-    
-    /**
-     * @brief computes radiative corrections to alpha
-     * @param[in] flag_order an array of boolean switches to control radiative corrections
-     */
-    void ComputeDeltaAlpha(const bool flag_order[orders_EW_size]);    
-
-    /**
-     * @brief computes radiative corrections to Charged-Current interactions
-     * @param[in] Mw_i the W boson mass
-     * @param[in] flag_order an array of boolean switches to control radiative corrections
-     */
-    void ComputeCC(double Mw_i, const bool flag_order[orders_EW_size]);  
-    
-    /**
-     * @brief computes radiative corrections to Neutral-Current interactions 
-     * @param[in] Mw_i the W boson mass
-     * @param[in] flag_order an array of boolean switches to control radiative corrections
-     */
-    void ComputeNC(double Mw_i, const bool flag_order[orders_EW_size]);
-     
-    /**
-     * @brief computes radiative corrections to the partial widths of the W boson 
-     * @param[in] Mw_i the W boson mass
-     * @param[in] flag_order an array of boolean switches to control radiative corrections
-     */     
-    void ComputeRhoWij(double Mw_i, const bool flag_order[orders_EW_size]);
-    
-        
-    //////////////////////////////////////////////////////////////////////// 
+    ////////////////////////////////////////////////////////////////////////     
 
     /**
      * @return a pointer to the EWSMcommon object in EWSM class
@@ -170,120 +278,19 @@ public:
         return EWSMC;
     }
 
-    /**
-     * @return the O(alpha) corrections to the width of W -> l_i bar{l}_j
-     * @attention independent of the flavours of the final-state leptons
-     */
-    double getRho_GammaW_leptons() const {
-        return rho_GammaW_leptons;
-    }
-
-    /**
-     * @return the O(alpha) corrections to the width of W -> q_i bar{q}_j
-     * @attention independent of the flavours of the final-state quarks
-     */
-    double getRho_GammaW_quarks() const {
-        return rho_GammaW_quarks;
-    }
-
     
     ////////////////////////////////////////////////////////////////////////     
 protected:
 
     const StandardModel& SM;
     
-    /**
-     * @brief leptonic contribution to alpha
-     * @param[in] order the order of the contribution
-     * @return Delta alpha_{lept} at each order
-     */
-    double getDeltaAlpha_l(const orders_EW order) const {
-        return DeltaAlpha_l[order];
-    }
-
-    /**
-     * @brief top-quark contribution to alpha
-     * @param[in] order the order of the contribution
-     * @return Delta alpha_{top} at each order
-     */
-    double getDeltaAlpha_t(const orders_EW order) const {
-        return DeltaAlpha_t[order];
-    }    
-    
-    /**
-     * @brief leading contribution to Delta r
-     * @param[in] order the order of the contribution
-     * @return Delta rho at each order
-     */
-    double getDeltaRho(const orders_EW order) const {
-        return DeltaRho[order];
-    }
-
-    /**
-     * @brief remainder contribution to Delta r
-     * @param[in] order the order of the contribution
-     * @return Delta r_{rem} at each order
-     */
-    double getDeltaR_rem(const orders_EW order) const {
-        return DeltaR_rem[order];
-    }
-    
-    /**
-     * @brief remainder contribution for rho_Z^f and kappa_Z^f
-     * @return Delta rbar_{rem} at each order
-     */
-    double getDeltaRbar_rem() const {
-        return DeltaRbar_rem;
-    }
-
-    /**
-     * @brief remainder contribution to rho_Z^l
-     * @param[in] l name of a lepton 
-     * @param[in] order the order of the contribution
-     * @return delta rho_{rem}^l at each order
-     */        
-    complex getDeltaRho_rem_l(const StandardModel::lepton l,
-                              const orders_EW order) const {
-        return deltaRho_rem_l[l][order];
-    }
-
-    /**
-     * @brief remainder contribution to rho_Z^q
-     * @param[in] q name of a quark
-     * @param[in] order the order of the contribution 
-     * @return delta rho_{rem}^q at each order
-     */
-    complex getDeltaRho_rem_q(const StandardModel::quark q,
-                              const orders_EW order) const {
-        return deltaRho_rem_q[q][order];
-    }
-    
-    /**
-     * @brief remainder contribution to kappa_Z^l
-     * @param[in] l name of a lepton 
-     * @param[in] order the order of the contribution
-     * @return delta kappa_{rem}^l at each order
-     */
-    complex getDeltaKappa_rem_l(const StandardModel::lepton l,
-                                const orders_EW order) const {
-        return deltaKappa_rem_l[l][order];
-    }
-
-    /**
-     * @brief remainder contribution to kappa_Z^q
-     * @param[in] q name of a quark
-     * @param[in] order the order of the contribution
-     * @return delta kappa_{rem}^q at each order
-     */
-    complex getDeltaKappa_rem_q(const StandardModel::quark q,
-                                const orders_EW order) const {
-        return deltaKappa_rem_q[q][order];
-    }
-
     
     ////////////////////////////////////////////////////////////////////////         
 private:
-
+    
+    bool flag_order[orders_EW_size]; 
+    schemes_EW schemeMw, schemeRhoZ, schemeKappaZ;
+    
     EWSMcommon* EWSMC;
     OneLoopEW* myOneLoopEW;
     TwoLoopQCD* myTwoLoopQCD;
@@ -291,15 +298,12 @@ private:
     TwoLoopEW* myTwoLoopEW;
     ThreeLoopEW2QCD* myThreeLoopEW2QCD;
     ThreeLoopEW* myThreeLoopEW; 
+    ApproximateFormulae* myApproximateFormulae;
+        
+    // accuracy in the iterative calculation of Mw
+    static const double Mw_error = 0.00001; /* 0.01 MeV */ 
     
-    double DeltaAlpha_l[orders_EW_size];
-    double DeltaAlpha_t[orders_EW_size];
-    double DeltaRho[orders_EW_size];
-    double DeltaR_rem[orders_EW_size];
-    double DeltaRbar_rem;
-    complex deltaRho_rem_l[6][orders_EW_size], deltaRho_rem_q[6][orders_EW_size];
-    complex deltaKappa_rem_l[6][orders_EW_size], deltaKappa_rem_q[6][orders_EW_size];
-    double rho_GammaW_leptons, rho_GammaW_quarks;
+
 
     
     
@@ -307,17 +311,60 @@ private:
     
     // Cache
     static const int CacheSize = 5;
-    mutable double cache[CacheSize];
+    mutable double Mw_cache[CacheSize];
     void CacheShift(double cache[][CacheSize], int n) const {
         int i,j;
         for(i=CacheSize-1;i>0;i--)
             for(j=0;j<n;j++)
                 cache[j][i] = cache[j][i-1];
     }
+
     
+    ////////////////////////////////////////////////////////////////////////     
     
+    /**
+     * @brief computes Delta rho
+     * @param[in] Mw_i the W boson mass
+     * @param[out] DeltaRho[]
+     */
+    void ComputeDeltaRho(const double Mw_i, double DeltaRho[orders_EW_size]) const;  
+     
+    /**
+     * @brief computes Delta r_rem
+     * @param[in] Mw_i the W boson mass
+     * @param[out] DeltaR_rem
+     */
+    void ComputeDeltaR_rem(const double Mw_i, double DeltaR_rem[orders_EW_size]) const;  
     
+    /**
+     * @param[in] DeltaRho
+     * @param[in] DeltaR_rem
+     * @return resummed Mw
+     */
+    double resumMw(const double DeltaRho[orders_EW_size],
+                   const double DeltaR_rem[orders_EW_size]) const;
     
+    /**
+     * @param[in] DeltaRho
+     * @param[in] deltaRho_rem 
+     * @param[in] DeltaRbar_rem
+     * @return resummed Re[rho_Z^f]
+     */
+    double resumRhoZ(const double DeltaRho[orders_EW_size],
+                     const double deltaRho_rem[orders_EW_size], 
+                     const double DeltaRbar_rem) const;
+    
+    /**
+     * @param[in] DeltaRho
+     * @param[in] deltaKappa_rem 
+     * @param[in] DeltaRbar_rem
+     * @return resummed Re[kappa_Z^f]
+     */
+    double resumKappaZ(const double DeltaRho[orders_EW_size],
+                       const double deltaKappa_rem[orders_EW_size],
+                       const double DeltaRbar_rem) const;    
+
+
 };
 
 #endif	/* EWSM_H */

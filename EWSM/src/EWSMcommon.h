@@ -22,23 +22,12 @@ public:
      */
     EWSMcommon(const StandardModel& SM_i);
 
-    /**
-     * @brief EWSMcommon copy constructor
-     * @param[in] orig reference to an EWSMcommon object
-     */
-    //EWSMcommon(const EWSMcommon& orig);
-
-    /**
-     * @brief EWSMcommon destructor
-     */
-    virtual ~EWSMcommon();
-
     
     //////////////////////////////////////////////////////////////////////// 
     
     /**
      * @brief computes common variables which are independent of the W boson mass
-     * @attention called from the constructor of the current class
+     * @attention called from the three "compute" functions below
      */
     void SetConstants();
 

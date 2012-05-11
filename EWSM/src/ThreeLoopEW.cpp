@@ -9,12 +9,6 @@
 ThreeLoopEW::ThreeLoopEW(const EWSMcommon& EWSMC_i) : EWSMC(EWSMC_i) {
 }
 
-//ThreeLoopEW::ThreeLoopEW(const ThreeLoopEW& orig) {
-//}
-
-ThreeLoopEW::~ThreeLoopEW() {
-}
-
 
 ////////////////////////////////////////////////////////////////////////
 

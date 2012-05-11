@@ -9,12 +9,6 @@
 OneLoopEW::OneLoopEW(const EWSMcommon& EWSMC_i) : EWSMC(EWSMC_i) {
 }
 
-//OneLoopEW::OneLoopEW(const OneLoopEW& orig) {
-//}
-
-OneLoopEW::~OneLoopEW() {
-}
-
 
 ////////////////////////////////////////////////////////////////////////
 

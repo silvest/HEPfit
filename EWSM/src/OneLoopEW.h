@@ -22,17 +22,6 @@ public:
      */
     OneLoopEW(const EWSMcommon& EWSMC_i);
 
-    /**
-     * @brief OneLoopEW copy constructor
-     * @param[in] orig reference to a OneLoopEW object
-     */
-    //OneLoopEW(const OneLoopEW& orig);
-
-    /**
-     * @brief OneLoopEW destructor
-     */
-    virtual ~OneLoopEW();
-
 
     ////////////////////////////////////////////////////////////////////////
 

@@ -10,12 +10,6 @@
 TwoLoopQCD::TwoLoopQCD(const EWSMcommon& EWSMC_i) : EWSMC(EWSMC_i) {
 }
 
-//TwoLoopQCD::TwoLoopQCD(const TwoLoopQCD& orig) {
-//}
-
-TwoLoopQCD::~TwoLoopQCD() {
-}
-
 
 ////////////////////////////////////////////////////////////////////////
 

@@ -9,12 +9,6 @@
 ThreeLoopQCD::ThreeLoopQCD(const EWSMcommon& EWSMC_i) : EWSMC(EWSMC_i) {
 }
 
-//ThreeLoopQCD::ThreeLoopQCD(const ThreeLoopQCD& orig) {
-//}
-
-ThreeLoopQCD::~ThreeLoopQCD() {
-}
-
 
 ////////////////////////////////////////////////////////////////////////
 

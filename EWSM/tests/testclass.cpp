@@ -47,7 +47,7 @@ void testclass::tearDown() {
 
 void testclass::setSMparameters(StandardModel& SM_i) {
     std::map<std::string, double> Parameters;
-    // 17 parameters defined in StandardModel
+    // 17+5 parameters defined in StandardModel
     Parameters["GF"] = 1.16637E-5;
     Parameters["mneutrino_1"] = 0.0;
     Parameters["mneutrino_2"] = 0.0;
@@ -65,7 +65,14 @@ void testclass::setSMparameters(StandardModel& SM_i) {
     Parameters["muw"] = 0.0;
     Parameters["mub"] = 0.0;
     Parameters["muc"] = 0.0;
-    // 26 parameters defined in QCD    
+    //
+    Parameters["phiEpsK"] = 0.0;
+    Parameters["DeltaMK"] = 0.0;
+    Parameters["KbarEpsK"] = 0.0;
+    Parameters["Dmk"] = 0.0;
+    Parameters["SM_M12D" ] = 0.0;
+    
+    // 26+16 parameters defined in QCD    
     Parameters["AlsMz"] = 0.1184;
     Parameters["Mz"] = 91.1876;
     Parameters["mup"] = 0.003;
@@ -92,7 +99,24 @@ void testclass::setSMparameters(StandardModel& SM_i) {
     Parameters["BBs5"] = 0.0;
     Parameters["BBsscale"] = 0.0;
     Parameters["BBsscheme"] = 0.0;
- 
+    //
+    Parameters["MD"] = 0.0;
+    Parameters["FD"] = 0.0;
+    Parameters["BD1"] = 0.0;
+    Parameters["BD2"] = 0.0;
+    Parameters["BD3"] = 0.0;
+    Parameters["BD4"] = 0.0;
+    Parameters["BD5"] = 0.0;
+    Parameters["BDscale"] = 0.0;
+    Parameters["BDscheme"] = 0.0;
+    Parameters["BK1"] = 0.0;
+    Parameters["BK2"] = 0.0;
+    Parameters["BK3"] = 0.0;
+    Parameters["BK4"] = 0.0;
+    Parameters["BK5"] = 0.0;
+    Parameters["BKscale"] = 0.0;
+    Parameters["BKscheme"] = 0.0; 
+    
     /** Test for alpha_lep **/
     //Parameters["melectron"] = 0.00051099907;
     //Parameters["mmu"] = 0.105658389;

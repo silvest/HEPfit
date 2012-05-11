@@ -6,21 +6,13 @@
 #include "ApproximateFormulae.h"
 
 
-ApproximateFormulae::ApproximateFormulae(const StandardModel& SM_i, 
-                                         const double DeltaAlpha_i) : SM(SM_i) {
-    myDeltaAlpha = DeltaAlpha_i;
-}
-
-//ApproximateFormulae::ApproximateFormulae(const ApproximateFormulae& orig) {
-//}
-
-ApproximateFormulae::~ApproximateFormulae() {
+ApproximateFormulae::ApproximateFormulae(const StandardModel& SM_i) : SM(SM_i) {
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 
-double ApproximateFormulae::Mw() const {
+double ApproximateFormulae::Mw(const double DeltaAlpha_i) const {
     double Mw0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11;    
     if( SM.getMHl() >= 100.0 && SM.getMHl() <= 1000.0 ) {
         // applicable for 100 GeV <= mHl <= 1 TeV
@@ -60,7 +52,7 @@ double ApproximateFormulae::Mw() const {
     double dh = pow((SM.getMHl()/100.0), 2.0);
     double dt = pow((SM.getQuarks(SM.TOP).getMass()/174.3), 2.0) - 1.0;
     double dZ = SM.getMz()/91.1875 - 1.0;
-    double dalphae = myDeltaAlpha/0.05907 - 1.0;
+    double dalphae = DeltaAlpha_i/0.05907 - 1.0;
     double dalphas = SM.getAlsMz()/0.119 - 1.0;
 
     return (Mw0 - c1*dH - c2*dH*dH + c3*pow(dH, 4.0)
@@ -69,7 +61,8 @@ double ApproximateFormulae::Mw() const {
 }
     
  
-double ApproximateFormulae::sin2thetaEff(const StandardModel::lepton l) const {
+double ApproximateFormulae::sin2thetaEff(const StandardModel::lepton l, 
+                                         const double DeltaAlpha_i) const {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 100.0 || SM.getMHl() > 1000.0 ) {
         throw "Higgs mass is out of range in ApproximateFormulae::sin2thetaEff()";        
@@ -113,7 +106,7 @@ double ApproximateFormulae::sin2thetaEff(const StandardModel::lepton l) const {
 
     double L_H = log(SM.getMHl()/100.0);
     double Delta_H = SM.getMHl()/100.0;
-    double Delta_ale = myDeltaAlpha/0.05907 - 1.0;
+    double Delta_ale = DeltaAlpha_i/0.05907 - 1.0;
     double Delta_t = pow((SM.getQuarks(SM.TOP).getMass()/178.0), 2.0) - 1.0;
     double Delta_alphas = SM.getAlsMz()/0.117 - 1.0;
     double Delta_Z = SM.getMz()/91.1876 - 1.0;
@@ -124,7 +117,8 @@ double ApproximateFormulae::sin2thetaEff(const StandardModel::lepton l) const {
             + d9*Delta_alphas + d10*Delta_Z );
 }
  
-double ApproximateFormulae::sin2thetaEff(const StandardModel::quark q) const {
+double ApproximateFormulae::sin2thetaEff(const StandardModel::quark q,
+                                         const double DeltaAlpha_i) const {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 100.0 || SM.getMHl() > 1000.0 ) {
         throw "Higgs mass is out of range in ApproximateFormulae::sin2thetaEff()";        
@@ -181,7 +175,7 @@ double ApproximateFormulae::sin2thetaEff(const StandardModel::quark q) const {
 
     double L_H = log(SM.getMHl()/100.0);
     double Delta_H = SM.getMHl()/100.0;
-    double Delta_ale = myDeltaAlpha/0.05907 - 1.0;
+    double Delta_ale = DeltaAlpha_i/0.05907 - 1.0;
     double Delta_t = pow((SM.getQuarks(SM.TOP).getMass()/178.0), 2.0) - 1.0;
     double Delta_alphas = SM.getAlsMz()/0.117 - 1.0;
     double Delta_Z = SM.getMz()/91.1876 - 1.0;
@@ -192,15 +186,15 @@ double ApproximateFormulae::sin2thetaEff(const StandardModel::quark q) const {
             + d9*Delta_alphas + d10*Delta_Z );
 }
 
-double ApproximateFormulae::DeltaR_TwoLoopEW() const {
+double ApproximateFormulae::DeltaR_TwoLoopEW(const double DeltaAlpha_i) const {
     throw "Write codes!!";
 }
 
-double ApproximateFormulae::DeltaKappa_l_TwoLoopEW() const {
+double ApproximateFormulae::DeltaKappa_l_TwoLoopEW(const double DeltaAlpha_i) const {
     throw "Write codes!!";    
 }
 
-double ApproximateFormulae::DeltaKappa_b_TwoLoopEW() const {
+double ApproximateFormulae::DeltaKappa_b_TwoLoopEW(const double DeltaAlpha_i) const {
     throw "Write codes!!";
 }
 
