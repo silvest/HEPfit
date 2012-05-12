@@ -21,7 +21,7 @@ using namespace gslpp;
 class StandardModel: public QCD {
 public:
     enum lepton {NEUTRINO_1,ELECTRON,NEUTRINO_2,MU,NEUTRINO_3,TAU};
-    static const int NSMvars = 22;
+    static const int NSMvars = 20;
     static const std::string SMvars[NSMvars];
 
     /**
@@ -42,8 +42,6 @@ public:
      * "dAle5Mz"
      * "mHl"
      * "muw"
-     * "mub"
-     * "muc"
      * "phiEpsK"
      * "DeltaMK"
      * "KbarEpsK"
@@ -325,7 +323,7 @@ protected:
     virtual void SetParameter(const std::string, const double&);
     matrix<complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
     double GF, alsMz, ale, dAle5Mz, mZ, mHl, lambda, A, rhob, etab, Dmk;
-    double muw, mub, muc, KbarEpsK, phiEpsK, DeltaMK, SM_M12D;
+    double muw, KbarEpsK, phiEpsK, DeltaMK, SM_M12D;
     CKM myCKM;
     Particle leptons[6];
 

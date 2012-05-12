@@ -20,7 +20,7 @@
 
 const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutrino_2",
     "mneutrino_3", "melectron", "mmu", "mtau", "lambda", "A", "rhob", "etab", "ale",
-    "dAle5Mz", "mHl", "muw", "mub", "muc", "phiEpsK","DeltaMK", "KbarEpsK", "Dmk", "SM_M12D" };
+    "dAle5Mz", "mHl", "muw", "phiEpsK","DeltaMK", "KbarEpsK", "Dmk", "SM_M12D" };
 
 void StandardModel::Update(const std::map<std::string, double>& DPars) {
     computeCKM = false;
@@ -66,10 +66,6 @@ void StandardModel::SetParameter(const std::string name, const double& value) {
         mHl = value;
     else if (name.compare("muw") == 0)
         muw = value;
-    else if (name.compare("mub") == 0)
-        mub = value;
-    else if (name.compare("muc") == 0)
-        muc = value;
     else if (name.compare("SM_M12D") == 0)
         SM_M12D = value;
     else if (name.compare("phiEpsK") == 0)
