@@ -15,7 +15,7 @@
 class Particle {
 public:
     Particle() {};
-    Particle(double mass, double width);
+    Particle(double mass, double width, double charge);
     /**
      * 
      * @return the particle mass in GeV
@@ -48,8 +48,24 @@ public:
         this->width = width;
     }
 
+    /**
+     *
+     * @return the particle charge
+     */
+    double getCharge() const {
+        return charge;
+    }
+
+    /**
+     * set the particle charge
+     * @param width the particle charge
+     */
+    void setCharge(double charge) {
+        this->charge = charge;
+    }    
+    
 protected:
-    double mass, width;
+    double mass, width, charge;
 };
 
 #endif	/* PARTICLE_H */
