@@ -12,12 +12,6 @@
 Polylogarithms::Polylogarithms() {
 }
 
-//Polylogarithms::Polylogarithms(const Polylogarithms& orig) {
-//}
-
-Polylogarithms::~Polylogarithms() {
-}
-
 
 ////////////////////////////////////////////////////////////////////////
 

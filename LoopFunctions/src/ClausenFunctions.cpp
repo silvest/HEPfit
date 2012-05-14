@@ -12,12 +12,6 @@
 ClausenFunctions::ClausenFunctions() {
 }
 
-//ClausenFunctions::ClausenFunctions(const ClausenFunctions& orig) {
-//}
-
-ClausenFunctions::~ClausenFunctions() {
-}
-
 
 ////////////////////////////////////////////////////////////////////////
 

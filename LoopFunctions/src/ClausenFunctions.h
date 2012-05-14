@@ -18,17 +18,6 @@ public:
      * @brief  ClausenFunctions constructor
      */
     ClausenFunctions();
-    
-    /**
-     * @brief ClausenFunctions copy constructor
-     * @param[in] orig reference to a ClausenFunctions object
-     */    
-    //ClausenFunctions(const ClausenFunctions& orig);
-
-    /**
-     * @brief ClausenFunctions destructor
-     */
-    virtual ~ClausenFunctions();
 
     
     ////////////////////////////////////////////////////////////////////////

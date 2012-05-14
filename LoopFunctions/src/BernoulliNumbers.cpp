@@ -14,9 +14,4 @@ BernoulliNumbers::BernoulliNumbers() {
     B[16] = -3617.0/510.0; B[17] = 0.0; B[18] = 43867.0/798.0;
 }
 
-//BernoulliNumbers::BernoulliNumbers(const BernoulliNumbers& orig) {
-//}
-
-BernoulliNumbers::~BernoulliNumbers() {
-}
 

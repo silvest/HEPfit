@@ -100,29 +100,29 @@ ${OBJECTDIR}/src/BernoulliNumbers.o: src/BernoulliNumbers.cpp
 .build-tests-conf: .build-conf ${TESTFILES}
 ${TESTDIR}/TestFiles/f3: ${TESTDIR}/tests/LFtestclass.o ${TESTDIR}/tests/LFtestrunner.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}   -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS} -lcppunit -lgsl -lgslcblas ../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a 
+	${LINK.cc} -L/opt/local/lib -L/usr/lib/root -L/usr/local/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl  -o ${TESTDIR}/TestFiles/f3 $^ ${LDLIBSOPTIONS} -lgsl -lgslcblas ../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a -lcppunit 
 
 ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/LoopFunctionsTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
-	${LINK.cc}   -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS} -lgsl -lgslcblas ../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a 
+	${LINK.cc} -L/opt/local/lib -L/usr/lib/root -L/usr/local/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl  -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS} -lgsl -lgslcblas ../gslpp/dist/Debug/GNU-MacOSX/libgslpp.a 
 
 
 ${TESTDIR}/tests/LFtestclass.o: tests/LFtestclass.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -Isrc -I../gslpp/src -I. -I. -I. -I. -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LFtestclass.o tests/LFtestclass.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -Isrc -I../gslpp/src -I. -I. -I. -I. -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LFtestclass.o tests/LFtestclass.cpp
 
 
 ${TESTDIR}/tests/LFtestrunner.o: tests/LFtestrunner.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -Isrc -I../gslpp/src -I. -I. -I. -I. -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LFtestrunner.o tests/LFtestrunner.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -Isrc -I../gslpp/src -I. -I. -I. -I. -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LFtestrunner.o tests/LFtestrunner.cpp
 
 
 ${TESTDIR}/tests/LoopFunctionsTest.o: tests/LoopFunctionsTest.cpp 
 	${MKDIR} -p ${TESTDIR}/tests
 	${RM} $@.d
-	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -I. -Isrc -I../gslpp/src -I. -I. -I. -I. -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LoopFunctionsTest.o tests/LoopFunctionsTest.cpp
+	$(COMPILE.cc) -g -I. -I. -I. -I. -I. -I. -Isrc -I../gslpp/src -I. -I. -I. -I. -I../gslpp/src -MMD -MP -MF $@.d -o ${TESTDIR}/tests/LoopFunctionsTest.o tests/LoopFunctionsTest.cpp
 
 
 ${OBJECTDIR}/src/Polylogarithms_nomain.o: ${OBJECTDIR}/src/Polylogarithms.o src/Polylogarithms.cpp 

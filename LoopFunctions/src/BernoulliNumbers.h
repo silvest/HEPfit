@@ -15,13 +15,7 @@ public:
      */
     BernoulliNumbers();
 
-    //BernoulliNumbers(const BernoulliNumbers& orig);
-
-    /**
-     * @brief BernoulliNumbers destructor
-     */
-    virtual ~BernoulliNumbers();
-
+    
     ////////////////////////////////////////////////////////////////////////
 
 protected:
