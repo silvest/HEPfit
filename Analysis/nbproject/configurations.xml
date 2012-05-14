@@ -45,6 +45,8 @@
       <compileType>
         <ccTool>
           <incDir>
+            <pElem>/usr/include/</pElem>
+            <pElem>/usr/include/root</pElem>
             <pElem>../Utils/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../MonteCarlo/src</pElem>
@@ -54,13 +56,8 @@
             <pElem>../InputParser/src</pElem>
             <pElem>../BAT/include</pElem>
             <pElem>../EW/src</pElem>
-            <pElem>/usr/include/</pElem>
-            <pElem>/usr/include/root</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
-            <pElem>../EWSM/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
-            <pElem>../ZFitter/src</pElem>
-            <pElem>../ZFitter6_43/src</pElem>
             <pElem>../MFV/src</pElem>
             <pElem>../SUSY/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
@@ -71,8 +68,6 @@
           <linkerAddLib>
             <pElem>/usr/lib/root</pElem>
             <pElem>../Flavour/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../ZFitter/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../EWSM/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../EW/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../gslpp/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../Observables/dist/Debug/GNU-Linux-x86</pElem>
@@ -83,7 +78,6 @@
             <pElem>../MonteCarlo/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../BAT/lib</pElem>
             <pElem>../LoopFunctions/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../ZFitter6_43/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../MFV/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../SUSY/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../FeynHiggs/lib64</pElem>
@@ -141,18 +135,6 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../EWSM"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../EWSM"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libewsm.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -225,30 +207,6 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../ZFitter"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../ZFitter"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../ZFitter6_43"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../ZFitter6_43"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter6_43.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>

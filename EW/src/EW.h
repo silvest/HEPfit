@@ -8,7 +8,6 @@
 
 #include <ThObsType.h>
 #include <StandardModel.h>
-#include <EWSM.h>
 
 using namespace gslpp;
 
@@ -19,20 +18,34 @@ public:
     /**
      * @brief EW constructor
      * @param[in] SM_i an object of StandardModel class
-     * @param[in] EWSM_i an object of EWSM class
      */
-    EW(const StandardModel& SM_i, const EWSM& EWSM_i);
+    EW(const StandardModel& SM_i);
 
     
     //////////////////////////////////////////////////////////////////////// 
 
     /**
-     * @return a reference to the EWSM object
+     * @return a reference to the StandardModel object in the current class
      */
-    const EWSM& getEWSM() const { return this->myEWSM; }
+    const StandardModel& getSM() const {
+        return SM;
+    } 
     
+    /**
+     * @param[in] l lepton
+     * @return electric charge of a lepton "l"
+     */
+    double Ql(const StandardModel::lepton l) const;    
 
-    //////////////////////////////////////////////////////////////////////// 
+    /**
+     * @param[in] q quark
+     * @return electric charge of a quark "q"
+     */
+    double Qq(const StandardModel::quark q) const;    
+
+    
+    ////////////////////////////////////////////////////////////////////////     
+    
     
     /**
      * @param[in] l name of a lepton
@@ -101,8 +114,8 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
 private:
-    const EWSM& myEWSM;
-
+    const StandardModel& SM;
+    
     
 };
 

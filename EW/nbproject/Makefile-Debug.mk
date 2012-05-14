@@ -84,97 +84,97 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a: ${OBJECTFILES}
 ${OBJECTDIR}/src/Alepton.o: src/Alepton.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Alepton.o src/Alepton.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Alepton.o src/Alepton.cpp
 
 ${OBJECTDIR}/src/AFBcharm.o: src/AFBcharm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AFBcharm.o src/AFBcharm.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AFBcharm.o src/AFBcharm.cpp
 
 ${OBJECTDIR}/src/Acharm.o: src/Acharm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Acharm.o src/Acharm.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Acharm.o src/Acharm.cpp
 
 ${OBJECTDIR}/src/PtauPol.o: src/PtauPol.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PtauPol.o src/PtauPol.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/PtauPol.o src/PtauPol.cpp
 
 ${OBJECTDIR}/src/Rlepton.o: src/Rlepton.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Rlepton.o src/Rlepton.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Rlepton.o src/Rlepton.cpp
 
 ${OBJECTDIR}/src/Mw.o: src/Mw.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Mw.o src/Mw.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Mw.o src/Mw.cpp
 
 ${OBJECTDIR}/src/obliqueS.o: src/obliqueS.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueS.o src/obliqueS.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueS.o src/obliqueS.cpp
 
 ${OBJECTDIR}/src/Rbottom.o: src/Rbottom.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Rbottom.o src/Rbottom.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Rbottom.o src/Rbottom.cpp
 
 ${OBJECTDIR}/src/obliqueT.o: src/obliqueT.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueT.o src/obliqueT.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueT.o src/obliqueT.cpp
 
 ${OBJECTDIR}/src/sigmaHadron.o: src/sigmaHadron.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/sigmaHadron.o src/sigmaHadron.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/sigmaHadron.o src/sigmaHadron.cpp
 
 ${OBJECTDIR}/src/GammaZ.o: src/GammaZ.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/GammaZ.o src/GammaZ.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/GammaZ.o src/GammaZ.cpp
 
 ${OBJECTDIR}/src/AFBbottom.o: src/AFBbottom.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AFBbottom.o src/AFBbottom.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AFBbottom.o src/AFBbottom.cpp
 
 ${OBJECTDIR}/src/GammaW.o: src/GammaW.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/GammaW.o src/GammaW.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/GammaW.o src/GammaW.cpp
 
 ${OBJECTDIR}/src/Rcharm.o: src/Rcharm.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Rcharm.o src/Rcharm.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Rcharm.o src/Rcharm.cpp
 
 ${OBJECTDIR}/src/sin2thetaEff.o: src/sin2thetaEff.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/sin2thetaEff.o src/sin2thetaEff.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/sin2thetaEff.o src/sin2thetaEff.cpp
 
 ${OBJECTDIR}/src/EW.o: src/EW.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EW.o src/EW.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EW.o src/EW.cpp
 
 ${OBJECTDIR}/src/obliqueU.o: src/obliqueU.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueU.o src/obliqueU.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/obliqueU.o src/obliqueU.cpp
 
 ${OBJECTDIR}/src/Abottom.o: src/Abottom.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Abottom.o src/Abottom.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/Abottom.o src/Abottom.cpp
 
 ${OBJECTDIR}/src/AFBlepton.o: src/AFBlepton.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
-	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -I../EWSM/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AFBlepton.o src/AFBlepton.cpp
+	$(COMPILE.cc) -g -I../gslpp/src -I../Observables/src -I../StandardModel/src -I../LoopFunctions/src -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/AFBlepton.o src/AFBlepton.cpp
 
 # Subprojects
 .build-subprojects:

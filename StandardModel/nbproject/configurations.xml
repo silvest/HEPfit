@@ -6,6 +6,16 @@
                    projectFiles="true">
       <itemPath>src/BParameter.h</itemPath>
       <itemPath>src/CKM.h</itemPath>
+      <itemPath>src/EWModel.h</itemPath>
+      <itemPath>src/EWSM.h</itemPath>
+      <itemPath>src/EWSMApproximateFormulae.h</itemPath>
+      <itemPath>src/EWSMOneLoopEW.h</itemPath>
+      <itemPath>src/EWSMThreeLoopEW.h</itemPath>
+      <itemPath>src/EWSMThreeLoopEW2QCD.h</itemPath>
+      <itemPath>src/EWSMThreeLoopQCD.h</itemPath>
+      <itemPath>src/EWSMTwoLoopEW.h</itemPath>
+      <itemPath>src/EWSMTwoLoopQCD.h</itemPath>
+      <itemPath>src/EWSMcache.h</itemPath>
       <itemPath>src/Meson.h</itemPath>
       <itemPath>src/Model.h</itemPath>
       <itemPath>src/ModelMatching.h</itemPath>
@@ -26,6 +36,15 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/CKM.cpp</itemPath>
+      <itemPath>src/EWSM.cpp</itemPath>
+      <itemPath>src/EWSMApproximateFormulae.cpp</itemPath>
+      <itemPath>src/EWSMOneLoopEW.cpp</itemPath>
+      <itemPath>src/EWSMThreeLoopEW.cpp</itemPath>
+      <itemPath>src/EWSMThreeLoopEW2QCD.cpp</itemPath>
+      <itemPath>src/EWSMThreeLoopQCD.cpp</itemPath>
+      <itemPath>src/EWSMTwoLoopEW.cpp</itemPath>
+      <itemPath>src/EWSMTwoLoopQCD.cpp</itemPath>
+      <itemPath>src/EWSMcache.cpp</itemPath>
       <itemPath>src/Meson.cpp</itemPath>
       <itemPath>src/Particle.cpp</itemPath>
       <itemPath>src/QCD.cpp</itemPath>
@@ -69,29 +88,51 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>/usr/include/root</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../Utils/src</pElem>
-            <pElem>/usr/include/root</pElem>
-            <pElem>../EWSM/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
           </incDir>
           <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
         </archiverTool>
+        <requiredProjects>
+          <makeArtifact PL="../gslpp"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../gslpp"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+          </makeArtifact>
+          <makeArtifact PL="../Utils"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../Utils"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.a">
+          </makeArtifact>
+          <makeArtifact PL="../LoopFunctions"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../LoopFunctions"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
       <folder path="TestFiles">
         <linkerTool>

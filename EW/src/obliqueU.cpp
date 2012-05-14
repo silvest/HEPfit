@@ -8,7 +8,7 @@
 
 
 obliqueU::obliqueU(const EW& EW_i) : ThObservable(EW_i) {
-    U = EW_i.getEWSM().obliqueU();
+    U = EW_i.getSM().obliqueU();
 }
 
 double obliqueU::getThValue() {   

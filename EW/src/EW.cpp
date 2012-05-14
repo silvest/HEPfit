@@ -11,30 +11,62 @@
 #include <gsl/gsl_sf_zeta.h>
 
 
-EW::EW(const StandardModel& SM_i, const EWSM& EWSM_i) : ThObsType(SM_i), 
-                                                        myEWSM(EWSM_i) {   
+EW::EW(const StandardModel& SM_i) : ThObsType(SM_i), SM(SM_i) {
+}
+
+
+////////////////////////////////////////////////////////////////////////
+
+double EW::Ql(const StandardModel::lepton l) const {
+    switch(l) {
+        case StandardModel::NEUTRINO_1:
+        case StandardModel::NEUTRINO_2:
+        case StandardModel::NEUTRINO_3:
+            return (0.0);
+        case StandardModel::ELECTRON:
+        case StandardModel::MU:
+        case StandardModel::TAU:
+            return (-1.0);
+        default:
+            throw "Error in EW::Ql()";  
+    }
+}        
+ 
+double EW::Qq(const StandardModel::quark q) const {
+    switch(q) {
+        case StandardModel::UP:
+        case StandardModel::CHARM:
+        case StandardModel::TOP:
+            return (2.0/3.0);
+        case StandardModel::DOWN:
+        case StandardModel::STRANGE:
+        case StandardModel::BOTTOM:
+            return (-1.0/3.0);
+        default:
+            throw "Error in EW::Qq()";  
+    }
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 
 double EW::sin2thetaEff(const StandardModel::lepton l) const {
-    double absQf = fabs(myEWSM.getEWSMC()->Qf(l));
-    return ( 1.0/4.0/absQf*(1.0 - myEWSM.gZl_over_gAl(l).real()) );
+    double absQf = fabs(Ql(l));
+    return ( 1.0/4.0/absQf*(1.0 - SM.gZl_over_gAl(l).real()) );
 }
 
 
 double EW::sin2thetaEff(const StandardModel::quark q) const {
-    double absQf = fabs(myEWSM.getEWSMC()->Qf(q));
-    return ( 1.0/4.0/absQf*(1.0 - myEWSM.gZq_over_gAq(q).real()) );
+    double absQf = fabs(Qq(q));
+    return ( 1.0/4.0/absQf*(1.0 - SM.gZq_over_gAq(q).real()) );
 }
 
 
 double EW::Gamma_l(const StandardModel::lepton l) const {
-    complex rhoZ_l = myEWSM.rhoZ_l(l);
-    complex gV_over_gA = myEWSM.gZl_over_gAl(l);
-    double alphaMz = myEWSM.alphaMz();
-    double Q = myEWSM.getEWSMC()->Qf(l);
+    complex rhoZ_l = SM.rhoZ_l(l);
+    complex gV_over_gA = SM.gZl_over_gAl(l);
+    double alphaMz = SM.alphaMz();
+    double Q = Ql(l);
     double xl = pow(SM.getLeptons(l).getMass()/SM.getMz(), 2.0);
     double G0 = SM.getGF()*pow(SM.getMz(),3.0)/24.0/sqrt(2.0)/M_PI;
     double Gamma = G0*rhoZ_l.abs()*sqrt(1.0 - 4.0*xl)
@@ -45,9 +77,9 @@ double EW::Gamma_l(const StandardModel::lepton l) const {
 
 
 double EW::Gamma_q(const StandardModel::quark q) const {
-    complex rhoZ_q = myEWSM.rhoZ_q(q);
-    complex gV_over_gA = myEWSM.gZq_over_gAq(q);
-    double alphaMz = myEWSM.alphaMz();
+    complex rhoZ_q = SM.rhoZ_q(q);
+    complex gV_over_gA = SM.gZq_over_gAq(q);
+    double alphaMz = SM.alphaMz();
     
     
     /* This part should be modified! */
@@ -73,7 +105,7 @@ double EW::Gamma_q(const StandardModel::quark q) const {
     /* z-component of isospin */
     double I3q;
     /* electric charge squared */
-    double Qf2 = pow(myEWSM.getEWSMC()->Qf(q),2.0);
+    double Qf2 = pow(Qq(q),2.0);
 
     switch(q) {
         case StandardModel::UP:
@@ -272,13 +304,13 @@ double EW::sigma0_had() const {
 
 
 double EW::A_l(const StandardModel::lepton l) const {
-    double Re_gV_over_gA = myEWSM.gZl_over_gAl(l).real();
+    double Re_gV_over_gA = SM.gZl_over_gAl(l).real();
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
 }
 
 
 double EW::A_q(const StandardModel::quark q) const {
-    double Re_gV_over_gA = myEWSM.gZq_over_gAq(q).real();
+    double Re_gV_over_gA = SM.gZq_over_gAq(q).real();
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
 }
 

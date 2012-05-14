@@ -10,8 +10,8 @@
 #include <EWObservables.h>
 
 ThFactory::ThFactory(const StandardModel& myModel, 
-        StandardModelMatching& myModelMatching, const EWSM& myEWModel) : 
-        myFlavour(myModel, myModelMatching), myEW(myModel, myEWModel) {
+        StandardModelMatching& myModelMatching) : 
+        myFlavour(myModel, myModelMatching), myEW(myModel) {
     thobs["Dmd0"] = new DmBd0(myFlavour);
     thobs["Dmd1"] = new DmBd(myFlavour);
     thobs["Dms0"] = new DmBs0(myFlavour);
