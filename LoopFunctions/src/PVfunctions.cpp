@@ -13,13 +13,7 @@
 PVfunctions::PVfunctions() {
 }
 
-PVfunctions::PVfunctions(const PVfunctions& orig) {
-}
-
-PVfunctions::~PVfunctions() {
-}
-
-double PVfunctions::A0(const double mu, const double m) {
+double PVfunctions::A0(const double mu, const double m) const {
     if ( mu<=0.0 || m<0.0 ) {
         throw "Invalid argument for PVfunctions::A0()";
     }
@@ -32,7 +26,7 @@ double PVfunctions::A0(const double mu, const double m) {
 }
 
 complex PVfunctions::B0(const double mu, const double p2, 
-                        const double m0, const double m1) {   
+                        const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw "Invalid argument for PVfunctions::B0()";
     }
@@ -90,7 +84,7 @@ complex PVfunctions::B0(const double mu, const double p2,
 }
 
 complex PVfunctions::B1(const double mu, const double p2, 
-                        const double m0, const double m1) {   
+                        const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw "Invalid argument for PVfunctions::B1()";
     }
@@ -123,7 +117,7 @@ complex PVfunctions::B1(const double mu, const double p2,
 }
 
 complex PVfunctions::B21(const double mu, const double p2, 
-                         const double m0, const double m1) {   
+                         const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw "Invalid argument for PVfunctions::B21()";
     }
@@ -171,7 +165,7 @@ complex PVfunctions::B21(const double mu, const double p2,
 //}
 
 complex PVfunctions::Bf(const double mu, const double p2, 
-                        const double m0, const double m1) {   
+                        const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw "Invalid argument for PVfunctions::Bf()";
     }
@@ -181,7 +175,7 @@ complex PVfunctions::Bf(const double mu, const double p2,
 }
 
 complex PVfunctions::B0p(const double mu, const double p2, 
-                         const double m0, const double m1) {   
+                         const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw "Invalid argument for PVfunctions::B0p()";
     }
@@ -234,7 +228,7 @@ complex PVfunctions::B0p(const double mu, const double p2,
 }
 
 complex PVfunctions::B1p(const double mu, const double p2, 
-                         const double m0, const double m1) {   
+                         const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw "Invalid argument for PVfunctions::B1p()";
     }
@@ -251,7 +245,7 @@ complex PVfunctions::B1p(const double mu, const double p2,
 }
 
 complex PVfunctions::B21p(const double mu, const double p2, 
-                          const double m0, const double m1) {   
+                          const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw "Invalid argument for PVfunctions::B21p()";
     }
@@ -285,7 +279,7 @@ complex PVfunctions::B21p(const double mu, const double p2,
 //}
 
 complex PVfunctions::Bfp(const double mu, const double p2, 
-                         const double m0, const double m1) {   
+                         const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw "Invalid argument for PVfunctions::Bfp()";
     }
@@ -295,7 +289,7 @@ complex PVfunctions::Bfp(const double mu, const double p2,
 }
 
 complex PVfunctions::C0(const double p2, 
-                        const double m0, const double m1, const double m2) {
+                        const double m0, const double m1, const double m2) const {
     if ( p2<0.0 || m0<0.0 || m1<0.0 || m2<0.0 ) {
         throw "Invalid argument for PVfunctions::C0()";
     }

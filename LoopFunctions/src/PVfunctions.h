@@ -15,17 +15,13 @@ public:
 
     PVfunctions();
 
-    PVfunctions(const PVfunctions& orig);
-
-    virtual ~PVfunctions();
-
     /**
      * @brief the scalar one-point Passarino-Veltman function
      * @param[in] mu renormalization scale
      * @param[in] m mass m
      * @return the finite part of the scalar one-point PV function at the scale mu
      */
-    double A0(const double mu, const double m);
+    double A0(const double mu, const double m) const;
     
     /**
      * @brief the scalar two-point Passarino-Veltman function
@@ -36,7 +32,7 @@ public:
      * @return the finite part of the scalar two-point PV function at the scale mu
      */
     complex B0(const double mu, const double p2, 
-               const double m0, const double m1); 
+               const double m0, const double m1) const; 
     
     /**
      * @brief the vector two-point Passarino-Veltman function
@@ -47,7 +43,7 @@ public:
      * @return the finite part of the vector two-point PV function at the scale mu
      */
     complex B1(const double mu, const double p2, 
-               const double m0, const double m1); 
+               const double m0, const double m1) const; 
     
     /**
      * @brief a tensor two-point Passarino-Veltman function
@@ -58,7 +54,7 @@ public:
      * @return the finite part of a tensor two-point PV function B_{21} at the scale mu
      */
     complex B21(const double mu, const double p2, 
-                const double m0, const double m1);     
+                const double m0, const double m1) const;     
     
     /**
      * @brief a tensor two-point Passarino-Veltman function
@@ -80,7 +76,7 @@ public:
      * @return the finite part of a sum of two-point PV function at the scale mu
      */
     complex Bf(const double mu, const double p2, 
-               const double m0, const double m1);       
+               const double m0, const double m1) const;       
     
     /**
      * @brief the derivative of B_0
@@ -91,7 +87,7 @@ public:
      * @return the finite part of B_{0p}
      */
     complex B0p(const double mu, const double p2, 
-                const double m0, const double m1); 
+                const double m0, const double m1) const; 
     
     /**
      * @brief the derivative of B_1
@@ -102,7 +98,7 @@ public:
      * @return the finite part of B_{1p}
      */
     complex B1p(const double mu, const double p2, 
-                const double m0, const double m1); 
+                const double m0, const double m1) const; 
     
     /**
      * @brief the derivative of B_{21}
@@ -113,7 +109,7 @@ public:
      * @return the finite part of B_{21p}
      */
     complex B21p(const double mu, const double p2, 
-                 const double m0, const double m1);     
+                 const double m0, const double m1) const;     
     
     /**
      * @brief the derivative of B_{22}
@@ -135,7 +131,7 @@ public:
      * @return the finite part of B_{fp}
      */
     complex Bfp(const double mu, const double p2, 
-                const double m0, const double m1);       
+                const double m0, const double m1) const;       
     
     /**
      * @brief the scalar three-point Passarino-Veltman function
@@ -146,7 +142,7 @@ public:
      * @return the scalar three-point PV function 
      */
     complex C0(const double p2, 
-               const double m0, const double m1, const double m2); 
+               const double m0, const double m1, const double m2) const; 
     
 private:
 

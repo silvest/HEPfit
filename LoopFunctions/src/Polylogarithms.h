@@ -18,17 +18,6 @@ public:
      * @brief Polylogarithms constructor
      */
     Polylogarithms();
-    
-    /**
-     * @brief Polylogarithms copy constructor
-     * @param[in] orig reference to a Polylogarithms object
-     */
-    //Polylogarithms(const Polylogarithms& orig);
-    
-    /**
-     * @brief Polylogarithms destructor
-     */
-    virtual ~Polylogarithms();
 
 
     ////////////////////////////////////////////////////////////////////////
