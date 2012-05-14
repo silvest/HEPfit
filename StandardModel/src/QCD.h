@@ -34,6 +34,12 @@ public:
     QCD() : BBs(5), BBd(5), BD(5), BK(5) {
         Nc=3.;
         CF = Nc/2.-1./(2.*Nc);
+        quarks[UP].setCharge(2./3.);
+        quarks[CHARM].setCharge(2./3.);
+        quarks[TOP].setCharge(2./3.);
+        quarks[DOWN].setCharge(-1./3.);
+        quarks[STRANGE].setCharge(-1./3.);    
+        quarks[BOTTOM].setCharge(-1./3.); 
         //to be moved to the Als class
         for (int i = 0; i < 5; i++)
         {

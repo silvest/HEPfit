@@ -7,8 +7,9 @@
 
 #include "Particle.h"
 
-Particle::Particle(double mass, double width = 0.) {
+Particle::Particle(double mass, double width = 0., double charge = 0.) {
     this->mass = mass;
     this->width = width;
+    this->charge = charge;
 }
 
