@@ -5,7 +5,6 @@
  * Created on November 30, 2010, 1:27 PM
  */
 
-
 //#include <boost/assign/list_of.hpp> // for 'map_list_of()'
 #include <iostream>
 #include <math.h>
@@ -13,10 +12,12 @@
 #include <TF1.h>
 #include <Math/WrappedTF1.h>
 #include <Math/BrentRootFinder.h>
-#include "StandardModel.h"
-#include "CKM.h"
 #include <gsl/gsl_sf_dilog.h>
 #include <gsl/gsl_sf_zeta.h>
+#include "StandardModel.h"
+#include "CKM.h"
+#include "EWSM.h"
+
 
 const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutrino_2",
     "mneutrino_3", "melectron", "mmu", "mtau", "lambda", "A", "rhob", "etab", "ale",
@@ -127,13 +128,14 @@ bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars) 
 
 StandardModel::StandardModel() : QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.),
 Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
+    myEWSM = new EWSM(*this);
 }
 
 ///////////////////////////////////////////////////////////////////////////
 
 const double StandardModel::matchingScale() const {
-        return muw;
-    }
+    return muw;
+}
 
 double StandardModel::v() const {
     return 1. / sqrt(sqrt(2.) * GF);
@@ -144,9 +146,56 @@ double StandardModel::Mw_tree() const {
     return ( Mz/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp)) );
 }
 
-double StandardModel::Mw() const {
-    throw "Codes for StandardModel::Mw() is missing!";
+////////////////////////////////////////////////////////////////////////
+
+double StandardModel::DeltaAlphaLepton() const {
+    return myEWSM->DeltaAlphaLepton();
 }
+
+double StandardModel::DeltaAlphaL5q() const {
+    return myEWSM->DeltaAlphaL5q();
+}
+    
+double StandardModel::DeltaAlpha() const {
+    return myEWSM->DeltaAlpha();
+}
+    
+double StandardModel::alphaMz() const {
+    return myEWSM->alphaMz();
+}
+    
+double StandardModel::Mw() const {
+    return myEWSM->Mw();
+}
+
+double StandardModel::cW2() const {
+    return myEWSM->cW2();
+}
+
+double StandardModel::sW2() const {
+    return myEWSM->sW2();
+}
+    
+complex StandardModel::rhoZ_l(const lepton l) const {
+    return myEWSM->rhoZ_l(l);
+}
+    
+complex StandardModel::rhoZ_q(const quark q) const {
+    return myEWSM->rhoZ_q(q);
+}
+    
+complex StandardModel::gZl_over_gAl(const lepton l) const {
+    return myEWSM->gZl_over_gAl(l);
+}
+
+complex StandardModel::gZq_over_gAq(const quark q) const {
+    return myEWSM->gZq_over_gAq(q);
+}
+    
+double StandardModel::GammaW() const {
+    return myEWSM->GammaW();
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 

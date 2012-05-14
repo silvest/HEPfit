@@ -78,7 +78,6 @@
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
-            <pElem>../EWSM/src</pElem>
           </incDir>
           <commandLine>-Wall</commandLine>
         </ccTool>
@@ -105,16 +104,6 @@
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
           </makeArtifact>
-          <makeArtifact PL="../StandardModel"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="false"
-                        WD="../StandardModel"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
-          </makeArtifact>
           <makeArtifact PL="../LoopFunctions"
                         CT="3"
                         CN="Debug"
@@ -124,6 +113,16 @@
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
+          </makeArtifact>
+          <makeArtifact PL="../StandardModel"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="false"
+                        WD="../StandardModel"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
           </makeArtifact>
           <makeArtifact PL="../EWSM"
                         CT="3"

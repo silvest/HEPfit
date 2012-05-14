@@ -56,17 +56,15 @@
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>/usr/local/boost_1_47_0</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../Utils/src</pElem>
             <pElem>../Observables/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../Flavour/src</pElem>
             <pElem>../EW/src</pElem>
-            <pElem>../gslpp/src</pElem>
-            <pElem>../Utils/src</pElem>
-            <pElem>/usr/local/boost_1_47_0</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
-            <pElem>../EWSM/src</pElem>
-            <pElem>../LoopFunctions/src</pElem>
-            <pElem>../ZFitter/src</pElem>
             <pElem>../MFV/src</pElem>
             <pElem>../SUSY/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
@@ -74,6 +72,108 @@
         </ccTool>
         <archiverTool>
         </archiverTool>
+        <requiredProjects>
+          <makeArtifact PL="../EW"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="false"
+                        WD="../EW"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
+          </makeArtifact>
+          <makeArtifact PL="../Flavour"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="false"
+                        WD="../Flavour"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+          </makeArtifact>
+          <makeArtifact PL="../gslpp"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="false"
+                        WD="../gslpp"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+          </makeArtifact>
+          <makeArtifact PL="../LoopFunctions"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="false"
+                        WD="../LoopFunctions"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
+          </makeArtifact>
+          <makeArtifact PL="../MFV"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="false"
+                        WD="../MFV"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmfv.a">
+          </makeArtifact>
+          <makeArtifact PL="../Observables"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="false"
+                        WD="../Observables"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
+          </makeArtifact>
+          <makeArtifact PL="../StandardModel"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="false"
+                        WD="../StandardModel"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
+          </makeArtifact>
+          <makeArtifact PL="../SUSY"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="false"
+                        WD="../SUSY"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusy.a">
+          </makeArtifact>
+          <makeArtifact PL="../SUSYMassInsertion"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="false"
+                        WD="../SUSYMassInsertion"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusymassinsertion.a">
+          </makeArtifact>
+          <makeArtifact PL="../Utils"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="false"
+                        WD="../Utils"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.a">
+          </makeArtifact>
+        </requiredProjects>
       </compileType>
       <folder path="TestFiles">
         <linkerTool>

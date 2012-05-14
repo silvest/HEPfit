@@ -7,7 +7,7 @@
 
 
 Mw::Mw(const EW& EW_i) : ThObservable(EW_i) {
-    myMw = EW_i.getEWSM().Mw();
+    myMw = EW_i.getSM().Mw();
 }
 
 double Mw::getThValue() {   
