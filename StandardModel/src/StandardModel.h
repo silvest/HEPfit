@@ -72,8 +72,15 @@ public:
     double Mw_tree() const;    
     
  
-   //////////////////////////////////////////////////////////////////////// 
+    //////////////////////////////////////////////////////////////////////// 
 
+    /**
+     * @return pointer to EWSM object
+     */
+    EWSM* getMyEWSM() const {
+        return myEWSM;
+    }
+    
     /**
      * @return the leptonic corrections to alpha at Mz
      */
