@@ -64,8 +64,8 @@ public:
      * @param[in] m1 mass m_1
      * @return the finite part of a tensor two-point PV function B_{22} at the scale mu
      */
-    //complex B22(const double mu, const double p2, 
-    //            const double m0, const double m1);       
+    complex B22(const double mu, const double p2, 
+                const double m0, const double m1) const;       
     
     /**
      * @brief a sum of two-point Passarino-Veltman functions
@@ -143,6 +143,16 @@ public:
      */
     complex C0(const double p2, 
                const double m0, const double m1, const double m2) const; 
+    
+    /**
+     * @brief function F(m0,m1) used for THDM. Remember that this function is
+     * defined for THDM while for SUSY we have a multiplicative factor 2.
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the function F for THDM 
+     */
+    double F(const double m0, const double m1) const;
+    
     
 private:
 
