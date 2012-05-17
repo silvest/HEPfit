@@ -134,7 +134,7 @@ Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
     leptons[ELECTRON].setCharge(-1.);
     leptons[MU].setCharge(-1.);    
     leptons[TAU].setCharge(-1.);    
-    myEWSM = new EWSM(*this);
+//    myEWSM = new EWSM(*this);
 }
 
 ///////////////////////////////////////////////////////////////////////////
@@ -153,54 +153,54 @@ double StandardModel::Mw_tree() const {
 }
 
 ////////////////////////////////////////////////////////////////////////
-
-double StandardModel::DeltaAlphaLepton() const {
-    return myEWSM->DeltaAlphaLepton();
-}
-
-double StandardModel::DeltaAlphaL5q() const {
-    return myEWSM->DeltaAlphaL5q();
-}
-    
-double StandardModel::DeltaAlpha() const {
-    return myEWSM->DeltaAlpha();
-}
-    
-double StandardModel::alphaMz() const {
-    return myEWSM->alphaMz();
-}
-    
-double StandardModel::Mw() const {
-    return myEWSM->Mw();
-}
-
-double StandardModel::cW2() const {
-    return myEWSM->cW2();
-}
-
-double StandardModel::sW2() const {
-    return myEWSM->sW2();
-}
-    
-complex StandardModel::rhoZ_l(const lepton l) const {
-    return myEWSM->rhoZ_l(l);
-}
-    
-complex StandardModel::rhoZ_q(const quark q) const {
-    return myEWSM->rhoZ_q(q);
-}
-    
-complex StandardModel::gZl_over_gAl(const lepton l) const {
-    return myEWSM->gZl_over_gAl(l);
-}
-
-complex StandardModel::gZq_over_gAq(const quark q) const {
-    return myEWSM->gZq_over_gAq(q);
-}
-    
-double StandardModel::GammaW() const {
-    return myEWSM->GammaW();
-}
+//
+//double StandardModel::DeltaAlphaLepton() const {
+//    return myEWSM->DeltaAlphaLepton();
+//}
+//
+//double StandardModel::DeltaAlphaL5q() const {
+//    return myEWSM->DeltaAlphaL5q();
+//}
+//    
+//double StandardModel::DeltaAlpha() const {
+//    return myEWSM->DeltaAlpha();
+//}
+//    
+//double StandardModel::alphaMz() const {
+//    return myEWSM->alphaMz();
+//}
+//    
+//double StandardModel::Mw() const {
+//    return myEWSM->Mw();
+//}
+//
+//double StandardModel::cW2() const {
+//    return myEWSM->cW2();
+//}
+//
+//double StandardModel::sW2() const {
+//    return myEWSM->sW2();
+//}
+//    
+//complex StandardModel::rhoZ_l(const lepton l) const {
+//    return myEWSM->rhoZ_l(l);
+//}
+//    
+//complex StandardModel::rhoZ_q(const quark q) const {
+//    return myEWSM->rhoZ_q(q);
+//}
+//    
+//complex StandardModel::gZl_over_gAl(const lepton l) const {
+//    return myEWSM->gZl_over_gAl(l);
+//}
+//
+//complex StandardModel::gZq_over_gAq(const quark q) const {
+//    return myEWSM->gZq_over_gAq(q);
+//}
+//    
+//double StandardModel::GammaW() const {
+//    return myEWSM->GammaW();
+//}
 
 
 ////////////////////////////////////////////////////////////////////////

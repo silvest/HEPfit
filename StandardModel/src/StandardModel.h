@@ -14,7 +14,7 @@
 #include "WilsonCoefficient.h"
 
 using namespace gslpp;
-class EWSM; // forward reference to ESSM class
+//class EWSM; // forward reference to ESSM class
 
 
 /**
@@ -77,78 +77,102 @@ public:
     /**
      * @return pointer to EWSM object
      */
-    EWSM* getMyEWSM() const {
-        return myEWSM;
-    }
+//    EWSM* getMyEWSM() const {
+//        return myEWSM;
+//    }
     
     /**
      * @return the leptonic corrections to alpha at Mz
      */
-    double DeltaAlphaLepton() const;    
+    double DeltaAlphaLepton() const {
+        return 0.0;
+    };    
 
     /**
      * @return the sum of the leptonic and hadronic corrections to alpha at Mz
      */
-    double DeltaAlphaL5q() const;
+    double DeltaAlphaL5q() const {
+        return 0.0;
+    };
     
     /**
      * @return the total (leptonic+hadronic+top) corrections to alpha at Mz
      */
-    double DeltaAlpha() const;
+    double DeltaAlpha() const {
+        return 0.0;
+    };
     
     /**
      * @brief electromagnetic coupling alpha at Mz
      * @return alpha(Mz)
      */
-    double alphaMz() const;
+    double alphaMz() const {
+        return 0.0;
+    };
     
     /**
      * @return the W boson mass
      */
-    virtual double Mw() const;
+    virtual double Mw() const {
+        return 0.0;
+    };
 
     /**
      * @return Mw^2/Mz^2
      */
-    virtual double cW2() const;
+    virtual double cW2() const {
+        return 0.0;
+    };
     
     /**
      * @return 1-Mw^2/Mz^2
      */
-    virtual double sW2() const;
+    virtual double sW2() const {
+        return 0.0;
+    };
     
     /**
      * @brief effective coupling rho_Z^l
      * @param[in] l lepton
      * @return rho_Z^l
      */
-    virtual complex rhoZ_l(const lepton l) const;
+    virtual complex rhoZ_l(const lepton l) const {
+        return complex(0.,0.);
+    }
     
     /**
      * @brief effective coupling rho_Z^q
      * @param[in] q quark
      * @return rho_Z^q
      */
-    virtual complex rhoZ_q(const quark q) const;
+    virtual complex rhoZ_q(const quark q) const {
+        return complex(0.,0.);
+    }
     
     /**
      * @brief the ratio of the effective couplings for neutral-current interactions
      * @param[in] l lepton
      * @return g_V^l/g_A^l
      */
-    virtual complex gZl_over_gAl(const lepton l) const;
+    virtual complex gZl_over_gAl(const lepton l) const {
+        return complex(0.,0.);
+    }
 
     /**
      * @brief the ratio of the effective couplings for neutral-current interactions
      * @param[in] q quark
      * @return g_V^q/g_A^q
      */
-    virtual complex gZq_over_gAq(const quark q) const;
+    virtual complex gZq_over_gAq(const quark q) const {
+        return complex(0.,0.);
+    }
     
     /**
      * @return the total width of the W boson
      */
-    virtual double GammaW() const;     
+    virtual double GammaW() const {
+        return 0.0;
+    };    
     
     /**
      * @return NP contribution to oblique parameter S
@@ -425,7 +449,7 @@ protected:
     double muw, KbarEpsK, phiEpsK, DeltaMK, SM_M12D;
     CKM myCKM;
     Particle leptons[6];
-    EWSM* myEWSM;
+//    EWSM* myEWSM;
 
 private:
     bool computeCKM, computeYe, computeYn;
