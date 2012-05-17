@@ -31,20 +31,47 @@ double EW::Qq(const StandardModel::quark q) const {
 ////////////////////////////////////////////////////////////////////////
 
 double EW::sin2thetaEff(const StandardModel::lepton l) const {
+    complex gV_over_gA;
+    std::string Model = getSM().ModelName();
+    if (Model=="StandardModel" || Model=="SUSY") {
+        gV_over_gA = SM.gZl_over_gAl(l);
+    } else if (Model=="THDM") {
+        gV_over_gA = 0.0; // Write code!
+    } else 
+        throw "Error in EW::sin2thetaEff()";   
+    
     double absQf = fabs(Ql(l));
     return ( 1.0/4.0/absQf*(1.0 - SM.gZl_over_gAl(l).real()) );
 }
 
 
 double EW::sin2thetaEff(const StandardModel::quark q) const {
+    complex gV_over_gA;
+    std::string Model = getSM().ModelName();
+    if (Model=="StandardModel" || Model=="SUSY") {
+        gV_over_gA = SM.gZq_over_gAq(q);
+    } else if (Model=="THDM") {
+        gV_over_gA = 0.0; // Write code!
+    } else 
+        throw "Error in EW::sin2thetaEff()";  
+    
     double absQf = fabs(Qq(q));
     return ( 1.0/4.0/absQf*(1.0 - SM.gZq_over_gAq(q).real()) );
 }
 
 
 double EW::Gamma_l(const StandardModel::lepton l) const {
-    complex rhoZ_l = SM.rhoZ_l(l);
-    complex gV_over_gA = SM.gZl_over_gAl(l);
+    complex rhoZ_l, gV_over_gA;
+    std::string Model = getSM().ModelName();
+    if (Model=="StandardModel" || Model=="SUSY") {
+        rhoZ_l = SM.rhoZ_l(l);
+        gV_over_gA = SM.gZl_over_gAl(l);
+    } else if (Model=="THDM") {
+        rhoZ_l = 0.0; // Write code!
+        gV_over_gA = 0.0; // Write code!
+    } else 
+        throw "Error in EW::Gamma_l()";   
+
     double alphaMz = SM.alphaMz();
     double Q = Ql(l);
     double xl = pow(SM.getLeptons(l).getMass()/SM.getMz(), 2.0);
@@ -57,14 +84,22 @@ double EW::Gamma_l(const StandardModel::lepton l) const {
 
 
 double EW::Gamma_q(const StandardModel::quark q) const {
-    complex rhoZ_q = SM.rhoZ_q(q);
-    complex gV_over_gA = SM.gZq_over_gAq(q);
+    complex rhoZ_q, gV_over_gA;
+    std::string Model = getSM().ModelName();
+    if (Model=="StandardModel" || Model=="SUSY") {
+        rhoZ_q = SM.rhoZ_q(q);
+        gV_over_gA = SM.gZq_over_gAq(q);
+    } else if (Model=="THDM") {
+        rhoZ_q = 0.0; // Write code!
+        gV_over_gA = 0.0; // Write code!
+    } else 
+        throw "Error in EW::Gamma_q()";        
+
     double alphaMz = SM.alphaMz();
-    
     
     /* This part should be modified! */
     double mcMz, mbMz;
-    //mcMz = 0.580624;
+
     //mbMz = 2.84386;
     //mcMz = 0.55696435; 
     //mbMz = 2.8095955;
@@ -284,13 +319,29 @@ double EW::sigma0_had() const {
 
 
 double EW::A_l(const StandardModel::lepton l) const {
-    double Re_gV_over_gA = SM.gZl_over_gAl(l).real();
+    double Re_gV_over_gA;
+    std::string Model = getSM().ModelName();
+    if (Model=="StandardModel" || Model=="SUSY") {
+        Re_gV_over_gA = SM.gZl_over_gAl(l).real();
+    } else if (Model=="THDM") {
+        Re_gV_over_gA = 0.0; // Write code!
+    } else 
+        throw "Error in EW::A_l()";  
+
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
 }
 
 
 double EW::A_q(const StandardModel::quark q) const {
-    double Re_gV_over_gA = SM.gZq_over_gAq(q).real();
+    double Re_gV_over_gA;
+    std::string Model = getSM().ModelName();
+    if (Model=="StandardModel" || Model=="SUSY") {
+        Re_gV_over_gA = SM.gZq_over_gAq(q).real();
+    } else if (Model=="THDM") {
+        Re_gV_over_gA = 0.0; // Write code!
+    } else 
+        throw "Error in EW::A_q()";      
+    
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
 }
 
