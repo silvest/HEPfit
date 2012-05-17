@@ -59,6 +59,11 @@ public:
     
     StandardModel();
 
+    virtual std::string ModelName() const {
+        return "StandardModel";
+    }
+    
+    
     ///////////////////////////////////////////////////////////////////////////
     
     /**
