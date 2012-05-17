@@ -5,6 +5,7 @@
 
 #include "EW.h"
 #include <cstdlib>
+#include <cstring>
 #include <iostream>
 #include <iomanip>
 #include <cmath>
@@ -18,33 +19,12 @@ EW::EW(const StandardModel& SM_i) : ThObsType(SM_i), SM(SM_i) {
 ////////////////////////////////////////////////////////////////////////
 
 double EW::Ql(const StandardModel::lepton l) const {
-    switch(l) {
-        case StandardModel::NEUTRINO_1:
-        case StandardModel::NEUTRINO_2:
-        case StandardModel::NEUTRINO_3:
-            return (0.0);
-        case StandardModel::ELECTRON:
-        case StandardModel::MU:
-        case StandardModel::TAU:
-            return (-1.0);
-        default:
-            throw "Error in EW::Ql()";  
-    }
+    return ( SM.getLeptons(l).getCharge() );
 }        
  
+
 double EW::Qq(const StandardModel::quark q) const {
-    switch(q) {
-        case StandardModel::UP:
-        case StandardModel::CHARM:
-        case StandardModel::TOP:
-            return (2.0/3.0);
-        case StandardModel::DOWN:
-        case StandardModel::STRANGE:
-        case StandardModel::BOTTOM:
-            return (-1.0/3.0);
-        default:
-            throw "Error in EW::Qq()";  
-    }
+    return ( SM.getQuarks(q).getCharge() );
 }
 
 
