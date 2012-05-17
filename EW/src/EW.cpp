@@ -240,7 +240,9 @@ double EW::Gamma_q(const StandardModel::quark q) const {
     double I2 = -37.0/12.0 + (-log_t) + 7.0/81.0*xt + 0.0132*xt*xt;
     double I3 = -5075.0/216.0 + 23.0/6.0*zeta2 + zeta3 + 67.0/18.0*(-log_t)
                 + 23.0/12.0*log_t*log_t;
-
+    double I4 = 49.0309 - 17.6637*(-log_t) + 14.6597*log_t*log_t 
+                + 3.6736*(-log_t*log_t*log_t);
+    
     /* singlet vector corrections */
     //double RVh; /* not used */
     
@@ -253,7 +255,7 @@ double EW::Gamma_q(const StandardModel::quark q) const {
     /* radiator function to the vector current */
     RVf = 1.0 + 3.0/4.0*Qf2*alphaMz/M_PI + AlsMzPi - Qf2/4.0*alphaMz/M_PI*AlsMzPi
             + (C02 + C2t)*AlsMzPi2 + C03*AlsMzPi3 + C04*AlsMzPi4
-            //+ deltaC05*AlsMzPi5 /* theoretical uncertainty (absent in ZFITTER) */
+            //+ deltaC05*AlsMzPi5 /* theoretical uncertainty used in Gfitter (absent in ZFITTER) */
             + (mcMz2 + mbMz2)/s*C23*AlsMzPi3
             + mqMz2/s*(C21V*AlsMzPi + C22V*AlsMzPi2 + C23V*AlsMzPi3)
             + mcMz2*mcMz2/s/s*(C42 - log_c)*AlsMzPi2
@@ -267,9 +269,9 @@ double EW::Gamma_q(const StandardModel::quark q) const {
     RAf = 1.0 + 3.0/4.0*Qf2*alphaMz/M_PI + AlsMzPi - Qf2/4.0*alphaMz/M_PI*AlsMzPi
             + (C02 + C2t - 2.0*I3q*I2)*AlsMzPi2
             + (C03 - 2.0*I3q*I3)*AlsMzPi3
-            + C04*AlsMzPi4 /* (absent in ZFITTER) */
-            //- 2.0*I3q*deltaI4*AlsMzPi4 /* theoretical uncertainty */
-            //+ deltaC05*AlsMzPi5 /* theoretical uncertainty (absent in ZFITTER) */
+            + (C04 - 2.0*I3q*I4)*AlsMzPi4 /* (absent in ZFITTER) */
+            //- 2.0*I3q*deltaI4*AlsMzPi4 /* theoretical uncertainty used in Gfitter */
+            //+ deltaC05*AlsMzPi5 /* theoretical uncertainty used in Gfitter (absent in ZFITTER) */
             + (mcMz2 + mbMz2)/s*C23*AlsMzPi3
             + mqMz2/s*(C20A + C21A*AlsMzPi + C22A*AlsMzPi2
                        + 6.0*(3.0 + log_t)*AlsMzPi2 + C23A*AlsMzPi3)
