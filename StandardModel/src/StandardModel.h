@@ -277,22 +277,6 @@ public:
         this->GF = GF;
     }
 
-//   /**
-//     *
-//     * @return @f$\alpha_s(M_Z)@f$
-//     */
-//    double getAlsMz() const {
-//        return AlsMz;
-//    }
-//
-//    /**
-//     * set @f$\alpha_s(M_Z)@f$
-//     * @param AlsMz @f$\alpha_s(M_Z)@f$
-//     */
-//    void setAlsMz(double AlsMz) {
-//        this->AlsMz = AlsMz;
-//    }
-
     /**
      *
      * @return the electromagnetic coupling
@@ -324,22 +308,6 @@ public:
     void setDAle5Mz(double dAle5Mz) {
         this->dAle5Mz = dAle5Mz;
     }
-
-//    /**
-//     *
-//     * @return the Z boson mass
-//     */
-//    double getMz() const {
-//        return Mz;
-//    }
-//
-//    /**
-//     * @brief set the Z boson mass
-//     * @param Mz the Z boson mass
-//     */
-//    void setMz(double Mz) {
-//        this->Mz = Mz;
-//    }
     
     /**
      * @brief set the value Standard Model contribution to \f$ \Delta m_{K} \f$
@@ -454,7 +422,7 @@ public:
 protected:
     virtual void SetParameter(const std::string, const double&);
     matrix<complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
-    double GF, alsMz, ale, dAle5Mz, mZ, mHl, lambda, A, rhob, etab, Dmk;
+    double GF, ale, dAle5Mz, mHl, lambda, A, rhob, etab, Dmk;
     double muw, KbarEpsK, phiEpsK, DeltaMK, SM_M12D;
     CKM myCKM;
     Particle leptons[6];
