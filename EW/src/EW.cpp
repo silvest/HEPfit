@@ -4,6 +4,7 @@
  */
 
 #include "EW.h"
+#include "EWSM.h"
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
@@ -326,7 +327,7 @@ double EW::A_l(const StandardModel::lepton l) const {
     if (Model=="StandardModel" || Model=="SUSY") {
         Re_gV_over_gA = SM.gZl_over_gAl(l).real();
     } else if (Model=="THDM") {
-        Re_gV_over_gA = SM.getEWSM()->gZl_over_gAl_SM(l);
+        Re_gV_over_gA = SM.getEWSM()->gZl_over_gAl_SM(l).real();
     } else 
         throw "Error in EW::A_l()";  
 
@@ -340,7 +341,7 @@ double EW::A_q(const StandardModel::quark q) const {
     if (Model=="StandardModel" || Model=="SUSY") {
         Re_gV_over_gA = SM.gZq_over_gAq(q).real();
     } else if (Model=="THDM") {
-        Re_gV_over_gA = SM.getEWSM()->gZq_over_gAq_SM(q);
+        Re_gV_over_gA = SM.getEWSM()->gZq_over_gAq_SM(q).real();
     } else 
         throw "Error in EW::A_q()";      
     
