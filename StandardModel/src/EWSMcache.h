@@ -7,7 +7,6 @@
 #define	EWSMCACHE_H
 
 #include <cmath>
-#include <cstring>
 #include <PVfunctions.h>
 #include <Polylogarithms.h>
 #include <ClausenFunctions.h>
@@ -25,7 +24,18 @@ public:
      */
     EWSMcache(const StandardModel& SM_i);
 
+    static const int CacheSize = 5;
 
+    int CacheCheck(const double cache[][CacheSize], 
+                   const int NumPar, const double params[]) const;
+    int CacheCheck(const complex cache[][CacheSize], 
+                   const int NumPar, const double params[]) const;
+    void CacheShift(double cache[][CacheSize], const int NumPar, 
+                    const double params[], const double newResult) const;
+    void CacheShift(complex cache[][CacheSize], const int NumPar, 
+                    const double params[], const complex newResult) const;    
+    
+    
     ////////////////////////////////////////////////////////////////////////     
     
     /**
@@ -34,6 +44,13 @@ public:
     //const StandardModel& getSM() const {
     //    return SM;
     //}
+
+    /**
+     * @return an object of ClausenFunctions class
+     */
+    const ClausenFunctions GetClausen() const {
+        return Clausen;
+    }
 
     
     ////////////////////////////////////////////////////////////////////////         
@@ -87,25 +104,24 @@ public:
 
     
     //////////////////////////////////////////////////////////////////////// 
-    
-    template<typename T> 
-    void checkSMfermion(const T f, const std::string funcName);
-
-    
-    //////////////////////////////////////////////////////////////////////// 
 
     /**
-     * @param[in] f StandardModel::quark or StandardModel::lepton 
-     * @return mass of SM fermion "f"
+     * @param[in] l name of lepton
+     * @return mass of lepton
      */
-    template<typename T> double mf(const T f) const;
+    double ml(const StandardModel::lepton l) const;
+
+    /**
+     * @param[in] q name of quark
+     * @return mass of quark
+     */
+    double mq(const StandardModel::quark q) const;    
     
     /**
      * @return the top-quark mass
      */
     double Mt() const;
     
-
     /**
      * @return alpha_s(M_z^2)
      */
@@ -156,52 +172,76 @@ public:
         
     
     /**
-     * @param[in] l lepton
+     * @param[in] l name of lepton
      * @return electric charge of a lepton "l"
      */
-    double Qf(const StandardModel::lepton l) const;    
+    double Ql(const StandardModel::lepton l) const;    
 
     /**
-     * @param[in] q quark
+     * @param[in] name of quark
      * @return electric charge of a quark "q"
      */
-    double Qf(const StandardModel::quark q) const;  
+    double Qq(const StandardModel::quark q) const;  
     
     /**
-     * @param[in] f StandardModel::quark or StandardModel::lepton 
+     * @param[in] l name of lepton
      * @param[in] Mw_i the W-boson mass
-     * @return the tree-level vector coupling for Z->f fbar
+     * @return the tree-level vector coupling for Z->l lbar
      * @attention depends on sW2
      */
-    template<typename T> double vf(const T f, const double Mw_i) const;
+    double vl(const StandardModel::lepton l, const double Mw_i) const;
 
     /**
-     * @param[in] l lepton
+     * @param[in] f name of quark
+     * @param[in] Mw_i the W-boson mass
+     * @return the tree-level vector coupling for Z->q qbar
+     * @attention depends on sW2
+     */
+    double vq(const StandardModel::quark q, const double Mw_i) const;
+    
+    /**
+     * @param[in] l name of lepton
      * @return the tree-level axial-vector coupling for Z->l lbar
      */
-    double af(const StandardModel::lepton l) const;
+    double al(const StandardModel::lepton l) const;
 
     /**
-     * @param[in] q quark
+     * @param[in] name of quark
      * @return the tree-level axial-vector coupling for Z->q qbar
      */
-    double af(const StandardModel::quark q) const;    
+    double aq(const StandardModel::quark q) const;    
     
     /**
-     * @param[in] f StandardModel::quark or StandardModel::lepton 
+     * @param[in] l name of lepton
      * @param[in] Mw_i the W-boson mass
-     * @return |v_f+a_f| 
+     * @return |v_l+a_l| 
      * @attention depends on sW2
      */
-    template<typename T> double sigmaf(const T f, const double Mw_i) const;
+    double sigmal(const StandardModel::lepton l, const double Mw_i) const;
+
+    /**
+     * @param[in] name of quark
+     * @param[in] Mw_i the W-boson mass
+     * @return |v_q+a_q| 
+     * @attention depends on sW2
+     */
+    double sigmaq(const StandardModel::quark q, const double Mw_i) const;    
     
     /**
-     * @param[in] f StandardModel::quark or StandardModel::lepton 
+     * @param[in] l name of lepton
      * @param[in] Mw_i the W-boson mass
-     * @return v_f-a_f 
+     * @return v_l-a_l 
      * @attention depends on sW2
      */    
-    template<typename T> double deltaf(const T f, const double Mw_i) const;    
+    double deltal(const StandardModel::lepton l, const double Mw_i) const;    
+
+    /**
+     * @param[in] name of quark
+     * @param[in] Mw_i the W-boson mass
+     * @return v_q-a_q 
+     * @attention depends on sW2
+     */    
+    double deltaq(const StandardModel::quark q, const double Mw_i) const;   
     
     /**
      * @param[in] Mw_i the W-boson mass
@@ -307,7 +347,8 @@ public:
     complex B0_Mw_Mw2_Mz_Mw(const double Mw_i) const;    
     complex B0_Mw_Mw2_mh_Mw(const double Mw_i) const;    
     complex B0_Mw_Mw2_0_Mw(const double Mw_i) const;    
-    template<typename T> complex B0_Mz_Mz2_mf_mf(const T f) const;
+    complex B0_Mz_Mz2_ml_ml(const StandardModel::lepton l) const;
+    complex B0_Mz_Mz2_mq_mq(const StandardModel::quark q) const;
     
     complex B0p_Mz_0_mh_Mw(const double Mw_i) const;
     complex B0p_Mz_Mz2_mh_Mz() const;
@@ -316,8 +357,9 @@ public:
     complex B0p_Mw_Mw2_Mz_Mw(const double Mw_i) const;
     complex B0p_Mw_Mw2_mh_Mw(const double Mw_i) const;
     complex B0p_Mw_Mw2_0_Mw(const double Mw_i) const;
-    template<typename T> complex B0p_Mz_Mz2_mf_mf(const T f) const;
-
+    complex B0p_Mz_Mz2_ml_ml(const StandardModel::lepton l) const;
+    complex B0p_Mz_Mz2_mq_mq(const StandardModel::quark q) const;
+    
     complex B1_Mz_0_ml_mlprime(const int gen) const;
     complex B1_Mz_0_mq_mqprime(const int gen) const;
     complex B1_Mz_0_mlprime_ml(const int gen) const;
@@ -332,8 +374,10 @@ public:
     complex B1p_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const;
     complex B1p_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const;
     
-    template<typename T> complex Bf_Mz_Mz2_mf_mf(const T f) const;
-    template<typename T> complex Bf_Mz_0_mf_mf(const T f) const;
+    complex Bf_Mz_Mz2_ml_ml(const StandardModel::lepton l) const;
+    complex Bf_Mz_Mz2_mq_mq(const StandardModel::quark q) const;
+    complex Bf_Mz_0_ml_ml(const StandardModel::lepton l) const;
+    complex Bf_Mz_0_mq_mq(const StandardModel::quark q) const;
     complex Bf_Mz_Mw2_mlprime_ml(const int gen, const double Mw_i) const;
     complex Bf_Mz_Mw2_mqprime_mq(const int gen, const double Mw_i) const;
     complex Bf_Mz_0_mlprime_ml(const int gen) const;
@@ -341,7 +385,8 @@ public:
     complex Bf_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const;
     complex Bf_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const;
     
-    template<typename T>  complex Bfp_Mz_Mz2_mf_mf(const T f) const;
+    complex Bfp_Mz_Mz2_ml_ml(const StandardModel::lepton l) const;
+    complex Bfp_Mz_Mz2_mq_mq(const StandardModel::quark q) const;
     complex Bfp_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const;
     complex Bfp_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const;
     
@@ -371,16 +416,6 @@ private:
     
     ////////////////////////////////////////////////////////////////////////     
     // Caches 
-
-    enum{ CacheSize = 5 };
-    int CacheCheck(const double cache[][CacheSize], 
-                   const int NumPar, const double params[]) const;
-    int CacheCheck(const complex cache[][CacheSize], 
-                   const int NumPar, const double params[]) const;
-    void CacheShift(double cache[][CacheSize], const int NumPar, 
-                    const double params[], const double newResult) const;
-    void CacheShift(complex cache[][CacheSize], const int NumPar, 
-                    const double params[], const complex newResult) const;
     
     /* Logarithms */
     mutable double logMZtoME_cache[3][CacheSize];

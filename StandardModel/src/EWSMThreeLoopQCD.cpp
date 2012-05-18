@@ -35,22 +35,48 @@ double EWSMThreeLoopQCD::DeltaRho(const double Mw_i) const {
 
 
 double EWSMThreeLoopQCD::DeltaR_rem(const double Mw_i) const {
-    return (0.0);     
+    double Mw = cache.Mw(Mw_i);
+    double sW2 = cache.sW2(Mw);
+    double cW2 = cache.cW2(Mw);
+    
+    /* Logarithm */
+    double log_cW2 = cache.log_cW2(Mw);     
+    
+    // O(alpha_s) correction to Delta r^{ud} of O(alpha alpha_s). 
+    double DeltaR;
+    DeltaR = - log_cW2;
+    DeltaR *= (cW2 - sW2)/4.0/sW2/sW2;
+    DeltaR *= cache.ale()*cache.alsMz()/M_PI/M_PI;
+    DeltaR *= 1.4097*cache.alsMz()/M_PI;
+    return DeltaR;     
 }
 
 
-template<typename T> 
-complex EWSMThreeLoopQCD::deltaRho_rem_f(const T f, const double Mw_i) const {
-    cache.checkSMfermion(f, "EWSMThreeLoopQCD::deltaRho_rem_f");
-    if(f==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+complex EWSMThreeLoopQCD::deltaRho_rem_l(const StandardModel::lepton l, 
+                                         const double Mw_i) const {
     return ( complex(0.0,0.0,false) );
 }
 
 
-template<typename T> 
-complex EWSMThreeLoopQCD::deltaKappa_rem_f(const T f, const double Mw_i) const {
-    cache.checkSMfermion(f, "EWSMThreeLoopQCD::deltaKappa_rem_f");
-    if(f==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+complex EWSMThreeLoopQCD::deltaRho_rem_q(const StandardModel::quark q, 
+                                         const double Mw_i) const {
+    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+    return ( complex(0.0,0.0,false) );
+}
+
+
+complex EWSMThreeLoopQCD::deltaKappa_rem_l(const StandardModel::lepton l, 
+                                           const double Mw_i) const {
+    double Mw = cache.Mw(Mw_i);
+    return ( - 3.0*cache.Xt_alpha(Mw)*cache.cW2(Mw)/cache.sW2(Mw)
+               *pow(cache.alsMt()/M_PI,2.0)
+               *(deltaQCD_3(Mw)+deltaQCD_kappa3(Mw).real()) ); 
+}
+
+
+complex EWSMThreeLoopQCD::deltaKappa_rem_q(const StandardModel::quark q, 
+                                           const double Mw_i) const {
+    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     double Mw = cache.Mw(Mw_i);
     return ( - 3.0*cache.Xt_alpha(Mw)*cache.cW2(Mw)/cache.sW2(Mw)
                *pow(cache.alsMt()/M_PI,2.0)

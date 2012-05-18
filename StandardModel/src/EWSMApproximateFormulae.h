@@ -28,12 +28,18 @@ public:
     double Mw(const double DeltaAlpha_i) const;
     
     /**
-     * @param[in] f StandardModel::quark or StandardModel::lepton 
+     * @param[in] l name of lepton
      * @param[in] DeltaAlpha_i the total radiative corrections to alpha at Mz
-     * @return the effective weak mixing angle for Z->f\bar{f} from an approximate two-loop formula
+     * @return the effective weak mixing angle for Z->l lbar from an approximate two-loop formula
      */
-    template<typename T> 
-    double sin2thetaEff(const T f, const double DeltaAlpha_i) const;
+    double sin2thetaEff_l(const StandardModel::lepton l, const double DeltaAlpha_i) const;
+
+    /**
+     * @param[in] q name of quark
+     * @param[in] DeltaAlpha_i the total radiative corrections to alpha at Mz
+     * @return the effective weak mixing angle for Z->q qbar from an approximate two-loop formula
+     */
+    double sin2thetaEff_q(const StandardModel::quark q, const double DeltaAlpha_i) const;    
     
     /** 
      * @param[in] DeltaAlpha_i the total radiative corrections to alpha at Mz

@@ -7,6 +7,7 @@
 #define	EWSMTWOLOOPEW_H
 
 #include "EWSMcache.h"
+#include "EWSMOneLoopEW.h"
 using namespace gslpp;
 
 
@@ -50,43 +51,75 @@ public:
     double DeltaR_rem(const double Mw_i) const;
 
     /**
-     * @brief remainder contribution to rho_Z^f
-     * @param[in] f StandardModel::quark or StandardModel::lepton  
+     * @brief remainder contribution to rho_Z^l
+     * @param[in] l name of lepton
      * @param[in] Mw_i the W-boson mass
-     * @return delta rho_{rem}^{f, alpha^2}
+     * @return delta rho_{rem}^{l, alpha^2}
      */
-    template<typename T> complex deltaRho_rem_f(const T f, const double Mw_i) const;
+    complex deltaRho_rem_l(const StandardModel::lepton l, const double Mw_i) const;
 
     /**
-     * @brief remainder contribution to kappa_Z^f
-     * @param[in] f StandardModel::quark or StandardModel::lepton 
+     * @brief remainder contribution to rho_Z^q
+     * @param[in] q name of quark
      * @param[in] Mw_i the W-boson mass
-     * @return delta kappa_{rem}^{f, alpha^2}
+     * @return delta rho_{rem}^{q, alpha^2}
      */
-    template<typename T> complex deltaKappa_rem_f(const T f, const double Mw_i) const;
+    complex deltaRho_rem_q(const StandardModel::quark q, const double Mw_i) const;
+
+    /**
+     * @brief remainder contribution to kappa_Z^l
+     * @param[in] l name of lepton
+     * @param[in] Mw_i the W-boson mass
+     * @return delta kappa_{rem}^{l, alpha^2}
+     */
+    complex deltaKappa_rem_l(const StandardModel::lepton l, const double Mw_i) const;
+                                                  
+    /**
+     * @brief remainder contribution to kappa_Z^q
+     * @param[in] q name of quark
+     * @param[in] Mw_i the W-boson mass
+     * @return delta kappa_{rem}^{q, alpha^2}
+     */
+    complex deltaKappa_rem_q(const StandardModel::quark q, const double Mw_i) const;
 
     
     ////////////////////////////////////////////////////////////////////////        
     
     /**
-     * @param[in] Mw_i the W-boson mass
      * @return O(alpha^2 Mt^4/M_Z^4) contribution to Delta rho
      */
-    complex rho_2(const double Mw_i) const;
+    double rho_2() const;
     
     
     /**
-     * @param[in] Mw_i the W-boson mass
      * @return O(alpha^2 Mt^4/M_Z^4) contribution to the Z-b-bbar vertex
      */
-    complex tau_2(const double Mw_i) const;
+    double tau_2() const;
     
     
     ////////////////////////////////////////////////////////////////////////        
     
 private:
     const EWSMcache& cache;
-     
+    const EWSMOneLoopEW myOneLoopEW;
+
+    /**
+     * @param[in] a a=(m_h/M_t)^2
+     * @return g(a)
+     */
+    double g(const double a) const;
+
+    /**
+     * @param[in] a a=(m_h/M_t)^2
+     * @return f(a,0)
+     */
+    double f0(const double a) const;
+
+    /**
+     * @param[in] a a=(m_h/M_t)^2
+     * @return f(a,1)
+     */
+    double f1(const double a) const;    
 
 };
 

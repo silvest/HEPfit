@@ -61,15 +61,14 @@ double EWSMApproximateFormulae::Mw(const double DeltaAlpha_i) const {
 }
     
  
-template<typename T> 
-double EWSMApproximateFormulae::sin2thetaEff(const T f, 
-                                             const double DeltaAlpha_i) const {
+double EWSMApproximateFormulae::sin2thetaEff_l(const StandardModel::lepton l, 
+                                               const double DeltaAlpha_i) const {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 100.0 || SM.getMHl() > 1000.0 )
-        throw "Higgs mass is out of range in ApproximateFormulae::sin2thetaEff()";
+        throw "Higgs mass is out of range in ApproximateFormulae::sin2thetaEff_l()";
     
     double s0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10;
-    switch (f) {
+    switch (l) {
         case StandardModel::NEUTRINO_1: 
         case StandardModel::NEUTRINO_2: 
         case StandardModel::NEUTRINO_3: 
@@ -100,6 +99,32 @@ double EWSMApproximateFormulae::sin2thetaEff(const T f,
             d9 = 3.98*0.0001;
             d10 = -6.55*0.1;
             break;
+        default:
+            throw "Error in ApproximateFormulae::sin2thetaEff_l()";
+    }
+
+    double L_H = log(SM.getMHl()/100.0);
+    double Delta_H = SM.getMHl()/100.0;
+    double Delta_ale = DeltaAlpha_i/0.05907 - 1.0;
+    double Delta_t = pow((SM.getQuarks(SM.TOP).getMass()/178.0), 2.0) - 1.0;
+    double Delta_alphas = SM.getAlsMz()/0.117 - 1.0;
+    double Delta_Z = SM.getMz()/91.1876 - 1.0;
+
+    return (s0 + d1*L_H + d2*L_H*L_H + d3*pow(L_H, 4.0)
+            + d4*(Delta_H*Delta_H - 1.0) + d5*Delta_ale + d6*Delta_t
+            + d7*Delta_t*Delta_t + d8*Delta_t*(Delta_H - 1.0)
+            + d9*Delta_alphas + d10*Delta_Z );
+}
+
+ 
+double EWSMApproximateFormulae::sin2thetaEff_q(const StandardModel::quark q, 
+                                               const double DeltaAlpha_i) const {
+    // applicable for 10 GeV <= mHl <= 1 TeV
+    if( SM.getMHl() < 100.0 || SM.getMHl() > 1000.0 )
+        throw "Higgs mass is out of range in ApproximateFormulae::sin2thetaEff_q()";
+    
+    double s0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10;
+    switch (q) {
         case StandardModel::UP: 
         case StandardModel::CHARM:
             s0 = 0.2311395;
@@ -144,7 +169,7 @@ double EWSMApproximateFormulae::sin2thetaEff(const T f,
         case StandardModel::TOP:
             return 0.0;
         default:
-            throw "Error in ApproximateFormulae::sin2thetaEff()";
+            throw "Error in ApproximateFormulae::sin2thetaEff_q()";
     }
 
     double L_H = log(SM.getMHl()/100.0);

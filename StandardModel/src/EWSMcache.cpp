@@ -91,32 +91,18 @@ void EWSMcache::CacheShift(complex cache[][CacheSize], const int NumPar,
 
 //////////////////////////////////////////////////////////////////////// 
 
-template<typename T>
-void EWSMcache::checkSMfermion(const T f, const std::string funcName) {
-    if (typeid(f)!=typeid(StandardModel::quark) 
-            && typeid(f)!=typeid(StandardModel::lepton)) {
-        std::string st;
-        st = "Error in " + funcName + "()";
-        throw st.c_str();
-    }
+double EWSMcache::ml(const StandardModel::lepton l) const {
+    return ( SM.getLeptons(l).getMass() );
 }
 
 
-//////////////////////////////////////////////////////////////////////// 
-
-template<typename T>
-double EWSMcache::mf(T f) const {
-    if (typeid(f)==typeid(StandardModel::quark))
-        return ( SM.getQuarks(f).getMass() );
-    else if (typeid(f)==typeid(StandardModel::lepton))
-        return ( SM.getLeptons(f).getMass() );
-    else 
-        throw "Error in EWSMcache::mf()";
+double EWSMcache::mq(const StandardModel::quark q) const {
+    return ( SM.getQuarks(q).getMass() );
 }
 
 
 double EWSMcache::Mt() const {
-    return ( mf(StandardModel::TOP) );
+    return ( mq(StandardModel::TOP) );
 }
 
 
@@ -165,45 +151,27 @@ double EWSMcache::sW2(const double Mw_i) const {
 }
 
 
-double EWSMcache::Qf(const StandardModel::lepton l) const {
-    switch(l) {
-        case StandardModel::NEUTRINO_1:
-        case StandardModel::NEUTRINO_2:
-        case StandardModel::NEUTRINO_3:
-            return (0.0);
-        case StandardModel::ELECTRON:
-        case StandardModel::MU:
-        case StandardModel::TAU:
-            return (-1.0);
-        default:
-            throw "Error in EWSMcache::Qf()";  
-    }
+double EWSMcache::Ql(const StandardModel::lepton l) const {
+    return ( SM.getLeptons(l).getCharge() );
 }        
  
 
-double EWSMcache::Qf(const StandardModel::quark q) const {
-    switch(q) {
-        case StandardModel::UP:
-        case StandardModel::CHARM:
-        case StandardModel::TOP:
-            return (2.0/3.0);
-        case StandardModel::DOWN:
-        case StandardModel::STRANGE:
-        case StandardModel::BOTTOM:
-            return (-1.0/3.0);
-        default:
-            throw "Error in EWSMcache::Qf()";  
-    }
+double EWSMcache::Qq(const StandardModel::quark q) const {
+    return ( SM.getQuarks(q).getCharge() );
 }
 
 
-template<typename T> 
-double EWSMcache::vf(const T f, const double Mw_i) const {
-    return ( af(f) - 2.0*Qf(f)*sW2(Mw_i) );
+double EWSMcache::vl(const StandardModel::lepton l, const double Mw_i) const {
+    return ( al(l) - 2.0*Ql(l)*sW2(Mw_i) );
 }
 
 
-double EWSMcache::af(const StandardModel::lepton l) const {
+double EWSMcache::vq(const StandardModel::quark q, const double Mw_i) const {
+    return ( aq(q) - 2.0*Qq(q)*sW2(Mw_i) );
+}
+
+
+double EWSMcache::al(const StandardModel::lepton l) const {
     switch(l) {
         case StandardModel::NEUTRINO_1:
         case StandardModel::NEUTRINO_2:
@@ -214,12 +182,12 @@ double EWSMcache::af(const StandardModel::lepton l) const {
         case StandardModel::TAU:
             return ( -1.0/2.0 );
         default:
-            throw "Error in EWSMcache::af()";  
+            throw "Error in EWSMcache::al()";  
     }    
 }
 
 
-double EWSMcache::af(const StandardModel::quark q) const {
+double EWSMcache::aq(const StandardModel::quark q) const {
     switch(q) {
         case StandardModel::UP:
         case StandardModel::CHARM:
@@ -230,20 +198,28 @@ double EWSMcache::af(const StandardModel::quark q) const {
         case StandardModel::BOTTOM:
             return ( -1.0/2.0 );
         default:
-            throw "Error in EWSMcache::af()";  
+            throw "Error in EWSMcache::aq()";  
     }    
 }
 
 
-template<typename T> 
-double EWSMcache::sigmaf(const T f, const double Mw_i) const {
-    return ( 1.0 - 2.0*fabs(Qf(f))*sW2(Mw_i) );
+double EWSMcache::sigmal(const StandardModel::lepton l, const double Mw_i) const {
+    return ( 1.0 - 2.0*fabs(Ql(l))*sW2(Mw_i) );
 }
 
 
-template<typename T> 
-double EWSMcache::deltaf(const T f, const double Mw_i) const {
-    return ( - 2.0*Qf(f)*sW2(Mw_i) );   
+double EWSMcache::sigmaq(const StandardModel::quark q, const double Mw_i) const {
+    return ( 1.0 - 2.0*fabs(Qq(q))*sW2(Mw_i) );
+}
+
+
+double EWSMcache::deltal(const StandardModel::lepton l, const double Mw_i) const {
+    return ( - 2.0*Ql(l)*sW2(Mw_i) );   
+}
+
+
+double EWSMcache::deltaq(const StandardModel::quark q, const double Mw_i) const {
+    return ( - 2.0*Qq(q)*sW2(Mw_i) );   
 }
 
 
@@ -328,13 +304,13 @@ double EWSMcache::Cl2_4Phi() const {
 
 double EWSMcache::logMZtoME() const {
     int NumPar = 2;
-    double params[] = {Mz(), mf(SM.ELECTRON)};
+    double params[] = {Mz(), ml(SM.ELECTRON)};
 
     int i = CacheCheck(logMZtoME_cache, NumPar, params);
     if (i>=0) {
         return ( logMZtoME_cache[NumPar][i] );
     } else {
-        double newResult = log( Mz()/mf(SM.ELECTRON) );
+        double newResult = log( Mz()/ml(SM.ELECTRON) );
         CacheShift(logMZtoME_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -343,13 +319,13 @@ double EWSMcache::logMZtoME() const {
 
 double EWSMcache::logMZtoMMU() const {
     int NumPar = 2;
-    double params[] = {Mz(), mf(SM.MU)};
+    double params[] = {Mz(), ml(SM.MU)};
 
     int i = CacheCheck(logMZtoMMU_cache, NumPar, params);
     if (i>=0) {
         return ( logMZtoMMU_cache[NumPar][i] );
     } else {
-        double newResult = log( Mz()/mf(SM.MU) );
+        double newResult = log( Mz()/ml(SM.MU) );
         CacheShift(logMZtoMMU_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -358,13 +334,13 @@ double EWSMcache::logMZtoMMU() const {
     
 double EWSMcache::logMZtoMTAU() const {
     int NumPar = 2;
-    double params[] = {Mz(), mf(SM.TAU)};
+    double params[] = {Mz(), ml(SM.TAU)};
 
     int i = CacheCheck(logMZtoMTAU_cache, NumPar, params);
     if (i>=0) {
         return ( logMZtoMTAU_cache[NumPar][i] );
     } else {
-        double newResult = log( Mz()/mf(SM.TAU) );
+        double newResult = log( Mz()/ml(SM.TAU) );
         CacheShift(logMZtoMTAU_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -747,31 +723,33 @@ complex EWSMcache::B0_Mw_Mw2_0_Mw(const double Mw_i) const {
 }
 
 
-template<typename T> 
-complex EWSMcache::B0_Mz_Mz2_mf_mf(const T f) const {
+complex EWSMcache::B0_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
     int NumPar = 2;
-    double params[] = {Mz(), mf(f)};
+    double params[] = {Mz(), ml(l)};
 
-    if (typeid(f)==typeid(StandardModel::lepton)) {
-        int i = CacheCheck(B0_Mz_Mz2_ml_ml_cache[f], NumPar, params);
-        if (i>=0) {
-            return ( B0_Mz_Mz2_ml_ml_cache[f][NumPar][i] );
-        } else {
-            complex newResult = PV.B0(Mz(), Mz()*Mz(), mf(f), mf(f));
-            CacheShift(B0_Mz_Mz2_ml_ml_cache[f], NumPar, params, newResult);
-            return newResult;
-        }
-    } else if (typeid(f)==typeid(StandardModel::quark)) {
-        int i = CacheCheck(B0_Mz_Mz2_mq_mq_cache[f], NumPar, params);
-        if (i>=0) {
-            return ( B0_Mz_Mz2_mq_mq_cache[f][NumPar][i] );
-        } else {
-            complex newResult = PV.B0(Mz(), Mz()*Mz(), mf(f), mf(f));
-            CacheShift(B0_Mz_Mz2_mq_mq_cache[f], NumPar, params, newResult);
-            return newResult;
-        }    
-    } else
-        throw "Error in EWSMcache::B0_Mz_Mz2_mf_mf()";
+    int i = CacheCheck(B0_Mz_Mz2_ml_ml_cache[l], NumPar, params);
+    if (i>=0) {
+        return ( B0_Mz_Mz2_ml_ml_cache[l][NumPar][i] );
+    } else {
+        complex newResult = PV.B0(Mz(), Mz()*Mz(), ml(l), ml(l));
+        CacheShift(B0_Mz_Mz2_ml_ml_cache[l], NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+complex EWSMcache::B0_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
+    int NumPar = 2;
+    double params[] = {Mz(), mq(q)};
+
+    int i = CacheCheck(B0_Mz_Mz2_mq_mq_cache[q], NumPar, params);
+    if (i>=0) {
+        return ( B0_Mz_Mz2_mq_mq_cache[q][NumPar][i] );
+    } else {
+        complex newResult = PV.B0(Mz(), Mz()*Mz(), mq(q), mq(q));
+        CacheShift(B0_Mz_Mz2_mq_mq_cache[q], NumPar, params, newResult);
+        return newResult;
+    }    
 }
 
 
@@ -880,45 +858,47 @@ complex EWSMcache::B0p_Mw_Mw2_0_Mw(const double Mw_i) const {
 }
 
 
-template<typename T> 
-complex EWSMcache::B0p_Mz_Mz2_mf_mf(const T f) const {
+complex EWSMcache::B0p_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
     int NumPar = 2;
-    double params[] = {Mz(), mf(f)};
+    double params[] = {Mz(), ml(l)};
 
-    if (typeid(f)==typeid(StandardModel::lepton)) {
-        int i = CacheCheck(B0p_Mz_Mz2_ml_ml_cache[f], NumPar, params);
-        if (i>=0) {
-            return ( B0p_Mz_Mz2_ml_ml_cache[f][NumPar][i] );
-        } else {
-            complex newResult = PV.B0p(Mz(), Mz()*Mz(), mf(f), mf(f));
-            CacheShift(B0p_Mz_Mz2_ml_ml_cache[f], NumPar, params, newResult);
-            return newResult;
-        }
-    } else if (typeid(f)==typeid(StandardModel::quark)) {
-        int i = CacheCheck(B0p_Mz_Mz2_mq_mq_cache[f], NumPar, params);
-        if (i>=0) {
-            return ( B0p_Mz_Mz2_mq_mq_cache[f][NumPar][i] );
-        } else {
-            complex newResult = PV.B0p(Mz(), Mz()*Mz(), mf(f), mf(f));
-            CacheShift(B0p_Mz_Mz2_mq_mq_cache[f], NumPar, params, newResult);
-            return newResult;
-        }    
-    } else
-        throw "Error in EWSMcache::B0p_Mz_Mz2_mf_mf()";
+    int i = CacheCheck(B0p_Mz_Mz2_ml_ml_cache[l], NumPar, params);
+    if (i>=0) {
+        return ( B0p_Mz_Mz2_ml_ml_cache[l][NumPar][i] );
+    } else {
+        complex newResult = PV.B0p(Mz(), Mz()*Mz(), ml(l), ml(l));
+        CacheShift(B0p_Mz_Mz2_ml_ml_cache[l], NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+complex EWSMcache::B0p_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
+    int NumPar = 2;
+    double params[] = {Mz(), mq(q)};
+
+    int i = CacheCheck(B0p_Mz_Mz2_mq_mq_cache[q], NumPar, params);
+    if (i>=0) {
+        return ( B0p_Mz_Mz2_mq_mq_cache[q][NumPar][i] );
+    } else {
+        complex newResult = PV.B0p(Mz(), Mz()*Mz(), mq(q), mq(q));
+        CacheShift(B0p_Mz_Mz2_mq_mq_cache[q], NumPar, params, newResult);
+        return newResult;
+    }    
 }
 
         
 complex EWSMcache::B1_Mz_0_ml_mlprime(const int gen) const {
     int NumPar = 3;
-    double ml = mf((StandardModel::lepton) 2*gen);    
-    double mlprime = mf((StandardModel::lepton) 2*gen+1);
-    double params[] = {Mz(), ml, mlprime};
+    double mf = ml((StandardModel::lepton)(2*gen));    
+    double mfprime = ml((StandardModel::lepton)(2*gen+1));
+    double params[] = {Mz(), mf, mfprime};
 
     int i = CacheCheck(B1_Mz_0_ml_mlprime_cache[gen], NumPar, params);
     if (i>=0) {
         return ( B1_Mz_0_ml_mlprime_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.B1(Mz(), 0.0, ml, mlprime);
+        complex newResult = PV.B1(Mz(), 0.0, mf, mfprime);
         CacheShift(B1_Mz_0_ml_mlprime_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -927,15 +907,15 @@ complex EWSMcache::B1_Mz_0_ml_mlprime(const int gen) const {
 
 complex EWSMcache::B1_Mz_0_mq_mqprime(const int gen) const {
     int NumPar = 3;
-    double mq = mf((StandardModel::quark) 2*gen);    
-    double mqprime = mf((StandardModel::quark) 2*gen+1);
-    double params[] = {Mz(), mq, mqprime};
+    double mf = mq((StandardModel::quark)(2*gen));    
+    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double params[] = {Mz(), mf, mfprime};
 
     int i = CacheCheck(B1_Mz_0_mq_mqprime_cache[gen], NumPar, params);
     if (i>=0) {
         return ( B1_Mz_0_mq_mqprime_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.B1(Mz(), 0.0, mq, mqprime);
+        complex newResult = PV.B1(Mz(), 0.0, mf, mfprime);
         CacheShift(B1_Mz_0_mq_mqprime_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -944,15 +924,15 @@ complex EWSMcache::B1_Mz_0_mq_mqprime(const int gen) const {
 
 complex EWSMcache::B1_Mz_0_mlprime_ml(const int gen) const {
     int NumPar = 3;
-    double ml = mf((StandardModel::lepton) 2*gen);    
-    double mlprime = mf((StandardModel::lepton) 2*gen+1);
-    double params[] = {Mz(), ml, mlprime};
+    double mf = ml((StandardModel::lepton)(2*gen));    
+    double mfprime = ml((StandardModel::lepton)(2*gen+1));
+    double params[] = {Mz(), mf, mfprime};
 
     int i = CacheCheck(B1_Mz_0_mlprime_ml_cache[gen], NumPar, params);
     if (i>=0) {
         return ( B1_Mz_0_mlprime_ml_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.B1(Mz(), 0.0, mlprime, ml);
+        complex newResult = PV.B1(Mz(), 0.0, mfprime, mf);
         CacheShift(B1_Mz_0_mlprime_ml_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -961,15 +941,15 @@ complex EWSMcache::B1_Mz_0_mlprime_ml(const int gen) const {
 
 complex EWSMcache::B1_Mz_0_mqprime_mq(const int gen) const {
     int NumPar = 3;
-    double mq = mf((StandardModel::quark) 2*gen);    
-    double mqprime = mf((StandardModel::quark) 2*gen+1);
-    double params[] = {Mz(), mq, mqprime};
+    double mf = mq((StandardModel::quark)(2*gen));    
+    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double params[] = {Mz(), mf, mfprime};
 
     int i = CacheCheck(B1_Mz_0_mqprime_mq_cache[gen], NumPar, params);
     if (i>=0) {
         return ( B1_Mz_0_mqprime_mq_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.B1(Mz(), 0.0, mqprime, mq);
+        complex newResult = PV.B1(Mz(), 0.0, mfprime, mf);
         CacheShift(B1_Mz_0_mqprime_mq_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -978,15 +958,15 @@ complex EWSMcache::B1_Mz_0_mqprime_mq(const int gen) const {
 
 complex EWSMcache::B1_Mz_Mw2_ml_mlprime(const int gen, const double Mw_i) const {
     int NumPar = 4;
-    double ml = mf((StandardModel::lepton) 2*gen);    
-    double mlprime = mf((StandardModel::lepton) 2*gen+1);
-    double params[] = {Mz(), Mw(Mw_i), ml, mlprime};
+    double mf = ml((StandardModel::lepton)(2*gen));    
+    double mfprime = ml((StandardModel::lepton)(2*gen+1));
+    double params[] = {Mz(), Mw(Mw_i), mf, mfprime};
 
     int i = CacheCheck(B1_Mz_Mw2_ml_mlprime_cache[gen], NumPar, params);
     if (i>=0) {
         return ( B1_Mz_Mw2_ml_mlprime_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.B1(Mz(), Mw(Mw_i)*Mw(Mw_i), ml, mlprime);
+        complex newResult = PV.B1(Mz(), Mw(Mw_i)*Mw(Mw_i), mf, mfprime);
         CacheShift(B1_Mz_Mw2_ml_mlprime_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -995,15 +975,15 @@ complex EWSMcache::B1_Mz_Mw2_ml_mlprime(const int gen, const double Mw_i) const 
 
 complex EWSMcache::B1_Mz_Mw2_mq_mqprime(const int gen, const double Mw_i) const {
     int NumPar = 4;
-    double mq = mf((StandardModel::quark) 2*gen);    
-    double mqprime = mf((StandardModel::quark) 2*gen+1);
-    double params[] = {Mz(), Mw(Mw_i), mq, mqprime};
+    double mf = mq((StandardModel::quark)(2*gen));    
+    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double params[] = {Mz(), Mw(Mw_i), mf, mfprime};
 
     int i = CacheCheck(B1_Mz_Mw2_mq_mqprime_cache[gen], NumPar, params);
     if (i>=0) {
         return ( B1_Mz_Mw2_mq_mqprime_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.B1(Mz(), Mw(Mw_i)*Mw(Mw_i), mq, mqprime);
+        complex newResult = PV.B1(Mz(), Mw(Mw_i)*Mw(Mw_i), mf, mfprime);
         CacheShift(B1_Mz_Mw2_mq_mqprime_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1012,15 +992,15 @@ complex EWSMcache::B1_Mz_Mw2_mq_mqprime(const int gen, const double Mw_i) const 
 
 complex EWSMcache::B1_Mz_Mw2_mlprime_ml(const int gen, const double Mw_i) const {
     int NumPar = 4;
-    double ml = mf((StandardModel::lepton) 2*gen);    
-    double mlprime = mf((StandardModel::lepton) 2*gen+1);
-    double params[] = {Mz(), Mw(Mw_i), ml, mlprime};
+    double mf = ml((StandardModel::lepton)(2*gen));    
+    double mfprime = ml((StandardModel::lepton)(2*gen+1));
+    double params[] = {Mz(), Mw(Mw_i), mf, mfprime};
 
     int i = CacheCheck(B1_Mz_Mw2_mlprime_ml_cache[gen], NumPar, params);
     if (i>=0) {
         return ( B1_Mz_Mw2_mlprime_ml_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.B1(Mz(), Mw(Mw_i)*Mw(Mw_i), mlprime, ml);
+        complex newResult = PV.B1(Mz(), Mw(Mw_i)*Mw(Mw_i), mfprime, mf);
         CacheShift(B1_Mz_Mw2_mlprime_ml_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1029,15 +1009,15 @@ complex EWSMcache::B1_Mz_Mw2_mlprime_ml(const int gen, const double Mw_i) const 
 
 complex EWSMcache::B1_Mz_Mw2_mqprime_mq(const int gen, const double Mw_i) const {
     int NumPar = 4;
-    double mq = mf((StandardModel::quark) 2*gen);    
-    double mqprime = mf((StandardModel::quark) 2*gen+1);
-    double params[] = {Mz(), Mw(Mw_i), mq, mqprime};
+    double mf = mq((StandardModel::quark)(2*gen));    
+    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double params[] = {Mz(), Mw(Mw_i), mf, mfprime};
 
     int i = CacheCheck(B1_Mz_Mw2_mqprime_mq_cache[gen], NumPar, params);
     if (i>=0) {
         return ( B1_Mz_Mw2_mqprime_mq_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.B1(Mz(), Mw(Mw_i)*Mw(Mw_i), mqprime, mq);
+        complex newResult = PV.B1(Mz(), Mw(Mw_i)*Mw(Mw_i), mfprime, mf);
         CacheShift(B1_Mz_Mw2_mqprime_mq_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1046,15 +1026,15 @@ complex EWSMcache::B1_Mz_Mw2_mqprime_mq(const int gen, const double Mw_i) const 
 
 complex EWSMcache::B1p_Mw_Mw2_ml_mlprime(const int gen, const double Mw_i) const {
     int NumPar = 3;
-    double ml = mf((StandardModel::lepton) 2*gen);    
-    double mlprime = mf((StandardModel::lepton) 2*gen+1);
-    double params[] = {Mw(Mw_i), ml, mlprime};
+    double mf = ml((StandardModel::lepton)(2*gen));    
+    double mfprime = ml((StandardModel::lepton)(2*gen+1));
+    double params[] = {Mw(Mw_i), mf, mfprime};
 
     int i = CacheCheck(B1p_Mw_Mw2_ml_mlprime_cache[gen], NumPar, params);
     if (i>=0) {
         return ( B1p_Mw_Mw2_ml_mlprime_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.B1p(Mw(Mw_i), Mw(Mw_i)*Mw(Mw_i), ml, mlprime);
+        complex newResult = PV.B1p(Mw(Mw_i), Mw(Mw_i)*Mw(Mw_i), mf, mfprime);
         CacheShift(B1p_Mw_Mw2_ml_mlprime_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1063,15 +1043,15 @@ complex EWSMcache::B1p_Mw_Mw2_ml_mlprime(const int gen, const double Mw_i) const
 
 complex EWSMcache::B1p_Mw_Mw2_mq_mqprime(const int gen, const double Mw_i) const {
     int NumPar = 3;
-    double mq = mf((StandardModel::quark) 2*gen);    
-    double mqprime = mf((StandardModel::quark) 2*gen+1);
-    double params[] = {Mw(Mw_i), mq, mqprime};
+    double mf = mq((StandardModel::quark)(2*gen));    
+    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double params[] = {Mw(Mw_i), mf, mfprime};
 
     int i = CacheCheck(B1p_Mw_Mw2_mq_mqprime_cache[gen], NumPar, params);
     if (i>=0) {
         return ( B1p_Mw_Mw2_mq_mqprime_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.B1p(Mw(Mw_i), Mw(Mw_i)*Mw(Mw_i), mq, mqprime);
+        complex newResult = PV.B1p(Mw(Mw_i), Mw(Mw_i)*Mw(Mw_i), mf, mfprime);
         CacheShift(B1p_Mw_Mw2_mq_mqprime_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1080,15 +1060,15 @@ complex EWSMcache::B1p_Mw_Mw2_mq_mqprime(const int gen, const double Mw_i) const
 
 complex EWSMcache::B1p_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const {
     int NumPar = 3;
-    double ml = mf((StandardModel::lepton) 2*gen);    
-    double mlprime = mf((StandardModel::lepton) 2*gen+1);
-    double params[] = {Mw(Mw_i), ml, mlprime};
+    double mf = ml((StandardModel::lepton)(2*gen));    
+    double mfprime = ml((StandardModel::lepton)(2*gen+1));
+    double params[] = {Mw(Mw_i), mf, mfprime};
 
     int i = CacheCheck(B1p_Mw_Mw2_mlprime_ml_cache[gen], NumPar, params);
     if (i>=0) {
         return ( B1p_Mw_Mw2_mlprime_ml_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.B1p(Mw(Mw_i), Mw(Mw_i)*Mw(Mw_i), mlprime, ml);
+        complex newResult = PV.B1p(Mw(Mw_i), Mw(Mw_i)*Mw(Mw_i), mfprime, mf);
         CacheShift(B1p_Mw_Mw2_mlprime_ml_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1097,90 +1077,96 @@ complex EWSMcache::B1p_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const
 
 complex EWSMcache::B1p_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const {
     int NumPar = 3;
-    double mq = mf((StandardModel::quark) 2*gen);    
-    double mqprime = mf((StandardModel::quark) 2*gen+1);
-    double params[] = {Mw(Mw_i), mq, mqprime};
+    double mf = mq((StandardModel::quark)(2*gen));    
+    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double params[] = {Mw(Mw_i), mf, mfprime};
 
     int i = CacheCheck(B1p_Mw_Mw2_mqprime_mq_cache[gen], NumPar, params);
     if (i>=0) {
         return ( B1p_Mw_Mw2_mqprime_mq_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.B1p(Mw(Mw_i), Mw(Mw_i)*Mw(Mw_i), mqprime, mq);
+        complex newResult = PV.B1p(Mw(Mw_i), Mw(Mw_i)*Mw(Mw_i), mfprime, mf);
         CacheShift(B1p_Mw_Mw2_mqprime_mq_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
 }
 
 
-template<typename T> 
-complex EWSMcache::Bf_Mz_Mz2_mf_mf(const T f) const {
+complex EWSMcache::Bf_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
     int NumPar = 2;
-    double params[] = {Mz(), mf(f)};
+    double params[] = {Mz(), ml(l)};
 
-    if (typeid(f)==typeid(StandardModel::lepton)) {
-        int i = CacheCheck(Bf_Mz_Mz2_ml_ml_cache[f], NumPar, params);
-        if (i>=0) {
-            return ( Bf_Mz_Mz2_ml_ml_cache[f][NumPar][i] );
-        } else {
-            complex newResult = PV.Bf(Mz(), Mz()*Mz(), mf(f), mf(f));
-            CacheShift(Bf_Mz_Mz2_ml_ml_cache[f], NumPar, params, newResult);
-            return newResult;
-        }
-    } else if (typeid(f)==typeid(StandardModel::quark)) {
-        int i = CacheCheck(Bf_Mz_Mz2_mq_mq_cache[f], NumPar, params);
-        if (i>=0) {
-            return ( Bf_Mz_Mz2_mq_mq_cache[f][NumPar][i] );
-        } else {
-            complex newResult = PV.Bf(Mz(), Mz()*Mz(), mf(f), mf(f));
-            CacheShift(Bf_Mz_Mz2_mq_mq_cache[f], NumPar, params, newResult);
-            return newResult;
-        }    
-    } else
-        throw "Error in EWSMcache::Bf_Mz_Mz2_mf_mf()";
+    int i = CacheCheck(Bf_Mz_Mz2_ml_ml_cache[l], NumPar, params);
+    if (i>=0) {
+        return ( Bf_Mz_Mz2_ml_ml_cache[l][NumPar][i] );
+    } else {
+        complex newResult = PV.Bf(Mz(), Mz()*Mz(), ml(l), ml(l));
+        CacheShift(Bf_Mz_Mz2_ml_ml_cache[l], NumPar, params, newResult);
+        return newResult;
+    }
 }
 
 
-template<typename T> 
-complex EWSMcache::Bf_Mz_0_mf_mf(const T f) const {
+complex EWSMcache::Bf_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
     int NumPar = 2;
-    double params[] = {Mz(), mf(f)};
-    if (mf(f)==0.0)
-        throw "Error in EWSMcache::Bf_Mz_0_mf_mf()";
+    double params[] = {Mz(), mq(q)};
+
+    int i = CacheCheck(Bf_Mz_Mz2_mq_mq_cache[q], NumPar, params);
+    if (i>=0) {
+        return ( Bf_Mz_Mz2_mq_mq_cache[q][NumPar][i] );
+    } else {
+        complex newResult = PV.Bf(Mz(), Mz()*Mz(), mq(q), mq(q));
+        CacheShift(Bf_Mz_Mz2_mq_mq_cache[q], NumPar, params, newResult);
+        return newResult;
+    }    
+}
+
+
+complex EWSMcache::Bf_Mz_0_ml_ml(const StandardModel::lepton l) const {
+    int NumPar = 2;
+    double params[] = {Mz(), ml(l)};
+    if (ml(l)==0.0)
+        throw "Error in EWSMcache::Bf_Mz_0_ml_ml()";
     
-    if (typeid(f)==typeid(StandardModel::lepton)) {
-        int i = CacheCheck(Bf_Mz_0_ml_ml_cache[f], NumPar, params);
-        if (i>=0) {
-            return ( Bf_Mz_0_ml_ml_cache[f][NumPar][i] );
-        } else {
-            complex newResult = PV.Bf(Mz(), 0.0, mf(f), mf(f));
-            CacheShift(Bf_Mz_0_ml_ml_cache[f], NumPar, params, newResult);
+    int i = CacheCheck(Bf_Mz_0_ml_ml_cache[l], NumPar, params);
+    if (i>=0) {
+        return ( Bf_Mz_0_ml_ml_cache[l][NumPar][i] );
+    } else {
+        complex newResult = PV.Bf(Mz(), 0.0, ml(l), ml(l));
+            CacheShift(Bf_Mz_0_ml_ml_cache[l], NumPar, params, newResult);
             return newResult;
-        }
-    } else if (typeid(f)==typeid(StandardModel::quark)) {
-        int i = CacheCheck(Bf_Mz_0_mq_mq_cache[f], NumPar, params);
-        if (i>=0) {
-            return ( Bf_Mz_0_mq_mq_cache[f][NumPar][i] );
-        } else {
-            complex newResult = PV.Bf(Mz(), 0.0, mf(f), mf(f));
-            CacheShift(Bf_Mz_0_mq_mq_cache[f], NumPar, params, newResult);
-            return newResult;
-        }    
-    } else
-        throw "Error in EWSMcache::Bf_Mz_0_mf_mf()";
+    }
+}
+
+
+complex EWSMcache::Bf_Mz_0_mq_mq(const StandardModel::quark q) const {
+    int NumPar = 2;
+    double params[] = {Mz(), mq(q)};
+    if (mq(q)==0.0)
+        throw "Error in EWSMcache::Bf_Mz_0_mq_mq()";
+    
+    int i = CacheCheck(Bf_Mz_0_mq_mq_cache[q], NumPar, params);
+    if (i>=0) {
+        return ( Bf_Mz_0_mq_mq_cache[q][NumPar][i] );
+    } else {
+        complex newResult = PV.Bf(Mz(), 0.0, mq(q), mq(q));
+        CacheShift(Bf_Mz_0_mq_mq_cache[q], NumPar, params, newResult);
+        return newResult;
+    }    
 }
 
 
 complex EWSMcache::Bf_Mz_Mw2_mlprime_ml(const int gen, const double Mw_i) const {
     int NumPar = 4;
-    double ml = mf((StandardModel::lepton) 2*gen);    
-    double mlprime = mf((StandardModel::lepton) 2*gen+1);
-    double params[] = {Mz(), Mw(Mw_i), ml, mlprime};
+    double mf = ml((StandardModel::lepton)(2*gen));    
+    double mfprime = ml((StandardModel::lepton)(2*gen+1));
+    double params[] = {Mz(), Mw(Mw_i), mf, mfprime};
 
     int i = CacheCheck(Bf_Mz_Mw2_mlprime_ml_cache[gen], NumPar, params);
     if (i>=0) {
         return ( Bf_Mz_Mw2_mlprime_ml_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.Bf(Mz(), Mw(Mw_i)*Mw(Mw_i), mlprime, ml);
+        complex newResult = PV.Bf(Mz(), Mw(Mw_i)*Mw(Mw_i), mfprime, mf);
         CacheShift(Bf_Mz_Mw2_mlprime_ml_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1189,15 +1175,15 @@ complex EWSMcache::Bf_Mz_Mw2_mlprime_ml(const int gen, const double Mw_i) const 
         
 complex EWSMcache::Bf_Mz_Mw2_mqprime_mq(const int gen, const double Mw_i) const {
     int NumPar = 4;
-    double mq = mf((StandardModel::quark) 2*gen);    
-    double mqprime = mf((StandardModel::quark) 2*gen+1);
-    double params[] = {Mz(), Mw(Mw_i), mq, mqprime};
+    double mf = mq((StandardModel::quark)(2*gen));    
+    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double params[] = {Mz(), Mw(Mw_i), mf, mfprime};
 
     int i = CacheCheck(Bf_Mz_Mw2_mqprime_mq_cache[gen], NumPar, params);
     if (i>=0) {
         return ( Bf_Mz_Mw2_mqprime_mq_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.Bf(Mz(), Mw(Mw_i)*Mw(Mw_i), mqprime, mq);
+        complex newResult = PV.Bf(Mz(), Mw(Mw_i)*Mw(Mw_i), mfprime, mf);
         CacheShift(Bf_Mz_Mw2_mqprime_mq_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1206,15 +1192,15 @@ complex EWSMcache::Bf_Mz_Mw2_mqprime_mq(const int gen, const double Mw_i) const 
 
 complex EWSMcache::Bf_Mz_0_mlprime_ml(const int gen) const {
     int NumPar = 3;
-    double ml = mf((StandardModel::lepton) 2*gen);    
-    double mlprime = mf((StandardModel::lepton) 2*gen+1);
-    double params[] = {Mz(), ml, mlprime};
+    double mf = ml((StandardModel::lepton)(2*gen));    
+    double mfprime = ml((StandardModel::lepton)(2*gen+1));
+    double params[] = {Mz(), mf, mfprime};
 
     int i = CacheCheck(Bf_Mz_0_mlprime_ml_cache[gen], NumPar, params);
     if (i>=0) {
         return ( Bf_Mz_0_mlprime_ml_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.Bf(Mz(), 0.0, mlprime, ml);
+        complex newResult = PV.Bf(Mz(), 0.0, mfprime, mf);
         CacheShift(Bf_Mz_0_mlprime_ml_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1223,15 +1209,15 @@ complex EWSMcache::Bf_Mz_0_mlprime_ml(const int gen) const {
 
 complex EWSMcache::Bf_Mz_0_mqprime_mq(const int gen) const {
     int NumPar = 3;
-    double mq = mf((StandardModel::quark) 2*gen);    
-    double mqprime = mf((StandardModel::quark) 2*gen+1);
-    double params[] = {Mz(), mq, mqprime};
+    double mf = mq((StandardModel::quark)(2*gen));    
+    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double params[] = {Mz(), mf, mfprime};
 
     int i = CacheCheck(Bf_Mz_0_mqprime_mq_cache[gen], NumPar, params);
     if (i>=0) {
         return ( Bf_Mz_0_mqprime_mq_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.Bf(Mz(), 0.0, mqprime, mq);
+        complex newResult = PV.Bf(Mz(), 0.0, mfprime, mf);
         CacheShift(Bf_Mz_0_mqprime_mq_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1240,15 +1226,15 @@ complex EWSMcache::Bf_Mz_0_mqprime_mq(const int gen) const {
 
 complex EWSMcache::Bf_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const {
     int NumPar = 3;
-    double ml = mf((StandardModel::lepton) 2*gen);    
-    double mlprime = mf((StandardModel::lepton) 2*gen+1);
-    double params[] = {Mw(Mw_i), ml, mlprime};
+    double mf = ml((StandardModel::lepton)(2*gen));    
+    double mfprime = ml((StandardModel::lepton)(2*gen+1));
+    double params[] = {Mw(Mw_i), mf, mfprime};
 
     int i = CacheCheck(Bf_Mw_Mw2_mlprime_ml_cache[gen], NumPar, params);
     if (i>=0) {
         return ( Bf_Mw_Mw2_mlprime_ml_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.Bf(Mw(Mw_i), Mw(Mw_i)*Mw(Mw_i), mlprime, ml);
+        complex newResult = PV.Bf(Mw(Mw_i), Mw(Mw_i)*Mw(Mw_i), mfprime, mf);
         CacheShift(Bf_Mw_Mw2_mlprime_ml_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1257,60 +1243,62 @@ complex EWSMcache::Bf_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const 
 
 complex EWSMcache::Bf_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const {
     int NumPar = 3;
-    double mq = mf((StandardModel::quark) 2*gen);    
-    double mqprime = mf((StandardModel::quark) 2*gen+1);
-    double params[] = {Mw(Mw_i), mq, mqprime};
+    double mf = mq((StandardModel::quark)(2*gen));    
+    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double params[] = {Mw(Mw_i), mf, mfprime};
 
     int i = CacheCheck(Bf_Mw_Mw2_mqprime_mq_cache[gen], NumPar, params);
     if (i>=0) {
         return ( Bf_Mw_Mw2_mqprime_mq_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.Bf(Mw(Mw_i), Mw(Mw_i)*Mw(Mw_i), mqprime, mq);
+        complex newResult = PV.Bf(Mw(Mw_i), Mw(Mw_i)*Mw(Mw_i), mfprime, mf);
         CacheShift(Bf_Mw_Mw2_mqprime_mq_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
 }
 
 
-template<typename T> 
-complex EWSMcache::Bfp_Mz_Mz2_mf_mf(const T f) const {
+complex EWSMcache::Bfp_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
     int NumPar = 2;
-    double params[] = {Mz(), mf(f)};
+    double params[] = {Mz(), ml(l)};
 
-    if (typeid(f)==typeid(StandardModel::lepton)) {
-        int i = CacheCheck(Bfp_Mz_Mz2_ml_ml_cache[f], NumPar, params);
-        if (i>=0) {
-            return ( Bfp_Mz_Mz2_ml_ml_cache[f][NumPar][i] );
-        } else {
-            complex newResult = PV.Bfp(Mz(), Mz()*Mz(), mf(f), mf(f));
-            CacheShift(Bfp_Mz_Mz2_ml_ml_cache[f], NumPar, params, newResult);
-            return newResult;
-        }
-    } else if (typeid(f)==typeid(StandardModel::quark)) {
-        int i = CacheCheck(Bfp_Mz_Mz2_mq_mq_cache[f], NumPar, params);
-        if (i>=0) {
-            return ( Bfp_Mz_Mz2_mq_mq_cache[f][NumPar][i] );
-        } else {
-            complex newResult = PV.Bfp(Mz(), Mz()*Mz(), mf(f), mf(f));
-            CacheShift(Bfp_Mz_Mz2_mq_mq_cache[f], NumPar, params, newResult);
-            return newResult;
-        }    
-    } else
-        throw "Error in EWSMcache::Bfp_Mz_Mz2_mf_mf()";
+    int i = CacheCheck(Bfp_Mz_Mz2_ml_ml_cache[l], NumPar, params);
+    if (i>=0) {
+        return ( Bfp_Mz_Mz2_ml_ml_cache[l][NumPar][i] );
+    } else {
+        complex newResult = PV.Bfp(Mz(), Mz()*Mz(), ml(l), ml(l));
+        CacheShift(Bfp_Mz_Mz2_ml_ml_cache[l], NumPar, params, newResult);
+        return newResult;
+    }
+}
+
+
+complex EWSMcache::Bfp_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
+    int NumPar = 2;
+    double params[] = {Mz(), mq(q)};
+
+    int i = CacheCheck(Bfp_Mz_Mz2_mq_mq_cache[q], NumPar, params);
+    if (i>=0) {
+        return ( Bfp_Mz_Mz2_mq_mq_cache[q][NumPar][i] );
+    } else {
+        complex newResult = PV.Bfp(Mz(), Mz()*Mz(), mq(q), mq(q));
+        CacheShift(Bfp_Mz_Mz2_mq_mq_cache[q], NumPar, params, newResult);
+        return newResult;
+    }    
 }
 
 
 complex EWSMcache::Bfp_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const {
     int NumPar = 3;
-    double ml = mf((StandardModel::lepton) 2*gen);    
-    double mlprime = mf((StandardModel::lepton) 2*gen+1);
-    double params[] = {Mw(Mw_i), ml, mlprime};
+    double mf = ml((StandardModel::lepton)(2*gen));    
+    double mfprime = ml((StandardModel::lepton)(2*gen+1));
+    double params[] = {Mw(Mw_i), mf, mfprime};
 
     int i = CacheCheck(Bfp_Mw_Mw2_mlprime_ml_cache[gen], NumPar, params);
     if (i>=0) {
         return ( Bfp_Mw_Mw2_mlprime_ml_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.Bfp(Mw(Mw_i), Mw(Mw_i)*Mw(Mw_i), mlprime, ml);
+        complex newResult = PV.Bfp(Mw(Mw_i), Mw(Mw_i)*Mw(Mw_i), mfprime, mf);
         CacheShift(Bfp_Mw_Mw2_mlprime_ml_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1319,15 +1307,15 @@ complex EWSMcache::Bfp_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const
 
 complex EWSMcache::Bfp_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const {
     int NumPar = 3;
-    double mq = mf((StandardModel::quark) 2*gen);    
-    double mqprime = mf((StandardModel::quark) 2*gen+1);
-    double params[] = {Mw(Mw_i), mq, mqprime};
+    double mf = mq((StandardModel::quark)(2*gen));    
+    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double params[] = {Mw(Mw_i), mf, mfprime};
 
     int i = CacheCheck(Bfp_Mw_Mw2_mqprime_mq_cache[gen], NumPar, params);
     if (i>=0) {
         return ( Bfp_Mw_Mw2_mqprime_mq_cache[gen][NumPar][i] );
     } else {
-        complex newResult = PV.Bfp(Mw(Mw_i), Mw(Mw_i)*Mw(Mw_i), mqprime, mq);
+        complex newResult = PV.Bfp(Mw(Mw_i), Mw(Mw_i)*Mw(Mw_i), mfprime, mf);
         CacheShift(Bfp_Mw_Mw2_mqprime_mq_cache[gen], NumPar, params, newResult);
         return newResult;
     } 

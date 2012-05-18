@@ -183,18 +183,32 @@ protected:
     double sW2_SM() const;
     
     /**
-     * @brief SM contribution to effective coupling rho_Z^f
-     * @param[in] f StandardModel::quark or StandardModel::lepton 
-     * @return rho_Z^f in the SM
+     * @brief SM contribution to effective coupling rho_Z^l
+     * @param[in] l name of lepton
+     * @return rho_Z^l in the SM
      */
-    template<typename T> complex rhoZ_f_SM(const T f) const;
+    complex rhoZ_l_SM(const StandardModel::lepton l) const;
 
     /**
-     * @brief SM contribution to effective coupling kappa_Z^f
-     * @param[in] f StandardModel::quark or StandardModel::lepton 
-     * @return kappa_Z^f in the SM
+     * @brief SM contribution to effective coupling rho_Z^q
+     * @param[in] q name of quark
+     * @return rho_Z^q in the SM
      */
-    template<typename T> complex kappaZ_f_SM(const T f) const;
+    complex rhoZ_q_SM(const StandardModel::quark q) const;    
+    
+    /**
+     * @brief SM contribution to effective coupling kappa_Z^l
+     * @param[in] l name of lepton
+     * @return kappa_Z^l in the SM
+     */
+    complex kappaZ_l_SM(const StandardModel::lepton l) const;
+
+    /**
+     * @brief SM contribution to effective coupling kappa_Z^q
+     * @param[in] q name of quark
+     * @return kappa_Z^q in the SM
+     */
+    complex kappaZ_q_SM(const StandardModel::quark q) const;    
     
     /**
      * @param[in] li name of a neutrino
@@ -248,28 +262,45 @@ protected:
      * @param[in] U oblique parameter
      * @return the W-boson mass in a NP model from oblique parameters
      */
-    double Mw_NP_fromSTU(const double S, const double T, const double U);
+    double Mw_NP_fromSTU(const double S, const double T, const double U) const;
     
     /**
-     * @brief effective coupling rho_Z^f
-     * @param[in] f StandardModel::quark or StandardModel::lepton 
+     * @brief effective coupling rho_Z^l
+     * @param[in] l name of lepton
      * @param[in] S oblique parameter
      * @param[in] T oblique parameter
-     * @return rho_Z^f in a NP model from oblique parameters
+     * @return rho_Z^l in a NP model from oblique parameters
      */
-    template<typename Type> 
-    complex rhoZ_f_NP_fromSTU(const Type f, const double T);
+    complex rhoZ_l_NP_fromSTU(const StandardModel::lepton l, const double T) const;
+
+   /**
+     * @brief effective coupling rho_Z^q
+     * @param[in] q name of quark
+     * @param[in] S oblique parameter
+     * @param[in] T oblique parameter
+     * @return rho_Z^q in a NP model from oblique parameters
+     */
+    complex rhoZ_q_NP_fromSTU(const StandardModel::quark q, const double T) const;
 
     /**
      * @brief the ratio of the effective couplings for neutral-current interactions
-     * @param[in] f StandardModel::quark or StandardModel::lepton 
+     * @param[in] l name of lepton
      * @param[in] S oblique parameter
      * @param[in] T oblique parameter
-     * @return g_V^f/g_A^f in a NP model from oblique parameters
+     * @return g_V^l/g_A^l in a NP model from oblique parameters
      */
-    template<typename Type> 
-    complex gZf_over_gAf_NP_fromSTU(const Type f,
-                                    const double S, const double T);
+    complex gZl_over_gAl_NP_fromSTU(const StandardModel::lepton l,
+                                    const double S, const double T) const;    
+    
+    /**
+     * @brief the ratio of the effective couplings for neutral-current interactions
+     * @param[in] q name of quark
+     * @param[in] S oblique parameter
+     * @param[in] T oblique parameter
+     * @return g_V^q/g_A^q in a NP model from oblique parameters
+     */
+    complex gZq_over_gAq_NP_fromSTU(const StandardModel::quark q,
+                                    const double S, const double T) const;
     
     /**
      * @param[in] S oblique parameter
@@ -277,7 +308,7 @@ protected:
      * @param[in] U oblique parameter
      * @return the total width of the W boson in a NP model from oblique parameters
      */    
-    double GammaW_NP_fromSTU(const double S, const double T, const double U);    
+    double GammaW_NP_fromSTU(const double S, const double T, const double U) const;    
 
     
     ////////////////////////////////////////////////////////////////////////         
@@ -297,6 +328,10 @@ private:
         
     // accuracy in the iterative calculation of Mw
     static const double Mw_error;
+    
+    //cache for Mw
+    static const int NumParMwMax = 22; // Num. of parameters for Mw
+    mutable double Mw_cache[NumParMwMax+1][EWSMcache::CacheSize];
     
     
     ////////////////////////////////////////////////////////////////////////     
