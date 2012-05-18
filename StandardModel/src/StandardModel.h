@@ -82,7 +82,7 @@ public:
     /**
      * @return pointer to EWSM object
      */
-    EWSM* getMyEWSM() const {
+    EWSM* getEWSM() const {
         return myEWSM;
     }
     

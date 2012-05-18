@@ -116,13 +116,13 @@ complex EWSM::rhoZ_q(const StandardModel::quark q) const {
   
 
 complex EWSM::gZl_over_gAl(const StandardModel::lepton l) const {
-    return ( 1.0 - 4.0*fabs(myCache->Ql(l))*kappaZ_l_SM(l)*sW2_SM() );
+    return gZl_over_gAl_SM(l);
 }
 
 
 complex EWSM::gZq_over_gAq(const StandardModel::quark q) const {
     if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
-    return ( 1.0 - 4.0*fabs(myCache->Qq(q))*kappaZ_q_SM(q)*sW2_SM() );
+    return gZq_over_gAq_SM(q);
 }
 
 double EWSM::GammaW() const {
@@ -439,6 +439,17 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const {
 }
 
 
+complex EWSM::gZl_over_gAl_SM(const StandardModel::lepton l) const {
+    return ( 1.0 - 4.0*fabs(myCache->Ql(l))*kappaZ_l_SM(l)*sW2_SM() );
+}
+
+
+complex EWSM::gZq_over_gAq_SM(const StandardModel::quark q) const {
+    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
+    return ( 1.0 - 4.0*fabs(myCache->Qq(q))*kappaZ_q_SM(q)*sW2_SM() );
+}
+
+
 double EWSM::rho_GammaW_l_SM(const StandardModel::lepton li, 
                              const StandardModel::lepton lj) const {
     double Mw = Mw_SM();
@@ -515,55 +526,55 @@ double EWSM::GammaW_SM() const {
 
 
 ////////////////////////////////////////////////////////////////////////     
-
-double EWSM::Mw_NP_fromSTU(const double S, const double T, const double U) const {
-    double CW2minusSW2 = cW2_SM() - sW2_SM();
-    return ( Mw_SM()*Mw_SM()
-             *(1.0 - SM.getAle()*S/2.0/CW2minusSW2 
-               + cW2_SM()*SM.getAle()*T/CW2minusSW2 
-               + SM.getAle()*U/4.0/sW2_SM()) );
-}
- 
-
-complex EWSM::rhoZ_l_NP_fromSTU(const StandardModel::lepton l, const double T) const {
-    return ( (1.0 + SM.getAle()*T)*rhoZ_l_SM(l) );
-}
-
-
-complex EWSM::rhoZ_q_NP_fromSTU(const StandardModel::quark q, const double T) const {
-    return ( (1.0 + SM.getAle()*T)*rhoZ_q_SM(q) );
-}
-
-
-complex EWSM::gZl_over_gAl_NP_fromSTU(const StandardModel::lepton l,
-                                      const double S, const double T) const {
-    double CW2minusSW2 = cW2_SM() - sW2_SM();
-    return ( 1.0 - 4.0*fabs(myCache->Ql(l))
-                   *( 1.0 + SM.getAle()/4.0/sW2_SM()/CW2minusSW2
-                            *(S - 4.0*cW2_SM()*sW2_SM()*T) )
-                   *kappaZ_l_SM(l)*sW2_SM() );    
-}
-
-
-complex EWSM::gZq_over_gAq_NP_fromSTU(const StandardModel::quark q,
-                                      const double S, const double T) const {
-    double CW2minusSW2 = cW2_SM() - sW2_SM();
-    return ( 1.0 - 4.0*fabs(myCache->Qq(q))
-                   *( 1.0 + SM.getAle()/4.0/sW2_SM()/CW2minusSW2
-                            *(S - 4.0*cW2_SM()*sW2_SM()*T) )
-                   *kappaZ_q_SM(q)*sW2_SM() );    
-}
-
-
-double EWSM::GammaW_NP_fromSTU(const double S, const double T, const double U) const {
-    double CW2minusSW2 = cW2_SM() - sW2_SM();
-    return ( GammaW_SM()
-             *(1.0 - SM.getAle()*S/2.0/CW2minusSW2 
-               + cW2_SM()*SM.getAle()*T/CW2minusSW2 
-               + SM.getAle()*U/4.0/sW2_SM()) );
-}
-    
-
+//
+//double EWSM::Mw_NP_fromSTU(const double S, const double T, const double U) const {
+//    double CW2minusSW2 = cW2_SM() - sW2_SM();
+//    return ( Mw_SM()*Mw_SM()
+//             *(1.0 - SM.getAle()*S/2.0/CW2minusSW2 
+//               + cW2_SM()*SM.getAle()*T/CW2minusSW2 
+//               + SM.getAle()*U/4.0/sW2_SM()) );
+//}
+// 
+//
+//complex EWSM::rhoZ_l_NP_fromSTU(const StandardModel::lepton l, const double T) const {
+//    return ( (1.0 + SM.getAle()*T)*rhoZ_l_SM(l) );
+//}
+//
+//
+//complex EWSM::rhoZ_q_NP_fromSTU(const StandardModel::quark q, const double T) const {
+//    return ( (1.0 + SM.getAle()*T)*rhoZ_q_SM(q) );
+//}
+//
+//
+//complex EWSM::gZl_over_gAl_NP_fromSTU(const StandardModel::lepton l,
+//                                      const double S, const double T) const {
+//    double CW2minusSW2 = cW2_SM() - sW2_SM();
+//    return ( 1.0 - 4.0*fabs(myCache->Ql(l))
+//                   *( 1.0 + SM.getAle()/4.0/sW2_SM()/CW2minusSW2
+//                            *(S - 4.0*cW2_SM()*sW2_SM()*T) )
+//                   *kappaZ_l_SM(l)*sW2_SM() );    
+//}
+//
+//
+//complex EWSM::gZq_over_gAq_NP_fromSTU(const StandardModel::quark q,
+//                                      const double S, const double T) const {
+//    double CW2minusSW2 = cW2_SM() - sW2_SM();
+//    return ( 1.0 - 4.0*fabs(myCache->Qq(q))
+//                   *( 1.0 + SM.getAle()/4.0/sW2_SM()/CW2minusSW2
+//                            *(S - 4.0*cW2_SM()*sW2_SM()*T) )
+//                   *kappaZ_q_SM(q)*sW2_SM() );    
+//}
+//
+//
+//double EWSM::GammaW_NP_fromSTU(const double S, const double T, const double U) const {
+//    double CW2minusSW2 = cW2_SM() - sW2_SM();
+//    return ( GammaW_SM()
+//             *(1.0 - SM.getAle()*S/2.0/CW2minusSW2 
+//               + cW2_SM()*SM.getAle()*T/CW2minusSW2 
+//               + SM.getAle()*U/4.0/sW2_SM()) );
+//}
+//    
+//
 ////////////////////////////////////////////////////////////////////////
 
 void EWSM::ComputeDeltaRho(const double Mw_i,
