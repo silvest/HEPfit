@@ -127,28 +127,56 @@ public:
      * @param[in] l lepton
      * @return rho_Z^l
      */
-    virtual complex rhoZ_l(const lepton l) const;
+    virtual complex rhoZ_l(const StandardModel::lepton l) const;
     
     /**
      * @brief effective coupling rho_Z^q
      * @param[in] q quark
      * @return rho_Z^q
      */
-    virtual complex rhoZ_q(const quark q) const;
-    
-    /**
-     * @brief the ratio of the effective couplings for neutral-current interactions
-     * @param[in] l lepton
-     * @return g_V^l/g_A^l
-     */
-    virtual complex gZl_over_gAl(const lepton l) const;
+    virtual complex rhoZ_q(const StandardModel::quark q) const;
 
     /**
-     * @brief the ratio of the effective couplings for neutral-current interactions
-     * @param[in] q quark
-     * @return g_V^q/g_A^q
+     * @brief effective coupling kappa_Z^l
+     * @param[in] l name of lepton
+     * @return kappa_Z^l in the SM
      */
-    virtual complex gZq_over_gAq(const quark q) const;
+    virtual complex kappaZ_l(const StandardModel::lepton l) const;
+
+    /**
+     * @brief effective coupling kappa_Z^q
+     * @param[in] q name of quark
+     * @return kappa_Z^q in the SM
+     */
+    virtual complex kappaZ_q(const StandardModel::quark q) const;       
+    
+    /**
+     * @brief vector effective coupling for neutral-current interactions
+     * @param[in] l lepton
+     * @return g_V^l
+     */
+    virtual complex gVl(const StandardModel::lepton l) const;
+
+    /**
+     * @brief vector effective coupling for neutral-current interactions
+     * @param[in] q quark
+     * @return g_V^q
+     */
+    virtual complex gVq(const StandardModel::quark q) const;
+
+    /**
+     * @brief axial-vector effective coupling for neutral-current interactions
+     * @param[in] l lepton
+     * @return g_A^l
+     */
+    virtual complex gAl(const StandardModel::lepton l) const;
+
+    /**
+     * @brief axial-vector effective coupling for neutral-current interactions
+     * @param[in] q quark
+     * @return g_A^q
+     */
+    virtual complex gAq(const StandardModel::quark q) const; 
     
     /**
      * @return the total width of the W boson

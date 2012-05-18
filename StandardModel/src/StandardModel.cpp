@@ -190,14 +190,30 @@ complex StandardModel::rhoZ_q(const quark q) const {
     return myEWSM->rhoZ_q(q);
 }
     
-complex StandardModel::gZl_over_gAl(const lepton l) const {
-    return myEWSM->gZl_over_gAl(l);
-}
-
-complex StandardModel::gZq_over_gAq(const quark q) const {
-    return myEWSM->gZq_over_gAq(q);
+complex StandardModel::kappaZ_l(const lepton l) const {
+    return myEWSM->kappaZ_l(l);
 }
     
+complex StandardModel::kappaZ_q(const quark q) const {
+    return myEWSM->kappaZ_q(q);
+}
+
+complex StandardModel::gVl(const lepton l) const {
+    return myEWSM->gVl(l);
+}
+
+complex StandardModel::gVq(const quark q) const {
+    return myEWSM->gVq(q);
+}
+    
+complex StandardModel::gAl(const lepton l) const {
+    return myEWSM->gAl(l);
+}
+
+complex StandardModel::gAq(const quark q) const {
+    return myEWSM->gAq(q);
+}
+
 double StandardModel::GammaW() const {
     return myEWSM->GammaW();
 }

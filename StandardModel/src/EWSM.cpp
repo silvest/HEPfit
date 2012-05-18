@@ -115,15 +115,38 @@ complex EWSM::rhoZ_q(const StandardModel::quark q) const {
 }
   
 
-complex EWSM::gZl_over_gAl(const StandardModel::lepton l) const {
-    return gZl_over_gAl_SM(l);
+complex EWSM::kappaZ_l(const StandardModel::lepton l) const {
+    return kappaZ_l_SM(l);
 }
 
 
-complex EWSM::gZq_over_gAq(const StandardModel::quark q) const {
+complex EWSM::kappaZ_q(const StandardModel::quark q) const {
     if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
-    return gZq_over_gAq_SM(q);
+    return kappaZ_q_SM(q);
 }
+
+
+complex EWSM::gVl(const StandardModel::lepton l) const {
+    return gVl_SM(l);
+}
+
+
+complex EWSM::gVq(const StandardModel::quark q) const {
+    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
+    return gVq_SM(q);
+}
+
+
+complex EWSM::gAl(const StandardModel::lepton l) const {
+    return gAl_SM(l);
+}
+
+
+complex EWSM::gAq(const StandardModel::quark q) const {
+    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
+    return gAq_SM(q);
+}
+
 
 double EWSM::GammaW() const {
     return GammaW_SM();
@@ -439,14 +462,44 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const {
 }
 
 
-complex EWSM::gZl_over_gAl_SM(const StandardModel::lepton l) const {
-    return ( 1.0 - 4.0*fabs(myCache->Ql(l))*kappaZ_l_SM(l)*sW2_SM() );
+complex EWSM::gVl_SM(const StandardModel::lepton l) const {
+    return ( gAl_SM(l)
+             *(1.0 - 4.0*fabs(myCache->Ql(l))*kappaZ_l_SM(l)*sW2_SM()) );
 }
 
 
-complex EWSM::gZq_over_gAq_SM(const StandardModel::quark q) const {
+complex EWSM::gVq_SM(const StandardModel::quark q) const {
     if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
-    return ( 1.0 - 4.0*fabs(myCache->Qq(q))*kappaZ_q_SM(q)*sW2_SM() );
+    return ( gAq_SM(q)
+             *(1.0 - 4.0*fabs(myCache->Qq(q))*kappaZ_q_SM(q)*sW2_SM()) );
+}
+
+
+complex EWSM::gAl_SM(const StandardModel::lepton l) const {
+    double I3f;
+    if ( l==StandardModel::NEUTRINO_1 || l==StandardModel::NEUTRINO_2 
+            || l==StandardModel::NEUTRINO_3 )
+        I3f = 1.0/2.0;
+    else if (l==StandardModel::ELECTRON || l==StandardModel::MU
+               || l==StandardModel::TAU )
+        I3f = - 1.0/2.0;
+    else 
+        throw "Error in EWSM::gAl_SM()";
+    return ( sqrt(rhoZ_l(l))*I3f );
+}
+
+
+complex EWSM::gAq_SM(const StandardModel::quark q) const {
+    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
+    double I3f;
+    if ( q==StandardModel::UP || q==StandardModel::CHARM)
+        I3f = 1.0/2.0;
+    else if (q==StandardModel::DOWN || q==StandardModel::STRANGE
+               || q==StandardModel::BOTTOM )
+        I3f = - 1.0/2.0;
+    else 
+        throw "Error in EWSM::gAq_SM()";
+    return ( sqrt(rhoZ_q(q))*I3f );
 }
 
 

@@ -6,6 +6,7 @@
 #ifndef EWSM_H
 #define	EWSM_H
 
+#include <cstring>
 #include <gslpp.h>
 #include "StandardModel.h"
 #include "EWModel.h"
@@ -111,20 +112,48 @@ public:
      * @return rho_Z^q
      */
     virtual complex rhoZ_q(const StandardModel::quark q) const;
-    
-    /**
-     * @brief the ratio of the effective couplings for neutral-current interactions
-     * @param[in] l lepton
-     * @return g_V^l/g_A^l
-     */
-    virtual complex gZl_over_gAl(const StandardModel::lepton l) const;
 
     /**
-     * @brief the ratio of the effective couplings for neutral-current interactions
-     * @param[in] q quark
-     * @return g_V^q/g_A^q
+     * @brief effective coupling kappa_Z^l
+     * @param[in] l name of lepton
+     * @return kappa_Z^l in the SM
      */
-    virtual complex gZq_over_gAq(const StandardModel::quark q) const;
+    virtual complex kappaZ_l(const StandardModel::lepton l) const;
+
+    /**
+     * @brief effective coupling kappa_Z^q
+     * @param[in] q name of quark
+     * @return kappa_Z^q in the SM
+     */
+    virtual complex kappaZ_q(const StandardModel::quark q) const;       
+    
+    /**
+     * @brief vector effective coupling for neutral-current interactions
+     * @param[in] l lepton
+     * @return g_V^l
+     */
+    virtual complex gVl(const StandardModel::lepton l) const;
+
+    /**
+     * @brief vector effective coupling for neutral-current interactions
+     * @param[in] q quark
+     * @return g_V^q
+     */
+    virtual complex gVq(const StandardModel::quark q) const;
+
+    /**
+     * @brief axial-vector effective coupling for neutral-current interactions
+     * @param[in] l lepton
+     * @return g_A^l
+     */
+    virtual complex gAl(const StandardModel::lepton l) const;
+
+    /**
+     * @brief axial-vector effective coupling for neutral-current interactions
+     * @param[in] q quark
+     * @return g_A^q
+     */
+    virtual complex gAq(const StandardModel::quark q) const; 
     
     /**
      * @return the total width of the W boson
@@ -205,18 +234,32 @@ public:
     complex kappaZ_q_SM(const StandardModel::quark q) const;    
 
     /**
-     * @brief SM contribution to the ratio of the effective couplings for neutral-current interactions
+     * @brief SM contribution to g_V^l
      * @param[in] l lepton
-     * @return g_V^l/g_A^l
+     * @return g_V^l
      */
-    virtual complex gZl_over_gAl_SM(const StandardModel::lepton l) const;
+    virtual complex gVl_SM(const StandardModel::lepton l) const;
 
     /**
-     * @brief SM contribution to the ratio of the effective couplings for neutral-current interactions
+     * @brief SM contribution to g_V^q
      * @param[in] q quark
-     * @return g_V^q/g_A^q
+     * @return g_V^q
      */
-    virtual complex gZq_over_gAq_SM(const StandardModel::quark q) const;    
+    virtual complex gVq_SM(const StandardModel::quark q) const;
+
+    /**
+     * @brief SM contribution to g_A^l
+     * @param[in] l lepton
+     * @return g_A^l
+     */
+    virtual complex gAl_SM(const StandardModel::lepton l) const;
+
+    /**
+     * @brief SM contribution to g_A^q
+     * @param[in] q quark
+     * @return g_A^q
+     */
+    virtual complex gAq_SM(const StandardModel::quark q) const;    
     
     /**
      * @param[in] li name of a neutrino

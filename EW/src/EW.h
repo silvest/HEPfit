@@ -25,6 +25,11 @@ public:
     //////////////////////////////////////////////////////////////////////// 
 
     /**
+     * @return boolean: true for the case where S, T and U are employed for the current model
+     */
+    bool checkModelForSTU() const;
+    
+    /**
      * @return a reference to the StandardModel object in the current class
      */
     const StandardModel& getSM() const {
@@ -45,7 +50,6 @@ public:
 
     
     ////////////////////////////////////////////////////////////////////////     
-    
     
     /**
      * @param[in] l name of a lepton
