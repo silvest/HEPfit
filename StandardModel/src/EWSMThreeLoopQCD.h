@@ -50,20 +50,36 @@ public:
     double DeltaR_rem(const double Mw_i) const;
 
     /**
-     * @brief remainder contribution to rho_Z^f
-     * @param[in] f StandardModel::quark or StandardModel::lepton 
+     * @brief remainder contribution to rho_Z^l
+     * @param[in] l name of lepton
      * @param[in] Mw_i the W-boson mass
-     * @return delta rho_{rem}^{f, alpha alpha_s^2}
+     * @return delta rho_{rem}^{l, alpha alpha_s^2}
      */
-    template<typename T> complex deltaRho_rem_f(const T f, const double Mw_i) const;
+    complex deltaRho_rem_l(const StandardModel::lepton l, const double Mw_i) const;
 
     /**
-     * @brief remainder contribution to kappa_Z^f
-     * @param[in] f StandardModel::quark or StandardModel::lepton 
+     * @brief remainder contribution to rho_Z^q
+     * @param[in] q name of quark
      * @param[in] Mw_i the W-boson mass
-     * @return delta kappa_{rem}^{f, alpha alpha_s^2}
+     * @return delta rho_{rem}^{q, alpha alpha_s^2}
      */
-    template<typename T> complex deltaKappa_rem_f(const T f, const double Mw_i) const;
+    complex deltaRho_rem_q(const StandardModel::quark q, const double Mw_i) const;
+
+    /**
+     * @brief remainder contribution to kappa_Z^l
+     * @param[in] l name of lepton
+     * @param[in] Mw_i the W-boson mass
+     * @return delta kappa_{rem}^{l, alpha alpha_s^2}
+     */
+    complex deltaKappa_rem_l(const StandardModel::lepton l, const double Mw_i) const;
+                                                  
+    /**
+     * @brief remainder contribution to kappa_Z^q
+     * @param[in] q name of quark
+     * @param[in] Mw_i the W-boson mass
+     * @return delta kappa_{rem}^{q, alpha alpha_s^2}
+     */
+    complex deltaKappa_rem_q(const StandardModel::quark q, const double Mw_i) const;    
     
     
     ////////////////////////////////////////////////////////////////////////        

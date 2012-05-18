@@ -16,12 +16,12 @@ double EWSMOneLoopEW::DeltaAlpha_l() const {
     double Mz = cache.Mz();
 
     double oneLoop[3];
-    oneLoop[0] = - PiGammaGamma_fer(Mz, Mz*Mz, StandardModel::ELECTRON).real() 
-                 + PiGammaGamma_fer(Mz, 0.0, StandardModel::ELECTRON).real();
-    oneLoop[1] = - PiGammaGamma_fer(Mz, Mz*Mz, StandardModel::MU).real() 
-                 + PiGammaGamma_fer(Mz, 0.0, StandardModel::MU).real();
-    oneLoop[2] = - PiGammaGamma_fer(Mz, Mz*Mz, StandardModel::TAU).real() 
-                 + PiGammaGamma_fer(Mz, 0.0, StandardModel::TAU).real();
+    oneLoop[0] = - PiGammaGamma_fer_l(Mz, Mz*Mz, StandardModel::ELECTRON).real() 
+                 + PiGammaGamma_fer_l(Mz, 0.0, StandardModel::ELECTRON).real();
+    oneLoop[1] = - PiGammaGamma_fer_l(Mz, Mz*Mz, StandardModel::MU).real() 
+                 + PiGammaGamma_fer_l(Mz, 0.0, StandardModel::MU).real();
+    oneLoop[2] = - PiGammaGamma_fer_l(Mz, Mz*Mz, StandardModel::TAU).real() 
+                 + PiGammaGamma_fer_l(Mz, 0.0, StandardModel::TAU).real();
     
     return( cache.ale()/4.0/M_PI
             *(oneLoop[0] + oneLoop[1] + oneLoop[2]) );
@@ -52,9 +52,9 @@ double EWSMOneLoopEW::DeltaR_rem(const double Mw_i) const {
     /* Logarithm */
     double log_cW2 = cache.log_cW2(Mw);
     
-    double PiGammaGamma_t_0 = PiGammaGamma_fer(Mz,0.0,StandardModel::TOP).real();
+    double PiGammaGamma_t_0 = PiGammaGamma_fer_q(Mz,0.0,StandardModel::TOP).real();
     double PiGammaGamma_l5q_Mz2 = PiGammaGamma_fer(Mz,Mz2).real() 
-                                  - PiGammaGamma_fer(Mz,Mz2,StandardModel::TOP).real();
+                                  - PiGammaGamma_fer_q(Mz,Mz2,StandardModel::TOP).real();
 
     double DR_rem = - 2.0/3.0*sW2 + sW2*PiGammaGamma_t_0
                     + sW2*PiGammaGamma_l5q_Mz2 + DeltaRhobarW(Mz,Mw)
@@ -106,15 +106,22 @@ complex EWSMOneLoopEW::deltaRho_rem_tmp(const complex uf,
 }
 
 
-template<typename T> 
-complex EWSMOneLoopEW::deltaRho_rem_f(const T f, const double Mw_i) const {
-    cache.checkSMfermion(f, "EWSMOneLoopEW::deltaRho_rem_f");
-    if(f==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+complex EWSMOneLoopEW::deltaRho_rem_l(const StandardModel::lepton l, const double Mw_i) const {
+    double Mz = cache.Mz(); 
+    double Mw = cache.Mw(Mw_i);
+    complex uf = ( 3.0*cache.vl(l,Mw)*cache.vl(l,Mw) + cache.al(l)*cache.al(l) )
+                 /4.0/cache.cW2(Mw)*FZ(Mz*Mz,Mw) + FW_l(Mz*Mz,l,Mw);
+    return ( deltaRho_rem_tmp(uf,Mw) );   
+}
+
+
+complex EWSMOneLoopEW::deltaRho_rem_q(const StandardModel::quark q, const double Mw_i) const {
+    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     
     double Mz = cache.Mz(); 
     double Mw = cache.Mw(Mw_i);
-    complex uf = ( 3.0*cache.vf(f,Mw)*cache.vf(f,Mw) + cache.af(f)*cache.af(f) )
-                 /4.0/cache.cW2(Mw)*FZ(Mz*Mz,Mw) + FW(Mz*Mz,f,Mw);
+    complex uf = ( 3.0*cache.vq(q,Mw)*cache.vq(q,Mw) + cache.aq(q)*cache.aq(q) )
+                 /4.0/cache.cW2(Mw)*FZ(Mz*Mz,Mw) + FW_q(Mz*Mz,q,Mw);
     return ( deltaRho_rem_tmp(uf,Mw) );   
 }
 
@@ -138,16 +145,23 @@ complex EWSMOneLoopEW::deltaKappa_rem_tmp(const double deltaf, const complex uf,
 }
 
 
-template<typename T> 
-complex EWSMOneLoopEW::deltaKappa_rem_f(const T f, const double Mw_i) const {
-    cache.checkSMfermion(f, "EWSMOneLoopEW::deltaKappa_rem_f");
-    if(f==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+complex EWSMOneLoopEW::deltaKappa_rem_l(const StandardModel::lepton l, const double Mw_i) const {
+    double Mz = cache.Mz(); 
+    double Mw = cache.Mw(Mw_i);
+    complex uf = ( 3.0*cache.vl(l,Mw)*cache.vl(l,Mw) + cache.al(l)*cache.al(l) )
+                 /4.0/cache.cW2(Mw)*FZ(Mz*Mz,Mw) + FW_l(Mz*Mz,l,Mw);
+    return ( deltaKappa_rem_tmp(cache.deltal(l, Mw), uf, Mw) );       
+}
+
+
+complex EWSMOneLoopEW::deltaKappa_rem_q(const StandardModel::quark q, const double Mw_i) const {
+    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     
     double Mz = cache.Mz(); 
     double Mw = cache.Mw(Mw_i);
-    complex uf = ( 3.0*cache.vf(f,Mw)*cache.vf(f,Mw) + cache.af(f)*cache.af(f) )
-                 /4.0/cache.cW2(Mw)*FZ(Mz*Mz,Mw) + FW(Mz*Mz,f,Mw);
-    return ( deltaKappa_rem_tmp(cache.deltaf(f, Mw), uf, Mw) );       
+    complex uf = ( 3.0*cache.vq(q,Mw)*cache.vq(q,Mw) + cache.aq(q)*cache.aq(q) )
+                 /4.0/cache.cW2(Mw)*FZ(Mz*Mz,Mw) + FW_q(Mz*Mz,q,Mw);
+    return ( deltaKappa_rem_tmp(cache.deltaq(q, Mw), uf, Mw) );       
 }
 
 
@@ -192,7 +206,7 @@ double EWSMOneLoopEW::rho_GammaW_l(const StandardModel::lepton li,
     if ( ((int)li+(int)lj+3)%2 ) 
         throw "Error in EWSMOneLoopEW::rho_GammaW_l()";
     double Mw = cache.Mw(Mw_i);
-    return ( rho_GammaW_tmp(cache.Qf(li), cache.Qf(lj), Mw) );
+    return ( rho_GammaW_tmp(cache.Ql(li), cache.Ql(lj), Mw) );
 }
 
 
@@ -202,7 +216,7 @@ double EWSMOneLoopEW::rho_GammaW_q(const StandardModel::quark qi,
     if ( ((int)qi+(int)qj+3)%2 ) 
         throw "Error in EWSMOneLoopEW::rho_GammaW_q()";
     double Mw = cache.Mw(Mw_i);
-    return ( rho_GammaW_tmp(cache.Qf(qi), cache.Qf(qj), Mw) );
+    return ( rho_GammaW_tmp(cache.Qq(qi), cache.Qq(qj), Mw) );
 }
 
 
@@ -299,8 +313,8 @@ complex EWSMOneLoopEW::SigmaWW_fer(const double mu, const double s,
                                    const double Mw_i) const {
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
-        ml[i] = cache.mf((StandardModel::lepton) i);
-        mq[i] = cache.mf((StandardModel::quark) i);        
+        ml[i] = cache.ml((StandardModel::lepton) i);
+        mq[i] = cache.mq((StandardModel::quark) i);        
     }
     double Mw = cache.Mw(Mw_i);
     double Mw2 = Mw*Mw;
@@ -417,8 +431,8 @@ complex EWSMOneLoopEW::SigmaZZ_fer(const double mu, const double s,
                                    const double Mw_i) const {
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
-        ml[i] = cache.mf((StandardModel::lepton) i);
-        mq[i] = cache.mf((StandardModel::quark) i);        
+        ml[i] = cache.ml((StandardModel::lepton) i);
+        mq[i] = cache.mq((StandardModel::quark) i);        
     }
     double Mw = cache.Mw(Mw_i);
     double Mz = cache.Mz();    
@@ -429,10 +443,10 @@ complex EWSMOneLoopEW::SigmaZZ_fer(const double mu, const double s,
     complex B0_s_ml_ml[6], B0_s_mq_mq[6];    
     if (mu==Mz && s==Mz2) {
         for (int i=0; i<6; i++) {
-            Bf_s_ml_ml[i] = cache.Bf_Mz_Mz2_mf_mf((StandardModel::lepton) i);
-            Bf_s_mq_mq[i] = cache.Bf_Mz_Mz2_mf_mf((StandardModel::quark) i);           
-            B0_s_ml_ml[i] = cache.B0_Mz_Mz2_mf_mf((StandardModel::lepton) i);
-            B0_s_mq_mq[i] = cache.B0_Mz_Mz2_mf_mf((StandardModel::quark) i);           
+            Bf_s_ml_ml[i] = cache.Bf_Mz_Mz2_ml_ml((StandardModel::lepton) i);
+            Bf_s_mq_mq[i] = cache.Bf_Mz_Mz2_mq_mq((StandardModel::quark) i);           
+            B0_s_ml_ml[i] = cache.B0_Mz_Mz2_ml_ml((StandardModel::lepton) i);
+            B0_s_mq_mq[i] = cache.B0_Mz_Mz2_mq_mq((StandardModel::quark) i);           
         }
     } else {
         PVfunctions* myPV;
@@ -453,14 +467,14 @@ complex EWSMOneLoopEW::SigmaZZ_fer(const double mu, const double s,
         double ml2, vl2, al2, mq2, vq2, aq2;
         for (int i=0; i<6; i++) {
             ml2 = ml[i]*ml[i];
-            vl2 = pow(cache.vf((StandardModel::lepton) i, Mw), 2.0);
-            al2 = pow(cache.af((StandardModel::lepton) i), 2.0);            
+            vl2 = pow(cache.vl((StandardModel::lepton) i, Mw), 2.0);
+            al2 = pow(cache.al((StandardModel::lepton) i), 2.0);            
             if(s!=0.0) Sigma += - (vl2 + al2)*s*Bf_s_ml_ml[i];
             Sigma += - 2.0*al2*ml2*B0_s_ml_ml[i];
             //
             mq2 = mq[i]*mq[i];
-            vq2 = pow(cache.vf((StandardModel::quark) i, Mw), 2.0);
-            aq2 = pow(cache.af((StandardModel::quark) i), 2.0);
+            vq2 = pow(cache.vq((StandardModel::quark) i, Mw), 2.0);
+            aq2 = pow(cache.aq((StandardModel::quark) i), 2.0);
             if(s!=0.0) Sigma += - 3.0*(vq2 + aq2)*s*Bf_s_mq_mq[i];
             Sigma += - 3.0*2.0*aq2*mq2*B0_s_mq_mq[i];
         }
@@ -505,16 +519,9 @@ complex EWSMOneLoopEW::PiGammaGamma_bos(const double mu, const double s,
 }
 
 
-template<typename T> 
-complex EWSMOneLoopEW::PiGammaGamma_fer(const double mu, const double s, 
-                                        const T f) const {
-    double mf;
-    if ( (typeid(f)==typeid(StandardModel::quark)) 
-         || (typeid(f)==typeid(StandardModel::lepton)) )
-        mf = cache.mf(f);
-    else 
-        throw "Error in EWSMOneLoopEW::PiGammaGamma_fer()";
-    
+complex EWSMOneLoopEW::PiGammaGamma_fer_l(const double mu, const double s, 
+                                          const StandardModel::lepton l) const {
+    double mf = cache.ml(l);
     double Mz = cache.Mz();    
     double Mz2 = Mz*Mz;
 
@@ -524,13 +531,13 @@ complex EWSMOneLoopEW::PiGammaGamma_fer(const double mu, const double s,
         if (mf==0.0) { 
             Bf_s_mf_mf = 0.0; 
         } else {
-            Bf_s_mf_mf = cache.Bf_Mz_Mz2_mf_mf(f);
+            Bf_s_mf_mf = cache.Bf_Mz_Mz2_ml_ml(l);
         }
     } else if (mu==Mz && s==0.0) {        
         if (mf==0.0) {
             Bf_s_mf_mf = 0.0; 
         } else {
-            Bf_s_mf_mf = cache.Bf_Mz_0_mf_mf(f);
+            Bf_s_mf_mf = cache.Bf_Mz_0_ml_ml(l);
         }
     } else {
         PVfunctions* myPV;
@@ -543,7 +550,43 @@ complex EWSMOneLoopEW::PiGammaGamma_fer(const double mu, const double s,
         delete myPV;
     }
     
-    double Qf = cache.Qf(f);
+    double Qf = cache.Ql(l);
+    return ( - 4.0*Qf*Qf*Bf_s_mf_mf);
+}
+
+
+complex EWSMOneLoopEW::PiGammaGamma_fer_q(const double mu, const double s, 
+                                          const StandardModel::quark q) const {
+    double mf = cache.mq(q);
+    double Mz = cache.Mz();    
+    double Mz2 = Mz*Mz;
+
+    /* Loop functions */
+    complex Bf_s_mf_mf;
+    if (mu==Mz && s==Mz2) {
+        if (mf==0.0) { 
+            Bf_s_mf_mf = 0.0; 
+        } else {
+            Bf_s_mf_mf = cache.Bf_Mz_Mz2_mq_mq(q);
+        }
+    } else if (mu==Mz && s==0.0) {        
+        if (mf==0.0) {
+            Bf_s_mf_mf = 0.0; 
+        } else {
+            Bf_s_mf_mf = cache.Bf_Mz_0_mq_mq(q);
+        }
+    } else {
+        PVfunctions* myPV;
+        myPV = new PVfunctions();
+        if (mf==0.0) {
+            Bf_s_mf_mf = 0.0; 
+        } else {
+            Bf_s_mf_mf = myPV->Bf(mu,s,mf,mf);
+        }
+        delete myPV;
+    }
+    
+    double Qf = cache.Qq(q);
     return ( - 4.0*Qf*Qf*Bf_s_mf_mf);
 }
 
@@ -551,8 +594,8 @@ complex EWSMOneLoopEW::PiGammaGamma_fer(const double mu, const double s,
 complex EWSMOneLoopEW::PiGammaGamma_fer(const double mu, const double s) const {
     complex Pi(0.0,0.0,false);
     for (int i=0; i<6; i++) {
-        Pi += PiGammaGamma_fer(mu, s, (StandardModel::lepton) i);
-        Pi += PiGammaGamma_fer(mu, s, (StandardModel::quark) i);        
+        Pi += PiGammaGamma_fer_l(mu, s, (StandardModel::lepton) i);
+        Pi += PiGammaGamma_fer_q(mu, s, (StandardModel::quark) i);        
     }
     return Pi;
 }
@@ -570,8 +613,8 @@ complex EWSMOneLoopEW::PiZgamma_fer(const double mu, const double s,
                                     const double Mw_i) const {
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
-        ml[i] = cache.mf((StandardModel::lepton) i);
-        mq[i] = cache.mf((StandardModel::quark) i); 
+        ml[i] = cache.ml((StandardModel::lepton) i);
+        mq[i] = cache.mq((StandardModel::quark) i); 
     }
     double Mz = cache.Mz();    
     double Mz2 = Mz*Mz;
@@ -582,8 +625,8 @@ complex EWSMOneLoopEW::PiZgamma_fer(const double mu, const double s,
     complex Bf_s_ml_ml[6], Bf_s_mq_mq[6];
     if (mu==Mz && s==Mz2) {
         for (int i=0; i<6; i++) {
-            Bf_s_ml_ml[i] = cache.Bf_Mz_Mz2_mf_mf((StandardModel::lepton) i);
-            Bf_s_mq_mq[i] = cache.Bf_Mz_Mz2_mf_mf((StandardModel::quark) i);           
+            Bf_s_ml_ml[i] = cache.Bf_Mz_Mz2_ml_ml((StandardModel::lepton) i);
+            Bf_s_mq_mq[i] = cache.Bf_Mz_Mz2_mq_mq((StandardModel::quark) i);           
         }
     } else {
         PVfunctions* myPV;
@@ -598,10 +641,10 @@ complex EWSMOneLoopEW::PiZgamma_fer(const double mu, const double s,
     complex Pi(0.0,0.0,false);
     double Ql, Qq;
     for (int i=0; i<6; i++) {
-        Ql = cache.Qf((StandardModel::lepton) i);
+        Ql = cache.Ql((StandardModel::lepton) i);
         Pi += (fabs(Ql) - 4.0*sW2*Ql*Ql)*Bf_s_ml_ml[i];
         //
-        Qq = cache.Qf((StandardModel::quark) i);
+        Qq = cache.Qq((StandardModel::quark) i);
         Pi += 3.0*(fabs(Qq) - 4.0*sW2*Qq*Qq)*Bf_s_mq_mq[i];
     }   
     return Pi;
@@ -670,8 +713,8 @@ complex EWSMOneLoopEW::SigmaPrime_WW_fer_Mw2(const double mu,
                                              const double Mw_i) const {
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
-        ml[i] = cache.mf((StandardModel::lepton) i);
-        mq[i] = cache.mf((StandardModel::quark) i); 
+        ml[i] = cache.ml((StandardModel::lepton) i);
+        mq[i] = cache.mq((StandardModel::quark) i); 
     }
     double Mw = cache.Mw(Mw_i);
     double Mw2 = Mw*Mw;
@@ -779,8 +822,8 @@ complex EWSMOneLoopEW::SigmaPrime_ZZ_bos_Mz2(const double mu,
 complex EWSMOneLoopEW::SigmaPrime_ZZ_fer_Mz2(const double mu, const double Mw_i) const {
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
-        ml[i] = cache.mf((StandardModel::lepton) i);
-        mq[i] = cache.mf((StandardModel::quark) i); 
+        ml[i] = cache.ml((StandardModel::lepton) i);
+        mq[i] = cache.mq((StandardModel::quark) i); 
     }
     double Mw = cache.Mw(Mw_i);
     double Mz = cache.Mz();    
@@ -792,12 +835,12 @@ complex EWSMOneLoopEW::SigmaPrime_ZZ_fer_Mz2(const double mu, const double Mw_i)
     complex B0p_Mz2_ml_ml[6], B0p_Mz2_mq_mq[6]; 
     if (mu==Mz) {
          for (int i=0; i<6; i++) {
-             Bf_Mz2_ml_ml[i] = cache.Bf_Mz_Mz2_mf_mf((StandardModel::lepton) i);
-             Bf_Mz2_mq_mq[i] = cache.Bf_Mz_Mz2_mf_mf((StandardModel::quark) i);           
-             Bfp_Mz2_ml_ml[i] = cache.Bfp_Mz_Mz2_mf_mf((StandardModel::lepton) i);
-             Bfp_Mz2_mq_mq[i] = cache.Bfp_Mz_Mz2_mf_mf((StandardModel::quark) i);           
-             B0p_Mz2_ml_ml[i] = cache.B0p_Mz_Mz2_mf_mf((StandardModel::lepton) i);
-             B0p_Mz2_mq_mq[i] = cache.B0p_Mz_Mz2_mf_mf((StandardModel::quark) i);           
+             Bf_Mz2_ml_ml[i] = cache.Bf_Mz_Mz2_ml_ml((StandardModel::lepton) i);
+             Bf_Mz2_mq_mq[i] = cache.Bf_Mz_Mz2_mq_mq((StandardModel::quark) i);           
+             Bfp_Mz2_ml_ml[i] = cache.Bfp_Mz_Mz2_ml_ml((StandardModel::lepton) i);
+             Bfp_Mz2_mq_mq[i] = cache.Bfp_Mz_Mz2_mq_mq((StandardModel::quark) i);           
+             B0p_Mz2_ml_ml[i] = cache.B0p_Mz_Mz2_ml_ml((StandardModel::lepton) i);
+             B0p_Mz2_mq_mq[i] = cache.B0p_Mz_Mz2_mq_mq((StandardModel::quark) i);           
          }        
     } else {
         PVfunctions* myPV;
@@ -817,14 +860,14 @@ complex EWSMOneLoopEW::SigmaPrime_ZZ_fer_Mz2(const double mu, const double Mw_i)
     double ml2, vl2, al2, mq2, vq2, aq2;
     for (int i=0; i<6; i++) {
         ml2 = ml[i]*ml[i];
-        vl2 = pow(cache.vf((StandardModel::lepton) i, Mw), 2.0);
-        al2 = pow(cache.af((StandardModel::lepton) i), 2.0);            
+        vl2 = pow(cache.vl((StandardModel::lepton) i, Mw), 2.0);
+        al2 = pow(cache.al((StandardModel::lepton) i), 2.0);            
         Sigma += - (vl2 + al2)*(Bf_Mz2_ml_ml[i] + Mz2*Bfp_Mz2_ml_ml[i])
                  - 2.0*al2*ml2*B0p_Mz2_ml_ml[i];
         //
         mq2 = mq[i]*mq[i];
-        vq2 = pow(cache.vf((StandardModel::quark) i, Mw), 2.0);
-        aq2 = pow(cache.af((StandardModel::quark) i), 2.0);
+        vq2 = pow(cache.vq((StandardModel::quark) i, Mw), 2.0);
+        aq2 = pow(cache.aq((StandardModel::quark) i), 2.0);
         Sigma += - 3.0*(vq2 + aq2)*(Bf_Mz2_mq_mq[i] + Mz2*Bfp_Mz2_mq_mq[i])
                  - 6.0*aq2*mq2*B0p_Mz2_mq_mq[i];
     }
@@ -1110,73 +1153,76 @@ complex EWSMOneLoopEW::FZ(const double s, const double Mw_i) const {
 }
 
 
-template<typename T> 
-complex EWSMOneLoopEW::FW(const double s, const T f, const double Mw_i) const {
+complex EWSMOneLoopEW::FW_l(const double s, const StandardModel::lepton l, 
+                            const double Mw_i) const {
     double Mw = cache.Mw(Mw_i);
     double cW2 = cache.cW2(Mw);
 
-    if (typeid(f)==typeid(StandardModel::quark)) {
-        StandardModel::quark qprime;
-        switch(f) {
-            case StandardModel::UP:
-                qprime = StandardModel::DOWN;
-                break;
-            case StandardModel::DOWN:
-                qprime = StandardModel::UP;
-                break;
-            case StandardModel::CHARM:
-                qprime = StandardModel::STRANGE;
-                break;
-            case StandardModel::STRANGE:
-                qprime = StandardModel::CHARM;
-                break;
-            case StandardModel::TOP:
-                throw "TOP is not allowed in EWSMOneLoopEW::FW(s,q)";
-            case StandardModel::BOTTOM:
-                qprime = StandardModel::TOP;
-                break;
-            default:
-                throw "Error in EWSMOneLoopEW::FW()";  
-        }         
-        complex FW(0.0,0.0,false);
-        FW = cW2*FWn_0(s,Mw) - cache.sigmaf(qprime, Mw)/2.0*FWa_0(s, Mw) 
-             - FbarWa_0(s)/2.0;
-        if (f==StandardModel::BOTTOM) {
-            FW += cW2*FWn_t(s,Mw) - cache.sigmaf(qprime, Mw)/2.0*FWa_t(s, Mw) 
-                  - FbarWa_t(s, Mw)/2.0;
-        }
-        return FW;
-    } else if (typeid(f)==typeid(StandardModel::lepton)) {
-        StandardModel::lepton lprime;
-        switch(f) {
-            case StandardModel::NEUTRINO_1:
-                lprime = StandardModel::ELECTRON;
-                break;
-            case StandardModel::ELECTRON:
-                lprime = StandardModel::NEUTRINO_1;
-                break;
-            case StandardModel::NEUTRINO_2:
-                lprime = StandardModel::MU;
-                break;
-            case StandardModel::MU:
-                lprime = StandardModel::NEUTRINO_2;
-                break;
-            case StandardModel::NEUTRINO_3:
-                lprime = StandardModel::TAU;
-                break;
-            case StandardModel::TAU:
-                lprime = StandardModel::NEUTRINO_3;
-                break;
-            default:
-                throw "Error in EWSMOneLoopEW::FW()";  
-        }
-        return ( cW2*FWn_0(s, Mw) - cache.sigmaf(lprime, Mw)/2.0*FWa_0(s, Mw) 
-                - FbarWa_0(s)/2.0 );
-    } else {
-        throw "Error in EWSMOneLoopEW::FW()";
+    StandardModel::lepton lprime;
+    switch(l) {
+        case StandardModel::NEUTRINO_1:
+            lprime = StandardModel::ELECTRON;
+            break;
+        case StandardModel::ELECTRON:
+            lprime = StandardModel::NEUTRINO_1;
+            break;
+        case StandardModel::NEUTRINO_2:
+            lprime = StandardModel::MU;
+            break;
+        case StandardModel::MU:
+            lprime = StandardModel::NEUTRINO_2;
+            break;
+        case StandardModel::NEUTRINO_3:
+            lprime = StandardModel::TAU;
+            break;
+        case StandardModel::TAU:
+            lprime = StandardModel::NEUTRINO_3;
+            break;
+        default:
+            throw "Error in EWSMOneLoopEW::FW_l()";  
     }
+    return ( cW2*FWn_0(s, Mw) - cache.sigmal(lprime, Mw)/2.0*FWa_0(s, Mw) 
+            - FbarWa_0(s)/2.0 );
 }
    
+
+complex EWSMOneLoopEW::FW_q(const double s, const StandardModel::quark q, 
+                            const double Mw_i) const {
+    double Mw = cache.Mw(Mw_i);
+    double cW2 = cache.cW2(Mw);
+
+    StandardModel::quark qprime;
+    switch(q) {
+        case StandardModel::UP:
+            qprime = StandardModel::DOWN;
+            break;
+        case StandardModel::DOWN:
+            qprime = StandardModel::UP;
+            break;
+        case StandardModel::CHARM:
+            qprime = StandardModel::STRANGE;
+            break;
+        case StandardModel::STRANGE:
+            qprime = StandardModel::CHARM;
+            break;
+        case StandardModel::TOP:
+            throw "TOP is not allowed in EWSMOneLoopEW::FW_q(s,q)";
+        case StandardModel::BOTTOM:
+            qprime = StandardModel::TOP;
+            break;
+        default:
+            throw "Error in EWSMOneLoopEW::FW_q()";  
+    }         
+    complex FW(0.0,0.0,false);
+    FW = cW2*FWn_0(s,Mw) - cache.sigmaq(qprime, Mw)/2.0*FWa_0(s, Mw) 
+            - FbarWa_0(s)/2.0;
+    if (q==StandardModel::BOTTOM) {
+        FW += cW2*FWn_t(s,Mw) - cache.sigmaq(qprime, Mw)/2.0*FWa_t(s, Mw) 
+                - FbarWa_t(s, Mw)/2.0;
+    }
+    return FW;
+}
+
 
 //////////////////////////////////////////////////////////////////////// 
 

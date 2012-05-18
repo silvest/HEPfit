@@ -65,13 +65,20 @@ public:
     complex deltaRho_rem_tmp(const complex u_f, const double Mw_i) const;
     
     /**
-     * @brief remainder contribution to rho_Z^f
-     * @param[in] f StandardModel::quark or StandardModel::lepton 
+     * @brief remainder contribution to rho_Z^l
+     * @param[in] l name of lepton
      * @param[in] Mw_i the W-boson mass
-     * @return delta rho_{rem}^{f, alpha}
+     * @return delta rho_{rem}^{l, alpha}
      */
-    template<typename T> complex deltaRho_rem_f(const T f, 
-                                                const double Mw_i) const;
+    complex deltaRho_rem_l(const StandardModel::lepton l, const double Mw_i) const;
+
+    /**
+     * @brief remainder contribution to rho_Z^q
+     * @param[in] q name of quark
+     * @param[in] Mw_i the W-boson mass
+     * @return delta rho_{rem}^{q, alpha}
+     */
+    complex deltaRho_rem_q(const StandardModel::quark q, const double Mw_i) const;
 
     /**
      * @brief remainder contribution to kappa_Z^f for given delta_f and u_f
@@ -84,14 +91,21 @@ public:
                                const double Mw_i) const;    
     
     /**
-     * @brief remainder contribution to kappa_Z^f
-     * @param[in] f StandardModel::quark or StandardModel::lepton 
+     * @brief remainder contribution to kappa_Z^l
+     * @param[in] l name of lepton
      * @param[in] Mw_i the W-boson mass
-     * @return delta kappa_{rem}^{f, alpha}
+     * @return delta kappa_{rem}^{l, alpha}
      */
-    template<typename T> complex deltaKappa_rem_f(const T f, const 
-                                                  double Mw_i) const;
-
+    complex deltaKappa_rem_l(const StandardModel::lepton l, const double Mw_i) const;
+                                                  
+    /**
+     * @brief remainder contribution to kappa_Z^q
+     * @param[in] q name of quark
+     * @param[in] Mw_i the W-boson mass
+     * @return delta kappa_{rem}^{q, alpha}
+     */
+    complex deltaKappa_rem_q(const StandardModel::quark q, const double Mw_i) const;
+    
     /**
      * @param[in] Qi the electric charge of f_i
      * @param[in] Qj the electric charge of f_j
@@ -129,7 +143,7 @@ public:
      * @param[in] mu renormalization scale
      * @param[in] s momentum-squared
      * @param[in] Mw_i the W-boson mass
-     * @return bosonic contribution to the self-energy function of the W boson
+     * @return bosonic contribution to the self-energy function of W boson
      */
     complex SigmaWW_bos(const double mu, const double s, const double Mw_i) const;
  
@@ -137,7 +151,7 @@ public:
      * @param[in] mu renormalization scale
      * @param[in] s momentum-squared
      * @param[in] Mw_i the W-boson mass
-     * @return fermionic contribution to the self-energy function of the W boson
+     * @return fermionic contribution to the self-energy function of W boson
      */
     complex SigmaWW_fer(const double mu, const double s, const double Mw_i) const;
     
@@ -145,7 +159,7 @@ public:
      * @param[in] mu renormalization scale
      * @param[in] s momentum-squared
      * @param[in] Mw_i the W-boson mass
-     * @return bosonic contribution to the self-energy function of the Z boson
+     * @return bosonic contribution to the self-energy function of Z boson
      */
     complex SigmaZZ_bos(const double mu, const double s, const double Mw_i) const;    
     
@@ -153,7 +167,7 @@ public:
      * @param[in] mu renormalization scale
      * @param[in] s momentum-squared
      * @param[in] Mw_i the W-boson mass
-     * @return fermionic contribution to the self-energy function of the Z boson
+     * @return fermionic contribution to the self-energy function of Z boson
      */
     complex SigmaZZ_fer(const double mu, const double s, const double Mw_i) const;
     
@@ -161,23 +175,30 @@ public:
      * @param[in] mu renormalization scale
      * @param[in] s momentum-squared
      * @param[in] Mw_i the W-boson mass
-     * @return bosonic contribution to the self-energy function of the photon
+     * @return bosonic contribution to the self-energy function of photon 
      */
     complex PiGammaGamma_bos(const double mu, const double s, const double Mw_i) const;
 
      /**
      * @param[in] mu renormalization scale
      * @param[in] s momentum-squared
-     * @param[in] f StandardModel::quark or StandardModel::lepton 
-     * @return fermion "f" contribution to the self-energy function of the photon
+     * @param[in] l name of lepton
+     * @return contribution to the self-energy function of photon from lepton l
      */
-    template<typename T> 
-    complex PiGammaGamma_fer(const double mu, const double s, const T f) const;
+    complex PiGammaGamma_fer_l(const double mu, const double s, const StandardModel::lepton l) const;
+
+     /**
+     * @param[in] mu renormalization scale
+     * @param[in] s momentum-squared
+     * @param[in] q name of quark
+     * @return contribution to the self-energy function of photon from quark q
+     */
+    complex PiGammaGamma_fer_q(const double mu, const double s, const StandardModel::quark q) const;    
     
     /**
      * @param[in] mu renormalization scale
      * @param[in] s momentum-squared
-     * @return fermionic contribution to the self-energy function of the photon
+     * @return fermionic contribution to the self-energy function of photon 
      */
     complex PiGammaGamma_fer(const double mu, const double s) const;
 
@@ -203,28 +224,28 @@ public:
     /**
      * @param[in] mu renormalization scale
      * @param[in] Mw_i the W-boson mass
-     * @return bosonic contribution to the wave-function renormalization of the W boson with s=Mw^2
+     * @return bosonic contribution to the wave-function renormalization of W boson with s=Mw^2
      */   
     complex SigmaPrime_WW_bos_Mw2(const double mu, const double Mw_i) const;
     
      /**
      * @param[in] mu renormalization scale
      * @param[in] Mw_i the W-boson mass
-     * @return fermionic contribution to the wave-function renormalization of the W boson with s=Mw^2
+     * @return fermionic contribution to the wave-function renormalization of W boson with s=Mw^2
      */   
     complex SigmaPrime_WW_fer_Mw2(const double mu, const double Mw_i) const;   
     
      /**
      * @param[in] mu renormalization scale
      * @param[in] Mw_i the W-boson mass
-     * @return bosonic contribution to the wave-function renormalization of the Z boson with s=Mz^2
+     * @return bosonic contribution to the wave-function renormalization of Z boson with s=Mz^2
      */   
     complex SigmaPrime_ZZ_bos_Mz2(const double mu, const double Mw_i) const;
     
     /**
      * @param[in] mu renormalization scale
      * @param[in] Mw_i the W-boson mass
-     * @return fermionic contribution to the wave-function renormalization of the Z boson with s=Mz^2
+     * @return fermionic contribution to the wave-function renormalization of Z boson with s=Mz^2
      */   
     complex SigmaPrime_ZZ_fer_Mz2(const double mu, const double Mw_i) const;     
     
@@ -323,12 +344,19 @@ public:
     
     /**
      * @param[in] s momentum-squared
-     * @param[in] f StandardModel::quark or StandardModel::lepton 
+     * @param[in] l name of lepton 
      * @param[in] Mw_i the W-boson mass
-     * @return Unified form factor F_W for the f-fbar channel
+     * @return Unified form factor F_W for the l-lbar channel
      */  
-    template<typename T> 
-    complex FW(const double s, const T f, const double Mw_i) const;
+    complex FW_l(const double s, const StandardModel::lepton l, const double Mw_i) const;
+
+    /**
+     * @param[in] s momentum-squared
+     * @param[in] q name of quark
+     * @param[in] Mw_i the W-boson mass
+     * @return Unified form factor F_W for the q-qbar channel
+     */  
+    complex FW_q(const double s, const StandardModel::quark q, const double Mw_i) const;    
     
     ////////////////////////////////////////////////////////////////////////        
     

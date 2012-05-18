@@ -61,27 +61,30 @@ double EWSMThreeLoopEW2QCD::DeltaR_rem(const double Mw_i) const {
 }
 
 
-template<typename T> 
-complex EWSMThreeLoopEW2QCD::deltaRho_rem_f(const T f, const double Mw_i) const {
-    cache.checkSMfermion(f, "EWSMThreeLoopEW2QCD::deltaRho_rem_f");
-    if(f==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+complex EWSMThreeLoopEW2QCD::deltaRho_rem_l(const StandardModel::lepton l, 
+                                        const double Mw_i) const {
     return ( complex(0.0,0.0,false) );
 }
 
 
-template<typename T> 
-complex EWSMThreeLoopEW2QCD::deltaKappa_rem_f(const T f, const double Mw_i) const {
-    cache.checkSMfermion(f, "EWSMThreeLoopEW2QCD::deltaKappa_rem_f");
-    if(f==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+complex EWSMThreeLoopEW2QCD::deltaRho_rem_q(const StandardModel::quark q, 
+                                        const double Mw_i) const {
+    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     return ( complex(0.0,0.0,false) );
 }
 
 
+complex EWSMThreeLoopEW2QCD::deltaKappa_rem_l(const StandardModel::lepton l, 
+                                          const double Mw_i) const {
+    return ( complex(0.0,0.0,false) );
+}
 
 
-
-
-
+complex EWSMThreeLoopEW2QCD::deltaKappa_rem_q(const StandardModel::quark q, 
+                                          const double Mw_i) const {
+    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+    return ( complex(0.0,0.0,false) );
+}
 
 
 
