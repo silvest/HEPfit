@@ -36,7 +36,7 @@ double EW::sin2thetaEff(const StandardModel::lepton l) const {
     if (Model=="StandardModel" || Model=="SUSY") {
         gV_over_gA = SM.gZl_over_gAl(l);
     } else if (Model=="THDM") {
-        gV_over_gA = 0.0; // Write code!
+        gV_over_gA = SM.getEWSM()->gZl_over_gAl_SM(l);
     } else 
         throw "Error in EW::sin2thetaEff()";   
     
@@ -51,7 +51,7 @@ double EW::sin2thetaEff(const StandardModel::quark q) const {
     if (Model=="StandardModel" || Model=="SUSY") {
         gV_over_gA = SM.gZq_over_gAq(q);
     } else if (Model=="THDM") {
-        gV_over_gA = 0.0; // Write code!
+        gV_over_gA = SM.getEWSM()->gZq_over_gAq_SM(q);
     } else 
         throw "Error in EW::sin2thetaEff()";  
     
@@ -67,8 +67,8 @@ double EW::Gamma_l(const StandardModel::lepton l) const {
         rhoZ_l = SM.rhoZ_l(l);
         gV_over_gA = SM.gZl_over_gAl(l);
     } else if (Model=="THDM") {
-        rhoZ_l = 0.0; // Write code!
-        gV_over_gA = 0.0; // Write code!
+        rhoZ_l = SM.getEWSM()->rhoZ_l_SM(l);
+        gV_over_gA = SM.getEWSM()->gZl_over_gAl_SM(l);
     } else 
         throw "Error in EW::Gamma_l()";   
 
@@ -90,8 +90,8 @@ double EW::Gamma_q(const StandardModel::quark q) const {
         rhoZ_q = SM.rhoZ_q(q);
         gV_over_gA = SM.gZq_over_gAq(q);
     } else if (Model=="THDM") {
-        rhoZ_q = 0.0; // Write code!
-        gV_over_gA = 0.0; // Write code!
+        rhoZ_q = SM.getEWSM()->rhoZ_q_SM(q);
+        gV_over_gA = SM.getEWSM()->gZq_over_gAq_SM(q);
     } else 
         throw "Error in EW::Gamma_q()";        
 
@@ -326,7 +326,7 @@ double EW::A_l(const StandardModel::lepton l) const {
     if (Model=="StandardModel" || Model=="SUSY") {
         Re_gV_over_gA = SM.gZl_over_gAl(l).real();
     } else if (Model=="THDM") {
-        Re_gV_over_gA = 0.0; // Write code!
+        Re_gV_over_gA = SM.getEWSM()->gZl_over_gAl_SM(l);
     } else 
         throw "Error in EW::A_l()";  
 
@@ -340,7 +340,7 @@ double EW::A_q(const StandardModel::quark q) const {
     if (Model=="StandardModel" || Model=="SUSY") {
         Re_gV_over_gA = SM.gZq_over_gAq(q).real();
     } else if (Model=="THDM") {
-        Re_gV_over_gA = 0.0; // Write code!
+        Re_gV_over_gA = SM.getEWSM()->gZq_over_gAq_SM(q);
     } else 
         throw "Error in EW::A_q()";      
     

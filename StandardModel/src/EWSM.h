@@ -151,14 +151,8 @@ public:
     virtual double obliqueU() const {
         return 0.0;
     };
-    
-    
-    ////////////////////////////////////////////////////////////////////////     
-protected:
 
-    const StandardModel& SM;
-
-            
+    
     ////////////////////////////////////////////////////////////////////////           
         
     /**
@@ -209,6 +203,20 @@ protected:
      * @return kappa_Z^q in the SM
      */
     complex kappaZ_q_SM(const StandardModel::quark q) const;    
+
+    /**
+     * @brief SM contribution to the ratio of the effective couplings for neutral-current interactions
+     * @param[in] l lepton
+     * @return g_V^l/g_A^l
+     */
+    virtual complex gZl_over_gAl_SM(const StandardModel::lepton l) const;
+
+    /**
+     * @brief SM contribution to the ratio of the effective couplings for neutral-current interactions
+     * @param[in] q quark
+     * @return g_V^q/g_A^q
+     */
+    virtual complex gZq_over_gAq_SM(const StandardModel::quark q) const;    
     
     /**
      * @param[in] li name of a neutrino
@@ -252,65 +260,71 @@ protected:
      */
     double GammaW_SM() const;   
     
+    
+    ////////////////////////////////////////////////////////////////////////     
+protected:
+
+    const StandardModel& SM;
+
 
     ////////////////////////////////////////////////////////////////////////     
     // The functions below are used in NP models with S, T and U parameters. 
-    
-    /**
-     * @param[in] S oblique parameter
-     * @param[in] T oblique parameter
-     * @param[in] U oblique parameter
-     * @return the W-boson mass in a NP model from oblique parameters
-     */
-    double Mw_NP_fromSTU(const double S, const double T, const double U) const;
-    
-    /**
-     * @brief effective coupling rho_Z^l
-     * @param[in] l name of lepton
-     * @param[in] S oblique parameter
-     * @param[in] T oblique parameter
-     * @return rho_Z^l in a NP model from oblique parameters
-     */
-    complex rhoZ_l_NP_fromSTU(const StandardModel::lepton l, const double T) const;
-
-   /**
-     * @brief effective coupling rho_Z^q
-     * @param[in] q name of quark
-     * @param[in] S oblique parameter
-     * @param[in] T oblique parameter
-     * @return rho_Z^q in a NP model from oblique parameters
-     */
-    complex rhoZ_q_NP_fromSTU(const StandardModel::quark q, const double T) const;
-
-    /**
-     * @brief the ratio of the effective couplings for neutral-current interactions
-     * @param[in] l name of lepton
-     * @param[in] S oblique parameter
-     * @param[in] T oblique parameter
-     * @return g_V^l/g_A^l in a NP model from oblique parameters
-     */
-    complex gZl_over_gAl_NP_fromSTU(const StandardModel::lepton l,
-                                    const double S, const double T) const;    
-    
-    /**
-     * @brief the ratio of the effective couplings for neutral-current interactions
-     * @param[in] q name of quark
-     * @param[in] S oblique parameter
-     * @param[in] T oblique parameter
-     * @return g_V^q/g_A^q in a NP model from oblique parameters
-     */
-    complex gZq_over_gAq_NP_fromSTU(const StandardModel::quark q,
-                                    const double S, const double T) const;
-    
-    /**
-     * @param[in] S oblique parameter
-     * @param[in] T oblique parameter
-     * @param[in] U oblique parameter
-     * @return the total width of the W boson in a NP model from oblique parameters
-     */    
-    double GammaW_NP_fromSTU(const double S, const double T, const double U) const;    
-
-    
+//    
+//    /**
+//     * @param[in] S oblique parameter
+//     * @param[in] T oblique parameter
+//     * @param[in] U oblique parameter
+//     * @return the W-boson mass in a NP model from oblique parameters
+//     */
+//    double Mw_NP_fromSTU(const double S, const double T, const double U) const;
+//    
+//    /**
+//     * @brief effective coupling rho_Z^l
+//     * @param[in] l name of lepton
+//     * @param[in] S oblique parameter
+//     * @param[in] T oblique parameter
+//     * @return rho_Z^l in a NP model from oblique parameters
+//     */
+//    complex rhoZ_l_NP_fromSTU(const StandardModel::lepton l, const double T) const;
+//
+//   /**
+//     * @brief effective coupling rho_Z^q
+//     * @param[in] q name of quark
+//     * @param[in] S oblique parameter
+//     * @param[in] T oblique parameter
+//     * @return rho_Z^q in a NP model from oblique parameters
+//     */
+//    complex rhoZ_q_NP_fromSTU(const StandardModel::quark q, const double T) const;
+//
+//    /**
+//     * @brief the ratio of the effective couplings for neutral-current interactions
+//     * @param[in] l name of lepton
+//     * @param[in] S oblique parameter
+//     * @param[in] T oblique parameter
+//     * @return g_V^l/g_A^l in a NP model from oblique parameters
+//     */
+//    complex gZl_over_gAl_NP_fromSTU(const StandardModel::lepton l,
+//                                    const double S, const double T) const;    
+//    
+//    /**
+//     * @brief the ratio of the effective couplings for neutral-current interactions
+//     * @param[in] q name of quark
+//     * @param[in] S oblique parameter
+//     * @param[in] T oblique parameter
+//     * @return g_V^q/g_A^q in a NP model from oblique parameters
+//     */
+//    complex gZq_over_gAq_NP_fromSTU(const StandardModel::quark q,
+//                                    const double S, const double T) const;
+//    
+//    /**
+//     * @param[in] S oblique parameter
+//     * @param[in] T oblique parameter
+//     * @param[in] U oblique parameter
+//     * @return the total width of the W boson in a NP model from oblique parameters
+//     */    
+//    double GammaW_NP_fromSTU(const double S, const double T, const double U) const;    
+//
+//    
     ////////////////////////////////////////////////////////////////////////         
 private:
     
