@@ -6,7 +6,6 @@
 #include "EW.h"
 #include "EWSM.h"
 #include <cstdlib>
-#include <cstring>
 #include <iostream>
 #include <iomanip>
 #include <cmath>
@@ -18,6 +17,17 @@ EW::EW(const StandardModel& SM_i) : ThObsType(SM_i), SM(SM_i) {
 
 
 ////////////////////////////////////////////////////////////////////////
+
+bool EW::checkModelForSTU() const {
+    std::string Model = SM.ModelName();
+    if (Model=="StandardModel" || Model=="SUSY") {
+        return false;
+    } else if (Model=="THDM") {
+        return true;
+    } else 
+        throw "Error in EW::checkModelForSTU()"; 
+}
+
 
 double EW::Ql(const StandardModel::lepton l) const {
     return ( SM.getLeptons(l).getCharge() );
@@ -32,46 +42,38 @@ double EW::Qq(const StandardModel::quark q) const {
 ////////////////////////////////////////////////////////////////////////
 
 double EW::sin2thetaEff(const StandardModel::lepton l) const {
-    complex gV_over_gA;
-    std::string Model = getSM().ModelName();
-    if (Model=="StandardModel" || Model=="SUSY") {
-        gV_over_gA = SM.gZl_over_gAl(l);
-    } else if (Model=="THDM") {
-        gV_over_gA = SM.getEWSM()->gZl_over_gAl_SM(l);
-    } else 
-        throw "Error in EW::sin2thetaEff()";   
+    complex gV_over_gA;    
+    if (checkModelForSTU()) 
+        gV_over_gA = SM.getEWSM()->gVl(l)/SM.getEWSM()->gAl(l);
+    else 
+        gV_over_gA = SM.gVl(l)/SM.gAl(l);
     
     double absQf = fabs(Ql(l));
-    return ( 1.0/4.0/absQf*(1.0 - SM.gZl_over_gAl(l).real()) );
+    return ( 1.0/4.0/absQf*(1.0 - gV_over_gA.real()) );
 }
 
 
 double EW::sin2thetaEff(const StandardModel::quark q) const {
     complex gV_over_gA;
-    std::string Model = getSM().ModelName();
-    if (Model=="StandardModel" || Model=="SUSY") {
-        gV_over_gA = SM.gZq_over_gAq(q);
-    } else if (Model=="THDM") {
-        gV_over_gA = SM.getEWSM()->gZq_over_gAq_SM(q);
-    } else 
-        throw "Error in EW::sin2thetaEff()";  
+    if (checkModelForSTU()) 
+        gV_over_gA = SM.getEWSM()->gVq(q)/SM.getEWSM()->gAq(q);
+    else 
+        gV_over_gA = SM.gVq(q)/SM.gAq(q);    
     
     double absQf = fabs(Qq(q));
-    return ( 1.0/4.0/absQf*(1.0 - SM.gZq_over_gAq(q).real()) );
+    return ( 1.0/4.0/absQf*(1.0 - gV_over_gA.real()) );
 }
 
 
 double EW::Gamma_l(const StandardModel::lepton l) const {
     complex rhoZ_l, gV_over_gA;
-    std::string Model = getSM().ModelName();
-    if (Model=="StandardModel" || Model=="SUSY") {
-        rhoZ_l = SM.rhoZ_l(l);
-        gV_over_gA = SM.gZl_over_gAl(l);
-    } else if (Model=="THDM") {
+    if (checkModelForSTU()) {
         rhoZ_l = SM.getEWSM()->rhoZ_l_SM(l);
-        gV_over_gA = SM.getEWSM()->gZl_over_gAl_SM(l);
-    } else 
-        throw "Error in EW::Gamma_l()";   
+        gV_over_gA = SM.getEWSM()->gVl(l)/SM.getEWSM()->gAl(l);
+    } else {
+        rhoZ_l = SM.rhoZ_l(l);
+        gV_over_gA = SM.gVl(l)/SM.gAl(l);
+    }
 
     double alphaMz = SM.alphaMz();
     double Q = Ql(l);
@@ -87,14 +89,13 @@ double EW::Gamma_l(const StandardModel::lepton l) const {
 double EW::Gamma_q(const StandardModel::quark q) const {
     complex rhoZ_q, gV_over_gA;
     std::string Model = getSM().ModelName();
-    if (Model=="StandardModel" || Model=="SUSY") {
-        rhoZ_q = SM.rhoZ_q(q);
-        gV_over_gA = SM.gZq_over_gAq(q);
-    } else if (Model=="THDM") {
+    if (checkModelForSTU()) {
         rhoZ_q = SM.getEWSM()->rhoZ_q_SM(q);
-        gV_over_gA = SM.getEWSM()->gZq_over_gAq_SM(q);
-    } else 
-        throw "Error in EW::Gamma_q()";        
+        gV_over_gA = SM.getEWSM()->gVq(q)/SM.getEWSM()->gAq(q);
+    } else {
+        rhoZ_q = SM.rhoZ_q(q);
+        gV_over_gA = SM.gVq(q)/SM.gAq(q);
+    }    
 
     double alphaMz = SM.alphaMz();
     
@@ -298,8 +299,35 @@ double EW::Gamma_inv() const {
 
 
 double EW::Gamma_had() const {
-    return ( Gamma_q(SM.UP) + Gamma_q(SM.DOWN) + Gamma_q(SM.CHARM)
-             + Gamma_q(SM.STRANGE) + Gamma_q(SM.BOTTOM) );
+    double Gamma_had_tmp = Gamma_q(SM.UP) + Gamma_q(SM.DOWN) + Gamma_q(SM.CHARM)
+                           + Gamma_q(SM.STRANGE) + Gamma_q(SM.BOTTOM);
+
+    /* rescaled strong coupling constant */
+    double AlsMzPi  = SM.getAlsMz()/M_PI;
+    double AlsMzPi2 = AlsMzPi*AlsMzPi;
+    double AlsMzPi3 = AlsMzPi2*AlsMzPi;
+    double AlsMzPi4 = AlsMzPi3*AlsMzPi;
+
+    complex gV_sum(0.0, 0.0); 
+    complex gV_q;
+    std::string Model = getSM().ModelName();
+    for (int q=0; q<6; q++) {
+        if (checkModelForSTU()) {
+            gV_q = SM.getEWSM()->gVq_SM((StandardModel::quark)q);
+        } else {
+            gV_q = SM.gVq((StandardModel::quark)q);
+        }   
+        if (q==(int)(StandardModel::TOP)) 
+            gV_q = 0.0;
+        gV_sum += gV_q;
+    }
+    
+    // singlet vector corrections
+    double G0 = SM.getGF()*pow(SM.getMz(),3.0)/24.0/sqrt(2.0)/M_PI; 
+    double RVh = gV_sum.abs2()*(-0.4132*AlsMzPi3 - 4.9841*AlsMzPi4);
+    Gamma_had_tmp += 4.0*3.0*G0*RVh;
+
+    return Gamma_had_tmp;    
 }
 
 
@@ -316,20 +344,17 @@ double EW::sigma0_l(const StandardModel::lepton l) const {
 
 
 double EW::sigma0_had() const {
-    return ( 12.0*M_PI*Gamma_l(SM.ELECTRON)*Gamma_had()
-             /SM.getMz()/SM.getMz()/Gamma_Z()/Gamma_Z() );
+     return (12.0*M_PI*Gamma_l(SM.ELECTRON)*Gamma_had()
+            /SM.getMz()/SM.getMz()/Gamma_Z()/Gamma_Z());
 }
 
 
 double EW::A_l(const StandardModel::lepton l) const {
     double Re_gV_over_gA;
-    std::string Model = getSM().ModelName();
-    if (Model=="StandardModel" || Model=="SUSY") {
-        Re_gV_over_gA = SM.gZl_over_gAl(l).real();
-    } else if (Model=="THDM") {
-        Re_gV_over_gA = SM.getEWSM()->gZl_over_gAl_SM(l).real();
-    } else 
-        throw "Error in EW::A_l()";  
+    if (checkModelForSTU()) 
+        Re_gV_over_gA = (SM.getEWSM()->gVl(l)/SM.getEWSM()->gAl(l)).real();
+    else 
+        Re_gV_over_gA = (SM.gVl(l)/SM.gAl(l)).real();
 
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
 }
@@ -338,12 +363,10 @@ double EW::A_l(const StandardModel::lepton l) const {
 double EW::A_q(const StandardModel::quark q) const {
     double Re_gV_over_gA;
     std::string Model = getSM().ModelName();
-    if (Model=="StandardModel" || Model=="SUSY") {
-        Re_gV_over_gA = SM.gZq_over_gAq(q).real();
-    } else if (Model=="THDM") {
-        Re_gV_over_gA = SM.getEWSM()->gZq_over_gAq_SM(q).real();
-    } else 
-        throw "Error in EW::A_q()";      
+    if (checkModelForSTU()) 
+        Re_gV_over_gA = (SM.getEWSM()->gVq(q)/SM.getEWSM()->gAq(q)).real();
+    else 
+        Re_gV_over_gA = (SM.gVq(q)/SM.gAq(q)).real();    
     
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
 }

@@ -44,18 +44,32 @@ public:
     virtual complex rhoZ_q(const StandardModel::quark q) const = 0;
     
     /**
-     * @brief the ratio of the effective couplings for neutral-current interactions
+     * @brief vector effective coupling for neutral-current interactions
      * @param[in] l lepton
-     * @return g_V^l/g_A^l
+     * @return g_V^l
      */
-    virtual complex gZl_over_gAl(const StandardModel::lepton l) const = 0;
+    virtual complex gVl(const StandardModel::lepton l) const = 0;
 
     /**
-     * @brief the ratio of the effective couplings for neutral-current interactions
+     * @brief vector effective coupling for neutral-current interactions
      * @param[in] q quark
-     * @return g_V^q/g_A^q
+     * @return g_V^q
      */
-    virtual complex gZq_over_gAq(const StandardModel::quark q) const = 0;
+    virtual complex gVq(const StandardModel::quark q) const = 0;
+
+    /**
+     * @brief axial-vector effective coupling for neutral-current interactions
+     * @param[in] l lepton
+     * @return g_A^l
+     */
+    virtual complex gAl(const StandardModel::lepton l) const = 0;
+
+    /**
+     * @brief axial-vector effective coupling for neutral-current interactions
+     * @param[in] q quark
+     * @return g_A^q
+     */
+    virtual complex gAq(const StandardModel::quark q) const = 0;    
     
     /**
      * @return the total width of the W boson
