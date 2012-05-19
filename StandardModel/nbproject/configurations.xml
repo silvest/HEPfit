@@ -57,6 +57,47 @@
                    displayName="Test Files"
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f3"
+                     displayName="EWSMOneLoopEW"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/EWSMEW1testclass.cpp</itemPath>
+        <itemPath>tests/EWSMEW1testclass.h</itemPath>
+        <itemPath>tests/EWSMEW1testrunner.cpp</itemPath>
+        <itemPath>tests/EWSMsetParameters.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f6"
+                     displayName="EWSMThreeLoopEW"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/EWSMEW3testclass.cpp</itemPath>
+        <itemPath>tests/EWSMEW3testclass.h</itemPath>
+        <itemPath>tests/EWSMEW3testrunner.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f5"
+                     displayName="EWSMThreeLoopQCD"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/EWSMQCD3testclass.cpp</itemPath>
+        <itemPath>tests/EWSMQCD3testclass.h</itemPath>
+        <itemPath>tests/EWSMQCD3testrunner.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f7"
+                     displayName="EWSMTwoLoopEW"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/EWSMEW2testclass.cpp</itemPath>
+        <itemPath>tests/EWSMEW2testclass.h</itemPath>
+        <itemPath>tests/EWSMEW2testrunner.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f4"
+                     displayName="EWSMTwoLoopQCD"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/EWSMQCD2testclass.cpp</itemPath>
+        <itemPath>tests/EWSMQCD2testclass.h</itemPath>
+        <itemPath>tests/EWSMQCD2testrunner.cpp</itemPath>
+      </logicalFolder>
       <logicalFolder name="f2"
                      displayName="RunningMass"
                      projectFiles="true"
@@ -85,11 +126,6 @@
         <compilerSet>GNU|GNU</compilerSet>
       </toolsSet>
       <compileType>
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
         <ccTool>
           <incDir>
             <pElem>/usr/include/root</pElem>
@@ -135,6 +171,11 @@
         </requiredProjects>
       </compileType>
       <folder path="TestFiles">
+        <ccTool>
+          <incDir>
+            <pElem>src</pElem>
+          </incDir>
+        </ccTool>
         <linkerTool>
           <linkerLibItems>
             <linkerLibProjectItem>
@@ -149,7 +190,32 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LoopFunctions"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../LoopFunctions"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Utils"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Utils"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
           </linkerLibItems>
+          <commandLine>-L/opt/local/lib -L/usr/lib/root -L/usr/local/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl -lgsl -lcblas</commandLine>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f1">
@@ -197,50 +263,6 @@
             <pElem>.</pElem>
           </incDir>
         </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
           <linkerAddLib>
@@ -249,7 +271,6 @@
           <linkerLibItems>
             <linkerLibLibItem>gsl</linkerLibLibItem>
             <linkerLibLibItem>gslcblas</linkerLibLibItem>
-            <linkerLibFileItem>../gslpp/dist/Debug/GNU-Linux-x86/libgslpp.a</linkerLibFileItem>
             <linkerLibLibItem>Core</linkerLibLibItem>
             <linkerLibLibItem>Cint</linkerLibLibItem>
             <linkerLibLibItem>RIO</linkerLibLibItem>
@@ -266,54 +287,110 @@
             <linkerLibLibItem>MathCore</linkerLibLibItem>
             <linkerLibLibItem>Thread</linkerLibLibItem>
             <linkerLibLibItem>Gui</linkerLibLibItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../gslpp"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../gslpp"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
           </linkerLibItems>
           <commandLine>-pthread -lm -ldl -rdynamic</commandLine>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
+        <ccTool>
+          <incDir>
+            <pElem>src</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+          <linkerLibItems>
+            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f4">
         <cTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
-          <output>${TESTDIR}/TestFiles/f2</output>
+          <output>${TESTDIR}/TestFiles/f4</output>
+          <linkerLibItems>
+            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f5">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f5</output>
+          <linkerLibItems>
+            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f6">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f6</output>
+          <linkerLibItems>
+            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f7">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f7</output>
+          <linkerLibItems>
+            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+          </linkerLibItems>
         </linkerTool>
       </folder>
     </conf>

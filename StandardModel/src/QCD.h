@@ -209,14 +209,21 @@ public:
         this->muc = muc;
     }
 
-      /**
+    /**
+     * @return the pole mass of the top quark
+     */
+    double getMtpole() const {
+        return mtpole;
+    }
+    
+    /**
      * the running quark mass @f$m(\mu)@f$
      * @param mu the scale @f$\mu@f$ in GeV
      * @param m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
      * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return the running quark mass @f$m(\mu)@f$
      */
-     double Mrun(double mu, double m, orders order = FULLNLO) const;
+    double Mrun(double mu, double m, orders order = FULLNLO) const;
     
     /**
      * runs the quark mass from @f$\mu_i@f$ to @f$\mu_f@f$
@@ -226,7 +233,7 @@ public:
       * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return the running quark mass @f$m(\mu_f)@f$
      */
-     double Mrun(double mu_f, double mu_i, double m, orders order = FULLNLO) const;
+    double Mrun(double mu_f, double mu_i, double m, orders order = FULLNLO) const;
 
     /**
      * runs the quark mass from @f$\mu_i@f$ to @f$\mu_f@f$ at fixed nf
@@ -237,7 +244,7 @@ public:
      * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return the running quark mass @f$m(\mu_f)@f$
      */
-     double Mrun(double mu_f, double mu_i, double m, double nf, orders order = FULLNLO) const;
+    double Mrun(double mu_f, double mu_i, double m, double nf, orders order = FULLNLO) const;
 
      /**
      * convert the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ to the pole mass

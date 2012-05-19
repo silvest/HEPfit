@@ -34,9 +34,9 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
-	${OBJECTDIR}/src/RGEvolutor.o \
 	${OBJECTDIR}/src/EWSMThreeLoopEW2QCD.o \
 	${OBJECTDIR}/src/StandardModel.o \
+	${OBJECTDIR}/src/RGEvolutor.o \
 	${OBJECTDIR}/src/Particle.o \
 	${OBJECTDIR}/src/EWSMTwoLoopQCD.o \
 	${OBJECTDIR}/src/EWSM.o \
@@ -57,6 +57,11 @@ TESTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}/tests
 
 # Test Files
 TESTFILES= \
+	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel \
+	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel \
+	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel \
+	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel \
+	${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel \
 	${TESTDIR}/TestFiles/f2 \
 	${TESTDIR}/TestFiles/f1
 
@@ -86,11 +91,6 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a: ${OBJECTFILES}
 	${AR} -rv ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a ${OBJECTFILES} 
 	$(RANLIB) ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a
 
-${OBJECTDIR}/src/RGEvolutor.o: src/RGEvolutor.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	${RM} $@.d
-	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/RGEvolutor.o src/RGEvolutor.cpp
-
 ${OBJECTDIR}/src/EWSMThreeLoopEW2QCD.o: src/EWSMThreeLoopEW2QCD.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
@@ -100,6 +100,11 @@ ${OBJECTDIR}/src/StandardModel.o: src/StandardModel.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StandardModel.o src/StandardModel.cpp
+
+${OBJECTDIR}/src/RGEvolutor.o: src/RGEvolutor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/RGEvolutor.o src/RGEvolutor.cpp
 
 ${OBJECTDIR}/src/Particle.o: src/Particle.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -176,6 +181,26 @@ ${OBJECTDIR}/src/EWSMApproximateFormulae.o: src/EWSMApproximateFormulae.cpp
 
 # Build Test Targets
 .build-tests-conf: .build-conf ${TESTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel: ${TESTDIR}/tests/EWSMEW1testclass.o ${TESTDIR}/tests/EWSMEW1testrunner.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
+	${LINK.cc}   -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel $^ ${LDLIBSOPTIONS} 
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel: ${TESTDIR}/tests/EWSMEW3testclass.o ${TESTDIR}/tests/EWSMEW3testrunner.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
+	${LINK.cc}   -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel $^ ${LDLIBSOPTIONS} 
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel: ${TESTDIR}/tests/EWSMQCD3testclass.o ${TESTDIR}/tests/EWSMQCD3testrunner.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
+	${LINK.cc}   -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel $^ ${LDLIBSOPTIONS} 
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel: ${TESTDIR}/tests/EWSMEW2testclass.o ${TESTDIR}/tests/EWSMEW2testrunner.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
+	${LINK.cc}   -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel $^ ${LDLIBSOPTIONS} 
+
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel: ${TESTDIR}/tests/EWSMQCD2testclass.o ${TESTDIR}/tests/EWSMQCD2testrunner.o ${OBJECTFILES:%.o=%_nomain.o}
+	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
+	${LINK.cc}   -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel $^ ${LDLIBSOPTIONS} 
+
 ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/RunningMass.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc}   -o ${TESTDIR}/TestFiles/f2 $^ ${LDLIBSOPTIONS} 
@@ -183,6 +208,66 @@ ${TESTDIR}/TestFiles/f2: ${TESTDIR}/tests/RunningMass.o ${OBJECTFILES:%.o=%_noma
 ${TESTDIR}/TestFiles/f1: ${TESTDIR}/tests/StandardModelTest.o ${OBJECTFILES:%.o=%_nomain.o}
 	${MKDIR} -p ${TESTDIR}/TestFiles
 	${LINK.cc}   -o ${TESTDIR}/TestFiles/f1 $^ ${LDLIBSOPTIONS} 
+
+
+${TESTDIR}/tests/EWSMEW1testclass.o: tests/EWSMEW1testclass.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EWSMEW1testclass.o tests/EWSMEW1testclass.cpp
+
+
+${TESTDIR}/tests/EWSMEW1testrunner.o: tests/EWSMEW1testrunner.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EWSMEW1testrunner.o tests/EWSMEW1testrunner.cpp
+
+
+${TESTDIR}/tests/EWSMEW3testclass.o: tests/EWSMEW3testclass.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EWSMEW3testclass.o tests/EWSMEW3testclass.cpp
+
+
+${TESTDIR}/tests/EWSMEW3testrunner.o: tests/EWSMEW3testrunner.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EWSMEW3testrunner.o tests/EWSMEW3testrunner.cpp
+
+
+${TESTDIR}/tests/EWSMQCD3testclass.o: tests/EWSMQCD3testclass.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EWSMQCD3testclass.o tests/EWSMQCD3testclass.cpp
+
+
+${TESTDIR}/tests/EWSMQCD3testrunner.o: tests/EWSMQCD3testrunner.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EWSMQCD3testrunner.o tests/EWSMQCD3testrunner.cpp
+
+
+${TESTDIR}/tests/EWSMEW2testclass.o: tests/EWSMEW2testclass.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EWSMEW2testclass.o tests/EWSMEW2testclass.cpp
+
+
+${TESTDIR}/tests/EWSMEW2testrunner.o: tests/EWSMEW2testrunner.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EWSMEW2testrunner.o tests/EWSMEW2testrunner.cpp
+
+
+${TESTDIR}/tests/EWSMQCD2testclass.o: tests/EWSMQCD2testclass.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EWSMQCD2testclass.o tests/EWSMQCD2testclass.cpp
+
+
+${TESTDIR}/tests/EWSMQCD2testrunner.o: tests/EWSMQCD2testrunner.cpp 
+	${MKDIR} -p ${TESTDIR}/tests
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/EWSMQCD2testrunner.o tests/EWSMQCD2testrunner.cpp
 
 
 ${TESTDIR}/tests/RunningMass.o: tests/RunningMass.cpp 
@@ -196,19 +281,6 @@ ${TESTDIR}/tests/StandardModelTest.o: tests/StandardModelTest.cpp
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${TESTDIR}/tests/StandardModelTest.o tests/StandardModelTest.cpp
 
-
-${OBJECTDIR}/src/RGEvolutor_nomain.o: ${OBJECTDIR}/src/RGEvolutor.o src/RGEvolutor.cpp 
-	${MKDIR} -p ${OBJECTDIR}/src
-	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/RGEvolutor.o`; \
-	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
-	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
-	then  \
-	    ${RM} $@.d;\
-	    $(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/RGEvolutor_nomain.o src/RGEvolutor.cpp;\
-	else  \
-	    ${CP} ${OBJECTDIR}/src/RGEvolutor.o ${OBJECTDIR}/src/RGEvolutor_nomain.o;\
-	fi
 
 ${OBJECTDIR}/src/EWSMThreeLoopEW2QCD_nomain.o: ${OBJECTDIR}/src/EWSMThreeLoopEW2QCD.o src/EWSMThreeLoopEW2QCD.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -234,6 +306,19 @@ ${OBJECTDIR}/src/StandardModel_nomain.o: ${OBJECTDIR}/src/StandardModel.o src/St
 	    $(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/StandardModel_nomain.o src/StandardModel.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/StandardModel.o ${OBJECTDIR}/src/StandardModel_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/RGEvolutor_nomain.o: ${OBJECTDIR}/src/RGEvolutor.o src/RGEvolutor.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/RGEvolutor.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/RGEvolutor_nomain.o src/RGEvolutor.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/RGEvolutor.o ${OBJECTDIR}/src/RGEvolutor_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/Particle_nomain.o: ${OBJECTDIR}/src/Particle.o src/Particle.cpp 
@@ -422,6 +507,11 @@ ${OBJECTDIR}/src/EWSMApproximateFormulae_nomain.o: ${OBJECTDIR}/src/EWSMApproxim
 .test-conf:
 	@if [ "${TEST}" = "" ]; \
 	then  \
+	    ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel || true; \
+	    ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel || true; \
+	    ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel || true; \
+	    ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel || true; \
+	    ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/StandardModel || true; \
 	    ${TESTDIR}/TestFiles/f2 || true; \
 	    ${TESTDIR}/TestFiles/f1 || true; \
 	else  \

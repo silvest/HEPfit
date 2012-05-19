@@ -160,7 +160,7 @@ double EWSMTwoLoopEW::f1(const double a) const {
     if (a >= 0.0 && a <= 4.0 ) {
         double y = 4.0/a;
         double phi = 2.0*asin(sqrt(a/4.0));
-        return ( -2.0/sqrt(y-1.0)*cache.GetClausen().Cl2(phi) );
+        return ( -2.0/sqrt(y-1.0)*cache.getClausen().Cl2(phi) );
     } else if (a > 4.0) {
         double y = 4.0/a;
         double xi = (sqrt(1.0-y) - 1.0)/(sqrt(1.0-y) + 1.0);
