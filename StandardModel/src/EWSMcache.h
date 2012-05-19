@@ -21,8 +21,9 @@ public:
     /**
      * @brief EWSMcache constructor
      * @param[in] SM_i reference to a StandardModel object
+     * @param[in] bDebug_i boolean value for debugging (true for debugging)
      */
-    EWSMcache(const StandardModel& SM_i);
+    EWSMcache(const StandardModel& SM_i, const bool bDebug_i=false);
 
     static const int CacheSize = 5;
 
@@ -39,16 +40,30 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
     /**
-     * @return a reference to the StandardModel object in the current class
+     * @return a reference to the StandardModel object
      */
     //const StandardModel& getSM() const {
     //    return SM;
+    //}
+    
+    /**
+     * @return an object of PVfunctions class
+     */
+    const PVfunctions getPV() const {
+        return PV;
+    }
+
+    /**
+     * @return an object of Polylogarithms class
+     */
+    //const Polylogarithms getPolyLog() const {
+    //    return PolyLog;
     //}
 
     /**
      * @return an object of ClausenFunctions class
      */
-    const ClausenFunctions GetClausen() const {
+    const ClausenFunctions getClausen() const {
         return Clausen;
     }
 
@@ -402,7 +417,8 @@ public:
     //////////////////////////////////////////////////////////////////////// 
 
 private:
-
+    bool bDebug; // true for debugging
+    
     const StandardModel& SM;
     const PVfunctions PV;
     const ClausenFunctions Clausen;
