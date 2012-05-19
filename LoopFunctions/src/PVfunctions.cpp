@@ -47,7 +47,7 @@ complex PVfunctions::B0(const double mu, const double p2,
             B0 += M_PI*Lambda/p2*complex::i();// imaginary part
         }
     } else if ( p2==0.0 && m0!=0.0 && m1!=0.0 ) {
-        if ( (m0 - m1) > LEPS ) {                                     ///////////////////////////////////////////////
+        if ( fabs(m0 - m1) > LEPS ) {             ///////////////////////////////////////////////
             B0 = - m02/(m02-m12)*log(m02/mu2) + m12/(m02-m12)*log(m12/mu2) + 1.0;
         } else {
             B0 = - log(m02/mu2);
@@ -95,7 +95,7 @@ complex PVfunctions::B1(const double mu, const double p2,
     
     if (p2==0.0) {
         if (m02!=0.0 && m12!=0.0) {
-            if ((m02 - m12) > LEPS) {////////////////////////////////////////////////////////////////////////
+            if (fabs(m02 - m12) > LEPS) {////////////////////////////////////////////////////////////////////////
                 double F0 = - log(m12/m02);
                 double F1 = - 1.0 + m02/DeltaM2*F0;
                 double F2 = - 1.0/2.0 + m02/DeltaM2*F1;
@@ -128,7 +128,7 @@ complex PVfunctions::B21(const double mu, const double p2,
 
     if (p2==0.0) {
         if (m02!=0.0 && m12!=0.0) {
-            if ((m02 - m12) > LEPS ) {                                  //////////////////////////////
+            if (fabs(m02 - m12) > LEPS ) {                                  //////////////////////////////
                 double F0 = - log(m12/m02);
                 double F1 = - 1.0 + m02/DeltaM2*F0;
                 double F2 = - 1.0/2.0 + m02/DeltaM2*F1;
@@ -154,8 +154,6 @@ complex PVfunctions::B21(const double mu, const double p2,
     return B21;
 }
 
-//////////////////////////////////////////////////////////////////////////////
-
 complex PVfunctions::B22(const double mu, const double p2, 
                          const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
@@ -165,39 +163,34 @@ complex PVfunctions::B22(const double mu, const double p2,
     double DeltaM2 = m02 - m12;
     complex B22(0.0, 0.0, false);
 
-    /*
-     *References: Veltman (Diagrammatica-the path to Feynman diagram), 
-     *Bardin-Passarino (The standard model in the making)
-     *summarized in Satoshi's notes
-     */
     if(p2 == 0.){
         if(m02 != 0. && m12 != 0.){
-            if((m02 - m12) < LEPS){
+            if(fabs(m02 - m12) < LEPS){
                 B22 = - m02 / 2. * (- log(m02 / mu2) + 1.);
             } else {
-                B22 = - 1. / 4. * (m02 + m12) * (- log(m0 * m0 / m1) + 1.5) 
+                B22 = - 1. / 4. * (m02 + m12) * (- log(m0 * m1 / mu2) + 1.5) 
                       + (m02 * m02 + m12 * m12) / 8. / (m02 - m12) * log(m02 / m12);  
             }             
-        }
+        } else
+            throw "PVfunctions::B22() is undefined."; 
     } else {
         if(m0 != 0. && m1 != 0.){
-            if((m02 - m12) < LEPS){
+            if(fabs(m02 - m12) < LEPS){
               B22 = - (6. * m02 - p2) / 18. + A0(mu,m0) /6. 
                     + (p2 - 4. * m02) / 12. * B0(mu,p2,m0,m1);  
             } else {
               B22 = - (3. * (m02 + m12) - p2) / 18. 
-                    - (DeltaM2 - p2) / 12. / p2 * A0(mu,m0) 
+                    + (DeltaM2 + p2) / 12. / p2 * A0(mu,m0) 
                     - (DeltaM2 - p2) / 12. / p2 * A0(mu,m1) 
                     + (- m02 - m12 + p2 / 2. 
-                    - (DeltaM2 * DeltaM2) / 2. / p2) * B0(mu,p2,m0,m1) / 6.;                
+                       - (DeltaM2 * DeltaM2) / 2. / p2) * B0(mu,p2,m0,m1) / 6.;                
             }
-        }
+        } else
+            throw "PVfunctions::B22() is undefined."; 
     }
     return B22;
 }
 
-
-/////////////////////////////////////////////////////////////////////////////
 complex PVfunctions::Bf(const double mu, const double p2, 
                         const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
@@ -328,11 +321,11 @@ complex PVfunctions::C0(const double p2,
         throw "Invalid argument for PVfunctions::C0()";
     }
 
-    complex C0(0.0, 0.0, false);    
+    complex C0(0.0, 0.0, false);   
     if (p2==0.0) {
         throw "PVfunctions::C0() is undefined.";
     } else {
-        if ((m0 - m2) < LEPS && (m0 - m1) > LEPS) {                                      ///////////////////////////////////
+        if (fabs(m0 - m2) < LEPS && fabs(m0 - m1) > LEPS) {///////////////////////////////////
             double m02 = m0*m0;
             double m12 = m1*m1;
             double epsilon = 1.0e-12;
@@ -368,7 +361,7 @@ complex PVfunctions::C0(const double p2,
                 //std::cout << "im.val=" << im.val << "  im.err=" << im.err << std::endl;                
             }
             C0 = - 1.0/p2*( Li2[0] - Li2[1] + Li2[2] - Li2[3] - Li2[4] + Li2[5]);        
-        } else if (m0!=0.0 && m2!=0.0 && (m0 - m2) > LEPS && m1==0.0) {              ////////////////
+        } else if (m0!=0.0 && m2!=0.0 && fabs(m0 - m2) > LEPS && m1==0.0) {              ////////////////
             double m02 = m0*m0;
             double m22 = m2*m2;
             double epsilon = 1.0e-12;
@@ -402,7 +395,6 @@ complex PVfunctions::C0(const double p2,
     }
     return C0;
 }
-    
 
 double PVfunctions::F(const double m0, const double m1) const {
     double m12 = m1 * m1;
@@ -416,7 +408,7 @@ double PVfunctions::F(const double m0, const double m1) const {
         return (0.5 * m12);
     } else if(m0 != 0. && m1 == 0.){
         return (0.5 * m02);
-    } else if((m0 == 0. && m1 == 0.) || ((m0-m1) < LEPS)){
+    } else if((m0 == 0. && m1 == 0.) || (fabs(m0-m1) < LEPS)){
         return (0.);
     } else {
         return (0.5 * (m02 + m12) - (m02 * m12) / (m02 - m12) * log(m02 / m12));
