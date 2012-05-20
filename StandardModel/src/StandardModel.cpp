@@ -126,7 +126,7 @@ bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars) 
     return(QCD::CheckParameters(DPars));
 }
 
-StandardModel::StandardModel() : QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.),
+StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.),
 Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
     leptons[NEUTRINO_1].setCharge(0.);
     leptons[NEUTRINO_2].setCharge(0.);    
@@ -134,7 +134,7 @@ Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
     leptons[ELECTRON].setCharge(-1.);
     leptons[MU].setCharge(-1.);    
     leptons[TAU].setCharge(-1.);    
-    myEWSM = new EWSM(*this);
+    myEWSM = new EWSM(*this, bDebug_i);
 }
 
 ///////////////////////////////////////////////////////////////////////////

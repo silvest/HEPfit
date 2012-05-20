@@ -50,7 +50,7 @@ double EWSMApproximateFormulae::Mw(const double DeltaAlpha_i) const {
     // their central values (year 2003) adopted below.
     double dH = log(SM.getMHl()/100.0);
     double dh = pow((SM.getMHl()/100.0), 2.0);
-    double dt = pow((SM.getQuarks(SM.TOP).getMass()/174.3), 2.0) - 1.0;
+    double dt = pow((SM.getMtpole()/174.3), 2.0) - 1.0;
     double dZ = SM.getMz()/91.1875 - 1.0;
     double dalphae = DeltaAlpha_i/0.05907 - 1.0;
     double dalphas = SM.getAlsMz()/0.119 - 1.0;
@@ -106,7 +106,7 @@ double EWSMApproximateFormulae::sin2thetaEff_l(const StandardModel::lepton l,
     double L_H = log(SM.getMHl()/100.0);
     double Delta_H = SM.getMHl()/100.0;
     double Delta_ale = DeltaAlpha_i/0.05907 - 1.0;
-    double Delta_t = pow((SM.getQuarks(SM.TOP).getMass()/178.0), 2.0) - 1.0;
+    double Delta_t = pow((SM.getMtpole()/178.0), 2.0) - 1.0;
     double Delta_alphas = SM.getAlsMz()/0.117 - 1.0;
     double Delta_Z = SM.getMz()/91.1876 - 1.0;
 
@@ -175,7 +175,7 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const StandardModel::quark q,
     double L_H = log(SM.getMHl()/100.0);
     double Delta_H = SM.getMHl()/100.0;
     double Delta_ale = DeltaAlpha_i/0.05907 - 1.0;
-    double Delta_t = pow((SM.getQuarks(SM.TOP).getMass()/178.0), 2.0) - 1.0;
+    double Delta_t = pow((SM.getMtpole()/178.0), 2.0) - 1.0;
     double Delta_alphas = SM.getAlsMz()/0.117 - 1.0;
     double Delta_Z = SM.getMz()/91.1876 - 1.0;
 
