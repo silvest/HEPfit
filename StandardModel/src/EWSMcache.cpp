@@ -98,34 +98,36 @@ double EWSMcache::ml(const StandardModel::lepton l) const {
 
 
 double EWSMcache::mq(const StandardModel::quark q) const {
-    if (q==StandardModel::TOP) 
-        return Mt();
-    else {
-        if (!bDebug) {
+    if (!bDebug) {
+        if (q==StandardModel::TOP) 
+            return Mt();
+        else
             return ( SM.getQuarks(q).getMass() );            
-        } else {
-            double mq_fixed;
-            switch(q) {
-                case StandardModel::UP:
-                    mq_fixed = 0.062;
-                    break;
-                case StandardModel::DOWN:
-                    mq_fixed = 0.083;
-                    break;
-                case StandardModel::CHARM:
-                    mq_fixed = 1.50;
-                    break;
-                case StandardModel::STRANGE:
-                    mq_fixed = 0.215;
-                    break;
-                case StandardModel::BOTTOM:
-                    mq_fixed = 4.70;
-                    break;
-                default:
-                    throw "Error in EWSMcache::mq()";  
-            }
-            return mq_fixed; // for debug
+    } else {
+        double mq_fixed;
+        switch(q) {
+            case StandardModel::UP:
+                mq_fixed = 0.062;
+                break;
+            case StandardModel::DOWN:
+                mq_fixed = 0.083;
+                break;
+            case StandardModel::CHARM:
+                mq_fixed = 0.56381685;
+                break;
+            case StandardModel::STRANGE:
+                mq_fixed = 0.215;
+                break;
+            case StandardModel::BOTTOM:
+                mq_fixed = 2.8194352;
+                break;
+            case StandardModel::TOP:
+                mq_fixed = Mt();
+                break;
+            default:
+                throw "Error in EWSMcache::mq()";  
         }
+        return mq_fixed; // for debug
     }
 }
 
@@ -270,12 +272,11 @@ double EWSMcache::Xt_alpha(const double Mw_i) const {
 double EWSMcache::alsMt() const {
     if (!bDebug) {
         
-        /* Write codes */
+        /*!!!! Write codes for NNLO !!!!*/
+        //std::cout << "alsMt() = " << SM.Als(Mt(),FULLNLO) << std::endl;
+        return ( SM.Als(Mt(),FULLNLO) );
 
-        
-        
-        
-        return ( 0.1074432788 );
+        //return ( 0.1074432788 );
     } else 
         return ( 0.1074432788 );// for debug
 }

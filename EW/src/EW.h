@@ -18,8 +18,9 @@ public:
     /**
      * @brief EW constructor
      * @param[in] SM_i an object of StandardModel class
+     * @param[in] bDebug_i boolean value for debugging (true for debugging)
      */
-    EW(const StandardModel& SM_i);
+    EW(const StandardModel& SM_i, const bool bDebug_i=false);
 
     
     //////////////////////////////////////////////////////////////////////// 
@@ -118,6 +119,8 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
 private:
+    bool bDebug; // true for debugging    
+    
     const StandardModel& SM;
     
     

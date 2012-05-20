@@ -57,7 +57,7 @@ public:
         
     virtual bool CheckParameters(const std::map<std::string, double>&);
     
-    StandardModel();
+    StandardModel(const bool bDebug_i=false);
 
     virtual std::string ModelName() const {
         return "StandardModel";

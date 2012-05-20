@@ -44,8 +44,9 @@ public:
     /**
      * @brief EWSM constructor
      * @param[in] SM_i reference to a StandardModel object
+     * @param[in] bDebug_i boolean value for debugging (true for debugging)
      */
-    EWSM(const StandardModel& SM_i);
+    EWSM(const StandardModel& SM_i, const bool bDebug_i=false);
 
     
     ////////////////////////////////////////////////////////////////////////     
@@ -310,67 +311,8 @@ protected:
     const StandardModel& SM;
 
 
-    ////////////////////////////////////////////////////////////////////////     
-    // The functions below are used in NP models with S, T and U parameters. 
-//    
-//    /**
-//     * @param[in] S oblique parameter
-//     * @param[in] T oblique parameter
-//     * @param[in] U oblique parameter
-//     * @return the W-boson mass in a NP model from oblique parameters
-//     */
-//    double Mw_NP_fromSTU(const double S, const double T, const double U) const;
-//    
-//    /**
-//     * @brief effective coupling rho_Z^l
-//     * @param[in] l name of lepton
-//     * @param[in] S oblique parameter
-//     * @param[in] T oblique parameter
-//     * @return rho_Z^l in a NP model from oblique parameters
-//     */
-//    complex rhoZ_l_NP_fromSTU(const StandardModel::lepton l, const double T) const;
-//
-//   /**
-//     * @brief effective coupling rho_Z^q
-//     * @param[in] q name of quark
-//     * @param[in] S oblique parameter
-//     * @param[in] T oblique parameter
-//     * @return rho_Z^q in a NP model from oblique parameters
-//     */
-//    complex rhoZ_q_NP_fromSTU(const StandardModel::quark q, const double T) const;
-//
-//    /**
-//     * @brief the ratio of the effective couplings for neutral-current interactions
-//     * @param[in] l name of lepton
-//     * @param[in] S oblique parameter
-//     * @param[in] T oblique parameter
-//     * @return g_V^l/g_A^l in a NP model from oblique parameters
-//     */
-//    complex gZl_over_gAl_NP_fromSTU(const StandardModel::lepton l,
-//                                    const double S, const double T) const;    
-//    
-//    /**
-//     * @brief the ratio of the effective couplings for neutral-current interactions
-//     * @param[in] q name of quark
-//     * @param[in] S oblique parameter
-//     * @param[in] T oblique parameter
-//     * @return g_V^q/g_A^q in a NP model from oblique parameters
-//     */
-//    complex gZq_over_gAq_NP_fromSTU(const StandardModel::quark q,
-//                                    const double S, const double T) const;
-//    
-//    /**
-//     * @param[in] S oblique parameter
-//     * @param[in] T oblique parameter
-//     * @param[in] U oblique parameter
-//     * @return the total width of the W boson in a NP model from oblique parameters
-//     */    
-//    double GammaW_NP_fromSTU(const double S, const double T, const double U) const;    
-//
-//    
     ////////////////////////////////////////////////////////////////////////         
 private:
-    
     bool flag_order[orders_EW_size]; 
     schemes_EW schemeMw, schemeRhoZ, schemeKappaZ;
     
@@ -408,34 +350,42 @@ private:
     void ComputeDeltaR_rem(const double Mw_i, double DeltaR_rem[orders_EW_size]) const;  
     
     /**
+     * @param[in] Mw_i the W boson mass
      * @param[in] DeltaRho
      * @param[in] DeltaR_rem
      * @return resummed Mw
      */
-    double resumMw(const double DeltaRho[orders_EW_size],
+    double resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
                    const double DeltaR_rem[orders_EW_size]) const;
     
     /**
      * @param[in] DeltaRho
      * @param[in] deltaRho_rem 
      * @param[in] DeltaRbar_rem
+     * @param[in] bool_Zbb true for f=b
      * @return resummed Re[rho_Z^f]
      */
     double resumRhoZ(const double DeltaRho[orders_EW_size],
                      const double deltaRho_rem[orders_EW_size], 
-                     const double DeltaRbar_rem) const;
+                     const double DeltaRbar_rem, const bool bool_Zbb) const;
     
     /**
      * @param[in] DeltaRho
      * @param[in] deltaKappa_rem 
      * @param[in] DeltaRbar_rem
+     * @param[in] bool_Zbb true for f=b
      * @return resummed Re[kappa_Z^f]
      */
     double resumKappaZ(const double DeltaRho[orders_EW_size],
                        const double deltaKappa_rem[orders_EW_size],
-                       const double DeltaRbar_rem) const;    
+                       const double DeltaRbar_rem, const bool bool_Zbb) const;    
 
+    /**
+     * @return the top-quark corrections to the Z-b-bbar vertex
+     */
+    double taub() const;
 
+    
 };
 
 #endif	/* EWSM_H */

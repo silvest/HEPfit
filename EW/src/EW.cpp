@@ -12,7 +12,8 @@
 #include <gsl/gsl_sf_zeta.h>
 
 
-EW::EW(const StandardModel& SM_i) : ThObsType(SM_i), SM(SM_i) {
+EW::EW(const StandardModel& SM_i, bool bDebug_i) : ThObsType(SM_i), SM(SM_i) {
+    bDebug = bDebug_i;
 }
 
 
@@ -99,21 +100,18 @@ double EW::Gamma_q(const StandardModel::quark q) const {
 
     double alphaMz = SM.alphaMz();
     
-    /* This part should be modified! */
+    //!!!! Write codes for FULLNNLO !!!!//
     double mcMz, mbMz;
+    if (!bDebug) {
+        mcMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.CHARM).getMass(), FULLNLO);
+        mbMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), FULLNLO);  
+        //std::cout << "mcMz = " << mcMz << std::endl;
+        //std::cout << "mbMz = " << mbMz << std::endl;
+    } else {
+        mcMz = 0.56381685; 
+        mbMz = 2.8194352;
+    }
 
-    //mbMz = 2.84386;
-    //mcMz = 0.55696435; 
-    //mbMz = 2.8095955;
-    mcMz = 0.55381685; 
-    mbMz = 2.8194352;
-    //double mc_at_mb = SM.Mrun(SM.getQuarks(SM.BOTTOM).getMass(), 
-    //                          SM.getQuarks(SM.CHARM).getMass(), 4.0);
-    //mcMz = SM.Mrun(SM.getMz(), mc_at_mb, 5.0);
-    //mbMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), 5.0);  
-
-    
-    
     /* Radiator functions from the final-state QED and QCD corrections
      * to the vector and axial-vector currents */
     double RVf, RAf;
