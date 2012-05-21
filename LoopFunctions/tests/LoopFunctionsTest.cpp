@@ -29,7 +29,15 @@ int main(int argc, char** argv) {
         cout << "B0(1,1,1,0)= " << PVtest.B0(1.0,1.0,1.0,0.0) << endl;
         cout << "B0(1,0,0,1)= " << PVtest.B0(1.0,0.0,0.0,1.0) << endl;
         cout << "B0(1,1,0,0)= " << PVtest.B0(1.0,1.0,0.0,0.0) << endl;
-    
+
+        double Mz = 90.;
+        double MHp = 600., MA=900.,MH0=580.;
+        cout << PVtest.B22(Mz,Mz*Mz,MH0,MA)/Mz/Mz/M_PI << endl;
+        cout << PVtest.B22(Mz,0.0,MH0,MA)/Mz/Mz/M_PI << endl;        
+        cout << PVtest.B22(Mz,Mz*Mz,MHp,MHp)/Mz/Mz/M_PI << endl;
+        cout << PVtest.B22(Mz,0.0,MHp,MHp)/Mz/Mz/M_PI << endl;        
+        
+        
         
         return EXIT_SUCCESS;
     } catch (const char* c) {

@@ -183,7 +183,8 @@ complex PVfunctions::B22(const double mu, const double p2,
                     + (DeltaM2 + p2) / 12. / p2 * A0(mu,m0) 
                     - (DeltaM2 - p2) / 12. / p2 * A0(mu,m1) 
                     + (- m02 - m12 + p2 / 2. 
-                       - (DeltaM2 * DeltaM2) / 2. / p2) * B0(mu,p2,m0,m1) / 6.;                
+                       + (DeltaM2 * DeltaM2) / 2. / p2) * B0(mu,p2,m0,m1) / 6.
+                      ;                
             }
         } else
             throw "PVfunctions::B22() is undefined."; 
