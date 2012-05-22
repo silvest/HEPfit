@@ -6,7 +6,8 @@
 #include "EWSMApproximateFormulae.h"
 
 
-EWSMApproximateFormulae::EWSMApproximateFormulae(const StandardModel& SM_i) : SM(SM_i) {
+EWSMApproximateFormulae::EWSMApproximateFormulae(const StandardModel& SM_i, const bool bDebug_i) : SM(SM_i) {
+    bDebug = bDebug_i;
 }
 
 
@@ -14,7 +15,7 @@ EWSMApproximateFormulae::EWSMApproximateFormulae(const StandardModel& SM_i) : SM
 
 double EWSMApproximateFormulae::Mw(const double DeltaAlpha_i) const {
     double Mw0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11;    
-    if( SM.getMHl() >= 100.0 && SM.getMHl() <= 1000.0 ) {
+    if( SM.getMHl() >= 100.0 && SM.getMHl() <= 1000.0 && !bDebug ) {
         // applicable for 100 GeV <= mHl <= 1 TeV
         Mw0 = 80.3800;
         c1 = 0.05253;
@@ -28,7 +29,7 @@ double EWSMApproximateFormulae::Mw(const double DeltaAlpha_i) const {
         c9 = 0.000110;
         c10 = 0.0716;
         c11 = 115.0;
-    } else if (SM.getMHl() >= 10.0 && SM.getMHl() < 100.0 ) {        
+    } else if (SM.getMHl() >= 10.0 && SM.getMHl() < 1000.0 ) {        
         // applicable for 10 GeV <= mHl <= 1 TeV
         Mw0 = 80.3799;
         c1 = 0.05429;
