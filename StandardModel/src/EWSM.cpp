@@ -45,7 +45,7 @@ EWSM::EWSM(const StandardModel& SM_i, bool bDebug_i) : SM(SM_i) {
     myTwoLoopEW = new EWSMTwoLoopEW(*myCache);
     myThreeLoopEW2QCD = new EWSMThreeLoopEW2QCD(*myCache);
     myThreeLoopEW = new EWSMThreeLoopEW(*myCache);
-    myApproximateFormulae = new EWSMApproximateFormulae(SM);    
+    myApproximateFormulae = new EWSMApproximateFormulae(SM, bDebug_i);    
 }
 
 
@@ -189,7 +189,7 @@ double EWSM::Mw_SM() const {
         if (i>=0) {
             return ( Mw_cache[NumParMw][i] );
         } else {
-            Mw = myApproximateFormulae->Mw(DeltaAlpha());
+            Mw = myApproximateFormulae->Mw(DeltaAlphaL5q());
             myCache->CacheShift(Mw_cache, NumParMw, params, Mw);
             return Mw;
         }
@@ -392,7 +392,7 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const {
     
     double ReKappaZf = 0.0;
     if (schemeKappaZ==APPROXIMATEFORMULA) {
-        ReKappaZf = myApproximateFormulae->sin2thetaEff_l(l, DeltaAlpha())/sW2_SM(); 
+        ReKappaZf = myApproximateFormulae->sin2thetaEff_l(l, DeltaAlphaL5q())/sW2_SM(); 
     } else {    
         /* Re[kappa_Z^f] with or without resummation */
         double deltaKappa_rem_f_real[orders_EW_size];
@@ -444,7 +444,7 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const {
     
     double ReKappaZf = 0.0;
     if (schemeKappaZ==APPROXIMATEFORMULA) {
-        ReKappaZf = myApproximateFormulae->sin2thetaEff_q(q, DeltaAlpha())/sW2_SM(); 
+        ReKappaZf = myApproximateFormulae->sin2thetaEff_q(q, DeltaAlphaL5q())/sW2_SM(); 
     } else {    
         /* Re[kappa_Z^f] with or without resummation */
         double deltaKappa_rem_f_real[orders_EW_size];

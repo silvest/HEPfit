@@ -10,7 +10,7 @@
 #include "EWSMcache.h"
 
 
-EWSMcache::EWSMcache(const StandardModel& SM_i, bool bDebug_i) : SM(SM_i) {
+EWSMcache::EWSMcache(const StandardModel& SM_i, const bool bDebug_i) : SM(SM_i) {
     bDebug = bDebug_i;
     
     log2 = log(2.0);
