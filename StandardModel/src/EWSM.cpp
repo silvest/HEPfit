@@ -173,17 +173,15 @@ double EWSM::Mw_SM() const {
     if (schemeMw==APPROXIMATEFORMULA) {    
         int NumParMw = 12;
         double params[] = { 
-            // Note: Delta alpha depends on the lepton and top-quark masses. 
-            // Does Mt depend on threshold scales? 
+            // Note: Delta alpha depends on the lepton masses. 
             SM.getAlsMz(), SM.getMz(), SM.getAle(), SM.getDAle5Mz(),
-            SM.getMHl(), 
+            SM.getMHl(), SM.getMtpole(), 
             SM.getLeptons(SM.NEUTRINO_1).getMass(), 
             SM.getLeptons(SM.NEUTRINO_2).getMass(),
             SM.getLeptons(SM.NEUTRINO_3).getMass(),
             SM.getLeptons(SM.ELECTRON).getMass(),
             SM.getLeptons(SM.MU).getMass(),
-            SM.getLeptons(SM.TAU).getMass(),
-            SM.getQuarks(SM.TOP).getMass()
+            SM.getLeptons(SM.TAU).getMass()
         };
         int i = myCache->CacheCheck(Mw_cache, NumParMw, params);
         if (i>=0) {
@@ -197,7 +195,7 @@ double EWSM::Mw_SM() const {
         int NumParMw = 22;
         double params[] = { 
             SM.getAlsMz(), SM.getMz(), SM.getGF(), SM.getAle(), SM.getDAle5Mz(),
-            SM.getMHl(), 
+            SM.getMHl(), SM.getMtpole(), 
             SM.getLeptons(SM.NEUTRINO_1).getMass(), 
             SM.getLeptons(SM.NEUTRINO_2).getMass(),
             SM.getLeptons(SM.NEUTRINO_3).getMass(),
@@ -208,7 +206,7 @@ double EWSM::Mw_SM() const {
             SM.getQuarks(SM.DOWN).getMass(),
             SM.getQuarks(SM.CHARM).getMass(),
             SM.getQuarks(SM.STRANGE).getMass(),
-            SM.getQuarks(SM.TOP).getMass(),
+            //SM.getQuarks(SM.TOP).getMass(),
             SM.getQuarks(SM.BOTTOM).getMass(),
             SM.getMut(), SM.getMub(), SM.getMuc(), SM.getMuw()
             //SM.GetLambda(), SM.GetA(), SM.GetRhob(), SM.GetEtab()

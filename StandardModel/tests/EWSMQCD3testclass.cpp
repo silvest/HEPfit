@@ -21,7 +21,7 @@ void EWSMQCD3testclass::setUp() {
     myCache = new EWSMcache(*mySM, true);
     myQCD3 = new EWSMThreeLoopQCD(*myCache);
 
-    Mw = myCache->Mw(mySM->Mw_tree());
+    Mw = myCache->Mw(mySM->Mw_tree());/* Tests are done with the tree-level Mw */
     Mw2 = Mw*Mw;
     Mz = myCache->Mz();
     Mz2 = Mz*Mz;

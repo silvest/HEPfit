@@ -103,6 +103,20 @@ complex EWSMTwoLoopEW::deltaKappa_rem_q(const StandardModel::quark q,
 
 ////////////////////////////////////////////////////////////////////////   `
 
+double EWSMTwoLoopEW::rho_2() const {
+    double a = cache.mh()*cache.mh()/cache.Mt()/cache.Mt();
+    if (a<=0.0) throw "a is out of range in EWSMTwoLoopEW::rho_2";
+    double g_a = g(a);
+    double f_a_0 = f0(a);// f(a,0)
+    double f_a_1 = f1(a);// f(a,1)
+    double log_a = - 2.0*cache.logMTOPtoMH();
+    return ( 25.0 - 4.0*a + 0.5*(a*a - 12.0*a - 12.0)*log_a
+             + (a - 2.0)/2.0/a*M_PI*M_PI + 0.5*(a - 4.0)*sqrt(a)*g_a
+             - 3.0/a*(a - 1.0)*(a - 1.0)*(a - 2.0)*f_a_0
+             + 3.0*(a*a - 6.0*a + 10.0)*f_a_1 );
+}
+
+
 double EWSMTwoLoopEW::tau_2() const {
     double a = cache.mh()*cache.mh()/cache.Mt()/cache.Mt();
     if (a<=0.0) throw "a is out of range in EWSMTwoLoopEW::tau_2";
@@ -116,20 +130,6 @@ double EWSMTwoLoopEW::tau_2() const {
              + (a/2.0 - 2.0)*sqrt(a)*g_a 
              + (a - 1.0)*(a - 1.0)*(4.0*a - 7.0/4.0)*f_a_0
              - (a*a*a - 33.0/4.0*a*a + 18.0*a - 7.0)*f_a_1 );
-}
-
-
-double EWSMTwoLoopEW::rho_2() const {
-    double a = cache.mh()*cache.mh()/cache.Mt()/cache.Mt();
-    if (a<=0.0) throw "a is out of range in EWSMTwoLoopEW::rho_2";
-    double g_a = g(a);
-    double f_a_0 = f0(a);// f(a,0)
-    double f_a_1 = f1(a);// f(a,1)
-    double log_a = - 2.0*cache.logMTOPtoMH();
-    return ( 25.0 - 4.0*a + 0.5*(a*a - 12.0*a - 12.0)*log_a
-             + (a - 2.0)/2.0/a*M_PI*M_PI + 0.5*(a - 4.0)*sqrt(a)*g_a
-             - 3.0/a*(a - 1.0)*(a - 1.0)*(a - 2.0)*f_a_0
-             + 3.0*(a*a - 6.0*a + 10.0)*f_a_1 );
 }
 
 

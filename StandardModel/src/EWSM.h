@@ -303,7 +303,15 @@ public:
      * @return the total width of the W boson in the SM
      */
     double GammaW_SM() const;   
+
     
+    ////////////////////////////////////////////////////////////////////////     
+
+    /**
+     * @return the top-quark corrections to the Z-b-bbar vertex
+     */
+    double taub() const;    
+
     
     ////////////////////////////////////////////////////////////////////////     
 protected:
@@ -378,12 +386,7 @@ private:
      */
     double resumKappaZ(const double DeltaRho[orders_EW_size],
                        const double deltaKappa_rem[orders_EW_size],
-                       const double DeltaRbar_rem, const bool bool_Zbb) const;    
-
-    /**
-     * @return the top-quark corrections to the Z-b-bbar vertex
-     */
-    double taub() const;
+                       const double DeltaRbar_rem, const bool bool_Zbb) const;
 
     
 };

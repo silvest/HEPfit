@@ -84,6 +84,11 @@ public:
 
     
     ////////////////////////////////////////////////////////////////////////        
+
+    /**
+     * @return O(alpha^2 Mt^4/M_Z^4) contribution to Delta rho
+     */
+    double rho_2() const;    
     
     /**
      * @return O(alpha^2 Mt^4/M_Z^4) contribution to the Z-b-bbar vertex
@@ -96,11 +101,6 @@ public:
 private:
     const EWSMcache& cache;
     const EWSMOneLoopEW myOneLoopEW;
-
-    /**
-     * @return O(alpha^2 Mt^4/M_Z^4) contribution to Delta rho
-     */
-    double rho_2() const;    
     
     /**
      * @param[in] a a=(m_h/M_t)^2
