@@ -20,8 +20,9 @@ void EWSMEW2testclass::setUp() {
     setSMparameters(*mySM);   
     myCache = new EWSMcache(*mySM, true);
     myEW2 = new EWSMTwoLoopEW(*myCache);
-
-    Mw = myCache->Mw(mySM->Mw_tree());
+    myEWSM = new EWSM(*mySM, true);
+    
+    Mw = myCache->Mw(mySM->Mw_tree());/* Tests are done with the tree-level Mw */
     Mw2 = Mw*Mw;
     Mz = myCache->Mz();
     Mz2 = Mz*Mz;
@@ -34,6 +35,7 @@ void EWSMEW2testclass::setUp() {
 }
 
 void EWSMEW2testclass::tearDown() {
+    delete myEWSM;
     delete myEW2;        
     delete myCache;
     delete mySM;  
@@ -46,7 +48,35 @@ void EWSMEW2testclass::DeltaAlpha_l() {
     CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);   
 }
 
+void EWSMEW2testclass::rho2() {
+    double ZFITTER = -6.405572408621286; /* ZFITTER result*/
+    double result = myEW2->rho_2();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);   
+}
 
+void EWSMEW2testclass::tau2() {
+    double ZFITTER = 1.645531097693745; /* ZFITTER result*/
+    double result = myEW2->tau_2();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);   
+}
+
+void EWSMEW2testclass::taub() {
+    double ZFITTER = -0.005678047858754-0.000033678404245; /* ZFITTER result*/
+    double result = myEWSM->taub();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);   
+}
+
+// This is O(\alpha) contribution, which has to be subtracted from rho_Z^b 
+// and kappa_Z^b when adding the tau_b contribution.
+void EWSMEW2testclass::CORBB() {
+    double ZFITTER = 0.006397903768469; /* ZFITTER result*/
+    double result = myCache->ale()/8.0/M_PI/sW2*pow(myCache->Mt()/Mw, 2.0);
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);   
+}
 
 
 
