@@ -49,6 +49,31 @@ public:
      */
     double Qq(const StandardModel::quark q) const;    
 
+    /**
+     * @return the tree-level sin^2\theta_W
+     */
+    double s2() const;
+    
+    /**
+     * @return the tree-level cos^2\theta_W
+     */
+    double c2() const;
+
+    /**
+     * @return the oblique parameters S
+     */
+    double S() const;
+    
+    /**
+     * @return the oblique parameters T
+     */    
+    double T() const;
+    
+    /**
+     * @return the oblique parameters U
+     */    
+    double U() const;
+    
     
     ////////////////////////////////////////////////////////////////////////     
     

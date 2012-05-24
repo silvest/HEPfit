@@ -21,10 +21,10 @@ EWSM::EWSM(const StandardModel& SM_i, bool bDebug_i) : SM(SM_i) {
             
     std::string Model = SM.ModelName();
     if (Model=="StandardModel" || Model=="THDM") {
-        //schemeMw = NORESUM;// for test
+        schemeMw = NORESUM;// for test
         //schemeMw = OMSI;// for test
         //schemeMw = OMSII;// for test
-        schemeMw = APPROXIMATEFORMULA;    
+        //schemeMw = APPROXIMATEFORMULA;    
         
         schemeRhoZ = NORESUM;
         //schemeRhoZ = OMSI;
@@ -97,72 +97,6 @@ double EWSM::DeltaAlpha() const {
 
 double EWSM::alphaMz() const {
     return (SM.getAle()/(1.0 - DeltaAlpha()));
-}
-
-
-////////////////////////////////////////////////////////////////////////
-
-double EWSM::Mw() const {
-    return Mw_SM();
-}
-
-
-double EWSM::cW2() const {
-    return cW2_SM();
-}
-
-
-double EWSM::sW2() const {
-    return sW2_SM();    
-}
-
-    
-complex EWSM::rhoZ_l(const StandardModel::lepton l) const {
-    return rhoZ_l_SM(l);
-}
-
-
-complex EWSM::rhoZ_q(const StandardModel::quark q) const {
-    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
-    return rhoZ_q_SM(q);
-}
-  
-
-complex EWSM::kappaZ_l(const StandardModel::lepton l) const {
-    return kappaZ_l_SM(l);
-}
-
-
-complex EWSM::kappaZ_q(const StandardModel::quark q) const {
-    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
-    return kappaZ_q_SM(q);
-}
-
-
-complex EWSM::gVl(const StandardModel::lepton l) const {
-    return gVl_SM(l);
-}
-
-
-complex EWSM::gVq(const StandardModel::quark q) const {
-    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
-    return gVq_SM(q);
-}
-
-
-complex EWSM::gAl(const StandardModel::lepton l) const {
-    return gAl_SM(l);
-}
-
-
-complex EWSM::gAq(const StandardModel::quark q) const {
-    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
-    return gAq_SM(q);
-}
-
-
-double EWSM::GammaW() const {
-    return GammaW_SM();
 }
 
 
@@ -492,7 +426,7 @@ complex EWSM::gAl_SM(const StandardModel::lepton l) const {
         I3f = - 1.0/2.0;
     else 
         throw "Error in EWSM::gAl_SM()";
-    return ( sqrt(rhoZ_l(l))*I3f );
+    return ( sqrt(rhoZ_l_SM(l))*I3f );
 }
 
 
@@ -506,7 +440,7 @@ complex EWSM::gAq_SM(const StandardModel::quark q) const {
         I3f = - 1.0/2.0;
     else 
         throw "Error in EWSM::gAq_SM()";
-    return ( sqrt(rhoZ_q(q))*I3f );
+    return ( sqrt(rhoZ_q_SM(q))*I3f );
 }
 
 

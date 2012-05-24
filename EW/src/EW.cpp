@@ -4,7 +4,6 @@
  */
 
 #include "EW.h"
-#include "EWSM.h"
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
@@ -21,11 +20,11 @@ EW::EW(const StandardModel& SM_i, bool bDebug_i) : ThObsType(SM_i), SM(SM_i) {
 
 bool EW::checkModelForSTU() const {
     std::string Model = SM.ModelName();
-    if (Model=="StandardModel" || Model=="SUSY") {
+    if (Model=="StandardModel" || Model=="SUSY")
         return false;
-    } else if (Model=="THDM") {
+    else if (Model=="THDM")
         return true;
-    } else 
+    else 
         throw "Error in EW::checkModelForSTU()"; 
 }
 
@@ -40,42 +39,50 @@ double EW::Qq(const StandardModel::quark q) const {
 }
 
 
+double EW::s2() const {
+    return ( 1.0 - c2() );
+}
+
+
+double EW::c2() const {
+    return ( SM.Mw_tree()*SM.Mw_tree()/SM.getMz()/SM.getMz() );
+}
+
+
+double EW::S() const {
+    return ( SM.obliqueS() );
+}
+
+
+double EW::T() const {
+    return ( SM.obliqueT() );
+}
+
+
+double EW::U() const {
+    return ( SM.obliqueU() );
+}
+
+
 ////////////////////////////////////////////////////////////////////////
 
 double EW::sin2thetaEff(const StandardModel::lepton l) const {
-    complex gV_over_gA;    
-    if (checkModelForSTU()) 
-        gV_over_gA = SM.getEWSM()->gVl_SM(l)/SM.getEWSM()->gAl_SM(l);
-    else 
-        gV_over_gA = SM.gVl(l)/SM.gAl(l);
-    
+    complex gV_over_gA = SM.gVl(l)/SM.gAl(l);
     double absQf = fabs(Ql(l));
     return ( 1.0/4.0/absQf*(1.0 - gV_over_gA.real()) );
 }
 
 
 double EW::sin2thetaEff(const StandardModel::quark q) const {
-    complex gV_over_gA;
-    if (checkModelForSTU()) 
-        gV_over_gA = SM.getEWSM()->gVq_SM(q)/SM.getEWSM()->gAq_SM(q);
-    else 
-        gV_over_gA = SM.gVq(q)/SM.gAq(q);    
-    
+    complex gV_over_gA = SM.gVq(q)/SM.gAq(q);
     double absQf = fabs(Qq(q));
     return ( 1.0/4.0/absQf*(1.0 - gV_over_gA.real()) );
 }
 
 
 double EW::Gamma_l(const StandardModel::lepton l) const {
-    complex rhoZ_l, gV_over_gA;
-    if (checkModelForSTU()) {
-        rhoZ_l = SM.getEWSM()->rhoZ_l_SM(l);
-        gV_over_gA = SM.getEWSM()->gVl_SM(l)/SM.getEWSM()->gAl_SM(l);
-    } else {
-        rhoZ_l = SM.rhoZ_l(l);
-        gV_over_gA = SM.gVl(l)/SM.gAl(l);
-    }
-
+    complex rhoZ_l = SM.rhoZ_l(l);
+    complex gV_over_gA = SM.gVl(l)/SM.gAl(l);
     double alphaMz = SM.alphaMz();
     double Q = Ql(l);
     double xl = pow(SM.getLeptons(l).getMass()/SM.getMz(), 2.0);
@@ -88,16 +95,8 @@ double EW::Gamma_l(const StandardModel::lepton l) const {
 
 
 double EW::Gamma_q(const StandardModel::quark q) const {
-    complex rhoZ_q, gV_over_gA;
-    std::string Model = getSM().ModelName();
-    if (checkModelForSTU()) {
-        rhoZ_q = SM.getEWSM()->rhoZ_q_SM(q);
-        gV_over_gA = SM.getEWSM()->gVq_SM(q)/SM.getEWSM()->gAq_SM(q);
-    } else {
-        rhoZ_q = SM.rhoZ_q(q);
-        gV_over_gA = SM.gVq(q)/SM.gAq(q);
-    }    
-
+    complex rhoZ_q = SM.rhoZ_q(q);
+    complex gV_over_gA = SM.gVq(q)/SM.gAq(q);
     double alphaMz = SM.alphaMz();
     
     //!!!! Write codes for FULLNNLO !!!!//
@@ -310,11 +309,7 @@ double EW::Gamma_had() const {
     complex gV_q;
     std::string Model = getSM().ModelName();
     for (int q=0; q<6; q++) {
-        if (checkModelForSTU()) {
-            gV_q = SM.getEWSM()->gVq_SM((StandardModel::quark)q);
-        } else {
-            gV_q = SM.gVq((StandardModel::quark)q);
-        }   
+        gV_q = SM.gVq((StandardModel::quark)q);
         if (q==(int)(StandardModel::TOP)) 
             gV_q = 0.0;
         gV_sum += gV_q;
@@ -348,24 +343,13 @@ double EW::sigma0_had() const {
 
 
 double EW::A_l(const StandardModel::lepton l) const {
-    double Re_gV_over_gA;
-    if (checkModelForSTU()) 
-        Re_gV_over_gA = (SM.getEWSM()->gVl_SM(l)/SM.getEWSM()->gAl_SM(l)).real();
-    else 
-        Re_gV_over_gA = (SM.gVl(l)/SM.gAl(l)).real();
-
+    double Re_gV_over_gA = (SM.gVl(l)/SM.gAl(l)).real();
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
 }
 
 
 double EW::A_q(const StandardModel::quark q) const {
-    double Re_gV_over_gA;
-    std::string Model = getSM().ModelName();
-    if (checkModelForSTU()) 
-        Re_gV_over_gA = (SM.getEWSM()->gVq_SM(q)/SM.getEWSM()->gAq_SM(q)).real();
-    else 
-        Re_gV_over_gA = (SM.gVq(q)/SM.gAq(q)).real();    
-    
+    double Re_gV_over_gA = (SM.gVq(q)/SM.gAq(q)).real();    
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
 }
 
