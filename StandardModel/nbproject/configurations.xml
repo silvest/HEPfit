@@ -6,7 +6,6 @@
                    projectFiles="true">
       <itemPath>src/BParameter.h</itemPath>
       <itemPath>src/CKM.h</itemPath>
-      <itemPath>src/EWModel.h</itemPath>
       <itemPath>src/EWSM.h</itemPath>
       <itemPath>src/EWSMApproximateFormulae.h</itemPath>
       <itemPath>src/EWSMOneLoopEW.h</itemPath>

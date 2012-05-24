@@ -137,6 +137,7 @@ Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
     myEWSM = new EWSM(*this, bDebug_i);
 }
 
+
 ///////////////////////////////////////////////////////////////////////////
 
 const double StandardModel::matchingScale() const {
@@ -151,6 +152,7 @@ double StandardModel::Mw_tree() const {
     double tmp = 4.0*M_PI*ale/sqrt(2.0)/GF/Mz/Mz;
     return ( Mz/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp)) );
 }
+
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -171,51 +173,51 @@ double StandardModel::alphaMz() const {
 }
     
 double StandardModel::Mw() const {
-    return myEWSM->Mw();
+    return myEWSM->Mw_SM();
 }
 
 double StandardModel::cW2() const {
-    return myEWSM->cW2();
+    return myEWSM->cW2_SM();
 }
 
 double StandardModel::sW2() const {
-    return myEWSM->sW2();
+    return myEWSM->sW2_SM();
 }
     
 complex StandardModel::rhoZ_l(const lepton l) const {
-    return myEWSM->rhoZ_l(l);
+    return myEWSM->rhoZ_l_SM(l);
 }
     
 complex StandardModel::rhoZ_q(const quark q) const {
-    return myEWSM->rhoZ_q(q);
+    return myEWSM->rhoZ_q_SM(q);
 }
     
 complex StandardModel::kappaZ_l(const lepton l) const {
-    return myEWSM->kappaZ_l(l);
+    return myEWSM->kappaZ_l_SM(l);
 }
     
 complex StandardModel::kappaZ_q(const quark q) const {
-    return myEWSM->kappaZ_q(q);
+    return myEWSM->kappaZ_q_SM(q);
 }
 
 complex StandardModel::gVl(const lepton l) const {
-    return myEWSM->gVl(l);
+    return myEWSM->gVl_SM(l);
 }
 
 complex StandardModel::gVq(const quark q) const {
-    return myEWSM->gVq(q);
+    return myEWSM->gVq_SM(q);
 }
     
 complex StandardModel::gAl(const lepton l) const {
-    return myEWSM->gAl(l);
+    return myEWSM->gAl_SM(l);
 }
 
 complex StandardModel::gAq(const quark q) const {
-    return myEWSM->gAq(q);
+    return myEWSM->gAq_SM(q);
 }
 
 double StandardModel::GammaW() const {
-    return myEWSM->GammaW();
+    return myEWSM->GammaW_SM();
 }
 
 
