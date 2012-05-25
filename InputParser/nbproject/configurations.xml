@@ -52,6 +52,7 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>../boost_1_49_0</pElem>
           </incDir>
         </cTool>
         <ccTool>
@@ -63,11 +64,13 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../Flavour/src</pElem>
-            <pElem>../EW/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../MFV/src</pElem>
             <pElem>../SUSY/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
+            <pElem>../boost_1_49_0</pElem>
+            <pElem>../THDM/src</pElem>
+            <pElem>../EW/src</pElem>
           </incDir>
         </ccTool>
         <archiverTool>
@@ -77,7 +80,7 @@
                         CT="3"
                         CN="Debug"
                         AC="true"
-                        BL="false"
+                        BL="true"
                         WD="../EW"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
@@ -87,7 +90,7 @@
                         CT="3"
                         CN="Debug"
                         AC="true"
-                        BL="false"
+                        BL="true"
                         WD="../Flavour"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
@@ -97,7 +100,7 @@
                         CT="3"
                         CN="Debug"
                         AC="true"
-                        BL="false"
+                        BL="true"
                         WD="../gslpp"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
@@ -107,7 +110,7 @@
                         CT="3"
                         CN="Debug"
                         AC="true"
-                        BL="false"
+                        BL="true"
                         WD="../LoopFunctions"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
@@ -117,7 +120,7 @@
                         CT="3"
                         CN="Debug"
                         AC="true"
-                        BL="false"
+                        BL="true"
                         WD="../MFV"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
@@ -127,7 +130,7 @@
                         CT="3"
                         CN="Debug"
                         AC="true"
-                        BL="false"
+                        BL="true"
                         WD="../Observables"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
@@ -137,7 +140,7 @@
                         CT="3"
                         CN="Debug"
                         AC="true"
-                        BL="false"
+                        BL="true"
                         WD="../StandardModel"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
@@ -147,7 +150,7 @@
                         CT="3"
                         CN="Debug"
                         AC="true"
-                        BL="false"
+                        BL="true"
                         WD="../SUSY"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
@@ -157,7 +160,7 @@
                         CT="3"
                         CN="Debug"
                         AC="true"
-                        BL="false"
+                        BL="true"
                         WD="../SUSYMassInsertion"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
@@ -167,11 +170,21 @@
                         CT="3"
                         CN="Debug"
                         AC="true"
-                        BL="false"
+                        BL="true"
                         WD="../Utils"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.a">
+          </makeArtifact>
+          <makeArtifact PL="../THDM"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="true"
+                        WD="../THDM"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthdm.a">
           </makeArtifact>
         </requiredProjects>
       </compileType>

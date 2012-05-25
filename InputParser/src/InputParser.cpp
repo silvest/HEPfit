@@ -10,12 +10,14 @@
 InputParser::InputParser() {
     myModel = NULL;
     myModelMatching = NULL;
+    myModelTHDM = NULL;
     thf = NULL;
 }
 
 InputParser::InputParser(const InputParser& orig) {
     myModel = new StandardModel(*orig.myModel);
     myModelMatching = new StandardModelMatching(*orig.myModelMatching);
+    myModelTHDM = new THDM(*orig.myModelTHDM);
     thf = new ThFactory(*orig.thf);
 }
 
@@ -24,6 +26,8 @@ InputParser::~InputParser() {
         delete myModel;
     if (myModelMatching != NULL)
         delete myModelMatching;
+    if (myModelTHDM != NULL)
+        delete myModelTHDM;
     if (thf != NULL)
         delete thf;
 }
@@ -60,7 +64,13 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             myModelMatching = new SUSYMassInsertionMatching(*LocalPointer);
             thf = new ThFactory(*myModel,*myModelMatching);
             continue;
+        } else if (beg->compare("THDM") == 0){
+            modname = *beg;
+            myModelTHDM = new THDM();
+            myModelMatching = new StandardModelMatching(*myModelTHDM);
+            thf = new ThFactory(*myModelTHDM,*myModelMatching);
         }
+        
         std::string type = *beg;
         ++beg;
         if (type.compare("ModelParameter") == 0) {

@@ -19,6 +19,7 @@
 #include <SUSYMassInsertionMatching.h>
 #include <MFV.h>
 #include <SUSY.h>
+#include <THDM.h>
 #include <iostream>
 #include <fstream>
 #include <istream>
@@ -43,9 +44,14 @@ public:
         return myModelMatching;
     }
     
+    THDM* getMyModelTHDM() const{
+        return myModelTHDM;
+    }
+    
 private:
     StandardModel* myModel; 
     StandardModelMatching* myModelMatching;
+    THDM* myModelTHDM;
    
     ThFactory* thf;
     std::string modname;
