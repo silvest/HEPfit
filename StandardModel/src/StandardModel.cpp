@@ -19,6 +19,17 @@
 #include "EWSM.h"
 
 
+StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.),
+Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
+    leptons[NEUTRINO_1].setCharge(0.);
+    leptons[NEUTRINO_2].setCharge(0.);    
+    leptons[NEUTRINO_3].setCharge(0.);    
+    leptons[ELECTRON].setCharge(-1.);
+    leptons[MU].setCharge(-1.);    
+    leptons[TAU].setCharge(-1.);    
+    myEWSM = new EWSM(*this, bDebug_i);
+}
+
 const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutrino_2",
     "mneutrino_3", "melectron", "mmu", "mtau", "lambda", "A", "rhob", "etab", "ale",
     "dAle5Mz", "mHl", "muw", "phiEpsK","DeltaMK", "KbarEpsK", "Dmk", "SM_M12D" };
@@ -126,17 +137,6 @@ bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars) 
     return(QCD::CheckParameters(DPars));
 }
 
-StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.),
-Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
-    leptons[NEUTRINO_1].setCharge(0.);
-    leptons[NEUTRINO_2].setCharge(0.);    
-    leptons[NEUTRINO_3].setCharge(0.);    
-    leptons[ELECTRON].setCharge(-1.);
-    leptons[MU].setCharge(-1.);    
-    leptons[TAU].setCharge(-1.);    
-    myEWSM = new EWSM(*this, bDebug_i);
-}
-
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -152,6 +152,15 @@ double StandardModel::Mw_tree() const {
     double tmp = 4.0*M_PI*ale/sqrt(2.0)/GF/Mz/Mz;
     return ( Mz/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp)) );
 }
+
+double StandardModel::s02() const {
+    return ( ( 1.0 - sqrt(1.0 - 4.0*M_PI*alphaMz()/sqrt(2.0)/GF/Mz/Mz) )/2.0 );
+}
+
+double StandardModel::c02() const {
+    return ( 1.0 - s02() );
+}
+
 
 
 ////////////////////////////////////////////////////////////////////////
