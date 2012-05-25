@@ -21,21 +21,28 @@ EWSM::EWSM(const StandardModel& SM_i, bool bDebug_i) : SM(SM_i) {
             
     std::string Model = SM.ModelName();
     if (Model=="StandardModel" || Model=="THDM") {
-        schemeMw = NORESUM;// for test
+        //schemeMw = NORESUM;// for test
         //schemeMw = OMSI;// for test
         //schemeMw = OMSII;// for test
-        //schemeMw = APPROXIMATEFORMULA;    
+        schemeMw = APPROXIMATEFORMULA;    
         
         schemeRhoZ = NORESUM;
-        //schemeRhoZ = OMSI;
+        //schemeRhoZ = OMSI;// for test
 
         //schemeKappaZ = NORESUM;// for test
         //schemeKappaZ = OMSI;// for test
         schemeKappaZ = APPROXIMATEFORMULA;
+
+        if (schemeKappaZ==APPROXIMATEFORMULA) {
+            boolR0bApproximate = true;
+            //boolR0bApproximate = false;// for test
+        } else 
+            boolR0bApproximate = false;
     } else {
         schemeMw = NORESUM;
         schemeRhoZ = NORESUM;
         schemeKappaZ = NORESUM;
+        boolR0bApproximate = false;
     } 
 
     myCache = new EWSMcache(SM, bDebug_i);
@@ -245,6 +252,7 @@ complex EWSM::rhoZ_l_SM(const StandardModel::lepton l) const {
 
 
 complex EWSM::rhoZ_q_SM(const StandardModel::quark q) const {    
+    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
     if (schemeRhoZ==APPROXIMATEFORMULA) {
         throw "No approximate formula is available for rhoZ^f";
     } else {
@@ -348,6 +356,8 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const {
 
 
 complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const {
+    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
+    
     double Mw = Mw_SM();
     
     /* compute Delta rho */
@@ -516,6 +526,14 @@ double EWSM::GammaW_SM() const {
              + GammaW_q_SM(SM.CHARM, SM.DOWN)
              + GammaW_q_SM(SM.CHARM, SM.STRANGE) 
              + GammaW_q_SM(SM.CHARM, SM.BOTTOM) );
+}
+
+
+double EWSM::R0_bottom_SM() const {
+    if (!boolR0bApproximate)
+        throw "Error in EWSM::R0_bottom_SM()";
+    
+    return ( myApproximateFormulae->R0_bottom(DeltaAlphaL5q()) );
 }
 
 
