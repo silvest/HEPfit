@@ -57,6 +57,13 @@ public:
         return myCache;
     }
     
+    /**
+     * @return boolean variable: if true, the approximate formula for R_b^0 is employed. 
+     */
+    bool isBoolR0bApproximate() const {
+        return boolR0bApproximate;
+    }
+    
     
     //////////////////////////////////////////////////////////////////////// 
 
@@ -203,6 +210,14 @@ public:
      */
     double GammaW_SM() const;   
 
+    /**
+     * @brief R_b^0 with the complete fermionic EW two-loop corrections
+     * @param[in] DeltaAlphaL5q_i the sum of the leptonic and hadronic corrections to alpha at Mz
+     * @return R_b^0 in the SM, obtained from an approximate formula
+     * @attention This function will be used if boolR0bApproximate is true. 
+     */
+    double R0_bottom_SM() const;    
+    
     
     ////////////////////////////////////////////////////////////////////////     
 
@@ -222,6 +237,7 @@ protected:
 private:
     bool flag_order[orders_EW_size]; 
     schemes_EW schemeMw, schemeRhoZ, schemeKappaZ;
+    bool boolR0bApproximate;
     
     EWSMcache* myCache;
     EWSMOneLoopEW* myOneLoopEW;
