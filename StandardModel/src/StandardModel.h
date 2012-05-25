@@ -76,7 +76,17 @@ public:
      */
     double Mw_tree() const;    
     
- 
+    /**
+     * @return tree-level sin^2\theta_W with \alpha(Mz^2)
+     */
+    double s02() const;
+
+    /**
+     * @return tree-level cos^2\theta_W with \alpha(Mz^2)
+     */
+    double c02() const;
+    
+    
     //////////////////////////////////////////////////////////////////////// 
 
     /**
