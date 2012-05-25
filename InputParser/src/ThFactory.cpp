@@ -44,9 +44,6 @@ ThFactory::ThFactory(const StandardModel& myModel,
     thobs["Rcharm"] = new Rcharm(myEW);
     thobs["Rbottom"] = new Rbottom(myEW);
     thobs["sigmaHadron"] = new sigmaHadron(myEW);
-    thobs["obliqueS"] = new obliqueS(myEW);
-    thobs["obliqueT"] = new obliqueT(myEW);
-    thobs["obliqueU"] = new obliqueU(myEW);
 }
 
 ThFactory::~ThFactory() {
