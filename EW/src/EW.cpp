@@ -22,7 +22,7 @@ bool EW::checkModelForSTU() const {
     std::string Model = SM.ModelName();
     if (Model=="StandardModel" || Model=="SUSY")
         return false;
-    else if (Model=="THDM")
+    else if (Model=="NewPhysicsSTU" || Model=="THDM")
         return true;
     else 
         throw "Error in EW::checkModelForSTU()"; 

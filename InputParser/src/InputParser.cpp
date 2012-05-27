@@ -10,14 +10,12 @@
 InputParser::InputParser() {
     myModel = NULL;
     myModelMatching = NULL;
-    myModelTHDM = NULL;
     thf = NULL;
 }
 
 InputParser::InputParser(const InputParser& orig) {
     myModel = new StandardModel(*orig.myModel);
     myModelMatching = new StandardModelMatching(*orig.myModelMatching);
-    myModelTHDM = new THDM(*orig.myModelTHDM);
     thf = new ThFactory(*orig.thf);
 }
 
@@ -26,8 +24,6 @@ InputParser::~InputParser() {
         delete myModel;
     if (myModelMatching != NULL)
         delete myModelMatching;
-    if (myModelTHDM != NULL)
-        delete myModelTHDM;
     if (thf != NULL)
         delete thf;
 }
@@ -43,21 +39,25 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
         boost::char_separator<char> sep(" ");
         boost::tokenizer<boost::char_separator<char> > tok(line, sep);
         boost::tokenizer<boost::char_separator<char> >::iterator beg = tok.begin();
-       if (beg->compare("StandardModel") == 0) {
+        if (beg->compare("StandardModel") == 0) {
             modname = *beg;
             myModel = new StandardModel();
             myModelMatching = new StandardModelMatching(*myModel);
             thf = new ThFactory(*myModel,*myModelMatching);
             continue;
-        }
-        else if (beg->compare("MFV") == 0) {
+        } else if (beg->compare("NewPhysicsSTU") == 0) {
+            modname = *beg;
+            myModel = new NewPhysicsSTU();
+            myModelMatching = new StandardModelMatching(*myModel);
+            thf = new ThFactory(*myModel,*myModelMatching);
+            continue;
+        } else if (beg->compare("MFV") == 0) {
             modname = *beg;
             myModel = new MFV();
             myModelMatching = new StandardModelMatching(*myModel);
             thf = new ThFactory(*myModel,*myModelMatching);
             continue;
-        }
-        else if (beg->compare("SusyMI") == 0) {
+        } else if (beg->compare("SusyMI") == 0) {
             modname = *beg;
             SUSYMassInsertion* LocalPointer = new SUSYMassInsertion();
             myModel = LocalPointer;
@@ -66,9 +66,10 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             continue;
         } else if (beg->compare("THDM") == 0){
             modname = *beg;
-            myModelTHDM = new THDM();
-            myModelMatching = new StandardModelMatching(*myModelTHDM);
-            thf = new ThFactory(*myModelTHDM,*myModelMatching);
+            myModel = new THDM();
+            myModelMatching = new StandardModelMatching(*myModel);
+            thf = new ThFactory(*myModel,*myModelMatching);
+            continue;
         }
         
         std::string type = *beg;

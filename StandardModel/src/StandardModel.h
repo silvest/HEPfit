@@ -26,6 +26,12 @@ public:
     enum lepton {NEUTRINO_1,ELECTRON,NEUTRINO_2,MU,NEUTRINO_3,TAU};
     static const int NSMvars = 20;
     static const std::string SMvars[NSMvars];
+    
+    StandardModel(const bool bDebug_i=false);
+
+    virtual std::string ModelName() const {
+        return "StandardModel";
+    }
 
     /**
      * updates the SM parameters found in the argument
@@ -56,13 +62,7 @@ public:
     virtual bool Init(const std::map<std::string, double>&);
         
     virtual bool CheckParameters(const std::map<std::string, double>&);
-    
-    StandardModel(const bool bDebug_i=false);
 
-    virtual std::string ModelName() const {
-        return "StandardModel";
-    }
-    
     
     ///////////////////////////////////////////////////////////////////////////
     

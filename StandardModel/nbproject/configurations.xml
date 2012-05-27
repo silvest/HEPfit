@@ -18,6 +18,7 @@
       <itemPath>src/Meson.h</itemPath>
       <itemPath>src/Model.h</itemPath>
       <itemPath>src/ModelMatching.h</itemPath>
+      <itemPath>src/NewPhysicsSTU.h</itemPath>
       <itemPath>src/OrderScheme.h</itemPath>
       <itemPath>src/Particle.h</itemPath>
       <itemPath>src/QCD.h</itemPath>
@@ -45,6 +46,7 @@
       <itemPath>src/EWSMTwoLoopQCD.cpp</itemPath>
       <itemPath>src/EWSMcache.cpp</itemPath>
       <itemPath>src/Meson.cpp</itemPath>
+      <itemPath>src/NewPhysicsSTU.cpp</itemPath>
       <itemPath>src/Particle.cpp</itemPath>
       <itemPath>src/QCD.cpp</itemPath>
       <itemPath>src/RGEvolutor.cpp</itemPath>

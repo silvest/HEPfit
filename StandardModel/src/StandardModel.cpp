@@ -19,6 +19,11 @@
 #include "EWSM.h"
 
 
+
+const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutrino_2",
+    "mneutrino_3", "melectron", "mmu", "mtau", "lambda", "A", "rhob", "etab", "ale",
+    "dAle5Mz", "mHl", "muw", "phiEpsK","DeltaMK", "KbarEpsK", "Dmk", "SM_M12D" };
+
 StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.),
 Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
     leptons[NEUTRINO_1].setCharge(0.);
@@ -29,10 +34,6 @@ Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
     leptons[TAU].setCharge(-1.);    
     myEWSM = new EWSM(*this, bDebug_i);
 }
-
-const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutrino_2",
-    "mneutrino_3", "melectron", "mmu", "mtau", "lambda", "A", "rhob", "etab", "ale",
-    "dAle5Mz", "mHl", "muw", "phiEpsK","DeltaMK", "KbarEpsK", "Dmk", "SM_M12D" };
 
 void StandardModel::Update(const std::map<std::string, double>& DPars) {
     computeCKM = false;
