@@ -15,6 +15,7 @@
 #include <ModelParameter.h>
 #include <StandardModel.h>
 #include <StandardModelMatching.h>
+#include <NewPhysicsSTU.h>
 #include <SUSYMassInsertion.h>
 #include <SUSYMassInsertionMatching.h>
 #include <MFV.h>
@@ -44,14 +45,9 @@ public:
         return myModelMatching;
     }
     
-    THDM* getMyModelTHDM() const{
-        return myModelTHDM;
-    }
-    
 private:
     StandardModel* myModel; 
     StandardModelMatching* myModelMatching;
-    THDM* myModelTHDM;
    
     ThFactory* thf;
     std::string modname;

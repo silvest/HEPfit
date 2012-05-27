@@ -16,6 +16,8 @@ public:
     virtual bool CheckParameters(const std::map<std::string, double>&) = 0;
     virtual void SetParameter(const std::string, const double&) = 0;
     virtual bool Init(const std::map<std::string, double>&) = 0;
+
+    virtual std::string ModelName() const = 0;
 private:
 
 };

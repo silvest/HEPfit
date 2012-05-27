@@ -48,6 +48,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/src/EWSMOneLoopEW.o \
 	${OBJECTDIR}/src/CKM.o \
 	${OBJECTDIR}/src/EWSMThreeLoopEW.o \
+	${OBJECTDIR}/src/NewPhysicsSTU.o \
 	${OBJECTDIR}/src/Meson.o \
 	${OBJECTDIR}/src/EWSMThreeLoopQCD.o \
 	${OBJECTDIR}/src/EWSMApproximateFormulae.o
@@ -160,6 +161,11 @@ ${OBJECTDIR}/src/EWSMThreeLoopEW.o: src/EWSMThreeLoopEW.cpp
 	${MKDIR} -p ${OBJECTDIR}/src
 	${RM} $@.d
 	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSMThreeLoopEW.o src/EWSMThreeLoopEW.cpp
+
+${OBJECTDIR}/src/NewPhysicsSTU.o: src/NewPhysicsSTU.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	${RM} $@.d
+	$(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/NewPhysicsSTU.o src/NewPhysicsSTU.cpp
 
 ${OBJECTDIR}/src/Meson.o: src/Meson.cpp 
 	${MKDIR} -p ${OBJECTDIR}/src
@@ -462,6 +468,19 @@ ${OBJECTDIR}/src/EWSMThreeLoopEW_nomain.o: ${OBJECTDIR}/src/EWSMThreeLoopEW.o sr
 	    $(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/EWSMThreeLoopEW_nomain.o src/EWSMThreeLoopEW.cpp;\
 	else  \
 	    ${CP} ${OBJECTDIR}/src/EWSMThreeLoopEW.o ${OBJECTDIR}/src/EWSMThreeLoopEW_nomain.o;\
+	fi
+
+${OBJECTDIR}/src/NewPhysicsSTU_nomain.o: ${OBJECTDIR}/src/NewPhysicsSTU.o src/NewPhysicsSTU.cpp 
+	${MKDIR} -p ${OBJECTDIR}/src
+	@NMOUTPUT=`${NM} ${OBJECTDIR}/src/NewPhysicsSTU.o`; \
+	if (echo "$$NMOUTPUT" | ${GREP} '|main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T main$$') || \
+	   (echo "$$NMOUTPUT" | ${GREP} 'T _main$$'); \
+	then  \
+	    ${RM} $@.d;\
+	    $(COMPILE.cc) -O2 -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -I. -Dmain=__nomain -MMD -MP -MF $@.d -o ${OBJECTDIR}/src/NewPhysicsSTU_nomain.o src/NewPhysicsSTU.cpp;\
+	else  \
+	    ${CP} ${OBJECTDIR}/src/NewPhysicsSTU.o ${OBJECTDIR}/src/NewPhysicsSTU_nomain.o;\
 	fi
 
 ${OBJECTDIR}/src/Meson_nomain.o: ${OBJECTDIR}/src/Meson.o src/Meson.cpp 
