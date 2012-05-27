@@ -40,12 +40,12 @@ double EW::Qq(const StandardModel::quark q) const {
 
 
 double EW::s2() const {
-    return ( 1.0 - c2() );
+    return ( SM.s02() );
 }
 
 
 double EW::c2() const {
-    return ( SM.Mw_tree()*SM.Mw_tree()/SM.getMz()/SM.getMz() );
+    return ( SM.c02() );
 }
 
 

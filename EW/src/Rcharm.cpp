@@ -10,7 +10,7 @@ Rcharm::Rcharm(const EW& EW_i) : ThObservable(EW_i) {
     R0_c = EW_i.Gamma_q(SM.CHARM)/EW_i.Gamma_had();
 
     if ( EW_i.checkModelForSTU() ) {
-        double alpha = EW_i.getSM().getAle();
+        double alpha = EW_i.getSM().alphaMz();
         double c2 = EW_i.c2();
         double s2 = EW_i.s2();
         double s4 = s2*s2;
