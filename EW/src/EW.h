@@ -50,12 +50,12 @@ public:
     double Qq(const StandardModel::quark q) const;    
 
     /**
-     * @return the tree-level sin^2\theta_W
+     * @return sin^2\theta_W without weak corrections, but with \alpha(Mz^2)
      */
     double s2() const;
-    
+
     /**
-     * @return the tree-level cos^2\theta_W
+     * @return cos^2\theta_W without weak corrections, but with \alpha(Mz^2)
      */
     double c2() const;
 

@@ -10,7 +10,7 @@ Mw::Mw(const EW& EW_i) : ThObservable(EW_i) {
     myMw = EW_i.getSM().Mw();    
 
     if ( EW_i.checkModelForSTU() ) {
-        double alpha = EW_i.getSM().getAle();
+        double alpha = EW_i.getSM().alphaMz();
         double c = sqrt(EW_i.c2());
         double c2 = EW_i.c2();
         double s2 = EW_i.s2();

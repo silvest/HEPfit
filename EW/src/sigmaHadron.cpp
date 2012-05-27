@@ -10,7 +10,7 @@ sigmaHadron::sigmaHadron(const EW& EW_i) : ThObservable(EW_i) {
     sigma_had = EW_i.sigma0_had();
 
     if ( EW_i.checkModelForSTU() ) {
-        double alpha = EW_i.getSM().getAle();
+        double alpha = EW_i.getSM().alphaMz();
         double Mz = EW_i.getSM().getMz();
         double c2 = EW_i.c2();
         double s2 = EW_i.s2();
