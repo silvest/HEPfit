@@ -166,24 +166,25 @@ complex PVfunctions::B22(const double mu, const double p2,
     if(p2 == 0.){
         if(m02 != 0. && m12 != 0.){
             if(fabs(m02 - m12) < LEPS){
-                B22 =  m02 / 2. * (- log(m02 / mu2) + 1.);
+                B22 = - m02 / 2. * (- log(m02 / mu2) + 1.);
             } else {
-                B22 =  1. / 4. * (m02 + m12) * (- log(m0 * m1 / mu2) + 1.5) 
-                      - (m02 * m02 + m12 * m12) / 8. / (m02 - m12) * log(m02 / m12);  
+                B22 = - 1. / 4. * (m02 + m12) * (- log(m0 * m1 / mu2) + 1.5) 
+                      + (m02 * m02 + m12 * m12) / 8. / (m02 - m12) * log(m02 / m12);  
             }             
         } else
             throw "PVfunctions::B22() is undefined."; 
     } else {
         if(m0 != 0. && m1 != 0.){
             if(fabs(m02 - m12) < LEPS){
-              B22 =  (6. * m02 - p2) / 18. - A0(mu,m0) /6. 
-                    - (p2 - 4. * m02) / 12. * B0(mu,p2,m0,m1);  
+              B22 = - (6. * m02 - p2) / 18. + A0(mu,m0) /6. 
+                    + (p2 - 4. * m02) / 12. * B0(mu,p2,m0,m1);  
             } else {
-              B22 =  (3. * (m02 + m12) - p2) / 18. 
-                    - (DeltaM2 + p2) / 12. / p2 * A0(mu,m0) 
-                    + (DeltaM2 - p2) / 12. / p2 * A0(mu,m1) 
-                    - (- m02 - m12 + p2 / 2. 
-                       + (DeltaM2 * DeltaM2) / 2. / p2) * B0(mu,p2,m0,m1) / 6.;                
+              B22 = - (3. * (m02 + m12) - p2) / 18. 
+                    + (DeltaM2 + p2) / 12. / p2 * A0(mu,m0) 
+                    - (DeltaM2 - p2) / 12. / p2 * A0(mu,m1) 
+                    + (- m02 - m12 + p2 / 2. 
+                       + (DeltaM2 * DeltaM2) / 2. / p2) * B0(mu,p2,m0,m1) / 6.
+                      ;                
             }
         } else
             throw "PVfunctions::B22() is undefined."; 
