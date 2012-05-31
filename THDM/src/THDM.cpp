@@ -6,12 +6,12 @@
  */
 
 #include "THDM.h"
-#include "THDMcache.h"
+//#include "THDMcache.h"
 
 const std::string THDM::THDMvars[NTHDMvars] = {"mHp","sin_ba","lambda6","lambda7","mA","m12_2","tanb","mH"};
 
-THDM::THDM() : StandardModel() {   
-    mycache = new THDMcache(*this);
+THDM::THDM() : StandardModel(), mycache() {   
+    //mycache = new THDMcache(*this);
 }
 
 void THDM::Update(const std::map<std::string, double>& DPars) {
@@ -51,8 +51,15 @@ void THDM::Update(const std::map<std::string, double>& DPars) {
 void THDM::SetParameter(const std::string name, const double& value){    
     if(name.compare("mHp") == 0)
         mHp = value;
-    else if(name.compare("tanb") == 0)
+    else if(name.compare("tanb") == 0) {
         tanb = value;
+        if(tanb > 0.){
+        sinb = tanb / sqrt(1. + tanb*tanb);
+        cosb = 1. / sqrt(1. + tanb*tanb);}
+        else {
+            throw "error in THDM::SetParameter, tanb < 0!";
+          }
+        } 
     else if(name.compare("sin_ba") == 0)
         sin_ba = value;
     else if(name.compare("lambda6") == 0)
@@ -84,15 +91,7 @@ bool THDM::CheckParameters(const std::map<std::string, double>& DPars) {
     return(StandardModel::CheckParameters(DPars));
 }
 
-void THDM::SetSinb(double sinb){
-    sinb = tanb / sqrt(1. + tanb*tanb);
-    this->sinb = sinb;
-}
 
-void THDM::SetCosb(double sinb){
-    cosb = 1. / sqrt(1. + tanb*tanb);
-    this->cosb = cosb;
-}
 
 double THDM::v1() {
     return v() * cosb;
@@ -106,19 +105,29 @@ double THDM::v2() {
 
 double THDM::obliqueS(){
   
-    mh = mHl;
+    double Mz2;
+    complex B22prime_Mz_Mz2_mH_mA;
+    complex B22prime_Mz_Mz2_mHp_mHp;
+    complex B22prime_Mz_Mz2_mh_mA;
+    complex B22prime_Mz_Mz2_Mz_mH;
+    complex B22prime_Mz_Mz2_Mz_mh;
+    
+    complex B0prime_Mz_Mz2_Mz_mH;
+    complex B0prime_Mz_Mz2_Mz_mh;
+    
+    double mh = mHl;
     Mz2 = Mz*Mz;
     DeltaS = 0.0;
     sin2_ba = sin_ba*sin_ba;
     cos2_ba = 1. - sin2_ba;
     
-    B22prime_Mz_Mz2_mH_mA = - mycache->B22_Mz_Mz2_mH_mA(Mz,mH,mA) + mycache->B22_Mz_0_mH_mA(Mz,mH,mA);
-    B22prime_Mz_Mz2_mHp_mHp = - mycache->B22_Mz_Mz2_mHp_mHp(Mz,mHp) + mycache->B22_Mz_0_mHp_mHp(Mz,mHp);
-    B22prime_Mz_Mz2_mh_mA = - mycache->B22_Mz_Mz2_mh_mA(Mz,mh,mA) + mycache->B22_Mz_0_mh_mA(Mz,mh,mA);
-    B22prime_Mz_Mz2_Mz_mH = - mycache->B22_Mz_Mz2_Mz_mH(Mz,mH) + mycache->B22_Mz_0_Mz_mH(Mz,mH);
-    B22prime_Mz_Mz2_Mz_mh = - mycache->B22_Mz_0_Mz_mh(Mz,mh) + mycache->B22_Mz_0_Mz_mh(Mz,mh);
-    B0prime_Mz_Mz2_Mz_mH = - mycache->B0_Mz_Mz2_Mz_mH(Mz,mH) + mycache->B0_Mz_0_Mz_mH(Mz,mH);
-    B0prime_Mz_Mz2_Mz_mh = - mycache->B0_Mz_Mz2_Mz_mh(Mz,mh) + mycache->B0_Mz_0_Mz_mh(Mz,mh);
+    B22prime_Mz_Mz2_mH_mA = - mycache.B22_Mz_Mz2_mH_mA(Mz,mH,mA) + mycache.B22_Mz_0_mH_mA(Mz,mH,mA);
+    B22prime_Mz_Mz2_mHp_mHp = - mycache.B22_Mz_Mz2_mHp_mHp(Mz,mHp) + mycache.B22_Mz_0_mHp_mHp(Mz,mHp);
+    B22prime_Mz_Mz2_mh_mA = - mycache.B22_Mz_Mz2_mh_mA(Mz,mh,mA) + mycache.B22_Mz_0_mh_mA(Mz,mh,mA);
+    B22prime_Mz_Mz2_Mz_mH = - mycache.B22_Mz_Mz2_Mz_mH(Mz,mH) + mycache.B22_Mz_0_Mz_mH(Mz,mH);
+    B22prime_Mz_Mz2_Mz_mh = - mycache.B22_Mz_0_Mz_mh(Mz,mh) + mycache.B22_Mz_0_Mz_mh(Mz,mh);
+    B0prime_Mz_Mz2_Mz_mH = mycache.B0_Mz_Mz2_Mz_mH(Mz,mH) - mycache.B0_Mz_0_Mz_mH(Mz,mH);
+    B0prime_Mz_Mz2_Mz_mh = mycache.B0_Mz_Mz2_Mz_mh(Mz,mh) - mycache.B0_Mz_0_Mz_mh(Mz,mh);
     
     DeltaS = 1./Mz2/M_PI*(sin2_ba * B22prime_Mz_Mz2_mH_mA.real() - B22prime_Mz_Mz2_mHp_mHp.real()
            + cos2_ba * (B22prime_Mz_Mz2_mh_mA.real() + B22prime_Mz_Mz2_Mz_mH.real() 
@@ -131,23 +140,31 @@ double THDM::obliqueS(){
 
 double THDM::obliqueT(){
     
-    mh = mHl;
+    double Mz2;
+    complex B0_Mz_0_Mz_mH;
+    complex B0_Mz_0_Mz_mh;
+    complex B0_Mz_0_Mw_mH;
+    complex B0_Mz_0_Mw_mh;    
+    
+    
+    double M_w = Mw();
+    double mh = mHl;
     Mz2 = Mz*Mz;
-    Mw2 = Mw_tree()*Mw_tree();
+    Mw2 = M_w*M_w;
     sin2_ba = sin_ba*sin_ba;
     cos2_ba = 1. - sin2_ba;
-    s_02 = s02(); 
+    s_W2 = sW2(); 
     
-    B0_Mz_0_Mw_mH = mycache->B0_Mz_0_Mw_mH(Mz,Mw_tree(),mH);
-    B0_Mz_0_Mz_mH = mycache->B0_Mz_0_Mz_mH(Mz,mH);
-    B0_Mz_0_Mz_mh = mycache->B0_Mz_0_Mw_mh(Mz,Mw_tree(),mh);
-    B0_Mz_0_Mw_mh = mycache->B0_Mz_0_Mw_mh(Mz,Mw_tree(),mh); 
+    B0_Mz_0_Mw_mH = mycache.B0_Mz_0_Mw_mH(Mz,M_w,mH);
+    B0_Mz_0_Mz_mH = mycache.B0_Mz_0_Mz_mH(Mz,mH);
+    B0_Mz_0_Mz_mh = mycache.B0_Mz_0_Mw_mh(Mz,M_w,mh);
+    B0_Mz_0_Mw_mh = mycache.B0_Mz_0_Mw_mh(Mz,M_w,mh); 
     
     DeltaT = 0.0;
   
-    DeltaT = 1. / 16. / M_PI / Mw2 / s_02 * (PV.F(mHp,mA)
+    DeltaT = 1. / 16. / M_PI / Mw2 / s_W2 * (PV.F(mHp,mA)
            + sin2_ba * (PV.F(mHp,mH) - PV.F(mA,mH)) + cos2_ba * (PV.F(mHp,mh) 
-           - PV.F(mA,mh) + PV.F(Mw_tree(),mH) - PV.F(Mw_tree(),mh) - PV.F(Mz,mH) 
+           - PV.F(mA,mh) + PV.F(M_w,mH) - PV.F(M_w,mh) - PV.F(Mz,mH) 
            + PV.F(Mz,mh) + 4. * Mz2 * (B0_Mz_0_Mz_mH.real() - B0_Mz_0_Mz_mh.real()) 
            - 4. * Mw2 * (B0_Mz_0_Mw_mH.real() - B0_Mz_0_Mw_mh.real()))); 
      
@@ -156,21 +173,32 @@ double THDM::obliqueT(){
 
 double THDM::obliqueU(){
     
-    mh = mHl;
+    double Mz2;
+    complex B22prime_Mz_Mw2_mA_mHp;
+    complex B22prime_Mz_Mw2_mHp_mHp;
+    complex B22prime_Mz_Mw2_mH_mHp;
+    complex B22prime_Mz_Mw2_mh_mHp;
+    complex B22prime_Mz_Mw2_Mw_mH;
+    complex B22prime_Mz_Mw2_Mw_mh;
+    
+    complex B0prime_Mz_Mw2_Mw_mH;
+    complex B0prime_Mz_Mw2_Mw_mh;
+    
+    double M_w = Mw();
+    double mh = mHl;
     Mz2 = Mz*Mz;
-    Mw2 = Mw_tree()*Mw_tree();//tree
-    //s02 = s02(); 
+    Mw2 = M_w*M_w;//
     sin2_ba = sin_ba*sin_ba;
     cos2_ba = 1. - sin2_ba;
       
-    B22prime_Mz_Mw2_mA_mHp = - mycache->B22_Mz_Mw2_mA_mHp(Mz,Mw_tree(),mA,mHp) + mycache->B22_Mz_0_mA_mHp(Mz,mA,mHp);
-    B22prime_Mz_Mw2_mHp_mHp = - mycache->B22_Mz_Mw2_mHp_mHp(Mz,Mw_tree(),mHp) + mycache->B22_Mz_0_mHp_mHp(Mz,mHp);
-    B22prime_Mz_Mw2_mh_mHp = - mycache->B22_Mz_Mw2_mh_mHp(Mz,Mw_tree(),mh,mHp) + mycache->B22_Mz_0_mh_mHp(Mz,mh,mHp);
-    B22prime_Mz_Mw2_Mw_mH = - mycache->B22_Mz_Mw2_Mw_mH(Mz,Mw_tree(),mH) + mycache->B22_Mz_0_Mw_mH(Mz,Mw_tree(),mH);
-    B22prime_Mz_Mw2_Mw_mh = - mycache->B22_Mz_Mw2_Mw_mh(Mz,Mw_tree(),mh) + mycache->B22_Mz_0_Mw_mh(Mz,Mw_tree(),mh);
-    B0prime_Mz_Mw2_Mw_mH = - mycache->B0_Mz_Mw2_Mw_mH(Mz,Mw_tree(),mH) + mycache->B0_Mz_0_Mw_mH(Mz,Mw_tree(),mH);
-    B0prime_Mz_Mw2_Mw_mh = - mycache->B0_Mz_Mw2_Mw_mh(Mz,Mw_tree(),mh) + mycache->B0_Mz_0_Mw_mh(Mz,Mw_tree(),mh);
-    B22prime_Mz_Mw2_mH_mHp = - mycache->B22_Mz_Mw2_mH_mHp(Mz,Mw_tree(),mH,mHp) + mycache->B22_Mz_0_mH_mHp(Mz,mH,mHp);
+    B22prime_Mz_Mw2_mA_mHp = - mycache.B22_Mz_Mw2_mA_mHp(Mz,M_w,mA,mHp) + mycache.B22_Mz_0_mA_mHp(Mz,mA,mHp);
+    B22prime_Mz_Mw2_mHp_mHp = - mycache.B22_Mz_Mw2_mHp_mHp(Mz,M_w,mHp) + mycache.B22_Mz_0_mHp_mHp(Mz,mHp);
+    B22prime_Mz_Mw2_mh_mHp = - mycache.B22_Mz_Mw2_mh_mHp(Mz,M_w,mh,mHp) + mycache.B22_Mz_0_mh_mHp(Mz,mh,mHp);
+    B22prime_Mz_Mw2_Mw_mH = - mycache.B22_Mz_Mw2_Mw_mH(Mz,M_w,mH) + mycache.B22_Mz_0_Mw_mH(Mz,M_w,mH);
+    B22prime_Mz_Mw2_Mw_mh = - mycache.B22_Mz_Mw2_Mw_mh(Mz,M_w,mh) + mycache.B22_Mz_0_Mw_mh(Mz,M_w,mh);
+    B0prime_Mz_Mw2_Mw_mH = mycache.B0_Mz_Mw2_Mw_mH(Mz,M_w,mH) - mycache.B0_Mz_0_Mw_mH(Mz,M_w,mH);
+    B0prime_Mz_Mw2_Mw_mh = mycache.B0_Mz_Mw2_Mw_mh(Mz,M_w,mh) - mycache.B0_Mz_0_Mw_mh(Mz,M_w,mh);
+    B22prime_Mz_Mw2_mH_mHp = - mycache.B22_Mz_Mw2_mH_mHp(Mz,M_w,mH,mHp) + mycache.B22_Mz_0_mH_mHp(Mz,mH,mHp);
     
     DeltaU = 0.0;
     

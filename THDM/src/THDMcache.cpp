@@ -7,7 +7,7 @@
 
 #include "THDMcache.h"
 
-THDMcache::THDMcache(const THDM& THDM_i) : myTHDM(THDM_i) {
+THDMcache::THDMcache() {
 }
 
 
