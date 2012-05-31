@@ -10,7 +10,7 @@
 
 #include <cmath>
 #include <PVfunctions.h>
-#include "THDM.h"
+//#include "THDM.h"
 
 using namespace gslpp;
 
@@ -24,7 +24,7 @@ public:
      * @param[in] SM_i reference to a StandardModel object
      * @param[in] THDM_i reference to a THDM object
      */
-    THDMcache(const THDM& THDM_i);
+    THDMcache();
     
     static const int CacheSize = 5;
 
@@ -47,9 +47,9 @@ public:
     /**
      * @return a reference to the THDM object in THDMcache class
      */
-    const StandardModel& GetTHDM() const {
-        return myTHDM;
-    }
+//   const StandardModel& GetTHDM() const {
+//        return myTHDM;
+//    }
     
     
     
@@ -91,7 +91,7 @@ public:
 private:
 
     const PVfunctions PV;
-    const THDM& myTHDM;
+    //const THDM myTHDM;
     
     
     ////////////////////////////////////////////////////////////////////////////

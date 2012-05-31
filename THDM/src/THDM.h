@@ -10,11 +10,11 @@
 
 #include <StandardModel.h>
 #include <PVfunctions.h>
-//#include "THDMcache.h"
+#include "THDMcache.h"
 
 
 using namespace gslpp;
-class THDMcache; //forward reference to THDMcache class
+//class THDMcache; //forward reference to THDMcache class
 
 /**
  * @class THDM
@@ -58,11 +58,10 @@ public:
     double v2();
     
     ///////////////////////////////////////////////////////////////////////////
-    
-    
-    THDMcache* GetMycache() const {
-        return mycache;
-    }
+
+//    THDMcache GetMycache() const {
+//        return mycache;
+//    }
 
     /**
      *
@@ -104,12 +103,6 @@ public:
         return sinb;
     }
 
-    /**
-     * @brief set tan beta, sin beta and cos beta
-     * @param sinb sin beta
-     */
-    void SetSinb(double sinb);
-    
     /**
      *
      * @return \f$\tan \beta$\f
@@ -237,7 +230,7 @@ public:
     protected: 
     
     virtual void SetParameter(const std::string, const double&);
-    THDMcache* mycache;
+    THDMcache mycache;
 
     private:
         
@@ -247,8 +240,8 @@ public:
     
     double mH, mA, mHp, tanb, sinb, cosb, sin_ba, m12_2, lambda6, lambda7, mh;
     
-    double Mz2;
-    double s_02;//\sin^2(\theta_W)   
+//    double Mz2;
+    double s_W2;//\sin^2(\theta_W)   
     double Mw_i, Mw2;
     double cos2_ba, sin2_ba;   
     
@@ -257,27 +250,27 @@ public:
     ////////////////////////////////////////////////////////////////////////////
     /*One-loop functions*/
     
-    complex B0_Mz_0_Mz_mH;
-    complex B0_Mz_0_Mz_mh;
-    complex B0_Mz_0_Mw_mH;
-    complex B0_Mz_0_Mw_mh;
-    
-    complex B22prime_Mz_Mz2_mH_mA;
-    complex B22prime_Mz_Mz2_mHp_mHp;
-    complex B22prime_Mz_Mz2_mh_mA;
-    complex B22prime_Mz_Mz2_Mz_mH;
-    complex B22prime_Mz_Mz2_Mz_mh;
-    complex B22prime_Mz_Mw2_mA_mHp;
-    complex B22prime_Mz_Mw2_mHp_mHp;
-    complex B22prime_Mz_Mw2_mH_mHp;
-    complex B22prime_Mz_Mw2_mh_mHp;
-    complex B22prime_Mz_Mw2_Mw_mH;
-    complex B22prime_Mz_Mw2_Mw_mh;
-    
-    complex B0prime_Mz_Mz2_Mz_mH;
-    complex B0prime_Mz_Mz2_Mz_mh;
-    complex B0prime_Mz_Mw2_Mw_mH;
-    complex B0prime_Mz_Mw2_Mw_mh;
+//    complex B0_Mz_0_Mz_mH;
+//    complex B0_Mz_0_Mz_mh;
+//    complex B0_Mz_0_Mw_mH;
+//    complex B0_Mz_0_Mw_mh;
+//    
+//    complex B22prime_Mz_Mz2_mH_mA;
+//    complex B22prime_Mz_Mz2_mHp_mHp;
+//    complex B22prime_Mz_Mz2_mh_mA;
+//    complex B22prime_Mz_Mz2_Mz_mH;
+//    complex B22prime_Mz_Mz2_Mz_mh;
+//    complex B22prime_Mz_Mw2_mA_mHp;
+//    complex B22prime_Mz_Mw2_mHp_mHp;
+//    complex B22prime_Mz_Mw2_mH_mHp;
+//    complex B22prime_Mz_Mw2_mh_mHp;
+//    complex B22prime_Mz_Mw2_Mw_mH;
+//    complex B22prime_Mz_Mw2_Mw_mh;
+//    
+//    complex B0prime_Mz_Mz2_Mz_mH;
+//    complex B0prime_Mz_Mz2_Mz_mh;
+//    complex B0prime_Mz_Mw2_Mw_mH;
+//    complex B0prime_Mz_Mw2_Mw_mh;
     
     
 };
