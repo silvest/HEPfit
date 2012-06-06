@@ -5,15 +5,6 @@
  * Created on February 17, 2011, 2:13 PM
  */
 
-#include <cstdlib>
-#include <iostream>
-#include <iomanip>
-#include <cstring>
-#include <cmath>
-#include <map>
-
-
-
 #include <iostream>
 #include <stdlib.h>
 #include <math.h>
@@ -217,46 +208,61 @@ double QCD::Beta2(double nf) const{
     return (2857./2.-5033./18.*nf+325./54.*nf*nf);
 }
 
-double QCD::Thresholds(int i) const
-{
-    if(!(mut > mub && mub > muc)) {
+double QCD::Thresholds(int i, orders order) const {
+    double mut_TMP, mub_TMP, muc_TMP; 
+    switch(order) {
+        case LO:    
+        case FULLNLO:
+        case NLO:
+            mut_TMP = mut;
+            mub_TMP = mub;             
+            muc_TMP = muc;           
+            break;
+        case FULLNNLO:
+        case NNLO:
+            mut_TMP = Mp2Mbar(mtpole); // NNLO codes should be implemented!!!
+            mub_TMP = getQuarks(BOTTOM).getMass();
+            muc_TMP = getQuarks(CHARM).getMass();            
+            break;
+    }
+    
+    if(!(mut_TMP > mub_TMP && mub_TMP > muc_TMP)) {
         std::cout << "inverted thresholds!" << std::endl;
         exit(EXIT_FAILURE);
     }
     switch(i) {
         case 0: return(1.0E10);
-        case 1: return(mut);
-        case 2: return(mub);
-        case 3: return(muc);
-        case 4: return(1.);
+        case 1: return(mut_TMP);
+        case 2: return(mub_TMP);
+        case 3: return(muc_TMP);
         default: return(0.);
     }
 }
 
-double QCD::Nf(double mu) const {
+double QCD::Nf(double mu, orders order) const {
     int i;
 
     for(i=1; i<5; i++)
-        if(mu >= Thresholds(i))
+        if(mu >= Thresholds(i,order))
             return(7.-i);
     std::cout << "error in QCD::Nf" << std::endl;
     exit(EXIT_FAILURE);
 }
 
-double QCD::AboveTh(double mu) const {
+double QCD::AboveTh(double mu, orders order) const {
     int i;
 
     for(i=4; i>=0; i--)
-        if(mu < Thresholds(i)) return(Thresholds(i));
+        if(mu < Thresholds(i,order)) return(Thresholds(i,order));
 
     exit(EXIT_FAILURE);
 }
 
-double QCD::BelowTh(double mu) const {
+double QCD::BelowTh(double mu, orders order) const {
   int i;
 
   for(i=0; i<5; i++)
-    if(mu >= Thresholds(i)) return(Thresholds(i));
+    if(mu >= Thresholds(i,order)) return(Thresholds(i,order));
 
   exit(EXIT_FAILURE);
 }
@@ -300,82 +306,31 @@ double QCD::Als(double mu, double nf, double alsi, double mi, orders order) cons
 }
 
 double QCD::Als(double mu, double nfmu, orders order) const {
-    double nfz = Nf(Mz), m, nfs;
-    double x,y,z;
-    double Lambda6 = 0.;
-    double Lambda4_TMP = 0.;
-    double Lambda3 = 0.;
+    double nfz = Nf(Mz,order), m, nfs;
+    if(nfmu == nfz) 
+        return(Als(mu, nfmu, AlsMz, Mz, order));
 
-    if(nfmu == nfz) return(Als(mu, Lambda5(order), nfmu, order));
-    if(nfmu > nfz) {
-//        m = BelowTh(mu);
-//        nfs = nfmu-1;
-        
-        double mt = quarks[5].getMass();
-        double lh = log(mt*mt/Lambda5(order)/Lambda5(order));
-        y = Beta1(6)/Beta0(6);
-        z = Beta1(5)/Beta0(5);
-        
-        x = 1./2./Beta0(6)*((Beta0(6) - Beta0(5))*lh + (y - z)*log(lh) 
-           - y*log(Beta0(6)/Beta0(5)) + 1./Beta0(5)/lh*(z*(y - z)*log(lh) 
-           + y*y - z*z - Beta2(6)/Beta0(6) + Beta2(5)/Beta0(5) - 11./72.)) 
-           + log(Lambda5(order));
-
-        Lambda6 = exp(x);
-//         std::cout << std::left 
-//             << std::setw(15) << "Lambda6new = " 
-//             << std::setw(15) << Lambda6 << std::endl;
-        
-        return Als(mu, Lambda6, nfmu, order);
-    } else if(nfmu < nfz){
-        
-        y = Beta1(4)/Beta0(4);
-        z = Beta1(5)/Beta0(5);
-        double mb = quarks[BOTTOM].getMass();
-        double lh4 = log(mb*mb/Lambda5(order)/Lambda5(order));
-        std::cout << std::left 
-             << std::setw(15) << "lh4 = " 
-             << std::setw(15) << lh4 << "\t" << order << std::endl;
-        
-        x = 1./2./Beta0(4)*((Beta0(4) - Beta0(5))*lh4 + (y - z)*log(lh4) 
-           - y*log(Beta0(4)/Beta0(5)) + 1./Beta0(5)/lh4*(z*(y - z)*log(lh4) 
-           + y*y - z*z - Beta2(4)/Beta0(4) + Beta2(5)/Beta0(5) + 11.*16./72.)) 
-           + log(Lambda5(order));
-        
-        
-        Lambda4_TMP = exp(x);
-        std::cout << std::left 
-             << std::setw(15) << "Lambda4new = " 
-             << std::setw(15) << Lambda4_TMP << "\t" << order << std::endl;
-        
-        double mc = quarks[CHARM].getMass();
-        double x3;
-        double y3 = Beta1(3)/Beta0(3);
-        double z3 = Beta1(4)/Beta0(4);
-        double lh3 = log(mc*mc/Lambda4_TMP/Lambda4_TMP);
-    
-        x3 = 1./2./Beta0(3)*((Beta0(3) - Beta0(4))*lh3 + (y3 - z3)*log(lh3) 
-          - y3*log(Beta0(3)/Beta0(4)) + 1./Beta0(4)/lh3*(z3*(y3 - z3)*log(lh3) 
-          + y3*y3 - z3*z3 - Beta2(3)/Beta0(3) + Beta2(4)/Beta0(4) + 11.*16./72.)) 
-          + log(Lambda4_TMP);
-
-        Lambda3 = exp(x3);
-       std::cout << std::left 
-            << std::setw(15) << "Lambda3new = " 
-            << std::setw(15) << Lambda3 << std::endl;
-        
-        
-        if(nfmu == 4){
-            return Als(mu, Lambda4_TMP, nfmu, order);
-        } else if (nfmu == 3){
-            return Als(mu, Lambda3, nfmu, order);
-        }
-//        m = AboveTh(mu);
-//        nfs = nfmu+1;
+    switch (order) {
+        case LO:
+        case FULLNLO:
+        case NLO:
+            if(nfmu > nfz) {
+                m = BelowTh(mu,order);
+                nfs = nfmu - 1.;
+            } else {
+                m = AboveTh(mu,order);
+                nfs = nfmu + 1.;
+            }
+            return(Als(mu, nfmu, Als(m, nfs, order), m, order));  
+        case FULLNNLO:
+        case NNLO:
+            return Als(mu, Lambda(mu, FULLNNLO), nfmu, order);
+        default:
+            throw "Error in QCD::Als(mu,nfmu,order)";
     }
-    //return(Als(mu, nfmu, Als(m, nfs, order), m, order));
 }
-            
+
+
 void QCD::CacheShift(double cache[][5], int n) const {
     int i,j;
     for(i=4;i>0;i--)
@@ -385,7 +340,7 @@ void QCD::CacheShift(double cache[][5], int n) const {
 
 double QCD::Als(double mu, orders order) const {
     //int i;
-    return Als(mu, Nf(mu), order);
+    return Als(mu, Nf(mu,order), order);
 //    for(i=0;i<5;i++)
 //        if((mu ==  als_cache[0][i]) && (order == als_cache[1][i]) &&
 //                (AlsMz == als_cache[2][i]) && (Mz == als_cache[3][i]))
@@ -401,60 +356,17 @@ double QCD::Als(double mu, orders order) const {
 //    return(als_cache[4][0]);
 }
 
-double QCD::Zero(double *x, double *y) const {
-    return(Als(mub, *x, 4., (orders) *y) - Als(mub, (orders) *y));
-}
 
 double QCD::ZeroNf5(double *x, double *y)const{
     return(Als(Mz,*x,5.,(orders) *y)-AlsMz);
 }
 
 
-double QCD::Lambda4(orders order) const {
-
-    if(order!=LO && order!=FULLNLO){
-        std::cerr<< "error in order selection in lambda4" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-
-    int i;
-    double alsmub = Als(mub,order);
-    for(i=0;i<5;i++)
-        if(alsmub ==  lambda4_cache[0][i])
-            return lambda4_cache[1][i];
-
-    CacheShift(lambda4_cache,2);
-    lambda4_cache[0][0] = alsmub;
-
-    double xmin = 0.01, xmax = 0.8;
-    TF1 f = TF1("f",this,&QCD::Zero,xmin,xmax,1,"QCD","zero");
-
-    ROOT::Math::WrappedTF1 wf1(f);
-    double ledouble = order;
-    wf1.SetParameters(&ledouble);
-
-    ROOT::Math::BrentRootFinder brf;
-    brf.SetFunction( wf1, xmin, xmax );
-
-    if(brf.Solve()) lambda4_cache[1][0]=brf.Root();
-    else {
-        std::cerr << "error in QCD::findroot" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-    return(lambda4_cache[1][0]);
-}
-
-
 double QCD::Lambda5(orders order) const {
+    if(order!=LO && order!=FULLNLO && order!=FULLNNLO)
+        throw"error in order selection in QCD::Lambda5()";
 
-    if(order!=LO && order!=FULLNLO && order!=FULLNNLO){
-        std::cerr<< "error in order selection in lambda5" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-
-    int i;
-    //double alsmub = Als(mub,order);
-    for(i=0;i<5;i++)
+    for(int i=0; i<5; i++)
         if(AlsMz ==  lambda5_cache[0][i])
             return lambda5_cache[1][i];
 
@@ -472,12 +384,69 @@ double QCD::Lambda5(orders order) const {
     brf.SetFunction( wf1, xmin, xmax );
 
     if(brf.Solve()) lambda5_cache[1][0]=brf.Root();
-    else {
-        std::cerr << "error in QCD::findroot" << std::endl;
-        exit(EXIT_FAILURE);
-    }
+    else
+        throw "error in QCD::Lambda5()";
+
     return(lambda5_cache[1][0]);
 }
+
+
+double QCD::Lambda(double mu, orders order) const {
+    if(order!=LO && order!=FULLNLO && order!=FULLNNLO)
+        throw "Error in QCD::Lambda()";
+    
+    double nfmu, nfs, m, LambdaORG, LambdaTMP;
+    double lh, y, z, x;
+    
+    if (Nf(mu,order)==5.) 
+        return Lambda5(order);
+    else if (Nf(mu,order)==6.) {
+        m = BelowTh(mu,order);
+        lh = log(m*m/Lambda5(order)/Lambda5(order));
+        y = Beta1(6.)/Beta0(6.);
+        z = Beta1(5.)/Beta0(5.);
+        x = 1./2./Beta0(6.)*((Beta0(6.) - Beta0(5.))*lh + (y - z)*log(lh) 
+            - y*log(Beta0(6.)/Beta0(5.)) + 1./Beta0(5.)/lh*(z*(y - z)*log(lh) 
+            + y*y - z*z - Beta2(6.)/Beta0(6.) + Beta2(5.)/Beta0(5.) - 11.*16./72.)) 
+            + log(Lambda5(order));
+        LambdaTMP = exp(x);
+    } else if (Nf(mu,order)==4. || Nf(mu,order)==3.) { 
+        nfmu = 4.;
+        nfs = nfmu + 1.;
+        if (Nf(mu,order)==4.)
+            m = AboveTh(mu,order);
+        else 
+            m = Thresholds(2,order);
+            
+        LambdaORG = Lambda5(order);
+        lh = log(m*m/LambdaORG/LambdaORG);
+        y = Beta1(nfmu)/Beta0(nfmu);
+        z = Beta1(nfs)/Beta0(nfs);
+        x = 1./2./Beta0(nfmu)*((Beta0(nfmu) - Beta0(nfs))*lh + (y - z)*log(lh) 
+            - y*log(Beta0(nfmu)/Beta0(nfs)) + 1./Beta0(nfs)/lh*(z*(y - z)*log(lh) 
+            + y*y - z*z - Beta2(nfmu)/Beta0(nfmu) + Beta2(nfs)/Beta0(nfs) + 11.*16./72.)) 
+            + log(LambdaORG);
+        LambdaTMP = exp(x);
+        if (Nf(mu,order)==3.) { 
+            nfmu = 3.;
+            nfs = nfmu +1.;
+            m = AboveTh(mu,order);
+            LambdaORG = LambdaTMP;
+            lh = log(m*m/LambdaORG/LambdaORG);
+            y = Beta1(nfmu)/Beta0(nfmu);
+            z = Beta1(nfs)/Beta0(nfs);
+            x = 1./2./Beta0(nfmu)*((Beta0(nfmu) - Beta0(nfs))*lh + (y - z)*log(lh) 
+                - y*log(Beta0(nfmu)/Beta0(nfs)) + 1./Beta0(nfs)/lh*(z*(y - z)*log(lh) 
+                + y*y - z*z - Beta2(nfmu)/Beta0(nfmu) + Beta2(nfs)/Beta0(nfs) + 11.*16./72.)) 
+                + log(LambdaORG);
+            LambdaTMP = exp(x);
+        }
+    } else
+        throw "Error in QCD::Lambda()";
+
+    return ( LambdaTMP );
+}
+
 
 
 // running da m(m) a m(mu)
@@ -497,16 +466,16 @@ double QCD::Mrun(double mu_f, double mu_i, double m, orders order) const
             return mrun_cache[5][i];
 
     double mx, nfx;
-    double nfi = Nf(mu_i), nff = Nf(mu_f);
+    double nfi = Nf(mu_i,order), nff = Nf(mu_f,order);
 
-    if(nff == nfi || (nff == nfi - 1 && mu_i == AboveTh(mu_f))) 
+    if(nff == nfi || (nff == nfi - 1 && mu_i == AboveTh(mu_f,order))) 
             return(Mrun(mu_f, mu_i, m, nff, order));
     if(nff > nfi) {
-        mx = AboveTh(mu_i);
+        mx = AboveTh(mu_i,order);
         nfx = nfi;
     }
     else {
-        mx = BelowTh(mu_i);
+        mx = BelowTh(mu_i,order);
         nfx = nfi-1;
     }
 

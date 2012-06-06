@@ -75,9 +75,10 @@ public:
     /**
      * the number of active flavour at scale @f$\mu@f$
      * @param mu the scale @f$\mu@f$ in GeV
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return the number of active flavour at scale @f$\mu@f$
      */
-    double Nf(double mu) const;
+    double Nf(double mu, orders order) const;
     /**
      * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
      * @param mu the scale @f$\mu@f$ in GeV
@@ -113,20 +114,13 @@ public:
      */
     double Als(double mu, orders order = FULLNLO) const;
     /**
-     * @f$\Lambda_\mathrm{QCD}@f$ with four active flavours in GeV
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
-     * @return @f$\Lambda_\mathrm{QCD}@f$
-     */
-    double Lambda4(orders order) const;
-    /**
      * @f$\Lambda_\mathrm{QCD}@f$ with five active flavours in GeV
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
+     * @param order (=LO, FULLNLO, FULLNNLO)
      * @return @f$\Lambda_\mathrm{QCD}@f$
      */
     double Lambda5(orders order) const;
+    double Lambda(double mu, orders order) const;  
     
-    
-
     /**
      *
      * @return @f$\alpha_s(Mz)@f$
@@ -354,9 +348,9 @@ public:
         return quarks[i];
     }
 
-    double Thresholds(int i) const;
-    double AboveTh(double mu) const;
-    double BelowTh(double mu) const;
+    double Thresholds(int i, orders order) const;
+    double AboveTh(double mu, orders order) const;
+    double BelowTh(double mu, orders order) const;
     double getCF() const {
         return CF;
     }
@@ -394,7 +388,6 @@ private:
             mp2mbar_cache[4][5], mrun_cache[6][5];
     bool computeFBd, computeBd, computemt;
     double BBsoBBd, FBsoFBd;
-    double Zero(double *x, double *) const;
     double ZeroNf5(double *x, double *) const;
     double Mp2Mbara(double * mu, double * mp) const;
     void CacheShift(double cache[][5], int n) const;
