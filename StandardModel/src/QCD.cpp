@@ -395,51 +395,27 @@ double QCD::Lambda(double mu, orders order) const {
     if(order!=LO && order!=FULLNLO && order!=FULLNNLO)
         throw "Error in QCD::Lambda()";
     
-    double nfmu, nfs, m, LambdaORG, LambdaTMP;
-    double lh, y, z, x;
+    /*
+     * Note: This function does not work for LO/FULLNLO. 
+     *       See QCD::Lambda(double muMatching, double nfNEW, double nfORG, 
+     *                       double LambdaORG, orders order). 
+     */
     
+    double muMatching, LambdaORG, LambdaTMP;
     if (Nf(mu,order)==5.) 
         return Lambda5(order);
     else if (Nf(mu,order)==6.) {
-        m = BelowTh(mu,order);
-        lh = log(m*m/Lambda5(order)/Lambda5(order));
-        y = Beta1(6.)/Beta0(6.);
-        z = Beta1(5.)/Beta0(5.);
-        x = 1./2./Beta0(6.)*((Beta0(6.) - Beta0(5.))*lh + (y - z)*log(lh) 
-            - y*log(Beta0(6.)/Beta0(5.)) + 1./Beta0(5.)/lh*(z*(y - z)*log(lh) 
-            + y*y - z*z - Beta2(6.)/Beta0(6.) + Beta2(5.)/Beta0(5.) - 11.*16./72.)) 
-            + log(Lambda5(order));
-        LambdaTMP = exp(x);
-    } else if (Nf(mu,order)==4. || Nf(mu,order)==3.) { 
-        nfmu = 4.;
-        nfs = nfmu + 1.;
-        if (Nf(mu,order)==4.)
-            m = AboveTh(mu,order);
-        else 
-            m = Thresholds(2,order);
-            
+        muMatching = BelowTh(mu,order);
         LambdaORG = Lambda5(order);
-        lh = log(m*m/LambdaORG/LambdaORG);
-        y = Beta1(nfmu)/Beta0(nfmu);
-        z = Beta1(nfs)/Beta0(nfs);
-        x = 1./2./Beta0(nfmu)*((Beta0(nfmu) - Beta0(nfs))*lh + (y - z)*log(lh) 
-            - y*log(Beta0(nfmu)/Beta0(nfs)) + 1./Beta0(nfs)/lh*(z*(y - z)*log(lh) 
-            + y*y - z*z - Beta2(nfmu)/Beta0(nfmu) + Beta2(nfs)/Beta0(nfs) + 11.*16./72.)) 
-            + log(LambdaORG);
-        LambdaTMP = exp(x);
+        LambdaTMP = Lambda(muMatching,6.,5.,LambdaORG,order);
+    } else if (Nf(mu,order)==4. || Nf(mu,order)==3.) { 
+        muMatching = Thresholds(2,order);
+        LambdaORG = Lambda5(order);
+        LambdaTMP = Lambda(muMatching,4.,5.,LambdaORG,order);
         if (Nf(mu,order)==3.) { 
-            nfmu = 3.;
-            nfs = nfmu +1.;
-            m = AboveTh(mu,order);
+            muMatching = Thresholds(3,order);
             LambdaORG = LambdaTMP;
-            lh = log(m*m/LambdaORG/LambdaORG);
-            y = Beta1(nfmu)/Beta0(nfmu);
-            z = Beta1(nfs)/Beta0(nfs);
-            x = 1./2./Beta0(nfmu)*((Beta0(nfmu) - Beta0(nfs))*lh + (y - z)*log(lh) 
-                - y*log(Beta0(nfmu)/Beta0(nfs)) + 1./Beta0(nfs)/lh*(z*(y - z)*log(lh) 
-                + y*y - z*z - Beta2(nfmu)/Beta0(nfmu) + Beta2(nfs)/Beta0(nfs) + 11.*16./72.)) 
-                + log(LambdaORG);
-            LambdaTMP = exp(x);
+            LambdaTMP = Lambda(muMatching,3.,4.,LambdaORG,order);
         }
     } else
         throw "Error in QCD::Lambda()";
@@ -447,6 +423,61 @@ double QCD::Lambda(double mu, orders order) const {
     return ( LambdaTMP );
 }
 
+
+double QCD::Lambda(double muMatching, double nfNEW, double nfORG, 
+                   double LambdaORG, orders order) const {
+    if (fabs(nfNEW-nfORG)!=1.)
+        throw "Error in QCD::Lambda()";
+    
+    /*
+     * Note: This function does not work for LO/FULLNLO, since the 
+     *       matching scale is assumed to be m_b(m_b) and m_c(m_c) here, 
+     *       while they are set to be arbitrary scales mub and muc 
+     *       for LO/FULLNLO in QCD::Thresholds(). 
+     */   
+    
+    double lh = log(muMatching*muMatching/LambdaORG/LambdaORG);
+    double log_lh = 0.0;
+    double rNEW = Beta1(nfNEW)/Beta0(nfNEW);
+    double rORG = Beta1(nfORG)/Beta0(nfORG);    
+    double constant;
+    if (nfNEW < nfORG)
+        constant = 11./72.;
+    else 
+        constant = - 11./72.;                
+        
+    double LogLambda;
+    switch (order) {
+        case LO:
+            LogLambda = 1./2./Beta0(nfNEW)
+                         *(Beta0(nfNEW) - Beta0(nfORG))*lh + log(LambdaORG);
+            break;
+        case FULLNLO:
+            LogLambda = 1./2./Beta0(nfNEW)
+                        *( (Beta0(nfNEW) - Beta0(nfORG))*lh 
+                            + (rNEW - rORG)*log(lh)
+                            - rNEW*log(Beta0(nfNEW)/Beta0(nfORG)) ) 
+                        + log(LambdaORG);
+            break;
+        case FULLNNLO:
+            log_lh = log(lh);
+            LogLambda = 1./2./Beta0(nfNEW)
+                        *( (Beta0(nfNEW) - Beta0(nfORG))*lh 
+                            + (rNEW - rORG)*log_lh 
+                            - rNEW*log(Beta0(nfNEW)/Beta0(nfORG)) 
+                            + 1./Beta0(nfORG)/lh
+                              *( rORG*(rNEW - rORG)*log_lh
+                                 + rNEW*rNEW - rORG*rORG 
+                                 - Beta2(nfNEW)/Beta0(nfNEW) 
+                                 + Beta2(nfORG)/Beta0(nfORG) + 16.*constant ) ) 
+                        + log(LambdaORG);
+            break;
+        default:
+            throw "Error in QCD::Lambda()";
+    }
+    
+    return ( exp( LogLambda ) );
+}
 
 
 // running da m(m) a m(mu)

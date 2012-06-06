@@ -120,6 +120,9 @@ public:
      */
     double Lambda5(orders order) const;
     double Lambda(double mu, orders order) const;  
+    double Lambda(double muMatching, double nfNEW, double nfORG, 
+                  double LambdaORG, orders order) const;
+    
     
     /**
      *
