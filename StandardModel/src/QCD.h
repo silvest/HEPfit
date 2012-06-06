@@ -67,6 +67,12 @@ public:
      */
     double Beta1(double nf) const;
     /**
+     * the @f$\beta_2@f$ coefficient
+     * @param nf the number of active flavours
+     * @return the @f$\beta_2@f$ coefficient
+     */
+    double Beta2(double nf) const;
+    /**
      * the number of active flavour at scale @f$\mu@f$
      * @param mu the scale @f$\mu@f$ in GeV
      * @return the number of active flavour at scale @f$\mu@f$
@@ -112,6 +118,14 @@ public:
      * @return @f$\Lambda_\mathrm{QCD}@f$
      */
     double Lambda4(orders order) const;
+    /**
+     * @f$\Lambda_\mathrm{QCD}@f$ with five active flavours in GeV
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
+     * @return @f$\Lambda_\mathrm{QCD}@f$
+     */
+    double Lambda5(orders order) const;
+    
+    
 
     /**
      *
@@ -376,11 +390,12 @@ protected:
     bool computeYu, computeYd;
 
 private:
-    mutable double als_cache[5][5], lambda4_cache[2][5], mp2mbar_cache[4][5],
-            mrun_cache[6][5];
+    mutable double als_cache[5][5], lambda4_cache[2][5], lambda5_cache[2][5], 
+            mp2mbar_cache[4][5], mrun_cache[6][5];
     bool computeFBd, computeBd, computemt;
     double BBsoBBd, FBsoFBd;
     double Zero(double *x, double *) const;
+    double ZeroNf5(double *x, double *) const;
     double Mp2Mbara(double * mu, double * mp) const;
     void CacheShift(double cache[][5], int n) const;
 };
