@@ -269,21 +269,21 @@ double QCD::BelowTh(double mu, orders order) const {
 
 double QCD::Als(double mu, double lam, double nf, orders order) const {
   double ll = 2.*log(mu/lam);
-  double x = log(ll);
+  double log_ll = log(ll);
   switch(order) {
       case LO:
           return(4.*M_PI/Beta0(nf)/ll);
       case FULLNLO:
-          return(4.*M_PI/Beta0(nf)/ll*(1.-Beta1(nf)*log(ll)/pow(Beta0(nf),2.)/ll));
+          return(4.*M_PI/Beta0(nf)/ll*(1.-Beta1(nf)*log_ll/pow(Beta0(nf),2.)/ll));
       case NLO:
-          return(4.*M_PI/Beta0(nf)/ll*(-Beta1(nf)*log(ll)/pow(Beta0(nf),2.)/ll));
+          return(4.*M_PI/Beta0(nf)/ll*(-Beta1(nf)*log_ll/pow(Beta0(nf),2.)/ll));
       case FULLNNLO:
-          return(4.*M_PI*(1./Beta0(nf)/ll-Beta1(nf)*x/(Beta0(nf)*Beta0(nf)*Beta0(nf)*ll*ll)
+          return(4.*M_PI*(1./Beta0(nf)/ll-Beta1(nf)*log_ll/(Beta0(nf)*Beta0(nf)*Beta0(nf)*ll*ll)
                   +1./(Beta0(nf)*Beta0(nf)*Beta0(nf)*ll*ll*ll)*(Beta1(nf)*Beta1(nf)
-                  /Beta0(nf)/Beta0(nf)*(x*x-x-1.)+Beta2(nf)/Beta0(nf))));
+                  /Beta0(nf)/Beta0(nf)*(log_ll*log_ll-log_ll-1.)+Beta2(nf)/Beta0(nf))));
       case NNLO:
-          return(1./(Beta0(nf)*Beta0(nf)*Beta0(nf)*ll*ll*ll)*(Beta1(nf)*Beta1(nf)
-                  /Beta0(nf)/Beta0(nf)*(x*x-x-1.)+Beta2(nf)/Beta0(nf)));
+          return(4.*M_PI*(1./(Beta0(nf)*Beta0(nf)*Beta0(nf)*ll*ll*ll)*(Beta1(nf)*Beta1(nf)
+                          /Beta0(nf)/Beta0(nf)*(log_ll*log_ll-log_ll-1.)+Beta2(nf)/Beta0(nf))) );
       default:
           std::cerr << "als: order " << order <<" not defined\n" << std::endl;
           exit(EXIT_FAILURE);
@@ -307,14 +307,14 @@ double QCD::Als(double mu, double nf, double alsi, double mi, orders order) cons
 
 double QCD::Als(double mu, double nfmu, orders order) const {
     double nfz = Nf(Mz,order), m, nfs;
-    if(nfmu == nfz) 
-        return(Als(mu, nfmu, AlsMz, Mz, order));
 
     switch (order) {
         case LO:
         case FULLNLO:
         case NLO:
-            if(nfmu > nfz) {
+            if(nfmu == nfz) 
+                return(Als(mu, nfmu, AlsMz, Mz, order));
+            else if(nfmu > nfz) {
                 m = BelowTh(mu,order);
                 nfs = nfmu - 1.;
             } else {
