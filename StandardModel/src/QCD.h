@@ -19,12 +19,14 @@ public:
                            // update StandardModel::lepton if changed!!!!!!
 
     static const int NQCDvars = 42;//26;
+
     /**
      * array containing the labels under which all QCD parameters must be
      * stored in a Parameters object
      */
 
     static const std::string QCDvars[NQCDvars];
+
     /**
      * Constructor for QCD
      * @param a Parameters object that must contain all the labels appearing in QCDvars
@@ -47,8 +49,8 @@ public:
                 als_cache[j][i] = 0.;
             for (int j = 0; j < 6; j++)
                 mrun_cache[j][i] = 0.;
-            for (int j = 0; j < 2; j++)
-                lambda4_cache[j][i] = 0.;
+            for (int j = 0; j < 4; j++)
+                lambda5_cache[j][i] = 0.;
             for (int j = 0; j < 4; j++)
                 mp2mbar_cache[j][i] = 0.;
         }
@@ -60,25 +62,28 @@ public:
      * @return the @f$\beta_0@f$ coefficient
      */
     double Beta0(double nf) const;
+
     /**
      * the @f$\beta_1@f$ coefficient
      * @param nf the number of active flavours
      * @return the @f$\beta_1@f$ coefficient
      */
     double Beta1(double nf) const;
+
     /**
      * the @f$\beta_2@f$ coefficient
      * @param nf the number of active flavours
      * @return the @f$\beta_2@f$ coefficient
      */
     double Beta2(double nf) const;
+
     /**
      * the number of active flavour at scale @f$\mu@f$
      * @param mu the scale @f$\mu@f$ in GeV
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return the number of active flavour at scale @f$\mu@f$
      */
-    double Nf(double mu, orders order) const;
+    double Nf(double mu) const;
+
     /**
      * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
      * @param mu the scale @f$\mu@f$ in GeV
@@ -88,6 +93,7 @@ public:
      * @return @f$\alpha_s@f$
      */
     double Als(double mu, double lam, double nf, orders order) const;
+
     /**
      * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
      * @param mu the scale @f$\mu@f$ in GeV
@@ -98,6 +104,7 @@ public:
      * @return @f$\alpha_s@f$
      */
     double Als(double mu, double nf, double alsi, double mi, orders order) const;
+
     /**
      * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
      * @param mu the scale @f$\mu@f$ in GeV
@@ -106,6 +113,7 @@ public:
      * @return @f$\alpha_s@f$
      */
     double Als(double mu, double nfmu, orders order) const;
+
     /**
      * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
      * @param mu the scale @f$\mu@f$ in GeV
@@ -113,16 +121,18 @@ public:
      * @return @f$\alpha_s@f$
      */
     double Als(double mu, orders order = FULLNLO) const;
+
     /**
      * @f$\Lambda_\mathrm{QCD}@f$ with five active flavours in GeV
      * @param order (=LO, FULLNLO, FULLNNLO)
      * @return @f$\Lambda_\mathrm{QCD}@f$
      */
     double Lambda5(orders order) const;
+
     double Lambda(double mu, orders order) const;  
-    double Lambda(double muMatching, double nfNEW, double nfORG, 
+
+    double Lambda(double muMatching, double mf, double nfNEW, double nfORG, 
                   double LambdaORG, orders order) const;
-    
     
     /**
      *
@@ -257,12 +267,13 @@ public:
      */
     double Mrun(double mu_f, double mu_i, double m, double nf, orders order = FULLNLO) const;
 
-     /**
+    /**
      * convert the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ to the pole mass
      * @param mbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
      * @return the pole mass in GeV
      */
     double Mbar2Mp(double mbar) const;
+
     /**
      * convert the pole mass to the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
      * @param mp the pole mass in GeV
@@ -351,9 +362,12 @@ public:
         return quarks[i];
     }
 
-    double Thresholds(int i, orders order) const;
-    double AboveTh(double mu, orders order) const;
-    double BelowTh(double mu, orders order) const;
+    double Thresholds(int i) const;
+
+    double AboveTh(double mu) const;
+
+    double BelowTh(double mu) const;
+
     double getCF() const {
         return CF;
     }
@@ -387,8 +401,8 @@ protected:
     bool computeYu, computeYd;
 
 private:
-    mutable double als_cache[5][5], lambda4_cache[2][5], lambda5_cache[2][5], 
-            mp2mbar_cache[4][5], mrun_cache[6][5];
+    mutable double als_cache[5][5], lambda5_cache[4][5], 
+                   mp2mbar_cache[4][5], mrun_cache[6][5];
     bool computeFBd, computeBd, computemt;
     double BBsoBBd, FBsoFBd;
     double ZeroNf5(double *x, double *) const;
