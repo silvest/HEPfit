@@ -8,6 +8,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <math.h>
+#include <map>
 #include <gsl/gsl_errno.h>
 #include <gsl/gsl_math.h>
 #include <gsl/gsl_roots.h>
@@ -38,8 +39,7 @@ void QCD::Update(const std::map<std::string, double>& DPars) {
     if(computeBd)
         BBd.setBpars(0, BBs.getBpars()(0)/BBsoBBd);
     if(computemt)
- //       quarks[TOP].setMass(Mp2Mbar(mtpole));
-        quarks[TOP].setMass(175.0);
+        quarks[TOP].setMass(Mp2Mbar(mtpole));
 }
 
 void QCD::SetParameter(const std::string name, const double& value) {
@@ -208,68 +208,54 @@ double QCD::Beta2(double nf) const{
     return (2857./2.-5033./18.*nf+325./54.*nf*nf);
 }
 
-double QCD::Thresholds(int i, orders order) const {
-    double mut_TMP, mub_TMP, muc_TMP; 
-    switch(order) {
-        case LO:    
-        case FULLNLO:
-        case NLO:
-            mut_TMP = mut;
-            mub_TMP = mub;             
-            muc_TMP = muc;           
-            break;
-        case FULLNNLO:
-        case NNLO:
-            mut_TMP = Mp2Mbar(mtpole); // NNLO codes should be implemented!!!
-            mub_TMP = getQuarks(BOTTOM).getMass();
-            muc_TMP = getQuarks(CHARM).getMass();            
-            break;
-    }
-    
-    if(!(mut_TMP > mub_TMP && mub_TMP > muc_TMP)) {
+double QCD::Thresholds(int i) const {
+    if(!(mut > mub && mub > muc)) {
         std::cout << "inverted thresholds!" << std::endl;
         exit(EXIT_FAILURE);
     }
     switch(i) {
         case 0: return(1.0E10);
-        case 1: return(mut_TMP);
-        case 2: return(mub_TMP);
-        case 3: return(muc_TMP);
+        case 1: return(mut);
+        case 2: return(mub);
+        case 3: return(muc);
         default: return(0.);
     }
 }
 
-double QCD::Nf(double mu, orders order) const {
+double QCD::Nf(double mu) const {
     int i;
 
     for(i=1; i<5; i++)
-        if(mu >= Thresholds(i,order))
+        if(mu >= Thresholds(i))
             return(7.-i);
     std::cout << "error in QCD::Nf" << std::endl;
     exit(EXIT_FAILURE);
 }
 
-double QCD::AboveTh(double mu, orders order) const {
+double QCD::AboveTh(double mu) const {
     int i;
 
     for(i=4; i>=0; i--)
-        if(mu < Thresholds(i,order)) return(Thresholds(i,order));
+        if(mu < Thresholds(i)) return(Thresholds(i));
 
     exit(EXIT_FAILURE);
 }
 
-double QCD::BelowTh(double mu, orders order) const {
+double QCD::BelowTh(double mu) const {
   int i;
 
   for(i=0; i<5; i++)
-    if(mu >= Thresholds(i,order)) return(Thresholds(i,order));
+    if(mu >= Thresholds(i)) return(Thresholds(i));
 
   exit(EXIT_FAILURE);
 }
 
 double QCD::Als(double mu, double lam, double nf, orders order) const {
   double ll = 2.*log(mu/lam);
-  double log_ll = log(ll);
+  double log_ll;
+  if (order!=LO)
+      log_ll = log(ll);
+  
   switch(order) {
       case LO:
           return(4.*M_PI/Beta0(nf)/ll);
@@ -278,12 +264,14 @@ double QCD::Als(double mu, double lam, double nf, orders order) const {
       case NLO:
           return(4.*M_PI/Beta0(nf)/ll*(-Beta1(nf)*log_ll/pow(Beta0(nf),2.)/ll));
       case FULLNNLO:
-          return(4.*M_PI*(1./Beta0(nf)/ll-Beta1(nf)*log_ll/(Beta0(nf)*Beta0(nf)*Beta0(nf)*ll*ll)
-                  +1./(Beta0(nf)*Beta0(nf)*Beta0(nf)*ll*ll*ll)*(Beta1(nf)*Beta1(nf)
-                  /Beta0(nf)/Beta0(nf)*(log_ll*log_ll-log_ll-1.)+Beta2(nf)/Beta0(nf))));
+          return(4.*M_PI*(1./Beta0(nf)/ll-Beta1(nf)*log_ll/pow(Beta0(nf)*ll,2.)/Beta0(nf)
+                          + 1./pow(Beta0(nf)*ll, 3.)
+                            *( Beta1(nf)*Beta1(nf)/Beta0(nf)/Beta0(nf)
+                               *(log_ll*log_ll-log_ll-1.) + Beta2(nf)/Beta0(nf) )));
       case NNLO:
-          return(4.*M_PI*(1./(Beta0(nf)*Beta0(nf)*Beta0(nf)*ll*ll*ll)*(Beta1(nf)*Beta1(nf)
-                          /Beta0(nf)/Beta0(nf)*(log_ll*log_ll-log_ll-1.)+Beta2(nf)/Beta0(nf))) );
+          return(4.*M_PI*(1./pow(Beta0(nf)*ll, 3.)
+                         *( Beta1(nf)*Beta1(nf)/Beta0(nf)/Beta0(nf)
+                            *(log_ll*log_ll-log_ll-1.) + Beta2(nf)/Beta0(nf) )));
       default:
           std::cerr << "als: order " << order <<" not defined\n" << std::endl;
           exit(EXIT_FAILURE);
@@ -306,8 +294,11 @@ double QCD::Als(double mu, double nf, double alsi, double mi, orders order) cons
 }
 
 double QCD::Als(double mu, double nfmu, orders order) const {
-    double nfz = Nf(Mz,order), m, nfs;
+    double nfz = Nf(Mz), m, nfs;
 
+    // Note: Threshold correction should be taken into account 
+    //       in the cases of FULLNLO/NLO.
+    
     switch (order) {
         case LO:
         case FULLNLO:
@@ -315,21 +306,20 @@ double QCD::Als(double mu, double nfmu, orders order) const {
             if(nfmu == nfz) 
                 return(Als(mu, nfmu, AlsMz, Mz, order));
             else if(nfmu > nfz) {
-                m = BelowTh(mu,order);
+                m = BelowTh(mu);
                 nfs = nfmu - 1.;
             } else {
-                m = AboveTh(mu,order);
+                m = AboveTh(mu);
                 nfs = nfmu + 1.;
             }
             return(Als(mu, nfmu, Als(m, nfs, order), m, order));  
         case FULLNNLO:
         case NNLO:
-            return Als(mu, Lambda(mu, FULLNNLO), nfmu, order);
+            return(Als(mu, Lambda(mu, FULLNNLO), nfmu, order));
         default:
             throw "Error in QCD::Als(mu,nfmu,order)";
     }
 }
-
 
 void QCD::CacheShift(double cache[][5], int n) const {
     int i,j;
@@ -339,8 +329,10 @@ void QCD::CacheShift(double cache[][5], int n) const {
 }
 
 double QCD::Als(double mu, orders order) const {
-    //int i;
-    return Als(mu, Nf(mu,order), order);
+    return Als(mu, Nf(mu), order);
+
+// Note: Threshold scales should be checked in addition to mu, order, AlsMz and Mz.
+//    int i;
 //    for(i=0;i<5;i++)
 //        if((mu ==  als_cache[0][i]) && (order == als_cache[1][i]) &&
 //                (AlsMz == als_cache[2][i]) && (Mz == als_cache[3][i]))
@@ -356,120 +348,133 @@ double QCD::Als(double mu, orders order) const {
 //    return(als_cache[4][0]);
 }
 
-
 double QCD::ZeroNf5(double *x, double *y)const{
-    return(Als(Mz,*x,5.,(orders) *y)-AlsMz);
+    return ( Als(Mz, *x, 5., (orders) *y) - AlsMz );
 }
-
 
 double QCD::Lambda5(orders order) const {
     if(order!=LO && order!=FULLNLO && order!=FULLNNLO)
-        throw"error in order selection in QCD::Lambda5()";
+        throw "Error in order selection in QCD::Lambda5()";
 
     for(int i=0; i<5; i++)
-        if(AlsMz ==  lambda5_cache[0][i])
-            return lambda5_cache[1][i];
+        if( (AlsMz ==  lambda5_cache[0][i]) && (Mz == lambda5_cache[1][i]) 
+             && ((double)order == lambda5_cache[2][i]) )
+            return lambda5_cache[3][i];
 
-    CacheShift(lambda5_cache,2);
+    CacheShift(lambda5_cache,4);
     lambda5_cache[0][0] = AlsMz;
-
+    lambda5_cache[1][0] = Mz;
+    lambda5_cache[2][0] = (double)order;
+    
+    //------ TEST for NNLO -------------------
+    //double beta05 = Beta0(5.);
+    //double beta15 = Beta1(5.);
+    //double beta25 = Beta2(5.);
+    //double LogLambda5 
+    //         = log(Mz)  
+    //           - 1./2./beta05*( 4.*M_PI/AlsMz + beta15/beta05*log(AlsMz/M_PI) 
+    //                           + (beta25/beta05 - pow(beta15/beta05,2.))*AlsMz/4./M_PI )
+    //           - beta15/2./beta05/beta05*log(beta05/4.);
+    //lambda5_cache[3][0] = exp(LogLambda5);
+    //std::cout << "Als(Mz)= " 
+    //          << Als(Mz, lambda5_cache[3][0], 5., FULLNNLO) << std::endl;// TEST
+    //return ( lambda5_cache[3][0] );
+    //----------------------------------------
+    
     double xmin = 0.01, xmax = 0.8;
     TF1 f = TF1("f",this,&QCD::ZeroNf5,xmin,xmax,1,"QCD","zeroNf5");
 
     ROOT::Math::WrappedTF1 wf1(f);
-    double ledouble = order;
+    double ledouble = (double)order;
     wf1.SetParameters(&ledouble);
 
     ROOT::Math::BrentRootFinder brf;
     brf.SetFunction( wf1, xmin, xmax );
 
-    if(brf.Solve()) lambda5_cache[1][0]=brf.Root();
+    if(brf.Solve()) lambda5_cache[3][0]=brf.Root();
     else
-        throw "error in QCD::Lambda5()";
+        throw "Error in QCD::Lambda5()";
 
-    return(lambda5_cache[1][0]);
+    return ( lambda5_cache[3][0] );
 }
-
 
 double QCD::Lambda(double mu, orders order) const {
     if(order!=LO && order!=FULLNLO && order!=FULLNNLO)
         throw "Error in QCD::Lambda()";
     
-    /*
-     * Note: This function does not work for LO/FULLNLO. 
-     *       See QCD::Lambda(double muMatching, double nfNEW, double nfORG, 
-     *                       double LambdaORG, orders order). 
-     */
-    
-    double muMatching, LambdaORG, LambdaTMP;
-    if (Nf(mu,order)==5.) 
-        return Lambda5(order);
-    else if (Nf(mu,order)==6.) {
-        muMatching = BelowTh(mu,order);
+    double muMatching, mf, LambdaORG, LambdaTMP;
+    if (Nf(mu)==5.) 
+        LambdaTMP = Lambda5(order);
+    else if (Nf(mu)==6.) {
+        muMatching = Thresholds(1);
+        mf = getQuarks(TOP).getMass(); // NNLO codes should be implemented!!!
         LambdaORG = Lambda5(order);
-        LambdaTMP = Lambda(muMatching,6.,5.,LambdaORG,order);
-    } else if (Nf(mu,order)==4. || Nf(mu,order)==3.) { 
-        muMatching = Thresholds(2,order);
+        LambdaTMP = Lambda(muMatching, mf, 6., 5., LambdaORG, order);
+    } else if (Nf(mu)==4. || Nf(mu)==3.) { 
+        muMatching = Thresholds(2);
+        mf = getQuarks(BOTTOM).getMass();
         LambdaORG = Lambda5(order);
-        LambdaTMP = Lambda(muMatching,4.,5.,LambdaORG,order);
-        if (Nf(mu,order)==3.) { 
-            muMatching = Thresholds(3,order);
+        LambdaTMP = Lambda(muMatching, mf, 4., 5., LambdaORG, order);
+        if (Nf(mu)==3.) { 
+            muMatching = Thresholds(3);
+            mf = getQuarks(CHARM).getMass();
             LambdaORG = LambdaTMP;
-            LambdaTMP = Lambda(muMatching,3.,4.,LambdaORG,order);
+            LambdaTMP = Lambda(muMatching, mf, 3., 4., LambdaORG, order);
         }
     } else
         throw "Error in QCD::Lambda()";
 
-    return ( LambdaTMP );
+    return LambdaTMP;
 }
 
-
-double QCD::Lambda(double muMatching, double nfNEW, double nfORG, 
+double QCD::Lambda(double muMatching, double mf, double nfNEW, double nfORG, 
                    double LambdaORG, orders order) const {
     if (fabs(nfNEW-nfORG)!=1.)
         throw "Error in QCD::Lambda()";
     
-    /*
-     * Note: This function does not work for LO/FULLNLO, since the 
-     *       matching scale is assumed to be m_b(m_b) and m_c(m_c) here, 
-     *       while they are set to be arbitrary scales mub and muc 
-     *       for LO/FULLNLO in QCD::Thresholds(). 
-     */   
-    
-    double lh = log(muMatching*muMatching/LambdaORG/LambdaORG);
-    double log_lh = 0.0;
     double rNEW = Beta1(nfNEW)/Beta0(nfNEW);
     double rORG = Beta1(nfORG)/Beta0(nfORG);    
-    double constant;
-    if (nfNEW < nfORG)
-        constant = 11./72.;
-    else 
-        constant = - 11./72.;                
-        
-    double LogLambda;
+    double Lf = log(muMatching*muMatching/LambdaORG/LambdaORG);
+    double log_Lf, log_mu2_mf2;
+    double C1, C2; // threshold corrections        
+    double LogLambda;    
     switch (order) {
         case LO:
             LogLambda = 1./2./Beta0(nfNEW)
-                         *(Beta0(nfNEW) - Beta0(nfORG))*lh + log(LambdaORG);
+                         *(Beta0(nfNEW) - Beta0(nfORG))*Lf + log(LambdaORG);
             break;
         case FULLNLO:
+            log_mu2_mf2 = log(muMatching*muMatching/mf/mf);
+            C1 = 2./3.*log_mu2_mf2;
+            if (nfNEW > nfORG)
+                C1 *= - 1.; 
+            
             LogLambda = 1./2./Beta0(nfNEW)
-                        *( (Beta0(nfNEW) - Beta0(nfORG))*lh 
-                            + (rNEW - rORG)*log(lh)
-                            - rNEW*log(Beta0(nfNEW)/Beta0(nfORG)) ) 
+                        *( (Beta0(nfNEW) - Beta0(nfORG))*Lf 
+                            + (rNEW - rORG)*log(Lf)
+                            - rNEW*log(Beta0(nfNEW)/Beta0(nfORG)) - C1 ) 
                         + log(LambdaORG);
             break;
         case FULLNNLO:
-            log_lh = log(lh);
+            log_mu2_mf2 = log(muMatching*muMatching/mf/mf);
+            log_Lf = log(Lf);
+            C1 = 2./3.*log_mu2_mf2;
+            C2 = 16.*(log_mu2_mf2*log_mu2_mf2/36. + 19./24.*log_mu2_mf2 - 11./72.);                
+            if (nfNEW > nfORG) {
+                C1 *= - 1.; 
+                C2 *= - 1.; 
+            }
+            
             LogLambda = 1./2./Beta0(nfNEW)
-                        *( (Beta0(nfNEW) - Beta0(nfORG))*lh 
-                            + (rNEW - rORG)*log_lh 
-                            - rNEW*log(Beta0(nfNEW)/Beta0(nfORG)) 
-                            + 1./Beta0(nfORG)/lh
-                              *( rORG*(rNEW - rORG)*log_lh
+                        *( (Beta0(nfNEW) - Beta0(nfORG))*Lf 
+                            + (rNEW - rORG)*log_Lf 
+                            - rNEW*log(Beta0(nfNEW)/Beta0(nfORG)) - C1
+                            + 1./Beta0(nfORG)/Lf
+                              *( rORG*(rNEW - rORG)*log_Lf
                                  + rNEW*rNEW - rORG*rORG 
                                  - Beta2(nfNEW)/Beta0(nfNEW) 
-                                 + Beta2(nfORG)/Beta0(nfORG) + 16.*constant ) ) 
+                                 + Beta2(nfORG)/Beta0(nfORG) 
+                               + rNEW*C1 - C1*C1 - C2 ) ) 
                         + log(LambdaORG);
             break;
         default:
@@ -479,16 +484,13 @@ double QCD::Lambda(double muMatching, double nfNEW, double nfORG,
     return ( exp( LogLambda ) );
 }
 
-
 // running da m(m) a m(mu)
-double QCD::Mrun(double mu, double m, orders order) const
-{
+double QCD::Mrun(double mu, double m, orders order) const {
     return(Mrun(mu,m,m,order));
 }
 
 // running da m(mu_i) a m(mu_f)
-double QCD::Mrun(double mu_f, double mu_i, double m, orders order) const
-{
+double QCD::Mrun(double mu_f, double mu_i, double m, orders order) const {
     int i;
     for(i=0;i<5;i++)
         if((mu_f ==  mrun_cache[0][i]) && (mu_i == mrun_cache[1][i]) &&
@@ -497,16 +499,16 @@ double QCD::Mrun(double mu_f, double mu_i, double m, orders order) const
             return mrun_cache[5][i];
 
     double mx, nfx;
-    double nfi = Nf(mu_i,order), nff = Nf(mu_f,order);
+    double nfi = Nf(mu_i), nff = Nf(mu_f);
 
-    if(nff == nfi || (nff == nfi - 1 && mu_i == AboveTh(mu_f,order))) 
+    if(nff == nfi || (nff == nfi - 1 && mu_i == AboveTh(mu_f))) 
             return(Mrun(mu_f, mu_i, m, nff, order));
     if(nff > nfi) {
-        mx = AboveTh(mu_i,order);
+        mx = AboveTh(mu_i);
         nfx = nfi;
     }
     else {
-        mx = BelowTh(mu_i,order);
+        mx = BelowTh(mu_i);
         nfx = nfi-1;
     }
 
@@ -524,9 +526,8 @@ double QCD::Mrun(double mu_f, double mu_i, double m, orders order) const
 }
 
 // running da m(mu_i) a m(mu_f) a nf fissato
-double QCD::Mrun(double mu_f, double mu_i, double m, double nf, orders order) const
-{
-  double j;
+double QCD::Mrun(double mu_f, double mu_i, double m, double nf, orders order) const {
+    double j;
 
     j = -(4./3.*(4.+97.-10./3.*nf))/2./Beta0(nf)+4.*Beta1(nf)/(Beta0(nf)*Beta0(nf));
 
@@ -545,9 +546,8 @@ double QCD::Mrun(double mu_f, double mu_i, double m, double nf, orders order) co
     }
 }
 
-double QCD::Mp2Mbara(double * mu, double * mp) const
-{
-  return(*mp-Mbar2Mp(*mu));
+double QCD::Mp2Mbara(double * mu, double * mp) const {
+    return(*mp-Mbar2Mp(*mu));
 }
 
 double QCD::Mp2Mbar(double mp) const {
