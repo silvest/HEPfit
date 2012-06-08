@@ -459,10 +459,10 @@ double QCD::Lambda(double muMatching, double mf, double nfNEW, double nfORG,
             log_mu2_mf2 = log(muMatching*muMatching/mf/mf);
             log_Lf = log(Lf);
             C1 = 2./3.*log_mu2_mf2;
-            C2 = 16.*(log_mu2_mf2*log_mu2_mf2/36. + 19./24.*log_mu2_mf2 - 11./72.);                
+            C2 = - 16.*(log_mu2_mf2*log_mu2_mf2/36. - 19./24.*log_mu2_mf2 + 11./72.);                
             if (nfNEW > nfORG) {
                 C1 *= - 1.; 
-                C2 *= 16.*(log_mu2_mf2*log_mu2_mf2/36. - 19./24.*log_mu2_mf2 + 11./72.);
+                C2 *= -16.*(log_mu2_mf2*log_mu2_mf2/36. + 19./24.*log_mu2_mf2 - 11./72.);
             }
             
             LogLambda = 1./2./Beta0(nfNEW)
