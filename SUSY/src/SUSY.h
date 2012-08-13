@@ -11,6 +11,9 @@
 #include <StandardModel.h>
 #include <CFeynHiggs.h>
 
+
+class SUSYMatching;
+
 using namespace gslpp;
 /**
  * @class SUSY
@@ -18,8 +21,10 @@ using namespace gslpp;
  */
 class SUSY: public StandardModel {
 public:
-    static const int NSUSYvars = 11;
+    static const int NSUSYvars = 10;
     static const std::string SUSYvars[NSUSYvars];
+    static const int NSUSYFlags = 4;
+    static const std::string SUSYFlags[NSUSYFlags];
     /**
      * @brief SUSY constructor
      */
@@ -376,24 +381,72 @@ public:
     double Delta_r() const;
 
 
+    double GetQ() const {
+        return Q;
+    }
+    
+    bool SetFlag(const std::string, const bool&); 
+   
+    
+    matrix<complex> GetTD() const {
+        return TD;
+    }
+
+    matrix<complex> GetTU() const {
+        return TU;
+    }
+
+    
+    
     ///////////////////////////////////////////////////////////////////////////
 
+    bool IsFChi() const {
+        return FChi;
+    }
+
+    bool IsFChi0() const {
+        return FChi0;
+    }
+
+    bool IsFg() const {
+        return Fg;
+    }
+
+    bool IsFh() const {
+        return Fh;
+    }
+
+    
+    SUSYMatching* myMatching;
+    
+    
 private:
     void setY(double tanb_i);
     matrix<complex> CMsQ2, CMsU2, CMsD2, CMsL2, CMsE2, CMsN2, CTU, CTD, CTE, CTN;
     double  CQ;
     double  Cm3, CmHp, Ctanb;
     complex Cm1, Cm2, CmuH;
-
+    bool Fh, Fg, FChi, FChi0;
+    
+     
+    
 protected:
     void SetParameter(const std::string, const double&);    
-    void SetFeynHiggsPars(void);
-    void CalcHiggsSpectrum(void);
+    
+    
+    bool Update(const std::map<std::string, double>& DPars);
+    
+    virtual bool PreUpdate() = 0;
+     
+    virtual bool PostUpdate();
+    
+    bool SetFeynHiggsPars(void);
+    bool CalcHiggsSpectrum(void);
     void CalcHiggsCouplings(void);
     void CalcHiggsProd(const double&);
-    void CalcConstraints(void);
-    void CalcFlavour(void);
-    void CalcSpectrum(void);
+    bool CalcConstraints(void);
+    bool CalcFlavour(void);
+    bool CalcSpectrum(void);
     matrix<complex> Ru, Rd, Rl, Rn, U, V, N, UH, ZH;
     vector<double> Msu2, Msd2, Msl2, Msn2, Mch, Mneu;
     double FHgm2, FHdeltarho, FHMWMSSM, FHMWSM, FHSW2MSSM, FHSW2SM, FHedmeTh, 
@@ -404,7 +457,7 @@ protected:
      soft breaking terms for squarks and sleptons in the SCKM basis at the scale Q*/
     matrix<complex> MsQ2, MsU2, MsD2, MsL2, MsE2, MsN2, TU, TD, TE, TN;
     double  Q;
-    double  m3, mHp, tanb, sinb, cosb, mh[4];
+    double  m3, mHptree, mHp, tanb, sinb, cosb, mh[4];
     complex m1, m2, muH, saeff;
 };
 
