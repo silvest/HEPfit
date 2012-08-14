@@ -9,8 +9,7 @@
 #include <sstream>
 #include <QCD.h>
 
-HeffDF2::HeffDF2(const StandardModel& SM, StandardModelMatching& SM_Matching): model(SM),
-        modelmatching(SM_Matching), coeffbd(5, NDR, NLO), coeffbs(5, NDR, NLO), 
+HeffDF2::HeffDF2(const StandardModel& SM): model(SM), coeffbd(5, NDR, NLO), coeffbs(5, NDR, NLO), 
         coeffDd(5, NDR, NLO), coeffk(5, NDR, NLO), u(5, NDR, NLO, SM), drNDRLRI(5, 5, 0){
     
     double Nc = SM.getNc();
@@ -30,7 +29,7 @@ HeffDF2::~HeffDF2() {
 
 vector<complex>** HeffDF2::ComputeCoeffBd(double mu, schemes scheme) {
 
-    const std::vector<WilsonCoefficient>& mc = modelmatching.CMdbd2();
+    const std::vector<WilsonCoefficient>& mc = model.myMatching->CMdbd2();
     
     coeffbd.setMu(mu);
     
@@ -54,7 +53,7 @@ vector<complex>** HeffDF2::ComputeCoeffBd(double mu, schemes scheme) {
 
 vector<complex>** HeffDF2::ComputeCoeffBs(double mu, schemes scheme) {
 
-    const std::vector<WilsonCoefficient>& mc = modelmatching.CMdbs2();
+    const std::vector<WilsonCoefficient>& mc = model.myMatching->CMdbs2();
 
     coeffbs.setMu(mu);
 
@@ -78,7 +77,7 @@ vector<complex>** HeffDF2::ComputeCoeffBs(double mu, schemes scheme) {
 
 vector<complex>** HeffDF2::ComputeCoeffdd(double mu, schemes scheme) {
 
-    const std::vector<WilsonCoefficient>& mc = modelmatching.CMdd2();
+    const std::vector<WilsonCoefficient>& mc = model.myMatching->CMdd2();
     
     coeffDd.setMu(mu);
 
@@ -100,7 +99,7 @@ vector<complex>** HeffDF2::ComputeCoeffdd(double mu, schemes scheme) {
 
 vector<complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme) {
 
-    const std::vector<WilsonCoefficient>& mc = modelmatching.CMdk2();
+    const std::vector<WilsonCoefficient>& mc = model.myMatching->CMdk2();
     vector<complex> zero(5,0.);
     
     coeffk.setMu(mu);
@@ -108,8 +107,8 @@ vector<complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme) {
     orders ordDF2 = coeffk.getOrder();
     for (int i = 0; i < mc.size(); i++){
         if (i == 0){
-            coeffk.setCoeff(0, u.etatt(mu) * modelmatching.S0tt() +
-                u.etacc(mu) * modelmatching.S0c() + u.etact(mu) * modelmatching.S0ct(), NLO);
+            coeffk.setCoeff(0, u.etatt(mu) * model.myMatching->S0tt() +
+                u.etacc(mu) * model.myMatching->S0c() + u.etact(mu) * model.myMatching->S0ct(), NLO);
             coeffk.setCoeff(zero, LO);
         }else{
             for (int j = LO; j <= ordDF2; j++){

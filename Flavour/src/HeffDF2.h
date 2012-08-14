@@ -9,7 +9,6 @@
 #define	HEFFDF2_H
 
 #include <StandardModel.h>
-#include <StandardModelMatching.h>
 #include <SUSYMassInsertion.h>
 #include <SUSYMassInsertionMatching.h>
 #include <WilsonCoefficient.h>
@@ -24,7 +23,7 @@ public:
      * @param SM 
      * @param SM_Matching 
      */
-    HeffDF2(const StandardModel& SM, StandardModelMatching& SM_Matching);
+    HeffDF2(const StandardModel& SM);
     
     /**
      * @brief destructor
@@ -109,7 +108,6 @@ private:
     complex S0tt(double mu) const;
     const StandardModel& model;
     matrix<double> drNDRLRI;
-    StandardModelMatching& modelmatching;
     WilsonCoefficient coeffbd, coeffbs, coeffDd, coeffk;
     
     EvolDF2 u;
