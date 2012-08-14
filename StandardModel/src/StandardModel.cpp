@@ -17,6 +17,7 @@
 #include "StandardModel.h"
 #include "CKM.h"
 #include "EWSM.h"
+#include "StandardModelMatching.h"
 
 
 
@@ -33,15 +34,25 @@ Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
     leptons[MU].setCharge(-1.);    
     leptons[TAU].setCharge(-1.);    
     myEWSM = new EWSM(*this, bDebug_i);
+    myMatching = new StandardModelMatching(*this);
 }
 
-void StandardModel::Update(const std::map<std::string, double>& DPars) {
+bool StandardModel::PreUpdate(){
+    
     computeCKM = false;
     computeYe = false;
     computeYn = false;
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        SetParameter(it->first, it->second);
-    QCD::Update(DPars);
+    
+    if(!QCD::PreUpdate())  return (false);
+    
+    return (true);
+    
+}
+
+bool StandardModel::PostUpdate(){
+    
+    if(!QCD::PostUpdate()) return (false);
+    
     if (computeCKM) {
         myCKM.setWolfenstein(lambda, A, rhob, etab);
         myCKM.getCKM(VCKM);
@@ -52,7 +63,7 @@ void StandardModel::Update(const std::map<std::string, double>& DPars) {
             Yu.assign(i, i, this->quarks[UP + 2 * i].getMass() / v() * sqrt(2.));
         Yu = VCKM.transpose()*Yu;
     }
-    if (computeYd) {
+    if (computeYd) {  
         for (int i = 0; i < 3; i++)
             Yd.assign(i, i, this->QCD::quarks[DOWN + 2 * i].getMass() / v() * sqrt(2.));
     }
@@ -66,6 +77,21 @@ void StandardModel::Update(const std::map<std::string, double>& DPars) {
             Yn.assign(i, i, this->leptons[NEUTRINO_1 + 2 * i].getMass() / v() * sqrt(2.));
         Yn = Yn * UPMNS.hconjugate();
     }
+    
+     return (true);
+    
+}
+
+bool StandardModel::Update(const std::map<std::string, double>& DPars) {
+    
+    if(!PreUpdate()) return (false);
+    
+    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
+        SetParameter(it->first, it->second);
+    
+    if(!PostUpdate())  return (false);
+    
+     return (true);
 }
 
 void StandardModel::SetParameter(const std::string name, const double& value) {
@@ -122,6 +148,13 @@ void StandardModel::SetParameter(const std::string name, const double& value) {
     } else
         QCD::SetParameter(name, value);
 }
+
+
+bool StandardModel::SetFlag(const std::string name , const bool& value){  
+    return (false);
+}
+
+
 
 bool StandardModel::Init(const std::map<std::string, double>& DPars) {
     Update(DPars);

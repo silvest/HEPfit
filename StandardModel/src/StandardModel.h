@@ -13,6 +13,8 @@
 #include "CKM.h"
 #include "WilsonCoefficient.h"
 
+class StandardModelMatching;
+
 using namespace gslpp;
 class EWSM; // forward reference to ESSM class
 
@@ -57,7 +59,11 @@ public:
      * "Dmk"
      * "SM_M12D" 
      */
-    virtual void Update(const std::map<std::string, double>&);
+    virtual bool Update(const std::map<std::string, double>&);
+    
+    virtual bool PreUpdate();
+     
+    virtual bool PostUpdate();
 
     virtual bool Init(const std::map<std::string, double>&);
         
@@ -429,17 +435,30 @@ public:
         return rhob;
     }
     
+    virtual bool SetFlag(const std::string, const bool&);
+    
+    
+    StandardModelMatching* myMatching;
+    
+    
 protected:
     virtual void SetParameter(const std::string, const double&);
+    
+    
+    
     matrix<complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
     double GF, ale, dAle5Mz, mHl, lambda, A, rhob, etab, Dmk;
     double muw, KbarEpsK, phiEpsK, DeltaMK, SM_M12D;
     CKM myCKM;
     Particle leptons[6];
     EWSM* myEWSM;
+    
 
 private:
     bool computeCKM, computeYe, computeYn;
+    
+    
+   
 };
 
 #endif	/* STANDARDMODEL_H */
