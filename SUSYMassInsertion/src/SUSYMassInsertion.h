@@ -35,7 +35,7 @@ public:
      * @brief a method to update SM and SUSY parameters found in the argument
      * @param a map containing the parameters (all as double) to be updated
      */
-    void Update(const std::map<std::string, double>&);
+    bool Update(const std::map<std::string, double>&);
     /**
      * @brief a method to check the correct assignment forthe value of
      *  all the SM and SUSY parameters in respect to the one in Model.conf

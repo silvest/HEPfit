@@ -68,10 +68,12 @@ const std::string SUSYMassInsertion::SusyMIvars[NSusyMIvars] = {"Msq", "m3", "Mu
 SUSYMassInsertion::~SUSYMassInsertion(){    
 }
 
-void SUSYMassInsertion::Update(const std::map<std::string, double>& DPars) {
+bool SUSYMassInsertion::Update(const std::map<std::string, double>& DPars) {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         SetSusyMIParameter(it->first, it->second);
     StandardModel::Update(DPars);
+    
+    return (true);
 }
 
 void SUSYMassInsertion::SetSusyMIParameter(std::string name, double value) {
@@ -539,7 +541,7 @@ void SUSYMassInsertion::SetSusyMIParameter(std::string name, double value) {
         Dd_RR.assignim(2,2,iDDRR33);}
     
     else 
-        SetSMParameter(name, value);
+        StandardModel::SetParameter(name, value);
 }
 
 bool SUSYMassInsertion::Init(const std::map<std::string, double>& DPars) {
