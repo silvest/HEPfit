@@ -17,8 +17,8 @@ using namespace gslpp;
 class Flavour : public ThObsType {
 public:
 
-    Flavour(const StandardModel& SM_i, StandardModelMatching& SM_Matching_i) : ThObsType(SM_i), 
-            HDF2(SM_i, SM_Matching_i) {
+    Flavour(const StandardModel& SM_i) : ThObsType(SM_i), 
+            HDF2(SM_i) {
     };
 
     const HeffDF2& getHDF2() const {
