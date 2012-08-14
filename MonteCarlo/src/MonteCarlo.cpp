@@ -18,8 +18,8 @@ myInputParser(), MCEngine(ModPars, Obs, Obs2D) {
     PrintAllMarginalized = false;
 }
 
-MonteCarlo::~MonteCarlo() {
-}
+//MonteCarlo::~MonteCarlo() {
+//}
 
 void MonteCarlo::Run() {
     try {
@@ -85,7 +85,7 @@ void MonteCarlo::Run() {
 
         // open log file
         BCLog::OpenLog("log.txt");
-        BCLog::SetLogLevel(BCLog::detail);
+        BCLog::SetLogLevel(BCLog::debug);
 
         // run the MCMC and marginalize w.r.t. to all parameters
         MCEngine.MarginalizeAll();
@@ -104,7 +104,7 @@ void MonteCarlo::Run() {
         MCEngine.PrintHistogram(out);
 
         out.WriteMarginalizedDistributions();
-        out.FillAnalysisTree();
+        //out.FillAnalysisTree();
         out.Close();
 
         // close log file

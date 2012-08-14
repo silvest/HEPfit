@@ -60,6 +60,8 @@ private:
     std::map<std::string, TH2D * > InHisto2D;
     double *obval, *obweight;
     unsigned int kwmax, kmax;
+    
+    int Neve = 0;
 };
 // ---------------------------------------------------------
 
