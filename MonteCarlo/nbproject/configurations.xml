@@ -79,6 +79,7 @@
             <pElem>../MFV/src</pElem>
             <pElem>../SUSY/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
+            <pElem>../THDM/src</pElem>
           </incDir>
         </ccTool>
         <archiverTool>

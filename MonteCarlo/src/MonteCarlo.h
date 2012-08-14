@@ -15,7 +15,7 @@ class MonteCarlo {
 public:
     MonteCarlo(const std::string& ModelConf_i, const std::string& 
             MonteCarloConf_i, const std::string& OutFile_i);
-    virtual ~MonteCarlo();
+//    virtual ~MonteCarlo();
     void Run();
 private:
     MonteCarloEngine MCEngine;

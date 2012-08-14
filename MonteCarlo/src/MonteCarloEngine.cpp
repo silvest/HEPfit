@@ -13,6 +13,7 @@
 #include <root/TROOT.h>
 #include <root/TH1.h>
 
+
 MonteCarloEngine::MonteCarloEngine(
         const std::vector<ModelParameter>& ModPars_i,
         std::vector<Observable>& Obs_i,
@@ -221,8 +222,17 @@ double MonteCarloEngine::LogLikelihood(std::vector <double> parameters) {
         DPars[GetParameter(k)->GetName()]=parameters[k];
     }
 
-    Mod->Update(DPars);
-    // std::cout << "loglike" << parameters[0];
+    // if update false set probability equal zero
+    
+    Neve++;
+    std::cout << "Neve " << Neve <<std::endl;
+    
+    //std::cout << "prova update" << std::endl;
+    if(!Mod->Update(DPars)) {
+        std::cout << "evento scartato" << std::endl;
+        return(log(0.));
+    }
+    //std::cout << "punto buono" << std::endl;
     for (std::vector<Observable>::iterator it = Obs_MCMC.begin(); it < Obs_MCMC.end(); it++) {
         double th = it->getTheoryValue();
         logprob += Weight(*it, th);
@@ -233,6 +243,8 @@ double MonteCarloEngine::LogLikelihood(std::vector <double> parameters) {
         double th2 = it->getTheoryValue2();
         logprob += Weight(*it, th1, th2);
     }
+    
+   // std::cout << "logprob " << logprob <<std::endl;    
 
     return logprob;
 }
@@ -279,7 +291,10 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput& out) {
     for (std::vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end();
             it++) {
         std::string fname = "Observables/" + it->getThname() + ".pdf";
-        Histo1D[it->getThname()]->Print(fname.c_str());
+//        BCH1D* pippo =  Histo1D[it->getThname()];
+//        double x = pippo->GetMean();
+//        pippo->Print("Dmd1.pdf");
+        Histo1D[it->getThname()]->Print(fname.c_str()); 
         out.Write(Histo1D[it->getThname()]->GetHistogram());
     }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end();
