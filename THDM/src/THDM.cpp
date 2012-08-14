@@ -14,7 +14,7 @@ THDM::THDM() : StandardModel(), mycache() {
     //mycache = new THDMcache(*this);
 }
 
-void THDM::Update(const std::map<std::string, double>& DPars) {
+bool THDM::Update(const std::map<std::string, double>& DPars) {
     computeCKM = false;
     computeYe = false;
     computeYn = false;

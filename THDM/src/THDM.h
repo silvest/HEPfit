@@ -33,7 +33,7 @@ public:
      */
     THDM();
     
-    virtual void Update(const std::map<std::string, double>& DPars);
+    virtual bool Update(const std::map<std::string, double>& DPars);
     
     virtual bool Init(const std::map<std::string, double>& DPars);
     
