@@ -9,9 +9,8 @@
 #include <FlavourObservables.h>
 #include <EWObservables.h>
 
-ThFactory::ThFactory(const StandardModel& myModel, 
-        StandardModelMatching& myModelMatching) : 
-        myFlavour(myModel, myModelMatching), myEW(myModel) {
+ThFactory::ThFactory(const StandardModel& myModel) : 
+        myFlavour(myModel), myEW(myModel) {
     thobs["Dmd0"] = new DmBd0(myFlavour);
     thobs["Dmd1"] = new DmBd(myFlavour);
     thobs["Dms0"] = new DmBs0(myFlavour);
@@ -29,21 +28,24 @@ ThFactory::ThFactory(const StandardModel& myModel,
     thobs["gamma"] = new Gamma(myFlavour);
     thobs["SJPsiK"] = new SJPsiK(myFlavour);
 
-    thobs["Mw"] = new Mw(myEW);
-    thobs["GammaW"] = new GammaW(myEW);
-    thobs["sin2thetaEff"] = new sin2thetaEff(myEW);
-    thobs["GammaZ"] = new GammaZ(myEW);
-    thobs["AFBlepton"] = new AFBlepton(myEW);
-    thobs["AFBcharm"] = new AFBcharm(myEW);
-    thobs["AFBbottom"] = new AFBbottom(myEW);
-    thobs["PtauPol"] = new PtauPol(myEW);
-    thobs["Alepton"] = new Alepton(myEW);
-    thobs["Acharm"] = new Acharm(myEW);
-    thobs["Abottom"] = new Abottom(myEW);
-    thobs["Rlepton"] = new Rlepton(myEW);
-    thobs["Rcharm"] = new Rcharm(myEW);
-    thobs["Rbottom"] = new Rbottom(myEW);
-    thobs["sigmaHadron"] = new sigmaHadron(myEW);
+//    thobs["Mw"] = new Mw(myEW);
+//    thobs["GammaW"] = new GammaW(myEW);
+//    thobs["sin2thetaEff"] = new sin2thetaEff(myEW);
+//    thobs["GammaZ"] = new GammaZ(myEW);
+//    thobs["AFBlepton"] = new AFBlepton(myEW);
+//    thobs["AFBcharm"] = new AFBcharm(myEW);
+//    thobs["AFBbottom"] = new AFBbottom(myEW);
+//    thobs["PtauPol"] = new PtauPol(myEW);
+//    thobs["Alepton"] = new Alepton(myEW);
+//    thobs["Acharm"] = new Acharm(myEW);
+//    thobs["Abottom"] = new Abottom(myEW);
+//    thobs["Rlepton"] = new Rlepton(myEW);
+//    thobs["Rcharm"] = new Rcharm(myEW);
+//    thobs["Rbottom"] = new Rbottom(myEW);
+//    thobs["sigmaHadron"] = new sigmaHadron(myEW);
+//    thobs["obliqueS"] = new obliqueS(myEW);
+//    thobs["obliqueT"] = new obliqueT(myEW);
+//    thobs["obliqueU"] = new obliqueU(myEW);
 }
 
 ThFactory::~ThFactory() {

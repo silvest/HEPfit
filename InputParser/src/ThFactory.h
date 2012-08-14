@@ -16,8 +16,7 @@
 
 class ThFactory {
 public:
-    ThFactory(const StandardModel& myModel, 
-              StandardModelMatching& myModelMatching);
+    ThFactory(const StandardModel& myModel);
     virtual ~ThFactory();
     ThObservable* getThMethod(const std::string& name);
 private:

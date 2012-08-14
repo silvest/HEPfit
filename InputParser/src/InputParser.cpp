@@ -6,24 +6,24 @@
  */
 
 #include "InputParser.h"
+#include <stdexcept>
+#include <boost/lexical_cast.hpp>
+#include <iostream>
+
 
 InputParser::InputParser() {
     myModel = NULL;
-    myModelMatching = NULL;
     thf = NULL;
 }
 
 InputParser::InputParser(const InputParser& orig) {
     myModel = new StandardModel(*orig.myModel);
-    myModelMatching = new StandardModelMatching(*orig.myModelMatching);
     thf = new ThFactory(*orig.thf);
 }
 
 InputParser::~InputParser() {
     if (myModel != NULL)
         delete myModel;
-    if (myModelMatching != NULL)
-        delete myModelMatching;
     if (thf != NULL)
         delete thf;
 }
@@ -42,33 +42,28 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
         if (beg->compare("StandardModel") == 0) {
             modname = *beg;
             myModel = new StandardModel();
-            myModelMatching = new StandardModelMatching(*myModel);
-            thf = new ThFactory(*myModel,*myModelMatching);
+            thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("NewPhysicsSTU") == 0) {
             modname = *beg;
             myModel = new NewPhysicsSTU();
-            myModelMatching = new StandardModelMatching(*myModel);
-            thf = new ThFactory(*myModel,*myModelMatching);
+            thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("MFV") == 0) {
             modname = *beg;
             myModel = new MFV();
-            myModelMatching = new StandardModelMatching(*myModel);
-            thf = new ThFactory(*myModel,*myModelMatching);
+            thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("SusyMI") == 0) {
             modname = *beg;
             SUSYMassInsertion* LocalPointer = new SUSYMassInsertion();
             myModel = LocalPointer;
-            myModelMatching = new SUSYMassInsertionMatching(*LocalPointer);
-            thf = new ThFactory(*myModel,*myModelMatching);
+            thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("THDM") == 0){
             modname = *beg;
             myModel = new THDM();
-            myModelMatching = new StandardModelMatching(*myModel);
-            thf = new ThFactory(*myModel,*myModelMatching);
+            thf = new ThFactory(*myModel);
             continue;
         }
         
@@ -157,11 +152,26 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
                 if (beg != tok.end()) std::cout << "warning: unread information in observable "
                         << Observables.back().getName() << std::endl;
             }
+        } else if (type.compare("ModelFlag") == 0) {
+            
+            std::string name = *beg;
+            ++beg;
+            bool value = boost::lexical_cast<bool>((*beg).c_str());
+            ++beg;
+
+           if( !myModel->SetFlag(name,value)){
+               std::stringstream ss;
+        ss << myModel->ModelName() << " SetFlag error for Flag " << name;
+        throw std::runtime_error(ss.str());
+           }
+            if (beg != tok.end())
+                std::cout << "warning: unread information in Flag " << name << std::endl;
         } else {
-            std::cout << "wrong keyword " << *beg << " in config file (first word must be ModelParameter or Observable)" << std::endl;
+            std::cout << "wrong keyword " << *beg << " in config file (first word must be ModelParameter, ModelFlag or Observable)" << std::endl;
             exit(EXIT_FAILURE);
         }
     }
-    return(modname);
+    return (modname);
 }
+
 
