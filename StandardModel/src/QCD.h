@@ -11,6 +11,7 @@
 #include "Model.h"
 #include "Meson.h"
 #include "OrderScheme.h"
+#define MEPS 1.e-10 // mass precision
 
 class QCD: public Model {
 public:
@@ -37,10 +38,13 @@ public:
         Nc=3.;
         CF = Nc/2.-1./(2.*Nc);
         quarks[UP].setCharge(2./3.);
+        quarks[UP].setMass_scale(2.);
         quarks[CHARM].setCharge(2./3.);
         quarks[TOP].setCharge(2./3.);
         quarks[DOWN].setCharge(-1./3.);
-        quarks[STRANGE].setCharge(-1./3.);    
+        quarks[DOWN].setMass_scale(2.);
+        quarks[STRANGE].setCharge(-1./3.);
+        quarks[STRANGE].setMass_scale(2.);
         quarks[BOTTOM].setCharge(-1./3.); 
         //to be moved to the Als class
         for (int i = 0; i < 5; i++)
@@ -281,6 +285,10 @@ public:
      */
     double Mp2Mbar(double mp) const;
 
+    
+    double MS2DRqmass(const double& MSscale, const double& MSbar) const;
+    
+    
     /**
      * convert @f$\overline{\mathrm{MS}}@f$ to @f$\overline{\mathrm{DR}}@f$ quark masses
      * @param MSbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
@@ -346,14 +354,18 @@ public:
      * updates the QCD parameters found in the argument
      * @param a map containing the parameters (all as double) to be updated
      */
-    virtual void Update(const std::map<std::string, double>&);
+    virtual bool Update(const std::map<std::string, double>&);
 
     /**
      * updates the QCD parameters found in the argument
      * @param a Parameters object containing the parameters to be updated
      */
 //    void update(const Parameters&);
-
+    
+     virtual bool PreUpdate();
+     
+     virtual bool PostUpdate();
+     
     Meson getMesons(const int i) const {
         return mesons[i];
     }

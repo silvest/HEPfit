@@ -26,20 +26,46 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "BK1","BK2","BK3","BK4","BK5", "BKscale", "BKscheme"
 };
 
-void QCD::Update(const std::map<std::string, double>& DPars) {
+bool QCD::PreUpdate() {
     computeYu = false;
     computeYd = false;
-    computeBd = false; 
+    computeBd = false;
     computeFBd = false;
     computemt = false;
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++) 
-        SetParameter(it->first,it->second);
-    if(computeFBd)
-        mesons[B_D].setDecayconst(mesons[B_S].getDecayconst()/FBsoFBd);
-    if(computeBd)
-        BBd.setBpars(0, BBs.getBpars()(0)/BBsoBBd);
-    if(computemt)
+    
+    return (true);
+}
+
+bool QCD::PostUpdate(){
+    
+    if (computeFBd)
+        mesons[B_D].setDecayconst(mesons[B_S].getDecayconst() / FBsoFBd);
+    if (computeBd)
+        BBd.setBpars(0, BBs.getBpars()(0) / BBsoBBd);
+    if (computemt)
         quarks[TOP].setMass(Mp2Mbar(mtpole));
+    
+    return (true);
+}
+
+bool QCD::Update(const std::map<std::string, double>& DPars) {
+   
+    
+   if (!PreUpdate()) return (false);
+
+    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
+        SetParameter(it->first, it->second);
+
+    if(quarks[UP].getMass() < MEPS) return (false);      
+    if(quarks[DOWN].getMass() < MEPS) return (false);
+    if(quarks[CHARM].getMass() < MEPS) return (false);
+    if(quarks[STRANGE].getMass() < MEPS) return (false);
+    if(quarks[TOP].getMass() < MEPS) return (false);
+    if(quarks[BOTTOM].getMass() < MEPS) return (false);
+    if (!PostUpdate()) return (false);
+
+    return (true);
+    
 }
 
 void QCD::SetParameter(const std::string name, const double& value) {
@@ -329,7 +355,9 @@ void QCD::CacheShift(double cache[][5], int n) const {
 }
 
 double QCD::Als(double mu, orders order) const {
-    return Als(mu, Nf(mu), order);
+    double temp = Als(mu, Nf(mu), order);
+    return (temp);
+    //return Als(mu, Nf(mu), order);
 
 // Note: Threshold scales should be checked in addition to mu, order, AlsMz and Mz.
 //    int i;
@@ -494,11 +522,16 @@ double QCD::Mrun(double mu, double m, orders order) const {
 // running da m(mu_i) a m(mu_f)
 double QCD::Mrun(double mu_f, double mu_i, double m, orders order) const {
     int i;
-    for(i=0;i<5;i++)
-        if((mu_f ==  mrun_cache[0][i]) && (mu_i == mrun_cache[1][i]) &&
-                (m == mrun_cache[2][i]) && (order == mrun_cache[3][i])&&
+//    if(fabs(mu_i - m) < MEPS){
+//        m = mu_i;
+//    }
+    for (i = 0; i < 5; i++) {
+        if ((mu_f == mrun_cache[0][i]) && (mu_i == mrun_cache[1][i]) &&
+                (m == mrun_cache[2][i]) && (order == mrun_cache[3][i]) &&
                 (AlsMz == mrun_cache[4][i]))
             return mrun_cache[5][i];
+    }
+    
 
     double mx, nfx;
     double nfi = Nf(mu_i), nff = Nf(mu_f);
@@ -603,4 +636,9 @@ double QCD::Mbar2Mp(double mbar) const {
 
 double QCD::MS2DRqmass(const double& MSbar) const {
     return(MSbar/(1.+Als(MSbar)/4./M_PI*CF));
+}
+
+
+double QCD::MS2DRqmass(const double & MSscale, const double& MSbar) const {
+    return(MSbar/(1.+Als(MSscale)/4./M_PI*CF));
 }

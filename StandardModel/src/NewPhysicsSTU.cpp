@@ -14,10 +14,12 @@ NewPhysicsSTU::NewPhysicsSTU() : StandardModel() {
 }
 
 
-void NewPhysicsSTU::Update(const std::map<std::string,double>& DPars) {
+bool NewPhysicsSTU::Update(const std::map<std::string,double>& DPars) {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         SetParameter(it->first, it->second);
-    StandardModel::Update(DPars);
+    if(!StandardModel::Update(DPars)) return (false);
+    
+    return (true);
 }
 
 

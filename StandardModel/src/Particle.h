@@ -14,8 +14,9 @@
 
 class Particle {
 public:
-    Particle() {};
-    Particle(double mass, double width, double charge);
+    Particle() {
+    mass_scale = 0.;};
+    Particle(double mass, double mass_scale = 0., double width = 0., double charge = 0.);
     /**
      * 
      * @return the particle mass in GeV
@@ -64,8 +65,17 @@ public:
         this->charge = charge;
     }    
     
+    double getMass_scale() const {
+        return mass_scale;
+    }
+
+    void setMass_scale(double mass_scale) {
+        this->mass_scale = mass_scale;
+    }
+
+    
 protected:
-    double mass, width, charge;
+    double mass, width, charge, mass_scale;
 };
 
 #endif	/* PARTICLE_H */
