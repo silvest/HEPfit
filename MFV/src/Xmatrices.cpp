@@ -10,10 +10,10 @@
 Xmatrices::Xmatrices(): X1(3,3,0.), X2(3,3,0.), 
         X3(3,3,0.), X4(3,3,0.), X5(3,3,0.), X6(3,3,0.), X9(3,3,0.), X13(3,3,0.) 
 {
-    X1.assign(3,3,1.);
-    X2.assign(2,2,1.);
-    X3.assign(3,2,1.);
-    X4.assign(2,3,1.);
+    X1.assign(2,2,1.);
+    X2.assign(1,1,1.);
+    X3.assign(2,1,1.);
+    X4.assign(1,2,1.);
 }
 
 void Xmatrices::Update(const CKM & CKM_in){

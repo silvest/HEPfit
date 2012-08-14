@@ -23,7 +23,9 @@ public:
 
     MFV();
 
-    virtual void Update(const std::map<std::string, double>& DPars);
+    virtual bool Update(const std::map<std::string, double>& DPars);
+    virtual bool PreUpdate();
+    virtual bool PostUpdate();
     virtual bool Init(const std::map<std::string, double>& DPars);
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 

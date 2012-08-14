@@ -52,17 +52,49 @@ MFV::MFV() :
 {
 }
 
-void MFV::Update(const std::map<std::string, double>& DPars) {
+
+bool MFV::PreUpdate(){
+    
+    if(!StandardModel::PreUpdate())  return (false);
+    
+     return (true);
+    
+}
+
+bool MFV::PostUpdate(){
+   
+    
+    
+    if(!StandardModel::PostUpdate())  return (false);
+    
+    SetSoftTerms();
+    if(!SetFeynHiggsPars())  return (false);
+    if(!CalcHiggsSpectrum()) return (false);
+    //CalcHiggsCouplings();  // DA PROBLEMI CON H0VV(1,3) E H0VV(1,4) PERCHE PRIMA GLI ABBIAMO DATO I PARAMETRI DELL'MSSM ALLA SCALA SUSY !!! CHIEDERE A FRANCO A COSA SERVE !!!
+    //CalcHiggsProd(7.);     //cross sections at 7 TeV
+    if(!CalcConstraints()) return (false);
+    if(!CalcFlavour()) return (false);
+    if(!CalcSpectrum()) return (false);
+    
+    if(!SUSY::PostUpdate())  return (false);
+    
+     return (true);
+}
+
+
+
+
+bool MFV::Update(const std::map<std::string, double>& DPars) {
+    
+    if(!PreUpdate())  return (false);
+    
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         SetParameter(it->first, it->second);
-    SetSoftTerms();
-    SetFeynHiggsPars();
-    CalcHiggsSpectrum();
-    CalcHiggsCouplings();
-    CalcHiggsProd(7.);//cross sections at 7 TeV
-    CalcConstraints();
-    CalcFlavour();
-    CalcSpectrum();
+    
+    if(!PostUpdate())  return (false);
+    
+     return (true);
+    
 }
 
 void MFV::SetParameter(const std::string name, const double& value) {
@@ -152,6 +184,35 @@ bool MFV::Init(const std::map<std::string, double>& DPars) {
 }
 
 void MFV::SetSoftTerms(void){
+    
+    /// test lines
+    
+//    std::cout << "a1 = " << a1 << std::endl;
+//    std::cout << "a2 = " << a2 << std::endl;
+//    std::cout << "a3 = " << a3 << std::endl;
+//    std::cout << "a6 = " << a6 << std::endl;
+//    std::cout << "a7 = " << a7 << std::endl;
+//    std::cout << "m1 = " << m1 << std::endl;
+//    std::cout << "m2 = " << m2 << std::endl;
+//    std::cout << "m3 = " << m3 << std::endl;
+//    std::cout << "muH = " << muH << std::endl;
+//    std::cout << "mHp = " << mHp << std::endl;
+//    std::cout << "tanb = " << tanb << std::endl;
+//    std::cout << "Q = " << Q << std::endl;
+//    std::cout << "mup = " << quarks[UP].getMass() << std::endl;
+//    std::cout << "mdown = " << quarks[DOWN].getMass() << std::endl;
+//    std::cout << "mstrange = " << quarks[STRANGE].getMass() << std::endl;
+//    std::cout << "mcharm = " << quarks[CHARM].getMass() << std::endl;
+//    std::cout << "mtop = " << quarks[TOP].getMass() << std::endl;
+//    std::cout << "mbottom = " << quarks[BOTTOM].getMass() << std::endl;
+//    std::cout << "AlsMz = " << AlsMz << std::endl;
+    
+    
+    
+    //// end-test
+    
+    
+    
     // Colangelo's expression in Colangelo's basis
     X.Update(myCKM);
     MsQ2 = matrix<complex>::Id(3) * a1 + X.GetX13() * x1 + X.GetX1() * y1 + 
@@ -169,6 +230,17 @@ void MFV::SetSoftTerms(void){
     //rotation to the SCKM basis according to Satoshi's notes
     matrix<complex> ckm(3,3,0.);
     myCKM.getCKM(ckm);
-    MsQ2 = ckm*MsQ2*ckm.transpose();
+    //MsQ2 = ckm*MsQ2*ckm.transpose(); // quello che c'era prima  /// SECONDO ME NON HA ALCUN SENSO 
+    MsQ2 = ckm.hconjugate() * MsQ2 * ckm;  // messo da me !!!
     TU = ckm.hconjugate()*TU;
+    
+    
+//    std::cout << "TU = " << TU << std::endl;
+//    std::cout << "TD = " << TD << std::endl;
+//    std::cout << "TE = " << TE << std::endl;
+//    std::cout << "MsU2 = " << MsU2 << std::endl;
+//    std::cout << "MsD2 = " << MsU2 << std::endl;
+//    std::cout << "MsL2 = " << MsU2 << std::endl;
+//    std::cout << "MsE2 = " << MsU2 << std::endl;
 }
+
