@@ -437,6 +437,11 @@ public:
     
     virtual bool SetFlag(const std::string, const bool&);
     
+    double GetMHl() const {
+        return mHl;
+    }
+
+    
     
     StandardModelMatching* myMatching;
     
