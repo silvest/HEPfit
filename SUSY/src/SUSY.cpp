@@ -252,7 +252,7 @@ bool SUSY::CalcHiggsSpectrum(void){
     double_complex UHiggs[3][3];
     double_complex ZHiggs[3][3];
     //FHSetDebug(2);
-    FHHiggsCorr(&err, mh, &SAeff, UHiggs, ZHiggs);  /// PROBLEMI GROSSI !!! RISOLTI FORSE !!!
+    FHHiggsCorr(&err, mh, &SAeff, UHiggs, ZHiggs);  
     saeff = complex(SAeff.real(),SAeff.imag()); 
     
    
@@ -266,6 +266,8 @@ bool SUSY::CalcHiggsSpectrum(void){
     }
     
     mHp = mh[3];  
+    mHl = mh[0];
+            
     for(int i=0; i<3; i++)
         for(int j=0; j<3; j++){
             UH.assign(i,j,complex(UHiggs[i][j].real(),UHiggs[i][j].imag()));
