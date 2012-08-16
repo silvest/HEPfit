@@ -209,7 +209,7 @@ double MonteCarloEngine::Weight(const Observable2D& obs, const double& th1, cons
     return (logprob);
 }
 
-double MonteCarloEngine::LogLikelihood(std::vector <double> parameters) {
+double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
     // This methods returns the logarithm of the conditional probability
     // p(data|parameters). This is where you have to define your model.
 
