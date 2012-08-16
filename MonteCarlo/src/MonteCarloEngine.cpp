@@ -225,7 +225,8 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
     // if update false set probability equal zero
     
     Neve++;
-    std::cout << "Neve " << Neve <<std::endl;
+    if (fmod(Neve,1000.) == 0.)
+       std::cout << "Neve " << Neve <<std::endl;
     
     //std::cout << "prova update" << std::endl;
     if(!Mod->Update(DPars)) {
