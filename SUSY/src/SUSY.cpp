@@ -311,15 +311,20 @@ void SUSY::CalcHiggsProd(const double& sqrts){
 }
 
 bool SUSY::CalcConstraints(){
-    int err;
+    int err, ccb;
     FHConstraints(&err, &FHgm2, &FHdeltarho, &FHMWMSSM, &FHMWSM, &FHSW2MSSM, 
-            &FHSW2SM, &FHedmeTh, &FHedmn, &FHedmHg);
+            &FHSW2SM, &FHedmeTh, &FHedmn, &FHedmHg, &ccb);
      if (err != 0) {
         std::stringstream ss;
         ss << "FeynHiggs FHConstraints error " << err;
         return (false);
         //throw std::runtime_error(ss.str());
      }   
+    if (ccb != 0) {
+        std::stringstream ss;
+        ss << "FeynHiggs FHConstraints: colour breaking minimum " << err;
+        return (false);       
+    }
     return (true);
 }
 
