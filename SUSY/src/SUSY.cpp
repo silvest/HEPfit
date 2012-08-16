@@ -248,9 +248,9 @@ bool SUSY::SetFeynHiggsPars(void) {
 
 bool SUSY::CalcHiggsSpectrum(void){
     int err;
-    double_complex SAeff;
-    double_complex UHiggs[3][3];
-    double_complex ZHiggs[3][3];
+    Complex SAeff;
+    Complex UHiggs[3][3];
+    Complex ZHiggs[3][3];
     //FHSetDebug(2);
     FHHiggsCorr(&err, mh, &SAeff, UHiggs, ZHiggs);  
     saeff = complex(SAeff.real(),SAeff.imag()); 
@@ -286,8 +286,8 @@ bool SUSY::CalcHiggsSpectrum(void){
 
 void SUSY::CalcHiggsCouplings(void){
     int err;
-    double_complex couplings[ncouplings];
-    double_complex couplingsms[ncouplingsms];    
+    Complex couplings[ncouplings];
+    Complex couplingsms[ncouplingsms];    
     double gammas[ngammas];
     double gammasms[ngammasms];
     //FHSetDebug(2);
@@ -344,9 +344,10 @@ bool SUSY::CalcFlavour(){
 bool SUSY::CalcSpectrum(){
     int err, nmfv;
     double MASf[4][6], MCha[2], MNeu[4];
-    double_complex UASf[4][6][6], UCha[2][2], VCha[2][2], ZNeu[4][4], Deltab;
+    Complex UASf[4][6][6], UCha[2][2], VCha[2][2], ZNeu[4][4], Deltab;
     FHGetPara(&err, &nmfv, MASf, UASf, MCha, UCha, VCha, MNeu, ZNeu, &Deltab, 
-            &FHMGl, FHMHtree, &FHSAtree);
+//            &FHMGl, FHMHtree, &FHSAtree);
+            FHMHtree, &FHSAtree);
     for(int i = 0; i < 6; i++){
         Msn2(i) = MASf[0][i]*MASf[0][i];
         Msl2(i) = MASf[1][i]*MASf[1][i];
