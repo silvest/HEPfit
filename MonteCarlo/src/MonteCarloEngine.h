@@ -38,7 +38,7 @@ public:
     
     // Methods to overload, see file MonteCarloEngine.cxx
     void DefineParameters();
-    double LogLikelihood(std::vector <double> parameters);
+    double LogLikelihood(const std::vector <double>& parameters);
     void PrintHistogram(BCModelOutput& out);
     void MCMCIterationInterface();
     void SetNChains(unsigned int i);
