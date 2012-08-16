@@ -124,7 +124,7 @@ private:
     
     
     gslpp::vector<complex> CdF2dgg(int b, int q, int Dmixingflag);
-    gslpp::complex CdF2dChi0g(int b, int q, int Dmixingflag);
+    gslpp::vector<complex> CdF2dChi0g(int b, int q, int Dmixingflag);
     
     gslpp::vector<complex> CdF2dChiChi(int b, int q, int Dmixingflag);
     gslpp::complex VChiUdL(int j, int k, int b);
