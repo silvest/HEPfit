@@ -65,8 +65,8 @@
         <ccTool>
           <incDir>
             <pElem>src</pElem>
-            <pElem>/usr/local/include</pElem>
           </incDir>
+          <commandLine>`gsl-config --cflags`</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>
