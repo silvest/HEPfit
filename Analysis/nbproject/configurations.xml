@@ -45,6 +45,8 @@
       <compileType>
         <ccTool>
           <incDir>
+            <pElem>/usr/include/</pElem>
+            <pElem>/usr/include/root</pElem>
             <pElem>../Utils/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../MonteCarlo/src</pElem>
@@ -61,11 +63,11 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../THDM/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags`</commandLine>
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
+            <pElem>/usr/lib/root</pElem>
             <pElem>../Flavour/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../EW/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../gslpp/dist/Debug/GNU-Linux-x86</pElem>
@@ -85,6 +87,8 @@
             <pElem>../BAT/lib</pElem>
           </linkerDynSerch>
           <linkerLibItems>
+            <linkerLibLibItem>gsl</linkerLibLibItem>
+            <linkerLibLibItem>gslcblas</linkerLibLibItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"
@@ -242,12 +246,31 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibLibItem>Core</linkerLibLibItem>
+            <linkerLibLibItem>Cint</linkerLibLibItem>
+            <linkerLibLibItem>RIO</linkerLibLibItem>
+            <linkerLibLibItem>Net</linkerLibLibItem>
+            <linkerLibLibItem>Hist</linkerLibLibItem>
+            <linkerLibLibItem>Graf</linkerLibLibItem>
+            <linkerLibLibItem>Graf3d</linkerLibLibItem>
+            <linkerLibLibItem>Gpad</linkerLibLibItem>
+            <linkerLibLibItem>Tree</linkerLibLibItem>
+            <linkerLibLibItem>Rint</linkerLibLibItem>
+            <linkerLibLibItem>Postscript</linkerLibLibItem>
+            <linkerLibLibItem>Matrix</linkerLibLibItem>
+            <linkerLibLibItem>Physics</linkerLibLibItem>
+            <linkerLibLibItem>MathCore</linkerLibLibItem>
+            <linkerLibLibItem>Minuit</linkerLibLibItem>
+            <linkerLibLibItem>Thread</linkerLibLibItem>
+            <linkerLibLibItem>Gui</linkerLibLibItem>
+            <linkerLibLibItem>m</linkerLibLibItem>
+            <linkerLibLibItem>dl</linkerLibLibItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
             <linkerLibLibItem>BAT</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>FH</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit</commandLine>
+          <commandLine>-pthread -rdynamic</commandLine>
         </linkerTool>
       </compileType>
       <folder path="TestFiles/f1">

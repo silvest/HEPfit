@@ -7,11 +7,11 @@
 
 #include "MonteCarloEngine.h"
 #include <BAT/BCMath.h>
-#include <TF1.h>
-#include <TMath.h>
-#include <TTree.h>
-#include <TROOT.h>
-#include <TH1.h>
+#include <root/TF1.h>
+#include <root/TMath.h>
+#include <root/TTree.h>
+#include <root/TROOT.h>
+#include <root/TH1.h>
 
 
 MonteCarloEngine::MonteCarloEngine(
@@ -224,6 +224,11 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
 
     // if update false set probability equal zero
     
+    Neve++;
+    if (fmod(Neve,1000.) == 0.)
+       std::cout << "Neve " << Neve <<std::endl;
+    
+    //std::cout << "prova update" << std::endl;
     if(!Mod->Update(DPars)) {
         std::cout << "evento scartato" << std::endl;
         return(log(0.));
