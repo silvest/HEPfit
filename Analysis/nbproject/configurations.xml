@@ -31,6 +31,7 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>MFV.conf</itemPath>
     <itemPath>Model.conf</itemPath>
     <itemPath>MonteCarlo.conf</itemPath>
   </logicalFolder>
