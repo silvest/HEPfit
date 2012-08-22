@@ -129,12 +129,11 @@
       <compileType>
         <ccTool>
           <incDir>
-            <pElem>/usr/include/root</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../Utils/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
-            <pElem>/usr/local/include/root</pElem>
           </incDir>
+          <commandLine>`gsl-config --cflags` `root-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
