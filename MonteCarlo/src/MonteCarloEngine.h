@@ -61,7 +61,6 @@ private:
     double *obval, *obweight;
     unsigned int kwmax, kmax;
     
-    int Neve = 0;
 };
 // ---------------------------------------------------------
 
