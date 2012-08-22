@@ -65,9 +65,12 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../InputParser/src</pElem>
             <pElem>../Flavour/src</pElem>
+            <pElem>/usr/include/root</pElem>
             <pElem>../EW/src</pElem>
             <pElem>/usr/local/include</pElem>
             <pElem>/usr/local/include/BAT</pElem>
+            <pElem>../../root/include</pElem>
+            <pElem>/usr/local/include/root</pElem>
             <pElem>/usr/local/boost_1_47_0</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../EWSM/src</pElem>
@@ -78,7 +81,6 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../THDM/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags`</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>
