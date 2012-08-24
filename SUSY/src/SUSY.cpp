@@ -41,7 +41,8 @@ SUSY::SUSY() :
         throw std::runtime_error(ss.str());
     }
     
-    myMatching = new SUSYMatching(*this);
+    mySUSYMatching = new SUSYMatching();
+    mySUSYMatching->SetMySUSY(this);
 }
 
 
@@ -101,9 +102,9 @@ void SUSY::SetParameter(const std::string name, const double& value) {
 
 bool SUSY::PostUpdate(){
     
-    myMatching->Comp_DeltaMd();
-    myMatching->Comp_mySUSY_CKM();
-    myMatching->Comp_mySUSYMQ();
+    mySUSYMatching->Comp_DeltaMd();
+    mySUSYMatching->Comp_mySUSY_CKM();
+    mySUSYMatching->Comp_mySUSYMQ();
     
      return (true);
 }

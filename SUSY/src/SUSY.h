@@ -10,9 +10,7 @@
 
 #include <StandardModel.h>
 #include <CFeynHiggs.h>
-
-
-class SUSYMatching;
+#include "SUSYMatching.h"
 
 using namespace gslpp;
 /**
@@ -417,8 +415,10 @@ public:
     }
 
     
-    SUSYMatching* myMatching;
-    
+    virtual SUSYMatching* GetMyMatching() const {
+        return mySUSYMatching;
+    }
+     
     
 private:
     void setY(double tanb_i);
@@ -427,7 +427,8 @@ private:
     double  Cm3, CmHp, Ctanb;
     complex Cm1, Cm2, CmuH;
     bool Fh, Fg, FChi, FChi0;
-    
+    SUSYMatching* mySUSYMatching;
+  
      
     
 protected:

@@ -8,17 +8,18 @@
 #ifndef SUSYMATCHING_H
 #define	SUSYMATCHING_H
 
-#include "SUSY.h"
+//#include "SUSY.h"
+#include <gslpp.h>
 #include "StandardModelMatching.h"
 
 #define LEPS 1.e-5     // tolerance in the limit of S(x,y) to S(x) 
 #define SUSYLEPS 1.e-5 // tolerance in the limits of D0[x,y,z,t] and D2[x,y,z,t]
        
+class SUSY;
 
-
-class SUSYMatching : public StandardModelMatching{
+class SUSYMatching : public StandardModelMatching {
 public:
-    SUSYMatching(const SUSY & SUSY_i);
+    SUSYMatching();
     
     /**
      * 
@@ -96,10 +97,16 @@ public:
     /** Quark Masses run to the SUSY scale Q **/
     void Comp_mySUSYMQ();
     
-    
+        SUSY* GetMySUSY() const {
+        return mySUSY;
+    }
+
+    void SetMySUSY(SUSY* mySUSY) {
+        this->mySUSY = mySUSY;
+    }
 
 private:
-    const SUSY & mySUSY;
+    SUSY * mySUSY;
     WilsonCoefficient mcdbd2, mcdbd2Hp, mcdbd2gg, mcdbd2ChiChi, mcdbd2Chi0Chi0, mcdbd2Chi0g,
                       mcdbd2HpT, mcdbd2ggT, mcdbd2ChiChiT, mcdbd2Chi0Chi0T, mcdbd2Chi0gT;
     WilsonCoefficient mcdbs2, mcdbs2Hp, mcdbs2gg, mcdbs2ChiChi, mcdbs2Chi0Chi0, mcdbs2Chi0g,
