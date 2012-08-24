@@ -28,7 +28,9 @@ int main(int argc, char** argv) {
                 ("help", "help message")
                 ;
         positional_options_description pd;
-        pd.add("modconf", 1).add("mcconf", 1).add("rootfile", 1);
+        pd.add("modconf", 1);
+        pd.add("mcconf", 1);
+        pd.add("rootfile", 1);
 
         variables_map vm;
         store(command_line_parser(argc,

@@ -321,5 +321,3 @@ complex StandardModel::getlamc_s() const {
 complex StandardModel::getlamu_s() const {
     return VCKM(0, 1) * VCKM(0, 2).conjugate();
 }
-
- 
