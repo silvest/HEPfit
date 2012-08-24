@@ -34,7 +34,8 @@ Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
     leptons[MU].setCharge(-1.);    
     leptons[TAU].setCharge(-1.);    
     myEWSM = new EWSM(*this, bDebug_i);
-    myMatching = new StandardModelMatching(*this);
+    myStandardModelMatching = new StandardModelMatching();
+    myStandardModelMatching->SetSM(this);
 }
 
 bool StandardModel::PreUpdate(){
