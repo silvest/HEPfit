@@ -8,14 +8,16 @@
 #ifndef STANDARDMODELMATCHING_H
 #define	STANDARDMODELMATCHING_H
 
-#include "StandardModel.h"
+//#include "StandardModel.h"
 #include "ModelMatching.h"
 
 #define LEPS 1.e-5 // tolerance in the limit of S(x,y) to S(x)
 
+class StandardModel;
+
 class StandardModelMatching : public ModelMatching{
 public:
-    StandardModelMatching(const StandardModel& SM_i);
+    StandardModelMatching();
     
     /**
      * 
@@ -216,6 +218,15 @@ public:
      * @return the loop function for the top-top contribution to the Delta S = 2 effective hamiltonian
      */
     complex S0tt() const;
+
+    StandardModel* GetSM() const {
+        return SM;
+    }
+
+    void SetSM(StandardModel* SM) {
+        this->SM = SM;
+    }
+
     
 protected:
     std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2;
@@ -223,7 +234,7 @@ protected:
     
     
 private:
-    const StandardModel& SM;
+    StandardModel * SM;
     double S0(double, double) const;
     double S0(double) const;
     double S0p(double x) const;

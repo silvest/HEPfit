@@ -12,8 +12,7 @@
 #include "QCD.h"
 #include "CKM.h"
 #include "WilsonCoefficient.h"
-
-class StandardModelMatching;
+#include "StandardModelMatching.h"
 
 using namespace gslpp;
 class EWSM; // forward reference to ESSM class
@@ -34,6 +33,11 @@ public:
     virtual std::string ModelName() const {
         return "StandardModel";
     }
+    
+    virtual StandardModelMatching* GetMyMatching() const {
+        return myStandardModelMatching;
+    }
+
 
     /**
      * updates the SM parameters found in the argument
@@ -439,13 +443,8 @@ public:
     
     double GetMHl() const {
         return mHl;
-    }
-
-    
-    
-    StandardModelMatching* myMatching;
-    
-    
+    }    
+        
 protected:
     virtual void SetParameter(const std::string, const double&);
     
@@ -461,7 +460,7 @@ protected:
 
 private:
     bool computeCKM, computeYe, computeYn;
-    
+    StandardModelMatching* myStandardModelMatching;
     
    
 };
