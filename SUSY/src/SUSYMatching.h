@@ -88,8 +88,12 @@ public:
 //    virtual const std::vector<WilsonCoefficient>& CMd1Buras();
 
    
+    /** Large tan beta correction to CKM, down-quark mass **/
+    
     void Comp_DeltaMd();
     void Comp_mySUSY_CKM();
+    
+    /** Quark Masses run to the SUSY scale Q **/
     void Comp_mySUSYMQ();
     
     
@@ -102,7 +106,9 @@ private:
                       mcdbs2HpT, mcdbs2ggT, mcdbs2ChiChiT, mcdbs2Chi0Chi0T, mcdbs2Chi0gT;
     WilsonCoefficient mcdk2, mcdk2Hp, mcdk2gg, mcdk2ChiChi, mcdk2Chi0Chi0, mcdk2Chi0g,
                       mcdk2HpT, mcdk2ggT, mcdk2ChiChiT, mcdk2Chi0Chi0T, mcdk2Chi0gT;
-    WilsonCoefficient mcdd2;
+    WilsonCoefficient mcdd2, mcdd2Hp, mcdd2gg, mcdd2ChiChi, mcdd2Chi0Chi0, mcdd2Chi0g,
+                      mcdd2HpT, mcdd2ggT, mcdd2ChiChiT, mcdd2Chi0Chi0T, mcdd2Chi0gT;
+    
     WilsonCoefficient mcbsg, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     
     
@@ -113,33 +119,63 @@ private:
     std::vector<WilsonCoefficient> vmdd2;
     std::vector<WilsonCoefficient> vmcbsg;
     
+    /** Passarino Veltman functions, Dk with k = 0,2 , and their limits **/
     
+    gslpp::complex Dk(double x, double y, double z, double t,int k);
     
     double DL(double a, double b, double c,int k);
     double DLL(double a, double b,int k);
     double DLLp(double a, double b,int k);
     double DLLL(double a,int k);
-    gslpp::complex Dk(double x, double y, double z, double t,int k);
+    
+    
+    /** Calcolous of Charged Higgs contributions **/
     gslpp::vector<complex> CdF2dHp(int b, int q, int Dmixingflag);
     
-    
+    /** Calcolous Gluinos Box **/
     gslpp::vector<complex> CdF2dgg(int b, int q, int Dmixingflag);
+    
+    /** Calcolous Neutralino - Gluino Box **/
     gslpp::vector<complex> CdF2dChi0g(int b, int q, int Dmixingflag);
     
+    /** Calcolous Charginos contribution to Wilson Coefficents **/
     gslpp::vector<complex> CdF2dChiChi(int b, int q, int Dmixingflag);
+    
+    /** Calcolous Neutralino contribution to Wilson Coefficents **/
+    gslpp::vector<complex> CdF2dChi0Chi0(int b, int q, int Dmixingflag);
+    
+    /** Feynmann rule for the Chargino - down quark - up squarks vertex with tan beta correction  **/
     gslpp::complex VChiUdL(int j, int k, int b);
     gslpp::complex VdUCL(int b, int k, int j);
     gslpp::complex VdUCR(int b, int k, int j, int flag);
     
-    gslpp::complex VChiDdL(int j, int k, int b, int flag);
+    /** Feynmann rule for the Neutralino - down quark - down squarks vertex with tan beta correction  **/
+    gslpp::complex VdDNL(int b, int k, int j, int flag);
     gslpp::complex VdDNR(int b, int k, int j, int flag);
-    gslpp::vector<complex> CdF2dChi0Chi0(int b, int q, int Dmixingflag);
-
+    
+    /** Feynmann rule for the Chargino - up quark - down squarks vertex with tan beta correction  **/
     gslpp::complex VuDCL(int b, int k, int j);
     gslpp::complex VuDCR(int b, int k, int j);
     
+    /** Vertices Neutralino (N) - up quark (u) - up squarks (U) from Buras arXiv:hep-ph/0210145v2 
+        in SLHA convention usefull in D - Dbar mixing **/
+    
+    gslpp::complex VuUN(int b, int k, int j, const std::string);
+  
+  
+    /** Rules to include in the same formulas the D - D bar mixing  **/
     gslpp::complex VdUCL(int b, int k, int j, int Dmixingflag);
     gslpp::complex VdUCR(int b, int k, int j, int flag, int Dmixingflag);
+    
+    gslpp::complex VdDNL(int b, int k, int j, int flag, int Dmixingflag);
+    gslpp::complex VdDNR(int b, int k, int j, int flag, int Dmixingflag);
+    
+    
+    
+    
+    
+    
+    
     
     double CL(double a, double b, int k);
     double CLL(double a, int k);
@@ -178,6 +214,10 @@ private:
     
     gslpp::matrix<complex> mySUSY_CKM();
     
+    gslpp::complex EpsPrime(int J, int I);
+    gslpp::vector<complex> CalcC7(int b, int q);
+    double F7k(double x, int k);
+   
     
     gslpp::matrix<complex> myCKM_cache;
     gslpp::matrix<complex> DeltaMd_cache;
