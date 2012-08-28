@@ -41,8 +41,6 @@ SUSY::SUSY() :
         throw std::runtime_error(ss.str());
     }
     
-    mySUSYMatching = new SUSYMatching();
-    mySUSYMatching->SetMySUSY(this);
 }
 
 
@@ -91,7 +89,7 @@ void SUSY::SetParameter(const std::string name, const double& value) {
     else if (name.compare("mHptree") == 0)
         mHptree = value;
     else if (name.compare("tanb") == 0)
-        tanb = value;
+        setTanb(value);
     else if (name.compare("Q") == 0)
         Q = value;
     else
@@ -99,21 +97,39 @@ void SUSY::SetParameter(const std::string name, const double& value) {
         
 }
 
+bool SUSY::InitializeMatching(){
+    
+    mySUSYMatching = new SUSYMatching(*this);
+    SetMatchingInitialized(true);
+    return(true);
+}
+
+bool SUSY::PreUpdate(){
+    
+     if(!StandardModel::PreUpdate())  return (false);
+    
+     return (true);
+}
+
 
 bool SUSY::PostUpdate(){
     
+    mySUSYMatching->Comp_mySUSYMQ();
     mySUSYMatching->Comp_DeltaMd();
     mySUSYMatching->Comp_mySUSY_CKM();
-    mySUSYMatching->Comp_mySUSYMQ();
+    
     
      return (true);
 }
 
 bool SUSY::Update(const std::map<std::string, double>& DPars) {
 
+    UpdateError = false;
     
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
     SetParameter(it->first, it->second);
+    
+    if (UpdateError) return (false);
     
      return (true);
      
@@ -156,7 +172,7 @@ bool SUSY::SetFeynHiggsPars(void) {
     double x2 = v2()/sqrt(2.);
     //FHSetDebug(2);  
     
-//    double zu = MS2DRqmass(Q,Mrun(Q,quarks[UP].getMass_scale(),quarks[UP].getMass()));       // IL PROBLEMA STA QUI DENTRO !!! FORSE L'HO RISOLTO !!!
+//    double zu = MS2DRqmass(Q,Mrun(Q,quarks[UP].getMass_scale(),quarks[UP].getMass()));     
 //    double zd = MS2DRqmass(Q,Mrun(Q,quarks[DOWN].getMass_scale(),quarks[DOWN].getMass()));
 //    double zs = MS2DRqmass(Q,Mrun(Q,quarks[STRANGE].getMass_scale(),quarks[STRANGE].getMass()));
 //    double zc = MS2DRqmass(Q,Mrun(Q,quarks[CHARM].getMass()));
@@ -181,7 +197,7 @@ bool SUSY::SetFeynHiggsPars(void) {
     
     //mHp = 80.012;
     
-    //if(mHp < Mw_tree()) return (false);  // chiedere a E.FRANCO SE VA BENE !!!
+    //if(mHp < Mw_tree()) return (false);  
     
     //std::cout << "mHp = " << mHp << std::endl;
     
@@ -360,7 +376,7 @@ bool SUSY::CalcSpectrum(){
             Ru.assign(i,j,complex(UASf[2][i][j].real(),UASf[2][i][j].imag()));
             Rd.assign(i,j,complex(UASf[3][i][j].real(),UASf[3][i][j].imag()));
 //            
-//            sarebbe intelligente mettere CalcSpectrum subito dopo FHSetPara, mettere dei controlli e uscire subito ...
+//            
 //            if(std::isnan(complex(UASf[0][i][j].real()))) return (false);
 //            if(std::isnan(complex(UASf[0][i][j].imm()))) return (false);
             

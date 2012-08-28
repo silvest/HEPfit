@@ -428,7 +428,7 @@ private:
     complex Cm1, Cm2, CmuH;
     bool Fh, Fg, FChi, FChi0;
     SUSYMatching* mySUSYMatching;
-  
+     
      
     
 protected:
@@ -437,7 +437,9 @@ protected:
     
     bool Update(const std::map<std::string, double>& DPars);
     
-    virtual bool PreUpdate() = 0;
+    virtual bool InitializeMatching();
+    
+    virtual bool PreUpdate();
      
     virtual bool PostUpdate();
     
