@@ -19,6 +19,9 @@ public:
 
     Flavour(const StandardModel& SM_i) : ThObsType(SM_i), 
             HDF2(SM_i) {
+        
+        if(!SM_i.IsMatchingInitialized())
+            throw "Matching not initialized ";
     };
 
     const HeffDF2& getHDF2() const {
