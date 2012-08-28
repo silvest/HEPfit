@@ -19,7 +19,7 @@ class SUSY;
 
 class SUSYMatching : public StandardModelMatching {
 public:
-    SUSYMatching();
+    SUSYMatching(const SUSY & SUSY_i);
     
     /**
      * 
@@ -97,16 +97,9 @@ public:
     /** Quark Masses run to the SUSY scale Q **/
     void Comp_mySUSYMQ();
     
-        SUSY* GetMySUSY() const {
-        return mySUSY;
-    }
-
-    void SetMySUSY(SUSY* mySUSY) {
-        this->mySUSY = mySUSY;
-    }
-
+      
 private:
-    SUSY * mySUSY;
+    const SUSY & mySUSY;
     WilsonCoefficient mcdbd2, mcdbd2Hp, mcdbd2gg, mcdbd2ChiChi, mcdbd2Chi0Chi0, mcdbd2Chi0g,
                       mcdbd2HpT, mcdbd2ggT, mcdbd2ChiChiT, mcdbd2Chi0Chi0T, mcdbd2Chi0gT;
     WilsonCoefficient mcdbs2, mcdbs2Hp, mcdbs2gg, mcdbs2ChiChi, mcdbs2Chi0Chi0, mcdbs2Chi0g,
@@ -118,8 +111,6 @@ private:
     
     WilsonCoefficient mcbsg, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     
-    
-    
     std::vector<WilsonCoefficient> vmdbd2;                           
     std::vector<WilsonCoefficient> vmdbs2;
     std::vector<WilsonCoefficient> vmdk2;
@@ -128,12 +119,15 @@ private:
     
     /** Passarino Veltman functions, Dk with k = 0,2 , and their limits **/
     
-    gslpp::complex Dk(double x, double y, double z, double t,int k);
-    
-    double DL(double a, double b, double c,int k);
-    double DLL(double a, double b,int k);
-    double DLLp(double a, double b,int k);
-    double DLLL(double a,int k);
+    double Dk(double x, double y, double z, double t, int k);
+
+    double D0N(double x, double y, double z, double t);
+    double D2LL0(double a, double b);
+    double DL0(double a, double b, double c, int k);
+    double DL(double a, double b, double c, int k);
+    double DLL(double a, double b, int k);
+    double DLLp(double a, double b, int k);
+    double DLLL(double a, int k);
     
     
     /** Calcolous of Charged Higgs contributions **/
