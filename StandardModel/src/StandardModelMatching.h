@@ -17,7 +17,7 @@ class StandardModel;
 
 class StandardModelMatching : public ModelMatching{
 public:
-    StandardModelMatching();
+    StandardModelMatching(const StandardModel & SM_i);
     
     /**
      * 
@@ -219,22 +219,14 @@ public:
      */
     complex S0tt() const;
 
-    StandardModel* GetSM() const {
-        return SM;
-    }
-
-    void SetSM(StandardModel* SM) {
-        this->SM = SM;
-    }
-
-    
+   
 protected:
     std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2;
     std::vector<WilsonCoefficient> vmcbsg, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
     
     
 private:
-    StandardModel * SM;
+    const StandardModel & SM;
     double S0(double, double) const;
     double S0(double) const;
     double S0p(double x) const;
