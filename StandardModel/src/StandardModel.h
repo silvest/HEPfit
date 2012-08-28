@@ -38,6 +38,10 @@ public:
         return myStandardModelMatching;
     }
 
+    virtual void SetMyMatching(StandardModelMatching* myMatching) {
+        this->myStandardModelMatching = myMatching;
+    }
+
 
     /**
      * updates the SM parameters found in the argument
@@ -444,7 +448,10 @@ public:
     double GetMHl() const {
         return mHl;
     }    
-        
+       
+    
+    virtual bool InitializeMatching();
+    
 protected:
     virtual void SetParameter(const std::string, const double&);
     

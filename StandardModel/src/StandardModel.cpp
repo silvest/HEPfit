@@ -34,8 +34,14 @@ Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
     leptons[MU].setCharge(-1.);    
     leptons[TAU].setCharge(-1.);    
     myEWSM = new EWSM(*this, bDebug_i);
-    myStandardModelMatching = new StandardModelMatching();
-    myStandardModelMatching->SetSM(this);
+  
+}
+
+bool StandardModel::InitializeMatching(){
+    
+    myStandardModelMatching = new StandardModelMatching(*this);
+    SetMatchingInitialized(true);
+    return(true);
 }
 
 bool StandardModel::PreUpdate(){
@@ -87,8 +93,12 @@ bool StandardModel::Update(const std::map<std::string, double>& DPars) {
     
     if(!PreUpdate()) return (false);
     
+    UpdateError = false;
+    
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         SetParameter(it->first, it->second);
+    
+    if (UpdateError) return (false);
     
     if(!PostUpdate())  return (false);
     
