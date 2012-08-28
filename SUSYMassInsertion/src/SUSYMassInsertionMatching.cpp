@@ -5,7 +5,7 @@
 using namespace gslpp;
 
 SUSYMassInsertionMatching::SUSYMassInsertionMatching(const SUSYMassInsertion & SUSYMassInsertion_i):
-        StandardModelMatching(), SusyMI(SUSYMassInsertion_i), 
+        StandardModelMatching(SUSYMassInsertion_i), SusyMI(SUSYMassInsertion_i), 
         mcd2(5, NDR, NLO), mcbd(5, NDR, NLO), mcbs(5, NDR, NLO),
         mcd1(10, NDR, NLO), mck2(5, NDR, NLO), drNDRLRI(5, 5, 0.) {
     
