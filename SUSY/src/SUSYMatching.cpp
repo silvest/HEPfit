@@ -96,6 +96,19 @@ double SUSYMatching::DL(double a, double b, double c, int k) {
                 + c)*(-a + c)*(-b + c));
     } else
         if (k == 2) {
+
+        if (a < SUSYLEPS) {
+
+            return ( (-log(b) + log(c)) / (4. * (b - c)));
+        } else
+            if (b < SUSYLEPS) {
+
+            return ( (-a + c + c * log(a) - c * log(c)) / (4. * (a - c) * (a - c)));
+        } else
+            if (c < SUSYLEPS) {
+
+            return ( (-a + b + b * log(a) - b * log(b)) / (4. * (a - b) * (a - b)));
+        }
         return (a * (-b + c)*(a * b + (a - 2. * b) * c) * log(a)
                 + (-a + c)*(a * (a - b)*(-b + c)
                 + b * b * (-a + c) * log(b))
@@ -106,21 +119,44 @@ double SUSYMatching::DL(double a, double b, double c, int k) {
 
 double SUSYMatching::DLL(double a, double b, int k) {
     if (k == 0) {
-        return ( (-a * a + b * b + 2 * a * b * log(a) - 2 * a * b * log(b)) /
+
+        if (b < SUSYLEPS) {
+            return (1. / (2. * a * a));
+        } else
+            return ( (-a * a + b * b + 2 * a * b * log(a) - 2 * a * b * log(b)) /
                 (2. * a * (a - b)*(a - b)*(a - b)));
     } else
         if (k == 2) {
-        return (a * a - 4 * a * b + 3 * b * b + 2 * b * b * log(a)
+
+        if (b < SUSYLEPS) {
+
+            return ( -1. / (8. * a));
+        } else
+            return (a * a - 4 * a * b + 3 * b * b + 2 * b * b * log(a)
                 - 2 * b * b * log(b)) / (8. * (-a + b)*(-a + b)*(-a + b));
     }
 }
 
 double SUSYMatching::DLLp(double a, double b, int k) {
     if (k == 0) {
+        
+        if ( (a < SUSYLEPS) || (b < SUSYLEPS) ) {
+            
+            throw "Error in DLLp function, because the limit D0(0,0,b,b) and D0(a,a,0,0) are singular ";
+        }
         return (-2 * a + 2 * b + (a + b) * log(a) - (a + b) * log(b))
                 / ((a - b)*(a - b)*(a - b));
     } else
         if (k == 2) {
+            
+            if ( a < SUSYLEPS ){
+                
+                return (-1. / (4. * b ));
+            } else 
+                if ( b < SUSYLEPS ){
+                    
+                    return ( -1. / (4. * a) );
+                }
         return (-a * a + b * b + 2 * a * b * log(a) - 2 * a * b * log(b))
                 / (4. * (a - b)*(a - b)*(a - b));
     }
@@ -186,8 +222,9 @@ double SUSYMatching::Dk(double x, double y, double z, double t, int k) {
     if ((fabs(1. - t / y) < SUSYLEPS)) {
         return DL(y, z, x, k);
     }
-    if ((fabs(1. - t / z) < SUSYLEPS)) {
-        return DL(z, y, x, k);
+    if (( fabs(1. - z / t) < SUSYLEPS)) {
+        
+        return (DL(x, y, z, k));
     }
 
     /// one variable equal to zero
@@ -209,19 +246,19 @@ double SUSYMatching::Dk(double x, double y, double z, double t, int k) {
         return (DL0(x, y, z, k));
     }
     
-    /// two variables equal to zero only for D2 function because the limit 
-    /// of D0(x,y,z,t) * sqrt( z * t ) for z -> 0 and t -> 0 is equal to zero
-    
-    if ( (fabs(z) < SUSYLEPS) && (fabs(t)<SUSYLEPS) ){
-        
-        if (k == 2){
-        return (D2LL0(x,y));
-        }
-        else {
-            
-            throw "Error in D0 limit z -> 0 and t -> 0 ";
-        }
-    }
+//    /// two variables equal to zero only for D2 function because the limit 
+//    /// of D0(x,y,z,t) * sqrt( z * t ) for z -> 0 and t -> 0 is equal to zero
+//    
+//    if ( (fabs(z) < SUSYLEPS) && (fabs(t)<SUSYLEPS) ){
+//        
+//        if (k == 2){
+//        return (D2LL0(x,y));
+//        }
+//        else {
+//            
+//            throw "Error in D0 limit z -> 0 and t -> 0 ";
+//        }
+//    }
     
     
     /// different variables 
@@ -517,7 +554,6 @@ gslpp::complex SUSYMatching::DeltaDL(int J, int I) {
                 (mdJ * mdJ - mdI * mdI));
     } else
         if (J = I) {
-
 
         return (C);
     }
@@ -850,7 +886,10 @@ gslpp::complex SUSYMatching::VdUCL(int b, int k, int j, int Dmixingflag) {
         if (Dmixingflag == 1) {
 
         return (VuDCL(b, k, j));
-    }
+    } else {
+            
+             throw "Error in VdUCL(b,k,j,flag,Dmixingflag) in SUSYMatching.cpp  ";
+        }
 }
 
 gslpp::complex SUSYMatching::VdUCR(int b, int k, int j, int flag, int Dmixingflag) {
@@ -862,7 +901,10 @@ gslpp::complex SUSYMatching::VdUCR(int b, int k, int j, int flag, int Dmixingfla
         if (Dmixingflag == 1) {
 
         return (VuDCR(b, k, j));
-    }
+    } else {
+            
+             throw "Error in VdUCR(b,k,j,flag,Dmixingflag) in SUSYMatching.cpp  ";
+        }
 }
 
 /* Vertices uUN from Buras arXiv:hep-ph/0210145v2 in SLHA convention  
@@ -950,9 +992,9 @@ gslpp::complex SUSYMatching::PGRL(int j, int i) {
     gslpp::matrix<complex> myCKM(3, 3, 0.);
     mySUSY.getCKM().getCKM(myCKM);
 
-    complex prova(0,0,false);
-    prova += (sqrt(2.) / mySUSY.v() * myCKM(j, i) *
-            mySUSYMQ(2 * i));
+//    complex prova(0,0,false);
+//    prova += (sqrt(2.) / mySUSY.v() * myCKM(j, i) *
+//            mySUSYMQ(2 * i));
 //    double provar = prova.real();
 //    double provai = prova.imag();
     
@@ -1145,9 +1187,9 @@ gslpp::complex SUSYMatching::PHRL(int j, int i){
     myCKM = mySUSY_CKM();
     
     complex prova(0.,0.,false);
-    prova = DeltaFHL(j,i);
-    double provar = prova.real();
-    double provai = prova.imag();
+//    prova = DeltaFHL(j,i);
+//    double provar = prova.real();
+//    double provai = prova.imag();
     
     return (sqrt(2.)/(v * mySUSY.getTanb()) * mySUSYMQ(2 * j) *
             myCKM(j,i) + DeltaFHL(j,i));
@@ -1156,22 +1198,29 @@ gslpp::complex SUSYMatching::PHRL(int j, int i){
 
 gslpp::complex SUSYMatching::PLRk(int j, int i, int k){
     
-    if(k == 1){
+    if(k == 0){
         return (PHLR(j,i));
     }else
-        if(k == 2){
+        if(k == 1){
             return (PGLR(j,i));
+        } else {
+            
+             throw "Error in PLRk(j,i,k) in SUSYMatching.cpp  ";
         }
     
 }
 
 gslpp::complex SUSYMatching::PRLk(int j, int i, int k){
     
-    if(k == 1){
+    if(k == 0){
         return (PHRL(j,i));
-    }else
-        if(k == 2){
+    } else
+        if(k == 1){
             return (PGRL(j,i));
+        }
+        else {
+            
+             throw "Error in PRLk(j,i,k) in SUSYMatching.cpp  ";
         }
 }
 
@@ -1188,7 +1237,10 @@ gslpp::complex SUSYMatching::PRLk(int j, int i, int k, int Dmixingflag) {
         if (Dmixingflag == 1) {
 
         return (PLRk(i, j, k).conjugate());
-    }
+    } else {
+            
+             throw "Error in PRLk(j,i,k,Dmixingflag) in SUSYMatching.cpp  ";
+        }
 
 }
 
@@ -1203,8 +1255,10 @@ gslpp::complex SUSYMatching::PLRk(int j, int i, int k, int Dmixingflag) {
         if (Dmixingflag == 1) {
 
         return (PRLk(i, j, k).conjugate());
-    }
-
+        } else {
+            
+             throw "Error in PLRk(j,i,k,Dmixingflag) in SUSYMatching.cpp  ";
+        }
 }
 ////////////////////////////////////////////////////////////////////////////////
 ////// Double Penguin Functions
@@ -1235,7 +1289,10 @@ gslpp::complex SUSYMatching::xdS(int S){
     }
     if (S == 2) {
         return ( i * mySUSY.getSinb());
-    }
+    } else {
+            
+             throw "Error in xdS(S) in SUSYMatching.cpp  ";
+        }
 }
 
 gslpp::complex SUSYMatching::xuS(int S){
@@ -1262,7 +1319,10 @@ gslpp::complex SUSYMatching::xuS(int S){
     }
     if (S == 2) {
         return (-i * mySUSY.getCosb());
-    }
+    } else {
+            
+             throw "Error in xuS(S) in SUSYMatching.cpp  ";
+        }
     
 }
 
@@ -1283,7 +1343,10 @@ gslpp::complex SUSYMatching::XRLS(int J, int I, int S){
         if (J < I) {
 
         return (XLRS(I, J, S).conjugate());
-    }
+    } else {
+            
+             throw "Error in XRLS(J,I,S) in SUSYMatching.cpp  ";
+        }
 
 }
 
@@ -1304,26 +1367,26 @@ gslpp::complex SUSYMatching::XLRS(int J, int I, int S){
             Lambda0EpsY(J, I) / Lambda0EpsY(I, J).conjugate()) * tanb) /
             (1 + Eps_J(I).conjugate() * tanb));
 
-    double provar = rJI.real();
-    double provai = rJI.imag();
-    double provaEps_Jr = Eps_J(J).real();
-    double provaEps_Ji = Eps_J(J).imag();
-    double provaEps_Ir = Eps_J(I).real();
-    double provaEps_Ii = Eps_J(I).imag();
-    double ProvaJIr = Lambda0EpsY(J, I).real();
-    double ProvaJIi = Lambda0EpsY(J, I).imag();
-    double ProvaIJr = Lambda0EpsY(I, J).real();
-    double ProvaIJi = Lambda0EpsY(I, J).imag();
+//    double provar = rJI.real();
+//    double provai = rJI.imag();
+//    double provaEps_Jr = Eps_J(J).real();
+//    double provaEps_Ji = Eps_J(J).imag();
+//    double provaEps_Ir = Eps_J(I).real();
+//    double provaEps_Ii = Eps_J(I).imag();
+//    double ProvaJIr = Lambda0EpsY(J, I).real();
+//    double ProvaJIi = Lambda0EpsY(J, I).imag();
+//    double ProvaIJr = Lambda0EpsY(I, J).real();
+//    double ProvaIJi = Lambda0EpsY(I, J).imag();
     
     
     if (J > I) {
         
-        double prova = (mySUSYMQ(2 * I + 1) / (v1 * temp.abs2()) *
-                Lambda0EpsY(I, J).conjugate() * Y2ut * rJI *
-                (xuS(S).conjugate() - xdS(S).conjugate() * tanb)).real();
-        double prova2 = (mySUSYMQ(2 * I + 1) / (v1 * temp.abs2()) *
-                Lambda0EpsY(I, J).conjugate() * Y2ut * rJI *
-                (xuS(S).conjugate() - xdS(S).conjugate() * tanb)).imag();
+//        double prova = (mySUSYMQ(2 * I + 1) / (v1 * temp.abs2()) *
+//                Lambda0EpsY(I, J).conjugate() * Y2ut * rJI *
+//                (xuS(S).conjugate() - xdS(S).conjugate() * tanb)).real();
+//        double prova2 = (mySUSYMQ(2 * I + 1) / (v1 * temp.abs2()) *
+//                Lambda0EpsY(I, J).conjugate() * Y2ut * rJI *
+//                (xuS(S).conjugate() - xdS(S).conjugate() * tanb)).imag();
         
 
         return (mySUSYMQ(2 * I + 1) / (v1 * temp.abs2()) *
@@ -1334,10 +1397,10 @@ gslpp::complex SUSYMatching::XLRS(int J, int I, int S){
 
         return (XRLS(I, J, S).conjugate());
 
-    } else
-        if (J == I){
-            
-            std::cout << " XLRS error in SUSYMatching.cpp" << std::endl;
+    } else {
+           
+             throw "Error in XLRS(J,I,S) in SUSYMatching.cpp  ";
+        
         }
     
 }
@@ -1417,15 +1480,15 @@ gslpp::vector<complex> SUSYMatching::CdF2dHp(int b, int q, int Dmixingflag) {
                         M2J = MQuarks(2 * J);
                         M2J *= M2J;
                         CLO += 1. / 4. * mySUSY.getGF() * M2W / (sqrt(2) * M_PI * M_PI) *
-                                myCKM(I, q).conjugate() * myCKM(J, b) * PRLk(J, q, 1, D).conjugate() *
-                                PRLk(I, b, 1, D) * D0N(M2W, M2H, M2I, M2J)
+                                myCKM(I, q).conjugate() * myCKM(J, b) * PRLk(J, q, 0, D).conjugate() *
+                                PRLk(I, b, 0, D) * D0N(M2W, M2H, M2I, M2J)
 
-                                - 1. / (32. * M_PI * M_PI) * PRLk(I, q, 1, D).conjugate() *
-                                PRLk(J, q, 1, D).conjugate() * PRLk(I, b, 1, D) * PRLk(J, b, 1, D) *
+                                - 1. / (32. * M_PI * M_PI) * PRLk(I, q, 0, D).conjugate() *
+                                PRLk(J, q, 0, D).conjugate() * PRLk(I, b, 0, D) * PRLk(J, b, 0, D) *
                                 Dk(M2H, M2H, M2I, M2J, 2)
 
-                                - 1. / (16. * M_PI * M_PI) * PRLk(I, q, 2, D).conjugate() *
-                                PRLk(J, q, 1, D).conjugate() * PRLk(I, b, 1, D) * PRLk(J, b, 2, D) *
+                                - 1. / (16. * M_PI * M_PI) * PRLk(I, q, 1, D).conjugate() *
+                                PRLk(J, q, 0, D).conjugate() * PRLk(I, b, 0, D) * PRLk(J, b, 1, D) *
                                 Dk(M2W, M2H, M2I, M2J, 2);
                 }
             }
@@ -1503,9 +1566,17 @@ gslpp::vector<complex> SUSYMatching::CdF2dHp(int b, int q, int Dmixingflag) {
                             CLO += 1. / 8. * PRLk(I, q, l, D).conjugate() *
                                     PLRk(J, q, k, D).conjugate() * PRLk(I, b, k, D) *
                                     PLRk(J, b, l, D) * Dk(M2Hk(k), M2Hk(l), M2I, M2J, 2);
-                            
-                            double provaCr = CLO.real();
-                            double provaCi = CLO.imag();
+//                            double provaDK2r = Dk(M2Hk(k), M2Hk(l), M2I, M2J, 2);
+//                            double provaPRLkIqr = PRLk(I, q, l, D).real();
+//                            double provaPRLkIqi = PRLk(I, q, l, D).imag();
+//                            double provaPLRkJqr = PLRk(J, q, k, D).real();
+//                            double provaPLRkJqi = PLRk(J, q, k, D).imag();
+//                            double provaPRLkIbqr = PRLk(I, b, k, D).real();
+//                            double provaPRLkIbi = PRLk(I, b, k, D).imag();
+//                            double provaPLRkJbr = PLRk(J, b, k, D).real();
+//                            double provaPLRkJbi = PLRk(J, b, k, D).imag();
+//                            double provaCr = CLO.real();
+//                            double provaCi = CLO.imag();
                             
                         }
                     }
@@ -1529,11 +1600,11 @@ gslpp::vector<complex> SUSYMatching::CdF2dHp(int b, int q, int Dmixingflag) {
                                     PLRk(J, b, l, D) * Dk(M2Hk(k), M2Hk(l), M2I, M2J, 2);
 
                             
-                            double provaMQI = M2I;
-                            double provaMQJ = M2J;
-                            double provar = CLO.real();
-                            double provai = CLO.real();
-                            double provan = 9.;
+//                            double provaMQI = M2I;
+//                            double provaMQJ = M2J;
+//                            double provar = CLO.real();
+//                            double provai = CLO.real();
+//                            double provan = 9.;
                             
                         }
                     }
@@ -1554,7 +1625,18 @@ gslpp::vector<complex> SUSYMatching::CdF2dHp(int b, int q, int Dmixingflag) {
 
                             CLO += -1. / (32. * M_PI * M_PI) * PRLk(I, q, l, D).conjugate() *
                                     PRLk(J, q, k, D).conjugate() * PLRk(I, b, k, D) * PLRk(J, b, l, D) *
-                                    D0N(M2Hk(k), M2Hk(l), M2I, M2J);                         
+                                    D0N(M2Hk(k), M2Hk(l), M2I, M2J);      
+//                            double provaD0N = D0N(M2Hk(k), M2Hk(l), M2I, M2J);
+//                            double provaPRLkIqr = PRLk(I, q, l, D).real();
+//                            double provaPRLkIqi = PRLk(I, q, l, D).imag();
+//                            double provaPRLkJqr = PRLk(J, q, k, D).real();
+//                            double provaPRLkJqi = PRLk(J, q, k, D).imag(); 
+//                            double provaPLRkIqr = PLRk(I, b, k, D).real();
+//                            double provaPLRkIqi = PLRk(I, b, k, D).imag();
+//                            double provaPLRkjbr = PLRk(J, b, l, D).real();
+//                            double provaPLRkJbi = PLRk(J, b, l, D).imag();
+//                            double PRova = 5;
+                           
                         }
                     }
                 }
