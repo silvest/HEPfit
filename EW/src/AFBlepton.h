@@ -17,7 +17,7 @@ public:
      * @brief AFBlepton constructor
      * @param[in] EW_i an object of EW class
      */
-    AFBlepton(const EW& EW_i);
+    AFBlepton(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
      * @return the forward-backward asymmetry of a leptonic channel
@@ -26,8 +26,7 @@ public:
 
     
 private:
-    double AFB_l;
-    
+    const EW& myEW;
 };
 
 #endif	/* AFBLEPTON_H */

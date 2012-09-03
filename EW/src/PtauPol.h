@@ -17,7 +17,7 @@ public:
      * @brief PtauPol constructor
      * @param[in] EW_i an object of EW class
      */
-    PtauPol(const EW& EW_i);
+    PtauPol(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
      * @return the longitudinal polarization of the tau-taubar channel
@@ -26,8 +26,7 @@ public:
 
     
 private:
-    double P_tau_pol;
-    
+    const EW& myEW;
 };
 
 #endif	/* PTAUPOL_H */
