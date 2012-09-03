@@ -17,7 +17,7 @@ public:
      * @brief obliqueU constructor
      * @param[in] EW_i an object of EW class
      */
-    obliqueU(const EW& EW_i);
+    obliqueU(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
      * @return the oblique parameter U
@@ -26,8 +26,7 @@ public:
 
     
 private:
-    double U;
-    
+    const EW& myEW; 
 };
 
 #endif	/* OBLIQUEU_H */

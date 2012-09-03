@@ -17,7 +17,7 @@ public:
      * @brief sigmaHadron constructor
      * @param[in] EW_i an object of EW class
      */
-    sigmaHadron(const EW& EW_i);
+    sigmaHadron(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
      * @return the hadronic cross section 
@@ -26,8 +26,7 @@ public:
 
 
 private:
-    double sigma_had;
-    
+    const EW& myEW;
 };
 
 #endif	/* SIGMAHADRON_H */

@@ -17,7 +17,7 @@ public:
      * @brief Rlepton constructor
      * @param[in] EW_i an object of EW class
      */
-    Rlepton(const EW& EW_i);
+    Rlepton(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
      * @return the ratio of the hadronic width to the leptonic width
@@ -26,8 +26,7 @@ public:
 
     
 private:
-    double R0_l;
-    
+    const EW& myEW; 
 };
 
 #endif	/* RLEPTON_H */

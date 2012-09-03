@@ -17,7 +17,7 @@ public:
      * @brief Acharm constructor
      * @param[in] EW_i an object of EW class
      */
-    Acharm(const EW& EW_i);
+    Acharm(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
      * @return the left-right asymmetry of the c-cbar channel
@@ -26,8 +26,7 @@ public:
 
     
 private:
-    double A_c;
-    
+    const EW& myEW;
 };
 
 #endif	/* ACHARM_H */

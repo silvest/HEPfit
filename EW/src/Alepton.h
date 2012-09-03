@@ -17,7 +17,7 @@ public:
      * @brief Alepton constructor
      * @param[in] EW_i an object of EW class
      */
-    Alepton(const EW& EW_i);
+    Alepton(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
      * @return the left-right asymmetry of a leptonic channel
@@ -26,8 +26,7 @@ public:
 
     
 private:
-    double A_l;
-    
+    const EW& myEW;
 };
 
 #endif	/* ALEPTON_H */

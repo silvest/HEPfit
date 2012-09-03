@@ -17,7 +17,7 @@ public:
      * @brief Abottom constructor
      * @param[in] EW_i an object of EW class
      */
-    Abottom(const EW& EW_i);
+    Abottom(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
      * @return the left-right asymmetry of the b-bbar channel
@@ -26,8 +26,7 @@ public:
 
     
 private:
-    double A_b;
-
+    const EW& myEW;
 };
 
 #endif	/* ABOTTOM_H */
