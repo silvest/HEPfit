@@ -24,7 +24,7 @@ double sigmaHadron::getThValue() {
                      *( myEW.S() - 4.0*c2*s2*myEW.T() );         
     }
     
-    return sigma_had;
+    return ( sigma_had*myEW.GeVminus2_to_nb() );
 }
         
 

@@ -4,9 +4,33 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/ZFAFBbottom.h</itemPath>
+      <itemPath>src/ZFAFBbottomLEP2.h</itemPath>
+      <itemPath>src/ZFAFBcharm.h</itemPath>
+      <itemPath>src/ZFAFBcharmLEP2.h</itemPath>
+      <itemPath>src/ZFAFBlepton.h</itemPath>
+      <itemPath>src/ZFAFBmuLEP2.h</itemPath>
+      <itemPath>src/ZFAFBtauLEP2.h</itemPath>
+      <itemPath>src/ZFAbottom.h</itemPath>
+      <itemPath>src/ZFAcharm.h</itemPath>
+      <itemPath>src/ZFAlepton.h</itemPath>
+      <itemPath>src/ZFEWObservables.h</itemPath>
+      <itemPath>src/ZFGammaW.h</itemPath>
+      <itemPath>src/ZFGammaZ.h</itemPath>
+      <itemPath>src/ZFMw.h</itemPath>
+      <itemPath>src/ZFPtauPol.h</itemPath>
+      <itemPath>src/ZFRbottom.h</itemPath>
+      <itemPath>src/ZFRbottomLEP2.h</itemPath>
+      <itemPath>src/ZFRcharm.h</itemPath>
+      <itemPath>src/ZFRcharmLEP2.h</itemPath>
+      <itemPath>src/ZFRlepton.h</itemPath>
       <itemPath>src/ZFitter-f2c.h</itemPath>
       <itemPath>src/ZFitter.h</itemPath>
-      <itemPath>src/ZFitterObservables.h</itemPath>
+      <itemPath>src/ZFsigmaHadron.h</itemPath>
+      <itemPath>src/ZFsigmaMuLEP2.h</itemPath>
+      <itemPath>src/ZFsigmaQuarksLEP2.h</itemPath>
+      <itemPath>src/ZFsigmaTauLEP2.h</itemPath>
+      <itemPath>src/ZFsin2thetaEff.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -15,13 +39,40 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/ZFAFBbottom.cpp</itemPath>
+      <itemPath>src/ZFAFBbottomLEP2.cpp</itemPath>
+      <itemPath>src/ZFAFBcharm.cpp</itemPath>
+      <itemPath>src/ZFAFBcharmLEP2.cpp</itemPath>
+      <itemPath>src/ZFAFBlepton.cpp</itemPath>
+      <itemPath>src/ZFAFBmuLEP2.cpp</itemPath>
+      <itemPath>src/ZFAFBtauLEP2.cpp</itemPath>
+      <itemPath>src/ZFAbottom.cpp</itemPath>
+      <itemPath>src/ZFAcharm.cpp</itemPath>
+      <itemPath>src/ZFAlepton.cpp</itemPath>
+      <itemPath>src/ZFGammaW.cpp</itemPath>
+      <itemPath>src/ZFGammaZ.cpp</itemPath>
+      <itemPath>src/ZFMw.cpp</itemPath>
+      <itemPath>src/ZFPtauPol.cpp</itemPath>
+      <itemPath>src/ZFRbottom.cpp</itemPath>
+      <itemPath>src/ZFRbottomLEP2.cpp</itemPath>
+      <itemPath>src/ZFRcharm.cpp</itemPath>
+      <itemPath>src/ZFRcharmLEP2.cpp</itemPath>
+      <itemPath>src/ZFRlepton.cpp</itemPath>
       <itemPath>src/ZFitter.cpp</itemPath>
-      <itemPath>src/ZFitterObservables.cpp</itemPath>
+      <itemPath>src/ZFsigmaHadron.cpp</itemPath>
+      <itemPath>src/ZFsigmaMuLEP2.cpp</itemPath>
+      <itemPath>src/ZFsigmaQuarksLEP2.cpp</itemPath>
+      <itemPath>src/ZFsigmaTauLEP2.cpp</itemPath>
+      <itemPath>src/ZFsin2thetaEff.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
+      <logicalFolder name="f2" displayName="LEP2test" projectFiles="true" kind="TEST">
+        <itemPath>tests/LEP2test.cpp</itemPath>
+        <itemPath>tests/StandardModel.conf</itemPath>
+      </logicalFolder>
       <logicalFolder name="f1"
                      displayName="ZFitterTest"
                      projectFiles="true"
@@ -54,8 +105,7 @@
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../StandardModel/src</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
+            <pElem>../Observables/src</pElem>
           </incDir>
           <inheritIncValues>false</inheritIncValues>
         </ccTool>
@@ -82,15 +132,15 @@
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
           </makeArtifact>
-          <makeArtifact PL="../ZFitter6_43"
+          <makeArtifact PL="../Observables"
                         CT="3"
                         CN="Debug"
                         AC="true"
                         BL="false"
-                        WD="../ZFitter6_43"
+                        WD="../Observables"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter6_43.a">
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
           </makeArtifact>
         </requiredProjects>
       </compileType>
@@ -100,23 +150,23 @@
             <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../StandardModel/src</pElem>
+            <pElem>../InputParser/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../EW/src</pElem>
+            <pElem>../SUSY/src</pElem>
+            <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../THDM/src</pElem>
+            <pElem>../MFV/src</pElem>
+            <pElem>../Observables/src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
           <linkerLibItems>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../ZFitter6_43"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../ZFitter6_43"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter6_43.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
+            <linkerLibLibItem>boost_program_options</linkerLibLibItem>
+            <linkerLibLibItem>FH</linkerLibLibItem>
+            <linkerLibLibItem>zfitter6_43</linkerLibLibItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../gslpp"
                             CT="3"
@@ -141,25 +191,126 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LoopFunctions"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../LoopFunctions"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../InputParser"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../InputParser"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EW"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../EW"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MFV"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../MFV"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmfv.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Observables"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Observables"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSY"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../SUSY"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../THDM"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../THDM"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthdm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSYMassInsertion"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../SUSYMassInsertion"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusymassinsertion.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
           </linkerLibItems>
-          <commandLine>-lgsl -lgslcblas -L/usr/lib/root -L/usr/local/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl</commandLine>
+          <commandLine>`gsl-config --cflags` `gsl-config --libs` `root-config --ldflags` `root-config --libs`</commandLine>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
         </linkerTool>
       </folder>
     </conf>
@@ -173,45 +324,11 @@
           <developmentMode>5</developmentMode>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -228,50 +345,10 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>

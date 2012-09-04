@@ -10,144 +10,49 @@
 #include "ZFitter.h"
 
 
-ZFitter::ZFitter(const StandardModel& mySM) : SM(mySM) {
-    ZMASS = mySM.getMz();
-    TMASS = mySM.getQuarks(mySM.TOP).getMass();
-    HMASS = mySM.getMHl();
-    ALFAS = mySM.getAlsMz();
-    DAL5H = mySM.getDAle5Mz();
-    V_TB = 1.0; // V_{tb} = 1
-    UMASS = 0.1;// constituent u-quark mass
-    DMASS = 0.1;// constituent d-quark mass
-    
+ZFitter::ZFitter(const StandardModel& SM_i) : ThObsType(SM_i), SM(SM_i) {
+    MzCache = 0.0;
+    MtCache = 0.0;
+    MhCache = 0.0; 
+    AlsMzCache = 0.0; 
+    DAle5MzCache = 0.0;
+
+    // constants
+    V_TB = 1.0;
+    UMASS = 0.1;
+    DMASS = 0.1;
+
     init(0);
-}
 
-//ZFitter::ZFitter(const ZFitter& orig) {
-//}
+    // Flags [default: AMT4=4, ISPP=2, ALEM = 3, FINR = 1]
+    int  AFBC = 1, SCAL = 0, SCRE = 0, AMT4 = 6, BORN = 0,
+         BOXD = 1, CONV = 1, FINR = 0, FOT2 = 3, GAMS = 1,
+         DIAG = 1, INTF = 0, BARB = 2, PART = 0, POWR = 1,
+         PRNT = 0, ALEM = 2, QCDC = 3, VPOL = 1, WEAK = 1,
+         FTJR = 1, EXPR = 0, EXPF = 0, HIGS = 0, AFMT = 3,
+         CZAK = 1, PREC = 10,HIG2 = 0, ALE2 = 3, GFER = 2,
+         ISPP = 2, FSRS = 1, MISC = 0, MISD = 1, IPFC = 5,
+         IPSC = 0, IPTO = 3, FBHO = 0, FSPP = 0, FUNA = 0,
+         ASCR = 1, SFSR = 1, ENUE = 1, TUPV = 1, DMWW = 0,
+         DSWW = 0;
 
-ZFitter::~ZFitter() {
-}
-
-
-////////////////////////////////////////////////////////////////////////
-
-double ZFitter::getCommonALPHST() { return zupars_.ALPHST; }
-
-double ZFitter::getCommonSIN2TW() { return zupars_.SIN2TW; }
-
-double ZFitter::getCommonS2TEFF(const int INDF) {
-    if (INDF < 12) {
-        return zupars_.S2TEFF[INDF];
-    } else {
-        std::cout << "S2TEFF[INDF < 12]" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-}
-
-double ZFitter::getCommonALLCH(const int INDF) {
-    if (INDF < 12) {
-        return zfchms_.ALLCH[INDF];
-    } else {
-        std::cout << "ALLCH[INDF < 12]" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-}
-
-double ZFitter::getCommonALLMS(const int INDF) {
-    if (INDF < 12) {
-        return zfchms_.ALLMS[INDF];
-    } else {
-        std::cout << "ALLMS[INDF < 12]" << std::endl;
-        exit(EXIT_FAILURE);
-    }
+    int flags[46] = {AFBC, SCAL, SCRE, AMT4, BORN, BOXD, CONV, FINR, FOT2, GAMS,
+                     DIAG, INTF, BARB, PART, POWR, PRNT, ALEM, QCDC, VPOL, WEAK,
+                     FTJR, EXPR, EXPF, HIGS, AFMT, CZAK, PREC, HIG2, ALE2, GFER,
+                     ISPP, FSRS, MISC, MISD, IPFC, IPSC, IPTO, FBHO, FSPP, FUNA,
+                     ASCR, SFSR, ENUE, TUPV, DMWW, DSWW};
+    setAllFlags(flags, 0);
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 
-double ZFitter::getCommonARROFZ(const int INDF) {
-    if (INDF < 11) {
-        return cdzrkz_.ARROFZ[INDF];
-    } else {
-        std::cout << "ARROFZ[INDF < 11]" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-}
-
-double ZFitter::getCommonARKAFZ(const int INDF) {
-    if (INDF < 11) {
-        return cdzrkz_.ARKAFZ[INDF];
-    } else {
-        std::cout << "ARKAFZ[INDF < 11]" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-}
-
-double ZFitter::getCommonARVEFZ(const int INDF) {
-    if (INDF < 11) {
-        return cdzrkz_.ARVEFZ[INDF];
-    } else {
-        std::cout << "ARVEFZ[INDF < 11]" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-}
-
-double ZFitter::getCommonARSEFZ(const int INDF) {
-    if (INDF < 11) {
-        return cdzrkz_.ARSEFZ[INDF];
-    } else {
-        std::cout << "ARSEFZ[INDF < 11]" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-}
-
-double ZFitter::getCommonAROTFZ(const int INDF) {
-    if (INDF < 11) {
-        return cdzrkz_.AROTFZ[INDF];
-    } else {
-        std::cout << "AROTFZ[INDF < 11]" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-}
-
-double ZFitter::getCommonAIROFZ(const int INDF) {
-    if (INDF < 11) {
-        return cdzrkz_.AIROFZ[INDF];
-    } else {
-        std::cout << "AIROFZ[INDF < 11]" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-}
-
-double ZFitter::getCommonAIKAFZ(const int INDF) {
-    if (INDF < 11) {
-        return cdzrkz_.AIKAFZ[INDF];
-    } else {
-        std::cout << "AIKAFZ[INDF < 11]" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-}
-
-double ZFitter::getCommonAIVEFZ(const int INDF) {
-    if (INDF < 11) {
-        return cdzrkz_.AIVEFZ[INDF];
-    } else {
-        std::cout << "AIVEFZ[INDF < 12]" << std::endl;
-        exit(EXIT_FAILURE);
-    }
-}
-
-
-////////////////////////////////////////////////////////////////////////
-
-void ZFitter::init(const int IPRINT) { zuinit_(&IPRINT); }
-
-void ZFitter::flag(const std::string CHFLAG, const int IVALUE) {
+void ZFitter::setFlag(const std::string CHFLAG, const int IVALUE) const {
     zuflag_(CHFLAG.c_str(), &IVALUE, CHFLAG.size());
+    IsFlagChanged = true;
 }
 
-void ZFitter::setAllFlags(const int flags[46], const int flagPrint) {
+void ZFitter::setAllFlags(const int flags[46], const int flagPrint) const {
 
     std::string flagNames[46]
             = {"AFBC", "SCAL", "SCRE", "AMT4", "BORN",
@@ -164,7 +69,7 @@ void ZFitter::setAllFlags(const int flags[46], const int flagPrint) {
     /* set flags */
     int i;
     for (i=0; i<46; i++) {
-        flag(flagNames[i].c_str(), flags[i]);
+        setFlag(flagNames[i].c_str(), flags[i]);
     }
 
     /* print flags if flagPrint=1 */
@@ -177,76 +82,504 @@ void ZFitter::setAllFlags(const int flags[46], const int flagPrint) {
     }
 }
 
-void ZFitter::FlagInfo() { 
+void ZFitter::FlagInfo() const { 
     const int mode = 0;
     zuinfo_(&mode); 
 }
 
-void ZFitter::calcCommonBlocks() {
-    zvweak_(&ZMASS, &TMASS, &HMASS, &DAL5H, &V_TB, &ALFAS);
 
-    alphaMZ = calqed_.ALQEDZ;
-    Mw = ZMASS*sqrt(1.0 - getCommonSIN2TW());
-  
-    rhoZ_l[SM.NEUTRINO_1].real() = getCommonAROTFZ(0);
-    rhoZ_l[SM.ELECTRON].real() = getCommonAROTFZ(1);
-    rhoZ_l[SM.NEUTRINO_2].real() = getCommonAROTFZ(0);
-    rhoZ_l[SM.MU].real() = getCommonAROTFZ(2);
-    rhoZ_l[SM.NEUTRINO_3].real() = getCommonAROTFZ(0);
-    rhoZ_l[SM.TAU].real() = getCommonAROTFZ(3);            
+////////////////////////////////////////////////////////////////////////
 
-    rhoZ_l[SM.NEUTRINO_1].imag() = getCommonAIROFZ(0);    
-    rhoZ_l[SM.ELECTRON].imag() = getCommonAIROFZ(1);
-    rhoZ_l[SM.NEUTRINO_2].imag() = getCommonAIROFZ(0);
-    rhoZ_l[SM.MU].imag() = getCommonAIROFZ(2);
-    rhoZ_l[SM.NEUTRINO_3].imag() = getCommonAIROFZ(0);
-    rhoZ_l[SM.TAU].imag() = getCommonAIROFZ(3);            
-    
-    rhoZ_q[SM.UP].real() = getCommonAROTFZ(4);
-    rhoZ_q[SM.DOWN].real() = getCommonAROTFZ(5);
-    rhoZ_q[SM.CHARM].real() = getCommonAROTFZ(6);
-    rhoZ_q[SM.STRANGE].real() = getCommonAROTFZ(7);
-    rhoZ_q[SM.TOP].real() = 0.0;
-    rhoZ_q[SM.BOTTOM].real() = getCommonAROTFZ(9);
-    
-    rhoZ_q[SM.UP].imag() = getCommonAIROFZ(4);
-    rhoZ_q[SM.DOWN].imag() = getCommonAIROFZ(5);
-    rhoZ_q[SM.CHARM].imag() = getCommonAIROFZ(6);
-    rhoZ_q[SM.STRANGE].imag() = getCommonAIROFZ(7);
-    rhoZ_q[SM.TOP].imag() = 0.0;
-    rhoZ_q[SM.BOTTOM].imag() = getCommonAIROFZ(9);    
-    
-    kappaZ_l[SM.NEUTRINO_1].real() = getCommonARKAFZ(0);
-    kappaZ_l[SM.ELECTRON].real() = getCommonARKAFZ(1);
-    kappaZ_l[SM.NEUTRINO_2].real() = getCommonARKAFZ(0);
-    kappaZ_l[SM.MU].real() = getCommonARKAFZ(2);
-    kappaZ_l[SM.NEUTRINO_3].real() = getCommonARKAFZ(0);
-    kappaZ_l[SM.TAU].real() = getCommonARKAFZ(3);            
+void ZFitter::setCuts(const int INDF, const int ICUT, const double ACOL,
+                      const double EMIN, const double S_PR, const double ANG0,
+                      const double ANG1, const double SIPP) const {
+    zucuts_(&INDF, &ICUT, &ACOL, &EMIN, &S_PR, &ANG0, &ANG1, &SIPP);
+}
 
-    kappaZ_l[SM.NEUTRINO_1].imag() = getCommonAIKAFZ(0);    
-    kappaZ_l[SM.ELECTRON].imag() = getCommonAIKAFZ(1);
-    kappaZ_l[SM.NEUTRINO_2].imag() = getCommonAIKAFZ(0);
-    kappaZ_l[SM.MU].imag() = getCommonAIKAFZ(2);
-    kappaZ_l[SM.NEUTRINO_3].imag() = getCommonAIKAFZ(0);
-    kappaZ_l[SM.TAU].imag() = getCommonAIKAFZ(3);            
-    
-    kappaZ_q[SM.UP].real() = getCommonARKAFZ(4);
-    kappaZ_q[SM.DOWN].real() = getCommonARKAFZ(5);
-    kappaZ_q[SM.CHARM].real() = getCommonARKAFZ(6);
-    kappaZ_q[SM.STRANGE].real() = getCommonARKAFZ(7);
-    kappaZ_q[SM.TOP].real() = 0.0;
-    kappaZ_q[SM.BOTTOM].real() = getCommonARKAFZ(9);
-    
-    kappaZ_q[SM.UP].imag() = getCommonAIKAFZ(4);
-    kappaZ_q[SM.DOWN].imag() = getCommonAIKAFZ(5);
-    kappaZ_q[SM.CHARM].imag() = getCommonAIKAFZ(6);
-    kappaZ_q[SM.STRANGE].imag() = getCommonAIKAFZ(7);
-    kappaZ_q[SM.TOP].imag() = 0.0;
-    kappaZ_q[SM.BOTTOM].imag() = getCommonAIKAFZ(9);    
+void ZFitter::setAllCuts(const int ICUT[12], const double ACOL[12],
+                         const double EMIN[12], const double S_PR[12],
+                         const double ANG0[12], const double ANG1[12],
+                         const double SPP[12], const int flagPrint) const {
+    /* set cuts */
+    int indexFermion;
+    for (indexFermion=0; indexFermion<12; indexFermion++) {
+        setCuts(indexFermion, ICUT[indexFermion], ACOL[indexFermion],
+                EMIN[indexFermion], S_PR[indexFermion], ANG0[indexFermion],
+                ANG1[indexFermion], SPP[indexFermion]);
+    }
+
+    /* print cuts if flagPrint=1 */
+    if (flagPrint==1) {
+        std::cout << "  Channel ICUT  ACOL   EMIN    S_PR  ANG0  ANG1   SPP"
+                  << std::endl;
+        for (indexFermion=0; indexFermion<12; indexFermion++) {
+            std::cout << std::setw(9) << convertINDF(indexFermion)
+                      << std::setw(4) << ICUT[indexFermion]
+                      << std::setw(7) << ACOL[indexFermion]
+                      << std::setw(7) << EMIN[indexFermion]
+                      << std::setw(9) << S_PR[indexFermion]
+                      << std::setw(5) << ANG0[indexFermion]
+                      << std::setw(5) << ANG1[indexFermion]
+                      << std::setw(9) << SPP[indexFermion] << std::endl;
+        }
+    }
+}
+
+void ZFitter::setSprimeCut(const int INDF, const double s) const {
+    // Cuts
+    int ICUT;
+    double ACOL, EMIN, S_PR, ANG0, ANG1, SPP;
+    ICUT = -1;
+    //ICUT = 1;
+    ACOL = 0.0;// for ICUT=0,2,3
+    EMIN = 0.0;// for ICUT=0,2,3
+    S_PR = 0.85*0.85*s;// for ICUT=-1,1
+    ANG0 = 0.0;
+    ANG1 = 180.0;
+    SPP = 0.0;// for FSPP=1,2
+    setCuts(INDF, ICUT, ACOL, EMIN, S_PR, ANG0, ANG1, SPP);
+}
+
+void ZFitter::CutInfo() const { 
+    const int mode = 1;
+    zuinfo_(&mode); 
 }
 
 
+////////////////////////////////////////////////////////////////////////
+
+complex ZFitter::rhoZ_f(const int INDF) const {
+    if (INDF<0 || INDF>11)
+        throw "Error in ZFitter::rhoZ_f";
+    calcCommonBlocks();
+    return complex(getCommonAROTFZ(INDF), getCommonAIROFZ(INDF), false);
+}
+
+complex ZFitter::kappaZ_f(const int INDF) const {
+    if (INDF<0 || INDF>11)
+        throw "Error in ZFitter::kappaZ_f";
+    calcCommonBlocks();    
+    return complex(getCommonARKAFZ(INDF), getCommonAIKAFZ(INDF), false);
+}
+
+complex ZFitter::gZ_f(const int INDF) const {
+    if (INDF<0 || INDF>11)
+        throw "Error in ZFitter::gZ_f";
+    calcCommonBlocks();
+    return complex(getCommonARVEFZ(INDF), getCommonAIVEFZ(INDF), false);
+}
 
 
+////////////////////////////////////////////////////////////////////////
 
+double ZFitter::Af(const int INDF) const {
+    if (INDF<0 || INDF>9)
+        throw "Error in ZFitter::Af";
+    double Qf = getCommonALLCH(INDF);
+    double Re_gVf_over_gAf = 1.0 - 4.0*fabs(Qf)*kappaZ_f(INDF).real()*sw2();
+    return ( 2.0*Re_gVf_over_gAf/(1.0 + Re_gVf_over_gAf*Re_gVf_over_gAf) );
+}
+
+
+////////////////////////////////////////////////////////////////////////
+    
+double ZFitter::alphaMZ() const {
+    calcCommonBlocks();    
+    return ( calqed_.ALQEDZ );
+}
+
+double ZFitter::Mw() const {
+    calcCommonBlocks();    
+    return ( MzCache*sqrt(1.0 - getCommonSIN2TW()) );
+}
+
+double ZFitter::Gamma_W() const {
+    calcCommonBlocks();    
+    return ( getCommonPARTW(2) );
+}
+
+double ZFitter::sw2() const {
+    calcCommonBlocks();    
+    return ( getCommonSIN2TW() );
+}
+
+double ZFitter::s2teff_f(const int INDF) const {
+    calcCommonBlocks();    
+    return ( getCommonARSEFZ(INDF) );
+}
+
+double ZFitter::Gamma_f(const int INDF) const {
+    calcCommonBlocks();    
+    return ( getCommonWIDTHS(INDF) );
+}
+
+double ZFitter::Gamma_inv() const {
+    calcCommonBlocks();    
+    return ( 3.0*getCommonWIDTHS(0) );
+}
+
+double ZFitter::Gamma_had() const {
+    calcCommonBlocks();    
+    return ( getCommonWIDTHS(10) );
+}
+
+double ZFitter::Gamma_Z() const {
+    calcCommonBlocks();    
+    return ( getCommonWIDTHS(11) );
+}
+
+////////////////////////////////////////////////////////////////////////
+
+void ZFitter::calcXS_AFB(const int INDF, const double SQRS,
+                         double *XS, double *AFB) const {
+    calcCommonBlocks();    
+    setSprimeCut(INDF, SQRS*SQRS);
+    zvthsm_(&INDF, &SQRS, &MzCache, &MtCache, &MhCache, &DAle5MzCache, &V_TB, 
+            &AlsMzCache, XS, AFB);
+}
+
+void ZFitter::calcDXS(const int INDF, const double SQRS, 
+                      const double CSA, double *DXS) const {
+    calcCommonBlocks();    
+    setSprimeCut(INDF, SQRS*SQRS);
+    zvatsm_(&INDF, &SQRS, &MzCache, &MtCache, &MhCache, &DAle5MzCache, &V_TB, 
+            &AlsMzCache, &CSA, DXS);
+}
+
+void ZFitter::calcTauPol(const double SQRS, double *TAUPOL, double *TAUAFB) const {
+    calcCommonBlocks();    
+    setSprimeCut(3, SQRS*SQRS);
+    zvtpsm_(&SQRS, &MzCache, &MtCache, &MhCache, &DAle5MzCache, &V_TB, 
+            &AlsMzCache, TAUPOL, TAUAFB);
+}
+
+void ZFitter::calcALR(const int INDF, const double SQRS, const double POL,
+                      double *XSPL, double *XSMI) const {
+    calcCommonBlocks();    
+    setSprimeCut(INDF, SQRS*SQRS);
+    zvlrsm_(&INDF, &SQRS, &MzCache, &MtCache, &MhCache, &DAle5MzCache, &V_TB, 
+            &AlsMzCache, &POL, XSPL, XSMI);
+}
+
+void ZFitter::calcAPV(double *C1U, double *C1D, double *C2U, double *C2D) const {
+    calcCommonBlocks();    
+    double SIN2TW = getCommonSIN2TW();
+    zu_apv_(&MzCache, &MtCache, &MhCache, &SIN2TW, &UMASS, &DMASS,
+            C1U, C1D, C2U, C2D);
+}
+
+void ZFitter::calcXS(const int INDF, const double SQRS, const double GAMZ0,
+                     const double GAMEE, const double GAMFF, double *XS) const {
+    calcCommonBlocks();    
+    setSprimeCut(INDF, SQRS*SQRS);
+    zuxsec_(&INDF, &SQRS, &MzCache, &GAMZ0, &GAMEE, &GAMFF, XS);
+}
+
+void ZFitter::calcXS_AFB_2(const int INDF, const double SQRS, const double GAMZ0,
+                           const int MODE, const double GVE, const double XE,
+                           const double GVF, const double XF,
+                           double *XS, double *AFB) const {
+    calcCommonBlocks();    
+    setSprimeCut(INDF, SQRS*SQRS);
+    zuxsa_(&INDF, &SQRS, &MzCache, &GAMZ0, &MODE, &GVE, &XE, &GVF, &XF, XS, AFB);
+}
+
+void ZFitter::calcXS_AFB_3(const int INDF, const double SQRS, const double GAMZ0,
+                           const int MODE, const double GV2, const double X2,
+                           double *XS, double *AFB) const {
+    calcCommonBlocks();    
+    setSprimeCut(INDF, SQRS*SQRS);
+    zuxsa2_(&INDF, &SQRS, &MzCache, &GAMZ0, &MODE, &GV2, &X2, XS, AFB);
+}
+
+void ZFitter::calcXS_AFB_4(const int INDF, const double SQRS, const double GAMZ0,
+                           const double PFOUR, const double PVAE2,
+                           const double PVAF2, double *XS, double *AFB) const {
+    calcCommonBlocks();    
+    setSprimeCut(INDF, SQRS*SQRS);
+    zuxafb_(&INDF, &SQRS, &MzCache, &GAMZ0, &PFOUR, &PVAE2, &PVAF2, XS, AFB);
+}
+
+void ZFitter::calcTauPol_2(const double SQRS, const double GAMZ0, const int MODE,
+                           const double GVE, const double XE, const double GVF,
+                           const double XF, double *TAUPOL, double *TAUAFB) const {
+    calcCommonBlocks();    
+    setSprimeCut(3, SQRS*SQRS);
+    zutau_(&SQRS, &MzCache, &GAMZ0, &MODE, &GVE, &XE, &GVF, &XF, TAUPOL, TAUAFB);
+}
+
+
+////////////////////////////////////////////////////////////////////////
+
+void ZFitter::printConstants() const {
+    std::cout << "------------ Constants ------------" << std::endl;
+    std::cout << "  Channel    charges       masses" << std::endl;
+    int indexFermion;
+    for (indexFermion=0; indexFermion<10; indexFermion++) {
+        std::cout << std::setw(9) << convertINDF(indexFermion)
+                  << std::setw(11) << getCommonALLCH(indexFermion)
+                  << std::setw(13) << getCommonALLMS(indexFermion) << std::endl;
+    }
+    std::cout << std::endl;
+}
+
+void ZFitter::printInputs() const {
+    std::cout << "----- Input parameters -----" << std::endl;
+    std::cout << "  ZMASS = " << SM.getMz() << std::endl;
+    std::cout << "  TMASS = " << SM.getMtpole() << std::endl;
+    std::cout << "  HMASS = " << SM.getMHl() << std::endl;
+    std::cout << "  ALFAS = " << SM.getAlsMz() << std::endl;
+    std::cout << "  DAL5H = " << SM.getDAle5Mz() << std::endl;
+    std::cout << "  V_TB  = " << V_TB << std::endl;
+    std::cout << "  UMASS = " << UMASS << std::endl;
+    std::cout << "  DMASS = " << DMASS << std::endl;
+    std::cout << std::endl;
+}
+
+void ZFitter::printIntermediateResults() const {
+    std::cout << "----- Intermediate Results -----" << std::endl;
+
+    calcCommonBlocks();    
+    
+    std::cout << "Mw = " << Mw() << "  sin^2(theta_W) = "
+              << getCommonSIN2TW() << std::endl << std::endl;
+
+    std::cout << "Z decays:" << std::endl;
+    std::cout << "  Channel Gamma (rho_Z^f)' Re[rho_Z^f] Im[rho_Z^f] "
+              << "Re[g_Z^f] Im[g_Z^f] Re[k_Z^f] Im[k_Z^f] "
+              << "sin^2(th_eff^f)[ARSEFZ] sin^2(th_eff^f)[S2TEFF]"
+              << std::endl;
+    int indexFermion;
+    for (indexFermion=0; indexFermion<10; indexFermion++) {
+        std::cout << std::setw(9) << convertINDF(indexFermion)
+                  //<< std::setw(11) << getCommonPARTZ(indexFermion) // TEST
+                  << std::setw(11) << getCommonWIDTHS(indexFermion)
+                  << std::setw(9)  << getCommonARROFZ(indexFermion)
+                  << std::setw(9)  << getCommonAROTFZ(indexFermion)
+                  << std::setw(13) << getCommonAIROFZ(indexFermion)
+                  << std::setw(11) << getCommonARVEFZ(indexFermion)
+                  << std::setw(12) << getCommonAIVEFZ(indexFermion)
+                  << std::setw(9)  << getCommonARKAFZ(indexFermion)
+                  << std::setw(11) << getCommonAIKAFZ(indexFermion)
+                  << std::setw(10) << getCommonARSEFZ(indexFermion)
+                  //<< std::setw(10) << getCommonS2TEFF(indexFermion) // TEST
+                  << std::endl;
+    }
+    for (indexFermion=10; indexFermion<12; indexFermion++) {
+        std::cout << std::setw(9) << convertINDF(indexFermion)
+                  << std::setw(10) << getCommonWIDTHS(indexFermion)
+                  << std::endl;
+    }
+    std::cout << std::endl;
+
+    std::cout << "W decays:" << std::endl;
+    std::cout << "  Gamma(W->leptons) = " << getCommonPARTW(0) << std::endl;
+    std::cout << "  Gamma(W->quarks)  = " << getCommonPARTW(1) << std::endl;
+    std::cout << "  Gamma(W->total)   = " << getCommonPARTW(2) << std::endl;
+    std::cout << std::endl;
+
+    /* test for sin^2(theta_eff^f) */
+    std::cout << "  Channel sin^2(th_eff^f)[ARSEFZ] sin^2(th_eff^f)[S2TEFF] "
+              << "Re[k_Z^f]*sin^2(theta_W) " << std::endl;
+    for (indexFermion = 0; indexFermion < 10; indexFermion++) {
+        std::cout << std::setw(9) << convertINDF(indexFermion)
+                  << std::setw(10) << getCommonARSEFZ(indexFermion)
+                  << std::setw(10) << getCommonS2TEFF(indexFermion) 
+                  << std::setw(10)
+                  << getCommonARKAFZ(indexFermion)*getCommonSIN2TW()
+                  << std::endl;
+    }
+    std::cout << std::endl;
+
+}
+
+std::string ZFitter::convertINDF(const int INDF) const {
+    std::string channel;
+    if (INDF==0) channel="nu,nubar";
+    if (INDF==1) channel="e+,e-";
+    if (INDF==2) channel="mu+,mu-";
+    if (INDF==3) channel="tau+,tau-";
+    if (INDF==4) channel="u,ubar";
+    if (INDF==5) channel="d,dbar";
+    if (INDF==6) channel="c,cbar";
+    if (INDF==7) channel="s,sbar";
+    if (INDF==8) channel="t,tbar";
+    if (INDF==9) channel="b,bbar";
+    if (INDF==10) channel="hadron";
+    if (INDF==11) channel="total";
+    return channel;
+}
+
+void ZFitter::test(const int IMISC) const { zftest_(&IMISC); }
+
+
+////////////////////////////////////////////////////////////////////////
+
+void ZFitter::init(const int IPRINT) const { zuinit_(&IPRINT); }
+
+void ZFitter::calcCommonBlocks() const {
+    double MzTMP = SM.getMz();
+    double MtTMP = SM.getMtpole();
+    double MhTMP = SM.getMHl();
+    double AlsMzTMP = SM.getAlsMz();
+    double DAle5MzTMP = SM.getDAle5Mz();
+    
+    // TEST
+    //std::cout << MzTMP << " " << MtTMP << " " << MhTMP << " " 
+    //          << AlsMzTMP << " " << DAle5MzTMP << std::endl;
+    //std::cout << MzCache << " " << MtCache << " " << MhCache << " " 
+    //          << AlsMzCache << " " << DAle5MzCache << std::endl;
+    
+    if (MzTMP != MzCache || MtTMP != MtCache || MhTMP != MhCache || 
+        AlsMzTMP != AlsMzCache || DAle5MzTMP != DAle5MzCache || 
+        IsFlagChanged == true) { 
+        MzCache = MzTMP;
+        MtCache = MtTMP;
+        MhCache = MhTMP;
+        AlsMzCache = AlsMzTMP;
+        DAle5MzCache = DAle5MzTMP;        
+        //std::cout << "ZFitter::calcCommonBlocks() is working" << std::endl;
+        zvweak_(&MzCache, &MtCache, &MhCache, &DAle5MzCache, &V_TB, &AlsMzCache); 
+        IsFlagChanged = false;
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////
+
+double ZFitter::getCommonALPHST() const { return zupars_.ALPHST; }
+
+double ZFitter::getCommonSIN2TW() const { return zupars_.SIN2TW; }
+
+double ZFitter::getCommonS2TEFF(const int INDF) const {
+    if (INDF < 12) {
+        return zupars_.S2TEFF[INDF];
+    } else {
+        std::cout << "S2TEFF[INDF < 12]" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonALLCH(const int INDF) const {
+    if (INDF < 12) {
+        return zfchms_.ALLCH[INDF];
+    } else {
+        std::cout << "ALLCH[INDF < 12]" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonALLMS(const int INDF) const {
+    if (INDF < 12) {
+        return zfchms_.ALLMS[INDF];
+    } else {
+        std::cout << "ALLMS[INDF < 12]" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonWIDTHS(const int INDF) const {
+    if (INDF < 12) {
+        return zupars_.WIDTHS[INDF]*0.001;
+    } else {
+        std::cout << "WIDTHS[INDF < 12]" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonPARTZ(const int INDF) const {
+    if (INDF < 12) {
+        return partzw_.PARTZ[INDF]*0.001;
+    } else {
+        std::cout << "PARTZ[INDF < 12]" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonPARTW(const int i) const {
+    if (i < 3) {
+        return partzw_.PARTW[i]*0.001;
+    } else {
+        std::cout << "PARTW[i < 3]" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////
+
+double ZFitter::getCommonARROFZ(const int INDF) const {
+    if (INDF < 11) {
+        return cdzrkz_.ARROFZ[INDF];
+    } else {
+        std::cout << "ARROFZ[INDF < 11]" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonARKAFZ(const int INDF) const {
+    if (INDF < 11) {
+        return cdzrkz_.ARKAFZ[INDF];
+    } else {
+        std::cout << "ARKAFZ[INDF < 11]" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonARVEFZ(const int INDF) const {
+    if (INDF < 11) {
+        return cdzrkz_.ARVEFZ[INDF];
+    } else {
+        std::cout << "ARVEFZ[INDF < 11]" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonARSEFZ(const int INDF) const {
+    if (INDF < 11) {
+        return cdzrkz_.ARSEFZ[INDF];
+    } else {
+        std::cout << "ARSEFZ[INDF < 11]" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonAROTFZ(const int INDF) const {
+    if (INDF < 11) {
+        return cdzrkz_.AROTFZ[INDF];
+    } else {
+        std::cout << "AROTFZ[INDF < 11]" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonAIROFZ(const int INDF) const {
+    if (INDF < 11) {
+        return cdzrkz_.AIROFZ[INDF];
+    } else {
+        std::cout << "AIROFZ[INDF < 11]" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonAIKAFZ(const int INDF) const {
+    if (INDF < 11) {
+        return cdzrkz_.AIKAFZ[INDF];
+    } else {
+        std::cout << "AIKAFZ[INDF < 11]" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+double ZFitter::getCommonAIVEFZ(const int INDF) const {
+    if (INDF < 11) {
+        return cdzrkz_.AIVEFZ[INDF];
+    } else {
+        std::cout << "AIVEFZ[INDF < 12]" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////
 

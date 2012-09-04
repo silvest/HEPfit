@@ -138,7 +138,21 @@ public:
      * @return asymmetry parameter for Z->q\bar{q}
      */
     double A_q(const StandardModel::quark q) const;
+
     
+    ////////////////////////////////////////////////////////////////////////     
+
+    /**
+     * @brief conversion factor from GeV^{-2} to nb
+     * @return the conversion factor from GeV^{-2} to nb
+     */
+    double GeVminus2_to_nb() const {
+        return ( pow(10.0, -6.0)
+                 / pow(10.0, -28.0)
+                 / pow(299792458.0, -2.0)
+                 / pow(6.58211899 * pow(10.0, -22.0), -2.0)
+                 * pow(10.0, 9.0) );        
+    }
 
     
     ////////////////////////////////////////////////////////////////////////     
