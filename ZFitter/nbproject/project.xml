@@ -11,7 +11,7 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../gslpp</make-dep-project>
-                <make-dep-project>../ZFitter6_43</make-dep-project>
+                <make-dep-project>../Observables</make-dep-project>
                 <make-dep-project>../StandardModel</make-dep-project>
             </make-dep-projects>
             <sourceRootList/>
