@@ -7,10 +7,11 @@
 
 #include "Particle.h"
 
-Particle::Particle(double mass, double width = 0., double charge = 0., double isospin = 0.) {
+Particle::Particle(double mass, double mass_scale, double width, double charge) {
     this->mass = mass;
     this->width = width;
     this->charge = charge;
     this->isospin = isospin;
+    this->mass_scale = mass_scale;
 }
 
