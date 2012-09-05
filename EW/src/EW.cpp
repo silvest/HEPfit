@@ -63,6 +63,20 @@ double EW::U() const {
     return ( SM.obliqueU() );
 }
 
+double EW::W() const {
+    return ( SM.obliqueW() );
+}
+
+
+double EW::X() const {
+    return ( SM.obliqueX() );
+}
+
+
+double EW::Y() const {
+    return ( SM.obliqueY() );
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -352,5 +366,27 @@ double EW::A_q(const StandardModel::quark q) const {
     double Re_gV_over_gA = (SM.gVq(q)/SM.gAq(q)).real();    
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
 }
+
+
+//For LEP2 observables
+
+
+
+double EW::dsigma_lLEP2(const StandardModel::lepton l,const double s,const double W,
+                              const double X,const double Y, const double theta) const {
+    
+    return (SM.DsigmaLEP2_l(l,s,Mw(),theta,W,X,Y,Gamma_Z()));
+    
+}
+
+
+double EW::dsigma_qLEP2(const StandardModel::quark q,const double s,const double W,
+                               const double X,const double Y, const double theta) const {
+    
+    return (SM.DsigmaLEP2_q(q,s,Mw(),theta,W,X,Y,Gamma_Z()));
+    
+}
+
+
 
 
