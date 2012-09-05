@@ -67,7 +67,7 @@ public:
      * "Dmk"
      * "SM_M12D" 
      */
-    virtual void Update(const std::map<std::string, double>&);
+    virtual bool Update(const std::map<std::string, double>&);
 
     virtual bool Init(const std::map<std::string, double>&);
         
