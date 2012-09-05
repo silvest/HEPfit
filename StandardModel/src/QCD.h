@@ -370,9 +370,6 @@ public:
      * updates the QCD parameters found in the argument
      * @param a Parameters object containing the parameters to be updated
      */
-//    void update(const Parameters&);
-
-     virtual bool PreUpdate();
 //   void update(const Parameters&);
     
     virtual bool PreUpdate();
