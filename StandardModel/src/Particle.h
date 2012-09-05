@@ -65,6 +65,23 @@ public:
         this->charge = charge;
     }    
     
+
+    /**
+     *
+     * @return the particle isospin
+     */
+    double getIsospin() const {
+        return isospin;
+    }
+
+    /**
+     * set the particle isospin
+     * @param width the particle isospin
+     */
+    void setIsospin(double isospin) {
+        this->isospin = isospin;
+    }
+    
     double getMass_scale() const {
         return mass_scale;
     }
@@ -75,7 +92,7 @@ public:
 
     
 protected:
-    double mass, width, charge, mass_scale;
+    double mass, width, charge, mass_scale, isospin;
 };
 
 #endif	/* PARTICLE_H */
