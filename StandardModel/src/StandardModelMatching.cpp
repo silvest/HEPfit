@@ -6,11 +6,13 @@
  */
 
 #include "StandardModelMatching.h"
+#include "StandardModel.h"
+#include "QCD.h"
 #include <gsl/gsl_sf_dilog.h>
 #include <gsl/gsl_sf_zeta.h>
 
 
-StandardModelMatching::StandardModelMatching(const StandardModel& SM_i) : ModelMatching(), SM(SM_i), 
+StandardModelMatching::StandardModelMatching(const StandardModel & SM_i) : ModelMatching(), SM(SM_i),
                 mcdbd2(5, NDR, NLO), mcdbs2(5, NDR, NLO),
                 mcdd2(5, NDR, NLO), mcdk2(5, NDR, NLO), 
                 mcbsg(10, NDR, NLO), mcbnlep(10, NDR, NLO, NLO_ew), 
@@ -171,8 +173,10 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2() {
 //        return(vmc);
     
     double gammam = 8.;                                                         
-    double Bt;                                                                  
-    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), 5.)
+    double Bt;  
+    
+    
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), 5.)  
             / SM.Mw_tree(), 2.); // always FULLNLO
     complex co = SM.getGF() / 4. / M_PI * SM.Mw_tree() * SM.getlamt_d();
     double Nc = SM.getNc();

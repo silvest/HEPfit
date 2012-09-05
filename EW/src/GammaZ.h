@@ -17,7 +17,7 @@ public:
      * @brief GammaZ constructor
      * @param[in] EW_i an object of EW class
      */
-    GammaZ(const EW& EW_i);
+    GammaZ(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
      * @return the total width of the Z boson
@@ -26,8 +26,7 @@ public:
 
     
 private:
-    double Gamma_Z;
-    
+    const EW& myEW;
 };
 
 #endif	/* GAMMAZ_H */

@@ -29,7 +29,7 @@ HeffDF2::~HeffDF2() {
 
 vector<complex>** HeffDF2::ComputeCoeffBd(double mu, schemes scheme) {
 
-    const std::vector<WilsonCoefficient>& mc = model.myMatching->CMdbd2();
+    const std::vector<WilsonCoefficient>& mc = model.GetMyMatching()->CMdbd2();
     
     coeffbd.setMu(mu);
     
@@ -53,7 +53,7 @@ vector<complex>** HeffDF2::ComputeCoeffBd(double mu, schemes scheme) {
 
 vector<complex>** HeffDF2::ComputeCoeffBs(double mu, schemes scheme) {
 
-    const std::vector<WilsonCoefficient>& mc = model.myMatching->CMdbs2();
+    const std::vector<WilsonCoefficient>& mc = model.GetMyMatching()->CMdbs2();
 
     coeffbs.setMu(mu);
 
@@ -77,7 +77,7 @@ vector<complex>** HeffDF2::ComputeCoeffBs(double mu, schemes scheme) {
 
 vector<complex>** HeffDF2::ComputeCoeffdd(double mu, schemes scheme) {
 
-    const std::vector<WilsonCoefficient>& mc = model.myMatching->CMdd2();
+    const std::vector<WilsonCoefficient>& mc = model.GetMyMatching()->CMdd2();
     
     coeffDd.setMu(mu);
 
@@ -99,7 +99,7 @@ vector<complex>** HeffDF2::ComputeCoeffdd(double mu, schemes scheme) {
 
 vector<complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme) {
 
-    const std::vector<WilsonCoefficient>& mc = model.myMatching->CMdk2();
+    const std::vector<WilsonCoefficient>& mc = model.GetMyMatching()->CMdk2();
     vector<complex> zero(5,0.);
     
     coeffk.setMu(mu);
@@ -107,8 +107,8 @@ vector<complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme) {
     orders ordDF2 = coeffk.getOrder();
     for (int i = 0; i < mc.size(); i++){
         if (i == 0){
-            coeffk.setCoeff(0, u.etatt(mu) * model.myMatching->S0tt() +
-                u.etacc(mu) * model.myMatching->S0c() + u.etact(mu) * model.myMatching->S0ct(), NLO);
+            coeffk.setCoeff(0, u.etatt(mu) * model.GetMyMatching()->S0tt() +
+                u.etacc(mu) * model.GetMyMatching()->S0c() + u.etact(mu) * model.GetMyMatching()->S0ct(), NLO);
             coeffk.setCoeff(zero, LO);
         }else{
             for (int j = LO; j <= ordDF2; j++){

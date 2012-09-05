@@ -6,21 +6,18 @@
 #include "GammaW.h"
 
 
-GammaW::GammaW(const EW& EW_i) : ThObservable(EW_i) {
-    Gamma_W = EW_i.getSM().GammaW();
+double GammaW::getThValue() {  
+    double Gamma_W = myEW.getSM().GammaW();
         
-    if ( EW_i.checkModelForSTU() ) {
-        double alpha = EW_i.getSM().alphaMz();
-        double c = sqrt(EW_i.c2());
-        double c2 = EW_i.c2();
-        double s2 = EW_i.s2();
+    if ( myEW.checkModelForSTU() ) {
+        double alpha = myEW.getSM().alphaMz();
+        double c = sqrt(myEW.c2());
+        double c2 = myEW.c2();
+        double s2 = myEW.s2();
     
-        Gamma_W -= 3.0*alpha*alpha*c*EW_i.getSM().getMz()/8.0/s2/(c2-s2)
-                   *( EW_i.S() - 2.0*c2*EW_i.T() - (c2-s2)*EW_i.U()/2.0/s2 );
+        Gamma_W -= 3.0*alpha*alpha*c*myEW.getSM().getMz()/8.0/s2/(c2-s2)
+                   *( myEW.S() - 2.0*c2*myEW.T() - (c2-s2)*myEW.U()/2.0/s2 );
     }
-}
-
-double GammaW::getThValue() {   
+ 
     return Gamma_W;
 }
-        

@@ -12,6 +12,10 @@
 
 class Model {
 public:
+    Model(){
+        
+        MatchingInitialized = false; 
+    };
     virtual bool Update(const std::map<std::string, double>&) = 0;
     virtual bool PreUpdate() = 0;
     virtual bool PostUpdate() = 0;
@@ -19,11 +23,35 @@ public:
     virtual bool SetFlag(const std::string, const bool&) = 0;
     virtual void SetParameter(const std::string, const double&) = 0;
     virtual bool Init(const std::map<std::string, double>&) = 0;
-
-    virtual std::string ModelName() const = 0;
-private:
     
+    virtual std::string ModelName() const = 0;
+    
+    bool IsMatchingInitialized() const {
+        return MatchingInitialized;
+    }
 
+    void SetMatchingInitialized(bool MatchingInitialized) {
+        this->MatchingInitialized = MatchingInitialized;
+    }
+    
+    
+    bool IsUpdateError() const {
+        return UpdateError;
+    }
+
+    void SetUpdateError(bool UpdateError) {
+        this->UpdateError = UpdateError;
+    }
+    
+    
+protected:
+    
+    bool UpdateError;
+    
+private:
+
+    bool MatchingInitialized;
+    
 };
 
 #endif	/* MODEL_H */

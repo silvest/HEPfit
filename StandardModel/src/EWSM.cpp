@@ -5,7 +5,9 @@
 
 #include <cmath>
 #include "EWSM.h"
-#include "StandardModel.h"
+#include <iostream>
+#include <cuba.h>
+//#include "StandardModel.h"
 
 
 const double EWSM::Mw_error = 0.00001; /* 0.01 MeV */ 
@@ -832,3 +834,19 @@ double EWSM::taub() const {
 }
 
 
+double EWSM::dsigmaLEP2_l(const StandardModel::lepton l, const double s, 
+                         const double Mw_i, const double theta, const double W, 
+                         const double X, const double Y, const double GammaZ){
+    
+    return (myLEP2->dsigma_l(l,s,Mw_i,theta,W,X,Y,GammaZ));
+    
+}
+
+
+double EWSM::dsigmaLEP2_q(const StandardModel::quark q, const double s, 
+                         const double Mw_i, const double theta, const double W, 
+                         const double X, const double Y, const double GammaZ){
+    
+    return (myLEP2->dsigma_q(q,s,Mw_i,theta,W,X,Y,GammaZ));
+    
+}

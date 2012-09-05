@@ -28,6 +28,10 @@ public:
 
     static const std::string QCDvars[NQCDvars];
 
+    virtual std::string ModelName() const {
+        return "QCD";
+    }
+    
     /**
      * Constructor for QCD
      * @param a Parameters object that must contain all the labels appearing in QCDvars
@@ -369,8 +373,13 @@ public:
 //    void update(const Parameters&);
 
      virtual bool PreUpdate();
+//   void update(const Parameters&);
+    
+    virtual bool PreUpdate();
      
-     virtual bool PostUpdate();
+    virtual bool PostUpdate();
+     
+    virtual bool SetFlag(const std::string, const bool&);
      
     Meson getMesons(const int i) const {
         return mesons[i];

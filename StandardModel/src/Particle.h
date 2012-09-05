@@ -14,9 +14,8 @@
 
 class Particle {
 public:
-    Particle() {
-    mass_scale = 0.;};
-    Particle(double mass, double mass_scale = 0., double width = 0., double charge = 0.);
+    Particle() {};
+    Particle(double mass, double width, double charge, double isospin);
     /**
      * 
      * @return the particle mass in GeV
@@ -65,17 +64,24 @@ public:
         this->charge = charge;
     }    
     
-    double getMass_scale() const {
-        return mass_scale;
+    /**
+     *
+     * @return the particle Isospin
+     */
+    double getIsospin() const {
+        return isospin;
     }
-
-    void setMass_scale(double mass_scale) {
-        this->mass_scale = mass_scale;
+    /**
+     * set the particle isospin
+     * @param width the particle isospin
+     */
+    void setIsospin(double isospin) {
+        this->isospin = isospin;
     }
 
     
 protected:
-    double mass, width, charge, mass_scale;
+    double mass, width, charge, isospin;
 };
 
 #endif	/* PARTICLE_H */
