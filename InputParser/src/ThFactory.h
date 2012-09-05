@@ -13,6 +13,7 @@
 #include <StandardModelMatching.h>
 #include <Flavour.h>
 #include <EW.h>
+#include <ZFitter.h>
 
 class ThFactory {
 public:
@@ -23,6 +24,7 @@ private:
     std::map<std::string,ThObservable *> thobs;
     Flavour myFlavour;
     EW myEW;
+    ZFitter myZFitter;
 };
 
 #endif	/* THFACTORY_H */
