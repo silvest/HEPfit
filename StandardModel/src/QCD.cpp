@@ -350,9 +350,9 @@ double QCD::Als(double mu, double nfmu, orders order) const {
     }
 }
 
-void QCD::CacheShift(double cache[][Num], int n) const {
+void QCD::CacheShift(double cache[][5], int n) const {
     int i,j;
-    for(i=Num-1;i>0;i--)
+    for(i=5-1;i>0;i--)
         for(j=0;j<n;j++)
             cache[j][i] = cache[j][i-1];
 }
@@ -383,61 +383,61 @@ double QCD::Als(double mu, orders order) const {
 //        throw "Error in QCD::Als(mu, order)";
 //    }
          
-    for(i=0;i<Num;i++) 
-        if((Nf(mu) == 6.)){
-            if((mu ==  als_cache[0][i]) && (order == als_cache[1][i]) &&
-                        (AlsMz == als_cache[2][i]) && (Mz == als_cache[3][i]) &&
-                        (muMatching == als_cache[4][i]))
-                return als_cache[7][i];
-        } else if ((Nf(mu) == 4.)){
-            if((mu ==  als_cache[0][i]) && (order == als_cache[1][i]) &&
-                        (AlsMz == als_cache[2][i]) && (Mz == als_cache[3][i]) &&
-                         (muMatching1 == als_cache[5][i]))
-                return als_cache[7][i];
-        } else if ((Nf(mu) == 3.)){
-            if((mu ==  als_cache[0][i]) && (order == als_cache[1][i]) &&
-                        (AlsMz == als_cache[2][i]) && (Mz == als_cache[3][i])&&
-                         (muMatching1 == als_cache[5][i])&&
-                         (muMatching2 == als_cache[6][i]))
-                return als_cache[7][i];
-        }else {
-            if((mu ==  als_cache[0][i]) && (order == als_cache[1][i]) &&
-                        (AlsMz == als_cache[2][i]) && (Mz == als_cache[3][i]))
-                return als_cache[7][i];
-        }
-    
-    CacheShift(als_cache,8);
-    als_cache[0][0] = mu;
-    als_cache[1][0] = (double)order;
-    als_cache[2][0] = AlsMz;
-    als_cache[3][0] = Mz;    
-    als_cache[4][0] = muMatching;
-    als_cache[5][0] = muMatching1;
-    als_cache[6][0] = muMatching2;
-    als_cache[7][0] = Als(mu, Nf(mu), order);
-    
-    als_cache1.at(0).at(0) = mu;
-    als_cache1.at(1).at(0) = (double)order;
-    als_cache1[2][0] = AlsMz;
-    als_cache1[3][0] = Mz;    
-    als_cache1[4][0] = muMatching;
-    als_cache1[5][0] = muMatching1;
-    als_cache1[6][0] = muMatching2;
-    als_cache1[7][0] = Als(mu, Nf(mu), order);
-    
-    
-    
-    
-    std::cout << "TEST" << std::endl;
-    for(int l = 0; l< 8; l++){
-        std::cout << "als_cache[7]["<< l <<"]" << als_cache[7][l] << std::endl;
-    }
-    
-    //std::cout << "\n\n"  << std::endl;
-    
-        
-    return(als_cache[7][0]);
-}
+//    for(i=0;i<Num;i++) 
+//        if((Nf(mu) == 6.)){
+//            if((mu ==  als_cache[0][i]) && (order == als_cache[1][i]) &&
+//                        (AlsMz == als_cache[2][i]) && (Mz == als_cache[3][i]) &&
+//                        (muMatching == als_cache[4][i]))
+//                return als_cache[7][i];
+//        } else if ((Nf(mu) == 4.)){
+//            if((mu ==  als_cache[0][i]) && (order == als_cache[1][i]) &&
+//                        (AlsMz == als_cache[2][i]) && (Mz == als_cache[3][i]) &&
+//                         (muMatching1 == als_cache[5][i]))
+//                return als_cache[7][i];
+//        } else if ((Nf(mu) == 3.)){
+//            if((mu ==  als_cache[0][i]) && (order == als_cache[1][i]) &&
+//                        (AlsMz == als_cache[2][i]) && (Mz == als_cache[3][i])&&
+//                         (muMatching1 == als_cache[5][i])&&
+//                         (muMatching2 == als_cache[6][i]))
+//                return als_cache[7][i];
+//        }else {
+//            if((mu ==  als_cache[0][i]) && (order == als_cache[1][i]) &&
+//                        (AlsMz == als_cache[2][i]) && (Mz == als_cache[3][i]))
+//                return als_cache[7][i];
+//        }
+//    
+//    CacheShift(als_cache,8);
+//    als_cache[0][0] = mu;
+//    als_cache[1][0] = (double)order;
+//    als_cache[2][0] = AlsMz;
+//    als_cache[3][0] = Mz;    
+//    als_cache[4][0] = muMatching;
+//    als_cache[5][0] = muMatching1;
+//    als_cache[6][0] = muMatching2;
+//    als_cache[7][0] = Als(mu, Nf(mu), order);
+//    
+//    als_cache1.at(0).at(0) = mu;
+//    als_cache1.at(1).at(0) = (double)order;
+//    als_cache1[2][0] = AlsMz;
+//    als_cache1[3][0] = Mz;    
+//    als_cache1[4][0] = muMatching;
+//    als_cache1[5][0] = muMatching1;
+//    als_cache1[6][0] = muMatching2;
+//    als_cache1[7][0] = Als(mu, Nf(mu), order);
+//    
+//    
+//    
+//    
+//    std::cout << "TEST" << std::endl;
+//    for(int l = 0; l< 8; l++){
+//        std::cout << "als_cache[7]["<< l <<"]" << als_cache[7][l] << std::endl;
+//    }
+//    
+//    //std::cout << "\n\n"  << std::endl;
+//    
+//        
+//    return(als_cache[7][0]);
+//}
 
 double QCD::ZeroNf5(double *x, double *y)const{
     return ( Als(Mz, *x, 5., (orders) *y) - AlsMz );
