@@ -69,6 +69,7 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../THDM/src</pElem>
             <pElem>../EW/src</pElem>
+            <pElem>../ZFitter/src</pElem>
           </incDir>
         </ccTool>
         <archiverTool>
@@ -183,6 +184,16 @@
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthdm.a">
+          </makeArtifact>
+          <makeArtifact PL="../ZFitter"
+                        CT="3"
+                        CN="Debug"
+                        AC="true"
+                        BL="false"
+                        WD="../ZFitter"
+                        BC="${MAKE}  -f Makefile CONF=Debug"
+                        CC="${MAKE}  -f Makefile CONF=Debug clean"
+                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter.a">
           </makeArtifact>
         </requiredProjects>
       </compileType>

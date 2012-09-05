@@ -8,9 +8,10 @@
 #include "ThFactory.h"
 #include <FlavourObservables.h>
 #include <EWObservables.h>
+#include <ZFEWObservables.h>
 
 ThFactory::ThFactory(const StandardModel& myModel) : 
-        myFlavour(myModel), myEW(myModel) {
+        myFlavour(myModel), myEW(myModel), myZFitter(myModel) {
     thobs["Dmd0"] = new DmBd0(myFlavour);
     thobs["Dmd1"] = new DmBd(myFlavour);
     thobs["Dms0"] = new DmBs0(myFlavour);
@@ -29,23 +30,36 @@ ThFactory::ThFactory(const StandardModel& myModel) :
     thobs["SJPsiK"] = new SJPsiK(myFlavour);
 
 //    thobs["Mw"] = new Mw(myEW);
-//    thobs["GammaW"] = new GammaW(myEW);
 //    thobs["sin2thetaEff"] = new sin2thetaEff(myEW);
+//    thobs["GammaW"] = new GammaW(myEW);
 //    thobs["GammaZ"] = new GammaZ(myEW);
-//    thobs["AFBlepton"] = new AFBlepton(myEW);
-//    thobs["AFBcharm"] = new AFBcharm(myEW);
-//    thobs["AFBbottom"] = new AFBbottom(myEW);
-//    thobs["PtauPol"] = new PtauPol(myEW);
 //    thobs["Alepton"] = new Alepton(myEW);
 //    thobs["Acharm"] = new Acharm(myEW);
 //    thobs["Abottom"] = new Abottom(myEW);
+//    thobs["PtauPol"] = new PtauPol(myEW);
+//    thobs["AFBlepton"] = new AFBlepton(myEW);
+//    thobs["AFBcharm"] = new AFBcharm(myEW);
+//    thobs["AFBbottom"] = new AFBbottom(myEW);    
 //    thobs["Rlepton"] = new Rlepton(myEW);
 //    thobs["Rcharm"] = new Rcharm(myEW);
 //    thobs["Rbottom"] = new Rbottom(myEW);
 //    thobs["sigmaHadron"] = new sigmaHadron(myEW);
-//    thobs["obliqueS"] = new obliqueS(myEW);
-//    thobs["obliqueT"] = new obliqueT(myEW);
-//    thobs["obliqueU"] = new obliqueU(myEW);
+    
+//    thobs["Mw"] = new ZFMw(myZFitter);
+//    thobs["sin2thetaEff"] = new ZFsin2thetaEff(myZFitter);
+//    thobs["GammaW"] = new ZFGammaW(myZFitter);
+//    thobs["GammaZ"] = new ZFGammaZ(myZFitter);
+//    thobs["Alepton"] = new ZFAlepton(myZFitter);
+//    thobs["Acharm"] = new ZFAcharm(myZFitter);
+//    thobs["Abottom"] = new ZFAbottom(myZFitter);
+//    thobs["PtauPol"] = new ZFPtauPol(myZFitter);
+//    thobs["AFBlepton"] = new ZFAFBlepton(myZFitter);
+//    thobs["AFBcharm"] = new ZFAFBcharm(myZFitter);
+//    thobs["AFBbottom"] = new ZFAFBbottom(myZFitter);    
+//    thobs["Rlepton"] = new ZFRlepton(myZFitter);
+//    thobs["Rcharm"] = new ZFRcharm(myZFitter);
+//    thobs["Rbottom"] = new ZFRbottom(myZFitter);
+//    thobs["sigmaHadron"] = new ZFsigmaHadron(myZFitter);    
 }
 
 ThFactory::~ThFactory() {
