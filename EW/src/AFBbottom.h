@@ -17,7 +17,7 @@ public:
      * @brief AFBbottom constructor
      * @param[in] EW_i an object of EW class
      */
-    AFBbottom(const EW& EW_i);
+    AFBbottom(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
      * @return the forward-backward asymmetry of the b-bar channel
@@ -26,9 +26,7 @@ public:
 
     
 private:
-    double AFB_b;
-
+    const EW& myEW;
 };
 
 #endif	/* AFBBOTTOM_H */
-
