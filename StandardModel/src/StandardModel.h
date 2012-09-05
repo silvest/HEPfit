@@ -13,10 +13,8 @@
 #include "CKM.h"
 #include "WilsonCoefficient.h"
 
-class StandardModelMatching;
-
 using namespace gslpp;
-class EWSM; // forward reference to ESSM class
+class EWSM; // forward reference to EWSM class
 
 
 /**
@@ -59,11 +57,7 @@ public:
      * "Dmk"
      * "SM_M12D" 
      */
-    virtual bool Update(const std::map<std::string, double>&);
-    
-    virtual bool PreUpdate();
-     
-    virtual bool PostUpdate();
+    virtual void Update(const std::map<std::string, double>&);
 
     virtual bool Init(const std::map<std::string, double>&);
         
@@ -220,6 +214,26 @@ public:
         return 0.0;
     };
     
+    /**
+     * @return NP contribution to oblique parameter W
+     */
+    virtual double obliqueW() const {
+        return 0.0;
+    };
+        
+    /**
+     * @return NP contribution to oblique parameter X
+     */
+    virtual double obliqueX() const {
+        return 0.0;
+    };
+    
+    /**
+     * @return NP contribution to oblique parameter Y
+     */
+    virtual double obliqueY() const {
+        return 0.0;
+    };
     
     ///////////////////////////////////////////////////////////////////////////
 
@@ -440,30 +454,28 @@ public:
     double GetMHl() const {
         return mHl;
     }
-
-    
     
     StandardModelMatching* myMatching;
     
+    double DsigmaLEP2_l(const StandardModel::lepton l,const double s,const double Mw_i,
+                       const double theta,const double W,const double X,const double Y,
+                       const double GammaZ);
+    
+    double DsigmaLEP2_q(const StandardModel::quark q,const double s,const double Mw_i,
+                       const double theta,const double W,const double X,const double Y,
+                       const double GammaZ);
     
 protected:
     virtual void SetParameter(const std::string, const double&);
-    
-    
-    
     matrix<complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
     double GF, ale, dAle5Mz, mHl, lambda, A, rhob, etab, Dmk;
     double muw, KbarEpsK, phiEpsK, DeltaMK, SM_M12D;
     CKM myCKM;
     Particle leptons[6];
     EWSM* myEWSM;
-    
 
 private:
     bool computeCKM, computeYe, computeYn;
-    
-    
-   
 };
 
 #endif	/* STANDARDMODEL_H */
