@@ -17,7 +17,7 @@ public:
      * @brief Rcharm constructor
      * @param[in] EW_i an object of EW class
      */
-    Rcharm(const EW& EW_i);
+    Rcharm(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
      * @return the ratio of the c-cbar width to the hadronic width
@@ -26,8 +26,7 @@ public:
 
     
 private:
-    double R0_c;
-
+    const EW& myEW;
 };
 
 #endif	/* RCHARM_H */

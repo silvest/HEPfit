@@ -42,6 +42,7 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
         if (beg->compare("StandardModel") == 0) {
             modname = *beg;
             myModel = new StandardModel();
+            myModel->InitializeMatching();
             thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("NewPhysicsSTU") == 0) {
@@ -52,6 +53,7 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
         } else if (beg->compare("MFV") == 0) {
             modname = *beg;
             myModel = new MFV();
+            myModel->InitializeMatching();
             thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("SusyMI") == 0) {

@@ -17,7 +17,7 @@ public:
      * @brief Mw constructor
      * @param[in] EW_i an object of EW class
      */
-    Mw(const EW& EW_i);
+    Mw(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
      * @return the W-boson mass
@@ -26,8 +26,7 @@ public:
 
     
 private:
-    double myMw;
-
+    const EW& myEW;
 };
 
 #endif	/* MW_H */

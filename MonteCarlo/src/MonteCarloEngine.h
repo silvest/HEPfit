@@ -43,7 +43,13 @@ public:
     void MCMCIterationInterface();
     void SetNChains(unsigned int i);
     void AddChains();
-    double Weight(const Observable& obs, const double& th);
+       void DefineParameters();
+    double LogLikelihood(const std::vector <double>& parameters);
+    void PrintHistogram(BCModelOutput& out);
+    void MCMCIterationInterface();
+    void SetNChains(unsigned int i);
+    void AddChains();
+ double Weight(const Observable& obs, const double& th);
     double Weight(const Observable2D& obs, const double& th1, const double& th2); 
 
 private:

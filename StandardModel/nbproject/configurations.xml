@@ -126,7 +126,8 @@
     <conf name="Debug" type="3">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>GNU|GNU</compilerSet>
+        <compilerSet>default</compilerSet>
+        <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <ccTool>
@@ -145,7 +146,7 @@
                         CT="3"
                         CN="Debug"
                         AC="true"
-                        BL="true"
+                        BL="false"
                         WD="../gslpp"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
@@ -155,7 +156,7 @@
                         CT="3"
                         CN="Debug"
                         AC="true"
-                        BL="true"
+                        BL="false"
                         WD="../Utils"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
@@ -165,7 +166,7 @@
                         CT="3"
                         CN="Debug"
                         AC="true"
-                        BL="true"
+                        BL="false"
                         WD="../LoopFunctions"
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"

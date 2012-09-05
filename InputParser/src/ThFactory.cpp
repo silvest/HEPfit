@@ -9,8 +9,8 @@
 #include <FlavourObservables.h>
 #include <EWObservables.h>
 
-ThFactory::ThFactory(const StandardModel& myModel) : 
-        myFlavour(myModel), myEW(myModel) {
+ThFactory::ThFactory(const StandardModel& myModel) : myFlavour(myModel),
+                                                     myEW(myModel) {
     thobs["Dmd0"] = new DmBd0(myFlavour);
     thobs["Dmd1"] = new DmBd(myFlavour);
     thobs["Dms0"] = new DmBs0(myFlavour);
@@ -43,9 +43,40 @@ ThFactory::ThFactory(const StandardModel& myModel) :
 //    thobs["Rcharm"] = new Rcharm(myEW);
 //    thobs["Rbottom"] = new Rbottom(myEW);
 //    thobs["sigmaHadron"] = new sigmaHadron(myEW);
+    
+//    I need to change s for LEP2 observables    
+//    thobs["sigmaqLEP2"] = new sigmaqLEP2(myEW); 
+    
+//    thobs["sigmamuLEP2_130"] = new sigmamuLEP2(myEW,130);
+//    thobs["sigmamuLEP2_136"] = new sigmamuLEP2(myEW,136);
+//    thobs["sigmamuLEP2_161"] = new sigmamuLEP2(myEW,161);
+//    thobs["sigmamuLEP2_172"] = new sigmamuLEP2(myEW,172);
+//    thobs["sigmamuLEP2_182"] = new sigmamuLEP2(myEW,182);
+//    thobs["sigmamuLEP2_189"] = new sigmamuLEP2(myEW,189);
+//    thobs["sigmamuLEP2_192"] = new sigmamuLEP2(myEW,192);
+//    thobs["sigmamuLEP2_196"] = new sigmamuLEP2(myEW,196);
+//    thobs["sigmamuLEP2_200"] = new sigmamuLEP2(myEW,200);
+//    thobs["sigmamuLEP2_202"] = new sigmamuLEP2(myEW,202);
+//    thobs["sigmamuLEP2_205"] = new sigmamuLEP2(myEW,205);    
+//    thobs["sigmamuLEP2_207"] = new sigmamuLEP2(myEW,207);
+    
+    
+//    thobs["sigmatauLEP2"] = new sigmatauLEP2(myEW);
+//    thobs["AFBmuLEP2"] = new AFBmuLEP2(myEW);
+//    thobs["AFBtauLEP2"] = new AFBtauLEP2(myEW);
+//    thobs["AFBbottomLEP2"] = new AFBbottomLEP2(myEW);
+//    thobs["AFBcharmLEP2"] = new AFBcharmLEP2(myEW);    
+//    thobs["RbottomLEP2"] = new RbottomLEP2(myEW);    
+//    thobs["RcharmLEP2"] = new RcharmLEP2(myEW); 
+    
+    
+    
 //    thobs["obliqueS"] = new obliqueS(myEW);
 //    thobs["obliqueT"] = new obliqueT(myEW);
 //    thobs["obliqueU"] = new obliqueU(myEW);
+//    thobs["obliqueW"] = new obliqueW(myEW);
+//    thobs["obliqueX"] = new obliqueX(myEW);
+//    thobs["obliqueY"] = new obliqueY(myEW);  
 }
 
 ThFactory::~ThFactory() {

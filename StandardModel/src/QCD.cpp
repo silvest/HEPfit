@@ -56,15 +56,13 @@ bool QCD::Update(const std::map<std::string, double>& DPars) {
     
    if (!PreUpdate()) return (false);
 
+   UpdateError = false; 
+   
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         SetParameter(it->first, it->second);
 
-    if(quarks[UP].getMass() < MEPS) return (false);      
-    if(quarks[DOWN].getMass() < MEPS) return (false);
-    if(quarks[CHARM].getMass() < MEPS) return (false);
-    if(quarks[STRANGE].getMass() < MEPS) return (false);
-    if(quarks[TOP].getMass() < MEPS) return (false);
-    if(quarks[BOTTOM].getMass() < MEPS) return (false);
+    if (UpdateError) return (false);
+    
     if (!PostUpdate()) return (false);
 
     return (true);
@@ -79,10 +77,12 @@ void QCD::SetParameter(const std::string name, const double& value) {
     else if(name.compare("Mz")==0)
         Mz = value;
     else if(name.compare("mup")==0){
+        if(value < MEPS) UpdateError = true; 
         quarks[UP].setMass(value);
         computeYu = true;
     }
     else if(name.compare("mdown")==0){
+        if(value < MEPS) UpdateError = true;
         quarks[DOWN].setMass(value);
         computeYd = true;
     }
@@ -91,6 +91,7 @@ void QCD::SetParameter(const std::string name, const double& value) {
         computeYu = true;
     }
     else if(name.compare("mstrange")==0){
+        if(value < MEPS) UpdateError = true;
         quarks[STRANGE].setMass(value);
         computeYd = true;
     }
@@ -223,6 +224,10 @@ bool QCD::CheckParameters(const std::map<std::string, double>& DPars) {
 bool QCD::Init(const std::map<std::string, double>& DPars) {
     Update(DPars);
     return(CheckParameters(DPars));
+}
+
+bool QCD::SetFlag(const std::string name , const bool& value){  
+    return (false);
 }
 
 double QCD::Beta0(double nf) const {

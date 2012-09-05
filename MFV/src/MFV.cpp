@@ -53,9 +53,17 @@ MFV::MFV() :
 }
 
 
+bool MFV::InitializeMatching(){
+    
+    SetMatchingInitialized(SUSY::InitializeMatching());
+    return (IsMatchingInitialized());
+    
+}
+
+
 bool MFV::PreUpdate(){
     
-    if(!StandardModel::PreUpdate())  return (false);
+    if(!SUSY::PreUpdate())  return (false);
     
      return (true);
     
@@ -76,6 +84,8 @@ bool MFV::PostUpdate(){
     if(!CalcFlavour()) return (false);
     if(!CalcSpectrum()) return (false);
     
+    
+    
     if(!SUSY::PostUpdate())  return (false);
     
      return (true);
@@ -88,8 +98,12 @@ bool MFV::Update(const std::map<std::string, double>& DPars) {
     
     if(!PreUpdate())  return (false);
     
+    UpdateError = false;
+    
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         SetParameter(it->first, it->second);
+    
+    if (UpdateError) return (false);
     
     if(!PostUpdate())  return (false);
     
@@ -234,6 +248,7 @@ void MFV::SetSoftTerms(void){
     MsQ2 = ckm.hconjugate() * MsQ2 * ckm;  // messo da me !!!
     TU = ckm.hconjugate()*TU;
     
+    // test - lines
     
 //    std::cout << "TU = " << TU << std::endl;
 //    std::cout << "TD = " << TD << std::endl;
