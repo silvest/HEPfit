@@ -489,6 +489,7 @@ protected:
 private:
     bool computeCKM, computeYe, computeYn;
     StandardModelMatching* myStandardModelMatching;
+
 };
 
 #endif	/* STANDARDMODEL_H */
