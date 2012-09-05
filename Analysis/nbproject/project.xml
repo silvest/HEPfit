@@ -34,6 +34,10 @@
                     <name>Release</name>
                     <type>1</type>
                 </confElem>
+                <confElem>
+                    <name>Cluster</name>
+                    <type>1</type>
+                </confElem>
             </confList>
         </data>
     </configuration>
