@@ -57,7 +57,6 @@
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>/usr/local/boost_1_47_0</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../Utils/src</pElem>
             <pElem>../Observables/src</pElem>
@@ -68,7 +67,7 @@
             <pElem>../MFV/src</pElem>
             <pElem>../SUSY/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
-            <pElem>../boost_1_49_0</pElem>
+            <pElem>../boost_1_51_0</pElem>
             <pElem>../THDM/src</pElem>
             <pElem>../EW/src</pElem>
           </incDir>
