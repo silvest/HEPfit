@@ -43,7 +43,7 @@
     <conf name="Debug" type="3">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>GNU|GNU</compilerSet>
+        <compilerSet>default</compilerSet>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
@@ -67,7 +67,6 @@
             <pElem>../MFV/src</pElem>
             <pElem>../SUSY/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
-            <pElem>../boost_1_51_0</pElem>
             <pElem>../THDM/src</pElem>
             <pElem>../EW/src</pElem>
           </incDir>
