@@ -230,6 +230,10 @@ bool QCD::SetFlag(const std::string name , const bool& value){
     return (false);
 }
 
+bool QCD::SetFlag(const std::string name , const bool& value){  
+    return (false);
+}
+
 double QCD::Beta0(double nf) const {
     return((11.*Nc-2.*nf)/3.);
 }
