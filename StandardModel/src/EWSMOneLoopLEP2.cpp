@@ -167,15 +167,15 @@ double EWSMOneLoopLEP2::g_rhoe(const double rho, const double Mw_i) const {
     }
 }
 
-double EWSMOneLoopLEP2::t(const double mf, const double s, const double theta) const{
+double EWSMOneLoopLEP2::t(const double mf, const double s, const double cos_theta) const{
     
-    return (-s/2*(1.-sqrt(1.-4.*mf*mf/s)*cos(theta)-2.*mf*mf/s));
+    return (-s/2*(1.-sqrt(1.-4.*mf*mf/s)*cos_theta-2.*mf*mf/s));
     
 }
 
-double EWSMOneLoopLEP2::u(const double mf, const double s, const double theta) const{
+double EWSMOneLoopLEP2::u(const double mf, const double s, const double cos_theta) const{
     
-    return (-s/2*(1.+sqrt(1.-4.*mf*mf/s)*cos(theta)-2.*mf*mf/s));
+    return (-s/2*(1.+sqrt(1.-4.*mf*mf/s)*cos_theta-2.*mf*mf/s));
     
 }
 
@@ -3005,7 +3005,7 @@ complex EWSMOneLoopLEP2::A_CC(const double k, const double Mw_i) const{
     return (A);
 }
 
-complex EWSMOneLoopLEP2::B_CCq(const double s,const double theta,
+complex EWSMOneLoopLEP2::B_CCq(const double s,const double cos_theta,
                                const QCD::quark q, const double Mw_i) const{
     
      double I3 = SM.getQuarks(q).getIsospin();
@@ -3022,8 +3022,8 @@ complex EWSMOneLoopLEP2::B_CCq(const double s,const double theta,
          mfprime = 0.;
      }
      
-     return (cache.ale()*0.5/M_PI*(0.5-I3)*PV.D27(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)-
-             (0.5+I3)*cache.ale()/4./M_PI*((Mw*Mw-t(0.,s,theta))*PV.D0(p12,p22,p32,p42,s,t(0.,s,theta),Mw,0.,Mw,mfprime)
+     return (cache.ale()*0.5/M_PI*(0.5-I3)*PV.D27(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)-
+             (0.5+I3)*cache.ale()/4./M_PI*((Mw*Mw-t(0.,s,cos_theta))*PV.D0(p12,p22,p32,p42,s,t(0.,s,cos_theta),Mw,0.,Mw,mfprime)
                -PV.C0(s,0.,Mw,Mw)-PV.C0(s,Mw,mfprime,Mw))
              );
 
@@ -3031,7 +3031,7 @@ complex EWSMOneLoopLEP2::B_CCq(const double s,const double theta,
 }
 
 
-complex EWSMOneLoopLEP2::B_CCl(const double s,const double theta,
+complex EWSMOneLoopLEP2::B_CCl(const double s,const double cos_theta,
                                const StandardModel::lepton l, const double Mw_i) const{
                                
     
@@ -3043,13 +3043,13 @@ complex EWSMOneLoopLEP2::B_CCl(const double s,const double theta,
      double p32=0.;
      double p42=0.;
      
-     return (cache.ale()*0.5/M_PI*((0.5-I3)*PV.D27(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)-
-             (0.5+I3)*PV.D27(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)
+     return (cache.ale()*0.5/M_PI*((0.5-I3)*PV.D27(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)-
+             (0.5+I3)*PV.D27(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)
              ));
     
 }
 
-complex EWSMOneLoopLEP2::C_CCq(const double mu,const double s,const double theta,
+complex EWSMOneLoopLEP2::C_CCq(const double mu,const double s,const double cos_theta,
                                const QCD::quark q, const double Mw_i) const{
     
      double I3 = SM.getQuarks(q).getIsospin();
@@ -3066,15 +3066,15 @@ complex EWSMOneLoopLEP2::C_CCq(const double mu,const double s,const double theta
          mfprime = 0.;
      }
      
-     return (cache.ale()*0.5/M_PI*(0.5-I3)*(PV.D11(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)+
-             PV.D24(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)-
-             PV.D25(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)));
+     return (cache.ale()*0.5/M_PI*(0.5-I3)*(PV.D11(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)+
+             PV.D24(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)-
+             PV.D25(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)));
 
     
 }
 
 
-complex EWSMOneLoopLEP2::C_CCl(const double mu,const double s,const double theta,
+complex EWSMOneLoopLEP2::C_CCl(const double mu,const double s,const double cos_theta,
                                const StandardModel::lepton l, const double Mw_i) const{
                                
     
@@ -3086,58 +3086,13 @@ complex EWSMOneLoopLEP2::C_CCl(const double mu,const double s,const double theta
      double p32=0.;
      double p42=0.;
      
-     return (cache.ale()*0.5/M_PI*(0.5-I3)*(PV.D11(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)+
-             PV.D24(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)-
-             PV.D25(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)));
+     return (cache.ale()*0.5/M_PI*(0.5-I3)*(PV.D11(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)+
+             PV.D24(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)-
+             PV.D25(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)));
     
 }
 
-complex EWSMOneLoopLEP2::D_CCq(const double mu,const double s,const double theta,
-                               const QCD::quark q, const double Mw_i) const{
-    
-     double I3 = SM.getQuarks(q).getIsospin();
-     double Mw = cache.Mw(Mw_i);
-     double mf = 0.;
-     double mfprime = 0.;
-     double p12=0.;
-     double p22=0.;
-     double p32=0.;
-     double p42=0.;
-    
-     if(q == SM.BOTTOM){
-         mfprime = SM.getQuarks(SM.TOP).getMass();
-     } else {
-         mfprime = 0.;
-     }
-     
-     return (cache.ale()*mf*0.5/M_PI*(0.5-I3)*(PV.D12(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)+
-             PV.D22(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)-
-             PV.D26(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)));
-
-    
-}
-
-
-complex EWSMOneLoopLEP2::D_CCl(const double mu,const double s,const double theta,
-                               const StandardModel::lepton l, const double Mw_i) const{
-                               
-    
-     double I3 = SM.getLeptons(l).getIsospin();
-     double Mw = cache.Mw(Mw_i);
-     double mf = 0.;
-     double mfprime = 0.;
-     double p12=0.;
-     double p22=0.;
-     double p32=0.;
-     double p42=0.;
-     
-     return (cache.ale()*mf*0.5/M_PI*(0.5-I3)*(PV.D12(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)+
-             PV.D22(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)-
-             PV.D26(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)));
-    
-}
-
-complex EWSMOneLoopLEP2::E_CCq(const double mu,const double s,const double theta,
+complex EWSMOneLoopLEP2::D_CCq(const double mu,const double s,const double cos_theta,
                                const QCD::quark q, const double Mw_i) const{
     
      double I3 = SM.getQuarks(q).getIsospin();
@@ -3155,15 +3110,60 @@ complex EWSMOneLoopLEP2::E_CCq(const double mu,const double s,const double theta
          mfprime = 0.;
      }
      
-     return (-cache.ale()*mf*0.5/M_PI*(0.5-I3)*(PV.D13(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)+
-             PV.D26(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)-
-             PV.D23(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)));
+     return (cache.ale()*mf*0.5/M_PI*(0.5-I3)*(PV.D12(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)+
+             PV.D22(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)-
+             PV.D26(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)));
 
     
 }
 
 
-complex EWSMOneLoopLEP2::E_CCl(const double mu,const double s,const double theta,
+complex EWSMOneLoopLEP2::D_CCl(const double mu,const double s,const double cos_theta,
+                               const StandardModel::lepton l, const double Mw_i) const{
+                               
+    
+     double I3 = SM.getLeptons(l).getIsospin();
+     double Mw = cache.Mw(Mw_i);
+     double mf = 0.;
+     double mfprime = 0.;
+     double p12=0.;
+     double p22=0.;
+     double p32=0.;
+     double p42=0.;
+     
+     return (cache.ale()*mf*0.5/M_PI*(0.5-I3)*(PV.D12(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)+
+             PV.D22(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)-
+             PV.D26(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)));
+    
+}
+
+complex EWSMOneLoopLEP2::E_CCq(const double mu,const double s,const double cos_theta,
+                               const QCD::quark q, const double Mw_i) const{
+    
+     double I3 = SM.getQuarks(q).getIsospin();
+     double Mw = cache.Mw(Mw_i);
+     double mf = 0.;
+     double mfprime = 0.;
+     double p12=0.;
+     double p22=0.;
+     double p32=0.;
+     double p42=0.;
+    
+     if(q == SM.BOTTOM){
+         mfprime = SM.getQuarks(SM.TOP).getMass();
+     } else {
+         mfprime = 0.;
+     }
+     
+     return (-cache.ale()*mf*0.5/M_PI*(0.5-I3)*(PV.D13(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)+
+             PV.D26(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)-
+             PV.D23(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)));
+
+    
+}
+
+
+complex EWSMOneLoopLEP2::E_CCl(const double mu,const double s,const double cos_theta,
                                const StandardModel::lepton l, const double Mw_i) const{
                                
     
@@ -3176,15 +3176,15 @@ complex EWSMOneLoopLEP2::E_CCl(const double mu,const double s,const double theta
      double p32=0.;
      double p42=0.;
      
-     return (-cache.ale()*mf*0.5/M_PI*(0.5-I3)*(PV.D13(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)+
-             PV.D26(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)-
-             PV.D23(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,theta)));
+     return (-cache.ale()*mf*0.5/M_PI*(0.5-I3)*(PV.D13(p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)+
+             PV.D26(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)-
+             PV.D23(mu,p12,p22,p32,p42,s,Mw,0.,Mw,mfprime,cos_theta)));
     
 }
 
 
 
-complex EWSMOneLoopLEP2::A1_NCq(const double mu,const double s,const double theta,
+complex EWSMOneLoopLEP2::A1_NCq(const double mu,const double s,const double cos_theta,
                                const QCD::quark q, const double Mw_i, const double rho, const double k) const{
     
 //     double I3 = SM.getQuarks(q).getIsospin();
@@ -3197,14 +3197,14 @@ complex EWSMOneLoopLEP2::A1_NCq(const double mu,const double s,const double thet
      double p42=0.;
 
 
-    complex F1=cache.ale()/4./M_PI*((Mz*Mz-t(0.,s,theta))*PV.D0(p12,p22,p32,p42,s,t(0.,s,theta),Mz,0.,Mz,mf)
+    complex F1=cache.ale()/4./M_PI*((Mz*Mz-t(0.,s,cos_theta))*PV.D0(p12,p22,p32,p42,s,t(0.,s,cos_theta),Mz,0.,Mz,mf)
                -PV.C0(s,0.,Mz,Mz)-PV.C0(s,Mz,mf,Mz));
     //remember the sign - before C0 because of the different notation between 
     //Beenakker-vanderMarck-Hollik paperand Bardin-Passarino book
-    complex F2=cache.ale()*0.5/M_PI*PV.D27(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta);
+    complex F2=cache.ale()*0.5/M_PI*PV.D27(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta);
     
-    complex F7=-2.*Mz*mf*cache.ale()/4./M_PI*PV.D12(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta);
-    complex F8=-2.*Mz*mf*cache.ale()/4./M_PI*PV.D13(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta);
+    complex F7=-2.*Mz*mf*cache.ale()/4./M_PI*PV.D12(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta);
+    complex F8=-2.*Mz*mf*cache.ale()/4./M_PI*PV.D13(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta);
     
     double lkplus_q=g_rhoe(k,Mw_i)*g_rhoe(k,Mw_i)*g_rhofq(q,k,Mw_i)*g_rhofq(q,k,Mw_i);
     double lkminus_q=g_rhoe(k,Mw_i)*g_rhoe(k,Mw_i)*g_rhofq(q,-k,Mw_i)*g_rhofq(q,-k,Mw_i);
@@ -3223,7 +3223,7 @@ complex EWSMOneLoopLEP2::A1_NCq(const double mu,const double s,const double thet
     }
 }
 
-complex EWSMOneLoopLEP2::A1_NCl(const double mu,const double s,const double theta,
+complex EWSMOneLoopLEP2::A1_NCl(const double mu,const double s,const double cos_theta,
                                const StandardModel::lepton l, const double Mw_i, const double rho, const double k) const{
     
 //     double I3 = SM.getQuarks(q).getIsospin();
@@ -3236,14 +3236,14 @@ complex EWSMOneLoopLEP2::A1_NCl(const double mu,const double s,const double thet
      double p42=0.;
 
 
-    complex F1=cache.ale()/4./M_PI*((Mz*Mz-t(mf,s,theta))*PV.D0(p12,p22,p32,p42,s,t(mf,s,theta),Mz,0.,Mz,mf)
+    complex F1=cache.ale()/4./M_PI*((Mz*Mz-t(mf,s,cos_theta))*PV.D0(p12,p22,p32,p42,s,t(mf,s,cos_theta),Mz,0.,Mz,mf)
                -PV.C0(s,0.,Mz,Mz)-PV.C0(s,Mz,mf,Mz));
     //remember the sign - before C0 because of the different notation between 
     //Beenakker-vanderMarck-Hollik paperand Bardin-Passarino book
-    complex F2=cache.ale()*0.5/M_PI*PV.D27(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta);
+    complex F2=cache.ale()*0.5/M_PI*PV.D27(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta);
     
-    complex F7=-2.*Mz*mf*cache.ale()/4./M_PI*PV.D12(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta);
-    complex F8=-2.*Mz*mf*cache.ale()/4./M_PI*PV.D13(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta);
+    complex F7=-2.*Mz*mf*cache.ale()/4./M_PI*PV.D12(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta);
+    complex F8=-2.*Mz*mf*cache.ale()/4./M_PI*PV.D13(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta);
     
     double lkplus_l=g_rhoe(k,Mw_i)*g_rhoe(k,Mw_i)*g_rhofl(l,k,Mw_i)*g_rhofl(l,k,Mw_i);
     double lkminus_l=g_rhoe(k,Mw_i)*g_rhoe(k,Mw_i)*g_rhofl(l,-k,Mw_i)*g_rhofl(l,-k,Mw_i);
@@ -3262,7 +3262,7 @@ complex EWSMOneLoopLEP2::A1_NCl(const double mu,const double s,const double thet
     }
 }
 
-complex EWSMOneLoopLEP2::A2_NCq(const double mu,const double s,const double theta,
+complex EWSMOneLoopLEP2::A2_NCq(const double mu,const double s,const double cos_theta,
                                const QCD::quark q, const double Mw_i, const double rho, const double k) const{
     
 //     double I3 = SM.getQuarks(q).getIsospin();
@@ -3274,9 +3274,9 @@ complex EWSMOneLoopLEP2::A2_NCq(const double mu,const double s,const double thet
      double p32=0.;
      double p42=0.;
     
-    complex F3=cache.ale()*0.5/M_PI*(PV.D11(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta)+
-             PV.D24(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta)-
-             PV.D25(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta));
+    complex F3=cache.ale()*0.5/M_PI*(PV.D11(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta)+
+             PV.D24(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta)-
+             PV.D25(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta));
     
     double lkplus_q=g_rhoe(k,Mw_i)*g_rhoe(k,Mw_i)*g_rhofq(q,k,Mw_i)*g_rhofq(q,k,Mw_i);
     double lkminus_q=g_rhoe(k,Mw_i)*g_rhoe(k,Mw_i)*g_rhofq(q,-k,Mw_i)*g_rhofq(q,-k,Mw_i);
@@ -3293,7 +3293,7 @@ complex EWSMOneLoopLEP2::A2_NCq(const double mu,const double s,const double thet
     }
 }
 
-complex EWSMOneLoopLEP2::A2_NCl(const double mu,const double s,const double theta,
+complex EWSMOneLoopLEP2::A2_NCl(const double mu,const double s,const double cos_theta,
                                 const StandardModel::lepton l, const double Mw_i, const double rho, const double k) const{
     
 //     double I3 = SM.getQuarks(q).getIsospin();
@@ -3307,9 +3307,9 @@ complex EWSMOneLoopLEP2::A2_NCl(const double mu,const double s,const double thet
 
 
     
-    complex F3=cache.ale()*0.5/M_PI*(PV.D11(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta)+
-             PV.D24(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta)-
-             PV.D25(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta));
+    complex F3=cache.ale()*0.5/M_PI*(PV.D11(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta)+
+             PV.D24(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta)-
+             PV.D25(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta));
     
     double lkplus_l=g_rhoe(k,Mw_i)*g_rhoe(k,Mw_i)*g_rhofl(l,k,Mw_i)*g_rhofl(l,k,Mw_i);
     double lkminus_l=g_rhoe(k,Mw_i)*g_rhoe(k,Mw_i)*g_rhofl(l,-k,Mw_i)*g_rhofl(l,-k,Mw_i);
@@ -3326,7 +3326,7 @@ complex EWSMOneLoopLEP2::A2_NCl(const double mu,const double s,const double thet
     }
 }
 
-complex EWSMOneLoopLEP2::A3_NCq(const double mu,const double s,const double theta,
+complex EWSMOneLoopLEP2::A3_NCq(const double mu,const double s,const double cos_theta,
                                const QCD::quark q, const double Mw_i, const double rho, const double k) const{
     
 //     double I3 = SM.getQuarks(q).getIsospin();
@@ -3340,16 +3340,16 @@ complex EWSMOneLoopLEP2::A3_NCq(const double mu,const double s,const double thet
 
 
     
-    complex F4=cache.ale()*mf*0.5/M_PI*(PV.D12(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta)+
-             PV.D22(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta)-
-             PV.D26(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta));
-    complex F5=-cache.ale()*mf*0.5/M_PI*(PV.D13(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta)+
-               PV.D26(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta)-
-               PV.D23(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta));
-    complex F9=-2.*Mz*cache.ale()/4./M_PI*(PV.D12(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta)-
-                PV.D13(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta));
-    complex F10=2.*Mz*cache.ale()/4./M_PI*(PV.D12(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta)+
-                PV.D13(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta));
+    complex F4=cache.ale()*mf*0.5/M_PI*(PV.D12(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta)+
+             PV.D22(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta)-
+             PV.D26(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta));
+    complex F5=-cache.ale()*mf*0.5/M_PI*(PV.D13(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta)+
+               PV.D26(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta)-
+               PV.D23(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta));
+    complex F9=-2.*Mz*cache.ale()/4./M_PI*(PV.D12(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta)-
+                PV.D13(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta));
+    complex F10=2.*Mz*cache.ale()/4./M_PI*(PV.D12(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta)+
+                PV.D13(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta));
     
     
     double lkplus_q=g_rhoe(k,Mw_i)*g_rhoe(k,Mw_i)*g_rhofq(q,k,Mw_i)*g_rhofq(q,k,Mw_i);
@@ -3369,7 +3369,7 @@ complex EWSMOneLoopLEP2::A3_NCq(const double mu,const double s,const double thet
     }
 }
 
-complex EWSMOneLoopLEP2::A3_NCl(const double mu,const double s,const double theta,
+complex EWSMOneLoopLEP2::A3_NCl(const double mu,const double s,const double cos_theta,
                                 const StandardModel::lepton l, const double Mw_i, const double rho, const double k) const{
     
 //     double I3 = SM.getQuarks(q).getIsospin();
@@ -3383,15 +3383,15 @@ complex EWSMOneLoopLEP2::A3_NCl(const double mu,const double s,const double thet
 
 
     
-    complex F4=cache.ale()*mf*0.5/M_PI*(PV.D12(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta)+
-             PV.D22(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta)-
-             PV.D26(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta));
-    complex F5=-cache.ale()*mf*0.5/M_PI*(PV.D13(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta)+
-               PV.D26(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta)-
-               PV.D23(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta));
-    complex F9=-2.*Mz*cache.ale()/4./M_PI*(PV.D12(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta)-
-                PV.D13(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta));
-    complex F10=2.*Mz*cache.ale()/4./M_PI*(PV.D12(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta)+
+    complex F4=cache.ale()*mf*0.5/M_PI*(PV.D12(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta)+
+             PV.D22(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta)-
+             PV.D26(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta));
+    complex F5=-cache.ale()*mf*0.5/M_PI*(PV.D13(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta)+
+               PV.D26(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta)-
+               PV.D23(mu,p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta));
+    complex F9=-2.*Mz*cache.ale()/4./M_PI*(PV.D12(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta)-
+                PV.D13(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta));
+    complex F10=2.*Mz*cache.ale()/4./M_PI*(PV.D12(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta)+
                 PV.D13(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta));
     
     double lkplus_l=g_rhoe(k,Mw_i)*g_rhoe(k,Mw_i)*g_rhofl(l,k,Mw_i)*g_rhofl(l,k,Mw_i);
@@ -3411,7 +3411,7 @@ complex EWSMOneLoopLEP2::A3_NCl(const double mu,const double s,const double thet
     }
 }
 
-complex EWSMOneLoopLEP2::A4_NCq(const double mu,const double s,const double theta,
+complex EWSMOneLoopLEP2::A4_NCq(const double mu,const double s,const double cos_theta,
                                const QCD::quark q, const double Mw_i, const double rho, const double k) const{
     
 //     double I3 = SM.getQuarks(q).getIsospin();
@@ -3423,7 +3423,7 @@ complex EWSMOneLoopLEP2::A4_NCq(const double mu,const double s,const double thet
      double p32=0.;
      double p42=0.;
 
-    complex F6=-2.*Mz*mf*cache.ale()/4./M_PI*PV.D11(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta);
+    complex F6=-2.*Mz*mf*cache.ale()/4./M_PI*PV.D11(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta);
     
     double lbarkplus_q=g_rhoe(k,Mw_i)*g_rhoe(k,Mw_i)*g_rhofq(q,k,Mw_i)*g_rhofq(q,-k,Mw_i);
     double lbarkminus_q=lbarkplus_q;
@@ -3441,7 +3441,7 @@ complex EWSMOneLoopLEP2::A4_NCq(const double mu,const double s,const double thet
     }
 }
 
-complex EWSMOneLoopLEP2::A4_NCl(const double mu,const double s,const double theta,
+complex EWSMOneLoopLEP2::A4_NCl(const double mu,const double s,const double cos_theta,
                                 const StandardModel::lepton l, const double Mw_i, const double rho, const double k) const{
     
 //     double I3 = SM.getQuarks(q).getIsospin();
@@ -3455,7 +3455,7 @@ complex EWSMOneLoopLEP2::A4_NCl(const double mu,const double s,const double thet
 
 
     
-    complex F6=-2.*Mz*mf*cache.ale()/4./M_PI*PV.D11(p12,p22,p32,p42,s,Mz,0.,Mz,mf,theta);
+    complex F6=-2.*Mz*mf*cache.ale()/4./M_PI*PV.D11(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta);
     
     double lbarkplus_l=g_rhoe(k,Mw_i)*g_rhoe(k,Mw_i)*g_rhofl(l,k,Mw_i)*g_rhofl(l,-k,Mw_i);
     double lbarkminus_l=lbarkplus_l;
@@ -3641,39 +3641,39 @@ complex EWSMOneLoopLEP2::Gfunc(const double s,const double t) const{
     
 }
 
-complex EWSMOneLoopLEP2::A_gammagammaq(const double s, const QCD::quark q, const double theta) const{
+complex EWSMOneLoopLEP2::A_gammagammaq(const double s, const QCD::quark q, const double cos_theta) const{
     
     complex i = complex::i();
     double mf = SM.getQuarks(q).getMass();
     
-    return (cache.ale()/2./M_PI*(Gfunc(s,t(mf,s,theta))+Gfunc(s,u(mf,s,theta))));
+    return (cache.ale()/2./M_PI*(Gfunc(s,t(mf,s,cos_theta))+Gfunc(s,u(mf,s,cos_theta))));
 }
 
-complex EWSMOneLoopLEP2::A_gammagammal(const double s, const StandardModel::lepton l, const double theta) const{
+complex EWSMOneLoopLEP2::A_gammagammal(const double s, const StandardModel::lepton l, const double cos_theta) const{
     
     complex i = complex::i();
     double mf = SM.getLeptons(l).getMass();
     
-    return (cache.ale()/2./M_PI*(Gfunc(s,t(mf,s,theta))+Gfunc(s,u(mf,s,theta))));
+    return (cache.ale()/2./M_PI*(Gfunc(s,t(mf,s,cos_theta))+Gfunc(s,u(mf,s,cos_theta))));
 }
 
 
-complex EWSMOneLoopLEP2::V_gammagammaq(const double s, const QCD::quark q, const double theta) const{
+complex EWSMOneLoopLEP2::V_gammagammaq(const double s, const QCD::quark q, const double cos_theta) const{
     
     complex i = complex::i();
     double mf = SM.getQuarks(q).getMass();
     
-    return (cache.ale()/2./M_PI*(Gfunc(s,t(mf,s,theta))-Gfunc(s,u(mf,s,theta))
-            +2.*(log(phmass*phmass)-log(s)+i*M_PI)*(log(t(mf,s,theta)/u(mf,s,theta)))));    
+    return (cache.ale()/2./M_PI*(Gfunc(s,t(mf,s,cos_theta))-Gfunc(s,u(mf,s,cos_theta))
+            +2.*(log(phmass*phmass)-log(s)+i*M_PI)*(log(t(mf,s,cos_theta)/u(mf,s,cos_theta)))));    
 }
 
-complex EWSMOneLoopLEP2::V_gammagammal(const double s,const StandardModel::lepton l,const double theta) const{
+complex EWSMOneLoopLEP2::V_gammagammal(const double s,const StandardModel::lepton l,const double cos_theta) const{
     
     complex i = complex::i();
     double mf = SM.getLeptons(l).getMass();
     
-    return (cache.ale()/2./M_PI*(Gfunc(s,t(mf,s,theta))-Gfunc(s,u(mf,s,theta))
-            +2.*(log(phmass*phmass)-log(s)+i*M_PI)*(log(t(mf,s,theta)/u(mf,s,theta)))));    
+    return (cache.ale()/2./M_PI*(Gfunc(s,t(mf,s,cos_theta))-Gfunc(s,u(mf,s,cos_theta))
+            +2.*(log(phmass*phmass)-log(s)+i*M_PI)*(log(t(mf,s,cos_theta)/u(mf,s,cos_theta)))));    
 }
 
 
@@ -3697,31 +3697,31 @@ complex EWSMOneLoopLEP2::Afunc(const double s,const double t,const double GammaZ
     
 }
 
-complex EWSMOneLoopLEP2::A_gammaZq(const double s,const QCD::quark q, const double theta,const double GammaZ) const{
+complex EWSMOneLoopLEP2::A_gammaZq(const double s,const QCD::quark q, const double cos_theta,const double GammaZ) const{
     
   double mf = SM.getQuarks(q).getMass();
     
     
-    return (cache.ale()/2./M_PI*(Afunc(s,t(mf,s,theta),GammaZ)+Afunc(s,u(mf,s,theta),GammaZ)));
+    return (cache.ale()/2./M_PI*(Afunc(s,t(mf,s,cos_theta),GammaZ)+Afunc(s,u(mf,s,cos_theta),GammaZ)));
 }
 
-complex EWSMOneLoopLEP2::A_gammaZl(const double s,const StandardModel::lepton l, const double theta,const double GammaZ) const{
+complex EWSMOneLoopLEP2::A_gammaZl(const double s,const StandardModel::lepton l, const double cos_theta,const double GammaZ) const{
     
     double mf = SM.getLeptons(l).getMass();
     
-    return (cache.ale()/2./M_PI*(Afunc(s,t(mf,s,theta),GammaZ)+Afunc(s,u(mf,s,theta),GammaZ)));
+    return (cache.ale()/2./M_PI*(Afunc(s,t(mf,s,cos_theta),GammaZ)+Afunc(s,u(mf,s,cos_theta),GammaZ)));
 }
 
 
-complex EWSMOneLoopLEP2::V_gammaZq(const double s,const QCD::quark q, const double theta,const double GammaZ) const{
+complex EWSMOneLoopLEP2::V_gammaZq(const double s,const QCD::quark q, const double cos_theta,const double GammaZ) const{
     
     
     double mf = SM.getQuarks(q).getMass();
     complex i = complex::i();
     complex M = cache.Mz()*cache.Mz()-i*cache.Mz()*GammaZ;
     complex arg[2];
-            arg[0] = 1+M*M/t(mf,s,theta);
-            arg[1] = 1+M*M/u(mf,s,theta);
+            arg[0] = 1+M*M/t(mf,s,cos_theta);
+            arg[1] = 1+M*M/u(mf,s,cos_theta);
     complex Li2[2];
     for (int i=0; i<2; i++) {
                 gsl_sf_result re, im;
@@ -3730,12 +3730,12 @@ complex EWSMOneLoopLEP2::V_gammaZq(const double s,const QCD::quark q, const doub
                 Li2[i].imag() = im.val;
     }
     
-    return (cache.ale()/2./M_PI*(Afunc(s,t(mf,s,theta),GammaZ)-Afunc(s,u(mf,s,theta),GammaZ)
-            +2.*Li2[0]-2.*Li2[1]+4.*log(M*phmass/(M*M-s))*log(t(mf,s,theta)/u(mf,s,theta))));  
+    return (cache.ale()/2./M_PI*(Afunc(s,t(mf,s,cos_theta),GammaZ)-Afunc(s,u(mf,s,cos_theta),GammaZ)
+            +2.*Li2[0]-2.*Li2[1]+4.*log(M*phmass/(M*M-s))*log(t(mf,s,cos_theta)/u(mf,s,cos_theta))));  
     
 }
 
-complex EWSMOneLoopLEP2::V_gammaZl(const double s,const StandardModel::lepton l, const double theta,
+complex EWSMOneLoopLEP2::V_gammaZl(const double s,const StandardModel::lepton l, const double cos_theta,
         const double GammaZ) const{
     
     
@@ -3743,8 +3743,8 @@ complex EWSMOneLoopLEP2::V_gammaZl(const double s,const StandardModel::lepton l,
     double mf = SM.getLeptons(l).getMass();
     complex M = cache.Mz()*cache.Mz()-i*cache.Mz()*GammaZ;
     complex arg[2];
-            arg[0] = 1+M*M/t(mf,s,theta);
-            arg[1] = 1+M*M/u(mf,s,theta);
+            arg[0] = 1+M*M/t(mf,s,cos_theta);
+            arg[1] = 1+M*M/u(mf,s,cos_theta);
     complex Li2[2];
     for (int i=0; i<2; i++) {
                 gsl_sf_result re, im;
@@ -3753,8 +3753,8 @@ complex EWSMOneLoopLEP2::V_gammaZl(const double s,const StandardModel::lepton l,
                 Li2[i].imag() = im.val;
     }
     
-    return (cache.ale()/2./M_PI*(Afunc(s,t(mf,s,theta),GammaZ)-Afunc(s,u(mf,s,theta),GammaZ)
-            +2.*Li2[0]-2.*Li2[1]+4.*log(M*phmass/(M*M-s))*log(t(mf,s,theta)/u(mf,s,theta))));  
+    return (cache.ale()/2./M_PI*(Afunc(s,t(mf,s,cos_theta),GammaZ)-Afunc(s,u(mf,s,cos_theta),GammaZ)
+            +2.*Li2[0]-2.*Li2[1]+4.*log(M*phmass/(M*M-s))*log(t(mf,s,cos_theta)/u(mf,s,cos_theta))));  
     
 }
 
@@ -3782,30 +3782,30 @@ complex EWSMOneLoopLEP2::E6q(const double s,const QCD::quark q,
     
 }
 
-complex EWSMOneLoopLEP2::F6rhoq(const double s,const double rho, const double k,const QCD::quark q, const double theta) const{
+complex EWSMOneLoopLEP2::F6rhoq(const double s,const double rho, const double k,const QCD::quark q, const double cos_theta) const{
      
-    return (V_gammagammaq(s,q,theta)+rho*k*A_gammagammaq(s,q,theta));
+    return (V_gammagammaq(s,q,cos_theta)+rho*k*A_gammagammaq(s,q,cos_theta));
     
 }
 
-complex EWSMOneLoopLEP2::F6rhol(const double s,const double rho, const double k,const StandardModel::lepton l, const double theta) const{
+complex EWSMOneLoopLEP2::F6rhol(const double s,const double rho, const double k,const StandardModel::lepton l, const double cos_theta) const{
      
-    return (V_gammagammal(s,l,theta)+rho*k*A_gammagammal(s,l,theta));
+    return (V_gammagammal(s,l,cos_theta)+rho*k*A_gammagammal(s,l,cos_theta));
     
 }
 
 complex EWSMOneLoopLEP2::F7rhol(const double s,const double rho, const double k,
-                                const double Mw_i,const StandardModel::lepton l, const double theta,const double GammaZ) const{
+                                const double Mw_i,const StandardModel::lepton l, const double cos_theta,const double GammaZ) const{
      
-    return (g_rhofl(l,rho,Mw_i)*(V_gammaZl(s,l,theta,GammaZ)+rho*k*A_gammaZl(s,l,theta,GammaZ)));
+    return (g_rhofl(l,rho,Mw_i)*(V_gammaZl(s,l,cos_theta,GammaZ)+rho*k*A_gammaZl(s,l,cos_theta,GammaZ)));
     
 }
 
 
 complex EWSMOneLoopLEP2::F7rhoq(const double s,const double rho, const double k,
-        const double Mw_i,const QCD::quark q, const double theta,const double GammaZ) const{
+        const double Mw_i,const QCD::quark q, const double cos_theta,const double GammaZ) const{
      
-    return (g_rhofq(q,rho,Mw_i)*(V_gammaZq(s,q,theta,GammaZ)+rho*k*A_gammaZq(s,q,theta,GammaZ)));
+    return (g_rhofq(q,rho,Mw_i)*(V_gammaZq(s,q,cos_theta,GammaZ)+rho*k*A_gammaZq(s,q,cos_theta,GammaZ)));
     
 }
 
@@ -3860,59 +3860,59 @@ double EWSMOneLoopLEP2::Bf(const double s, const double mf) const{
     
 }
 
-double EWSMOneLoopLEP2::Bint(const double theta, const double mf, const double s) const{
+double EWSMOneLoopLEP2::Bint(const double cos_theta, const double mf, const double s) const{
   
     double beta = sqrt(1.-4.*mf*mf/s);
     
-    return (2.*log((1.-beta*cos(theta))/(1+beta*cos(theta))));
+    return (2.*log((1.-beta*cos_theta)/(1+beta*cos_theta)));
     
 }
     
-    double EWSMOneLoopLEP2::gammaIR_q(const double s, const QCD::quark q, const double theta) const{
+    double EWSMOneLoopLEP2::gammaIR_q(const double s, const QCD::quark q, const double cos_theta) const{
         
         double Qe = SM.getLeptons(1).getCharge();
         double Qf = SM.getQuarks(q).getCharge();
         double mf = SM.getQuarks(q).getMass();
         int A = 0.;//if 0 we subtract the interference term
         
-        return (-cache.ale()/M_PI*log(phmass*phmass/s)*(Qe*Qe*Be(s)+Qf*Qf*Bf(s,mf)+A*Qe*Qf*Bint(theta,mf,s)));
+        return (-cache.ale()/M_PI*log(phmass*phmass/s)*(Qe*Qe*Be(s)+Qf*Qf*Bf(s,mf)+A*Qe*Qf*Bint(cos_theta,mf,s)));
         
     }
     
     
-   double EWSMOneLoopLEP2::gammaIR_l(const double s, const StandardModel::lepton l, const double theta) const{
+   double EWSMOneLoopLEP2::gammaIR_l(const double s, const StandardModel::lepton l, const double cos_theta) const{
         double Qe = SM.getLeptons(1).getCharge();
         double Qf = SM.getLeptons(l).getCharge();
         double mf = SM.getLeptons(l).getMass();
         int A = 0.;//if 0 we subtract the interference term
         
-        return (-cache.ale()/M_PI*log(phmass*phmass/s)*(Qe*Qe*Be(s)+Qf*Qf*Bf(s,mf)+A*Qe*Qf*Bint(theta,mf,s)));
+        return (-cache.ale()/M_PI*log(phmass*phmass/s)*(Qe*Qe*Be(s)+Qf*Qf*Bf(s,mf)+A*Qe*Qf*Bint(cos_theta,mf,s)));
     }
    
    
-   double EWSMOneLoopLEP2::gammadelta_q(const double s, const QCD::quark q, const double theta) const{
+   double EWSMOneLoopLEP2::gammadelta_q(const double s, const QCD::quark q, const double cos_theta) const{
         
         double Qe = SM.getLeptons(1).getCharge();
         double Qf = SM.getQuarks(q).getCharge();
         double mf = SM.getQuarks(q).getMass();
         int A = 0.;//if 0 we subtract the interference term
         
-        return (2.*cache.ale()/M_PI*log(delta(s))*(Qe*Qe*Be(s)+Qf*Qf*Bf(s,mf)+A*Qe*Qf*Bint(theta,mf,s)));
+        return (2.*cache.ale()/M_PI*log(delta(s))*(Qe*Qe*Be(s)+Qf*Qf*Bf(s,mf)+A*Qe*Qf*Bint(cos_theta,mf,s)));
         
     }
     
     
-   double EWSMOneLoopLEP2::gammadelta_l(const double s, const StandardModel::lepton l, const double theta) const{
+   double EWSMOneLoopLEP2::gammadelta_l(const double s, const StandardModel::lepton l, const double cos_theta) const{
         double Qe = SM.getLeptons(1).getCharge();
         double Qf = SM.getLeptons(l).getCharge();
         double mf = SM.getLeptons(l).getMass();
         int A = 0.;//if 0 we subtract the interference term
         
-        return (2.*cache.ale()/M_PI*log(delta(s))*(Qe*Qe*Be(s)+Qf*Qf*Bf(s,mf)+A*Qe*Qf*Bint(theta,mf,s)));
+        return (2.*cache.ale()/M_PI*log(delta(s))*(Qe*Qe*Be(s)+Qf*Qf*Bf(s,mf)+A*Qe*Qf*Bint(cos_theta,mf,s)));
     }
    
    
-   complex EWSMOneLoopLEP2::gammadeltaINT_q(const double s, const QCD::quark q, const double theta,const double GammaZ) const{
+   complex EWSMOneLoopLEP2::gammadeltaINT_q(const double s, const QCD::quark q, const double cos_theta,const double GammaZ) const{
         
         double Qe = SM.getLeptons(1).getCharge();
         double Qf = SM.getQuarks(q).getCharge();
@@ -3924,12 +3924,12 @@ double EWSMOneLoopLEP2::Bint(const double theta, const double mf, const double s
         
         return (2.*cache.ale()/M_PI*(Qe*Qe*Be(s)*log(d*(s-M*M)/(s-s*d-M*M))
                 +Qf*Qf*Bf(s,mf)*log(d)
-                +0.5*A*Qe*Qf*Bint(theta,mf,s)*log(d*d*(s-M*M)/(s-s*d-M*M))));
+                +0.5*A*Qe*Qf*Bint(cos_theta,mf,s)*log(d*d*(s-M*M)/(s-s*d-M*M))));
         
     }
     
     
-   complex EWSMOneLoopLEP2::gammadeltaINT_l(const double s, const StandardModel::lepton l, const double theta,const double GammaZ) const{
+   complex EWSMOneLoopLEP2::gammadeltaINT_l(const double s, const StandardModel::lepton l, const double cos_theta,const double GammaZ) const{
         double Qe = SM.getLeptons(1).getCharge();
         double Qf = SM.getLeptons(l).getCharge();
         double mf = SM.getLeptons(l).getMass();
@@ -3940,12 +3940,12 @@ double EWSMOneLoopLEP2::Bint(const double theta, const double mf, const double s
         
         return (2.*cache.ale()/M_PI*(Qe*Qe*Be(s)*log(d*(s-M*M)/(s-s*d-M*M))
                 +Qf*Qf*Bf(s,mf)*log(d)
-                +0.5*A*Qe*Qf*Bint(theta,mf,s)*log(d*d*(s-M*M)/(s-s*d-M*M))));
+                +0.5*A*Qe*Qf*Bint(cos_theta,mf,s)*log(d*d*(s-M*M)/(s-s*d-M*M))));
     }
    
    
    
-   double EWSMOneLoopLEP2::gammadeltaRES_q(const double s, const QCD::quark q, const double theta,const double GammaZ) const{
+   double EWSMOneLoopLEP2::gammadeltaRES_q(const double s, const QCD::quark q, const double cos_theta,const double GammaZ) const{
         
         double Qe = SM.getLeptons(1).getCharge();
         double Qf = SM.getQuarks(q).getCharge();
@@ -3962,12 +3962,12 @@ double EWSMOneLoopLEP2::Bint(const double theta, const double mf, const double s
         
         return (2.*cache.ale()/M_PI*(Qe*Qe*Be(s)*log(x_mod)
                 +Qf*Qf*Bf(s,mf)*log(d)
-                +A*Qe*Qf*Bint(theta,mf,s)*log(y_mod)));
+                +A*Qe*Qf*Bint(cos_theta,mf,s)*log(y_mod)));
         
     }
     
     
-   double EWSMOneLoopLEP2::gammadeltaRES_l(const double s, const StandardModel::lepton l, const double theta,const double GammaZ) const{
+   double EWSMOneLoopLEP2::gammadeltaRES_l(const double s, const StandardModel::lepton l, const double cos_theta,const double GammaZ) const{
         double Qe = SM.getLeptons(1).getCharge();
         double Qf = SM.getLeptons(l).getCharge();
         double mf = SM.getLeptons(l).getMass();
@@ -3982,7 +3982,7 @@ double EWSMOneLoopLEP2::Bint(const double theta, const double mf, const double s
         
         return (2.*cache.ale()/M_PI*(Qe*Qe*Be(s)*log(x_mod)
                 +Qf*Qf*Bf(s,mf)*log(d)
-                +A*Qe*Qf*Bint(theta,mf,s)*log(y_mod)));
+                +A*Qe*Qf*Bint(cos_theta,mf,s)*log(y_mod)));
     }
     
     
@@ -4013,7 +4013,7 @@ double EWSMOneLoopLEP2::Bint(const double theta, const double mf, const double s
     }
    
    
-   double EWSMOneLoopLEP2::gammafin_q(const double s, const QCD::quark q,const double theta) const{
+   double EWSMOneLoopLEP2::gammafin_q(const double s, const QCD::quark q,const double cos_theta) const{
         
         double Qe = SM.getLeptons(1).getCharge();
         double Qf = SM.getQuarks(q).getCharge();
@@ -4023,10 +4023,10 @@ double EWSMOneLoopLEP2::Bint(const double theta, const double mf, const double s
         
         complex arg[5];
             arg[0] = 1.+xf(s,mf);
-            arg[1] = 1.-(1-beta)/(1-beta*cos(theta));
-            arg[2] = 1.-(1+beta)/(1-beta*cos(theta));
-            arg[3] = 1.-(1-beta)/(1+beta*cos(theta));
-            arg[4] = 1.-(1+beta)/(1+beta*cos(theta));
+            arg[1] = 1.-(1-beta)/(1-beta*cos_theta);
+            arg[2] = 1.-(1+beta)/(1-beta*cos_theta);
+            arg[3] = 1.-(1-beta)/(1+beta*cos_theta);
+            arg[4] = 1.-(1+beta)/(1+beta*cos_theta);
         complex Li2[5];
         for (int i=0; i<5; i++) {
                 gsl_sf_result re, im;
@@ -4044,7 +4044,7 @@ double EWSMOneLoopLEP2::Bint(const double theta, const double mf, const double s
     }
     
     
-   double EWSMOneLoopLEP2::gammafin_l(const double s, const StandardModel::lepton l,const double theta) const{
+   double EWSMOneLoopLEP2::gammafin_l(const double s, const StandardModel::lepton l,const double cos_theta) const{
         double Qe = SM.getLeptons(1).getCharge();
         double Qf = SM.getLeptons(l).getCharge();
         double mf = SM.getLeptons(l).getMass();
@@ -4053,10 +4053,10 @@ double EWSMOneLoopLEP2::Bint(const double theta, const double mf, const double s
         
         complex arg[5];
             arg[0] = 1.+xf(s,mf);
-            arg[1] = 1.-(1.-beta)/(1.-beta*cos(theta));
-            arg[2] = 1.-(1.+beta)/(1.-beta*cos(theta));
-            arg[3] = 1.-(1.-beta)/(1.+beta*cos(theta));
-            arg[4] = 1.-(1.+beta)/(1.+beta*cos(theta));
+            arg[1] = 1.-(1.-beta)/(1.-beta*cos_theta);
+            arg[2] = 1.-(1.+beta)/(1.-beta*cos_theta);
+            arg[3] = 1.-(1.-beta)/(1.+beta*cos_theta);
+            arg[4] = 1.-(1.+beta)/(1.+beta*cos_theta);
         complex Li2[5];
         for (int i=0; i<5; i++) {
                 gsl_sf_result re, im;
@@ -4074,43 +4074,43 @@ double EWSMOneLoopLEP2::Bint(const double theta, const double mf, const double s
    
    
     
-    double EWSMOneLoopLEP2::deltagammagamma_softl(const double s, const StandardModel::lepton l, const double theta) const {
+    double EWSMOneLoopLEP2::deltagammagamma_softl(const double s, const StandardModel::lepton l, const double cos_theta) const {
         
-        return (gammaIR_l(s,l,theta)+gammadelta_l(s,l,theta)+gammafin_l(s,l,theta));
-        
-    }
-   
-   
-   double EWSMOneLoopLEP2::deltagammagamma_softq(const double s, const QCD::quark q, const double theta) const {
-        
-        return (gammaIR_q(s,q,theta)+gammadelta_q(s,q,theta)+gammafin_q(s,q,theta));
-        
-    }
-   
-   complex EWSMOneLoopLEP2::deltagammaZ_softl(const double s, const StandardModel::lepton l, const double theta,const double GammaZ) const {
-        
-        return (gammaIR_l(s,l,theta)+gammadeltaINT_l(s,l,theta,GammaZ)+gammafin_l(s,l,theta));
+        return (gammaIR_l(s,l,cos_theta)+gammadelta_l(s,l,cos_theta)+gammafin_l(s,l,cos_theta));
         
     }
    
    
-   complex EWSMOneLoopLEP2::deltagammaZ_softq(const double s, const QCD::quark q, const double theta,const double GammaZ) const {
+   double EWSMOneLoopLEP2::deltagammagamma_softq(const double s, const QCD::quark q, const double cos_theta) const {
         
-        return (gammaIR_q(s,q,theta)+gammadeltaINT_q(s,q,theta,GammaZ)+gammafin_q(s,q,theta));
+        return (gammaIR_q(s,q,cos_theta)+gammadelta_q(s,q,cos_theta)+gammafin_q(s,q,cos_theta));
+        
+    }
+   
+   complex EWSMOneLoopLEP2::deltagammaZ_softl(const double s, const StandardModel::lepton l, const double cos_theta,const double GammaZ) const {
+        
+        return (gammaIR_l(s,l,cos_theta)+gammadeltaINT_l(s,l,cos_theta,GammaZ)+gammafin_l(s,l,cos_theta));
         
     }
    
    
-   double EWSMOneLoopLEP2::deltaZZ_softl(const double s, const StandardModel::lepton l, const double theta,const double GammaZ) const {
+   complex EWSMOneLoopLEP2::deltagammaZ_softq(const double s, const QCD::quark q, const double cos_theta,const double GammaZ) const {
         
-        return (gammaIR_l(s,l,theta)+gammadeltaRES_l(s,l,theta,GammaZ)+gammafin_l(s,l,theta)+gammatail_l(s,l,GammaZ));
+        return (gammaIR_q(s,q,cos_theta)+gammadeltaINT_q(s,q,cos_theta,GammaZ)+gammafin_q(s,q,cos_theta));
         
     }
    
    
-   double EWSMOneLoopLEP2::deltaZZ_softq(const double s, const QCD::quark q, const double theta,const double GammaZ) const {
+   double EWSMOneLoopLEP2::deltaZZ_softl(const double s, const StandardModel::lepton l, const double cos_theta,const double GammaZ) const {
         
-        return (gammaIR_q(s,q,theta)+gammadeltaRES_q(s,q,theta,GammaZ)+gammafin_q(s,q,theta)+gammatail_q(s,q,GammaZ));
+        return (gammaIR_l(s,l,cos_theta)+gammadeltaRES_l(s,l,cos_theta,GammaZ)+gammafin_l(s,l,cos_theta)+gammatail_l(s,l,GammaZ));
+        
+    }
+   
+   
+   double EWSMOneLoopLEP2::deltaZZ_softq(const double s, const QCD::quark q, const double cos_theta,const double GammaZ) const {
+        
+        return (gammaIR_q(s,q,cos_theta)+gammadeltaRES_q(s,q,cos_theta,GammaZ)+gammafin_q(s,q,cos_theta)+gammatail_q(s,q,GammaZ));
         
     }
    
@@ -4135,16 +4135,16 @@ double EWSMOneLoopLEP2::Bint(const double theta, const double mf, const double s
 
 
 complex EWSMOneLoopLEP2::M1rhok_M1rhopk_l(const double s, const double rho
-                                        ,const double rhoprime,const double k, StandardModel::lepton l,const double theta) const{
+                                        ,const double rhoprime,const double k, StandardModel::lepton l,const double cos_theta) const{
     
     double mf = SM.getLeptons(l).getMass(); 
     
     
     if(rho==rhoprime){
         if(rho==k){
-            return (4.*(u(mf,s,theta)-mf*mf)*(u(mf,s,theta)-mf*mf));
+            return (4.*(u(mf,s,cos_theta)-mf*mf)*(u(mf,s,cos_theta)-mf*mf));
         } else if(rho==-k){
-            return (4.*(t(mf,s,theta)-mf*mf)*(t(mf,s,theta)-mf*mf));
+            return (4.*(t(mf,s,cos_theta)-mf*mf)*(t(mf,s,cos_theta)-mf*mf));
         }
     } else if(rho==-rhoprime){
         return (mf*mf*s);
@@ -4154,16 +4154,16 @@ complex EWSMOneLoopLEP2::M1rhok_M1rhopk_l(const double s, const double rho
 
 
 complex EWSMOneLoopLEP2::M1rhok_M1rhopk_q(const double s, const double rho
-                                        ,const double rhoprime,const double k, const QCD::quark q,const double theta) const{
+                                        ,const double rhoprime,const double k, const QCD::quark q,const double cos_theta) const{
     
     double mf = SM.getQuarks(q).getMass(); 
     
     
     if(rho==rhoprime){
         if(rho==k){
-            return (4.*(u(mf,s,theta)-mf*mf)*(u(mf,s,theta)-mf*mf));
+            return (4.*(u(mf,s,cos_theta)-mf*mf)*(u(mf,s,cos_theta)-mf*mf));
         } else if(rho==-k){
-            return (4.*(t(mf,s,theta)-mf*mf)*(t(mf,s,theta)-mf*mf));
+            return (4.*(t(mf,s,cos_theta)-mf*mf)*(t(mf,s,cos_theta)-mf*mf));
         }
     } else if(rho==-rhoprime){
         return (mf*mf*s);
@@ -4171,16 +4171,16 @@ complex EWSMOneLoopLEP2::M1rhok_M1rhopk_q(const double s, const double rho
 }
 
 complex EWSMOneLoopLEP2::M2rhok_M1rhopk_l(const double s, const double rho
-                                        ,const double rhoprime,const double k, StandardModel::lepton l,const double theta) const{
+                                        ,const double rhoprime,const double k, StandardModel::lepton l,const double cos_theta) const{
     
     double mf = SM.getLeptons(l).getMass(); 
     
     
     if(rho==rhoprime){
         if(rho==k){
-            return (2.*(u(mf,s,theta)*t(mf,s,theta)-mf*mf*mf*mf)*(u(mf,s,theta)-mf*mf));
+            return (2.*(u(mf,s,cos_theta)*t(mf,s,cos_theta)-mf*mf*mf*mf)*(u(mf,s,cos_theta)-mf*mf));
         } else if(rho==-k){
-            return (-2.*(u(mf,s,theta)*t(mf,s,theta)-mf*mf*mf*mf)*(t(mf,s,theta)-mf*mf));
+            return (-2.*(u(mf,s,cos_theta)*t(mf,s,cos_theta)-mf*mf*mf*mf)*(t(mf,s,cos_theta)-mf*mf));
         }
     } else if(rho==-rhoprime){
         return (0.);
@@ -4190,16 +4190,16 @@ complex EWSMOneLoopLEP2::M2rhok_M1rhopk_l(const double s, const double rho
 
 
 complex EWSMOneLoopLEP2::M2rhok_M1rhopk_q(const double s, const double rho
-                                        ,const double rhoprime,const double k, const QCD::quark q,const double theta) const{
+                                        ,const double rhoprime,const double k, const QCD::quark q,const double cos_theta) const{
     
     double mf = SM.getQuarks(q).getMass(); 
     
     
     if(rho==rhoprime){
         if(rho==k){
-            return (2.*(u(mf,s,theta)*t(mf,s,theta)-mf*mf*mf*mf)*(u(mf,s,theta)-mf*mf));
+            return (2.*(u(mf,s,cos_theta)*t(mf,s,cos_theta)-mf*mf*mf*mf)*(u(mf,s,cos_theta)-mf*mf));
         } else if(rho==-k){
-            return (-2.*(u(mf,s,theta)*t(mf,s,theta)-mf*mf*mf*mf)*(t(mf,s,theta)-mf*mf));
+            return (-2.*(u(mf,s,cos_theta)*t(mf,s,cos_theta)-mf*mf*mf*mf)*(t(mf,s,cos_theta)-mf*mf));
         }
     } else if(rho==-rhoprime){
         return (0.);
@@ -4207,35 +4207,35 @@ complex EWSMOneLoopLEP2::M2rhok_M1rhopk_q(const double s, const double rho
 }
 
 complex EWSMOneLoopLEP2::M3rhok_M1rhopk_l(const double s, const double rho
-                                        ,const double rhoprime,const double k, StandardModel::lepton l,const double theta) const{
+                                        ,const double rhoprime,const double k, StandardModel::lepton l,const double cos_theta) const{
     
     double mf = SM.getLeptons(l).getMass(); 
     
     
-    return (-2.*mf*(u(mf,s,theta)*t(mf,s,theta)-mf*mf*mf*mf));
+    return (-2.*mf*(u(mf,s,cos_theta)*t(mf,s,cos_theta)-mf*mf*mf*mf));
 }
 
 
 
 complex EWSMOneLoopLEP2::M3rhok_M1rhopk_q(const double s, const double rho
-                                        ,const double rhoprime,const double k, const QCD::quark q,const double theta) const{
+                                        ,const double rhoprime,const double k, const QCD::quark q,const double cos_theta) const{
     
     double mf = SM.getQuarks(q).getMass(); 
     
-    return (-2.*mf*(u(mf,s,theta)*t(mf,s,theta)-mf*mf*mf*mf));
+    return (-2.*mf*(u(mf,s,cos_theta)*t(mf,s,cos_theta)-mf*mf*mf*mf));
 }
 
 complex EWSMOneLoopLEP2::M4rhok_M1rhopk_l(const double s, const double rho
-                                        ,const double rhoprime,const double k, StandardModel::lepton l,const double theta) const{
+                                        ,const double rhoprime,const double k, StandardModel::lepton l,const double cos_theta) const{
     
     double mf = SM.getLeptons(l).getMass(); 
     
     
     if(rho==-k){
         if(rhoprime==-k){
-            return (4.*mf*s*(t(mf,s,theta)-mf*mf));
+            return (4.*mf*s*(t(mf,s,cos_theta)-mf*mf));
         } else if(rhoprime==k){
-            return (4.*(u(mf,s,theta)-mf*mf));
+            return (4.*(u(mf,s,cos_theta)-mf*mf));
         }
     } else if(rho==k){
         return (0.);
@@ -4245,15 +4245,15 @@ complex EWSMOneLoopLEP2::M4rhok_M1rhopk_l(const double s, const double rho
 
 
 complex EWSMOneLoopLEP2::M4rhok_M1rhopk_q(const double s, const double rho
-                                        ,const double rhoprime,const double k, const QCD::quark q,const double theta) const{
+                                        ,const double rhoprime,const double k, const QCD::quark q,const double cos_theta) const{
     
     double mf = SM.getQuarks(q).getMass(); 
     
     if(rho==-k){
         if(rhoprime==-k){
-            return (4.*mf*s*(t(mf,s,theta)-mf*mf));
+            return (4.*mf*s*(t(mf,s,cos_theta)-mf*mf));
         } else if(rhoprime==k){
-            return (4.*(u(mf,s,theta)-mf*mf));
+            return (4.*(u(mf,s,cos_theta)-mf*mf));
         }
     } else if(rho==k){
         return (0.);
@@ -4262,38 +4262,38 @@ complex EWSMOneLoopLEP2::M4rhok_M1rhopk_q(const double s, const double rho
 
 
 complex EWSMOneLoopLEP2::ATOTq(const double mu,const QCD::quark q, const double rho,
-                               const double k, const double s, const double Mw_i,const double theta,
+                               const double k, const double s, const double Mw_i,const double cos_theta,
                                const double W,const double X,const double Y,const double GammaZ) const{
     
     
     return (1/s*Bq(mu,q,rho,k,s,Mw_i,W,X,Y)+Cq(mu,q,rho,k,s,Mw_i,W,X,Y)+Dq_rho(mu,q,rho,k,s,Mw_i,W,X,Y)+
             E1(mu,k,s,Mw_i,W,X,Y)*F1_q(mu,rho,s,Mw_i,q)+E2(mu,k,s,Mw_i,W,X,Y)*F2_q(mu,rho,s,Mw_i,q)
             +1/s*E3(s)*Aq(mu,q,rho,k,s,Mw_i,W,X,Y)+E4q(s,q,mu,Mw_i,W,X,Y)*Lambdaq(s,q,mu)
-            +E5(s,k,mu,Mw_i,W,X,Y)*F5q(s,rho,mu,Mw_i,q)+E6q(s,q,mu,Mw_i,W,X,Y)*F6rhoq(s,rho,k,q,theta)
-            +g_rhoe(k,Mw_i)*E5(s,k,mu,Mw_i,W,X,Y)*F7rhoq(s,rho,k,Mw_i,q,theta,GammaZ)+A1_NCq(mu,s,theta,q,Mw_i,rho,k));
+            +E5(s,k,mu,Mw_i,W,X,Y)*F5q(s,rho,mu,Mw_i,q)+E6q(s,q,mu,Mw_i,W,X,Y)*F6rhoq(s,rho,k,q,cos_theta)
+            +g_rhoe(k,Mw_i)*E5(s,k,mu,Mw_i,W,X,Y)*F7rhoq(s,rho,k,Mw_i,q,cos_theta,GammaZ)+A1_NCq(mu,s,cos_theta,q,Mw_i,rho,k));
     
     
 }
 
 
 complex EWSMOneLoopLEP2::ATOTl(const double mu,const StandardModel::lepton l, const double rho,
-                  const double k, const double s, const double Mw_i,const double theta,
+                  const double k, const double s, const double Mw_i,const double cos_theta,
                                const double W,const double X,const double Y,const double GammaZ) const{
     
     return (1/s*Bl(mu,l,rho,k,s,Mw_i,W,X,Y)+Cl(mu,l,rho,k,s,Mw_i,W,X,Y)+Dl_rho(mu,l,rho,k,s,Mw_i,W,X,Y)+
             E1(mu,k,s,Mw_i,W,X,Y)*F1_l(mu,rho,s,Mw_i,l)+E2(mu,k,s,Mw_i,W,X,Y)*F2_l(mu,rho,s,Mw_i,l)
             +1/s*E3(s)*Al(mu,l,rho,k,s,Mw_i,W,X,Y)+E4l(s,l,mu,Mw_i,W,X,Y)*Lambdal(s,l,mu)
-            +E5(s,k,mu,Mw_i,W,X,Y)*F5l(s,rho,mu,Mw_i,l)+E6l(s,l,mu,Mw_i,W,X,Y)*F6rhol(s,rho,k,l,theta)
-            +g_rhoe(k,Mw_i)*E5(s,k,mu,Mw_i,W,X,Y)*F7rhol(s,rho,k,Mw_i,l,theta,GammaZ)+A1_NCl(mu,s,theta,l,Mw_i,rho,k));
+            +E5(s,k,mu,Mw_i,W,X,Y)*F5l(s,rho,mu,Mw_i,l)+E6l(s,l,mu,Mw_i,W,X,Y)*F6rhol(s,rho,k,l,cos_theta)
+            +g_rhoe(k,Mw_i)*E5(s,k,mu,Mw_i,W,X,Y)*F7rhol(s,rho,k,Mw_i,l,cos_theta,GammaZ)+A1_NCl(mu,s,cos_theta,l,Mw_i,rho,k));
     
 }
 
 
 complex EWSMOneLoopLEP2::BTOTq(const double mu,const QCD::quark q, const double rho,
-                               const double k, const double s, const double Mw_i,const double theta,
+                               const double k, const double s, const double Mw_i,const double cos_theta,
                                const double W,const double X,const double Y) const{
     
-    return (A3_NCq(mu,s,theta,q,Mw_i,rho,k)+E1(mu,k,s,Mw_i,W,X,Y)*FMgammaq_weak(q,Mw_i,mu,s)
+    return (A3_NCq(mu,s,cos_theta,q,Mw_i,rho,k)+E1(mu,k,s,Mw_i,W,X,Y)*FMgammaq_weak(q,Mw_i,mu,s)
             +E2(mu,k,s,Mw_i,W,X,Y)*FMZq_weak(q,Mw_i,mu,s)+2.*E4q(s,q,mu,Mw_i,W,X,Y)*LambdaMq(s,q,mu)
             +E5(s,k,mu,Mw_i,W,X,Y)*G5q(s,mu,Mw_i,q));
     
@@ -4301,10 +4301,10 @@ complex EWSMOneLoopLEP2::BTOTq(const double mu,const QCD::quark q, const double 
 
 
 complex EWSMOneLoopLEP2::BTOTl(const double mu,const StandardModel::lepton l, const double rho,
-                  const double k, const double s, const double Mw_i,const double theta,
+                  const double k, const double s, const double Mw_i,const double cos_theta,
                                const double W,const double X,const double Y) const{
     
-    return (A3_NCl(mu,s,theta,l,Mw_i,rho,k)+E1(mu,k,s,Mw_i,W,X,Y)*FMgammal_weak(l,Mw_i,mu,s)
+    return (A3_NCl(mu,s,cos_theta,l,Mw_i,rho,k)+E1(mu,k,s,Mw_i,W,X,Y)*FMgammal_weak(l,Mw_i,mu,s)
             +E2(mu,k,s,Mw_i,W,X,Y)*FMZl_weak(l,Mw_i,mu,s)+2.*E4l(s,l,mu,Mw_i,W,X,Y)*LambdaMl(s,l,mu)
             +E5(s,k,mu,Mw_i,W,X,Y)*G5l(s,mu,Mw_i,l));
     
@@ -4312,35 +4312,35 @@ complex EWSMOneLoopLEP2::BTOTl(const double mu,const StandardModel::lepton l, co
 
 
 //double EWSMOneLoopLEP2::MTOTq_sq(const double mu,const QCD::quark q,
-//                               const double k, const double s, const double Mw_i,const double theta)const{
+//                               const double k, const double s, const double Mw_i,const double cos_theta)const{
 //    
-//    double M = 1/s/s*(M1rhok_M1rhopk_q(s,0.5,0.5,k,q,theta)*Aq(mu,q,0.5,k,s,Mw_i)*Aq(mu,q,0.5,k,s,Mw_i).conjugate()+
-//               M1rhok_M1rhopk_q(s,-0.5,-0.5,k,q,theta)*Aq(mu,q,-0.5,k,s,Mw_i)*Aq(mu,q,-0.5,k,s,Mw_i).conjugate() +
-//               2.*(M1rhok_M1rhopk_q(s,0.5,-0.5,k,q,theta)*Aq(mu,q,0.5,k,s,Mw_i)*Aq(mu,q,-0.5,k,s,Mw_i).conjugate()).real())+
-//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*ATOTq(mu,q,0.5,k,s,Mw_i,theta).conjugate()*M1rhok_M1rhopk_q(s,0.5,0.5,k,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*ATOTq(mu,q,-0.5,k,s,Mw_i,theta).conjugate()*M1rhok_M1rhopk_q(s,0.5,-0.5,k,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*ATOTq(mu,q,0.5,k,s,Mw_i,theta).conjugate()*M1rhok_M1rhopk_q(s,-0.5,0.5,k,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*ATOTq(mu,q,-0.5,k,s,Mw_i,theta).conjugate()*M1rhok_M1rhopk_q(s,-0.5,-0.5,k,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*A2_NCq(mu,s,theta,q,Mw_i,0.5,k).conjugate()*M2rhok_M1rhopk_q(s,0.5,0.5,k,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*A2_NCq(mu,s,theta,q,Mw_i,-0.5,k).conjugate()*M2rhok_M1rhopk_q(s,0.5,-0.5,k,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*A2_NCq(mu,s,theta,q,Mw_i,0.5,k).conjugate()*M2rhok_M1rhopk_q(s,-0.5,0.5,k,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*A2_NCq(mu,s,theta,q,Mw_i,-0.5,k).conjugate()*M2rhok_M1rhopk_q(s,-0.5,-0.5,k,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*BTOTq(mu,q,0.5,k,s,Mw_i,theta).conjugate()*M3rhok_M1rhopk_q(s,0.5,0.5,k,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*BTOTq(mu,q,-0.5,k,s,Mw_i,theta).conjugate()*M3rhok_M1rhopk_q(s,0.5,-0.5,k,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*BTOTq(mu,q,0.5,k,s,Mw_i,theta).conjugate()*M3rhok_M1rhopk_q(s,-0.5,0.5,k,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*BTOTq(mu,q,-0.5,k,s,Mw_i,theta).conjugate()*M3rhok_M1rhopk_q(s,-0.5,-0.5,k,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*A4_NCq(mu,s,theta,q,Mw_i,0.5,k).conjugate()*M4rhok_M1rhopk_q(s,0.5,0.5,k,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*A4_NCq(mu,s,theta,q,Mw_i,-0.5,k).conjugate()*M4rhok_M1rhopk_q(s,0.5,-0.5,k,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*A4_NCq(mu,s,theta,q,Mw_i,0.5,k).conjugate()*M4rhok_M1rhopk_q(s,-0.5,0.5,k,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*A4_NCq(mu,s,theta,q,Mw_i,-0.5,k).conjugate()*M4rhok_M1rhopk_q(s,-0.5,-0.5,k,q,theta)).real()+ 
-//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*(A_CC(k,Mw_i)*B_CCq(s,theta,q,Mw_i)).conjugate()*M1rhok_M1rhopk_q(s,0.5,-0.5,-0.5,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*(A_CC(k,Mw_i)*B_CCq(s,theta,q,Mw_i)).conjugate()*M1rhok_M1rhopk_q(s,-0.5,-0.5,-0.5,q,theta)).real()+      
-//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*(A_CC(k,Mw_i)*C_CCq(mu,s,theta,q,Mw_i)).conjugate()*M2rhok_M1rhopk_q(s,0.5,-0.5,-0.5,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*(A_CC(k,Mw_i)*C_CCq(mu,s,theta,q,Mw_i)).conjugate()*M2rhok_M1rhopk_q(s,-0.5,-0.5,-0.5,q,theta)).real()+    
-//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*(A_CC(k,Mw_i)*D_CCq(mu,s,theta,q,Mw_i)).conjugate()*M3rhok_M1rhopk_q(s,0.5,0.5,-0.5,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*(A_CC(k,Mw_i)*D_CCq(mu,s,theta,q,Mw_i)).conjugate()*M3rhok_M1rhopk_q(s,-0.5,0.5,-0.5,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*(A_CC(k,Mw_i)*E_CCq(mu,s,theta,q,Mw_i)).conjugate()*M3rhok_M1rhopk_q(s,0.5,-0.5,-0.5,q,theta)).real()+
-//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*(A_CC(k,Mw_i)*E_CCq(mu,s,theta,q,Mw_i)).conjugate()*M3rhok_M1rhopk_q(s,-0.5,-0.5,-0.5,q,theta)).real();
+//    double M = 1/s/s*(M1rhok_M1rhopk_q(s,0.5,0.5,k,q,cos_theta)*Aq(mu,q,0.5,k,s,Mw_i)*Aq(mu,q,0.5,k,s,Mw_i).conjugate()+
+//               M1rhok_M1rhopk_q(s,-0.5,-0.5,k,q,cos_theta)*Aq(mu,q,-0.5,k,s,Mw_i)*Aq(mu,q,-0.5,k,s,Mw_i).conjugate() +
+//               2.*(M1rhok_M1rhopk_q(s,0.5,-0.5,k,q,cos_theta)*Aq(mu,q,0.5,k,s,Mw_i)*Aq(mu,q,-0.5,k,s,Mw_i).conjugate()).real())+
+//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*ATOTq(mu,q,0.5,k,s,Mw_i,cos_theta).conjugate()*M1rhok_M1rhopk_q(s,0.5,0.5,k,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*ATOTq(mu,q,-0.5,k,s,Mw_i,cos_theta).conjugate()*M1rhok_M1rhopk_q(s,0.5,-0.5,k,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*ATOTq(mu,q,0.5,k,s,Mw_i,cos_theta).conjugate()*M1rhok_M1rhopk_q(s,-0.5,0.5,k,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*ATOTq(mu,q,-0.5,k,s,Mw_i,cos_theta).conjugate()*M1rhok_M1rhopk_q(s,-0.5,-0.5,k,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*A2_NCq(mu,s,cos_theta,q,Mw_i,0.5,k).conjugate()*M2rhok_M1rhopk_q(s,0.5,0.5,k,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*A2_NCq(mu,s,cos_theta,q,Mw_i,-0.5,k).conjugate()*M2rhok_M1rhopk_q(s,0.5,-0.5,k,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*A2_NCq(mu,s,cos_theta,q,Mw_i,0.5,k).conjugate()*M2rhok_M1rhopk_q(s,-0.5,0.5,k,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*A2_NCq(mu,s,cos_theta,q,Mw_i,-0.5,k).conjugate()*M2rhok_M1rhopk_q(s,-0.5,-0.5,k,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*BTOTq(mu,q,0.5,k,s,Mw_i,cos_theta).conjugate()*M3rhok_M1rhopk_q(s,0.5,0.5,k,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*BTOTq(mu,q,-0.5,k,s,Mw_i,cos_theta).conjugate()*M3rhok_M1rhopk_q(s,0.5,-0.5,k,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*BTOTq(mu,q,0.5,k,s,Mw_i,cos_theta).conjugate()*M3rhok_M1rhopk_q(s,-0.5,0.5,k,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*BTOTq(mu,q,-0.5,k,s,Mw_i,cos_theta).conjugate()*M3rhok_M1rhopk_q(s,-0.5,-0.5,k,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*A4_NCq(mu,s,cos_theta,q,Mw_i,0.5,k).conjugate()*M4rhok_M1rhopk_q(s,0.5,0.5,k,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*A4_NCq(mu,s,cos_theta,q,Mw_i,-0.5,k).conjugate()*M4rhok_M1rhopk_q(s,0.5,-0.5,k,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*A4_NCq(mu,s,cos_theta,q,Mw_i,0.5,k).conjugate()*M4rhok_M1rhopk_q(s,-0.5,0.5,k,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*A4_NCq(mu,s,cos_theta,q,Mw_i,-0.5,k).conjugate()*M4rhok_M1rhopk_q(s,-0.5,-0.5,k,q,cos_theta)).real()+ 
+//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*(A_CC(k,Mw_i)*B_CCq(s,cos_theta,q,Mw_i)).conjugate()*M1rhok_M1rhopk_q(s,0.5,-0.5,-0.5,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*(A_CC(k,Mw_i)*B_CCq(s,cos_theta,q,Mw_i)).conjugate()*M1rhok_M1rhopk_q(s,-0.5,-0.5,-0.5,q,cos_theta)).real()+      
+//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*(A_CC(k,Mw_i)*C_CCq(mu,s,cos_theta,q,Mw_i)).conjugate()*M2rhok_M1rhopk_q(s,0.5,-0.5,-0.5,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*(A_CC(k,Mw_i)*C_CCq(mu,s,cos_theta,q,Mw_i)).conjugate()*M2rhok_M1rhopk_q(s,-0.5,-0.5,-0.5,q,cos_theta)).real()+    
+//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*(A_CC(k,Mw_i)*D_CCq(mu,s,cos_theta,q,Mw_i)).conjugate()*M3rhok_M1rhopk_q(s,0.5,0.5,-0.5,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*(A_CC(k,Mw_i)*D_CCq(mu,s,cos_theta,q,Mw_i)).conjugate()*M3rhok_M1rhopk_q(s,-0.5,0.5,-0.5,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,0.5,k,s,Mw_i)*(A_CC(k,Mw_i)*E_CCq(mu,s,cos_theta,q,Mw_i)).conjugate()*M3rhok_M1rhopk_q(s,0.5,-0.5,-0.5,q,cos_theta)).real()+
+//               2.*(1/s*Aq(mu,q,-0.5,k,s,Mw_i)*(A_CC(k,Mw_i)*E_CCq(mu,s,cos_theta,q,Mw_i)).conjugate()*M3rhok_M1rhopk_q(s,-0.5,-0.5,-0.5,q,cos_theta)).real();
 //    
 //    return (M);
 //    
@@ -4348,42 +4348,42 @@ complex EWSMOneLoopLEP2::BTOTl(const double mu,const StandardModel::lepton l, co
 
 
 double EWSMOneLoopLEP2::MTOTq_sq(const QCD::quark q,const double k,const double s,
-                                  const double Mw_i,const double theta,
+                                  const double Mw_i,const double cos_theta,
                                const double W,const double X,const double Y,const double GammaZ)const{   
     double Mq;
     
     double mu = 10.;
-    complex a1 = 1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*ATOTq(mu,q,0.5,k,s,Mw_i,theta,W,X,Y,GammaZ).conjugate()*M1rhok_M1rhopk_q(s,0.5,0.5,k,q,theta);
-    complex a2 = 1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*ATOTq(mu,q,-0.5,k,s,Mw_i,theta,W,X,Y,GammaZ).conjugate()*M1rhok_M1rhopk_q(s,0.5,-0.5,k,q,theta);
-    complex a3 = 1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*ATOTq(mu,q,0.5,k,s,Mw_i,theta,W,X,Y,GammaZ).conjugate()*M1rhok_M1rhopk_q(s,-0.5,0.5,k,q,theta);
-    complex a4 =1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*ATOTq(mu,q,-0.5,k,s,Mw_i,theta,W,X,Y,GammaZ).conjugate()*M1rhok_M1rhopk_q(s,-0.5,-0.5,k,q,theta);
-    complex a5 =1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*A2_NCq(mu,s,theta,q,Mw_i,0.5,k).conjugate()*M2rhok_M1rhopk_q(s,0.5,0.5,k,q,theta);
-    complex a6 =1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*A2_NCq(mu,s,theta,q,Mw_i,-0.5,k).conjugate()*M2rhok_M1rhopk_q(s,0.5,-0.5,k,q,theta);
-    complex a7 =1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*A2_NCq(mu,s,theta,q,Mw_i,0.5,k).conjugate()*M2rhok_M1rhopk_q(s,-0.5,0.5,k,q,theta);
-    complex a8 =1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*A2_NCq(mu,s,theta,q,Mw_i,-0.5,k).conjugate()*M2rhok_M1rhopk_q(s,-0.5,-0.5,k,q,theta);
-    complex a9 =1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*BTOTq(mu,q,0.5,k,s,Mw_i,theta,W,X,Y).conjugate()*M3rhok_M1rhopk_q(s,0.5,0.5,k,q,theta);
-    complex a10 =1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*BTOTq(mu,q,-0.5,k,s,Mw_i,theta,W,X,Y).conjugate()*M3rhok_M1rhopk_q(s,0.5,-0.5,k,q,theta);
-    complex a11 =1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*BTOTq(mu,q,0.5,k,s,Mw_i,theta,W,X,Y).conjugate()*M3rhok_M1rhopk_q(s,-0.5,0.5,k,q,theta);
-    complex a12 =1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*BTOTq(mu,q,-0.5,k,s,Mw_i,theta,W,X,Y).conjugate()*M3rhok_M1rhopk_q(s,-0.5,-0.5,k,q,theta);
-    complex a13 =1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*A4_NCq(mu,s,theta,q,Mw_i,0.5,k).conjugate()*M4rhok_M1rhopk_q(s,0.5,0.5,k,q,theta);
-    complex a14 =1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*A4_NCq(mu,s,theta,q,Mw_i,-0.5,k).conjugate()*M4rhok_M1rhopk_q(s,0.5,-0.5,k,q,theta);
-    complex a15 =1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*A4_NCq(mu,s,theta,q,Mw_i,0.5,k).conjugate()*M4rhok_M1rhopk_q(s,-0.5,0.5,k,q,theta);
-    complex a16 =1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*A4_NCq(mu,s,theta,q,Mw_i,-0.5,k).conjugate()*M4rhok_M1rhopk_q(s,-0.5,-0.5,k,q,theta);
-    complex a17=1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*B_CCq(s,theta,q,Mw_i)).conjugate()*M1rhok_M1rhopk_q(s,0.5,-0.5,-0.5,q,theta);
-    complex a18=1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*B_CCq(s,theta,q,Mw_i)).conjugate()*M1rhok_M1rhopk_q(s,-0.5,-0.5,-0.5,q,theta);
-    complex a19=1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*C_CCq(mu,s,theta,q,Mw_i)).conjugate()*M2rhok_M1rhopk_q(s,0.5,-0.5,-0.5,q,theta);
-    complex a20=1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*C_CCq(mu,s,theta,q,Mw_i)).conjugate()*M2rhok_M1rhopk_q(s,-0.5,-0.5,-0.5,q,theta);
-    complex a21 = 1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*D_CCq(mu,s,theta,q,Mw_i)).conjugate()*M3rhok_M1rhopk_q(s,0.5,0.5,-0.5,q,theta);
-    complex a22 = 1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*D_CCq(mu,s,theta,q,Mw_i)).conjugate()*M3rhok_M1rhopk_q(s,-0.5,0.5,-0.5,q,theta);
-    complex a23 =1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*E_CCq(mu,s,theta,q,Mw_i)).conjugate()*M3rhok_M1rhopk_q(s,0.5,-0.5,-0.5,q,theta) ;
-    complex a24 = 1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*E_CCq(mu,s,theta,q,Mw_i)).conjugate()*M3rhok_M1rhopk_q(s,-0.5,-0.5,-0.5,q,theta);
+    complex a1 = 1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*ATOTq(mu,q,0.5,k,s,Mw_i,cos_theta,W,X,Y,GammaZ).conjugate()*M1rhok_M1rhopk_q(s,0.5,0.5,k,q,cos_theta);
+    complex a2 = 1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*ATOTq(mu,q,-0.5,k,s,Mw_i,cos_theta,W,X,Y,GammaZ).conjugate()*M1rhok_M1rhopk_q(s,0.5,-0.5,k,q,cos_theta);
+    complex a3 = 1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*ATOTq(mu,q,0.5,k,s,Mw_i,cos_theta,W,X,Y,GammaZ).conjugate()*M1rhok_M1rhopk_q(s,-0.5,0.5,k,q,cos_theta);
+    complex a4 =1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*ATOTq(mu,q,-0.5,k,s,Mw_i,cos_theta,W,X,Y,GammaZ).conjugate()*M1rhok_M1rhopk_q(s,-0.5,-0.5,k,q,cos_theta);
+    complex a5 =1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*A2_NCq(mu,s,cos_theta,q,Mw_i,0.5,k).conjugate()*M2rhok_M1rhopk_q(s,0.5,0.5,k,q,cos_theta);
+    complex a6 =1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*A2_NCq(mu,s,cos_theta,q,Mw_i,-0.5,k).conjugate()*M2rhok_M1rhopk_q(s,0.5,-0.5,k,q,cos_theta);
+    complex a7 =1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*A2_NCq(mu,s,cos_theta,q,Mw_i,0.5,k).conjugate()*M2rhok_M1rhopk_q(s,-0.5,0.5,k,q,cos_theta);
+    complex a8 =1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*A2_NCq(mu,s,cos_theta,q,Mw_i,-0.5,k).conjugate()*M2rhok_M1rhopk_q(s,-0.5,-0.5,k,q,cos_theta);
+    complex a9 =1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*BTOTq(mu,q,0.5,k,s,Mw_i,cos_theta,W,X,Y).conjugate()*M3rhok_M1rhopk_q(s,0.5,0.5,k,q,cos_theta);
+    complex a10 =1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*BTOTq(mu,q,-0.5,k,s,Mw_i,cos_theta,W,X,Y).conjugate()*M3rhok_M1rhopk_q(s,0.5,-0.5,k,q,cos_theta);
+    complex a11 =1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*BTOTq(mu,q,0.5,k,s,Mw_i,cos_theta,W,X,Y).conjugate()*M3rhok_M1rhopk_q(s,-0.5,0.5,k,q,cos_theta);
+    complex a12 =1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*BTOTq(mu,q,-0.5,k,s,Mw_i,cos_theta,W,X,Y).conjugate()*M3rhok_M1rhopk_q(s,-0.5,-0.5,k,q,cos_theta);
+    complex a13 =1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*A4_NCq(mu,s,cos_theta,q,Mw_i,0.5,k).conjugate()*M4rhok_M1rhopk_q(s,0.5,0.5,k,q,cos_theta);
+    complex a14 =1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*A4_NCq(mu,s,cos_theta,q,Mw_i,-0.5,k).conjugate()*M4rhok_M1rhopk_q(s,0.5,-0.5,k,q,cos_theta);
+    complex a15 =1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*A4_NCq(mu,s,cos_theta,q,Mw_i,0.5,k).conjugate()*M4rhok_M1rhopk_q(s,-0.5,0.5,k,q,cos_theta);
+    complex a16 =1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*A4_NCq(mu,s,cos_theta,q,Mw_i,-0.5,k).conjugate()*M4rhok_M1rhopk_q(s,-0.5,-0.5,k,q,cos_theta);
+    complex a17=1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*B_CCq(s,cos_theta,q,Mw_i)).conjugate()*M1rhok_M1rhopk_q(s,0.5,-0.5,-0.5,q,cos_theta);
+    complex a18=1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*B_CCq(s,cos_theta,q,Mw_i)).conjugate()*M1rhok_M1rhopk_q(s,-0.5,-0.5,-0.5,q,cos_theta);
+    complex a19=1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*C_CCq(mu,s,cos_theta,q,Mw_i)).conjugate()*M2rhok_M1rhopk_q(s,0.5,-0.5,-0.5,q,cos_theta);
+    complex a20=1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*C_CCq(mu,s,cos_theta,q,Mw_i)).conjugate()*M2rhok_M1rhopk_q(s,-0.5,-0.5,-0.5,q,cos_theta);
+    complex a21 = 1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*D_CCq(mu,s,cos_theta,q,Mw_i)).conjugate()*M3rhok_M1rhopk_q(s,0.5,0.5,-0.5,q,cos_theta);
+    complex a22 = 1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*D_CCq(mu,s,cos_theta,q,Mw_i)).conjugate()*M3rhok_M1rhopk_q(s,-0.5,0.5,-0.5,q,cos_theta);
+    complex a23 =1/s*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*E_CCq(mu,s,cos_theta,q,Mw_i)).conjugate()*M3rhok_M1rhopk_q(s,0.5,-0.5,-0.5,q,cos_theta) ;
+    complex a24 = 1/s*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*E_CCq(mu,s,cos_theta,q,Mw_i)).conjugate()*M3rhok_M1rhopk_q(s,-0.5,-0.5,-0.5,q,cos_theta);
             
             
             
     
-    Mq = 1/s/s*(M1rhok_M1rhopk_q(s,0.5,0.5,k,q,theta).real()*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y).abs2()+
-         M1rhok_M1rhopk_q(s,-0.5,-0.5,k,q,theta).real()*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y).abs2() +
-         2.*(M1rhok_M1rhopk_q(s,0.5,-0.5,k,q,theta)*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y).conjugate()).real())+
+    Mq = 1/s/s*(M1rhok_M1rhopk_q(s,0.5,0.5,k,q,cos_theta).real()*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y).abs2()+
+         M1rhok_M1rhopk_q(s,-0.5,-0.5,k,q,cos_theta).real()*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y).abs2() +
+         2.*(M1rhok_M1rhopk_q(s,0.5,-0.5,k,q,cos_theta)*Aq(mu,q,0.5,k,s,Mw_i,W,X,Y)*Aq(mu,q,-0.5,k,s,Mw_i,W,X,Y).conjugate()).real())+
          2.*(a1).real()+
          2.*(a2).real()+
          2.*(a3).real()+
@@ -4415,38 +4415,38 @@ double EWSMOneLoopLEP2::MTOTq_sq(const QCD::quark q,const double k,const double 
 
 
 double EWSMOneLoopLEP2::MTOTl_sq(const StandardModel::lepton l, const double k,
-                                const double s, const double Mw_i,const double theta,
+                                const double s, const double Mw_i,const double cos_theta,
                                const double W,const double X,const double Y,const double GammaZ)const{   
     
     double mu = 10.;
     double Ml;
-    Ml = 1/s/s*(M1rhok_M1rhopk_l(s,0.5,0.5,k,l,theta).real()*Al(mu,l,0.5,k,s,Mw_i,W,X,Y).abs2()+
-         M1rhok_M1rhopk_l(s,-0.5,-0.5,k,l,theta).real()*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y).abs2() +
-         2.*(M1rhok_M1rhopk_l(s,0.5,-0.5,k,l,theta)*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y).conjugate()).real())+
-         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*ATOTl(mu,l,0.5,k,s,Mw_i,theta,W,X,Y,GammaZ).conjugate()*M1rhok_M1rhopk_l(s,0.5,0.5,k,l,theta)).real()+
-         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*ATOTl(mu,l,-0.5,k,s,Mw_i,theta,W,X,Y,GammaZ).conjugate()*M1rhok_M1rhopk_l(s,0.5,-0.5,k,l,theta)).real()+
-         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*ATOTl(mu,l,0.5,k,s,Mw_i,theta,W,X,Y,GammaZ).conjugate()*M1rhok_M1rhopk_l(s,-0.5,0.5,k,l,theta)).real()+
-         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*ATOTl(mu,l,-0.5,k,s,Mw_i,theta,W,X,Y,GammaZ).conjugate()*M1rhok_M1rhopk_l(s,-0.5,-0.5,k,l,theta)).real()+
-         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*A2_NCl(mu,s,theta,l,Mw_i,0.5,k).conjugate()*M2rhok_M1rhopk_l(s,0.5,0.5,k,l,theta)).real()+
-         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*A2_NCl(mu,s,theta,l,Mw_i,-0.5,k).conjugate()*M2rhok_M1rhopk_l(s,0.5,-0.5,k,l,theta)).real()+
-         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*A2_NCl(mu,s,theta,l,Mw_i,0.5,k).conjugate()*M2rhok_M1rhopk_l(s,-0.5,0.5,k,l,theta)).real()+
-         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*A2_NCl(mu,s,theta,l,Mw_i,-0.5,k).conjugate()*M2rhok_M1rhopk_l(s,-0.5,-0.5,k,l,theta)).real()+
-         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*BTOTl(mu,l,0.5,k,s,Mw_i,theta,W,X,Y).conjugate()*M3rhok_M1rhopk_l(s,0.5,0.5,k,l,theta)).real()+
-         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*BTOTl(mu,l,-0.5,k,s,Mw_i,theta,W,X,Y).conjugate()*M3rhok_M1rhopk_l(s,0.5,-0.5,k,l,theta)).real()+
-         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*BTOTl(mu,l,0.5,k,s,Mw_i,theta,W,X,Y).conjugate()*M3rhok_M1rhopk_l(s,-0.5,0.5,k,l,theta)).real()+
-         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*BTOTl(mu,l,-0.5,k,s,Mw_i,theta,W,X,Y).conjugate()*M3rhok_M1rhopk_l(s,-0.5,-0.5,k,l,theta)).real()+
-         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*A4_NCl(mu,s,theta,l,Mw_i,0.5,k).conjugate()*M4rhok_M1rhopk_l(s,0.5,0.5,k,l,theta)).real()+
-         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*A4_NCl(mu,s,theta,l,Mw_i,-0.5,k).conjugate()*M4rhok_M1rhopk_l(s,0.5,-0.5,k,l,theta)).real()+
-         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*A4_NCl(mu,s,theta,l,Mw_i,0.5,k).conjugate()*M4rhok_M1rhopk_l(s,-0.5,0.5,k,l,theta)).real()+
-         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*A4_NCl(mu,s,theta,l,Mw_i,-0.5,k).conjugate()*M4rhok_M1rhopk_l(s,-0.5,-0.5,k,l,theta)).real()+ 
-         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*B_CCl(s,theta,l,Mw_i)).conjugate()*M1rhok_M1rhopk_l(s,0.5,-0.5,-0.5,l,theta)).real()+
-         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*B_CCl(s,theta,l,Mw_i)).conjugate()*M1rhok_M1rhopk_l(s,-0.5,-0.5,-0.5,l,theta)).real()+      
-         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*C_CCl(mu,s,theta,l,Mw_i)).conjugate()*M2rhok_M1rhopk_l(s,0.5,-0.5,-0.5,l,theta)).real()+
-         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*C_CCl(mu,s,theta,l,Mw_i)).conjugate()*M2rhok_M1rhopk_l(s,-0.5,-0.5,-0.5,l,theta)).real()+    
-         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*D_CCl(mu,s,theta,l,Mw_i)).conjugate()*M3rhok_M1rhopk_l(s,0.5,0.5,-0.5,l,theta)).real()+
-         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*D_CCl(mu,s,theta,l,Mw_i)).conjugate()*M3rhok_M1rhopk_l(s,-0.5,0.5,-0.5,l,theta)).real()+
-         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*E_CCl(mu,s,theta,l,Mw_i)).conjugate()*M3rhok_M1rhopk_l(s,0.5,-0.5,-0.5,l,theta)).real()+
-         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*E_CCl(mu,s,theta,l,Mw_i)).conjugate()*M3rhok_M1rhopk_l(s,-0.5,-0.5,-0.5,l,theta)).real();
+    Ml = 1/s/s*(M1rhok_M1rhopk_l(s,0.5,0.5,k,l,cos_theta).real()*Al(mu,l,0.5,k,s,Mw_i,W,X,Y).abs2()+
+         M1rhok_M1rhopk_l(s,-0.5,-0.5,k,l,cos_theta).real()*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y).abs2() +
+         2.*(M1rhok_M1rhopk_l(s,0.5,-0.5,k,l,cos_theta)*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y).conjugate()).real())+
+         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*ATOTl(mu,l,0.5,k,s,Mw_i,cos_theta,W,X,Y,GammaZ).conjugate()*M1rhok_M1rhopk_l(s,0.5,0.5,k,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*ATOTl(mu,l,-0.5,k,s,Mw_i,cos_theta,W,X,Y,GammaZ).conjugate()*M1rhok_M1rhopk_l(s,0.5,-0.5,k,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*ATOTl(mu,l,0.5,k,s,Mw_i,cos_theta,W,X,Y,GammaZ).conjugate()*M1rhok_M1rhopk_l(s,-0.5,0.5,k,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*ATOTl(mu,l,-0.5,k,s,Mw_i,cos_theta,W,X,Y,GammaZ).conjugate()*M1rhok_M1rhopk_l(s,-0.5,-0.5,k,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*A2_NCl(mu,s,cos_theta,l,Mw_i,0.5,k).conjugate()*M2rhok_M1rhopk_l(s,0.5,0.5,k,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*A2_NCl(mu,s,cos_theta,l,Mw_i,-0.5,k).conjugate()*M2rhok_M1rhopk_l(s,0.5,-0.5,k,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*A2_NCl(mu,s,cos_theta,l,Mw_i,0.5,k).conjugate()*M2rhok_M1rhopk_l(s,-0.5,0.5,k,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*A2_NCl(mu,s,cos_theta,l,Mw_i,-0.5,k).conjugate()*M2rhok_M1rhopk_l(s,-0.5,-0.5,k,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*BTOTl(mu,l,0.5,k,s,Mw_i,cos_theta,W,X,Y).conjugate()*M3rhok_M1rhopk_l(s,0.5,0.5,k,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*BTOTl(mu,l,-0.5,k,s,Mw_i,cos_theta,W,X,Y).conjugate()*M3rhok_M1rhopk_l(s,0.5,-0.5,k,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*BTOTl(mu,l,0.5,k,s,Mw_i,cos_theta,W,X,Y).conjugate()*M3rhok_M1rhopk_l(s,-0.5,0.5,k,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*BTOTl(mu,l,-0.5,k,s,Mw_i,cos_theta,W,X,Y).conjugate()*M3rhok_M1rhopk_l(s,-0.5,-0.5,k,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*A4_NCl(mu,s,cos_theta,l,Mw_i,0.5,k).conjugate()*M4rhok_M1rhopk_l(s,0.5,0.5,k,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*A4_NCl(mu,s,cos_theta,l,Mw_i,-0.5,k).conjugate()*M4rhok_M1rhopk_l(s,0.5,-0.5,k,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*A4_NCl(mu,s,cos_theta,l,Mw_i,0.5,k).conjugate()*M4rhok_M1rhopk_l(s,-0.5,0.5,k,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*A4_NCl(mu,s,cos_theta,l,Mw_i,-0.5,k).conjugate()*M4rhok_M1rhopk_l(s,-0.5,-0.5,k,l,cos_theta)).real()+ 
+         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*B_CCl(s,cos_theta,l,Mw_i)).conjugate()*M1rhok_M1rhopk_l(s,0.5,-0.5,-0.5,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*B_CCl(s,cos_theta,l,Mw_i)).conjugate()*M1rhok_M1rhopk_l(s,-0.5,-0.5,-0.5,l,cos_theta)).real()+      
+         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*C_CCl(mu,s,cos_theta,l,Mw_i)).conjugate()*M2rhok_M1rhopk_l(s,0.5,-0.5,-0.5,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*C_CCl(mu,s,cos_theta,l,Mw_i)).conjugate()*M2rhok_M1rhopk_l(s,-0.5,-0.5,-0.5,l,cos_theta)).real()+    
+         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*D_CCl(mu,s,cos_theta,l,Mw_i)).conjugate()*M3rhok_M1rhopk_l(s,0.5,0.5,-0.5,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*D_CCl(mu,s,cos_theta,l,Mw_i)).conjugate()*M3rhok_M1rhopk_l(s,-0.5,0.5,-0.5,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*E_CCl(mu,s,cos_theta,l,Mw_i)).conjugate()*M3rhok_M1rhopk_l(s,0.5,-0.5,-0.5,l,cos_theta)).real()+
+         2.*(1/s*Al(mu,l,-0.5,k,s,Mw_i,W,X,Y)*(A_CC(k,Mw_i)*E_CCl(mu,s,cos_theta,l,Mw_i)).conjugate()*M3rhok_M1rhopk_l(s,-0.5,-0.5,-0.5,l,cos_theta)).real();
     
     return (Ml);
     
@@ -4455,7 +4455,7 @@ double EWSMOneLoopLEP2::MTOTl_sq(const StandardModel::lepton l, const double k,
 
 
 double EWSMOneLoopLEP2::dsigmaBrem_l(const StandardModel::lepton l, const double k,
-                                 const double s, const double Mw_i, const double theta,
+                                 const double s, const double Mw_i, const double cos_theta,
                       const double W, const double X, const double Y,const double GammaZ) const{
     
     double mf = SM.getLeptons(l).getMass();
@@ -4463,29 +4463,29 @@ double EWSMOneLoopLEP2::dsigmaBrem_l(const StandardModel::lepton l, const double
     double beta = sqrt(1.-4.*mf*mf/s);
     double Qe = SM.getLeptons(1).getCharge();
     double Qf = SM.getLeptons(l).getCharge();
-    double M1 = M1rhok_M1rhopk_l(s,0.5,0.5,k,l,theta).real()+M1rhok_M1rhopk_l(s,-0.5,-0.5,k,l,theta).real()
-                +2.*(M1rhok_M1rhopk_l(s,-0.5,0.5,k,l,theta)).real();
-    double M2 = g_rhofl(l,0.5,Mw_i)*g_rhofl(l,0.5,Mw_i)*M1rhok_M1rhopk_l(s,0.5,0.5,k,l,theta).real()
-                +g_rhofl(l,-0.5,Mw_i)*g_rhofl(l,-0.5,Mw_i)*M1rhok_M1rhopk_l(s,-0.5,-0.5,k,l,theta).real()
-                +2.*g_rhofl(l,0.5,Mw_i)*g_rhofl(l,-0.5,Mw_i)*(M1rhok_M1rhopk_l(s,-0.5,0.5,k,l,theta)).real();
-    complex M3 = g_rhofl(l,0.5,Mw_i)*M1rhok_M1rhopk_l(s,0.5,0.5,k,l,theta).real()
-                +g_rhofl(l,-0.5,Mw_i)*M1rhok_M1rhopk_l(s,-0.5,-0.5,k,l,theta).real()
-                +g_rhofl(l,0.5,Mw_i)*M1rhok_M1rhopk_l(s,0.5,-0.5,k,l,theta)+
-                 g_rhofl(l,-0.5,Mw_i)*M1rhok_M1rhopk_l(s,-0.5,0.5,k,l,theta);
+    double M1 = M1rhok_M1rhopk_l(s,0.5,0.5,k,l,cos_theta).real()+M1rhok_M1rhopk_l(s,-0.5,-0.5,k,l,cos_theta).real()
+                +2.*(M1rhok_M1rhopk_l(s,-0.5,0.5,k,l,cos_theta)).real();
+    double M2 = g_rhofl(l,0.5,Mw_i)*g_rhofl(l,0.5,Mw_i)*M1rhok_M1rhopk_l(s,0.5,0.5,k,l,cos_theta).real()
+                +g_rhofl(l,-0.5,Mw_i)*g_rhofl(l,-0.5,Mw_i)*M1rhok_M1rhopk_l(s,-0.5,-0.5,k,l,cos_theta).real()
+                +2.*g_rhofl(l,0.5,Mw_i)*g_rhofl(l,-0.5,Mw_i)*(M1rhok_M1rhopk_l(s,-0.5,0.5,k,l,cos_theta)).real();
+    complex M3 = g_rhofl(l,0.5,Mw_i)*M1rhok_M1rhopk_l(s,0.5,0.5,k,l,cos_theta).real()
+                +g_rhofl(l,-0.5,Mw_i)*M1rhok_M1rhopk_l(s,-0.5,-0.5,k,l,cos_theta).real()
+                +g_rhofl(l,0.5,Mw_i)*M1rhok_M1rhopk_l(s,0.5,-0.5,k,l,cos_theta)+
+                 g_rhofl(l,-0.5,Mw_i)*M1rhok_M1rhopk_l(s,-0.5,0.5,k,l,cos_theta);
     double MgammaZerosquared = Qe*Qe*Qf*Qf*Chi_gamma(mu,s,Mw_i,W,X,Y).abs2()/s/s*M1;
     double MZetaZerosqared = g_rhoe(k,Mw_i)*g_rhoe(k,Mw_i)*Chi_Z(mu,s,Mw_i,W,X,Y).abs2()/s/s*M2;
     
     complex MgammaZ = Qe*Qf*g_rhoe(k,Mw_i)*Chi_gamma(mu,s,Mw_i,W,X,Y).conjugate()*Chi_Z(mu,s,Mw_i,W,X,Y)/s/s*M3;
     
-    return (cache.ale()/4./s*beta* (deltagammagamma_softl(s,l,theta)*MgammaZerosquared
-            + deltaZZ_softl(s,l,theta,GammaZ)*MZetaZerosqared
-            +2.*(deltagammaZ_softl(s,l,theta,GammaZ)*MgammaZ).real()));
+    return (cache.ale()/4./s*beta* (deltagammagamma_softl(s,l,cos_theta)*MgammaZerosquared
+            + deltaZZ_softl(s,l,cos_theta,GammaZ)*MZetaZerosqared
+            +2.*(deltagammaZ_softl(s,l,cos_theta,GammaZ)*MgammaZ).real()));
     
 }
 
 
 double EWSMOneLoopLEP2::dsigmaBrem_q(const QCD::quark q, const double k,
-                                 const double s, const double Mw_i, const double theta,
+                                 const double s, const double Mw_i, const double cos_theta,
                       const double W, const double X, const double Y,const double GammaZ) const{
     
     double mf = SM.getQuarks(q).getMass();
@@ -4493,23 +4493,23 @@ double EWSMOneLoopLEP2::dsigmaBrem_q(const QCD::quark q, const double k,
     double beta = sqrt(1.-4.*mf*mf/s);
     double Qe = SM.getLeptons(1).getCharge();
     double Qf = SM.getQuarks(q).getCharge();
-    double M1 = M1rhok_M1rhopk_q(s,0.5,0.5,k,q,theta).real()+M1rhok_M1rhopk_q(s,-0.5,-0.5,k,q,theta).real()
-                +2.*(M1rhok_M1rhopk_q(s,-0.5,0.5,k,q,theta)).real();
-    double M2 = g_rhofq(q,0.5,Mw_i)*g_rhofq(q,0.5,Mw_i)*M1rhok_M1rhopk_q(s,0.5,0.5,k,q,theta).real()
-                +g_rhofq(q,-0.5,Mw_i)*g_rhofq(q,-0.5,Mw_i)*M1rhok_M1rhopk_q(s,-0.5,-0.5,k,q,theta).real()
-                +2.*g_rhofq(q,0.5,Mw_i)*g_rhofq(q,-0.5,Mw_i)*(M1rhok_M1rhopk_q(s,-0.5,0.5,k,q,theta)).real();
-    complex M3 = g_rhofq(q,0.5,Mw_i)*M1rhok_M1rhopk_q(s,0.5,0.5,k,q,theta).real()
-                +g_rhofq(q,-0.5,Mw_i)*M1rhok_M1rhopk_q(s,-0.5,-0.5,k,q,theta).real()
-                +g_rhofq(q,0.5,Mw_i)*M1rhok_M1rhopk_q(s,0.5,-0.5,k,q,theta)+
-                 g_rhofq(q,-0.5,Mw_i)*M1rhok_M1rhopk_q(s,-0.5,0.5,k,q,theta);
+    double M1 = M1rhok_M1rhopk_q(s,0.5,0.5,k,q,cos_theta).real()+M1rhok_M1rhopk_q(s,-0.5,-0.5,k,q,cos_theta).real()
+                +2.*(M1rhok_M1rhopk_q(s,-0.5,0.5,k,q,cos_theta)).real();
+    double M2 = g_rhofq(q,0.5,Mw_i)*g_rhofq(q,0.5,Mw_i)*M1rhok_M1rhopk_q(s,0.5,0.5,k,q,cos_theta).real()
+                +g_rhofq(q,-0.5,Mw_i)*g_rhofq(q,-0.5,Mw_i)*M1rhok_M1rhopk_q(s,-0.5,-0.5,k,q,cos_theta).real()
+                +2.*g_rhofq(q,0.5,Mw_i)*g_rhofq(q,-0.5,Mw_i)*(M1rhok_M1rhopk_q(s,-0.5,0.5,k,q,cos_theta)).real();
+    complex M3 = g_rhofq(q,0.5,Mw_i)*M1rhok_M1rhopk_q(s,0.5,0.5,k,q,cos_theta).real()
+                +g_rhofq(q,-0.5,Mw_i)*M1rhok_M1rhopk_q(s,-0.5,-0.5,k,q,cos_theta).real()
+                +g_rhofq(q,0.5,Mw_i)*M1rhok_M1rhopk_q(s,0.5,-0.5,k,q,cos_theta)+
+                 g_rhofq(q,-0.5,Mw_i)*M1rhok_M1rhopk_q(s,-0.5,0.5,k,q,cos_theta);
     double MgammaZerosquared = Qe*Qe*Qf*Qf*Chi_gamma(mu,s,Mw_i,W,X,Y).abs2()/s/s*M1;
     double MZetaZerosqared = g_rhoe(k,Mw_i)*g_rhoe(k,Mw_i)*Chi_Z(mu,s,Mw_i,W,X,Y).abs2()/s/s*M2;
     
     complex MgammaZ = Qe*Qf*g_rhoe(k,Mw_i)*Chi_gamma(mu,s,Mw_i,W,X,Y).conjugate()*Chi_Z(mu,s,Mw_i,W,X,Y)/s/s*M3;
     
-    return (cache.ale()/4./s*beta* (deltagammagamma_softq(s,q,theta)*MgammaZerosquared
-            + deltaZZ_softq(s,q,theta,GammaZ)*MZetaZerosqared
-            +2.*(deltagammaZ_softq(s,q,theta,GammaZ) * MgammaZ).real()));
+    return (cache.ale()/4./s*beta* (deltagammagamma_softq(s,q,cos_theta)*MgammaZerosquared
+            + deltaZZ_softq(s,q,cos_theta,GammaZ)*MZetaZerosqared
+            +2.*(deltagammaZ_softq(s,q,cos_theta,GammaZ) * MgammaZ).real()));
     
 }
 
@@ -4517,27 +4517,27 @@ double EWSMOneLoopLEP2::dsigmaBrem_q(const QCD::quark q, const double k,
 
 
 double EWSMOneLoopLEP2::dsigma_l(const StandardModel::lepton l,const double s,
-                                  const double Mw_i, const double theta,
+                                  const double Mw_i, const double cos_theta,
                                const double W,const double X,const double Y,const double GammaZ) const{
     
     double mf = SM.getLeptons(l).getMass();
     double beta = sqrt(1.-4.*mf*mf/s);
     
-    return (0.25*(cache.ale()/4./s*beta*MTOTl_sq(l,0.5,s,Mw_i,theta,W,X,Y,GammaZ)+dsigmaBrem_l(l,0.5,s,Mw_i,theta,W,X,Y,GammaZ)+
-            cache.ale()/4./s*beta*MTOTl_sq(l,-0.5,s,Mw_i,theta,W,X,Y,GammaZ)+dsigmaBrem_l(l,-0.5,s,Mw_i,theta,W,X,Y,GammaZ)));
+    return (0.25*(cache.ale()/4./s*beta*MTOTl_sq(l,0.5,s,Mw_i,cos_theta,W,X,Y,GammaZ)+dsigmaBrem_l(l,0.5,s,Mw_i,cos_theta,W,X,Y,GammaZ)+
+            cache.ale()/4./s*beta*MTOTl_sq(l,-0.5,s,Mw_i,cos_theta,W,X,Y,GammaZ)+dsigmaBrem_l(l,-0.5,s,Mw_i,cos_theta,W,X,Y,GammaZ)));
             
     
 }
 
 
 double EWSMOneLoopLEP2::dsigma_q(const QCD::quark q,const double s,const double Mw_i,
-                                   const double theta,const double W,const double X,
+                                   const double cos_theta,const double W,const double X,
                                const double Y,const double GammaZ) const{
     
     double mf = SM.getQuarks(q).getMass();
     double beta = sqrt(1.-4.*mf*mf/s);
     
-    return (0.25*(cache.ale()/4./s*beta*MTOTq_sq(q,0.5,s,Mw_i,theta,W,X,Y,GammaZ)+dsigmaBrem_q(q,0.5,s,Mw_i,theta,W,X,Y,GammaZ)+
-            cache.ale()/4./s*beta*MTOTq_sq(q,-0.5,s,Mw_i,theta,W,X,Y,GammaZ)+dsigmaBrem_q(q,-0.5,s,Mw_i,theta,W,X,Y,GammaZ)));
+    return (0.25*(cache.ale()/4./s*beta*MTOTq_sq(q,0.5,s,Mw_i,cos_theta,W,X,Y,GammaZ)+dsigmaBrem_q(q,0.5,s,Mw_i,cos_theta,W,X,Y,GammaZ)+
+            cache.ale()/4./s*beta*MTOTq_sq(q,-0.5,s,Mw_i,cos_theta,W,X,Y,GammaZ)+dsigmaBrem_q(q,-0.5,s,Mw_i,cos_theta,W,X,Y,GammaZ)));
     
 }

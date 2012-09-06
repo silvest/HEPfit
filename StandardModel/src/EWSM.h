@@ -230,12 +230,12 @@ public:
     
     
     double dsigmaLEP2_l(const StandardModel::lepton l,const double s,const double Mw_i,
-                       const double theta,const double W,const double X,const double Y,
-                       const double GammaZ);
+                       const double cos_theta,const double W,const double X,const double Y,
+                       const double GammaZ) const;
     
     double dsigmaLEP2_q(const StandardModel::quark q,const double s,const double Mw_i,
-                       const double theta,const double W,const double X,const double Y,
-                       const double GammaZ);
+                       const double cos_theta,const double W,const double X,const double Y,
+                       const double GammaZ) const;
 
     
     ////////////////////////////////////////////////////////////////////////     

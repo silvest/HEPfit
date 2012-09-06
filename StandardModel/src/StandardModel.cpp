@@ -340,19 +340,18 @@ complex StandardModel::getlamu_s() const {
     return VCKM(0, 1) * VCKM(0, 2).conjugate();
 }
 
- double StandardModel::DsigmaLEP2_l(const StandardModel::lepton l, const double s, 
-                         const double Mw_i, const double theta, const double W, 
-                         const double X, const double Y, const double GammaZ){
+ double StandardModel::DsigmaLEP2_l(const StandardModel::lepton l, const double s, const double cos_cos_theta,  
+                                   const double W, const double X, const double Y, const double GammaZ) const{
     
-    return (myEWSM->dsigmaLEP2_l(l,s,Mw_i,theta,W,X,Y,GammaZ));
+    return (myEWSM->dsigmaLEP2_l(l,s,SM.Mw(),cos_theta,W,X,Y,GammaZ));
     
 }
 
 
 double StandardModel::DsigmaLEP2_q(const StandardModel::quark q, const double s, 
-                         const double Mw_i, const double theta, const double W, 
-                         const double X, const double Y, const double GammaZ){
+                          const double cos_theta, const double W, 
+                         const double X, const double Y, const double GammaZ) const{
     
-    return (myEWSM->dsigmaLEP2_q(q,s,Mw_i,theta,W,X,Y,GammaZ));
+    return (myEWSM->dsigmaLEP2_q(q,s,SM.Mw(),cos_cos_theta,W,X,Y,GammaZ));
     
 }

@@ -81,19 +81,19 @@ public:
      * @brief Mandelstam variable t
      * @param[in] mf fermion mass
      * @param[in] s momentum squared
-     * @param[in] theta scattering angle
+     * @param[in] cos_theta scattering angle
      * @return t
      */
-    double t(const double mf, const double s,const double theta) const;
+    double t(const double mf, const double s,const double cos_theta) const;
     
     /**
      * @brief Mandelstam variable u
      * @param[in] mf fermion mass
      * @param[in] s momentum squared
-     * @param[in] theta scattering angle
+     * @param[in] cos_theta scattering angle
      * @return u
      */
-    double u(const double mf, const double s,const double theta) const;
+    double u(const double mf, const double s,const double cos_theta) const;
     
     /**
      * @brief coefficient for the e+e- to leptons dressed Born amplitude
@@ -2210,7 +2210,7 @@ public:
      * @param[in] Mw_i  the W mass
      * @return Chi_gammaZ
      */
-    complex B_CCq(const double s,const double theta,const QCD::quark q, const double Mw_i) const;
+    complex B_CCq(const double s,const double cos_theta,const QCD::quark q, const double Mw_i) const;
     
     
     /**
@@ -2222,37 +2222,37 @@ public:
      * @param[in] Mw_i  the W mass
      * @return Chi_gammaZ
      */
-    complex B_CCl(const double s,const double theta,const StandardModel::lepton l, const double Mw_i) const;
+    complex B_CCl(const double s,const double cos_theta,const StandardModel::lepton l, const double Mw_i) const;
     
-    complex C_CCq(const double mu,const double s,const double theta,const QCD::quark q, const double Mw_i) const;
+    complex C_CCq(const double mu,const double s,const double cos_theta,const QCD::quark q, const double Mw_i) const;
       
-    complex C_CCl(const double mu,const double s,const double theta,const StandardModel::lepton l, const double Mw_i) const;
+    complex C_CCl(const double mu,const double s,const double cos_theta,const StandardModel::lepton l, const double Mw_i) const;
     
     
-    complex D_CCq(const double mu,const double s,const double theta,const QCD::quark q, const double Mw_i) const;
+    complex D_CCq(const double mu,const double s,const double cos_theta,const QCD::quark q, const double Mw_i) const;
     
-    complex D_CCl(const double mu,const double s,const double theta,const StandardModel::lepton l, const double Mw_i) const;
+    complex D_CCl(const double mu,const double s,const double cos_theta,const StandardModel::lepton l, const double Mw_i) const;
     
     
-    complex E_CCq(const double mu,const double s,const double theta,const QCD::quark q, const double Mw_i) const;
+    complex E_CCq(const double mu,const double s,const double cos_theta,const QCD::quark q, const double Mw_i) const;
     
-    complex E_CCl(const double mu,const double s,const double theta,const StandardModel::lepton l, const double Mw_i) const;
+    complex E_CCl(const double mu,const double s,const double cos_theta,const StandardModel::lepton l, const double Mw_i) const;
     
-    complex A1_NCq(const double mu,const double s,const double theta,const QCD::quark q, const double Mw_i, const double rho, const double k) const;
+    complex A1_NCq(const double mu,const double s,const double cos_theta,const QCD::quark q, const double Mw_i, const double rho, const double k) const;
     
-    complex A1_NCl(const double mu,const double s,const double theta,const StandardModel::lepton l, const double Mw_i, const double rho, const double k) const;
+    complex A1_NCl(const double mu,const double s,const double cos_theta,const StandardModel::lepton l, const double Mw_i, const double rho, const double k) const;
     
-    complex A2_NCq(const double mu,const double s,const double theta,const QCD::quark q, const double Mw_i, const double rho, const double k) const;
+    complex A2_NCq(const double mu,const double s,const double cos_theta,const QCD::quark q, const double Mw_i, const double rho, const double k) const;
     
-    complex A2_NCl(const double mu,const double s,const double theta,const StandardModel::lepton l, const double Mw_i, const double rho, const double k) const;
+    complex A2_NCl(const double mu,const double s,const double cos_theta,const StandardModel::lepton l, const double Mw_i, const double rho, const double k) const;
     
-    complex A3_NCq(const double mu,const double s,const double theta,const QCD::quark q, const double Mw_i, const double rho, const double k) const;
+    complex A3_NCq(const double mu,const double s,const double cos_theta,const QCD::quark q, const double Mw_i, const double rho, const double k) const;
     
-    complex A3_NCl(const double mu,const double s,const double theta,const StandardModel::lepton l, const double Mw_i, const double rho, const double k) const;
+    complex A3_NCl(const double mu,const double s,const double cos_theta,const StandardModel::lepton l, const double Mw_i, const double rho, const double k) const;
     
-    complex A4_NCq(const double mu,const double s,const double theta,const QCD::quark q, const double Mw_i, const double rho, const double k) const;
+    complex A4_NCq(const double mu,const double s,const double cos_theta,const QCD::quark q, const double Mw_i, const double rho, const double k) const;
     
-    complex A4_NCl(const double mu,const double s,const double theta,const StandardModel::lepton l, const double Mw_i, const double rho, const double k) const;
+    complex A4_NCl(const double mu,const double s,const double cos_theta,const StandardModel::lepton l, const double Mw_i, const double rho, const double k) const;
     
 
 
@@ -2406,14 +2406,14 @@ public:
      * @param[in] s  the momentum squared
      * @return E3
      */
-    complex A_gammagammaq(const double s, const QCD::quark q, const double theta) const;
+    complex A_gammagammaq(const double s, const QCD::quark q, const double cos_theta) const;
     
     /**
      * @brief function G for gammagamma QED boxes corrections
      * @param[in] s  the momentum squared
      * @return E3
      */
-    complex A_gammagammal(const double s, const StandardModel::lepton l, const double theta) const;
+    complex A_gammagammal(const double s, const StandardModel::lepton l, const double cos_theta) const;
     
    
     /**
@@ -2421,14 +2421,14 @@ public:
      * @param[in] s  the momentum squared
      * @return E3
      */
-    complex V_gammagammaq(const double s, const QCD::quark q, const double theta) const;
+    complex V_gammagammaq(const double s, const QCD::quark q, const double cos_theta) const;
     
     /**
      * @brief function G for gammagamma QED boxes corrections
      * @param[in] s  the momentum squared
      * @return E3
      */
-    complex V_gammagammal(const double s, const StandardModel::lepton l, const double theta) const;
+    complex V_gammagammal(const double s, const StandardModel::lepton l, const double cos_theta) const;
     
     
     /**
@@ -2443,27 +2443,27 @@ public:
      * @param[in] s  the momentum squared
      * @return E3
      */
-    complex A_gammaZq(const double s,const QCD::quark q, const double theta,const double GammaZ) const;
+    complex A_gammaZq(const double s,const QCD::quark q, const double cos_theta,const double GammaZ) const;
     /**
      * @brief function G for gammagamma QED boxes corrections
      * @param[in] s  the momentum squared
      * @return E3
      */
-    complex A_gammaZl(const double s,const StandardModel::lepton l, const double theta,const double GammaZ) const;
+    complex A_gammaZl(const double s,const StandardModel::lepton l, const double cos_theta,const double GammaZ) const;
    
     /**
      * @brief function G for gammagamma QED boxes corrections
      * @param[in] s  the momentum squared
      * @return E3
      */
-    complex V_gammaZq(const double s,const QCD::quark q, const double theta,const double GammaZ) const;
+    complex V_gammaZq(const double s,const QCD::quark q, const double cos_theta,const double GammaZ) const;
     
     /**
      * @brief function G for gammagamma QED boxes corrections
      * @param[in] s  the momentum squared
      * @return E3
      */
-    complex V_gammaZl(const double s,const StandardModel::lepton l, const double theta,const double GammaZ) const;
+    complex V_gammaZl(const double s,const StandardModel::lepton l, const double cos_theta,const double GammaZ) const;
     
     
     /* @brief coefficient for eegamma-eeZ QED vertex correction
@@ -2491,7 +2491,7 @@ public:
      * @param[in] q quark
      * @return E3
      */
-    complex F6rhoq(const double s,const double rho, const double k,const QCD::quark q, const double theta) const;
+    complex F6rhoq(const double s,const double rho, const double k,const QCD::quark q, const double cos_theta) const;
     
     /**
      * @brief coefficient for eegamma-eeZ QED vertex correction
@@ -2500,7 +2500,7 @@ public:
      * @return E3
      */
     complex F6rhol(const double s,const double rho, const double k,
-                   const StandardModel::lepton l, const double theta) const;
+                   const StandardModel::lepton l, const double cos_theta) const;
     
     
     /**
@@ -2510,7 +2510,7 @@ public:
      * @return E3
      */
     complex F7rhol(const double s,const double rho, const double k,const double Mw_i,
-                   const StandardModel::lepton l, const double theta,const double GammaZ) const;
+                   const StandardModel::lepton l, const double cos_theta,const double GammaZ) const;
     
     
     
@@ -2521,7 +2521,7 @@ public:
      * @return E3
      */
     complex F7rhoq(const double s,const double rho, const double k,const double Mw_i,
-                   const QCD::quark q, const double theta,const double GammaZ) const;
+                   const QCD::quark q, const double cos_theta,const double GammaZ) const;
     
     
     
@@ -2557,51 +2557,51 @@ public:
     
     
     
-    double Bint(const double theta, const double mf, const double s) const;
+    double Bint(const double cos_theta, const double mf, const double s) const;
     
     
-    double gammaIR_q(const double s, const QCD::quark q, const double theta) const;
+    double gammaIR_q(const double s, const QCD::quark q, const double cos_theta) const;
     
     
-    double gammaIR_l(const double s, const StandardModel::lepton l, const double theta) const;
+    double gammaIR_l(const double s, const StandardModel::lepton l, const double cos_theta) const;
     
-    double gammadelta_q(const double s, const QCD::quark q, const double theta) const;
-    
-    
-    double gammadelta_l(const double s, const StandardModel::lepton l, const double theta) const;
-    
-    complex gammadeltaINT_q(const double s, const QCD::quark q, const double theta,const double GammaZ) const;
+    double gammadelta_q(const double s, const QCD::quark q, const double cos_theta) const;
     
     
-    complex gammadeltaINT_l(const double s, const StandardModel::lepton l, const double theta,const double GammaZ) const;
+    double gammadelta_l(const double s, const StandardModel::lepton l, const double cos_theta) const;
     
-    double gammadeltaRES_q(const double s, const QCD::quark q, const double theta,const double GammaZ) const;
+    complex gammadeltaINT_q(const double s, const QCD::quark q, const double cos_theta,const double GammaZ) const;
     
     
-    double gammadeltaRES_l(const double s, const StandardModel::lepton l, const double theta,const double GammaZ) const;
+    complex gammadeltaINT_l(const double s, const StandardModel::lepton l, const double cos_theta,const double GammaZ) const;
+    
+    double gammadeltaRES_q(const double s, const QCD::quark q, const double cos_theta,const double GammaZ) const;
+    
+    
+    double gammadeltaRES_l(const double s, const StandardModel::lepton l, const double cos_theta,const double GammaZ) const;
     
     double gammatail_q(const double s, const QCD::quark q,const double GammaZ) const;
     
     
     double gammatail_l(const double s, const StandardModel::lepton l,const double GammaZ) const;
     
-    double gammafin_q(const double s, const QCD::quark q, const double theta) const;
+    double gammafin_q(const double s, const QCD::quark q, const double cos_theta) const;
     
     
-    double gammafin_l(const double s, const StandardModel::lepton l,const double theta) const;
+    double gammafin_l(const double s, const StandardModel::lepton l,const double cos_theta) const;
     
     
-    double deltagammagamma_softq(const double s, const QCD::quark q, const double theta) const;
+    double deltagammagamma_softq(const double s, const QCD::quark q, const double cos_theta) const;
     
-    double deltagammagamma_softl(const double s, const StandardModel::lepton l, const double theta) const;
+    double deltagammagamma_softl(const double s, const StandardModel::lepton l, const double cos_theta) const;
     
-    complex deltagammaZ_softq(const double s, const QCD::quark q, const double theta,const double GammaZ) const;
+    complex deltagammaZ_softq(const double s, const QCD::quark q, const double cos_theta,const double GammaZ) const;
     
-    complex deltagammaZ_softl(const double s, const StandardModel::lepton l, const double theta,const double GammaZ) const;
+    complex deltagammaZ_softl(const double s, const StandardModel::lepton l, const double cos_theta,const double GammaZ) const;
     
-    double deltaZZ_softq(const double s, const QCD::quark q, const double theta,const double GammaZ) const;
+    double deltaZZ_softq(const double s, const QCD::quark q, const double cos_theta,const double GammaZ) const;
 
-    double deltaZZ_softl(const double s, const StandardModel::lepton l, const double theta,const double GammaZ) const;
+    double deltaZZ_softl(const double s, const StandardModel::lepton l, const double cos_theta,const double GammaZ) const;
     
     
     
@@ -2628,7 +2628,7 @@ public:
      * @return M1rhok_M1rhopk_l
      */
     complex M1rhok_M1rhopk_l(const double s,const double rho,const double rhoprime,
-                             const double k,const StandardModel::lepton l,const double theta) const;
+                             const double k,const StandardModel::lepton l,const double cos_theta) const;
     
     
     /**
@@ -2641,7 +2641,7 @@ public:
      * @return M1rhok_M1rhopk_l
      */
     complex M1rhok_M1rhopk_q(const double s,const double rho,const double rhoprime,
-                             const double k,const QCD::quark q,const double theta) const;
+                             const double k,const QCD::quark q,const double cos_theta) const;
     
     /**
      * @brief interference of the basic chirality amplitude
@@ -2653,7 +2653,7 @@ public:
      * @return M2rhok_M1rhopk_l
      */
     complex M2rhok_M1rhopk_l(const double s,const double rho,const double rhoprime,
-                             const double k,const StandardModel::lepton l,const double theta) const;
+                             const double k,const StandardModel::lepton l,const double cos_theta) const;
     
     
     /**
@@ -2666,7 +2666,7 @@ public:
      * @return M2rhok_M1rhopk_l
      */
     complex M2rhok_M1rhopk_q(const double s,const double rho,const double rhoprime,
-                             const double k,const QCD::quark q,const double theta) const;
+                             const double k,const QCD::quark q,const double cos_theta) const;
     
     /**
      * @brief interference of the basic chirality amplitude
@@ -2678,7 +2678,7 @@ public:
      * @return M3rhok_M1rhopk_l
      */
     complex M3rhok_M1rhopk_l(const double s,const double rho,const double rhoprime,
-                             const double k,const StandardModel::lepton l,const double theta) const;
+                             const double k,const StandardModel::lepton l,const double cos_theta) const;
     
     
     /**
@@ -2691,7 +2691,7 @@ public:
      * @return M3rhok_M1rhopk_l
      */
     complex M3rhok_M1rhopk_q(const double s,const double rho,const double rhoprime,
-                             const double k,const QCD::quark q,const double theta) const;
+                             const double k,const QCD::quark q,const double cos_theta) const;
     
     
     /**
@@ -2704,7 +2704,7 @@ public:
      * @return M4rhok_M1rhopk_l
      */
     complex M4rhok_M1rhopk_l(const double s,const double rho,const double rhoprime,
-                             const double k,const StandardModel::lepton l,const double theta) const;
+                             const double k,const StandardModel::lepton l,const double cos_theta) const;
     
     
     /**
@@ -2717,54 +2717,54 @@ public:
      * @return M4rhok_M1rhopk_l
      */
     complex M4rhok_M1rhopk_q(const double s,const double rho,const double rhoprime,
-                             const double k,const QCD::quark q,const double theta) const;
+                             const double k,const QCD::quark q,const double cos_theta) const;
     
     
     
     
     complex ATOTq(const double mu,const QCD::quark q, const double rho,
-                  const double k, const double s, const double Mw_i,const double theta,
+                  const double k, const double s, const double Mw_i,const double cos_theta,
                                const double W,const double X,const double Y,const double GammaZ) const;
     
     complex ATOTl(const double mu,const StandardModel::lepton l, const double rho,
-                  const double k, const double s, const double Mw_i,const double theta,
+                  const double k, const double s, const double Mw_i,const double cos_theta,
                                const double W,const double X,const double Y,const double GammaZ) const;
     
     complex BTOTq(const double mu,const QCD::quark q, const double rho,
-                               const double k, const double s, const double Mw_i,const double theta,
+                               const double k, const double s, const double Mw_i,const double cos_theta,
                                const double W,const double X,const double Y) const;
     
     complex BTOTl(const double mu,const StandardModel::lepton l, const double rho,
-                  const double k, const double s, const double Mw_i,const double theta,
+                  const double k, const double s, const double Mw_i,const double cos_theta,
                                const double W,const double X,const double Y) const;
     
     
     //Total amplitude squared for q
     double MTOTq_sq(const QCD::quark q, const double k, 
-                    const double s, const double Mw_i,const double theta,
+                    const double s, const double Mw_i,const double cos_theta,
                                const double W,const double X,const double Y,const double GammaZ)const;
     
     //Total amplitude squared for l
     double MTOTl_sq(const StandardModel::lepton l,const double k, const double s, 
-                    const double Mw_i,const double theta,
+                    const double Mw_i,const double cos_theta,
                                const double W,const double X,const double Y,const double GammaZ)const;
     
     
     double dsigmaBrem_l(const StandardModel::lepton l, const double k,
-                                 const double s, const double Mw_i, const double theta,
+                                 const double s, const double Mw_i, const double cos_theta,
                       const double W, const double X, const double Y,const double GammaZ)const;
     
     double dsigmaBrem_q(const QCD::quark q, const double k,
-                                 const double s, const double Mw_i, const double theta,
+                                 const double s, const double Mw_i, const double cos_theta,
                       const double W, const double X, const double Y,const double GammaZ)const;
     
     
     
     double dsigma_l(const StandardModel::lepton l, const double s, const double Mw_i,
-                    const double theta, const double W,const double X,const double Y,const double GammaZ) const;
+                    const double cos_theta, const double W,const double X,const double Y,const double GammaZ) const;
                               
     
-    double dsigma_q(const QCD::quark q, const double s, const double Mw_i,const double theta,
+    double dsigma_q(const QCD::quark q, const double s, const double Mw_i,const double cos_theta,
                     const double W,const double X,const double Y,const double GammaZ) const;
     
     
