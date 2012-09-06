@@ -14,25 +14,34 @@
 #include <cmath>
 #include <cuba.h>
 
+
+static int sqrt_s_global;
+
+static int SigmaLEP2_Integrand(const int *ndim, const double theta[],
+                     const int *ncomp, double dsigma[12], void *userdata);
+
+
+
+
 class sigmamuLEP2 : public ThObservable {
 public:
     /**
      * @brief sigmamuLEP2 constructor
      * @param[in] EW_i an object of EW class
      */
-    sigmamuLEP2(const EW& EW_i,const double sqrt_s): ThObservable(EW_i), myEW(EW_i){};
+    sigmamuLEP2(const EW& EW_i,double sqrt_s_i) : ThObservable(EW_i), myEW(EW_i), sqrt_s_local(sqrt_s_i){};
     
     /**
      * @return the muoniv cross section for LEP2 energies 
      */
     double getThValue();
-    
-    static int Integrand(const int *ndim, const double theta,const double sqrt_s,
-                     const int *ncomp, double dsigma[12], void *userdata);
+   
+    //static const double sqrt_s[12]; 
 
 
 private:
-    EW& myEW;
+    const EW& myEW;
+    const double sqrt_s_local;
 
 };
 
