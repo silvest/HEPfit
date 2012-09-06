@@ -373,17 +373,17 @@ double EW::A_q(const StandardModel::quark q) const {
 
 
 double EW::dsigma_lLEP2(const StandardModel::lepton l,const double s,const double W,
-                              const double X,const double Y, const double theta) const {
+                              const double X,const double Y, const double cos_theta) const {
     
-    return (SM.DsigmaLEP2_l(l,s,Mw(),theta,W,X,Y,Gamma_Z()));
+    return (SM.DsigmaLEP2_l(l,s,cos_theta,W,X,Y,Gamma_Z()));
     
 }
 
 
-double EW::dsigma_qLEP2(const StandardModel::quark q,const double s,const double W,
-                               const double X,const double Y, const double theta) const {
+double EW::dsigma_qLEP2(const QCD::quark q,const double s,const double W,
+                               const double X,const double Y, const double cos_theta) const {
     
-    return (SM.DsigmaLEP2_q(q,s,Mw(),theta,W,X,Y,Gamma_Z()));
+    return (SM.DsigmaLEP2_q(q,s,cos_theta,W,X,Y,Gamma_Z()));
     
 }
 
