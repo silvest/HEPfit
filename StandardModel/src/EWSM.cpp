@@ -835,18 +835,18 @@ double EWSM::taub() const {
 
 
 double EWSM::dsigmaLEP2_l(const StandardModel::lepton l, const double s, 
-                         const double Mw_i, const double theta, const double W, 
-                         const double X, const double Y, const double GammaZ){
+                         const double Mw_i, const double cos_theta, const double W, 
+                         const double X, const double Y, const double GammaZ) const{
     
-    return (myLEP2->dsigma_l(l,s,Mw_i,theta,W,X,Y,GammaZ));
+    return (myLEP2->dsigma_l(l,s,Mw_i,cos_theta,W,X,Y,GammaZ));
     
 }
 
 
 double EWSM::dsigmaLEP2_q(const StandardModel::quark q, const double s, 
-                         const double Mw_i, const double theta, const double W, 
-                         const double X, const double Y, const double GammaZ){
+                         const double Mw_i, const double cos_theta, const double W, 
+                         const double X, const double Y, const double GammaZ) const{
     
-    return (myLEP2->dsigma_q(q,s,Mw_i,theta,W,X,Y,GammaZ));
+    return (myLEP2->dsigma_q(q,s,Mw_i,cos_theta,W,X,Y,GammaZ));
     
 }
