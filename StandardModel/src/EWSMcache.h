@@ -124,11 +124,9 @@ public:
      */
     double mq(const StandardModel::quark q) const {
         if (!bDebug) {
-            if (q==StandardModel::TOP) 
-                return Mt(); // the pole mass
-            else
-                return SM.getQuarks(q).getMass(); 
-        } else {
+            
+            // Running quark masses for u,d,c,s,b at Mz have to be added here!!!
+            
             double mq_fixed;
             switch(q) {
                 case StandardModel::UP:
@@ -153,6 +151,12 @@ public:
                     throw "Error in EWSMcache::mq()";  
             }
             return mq_fixed; // for debug
+        } else {
+            // This part is used in Test programs: EWSMOneLoopEW, etc. 
+            if (q==StandardModel::TOP) 
+                return Mt(); // the pole mass
+            else
+                return SM.getQuarks(q).getMass(); 
         }
     }
     
