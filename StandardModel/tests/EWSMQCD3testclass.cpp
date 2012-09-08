@@ -16,7 +16,7 @@ EWSMQCD3testclass::~EWSMQCD3testclass() {
 }
 
 void EWSMQCD3testclass::setUp() {
-    mySM = new StandardModel();
+    mySM = new StandardModel(true);
     setSMparameters(*mySM);   
     myCache = new EWSMcache(*mySM, true);
     myQCD3 = new EWSMThreeLoopQCD(*myCache);
