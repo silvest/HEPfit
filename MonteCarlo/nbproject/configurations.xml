@@ -58,6 +58,7 @@
           </incDir>
         </cTool>
         <ccTool>
+          <commandlineTool>llvm-g++-4.2</commandlineTool>
           <incDir>
             <pElem>../BAT/include</pElem>
             <pElem>../Observables/src</pElem>
@@ -203,10 +204,26 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
+            <pElem>../BAT/include</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../InputParser/src</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../EW/src</pElem>
+            <pElem>/usr/local/include</pElem>
+            <pElem>/usr/local/include/BAT</pElem>
+            <pElem>/usr/local/boost_1_47_0</pElem>
+            <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../EWSM/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../ZFitter/src</pElem>
+            <pElem>../MFV/src</pElem>
+            <pElem>../SUSY/src</pElem>
+            <pElem>../FeynHiggs/include</pElem>
+            <pElem>../THDM/src</pElem>
           </incDir>
+          <commandLine>`root-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
