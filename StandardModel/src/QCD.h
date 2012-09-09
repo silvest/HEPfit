@@ -43,11 +43,11 @@ public:
         quarks[STRANGE].setMass_scale(2.);
         quarks[BOTTOM].setCharge(-1./3.); 
         //to be moved to the Als class
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < CacheSize; i++)
         {
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < 8; j++)
                 als_cache[j][i] = 0.;
-            for (int j = 0; j < 6; j++)
+            for (int j = 0; j < 10; j++)
                 mrun_cache[j][i] = 0.;
             for (int j = 0; j < 4; j++)
                 logLambda5_cache[j][i] = 0.;
@@ -271,6 +271,7 @@ public:
     double Nf(double mu) const;
     
     ////////////////////////////////////////////////////////////////////////
+
     /**
      * the @f$\beta_0@f$ coefficient
      * @param nf the number of active flavours
@@ -345,6 +346,35 @@ public:
     ////////////////////////////////////////////////////////////////////////
     
     /**
+     * the @f$\gamma_0@f$ coefficient
+     * @param nf the number of active flavours
+     * @return the @f$\gamma_0@f$ coefficient
+     */
+    double Gamma0(double nf) const;
+
+    /**
+     * the @f$\gamma_1@f$ coefficient
+     * @param nf the number of active flavours
+     * @return the @f$\gamma_1@f$ coefficient
+     */
+    double Gamma1(double nf) const;
+
+    /**
+     * the @f$\gamma_2@f$ coefficient
+     * @param nf the number of active flavours
+     * @return the @f$\gamma_2@f$ coefficient
+     */
+    double Gamma2(double nf) const;
+    
+    /**
+     * @brief threshold corrections to the running mass
+     * @param nf_f
+     * @param nf_i
+     * @return 
+     */
+    double threCorrForMass(double nf_f, double nf_i) const;
+    
+    /**
      * the running quark mass @f$m(\mu)@f$
      * @param mu the scale @f$\mu@f$ in GeV
      * @param m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
@@ -374,6 +404,8 @@ public:
      */
     double Mrun(double mu_f, double mu_i, double m, double nf, orders order = FULLNLO) const;
 
+    ////////////////////////////////////////////////////////////////////////    
+    
     /**
      * convert the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ to the pole mass
      * @param mbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
@@ -408,8 +440,9 @@ protected:
     bool computeYu, computeYd;
 
 private:
-    mutable double als_cache[5][5], logLambda5_cache[4][5], 
-                   mp2mbar_cache[4][5], mrun_cache[6][5];
+    static const int CacheSize = 5;
+    mutable double als_cache[8][CacheSize], logLambda5_cache[4][CacheSize], 
+                   mp2mbar_cache[4][CacheSize], mrun_cache[10][CacheSize];
     bool computeFBd, computeBd, computemt;
     double BBsoBBd, FBsoFBd;
     double ZeroNf5(double *x, double *) const;

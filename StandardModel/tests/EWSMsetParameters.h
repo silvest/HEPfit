@@ -92,20 +92,26 @@ void setSMparameters(StandardModel& SM_i) {
     Parameters["mtau"] = 1.77705;
     Parameters["mup"] = 0.062;
     Parameters["mdown"] = 0.083;
-    Parameters["mcharm"] = 1.50;
+    Parameters["mcharm"] = 1.50; // In ZFitter, 1.5 is the pole mass.
     Parameters["mstrange"] = 0.215;
-    Parameters["mbottom"] = 4.70;
+    Parameters["mbottom"] = 4.70; // In ZFitter, 4.7 is the pole mass.
     Parameters["ale"] = 1.0/137.0359895;
-
 
     /* TEST for Table 6.1 in hep-ph/0507146*/
     /* flags: AMT4=6, ALEM=2 */
-    /* mcMz = 0.55381685, mbMz = 2.8194352 */
     Parameters["Mz"] = 91.1875;
     Parameters["mtop"] = 175.0;    
     Parameters["mHl"] = 150.0;
     Parameters["AlsMz"] = 0.118;
     Parameters["dAle5Mz"] = 0.02758;    
+
+    /* to make mb(Mz) and mc(Mz) similar to ZFitter ones */
+    /* mcMz = 0.56381685, mbMz = 2.8194352 */
+    /* muMz = 0.062, mdMz = 0.083, msMz = 0.215 */
+    Parameters["mbottom"] = 4.122;
+    Parameters["mub"] = 4.122;    
+    Parameters["mcharm"] = 1.171;
+    Parameters["muc"] = 1.171;    
     
     SM_i.Init(Parameters);
 }

@@ -445,17 +445,10 @@ public:
     
     virtual bool SetFlag(const std::string, const bool&);
     
-    double GetMHl() const {
-        return mHl;
-    }    
-       
-    
     virtual bool InitializeMatching();
     
 protected:
     virtual void SetParameter(const std::string, const double&);
-    
-    
     
     matrix<complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
     double GF, ale, dAle5Mz, mHl, lambda, A, rhob, etab, Dmk;
@@ -464,12 +457,10 @@ protected:
     Particle leptons[6];
     EWSM* myEWSM;
     
-
 private:
     bool computeCKM, computeYe, computeYn;
     StandardModelMatching* myStandardModelMatching;
     
-   
 };
 
 #endif	/* STANDARDMODEL_H */

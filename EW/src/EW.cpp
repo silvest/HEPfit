@@ -99,13 +99,10 @@ double EW::Gamma_q(const StandardModel::quark q) const {
     complex gV_over_gA = SM.gVq(q)/SM.gAq(q);
     double alphaMz = SM.alphaMz();
     
-    //!!!! Write codes for FULLNNLO !!!!//
     double mcMz, mbMz;
     if (!bDebug) {
         mcMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.CHARM).getMass(), FULLNLO);
         mbMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), FULLNLO);  
-        //std::cout << "mcMz = " << mcMz << std::endl;
-        //std::cout << "mbMz = " << mbMz << std::endl;
     } else {
         mcMz = 0.56381685; 
         mbMz = 2.8194352;
