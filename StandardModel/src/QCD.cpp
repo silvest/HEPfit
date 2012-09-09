@@ -714,11 +714,11 @@ double QCD::Mbar2Mp(double mbar) const {
     if(mbar > 3.)
     {
         double a,D=5.;
-        a=Als(mbar)/M_PI;
+        a=Als(mbar, FULLNNLO)/M_PI;
         if(mbar < 50.)
             D=4.-4./3.*(quarks[STRANGE].getMass()+quarks[CHARM].getMass())/mbar; //only for the b quark
 
-        return(mbar*(1.+4./3.*a+a*a*(13.44434-1.0414*D)));
+        return(mbar*(1.+4./3.*a+a*a*(13.4434-1.0414*D)));
     }
     else
         throw "can convert only top and bottom masses";
