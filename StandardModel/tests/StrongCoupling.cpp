@@ -93,20 +93,26 @@ void setSMparameters(StandardModel& SM_i) {
     Parameters["mtau"] = 1.77705;
     Parameters["mup"] = 0.062;
     Parameters["mdown"] = 0.083;
-    Parameters["mcharm"] = 1.50;
+     Parameters["mcharm"] = 1.50; // In ZFitter, 1.5 is the pole mass.
     Parameters["mstrange"] = 0.215;
-    Parameters["mbottom"] = 4.70;
+    Parameters["mbottom"] = 4.70; // In ZFitter, 4.7 is the pole mass.
     Parameters["ale"] = 1.0/137.0359895;
-
 
     /* TEST for Table 6.1 in hep-ph/0507146*/
     /* flags: AMT4=6, ALEM=2 */
-    /* mcMz = 0.55381685, mbMz = 2.8194352 */
     Parameters["Mz"] = 91.1875;
     Parameters["mtop"] = 175.0;    
     Parameters["mHl"] = 150.0;
     Parameters["AlsMz"] = 0.118;
     Parameters["dAle5Mz"] = 0.02758;    
+
+    /* to make mb(Mz) and mc(Mz) similar to ZFitter ones */
+    /* mcMz = 0.56381685, mbMz = 2.8194352 */
+    /* muMz = 0.062, mdMz = 0.083, msMz = 0.215 */
+    Parameters["mbottom"] = 4.122;
+    Parameters["mub"] = 4.122;    
+    Parameters["mcharm"] = 1.171;
+    Parameters["muc"] = 1.171;   
     
     SM_i.Init(Parameters);
 }
@@ -133,27 +139,31 @@ int main(int argc, char** argv) {
              << "   muc = " << mySM->getMuc() << endl << endl;
         
         cout << setw(30) << " " << setw(18) << "LO"
-             << setw(18) << "NLO" << setw(18) << "FULLNLO"
-             << setw(18) << "NNLO" << setw(18) << "FULLNNLO" << endl;
+             << setw(18) << "FULLNLO"
+             << setw(18) << "FULLNNLO" << endl;
 
         ////////////////////////////////////////////////////////////////////////        
         
         cout << "[Test for Lambda_QCD]" << endl;
         cout << setw(30) << "Lambda(6):";
         for (int order=LO; order<=FULLNNLO; order++) 
-            cout << setw(18) << exp(mySM->logLambda(200.0, (orders)order));
+            if (order!=NLO && order!=NNLO)
+                cout << setw(18) << exp(mySM->logLambda(200.0, (orders)order));
         cout << endl;
         cout << setw(30) << "Lambda(5):";
         for (int order=LO; order<=FULLNNLO; order++) 
-            cout << setw(18) << exp(mySM->logLambda5((orders)order));
+            if (order!=NLO && order!=NNLO)
+                cout << setw(18) << exp(mySM->logLambda5((orders)order));
         cout << endl;
         cout << setw(30) << "Lambda(4):";
         for (int order=LO; order<=FULLNNLO; order++) 
-            cout << setw(18) << exp(mySM->logLambda(3.0, (orders)order));
+            if (order!=NLO && order!=NNLO)
+                cout << setw(18) << exp(mySM->logLambda(3.0, (orders)order));
         cout << endl;
         cout << setw(30) << "Lambda(3):";
         for (int order=LO; order<=FULLNNLO; order++) 
-            cout << setw(18) << exp(mySM->logLambda(1.0, (orders)order));
+            if (order!=NLO && order!=NNLO)
+                cout << setw(18) << exp(mySM->logLambda(1.0, (orders)order));
         cout << endl << endl;
 
         ////////////////////////////////////////////////////////////////////////
@@ -161,19 +171,23 @@ int main(int argc, char** argv) {
         cout << "[Test for QCD::Als(mu, order)]" << std::endl;
         cout << setw(30) << "alpha_s(M_t):";
         for (int order=LO; order<=FULLNNLO; order++) 
-            cout << setw(18) << mySM->Als(mySM->getMtpole(), (orders)order);
+            if (order!=NLO && order!=NNLO)
+                cout << setw(18) << mySM->Als(mySM->getMtpole(), (orders)order);
         cout << endl;
         cout << setw(30) << "alpha_s(M_Z):";
         for (int order=LO; order<=FULLNNLO; order++) 
-            cout << setw(18) << mySM->Als(mySM->getMz(), (orders)order);
+            if (order!=NLO && order!=NNLO)
+                cout << setw(18) << mySM->Als(mySM->getMz(), (orders)order);
         cout << endl;            
         cout << setw(30) << "alpha_s(m_b(m_b)):";
         for (int order=LO; order<=FULLNNLO; order++) 
-            cout << setw(18) << mySM->Als(mySM->getQuarks(mySM->BOTTOM).getMass(), (orders)order);
+            if (order!=NLO && order!=NNLO)
+                cout << setw(18) << mySM->Als(mySM->getQuarks(mySM->BOTTOM).getMass(), (orders)order);
         cout << endl;            
         cout << setw(30) << "alpha_s(m_c(m_c)):";
         for (int order=LO; order<=FULLNNLO; order++) 
-            cout << setw(18) << mySM->Als(mySM->getQuarks(mySM->CHARM).getMass(), (orders)order);
+            if (order!=NLO && order!=NNLO)
+                cout << setw(18) << mySM->Als(mySM->getQuarks(mySM->CHARM).getMass(), (orders)order);
         cout << endl << endl;      
 
         ////////////////////////////////////////////////////////////////////////
@@ -181,51 +195,65 @@ int main(int argc, char** argv) {
         cout << "[Test for QCD::AlsWithLambda(mu, logLambda, nf, order)]" << endl;
         cout << setw(30) << "alpha_s(M_t) for Nf=6:";
         for (int order=LO; order<=FULLNNLO; order++) {
-            double mu = mySM->getMtpole();
-            double logLambda = mySM->logLambda(mu,(orders)order);
-            cout << setw(18) << mySM->AlsWithLambda(mu, logLambda, 6., (orders)order);
+            if (order!=NLO && order!=NNLO) {
+                double mu = mySM->getMtpole();
+                double logLambda = mySM->logLambda(mu,(orders)order);
+                cout << setw(18) << mySM->AlsWithLambda(mu, logLambda, 6., (orders)order);
+            }
         }
         cout << endl; 
         cout << setw(30) << "alpha_s(M_t) for Nf=5:";
         for (int order=LO; order<=FULLNNLO; order++) {
-            double mu = mySM->getMtpole();
-            double logLambda = mySM->logLambda(mu,(orders)order);
-            cout << setw(18) << mySM->AlsWithLambda(mu, logLambda, 5., (orders)order);
+            if (order!=NLO && order!=NNLO) {
+                double mu = mySM->getMtpole();
+                double logLambda = mySM->logLambda(mu,(orders)order);
+                cout << setw(18) << mySM->AlsWithLambda(mu, logLambda, 5., (orders)order);
+            }
         }
         cout << endl; 
         cout << setw(30) << "alpha_s(M_Z):";
         for (int order=LO; order<=FULLNNLO; order++) {
-            double mu = mySM->getMz();
-            double logLambda = mySM->logLambda(mu,(orders)order);
-            cout << setw(18) << mySM->AlsWithLambda(mu, logLambda, 5., (orders)order);
+            if (order!=NLO && order!=NNLO) {
+                double mu = mySM->getMz();
+                double logLambda = mySM->logLambda(mu,(orders)order);
+                cout << setw(18) << mySM->AlsWithLambda(mu, logLambda, 5., (orders)order);
+            }
         }
         cout << endl;         
         cout << setw(30) << "alpha_s(m_b(m_b)) for Nf=5:";
         for (int order=LO; order<=FULLNNLO; order++) {
-            double mu = mySM->getQuarks(mySM->BOTTOM).getMass();
-            double logLambda = mySM->logLambda(mu,(orders)order);
-            cout << setw(18) << mySM->AlsWithLambda(mu, logLambda, 5., (orders)order);
+            if (order!=NLO && order!=NNLO) {
+                double mu = mySM->getQuarks(mySM->BOTTOM).getMass();
+                double logLambda = mySM->logLambda(mu,(orders)order);
+                cout << setw(18) << mySM->AlsWithLambda(mu, logLambda, 5., (orders)order);
+            }
         }
         cout << endl;         
         cout << setw(30) << "alpha_s(m_b(m_b)) for Nf=4:";
         for (int order=LO; order<=FULLNNLO; order++) {
-            double mu = mySM->getQuarks(mySM->BOTTOM).getMass();
-            double logLambda = mySM->logLambda(mu,(orders)order);
-            cout << setw(18) << mySM->AlsWithLambda(mu, logLambda, 4., (orders)order);
+            if (order!=NLO && order!=NNLO) {
+                double mu = mySM->getQuarks(mySM->BOTTOM).getMass();
+                double logLambda = mySM->logLambda(mu,(orders)order);
+                cout << setw(18) << mySM->AlsWithLambda(mu, logLambda, 4., (orders)order);
+            }
         }
         cout << endl;         
         cout << setw(30) << "alpha_s(m_c(m_c)) for Nf=4:";
         for (int order=LO; order<=FULLNNLO; order++) {
-            double mu = mySM->getQuarks(mySM->CHARM).getMass();
-            double logLambda = mySM->logLambda(mu,(orders)order);
-            cout << setw(18) << mySM->AlsWithLambda(mu, logLambda, 4., (orders)order);
+            if (order!=NLO && order!=NNLO) {
+                double mu = mySM->getQuarks(mySM->CHARM).getMass();
+                double logLambda = mySM->logLambda(mu,(orders)order);
+                cout << setw(18) << mySM->AlsWithLambda(mu, logLambda, 4., (orders)order);
+            }
         }
         cout << endl;        
         cout << setw(30) << "alpha_s(m_c(m_c)) for Nf=3:";
         for (int order=LO; order<=FULLNNLO; order++) {
-            double mu = mySM->getQuarks(mySM->CHARM).getMass();
-            double logLambda = mySM->logLambda(mu,(orders)order);
-            cout << setw(18) << mySM->AlsWithLambda(mu, logLambda, 3., (orders)order);
+            if (order!=NLO && order!=NNLO) {
+                double mu = mySM->getQuarks(mySM->CHARM).getMass();
+                double logLambda = mySM->logLambda(mu,(orders)order);
+                cout << setw(18) << mySM->AlsWithLambda(mu, logLambda, 3., (orders)order);
+            }
         }
         cout << endl << endl;        
 
