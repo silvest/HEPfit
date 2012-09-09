@@ -375,13 +375,9 @@ public:
      */
     double alsMt() const {
         if (!bDebug) {
-            
-            /*!!!! Write codes for NNLO !!!!*/
-            //std::cout << "alsMt() = " << SM.Als(Mt(),FULLNLO) << std::endl;
-            return ( SM.Als(Mt(),FULLNLO) );
-            
-            //return ( 0.1074432788 );
+            return ( SM.Als(Mt(),FULLNNLO) );
         } else 
+            // This part is used in Test programs: EWSMOneLoopEW, etc. 
             return ( 0.1074432788 );// for debug
     }
 
