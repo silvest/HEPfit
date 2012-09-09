@@ -111,6 +111,12 @@
                      kind="TEST">
         <itemPath>tests/StandardModelTest.cpp</itemPath>
       </logicalFolder>
+      <logicalFolder name="f8"
+                     displayName="StrongCoupling"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/StrongCoupling.cpp</itemPath>
+      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -354,6 +360,16 @@
           <linkerLibItems>
             <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
           </linkerLibItems>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f8">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f8</output>
         </linkerTool>
       </folder>
     </conf>
