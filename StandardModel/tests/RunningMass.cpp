@@ -114,6 +114,10 @@ void setSMparameters(StandardModel& SM_i) {
     Parameters["mcharm"] = 1.171;
     Parameters["muc"] = 1.171;    
     
+    /* TEST */
+    Parameters["AlsMz"] = 0.1184;
+    Parameters["mtop"] = 173.2; 
+    
     SM_i.Init(Parameters);
 }
 
