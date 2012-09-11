@@ -69,6 +69,8 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../THDM/src</pElem>
             <pElem>../EW/src</pElem>
+            <pElem>../boost/</pElem>
+            <pElem>/usr/include</pElem>
             <pElem>../ZFitter/src</pElem>
           </incDir>
         </ccTool>
