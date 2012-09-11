@@ -17,7 +17,6 @@ class QCD: public Model {
 public:
     enum meson {B_D, B_S, B_P, K_0, K_P, D_0, MESON_END}; 
     enum quark {UP,DOWN,CHARM,STRANGE,TOP,BOTTOM};
-                           // update StandardModel::lepton if changed!!!!!!
 
     static const int NQCDvars = 42;//26;
 
@@ -25,18 +24,11 @@ public:
      * array containing the labels under which all QCD parameters must be
      * stored in a Parameters object
      */
-
     static const std::string QCDvars[NQCDvars];
 
     virtual std::string ModelName() const {
         return "QCD";
     }
-    
-    /**
-     * Constructor for QCD
-     * @param a Parameters object that must contain all the labels appearing in QCDvars
-     */
- //   QCD(const Parameters&);
     
     QCD() : BBs(5), BBd(5), BD(5), BK(5) {
         Nc=3.;
@@ -51,254 +43,38 @@ public:
         quarks[STRANGE].setMass_scale(2.);
         quarks[BOTTOM].setCharge(-1./3.); 
         //to be moved to the Als class
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < CacheSize; i++)
         {
-            for (int j = 0; j < 5; j++)
+            for (int j = 0; j < 8; j++)
                 als_cache[j][i] = 0.;
-            for (int j = 0; j < 6; j++)
+            for (int j = 0; j < 10; j++)
                 mrun_cache[j][i] = 0.;
             for (int j = 0; j < 4; j++)
-                lambda5_cache[j][i] = 0.;
+                logLambda5_cache[j][i] = 0.;
             for (int j = 0; j < 4; j++)
                 mp2mbar_cache[j][i] = 0.;
         }
     };
 
-    /**
-     * the @f$\beta_0@f$ coefficient
-     * @param nf the number of active flavours
-     * @return the @f$\beta_0@f$ coefficient
-     */
-    double Beta0(double nf) const;
+    ////////////////////////////////////////////////////////////////////////
 
-    /**
-     * the @f$\beta_1@f$ coefficient
-     * @param nf the number of active flavours
-     * @return the @f$\beta_1@f$ coefficient
-     */
-    double Beta1(double nf) const;
-
-    /**
-     * the @f$\beta_2@f$ coefficient
-     * @param nf the number of active flavours
-     * @return the @f$\beta_2@f$ coefficient
-     */
-    double Beta2(double nf) const;
-
-    /**
-     * the number of active flavour at scale @f$\mu@f$
-     * @param mu the scale @f$\mu@f$ in GeV
-     * @return the number of active flavour at scale @f$\mu@f$
-     */
-    double Nf(double mu) const;
-
-    /**
-     * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
-     * @param mu the scale @f$\mu@f$ in GeV
-     * @param lam @f$\Lambda_\mathrm{QCD}@f$ with @f$n_f@f$ active flavours in GeV
-     * @param nf the number of active flavours @f$n_f@f$
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
-     * @return @f$\alpha_s@f$
-     */
-    double Als(double mu, double lam, double nf, orders order) const;
-
-    /**
-     * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
-     * @param mu the scale @f$\mu@f$ in GeV
-     * @param nf the number of active flavours
-     * @param alsi the initial condition @f$\alpha_s(m_i)@f$
-     * @param mi the scale @f$m_i@f$ in GeV
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
-     * @return @f$\alpha_s@f$
-     */
-    double Als(double mu, double nf, double alsi, double mi, orders order) const;
-
-    /**
-     * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
-     * @param mu the scale @f$\mu@f$ in GeV
-     * @param nfmu the number of active flavours at the scale @f$\mu@f$
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
-     * @return @f$\alpha_s@f$
-     */
-    double Als(double mu, double nfmu, orders order) const;
-
-    /**
-     * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
-     * @param mu the scale @f$\mu@f$ in GeV
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
-     * @return @f$\alpha_s@f$
-     */
-    double Als(double mu, orders order = FULLNLO) const;
-
-    /**
-     * @f$\Lambda_\mathrm{QCD}@f$ with five active flavours in GeV
-     * @param order (=LO, FULLNLO, FULLNNLO)
-     * @return @f$\Lambda_\mathrm{QCD}@f$
-     */
-    double Lambda5(orders order) const;
-
-    double Lambda(double mu, orders order) const;  
-
-    double Lambda(double muMatching, double mf, double nfNEW, double nfORG, 
-                  double LambdaORG, orders order) const;
+    virtual bool SetFlag(const std::string, const bool&);
+    
+    virtual bool PreUpdate();
+     
+    virtual bool PostUpdate();      
     
     /**
-     *
-     * @return @f$\alpha_s(Mz)@f$
+     * updates the QCD parameters found in the argument
+     * @param a map containing the parameters (all as double) to be updated
      */
-    double getAlsMz() const {
-        return AlsMz;
-    }
-
-    /**
-     * set the initial condition @f$\alpha_s(Mz)@f$
-     * @param AlsMz the initial condition @f$\alpha_s(Mz)@f$
-     */
-    void setAlsMz(double AlsMz) {
-        this->AlsMz = AlsMz;
-    }
-
-    /**
-     *
-     * @return the scale Mz at which the initial condition for @f$\alpha_s(Mz)@f$ is given
-     */
-    double getMz() const {
-        return Mz;
-    }
-
-    /**
-     * set the scale M at which the initial condition for @f$\alpha_s(M)@f$ is given
-     * @param M the scale M in GeV
-     */
-    void setMz(double Mz) {
-        this->Mz = Mz;
-    }
-
-    /**
-     *
-     * @return the number of colours
-     */
-    double getNc() const {
-        return Nc;
-    }
-
-    /**
-     * set the number of colours
-     * @param Nc the number of colours
-     */
-    void setNc(double Nc) {
-        this->Nc = Nc;
-    }
-
-    /**
-     *
-     * @return the threshold between six- and five-flavour theory in GeV
-     */
-    double getMut() const {
-        return mut;
-    }
-
-    /**
-     * set the threshold between six- and five-flavour theory
-     * @param mut the threshold between six- and five-flavour theory in GeV
-     */
-    void setMut(double mut) {
-        this->mut = mut;
-    }
-
-    /**
-     *
-     * @return the threshold between five- and four-flavour theory in GeV
-     */
-    double getMub() const {
-        return mub;
-    }
-
-    /**
-     * set the threshold between five- and four-flavour theory
-     * @param mub the threshold between five- and four-flavour theory in GeV
-     */
-    void setMub(double mub) {
-        this->mub = mub;
-    }
-
-    /**
-     *
-     * @return the threshold between four- and three-flavour theory in GeV
-     */
-    double getMuc() const {
-        return muc;
-    }
-
-    /**
-     * set the threshold between four- and three-flavour theory
-     * @param muc the threshold between four- and three-flavour theory in GeV
-     */
-    void setMuc(double muc) {
-        this->muc = muc;
-    }
-
-    /**
-     * @return the pole mass of the top quark
-     */
-    double getMtpole() const {
-        return mtpole;
-    }
+    virtual bool Update(const std::map<std::string, double>&);
     
     /**
-     * the running quark mass @f$m(\mu)@f$
-     * @param mu the scale @f$\mu@f$ in GeV
-     * @param m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
-     * @return the running quark mass @f$m(\mu)@f$
+     * Checks that all required parameters are present
+     * @param a map containing the parameters (all as double) to be updated
      */
-    double Mrun(double mu, double m, orders order = FULLNLO) const;
-    
-    /**
-     * runs the quark mass from @f$\mu_i@f$ to @f$\mu_f@f$
-     * @param mu_f the scale @f$\mu_f@f$ in GeV
-     * @param mu_i the scale @f$\mu_i@f$ in GeV
-     * @param m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(mu_i)@f$
-      * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
-     * @return the running quark mass @f$m(\mu_f)@f$
-     */
-    double Mrun(double mu_f, double mu_i, double m, orders order = FULLNLO) const;
-
-    /**
-     * runs the quark mass from @f$\mu_i@f$ to @f$\mu_f@f$ at fixed nf
-     * @param mu_f the scale @f$\mu_f@f$ in GeV
-     * @param mu_i the scale @f$\mu_i@f$ in GeV
-     * @param m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(mu_i)@f$
-     * @param nf the number of active flavours
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
-     * @return the running quark mass @f$m(\mu_f)@f$
-     */
-    double Mrun(double mu_f, double mu_i, double m, double nf, orders order = FULLNLO) const;
-
-    /**
-     * convert the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ to the pole mass
-     * @param mbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
-     * @return the pole mass in GeV
-     */
-    double Mbar2Mp(double mbar) const;
-
-    /**
-     * convert the pole mass to the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
-     * @param mp the pole mass in GeV
-     * @return the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
-     */
-    double Mp2Mbar(double mp) const;
-
-    
-    double MS2DRqmass(const double& MSscale, const double& MSbar) const;
-    
-    
-    /**
-     * convert @f$\overline{\mathrm{MS}}@f$ to @f$\overline{\mathrm{DR}}@f$ quark masses
-     * @param MSbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
-     * @return the @f$\overline{\mathrm{DR}}@f$ mass @f$m(m)@f$
-     */
-    double MS2DRqmass(const double& MSbar) const;
+    virtual bool CheckParameters(const std::map<std::string, double>&);
     
     /**
      * Initializes the QCD parameters found in the argument
@@ -348,30 +124,8 @@ public:
      */
     virtual bool Init(const std::map<std::string, double>&);
 
-    /**
-     * Checks that all required parameters are present
-     * @param a map containing the parameters (all as double) to be updated
-     */
-    virtual bool CheckParameters(const std::map<std::string, double>&);
+    ////////////////////////////////////////////////////////////////////////
 
-    /**
-     * updates the QCD parameters found in the argument
-     * @param a map containing the parameters (all as double) to be updated
-     */
-    virtual bool Update(const std::map<std::string, double>&);
-
-    /**
-     * updates the QCD parameters found in the argument
-     * @param a Parameters object containing the parameters to be updated
-     */
-//   void update(const Parameters&);
-    
-    virtual bool PreUpdate();
-     
-    virtual bool PostUpdate();
-     
-    virtual bool SetFlag(const std::string, const bool&);
-     
     Meson getMesons(const int i) const {
         return mesons[i];
     }
@@ -379,12 +133,103 @@ public:
     Particle getQuarks(const int i) const {
         return quarks[i];
     }
+    
+    /**
+     * @return @f$\alpha_s(Mz)@f$
+     */
+    double getAlsMz() const {
+        return AlsMz;
+    }
 
-    double Thresholds(int i) const;
+    /**
+     * set the initial condition @f$\alpha_s(Mz)@f$
+     * @param AlsMz the initial condition @f$\alpha_s(Mz)@f$
+     */
+    void setAlsMz(double AlsMz) {
+        this->AlsMz = AlsMz;
+    }
 
-    double AboveTh(double mu) const;
+    /**
+     * @return the scale Mz at which the initial condition for @f$\alpha_s(Mz)@f$ is given
+     */
+    double getMz() const {
+        return Mz;
+    }
 
-    double BelowTh(double mu) const;
+    /**
+     * set the scale M at which the initial condition for @f$\alpha_s(M)@f$ is given
+     * @param M the scale M in GeV
+     */
+    void setMz(double Mz) {
+        this->Mz = Mz;
+    }
+
+    /**
+     * @return the number of colours
+     */
+    double getNc() const {
+        return Nc;
+    }
+
+    /**
+     * set the number of colours
+     * @param Nc the number of colours
+     */
+    void setNc(double Nc) {
+        this->Nc = Nc;
+    }
+
+    /**
+     * @return the threshold between six- and five-flavour theory in GeV
+     */
+    double getMut() const {
+        return mut;
+    }
+
+    /**
+     * set the threshold between six- and five-flavour theory
+     * @param mut the threshold between six- and five-flavour theory in GeV
+     */
+    void setMut(double mut) {
+        this->mut = mut;
+    }
+
+    /**
+     * @return the threshold between five- and four-flavour theory in GeV
+     */
+    double getMub() const {
+        return mub;
+    }
+
+    /**
+     * set the threshold between five- and four-flavour theory
+     * @param mub the threshold between five- and four-flavour theory in GeV
+     */
+    void setMub(double mub) {
+        this->mub = mub;
+    }
+
+    /**
+     * @return the threshold between four- and three-flavour theory in GeV
+     */
+    double getMuc() const {
+        return muc;
+    }
+
+    /**
+     * set the threshold between four- and three-flavour theory
+     * @param muc the threshold between four- and three-flavour theory in GeV
+     */
+    void setMuc(double muc) {
+        this->muc = muc;
+    }
+
+    /**
+     * @return the pole mass of the top quark
+     */
+    double getMtpole() const {
+        return mtpole;
+    }
 
     double getCF() const {
         return CF;
@@ -409,6 +254,182 @@ public:
     /*BParameter getBD() const {
         return BD;
     }*/
+    
+    ////////////////////////////////////////////////////////////////////////
+
+    double Thresholds(int i) const;
+
+    double AboveTh(double mu) const;
+
+    double BelowTh(double mu) const;
+
+    /**
+     * the number of active flavour at scale @f$\mu@f$
+     * @param mu the scale @f$\mu@f$ in GeV
+     * @return the number of active flavour at scale @f$\mu@f$
+     */
+    double Nf(double mu) const;
+    
+    ////////////////////////////////////////////////////////////////////////
+
+    /**
+     * the @f$\beta_0@f$ coefficient
+     * @param nf the number of active flavours
+     * @return the @f$\beta_0@f$ coefficient
+     */
+    double Beta0(double nf) const;
+
+    /**
+     * the @f$\beta_1@f$ coefficient
+     * @param nf the number of active flavours
+     * @return the @f$\beta_1@f$ coefficient
+     */
+    double Beta1(double nf) const;
+
+    /**
+     * the @f$\beta_2@f$ coefficient
+     * @param nf the number of active flavours
+     * @return the @f$\beta_2@f$ coefficient
+     */
+    double Beta2(double nf) const;
+
+    /**
+     * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
+     * @param mu the scale @f$\mu@f$ in GeV
+     * @param logLambda log(Lambda)
+     * @param nf the number of active flavours @f$n_f@f$
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
+     * @return @f$\alpha_s@f$
+     */
+    double AlsWithLambda(double mu, double logLambda, double nf, orders order) const;
+
+    /**
+     * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
+     * @param mu the scale @f$\mu@f$ in GeV
+     * @param nf the number of active flavours
+     * @param alsi the initial condition @f$\alpha_s(m_i)@f$
+     * @param mi the scale @f$m_i@f$ in GeV
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
+     * @return @f$\alpha_s@f$
+     */
+    double Als(double mu, double nf, double alsi, double mi, orders order) const;
+
+    /**
+     * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
+     * @param mu the scale @f$\mu@f$ in GeV
+     * @param nfmu the number of active flavours at the scale @f$\mu@f$
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
+     * @return @f$\alpha_s@f$
+     */
+    double Als(double mu, double nfmu, orders order) const;
+
+    /**
+     * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
+     * @param mu the scale @f$\mu@f$ in GeV
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
+     * @return @f$\alpha_s@f$
+     */
+    double Als(double mu, orders order = FULLNLO) const;
+
+    /**
+     * @f$\ln\Lambda_\mathrm{QCD}@f$ with five active flavours in GeV
+     * @param order (=LO, FULLNLO, FULLNNLO)
+     * @return @f$\ln\Lambda_\mathrm{QCD}@f$ for five active flavours
+     */
+    double logLambda5(orders order) const;
+
+    double logLambda(double muMatching, double mf, double nfNEW, double nfORG, 
+                     double logLambdaORG, orders order) const;
+
+    double logLambda(double mu, orders order) const;  
+    
+    ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * the @f$\gamma_0@f$ coefficient
+     * @param nf the number of active flavours
+     * @return the @f$\gamma_0@f$ coefficient
+     */
+    double Gamma0(double nf) const;
+
+    /**
+     * the @f$\gamma_1@f$ coefficient
+     * @param nf the number of active flavours
+     * @return the @f$\gamma_1@f$ coefficient
+     */
+    double Gamma1(double nf) const;
+
+    /**
+     * the @f$\gamma_2@f$ coefficient
+     * @param nf the number of active flavours
+     * @return the @f$\gamma_2@f$ coefficient
+     */
+    double Gamma2(double nf) const;
+    
+    /**
+     * @brief threshold corrections to the running mass
+     * @param nf_f
+     * @param nf_i
+     * @return 
+     */
+    double threCorrForMass(double nf_f, double nf_i) const;
+    
+    /**
+     * the running quark mass @f$m(\mu)@f$
+     * @param mu the scale @f$\mu@f$ in GeV
+     * @param m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
+     * @return the running quark mass @f$m(\mu)@f$
+     */
+    double Mrun(double mu, double m, orders order = FULLNLO) const;
+    
+    /**
+     * runs the quark mass from @f$\mu_i@f$ to @f$\mu_f@f$
+     * @param mu_f the scale @f$\mu_f@f$ in GeV
+     * @param mu_i the scale @f$\mu_i@f$ in GeV
+     * @param m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(mu_i)@f$
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
+     * @return the running quark mass @f$m(\mu_f)@f$
+     */
+    double Mrun(double mu_f, double mu_i, double m, orders order = FULLNLO) const;
+
+    /**
+     * runs the quark mass from @f$\mu_i@f$ to @f$\mu_f@f$ at fixed nf
+     * @param mu_f the scale @f$\mu_f@f$ in GeV
+     * @param mu_i the scale @f$\mu_i@f$ in GeV
+     * @param m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(mu_i)@f$
+     * @param nf the number of active flavours
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
+     * @return the running quark mass @f$m(\mu_f)@f$
+     */
+    double Mrun(double mu_f, double mu_i, double m, double nf, orders order = FULLNLO) const;
+
+    ////////////////////////////////////////////////////////////////////////    
+    
+    /**
+     * convert the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ to the pole mass
+     * @param mbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
+     * @return the pole mass in GeV
+     */
+    double Mbar2Mp(double mbar) const;
+
+    /**
+     * convert the pole mass to the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
+     * @param mp the pole mass in GeV
+     * @return the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
+     */
+    double Mp2Mbar(double mp) const;
+
+    double MS2DRqmass(const double& MSscale, const double& MSbar) const;
+    
+    /**
+     * convert @f$\overline{\mathrm{MS}}@f$ to @f$\overline{\mathrm{DR}}@f$ quark masses
+     * @param MSbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
+     * @return the @f$\overline{\mathrm{DR}}@f$ mass @f$m(m)@f$
+     */
+    double MS2DRqmass(const double& MSbar) const;
+    
+    ////////////////////////////////////////////////////////////////////////
 
 protected:
     double Nc, CF, AlsMz, Mz, mut, mub, muc, mtpole;
@@ -419,8 +440,9 @@ protected:
     bool computeYu, computeYd;
 
 private:
-    mutable double als_cache[5][5], lambda5_cache[4][5], 
-                   mp2mbar_cache[4][5], mrun_cache[6][5];
+    static const int CacheSize = 5;
+    mutable double als_cache[8][CacheSize], logLambda5_cache[4][CacheSize], 
+                   mp2mbar_cache[4][CacheSize], mrun_cache[10][CacheSize];
     bool computeFBd, computeBd, computemt;
     double BBsoBBd, FBsoFBd;
     double ZeroNf5(double *x, double *) const;

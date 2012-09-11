@@ -11,7 +11,7 @@
 //struct dcomplex { double real, imag; };
 
 
-/* ZFITTER common blocks (glocal variables in ZFITTER)
+/* ZFITTER common blocks (global variables in ZFITTER)
  *   see Appendix A.1 in hep-ph/9412201 for detail */
 extern "C" {
 
@@ -47,7 +47,7 @@ extern "C" {
 }
 
 
-/* DIZET common blocks (glocal variables used in DIZET)
+/* DIZET common blocks (global variables used in DIZET)
  *   see Sec. 2.5.1 in hep-ph/9908433 and Sec. 6.1 in hep-ph/0507146 for detail */
 extern "C" {
 

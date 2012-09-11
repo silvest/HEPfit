@@ -29,7 +29,7 @@ ThFactory::ThFactory(const StandardModel& myModel) :
     thobs["gamma"] = new Gamma(myFlavour);
     thobs["SJPsiK"] = new SJPsiK(myFlavour);
 
-    thobs["Mw"] = new Mw(myEW);
+//    thobs["Mw"] = new Mw(myEW);
 //    thobs["sin2thetaEff"] = new sin2thetaEff(myEW);
 //    thobs["GammaW"] = new GammaW(myEW);
 //    thobs["GammaZ"] = new GammaZ(myEW);
