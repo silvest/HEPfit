@@ -24,7 +24,7 @@
 #include <iostream>
 #include <fstream>
 #include <istream>
-#include </boost/tokenizer.hpp>
+#include <boost/tokenizer.hpp>
 #include <string>
 
 class InputParser {
