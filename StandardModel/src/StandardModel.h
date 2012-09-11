@@ -208,6 +208,15 @@ public:
      */
     virtual double GammaW() const;
     
+        
+    double DsigmaLEP2_l(const StandardModel::lepton l,const double s,
+                        const double cos_theta,const double W,const double X,const double Y,
+                        const double GammaZ) const;
+    
+    double DsigmaLEP2_q(const StandardModel::quark q,const double s,
+                        const double cos_theta,const double W,const double X,const double Y,
+                        const double GammaZ) const;
+    
     /**
      * @return NP contribution to oblique parameter S
      */
@@ -474,19 +483,7 @@ public:
     
     virtual bool SetFlag(const std::string, const bool&);
     
-    double GetMHl() const {
-        return mHl;
-    }
-    
     StandardModelMatching* myMatching;
-    
-    double DsigmaLEP2_l(const StandardModel::lepton l,const double s,
-                       const double cos_theta,const double W,const double X,const double Y,
-                       const double GammaZ) const;
-    
-    double DsigmaLEP2_q(const StandardModel::quark q,const double s,
-                       const double cos_theta,const double W,const double X,const double Y,
-                       const double GammaZ) const;
         
     virtual bool InitializeMatching();
     
