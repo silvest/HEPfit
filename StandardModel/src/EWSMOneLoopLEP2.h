@@ -5,9 +5,9 @@
 
 #ifndef EWSMONELOOPLEP2_H
 #define	EWSMONELOOPLEP2_H
-
 #include "EWSMOneLoopEW.h"
 using namespace gslpp;
+
 
 
 class EWSMOneLoopLEP2{
@@ -2774,7 +2774,7 @@ protected:
     
 private:    
     const EWSMcache& cache; 
-    const EWSMOneLoopEW& EWOL;
+    const EWSMOneLoopEW EWOL;
     const PVfunctions PV;
     const StandardModel& SM;
     double phmass;//////////////////////////////////////////////////fictious photon mass

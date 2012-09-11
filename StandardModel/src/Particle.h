@@ -16,7 +16,7 @@ class Particle {
 public:
     Particle() {
     mass_scale = 0.;};
-    Particle(double mass, double mass_scale = 0., double width = 0., double charge = 0.);
+    Particle(double mass, double mass_scale = 0., double width = 0., double charge = 0.,double isospin = 0.);
     /**
      * 
      * @return the particle mass in GeV

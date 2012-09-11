@@ -47,15 +47,9 @@ public:
         quarks[TOP].setCharge(2./3.);
         quarks[DOWN].setCharge(-1./3.);
         quarks[DOWN].setMass_scale(2.);
-        quarks[STRANGE].setCharge(-1./3.);    
+        quarks[STRANGE].setCharge(-1./3.);
         quarks[STRANGE].setMass_scale(2.);
         quarks[BOTTOM].setCharge(-1./3.); 
-        quarks[UP].setIsospin(1./2.);
-        quarks[CHARM].setIsospin(1./2.);
-        quarks[TOP].setIsospin(1./2.);
-        quarks[DOWN].setIsospin(-1./2.);
-        quarks[STRANGE].setIsospin(-1./2.);   
-        quarks[BOTTOM].setIsospin(-1./2.);
         //to be moved to the Als class
         for (int i = 0; i < 5; i++)
         {

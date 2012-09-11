@@ -54,7 +54,9 @@ EWSM::EWSM(const StandardModel& SM_i, bool bDebug_i) : SM(SM_i) {
     myTwoLoopEW = new EWSMTwoLoopEW(*myCache);
     myThreeLoopEW2QCD = new EWSMThreeLoopEW2QCD(*myCache);
     myThreeLoopEW = new EWSMThreeLoopEW(*myCache);
-    myApproximateFormulae = new EWSMApproximateFormulae(SM, bDebug_i);    
+    myApproximateFormulae = new EWSMApproximateFormulae(SM, bDebug_i);  
+    
+    myLEP2 = new EWSMOneLoopLEP2(*myCache,SM);
 }
 
 
