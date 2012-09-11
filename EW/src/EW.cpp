@@ -376,7 +376,7 @@ double EW::dsigma_lLEP2(const StandardModel::lepton l,const double s,const doubl
                               const double X,const double Y, const double cos_theta) const {
     
     return (SM.DsigmaLEP2_l(l,s,cos_theta,W,X,Y,Gamma_Z()));
-    
+ 
 }
 
 

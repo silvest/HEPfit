@@ -15,12 +15,7 @@
 #include <cuba.h>
 
 
-static int sqrt_s_global;
-
-static int SigmaLEP2_Integrand(const int *ndim, const double theta[],
-                     const int *ncomp, double dsigma[12], void *userdata);
-
-
+//static int sqrt_s_global;
 
 
 class sigmamuLEP2 : public ThObservable {
@@ -31,8 +26,14 @@ public:
      */
     sigmamuLEP2(const EW& EW_i,double sqrt_s_i) : ThObservable(EW_i), myEW(EW_i), sqrt_s_local(sqrt_s_i){};
     
+    
+    double sigmaLEP2_Integrand(double x);
+    
+    static int Integrand(const int *ndim, const double theta[],
+                     const int *ncomp, double dsigma[12], void *userdata);
+    
     /**
-     * @return the muoniv cross section for LEP2 energies 
+     * @return the muon cross section for LEP2 energies 
      */
     double getThValue();
    
