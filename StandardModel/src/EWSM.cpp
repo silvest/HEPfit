@@ -59,6 +59,7 @@ EWSM::EWSM(const StandardModel& SM_i, bool bDebug_i) : SM(SM_i) {
     myThreeLoopEW = new EWSMThreeLoopEW(*myCache);
     myApproximateFormulae = new EWSMApproximateFormulae(SM, bDebug_i);   
     
+    myLEP2 = new EWSMOneLoopLEP2(*myCache,SM);
     // Initializations of the caches
     DeltaAlphaLepton_cache = 0.0;
     DeltaAlpha_cache = 0.0;
