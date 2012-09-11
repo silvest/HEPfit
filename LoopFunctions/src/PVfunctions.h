@@ -212,7 +212,7 @@ public:
     complex D11(const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4, const double theta) const;
+                         const double m4, const double cos_theta) const;
     
     /**
      * @brief the scalar four-point Passarino-Veltman function D11
@@ -229,7 +229,7 @@ public:
     complex D12(const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4, const double theta) const;
+                         const double m4, const double cos_theta) const;
     
     /**
      * @brief the scalar four-point Passarino-Veltman function D11
@@ -246,7 +246,7 @@ public:
     complex D13(const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4, const double theta) const;
+                         const double m4, const double cos_theta) const;
     
     /**
      * @brief the scalar four-point Passarino-Veltman function D11
@@ -263,7 +263,7 @@ public:
     complex D27(const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4, const double theta) const;
+                         const double m4, const double cos_theta) const;
     
     /**
      * @brief the scalar four-point Passarino-Veltman function D11
@@ -280,7 +280,7 @@ public:
     complex D21(const double mu,const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4, const double theta) const;
+                         const double m4, const double cos_theta) const;
     
     /**
      * @brief the scalar four-point Passarino-Veltman function D11
@@ -297,7 +297,7 @@ public:
     complex D24(const double mu,const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4, const double theta) const;
+                         const double m4, const double cos_theta) const;
     
     /**
      * @brief the scalar four-point Passarino-Veltman function D11
@@ -314,7 +314,7 @@ public:
     complex D25(const double mu,const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4, const double theta) const;
+                         const double m4, const double cos_theta) const;
     
     
     /**
@@ -332,7 +332,7 @@ public:
     complex D22(const double mu,const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4, const double theta) const;
+                         const double m4, const double cos_theta) const;
     
     
     /**
@@ -350,7 +350,7 @@ public:
     complex D26(const double mu,const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4, const double theta) const;
+                         const double m4, const double cos_theta) const;
     /**
      * @brief the scalar four-point Passarino-Veltman function D11
      * @param[in] p12 p1 squared
@@ -366,7 +366,7 @@ public:
     complex D23(const double mu,const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4, const double theta) const;
+                         const double m4, const double cos_theta) const;
     
     
     
