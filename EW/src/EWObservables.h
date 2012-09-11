@@ -23,6 +23,7 @@
 #include "Rcharm.h"
 #include "Rbottom.h"
 #include "sigmaHadron.h"
+#include "sigmamuLEP2.h"
 
 #include "obliqueS.h"
 #include "obliqueT.h"
