@@ -78,6 +78,8 @@
             <pElem>../SUSY/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../THDM/src</pElem>
+            <pElem>../boost</pElem>
+            <pElem>/usr/include/root</pElem>
           </incDir>
           <commandLine>`root-config --cflags`</commandLine>
         </ccTool>
