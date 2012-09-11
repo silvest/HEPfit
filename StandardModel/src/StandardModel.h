@@ -228,6 +228,34 @@ public:
         return 0.0;
     };
     
+    /**
+     * @return NP contribution to oblique parameter V
+     */
+    virtual double obliqueV() const {
+        return 0.0;
+    };
+
+    /**
+     * @return NP contribution to oblique parameter W
+     */
+    virtual double obliqueW() const {
+        return 0.0;
+    };
+
+    /**
+     * @return NP contribution to oblique parameter X
+     */
+    virtual double obliqueX() const {
+        return 0.0;
+    };
+
+    /**
+     * @return NP contribution to oblique parameter Y
+     */
+    virtual double obliqueY() const {
+        return 0.0;
+    };
+
     
     ///////////////////////////////////////////////////////////////////////////
 

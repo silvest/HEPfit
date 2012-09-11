@@ -62,18 +62,52 @@ public:
     /**
      * @return the oblique parameters S
      */
-    double S() const;
+    double S() const {
+        return ( SM.obliqueS() );
+    }
     
     /**
      * @return the oblique parameters T
      */    
-    double T() const;
+    double T() const {
+        return ( SM.obliqueT() );
+    }
     
     /**
      * @return the oblique parameters U
      */    
-    double U() const;
+    double U() const {
+        return ( SM.obliqueU() );
+    }
+
+    /**
+     * @return the oblique parameters V
+     */    
+    double V() const {
+        return ( SM.obliqueV() );
+    }
     
+    /**
+     * @return the oblique parameters W
+     */    
+    double W() const {
+        return ( SM.obliqueW() );
+    }
+    
+    /**
+     * @return the oblique parameters X
+     */    
+    double X() const {
+        return ( SM.obliqueX() );
+    }
+    
+    /**
+     * @return the oblique parameters Y
+     */    
+    double Y() const {
+        return ( SM.obliqueY() );
+    }    
+
     
     ////////////////////////////////////////////////////////////////////////     
     
