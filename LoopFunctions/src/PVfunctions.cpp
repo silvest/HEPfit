@@ -8,7 +8,7 @@
 #include <gsl/gsl_complex.h>
 #include <gsl/gsl_sf.h>
 #include "PVfunctions.h"
-#define LEPS 1.e-5 // tolerance in the limit of masses
+#define LEPS 1.e-7 // tolerance in the limit of masses
 
 
 PVfunctions::PVfunctions() {
@@ -29,7 +29,11 @@ double PVfunctions::A0(const double mu, const double m) const {
 complex PVfunctions::B0(const double mu, const double p2, 
                         const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
-        throw "Invalid argument for PVfunctions::B0()";
+//        std::cout << "\n\nmu = \t"<<mu<<std::endl;
+//        std::cout << "p2 = \t"<<p2<<std::endl;
+//        std::cout << "m0 = \t"<<m0<<std::endl;
+//        std::cout << "m1 = \t"<<m1<<std::endl;
+        throw "Invalid argument for PVfunctions::B0()";   
     }
     double mu2=mu*mu, m02=m0*m0, m12=m1*m1;
     complex B0(0.0, 0.0, false);
@@ -76,7 +80,7 @@ complex PVfunctions::B0(const double mu, const double p2,
             B0 = - log(p2/mu2) + 2.0;
             B0 += M_PI*complex::i();// imaginary part    
         }
-    } else if ( p2==0.0 && m0==0.0 && m1==0.0 ) {           
+    } else if ( p2==0.0 && m0==0.0 && m1==0.0 ) {      
         throw "PVfunctions::B0() is IR divergent. (vanishes in DR)";            
     } else {
         throw "Missing case in the codes of PVfunctions::B0().";
@@ -324,7 +328,12 @@ complex PVfunctions::C0(const double p2,
 
     complex C0(0.0, 0.0, false);   
     if (p2==0.0) {
-        throw "PVfunctions::C0() is undefined.";
+//        std::cout << "\n\np2 = \t"<<p2<<std::endl;
+//        std::cout << "m0 = \t"<<m0<<std::endl;
+//        std::cout << "m1 = \t"<<m1<<std::endl;
+//        std::cout << "m2 = \t"<<m2<<std::endl;
+        
+        throw "\nPVfunctions::C0() is undefined-1.\n";
     } else {
         if (fabs(m0 - m2) < LEPS && fabs(m0 - m1) > LEPS) {///////////////////////////////////
             double m02 = m0*m0;
@@ -339,7 +348,7 @@ complex PVfunctions::C0(const double p2,
             complex x3 = m02/(m02 - m12);
 
             if ( x0==x1 || x0==x2 || x0==x3) {///////////////////////////////////////////////????????
-                throw "PVfunctions::C0() is undefined.";
+                throw "\nPVfunctions::C0() is undefined-2.\n";
             }
 
             complex arg[6];
@@ -374,7 +383,7 @@ complex PVfunctions::C0(const double p2,
             complex x2 = (p2 - m02 + m22 - tmp_complex)/2.0/p2;            
 
             if ( x1==0.0 || x1==1.0 || x2==0.0 || x2==1.0 ) { //////////////////////////////////???
-                throw "PVfunctions::C0() is undefined.";
+                throw "\nPVfunctions::C0() is undefined-3.\n";
             }            
             
             complex arg1 = (x1 - 1.0)/x1;
@@ -390,9 +399,52 @@ complex PVfunctions::C0(const double p2,
                                     *GSL_IMAG(gsl_complex_log(arg2_tmp))
                                    + GSL_IMAG(gsl_complex_log(arg1_tmp))
                                       *GSL_REAL(gsl_complex_log(arg2_tmp)) );            
+        } else if (m0 == 0. && m1 != 0. && m2 != 0.) { 
+        
+            
+            complex arg[2];
+            arg[0] = 1.-m2*m2/m1/m1;
+            arg[1] = 1.-(-p2+m2*m2)/m1/m1;
+            std::cout <<"arg1 =  "<< arg[1] << std::endl;
+            complex Li2[2];
+            for (int i=0; i<2; i++) {
+                gsl_sf_result re, im;
+                gsl_sf_complex_dilog_xy_e(arg[i].real(), arg[i].imag(), &re, &im);
+                Li2[i].real() = re.val;
+                Li2[i].imag() = im.val;
+            }
+            
+            std::cout<<Li2[0] << "\tLi2[1]\t" << Li2[1] <<std::endl;
+        
+            C0 = 1./(-p2)*(Li2[0]-Li2[1]);
+        } else if(m0 != 0 && m1 != 0 && m2 != 0 && fabs(m0-m1) > LEPS && fabs(m1-m2) > LEPS){
+            
+            double x0 = 1.-(m0*m0-m1*m1)/p2;
+            double x1 = -(-p2+m0*m0-m2*m2-sqrt(fabs((m0*m0+m2*m2-p2)*(m0*m0+m2*m2-p2)-4.*m0*m0*m2*m2)))/p2/2.;
+            double x2 = -(-p2+m0*m0-m2*m2+sqrt(fabs((m0*m0+m2*m2-p2)*(m0*m0+m2*m2-p2)-4.*m0*m0*m2*m2)))/p2/2.;
+            double x3 = m2*m2/(m2*m2-m1*m1);   
+            
+            complex arg[6];
+            arg[0] = (x0-1.)/(x0-x1);
+            arg[1] = x0/(x0-x1);
+            arg[2] = (x0-1.)/(x0-x2);
+            arg[3] = x0/(x0-x2);
+            arg[4] = (x0-1.)/(x0-x3);
+            arg[5] = x0/(x0-x3);
+            
+            complex Li2[6];
+            for (int i=0; i<2; i++) {
+                gsl_sf_result re, im;
+                gsl_sf_complex_dilog_xy_e(arg[i].real(), arg[i].imag(), &re, &im);
+            }
+            
+            C0 = -1./p2*(Li2[0]-Li2[1]+Li2[2]-Li2[3]-Li2[4]+Li2[5]);
+            
         } else {
-            throw "PVfunctions::C0() is undefined.";            
+            throw "\nPVfunctions::C0() is undefined-4.\n";            
         }
+        
+        
     }
     return C0;
 }
@@ -425,7 +477,7 @@ double PVfunctions::F(const double m0, const double m1) const {
     double F;
     
     if ( m0<=0.0 || m1<0.0 ) {
-        throw "Invalid argument for PVfunctions::F()";
+        throw "Invalid argument for PVfunctions::F()\n";
     }
     
     if(m0 == 0. && m1 != 0.) {
@@ -458,7 +510,6 @@ complex PVfunctions::D0(const double p12, const double p22, const double p32,
             double x4 =(t+m4*m4)/(t+m4*m4-m1*m1);
 
             if(m4 != 0.){
-                
                 
                 double xbar1 = x4/2*(1.-sqrt(d4));
                 double xbar2 = x4/2*(1.+sqrt(d4));
@@ -533,25 +584,25 @@ complex PVfunctions::D0(const double p12, const double p22, const double p32,
 complex PVfunctions::D11(const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4,const double theta) const{
+                         const double m4,const double cos_theta) const{
     
-    complex D00 = C0(-s/2.*(1.+cos(theta)),m2,m3,m4);
+    complex D00 = C0(+s/2.*(1.+cos_theta),m2,m3,m4);
     complex D01 = C0(s,m3,m4,m1);
-    complex D02 = C0(-s/2.*(1.+cos(theta)),m4,m1,m2);
+    complex D02 = C0(+s/2.*(1.+cos_theta),m4,m1,m2);
     complex D03 = C0(s,m1,m2,m3);
     double f1d = m1*m1-m2*m2-p12;
     double f2d = m2*m2-m3*m3+p12+s;
     double f3d = m3*m3-m4*m4-p42-s;
-    double t = -s/2*(1.-cos(theta));
+    double t = -s/2.*(1.-cos_theta);
     
-    complex a =D01-D00+f1d*D0(p12,p22,p32,p42,s,t,m1,m2,m3,m4);
-    complex b = D02-D01+f2d*D0(p12,p22,p32,p42,s,t,m1,m2,m3,m4);       
-    complex c = D03-D02+f3d*D0(p12,p22,p32,p42,s,t,m1,m2,m3,m4);
+    complex a =D01-D00+f1d*D0(p12,p22,p32,p42,s,-t,m1,m2,m3,m4);
+    complex b = D02-D01+f2d*D0(p12,p22,p32,p42,s,-t,m1,m2,m3,m4);       
+    complex c = D03-D02+f3d*D0(p12,p22,p32,p42,s,-t,m1,m2,m3,m4);
     
-    double X11=0.25*(1.-cos(theta))*(1.-cos(theta));
-    double X12=-.25*(1.-cos(theta)*cos(theta));
-    double X13=0.5*(1.-cos(theta));
-    double g = -1./s/(1.-cos(theta)*cos(theta));
+    double X11=0.25*(1.-cos_theta)*(1.-cos_theta);
+    double X12=-.25*(1.-cos_theta*cos_theta);
+    double X13=0.5*(1.-cos_theta);
+    double g = -1./s/(1.-cos_theta*cos_theta);
             
     return (g*(X11*a+X12*b+X13*c));
 }
@@ -560,25 +611,25 @@ complex PVfunctions::D11(const double p12, const double p22,
 complex PVfunctions::D12(const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4,const double theta) const{
+                         const double m4,const double cos_theta) const{
     
-    complex D00 = C0(-s/2.*(1.+cos(theta)),m2,m3,m4);
+    complex D00 = C0(+s/2.*(1.+cos_theta),m2,m3,m4);
     complex D01 = C0(s,m3,m4,m1);
-    complex D02 = C0(-s/2.*(1.+cos(theta)),m4,m1,m2);
+    complex D02 = C0(+s/2.*(1.+cos_theta),m4,m1,m2);
     complex D03 = C0(s,m1,m2,m3);
     double f1d = m1*m1-m2*m2-p12;
     double f2d = m2*m2-m3*m3+p12+s;
     double f3d = m3*m3-m4*m4-p42-s;
-    double t = -s/2*(1.-cos(theta));
+    double t = -s/2.*(1.-cos_theta);
     
-    complex a =D01-D00+f1d*D0(p12,p22,p32,p42,s,t,m1,m2,m3,m4);
-    complex b = D02-D01+f2d*D0(p12,p22,p32,p42,s,t,m1,m2,m3,m4);       
-    complex c = D03-D02+f3d*D0(p12,p22,p32,p42,s,t,m1,m2,m3,m4);
+    complex a =D01-D00+f1d*D0(p12,p22,p32,p42,s,-t,m1,m2,m3,m4);
+    complex b = D02-D01+f2d*D0(p12,p22,p32,p42,s,-t,m1,m2,m3,m4);       
+    complex c = D03-D02+f3d*D0(p12,p22,p32,p42,s,-t,m1,m2,m3,m4);
     
-    double X22=0.25*(1.+cos(theta))*(1.+cos(theta));
-    double X12=-0.25*(1.-cos(theta)*cos(theta));
-    double X23=-0.5*(1.+cos(theta));
-    double g = -1./s/(1.-cos(theta)*cos(theta));
+    double X22=0.25*(1.+cos_theta)*(1.+cos_theta);
+    double X12=-0.25*(1.-cos_theta*cos_theta);
+    double X23=-0.5*(1.+cos_theta);
+    double g = -1./s/(1.-cos_theta*cos_theta);
             
     return (g*(X12*a+X22*b+X23*c));
 }
@@ -587,24 +638,24 @@ complex PVfunctions::D12(const double p12, const double p22,
 complex PVfunctions::D13(const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4,const double theta) const{
+                         const double m4,const double cos_theta) const{
     
-    complex D00 = C0(-s/2.*(1.+cos(theta)),m2,m3,m4);
+    complex D00 = C0(+s/2.*(1.+cos_theta),m2,m3,m4);
     complex D01 = C0(s,m3,m4,m1);
-    complex D02 = C0(-s/2.*(1.+cos(theta)),m4,m1,m2);
+    complex D02 = C0(+s/2.*(1.+cos_theta),m4,m1,m2);
     complex D03 = C0(s,m1,m2,m3);
     double f1d = m1*m1-m2*m2-p12;
     double f2d = m2*m2-m3*m3+p12+s;
     double f3d = m3*m3-m4*m4-p42-s;
-    double t = -s/2*(1.-cos(theta));
+    double t = -s/2.*(1.-cos_theta);
     
-    complex a =D01-D00+f1d*D0(p12,p22,p32,p42,s,t,m1,m2,m3,m4);
-    complex b = D02-D01+f2d*D0(p12,p22,p32,p42,s,t,m1,m2,m3,m4);       
-    complex c = D03-D02+f3d*D0(p12,p22,p32,p42,s,t,m1,m2,m3,m4);
+    complex a =D01-D00+f1d*D0(p12,p22,p32,p42,s,-t,m1,m2,m3,m4);
+    complex b = D02-D01+f2d*D0(p12,p22,p32,p42,s,-t,m1,m2,m3,m4);       
+    complex c = D03-D02+f3d*D0(p12,p22,p32,p42,s,-t,m1,m2,m3,m4);
     
-    double X13=0.5*(1.-cos(theta));
-    double X23=-0.5*(1.+cos(theta));
-    double g = -1./s/(1.-cos(theta)*cos(theta));
+    double X13=0.5*(1.-cos_theta);
+    double X23=-0.5*(1.+cos_theta);
+    double g = -1./s/(1.-cos_theta*cos_theta);
             
     return (g*(X13*a+X23*b+c));
 }
@@ -612,63 +663,63 @@ complex PVfunctions::D13(const double p12, const double p22,
 complex PVfunctions::D27(const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4,const double theta) const{
+                         const double m4,const double cos_theta) const{
     
-    complex D00 = C0(-s/2.*(1.+cos(theta)),m2,m3,m4);
+    complex D00 = C0(+s/2.*(1.+cos_theta),m2,m3,m4);
     complex D01 = C0(s,m3,m4,m1);
-    complex D02 = C0(-s/2.*(1.+cos(theta)),m4,m1,m2);
+    complex D02 = C0(+s/2.*(1.+cos_theta),m4,m1,m2);
     complex D03 = C0(s,m1,m2,m3);
     double f1d = m1*m1-m2*m2-p12;
     double f2d = m2*m2-m3*m3+p12+s;
     double f3d = m3*m3-m4*m4-p42-s;
-    double t = -s/2*(1.-cos(theta));
+    double t = -s/2.*(1.-cos_theta);
     
-//    complex a =D01-D00+f1d*D0(p12,p22,p32,p42,s,t,m1,m2,m3,m4);
-//    complex b = D02-D01+f2d*D0(p12,p22,p32,p42,s,t,m1,m2,m3,m4);       
-//    complex c = D03-D02+f3d*D0(p12,p22,p32,p42,s,t,m1,m2,m3,m4);
+//    complex a =D01-D00+f1d*D0(p12,p22,p32,p42,s,-t,m1,m2,m3,m4);
+//    complex b = D02-D01+f2d*D0(p12,p22,p32,p42,s,-t,m1,m2,m3,m4);       
+//    complex c = D03-D02+f3d*D0(p12,p22,p32,p42,s,-t,m1,m2,m3,m4);
 //    
-//    double X13=0.5*(1.-cos(theta));
-//    double X23=-0.5*(1.+cos(theta));
-//    double g = -1./s/(1.-cos(theta)*cos(theta));
+//    double X13=0.5*(1.-cos_theta);
+//    double X23=-0.5*(1.+cos_theta);
+//    double g = -1./s/(1.-cos_theta*cos_theta);
             
-    return (-m1*m1*D0(p12,p22,p32,p42,s,t,m1,m2,m3,m4)
-            +0.5*(D00-f1d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,theta)
-            -f2d*D12(p12,p22,p32,p42,s,m1,m2,m3,m4,theta)
-            -f3d*D13(p12,p22,p32,p42,s,m1,m2,m3,m4,theta)));
+    return (-m1*m1*D0(p12,p22,p32,p42,s,-t,m1,m2,m3,m4)
+            +0.5*(D00-f1d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta)
+            -f2d*D12(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta)
+            -f3d*D13(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta)));
 }
 
 
 complex PVfunctions::D21(const double mu,const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4,const double theta) const{
+                         const double m4,const double cos_theta) const{
     
-    complex D00 = C0(-s/2.*(1.+cos(theta)),m2,m3,m4);
+    complex D00 = C0(+s/2.*(1.+cos_theta),m2,m3,m4);
     complex D01 = C0(s,m3,m4,m1);
-    complex D02 = C0(-s/2.*(1.+cos(theta)),m4,m1,m2);
+    complex D02 = C0(+s/2.*(1.+cos_theta),m4,m1,m2);
     complex D03 = C0(s,m1,m2,m3);
     double f1d = m1*m1-m2*m2-p12;
     double f2d = m2*m2-m3*m3+p12+s;
     double f3d = m3*m3-m4*m4-p42-s;
-    double t = -s/2*(1.-cos(theta));
-    complex D11_0= C11(mu,p22,p32,t,m2,m3,m4);
+    double t = -s/2.*(1.-cos_theta);
+    complex D11_0= C11(mu,p22,p32,-t,m2,m3,m4);
     complex D11_1=-C0(s,m3,m4,m1)-C12(mu,p32,p42,s,m3,m4,m1);
-    complex D11_2=-C0(t,m4,m1,m2)-C11(mu,p42,p12,t,m4,m1,m2)
-                  +C12(mu,p42,p12,t,m4,m1,m2);
+    complex D11_2=-C0(-t,m4,m1,m2)-C11(mu,p42,p12,-t,m4,m1,m2)
+                  +C12(mu,p42,p12,-t,m4,m1,m2);
     complex D11_3=C11(mu,p12,p22,s,m1,m2,m3);
-    complex D12_0=C12(mu,p22,p32,t,m2,m3,m4);
+    complex D12_0=C12(mu,p22,p32,-t,m2,m3,m4);
     complex D12_1=C11(mu,p32,p42,s,m3,m4,m1)-C12(mu,p32,p42,s,m3,m4,m1);
-    complex D12_2=-C0(t,m4,m1,m2)-C11(mu,p42,p12,s,m4,m1,m2);
+    complex D12_2=-C0(-t,m4,m1,m2)-C11(mu,p42,p12,s,m4,m1,m2);
     complex D12_3=C12(mu,p12,p22,s,m1,m2,m3);
     
-    double X11=0.25*(1.-cos(theta))*(1.-cos(theta));
-    double X12=-.25*(1.-cos(theta)*cos(theta));
-    double X13=0.5*(1.-cos(theta));
-    double g = -1./s/(1.-cos(theta)*cos(theta));
-    complex a = 0.5*(D11_1+D00+f1d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,theta)
-                -2.*D27(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
-    complex b = 0.5*(D11_2-D11_1+f2d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
-    complex c = 0.5*(D11_3-D11_2+f3d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
+    double X11=0.25*(1.-cos_theta)*(1.-cos_theta);
+    double X12=-.25*(1.-cos_theta*cos_theta);
+    double X13=0.5*(1.-cos_theta);
+    double g = -1./s/(1.-cos_theta*cos_theta);
+    complex a = 0.5*(D11_1+D00+f1d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta)
+                -2.*D27(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
+    complex b = 0.5*(D11_2-D11_1+f2d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
+    complex c = 0.5*(D11_3-D11_2+f3d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
             
     return (g*(X11*a+X12*b+X13*c));
 }
@@ -676,36 +727,36 @@ complex PVfunctions::D21(const double mu,const double p12, const double p22,
 complex PVfunctions::D24(const double mu,const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4,const double theta) const{
+                         const double m4,const double cos_theta) const{
     
-    complex D00 = C0(-s/2.*(1.+cos(theta)),m2,m3,m4);
+    complex D00 = C0(+s/2.*(1.+cos_theta),m2,m3,m4);
     complex D01 = C0(s,m3,m4,m1);
-    complex D02 = C0(-s/2.*(1.+cos(theta)),m4,m1,m2);
+    complex D02 = C0(+s/2.*(1.+cos_theta),m4,m1,m2);
     complex D03 = C0(s,m1,m2,m3);
     double f1d = m1*m1-m2*m2-p12;
     double f2d = m2*m2-m3*m3+p12+s;
     double f3d = m3*m3-m4*m4-p42-s;
-    double t = -s/2.*(1.-cos(theta));
-    complex D11_0= C11(mu,p22,p32,t,m2,m3,m4);
+    double t = -s/2.*(1.-cos_theta);
+    complex D11_0= C11(mu,p22,p32,-t,m2,m3,m4);
     complex D11_1=-C0(s,m3,m4,m1)-C12(mu,p32,p42,s,m3,m4,m1);
-    complex D11_2=-C0(t,m4,m1,m2)-C11(mu,p42,p12,t,m4,m1,m2)
-                  +C12(mu,p42,p12,t,m4,m1,m2);
+    complex D11_2=-C0(-t,m4,m1,m2)-C11(mu,p42,p12,-t,m4,m1,m2)
+                  +C12(mu,p42,p12,-t,m4,m1,m2);
     complex D11_3=C11(mu,p12,p22,s,m1,m2,m3);
-    complex D12_0=C12(mu,p22,p32,t,m2,m3,m4);
+    complex D12_0=C12(mu,p22,p32,-t,m2,m3,m4);
     complex D12_1=C11(mu,p32,p42,s,m3,m4,m1)-C12(mu,p32,p42,s,m3,m4,m1);
-    complex D12_2=-C0(t,m4,m1,m2)-C11(mu,p42,p12,s,m4,m1,m2);
+    complex D12_2=-C0(-t,m4,m1,m2)-C11(mu,p42,p12,s,m4,m1,m2);
     complex D12_3=C12(mu,p12,p22,s,m1,m2,m3);
     
-    double X22=0.25*(1.+cos(theta))*(1.+cos(theta));
-    double X12=-0.25*(1.-cos(theta)*cos(theta));
-    double X23=-0.5*(1.+cos(theta));
-    double g = -1./s/(1.-cos(theta)*cos(theta));
+    double X22=0.25*(1.+cos_theta)*(1.+cos_theta);
+    double X12=-0.25*(1.-cos_theta*cos_theta);
+    double X23=-0.5*(1.+cos_theta);
+    double g = -1./s/(1.-cos_theta*cos_theta);
             
     
-    complex a = 0.5*(D11_1+D00+f1d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,theta)
-                -2.*D27(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
-    complex b = 0.5*(D11_2-D11_1+f2d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
-    complex c = 0.5*(D11_3-D11_2+f3d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
+    complex a = 0.5*(D11_1+D00+f1d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta)
+                -2.*D27(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
+    complex b = 0.5*(D11_2-D11_1+f2d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
+    complex c = 0.5*(D11_3-D11_2+f3d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
             
     return (g*(X12*a+X22*b+X23*c));
 }
@@ -713,35 +764,35 @@ complex PVfunctions::D24(const double mu,const double p12, const double p22,
 complex PVfunctions::D25(const double mu,const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4,const double theta) const{
+                         const double m4,const double cos_theta) const{
     
-    complex D00 = C0(-s/2.*(1.+cos(theta)),m2,m3,m4);
+    complex D00 = C0(+s/2.*(1.+cos_theta),m2,m3,m4);
     complex D01 = C0(s,m3,m4,m1);
-    complex D02 = C0(-s/2.*(1.+cos(theta)),m4,m1,m2);
+    complex D02 = C0(+s/2.*(1.+cos_theta),m4,m1,m2);
     complex D03 = C0(s,m1,m2,m3);
     double f1d = m1*m1-m2*m2-p12;
     double f2d = m2*m2-m3*m3+p12+s;
     double f3d = m3*m3-m4*m4-p42-s;
-    double t = -s/2.*(1.-cos(theta));
-    complex D11_0= C11(mu,p22,p32,t,m2,m3,m4);
+    double t = -s/2.*(1.-cos_theta);
+    complex D11_0= C11(mu,p22,p32,-t,m2,m3,m4);
     complex D11_1=-C0(s,m3,m4,m1)-C12(mu,p32,p42,s,m3,m4,m1);
-    complex D11_2=-C0(t,m4,m1,m2)-C11(mu,p42,p12,t,m4,m1,m2)
-                  +C12(mu,p42,p12,t,m4,m1,m2);
+    complex D11_2=-C0(-t,m4,m1,m2)-C11(mu,p42,p12,-t,m4,m1,m2)
+                  +C12(mu,p42,p12,-t,m4,m1,m2);
     complex D11_3=C11(mu,p12,p22,s,m1,m2,m3);
-    complex D12_0=C12(mu,p22,p32,t,m2,m3,m4);
+    complex D12_0=C12(mu,p22,p32,-t,m2,m3,m4);
     complex D12_1=C11(mu,p32,p42,s,m3,m4,m1)-C12(mu,p32,p42,s,m3,m4,m1);
-    complex D12_2=-C0(t,m4,m1,m2)-C11(mu,p42,p12,s,m4,m1,m2);
+    complex D12_2=-C0(-t,m4,m1,m2)-C11(mu,p42,p12,s,m4,m1,m2);
     complex D12_3=C12(mu,p12,p22,s,m1,m2,m3);
     
     
-    complex a = 0.5*(D11_1+D00+f1d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,theta)
-                -2.*D27(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
-    complex b = 0.5*(D11_2-D11_1+f2d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
-    complex c = 0.5*(D11_3-D11_2+f3d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
+    complex a = 0.5*(D11_1+D00+f1d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta)
+                -2.*D27(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
+    complex b = 0.5*(D11_2-D11_1+f2d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
+    complex c = 0.5*(D11_3-D11_2+f3d*D11(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
     
-    double X13=0.5*(1.-cos(theta));
-    double X23=-0.5*(1.+cos(theta));
-    double g = -1./s/(1.-cos(theta)*cos(theta));
+    double X13=0.5*(1.-cos_theta);
+    double X23=-0.5*(1.+cos_theta);
+    double g = -1./s/(1.-cos_theta*cos_theta);
             
     return (g*(X13*a+X23*b+c));
 }
@@ -749,36 +800,36 @@ complex PVfunctions::D25(const double mu,const double p12, const double p22,
 complex PVfunctions::D22(const double mu,const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4,const double theta) const{
+                         const double m4,const double cos_theta) const{
     
-    complex D00 = C0(-s/2.*(1.+cos(theta)),m2,m3,m4);
+    complex D00 = C0(+s/2.*(1.+cos_theta),m2,m3,m4);
     complex D01 = C0(s,m3,m4,m1);
-    complex D02 = C0(-s/2.*(1.+cos(theta)),m4,m1,m2);
+    complex D02 = C0(+s/2.*(1.+cos_theta),m4,m1,m2);
     complex D03 = C0(s,m1,m2,m3);
     double f1d = m1*m1-m2*m2-p12;
     double f2d = m2*m2-m3*m3+p12+s;
     double f3d = m3*m3-m4*m4-p42-s;
-    double t = -s/2.*(1.-cos(theta));
-    complex D11_0= C11(mu,p22,p32,t,m2,m3,m4);
+    double t = -s/2.*(1.-cos_theta);
+    complex D11_0= C11(mu,p22,p32,-t,m2,m3,m4);
     complex D11_1=-C0(s,m3,m4,m1)-C12(mu,p32,p42,s,m3,m4,m1);
-    complex D11_2=-C0(t,m4,m1,m2)-C11(mu,p42,p12,t,m4,m1,m2)
-                  +C12(mu,p42,p12,t,m4,m1,m2);
+    complex D11_2=-C0(-t,m4,m1,m2)-C11(mu,p42,p12,-t,m4,m1,m2)
+                  +C12(mu,p42,p12,-t,m4,m1,m2);
     complex D11_3=C11(mu,p12,p22,s,m1,m2,m3);
-    complex D12_0=C12(mu,p22,p32,t,m2,m3,m4);
+    complex D12_0=C12(mu,p22,p32,-t,m2,m3,m4);
     complex D12_1=C11(mu,p32,p42,s,m3,m4,m1)-C12(mu,p32,p42,s,m3,m4,m1);
-    complex D12_2=-C0(t,m4,m1,m2)-C11(mu,p42,p12,s,m4,m1,m2);
+    complex D12_2=-C0(-t,m4,m1,m2)-C11(mu,p42,p12,s,m4,m1,m2);
     complex D12_3=C12(mu,p12,p22,s,m1,m2,m3);
     
     
-    complex d = 0.5*(D11_1-D11_0+f1d*D12(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
-    complex e = 0.5*(D12_2-D11_1+f2d*D12(p12,p22,p32,p42,s,m1,m2,m3,m4,theta)-
-            2.*D27(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
-    complex f = 0.5*(D12_3-D12_2+f3d*D12(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
+    complex d = 0.5*(D11_1-D11_0+f1d*D12(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
+    complex e = 0.5*(D12_2-D11_1+f2d*D12(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta)-
+            2.*D27(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
+    complex f = 0.5*(D12_3-D12_2+f3d*D12(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
     
-    double X22=0.25*(1.+cos(theta))*(1.+cos(theta));
-    double X12=-0.25*(1.-cos(theta)*cos(theta));
-    double X23=-0.5*(1.+cos(theta));
-    double g = -1./s/(1.-cos(theta)*cos(theta));
+    double X22=0.25*(1.+cos_theta)*(1.+cos_theta);
+    double X12=-0.25*(1.-cos_theta*cos_theta);
+    double X23=-0.5*(1.+cos_theta);
+    double g = -1./s/(1.-cos_theta*cos_theta);
             
     return (g*(X12*d+X22*e+X23*f));
 }
@@ -786,35 +837,35 @@ complex PVfunctions::D22(const double mu,const double p12, const double p22,
 complex PVfunctions::D26(const double mu,const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4,const double theta) const{
+                         const double m4,const double cos_theta) const{
     
-    complex D00 = C0(-s/2.*(1.+cos(theta)),m2,m3,m4);
+    complex D00 = C0(+s/2.*(1.+cos_theta),m2,m3,m4);
     complex D01 = C0(s,m3,m4,m1);
-    complex D02 = C0(-s/2.*(1.+cos(theta)),m4,m1,m2);
+    complex D02 = C0(+s/2.*(1.+cos_theta),m4,m1,m2);
     complex D03 = C0(s,m1,m2,m3);
     double f1d = m1*m1-m2*m2-p12;
     double f2d = m2*m2-m3*m3+p12+s;
     double f3d = m3*m3-m4*m4-p42-s;
-    double t = -s/2.*(1.-cos(theta));
-    complex D11_0= C11(mu,p22,p32,t,m2,m3,m4);
+    double t = -s/2.*(1.-cos_theta);
+    complex D11_0= C11(mu,p22,p32,-t,m2,m3,m4);
     complex D11_1=-C0(s,m3,m4,m1)-C12(mu,p32,p42,s,m3,m4,m1);
-    complex D11_2=-C0(t,m4,m1,m2)-C11(mu,p42,p12,t,m4,m1,m2)
-                  +C12(mu,p42,p12,t,m4,m1,m2);
+    complex D11_2=-C0(-t,m4,m1,m2)-C11(mu,p42,p12,-t,m4,m1,m2)
+                  +C12(mu,p42,p12,-t,m4,m1,m2);
     complex D11_3=C11(mu,p12,p22,s,m1,m2,m3);
-    complex D12_0=C12(mu,p22,p32,t,m2,m3,m4);
+    complex D12_0=C12(mu,p22,p32,-t,m2,m3,m4);
     complex D12_1=C11(mu,p32,p42,s,m3,m4,m1)-C12(mu,p32,p42,s,m3,m4,m1);
-    complex D12_2=-C0(t,m4,m1,m2)-C11(mu,p42,p12,s,m4,m1,m2);
+    complex D12_2=-C0(-t,m4,m1,m2)-C11(mu,p42,p12,s,m4,m1,m2);
     complex D12_3=C12(mu,p12,p22,s,m1,m2,m3);
     
     
-    complex d = 0.5*(D11_1-D11_0+f1d*D12(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
-    complex e = 0.5*(D12_2-D11_1+f2d*D12(p12,p22,p32,p42,s,m1,m2,m3,m4,theta)-
-            2.*D27(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
-    complex f = 0.5*(D12_3-D12_2+f3d*D12(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
+    complex d = 0.5*(D11_1-D11_0+f1d*D12(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
+    complex e = 0.5*(D12_2-D11_1+f2d*D12(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta)-
+            2.*D27(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
+    complex f = 0.5*(D12_3-D12_2+f3d*D12(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
     
-    double X13=0.5*(1.-cos(theta));
-    double X23=-0.5*(1.+cos(theta));
-    double g = -1./s/(1.-cos(theta)*cos(theta));
+    double X13=0.5*(1.-cos_theta);
+    double X23=-0.5*(1.+cos_theta);
+    double g = -1./s/(1.-cos_theta*cos_theta);
             
     return (g*(X13*d+X23*e+f));
 }
@@ -822,36 +873,36 @@ complex PVfunctions::D26(const double mu,const double p12, const double p22,
 complex PVfunctions::D23(const double mu,const double p12, const double p22,
                          const double p32,const double p42, const double s,
                          const double m1, const double m2, const double m3, 
-                         const double m4,const double theta) const{
+                         const double m4,const double cos_theta) const{
     
-    complex D00 = C0(-s/2.*(1.+cos(theta)),m2,m3,m4);
+    complex D00 = C0(+s/2.*(1.+cos_theta),m2,m3,m4);
     complex D01 = C0(s,m3,m4,m1);
-    complex D02 = C0(-s/2.*(1.+cos(theta)),m4,m1,m2);
+    complex D02 = C0(+s/2.*(1.+cos_theta),m4,m1,m2);
     complex D03 = C0(s,m1,m2,m3);
     double f1d = m1*m1-m2*m2-p12;
     double f2d = m2*m2-m3*m3+p12+s;
     double f3d = m3*m3-m4*m4-p42-s;
-    double t = -s/2.*(1.-cos(theta));
-    complex D11_0= C11(mu,p22,p32,t,m2,m3,m4);
+    double t = -s/2.*(1.-cos_theta);
+    complex D11_0= C11(mu,p22,p32,-t,m2,m3,m4);
     complex D11_1=-C0(s,m3,m4,m1)-C12(mu,p32,p42,s,m3,m4,m1);
-    complex D11_2=-C0(t,m4,m1,m2)-C11(mu,p42,p12,t,m4,m1,m2)
-                  +C12(mu,p42,p12,t,m4,m1,m2);
+    complex D11_2=-C0(-t,m4,m1,m2)-C11(mu,p42,p12,-t,m4,m1,m2)
+                  +C12(mu,p42,p12,-t,m4,m1,m2);
     complex D11_3=C11(mu,p12,p22,s,m1,m2,m3);
-    complex D12_0=C12(mu,p22,p32,t,m2,m3,m4);
+    complex D12_0=C12(mu,p22,p32,-t,m2,m3,m4);
     complex D12_1=C11(mu,p32,p42,s,m3,m4,m1)-C12(mu,p32,p42,s,m3,m4,m1);
-    complex D12_2=-C0(t,m4,m1,m2)-C11(mu,p42,p12,s,m4,m1,m2);
+    complex D12_2=-C0(-t,m4,m1,m2)-C11(mu,p42,p12,s,m4,m1,m2);
     complex D12_3=C12(mu,p12,p22,s,m1,m2,m3);
     
     
-    complex h = 0.5*(D12_1-D12_0+f1d*D13(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
-    complex i = 0.5*(D12_2-D12_1+f2d*D13(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
-    complex l = 0.5*(-D12_2+f3d*D13(p12,p22,p32,p42,s,m1,m2,m3,m4,theta)-
-                2.*D27(p12,p22,p32,p42,s,m1,m2,m3,m4,theta));
+    complex h = 0.5*(D12_1-D12_0+f1d*D13(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
+    complex i = 0.5*(D12_2-D12_1+f2d*D13(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
+    complex l = 0.5*(-D12_2+f3d*D13(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta)-
+                2.*D27(p12,p22,p32,p42,s,m1,m2,m3,m4,cos_theta));
     
-    double X13=0.5*(1.-cos(theta));
-    double X23=-0.5*(1.+cos(theta));
-    double g = -1./s/(1.-cos(theta)*cos(theta));
-            
+    double X13=0.5*(1.-cos_theta);
+    double X23=-0.5*(1.+cos_theta);
+    double g = -1./s/(1.-cos_theta*cos_theta);
+        
     return (g*(X13*h+X23*i+l));
 } 
 
