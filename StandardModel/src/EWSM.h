@@ -17,6 +17,8 @@
 #include "EWSMThreeLoopEW2QCD.h"
 #include "EWSMThreeLoopEW.h"
 #include "EWSMApproximateFormulae.h"
+#include "EWSMOneLoopLEP2.h"
+
 using namespace gslpp;
 
 
@@ -225,6 +227,15 @@ public:
      * @return the top-quark corrections to the Z-b-bbar vertex
      */
     double taub() const;    
+    
+    
+    double dsigmaLEP2_l(const StandardModel::lepton l,const double s,const double Mw_i,
+                       const double cos_theta,const double W,const double X,const double Y,
+                       const double GammaZ) const;
+    
+    double dsigmaLEP2_q(const StandardModel::quark q,const double s,const double Mw_i,
+                       const double cos_theta,const double W,const double X,const double Y,
+                       const double GammaZ) const;
 
     
     ////////////////////////////////////////////////////////////////////////     
@@ -247,6 +258,8 @@ private:
     EWSMThreeLoopEW2QCD* myThreeLoopEW2QCD;
     EWSMThreeLoopEW* myThreeLoopEW; 
     EWSMApproximateFormulae* myApproximateFormulae;
+    
+    EWSMOneLoopLEP2* myLEP2;
         
     // accuracy in the iterative calculation of Mw
     static const double Mw_error;

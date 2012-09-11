@@ -9,6 +9,7 @@
       <itemPath>src/EWSM.h</itemPath>
       <itemPath>src/EWSMApproximateFormulae.h</itemPath>
       <itemPath>src/EWSMOneLoopEW.h</itemPath>
+      <itemPath>src/EWSMOneLoopLEP2.h</itemPath>
       <itemPath>src/EWSMThreeLoopEW.h</itemPath>
       <itemPath>src/EWSMThreeLoopEW2QCD.h</itemPath>
       <itemPath>src/EWSMThreeLoopQCD.h</itemPath>
@@ -39,6 +40,7 @@
       <itemPath>src/EWSM.cpp</itemPath>
       <itemPath>src/EWSMApproximateFormulae.cpp</itemPath>
       <itemPath>src/EWSMOneLoopEW.cpp</itemPath>
+      <itemPath>src/EWSMOneLoopLEP2.cpp</itemPath>
       <itemPath>src/EWSMThreeLoopEW.cpp</itemPath>
       <itemPath>src/EWSMThreeLoopEW2QCD.cpp</itemPath>
       <itemPath>src/EWSMThreeLoopQCD.cpp</itemPath>
@@ -139,6 +141,8 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../Utils/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>/usr/include/root</pElem>
           </incDir>
           <commandLine>`gsl-config --cflags` `root-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
