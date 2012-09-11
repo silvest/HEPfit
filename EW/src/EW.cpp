@@ -49,21 +49,6 @@ double EW::c2() const {
 }
 
 
-double EW::S() const {
-    return ( SM.obliqueS() );
-}
-
-
-double EW::T() const {
-    return ( SM.obliqueT() );
-}
-
-
-double EW::U() const {
-    return ( SM.obliqueU() );
-}
-
-
 ////////////////////////////////////////////////////////////////////////
 
 double EW::sin2thetaEff(const StandardModel::lepton l) const {

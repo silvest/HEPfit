@@ -7,7 +7,8 @@
 
 
 const std::string NewPhysicsSTU::STUvars[NSTUvars] 
-                  = {"obliqueS", "obliqueT", "obliqueU"};
+                  = {"obliqueS", "obliqueT", "obliqueU", 
+                     "obliqueV", "obliqueW", "obliqueX", "obliqueY"};
 
 
 NewPhysicsSTU::NewPhysicsSTU() : StandardModel() {
@@ -43,11 +44,19 @@ bool NewPhysicsSTU::CheckParameters(const std::map<std::string, double>& DPars) 
     
 void NewPhysicsSTU::SetParameter(const std::string name, const double& value) {
     if (name.compare("obliqueS") == 0)
-        obliqueS = value;
+        myObliqueS = value;
     else if (name.compare("obliqueT") == 0)
-        obliqueT = value;
+        myObliqueT = value;
     else if (name.compare("obliqueU") == 0)
-        obliqueU = value;    
+        myObliqueU = value;    
+    else if (name.compare("obliqueV") == 0)
+        myObliqueU = value;    
+    else if (name.compare("obliqueW") == 0)
+        myObliqueU = value;    
+    else if (name.compare("obliqueX") == 0)
+        myObliqueU = value;    
+    else if (name.compare("obliqueY") == 0)
+        myObliqueU = value;    
     else
         StandardModel::SetParameter(name, value);       
 }
