@@ -589,7 +589,7 @@ double QCD::Mrun(double mu_f, double mu_i, double m, orders order) const {
     }
 
     double nfi = Nf(mu_i), nff = Nf(mu_f);
-    double mu_threshold, mu_threshold2, mrun;
+    double mu_threshold, mu_threshold2, mu_threshold3, mrun;
     if (nff == nfi) {
         mrun = Mrun(mu_f, mu_i, m, nff, order);
     } else if (nff > nfi) {
@@ -607,6 +607,16 @@ double QCD::Mrun(double mu_f, double mu_i, double m, orders order) const {
             if (order==FULLNNLO)
                 mrun *= threCorrForMass(nff, nfi+1.);// threshold corrections
             mrun = Mrun(mu_f, mu_threshold2, mrun, nff, order);        
+        } else if (nff == nfi+3.) {
+            mu_threshold2 = AboveTh(mu_threshold);
+            mrun = Mrun(mu_threshold2, mu_threshold, mrun, nfi+1., order);
+            if (order==FULLNNLO)
+                mrun *= threCorrForMass(nfi+2., nfi+1.);// threshold corrections
+            mu_threshold3 = BelowTh(mu_f);
+            mrun = Mrun(mu_threshold3, mu_threshold2, mrun, nfi+2., order);
+            if (order==FULLNNLO)
+                mrun *= threCorrForMass(nff, nfi+2.);// threshold corrections
+            mrun = Mrun(mu_f, mu_threshold3, mrun, nff, order);        
         } else
             throw "Error in QCD::Mrun(mu_f,mu_i,m,order)";
     } else {
