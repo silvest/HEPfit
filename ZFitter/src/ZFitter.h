@@ -9,9 +9,6 @@
  *    hep-ph/9908433 for v6.21
  *    hep-ph/0507146 for v6.42
  *
- *  Oblique parameters:
- *    NPB369, 3 (1992)
- *
  *  Constants defined in the ZFITTER Fortran codes:
  *   - G_F^mu and alpha(0) are set in CONST1() in zfbib6_40.f and EWINIT()
  *     in zfbib6_40.f (and other places?). 

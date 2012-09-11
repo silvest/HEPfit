@@ -484,17 +484,18 @@ public:
     
 protected:
     virtual void SetParameter(const std::string, const double&);
+    
     matrix<complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
     double GF, ale, dAle5Mz, mHl, lambda, A, rhob, etab, Dmk;
     double muw, KbarEpsK, phiEpsK, DeltaMK, SM_M12D;
     CKM myCKM;
     Particle leptons[6];
     EWSM* myEWSM;
-
+    
 private:
     bool computeCKM, computeYe, computeYn;
     StandardModelMatching* myStandardModelMatching;
-
+    
 };
 
 #endif	/* STANDARDMODEL_H */

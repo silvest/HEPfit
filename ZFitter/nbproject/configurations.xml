@@ -17,6 +17,7 @@
       <itemPath>src/ZFEWObservables.h</itemPath>
       <itemPath>src/ZFGammaW.h</itemPath>
       <itemPath>src/ZFGammaZ.h</itemPath>
+      <itemPath>src/ZFMh0.h</itemPath>
       <itemPath>src/ZFMw.h</itemPath>
       <itemPath>src/ZFPtauPol.h</itemPath>
       <itemPath>src/ZFRbottom.h</itemPath>
@@ -51,6 +52,7 @@
       <itemPath>src/ZFAlepton.cpp</itemPath>
       <itemPath>src/ZFGammaW.cpp</itemPath>
       <itemPath>src/ZFGammaZ.cpp</itemPath>
+      <itemPath>src/ZFMh0.cpp</itemPath>
       <itemPath>src/ZFMw.cpp</itemPath>
       <itemPath>src/ZFPtauPol.cpp</itemPath>
       <itemPath>src/ZFRbottom.cpp</itemPath>
@@ -95,12 +97,6 @@
         <compilerSet>default</compilerSet>
       </toolsSet>
       <compileType>
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
         <ccTool>
           <incDir>
             <pElem>../gslpp/src</pElem>
@@ -329,7 +325,9 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <incDir>
-            <pElem>.</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../StandardModel/src</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>

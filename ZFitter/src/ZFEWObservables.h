@@ -8,6 +8,8 @@
 
 #include "ZFitter.h"
 
+#include "ZFMh0.h"
+
 #include "ZFMw.h"
 #include "ZFsin2thetaEff.h"
 #include "ZFGammaW.h"

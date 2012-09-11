@@ -40,7 +40,6 @@ Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
     leptons[MU].setIsospin(-1./2.);   
     leptons[TAU].setIsospin(-1./2.);
     myEWSM = new EWSM(*this, bDebug_i);
-  
 }
 
 bool StandardModel::InitializeMatching(){
