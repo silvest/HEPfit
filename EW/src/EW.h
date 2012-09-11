@@ -74,6 +74,21 @@ public:
      */    
     double U() const;
     
+    /**
+     * @return the oblique parameters W
+     */
+    double W() const;
+    
+    /**
+     * @return the oblique parameters X
+     */    
+    double X() const;
+    
+    /**
+     * @return the oblique parameters Y
+     */    
+    double Y() const;
+    
     
     ////////////////////////////////////////////////////////////////////////     
     
@@ -140,6 +155,12 @@ public:
     double A_q(const StandardModel::quark q) const;
 
     
+    double dsigma_lLEP2(const StandardModel::lepton l,const double s,const double W,
+                               const double X,const double Y, const double cos_theta) const;
+    
+    double dsigma_qLEP2(const QCD::quark q,const double s,const double W,
+                               const double X,const double Y, const double cos_theta) const;
+   
     ////////////////////////////////////////////////////////////////////////     
 
     /**

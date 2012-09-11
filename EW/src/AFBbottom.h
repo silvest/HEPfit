@@ -30,4 +30,3 @@ private:
 };
 
 #endif	/* AFBBOTTOM_H */
-
