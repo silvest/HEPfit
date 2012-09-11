@@ -25,5 +25,3 @@ double AFBbottom::getThValue() {
 
     return AFB_b;
 }
-        
-
