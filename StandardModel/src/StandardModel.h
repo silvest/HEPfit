@@ -68,6 +68,11 @@ public:
      * "SM_M12D" 
      */
     virtual bool Update(const std::map<std::string, double>&);
+    
+    
+    virtual bool PreUpdate();
+     
+    virtual bool PostUpdate();
 
     virtual bool Init(const std::map<std::string, double>&);
         
