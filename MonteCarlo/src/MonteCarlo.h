@@ -26,5 +26,4 @@ private:
     std::string ModelConf, MCMCConf, OutFile;
     bool PrintAllMarginalized;
 };
-
 #endif	/* MONTECARLO_H */
