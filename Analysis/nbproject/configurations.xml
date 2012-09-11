@@ -83,7 +83,13 @@
             <pElem>../MFV/dist/Debug/GNU-MacOSX</pElem>
             <pElem>../SUSY/dist/Debug/GNU-MacOSX</pElem>
             <pElem>../ZFitter/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../BAT/lib</pElem>
+            <pElem>../FeynHiggs/lib64</pElem>
+            <pElem>../ZFitter6_43/lib</pElem>
           </linkerAddLib>
+          <linkerDynSerch>
+            <pElem>../BAT/lib</pElem>
+          </linkerDynSerch>
           <linkerLibItems>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibProjectItem>
@@ -243,9 +249,6 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
-            <linkerLibLibItem>BAT</linkerLibLibItem>
-            <linkerLibLibItem>BATmodels</linkerLibLibItem>
-            <linkerLibLibItem>FH</linkerLibLibItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../ZFitter"
                             CT="3"
@@ -258,6 +261,9 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibLibItem>FH</linkerLibLibItem>
+            <linkerLibLibItem>BAT</linkerLibLibItem>
+            <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>zfitter6_43</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit</commandLine>
