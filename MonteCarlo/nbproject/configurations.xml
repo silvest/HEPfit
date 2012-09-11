@@ -58,7 +58,6 @@
           </incDir>
         </cTool>
         <ccTool>
-          <commandlineTool>llvm-g++-4.2</commandlineTool>
           <incDir>
             <pElem>../BAT/include</pElem>
             <pElem>../Observables/src</pElem>
