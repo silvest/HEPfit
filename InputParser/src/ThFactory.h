@@ -28,4 +28,3 @@ private:
 };
 
 #endif	/* THFACTORY_H */
-
