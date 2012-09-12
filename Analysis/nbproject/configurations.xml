@@ -63,24 +63,13 @@
             <pElem>../THDM/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
-            <pElem>../Flavour/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../EW/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../gslpp/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../Observables/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../SUSYMassInsertion/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../InputParser/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../StandardModel/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../Utils/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../MonteCarlo/dist/Debug/GNU-Linux-x86</pElem>
             <pElem>../BAT/lib</pElem>
-            <pElem>../LoopFunctions/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../MFV/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../SUSY/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../FeynHiggs/lib64</pElem>
+            <pElem>../FeynHiggs/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>../BAT/lib</pElem>
@@ -330,7 +319,6 @@
             <pElem>../Flavour/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../InputParser/src</pElem>
-            <pElem>../BAT/include</pElem>
             <pElem>../EW/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
@@ -338,8 +326,9 @@
             <pElem>../SUSY/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../THDM/src</pElem>
+            <pElem>../BAT/include</pElem>
           </incDir>
-          <commandLine>`root-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` -I/storage/local/home/theorm3/girardi/.netbeans/remote/ui-02.roma3.infn.it/dhtripdot1x223.roma1.infn.it-MacOSX-x86_64/Users/girardi_mac/Tesi/SusyFit/BAT/include</commandLine>
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
@@ -363,7 +352,6 @@
             <pElem>../BAT/lib</pElem>
           </linkerDynSerch>
           <linkerLibItems>
-            <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"
                             CT="3"
@@ -521,11 +509,11 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
+            <linkerLibLibItem>FH</linkerLibLibItem>
             <linkerLibLibItem>BAT</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
-            <linkerLibLibItem>FH</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit  -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml  </commandLine>
+          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit  -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml -L/storage/local/home/theorm3/girardi/gsl/lib -lgsl -lgslcblas -lm -L/storage/local/home/theorm3/girardi/.netbeans/remote/ui-02.roma3.infn.it/dhtripdot1x223.roma1.infn.it-MacOSX-x86_64/Users/girardi_mac/Tesi/SusyFit/BAT/lib -lboost_program_options</commandLine>
         </linkerTool>
       </compileType>
       <folder path="TestFiles/f1">
