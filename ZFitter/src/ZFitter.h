@@ -89,7 +89,7 @@ public:
      */
     ZFitter(const StandardModel& mySM);
 
-    
+
     ////////////////////////////////////////////////////////////////////////
     // Flags
     
@@ -400,18 +400,7 @@ public:
      * @param[in] IMISC 0 for non-scaled @f$\rho_Z^f@f$'s and 1 for scaled @f$\rho_Z^f@f$'s
      */
     void test(const int IMISC) const;
-  
-    /**
-     * @brief conversion factor from GeV^{-2} to nb
-     * @return the conversion factor from GeV^{-2} to nb
-     */
-    double GeVminus2_to_nb() const {
-        return ( pow(10.0, -6.0)
-                 / pow(10.0, -28.0)
-                 / pow(299792458.0, -2.0)
-                 / pow(6.58211899 * pow(10.0, -22.0), -2.0)
-                 * pow(10.0, 9.0) );        
-    }
+
     
     ////////////////////////////////////////////////////////////////////////       
     

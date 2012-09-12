@@ -220,7 +220,7 @@ int main(int argc, char** argv) {
     cout << "myNewModel->getAle()=" << "\t" << myNewModel->getAle() << endl;
     
     cout << "myNewModel->Mw()=" << "\t" << myNewModel->Mw() << endl;
-    cout << "myNewModel->GetMHl()= " << "\t" << myNewModel->GetMHl() << endl;
+    cout << "myNewModel->getMHl()= " << "\t" << myNewModel->getMHl() << endl;
     cout << "Mmu =\t" << myNewModel->getLeptons(myNewModel->MU).getMass()<< endl;
     
     cout << "t = " << t << endl;
@@ -327,9 +327,9 @@ int main(int argc, char** argv) {
             
 //    cout << "desigmaSM = " << myNewModel->getEWSM()->dsigmaLEP2_l(myNewModel->MU,s,Mw,0.5,0.,0.,0.,myEW->Gamma_Z()) << "\n\n\n"<< endl;
     
-    cout << "\n\ndesigmaSM = " << myNewModel->DsigmaLEP2_l(myNewModel->MU,s,cos_theta,0.,0.,0.,myEW->Gamma_Z())*myEW->GeVminus2_to_nb()*1000. << "\n\n\n"<< endl;
+    cout << "\n\ndesigmaSM = " << myNewModel->DsigmaLEP2_l(myNewModel->MU,s,cos_theta,0.,0.,0.,myEW->Gamma_Z())*myZFmu->GeVminus2_to_nb*1000. << "\n\n\n"<< endl;
 //    
-    cout << "desigmaEW = " << myEW->dsigma_lLEP2(myNewModel->MU,s,0.,0.,0.,cos_theta)*myEW->GeVminus2_to_nb()*1000. << "\n\n\n"<< endl;
+    cout << "desigmaEW = " << myEW->dsigma_lLEP2(myNewModel->MU,s,0.,0.,0.,cos_theta)*myZFmu->GeVminus2_to_nb*1000. << "\n\n\n"<< endl;
     
     cout << "desigmaZF = " << myZFmu->getThValue() << "\n\n\n"<< endl;
     
