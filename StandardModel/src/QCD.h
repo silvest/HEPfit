@@ -18,7 +18,7 @@ public:
     enum meson {B_D, B_S, B_P, K_0, K_P, D_0, MESON_END}; 
     enum quark {UP,DOWN,CHARM,STRANGE,TOP,BOTTOM};
 
-    static const int NQCDvars = 42;//26;
+    static const int NQCDvars = 43;//26;
 
     /**
      * array containing the labels under which all QCD parameters must be
