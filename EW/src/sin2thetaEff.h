@@ -17,7 +17,7 @@ public:
      * @brief sin2thetaEff constructor
      * @param[in] EW_i an object of EW class
      */
-    sin2thetaEff(const EW& EW_i);
+    sin2thetaEff(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
      * @return the effective weak mixing angle for a leptonic channel
@@ -26,8 +26,7 @@ public:
 
     
 private:
-    double sin2_theta_eff;
-    
+    const EW& myEW;
 };
 
 #endif	/* SIN2THETAEFF_H */

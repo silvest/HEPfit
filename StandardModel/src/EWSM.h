@@ -17,6 +17,8 @@
 #include "EWSMThreeLoopEW2QCD.h"
 #include "EWSMThreeLoopEW.h"
 #include "EWSMApproximateFormulae.h"
+#include "EWSMOneLoopLEP2.h"
+
 using namespace gslpp;
 
 
@@ -225,6 +227,18 @@ public:
      * @return the top-quark corrections to the Z-b-bbar vertex
      */
     double taub() const;    
+    
+
+    ////////////////////////////////////////////////////////////////////////     
+    // LEP-II observables
+
+    double dsigmaLEP2_l(const StandardModel::lepton l,const double s,const double Mw_i,
+                        const double cos_theta,const double W,const double X,const double Y,
+                        const double GammaZ) const;
+    
+    double dsigmaLEP2_q(const StandardModel::quark q,const double s,const double Mw_i,
+                        const double cos_theta,const double W,const double X,const double Y,
+                        const double GammaZ) const;
 
     
     ////////////////////////////////////////////////////////////////////////     
@@ -247,13 +261,83 @@ private:
     EWSMThreeLoopEW2QCD* myThreeLoopEW2QCD;
     EWSMThreeLoopEW* myThreeLoopEW; 
     EWSMApproximateFormulae* myApproximateFormulae;
+    
+    EWSMOneLoopLEP2* myLEP2;
         
     // accuracy in the iterative calculation of Mw
     static const double Mw_error;
     
-    //cache for Mw
-    static const int NumParMwMax = 22; // Num. of parameters for Mw
-    mutable double Mw_cache[NumParMwMax+1][EWSMcache::CacheSize];
+    
+    ////////////////////////////////////////////////////////////////////////     
+    //caches
+    
+    bool bUseCacheEWSM; // true for caching
+    
+    // The number of the parameters relevant to EW observables
+    static const int NumSMParams = 21;
+        
+    mutable double DeltaAlphaLepton_params_cache[NumSMParams];
+    mutable double DeltaAlphaLepton_cache;
+    
+    mutable double DeltaAlpha_params_cache[NumSMParams];
+    mutable double DeltaAlpha_cache;
+    
+    mutable double Mw_params_cache[NumSMParams];
+    mutable double Mw_cache;
+
+    mutable double rhoZ_l_params_cache[6][NumSMParams];
+    mutable complex rhoZ_l_cache[6];
+
+    mutable double rhoZ_q_params_cache[6][NumSMParams];
+    mutable complex rhoZ_q_cache[6];
+
+    mutable double kappaZ_l_params_cache[6][NumSMParams];
+    mutable complex kappaZ_l_cache[6];
+
+    mutable double kappaZ_q_params_cache[6][NumSMParams];
+    mutable complex kappaZ_q_cache[6];
+    
+    mutable double GammaW_params_cache[NumSMParams];
+    mutable double GammaW_cache;
+    
+    mutable double R0b_params_cache[NumSMParams];
+    mutable double R0b_cache;
+    
+    bool checkSMparams(double Params_cache[]) const {
+        // 11 parameters in QCD:
+        // "AlsMz","Mz","mup","mdown","mcharm","mstrange", "mtop","mbottom",
+        // "mut","mub","muc"
+        // 10 parameters in StandardModel
+        // "GF", "ale", "dAle5Mz", "mHl", 
+        // "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau"
+        double SMparams[NumSMParams] = { 
+            SM.getAlsMz(), SM.getMz(), SM.getGF(), SM.getAle(), SM.getDAle5Mz(),
+            SM.getMHl(), SM.getMtpole(), 
+            SM.getLeptons(SM.NEUTRINO_1).getMass(), 
+            SM.getLeptons(SM.NEUTRINO_2).getMass(),
+            SM.getLeptons(SM.NEUTRINO_3).getMass(),
+            SM.getLeptons(SM.ELECTRON).getMass(),
+            SM.getLeptons(SM.MU).getMass(),
+            SM.getLeptons(SM.TAU).getMass(),
+            SM.getQuarks(SM.UP).getMass(),
+            SM.getQuarks(SM.DOWN).getMass(),
+            SM.getQuarks(SM.CHARM).getMass(),
+            SM.getQuarks(SM.STRANGE).getMass(),
+            SM.getQuarks(SM.BOTTOM).getMass(),
+            SM.getMut(), SM.getMub(), SM.getMuc()
+        };
+        
+        // check updated parameters
+        bool bCache = true;
+        for(int i=0; i<NumSMParams; ++i) {
+             if (Params_cache[i] != SMparams[i]) { 
+                 Params_cache[i] = SMparams[i];                 
+                 bCache &= false;
+             }
+        }
+        
+        return bCache;
+    }
     
     
     ////////////////////////////////////////////////////////////////////////     

@@ -16,7 +16,7 @@ EWSMQCD2testclass::~EWSMQCD2testclass() {
 }
 
 void EWSMQCD2testclass::setUp() {
-    mySM = new StandardModel();
+    mySM = new StandardModel(true);
     setSMparameters(*mySM);   
     myCache = new EWSMcache(*mySM, true);
     myQCD2 = new EWSMTwoLoopQCD(*myCache);

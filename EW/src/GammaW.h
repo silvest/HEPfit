@@ -17,7 +17,7 @@ public:
      * @brief GammaW constructor
      * @param[in] EW_i an object of EW class
      */
-    GammaW(const EW& EW_i);
+    GammaW(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
      * @return the total width of the W boson 
@@ -26,8 +26,7 @@ public:
 
     
 private:
-    double Gamma_W;
-    
+    const EW& myEW;
 };
 
 #endif	/* GAMMAW_H */

@@ -5,7 +5,9 @@
 
 #include <cmath>
 #include "EWSM.h"
-#include "StandardModel.h"
+#include <iostream>
+#include <cuba.h>
+//#include "StandardModel.h"
 
 
 const double EWSM::Mw_error = 0.00001; /* 0.01 MeV */ 
@@ -18,7 +20,10 @@ EWSM::EWSM(const StandardModel& SM_i, bool bDebug_i) : SM(SM_i) {
     flag_order[EW2] = true;
     flag_order[EW2QCD1] = true;
     flag_order[EW3] = true;
-            
+
+    bUseCacheEWSM = true;// use caches in the current class
+    //bUseCacheEWSM = false;// do not use caches in the current class (for test)
+    
     std::string Model = SM.ModelName();
     if (Model=="StandardModel" || Model=="THDM") {
         //schemeMw = NORESUM;// for test
@@ -26,8 +31,8 @@ EWSM::EWSM(const StandardModel& SM_i, bool bDebug_i) : SM(SM_i) {
         //schemeMw = OMSII;// for test
         schemeMw = APPROXIMATEFORMULA;    
         
-        schemeRhoZ = NORESUM;
-        //schemeRhoZ = OMSI;// for test
+        //schemeRhoZ = NORESUM;// This is preferred, but reducible two-loop EW corrections have not been implemented yet. 
+        schemeRhoZ = OMSI;
 
         //schemeKappaZ = NORESUM;// for test
         //schemeKappaZ = OMSI;// for test
@@ -52,13 +57,45 @@ EWSM::EWSM(const StandardModel& SM_i, bool bDebug_i) : SM(SM_i) {
     myTwoLoopEW = new EWSMTwoLoopEW(*myCache);
     myThreeLoopEW2QCD = new EWSMThreeLoopEW2QCD(*myCache);
     myThreeLoopEW = new EWSMThreeLoopEW(*myCache);
-    myApproximateFormulae = new EWSMApproximateFormulae(SM, bDebug_i);    
+    myApproximateFormulae = new EWSMApproximateFormulae(SM, bDebug_i);   
+    myLEP2 = new EWSMOneLoopLEP2(*myCache,SM);
+
+    // Initializations of the caches
+    DeltaAlphaLepton_cache = 0.0;
+    DeltaAlpha_cache = 0.0;
+    Mw_cache = 0.0;
+    GammaW_cache = 0.0;
+    R0b_cache = 0.0;
+    int i, j;
+    for (j=0; j<NumSMParams; ++j) {
+        DeltaAlphaLepton_params_cache[j] = 0.0;
+        DeltaAlpha_params_cache[j] = 0.0;
+        Mw_params_cache[j] = 0.0;
+        GammaW_params_cache[j] = 0.0;
+        R0b_params_cache[j] = 0.0;
+    }
+    for (i=0; i<6; ++i) {
+        rhoZ_l_cache[i] = complex(0.0, 0.0, false);
+        rhoZ_q_cache[i] = complex(0.0, 0.0, false);
+        kappaZ_l_cache[i] = complex(0.0, 0.0, false);
+        kappaZ_q_cache[i] = complex(0.0, 0.0, false);
+        for (j=0; j<NumSMParams; ++j) {
+            rhoZ_l_params_cache[i][j] = 0.0;
+            rhoZ_q_params_cache[i][j] = 0.0;
+            kappaZ_l_params_cache[i][j] = 0.0;
+            kappaZ_q_params_cache[i][j] = 0.0;
+        }
+    }
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 
 double EWSM::DeltaAlphaLepton() const {
+    if (bUseCacheEWSM)
+        if (checkSMparams(DeltaAlphaLepton_params_cache))
+            return DeltaAlphaLepton_cache;
+
     double DeltaAlphaL = 0.0;
     if (flag_order[EW1]) 
         DeltaAlphaL += myOneLoopEW->DeltaAlpha_l();
@@ -72,6 +109,8 @@ double EWSM::DeltaAlphaLepton() const {
         DeltaAlphaL += myThreeLoopEW2QCD->DeltaAlpha_l();
     if (flag_order[EW3]) 
         DeltaAlphaL += myThreeLoopEW->DeltaAlpha_l();
+
+    DeltaAlphaLepton_cache = DeltaAlphaL;
     return DeltaAlphaL;
 }
 
@@ -82,6 +121,10 @@ double EWSM::DeltaAlphaL5q() const {
 
 
 double EWSM::DeltaAlpha() const {
+    if (bUseCacheEWSM)
+        if (checkSMparams(DeltaAlpha_params_cache))
+            return DeltaAlpha_cache;
+
     // leptonic + hadronic contributions
     double DeltaAlpha = DeltaAlphaL5q(); 
 
@@ -98,6 +141,8 @@ double EWSM::DeltaAlpha() const {
         DeltaAlpha += myThreeLoopEW2QCD->DeltaAlpha_t();
     if (flag_order[EW3]) 
         DeltaAlpha += myThreeLoopEW->DeltaAlpha_t();
+
+    DeltaAlpha_cache = DeltaAlpha;
     return DeltaAlpha; 
 }
 
@@ -110,82 +155,46 @@ double EWSM::alphaMz() const {
 ////////////////////////////////////////////////////////////////////////
 
 double EWSM::Mw_SM() const {
+    if (bUseCacheEWSM)       
+        if (checkSMparams(Mw_params_cache))
+            return Mw_cache;
+
     double Mw;
-    if (schemeMw==APPROXIMATEFORMULA) {    
-        int NumParMw = 12;
-        double params[] = { 
-            // Note: Delta alpha depends on the lepton masses. 
-            SM.getAlsMz(), SM.getMz(), SM.getAle(), SM.getDAle5Mz(),
-            SM.getMHl(), SM.getMtpole(), 
-            SM.getLeptons(SM.NEUTRINO_1).getMass(), 
-            SM.getLeptons(SM.NEUTRINO_2).getMass(),
-            SM.getLeptons(SM.NEUTRINO_3).getMass(),
-            SM.getLeptons(SM.ELECTRON).getMass(),
-            SM.getLeptons(SM.MU).getMass(),
-            SM.getLeptons(SM.TAU).getMass()
-        };
-        int i = myCache->CacheCheck(Mw_cache, NumParMw, params);
-        if (i>=0) {
-            return ( Mw_cache[NumParMw][i] );
-        } else {
-            Mw = myApproximateFormulae->Mw(DeltaAlphaL5q());
-            myCache->CacheShift(Mw_cache, NumParMw, params, Mw);
-            return Mw;
+    if (schemeMw==APPROXIMATEFORMULA)
+        Mw = myApproximateFormulae->Mw(DeltaAlphaL5q());
+    else {
+        //std::cout << std::setprecision(12) 
+        //          << "TEST: Mw_tree = " << SM.Mw_tree() << std::endl;
+        
+        double DeltaRho[orders_EW_size], DeltaR_rem[orders_EW_size];
+        ComputeDeltaRho(SM.Mw_tree(), DeltaRho);
+        ComputeDeltaR_rem(SM.Mw_tree(), DeltaR_rem);
+        Mw = resumMw(SM.Mw_tree(), DeltaRho, DeltaR_rem);
+        
+        /* Mw from iterations */
+        double Mw_org = SM.Mw_tree();
+        while (fabs(Mw - Mw_org) > Mw_error) {
+            Mw_org = Mw;
+            ComputeDeltaRho(Mw, DeltaRho);
+            ComputeDeltaR_rem(Mw, DeltaR_rem);
+            Mw = resumMw(Mw, DeltaRho, DeltaR_rem);
+            /* TEST */
+            //int prec_def = std::cout.precision();
+            //std::cout << std::setprecision(12) << "TEST: Mw_org = " << Mw_org 
+            //        << "  Mw_new = " << Mw << std::endl;
+            //std::cout.precision(prec_def);
         }
-    } else {
-        int NumParMw = 22;
-        double params[] = { 
-            SM.getAlsMz(), SM.getMz(), SM.getGF(), SM.getAle(), SM.getDAle5Mz(),
-            SM.getMHl(), SM.getMtpole(), 
-            SM.getLeptons(SM.NEUTRINO_1).getMass(), 
-            SM.getLeptons(SM.NEUTRINO_2).getMass(),
-            SM.getLeptons(SM.NEUTRINO_3).getMass(),
-            SM.getLeptons(SM.ELECTRON).getMass(),
-            SM.getLeptons(SM.MU).getMass(),
-            SM.getLeptons(SM.TAU).getMass(),
-            SM.getQuarks(SM.UP).getMass(),
-            SM.getQuarks(SM.DOWN).getMass(),
-            SM.getQuarks(SM.CHARM).getMass(),
-            SM.getQuarks(SM.STRANGE).getMass(),
-            //SM.getQuarks(SM.TOP).getMass(),
-            SM.getQuarks(SM.BOTTOM).getMass(),
-            SM.getMut(), SM.getMub(), SM.getMuc(), SM.getMuw()
-            //SM.GetLambda(), SM.GetA(), SM.GetRhob(), SM.GetEtab()
-        };
-        int i = myCache->CacheCheck(Mw_cache, NumParMw, params);
-        if (i>=0) {
-            return ( Mw_cache[NumParMw][i] );
-        } else {
-            //std::cout << std::setprecision(12) 
-            //          << "TEST: Mw_tree = " << SM.Mw_tree() << std::endl;
-            
-            double DeltaRho[orders_EW_size], DeltaR_rem[orders_EW_size];
-            ComputeDeltaRho(SM.Mw_tree(), DeltaRho);
-            ComputeDeltaR_rem(SM.Mw_tree(), DeltaR_rem);
-            Mw = resumMw(SM.Mw_tree(), DeltaRho, DeltaR_rem);
-            
-            /* Mw from iterations */
-            double Mw_org = SM.Mw_tree();
-            while (fabs(Mw - Mw_org) > Mw_error) {
-                Mw_org = Mw;
-                ComputeDeltaRho(Mw, DeltaRho);
-                ComputeDeltaR_rem(Mw, DeltaR_rem);
-                Mw = resumMw(Mw, DeltaRho, DeltaR_rem);
-                /* TEST */
-                //int prec_def = std::cout.precision();
-                //std::cout << std::setprecision(12) << "TEST: Mw_org = " << Mw_org 
-                //        << "  Mw_new = " << Mw << std::endl;
-                //std::cout.precision(prec_def);
-            }
-            myCache->CacheShift(Mw_cache, NumParMw, params, Mw);
-            return Mw;
-        }
-    }
+    } 
+    
+    Mw_cache = Mw;
+    return Mw;
 }
 
 
 double EWSM::DeltaR_SM() const {
-    double tmp = sqrt(2.0)*SM.getGF()*sW2_SM()*Mw_SM()*Mw_SM()/M_PI/SM.getAle();
+    double Mw = Mw_SM();
+    double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
+    double tmp = sqrt(2.0)*SM.getGF()*sW2*Mw*Mw/M_PI/SM.getAle();
     if (schemeMw==NORESUM || schemeMw==APPROXIMATEFORMULA) {
         return (tmp - 1.0);
     } else {
@@ -195,7 +204,8 @@ double EWSM::DeltaR_SM() const {
 
 
 double EWSM::cW2_SM() const {
-    return ( Mw_SM()*Mw_SM()/SM.getMz()/SM.getMz() );
+    double Mw = Mw_SM();
+    return ( Mw*Mw/SM.getMz()/SM.getMz() );
 }
 
 
@@ -205,9 +215,14 @@ double EWSM::sW2_SM() const {
 
 
 complex EWSM::rhoZ_l_SM(const StandardModel::lepton l) const {    
-    if (schemeRhoZ==APPROXIMATEFORMULA) {
+    if (schemeRhoZ==APPROXIMATEFORMULA)
         throw "No approximate formula is available for rhoZ^f";
-    } else {
+    else {
+
+        if (bUseCacheEWSM)        
+            if (checkSMparams(rhoZ_l_params_cache[(int)l]))
+                return rhoZ_l_cache[(int)l];
+        
         double Mw = Mw_SM();
         
         /* compute Delta rho */
@@ -218,16 +233,28 @@ complex EWSM::rhoZ_l_SM(const StandardModel::lepton l) const {
         complex deltaRho_rem_f[orders_EW_size];
         if (flag_order[EW1]) 
             deltaRho_rem_f[EW1] = myOneLoopEW->deltaRho_rem_l(l,Mw);
+        else 
+            deltaRho_rem_f[EW1] = complex(0.0, 0.0, false);
         if (flag_order[EW1QCD1]) 
             deltaRho_rem_f[EW1QCD1] = myTwoLoopQCD->deltaRho_rem_l(l,Mw);
+        else 
+            deltaRho_rem_f[EW1QCD1] = complex(0.0, 0.0, false);
         if (flag_order[EW1QCD2]) 
             deltaRho_rem_f[EW1QCD2] = myThreeLoopQCD->deltaRho_rem_l(l,Mw);
+        else 
+            deltaRho_rem_f[EW1QCD2] = complex(0.0, 0.0, false);        
         if (flag_order[EW2]) 
             deltaRho_rem_f[EW2] = myTwoLoopEW->deltaRho_rem_l(l,Mw);
+        else  
+            deltaRho_rem_f[EW2] = complex(0.0, 0.0, false);       
         if (flag_order[EW2QCD1]) 
             deltaRho_rem_f[EW2QCD1] = myThreeLoopEW2QCD->deltaRho_rem_l(l,Mw);
+        else 
+            deltaRho_rem_f[EW2QCD1] = complex(0.0, 0.0, false);
         if (flag_order[EW3]) 
-            deltaRho_rem_f[EW3] = myThreeLoopEW->deltaRho_rem_l(l,Mw);    
+            deltaRho_rem_f[EW3] = myThreeLoopEW->deltaRho_rem_l(l,Mw);  
+        else
+            deltaRho_rem_f[EW3] = complex(0.0, 0.0, false);    
         
         /* compute Delta rbar_rem */
         double DeltaRbar_rem = 0.0;
@@ -236,16 +263,17 @@ complex EWSM::rhoZ_l_SM(const StandardModel::lepton l) const {
         
         /* Re[rho_Z^f] with or without resummation */
         double deltaRho_rem_f_real[orders_EW_size];
-        for (int j=0; j<orders_EW_size; j++)
+        for (int j=0; j<orders_EW_size; ++j)
             deltaRho_rem_f_real[j] = deltaRho_rem_f[j].real();
         double ReRhoZf = resumRhoZ(DeltaRho, deltaRho_rem_f_real, 
                                    DeltaRbar_rem, false);
         
         /* Im[rho_Z^f] without resummation */
         double ImRhoZf = 0.0;
-        for (int j=0; j<orders_EW_size; j++)
+        for (int j=0; j<orders_EW_size; ++j)
             ImRhoZf += deltaRho_rem_f[j].imag();    
         
+        rhoZ_l_cache[(int)l] = complex(ReRhoZf, ImRhoZf, false);
         return (complex(ReRhoZf, ImRhoZf, false));    
     }
 }
@@ -253,9 +281,14 @@ complex EWSM::rhoZ_l_SM(const StandardModel::lepton l) const {
 
 complex EWSM::rhoZ_q_SM(const StandardModel::quark q) const {    
     if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
-    if (schemeRhoZ==APPROXIMATEFORMULA) {
+    if (schemeRhoZ==APPROXIMATEFORMULA)
         throw "No approximate formula is available for rhoZ^f";
-    } else {
+    else {
+
+        if (bUseCacheEWSM)        
+            if (checkSMparams(rhoZ_q_params_cache[(int)q]))
+                return rhoZ_q_cache[(int)q];
+        
         double Mw = Mw_SM();
         
         /* compute Delta rho */
@@ -266,16 +299,28 @@ complex EWSM::rhoZ_q_SM(const StandardModel::quark q) const {
         complex deltaRho_rem_f[orders_EW_size];
         if (flag_order[EW1]) 
             deltaRho_rem_f[EW1] = myOneLoopEW->deltaRho_rem_q(q,Mw);
+        else 
+            deltaRho_rem_f[EW1] = complex(0.0, 0.0, false); 
         if (flag_order[EW1QCD1]) 
             deltaRho_rem_f[EW1QCD1] = myTwoLoopQCD->deltaRho_rem_q(q,Mw);
+        else 
+            deltaRho_rem_f[EW1QCD1] = complex(0.0, 0.0, false); 
         if (flag_order[EW1QCD2]) 
             deltaRho_rem_f[EW1QCD2] = myThreeLoopQCD->deltaRho_rem_q(q,Mw);
+        else 
+            deltaRho_rem_f[EW1QCD2] = complex(0.0, 0.0, false); 
         if (flag_order[EW2]) 
             deltaRho_rem_f[EW2] = myTwoLoopEW->deltaRho_rem_q(q,Mw);
+        else 
+            deltaRho_rem_f[EW2] = complex(0.0, 0.0, false); 
         if (flag_order[EW2QCD1]) 
             deltaRho_rem_f[EW2QCD1] = myThreeLoopEW2QCD->deltaRho_rem_q(q,Mw);
+        else 
+            deltaRho_rem_f[EW2QCD1] = complex(0.0, 0.0, false); 
         if (flag_order[EW3]) 
             deltaRho_rem_f[EW3] = myThreeLoopEW->deltaRho_rem_q(q,Mw);    
+        else 
+            deltaRho_rem_f[EW3] = complex(0.0, 0.0, false); 
         
         /* compute Delta rbar_rem */
         double DeltaRbar_rem = 0.0;
@@ -284,7 +329,7 @@ complex EWSM::rhoZ_q_SM(const StandardModel::quark q) const {
         
         /* Re[rho_Z^f] with or without resummation */
         double deltaRho_rem_f_real[orders_EW_size];
-        for (int j=0; j<orders_EW_size; j++)
+        for (int j=0; j<orders_EW_size; ++j)
             deltaRho_rem_f_real[j] = deltaRho_rem_f[j].real();
         bool bool_Zbb = false;
         if (q==StandardModel::BOTTOM) bool_Zbb = true;
@@ -293,17 +338,23 @@ complex EWSM::rhoZ_q_SM(const StandardModel::quark q) const {
         
         /* Im[rho_Z^f] without resummation */
         double ImRhoZf = 0.0;
-        for (int j=0; j<orders_EW_size; j++)
+        for (int j=0; j<orders_EW_size; ++j)
             ImRhoZf += deltaRho_rem_f[j].imag();    
         if (q==StandardModel::BOTTOM)
             ImRhoZf *= pow(1.0 + taub(), 2.0);/* Corrections to the Z-b-bbar vertex */ 
         
+        rhoZ_q_cache[(int)q] = complex(ReRhoZf, ImRhoZf, false);
         return (complex(ReRhoZf, ImRhoZf, false));    
     }
 }
 
 
 complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const {
+
+    if (bUseCacheEWSM)    
+        if (checkSMparams(kappaZ_l_params_cache[(int)l]))
+            return kappaZ_l_cache[(int)l];
+
     double Mw = Mw_SM();
     
     /* compute Delta rho */
@@ -314,16 +365,28 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const {
     complex deltaKappa_rem_f[orders_EW_size];
     if (flag_order[EW1]) 
         deltaKappa_rem_f[EW1] = myOneLoopEW->deltaKappa_rem_l(l,Mw);
+    else 
+        deltaKappa_rem_f[EW1] = complex(0.0, 0.0, false); 
     if (flag_order[EW1QCD1]) 
         deltaKappa_rem_f[EW1QCD1] = myTwoLoopQCD->deltaKappa_rem_l(l,Mw);
+    else 
+        deltaKappa_rem_f[EW1QCD1] = complex(0.0, 0.0, false); 
     if (flag_order[EW1QCD2]) 
         deltaKappa_rem_f[EW1QCD2] = myThreeLoopQCD->deltaKappa_rem_l(l,Mw);
+    else 
+        deltaKappa_rem_f[EW1QCD2] = complex(0.0, 0.0, false); 
     if (flag_order[EW2]) 
         deltaKappa_rem_f[EW2] = myTwoLoopEW->deltaKappa_rem_l(l,Mw);
+    else 
+        deltaKappa_rem_f[EW2] = complex(0.0, 0.0, false); 
     if (flag_order[EW2QCD1]) 
         deltaKappa_rem_f[EW2QCD1] = myThreeLoopEW2QCD->deltaKappa_rem_l(l,Mw);
+    else 
+        deltaKappa_rem_f[EW2QCD1] = complex(0.0, 0.0, false); 
     if (flag_order[EW3]) 
         deltaKappa_rem_f[EW3] = myThreeLoopEW->deltaKappa_rem_l(l,Mw);    
+    else 
+        deltaKappa_rem_f[EW3] = complex(0.0, 0.0, false); 
     
     /* compute Delta rbar_rem */
     double DeltaRbar_rem = 0.0;
@@ -336,7 +399,7 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const {
     } else {    
         /* Re[kappa_Z^f] with or without resummation */
         double deltaKappa_rem_f_real[orders_EW_size];
-        for (int j=0; j<orders_EW_size; j++)
+        for (int j=0; j<orders_EW_size; ++j)
             deltaKappa_rem_f_real[j] = deltaKappa_rem_f[j].real();
         ReKappaZf = resumKappaZ(DeltaRho, deltaKappa_rem_f_real, 
                                 DeltaRbar_rem, false);
@@ -348,15 +411,20 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const {
     
     /* Im[kappa_Z^f] without resummation */
     double ImKappaZf = 0.0;
-    for (int j=0; j<orders_EW_size; j++)
+    for (int j=0; j<orders_EW_size; ++j)
         ImKappaZf += deltaKappa_rem_f[j].imag();    
     
+    kappaZ_l_cache[(int)l] = complex(ReKappaZf, ImKappaZf, false);
     return (complex(ReKappaZf, ImKappaZf, false));       
 }
 
 
 complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const {
     if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
+    
+    if (bUseCacheEWSM)     
+        if (checkSMparams(kappaZ_q_params_cache[(int)q]))
+            return kappaZ_q_cache[(int)q];
     
     double Mw = Mw_SM();
     
@@ -368,16 +436,28 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const {
     complex deltaKappa_rem_f[orders_EW_size];
     if (flag_order[EW1]) 
         deltaKappa_rem_f[EW1] = myOneLoopEW->deltaKappa_rem_q(q,Mw);
+    else 
+        deltaKappa_rem_f[EW1] = complex(0.0, 0.0, false);
     if (flag_order[EW1QCD1]) 
         deltaKappa_rem_f[EW1QCD1] = myTwoLoopQCD->deltaKappa_rem_q(q,Mw);
+    else 
+        deltaKappa_rem_f[EW1QCD1] = complex(0.0, 0.0, false);
     if (flag_order[EW1QCD2]) 
         deltaKappa_rem_f[EW1QCD2] = myThreeLoopQCD->deltaKappa_rem_q(q,Mw);
+    else 
+        deltaKappa_rem_f[EW1QCD2] = complex(0.0, 0.0, false);
     if (flag_order[EW2]) 
         deltaKappa_rem_f[EW2] = myTwoLoopEW->deltaKappa_rem_q(q,Mw);
+    else 
+        deltaKappa_rem_f[EW2] = complex(0.0, 0.0, false);
     if (flag_order[EW2QCD1]) 
         deltaKappa_rem_f[EW2QCD1] = myThreeLoopEW2QCD->deltaKappa_rem_q(q,Mw);
+    else 
+        deltaKappa_rem_f[EW2QCD1] = complex(0.0, 0.0, false);
     if (flag_order[EW3]) 
         deltaKappa_rem_f[EW3] = myThreeLoopEW->deltaKappa_rem_q(q,Mw);    
+    else 
+        deltaKappa_rem_f[EW3] = complex(0.0, 0.0, false);
     
     /* compute Delta rbar_rem */
     double DeltaRbar_rem = 0.0;
@@ -390,7 +470,7 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const {
     } else {    
         /* Re[kappa_Z^f] with or without resummation */
         double deltaKappa_rem_f_real[orders_EW_size];
-        for (int j=0; j<orders_EW_size; j++)
+        for (int j=0; j<orders_EW_size; ++j)
             deltaKappa_rem_f_real[j] = deltaKappa_rem_f[j].real();
         bool bool_Zbb = false;
         if (q==StandardModel::BOTTOM) bool_Zbb = true;
@@ -404,11 +484,12 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const {
     
     /* Im[kappa_Z^f] without resummation */
     double ImKappaZf = 0.0;
-    for (int j=0; j<orders_EW_size; j++)
+    for (int j=0; j<orders_EW_size; ++j)
         ImKappaZf += deltaKappa_rem_f[j].imag();    
     if (q==StandardModel::BOTTOM)
         ImKappaZf /= (1.0 + taub());/* Corrections to the Z-b-bbar vertex */ 
     
+    kappaZ_q_cache[(int)q] = complex(ReKappaZf, ImKappaZf, false);
     return (complex(ReKappaZf, ImKappaZf, false));       
 }
 
@@ -432,7 +513,7 @@ complex EWSM::gAl_SM(const StandardModel::lepton l) const {
             || l==StandardModel::NEUTRINO_3 )
         I3f = 1.0/2.0;
     else if (l==StandardModel::ELECTRON || l==StandardModel::MU
-               || l==StandardModel::TAU )
+                || l==StandardModel::TAU )
         I3f = - 1.0/2.0;
     else 
         throw "Error in EWSM::gAl_SM()";
@@ -480,7 +561,7 @@ double EWSM::GammaW_l_SM(const StandardModel::lepton li,
         throw "Error in EWSM::GammaW_l_SM()";
     
     double G0 = SM.getGF()*pow(Mw_SM(),3.0)/6.0/sqrt(2.0)/M_PI;    
-    complex V(0.0,0.0,false);
+    complex V(0.0, 0.0, false);
     if ( li==StandardModel::NEUTRINO_1 && lj==StandardModel::ELECTRON ||
          li==StandardModel::NEUTRINO_2 && lj==StandardModel::MU ||
          li==StandardModel::NEUTRINO_3 && lj==StandardModel::TAU )        
@@ -495,7 +576,7 @@ double EWSM::GammaW_q_SM(const StandardModel::quark qi,
         throw "Error in EWSM::GammaW_q_SM()";
     
     double G0 = SM.getGF()*pow(Mw_SM(),3.0)/6.0/sqrt(2.0)/M_PI;    
-    complex V(0.0,0.0,false);
+    complex V(0.0, 0.0, false);
     
     if ( qi==StandardModel::UP && qj==StandardModel::DOWN )
         V = SM.getCKM().V_ud();
@@ -517,23 +598,35 @@ double EWSM::GammaW_q_SM(const StandardModel::quark qi,
 
 
 double EWSM::GammaW_SM() const {
-    return ( GammaW_l_SM(SM.NEUTRINO_1, SM.ELECTRON) 
-             + GammaW_l_SM(SM.NEUTRINO_2, SM.MU) 
-             + GammaW_l_SM(SM.NEUTRINO_3, SM.TAU)             
-             + GammaW_q_SM(SM.UP, SM.DOWN) 
-             + GammaW_q_SM(SM.UP, SM.STRANGE) 
-             + GammaW_q_SM(SM.UP, SM.BOTTOM) 
-             + GammaW_q_SM(SM.CHARM, SM.DOWN)
-             + GammaW_q_SM(SM.CHARM, SM.STRANGE) 
-             + GammaW_q_SM(SM.CHARM, SM.BOTTOM) );
+    if (bUseCacheEWSM)      
+        if (checkSMparams(GammaW_params_cache))
+            return GammaW_cache;
+    
+    double GammaW = GammaW_l_SM(SM.NEUTRINO_1, SM.ELECTRON) 
+                    + GammaW_l_SM(SM.NEUTRINO_2, SM.MU) 
+                    + GammaW_l_SM(SM.NEUTRINO_3, SM.TAU)             
+                    + GammaW_q_SM(SM.UP, SM.DOWN) 
+                    + GammaW_q_SM(SM.UP, SM.STRANGE) 
+                    + GammaW_q_SM(SM.UP, SM.BOTTOM) 
+                    + GammaW_q_SM(SM.CHARM, SM.DOWN)
+                    + GammaW_q_SM(SM.CHARM, SM.STRANGE) 
+                    + GammaW_q_SM(SM.CHARM, SM.BOTTOM);
+    GammaW_cache = GammaW;
+    return GammaW;
 }
 
 
 double EWSM::R0_bottom_SM() const {
     if (!boolR0bApproximate)
         throw "Error in EWSM::R0_bottom_SM()";
-    
-    return ( myApproximateFormulae->R0_bottom(DeltaAlphaL5q()) );
+
+    if (bUseCacheEWSM)      
+        if (checkSMparams(R0b_params_cache))
+            return R0b_cache;
+
+    double Rb = myApproximateFormulae->R0_bottom(DeltaAlphaL5q());
+    R0b_cache = Rb;
+    return Rb;
 }
 
 
@@ -543,16 +636,28 @@ void EWSM::ComputeDeltaRho(const double Mw_i,
                            double DeltaRho[orders_EW_size]) const {
     if (flag_order[EW1]) 
         DeltaRho[EW1] = myOneLoopEW->DeltaRho(Mw_i);
+    else
+        DeltaRho[EW1] = 0.0;
     if (flag_order[EW1QCD1]) 
         DeltaRho[EW1QCD1] = myTwoLoopQCD->DeltaRho(Mw_i);
+    else
+        DeltaRho[EW1QCD1] = 0.0;
     if (flag_order[EW1QCD2]) 
         DeltaRho[EW1QCD2] = myThreeLoopQCD->DeltaRho(Mw_i);
+    else
+        DeltaRho[EW1QCD2] = 0.0;
     if (flag_order[EW2]) 
         DeltaRho[EW2] = myTwoLoopEW->DeltaRho(Mw_i);
+    else
+        DeltaRho[EW2] = 0.0;
     if (flag_order[EW2QCD1]) 
         DeltaRho[EW2QCD1] = myThreeLoopEW2QCD->DeltaRho(Mw_i);
+    else
+        DeltaRho[EW2QCD1] = 0.0;
     if (flag_order[EW3]) 
         DeltaRho[EW3] = myThreeLoopEW->DeltaRho(Mw_i);  
+    else
+        DeltaRho[EW3] = 0.0;
 }    
 
 
@@ -560,16 +665,28 @@ void EWSM::ComputeDeltaR_rem(const double Mw_i,
                              double DeltaR_rem[orders_EW_size]) const {    
     if (flag_order[EW1]) 
         DeltaR_rem[EW1] = myOneLoopEW->DeltaR_rem(Mw_i);
+    else 
+        DeltaR_rem[EW1] = 0.0;
     if (flag_order[EW1QCD1]) 
         DeltaR_rem[EW1QCD1] = myTwoLoopQCD->DeltaR_rem(Mw_i);
+    else 
+        DeltaR_rem[EW1QCD1] = 0.0;
     if (flag_order[EW1QCD2]) 
         DeltaR_rem[EW1QCD2] = myThreeLoopQCD->DeltaR_rem(Mw_i);
+    else 
+        DeltaR_rem[EW1QCD2] = 0.0;
     if (flag_order[EW2]) 
         DeltaR_rem[EW2] = myTwoLoopEW->DeltaR_rem(Mw_i);
+    else 
+        DeltaR_rem[EW2] = 0.0;
     if (flag_order[EW2QCD1]) 
         DeltaR_rem[EW2QCD1] = myThreeLoopEW2QCD->DeltaR_rem(Mw_i);
+    else 
+        DeltaR_rem[EW2QCD1] = 0.0;
     if (flag_order[EW3]) 
         DeltaR_rem[EW3] = myThreeLoopEW->DeltaR_rem(Mw_i);    
+    else 
+        DeltaR_rem[EW3] = 0.0;
 }   
 
 
@@ -585,7 +702,7 @@ double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
     
     double f_AlphaToGF, DeltaRho_sum = 0.0, DeltaRho_G;
     if (schemeMw==NORESUM) {
-        for (int j=0; j<orders_EW_size; j++)
+        for (int j=0; j<orders_EW_size; ++j)
             DeltaRho_sum += DeltaRho[(orders_EW)j];
     } else {
         // conversion: alpha(0) --> G_F
@@ -603,7 +720,7 @@ double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
     double DeltaR_rem_sum = 0.0;
     switch (schemeMw) {
         case NORESUM:
-            for (int j=0; j<orders_EW_size; j++)
+            for (int j=0; j<orders_EW_size; ++j)
                 DeltaR_rem_sum += DeltaR_rem[(orders_EW)j];
             
             // R = 1 + Delta r
@@ -655,7 +772,7 @@ double EWSM::resumRhoZ(const double DeltaRho[orders_EW_size],
     double f_AlphaToGF, DeltaRho_sum = 0.0, DeltaRho_G, deltaRho_rem_sum=0.0;
     double DeltaRbar_rem_G, deltaRho_rem_G, deltaRho_rem_G2;
     if (schemeRhoZ==NORESUM && !bool_Zbb) {
-        for (int j=0; j<EWSM::orders_EW_size; j++) { 
+        for (int j=0; j<EWSM::orders_EW_size; ++j) { 
             DeltaRho_sum += DeltaRho[j];
             deltaRho_rem_sum += deltaRho_rem[j];
         }
@@ -740,7 +857,7 @@ double EWSM::resumKappaZ(const double DeltaRho[orders_EW_size],
     double f_AlphaToGF, DeltaRho_sum = 0.0, DeltaRho_G, deltaKappa_rem_sum=0.0;
     double DeltaRbar_rem_G, deltaKappa_rem_G, deltaKappa_rem_G2;
     if (schemeKappaZ==NORESUM && !bool_Zbb) {
-        for (int j=0; j<EWSM::orders_EW_size; j++) { 
+        for (int j=0; j<EWSM::orders_EW_size; ++j) { 
             DeltaRho_sum += DeltaRho[j];
             deltaKappa_rem_sum += deltaKappa_rem[j];
         }
@@ -832,3 +949,17 @@ double EWSM::taub() const {
 }
 
 
+////////////////////////////////////////////////////////////////////////     
+
+double EWSM::dsigmaLEP2_l(const StandardModel::lepton l, const double s, 
+                          const double Mw_i, const double cos_theta, const double W, 
+                          const double X, const double Y, const double GammaZ) const{
+    return (myLEP2->dsigma_l(l, s, Mw_i, cos_theta, W, X, Y, GammaZ));
+}
+
+
+double EWSM::dsigmaLEP2_q(const StandardModel::quark q, const double s, 
+                          const double Mw_i, const double cos_theta, const double W, 
+                          const double X, const double Y, const double GammaZ) const{
+    return (myLEP2->dsigma_q(q, s, Mw_i, cos_theta, W, X, Y, GammaZ));
+}

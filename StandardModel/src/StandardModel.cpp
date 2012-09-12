@@ -5,7 +5,7 @@
  * Created on November 30, 2010, 1:27 PM
  */
 
-//#include <boost/assign/list_of.hpp> // for 'map_list_of()'
+//#include <bt/assign/list_oost/assign/list_of.hpp> // for 'map_list_of()'
 #include <iostream>
 #include <math.h>
 #include <stdlib.h>
@@ -32,9 +32,14 @@ Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
     leptons[NEUTRINO_3].setCharge(0.);    
     leptons[ELECTRON].setCharge(-1.);
     leptons[MU].setCharge(-1.);    
-    leptons[TAU].setCharge(-1.);    
+    leptons[TAU].setCharge(-1.); 
+    leptons[NEUTRINO_1].setIsospin(1./2.);
+    leptons[NEUTRINO_2].setIsospin(1./2.);    
+    leptons[NEUTRINO_3].setIsospin(1./2.);    
+    leptons[ELECTRON].setIsospin(-1./2.);
+    leptons[MU].setIsospin(-1./2.);   
+    leptons[TAU].setIsospin(-1./2.);
     myEWSM = new EWSM(*this, bDebug_i);
-  
 }
 
 bool StandardModel::InitializeMatching(){
@@ -70,7 +75,7 @@ bool StandardModel::PostUpdate(){
             Yu.assign(i, i, this->quarks[UP + 2 * i].getMass() / v() * sqrt(2.));
         Yu = VCKM.transpose()*Yu;
     }
-    if (computeYd) {  
+    if (computeYd) {
         for (int i = 0; i < 3; i++)
             Yd.assign(i, i, this->QCD::quarks[DOWN + 2 * i].getMass() / v() * sqrt(2.));
     }
@@ -196,6 +201,7 @@ double StandardModel::v() const {
 double StandardModel::Mw_tree() const {
     double tmp = 4.0*M_PI*ale/sqrt(2.0)/GF/Mz/Mz;
     return ( Mz/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp)) );
+    //return 80.4;
 }
 
 double StandardModel::s02() const {
@@ -274,6 +280,17 @@ double StandardModel::GammaW() const {
     return myEWSM->GammaW_SM();
 }
 
+double StandardModel::DsigmaLEP2_l(const StandardModel::lepton l, const double s, const double cos_theta,  
+                                   const double W, const double X, const double Y, const double GammaZ) const{
+    return (myEWSM->dsigmaLEP2_l(l, s, Mw(), cos_theta, W, X, Y, GammaZ));
+}
+
+double StandardModel::DsigmaLEP2_q(const StandardModel::quark q, const double s, 
+                                   const double cos_theta, const double W, 
+                                   const double X, const double Y, const double GammaZ) const{
+    return (myEWSM->dsigmaLEP2_q(q, s, Mw(), cos_theta, W, X, Y, GammaZ));
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -332,3 +349,4 @@ complex StandardModel::getlamc_s() const {
 complex StandardModel::getlamu_s() const {
     return VCKM(0, 1) * VCKM(0, 2).conjugate();
 }
+

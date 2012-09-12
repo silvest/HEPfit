@@ -17,7 +17,7 @@ public:
      * @brief AFBcharm constructor
      * @param[in] EW_i an object of EW class
      */
-    AFBcharm(const EW& EW_i);
+    AFBcharm(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
      * @return the forward-backward asymmetry of the c-cbar channel
@@ -26,8 +26,7 @@ public:
 
     
 private:
-    double AFB_c;
-
+    const EW& myEW;
 };
 
 #endif	/* AFBCHARM_H */

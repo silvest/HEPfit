@@ -15,7 +15,7 @@
 #include "StandardModelMatching.h"
 
 using namespace gslpp;
-class EWSM; // forward reference to ESSM class
+class EWSM; // forward reference to EWSM class
 
 
 /**
@@ -68,6 +68,7 @@ public:
      * "SM_M12D" 
      */
     virtual bool Update(const std::map<std::string, double>&);
+    
     
     virtual bool PreUpdate();
      
@@ -207,6 +208,15 @@ public:
      */
     virtual double GammaW() const;
     
+        
+    double DsigmaLEP2_l(const StandardModel::lepton l,const double s,
+                        const double cos_theta,const double W,const double X,const double Y,
+                        const double GammaZ) const;
+    
+    double DsigmaLEP2_q(const StandardModel::quark q,const double s,
+                        const double cos_theta,const double W,const double X,const double Y,
+                        const double GammaZ) const;
+    
     /**
      * @return NP contribution to oblique parameter S
      */
@@ -228,6 +238,34 @@ public:
         return 0.0;
     };
     
+    /**
+     * @return NP contribution to oblique parameter V
+     */
+    virtual double obliqueV() const {
+        return 0.0;
+    };
+
+    /**
+     * @return NP contribution to oblique parameter W
+     */
+    virtual double obliqueW() const {
+        return 0.0;
+    };
+
+    /**
+     * @return NP contribution to oblique parameter X
+     */
+    virtual double obliqueX() const {
+        return 0.0;
+    };
+
+    /**
+     * @return NP contribution to oblique parameter Y
+     */
+    virtual double obliqueY() const {
+        return 0.0;
+    };
+
     
     ///////////////////////////////////////////////////////////////////////////
 
@@ -443,14 +481,14 @@ public:
         return rhob;
     }
     
-    virtual bool SetFlag(const std::string, const bool&);       
+    virtual bool SetFlag(const std::string, const bool&);
     
+    StandardModelMatching* myMatching;
+        
     virtual bool InitializeMatching();
     
 protected:
     virtual void SetParameter(const std::string, const double&);
-    
-    
     
     matrix<complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
     double GF, ale, dAle5Mz, mHl, lambda, A, rhob, etab, Dmk;
@@ -459,12 +497,10 @@ protected:
     Particle leptons[6];
     EWSM* myEWSM;
     
-
 private:
     bool computeCKM, computeYe, computeYn;
     StandardModelMatching* myStandardModelMatching;
     
-   
 };
 
 #endif	/* STANDARDMODEL_H */

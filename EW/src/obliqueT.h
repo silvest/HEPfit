@@ -17,7 +17,7 @@ public:
      * @brief obliqueT constructor
      * @param[in] EW_i an object of EW class
      */
-    obliqueT(const EW& EW_i);
+    obliqueT(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
      * @return the oblique parameter T
@@ -26,8 +26,7 @@ public:
 
 
 private:
-    double T;
-
+    const EW& myEW;
 };
 
 #endif	/* OBLIQUET_H */

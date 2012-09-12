@@ -12,6 +12,7 @@
             <make-dep-projects>
                 <make-dep-project>../LoopFunctions</make-dep-project>
                 <make-dep-project>../Flavour</make-dep-project>
+                <make-dep-project>../ZFitter</make-dep-project>
                 <make-dep-project>../THDM</make-dep-project>
                 <make-dep-project>../EW</make-dep-project>
                 <make-dep-project>../MFV</make-dep-project>

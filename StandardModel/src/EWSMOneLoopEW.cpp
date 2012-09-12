@@ -121,7 +121,7 @@ complex EWSMOneLoopEW::deltaRho_rem_q(const StandardModel::quark q, const double
     double Mz = cache.Mz(); 
     double Mw = cache.Mw(Mw_i);
     complex uf = ( 3.0*cache.vq(q,Mw)*cache.vq(q,Mw) + cache.aq(q)*cache.aq(q) )
-                 /4.0/cache.cW2(Mw)*FZ(Mz*Mz,Mw) + FW_q(Mz*Mz,q,Mw);
+                 /4.0/cache.cW2(Mw)*FZ(Mz*Mz,Mw) + FW_q(Mz*Mz,q,Mw);    
     return ( deltaRho_rem_tmp(uf,Mw) );   
 }
 
@@ -937,7 +937,7 @@ complex EWSMOneLoopEW::FZa_0(const double s, const double Mw_i) const {
         log_Rz = log(Rz);
         C0_s_0_Mz_0 = cache.getPV().C0(s,0.0,Mz,0.0);
     }
-    
+        
     complex FZa(0.0,0.0,false);
     FZa = 2.0*pow((Rz + 1.0), 2.0)*s*C0_s_0_Mz_0
           - (2.0*Rz + 3.0)*(log_Rz + M_PI*complex::i()) - 2.0*Rz - 7.0/2.0;

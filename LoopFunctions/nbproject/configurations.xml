@@ -66,11 +66,6 @@
         <ccTool>
           <incDir>
             <pElem>../gslpp/src</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>../gslpp/src</pElem>
           </incDir>
           <commandLine>-Wall</commandLine>
         </ccTool>
@@ -181,10 +176,7 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
+            <pElem>../gslpp/src</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>
