@@ -36,7 +36,7 @@ public:
     const StandardModel& getSM() const {
         return SM;
     } 
-    
+        
     /**
      * @param[in] l lepton
      * @return electric charge of a lepton "l"
@@ -181,27 +181,11 @@ public:
                                const double X,const double Y, const double cos_theta) const;
    
     ////////////////////////////////////////////////////////////////////////     
-
-    /**
-     * @brief conversion factor from GeV^{-2} to nb
-     * @return the conversion factor from GeV^{-2} to nb
-     */
-    double GeVminus2_to_nb() const {
-        return ( pow(10.0, -6.0)
-                 / pow(10.0, -28.0)
-                 / pow(299792458.0, -2.0)
-                 / pow(6.58211899 * pow(10.0, -22.0), -2.0)
-                 * pow(10.0, 9.0) );        
-    }
-
-    
-    ////////////////////////////////////////////////////////////////////////     
     
 private:
     bool bDebug; // true for debugging    
     
     const StandardModel& SM;
-    
     
 };
 
