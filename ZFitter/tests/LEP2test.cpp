@@ -87,6 +87,30 @@ int main(int argc, char** argv) {
         ZFMw* myZFMw = new ZFMw(*ZF);
         cout << "Mw = " << myZFMw->getThValue() << " " << endl << endl;
         
+        //////////////////////////////////////////////////////////////////////        
+        // Differential cross sections
+
+        const double cos_theta[11] = {-1.0, -0.8, -0.6, -0.4, -0.2, 0.0,  
+                                      0.2, 0.4, 0.6, 0.8, 1.0};
+        ZFDsigmaQuarksLEP2* myZFDsigmaQuarks[11];
+        ZFDsigmaMuLEP2* myZFDsigmaMu[11];
+        ZFDsigmaTauLEP2* myZFDsigmaTau[11];
+        cout << "sqrt{s} cos(theta) dsigma(q)/dcos_theta dsigma(mu)/dcos_theta dsigma(tau)/dcos_theta"
+             << endl;
+        for (int i=0; i<11; i++) {
+            myZFDsigmaQuarks[i] = new ZFDsigmaQuarksLEP2(*ZF,200.0,cos_theta[i]);
+            myZFDsigmaMu[i] = new ZFDsigmaMuLEP2(*ZF,200.0,cos_theta[i]);
+            myZFDsigmaTau[i] = new ZFDsigmaTauLEP2(*ZF,200.0,cos_theta[i]);        
+            cout << " 200.0  " << setw(6) <<  cos_theta[i]
+                 << setw(20) << myZFDsigmaQuarks[i]->getThValue() 
+                 << setw(20) << myZFDsigmaMu[i]->getThValue() 
+                 << setw(20) << myZFDsigmaTau[i]->getThValue()
+                 << endl;
+        }
+        cout << endl;
+        
+        //////////////////////////////////////////////////////////////////////
+
         // LEP2 CM energies
         const double sqrt_s[12] = {130.0, 136.0, 161.0, 172.0, 183.0, 189.0, 
                                    192.0, 196.0, 200.0, 202.0, 205.0, 207.0};
@@ -117,7 +141,9 @@ int main(int argc, char** argv) {
             //ZF->CutInfo();// TEST
         }
         cout << endl;
-        
+
+        //////////////////////////////////////////////////////////////////////
+       
         const int INTF_NEW = 2;
         ZF->setFlag("INTF",INTF_NEW); // with ISR/FSR interference contribution
         cout << "Flag update: INTF=2" << endl << endl;
@@ -139,8 +165,10 @@ int main(int argc, char** argv) {
                 << setw(10) << myZFAFBcharm[i]->getThValue()
                 << endl;
         }
+        cout << endl;
         
         //////////////////////////////////////////////////////////////////////        
+        cout << "Test finished" << endl;
         return EXIT_SUCCESS;
     } catch (const error& e) {
         cerr << e.what() << endl;
