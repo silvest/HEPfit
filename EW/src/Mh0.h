@@ -15,7 +15,8 @@ class Mh0 : public ThObservable {
 public: 
     Mh0(const EW& EW_i) : ThObservable(EW_i){ };
     double getThValue(){
-        return SM.GetMHl();
+        return SM.getMHl();
+                
     }
 private:
 
