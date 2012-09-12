@@ -118,6 +118,7 @@ bool SUSY::PostUpdate(){
     mySUSYMatching->Comp_DeltaMd();
     mySUSYMatching->Comp_mySUSY_CKM();
     
+    //mySUSYMatching->Test();
     
      return (true);
 }
@@ -133,11 +134,7 @@ bool SUSY::Update(const std::map<std::string, double>& DPars) {
     
      return (true);
      
-    
 }
-
-
-
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -153,7 +150,7 @@ bool SUSY::CheckParameters(const std::map<std::string, double>& DPars) {
 bool SUSY::SetFeynHiggsPars(void) {
     
     int err;
-    //FHSetDebug(2);
+    //FHSetDebug(3);
     FHSetSMPara(&err,
             (1.-314.98e-4-dAle5Mz)/ale,
             AlsMz, GF, 
@@ -171,36 +168,29 @@ bool SUSY::SetFeynHiggsPars(void) {
     double x1 = v1()/sqrt(2.);
     double x2 = v2()/sqrt(2.);
     //FHSetDebug(2);  
+        
     
-//    double zu = MS2DRqmass(Q,Mrun(Q,quarks[UP].getMass_scale(),quarks[UP].getMass()));     
-//    double zd = MS2DRqmass(Q,Mrun(Q,quarks[DOWN].getMass_scale(),quarks[DOWN].getMass()));
-//    double zs = MS2DRqmass(Q,Mrun(Q,quarks[STRANGE].getMass_scale(),quarks[STRANGE].getMass()));
-//    double zc = MS2DRqmass(Q,Mrun(Q,quarks[CHARM].getMass()));
-//    double zt = MS2DRqmass(Q,Mrun(Q,quarks[TOP].getMass()));
-//    double zb = MS2DRqmass(Q,Mrun(Q,quarks[BOTTOM].getMass()));
+    /* FeynHiggs input: the FeynHiggs's notation is related to SLHA notation by hconjugate 
+       operation for T matrix and conjugate operation for mu parameter */
     
-//    
-//    double tempb = MS2DRqmass(Q,Mrun(Q,quarks[BOTTOM].getMass()));
-//    double tempu = MS2DRqmass(Q,Mrun(Q,quarks[UP].getMass_scale(),quarks[UP].getMass()));
-//    double tempd = MS2DRqmass(Q,Mrun(Q,quarks[DOWN].getMass_scale(),quarks[DOWN].getMass()));
-//    double temps = MS2DRqmass(Q,Mrun(Q,quarks[STRANGE].getMass_scale(),quarks[STRANGE].getMass()));
-//    
-//   
-//    
-//    std::cout << "mhp = " << mHp << std::endl;
-//    std::cout << "MB = " << quarks[BOTTOM].getMass() << std::endl;
-//    std::cout << "MBrun = " << tempb << std::endl;
-//    std::cout << "MU, MD, MS = " << quarks[UP].getMass() <<"  "<< quarks[DOWN].getMass() <<"  "<< quarks[STRANGE].getMass() << std::endl;
-//    std::cout << "MUrun, MDrun, MSrun = " << tempu << "  " << tempd << "  " << temps << std::endl;
+    matrix<complex> TUFH(3.,3.,0.), TDFH(3.,3.,0.), TEFH(3.,3.,0.);
+    complex muHFH(0.,0.,false);
     
-      
+    TUFH = TU.hconjugate();
+    TDFH = TD.hconjugate();
+    TEFH = TE.hconjugate();
+    muHFH = muH;
     
-    //mHp = 80.012;
-    
-    //if(mHp < Mw_tree()) return (false);  
-    
-    //std::cout << "mHp = " << mHp << std::endl;
-    
+    /** test - lines **/
+//    std::cout << "TUFH = " << TUFH << std::endl;
+//    std::cout << "TU = " << TU << std::endl;
+//    std::cout << "TDFH = " << TDFH << std::endl;
+//    std::cout << "TD = " << TD << std::endl;
+//    std::cout << "TEFH = " << TEFH << std::endl;
+//    std::cout << "TE = " << TE << std::endl;
+//    std::cout << "muHFH = " << muHFH << std::endl;
+//    std::cout << "mu = " << muH << std::endl;
+    /** end - test **/
     
     FHSetPara(&err, mut/quarks[TOP].getMass(),
             mtpole, tanb, -1, //using MHptree
@@ -211,16 +201,16 @@ bool SUSY::SetFeynHiggsPars(void) {
             sqrt(MsU2(1,1).real()), sqrt(MsD2(1,1).real()),
             sqrt(MsL2(0,0).real()), sqrt(MsE2(0,0).real()), sqrt(MsQ2(0,0).real()),
             sqrt(MsU2(0,0).real()), sqrt(MsD2(0,0).real()),
-            ToComplex2(muH.real(),muH.imag()),
-            ToComplex2(TE(2,2).real(),TE(2,2).imag())*x1/leptons[TAU].getMass(),
-            ToComplex2(TU(2,2).real(),TU(2,2).imag())*x2/MS2DRqmass(Q,Mrun(Q,quarks[TOP].getMass())),
-            ToComplex2(TD(2,2).real(),TD(2,2).imag())*x1/MS2DRqmass(Q,Mrun(Q,quarks[BOTTOM].getMass())),
-            ToComplex2(TE(1,1).real(),TE(1,1).imag())*x1/leptons[MU].getMass(),
-            ToComplex2(TU(1,1).real(),TU(1,1).imag())*x2/MS2DRqmass(Q,Mrun(Q,quarks[CHARM].getMass())),
-            ToComplex2(TD(1,1).real(),TD(1,1).imag())*x1/MS2DRqmass(Q,Mrun(Q,quarks[STRANGE].getMass_scale(),quarks[STRANGE].getMass())),  
-            ToComplex2(TE(0,0).real(),TE(0,0).imag())*x1/leptons[ELECTRON].getMass(),
-            ToComplex2(TU(0,0).real(),TU(0,0).imag())*x2/MS2DRqmass(Q,Mrun(Q,quarks[UP].getMass_scale(),quarks[UP].getMass())),    
-            ToComplex2(TD(0,0).real(),TD(0,0).imag())*x1/MS2DRqmass(Q,Mrun(Q,quarks[DOWN].getMass_scale(),quarks[DOWN].getMass())),  
+            ToComplex2(muHFH.real(),muHFH.imag()),
+            ToComplex2(TEFH(2,2).real(),TEFH(2,2).imag())*x1/leptons[TAU].getMass(),
+            ToComplex2(TUFH(2,2).real(),TUFH(2,2).imag())*x2/MS2DRqmass(Q,Mrun(Q,quarks[TOP].getMass())),
+            ToComplex2(TDFH(2,2).real(),TDFH(2,2).imag())*x1/MS2DRqmass(Q,Mrun(Q,quarks[BOTTOM].getMass())),
+            ToComplex2(TEFH(1,1).real(),TEFH(1,1).imag())*x1/leptons[MU].getMass(),
+            ToComplex2(TUFH(1,1).real(),TUFH(1,1).imag())*x2/MS2DRqmass(Q,Mrun(Q,quarks[CHARM].getMass())),
+            ToComplex2(TDFH(1,1).real(),TDFH(1,1).imag())*x1/MS2DRqmass(Q,Mrun(Q,quarks[STRANGE].getMass_scale(),quarks[STRANGE].getMass())),  
+            ToComplex2(TEFH(0,0).real(),TEFH(0,0).imag())*x1/leptons[ELECTRON].getMass(),
+            ToComplex2(TUFH(0,0).real(),TUFH(0,0).imag())*x2/MS2DRqmass(Q,Mrun(Q,quarks[UP].getMass_scale(),quarks[UP].getMass())),    
+            ToComplex2(TDFH(0,0).real(),TDFH(0,0).imag())*x1/MS2DRqmass(Q,Mrun(Q,quarks[DOWN].getMass_scale(),quarks[DOWN].getMass())),  
             ToComplex2(m1.real(),m1.imag()),ToComplex2(m2.real(),m2.imag()),ToComplex2(m3,0.),
             Q,Q,Q);
     
@@ -235,21 +225,21 @@ bool SUSY::SetFeynHiggsPars(void) {
     FHSetNMFV(&err, ToComplex2(MsL2(0,1).real(),MsL2(0,1).imag())/sqrt(MsL2(0,0).real()*MsL2(1,1).real()),
             ToComplex2(MsL2(1,2).real(),MsL2(1,2).imag())/sqrt(MsL2(1,1).real()*MsL2(2,2).real()),
             ToComplex2(MsL2(0,2).real(),MsL2(0,2).imag())/sqrt(MsL2(0,0).real()*MsL2(2,2).real()),
-            ToComplex2(TU(0,1).real(),-TU(0,1).imag())*x2/sqrt(MsL2(0,0).real()*MsU2(1,1).real()),
-            ToComplex2(TU(1,2).real(),-TU(1,2).imag())*x2/sqrt(MsL2(1,1).real()*MsU2(2,2).real()),
-            ToComplex2(TU(0,2).real(),-TU(0,2).imag())*x2/sqrt(MsL2(0,0).real()*MsU2(2,2).real()),
-            ToComplex2(TU(1,0).real(),TU(1,0).imag())*x2/sqrt(MsU2(0,0).real()*MsL2(1,1).real()),
-            ToComplex2(TU(2,1).real(),TU(2,1).imag())*x2/sqrt(MsU2(1,1).real()*MsL2(2,2).real()),
-            ToComplex2(TU(2,0).real(),TU(2,0).imag())*x2/sqrt(MsU2(0,0).real()*MsL2(2,2).real()),
+            ToComplex2(TUFH(0,1).real(),-TUFH(0,1).imag())*x2/sqrt(MsL2(0,0).real()*MsU2(1,1).real()),
+            ToComplex2(TUFH(1,2).real(),-TUFH(1,2).imag())*x2/sqrt(MsL2(1,1).real()*MsU2(2,2).real()),
+            ToComplex2(TUFH(0,2).real(),-TUFH(0,2).imag())*x2/sqrt(MsL2(0,0).real()*MsU2(2,2).real()),
+            ToComplex2(TUFH(1,0).real(),TUFH(1,0).imag())*x2/sqrt(MsU2(0,0).real()*MsL2(1,1).real()),
+            ToComplex2(TUFH(2,1).real(),TUFH(2,1).imag())*x2/sqrt(MsU2(1,1).real()*MsL2(2,2).real()),
+            ToComplex2(TUFH(2,0).real(),TUFH(2,0).imag())*x2/sqrt(MsU2(0,0).real()*MsL2(2,2).real()),
             ToComplex2(MsU2(0,1).real(),MsU2(0,1).imag())/sqrt(MsU2(0,0).real()*MsU2(1,1).real()),
             ToComplex2(MsU2(1,2).real(),MsU2(1,2).imag())/sqrt(MsU2(1,1).real()*MsU2(2,2).real()),
             ToComplex2(MsU2(0,2).real(),MsU2(0,2).imag())/sqrt(MsU2(0,0).real()*MsU2(2,2).real()),
-            ToComplex2(TD(0,1).real(),-TD(0,1).imag())*x1/sqrt(MsL2(0,0).real()*MsD2(1,1).real()),
-            ToComplex2(TD(1,2).real(),-TD(1,2).imag())*x1/sqrt(MsL2(1,1).real()*MsD2(2,2).real()),
-            ToComplex2(TD(0,2).real(),-TD(0,2).imag())*x1/sqrt(MsL2(0,0).real()*MsD2(2,2).real()),
-            ToComplex2(TD(1,0).real(),TD(1,0).imag())*x1/sqrt(MsD2(0,0).real()*MsL2(1,1).real()),
-            ToComplex2(TD(2,1).real(),TD(2,1).imag())*x1/sqrt(MsD2(1,1).real()*MsL2(2,2).real()),
-            ToComplex2(TD(2,0).real(),TD(2,0).imag())*x1/sqrt(MsD2(0,0).real()*MsL2(2,2).real()),
+            ToComplex2(TDFH(0,1).real(),-TDFH(0,1).imag())*x1/sqrt(MsL2(0,0).real()*MsD2(1,1).real()),
+            ToComplex2(TDFH(1,2).real(),-TDFH(1,2).imag())*x1/sqrt(MsL2(1,1).real()*MsD2(2,2).real()),
+            ToComplex2(TDFH(0,2).real(),-TDFH(0,2).imag())*x1/sqrt(MsL2(0,0).real()*MsD2(2,2).real()),
+            ToComplex2(TDFH(1,0).real(),TDFH(1,0).imag())*x1/sqrt(MsD2(0,0).real()*MsL2(1,1).real()),
+            ToComplex2(TDFH(2,1).real(),TDFH(2,1).imag())*x1/sqrt(MsD2(1,1).real()*MsL2(2,2).real()),
+            ToComplex2(TDFH(2,0).real(),TDFH(2,0).imag())*x1/sqrt(MsD2(0,0).real()*MsL2(2,2).real()),
             ToComplex2(MsD2(0,1).real(),MsD2(0,1).imag())/sqrt(MsD2(0,0).real()*MsD2(1,1).real()),
             ToComplex2(MsD2(1,2).real(),MsD2(1,2).imag())/sqrt(MsD2(1,1).real()*MsD2(2,2).real()),
             ToComplex2(MsD2(0,2).real(),MsD2(0,2).imag())/sqrt(MsD2(0,0).real()*MsD2(2,2).real()));
@@ -272,9 +262,23 @@ bool SUSY::CalcHiggsSpectrum(void){
     FHHiggsCorr(&err, mh, &SAeff, UHiggs, ZHiggs);  
     saeff = complex(SAeff.real(),SAeff.imag()); 
     
-   
+    // test - lines
+//    int i,j;
+//    for( i= 0; i< 3; i++){
+//        for(j =0 ; j < 3 ;j++){
+//            
+//            std::cout << "UHiggs = " << UHiggs[i][j] << "i,j = " << i << " " << j << std::endl;
+//        }
+//    }
     
-
+    // end - test
+    
+    
+//    std::cout << "mh[0] = mh = " << mh[0] << std::endl;
+//    std::cout << "mh[1] = mH = " << mh[1] << std::endl;
+//    std::cout << "mh[2] = mA = " << mh[2] << std::endl;
+//    std::cout << "mh[3] = mH+ =" << mh[3] << std::endl;
+    
     for(int i = 0; i < 4; i++){
         if(std::isnan(mh[i])){
             std::cout << "FeynHiggs FHCorr error " << std::endl;
@@ -285,11 +289,11 @@ bool SUSY::CalcHiggsSpectrum(void){
     mHp = mh[3];  
     mHl = mh[0];
             
-    for(int i=0; i<3; i++)
-        for(int j=0; j<3; j++){
-            UH.assign(i,j,complex(UHiggs[i][j].real(),UHiggs[i][j].imag()));
-            ZH.assign(i,j,complex(ZHiggs[i][j].real(),ZHiggs[i][j].imag()));            
-        }
+//    for(int i=0; i<3; i++)
+//        for(int j=0; j<3; j++){
+//            UH.assign(i,j,complex(UHiggs[i][j].real(),UHiggs[i][j].imag()));
+//            ZH.assign(i,j,complex(ZHiggs[i][j].real(),ZHiggs[i][j].imag()));            
+//        }
      if (err != 0) {
         std::stringstream ss;
         ss << "FeynHiggs FHHiggsCorr error " << err;
@@ -308,7 +312,7 @@ void SUSY::CalcHiggsCouplings(void){
     double gammas[ngammas];
     double gammasms[ngammasms];
     //FHSetDebug(2);
-    FHCouplings(&err, couplings, couplingsms, gammas, gammasms, 0);  // CI SONO WARNINGS !!!
+    FHCouplings(&err, couplings, couplingsms, gammas, gammasms, 0);  
     if (err != 0) {
         std::stringstream ss;
         ss << "FeynHiggs FHCouplings error " << err;
@@ -329,6 +333,7 @@ void SUSY::CalcHiggsProd(const double& sqrts){
 
 bool SUSY::CalcConstraints(){
     int err, ccb;
+    //FHSetDebug(2);
     FHConstraints(&err, &FHgm2, &FHdeltarho, &FHMWMSSM, &FHMWSM, &FHSW2MSSM, 
             &FHSW2SM, &FHedmeTh, &FHedmn, &FHedmHg, &ccb);
      if (err != 0) {
@@ -340,6 +345,7 @@ bool SUSY::CalcConstraints(){
     if (ccb != 0) {
         std::stringstream ss;
         ss << "FeynHiggs FHConstraints: colour breaking minimum " << err;
+        //std::cout << "Error in Constraints.f in line: " << ccb << std::endl;
         return (false);       
     }
     return (true);
@@ -355,6 +361,13 @@ bool SUSY::CalcFlavour(){
         return (false);
         //throw std::runtime_error(ss.str());
      }   
+    /**** test -lines ****/
+    
+//      std::cout << " Delta MB_s MSSM FeynHiggs = " << " " << FHdeltaMsMSSM << std::endl; 
+//      std::cout << " Delta MB_s SM FeynHiggs = " << " " << FHdeltaMsSM << std::endl;
+//      std::cout << " " << std::endl;
+    
+    /**** end - test ***/
     return (true);
 }
 
@@ -366,16 +379,23 @@ bool SUSY::CalcSpectrum(){
 //            &FHMGl, FHMHtree, &FHSAtree);
             FHMHtree, &FHSAtree);
     for(int i = 0; i < 6; i++){
+        
         Msn2(i) = MASf[0][i]*MASf[0][i];
         Msl2(i) = MASf[1][i]*MASf[1][i];
         Msu2(i) = MASf[2][i]*MASf[2][i];
         Msd2(i) = MASf[3][i]*MASf[3][i];
+        
+//        std::cout << "i : " << i << "Msu = " << MASf[2][i] << std::endl;
+        
         for(int j = 0; j < 6; j++){
             Rn.assign(i,j,complex(UASf[0][i][j].real(),UASf[0][i][j].imag()));
             Rl.assign(i,j,complex(UASf[1][i][j].real(),UASf[1][i][j].imag()));
             Ru.assign(i,j,complex(UASf[2][i][j].real(),UASf[2][i][j].imag()));
             Rd.assign(i,j,complex(UASf[3][i][j].real(),UASf[3][i][j].imag()));
+            
+//          std::cout << "i, j " << i << j << "Msu = " << UASf[2][i][j] << std::endl;
 //            
+            
 //            
 //            if(std::isnan(complex(UASf[0][i][j].real()))) return (false);
 //            if(std::isnan(complex(UASf[0][i][j].imm()))) return (false);
@@ -402,7 +422,7 @@ bool SUSY::CalcSpectrum(){
         return (false);
         //throw std::runtime_error(ss.str());
      }   
-   
+       
     return (true);
 }
 

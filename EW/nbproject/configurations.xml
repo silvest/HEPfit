@@ -91,6 +91,7 @@
             <pElem>../LoopFunctions/src</pElem>
           </incDir>
           <commandLine>-Wall</commandLine>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
         </archiverTool>
