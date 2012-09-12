@@ -48,6 +48,7 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
         } else if (beg->compare("NewPhysicsSTU") == 0) {
             modname = *beg;
             myModel = new NewPhysicsSTU();
+            myModel->InitializeMatching();
             thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("MFV") == 0) {
@@ -163,8 +164,8 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
 
            if( !myModel->SetFlag(name,value)){
                std::stringstream ss;
-        ss << myModel->ModelName() << " SetFlag error for Flag " << name;
-        throw std::runtime_error(ss.str());
+               ss << myModel->ModelName() << " SetFlag error for Flag " << name;
+               throw std::runtime_error(ss.str());
            }
             if (beg != tok.end())
                 std::cout << "warning: unread information in Flag " << name << std::endl;

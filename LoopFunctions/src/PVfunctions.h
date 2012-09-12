@@ -145,6 +145,32 @@ public:
                const double m0, const double m1, const double m2) const; 
     
     /**
+     * @brief the scalar three-point Passarino-Veltman function C_11
+     * @param[in] mu the renrmalization scale
+     * @param[in] p12 p1 squared
+     * @param[in] p22 p2 squared
+     * @param[in] s (p1+p2) squared
+     * @param[in] m1 mass m_1
+     * @param[in] m2 mass m_2
+     * @param[in] m3 mass m_3
+     * @return the scalar three-point PV function 
+     */
+    complex C11(const double mu,const double p12, const double p22, const double s,
+               const double m1, const double m2, const double m3) const; 
+    
+    /**
+     * @brief the scalar three-point Passarino-Veltman function C_12
+     * @param[in] s momentum squared
+     * @param[in] m1 mass m_1
+     * @param[in] m2 mass m_2
+     * @param[in] m3 mass m_3
+     * @return the scalar three-point PV function 
+     */
+    complex C12(const double mu,const double p12, const double p22, const double s,
+               const double m1, const double m2, const double m3) const;
+    
+    
+    /**
      * @brief function F(m0,m1) used for THDM. Remember that this function is
      * defined for THDM while for SUSY we have a multiplicative factor 2.
      * @param[in] m0 mass m_0
@@ -152,6 +178,197 @@ public:
      * @return the function F for THDM 
      */
     double F(const double m0, const double m1) const;
+    
+    
+    /**
+     * @brief the scalar four-point Passarino-Veltman function
+     * @param[in] p12 p1 squared
+     * @param[in] p22 p2 squared
+     * @param[in] p32 p3 squared
+     * @param[in] p42 p4 squared
+     * @param[in] m1 mass m_1
+     * @param[in] m2 mass m_2
+     * @param[in] m3 mass m_3
+     * @param[in] m4 mass m_4
+     * @return the function D0
+     */
+    complex D0(const double p12,const double p22,const double p32,const double p42,
+               const double s, const double t,const double m1, const double m2, 
+               const double m3, const double m4) const;
+    
+    
+    /**
+     * @brief the scalar four-point Passarino-Veltman function D11
+     * @param[in] p12 p1 squared
+     * @param[in] p22 p2 squared
+     * @param[in] p32 p3 squared
+     * @param[in] p42 p4 squared
+     * @param[in] m1 mass m_1
+     * @param[in] m2 mass m_2
+     * @param[in] m3 mass m_3
+     * @param[in] m4 mass m_4
+     * @return the function D11
+     */
+    complex D11(const double p12, const double p22,
+                         const double p32,const double p42, const double s,
+                         const double m1, const double m2, const double m3, 
+                         const double m4, const double cos_theta) const;
+    
+    /**
+     * @brief the scalar four-point Passarino-Veltman function D11
+     * @param[in] p12 p1 squared
+     * @param[in] p22 p2 squared
+     * @param[in] p32 p3 squared
+     * @param[in] p42 p4 squared
+     * @param[in] m1 mass m_1
+     * @param[in] m2 mass m_2
+     * @param[in] m3 mass m_3
+     * @param[in] m4 mass m_4
+     * @return the function D11
+     */
+    complex D12(const double p12, const double p22,
+                         const double p32,const double p42, const double s,
+                         const double m1, const double m2, const double m3, 
+                         const double m4, const double cos_theta) const;
+    
+    /**
+     * @brief the scalar four-point Passarino-Veltman function D11
+     * @param[in] p12 p1 squared
+     * @param[in] p22 p2 squared
+     * @param[in] p32 p3 squared
+     * @param[in] p42 p4 squared
+     * @param[in] m1 mass m_1
+     * @param[in] m2 mass m_2
+     * @param[in] m3 mass m_3
+     * @param[in] m4 mass m_4
+     * @return the function D11
+     */
+    complex D13(const double p12, const double p22,
+                         const double p32,const double p42, const double s,
+                         const double m1, const double m2, const double m3, 
+                         const double m4, const double cos_theta) const;
+    
+    /**
+     * @brief the scalar four-point Passarino-Veltman function D11
+     * @param[in] p12 p1 squared
+     * @param[in] p22 p2 squared
+     * @param[in] p32 p3 squared
+     * @param[in] p42 p4 squared
+     * @param[in] m1 mass m_1
+     * @param[in] m2 mass m_2
+     * @param[in] m3 mass m_3
+     * @param[in] m4 mass m_4
+     * @return the function D11
+     */
+    complex D27(const double p12, const double p22,
+                         const double p32,const double p42, const double s,
+                         const double m1, const double m2, const double m3, 
+                         const double m4, const double cos_theta) const;
+    
+    /**
+     * @brief the scalar four-point Passarino-Veltman function D11
+     * @param[in] p12 p1 squared
+     * @param[in] p22 p2 squared
+     * @param[in] p32 p3 squared
+     * @param[in] p42 p4 squared
+     * @param[in] m1 mass m_1
+     * @param[in] m2 mass m_2
+     * @param[in] m3 mass m_3
+     * @param[in] m4 mass m_4
+     * @return the function D11
+     */
+    complex D21(const double mu,const double p12, const double p22,
+                         const double p32,const double p42, const double s,
+                         const double m1, const double m2, const double m3, 
+                         const double m4, const double cos_theta) const;
+    
+    /**
+     * @brief the scalar four-point Passarino-Veltman function D11
+     * @param[in] p12 p1 squared
+     * @param[in] p22 p2 squared
+     * @param[in] p32 p3 squared
+     * @param[in] p42 p4 squared
+     * @param[in] m1 mass m_1
+     * @param[in] m2 mass m_2
+     * @param[in] m3 mass m_3
+     * @param[in] m4 mass m_4
+     * @return the function D11
+     */
+    complex D24(const double mu,const double p12, const double p22,
+                         const double p32,const double p42, const double s,
+                         const double m1, const double m2, const double m3, 
+                         const double m4, const double cos_theta) const;
+    
+    /**
+     * @brief the scalar four-point Passarino-Veltman function D11
+     * @param[in] p12 p1 squared
+     * @param[in] p22 p2 squared
+     * @param[in] p32 p3 squared
+     * @param[in] p42 p4 squared
+     * @param[in] m1 mass m_1
+     * @param[in] m2 mass m_2
+     * @param[in] m3 mass m_3
+     * @param[in] m4 mass m_4
+     * @return the function D11
+     */
+    complex D25(const double mu,const double p12, const double p22,
+                         const double p32,const double p42, const double s,
+                         const double m1, const double m2, const double m3, 
+                         const double m4, const double cos_theta) const;
+    
+    
+    /**
+     * @brief the scalar four-point Passarino-Veltman function D11
+     * @param[in] p12 p1 squared
+     * @param[in] p22 p2 squared
+     * @param[in] p32 p3 squared
+     * @param[in] p42 p4 squared
+     * @param[in] m1 mass m_1
+     * @param[in] m2 mass m_2
+     * @param[in] m3 mass m_3
+     * @param[in] m4 mass m_4
+     * @return the function D11
+     */
+    complex D22(const double mu,const double p12, const double p22,
+                         const double p32,const double p42, const double s,
+                         const double m1, const double m2, const double m3, 
+                         const double m4, const double cos_theta) const;
+    
+    
+    /**
+     * @brief the scalar four-point Passarino-Veltman function D11
+     * @param[in] p12 p1 squared
+     * @param[in] p22 p2 squared
+     * @param[in] p32 p3 squared
+     * @param[in] p42 p4 squared
+     * @param[in] m1 mass m_1
+     * @param[in] m2 mass m_2
+     * @param[in] m3 mass m_3
+     * @param[in] m4 mass m_4
+     * @return the function D11
+     */
+    complex D26(const double mu,const double p12, const double p22,
+                         const double p32,const double p42, const double s,
+                         const double m1, const double m2, const double m3, 
+                         const double m4, const double cos_theta) const;
+    /**
+     * @brief the scalar four-point Passarino-Veltman function D11
+     * @param[in] p12 p1 squared
+     * @param[in] p22 p2 squared
+     * @param[in] p32 p3 squared
+     * @param[in] p42 p4 squared
+     * @param[in] m1 mass m_1
+     * @param[in] m2 mass m_2
+     * @param[in] m3 mass m_3
+     * @param[in] m4 mass m_4
+     * @return the function D11
+     */
+    complex D23(const double mu,const double p12, const double p22,
+                         const double p32,const double p42, const double s,
+                         const double m1, const double m2, const double m3, 
+                         const double m4, const double cos_theta) const;
+    
+    
     
     
 private:

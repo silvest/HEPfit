@@ -49,21 +49,6 @@ double EW::c2() const {
 }
 
 
-double EW::S() const {
-    return ( SM.obliqueS() );
-}
-
-
-double EW::T() const {
-    return ( SM.obliqueT() );
-}
-
-
-double EW::U() const {
-    return ( SM.obliqueU() );
-}
-
-
 ////////////////////////////////////////////////////////////////////////
 
 double EW::sin2thetaEff(const StandardModel::lepton l) const {
@@ -99,13 +84,10 @@ double EW::Gamma_q(const StandardModel::quark q) const {
     complex gV_over_gA = SM.gVq(q)/SM.gAq(q);
     double alphaMz = SM.alphaMz();
     
-    //!!!! Write codes for FULLNNLO !!!!//
     double mcMz, mbMz;
     if (!bDebug) {
         mcMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.CHARM).getMass(), FULLNLO);
         mbMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), FULLNLO);  
-        //std::cout << "mcMz = " << mcMz << std::endl;
-        //std::cout << "mbMz = " << mbMz << std::endl;
     } else {
         mcMz = 0.56381685; 
         mbMz = 2.8194352;
@@ -352,5 +334,27 @@ double EW::A_q(const StandardModel::quark q) const {
     double Re_gV_over_gA = (SM.gVq(q)/SM.gAq(q)).real();    
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
 }
+
+
+//For LEP2 observables
+
+
+
+double EW::dsigma_lLEP2(const StandardModel::lepton l,const double s,const double W,
+                              const double X,const double Y, const double cos_theta) const {
+    
+    return (SM.DsigmaLEP2_l(l,s,cos_theta,W,X,Y,Gamma_Z()));
+ 
+}
+
+
+double EW::dsigma_qLEP2(const QCD::quark q,const double s,const double W,
+                               const double X,const double Y, const double cos_theta) const {
+    
+    return (SM.DsigmaLEP2_q(q,s,cos_theta,W,X,Y,Gamma_Z()));
+    
+}
+
+
 
 

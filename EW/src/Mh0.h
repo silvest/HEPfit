@@ -16,7 +16,6 @@ public:
     Mh0(const EW& EW_i) : ThObservable(EW_i){ };
     double getThValue(){
         return SM.getMHl();
-                
     }
 private:
 

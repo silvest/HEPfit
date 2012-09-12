@@ -62,18 +62,52 @@ public:
     /**
      * @return the oblique parameters S
      */
-    double S() const;
+    double S() const {
+        return ( SM.obliqueS() );
+    }
     
     /**
      * @return the oblique parameters T
      */    
-    double T() const;
+    double T() const {
+        return ( SM.obliqueT() );
+    }
     
     /**
      * @return the oblique parameters U
      */    
-    double U() const;
+    double U() const {
+        return ( SM.obliqueU() );
+    }
+
+    /**
+     * @return the oblique parameters V
+     */    
+    double V() const {
+        return ( SM.obliqueV() );
+    }
     
+    /**
+     * @return the oblique parameters W
+     */    
+    double W() const {
+        return ( SM.obliqueW() );
+    }
+    
+    /**
+     * @return the oblique parameters X
+     */    
+    double X() const {
+        return ( SM.obliqueX() );
+    }
+    
+    /**
+     * @return the oblique parameters Y
+     */    
+    double Y() const {
+        return ( SM.obliqueY() );
+    }    
+
     
     ////////////////////////////////////////////////////////////////////////     
     
@@ -138,7 +172,27 @@ public:
      * @return asymmetry parameter for Z->q\bar{q}
      */
     double A_q(const StandardModel::quark q) const;
+
     
+    double dsigma_lLEP2(const StandardModel::lepton l,const double s,const double W,
+                               const double X,const double Y, const double cos_theta) const;
+    
+    double dsigma_qLEP2(const QCD::quark q,const double s,const double W,
+                               const double X,const double Y, const double cos_theta) const;
+   
+    ////////////////////////////////////////////////////////////////////////     
+
+    /**
+     * @brief conversion factor from GeV^{-2} to nb
+     * @return the conversion factor from GeV^{-2} to nb
+     */
+    double GeVminus2_to_nb() const {
+        return ( pow(10.0, -6.0)
+                 / pow(10.0, -28.0)
+                 / pow(299792458.0, -2.0)
+                 / pow(6.58211899 * pow(10.0, -22.0), -2.0)
+                 * pow(10.0, 9.0) );        
+    }
 
     
     ////////////////////////////////////////////////////////////////////////     

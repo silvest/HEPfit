@@ -6,21 +6,19 @@
 #include "Mw.h"
 
 
-Mw::Mw(const EW& EW_i) : ThObservable(EW_i) {
-    myMw = EW_i.getSM().Mw();    
-
-    if ( EW_i.checkModelForSTU() ) {
-        double alpha = EW_i.getSM().alphaMz();
-        double c = sqrt(EW_i.c2());
-        double c2 = EW_i.c2();
-        double s2 = EW_i.s2();
-        
-        myMw -= alpha*c*EW_i.getSM().getMz()/4.0/(c2-s2)
-                *( EW_i.S() - 2.0*c2*EW_i.T() - (c2-s2)*EW_i.U()/2.0/s2 );
-    }
-}
-
 double Mw::getThValue() {   
+    double myMw = myEW.getSM().Mw();    
+
+    if ( myEW.checkModelForSTU() ) {
+        double alpha = myEW.getSM().alphaMz();
+        double c = sqrt(myEW.c2());
+        double c2 = myEW.c2();
+        double s2 = myEW.s2();
+        
+        myMw -= alpha*c*myEW.getSM().getMz()/4.0/(c2-s2)
+                *( myEW.S() - 2.0*c2*myEW.T() - (c2-s2)*myEW.U()/2.0/s2 );
+    }
+    
     return myMw;
 }
 

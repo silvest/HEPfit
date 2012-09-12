@@ -61,6 +61,9 @@
             <pElem>../SUSY/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../THDM/src</pElem>
+            <pElem>../ZFitter/src</pElem>
+            <pElem>../boost</pElem>
+            <pElem>/usr/include/root</pElem>
           </incDir>
           <commandLine>`root-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
@@ -68,12 +71,22 @@
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
-            <pElem>../BAT/lib</pElem>
-            <pElem>../FeynHiggs/lib</pElem>
+            <pElem>/usr/local/lib</pElem>
+            <pElem>/opt/local/lib</pElem>
+            <pElem>../Flavour/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../EW/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../gslpp/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../Observables/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../SUSYMassInsertion/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../InputParser/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../StandardModel/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../Utils/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../MonteCarlo/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../LoopFunctions/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../MFV/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../SUSY/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../ZFitter/dist/Debug/GNU-MacOSX</pElem>
           </linkerAddLib>
-          <linkerDynSerch>
-            <pElem>../BAT/lib</pElem>
-          </linkerDynSerch>
           <linkerLibItems>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibProjectItem>
@@ -232,10 +245,35 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ZFitter"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../ZFitter"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
             <linkerLibLibItem>BAT</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>FH</linkerLibLibItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ZFitter"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../ZFitter"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>zfitter6_43</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit</commandLine>
         </linkerTool>
@@ -273,6 +311,25 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../Utils/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../MonteCarlo/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../InputParser/src</pElem>
+            <pElem>../BAT/include</pElem>
+            <pElem>../EW/src</pElem>
+            <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../MFV/src</pElem>
+            <pElem>../SUSY/src</pElem>
+            <pElem>../FeynHiggs/include</pElem>
+            <pElem>../THDM/src</pElem>
+            <pElem>../ZFitter/src</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -280,6 +337,185 @@
         <asmTool>
           <developmentMode>5</developmentMode>
         </asmTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibLibItem>boost_program_options</linkerLibLibItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MonteCarlo"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../MonteCarlo"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmontecarlo.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../InputParser"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../InputParser"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EW"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../EW"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Observables"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../Observables"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../MFV"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../MFV"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmfv.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSY"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../SUSY"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../THDM"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../THDM"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libthdm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../StandardModel"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../StandardModel"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LoopFunctions"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../LoopFunctions"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Utils"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../Utils"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../SUSYMassInsertion"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../SUSYMassInsertion"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusymassinsertion.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../gslpp"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../gslpp"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
+            <linkerLibLibItem>BAT</linkerLibLibItem>
+            <linkerLibLibItem>BATmodels</linkerLibLibItem>
+            <linkerLibLibItem>FH</linkerLibLibItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ZFitter"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../ZFitter"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>zfitter6_43</linkerLibLibItem>
+          </linkerLibItems>
+          <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit</commandLine>
+        </linkerTool>
       </compileType>
       <folder path="TestFiles/f1">
         <cTool>
@@ -324,7 +560,6 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../MFV/src</pElem>
             <pElem>../SUSY/src</pElem>
-            <pElem>../FeynHiggs/include</pElem>
             <pElem>../THDM/src</pElem>
             <pElem>../BAT/include</pElem>
           </incDir>
@@ -333,24 +568,19 @@
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
-            <pElem>../Flavour/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../EW/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../gslpp/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../Observables/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../SUSYMassInsertion/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../InputParser/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../StandardModel/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../Utils/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../MonteCarlo/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../BAT/lib</pElem>
-            <pElem>../LoopFunctions/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../MFV/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../SUSY/dist/Debug/GNU-Linux-x86</pElem>
-            <pElem>../FeynHiggs/lib64</pElem>
+            <pElem>../Flavour/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../EW/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../gslpp/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../Observables/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../SUSYMassInsertion/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../InputParser/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../StandardModel/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../Utils/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../MonteCarlo/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../LoopFunctions/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../MFV/dist/Debug/GNU-MacOSX</pElem>
+            <pElem>../SUSY/dist/Debug/GNU-MacOSX</pElem>
           </linkerAddLib>
-          <linkerDynSerch>
-            <pElem>../BAT/lib</pElem>
-          </linkerDynSerch>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"
