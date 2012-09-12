@@ -443,12 +443,7 @@ public:
         return rhob;
     }
     
-    virtual bool SetFlag(const std::string, const bool&);
-    
-    double GetMHl() const {
-        return mHl;
-    }    
-       
+    virtual bool SetFlag(const std::string, const bool&);       
     
     virtual bool InitializeMatching();
     

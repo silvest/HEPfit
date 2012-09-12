@@ -19,7 +19,7 @@ public:
     enum quark {UP,DOWN,CHARM,STRANGE,TOP,BOTTOM};
                            // update StandardModel::lepton if changed!!!!!!
 
-    static const int NQCDvars = 42;//26;
+    static const int NQCDvars = 43;//26;
 
     /**
      * array containing the labels under which all QCD parameters must be
