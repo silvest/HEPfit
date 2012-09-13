@@ -12,7 +12,7 @@ AmpDB2::AmpDB2(Flavour& Flavour) : myFlavour(Flavour) {
 
 complex AmpDB2::AmpBd(orders order) {
     if (myFlavour.getHDF2().getCoeffBd().getOrder() < order)
-        throw "DmBd::getThValue(): requires cofficient of order not computed";
+        throw std::runtime_error("DmBd::getThValue(): requires cofficient of order not computed"); 
 
     vector<complex> ** allcoeff = myFlavour.ComputeCoeffBd( 
             myFlavour.getModel().getBBd().getMu(), 
@@ -36,13 +36,13 @@ complex AmpDB2::AmpBd(orders order) {
         case LO:
             return((*(allcoeff[LO])) * me / HCUT);
         default:
-            throw "AmpDB2::AmpBd(): order not implemented";
+            throw std::runtime_error("AmpDB2::AmpBd(): order not implemented"); 
     }
 }
 
 complex AmpDB2::AmpBs(orders order) {
     if (myFlavour.getHDF2().getCoeffBs().getOrder() < order)
-        throw "DmBd::getThValue(): requires cofficient of order not computed";
+        throw std::runtime_error("DmBd::getThValue(): requires cofficient of order not computed"); 
 
     vector<complex> ** allcoeff = myFlavour.ComputeCoeffBs(
             myFlavour.getModel().getBBs().getMu(),
@@ -67,6 +67,6 @@ complex AmpDB2::AmpBs(orders order) {
         case LO:
             return((*(allcoeff[LO])) * me / HCUT);
         default:
-            throw "AmpDB2::AmpBs(): order not implemented";
+            throw std::runtime_error("AmpDB2::AmpBs(): order not implemented"); 
     }
 }

@@ -8,6 +8,7 @@
 #include "SUSYMatching.h"
 #include "SUSY.h"
 #include <math.h>
+#include <stdexcept>
 
 SUSYMatching::SUSYMatching(const SUSY & SUSY_i) : StandardModelMatching(SUSY_i), mySUSY(SUSY_i), 
 mcdbd2Hp(5, NDR, NLO), mcdbd2gg(5, NDR, NLO), mcdbd2ChiChi(5, NDR, NLO),
@@ -141,7 +142,7 @@ double SUSYMatching::DLLp(double a, double b, int k) {
         
         if ( (a < SUSYLEPS) || (b < SUSYLEPS) ) {
             
-            throw "Error in DLLp function, because the limit D0(0,0,b,b) and D0(a,a,0,0) are singular ";
+            throw std::runtime_error("Error in DLLp function, because the limit D0(0,0,b,b) and D0(a,a,0,0) are singular "); 
         }
         return (-2 * a + 2 * b + (a + b) * log(a) - (a + b) * log(b))
                 / ((a - b)*(a - b)*(a - b));
@@ -839,7 +840,7 @@ gslpp::complex SUSYMatching::VdUCL(int b, int k, int j, int Dmixingflag) {
         return (VuDCL(b, k, j));
     } else {
             
-             throw "Error in VdUCL(b,k,j,flag,Dmixingflag) in SUSYMatching.cpp  ";
+             throw std::runtime_error("Error in VdUCL(b,k,j,flag,Dmixingflag) in SUSYMatching.cpp  "); 
         }
 }
 
@@ -854,7 +855,7 @@ gslpp::complex SUSYMatching::VdUCR(int b, int k, int j, int flag, int Dmixingfla
         return (VuDCR(b, k, j));
     } else {
             
-             throw "Error in VdUCR(b,k,j,flag,Dmixingflag) in SUSYMatching.cpp  ";
+             throw std::runtime_error("Error in VdUCR(b,k,j,flag,Dmixingflag) in SUSYMatching.cpp  "); 
         }
 }
 
@@ -1058,14 +1059,14 @@ gslpp::complex SUSYMatching::DeltaFHL(int j, int i) {
     for (m = 0; m < 6; m++) {
         for (l = 0; l < 6; l++) {
 
-            DFHL += -2 * Als /(3. * M_PI) * Mg * VUDHH(m,l) 
+            DFHL += VUDHH(m,l)*(-2 * Als /(3. * M_PI) * Mg
                     * myRu(m, j + 3).conjugate() * myRd(l,i).conjugate() * 
                     Ck(Mg * Mg, myMU2Squarks(m),myMD2Squarks(l),0) + 
                     
-                    1./(16. * M_PI * M_PI) * VUDHH(m,l) * Yuj * Ydi * 
+                    1./(16. * M_PI * M_PI) * Yuj * Ydi * 
                     myRu(m,j).conjugate() * myRd(l,i + 3).conjugate() * 
                     mySUSY.getMuH().conjugate() * 
-                    Ck(mySUSY.getMuH().abs2(), myMU2Squarks(m),myMD2Squarks(l),0);
+                    Ck(mySUSY.getMuH().abs2(), myMU2Squarks(m),myMD2Squarks(l),0));
 
         }
 
@@ -1079,12 +1080,8 @@ gslpp::complex SUSYMatching::DeltaFHL(int j, int i) {
 
 gslpp::complex SUSYMatching::PHRL(int j, int i){
     
-    double v = mySUSY.v();
-    gslpp::matrix<complex> myCKM(3, 3, 0.);
-    myCKM = mySUSY_CKM();
-    
-    return (sqrt(2.)/(v * mySUSY.getTanb()) * mySUSYMQ(2 * j) *
-            myCKM(j,i) + DeltaFHL(j,i));
+    return (sqrt(2.)/(mySUSY.v() * mySUSY.getTanb()) * mySUSYMQ(2 * j) *
+            mySUSY_CKM()(j,i) + DeltaFHL(j,i));
     
 }
 
@@ -1097,7 +1094,7 @@ gslpp::complex SUSYMatching::PLRk(int j, int i, int k){
             return (PGLR(j,i));
         } else {
             
-             throw "Error in PLRk(j,i,k) in SUSYMatching.cpp  ";
+             throw std::runtime_error("Error in PLRk(j,i,k) in SUSYMatching.cpp  "); 
         }
     
 }
@@ -1112,7 +1109,7 @@ gslpp::complex SUSYMatching::PRLk(int j, int i, int k){
         }
         else {
             
-             throw "Error in PRLk(j,i,k) in SUSYMatching.cpp  ";
+             throw std::runtime_error("Error in PRLk(j,i,k) in SUSYMatching.cpp  "); 
         }
 }
 
@@ -1131,7 +1128,7 @@ gslpp::complex SUSYMatching::PRLk(int j, int i, int k, int Dmixingflag) {
         return (PLRk(i, j, k).conjugate());
     } else {
             
-             throw "Error in PRLk(j,i,k,Dmixingflag) in SUSYMatching.cpp  ";
+             throw std::runtime_error("Error in PRLk(j,i,k,Dmixingflag) in SUSYMatching.cpp  "); 
         }
 
 }
@@ -1149,7 +1146,7 @@ gslpp::complex SUSYMatching::PLRk(int j, int i, int k, int Dmixingflag) {
         return (PRLk(i, j, k).conjugate());
         } else {
             
-             throw "Error in PLRk(j,i,k,Dmixingflag) in SUSYMatching.cpp  ";
+             throw std::runtime_error("Error in PLRk(j,i,k,Dmixingflag) in SUSYMatching.cpp  "); 
         }
 }
 ////////////////////////////////////////////////////////////////////////////////
@@ -1185,7 +1182,7 @@ gslpp::complex SUSYMatching::xdS(int S){
         return ( i * mySUSY.getSinb());
     } else {
             
-             throw "Error in xdS(S) in SUSYMatching.cpp  ";
+             throw std::runtime_error("Error in xdS(S) in SUSYMatching.cpp  "); 
         }
 }
 
@@ -1215,7 +1212,7 @@ gslpp::complex SUSYMatching::xuS(int S){
         return (-i * mySUSY.getCosb());
     } else {
             
-             throw "Error in xuS(S) in SUSYMatching.cpp  ";
+             throw std::runtime_error("Error in xuS(S) in SUSYMatching.cpp  "); 
         }
     
 }
@@ -1239,7 +1236,7 @@ gslpp::complex SUSYMatching::XRLS(int J, int I, int S){
         return (XLRS(I, J, S).conjugate());
     } else {
             
-             throw "Error in XRLS(J,I,S) in SUSYMatching.cpp  ";
+             throw std::runtime_error("Error in XRLS(J,I,S) in SUSYMatching.cpp  "); 
         }
 
 }
@@ -1273,7 +1270,7 @@ gslpp::complex SUSYMatching::XLRS(int J, int I, int S){
 
     } else {
            
-             throw "Error in XLRS(J,I,S) in SUSYMatching.cpp  ";
+             throw std::runtime_error("Error in XLRS(J,I,S) in SUSYMatching.cpp  "); 
         
         }
     
@@ -2815,7 +2812,7 @@ double SUSYMatching::F7k(double x, int k) {
                 (x * (-2 + 3 * x) * log(x)) / (6. * (-1 + x)*(-1 + x)*(-1 + x)));
 
     }
-    else throw "Error in F7k " ;
+    else throw std::runtime_error("Error in F7k "); 
 
 }
 
@@ -3004,7 +3001,7 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMbsg(){
         default:
             std::stringstream out;
             out << mcbsg.getScheme();
-            throw "StandardModel::CMbsg(): scheme " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModel::CMbsg(): scheme " + out.str() + "not implemented"); 
     }
 
     mcbsg.setMu(mySUSY.getMuw());
@@ -3018,7 +3015,7 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMbsg(){
         default:
             std::stringstream out;
             out << mcbsg.getOrder();
-            throw "StandardModelMatching::CMbsg(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMbsg(): order " + out.str() + "not implemented"); 
     }
 
     vmcbsg.push_back(mcbsg);

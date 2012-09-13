@@ -7,6 +7,7 @@
 
 #include "THDM.h"
 //#include "THDMcache.h"
+#include <stdexcept>
 
 const std::string THDM::THDMvars[NTHDMvars] = {"mHp","sin_ba","lambda6","lambda7","mA","m12_2","tanb","mH"};
 
@@ -57,7 +58,7 @@ void THDM::SetParameter(const std::string name, const double& value){
         sinb = tanb / sqrt(1. + tanb*tanb);
         cosb = 1. / sqrt(1. + tanb*tanb);}
         else {
-            throw "error in THDM::SetParameter, tanb < 0!";
+            throw std::runtime_error("error in THDM::SetParameter, tanb < 0!"); 
           }
         } 
     else if(name.compare("sin_ba") == 0)

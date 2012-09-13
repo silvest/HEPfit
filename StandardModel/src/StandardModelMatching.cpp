@@ -10,6 +10,7 @@
 #include "QCD.h"
 #include <gsl/gsl_sf_dilog.h>
 #include <gsl/gsl_sf_zeta.h>
+#include <stdexcept>
 
 
 StandardModelMatching::StandardModelMatching(const StandardModel & SM_i) : ModelMatching(), SM(SM_i),
@@ -192,7 +193,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2() {
         default:
             std::stringstream out;
             out << mcdbd2.getScheme();
-            throw "StandardModel::CMdb2(): scheme " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModel::CMdb2(): scheme " + out.str() + "not implemented"); 
     }
 
     mcdbd2.setMu(SM.getMuw());
@@ -208,7 +209,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2() {
         default:
             std::stringstream out;
             out << mcdbd2.getOrder();
-            throw "StandardModelMatching::CMdbd2(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMdbd2(): order " + out.str() + "not implemented"); 
     }
     
             /***  Test - lines  ***/
@@ -258,7 +259,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbs2() {
         default:
             std::stringstream out;
             out << mcdbs2.getScheme();
-            throw "StandardModel::CMdbs2(): scheme " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModel::CMdbs2(): scheme " + out.str() + "not implemented"); 
     }
 
     mcdbs2.setMu(SM.getMuw());
@@ -274,7 +275,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbs2() {
         default:
             std::stringstream out;
             out << mcdbs2.getOrder();
-            throw "StandardModelMatching::CMdbs2(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMdbs2(): order " + out.str() + "not implemented"); 
     }
     
     
@@ -317,7 +318,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdk2() {
         default:
             std::stringstream out;
             out << mcdk2.getOrder();
-            throw "StandardModelMatching::CMdk2(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMdk2(): order " + out.str() + "not implemented"); 
     }
 
     vmck2.push_back(mcdk2);
@@ -336,7 +337,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMd1Buras() {
         default:
             std::stringstream out;
             out << mcd1Buras.getScheme();
-            throw "StandardModel::CMd1Buras(): scheme " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModel::CMd1Buras(): scheme " + out.str() + "not implemented"); 
     }
 
     mcd1Buras.setMu(SM.getMuw());
@@ -359,7 +360,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMd1Buras() {
         default:
             std::stringstream out;
             out << mcd1Buras.getOrder();
-            throw "StandardModelMatching::CMd1Buras(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMd1Buras(): order " + out.str() + "not implemented"); 
     }
         
     vmcd1Buras.push_back(mcd1Buras);
@@ -381,7 +382,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMd1() {
         default:
             std::stringstream out;
             out << mcd1.getScheme();
-            throw "StandardModel::CMd1(): scheme " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModel::CMd1(): scheme " + out.str() + "not implemented"); 
     }
 
     mcd1.setMu(SM.getMuw());
@@ -403,7 +404,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMd1() {
         default:
             std::stringstream out;
             out << mcd1.getOrder();
-            throw "StandardModelMatching::CMd1(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMd1(): order " + out.str() + "not implemented"); 
     }
       
     vmcd1.push_back(mcd1);
@@ -424,7 +425,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdd2() {
         default:
             std::stringstream out;
             out << mcdd2.getScheme();
-            throw "StandardModel::CMdd2(): scheme " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModel::CMdd2(): scheme " + out.str() + "not implemented"); 
     }
 
     mcdd2.setMu(SM.getMuw());
@@ -441,7 +442,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdd2() {
         default:
             std::stringstream out;
             out << mcdd2.getOrder();
-            throw "StandardModelMatching::CMdd2(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMdd2(): order " + out.str() + "not implemented"); 
     }
 
     vmcd2.push_back(mcdd2);
@@ -472,7 +473,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() {
         default:
             std::stringstream out;
             out << mcbsg.getScheme();
-            throw "StandardModel::CMbsg(): scheme " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModel::CMbsg(): scheme " + out.str() + "not implemented"); 
     }
 
     mcbsg.setMu(SM.getMuw());
@@ -492,7 +493,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() {
         default:
             std::stringstream out;
             out << mcbsg.getOrder();
-            throw "StandardModelMatching::CMbsg(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMbsg(): order " + out.str() + "not implemented"); 
     }
     
     vmcbsg.push_back(mcbsg);
@@ -520,7 +521,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order){
         default:
             std::stringstream out;
             out << order;
-            throw "order" + out.str() + "not implemeted";
+            throw std::runtime_error("order" + out.str() + "not implemeted"); 
         }
     }
     
@@ -551,7 +552,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order){
         default:
             std::stringstream out;
             out << order;
-            throw "order" + out.str() + "not implemeted";
+            throw std::runtime_error("order" + out.str() + "not implemeted"); 
             }
     
     switch (order){
@@ -565,7 +566,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order){
         default:
             std::stringstream out;
             out << order;
-            throw "order" + out.str() + "not implemeted";
+            throw std::runtime_error("order" + out.str() + "not implemeted"); 
         }
 }
 
@@ -592,7 +593,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlep
         default:
             std::stringstream out;
             out << a;
-            throw "case" + out.str() + "not implemented; implemented i=0,1,2,3";
+            throw std::runtime_error("case" + out.str() + "not implemented; implemented i=0,1,2,3"); 
     }
     
     double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass())
@@ -609,7 +610,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlep
         default:
             std::stringstream out;
             out << mcbnlep.getScheme();
-            throw "StandardModel::CMbsg(): scheme " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModel::CMbsg(): scheme " + out.str() + "not implemented"); 
     }
 
     mcbnlep.setMu(SM.getMuw());
@@ -632,7 +633,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlep
         default:
             std::stringstream out;
             out << mcbnlep.getOrder();
-            throw "StandardModelMatching::CMbsg(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMbsg(): order " + out.str() + "not implemented"); 
     }
 
     vmcbnlep.push_back(mcbnlep);
@@ -667,7 +668,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC
         default:
             std::stringstream out;
             out << a;
-            throw "case" + out.str() + "unexsting; implemented i=0,1,2,3";
+            throw std::runtime_error("case" + out.str() + "unexsting; implemented i=0,1,2,3"); 
     }
     
     double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass())
@@ -684,7 +685,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC
         default:
             std::stringstream out;
             out << mcbnlepCC.getScheme();
-            throw "StandardModel::CMbsg(): scheme " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModel::CMbsg(): scheme " + out.str() + "not implemented"); 
     }
 
     mcbnlepCC.setMu(SM.getMuw());
@@ -707,7 +708,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC
         default:
             std::stringstream out;
             out << mcbnlepCC.getOrder();
-            throw "StandardModelMatching::CMbsg(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMbsg(): order " + out.str() + "not implemented"); 
     }
 
     vmcbnlepCC.push_back(mcbnlepCC);
@@ -733,7 +734,7 @@ double StandardModelMatching::setWCbnlep(int i, double x, orders order) {
         default:
             std::stringstream out;
             out << order;
-            throw "order" + out.str() + "not implemeted";     
+            throw std::runtime_error("order" + out.str() + "not implemeted");      
         }
     }
     
@@ -754,7 +755,7 @@ double StandardModelMatching::setWCbnlep(int i, double x, orders order) {
         default:
             std::stringstream out;
             out << order;
-            throw "order" + out.str() + "not implemeted";
+            throw std::runtime_error("order" + out.str() + "not implemeted"); 
         }
     
     switch (order){
@@ -768,7 +769,7 @@ double StandardModelMatching::setWCbnlep(int i, double x, orders order) {
         default:
             std::stringstream out;
             out << order;
-            throw "order" + out.str() + "not implemeted";     
+            throw std::runtime_error("order" + out.str() + "not implemeted");      
         }
 }
 

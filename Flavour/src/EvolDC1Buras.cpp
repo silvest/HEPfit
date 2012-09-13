@@ -1,5 +1,6 @@
 #include <gsl/gsl_sf_zeta.h>
 #include "EvolDC1Buras.h"
+#include <stdexcept>
 
 
 EvolDC1Buras::EvolDC1Buras(unsigned int dim, schemes scheme, orders order,
@@ -120,7 +121,7 @@ matrix<double> EvolDC1Buras::AnomalousDimension_DC1_Buras(orders order, unsigned
     case NLO:
         
     if (!(nf == 3 || nf == 4 || nf == 5 || nf == 6)){ 
-                throw "EvolDF1nlep::AnomalousDimension_B(): wrong number of flavours";
+                throw std::runtime_error("EvolDF1nlep::AnomalousDimension_B(): wrong number of flavours"); 
         }
     
     /* gamma(row, column) at the NLO */
@@ -169,7 +170,7 @@ matrix<double> EvolDC1Buras::AnomalousDimension_DC1_Buras(orders order, unsigned
     break;
     
     default:
-            throw "EvolDF1nlep::AnomalousDimensio_B_S(): order not implemented";
+            throw std::runtime_error("EvolDF1nlep::AnomalousDimensio_B_S(): order not implemented"); 
     }
    
     return (gammaDF1);
@@ -185,7 +186,7 @@ matrix<double>& EvolDC1Buras::DC1EvolBuras(double mu, double M, orders order, sc
         default:
             std::stringstream out;
             out << scheme;
-            throw "EvolDC1::Df1EvolDC1(): scheme " + out.str() + " not implemented ";
+            throw std::runtime_error("EvolDC1::Df1EvolDC1(): scheme " + out.str() + " not implemented "); 
     }
 
     if (mu == this-> mu && M == this->M && scheme == this->scheme)

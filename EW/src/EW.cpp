@@ -9,6 +9,7 @@
 #include <iomanip>
 #include <cmath>
 #include <gsl/gsl_sf_zeta.h>
+#include <stdexcept>
 
 
 EW::EW(const StandardModel& SM_i, bool bDebug_i) : ThObsType(SM_i), SM(SM_i) {
@@ -25,7 +26,7 @@ bool EW::checkModelForSTU() const {
     else if (Model=="NewPhysicsSTU" || Model=="THDM")
         return true;
     else 
-        throw "Error in EW::checkModelForSTU()"; 
+        throw std::runtime_error("Error in EW::checkModelForSTU()");  
 }
 
 
@@ -121,7 +122,7 @@ double EW::Gamma_q(const StandardModel::quark q) const {
             I3q = -1.0/2.0;
             break;
         default:
-            throw "Error in EW::Gamma_q()";  
+            throw std::runtime_error("Error in EW::Gamma_q()");   
     }
 
     /* s = Mz^2 */

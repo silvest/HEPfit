@@ -8,6 +8,7 @@
 #include "HeffDF2.h"
 #include <sstream>
 #include <QCD.h>
+#include <stdexcept>
 
 HeffDF2::HeffDF2(const StandardModel& SM): model(SM), coeffbd(5, NDR, NLO), coeffbs(5, NDR, NLO), 
         coeffDd(5, NDR, NLO), coeffk(5, NDR, NLO), u(5, NDR, NLO, SM), drNDRLRI(5, 5, 0){
@@ -153,10 +154,10 @@ void HeffDF2::ChangeScheme(schemes schout, schemes schin, orders order, int j) {
                             (*coeffDd.getCoeff(LO)), NLO);
                     break;
                 default:
-                    throw "HeffDF2::ChangeScheme(): out scheme not implemented";
+                    throw std::runtime_error("HeffDF2::ChangeScheme(): out scheme not implemented"); 
             }
         default:
-            throw "HeffDF2::ChangeScheme(): in scheme not implemented";
+            throw std::runtime_error("HeffDF2::ChangeScheme(): in scheme not implemented"); 
     }
 }
 

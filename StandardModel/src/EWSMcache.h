@@ -11,6 +11,8 @@
 #include <Polylogarithms.h>
 #include <ClausenFunctions.h>
 #include "StandardModel.h"
+#include <stdexcept>
+
 using namespace gslpp;
 
 
@@ -253,7 +255,7 @@ public:
             case StandardModel::TAU:
                 return ( -1.0/2.0 );
             default:
-                throw "Error in EWSMcache::al()";  
+                throw std::runtime_error("Error in EWSMcache::al()");   
         }    
     }
 
@@ -272,7 +274,7 @@ public:
             case StandardModel::BOTTOM:
                 return ( -1.0/2.0 );
             default:
-                throw "Error in EWSMcache::aq()";  
+                throw std::runtime_error("Error in EWSMcache::aq()");   
         }    
     }
     

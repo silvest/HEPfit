@@ -79,7 +79,7 @@ double EWSMTwoLoopQCD::deltaQCD_2() const {
 
 
 double EWSMTwoLoopQCD::F1(const double x, const double Mw_i) const {
-    if (x < 0.0 || x >= 1.0) throw "x is out of range in EWSMTwoLoopQCD::F1";    
+    if (x < 0.0 || x >= 1.0) throw std::runtime_error("x is out of range in EWSMTwoLoopQCD::F1");     
        
     /* Zeta functions */
     double zeta_2 = cache.GetZeta2();
@@ -119,7 +119,7 @@ double EWSMTwoLoopQCD::F1(const double x, const double Mw_i) const {
 
 
 double EWSMTwoLoopQCD::V1(const double r) const {
-    if (r < 0.0 || r >= 1.0) throw "r is out of range in EWSMTwoLoopQCD::V1";
+    if (r < 0.0 || r >= 1.0) throw std::runtime_error("r is out of range in EWSMTwoLoopQCD::V1"); 
 
     /* Zeta functions */
     double zeta_3 = cache.GetZeta3(); 
@@ -171,7 +171,7 @@ double EWSMTwoLoopQCD::V1(const double r) const {
 
 
 double EWSMTwoLoopQCD::A1(const double r) const {
-    if (r < 0.0 || r >= 1.0) throw "r is out of range in EWSMTwoLoopQCD::A1";
+    if (r < 0.0 || r >= 1.0) throw std::runtime_error("r is out of range in EWSMTwoLoopQCD::A1"); 
  
     /* Zeta functions */
     double zeta_2 = cache.GetZeta2();
@@ -224,7 +224,7 @@ double EWSMTwoLoopQCD::A1(const double r) const {
 
 
 double EWSMTwoLoopQCD::V1prime(const double r) const {
-    if (r < 0.0 || r >= 1.0) throw "r is out of range in EWSMTwoLoopQCD::V1prime";
+    if (r < 0.0 || r >= 1.0) throw std::runtime_error("r is out of range in EWSMTwoLoopQCD::V1prime"); 
 
     /* Zeta functions */
     double zeta_3 = cache.GetZeta3();     
@@ -317,7 +317,7 @@ double EWSMTwoLoopQCD::V1prime(const double r) const {
 
 
 double EWSMTwoLoopQCD::A1prime(const double r) const {
-    if (r < 0.0 || r >= 1.0) throw "r is out of range in EWSMTwoLoopQCD::A1prime";
+    if (r < 0.0 || r >= 1.0) throw std::runtime_error("r is out of range in EWSMTwoLoopQCD::A1prime"); 
  
     /* Zeta functions */
     double zeta_2 = cache.GetZeta2();

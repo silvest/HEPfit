@@ -10,6 +10,7 @@
 
 #include "OrderScheme.h"
 #include <sstream>
+#include <stdexcept>
 
 template <class T> class WilsonTemplate {
 public:
@@ -102,8 +103,8 @@ protected:
         if (order > this->order) {
             std::stringstream out;
             out << order;
-            throw "WilsonTemplate::getElem(): requested order " + out.str() +
-                    " not present in the object";
+            throw std::runtime_error("WilsonTemplate::getElem(): requested order " + out.str() +
+                    " not present in the object");
         }
         return elem[order];
     };
@@ -112,8 +113,8 @@ protected:
         if ((order_ew > this->order_ew)) {
             std::stringstream out;
             out << order_ew;
-            throw "WilsonTemplate::getElem(): requested order_ew " + out.str() +
-                    "not present in the object";
+            throw std::runtime_error("WilsonTemplate::getElem(): requested order_ew " + out.str() +
+                    "not present in the object");
         }
         return elem[order_ew];
     };
@@ -122,8 +123,8 @@ protected:
         if (order_i > order) {
             std::stringstream out;
             out << order_i;
-            throw "MatchingCondition::setElem(): order " + out.str() +
-                    " not implemented ";
+            throw std::runtime_error("MatchingCondition::setElem(): order " + out.str() +
+                    " not implemented ");
         }
         *elem[order_i] = v;
     };
@@ -132,8 +133,8 @@ protected:
         if (order_ew_i > order_ew) {
             std::stringstream out;
             out << order_ew_i;
-            throw "MatchingCondition::setElem(): order " + out.str() +
-                    " not implemented ";
+            throw std::runtime_error("MatchingCondition::setElem(): order " + out.str() +
+                    " not implemented ");
         }
         *elem[order_ew_i] = v;
     };

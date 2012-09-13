@@ -7,6 +7,7 @@
 #include <cmath>
 #include <gsl/gsl_sf.h>
 #include "Polylogarithms.h"
+#include <stdexcept>
 
 
 Polylogarithms::Polylogarithms() {
@@ -51,7 +52,7 @@ double Polylogarithms::Li3(const double x) const {
     } else if (x == 1.0) {
         Li3 = gsl_sf_zeta_int(3);
     } else {
-        throw "x is out of range in Polylogarithms::Li3()";
+        throw std::runtime_error("x is out of range in Polylogarithms::Li3()"); 
     }
     return (Li3);
 }

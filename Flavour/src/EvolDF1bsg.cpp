@@ -1,5 +1,6 @@
 #include <gsl/gsl_sf_zeta.h>
 #include "EvolDF1bsg.h"
+#include <stdexcept>
 
 EvolDF1bsg::EvolDF1bsg(unsigned int dim, schemes scheme, orders order,
              const StandardModel& model) : model(model),
@@ -130,7 +131,7 @@ matrix<double> EvolDF1bsg::AnomalousDimension_M(orders order, unsigned int n_u,
     case NLO:
         
     if (!(nf == 3 || nf == 4 || nf == 5 || nf == 6)){ 
-                throw "EvolDF1::AnomalousDimension_M(): wrong number of flavours";
+                throw std::runtime_error("EvolDF1::AnomalousDimension_M(): wrong number of flavours"); 
        }
     
     /* gamma(row, coloumn) at the NLO */
@@ -198,7 +199,7 @@ matrix<double> EvolDF1bsg::AnomalousDimension_M(orders order, unsigned int n_u,
    
     break;
     default:
-            throw "EvolDF1bsg::AnomalousDimension_M(): order not implemented";
+            throw std::runtime_error("EvolDF1bsg::AnomalousDimension_M(): order not implemented"); 
     }
     return (gammaDF1);
 }
@@ -276,7 +277,7 @@ matrix<double> EvolDF1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
             }
             return (mat);
         default:
-            throw "change to rescaled operator basis: order not implemented";
+            throw std::runtime_error("change to rescaled operator basis: order not implemented"); 
     }
     
 }
@@ -320,7 +321,7 @@ matrix<double>& EvolDF1bsg::Df1Evolbsg(double mu, double M, orders order, scheme
         default:
             std::stringstream out;
             out << scheme;
-            throw "EvolDF1bsg::Df1Evolbsg(): scheme " + out.str() + " not implemented ";
+            throw std::runtime_error("EvolDF1bsg::Df1Evolbsg(): scheme " + out.str() + " not implemented "); 
     }
 
     if (mu == this->mu && M == this->M && scheme == this->scheme)
