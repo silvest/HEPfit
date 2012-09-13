@@ -83,9 +83,9 @@ double sigmamuLEP2::getThValue() {
 //    return 2.*myEW.dsigma_lLEP2(SM.MU,s,W,X,Y,cos_theta);
 //    //////////////////////////////////////////////////////
     
-    std::cout << "error = " << error[0]*myEW.GeVminus2_to_nb()*1000. << "\tprob = " << prob[0] <<std::endl;
+    std::cout << "error = " << error[0]*GeVminus2_to_nb*1000. << "\tprob = " << prob[0] <<std::endl;
     
-     return (integral[0]*myEW.GeVminus2_to_nb()*1000.);
+     return (integral[0]*GeVminus2_to_nb*1000.);
 }
 
 

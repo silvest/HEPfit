@@ -80,8 +80,8 @@ bool MFV::PostUpdate(){
     if(!CalcHiggsSpectrum()) return (false);
     //CalcHiggsCouplings();  // DA PROBLEMI CON H0VV(1,3) E H0VV(1,4) PERCHE PRIMA GLI ABBIAMO DATO I PARAMETRI DELL'MSSM ALLA SCALA SUSY !!! CHIEDERE A FRANCO A COSA SERVE !!!
     //CalcHiggsProd(7.);     //cross sections at 7 TeV
-    if(!CalcConstraints()) return (false);
-    if(!CalcFlavour()) return (false);
+    //if(!CalcConstraints()) return (false);
+    //if(!CalcFlavour()) return (false);
     if(!CalcSpectrum()) return (false);
     
     
@@ -241,14 +241,22 @@ void MFV::SetSoftTerms(void){
     MsL2 = matrix<complex>::Id(3) * a6 + X.GetX1() * y6;
     MsE2 = matrix<complex>::Id(3) * a7 + X.GetX1() * y7;
     TE = (X.GetX1() * a8 + X.GetX2() * w5).transpose();
-    //rotation to the SCKM basis according to Satoshi's notes
+    
+    //rotation to the SCKM basis according to SLHA notation
+    
     matrix<complex> ckm(3,3,0.);
     myCKM.getCKM(ckm);
-    //MsQ2 = ckm*MsQ2*ckm.transpose(); // quello che c'era prima  /// SECONDO ME NON HA ALCUN SENSO 
-    MsQ2 = ckm.hconjugate() * MsQ2 * ckm;  // messo da me !!!
-    TU = ckm.hconjugate()*TU;
+  
+    TU = sqrt(2.) * TU * ckm.hconjugate();
+    TD = sqrt(2.) * TD;
+    TE = sqrt(2.) * TE;
+    
+    
+    
     
     // test - lines
+    
+    //std::cout << "X1 = " << X.GetX1() << std::endl;
     
 //    std::cout << "TU = " << TU << std::endl;
 //    std::cout << "TD = " << TD << std::endl;

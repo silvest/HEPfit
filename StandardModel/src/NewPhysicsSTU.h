@@ -11,7 +11,7 @@
 
 class NewPhysicsSTU : public StandardModel {
 public:
-    static const int NSTUvars = 3;
+    static const int NSTUvars = 7;
     static const std::string STUvars[NSTUvars];
     
     /**
@@ -33,43 +33,60 @@ public:
     /**
      * @return Oblique parameter S
      */
-    double getObliqueS() const {
-        return obliqueS;
+    double obliqueS() const {
+        return myObliqueS;
     }
-
-    //void setObliqueS(double obliqueS) {
-    //    this->obliqueS = obliqueS;
-    //}
 
     /**
      * @return Oblique parameter T
      */
-    double getObliqueT() const {
-        return obliqueT;
+    double obliqueT() const {
+        return myObliqueT;
     }
-
-    //void setObliqueT(double obliqueT) {
-    //    this->obliqueT = obliqueT;
-    //}
 
     /**
      * @return Oblique parameter U
      */
-    double getObliqueU() const {
-        return obliqueU;
+    double obliqueU() const {
+        return myObliqueU;
     }
 
-    //void setObliqueU(double obliqueU) {
-    //    this->obliqueU = obliqueU;
-    //}
+    /**
+     * @return Oblique parameter V
+     */
+    double obliqueV() const {
+        return myObliqueV;
+    }
+
+    /**
+     * @return Oblique parameter W
+     */
+    double obliqueW() const {
+        return myObliqueW;
+    }
+
+    /**
+     * @return Oblique parameter X
+     */
+    double obliqueX() const {
+        return myObliqueX;
+    }
+
+    /**
+     * @return Oblique parameter Y
+     */
+    double obliqueY() const {
+        return myObliqueY;
+    }
     
     
     ////////////////////////////////////////////////////////////////////////     
     
 protected:    
     virtual void SetParameter(const std::string name, const double& value);
-    double obliqueS, obliqueT, obliqueU;
-
+    double myObliqueS, myObliqueT, myObliqueU;
+    double myObliqueV, myObliqueW, myObliqueX, myObliqueY;
+    
 
     ////////////////////////////////////////////////////////////////////////     
     

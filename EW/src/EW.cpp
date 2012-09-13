@@ -49,35 +49,6 @@ double EW::c2() const {
 }
 
 
-double EW::S() const {
-    return ( SM.obliqueS() );
-}
-
-
-double EW::T() const {
-    return ( SM.obliqueT() );
-}
-
-
-double EW::U() const {
-    return ( SM.obliqueU() );
-}
-
-double EW::W() const {
-    return ( SM.obliqueW() );
-}
-
-
-double EW::X() const {
-    return ( SM.obliqueX() );
-}
-
-
-double EW::Y() const {
-    return ( SM.obliqueY() );
-}
-
-
 ////////////////////////////////////////////////////////////////////////
 
 double EW::sin2thetaEff(const StandardModel::lepton l) const {
@@ -265,7 +236,6 @@ double EW::Gamma_q(const StandardModel::quark q) const {
     /* radiator function to the vector current */
     RVf = 1.0 + 3.0/4.0*Qf2*alphaMz/M_PI + AlsMzPi - Qf2/4.0*alphaMz/M_PI*AlsMzPi
             + (C02 + C2t)*AlsMzPi2 + C03*AlsMzPi3 + C04*AlsMzPi4
-            //+ deltaC05*AlsMzPi5 /* theoretical uncertainty used in Gfitter (absent in ZFITTER) */
             + (mcMz2 + mbMz2)/s*C23*AlsMzPi3
             + mqMz2/s*(C21V*AlsMzPi + C22V*AlsMzPi2 + C23V*AlsMzPi3)
             + mcMz2*mcMz2/s/s*(C42 - log_c)*AlsMzPi2
@@ -279,9 +249,7 @@ double EW::Gamma_q(const StandardModel::quark q) const {
     RAf = 1.0 + 3.0/4.0*Qf2*alphaMz/M_PI + AlsMzPi - Qf2/4.0*alphaMz/M_PI*AlsMzPi
             + (C02 + C2t - 2.0*I3q*I2)*AlsMzPi2
             + (C03 - 2.0*I3q*I3)*AlsMzPi3
-            + (C04 - 2.0*I3q*I4)*AlsMzPi4 /* (absent in ZFITTER) */
-            //- 2.0*I3q*deltaI4*AlsMzPi4 /* theoretical uncertainty used in Gfitter */
-            //+ deltaC05*AlsMzPi5 /* theoretical uncertainty used in Gfitter (absent in ZFITTER) */
+            + (C04 - 2.0*I3q*I4)*AlsMzPi4
             + (mcMz2 + mbMz2)/s*C23*AlsMzPi3
             + mqMz2/s*(C20A + C21A*AlsMzPi + C22A*AlsMzPi2
                        + 6.0*(3.0 + log_t)*AlsMzPi2 + C23A*AlsMzPi3)
@@ -365,25 +333,72 @@ double EW::A_q(const StandardModel::quark q) const {
 }
 
 
-//For LEP2 observables
+////////////////////////////////////////////////////////////////////////
 
-
-
-double EW::dsigma_lLEP2(const StandardModel::lepton l,const double s,const double W,
-                              const double X,const double Y, const double cos_theta) const {
-    
-    return (SM.DsigmaLEP2_l(l,s,cos_theta,W,X,Y,Gamma_Z()));
- 
+double EW::dsigma_lLEP2(const StandardModel::lepton l, const double s, 
+                        const double W, const double X, const double Y, 
+                        const double cos_theta) const {
+    return ( SM.DsigmaLEP2_l(l, s, cos_theta, W, X, Y, Gamma_Z()) );
 }
 
 
-double EW::dsigma_qLEP2(const QCD::quark q,const double s,const double W,
-                               const double X,const double Y, const double cos_theta) const {
-    
-    return (SM.DsigmaLEP2_q(q,s,cos_theta,W,X,Y,Gamma_Z()));
-    
+double EW::dsigma_qLEP2(const StandardModel::quark q, const double s,
+                        const double W, const double X, const double Y, 
+                        const double cos_theta) const {
+    return ( SM.DsigmaLEP2_q(q, s, cos_theta, W, X, Y, Gamma_Z()) );
 }
 
 
+////////////////////////////////////////////////////////////////////////
 
+double EW::sigma_l_Born_LEP2(const StandardModel::lepton l, const double s) const {
+    double mf = SM.getLeptons(l).getMass();
+    double Qf = SM.getLeptons(l).getCharge();
+    double I3f = SM.getLeptons(l).getIsospin();
+    return sigma_f_Born_LEP2(s, mf, Qf, I3f, 1.0);
+}
+
+
+double EW::sigma_q_Born_LEP2(const StandardModel::quark q, const double s) const {
+    double mf = SM.getLeptons(q).getMass();
+    double Qf = SM.getLeptons(q).getCharge();
+    double I3f = SM.getLeptons(q).getIsospin();
+    return sigma_f_Born_LEP2(s, mf, Qf, I3f, 3.0);
+}
+
+
+double EW::sigma_f_Born_LEP2(const double s, const double mf, const double Qf, 
+                             const double I3f, const double Ncf) const {
+    double betaf = sqrt(1.0 - 4.0*mf*mf/s);
+    double Qe = SM.getLeptons(SM.ELECTRON).getCharge();
+    double I3e = SM.getLeptons(SM.ELECTRON).getIsospin();
+    double sW2 = SM.sW2();
+    double sW = sqrt(sW2);
+    double cW = sqrt(SM.cW2());
+    double ve = (I3e - 2.0*Qe*sW2)/(2.0*sW*cW);
+    double ae = I3e/(2.0*sW*cW);
+    double vf = (I3f - 2.0*Qf*sW2)/(2.0*sW*cW);
+    double af = I3f/(2.0*sW*cW);
+    double Mz = SM.getMz();
+    double GammaZ = Gamma_Z();
+    double Qe2 = Qe*Qe, Qf2 = Qf*Qf, betaf2 = betaf*betaf;
+    double ve2 = ve*ve, ae2 = ae*ae, vf2 = vf*vf, af2 = af*af;
+    
+    complex chi_gamma = complex(1.0, 0.0, false);
+    complex i = complex::i();
+    complex chi_Z = s/(s - Mz*Mz + i*Mz*GammaZ);
+    complex chi_gammaZ = complex(0.0, 0.0, false);
+    
+    double G1 = Qe2*Qf2*chi_gamma.abs2()
+                + 2.0*ve*vf*Qe*Qf*(chi_Z*chi_gamma.conjugate()).real()
+                + (ve2 + ae2)*(vf2 + betaf2*af2)*chi_Z.abs2()
+                + (Qe2*(vf2 + af2) + 2.0*ve*vf*Qe*Qf + (ve2 + ae2)*Qf2)*chi_gammaZ.abs2()
+                + 2.0*(vf*Qe2*Qf + ve*Qe*Qf2)*(chi_gamma*chi_gammaZ.conjugate()).real()
+                + 2.0*(ve*(vf2 + af2)*Qe + (ve2 + ae2)*vf*Qf)*(chi_Z*chi_gammaZ.conjugate()).real();
+    double G2 = Qe2*Qf2*chi_gamma.abs2()
+                + 2.0*ve*vf*Qe*Qf*(chi_Z*chi_gamma.conjugate()).real()
+                + (ve2 + ae2)*vf2*chi_Z.abs2();
+    
+    return ( 4.0*M_PI*SM.getAle()*SM.getAle()/(3.0*s)*Ncf*betaf*(G1 + 2.0*mf*mf/s*G2) );
+}
 

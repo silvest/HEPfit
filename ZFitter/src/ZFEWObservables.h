@@ -26,15 +26,19 @@
 #include "ZFRbottom.h"
 #include "ZFsigmaHadron.h"
 
-#include "ZFsigmaQuarksLEP2.h"
 #include "ZFsigmaMuLEP2.h"
 #include "ZFsigmaTauLEP2.h"
+#include "ZFsigmaQuarksLEP2.h"
 #include "ZFAFBmuLEP2.h"
 #include "ZFAFBtauLEP2.h"
 #include "ZFAFBcharmLEP2.h"
 #include "ZFAFBbottomLEP2.h"
 #include "ZFRcharmLEP2.h"
 #include "ZFRbottomLEP2.h"
+
+#include "ZFDsigmaQuarksLEP2.h"
+#include "ZFDsigmaMuLEP2.h"
+#include "ZFDsigmaTauLEP2.h"
 
 #endif	/* ZFEWOBSERVABLES_H */
 

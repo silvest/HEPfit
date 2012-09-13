@@ -17,3 +17,5 @@ ThObservable::ThObservable(const ThObservable& orig) : ObsType(orig.ObsType),
 
 ThObservable::~ThObservable() {
 }
+
+double const ThObservable::GeVminus2_to_nb = 389379.338;
