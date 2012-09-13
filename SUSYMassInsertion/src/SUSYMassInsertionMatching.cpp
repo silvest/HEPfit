@@ -1,6 +1,7 @@
 #include "SUSYMassInsertionMatching.h"
 #include "gslpp.h"
 #include "gsl/gsl_sf_dilog.h"
+#include <stdexcept>
 
 using namespace gslpp;
 
@@ -864,7 +865,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMd1() {
         default:
             std::stringstream out;
             out << mcd1.getScheme();
-            throw "SUSYMassInsertionMatching::CMD1(): scheme " + out.str() + "not implemented";
+            throw std::runtime_error("SUSYMassInsertionMatching::CMD1(): scheme " + out.str() + "not implemented"); 
     }
 
     mcd1.setMu(SusyMI.getMuM());
@@ -905,7 +906,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMd1() {
         default:
             std::stringstream out;
             out << mcd1.getOrder();
-            throw "SUSYMassInsertionMatching::CMd1(): order " + out.str() + "not implemented";
+            throw std::runtime_error("SUSYMassInsertionMatching::CMd1(): order " + out.str() + "not implemented"); 
     }
 
     vmcd1.push_back(mcd1);
@@ -943,7 +944,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMd1() {
         default:
             std::stringstream out;
             out << mcd1.getOrder();
-            throw "SUSYMassInsertionMatching::CMd1(): order " + out.str() + "not implemented";
+            throw std::runtime_error("SUSYMassInsertionMatching::CMd1(): order " + out.str() + "not implemented"); 
     }
 
     vmcd1.push_back(mcd1);
@@ -975,7 +976,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdd2 () {
         default:
             std::stringstream out;
             out << mcd2.getScheme();
-            throw "StandardModel::CMbd2(): scheme " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModel::CMbd2(): scheme " + out.str() + "not implemented"); 
     }
     mcd2.setMu(SusyMI.getMuM());
      switch (mcd2.getOrder()) {    
@@ -997,7 +998,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdd2 () {
         default:
             std::stringstream out;
             out << mcd2.getOrder();
-            throw "StandardModelMatching::CMd2(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMd2(): order " + out.str() + "not implemented"); 
     }
     
     LRItoNDR(1);
@@ -1021,7 +1022,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdd2 () {
         default:
             std::stringstream out;
             out << mcd2.getOrder();
-            throw "StandardModelMatching::CMd2(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMd2(): order " + out.str() + "not implemented"); 
     }
     
     LRItoNDR(1);
@@ -1057,7 +1058,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdbd2() {
         default:
             std::stringstream out;
             out << mcbd.getScheme();
-            throw "StandardModel::CMbbd(): scheme " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModel::CMbbd(): scheme " + out.str() + "not implemented"); 
     }
 
     mcbd.setMu(SusyMI.getMuM());
@@ -1081,7 +1082,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdbd2() {
         default:
             std::stringstream out;
             out << mcbd.getOrder();
-            throw "StandardModelMatching::CMbd(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMbd(): order " + out.str() + "not implemented"); 
     }
     
     LRItoNDR(2);
@@ -1105,7 +1106,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdbd2() {
         default:
             std::stringstream out;
             out << mcbd.getOrder();
-            throw "StandardModelMatching::CMbd(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMbd(): order " + out.str() + "not implemented"); 
     }
     
     LRItoNDR(2);
@@ -1142,7 +1143,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdbs2() {
         default:
             std::stringstream out;
             out << mcbs.getScheme();
-            throw "StandardModel::CMbbs(): scheme " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModel::CMbbs(): scheme " + out.str() + "not implemented"); 
     }
 
     mcbs.setMu(SusyMI.getMuM());
@@ -1166,7 +1167,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdbs2() {
         default:
             std::stringstream out;
             out << mcbs.getOrder();
-            throw "StandardModelMatching::CMbs(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMbs(): order " + out.str() + "not implemented"); 
     }
     
     LRItoNDR(3);
@@ -1190,7 +1191,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdbs2() {
         default:
             std::stringstream out;
             out << mcbs.getOrder();
-            throw "StandardModelMatching::CMbs(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMbs(): order " + out.str() + "not implemented"); 
     }
     
     LRItoNDR(3);
@@ -1225,7 +1226,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdk2() {
         default:
             std::stringstream out;
             out << mck2.getScheme();
-            throw "StandardModel::CMbk2(): scheme " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModel::CMbk2(): scheme " + out.str() + "not implemented"); 
     }
 
     mck2.setMu(SusyMI.getMuM());
@@ -1249,7 +1250,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdk2() {
         default:
             std::stringstream out;
             out << mck2.getOrder();
-            throw "StandardModelMatching::CMk2(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMk2(): order " + out.str() + "not implemented"); 
     }
     
     LRItoNDR(4);
@@ -1273,7 +1274,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdk2() {
         default:
             std::stringstream out;
             out << mck2.getOrder();
-            throw "StandardModelMatching::CMk2(): order " + out.str() + "not implemented";
+            throw std::runtime_error("StandardModelMatching::CMk2(): order " + out.str() + "not implemented"); 
     }
 
     LRItoNDR(4);
@@ -1358,7 +1359,7 @@ void SUSYMassInsertionMatching::LRItoNDR(int i){
                 drNDRLRI.transpose() * (*mck2.getCoeff(LO)), NLO);
             break;
         default:
-            throw "SUSYMassInsertionMatching::LRItoNDR : change of scheme not implemented";
+            throw std::runtime_error("SUSYMassInsertionMatching::LRItoNDR : change of scheme not implemented"); 
     }
 }
 

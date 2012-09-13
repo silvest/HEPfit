@@ -204,7 +204,7 @@ double EWSMOneLoopEW::rho_GammaW_l(const StandardModel::lepton li,
                                    const StandardModel::lepton lj, 
                                    const double Mw_i) const {
     if ( ((int)li+(int)lj+3)%2 ) 
-        throw "Error in EWSMOneLoopEW::rho_GammaW_l()";
+        throw std::runtime_error("Error in EWSMOneLoopEW::rho_GammaW_l()"); 
     double Mw = cache.Mw(Mw_i);
     return ( rho_GammaW_tmp(cache.Ql(li), cache.Ql(lj), Mw) );
 }
@@ -214,7 +214,7 @@ double EWSMOneLoopEW::rho_GammaW_q(const StandardModel::quark qi,
                                    const StandardModel::quark qj, 
                                    const double Mw_i) const {
     if ( ((int)qi+(int)qj+3)%2 ) 
-        throw "Error in EWSMOneLoopEW::rho_GammaW_q()";
+        throw std::runtime_error("Error in EWSMOneLoopEW::rho_GammaW_q()"); 
     double Mw = cache.Mw(Mw_i);
     return ( rho_GammaW_tmp(cache.Qq(qi), cache.Qq(qj), Mw) );
 }
@@ -401,7 +401,7 @@ complex EWSMOneLoopEW::SigmaZZ_bos(const double mu, const double s,
 
     complex Sigma(0.0,0.0,false);
     if (s==0.0) {
-        throw "Missing codes for EWSMOneLoopEW::SigmaZZ_bos(s=0.0)";
+        throw std::runtime_error("Missing codes for EWSMOneLoopEW::SigmaZZ_bos(s=0.0)"); 
     } else {
         Sigma = Mw2*( - cW4*(4.0 + 17.0/3.0/RW - 4.0/3.0/RW2 - 1.0/12.0/RW3 )
                         *B0_s_Mw_Mw
@@ -450,7 +450,7 @@ complex EWSMOneLoopEW::SigmaZZ_fer(const double mu, const double s,
     
     complex Sigma(0.0,0.0,false);
     if (s==0.0) {
-        throw "Missing codes for EWSMOneLoopEW::SigmaZZ_fer(s=0.0)";
+        throw std::runtime_error("Missing codes for EWSMOneLoopEW::SigmaZZ_fer(s=0.0)"); 
     } else {
         double ml2, vl2, al2, mq2, vq2, aq2;
         for (int i=0; i<6; i++) {
@@ -494,7 +494,7 @@ complex EWSMOneLoopEW::PiGammaGamma_bos(const double mu, const double s,
     
     complex Pi(0.0,0.0,false);
     if (s==0.0) {
-        throw "Missing codes for EWSMOneLoopEW::PiGammaGamma_bos(s=0.0)";
+        throw std::runtime_error("Missing codes for EWSMOneLoopEW::PiGammaGamma_bos(s=0.0)"); 
     } else {
         Pi = - RW*( (4.0 + 17.0/3.0/RW - 4.0/3.0/RW2 - 1.0/12.0/RW3)*B0_s_Mw_Mw
                     + (4.0 - 4.0/3.0/RW - 1.0/6.0/RW2)*(A0_Mw/Mw2 + 1.0)
@@ -1125,7 +1125,7 @@ complex EWSMOneLoopEW::FW_l(const double s, const StandardModel::lepton l,
             lprime = StandardModel::NEUTRINO_3;
             break;
         default:
-            throw "Error in EWSMOneLoopEW::FW_l()";  
+            throw std::runtime_error("Error in EWSMOneLoopEW::FW_l()");   
     }
     return ( cW2*FWn_0(s, Mw) - cache.sigmal(lprime, Mw)/2.0*FWa_0(s, Mw) 
             - FbarWa_0(s)/2.0 );
@@ -1152,12 +1152,12 @@ complex EWSMOneLoopEW::FW_q(const double s, const StandardModel::quark q,
             qprime = StandardModel::CHARM;
             break;
         case StandardModel::TOP:
-            throw "TOP is not allowed in EWSMOneLoopEW::FW_q(s,q)";
+            throw std::runtime_error("TOP is not allowed in EWSMOneLoopEW::FW_q(s,q)"); 
         case StandardModel::BOTTOM:
             qprime = StandardModel::TOP;
             break;
         default:
-            throw "Error in EWSMOneLoopEW::FW_q()";  
+            throw std::runtime_error("Error in EWSMOneLoopEW::FW_q()");   
     }         
     complex FW(0.0,0.0,false);
     FW = cW2*FWn_0(s,Mw) - cache.sigmaq(qprime, Mw)/2.0*FWa_0(s, Mw) 

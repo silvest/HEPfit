@@ -45,12 +45,12 @@ int main(int argc, char** argv) {
         if (vm.count("modconf"))
             ModelConf = vm["modconf"].as<string > ();
         else throw
-            error("missing mandatory model config filename");
+            runtime_error("missing mandatory model config filename");
 
         if (vm.count("mcconf"))
             MCMCConf = vm["mcconf"].as<string > ();
         else throw
-            error("missing mandatory montecarlo config filename");
+            runtime_error("missing mandatory montecarlo config filename");
 
         FileOut = vm["rootfile"].as<string > ();
 
@@ -58,7 +58,7 @@ int main(int argc, char** argv) {
         MC.Run();
 
         return EXIT_SUCCESS;
-    } catch (const error& e) {
+    } catch (const runtime_error& e) {
         cerr << e.what() << endl;
         return EXIT_FAILURE;
     }

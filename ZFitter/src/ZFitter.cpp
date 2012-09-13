@@ -8,6 +8,7 @@
 #include <iomanip>
 #include <cmath>
 #include "ZFitter.h"
+#include <stdexcept>
 
 
 ZFitter::ZFitter(const StandardModel& SM_i) : ThObsType(SM_i), SM(SM_i) {
@@ -150,21 +151,21 @@ void ZFitter::CutInfo() const {
 
 complex ZFitter::rhoZ_f(const int INDF) const {
     if (INDF<0 || INDF>11)
-        throw "Error in ZFitter::rhoZ_f";
+        throw std::runtime_error("Error in ZFitter::rhoZ_f"); 
     calcCommonBlocks();
     return complex(getCommonAROTFZ(INDF), getCommonAIROFZ(INDF), false);
 }
 
 complex ZFitter::kappaZ_f(const int INDF) const {
     if (INDF<0 || INDF>11)
-        throw "Error in ZFitter::kappaZ_f";
+        throw std::runtime_error("Error in ZFitter::kappaZ_f"); 
     calcCommonBlocks();    
     return complex(getCommonARKAFZ(INDF), getCommonAIKAFZ(INDF), false);
 }
 
 complex ZFitter::gZ_f(const int INDF) const {
     if (INDF<0 || INDF>11)
-        throw "Error in ZFitter::gZ_f";
+        throw std::runtime_error("Error in ZFitter::gZ_f"); 
     calcCommonBlocks();
     return complex(getCommonARVEFZ(INDF), getCommonAIVEFZ(INDF), false);
 }
@@ -174,7 +175,7 @@ complex ZFitter::gZ_f(const int INDF) const {
 
 double ZFitter::Af(const int INDF) const {
     if (INDF<0 || INDF>9)
-        throw "Error in ZFitter::Af";
+        throw std::runtime_error("Error in ZFitter::Af"); 
     double Qf = getCommonALLCH(INDF);
     double Re_gVf_over_gAf = 1.0 - 4.0*fabs(Qf)*kappaZ_f(INDF).real()*sw2();
     return ( 2.0*Re_gVf_over_gAf/(1.0 + Re_gVf_over_gAf*Re_gVf_over_gAf) );

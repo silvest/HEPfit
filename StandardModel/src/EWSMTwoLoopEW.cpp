@@ -105,7 +105,7 @@ complex EWSMTwoLoopEW::deltaKappa_rem_q(const StandardModel::quark q,
 
 double EWSMTwoLoopEW::rho_2() const {
     double a = cache.mh()*cache.mh()/cache.Mt()/cache.Mt();
-    if (a<=0.0) throw "a is out of range in EWSMTwoLoopEW::rho_2";
+    if (a<=0.0) throw std::runtime_error("a is out of range in EWSMTwoLoopEW::rho_2"); 
     double g_a = g(a);
     double f_a_0 = f0(a);// f(a,0)
     double f_a_1 = f1(a);// f(a,1)
@@ -119,7 +119,7 @@ double EWSMTwoLoopEW::rho_2() const {
 
 double EWSMTwoLoopEW::tau_2() const {
     double a = cache.mh()*cache.mh()/cache.Mt()/cache.Mt();
-    if (a<=0.0) throw "a is out of range in EWSMTwoLoopEW::tau_2";
+    if (a<=0.0) throw std::runtime_error("a is out of range in EWSMTwoLoopEW::tau_2"); 
     double g_a = g(a);
     double f_a_0 = f0(a);// f(a,0)
     double f_a_1 = f1(a);// f(a,1)
@@ -142,7 +142,7 @@ double EWSMTwoLoopEW::g(const double a) const {
         double xi = (sqrt(1.0-y) - 1.0)/(sqrt(1.0-y) + 1.0);
         return ( sqrt(a - 4.0)*log(-xi) );
     } else
-        throw "Out of range in EWSMTwoLoopEW::g()";
+        throw std::runtime_error("Out of range in EWSMTwoLoopEW::g()"); 
 }
 
 
@@ -150,7 +150,7 @@ double EWSMTwoLoopEW::f0(const double a) const {
     if (a >= 0.0 )
         return ( gsl_sf_dilog(1.0-a) );
     else
-        throw "Out of range in EWSMTwoLoopEW::f0()";
+        throw std::runtime_error("Out of range in EWSMTwoLoopEW::f0()"); 
 }
 
 
@@ -164,7 +164,7 @@ double EWSMTwoLoopEW::f1(const double a) const {
         double xi = (sqrt(1.0-y) - 1.0)/(sqrt(1.0-y) + 1.0);
         return ( -1.0/sqrt(1.0-y)*(M_PI*M_PI/6.0 + 2.0*gsl_sf_dilog(xi)) );
     } else
-        throw "Out of range in EWSMTwoLoopEW::f1()";
+        throw std::runtime_error("Out of range in EWSMTwoLoopEW::f1()"); 
 }
 
 

@@ -134,7 +134,7 @@ double EWSMOneLoopLEP2::g_rhofq(const QCD::quark q, const double rho,const doubl
     } else if (rho == -0.5) {
         return ((I3 - sW2*Q) / (sW*cW));   
     } else {
-        throw "Error in EWSMOneLoopLEP2::g_rho(): rho must be 1./2 or -1./2";
+        throw std::runtime_error("Error in EWSMOneLoopLEP2::g_rho(): rho must be 1./2 or -1./2"); 
     }
 }
 
@@ -155,7 +155,7 @@ double EWSMOneLoopLEP2::g_rhofl(const StandardModel::lepton l, const double rho,
     } else if (rho == -0.5) {
        g = ((I3 - sW2*Q) / (sW*cW));   
     } else {
-        throw "Error in EWSMOneLoopLEP2::g_rho(): rho must be 1./2 or -1./2";
+        throw std::runtime_error("Error in EWSMOneLoopLEP2::g_rho(): rho must be 1./2 or -1./2"); 
     }
     
     return g;
@@ -177,7 +177,7 @@ double EWSMOneLoopLEP2::g_rhoe(const double rho, const double Mw_i) const {
     } else if (rho == -0.5) {
         g = ((-1./2. + sW2) / (sW*cW));   
     } else {
-        throw "Error in EWSMOneLoopLEP2::g_rho(): rho must be 1./2 or -1./2";
+        throw std::runtime_error("Error in EWSMOneLoopLEP2::g_rho(): rho must be 1./2 or -1./2"); 
     }
     
     return g;
@@ -301,7 +301,7 @@ complex EWSMOneLoopLEP2::Cl(const double mu,const StandardModel::lepton l,
     } else if(k == 1./2.){
         return (-alpha/4./M_PI * (g_rhoe(rho,Mw_i)*g_rhoe(rho,Mw_i)*Lambda2(Mz,s))*Qf*Chi_Z(mu,s,Mw_i,W,X,Y)/s);
     } else {
-        throw "Error in EWSMOneLoopLEP2::Cl(): k must be 1./2 or -1./2";
+        throw std::runtime_error("Error in EWSMOneLoopLEP2::Cl(): k must be 1./2 or -1./2"); 
     }
     
     
@@ -320,7 +320,7 @@ complex EWSMOneLoopLEP2::Cq(const double mu,const QCD::quark q,
     } else if(k == 1./2.){
         return (-alpha/4./M_PI * (g_rhoe(rho,Mw_i)*g_rhoe(rho,Mw_i)*Lambda2(Mz,s))*Qf*Chi_Z(mu,s,Mw_i,W,X,Y)/s);
     } else {
-        throw "Error in EWSMOneLoopLEP2::Cq(): k must be 1./2 or -1./2";
+        throw std::runtime_error("Error in EWSMOneLoopLEP2::Cq(): k must be 1./2 or -1./2"); 
     }
     
 }
@@ -340,7 +340,7 @@ complex EWSMOneLoopLEP2::Dl_rho(const double mu,const StandardModel::lepton l,
         x = alpha/4./M_PI * (g_rhoe(rho,Mw_i)*g_rhoe(rho,Mw_i)*g_rhoe(rho,Mw_i)
                 *Lambda2(Mz,s))*Chi_Z(mu,s,Mw_i,W,X,Y)/s*g_rhofl(l,rho,Mw_i);
     } else {
-        throw "Error in EWSMOneLoopLEP2::Dl_rho(): k must be 1./2 or -1./2";
+        throw std::runtime_error("Error in EWSMOneLoopLEP2::Dl_rho(): k must be 1./2 or -1./2"); 
     }
     
     return x;
@@ -362,7 +362,7 @@ complex EWSMOneLoopLEP2::Dq_rho(const double mu,const QCD::quark q,
         return (alpha/4./M_PI * (g_rhoe(rho,Mw_i)*g_rhoe(rho,Mw_i)*g_rhoe(rho,Mw_i)
                 *Lambda2(Mz,s))*Chi_Z(mu,s,Mw_i,W,X,Y)/s*g_rhofq(q,rho,Mw_i));
     } else {
-        throw "Error in EWSMOneLoopLEP2::Dq_rho(): k must be 1./2 or -1./2";
+        throw std::runtime_error("Error in EWSMOneLoopLEP2::Dq_rho(): k must be 1./2 or -1./2"); 
     }
     
     
@@ -3306,7 +3306,7 @@ complex EWSMOneLoopLEP2::A1_NCq(const double mu,const double s,const double cos_
     } else if (rho == -k){
         return (B12kq);
     } else {
-        throw "Invalid rho or k in EWSMOneLoopLEP2::A1_NCq()!!";
+        throw std::runtime_error("Invalid rho or k in EWSMOneLoopLEP2::A1_NCq()!!"); 
     }
 }
 
@@ -3368,7 +3368,7 @@ complex EWSMOneLoopLEP2::A1_NCl(const double mu,const double s,const double cos_
     } else if (rho == -k){
         return (B12kl);
     } else {
-        throw "Invalid rho or k in EWSMOneLoopLEP2::A1_NCl()!!";
+        throw std::runtime_error("Invalid rho or k in EWSMOneLoopLEP2::A1_NCl()!!"); 
     }
     
     //return 0.;
@@ -3408,7 +3408,7 @@ complex EWSMOneLoopLEP2::A2_NCq(const double mu,const double s,const double cos_
     } else if (rho == -k){
         return (B22kq);
     } else {
-        throw "Invalid rho or k in EWSMOneLoopLEP2::A2_NCq()!!";
+        throw std::runtime_error("Invalid rho or k in EWSMOneLoopLEP2::A2_NCq()!!"); 
     }
     
     
@@ -3450,7 +3450,7 @@ complex EWSMOneLoopLEP2::A2_NCl(const double mu,const double s,const double cos_
     } else if (rho == -k){
         return (B22kl);
     } else {
-        throw "Invalid rho or k in EWSMOneLoopLEP2::A2_NCl()!!";
+        throw std::runtime_error("Invalid rho or k in EWSMOneLoopLEP2::A2_NCl()!!"); 
     }
     
     //return 0.;
@@ -3499,7 +3499,7 @@ complex EWSMOneLoopLEP2::A3_NCq(const double mu,const double s,const double cos_
 //    } else if (rho == -k){
 //        return (B32kq);
 //    } else {
-//        throw "Invalid rho or k in EWSMOneLoopLEP2::A3_NCq()!!";
+//        throw std::runtime_error("Invalid rho or k in EWSMOneLoopLEP2::A3_NCq()!!"); 
 //    }
     
     return 0.;
@@ -3548,7 +3548,7 @@ complex EWSMOneLoopLEP2::A3_NCl(const double mu,const double s,const double cos_
 //    } else if (rho == -k){
 //        return (B32kl);
 //    } else {
-//        throw "Invalid rho or k in EWSMOneLoopLEP2::A3_NCl()!!";
+//        throw std::runtime_error("Invalid rho or k in EWSMOneLoopLEP2::A3_NCl()!!"); 
 //    }
     
     return 0.;
@@ -3581,7 +3581,7 @@ complex EWSMOneLoopLEP2::A4_NCq(const double mu,const double s,const double cos_
 //    } else if (rho == -k){
 //        return (B42kq);
 //    } else {
-//        throw "Invalid rho or k in EWSMOneLoopLEP2::A4_NCq()!!";
+//        throw std::runtime_error("Invalid rho or k in EWSMOneLoopLEP2::A4_NCq()!!"); 
 //    }
     
     return 0.;
@@ -3616,7 +3616,7 @@ complex EWSMOneLoopLEP2::A4_NCl(const double mu,const double s,const double cos_
 //    } else if (rho == -k){
 //        return (B42kl);
 //    } else {
-//        throw "Invalid rho or k in EWSMOneLoopLEP2::A4_NCl()!!";
+//        throw std::runtime_error("Invalid rho or k in EWSMOneLoopLEP2::A4_NCl()!!"); 
 //    }
     
     return 0.;

@@ -13,7 +13,7 @@ AmpDD2::AmpDD2(Flavour& Flavour) : myFlavour(Flavour) {
 
 complex AmpDD2::AmpDD(orders order) {
     if (myFlavour.getHDF2().getCoeffDD().getOrder() < order)
-        throw "DmD::getThValue(): requires cofficient of order not computed";
+        throw std::runtime_error("DmD::getThValue(): requires cofficient of order not computed"); 
 
     vector<complex> ** allcoeff =  myFlavour.ComputeCoeffdd(
             myFlavour.getModel().getBD().getMu(), 
@@ -36,7 +36,7 @@ complex AmpDD2::AmpDD(orders order) {
         case LO:
             return((*(allcoeff[LO])) * me / HCUT);
         default:
-            throw "AmpDD2::AmpDD(): order not implemented";
+            throw std::runtime_error("AmpDD2::AmpDD(): order not implemented"); 
     }
 }
 

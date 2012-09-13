@@ -216,7 +216,7 @@ double EWSM::sW2_SM() const {
 
 complex EWSM::rhoZ_l_SM(const StandardModel::lepton l) const {    
     if (schemeRhoZ==APPROXIMATEFORMULA)
-        throw "No approximate formula is available for rhoZ^f";
+        throw std::runtime_error("No approximate formula is available for rhoZ^f"); 
     else {
 
         if (bUseCacheEWSM)        
@@ -282,7 +282,7 @@ complex EWSM::rhoZ_l_SM(const StandardModel::lepton l) const {
 complex EWSM::rhoZ_q_SM(const StandardModel::quark q) const {    
     if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
     if (schemeRhoZ==APPROXIMATEFORMULA)
-        throw "No approximate formula is available for rhoZ^f";
+        throw std::runtime_error("No approximate formula is available for rhoZ^f"); 
     else {
 
         if (bUseCacheEWSM)        
@@ -516,7 +516,7 @@ complex EWSM::gAl_SM(const StandardModel::lepton l) const {
                 || l==StandardModel::TAU )
         I3f = - 1.0/2.0;
     else 
-        throw "Error in EWSM::gAl_SM()";
+        throw std::runtime_error("Error in EWSM::gAl_SM()"); 
     return ( sqrt(rhoZ_l_SM(l))*I3f );
 }
 
@@ -530,7 +530,7 @@ complex EWSM::gAq_SM(const StandardModel::quark q) const {
                || q==StandardModel::BOTTOM )
         I3f = - 1.0/2.0;
     else 
-        throw "Error in EWSM::gAq_SM()";
+        throw std::runtime_error("Error in EWSM::gAq_SM()"); 
     return ( sqrt(rhoZ_q_SM(q))*I3f );
 }
 
@@ -558,7 +558,7 @@ double EWSM::rho_GammaW_q_SM(const StandardModel::quark qi,
 double EWSM::GammaW_l_SM(const StandardModel::lepton li, 
                          const StandardModel::lepton lj) const {
     if ( ((int)li+2)%2 || ((int)lj+3)%2 ) 
-        throw "Error in EWSM::GammaW_l_SM()";
+        throw std::runtime_error("Error in EWSM::GammaW_l_SM()"); 
     
     double G0 = SM.getGF()*pow(Mw_SM(),3.0)/6.0/sqrt(2.0)/M_PI;    
     complex V(0.0, 0.0, false);
@@ -573,7 +573,7 @@ double EWSM::GammaW_l_SM(const StandardModel::lepton li,
 double EWSM::GammaW_q_SM(const StandardModel::quark qi, 
                          const StandardModel::quark qj) const {
     if ( ((int)qi+2)%2 || ((int)qj+3)%2 ) 
-        throw "Error in EWSM::GammaW_q_SM()";
+        throw std::runtime_error("Error in EWSM::GammaW_q_SM()"); 
     
     double G0 = SM.getGF()*pow(Mw_SM(),3.0)/6.0/sqrt(2.0)/M_PI;    
     complex V(0.0, 0.0, false);
@@ -618,7 +618,7 @@ double EWSM::GammaW_SM() const {
 
 double EWSM::R0_bottom_SM() const {
     if (!boolR0bApproximate)
-        throw "Error in EWSM::R0_bottom_SM()";
+        throw std::runtime_error("Error in EWSM::R0_bottom_SM()"); 
 
     if (bUseCacheEWSM)      
         if (checkSMparams(R0b_params_cache))
@@ -695,7 +695,7 @@ double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
     if ( (schemeMw==APPROXIMATEFORMULA) 
             || (DeltaR_rem[EW2QCD1]!=0.0) 
             || (DeltaR_rem[EW3]!=0.0) )
-        throw "Error in EWSM::resumMw()";
+        throw std::runtime_error("Error in EWSM::resumMw()"); 
 
     double cW2_TMP = Mw_i*Mw_i/SM.getMz()/SM.getMz();
     double sW2_TMP = 1.0 - cW2_TMP;
@@ -746,11 +746,11 @@ double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
                       - DeltaR_rem[EW1QCD1] - DeltaR_rem[EW2] );
             break;
         default:
-            throw "Error in EWSM::resumMw()";            
+            throw std::runtime_error("Error in EWSM::resumMw()");             
     }   
 
     double tmp = 4.0*M_PI*SM.getAle()/sqrt(2.0)/SM.getGF()/SM.getMz()/SM.getMz();
-    if (tmp*R > 1.0) throw "Negative (1-tmp*R) in EWSM::resumMw()";
+    if (tmp*R > 1.0) throw std::runtime_error("Negative (1-tmp*R) in EWSM::resumMw()"); 
     
     return (SM.getMz()/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp*R)));
 }
@@ -763,7 +763,7 @@ double EWSM::resumRhoZ(const double DeltaRho[orders_EW_size],
             || (deltaRho_rem[EW1QCD2]!=0.0) 
             || (deltaRho_rem[EW2QCD1]!=0.0) 
             || (deltaRho_rem[EW3]!=0.0) )
-        throw "Error in EWSM::resumRhoZ()";  
+        throw std::runtime_error("Error in EWSM::resumRhoZ()");   
 
     double Mw_TMP = Mw_SM();
     double cW2_TMP = cW2_SM();
@@ -815,7 +815,7 @@ double EWSM::resumRhoZ(const double DeltaRho[orders_EW_size],
                         + deltaRho_rem_G*(1.0 + DeltaRho_G) + deltaRho_rem_G2;  
                 break;
             default:
-                throw "Error in EWSM::resumRhoZ()";
+                throw std::runtime_error("Error in EWSM::resumRhoZ()"); 
         }
     } else { 
         double rhoZbL = pow(1.0+taub(),2.0)/(1.0 - DeltaRho_sum);
@@ -834,7 +834,7 @@ double EWSM::resumRhoZ(const double DeltaRho[orders_EW_size],
                 rhoZ = rhoZbL*(1.0 + deltaRho_rem_G);
                 break;
             default:
-                throw "Error in EWSM::resumRhoZ()";        
+                throw std::runtime_error("Error in EWSM::resumRhoZ()");         
         }
     }
     
@@ -848,7 +848,7 @@ double EWSM::resumKappaZ(const double DeltaRho[orders_EW_size],
     if ( (schemeKappaZ==APPROXIMATEFORMULA)
             || (deltaKappa_rem[EW2QCD1]!=0.0)
             || (deltaKappa_rem[EW3]!=0.0) )
-        throw "Error in EWSM::resumKappaZ()";     
+        throw std::runtime_error("Error in EWSM::resumKappaZ()");      
 
     double Mw_TMP = Mw_SM();
     double cW2_TMP = cW2_SM();
@@ -902,7 +902,7 @@ double EWSM::resumKappaZ(const double DeltaRho[orders_EW_size],
                         + deltaKappa_rem_G2;
                 break;
             default:
-                throw "Error in EWSM::resumKappaZ()";
+                throw std::runtime_error("Error in EWSM::resumKappaZ()"); 
         }
     } else {
         double kappaZbL = (1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)/(1.0+taub());
@@ -921,7 +921,7 @@ double EWSM::resumKappaZ(const double DeltaRho[orders_EW_size],
                 kappaZ = kappaZbL + deltaKappa_rem_G;
                 break;
             default:
-                throw "Error in EWSM::resumKappaZ()";
+                throw std::runtime_error("Error in EWSM::resumKappaZ()"); 
         }
     }
 

@@ -49,7 +49,7 @@ double EWSMThreeLoopEW2QCD::DeltaRho(const double Mw_i) const {
                    +  Y*Y*Y*Y*( -4.52 - 32.85*logY + 0.72*logY2 - 5.25*logY3 ) 
                    +  Y*Y*Y*Y*Y*( -2.55 - 36.61*logY + 1.06*logY2 - 5.14*logY3 );
     } else {
-        throw "Higgs mass is out of range in EWSMThreeLoopEW2QCD::DeltaRho()";
+        throw std::runtime_error("Higgs mass is out of range in EWSMThreeLoopEW2QCD::DeltaRho()"); 
     }
     DeltaRho *= pow(cache.Xt_alpha(Mw), 2.0) * cache.alsMt()/M_PI;
     return DeltaRho;     

@@ -846,7 +846,7 @@ complex EWSMcache::Bf_Mz_0_ml_ml(const StandardModel::lepton l) const {
     int NumPar = 2;
     double params[] = {Mz(), ml(l)};
     if (ml(l)==0.0)
-        throw "Error in EWSMcache::Bf_Mz_0_ml_ml()";
+        throw std::runtime_error("Error in EWSMcache::Bf_Mz_0_ml_ml()"); 
     
     if ( CacheCheck(Bf_Mz_0_ml_ml_cache[l], NumPar, params) )
         return complex(Bf_Mz_0_ml_ml_cache[l][NumPar], 
@@ -863,7 +863,7 @@ complex EWSMcache::Bf_Mz_0_mq_mq(const StandardModel::quark q) const {
     int NumPar = 2;
     double params[] = {Mz(), mq(q)};
     if (mq(q)==0.0)
-        throw "Error in EWSMcache::Bf_Mz_0_mq_mq()";
+        throw std::runtime_error("Error in EWSMcache::Bf_Mz_0_mq_mq()"); 
     
     if ( CacheCheck(Bf_Mz_0_mq_mq_cache[q], NumPar, params) )
         return complex(Bf_Mz_0_mq_mq_cache[q][NumPar], 

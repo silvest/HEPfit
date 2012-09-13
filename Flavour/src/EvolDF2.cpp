@@ -6,6 +6,7 @@
  */
 
 #include "EvolDF2.h"
+#include <stdexcept>
 
 EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order,
     const StandardModel& model) : model(model), RGEvolutor(dim, scheme, order) {
@@ -84,7 +85,7 @@ matrix<double> EvolDF2::AnomalousDimension(orders order, unsigned int nf) const 
             // MSbar-NDR scheme with evanescent operators of Buras, Misiak & Urban
             
             if (!(nf == 3 || nf == 4 || nf == 5 || nf == 6))
-                throw "EvolDF2::AnomalousDimension(): wrong number of flavours";
+                throw std::runtime_error("EvolDF2::AnomalousDimension(): wrong number of flavours"); 
             ad(0, 0) = -(-1. + Nc)*(-171. + 19. * Nc * Nc + Nc * (63. - 4. * nf)) / (6. * Nc * Nc);
             ad(1, 1) = (-1251. - 609. * Nc * Nc * Nc * Nc + Nc * (432. - 52. * nf) - 8. * Nc * Nc * (-71 + 2. * nf) +
                     20. * Nc * Nc * Nc * (32. + 3. * nf)) / (18. * Nc * Nc);
@@ -100,7 +101,7 @@ matrix<double> EvolDF2::AnomalousDimension(orders order, unsigned int nf) const 
             ad(4, 4) = (45. + 137. * Nc * Nc - 44. * Nc * nf) / (6. * Nc * Nc);
             break;
         default:
-            throw "EvolDF2::AnomalousDimension(): order not implemented";
+            throw std::runtime_error("EvolDF2::AnomalousDimension(): order not implemented"); 
     }
     return (ad);
 }
@@ -114,7 +115,7 @@ matrix<double>& EvolDF2::Df2Evol(double mu, double M, orders order, schemes sche
         default:
             std::stringstream out;
             out << scheme;
-            throw "EvolDF2::Df2Evol(): scheme " + out.str() + " not implemented ";
+            throw std::runtime_error("EvolDF2::Df2Evol(): scheme " + out.str() + " not implemented "); 
     }
 
     if (mu == this->mu && M == this->M && scheme == this->scheme)

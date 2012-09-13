@@ -8,6 +8,8 @@
 #include <gsl/gsl_complex.h>
 #include <gsl/gsl_sf.h>
 #include "PVfunctions.h"
+#include <stdexcept>
+
 #define LEPS 1.e-7 // tolerance in the limit of masses
 
 
@@ -16,7 +18,7 @@ PVfunctions::PVfunctions() {
 
 double PVfunctions::A0(const double mu, const double m) const {
     if ( mu<=0.0 || m<0.0 ) {
-        throw "Invalid argument for PVfunctions::A0()";
+        throw std::runtime_error("Invalid argument for PVfunctions::A0()"); 
     }
     
     if (m==0.0) {
@@ -33,7 +35,7 @@ complex PVfunctions::B0(const double mu, const double p2,
 //        std::cout << "p2 = \t"<<p2<<std::endl;
 //        std::cout << "m0 = \t"<<m0<<std::endl;
 //        std::cout << "m1 = \t"<<m1<<std::endl;
-        throw "Invalid argument for PVfunctions::B0()";   
+        throw std::runtime_error("Invalid argument for PVfunctions::B0()");    
     }
     double mu2=mu*mu, m02=m0*m0, m12=m1*m1;
     complex B0(0.0, 0.0, false);
@@ -81,9 +83,9 @@ complex PVfunctions::B0(const double mu, const double p2,
             B0 += M_PI*complex::i();// imaginary part    
         }
     } else if ( p2==0.0 && m0==0.0 && m1==0.0 ) {      
-        throw "PVfunctions::B0() is IR divergent. (vanishes in DR)";            
+        throw std::runtime_error("PVfunctions::B0() is IR divergent. (vanishes in DR)");             
     } else {
-        throw "Missing case in the codes of PVfunctions::B0().";
+        throw std::runtime_error("Missing case in the codes of PVfunctions::B0()."); 
     }
     return B0;
 }
@@ -91,7 +93,7 @@ complex PVfunctions::B0(const double mu, const double p2,
 complex PVfunctions::B1(const double mu, const double p2, 
                         const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
-        throw "Invalid argument for PVfunctions::B1()";
+        throw std::runtime_error("Invalid argument for PVfunctions::B1()"); 
     }
     double mu2=mu*mu, m02=m0*m0, m12=m1*m1;
     double DeltaM2 = m02 - m12; 
@@ -124,7 +126,7 @@ complex PVfunctions::B1(const double mu, const double p2,
 complex PVfunctions::B21(const double mu, const double p2, 
                          const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
-        throw "Invalid argument for PVfunctions::B21()";
+        throw std::runtime_error("Invalid argument for PVfunctions::B21()"); 
     }
     double mu2=mu*mu, m02=m0*m0, m12=m1*m1;
     double DeltaM2 = m02 - m12; 
@@ -146,7 +148,7 @@ complex PVfunctions::B21(const double mu, const double p2,
         } else if (m02!=0.0 && m12==0.0) { 
             B21.real() = - 1.0/3.0*log(m02/mu2) + 1.0/9.0;
         } else {                
-            throw "PVfunctions::B21() is undefined."; 
+            throw std::runtime_error("PVfunctions::B21() is undefined.");  
         }        
     } else {
         double Lambdabar2 = (p2-m02-m12)*(p2-m02-m12) - 4.0*m02*m12;
@@ -161,7 +163,7 @@ complex PVfunctions::B21(const double mu, const double p2,
 complex PVfunctions::B22(const double mu, const double p2, 
                          const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
-        throw "Invalid argument for PVfunctions::B22()";
+        throw std::runtime_error("Invalid argument for PVfunctions::B22()"); 
     }
     double mu2=mu*mu, m02=m0*m0, m12=m1*m1;
     double DeltaM2 = m02 - m12;
@@ -176,7 +178,7 @@ complex PVfunctions::B22(const double mu, const double p2,
                       + (m02 * m02 + m12 * m12) / 8. / (m02 - m12) * log(m02 / m12);  
             }             
         } else
-            throw "PVfunctions::B22() is undefined."; 
+            throw std::runtime_error("PVfunctions::B22() is undefined.");  
     } else {
         if(m0 != 0. && m1 != 0.){
             if(fabs(m02 - m12) < LEPS){
@@ -191,7 +193,7 @@ complex PVfunctions::B22(const double mu, const double p2,
                       ;                
             }
         } else
-            throw "PVfunctions::B22() is undefined."; 
+            throw std::runtime_error("PVfunctions::B22() is undefined.");  
     }
     return B22;
 }
@@ -199,7 +201,7 @@ complex PVfunctions::B22(const double mu, const double p2,
 complex PVfunctions::Bf(const double mu, const double p2, 
                         const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
-        throw "Invalid argument for PVfunctions::Bf()";
+        throw std::runtime_error("Invalid argument for PVfunctions::Bf()"); 
     }
     complex Bf(0.0, 0.0, false);
     Bf = 2.0*(B21(mu,p2,m0,m1) + B1(mu,p2,m0,m1));
@@ -209,7 +211,7 @@ complex PVfunctions::Bf(const double mu, const double p2,
 complex PVfunctions::B0p(const double mu, const double p2, 
                          const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
-        throw "Invalid argument for PVfunctions::B0p()";
+        throw std::runtime_error("Invalid argument for PVfunctions::B0p()"); 
     }
     double mu2=mu*mu, m02=m0*m0, m12=m1*m1;
     complex B0p(0.0, 0.0, false);
@@ -220,7 +222,7 @@ complex PVfunctions::B0p(const double mu, const double p2,
             B0p = (m02 + m12)/2.0/pow(DeltaM2,2.0)
                    + m02*m12/pow(DeltaM2,3.0)*log(m12/m02);
         } else {        
-            throw "PVfunctions::B0p() is undefined.";
+            throw std::runtime_error("PVfunctions::B0p() is undefined."); 
         }
     } else {
         if ( m0!=0.0 && m1!=0.0 ) {         
@@ -253,7 +255,7 @@ complex PVfunctions::B0p(const double mu, const double p2,
         } else if ( m0==0.0 && m1==0.0 ) {
             B0p = - 1.0/p2;
         } else {
-            throw "PVfunctions::B0p() is undefined.";
+            throw std::runtime_error("PVfunctions::B0p() is undefined."); 
         }
     }
     return B0p;
@@ -262,12 +264,12 @@ complex PVfunctions::B0p(const double mu, const double p2,
 complex PVfunctions::B1p(const double mu, const double p2, 
                          const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
-        throw "Invalid argument for PVfunctions::B1p()";
+        throw std::runtime_error("Invalid argument for PVfunctions::B1p()"); 
     }
     complex B1p(0.0, 0.0, false);
     
     if (p2==0.0) {
-        throw "PVfunctions::B1p() is undefined.";                     
+        throw std::runtime_error("PVfunctions::B1p() is undefined.");                      
     } else {
         double DeltaM2 = m0*m0 - m1*m1;
         B1p = - ( 2.0*B1(mu,p2,m0,m1) + B0(mu,p2,m0,m1) 
@@ -279,7 +281,7 @@ complex PVfunctions::B1p(const double mu, const double p2,
 complex PVfunctions::B21p(const double mu, const double p2, 
                           const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
-        throw "Invalid argument for PVfunctions::B21p()";
+        throw std::runtime_error("Invalid argument for PVfunctions::B21p()"); 
     }
     double m02=m0*m0, m12=m1*m1;
     double p4 = p2*p2, p6=p2*p2*p2;
@@ -287,7 +289,7 @@ complex PVfunctions::B21p(const double mu, const double p2,
     complex B21p(0.0, 0.0, false);
 
     if (p2==0.0) {
-        throw "PVfunctions::B21p() is undefined.";           
+        throw std::runtime_error("PVfunctions::B21p() is undefined.");            
     } else {
         double Lambdabar2 = (p2-m02-m12)*(p2-m02-m12) - 4.0*m02*m12;
         B21p = (m02 + m12)/6.0/p4 - (2.0*DeltaM2 + p2)/3.0/p6*A0(mu,m0)
@@ -302,7 +304,7 @@ complex PVfunctions::B21p(const double mu, const double p2,
 //complex PVfunctions::B22p(const double mu, const double p2, 
 //                          const double m0, const double m1) {   
 //    if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
-//        throw "Invalid argument for PVfunctions::B22p()";
+//        throw std::runtime_error("Invalid argument for PVfunctions::B22p()"); 
 //    }
 //    double mu2=mu*mu, m02=m0*m0, m12=m1*m1;
 //    complex B22p(0.0, 0.0, false);
@@ -313,7 +315,7 @@ complex PVfunctions::B21p(const double mu, const double p2,
 complex PVfunctions::Bfp(const double mu, const double p2, 
                          const double m0, const double m1) const {   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
-        throw "Invalid argument for PVfunctions::Bfp()";
+        throw std::runtime_error("Invalid argument for PVfunctions::Bfp()"); 
     }
     complex Bfp(0.0, 0.0, false);
     Bfp = 2.0*(B21p(mu,p2,m0,m1) + B1p(mu,p2,m0,m1));
@@ -323,7 +325,7 @@ complex PVfunctions::Bfp(const double mu, const double p2,
 complex PVfunctions::C0(const double p2, 
                         const double m0, const double m1, const double m2) const {
     if ( p2<0.0 || m0<0.0 || m1<0.0 || m2<0.0 ) {
-        throw "Invalid argument for PVfunctions::C0()";
+        throw std::runtime_error("Invalid argument for PVfunctions::C0()"); 
     }
 
     complex C0(0.0, 0.0, false);   
@@ -333,7 +335,7 @@ complex PVfunctions::C0(const double p2,
 //        std::cout << "m1 = \t"<<m1<<std::endl;
 //        std::cout << "m2 = \t"<<m2<<std::endl;
         
-        throw "\nPVfunctions::C0() is undefined-1.\n";
+        throw std::runtime_error("\nPVfunctions::C0() is undefined-1.\n"); 
     } else {
         if (fabs(m0 - m2) < LEPS && fabs(m0 - m1) > LEPS) {///////////////////////////////////
             double m02 = m0*m0;
@@ -348,7 +350,7 @@ complex PVfunctions::C0(const double p2,
             complex x3 = m02/(m02 - m12);
 
             if ( x0==x1 || x0==x2 || x0==x3) {///////////////////////////////////////////////????????
-                throw "\nPVfunctions::C0() is undefined-2.\n";
+                throw std::runtime_error("\nPVfunctions::C0() is undefined-2.\n"); 
             }
 
             complex arg[6];
@@ -383,7 +385,7 @@ complex PVfunctions::C0(const double p2,
             complex x2 = (p2 - m02 + m22 - tmp_complex)/2.0/p2;            
 
             if ( x1==0.0 || x1==1.0 || x2==0.0 || x2==1.0 ) { //////////////////////////////////???
-                throw "\nPVfunctions::C0() is undefined-3.\n";
+                throw std::runtime_error("\nPVfunctions::C0() is undefined-3.\n"); 
             }            
             
             complex arg1 = (x1 - 1.0)/x1;
@@ -441,7 +443,7 @@ complex PVfunctions::C0(const double p2,
             C0 = -1./p2*(Li2[0]-Li2[1]+Li2[2]-Li2[3]-Li2[4]+Li2[5]);
             
         } else {
-            throw "\nPVfunctions::C0() is undefined-4.\n";            
+            throw std::runtime_error("\nPVfunctions::C0() is undefined-4.\n");             
         }
         
         
@@ -477,7 +479,7 @@ double PVfunctions::F(const double m0, const double m1) const {
     double F;
     
     if ( m0<=0.0 || m1<0.0 ) {
-        throw "Invalid argument for PVfunctions::F()\n";
+        throw std::runtime_error("Invalid argument for PVfunctions::F()\n"); 
     }
     
     if(m0 == 0. && m1 != 0.) {
@@ -568,11 +570,11 @@ complex PVfunctions::D0(const double p12, const double p22, const double p32,
             }
         
         } else {
-            throw "Invalid argument m2 != 0. for PVfunctions::D0()!";
+            throw std::runtime_error("Invalid argument m2 != 0. for PVfunctions::D0()!"); 
         }
         
     }else {
-        throw "Invalid argument for PVfunctions::D0(). The initial and final momenta must be 0.";
+        throw std::runtime_error("Invalid argument for PVfunctions::D0(). The initial and final momenta must be 0."); 
     }
     
     return (D0);

@@ -11,6 +11,7 @@
 #include <ThObsType.h>
 #include <StandardModel.h>
 #include "HeffDF2.h"
+#include <stdexcept>
 
 using namespace gslpp;
 
@@ -21,7 +22,7 @@ public:
             HDF2(SM_i) {
         
         if(!SM_i.IsMatchingInitialized())
-            throw "Matching not initialized ";
+            throw std::runtime_error("Matching not initialized "); 
     };
 
     const HeffDF2& getHDF2() const {
