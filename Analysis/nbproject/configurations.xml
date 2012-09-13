@@ -66,6 +66,7 @@
             <pElem>/usr/include/root</pElem>
           </incDir>
           <commandLine>`root-config --cflags`</commandLine>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
@@ -279,8 +280,9 @@
             <linkerLibLibItem>BAT</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>zfitter6_43</linkerLibLibItem>
+            <linkerLibLibItem>cuba</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit</commandLine>
+          <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit </commandLine>
         </linkerTool>
       </compileType>
       <folder path="TestFiles/f1">
