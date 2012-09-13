@@ -104,6 +104,7 @@
             <pElem>../Observables/src</pElem>
           </incDir>
           <inheritIncValues>false</inheritIncValues>
+          <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
         </archiverTool>
