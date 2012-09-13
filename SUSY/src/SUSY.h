@@ -456,8 +456,9 @@ protected:
     FHedmn, FHedmHg, FHMGl, FHMHtree[4], FHSAtree;
     double FHbsgMSSM, FHbsgSM, FHdeltaMsMSSM, FHdeltaMsSM, FHbsmumuMSSM, FHbsmumuSM;
     complex FHDeltab;
-    /**
-     soft breaking terms for squarks and sleptons in the SCKM basis at the scale Q*/
+    
+    /**soft breaking terms for squarks and sleptons in the SCKM basis at the scale Q**/
+    
     matrix<complex> MsQ2, MsU2, MsD2, MsL2, MsE2, MsN2, TU, TD, TE, TN;
     double  Q;
     double  m3, mHptree, mHp, tanb, sinb, cosb, mh[4];

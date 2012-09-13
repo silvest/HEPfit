@@ -98,6 +98,13 @@ public:
     void Comp_mySUSYMQ();
     
       
+    /*** FUNZIONE - TEST  ***/
+    
+    void Test();
+    
+   /**********/
+    
+    
 private:
     const SUSY & mySUSY;
     WilsonCoefficient mcdbd2, mcdbd2Hp, mcdbd2gg, mcdbd2ChiChi, mcdbd2Chi0Chi0, mcdbd2Chi0g,
@@ -111,7 +118,7 @@ private:
     
     WilsonCoefficient mcbsg, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     
-    std::vector<WilsonCoefficient> vmdbd2;                           
+    std::vector<WilsonCoefficient> vmdbd2, vmdbd2TEST;                           
     std::vector<WilsonCoefficient> vmdbs2;
     std::vector<WilsonCoefficient> vmdk2;
     std::vector<WilsonCoefficient> vmdd2;
@@ -174,10 +181,7 @@ private:
     
     
     
-    
-    
-    
-    
+ 
     double CL(double a, double b, int k);
     double CLL(double a, int k);
     double Ck(double x, double y, double z,int k);

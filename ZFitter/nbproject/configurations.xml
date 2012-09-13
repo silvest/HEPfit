@@ -14,6 +14,9 @@
       <itemPath>src/ZFAbottom.h</itemPath>
       <itemPath>src/ZFAcharm.h</itemPath>
       <itemPath>src/ZFAlepton.h</itemPath>
+      <itemPath>src/ZFDsigmaMuLEP2.h</itemPath>
+      <itemPath>src/ZFDsigmaQuarksLEP2.h</itemPath>
+      <itemPath>src/ZFDsigmaTauLEP2.h</itemPath>
       <itemPath>src/ZFEWObservables.h</itemPath>
       <itemPath>src/ZFGammaW.h</itemPath>
       <itemPath>src/ZFGammaZ.h</itemPath>
@@ -50,6 +53,9 @@
       <itemPath>src/ZFAbottom.cpp</itemPath>
       <itemPath>src/ZFAcharm.cpp</itemPath>
       <itemPath>src/ZFAlepton.cpp</itemPath>
+      <itemPath>src/ZFDsigmaMuLEP2.cpp</itemPath>
+      <itemPath>src/ZFDsigmaQuarksLEP2.cpp</itemPath>
+      <itemPath>src/ZFDsigmaTauLEP2.cpp</itemPath>
       <itemPath>src/ZFGammaW.cpp</itemPath>
       <itemPath>src/ZFGammaZ.cpp</itemPath>
       <itemPath>src/ZFMh0.cpp</itemPath>
@@ -164,6 +170,7 @@
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibLibItem>FH</linkerLibLibItem>
             <linkerLibLibItem>zfitter6_43</linkerLibLibItem>
+            <linkerLibLibItem>cuba</linkerLibLibItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../gslpp"
                             CT="3"

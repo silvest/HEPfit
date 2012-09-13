@@ -18,6 +18,9 @@ public:
     ThObservable(const ThObservable& orig);
     virtual ~ThObservable();
     virtual double getThValue() = 0;
+
+    static double const GeVminus2_to_nb;// conversion factor from GeV^{-2} to nb
+
 protected:
     const ThObsType& ObsType;
     const StandardModel& SM;

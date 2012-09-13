@@ -36,7 +36,7 @@ public:
     const StandardModel& getSM() const {
         return SM;
     } 
-    
+        
     /**
      * @param[in] l lepton
      * @return electric charge of a lepton "l"
@@ -62,33 +62,52 @@ public:
     /**
      * @return the oblique parameters S
      */
-    double S() const;
+    double S() const {
+        return ( SM.obliqueS() );
+    }
     
     /**
      * @return the oblique parameters T
      */    
-    double T() const;
+    double T() const {
+        return ( SM.obliqueT() );
+    }
     
     /**
      * @return the oblique parameters U
      */    
-    double U() const;
+    double U() const {
+        return ( SM.obliqueU() );
+    }
+
+    /**
+     * @return the oblique parameters V
+     */    
+    double V() const {
+        return ( SM.obliqueV() );
+    }
     
     /**
      * @return the oblique parameters W
-     */
-    double W() const;
+     */    
+    double W() const {
+        return ( SM.obliqueW() );
+    }
     
     /**
      * @return the oblique parameters X
      */    
-    double X() const;
+    double X() const {
+        return ( SM.obliqueX() );
+    }
     
     /**
      * @return the oblique parameters Y
      */    
-    double Y() const;
-    
+    double Y() const {
+        return ( SM.obliqueY() );
+    }    
+
     
     ////////////////////////////////////////////////////////////////////////     
     
@@ -155,25 +174,50 @@ public:
     double A_q(const StandardModel::quark q) const;
 
     
-    double dsigma_lLEP2(const StandardModel::lepton l,const double s,const double W,
-                               const double X,const double Y, const double cos_theta) const;
-    
-    double dsigma_qLEP2(const QCD::quark q,const double s,const double W,
-                               const double X,const double Y, const double cos_theta) const;
-   
-    ////////////////////////////////////////////////////////////////////////     
+    ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief conversion factor from GeV^{-2} to nb
-     * @return the conversion factor from GeV^{-2} to nb
+     * @param[in] l name of a lepton
+     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] W oblique parameter W
+     * @param[in] X oblique parameter X
+     * @param[in] Y oblique parameter Y
+     * @param[in] cos_theta cos(theta)
+     * @return the differential cross section for e^+ e^- -> l lbar in GeV^{-2}
      */
-    double GeVminus2_to_nb() const {
-        return ( pow(10.0, -6.0)
-                 / pow(10.0, -28.0)
-                 / pow(299792458.0, -2.0)
-                 / pow(6.58211899 * pow(10.0, -22.0), -2.0)
-                 * pow(10.0, 9.0) );        
-    }
+    double dsigma_lLEP2(const StandardModel::lepton l, const double s,
+                        const double W, const double X,const double Y, 
+                        const double cos_theta) const;
+    
+    /**
+     * @param[in] q name of a quark
+     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] W oblique parameter W
+     * @param[in] X oblique parameter X
+     * @param[in] Y oblique parameter Y
+     * @param[in] cos_theta cos(theta)
+     * @return the differential cross section for e^+ e^- -> q qbar in GeV^{-2}
+     */
+    double dsigma_qLEP2(const StandardModel::quark q, const double s,
+                        const double W, const double X, const double Y, 
+                        const double cos_theta) const;
+   
+
+    ////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @param[in] l name of a lepton
+     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
+     * @return the toral cross section for e^+ e^- -> l lbar in GeV^{-2}
+     */
+    double sigma_l_Born_LEP2(const StandardModel::lepton l, const double s) const;
+
+    /**
+     * @param[in] q name of a quark
+     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
+     * @return the toral cross section for e^+ e^- -> q qbar in GeV^{-2}
+     */
+    double sigma_q_Born_LEP2(const StandardModel::quark q, const double s) const;
 
     
     ////////////////////////////////////////////////////////////////////////     
@@ -182,7 +226,20 @@ private:
     bool bDebug; // true for debugging    
     
     const StandardModel& SM;
+
     
+    ////////////////////////////////////////////////////////////////////////     
+    
+    /**
+     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] mf mass of f
+     * @param[in] Qf electric charge of f
+     * @param[in] I3f isospin of f
+     * @param[in] Ncf Ncf=3 for f=q; 1 for f=l
+     * @return the toral cross section for e^+ e^- -> f fbar in GeV^{-2}
+     */
+    double sigma_f_Born_LEP2(const double s, const double mf, const double Qf, 
+                             const double I3f, const double Ncf) const;
     
 };
 

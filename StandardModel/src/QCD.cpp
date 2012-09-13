@@ -24,7 +24,7 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "MBs","MBp","MK0","MKp","MD","FBs","FBsoFBd", "FD",
     "BBsoBBd","BBs1","BBs2","BBs3","BBs4","BBs5", "BBsscale", "BBsscheme",
     "BD1","BD2","BD3","BD4","BD5", "BDscale", "BDscheme",
-    "BK1","BK2","BK3","BK4","BK5", "BKscale", "BKscheme"
+    "BK1","BK2","BK3","BK4","BK5", "BKscale", "BKscheme", "FK"
 };
 
 bool QCD::SetFlag(const std::string name , const bool& value){  
@@ -132,6 +132,9 @@ void QCD::SetParameter(const std::string name, const double& value) {
     }
     else if(name.compare("FD")==0) {
         mesons[D_0].setDecayconst(value);
+    }
+    else if(name.compare("FK")==0) {
+        mesons[K_0].setDecayconst(value);
     }
     else if(name.compare("BBsoBBd")==0) {
         BBsoBBd = value;
