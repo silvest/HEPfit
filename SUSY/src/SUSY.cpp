@@ -115,11 +115,29 @@ bool SUSY::PreUpdate(){
 bool SUSY::PostUpdate(){
     
     mySUSYMatching->Comp_mySUSYMQ();
+    
+    mySUSYMatching->Comp_VdDNL(0);
+    mySUSYMatching->Comp_VdDNR(0);
+    mySUSYMatching->Comp_VdUCL();
+    mySUSYMatching->Comp_VdUCR(0);
+    
     mySUSYMatching->Comp_DeltaMd();
     mySUSYMatching->Comp_mySUSY_CKM();
 
     if (IsFh()) mySUSYMatching->Comp_VUDHH();
-
+    if (IsFChi0()) {
+        
+        mySUSYMatching->Comp_VdDNL(1);
+        mySUSYMatching->Comp_VdDNR(1);
+        mySUSYMatching->Comp_VuUN();
+    }
+    
+    
+    if (IsFChi()) {
+        
+        mySUSYMatching->Comp_VdUCR(1);
+    }
+    
     
     //mySUSYMatching->Test();
     
