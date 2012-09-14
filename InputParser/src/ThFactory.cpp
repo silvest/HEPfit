@@ -28,6 +28,8 @@ ThFactory::ThFactory(const StandardModel& myModel) :
     thobs["alpha_2a"] = new Alpha_2a(myFlavour);
     thobs["gamma"] = new Gamma(myFlavour);
     thobs["SJPsiK"] = new SJPsiK(myFlavour);
+    
+    thobs["Mh0"] = new Mh0(myEW);
 
 //    thobs["Mw"] = new Mw(myEW);
 //    thobs["sin2thetaEff"] = new sin2thetaEff(myEW);
