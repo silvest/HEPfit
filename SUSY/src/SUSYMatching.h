@@ -116,6 +116,12 @@ public:
     
     void Comp_VuUN();
     
+    /** Calcolous of up quark - down squark - chargino vertex **/
+    
+    void Comp_VuDCL();
+    void Comp_VuDCR();
+    
+    
     /*** FUNZIONE - TEST  ***/
     
     void Test();
@@ -187,6 +193,10 @@ private:
     gslpp::complex VdDNR(int b, int k, int j, int flag);
     
     /** Feynmann rule for the Chargino - up quark - down squarks vertex with tan beta correction  **/
+    
+    complex VuDCL_cache[3][6][2];
+    complex VuDCR_cache[3][6][2];
+    
     gslpp::complex VuDCL(int b, int k, int j);
     gslpp::complex VuDCR(int b, int k, int j);
     

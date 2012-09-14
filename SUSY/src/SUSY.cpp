@@ -136,6 +136,8 @@ bool SUSY::PostUpdate(){
     if (IsFChi()) {
         
         mySUSYMatching->Comp_VdUCR(1);
+        mySUSYMatching->Comp_VuDCL();
+        mySUSYMatching->Comp_VuDCR();
     }
     
     
