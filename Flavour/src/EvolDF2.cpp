@@ -252,7 +252,7 @@ double EvolDF2::etact(double mu) const{
     double K7 = pow(K, 1./5.);                                                                 
     double xt = pow(model.Mrun(model.getMut(), model.getQuarks(QCD::TOP).getMass(), model.getQuarks(QCD::TOP).getMass(), 4.)
                 / model.Mw_tree(), 2.);                                                                 
-    double xc = pow(model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass(), model.getQuarks(QCD::TOP).getMass(), 4.)
+    double xc = pow(model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass(), model.getQuarks(QCD::CHARM).getMass(), 4.)
                 / model.Mw_tree(), 2.);
     double J3 = 6.*(3.-1.)/3./2./model.Beta0(3)/model.Beta0(3)*model.Beta1(3) - 
                 ((3.-1.)/(2.*3.)) * ( -21. + 57./3. - 19. + 4.)/2./model.Beta0(3) ;

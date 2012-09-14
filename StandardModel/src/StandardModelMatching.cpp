@@ -177,7 +177,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2() {
     double Bt;  
     
     
-    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass())  
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)  
             / SM.Mw_tree(), 2.); // always FULLNLO
     complex co = SM.getGF() / 4. / M_PI * SM.Mw_tree() * SM.getlamt_d();
     double Nc = SM.getNc();
@@ -212,24 +212,6 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2() {
             throw std::runtime_error("StandardModelMatching::CMdbd2(): order " + out.str() + "not implemented"); 
     }
     
-            /***  Test - lines  ***/
-            
-        
-//            complex CLO(0.,0.,false);
-//            complex CLO2(0.,0.,false);
-//            
-//            CLO += co * co * 4. * (SM.Als(SM.getMuw()) / 4. / M_PI * (S1(xt) +
-//                    Bt * S0(xt, xt) + 2. * gammam * S0p(xt) * log(SM.getMuw() / SM.Mw_tree())));
-//            
-//            std::cout << " CdF2SM B_d NLO = " << CLO << std::endl;
-//            
-//            CLO2 += co * co * 4. * S0(xt, xt);
-//            
-//            std::cout << " CdF2SM B_d LO = " << CLO2 << std::endl;
-            
-            
-            /***** end - test *****/
-    
 
     vmcdb.push_back(mcdbd2);
     return(vmcdb);
@@ -243,7 +225,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbs2() {
    
     double gammam = 8.;
     double Bt;
-    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass())
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
             / SM.Mw_tree(), 2.); // always FULLNLO
     complex co = SM.getGF() / 4. / M_PI * SM.Mw_tree() * SM.getlamt_s();
     double Nc = SM.getNc();
@@ -276,27 +258,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbs2() {
             std::stringstream out;
             out << mcdbs2.getOrder();
             throw std::runtime_error("StandardModelMatching::CMdbs2(): order " + out.str() + "not implemented"); 
-    }
-    
-    
-    /**** Test -line ****/
-        
-            
-//            complex CLO(0.,0.,false);
-//            
-//            CLO += co * co * 4. * (SM.Als(SM.getMuw()) / 4. / M_PI * (S1(xt) +
-//                    Bt * S0(xt, xt) + 2. * gammam * S0p(xt) * log(SM.getMuw() / SM.Mw_tree())));
-//            
-//            std::cout << " CdF2SM B_s = " << CLO << std::endl;
-//            
-//            complex CLO2(0.,0.,false);
-//            CLO2 += co * co * 4. * S0(xt, xt);
-//            
-//            std::cout << " CdF2SM B_s LO = " << CLO2 << std::endl;
-            
-    /***** end - test *****/
-    
-    
+    }    
 
     vmcds.push_back(mcdbs2);
     return(vmcds);
@@ -596,7 +558,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlep
             throw std::runtime_error("case" + out.str() + "not implemented; implemented i=0,1,2,3"); 
     }
     
-    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass())
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
                 / SM.Mw_tree(), 2.);
     double co = ( SM.getGF() / sqrt(2));
     
@@ -671,7 +633,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC
             throw std::runtime_error("case" + out.str() + "unexsting; implemented i=0,1,2,3"); 
     }
     
-    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass())
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
                 / SM.Mw_tree(), 2.);
     double co = ( SM.getGF() / sqrt(2));
     
@@ -793,7 +755,7 @@ double StandardModelMatching::setWCbnlepEW(int i, double x) {
 }
 
 complex StandardModelMatching::S0c() const {
-    double xc = pow(SM.Mrun(SM.getMuc(), SM.getQuarks(QCD::CHARM).getMass())
+    double xc = pow(SM.Mrun(SM.getMuc(), SM.getQuarks(QCD::CHARM).getMass(), SM.getQuarks(QCD::CHARM).getMass(), 4.)
                 / SM.Mw_tree(), 2.);
     complex co = SM.getGF() / 2. / M_PI * SM.Mw_tree() * SM.getlamc().conjugate();
     
@@ -801,9 +763,9 @@ complex StandardModelMatching::S0c() const {
 }
 
 complex StandardModelMatching::S0ct() const {
-    double xc = pow(SM.Mrun(SM.getMuc(), SM.getQuarks(QCD::CHARM).getMass())
+    double xc = pow(SM.Mrun(SM.getMuc(), SM.getQuarks(QCD::CHARM).getMass(), SM.getQuarks(QCD::CHARM).getMass(), 4.)
                 / SM.Mw_tree(), 2.);
-    double xt = pow(SM.Mrun(SM.getMut(), SM.getQuarks(QCD::TOP).getMass())
+    double xt = pow(SM.Mrun(SM.getMut(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
                 / SM.Mw_tree(), 2.);
     double co = SM.getGF() / 2. / M_PI * SM.Mw_tree();
     
@@ -812,7 +774,7 @@ complex StandardModelMatching::S0ct() const {
 }
 
 complex StandardModelMatching::S0tt() const{
-    double x = pow(SM.Mrun(SM.getMut(), SM.getQuarks(QCD::TOP).getMass())
+    double x = pow(SM.Mrun(SM.getMut(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
                 / SM.Mw_tree(), 2.);
     complex co = SM.getGF() / 2. / M_PI * SM.Mw_tree() * SM.getlamt().conjugate();
     
