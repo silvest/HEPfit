@@ -239,7 +239,7 @@ double EvolDF2::etacc(double  mu) const{
     
     eta *= pow(model.Als(model.getMuc()), d[0][0]);
     eta *= pow(model.Als(mu, 3, FULLNLO), -2./9.);
-    
+
     return (eta * (1. + model.Als(mu, 3, FULLNLO)/4./M_PI*J[0][0]));
 }
 
@@ -250,9 +250,9 @@ double EvolDF2::etact(double mu) const{
     double Kpm = pow(K, -6./25.);
     double Kmm = pow(K, -24./25.);
     double K7 = pow(K, 1./5.);                                                                 
-    double xt = pow(model.Mrun(model.getMut(), model.getQuarks(QCD::TOP).getMass(), 4.)
+    double xt = pow(model.Mrun(model.getMut(), model.getQuarks(QCD::TOP).getMass(), model.getQuarks(QCD::TOP).getMass(), 4.)
                 / model.Mw_tree(), 2.);                                                                 
-    double xc = pow(model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass(), 4.)
+    double xc = pow(model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass(), model.getQuarks(QCD::TOP).getMass(), 4.)
                 / model.Mw_tree(), 2.);
     double J3 = 6.*(3.-1.)/3./2./model.Beta0(3)/model.Beta0(3)*model.Beta1(3) - 
                 ((3.-1.)/(2.*3.)) * ( -21. + 57./3. - 19. + 4.)/2./model.Beta0(3) ;
@@ -284,7 +284,7 @@ double EvolDF2::etatt(double m) const {
 
 double EvolDF2::S1tt() const {
     double N = model.getNc();
-    double x = pow(model.Mrun(model.getMut(), model.getQuarks(QCD::TOP).getMass(), 5.)
+    double x = pow(model.Mrun(model.getMut(), model.getQuarks(QCD::TOP).getMass(), model.getQuarks(QCD::TOP).getMass(), 5.)
                 / model.Mw_tree(), 2.);
     double Li2 = gsl_sf_dilog(1-x);
     
