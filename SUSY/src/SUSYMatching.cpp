@@ -660,21 +660,15 @@ gslpp::matrix<complex> SUSYMatching::mySUSY_CKM() {
 ////////////////////////////////////////////////////////////////////////////////
 ///// VChiUdL element j,k,b <-> VdUCL element b,k,j
 
-gslpp::complex SUSYMatching::VdUCL(int b, int k, int j) {
+void SUSYMatching::Comp_VdUCL() {
 
-    return (VChiUdL(j, k, b));
-}
 
-gslpp::complex SUSYMatching::VChiUdL(int j, int k, int b) {
-
-    complex VChiUdL_jkb(0., 0., false);
+    complex VdUCL_bkj(0., 0., false);
     gslpp::matrix<complex> myRu(6, 6, 0.);
     gslpp::matrix<complex> myV(2, 2, 0.);
     gslpp::matrix<complex> myCKM(3, 3, 0.);
 
-
     mySUSY.getCKM().getCKM(myCKM);
- 
 
     int l;
     double gW = sqrt(8. * mySUSY.getGF() / sqrt(2.)) * mySUSY.Mw_tree();
@@ -683,77 +677,114 @@ gslpp::complex SUSYMatching::VChiUdL(int j, int k, int b) {
     myV = mySUSY.getV();
 
 
-    for (l = 0; l < 3; l++) {
-        VChiUdL_jkb += -gW * myRu(k, l) * myCKM(l, b) * myV(j, 0).conjugate()
-                + sqrt(2.) / v2 * mySUSYMQ(2 * l)
-                * myRu(k, l + 3) * myV(j, 1).conjugate() * myCKM(l, b);  
+
+    int b, k, j;
+
+    for (b = 0; b < 3; b++) {
+        for (k = 0; k < 6; k++) {
+            for (j = 0; j < 2; j++) {
+
+
+                for (l = 0; l < 3; l++) {
+                    VdUCL_bkj += -gW * myRu(k, l) * myCKM(l, b) * myV(j, 0).conjugate()
+                            + sqrt(2.) / v2 * mySUSYMQ(2 * l)
+                            * myRu(k, l + 3) * myV(j, 1).conjugate() * myCKM(l, b);
+                }
+
+
+                VdUCL_cache[b][k][j] = VdUCL_bkj;
+                VdUCL_bkj.assign(0., 0., 0);
+
+            }
+        }
     }
-    
-    return (VChiUdL_jkb);
+
 }
+
+gslpp::complex SUSYMatching::VdUCL(int b, int k, int j) {
+
+    return (VdUCL_cache[b][k][j]);
+
+}
+
+
 ////////////////////////////////////////////////////////////////////////////////
 /////  VdUCR element b,k,j <-> VChiUdR element j,k,b 
+void SUSYMatching::Comp_VdUCR(int flag) {
 
-
-gslpp::complex SUSYMatching::VdUCR(int b, int k, int j, int flag) {
-
-    
     complex VdUCR_bkj(0., 0., false);
     gslpp::matrix<complex> myCKM(3, 3, 0.);
     double tanb = mySUSY.getTanb();
-    
-   
+
     mySUSY.getCKM().getCKM(myCKM);
-    
 
     gslpp::matrix<complex> myRu(6, 6, 0.);
     myRu = mySUSY.getRu();
     gslpp::matrix<complex> myU(2, 2, 0.);
     myU = mySUSY.getU();
-    
+
     double v1 = mySUSY.v() * mySUSY.getCosb();
-    complex Mdb(0.,0.,false);
-    complex Mdp(0.,0.,false);
-    int l, p;
-        
-     
-    for (l = 0; l < 3; l++) {
+    complex Mdb(0., 0., false);
+    complex Mdp(0., 0., false);
+    int l, p, b, k, j;
 
-        switch (flag) {
-            case 1:
+    for (b = 0; b < 3; b++) {
+        for (k = 0; k < 6; k++) {
+            for (j = 0; j < 2; j++) {
 
-                Mdb += mySUSYMQ(2 * b + 1) /
-                        (1. + Eps_J(b) * tanb);
 
-                VdUCR_bkj += Mdb * myCKM(l, b);
+                for (l = 0; l < 3; l++) {
 
-                for (p = 0; p < 3; p++) {
+                    switch (flag) {
+                        case 1:
 
-                    Mdp += mySUSYMQ(2 * p + 1) /
-                            (1. + Eps_J(p) * tanb);
+                            Mdb += mySUSYMQ(2 * b + 1) /
+                                    (1. + Eps_J(b) * tanb);
 
-                    VdUCR_bkj += myCKM(l, p) * (Mdp * DeltaDR(p, b) -
-                            DeltaDL(p, b) * Mdb);
+                            VdUCR_bkj += Mdb * myCKM(l, b);
+
+                            for (p = 0; p < 3; p++) {
+
+                                Mdp += mySUSYMQ(2 * p + 1) /
+                                        (1. + Eps_J(p) * tanb);
+
+                                VdUCR_bkj += myCKM(l, p) * (Mdp * DeltaDR(p, b) -
+                                        DeltaDL(p, b) * Mdb);
+                            }
+
+                            VdUCR_bkj *= sqrt(2.) / v1 * myRu(k, l) * myU(j, 1);
+
+                        case 0:
+                            VdUCR_bkj += sqrt(2.) / v1
+                                    * mySUSYMQ(2 * b + 1) * myRu(k, l) * myU(j, 1)
+                                    * myCKM(l, b);
+                    }
                 }
-                
-                VdUCR_bkj *= sqrt(2.) / v1 * myRu(k, l) * myU(j, 1);
-                
-            case 0:
-                VdUCR_bkj += sqrt(2.) / v1
-                        * mySUSYMQ(2 * b + 1) * myRu(k, l) * myU(j, 1)
-                        * myCKM(l, b);
+
+
+                VdUCR_cache[b][k][j][flag] = VdUCR_bkj;
+                VdUCR_bkj.assign(0., 0., 0);
+
+            }
         }
+
     }
-    
-    return (VdUCR_bkj);
+
+}
+
+
+gslpp::complex SUSYMatching::VdUCR(int b, int k, int j, int flag) {
+   
+    return (VdUCR_cache[b][k][j][flag]);       
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 ///// VChiDdL element j,k,b <-> VdDNL element b,k,j
 
-gslpp::complex SUSYMatching::VdDNL(int b, int k, int j, int flag) {
-
+void SUSYMatching::Comp_VdDNL(int flag){
+    
+    
     complex VdDNL_bkj(0., 0., false);
     gslpp::matrix<complex> myRd(6, 6, 0.);
     gslpp::matrix<complex> myN(4, 4, 0.);
@@ -769,93 +800,128 @@ gslpp::complex SUSYMatching::VdDNL(int b, int k, int j, int flag) {
     myN = mySUSY.getN();
 
     
-    switch (flag) {
+    int b, k, j;
+    for (b = 0; b < 3; b++) {
+        for (k = 0; k < 6; k++) {
+            for (j = 0; j < 4; j++) {
+                
 
-        case 1:
+                    switch (flag) {
 
-            VdDNL_bkj += -gW / sqrt(2.) * myRd(k, b).conjugate() * (1. / 3.
-                    * SinThetaW / CosThetaW * myN(j, 1).conjugate() -
-                    myN(j, 2).conjugate()) - sqrt(2.) / v1
-                    * mySUSYMQ(2 * b + 1) /
-                    (1 + Eps_J(b) * mySUSY.getTanb())
-                    * myRd(k, b + 3).conjugate() * myN(j, 3).conjugate();
-            for (l = 0; l < 3; l++) {
+                        case 1:
 
-                // correzione vertici neutralini calcolate seguendo le indicazioni di Buras    
+                            VdDNL_bkj += -gW / sqrt(2.) * myRd(k, b).conjugate() * (1. / 3.
+                                    * SinThetaW / CosThetaW * myN(j, 1).conjugate() -
+                                    myN(j, 2).conjugate()) - sqrt(2.) / v1
+                                    * mySUSYMQ(2 * b + 1) /
+                                    (1 + Eps_J(b) * mySUSY.getTanb())
+                                    * myRd(k, b + 3).conjugate() * myN(j, 3).conjugate();
+                            for (l = 0; l < 3; l++) {
 
-                VdDNL_bkj += (-gW / sqrt(2.) * myRd(k, l).conjugate() * (1. / 3.
-                    * SinThetaW / CosThetaW * myN(j, 1).conjugate() -
-                    myN(j, 2).conjugate()) - sqrt(2.) / v1
-                    * mySUSYMQ(2 * l + 1) /
-                    (1 + Eps_J(l) * mySUSY.getTanb())
-                    * myRd(k, l + 3).conjugate() * myN(j, 3).conjugate()) *
-                        DeltaDL(l, b);
+                                // correzione vertici neutralini calcolate seguendo le indicazioni di Buras    
+
+                                VdDNL_bkj += (-gW / sqrt(2.) * myRd(k, l).conjugate() * (1. / 3.
+                                        * SinThetaW / CosThetaW * myN(j, 1).conjugate() -
+                                        myN(j, 2).conjugate()) - sqrt(2.) / v1
+                                        * mySUSYMQ(2 * l + 1) /
+                                        (1 + Eps_J(l) * mySUSY.getTanb())
+                                        * myRd(k, l + 3).conjugate() * myN(j, 3).conjugate()) *
+                                        DeltaDL(l, b);
+                            }
+
+                        case 0:
+                            VdDNL_bkj += -gW / sqrt(2.) * myRd(k, b).conjugate() * (1. / 3.
+                                    * SinThetaW / CosThetaW * myN(j, 1).conjugate() -
+                                    myN(j, 2).conjugate()) - sqrt(2.) / v1
+                                    * mySUSYMQ(2 * b + 1)
+                                    * myRd(k, b + 3).conjugate() * myN(j, 3).conjugate();
+
+                    }
+
+                    VdDNL_cache[b][k][j][flag] = VdDNL_bkj;
+                    VdDNL_bkj.assign(0., 0., 0);
+
             }
-            
-        case 0:
-            VdDNL_bkj += -gW / sqrt(2.) * myRd(k, b).conjugate() * (1. / 3.
-                    * SinThetaW / CosThetaW * myN(j, 1).conjugate() -
-                    myN(j, 2).conjugate()) - sqrt(2.) / v1
-                    * mySUSYMQ(2 * b + 1)
-                    * myRd(k, b + 3).conjugate() * myN(j, 3).conjugate();
-           
+
+        }
     }
-  
-    return (VdDNL_bkj);
+}
+
+gslpp::complex SUSYMatching::VdDNL(int b, int k, int j, int flag) {
+
+
+    return (VdDNL_cache[b][k][j][flag]);
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 ///// VdDNR element b,k,j <-> VChiDdR element j,k,b
 
-gslpp::complex SUSYMatching::VdDNR(int b, int k, int j, int flag) {
-
+void SUSYMatching::Comp_VdDNR(int flag) {
 
     complex VdDNR_bkj(0., 0., false);
     gslpp::matrix<complex> myRd(6, 6, 0.);
     gslpp::matrix<complex> myN(4, 4, 0.);
-
-
     double gW = sqrt(8. * mySUSY.getGF() / sqrt(2.)) * mySUSY.Mw_tree();
     double v1 = mySUSY.v() * mySUSY.getCosb();
     double CosThetaW = sqrt(mySUSY.cW2());
     double SinThetaW = sqrt(mySUSY.sW2());
-    int  l;
-
+    int l;
     myRd = mySUSY.getRd();
     myN = mySUSY.getN();
 
 
-    switch (flag) {
+    int b, k, j;
+    for (b = 0; b < 3; b++) {
+        for (k = 0; k < 6; k++) {
+            for (j = 0; j < 4; j++) {
+                
 
-        case 1:
+                    switch (flag) {
 
-            VdDNR_bkj += -sqrt(2.) / 3. * gW * SinThetaW / CosThetaW *
-                    myRd(k, b + 3).conjugate() * myN(j, 1) - sqrt(2.) / v1
-                    * mySUSYMQ(2 * b + 1) /
-                    (1 + Eps_J(b) * mySUSY.getTanb()) * myRd(k, b).conjugate() *
-                    myN(j, 3);
-            
-            for (l = 0; l < 3; l++) {
+                        case 1:
 
-                // correzione vertici neutralini calcolate seguendo le indicazioni di Buras   
+                            VdDNR_bkj += -sqrt(2.) / 3. * gW * SinThetaW / CosThetaW *
+                                    myRd(k, b + 3).conjugate() * myN(j, 1) - sqrt(2.) / v1
+                                    * mySUSYMQ(2 * b + 1) /
+                                    (1 + Eps_J(b) * mySUSY.getTanb()) * myRd(k, b).conjugate() *
+                                    myN(j, 3);
 
-                VdDNR_bkj += (-sqrt(2.) / 3. * gW * SinThetaW / CosThetaW *
-                    myRd(k, l + 3).conjugate() * myN(j, 1) - sqrt(2.) / v1
-                    * mySUSYMQ(2 * l + 1) /
-                    (1 + Eps_J(l) * mySUSY.getTanb()) * myRd(k, l).conjugate() *
-                    myN(j, 3)) * DeltaDR(l,b);
+                            for (l = 0; l < 3; l++) {
+
+                                // correzione vertici neutralini calcolate seguendo le indicazioni di Buras   
+
+                                VdDNR_bkj += (-sqrt(2.) / 3. * gW * SinThetaW / CosThetaW *
+                                        myRd(k, l + 3).conjugate() * myN(j, 1) - sqrt(2.) / v1
+                                        * mySUSYMQ(2 * l + 1) /
+                                        (1 + Eps_J(l) * mySUSY.getTanb()) * myRd(k, l).conjugate() *
+                                        myN(j, 3)) * DeltaDR(l, b);
+                            }
+
+                        case 0:
+                            VdDNR_bkj += -sqrt(2.) / 3. * gW * SinThetaW / CosThetaW *
+                                    myRd(k, b + 3).conjugate() * myN(j, 1) - sqrt(2.) / v1
+                                    * mySUSYMQ(2 * b + 1)
+                                    * myRd(k, b).conjugate() * myN(j, 3);
+
+                    }
+
+
+
+                    VdDNR_cache[b][k][j][flag] = VdDNR_bkj;
+                    VdDNR_bkj.assign(0., 0., 0);
+
             }
-            
-        case 0:
-            VdDNR_bkj += -sqrt(2.) / 3. * gW * SinThetaW / CosThetaW *
-                    myRd(k, b + 3).conjugate() * myN(j, 1) - sqrt(2.) / v1
-                    * mySUSYMQ(2 * b + 1)
-                    * myRd(k, b).conjugate() * myN(j, 3);
-   
+        }
     }
 
-    return (VdDNR_bkj);
+}
 
+
+gslpp::complex SUSYMatching::VdDNR(int b, int k, int j, int flag) {
+
+    return (VdDNR_cache[b][k][j][flag]);
+    
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -946,8 +1012,8 @@ gslpp::complex SUSYMatching::VdUCR(int b, int k, int j, int flag, int Dmixingfla
 /* Vertices uUN from Buras arXiv:hep-ph/0210145v2 in SLHA convention  
      usefull in D - Dbar mixing */
 
-gslpp::complex SUSYMatching::VuUN(int b, int k, int j, const std::string chirality) {
-
+void SUSYMatching::Comp_VuUN(){
+ 
     double TanThetaW = sqrt(mySUSY.sW2() / mySUSY.cW2());
     double v = mySUSY.v();
     double v2 = v * mySUSY.getSinb();
@@ -956,24 +1022,49 @@ gslpp::complex SUSYMatching::VuUN(int b, int k, int j, const std::string chirali
     gslpp::matrix<complex> myRu(6, 6, 0.);
     myN = mySUSY.getN();
     myRu = mySUSY.getRu();
+    complex VuUNL_bkj(0.,0.,false);
+    complex VuUNR_bkj(0.,0.,false);
+    double Yub;
+    
+    int b, k, j;
+
+    for (b = 0; b < 3; b++) {
+        for (k = 0; k < 6; k++) {
+            for (j = 0; j < 4; j++) {
+
+                Yub = sqrt(2.) / v2 * mySUSYMQ(2 * b);
 
 
-    complex Yub(0., 0., false);
+                VuUNL_bkj += (-1. / sqrt(2.) * gW * myRu(k, b) * (1. / (3. * TanThetaW) *
+                        myN(j, 0).conjugate() + myN(j, 1).conjugate())
+                        - Yub * myRu(k, b + 3) * myN(j, 3).conjugate());
 
-    Yub = sqrt(2.) / v2 * mySUSYMQ(2 * b);
 
+                VuUNR_bkj += (2. * sqrt(2.) / 3. * gW * TanThetaW * myRu(k, b + 3) *
+                        myN(j, 0) - Yub * myRu(k, b) * myN(j, 3));
+
+                VuUNL_cache[b][k][j] = VuUNL_bkj;
+                VuUNL_bkj.assign(0., 0., 0);
+                VuUNR_cache[b][k][j] = VuUNR_bkj;
+                VuUNR_bkj.assign(0.,0.,0);
+
+            }
+        }
+    }
+}
+
+
+
+gslpp::complex SUSYMatching::VuUN(int b, int k, int j, const std::string chirality) {
 
 
     if (chirality.compare("L") == 0) {
 
-        return (-1. / sqrt(2.) * gW * myRu(k, b) * (1. / (3. * TanThetaW) *
-                myN(j, 0).conjugate() + myN(j, 1).conjugate())
-                - Yub * myRu(k, b + 3) * myN(j, 3).conjugate());
+        return (VuUNL_cache[b][k][j]);
 
     } else if (chirality.compare("R") == 0) {
 
-        return (2. * sqrt(2.) / 3. * gW * TanThetaW * myRu(k, b + 3) *
-                myN(j, 0) - Yub * myRu(k, b) * myN(j, 3));
+        return (VuUNR_cache[b][k][j]);
 
     } else {
 

@@ -101,6 +101,21 @@ public:
     
     void Comp_VUDHH();
     
+    /** Calcolous of down quark - down squark - neutralino vertex **/
+    
+    void Comp_VdDNL(int flag);
+    void Comp_VdDNR(int flag);
+    
+    /** Calcolous of down quark - up squark - chargino vertex **/
+
+    void Comp_VdUCL();
+    void Comp_VdUCR(int flag);     
+    
+    
+    /** Calcolous of up quark - up squark - neutralino vertex **/
+    
+    void Comp_VuUN();
+    
     /*** FUNZIONE - TEST  ***/
     
     void Test();
@@ -156,11 +171,18 @@ private:
     gslpp::vector<complex> CdF2dChi0Chi0(int b, int q, int Dmixingflag);
     
     /** Feynmann rule for the Chargino - down quark - up squarks vertex with tan beta correction  **/
-    gslpp::complex VChiUdL(int j, int k, int b);
+    
+    complex VdUCL_cache[3][6][2];
+    complex VdUCR_cache[3][6][2][2];
+    
     gslpp::complex VdUCL(int b, int k, int j);
     gslpp::complex VdUCR(int b, int k, int j, int flag);
     
     /** Feynmann rule for the Neutralino - down quark - down squarks vertex with tan beta correction  **/
+    
+    complex VdDNL_cache[3][6][4][2];
+    complex VdDNR_cache[3][6][4][2];
+    
     gslpp::complex VdDNL(int b, int k, int j, int flag);
     gslpp::complex VdDNR(int b, int k, int j, int flag);
     
@@ -170,6 +192,9 @@ private:
     
     /** Vertices Neutralino (N) - up quark (u) - up squarks (U) from Buras arXiv:hep-ph/0210145v2 
         in SLHA convention usefull in D - Dbar mixing **/
+    
+    complex VuUNL_cache[3][6][4];
+    complex VuUNR_cache[3][6][4];
     
     gslpp::complex VuUN(int b, int k, int j, const std::string);
   
