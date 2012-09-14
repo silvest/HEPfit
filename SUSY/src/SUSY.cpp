@@ -117,6 +117,9 @@ bool SUSY::PostUpdate(){
     mySUSYMatching->Comp_mySUSYMQ();
     mySUSYMatching->Comp_DeltaMd();
     mySUSYMatching->Comp_mySUSY_CKM();
+
+    if (IsFh()) mySUSYMatching->Comp_VUDHH();
+
     
     //mySUSYMatching->Test();
     
@@ -179,7 +182,7 @@ bool SUSY::SetFeynHiggsPars(void) {
     TUFH = TU.hconjugate();
     TDFH = TD.hconjugate();
     TEFH = TE.hconjugate();
-    muHFH = muH;
+    muHFH = muH.conjugate(); 
     
     /** test - lines **/
 //    std::cout << "TUFH = " << TUFH << std::endl;
