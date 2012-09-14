@@ -927,7 +927,8 @@ gslpp::complex SUSYMatching::VdDNR(int b, int k, int j, int flag) {
 ////////////////////////////////////////////////////////////////////////////////
 /////  Feynmann rules of uDC vertex (D mixing)
 
-gslpp::complex SUSYMatching::VuDCL(int b, int k, int j) {
+void SUSYMatching::Comp_VuDCL() {
+
 
     gslpp::matrix<complex> myCKM(3, 3, 0.);
     gslpp::matrix<complex> myRd(6, 6, 0.);
@@ -943,19 +944,43 @@ gslpp::complex SUSYMatching::VuDCL(int b, int k, int j) {
     myRd = mySUSY.getRd();
     myU = mySUSY.getU();
 
-    for (I = 0; I < 3; I++) {
 
-        YdI = sqrt(2.) / v1 * mySUSYMQ(2 * I + 1) / (1 + Eps_J(I) * tanb);
-        VuDCL_bkj += -(gW * myRd(k, I).conjugate() * myU(j, 0).conjugate()
-                - YdI * myRd(k, I + 3).conjugate() * myU(j, 1).conjugate()) *
-                myCKM(b, I).conjugate();
+    int b, k, j;
+
+    for (b = 0; b < 3; b++) {
+        for (k = 0; k < 6; k++) {
+            for (j = 0; j < 2; j++) {
+
+
+
+                for (I = 0; I < 3; I++) {
+
+                    YdI = sqrt(2.) / v1 * mySUSYMQ(2 * I + 1) / (1 + Eps_J(I) * tanb);
+                    VuDCL_bkj += -(gW * myRd(k, I).conjugate() * myU(j, 0).conjugate()
+                            - YdI * myRd(k, I + 3).conjugate() * myU(j, 1).conjugate()) *
+                            myCKM(b, I).conjugate();
+                }
+
+
+                VuDCL_cache[b][k][j] = VuDCL_bkj;
+                VuDCL_bkj.assign(0., 0., 0);
+
+
+            }
+        }
+
     }
 
-    return (VuDCL_bkj);
-    
 }
 
-gslpp::complex SUSYMatching::VuDCR(int b, int k, int j) {
+gslpp::complex SUSYMatching::VuDCL(int b, int k, int j) {
+
+    return (VuDCL_cache[b][k][j]);
+
+}
+
+void SUSYMatching::Comp_VuDCR() {
+
 
     gslpp::matrix<complex> myCKM(3, 3, 0.);
     gslpp::matrix<complex> myRd(6, 6, 0.);
@@ -968,15 +993,35 @@ gslpp::complex SUSYMatching::VuDCR(int b, int k, int j) {
     int I;
     double v2 = mySUSY.v() * mySUSY.getSinb();
 
-    Yub = sqrt(2.) / v2 * mySUSYMQ(2 * b);  // b is the up quark type index
 
-    for (I = 0; I < 3; I++) {
+    int b, k, j;
 
-        VuDCR_bkj += Yub * myRd(k, I).conjugate() * myV(j, 1) * myCKM(b, I).conjugate();
+    for (b = 0; b < 3; b++) {
+        for (k = 0; k < 6; k++) {
+            for (j = 0; j < 2; j++) {
 
+
+
+                Yub = sqrt(2.) / v2 * mySUSYMQ(2 * b); // b is the up quark type index
+
+                for (I = 0; I < 3; I++) {
+
+                    VuDCR_bkj += Yub * myRd(k, I).conjugate() * myV(j, 1) * myCKM(b, I).conjugate();
+
+                }
+
+                VuDCR_cache[b][k][j] = VuDCR_bkj;
+                VuDCR_bkj.assign(0., 0., 0);
+
+            }
+        }
     }
 
-    return (VuDCR_bkj);
+}
+
+gslpp::complex SUSYMatching::VuDCR(int b, int k, int j) {
+
+    return (VuDCR_cache[b][k][j]);
 }
 
 gslpp::complex SUSYMatching::VdUCL(int b, int k, int j, int Dmixingflag) {
