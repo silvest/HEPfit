@@ -97,7 +97,10 @@ public:
     /** Quark Masses run to the SUSY scale Q **/
     void Comp_mySUSYMQ();
     
-      
+    /** Calcolous of Charged Higgs - squrks down - squarks up vertex **/
+    
+    void Comp_VUDHH();
+    
     /*** FUNZIONE - TEST  ***/
     
     void Test();
@@ -225,6 +228,7 @@ private:
    
     
     gslpp::matrix<complex> myCKM_cache;
+    gslpp::matrix<complex> VUDHH_cache;
     gslpp::matrix<complex> DeltaMd_cache;
     gslpp::vector<double> mySUSYMQ;
     
