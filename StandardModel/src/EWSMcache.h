@@ -129,10 +129,16 @@ public:
             case StandardModel::UP:
             case StandardModel::DOWN:
             case StandardModel::STRANGE:
-                return SM.Mrun(SM.getMz(), 2.0, SM.getQuarks(q).getMass(), FULLNNLO);
+                if (bDebug)
+                    return SM.getQuarks(q).getMass();
+                else
+                    return SM.Mrun(SM.getMz(), 2.0, SM.getQuarks(q).getMass(), FULLNNLO);
             case StandardModel::CHARM:
             case StandardModel::BOTTOM:
-                return SM.Mrun(SM.getMz(), SM.getQuarks(q).getMass(), FULLNNLO);
+                if (bDebug)
+                    return SM.getQuarks(q).getMass();
+                else
+                    return SM.Mrun(SM.getMz(), SM.getQuarks(q).getMass(), FULLNNLO);
             case StandardModel::TOP:
                 return Mt(); // the pole mass
             default:
