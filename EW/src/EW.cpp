@@ -87,8 +87,8 @@ double EW::Gamma_q(const StandardModel::quark q) const {
     
     double mcMz, mbMz;
     if (!bDebug) {
-        mcMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.CHARM).getMass(), FULLNLO);
-        mbMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), FULLNLO);  
+        mcMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.CHARM).getMass(), FULLNNLO);
+        mbMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), FULLNNLO);  
     } else {
         mcMz = 0.56381685; 
         mbMz = 2.8194352;
