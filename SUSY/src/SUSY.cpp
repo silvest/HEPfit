@@ -308,9 +308,16 @@ bool SUSY::CalcHiggsSpectrum(void){
             return (false);
         }
     }
+
+    mHp = mh[3];
+
+    if ((mh[0] < 10.) || (mh[0] > 1000.)) {
+
+        std::cout << "Evento scartato Mh valore sballato = " << mh[0] << std::endl;
+
+        return (false);
+    }
     
-    mHp = mh[3];  
-    mHl = mh[0];
             
 //    for(int i=0; i<3; i++)
 //        for(int j=0; j<3; j++){
@@ -499,8 +506,23 @@ double SUSY::Mw() const {
     /* SM + MSSM */
 
     std::cout << "Write codes for SUSY::Mw() " << std::endl;
-    return (80.3613);
+    return (80.385);
 }
+
+double SUSY::cW2() const {
+
+    std::cout << "Write codes for SUSY::cW2() " << std::endl;
+    return (Mw() / 91.1876);
+}
+
+double SUSY::sW2() const {
+
+
+    std::cout << "Write codes for SUSY::sW2() " << std::endl;
+    return (1 - cW2());
+
+}
+
 
 gslpp::complex SUSY::gZf(const int INDF) const {
 
