@@ -125,10 +125,19 @@ public:
      * @return mass of quark
      */
     double mq(const StandardModel::quark q) const {
-        if (q==StandardModel::TOP) 
-            return Mt(); // the pole mass
-        else
-            return SM.getQuarks(q).getMass(); 
+        switch(q) {
+            case StandardModel::UP:
+            case StandardModel::DOWN:
+            case StandardModel::STRANGE:
+                return SM.Mrun(SM.getMz(), 2.0, SM.getQuarks(q).getMass(), FULLNNLO);
+            case StandardModel::CHARM:
+            case StandardModel::BOTTOM:
+                return SM.Mrun(SM.getMz(), SM.getQuarks(q).getMass(), FULLNNLO);
+            case StandardModel::TOP:
+                return Mt(); // the pole mass
+            default:
+                throw std::runtime_error("Error in EWSMcache::mq()"); 
+        }
     }
     
     /**
