@@ -1668,17 +1668,22 @@ gslpp::vector<complex> SUSYMatching::CdF2dHp(int b, int q, int Dmixingflag) {
                     }
                 }
             }
-                   
-            for (S = 0; S < 3; S++) {
-                
-                 CLO += - XRLS(q, b, S) * XLRS(q, b, S) / M2S(S);
-                
-                
-//                complex temp(0.,0.,false);
-//                temp +=  - XRLS(q, b, S) * XLRS(q, b, S) / M2S(S);
-            
-            }
+         
+            /** The double Penguin contributions are calulated only for the B and K mixing **/
 
+            if (D != 0) {
+                for (S = 0; S < 3; S++) {
+
+                    CLO += -XRLS(q, b, S) * XLRS(q, b, S) / M2S(S);
+
+
+                    //                complex temp(0.,0.,false);
+                    //                temp +=  - XRLS(q, b, S) * XLRS(q, b, S) / M2S(S);
+
+                }
+            }
+            
+            /** end double Penguin contribution **/
 
         } else if (O == 5) {
             for (I = 0; I < 3; I++) {

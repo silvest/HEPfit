@@ -360,6 +360,12 @@ public:
      * @return the W boson mass, including radiative corrections
      */
     double Mw() const;
+    
+
+    double cW2() const;
+    
+    
+    double sW2() const;
 
     /**
      * @param[in] INDF fermion index [0-9] (see EWphysics::flavour_st_to_int())
@@ -394,6 +400,10 @@ public:
         return TU;
     }
 
+    
+    virtual double getMHl() const {
+        return mh[0];
+    }
     
     
     ///////////////////////////////////////////////////////////////////////////
