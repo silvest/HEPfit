@@ -23,12 +23,12 @@ complex EWSMOneLoopLEP2::Chi_Z(const double mu, const double s, const double Mw_
     complex D_Z;
     double Mz = SM.getMz();
     double Mz2 = Mz*Mz;
-    double Mw = SM.Mw();
-    double sW2 = SM.sW2();
-    double cW2 = SM.cW2();
-    double sW = sqrt(sW2);
-    double cW = sqrt(cW2);
-    double epsilonZZ = cW2*W - 2.*sW*cW*X + sW2*Y;
+    //double Mw = SM.Mw();
+    //double sW2 = SM.sW2();
+    //double cW2 = SM.cW2();
+    //double sW = sqrt(sW2);
+    //double cW = sqrt(cW2);
+    //double epsilonZZ = cW2*W - 2.*sW*cW*X + sW2*Y;
     double gammaZ = 2.49465;
     complex i = complex::i();
 
@@ -54,15 +54,15 @@ complex EWSMOneLoopLEP2::Chi_gamma(const double mu, const double s, const double
                                const double W, const double X, const double Y) const {
     complex D_gamma;
     
-    double Mz = SM.getMz();
-    double Mz2 = Mz*Mz;
-    double Mw = SM.Mw();
-    double sW2 = SM.sW2();
-    double cW2 = SM.cW2();
-    double sW = sqrt(sW2);
-    double cW = sqrt(cW2);
+    //double Mz = SM.getMz();
+    //double Mz2 = Mz*Mz;
+    //double Mw = SM.Mw();
+    //double sW2 = SM.sW2();
+    //double cW2 = SM.cW2();
+    //double sW = sqrt(sW2);
+    //double cW = sqrt(cW2);
     
-    double epsilongammagamma = sW2*W+2.*sW*cW*X+cW2*Y;
+    //double epsilongammagamma = sW2*W+2.*sW*cW*X+cW2*Y;
     
 //    complex SigmaZZ = SM.getAle()/4./sW2/cW2 
 //            * (EWOL.SigmaZZ_bos(mu,s,Mw) +
@@ -120,7 +120,7 @@ complex EWSMOneLoopLEP2::Chi_gammaZ(const double mu, const double s, const doubl
 
 //finish and check!!!
 double EWSMOneLoopLEP2::g_rhofq(const QCD::quark q, const double rho,const double Mw_i) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     
     double sW2 = SM.sW2();
     double cW2 = SM.cW2();
@@ -140,7 +140,7 @@ double EWSMOneLoopLEP2::g_rhofq(const QCD::quark q, const double rho,const doubl
 
 
 double EWSMOneLoopLEP2::g_rhofl(const StandardModel::lepton l, const double rho,const double Mw_i) const {
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     
     double sW2 = SM.sW2();
     double cW2 = SM.cW2();
@@ -164,7 +164,7 @@ double EWSMOneLoopLEP2::g_rhofl(const StandardModel::lepton l, const double rho,
 
 //check!!
 double EWSMOneLoopLEP2::g_rhoe(const double rho, const double Mw_i) const {
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     
     double sW2 = SM.sW2();
     double cW2 = SM.cW2();
@@ -564,7 +564,7 @@ complex EWSMOneLoopLEP2::C2plusminus_q(const double mu, const QCD::quark q,
 
 
 double EWSMOneLoopLEP2::muf(const double Mw_i, const double mf) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     double Mz = SM.getMz();
     double sW2 = SM.sW2();
     double cW2 = SM.cW2();
@@ -591,7 +591,7 @@ double EWSMOneLoopLEP2::muf(const double Mw_i, const double mf) const{
 
 
 double EWSMOneLoopLEP2::alphaf_q(const double Mw_i, const QCD::quark q) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     double sW2 =  SM.sW2();
     double cW2 = SM.cW2();
     
@@ -600,7 +600,7 @@ double EWSMOneLoopLEP2::alphaf_q(const double Mw_i, const QCD::quark q) const{
 }
 
 double EWSMOneLoopLEP2::alphaf_qprime(const double Mw_i, const QCD::quark q) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     double sW2 = SM.sW2();
     double cW2 = SM.cW2();
     QCD::quark qprime;
@@ -647,7 +647,7 @@ QCD::quark EWSMOneLoopLEP2::qprime(const QCD::quark q) const{
 }
 
 double EWSMOneLoopLEP2::alphaf_l(const double Mw_i, const StandardModel::lepton l) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     double sW2 = SM.sW2();
     double cW2 = SM.cW2();
     
@@ -1448,7 +1448,7 @@ complex EWSMOneLoopLEP2::FV_Vsq(const QCD::quark q, const double Mw_i,
 
 complex EWSMOneLoopLEP2::FV_Vtl(const StandardModel::lepton l, const double Mw_i, 
                                  const double mu, const double s) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     double Mz = SM.getMz();
     double sW2 = SM.sW2();
     double cW2 = SM.cW2();
@@ -1465,7 +1465,7 @@ complex EWSMOneLoopLEP2::FV_Vtl(const StandardModel::lepton l, const double Mw_i
 
 complex EWSMOneLoopLEP2::FV_Vtq(const QCD::quark q, const double Mw_i, 
                                   const double mu, const double s) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     double Mz = SM.getMz();
     double MH = SM.getMHl();
     double sW2 = SM.sW2();
@@ -1511,7 +1511,7 @@ complex EWSMOneLoopLEP2::FVI_Vuq(const QCD::quark q, const double Mw_i,
 
 complex EWSMOneLoopLEP2::FVI_Vvl(const StandardModel::lepton l, const double Mw_i, 
                                  const double mu, const double s) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     double Mz = SM.getMz();
     double MH = SM.getMHl();
     double sW2 = SM.sW2();
@@ -1528,7 +1528,7 @@ complex EWSMOneLoopLEP2::FVI_Vvl(const StandardModel::lepton l, const double Mw_
 
 complex EWSMOneLoopLEP2::FVI_Vvq(const QCD::quark q, const double Mw_i, 
                                   const double mu, const double s) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     double Mz = SM.getMz();
     double MH = SM.getMHl();
     double sW2 = SM.sW2();
@@ -2128,7 +2128,7 @@ complex EWSMOneLoopLEP2::FV_Msq(const QCD::quark q, const double Mw_i,
 
 complex EWSMOneLoopLEP2::FV_Mtl(const StandardModel::lepton l, const double Mw_i, 
                                  const double mu, const double s) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     double Mz = SM.getMz();
     double MH = SM.getMHl();
     double sW2 = SM.sW2();
@@ -2146,7 +2146,7 @@ complex EWSMOneLoopLEP2::FV_Mtl(const StandardModel::lepton l, const double Mw_i
 
 complex EWSMOneLoopLEP2::FV_Mtq(const QCD::quark q, const double Mw_i, 
                                   const double mu, const double s) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     double Mz = SM.getMz();
     double MH = SM.getMHl();
     double sW2 = SM.sW2();
@@ -2191,7 +2191,7 @@ complex EWSMOneLoopLEP2::FVI_Muq(const QCD::quark q, const double Mw_i,
 
 complex EWSMOneLoopLEP2::FVI_Mvl(const StandardModel::lepton l, const double Mw_i, 
                                  const double mu, const double s) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     double Mz = SM.getMz();
     double MH = SM.getMHl();
     double sW2 = SM.sW2();
@@ -2206,7 +2206,7 @@ complex EWSMOneLoopLEP2::FVI_Mvl(const StandardModel::lepton l, const double Mw_
 
 complex EWSMOneLoopLEP2::FVI_Mvq(const QCD::quark q, const double Mw_i, 
                                   const double mu, const double s) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     double Mz = SM.getMz();
     double MH = SM.getMHl();
     double sW2 = SM.sW2();
@@ -2829,7 +2829,7 @@ complex EWSMOneLoopLEP2::FV_Asq(const QCD::quark q, const double Mw_i,
 
 complex EWSMOneLoopLEP2::FV_Atl(const StandardModel::lepton l, const double Mw_i, 
                                  const double mu, const double s) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     double Mz = SM.getMz();
     double MH = SM.getMHl();
     double sW2 = SM.sW2();
@@ -2848,7 +2848,7 @@ complex EWSMOneLoopLEP2::FV_Atl(const StandardModel::lepton l, const double Mw_i
 
 complex EWSMOneLoopLEP2::FV_Atq(const QCD::quark q, const double Mw_i, 
                                   const double mu, const double s) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     double Mz = SM.getMz();
     double MH = SM.getMHl();
     double sW2 = SM.sW2();
@@ -2897,7 +2897,7 @@ complex EWSMOneLoopLEP2::FVI_Auq(const QCD::quark q, const double Mw_i,
 
 complex EWSMOneLoopLEP2::FVI_Avl(const StandardModel::lepton l, const double Mw_i, 
                                  const double mu, const double s) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     double Mz = SM.getMz();
     double MH = SM.getMHl();
     double sW2 = SM.sW2();
@@ -2916,7 +2916,7 @@ complex EWSMOneLoopLEP2::FVI_Avl(const StandardModel::lepton l, const double Mw_
 
 complex EWSMOneLoopLEP2::FVI_Avq(const QCD::quark q, const double Mw_i, 
                                   const double mu, const double s) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     double Mz = SM.getMz();
     double MH = SM.getMHl();
     double sW2 = SM.sW2();
@@ -3030,7 +3030,7 @@ complex EWSMOneLoopLEP2::F2_q(const double mu,const double rho, const double s,
 
 
 complex EWSMOneLoopLEP2::A_CC(const double k, const double Mw_i) const{
-    double Mw = SM.Mw();
+    //double Mw = SM.Mw();
     double sW2 = SM.sW2();
     double A;
     
@@ -3167,14 +3167,14 @@ complex EWSMOneLoopLEP2::C_CCl(const double mu,const double s,const double cos_t
 complex EWSMOneLoopLEP2::D_CCq(const double mu,const double s,const double cos_theta,
                                const QCD::quark q, const double Mw_i) const{
     
-     double I3 = SM.getQuarks(q).getIsospin();
-     double Mw = SM.Mw();
-     double mf = 0.;
+     //double I3 = SM.getQuarks(q).getIsospin();
+     //double Mw = SM.Mw();
+     //double mf = 0.;
      double mfprime;
-     double p12=0.;
-     double p22=0.;
-     double p32=0.;
-     double p42=0.;
+     //double p12=0.;
+     //double p22=0.;
+     //double p32=0.;
+     //double p42=0.;
     
      if(q == SM.BOTTOM){
          mfprime = SM.getQuarks(SM.TOP).getMass();
@@ -3196,14 +3196,14 @@ complex EWSMOneLoopLEP2::D_CCl(const double mu,const double s,const double cos_t
                                const StandardModel::lepton l, const double Mw_i) const{
                                
     
-     double I3 = SM.getLeptons(l).getIsospin();
-     double Mw = SM.Mw();
-     double mf = 0.;
-     double mfprime = 0.;
-     double p12=0.;
-     double p22=0.;
-     double p32=0.;
-     double p42=0.;
+     //double I3 = SM.getLeptons(l).getIsospin();
+     //double Mw = SM.Mw();
+     //double mf = 0.;
+     //double mfprime = 0.;
+     //double p12=0.;
+     //double p22=0.;
+     //double p32=0.;
+     //double p42=0.;
      
      return 0.;//because mf = 0.;
      
@@ -3216,14 +3216,14 @@ complex EWSMOneLoopLEP2::D_CCl(const double mu,const double s,const double cos_t
 complex EWSMOneLoopLEP2::E_CCq(const double mu,const double s,const double cos_theta,
                                const QCD::quark q, const double Mw_i) const{
     
-     double I3 = SM.getQuarks(q).getIsospin();
-     double Mw = SM.Mw();
-     double mf = 0.;
+     //double I3 = SM.getQuarks(q).getIsospin();
+     //double Mw = SM.Mw();
+     //double mf = 0.;
      double mfprime = 0.;
-     double p12=0.;
-     double p22=0.;
-     double p32=0.;
-     double p42=0.;
+     //double p12=0.;
+     //double p22=0.;
+     //double p32=0.;
+     //double p42=0.;
     
      if(q == SM.BOTTOM){
          mfprime = SM.getQuarks(SM.TOP).getMass();
@@ -3245,14 +3245,14 @@ complex EWSMOneLoopLEP2::E_CCl(const double mu,const double s,const double cos_t
                                const StandardModel::lepton l, const double Mw_i) const{
                                
     
-     double I3 = SM.getLeptons(l).getIsospin();
-     double Mw = SM.Mw();
-     double mfprime = 0.;
-     double mf = 0.;
-     double p12=0.;
-     double p22=0.;
-     double p32=0.;
-     double p42=0.;
+     //double I3 = SM.getLeptons(l).getIsospin();
+     //double Mw = SM.Mw();
+     //double mfprime = 0.;
+     //double mf = 0.;
+     //double p12=0.;
+     //double p22=0.;
+     //double p32=0.;
+     //double p42=0.;
      
      return 0.;//because mf = 0.
      
@@ -3460,13 +3460,13 @@ complex EWSMOneLoopLEP2::A3_NCq(const double mu,const double s,const double cos_
                                const QCD::quark q, const double Mw_i, const double rho, const double k) const{
     
 //     double I3 = SM.getQuarks(q).getIsospin();
-     double Mz = SM.getMz();
-     double mf = 0.;
+     //double Mz = SM.getMz();
+     //double mf = 0.;
 //     double mfprime = 0.;
-     double p12=0.;
-     double p22=0.;
-     double p32=0.;
-     double p42=0.;
+     //double p12=0.;
+     //double p22=0.;
+     //double p32=0.;
+     //double p42=0.;
 
 
     
@@ -3510,13 +3510,13 @@ complex EWSMOneLoopLEP2::A3_NCl(const double mu,const double s,const double cos_
                                 const StandardModel::lepton l, const double Mw_i, const double rho, const double k) const{
     
 //     double I3 = SM.getQuarks(q).getIsospin();
-     double Mz = SM.getMz();
-     double mf = 0.;
+     //double Mz = SM.getMz();
+     //double mf = 0.;
 //     double mfprime = 0.;
-     double p12=0.;
-     double p22=0.;
-     double p32=0.;
-     double p42=0.;
+     //double p12=0.;
+     //double p22=0.;
+     //double p32=0.;
+     //double p42=0.;
 
 
     
@@ -3558,13 +3558,13 @@ complex EWSMOneLoopLEP2::A4_NCq(const double mu,const double s,const double cos_
                                const QCD::quark q, const double Mw_i, const double rho, const double k) const{
     
 //     double I3 = SM.getQuarks(q).getIsospin();
-     double Mz = SM.getMz();
-     double mf = 0.;
+     //double Mz = SM.getMz();
+     //double mf = 0.;
 //     double mfprime = 0.;
-     double p12=0.;
-     double p22=0.;
-     double p32=0.;
-     double p42=0.;
+     //double p12=0.;
+     //double p22=0.;
+     //double p32=0.;
+     //double p42=0.;
 
     complex F6=0.;//because mf =0.
             //-2.*Mz*mf*SM.getAle()/4./M_PI*PV.D11(p12,p22,p32,p42,s,Mz,0.,Mz,mf,cos_theta);
@@ -3591,13 +3591,13 @@ complex EWSMOneLoopLEP2::A4_NCl(const double mu,const double s,const double cos_
                                 const StandardModel::lepton l, const double Mw_i, const double rho, const double k) const{
     
 //     double I3 = SM.getQuarks(q).getIsospin();
-     double Mz = SM.getMz();
-     double mf = 0.;
+     //double Mz = SM.getMz();
+     //double mf = 0.;
 //     double mfprime = 0.;
-     double p12=0.;
-     double p22=0.;
-     double p32=0.;
-     double p42=0.;
+     //double p12=0.;
+     //double p22=0.;
+     //double p32=0.;
+     //double p42=0.;
 
 
     
