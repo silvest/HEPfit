@@ -23,6 +23,12 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
+     * @param[in] z
+     * @return dilogarithm Li_2(z)
+     */
+    complex Li2(const complex z) const;
+    
+    /**
      * @param[in] x 
      * @return trilogarithm Li_3(x)
      * @attention applicable only for real x and x <= 1. 
