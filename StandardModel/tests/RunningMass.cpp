@@ -34,7 +34,7 @@ void setSMparameters(StandardModel& SM_i) {
     Parameters["Dmk"] = 0.0;
     Parameters["SM_M12D" ] = 0.0;
     
-    // 26+16 parameters defined in QCD    
+    // 26+16+1 parameters defined in QCD    
     Parameters["AlsMz"] = 0.1184;
     Parameters["Mz"] = 91.1876;
     Parameters["mup"] = 0.003;
@@ -78,6 +78,7 @@ void setSMparameters(StandardModel& SM_i) {
     Parameters["BK5"] = 0.0;
     Parameters["BKscale"] = 0.0;
     Parameters["BKscheme"] = 0.0; 
+    Parameters["FK"] = 0.0; 
     
     /** Test for alpha_lep **/
     //Parameters["melectron"] = 0.00051099907;

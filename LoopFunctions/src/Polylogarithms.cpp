@@ -5,6 +5,7 @@
 
 #include <cstdlib>
 #include <cmath>
+#include <gsl/gsl_complex.h>
 #include <gsl/gsl_sf.h>
 #include "Polylogarithms.h"
 #include <stdexcept>
@@ -15,6 +16,12 @@ Polylogarithms::Polylogarithms() {
 
 
 ////////////////////////////////////////////////////////////////////////
+
+complex Polylogarithms::Li2(const complex z) const {
+    gsl_sf_result re, im;
+    gsl_sf_complex_dilog_xy_e(z.real(), z.imag(), &re, &im);
+    return complex(re.val, im.val, false);
+}
 
 double Polylogarithms::Li3(const double x) const {
     double Li3 = 0.0;
