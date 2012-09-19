@@ -20,6 +20,14 @@ using namespace std;
 
 class LFtestclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST_SUITE(LFtestclass);
+    CPPUNIT_TEST(Li2_m12_re);
+    CPPUNIT_TEST(Li2_m12_im);
+    CPPUNIT_TEST(Li2_0_re);
+    CPPUNIT_TEST(Li2_0_im);
+    CPPUNIT_TEST(Li2_01234_re);
+    CPPUNIT_TEST(Li2_01234_im);
+    CPPUNIT_TEST(Li2_12_re);
+    CPPUNIT_TEST(Li2_12_im);
     CPPUNIT_TEST(Li3_m52131231311);
     CPPUNIT_TEST(Li3_m12);
     CPPUNIT_TEST(Li3_0);
@@ -47,6 +55,15 @@ private:
     Polylogarithms *myPL;
     ClausenFunctions *myClausen;
     double epsilon;
+    
+    void Li2_m12_re();
+    void Li2_m12_im();
+    void Li2_0_re();
+    void Li2_0_im();
+    void Li2_01234_re();
+    void Li2_01234_im();
+    void Li2_12_re();
+    void Li2_12_im();
     
     void Li3_m52131231311();
     void Li3_m12();
