@@ -45,6 +45,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <commandlineTool>g++</commandlineTool>
           <incDir>
             <pElem>../Utils/src</pElem>
             <pElem>../Observables/src</pElem>
@@ -548,7 +549,7 @@
             <pElem>../Cuba/include</pElem>
             <pElem>../FeynHiggs/include</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` -I/storage/local/home/theorm3/girardi/.netbeans/remote/ui-02.roma3.infn.it/dhtripdot1x223.roma1.infn.it-MacOSX-x86_64/Users/girardi_mac/Tesi/SusyFit/BAT/include</commandLine>
+          <commandLine>`root-config --cflags`</commandLine>
         </ccTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
@@ -731,7 +732,7 @@
             <linkerLibLibItem>FH</linkerLibLibItem>
             <linkerLibLibItem>cuba</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit  -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml -L/storage/local/home/theorm3/girardi/gsl/lib -lgsl -lgslcblas -lm -L/storage/local/home/theorm3/girardi/.netbeans/remote/ui-02.roma3.infn.it/dhtripdot1x223.roma1.infn.it-MacOSX-x86_64/Users/girardi_mac/Tesi/SusyFit/BAT/lib -lboost_program_options </commandLine>
+          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit  -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml</commandLine>
         </linkerTool>
       </compileType>
       <folder path="TestFiles/f1">
