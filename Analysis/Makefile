@@ -50,19 +50,18 @@ CP=cp
 CCADMIN=CCadmin
 
 ifeq (${CONF},Cluster)
-HOMEDIR="${CND_BASEDIR}/../../../../../../../../.."
 INCLUDE_PATH_CLUSTER=$(shell root-config --cflags)
-INCLUDE_PATH_CLUSTER+=$(shell ${HOMEDIR}/gsl/bin/gsl-config --cflags)
-INCLUDE_PATH_CLUSTER+="-I${HOMEDIR}/BAT/include"
-INCLUDE_PATH_CLUSTER+="-I${HOMEDIR}/Cuba/include"
-INCLUDE_PATH_CLUSTER+="-I${HOMEDIR}/FeynHiggs/include"
+INCLUDE_PATH_CLUSTER+=$(shell ${HOME}/gsl/bin/gsl-config --cflags)
+INCLUDE_PATH_CLUSTER+="-I${HOME}/BAT/include"
+INCLUDE_PATH_CLUSTER+="-I${HOME}/Cuba/include"
+INCLUDE_PATH_CLUSTER+="-I${HOME}/FeynHiggs/include"
 LIB_PATH_CLUSTER=$(shell root-config --ldflags)
 LIB_PATH_CLUSTER+=$(shell root-config --libs)
-LIB_PATH_CLUSTER+=$(shell ${HOMEDIR}/gsl/bin/gsl-config --libs)
-LIB_PATH_CLUSTER+="-L${HOMEDIR}/BAT/lib"
-LIB_PATH_CLUSTER+="-L${HOMEDIR}/Cuba/lib"
-LIB_PATH_CLUSTER+="-L${HOMEDIR}/FeynHiggs/lib"
-LIB_PATH_CLUSTER+="-L${HOMEDIR}/FeynHiggs/lib64"
+LIB_PATH_CLUSTER+=$(shell ${HOME}/gsl/bin/gsl-config --libs)
+LIB_PATH_CLUSTER+="-L${HOME}/BAT/lib"
+LIB_PATH_CLUSTER+="-L${HOME}/Cuba/lib"
+LIB_PATH_CLUSTER+="-L${HOME}/FeynHiggs/lib"
+LIB_PATH_CLUSTER+="-L${HOME}/FeynHiggs/lib64"
 endif
 
 # build
