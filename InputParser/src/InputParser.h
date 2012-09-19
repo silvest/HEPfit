@@ -36,19 +36,19 @@ public:
             std::vector<ModelParameter>& ModelPars,
             std::vector<Observable>& Observables,
             std::vector<Observable2D>& Observables2D);
-    
+
     StandardModel* getMyModel() const {
         return myModel;
     }
-    
+
     StandardModelMatching* getMyModelMatching() const {
         return myModelMatching;
     }
-    
+
 private:
-    StandardModel* myModel; 
+    StandardModel* myModel;
     StandardModelMatching* myModelMatching;
-   
+
     ThFactory* thf;
     std::string modname;
 };

@@ -10,7 +10,6 @@
 #include <boost/lexical_cast.hpp>
 #include <iostream>
 
-
 InputParser::InputParser() {
     myModel = NULL;
     thf = NULL;
@@ -63,13 +62,13 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             myModel = LocalPointer;
             thf = new ThFactory(*myModel);
             continue;
-        } else if (beg->compare("THDM") == 0){
+        } else if (beg->compare("THDM") == 0) {
             modname = *beg;
             myModel = new THDM();
             thf = new ThFactory(*myModel);
             continue;
         }
-        
+
         std::string type = *beg;
         ++beg;
         if (type.compare("ModelParameter") == 0) {
@@ -150,23 +149,23 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
                 o2.setMin2(atof((*beg).c_str()));
                 ++beg;
                 o2.setMax2(atof((*beg).c_str()));
-                Observables2D.push_back(o2); 
+                Observables2D.push_back(o2);
                 ++beg;
                 if (beg != tok.end()) std::cout << "warning: unread information in observable "
                         << Observables.back().getName() << std::endl;
             }
         } else if (type.compare("ModelFlag") == 0) {
-            
+
             std::string name = *beg;
             ++beg;
             bool value = boost::lexical_cast<bool>((*beg).c_str());
             ++beg;
 
-           if( !myModel->SetFlag(name,value)){
-               std::stringstream ss;
-               ss << myModel->ModelName() << " SetFlag error for Flag " << name;
-               throw std::runtime_error(ss.str());
-           }
+            if (!myModel->SetFlag(name, value)) {
+                std::stringstream ss;
+                ss << myModel->ModelName() << " SetFlag error for Flag " << name;
+                throw std::runtime_error(ss.str());
+            }
             if (beg != tok.end())
                 std::cout << "warning: unread information in Flag " << name << std::endl;
         } else {
