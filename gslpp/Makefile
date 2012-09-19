@@ -49,6 +49,14 @@ MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
 
+ifeq (${CONF},Cluster)
+HOMEDIR="${CND_BASEDIR}/../../../../../../../../.."
+INCLUDE_PATH_CLUSTER=$(shell root-config --cflags)
+INCLUDE_PATH_CLUSTER+=$(shell ${HOMEDIR}/gsl/bin/gsl-config --cflags)
+INCLUDE_PATH_CLUSTER+="-I${HOMEDIR}/BAT/include"
+INCLUDE_PATH_CLUSTER+="-I${HOMEDIR}/Cuba/include"
+INCLUDE_PATH_CLUSTER+="-I${HOMEDIR}/FeynHiggs/include"
+endif
 
 # build
 build: .build-post
