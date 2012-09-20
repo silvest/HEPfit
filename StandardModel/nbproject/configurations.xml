@@ -520,7 +520,7 @@
             <pElem>../Utils/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
           </incDir>
-          <commandLine>${INCLUDE_PATH_CLUSTER}</commandLine>
+          <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/BAT/include -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

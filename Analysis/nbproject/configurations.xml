@@ -534,7 +534,7 @@
             <pElem>../Cuba/include</pElem>
             <pElem>../FeynHiggs/include</pElem>
           </incDir>
-          <commandLine>${INCLUDE_PATH_CLUSTER}</commandLine>
+          <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/BAT/include -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -713,7 +713,7 @@
             <linkerLibLibItem>cuba</linkerLibLibItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>${LIB_PATH_CLUSTER} -lMinuit -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml</commandLine>
+          <commandLine>`root-config --ldflags` `root-config --libs` `${HOME}/gsl/bin/gsl-config --libs` -L${HOME}/BAT/lib -L${HOME}/Cuba/lib -L${HOME}/FeynHiggs/lib -L${HOME}/FeynHiggs/lib64 -lMinuit -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml</commandLine>
         </linkerTool>
       </compileType>
       <folder path="TestFiles/f1">

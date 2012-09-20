@@ -49,18 +49,6 @@
         </ccTool>
         <archiverTool>
         </archiverTool>
-        <requiredProjects>
-          <makeArtifact PL="/afs/infn.it/roma1/project/susy/susy/SusyFit/gslpp"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="false"
-                        WD="/afs/infn.it/roma1/project/susy/susy/SusyFit/gslpp"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="dist/Debug/GNU-Linux-x86/libgslpp.a">
-          </makeArtifact>
-        </requiredProjects>
       </compileType>
       <folder path="TestFiles/f1">
         <cTool>

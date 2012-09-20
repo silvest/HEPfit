@@ -50,18 +50,11 @@ CP=cp
 CCADMIN=CCadmin
 
 ifeq (${CONF},Cluster)
-INCLUDE_PATH_CLUSTER=$(shell root-config --cflags)
-INCLUDE_PATH_CLUSTER+=$(shell ${HOME}/gsl/bin/gsl-config --cflags)
-INCLUDE_PATH_CLUSTER+="-I${HOME}/BAT/include"
-INCLUDE_PATH_CLUSTER+="-I${HOME}/Cuba/include"
-INCLUDE_PATH_CLUSTER+="-I${HOME}/FeynHiggs/include"
-LIB_PATH_CLUSTER=$(shell root-config --ldflags)
-LIB_PATH_CLUSTER+=$(shell root-config --libs)
-LIB_PATH_CLUSTER+=$(shell ${HOME}/gsl/bin/gsl-config --libs)
-LIB_PATH_CLUSTER+="-L${HOME}/BAT/lib"
-LIB_PATH_CLUSTER+="-L${HOME}/Cuba/lib"
-LIB_PATH_CLUSTER+="-L${HOME}/FeynHiggs/lib"
-LIB_PATH_CLUSTER+="-L${HOME}/FeynHiggs/lib64"
+SERVERS=ui-01 ui01 ui-02 ui02
+HOSTNAME=$(basename $(basename $(basename $(shell /bin/hostname))))
+ifneq ($(findstring ${HOSTNAME}, ${SERVERS}), ${HOSTNAME})
+$(error Cluster configuration cannot be used on the current server ${HOSTNAME})
+endif
 endif
 
 # build
