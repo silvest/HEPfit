@@ -75,10 +75,7 @@
           </incDir>
         </ccTool>
         <linkerTool>
-          <linkerLibItems>
-            <linkerLibLibItem>gsl</linkerLibLibItem>
-            <linkerLibLibItem>gslcblas</linkerLibLibItem>
-          </linkerLibItems>
+          <commandLine>`gsl-config --libs`</commandLine>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f1">

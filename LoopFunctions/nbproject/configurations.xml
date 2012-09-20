@@ -92,8 +92,6 @@
         </ccTool>
         <linkerTool>
           <linkerLibItems>
-            <linkerLibLibItem>gsl</linkerLibLibItem>
-            <linkerLibLibItem>gslcblas</linkerLibLibItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../gslpp"
                             CT="3"
@@ -107,7 +105,7 @@
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
-          <commandLine>-L/opt/local/lib -L/usr/lib/root -L/usr/local/lib/root -lCore -lCint -lRIO -lNet -lHist -lGraf -lGraf3d -lGpad -lTree -lRint -lPostscript -lMatrix -lPhysics -lMathCore -lThread -pthread -lm -ldl</commandLine>
+          <commandLine>`gsl-config --libs`</commandLine>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
