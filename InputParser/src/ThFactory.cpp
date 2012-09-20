@@ -14,24 +14,24 @@ ThFactory::ThFactory(const StandardModel& myModel) :
 myFlavour(myModel), myEW(myModel)
 //, myZFitter(myModel) 
 {
-    //    thobs["Dmd0"] = new DmBd0(myFlavour);
-    //    thobs["Dmd1"] = new DmBd(myFlavour);
-    //    thobs["Dms0"] = new DmBs0(myFlavour);
-    //    thobs["Dms1"] = new DmBs(myFlavour);
-    //    thobs["M12D"] = new M12D(myFlavour);
-    //    thobs["ArgD"] = new ArgD(myFlavour);
-    //    thobs["EpsilonK"] = new EpsilonK(myFlavour) ;
-    //    thobs["DmK"] = new DmK(myFlavour);
-    //    thobs["Vud"] = new Vud(myFlavour);
-    //    thobs["Vus"] = new Vus(myFlavour);
-    //    thobs["Vub"] = new Vub(myFlavour);
-    //    thobs["Vcb"] = new Vcb(myFlavour);
-    //    thobs["alpha"] = new Alpha(myFlavour);
-    //    thobs["alpha_2a"] = new Alpha_2a(myFlavour);
-    //    thobs["gamma"] = new Gamma(myFlavour);
-    //    thobs["SJPsiK"] = new SJPsiK(myFlavour);
-    //    
-    //    thobs["Mh0"] = new Mh0(myEW);
+    thobs["Dmd0"] = new DmBd0(myFlavour);
+    thobs["Dmd1"] = new DmBd(myFlavour);
+    thobs["Dms0"] = new DmBs0(myFlavour);
+    thobs["Dms1"] = new DmBs(myFlavour);
+    thobs["M12D"] = new M12D(myFlavour);
+    thobs["ArgD"] = new ArgD(myFlavour);
+    thobs["EpsilonK"] = new EpsilonK(myFlavour) ;
+    thobs["DmK"] = new DmK(myFlavour);
+    thobs["Vud"] = new Vud(myFlavour);
+    thobs["Vus"] = new Vus(myFlavour);
+    thobs["Vub"] = new Vub(myFlavour);
+    thobs["Vcb"] = new Vcb(myFlavour);
+    thobs["alpha"] = new Alpha(myFlavour);
+    thobs["alpha_2a"] = new Alpha_2a(myFlavour);
+    thobs["gamma"] = new Gamma(myFlavour);
+    thobs["SJPsiK"] = new SJPsiK(myFlavour);
+    
+    thobs["Mh0"] = new Mh0(myEW);
 
     thobs["Mw"] = new Mw(myEW);
     thobs["sin2thetaEff"] = new sin2thetaEff(myEW);
