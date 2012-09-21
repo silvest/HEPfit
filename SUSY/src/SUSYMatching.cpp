@@ -467,7 +467,7 @@ void SUSYMatching::Comp_DeltaMd() {
     gslpp::vector<double> MChi0(4, 0.);
     double Q = mySUSY.GetQ();
     double Als = mySUSY.Als(Q);
-    double Mg = mySUSY.getM3();
+    double Mg = mySUSY.GetMGl();
 
     MChi = mySUSY.getMch();
     MChi0 = mySUSY.getMneu();
@@ -1295,7 +1295,7 @@ gslpp::complex SUSYMatching::DeltaFHL(int j, int i) {
     myRd = mySUSY.getRd();
     double Q = mySUSY.GetQ();
     double Als = mySUSY.Als(Q);
-    double Mg = mySUSY.getM3();
+    double Mg = mySUSY.GetMGl();
     complex Yuj(0., 0., false);
     complex Ydi(0., 0., false);
     double v = mySUSY.v();
@@ -1782,7 +1782,7 @@ gslpp::vector<complex> SUSYMatching::CdF2dgg(int b, int q, int Dmixingflag) {
     complex CLO(0., 0., false);
     gslpp::vector<complex> VCLO(8, 0.);
     double Als = mySUSY.Als(Q);
-    double Mg = mySUSY.getM3();
+    double Mg = mySUSY.GetMGl();
     double M2g = Mg*Mg;
     int h, k, O;
 
@@ -2225,7 +2225,7 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0g(int b, int q, int Dmixingflag) {
     gslpp::vector<complex> VCLO(8, 0.);
     complex CLO(0., 0., false);
     int i, h, k, O;
-    double Mg = mySUSY.getM3();
+    double Mg = mySUSY.GetMGl();
     double M2g = Mg*Mg;
     double Als = mySUSY.Als(Q);
 
