@@ -35,6 +35,7 @@
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
+        <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <ccTool>
@@ -95,6 +96,36 @@
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../Utils/src</pElem>
+          </incDir>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+    </conf>
+    <conf name="Cluster" type="3">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+        <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>

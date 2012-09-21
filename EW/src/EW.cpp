@@ -87,8 +87,8 @@ double EW::Gamma_q(const StandardModel::quark q) const {
     
     double mcMz, mbMz;
     if (!bDebug) {
-        mcMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.CHARM).getMass(), FULLNLO);
-        mbMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), FULLNLO);  
+        mcMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.CHARM).getMass(), FULLNNLO);
+        mbMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), FULLNNLO);  
     } else {
         mcMz = 0.56381685; 
         mbMz = 2.8194352;
@@ -361,9 +361,22 @@ double EW::sigma_l_Born_LEP2(const StandardModel::lepton l, const double s) cons
 
 
 double EW::sigma_q_Born_LEP2(const StandardModel::quark q, const double s) const {
-    double mf = SM.getLeptons(q).getMass();
-    double Qf = SM.getLeptons(q).getCharge();
-    double I3f = SM.getLeptons(q).getIsospin();
+    double mf;
+    switch(q) {
+        case StandardModel::UP:
+        case StandardModel::DOWN:
+        case StandardModel::STRANGE:
+            mf = SM.Mrun(SM.getMz(), 2.0, SM.getQuarks(q).getMass(), FULLNNLO);
+            break;
+        case StandardModel::CHARM:
+        case StandardModel::BOTTOM:
+            mf = SM.Mrun(SM.getMz(), SM.getQuarks(q).getMass(), FULLNNLO);
+            break;
+        default:
+            throw std::runtime_error("Error in EW::sigma_q_Born_LEP2()");   
+    }
+    double Qf = SM.getQuarks(q).getCharge();
+    double I3f = SM.getQuarks(q).getIsospin();
     return sigma_f_Born_LEP2(s, mf, Qf, I3f, 3.0);
 }
 
@@ -388,6 +401,7 @@ double EW::sigma_f_Born_LEP2(const double s, const double mf, const double Qf,
     complex chi_gamma = complex(1.0, 0.0, false);
     complex i = complex::i();
     complex chi_Z = s/(s - Mz*Mz + i*Mz*GammaZ);
+    //complex chi_Z = s/(s - Mz*Mz);
     complex chi_gammaZ = complex(0.0, 0.0, false);
     
     double G1 = Qe2*Qf2*chi_gamma.abs2()

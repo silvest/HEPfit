@@ -49,6 +49,13 @@ MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
 
+ifeq (${CONF},Cluster)
+SERVERS=ui-01 ui01 ui-02 ui02
+HOSTNAME=$(basename $(basename $(basename $(shell /bin/hostname))))
+ifneq ($(findstring ${HOSTNAME}, ${SERVERS}), ${HOSTNAME})
+$(error Cluster configuration cannot be used on the current server ${HOSTNAME})
+endif
+endif
 
 # build
 build: .build-post
