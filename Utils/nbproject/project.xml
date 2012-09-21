@@ -9,9 +9,7 @@
             <cpp-extensions>cc,cpp</cpp-extensions>
             <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
-            <make-dep-projects>
-                <make-dep-project>/afs/infn.it/roma1/project/susy/susy/SusyFit/gslpp</make-dep-project>
-            </make-dep-projects>
+            <make-dep-projects/>
             <sourceRootList/>
             <confList>
                 <confElem>
@@ -20,6 +18,10 @@
                 </confElem>
                 <confElem>
                     <name>Release</name>
+                    <type>3</type>
+                </confElem>
+                <confElem>
+                    <name>Cluster</name>
                     <type>3</type>
                 </confElem>
             </confList>

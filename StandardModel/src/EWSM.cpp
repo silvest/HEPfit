@@ -6,8 +6,6 @@
 #include <cmath>
 #include "EWSM.h"
 #include <iostream>
-#include <cuba.h>
-//#include "StandardModel.h"
 
 
 const double EWSM::Mw_error = 0.00001; /* 0.01 MeV */ 
@@ -562,9 +560,9 @@ double EWSM::GammaW_l_SM(const StandardModel::lepton li,
     
     double G0 = SM.getGF()*pow(Mw_SM(),3.0)/6.0/sqrt(2.0)/M_PI;    
     complex V(0.0, 0.0, false);
-    if ( li==StandardModel::NEUTRINO_1 && lj==StandardModel::ELECTRON ||
-         li==StandardModel::NEUTRINO_2 && lj==StandardModel::MU ||
-         li==StandardModel::NEUTRINO_3 && lj==StandardModel::TAU )        
+    if ( (li==StandardModel::NEUTRINO_1 && lj==StandardModel::ELECTRON) ||
+         (li==StandardModel::NEUTRINO_2 && lj==StandardModel::MU) ||
+         (li==StandardModel::NEUTRINO_3 && lj==StandardModel::TAU) )        
         V.real() = 1.0;
     return ( V.abs2()*G0*rho_GammaW_l_SM(li,lj) ); 
 }

@@ -447,12 +447,12 @@ void SUSYMatching::Comp_mySUSYMQ() {
     double Q = mySUSY.GetQ();
     
     
-        mySUSYMQ(0) = mySUSY.Mrun(Q,mySUSY.getQuarks(0).getMass_scale(),mySUSY.getQuarks(0).getMass());
-        mySUSYMQ(1) = mySUSY.Mrun(Q,mySUSY.getQuarks(1).getMass_scale(),mySUSY.getQuarks(1).getMass());
-        mySUSYMQ(2) = mySUSY.Mrun(Q,mySUSY.getQuarks(2).getMass());
-        mySUSYMQ(3) = mySUSY.Mrun(Q,mySUSY.getQuarks(3).getMass_scale(),mySUSY.getQuarks(3).getMass());
-        mySUSYMQ(4) = mySUSY.Mrun(Q,mySUSY.getQuarks(4).getMass());
-        mySUSYMQ(5) = mySUSY.Mrun(Q,mySUSY.getQuarks(5).getMass());
+        mySUSYMQ(0) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.UP).getMass_scale(),mySUSY.getQuarks(mySUSY.UP).getMass());
+        mySUSYMQ(1) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.DOWN).getMass_scale(),mySUSY.getQuarks(mySUSY.DOWN).getMass());
+        mySUSYMQ(2) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.CHARM).getMass());
+        mySUSYMQ(3) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.STRANGE).getMass_scale(),mySUSY.getQuarks(mySUSY.STRANGE).getMass());
+        mySUSYMQ(4) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.TOP).getMass());
+        mySUSYMQ(5) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.BOTTOM).getMass());
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1668,17 +1668,22 @@ gslpp::vector<complex> SUSYMatching::CdF2dHp(int b, int q, int Dmixingflag) {
                     }
                 }
             }
-                   
-            for (S = 0; S < 3; S++) {
-                
-                 CLO += - XRLS(q, b, S) * XLRS(q, b, S) / M2S(S);
-                
-                
-//                complex temp(0.,0.,false);
-//                temp +=  - XRLS(q, b, S) * XLRS(q, b, S) / M2S(S);
-            
-            }
+         
+            /** The double Penguin contributions are calulated only for the B and K mixing **/
 
+            if (D != 0) {
+                for (S = 0; S < 3; S++) {
+
+                    CLO += -XRLS(q, b, S) * XLRS(q, b, S) / M2S(S);
+
+
+                    //                complex temp(0.,0.,false);
+                    //                temp +=  - XRLS(q, b, S) * XLRS(q, b, S) / M2S(S);
+
+                }
+            }
+            
+            /** end double Penguin contribution **/
 
         } else if (O == 5) {
             for (I = 0; I < 3; I++) {

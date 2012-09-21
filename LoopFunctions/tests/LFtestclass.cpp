@@ -30,6 +30,62 @@ void LFtestclass::tearDown() {
     delete myClausen;
 }
 
+void LFtestclass::Li2_m12_re() {
+    double expect = -4.650655935392819;
+    double result = myPL->Li2(-12.0).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
+}
+
+void LFtestclass::Li2_m12_im() {
+    double expect = 0.0;
+    double result = myPL->Li2(-12.0).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
+}
+
+void LFtestclass::Li2_0_re() {
+    double expect = 0.0;
+    double result = myPL->Li2(0.0).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
+}
+
+void LFtestclass::Li2_0_im() {
+    double expect = 0.0;
+    double result = myPL->Li2(0.0).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
+}
+
+void LFtestclass::Li2_01234_re() {
+    double expect = 0.1274314216364471;
+    double result = myPL->Li2(0.1234).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
+}
+
+void LFtestclass::Li2_01234_im() {
+    double expect = 0.0;
+    double result = myPL->Li2(0.1234).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
+}
+
+void LFtestclass::Li2_12_re() {
+    double expect = 0.1173506750161737;
+    double result = myPL->Li2(12.0).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
+}
+
+void LFtestclass::Li2_12_im() {
+    double expect = -7.806564475830408;
+    double result = myPL->Li2(12.0).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);      
+}
+
 void LFtestclass::Li3_m52131231311() {
     double expect = -1903.63788375121;
     double result = myPL->Li3(-5213123131.1);
