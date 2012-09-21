@@ -48,7 +48,16 @@ public:
 
     /**
      * 
-     * @return gluino mass
+     * @return the gluino mass 
+     */
+    double GetMGl() const {
+        return FHMGl;
+    }
+
+    
+    /**
+     * 
+     * @return M3
      */
     double getM3() const {
         return m3;

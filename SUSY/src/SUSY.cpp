@@ -399,8 +399,8 @@ bool SUSY::CalcSpectrum(){
     double MASf[4][6], MCha[2], MNeu[4];
     Complex UASf[4][6][6], UCha[2][2], VCha[2][2], ZNeu[4][4], Deltab;
     FHGetPara(&err, &nmfv, MASf, UASf, MCha, UCha, VCha, MNeu, ZNeu, &Deltab, 
-//            &FHMGl, FHMHtree, &FHSAtree);
-            FHMHtree, &FHSAtree);
+            &FHMGl, FHMHtree, &FHSAtree);
+//            FHMHtree, &FHSAtree);
     for(int i = 0; i < 6; i++){
         
         Msn2(i) = MASf[0][i]*MASf[0][i];
