@@ -126,11 +126,11 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
-    Meson getMesons(const int i) const {
+    Meson getMesons(const QCD::meson i) const {
         return mesons[i];
     }
 
-    Particle getQuarks(const int i) const {
+    Particle getQuarks(const QCD::quark i) const {
         return quarks[i];
     }
     

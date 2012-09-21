@@ -447,12 +447,12 @@ void SUSYMatching::Comp_mySUSYMQ() {
     double Q = mySUSY.GetQ();
     
     
-        mySUSYMQ(0) = mySUSY.Mrun(Q,mySUSY.getQuarks(0).getMass_scale(),mySUSY.getQuarks(0).getMass());
-        mySUSYMQ(1) = mySUSY.Mrun(Q,mySUSY.getQuarks(1).getMass_scale(),mySUSY.getQuarks(1).getMass());
-        mySUSYMQ(2) = mySUSY.Mrun(Q,mySUSY.getQuarks(2).getMass());
-        mySUSYMQ(3) = mySUSY.Mrun(Q,mySUSY.getQuarks(3).getMass_scale(),mySUSY.getQuarks(3).getMass());
-        mySUSYMQ(4) = mySUSY.Mrun(Q,mySUSY.getQuarks(4).getMass());
-        mySUSYMQ(5) = mySUSY.Mrun(Q,mySUSY.getQuarks(5).getMass());
+        mySUSYMQ(0) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.UP).getMass_scale(),mySUSY.getQuarks(mySUSY.UP).getMass());
+        mySUSYMQ(1) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.DOWN).getMass_scale(),mySUSY.getQuarks(mySUSY.DOWN).getMass());
+        mySUSYMQ(2) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.CHARM).getMass());
+        mySUSYMQ(3) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.STRANGE).getMass_scale(),mySUSY.getQuarks(mySUSY.STRANGE).getMass());
+        mySUSYMQ(4) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.TOP).getMass());
+        mySUSYMQ(5) = mySUSY.Mrun(Q,mySUSY.getQuarks(mySUSY.BOTTOM).getMass());
 }
 
 ////////////////////////////////////////////////////////////////////////////////

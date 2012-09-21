@@ -445,7 +445,7 @@ public:
     
     ///////////////////////////////////////////////////////////////////////////
 
-    Particle getLeptons(const int p) const {
+    Particle getLeptons(const StandardModel::lepton p) const {
         return leptons[p];
     }
 
