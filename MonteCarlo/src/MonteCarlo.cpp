@@ -10,11 +10,12 @@
 #include <BAT/BCLog.h>
 
 MonteCarlo::MonteCarlo(const std::string& ModelConf_i,
-        const std::string& MonteCarloConf_i, const std::string& OutFile_i) :
+        const std::string& MonteCarloConf_i, const std::string& OutFile_i, const std::string& JobTag_i) :
 myInputParser(), MCEngine(ModPars, Obs, Obs2D) {
     ModelConf = ModelConf_i;
     MCMCConf = MonteCarloConf_i;
-    OutFile = OutFile_i;
+    JobTag = JobTag_i;
+    OutFile = OutFile_i + JobTag + ".root";
     PrintAllMarginalized = false;
 }
 
@@ -84,7 +85,7 @@ void MonteCarlo::Run() {
         BCAux::SetStyle();
 
         // open log file
-        BCLog::OpenLog("log.txt");
+        BCLog::OpenLog(("log"+JobTag+".txt").c_str());
         BCLog::SetLogLevel(BCLog::debug);
 
         // run the MCMC and marginalize w.r.t. to all parameters
@@ -95,10 +96,10 @@ void MonteCarlo::Run() {
 
         // draw all marginalized distributions into a PostScript file
         if(PrintAllMarginalized)
-            MCEngine.PrintAllMarginalized("MonteCarlo_plots.ps");
+            MCEngine.PrintAllMarginalized(("MonteCarlo_plots"+JobTag+".ps").c_str());
 
         // print results of the analysis into a text file
-        MCEngine.PrintResults("MonteCarlo_results.txt");
+        MCEngine.PrintResults(("MonteCarlo_results"+JobTag+".txt").c_str());
 
         // print ratio
         MCEngine.PrintHistogram(out);
