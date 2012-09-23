@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <iostream>
 #include <iomanip>
+#include <stdexcept>
 #include <cstring>
 #include <cmath>
 #include <StandardModel.h>
@@ -414,9 +415,9 @@ int main(int argc, char** argv) {
             test_ZFitterClass(ZF);
         }
         return EXIT_SUCCESS;
-    } catch (const char* c) {
-        cerr << c << endl;
+    } catch (const runtime_error& e) {
+        cerr << e.what() << endl;
         return EXIT_FAILURE;
-    }   
+    }
 }
 

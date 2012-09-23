@@ -6,6 +6,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
+#include <stdexcept>
 #include <unistd.h>
 #include <boost/program_options.hpp>
 #include <InputParser.h>
@@ -170,7 +171,7 @@ int main(int argc, char** argv) {
         //////////////////////////////////////////////////////////////////////        
         cout << "Test finished" << endl;
         return EXIT_SUCCESS;
-    } catch (const error& e) {
+    } catch (const runtime_error& e) {
         cerr << e.what() << endl;
         return EXIT_FAILURE;
     }

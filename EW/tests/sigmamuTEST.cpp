@@ -8,6 +8,7 @@
 
 #include <stdlib.h>
 #include <iostream>
+#include <stdexcept>
 #include <fstream>
 #include <EW.h>
 #include <sigmamuLEP2.h>
@@ -408,8 +409,8 @@ int main(int argc, char** argv) {
 
     return (EXIT_SUCCESS);
     
-    } catch (const char* c) {
-        cerr << c << endl;
+    } catch (const runtime_error& e) {
+        cerr << e.what() << endl;
         return EXIT_FAILURE;
     }
 }
