@@ -137,7 +137,7 @@ complex EWSMOneLoopEW::deltaKappa_rem_tmp(const double deltaf, const complex uf,
     double log_cW2 = cache.log_cW2(Mw); 
 
     complex dKappa_rem(0.0,0.0,false);
-    dKappa_rem = - ( PiZgamma_bos(Mz,Mz*Mz,Mw) + PiZgamma_fer(Mz,Mz*Mz,Mw) )
+    dKappa_rem = ( PiZgamma_bos(Mz,Mz*Mz,Mw) + PiZgamma_fer(Mz,Mz*Mz,Mw) )
                  + deltaf*deltaf/4.0/cW2*FZ(Mz*Mz,Mw) - uf
                  + (1.0/12.0/cW2 + 4.0/3.0)*log_cW2;
     dKappa_rem *= cache.ale()/4.0/M_PI/sW2;
@@ -589,7 +589,7 @@ complex EWSMOneLoopEW::PiZgamma_bos(const double mu, const double s,
                                     const double Mw_i) const {
     double Mw = cache.Mw(Mw_i);
     double cW2 = cache.cW2(Mw);
-    return ( - PiGammaGamma_bos(mu,s,Mw)*cW2);
+    return ( PiGammaGamma_bos(mu,s,Mw)*cW2 );
 }
 
 
@@ -629,10 +629,10 @@ complex EWSMOneLoopEW::PiZgamma_fer(const double mu, const double s,
     double Ql, Qq;
     for (int i=0; i<6; i++) {
         Ql = cache.Ql((StandardModel::lepton) i);
-        Pi += (fabs(Ql) - 4.0*sW2*Ql*Ql)*Bf_s_ml_ml[i];
+        Pi += - (fabs(Ql) - 4.0*sW2*Ql*Ql)*Bf_s_ml_ml[i];
         //
         Qq = cache.Qq((StandardModel::quark) i);
-        Pi += 3.0*(fabs(Qq) - 4.0*sW2*Qq*Qq)*Bf_s_mq_mq[i];
+        Pi += - 3.0*(fabs(Qq) - 4.0*sW2*Qq*Qq)*Bf_s_mq_mq[i];
     }   
     return Pi;
 }
