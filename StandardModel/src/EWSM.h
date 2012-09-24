@@ -17,6 +17,8 @@
 #include "EWSMThreeLoopEW2QCD.h"
 #include "EWSMThreeLoopEW.h"
 #include "EWSMApproximateFormulae.h"
+#include "EWSMOneLoopEW_HV.h"
+#include "EWSMTwoFermionsLEP2.h"
 #include "EWSMOneLoopLEP2.h"
 
 using namespace gslpp;
@@ -53,10 +55,10 @@ public:
     ////////////////////////////////////////////////////////////////////////     
 
     /**
-     * @return a reference to the EWSMcache object
+     * @return a pointer to the EWSMTwoFermionsLEP2 object
      */
-    const EWSMcache* getMyCache() const {
-        return myCache;
+    EWSMTwoFermionsLEP2* getMyTwoFermionsLEP2() const {
+        return myTwoFermionsLEP2;
     }
     
     /**
@@ -262,7 +264,8 @@ private:
     EWSMThreeLoopEW* myThreeLoopEW; 
     EWSMApproximateFormulae* myApproximateFormulae;
     
-    EWSMOneLoopLEP2* myLEP2;
+    EWSMTwoFermionsLEP2* myTwoFermionsLEP2;
+    EWSMOneLoopLEP2* myOneLoopLEP2;
         
     // accuracy in the iterative calculation of Mw
     static const double Mw_error;

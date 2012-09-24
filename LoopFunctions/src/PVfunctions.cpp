@@ -204,12 +204,12 @@ complex PVfunctions::Bf(const double mu, const double p2,
     return Bf;
 }
 
-complex PVfunctions::B0p(const double mu, const double p2, 
+complex PVfunctions::B0p(const double muIR, const double p2, 
                          const double m0, const double m1) const {   
-    if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 )
+    if ( muIR<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 )
         throw std::runtime_error("Invalid argument for PVfunctions::B0p()"); 
     
-    double mu2=mu*mu, m02=m0*m0, m12=m1*m1;
+    double muIR2=muIR*muIR, m02=m0*m0, m12=m1*m1;
     complex B0p(0.0, 0.0, false);
         
     if (p2==0.0) {
@@ -253,7 +253,7 @@ complex PVfunctions::B0p(const double mu, const double p2,
                 B0p = - M2/p2/p2*log(p2/M2 - 1.0) - 1.0/p2;
                 B0p += M2/p2/p2*M_PI*complex::i();// imaginary part        
             } else { /* p2=M2 */
-                B0p = 1.0/2.0/M2*(log(M2/mu2) - 2.0);
+                B0p = 1.0/2.0/M2*(log(M2/muIR2) - 2.0);
             }
         } else if ( m0==0.0 && m1==0.0 ) {
             B0p = - 1.0/p2;

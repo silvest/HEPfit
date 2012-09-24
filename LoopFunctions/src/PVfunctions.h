@@ -80,13 +80,13 @@ public:
     
     /**
      * @brief the derivative of B_0
-     * @param[in] mu renormalization scale
+     * @param[in] muIR renormalization scale for an IR divergence
      * @param[in] p2 p squared
      * @param[in] m0 mass m_0
      * @param[in] m1 mass m_1
      * @return the finite part of B_{0p}
      */
-    complex B0p(const double mu, const double p2, 
+    complex B0p(const double muIR, const double p2, 
                 const double m0, const double m1) const; 
     
     /**
