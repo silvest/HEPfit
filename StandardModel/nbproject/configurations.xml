@@ -9,10 +9,12 @@
       <itemPath>src/EWSM.h</itemPath>
       <itemPath>src/EWSMApproximateFormulae.h</itemPath>
       <itemPath>src/EWSMOneLoopEW.h</itemPath>
+      <itemPath>src/EWSMOneLoopEW_HV.h</itemPath>
       <itemPath>src/EWSMOneLoopLEP2.h</itemPath>
       <itemPath>src/EWSMThreeLoopEW.h</itemPath>
       <itemPath>src/EWSMThreeLoopEW2QCD.h</itemPath>
       <itemPath>src/EWSMThreeLoopQCD.h</itemPath>
+      <itemPath>src/EWSMTwoFermionsLEP2.h</itemPath>
       <itemPath>src/EWSMTwoLoopEW.h</itemPath>
       <itemPath>src/EWSMTwoLoopQCD.h</itemPath>
       <itemPath>src/EWSMcache.h</itemPath>
@@ -40,10 +42,12 @@
       <itemPath>src/EWSM.cpp</itemPath>
       <itemPath>src/EWSMApproximateFormulae.cpp</itemPath>
       <itemPath>src/EWSMOneLoopEW.cpp</itemPath>
+      <itemPath>src/EWSMOneLoopEW_HV.cpp</itemPath>
       <itemPath>src/EWSMOneLoopLEP2.cpp</itemPath>
       <itemPath>src/EWSMThreeLoopEW.cpp</itemPath>
       <itemPath>src/EWSMThreeLoopEW2QCD.cpp</itemPath>
       <itemPath>src/EWSMThreeLoopQCD.cpp</itemPath>
+      <itemPath>src/EWSMTwoFermionsLEP2.cpp</itemPath>
       <itemPath>src/EWSMTwoLoopEW.cpp</itemPath>
       <itemPath>src/EWSMTwoLoopQCD.cpp</itemPath>
       <itemPath>src/EWSMcache.cpp</itemPath>
@@ -68,6 +72,14 @@
         <itemPath>tests/EWSMEW1testclass.h</itemPath>
         <itemPath>tests/EWSMEW1testrunner.cpp</itemPath>
         <itemPath>tests/EWSMsetParameters.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f9"
+                     displayName="EWSMOneLoopEW_HV"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/EWSMEW1HVtestclass.cpp</itemPath>
+        <itemPath>tests/EWSMEW1HVtestclass.h</itemPath>
+        <itemPath>tests/EWSMEW1HVtestrunner.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f6"
                      displayName="EWSMThreeLoopEW"
@@ -372,6 +384,24 @@
         </cTool>
         <linkerTool>
           <output>${TESTDIR}/TestFiles/f8</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f9">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f9</output>
+          <linkerLibItems>
+            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+          </linkerLibItems>
         </linkerTool>
       </folder>
     </conf>

@@ -56,7 +56,9 @@ EWSM::EWSM(const StandardModel& SM_i, bool bDebug_i) : SM(SM_i) {
     myThreeLoopEW2QCD = new EWSMThreeLoopEW2QCD(*myCache);
     myThreeLoopEW = new EWSMThreeLoopEW(*myCache);
     myApproximateFormulae = new EWSMApproximateFormulae(SM, bDebug_i);   
-    myLEP2 = new EWSMOneLoopLEP2(*myCache,SM);
+
+    myTwoFermionsLEP2 = new EWSMTwoFermionsLEP2(SM);
+    myOneLoopLEP2 = new EWSMOneLoopLEP2(*myCache,SM);
 
     // Initializations of the caches
     DeltaAlphaLepton_cache = 0.0;
@@ -952,12 +954,15 @@ double EWSM::taub() const {
 double EWSM::dsigmaLEP2_l(const StandardModel::lepton l, const double s, 
                           const double Mw_i, const double cos_theta, const double W, 
                           const double X, const double Y, const double GammaZ) const{
-    return (myLEP2->dsigma_l(l, s, Mw_i, cos_theta, W, X, Y, GammaZ));
+    return (myOneLoopLEP2->dsigma_l(l, s, Mw_i, cos_theta, W, X, Y, GammaZ));
 }
 
 
 double EWSM::dsigmaLEP2_q(const StandardModel::quark q, const double s, 
                           const double Mw_i, const double cos_theta, const double W, 
                           const double X, const double Y, const double GammaZ) const{
-    return (myLEP2->dsigma_q(q, s, Mw_i, cos_theta, W, X, Y, GammaZ));
+    return (myOneLoopLEP2->dsigma_q(q, s, Mw_i, cos_theta, W, X, Y, GammaZ));
 }
+
+
+

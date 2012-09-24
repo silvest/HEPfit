@@ -132,7 +132,7 @@ public:
                 if (bDebug)
                     return SM.getQuarks(q).getMass();
                 else
-                    return SM.Mrun(SM.getMz(), 2.0, SM.getQuarks(q).getMass(), FULLNNLO);
+                    return SM.Mrun(SM.getMz(), SM.getQuarks(q).getMass_scale(), SM.getQuarks(q).getMass(), FULLNNLO);
             case StandardModel::CHARM:
             case StandardModel::BOTTOM:
                 if (bDebug)
@@ -228,7 +228,7 @@ public:
     }    
 
     /**
-     * @param[in] name of quark
+     * @param[in] q name of quark
      * @return electric charge of a quark "q"
      */
     double Qq(const StandardModel::quark q) const {
@@ -246,7 +246,7 @@ public:
     }
 
     /**
-     * @param[in] f name of quark
+     * @param[in] q name of quark
      * @param[in] Mw_i the W-boson mass
      * @return the tree-level vector coupling for Z->q qbar
      * @attention depends on sW2
@@ -260,37 +260,15 @@ public:
      * @return the tree-level axial-vector coupling for Z->l lbar
      */
     double al(const StandardModel::lepton l) const {
-        switch(l) {
-            case StandardModel::NEUTRINO_1:
-            case StandardModel::NEUTRINO_2:
-            case StandardModel::NEUTRINO_3:
-                return ( 1.0/2.0 );
-            case StandardModel::ELECTRON:
-            case StandardModel::MU:
-            case StandardModel::TAU:
-                return ( -1.0/2.0 );
-            default:
-                throw std::runtime_error("Error in EWSMcache::al()");   
-        }    
+        return ( SM.getLeptons(l).getIsospin() );
     }
 
     /**
-     * @param[in] name of quark
+     * @param[in] q name of quark
      * @return the tree-level axial-vector coupling for Z->q qbar
      */
     double aq(const StandardModel::quark q) const {
-        switch(q) {
-            case StandardModel::UP:
-            case StandardModel::CHARM:
-            case StandardModel::TOP:
-                return ( 1.0/2.0 );
-            case StandardModel::DOWN:
-            case StandardModel::STRANGE:
-            case StandardModel::BOTTOM:
-                return ( -1.0/2.0 );
-            default:
-                throw std::runtime_error("Error in EWSMcache::aq()");   
-        }    
+        return ( SM.getQuarks(q).getIsospin() );
     }
     
     /**
@@ -304,7 +282,7 @@ public:
     }
 
     /**
-     * @param[in] name of quark
+     * @param[in] q name of quark
      * @param[in] Mw_i the W-boson mass
      * @return |v_q+a_q| 
      * @attention depends on sW2
@@ -324,7 +302,7 @@ public:
     } 
 
     /**
-     * @param[in] name of quark
+     * @param[in] q name of quark
      * @param[in] Mw_i the W-boson mass
      * @return v_q-a_q 
      * @attention depends on sW2

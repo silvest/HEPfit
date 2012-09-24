@@ -494,7 +494,7 @@ complex EWSMOneLoopEW::PiGammaGamma_bos(const double mu, const double s,
     
     complex Pi(0.0,0.0,false);
     if (s==0.0) {
-        throw std::runtime_error("Missing codes for EWSMOneLoopEW::PiGammaGamma_bos(s=0.0)"); 
+        Pi = 7.0*log(Mw2/mu/mu) - 2.0/3.0;
     } else {
         Pi = - RW*( (4.0 + 17.0/3.0/RW - 4.0/3.0/RW2 - 1.0/12.0/RW3)*B0_s_Mw_Mw
                     + (4.0 - 4.0/3.0/RW - 1.0/6.0/RW2)*(A0_Mw/Mw2 + 1.0)
@@ -506,6 +506,11 @@ complex EWSMOneLoopEW::PiGammaGamma_bos(const double mu, const double s,
 
 complex EWSMOneLoopEW::PiGammaGamma_fer_l(const double mu, const double s, 
                                           const StandardModel::lepton l) const {
+    // Neutrinos do not contribute, since Qf=0.
+    if ( (l==StandardModel::NEUTRINO_1) || (l==StandardModel::NEUTRINO_2)
+            || (l==StandardModel::NEUTRINO_3) )
+        return 0.0;
+
     double mf = cache.ml(l);
     double Mz = cache.Mz();    
     double Mz2 = Mz*Mz;
@@ -604,12 +609,18 @@ complex EWSMOneLoopEW::PiZgamma_fer(const double mu, const double s,
     complex Bf_s_ml_ml[6], Bf_s_mq_mq[6];
     if (mu==Mz && s==Mz2) {
         for (int i=0; i<6; i++) {
-            Bf_s_ml_ml[i] = cache.Bf_Mz_Mz2_ml_ml((StandardModel::lepton) i);
+            if (i==0 || i==2 || i==4 )
+                Bf_s_ml_ml[i] = 0.0; // Neutrinos do not contribute, since Ql=0.
+            else
+                Bf_s_ml_ml[i] = cache.Bf_Mz_Mz2_ml_ml((StandardModel::lepton) i);
             Bf_s_mq_mq[i] = cache.Bf_Mz_Mz2_mq_mq((StandardModel::quark) i);           
         }
     } else {
         for (int i=0; i<6; i++) {
-            Bf_s_ml_ml[i] = cache.getPV().Bf(mu,s,ml[i],ml[i]);
+            if (i==0 || i==2 || i==4 )
+                Bf_s_ml_ml[i] = 0.0; // Neutrinos do not contribute, since Ql=0.
+            else    
+                Bf_s_ml_ml[i] = cache.getPV().Bf(mu,s,ml[i],ml[i]);
             Bf_s_mq_mq[i] = cache.getPV().Bf(mu,s,mq[i],mq[i]);            
         }
     }

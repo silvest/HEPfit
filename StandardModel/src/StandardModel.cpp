@@ -280,6 +280,18 @@ double StandardModel::GammaW() const {
     return myEWSM->GammaW_SM();
 }
 
+double StandardModel::sigma_l_LEP2(const StandardModel::lepton l, const double s,
+                                   const double Mw, const double GammaZ,
+                                   const bool bDP, const bool bQED) const {
+    return (myEWSM->getMyTwoFermionsLEP2()->sigma_l(l, s, Mw, GammaZ, bDP, bQED));
+}
+
+double StandardModel::sigma_q_LEP2(const StandardModel::quark q, const double s,
+                                   const double Mw, const double GammaZ,
+                                   const bool bDP, const bool bQED) const {
+    return (myEWSM->getMyTwoFermionsLEP2()->sigma_q(q, s, Mw, GammaZ, bDP, bQED));
+}
+
 double StandardModel::DsigmaLEP2_l(const StandardModel::lepton l, const double s, const double cos_theta,  
                                    const double W, const double X, const double Y, const double GammaZ) const{
     return (myEWSM->dsigmaLEP2_l(l, s, Mw(), cos_theta, W, X, Y, GammaZ));
@@ -290,7 +302,7 @@ double StandardModel::DsigmaLEP2_q(const StandardModel::quark q, const double s,
                                    const double X, const double Y, const double GammaZ) const{
     return (myEWSM->dsigmaLEP2_q(q, s, Mw(), cos_theta, W, X, Y, GammaZ));
 }
-
+    
 
 ////////////////////////////////////////////////////////////////////////
 
