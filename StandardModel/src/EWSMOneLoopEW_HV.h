@@ -234,14 +234,6 @@ public:
      * @return bosonic contribution to the self-energy function of Z boson
      */
     complex SigmaZZ_bos_Hollik(const double mu, const double s, const double Mw) const;
-    
-    /**
-     * @param[in] mu renormalization scale
-     * @param[in] s momentum-squared
-     * @param[in] Mw the W-boson mass
-     * @return bosonic contribution to the self-energy function of the Z-gamma mixing
-     */
-    complex SigmaZgamma_bos_Hollik(const double mu, const double s, const double Mw) const;
 
     /**
      * @param[in] mu renormalization scale
@@ -259,7 +251,15 @@ public:
      */
     complex PiGammaGamma_bos_Hollik(const double mu, const double s, const double Mw) const;    
 
+    /**
+     * @param[in] mu renormalization scale
+     * @param[in] s momentum-squared
+     * @param[in] Mw the W-boson mass
+     * @return bosonic contribution to the self-energy function of the Z-gamma mixing
+     */
+    complex SigmaZgamma_bos_Hollik(const double mu, const double s, const double Mw) const;
 
+    
     ////////////////////////////////////////////////////////////////////////      
     
 private:

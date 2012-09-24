@@ -118,7 +118,7 @@ void EWSMEW1testclass::SigmaZZ_fer_Mw_Mz2_imag() {
 }
 
 void EWSMEW1testclass::PiZgamma_bos_Mw_Mz2_real() {
-    double XAMM1 = -1.999074211569152; /* ZFITTER result*/
+    double XAMM1 = 1.999074211569152; /* ZFITTER result*/
     double result = myEW1->PiZgamma_bos(Mw,Mz2,Mw).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XAMM1, result, delta);    
@@ -132,14 +132,14 @@ void EWSMEW1testclass::PiZgamma_bos_Mw_Mz2_imag() {
 }
 
 void EWSMEW1testclass::PiZgamma_fer_Mw_Mz2_real() {
-    double XAMM1F = 1.641562584085382; /* ZFITTER result*/
+    double XAMM1F = - 1.641562584085382; /* ZFITTER result*/
     double result = myEW1->PiZgamma_fer(Mw,Mz2,Mw).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XAMM1F, result, delta);    
 }
 
 void EWSMEW1testclass::PiZgamma_fer_Mw_Mz2_imag() {
-    double XAMM1F = 4.547472366444150; /* ZFITTER result*/
+    double XAMM1F = - 4.547472366444150; /* ZFITTER result*/
     double result = myEW1->PiZgamma_fer(Mw,Mz2,Mw).imag();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XAMM1F, result, delta); 
@@ -295,7 +295,7 @@ void EWSMEW1testclass::PiGammaGamma_fer_diff_Mz2_real() {
 void EWSMEW1testclass::PiZgamma_bos_diff_Mz2_real() {
     double result_Mw = myEW1->PiZgamma_bos(Mw,Mz2,Mw).real();
     double result_Mz = myEW1->PiZgamma_bos(Mz,Mz2,Mw).real();
-    double MZtoMW = - (1.0/12.0/cW2 + 7.0/6.0 - 7.0*cW2)*log(cW2);
+    double MZtoMW = (1.0/12.0/cW2 + 7.0/6.0 - 7.0*cW2)*log(cW2);
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);
 }
@@ -303,7 +303,7 @@ void EWSMEW1testclass::PiZgamma_bos_diff_Mz2_real() {
 void EWSMEW1testclass::PiZgamma_fer_diff_Mz2_real() {
     double result_Mw = myEW1->PiZgamma_fer(Mw,Mz2,Mw).real();
     double result_Mz = myEW1->PiZgamma_fer(Mz,Mz2,Mw).real();
-    double MZtoMW = - (12.0/3.0 - 4.0/3.0*sW2*8.0)*log(cW2);
+    double MZtoMW = (12.0/3.0 - 4.0/3.0*sW2*8.0)*log(cW2);
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);
 }

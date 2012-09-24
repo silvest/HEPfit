@@ -294,10 +294,10 @@ complex EWSMOneLoopEW_HV::SigmaZgamma_fer(const double mu, const double muForMq,
     double Ql, Qq;
     for (int i=0; i<6; i++) {
         Ql = SM.getLeptons((StandardModel::lepton) i).getCharge();
-        Pi += (fabs(Ql) - 4.0*sW2*Ql*Ql)*Bf_s_ml_ml[i];
+        Pi += - (fabs(Ql) - 4.0*sW2*Ql*Ql)*Bf_s_ml_ml[i];
         //
         Qq = SM.getQuarks((StandardModel::quark) i).getCharge();
-        Pi += 3.0*(fabs(Qq) - 4.0*sW2*Qq*Qq)*Bf_s_mq_mq[i];
+        Pi += - 3.0*(fabs(Qq) - 4.0*sW2*Qq*Qq)*Bf_s_mq_mq[i];
     }   
     return ( s*Pi );
 }
@@ -345,8 +345,8 @@ complex EWSMOneLoopEW_HV::SigmaWW_bos_Hollik(const double mu, const double s,
 
     double DeltaW = -log(Mw2/mu/mu);
     
-    complex Sigma = //- (19.0/2.0*s + 3.0*w*(1.0 - sW2/cW2))*DeltaW/3.0 // Hollik (90)
-                    - (19.0/2.0*s + 3.0*w*(1.0 - sW2/cW2))*DeltaW // Consoli, Hollik, Jegerlehner (89)
+    complex Sigma = - (19.0/2.0*s + 3.0*w*(1.0 - sW2/cW2))*DeltaW/3.0 // correct, Hollik (90)
+                    //- (19.0/2.0*s + 3.0*w*(1.0 - sW2/cW2))*DeltaW // incorrect, Consoli, Hollik, Jegerlehner (89)
                     + (sW2*sW2*z - cW2/3.0*(7.0*(z + w) + 10.0*s - 2.0*(z - w)*(z - w)/s) 
                        - (w + z - s/2.0 - (z - w)*(z - w)/2.0/s)/6.0)
                       *F_Hollik(s, Mz, Mw)
@@ -393,26 +393,6 @@ complex EWSMOneLoopEW_HV::SigmaZZ_bos_Hollik(const double mu, const double s,
 }
 
 
-complex EWSMOneLoopEW_HV::SigmaZgamma_bos_Hollik(const double mu, const double s,
-                                                 const double Mw) const {
-    double Mz = SM.getMz();
-    double Mw2 = Mw*Mw, Mz2 = Mz*Mz;
-    double cW2 = Mw2/Mz2;
-    double w = Mw2;
-        
-    if (mu<=0.0)
-        throw std::runtime_error("Missing cases in EWSMOneLoopEW_HV::SigmaZgamma_bos_Hollik()");    
-    
-    double DeltaW = -log(Mw2/mu/mu);
-
-    complex Sigma = ( (3.0*cW2 + 1.0/6.0)*s + 2.0*w)*DeltaW
-                    + ((3.0*cW2 + 1.0/6.0)*s + (4.0*cW2 + 4.0/3.0)*w)
-                       *F_Hollik(s, Mw, Mw)
-                    + s/9.0;
-    return ( -Sigma ); // Sigma^{\gamma Z}(in Hollik(90))/(-4*pi*alpha/cW/sW) 
-}
-
-
 complex EWSMOneLoopEW_HV::SigmaGammaGamma_bos_Hollik(const double mu, const double s, 
                                                      const double Mw) const {
     double Mw2 = Mw*Mw;
@@ -441,7 +421,7 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_bos_Hollik(const double mu, const double 
     
     complex Pi;
     if (s==0.0) {
-        //-- Pi(s) = dSigma(s)/ds --
+        //-- Pi(0) = dSigma(s)/ds|_{s=0} --
         Pi = - 3.0*DeltaW - 3.0*F_Hollik(s, Mw, Mw) 
              - (3.0*s + 4.0*w)*Fprime_Hollik(muIR, s, Mw, Mw);
     } else {
@@ -451,6 +431,25 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_bos_Hollik(const double mu, const double 
     return Pi;
 }
 
+
+complex EWSMOneLoopEW_HV::SigmaZgamma_bos_Hollik(const double mu, const double s,
+                                                 const double Mw) const {
+    double Mz = SM.getMz();
+    double Mw2 = Mw*Mw, Mz2 = Mz*Mz;
+    double cW2 = Mw2/Mz2;
+    double w = Mw2;
+        
+    if (mu<=0.0)
+        throw std::runtime_error("Missing cases in EWSMOneLoopEW_HV::SigmaZgamma_bos_Hollik()");    
+    
+    double DeltaW = -log(Mw2/mu/mu);
+
+    complex Sigma = ( (3.0*cW2 + 1.0/6.0)*s + 2.0*w)*DeltaW
+                    + ((3.0*cW2 + 1.0/6.0)*s + (4.0*cW2 + 4.0/3.0)*w)
+                       *F_Hollik(s, Mw, Mw)
+                    + s/9.0;
+    return ( -Sigma ); // The minus sign is attributed to the different definition of s_W.
+}
 
 
 

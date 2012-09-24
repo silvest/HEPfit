@@ -123,11 +123,11 @@ complex EWSMTwoFermionsLEP2::Sigma_hat_ZZ(const double mu, const double s,
     complex Pi_gg_0      = myOneLoopEW_HV.PiGammaGamma_bos(mu, 0.0, Mw);
     
     //-- TEST (use the self-energies in Hollik's paper) --
-    Sigma_WW_Mw2 = myOneLoopEW_HV.SigmaWW_bos_Hollik(mu, Mw2, Mw); // for test
-    Sigma_ZZ_s   = myOneLoopEW_HV.SigmaZZ_bos_Hollik(mu, s, Mw); // for test
-    Sigma_ZZ_Mz2 = myOneLoopEW_HV.SigmaZZ_bos_Hollik(mu, Mz2, Mw); // for test
-    Sigma_Zg_0   = myOneLoopEW_HV.SigmaZgamma_bos_Hollik(mu, 0.0, Mw); // for test
-    Pi_gg_0      = myOneLoopEW_HV.PiGammaGamma_bos_Hollik(mu, 0.0, Mw); // for test
+    //Sigma_WW_Mw2 = myOneLoopEW_HV.SigmaWW_bos_Hollik(mu, Mw2, Mw); // for test
+    //Sigma_ZZ_s   = myOneLoopEW_HV.SigmaZZ_bos_Hollik(mu, s, Mw); // for test
+    //Sigma_ZZ_Mz2 = myOneLoopEW_HV.SigmaZZ_bos_Hollik(mu, Mz2, Mw); // for test
+    //Sigma_Zg_0   = myOneLoopEW_HV.SigmaZgamma_bos_Hollik(mu, 0.0, Mw); // for test
+    //Pi_gg_0      = myOneLoopEW_HV.PiGammaGamma_bos_Hollik(mu, 0.0, Mw); // for test
     //--------------------
     
     // Fermionic contributions to self-energies
@@ -142,7 +142,7 @@ complex EWSMTwoFermionsLEP2::Sigma_hat_ZZ(const double mu, const double s,
     Sigma_WW_Mw2 *= SM.getAle()/4.0/M_PI/sW2;
     Sigma_ZZ_s   *= SM.getAle()/4.0/M_PI/sW2/cW2;
     Sigma_ZZ_Mz2 *= SM.getAle()/4.0/M_PI/sW2/cW2;
-    Sigma_Zg_0   *= - SM.getAle()/4.0/M_PI/sW/cW;
+    Sigma_Zg_0   *= SM.getAle()/4.0/M_PI/sW/cW;
     Pi_gg_0      *= SM.getAle()/4.0/M_PI;
     
     // Counter terms for the mass renormalization
@@ -171,10 +171,10 @@ complex EWSMTwoFermionsLEP2::Sigma_hat_gZ(const double mu, const double s,
     complex Sigma_Zg_0   = myOneLoopEW_HV.SigmaZgamma_bos(mu, 0.0, Mw);
     
     //-- TEST (use the self-energies in Hollik's paper) --
-    Sigma_WW_Mw2 = myOneLoopEW_HV.SigmaWW_bos_Hollik(mu, Mw2, Mw); // for test
-    Sigma_ZZ_Mz2 = myOneLoopEW_HV.SigmaZZ_bos_Hollik(mu, Mz2, Mw); // for test
-    Sigma_Zg_s   = myOneLoopEW_HV.SigmaZgamma_bos_Hollik(mu, s, Mw); // for test
-    Sigma_Zg_0   = myOneLoopEW_HV.SigmaZgamma_bos_Hollik(mu, 0.0, Mw); // for test
+    //Sigma_WW_Mw2 = myOneLoopEW_HV.SigmaWW_bos_Hollik(mu, Mw2, Mw); // for test
+    //Sigma_ZZ_Mz2 = myOneLoopEW_HV.SigmaZZ_bos_Hollik(mu, Mz2, Mw); // for test
+    //Sigma_Zg_s   = myOneLoopEW_HV.SigmaZgamma_bos_Hollik(mu, s, Mw); // for test
+    //Sigma_Zg_0   = myOneLoopEW_HV.SigmaZgamma_bos_Hollik(mu, 0.0, Mw); // for test
     //--------------------
     
     // Fermionic contributions to self-energies
@@ -187,8 +187,8 @@ complex EWSMTwoFermionsLEP2::Sigma_hat_gZ(const double mu, const double s,
     // Refactoring
     Sigma_WW_Mw2 *= SM.getAle()/4.0/M_PI/sW2;
     Sigma_ZZ_Mz2 *= SM.getAle()/4.0/M_PI/sW2/cW2;
-    Sigma_Zg_s   *= - SM.getAle()/4.0/M_PI/sW/cW;
-    Sigma_Zg_0   *= - SM.getAle()/4.0/M_PI/sW/cW;
+    Sigma_Zg_s   *= SM.getAle()/4.0/M_PI/sW/cW;
+    Sigma_Zg_0   *= SM.getAle()/4.0/M_PI/sW/cW;
     
     // Counter terms for the mass renormalization
     double deltaMw2 = Sigma_WW_Mw2.real();
@@ -206,8 +206,8 @@ complex EWSMTwoFermionsLEP2::Sigma_hat_gg(const double mu, const double s,
     complex Pi_gg_0    = myOneLoopEW_HV.PiGammaGamma_bos(mu, 0.0, Mw);
     
     //-- TEST (use the self-energies in Hollik's paper) --
-    Sigma_gg_s  = myOneLoopEW_HV.SigmaGammaGamma_bos_Hollik(mu, s, Mw); // for test
-    Pi_gg_0  = myOneLoopEW_HV.PiGammaGamma_bos_Hollik(mu, 0.0, Mw); // for test
+    //Sigma_gg_s  = myOneLoopEW_HV.SigmaGammaGamma_bos_Hollik(mu, s, Mw); // for test
+    //Pi_gg_0  = myOneLoopEW_HV.PiGammaGamma_bos_Hollik(mu, 0.0, Mw); // for test
     //--------------------
     
     // Fermionic contributions to self-energies
