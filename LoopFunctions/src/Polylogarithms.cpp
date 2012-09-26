@@ -17,6 +17,12 @@ Polylogarithms::Polylogarithms() {
 
 ////////////////////////////////////////////////////////////////////////
 
+complex Polylogarithms::Li2(const double x) const {
+    gsl_sf_result re, im;
+    gsl_sf_complex_dilog_xy_e(x, 0.0, &re, &im);
+    return complex(re.val, im.val, false);
+}
+
 complex Polylogarithms::Li2(const complex z) const {
     gsl_sf_result re, im;
     gsl_sf_complex_dilog_xy_e(z.real(), z.imag(), &re, &im);
