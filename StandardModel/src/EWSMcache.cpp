@@ -128,7 +128,7 @@ double EWSMcache::Li2_MW2toMTOP2(const double Mw_i) const {
     if ( CacheCheck(Li2_MW2toMTOP2_cache, NumPar, params) )
         return Li2_MW2toMTOP2_cache[NumPar];
     else {
-        double newResult = gsl_sf_dilog(Mw(Mw_i)*Mw(Mw_i)/Mt()/Mt());
+        double newResult = PolyLog.Li2( Mw(Mw_i)*Mw(Mw_i)/Mt()/Mt() ).real();
         newCacheForDouble(Li2_MW2toMTOP2_cache, NumPar, params, newResult);
         return newResult;
     }
