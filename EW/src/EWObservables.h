@@ -23,6 +23,13 @@
 #include "Rcharm.h"
 #include "Rbottom.h"
 #include "sigmaHadron.h"
+
+#include "LEP2sigmaHadron.h"
+#include "LEP2sigmaMu.h"
+#include "LEP2sigmaTau.h"
+#include "LEP2AFBmu.h"
+#include "LEP2AFBtau.h"
+
 #include "sigmamuLEP2.h"
 
 #include "obliqueS.h"

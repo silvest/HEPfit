@@ -20,7 +20,7 @@ public:
     sigmaHadron(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
-     * @return the hadronic cross section 
+     * @return the hadronic cross section in nb
      */
     double getThValue();
 

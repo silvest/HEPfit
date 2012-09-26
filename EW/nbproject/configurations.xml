@@ -14,6 +14,11 @@
       <itemPath>src/EWObservables.h</itemPath>
       <itemPath>src/GammaW.h</itemPath>
       <itemPath>src/GammaZ.h</itemPath>
+      <itemPath>src/LEP2AFBmu.h</itemPath>
+      <itemPath>src/LEP2AFBtau.h</itemPath>
+      <itemPath>src/LEP2sigmaHadron.h</itemPath>
+      <itemPath>src/LEP2sigmaMu.h</itemPath>
+      <itemPath>src/LEP2sigmaTau.h</itemPath>
       <itemPath>src/Mh0.h</itemPath>
       <itemPath>src/Mw.h</itemPath>
       <itemPath>src/PtauPol.h</itemPath>
@@ -44,6 +49,11 @@
       <itemPath>src/EW.cpp</itemPath>
       <itemPath>src/GammaW.cpp</itemPath>
       <itemPath>src/GammaZ.cpp</itemPath>
+      <itemPath>src/LEP2AFBmu.cpp</itemPath>
+      <itemPath>src/LEP2AFBtau.cpp</itemPath>
+      <itemPath>src/LEP2sigmaHadron.cpp</itemPath>
+      <itemPath>src/LEP2sigmaMu.cpp</itemPath>
+      <itemPath>src/LEP2sigmaTau.cpp</itemPath>
       <itemPath>src/Mw.cpp</itemPath>
       <itemPath>src/PtauPol.cpp</itemPath>
       <itemPath>src/Rbottom.cpp</itemPath>
