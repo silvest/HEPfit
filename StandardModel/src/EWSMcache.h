@@ -38,21 +38,21 @@ public:
     //}
     
     /**
-     * @return an object of PVfunctions class
+     * @return the object of PVfunctions class
      */
     const PVfunctions getPV() const {
         return PV;
     }
 
     /**
-     * @return an object of Polylogarithms class
+     * @return the object of Polylogarithms class
      */
-    //const Polylogarithms getPolyLog() const {
-    //    return PolyLog;
-    //}
+    const Polylogarithms getPolyLog() const {
+        return PolyLog;
+    }
 
     /**
-     * @return an object of ClausenFunctions class
+     * @return the object of ClausenFunctions class
      */
     const ClausenFunctions getClausen() const {
         return Clausen;

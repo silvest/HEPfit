@@ -12,8 +12,6 @@
 #include <TF1.h>
 #include <Math/WrappedTF1.h>
 #include <Math/BrentRootFinder.h>
-#include <gsl/gsl_sf_dilog.h>
-#include <gsl/gsl_sf_zeta.h>
 #include "StandardModel.h"
 #include "CKM.h"
 #include "EWSM.h"

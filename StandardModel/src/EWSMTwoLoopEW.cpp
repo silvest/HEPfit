@@ -4,7 +4,6 @@
  */
 
 #include <TMath.h>
-#include <gsl/gsl_sf_dilog.h>
 #include "EWSMTwoLoopEW.h"
 
 
@@ -148,7 +147,7 @@ double EWSMTwoLoopEW::g(const double a) const {
 
 double EWSMTwoLoopEW::f0(const double a) const {
     if (a >= 0.0 )
-        return ( gsl_sf_dilog(1.0-a) );
+        return ( cache.getPolyLog().Li2(1.0-a).real() ); // 1-a<1
     else
         throw std::runtime_error("Out of range in EWSMTwoLoopEW::f0()"); 
 }
@@ -160,9 +159,10 @@ double EWSMTwoLoopEW::f1(const double a) const {
         double phi = 2.0*asin(sqrt(a/4.0));
         return ( -2.0/sqrt(y-1.0)*cache.getClausen().Cl2(phi) );
     } else if (a > 4.0) {
-        double y = 4.0/a;
-        double xi = (sqrt(1.0-y) - 1.0)/(sqrt(1.0-y) + 1.0);
-        return ( -1.0/sqrt(1.0-y)*(M_PI*M_PI/6.0 + 2.0*gsl_sf_dilog(xi)) );
+        double y = 4.0/a; // 0<y<1
+        double xi = (sqrt(1.0-y) - 1.0)/(sqrt(1.0-y) + 1.0); // -1<xi<0
+        return ( -1.0/sqrt(1.0-y)*(cache.getPolyLog().Li2(xi).real()
+                                   - cache.getPolyLog().Li2(1.0/xi).real()) );
     } else
         throw std::runtime_error("Out of range in EWSMTwoLoopEW::f1()"); 
 }

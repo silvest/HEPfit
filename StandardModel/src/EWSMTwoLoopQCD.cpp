@@ -96,12 +96,9 @@ double EWSMTwoLoopQCD::F1(const double x, const double Mw_i) const {
         Li3_x = cache.Li3_MW2toMTOP2(Mw);
         Li3_mx_1mx = cache.Li3_for_F1(Mw);
     } else { 
-        Li2_x = gsl_sf_dilog(x);
-        Polylogarithms* myPolyLog;
-        myPolyLog = new Polylogarithms();
-        Li3_x = myPolyLog->Li3(x);
-        Li3_mx_1mx = myPolyLog->Li3(-x/(1.0 - x));
-        delete myPolyLog;
+        Li2_x = cache.getPolyLog().Li2(x).real(); // x <= 1.0
+        Li3_x = cache.getPolyLog().Li3(x);
+        Li3_mx_1mx = cache.getPolyLog().Li3(-x/(1.0 - x));
     }
     
     double b = log(1.0 - x);    
