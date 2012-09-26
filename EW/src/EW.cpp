@@ -148,7 +148,8 @@ double EW::Gamma_q(const StandardModel::quark q) const {
     }
 
     /* Logarithms */
-    double log_t = log(pow(SM.getQuarks(SM.TOP).getMass(),2.0)/s);
+    //double log_t = log(pow(SM.getQuarks(SM.TOP).getMass(),2.0)/s);
+    double log_t = log(pow(SM.getMtpole(),2.0)/s); // the pole mass
     double log_c = log(mcMz2/s);
     double log_b = log(mbMz2/s);
     double log_q;
@@ -215,7 +216,8 @@ double EW::Gamma_q(const StandardModel::quark q) const {
     double C42AL= 77.0/2.0 - 7.0/3.0*nf;
 
     /* power suppressed top-mass correction */
-    double xt = s/pow(SM.getQuarks(SM.TOP).getMass(),2.0);
+    //double xt = s/pow(SM.getQuarks(SM.TOP).getMass(),2.0);
+    double xt = s/pow(SM.getMtpole(),2.0); // the pole mass
     double C2t = xt*(44.0/675.0 - 2.0/135.0*(-log_t));
 
     /* singlet axial-vector corrections */
@@ -254,7 +256,8 @@ double EW::Gamma_q(const StandardModel::quark q) const {
             + (mcMz2 + mbMz2)/s*C23*AlsMzPi3
             + mqMz2/s*(C20A + C21A*AlsMzPi + C22A*AlsMzPi2
                        + 6.0*(3.0 + log_t)*AlsMzPi2 + C23A*AlsMzPi3)
-            - 10.0*mqMz2/pow(SM.getQuarks(SM.TOP).getMass(),2.0)
+            //- 10.0*mqMz2/pow(SM.getQuarks(SM.TOP).getMass(),2.0)
+            - 10.0*mqMz2/pow(SM.getMtpole(),2.0) // the pole mass
               *(8.0/81.0 + log_t/54.0)*AlsMzPi2
             + mcMz2*mcMz2/s/s*(C42 - log_c)*AlsMzPi2
             + mbMz2*mbMz2/s/s*(C42 - log_b)*AlsMzPi2
