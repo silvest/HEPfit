@@ -354,8 +354,8 @@ complex EWSMOneLoopEW_HV::SigmaWW_bos_Hollik(const double mu, const double s,
                     + (5.0*w - h + s/2.0 + (h - w)*(h - w)/2.0/s)/6.0
                       *F_Hollik(s, mh, Mw)
                     + (cW2/3.0*(7.0*z + 7.0*w + 10.0*s - 4.0*(z-w)) 
-                    //   - sW2*sW2*z +(2.0*w - s/2.0)/6.0)*3.0*z/(z - w)*log(z/w) // Hollik (90)
-                       - sW2*sW2*z +(2.0*w - s/2.0)/6.0)*z/(z - w)*log(z/w) // Consoli, Hollik, Jegerlehner (89)
+                       - sW2*sW2*z +(2.0*w - s/2.0)/6.0)*3.0*z/(z - w)*log(z/w) // Hollik (90)
+                    //   - sW2*sW2*z +(2.0*w - s/2.0)/6.0)*z/(z - w)*log(z/w) // Consoli, Hollik, Jegerlehner (89)
                     - (2.0/3.0*w + s/12.0)*h/(h - w)*log(h/w) 
                     - cW2/3.0*(7.0*z + 7.0*w + 32.0/3.0*s) + sW2*sW2*z
                     + (5.0/3.0*s + 4.0*w - z - h)/6.0

@@ -165,12 +165,9 @@ void StandardModel::SetParameter(const std::string name, const double& value) {
         QCD::SetParameter(name, value);
 }
 
-
 bool StandardModel::SetFlag(const std::string name , const bool& value){  
     return (false);
 }
-
-
 
 bool StandardModel::Init(const std::map<std::string, double>& DPars) {
     Update(DPars);
@@ -201,7 +198,6 @@ double StandardModel::v() const {
 double StandardModel::Mw_tree() const {
     double tmp = 4.0*M_PI*ale/sqrt(2.0)/GF/Mz/Mz;
     return ( Mz/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp)) );
-    //return 80.4;
 }
 
 double StandardModel::s02() const {
@@ -211,7 +207,6 @@ double StandardModel::s02() const {
 double StandardModel::c02() const {
     return ( 1.0 - s02() );
 }
-
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -282,14 +277,26 @@ double StandardModel::GammaW() const {
 
 double StandardModel::sigma_l_LEP2(const StandardModel::lepton l, const double s,
                                    const double Mw, const double GammaZ,
-                                   const bool bDP, const bool bQED) const {
-    return (myEWSM->getMyTwoFermionsLEP2()->sigma_l(l, s, Mw, GammaZ, bDP, bQED));
+                                   const bool bDP, const bool bWEAK, const bool bQED) const {
+    return (myEWSM->getMyTwoFermionsLEP2()->sigma_l(l, s, Mw, GammaZ, bDP, bWEAK, bQED));
 }
 
 double StandardModel::sigma_q_LEP2(const StandardModel::quark q, const double s,
                                    const double Mw, const double GammaZ,
-                                   const bool bDP, const bool bQED) const {
-    return (myEWSM->getMyTwoFermionsLEP2()->sigma_q(q, s, Mw, GammaZ, bDP, bQED));
+                                   const bool bDP, const bool bWEAK, const bool bQED) const {
+    return (myEWSM->getMyTwoFermionsLEP2()->sigma_q(q, s, Mw, GammaZ, bDP, bWEAK, bQED));
+}
+
+double StandardModel::AFB_l_LEP2(const StandardModel::lepton l, const double s,
+                                 const double Mw, const double GammaZ,
+                                 const bool bDP, const bool bWEAK, const bool bQED) const {
+    return (myEWSM->getMyTwoFermionsLEP2()->AFB_l(l, s, Mw, GammaZ, bDP, bWEAK, bQED));
+}
+
+double StandardModel::AFB_q_LEP2(const StandardModel::quark q, const double s,
+                                 const double Mw, const double GammaZ,
+                                 const bool bDP, const bool bWEAK, const bool bQED) const {
+    return (myEWSM->getMyTwoFermionsLEP2()->AFB_q(q, s, Mw, GammaZ, bDP, bWEAK, bQED));
 }
 
 double StandardModel::DsigmaLEP2_l(const StandardModel::lepton l, const double s, const double cos_theta,  
