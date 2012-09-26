@@ -208,6 +208,61 @@ public:
      */
     virtual double GammaW() const;
     
+    /**
+     * @param[in] l name of a lepton
+     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] Mw the W-boson mass 
+     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
+     * @param[in] bDP with/without dressed gauge-boson propagators
+     * @param[in] bWEAK with/without weak corrections
+     * @param[in] bQED with/without QED corrections
+     * @return the total cross section for e^+ e^- -> l lbar in GeV^{-2}
+     */
+    double sigma_l_LEP2(const StandardModel::lepton l, const double s,
+                        const double Mw, const double GammaZ,
+                        const bool bDP=true, const bool bWEAK=true, const bool bQED=true) const;
+
+    /**
+     * @param[in] q name of a quark
+     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] Mw the W-boson mass 
+     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
+     * @param[in] bDP with/without dressed gauge-boson propagators
+     * @param[in] bWEAK with/without weak corrections
+     * @param[in] bQED with/without QED corrections
+     * @return the total cross section for e^+ e^- -> q qbar in GeV^{-2}
+     */
+    double sigma_q_LEP2(const StandardModel::quark q, const double s,
+                        const double Mw, const double GammaZ,
+                        const bool bDP=true, const bool bWEAK=true, const bool bQED=true) const;
+
+    /**
+     * @param[in] l name of a lepton
+     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] Mw the W-boson mass 
+     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
+     * @param[in] bDP with/without dressed gauge-boson propagators
+     * @param[in] bWEAK with/without weak corrections
+     * @param[in] bQED with/without QED corrections
+     * @return the forward-backward asymmetry for e^+ e^- -> l lbar
+     */
+    double AFB_l_LEP2(const StandardModel::lepton l, const double s,
+                      const double Mw, const double GammaZ,
+                      const bool bDP=true, const bool bWEAK=true, const bool bQED=true) const;
+
+    /**
+     * @param[in] q name of a quark
+     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] Mw the W-boson mass 
+     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
+     * @param[in] bDP with/without dressed gauge-boson propagators
+     * @param[in] bWEAK with/without weak corrections
+     * @param[in] bQED with/without QED corrections
+     * @return the forward-backward asymmetry for e^+ e^- -> q qbar
+     */
+    double AFB_q_LEP2(const StandardModel::quark q, const double s,
+                      const double Mw, const double GammaZ,
+                      const bool bDP=true, const bool bWEAK=true, const bool bQED=true) const;
         
     double DsigmaLEP2_l(const StandardModel::lepton l,const double s,
                         const double cos_theta,const double W,const double X,const double Y,
@@ -216,33 +271,6 @@ public:
     double DsigmaLEP2_q(const StandardModel::quark q,const double s,
                         const double cos_theta,const double W,const double X,const double Y,
                         const double GammaZ) const;
-    
-    /**
-     * @param[in] l name of a lepton
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width
-     * @param[in] bDP with/without dressed gauge-boson propagators
-     * @param[in] bQED with/without QED corrections
-     * @return the total cross section for e^+ e^- -> l lbar in GeV^{-2}
-     */
-    double sigma_l_LEP2(const StandardModel::lepton l, const double s,
-                        const double Mw, const double GammaZ,
-                        const bool bDP=true, const bool bQED=true) const;
-
-    /**
-     * @param[in] q name of a quark
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width
-     * @param[in] bDP with/without dressed gauge-boson propagators
-     * @param[in] bQED with/without QED corrections
-     * @return the total cross section for e^+ e^- -> q qbar in GeV^{-2}
-     */
-    double sigma_q_LEP2(const StandardModel::quark q, const double s,
-                        const double Mw, const double GammaZ,
-                        const bool bDP=true, const bool bQED=true) const;
     
     /**
      * @return NP contribution to oblique parameter S
