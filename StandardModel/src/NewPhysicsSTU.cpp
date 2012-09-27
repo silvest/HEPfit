@@ -3,12 +3,12 @@
  * Author: mishima
  */
 
+#include <stdexcept>
 #include "NewPhysicsSTU.h"
 
 
 const std::string NewPhysicsSTU::STUvars[NSTUvars] 
-                  = {"obliqueS", "obliqueT", "obliqueU", 
-                     "obliqueV", "obliqueW", "obliqueX", "obliqueY"};
+                  = {"obliqueS", "obliqueT", "obliqueU"};
 
 
 NewPhysicsSTU::NewPhysicsSTU() : StandardModel() {
@@ -19,7 +19,7 @@ bool NewPhysicsSTU::Update(const std::map<std::string,double>& DPars) {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         SetParameter(it->first, it->second);
     if(!StandardModel::Update(DPars)) return (false);
-    
+
     return (true);
 }
 
@@ -48,14 +48,6 @@ void NewPhysicsSTU::SetParameter(const std::string name, const double& value) {
     else if (name.compare("obliqueT") == 0)
         myObliqueT = value;
     else if (name.compare("obliqueU") == 0)
-        myObliqueU = value;    
-    else if (name.compare("obliqueV") == 0)
-        myObliqueU = value;    
-    else if (name.compare("obliqueW") == 0)
-        myObliqueU = value;    
-    else if (name.compare("obliqueX") == 0)
-        myObliqueU = value;    
-    else if (name.compare("obliqueY") == 0)
         myObliqueU = value;    
     else
         StandardModel::SetParameter(name, value);       

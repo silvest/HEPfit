@@ -294,6 +294,27 @@ public:
     };
     
     /**
+     * @return NP contribution to oblique parameter \hat{S}
+     */
+    virtual double obliqueShat() const {
+        return 0.0;
+    };
+        
+    /**
+     * @return NP contribution to oblique parameter \hat{T}
+     */
+    virtual double obliqueThat() const {
+        return 0.0;
+    };
+    
+    /**
+     * @return NP contribution to oblique parameter \hat{U}
+     */
+    virtual double obliqueUhat() const {
+        return 0.0;
+    };
+
+    /**
      * @return NP contribution to oblique parameter V
      */
     virtual double obliqueV() const {

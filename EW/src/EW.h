@@ -26,7 +26,7 @@ public:
     //////////////////////////////////////////////////////////////////////// 
 
     /**
-     * @return boolean: true for the case where S, T and U are employed for the current model
+     * @return boolean: true for the case where the oblique parameters are employed. 
      */
     bool checkModelForSTU() const;
     
@@ -78,6 +78,27 @@ public:
      */    
     double U() const {
         return ( SM.obliqueU() );
+    }
+
+    /**
+     * @return Oblique parameter \hat{S}
+     */
+    double obliqueShat() const {
+        return ( SM.obliqueShat() );
+    }
+
+    /**
+     * @return Oblique parameter \hat{T}
+     */
+    double obliqueThat() const {
+        return ( SM.obliqueThat() );
+    }
+
+    /**
+     * @return Oblique parameter \hat{U}
+     */
+    double obliqueUhat() const {
+        return ( SM.obliqueUhat() );
     }
 
     /**

@@ -11,7 +11,7 @@
 
 class NewPhysicsSTU : public StandardModel {
 public:
-    static const int NSTUvars = 7;
+    static const int NSTUvars = 3;
     static const std::string STUvars[NSTUvars];
     
     /**
@@ -26,7 +26,7 @@ public:
     virtual bool Update(const std::map<std::string, double>& DPars);
     virtual bool Init(const std::map<std::string, double>& DPars);    
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
-
+    
     
     ////////////////////////////////////////////////////////////////////////     
 
@@ -50,34 +50,6 @@ public:
     double obliqueU() const {
         return myObliqueU;
     }
-
-    /**
-     * @return Oblique parameter V
-     */
-    double obliqueV() const {
-        return myObliqueV;
-    }
-
-    /**
-     * @return Oblique parameter W
-     */
-    double obliqueW() const {
-        return myObliqueW;
-    }
-
-    /**
-     * @return Oblique parameter X
-     */
-    double obliqueX() const {
-        return myObliqueX;
-    }
-
-    /**
-     * @return Oblique parameter Y
-     */
-    double obliqueY() const {
-        return myObliqueY;
-    }
     
     
     ////////////////////////////////////////////////////////////////////////     
@@ -85,8 +57,6 @@ public:
 protected:    
     virtual void SetParameter(const std::string name, const double& value);
     double myObliqueS, myObliqueT, myObliqueU;
-    double myObliqueV, myObliqueW, myObliqueX, myObliqueY;
-    
 
     ////////////////////////////////////////////////////////////////////////     
     
