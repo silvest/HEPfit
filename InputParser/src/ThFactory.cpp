@@ -99,13 +99,16 @@ myFlavour(myModel), myEW(myModel)
         thobs["AFBmuLEP2_" + sqrt_s_str] = myLEP2AFBmu[i];
         myLEP2AFBtau[i] = new LEP2AFBtau(myEW, sqrt_s[i]);
         thobs["AFBtauLEP2_" + sqrt_s_str] = myLEP2AFBtau[i];
-        myLEP2AFBbottom[i] = new LEP2AFBbottom(myEW, sqrt_s[i]);
+    }
+    for (int i=0; i<10; i++) { 
+        std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_s_HF[i]);
+        myLEP2AFBbottom[i] = new LEP2AFBbottom(myEW, sqrt_s_HF[i]);
         thobs["AFBbottomLEP2_" + sqrt_s_str] = myLEP2AFBbottom[i];
-        myLEP2AFBcharm[i] = new LEP2AFBcharm(myEW, sqrt_s[i]);
+        myLEP2AFBcharm[i] = new LEP2AFBcharm(myEW, sqrt_s_HF[i]);
         thobs["AFBcharmLEP2_" + sqrt_s_str] = myLEP2AFBcharm[i];
-        myLEP2Rbottom[i] = new LEP2Rbottom(myEW, sqrt_s[i]);  
+        myLEP2Rbottom[i] = new LEP2Rbottom(myEW, sqrt_s_HF[i]);  
         thobs["RbottomLEP2_" + sqrt_s_str] = myLEP2Rbottom[i];
-        myLEP2Rcharm[i] = new LEP2Rcharm(myEW, sqrt_s[i]);
+        myLEP2Rcharm[i] = new LEP2Rcharm(myEW, sqrt_s_HF[i]);
         thobs["RcharmLEP2_" + sqrt_s_str] = myLEP2Rcharm[i];  
     }    
 
@@ -131,13 +134,16 @@ myFlavour(myModel), myEW(myModel)
     //    thobs["AFBmuLEP2_" + sqrt_s_str] = myAFBmuLEP2[i];
     //    myAFBtauLEP2[i] = new AFBtauLEP2(myEW, sqrt_s[i]);
     //    thobs["AFBtauLEP2_" + sqrt_s_str] = myAFBtauLEP2[i];
-    //    myAFBbottomLEP2[i] = new AFBbottomLEP2(myEW, sqrt_s[i]);
+    //}
+    //for (int i=0; i<10; i++) { 
+    //    std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_s_HF[i]);
+    //    myAFBbottomLEP2[i] = new AFBbottomLEP2(myEW, sqrt_s_HF[i]);
     //    thobs["AFBbottomLEP2_" + sqrt_s_str] = myAFBbottomLEP2[i];
-    //    myAFBcharmLEP2[i] = new AFBcharmLEP2(myEW, sqrt_s[i]);
+    //    myAFBcharmLEP2[i] = new AFBcharmLEP2(myEW, sqrt_s_HF[i]);
     //    thobs["AFBcharmLEP2_" + sqrt_s_str] = myAFBcharmLEP2[i];
-    //    myRbottomLEP2[i] = new RbottomLEP2(myEW, sqrt_s[i]);  
+    //    myRbottomLEP2[i] = new RbottomLEP2(myEW, sqrt_s_HF[i]);  
     //    thobs["RbottomLEP2_" + sqrt_s_str] = myRbottomLEP2[i];
-    //    myRcharmLEP2[i] = new RcharmLEP2(myEW, sqrt_s[i]);
+    //    myRcharmLEP2[i] = new RcharmLEP2(myEW, sqrt_s_HF[i]);
     //    thobs["RcharmLEP2_" + sqrt_s_str] = myRcharmLEP2[i];        
     //}
 
