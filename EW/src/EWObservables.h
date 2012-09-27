@@ -31,6 +31,7 @@
 #include "LEP2AFBtau.h"
 
 #include "sigmamuLEP2.h"
+#include "sigmaqLEP2.h"
 
 #include "obliqueS.h"
 #include "obliqueT.h"

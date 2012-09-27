@@ -38,17 +38,18 @@ public:
     /**
      * @param[in] q name of quark
      * @param[in] mu renormalization scale
+     * @param[in] order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return the MSbar mass of u, d, s, c, b or the pole mass of t
      */
-    double mq(const StandardModel::quark q, const double mu) const {
+    double mq(const StandardModel::quark q, const double mu, const orders order=FULLNLO) const {
         switch(q) {
             case StandardModel::UP:
             case StandardModel::DOWN:
             case StandardModel::STRANGE:
-                return SM.Mrun(mu, SM.getQuarks(q).getMass_scale(), SM.getQuarks(q).getMass(), FULLNNLO);
+                return SM.Mrun(mu, SM.getQuarks(q).getMass_scale(), SM.getQuarks(q).getMass(), order);
             case StandardModel::CHARM:
             case StandardModel::BOTTOM:
-                return SM.Mrun(mu, SM.getQuarks(q).getMass(), FULLNNLO);
+                return SM.Mrun(mu, SM.getQuarks(q).getMass(), order);
             case StandardModel::TOP:
                 return SM.getMtpole(); // the pole mass or use the running mass???
             default:
