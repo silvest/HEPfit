@@ -29,6 +29,10 @@
 #include "LEP2sigmaTau.h"
 #include "LEP2AFBmu.h"
 #include "LEP2AFBtau.h"
+#include "LEP2AFBbottom.h"
+#include "LEP2AFBcharm.h"
+#include "LEP2Rbottom.h"
+#include "LEP2Rcharm.h"
 
 #include "sigmamuLEP2.h"
 #include "sigmaqLEP2.h"

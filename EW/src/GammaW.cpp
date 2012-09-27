@@ -17,8 +17,7 @@ double GammaW::getThValue() {
     
         double Wbar = 0.0;        
         if (myEW.getSM().ModelName()=="NewPhysicsSTUVWXY") {
-            Wbar = (myEW.getSM().obliqueV() - myEW.getSM().obliqueW())
-                   /myEW.getSM().alphaMz();
+            Wbar = (myEW.V() - myEW.W())/myEW.getSM().alphaMz();
         }
 
         Gamma_W -= 3.0*alpha*alpha*c*myEW.getSM().getMz()/8.0/s2/(c2-s2)

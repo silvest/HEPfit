@@ -83,21 +83,21 @@ public:
     /**
      * @return Oblique parameter \hat{S}
      */
-    double obliqueShat() const {
+    double Shat() const {
         return ( SM.obliqueShat() );
     }
 
     /**
      * @return Oblique parameter \hat{T}
      */
-    double obliqueThat() const {
+    double That() const {
         return ( SM.obliqueThat() );
     }
 
     /**
      * @return Oblique parameter \hat{U}
      */
-    double obliqueUhat() const {
+    double Uhat() const {
         return ( SM.obliqueUhat() );
     }
 

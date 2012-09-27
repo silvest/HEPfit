@@ -83,6 +83,10 @@ myFlavour(myModel), myEW(myModel)
     LEP2sigmaTau* myLEP2sigmaTau[12];
     LEP2AFBmu* myLEP2AFBmu[12];
     LEP2AFBtau* myLEP2AFBtau[12];
+    LEP2AFBbottom* myLEP2AFBbottom[10];
+    LEP2AFBcharm* myLEP2AFBcharm[10];
+    LEP2Rbottom* myLEP2Rbottom[10];
+    LEP2Rcharm* myLEP2Rcharm[10];
     for (int i=0; i<12; i++) { 
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_s[i]);
         myLEP2sigmaHadron[i] = new LEP2sigmaHadron(myEW, sqrt_s[i]);
@@ -95,6 +99,14 @@ myFlavour(myModel), myEW(myModel)
         thobs["AFBmuLEP2_" + sqrt_s_str] = myLEP2AFBmu[i];
         myLEP2AFBtau[i] = new LEP2AFBtau(myEW, sqrt_s[i]);
         thobs["AFBtauLEP2_" + sqrt_s_str] = myLEP2AFBtau[i];
+        myLEP2AFBbottom[i] = new LEP2AFBbottom(myEW, sqrt_s[i]);
+        thobs["AFBbottomLEP2_" + sqrt_s_str] = myLEP2AFBbottom[i];
+        myLEP2AFBcharm[i] = new LEP2AFBcharm(myEW, sqrt_s[i]);
+        thobs["AFBcharmLEP2_" + sqrt_s_str] = myLEP2AFBcharm[i];
+        myLEP2Rbottom[i] = new LEP2Rbottom(myEW, sqrt_s[i]);  
+        thobs["RbottomLEP2_" + sqrt_s_str] = myLEP2Rbottom[i];
+        myLEP2Rcharm[i] = new LEP2Rcharm(myEW, sqrt_s[i]);
+        thobs["RcharmLEP2_" + sqrt_s_str] = myLEP2Rcharm[i];  
     }    
 
     //-----  LEP-II observables (with EWSMOneLoopLEP2 class in StandardModel)  -----    
