@@ -630,6 +630,72 @@ double EWSM::R0_bottom_SM() const {
 }
 
 
+double EWSM::taub() const {
+    double taub_tmp = 0.0;
+    double Xt = myCache->Xt_GF();
+    if (flag_order[EW1]) 
+        taub_tmp += -2.0*Xt; 
+    if (flag_order[EW1QCD1]) 
+        taub_tmp += 2.0/3.0*M_PI*Xt*myCache->alsMt(); 
+    if (flag_order[EW1QCD2]) 
+        taub_tmp += 0.0;
+    if (flag_order[EW2]) 
+        taub_tmp += -2.0*Xt*Xt*myTwoLoopEW->tau_2();
+    if (flag_order[EW2QCD1]) 
+        taub_tmp += 0.0;
+    if (flag_order[EW3]) 
+        taub_tmp += 0.0;
+    
+    return taub_tmp;
+}
+
+
+////////////////////////////////////////////////////////////////////////     
+
+double EWSM::sigma_l(const StandardModel::lepton l, const double s, 
+                     const double Mw, const double GammaZ, 
+                     const bool bDP, const bool bWEAK, const bool bQED) const {
+    return (getMyTwoFermionsLEP2()->sigma_l(l, s, Mw, GammaZ, bDP, bWEAK, bQED)); 
+}
+    
+
+double EWSM::sigma_q(const StandardModel::quark q, const double s, 
+                     const double Mw, const double GammaZ, 
+                     const bool bDP, const bool bWEAK, const bool bQED) const {
+    return (getMyTwoFermionsLEP2()->sigma_q(q, s, Mw, GammaZ, bDP, bWEAK, bQED));
+}
+
+
+double EWSM::AFB_l(const StandardModel::lepton l, const double s, 
+                  const double Mw, const double GammaZ, 
+                  const bool bDP, const bool bWEAK, const bool bQED) const {
+    return (getMyTwoFermionsLEP2()->AFB_l(l, s, Mw, GammaZ, bDP, bWEAK, bQED));
+}
+    
+
+double EWSM::AFB_q(const StandardModel::quark q, const double s, 
+                  const double Mw, const double GammaZ, 
+                  const bool bDP, const bool bWEAK, const bool bQED) const {
+    return (getMyTwoFermionsLEP2()->AFB_q(q, s, Mw, GammaZ, bDP, bWEAK, bQED));
+}
+
+
+////////////////////////////////////////////////////////////////////////     
+
+double EWSM::dsigmaLEP2_l(const StandardModel::lepton l, const double s, 
+                          const double Mw_i, const double cos_theta, const double W, 
+                          const double X, const double Y, const double GammaZ) const{
+    return (myOneLoopLEP2->dsigma_l(l, s, Mw_i, cos_theta, W, X, Y, GammaZ));
+}
+
+
+double EWSM::dsigmaLEP2_q(const StandardModel::quark q, const double s, 
+                          const double Mw_i, const double cos_theta, const double W, 
+                          const double X, const double Y, const double GammaZ) const{
+    return (myOneLoopLEP2->dsigma_q(q, s, Mw_i, cos_theta, W, X, Y, GammaZ));
+}
+
+
 ////////////////////////////////////////////////////////////////////////     
 
 void EWSM::ComputeDeltaRho(const double Mw_i,
@@ -928,41 +994,6 @@ double EWSM::resumKappaZ(const double DeltaRho[orders_EW_size],
     return kappaZ;
 }
 
-
-double EWSM::taub() const {
-    double taub_tmp = 0.0;
-    double Xt = myCache->Xt_GF();
-    if (flag_order[EW1]) 
-        taub_tmp += -2.0*Xt; 
-    if (flag_order[EW1QCD1]) 
-        taub_tmp += 2.0/3.0*M_PI*Xt*myCache->alsMt(); 
-    if (flag_order[EW1QCD2]) 
-        taub_tmp += 0.0;
-    if (flag_order[EW2]) 
-        taub_tmp += -2.0*Xt*Xt*myTwoLoopEW->tau_2();
-    if (flag_order[EW2QCD1]) 
-        taub_tmp += 0.0;
-    if (flag_order[EW3]) 
-        taub_tmp += 0.0;
-    
-    return taub_tmp;
-}
-
-
-////////////////////////////////////////////////////////////////////////     
-
-double EWSM::dsigmaLEP2_l(const StandardModel::lepton l, const double s, 
-                          const double Mw_i, const double cos_theta, const double W, 
-                          const double X, const double Y, const double GammaZ) const{
-    return (myOneLoopLEP2->dsigma_l(l, s, Mw_i, cos_theta, W, X, Y, GammaZ));
-}
-
-
-double EWSM::dsigmaLEP2_q(const StandardModel::quark q, const double s, 
-                          const double Mw_i, const double cos_theta, const double W, 
-                          const double X, const double Y, const double GammaZ) const{
-    return (myOneLoopLEP2->dsigma_q(q, s, Mw_i, cos_theta, W, X, Y, GammaZ));
-}
 
 
 

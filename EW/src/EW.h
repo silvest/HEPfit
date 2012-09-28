@@ -50,14 +50,19 @@ public:
     double Qq(const StandardModel::quark q) const;    
 
     /**
+     * @return the W boson mass without weak corrections, but with \alpha(Mz^2)
+     */
+    double Mw0() const;    
+    
+    /**
      * @return sin^2\theta_W without weak corrections, but with \alpha(Mz^2)
      */
-    double s2() const;
+    double s02() const;
 
     /**
      * @return cos^2\theta_W without weak corrections, but with \alpha(Mz^2)
      */
-    double c2() const;
+    double c02() const;
 
     /**
      * @return the oblique parameters S

@@ -92,6 +92,11 @@ public:
     double Mw_tree() const;    
     
     /**
+     * @return the W boson mass without weak corrections, but with \alpha(Mz^2)
+     */
+    double Mw0() const;
+    
+    /**
      * @return sin^2\theta_W without weak corrections, but with \alpha(Mz^2)
      */
     double s02() const;
