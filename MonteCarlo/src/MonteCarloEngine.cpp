@@ -169,8 +169,10 @@ double MonteCarloEngine::Weight(const Observable& obs, const double& th) {
         if (obs.getErrf() == 0.)
             logprob = BCMath::LogGaus(th, obs.getAve(), obs.getErrg());
         else if (obs.getErrg() == 0.) {
-            std::cout << "cannot use purely flat error in MCMC " << obs.getName() << std::endl;
-            exit(EXIT_FAILURE);
+            if(th < obs.getAve() + obs.getErrf() && th > obs.getAve() - obs.getErrf())
+                logprob = 1.;
+            else
+                logprob = log(0.);
         } else
             logprob = log(TMath::Erf((th - obs.getAve() + obs.getErrf()) / sqrt(2.) / obs.getErrg()) -
                 TMath::Erf((th - obs.getAve() - obs.getErrf()) / sqrt(2.) / obs.getErrg()));

@@ -27,7 +27,7 @@ public:
      * @brief SUSY constructor
      */
     SUSY();
-
+    
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
    ///////////////////////////////////////////////////////////////////////////
 

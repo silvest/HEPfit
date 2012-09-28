@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>src/GaussianLikelihood.h</itemPath>
       <itemPath>src/Likelihood.h</itemPath>
+      <itemPath>src/ModelObservable.h</itemPath>
       <itemPath>src/ModelParameter.h</itemPath>
       <itemPath>src/Observable.h</itemPath>
       <itemPath>src/Observable2D.h</itemPath>

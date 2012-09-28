@@ -155,6 +155,7 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../Utils/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
+            <pElem>../Observables/src</pElem>
           </incDir>
           <commandLine>`gsl-config --cflags` `root-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
