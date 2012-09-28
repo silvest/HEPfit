@@ -7,7 +7,9 @@
 #define	LEP2RCHARM_H
 
 #include <ThObservable.h>
+#include "EWSM.h"
 #include "EW.h"
+#include "LEP2oblique.h"
 
 
 class LEP2Rcharm : public ThObservable {
@@ -40,8 +42,14 @@ public:
 
 private:
     const EW& myEW;
+    const LEP2oblique myLEP2oblique;
     const double sqrt_s;
     bool bDP, bWEAK, bQED;
+    
+    // caches for the SM prediction
+    mutable double SMparams_cache[EWSM::NumSMParams+3];
+    mutable bool   bool_cache[3];
+    mutable double SMresult_cache;
 };
 
 #endif	/* LEP2RCHARM_H */

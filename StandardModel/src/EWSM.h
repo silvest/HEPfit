@@ -41,6 +41,9 @@ public:
      */
     enum schemes_EW {NORESUM=0, OMSI, INTERMEDIATE, OMSII, APPROXIMATEFORMULA};
     
+    // The number of the parameters relevant to EW observables
+    static const int NumSMParams = 21;
+        
     
     //////////////////////////////////////////////////////////////////////// 
     
@@ -232,8 +235,102 @@ public:
     
 
     ////////////////////////////////////////////////////////////////////////     
-    // LEP-II observables
+    // LEP-II observables with EWSMTwoFermionsLEP2 class
 
+    /**
+     * @param[in] l name of a lepton
+     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] Mw the W-boson mass 
+     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
+     * @param[in] bDP with/without dressed gauge-boson propagators
+     * @param[in] bWEAK with/without weak corrections
+     * @param[in] bQED with/without QED corrections
+     * @return the total cross section for e^+ e^- -> l lbar in GeV^{-2}
+     */
+    double sigma_l(const StandardModel::lepton l, const double s, 
+                   const double Mw, const double GammaZ, 
+                   const bool bDP, const bool bWEAK, const bool bQED) const;
+    
+    /**
+     * @param[in] q name of a quark
+     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] Mw the W-boson mass 
+     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
+     * @param[in] bDP with/without dressed gauge-boson propagators
+     * @param[in] bWEAK with/without weak corrections
+     * @param[in] bQED with/without QED corrections
+     * @return the total cross section for e^+ e^- -> q qbar in GeV^{-2}
+     */
+    double sigma_q(const StandardModel::quark q, const double s, 
+                   const double Mw, const double GammaZ, 
+                   const bool bDP, const bool bWEAK, const bool bQED) const;
+
+    /**
+     * @param[in] l name of a lepton
+     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] Mw the W-boson mass 
+     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
+     * @param[in] bDP with/without dressed gauge-boson propagators
+     * @param[in] bWEAK with/without weak corrections
+     * @param[in] bQED with/without QED corrections
+     * @return the forward-backward asymmetry for e^+ e^- -> l lbar
+     */
+    double AFB_l(const StandardModel::lepton l, const double s, 
+                 const double Mw, const double GammaZ, 
+                 const bool bDP, const bool bWEAK, const bool bQED) const;
+    
+    /**
+     * @param[in] q name of a quark
+     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] Mw the W-boson mass 
+     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
+     * @param[in] bDP with/without dressed gauge-boson propagators
+     * @param[in] bWEAK with/without weak corrections
+     * @param[in] bQED with/without QED corrections
+     * @return the forward-backward asymmetry for e^+ e^- -> q qbar
+     */
+    double AFB_q(const StandardModel::quark q, const double s, 
+                 const double Mw, const double GammaZ, 
+                 const bool bDP, const bool bWEAK, const bool bQED) const;    
+    
+    bool checkForLEP2(double Params_cache[], bool bool_cache[],
+                      const double s, const double Mw, const double GammaZ, 
+                      const bool bDP, const bool bWEAK, const bool bQED) const {
+        // 21 SM parameters in checkSMparams() + s, Mw, GammaZ, and 3 booleans
+        bool bCache = true;
+        bCache &= checkSMparams(Params_cache);
+        
+        if (Params_cache[NumSMParams] != s) { 
+            Params_cache[NumSMParams] = s;
+            bCache &= false;
+        }    
+        if (Params_cache[NumSMParams+1] != Mw) { 
+            Params_cache[NumSMParams+1] = Mw;
+            bCache &= false;
+        }    
+        if (Params_cache[NumSMParams+2] != GammaZ) { 
+            Params_cache[NumSMParams+2] = GammaZ;
+            bCache &= false;
+        }    
+        if (bool_cache[0] != bDP) { 
+            bool_cache[0] = bDP;
+            bCache &= false;
+        }    
+        if (bool_cache[1] != bWEAK) { 
+            bool_cache[1] = bWEAK;
+            bCache &= false;
+        }
+        if (bool_cache[2] != bQED) { 
+            bool_cache[2] = bQED;
+            bCache &= false;
+        }    
+        return bCache;
+    }
+    
+    
+    ////////////////////////////////////////////////////////////////////////     
+    // LEP-II observables with EWSMOneLoopLEP2 class
+    
     double dsigmaLEP2_l(const StandardModel::lepton l,const double s,const double Mw_i,
                         const double cos_theta,const double W,const double X,const double Y,
                         const double GammaZ) const;
@@ -276,9 +373,6 @@ private:
     
     bool bUseCacheEWSM; // true for caching
     
-    // The number of the parameters relevant to EW observables
-    static const int NumSMParams = 21;
-        
     mutable double DeltaAlphaLepton_params_cache[NumSMParams];
     mutable double DeltaAlphaLepton_cache;
     
@@ -305,7 +399,7 @@ private:
     
     mutable double R0b_params_cache[NumSMParams];
     mutable double R0b_cache;
-    
+        
     bool checkSMparams(double Params_cache[]) const {
         // 11 parameters in QCD:
         // "AlsMz","Mz","mup","mdown","mcharm","mstrange", "mtop","mbottom",

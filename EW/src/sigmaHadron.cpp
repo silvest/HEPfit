@@ -12,8 +12,8 @@ double sigmaHadron::getThValue() {
     if ( myEW.checkModelForSTU() ) {
         double alpha = myEW.getSM().alphaMz();
         double Mz = myEW.getSM().getMz();
-        double c2 = myEW.c2();
-        double s2 = myEW.s2();
+        double c2 = myEW.c02();
+        double s2 = myEW.s02();
         double s4 = s2*s2;
         double s6 = s4*s2;        
         double s8 = s6*s2;

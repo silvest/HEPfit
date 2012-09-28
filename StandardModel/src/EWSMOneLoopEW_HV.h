@@ -51,7 +51,7 @@ public:
             case StandardModel::BOTTOM:
                 return SM.Mrun(mu, SM.getQuarks(q).getMass(), order);
             case StandardModel::TOP:
-                return SM.getMtpole(); // the pole mass or use the running mass???
+                return SM.getMtpole(); // the pole mass
             default:
                 throw std::runtime_error("Error in EWSMOneLoopEW_HV::mq()"); 
         }

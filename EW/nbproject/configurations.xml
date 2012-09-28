@@ -20,6 +20,7 @@
       <itemPath>src/LEP2AFBtau.h</itemPath>
       <itemPath>src/LEP2Rbottom.h</itemPath>
       <itemPath>src/LEP2Rcharm.h</itemPath>
+      <itemPath>src/LEP2oblique.h</itemPath>
       <itemPath>src/LEP2sigmaHadron.h</itemPath>
       <itemPath>src/LEP2sigmaMu.h</itemPath>
       <itemPath>src/LEP2sigmaTau.h</itemPath>
@@ -59,6 +60,7 @@
       <itemPath>src/LEP2AFBtau.cpp</itemPath>
       <itemPath>src/LEP2Rbottom.cpp</itemPath>
       <itemPath>src/LEP2Rcharm.cpp</itemPath>
+      <itemPath>src/LEP2oblique.cpp</itemPath>
       <itemPath>src/LEP2sigmaHadron.cpp</itemPath>
       <itemPath>src/LEP2sigmaMu.cpp</itemPath>
       <itemPath>src/LEP2sigmaTau.cpp</itemPath>

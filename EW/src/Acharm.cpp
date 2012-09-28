@@ -11,8 +11,8 @@ double Acharm::getThValue() {
 
     if ( myEW.checkModelForSTU() ) {
         double alpha = myEW.getSM().alphaMz();
-        double c2 = myEW.c2();
-        double s2 = myEW.s2();
+        double c2 = myEW.c02();
+        double s2 = myEW.s02();
         double s4 = s2*s2;
         
         A_c -= 48.0*alpha*s2*(3.0-4.0*s2)/pow(9.0-24.0*s2+32.0*s4, 2.0)/(c2-s2)
