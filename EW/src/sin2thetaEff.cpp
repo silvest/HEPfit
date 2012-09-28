@@ -11,8 +11,8 @@ double sin2thetaEff::getThValue() {
     
     if ( myEW.checkModelForSTU() ) {
         double alpha = myEW.getSM().alphaMz();
-        double c2 = myEW.c2();
-        double s2 = myEW.s2();
+        double c2 = myEW.c02();
+        double s2 = myEW.s02();
         
         sin2_theta_eff += alpha/4.0/(c2-s2)
                           *( myEW.S() - 4.0*c2*s2*myEW.T() );
