@@ -9,11 +9,12 @@
 #include <boost/lexical_cast.hpp>
 #include "ThFactory.h"
 #include <FlavourObservables.h>
+#include <SusyObservables.h>
 #include <EWObservables.h>
 //#include <ZFEWObservables.h>
 
 ThFactory::ThFactory(const StandardModel& myModel) :
-myFlavour(myModel), myEW(myModel)
+myFlavour(myModel), myEW(myModel), myMO(myModel)
 //, myZFitter(myModel) 
 {
     //-----   Flavour observables   -----
@@ -31,8 +32,11 @@ myFlavour(myModel), myEW(myModel)
     thobs["Vcb"] = new Vcb(myFlavour);
     thobs["alpha"] = new Alpha(myFlavour);
     thobs["alpha_2a"] = new Alpha_2a(myFlavour);
-    thobs["gamma"] = new Gamma(myFlavour);
+    thobs["gamma"] = new CKMGamma(myFlavour);
     thobs["SJPsiK"] = new SJPsiK(myFlavour);
+    if(myModel.ModelName().compare("MFV")) {
+        thobs["Msq"] = new Msq(myMO);
+    }
     
     //-----   Higgs mass   -----
     thobs["Mh0"] = new Mh0(myEW);

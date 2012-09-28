@@ -24,6 +24,10 @@
                     <name>Cluster</name>
                     <type>3</type>
                 </confElem>
+                <confElem>
+                    <name>Parallel</name>
+                    <type>3</type>
+                </confElem>
             </confList>
         </data>
     </configuration>

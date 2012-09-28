@@ -9,6 +9,7 @@
 #define	THFACTORY_H
 
 #include <ThObservable.h>
+#include <ModelObservable.h>
 #include <StandardModel.h>
 #include <StandardModelMatching.h>
 #include <Flavour.h>
@@ -24,6 +25,7 @@ private:
     std::map<std::string, ThObservable *> thobs;
     Flavour myFlavour;
     EW myEW;
+    ModelObservable myMO;
     //ZFitter myZFitter;
 };
 
