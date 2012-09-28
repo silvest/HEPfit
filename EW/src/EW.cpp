@@ -41,12 +41,17 @@ double EW::Qq(const StandardModel::quark q) const {
 }
 
 
-double EW::s2() const {
+double EW::Mw0() const {
+    return ( SM.Mw0() );
+}
+
+
+double EW::s02() const {
     return ( SM.s02() );
 }
 
 
-double EW::c2() const {
+double EW::c02() const {
     return ( SM.c02() );
 }
 

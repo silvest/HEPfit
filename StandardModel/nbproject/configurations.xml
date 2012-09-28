@@ -532,6 +532,16 @@
           <output>${TESTDIR}/TestFiles/f7</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f8">
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f8</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f9">
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f9</output>
+        </linkerTool>
+      </folder>
     </conf>
     <conf name="Cluster" type="3">
       <toolsSet>

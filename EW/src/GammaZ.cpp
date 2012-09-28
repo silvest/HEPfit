@@ -11,8 +11,8 @@ double GammaZ::getThValue() {
 
     if ( myEW.checkModelForSTU() ) {
         double alpha = myEW.getSM().alphaMz();
-        double c2 = myEW.c2();
-        double s2 = myEW.s2();
+        double c2 = myEW.c02();
+        double s2 = myEW.s02();
         double s4 = s2*s2;
         
         Gamma_Z += alpha*alpha*myEW.getSM().getMz()/72.0/c2/s2/(c2-s2)

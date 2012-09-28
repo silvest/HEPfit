@@ -198,6 +198,10 @@ double StandardModel::Mw_tree() const {
     return ( Mz/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp)) );
 }
 
+double StandardModel::Mw0() const {
+    return ( sqrt(c02())*Mz );
+}
+
 double StandardModel::s02() const {
     return ( ( 1.0 - sqrt(1.0 - 4.0*M_PI*alphaMz()/sqrt(2.0)/GF/Mz/Mz) )/2.0 );
 }
@@ -276,25 +280,25 @@ double StandardModel::GammaW() const {
 double StandardModel::sigma_l_LEP2(const StandardModel::lepton l, const double s,
                                    const double Mw, const double GammaZ,
                                    const bool bDP, const bool bWEAK, const bool bQED) const {
-    return (myEWSM->getMyTwoFermionsLEP2()->sigma_l(l, s, Mw, GammaZ, bDP, bWEAK, bQED));
+    return (myEWSM->sigma_l(l, s, Mw, GammaZ, bDP, bWEAK, bQED));
 }
 
 double StandardModel::sigma_q_LEP2(const StandardModel::quark q, const double s,
                                    const double Mw, const double GammaZ,
                                    const bool bDP, const bool bWEAK, const bool bQED) const {
-    return (myEWSM->getMyTwoFermionsLEP2()->sigma_q(q, s, Mw, GammaZ, bDP, bWEAK, bQED));
+    return (myEWSM->sigma_q(q, s, Mw, GammaZ, bDP, bWEAK, bQED));
 }
 
 double StandardModel::AFB_l_LEP2(const StandardModel::lepton l, const double s,
                                  const double Mw, const double GammaZ,
                                  const bool bDP, const bool bWEAK, const bool bQED) const {
-    return (myEWSM->getMyTwoFermionsLEP2()->AFB_l(l, s, Mw, GammaZ, bDP, bWEAK, bQED));
+    return (myEWSM->AFB_l(l, s, Mw, GammaZ, bDP, bWEAK, bQED));
 }
 
 double StandardModel::AFB_q_LEP2(const StandardModel::quark q, const double s,
                                  const double Mw, const double GammaZ,
                                  const bool bDP, const bool bWEAK, const bool bQED) const {
-    return (myEWSM->getMyTwoFermionsLEP2()->AFB_q(q, s, Mw, GammaZ, bDP, bWEAK, bQED));
+    return (myEWSM->AFB_q(q, s, Mw, GammaZ, bDP, bWEAK, bQED));
 }
 
 double StandardModel::DsigmaLEP2_l(const StandardModel::lepton l, const double s, const double cos_theta,  
