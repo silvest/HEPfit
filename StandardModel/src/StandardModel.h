@@ -33,15 +33,12 @@ public:
     virtual std::string ModelName() const {
         return "StandardModel";
     }
+
+    virtual bool SetFlag(const std::string, const bool&);    
     
-    virtual StandardModelMatching* GetMyMatching() const {
-        return myStandardModelMatching;
-    }
+    virtual bool Init(const std::map<std::string, double>&);
 
-    virtual void SetMyMatching(StandardModelMatching* myMatching) {
-        this->myStandardModelMatching = myMatching;
-    }
-
+    virtual bool PreUpdate();    
 
     /**
      * updates the SM parameters found in the argument
@@ -68,15 +65,214 @@ public:
      * "SM_M12D" 
      */
     virtual bool Update(const std::map<std::string, double>&);
-    
-    
-    virtual bool PreUpdate();
      
     virtual bool PostUpdate();
-
-    virtual bool Init(const std::map<std::string, double>&);
         
     virtual bool CheckParameters(const std::map<std::string, double>&);
+
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // Matching
+    
+    StandardModelMatching* myMatching;
+        
+    virtual bool InitializeMatching();  
+    
+    virtual StandardModelMatching* GetMyMatching() const {
+        return myStandardModelMatching;
+    }
+
+    virtual void SetMyMatching(StandardModelMatching* myMatching) {
+        this->myStandardModelMatching = myMatching;
+    }
+    
+    virtual const double matchingScale() const {
+        return muw;
+    }
+
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // get and set methods for class members
+
+    Particle getLeptons(const StandardModel::lepton p) const {
+        return leptons[p];
+    }
+    
+    /**
+     * @return the Fermi constant
+     */
+    double getGF() const {
+        return GF;
+    }
+
+    /**
+     * @brief set the Fermi constant
+     * @param GF the Fermi constant
+     */
+    void setGF(double GF) {
+        this->GF = GF;
+    }
+
+    /**
+     * @return the electromagnetic coupling
+     */
+    double getAle() const {
+        return ale;
+    }
+
+    /**
+     * @brief set the electromagnetic coupling
+     * @param ale the electromagnetic coupling
+     */
+    void setAle(double ale) {
+        this->ale = ale;
+    }
+
+    /**
+     * @return @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
+     */
+    double getDAle5Mz() const {
+        return dAle5Mz;
+    }
+
+    /**
+     * set @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
+     * @param dAle5Mz @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
+     */
+    void setDAle5Mz(double dAle5Mz) {
+        this->dAle5Mz = dAle5Mz;
+    }
+    
+    /**
+     * @return the Higgs mass
+     */
+    double getMHl() const {
+        return mHl;
+    }
+
+    /**
+     * @brief set the Higgs mass
+     * @param mHl the Higgs mass
+     */
+    void setMHl(double mHl) {
+        this->mHl = mHl;
+    }    
+    
+    /**
+     * @return the CKM matrix
+     */
+    matrix<complex> getVCKM() const { 
+        return VCKM; 
+    }
+
+    /**
+     * @brief set the CKM matrix
+     * @param VCKM the CKM matrix
+     */
+    void setVCKM(matrix<complex> VCKM) { 
+        this->VCKM = VCKM; 
+    }
+
+    /**
+     * @return the PMNS matrix
+     */
+    matrix<complex> getUPMNS() const { 
+        return UPMNS; 
+    }
+
+    /**
+     * @brief set the PMNS matrix
+     * @param UPMNS the PMNS matrix
+     */
+    void setUPMNS(matrix<complex> UPMNS) { 
+        this->UPMNS = UPMNS; 
+    }
+
+    /**
+     * @return up Yukawa matrix
+     */
+    matrix<complex> getYu() const {
+        return Yu;
+    }
+
+    /**
+     * @return down Yukawa matrix
+     */
+    matrix<complex> getYd() const {
+        return Yd;
+    }
+
+    /**
+     * @return neutrino Yukawa matrix
+     */
+    matrix<complex> getYn() const {
+        return Yn;
+    }
+
+    /**
+     * @return charged lepton Yukawa matrix
+     */
+    matrix<complex> getYe() const {
+        return Ye;
+    }
+    
+    /**
+     * @brief set the value Standard Model contribution to \f$ \Delta m_{K} \f$
+     * @param Dmk Standard Model contribution to \f$ \Delta m_{K} \f$
+     */
+    void setDmk(double Dmk) {
+        this->Dmk = Dmk;
+    }
+    
+    /**
+     * @return the value of Standard Model contribution to \f$ \Delta m_{K} \f$
+     */
+    double getDmk() const {
+        return Dmk;
+    }
+    
+    /**
+     * @return the Standard Model amplitude of the \f$ D^{0} - \bar{D}^{0} \f$ mixing
+     */
+    double getSM_M12D() const {
+        return SM_M12D;
+    }
+
+    double getMuw() const {
+        return muw;
+    }
+    
+    double getKbarEpsK() const {
+        return KbarEpsK;
+    }
+    
+    double getphiEpsK() const {
+        return phiEpsK;
+    }
+    
+    double getDeltaMK() const {
+        return DeltaMK;
+    }
+
+    double GetA() const {
+        return A;
+    }
+
+    double GetEtab() const {
+        return etab;
+    }
+
+    double GetLambda() const {
+        return lambda;
+    }
+
+    double GetRhob() const {
+        return rhob;
+    }
+    
+    CKM getCKM() const {
+        return myCKM;
+    }
 
     
     ///////////////////////////////////////////////////////////////////////////
@@ -282,219 +478,74 @@ public:
      */
     virtual double obliqueS() const {
         return 0.0;
-    };
+    }
         
     /**
      * @return NP contribution to oblique parameter T
      */
     virtual double obliqueT() const {
         return 0.0;
-    };
+    }
     
     /**
      * @return NP contribution to oblique parameter U
      */
     virtual double obliqueU() const {
         return 0.0;
-    };
+    }
     
     /**
      * @return NP contribution to oblique parameter \hat{S}
      */
     virtual double obliqueShat() const {
         return 0.0;
-    };
+    }
         
     /**
      * @return NP contribution to oblique parameter \hat{T}
      */
     virtual double obliqueThat() const {
         return 0.0;
-    };
+    }
     
     /**
      * @return NP contribution to oblique parameter \hat{U}
      */
     virtual double obliqueUhat() const {
         return 0.0;
-    };
+    }
 
     /**
      * @return NP contribution to oblique parameter V
      */
     virtual double obliqueV() const {
         return 0.0;
-    };
+    }
 
     /**
      * @return NP contribution to oblique parameter W
      */
     virtual double obliqueW() const {
         return 0.0;
-    };
+    }
 
     /**
      * @return NP contribution to oblique parameter X
      */
     virtual double obliqueX() const {
         return 0.0;
-    };
+    }
 
     /**
      * @return NP contribution to oblique parameter Y
      */
     virtual double obliqueY() const {
         return 0.0;
-    };
-
-    
-    ///////////////////////////////////////////////////////////////////////////
-
-    /**
-     * @return the CKM matrix
-     */
-    matrix<complex> getVCKM() const { return VCKM; }
-
-    /**
-     * @brief set the CKM matrix
-     * @param VCKM the CKM matrix
-     */
-    void setVCKM(matrix<complex> VCKM) { this->VCKM = VCKM; }
-
-    /**
-     * @return the PMNS matrix
-     */
-    matrix<complex> getUPMNS() const { return UPMNS; }
-
-    /**
-     * @brief set the PMNS matrix
-     * @param UPMNS the PMNS matrix
-     */
-    void setUPMNS(matrix<complex> UPMNS) { this->UPMNS = UPMNS; }
-
-    /**
-     *
-     * @return up Yukawa matrix
-     */
-    matrix<complex> getYu() const {
-        return Yu;
     }
 
-    /**
-     *
-     * @return down Yukawa matrix
-     */
-    matrix<complex> getYd() const {
-        return Yd;
-    }
-
-    /**
-     *
-     * @return neutrino Yukawa matrix
-     */
-    matrix<complex> getYn() const {
-        return Yn;
-    }
-
-    /**
-     *
-     * @return charged lepton Yukawa matrix
-     */
-    matrix<complex> getYe() const {
-        return Ye;
-    }
-
-    /**
-     *
-     * @return the Fermi constant
-     */
-    double getGF() const {
-        return GF;
-    }
-
-    /**
-     * @brief set the Fermi constant
-     * @param GF the Fermi constant
-     */
-    void setGF(double GF) {
-        this->GF = GF;
-    }
-
-    /**
-     *
-     * @return the electromagnetic coupling
-     */
-    double getAle() const {
-        return ale;
-    }
-
-    /**
-     * @brief set the electromagnetic coupling
-     * @param ale the electromagnetic coupling
-     */
-    void setale(double ale) {
-        this->ale = ale;
-    }
-
-    /**
-     *
-     * @return @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
-     */
-    double getDAle5Mz() const {
-        return dAle5Mz;
-    }
-
-    /**
-     * set @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
-     * @param dAle5Mz @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
-     */
-    void setDAle5Mz(double dAle5Mz) {
-        this->dAle5Mz = dAle5Mz;
-    }
-    
-    /**
-     * @brief set the value Standard Model contribution to \f$ \Delta m_{K} \f$
-     * @param Dmk Standard Model contribution to \f$ \Delta m_{K} \f$
-     */
-    void setDmk(double Dmk) {
-        this->Dmk = Dmk;
-    }
-    
-    /**
-     * 
-     * @return the value of Standard Model contribution to \f$ \Delta m_{K} \f$
-     */
-    double getDmk() const {
-        return Dmk;
-    }
-
-    /**
-     *
-     * @return the Higgs mass
-     */
-    double getMHl() const {
-        return mHl;
-    }
-
-    /**
-     * @brief set the Higgs mass
-     * @param mHl the Higgs mass
-     */
-    void setMHl(double mHl) {
-        this->mHl = mHl;
-    }
-    
-    /**
-     * 
-     * @return the Standard Model amplitude of the \f$ D^{0} - \bar{D}^{0} \f$ mixing
-     */
-    double getSM_M12D() const {
-        return SM_M12D;
-    }
-
-    virtual const double matchingScale() const ;
 
     ////////////////////////////////////////////////////////////////////////
+    // CKM parameters
     
     // Angles
     double getBeta() const;
@@ -520,64 +571,21 @@ public:
     double getRts() const;
     double getRb() const;
 
-    CKM getCKM() const {
-        return myCKM;
-    }
     
-    ///////////////////////////////////////////////////////////////////////////
-
-    Particle getLeptons(const StandardModel::lepton p) const {
-        return leptons[p];
-    }
-
-    double getMuw() const {
-        return muw;
-    }
-    
-    double getKbarEpsK() const {
-        return KbarEpsK;
-    }
-    
-    double getphiEpsK() const {
-        return phiEpsK;
-    }
-    
-    double getDeltaMK() const {
-        return DeltaMK;
-    }
-
-    double GetA() const {
-        return A;
-    }
-
-    double GetEtab() const {
-        return etab;
-    }
-
-    double GetLambda() const {
-        return lambda;
-    }
-
-    double GetRhob() const {
-        return rhob;
-    }
-    
-    virtual bool SetFlag(const std::string, const bool&);
-    
-    StandardModelMatching* myMatching;
-        
-    virtual bool InitializeMatching();
-    
+    ////////////////////////////////////////////////////////////////////////
 protected:
-    virtual void SetParameter(const std::string, const double&);
-    
-    matrix<complex> VCKM,UPMNS, Yu, Yd, Yn, Ye;
-    double GF, ale, dAle5Mz, mHl, lambda, A, rhob, etab, Dmk;
-    double muw, KbarEpsK, phiEpsK, DeltaMK, SM_M12D;
-    CKM myCKM;
+    double GF, ale, dAle5Mz, mHl;
+    matrix<complex> VCKM, UPMNS, Yu, Yd, Yn, Ye;
+    double lambda, A, rhob, etab;
+    double muw, KbarEpsK, phiEpsK, DeltaMK, Dmk, SM_M12D;
     Particle leptons[6];
     EWSM* myEWSM;
+    CKM myCKM;
     
+    virtual void SetParameter(const std::string, const double&);
+    
+    
+    ////////////////////////////////////////////////////////////////////////    
 private:
     bool computeCKM, computeYe, computeYn;
     StandardModelMatching* myStandardModelMatching;
