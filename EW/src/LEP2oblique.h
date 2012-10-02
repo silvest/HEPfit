@@ -6,7 +6,7 @@
 #ifndef LEP2OBLIQUE_H
 #define	LEP2OBLIQUE_H
 
-
+#include <stdexcept>
 #include <gslpp.h>
 #include "EW.h"
 using namespace gslpp;
@@ -62,7 +62,7 @@ private:
             case StandardModel::TOP:
                 return myEW.getSM().getMtpole(); // the pole mass
             default:
-                throw std::runtime_error("Error in EWSMOneLoopEW_HV::mq()"); 
+                throw std::runtime_error("Error in LEP2oblique::mq()"); 
         }
     }
     

@@ -8,7 +8,7 @@
 
 
 double obliqueU::getThValue() {   
-    return myEW.getSM().obliqueU();
+    return SM.obliqueU();
 }
 
 
