@@ -16,12 +16,12 @@ LEP2AFBcharm::LEP2AFBcharm(const EW& EW_i, const double sqrt_s_i) : ThObservable
 
 double LEP2AFBcharm::getThValue() { 
     double s = sqrt_s*sqrt_s;
-    double Mw = myEW.getSM().Mw(); 
+    double Mw = SM.Mw(); 
     double GammaZ = myEW.Gamma_Z();
 
-    if (!myEW.getSM().getEWSM()->checkForLEP2(SMparams_cache, bool_cache,
+    if (!SM.getEWSM()->checkForLEP2(SMparams_cache, bool_cache,
                                               s, Mw, GammaZ, bDP, bWEAK, bQED))
-        SMresult_cache = myEW.getSM().AFB_q_LEP2(StandardModel::CHARM, 
+        SMresult_cache = SM.AFB_q_LEP2(StandardModel::CHARM, 
                                                  s, Mw, GammaZ, bDP, bWEAK, bQED);
     double AFB_c = SMresult_cache;
     

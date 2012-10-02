@@ -16,12 +16,12 @@ LEP2AFBmu::LEP2AFBmu(const EW& EW_i, const double sqrt_s_i) : ThObservable(EW_i)
 
 double LEP2AFBmu::getThValue() { 
     double s = sqrt_s*sqrt_s;
-    double Mw = myEW.getSM().Mw(); 
+    double Mw = SM.Mw(); 
     double GammaZ = myEW.Gamma_Z();
 
-    if (!myEW.getSM().getEWSM()->checkForLEP2(SMparams_cache, bool_cache,
+    if (!SM.getEWSM()->checkForLEP2(SMparams_cache, bool_cache,
                                               s, Mw, GammaZ, bDP, bWEAK, bQED))
-        SMresult_cache = myEW.getSM().AFB_l_LEP2(StandardModel::MU, 
+        SMresult_cache = SM.AFB_l_LEP2(StandardModel::MU, 
                                                  s, Mw, GammaZ, bDP, bWEAK, bQED);
     double AFB_mu = SMresult_cache;
     

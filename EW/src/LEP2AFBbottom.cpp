@@ -16,12 +16,12 @@ LEP2AFBbottom::LEP2AFBbottom(const EW& EW_i, const double sqrt_s_i) : ThObservab
 
 double LEP2AFBbottom::getThValue() { 
     double s = sqrt_s*sqrt_s;
-    double Mw = myEW.getSM().Mw(); 
+    double Mw = SM.Mw(); 
     double GammaZ = myEW.Gamma_Z();
 
-    if (!myEW.getSM().getEWSM()->checkForLEP2(SMparams_cache, bool_cache,
+    if (!SM.getEWSM()->checkForLEP2(SMparams_cache, bool_cache,
                                               s, Mw, GammaZ, bDP, bWEAK, bQED))
-        SMresult_cache = myEW.getSM().AFB_q_LEP2(StandardModel::BOTTOM, 
+        SMresult_cache = SM.AFB_q_LEP2(StandardModel::BOTTOM, 
                                                  s, Mw, GammaZ, bDP, bWEAK, bQED);
     double AFB_b = SMresult_cache;
     
