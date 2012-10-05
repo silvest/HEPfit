@@ -7,7 +7,7 @@
 
 
 double obliqueT::getThValue() {   
-    return myEW.getSM().obliqueT();
+    return SM.obliqueT();
 }
  
 

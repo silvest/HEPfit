@@ -18,7 +18,6 @@
 #include "StandardModelMatching.h"
 
 
-
 const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutrino_2",
     "mneutrino_3", "melectron", "mmu", "mtau", "lambda", "A", "rhob", "etab", "ale",
     "dAle5Mz", "mHl", "muw", "phiEpsK","DeltaMK", "KbarEpsK", "Dmk", "SM_M12D" };
@@ -40,15 +39,16 @@ Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
     myEWSM = new EWSM(*this, bDebug_i);
 }
 
-bool StandardModel::InitializeMatching(){
-    
-    myStandardModelMatching = new StandardModelMatching(*this);
-    SetMatchingInitialized(true);
-    return(true);
+bool StandardModel::SetFlag(const std::string name , const bool& value){  
+    return (false);
+}
+
+bool StandardModel::Init(const std::map<std::string, double>& DPars) {
+    Update(DPars);
+    return(CheckParameters(DPars));
 }
 
 bool StandardModel::PreUpdate(){
-    
     computeCKM = false;
     computeYe = false;
     computeYn = false;
@@ -56,11 +56,24 @@ bool StandardModel::PreUpdate(){
     if(!QCD::PreUpdate())  return (false);
     
     return (true);
+}
+
+bool StandardModel::Update(const std::map<std::string, double>& DPars) {
+    if(!PreUpdate()) return (false);
     
+    UpdateError = false;
+    
+    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
+        SetParameter(it->first, it->second);
+    
+    if (UpdateError) return (false);
+    
+    if(!PostUpdate())  return (false);
+    
+    return (true);
 }
 
 bool StandardModel::PostUpdate(){
-    
     if(!QCD::PostUpdate()) return (false);
     
     if (computeCKM) {
@@ -87,23 +100,6 @@ bool StandardModel::PostUpdate(){
             Yn.assign(i, i, this->leptons[NEUTRINO_1 + 2 * i].getMass() / v() * sqrt(2.));
         Yn = Yn * UPMNS.hconjugate();
     }
-    
-     return (true);
-    
-}
-
-bool StandardModel::Update(const std::map<std::string, double>& DPars) {
-    
-    if(!PreUpdate()) return (false);
-    
-    UpdateError = false;
-    
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        SetParameter(it->first, it->second);
-    
-    if (UpdateError) return (false);
-    
-    if(!PostUpdate())  return (false);
     
      return (true);
 }
@@ -163,15 +159,6 @@ void StandardModel::SetParameter(const std::string name, const double& value) {
         QCD::SetParameter(name, value);
 }
 
-bool StandardModel::SetFlag(const std::string name , const bool& value){  
-    return (false);
-}
-
-bool StandardModel::Init(const std::map<std::string, double>& DPars) {
-    Update(DPars);
-    return(CheckParameters(DPars));
-}
-
 bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NSMvars; i++) {
         if (DPars.find(SMvars[i]) == DPars.end()) {
@@ -184,13 +171,20 @@ bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars) 
 
 
 ///////////////////////////////////////////////////////////////////////////
+// Matching
 
-const double StandardModel::matchingScale() const {
-    return muw;
+bool StandardModel::InitializeMatching(){
+    
+    myStandardModelMatching = new StandardModelMatching(*this);
+    SetMatchingInitialized(true);
+    return(true);
 }
 
+
+///////////////////////////////////////////////////////////////////////////
+
 double StandardModel::v() const {
-    return 1. / sqrt(sqrt(2.) * GF);
+    return ( 1. / sqrt(sqrt(2.) * GF) );
 }
 
 double StandardModel::Mw_tree() const {
@@ -314,6 +308,7 @@ double StandardModel::DsigmaLEP2_q(const StandardModel::quark q, const double s,
     
 
 ////////////////////////////////////////////////////////////////////////
+// CKM parameters
 
 // Angles
 

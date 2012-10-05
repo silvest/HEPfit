@@ -6,6 +6,7 @@
 #ifndef EW_H
 #define	EW_H
 
+#include <stdexcept>
 #include <ThObsType.h>
 #include <StandardModel.h>
 

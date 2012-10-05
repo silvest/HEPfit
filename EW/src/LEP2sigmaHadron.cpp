@@ -16,20 +16,20 @@ LEP2sigmaHadron::LEP2sigmaHadron(const EW& EW_i, const double sqrt_s_i) : ThObse
 
 double LEP2sigmaHadron::getThValue() { 
     double s = sqrt_s*sqrt_s;
-    double Mw = myEW.getSM().Mw(); 
+    double Mw = SM.Mw(); 
     double GammaZ = myEW.Gamma_Z();
 
-    if (!myEW.getSM().getEWSM()->checkForLEP2(SMparams_cache, bool_cache,
+    if (!SM.getEWSM()->checkForLEP2(SMparams_cache, bool_cache,
                                               s, Mw, GammaZ, bDP, bWEAK, bQED))
-        SMresult_cache = myEW.getSM().sigma_q_LEP2(StandardModel::UP, 
+        SMresult_cache = SM.sigma_q_LEP2(StandardModel::UP, 
                                                    s, Mw, GammaZ, bDP, bWEAK, bQED)
-                       + myEW.getSM().sigma_q_LEP2(StandardModel::DOWN, 
+                       + SM.sigma_q_LEP2(StandardModel::DOWN, 
                                                    s, Mw, GammaZ, bDP, bWEAK, bQED)
-                       + myEW.getSM().sigma_q_LEP2(StandardModel::CHARM, 
+                       + SM.sigma_q_LEP2(StandardModel::CHARM, 
                                                    s, Mw, GammaZ, bDP, bWEAK, bQED)
-                       + myEW.getSM().sigma_q_LEP2(StandardModel::STRANGE, 
+                       + SM.sigma_q_LEP2(StandardModel::STRANGE, 
                                                    s, Mw, GammaZ, bDP, bWEAK, bQED)
-                       + myEW.getSM().sigma_q_LEP2(StandardModel::BOTTOM, 
+                       + SM.sigma_q_LEP2(StandardModel::BOTTOM, 
                                                    s, Mw, GammaZ, bDP, bWEAK, bQED);
     double sigmaH = SMresult_cache;
     
