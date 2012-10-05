@@ -7,6 +7,7 @@
 
 #include "SUSY.h"
 #include "SUSYMatching.h"
+#include "Spectrum.h"
 #include <math.h>
 #include <sstream>
 #include <stdexcept>
@@ -453,6 +454,17 @@ bool SUSY::CalcSpectrum(){
         //throw std::runtime_error(ss.str());
      }   
        
+    std::cout<< Ru << std::endl;
+    std::cout << Msu2 << std::endl;
+    
+    Spectrum MS;
+    
+    MS.CalcSpectrum(*this);
+    
+    std::cout<< Ru << std::endl;
+    std::cout << Msu2 << std::endl;
+    
+    
     return (true);
 }
 
