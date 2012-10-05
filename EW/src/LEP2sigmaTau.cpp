@@ -16,12 +16,12 @@ LEP2sigmaTau::LEP2sigmaTau(const EW& EW_i, const double sqrt_s_i) : ThObservable
 
 double LEP2sigmaTau::getThValue() { 
     double s = sqrt_s*sqrt_s;
-    double Mw = myEW.getSM().Mw(); 
+    double Mw = SM.Mw(); 
     double GammaZ = myEW.Gamma_Z();
 
-    if (!myEW.getSM().getEWSM()->checkForLEP2(SMparams_cache, bool_cache,
+    if (!SM.getEWSM()->checkForLEP2(SMparams_cache, bool_cache,
                                               s, Mw, GammaZ, bDP, bWEAK, bQED))
-        SMresult_cache = myEW.getSM().sigma_l_LEP2(StandardModel::TAU, 
+        SMresult_cache = SM.sigma_l_LEP2(StandardModel::TAU, 
                                                    s, Mw, GammaZ, bDP, bWEAK, bQED);
     double sigma_tau = SMresult_cache;
     

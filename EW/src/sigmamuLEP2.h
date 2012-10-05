@@ -24,7 +24,8 @@ public:
      * @brief sigmamuLEP2 constructor
      * @param[in] EW_i an object of EW class
      */
-    sigmamuLEP2(const EW& EW_i,double sqrt_s_i) : ThObservable(EW_i), myEW(EW_i), sqrt_s_local(sqrt_s_i){};
+    sigmamuLEP2(const EW& EW_i,double sqrt_s_i) : ThObservable(EW_i), 
+            myEW(EW_i), sqrt_s_local(sqrt_s_i){};
     
     
     double sigmaLEP2_Integrand(double x);
