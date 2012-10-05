@@ -89,13 +89,13 @@ namespace gslpp
       /** Unary minus */
       complex operator-() const;
       /** Addition operator */
-      complex operator+(const complex& z1);
+      complex operator+(const complex& z1) const;
       /** Subtraction operator */
-      complex operator-(const complex& z1);
+      complex operator-(const complex& z1) const;
       /** Multiplication operator */
-      complex operator*(const complex& z1);
+      complex operator*(const complex& z1) const;
       /** Division operator */
-      complex operator/(const complex& z1);
+      complex operator/(const complex& z1) const;
       /** Addition assignment */
       complex& operator+=(const complex& z1);
       /** Subtraction assignment */
@@ -105,13 +105,13 @@ namespace gslpp
       /** Division assignment */
       complex& operator/=(const complex& z1);
       /** Addition operator */
-      complex operator+(const double& a);
+      complex operator+(const double& a) const;
       /** Subtraction assignment */
-      complex operator-(const double& a);
+      complex operator-(const double& a) const;
       /** Multiplication operator */
-      complex operator*(const double& a);
+      complex operator*(const double& a) const;
       /** Division operator */
-      complex operator/(const double& a);
+      complex operator/(const double& a) const;
       /** Addition assignment  */
       complex& operator+=(const double& a);
       /** Subtraction assignment */

@@ -118,7 +118,17 @@ namespace gslpp {
         return gsl_blas_dznrm2(_vector);
     }
 
-    /** Conversion  */
+    /** Get conjugate vector */
+  vector<complex> vector<complex>::conjugate() const
+  {
+    vector<complex> v1(*this);
+    for(int i=0 ; i < v1.size(); i++)
+        v1.assign(i, v1(i).conjugate());
+
+    return v1;
+  }
+
+/** Conversion  */
     gsl_vector_complex* vector<complex>::as_gsl_type_ptr() const {
         return _vector;
     }
