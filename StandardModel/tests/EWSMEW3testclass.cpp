@@ -41,7 +41,7 @@ void EWSMEW3testclass::tearDown() {
 
 void EWSMEW3testclass::DeltaAlpha_l() {
     double ZFITTER = 0.00000110911008841406; /* ZFITTER result*/
-    double result = myEW3->DeltaAlpha_l();
+    double result = myEW3->DeltaAlpha_l(Mz2);
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);   
 }

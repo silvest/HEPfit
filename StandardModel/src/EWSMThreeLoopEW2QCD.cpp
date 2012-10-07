@@ -12,12 +12,12 @@ EWSMThreeLoopEW2QCD::EWSMThreeLoopEW2QCD(const EWSMcache& cache_i) : cache(cache
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSMThreeLoopEW2QCD::DeltaAlpha_l() const {
+double EWSMThreeLoopEW2QCD::DeltaAlpha_l(const double s) const {
     return (0.0);
 }    
 
 
-double EWSMThreeLoopEW2QCD::DeltaAlpha_t() const {   
+double EWSMThreeLoopEW2QCD::DeltaAlpha_t(const double s) const {   
     return (0.0);
 }
 

@@ -26,15 +26,17 @@ public:
 
     /**
      * @brief leptonic contribution to alpha
+     * @param[in] s invariant mass squared 
      * @return Delta alpha_{lept}^{alpha^2}
      */
-    double DeltaAlpha_l() const;
+    double DeltaAlpha_l(const double s) const;
 
     /**
      * @brief top-quark contribution to alpha
+     * @param[in] s invariant mass squared 
      * @return Delta alpha_{top}^{alpha^2}
      */
-    double DeltaAlpha_t() const;    
+    double DeltaAlpha_t(const double s) const;    
     
     /**
      * @brief leading contribution to Delta r

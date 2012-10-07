@@ -13,14 +13,21 @@ EWSMTwoLoopEW::EWSMTwoLoopEW(const EWSMcache& cache_i) : cache(cache_i), myOneLo
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSMTwoLoopEW::DeltaAlpha_l() const {
-    double xl[3] = { pow(cache.Mz()/cache.ml(StandardModel::ELECTRON), 2.0), 
-                     pow(cache.Mz()/cache.ml(StandardModel::MU), 2.0), 
-                     pow(cache.Mz()/cache.ml(StandardModel::TAU), 2.0) };
-    double log_l[3] = { 2.0*cache.logMZtoME(), 
-                        2.0*cache.logMZtoMMU(), 
-                        2.0*cache.logMZtoMTAU() };
-
+double EWSMTwoLoopEW::DeltaAlpha_l(const double s) const {
+    double xl[3] = { s/cache.ml(StandardModel::ELECTRON)/cache.ml(StandardModel::ELECTRON), 
+                     s/cache.ml(StandardModel::MU)/cache.ml(StandardModel::MU), 
+                     s/cache.ml(StandardModel::TAU)/cache.ml(StandardModel::TAU) };
+    double log_l[3];
+    if (s==cache.Mz()*cache.Mz()) {
+        log_l[0] = 2.0*cache.logMZtoME();
+        log_l[1] = 2.0*cache.logMZtoMMU();
+        log_l[2] = 2.0*cache.logMZtoMTAU();
+    } else {
+        log_l[0] = log(xl[0]);
+        log_l[1] = log(xl[1]);
+        log_l[2] = log(xl[2]);
+    }    
+    
     double twoLoop[3];
     for (int i = 0; i < 3; i++) {
         twoLoop[i] = - 5.0/24.0 + cache.GetZeta3() + log_l[i]/4.0 
@@ -32,7 +39,7 @@ double EWSMTwoLoopEW::DeltaAlpha_l() const {
 }    
 
 
-double EWSMTwoLoopEW::DeltaAlpha_t() const {   
+double EWSMTwoLoopEW::DeltaAlpha_t(const double s) const {   
     return (0.0);
 }
 
