@@ -223,25 +223,25 @@ namespace gslpp
       return complex(&t);
     }
 
-  complex complex::operator+(const complex& z1)
+  complex complex::operator+(const complex& z1) const
   {
     gsl_complex rl = gsl_complex_add(_complex, z1._complex);
     return complex(rl);
   }
 
-  complex complex::operator-(const complex& z1)
+  complex complex::operator-(const complex& z1) const
   {
     gsl_complex rl = gsl_complex_sub(_complex, z1._complex);
     return complex(rl);
   }
 
-  complex complex::operator*(const complex& z1)
+  complex complex::operator*(const complex& z1) const
   {
     gsl_complex rl = gsl_complex_mul(_complex, z1._complex);
     return complex(rl);
   }
 
-  complex complex::operator/(const complex& z1)
+  complex complex::operator/(const complex& z1) const
   {
     gsl_complex rl = gsl_complex_div(_complex, z1._complex);
     return complex(rl);
@@ -271,25 +271,25 @@ namespace gslpp
     return *this;
   }
 
-  complex complex::operator+(const double& a)
+  complex complex::operator+(const double& a) const
   {
     gsl_complex rl = gsl_complex_add_real(_complex,a);
     return complex(rl);
   }
 
-  complex complex::operator-(const double& a)
+  complex complex::operator-(const double& a) const
   {
     gsl_complex rl = gsl_complex_sub_real(_complex,a);
     return complex(rl);
   }
 
-  complex complex::operator*(const double& a)
+  complex complex::operator*(const double& a) const
   {
     gsl_complex rl = gsl_complex_mul_real(_complex,a);
     return complex(rl);
   }
 
-  complex complex::operator/(const double& a)
+  complex complex::operator/(const double& a) const
   {
     gsl_complex rl = gsl_complex_div_real(_complex,a);
     return complex(rl);
