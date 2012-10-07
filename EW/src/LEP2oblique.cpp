@@ -143,9 +143,7 @@ double LEP2oblique::aq(const StandardModel::quark q) const {
 
 double LEP2oblique::G1_NP(const double s, const double Qf, 
                           const double vf, const double af) const {
-    double epsilonbarGamma = - s/(myEW.Mw0()*myEW.Mw0())*epsilonGammaGamma();
-    double epsilonbarZ = - s/(myEW.Mw0()*myEW.Mw0())*epsilonZZ();
-    double epsilonbarGammaZ = s/(myEW.Mw0()*myEW.Mw0())*epsilonGammaZ();
+    double c0 = sqrt(myEW.c02()), s0 = sqrt(myEW.s02());
     double Qe = myEW.Ql(StandardModel::ELECTRON);
     double ve = vl(StandardModel::ELECTRON);
     double ae = al(StandardModel::ELECTRON);
@@ -155,6 +153,13 @@ double LEP2oblique::G1_NP(const double s, const double Qf,
     double GammaZ0 = 7.0*myEW.getSM().alphaMz()*Mz/(16.0*myEW.s02()*myEW.c02());
     complex denom = complex(s - Mz*Mz, Mz*GammaZ0, false);
     double Zprop = (1.0/denom).real();
+
+    double epsilonbarGamma = - s/(myEW.Mw0()*myEW.Mw0())*epsilonGammaGamma();
+    double epsilonbarZ = s*Zprop*DeltaEpsilon_1()
+                         - s/(myEW.Mw0()*myEW.Mw0())*epsilonZZ();
+    double epsilonbarGammaZ = c0/s0*s*Zprop*( DeltaEpsilon_1() - DeltaEpsilon_2() )
+                              - s0/c0*s*Zprop*DeltaEpsilon_3()
+                              + s/(myEW.Mw0()*myEW.Mw0())*epsilonGammaZ();
     
     return ( 2.0*Qe2*Qf2*epsilonbarGamma
              + 2.0*ve*vf*Qe*Qf*(epsilonbarZ + s*epsilonbarGamma*Zprop)
@@ -178,9 +183,7 @@ double LEP2oblique::G1_q_NP(const StandardModel::quark q, const double s) const 
 
 double LEP2oblique::G3_NP(const double s, const double Qf, 
                           const double vf, const double af) const {
-    double epsilonbarGamma = - s/(myEW.Mw0()*myEW.Mw0())*epsilonGammaGamma();
-    double epsilonbarZ = - s/(myEW.Mw0()*myEW.Mw0())*epsilonZZ();
-    double epsilonbarGammaZ = s/(myEW.Mw0()*myEW.Mw0())*epsilonGammaZ();
+    double c0 = sqrt(myEW.c02()), s0 = sqrt(myEW.s02());
     double Qe = myEW.Ql(StandardModel::ELECTRON);
     double ve = vl(StandardModel::ELECTRON);
     double ae = al(StandardModel::ELECTRON);
@@ -188,6 +191,13 @@ double LEP2oblique::G3_NP(const double s, const double Qf,
     double GammaZ0 = 7.0*myEW.getSM().alphaMz()*Mz/(16.0*myEW.s02()*myEW.c02());
     complex denom = complex(s - Mz*Mz, Mz*GammaZ0, false);
     double Zprop = (1.0/denom).real();
+    
+    double epsilonbarGamma = - s/(myEW.Mw0()*myEW.Mw0())*epsilonGammaGamma();
+    double epsilonbarZ = s*Zprop*DeltaEpsilon_1()
+                         - s/(myEW.Mw0()*myEW.Mw0())*epsilonZZ();
+    double epsilonbarGammaZ = c0/s0*s*Zprop*( DeltaEpsilon_1() - DeltaEpsilon_2() )
+                              - s0/c0*s*Zprop*DeltaEpsilon_3()
+                              + s/(myEW.Mw0()*myEW.Mw0())*epsilonGammaZ();
     
     return ( 2.0*ae*af*Qe*Qf*(epsilonbarZ + s*epsilonbarGamma*Zprop)
              + 8.0*ve*ae*vf*af*s*epsilonbarZ*Zprop
