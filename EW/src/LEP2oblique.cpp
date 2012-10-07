@@ -79,6 +79,24 @@ double LEP2oblique::R_q_LEP2_NP(const StandardModel::quark q,
 
 ////////////////////////////////////////////////////////////////////////
    
+double LEP2oblique::DeltaEpsilon_1() const {
+    double c0 = sqrt(myEW.c02()), s0 = sqrt(myEW.s02());
+    return ( myEW.That() - myEW.W() + 2.0*s0/c0*myEW.X() - s0*s0/c0/c0*myEW.Y() );
+}
+
+
+double LEP2oblique::DeltaEpsilon_2() const {
+    double c0 = sqrt(myEW.c02()), s0 = sqrt(myEW.s02());
+    return ( myEW.Uhat() - myEW.V() - myEW.W() + 2.0*s0/c0*myEW.X() );
+}
+
+
+double LEP2oblique::DeltaEpsilon_3() const {
+    double c0 = sqrt(myEW.c02()), s0 = sqrt(myEW.s02());
+    return ( myEW.Shat() - myEW.W() + myEW.X()/s0/c0 - myEW.Y() );
+}
+
+
 double LEP2oblique::epsilonZZ() const {
     double c0 = sqrt(myEW.c02()), s0 = sqrt(myEW.s02());
     return ( myEW.c02()*myEW.W() - 2.0*s0*c0*myEW.X() + myEW.s02()*myEW.Y() );
