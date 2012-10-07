@@ -41,6 +41,10 @@ public:
 private:
     const EW& myEW;
    
+    double DeltaEpsilon_1() const;
+    double DeltaEpsilon_2() const;    
+    double DeltaEpsilon_3() const;
+    
     double epsilonZZ() const;
     double epsilonGammaGamma() const;
     double epsilonGammaZ() const;
