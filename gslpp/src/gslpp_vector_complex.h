@@ -65,6 +65,8 @@ namespace gslpp
       size_t size() const;
       /** Get Euclidean norm */
       double mod() const;
+      /** Get complex conjugate vector */
+      vector<complex> conjugate() const;
       /** Conversion */
       gsl_vector_complex* as_gsl_type_ptr() const;
       gsl_vector_complex& as_gsl_type();
