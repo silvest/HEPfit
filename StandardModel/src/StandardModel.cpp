@@ -207,8 +207,8 @@ double StandardModel::c02() const {
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::DeltaAlphaLepton() const {
-    return myEWSM->DeltaAlphaLepton();
+double StandardModel::DeltaAlphaLepton(const double s) const {
+    return myEWSM->DeltaAlphaLepton(s);
 }
 
 double StandardModel::DeltaAlphaL5q() const {

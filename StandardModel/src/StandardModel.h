@@ -313,9 +313,10 @@ public:
     }
     
     /**
+     * @param[in] s invariant mass squared 
      * @return the leptonic corrections to alpha at Mz
      */
-    double DeltaAlphaLepton() const;
+    double DeltaAlphaLepton(const double s) const;
 
     /**
      * @return the sum of the leptonic and hadronic corrections to alpha at Mz
