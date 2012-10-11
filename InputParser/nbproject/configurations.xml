@@ -47,14 +47,6 @@
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>../boost_1_49_0</pElem>
-          </incDir>
-        </cTool>
         <ccTool>
           <incDir>
             <pElem>../gslpp/src</pElem>

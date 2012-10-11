@@ -71,13 +71,22 @@ public:
         return boolR0bApproximate;
     }
     
+    /**
+     * @brief set boolR0bApproximate
+     * @param[in] boolR0bApproximate if true, the approximate formula for R_b^0 is employed.
+     */
+    void setBoolR0bApproximate(bool boolR0bApproximate) {
+        this->boolR0bApproximate = boolR0bApproximate;
+    }
+
     
     //////////////////////////////////////////////////////////////////////// 
 
     /**
-     * @return the leptonic corrections to alpha at Mz
+     * @param[in] s invariant mass squared 
+     * @return the leptonic corrections to alpha
      */
-    double DeltaAlphaLepton() const;    
+    double DeltaAlphaLepton(const double s) const;    
 
     /**
      * @return the sum of the leptonic and hadronic corrections to alpha at Mz

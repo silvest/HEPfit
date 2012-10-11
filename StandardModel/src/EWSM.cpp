@@ -91,32 +91,35 @@ EWSM::EWSM(const StandardModel& SM_i, bool bDebug_i) : SM(SM_i) {
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSM::DeltaAlphaLepton() const {
-    if (bUseCacheEWSM)
-        if (checkSMparams(DeltaAlphaLepton_params_cache))
-            return DeltaAlphaLepton_cache;
-
+double EWSM::DeltaAlphaLepton(const double s) const {
+    if (s==SM.getMz()*SM.getMz())
+        if (bUseCacheEWSM)
+            if (checkSMparams(DeltaAlphaLepton_params_cache))
+                return DeltaAlphaLepton_cache;
+    
     double DeltaAlphaL = 0.0;
     if (flag_order[EW1]) 
-        DeltaAlphaL += myOneLoopEW->DeltaAlpha_l();
+        DeltaAlphaL += myOneLoopEW->DeltaAlpha_l(s);
     if (flag_order[EW1QCD1]) 
-        DeltaAlphaL += myTwoLoopQCD->DeltaAlpha_l();
+        DeltaAlphaL += myTwoLoopQCD->DeltaAlpha_l(s);
     if (flag_order[EW1QCD2]) 
-        DeltaAlphaL += myThreeLoopQCD->DeltaAlpha_l();
+        DeltaAlphaL += myThreeLoopQCD->DeltaAlpha_l(s);
     if (flag_order[EW2]) 
-        DeltaAlphaL += myTwoLoopEW->DeltaAlpha_l();
+        DeltaAlphaL += myTwoLoopEW->DeltaAlpha_l(s);
     if (flag_order[EW2QCD1]) 
-        DeltaAlphaL += myThreeLoopEW2QCD->DeltaAlpha_l();
+        DeltaAlphaL += myThreeLoopEW2QCD->DeltaAlpha_l(s);
     if (flag_order[EW3]) 
-        DeltaAlphaL += myThreeLoopEW->DeltaAlpha_l();
+        DeltaAlphaL += myThreeLoopEW->DeltaAlpha_l(s);
 
-    DeltaAlphaLepton_cache = DeltaAlphaL;
+    if (s==SM.getMz()*SM.getMz())
+        DeltaAlphaLepton_cache = DeltaAlphaL;
     return DeltaAlphaL;
 }
 
 
 double EWSM::DeltaAlphaL5q() const {
-    return (DeltaAlphaLepton() + SM.getDAle5Mz());
+    double Mz2 = SM.getMz()*SM.getMz();    
+    return (DeltaAlphaLepton(Mz2) + SM.getDAle5Mz());
 }
 
 
@@ -127,20 +130,21 @@ double EWSM::DeltaAlpha() const {
 
     // leptonic + hadronic contributions
     double DeltaAlpha = DeltaAlphaL5q(); 
-
+    
     // Top-quark contribution
+    double Mz2 = SM.getMz()*SM.getMz();
     if (flag_order[EW1]) 
-        DeltaAlpha += myOneLoopEW->DeltaAlpha_t();
+        DeltaAlpha += myOneLoopEW->DeltaAlpha_t(Mz2);
     if (flag_order[EW1QCD1]) 
-        DeltaAlpha += myTwoLoopQCD->DeltaAlpha_t();
+        DeltaAlpha += myTwoLoopQCD->DeltaAlpha_t(Mz2);
     if (flag_order[EW1QCD2]) 
-        DeltaAlpha += myThreeLoopQCD->DeltaAlpha_t();
+        DeltaAlpha += myThreeLoopQCD->DeltaAlpha_t(Mz2);
     if (flag_order[EW2]) 
-        DeltaAlpha += myTwoLoopEW->DeltaAlpha_t();
+        DeltaAlpha += myTwoLoopEW->DeltaAlpha_t(Mz2);
     if (flag_order[EW2QCD1]) 
-        DeltaAlpha += myThreeLoopEW2QCD->DeltaAlpha_t();
+        DeltaAlpha += myThreeLoopEW2QCD->DeltaAlpha_t(Mz2);
     if (flag_order[EW3]) 
-        DeltaAlpha += myThreeLoopEW->DeltaAlpha_t();
+        DeltaAlpha += myThreeLoopEW->DeltaAlpha_t(Mz2);
 
     DeltaAlpha_cache = DeltaAlpha;
     return DeltaAlpha; 

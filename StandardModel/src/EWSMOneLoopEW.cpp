@@ -12,15 +12,15 @@ EWSMOneLoopEW::EWSMOneLoopEW(const EWSMcache& cache_i) : cache(cache_i) {
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSMOneLoopEW::DeltaAlpha_l() const {  
+double EWSMOneLoopEW::DeltaAlpha_l(const double s) const {  
     double Mz = cache.Mz();
 
     double oneLoop[3];
-    oneLoop[0] = - PiGammaGamma_fer_l(Mz, Mz*Mz, StandardModel::ELECTRON).real() 
+    oneLoop[0] = - PiGammaGamma_fer_l(Mz, s, StandardModel::ELECTRON).real() 
                  + PiGammaGamma_fer_l(Mz, 0.0, StandardModel::ELECTRON).real();
-    oneLoop[1] = - PiGammaGamma_fer_l(Mz, Mz*Mz, StandardModel::MU).real() 
+    oneLoop[1] = - PiGammaGamma_fer_l(Mz, s, StandardModel::MU).real() 
                  + PiGammaGamma_fer_l(Mz, 0.0, StandardModel::MU).real();
-    oneLoop[2] = - PiGammaGamma_fer_l(Mz, Mz*Mz, StandardModel::TAU).real() 
+    oneLoop[2] = - PiGammaGamma_fer_l(Mz, s, StandardModel::TAU).real() 
                  + PiGammaGamma_fer_l(Mz, 0.0, StandardModel::TAU).real();
     
     return( cache.ale()/4.0/M_PI
@@ -28,8 +28,8 @@ double EWSMOneLoopEW::DeltaAlpha_l() const {
 }
 
 
-double EWSMOneLoopEW::DeltaAlpha_t() const {   
-    double xt = pow(cache.Mz()/cache.Mt(), 2.0);
+double EWSMOneLoopEW::DeltaAlpha_t(const double s) const {   
+    double xt = s/cache.Mt()/cache.Mt();
     double tmp = 1.0 + xt*0.1071;
     tmp *= -4.0/45.0*cache.ale()/M_PI*xt;
     return tmp;

@@ -84,7 +84,6 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     // Combinations of the extended oblique parameters
     
-    
     /**
      * @return Oblique parameter S'
      */

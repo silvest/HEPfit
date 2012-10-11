@@ -42,21 +42,23 @@ myFlavour(myModel), myEW(myModel), myMO(myModel)
     thobs["Mh0"] = new Mh0(myEW);
 
     //-----  Z-pole observables (with EW and StandardModel)  -----
-    thobs["Mw"] = new Mw(myEW);
-    thobs["sin2thetaEff"] = new sin2thetaEff(myEW);
-    thobs["GammaW"] = new GammaW(myEW);
-    thobs["GammaZ"] = new GammaZ(myEW);
-    thobs["Alepton"] = new Alepton(myEW);
-    thobs["Acharm"] = new Acharm(myEW);
-    thobs["Abottom"] = new Abottom(myEW);
-    thobs["PtauPol"] = new PtauPol(myEW);
-    thobs["AFBlepton"] = new AFBlepton(myEW);
-    thobs["AFBcharm"] = new AFBcharm(myEW);
-    thobs["AFBbottom"] = new AFBbottom(myEW);
-    thobs["Rlepton"] = new Rlepton(myEW);
-    thobs["Rcharm"] = new Rcharm(myEW);
-    thobs["Rbottom"] = new Rbottom(myEW);
-    thobs["sigmaHadron"] = new sigmaHadron(myEW);
+    //bool flag_CHMN = true; // use EW_CHMN class (test)
+    bool flag_CHMN = false;
+    thobs["Mw"] = new Mw(myEW, flag_CHMN);
+    thobs["sin2thetaEff"] = new sin2thetaEff(myEW, flag_CHMN);
+    thobs["GammaW"] = new GammaW(myEW, flag_CHMN);
+    thobs["GammaZ"] = new GammaZ(myEW, flag_CHMN);
+    thobs["Alepton"] = new Alepton(myEW, flag_CHMN);
+    thobs["Acharm"] = new Acharm(myEW, flag_CHMN);
+    thobs["Abottom"] = new Abottom(myEW, flag_CHMN);
+    thobs["PtauPol"] = new PtauPol(myEW, flag_CHMN);
+    thobs["AFBlepton"] = new AFBlepton(myEW, flag_CHMN);
+    thobs["AFBcharm"] = new AFBcharm(myEW, flag_CHMN);
+    thobs["AFBbottom"] = new AFBbottom(myEW, flag_CHMN);
+    thobs["Rlepton"] = new Rlepton(myEW, flag_CHMN);
+    thobs["Rcharm"] = new Rcharm(myEW, flag_CHMN);
+    thobs["Rbottom"] = new Rbottom(myEW, flag_CHMN);
+    thobs["sigmaHadron"] = new sigmaHadron(myEW, flag_CHMN);
 
     //-----   Z-pole observables (with ZFitter)   -----
     //thobs["Mw"] = new ZFMw(myZFitter);
