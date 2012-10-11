@@ -14,7 +14,7 @@ class Model {
 public:
     Model(){
         
-        MatchingInitialized = false; 
+        ModelInitialized = false; 
     };
     virtual bool Update(const std::map<std::string, double>&) = 0;
     virtual bool PreUpdate() = 0;
@@ -26,12 +26,12 @@ public:
     
     virtual std::string ModelName() const = 0;
     
-    bool IsMatchingInitialized() const {
-        return MatchingInitialized;
+    bool IsModelInitialized() const {
+        return ModelInitialized;
     }
 
-    void SetMatchingInitialized(bool MatchingInitialized) {
-        this->MatchingInitialized = MatchingInitialized;
+    void SetModelInitialized(bool ModelInitialized) {
+        this->ModelInitialized = ModelInitialized;
     }
     
     
@@ -50,7 +50,7 @@ protected:
     
 private:
 
-    bool MatchingInitialized;
+    bool ModelInitialized;
     
 };
 
