@@ -459,7 +459,7 @@ protected:
     
     bool Update(const std::map<std::string, double>& DPars);
     
-    virtual bool InitializeMatching();
+    virtual bool InitializeModel();
     
     virtual bool PreUpdate();
      

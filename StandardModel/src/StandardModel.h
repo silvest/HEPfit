@@ -17,7 +17,6 @@
 using namespace gslpp;
 class EWSM; // forward reference to EWSM class
 
-
 /**
  * @class StandardModel
  * @brief Standard Model Class
@@ -76,7 +75,7 @@ public:
     
     StandardModelMatching* myMatching;
         
-    virtual bool InitializeMatching();  
+    virtual bool InitializeModel();  
     
     virtual StandardModelMatching* GetMyMatching() const {
         return myStandardModelMatching;

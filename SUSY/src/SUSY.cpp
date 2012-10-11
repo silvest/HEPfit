@@ -8,6 +8,7 @@
 #include "SUSY.h"
 #include "SUSYMatching.h"
 #include "Spectrum.h"
+#include <EWSM.h>
 #include <math.h>
 #include <sstream>
 #include <stdexcept>
@@ -98,10 +99,11 @@ void SUSY::SetParameter(const std::string name, const double& value) {
         
 }
 
-bool SUSY::InitializeMatching(){
+bool SUSY::InitializeModel(){
     
     mySUSYMatching = new SUSYMatching(*this);
-    SetMatchingInitialized(true);
+    SetModelInitialized(true);
+    myEWSM = new EWSM(*this);
     return(true);
 }
 

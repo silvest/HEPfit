@@ -36,7 +36,6 @@ Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
     leptons[ELECTRON].setIsospin(-1./2.);
     leptons[MU].setIsospin(-1./2.);   
     leptons[TAU].setIsospin(-1./2.);
-    myEWSM = new EWSM(*this, bDebug_i);
 }
 
 bool StandardModel::SetFlag(const std::string name , const bool& value){  
@@ -173,10 +172,11 @@ bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars) 
 ///////////////////////////////////////////////////////////////////////////
 // Matching
 
-bool StandardModel::InitializeMatching(){
+bool StandardModel::InitializeModel(){
     
     myStandardModelMatching = new StandardModelMatching(*this);
-    SetMatchingInitialized(true);
+    SetModelInitialized(true);
+    myEWSM = new EWSM(*this);
     return(true);
 }
 

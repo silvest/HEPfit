@@ -8,7 +8,6 @@
 
 #include <cstring>
 #include <gslpp.h>
-#include "StandardModel.h"
 #include "EWSMcache.h"
 #include "EWSMOneLoopEW.h"
 #include "EWSMTwoLoopQCD.h"
@@ -23,6 +22,7 @@
 
 using namespace gslpp;
 
+class StandardModel;
 
 class EWSM {
 public:
