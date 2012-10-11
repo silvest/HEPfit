@@ -33,9 +33,9 @@ public:
     /**
      * @return a reference to the StandardModel object
      */
-    //const StandardModel& getSM() const {
-    //    return SM;
-    //}
+    const StandardModel& getSM() const {
+        return SM;
+    }
     
     /**
      * @return the object of PVfunctions class

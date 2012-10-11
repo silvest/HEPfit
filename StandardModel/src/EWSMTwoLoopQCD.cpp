@@ -13,14 +13,19 @@ EWSMTwoLoopQCD::EWSMTwoLoopQCD(const EWSMcache& cache_i) : cache(cache_i) {
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSMTwoLoopQCD::DeltaAlpha_l() const {
+double EWSMTwoLoopQCD::DeltaAlpha_l(const double s) const {
     return (0.0);
 }    
 
 
-double EWSMTwoLoopQCD::DeltaAlpha_t() const {   
-    double xt = pow(cache.Mz()/cache.Mt(), 2.0);
-    double tmp = (5.062 + xt*0.8315)*cache.alsMz()/M_PI;
+double EWSMTwoLoopQCD::DeltaAlpha_t(const double s) const {   
+    double xt = s/cache.Mt()/cache.Mt();
+    double als;
+    if (s==cache.Mz()*cache.Mz())
+        als = cache.alsMz();
+    else
+        als = cache.getSM().Als(sqrt(s),FULLNNLO);
+    double tmp = (5.062 + xt*0.8315)*als/M_PI;
     tmp *= -4.0/45.0*cache.ale()/M_PI*xt;
     return tmp;
 } 
