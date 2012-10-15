@@ -42,23 +42,25 @@ myFlavour(myModel), myEW(myModel), myMO(myModel)
     thobs["Mh0"] = new Mh0(myEW);
 
     //-----  Z-pole observables (with EW and StandardModel)  -----
-    //bool flag_CHMN = true; // use EW_CHMN class (test)
+    //bool flag_CHMN = true; // TEST: use EW_CHMN class
     bool flag_CHMN = false;
-    thobs["Mw"] = new Mw(myEW, flag_CHMN);
-    thobs["sin2thetaEff"] = new sin2thetaEff(myEW, flag_CHMN);
-    thobs["GammaW"] = new GammaW(myEW, flag_CHMN);
-    thobs["GammaZ"] = new GammaZ(myEW, flag_CHMN);
-    thobs["Alepton"] = new Alepton(myEW, flag_CHMN);
-    thobs["Acharm"] = new Acharm(myEW, flag_CHMN);
-    thobs["Abottom"] = new Abottom(myEW, flag_CHMN);
-    thobs["PtauPol"] = new PtauPol(myEW, flag_CHMN);
-    thobs["AFBlepton"] = new AFBlepton(myEW, flag_CHMN);
-    thobs["AFBcharm"] = new AFBcharm(myEW, flag_CHMN);
-    thobs["AFBbottom"] = new AFBbottom(myEW, flag_CHMN);
-    thobs["Rlepton"] = new Rlepton(myEW, flag_CHMN);
-    thobs["Rcharm"] = new Rcharm(myEW, flag_CHMN);
-    thobs["Rbottom"] = new Rbottom(myEW, flag_CHMN);
-    thobs["sigmaHadron"] = new sigmaHadron(myEW, flag_CHMN);
+    //bool flag_BURGESS = true; // TEST: use the formulae in hep-ph/9411257 by C.P. Burgess
+    bool flag_BURGESS = false;
+    thobs["Mw"] = new Mw(myEW, flag_CHMN, flag_BURGESS);
+    thobs["sin2thetaEff"] = new sin2thetaEff(myEW, flag_CHMN, flag_BURGESS);
+    thobs["GammaW"] = new GammaW(myEW, flag_CHMN, flag_BURGESS);
+    thobs["GammaZ"] = new GammaZ(myEW, flag_CHMN, flag_BURGESS);
+    thobs["Alepton"] = new Alepton(myEW, flag_CHMN, flag_BURGESS);
+    thobs["Acharm"] = new Acharm(myEW, flag_CHMN, flag_BURGESS);
+    thobs["Abottom"] = new Abottom(myEW, flag_CHMN, flag_BURGESS);
+    thobs["PtauPol"] = new PtauPol(myEW, flag_CHMN, flag_BURGESS);
+    thobs["AFBlepton"] = new AFBlepton(myEW, flag_CHMN, flag_BURGESS);
+    thobs["AFBcharm"] = new AFBcharm(myEW, flag_CHMN, flag_BURGESS);
+    thobs["AFBbottom"] = new AFBbottom(myEW, flag_CHMN, flag_BURGESS);
+    thobs["Rlepton"] = new Rlepton(myEW, flag_CHMN, flag_BURGESS);
+    thobs["Rcharm"] = new Rcharm(myEW, flag_CHMN, flag_BURGESS);
+    thobs["Rbottom"] = new Rbottom(myEW, flag_CHMN, flag_BURGESS);
+    thobs["sigmaHadron"] = new sigmaHadron(myEW, flag_CHMN, flag_BURGESS);
 
     //-----   Z-pole observables (with ZFitter)   -----
     //thobs["Mw"] = new ZFMw(myZFitter);
