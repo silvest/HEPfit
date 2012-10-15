@@ -7,6 +7,7 @@
       <itemPath>src/Msq.h</itemPath>
       <itemPath>src/SUSY.h</itemPath>
       <itemPath>src/SUSYMatching.h</itemPath>
+      <itemPath>src/Spectrum.h</itemPath>
       <itemPath>src/SusyObservables.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -18,6 +19,7 @@
                    projectFiles="true">
       <itemPath>src/SUSY.cpp</itemPath>
       <itemPath>src/SUSYMatching.cpp</itemPath>
+      <itemPath>src/Spectrum.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -30,8 +32,6 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
-    <itemPath>src/Spectrum.cpp</itemPath>
-    <itemPath>src/Spectrum.h</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -49,6 +49,7 @@
             <pElem>../Utils/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../Observables/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
           </incDir>
         </ccTool>
         <archiverTool>
