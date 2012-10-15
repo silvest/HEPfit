@@ -41,25 +41,25 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
         if (beg->compare("StandardModel") == 0) {
             modname = *beg;
             myModel = new StandardModel();
-            myModel->InitializeMatching();
+            myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("NewPhysicsSTU") == 0) {
             modname = *beg;
             myModel = new NewPhysicsSTU();
-            myModel->InitializeMatching();
+            myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("NewPhysicsSTUVWXY") == 0) {
             modname = *beg;
             myModel = new NewPhysicsSTUVWXY();
-            myModel->InitializeMatching();
+            myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("MFV") == 0) {
             modname = *beg;
             myModel = new MFV();
-            myModel->InitializeMatching();
+            myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("SusyMI") == 0) {

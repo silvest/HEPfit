@@ -53,10 +53,10 @@ MFV::MFV() :
 }
 
 
-bool MFV::InitializeMatching(){
+bool MFV::InitializeModel(){
     
-    SetMatchingInitialized(SUSY::InitializeMatching());
-    return (IsMatchingInitialized());
+    SetModelInitialized(SUSY::InitializeModel());
+    return (IsModelInitialized());
     
 }
 
