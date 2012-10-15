@@ -21,6 +21,8 @@ EW::EW(const StandardModel& SM_i, bool bDebug_i) : ThObsType(SM_i), SM(SM_i) {
 
 bool EW::checkModelForSTU() const {
     std::string Model = SM.ModelName();
+    //std::cout << "Model in EW: " << Model << std::endl; // TEST
+
     if (Model=="StandardModel" || Model=="SUSY")
         return false;
     else if (Model=="NewPhysicsSTU" || Model=="NewPhysicsSTUVWXY" 
