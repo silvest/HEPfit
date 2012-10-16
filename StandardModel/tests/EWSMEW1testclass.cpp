@@ -16,6 +16,7 @@ EWSMEW1testclass::~EWSMEW1testclass() {
 
 void EWSMEW1testclass::setUp() {
     mySM = new StandardModel(true);
+    mySM->InitializeModel();
     setSMparameters(*mySM);   
     myCache = new EWSMcache(*mySM, true);
     myEW1 = new EWSMOneLoopEW(*myCache);

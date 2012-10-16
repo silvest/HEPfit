@@ -129,6 +129,7 @@ int main(int argc, char** argv) {
     try {    
         StandardModel* mySM;
         mySM = new StandardModel(true);
+        mySM->InitializeModel();
         setSMparameters(*mySM);
 
         cout.precision(8);
