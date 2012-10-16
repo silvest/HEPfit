@@ -273,26 +273,26 @@ double StandardModel::GammaW() const {
 
 double StandardModel::sigma_l_LEP2(const StandardModel::lepton l, const double s,
                                    const double Mw, const double GammaZ,
-                                   const bool bWEAK, const bool bWEAKBOX, const bool bQED) const {
-    return (myEWSM->sigma_l(l, s, Mw, GammaZ, bWEAK, bWEAKBOX, bQED));
+                                   const std::map<std::string, bool>& flags) const {
+    return (myEWSM->sigma_l(l, s, Mw, GammaZ, flags));
 }
 
 double StandardModel::sigma_q_LEP2(const StandardModel::quark q, const double s,
                                    const double Mw, const double GammaZ,
-                                   const bool bWEAK, const bool bWEAKBOX, const bool bQED) const {
-    return (myEWSM->sigma_q(q, s, Mw, GammaZ, bWEAK, bWEAKBOX, bQED));
+                                   const std::map<std::string, bool>& flags) const {
+    return (myEWSM->sigma_q(q, s, Mw, GammaZ, flags));
 }
 
 double StandardModel::AFB_l_LEP2(const StandardModel::lepton l, const double s,
                                  const double Mw, const double GammaZ,
-                                 const bool bWEAK, const bool bWEAKBOX, const bool bQED) const {
-    return (myEWSM->AFB_l(l, s, Mw, GammaZ, bWEAK, bWEAKBOX, bQED));
+                                 const std::map<std::string, bool>& flags) const {
+    return (myEWSM->AFB_l(l, s, Mw, GammaZ, flags));
 }
 
 double StandardModel::AFB_q_LEP2(const StandardModel::quark q, const double s,
                                  const double Mw, const double GammaZ,
-                                 const bool bWEAK, const bool bWEAKBOX, const bool bQED) const {
-    return (myEWSM->AFB_q(q, s, Mw, GammaZ, bWEAK, bWEAKBOX, bQED));
+                                 const std::map<std::string, bool>& flags) const {
+    return (myEWSM->AFB_q(q, s, Mw, GammaZ, flags));
 }
     
 

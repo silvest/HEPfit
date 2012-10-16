@@ -313,13 +313,12 @@ double EWSMTwoFermionsLEP2_Hollik::aq(const StandardModel::quark q, const double
 // Dressed gauge-boson propagators
 
 complex EWSMTwoFermionsLEP2_Hollik::chi_Z(const double mu, const double s, 
-                                   const double Mw, const bool bDP) const {
-    double Mz = SM.getMz();
-        
+                                   const double Mw, const bool bDP) const {        
     complex chi;
-    if (bDP) 
+    if (bDP) {
+        double Mz = SM.getMz();
         chi = s/(s - Mz*Mz + Sigma_hat_ZZ(mu,s,Mw));
-    else {
+    } else {
         double Mw2 = Mw*Mw;
         double Mz = SM.getMz(), Mz2 = Mz*Mz;
         double cW2 = Mw2/Mz2;

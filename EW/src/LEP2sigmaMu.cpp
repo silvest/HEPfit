@@ -6,23 +6,15 @@
 #include "LEP2sigmaMu.h"
 
 
-LEP2sigmaMu::LEP2sigmaMu(const EW& EW_i, const double sqrt_s_i) : ThObservable(EW_i), 
-            myEW(EW_i), myLEP2oblique(EW_i), sqrt_s(sqrt_s_i) {
-    bDP = true;
-    bWEAK = true;
-    bQED = true;
-}
-
-
 double LEP2sigmaMu::getThValue() { 
     double s = sqrt_s*sqrt_s;
     double Mw = SM.Mw(); 
     double GammaZ = myEW.Gamma_Z();
 
     if (!SM.getEWSM()->checkForLEP2(SMparams_cache, bool_cache,
-                                              s, Mw, GammaZ, bDP, bWEAK, bQED))
+                                              s, Mw, GammaZ, Flags))
         SMresult_cache = SM.sigma_l_LEP2(StandardModel::MU, 
-                                                   s, Mw, GammaZ, bDP, bWEAK, bQED);
+                                                   s, Mw, GammaZ, Flags);
     double sigma_mu = SMresult_cache;
     
     if ( myEW.checkModelForSTU() ) {
