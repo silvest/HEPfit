@@ -227,14 +227,14 @@ public:
     
     ///////////////////////////////////////////////////////////////////////////
 
-    protected: 
+protected: 
     
     virtual void SetParameter(const std::string, const double&);
     THDMcache mycache;
 
     private:
         
-    PVfunctions PV;
+    //PVfunctions PV;
     
     double DeltaS, DeltaT, DeltaU;
     
@@ -249,6 +249,15 @@ public:
     
     ////////////////////////////////////////////////////////////////////////////
     /*One-loop functions*/
+    
+    /**
+     * @brief function F(m0,m1) used for THDM. Remember that this function is
+     * defined for THDM while for SUSY we have a multiplicative factor 2.
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the function F for THDM 
+     */
+    double F(const double m0, const double m1) const;
     
 //    complex B0_Mz_0_Mz_mH;
 //    complex B0_Mz_0_Mz_mh;

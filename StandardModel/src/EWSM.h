@@ -18,7 +18,6 @@
 #include "EWSMApproximateFormulae.h"
 #include "EWSMOneLoopEW_HV.h"
 #include "EWSMTwoFermionsLEP2.h"
-#include "EWSMOneLoopLEP2.h"
 
 using namespace gslpp;
 
@@ -251,56 +250,56 @@ public:
      * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
      * @param[in] Mw the W-boson mass 
      * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] bDP with/without dressed gauge-boson propagators
      * @param[in] bWEAK with/without weak corrections
+     * @param[in] bWEAKBOX with/without weak box corrections
      * @param[in] bQED with/without QED corrections
      * @return the total cross section for e^+ e^- -> l lbar in GeV^{-2}
      */
     double sigma_l(const StandardModel::lepton l, const double s, 
                    const double Mw, const double GammaZ, 
-                   const bool bDP, const bool bWEAK, const bool bQED) const;
+                   const bool bWEAK, const bool bWEAKBOX, const bool bQED) const;
     
     /**
      * @param[in] q name of a quark
      * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
      * @param[in] Mw the W-boson mass 
      * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] bDP with/without dressed gauge-boson propagators
      * @param[in] bWEAK with/without weak corrections
+     * @param[in] bWEAKBOX with/without weak box corrections
      * @param[in] bQED with/without QED corrections
      * @return the total cross section for e^+ e^- -> q qbar in GeV^{-2}
      */
     double sigma_q(const StandardModel::quark q, const double s, 
                    const double Mw, const double GammaZ, 
-                   const bool bDP, const bool bWEAK, const bool bQED) const;
+                   const bool bWEAK, const bool bWEAKBOX, const bool bQED) const;
 
     /**
      * @param[in] l name of a lepton
      * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
      * @param[in] Mw the W-boson mass 
      * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] bDP with/without dressed gauge-boson propagators
      * @param[in] bWEAK with/without weak corrections
+     * @param[in] bWEAKBOX with/without weak box corrections
      * @param[in] bQED with/without QED corrections
      * @return the forward-backward asymmetry for e^+ e^- -> l lbar
      */
     double AFB_l(const StandardModel::lepton l, const double s, 
                  const double Mw, const double GammaZ, 
-                 const bool bDP, const bool bWEAK, const bool bQED) const;
+                 const bool bWEAK, const bool bWEAKBOX, const bool bQED) const;
     
     /**
      * @param[in] q name of a quark
      * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
      * @param[in] Mw the W-boson mass 
      * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] bDP with/without dressed gauge-boson propagators
      * @param[in] bWEAK with/without weak corrections
+     * @param[in] bWEAKBOX with/without weak box corrections
      * @param[in] bQED with/without QED corrections
      * @return the forward-backward asymmetry for e^+ e^- -> q qbar
      */
     double AFB_q(const StandardModel::quark q, const double s, 
                  const double Mw, const double GammaZ, 
-                 const bool bDP, const bool bWEAK, const bool bQED) const;    
+                 const bool bWEAK, const bool bWEAKBOX, const bool bQED) const;    
     
     bool checkForLEP2(double Params_cache[], bool bool_cache[],
                       const double s, const double Mw, const double GammaZ, 
@@ -338,18 +337,6 @@ public:
     
     
     ////////////////////////////////////////////////////////////////////////     
-    // LEP-II observables with EWSMOneLoopLEP2 class
-    
-    double dsigmaLEP2_l(const StandardModel::lepton l,const double s,const double Mw_i,
-                        const double cos_theta,const double W,const double X,const double Y,
-                        const double GammaZ) const;
-    
-    double dsigmaLEP2_q(const StandardModel::quark q,const double s,const double Mw_i,
-                        const double cos_theta,const double W,const double X,const double Y,
-                        const double GammaZ) const;
-
-    
-    ////////////////////////////////////////////////////////////////////////     
 protected:
 
     const StandardModel& SM;
@@ -371,7 +358,6 @@ private:
     EWSMApproximateFormulae* myApproximateFormulae;
     
     EWSMTwoFermionsLEP2* myTwoFermionsLEP2;
-    EWSMOneLoopLEP2* myOneLoopLEP2;
         
     // accuracy in the iterative calculation of Mw
     static const double Mw_error;

@@ -34,9 +34,6 @@
 #include "LEP2Rbottom.h"
 #include "LEP2Rcharm.h"
 
-#include "sigmamuLEP2.h"
-#include "sigmaqLEP2.h"
-
 #include "obliqueS.h"
 #include "obliqueT.h"
 #include "obliqueU.h"

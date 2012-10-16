@@ -35,8 +35,6 @@
       <itemPath>src/obliqueT.h</itemPath>
       <itemPath>src/obliqueU.h</itemPath>
       <itemPath>src/sigmaHadron.h</itemPath>
-      <itemPath>src/sigmamuLEP2.h</itemPath>
-      <itemPath>src/sigmaqLEP2.h</itemPath>
       <itemPath>src/sin2thetaEff.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -75,8 +73,6 @@
       <itemPath>src/obliqueT.cpp</itemPath>
       <itemPath>src/obliqueU.cpp</itemPath>
       <itemPath>src/sigmaHadron.cpp</itemPath>
-      <itemPath>src/sigmamuLEP2.cpp</itemPath>
-      <itemPath>src/sigmaqLEP2.cpp</itemPath>
       <itemPath>src/sin2thetaEff.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"

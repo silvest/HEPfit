@@ -201,35 +201,6 @@ public:
     double A_q(const StandardModel::quark q) const;
 
     
-    ////////////////////////////////////////////////////////////////////////
-
-    /**
-     * @param[in] l name of a lepton
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] W oblique parameter W
-     * @param[in] X oblique parameter X
-     * @param[in] Y oblique parameter Y
-     * @param[in] cos_theta cos(theta)
-     * @return the differential cross section for e^+ e^- -> l lbar in GeV^{-2}
-     */
-    double dsigma_lLEP2(const StandardModel::lepton l, const double s,
-                        const double W, const double X,const double Y, 
-                        const double cos_theta) const;
-    
-    /**
-     * @param[in] q name of a quark
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] W oblique parameter W
-     * @param[in] X oblique parameter X
-     * @param[in] Y oblique parameter Y
-     * @param[in] cos_theta cos(theta)
-     * @return the differential cross section for e^+ e^- -> q qbar in GeV^{-2}
-     */
-    double dsigma_qLEP2(const StandardModel::quark q, const double s,
-                        const double W, const double X, const double Y, 
-                        const double cos_theta) const;
-   
-
     ////////////////////////////////////////////////////////////////////////   
     
 private:

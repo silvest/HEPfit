@@ -120,41 +120,6 @@ myFlavour(myModel), myEW(myModel), myMO(myModel)
         thobs["RcharmLEP2_" + sqrt_s_str] = myLEP2Rcharm[i];  
     }    
 
-    //-----  LEP-II observables (with EWSMOneLoopLEP2 class in StandardModel)  -----    
-    //sigmaqLEP2* mySigmaqLEP2[12];
-    //sigmamuLEP2* mySigmamuLEP2[12];
-    //sigmatauLEP2* mySigmatauLEP2[12];
-    //AFBmuLEP2* myAFBmuLEP2[12];
-    //AFBtauLEP2* myAFBtauLEP2[12];
-    //AFBbottomLEP2* myAFBbottomLEP2[10];
-    //AFBcharmLEP2* myAFBcharmLEP2[10];
-    //RbottomLEP2* myRbottomLEP2[10];
-    //RcharmLEP2* myRcharmLEP2[10];
-    //for (int i=0; i<12; i++) { 
-    //    std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_s[i]);
-    //    mySigmaqLEP2[i] = new sigmaqLEP2(myEW, sqrt_s[i]);
-    //    thobs["sigmaqLEP2_" + sqrt_s_str] = mySigmaqLEP2[i];
-    //    mySigmamuLEP2[i] = new sigmamuLEP2(myEW, sqrt_s[i]);
-    //    thobs["sigmamuLEP2_" + sqrt_s_str] = mySigmamuLEP2[i];
-    //    mySigmatauLEP2[i] = new sigmatauLEP2(myEW, sqrt_s[i]);
-    //    thobs["sigmatauLEP2_" + sqrt_s_str] = mySigmatauLEP2[i];
-    //    myAFBmuLEP2[i] = new AFBmuLEP2(myEW, sqrt_s[i]);
-    //    thobs["AFBmuLEP2_" + sqrt_s_str] = myAFBmuLEP2[i];
-    //    myAFBtauLEP2[i] = new AFBtauLEP2(myEW, sqrt_s[i]);
-    //    thobs["AFBtauLEP2_" + sqrt_s_str] = myAFBtauLEP2[i];
-    //}
-    //for (int i=0; i<10; i++) { 
-    //    std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_s_HF[i]);
-    //    myAFBbottomLEP2[i] = new AFBbottomLEP2(myEW, sqrt_s_HF[i]);
-    //    thobs["AFBbottomLEP2_" + sqrt_s_str] = myAFBbottomLEP2[i];
-    //    myAFBcharmLEP2[i] = new AFBcharmLEP2(myEW, sqrt_s_HF[i]);
-    //    thobs["AFBcharmLEP2_" + sqrt_s_str] = myAFBcharmLEP2[i];
-    //    myRbottomLEP2[i] = new RbottomLEP2(myEW, sqrt_s_HF[i]);  
-    //    thobs["RbottomLEP2_" + sqrt_s_str] = myRbottomLEP2[i];
-    //    myRcharmLEP2[i] = new RcharmLEP2(myEW, sqrt_s_HF[i]);
-    //    thobs["RcharmLEP2_" + sqrt_s_str] = myRcharmLEP2[i];        
-    //}
-
 }
 
 ThFactory::~ThFactory() {
