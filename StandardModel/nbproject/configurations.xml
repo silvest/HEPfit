@@ -99,6 +99,14 @@
         <itemPath>tests/EWSMQCD3testclass.h</itemPath>
         <itemPath>tests/EWSMQCD3testrunner.cpp</itemPath>
       </logicalFolder>
+      <logicalFolder name="f10"
+                     displayName="EWSMTwoFermionsLEP2"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/EWSMLEP2testclass.cpp</itemPath>
+        <itemPath>tests/EWSMLEP2testclass.h</itemPath>
+        <itemPath>tests/EWSMLEP2testrunner.cpp</itemPath>
+      </logicalFolder>
       <logicalFolder name="f7"
                      displayName="EWSMTwoLoopEW"
                      projectFiles="true"
@@ -287,6 +295,24 @@
             </linkerLibProjectItem>
           </linkerLibItems>
           <commandLine>-pthread -lm -ldl -rdynamic</commandLine>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f10">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f10</output>
+          <linkerLibItems>
+            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+          </linkerLibItems>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">

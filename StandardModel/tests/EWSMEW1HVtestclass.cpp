@@ -17,6 +17,7 @@ EWSMEW1HVtestclass::~EWSMEW1HVtestclass() {
 
 void EWSMEW1HVtestclass::setUp() {
     mySM = new StandardModel(true);
+    mySM->InitializeModel();
     setSMparameters(*mySM);   
     myEW1HV = new EWSMOneLoopEW_HV(*mySM);
 
@@ -35,7 +36,6 @@ void EWSMEW1HVtestclass::setUp() {
 void EWSMEW1HVtestclass::tearDown() {
     delete myEW1HV; 
     delete mySM;  
-
 }
 
 void EWSMEW1HVtestclass::F_Hollik_0_Mw_Mw_real() {
