@@ -273,37 +273,26 @@ double StandardModel::GammaW() const {
 
 double StandardModel::sigma_l_LEP2(const StandardModel::lepton l, const double s,
                                    const double Mw, const double GammaZ,
-                                   const bool bDP, const bool bWEAK, const bool bQED) const {
-    return (myEWSM->sigma_l(l, s, Mw, GammaZ, bDP, bWEAK, bQED));
+                                   const bool bWEAK, const bool bWEAKBOX, const bool bQED) const {
+    return (myEWSM->sigma_l(l, s, Mw, GammaZ, bWEAK, bWEAKBOX, bQED));
 }
 
 double StandardModel::sigma_q_LEP2(const StandardModel::quark q, const double s,
                                    const double Mw, const double GammaZ,
-                                   const bool bDP, const bool bWEAK, const bool bQED) const {
-    return (myEWSM->sigma_q(q, s, Mw, GammaZ, bDP, bWEAK, bQED));
+                                   const bool bWEAK, const bool bWEAKBOX, const bool bQED) const {
+    return (myEWSM->sigma_q(q, s, Mw, GammaZ, bWEAK, bWEAKBOX, bQED));
 }
 
 double StandardModel::AFB_l_LEP2(const StandardModel::lepton l, const double s,
                                  const double Mw, const double GammaZ,
-                                 const bool bDP, const bool bWEAK, const bool bQED) const {
-    return (myEWSM->AFB_l(l, s, Mw, GammaZ, bDP, bWEAK, bQED));
+                                 const bool bWEAK, const bool bWEAKBOX, const bool bQED) const {
+    return (myEWSM->AFB_l(l, s, Mw, GammaZ, bWEAK, bWEAKBOX, bQED));
 }
 
 double StandardModel::AFB_q_LEP2(const StandardModel::quark q, const double s,
                                  const double Mw, const double GammaZ,
-                                 const bool bDP, const bool bWEAK, const bool bQED) const {
-    return (myEWSM->AFB_q(q, s, Mw, GammaZ, bDP, bWEAK, bQED));
-}
-
-double StandardModel::DsigmaLEP2_l(const StandardModel::lepton l, const double s, const double cos_theta,  
-                                   const double W, const double X, const double Y, const double GammaZ) const{
-    return (myEWSM->dsigmaLEP2_l(l, s, Mw(), cos_theta, W, X, Y, GammaZ));
-}
-
-double StandardModel::DsigmaLEP2_q(const StandardModel::quark q, const double s, 
-                                   const double cos_theta, const double W, 
-                                   const double X, const double Y, const double GammaZ) const{
-    return (myEWSM->dsigmaLEP2_q(q, s, Mw(), cos_theta, W, X, Y, GammaZ));
+                                 const bool bWEAK, const bool bWEAKBOX, const bool bQED) const {
+    return (myEWSM->AFB_q(q, s, Mw, GammaZ, bWEAK, bWEAKBOX, bQED));
 }
     
 

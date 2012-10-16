@@ -73,6 +73,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../Utils/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
+            <pElem>../LoopFunctions/src</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>
@@ -102,6 +103,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../Utils/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
+            <pElem>../LoopFunctions/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/BAT/include -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include</commandLine>
         </ccTool>

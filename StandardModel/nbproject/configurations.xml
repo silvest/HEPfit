@@ -10,11 +10,11 @@
       <itemPath>src/EWSMApproximateFormulae.h</itemPath>
       <itemPath>src/EWSMOneLoopEW.h</itemPath>
       <itemPath>src/EWSMOneLoopEW_HV.h</itemPath>
-      <itemPath>src/EWSMOneLoopLEP2.h</itemPath>
       <itemPath>src/EWSMThreeLoopEW.h</itemPath>
       <itemPath>src/EWSMThreeLoopEW2QCD.h</itemPath>
       <itemPath>src/EWSMThreeLoopQCD.h</itemPath>
       <itemPath>src/EWSMTwoFermionsLEP2.h</itemPath>
+      <itemPath>src/EWSMTwoFermionsLEP2_Hollik.h</itemPath>
       <itemPath>src/EWSMTwoLoopEW.h</itemPath>
       <itemPath>src/EWSMTwoLoopQCD.h</itemPath>
       <itemPath>src/EWSMcache.h</itemPath>
@@ -44,11 +44,11 @@
       <itemPath>src/EWSMApproximateFormulae.cpp</itemPath>
       <itemPath>src/EWSMOneLoopEW.cpp</itemPath>
       <itemPath>src/EWSMOneLoopEW_HV.cpp</itemPath>
-      <itemPath>src/EWSMOneLoopLEP2.cpp</itemPath>
       <itemPath>src/EWSMThreeLoopEW.cpp</itemPath>
       <itemPath>src/EWSMThreeLoopEW2QCD.cpp</itemPath>
       <itemPath>src/EWSMThreeLoopQCD.cpp</itemPath>
       <itemPath>src/EWSMTwoFermionsLEP2.cpp</itemPath>
+      <itemPath>src/EWSMTwoFermionsLEP2_Hollik.cpp</itemPath>
       <itemPath>src/EWSMTwoLoopEW.cpp</itemPath>
       <itemPath>src/EWSMTwoLoopQCD.cpp</itemPath>
       <itemPath>src/EWSMcache.cpp</itemPath>

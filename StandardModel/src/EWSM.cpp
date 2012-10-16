@@ -23,7 +23,10 @@ EWSM::EWSM(const StandardModel& SM_i, bool bDebug_i) : SM(SM_i) {
     //bUseCacheEWSM = false;// do not use caches in the current class (for test)
     
     std::string Model = SM.ModelName();
-    if (Model=="StandardModel" || Model=="THDM") {
+    //std::cout << "Model in EWSM: " << Model << std::endl;
+    if (Model=="StandardModel" 
+            || Model=="NewPhysicsSTU" || Model=="NewPhysicsSTUVWXY" 
+            || Model=="THDM") {
         //schemeMw = NORESUM;// for test
         //schemeMw = OMSI;// for test
         //schemeMw = OMSII;// for test
@@ -58,7 +61,6 @@ EWSM::EWSM(const StandardModel& SM_i, bool bDebug_i) : SM(SM_i) {
     myApproximateFormulae = new EWSMApproximateFormulae(SM, bDebug_i);   
 
     myTwoFermionsLEP2 = new EWSMTwoFermionsLEP2(SM);
-    myOneLoopLEP2 = new EWSMOneLoopLEP2(*myCache,SM);
 
     // Initializations of the caches
     DeltaAlphaLepton_cache = 0.0;
@@ -658,45 +660,29 @@ double EWSM::taub() const {
 
 double EWSM::sigma_l(const StandardModel::lepton l, const double s, 
                      const double Mw, const double GammaZ, 
-                     const bool bDP, const bool bWEAK, const bool bQED) const {
-    return (getMyTwoFermionsLEP2()->sigma_l(l, s, Mw, GammaZ, bDP, bWEAK, bQED)); 
+                     const bool bWEAK, const bool bWEAKBOX, const bool bQED) const {
+    return (getMyTwoFermionsLEP2()->sigma_l(l, s, Mw, GammaZ, bWEAK, bWEAKBOX, bQED)); 
 }
     
 
 double EWSM::sigma_q(const StandardModel::quark q, const double s, 
                      const double Mw, const double GammaZ, 
-                     const bool bDP, const bool bWEAK, const bool bQED) const {
-    return (getMyTwoFermionsLEP2()->sigma_q(q, s, Mw, GammaZ, bDP, bWEAK, bQED));
+                     const bool bWEAK, const bool bWEAKBOX, const bool bQED) const {
+    return (getMyTwoFermionsLEP2()->sigma_q(q, s, Mw, GammaZ, bWEAK, bWEAKBOX, bQED));
 }
 
 
 double EWSM::AFB_l(const StandardModel::lepton l, const double s, 
                   const double Mw, const double GammaZ, 
-                  const bool bDP, const bool bWEAK, const bool bQED) const {
-    return (getMyTwoFermionsLEP2()->AFB_l(l, s, Mw, GammaZ, bDP, bWEAK, bQED));
+                  const bool bWEAK, const bool bWEAKBOX, const bool bQED) const {
+    return (getMyTwoFermionsLEP2()->AFB_l(l, s, Mw, GammaZ, bWEAK, bWEAKBOX, bQED));
 }
     
 
 double EWSM::AFB_q(const StandardModel::quark q, const double s, 
                   const double Mw, const double GammaZ, 
-                  const bool bDP, const bool bWEAK, const bool bQED) const {
-    return (getMyTwoFermionsLEP2()->AFB_q(q, s, Mw, GammaZ, bDP, bWEAK, bQED));
-}
-
-
-////////////////////////////////////////////////////////////////////////     
-
-double EWSM::dsigmaLEP2_l(const StandardModel::lepton l, const double s, 
-                          const double Mw_i, const double cos_theta, const double W, 
-                          const double X, const double Y, const double GammaZ) const{
-    return (myOneLoopLEP2->dsigma_l(l, s, Mw_i, cos_theta, W, X, Y, GammaZ));
-}
-
-
-double EWSM::dsigmaLEP2_q(const StandardModel::quark q, const double s, 
-                          const double Mw_i, const double cos_theta, const double W, 
-                          const double X, const double Y, const double GammaZ) const{
-    return (myOneLoopLEP2->dsigma_q(q, s, Mw_i, cos_theta, W, X, Y, GammaZ));
+                  const bool bWEAK, const bool bWEAKBOX, const bool bQED) const {
+    return (getMyTwoFermionsLEP2()->AFB_q(q, s, Mw, GammaZ, bWEAK, bWEAKBOX, bQED));
 }
 
 
