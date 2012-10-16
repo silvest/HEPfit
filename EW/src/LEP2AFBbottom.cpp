@@ -6,23 +6,13 @@
 #include "LEP2AFBbottom.h"
 
 
-LEP2AFBbottom::LEP2AFBbottom(const EW& EW_i, const double sqrt_s_i) : ThObservable(EW_i), 
-            myEW(EW_i), myLEP2oblique(EW_i), sqrt_s(sqrt_s_i) {
-    bDP = true;
-    bWEAK = true;
-    bQED = true;
-}
-
-
 double LEP2AFBbottom::getThValue() { 
     double s = sqrt_s*sqrt_s;
     double Mw = SM.Mw(); 
     double GammaZ = myEW.Gamma_Z();
 
-    if (!SM.getEWSM()->checkForLEP2(SMparams_cache, bool_cache,
-                                              s, Mw, GammaZ, bDP, bWEAK, bQED))
-        SMresult_cache = SM.AFB_q_LEP2(StandardModel::BOTTOM, 
-                                                 s, Mw, GammaZ, bDP, bWEAK, bQED);
+    if (!SM.getEWSM()->checkForLEP2(SMparams_cache, bool_cache, s, Mw, GammaZ, Flags))
+        SMresult_cache = SM.AFB_q_LEP2(StandardModel::BOTTOM, s, Mw, GammaZ, Flags);
     double AFB_b = SMresult_cache;
     
     if ( myEW.checkModelForSTU() ) {

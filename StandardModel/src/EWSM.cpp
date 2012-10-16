@@ -660,29 +660,29 @@ double EWSM::taub() const {
 
 double EWSM::sigma_l(const StandardModel::lepton l, const double s, 
                      const double Mw, const double GammaZ, 
-                     const bool bWEAK, const bool bWEAKBOX, const bool bQED) const {
-    return (getMyTwoFermionsLEP2()->sigma_l(l, s, Mw, GammaZ, bWEAK, bWEAKBOX, bQED)); 
+                     const std::map<std::string, bool>& flags) const {
+    return (getMyTwoFermionsLEP2()->sigma_l(l, s, Mw, GammaZ, flags)); 
 }
     
 
 double EWSM::sigma_q(const StandardModel::quark q, const double s, 
                      const double Mw, const double GammaZ, 
-                     const bool bWEAK, const bool bWEAKBOX, const bool bQED) const {
-    return (getMyTwoFermionsLEP2()->sigma_q(q, s, Mw, GammaZ, bWEAK, bWEAKBOX, bQED));
+                     const std::map<std::string, bool>& flags) const {
+    return (getMyTwoFermionsLEP2()->sigma_q(q, s, Mw, GammaZ, flags));
 }
 
 
 double EWSM::AFB_l(const StandardModel::lepton l, const double s, 
-                  const double Mw, const double GammaZ, 
-                  const bool bWEAK, const bool bWEAKBOX, const bool bQED) const {
-    return (getMyTwoFermionsLEP2()->AFB_l(l, s, Mw, GammaZ, bWEAK, bWEAKBOX, bQED));
+                   const double Mw, const double GammaZ, 
+                   const std::map<std::string, bool>& flags) const {
+    return (getMyTwoFermionsLEP2()->AFB_l(l, s, Mw, GammaZ, flags));
 }
     
 
 double EWSM::AFB_q(const StandardModel::quark q, const double s, 
-                  const double Mw, const double GammaZ, 
-                  const bool bWEAK, const bool bWEAKBOX, const bool bQED) const {
-    return (getMyTwoFermionsLEP2()->AFB_q(q, s, Mw, GammaZ, bWEAK, bWEAKBOX, bQED));
+                   const double Mw, const double GammaZ, 
+                   const std::map<std::string, bool>& flags) const {
+    return (getMyTwoFermionsLEP2()->AFB_q(q, s, Mw, GammaZ, flags));
 }
 
 

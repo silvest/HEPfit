@@ -250,60 +250,52 @@ public:
      * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
      * @param[in] Mw the W-boson mass 
      * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] bWEAK with/without weak corrections
-     * @param[in] bWEAKBOX with/without weak box corrections
-     * @param[in] bQED with/without QED corrections
+     * @param[in] flags a set of flags to control the inclusions of higher-order corrections
      * @return the total cross section for e^+ e^- -> l lbar in GeV^{-2}
      */
     double sigma_l(const StandardModel::lepton l, const double s, 
                    const double Mw, const double GammaZ, 
-                   const bool bWEAK, const bool bWEAKBOX, const bool bQED) const;
+                   const std::map<std::string, bool>& flags) const;
     
     /**
      * @param[in] q name of a quark
      * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
      * @param[in] Mw the W-boson mass 
      * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] bWEAK with/without weak corrections
-     * @param[in] bWEAKBOX with/without weak box corrections
-     * @param[in] bQED with/without QED corrections
+     * @param[in] flags a set of flags to control the inclusions of higher-order corrections
      * @return the total cross section for e^+ e^- -> q qbar in GeV^{-2}
      */
     double sigma_q(const StandardModel::quark q, const double s, 
                    const double Mw, const double GammaZ, 
-                   const bool bWEAK, const bool bWEAKBOX, const bool bQED) const;
+                   const std::map<std::string, bool>& flags) const;
 
     /**
      * @param[in] l name of a lepton
      * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
      * @param[in] Mw the W-boson mass 
      * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] bWEAK with/without weak corrections
-     * @param[in] bWEAKBOX with/without weak box corrections
-     * @param[in] bQED with/without QED corrections
+     * @param[in] flags a set of flags to control the inclusions of higher-order corrections
      * @return the forward-backward asymmetry for e^+ e^- -> l lbar
      */
     double AFB_l(const StandardModel::lepton l, const double s, 
                  const double Mw, const double GammaZ, 
-                 const bool bWEAK, const bool bWEAKBOX, const bool bQED) const;
+                 const std::map<std::string, bool>& flags) const;
     
     /**
      * @param[in] q name of a quark
      * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
      * @param[in] Mw the W-boson mass 
      * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] bWEAK with/without weak corrections
-     * @param[in] bWEAKBOX with/without weak box corrections
-     * @param[in] bQED with/without QED corrections
+     * @param[in] flags a set of flags to control the inclusions of higher-order corrections
      * @return the forward-backward asymmetry for e^+ e^- -> q qbar
      */
     double AFB_q(const StandardModel::quark q, const double s, 
                  const double Mw, const double GammaZ, 
-                 const bool bWEAK, const bool bWEAKBOX, const bool bQED) const;    
+                 const std::map<std::string, bool>& flags) const;    
     
     bool checkForLEP2(double Params_cache[], bool bool_cache[],
                       const double s, const double Mw, const double GammaZ, 
-                      const bool bDP, const bool bWEAK, const bool bQED) const {
+                      const std::map<std::string, bool>& flags) const {
         // 21 SM parameters in checkSMparams() + s, Mw, GammaZ, and 3 booleans
         bool bCache = true;
         bCache &= checkSMparams(Params_cache);
@@ -320,18 +312,18 @@ public:
             Params_cache[NumSMParams+2] = GammaZ;
             bCache &= false;
         }    
-        if (bool_cache[0] != bDP) { 
-            bool_cache[0] = bDP;
-            bCache &= false;
-        }    
-        if (bool_cache[1] != bWEAK) { 
-            bool_cache[1] = bWEAK;
-            bCache &= false;
-        }
-        if (bool_cache[2] != bQED) { 
-            bool_cache[2] = bQED;
-            bCache &= false;
-        }    
+//        if (bool_cache[0] != bDP) { 
+//            bool_cache[0] = bDP;
+//            bCache &= false;
+//        }    
+//        if (bool_cache[1] != bWEAK) { 
+//            bool_cache[1] = bWEAK;
+//            bCache &= false;
+//        }
+//        if (bool_cache[2] != bQED) { 
+//            bool_cache[2] = bQED;
+//            bCache &= false;
+//        }    
         return bCache;
     }
     
