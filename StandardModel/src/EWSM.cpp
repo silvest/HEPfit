@@ -660,29 +660,53 @@ double EWSM::taub() const {
 
 double EWSM::sigma_l(const StandardModel::lepton l, const double s, 
                      const double Mw, const double GammaZ, 
-                     const std::map<std::string, bool>& flags) const {
-    return (getMyTwoFermionsLEP2()->sigma_l(l, s, Mw, GammaZ, flags)); 
+                     const bool bRCs[]) const {
+    getMyTwoFermionsLEP2()->setFlag("Weak", bRCs[0]);
+    getMyTwoFermionsLEP2()->setFlag("WeakBox", bRCs[1]);
+    getMyTwoFermionsLEP2()->setFlag("ISR", bRCs[2]);
+    getMyTwoFermionsLEP2()->setFlag("QEDFSR", bRCs[3]);
+    //getMyTwoFermionsLEP2()->setFlag("QCDFSR", bRCs[4]);
+    
+    return (getMyTwoFermionsLEP2()->sigma_l(l, s, Mw, GammaZ)); 
 }
     
 
 double EWSM::sigma_q(const StandardModel::quark q, const double s, 
                      const double Mw, const double GammaZ, 
-                     const std::map<std::string, bool>& flags) const {
-    return (getMyTwoFermionsLEP2()->sigma_q(q, s, Mw, GammaZ, flags));
+                     const bool bRCs[]) const {
+    getMyTwoFermionsLEP2()->setFlag("Weak", bRCs[0]);
+    getMyTwoFermionsLEP2()->setFlag("WeakBox", bRCs[1]);
+    getMyTwoFermionsLEP2()->setFlag("ISR", bRCs[2]);
+    getMyTwoFermionsLEP2()->setFlag("QEDFSR", bRCs[3]);
+    getMyTwoFermionsLEP2()->setFlag("QCDFSR", bRCs[4]);
+
+    return (getMyTwoFermionsLEP2()->sigma_q(q, s, Mw, GammaZ));
 }
 
 
 double EWSM::AFB_l(const StandardModel::lepton l, const double s, 
                    const double Mw, const double GammaZ, 
-                   const std::map<std::string, bool>& flags) const {
-    return (getMyTwoFermionsLEP2()->AFB_l(l, s, Mw, GammaZ, flags));
+                   const bool bRCs[]) const {
+    getMyTwoFermionsLEP2()->setFlag("Weak", bRCs[0]);
+    getMyTwoFermionsLEP2()->setFlag("WeakBox", bRCs[1]);
+    getMyTwoFermionsLEP2()->setFlag("ISR", bRCs[2]);
+    getMyTwoFermionsLEP2()->setFlag("QEDFSR", bRCs[3]);
+    //getMyTwoFermionsLEP2()->setFlag("QCDFSR", bRCs[4]);
+
+    return (getMyTwoFermionsLEP2()->AFB_l(l, s, Mw, GammaZ));
 }
     
 
 double EWSM::AFB_q(const StandardModel::quark q, const double s, 
                    const double Mw, const double GammaZ, 
-                   const std::map<std::string, bool>& flags) const {
-    return (getMyTwoFermionsLEP2()->AFB_q(q, s, Mw, GammaZ, flags));
+                   const bool bRCs[]) const {
+    getMyTwoFermionsLEP2()->setFlag("Weak", bRCs[0]);
+    getMyTwoFermionsLEP2()->setFlag("WeakBox", bRCs[1]);
+    getMyTwoFermionsLEP2()->setFlag("ISR", bRCs[2]);
+    getMyTwoFermionsLEP2()->setFlag("QEDFSR", bRCs[3]);
+    getMyTwoFermionsLEP2()->setFlag("QCDFSR", bRCs[4]);
+    
+    return (getMyTwoFermionsLEP2()->AFB_q(q, s, Mw, GammaZ));
 }
 
 

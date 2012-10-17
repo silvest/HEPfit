@@ -3,6 +3,8 @@
  * Author: mishima
  */
 
+#include <complex>
+
 #include "EWSMLEP2testclass.h"
 
 
@@ -16,22 +18,23 @@ EWSMLEP2testclass::~EWSMLEP2testclass() {
 
 void EWSMLEP2testclass::setUp() {
     const bool bDebug = true;
-    mySM = new StandardModel(bDebug);
-    setModelParameters(*mySM);
-    mySM->InitializeModel();
-    myLEP2 = new EWSMTwoFermionsLEP2(*mySM, bDebug);
+    SM = new StandardModel(bDebug);
+    setModelParameters(*SM);
+    SM->InitializeModel();
+    myLEP2 = new EWSMTwoFermionsLEP2(*SM, bDebug);
 
     sqrt_s = 200.0;
     Mw = 80.360848365211552;
-    // alpha(s)=0.007821563447202 
+    GammaZ = 2.494980275134754;
+    // alpha(s)=0.007821563447202 or 0.007821563459046
     
-    
+    s = sqrt_s*sqrt_s;
     Mw2 = Mw*Mw;
-    Mz = mySM->getMz();
+    Mz = SM->getMz();
     Mz2 = Mz*Mz;
     cW2 = Mw2/Mz2;
     sW2 = 1.0 - cW2;
-    Mt = mySM->getMtpole();
+    Mt = SM->getMtpole();
     
     /* accuracy for CPPUNIT_ASSERT_DOUBLES_EQUAL */
     epsilon = 1.0e-7; 
@@ -39,7 +42,7 @@ void EWSMLEP2testclass::setUp() {
 
 void EWSMLEP2testclass::tearDown() {
     delete myLEP2; 
-    delete mySM; 
+    delete SM; 
 }
 
 /*  Parameters for StandardModel class  */
@@ -157,5 +160,82 @@ void EWSMLEP2testclass::MwTEST() {
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
 }
 
+void EWSMLEP2testclass::GammaZTEST() {
+    double expected = 2.494980275134754;
+    double result = GammaZ;
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
+}
 
-//XCHI1 =         0.4714952963       -0.0162861206
+void EWSMLEP2testclass::chi_Z_real() {
+    double expected = 0.4714952963;
+    double result = myLEP2->chi_Z(s,Mw,GammaZ).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
+}
+
+void EWSMLEP2testclass::chi_Z_imag() {
+    double expected = -0.0162861206;
+    double result = myLEP2->chi_Z(s,Mw,GammaZ).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
+}
+
+void EWSMLEP2testclass::G1_mu() {
+    double expected = 1.387618480024821;
+    myLEP2->setFlag("Weak", false);
+    myLEP2->setFlag("WeakBox", false);
+    myLEP2->setFlag("ISR", false);
+    myLEP2->setFlag("QEDFSR", false);
+    myLEP2->setFlag("QCDFSR", false);
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double Qf = SM->getLeptons(SM->MU).getCharge();
+    double result = myLEP2->G_1(s, Mw, GammaZ, I3f, Qf, 0.0);
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
+}
+
+void EWSMLEP2testclass::G2_mu() {
+    double expected = 1.162518560532168;
+    myLEP2->setFlag("Weak", false);
+    myLEP2->setFlag("WeakBox", false);
+    myLEP2->setFlag("ISR", false);
+    myLEP2->setFlag("QEDFSR", false);
+    myLEP2->setFlag("QCDFSR", false);
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double Qf = SM->getLeptons(SM->MU).getCharge();
+    double result = myLEP2->G_2(s, Mw, GammaZ, I3f, Qf, 0.0);
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
+}
+
+void EWSMLEP2testclass::G3_mu() {
+    double expected = 1.021139815000306;
+    myLEP2->setFlag("Weak", false);
+    myLEP2->setFlag("WeakBox", false);
+    myLEP2->setFlag("ISR", false);
+    myLEP2->setFlag("QEDFSR", false);
+    myLEP2->setFlag("QCDFSR", false);
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double Qf = SM->getLeptons(SM->MU).getCharge();
+    double result = myLEP2->G_3(s, Mw, GammaZ, I3f, Qf, 0.0);
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
+}
+
+
+void EWSMLEP2testclass::sigma_mu() {
+    double expected = 0.00301302181439508*1000.0;
+    myLEP2->setFlag("Weak", false);
+    myLEP2->setFlag("WeakBox", false);
+    myLEP2->setFlag("ISR", false);
+    myLEP2->setFlag("QEDFSR", false);
+    myLEP2->setFlag("QCDFSR", false);
+    double result = myLEP2->sigma_l(StandardModel::MU, s, Mw, GammaZ)
+                    *GeVminus2_to_nb*1000.0; 
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
+}
+
+
+

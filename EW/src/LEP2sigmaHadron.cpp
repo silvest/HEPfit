@@ -11,18 +11,12 @@ double LEP2sigmaHadron::getThValue() {
     double Mw = SM.Mw(); 
     double GammaZ = myEW.Gamma_Z();
 
-    if (!SM.getEWSM()->checkForLEP2(SMparams_cache, bool_cache,
-                                              s, Mw, GammaZ, Flags))
-        SMresult_cache = SM.sigma_q_LEP2(StandardModel::UP, 
-                                                   s, Mw, GammaZ, Flags)
-                       + SM.sigma_q_LEP2(StandardModel::DOWN, 
-                                                   s, Mw, GammaZ, Flags)
-                       + SM.sigma_q_LEP2(StandardModel::CHARM, 
-                                                   s, Mw, GammaZ, Flags)
-                       + SM.sigma_q_LEP2(StandardModel::STRANGE, 
-                                                   s, Mw, GammaZ, Flags)
-                       + SM.sigma_q_LEP2(StandardModel::BOTTOM, 
-                                                   s, Mw, GammaZ, Flags);
+    if (!SM.getEWSM()->checkForLEP2(SMparams_cache, bRCs_cache, s, Mw, GammaZ, bRCs))
+        SMresult_cache = SM.sigma_q_LEP2(StandardModel::UP, s, Mw, GammaZ, bRCs)
+                       + SM.sigma_q_LEP2(StandardModel::DOWN, s, Mw, GammaZ, bRCs)
+                       + SM.sigma_q_LEP2(StandardModel::CHARM, s, Mw, GammaZ, bRCs)
+                       + SM.sigma_q_LEP2(StandardModel::STRANGE, s, Mw, GammaZ, bRCs)
+                       + SM.sigma_q_LEP2(StandardModel::BOTTOM, s, Mw, GammaZ, bRCs);
     double sigmaH = SMresult_cache;
     
     if ( myEW.checkModelForSTU() ) {
