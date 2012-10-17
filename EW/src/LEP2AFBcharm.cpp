@@ -11,10 +11,8 @@ double LEP2AFBcharm::getThValue() {
     double Mw = SM.Mw(); 
     double GammaZ = myEW.Gamma_Z();
 
-    if (!SM.getEWSM()->checkForLEP2(SMparams_cache, bool_cache,
-                                              s, Mw, GammaZ, Flags))
-        SMresult_cache = SM.AFB_q_LEP2(StandardModel::CHARM, 
-                                                 s, Mw, GammaZ, Flags);
+    if (!SM.getEWSM()->checkForLEP2(SMparams_cache, bRCs_cache, s, Mw, GammaZ, bRCs))
+        SMresult_cache = SM.AFB_q_LEP2(StandardModel::CHARM, s, Mw, GammaZ, bRCs);
     double AFB_c = SMresult_cache;
     
     if ( myEW.checkModelForSTU() ) {

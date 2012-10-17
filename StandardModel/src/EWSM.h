@@ -249,54 +249,49 @@ public:
      * @param[in] l name of a lepton
      * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
      * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] flags a set of flags to control the inclusions of higher-order corrections
+     * @param[in] GammaZ the Z-boson decay width
+     * @param[in] bRCs flags to control radiative corrections
      * @return the total cross section for e^+ e^- -> l lbar in GeV^{-2}
      */
     double sigma_l(const StandardModel::lepton l, const double s, 
-                   const double Mw, const double GammaZ, 
-                   const std::map<std::string, bool>& flags) const;
+                   const double Mw, const double GammaZ, const bool bRCs[]) const;
     
     /**
      * @param[in] q name of a quark
      * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
      * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] flags a set of flags to control the inclusions of higher-order corrections
+     * @param[in] GammaZ the Z-boson decay width
+     * @param[in] bRCs flags to control radiative corrections
      * @return the total cross section for e^+ e^- -> q qbar in GeV^{-2}
      */
     double sigma_q(const StandardModel::quark q, const double s, 
-                   const double Mw, const double GammaZ, 
-                   const std::map<std::string, bool>& flags) const;
+                   const double Mw, const double GammaZ, const bool bRCs[]) const;
 
     /**
      * @param[in] l name of a lepton
      * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
      * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] flags a set of flags to control the inclusions of higher-order corrections
+     * @param[in] GammaZ the Z-boson decay width
+     * @param[in] bRCs flags to control radiative corrections
      * @return the forward-backward asymmetry for e^+ e^- -> l lbar
      */
     double AFB_l(const StandardModel::lepton l, const double s, 
-                 const double Mw, const double GammaZ, 
-                 const std::map<std::string, bool>& flags) const;
+                 const double Mw, const double GammaZ, const bool bRCs[]) const;
     
     /**
      * @param[in] q name of a quark
      * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
      * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] flags a set of flags to control the inclusions of higher-order corrections
+     * @param[in] GammaZ the Z-boson decay width
      * @return the forward-backward asymmetry for e^+ e^- -> q qbar
+     * @param[in] bRCs flags to control radiative corrections
      */
     double AFB_q(const StandardModel::quark q, const double s, 
-                 const double Mw, const double GammaZ, 
-                 const std::map<std::string, bool>& flags) const;    
+                 const double Mw, const double GammaZ, const bool bRCs[]) const;    
     
-    bool checkForLEP2(double Params_cache[], bool bool_cache[],
-                      const double s, const double Mw, const double GammaZ, 
-                      const std::map<std::string, bool>& flags) const {
-        // 21 SM parameters in checkSMparams() + s, Mw, GammaZ, and 3 booleans
+    bool checkForLEP2(double Params_cache[], bool bRCs_cache[], const double s, 
+                      const double Mw, const double GammaZ, const bool bRCs[]) const {
+        // 21 SM parameters in checkSMparams() + s, Mw, GammaZ + 5 booleans
         bool bCache = true;
         bCache &= checkSMparams(Params_cache);
         
@@ -312,18 +307,13 @@ public:
             Params_cache[NumSMParams+2] = GammaZ;
             bCache &= false;
         }    
-//        if (bool_cache[0] != bDP) { 
-//            bool_cache[0] = bDP;
-//            bCache &= false;
-//        }    
-//        if (bool_cache[1] != bWEAK) { 
-//            bool_cache[1] = bWEAK;
-//            bCache &= false;
-//        }
-//        if (bool_cache[2] != bQED) { 
-//            bool_cache[2] = bQED;
-//            bCache &= false;
-//        }    
+        for (int i=0; i<5; i++) {
+            if (bRCs_cache[i] != bRCs[i]) { 
+                bRCs_cache[i] = bRCs[i];
+                bCache &= false;
+            }    
+        }
+
         return bCache;
     }
     

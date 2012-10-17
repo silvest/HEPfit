@@ -413,49 +413,49 @@ public:
      * @param[in] l name of a lepton
      * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
      * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] flags a set of flags to control the inclusions of higher-order corrections
+     * @param[in] GammaZ the Z-boson decay width
+     * @param[in] bRCs flags to control radiative corrections
      * @return the total cross section for e^+ e^- -> l lbar in GeV^{-2}
      */
     double sigma_l_LEP2(const StandardModel::lepton l, const double s,
-                        const double Mw, const double GammaZ,
-                        const std::map<std::string, bool>& flags) const;
+                        const double Mw, const double GammaZ, 
+                        const bool bRCs[]) const;
 
     /**
      * @param[in] q name of a quark
      * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
      * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] flags a set of flags to control the inclusions of higher-order corrections
+     * @param[in] GammaZ the Z-boson decay width
+     * @param[in] bRCs flags to control radiative corrections
      * @return the total cross section for e^+ e^- -> q qbar in GeV^{-2}
      */
     double sigma_q_LEP2(const StandardModel::quark q, const double s,
-                        const double Mw, const double GammaZ,
-                        const std::map<std::string, bool>& flags) const;
+                        const double Mw, const double GammaZ, 
+                        const bool bRCs[]) const;
 
     /**
      * @param[in] l name of a lepton
      * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
      * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] flags a set of flags to control the inclusions of higher-order corrections
+     * @param[in] GammaZ the Z-boson decay width
+     * @param[in] bRCs flags to control radiative corrections
      * @return the forward-backward asymmetry for e^+ e^- -> l lbar
      */
     double AFB_l_LEP2(const StandardModel::lepton l, const double s,
-                      const double Mw, const double GammaZ,
-                      const std::map<std::string, bool>& flags) const;
+                      const double Mw, const double GammaZ, 
+                      const bool bRCs[]) const;
 
     /**
      * @param[in] q name of a quark
      * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
      * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] flags a set of flags to control the inclusions of higher-order corrections
+     * @param[in] GammaZ the Z-boson decay width
+     * @param[in] bRCs flags to control radiative corrections
      * @return the forward-backward asymmetry for e^+ e^- -> q qbar
      */
     double AFB_q_LEP2(const StandardModel::quark q, const double s,
-                      const double Mw, const double GammaZ,
-                      const std::map<std::string, bool>& flags) const;
+                      const double Mw, const double GammaZ, 
+                      const bool bRCs[]) const;
     
     /**
      * @return NP contribution to oblique parameter S

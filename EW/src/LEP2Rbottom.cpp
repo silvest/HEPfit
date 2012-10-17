@@ -11,19 +11,13 @@ double LEP2Rbottom::getThValue() {
     double Mw = SM.Mw(); 
     double GammaZ = myEW.Gamma_Z();
 
-    if (!SM.getEWSM()->checkForLEP2(SMparams_cache, bool_cache,
-                                              s, Mw, GammaZ, Flags)) {
+    if (!SM.getEWSM()->checkForLEP2(SMparams_cache, bRCs_cache, s, Mw, GammaZ, bRCs)) {
         double sigma_b, sigma_had;
-        sigma_b = SM.sigma_q_LEP2(StandardModel::BOTTOM, 
-                                            s, Mw, GammaZ, Flags);
-        sigma_had = SM.sigma_q_LEP2(StandardModel::UP, 
-                                              s, Mw, GammaZ, Flags)
-                  + SM.sigma_q_LEP2(StandardModel::DOWN, 
-                                              s, Mw, GammaZ, Flags)
-                  + SM.sigma_q_LEP2(StandardModel::CHARM, 
-                                              s, Mw, GammaZ, Flags)
-                  + SM.sigma_q_LEP2(StandardModel::STRANGE, 
-                                              s, Mw, GammaZ, Flags)
+        sigma_b = SM.sigma_q_LEP2(StandardModel::BOTTOM, s, Mw, GammaZ, bRCs);
+        sigma_had = SM.sigma_q_LEP2(StandardModel::UP, s, Mw, GammaZ, bRCs)
+                  + SM.sigma_q_LEP2(StandardModel::DOWN, s, Mw, GammaZ, bRCs)
+                  + SM.sigma_q_LEP2(StandardModel::CHARM, s, Mw, GammaZ, bRCs)
+                  + SM.sigma_q_LEP2(StandardModel::STRANGE, s, Mw, GammaZ, bRCs)
                   + sigma_b;
         SMresult_cache = sigma_b/sigma_had;
     }
