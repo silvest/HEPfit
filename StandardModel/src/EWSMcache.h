@@ -11,7 +11,6 @@
 #include <Polylogarithms.h>
 #include <ClausenFunctions.h>
 #include "StandardModel.h"
-#include <stdexcept>
 
 using namespace gslpp;
 
@@ -23,9 +22,8 @@ public:
     /**
      * @brief EWSMcache constructor
      * @param[in] SM_i reference to a StandardModel object
-     * @param[in] bDebug_i boolean value for debugging (true for debugging)
      */
-    EWSMcache(const StandardModel& SM_i, const bool bDebug_i=false);
+    EWSMcache(const StandardModel& SM_i);
 
     
     ////////////////////////////////////////////////////////////////////////     
@@ -116,35 +114,16 @@ public:
      * @param[in] l name of lepton
      * @return mass of lepton
      */
-    double ml(const StandardModel::lepton l) const {
-        return SM.getLeptons(l).getMass();
-    }
+    double ml(const StandardModel::lepton l) const;
 
     /**
      * @param[in] q name of quark
-     * @return mass of quark
+     * @param[in] mu renormalization scale
+     * @param[in] order (=LO, NLO, NNLO, FULLNLO[defalut], FULLNNLO)
+     * @return the MSbar mass of u, d, s, c, b or the pole mass of t
      */
-    double mq(const StandardModel::quark q) const {
-        switch(q) {
-            case StandardModel::UP:
-            case StandardModel::DOWN:
-            case StandardModel::STRANGE:
-                if (bDebug)
-                    return SM.getQuarks(q).getMass();
-                else
-                    return SM.Mrun(SM.getMz(), SM.getQuarks(q).getMass_scale(), SM.getQuarks(q).getMass(), FULLNNLO);
-            case StandardModel::CHARM:
-            case StandardModel::BOTTOM:
-                if (bDebug)
-                    return SM.getQuarks(q).getMass();
-                else
-                    return SM.Mrun(SM.getMz(), SM.getQuarks(q).getMass(), FULLNNLO);
-            case StandardModel::TOP:
-                return Mt(); // the pole mass
-            default:
-                throw std::runtime_error("Error in EWSMcache::mq()"); 
-        }
-    }
+    double mq(const StandardModel::quark q, const double mu, 
+              const orders order=FULLNNLO) const;
     
     /**
      * @return the top-quark mass

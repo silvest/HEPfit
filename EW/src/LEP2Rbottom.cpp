@@ -11,13 +11,13 @@ double LEP2Rbottom::getThValue() {
     double Mw = SM.Mw(); 
     double GammaZ = myEW.Gamma_Z();
 
-    if (!SM.getEWSM()->checkForLEP2(SMparams_cache, bRCs_cache, s, Mw, GammaZ, bRCs)) {
+    if (!checkSMparams(s, Mw, GammaZ)) {
         double sigma_b, sigma_had;
-        sigma_b = SM.sigma_q_LEP2(StandardModel::BOTTOM, s, Mw, GammaZ, bRCs);
-        sigma_had = SM.sigma_q_LEP2(StandardModel::UP, s, Mw, GammaZ, bRCs)
-                  + SM.sigma_q_LEP2(StandardModel::DOWN, s, Mw, GammaZ, bRCs)
-                  + SM.sigma_q_LEP2(StandardModel::CHARM, s, Mw, GammaZ, bRCs)
-                  + SM.sigma_q_LEP2(StandardModel::STRANGE, s, Mw, GammaZ, bRCs)
+        sigma_b = myTwoFermions.sigma_q(StandardModel::BOTTOM, s, Mw, GammaZ, bRCs);
+        sigma_had = myTwoFermions.sigma_q(StandardModel::UP, s, Mw, GammaZ, bRCs)
+                  + myTwoFermions.sigma_q(StandardModel::DOWN, s, Mw, GammaZ, bRCs)
+                  + myTwoFermions.sigma_q(StandardModel::CHARM, s, Mw, GammaZ, bRCs)
+                  + myTwoFermions.sigma_q(StandardModel::STRANGE, s, Mw, GammaZ, bRCs)
                   + sigma_b;
         SMresult_cache = sigma_b/sigma_had;
     }

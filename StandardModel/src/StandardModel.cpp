@@ -22,8 +22,9 @@ const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutr
     "mneutrino_3", "melectron", "mmu", "mtau", "lambda", "A", "rhob", "etab", "ale",
     "dAle5Mz", "mHl", "muw", "phiEpsK","DeltaMK", "KbarEpsK", "Dmk", "SM_M12D" };
 
-StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.),
-Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
+StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.), 
+        UPMNS(3, 3, 0.), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.), 
+        bDebug(bDebug_i) {
     leptons[NEUTRINO_1].setCharge(0.);
     leptons[NEUTRINO_2].setCharge(0.);    
     leptons[NEUTRINO_3].setCharge(0.);    
@@ -271,30 +272,23 @@ double StandardModel::GammaW() const {
     return myEWSM->GammaW_SM();
 }
 
-double StandardModel::sigma_l_LEP2(const StandardModel::lepton l, const double s,
-                                   const double Mw, const double GammaZ, 
-                                   const bool bRCs[]) const {
-    return (myEWSM->sigma_l(l, s, Mw, GammaZ, bRCs));
+double StandardModel::G_1(const double s, const double Mw, const double GammaZ, 
+                          const double I3f, const double Qf, const double mfp,
+                          const bool bWeak) const {
+    return myEWSM->G_1(s, Mw, GammaZ, I3f, Qf, mfp, bWeak);
+}
+  
+double StandardModel::G_2(const double s, const double Mw, const double GammaZ, 
+                          const double I3f, const double Qf, const double mfp,
+                          const bool bWeak) const {
+    return myEWSM->G_2(s, Mw, GammaZ, I3f, Qf, mfp, bWeak);    
 }
 
-double StandardModel::sigma_q_LEP2(const StandardModel::quark q, const double s,
-                                   const double Mw, const double GammaZ, 
-                                   const bool bRCs[]) const {
-    return (myEWSM->sigma_q(q, s, Mw, GammaZ, bRCs));
+double StandardModel::G_3(const double s, const double Mw, const double GammaZ, 
+                          const double I3f, const double Qf, const double mfp,
+                          const bool bWeak) const {
+    return myEWSM->G_3(s, Mw, GammaZ, I3f, Qf, mfp, bWeak);
 }
-
-double StandardModel::AFB_l_LEP2(const StandardModel::lepton l, const double s,
-                                 const double Mw, const double GammaZ, 
-                                 const bool bRCs[]) const {
-    return (myEWSM->AFB_l(l, s, Mw, GammaZ, bRCs));
-}
-
-double StandardModel::AFB_q_LEP2(const StandardModel::quark q, const double s,
-                                 const double Mw, const double GammaZ, 
-                                 const bool bRCs[]) const {
-    return (myEWSM->AFB_q(q, s, Mw, GammaZ, bRCs));
-}
-    
 
 ////////////////////////////////////////////////////////////////////////
 // CKM parameters

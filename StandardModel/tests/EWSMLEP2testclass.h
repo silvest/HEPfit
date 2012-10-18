@@ -17,8 +17,6 @@
 #include "EWSMTwoFermionsLEP2.h"
 using namespace std;
 
-const double GeVminus2_to_nb = 389379.338;
-
 class EWSMLEP2testclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST_SUITE(EWSMLEP2testclass);
     CPPUNIT_TEST(sqrtsTEST);
@@ -26,10 +24,9 @@ class EWSMLEP2testclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(GammaZTEST);
     CPPUNIT_TEST(chi_Z_real);
     CPPUNIT_TEST(chi_Z_imag);
-    CPPUNIT_TEST(G1_mu);    
-    CPPUNIT_TEST(G2_mu);    
-    CPPUNIT_TEST(G3_mu);    
-    CPPUNIT_TEST(sigma_mu);    
+    CPPUNIT_TEST(G1_mu_noWeak);    
+    CPPUNIT_TEST(G2_mu_noWeak);    
+    CPPUNIT_TEST(G3_mu_noWeak);    
     
     CPPUNIT_TEST_SUITE_END();
 
@@ -54,10 +51,9 @@ private:
     void GammaZTEST();
     void chi_Z_real();
     void chi_Z_imag();
-    void G1_mu();
-    void G2_mu();
-    void G3_mu();
-    void sigma_mu();
+    void G1_mu_noWeak();
+    void G2_mu_noWeak();
+    void G3_mu_noWeak();
     
 };
 

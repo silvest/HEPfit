@@ -93,6 +93,13 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // get and set methods for class members
 
+    /**
+     * @return boolean variable for debugging
+     */    
+    bool isBDebug() const {
+        return bDebug;
+    }
+    
     Particle getLeptons(const StandardModel::lepton p) const {
         return leptons[p];
     }
@@ -408,54 +415,51 @@ public:
      * @return the total width of the W boson
      */
     virtual double GammaW() const;
-    
-    /**
-     * @param[in] l name of a lepton
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width
-     * @param[in] bRCs flags to control radiative corrections
-     * @return the total cross section for e^+ e^- -> l lbar in GeV^{-2}
-     */
-    double sigma_l_LEP2(const StandardModel::lepton l, const double s,
-                        const double Mw, const double GammaZ, 
-                        const bool bRCs[]) const;
 
     /**
-     * @param[in] q name of a quark
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width
-     * @param[in] bRCs flags to control radiative corrections
-     * @return the total cross section for e^+ e^- -> q qbar in GeV^{-2}
+     * @brief form factor for e^+ e^- -> f fbar at LEP-II
+     * @param s the invariant mass squared of the initial-state e^+ e^- pair
+     * @param Mw the W-boson mass 
+     * @param GammaZ the Z-boson decay width
+     * @param I3f the isospin of the final-state fermion f
+     * @param Qf the electromagnetic charge of the final-state fermion f
+     * @param mfp the mass of the isospin partner of the final-state fermion f
+     * @param bWeak flag to control weak radiative corrections
+     * @return the form factor G_1(s)
      */
-    double sigma_q_LEP2(const StandardModel::quark q, const double s,
-                        const double Mw, const double GammaZ, 
-                        const bool bRCs[]) const;
+    double G_1(const double s, const double Mw, const double GammaZ, 
+               const double I3f, const double Qf, const double mfp,
+               const bool bWeak) const;
+  
+    /**
+     * @brief form factor for e^+ e^- -> f fbar at LEP-II
+     * @param s the invariant mass squared of the initial-state e^+ e^- pair
+     * @param Mw the W-boson mass 
+     * @param GammaZ the Z-boson decay width
+     * @param I3f the isospin of the final-state fermion f
+     * @param Qf the electromagnetic charge of the final-state fermion f
+     * @param mfp the mass of the isospin partner of the final-state fermion f
+     * @param bWeak flag to control weak radiative corrections
+     * @return the form factor G_2(s)
+     */
+    double G_2(const double s, const double Mw, const double GammaZ, 
+               const double I3f, const double Qf, const double mfp,
+               const bool bWeak) const;
 
     /**
-     * @param[in] l name of a lepton
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width
-     * @param[in] bRCs flags to control radiative corrections
-     * @return the forward-backward asymmetry for e^+ e^- -> l lbar
+     * @brief form factor for e^+ e^- -> f fbar at LEP-II
+     * @param s the invariant mass squared of the initial-state e^+ e^- pair
+     * @param Mw the W-boson mass 
+     * @param GammaZ the Z-boson decay width
+     * @param I3f the isospin of the final-state fermion f
+     * @param Qf the electromagnetic charge of the final-state fermion f
+     * @param mfp the mass of the isospin partner of the final-state fermion f
+     * @param bWeak flag to control weak radiative corrections
+     * @return the form factor G_3(s)
      */
-    double AFB_l_LEP2(const StandardModel::lepton l, const double s,
-                      const double Mw, const double GammaZ, 
-                      const bool bRCs[]) const;
-
-    /**
-     * @param[in] q name of a quark
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width
-     * @param[in] bRCs flags to control radiative corrections
-     * @return the forward-backward asymmetry for e^+ e^- -> q qbar
-     */
-    double AFB_q_LEP2(const StandardModel::quark q, const double s,
-                      const double Mw, const double GammaZ, 
-                      const bool bRCs[]) const;
+    double G_3(const double s, const double Mw, const double GammaZ, 
+               const double I3f, const double Qf, const double mfp,
+               const bool bWeak) const;
     
     /**
      * @return NP contribution to oblique parameter S
@@ -571,6 +575,7 @@ protected:
     
     ////////////////////////////////////////////////////////////////////////    
 private:
+    bool bDebug; // for debugging
     bool computeCKM, computeYe, computeYn;
     StandardModelMatching* myStandardModelMatching;
     

@@ -11,8 +11,8 @@ double LEP2AFBtau::getThValue() {
     double Mw = SM.Mw(); 
     double GammaZ = myEW.Gamma_Z();
 
-    if (!SM.getEWSM()->checkForLEP2(SMparams_cache, bRCs_cache, s, Mw, GammaZ, bRCs))
-        SMresult_cache = SM.AFB_l_LEP2(StandardModel::TAU, s, Mw, GammaZ, bRCs);
+    if (!checkSMparams(s, Mw, GammaZ))
+        SMresult_cache = myTwoFermions.AFB_l(StandardModel::TAU, s, Mw, GammaZ, bRCs);
     double AFB_tau = SMresult_cache;
     
     if ( myEW.checkModelForSTU() ) {

@@ -1,27 +1,27 @@
 /*
- * File:   EWSMLEP2testclass.cpp
+ * File:   LEP2TFtestclass.cpp
  * Author: mishima
  */
 
-#include <complex>
+#include "LEP2TFtestclass.h"
 
-#include "EWSMLEP2testclass.h"
+const bool LEP2TFtestclass::noRCs[5] = {false, false, false, false, false};
+const bool LEP2TFtestclass::withRCs[5] = {true, true, true, true, true};
 
+CPPUNIT_TEST_SUITE_REGISTRATION(LEP2TFtestclass);
 
-CPPUNIT_TEST_SUITE_REGISTRATION(EWSMLEP2testclass);
-
-EWSMLEP2testclass::EWSMLEP2testclass() {
+LEP2TFtestclass::LEP2TFtestclass() {
 }
 
-EWSMLEP2testclass::~EWSMLEP2testclass() {
+LEP2TFtestclass::~LEP2TFtestclass() {
 }
 
-void EWSMLEP2testclass::setUp() {
+void LEP2TFtestclass::setUp() {
     const bool bDebug = true;
     SM = new StandardModel(bDebug);
     setModelParameters(*SM);
     SM->InitializeModel();
-    myLEP2 = new EWSMTwoFermionsLEP2(*SM);
+    myLEP2TF = new LEP2TwoFermions(*SM);
 
     sqrt_s = 200.0;
     Mw = 80.360848365211552;
@@ -35,18 +35,18 @@ void EWSMLEP2testclass::setUp() {
     cW2 = Mw2/Mz2;
     sW2 = 1.0 - cW2;
     Mt = SM->getMtpole();
-    
+        
     /* accuracy for CPPUNIT_ASSERT_DOUBLES_EQUAL */
     epsilon = 1.0e-7; 
 }
 
-void EWSMLEP2testclass::tearDown() {
-    delete myLEP2; 
+void LEP2TFtestclass::tearDown() {
+    delete myLEP2TF; 
     delete SM; 
 }
 
 /*  Parameters for StandardModel class  */
-void EWSMLEP2testclass::setModelParameters(StandardModel& Model_i) {
+void LEP2TFtestclass::setModelParameters(StandardModel& Model_i) {
     std::map<std::string, double> Parameters;
     
     // 17+5 parameters defined in StandardModel
@@ -146,66 +146,36 @@ void EWSMLEP2testclass::setModelParameters(StandardModel& Model_i) {
     Model_i.Init(Parameters);
 }
 
-void EWSMLEP2testclass::sqrtsTEST() {
+void LEP2TFtestclass::sqrtsTEST() {
     double expected = 200.0;
     double result = sqrt_s;
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
 }
 
-void EWSMLEP2testclass::MwTEST() {
+void LEP2TFtestclass::MwTEST() {
     double expected = 80.360848365211552;
     double result = Mw;
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
 }
 
-void EWSMLEP2testclass::GammaZTEST() {
+void LEP2TFtestclass::GammaZTEST() {
     double expected = 2.494980275134754;
     double result = GammaZ;
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
 }
 
-void EWSMLEP2testclass::chi_Z_real() {
-    double expected = 0.4714952963;
-    double result = myLEP2->chi_Z(s,Mw,GammaZ).real();
+void LEP2TFtestclass::sigma_mu() {
+    double expected = 0.00301302181439508*1000.0;
+    double result = myLEP2TF->sigma_l(StandardModel::MU, s, Mw, GammaZ, noRCs)
+                    *GeVminus2_to_nb*1000.0; 
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
 }
 
-void EWSMLEP2testclass::chi_Z_imag() {
-    double expected = -0.0162861206;
-    double result = myLEP2->chi_Z(s,Mw,GammaZ).imag();
-    double delta = fabs(epsilon*result);
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
-}
 
-void EWSMLEP2testclass::G1_mu_noWeak() {
-    double expected = 1.387618480024821;
-    double I3f = SM->getLeptons(SM->MU).getIsospin();
-    double Qf = SM->getLeptons(SM->MU).getCharge();
-    double result = myLEP2->G_1(s, Mw, GammaZ, I3f, Qf, 0.0, false);
-    double delta = fabs(epsilon*result);
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
-}
 
-void EWSMLEP2testclass::G2_mu_noWeak() {
-    double expected = 1.162518560532168;
-    double I3f = SM->getLeptons(SM->MU).getIsospin();
-    double Qf = SM->getLeptons(SM->MU).getCharge();
-    double result = myLEP2->G_2(s, Mw, GammaZ, I3f, Qf, 0.0, false);
-    double delta = fabs(epsilon*result);
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
-}
-
-void EWSMLEP2testclass::G3_mu_noWeak() {
-    double expected = 1.021139815000306;
-    double I3f = SM->getLeptons(SM->MU).getIsospin();
-    double Qf = SM->getLeptons(SM->MU).getCharge();
-    double result = myLEP2->G_3(s, Mw, GammaZ, I3f, Qf, 0.0, false);
-    double delta = fabs(epsilon*result);
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
-}
 
 
