@@ -6,12 +6,13 @@
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
+#include <stdexcept>
 #include <gsl/gsl_sf.h>
 #include "EWSMcache.h"
 
 
-EWSMcache::EWSMcache(const StandardModel& SM_i, const bool bDebug_i) : SM(SM_i) {
-    bDebug = bDebug_i;
+EWSMcache::EWSMcache(const StandardModel& SM_i) : SM(SM_i) {
+    bDebug = SM_i.isBDebug();
     
     bUseCacheEWSMcache = true;// use caches in the current class
     //bUseCacheEWSMcache = false;// do not use caches in the current class (for test)
@@ -32,6 +33,38 @@ EWSMcache::EWSMcache(const StandardModel& SM_i, const bool bDebug_i) : SM(SM_i) 
     //double Li4_1_2 = ??;
     //B4 = 16.0*Li4_1_2 - 4.0*zeta2*log2*log2 + 2.0/3.0*pow(log2,4.0) - 13.0/2.0*zeta4;
 
+}
+
+
+//////////////////////////////////////////////////////////////////////// 
+
+double EWSMcache::ml(const StandardModel::lepton l) const {
+    return SM.getLeptons(l).getMass();
+}
+
+
+double EWSMcache::mq(const StandardModel::quark q, const double mu, 
+                     const orders order) const {
+    switch(q) {
+        case StandardModel::UP:
+        case StandardModel::DOWN:
+        case StandardModel::STRANGE:
+            if (bDebug)
+                return SM.getQuarks(q).getMass(); // for debug
+            else
+                return SM.Mrun(mu, SM.getQuarks(q).getMass_scale(), 
+                        SM.getQuarks(q).getMass(), order);                    
+        case StandardModel::CHARM:
+        case StandardModel::BOTTOM:
+            if (bDebug)
+                return SM.getQuarks(q).getMass(); // for debug
+            else
+                return SM.Mrun(mu, SM.getQuarks(q).getMass(), order);
+        case StandardModel::TOP:
+            return SM.getMtpole(); // the pole mass
+        default:
+            throw std::runtime_error("Error in EWSMcache::mq()"); 
+    }
 }
 
 
@@ -460,13 +493,13 @@ complex EWSMcache::B0_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
 
 complex EWSMcache::B0_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
     int NumPar = 2;
-    double params[] = {Mz(), mq(q)};
+    double params[] = {Mz(), mq(q, Mz())};
 
     if ( CacheCheck(B0_Mz_Mz2_mq_mq_cache[q], NumPar, params) )
         return complex(B0_Mz_Mz2_mq_mq_cache[q][NumPar], 
                        B0_Mz_Mz2_mq_mq_cache[q][NumPar+1], false);
     else {
-        complex newResult = PV.B0(Mz(), Mz()*Mz(), mq(q), mq(q));
+        complex newResult = PV.B0(Mz(), Mz()*Mz(), mq(q, Mz()), mq(q, Mz()));
         newCacheForComplex(B0_Mz_Mz2_mq_mq_cache[q], NumPar, params, newResult);
         return newResult;
     }    
@@ -595,13 +628,13 @@ complex EWSMcache::B0p_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
 
 complex EWSMcache::B0p_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
     int NumPar = 2;
-    double params[] = {Mz(), mq(q)};
+    double params[] = {Mz(), mq(q, Mz())};
 
     if ( CacheCheck(B0p_Mz_Mz2_mq_mq_cache[q], NumPar, params) )
         return complex(B0p_Mz_Mz2_mq_mq_cache[q][NumPar], 
                        B0p_Mz_Mz2_mq_mq_cache[q][NumPar+1], false);
     else {
-        complex newResult = PV.B0p(Mz(), Mz()*Mz(), mq(q), mq(q));
+        complex newResult = PV.B0p(Mz(), Mz()*Mz(), mq(q, Mz()), mq(q, Mz()));
         newCacheForComplex(B0p_Mz_Mz2_mq_mq_cache[q], NumPar, params, newResult);
         return newResult;
     }    
@@ -627,8 +660,8 @@ complex EWSMcache::B1_Mz_0_ml_mlprime(const int gen) const {
 
 complex EWSMcache::B1_Mz_0_mq_mqprime(const int gen) const {
     int NumPar = 3;
-    double mf = mq((StandardModel::quark)(2*gen));    
-    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double mf = mq((StandardModel::quark)(2*gen), Mz());    
+    double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
     double params[] = {Mz(), mf, mfprime};
 
     if ( CacheCheck(B1_Mz_0_mq_mqprime_cache[gen], NumPar, params) )
@@ -661,8 +694,8 @@ complex EWSMcache::B1_Mz_0_mlprime_ml(const int gen) const {
 
 complex EWSMcache::B1_Mz_0_mqprime_mq(const int gen) const {
     int NumPar = 3;
-    double mf = mq((StandardModel::quark)(2*gen));    
-    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double mf = mq((StandardModel::quark)(2*gen), Mz());    
+    double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
     double params[] = {Mz(), mf, mfprime};
 
     if ( CacheCheck(B1_Mz_0_mqprime_mq_cache[gen], NumPar, params) )
@@ -695,8 +728,8 @@ complex EWSMcache::B1_Mz_Mw2_ml_mlprime(const int gen, const double Mw_i) const 
 
 complex EWSMcache::B1_Mz_Mw2_mq_mqprime(const int gen, const double Mw_i) const {
     int NumPar = 4;
-    double mf = mq((StandardModel::quark)(2*gen));    
-    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double mf = mq((StandardModel::quark)(2*gen), Mz());    
+    double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
     double params[] = {Mz(), Mw(Mw_i), mf, mfprime};
 
     if ( CacheCheck(B1_Mz_Mw2_mq_mqprime_cache[gen], NumPar, params) )
@@ -729,8 +762,8 @@ complex EWSMcache::B1_Mz_Mw2_mlprime_ml(const int gen, const double Mw_i) const 
 
 complex EWSMcache::B1_Mz_Mw2_mqprime_mq(const int gen, const double Mw_i) const {
     int NumPar = 4;
-    double mf = mq((StandardModel::quark)(2*gen));    
-    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double mf = mq((StandardModel::quark)(2*gen), Mz());    
+    double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
     double params[] = {Mz(), Mw(Mw_i), mf, mfprime};
 
     if ( CacheCheck(B1_Mz_Mw2_mqprime_mq_cache[gen], NumPar, params) )
@@ -763,8 +796,8 @@ complex EWSMcache::B1p_Mw_Mw2_ml_mlprime(const int gen, const double Mw_i) const
 
 complex EWSMcache::B1p_Mw_Mw2_mq_mqprime(const int gen, const double Mw_i) const {
     int NumPar = 3;
-    double mf = mq((StandardModel::quark)(2*gen));    
-    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double mf = mq((StandardModel::quark)(2*gen), Mz());    
+    double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
     double params[] = {Mw(Mw_i), mf, mfprime};
 
     if ( CacheCheck(B1p_Mw_Mw2_mq_mqprime_cache[gen], NumPar, params) )
@@ -797,8 +830,8 @@ complex EWSMcache::B1p_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const
 
 complex EWSMcache::B1p_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const {
     int NumPar = 3;
-    double mf = mq((StandardModel::quark)(2*gen));    
-    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double mf = mq((StandardModel::quark)(2*gen), Mz());    
+    double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
     double params[] = {Mw(Mw_i), mf, mfprime};
 
     if ( CacheCheck(B1p_Mw_Mw2_mqprime_mq_cache[gen], NumPar, params) )
@@ -829,13 +862,13 @@ complex EWSMcache::Bf_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
 
 complex EWSMcache::Bf_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
     int NumPar = 2;
-    double params[] = {Mz(), mq(q)};
+    double params[] = {Mz(), mq(q, Mz())};
 
     if ( CacheCheck(Bf_Mz_Mz2_mq_mq_cache[q], NumPar, params) )
         return complex(Bf_Mz_Mz2_mq_mq_cache[q][NumPar], 
                        Bf_Mz_Mz2_mq_mq_cache[q][NumPar+1], false);
     else {
-        complex newResult = PV.Bf(Mz(), Mz()*Mz(), mq(q), mq(q));
+        complex newResult = PV.Bf(Mz(), Mz()*Mz(), mq(q, Mz()), mq(q, Mz()));
         newCacheForComplex(Bf_Mz_Mz2_mq_mq_cache[q], NumPar, params, newResult);
         return newResult;
     }    
@@ -861,15 +894,15 @@ complex EWSMcache::Bf_Mz_0_ml_ml(const StandardModel::lepton l) const {
 
 complex EWSMcache::Bf_Mz_0_mq_mq(const StandardModel::quark q) const {
     int NumPar = 2;
-    double params[] = {Mz(), mq(q)};
-    if (mq(q)==0.0)
+    double params[] = {Mz(), mq(q, Mz())};
+    if (mq(q, Mz())==0.0)
         throw std::runtime_error("Error in EWSMcache::Bf_Mz_0_mq_mq()"); 
     
     if ( CacheCheck(Bf_Mz_0_mq_mq_cache[q], NumPar, params) )
         return complex(Bf_Mz_0_mq_mq_cache[q][NumPar], 
                        Bf_Mz_0_mq_mq_cache[q][NumPar+1], false);
     else {
-        complex newResult = PV.Bf(Mz(), 0.0, mq(q), mq(q));
+        complex newResult = PV.Bf(Mz(), 0.0, mq(q, Mz()), mq(q, Mz()));
         newCacheForComplex(Bf_Mz_0_mq_mq_cache[q], NumPar, params, newResult);
         return newResult;
     }    
@@ -895,8 +928,8 @@ complex EWSMcache::Bf_Mz_Mw2_mlprime_ml(const int gen, const double Mw_i) const 
         
 complex EWSMcache::Bf_Mz_Mw2_mqprime_mq(const int gen, const double Mw_i) const {
     int NumPar = 4;
-    double mf = mq((StandardModel::quark)(2*gen));    
-    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double mf = mq((StandardModel::quark)(2*gen), Mz());    
+    double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
     double params[] = {Mz(), Mw(Mw_i), mf, mfprime};
 
     if ( CacheCheck(Bf_Mz_Mw2_mqprime_mq_cache[gen], NumPar, params) )
@@ -929,8 +962,8 @@ complex EWSMcache::Bf_Mz_0_mlprime_ml(const int gen) const {
 
 complex EWSMcache::Bf_Mz_0_mqprime_mq(const int gen) const {
     int NumPar = 3;
-    double mf = mq((StandardModel::quark)(2*gen));    
-    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double mf = mq((StandardModel::quark)(2*gen), Mz());    
+    double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
     double params[] = {Mz(), mf, mfprime};
 
     if ( CacheCheck(Bf_Mz_0_mqprime_mq_cache[gen], NumPar, params) )
@@ -963,8 +996,8 @@ complex EWSMcache::Bf_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const 
 
 complex EWSMcache::Bf_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const {
     int NumPar = 3;
-    double mf = mq((StandardModel::quark)(2*gen));    
-    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double mf = mq((StandardModel::quark)(2*gen), Mz());    
+    double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
     double params[] = {Mw(Mw_i), mf, mfprime};
 
     if ( CacheCheck(Bf_Mw_Mw2_mqprime_mq_cache[gen], NumPar, params) )
@@ -995,13 +1028,13 @@ complex EWSMcache::Bfp_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
 
 complex EWSMcache::Bfp_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
     int NumPar = 2;
-    double params[] = {Mz(), mq(q)};
+    double params[] = {Mz(), mq(q, Mz())};
 
     if ( CacheCheck(Bfp_Mz_Mz2_mq_mq_cache[q], NumPar, params) )
         return complex(Bfp_Mz_Mz2_mq_mq_cache[q][NumPar], 
                        Bfp_Mz_Mz2_mq_mq_cache[q][NumPar+1], false);
     else {
-        complex newResult = PV.Bfp(Mz(), Mz()*Mz(), mq(q), mq(q));
+        complex newResult = PV.Bfp(Mz(), Mz()*Mz(), mq(q, Mz()), mq(q, Mz()));
         newCacheForComplex(Bfp_Mz_Mz2_mq_mq_cache[q], NumPar, params, newResult);
         return newResult;
     }    
@@ -1027,8 +1060,8 @@ complex EWSMcache::Bfp_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const
 
 complex EWSMcache::Bfp_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const {
     int NumPar = 3;
-    double mf = mq((StandardModel::quark)(2*gen));    
-    double mfprime = mq((StandardModel::quark)(2*gen+1));
+    double mf = mq((StandardModel::quark)(2*gen), Mz());    
+    double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
     double params[] = {Mw(Mw_i), mf, mfprime};
 
     if ( CacheCheck(Bfp_Mw_Mw2_mqprime_mq_cache[gen], NumPar, params) )

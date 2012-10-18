@@ -7,8 +7,8 @@
 #include <stdexcept>
 
 
-EWSMApproximateFormulae::EWSMApproximateFormulae(const StandardModel& SM_i, const bool bDebug_i) : SM(SM_i) {
-    bDebug = bDebug_i;
+EWSMApproximateFormulae::EWSMApproximateFormulae(const StandardModel& SM_i) : SM(SM_i) {
+    bDebug = SM_i.isBDebug();
 }
 
 

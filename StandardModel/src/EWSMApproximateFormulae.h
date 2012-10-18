@@ -15,9 +15,8 @@ public:
     /**
      * @brief  EWSMApproximateFormulae constructor
      * @param[in] SM_i reference to a StandardModel object
-     * @param[in] bDebug_i boolean value for debugging (true for debugging)
      */
-    EWSMApproximateFormulae(const StandardModel& SM_i, const bool bDebug_i=false);    
+    EWSMApproximateFormulae(const StandardModel& SM_i);    
 
     
     ////////////////////////////////////////////////////////////////////////

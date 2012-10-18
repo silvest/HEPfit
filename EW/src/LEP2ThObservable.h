@@ -11,6 +11,7 @@
 #include <ThObservable.h>
 #include "EWSM.h"
 #include "EW.h"
+#include "LEP2TwoFermions.h"
 #include "LEP2oblique.h"
 
 
@@ -23,12 +24,13 @@ public:
      * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
      */
     LEP2ThObservable(const EW& EW_i, const double sqrt_s_i) : ThObservable(EW_i), 
-            myEW(EW_i), myLEP2oblique(EW_i), sqrt_s(sqrt_s_i) {
-        bRCs[0] = true;
-        bRCs[1] = true;
-        bRCs[2] = true; 
-        bRCs[3] = true; 
-        bRCs[4] = true; 
+            myEW(EW_i), myTwoFermions(EW_i.getSM()), myLEP2oblique(EW_i), 
+            sqrt_s(sqrt_s_i) {
+        bRCs[LEP2TwoFermions::Weak] = true;
+        bRCs[LEP2TwoFermions::WeakBox] = true;
+        bRCs[LEP2TwoFermions::ISR] = true;
+        bRCs[LEP2TwoFermions::QEDFSR] = true;
+        bRCs[LEP2TwoFermions::QCDFSR] = true;
     }
 
     /**
@@ -38,30 +40,59 @@ public:
      */
     void setFlag(const std::string str, const bool flag) {
         if (str=="Weak")
-            bRCs[0] = flag;
+            bRCs[LEP2TwoFermions::Weak] = flag;
         else if (str=="WeakBox")
-            bRCs[1] = flag;
+            bRCs[LEP2TwoFermions::WeakBox] = flag;
         else if (str=="ISR")
-            bRCs[2] = flag;
+            bRCs[LEP2TwoFermions::ISR] = flag;
         else if (str=="QEDFSR")
-            bRCs[3] = flag;
+            bRCs[LEP2TwoFermions::QEDFSR] = flag;
         else if (str=="QCDFSR")
-            bRCs[4] = flag;
+            bRCs[LEP2TwoFermions::QCDFSR] = flag;
         else
             throw std::runtime_error("Error in LEP2ThObservable::setFlag()");             
     }
+
+    
+    bool checkSMparams(const double s, const double Mw, const double GammaZ) const {
+        // 21 SM parameters in checkSMparams() + s, Mw, GammaZ + 5 booleans
+        bool bCache = true;
+        bCache &= myEW.getSM().getEWSM()->checkSMparams(SMparams_cache);
+        
+        if (SMparams_cache[EWSM::NumSMParams] != s) { 
+            SMparams_cache[EWSM::NumSMParams] = s;
+            bCache &= false;
+        }    
+        if (SMparams_cache[EWSM::NumSMParams+1] != Mw) { 
+            SMparams_cache[EWSM::NumSMParams+1] = Mw;
+            bCache &= false;
+        }    
+        if (SMparams_cache[EWSM::NumSMParams+2] != GammaZ) { 
+            SMparams_cache[EWSM::NumSMParams+2] = GammaZ;
+            bCache &= false;
+        }    
+        for (int i=0; i<LEP2TwoFermions::NUMofLEP2RCs; i++) {
+            if (bRCs_cache[i] != bRCs[i]) { 
+                bRCs_cache[i] = bRCs[i];
+                bCache &= false;
+            }    
+        }
+
+        return bCache;
+    }
     
 protected:
-    bool bRCs[5]; // flags for radiative corrections
+    bool bRCs[LEP2TwoFermions::NUMofLEP2RCs]; // flags for radiative corrections
 
     const EW& myEW;
+    const LEP2TwoFermions myTwoFermions;
     const LEP2oblique myLEP2oblique;
     const double sqrt_s;
     
     // caches for the SM prediction
     mutable double SMparams_cache[EWSM::NumSMParams+3];
     mutable double SMresult_cache; 
-    mutable bool bRCs_cache[5];
+    mutable bool bRCs_cache[LEP2TwoFermions::NUMofLEP2RCs];
 
 private:
 
