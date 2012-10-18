@@ -62,7 +62,6 @@
             <pElem>../ZFitter/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
-            <pElem>../Cuba/include</pElem>
             <pElem>../BAT/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
@@ -73,7 +72,6 @@
           <linkerAddLib>
             <pElem>../FeynHiggs/lib64</pElem>
             <pElem>../BAT/lib</pElem>
-            <pElem>../Cuba/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>../BAT/lib</pElem>
@@ -237,7 +235,6 @@
             </linkerLibProjectItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
-            <linkerLibLibItem>cuba</linkerLibLibItem>
             <linkerLibLibItem>FH</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit -lFH -lBAT -lBATmodels</commandLine>
@@ -294,7 +291,6 @@
             <pElem>../ZFitter/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
-            <pElem>../Cuba/include</pElem>
             <pElem>../BAT/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
@@ -310,7 +306,6 @@
           <linkerAddLib>
             <pElem>../FeynHiggs/lib</pElem>
             <pElem>../BAT/lib</pElem>
-            <pElem>../Cuba/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibProjectItem>
@@ -474,7 +469,6 @@
             <linkerLibLibItem>BAT</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>FH</linkerLibLibItem>
-            <linkerLibLibItem>cuba</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit</commandLine>
         </linkerTool>
@@ -529,7 +523,6 @@
             <pElem>../THDM/src</pElem>
             <pElem>../ZFitter/src</pElem>
             <pElem>../BAT/include</pElem>
-            <pElem>../Cuba/include</pElem>
             <pElem>../FeynHiggs/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/BAT/include -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include</commandLine>
@@ -546,7 +539,6 @@
             <pElem>../FeynHiggs/lib64</pElem>
             <pElem>../FeynHiggs/lib</pElem>
             <pElem>../BAT/lib</pElem>
-            <pElem>../Cuba/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibProjectItem>
@@ -708,7 +700,6 @@
             <linkerLibLibItem>BAT</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>FH</linkerLibLibItem>
-            <linkerLibLibItem>cuba</linkerLibLibItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>`root-config --ldflags` `root-config --libs` `${HOME}/gsl/bin/gsl-config --libs` -L${HOME}/BAT/lib -L${HOME}/Cuba/lib -L${HOME}/FeynHiggs/lib -L${HOME}/FeynHiggs/lib64 -lMinuit -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml</commandLine>
@@ -761,7 +752,6 @@
             <pElem>../ZFitter/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
-            <pElem>../Cuba/include</pElem>
             <pElem>../BAT/include</pElem>
           </incDir>
           <commandLine>-fopenmp `root-config --cflags` `gsl-config --cflags`</commandLine>
@@ -772,7 +762,6 @@
           <linkerAddLib>
             <pElem>../FeynHiggs/lib64</pElem>
             <pElem>../BAT/lib</pElem>
-            <pElem>../Cuba/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>../BAT/lib</pElem>
@@ -936,7 +925,6 @@
             </linkerLibProjectItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
-            <linkerLibLibItem>cuba</linkerLibLibItem>
             <linkerLibLibItem>FH</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>-fopenmp `gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit -lFH -lBAT -lBATmodels</commandLine>
