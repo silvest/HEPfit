@@ -3,6 +3,9 @@
  * Author: mishima
  */
 
+#include <Math/Functor.h>
+#include <Math/Integrator.h>
+#include <Math/AllIntegrationTypes.h>
 #include "LEP2Rbottom.h"
 
 
@@ -13,12 +16,28 @@ double LEP2Rbottom::getThValue() {
 
     if (!checkSMparams(s, Mw, GammaZ)) {
         double sigma_b, sigma_had;
-        sigma_b = myTwoFermions.sigma_q(StandardModel::BOTTOM, s, Mw, GammaZ, bRCs);
-        sigma_had = myTwoFermions.sigma_q(StandardModel::UP, s, Mw, GammaZ, bRCs)
-                  + myTwoFermions.sigma_q(StandardModel::DOWN, s, Mw, GammaZ, bRCs)
-                  + myTwoFermions.sigma_q(StandardModel::CHARM, s, Mw, GammaZ, bRCs)
-                  + myTwoFermions.sigma_q(StandardModel::STRANGE, s, Mw, GammaZ, bRCs)
-                  + sigma_b;
+        if (!bRCs[LEP2TwoFermions::ISR]) {
+            sigma_b = myTwoFermions.sigma_q(StandardModel::BOTTOM, s, Mw, GammaZ, bRCs);
+            sigma_had = myTwoFermions.sigma_q(StandardModel::UP, s, Mw, GammaZ, bRCs)
+                      + myTwoFermions.sigma_q(StandardModel::DOWN, s, Mw, GammaZ, bRCs)
+                      + myTwoFermions.sigma_q(StandardModel::CHARM, s, Mw, GammaZ, bRCs)
+                      + myTwoFermions.sigma_q(StandardModel::STRANGE, s, Mw, GammaZ, bRCs)
+                      + sigma_b;
+        } else {
+            ROOT::Math::Functor1D wf(this, &LEP2Rbottom::IntegrandISR_sigma_q);
+            ROOT::Math::Integrator ig(wf, ROOT::Math::IntegrationOneDim::kADAPTIVESINGULAR);
+            ig.SetAbsTolerance(1.E-15); // desired absolute error
+            ig.SetRelTolerance(1.E-6); // desired relative error
+            sigma_b = ig.Integral(0.0, 1.0-0.85*0.85); // interval
+            //std::cout << sigma_b << std::endl;            
+            
+            myLEP2sigmaHadron.setFlag("Weak", bRCs[LEP2TwoFermions::Weak]);
+            myLEP2sigmaHadron.setFlag("WeakBox", bRCs[LEP2TwoFermions::WeakBox]);
+            myLEP2sigmaHadron.setFlag("ISR", bRCs[LEP2TwoFermions::ISR]);
+            myLEP2sigmaHadron.setFlag("QEDFSR", bRCs[LEP2TwoFermions::QEDFSR]);
+            myLEP2sigmaHadron.setFlag("QCDFSR", bRCs[LEP2TwoFermions::QCDFSR]);
+            sigma_had = myLEP2sigmaHadron.getThValue()/GeVminus2_to_nb/1000.0;
+        }
         SMresult_cache = sigma_b/sigma_had;
     }
     double R_b = SMresult_cache;

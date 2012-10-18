@@ -70,7 +70,79 @@ double LEP2TwoFermions::AFB_q(const StandardModel::quark q,
 }
 
 
+double LEP2TwoFermions::H_ISR(const double x, const double s) const {
+    double me = SM.getLeptons(SM.ELECTRON).getMass();
+    double alphaOverPi = SM.getAle()/M_PI; // alpha(0)/Pi
+    double L = log(s/(me*me));
+    double beta = 2.0*alphaOverPi*(L - 1.0);
+    double deltaVS_1 = 3.0/2.0*L + M_PI*M_PI/3.0 - 2.0;
+    double deltaH_1 = - (2.0 - x)*(L - 1.0);   
+    
+    return ( beta*pow(x, beta-1.0)*(1.0 + alphaOverPi*deltaVS_1) 
+             + alphaOverPi*deltaH_1 );
+}
+
+
+double LEP2TwoFermions::H_ISR_FB(const double x, const double s) const {
+    double me = SM.getLeptons(SM.ELECTRON).getMass();
+    double alphaOverPi = SM.getAle()/M_PI; // alpha(0)/Pi
+    double L = log(s/(me*me));
+    double beta = 2.0*alphaOverPi*(L - 1.0);
+    double deltaVS_1 = 3.0/2.0*L + M_PI*M_PI/3.0 - 2.0;
+    double tmp = (1.0-x)/(1.0-x/2.0)/(1.0-x/2.0);
+    double deltaH_FB_1 = (1.0+(1.0-x)*(1.0-x))/x*tmp*(L - 1.0 - log(tmp))
+                         - 2.0/x*(L - 1.0);
+    
+    return ( beta*pow(x, beta-1.0)*(1.0 + alphaOverPi*deltaVS_1) 
+             + alphaOverPi*deltaH_FB_1 );
+}
+
+
+double LEP2TwoFermions::G_3prime_l(const StandardModel::lepton l, const double s, 
+                                   const double Mw, const double GammaZ, 
+                                   const bool bRCs[]) const {
+    double mf = ml(l);
+    double betaf = sqrt(1.0 - 4.0*mf*mf/s);
+    double I3f = SM.getLeptons(l).getIsospin();
+    double Qf = SM.getLeptons(l).getCharge();
+    double G3 = SM.G_3(s, Mw, GammaZ, I3f, Qf, 0.0, bRCs[Weak]);    
+    
+    return ( betaf*betaf*G3 );    
+}
+
+
+double LEP2TwoFermions::G_3prime_q(const StandardModel::quark q, const double s, 
+                                   const double Mw, const double GammaZ, 
+                                   const bool bRCs[]) const {
+    double mf = mq(q, sqrt(s));
+    double betaf = sqrt(1.0 - 4.0*mf*mf/s);
+    double I3f = SM.getQuarks(q).getIsospin();
+    double Qf = SM.getQuarks(q).getCharge();
+    double mfp;
+    if (q==SM.TOP)
+        throw std::runtime_error("Error in LEP2TwoFermions::G_3prime_q()");
+    else if (q==SM.BOTTOM) 
+        mfp = mq(SM.TOP, sqrt(s));
+    else 
+        mfp = 0.0;
+    double G3 = SM.G_3(s, Mw, GammaZ, I3f, Qf, mfp, bRCs[Weak]);    
+    
+    return ( betaf*betaf*G3 );    
+}
+
+
 ////////////////////////////////////////////////////////////////////////     
+
+double LEP2TwoFermions::alpha_at_s(const double s) const {
+    double alpha;
+    if(bDebug)
+        alpha = SM.getAle()/complex(1.0715119759, -0.0186242179, false).real(); // for debug, s=(200GeV)^2
+    else
+        alpha = SM.alphaMz(); //!!TEST    
+
+    return alpha;
+}
+
 
 double LEP2TwoFermions::ml(const StandardModel::lepton l) const {
     return SM.getLeptons(l).getMass();
@@ -102,8 +174,6 @@ double LEP2TwoFermions::mq(const StandardModel::quark q, const double mu,
 }
 
 
-////////////////////////////////////////////////////////////////////////     
-
 double LEP2TwoFermions::sigma(const double s, const double Mw, 
                               const double GammaZ, const double I3f, 
                               const double Qf, const double mfp,
@@ -115,11 +185,7 @@ double LEP2TwoFermions::sigma(const double s, const double Mw,
 
     double FSR = 1.0;
     if(bRCs[QEDFSR]) {
-        double alpha;
-        if(bDebug)
-            alpha = SM.getAle()/complex(1.0715119759, -0.0186242179, false).real(); // for debug
-        else
-            alpha = SM.alphaMz(); //!!TEST
+        double alpha = SM.getAle(); // alpha(0)
         FSR += 3.0*alpha/(4.0*M_PI)*Qf*Qf;
     }
     

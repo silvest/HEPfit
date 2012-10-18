@@ -119,7 +119,7 @@ public:
     /**
      * @param[in] q name of quark
      * @param[in] mu renormalization scale
-     * @param[in] order (=LO, NLO, NNLO, FULLNLO[defalut], FULLNNLO)
+     * @param[in] order (=LO, NLO, NNLO, FULLNLO, FULLNNLO[defalut])
      * @return the MSbar mass of u, d, s, c, b or the pole mass of t
      */
     double mq(const StandardModel::quark q, const double mu, 
