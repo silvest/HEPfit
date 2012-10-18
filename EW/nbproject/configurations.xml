@@ -118,8 +118,6 @@
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
-            <pElem>../Cuba/include</pElem>
-            <pElem>.</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../InputParser/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
@@ -288,7 +286,6 @@
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
-            <pElem>../Cuba/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -322,7 +319,6 @@
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
-            <pElem>../Cuba/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
