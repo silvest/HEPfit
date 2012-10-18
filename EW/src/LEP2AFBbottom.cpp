@@ -27,6 +27,8 @@ double LEP2AFBbottom::getThValue() {
             //          << std::endl;
             
             // cross section
+            bRCsForSigmaIntegrand[LEP2TwoFermions::QEDFSR] = false;
+            bRCsForSigmaIntegrand[LEP2TwoFermions::QCDFSR] = false;
             ROOT::Math::Functor1D wf2(this, &LEP2AFBbottom::IntegrandISR_sigma_q);
             ROOT::Math::Integrator ig2(wf2, ROOT::Math::IntegrationOneDim::kADAPTIVESINGULAR);
             ig2.SetAbsTolerance(1.E-15); // desired absolute error

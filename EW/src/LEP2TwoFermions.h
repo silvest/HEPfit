@@ -75,15 +75,34 @@ public:
                  const double Mw, const double GammaZ, const bool bRCs[]) const;
 
     /**
-     * @param x s'=(1-x)s
-     * @param s the invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] s the invariant mass squared of the initial-state e^+ e^- pair
+     * @return the final-state QCD corrections to cross sections 
+     */
+    double QCD_FSR_forSigma(const double s) const;
+    
+    /**
+     * @param[in] s the invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] mf the mass of the final-state fermion
+     * @return the final-state QCD corrections to forward-backward asymmetries
+     */
+    double QCD_FSR_forAFB(const double s, const double mf) const;
+
+    /**
+     * @param[in] Qf the electromagnetic charge of the final-state fermion
+     * @return the final-state QED corrections to cross sections 
+     */
+    double QED_FSR_forSigma(const double Qf) const;
+    
+    /**
+     * @param[in] x s'=(1-x)s
+     * @param[in] s the invariant mass squared of the initial-state e^+ e^- pair
      * @return the additive radiator of initial-state radiations in cross sections
      */
     double H_ISR(const double x, const double s) const;
 
     /**
-     * @param x s'=(1-x)s
-     * @param s the invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] x s'=(1-x)s
+     * @param[in] s the invariant mass squared of the initial-state e^+ e^- pair
      * @return the additive radiator of initial-state radiations in forward-backward asysmmetries
      */
     double H_ISR_FB(const double x, const double s) const;
