@@ -17,7 +17,7 @@ using namespace gslpp;
 /**
  * @class EWSMTwoFermionsLEP2
  * @brief Form factors G_1, G_2 and G_3 and the contributions from the box diagrams 
- * for the processes e^+e^- -> f fbar at LEP-II
+ * in the processes e^+e^- -> f fbar at LEP-II
  * 
  * Formulae used in the current class are calculated in the unitary gauge. 
  */
