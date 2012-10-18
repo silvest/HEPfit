@@ -74,10 +74,52 @@ public:
     double AFB_q(const StandardModel::quark q, const double s, 
                  const double Mw, const double GammaZ, const bool bRCs[]) const;
 
+    /**
+     * @param x s'=(1-x)s
+     * @param s the invariant mass squared of the initial-state e^+ e^- pair
+     * @return the additive radiator of initial-state radiations in cross sections
+     */
+    double H_ISR(const double x, const double s) const;
+
+    /**
+     * @param x s'=(1-x)s
+     * @param s the invariant mass squared of the initial-state e^+ e^- pair
+     * @return the additive radiator of initial-state radiations in forward-backward asysmmetries
+     */
+    double H_ISR_FB(const double x, const double s) const;
+
+    /**
+     * @param[in] l name of a lepton
+     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] Mw the W-boson mass 
+     * @param[in] GammaZ the Z-boson decay width
+     * @param[in] flags to control radiative corrections
+     * @return the form factor beta_f^2*G_3(s) for e^+ e^- -> l lbar
+     */
+    double G_3prime_l(const StandardModel::lepton l, const double s, 
+                      const double Mw, const double GammaZ, const bool bRCs[]) const;
+    
+    /**
+     * @param[in] q name of a quark
+     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] Mw the W-boson mass 
+     * @param[in] GammaZ the Z-boson decay width
+     * @param[in] flags to control radiative corrections
+     * @return the form factor beta_f^2*G_3(s) for e^+ e^- -> q qbar
+     */
+    double G_3prime_q(const StandardModel::quark q, const double s, 
+                      const double Mw, const double GammaZ, const bool bRCs[]) const;    
+
     
     ////////////////////////////////////////////////////////////////////////     
 private:
 
+    /**
+     * @param s invariant mass squared
+     * @return the electromagnetic coupling at s
+     */
+    double alpha_at_s(const double s) const;
+    
     /**
      * @param[in] l name of lepton
      * @return mass of lepton
@@ -91,7 +133,7 @@ private:
      * @return the MSbar mass of u, d, s, c, b or the pole mass of t
      */
     double mq(const StandardModel::quark q, const double mu, 
-              const orders order=FULLNNLO) const;
+              const orders order=FULLNLO) const;
     
     double sigma(const double s, const double Mw, const double GammaZ, 
                  const double I3f, const double Qf, const double mfp,

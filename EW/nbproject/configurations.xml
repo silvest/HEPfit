@@ -22,7 +22,6 @@
       <itemPath>src/LEP2Rbottom.h</itemPath>
       <itemPath>src/LEP2Rcharm.h</itemPath>
       <itemPath>src/LEP2ThObservable.h</itemPath>
-      <itemPath>src/LEP2TwoFermions.cpp</itemPath>
       <itemPath>src/LEP2TwoFermions.h</itemPath>
       <itemPath>src/LEP2oblique.h</itemPath>
       <itemPath>src/LEP2sigmaHadron.h</itemPath>
@@ -63,6 +62,7 @@
       <itemPath>src/LEP2AFBtau.cpp</itemPath>
       <itemPath>src/LEP2Rbottom.cpp</itemPath>
       <itemPath>src/LEP2Rcharm.cpp</itemPath>
+      <itemPath>src/LEP2TwoFermions.cpp</itemPath>
       <itemPath>src/LEP2oblique.cpp</itemPath>
       <itemPath>src/LEP2sigmaHadron.cpp</itemPath>
       <itemPath>src/LEP2sigmaMu.cpp</itemPath>
@@ -126,6 +126,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../Utils/src</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
@@ -289,6 +290,7 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Cuba/include</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -322,7 +324,7 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Cuba/include</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/BAT/include -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

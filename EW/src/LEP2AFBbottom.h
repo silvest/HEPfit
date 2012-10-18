@@ -18,6 +18,7 @@ public:
      * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
      */
     LEP2AFBbottom(const EW& EW_i, const double sqrt_s_i) : LEP2ThObservable(EW_i, sqrt_s_i) {
+        q_flavor = StandardModel::BOTTOM;
     }
 
     /**
@@ -26,7 +27,7 @@ public:
     double getThValue();
 
 private:
-
+     
 };
 
 #endif	/* LEP2AFBBOTTOM_H */
