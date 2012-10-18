@@ -19,7 +19,12 @@ double LEP2TwoFermions::sigma_l(const StandardModel::lepton l,
     double I3f = SM.getLeptons(l).getIsospin();
     double Qf = SM.getLeptons(l).getCharge();
 
-    return sigma(s, Mw, GammaZ, I3f, Qf, 0.0, mf, 1.0, bRCs);
+    double sigmal = sigma(s, Mw, GammaZ, I3f, Qf, 0.0, mf, 1.0, bRCs);
+    
+    if (bRCs[QEDFSR])
+        sigmal *= QED_FSR_forSigma(Qf);
+    
+    return sigmal;
 }
 
 
@@ -37,12 +42,15 @@ double LEP2TwoFermions::sigma_q(const StandardModel::quark q,
     else 
         mfp = 0.0;
 
-    // Final-state QCD radiations
-    double QCD_FSR = 1.0;
-    if(bRCs[QCDFSR])
-        QCD_FSR += SM.Als(sqrt(s), FULLNLO)/M_PI;
+    double sigmaq = sigma(s, Mw, GammaZ, I3f, Qf, mfp, mf, 3.0, bRCs);
     
-    return ( sigma(s, Mw, GammaZ, I3f, Qf, mfp, mf, 3.0, bRCs)*QCD_FSR );
+    if (bRCs[QEDFSR])
+        sigmaq *= QED_FSR_forSigma(Qf);
+
+    if (bRCs[QCDFSR])
+        sigmaq *= QCD_FSR_forSigma(s);
+    
+    return sigmaq;
 }
 
 
@@ -71,12 +79,27 @@ double LEP2TwoFermions::AFB_q(const StandardModel::quark q,
     else 
         mfp = 0.0;
 
-    // Final-state QCD radiations
-    double QCD_FSR = 1.0;
-    if(bRCs[QCDFSR])
-        QCD_FSR -= SM.Als(sqrt(s), FULLNLO)/M_PI*(1.0 - 16.0/3.0*mf/sqrt(s));
+    double AFBq = AFB(s, Mw, GammaZ, I3f, Qf, mfp, mf, bRCs);
     
-    return ( AFB(s, Mw, GammaZ, I3f, Qf, mfp, mf, bRCs)*QCD_FSR );
+    if (bRCs[QCDFSR])
+        AFBq *= QCD_FSR_forAFB(s,mf);
+    
+    return AFBq;
+}
+
+
+double LEP2TwoFermions::QCD_FSR_forSigma(const double s) const {
+    return ( 1.0 + SM.Als(sqrt(s), FULLNLO)/M_PI );
+}
+    
+
+double LEP2TwoFermions::QCD_FSR_forAFB(const double s, const double mf) const {
+    return ( 1.0 - SM.Als(sqrt(s), FULLNLO)/M_PI*(1.0 - 16.0/3.0*mf/sqrt(s)) );
+}
+
+
+double LEP2TwoFermions::QED_FSR_forSigma(const double Qf) const {
+    return ( 1.0 + 3.0*SM.getAle()/(4.0*M_PI)*Qf*Qf );
 }
 
 
@@ -137,6 +160,9 @@ double LEP2TwoFermions::G_3prime_q(const StandardModel::quark q, const double s,
         mfp = 0.0;
     double G3 = SM.G_3(s, Mw, GammaZ, I3f, Qf, mfp, bRCs[Weak]);    
     
+    if (bRCs[QCDFSR])
+        G3 *= QCD_FSR_forAFB(s,mf);
+    
     return ( betaf*betaf*G3 );    
 }
 
@@ -193,13 +219,8 @@ double LEP2TwoFermions::sigma(const double s, const double Mw,
     double G1 = SM.G_1(s, Mw, GammaZ, I3f, Qf, mfp, bRCs[Weak]);
     double G2 = SM.G_2(s, Mw, GammaZ, I3f, Qf, mfp, bRCs[Weak]);
 
-    // Final-state QED radiations    
-    double QED_FSR = 1.0;
-    if(bRCs[QEDFSR])
-        QED_FSR += 3.0*SM.getAle()/(4.0*M_PI)*Qf*Qf;
-    
     return ( 4.0*M_PI*SM.getAle()*SM.getAle()/(3.0*s)*Ncf*betaf
-             *( G1 + 2.0*mf*mf/s*G2)*QED_FSR );
+             *( G1 + 2.0*mf*mf/s*G2) );
 }
 
 

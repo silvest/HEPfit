@@ -31,6 +31,12 @@ public:
         bRCs[LEP2TwoFermions::ISR] = true;
         bRCs[LEP2TwoFermions::QEDFSR] = true;
         bRCs[LEP2TwoFermions::QCDFSR] = true;
+        
+        bRCsForSigmaIntegrand[LEP2TwoFermions::Weak] = true;
+        bRCsForSigmaIntegrand[LEP2TwoFermions::WeakBox] = true;
+        bRCsForSigmaIntegrand[LEP2TwoFermions::ISR] = true;
+        bRCsForSigmaIntegrand[LEP2TwoFermions::QEDFSR] = true;
+        bRCsForSigmaIntegrand[LEP2TwoFermions::QCDFSR] = true;
     }
 
     /**
@@ -39,17 +45,22 @@ public:
      * @param[in] flag boolean variable
      */
     void setFlag(const std::string str, const bool flag) {
-        if (str=="Weak")
+        if (str=="Weak") {
             bRCs[LEP2TwoFermions::Weak] = flag;
-        else if (str=="WeakBox")
+            bRCsForSigmaIntegrand[LEP2TwoFermions::Weak] = flag;
+        } else if (str=="WeakBox") {
             bRCs[LEP2TwoFermions::WeakBox] = flag;
-        else if (str=="ISR")
+            bRCsForSigmaIntegrand[LEP2TwoFermions::WeakBox] = flag;
+        } else if (str=="ISR") {
             bRCs[LEP2TwoFermions::ISR] = flag;
-        else if (str=="QEDFSR")
+            bRCsForSigmaIntegrand[LEP2TwoFermions::ISR] = flag;
+        } else if (str=="QEDFSR") {
             bRCs[LEP2TwoFermions::QEDFSR] = flag;
-        else if (str=="QCDFSR")
+            bRCsForSigmaIntegrand[LEP2TwoFermions::QEDFSR] = flag;
+        } else if (str=="QCDFSR") {
             bRCs[LEP2TwoFermions::QCDFSR] = flag;
-        else
+            bRCsForSigmaIntegrand[LEP2TwoFermions::QCDFSR] = flag;
+        } else
             throw std::runtime_error("Error in LEP2ThObservable::setFlag()");
     }
 
@@ -84,6 +95,8 @@ public:
 protected:
     bool bRCs[LEP2TwoFermions::NUMofLEP2RCs]; // flags for radiative corrections
 
+    bool bRCsForSigmaIntegrand[LEP2TwoFermions::NUMofLEP2RCs]; // flags for radiative corrections    
+    
     // used in integrands
     StandardModel::lepton l_flavor;
     StandardModel::quark q_flavor;
@@ -106,7 +119,8 @@ protected:
         double GammaZ = myEW.Gamma_Z();
         double Ncf = 1.0;
         
-        double G3prime = myTwoFermions.G_3prime_l(l_flavor, sprime, Mw, GammaZ, bRCs);
+        double G3prime = myTwoFermions.G_3prime_l(l_flavor, sprime, Mw, GammaZ, 
+                                                  bRCs);
         double H = myTwoFermions.H_ISR_FB(x, s);
         
         return ( Ncf*H*G3prime/sprime );
@@ -118,7 +132,8 @@ protected:
         double GammaZ = myEW.Gamma_Z();
         double Ncf = 3.0;
         
-        double G3prime = myTwoFermions.G_3prime_q(q_flavor, sprime, Mw, GammaZ, bRCs);
+        double G3prime = myTwoFermions.G_3prime_q(q_flavor, sprime, Mw, GammaZ, 
+                                                  bRCs);
         double H = myTwoFermions.H_ISR_FB(x, s);
         
         return ( Ncf*H*G3prime/sprime );
@@ -129,14 +144,8 @@ protected:
         double Mw = SM.Mw(); 
         double GammaZ = myEW.Gamma_Z();
         
-        bool bRCs_noQCDFSR[5];
-        bRCs_noQCDFSR[LEP2TwoFermions::Weak] = bRCs[LEP2TwoFermions::Weak];
-        bRCs_noQCDFSR[LEP2TwoFermions::WeakBox] = bRCs[LEP2TwoFermions::WeakBox];
-        bRCs_noQCDFSR[LEP2TwoFermions::ISR] = bRCs[LEP2TwoFermions::ISR];
-        bRCs_noQCDFSR[LEP2TwoFermions::QEDFSR] = bRCs[LEP2TwoFermions::QEDFSR];
-        bRCs_noQCDFSR[LEP2TwoFermions::QCDFSR] = false;
-        
-        double sigma = myTwoFermions.sigma_l(l_flavor, sprime, Mw, GammaZ, bRCs_noQCDFSR);
+        double sigma = myTwoFermions.sigma_l(l_flavor, sprime, Mw, GammaZ, 
+                                             bRCsForSigmaIntegrand);
         double H = myTwoFermions.H_ISR(x, s);
         
         return ( H*sigma );
@@ -147,14 +156,8 @@ protected:
         double Mw = SM.Mw(); 
         double GammaZ = myEW.Gamma_Z();
         
-        bool bRCs_noQCDFSR[5];
-        bRCs_noQCDFSR[LEP2TwoFermions::Weak] = bRCs[LEP2TwoFermions::Weak];
-        bRCs_noQCDFSR[LEP2TwoFermions::WeakBox] = bRCs[LEP2TwoFermions::WeakBox];
-        bRCs_noQCDFSR[LEP2TwoFermions::ISR] = bRCs[LEP2TwoFermions::ISR];
-        bRCs_noQCDFSR[LEP2TwoFermions::QEDFSR] = bRCs[LEP2TwoFermions::QEDFSR];
-        bRCs_noQCDFSR[LEP2TwoFermions::QCDFSR] = false;
-        
-        double sigma = myTwoFermions.sigma_q(q_flavor, sprime, Mw, GammaZ, bRCs_noQCDFSR);
+        double sigma = myTwoFermions.sigma_q(q_flavor, sprime, Mw, GammaZ, 
+                                             bRCsForSigmaIntegrand);
         double H = myTwoFermions.H_ISR(x, s);
         
         return ( H*sigma );
