@@ -27,6 +27,8 @@ class EWSMLEP2testclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(G1_mu_noWeak);    
     CPPUNIT_TEST(G2_mu_noWeak);    
     CPPUNIT_TEST(G3_mu_noWeak);    
+    CPPUNIT_TEST(F_za_real);    
+    CPPUNIT_TEST(F_za_imag);    
     
     CPPUNIT_TEST_SUITE_END();
 
@@ -54,6 +56,8 @@ private:
     void G1_mu_noWeak();
     void G2_mu_noWeak();
     void G3_mu_noWeak();
+    void F_za_real();
+    void F_za_imag();
     
 };
 
