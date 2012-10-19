@@ -208,4 +208,18 @@ void EWSMLEP2testclass::G3_mu_noWeak() {
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
 }
 
+void EWSMLEP2testclass::F_za_real() {
+    double expected = 1.2063205379;
+    double result = myLEP2->F_za(s, Mw).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
+}
+
+void EWSMLEP2testclass::F_za_imag() {
+    double expected = 5.3999103856;
+    double result = myLEP2->F_za(s, Mw).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
+}
+
 

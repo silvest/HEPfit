@@ -40,19 +40,14 @@ public:
     complex rho_ef(const double s, const double Mw, const double I3f, 
                    const double Qf, const double mfp) const;
     complex kappa_e(const double s, const double Mw, const double I3f, 
-                    const double Qf) const;
+                    const double Qf, const double mfp) const;
     complex kappa_f(const double s, const double Mw, const double I3f, 
                     const double Qf, const double mfp) const;
     complex kappa_ef(const double s, const double Mw, const double I3f, 
                      const double Qf, const double mfp) const;
-
-    complex I2e(const double s, const double Mw, const double I3f, 
-                const double Qf) const;
-    complex I2f(const double s, const double Mw, const double I3f, 
-                const double Qf, const double mfp) const;
     
     complex G_e(const double s, const double Mw, const double I3f, 
-                const double Qf) const;
+                const double Qf, const double mfp) const;
     complex G_f(const double s, const double Mw, const double I3f, 
                 const double Qf, const double mfp) const;
     complex G_ef(const double s, const double Mw, const double I3f, 
@@ -68,6 +63,27 @@ public:
                const double I3f, const double Qf, const double mfp,
                const bool bWeak) const; 
 
+    ////////////////////////////////////////////////////////////////////////  
+    // Weak corrections
+
+    complex I2e(const double s, const double Mw) const;
+    complex I2f(const double s, const double Mw) const;
+    
+    complex DeltaRhobar(const double mu, const double Mw) const;
+    complex DeltaRhobarZ(const double mu, const double Mw) const;
+    complex D_Z_hat(const double mu, const double s, const double Mw) const;
+    complex Pibar_Zgamma_hat(const double mu, const double s, const double Mw) const;
+    complex Pibar_gg_bos_hat(const double mu, const double s, const double Mw) const;
+
+    complex F_za_0(const double s, const double Mw) const;
+
+    complex F_Wa_0(const double s, const double Mw) const;    
+    complex F_Wa_t(const double s, const double Mw) const;    
+    complex F_Wn_0_hat(const double mu, const double s, const double Mw) const;    
+    complex F_Wn_t_hat(const double mu, const double s, const double Mw) const;    
+    complex F_W_0_hat(const double mu, const double s, const double Mw) const;    
+    complex F_W_t_hat(const double mu, const double s, const double Mw) const;    
+    
     
     ////////////////////////////////////////////////////////////////////////  
 private:
