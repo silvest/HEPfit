@@ -10,13 +10,16 @@
 #include "PVfunctions.h"
 #include <stdexcept>
 
+// set in case where LoopTools library is employed. 
+#define USE_LOOPTOOLS
+
 #define LEPS 1.e-7 // tolerance in the limit of masses
 
 
-PVfunctions::PVfunctions() {
-}
-
 double PVfunctions::A0(const double mu, const double m) const {
+#ifdef USE_LOOPTOOLS
+    return myLT.PV_A0(mu, m);
+#else    
     if ( mu<=0.0 || m<0.0 ) {
         throw std::runtime_error("Invalid argument for PVfunctions::A0()"); 
     }
@@ -26,10 +29,14 @@ double PVfunctions::A0(const double mu, const double m) const {
     } else {
         return ( -m*m*(-log(m*m/mu/mu)+1.0) ); 
     }
+#endif
 }
 
 complex PVfunctions::B0(const double mu, const double p2, 
                         const double m0, const double m1) const {   
+#ifdef USE_LOOPTOOLS
+    return myLT.PV_B0(mu, p2, m0, m1);
+#else    
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw std::runtime_error("Invalid argument for PVfunctions::B0()");    
     }
@@ -84,6 +91,7 @@ complex PVfunctions::B0(const double mu, const double p2,
         throw std::runtime_error("Missing case in the codes of PVfunctions::B0()."); 
     }
     return B0;
+#endif    
 }
 
 complex PVfunctions::B1(const double mu, const double p2, 
@@ -327,6 +335,9 @@ complex PVfunctions::Bfp(const double mu, const double p2,
 
 complex PVfunctions::C0(const double p2, 
                         const double m0, const double m1, const double m2) const {
+#ifdef USE_LOOPTOOLS
+    return myLT.PV_C0(p2, m0, m1, m2);
+#else 
     if ( p2<0.0 || m0<0.0 || m1<0.0 || m2<0.0 ) {
         throw std::runtime_error("Invalid argument for PVfunctions::C0()"); 
     }
@@ -344,7 +355,7 @@ complex PVfunctions::C0(const double p2,
             complex tmp_complex(GSL_REAL(tmp), GSL_IMAG(tmp), false);
             complex x0 = 1.0 - (m02 - m12)/p2;
             complex x1 = (1.0 + tmp_complex)/2.0;
-            complex x2 = (1.0 - tmp_complex)/2.0;            
+            complex x2 = (1.0 - tmp_complex)/2.0;
             complex x3 = m02/(m02 - m12);
 
             if ( x0==x1 || x0==x2 || x0==x3)
@@ -439,14 +450,55 @@ complex PVfunctions::C0(const double p2,
         
     }
     return C0;
+#endif    
 }
 
 complex PVfunctions::D0(const double s, const double t, const double m0, 
                         const double m1, const double m2, const double m3) const{
-
-    complex D0;
+#ifdef USE_LOOPTOOLS
+    return myLT.PV_D0(s, t, m0, m1, m2, m3);
+#else 
 
     
+    /*  Write codes below!!! */
+
+
+    complex D0(0.0, 0.0, false);    
+    if (s>0.0 && t<0.0 && m0!=0.0 && m1==0.0 && m2==m0 && m3!=0.0 
+            && m0!=m3 && t-m3*m3+m0*m0!=0.0) {
+        //D0(s,t; m0, 0, m0, m3) 
+        double m02 = m0*m0, m32 = m3*m3;
+        double x1, x2;
+        if (s >= 4.0*m02) {
+            x1 = (1.0 - sqrt(1.0 - 4.0*m02/s))/2.0;
+            x2 = (1.0 + sqrt(1.0 - 4.0*m02/s))/2.0;        
+        } else {
+            
+        }
+        double x3 = m32/(m32 - m02);
+        double x4 = (t - m32)/(t - m32 + m02);
+        double d4 = 1.0 - 4.0*m02*t*(t - m32 + m02)/(s*(t - m32)*(t - m32));
+        double x1tilde, x2tilde;
+        if (d4 >= 0.0) {
+            x1tilde = x4/2.0*(1.0 - sqrt(d4));
+            x2tilde = x4/2.0*(1.0 + sqrt(d4));
+        } else {
+            
+        }
+            
+            
+            
+    } else if (s>0.0 && t<0.0 && m0!=0.0 && m1==0.0 && m2==m0 && m3==0.0) {
+        //D0(s,t; m0, 0, m0, 0) 
+        double m02 = m0*m0;    
+        
+        
+        
+        
+    } else 
+        throw std::runtime_error("PVfunctions::D0() is undefined.");
+        
     return D0; 
+#endif
 }
     

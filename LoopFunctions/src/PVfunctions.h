@@ -7,13 +7,15 @@
 #define	PVFUNCTIONS_H
 
 #include <gslpp_complex.h>
+#include "Polylogarithms.h"
+#include "LoopTools.h"
 
 using namespace gslpp;
 
 class PVfunctions {
 public:
 
-    PVfunctions();
+    PVfunctions() {};
 
     /**
      * @brief the scalar one-point Passarino-Veltman function
@@ -159,7 +161,9 @@ public:
 
     
 private:
-
+    Polylogarithms myPolylog;
+    LoopTools myLT;
+    
 };
 
 #endif	/* PVFUNCTIONS_H */

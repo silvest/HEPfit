@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>src/BernoulliNumbers.h</itemPath>
       <itemPath>src/ClausenFunctions.h</itemPath>
+      <itemPath>src/LoopTools.h</itemPath>
       <itemPath>src/PVfunctions.h</itemPath>
       <itemPath>src/Polylogarithms.h</itemPath>
     </logicalFolder>
@@ -18,6 +19,7 @@
                    projectFiles="true">
       <itemPath>src/BernoulliNumbers.cpp</itemPath>
       <itemPath>src/ClausenFunctions.cpp</itemPath>
+      <itemPath>src/LoopTools.cpp</itemPath>
       <itemPath>src/PVfunctions.cpp</itemPath>
       <itemPath>src/Polylogarithms.cpp</itemPath>
     </logicalFolder>
@@ -67,6 +69,7 @@
         <ccTool>
           <incDir>
             <pElem>../gslpp/src</pElem>
+            <pElem>../LoopTools/include</pElem>
           </incDir>
         </ccTool>
         <archiverTool>
@@ -91,6 +94,9 @@
           </incDir>
         </ccTool>
         <linkerTool>
+          <linkerAddLib>
+            <pElem>../LoopTools/lib</pElem>
+          </linkerAddLib>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../gslpp"
@@ -104,6 +110,8 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>`gsl-config --libs`</commandLine>
         </linkerTool>
@@ -176,6 +184,7 @@
           <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../gslpp/src</pElem>
+            <pElem>../LoopTools/include</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>
@@ -187,6 +196,29 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <folder path="TestFiles">
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>../LoopTools/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../gslpp"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../gslpp"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
       <folder path="TestFiles/f2">
         <cTool>
           <incDir>
@@ -252,6 +284,7 @@
           <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../gslpp/src</pElem>
+            <pElem>../LoopTools/include</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>
@@ -263,6 +296,29 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <folder path="TestFiles">
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>../LoopTools/lib</pElem>
+          </linkerAddLib>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../gslpp"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../gslpp"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
       <folder path="TestFiles/f2">
         <cTool>
           <incDir>
