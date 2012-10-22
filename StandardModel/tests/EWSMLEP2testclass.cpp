@@ -21,7 +21,8 @@ void EWSMLEP2testclass::setUp() {
     SM = new StandardModel(bDebug);
     setModelParameters(*SM);
     SM->InitializeModel();
-    myLEP2 = new EWSMTwoFermionsLEP2(*SM);
+    myLEP2 = new EWSMTwoFermionsLEP2(*SM, false);
+    myLEP2_NU = new EWSMTwoFermionsLEP2(*SM, true);
 
     sqrt_s = 200.0;
     Mw = 80.360848365211552;
@@ -185,7 +186,9 @@ void EWSMLEP2testclass::G1_mu_noWeak() {
     double expected = 1.387618480024821;
     double I3f = SM->getLeptons(SM->MU).getIsospin();
     double Qf = SM->getLeptons(SM->MU).getCharge();
-    double result = myLEP2->G_1(s, Mw, GammaZ, I3f, Qf, 0.0, false);
+    double mf = SM->getLeptons(SM->MU).getMass();
+    double mfp = 0.0;
+    double result = myLEP2->G_1_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, false);
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
 }
@@ -194,7 +197,9 @@ void EWSMLEP2testclass::G2_mu_noWeak() {
     double expected = 1.162518560532168;
     double I3f = SM->getLeptons(SM->MU).getIsospin();
     double Qf = SM->getLeptons(SM->MU).getCharge();
-    double result = myLEP2->G_2(s, Mw, GammaZ, I3f, Qf, 0.0, false);
+    double mf = SM->getLeptons(SM->MU).getMass();
+    double mfp = 0.0;
+    double result = myLEP2->G_2_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, false);
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
 }
@@ -203,23 +208,460 @@ void EWSMLEP2testclass::G3_mu_noWeak() {
     double expected = 1.021139815000306;
     double I3f = SM->getLeptons(SM->MU).getIsospin();
     double Qf = SM->getLeptons(SM->MU).getCharge();
-    double result = myLEP2->G_3(s, Mw, GammaZ, I3f, Qf, 0.0, false);
+    double mf = SM->getLeptons(SM->MU).getMass();
+    double mfp = 0.0;
+    double result = myLEP2->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, false);
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
 }
 
 void EWSMLEP2testclass::F_za_real() {
     double expected = 1.2063205379;
-    double result = myLEP2->F_za(s, Mw).real();
+    double result = myLEP2->F_za_0(s, Mw).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
 }
 
 void EWSMLEP2testclass::F_za_imag() {
     double expected = 5.3999103856;
-    double result = myLEP2->F_za(s, Mw).imag();
+    double result = myLEP2->F_za_0(s, Mw).imag();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
 }
+
+void EWSMLEP2testclass::B_WW_d_0_hat_real() {
+    double t = -0.4, u = -0.3;
+    double expected = myLEP2->B_WW_d_0_hat_TEST(s,t,u,Mw).real();
+    double result = myLEP2->B_WW_d_0_hat(s,t,u,Mw).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::B_WW_d_0_hat_imag() {
+    double t = -0.4, u = -0.3;
+    double expected = myLEP2->B_WW_d_0_hat_TEST(s,t,u,Mw).imag();
+    double result = myLEP2->B_WW_d_0_hat(s,t,u,Mw).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);    
+}
+
+void EWSMLEP2testclass::rhoef_NonUnitary_MU_real() {
+    double t = -0.4;
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double Qf = SM->getLeptons(SM->MU).getCharge();
+    double mf = SM->getLeptons(SM->MU).getMass();
+    double expected = myLEP2_NU->rho_ef(s,t,Mw,I3f,Qf,mf,0.0,true,false).real();
+    double result = myLEP2->rho_ef(s,t,Mw,I3f,Qf,mf,0.0,true,false).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);       
+}
+
+void EWSMLEP2testclass::rhoef_NonUnitary_MU_imag() {
+    double t = -0.4;
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double Qf = SM->getLeptons(SM->MU).getCharge();
+    double mf = SM->getLeptons(SM->MU).getMass();
+    double expected = myLEP2_NU->rho_ef(s,t,Mw,I3f,Qf,mf,0.0,true,false).imag();
+    double result = myLEP2->rho_ef(s,t,Mw,I3f,Qf,mf,0.0,true,false).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);           
+}
+
+void EWSMLEP2testclass::kappae_NonUnitary_MU_real() {
+    double t = -0.4;
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double Qf = SM->getLeptons(SM->MU).getCharge();
+    double mf = SM->getLeptons(SM->MU).getMass();
+    double expected = myLEP2_NU->kappa_e(s,t,Mw,I3f,Qf,mf,0.0,true,false).real();
+    double result = myLEP2->kappa_e(s,t,Mw,I3f,Qf,mf,0.0,true,false).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::kappae_NonUnitary_MU_imag() {
+    double t = -0.4;
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double Qf = SM->getLeptons(SM->MU).getCharge();
+    double mf = SM->getLeptons(SM->MU).getMass();
+    double expected = myLEP2_NU->kappa_e(s,t,Mw,I3f,Qf,mf,0.0,true,false).imag();
+    double result = myLEP2->kappa_e(s,t,Mw,I3f,Qf,mf,0.0,true,false).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::kappaf_NonUnitary_MU_real() {
+    double t = -0.4;
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double Qf = SM->getLeptons(SM->MU).getCharge();
+    double mf = SM->getLeptons(SM->MU).getMass();
+    double expected = myLEP2_NU->kappa_f(s,t,Mw,I3f,Qf,mf,0.0,true,false).real();
+    double result = myLEP2->kappa_f(s,t,Mw,I3f,Qf,mf,0.0,true,false).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::kappaf_NonUnitary_MU_imag() {
+    double t = -0.4;
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double Qf = SM->getLeptons(SM->MU).getCharge();
+    double mf = SM->getLeptons(SM->MU).getMass();
+    double expected = myLEP2_NU->kappa_f(s,t,Mw,I3f,Qf,mf,0.0,true,false).imag();
+    double result = myLEP2->kappa_f(s,t,Mw,I3f,Qf,mf,0.0,true,false).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::kappaef_NonUnitary_MU_real() {
+    double t = -0.4;
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double Qf = SM->getLeptons(SM->MU).getCharge();
+    double mf = SM->getLeptons(SM->MU).getMass();
+    double expected = myLEP2_NU->kappa_ef(s,t,Mw,I3f,Qf,mf,0.0,true,false).real();
+    double result = myLEP2->kappa_ef(s,t,Mw,I3f,Qf,mf,0.0,true,false).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::kappaef_NonUnitary_MU_imag() {
+    double t = -0.4;
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double Qf = SM->getLeptons(SM->MU).getCharge();
+    double mf = SM->getLeptons(SM->MU).getMass();
+    double expected = myLEP2_NU->kappa_ef(s,t,Mw,I3f,Qf,mf,0.0,true,false).imag();
+    double result = myLEP2->kappa_ef(s,t,Mw,I3f,Qf,mf,0.0,true,false).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::rhoef_NonUnitary_UP_real() {
+    double t = -0.4;
+    double I3f = SM->getQuarks(SM->UP).getIsospin();
+    double Qf = SM->getQuarks(SM->UP).getCharge();
+    double mf = SM->getQuarks(SM->UP).getMass();
+    double expected = myLEP2_NU->rho_ef(s,t,Mw,I3f,Qf,mf,0.0,true,false).real();
+    double result = myLEP2->rho_ef(s,t,Mw,I3f,Qf,mf,0.0,true,false).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);       
+}
+
+void EWSMLEP2testclass::rhoef_NonUnitary_UP_imag() {
+    double t = -0.4;
+    double I3f = SM->getQuarks(SM->UP).getIsospin();
+    double Qf = SM->getQuarks(SM->UP).getCharge();
+    double mf = SM->getQuarks(SM->UP).getMass();
+    double expected = myLEP2_NU->rho_ef(s,t,Mw,I3f,Qf,mf,0.0,true,false).imag();
+    double result = myLEP2->rho_ef(s,t,Mw,I3f,Qf,mf,0.0,true,false).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);           
+}
+
+void EWSMLEP2testclass::kappae_NonUnitary_UP_real() {
+    double t = -0.4;
+    double I3f = SM->getQuarks(SM->UP).getIsospin();
+    double Qf = SM->getQuarks(SM->UP).getCharge();
+    double mf = SM->getQuarks(SM->UP).getMass();
+    double expected = myLEP2_NU->kappa_e(s,t,Mw,I3f,Qf,mf,0.0,true,false).real();
+    double result = myLEP2->kappa_e(s,t,Mw,I3f,Qf,mf,0.0,true,false).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::kappae_NonUnitary_UP_imag() {
+    double t = -0.4;
+    double I3f = SM->getQuarks(SM->UP).getIsospin();
+    double Qf = SM->getQuarks(SM->UP).getCharge();
+    double mf = SM->getQuarks(SM->UP).getMass();
+    double expected = myLEP2_NU->kappa_e(s,t,Mw,I3f,Qf,mf,0.0,true,false).imag();
+    double result = myLEP2->kappa_e(s,t,Mw,I3f,Qf,mf,0.0,true,false).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::kappaf_NonUnitary_UP_real() {
+    double t = -0.4;
+    double I3f = SM->getQuarks(SM->UP).getIsospin();
+    double Qf = SM->getQuarks(SM->UP).getCharge();
+    double mf = SM->getQuarks(SM->UP).getMass();
+    double expected = myLEP2_NU->kappa_f(s,t,Mw,I3f,Qf,mf,0.0,true,false).real();
+    double result = myLEP2->kappa_f(s,t,Mw,I3f,Qf,mf,0.0,true,false).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::kappaf_NonUnitary_UP_imag() {
+    double t = -0.4;
+    double I3f = SM->getQuarks(SM->UP).getIsospin();
+    double Qf = SM->getQuarks(SM->UP).getCharge();
+    double mf = SM->getQuarks(SM->UP).getMass();
+    double expected = myLEP2_NU->kappa_f(s,t,Mw,I3f,Qf,mf,0.0,true,false).imag();
+    double result = myLEP2->kappa_f(s,t,Mw,I3f,Qf,mf,0.0,true,false).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::kappaef_NonUnitary_UP_real() {
+    double t = -0.4;
+    double I3f = SM->getQuarks(SM->UP).getIsospin();
+    double Qf = SM->getQuarks(SM->UP).getCharge();
+    double mf = SM->getQuarks(SM->UP).getMass();
+    double expected = myLEP2_NU->kappa_ef(s,t,Mw,I3f,Qf,mf,0.0,true,false).real();
+    double result = myLEP2->kappa_ef(s,t,Mw,I3f,Qf,mf,0.0,true,false).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::kappaef_NonUnitary_UP_imag() {
+    double t = -0.4;
+    double I3f = SM->getQuarks(SM->UP).getIsospin();
+    double Qf = SM->getQuarks(SM->UP).getCharge();
+    double mf = SM->getQuarks(SM->UP).getMass();
+    double expected = myLEP2_NU->kappa_ef(s,t,Mw,I3f,Qf,mf,0.0,true,false).imag();
+    double result = myLEP2->kappa_ef(s,t,Mw,I3f,Qf,mf,0.0,true,false).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::Delta_rhoef_TOP_NonUnitary_real() {
+    double mf = SM->getQuarks(SM->BOTTOM).getMass();
+    double t = -0.4, u = -s - t + 2.0*mf*mf;
+    double expected = myLEP2_NU->Delta_rho_ef_TOP(s,t,u,Mw,true).real();
+    double result = myLEP2->Delta_rho_ef_TOP(s,t,u,Mw,true).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);        
+}
+
+void EWSMLEP2testclass::Delta_rhoef_TOP_NonUnitary_imag() {
+    double mf = SM->getQuarks(SM->BOTTOM).getMass();
+    double t = -0.4, u = -s - t + 2.0*mf*mf;
+    double expected = myLEP2_NU->Delta_rho_ef_TOP(s,t,u,Mw,true).imag();
+    double result = myLEP2->Delta_rho_ef_TOP(s,t,u,Mw,true).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);             
+}
+
+void EWSMLEP2testclass::Delta_kappae_TOP_NonUnitary_real() {
+    double mf = SM->getQuarks(SM->BOTTOM).getMass();
+    double t = -0.4, u = -s - t + 2.0*mf*mf;
+    double expected = myLEP2_NU->Delta_kappa_e_TOP(s,t,u,Mw,true).real();
+    double result = myLEP2->Delta_kappa_e_TOP(s,t,u,Mw,true).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::Delta_kappae_TOP_NonUnitary_imag() {
+    double mf = SM->getQuarks(SM->BOTTOM).getMass();
+    double t = -0.4, u = -s - t + 2.0*mf*mf;
+    double expected = myLEP2_NU->Delta_kappa_e_TOP(s,t,u,Mw,true).imag();
+    double result = myLEP2->Delta_kappa_e_TOP(s,t,u,Mw,true).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::Delta_kappaf_TOP_NonUnitary_real() {
+    double mf = SM->getQuarks(SM->BOTTOM).getMass();
+    double t = -0.4, u = -s - t + 2.0*mf*mf;
+    double expected = myLEP2_NU->Delta_kappa_f_TOP(s,t,u,Mw,true).real();
+    double result = myLEP2->Delta_kappa_f_TOP(s,t,u,Mw,true).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::Delta_kappaf_TOP_NonUnitary_imag() {
+    double mf = SM->getQuarks(SM->BOTTOM).getMass();
+    double t = -0.4, u = -s - t + 2.0*mf*mf;
+    double expected = myLEP2_NU->Delta_kappa_f_TOP(s,t,u,Mw,true).imag();
+    double result = myLEP2->Delta_kappa_f_TOP(s,t,u,Mw,true).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::Delta_kappaef_TOP_NonUnitary_real() {
+    double mf = SM->getQuarks(SM->BOTTOM).getMass();
+    double t = -0.4, u = -s - t + 2.0*mf*mf;
+    double expected = myLEP2_NU->Delta_kappa_ef_TOP(s,t,u,Mw,true).real();
+    double result = myLEP2->Delta_kappa_ef_TOP(s,t,u,Mw,true).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::Delta_kappaef_TOP_NonUnitary_imag() {
+    double mf = SM->getQuarks(SM->BOTTOM).getMass();
+    double t = -0.4, u = -s - t + 2.0*mf*mf;
+    double expected = myLEP2_NU->Delta_kappa_ef_TOP(s,t,u,Mw,true).imag();
+    double result = myLEP2->Delta_kappa_ef_TOP(s,t,u,Mw,true).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::B_WW_0_real() {
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double mf = SM->getLeptons(SM->MU).getMass();
+    double t = - s/2.0, u = - s - t;
+    double mu = Mw;
+    double expected = -0.00010760320088880713;
+    //double result = myLEP2->B_WW_d_0_hat(s, t, u, Mw).real();
+    //double result = myLEP2->B_WW_d_0(mu, s, t, u, Mw).real();
+    double result = myLEP2_NU->B_WW_d_0_hat(s, t, u, Mw).real(); //!! TEST !!
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);    
+}
+
+void EWSMLEP2testclass::B_WW_0_imag() {
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double mf = SM->getLeptons(SM->MU).getMass();
+    double t = - s/2.0, u = - s - t;
+    double mu = Mw;
+    double expected = 0.00048542322208538363;
+    double result = myLEP2->B_WW_d_0_hat(s, t, u, Mw).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);        
+}
+
+void EWSMLEP2testclass::B_ZZ_0_real() {
+    double t = - s/2.0, u = - s - t;
+    double mu = Mw;
+    double expected = 0.00036346250937252961;
+    double result = myLEP2->B_ZZ_0(mu, s, t, u).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);    
+}
+
+void EWSMLEP2testclass::B_ZZ_0_imag() {
+    double t = - s/2.0, u = - s - t;
+    double mu = Mw;
+    double expected = 0.00040616916658261799;
+    double result = myLEP2->B_ZZ_0(mu, s, t, u).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);        
+}
+
+void EWSMLEP2testclass::Delta_rho_ef_WW_real() {
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double t = - s/2.0, u = - s - t;
+    double mu = Mw;
+    double expected = -0.0068839947;
+    //double result = myLEP2->Delta_rho_ef_WW_hat(s,t,u,Mw,I3f).real();
+    double result = myLEP2_NU->Delta_rho_ef_WW_hat(s,t,u,Mw,I3f).real(); //!! TEST !!
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);     
+}
+
+void EWSMLEP2testclass::Delta_rho_ef_WW_imag() {
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double t = - s/2.0, u = - s - t;
+    double mu = Mw;
+    double expected = 0.0310553110;
+    double result = myLEP2->Delta_rho_ef_WW_hat(s,t,u,Mw,I3f).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);    
+}
+
+void EWSMLEP2testclass::Delta_rho_ef_ZZ_real() {
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double Qf = SM->getLeptons(SM->MU).getCharge();
+    double t = - s/2.0, u = - s - t;
+    double mu = Mw;
+    double expected = 0.0024644708;
+    double result = myLEP2->Delta_rho_ef_ZZ(mu,s,t,u,Mw,I3f,Qf).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);      
+}
+
+void EWSMLEP2testclass::Delta_rho_ef_ZZ_imag() {
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double Qf = SM->getLeptons(SM->MU).getCharge();
+    double t = - s/2.0, u = - s - t;
+    double mu = Mw;
+    double expected = 0.0027540448;
+    double result = myLEP2->Delta_rho_ef_ZZ(mu,s,t,u,Mw,I3f,Qf).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);     
+}
+
+void EWSMLEP2testclass::Delta_rho_ef_WW_charm_real() {
+    double I3f = SM->getQuarks(SM->CHARM).getIsospin();
+    double snew = 205.0*205.0;
+    double t = - snew/2.0, u = - snew - t;
+    double mu = Mw;
+    double expected = -0.0190989409;
+    //double result = myLEP2->Delta_rho_ef_WW_hat(snew,t,u,Mw,I3f).real();
+    double result = myLEP2_NU->Delta_rho_ef_WW_hat(snew,t,u,Mw,I3f).real(); //!! TEST !!
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);     
+}
+
+void EWSMLEP2testclass::Delta_rho_ef_WW_charm_imag() {
+    double I3f = SM->getQuarks(SM->CHARM).getIsospin();
+    double snew = 205.0*205.0;
+    double t = - snew/2.0, u = - snew - t;
+    double mu = Mw;
+    double expected = 0.0028803190;
+    double result = myLEP2->Delta_rho_ef_WW_hat(snew,t,u,Mw,I3f).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);     
+}
+
+void EWSMLEP2testclass::Delta_rho_ef_ZZ_charm_real() {
+    double I3f = SM->getQuarks(SM->CHARM).getIsospin();
+    double Qf = SM->getQuarks(SM->CHARM).getCharge();
+    double snew = 205.0*205.0;
+    double t = - snew/2.0, u = - snew - t;
+    double mu = Mw;
+    double expected = -0.0024895438;
+    double result = myLEP2->Delta_rho_ef_ZZ(mu,snew,t,u,Mw,I3f,Qf).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);     
+}
+
+void EWSMLEP2testclass::Delta_rho_ef_ZZ_charm_imag() {
+    double I3f = SM->getQuarks(SM->CHARM).getIsospin();
+    double Qf = SM->getQuarks(SM->CHARM).getCharge();
+    double snew = 205.0*205.0;
+    double t = - snew/2.0, u = - snew - t;
+    double mu = Mw;
+    double expected = -0.0033604175;
+    double result = myLEP2->Delta_rho_ef_ZZ(mu,snew,t,u,Mw,I3f,Qf).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);   
+}
+
+void EWSMLEP2testclass::G1_mu_Box_TEST() {
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double Qf = SM->getLeptons(SM->MU).getCharge();
+    double mf = SM->getLeptons(SM->MU).getMass();
+    double t = - s/2.0;
+    double expected = myLEP2->G_1(s, t, Mw, GammaZ, I3f, Qf, mf, 0.0, true, true, true);
+    double result = myLEP2->G_1_noBox(s, Mw, GammaZ, I3f, Qf, mf, 0.0, true)
+                    + myLEP2->G_1_box(s, t, Mw, GammaZ, I3f, Qf, mf, 0.0);
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::G2_mu_Box_TEST() {
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double Qf = SM->getLeptons(SM->MU).getCharge();
+    double mf = SM->getLeptons(SM->MU).getMass();
+    double t = - s/2.0;
+    double expected = myLEP2->G_2(s, t, Mw, GammaZ, I3f, Qf, mf, 0.0, true, true, true);
+    double result = myLEP2->G_2_noBox(s, Mw, GammaZ, I3f, Qf, mf, 0.0, true)
+                    + myLEP2->G_2_box(s, t, Mw, GammaZ, I3f, Qf, mf, 0.0);
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+void EWSMLEP2testclass::G3_mu_Box_TEST() {
+    double I3f = SM->getLeptons(SM->MU).getIsospin();
+    double Qf = SM->getLeptons(SM->MU).getCharge();
+    double mf = SM->getLeptons(SM->MU).getMass();
+    double t = - s/2.0;
+    double expected = myLEP2->G_3(s, t, Mw, GammaZ, I3f, Qf, mf, 0.0, true, true, true);
+    double result = myLEP2->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, 0.0, true)
+                    + myLEP2->G_3_box(s, t, Mw, GammaZ, I3f, Qf, mf, 0.0);
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);
+}
+
+
+
 
 

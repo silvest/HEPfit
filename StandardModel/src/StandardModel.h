@@ -415,51 +415,6 @@ public:
      * @return the total width of the W boson
      */
     virtual double GammaW() const;
-
-    /**
-     * @brief form factor for e^+ e^- -> f fbar at LEP-II
-     * @param s the invariant mass squared of the initial-state e^+ e^- pair
-     * @param Mw the W-boson mass 
-     * @param GammaZ the Z-boson decay width
-     * @param I3f the isospin of the final-state fermion f
-     * @param Qf the electromagnetic charge of the final-state fermion f
-     * @param mfp the mass of the isospin partner of the final-state fermion f
-     * @param bWeak flag to control weak radiative corrections
-     * @return the form factor G_1(s)
-     */
-    double G_1(const double s, const double Mw, const double GammaZ, 
-               const double I3f, const double Qf, const double mfp,
-               const bool bWeak) const;
-  
-    /**
-     * @brief form factor for e^+ e^- -> f fbar at LEP-II
-     * @param s the invariant mass squared of the initial-state e^+ e^- pair
-     * @param Mw the W-boson mass 
-     * @param GammaZ the Z-boson decay width
-     * @param I3f the isospin of the final-state fermion f
-     * @param Qf the electromagnetic charge of the final-state fermion f
-     * @param mfp the mass of the isospin partner of the final-state fermion f
-     * @param bWeak flag to control weak radiative corrections
-     * @return the form factor G_2(s)
-     */
-    double G_2(const double s, const double Mw, const double GammaZ, 
-               const double I3f, const double Qf, const double mfp,
-               const bool bWeak) const;
-
-    /**
-     * @brief form factor for e^+ e^- -> f fbar at LEP-II
-     * @param s the invariant mass squared of the initial-state e^+ e^- pair
-     * @param Mw the W-boson mass 
-     * @param GammaZ the Z-boson decay width
-     * @param I3f the isospin of the final-state fermion f
-     * @param Qf the electromagnetic charge of the final-state fermion f
-     * @param mfp the mass of the isospin partner of the final-state fermion f
-     * @param bWeak flag to control weak radiative corrections
-     * @return the form factor G_3(s)
-     */
-    double G_3(const double s, const double Mw, const double GammaZ, 
-               const double I3f, const double Qf, const double mfp,
-               const bool bWeak) const;
     
     /**
      * @return NP contribution to oblique parameter S
