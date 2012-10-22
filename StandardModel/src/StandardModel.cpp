@@ -272,23 +272,6 @@ double StandardModel::GammaW() const {
     return myEWSM->GammaW_SM();
 }
 
-double StandardModel::G_1(const double s, const double Mw, const double GammaZ, 
-                          const double I3f, const double Qf, const double mfp,
-                          const bool bWeak) const {
-    return myEWSM->G_1(s, Mw, GammaZ, I3f, Qf, mfp, bWeak);
-}
-  
-double StandardModel::G_2(const double s, const double Mw, const double GammaZ, 
-                          const double I3f, const double Qf, const double mfp,
-                          const bool bWeak) const {
-    return myEWSM->G_2(s, Mw, GammaZ, I3f, Qf, mfp, bWeak);    
-}
-
-double StandardModel::G_3(const double s, const double Mw, const double GammaZ, 
-                          const double I3f, const double Qf, const double mfp,
-                          const bool bWeak) const {
-    return myEWSM->G_3(s, Mw, GammaZ, I3f, Qf, mfp, bWeak);
-}
 
 ////////////////////////////////////////////////////////////////////////
 // CKM parameters
