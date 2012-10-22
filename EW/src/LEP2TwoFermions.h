@@ -33,6 +33,32 @@ public:
     /**
      * @param[in] l name of a lepton
      * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] cosTheta cosine of the scattering angle theta
+     * @param[in] Mw the W-boson mass 
+     * @param[in] GammaZ the Z-boson decay width
+     * @param[in] flags to control radiative corrections
+     * @return the differential cross section d sigma(e^+ e^- -> l lbar)/d cosTheta in GeV^{-2}
+     */
+    double dsigma_l(const StandardModel::lepton l, 
+                    const double s, const double cosTheta,
+                    const double Mw, const double GammaZ, const bool bRCs[]) const;
+
+    /**
+     * @param[in] q name of a quark
+     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
+     * @param[in] cosTheta cosine of the scattering angle theta
+     * @param[in] Mw the W-boson mass 
+     * @param[in] GammaZ the Z-boson decay width
+     * @param[in] flags to control radiative corrections
+     * @return the differential cross section d sigma(e^+ e^- -> q qbar)/d cosTheta in GeV^{-2}
+     */
+    double dsigma_q(const StandardModel::quark q, 
+                    const double s, const double cosTheta,
+                    const double Mw, const double GammaZ, const bool bRCs[]) const;
+    
+    /**
+     * @param[in] l name of a lepton
+     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
      * @param[in] Mw the W-boson mass 
      * @param[in] GammaZ the Z-boson decay width
      * @param[in] flags to control radiative corrections
@@ -116,7 +142,8 @@ public:
      * @return the form factor beta_f^2*G_3(s) for e^+ e^- -> l lbar
      */
     double G_3prime_l(const StandardModel::lepton l, const double s, 
-                      const double Mw, const double GammaZ, const bool bRCs[]) const;
+                      const double Mw, const double GammaZ, 
+                      const bool bRCs[]) const;
     
     /**
      * @param[in] q name of a quark
@@ -127,7 +154,8 @@ public:
      * @return the form factor beta_f^2*G_3(s) for e^+ e^- -> q qbar
      */
     double G_3prime_q(const StandardModel::quark q, const double s, 
-                      const double Mw, const double GammaZ, const bool bRCs[]) const;    
+                      const double Mw, const double GammaZ, 
+                      const bool bRCs[]) const;   
 
     
     ////////////////////////////////////////////////////////////////////////     
@@ -153,14 +181,19 @@ private:
      */
     double mq(const StandardModel::quark q, const double mu, 
               const orders order=FULLNLO) const;
+
+    double dsigma(const double s, const double cosTheta, 
+                  const double Mw, const double GammaZ, 
+                  const double I3f, const double Qf, const double mf,
+                  const double mfp, const double Ncf, const bool bRCs[]) const;
     
     double sigma(const double s, const double Mw, const double GammaZ, 
-                 const double I3f, const double Qf, const double mfp,
-                 const double mf, const double Ncf, const bool bRCs[]) const;
+                 const double I3f, const double Qf, const double mf,
+                 const double mfp, const double Ncf, const bool bRCs[]) const;
     
     double AFB(const double s, const double Mw, const double GammaZ, 
-               const double I3f, const double Qf, const double mfp,
-               const double mf, const bool bRCs[]) const;
+               const double I3f, const double Qf, const double mf,
+               const double mfp, const bool bRCs[]) const;
     
 };
 
