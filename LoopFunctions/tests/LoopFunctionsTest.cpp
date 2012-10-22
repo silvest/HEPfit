@@ -39,6 +39,7 @@ int main(int argc, char** argv) {
         cout << PVtest.B22(Mz,0.0,MHp,MHp)/Mz/Mz/M_PI << endl;        
         
         
+        //PVfunctions PVtest2;
         
         return EXIT_SUCCESS;
     } catch (const runtime_error& e) {
