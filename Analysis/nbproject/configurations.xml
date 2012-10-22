@@ -72,6 +72,7 @@
           <linkerAddLib>
             <pElem>../FeynHiggs/lib64</pElem>
             <pElem>../BAT/lib</pElem>
+            <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>../BAT/lib</pElem>
@@ -236,6 +237,7 @@
             <linkerLibLibItem>gfortran</linkerLibLibItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibLibItem>FH</linkerLibLibItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit -lFH -lBAT -lBATmodels</commandLine>
         </linkerTool>
@@ -306,6 +308,7 @@
           <linkerAddLib>
             <pElem>../FeynHiggs/lib</pElem>
             <pElem>../BAT/lib</pElem>
+            <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibProjectItem>
@@ -469,6 +472,7 @@
             <linkerLibLibItem>BAT</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>FH</linkerLibLibItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit</commandLine>
         </linkerTool>
@@ -539,6 +543,7 @@
             <pElem>../FeynHiggs/lib64</pElem>
             <pElem>../FeynHiggs/lib</pElem>
             <pElem>../BAT/lib</pElem>
+            <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibProjectItem>
@@ -701,6 +706,7 @@
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>FH</linkerLibLibItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>`root-config --ldflags` `root-config --libs` `${HOME}/gsl/bin/gsl-config --libs` -L${HOME}/BAT/lib -L${HOME}/Cuba/lib -L${HOME}/FeynHiggs/lib -L${HOME}/FeynHiggs/lib64 -lMinuit -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml</commandLine>
         </linkerTool>
@@ -762,6 +768,7 @@
           <linkerAddLib>
             <pElem>../FeynHiggs/lib64</pElem>
             <pElem>../BAT/lib</pElem>
+            <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>../BAT/lib</pElem>
@@ -926,6 +933,7 @@
             <linkerLibLibItem>gfortran</linkerLibLibItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibLibItem>FH</linkerLibLibItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>-fopenmp `gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit -lFH -lBAT -lBATmodels</commandLine>
         </linkerTool>
