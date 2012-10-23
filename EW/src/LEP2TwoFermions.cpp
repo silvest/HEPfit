@@ -220,7 +220,7 @@ double LEP2TwoFermions::alpha_at_s(const double s) const {
     if(bDebug)
         alpha = SM.getAle()/complex(1.0715119759, -0.0186242179, false).real(); // for debug, s=(200GeV)^2
     else
-        alpha = SM.alphaMz(); //!!TEST    
+        alpha = SM.ale_OS(sqrt(s), FULLNLO);
 
     return alpha;
 }

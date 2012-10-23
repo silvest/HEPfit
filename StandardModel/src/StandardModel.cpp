@@ -9,6 +9,7 @@
 #include <iostream>
 #include <math.h>
 #include <stdlib.h>
+#include <stdexcept>
 #include <TF1.h>
 #include <Math/WrappedTF1.h>
 #include <Math/BrentRootFinder.h>
@@ -192,6 +193,32 @@ double StandardModel::Mw_tree() const {
     double tmp = 4.0*M_PI*ale/sqrt(2.0)/GF/Mz/Mz;
     return ( Mz/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp)) );
 }
+
+
+////////////////////////////////////////////////////////////////////////
+
+double StandardModel::ale_OS(const double mu, orders order) const {
+    if (mu < 50.0) 
+        throw std::runtime_error("out of range in StandardModel::Als_OS()"); 
+    
+    double N = 20.0/3.0;
+    double beta1 = N/3.0;
+    double beta2 = N/4.0;
+    double alpha_ini = alphaMz();
+    double v = 1.0 + 2.0*beta1*alpha_ini/M_PI*log(Mz/mu);
+
+    switch (order) {
+        case LO:
+            return ( alpha_ini/v );
+        case FULLNLO:
+            return ( alpha_ini/v*(1.0 - beta2/beta1*alpha_ini/M_PI*log(v)/v));
+        default:
+            throw std::runtime_error("Error in StandardModel::Als_OS()"); 
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////
 
 double StandardModel::Mw0() const {
     return ( sqrt(c02())*Mz );

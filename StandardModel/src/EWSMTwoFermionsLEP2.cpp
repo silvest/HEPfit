@@ -25,7 +25,7 @@ double EWSMTwoFermionsLEP2::G_1(const double s, const double t,
                                 const double mf, const double mfp, 
                                 const bool bWeak, const bool bWWbox, 
                                 const bool bZZbox) const {
-    complex Vpol = 1.0/Vpol_inv(s);
+    complex Vpol = V_pol(s);
     complex rhoef, Ge, Gf, Gef;
     if (bWeak) {
         rhoef = rho_ef(s, t, Mw, I3f, Qf, mf, mfp, bWWbox, bZZbox);
@@ -53,7 +53,7 @@ double EWSMTwoFermionsLEP2::G_2(const double s, const double t,
                                 const double mf, const double mfp, 
                                 const bool bWeak, const bool bWWbox, 
                                 const bool bZZbox) const {
-    complex Vpol = 1.0/Vpol_inv(s);
+    complex Vpol = V_pol(s);
     complex rhoef, Ge, Gf, Gef;
     if (bWeak) {
         rhoef = rho_ef(s, t, Mw, I3f, Qf, mf, mfp, bWWbox, bZZbox);
@@ -80,7 +80,7 @@ double EWSMTwoFermionsLEP2::G_3(const double s, const double t,
                                 const double mf, const double mfp, 
                                 const bool bWeak, const bool bWWbox, 
                                 const bool bZZbox) const {
-    complex Vpol = 1.0/Vpol_inv(s);
+    complex Vpol = V_pol(s);
     complex rhoef, Ge, Gf, Gef;
     if (bWeak) {
         rhoef = rho_ef(s, t, Mw, I3f, Qf, mf, mfp, bWWbox, bZZbox);
@@ -139,7 +139,7 @@ double EWSMTwoFermionsLEP2::G_1_box(const double s, const double t,
         
     double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz); 
     double mu = Mw; // renormalization scale
-    complex Vpol = 1.0/Vpol_inv(s);
+    complex Vpol = V_pol(s);
     complex D_rho_ef = Delta_rho_ef_WW_hat(s, t, u, Mw, I3f)
                        + Delta_rho_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
     complex D_kappa_e = Delta_kappa_ef_WW_hat(s, t, u, Mw, I3f)
@@ -177,7 +177,7 @@ double EWSMTwoFermionsLEP2::G_2_box(const double s, const double t,
         
     double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz); 
     double mu = Mw; // renormalization scale
-    complex Vpol = 1.0/Vpol_inv(s);
+    complex Vpol = V_pol(s);
     complex D_rho_ef = Delta_rho_ef_WW_hat(s, t, u, Mw, I3f)
                        + Delta_rho_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
     complex D_kappa_e = Delta_kappa_ef_WW_hat(s, t, u, Mw, I3f)
@@ -215,7 +215,7 @@ double EWSMTwoFermionsLEP2::G_3_box(const double s, const double t,
 
     double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz); 
     double mu = Mw; // renormalization scale
-    complex Vpol = 1.0/Vpol_inv(s);
+    complex Vpol = V_pol(s);
     complex D_rho_ef = Delta_rho_ef_WW_hat(s, t, u, Mw, I3f)
                        + Delta_rho_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
     complex D_kappa_e = Delta_kappa_ef_WW_hat(s, t, u, Mw, I3f)
@@ -243,21 +243,16 @@ double EWSMTwoFermionsLEP2::G_3_box(const double s, const double t,
 
 //////////////////////////////////////////////////////////////////////// 
 
-complex EWSMTwoFermionsLEP2::Vpol_inv(const double s) const {
-    complex V_inv;
+complex EWSMTwoFermionsLEP2::V_pol(const double s) const {
+    complex V;
     if (bDebug)
-        V_inv = 1.0/complex(1.0715119759, -0.0186242179, false); // for debug
+        V = complex(1.0715119759, -0.0186242179, false); // for debug
     else {
-        //!!!!!!
-        //V_inv = SM.getAle()/SM.alphaMz(); //!!TEST
-        //V_inv = 1.0 - SM.DeltaAlphaLepton(s) - SM.getDAle5Mz(); // !!TEST
-        V_inv = 1.0 - myOneLoopEW.DeltaAlpha_l(s) - SM.getDAle5Mz()
-                - myOneLoopEW.DeltaAlpha_t(s);
-        //V_inv = 1.0/complex(1.0715119759, 0.0, false); //!!TEST
-        //V_inv = 1.0/complex(1.0715119759, -0.0186242179, false); //!!TEST
-        //!!!!!!
+        V = SM.ale_OS(sqrt(s), FULLNLO)/SM.getAle() + myOneLoopEW.DeltaAlpha_t(s);
+        //V = SM.ale_OS(sqrt(s), FULLNLO)/SM.getAle();
+        //V = complex(1.0715119759, -0.0186242179, false); //!!TEST
     }
-    return V_inv;    
+    return V;    
 }
 
 
@@ -706,7 +701,7 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_ef_ZZ(const double mu, const double s,
 
 complex EWSMTwoFermionsLEP2::I2e(const double s, const double Mw) const {
     double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
-    double alpha = SM.getAle()/Vpol_inv(s).real();
+    double alpha = SM.getAle()*V_pol(s).real();
     double ReKappa_e = 1.0;
     return ( 35.0*alpha*alpha/18.0*( 1.0 - 8.0/3.0*ReKappa_e*sW2 ) );
 }
@@ -714,7 +709,7 @@ complex EWSMTwoFermionsLEP2::I2e(const double s, const double Mw) const {
 
 complex EWSMTwoFermionsLEP2::I2f(const double s, const double Mw) const {
     double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
-    double alpha = SM.getAle()/Vpol_inv(s).real();
+    double alpha = SM.getAle()*V_pol(s).real();
     double ReKappa_f = 1.0;
     return ( 35.0*alpha*alpha/18.0*( 1.0 - 8.0/3.0*ReKappa_f*sW2 ) );
 }
