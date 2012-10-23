@@ -65,7 +65,7 @@ public:
     
     ////////////////////////////////////////////////////////////////////////  
 
-    complex Vpol_inv(const double s) const;
+    complex V_pol(const double s) const;
     
     complex chi_Z(const double s, const double Mw, const double GammaZ) const;
 

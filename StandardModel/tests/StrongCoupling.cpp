@@ -262,6 +262,16 @@ int main(int argc, char** argv) {
 
         ////////////////////////////////////////////////////////////////////////
         
+        cout << "1/alpha(M_Z) = " << 1.0/mySM->alphaMz() << endl;
+        cout << "1/ale_OS(100.0, LO) = " << 1.0/mySM->ale_OS(100.0, LO) << endl;
+        cout << "1/ale_OS(100.0, FULLNLO) = " << 1.0/mySM->ale_OS(100.0, FULLNLO) << endl;
+        cout << "1/ale_OS(150.0, LO) = " << 1.0/mySM->ale_OS(150.0, LO) << endl;
+        cout << "1/ale_OS(150.0, FULLNLO) = " << 1.0/mySM->ale_OS(150.0, FULLNLO) << endl;
+        cout << "1/ale_OS(200.0, LO) = " << 1.0/mySM->ale_OS(200.0, LO) << endl;
+        cout << "1/ale_OS(200.0, FULLNLO) = " << 1.0/mySM->ale_OS(200.0, FULLNLO) << endl;
+        
+        ////////////////////////////////////////////////////////////////////////
+        
         return EXIT_SUCCESS;
     } catch (const runtime_error& e) {
         cerr << e.what() << endl;

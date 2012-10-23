@@ -292,6 +292,18 @@ public:
      * @return the W boson mass at tree level
      */
     double Mw_tree() const;    
+        
+    /**
+     * the running electromagnetic coupling alpha(mu) in the on-shell scheme, 
+     * where the top-quark contribution is not included. 
+     * @param[in] mu the scale @f$\mu@f$ in GeV
+     * @param[in] order (=LO, FULLNLO)
+     * @return @f$\alpha@f$
+     */
+    double ale_OS(const double mu, orders order=FULLNLO) const;
+    
+    
+    //////////////////////////////////////////////////////////////////////// 
     
     /**
      * @return the W boson mass without weak corrections, but with \alpha(Mz^2)
