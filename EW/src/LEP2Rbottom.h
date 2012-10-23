@@ -7,6 +7,7 @@
 #define	LEP2RBOTTOM_H
 
 #include "LEP2ThObservable.h"
+#include "LEP2sigmaBottom.h"
 #include "LEP2sigmaHadron.h"
 
 
@@ -19,7 +20,7 @@ public:
      * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
      */
     LEP2Rbottom(const EW& EW_i, const double sqrt_s_i) : LEP2ThObservable(EW_i, sqrt_s_i),
-            myLEP2sigmaHadron(EW_i, sqrt_s_i) {
+            myLEP2sigmaBottom(EW_i, sqrt_s_i), myLEP2sigmaHadron(EW_i, sqrt_s_i) {
         q_flavor = StandardModel::BOTTOM;
     }
 
@@ -29,6 +30,7 @@ public:
     double getThValue();
 
 private:
+    LEP2sigmaBottom myLEP2sigmaBottom;
     LEP2sigmaHadron myLEP2sigmaHadron;
     
 };

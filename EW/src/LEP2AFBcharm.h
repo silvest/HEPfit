@@ -7,6 +7,7 @@
 #define	LEP2AFBCHARM_H
 
 #include "LEP2ThObservable.h"
+#include "LEP2sigmaCharm.h"
 
 
 class LEP2AFBcharm : public LEP2ThObservable {
@@ -17,7 +18,8 @@ public:
      * @param[in] EW_i an object of EW class
      * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
      */
-    LEP2AFBcharm(const EW& EW_i, const double sqrt_s_i) : LEP2ThObservable(EW_i, sqrt_s_i) {
+    LEP2AFBcharm(const EW& EW_i, const double sqrt_s_i) : LEP2ThObservable(EW_i, sqrt_s_i),
+            myLEP2sigmaCharm(EW_i, sqrt_s_i, true) {
         q_flavor = StandardModel::CHARM;
     }
 
@@ -27,7 +29,8 @@ public:
     double getThValue();
 
 private:
-
+    LEP2sigmaCharm myLEP2sigmaCharm;
+    
 };
 
 #endif	/* LEP2AFBCHARM_H */
