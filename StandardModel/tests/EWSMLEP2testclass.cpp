@@ -498,10 +498,10 @@ void EWSMLEP2testclass::B_WW_0_real() {
     double mf = SM->getLeptons(SM->MU).getMass();
     double t = - s/2.0, u = - s - t;
     double mu = Mw;
-    double expected = -0.00010760320088880713;
+    double expected = -0.00010760320088880713; // ??????
     //double result = myLEP2->B_WW_d_0_hat(s, t, u, Mw).real();
-    //double result = myLEP2->B_WW_d_0(mu, s, t, u, Mw).real();
-    double result = myLEP2_NU->B_WW_d_0_hat(s, t, u, Mw).real(); //!! TEST !!
+    double result = myLEP2->B_WW_d_0(mu, s, t, u, Mw).real();
+    //double result = myLEP2_NU->B_WW_d_0_hat(s, t, u, Mw).real(); //!! TEST !!
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);    
 }
@@ -511,8 +511,9 @@ void EWSMLEP2testclass::B_WW_0_imag() {
     double mf = SM->getLeptons(SM->MU).getMass();
     double t = - s/2.0, u = - s - t;
     double mu = Mw;
-    double expected = 0.00048542322208538363;
-    double result = myLEP2->B_WW_d_0_hat(s, t, u, Mw).imag();
+    double expected = 0.00048542322208538363; // ??????
+    //double result = myLEP2->B_WW_d_0_hat(s, t, u, Mw).imag();
+    double result = myLEP2->B_WW_d_0(mu, s, t, u, Mw).imag();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);        
 }
@@ -539,7 +540,7 @@ void EWSMLEP2testclass::Delta_rho_ef_WW_real() {
     double I3f = SM->getLeptons(SM->MU).getIsospin();
     double t = - s/2.0, u = - s - t;
     double mu = Mw;
-    double expected = -0.0068839947;
+    double expected = -0.0068839947; // ??????
     //double result = myLEP2->Delta_rho_ef_WW_hat(s,t,u,Mw,I3f).real();
     double result = myLEP2_NU->Delta_rho_ef_WW_hat(s,t,u,Mw,I3f).real(); //!! TEST !!
     double delta = fabs(epsilon*result);
@@ -550,8 +551,9 @@ void EWSMLEP2testclass::Delta_rho_ef_WW_imag() {
     double I3f = SM->getLeptons(SM->MU).getIsospin();
     double t = - s/2.0, u = - s - t;
     double mu = Mw;
-    double expected = 0.0310553110;
-    double result = myLEP2->Delta_rho_ef_WW_hat(s,t,u,Mw,I3f).imag();
+    double expected = 0.0310553110; // ??????
+    //double result = myLEP2->Delta_rho_ef_WW_hat(s,t,u,Mw,I3f).imag();
+    double result = myLEP2_NU->Delta_rho_ef_WW_hat(s,t,u,Mw,I3f).imag(); //!! TEST !!
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);    
 }
@@ -583,7 +585,7 @@ void EWSMLEP2testclass::Delta_rho_ef_WW_charm_real() {
     double snew = 205.0*205.0;
     double t = - snew/2.0, u = - snew - t;
     double mu = Mw;
-    double expected = -0.0190989409;
+    double expected = -0.0190989409; // ??????
     //double result = myLEP2->Delta_rho_ef_WW_hat(snew,t,u,Mw,I3f).real();
     double result = myLEP2_NU->Delta_rho_ef_WW_hat(snew,t,u,Mw,I3f).real(); //!! TEST !!
     double delta = fabs(epsilon*result);
@@ -595,8 +597,9 @@ void EWSMLEP2testclass::Delta_rho_ef_WW_charm_imag() {
     double snew = 205.0*205.0;
     double t = - snew/2.0, u = - snew - t;
     double mu = Mw;
-    double expected = 0.0028803190;
-    double result = myLEP2->Delta_rho_ef_WW_hat(snew,t,u,Mw,I3f).imag();
+    double expected = 0.0028803190; // ??????
+    //double result = myLEP2->Delta_rho_ef_WW_hat(snew,t,u,Mw,I3f).imag();
+    double result = myLEP2_NU->Delta_rho_ef_WW_hat(snew,t,u,Mw,I3f).imag(); //!! TEST !!
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);     
 }

@@ -798,7 +798,7 @@ complex EWSMTwoFermionsLEP2::B_WW_d_0(const double mu, const double s,
              - 2.0*( 2.0 + 2.0*s/u + s2/u2 - 2.0*Mw2*s/u2 )*PV.C0(s, Mw, 0.0, Mw)
              + 2.0*( 2.0 + 3.0*s/u + s2/u2 + 2.0*Mw2*t/u2 )*PV.C0(t, 0.0, Mw, 0.0)
              + ( - 2.0/u - 5.0/3.0/Mw2 - s/12.0/Mw2/Mw2 )*PV.B0(mu, s, Mw, Mw)
-             + 2.0/u*PV.B0(mu, s, 0.0, 0.0) - 1.0/6.0/Mw2/Mw2*PV.A0(mu, Mw)
+             + 2.0/u*PV.B0(mu, t, 0.0, 0.0) - 1.0/6.0/Mw2/Mw2*PV.A0(mu, Mw)
              + 1.0/3.0/Mw2 - s/18.0/Mw2/Mw2 );
 }
 
@@ -821,7 +821,7 @@ complex EWSMTwoFermionsLEP2::B_WW_d(const double mu, const double s,
              + ( - 2.0/u - 5.0/3.0/Mw2 - s/12.0/Mw2/Mw2 
                  - Mt2/4.0/Mw2/s*(2.0 - s/Mw2) + Mt2*Mt2/2.0/Mw2/Mw2/s )        
                *PV.B0(mu, s, Mw, Mw)
-             + 2.0/u*PV.B0(mu, s, Mt, 0.0) + Mt2/2.0/Mw2/Mw2/s*PV.A0(mu,Mt)
+             + 2.0/u*PV.B0(mu, t, Mt, 0.0) + Mt2/2.0/Mw2/Mw2/s*PV.A0(mu,Mt)
              - 1.0/6.0/Mw2/Mw2*(1.0 + 3.0*Mt2/s)*PV.A0(mu, Mw)
              + 1.0/3.0/Mw2*(1.0 + 3.0*Mt2/4.0/Mw2 - s/6.0/Mw2) );
 }
@@ -992,8 +992,8 @@ complex EWSMTwoFermionsLEP2::B_WW_d_0_hat_TEST(const double s, const double t,
         return ( ( - t*(1.0 + t2/u2) - 4.0*Mw2*t2/u2 + 2.0*Mw2*Mw2/u*(1.0 + 2.0*s/u) )
                   *PV.D0(s, t, Mw, 0.0, Mw, 0.0)
                  - 2.0*( 2.0 + 2.0*s/u + s2/u2 - 2.0*Mw2*s/u2 )*PV.C0(s, Mw, 0.0, Mw)
-                 + 2.0*( 2.0 + 3.0*s/u + s2/u2 + 2.0*Mw2*t/u2 )*PV.C0(s, 0.0, Mw, 0.0)
-                 - 2.0/u*( PV.B0(mu, s, Mw, Mw) - PV.B0(mu, s, 0.0, 0.0) ) );
+                 + 2.0*( 2.0 + 3.0*s/u + s2/u2 + 2.0*Mw2*t/u2 )*PV.C0(t, 0.0, Mw, 0.0)
+                 - 2.0/u*( PV.B0(mu, s, Mw, Mw) - PV.B0(mu, t, 0.0, 0.0) ) );
     } else {
         return B_WW_d_0(mu, s, t, u, Mw);
     }
