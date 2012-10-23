@@ -7,6 +7,7 @@
 #define	LEP2AFBBOTTOM_H
 
 #include "LEP2ThObservable.h"
+#include "LEP2sigmaBottom.h"
 
 
 class LEP2AFBbottom : public LEP2ThObservable {
@@ -17,7 +18,8 @@ public:
      * @param[in] EW_i an object of EW class
      * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
      */
-    LEP2AFBbottom(const EW& EW_i, const double sqrt_s_i) : LEP2ThObservable(EW_i, sqrt_s_i) {
+    LEP2AFBbottom(const EW& EW_i, const double sqrt_s_i) : LEP2ThObservable(EW_i, sqrt_s_i),
+            myLEP2sigmaBottom(EW_i, sqrt_s_i, true) {
         q_flavor = StandardModel::BOTTOM;
     }
 
@@ -27,6 +29,7 @@ public:
     double getThValue();
 
 private:
+    LEP2sigmaBottom myLEP2sigmaBottom;
      
 };
 

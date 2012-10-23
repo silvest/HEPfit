@@ -5,9 +5,6 @@
 
 #include "LEP2TFtestclass.h"
 
-const bool LEP2TFtestclass::noRCs[5] = {false, false, false, false, false};
-const bool LEP2TFtestclass::withRCs[5] = {true, true, true, true, true};
-
 CPPUNIT_TEST_SUITE_REGISTRATION(LEP2TFtestclass);
 
 LEP2TFtestclass::LEP2TFtestclass() {
@@ -169,7 +166,7 @@ void LEP2TFtestclass::GammaZTEST() {
 
 void LEP2TFtestclass::sigma_mu() {
     double expected = 0.00301302181439508*1000.0;
-    double result = myLEP2TF->sigma_l(StandardModel::MU, s, Mw, GammaZ, noRCs)
+    double result = myLEP2TF->sigma_l(StandardModel::MU, s, Mw, GammaZ, false)
                     *GeVminus2_to_nb*1000.0; 
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  

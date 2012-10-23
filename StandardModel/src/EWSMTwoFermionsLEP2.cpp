@@ -134,7 +134,9 @@ double EWSMTwoFermionsLEP2::G_1_box(const double s, const double t,
                                     const double Mw, const double GammaZ, 
                                     const double I3f, const double Qf, 
                                     const double mf, const double mfp) const {
-    double u = 2.0*mf*mf - s - t;
+    //double u = 2.0*mf*mf - s - t;
+    double u = - s - t;
+        
     double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz); 
     double mu = Mw; // renormalization scale
     complex Vpol = 1.0/Vpol_inv(s);
@@ -170,7 +172,9 @@ double EWSMTwoFermionsLEP2::G_2_box(const double s, const double t,
                                     const double Mw, const double GammaZ, 
                                     const double I3f, const double Qf, 
                                     const double mf, const double mfp) const {
-    double u = 2.0*mf*mf - s - t;
+    //double u = 2.0*mf*mf - s - t;
+    double u = - s - t;
+        
     double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz); 
     double mu = Mw; // renormalization scale
     complex Vpol = 1.0/Vpol_inv(s);
@@ -206,7 +210,9 @@ double EWSMTwoFermionsLEP2::G_3_box(const double s, const double t,
                                     const double Mw, const double GammaZ, 
                                     const double I3f, const double Qf, 
                                     const double mf, const double mfp) const {
-    double u = 2.0*mf*mf - s - t;
+    //double u = 2.0*mf*mf - s - t;
+    double u = - s - t;
+
     double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz); 
     double mu = Mw; // renormalization scale
     complex Vpol = 1.0/Vpol_inv(s);
@@ -243,10 +249,10 @@ complex EWSMTwoFermionsLEP2::Vpol_inv(const double s) const {
         V_inv = 1.0/complex(1.0715119759, -0.0186242179, false); // for debug
     else {
         //!!!!!!
-        V_inv = SM.getAle()/SM.alphaMz(); //!!TEST
+        //V_inv = SM.getAle()/SM.alphaMz(); //!!TEST
         //V_inv = 1.0 - SM.DeltaAlphaLepton(s) - SM.getDAle5Mz(); // !!TEST
-        //V_inv = 1.0 - myOneLoopEW.DeltaAlpha_l(s) - SM.getDAle5Mz()
-        //        - myOneLoopEW.DeltaAlpha_t(s);
+        V_inv = 1.0 - myOneLoopEW.DeltaAlpha_l(s) - SM.getDAle5Mz()
+                - myOneLoopEW.DeltaAlpha_t(s);
         //V_inv = 1.0/complex(1.0715119759, 0.0, false); //!!TEST
         //V_inv = 1.0/complex(1.0715119759, -0.0186242179, false); //!!TEST
         //!!!!!!

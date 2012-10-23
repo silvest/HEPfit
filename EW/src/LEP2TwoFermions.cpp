@@ -17,24 +17,19 @@ LEP2TwoFermions::LEP2TwoFermions(const StandardModel& SM_i) : EW(SM_i) {
 double LEP2TwoFermions::dsigma_l(const StandardModel::lepton l, 
                                  const double s, const double cosTheta,
                                  const double Mw, const double GammaZ, 
-                                 const bool bRCs[]) const {
+                                 const bool bWeak) const {
     double mf = ml(l);
     double I3f = SM.getLeptons(l).getIsospin();
     double Qf = SM.getLeptons(l).getCharge();
 
-    double dsigmal = dsigma(s, cosTheta, Mw, GammaZ, I3f, Qf, mf, 0.0, 1.0, bRCs);
-    
-    if (bRCs[QEDFSR])
-        dsigmal *= QED_FSR_forSigma(Qf);
-    
-    return dsigmal;
+    return ( dsigma(s, cosTheta, Mw, GammaZ, I3f, Qf, mf, 0.0, 1.0, bWeak) );
 }
 
 
 double LEP2TwoFermions::dsigma_q(const StandardModel::quark q, 
                                  const double s, const double cosTheta,
                                  const double Mw, const double GammaZ, 
-                                 const bool bRCs[]) const {
+                                 const bool bWeak) const {
     double mf = mq(q, sqrt(s));
     double I3f = SM.getQuarks(q).getIsospin();
     double Qf = SM.getQuarks(q).getCharge();
@@ -46,37 +41,53 @@ double LEP2TwoFermions::dsigma_q(const StandardModel::quark q,
     else
         mfp = 0.0;
     
-    double dsigmaq = dsigma(s, cosTheta, Mw, GammaZ, I3f, Qf, mf, mfp, 3.0, bRCs);
-    
-    if (bRCs[QEDFSR])
-        dsigmaq *= QED_FSR_forSigma(Qf);
+    return ( dsigma(s, cosTheta, Mw, GammaZ, I3f, Qf, mf, mfp, 3.0, bWeak) );
+}
 
-    if (bRCs[QCDFSR])
-        dsigmaq *= QCD_FSR_forSigma(s);
+
+double LEP2TwoFermions::dsigma_l_box(const StandardModel::lepton l, 
+                                     const double s, const double cosTheta,
+                                     const double Mw, const double GammaZ) const {
+    double mf = ml(l);
+    double I3f = SM.getLeptons(l).getIsospin();
+    double Qf = SM.getLeptons(l).getCharge();
+
+    return ( dsigma_box(s, cosTheta, Mw, GammaZ, I3f, Qf, mf, 0.0, 1.0) );
+}
+
+
+double LEP2TwoFermions::dsigma_q_box(const StandardModel::quark q, 
+                                     const double s, const double cosTheta,
+                                     const double Mw, const double GammaZ) const {
+    double mf = mq(q, sqrt(s));
+    double I3f = SM.getQuarks(q).getIsospin();
+    double Qf = SM.getQuarks(q).getCharge();
+    double mfp;
+    if (q==SM.TOP)
+        throw std::runtime_error("Error in LEP2TwoFermions::sigma_q()");
+    else if (q==SM.BOTTOM)
+        mfp = mq(SM.TOP, sqrt(s));
+    else
+        mfp = 0.0;
     
-    return dsigmaq;
+    return ( dsigma_box(s, cosTheta, Mw, GammaZ, I3f, Qf, mf, mfp, 3.0) );
 }
 
 
 double LEP2TwoFermions::sigma_l(const StandardModel::lepton l, 
                                 const double s, const double Mw, 
-                                const double GammaZ, const bool bRCs[]) const {
+                                const double GammaZ, const bool bWeak) const {
     double mf = ml(l);
     double I3f = SM.getLeptons(l).getIsospin();
     double Qf = SM.getLeptons(l).getCharge();
 
-    double sigmal = sigma(s, Mw, GammaZ, I3f, Qf, mf, 0.0, 1.0, bRCs);
-    
-    if (bRCs[QEDFSR])
-        sigmal *= QED_FSR_forSigma(Qf);
-    
-    return sigmal;
+    return ( sigma(s, Mw, GammaZ, I3f, Qf, mf, 0.0, 1.0, bWeak) );
 }
 
 
 double LEP2TwoFermions::sigma_q(const StandardModel::quark q, 
                                 const double s, const double Mw, 
-                                const double GammaZ, const bool bRCs[]) const {
+                                const double GammaZ, const bool bWeak) const {
     double mf = mq(q, sqrt(s));
     double I3f = SM.getQuarks(q).getIsospin();
     double Qf = SM.getQuarks(q).getCharge();
@@ -88,32 +99,24 @@ double LEP2TwoFermions::sigma_q(const StandardModel::quark q,
     else
         mfp = 0.0;
     
-    double sigmaq = sigma(s, Mw, GammaZ, I3f, Qf, mf, mfp, 3.0, bRCs);
-    
-    if (bRCs[QEDFSR])
-        sigmaq *= QED_FSR_forSigma(Qf);
-
-    if (bRCs[QCDFSR])
-        sigmaq *= QCD_FSR_forSigma(s);
-    
-    return sigmaq;
+    return ( sigma(s, Mw, GammaZ, I3f, Qf, mf, mfp, 3.0, bWeak) );
 }
 
 
 double LEP2TwoFermions::AFB_l(const StandardModel::lepton l, 
                               const double s, const double Mw, 
-                              const double GammaZ, const bool bRCs[]) const {
+                              const double GammaZ, const bool bWeak) const {
     double mf = ml(l);
     double I3f = SM.getLeptons(l).getIsospin();
     double Qf = SM.getLeptons(l).getCharge();
 
-    return AFB(s, Mw, GammaZ, I3f, Qf, mf, 0.0, bRCs);
+    return AFB(s, Mw, GammaZ, I3f, Qf, mf, 0.0, bWeak);
 }
 
 
 double LEP2TwoFermions::AFB_q(const StandardModel::quark q, 
                               const double s, const double Mw, 
-                              const double GammaZ, const bool bRCs[]) const {
+                              const double GammaZ, const bool bWeak) const {
     double mf = mq(q, sqrt(s));
     double I3f = SM.getQuarks(q).getIsospin();
     double Qf = SM.getQuarks(q).getCharge();
@@ -125,12 +128,7 @@ double LEP2TwoFermions::AFB_q(const StandardModel::quark q,
     else
         mfp = 0.0;
     
-    double AFBq = AFB(s, Mw, GammaZ, I3f, Qf, mf, mfp, bRCs);
-    
-    if (bRCs[QCDFSR])
-        AFBq *= QCD_FSR_forAFB(s,mf);
-    
-    return AFBq;
+    return ( AFB(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak) );
 }
 
 
@@ -139,13 +137,18 @@ double LEP2TwoFermions::QCD_FSR_forSigma(const double s) const {
 }
     
 
-double LEP2TwoFermions::QCD_FSR_forAFB(const double s, const double mf) const {
+double LEP2TwoFermions::QCD_FSR_forAFB(const StandardModel::quark q, 
+                                       const double s) const {
+    double mf = mq(q, sqrt(s));
     return ( 1.0 - SM.Als(sqrt(s), FULLNLO)/M_PI*(1.0 - 16.0/3.0*mf/sqrt(s)) );
 }
 
 
-double LEP2TwoFermions::QED_FSR_forSigma(const double Qf) const {
-    return ( 1.0 + 3.0*SM.getAle()/(4.0*M_PI)*Qf*Qf );
+double LEP2TwoFermions::QED_FSR_forSigma(const double s, const double Qf) const {
+    //double alpha = SM.getAle();
+    double alpha = alpha_at_s(s);
+    
+    return ( 1.0 + 3.0*alpha/(4.0*M_PI)*Qf*Qf );
 }
 
 
@@ -179,12 +182,12 @@ double LEP2TwoFermions::H_ISR_FB(const double x, const double s) const {
 
 double LEP2TwoFermions::G_3prime_l(const StandardModel::lepton l, const double s,
                                    const double Mw, const double GammaZ, 
-                                   const bool bRCs[]) const {
+                                   const bool bWeak) const {
     double mf = ml(l);
     double betaf = sqrt(1.0 - 4.0*mf*mf/s);
     double I3f = SM.getLeptons(l).getIsospin();
     double Qf = SM.getLeptons(l).getCharge();
-    double G3 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, 0.0, bRCs[Weak]);    
+    double G3 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, 0.0, bWeak);    
     
     return ( betaf*betaf*G3 );    
 }
@@ -192,7 +195,7 @@ double LEP2TwoFermions::G_3prime_l(const StandardModel::lepton l, const double s
 
 double LEP2TwoFermions::G_3prime_q(const StandardModel::quark q, const double s, 
                                    const double Mw, const double GammaZ, 
-                                   const bool bRCs[]) const {
+                                   const bool bWeak) const {
     double mf = mq(q, sqrt(s));
     double betaf = sqrt(1.0 - 4.0*mf*mf/s);
     double I3f = SM.getQuarks(q).getIsospin();
@@ -204,10 +207,7 @@ double LEP2TwoFermions::G_3prime_q(const StandardModel::quark q, const double s,
         mfp = mq(SM.TOP, sqrt(s));
     else
         mfp = 0.0;
-    double G3 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bRCs[Weak]);
-    
-    if (bRCs[QCDFSR])
-        G3 *= QCD_FSR_forAFB(s,mf);
+    double G3 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
     
     return ( betaf*betaf*G3 );    
 }
@@ -260,11 +260,32 @@ double LEP2TwoFermions::dsigma(const double s, const double cosTheta,
                                const double Mw, const double GammaZ, 
                                const double I3f, const double Qf, 
                                const double mf, const double mfp, 
-                               const double Ncf, const bool bRCs[]) const {
+                               const double Ncf, const bool bWeak) const {
     double betaf = sqrt(1.0 - 4.0*mf*mf/s);
-    double G1 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_1_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bRCs[Weak]);
-    double G2 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_2_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bRCs[Weak]);
-    double G3 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bRCs[Weak]);
+    double G1 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_1_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
+    double G2 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_2_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
+    double G3 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
+
+    return ( M_PI*SM.getAle()*SM.getAle()/s*Ncf*betaf
+             *( G1*(1.0 + cosTheta*cosTheta)/2.0 
+                + 2.0*mf*mf/s*G2*(1.0 - cosTheta*cosTheta)
+                + betaf*G3*cosTheta ) );
+}
+
+
+double LEP2TwoFermions::dsigma_box(const double s, const double cosTheta, 
+                                   const double Mw, const double GammaZ, 
+                                   const double I3f, const double Qf, 
+                                   const double mf, const double mfp, 
+                                   const double Ncf) const {
+    double betaf = sqrt(1.0 - 4.0*mf*mf/s);
+    
+    //double t = mf*mf - s/2.0*(1.0 - betaf*cosTheta);
+    double t = - s/2.0*(1.0 - betaf*cosTheta);
+    
+    double G1 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_1_box(s, t, Mw, GammaZ, I3f, Qf, mf, mfp);
+    double G2 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_2_box(s, t, Mw, GammaZ, I3f, Qf, mf, mfp);
+    double G3 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_3_box(s, t, Mw, GammaZ, I3f, Qf, mf, mfp);
 
     return ( M_PI*SM.getAle()*SM.getAle()/s*Ncf*betaf
              *( G1*(1.0 + cosTheta*cosTheta)/2.0 
@@ -277,25 +298,25 @@ double LEP2TwoFermions::sigma(const double s, const double Mw,
                               const double GammaZ, const double I3f, 
                               const double Qf, const double mf,
                               const double mfp, const double Ncf, 
-                              const bool bRCs[]) const {
+                              const bool bWeak) const {
     double betaf = sqrt(1.0 - 4.0*mf*mf/s);
-    double G1 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_1_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bRCs[Weak]);
-    double G2 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_2_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bRCs[Weak]);
+    double G1 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_1_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
+    double G2 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_2_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
 
     return ( 4.0*M_PI*SM.getAle()*SM.getAle()/(3.0*s)*Ncf*betaf
-             *( G1 + 2.0*mf*mf/s*G2) );
+             *(G1 + 2.0*mf*mf/s*G2) );
 }
 
 
 double LEP2TwoFermions::AFB(const double s, const double Mw, 
                             const double GammaZ, const double I3f, 
                             const double Qf, const double mf,
-                            const double mfp, const bool bRCs[]) const {
+                            const double mfp, const bool bWeak) const {
     double betaf = sqrt(1.0 - 4.0*mf*mf/s);
-    double G1 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_1_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bRCs[Weak]);
-    double G2 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_2_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bRCs[Weak]);
-    double G3 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bRCs[Weak]);
+    double G1 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_1_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
+    double G2 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_2_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
+    double G3 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
 
-    return ( 3.0/4.0*betaf*G3/( G1 + 2.0*mf*mf/s*G2) );
+    return ( 3.0/4.0*betaf*G3/(G1 + 2.0*mf*mf/s*G2) );
 }
 

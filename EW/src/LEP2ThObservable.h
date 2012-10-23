@@ -17,53 +17,54 @@
 
 class LEP2ThObservable : public ThObservable  {
 public:
-    
+
+    // Radiative Corrections for the LEP-II observables
+    enum LEP2RCs {Weak=0, WeakBox, ISR, QEDFSR, QCDFSR, NUMofLEP2RCs};
+        
     /**
      * @brief LEP2ThObservable constructor
      * @param[in] EW_i an object of EW class
      * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
+     * @param[in] bSigmaForAFB_i true for the denominator of A_FB
      */
-    LEP2ThObservable(const EW& EW_i, const double sqrt_s_i) : ThObservable(EW_i), 
+    LEP2ThObservable(const EW& EW_i, const double sqrt_s_i, 
+                     const bool bSigmaForAFB_i=false) : ThObservable(EW_i), 
             myEW(EW_i), myTwoFermions(EW_i.getSM()), myLEP2oblique(EW_i), 
-            sqrt_s(sqrt_s_i), s(sqrt_s_i*sqrt_s_i) {
-        bRCs[LEP2TwoFermions::Weak] = true;
-        bRCs[LEP2TwoFermions::WeakBox] = true;
-        bRCs[LEP2TwoFermions::ISR] = true;
-        bRCs[LEP2TwoFermions::QEDFSR] = true;
-        bRCs[LEP2TwoFermions::QCDFSR] = true;
-        
-        bRCsForSigmaIntegrand[LEP2TwoFermions::Weak] = true;
-        bRCsForSigmaIntegrand[LEP2TwoFermions::WeakBox] = true;
-        bRCsForSigmaIntegrand[LEP2TwoFermions::ISR] = true;
-        bRCsForSigmaIntegrand[LEP2TwoFermions::QEDFSR] = true;
-        bRCsForSigmaIntegrand[LEP2TwoFermions::QCDFSR] = true;
+            sqrt_s(sqrt_s_i), s(sqrt_s_i*sqrt_s_i), bSigmaForAFB(bSigmaForAFB_i) {
+        flag[Weak] = true;
+        flag[WeakBox] = true;
+        flag[ISR] = true;
+        flag[QEDFSR] = true;
+        flag[QCDFSR] = true;
     }
 
     /**
      * @brief set a flag to control radiative corrections
      * @param[in] str "Weak", "WeakBox", "ISR", "QEDFSR" or "QCDFSR"
-     * @param[in] flag boolean variable
+     * @param[in] flag_i boolean variable
      */
-    void setFlag(const std::string str, const bool flag) {
-        if (str=="Weak") {
-            bRCs[LEP2TwoFermions::Weak] = flag;
-            bRCsForSigmaIntegrand[LEP2TwoFermions::Weak] = flag;
-        } else if (str=="WeakBox") {
-            bRCs[LEP2TwoFermions::WeakBox] = flag;
-            bRCsForSigmaIntegrand[LEP2TwoFermions::WeakBox] = flag;
-        } else if (str=="ISR") {
-            bRCs[LEP2TwoFermions::ISR] = flag;
-            bRCsForSigmaIntegrand[LEP2TwoFermions::ISR] = flag;
-        } else if (str=="QEDFSR") {
-            bRCs[LEP2TwoFermions::QEDFSR] = flag;
-            bRCsForSigmaIntegrand[LEP2TwoFermions::QEDFSR] = flag;
-        } else if (str=="QCDFSR") {
-            bRCs[LEP2TwoFermions::QCDFSR] = flag;
-            bRCsForSigmaIntegrand[LEP2TwoFermions::QCDFSR] = flag;
-        } else
+    void setFlag(const std::string str, const bool flag_i) {
+        if (str=="Weak")
+            flag[Weak] = flag_i;
+        else if (str=="WeakBox")
+            flag[WeakBox] = flag_i;
+        else if (str=="ISR")
+            flag[ISR] = flag_i;
+        else if (str=="QEDFSR")
+            flag[QEDFSR] = flag_i;
+        else if (str=="QCDFSR")
+            flag[QCDFSR] = flag_i;
+        else
             throw std::runtime_error("Error in LEP2ThObservable::setFlag()");
-    }
+    } 
 
+    void setFlags(const bool flag_i[]) {
+        setFlag("Weak", flag_i[Weak]);
+        setFlag("WeakBox", flag_i[WeakBox]);
+        setFlag("ISR", flag_i[ISR]);
+        setFlag("QEDFSR", flag_i[QEDFSR]);
+        setFlag("QCDFSR", flag_i[QCDFSR]);        
+    }
     
     bool checkSMparams(const double s, const double Mw, const double GammaZ) const {
         // 21 SM parameters in checkSMparams() + s, Mw, GammaZ + 5 booleans
@@ -82,9 +83,9 @@ public:
             SMparams_cache[EWSM::NumSMParams+2] = GammaZ;
             bCache &= false;
         }    
-        for (int i=0; i<LEP2TwoFermions::NUMofLEP2RCs; i++) {
-            if (bRCs_cache[i] != bRCs[i]) { 
-                bRCs_cache[i] = bRCs[i];
+        for (int i=0; i<NUMofLEP2RCs; i++) {
+            if (flag_cache[i] != flag[i]) { 
+                flag_cache[i] = flag[i];
                 bCache &= false;
             }    
         }
@@ -92,12 +93,9 @@ public:
         return bCache;
     }
     
-protected:
-    bool bRCs[LEP2TwoFermions::NUMofLEP2RCs]; // flags for radiative corrections
-
-    bool bRCsForSigmaIntegrand[LEP2TwoFermions::NUMofLEP2RCs]; // flags for radiative corrections    
     
-    // used in integrands
+protected:
+    // These variables have to be initialized in child classes. 
     StandardModel::lepton l_flavor;
     StandardModel::quark q_flavor;
     
@@ -105,66 +103,134 @@ protected:
     const LEP2TwoFermions myTwoFermions;
     const LEP2oblique myLEP2oblique;
     const double sqrt_s, s;
+
+    bool flag[NUMofLEP2RCs]; 
+    bool bSigmaForAFB;
     
     // caches for the SM prediction
     mutable double SMparams_cache[EWSM::NumSMParams+3];
     mutable double SMresult_cache; 
-    mutable bool bRCs_cache[LEP2TwoFermions::NUMofLEP2RCs];
+    mutable bool flag_cache[NUMofLEP2RCs];
 
-protected:
+
+    double sigma_NoISR_l() {
+        double Mw = SM.Mw(); 
+        double GammaZ = myEW.Gamma_Z();
+        double sigma = myTwoFermions.sigma_l(l_flavor, s, Mw, GammaZ, flag[Weak]);
+
+        if (!bSigmaForAFB && flag[QEDFSR])
+            sigma *= myTwoFermions.QED_FSR_forSigma(s, SM.getLeptons(l_flavor).getCharge());
+
+        return sigma;
+    }   
     
-    double IntegrandISR_AFB_l(double x) {
+    double sigma_NoISR_q() {
+        double Mw = SM.Mw(); 
+        double GammaZ = myEW.Gamma_Z();
+        double sigma = myTwoFermions.sigma_q(q_flavor, s, Mw, GammaZ, flag[Weak]);
+    
+        if (!bSigmaForAFB && flag[QEDFSR])
+            sigma *= myTwoFermions.QED_FSR_forSigma(s, SM.getQuarks(q_flavor).getCharge());
+        
+        if (!bSigmaForAFB && flag[QCDFSR])
+            sigma *= myTwoFermions.QCD_FSR_forSigma(s);
+
+        return sigma;
+    }      
+    
+    double AFB_NoISR_l() {
+        double Mw = SM.Mw(); 
+        double GammaZ = myEW.Gamma_Z();
+        double AFB = myTwoFermions.AFB_l(l_flavor, s, Mw, GammaZ, flag[Weak]);
+
+        return AFB;
+    }
+    
+    double AFB_NoISR_q() {
+        double Mw = SM.Mw(); 
+        double GammaZ = myEW.Gamma_Z();
+        double AFB = myTwoFermions.AFB_q(q_flavor, s, Mw, GammaZ, flag[Weak]);
+        
+        if (flag[QCDFSR])
+            AFB *= myTwoFermions.QCD_FSR_forAFB(q_flavor, s);
+        
+        return AFB;
+    }
+    
+    double Integrand_sigmaWithISR_l(double x) {
+        double sprime = (1.0 - x)*s;
+        double Mw = SM.Mw(); 
+        double GammaZ = myEW.Gamma_Z();
+        double sigma = myTwoFermions.sigma_l(l_flavor, sprime, Mw, GammaZ, 
+                                             flag[Weak]);
+        double H = myTwoFermions.H_ISR(x, s);
+
+        if (!bSigmaForAFB && flag[QEDFSR])
+            sigma *= myTwoFermions.QED_FSR_forSigma(sprime, SM.getLeptons(l_flavor).getCharge());
+
+        return ( H*sigma );
+    }    
+    
+    double Integrand_sigmaWithISR_q(double x) {
+        double sprime = (1.0 - x)*s;
+        double Mw = SM.Mw(); 
+        double GammaZ = myEW.Gamma_Z();
+        double sigma = myTwoFermions.sigma_q(q_flavor, sprime, Mw, GammaZ, 
+                                             flag[Weak]);
+        double H = myTwoFermions.H_ISR(x, s);
+    
+        if (!bSigmaForAFB && flag[QEDFSR])
+            sigma *= myTwoFermions.QED_FSR_forSigma(sprime, 
+                                                    SM.getQuarks(q_flavor).getCharge());
+        
+        if (!bSigmaForAFB && flag[QCDFSR])
+            sigma *= myTwoFermions.QCD_FSR_forSigma(sprime);
+
+        return ( H*sigma );
+    }    
+    
+    double Integrand_dsigmaBox_l(double cosTheta) {
+        double Mw = SM.Mw(); 
+        double GammaZ = myEW.Gamma_Z();
+        return ( myTwoFermions.dsigma_l_box(l_flavor, s, cosTheta, Mw, GammaZ) );
+    }       
+    
+    double Integrand_dsigmaBox_q(double cosTheta) {
+        double Mw = SM.Mw(); 
+        double GammaZ = myEW.Gamma_Z();
+        return ( myTwoFermions.dsigma_q_box(q_flavor, s, cosTheta, Mw, GammaZ) );
+    }       
+    
+    double Integrand_AFBnumeratorWithISR_l(double x) {
         double sprime = (1.0 - x)*s;
         double Mw = SM.Mw(); 
         double GammaZ = myEW.Gamma_Z();
         double Ncf = 1.0;
-        
         double G3prime = myTwoFermions.G_3prime_l(l_flavor, sprime, Mw, GammaZ, 
-                                                  bRCs);
+                                                  flag[Weak]);
         double H = myTwoFermions.H_ISR_FB(x, s);
-        
-        return ( Ncf*H*G3prime/sprime );
+
+        return ( M_PI*SM.getAle()*SM.getAle()*Ncf*H*G3prime/sprime );
     }
     
-    double IntegrandISR_AFB_q(double x) {
+    double Integrand_AFBnumeratorWithISR_q(double x) {
         double sprime = (1.0 - x)*s;
         double Mw = SM.Mw(); 
         double GammaZ = myEW.Gamma_Z();
         double Ncf = 3.0;
-        
         double G3prime = myTwoFermions.G_3prime_q(q_flavor, sprime, Mw, GammaZ, 
-                                                  bRCs);
+                                                  flag[Weak]);
         double H = myTwoFermions.H_ISR_FB(x, s);
         
-        return ( Ncf*H*G3prime/sprime );
+        if (flag[QCDFSR])
+            G3prime *= myTwoFermions.QCD_FSR_forAFB(q_flavor, sprime);
+        
+        return ( M_PI*SM.getAle()*SM.getAle()*Ncf*H*G3prime/sprime );
     }
-
-    double IntegrandISR_sigma_l(double x) {
-        double sprime = (1.0 - x)*s;
-        double Mw = SM.Mw(); 
-        double GammaZ = myEW.Gamma_Z();
-        
-        double sigma = myTwoFermions.sigma_l(l_flavor, sprime, Mw, GammaZ, 
-                                             bRCsForSigmaIntegrand);
-        double H = myTwoFermions.H_ISR(x, s);
-        
-        return ( H*sigma );
-    }    
     
-    double IntegrandISR_sigma_q(double x) {
-        double sprime = (1.0 - x)*s;
-        double Mw = SM.Mw(); 
-        double GammaZ = myEW.Gamma_Z();
-        
-        double sigma = myTwoFermions.sigma_q(q_flavor, sprime, Mw, GammaZ, 
-                                             bRCsForSigmaIntegrand);
-        double H = myTwoFermions.H_ISR(x, s);
-        
-        return ( H*sigma );
-    }    
     
-private:    
-    
+private:   
+      
 };
 
 #endif	/* LEP2THOBSERVABLE_H */
