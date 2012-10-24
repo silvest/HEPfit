@@ -55,13 +55,16 @@ public:
     
     double G_1_box(const double s, const double t, const double Mw, 
                    const double GammaZ, const double I3f, const double Qf, 
-                   const double mf, const double mfp) const;
+                   const double mf, const double mfp, const bool bWWbox=true, 
+                   const bool bZZbox=true) const;
     double G_2_box(const double s, const double t, const double Mw, 
                    const double GammaZ, const double I3f, const double Qf, 
-                   const double mf, const double mfp) const;
+                   const double mf, const double mfp, const bool bWWbox=true, 
+                   const bool bZZbox=true) const;
     double G_3_box(const double s, const double t, const double Mw, 
                    const double GammaZ, const double I3f, const double Qf, 
-                   const double mf, const double mfp) const;    
+                   const double mf, const double mfp, const bool bWWbox=true, 
+                   const bool bZZbox=true) const;    
     
     ////////////////////////////////////////////////////////////////////////  
 
@@ -71,26 +74,33 @@ public:
 
     complex G_e(const double s, const double t, const double Mw, 
                 const double I3f, const double Qf, const double mf, 
-                const double mfp, const bool bWWbox, const bool bZZbox) const;
+                const double mfp, const bool bWeak, const bool bWWbox, 
+                const bool bZZbox) const;
     complex G_f(const double s, const double t, const double Mw, 
                 const double I3f, const double Qf, const double mf, 
-                const double mfp, const bool bWWbox, const bool bZZbox) const;
+                const double mfp, const bool bWeak, const bool bWWbox, 
+                const bool bZZbox) const;
     complex G_ef(const double s, const double t, const double Mw, 
                  const double I3f, const double Qf, const double mf, 
-                 const double mfp, const bool bWWbox, const bool bZZbox) const;
+                 const double mfp, const bool bWeak, const bool bWWbox, 
+                 const bool bZZbox) const;
        
     complex rho_ef(const double s, const double t, const double Mw, 
                    const double I3f, const double Qf, const double mf, 
-                   const double mfp, const bool bWWbox, const bool bZZbox) const;
+                   const double mfp, const bool bWeak, const bool bWWbox, 
+                   const bool bZZbox) const;
     complex kappa_e(const double s, const double t, const double Mw, 
                     const double I3f, const double Qf, const double mf, 
-                    const double mfp, const bool bWWbox, const bool bZZbox) const;
+                    const double mfp, const bool bWeak, const bool bWWbox, 
+                    const bool bZZbox) const;
     complex kappa_f(const double s, const double t, const double Mw, 
                     const double I3f, const double Qf, const double mf, 
-                    const double mfp, const bool bWWbox, const bool bZZbox) const;
+                    const double mfp, const bool bWeak, const bool bWWbox, 
+                    const bool bZZbox) const;
     complex kappa_ef(const double s, const double t, const double Mw, 
                      const double I3f, const double Qf, const double mf, 
-                     const double mfp, const bool bWWbox, const bool bZZbox) const;
+                     const double mfp, const bool bWeak, const bool bWWbox, 
+                     const bool bZZbox) const;
     
     complex Delta_rho_ef_TOP(const double s, const double t, const double u, 
                              const double Mw, const bool bWWbox) const;
@@ -135,8 +145,8 @@ public:
     ////////////////////////////////////////////////////////////////////////  
 
     // Weak corrections
-    complex I2e(const double s, const double Mw) const;
-    complex I2f(const double s, const double Mw) const;
+    //complex I2e(const double s, const double Mw, const bool bWeak) const;
+    //complex I2f(const double s, const double Mw, const bool bWeak) const;
     complex DeltaRhobar(const double mu, const double Mw) const;
     complex DeltaRhobarZ(const double mu, const double Mw) const;
     complex D_Z(const double mu, const double s, const double Mw) const;
