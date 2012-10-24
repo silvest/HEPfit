@@ -37,7 +37,7 @@ double LEP2sigmaBottom::getThValue() {
     }
     double sigma_bottom = SMresult_cache;
     
-    if ( myEW.checkModelForSTU() )
+    if ( myEW.checkModelForSTU() && !bSigmaForAFB)
         sigma_bottom += myLEP2oblique.sigma_q_LEP2_NP(StandardModel::BOTTOM, s);
     
     return ( sigma_bottom*GeVminus2_to_nb*1000.0 );

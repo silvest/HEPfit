@@ -37,7 +37,7 @@ double LEP2sigmaMu::getThValue() {
     }
     double sigma_mu = SMresult_cache;
     
-    if ( myEW.checkModelForSTU() )
+    if ( myEW.checkModelForSTU() && !bSigmaForAFB )
         sigma_mu += myLEP2oblique.sigma_l_LEP2_NP(StandardModel::MU, s);
     
     return ( sigma_mu*GeVminus2_to_nb*1000.0 );

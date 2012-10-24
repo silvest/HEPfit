@@ -117,7 +117,7 @@ double LEP2sigmaHadron::getThValue() {
     }
     double sigmaH = SMresult_cache;
     
-    if ( myEW.checkModelForSTU() ) {
+    if ( myEW.checkModelForSTU()  && !bSigmaForR) {
         sigmaH += myLEP2oblique.sigma_q_LEP2_NP(StandardModel::UP, s)
                 + myLEP2oblique.sigma_q_LEP2_NP(StandardModel::DOWN, s)
                 + myLEP2oblique.sigma_q_LEP2_NP(StandardModel::CHARM, s)

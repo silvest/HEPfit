@@ -26,11 +26,14 @@ public:
      * @param[in] EW_i an object of EW class
      * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
      * @param[in] bSigmaForAFB_i true for the denominator of A_FB
+     * @param[in] bSigmaForR_i true for the denominator of R_b or R_c
      */
     LEP2ThObservable(const EW& EW_i, const double sqrt_s_i, 
-                     const bool bSigmaForAFB_i=false) : ThObservable(EW_i), 
+                     const bool bSigmaForAFB_i=false,
+                     const bool bSigmaForR_i=false) : ThObservable(EW_i), 
             myEW(EW_i), myTwoFermions(EW_i.getSM()), myLEP2oblique(EW_i), 
-            sqrt_s(sqrt_s_i), s(sqrt_s_i*sqrt_s_i), bSigmaForAFB(bSigmaForAFB_i) {
+            sqrt_s(sqrt_s_i), s(sqrt_s_i*sqrt_s_i), bSigmaForAFB(bSigmaForAFB_i),
+            bSigmaForR(bSigmaForR_i){
         flag[Weak] = true;
         flag[WeakBox] = true;
         flag[ISR] = true;
@@ -106,6 +109,7 @@ protected:
 
     bool flag[NUMofLEP2RCs]; 
     bool bSigmaForAFB;
+    bool bSigmaForR;
     
     // caches for the SM prediction
     mutable double SMparams_cache[EWSM::NumSMParams+3];

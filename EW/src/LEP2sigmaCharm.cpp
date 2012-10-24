@@ -37,7 +37,7 @@ double LEP2sigmaCharm::getThValue() {
     }
     double sigma_charm = SMresult_cache;
     
-    if ( myEW.checkModelForSTU() )
+    if ( myEW.checkModelForSTU() && !bSigmaForAFB)
         sigma_charm += myLEP2oblique.sigma_q_LEP2_NP(StandardModel::CHARM, s);
     
     return ( sigma_charm*GeVminus2_to_nb*1000.0 );
