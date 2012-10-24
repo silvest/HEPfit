@@ -494,8 +494,8 @@ void EWSMLEP2testclass::Delta_kappaef_TOP_NonUnitary_imag() {
 }
 
 void EWSMLEP2testclass::B_WW_0_real() {
-    double I3f = SM->getLeptons(SM->MU).getIsospin();
-    double mf = SM->getLeptons(SM->MU).getMass();
+    //double I3f = SM->getLeptons(SM->MU).getIsospin();
+    //double mf = SM->getLeptons(SM->MU).getMass();
     double t = - s/2.0, u = - s - t;
     double mu = Mw;
     double expected = -0.00010760320088880713; // ??????
@@ -507,8 +507,8 @@ void EWSMLEP2testclass::B_WW_0_real() {
 }
 
 void EWSMLEP2testclass::B_WW_0_imag() {
-    double I3f = SM->getLeptons(SM->MU).getIsospin();
-    double mf = SM->getLeptons(SM->MU).getMass();
+    //double I3f = SM->getLeptons(SM->MU).getIsospin();
+    //double mf = SM->getLeptons(SM->MU).getMass();
     double t = - s/2.0, u = - s - t;
     double mu = Mw;
     double expected = 0.00048542322208538363; // ??????
@@ -539,7 +539,7 @@ void EWSMLEP2testclass::B_ZZ_0_imag() {
 void EWSMLEP2testclass::Delta_rho_ef_WW_real() {
     double I3f = SM->getLeptons(SM->MU).getIsospin();
     double t = - s/2.0, u = - s - t;
-    double mu = Mw;
+    //double mu = Mw;
     double expected = -0.0068839947; // ??????
     //double result = myLEP2->Delta_rho_ef_WW_hat(s,t,u,Mw,I3f).real();
     double result = myLEP2_NU->Delta_rho_ef_WW_hat(s,t,u,Mw,I3f).real(); //!! TEST !!
@@ -550,7 +550,7 @@ void EWSMLEP2testclass::Delta_rho_ef_WW_real() {
 void EWSMLEP2testclass::Delta_rho_ef_WW_imag() {
     double I3f = SM->getLeptons(SM->MU).getIsospin();
     double t = - s/2.0, u = - s - t;
-    double mu = Mw;
+    //double mu = Mw;
     double expected = 0.0310553110; // ??????
     //double result = myLEP2->Delta_rho_ef_WW_hat(s,t,u,Mw,I3f).imag();
     double result = myLEP2_NU->Delta_rho_ef_WW_hat(s,t,u,Mw,I3f).imag(); //!! TEST !!
@@ -584,7 +584,7 @@ void EWSMLEP2testclass::Delta_rho_ef_WW_charm_real() {
     double I3f = SM->getQuarks(SM->CHARM).getIsospin();
     double snew = 205.0*205.0;
     double t = - snew/2.0, u = - snew - t;
-    double mu = Mw;
+    //double mu = Mw;
     double expected = -0.0190989409; // ??????
     //double result = myLEP2->Delta_rho_ef_WW_hat(snew,t,u,Mw,I3f).real();
     double result = myLEP2_NU->Delta_rho_ef_WW_hat(snew,t,u,Mw,I3f).real(); //!! TEST !!
@@ -596,7 +596,7 @@ void EWSMLEP2testclass::Delta_rho_ef_WW_charm_imag() {
     double I3f = SM->getQuarks(SM->CHARM).getIsospin();
     double snew = 205.0*205.0;
     double t = - snew/2.0, u = - snew - t;
-    double mu = Mw;
+    //double mu = Mw;
     double expected = 0.0028803190; // ??????
     //double result = myLEP2->Delta_rho_ef_WW_hat(snew,t,u,Mw,I3f).imag();
     double result = myLEP2_NU->Delta_rho_ef_WW_hat(snew,t,u,Mw,I3f).imag(); //!! TEST !!
