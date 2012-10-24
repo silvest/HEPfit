@@ -20,7 +20,7 @@ public:
      * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
      */
     LEP2Rcharm(const EW& EW_i, const double sqrt_s_i) : LEP2ThObservable(EW_i, sqrt_s_i),
-            myLEP2sigmaCharm(EW_i, sqrt_s_i), myLEP2sigmaHadron(EW_i, sqrt_s_i)  {
+            myLEP2sigmaCharm(EW_i, sqrt_s_i), myLEP2sigmaHadron(EW_i, sqrt_s_i, false, true)  {
         q_flavor = StandardModel::CHARM;
     }
 
