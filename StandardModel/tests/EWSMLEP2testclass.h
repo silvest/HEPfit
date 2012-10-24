@@ -67,9 +67,18 @@ class EWSMLEP2testclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(Delta_rho_ef_WW_charm_imag);
     CPPUNIT_TEST(Delta_rho_ef_ZZ_charm_real);
     CPPUNIT_TEST(Delta_rho_ef_ZZ_charm_imag);
-    CPPUNIT_TEST(G1_mu_Box_TEST);
-    CPPUNIT_TEST(G2_mu_Box_TEST);
-    CPPUNIT_TEST(G3_mu_Box_TEST);
+    CPPUNIT_TEST(G1_mu_WWBox_TEST);
+    CPPUNIT_TEST(G2_mu_WWBox_TEST);
+    CPPUNIT_TEST(G3_mu_WWBox_TEST);
+    CPPUNIT_TEST(G1_UP_WWBox_TEST);
+    CPPUNIT_TEST(G2_UP_WWBox_TEST);
+    CPPUNIT_TEST(G3_UP_WWBox_TEST);
+    CPPUNIT_TEST(G1_mu_ZZBox_TEST);
+    CPPUNIT_TEST(G2_mu_ZZBox_TEST);
+    CPPUNIT_TEST(G3_mu_ZZBox_TEST);
+    CPPUNIT_TEST(G1_UP_ZZBox_TEST);
+    CPPUNIT_TEST(G2_UP_ZZBox_TEST);
+    CPPUNIT_TEST(G3_UP_ZZBox_TEST);
     
     CPPUNIT_TEST_SUITE_END();
 
@@ -144,9 +153,18 @@ private:
     void Delta_rho_ef_ZZ_charm_real();
     void Delta_rho_ef_ZZ_charm_imag();
     
-    void G1_mu_Box_TEST();
-    void G2_mu_Box_TEST();
-    void G3_mu_Box_TEST();
+    void G1_mu_WWBox_TEST();
+    void G2_mu_WWBox_TEST();
+    void G3_mu_WWBox_TEST();
+    void G1_UP_WWBox_TEST();
+    void G2_UP_WWBox_TEST();
+    void G3_UP_WWBox_TEST();
+    void G1_mu_ZZBox_TEST();
+    void G2_mu_ZZBox_TEST();
+    void G3_mu_ZZBox_TEST();
+    void G1_UP_ZZBox_TEST();
+    void G2_UP_ZZBox_TEST();
+    void G3_UP_ZZBox_TEST();
     
 };
 

@@ -5,6 +5,7 @@
 
 #include <stdexcept>
 #include <cmath>
+#include <complex>
 #include "EWSMTwoFermionsLEP2.h"
 #include "EWSMThreeLoopEW.h"
 
@@ -27,18 +28,10 @@ double EWSMTwoFermionsLEP2::G_1(const double s, const double t,
                                 const bool bZZbox) const {
     complex Vpol = V_pol(s);
     complex rhoef, Ge, Gf, Gef;
-    if (bWeak) {
-        rhoef = rho_ef(s, t, Mw, I3f, Qf, mf, mfp, bWWbox, bZZbox);
-        Ge = G_e(s, t, Mw, I3f, Qf, mf, mfp, bWWbox, bZZbox);
-        Gf = G_f(s, t, Mw, I3f, Qf, mf, mfp, bWWbox, bZZbox);
-        Gef = G_ef(s, t, Mw, I3f, Qf, mf, mfp, bWWbox, bZZbox);
-    } else {
-        double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
-        rhoef = 1.0;
-        Ge = 1.0 - 4.0*sW2;
-        Gf = 1.0 - 4.0*fabs(Qf)*sW2;
-        Gef = - 1.0 + Ge + Gf + 16.0*fabs(Qf)*sW2*sW2;
-    }
+    rhoef = rho_ef(s, t, Mw, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox);
+    Ge = G_e(s, t, Mw, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox);
+    Gf = G_f(s, t, Mw, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox);
+    Gef = G_ef(s, t, Mw, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox);
     
     return ( Qf*Qf*Vpol.abs2() 
              + 2.0*fabs(Qf)*(Vpol.conjugate()*rhoef*Gef*chi_Z(s,Mw,GammaZ)).real() 
@@ -55,18 +48,10 @@ double EWSMTwoFermionsLEP2::G_2(const double s, const double t,
                                 const bool bZZbox) const {
     complex Vpol = V_pol(s);
     complex rhoef, Ge, Gf, Gef;
-    if (bWeak) {
-        rhoef = rho_ef(s, t, Mw, I3f, Qf, mf, mfp, bWWbox, bZZbox);
-        Ge = G_e(s, t, Mw, I3f, Qf, mf, mfp, bWWbox, bZZbox);
-        Gf = G_f(s, t, Mw, I3f, Qf, mf, mfp, bWWbox, bZZbox);
-        Gef = G_ef(s, t, Mw, I3f, Qf, mf, mfp, bWWbox, bZZbox);
-    } else {
-        double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
-        rhoef = 1.0;
-        Ge = 1.0 - 4.0*sW2;
-        Gf = 1.0 - 4.0*fabs(Qf)*sW2;
-        Gef = - 1.0 + Ge + Gf + 16.0*fabs(Qf)*sW2*sW2;
-    }   
+    rhoef = rho_ef(s, t, Mw, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox);
+    Ge = G_e(s, t, Mw, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox);
+    Gf = G_f(s, t, Mw, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox);
+    Gef = G_ef(s, t, Mw, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox);
 
     return ( Qf*Qf*Vpol.abs2() 
              + 2.0*fabs(Qf)*(Vpol.conjugate()*rhoef*Gef*chi_Z(s,Mw,GammaZ)).real() 
@@ -82,21 +67,14 @@ double EWSMTwoFermionsLEP2::G_3(const double s, const double t,
                                 const bool bZZbox) const {
     complex Vpol = V_pol(s);
     complex rhoef, Ge, Gf, Gef;
-    if (bWeak) {
-        rhoef = rho_ef(s, t, Mw, I3f, Qf, mf, mfp, bWWbox, bZZbox);
-        Ge = G_e(s, t, Mw, I3f, Qf, mf, mfp, bWWbox, bZZbox);
-        Gf = G_f(s, t, Mw, I3f, Qf, mf, mfp, bWWbox, bZZbox);
-        Gef = G_ef(s, t, Mw, I3f, Qf, mf, mfp, bWWbox, bZZbox);
-    } else {
-        double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
-        rhoef = 1.0;
-        Ge = 1.0 - 4.0*sW2;
-        Gf = 1.0 - 4.0*fabs(Qf)*sW2;
-        Gef = - 1.0 + Ge + Gf + 16.0*fabs(Qf)*sW2*sW2;
-    }  
+    rhoef = rho_ef(s, t, Mw, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox);
+    Ge = G_e(s, t, Mw, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox);
+    Gf = G_f(s, t, Mw, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox);
+    Gef = G_ef(s, t, Mw, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox);
     
-    return ( 2.0*fabs(Qf)*(Vpol.conjugate()*chi_Z(s,Mw,GammaZ)).real() 
-             + 2.0*(Ge*Gf.conjugate() + Gef).real()*chi_Z(s,Mw,GammaZ).abs2() );    
+    return ( 2.0*fabs(Qf)*(rhoef*Vpol.conjugate()*chi_Z(s,Mw,GammaZ)).real() 
+             + 2.0*rhoef.abs2()
+               *(Ge*Gf.conjugate() + Gef).real()*chi_Z(s,Mw,GammaZ).abs2() );    
 }
 
 
@@ -133,21 +111,36 @@ double EWSMTwoFermionsLEP2::G_3_noBox(const double s, const double Mw,
 double EWSMTwoFermionsLEP2::G_1_box(const double s, const double t, 
                                     const double Mw, const double GammaZ, 
                                     const double I3f, const double Qf, 
-                                    const double mf, const double mfp) const {
+                                    const double mf, const double mfp, 
+                                    const bool bWWbox, const bool bZZbox) const {
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
         
     double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz); 
     double mu = Mw; // renormalization scale
     complex Vpol = V_pol(s);
-    complex D_rho_ef = Delta_rho_ef_WW_hat(s, t, u, Mw, I3f)
-                       + Delta_rho_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
-    complex D_kappa_e = Delta_kappa_ef_WW_hat(s, t, u, Mw, I3f)
-                        + Delta_kappa_e_ZZ(mu, s, t, u, Mw, I3f, Qf);
-    complex D_kappa_f = Delta_kappa_e_WW_hat(s, t, u, Mw, I3f)
-                        + Delta_kappa_f_ZZ(mu, s, t, u, Mw, I3f, Qf);
-    complex D_kappa_ef = Delta_kappa_f_WW_hat(s, t, u, Mw, I3f)
-                         + Delta_kappa_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
+    complex D_rho_ef = complex(0.0, 0.0, false);
+    complex D_kappa_e = complex(0.0, 0.0, false);
+    complex D_kappa_f = complex(0.0, 0.0, false);
+    complex D_kappa_ef = complex(0.0, 0.0, false);
+
+    // WW box    
+    if (bWWbox) {
+        D_rho_ef += Delta_rho_ef_WW_hat(s, t, u, Mw, I3f);
+        D_kappa_e += Delta_kappa_e_WW_hat(s, t, u, Mw, I3f);
+        D_kappa_f += Delta_kappa_f_WW_hat(s, t, u, Mw, I3f);
+        D_kappa_ef += Delta_kappa_ef_WW_hat(s, t, u, Mw, I3f);
+    }
+    
+    // ZZ box    
+    if (bZZbox) {
+        D_rho_ef += Delta_rho_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
+        D_kappa_e += Delta_kappa_e_ZZ(mu, s, t, u, Mw, I3f, Qf);
+        D_kappa_f += Delta_kappa_f_ZZ(mu, s, t, u, Mw, I3f, Qf);
+        D_kappa_ef += Delta_kappa_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
+    }
+     
+    // Top quark contribution in e^+ e^- -> b bbar
     if (I3f==SM.getQuarks(SM.BOTTOM).getIsospin() 
             && Qf==SM.getQuarks(SM.BOTTOM).getCharge() 
             && mfp!=0.0) {
@@ -157,35 +150,68 @@ double EWSMTwoFermionsLEP2::G_1_box(const double s, const double t,
         D_kappa_ef += Delta_kappa_ef_WW_TOP_hat(s, t, u, Mw);
     }
     
-    return ( 2.0*fabs(Qf)
-             *( Vpol.conjugate()*(D_rho_ef - 4.0*sW2*D_kappa_e 
-                                  - 4.0*fabs(Qf)*sW2*D_kappa_f 
-                                  + 16.0*fabs(Qf)*sW2*sW2*D_kappa_ef)
-                *chi_Z(s,Mw,GammaZ) ).real()
-             + 8.0*( D_rho_ef - 2.0*sW2*D_kappa_e - 2.0*fabs(Qf)*sW2*D_kappa_f 
-                     + 4.0*fabs(Qf)*sW2*sW2*D_kappa_ef  ).real()
-               *chi_Z(s,Mw,GammaZ).abs2() );
+    // G_e, G_f and G_ef at tree-level
+    double G_e0 = 1.0 - 4.0*sW2;
+    double G_f0 = 1.0 - 4.0*fabs(Qf)*sW2;
+    double G_ef0 = - 1.0 + G_e0 + G_f0 + 16.0*fabs(Qf)*sW2*sW2;
+    
+    // corrections to G_e, G_f and G_ef
+    complex D_G_e = - 4.0*D_kappa_e*sW2;
+    complex D_G_f = - 4.0*fabs(Qf)*D_kappa_f*sW2;
+    complex D_G_ef = D_G_e + D_G_f + 16.0*fabs(Qf)*D_kappa_ef*sW2*sW2;    
+    
+    double chiZ2 = chi_Z(s,Mw,GammaZ).abs2();
+    
+    double G1_alpha, G1_alpha2; // O(alpha) and O(alpha^2)
+    G1_alpha = 2.0*fabs(Qf) * ( (D_rho_ef*G_ef0 + D_G_ef)*Vpol.conjugate()
+                                *chi_Z(s,Mw,GammaZ) ).real()
+               + 2.0*D_rho_ef.real()*(G_ef0*G_ef0 + G_f0*G_f0 + G_e0*G_e0 + 1.0)*chiZ2
+               + 2.0*(G_ef0*D_G_ef + G_f0*D_G_f + G_e0*D_G_e).real()*chiZ2;
+    G1_alpha2 = 2.0*fabs(Qf) 
+                  *( D_rho_ef*D_G_ef*Vpol.conjugate()*chi_Z(s,Mw,GammaZ) ).real()
+                + D_rho_ef.abs2()*(G_ef0*G_ef0 + G_f0*G_f0 + G_e0*G_e0 + 1.0)*chiZ2
+                + (D_G_ef.abs2() + D_G_f.abs2() + D_G_e.abs2())*chiZ2
+                + (2.0*D_rho_ef.real() + D_rho_ef.abs2())
+                  *(2.0*(G_ef0*D_G_ef + G_f0*D_G_f + G_e0*D_G_e).real()
+                    + D_G_ef.abs2() + D_G_f.abs2() + D_G_e.abs2())*chiZ2;
+
+    return ( G1_alpha + G1_alpha2 );
 }
 
 
 double EWSMTwoFermionsLEP2::G_2_box(const double s, const double t, 
                                     const double Mw, const double GammaZ, 
                                     const double I3f, const double Qf, 
-                                    const double mf, const double mfp) const {
+                                    const double mf, const double mfp, 
+                                    const bool bWWbox, const bool bZZbox) const {
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
         
     double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz); 
     double mu = Mw; // renormalization scale
     complex Vpol = V_pol(s);
-    complex D_rho_ef = Delta_rho_ef_WW_hat(s, t, u, Mw, I3f)
-                       + Delta_rho_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
-    complex D_kappa_e = Delta_kappa_ef_WW_hat(s, t, u, Mw, I3f)
-                        + Delta_kappa_e_ZZ(mu, s, t, u, Mw, I3f, Qf);
-    complex D_kappa_f = Delta_kappa_e_WW_hat(s, t, u, Mw, I3f)
-                        + Delta_kappa_f_ZZ(mu, s, t, u, Mw, I3f, Qf);
-    complex D_kappa_ef = Delta_kappa_f_WW_hat(s, t, u, Mw, I3f)
-                         + Delta_kappa_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
+    complex D_rho_ef = complex(0.0, 0.0, false);
+    complex D_kappa_e = complex(0.0, 0.0, false);
+    complex D_kappa_f = complex(0.0, 0.0, false);
+    complex D_kappa_ef = complex(0.0, 0.0, false);
+
+    // WW box    
+    if (bWWbox) {
+        D_rho_ef += Delta_rho_ef_WW_hat(s, t, u, Mw, I3f);
+        D_kappa_e += Delta_kappa_e_WW_hat(s, t, u, Mw, I3f);
+        D_kappa_f += Delta_kappa_f_WW_hat(s, t, u, Mw, I3f);
+        D_kappa_ef += Delta_kappa_ef_WW_hat(s, t, u, Mw, I3f);
+    }
+    
+    // ZZ box    
+    if (bZZbox) {
+        D_rho_ef += Delta_rho_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
+        D_kappa_e += Delta_kappa_e_ZZ(mu, s, t, u, Mw, I3f, Qf);
+        D_kappa_f += Delta_kappa_f_ZZ(mu, s, t, u, Mw, I3f, Qf);
+        D_kappa_ef += Delta_kappa_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
+    }
+
+    // Top quark contribution in e^+ e^- -> b bbar
     if (I3f==SM.getQuarks(SM.BOTTOM).getIsospin() 
             && Qf==SM.getQuarks(SM.BOTTOM).getCharge() 
             && mfp!=0.0) {
@@ -195,35 +221,68 @@ double EWSMTwoFermionsLEP2::G_2_box(const double s, const double t,
         D_kappa_ef += Delta_kappa_ef_WW_TOP_hat(s, t, u, Mw);
     }
         
-    return ( 2.0*fabs(Qf)
-             *( Vpol.conjugate()*(D_rho_ef - 4.0*sW2*D_kappa_e 
-                                  - 4.0*fabs(Qf)*sW2*D_kappa_f 
-                                  + 16.0*fabs(Qf)*sW2*sW2*D_kappa_ef)
-                *chi_Z(s,Mw,GammaZ) ).real()
-             + 4.0*( D_rho_ef - 2.0*sW2*D_kappa_e - 4.0*fabs(Qf)*sW2*D_kappa_f 
-                     + 8.0*fabs(Qf)*sW2*sW2*D_kappa_ef  ).real()
-               *chi_Z(s,Mw,GammaZ).abs2() );
+    // G_e, G_f and G_ef at tree-level
+    double G_e0 = 1.0 - 4.0*sW2;
+    double G_f0 = 1.0 - 4.0*fabs(Qf)*sW2;
+    double G_ef0 = - 1.0 + G_e0 + G_f0 + 16.0*fabs(Qf)*sW2*sW2;
+    
+    // corrections to G_e, G_f and G_ef
+    complex D_G_e = - 4.0*D_kappa_e*sW2;
+    complex D_G_f = - 4.0*fabs(Qf)*D_kappa_f*sW2;
+    complex D_G_ef = D_G_e + D_G_f + 16.0*fabs(Qf)*D_kappa_ef*sW2*sW2;    
+    
+    double chiZ2 = chi_Z(s,Mw,GammaZ).abs2();
+    
+    double G2_alpha, G2_alpha2; // O(alpha) and O(alpha^2)
+    G2_alpha = 2.0*fabs(Qf) * ( (D_rho_ef*G_ef0 + D_G_ef)*Vpol.conjugate()
+                                *chi_Z(s,Mw,GammaZ) ).real()
+               + 2.0*D_rho_ef.real()*(G_ef0*G_ef0 + G_f0*G_f0)*chiZ2
+               + 2.0*(G_ef0*D_G_ef + G_f0*D_G_f).real()*chiZ2;
+    G2_alpha2 = 2.0*fabs(Qf) 
+                  *( D_rho_ef*D_G_ef*Vpol.conjugate()*chi_Z(s,Mw,GammaZ) ).real()
+                + D_rho_ef.abs2()*(G_ef0*G_ef0 + G_f0*G_f0)*chiZ2
+                + (D_G_ef.abs2() + D_G_f.abs2())*chiZ2
+                + (2.0*D_rho_ef.real() + D_rho_ef.abs2())
+                  *(2.0*(G_ef0*D_G_ef + G_f0*D_G_f).real()
+                    + D_G_ef.abs2() + D_G_f.abs2())*chiZ2;
+
+    return ( G2_alpha + G2_alpha2 );
 }
 
 
 double EWSMTwoFermionsLEP2::G_3_box(const double s, const double t, 
                                     const double Mw, const double GammaZ, 
                                     const double I3f, const double Qf, 
-                                    const double mf, const double mfp) const {
+                                    const double mf, const double mfp, 
+                                    const bool bWWbox, const bool bZZbox) const {
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
 
     double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz); 
     double mu = Mw; // renormalization scale
     complex Vpol = V_pol(s);
-    complex D_rho_ef = Delta_rho_ef_WW_hat(s, t, u, Mw, I3f)
-                       + Delta_rho_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
-    complex D_kappa_e = Delta_kappa_ef_WW_hat(s, t, u, Mw, I3f)
-                        + Delta_kappa_e_ZZ(mu, s, t, u, Mw, I3f, Qf);
-    complex D_kappa_f = Delta_kappa_e_WW_hat(s, t, u, Mw, I3f)
-                        + Delta_kappa_f_ZZ(mu, s, t, u, Mw, I3f, Qf);
-    complex D_kappa_ef = Delta_kappa_f_WW_hat(s, t, u, Mw, I3f)
-                         + Delta_kappa_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
+    complex D_rho_ef = complex(0.0, 0.0, false);
+    complex D_kappa_e = complex(0.0, 0.0, false);
+    complex D_kappa_f = complex(0.0, 0.0, false);
+    complex D_kappa_ef = complex(0.0, 0.0, false);
+
+    // WW box    
+    if (bWWbox) {
+        D_rho_ef += Delta_rho_ef_WW_hat(s, t, u, Mw, I3f);
+        D_kappa_e += Delta_kappa_e_WW_hat(s, t, u, Mw, I3f);
+        D_kappa_f += Delta_kappa_f_WW_hat(s, t, u, Mw, I3f);
+        D_kappa_ef += Delta_kappa_ef_WW_hat(s, t, u, Mw, I3f);
+    }
+    
+    // ZZ box    
+    if (bZZbox) {
+        D_rho_ef += Delta_rho_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
+        D_kappa_e += Delta_kappa_e_ZZ(mu, s, t, u, Mw, I3f, Qf);
+        D_kappa_f += Delta_kappa_f_ZZ(mu, s, t, u, Mw, I3f, Qf);
+        D_kappa_ef += Delta_kappa_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
+    }
+
+    // Top quark contribution in e^+ e^- -> b bbar
     if (I3f==SM.getQuarks(SM.BOTTOM).getIsospin() 
             && Qf==SM.getQuarks(SM.BOTTOM).getCharge() 
             && mfp!=0.0) {
@@ -233,11 +292,29 @@ double EWSMTwoFermionsLEP2::G_3_box(const double s, const double t,
         D_kappa_ef += Delta_kappa_ef_WW_TOP_hat(s, t, u, Mw);
     }
         
-    return ( 2.0*fabs(Qf)
-             *( Vpol.conjugate()*D_rho_ef*chi_Z(s,Mw,GammaZ) ).real()
-             + 8.0*( D_rho_ef - 3.0*sW2*D_kappa_e - 3.0*fabs(Qf)*sW2*D_kappa_f 
-                     + 4.0*fabs(Qf)*sW2*sW2*D_kappa_ef  ).real()
-               *chi_Z(s,Mw,GammaZ).abs2() );
+    // G_e, G_f and G_ef at tree-level
+    double G_e0 = 1.0 - 4.0*sW2;
+    double G_f0 = 1.0 - 4.0*fabs(Qf)*sW2;
+    double G_ef0 = - 1.0 + G_e0 + G_f0 + 16.0*fabs(Qf)*sW2*sW2;
+    
+    // corrections to G_e, G_f and G_ef
+    complex D_G_e = - 4.0*D_kappa_e*sW2;
+    complex D_G_f = - 4.0*fabs(Qf)*D_kappa_f*sW2;
+    complex D_G_ef = D_G_e + D_G_f + 16.0*fabs(Qf)*D_kappa_ef*sW2*sW2;    
+    
+    double chiZ2 = chi_Z(s,Mw,GammaZ).abs2();
+    
+    double G3_alpha, G3_alpha2; // O(alpha) and O(alpha^2)
+    G3_alpha = 2.0*fabs(Qf) * ( D_rho_ef*Vpol.conjugate()*chi_Z(s,Mw,GammaZ) ).real()
+               + 4.0*D_rho_ef.real()*(G_e0*G_f0 + G_ef0)*chiZ2
+               + 2.0*(G_e0*D_G_f.conjugate() + G_f0*D_G_e + D_G_ef).real()*chiZ2;
+    G3_alpha2 = 2.0*(2.0*D_rho_ef.real() + D_rho_ef.abs2())
+                  *(G_e0*D_G_f.conjugate() + G_f0*D_G_e + D_G_ef 
+                    + D_G_e*D_G_f.conjugate()).real()*chiZ2
+                + 2.0*(D_G_e*D_G_f.conjugate()).real()*chiZ2
+                + 2.0*D_rho_ef.abs2()*(G_e0*G_f0 + G_ef0)*chiZ2;
+
+    return ( G3_alpha + G3_alpha2 );
 }
 
 
@@ -269,59 +346,68 @@ complex EWSMTwoFermionsLEP2::chi_Z(const double s, const double Mw,
 complex EWSMTwoFermionsLEP2::G_e(const double s, const double t, 
                                  const double Mw, const double I3f, 
                                  const double Qf, const double mf, 
-                                 const double mfp, const bool bWWbox, 
-                                 const bool bZZbox) const {
+                                 const double mfp, const bool bWeak,
+                                 const bool bWWbox, const bool bZZbox) const {
     double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
-    return ( 1.0 - 4.0*( kappa_e(s,t,Mw,I3f,Qf,mf,mfp,bWWbox,bZZbox)*sW2 
-             + I2e(s,Mw)) ); 
+    return ( 1.0 
+             - 4.0*( kappa_e(s,t,Mw,I3f,Qf,mf,mfp,bWeak,bWWbox,bZZbox)*sW2 
+                     //+ I2e(s,Mw,bWeak)
+                   ) ); 
 }
 
 
 complex EWSMTwoFermionsLEP2::G_f(const double s, const double t, 
                                  const double Mw, const double I3f, 
                                  const double Qf, const double mf, 
-                                 const double mfp, const bool bWWbox, 
-                                 const bool bZZbox) const {
+                                 const double mfp, const bool bWeak,
+                                 const bool bWWbox, const bool bZZbox) const {
     double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
-    return ( 1.0 - 4.0*fabs(Qf)*( kappa_f(s,t,Mw,I3f,Qf,mf,mfp,bWWbox,bZZbox)*sW2 
-             + I2f(s,Mw)) );     
+    return ( 1.0 
+             - 4.0*fabs(Qf)*( kappa_f(s,t,Mw,I3f,Qf,mf,mfp,bWeak,bWWbox,bZZbox)*sW2 
+                              //+ I2f(s,Mw,bWeak)
+                            ) );     
 }
 
 
 complex EWSMTwoFermionsLEP2::G_ef(const double s, const double t, 
                                   const double Mw, const double I3f, 
                                   const double Qf, const double mf, 
-                                  const double mfp, const bool bWWbox, 
-                                  const bool bZZbox) const {
+                                  const double mfp, const bool bWeak,
+                                  const bool bWWbox, const bool bZZbox) const {
     double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
-    return ( - 1.0 + G_e(s,t,Mw,I3f,Qf,mf,mfp,bWWbox,bZZbox) 
-             + G_f(s,t,Mw,I3f,Qf,mf,mfp,bWWbox,bZZbox) 
+    return ( - 1.0 + G_e(s,t,Mw,I3f,Qf,mf,mfp,bWeak,bWWbox,bZZbox) 
+             + G_f(s,t,Mw,I3f,Qf,mf,mfp,bWeak,bWWbox,bZZbox) 
              + 16.0*fabs(Qf)
-               *( kappa_ef(s,t,Mw,I3f,Qf,mf,mfp,bWWbox,bZZbox)*sW2*sW2 
-                 + (kappa_e(s,t,Mw,I3f,Qf,mf,mfp,bWWbox,bZZbox)*I2e(s,Mw) 
-                    + kappa_f(s,t,Mw,I3f,Qf,mf,mfp,bWWbox,bZZbox)*I2f(s,Mw))*sW2 ) );
+               *( kappa_ef(s,t,Mw,I3f,Qf,mf,mfp,bWeak,bWWbox,bZZbox)*sW2*sW2 
+                 //+ (kappa_e(s,t,Mw,I3f,Qf,mf,mfp,bWeak,bWWbox,bZZbox)*I2e(s,Mw,bWeak) 
+                 //   + kappa_f(s,t,Mw,I3f,Qf,mf,mfp,bWeak,bWWbox,bZZbox)*I2f(s,Mw,bWeak))*sW2 
+                ) );
 }
 
 
 complex EWSMTwoFermionsLEP2::rho_ef(const double s, const double t, 
                                     const double Mw, const double I3f, 
                                     const double Qf, const double mf, 
-                                    const double mfp, const bool bWWbox, 
-                                    const bool bZZbox) const {
-    double u = 2.0*mf*mf - s - t;
+                                    const double mfp, const bool bWeak,
+                                    const bool bWWbox, const bool bZZbox) const {
+    //double u = 2.0*mf*mf - s - t;
+    double u = - s - t;
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     double ve = - 0.5 + 2.0*sW2, ae = -0.5;
     double vf = I3f - 2.0*Qf*sW2, af = I3f;
     double mu = Mw; // renormalization scale
 
     complex rhoef = 1.0;
-    rhoef += SM.getAle()/4.0/M_PI/sW2
-             *( - DeltaRhobarZ(mu, Mw) + D_Z_hat(s, Mw) 
-                + 5.0/3.0*PV.B0(mu, s, Mw, Mw) - 9.0*cW2/4.0/sW2*log(cW2) 
-                - 6.0 + 5.0*cW2/8.0*(1.0 + cW2) 
-                + (3.0*ve*ve + ae*ae + 3.0*vf*vf + af*af)/4.0/cW2*F_za_0(s, Mw)
-                + 2.0*F_W_0_hat(s, Mw) );
-    
+
+    // Weak corrections    
+    if (bWeak)
+        rhoef += SM.getAle()/4.0/M_PI/sW2
+                 *( - DeltaRhobarZ(mu, Mw) + D_Z_hat(s, Mw) 
+                    + 5.0/3.0*PV.B0(mu, s, Mw, Mw) - 9.0*cW2/4.0/sW2*log(cW2) 
+                    - 6.0 + 5.0*cW2/8.0*(1.0 + cW2) 
+                    + (3.0*ve*ve + ae*ae + 3.0*vf*vf + af*af)/4.0/cW2*F_za_0(s, Mw)
+                    + 2.0*F_W_0_hat(s, Mw) );
+
     // WW box    
     if (bWWbox)
         rhoef += Delta_rho_ef_WW_hat(s, t, u, Mw, I3f);
@@ -330,7 +416,7 @@ complex EWSMTwoFermionsLEP2::rho_ef(const double s, const double t,
     if (bZZbox)
         rhoef += Delta_rho_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
     
-    // Top quark contribution for e^+ e^- -> b bbar
+    // Top quark contribution in e^+ e^- -> b bbar
     if (I3f==SM.getQuarks(SM.BOTTOM).getIsospin() 
             && Qf==SM.getQuarks(SM.BOTTOM).getCharge() 
             && mfp!=0.0)
@@ -342,9 +428,10 @@ complex EWSMTwoFermionsLEP2::rho_ef(const double s, const double t,
 complex EWSMTwoFermionsLEP2::kappa_e(const double s, const double t, 
                                      const double Mw, const double I3f, 
                                      const double Qf, const double mf, 
-                                     const double mfp, const bool bWWbox, 
-                                     const bool bZZbox) const {
-    double u = 2.0*mf*mf - s - t;
+                                     const double mfp, const bool bWeak,
+                                     const bool bWWbox, const bool bZZbox) const {
+    //double u = 2.0*mf*mf - s - t;
+    double u = - s - t;
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     double ve = - 0.5 + 2.0*sW2, ae = -0.5, sigmae = ve + ae;
     double vfa = 0.5 - 2.0*fabs(Qf)*sW2;
@@ -363,13 +450,16 @@ complex EWSMTwoFermionsLEP2::kappa_e(const double s, const double t,
         throw std::runtime_error("Error in EWSMTwoFermionsLEP2::kappa_e()");
     
     complex kappae = 1.0;
-    kappae += SM.getAle()/4.0/M_PI/sW2    
-              *( - cW2/sW2*DeltaRhobar(mu, Mw) + Pibar_Zgamma_hat(s, Mw)
-                 - PV.B0(mu, s, Mw, Mw)/6.0 - 1.0/9.0 
-                 - ve*sigmae/2.0/cW2*F_za_0(s, Mw) - F_W_0_hat(s, Mw)
-                 + ( Mz*Mz/s - 1.0 )
-                   *( fabs(Qf)*vfa*F_za_0(s, Mw)
-                      + cW2*(F_Wn_0_hat(s, Mw) - fabs(Qfp)*F_Wa_0(s, Mw)) ) );
+
+    // Weak corrections    
+    if (bWeak)
+        kappae += SM.getAle()/4.0/M_PI/sW2    
+                  *( - cW2/sW2*DeltaRhobar(mu, Mw) + Pibar_Zgamma_hat(s, Mw)
+                     - PV.B0(mu, s, Mw, Mw)/6.0 - 1.0/9.0 
+                     - ve*sigmae/2.0/cW2*F_za_0(s, Mw) - F_W_0_hat(s, Mw)
+                     + ( Mz*Mz/s - 1.0 )
+                       *( fabs(Qf)*vfa*F_za_0(s, Mw)
+                          + cW2*(F_Wn_0_hat(s, Mw) - fabs(Qfp)*F_Wa_0(s, Mw)) ) );
 
     // WW box    
     if (bWWbox)
@@ -379,7 +469,7 @@ complex EWSMTwoFermionsLEP2::kappa_e(const double s, const double t,
     if (bZZbox)
         kappae += Delta_kappa_e_ZZ(mu, s, t, u, Mw, I3f, Qf);
     
-    // Top quark contribution for e^+ e^- -> b bbar
+    // Top quark contribution in e^+ e^- -> b bbar
     if (I3f==SM.getQuarks(SM.BOTTOM).getIsospin() 
             && Qf==SM.getQuarks(SM.BOTTOM).getCharge() 
             && mfp!=0.0)
@@ -392,21 +482,25 @@ complex EWSMTwoFermionsLEP2::kappa_e(const double s, const double t,
 complex EWSMTwoFermionsLEP2::kappa_f(const double s, const double t, 
                                      const double Mw, const double I3f, 
                                      const double Qf, const double mf, 
-                                     const double mfp, const bool bWWbox, 
-                                     const bool bZZbox) const {
-    double u = 2.0*mf*mf - s - t;
+                                     const double mfp, const bool bWeak,
+                                     const bool bWWbox, const bool bZZbox) const {
+    //double u = 2.0*mf*mf - s - t;
+    double u = - s - t;
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     double vea = 0.5 - 2.0*sW2;
     double vf = I3f - 2.0*Qf*sW2, af = I3f, sigmaf = vf + af;
     double mu = Mw; // renormalization scale
 
     complex kappaf = 1.0;
-    kappaf += SM.getAle()/4.0/M_PI/sW2    
-              *( - cW2/sW2*DeltaRhobar(mu, Mw) + Pibar_Zgamma_hat(s, Mw)
-                 - PV.B0(mu, s, Mw, Mw)/6.0 - 1.0/9.0 
-                 - vf*sigmaf/2.0/cW2*F_za_0(s, Mw) - F_W_0_hat(s, Mw)
-                 + ( Mz*Mz/s - 1.0 )
-                   *( vea*F_za_0(s, Mw) + cW2*F_Wn_0_hat(s, Mw) ) );
+
+    // Weak corrections    
+    if (bWeak)
+        kappaf += SM.getAle()/4.0/M_PI/sW2    
+                  *( - cW2/sW2*DeltaRhobar(mu, Mw) + Pibar_Zgamma_hat(s, Mw)
+                     - PV.B0(mu, s, Mw, Mw)/6.0 - 1.0/9.0 
+                     - vf*sigmaf/2.0/cW2*F_za_0(s, Mw) - F_W_0_hat(s, Mw)
+                     + ( Mz*Mz/s - 1.0 )
+                       *( vea*F_za_0(s, Mw) + cW2*F_Wn_0_hat(s, Mw) ) );
 
     // WW box    
     if (bWWbox)
@@ -416,7 +510,7 @@ complex EWSMTwoFermionsLEP2::kappa_f(const double s, const double t,
     if (bZZbox)
         kappaf += Delta_kappa_f_ZZ(mu, s, t, u, Mw, I3f, Qf);
     
-    // Top quark contribution for e^+ e^- -> b bbar
+    // Top quark contribution in e^+ e^- -> b bbar
     if (I3f==SM.getQuarks(SM.BOTTOM).getIsospin() 
             && Qf==SM.getQuarks(SM.BOTTOM).getCharge() 
             && mfp!=0.0)
@@ -429,22 +523,26 @@ complex EWSMTwoFermionsLEP2::kappa_f(const double s, const double t,
 complex EWSMTwoFermionsLEP2::kappa_ef(const double s, const double t, 
                                       const double Mw, const double I3f, 
                                       const double Qf, const double mf, 
-                                      const double mfp, const bool bWWbox, 
-                                      const bool bZZbox) const {
-    double u = 2.0*mf*mf - s - t;
+                                      const double mfp, const bool bWeak,
+                                      const bool bWWbox, const bool bZZbox) const {
+    //double u = 2.0*mf*mf - s - t;
+    double u = - s - t;
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     double ve = - 0.5 + 2.0*sW2, ae = -0.5, deltae = ve - ae;
     double vf = I3f - 2.0*Qf*sW2, af = I3f, deltaf = vf - af;
     double mu = Mw; // renormalization scale
 
     complex kappaef = 1.0;
-    kappaef += SM.getAle()/4.0/M_PI/sW2    
-              *( - 2.0*cW2/sW2*DeltaRhobar(mu, Mw) + 2.0*Pibar_Zgamma_hat(s, Mw)
-                 - PV.B0(mu, s, Mw, Mw)/3.0 - 2.0/9.0 
-                 - ((deltae*deltae + deltaf*deltaf)/sW2*(Mw*Mw/s - 1.0)
-                    + 3.0*ve*ve + ae*ae + 3.0*vf*vf + af*af)*F_za_0(s, Mw)/4.0/cW2
-                 - 2.0*F_W_0_hat(s, Mw)
-                 + (Mz*Mz/s - 1.0)*cW2*(2.0/3.0 + Pibar_gg_bos_hat(s, Mw)) );
+ 
+    // Weak corrections    
+    if (bWeak)
+        kappaef += SM.getAle()/4.0/M_PI/sW2    
+                   *( - 2.0*cW2/sW2*DeltaRhobar(mu, Mw) + 2.0*Pibar_Zgamma_hat(s, Mw)
+                      - PV.B0(mu, s, Mw, Mw)/3.0 - 2.0/9.0 
+                      - ((deltae*deltae + deltaf*deltaf)/sW2*(Mw*Mw/s - 1.0)
+                         + 3.0*ve*ve + ae*ae + 3.0*vf*vf + af*af)*F_za_0(s, Mw)/4.0/cW2
+                      - 2.0*F_W_0_hat(s, Mw)
+                      + (Mz*Mz/s - 1.0)*cW2*(2.0/3.0 + Pibar_gg_bos_hat(s, Mw)) );
 
     // WW box    
     if (bWWbox) 
@@ -454,7 +552,7 @@ complex EWSMTwoFermionsLEP2::kappa_ef(const double s, const double t,
     if (bZZbox)
         kappaef += Delta_kappa_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
     
-    // Top quark contribution for e^+ e^- -> b bbar
+    // Top quark contribution in e^+ e^- -> b bbar
     if (I3f==SM.getQuarks(SM.BOTTOM).getIsospin() 
             && Qf==SM.getQuarks(SM.BOTTOM).getCharge() 
             && mfp!=0.0)
@@ -699,20 +797,26 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_ef_ZZ(const double mu, const double s,
 
 ////////////////////////////////////////////////////////////////////////
 
-complex EWSMTwoFermionsLEP2::I2e(const double s, const double Mw) const {
-    double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
-    double alpha = SM.getAle()*V_pol(s).real();
-    double ReKappa_e = 1.0;
-    return ( 35.0*alpha*alpha/18.0*( 1.0 - 8.0/3.0*ReKappa_e*sW2 ) );
-}
+//complex EWSMTwoFermionsLEP2::I2e(const double s, const double Mw, const bool bWeak) const {
+//    if (bWeak) {
+//        double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
+//        double alpha = SM.getAle()*V_pol(s).real();
+//        double ReKappa_e = 1.0;
+//        return ( 35.0*alpha*alpha/18.0*( 1.0 - 8.0/3.0*ReKappa_e*sW2 ) );
+//    } else 
+//        return complex(0.0, 0.0, false);
+//}
 
 
-complex EWSMTwoFermionsLEP2::I2f(const double s, const double Mw) const {
-    double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
-    double alpha = SM.getAle()*V_pol(s).real();
-    double ReKappa_f = 1.0;
-    return ( 35.0*alpha*alpha/18.0*( 1.0 - 8.0/3.0*ReKappa_f*sW2 ) );
-}
+//complex EWSMTwoFermionsLEP2::I2f(const double s, const double Mw, const bool bWeak) const {
+//    if (bWeak) {
+//        double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
+//        double alpha = SM.getAle()*V_pol(s).real();
+//        double ReKappa_f = 1.0;
+//        return ( 35.0*alpha*alpha/18.0*( 1.0 - 8.0/3.0*ReKappa_f*sW2 ) );
+//    } else 
+//        return complex(0.0, 0.0, false);
+//}
 
 
 complex EWSMTwoFermionsLEP2::DeltaRhobar(const double mu, const double Mw) const {
