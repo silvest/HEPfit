@@ -14,11 +14,10 @@ LEP2TwoFermions::LEP2TwoFermions(const StandardModel& SM_i) : EW(SM_i) {
 
 //////////////////////////////////////////////////////////////////////// 
 
-double LEP2TwoFermions::dsigma_l(const StandardModel::lepton l, 
+double LEP2TwoFermions::dsigma_l(const StandardModel::lepton l, const double mf, 
                                  const double s, const double cosTheta,
                                  const double Mw, const double GammaZ, 
                                  const bool bWeak) const {
-    double mf = ml(l);
     double I3f = SM.getLeptons(l).getIsospin();
     double Qf = SM.getLeptons(l).getCharge();
 
@@ -26,18 +25,17 @@ double LEP2TwoFermions::dsigma_l(const StandardModel::lepton l,
 }
 
 
-double LEP2TwoFermions::dsigma_q(const StandardModel::quark q, 
+double LEP2TwoFermions::dsigma_q(const StandardModel::quark q, const double mf, 
                                  const double s, const double cosTheta,
                                  const double Mw, const double GammaZ, 
                                  const bool bWeak) const {
-    double mf = mq(q, sqrt(s));
     double I3f = SM.getQuarks(q).getIsospin();
     double Qf = SM.getQuarks(q).getCharge();
     double mfp;
     if (q==SM.TOP)
         throw std::runtime_error("Error in LEP2TwoFermions::sigma_q()");
     else if (q==SM.BOTTOM)
-        mfp = mq(SM.TOP, sqrt(s));
+        mfp = SM.getMtpole();
     else
         mfp = 0.0;
     
@@ -45,10 +43,9 @@ double LEP2TwoFermions::dsigma_q(const StandardModel::quark q,
 }
 
 
-double LEP2TwoFermions::dsigma_l_box(const StandardModel::lepton l, 
+double LEP2TwoFermions::dsigma_l_box(const StandardModel::lepton l, const double mf, 
                                      const double s, const double cosTheta,
                                      const double Mw, const double GammaZ) const {
-    double mf = ml(l);
     double I3f = SM.getLeptons(l).getIsospin();
     double Qf = SM.getLeptons(l).getCharge();
 
@@ -56,17 +53,16 @@ double LEP2TwoFermions::dsigma_l_box(const StandardModel::lepton l,
 }
 
 
-double LEP2TwoFermions::dsigma_q_box(const StandardModel::quark q, 
+double LEP2TwoFermions::dsigma_q_box(const StandardModel::quark q, const double mf,
                                      const double s, const double cosTheta,
                                      const double Mw, const double GammaZ) const {
-    double mf = mq(q, sqrt(s));
     double I3f = SM.getQuarks(q).getIsospin();
     double Qf = SM.getQuarks(q).getCharge();
     double mfp;
     if (q==SM.TOP)
         throw std::runtime_error("Error in LEP2TwoFermions::sigma_q()");
     else if (q==SM.BOTTOM)
-        mfp = mq(SM.TOP, sqrt(s));
+        mfp = SM.getMtpole();
     else
         mfp = 0.0;
     
@@ -74,10 +70,9 @@ double LEP2TwoFermions::dsigma_q_box(const StandardModel::quark q,
 }
 
 
-double LEP2TwoFermions::sigma_l(const StandardModel::lepton l, 
+double LEP2TwoFermions::sigma_l(const StandardModel::lepton l, const double mf, 
                                 const double s, const double Mw, 
                                 const double GammaZ, const bool bWeak) const {
-    double mf = ml(l);
     double I3f = SM.getLeptons(l).getIsospin();
     double Qf = SM.getLeptons(l).getCharge();
 
@@ -85,17 +80,16 @@ double LEP2TwoFermions::sigma_l(const StandardModel::lepton l,
 }
 
 
-double LEP2TwoFermions::sigma_q(const StandardModel::quark q, 
+double LEP2TwoFermions::sigma_q(const StandardModel::quark q, const double mf, 
                                 const double s, const double Mw, 
                                 const double GammaZ, const bool bWeak) const {
-    double mf = mq(q, sqrt(s));
     double I3f = SM.getQuarks(q).getIsospin();
     double Qf = SM.getQuarks(q).getCharge();
     double mfp;
     if (q==SM.TOP)
         throw std::runtime_error("Error in LEP2TwoFermions::sigma_q()");
     else if (q==SM.BOTTOM)
-        mfp = mq(SM.TOP, sqrt(s));
+        mfp = SM.getMtpole();
     else
         mfp = 0.0;
     
@@ -103,10 +97,9 @@ double LEP2TwoFermions::sigma_q(const StandardModel::quark q,
 }
 
 
-double LEP2TwoFermions::AFB_l(const StandardModel::lepton l, 
+double LEP2TwoFermions::AFB_l(const StandardModel::lepton l, const double mf, 
                               const double s, const double Mw, 
                               const double GammaZ, const bool bWeak) const {
-    double mf = ml(l);
     double I3f = SM.getLeptons(l).getIsospin();
     double Qf = SM.getLeptons(l).getCharge();
 
@@ -114,17 +107,16 @@ double LEP2TwoFermions::AFB_l(const StandardModel::lepton l,
 }
 
 
-double LEP2TwoFermions::AFB_q(const StandardModel::quark q, 
+double LEP2TwoFermions::AFB_q(const StandardModel::quark q, const double mf, 
                               const double s, const double Mw, 
                               const double GammaZ, const bool bWeak) const {
-    double mf = mq(q, sqrt(s));
     double I3f = SM.getQuarks(q).getIsospin();
     double Qf = SM.getQuarks(q).getCharge();
     double mfp;
     if (q==SM.TOP)
         throw std::runtime_error("Error in LEP2TwoFermions::AFB_q()");
     else if (q==SM.BOTTOM)
-        mfp = mq(SM.TOP, sqrt(s));
+        mfp = SM.getMtpole();
     else
         mfp = 0.0;
     
@@ -138,8 +130,7 @@ double LEP2TwoFermions::QCD_FSR_forSigma(const double s) const {
     
 
 double LEP2TwoFermions::QCD_FSR_forAFB(const StandardModel::quark q, 
-                                       const double s) const {
-    double mf = mq(q, sqrt(s));
+                                       const double mf, const double s) const {
     return ( 1.0 - SM.Als(sqrt(s), FULLNLO)/M_PI*(1.0 - 16.0/3.0*mf/sqrt(s)) );
 }
 
@@ -180,10 +171,10 @@ double LEP2TwoFermions::H_ISR_FB(const double x, const double s) const {
 }
 
 
-double LEP2TwoFermions::G_3prime_l(const StandardModel::lepton l, const double s,
+double LEP2TwoFermions::G_3prime_l(const StandardModel::lepton l, 
+                                   const double mf, const double s,
                                    const double Mw, const double GammaZ, 
                                    const bool bWeak) const {
-    double mf = ml(l);
     double betaf = sqrt(1.0 - 4.0*mf*mf/s);
     double I3f = SM.getLeptons(l).getIsospin();
     double Qf = SM.getLeptons(l).getCharge();
@@ -193,10 +184,10 @@ double LEP2TwoFermions::G_3prime_l(const StandardModel::lepton l, const double s
 }
 
 
-double LEP2TwoFermions::G_3prime_q(const StandardModel::quark q, const double s, 
+double LEP2TwoFermions::G_3prime_q(const StandardModel::quark q, 
+                                   const double mf, const double s,
                                    const double Mw, const double GammaZ, 
                                    const bool bWeak) const {
-    double mf = mq(q, sqrt(s));
     double betaf = sqrt(1.0 - 4.0*mf*mf/s);
     double I3f = SM.getQuarks(q).getIsospin();
     double Qf = SM.getQuarks(q).getCharge();
@@ -204,7 +195,7 @@ double LEP2TwoFermions::G_3prime_q(const StandardModel::quark q, const double s,
     if (q==SM.TOP)
         throw std::runtime_error("Error in LEP2TwoFermions::G_3prime_q()");
     else if (q==SM.BOTTOM)
-        mfp = mq(SM.TOP, sqrt(s));
+        mfp = SM.getMtpole();
     else
         mfp = 0.0;
     double G3 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
@@ -223,36 +214,6 @@ double LEP2TwoFermions::alpha_at_s(const double s) const {
         alpha = SM.ale_OS(sqrt(s), FULLNLO);
 
     return alpha;
-}
-
-
-double LEP2TwoFermions::ml(const StandardModel::lepton l) const {
-    return SM.getLeptons(l).getMass();
-}
-
-
-double LEP2TwoFermions::mq(const StandardModel::quark q, const double mu, 
-                           const orders order) const {
-    switch(q) {
-        case StandardModel::UP:
-        case StandardModel::DOWN:
-        case StandardModel::STRANGE:
-            if (bDebug)
-                return SM.getQuarks(q).getMass(); // for debug
-            else
-                return SM.Mrun(mu, SM.getQuarks(q).getMass_scale(), 
-                        SM.getQuarks(q).getMass(), order);                    
-        case StandardModel::CHARM:
-        case StandardModel::BOTTOM:
-            if (bDebug)
-                return SM.getQuarks(q).getMass(); // for debug
-            else
-                return SM.Mrun(mu, SM.getQuarks(q).getMass(), order);
-        case StandardModel::TOP:
-            return SM.getMtpole(); // the pole mass
-        default:
-            throw std::runtime_error("Error in LEP2TwoFermions::mq()"); 
-    }
 }
 
 

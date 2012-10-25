@@ -10,10 +10,12 @@
 
 
 double LEP2AFBcharm::getThValue() { 
-    double Mw = SM.Mw(); 
-    double GammaZ = myEW.Gamma_Z();
+    Mw = SM.Mw(); 
+    GammaZ = myEW.Gamma_Z();
 
-    if (!checkSMparams(s, Mw, GammaZ)) {
+    if (!checkSMparams(s, Mw, GammaZ)) {        
+        mq_cache = m_q(SM.CHARM, sqrt_s);
+
         double AFB_noBox, sigma;
         if (!flag[ISR])
             AFB_noBox = AFB_NoISR_q();
@@ -57,11 +59,33 @@ double LEP2AFBcharm::getThValue() {
             
             SMresult_cache += (sigma_box_F - sigma_box_B)/sigma;
         }
+
+        if ( myEW.checkModelForSTU() && SM.FixedSMparams() ){
+            double ObParam[7];
+            for (int i=0; i<7; i++) {
+                SetObParam((LEP2oblique::Oblique)i, ObParam);
+                Coeff_cache[i] 
+                    = myLEP2oblique.AFB_q_LEP2_NP(StandardModel::CHARM, s, mq_cache, ObParam);
+            }
+        }
     }
     double AFB_c = SMresult_cache;
     
-    if ( myEW.checkModelForSTU() )
-        AFB_c += myLEP2oblique.AFB_q_LEP2_NP(StandardModel::CHARM, s);
+    if ( myEW.checkModelForSTU() ){
+        if ( SM.FixedSMparams() ) {
+            AFB_c += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()
+                   + Coeff_cache[myLEP2oblique.That]*myEW.That()
+                   + Coeff_cache[myLEP2oblique.Uhat]*myEW.Uhat()
+                   + Coeff_cache[myLEP2oblique.V]*myEW.V()
+                   + Coeff_cache[myLEP2oblique.W]*myEW.W()
+                   + Coeff_cache[myLEP2oblique.X]*myEW.X()
+                   + Coeff_cache[myLEP2oblique.Y]*myEW.Y();
+        } else {
+            double ObParam[7] = {myEW.Shat(), myEW.That(), myEW.Uhat(),
+                                 myEW.V(), myEW.W(), myEW.X(), myEW.Y()};     
+            AFB_c += myLEP2oblique.AFB_q_LEP2_NP(StandardModel::CHARM, s, mq_cache, ObParam);
+        }
+    }
     
     return AFB_c;
 }
