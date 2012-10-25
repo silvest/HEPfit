@@ -12,8 +12,14 @@ double epsilon2::getThValue() {
     double DeltaRW = 1.0 - M_PI*SM.alphaMz()
                 /(sqrt(2.0)*SM.getGF()*SM.getMz()*SM.getMz()*SM.sW2()*SM.cW2());
     
-    return ( SM.c02()*DeltaRhoPrime + SM.s02()*DeltaRW/(SM.c02() - SM.s02()) 
-             - 2.0*SM.s02()*DeltaKappaPrime ); 
+    double eps2 = SM.c02()*DeltaRhoPrime + SM.s02()*DeltaRW/(SM.c02() - SM.s02()) 
+                  - 2.0*SM.s02()*DeltaKappaPrime;
+    
+    if ( myEW.checkModelForSTU() )
+        eps2 += myEW.Uhat() - myEW.V() - myEW.W() 
+                + 2.0*sqrt(SM.s02())/sqrt(SM.c02())*myEW.X();
+    
+    return eps2; 
 }
  
 
