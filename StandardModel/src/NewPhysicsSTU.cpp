@@ -54,4 +54,3 @@ void NewPhysicsSTU::SetParameter(const std::string name, const double& value) {
 }
 
 
-

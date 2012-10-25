@@ -23,6 +23,12 @@ const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutr
     "mneutrino_3", "melectron", "mmu", "mtau", "lambda", "A", "rhob", "etab", "ale",
     "dAle5Mz", "mHl", "muw", "phiEpsK","DeltaMK", "KbarEpsK", "Dmk", "SM_M12D" };
 
+/**
+ * FixedSMparams=true, if all the SM parameters are fixed to constants in the fit. 
+ */
+const std::string StandardModel::SMflags[NSMflags] = {"FixedAllSMparams"};
+
+
 StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.), 
         UPMNS(3, 3, 0.), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.), 
         bDebug(bDebug_i) {
@@ -40,8 +46,13 @@ StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.),
     leptons[TAU].setIsospin(-1./2.);
 }
 
-bool StandardModel::SetFlag(const std::string name , const bool& value){  
-    return (false);
+bool StandardModel::SetFlag(const std::string name, const bool& value) {  
+    bool res = false;
+    if(name.compare("FixedAllSMparams") == 0) {
+        bFixedAllSMparams = value;
+        res = true;
+    } 
+    return(res);
 }
 
 bool StandardModel::Init(const std::map<std::string, double>& DPars) {
@@ -170,9 +181,9 @@ bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars) 
     return(QCD::CheckParameters(DPars));
 }
 
-
+    
 ///////////////////////////////////////////////////////////////////////////
-// Matching
+// Initialization and Matching
 
 bool StandardModel::InitializeModel(){
     
