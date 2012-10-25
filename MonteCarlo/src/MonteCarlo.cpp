@@ -40,6 +40,10 @@ void MonteCarlo::Run() {
         MCEngine.Initialize(myInputParser.getMyModel());
         //MonteCarlo configuration parser
         std::ifstream ifile(MCMCConf.c_str());
+        if (!ifile.is_open()) {
+            std::cout << MCMCConf << " does not exist." << std::endl;
+            exit(EXIT_FAILURE);
+        }
         std::string line;
         while (!getline(ifile, line).eof()) {
             if (line.at(0) == '#') continue;

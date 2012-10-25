@@ -31,6 +31,10 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
         ModelPars, std::vector<Observable>& Observables, std::vector<Observable2D>& Observables2D) {
     std::string modname = "";
     std::ifstream ifile(filename.c_str());
+    if (!ifile.is_open()) {
+        std::cout << filename << " does not exist." << std::endl;
+        exit(EXIT_FAILURE);
+    }
     std::string line;
     while (!getline(ifile, line).eof()) {
         if (line.empty() || line.at(0) == '#')
