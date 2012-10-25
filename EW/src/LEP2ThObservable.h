@@ -39,6 +39,13 @@ public:
         flag[ISR] = true;
         flag[QEDFSR] = true;
         flag[QCDFSR] = true;
+        
+        // test
+        //flag[Weak] = false;
+        //flag[WeakBox] = false;
+        //flag[ISR] = false;
+        //flag[QEDFSR] = false;
+        //flag[QCDFSR] = false; 
     }
 
     /**
@@ -111,16 +118,46 @@ protected:
     bool bSigmaForAFB;
     bool bSigmaForR;
     
+    double Mw, GammaZ;
+    
     // caches for the SM prediction
     mutable double SMparams_cache[EWSM::NumSMParams+3];
     mutable double SMresult_cache; 
     mutable bool flag_cache[NUMofLEP2RCs];
+    mutable double ml_cache, mq_cache, mqForHad_cache[6];
+    mutable double Coeff_cache[7];
+    
+    
+    void SetObParam(LEP2oblique::Oblique ob, double ObParam_i[]) const {
+        for (int i=0; i<7; i++) {
+            if (i==ob) ObParam_i[ob] = 1.0;
+            else ObParam_i[i] = 0.0;
+        }
+    }
+    
+    double m_l(const StandardModel::lepton l) const {
+        return myEW.getSM().getLeptons(l).getMass();
+    }
 
-
+    double m_q(const StandardModel::quark q, const double mu, const orders order=FULLNLO) const {
+        switch(q) {
+            case StandardModel::UP:
+            case StandardModel::DOWN:
+            case StandardModel::STRANGE:
+                return myEW.getSM().Mrun(mu, myEW.getSM().getQuarks(q).getMass_scale(), 
+                                         myEW.getSM().getQuarks(q).getMass(), order);
+            case StandardModel::CHARM:
+            case StandardModel::BOTTOM:
+                return myEW.getSM().Mrun(mu, myEW.getSM().getQuarks(q).getMass(), order);
+            case StandardModel::TOP:
+                return myEW.getSM().getMtpole(); // the pole mass
+            default:
+                throw std::runtime_error("Error in LEP2ThObservable::mq()"); 
+        }
+    }
+    
     double sigma_NoISR_l() {
-        double Mw = SM.Mw(); 
-        double GammaZ = myEW.Gamma_Z();
-        double sigma = myTwoFermions.sigma_l(l_flavor, s, Mw, GammaZ, flag[Weak]);
+        double sigma = myTwoFermions.sigma_l(l_flavor, ml_cache, s, Mw, GammaZ, flag[Weak]);
 
         if (!bSigmaForAFB && flag[QEDFSR])
             sigma *= myTwoFermions.QED_FSR_forSigma(s, SM.getLeptons(l_flavor).getCharge());
@@ -129,9 +166,7 @@ protected:
     }   
     
     double sigma_NoISR_q() {
-        double Mw = SM.Mw(); 
-        double GammaZ = myEW.Gamma_Z();
-        double sigma = myTwoFermions.sigma_q(q_flavor, s, Mw, GammaZ, flag[Weak]);
+        double sigma = myTwoFermions.sigma_q(q_flavor, mq_cache, s, Mw, GammaZ, flag[Weak]);
     
         if (!bSigmaForAFB && flag[QEDFSR])
             sigma *= myTwoFermions.QED_FSR_forSigma(s, SM.getQuarks(q_flavor).getCharge());
@@ -143,29 +178,23 @@ protected:
     }      
     
     double AFB_NoISR_l() {
-        double Mw = SM.Mw(); 
-        double GammaZ = myEW.Gamma_Z();
-        double AFB = myTwoFermions.AFB_l(l_flavor, s, Mw, GammaZ, flag[Weak]);
+        double AFB = myTwoFermions.AFB_l(l_flavor, ml_cache, s, Mw, GammaZ, flag[Weak]);
 
         return AFB;
     }
     
     double AFB_NoISR_q() {
-        double Mw = SM.Mw(); 
-        double GammaZ = myEW.Gamma_Z();
-        double AFB = myTwoFermions.AFB_q(q_flavor, s, Mw, GammaZ, flag[Weak]);
+        double AFB = myTwoFermions.AFB_q(q_flavor, mq_cache, s, Mw, GammaZ, flag[Weak]);
         
         if (flag[QCDFSR])
-            AFB *= myTwoFermions.QCD_FSR_forAFB(q_flavor, s);
+            AFB *= myTwoFermions.QCD_FSR_forAFB(q_flavor, mq_cache, s);
         
         return AFB;
     }
     
     double Integrand_sigmaWithISR_l(double x) {
         double sprime = (1.0 - x)*s;
-        double Mw = SM.Mw(); 
-        double GammaZ = myEW.Gamma_Z();
-        double sigma = myTwoFermions.sigma_l(l_flavor, sprime, Mw, GammaZ, 
+        double sigma = myTwoFermions.sigma_l(l_flavor, ml_cache, sprime, Mw, GammaZ, 
                                              flag[Weak]);
         double H = myTwoFermions.H_ISR(x, s);
 
@@ -177,9 +206,7 @@ protected:
     
     double Integrand_sigmaWithISR_q(double x) {
         double sprime = (1.0 - x)*s;
-        double Mw = SM.Mw(); 
-        double GammaZ = myEW.Gamma_Z();
-        double sigma = myTwoFermions.sigma_q(q_flavor, sprime, Mw, GammaZ, 
+        double sigma = myTwoFermions.sigma_q(q_flavor, mq_cache, sprime, Mw, GammaZ, 
                                              flag[Weak]);
         double H = myTwoFermions.H_ISR(x, s);
     
@@ -194,23 +221,17 @@ protected:
     }    
     
     double Integrand_dsigmaBox_l(double cosTheta) {
-        double Mw = SM.Mw(); 
-        double GammaZ = myEW.Gamma_Z();
-        return ( myTwoFermions.dsigma_l_box(l_flavor, s, cosTheta, Mw, GammaZ) );
+        return ( myTwoFermions.dsigma_l_box(l_flavor, ml_cache, s, cosTheta, Mw, GammaZ) );
     }       
     
     double Integrand_dsigmaBox_q(double cosTheta) {
-        double Mw = SM.Mw(); 
-        double GammaZ = myEW.Gamma_Z();
-        return ( myTwoFermions.dsigma_q_box(q_flavor, s, cosTheta, Mw, GammaZ) );
+        return ( myTwoFermions.dsigma_q_box(q_flavor, mq_cache, s, cosTheta, Mw, GammaZ) );
     }       
     
     double Integrand_AFBnumeratorWithISR_l(double x) {
         double sprime = (1.0 - x)*s;
-        double Mw = SM.Mw(); 
-        double GammaZ = myEW.Gamma_Z();
         double Ncf = 1.0;
-        double G3prime = myTwoFermions.G_3prime_l(l_flavor, sprime, Mw, GammaZ, 
+        double G3prime = myTwoFermions.G_3prime_l(l_flavor, ml_cache, sprime, Mw, GammaZ, 
                                                   flag[Weak]);
         double H = myTwoFermions.H_ISR_FB(x, s);
 
@@ -219,15 +240,13 @@ protected:
     
     double Integrand_AFBnumeratorWithISR_q(double x) {
         double sprime = (1.0 - x)*s;
-        double Mw = SM.Mw(); 
-        double GammaZ = myEW.Gamma_Z();
         double Ncf = 3.0;
-        double G3prime = myTwoFermions.G_3prime_q(q_flavor, sprime, Mw, GammaZ, 
+        double G3prime = myTwoFermions.G_3prime_q(q_flavor, mq_cache, sprime, Mw, GammaZ, 
                                                   flag[Weak]);
         double H = myTwoFermions.H_ISR_FB(x, s);
         
         if (flag[QCDFSR])
-            G3prime *= myTwoFermions.QCD_FSR_forAFB(q_flavor, sprime);
+            G3prime *= myTwoFermions.QCD_FSR_forAFB(q_flavor, mq_cache, sprime);
         
         return ( M_PI*SM.getAle()*SM.getAle()*Ncf*H*G3prime/sprime );
     }

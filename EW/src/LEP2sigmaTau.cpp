@@ -10,10 +10,12 @@
 
 
 double LEP2sigmaTau::getThValue() { 
-    double Mw = SM.Mw(); 
-    double GammaZ = myEW.Gamma_Z();
+    Mw = SM.Mw(); 
+    GammaZ = myEW.Gamma_Z();
 
     if (!checkSMparams(s, Mw, GammaZ)) {
+        ml_cache = m_l(SM.TAU);        
+
         if (!flag[ISR])
             SMresult_cache = sigma_NoISR_l();
         else {
@@ -34,11 +36,33 @@ double LEP2sigmaTau::getThValue() {
             //std::cout << sigma_box << std::endl;
             SMresult_cache += sigma_box;
         }
+
+        if ( myEW.checkModelForSTU() && !bSigmaForAFB && SM.FixedSMparams() ) {
+            double ObParam[7];
+            for (int i=0; i<7; i++) {
+                SetObParam((LEP2oblique::Oblique)i, ObParam);
+                Coeff_cache[i] 
+                    = myLEP2oblique.sigma_l_LEP2_NP(StandardModel::TAU, s, ml_cache, ObParam);
+            }
+        }
     }
     double sigma_tau = SMresult_cache;
     
-    if ( myEW.checkModelForSTU() && !bSigmaForAFB )
-        sigma_tau += myLEP2oblique.sigma_l_LEP2_NP(StandardModel::TAU, s);
+    if ( myEW.checkModelForSTU() && !bSigmaForAFB ) {
+        if ( SM.FixedSMparams() ) {
+            sigma_tau += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()
+                       + Coeff_cache[myLEP2oblique.That]*myEW.That()
+                       + Coeff_cache[myLEP2oblique.Uhat]*myEW.Uhat()
+                       + Coeff_cache[myLEP2oblique.V]*myEW.V()
+                       + Coeff_cache[myLEP2oblique.W]*myEW.W()
+                       + Coeff_cache[myLEP2oblique.X]*myEW.X()
+                       + Coeff_cache[myLEP2oblique.Y]*myEW.Y();
+        } else {
+            double ObParam[7] = {myEW.Shat(), myEW.That(), myEW.Uhat(),
+                                 myEW.V(), myEW.W(), myEW.X(), myEW.Y()};
+            sigma_tau += myLEP2oblique.sigma_l_LEP2_NP(StandardModel::TAU, s, ml_cache, ObParam);
+        }
+    }
     
     return ( sigma_tau*GeVminus2_to_nb*1000.0 );
 }
