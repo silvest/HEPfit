@@ -26,6 +26,8 @@ public:
     enum lepton {NEUTRINO_1,ELECTRON,NEUTRINO_2,MU,NEUTRINO_3,TAU};
     static const int NSMvars = 20;
     static const std::string SMvars[NSMvars];
+    static const int NSMflags = 1;
+    static const std::string SMflags[NSMflags];
     
     StandardModel(const bool bDebug_i=false);
 
@@ -71,7 +73,7 @@ public:
 
     
     ///////////////////////////////////////////////////////////////////////////
-    // Matching
+    // Initialization and Matching
     
     StandardModelMatching* myMatching;
         
@@ -98,6 +100,10 @@ public:
      */    
     bool isBDebug() const {
         return bDebug;
+    }
+    
+    bool FixedSMparams() const {
+        return bFixedAllSMparams;
     }
     
     Particle getLeptons(const StandardModel::lepton p) const {
@@ -543,6 +549,7 @@ protected:
     ////////////////////////////////////////////////////////////////////////    
 private:
     bool bDebug; // for debugging
+    bool bFixedAllSMparams;
     bool computeCKM, computeYe, computeYn;
     StandardModelMatching* myStandardModelMatching;
     
