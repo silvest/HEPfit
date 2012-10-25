@@ -8,6 +8,7 @@
 #include "MonteCarlo.h"
 #include <BAT/BCAux.h>
 #include <BAT/BCLog.h>
+#include <BAT/BCSummaryTool.h>
 
 MonteCarlo::MonteCarlo(const std::string& ModelConf_i,
         const std::string& MonteCarloConf_i, const std::string& OutFile_i, const std::string& JobTag_i) :
@@ -108,6 +109,10 @@ void MonteCarlo::Run() {
         // print ratio
         MCEngine.PrintHistogram(out);
 
+        // output the correlation matrix to a eps file
+        BCSummaryTool myBCSummaryTool(&MCEngine);
+        myBCSummaryTool.PrintCorrelationMatrix("correlations.eps");
+        
         out.WriteMarginalizedDistributions();
         //out.FillAnalysisTree();
         out.Close();
