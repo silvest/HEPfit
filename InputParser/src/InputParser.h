@@ -17,6 +17,7 @@
 #include <StandardModelMatching.h>
 #include <NewPhysicsSTU.h>
 #include <NewPhysicsSTUVWXY.h>
+#include <NewPhysicsEpsilons.h>
 #include <SUSYMassInsertion.h>
 #include <SUSYMassInsertionMatching.h>
 #include <MFV.h>

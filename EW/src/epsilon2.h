@@ -20,7 +20,7 @@ public:
     epsilon2(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
 
     /**
-     * @return the oblique parameter S
+     * @return epsilon_2
      */
     double getThValue();
 
