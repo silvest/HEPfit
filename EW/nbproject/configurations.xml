@@ -38,6 +38,7 @@
       <itemPath>src/epsilon1.h</itemPath>
       <itemPath>src/epsilon2.h</itemPath>
       <itemPath>src/epsilon3.h</itemPath>
+      <itemPath>src/epsilonb.h</itemPath>
       <itemPath>src/obliqueS.h</itemPath>
       <itemPath>src/obliqueT.h</itemPath>
       <itemPath>src/obliqueU.h</itemPath>
@@ -82,6 +83,7 @@
       <itemPath>src/epsilon1.cpp</itemPath>
       <itemPath>src/epsilon2.cpp</itemPath>
       <itemPath>src/epsilon3.cpp</itemPath>
+      <itemPath>src/epsilonb.cpp</itemPath>
       <itemPath>src/obliqueS.cpp</itemPath>
       <itemPath>src/obliqueT.cpp</itemPath>
       <itemPath>src/obliqueU.cpp</itemPath>

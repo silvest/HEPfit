@@ -66,6 +66,7 @@ myFlavour(myModel), myEW(myModel), myMO(myModel)
     thobs["epsilon1"] = new epsilon1(myEW);
     thobs["epsilon2"] = new epsilon2(myEW);
     thobs["epsilon3"] = new epsilon3(myEW);   
+    thobs["epsilonb"] = new epsilonb(myEW);   
     
     //-----   Z-pole observables (with ZFitter)   -----
     //thobs["Mw"] = new ZFMw(myZFitter);
