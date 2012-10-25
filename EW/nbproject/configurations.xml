@@ -35,6 +35,9 @@
       <itemPath>src/Rbottom.h</itemPath>
       <itemPath>src/Rcharm.h</itemPath>
       <itemPath>src/Rlepton.h</itemPath>
+      <itemPath>src/epsilon1.h</itemPath>
+      <itemPath>src/epsilon2.h</itemPath>
+      <itemPath>src/epsilon3.h</itemPath>
       <itemPath>src/obliqueS.h</itemPath>
       <itemPath>src/obliqueT.h</itemPath>
       <itemPath>src/obliqueU.h</itemPath>
@@ -76,6 +79,9 @@
       <itemPath>src/Rbottom.cpp</itemPath>
       <itemPath>src/Rcharm.cpp</itemPath>
       <itemPath>src/Rlepton.cpp</itemPath>
+      <itemPath>src/epsilon1.cpp</itemPath>
+      <itemPath>src/epsilon2.cpp</itemPath>
+      <itemPath>src/epsilon3.cpp</itemPath>
       <itemPath>src/obliqueS.cpp</itemPath>
       <itemPath>src/obliqueT.cpp</itemPath>
       <itemPath>src/obliqueU.cpp</itemPath>

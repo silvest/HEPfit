@@ -38,6 +38,10 @@
 #include "obliqueT.h"
 #include "obliqueU.h"
 
+#include "epsilon1.h"
+#include "epsilon2.h"
+#include "epsilon3.h"
+
 #include "Mh0.h"
 
 #endif	/* EWOBSERVABLES_H */

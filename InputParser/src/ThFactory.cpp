@@ -62,6 +62,11 @@ myFlavour(myModel), myEW(myModel), myMO(myModel)
     thobs["Rbottom"] = new Rbottom(myEW, flag_CHMN, flag_BURGESS);
     thobs["sigmaHadron"] = new sigmaHadron(myEW, flag_CHMN, flag_BURGESS);
 
+    //-----  epsilon parameters by Altarelli et al.  -----
+    thobs["epsilon1"] = new epsilon1(myEW);
+    thobs["epsilon2"] = new epsilon2(myEW);
+    thobs["epsilon3"] = new epsilon3(myEW);   
+    
     //-----   Z-pole observables (with ZFitter)   -----
     //thobs["Mw"] = new ZFMw(myZFitter);
     //thobs["sin2thetaEff"] = new ZFsin2thetaEff(myZFitter);
