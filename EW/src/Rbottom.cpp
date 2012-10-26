@@ -4,6 +4,7 @@
  */
 
 #include "Rbottom.h"
+#include "sigmaHadron.h"
 #include <EWSM.h>
 
 
@@ -12,7 +13,7 @@ double Rbottom::getThValue() {
     if (bCHMN)  
         R0_b = myEW_CHMN.R_b();
     else {    
-        if (SM.getEWSM()->isBoolR0bApproximate()) 
+        if (SM.getEWSM()->isBoolR0bApproximate() && SM.ModelName()!="NewPhysicsEpsilons") 
             R0_b = SM.getEWSM()->R0_bottom_SM();// use an approximate formula
         else
             R0_b = myEW.Gamma_q(SM.BOTTOM)/myEW.Gamma_had();
