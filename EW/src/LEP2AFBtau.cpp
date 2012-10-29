@@ -72,6 +72,10 @@ double LEP2AFBtau::getThValue() {
     }
     double AFB_tau = SMresult_cache;
     
+    #ifdef LEP2TEST
+    AFB_tau = myTEST.AFBtauTEST(sqrt_s);
+    #endif
+            
     if ( myEW.checkModelForSTU() ) {
         if ( SM.FixedSMparams() ) {
             AFB_tau += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()

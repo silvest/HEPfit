@@ -34,6 +34,10 @@ double LEP2Rbottom::getThValue() {
     }
     double R_b = SMresult_cache;
     
+    #ifdef LEP2TEST
+    R_b = myTEST.RbottomTEST(sqrt_s);
+    #endif
+            
     if ( myEW.checkModelForSTU() ) {
         if ( SM.FixedSMparams() ) {
             R_b += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()

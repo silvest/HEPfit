@@ -12,16 +12,16 @@ double AFBcharm::getThValue() {
         AFB_c = myEW_CHMN.AFB_q(SM.CHARM);
     else {
         AFB_c = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.CHARM);
-
+    
         if ( myEW.checkModelForSTU() ) {
             if(bBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
-                AFB_c = 0.0739;
+                //AFB_c = 0.0739;
                 
                 AFB_c += - 0.0147*myEW.S() + 0.0104*myEW.T();
             } else {
-                double alpha = SM.alphaMz();
+                double alpha = myEW.alpha0();  
                 double c2 = myEW.c02();
                 double s2 = myEW.s02();
                 double s4 = s2*s2;

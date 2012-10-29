@@ -17,11 +17,11 @@ double sin2thetaEff::getThValue() {
             if(bBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
-                sin2_theta_eff = 0.23148;
+                //sin2_theta_eff = 0.23148;
 
                 sin2_theta_eff += 0.00362*myEW.S() - 0.00256*myEW.T();
             } else {
-                double alpha = SM.alphaMz();
+                double alpha = myEW.alpha0();  
                 double c2 = myEW.c02();
                 double s2 = myEW.s02();
                 

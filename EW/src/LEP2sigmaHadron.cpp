@@ -155,6 +155,10 @@ double LEP2sigmaHadron::getThValue() {
     }
     double sigmaH = SMresult_cache;
     
+    #ifdef LEP2TEST
+    sigmaH = myTEST.sigmaHadronTEST(sqrt_s)/GeVminus2_to_nb/1000.0;
+    #endif
+    
     if ( myEW.checkModelForSTU() && !bSigmaForR) {
         if ( SM.FixedSMparams() ) {
             sigmaH += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()
