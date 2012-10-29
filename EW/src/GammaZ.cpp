@@ -17,11 +17,11 @@ double GammaZ::getThValue() {
             if(bBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
-                Gamma_Z = 2.4954; 
+                //Gamma_Z = 2.4954; 
 
                 Gamma_Z += - 0.00961*myEW.S() + 0.0263*myEW.T();
             } else {
-                double alpha = SM.alphaMz();
+                double alpha = myEW.alpha0();  
                 double c2 = myEW.c02();
                 double s2 = myEW.s02();
                 double s4 = s2*s2;

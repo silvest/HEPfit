@@ -17,7 +17,7 @@ double sigmaHadron::getThValue() {
             if(bBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
-                sigma_had = 41.479/GeVminus2_to_nb;                
+                //sigma_had = 41.479/GeVminus2_to_nb;                
                 
                 double delta_l = - 0.000192*myEW.S() + 0.000790*myEW.T();
                 double delta_had = - 0.00901*myEW.S() + 0.0200*myEW.T();
@@ -26,7 +26,7 @@ double sigmaHadron::getThValue() {
                              + delta_had/myEW.Gamma_had()
                              - 2.0*delta_Z/myEW.Gamma_Z();
             } else {
-                double alpha = SM.alphaMz();
+                double alpha = myEW.alpha0();  
                 double Mz = SM.getMz();
                 double c2 = myEW.c02();
                 double s2 = myEW.s02();

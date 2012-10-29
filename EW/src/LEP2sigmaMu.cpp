@@ -49,6 +49,10 @@ double LEP2sigmaMu::getThValue() {
     }
     double sigma_mu = SMresult_cache;
     
+    #ifdef LEP2TEST
+    sigma_mu = myTEST.sigmaMuTEST(sqrt_s)/GeVminus2_to_nb/1000.0;
+    #endif 
+    
     if ( myEW.checkModelForSTU() && !bSigmaForAFB ) {
         if ( SM.FixedSMparams() ) {
             sigma_mu += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()

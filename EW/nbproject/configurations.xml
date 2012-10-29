@@ -29,6 +29,7 @@
       <itemPath>src/LEP2sigmaHadron.h</itemPath>
       <itemPath>src/LEP2sigmaMu.h</itemPath>
       <itemPath>src/LEP2sigmaTau.h</itemPath>
+      <itemPath>src/LEP2test.h</itemPath>
       <itemPath>src/Mh0.h</itemPath>
       <itemPath>src/Mw.h</itemPath>
       <itemPath>src/PtauPol.h</itemPath>
@@ -75,6 +76,7 @@
       <itemPath>src/LEP2sigmaHadron.cpp</itemPath>
       <itemPath>src/LEP2sigmaMu.cpp</itemPath>
       <itemPath>src/LEP2sigmaTau.cpp</itemPath>
+      <itemPath>src/LEP2test.cpp</itemPath>
       <itemPath>src/Mw.cpp</itemPath>
       <itemPath>src/PtauPol.cpp</itemPath>
       <itemPath>src/Rbottom.cpp</itemPath>

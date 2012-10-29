@@ -13,6 +13,11 @@
 #include "EW.h"
 #include "LEP2TwoFermions.h"
 #include "LEP2oblique.h"
+#include "LEP2test.h"
+
+
+// TEST: use the Zfitter outputs defined in LEP2test class for SM predictions
+//#define LEP2TEST
 
 
 class LEP2ThObservable : public ThObservable  {
@@ -112,6 +117,7 @@ protected:
     const EW& myEW;
     const LEP2TwoFermions myTwoFermions;
     const LEP2oblique myLEP2oblique;
+    const LEP2test myTEST;
     const double sqrt_s, s;
 
     bool flag[NUMofLEP2RCs]; 

@@ -34,6 +34,10 @@ double LEP2Rcharm::getThValue() {
     }
     double R_c = SMresult_cache;
     
+    #ifdef LEP2TEST
+    R_c = myTEST.RcharmTEST(sqrt_s);
+    #endif
+    
     if ( myEW.checkModelForSTU() ) {
         if ( SM.FixedSMparams() ) {
             R_c += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()

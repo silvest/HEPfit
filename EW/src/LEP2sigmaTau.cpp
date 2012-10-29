@@ -48,6 +48,10 @@ double LEP2sigmaTau::getThValue() {
     }
     double sigma_tau = SMresult_cache;
     
+    #ifdef LEP2TEST
+    sigma_tau = myTEST.sigmaTauTEST(sqrt_s)/GeVminus2_to_nb/1000.0;
+    #endif 
+    
     if ( myEW.checkModelForSTU() && !bSigmaForAFB ) {
         if ( SM.FixedSMparams() ) {
             sigma_tau += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()

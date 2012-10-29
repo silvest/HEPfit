@@ -71,6 +71,10 @@ double LEP2AFBcharm::getThValue() {
     }
     double AFB_c = SMresult_cache;
     
+    #ifdef LEP2TEST
+    AFB_c = myTEST.AFBcharmTEST(sqrt_s);
+    #endif
+        
     if ( myEW.checkModelForSTU() ){
         if ( SM.FixedSMparams() ) {
             AFB_c += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()
