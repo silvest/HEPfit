@@ -7,8 +7,7 @@
 
 
 double epsilon1::getThValue() {  
-    double DeltaRhoPrime = 2.0*( sqrt(SM.rhoZ_l(SM.ELECTRON).abs()) - 1.0 );
-    double eps1 = DeltaRhoPrime;
+    double eps1 = SM.epsilon1();
     
     if ( myEW.checkModelForSTU() )
         eps1 += myEW.That() - myEW.W() 

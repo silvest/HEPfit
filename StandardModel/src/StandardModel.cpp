@@ -310,6 +310,67 @@ double StandardModel::GammaW() const {
     return myEWSM->GammaW_SM();
 }
 
+double StandardModel::epsilon1_SM() const {
+    complex rhoZe = myEWSM->rhoZ_l_SM(ELECTRON);
+    double DeltaRhoPrime = 2.0*( sqrt(rhoZe.abs()) - 1.0 );
+
+    return DeltaRhoPrime;
+}
+
+double StandardModel::epsilon2_SM() const {
+    double Qe = getLeptons(ELECTRON).getCharge();
+    complex rhoZe = myEWSM->rhoZ_l_SM(ELECTRON);
+    complex gVe = myEWSM->gVl_SM(ELECTRON);
+    complex gAe = myEWSM->gAl_SM(ELECTRON);
+    complex gV_over_gA = gVe/gAe;
+    double sin2thetaEff = 1.0/4.0/fabs(Qe)*(1.0 - gV_over_gA.real());
+    double DeltaRhoPrime = 2.0*( sqrt(rhoZe.abs()) - 1.0 );
+    double DeltaKappaPrime = sin2thetaEff/s02() - 1.0;
+    double s_W2 = myEWSM->sW2_SM(), c_W2 = myEWSM->cW2_SM();
+    double DeltaRW = 1.0 - M_PI*alphaMz()/(sqrt(2.0)*GF*Mz*Mz*s_W2*c_W2);
+
+    return ( c02()*DeltaRhoPrime + s02()*DeltaRW/(c02() - s02()) 
+             - 2.0*s02()*DeltaKappaPrime );
+}
+
+double StandardModel::epsilon3_SM() const {
+    double Qe = getLeptons(ELECTRON).getCharge();
+    complex rhoZe = myEWSM->rhoZ_l_SM(ELECTRON);
+    complex gVe = myEWSM->gVl_SM(ELECTRON);
+    complex gAe = myEWSM->gAl_SM(ELECTRON);
+    complex gV_over_gA = gVe/gAe;
+    double sin2thetaEff = 1.0/4.0/fabs(Qe)*(1.0 - gV_over_gA.real());
+    double DeltaRhoPrime = 2.0*( sqrt(rhoZe.abs()) - 1.0 );
+    double DeltaKappaPrime = sin2thetaEff/s02() - 1.0;
+    
+    return ( c02()*DeltaRhoPrime + (c02() - s02())*DeltaKappaPrime );
+}
+
+double StandardModel::epsilonb_SM() const {
+    complex rhoZe = myEWSM->rhoZ_l_SM(ELECTRON);
+    double DeltaRhoPrime = 2.0*( sqrt(rhoZe.abs()) - 1.0 );
+    double eps1 = DeltaRhoPrime;
+    complex rhoZb = myEWSM->rhoZ_q_SM(BOTTOM);
+
+    return ( - 1.0 + sqrt(rhoZb.abs())/(1.0 + eps1/2.0) );
+}
+
+double StandardModel::epsilon1() const{ 
+    return epsilon1_SM();
+}
+
+double StandardModel::epsilon2() const {
+    return epsilon2_SM();    
+}
+    
+double StandardModel::epsilon3() const {
+    return epsilon3_SM();
+}
+
+double StandardModel::epsilonb() const {
+    return epsilonb_SM();    
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 // CKM parameters

@@ -26,7 +26,7 @@ EWSM::EWSM(const StandardModel& SM_i) : SM(SM_i) {
     //std::cout << "Model in EWSM: " << Model << std::endl;
     if (Model=="StandardModel" 
             || Model=="NewPhysicsSTU" || Model=="NewPhysicsSTUVWXY" 
-            || Model=="NewPhysicsEpsilons" 
+            || Model=="NewPhysicsEpsilons" || Model=="NewPhysicsHiggs" 
             || Model=="THDM") {
         //schemeMw = NORESUM;// for test
         //schemeMw = OMSI;// for test

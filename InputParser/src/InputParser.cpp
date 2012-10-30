@@ -66,6 +66,12 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;
+        } else if (beg->compare("NewPhysicsHiggs") == 0) {
+            modname = *beg;
+            myModel = new NewPhysicsHiggs();
+            myModel->InitializeModel();
+            thf = new ThFactory(*myModel);
+            continue;
         } else if (beg->compare("MFV") == 0) {
             modname = *beg;
             myModel = new MFV();

@@ -18,6 +18,7 @@
 #include <NewPhysicsSTU.h>
 #include <NewPhysicsSTUVWXY.h>
 #include <NewPhysicsEpsilons.h>
+#include <NewPhysicsHiggs.h>
 #include <SUSYMassInsertion.h>
 #include <SUSYMassInsertionMatching.h>
 #include <MFV.h>

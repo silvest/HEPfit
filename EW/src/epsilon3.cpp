@@ -7,9 +7,7 @@
 
 
 double epsilon3::getThValue() {  
-    double DeltaRhoPrime = 2.0*( sqrt(SM.rhoZ_l(SM.ELECTRON).abs()) - 1.0 );
-    double DeltaKappaPrime = myEW.sin2thetaEff(SM.ELECTRON)/SM.s02() - 1.0;
-    double eps3 = SM.c02()*DeltaRhoPrime + (SM.c02() - SM.s02())*DeltaKappaPrime;
+    double eps3 = SM.epsilon3();
     
     if ( myEW.checkModelForSTU() )
         eps3 += myEW.Shat() - myEW.W() 
