@@ -286,6 +286,7 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../LoopTools/include</pElem>
           </incDir>
+          <commandLine>-I${HOME}/LoopTools/include</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
