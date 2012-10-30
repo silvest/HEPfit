@@ -504,7 +504,47 @@ public:
         return 0.0;
     }
 
+    /**
+     * @return SM contribution to epsilon_1
+     */
+    double epsilon1_SM() const;
 
+    /**
+     * @return SM contribution to epsilon_2
+     */
+    double epsilon2_SM() const;
+    
+    /**
+     * @return SM contribution to epsilon_3
+     */
+    double epsilon3_SM() const;
+    
+    /**
+     * @return SM contribution to epsilon_b
+     */
+    double epsilonb_SM() const;
+    
+    /**
+     * @return epsilon_1
+     */
+    virtual double epsilon1() const;
+
+    /**
+     * @return epsilon_2
+     */
+    virtual double epsilon2() const;
+    
+    /**
+     * @return epsilon_3
+     */
+    virtual double epsilon3() const;
+    
+    /**
+     * @return epsilon_b
+     */
+    virtual double epsilonb() const;
+
+    
     ////////////////////////////////////////////////////////////////////////
     // CKM parameters
     

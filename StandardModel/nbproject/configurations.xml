@@ -22,6 +22,7 @@
       <itemPath>src/Model.h</itemPath>
       <itemPath>src/ModelMatching.h</itemPath>
       <itemPath>src/NewPhysicsEpsilons.h</itemPath>
+      <itemPath>src/NewPhysicsHiggs.h</itemPath>
       <itemPath>src/NewPhysicsSTU.h</itemPath>
       <itemPath>src/NewPhysicsSTUVWXY.h</itemPath>
       <itemPath>src/OrderScheme.h</itemPath>
@@ -55,6 +56,7 @@
       <itemPath>src/EWSMcache.cpp</itemPath>
       <itemPath>src/Meson.cpp</itemPath>
       <itemPath>src/NewPhysicsEpsilons.cpp</itemPath>
+      <itemPath>src/NewPhysicsHiggs.cpp</itemPath>
       <itemPath>src/NewPhysicsSTU.cpp</itemPath>
       <itemPath>src/NewPhysicsSTUVWXY.cpp</itemPath>
       <itemPath>src/Particle.cpp</itemPath>
