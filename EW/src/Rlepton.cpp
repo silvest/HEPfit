@@ -8,13 +8,15 @@
 
 double Rlepton::getThValue() {
     double R0_l;
-    if (bCHMN)  
-        R0_l = myEW_CHMN.R_l(SM.ELECTRON);
+    if (myEWTYPE==EW::EWCHMN)  
+        R0_l = myEW.getMyEW_CHMN().R_l(SM.ELECTRON);
+    else if (myEWTYPE==EW::EWABC) 
+        R0_l = myEW.getMyEW_ABC().R_l(SM.epsilon1(),SM.epsilon3(),SM.epsilonb());
     else {       
         R0_l = myEW.Gamma_had()/myEW.Gamma_l(SM.ELECTRON);
         
         if ( myEW.checkModelForSTU() ) {
-            if(bBURGESS) {
+            if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
                 //R0_l = 20.740;

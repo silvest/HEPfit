@@ -8,13 +8,15 @@
 
 double AFBlepton::getThValue() {   
     double AFB_l;
-    if (bCHMN)  
-        AFB_l = myEW_CHMN.AFB_l(SM.ELECTRON);
+    if (myEWTYPE==EW::EWCHMN)  
+        AFB_l = myEW.getMyEW_CHMN().AFB_l(SM.ELECTRON);
+    else if (myEWTYPE==EW::EWABC) 
+        AFB_l = myEW.getMyEW_ABC().AFB_l(SM.ELECTRON,SM.epsilon1(),SM.epsilon3());
     else {    
         AFB_l = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_l(SM.ELECTRON);
 
         if ( myEW.checkModelForSTU() ) {
-            if(bBURGESS) {
+            if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
                 //AFB_l = 0.01627;

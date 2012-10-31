@@ -8,13 +8,15 @@
 
 double sigmaHadron::getThValue() { 
     double sigma_had;
-    if (bCHMN)  
-        sigma_had = myEW_CHMN.sigma0_had();
+    if (myEWTYPE==EW::EWCHMN)  
+        sigma_had = myEW.getMyEW_CHMN().sigma0_had();
+    else if (myEWTYPE==EW::EWABC) 
+        sigma_had = myEW.getMyEW_ABC().sigma0_had(SM.epsilon1(),SM.epsilon3(),SM.epsilonb());
     else {   
         sigma_had = myEW.sigma0_had();
         
         if ( myEW.checkModelForSTU() ) {
-            if(bBURGESS) {
+            if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
                 //sigma_had = 41.479/GeVminus2_to_nb;                

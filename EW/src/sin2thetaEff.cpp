@@ -8,13 +8,15 @@
 
 double sin2thetaEff::getThValue() { 
     double sin2_theta_eff;
-    if (bCHMN)  
-        sin2_theta_eff = myEW_CHMN.sin2thetaEff();
+    if (myEWTYPE==EW::EWCHMN)  
+        sin2_theta_eff = myEW.getMyEW_CHMN().sin2thetaEff();
+    else if (myEWTYPE==EW::EWABC) 
+        sin2_theta_eff = myEW.getMyEW_ABC().sin2thetaEff(SM.epsilon1(),SM.epsilon3());
     else { 
         sin2_theta_eff = myEW.sin2thetaEff(SM.ELECTRON);
     
         if ( myEW.checkModelForSTU() ) {
-            if(bBURGESS) {
+            if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
                 //sin2_theta_eff = 0.23148;

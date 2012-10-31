@@ -10,8 +10,10 @@
 
 double Rbottom::getThValue() { 
     double R0_b;
-    if (bCHMN)  
-        R0_b = myEW_CHMN.R_b();
+    if (myEWTYPE==EW::EWCHMN)  
+        R0_b = myEW.getMyEW_CHMN().R_b();
+    else if (myEWTYPE==EW::EWABC) 
+        R0_b = myEW.getMyEW_ABC().R_b(SM.epsilon1(),SM.epsilon3(),SM.epsilonb());
     else {    
         if (SM.getEWSM()->isBoolR0bApproximate() && SM.ModelName()!="NewPhysicsEpsilons") 
             R0_b = SM.getEWSM()->R0_bottom_SM();// use an approximate formula
@@ -19,7 +21,7 @@ double Rbottom::getThValue() {
             R0_b = myEW.Gamma_q(SM.BOTTOM)/myEW.Gamma_had();
         
         if ( myEW.checkModelForSTU() ) {
-            if(bBURGESS) {
+            if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
                 //R0_b = 0.21474;

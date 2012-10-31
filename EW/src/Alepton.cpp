@@ -8,13 +8,15 @@
 
 double Alepton::getThValue() { 
     double A_l;
-    if (bCHMN)  
-        A_l = myEW_CHMN.A_l(SM.ELECTRON);
+    if (myEWTYPE==EW::EWCHMN)  
+        A_l = myEW.getMyEW_CHMN().A_l(SM.ELECTRON);
+    else if (myEWTYPE==EW::EWABC) 
+        A_l = myEW.getMyEW_ABC().A_l(SM.ELECTRON,SM.epsilon1(),SM.epsilon3());
     else {
         A_l = myEW.A_l(SM.ELECTRON);
         
         if ( myEW.checkModelForSTU() ) {
-            if(bBURGESS) {
+            if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
                 //A_l = 0.1473;
