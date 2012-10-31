@@ -8,13 +8,11 @@
 #ifndef LEP2AFBTAU_H
 #define	LEP2AFBTAU_H
 
-#include <ThObservable.h>
-#include "EWSM.h"
-#include "EW.h"
-#include "LEP2oblique.h"
+#include "LEP2ThObservable.h"
+#include "LEP2sigmaTau.h"
 
 
-class LEP2AFBtau : public ThObservable {
+class LEP2AFBtau : public LEP2ThObservable {
 public:
 
     /**
@@ -22,36 +20,19 @@ public:
      * @param[in] EW_i an object of EW class
      * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
      */
-    LEP2AFBtau(const EW& EW_i, const double sqrt_s_i);
+    LEP2AFBtau(const EW& EW_i, const double sqrt_s_i) : LEP2ThObservable(EW_i, sqrt_s_i),
+            myLEP2sigmaTau(EW_i, sqrt_s_i, true) {
+        l_flavor = StandardModel::TAU;
+    }
 
     /**
      * @return the forward-backward asymmetry for e^+ e^- -> tau^+ tau^- at sqrt_s
      */
     double getThValue();
 
-    /**
-     * @brief set flags for radiative corrections
-     * @param[in] bDP_i with/without dressed gauge-boson propagators
-     * @param[in] bWEAK_i with/without weak corrections
-     * @param[in] bQED_i with/without QED corrections
-     */
-    void setFlags(const bool bDP_i, const bool bWEAK_i, const bool bQED_i) {
-        this->bDP = bDP_i;
-        this->bWEAK = bWEAK_i;
-        this->bQED = bQED_i;
-    }
-    
-
 private:
-    const EW& myEW;
-    const LEP2oblique myLEP2oblique;
-    const double sqrt_s;
-    bool bDP, bWEAK, bQED;
+    LEP2sigmaTau myLEP2sigmaTau;
     
-    // caches for the SM prediction
-    mutable double SMparams_cache[EWSM::NumSMParams+3];
-    mutable bool   bool_cache[3];
-    mutable double SMresult_cache;
 };
 
 #endif	/* LEP2AFBTAU_H */

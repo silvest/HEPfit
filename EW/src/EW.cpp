@@ -14,8 +14,8 @@
 #include <stdexcept>
 
 
-EW::EW(const StandardModel& SM_i, bool bDebug_i) : ThObsType(SM_i), SM(SM_i) {
-    bDebug = bDebug_i;
+EW::EW(const StandardModel& SM_i) : ThObsType(SM_i), SM(SM_i) {
+    bDebug = SM_i.isBDebug();
 }
 
 
@@ -23,7 +23,10 @@ EW::EW(const StandardModel& SM_i, bool bDebug_i) : ThObsType(SM_i), SM(SM_i) {
 
 bool EW::checkModelForSTU() const {
     std::string Model = SM.ModelName();
-    if (Model=="StandardModel" || Model=="SUSY")
+    //std::cout << "Model in EW: " << Model << std::endl; // TEST
+
+    if (Model=="StandardModel" || Model=="SUSY" || Model=="NewPhysicsEpsilons" 
+            || Model=="NewPhysicsHiggs")
         return false;
     else if (Model=="NewPhysicsSTU" || Model=="NewPhysicsSTUVWXY" 
             || Model=="THDM")
@@ -43,18 +46,34 @@ double EW::Qq(const StandardModel::quark q) const {
 }
 
 
+double EW::alpha0() const {
+    return ( SM.alphaMz() );    
+
+//    return SM.getAle(); // TEST!!
+}
+
+
 double EW::Mw0() const {
     return ( SM.Mw0() );
+
+//    return SM.Mw_tree(); // TEST!!
+//    return SM.Mw(); // TEST!!
 }
 
 
 double EW::s02() const {
     return ( SM.s02() );
+
+//    return ( 1.0 - c02() ); // TEST!!
+//    return SM.sW2(); // TEST?!!
 }
 
 
 double EW::c02() const {
     return ( SM.c02() );
+
+//    return ( SM.Mw_tree()*SM.Mw_tree()/SM.getMz()/SM.getMz() ); // TEST!!
+//    return SM.cW2(); // TEST?!!
 }
 
 
@@ -342,22 +361,6 @@ double EW::A_l(const StandardModel::lepton l) const {
 double EW::A_q(const StandardModel::quark q) const {
     double Re_gV_over_gA = (SM.gVq(q)/SM.gAq(q)).real();    
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
-}
-
-
-////////////////////////////////////////////////////////////////////////
-
-double EW::dsigma_lLEP2(const StandardModel::lepton l, const double s, 
-                        const double W, const double X, const double Y, 
-                        const double cos_theta) const {
-    return ( SM.DsigmaLEP2_l(l, s, cos_theta, W, X, Y, Gamma_Z()) );
-}
-
-
-double EW::dsigma_qLEP2(const StandardModel::quark q, const double s,
-                        const double W, const double X, const double Y, 
-                        const double cos_theta) const {
-    return ( SM.DsigmaLEP2_q(q, s, cos_theta, W, X, Y, Gamma_Z()) );
 }
 
 

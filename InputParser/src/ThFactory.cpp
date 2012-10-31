@@ -42,24 +42,32 @@ myFlavour(myModel), myEW(myModel), myMO(myModel)
     thobs["Mh0"] = new Mh0(myEW);
 
     //-----  Z-pole observables (with EW and StandardModel)  -----
-    //bool flag_CHMN = true; // use EW_CHMN class (test)
+    //bool flag_CHMN = true; // TEST: use EW_CHMN class
     bool flag_CHMN = false;
-    thobs["Mw"] = new Mw(myEW, flag_CHMN);
-    thobs["sin2thetaEff"] = new sin2thetaEff(myEW, flag_CHMN);
-    thobs["GammaW"] = new GammaW(myEW, flag_CHMN);
-    thobs["GammaZ"] = new GammaZ(myEW, flag_CHMN);
-    thobs["Alepton"] = new Alepton(myEW, flag_CHMN);
-    thobs["Acharm"] = new Acharm(myEW, flag_CHMN);
-    thobs["Abottom"] = new Abottom(myEW, flag_CHMN);
-    thobs["PtauPol"] = new PtauPol(myEW, flag_CHMN);
-    thobs["AFBlepton"] = new AFBlepton(myEW, flag_CHMN);
-    thobs["AFBcharm"] = new AFBcharm(myEW, flag_CHMN);
-    thobs["AFBbottom"] = new AFBbottom(myEW, flag_CHMN);
-    thobs["Rlepton"] = new Rlepton(myEW, flag_CHMN);
-    thobs["Rcharm"] = new Rcharm(myEW, flag_CHMN);
-    thobs["Rbottom"] = new Rbottom(myEW, flag_CHMN);
-    thobs["sigmaHadron"] = new sigmaHadron(myEW, flag_CHMN);
+    //bool flag_BURGESS = true; // TEST: use the formulae in hep-ph/9411257 by C.P. Burgess
+    bool flag_BURGESS = false;
+    thobs["Mw"] = new Mw(myEW, flag_CHMN, flag_BURGESS);
+    thobs["sin2thetaEff"] = new sin2thetaEff(myEW, flag_CHMN, flag_BURGESS);
+    thobs["GammaW"] = new GammaW(myEW, flag_CHMN, flag_BURGESS);
+    thobs["GammaZ"] = new GammaZ(myEW, flag_CHMN, flag_BURGESS);
+    thobs["Alepton"] = new Alepton(myEW, flag_CHMN, flag_BURGESS);
+    thobs["Acharm"] = new Acharm(myEW, flag_CHMN, flag_BURGESS);
+    thobs["Abottom"] = new Abottom(myEW, flag_CHMN, flag_BURGESS);
+    thobs["PtauPol"] = new PtauPol(myEW, flag_CHMN, flag_BURGESS);
+    thobs["AFBlepton"] = new AFBlepton(myEW, flag_CHMN, flag_BURGESS);
+    thobs["AFBcharm"] = new AFBcharm(myEW, flag_CHMN, flag_BURGESS);
+    thobs["AFBbottom"] = new AFBbottom(myEW, flag_CHMN, flag_BURGESS);
+    thobs["Rlepton"] = new Rlepton(myEW, flag_CHMN, flag_BURGESS);
+    thobs["Rcharm"] = new Rcharm(myEW, flag_CHMN, flag_BURGESS);
+    thobs["Rbottom"] = new Rbottom(myEW, flag_CHMN, flag_BURGESS);
+    thobs["sigmaHadron"] = new sigmaHadron(myEW, flag_CHMN, flag_BURGESS);
 
+    //-----  epsilon parameters by Altarelli et al.  -----
+    thobs["epsilon1"] = new epsilon1(myEW);
+    thobs["epsilon2"] = new epsilon2(myEW);
+    thobs["epsilon3"] = new epsilon3(myEW);   
+    thobs["epsilonb"] = new epsilonb(myEW);   
+    
     //-----   Z-pole observables (with ZFitter)   -----
     //thobs["Mw"] = new ZFMw(myZFitter);
     //thobs["sin2thetaEff"] = new ZFsin2thetaEff(myZFitter);
@@ -117,41 +125,6 @@ myFlavour(myModel), myEW(myModel), myMO(myModel)
         myLEP2Rcharm[i] = new LEP2Rcharm(myEW, sqrt_s_HF[i]);
         thobs["RcharmLEP2_" + sqrt_s_str] = myLEP2Rcharm[i];  
     }    
-
-    //-----  LEP-II observables (with EWSMOneLoopLEP2 class in StandardModel)  -----    
-    //sigmaqLEP2* mySigmaqLEP2[12];
-    //sigmamuLEP2* mySigmamuLEP2[12];
-    //sigmatauLEP2* mySigmatauLEP2[12];
-    //AFBmuLEP2* myAFBmuLEP2[12];
-    //AFBtauLEP2* myAFBtauLEP2[12];
-    //AFBbottomLEP2* myAFBbottomLEP2[10];
-    //AFBcharmLEP2* myAFBcharmLEP2[10];
-    //RbottomLEP2* myRbottomLEP2[10];
-    //RcharmLEP2* myRcharmLEP2[10];
-    //for (int i=0; i<12; i++) { 
-    //    std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_s[i]);
-    //    mySigmaqLEP2[i] = new sigmaqLEP2(myEW, sqrt_s[i]);
-    //    thobs["sigmaqLEP2_" + sqrt_s_str] = mySigmaqLEP2[i];
-    //    mySigmamuLEP2[i] = new sigmamuLEP2(myEW, sqrt_s[i]);
-    //    thobs["sigmamuLEP2_" + sqrt_s_str] = mySigmamuLEP2[i];
-    //    mySigmatauLEP2[i] = new sigmatauLEP2(myEW, sqrt_s[i]);
-    //    thobs["sigmatauLEP2_" + sqrt_s_str] = mySigmatauLEP2[i];
-    //    myAFBmuLEP2[i] = new AFBmuLEP2(myEW, sqrt_s[i]);
-    //    thobs["AFBmuLEP2_" + sqrt_s_str] = myAFBmuLEP2[i];
-    //    myAFBtauLEP2[i] = new AFBtauLEP2(myEW, sqrt_s[i]);
-    //    thobs["AFBtauLEP2_" + sqrt_s_str] = myAFBtauLEP2[i];
-    //}
-    //for (int i=0; i<10; i++) { 
-    //    std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_s_HF[i]);
-    //    myAFBbottomLEP2[i] = new AFBbottomLEP2(myEW, sqrt_s_HF[i]);
-    //    thobs["AFBbottomLEP2_" + sqrt_s_str] = myAFBbottomLEP2[i];
-    //    myAFBcharmLEP2[i] = new AFBcharmLEP2(myEW, sqrt_s_HF[i]);
-    //    thobs["AFBcharmLEP2_" + sqrt_s_str] = myAFBcharmLEP2[i];
-    //    myRbottomLEP2[i] = new RbottomLEP2(myEW, sqrt_s_HF[i]);  
-    //    thobs["RbottomLEP2_" + sqrt_s_str] = myRbottomLEP2[i];
-    //    myRcharmLEP2[i] = new RcharmLEP2(myEW, sqrt_s_HF[i]);
-    //    thobs["RcharmLEP2_" + sqrt_s_str] = myRcharmLEP2[i];        
-    //}
 
 }
 

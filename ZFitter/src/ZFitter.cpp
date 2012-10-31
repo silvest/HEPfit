@@ -9,6 +9,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+#include "ZFitter-f2c.h"
 #include "ZFitter.h"
 #include <stdexcept>
 

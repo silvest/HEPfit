@@ -21,9 +21,8 @@ public:
     /**
      * @brief EW constructor
      * @param[in] SM_i an object of StandardModel class
-     * @param[in] bDebug_i boolean value for debugging (true for debugging)
      */
-    EW(const StandardModel& SM_i, const bool bDebug_i=false);
+    EW(const StandardModel& SM_i);
 
     
     //////////////////////////////////////////////////////////////////////// 
@@ -53,17 +52,22 @@ public:
     double Qq(const StandardModel::quark q) const;    
 
     /**
-     * @return the W boson mass without weak corrections, but with \alpha(Mz^2)
+     * @return alpha(Mz2) 
+     */
+    double alpha0() const;
+
+    /**
+     * @return the W boson mass without weak corrections, but with alpha(Mz^2)
      */
     double Mw0() const;    
-    
+
     /**
-     * @return sin^2\theta_W without weak corrections, but with \alpha(Mz^2)
+     * @return sin^2 theta_W without weak corrections, but with alpha(Mz^2)
      */
     double s02() const;
 
     /**
-     * @return cos^2\theta_W without weak corrections, but with \alpha(Mz^2)
+     * @return cos^2 theta_W without weak corrections, but with alpha(Mz^2)
      */
     double c02() const;
 
@@ -203,42 +207,18 @@ public:
     double A_q(const StandardModel::quark q) const;
 
     
-    ////////////////////////////////////////////////////////////////////////
-
-    /**
-     * @param[in] l name of a lepton
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] W oblique parameter W
-     * @param[in] X oblique parameter X
-     * @param[in] Y oblique parameter Y
-     * @param[in] cos_theta cos(theta)
-     * @return the differential cross section for e^+ e^- -> l lbar in GeV^{-2}
-     */
-    double dsigma_lLEP2(const StandardModel::lepton l, const double s,
-                        const double W, const double X,const double Y, 
-                        const double cos_theta) const;
-    
-    /**
-     * @param[in] q name of a quark
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] W oblique parameter W
-     * @param[in] X oblique parameter X
-     * @param[in] Y oblique parameter Y
-     * @param[in] cos_theta cos(theta)
-     * @return the differential cross section for e^+ e^- -> q qbar in GeV^{-2}
-     */
-    double dsigma_qLEP2(const StandardModel::quark q, const double s,
-                        const double W, const double X, const double Y, 
-                        const double cos_theta) const;
-   
-
     ////////////////////////////////////////////////////////////////////////   
     
-private:
+protected:
     bool bDebug; // true for debugging    
     
     const StandardModel& SM;
+
     
+    ////////////////////////////////////////////////////////////////////////   
+    
+private:
+
 };
 
 #endif	/* EW_H */

@@ -36,12 +36,14 @@
 #include "LEP2Rbottom.h"
 #include "LEP2Rcharm.h"
 
-#include "sigmamuLEP2.h"
-#include "sigmaqLEP2.h"
-
 #include "obliqueS.h"
 #include "obliqueT.h"
 #include "obliqueU.h"
+
+#include "epsilon1.h"
+#include "epsilon2.h"
+#include "epsilon3.h"
+#include "epsilonb.h"
 
 #include "Mh0.h"
 

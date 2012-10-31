@@ -13,7 +13,7 @@
 const double EWSM::Mw_error = 0.00001; /* 0.01 MeV */ 
 
 
-EWSM::EWSM(const StandardModel& SM_i, bool bDebug_i) : SM(SM_i) {
+EWSM::EWSM(const StandardModel& SM_i) : SM(SM_i) {
     flag_order[EW1] = true;
     flag_order[EW1QCD1] = true;
     flag_order[EW1QCD2] = true;
@@ -25,7 +25,11 @@ EWSM::EWSM(const StandardModel& SM_i, bool bDebug_i) : SM(SM_i) {
     //bUseCacheEWSM = false;// do not use caches in the current class (for test)
     
     std::string Model = SM.ModelName();
-    if (Model=="StandardModel" || Model=="THDM") {
+    //std::cout << "Model in EWSM: " << Model << std::endl;
+    if (Model=="StandardModel" 
+            || Model=="NewPhysicsSTU" || Model=="NewPhysicsSTUVWXY" 
+            || Model=="NewPhysicsEpsilons" || Model=="NewPhysicsHiggs" 
+            || Model=="THDM") {
         //schemeMw = NORESUM;// for test
         //schemeMw = OMSI;// for test
         //schemeMw = OMSII;// for test
@@ -50,17 +54,16 @@ EWSM::EWSM(const StandardModel& SM_i, bool bDebug_i) : SM(SM_i) {
         boolR0bApproximate = false;
     } 
 
-    myCache = new EWSMcache(SM, bDebug_i);
+    myCache = new EWSMcache(SM);
     myOneLoopEW = new EWSMOneLoopEW(*myCache);
     myTwoLoopQCD = new EWSMTwoLoopQCD(*myCache);
     myThreeLoopQCD = new EWSMThreeLoopQCD(*myCache);
     myTwoLoopEW = new EWSMTwoLoopEW(*myCache);
     myThreeLoopEW2QCD = new EWSMThreeLoopEW2QCD(*myCache);
     myThreeLoopEW = new EWSMThreeLoopEW(*myCache);
-    myApproximateFormulae = new EWSMApproximateFormulae(SM, bDebug_i);   
+    myApproximateFormulae = new EWSMApproximateFormulae(SM);   
 
     myTwoFermionsLEP2 = new EWSMTwoFermionsLEP2(SM);
-    myOneLoopLEP2 = new EWSMOneLoopLEP2(*myCache,SM);
 
     // Initializations of the caches
     DeltaAlphaLepton_cache = 0.0;
@@ -125,31 +128,33 @@ double EWSM::DeltaAlphaL5q() const {
 }
 
 
+double EWSM::DeltaAlphaTop(const double s) const {
+    double DeltaAlpha = 0.0;
+    if (flag_order[EW1]) 
+        DeltaAlpha += myOneLoopEW->DeltaAlpha_t(s);
+    if (flag_order[EW1QCD1]) 
+        DeltaAlpha += myTwoLoopQCD->DeltaAlpha_t(s);
+    if (flag_order[EW1QCD2]) 
+        DeltaAlpha += myThreeLoopQCD->DeltaAlpha_t(s);
+    if (flag_order[EW2]) 
+        DeltaAlpha += myTwoLoopEW->DeltaAlpha_t(s);
+    if (flag_order[EW2QCD1]) 
+        DeltaAlpha += myThreeLoopEW2QCD->DeltaAlpha_t(s);
+    if (flag_order[EW3]) 
+        DeltaAlpha += myThreeLoopEW->DeltaAlpha_t(s);
+
+    return DeltaAlpha; 
+}
+
+
 double EWSM::DeltaAlpha() const {
     if (bUseCacheEWSM)
         if (checkSMparams(DeltaAlpha_params_cache))
             return DeltaAlpha_cache;
-
-    // leptonic + hadronic contributions
-    double DeltaAlpha = DeltaAlphaL5q(); 
     
-    // Top-quark contribution
     double Mz2 = SM.getMz()*SM.getMz();
-    if (flag_order[EW1]) 
-        DeltaAlpha += myOneLoopEW->DeltaAlpha_t(Mz2);
-    if (flag_order[EW1QCD1]) 
-        DeltaAlpha += myTwoLoopQCD->DeltaAlpha_t(Mz2);
-    if (flag_order[EW1QCD2]) 
-        DeltaAlpha += myThreeLoopQCD->DeltaAlpha_t(Mz2);
-    if (flag_order[EW2]) 
-        DeltaAlpha += myTwoLoopEW->DeltaAlpha_t(Mz2);
-    if (flag_order[EW2QCD1]) 
-        DeltaAlpha += myThreeLoopEW2QCD->DeltaAlpha_t(Mz2);
-    if (flag_order[EW3]) 
-        DeltaAlpha += myThreeLoopEW->DeltaAlpha_t(Mz2);
-
-    DeltaAlpha_cache = DeltaAlpha;
-    return DeltaAlpha; 
+    DeltaAlpha_cache = DeltaAlphaL5q() + DeltaAlphaTop(Mz2);
+    return DeltaAlpha_cache; 
 }
 
 
@@ -653,52 +658,6 @@ double EWSM::taub() const {
         taub_tmp += 0.0;
     
     return taub_tmp;
-}
-
-
-////////////////////////////////////////////////////////////////////////     
-
-double EWSM::sigma_l(const StandardModel::lepton l, const double s, 
-                     const double Mw, const double GammaZ, 
-                     const bool bDP, const bool bWEAK, const bool bQED) const {
-    return (getMyTwoFermionsLEP2()->sigma_l(l, s, Mw, GammaZ, bDP, bWEAK, bQED)); 
-}
-    
-
-double EWSM::sigma_q(const StandardModel::quark q, const double s, 
-                     const double Mw, const double GammaZ, 
-                     const bool bDP, const bool bWEAK, const bool bQED) const {
-    return (getMyTwoFermionsLEP2()->sigma_q(q, s, Mw, GammaZ, bDP, bWEAK, bQED));
-}
-
-
-double EWSM::AFB_l(const StandardModel::lepton l, const double s, 
-                  const double Mw, const double GammaZ, 
-                  const bool bDP, const bool bWEAK, const bool bQED) const {
-    return (getMyTwoFermionsLEP2()->AFB_l(l, s, Mw, GammaZ, bDP, bWEAK, bQED));
-}
-    
-
-double EWSM::AFB_q(const StandardModel::quark q, const double s, 
-                  const double Mw, const double GammaZ, 
-                  const bool bDP, const bool bWEAK, const bool bQED) const {
-    return (getMyTwoFermionsLEP2()->AFB_q(q, s, Mw, GammaZ, bDP, bWEAK, bQED));
-}
-
-
-////////////////////////////////////////////////////////////////////////     
-
-double EWSM::dsigmaLEP2_l(const StandardModel::lepton l, const double s, 
-                          const double Mw_i, const double cos_theta, const double W, 
-                          const double X, const double Y, const double GammaZ) const{
-    return (myOneLoopLEP2->dsigma_l(l, s, Mw_i, cos_theta, W, X, Y, GammaZ));
-}
-
-
-double EWSM::dsigmaLEP2_q(const StandardModel::quark q, const double s, 
-                          const double Mw_i, const double cos_theta, const double W, 
-                          const double X, const double Y, const double GammaZ) const{
-    return (myOneLoopLEP2->dsigma_q(q, s, Mw_i, cos_theta, W, X, Y, GammaZ));
 }
 
 

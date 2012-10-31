@@ -21,22 +21,29 @@
       <itemPath>src/LEP2AFBtau.h</itemPath>
       <itemPath>src/LEP2Rbottom.h</itemPath>
       <itemPath>src/LEP2Rcharm.h</itemPath>
+      <itemPath>src/LEP2ThObservable.h</itemPath>
+      <itemPath>src/LEP2TwoFermions.h</itemPath>
       <itemPath>src/LEP2oblique.h</itemPath>
+      <itemPath>src/LEP2sigmaBottom.h</itemPath>
+      <itemPath>src/LEP2sigmaCharm.h</itemPath>
       <itemPath>src/LEP2sigmaHadron.h</itemPath>
       <itemPath>src/LEP2sigmaMu.h</itemPath>
       <itemPath>src/LEP2sigmaTau.h</itemPath>
+      <itemPath>src/LEP2test.h</itemPath>
       <itemPath>src/Mh0.h</itemPath>
       <itemPath>src/Mw.h</itemPath>
       <itemPath>src/PtauPol.h</itemPath>
       <itemPath>src/Rbottom.h</itemPath>
       <itemPath>src/Rcharm.h</itemPath>
       <itemPath>src/Rlepton.h</itemPath>
+      <itemPath>src/epsilon1.h</itemPath>
+      <itemPath>src/epsilon2.h</itemPath>
+      <itemPath>src/epsilon3.h</itemPath>
+      <itemPath>src/epsilonb.h</itemPath>
       <itemPath>src/obliqueS.h</itemPath>
       <itemPath>src/obliqueT.h</itemPath>
       <itemPath>src/obliqueU.h</itemPath>
       <itemPath>src/sigmaHadron.h</itemPath>
-      <itemPath>src/sigmamuLEP2.h</itemPath>
-      <itemPath>src/sigmaqLEP2.h</itemPath>
       <itemPath>src/sin2thetaEff.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -62,21 +69,27 @@
       <itemPath>src/LEP2AFBtau.cpp</itemPath>
       <itemPath>src/LEP2Rbottom.cpp</itemPath>
       <itemPath>src/LEP2Rcharm.cpp</itemPath>
+      <itemPath>src/LEP2TwoFermions.cpp</itemPath>
       <itemPath>src/LEP2oblique.cpp</itemPath>
+      <itemPath>src/LEP2sigmaBottom.cpp</itemPath>
+      <itemPath>src/LEP2sigmaCharm.cpp</itemPath>
       <itemPath>src/LEP2sigmaHadron.cpp</itemPath>
       <itemPath>src/LEP2sigmaMu.cpp</itemPath>
       <itemPath>src/LEP2sigmaTau.cpp</itemPath>
+      <itemPath>src/LEP2test.cpp</itemPath>
       <itemPath>src/Mw.cpp</itemPath>
       <itemPath>src/PtauPol.cpp</itemPath>
       <itemPath>src/Rbottom.cpp</itemPath>
       <itemPath>src/Rcharm.cpp</itemPath>
       <itemPath>src/Rlepton.cpp</itemPath>
+      <itemPath>src/epsilon1.cpp</itemPath>
+      <itemPath>src/epsilon2.cpp</itemPath>
+      <itemPath>src/epsilon3.cpp</itemPath>
+      <itemPath>src/epsilonb.cpp</itemPath>
       <itemPath>src/obliqueS.cpp</itemPath>
       <itemPath>src/obliqueT.cpp</itemPath>
       <itemPath>src/obliqueU.cpp</itemPath>
       <itemPath>src/sigmaHadron.cpp</itemPath>
-      <itemPath>src/sigmamuLEP2.cpp</itemPath>
-      <itemPath>src/sigmaqLEP2.cpp</itemPath>
       <itemPath>src/sin2thetaEff.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -84,10 +97,12 @@
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
       <logicalFolder name="f1"
-                     displayName="sigmamuTEST"
+                     displayName="LEP2TwoFermions"
                      projectFiles="true"
                      kind="TEST">
-        <itemPath>tests/sigmamuTEST.cpp</itemPath>
+        <itemPath>tests/LEP2TFtestclass.cpp</itemPath>
+        <itemPath>tests/LEP2TFtestclass.h</itemPath>
+        <itemPath>tests/LEP2TFtestrunner.cpp</itemPath>
       </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
@@ -106,14 +121,24 @@
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
         <ccTool>
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
-            <pElem>../Cuba/include</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../InputParser/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../Utils/src</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
@@ -165,55 +190,14 @@
         <ccTool>
           <incDir>
             <pElem>../ZFitter/src</pElem>
+            <pElem>src</pElem>
           </incDir>
         </ccTool>
         <linkerTool>
-          <linkerLibItems>
-            <linkerLibLibItem>gsl</linkerLibLibItem>
-            <linkerLibLibItem>gslcblas</linkerLibLibItem>
-            <linkerLibLibItem>zfitter6_43</linkerLibLibItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../ZFitter"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../ZFitter"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibLibItem>gfortran</linkerLibLibItem>
-          </linkerLibItems>
-          <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit</commandLine>
-        </linkerTool>
-      </folder>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>../gslpp/src</pElem>
-            <pElem>../InputParser/src</pElem>
-            <pElem>../LoopFunctions/src</pElem>
-            <pElem>../StandardModel/src</pElem>
-            <pElem>../Utils/src</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
           <linkerAddLib>
-            <pElem>../ZFitter6_43/lib</pElem>
-            <pElem>../gslpp</pElem>
+            <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
-            <linkerLibLibItem>cuba</linkerLibLibItem>
-            <linkerLibLibItem>zfitter6_43</linkerLibLibItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../StandardModel"
                             CT="3"
@@ -224,6 +208,18 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ZFitter"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../ZFitter"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -239,18 +235,6 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
-              <makeArtifact PL="../Observables"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../Observables"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
               <makeArtifact PL="../gslpp"
                             CT="3"
                             CN="Debug"
@@ -262,17 +246,44 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Observables"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Observables"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibLibItem>gsl</linkerLibLibItem>
+            <linkerLibLibItem>gslcblas</linkerLibLibItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` </commandLine>
+          <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs`</commandLine>
         </linkerTool>
       </folder>
-      <item path="tests/sigmamuTEST.cpp" ex="false" tool="1" flavor2="0">
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
         <ccTool>
           <incDir>
-            <pElem>src</pElem>
+            <pElem>.</pElem>
           </incDir>
         </ccTool>
-      </item>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+          <linkerLibItems>
+            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
     </conf>
     <conf name="Release" type="3">
       <toolsSet>
@@ -294,8 +305,8 @@
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
-            <pElem>../Cuba/include</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -327,9 +338,8 @@
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
-            <pElem>../Cuba/include</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/BAT/include -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

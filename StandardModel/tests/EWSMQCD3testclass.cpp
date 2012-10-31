@@ -19,8 +19,9 @@ EWSMQCD3testclass::~EWSMQCD3testclass() {
 
 void EWSMQCD3testclass::setUp() {
     mySM = new StandardModel(true);
+    mySM->InitializeModel();
     setSMparameters(*mySM);   
-    myCache = new EWSMcache(*mySM, true);
+    myCache = new EWSMcache(*mySM);
     myQCD3 = new EWSMThreeLoopQCD(*myCache);
 
     Mw = myCache->Mw(mySM->Mw_tree());/* Tests are done with the tree-level Mw */
