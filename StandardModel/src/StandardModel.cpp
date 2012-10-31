@@ -348,11 +348,40 @@ double StandardModel::epsilon3_SM() const {
 
 double StandardModel::epsilonb_SM() const {
     complex rhoZe = myEWSM->rhoZ_l_SM(ELECTRON);
+    complex rhoZb = myEWSM->rhoZ_q_SM(BOTTOM);
+//    rhoZe = complex(1.0050968, -0.0047366078, false); // ZFitter
+//    rhoZb = complex(0.99416509, 0.0, false); // ZFitter
     double DeltaRhoPrime = 2.0*( sqrt(rhoZe.abs()) - 1.0 );
     double eps1 = DeltaRhoPrime;
-    complex rhoZb = myEWSM->rhoZ_q_SM(BOTTOM);
+//    return ( - 1.0 + sqrt(rhoZb.abs())/(1.0 + eps1/2.0) );
+    // -0.0058273485
 
-    return ( - 1.0 + sqrt(rhoZb.abs())/(1.0 + eps1/2.0) );
+    double s_W2 = myEWSM->sW2_SM();
+
+    //std::cout << myEWSM->gVl_SM(ELECTRON)/myEWSM->gAl_SM(ELECTRON) << std::endl;
+    //std::cout << 1.0 - 4.0*fabs(-1.0)*s_W2*myEWSM->kappaZ_l_SM(ELECTRON) << std::endl;
+   // 
+    //std::cout << myEWSM->gVq_SM(BOTTOM)/myEWSM->gAq_SM(BOTTOM) << std::endl;
+    //std::cout << 1.0 - 4.0*fabs(-1.0/3.0)*s_W2*myEWSM->kappaZ_q_SM(BOTTOM) << std::endl;
+    
+    
+    
+    double Qe = getLeptons(ELECTRON).getCharge();
+    complex gVe = myEWSM->gVl_SM(ELECTRON);
+    complex gAe = myEWSM->gAl_SM(ELECTRON);
+    //complex gV_over_gA = gVe/gAe;
+    complex gV_over_gA = 1.0 - 4.0*fabs(Qe)*s_W2*myEWSM->kappaZ_l_SM(ELECTRON);
+    double sin2thetaEff = 1.0/4.0/fabs(Qe)*(1.0 - gV_over_gA.real());    
+    complex gVb = myEWSM->gVq_SM(BOTTOM);
+    complex gAb = myEWSM->gAq_SM(BOTTOM);
+    //complex gVb_over_gAb = gVb/gAb;
+    complex gVb_over_gAb = 1.0 - 4.0*fabs(-1.0/3.0)*s_W2*myEWSM->kappaZ_q_SM(BOTTOM);
+
+    double tmp = 1.0 - gVb_over_gAb.abs();
+    
+    return ( -(tmp - 4.0/3.0*sin2thetaEff)/tmp );
+    // -0.0060328209 or -0.0060097335
+    
 }
 
 double StandardModel::epsilon1() const{ 
