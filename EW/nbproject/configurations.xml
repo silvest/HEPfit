@@ -12,6 +12,7 @@
       <itemPath>src/Alepton.h</itemPath>
       <itemPath>src/EW.h</itemPath>
       <itemPath>src/EWObservables.h</itemPath>
+      <itemPath>src/EW_ABC.h</itemPath>
       <itemPath>src/EW_CHMN.h</itemPath>
       <itemPath>src/GammaW.h</itemPath>
       <itemPath>src/GammaZ.h</itemPath>
@@ -60,6 +61,7 @@
       <itemPath>src/Acharm.cpp</itemPath>
       <itemPath>src/Alepton.cpp</itemPath>
       <itemPath>src/EW.cpp</itemPath>
+      <itemPath>src/EW_ABC.cpp</itemPath>
       <itemPath>src/EW_CHMN.cpp</itemPath>
       <itemPath>src/GammaW.cpp</itemPath>
       <itemPath>src/GammaZ.cpp</itemPath>

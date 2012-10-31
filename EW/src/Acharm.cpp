@@ -8,13 +8,15 @@
 
 double Acharm::getThValue() { 
     double A_c;
-    if (bCHMN)  
-        A_c = myEW_CHMN.A_q(SM.CHARM);
+    if (myEWTYPE==EW::EWCHMN)  
+        A_c = myEW.getMyEW_CHMN().A_q(SM.CHARM);
+    else if (myEWTYPE==EW::EWABC) 
+        A_c = myEW.getMyEW_ABC().A_q(SM.CHARM,SM.epsilon1(),SM.epsilon3());
     else {
         A_c = myEW.A_q(SM.CHARM);
 
         if ( myEW.checkModelForSTU() ) {
-            if(bBURGESS) {
+            if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
                 //A_c = 0.6680;

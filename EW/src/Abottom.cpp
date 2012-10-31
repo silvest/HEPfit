@@ -8,13 +8,15 @@
 
 double Abottom::getThValue() {
     double A_b;
-    if (bCHMN)  
-        A_b = myEW_CHMN.A_q(SM.BOTTOM);
+    if (myEWTYPE==EW::EWCHMN)  
+        A_b = myEW.getMyEW_CHMN().A_q(SM.BOTTOM);
+    else if (myEWTYPE==EW::EWABC) 
+        A_b = myEW.getMyEW_ABC().A_b(SM.epsilon1(),SM.epsilon3(),SM.epsilonb());
     else {
         A_b = myEW.A_q(SM.BOTTOM);
 
         if ( myEW.checkModelForSTU() ) {
-            if(bBURGESS) {
+            if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
                 //A_b = 0.93464;

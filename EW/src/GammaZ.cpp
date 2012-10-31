@@ -8,13 +8,15 @@
 
 double GammaZ::getThValue() { 
     double Gamma_Z;
-    if (bCHMN)  
-        Gamma_Z = myEW_CHMN.GammaZ();
+    if (myEWTYPE==EW::EWCHMN)  
+        Gamma_Z = myEW.getMyEW_CHMN().GammaZ();
+    else if (myEWTYPE==EW::EWABC) 
+        Gamma_Z = myEW.getMyEW_ABC().GammaZ(SM.epsilon1(),SM.epsilon3(),SM.epsilonb());
     else {
         Gamma_Z = myEW.Gamma_Z();
 
         if ( myEW.checkModelForSTU() ) {
-            if(bBURGESS) {
+            if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
                 //Gamma_Z = 2.4954; 

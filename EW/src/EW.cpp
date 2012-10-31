@@ -12,7 +12,8 @@
 #include <stdexcept>
 
 
-EW::EW(const StandardModel& SM_i) : ThObsType(SM_i), SM(SM_i) {
+EW::EW(const StandardModel& SM_i) : ThObsType(SM_i), SM(SM_i), myEW_CHMN(SM_i), 
+        myEW_ABC(SM_i) {
     bDebug = SM_i.isBDebug();
 }
 

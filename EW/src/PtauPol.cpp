@@ -8,13 +8,15 @@
 
 double PtauPol::getThValue() {  
     double P_tau_pol;
-    if (bCHMN)  
-        P_tau_pol = myEW_CHMN.A_l(SM.TAU);
+    if (myEWTYPE==EW::EWCHMN)  
+        P_tau_pol = myEW.getMyEW_CHMN().A_l(SM.TAU);    
+    else if (myEWTYPE==EW::EWABC) 
+        P_tau_pol = myEW.getMyEW_ABC().A_l(SM.TAU,SM.epsilon1(),SM.epsilon3());
     else {
         P_tau_pol = myEW.A_l(SM.TAU);
 
         if ( myEW.checkModelForSTU() ) {
-            if(bBURGESS) {
+            if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
                 //P_tau_pol = 0.1473;

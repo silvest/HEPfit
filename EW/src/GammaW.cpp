@@ -8,8 +8,10 @@
 
 double GammaW::getThValue() {  
     double Gamma_W;
-    if (bCHMN)  
-        Gamma_W = myEW_CHMN.GammaW();
+    if (myEWTYPE==EW::EWCHMN)  
+        Gamma_W = myEW.getMyEW_CHMN().GammaW();
+    else if (myEWTYPE==EW::EWABC) 
+        throw std::runtime_error("GammaW::getThValue() is not implemented for EW::EWABC");  
     else {
         Gamma_W = SM.GammaW();
         
@@ -19,7 +21,7 @@ double GammaW::getThValue() {
                 Wbar = (myEW.V() - myEW.W())/SM.alphaMz();
             }
 
-            if(bBURGESS) {
+            if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
                 //Gamma_W = 2.091; 

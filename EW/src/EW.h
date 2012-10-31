@@ -9,12 +9,16 @@
 #include <stdexcept>
 #include <ThObsType.h>
 #include <StandardModel.h>
+#include "EW_CHMN.h"
+#include "EW_ABC.h"
 
 using namespace gslpp;
 
 
 class EW : public ThObsType {
 public:
+    
+    enum EWTYPE {EWDEFAULT, EWCHMN, EWBURGESS, EWABC};
     
     /**
      * @brief EW constructor
@@ -36,7 +40,15 @@ public:
     const StandardModel& getSM() const {
         return SM;
     } 
-        
+
+    const EW_ABC getMyEW_ABC() const {
+        return myEW_ABC;
+    }
+
+    const EW_CHMN getMyEW_CHMN() const {
+        return myEW_CHMN;
+    }
+    
     /**
      * @param[in] l lepton
      * @return electric charge of a lepton "l"
@@ -211,7 +223,8 @@ protected:
     bool bDebug; // true for debugging    
     
     const StandardModel& SM;
-
+    const EW_CHMN myEW_CHMN;
+    const EW_ABC myEW_ABC;
     
     ////////////////////////////////////////////////////////////////////////   
     

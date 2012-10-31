@@ -8,13 +8,15 @@
 
 double Mw::getThValue() {
     double myMw;
-    if (bCHMN)  
-        myMw = myEW_CHMN.Mw();
+    if (myEWTYPE==EW::EWCHMN)  
+        myMw = myEW.getMyEW_CHMN().Mw();
+    else if (myEWTYPE==EW::EWABC) 
+        myMw = myEW.getMyEW_ABC().Mw(SM.epsilon1(),SM.epsilon2(),SM.epsilon3());
     else {
         myMw = SM.Mw();    
 
         if ( myEW.checkModelForSTU() ) {
-            if(bBURGESS) {
+            if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
                 //myMw = 80.367; 

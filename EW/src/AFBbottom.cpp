@@ -8,13 +8,15 @@
 
 double AFBbottom::getThValue() {   
     double AFB_b;
-    if (bCHMN) 
-        AFB_b = myEW_CHMN.AFB_q(SM.BOTTOM);
+    if (myEWTYPE==EW::EWCHMN) 
+        AFB_b = myEW.getMyEW_CHMN().AFB_q(SM.BOTTOM);
+    else if (myEWTYPE==EW::EWABC) 
+        AFB_b = myEW.getMyEW_ABC().AFB_b(SM.epsilon1(),SM.epsilon3(),SM.epsilonb());
     else {
         AFB_b = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.BOTTOM);
         
         if ( myEW.checkModelForSTU() ) {
-            if(bBURGESS) {
+            if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
                 //AFB_b = 0.1032;
