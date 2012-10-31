@@ -1,8 +1,8 @@
 /* 
- * File:   gslpptest.cpp
- * Author: marco
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on Sep 23, 2010, 2:30:17 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #include <stdlib.h>
