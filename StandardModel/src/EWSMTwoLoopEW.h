@@ -1,6 +1,8 @@
 /* 
- * File:   EWSMTwoLoopEW.h
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef EWSMTWOLOOPEW_H

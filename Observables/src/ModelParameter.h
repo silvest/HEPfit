@@ -1,8 +1,8 @@
 /* 
- * File:   ModelParameter.h
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on March 15, 2011, 2:59 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef MODELPARAMETER_H

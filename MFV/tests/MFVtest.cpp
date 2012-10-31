@@ -1,8 +1,8 @@
 /* 
- * File:   MFVtest.cpp
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on Nov 30, 2010, 4:41:21 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #include <stdlib.h>

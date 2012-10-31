@@ -1,8 +1,8 @@
 /* 
- * File:   Xmatrices.h
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on March 26, 2012, 2:02 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef XMATRICES_H

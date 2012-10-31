@@ -1,8 +1,8 @@
 /* 
- * File:   SUSYMassInsertionMatching.h
- * Author: stefano
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 19 novembre 2011, 12.13
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef SUSYMASSINSERTIONMATCHING_H

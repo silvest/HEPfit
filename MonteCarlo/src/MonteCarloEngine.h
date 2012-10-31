@@ -1,8 +1,8 @@
 /* 
- * File:   MonteCarloEngine.h
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on March 8, 2011, 3:18 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef __MONTECARLOENGINE__H
@@ -44,7 +44,14 @@ public:
     void SetNChains(unsigned int i);
     void AddChains();
     double Weight(const Observable& obs, const double& th);
-    double Weight(const Observable2D& obs, const double& th1, const double& th2); 
+    double Weight(const Observable2D& obs, const double& th1, const double& th2);     
+    Model* GetMod() const {
+        return Mod;
+    }
+
+    void SetMod(Model* Mod) {
+        this->Mod = Mod;
+    }
 
 private:
     const std::vector<ModelParameter>& ModPars;

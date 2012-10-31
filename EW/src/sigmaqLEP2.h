@@ -1,8 +1,8 @@
 /* 
- * File:   sigmaqLEP2.h
- * Author: giovannigrilli
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 27 agosto 2012, 9.25
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef SIGMAQLEP2_H

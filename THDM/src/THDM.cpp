@@ -1,8 +1,8 @@
 /* 
- * File:   THDM.cpp
- * Author: giovannigrilli
- * 
- * Created on 30 aprile 2012, 15.51
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "THDM.h"

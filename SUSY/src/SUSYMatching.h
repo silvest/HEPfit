@@ -1,8 +1,8 @@
 /* 
- * File:   SUSYMatching.h
- * Author: girardi_mac
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 14 maggio 2012, 11.53
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef SUSYMATCHING_H

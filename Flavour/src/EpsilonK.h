@@ -1,8 +1,8 @@
 /* 
- * File:   EpsilonK.h
- * Author: stefano
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 1 dicembre 2011, 10.38
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef EPSILONK_H

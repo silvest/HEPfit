@@ -1,8 +1,8 @@
 /* 
- * File:   ThFactory.cpp
- * Author: silvest
- * 
- * Created on April 19, 2011, 12:23 PM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include <vector>

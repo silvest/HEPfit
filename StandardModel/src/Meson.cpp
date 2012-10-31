@@ -1,8 +1,8 @@
 /* 
- * File:   Meson.cpp
- * Author: silvest
- * 
- * Created on April 12, 2011, 2:17 PM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "Meson.h"

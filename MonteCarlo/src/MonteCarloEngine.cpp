@@ -1,8 +1,8 @@
 /* 
- * File:   MonteCarloEngine.cpp
- * Author: silvest
- * 
- * Created on March 8, 2011, 3:18 PM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "MonteCarloEngine.h"
@@ -12,13 +12,15 @@
 #include <TTree.h>
 #include <TROOT.h>
 #include <TH1.h>
-
+#include <mpi.h>
 
 MonteCarloEngine::MonteCarloEngine(
         const std::vector<ModelParameter>& ModPars_i,
         std::vector<Observable>& Obs_i,
         std::vector<Observable2D>& Obs2D_i) : BCModel(""),
 ModPars(ModPars_i), Obs_ALL(Obs_i), Obs2D_ALL(Obs2D_i) {
+    obval = NULL;
+    obweight = NULL;
     Mod = NULL;
 };
 
@@ -62,7 +64,7 @@ void MonteCarloEngine::Initialize(Model* Mod_i) {
     kmax = k;
     kwmax = kweight;
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin();
-            it < Obs2D_ALL.end(); it++) { 
+            it < Obs2D_ALL.end(); it++) {
         if ((it->getDistr()).compare("file") == 0) {
             TFile *lik2 = new TFile((it->getFilename() + ".root").c_str(), "read");
             TH2D *htmp2 = (TH2D*) (lik2->Get(it->getHistoname().c_str()));
@@ -87,8 +89,7 @@ void MonteCarloEngine::Initialize(Model* Mod_i) {
                 std::cout << "cannot handle noMCMC for Observable2D file yet!\n";
                 exit(EXIT_FAILURE);
             }
-        }
-        else if (it->getDistr().compare("weight") == 0) {
+        } else if (it->getDistr().compare("weight") == 0) {
             std::cout << "do not use Observable2D for analytic 2D weights!\n";
             exit(EXIT_FAILURE);
         }
@@ -140,11 +141,11 @@ void MonteCarloEngine::DefineParameters() {
     // order of adding the parameters.
     int k = 0;
     for (std::vector<ModelParameter>::const_iterator it = ModPars.begin(); it < ModPars.end(); it++) {
-        if(it->errf == 0. && it->errg == 0.)
+        if (it->errf == 0. && it->errg == 0.)
             continue;
         AddParameter(it->name.c_str(), it->min, it->max);
         std::cout << it->name << " " << k << std::endl;
-        DPars[it->name]=0.; 
+        DPars[it->name] = 0.;
         if (it->errf == 0.) SetPriorGauss(k, it->ave, it->errg);
         else if (it->errg == 0.) SetPriorConstant(k);
         else {
@@ -169,24 +170,23 @@ double MonteCarloEngine::Weight(const Observable& obs, const double& th) {
         if (obs.getErrf() == 0.)
             logprob = BCMath::LogGaus(th, obs.getAve(), obs.getErrg());
         else if (obs.getErrg() == 0.) {
-            if(th < obs.getAve() + obs.getErrf() && th > obs.getAve() - obs.getErrf())
+            if (th < obs.getAve() + obs.getErrf() && th > obs.getAve() - obs.getErrf())
                 logprob = 1.;
             else
                 logprob = log(0.);
         } else
             logprob = log(TMath::Erf((th - obs.getAve() + obs.getErrf()) / sqrt(2.) / obs.getErrg()) -
                 TMath::Erf((th - obs.getAve() - obs.getErrf()) / sqrt(2.) / obs.getErrg()));
-    } 
-    else if (obs.getDistr().compare("file") == 0) {
-        TH1D * h = InHisto1D[obs.getFilename()+obs.getHistoname()];
-       int i = h->FindBin(th);
-        if(h->IsBinOverflow(i)||h->IsBinUnderflow(i))
-         logprob = log(0.);
-         else
-         logprob = log(h->GetBinContent(i));
-        //logprob = log(h->GetBinContent(h->FindBin(th)));
     }
-    else {
+    else if (obs.getDistr().compare("file") == 0) {
+        TH1D * h = InHisto1D[obs.getFilename() + obs.getHistoname()];
+        int i = h->FindBin(th);
+        if (h->IsBinOverflow(i) || h->IsBinUnderflow(i))
+            logprob = log(0.);
+        else
+            logprob = log(h->GetBinContent(i));
+        //logprob = log(h->GetBinContent(h->FindBin(th)));
+    } else {
         std::cout << "Weight called without weight! " << obs.getName() << std::endl;
         exit(EXIT_FAILURE);
     }
@@ -196,15 +196,14 @@ double MonteCarloEngine::Weight(const Observable& obs, const double& th) {
 double MonteCarloEngine::Weight(const Observable2D& obs, const double& th1, const double& th2) {
     double logprob;
     if (obs.getDistr().compare("file") == 0) {
-        TH2D * h = InHisto2D[obs.getFilename()+obs.getHistoname()];
-        int i = h->FindBin(th1,th2);
-        if(h->IsBinOverflow(i)||h->IsBinUnderflow(i))
-         logprob = log(0.);
-         else
-         logprob = log(h->GetBinContent(i));
+        TH2D * h = InHisto2D[obs.getFilename() + obs.getHistoname()];
+        int i = h->FindBin(th1, th2);
+        if (h->IsBinOverflow(i) || h->IsBinUnderflow(i))
+            logprob = log(0.);
+        else
+            logprob = log(h->GetBinContent(i));
         //logprob = log(h->GetBinContent(h->GetXaxis()->FindBin(th1),h->GetYaxis()->FindBin(th2)));
-    }
-    else {
+    } else {
         std::cout << "2D Weight called without file! " << obs.getName() << std::endl;
         exit(EXIT_FAILURE);
     }
@@ -217,18 +216,17 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
 
     double logprob = 0.;
 
-    for(int k=0; k<parameters.size(); k++) {
-//        std::string pippo = GetParameter(k)->GetName();
-//        double pluto = parameters[k];
-//        DPars[pippo]=pluto;
-        DPars[GetParameter(k)->GetName()]=parameters[k];
+    for (int k = 0; k < parameters.size(); k++) {
+        //        std::string pippo = GetParameter(k)->GetName();
+        //        double pluto = parameters[k];
+        //        DPars[pippo]=pluto;
+        DPars[GetParameter(k)->GetName()] = parameters[k];
     }
 
     // if update false set probability equal zero
-    
-    if(!Mod->Update(DPars)) {
+    if (!Mod->Update(DPars)) {
         std::cout << "evento scartato" << std::endl;
-        return(log(0.));
+        return (log(0.));
     }
     //std::cout << "punto buono" << std::endl;
     for (std::vector<Observable>::iterator it = Obs_MCMC.begin(); it < Obs_MCMC.end(); it++) {
@@ -241,9 +239,9 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
         double th2 = it->getTheoryValue2();
         logprob += Weight(*it, th1, th2);
     }
-    
-   // std::cout << "logprob " << logprob <<std::endl;    
 
+    // std::cout << "logprob " << logprob <<std::endl;    
+    //std::cout << MPI::COMM_WORLD.Get_rank()<< ": logprob = " << logprob << std::endl;
     return logprob;
 }
 
@@ -278,26 +276,35 @@ void MonteCarloEngine::MCMCIterationInterface() {
                 it < Obs2D_ALL.end(); it++) {
             double th1 = it->getTheoryValue();
             double th2 = it->getTheoryValue2();
-            Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram()->Fill(th1,th2);
+            Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram()->Fill(th1, th2);
         }
     }
 }
 
-
 void MonteCarloEngine::PrintHistogram(BCModelOutput& out) {
     //print the BAT histograms to an eps file
+    std::vector<double> mode(GetBestFitParameters());
+    for (int k = 0; k < fMCMCNParameters; k++)
+        DPars[GetParameter(k)->GetName()] = mode[k];
+    Mod->Update(DPars);
+    
     for (std::vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end();
             it++) {
         std::string fname = "Observables/" + it->getThname() + ".pdf";
-//        BCH1D* pippo =  Histo1D[it->getThname()];
-//        double x = pippo->GetMean();
-//        pippo->Print("Dmd1.pdf");
-        Histo1D[it->getThname()]->Print(fname.c_str()); 
+        //        BCH1D* pippo =  Histo1D[it->getThname()];
+        //        double x = pippo->GetMean();
+        //        pippo->Print("Dmd1.pdf");
+        Histo1D[it->getThname()]->SetGlobalMode(it->getTheoryValue());
+        Histo1D[it->getThname()]->Print(fname.c_str());
         out.Write(Histo1D[it->getThname()]->GetHistogram());
     }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end();
             it++) {
         std::string fname = "Observables/" + it->getThname() + ".pdf";
+        double th[2];
+        th[0] = it->getTheoryValue();
+        th[1] = it->getTheoryValue2();
+        Histo2D[it->getThname() + "_vs_" + it->getThname2()]->SetGlobalMode(th);
         Histo2D[it->getThname() + "_vs_" + it->getThname2()]->Print(fname.c_str());
         out.Write(Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram());
     }
@@ -310,8 +317,8 @@ void MonteCarloEngine::AddChains() {
             it < Obs_ALL.end(); it++) {
         if (!it->isTMCMC()) {
             for (int i = 0; i < fMCMCNChains; ++i)
-              fMCMCTrees[i]->Branch(it->getName().c_str(), &obval[i * kmax + k],
-                   (it->getName() + "/D").c_str());
+                fMCMCTrees[i]->Branch(it->getName().c_str(), &obval[i * kmax + k],
+                    (it->getName() + "/D").c_str());
             k++;
             if (it->getDistr().compare("noweight") != 0) {
                 for (int i = 0; i < fMCMCNChains; ++i)

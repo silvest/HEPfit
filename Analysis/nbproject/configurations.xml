@@ -45,6 +45,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <commandlineTool>mpic++</commandlineTool>
           <incDir>
             <pElem>../Utils/src</pElem>
             <pElem>../Observables/src</pElem>
@@ -72,12 +73,13 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
             <pElem>../FeynHiggs/lib64</pElem>
-            <pElem>../BAT/lib</pElem>
+            <pElem>../BAT_parallel/lib</pElem>
             <pElem>../Cuba/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
-            <pElem>../BAT/lib</pElem>
+            <pElem>../BAT_parallel/lib</pElem>
           </linkerDynSerch>
+          <commandlineTool>mpic++</commandlineTool>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"
