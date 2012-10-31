@@ -1,8 +1,8 @@
 /* 
- * File:   alpha_2a.h
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on April 4, 2011, 10:58 AM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef ALPHA_2A_H

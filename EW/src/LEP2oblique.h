@@ -1,6 +1,8 @@
 /* 
- * File:   LEP2oblique.h
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef LEP2OBLIQUE_H

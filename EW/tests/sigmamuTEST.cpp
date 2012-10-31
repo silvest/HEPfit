@@ -1,8 +1,8 @@
 /* 
- * File:   newsimpletest.cpp
- * Author: giovannigrilli
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 6-set-2012, 13.43.19
+ * For the licensing terms see doc/COPYING.
  */
 
 

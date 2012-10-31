@@ -1,6 +1,8 @@
 /* 
- * File:   sin2thetaEff.h
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef SIN2THETAEFF_H

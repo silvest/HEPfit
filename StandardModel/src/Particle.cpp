@@ -1,8 +1,8 @@
 /* 
- * File:   Particle.cpp
- * Author: marco
- * 
- * Created on February 23, 2011, 3:35 PM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "Particle.h"

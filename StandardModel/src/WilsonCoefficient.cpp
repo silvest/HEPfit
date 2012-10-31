@@ -1,8 +1,8 @@
 /* 
- * File:   WilsonCoefficient.cpp
- * Author: marco
- * 
- * Created on May 11, 2011, 11:01 AM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "WilsonCoefficient.h"

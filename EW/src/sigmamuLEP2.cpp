@@ -1,8 +1,8 @@
 /* 
- * File:   sigmamuLEP2.cpp
- * Author: giovannigrilli
- * 
- * Created on 30 agosto 2012, 11.40
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "sigmamuLEP2.h"

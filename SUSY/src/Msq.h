@@ -1,8 +1,8 @@
 /* 
- * File:   Msq.h
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on September 28, 2012, 1:54 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef MSQ_H

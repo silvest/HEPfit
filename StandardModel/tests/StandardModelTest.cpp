@@ -1,8 +1,8 @@
 /* 
- * File:   StandardModelTest.cpp
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on Nov 30, 2010, 2:58:59 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #include <stdlib.h>

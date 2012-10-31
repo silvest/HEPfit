@@ -1,8 +1,8 @@
 /* 
- * File:   Mh0.h
- * Author: girardi_mac
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 16 agosto 2012, 14.24
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef MH0_H

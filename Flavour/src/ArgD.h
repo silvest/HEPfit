@@ -1,8 +1,8 @@
 /* 
- * File:   ArgD.h
- * Author: Mauro_87
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 28 novembre 2011, 18.06
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef ARGD_H

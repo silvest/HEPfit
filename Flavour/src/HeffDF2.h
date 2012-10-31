@@ -1,8 +1,8 @@
 /* 
- * File:   HeffDF2.h
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on April 28, 2011, 4:34 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef HEFFDF2_H

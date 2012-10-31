@@ -1,8 +1,8 @@
 /* 
- * File:   gslpp.h
- * Author: marco
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on May 4, 2011, 6:29 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef GSLPP_H

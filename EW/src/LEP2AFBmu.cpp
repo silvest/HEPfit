@@ -1,6 +1,8 @@
 /* 
- * File:   LEP2AFBmu.cpp
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "LEP2AFBmu.h"

@@ -1,8 +1,8 @@
 /*
- * File:   StandardModel.h
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on November 30, 2010, 1:27 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef STANDARDMODEL_H

@@ -1,8 +1,8 @@
 /* 
- * File:   THDM.h
- * Author: giovannigrilli
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 30 aprile 2012, 15.51
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef THDM_H
