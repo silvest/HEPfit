@@ -166,11 +166,13 @@
           </incDir>
         </ccTool>
         <linkerTool>
+          <linkerAddLib>
+            <pElem>../LoopTools/lib</pElem>
+          </linkerAddLib>
           <linkerLibItems>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibLibItem>FH</linkerLibLibItem>
-            <linkerLibLibItem>zfitter6_43</linkerLibLibItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../gslpp"
                             CT="3"
@@ -303,8 +305,9 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusymassinsertion.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>`gsl-config --cflags` `gsl-config --libs` `root-config --ldflags` `root-config --libs`</commandLine>
+          <commandLine>`gsl-config --cflags` `gsl-config --libs` `root-config --ldflags` `root-config --libs` /Users/mishima/NetBeansProjects/zfitr6_43-test-LEP2/lib/libzfitter6_43-test.a</commandLine>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f1">
