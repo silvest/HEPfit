@@ -42,25 +42,24 @@ myFlavour(myModel), myEW(myModel), myMO(myModel)
     thobs["Mh0"] = new Mh0(myEW);
 
     //-----  Z-pole observables (with EW and StandardModel)  -----
-    //bool flag_CHMN = true; // TEST: use EW_CHMN class
-    bool flag_CHMN = false;
-    //bool flag_BURGESS = true; // TEST: use the formulae in hep-ph/9411257 by C.P. Burgess
-    bool flag_BURGESS = false;
-    thobs["Mw"] = new Mw(myEW, flag_CHMN, flag_BURGESS);
-    thobs["sin2thetaEff"] = new sin2thetaEff(myEW, flag_CHMN, flag_BURGESS);
-    thobs["GammaW"] = new GammaW(myEW, flag_CHMN, flag_BURGESS);
-    thobs["GammaZ"] = new GammaZ(myEW, flag_CHMN, flag_BURGESS);
-    thobs["Alepton"] = new Alepton(myEW, flag_CHMN, flag_BURGESS);
-    thobs["Acharm"] = new Acharm(myEW, flag_CHMN, flag_BURGESS);
-    thobs["Abottom"] = new Abottom(myEW, flag_CHMN, flag_BURGESS);
-    thobs["PtauPol"] = new PtauPol(myEW, flag_CHMN, flag_BURGESS);
-    thobs["AFBlepton"] = new AFBlepton(myEW, flag_CHMN, flag_BURGESS);
-    thobs["AFBcharm"] = new AFBcharm(myEW, flag_CHMN, flag_BURGESS);
-    thobs["AFBbottom"] = new AFBbottom(myEW, flag_CHMN, flag_BURGESS);
-    thobs["Rlepton"] = new Rlepton(myEW, flag_CHMN, flag_BURGESS);
-    thobs["Rcharm"] = new Rcharm(myEW, flag_CHMN, flag_BURGESS);
-    thobs["Rbottom"] = new Rbottom(myEW, flag_CHMN, flag_BURGESS);
-    thobs["sigmaHadron"] = new sigmaHadron(myEW, flag_CHMN, flag_BURGESS);
+    EW::EWTYPE myEWTYPE = EW::EWDEFAULT; // Default
+    //EW::EWTYPE myEWTYPE = EW::EWCHMN; // TEST: use EW_CHMN class
+    //EW::EWTYPE myEWTYPE = EW::EWBURGESS; // TEST: use the formulae in hep-ph/9411257 by C.P. Burgess
+    thobs["Mw"] = new Mw(myEW, myEWTYPE);
+    thobs["sin2thetaEff"] = new sin2thetaEff(myEW, myEWTYPE);
+    thobs["GammaW"] = new GammaW(myEW, myEWTYPE);
+    thobs["GammaZ"] = new GammaZ(myEW, myEWTYPE);
+    thobs["Alepton"] = new Alepton(myEW, myEWTYPE);
+    thobs["Acharm"] = new Acharm(myEW, myEWTYPE);
+    thobs["Abottom"] = new Abottom(myEW, myEWTYPE);
+    thobs["PtauPol"] = new PtauPol(myEW, myEWTYPE);
+    thobs["AFBlepton"] = new AFBlepton(myEW, myEWTYPE);
+    thobs["AFBcharm"] = new AFBcharm(myEW, myEWTYPE);
+    thobs["AFBbottom"] = new AFBbottom(myEW, myEWTYPE);
+    thobs["Rlepton"] = new Rlepton(myEW, myEWTYPE);
+    thobs["Rcharm"] = new Rcharm(myEW, myEWTYPE);
+    thobs["Rbottom"] = new Rbottom(myEW, myEWTYPE);
+    thobs["sigmaHadron"] = new sigmaHadron(myEW, myEWTYPE);
 
     //-----  epsilon parameters by Altarelli et al.  -----
     thobs["epsilon1"] = new epsilon1(myEW);
