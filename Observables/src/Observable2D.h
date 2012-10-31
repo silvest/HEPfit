@@ -1,8 +1,8 @@
 /* 
- * File:   Observable2D.h
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on April 19, 2011, 3:36 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef OBSERVABLE2D_H

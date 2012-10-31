@@ -1,8 +1,8 @@
 /* 
- * File:   MFV.cpp
- * Author: silvest
- * 
- * Created on September 24, 2010, 10:53 AM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "MFV.h"

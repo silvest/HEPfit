@@ -1,8 +1,8 @@
 /* 
- * File:   EvolDF2.cpp
- * Author: marco
- * 
- * Created on May 20, 2011, 3:55 PM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "EvolDF2.h"

@@ -1,8 +1,8 @@
 /* 
- * File:   Observable.h
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on February 22, 2011, 11:45 AM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef OBSERVABLE_H

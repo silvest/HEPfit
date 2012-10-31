@@ -1,8 +1,8 @@
 /* 
- * File:   RGEvolutor.cpp
- * Author: marco
- * 
- * Created on May 11, 2011, 5:16 PM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "RGEvolutor.h"

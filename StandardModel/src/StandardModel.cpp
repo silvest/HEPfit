@@ -1,8 +1,8 @@
 /* 
- * File:   StandardModel.cpp
- * Author: silvest
- * 
- * Created on November 30, 2010, 1:27 PM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 //#include <bt/assign/list_oost/assign/list_of.hpp> // for 'map_list_of()'
@@ -72,7 +72,7 @@ bool StandardModel::PreUpdate(){
 
 bool StandardModel::Update(const std::map<std::string, double>& DPars) {
     if(!PreUpdate()) return (false);
-    
+
     UpdateError = false;
     
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)

@@ -1,8 +1,8 @@
 /* 
- * File:   ThObsType.h
- * Author: marco
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on April 29, 2011, 11:43 AM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef THOBSTYPE_H

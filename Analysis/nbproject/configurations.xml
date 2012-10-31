@@ -45,6 +45,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
+          <commandlineTool>mpic++</commandlineTool>
           <incDir>
             <pElem>../Utils/src</pElem>
             <pElem>../Observables/src</pElem>
@@ -62,7 +63,7 @@
             <pElem>../ZFitter/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
-            <pElem>../BAT/include</pElem>
+            <pElem>../BAT_parallel/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
@@ -71,12 +72,13 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
             <pElem>../FeynHiggs/lib64</pElem>
-            <pElem>../BAT/lib</pElem>
+            <pElem>../BAT_parallel/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
-            <pElem>../BAT/lib</pElem>
+            <pElem>../BAT_parallel/lib</pElem>
           </linkerDynSerch>
+          <commandlineTool>mpic++</commandlineTool>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"
@@ -239,7 +241,7 @@
             <linkerLibLibItem>FH</linkerLibLibItem>
             <linkerLibLibItem>ooptools</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit -lFH -lBAT -lBATmodels</commandLine>
+          <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit -lFH -lBAT -lBATmodels </commandLine>
         </linkerTool>
       </compileType>
       <folder path="TestFiles/f1">

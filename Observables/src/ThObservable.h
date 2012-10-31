@@ -1,8 +1,8 @@
 /* 
- * File:   ThObservable.h
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on March 29, 2011, 12:15 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef THOBSERVABLE_H

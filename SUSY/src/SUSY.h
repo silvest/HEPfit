@@ -1,8 +1,8 @@
 /* 
- * File:   SUSY.h
- * Author: marco
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on December 2, 2010, 3:32 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef SUSY_H
