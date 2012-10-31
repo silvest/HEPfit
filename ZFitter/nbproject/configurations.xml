@@ -171,7 +171,6 @@
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibLibItem>FH</linkerLibLibItem>
             <linkerLibLibItem>zfitter6_43</linkerLibLibItem>
-            <linkerLibLibItem>cuba</linkerLibLibItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../gslpp"
                             CT="3"

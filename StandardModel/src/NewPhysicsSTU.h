@@ -28,7 +28,7 @@ public:
     virtual bool Update(const std::map<std::string, double>& DPars);
     virtual bool Init(const std::map<std::string, double>& DPars);    
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
-    
+
     
     ////////////////////////////////////////////////////////////////////////     
 
@@ -109,9 +109,9 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
 protected:    
-    virtual void SetParameter(const std::string name, const double& value);
     double myObliqueS, myObliqueT, myObliqueU;
-
+    virtual void SetParameter(const std::string name, const double& value);
+    
     ////////////////////////////////////////////////////////////////////////     
     
 private:

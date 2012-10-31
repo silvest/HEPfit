@@ -73,7 +73,6 @@
 #include <gslpp.h>
 #include <ThObsType.h>
 #include <StandardModel.h>
-#include "ZFitter-f2c.h"
 
 using namespace gslpp;
 

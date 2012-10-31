@@ -163,10 +163,10 @@ double THDM::obliqueT(){
     
     DeltaT = 0.0;
   
-    DeltaT = 1. / 16. / M_PI / Mw2 / s_W2 * (PV.F(mHp,mA)
-           + sin2_ba * (PV.F(mHp,mH) - PV.F(mA,mH)) + cos2_ba * (PV.F(mHp,mh) 
-           - PV.F(mA,mh) + PV.F(M_w,mH) - PV.F(M_w,mh) - PV.F(Mz,mH) 
-           + PV.F(Mz,mh) + 4. * Mz2 * (B0_Mz_0_Mz_mH.real() - B0_Mz_0_Mz_mh.real()) 
+    DeltaT = 1. / 16. / M_PI / Mw2 / s_W2 * (F(mHp,mA)
+           + sin2_ba * (F(mHp,mH) - F(mA,mH)) + cos2_ba * (F(mHp,mh) 
+           - F(mA,mh) + F(M_w,mH) - F(M_w,mh) - F(Mz,mH) 
+           + F(Mz,mh) + 4. * Mz2 * (B0_Mz_0_Mz_mH.real() - B0_Mz_0_Mz_mh.real()) 
            - 4. * Mw2 * (B0_Mz_0_Mw_mH.real() - B0_Mz_0_Mw_mh.real()))); 
      
     return DeltaT;
@@ -211,4 +211,26 @@ double THDM::obliqueU(){
     
     return DeltaU;
  
+}
+
+///////////////////////////////////////////////////////////////////////////////
+
+double THDM::F(const double m0, const double m1) const {
+    double m12 = m1 * m1;
+    double m02 = m0 * m0;
+    double F;
+    
+    if ( m0<=0.0 || m1<0.0 )
+        throw std::runtime_error("Invalid argument for THDM::F()\n"); 
+    
+    if(m0 == 0. && m1 != 0.) {
+        F=0.5 * m12;
+    } else if(m0 != 0. && m1 == 0.){
+        F=0.5 * m02;
+    } else if((m0 == 0. && m1 == 0.) || (fabs(m0-m1) < LEPS)){
+        F=0.;
+    } else if (m0 != 0 && m1 != 0){
+        F=0.5 * (m02 + m12) - (m02 * m12) / (m02 - m12) * log(m02 / m12);
+    }
+    return (F);
 }

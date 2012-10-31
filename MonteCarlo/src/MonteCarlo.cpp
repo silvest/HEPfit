@@ -8,6 +8,7 @@
 #include "MonteCarlo.h"
 #include <BAT/BCAux.h>
 #include <BAT/BCLog.h>
+#include <BAT/BCSummaryTool.h>
 #include <mpi.h>
 
 MonteCarlo::MonteCarlo(const std::string& ModelConf_i,
@@ -102,11 +103,15 @@ void MonteCarlo::Run(const int rank) {
                         PrintAllMarginalized = true;
                     }
                 } else {
-                    std::cout << "wrong keyword in MonteCarlo config Copyright (C) 2012 SUSYfit Collaboration
- * All rights reserved.
- *
- * For the licensing terms see doc/COPYING.
- *//            MCEngine.AddChains();
+                    std::cout << "wrong keyword in MonteCarlo config file: " << *beg << std::endl;
+                    exit(EXIT_FAILURE);
+                }
+            }
+
+            BCModelOutput out(&MCEngine, OutFile.c_str());
+            if (writechains) {
+                out.WriteMarkovChain(true);
+                //            MCEngine.AddChains();
             }
 
             // set nicer style for drawing than the ROOT default
@@ -131,6 +136,9 @@ void MonteCarlo::Run(const int rank) {
 
             // print ratio
             MCEngine.PrintHistogram(out);
+            // output the correlation matrix to a eps file
+            BCSummaryTool myBCSummaryTool(&MCEngine);
+            myBCSummaryTool.PrintCorrelationMatrix("correlations.eps");
 
             out.WriteMarginalizedDistributions();
             //out.FillAnalysisTree();

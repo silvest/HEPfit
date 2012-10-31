@@ -5,42 +5,55 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include <Math/Functor.h>
+#include <Math/Integrator.h>
+#include <Math/AllIntegrationTypes.h>
 #include "LEP2Rcharm.h"
 
 
-LEP2Rcharm::LEP2Rcharm(const EW& EW_i, const double sqrt_s_i) : ThObservable(EW_i), 
-            myEW(EW_i), myLEP2oblique(EW_i), sqrt_s(sqrt_s_i) {
-    bDP = true;
-    bWEAK = true;
-    bQED = true;
-}
-
-
 double LEP2Rcharm::getThValue() { 
-    double s = sqrt_s*sqrt_s;
-    double Mw = SM.Mw(); 
-    double GammaZ = myEW.Gamma_Z();
+    Mw = SM.Mw(); 
+    GammaZ = myEW.Gamma_Z();
 
-    if (!SM.getEWSM()->checkForLEP2(SMparams_cache, bool_cache,
-                                              s, Mw, GammaZ, bDP, bWEAK, bQED)) {
-        double sigma_c, sigma_had;
-        sigma_c = SM.sigma_q_LEP2(StandardModel::CHARM, 
-                                            s, Mw, GammaZ, bDP, bWEAK, bQED);
-        sigma_had = SM.sigma_q_LEP2(StandardModel::UP, 
-                                              s, Mw, GammaZ, bDP, bWEAK, bQED)
-                  + SM.sigma_q_LEP2(StandardModel::DOWN, 
-                                              s, Mw, GammaZ, bDP, bWEAK, bQED)
-                  + sigma_c
-                  + SM.sigma_q_LEP2(StandardModel::STRANGE, 
-                                              s, Mw, GammaZ, bDP, bWEAK, bQED)
-                  + SM.sigma_q_LEP2(StandardModel::BOTTOM,
-                                              s, Mw, GammaZ, bDP, bWEAK, bQED);
+    if (!checkSMparams(s, Mw, GammaZ)) {
+        mq_cache = m_q(SM.CHARM, sqrt_s);
+        
+        myLEP2sigmaCharm.setFlags(flag);
+        double sigma_c = myLEP2sigmaCharm.getThValue();
+        myLEP2sigmaHadron.setFlags(flag);        
+        double sigma_had = myLEP2sigmaHadron.getThValue();
+
         SMresult_cache = sigma_c/sigma_had;
+
+        if ( myEW.checkModelForSTU() && SM.FixedSMparams() ) {
+            double ObParam[7];
+            for (int i=0; i<7; i++) {
+                SetObParam((LEP2oblique::Oblique)i, ObParam);
+                Coeff_cache[i] 
+                    = myLEP2oblique.R_q_LEP2_NP(StandardModel::CHARM, s, mq_cache, ObParam);
+            }
+        }
     }
     double R_c = SMresult_cache;
     
+    #ifdef LEP2TEST
+    R_c = myTEST.RcharmTEST(sqrt_s);
+    #endif
+    
     if ( myEW.checkModelForSTU() ) {
-        R_c += myLEP2oblique.R_q_LEP2_NP(StandardModel::CHARM, s);
+        if ( SM.FixedSMparams() ) {
+            R_c += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()
+                 + Coeff_cache[myLEP2oblique.That]*myEW.That()
+                 + Coeff_cache[myLEP2oblique.Uhat]*myEW.Uhat()
+                 + Coeff_cache[myLEP2oblique.V]*myEW.V()
+                 + Coeff_cache[myLEP2oblique.W]*myEW.W()
+                 + Coeff_cache[myLEP2oblique.X]*myEW.X()
+                 + Coeff_cache[myLEP2oblique.Y]*myEW.Y();                 
+        } else {
+            double ObParam[7] = {myEW.Shat(), myEW.That(), myEW.Uhat(),
+                                 myEW.V(), myEW.W(), myEW.X(), myEW.Y()};
+            R_c += myLEP2oblique.R_q_LEP2_NP(StandardModel::CHARM, s, mq_cache, ObParam);
+        }
     }
     
     return R_c;

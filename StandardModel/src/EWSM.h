@@ -20,7 +20,6 @@
 #include "EWSMApproximateFormulae.h"
 #include "EWSMOneLoopEW_HV.h"
 #include "EWSMTwoFermionsLEP2.h"
-#include "EWSMOneLoopLEP2.h"
 
 using namespace gslpp;
 
@@ -52,9 +51,8 @@ public:
     /**
      * @brief EWSM constructor
      * @param[in] SM_i reference to a StandardModel object
-     * @param[in] bDebug_i boolean value for debugging (true for debugging)
      */
-    EWSM(const StandardModel& SM_i, const bool bDebug_i=false);
+    EWSM(const StandardModel& SM_i);
 
     
     ////////////////////////////////////////////////////////////////////////     
@@ -84,6 +82,45 @@ public:
     
     //////////////////////////////////////////////////////////////////////// 
 
+    bool checkSMparams(double Params_cache[]) const {
+        // 11 parameters in QCD:
+        // "AlsMz","Mz","mup","mdown","mcharm","mstrange", "mtop","mbottom",
+        // "mut","mub","muc"
+        // 10 parameters in StandardModel
+        // "GF", "ale", "dAle5Mz", "mHl", 
+        // "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau"
+        double SMparams[NumSMParams] = { 
+            SM.getAlsMz(), SM.getMz(), SM.getGF(), SM.getAle(), SM.getDAle5Mz(),
+            SM.getMHl(), SM.getMtpole(), 
+            SM.getLeptons(SM.NEUTRINO_1).getMass(), 
+            SM.getLeptons(SM.NEUTRINO_2).getMass(),
+            SM.getLeptons(SM.NEUTRINO_3).getMass(),
+            SM.getLeptons(SM.ELECTRON).getMass(),
+            SM.getLeptons(SM.MU).getMass(),
+            SM.getLeptons(SM.TAU).getMass(),
+            SM.getQuarks(SM.UP).getMass(),
+            SM.getQuarks(SM.DOWN).getMass(),
+            SM.getQuarks(SM.CHARM).getMass(),
+            SM.getQuarks(SM.STRANGE).getMass(),
+            SM.getQuarks(SM.BOTTOM).getMass(),
+            SM.getMut(), SM.getMub(), SM.getMuc()
+        };
+        
+        // check updated parameters
+        bool bCache = true;
+        for(int i=0; i<NumSMParams; ++i) {
+             if (Params_cache[i] != SMparams[i]) { 
+                 Params_cache[i] = SMparams[i];                 
+                 bCache &= false;
+             }
+        }
+        
+        return bCache;
+    }
+    
+    
+    //////////////////////////////////////////////////////////////////////// 
+    
     /**
      * @param[in] s invariant mass squared 
      * @return the leptonic corrections to alpha
@@ -94,7 +131,13 @@ public:
      * @return the sum of the leptonic and hadronic corrections to alpha at Mz
      */
     double DeltaAlphaL5q() const;
-    
+
+    /**
+     * @param[in] s invariant mass squared 
+     * @return the top-quark corrections to alpha
+     */
+    double DeltaAlphaTop(const double s) const;    
+
     /**
      * @return the total (leptonic+hadronic+top) corrections to alpha at Mz
      */
@@ -246,112 +289,6 @@ public:
     
 
     ////////////////////////////////////////////////////////////////////////     
-    // LEP-II observables with EWSMTwoFermionsLEP2 class
-
-    /**
-     * @param[in] l name of a lepton
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] bDP with/without dressed gauge-boson propagators
-     * @param[in] bWEAK with/without weak corrections
-     * @param[in] bQED with/without QED corrections
-     * @return the total cross section for e^+ e^- -> l lbar in GeV^{-2}
-     */
-    double sigma_l(const StandardModel::lepton l, const double s, 
-                   const double Mw, const double GammaZ, 
-                   const bool bDP, const bool bWEAK, const bool bQED) const;
-    
-    /**
-     * @param[in] q name of a quark
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] bDP with/without dressed gauge-boson propagators
-     * @param[in] bWEAK with/without weak corrections
-     * @param[in] bQED with/without QED corrections
-     * @return the total cross section for e^+ e^- -> q qbar in GeV^{-2}
-     */
-    double sigma_q(const StandardModel::quark q, const double s, 
-                   const double Mw, const double GammaZ, 
-                   const bool bDP, const bool bWEAK, const bool bQED) const;
-
-    /**
-     * @param[in] l name of a lepton
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] bDP with/without dressed gauge-boson propagators
-     * @param[in] bWEAK with/without weak corrections
-     * @param[in] bQED with/without QED corrections
-     * @return the forward-backward asymmetry for e^+ e^- -> l lbar
-     */
-    double AFB_l(const StandardModel::lepton l, const double s, 
-                 const double Mw, const double GammaZ, 
-                 const bool bDP, const bool bWEAK, const bool bQED) const;
-    
-    /**
-     * @param[in] q name of a quark
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] bDP with/without dressed gauge-boson propagators
-     * @param[in] bWEAK with/without weak corrections
-     * @param[in] bQED with/without QED corrections
-     * @return the forward-backward asymmetry for e^+ e^- -> q qbar
-     */
-    double AFB_q(const StandardModel::quark q, const double s, 
-                 const double Mw, const double GammaZ, 
-                 const bool bDP, const bool bWEAK, const bool bQED) const;    
-    
-    bool checkForLEP2(double Params_cache[], bool bool_cache[],
-                      const double s, const double Mw, const double GammaZ, 
-                      const bool bDP, const bool bWEAK, const bool bQED) const {
-        // 21 SM parameters in checkSMparams() + s, Mw, GammaZ, and 3 booleans
-        bool bCache = true;
-        bCache &= checkSMparams(Params_cache);
-        
-        if (Params_cache[NumSMParams] != s) { 
-            Params_cache[NumSMParams] = s;
-            bCache &= false;
-        }    
-        if (Params_cache[NumSMParams+1] != Mw) { 
-            Params_cache[NumSMParams+1] = Mw;
-            bCache &= false;
-        }    
-        if (Params_cache[NumSMParams+2] != GammaZ) { 
-            Params_cache[NumSMParams+2] = GammaZ;
-            bCache &= false;
-        }    
-        if (bool_cache[0] != bDP) { 
-            bool_cache[0] = bDP;
-            bCache &= false;
-        }    
-        if (bool_cache[1] != bWEAK) { 
-            bool_cache[1] = bWEAK;
-            bCache &= false;
-        }
-        if (bool_cache[2] != bQED) { 
-            bool_cache[2] = bQED;
-            bCache &= false;
-        }    
-        return bCache;
-    }
-    
-    
-    ////////////////////////////////////////////////////////////////////////     
-    // LEP-II observables with EWSMOneLoopLEP2 class
-    
-    double dsigmaLEP2_l(const StandardModel::lepton l,const double s,const double Mw_i,
-                        const double cos_theta,const double W,const double X,const double Y,
-                        const double GammaZ) const;
-    
-    double dsigmaLEP2_q(const StandardModel::quark q,const double s,const double Mw_i,
-                        const double cos_theta,const double W,const double X,const double Y,
-                        const double GammaZ) const;
-
-    
-    ////////////////////////////////////////////////////////////////////////     
 protected:
 
     const StandardModel& SM;
@@ -373,7 +310,6 @@ private:
     EWSMApproximateFormulae* myApproximateFormulae;
     
     EWSMTwoFermionsLEP2* myTwoFermionsLEP2;
-    EWSMOneLoopLEP2* myOneLoopLEP2;
         
     // accuracy in the iterative calculation of Mw
     static const double Mw_error;
@@ -411,42 +347,6 @@ private:
     mutable double R0b_params_cache[NumSMParams];
     mutable double R0b_cache;
         
-    bool checkSMparams(double Params_cache[]) const {
-        // 11 parameters in QCD:
-        // "AlsMz","Mz","mup","mdown","mcharm","mstrange", "mtop","mbottom",
-        // "mut","mub","muc"
-        // 10 parameters in StandardModel
-        // "GF", "ale", "dAle5Mz", "mHl", 
-        // "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau"
-        double SMparams[NumSMParams] = { 
-            SM.getAlsMz(), SM.getMz(), SM.getGF(), SM.getAle(), SM.getDAle5Mz(),
-            SM.getMHl(), SM.getMtpole(), 
-            SM.getLeptons(SM.NEUTRINO_1).getMass(), 
-            SM.getLeptons(SM.NEUTRINO_2).getMass(),
-            SM.getLeptons(SM.NEUTRINO_3).getMass(),
-            SM.getLeptons(SM.ELECTRON).getMass(),
-            SM.getLeptons(SM.MU).getMass(),
-            SM.getLeptons(SM.TAU).getMass(),
-            SM.getQuarks(SM.UP).getMass(),
-            SM.getQuarks(SM.DOWN).getMass(),
-            SM.getQuarks(SM.CHARM).getMass(),
-            SM.getQuarks(SM.STRANGE).getMass(),
-            SM.getQuarks(SM.BOTTOM).getMass(),
-            SM.getMut(), SM.getMub(), SM.getMuc()
-        };
-        
-        // check updated parameters
-        bool bCache = true;
-        for(int i=0; i<NumSMParams; ++i) {
-             if (Params_cache[i] != SMparams[i]) { 
-                 Params_cache[i] = SMparams[i];                 
-                 bCache &= false;
-             }
-        }
-        
-        return bCache;
-    }
-    
     
     ////////////////////////////////////////////////////////////////////////     
     

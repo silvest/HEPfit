@@ -26,6 +26,8 @@ public:
     enum lepton {NEUTRINO_1,ELECTRON,NEUTRINO_2,MU,NEUTRINO_3,TAU};
     static const int NSMvars = 20;
     static const std::string SMvars[NSMvars];
+    static const int NSMflags = 1;
+    static const std::string SMflags[NSMflags];
     
     StandardModel(const bool bDebug_i=false);
 
@@ -71,7 +73,7 @@ public:
 
     
     ///////////////////////////////////////////////////////////////////////////
-    // Matching
+    // Initialization and Matching
     
     StandardModelMatching* myMatching;
         
@@ -93,6 +95,17 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // get and set methods for class members
 
+    /**
+     * @return boolean variable for debugging
+     */    
+    bool isBDebug() const {
+        return bDebug;
+    }
+    
+    bool FixedSMparams() const {
+        return bFixedAllSMparams;
+    }
+    
     Particle getLeptons(const StandardModel::lepton p) const {
         return leptons[p];
     }
@@ -285,19 +298,31 @@ public:
      * @return the W boson mass at tree level
      */
     double Mw_tree() const;    
+        
+    /**
+     * the running electromagnetic coupling alpha(mu) in the on-shell scheme, 
+     * where the top-quark contribution is not included. 
+     * @param[in] mu the scale @f$\mu@f$ in GeV
+     * @param[in] order (=LO, FULLNLO)
+     * @return @f$\alpha@f$
+     */
+    double ale_OS(const double mu, orders order=FULLNLO) const;
+    
+    
+    //////////////////////////////////////////////////////////////////////// 
     
     /**
-     * @return the W boson mass without weak corrections, but with \alpha(Mz^2)
+     * @return the W boson mass without weak corrections, but with alpha(Mz^2)
      */
     double Mw0() const;
     
     /**
-     * @return sin^2\theta_W without weak corrections, but with \alpha(Mz^2)
+     * @return sin^2 theta_W without weak corrections, but with alpha(Mz^2)
      */
     double s02() const;
 
     /**
-     * @return cos^2\theta_W without weak corrections, but with \alpha(Mz^2)
+     * @return cos^2 theta_W without weak corrections, but with alpha(Mz^2)
      */
     double c02() const;
     
@@ -410,70 +435,6 @@ public:
     virtual double GammaW() const;
     
     /**
-     * @param[in] l name of a lepton
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] bDP with/without dressed gauge-boson propagators
-     * @param[in] bWEAK with/without weak corrections
-     * @param[in] bQED with/without QED corrections
-     * @return the total cross section for e^+ e^- -> l lbar in GeV^{-2}
-     */
-    double sigma_l_LEP2(const StandardModel::lepton l, const double s,
-                        const double Mw, const double GammaZ,
-                        const bool bDP=true, const bool bWEAK=true, const bool bQED=true) const;
-
-    /**
-     * @param[in] q name of a quark
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] bDP with/without dressed gauge-boson propagators
-     * @param[in] bWEAK with/without weak corrections
-     * @param[in] bQED with/without QED corrections
-     * @return the total cross section for e^+ e^- -> q qbar in GeV^{-2}
-     */
-    double sigma_q_LEP2(const StandardModel::quark q, const double s,
-                        const double Mw, const double GammaZ,
-                        const bool bDP=true, const bool bWEAK=true, const bool bQED=true) const;
-
-    /**
-     * @param[in] l name of a lepton
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] bDP with/without dressed gauge-boson propagators
-     * @param[in] bWEAK with/without weak corrections
-     * @param[in] bQED with/without QED corrections
-     * @return the forward-backward asymmetry for e^+ e^- -> l lbar
-     */
-    double AFB_l_LEP2(const StandardModel::lepton l, const double s,
-                      const double Mw, const double GammaZ,
-                      const bool bDP=true, const bool bWEAK=true, const bool bQED=true) const;
-
-    /**
-     * @param[in] q name of a quark
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] Mw the W-boson mass 
-     * @param[in] GammaZ the Z-boson decay width (used in the Born approximation/in the QED corrections)
-     * @param[in] bDP with/without dressed gauge-boson propagators
-     * @param[in] bWEAK with/without weak corrections
-     * @param[in] bQED with/without QED corrections
-     * @return the forward-backward asymmetry for e^+ e^- -> q qbar
-     */
-    double AFB_q_LEP2(const StandardModel::quark q, const double s,
-                      const double Mw, const double GammaZ,
-                      const bool bDP=true, const bool bWEAK=true, const bool bQED=true) const;
-        
-    double DsigmaLEP2_l(const StandardModel::lepton l,const double s,
-                        const double cos_theta,const double W,const double X,const double Y,
-                        const double GammaZ) const;
-    
-    double DsigmaLEP2_q(const StandardModel::quark q,const double s,
-                        const double cos_theta,const double W,const double X,const double Y,
-                        const double GammaZ) const;
-    
-    /**
      * @return NP contribution to oblique parameter S
      */
     virtual double obliqueS() const {
@@ -543,7 +504,47 @@ public:
         return 0.0;
     }
 
+    /**
+     * @return SM contribution to epsilon_1
+     */
+    double epsilon1_SM() const;
 
+    /**
+     * @return SM contribution to epsilon_2
+     */
+    double epsilon2_SM() const;
+    
+    /**
+     * @return SM contribution to epsilon_3
+     */
+    double epsilon3_SM() const;
+    
+    /**
+     * @return SM contribution to epsilon_b
+     */
+    double epsilonb_SM() const;
+    
+    /**
+     * @return epsilon_1
+     */
+    virtual double epsilon1() const;
+
+    /**
+     * @return epsilon_2
+     */
+    virtual double epsilon2() const;
+    
+    /**
+     * @return epsilon_3
+     */
+    virtual double epsilon3() const;
+    
+    /**
+     * @return epsilon_b
+     */
+    virtual double epsilonb() const;
+
+    
     ////////////////////////////////////////////////////////////////////////
     // CKM parameters
     
@@ -587,6 +588,8 @@ protected:
     
     ////////////////////////////////////////////////////////////////////////    
 private:
+    bool bDebug; // for debugging
+    bool bFixedAllSMparams;
     bool computeCKM, computeYe, computeYn;
     StandardModelMatching* myStandardModelMatching;
     

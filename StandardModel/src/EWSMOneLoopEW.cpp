@@ -313,7 +313,7 @@ complex EWSMOneLoopEW::SigmaWW_fer(const double mu, const double s,
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
         ml[i] = cache.ml((StandardModel::lepton) i);
-        mq[i] = cache.mq((StandardModel::quark) i);        
+        mq[i] = cache.mq((StandardModel::quark) i, mu);        
     }
     double Mw = cache.Mw(Mw_i);
     double Mw2 = Mw*Mw;
@@ -425,7 +425,7 @@ complex EWSMOneLoopEW::SigmaZZ_fer(const double mu, const double s,
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
         ml[i] = cache.ml((StandardModel::lepton) i);
-        mq[i] = cache.mq((StandardModel::quark) i);        
+        mq[i] = cache.mq((StandardModel::quark) i, mu);        
     }
     double Mw = cache.Mw(Mw_i);
     double Mz = cache.Mz();    
@@ -546,7 +546,7 @@ complex EWSMOneLoopEW::PiGammaGamma_fer_l(const double mu, const double s,
 
 complex EWSMOneLoopEW::PiGammaGamma_fer_q(const double mu, const double s, 
                                           const StandardModel::quark q) const {
-    double mf = cache.mq(q);
+    double mf = cache.mq(q, mu);
     double Mz = cache.Mz();    
     double Mz2 = Mz*Mz;
 
@@ -600,7 +600,7 @@ complex EWSMOneLoopEW::PiZgamma_fer(const double mu, const double s,
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
         ml[i] = cache.ml((StandardModel::lepton) i);
-        mq[i] = cache.mq((StandardModel::quark) i); 
+        mq[i] = cache.mq((StandardModel::quark) i, mu); 
     }
     double Mz = cache.Mz();    
     double Mz2 = Mz*Mz;
@@ -700,7 +700,7 @@ complex EWSMOneLoopEW::SigmaPrime_WW_fer_Mw2(const double mu,
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
         ml[i] = cache.ml((StandardModel::lepton) i);
-        mq[i] = cache.mq((StandardModel::quark) i); 
+        mq[i] = cache.mq((StandardModel::quark) i, mu); 
     }
     double Mw = cache.Mw(Mw_i);
     double Mw2 = Mw*Mw;
@@ -803,7 +803,7 @@ complex EWSMOneLoopEW::SigmaPrime_ZZ_fer_Mz2(const double mu, const double Mw_i)
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
         ml[i] = cache.ml((StandardModel::lepton) i);
-        mq[i] = cache.mq((StandardModel::quark) i); 
+        mq[i] = cache.mq((StandardModel::quark) i, mu); 
     }
     double Mw = cache.Mw(Mw_i);
     double Mz = cache.Mz();    

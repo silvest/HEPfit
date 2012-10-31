@@ -10,17 +10,19 @@
       <itemPath>src/EWSMApproximateFormulae.h</itemPath>
       <itemPath>src/EWSMOneLoopEW.h</itemPath>
       <itemPath>src/EWSMOneLoopEW_HV.h</itemPath>
-      <itemPath>src/EWSMOneLoopLEP2.h</itemPath>
       <itemPath>src/EWSMThreeLoopEW.h</itemPath>
       <itemPath>src/EWSMThreeLoopEW2QCD.h</itemPath>
       <itemPath>src/EWSMThreeLoopQCD.h</itemPath>
       <itemPath>src/EWSMTwoFermionsLEP2.h</itemPath>
+      <itemPath>src/EWSMTwoFermionsLEP2_Hollik.h</itemPath>
       <itemPath>src/EWSMTwoLoopEW.h</itemPath>
       <itemPath>src/EWSMTwoLoopQCD.h</itemPath>
       <itemPath>src/EWSMcache.h</itemPath>
       <itemPath>src/Meson.h</itemPath>
       <itemPath>src/Model.h</itemPath>
       <itemPath>src/ModelMatching.h</itemPath>
+      <itemPath>src/NewPhysicsEpsilons.h</itemPath>
+      <itemPath>src/NewPhysicsHiggs.h</itemPath>
       <itemPath>src/NewPhysicsSTU.h</itemPath>
       <itemPath>src/NewPhysicsSTUVWXY.h</itemPath>
       <itemPath>src/OrderScheme.h</itemPath>
@@ -44,15 +46,17 @@
       <itemPath>src/EWSMApproximateFormulae.cpp</itemPath>
       <itemPath>src/EWSMOneLoopEW.cpp</itemPath>
       <itemPath>src/EWSMOneLoopEW_HV.cpp</itemPath>
-      <itemPath>src/EWSMOneLoopLEP2.cpp</itemPath>
       <itemPath>src/EWSMThreeLoopEW.cpp</itemPath>
       <itemPath>src/EWSMThreeLoopEW2QCD.cpp</itemPath>
       <itemPath>src/EWSMThreeLoopQCD.cpp</itemPath>
       <itemPath>src/EWSMTwoFermionsLEP2.cpp</itemPath>
+      <itemPath>src/EWSMTwoFermionsLEP2_Hollik.cpp</itemPath>
       <itemPath>src/EWSMTwoLoopEW.cpp</itemPath>
       <itemPath>src/EWSMTwoLoopQCD.cpp</itemPath>
       <itemPath>src/EWSMcache.cpp</itemPath>
       <itemPath>src/Meson.cpp</itemPath>
+      <itemPath>src/NewPhysicsEpsilons.cpp</itemPath>
+      <itemPath>src/NewPhysicsHiggs.cpp</itemPath>
       <itemPath>src/NewPhysicsSTU.cpp</itemPath>
       <itemPath>src/NewPhysicsSTUVWXY.cpp</itemPath>
       <itemPath>src/Particle.cpp</itemPath>
@@ -98,6 +102,14 @@
         <itemPath>tests/EWSMQCD3testclass.cpp</itemPath>
         <itemPath>tests/EWSMQCD3testclass.h</itemPath>
         <itemPath>tests/EWSMQCD3testrunner.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f10"
+                     displayName="EWSMTwoFermionsLEP2"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/EWSMLEP2testclass.cpp</itemPath>
+        <itemPath>tests/EWSMLEP2testclass.h</itemPath>
+        <itemPath>tests/EWSMLEP2testrunner.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f7"
                      displayName="EWSMTwoLoopEW"
@@ -202,6 +214,9 @@
           </incDir>
         </ccTool>
         <linkerTool>
+          <linkerAddLib>
+            <pElem>../LoopTools/lib</pElem>
+          </linkerAddLib>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../gslpp"
@@ -239,6 +254,8 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>`gsl-config --cflags` `gsl-config --libs` `root-config --ldflags` `root-config --libs`</commandLine>
         </linkerTool>
@@ -287,6 +304,24 @@
             </linkerLibProjectItem>
           </linkerLibItems>
           <commandLine>-pthread -lm -ldl -rdynamic</commandLine>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f10">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f10</output>
+          <linkerLibItems>
+            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+          </linkerLibItems>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
