@@ -85,7 +85,7 @@
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>../BAT/include</pElem>
+            <pElem>../BAT_parallel/include</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../gslpp/src</pElem>

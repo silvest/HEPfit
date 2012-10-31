@@ -1,8 +1,8 @@
 /* 
- * File:   RGEvolutor.h
- * Author: marco
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on May 11, 2011, 5:16 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef RGEVOLUTOR_H

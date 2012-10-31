@@ -1,6 +1,8 @@
 /* 
- * File:   ZFitter-f2c.h
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef ZFITTER_F2C_H

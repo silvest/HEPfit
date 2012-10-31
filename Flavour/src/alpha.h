@@ -1,8 +1,8 @@
 /* 
- * File:   alpha.h
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on April 1, 2011, 2:45 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef ALPHA_H

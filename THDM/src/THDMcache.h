@@ -1,8 +1,8 @@
 /* 
- * File:   THDMcache.h
- * Author: giovannigrilli
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 23 maggio 2012, 9.17
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef THDMCACHE_H

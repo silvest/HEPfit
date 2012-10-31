@@ -1,8 +1,8 @@
 /* 
- * File:   HeffDF1bsg.h
- * Author: stefano
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 15 settembre 2011, 15.36
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef HEFFDF1_H

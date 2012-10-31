@@ -1,8 +1,8 @@
 /* 
- * File:   AmpDD2.h
- * Author: Mauro_87
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 24 novembre 2011, 16.30
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef AMPDD2_H

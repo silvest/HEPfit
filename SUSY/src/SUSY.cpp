@@ -1,8 +1,8 @@
 /* 
- * File:   SUSY.cpp
- * Author: marco
- * 
- * Created on December 2, 2010, 3:32 PM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "SUSY.h"

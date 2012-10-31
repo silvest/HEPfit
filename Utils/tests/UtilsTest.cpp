@@ -1,8 +1,8 @@
 /* 
- * File:   UtilsTest.cpp
- * Author: marco
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on Feb 2, 2011, 5:32:16 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #include <stdlib.h>

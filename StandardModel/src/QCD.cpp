@@ -1,8 +1,8 @@
 /* 
- * File:   QCD.cpp
- * Author: marco
- * 
- * Created on February 17, 2011, 2:13 PM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include <iostream>

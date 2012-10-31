@@ -1,8 +1,8 @@
 /* 
- * File:   orderscheme.h
- * Author: enrico
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on May 12, 2011, 11:19 AM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef ORDERSCHEME_H

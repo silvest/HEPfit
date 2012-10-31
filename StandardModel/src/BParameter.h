@@ -1,8 +1,8 @@
 /* 
- * File:   BParameter.h
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on June 8, 2011, 5:35 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef BPARAMETER_H

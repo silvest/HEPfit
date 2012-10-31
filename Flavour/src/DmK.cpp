@@ -1,8 +1,8 @@
 /* 
- * File:   DmK.cpp
- * Author: stefano
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 10 gennaio 2012, 15.58
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "DmK.h"

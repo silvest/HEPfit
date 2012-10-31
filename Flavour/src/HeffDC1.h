@@ -1,8 +1,8 @@
 /* 
- * File:   HeffDC1.h
- * Author: Mauro_87
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 23 novembre 2011, 10.52
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef HEFFDC1_H
@@ -10,10 +10,10 @@
 
 #include <StandardModel.h>
 /* 
- * File:   EvolDC1.h
- * Author: Mauro_87
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 22 novembre 2011, 16.44
+ * For the licensing terms see doc/COPYING.
  */
 #include <StandardModelMatching.h>
 #include <SUSYMassInsertion.h>

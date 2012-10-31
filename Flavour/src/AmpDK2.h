@@ -1,8 +1,8 @@
 /* 
- * File:   AmpDK2.h
- * Author: stefano
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 29 novembre 2011, 15.46
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef AMPDK2_H

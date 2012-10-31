@@ -1,8 +1,8 @@
 /* 
- * File:   AmpDD2.cpp
- * Author: mauro_87
- * 
- * Created on June 14, 2011, 2:40 PM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "AmpDD2.h"

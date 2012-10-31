@@ -1,8 +1,8 @@
 /* 
- * File:   HeffDF1bnlep.cpp
- * Author: stefano
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 11 ottobre 2011, 15.19
+ * For the licensing terms see doc/COPYING.
  */
     
 #include "HeffDF1bnlep.h"

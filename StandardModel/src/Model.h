@@ -1,8 +1,8 @@
 /* 
- * File:   Model.h
- * Author: marco
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on February 23, 2011, 3:48 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef MODEL_H
