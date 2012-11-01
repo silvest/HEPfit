@@ -45,6 +45,8 @@ myFlavour(myModel), myEW(myModel), myMO(myModel)
     EW::EWTYPE myEWTYPE = EW::EWDEFAULT; // Default
     //EW::EWTYPE myEWTYPE = EW::EWCHMN; // TEST: use EW_CHMN class
     //EW::EWTYPE myEWTYPE = EW::EWBURGESS; // TEST: use the formulae in hep-ph/9411257 by C.P. Burgess
+    //EW::EWTYPE myEWTYPE = EW::EWABC; // TEST: 
+    //EW::EWTYPE myEWTYPE = EW::EWABC2; // TEST: 
     thobs["Mw"] = new Mw(myEW, myEWTYPE);
     thobs["sin2thetaEff"] = new sin2thetaEff(myEW, myEWTYPE);
     thobs["GammaW"] = new GammaW(myEW, myEWTYPE);
