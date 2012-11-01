@@ -20,7 +20,14 @@ using namespace gslpp;
 class EW : public ThObsType {
 public:
     
-    enum EWTYPE {EWDEFAULT, EWCHMN, EWBURGESS, EWABC};
+    /**
+     * EWDEFAULT : use our formulae
+     * EWCHMN : use the formulae by Cho, Hagiwara, Matsumoto and Nomura in EW_CHMN class.
+     * EWBURGESS : use the formulae by Burgess et al. 
+     * EWABC : use the formulae in Eqs.(7)-(14) of IJMP, A7, 1031-1058 (1998) by Altarelli, Barbieri and Caravaglios. 
+     * EWABC2 : use the approximate formulae in Eqs.(16)-(20) of IJMP, A7, 1031-1058 (1998) by Altarelli, Barbieri and Caravaglios. 
+     */
+    enum EWTYPE {EWDEFAULT, EWCHMN, EWBURGESS, EWABC, EWABC2};
     
     /**
      * @brief EW constructor

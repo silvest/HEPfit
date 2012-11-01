@@ -347,41 +347,55 @@ double StandardModel::epsilon3_SM() const {
 }
 
 double StandardModel::epsilonb_SM() const {
-    complex rhoZe = myEWSM->rhoZ_l_SM(ELECTRON);
-    complex rhoZb = myEWSM->rhoZ_q_SM(BOTTOM);
-//    rhoZe = complex(1.0050968, -0.0047366078, false); // ZFitter
-//    rhoZb = complex(0.99416509, 0.0, false); // ZFitter
-    double DeltaRhoPrime = 2.0*( sqrt(rhoZe.abs()) - 1.0 );
-    double eps1 = DeltaRhoPrime;
-//    return ( - 1.0 + sqrt(rhoZb.abs())/(1.0 + eps1/2.0) );
-    // -0.0058273485
+    
+    /* epsilon_b from g_A^b
+     * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
+    //complex rhoZe = myEWSM->rhoZ_l_SM(ELECTRON);
+    //complex rhoZb = myEWSM->rhoZ_q_SM(BOTTOM);
+    //double DeltaRhoPrime = 2.0*( sqrt(rhoZe.abs()) - 1.0 );
+    //double eps1 = DeltaRhoPrime;
+    //return ( - 1.0 + sqrt(rhoZb.abs())/(1.0 + eps1/2.0) );
+    //return ( - 1.0 + sqrt(rhoZb.real())/(1.0 + eps1/2.0) );
+    // -0.0058273485 for abs()
+    // -0.0058281258 for real()
 
-    double s_W2 = myEWSM->sW2_SM();
-
-    //std::cout << myEWSM->gVl_SM(ELECTRON)/myEWSM->gAl_SM(ELECTRON) << std::endl;
-    //std::cout << 1.0 - 4.0*fabs(-1.0)*s_W2*myEWSM->kappaZ_l_SM(ELECTRON) << std::endl;
-   // 
-    //std::cout << myEWSM->gVq_SM(BOTTOM)/myEWSM->gAq_SM(BOTTOM) << std::endl;
-    //std::cout << 1.0 - 4.0*fabs(-1.0/3.0)*s_W2*myEWSM->kappaZ_q_SM(BOTTOM) << std::endl;
-    
-    
-    
-    double Qe = getLeptons(ELECTRON).getCharge();
-    complex gVe = myEWSM->gVl_SM(ELECTRON);
-    complex gAe = myEWSM->gAl_SM(ELECTRON);
+    /* epsilon_b from g_V^b/g_A^b 
+     * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
+    //double Qe = getLeptons(ELECTRON).getCharge();
+    //complex gVe = myEWSM->gVl_SM(ELECTRON);
+    //complex gAe = myEWSM->gAl_SM(ELECTRON);
     //complex gV_over_gA = gVe/gAe;
-    complex gV_over_gA = 1.0 - 4.0*fabs(Qe)*s_W2*myEWSM->kappaZ_l_SM(ELECTRON);
-    double sin2thetaEff = 1.0/4.0/fabs(Qe)*(1.0 - gV_over_gA.real());    
-    complex gVb = myEWSM->gVq_SM(BOTTOM);
-    complex gAb = myEWSM->gAq_SM(BOTTOM);
+    //double sin2thetaEff = 1.0/4.0/fabs(Qe)*(1.0 - gV_over_gA.real());    
+    //complex gVb = myEWSM->gVq_SM(BOTTOM);
+    //complex gAb = myEWSM->gAq_SM(BOTTOM);
     //complex gVb_over_gAb = gVb/gAb;
-    complex gVb_over_gAb = 1.0 - 4.0*fabs(-1.0/3.0)*s_W2*myEWSM->kappaZ_q_SM(BOTTOM);
-
-    double tmp = 1.0 - gVb_over_gAb.abs();
+    //double tmp = 1.0 - gVb_over_gAb.abs();
+    //return ( -(tmp - 4.0/3.0*sin2thetaEff)/tmp );
+    // -0.0060097335 in this case
     
-    return ( -(tmp - 4.0/3.0*sin2thetaEff)/tmp );
-    // -0.0060328209 or -0.0060097335
-    
+    /* epsilon_b from Gamma_b via Eqs.(11), (12) and (16) of IJMP A7, 
+     * 1031 (1998) by Altarelli et al. 
+     * Note: mb has to be mb=4.7, since Eq.(16) were derived with this value. 
+     */
+    double als_Mz = Als(Mz, FULLNNLO);
+    double delta_als = (als_Mz - 0.119)/M_PI;
+    double delta_alpha = (alphaMz() - 1.0/128.90)/ale;
+    double Gamma_b_Born = 0.3798*( 1.0 + delta_als - 0.42*delta_alpha);
+    double a = als_Mz/M_PI;
+    double RQCD = 1.0 + 1.2*a - 1.1*a*a - 13.0*a*a*a;
+    //double mb = Mrun(Mz, getQuarks(BOTTOM).getMass(), FULLNNLO);// This is wrong!
+    double mb = 4.7;
+    //std::cout << "mb = " << mb << std::endl;
+    double beta = sqrt(1.0 - 4.0*mb*mb/Mz/Mz);
+    double Nc = 3.0; 
+    double factor = GF*Mz*Mz*Mz/6.0/M_PI/sqrt(2.0);
+    double Gamma_b = factor*beta*((3.0 - beta*beta)/2.0*gVq(BOTTOM).abs2()
+                                  + beta*beta*gAq(BOTTOM).abs2())
+                     *Nc*RQCD*(1.0 + alphaMz()/12.0/M_PI);
+    return ( (Gamma_b/Gamma_b_Born - 1.0 - 1.42*epsilon1_SM() 
+              + 0.54*epsilon3_SM() )/2.29 );
+    // -0.0059315986 for mb = 4.7
+    // -0.0029610188 for mb = 2.8602168
 }
 
 double StandardModel::epsilon1() const{ 

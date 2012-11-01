@@ -12,7 +12,7 @@ double Rcharm::getThValue() {
     double R0_c;
     if (myEWTYPE==EW::EWCHMN)  
         R0_c = myEW.getMyEW_CHMN().R_c();
-    else if (myEWTYPE==EW::EWABC) 
+    else if (myEWTYPE==EW::EWABC || myEWTYPE==EW::EWABC2) 
         R0_c = myEW.getMyEW_ABC().R_c(SM.epsilon1(),SM.epsilon3(),SM.epsilonb());
     else {    
         R0_c = myEW.Gamma_q(SM.CHARM)/myEW.Gamma_had();

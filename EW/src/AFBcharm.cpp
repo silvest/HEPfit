@@ -12,7 +12,7 @@ double AFBcharm::getThValue() {
     double AFB_c;
     if (myEWTYPE==EW::EWCHMN)  
         AFB_c = myEW.getMyEW_CHMN().AFB_q(SM.CHARM);
-    else if (myEWTYPE==EW::EWABC) 
+    else if (myEWTYPE==EW::EWABC || myEWTYPE==EW::EWABC2) 
         AFB_c = myEW.getMyEW_ABC().AFB_c(SM.epsilon1(),SM.epsilon3());
     else {
         AFB_c = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.CHARM);
