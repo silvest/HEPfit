@@ -661,6 +661,90 @@ double EWSM::taub() const {
 }
 
 
+////////////////////////////////////////////////////////////////////////  
+
+complex EWSM::rhoZ_l_SM_FlavorDep(const StandardModel::lepton l) const {
+    double Mz = SM.getMz(); 
+    double Mw = Mw_SM();
+    double cW2 = Mw*Mw/Mz/Mz, sW2 = 1.0 - cW2;
+    StandardModel::lepton ELE = SM.ELECTRON;
+    complex ul = ( 3.0*myCache->vl(ELE,Mw)*myCache->vl(ELE,Mw) 
+                   + myCache->al(ELE)*myCache->al(ELE) )/4.0/cW2*myOneLoopEW->FZ(Mz*Mz,Mw) 
+                 + myOneLoopEW->FW_l(Mz*Mz,ELE,Mw);
+    complex uf = ( 3.0*myCache->vl(l,Mw)*myCache->vl(l,Mw) 
+                   + myCache->al(l)*myCache->al(l) )/4.0/cW2*myOneLoopEW->FZ(Mz*Mz,Mw) 
+                 + myOneLoopEW->FW_l(Mz*Mz,l,Mw);
+    
+    complex dRho = 2.0*(uf - ul);
+    dRho *= SM.getAle()/4.0/M_PI/sW2;
+    return dRho; 
+}
+
+
+complex EWSM::rhoZ_q_SM_FlavorDep(const StandardModel::quark q) const {
+    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
+
+    double Mz = SM.getMz(); 
+    double Mw = Mw_SM();
+    double cW2 = Mw*Mw/Mz/Mz, sW2 = 1.0 - cW2;
+    StandardModel::lepton ELE = SM.ELECTRON;
+    complex ul = ( 3.0*myCache->vl(ELE,Mw)*myCache->vl(ELE,Mw) 
+                   + myCache->al(ELE)*myCache->al(ELE) )/4.0/cW2*myOneLoopEW->FZ(Mz*Mz,Mw) 
+                 + myOneLoopEW->FW_l(Mz*Mz,ELE,Mw);
+    complex uf = ( 3.0*myCache->vq(q,Mw)*myCache->vq(q,Mw) 
+                   + myCache->aq(q)*myCache->aq(q) )/4.0/cW2*myOneLoopEW->FZ(Mz*Mz,Mw) 
+                 + myOneLoopEW->FW_q(Mz*Mz,q,Mw);
+    
+    complex dRho = 2.0*(uf - ul);
+    dRho *= SM.getAle()/4.0/M_PI/sW2;
+    return dRho; 
+}
+
+
+complex EWSM::kappaZ_l_SM_FlavorDep(const StandardModel::lepton l) const {
+    double Mz = SM.getMz(); 
+    double Mw = Mw_SM();
+    double cW2 = Mw*Mw/Mz/Mz, sW2 = 1.0 - cW2;
+    StandardModel::lepton ELE = SM.ELECTRON;
+    complex ul = ( 3.0*myCache->vl(ELE,Mw)*myCache->vl(ELE,Mw) 
+                   + myCache->al(ELE)*myCache->al(ELE) )/4.0/cW2*myOneLoopEW->FZ(Mz*Mz,Mw) 
+                 + myOneLoopEW->FW_l(Mz*Mz,ELE,Mw);
+    double deltal = myCache->deltal(ELE, Mw);
+    complex uf = ( 3.0*myCache->vl(l,Mw)*myCache->vl(l,Mw) 
+                   + myCache->al(l)*myCache->al(l) )/4.0/cW2*myOneLoopEW->FZ(Mz*Mz,Mw) 
+                 + myOneLoopEW->FW_l(Mz*Mz,l,Mw);
+    double deltaf = myCache->deltal(l, Mw);
+    
+    complex dKappa = (deltaf*deltaf - deltal*deltal)/4.0/cW2*myOneLoopEW->FZ(Mz*Mz,Mw) 
+                     - uf + ul;
+    dKappa *= SM.getAle()/4.0/M_PI/sW2;
+    return dKappa;
+}
+
+
+complex EWSM::kappaZ_q_SM_FlavorDep(const StandardModel::quark q) const {
+    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
+
+    double Mz = SM.getMz(); 
+    double Mw = Mw_SM();
+    double cW2 = Mw*Mw/Mz/Mz, sW2 = 1.0 - cW2;
+    StandardModel::lepton ELE = SM.ELECTRON;
+    complex ul = ( 3.0*myCache->vl(ELE,Mw)*myCache->vl(ELE,Mw) 
+                   + myCache->al(ELE)*myCache->al(ELE) )/4.0/cW2*myOneLoopEW->FZ(Mz*Mz,Mw) 
+                 + myOneLoopEW->FW_l(Mz*Mz,ELE,Mw);
+    double deltal = myCache->deltal(ELE, Mw);
+    complex uf = ( 3.0*myCache->vq(q,Mw)*myCache->vq(q,Mw) 
+                   + myCache->aq(q)*myCache->aq(q) )/4.0/cW2*myOneLoopEW->FZ(Mz*Mz,Mw) 
+                 + myOneLoopEW->FW_q(Mz*Mz,q,Mw);
+    double deltaf = myCache->deltaq(q, Mw);
+    
+    complex dKappa = (deltaf*deltaf - deltal*deltal)/4.0/cW2*myOneLoopEW->FZ(Mz*Mz,Mw) 
+                     - uf + ul;
+    dKappa *= SM.getAle()/4.0/M_PI/sW2;
+    return dKappa; 
+}
+    
+    
 ////////////////////////////////////////////////////////////////////////     
 
 void EWSM::ComputeDeltaRho(const double Mw_i,

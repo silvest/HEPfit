@@ -116,14 +116,16 @@ double EW_ABC::AFB_l(StandardModel::lepton l, const double eps1, const double ep
 }
 
 double EW_ABC::AFB_c(const double eps1, const double eps3) const {
-    double x = gVq_over_gAq(SM.CHARM,eps1,eps3);
-    return ( 3.0*x*x/(1.0 + x*x)/(1.0 + x*x) );    
+    double x = gVl_over_gAl(SM.ELECTRON,eps1,eps3);
+    double xc = gVq_over_gAq(SM.CHARM,eps1,eps3);
+    return ( 3.0*x*xc/(1.0 + x*x)/(1.0 + xc*xc) );    
 }
 
 
 double EW_ABC::AFB_b(const double eps1, const double eps3, const double epsb) const {
-    double x = gVb_over_gAb(eps1,eps3,epsb);
-    return ( 3.0*x*x/(1.0 + x*x)/(1.0 + x*x) );    
+    double x = gVl_over_gAl(SM.ELECTRON,eps1,eps3);
+    double xb = gVb_over_gAb(eps1,eps3,epsb);
+    return ( 3.0*x*xb/(1.0 + x*x)/(1.0 + xb*xb) );    
 }
 
     

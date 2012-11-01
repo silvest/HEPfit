@@ -5,6 +5,7 @@
 
 #include <stdexcept>
 #include "NewPhysicsEpsilons.h"
+#include "EWSM.h"
 
 
 const std::string NewPhysicsEpsilons::EPSILONvars[NEPSILONvars] 
@@ -58,19 +59,6 @@ void NewPhysicsEpsilons::SetParameter(const std::string name, const double& valu
 
 ////////////////////////////////////////////////////////////////////////     
 
-double NewPhysicsEpsilons::Delta_rW() const {
-    return (  (c02() - s02())/s02()
-              *(myEpsilon_2 - c02()*myEpsilon_1 + 2.0*s02()*Delta_kappaPrime()) );
-}
-
-
-double NewPhysicsEpsilons::Delta_kappaPrime() const {
-    return ( (myEpsilon_3 - c02()*myEpsilon_1)/(c02() - s02()) );
-}
-
-
-////////////////////////////////////////////////////////////////////////     
-
 double NewPhysicsEpsilons::Mw() const {
     double Delta_r = 1.0 - (1.0 - DeltaAlpha())*(1.0 - Delta_rW());
 
@@ -93,46 +81,44 @@ double NewPhysicsEpsilons::sW2() const {
 
     
 complex NewPhysicsEpsilons::rhoZ_l(const StandardModel::lepton l) const {
-    double I3f = getLeptons(l).getIsospin();
-    return ( gAl(l)*gAl(l)/I3f/I3f );
+    return ( rhoZ_e() + myEWSM->rhoZ_l_SM_FlavorDep(l) );
 }
 
     
 complex NewPhysicsEpsilons::rhoZ_q(const StandardModel::quark q) const {
-    double I3f = getQuarks(q).getIsospin();
-    return ( gAq(q)*gAq(q)/I3f/I3f );    
+    return ( rhoZ_e() + myEWSM->rhoZ_q_SM_FlavorDep(q) );
 }
 
 
 complex NewPhysicsEpsilons::kappaZ_l(const StandardModel::lepton l) const {
-    double Qf = getLeptons(l).getCharge();
-    return ( (1.0 - gVl(l)/gAl(l))/(4.0*fabs(Qf)*sW2()) );
+    return ( kappaZ_e() + myEWSM->kappaZ_l_SM_FlavorDep(l) );
 }
 
 
 complex NewPhysicsEpsilons::kappaZ_q(const StandardModel::quark q) const {
-    double Qf = getQuarks(q).getCharge();
-    return ( (1.0 - gVq(q)/gAq(q))/(4.0*fabs(Qf)*sW2()) );    
+    return ( kappaZ_e() + myEWSM->kappaZ_q_SM_FlavorDep(q) );
 }
       
     
 complex NewPhysicsEpsilons::gVl(const StandardModel::lepton l) const {
+    double I3f = getLeptons(l).getIsospin();
     double Qf = getLeptons(l).getCharge();
-    return ( (1.0 - 4.0*fabs(Qf)*(1.0 + Delta_kappaPrime())*s02())*gAl(l) );    
+    return ( sqrt(rhoZ_l(l).abs())*I3f*(1.0 - 4.0*fabs(Qf)*kappaZ_l(l)*s02()) );
 }
 
 
 complex NewPhysicsEpsilons::gVq(const StandardModel::quark q) const {
+    double I3f = getQuarks(q).getIsospin();
     double Qf = getQuarks(q).getCharge();
     switch (q) {
         case StandardModel::UP:
         case StandardModel::DOWN:
         case StandardModel::CHARM:
         case StandardModel::STRANGE:
-            return ( (1.0 - 4.0*fabs(Qf)*(1.0 + Delta_kappaPrime())*s02())*gAq(q) );
+            return ( sqrt(rhoZ_q(q).abs())*I3f*(1.0 - 4.0*fabs(Qf)*kappaZ_q(q)*s02()) );
         case StandardModel::BOTTOM:
-            return ( (1.0 - 4.0*fabs(Qf)*(1.0 + Delta_kappaPrime())*s02() + myEpsilon_b)
-                     /(1.0 + myEpsilon_b)*gAq(q) );
+            return ( (1.0 - 4.0/3.0*(1.0 + Delta_kappaPrime())*s02() + myEpsilon_b)
+                     /(1.0 + myEpsilon_b)*gAq(BOTTOM) );
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:
@@ -142,19 +128,21 @@ complex NewPhysicsEpsilons::gVq(const StandardModel::quark q) const {
 
 
 complex NewPhysicsEpsilons::gAl(const StandardModel::lepton l) const {
-    return complex( -(1.0 + myEpsilon_1/2.0)/2.0, 0.0, false);
+    double I3f = getLeptons(l).getIsospin();
+    return ( sqrt(rhoZ_l(l).abs())*I3f );
 }
 
 
 complex NewPhysicsEpsilons::gAq(const StandardModel::quark q) const {
+    double I3f = getQuarks(q).getIsospin();
     switch (q) {
         case StandardModel::UP:
         case StandardModel::DOWN:
         case StandardModel::CHARM:
         case StandardModel::STRANGE:
-            return complex( -(1.0 + myEpsilon_1/2.0)/2.0, 0.0, false);
+            return ( sqrt(rhoZ_q(q).abs())*I3f );
         case StandardModel::BOTTOM:
-            return complex( -(1.0 + myEpsilon_1/2.0)/2.0*(1.0 + myEpsilon_b), 0.0, false);
+            return ( gAe()*(1.0 + myEpsilon_b) );
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:
@@ -163,10 +151,41 @@ complex NewPhysicsEpsilons::gAq(const StandardModel::quark q) const {
 }
 
     
-//double NewPhysicsEpsilons::GammaW() const {
-//    
-//}
+double NewPhysicsEpsilons::GammaW() const {
+    throw std::runtime_error("NewPhysicsEpsilons::GammaW() is not implemented.");         
+}
  
 
+////////////////////////////////////////////////////////////////////////     
+
+double NewPhysicsEpsilons::Delta_rW() const {
+    return (  (c02() - s02())/s02()
+              *(myEpsilon_2 - c02()*myEpsilon_1 + 2.0*s02()*Delta_kappaPrime()) );
+}
+
+
+double NewPhysicsEpsilons::Delta_kappaPrime() const {
+    return ( (myEpsilon_3 - c02()*myEpsilon_1)/(c02() - s02()) );
+}
+
+
+complex NewPhysicsEpsilons::rhoZ_e() const {
+    return ( 4.0*gAe()*gAe() );
+}
+
+
+complex NewPhysicsEpsilons::kappaZ_e() const {
+    return ( (1.0 - gVe()/gAe())/(4.0*sW2()) );    
+}
+
+
+complex NewPhysicsEpsilons::gVe() const {
+    return ( (1.0 - 4.0*(1.0 + Delta_kappaPrime())*s02())*gAe() );        
+}
+
+
+complex NewPhysicsEpsilons::gAe() const {
+    return complex( -(1.0 + myEpsilon_1/2.0)/2.0, 0.0, false);    
+}
 
 

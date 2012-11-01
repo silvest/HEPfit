@@ -12,7 +12,7 @@ double GammaW::getThValue() {
     double Gamma_W;
     if (myEWTYPE==EW::EWCHMN)  
         Gamma_W = myEW.getMyEW_CHMN().GammaW();
-    else if (myEWTYPE==EW::EWABC) 
+    else if (myEWTYPE==EW::EWABC || myEWTYPE==EW::EWABC2) 
         throw std::runtime_error("GammaW::getThValue() is not implemented for EW::EWABC");  
     else {
         Gamma_W = SM.GammaW();

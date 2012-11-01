@@ -46,14 +46,23 @@ public:
         return myEpsilon_b;
     }
 
+    double epsilon1() const {
+        return myEpsilon_1;
+    }
 
-    ////////////////////////////////////////////////////////////////////////     
+    double epsilon2() const {
+        return myEpsilon_2;
+    }
 
-    double Delta_rW() const;
+    double epsilon3() const {
+        return myEpsilon_3;
+    }
 
-    double Delta_kappaPrime() const;
+    double epsilonb() const {
+        return myEpsilon_b;
+    }    
     
-    
+
     ////////////////////////////////////////////////////////////////////////     
     
     /**
@@ -130,7 +139,7 @@ public:
     /**
      * @return the total width of the W boson
      */
-    //virtual double GammaW() const;    
+    virtual double GammaW() const;    
 
     
     ////////////////////////////////////////////////////////////////////////   
@@ -143,7 +152,14 @@ protected:
     ////////////////////////////////////////////////////////////////////////     
     
 private:
-
+    double Delta_rW() const;
+    double Delta_kappaPrime() const;
+ 
+    complex rhoZ_e() const;
+    complex kappaZ_e() const;
+    complex gVe() const;
+    complex gAe() const;
+    
 };
 
 #endif	/* NEWPHYSICSEPSILONS_H */

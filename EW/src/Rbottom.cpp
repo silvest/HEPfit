@@ -16,7 +16,10 @@ double Rbottom::getThValue() {
         R0_b = myEW.getMyEW_CHMN().R_b();
     else if (myEWTYPE==EW::EWABC) 
         R0_b = myEW.getMyEW_ABC().R_b(SM.epsilon1(),SM.epsilon3(),SM.epsilonb());
-    else {    
+    else if (myEWTYPE==EW::EWABC2) {
+        double R_b0 = 0.2182355;
+        R0_b = R_b0*(1.0 - 0.06*SM.epsilon1() + 0.07*SM.epsilon3() + 1.79*SM.epsilonb());
+    } else {    
         if (SM.getEWSM()->isBoolR0bApproximate() && SM.ModelName()!="NewPhysicsEpsilons") 
             R0_b = SM.getEWSM()->R0_bottom_SM();// use an approximate formula
         else

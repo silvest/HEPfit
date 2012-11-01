@@ -288,6 +288,33 @@ public:
     double taub() const;    
     
 
+    ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @param[in] l lepton
+     * @return flavor-dependent correction to rho_Z^l with respect to that for the charged leptons
+     */
+    complex rhoZ_l_SM_FlavorDep(const StandardModel::lepton l) const;
+
+    /**
+     * @param[in] q quark
+     * @return flavor-dependent correction to rho_Z^q with respect to that for the charged leptons
+     */
+    complex rhoZ_q_SM_FlavorDep(const StandardModel::quark q) const;
+
+    /**
+     * @param[in] l lepton
+     * @return flavor-dependent correction to kappa_Z^l with respect to that for the charged leptons
+     */
+    complex kappaZ_l_SM_FlavorDep(const StandardModel::lepton l) const;
+
+    /**
+     * @param[in] q quark
+     * @return flavor-dependent correction to kappa_Z^q with respect to that for the charged leptons
+     */
+    complex kappaZ_q_SM_FlavorDep(const StandardModel::quark q) const;
+    
+    
     ////////////////////////////////////////////////////////////////////////     
 protected:
 

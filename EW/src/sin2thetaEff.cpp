@@ -14,7 +14,12 @@ double sin2thetaEff::getThValue() {
         sin2_theta_eff = myEW.getMyEW_CHMN().sin2thetaEff();
     else if (myEWTYPE==EW::EWABC) 
         sin2_theta_eff = myEW.getMyEW_ABC().sin2thetaEff(SM.epsilon1(),SM.epsilon3());
-    else { 
+    else if (myEWTYPE==EW::EWABC2) {
+        double delta_als = (SM.Als(SM.getMz(),FULLNNLO) - 0.119)/M_PI;
+        double x0 = 0.075619 - 1.32*delta_als;
+        double x = x0*(1.0 + 17.6*SM.epsilon1() - 22.9*SM.epsilon3());
+        sin2_theta_eff = (1.0 - x)/4.0;
+    } else { 
         sin2_theta_eff = myEW.sin2thetaEff(SM.ELECTRON);
     
         if ( myEW.checkModelForSTU() ) {

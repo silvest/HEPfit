@@ -14,7 +14,12 @@ double Rlepton::getThValue() {
         R0_l = myEW.getMyEW_CHMN().R_l(SM.ELECTRON);
     else if (myEWTYPE==EW::EWABC) 
         R0_l = myEW.getMyEW_ABC().R_l(SM.epsilon1(),SM.epsilon3(),SM.epsilonb());
-    else {       
+    else if (myEWTYPE==EW::EWABC2) {
+        double delta_als = (SM.Als(SM.getMz(),FULLNNLO) - 0.119)/M_PI;
+        double delta_alpha = (SM.alphaMz() - 1.0/128.90)/SM.getAle();
+        double R_0 = 20.8228*(1.0 + 1.05*delta_als - 0.28*delta_alpha);
+        R0_l = R_0*(1.0 + 0.28*SM.epsilon1() - 0.36*SM.epsilon3() + 0.50*SM.epsilonb());
+    } else {       
         R0_l = myEW.Gamma_had()/myEW.Gamma_l(SM.ELECTRON);
         
         if ( myEW.checkModelForSTU() ) {
