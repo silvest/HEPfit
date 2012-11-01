@@ -163,7 +163,7 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <incDir>
-            <pElem>../BAT/include</pElem>
+            <pElem>../BAT_parallel/include</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../gslpp/src</pElem>
@@ -261,7 +261,7 @@
             <pElem>../SUSY/src</pElem>
             <pElem>../THDM/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
-            <pElem>../BAT/include</pElem>
+            <pElem>../BAT_parallel/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/BAT/include -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include</commandLine>
         </ccTool>
