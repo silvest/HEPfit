@@ -295,7 +295,7 @@
             <pElem>../ZFitter/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
-            <pElem>../BAT/include</pElem>
+            <pElem>../BAT_parallel/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -309,9 +309,10 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
             <pElem>../FeynHiggs/lib</pElem>
-            <pElem>../BAT/lib</pElem>
+            <pElem>../BAT_parallel/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
+          <commandlineTool>mpic++</commandlineTool>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"
@@ -528,7 +529,7 @@
             <pElem>../SUSY/src</pElem>
             <pElem>../THDM/src</pElem>
             <pElem>../ZFitter/src</pElem>
-            <pElem>../BAT/include</pElem>
+            <pElem>../BAT_parallel/include</pElem>
             <pElem>../FeynHiggs/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/BAT/include -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include -I${HOME}/LoopTools/include</commandLine>
@@ -544,7 +545,7 @@
           <linkerAddLib>
             <pElem>../FeynHiggs/lib64</pElem>
             <pElem>../FeynHiggs/lib</pElem>
-            <pElem>../BAT/lib</pElem>
+            <pElem>../BAT_parallel/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
@@ -760,7 +761,7 @@
             <pElem>../ZFitter/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
-            <pElem>../BAT/include</pElem>
+            <pElem>../BAT_parallel/include</pElem>
           </incDir>
           <commandLine>-fopenmp `root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
