@@ -81,21 +81,25 @@ double NewPhysicsEpsilons::sW2() const {
 
     
 complex NewPhysicsEpsilons::rhoZ_l(const StandardModel::lepton l) const {
+//    return ( rhoZ_e() );
     return ( rhoZ_e() + myEWSM->rhoZ_l_SM_FlavorDep(l) );
 }
 
     
 complex NewPhysicsEpsilons::rhoZ_q(const StandardModel::quark q) const {
+//    return ( rhoZ_e() );
     return ( rhoZ_e() + myEWSM->rhoZ_q_SM_FlavorDep(q) );
 }
 
 
 complex NewPhysicsEpsilons::kappaZ_l(const StandardModel::lepton l) const {
+//    return ( kappaZ_e() );
     return ( kappaZ_e() + myEWSM->kappaZ_l_SM_FlavorDep(l) );
 }
 
 
 complex NewPhysicsEpsilons::kappaZ_q(const StandardModel::quark q) const {
+//    return ( kappaZ_e() );
     return ( kappaZ_e() + myEWSM->kappaZ_q_SM_FlavorDep(q) );
 }
       
@@ -129,7 +133,7 @@ complex NewPhysicsEpsilons::gVq(const StandardModel::quark q) const {
 
 complex NewPhysicsEpsilons::gAl(const StandardModel::lepton l) const {
     double I3f = getLeptons(l).getIsospin();
-    return ( sqrt(rhoZ_l(l).abs())*I3f );
+    return ( complex(sqrt(rhoZ_l(l).abs())*I3f, 0.0, false) );
 }
 
 
@@ -175,12 +179,13 @@ complex NewPhysicsEpsilons::rhoZ_e() const {
 
 
 complex NewPhysicsEpsilons::kappaZ_e() const {
-    return ( (1.0 - gVe()/gAe())/(4.0*sW2()) );    
+    //return ( (1.0 - gVe()/gAe())/(4.0*sW2()) ); // wrong!  
+    return ( (1.0 - gVe()/gAe())/(4.0*s02()) ); // corrected on Nov.2, 2012
 }
 
 
 complex NewPhysicsEpsilons::gVe() const {
-    return ( (1.0 - 4.0*(1.0 + Delta_kappaPrime())*s02())*gAe() );        
+    return ( (1.0 - 4.0*(1.0 + Delta_kappaPrime())*s02())*gAe() );
 }
 
 
