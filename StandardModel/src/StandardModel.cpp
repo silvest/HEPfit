@@ -24,14 +24,26 @@ const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutr
     "dAle5Mz", "mHl", "muw", "phiEpsK","DeltaMK", "KbarEpsK", "Dmk", "SM_M12D" };
 
 /**
- * FixedSMparams=true, if all the SM parameters are fixed to constants in the fit. 
+ * FixedSMparams: true if all the SM parameters are fixed to constants in the fit. 
+ * Flags for the EW precision observables (see EW.h for detail):
+ *   EWCHMN: use EW_CHMN class
+ *   EWABC:  use EW_ABC class based on the formulae by Altarelli et al.
+ *   EWABC2: use EW_ABC2 class based on the formulae by Altarelli et al.
+ *   EWBURGESS: use the formulae for STU contributions by Burgess et al.
  */
-const std::string StandardModel::SMflags[NSMflags] = {"FixedAllSMparams"};
+const std::string StandardModel::SMflags[NSMflags] 
+    = {"FixedAllSMparams", "EWCHMN", "EWABC", "EWABC2", "EWBURGESS"};
 
 
 StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.), 
         UPMNS(3, 3, 0.), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.), 
         bDebug(bDebug_i) {
+    FlagFixedAllSMparams = false;
+    FlagEWCHMN = false;
+    FlagEWABC = false;
+    FlagEWABC2 = false;
+    FlagEWBURGESS = false;
+    
     leptons[NEUTRINO_1].setCharge(0.);
     leptons[NEUTRINO_2].setCharge(0.);    
     leptons[NEUTRINO_3].setCharge(0.);    
@@ -44,15 +56,6 @@ StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.),
     leptons[ELECTRON].setIsospin(-1./2.);
     leptons[MU].setIsospin(-1./2.);   
     leptons[TAU].setIsospin(-1./2.);
-}
-
-bool StandardModel::SetFlag(const std::string name, const bool& value) {  
-    bool res = false;
-    if(name.compare("FixedAllSMparams") == 0) {
-        bFixedAllSMparams = value;
-        res = true;
-    } 
-    return(res);
 }
 
 bool StandardModel::Init(const std::map<std::string, double>& DPars) {
@@ -181,12 +184,36 @@ bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars) 
     return(QCD::CheckParameters(DPars));
 }
 
-    
+
+///////////////////////////////////////////////////////////////////////////
+// Flags
+
+bool StandardModel::SetFlag(const std::string name, const bool& value) {  
+    bool res = false;
+    if (name.compare("FixedAllSMparams") == 0) {
+        FlagFixedAllSMparams = value;
+        res = true;
+    } else if (name.compare("EWCHMN") == 0) {
+        FlagEWCHMN = value;
+        res = true;
+    } else if (name.compare("EWABC") == 0) {
+        FlagEWABC = value;
+        res = true;
+    } else if (name.compare("EWABC2") == 0) {
+        FlagEWABC2 = value;
+        res = true;
+    } else if (name.compare("EWBURGESS") == 0) {
+        FlagEWBURGESS = value;
+        res = true;
+    }
+    return(res);
+}
+
+
 ///////////////////////////////////////////////////////////////////////////
 // Initialization and Matching
 
-bool StandardModel::InitializeModel(){
-    
+bool StandardModel::InitializeModel() {
     myStandardModelMatching = new StandardModelMatching(*this);
     SetModelInitialized(true);
     myEWSM = new EWSM(*this);

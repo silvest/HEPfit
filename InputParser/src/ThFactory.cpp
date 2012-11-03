@@ -42,26 +42,21 @@ myFlavour(myModel), myEW(myModel), myMO(myModel)
     thobs["Mh0"] = new Mh0(myEW);
 
     //-----  Z-pole observables (with EW and StandardModel)  -----
-    EW::EWTYPE myEWTYPE = EW::EWDEFAULT; // Default
-    //EW::EWTYPE myEWTYPE = EW::EWCHMN; // TEST: use EW_CHMN class
-    //EW::EWTYPE myEWTYPE = EW::EWBURGESS; // TEST: use the formulae in hep-ph/9411257 by C.P. Burgess
-    //EW::EWTYPE myEWTYPE = EW::EWABC; // TEST: 
-    //EW::EWTYPE myEWTYPE = EW::EWABC2; // TEST: 
-    thobs["Mw"] = new Mw(myEW, myEWTYPE);
-    thobs["sin2thetaEff"] = new sin2thetaEff(myEW, myEWTYPE);
-    thobs["GammaW"] = new GammaW(myEW, myEWTYPE);
-    thobs["GammaZ"] = new GammaZ(myEW, myEWTYPE);
-    thobs["Alepton"] = new Alepton(myEW, myEWTYPE);
-    thobs["Acharm"] = new Acharm(myEW, myEWTYPE);
-    thobs["Abottom"] = new Abottom(myEW, myEWTYPE);
-    thobs["PtauPol"] = new PtauPol(myEW, myEWTYPE);
-    thobs["AFBlepton"] = new AFBlepton(myEW, myEWTYPE);
-    thobs["AFBcharm"] = new AFBcharm(myEW, myEWTYPE);
-    thobs["AFBbottom"] = new AFBbottom(myEW, myEWTYPE);
-    thobs["Rlepton"] = new Rlepton(myEW, myEWTYPE);
-    thobs["Rcharm"] = new Rcharm(myEW, myEWTYPE);
-    thobs["Rbottom"] = new Rbottom(myEW, myEWTYPE);
-    thobs["sigmaHadron"] = new sigmaHadron(myEW, myEWTYPE);
+    thobs["Mw"] = new Mw(myEW);
+    thobs["sin2thetaEff"] = new sin2thetaEff(myEW);
+    thobs["GammaW"] = new GammaW(myEW);
+    thobs["GammaZ"] = new GammaZ(myEW);
+    thobs["Alepton"] = new Alepton(myEW);
+    thobs["Acharm"] = new Acharm(myEW);
+    thobs["Abottom"] = new Abottom(myEW);
+    thobs["PtauPol"] = new PtauPol(myEW);
+    thobs["AFBlepton"] = new AFBlepton(myEW);
+    thobs["AFBcharm"] = new AFBcharm(myEW);
+    thobs["AFBbottom"] = new AFBbottom(myEW);
+    thobs["Rlepton"] = new Rlepton(myEW);
+    thobs["Rcharm"] = new Rcharm(myEW);
+    thobs["Rbottom"] = new Rbottom(myEW);
+    thobs["sigmaHadron"] = new sigmaHadron(myEW);
 
     //-----  epsilon parameters by Altarelli et al.  -----
     thobs["epsilon1"] = new epsilon1(myEW);

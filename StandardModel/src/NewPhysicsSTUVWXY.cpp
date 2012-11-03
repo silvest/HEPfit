@@ -65,4 +65,17 @@ void NewPhysicsSTUVWXY::SetParameter(const std::string name, const double& value
 }
 
 
+bool NewPhysicsSTUVWXY::SetFlag(const std::string name, const bool& value){
+    bool res = false;
+    if (name.compare("EWABC") == 0) {
+        throw std::runtime_error("Flag EWABC is not applicable to NewPhysicsSTUVWXY"); 
+    } else if (name.compare("EWABC2") == 0) {
+        throw std::runtime_error("Flag EWABC2 is not applicable to NewPhysicsSTUVWXY"); 
+    } else {
+        res = StandardModel::SetFlag(name,value);
+    }
+    return(res);
+}
+
+
 

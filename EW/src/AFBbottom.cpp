@@ -39,6 +39,8 @@ double AFBbottom::getThValue() {
             }
         }
     }
-    
+
+    //std::cout << "EWTYPE = " << myEW.getEWTYPE() << std::endl; // TEST
+
     return AFB_b;
 }

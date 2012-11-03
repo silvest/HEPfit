@@ -1,6 +1,8 @@
 /* 
- * File:   LEP2sigmaCharm.cpp
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include <Math/Functor.h>
@@ -37,7 +39,7 @@ double LEP2sigmaCharm::getThValue() {
             SMresult_cache += sigma_box;
         }
         
-        if ( myEW.checkModelForSTU() && !bSigmaForAFB && SM.FixedSMparams()) {
+        if ( myEW.checkModelForSTU() && !bSigmaForAFB && SM.IsFlagFixedAllSMparams()) {
             double ObParam[7];
              for (int i=0; i<7; i++) {
                  SetObParam((LEP2oblique::Oblique)i, ObParam);
@@ -49,7 +51,7 @@ double LEP2sigmaCharm::getThValue() {
     double sigma_charm = SMresult_cache;
     
     if ( myEW.checkModelForSTU() && !bSigmaForAFB) {
-        if ( SM.FixedSMparams() ) {
+        if ( SM.IsFlagFixedAllSMparams() ) {
             sigma_charm += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()
                          + Coeff_cache[myLEP2oblique.That]*myEW.That()
                          + Coeff_cache[myLEP2oblique.Uhat]*myEW.Uhat()

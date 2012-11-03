@@ -22,6 +22,28 @@ EW::EW(const StandardModel& SM_i) : ThObsType(SM_i), SM(SM_i), myEW_CHMN(SM_i),
 
 ////////////////////////////////////////////////////////////////////////
 
+EW::EWTYPE EW::getEWTYPE() const {
+    if ( SM.IsFlagEWABC() && SM.IsFlagEWABC2() ) 
+        throw std::runtime_error("Flags EWABC and EWABC2 cannot be set to true simultaneously");
+    if ( SM.IsFlagEWBURGESS() && SM.IsFlagEWCHMN() ) 
+        throw std::runtime_error("Flags EWBURGESS and EWCHMN cannot be set to true simultaneously");
+    if ( SM.IsFlagEWABC() && SM.IsFlagEWCHMN() ) 
+        throw std::runtime_error("Flags EWABC and EWCHMN cannot be set to true simultaneously");
+    if ( SM.IsFlagEWABC2() && SM.IsFlagEWCHMN() ) 
+        throw std::runtime_error("Flags EWABC2 and EWCHMN cannot be set to true simultaneously");
+    if ( SM.IsFlagEWABC() && SM.IsFlagEWBURGESS() ) 
+        throw std::runtime_error("Flags EWABC and EWBURGESS cannot be set to true simultaneously");
+    if ( SM.IsFlagEWABC2() && SM.IsFlagEWBURGESS() ) 
+        throw std::runtime_error("Flags EWABC2 and EWBURGESS cannot be set to true simultaneously");
+            
+    if ( SM.IsFlagEWBURGESS() ) return EWBURGESS;
+    else if ( SM.IsFlagEWCHMN() ) return EWCHMN;
+    else if ( SM.IsFlagEWABC() ) return EWABC;
+    else if ( SM.IsFlagEWABC2() ) return EWABC2;
+    else return EWDEFAULT;
+}
+
+
 bool EW::checkModelForSTU() const {
     std::string Model = SM.ModelName();
     //std::cout << "Model in EW: " << Model << std::endl; // TEST

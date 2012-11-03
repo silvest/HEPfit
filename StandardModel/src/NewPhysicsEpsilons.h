@@ -1,12 +1,15 @@
 /* 
- * File:   NewPhysicsEpsilons.h
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef NEWPHYSICSEPSILONS_H
 #define	NEWPHYSICSEPSILONS_H
 
 #include "StandardModel.h"
+#include "EWepsilons.h"
 
 
 class NewPhysicsEpsilons : public StandardModel  {
@@ -27,7 +30,12 @@ public:
     virtual bool Init(const std::map<std::string, double>& DPars);    
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
+    
+    ////////////////////////////////////////////////////////////////////////     
 
+    bool SetFlag(const std::string, const bool&); 
+    
+    
     ////////////////////////////////////////////////////////////////////////     
 
     double GetMyEpsilon_1() const {
@@ -152,13 +160,7 @@ protected:
     ////////////////////////////////////////////////////////////////////////     
     
 private:
-    double Delta_rW() const;
-    double Delta_kappaPrime() const;
- 
-    complex rhoZ_e() const;
-    complex kappaZ_e() const;
-    complex gVe() const;
-    complex gAe() const;
+    const EWepsilons myEWepsilons;
     
 };
 

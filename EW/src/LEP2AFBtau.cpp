@@ -63,7 +63,7 @@ double LEP2AFBtau::getThValue() {
             SMresult_cache += (sigma_box_F - sigma_box_B)/sigma;
         }
 
-        if ( myEW.checkModelForSTU() && SM.FixedSMparams() ) {
+        if ( myEW.checkModelForSTU() && SM.IsFlagFixedAllSMparams() ) {
             double ObParam[7];
             for (int i=0; i<7; i++) {
                 SetObParam((LEP2oblique::Oblique)i, ObParam);
@@ -79,7 +79,7 @@ double LEP2AFBtau::getThValue() {
     #endif
             
     if ( myEW.checkModelForSTU() ) {
-        if ( SM.FixedSMparams() ) {
+        if ( SM.IsFlagFixedAllSMparams() ) {
             AFB_tau += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()
                      + Coeff_cache[myLEP2oblique.That]*myEW.That()
                      + Coeff_cache[myLEP2oblique.Uhat]*myEW.Uhat()

@@ -18,6 +18,7 @@
       <itemPath>src/EWSMTwoLoopEW.h</itemPath>
       <itemPath>src/EWSMTwoLoopQCD.h</itemPath>
       <itemPath>src/EWSMcache.h</itemPath>
+      <itemPath>src/EWepsilons.h</itemPath>
       <itemPath>src/Meson.h</itemPath>
       <itemPath>src/Model.h</itemPath>
       <itemPath>src/ModelMatching.h</itemPath>
@@ -54,6 +55,7 @@
       <itemPath>src/EWSMTwoLoopEW.cpp</itemPath>
       <itemPath>src/EWSMTwoLoopQCD.cpp</itemPath>
       <itemPath>src/EWSMcache.cpp</itemPath>
+      <itemPath>src/EWepsilons.cpp</itemPath>
       <itemPath>src/Meson.cpp</itemPath>
       <itemPath>src/NewPhysicsEpsilons.cpp</itemPath>
       <itemPath>src/NewPhysicsHiggs.cpp</itemPath>

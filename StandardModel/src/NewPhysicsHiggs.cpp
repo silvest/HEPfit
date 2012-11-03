@@ -1,6 +1,8 @@
 /* 
- * File:   NewPhysicsHiggs.cpp
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include <stdexcept>
@@ -11,7 +13,7 @@ const std::string NewPhysicsHiggs::NPHIGGSvars[NNPHIGGSvars]
                   = {"a", "b", "c_u", "c_d", "c_e", "d_3", "d_4"};
 
 
-NewPhysicsHiggs::NewPhysicsHiggs() : StandardModel() {
+NewPhysicsHiggs::NewPhysicsHiggs() : StandardModel(), myEWepsilons(*this) {
 }
 
 
@@ -92,27 +94,8 @@ double NewPhysicsHiggs::epsilonb() const {
 
 ////////////////////////////////////////////////////////////////////////     
 
-double NewPhysicsHiggs::Delta_rW() const {
-    return (  (c02() - s02())/s02()
-              *(epsilon2() - c02()*epsilon1() + 2.0*s02()*Delta_kappaPrime()) );
-}
-
-
-double NewPhysicsHiggs::Delta_kappaPrime() const {
-    return ( (epsilon3() - c02()*epsilon1())/(c02() - s02()) );
-}
-
-
-////////////////////////////////////////////////////////////////////////     
-
 double NewPhysicsHiggs::Mw() const {
-    double Delta_r = 1.0 - (1.0 - DeltaAlpha())*(1.0 - Delta_rW());
-
-    double tmp = 4.0*M_PI*ale/sqrt(2.0)/GF/Mz/Mz;
-    if (tmp/(1.0 - Delta_r) > 1.0) 
-        throw std::runtime_error("Error in NewPhysicsHiggs::Mw()"); 
-    
-    return ( Mz/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp/(1.0 - Delta_r))) );
+    return myEWepsilons.Mw(epsilon1(), epsilon2(), epsilon3());
 }
 
 
@@ -127,46 +110,63 @@ double NewPhysicsHiggs::sW2() const {
 
     
 complex NewPhysicsHiggs::rhoZ_l(const StandardModel::lepton l) const {
-    double I3f = getLeptons(l).getIsospin();
-    return ( gAl(l)*gAl(l)/I3f/I3f );
+    return myEWepsilons.rhoZ_l(l, epsilon1());
 }
 
     
 complex NewPhysicsHiggs::rhoZ_q(const StandardModel::quark q) const {
-    double I3f = getQuarks(q).getIsospin();
-    return ( gAq(q)*gAq(q)/I3f/I3f );    
-}
-
-
-complex NewPhysicsHiggs::kappaZ_l(const StandardModel::lepton l) const {
-    double Qf = getLeptons(l).getCharge();
-    return ( (1.0 - gVl(l)/gAl(l))/(4.0*fabs(Qf)*sW2()) );
-}
-
-
-complex NewPhysicsHiggs::kappaZ_q(const StandardModel::quark q) const {
-    double Qf = getQuarks(q).getCharge();
-    return ( (1.0 - gVq(q)/gAq(q))/(4.0*fabs(Qf)*sW2()) );    
-}
-      
-    
-complex NewPhysicsHiggs::gVl(const StandardModel::lepton l) const {
-    double Qf = getLeptons(l).getCharge();
-    return ( (1.0 - 4.0*fabs(Qf)*(1.0 + Delta_kappaPrime())*s02())*gAl(l) );    
-}
-
-
-complex NewPhysicsHiggs::gVq(const StandardModel::quark q) const {
-    double Qf = getQuarks(q).getCharge();
     switch (q) {
         case StandardModel::UP:
         case StandardModel::DOWN:
         case StandardModel::CHARM:
         case StandardModel::STRANGE:
-            return ( (1.0 - 4.0*fabs(Qf)*(1.0 + Delta_kappaPrime())*s02())*gAq(q) );
+            return myEWepsilons.rhoZ_q(q, epsilon1());
         case StandardModel::BOTTOM:
-            return ( (1.0 - 4.0*fabs(Qf)*(1.0 + Delta_kappaPrime())*s02() + epsilonb())
-                     /(1.0 + epsilonb())*gAq(q) );
+            return myEWepsilons.rhoZ_b(epsilon1(), epsilonb());
+        case StandardModel::TOP:
+            return complex(0.0, 0.0, false);
+        default:
+            throw std::runtime_error("Error in NewPhysicsHiggs::rhoZ_q()");        
+    }
+}
+
+
+complex NewPhysicsHiggs::kappaZ_l(const StandardModel::lepton l) const {
+    return myEWepsilons.kappaZ_l(l, epsilon1(), epsilon3());
+}
+
+
+complex NewPhysicsHiggs::kappaZ_q(const StandardModel::quark q) const {
+    switch (q) {
+        case StandardModel::UP:
+        case StandardModel::DOWN:
+        case StandardModel::CHARM:
+        case StandardModel::STRANGE:
+            return myEWepsilons.kappaZ_q(q, epsilon1(), epsilon3());
+        case StandardModel::BOTTOM:
+            return myEWepsilons.kappaZ_b(epsilon1(), epsilon3(), epsilonb());
+        case StandardModel::TOP:
+            return complex(0.0, 0.0, false);
+        default:
+            throw std::runtime_error("Error in NewPhysicsHiggs::kappaZ_q()");        
+    }
+}
+      
+    
+complex NewPhysicsHiggs::gVl(const StandardModel::lepton l) const {
+    return myEWepsilons.gVl(l, epsilon1(), epsilon3());
+}
+
+
+complex NewPhysicsHiggs::gVq(const StandardModel::quark q) const {
+    switch (q) {
+        case StandardModel::UP:
+        case StandardModel::DOWN:
+        case StandardModel::CHARM:
+        case StandardModel::STRANGE:
+            return myEWepsilons.gVq(q, epsilon1(), epsilon3());
+        case StandardModel::BOTTOM:
+            return myEWepsilons.gVb(epsilon1(), epsilon3(), epsilonb());
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:
@@ -176,7 +176,7 @@ complex NewPhysicsHiggs::gVq(const StandardModel::quark q) const {
 
 
 complex NewPhysicsHiggs::gAl(const StandardModel::lepton l) const {
-    return complex( -(1.0 + epsilon1()/2.0)/2.0, 0.0, false);
+    return myEWepsilons.gAl(l, epsilon1());
 }
 
 
@@ -186,9 +186,9 @@ complex NewPhysicsHiggs::gAq(const StandardModel::quark q) const {
         case StandardModel::DOWN:
         case StandardModel::CHARM:
         case StandardModel::STRANGE:
-            return complex( -(1.0 + epsilon1()/2.0)/2.0, 0.0, false);
+            return myEWepsilons.gAq(q, epsilon1());
         case StandardModel::BOTTOM:
-            return complex( -(1.0 + epsilon1()/2.0)/2.0*(1.0 + epsilonb()), 0.0, false);
+            return myEWepsilons.gAb(epsilon1(), epsilonb());
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:
@@ -197,12 +197,9 @@ complex NewPhysicsHiggs::gAq(const StandardModel::quark q) const {
 }
 
     
-//double NewPhysicsHiggs::GammaW() const {
-//    
-//}
+double NewPhysicsHiggs::GammaW() const {
+    throw std::runtime_error("NewPhysicsHiggs::GammaW() is not implemented.");         
+}
  
-
-
-
 
 
