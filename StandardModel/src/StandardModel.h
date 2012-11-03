@@ -26,7 +26,7 @@ public:
     enum lepton {NEUTRINO_1,ELECTRON,NEUTRINO_2,MU,NEUTRINO_3,TAU};
     static const int NSMvars = 20;
     static const std::string SMvars[NSMvars];
-    static const int NSMflags = 1;
+    static const int NSMflags = 5;
     static const std::string SMflags[NSMflags];
     
     StandardModel(const bool bDebug_i=false);
@@ -35,8 +35,6 @@ public:
         return "StandardModel";
     }
 
-    virtual bool SetFlag(const std::string, const bool&);    
-    
     virtual bool Init(const std::map<std::string, double>&);
 
     virtual bool PreUpdate();    
@@ -73,6 +71,32 @@ public:
 
     
     ///////////////////////////////////////////////////////////////////////////
+    // Flags    
+        
+    virtual bool SetFlag(const std::string, const bool&);    
+    
+    bool IsFlagFixedAllSMparams() const {    
+        return FlagFixedAllSMparams;
+    }
+
+    bool IsFlagEWCHMN() const {
+        return FlagEWCHMN;
+    }
+    
+    bool IsFlagEWABC() const {
+        return FlagEWABC;
+    }
+
+    bool IsFlagEWABC2() const {
+        return FlagEWABC2;
+    }
+    
+    bool IsFlagEWBURGESS() const {
+        return FlagEWBURGESS;
+    }
+
+    
+    ///////////////////////////////////////////////////////////////////////////
     // Initialization and Matching
     
     StandardModelMatching* myMatching;
@@ -100,10 +124,6 @@ public:
      */    
     bool isBDebug() const {
         return bDebug;
-    }
-    
-    bool FixedSMparams() const {
-        return bFixedAllSMparams;
     }
     
     Particle getLeptons(const StandardModel::lepton p) const {
@@ -589,7 +609,7 @@ protected:
     ////////////////////////////////////////////////////////////////////////    
 private:
     bool bDebug; // for debugging
-    bool bFixedAllSMparams;
+    bool FlagFixedAllSMparams, FlagEWCHMN, FlagEWABC, FlagEWABC2, FlagEWBURGESS;
     bool computeCKM, computeYe, computeYn;
     StandardModelMatching* myStandardModelMatching;
     

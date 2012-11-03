@@ -10,6 +10,7 @@
 
 #include <gslpp.h>
 #include <StandardModel.h>
+#include <EWepsilons.h>
 using namespace gslpp;
 
 
@@ -22,7 +23,7 @@ using namespace gslpp;
 class EW_ABC {
 public:
 
-    EW_ABC(const StandardModel& SM_i) : SM(SM_i) {};
+    EW_ABC(const StandardModel& SM_i) : SM(SM_i), myEWepsilons(SM_i) {};
 
     double Mw(const double eps1, const double eps2, const double eps3) const;
     double Gamma_l(StandardModel::lepton l, const double eps1, const double eps3) const;
@@ -50,23 +51,20 @@ public:
 
     //////////////////////////////////////////////////////////////////////// 
     
-    double gVl(StandardModel::lepton l, const double eps1, const double eps3) const;
-    double gAl(StandardModel::lepton l, const double eps1) const;
-    double gVl_over_gAl(StandardModel::lepton l, const double eps1, const double eps3) const;
-    double gVq(StandardModel::quark q, const double eps1, const double eps3) const;
-    double gAq(StandardModel::quark q, const double eps1) const;
-    double gVq_over_gAq(StandardModel::quark q, const double eps1, const double eps3) const;
-    double gVb(const double eps1, const double eps3, const double epsb) const;
-    double gAb(const double eps1, const double epsb) const;
-    double gVb_over_gAb(const double eps1, const double eps3, const double epsb) const;
+    complex gVl(StandardModel::lepton l, const double eps1, const double eps3) const;
+    complex gAl(StandardModel::lepton l, const double eps1) const;
+    complex gVl_over_gAl(StandardModel::lepton l, const double eps1, const double eps3) const;
+    complex gVq(StandardModel::quark q, const double eps1, const double eps3) const;
+    complex gAq(StandardModel::quark q, const double eps1) const;
+    complex gVq_over_gAq(StandardModel::quark q, const double eps1, const double eps3) const;
+    complex gVb(const double eps1, const double eps3, const double epsb) const;
+    complex gAb(const double eps1, const double epsb) const;
+    complex gVb_over_gAb(const double eps1, const double eps3, const double epsb) const;
     
 private:
     const StandardModel& SM;
+    const EWepsilons myEWepsilons;
 
-    double Delta_rW(const double eps1, const double eps2, const double eps3) const;
-    double Delta_rho(const double eps1) const;
-    double Delta_kappa(const double eps1, const double eps3) const;
-    
 };
 
 #endif	/* EW_ABC_H */

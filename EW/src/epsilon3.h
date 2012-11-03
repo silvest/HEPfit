@@ -1,6 +1,8 @@
 /* 
- * File:   epsilon3.h
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef EPSILON3_H

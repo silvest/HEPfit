@@ -1,12 +1,15 @@
 /* 
- * File:   NewPhysicsHiggs.h
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef NEWPHYSICSHIGGS_H
 #define	NEWPHYSICSHIGGS_H
 
 #include "StandardModel.h"
+#include "EWepsilons.h"
 
 
 class NewPhysicsHiggs : public StandardModel {
@@ -47,13 +50,6 @@ public:
      */
     virtual double epsilonb() const;    
 
-    
-    ////////////////////////////////////////////////////////////////////////     
-
-    double Delta_rW() const;
-
-    double Delta_kappaPrime() const;
-    
     
     ////////////////////////////////////////////////////////////////////////     
     
@@ -131,7 +127,7 @@ public:
     /**
      * @return the total width of the W boson
      */
-    //virtual double GammaW() const;    
+    virtual double GammaW() const;    
 
     
     ////////////////////////////////////////////////////////////////////////     
@@ -143,7 +139,8 @@ protected:
     //////////////////////////////////////////////////////////////////////// 
 
 private:
-
+    const EWepsilons myEWepsilons;
+    
 };
 
 #endif	/* NEWPHYSICSHIGGS_H */

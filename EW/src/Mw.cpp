@@ -10,6 +10,10 @@
 
 double Mw::getThValue() {
     double myMw;
+    
+    //std::cout << "myEWTYPE = " << myEWTYPE << std::endl; // TEST
+    //std::cout << "SM.epsilon1() = " << SM.epsilon1() << std::endl; // TEST
+    
     if (myEWTYPE==EW::EWCHMN)  
         myMw = myEW.getMyEW_CHMN().Mw();
     else if (myEWTYPE==EW::EWABC)

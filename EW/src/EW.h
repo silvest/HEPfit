@@ -38,6 +38,8 @@ public:
     
     //////////////////////////////////////////////////////////////////////// 
 
+    EWTYPE getEWTYPE() const;
+    
     /**
      * @return boolean: true for the case where the oblique parameters are employed. 
      */

@@ -19,10 +19,9 @@ public:
     /**
      * @brief AFBbottom constructor
      * @param[in] EW_i an object of EW class
-     * @param[in] type EWDEFAULT(default), EWCHMN, EWBURGESS, EWABC or EWABC2
      */
-    AFBbottom(const EW& EW_i, const EW::EWTYPE type=EW::EWDEFAULT) : ThObservable(EW_i), 
-            myEW(EW_i), myEWTYPE(type) {
+    AFBbottom(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i), 
+            myEWTYPE(EW_i.getEWTYPE()) {
     };
 
     /**

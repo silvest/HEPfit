@@ -39,7 +39,7 @@ double LEP2sigmaMu::getThValue() {
             SMresult_cache += sigma_box;
         }
 
-        if ( myEW.checkModelForSTU() && !bSigmaForAFB && SM.FixedSMparams() ) {
+        if ( myEW.checkModelForSTU() && !bSigmaForAFB && SM.IsFlagFixedAllSMparams() ) {
             //std::cout << "sqrt_s=" << sqrt_s << " in LEP2sigmaMu" << std::endl; // TEST
             double ObParam[7];
             for (int i=0; i<7; i++) {
@@ -56,7 +56,7 @@ double LEP2sigmaMu::getThValue() {
     #endif 
     
     if ( myEW.checkModelForSTU() && !bSigmaForAFB ) {
-        if ( SM.FixedSMparams() ) {
+        if ( SM.IsFlagFixedAllSMparams() ) {
             sigma_mu += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()
                       + Coeff_cache[myLEP2oblique.That]*myEW.That()
                       + Coeff_cache[myLEP2oblique.Uhat]*myEW.Uhat()
