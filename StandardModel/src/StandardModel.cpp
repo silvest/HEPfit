@@ -416,8 +416,8 @@ double StandardModel::epsilonb_SM() const {
     double beta = sqrt(1.0 - 4.0*mb*mb/Mz/Mz);
     double Nc = 3.0; 
     double factor = GF*Mz*Mz*Mz/6.0/M_PI/sqrt(2.0);
-    double Gamma_b = factor*beta*((3.0 - beta*beta)/2.0*gVq(BOTTOM).abs2()
-                                  + beta*beta*gAq(BOTTOM).abs2())
+    double Gamma_b = factor*beta*((3.0 - beta*beta)/2.0*myEWSM->gVq_SM(BOTTOM).abs2()
+                                  + beta*beta*myEWSM->gAq_SM(BOTTOM).abs2())
                      *Nc*RQCD*(1.0 + alphaMz()/12.0/M_PI);
     return ( (Gamma_b/Gamma_b_Born - 1.0 - 1.42*epsilon1_SM() 
               + 0.54*epsilon3_SM() )/2.29 );

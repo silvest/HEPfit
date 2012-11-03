@@ -30,7 +30,9 @@ public:
     virtual bool Init(const std::map<std::string, double>& DPars);    
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
-    
+    virtual bool InitializeModel();  
+
+        
     ////////////////////////////////////////////////////////////////////////     
 
     bool SetFlag(const std::string, const bool&); 
@@ -160,7 +162,7 @@ protected:
     ////////////////////////////////////////////////////////////////////////     
     
 private:
-    const EWepsilons myEWepsilons;
+    EWepsilons* myEWepsilons;
     
 };
 

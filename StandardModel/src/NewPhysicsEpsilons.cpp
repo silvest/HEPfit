@@ -13,7 +13,7 @@ const std::string NewPhysicsEpsilons::EPSILONvars[NEPSILONvars]
                   = {"epsilon_1", "epsilon_2", "epsilon_3", "epsilon_b"};
 
 
-NewPhysicsEpsilons::NewPhysicsEpsilons() : StandardModel(), myEWepsilons(*this) {
+NewPhysicsEpsilons::NewPhysicsEpsilons() : StandardModel() {
 }
 
 
@@ -58,6 +58,13 @@ void NewPhysicsEpsilons::SetParameter(const std::string name, const double& valu
 }
 
 
+bool NewPhysicsEpsilons::InitializeModel() {
+    SetModelInitialized(StandardModel::InitializeModel());
+    myEWepsilons = new EWepsilons(*this);
+    return (IsModelInitialized());
+}
+
+
 ////////////////////////////////////////////////////////////////////////     
 
 bool NewPhysicsEpsilons::SetFlag(const std::string name, const bool& value) {
@@ -76,7 +83,7 @@ bool NewPhysicsEpsilons::SetFlag(const std::string name, const bool& value) {
 ////////////////////////////////////////////////////////////////////////     
 
 double NewPhysicsEpsilons::Mw() const {
-    return myEWepsilons.Mw(myEpsilon_1, myEpsilon_2, myEpsilon_3);
+    return myEWepsilons->Mw(myEpsilon_1, myEpsilon_2, myEpsilon_3);
 }
 
 
@@ -91,7 +98,7 @@ double NewPhysicsEpsilons::sW2() const {
 
     
 complex NewPhysicsEpsilons::rhoZ_l(const StandardModel::lepton l) const {
-    return myEWepsilons.rhoZ_l(l, myEpsilon_1);
+    return myEWepsilons->rhoZ_l(l, myEpsilon_1);
 }
 
     
@@ -101,9 +108,9 @@ complex NewPhysicsEpsilons::rhoZ_q(const StandardModel::quark q) const {
         case StandardModel::DOWN:
         case StandardModel::CHARM:
         case StandardModel::STRANGE:
-            return myEWepsilons.rhoZ_q(q, myEpsilon_1);
+            return myEWepsilons->rhoZ_q(q, myEpsilon_1);
         case StandardModel::BOTTOM:
-            return myEWepsilons.rhoZ_b(myEpsilon_1, myEpsilon_b);
+            return myEWepsilons->rhoZ_b(myEpsilon_1, myEpsilon_b);
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:
@@ -113,7 +120,7 @@ complex NewPhysicsEpsilons::rhoZ_q(const StandardModel::quark q) const {
 
 
 complex NewPhysicsEpsilons::kappaZ_l(const StandardModel::lepton l) const {
-    return myEWepsilons.kappaZ_l(l, myEpsilon_1, myEpsilon_3);
+    return myEWepsilons->kappaZ_l(l, myEpsilon_1, myEpsilon_3);
 }
 
 
@@ -123,9 +130,9 @@ complex NewPhysicsEpsilons::kappaZ_q(const StandardModel::quark q) const {
         case StandardModel::DOWN:
         case StandardModel::CHARM:
         case StandardModel::STRANGE:
-            return myEWepsilons.kappaZ_q(q, myEpsilon_1, myEpsilon_3);
+            return myEWepsilons->kappaZ_q(q, myEpsilon_1, myEpsilon_3);
         case StandardModel::BOTTOM:
-            return myEWepsilons.kappaZ_b(myEpsilon_1, myEpsilon_3, myEpsilon_b);
+            return myEWepsilons->kappaZ_b(myEpsilon_1, myEpsilon_3, myEpsilon_b);
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:
@@ -135,7 +142,7 @@ complex NewPhysicsEpsilons::kappaZ_q(const StandardModel::quark q) const {
       
     
 complex NewPhysicsEpsilons::gVl(const StandardModel::lepton l) const {
-    return myEWepsilons.gVl(l, myEpsilon_1, myEpsilon_3);
+    return myEWepsilons->gVl(l, myEpsilon_1, myEpsilon_3);
 }
 
 
@@ -145,9 +152,9 @@ complex NewPhysicsEpsilons::gVq(const StandardModel::quark q) const {
         case StandardModel::DOWN:
         case StandardModel::CHARM:
         case StandardModel::STRANGE:
-            return myEWepsilons.gVq(q, myEpsilon_1, myEpsilon_3);
+            return myEWepsilons->gVq(q, myEpsilon_1, myEpsilon_3);
         case StandardModel::BOTTOM:
-            return myEWepsilons.gVb(myEpsilon_1, myEpsilon_3, myEpsilon_b);
+            return myEWepsilons->gVb(myEpsilon_1, myEpsilon_3, myEpsilon_b);
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:
@@ -157,7 +164,7 @@ complex NewPhysicsEpsilons::gVq(const StandardModel::quark q) const {
 
 
 complex NewPhysicsEpsilons::gAl(const StandardModel::lepton l) const {
-    return myEWepsilons.gAl(l, myEpsilon_1);
+    return myEWepsilons->gAl(l, myEpsilon_1);
 }
 
 
@@ -167,9 +174,9 @@ complex NewPhysicsEpsilons::gAq(const StandardModel::quark q) const {
         case StandardModel::DOWN:
         case StandardModel::CHARM:
         case StandardModel::STRANGE:
-            return myEWepsilons.gAq(q, myEpsilon_1);
+            return myEWepsilons->gAq(q, myEpsilon_1);
         case StandardModel::BOTTOM:
-            return myEWepsilons.gAb(myEpsilon_1, myEpsilon_b);
+            return myEWepsilons->gAb(myEpsilon_1, myEpsilon_b);
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:
