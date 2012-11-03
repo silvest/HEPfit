@@ -16,9 +16,11 @@ double EW_ABC::Mw(const double eps1, const double eps2, const double eps3) const
 double EW_ABC::Gamma_l(StandardModel::lepton l, const double eps1, const double eps3) const {
     double Qf = SM.getLeptons(l).getCharge();
     double RQED = 1.0 + 3.0*SM.alphaMz()/4.0/M_PI*Qf*Qf;
+    double mf = SM.getLeptons(l).getMass();
+    double beta = sqrt(1.0 - 4.0*mf*mf/SM.getMz()/SM.getMz());
     double factor = SM.getGF()*SM.getMz()*SM.getMz()*SM.getMz()/6.0/M_PI/sqrt(2.0);
-    return ( factor*( gVl(l,eps1,eps3).abs2()
-                      + gAl(l,eps1).abs2() )*RQED );
+    return ( factor*beta*( (3.0 - beta*beta)/2.0*gVl(l,eps1,eps3).abs2()
+                           + beta*beta*gAl(l,eps1).abs2() )*RQED );
 }
 
 
@@ -29,11 +31,13 @@ double EW_ABC::Gamma_q(StandardModel::quark q, const double eps1, const double e
     double RQED = 1.0 + 3.0*SM.alphaMz()/4.0/M_PI*Qf*Qf;
     double a = SM.Als(SM.getMz(), FULLNNLO)/M_PI;
     double RQCD = 1.0 + 1.2*a - 1.1*a*a - 13.0*a*a*a;
-    double beta = 1.0;
-    if (q==StandardModel::CHARM) {
-        double mc = 1.67; // pole mass (PDG2012)
-        beta = sqrt(1.0 - 4.0*mc*mc/SM.getMz()/SM.getMz());
-    }
+    double mf = 0.0;
+    if (q==StandardModel::CHARM)
+        mf = 1.67; // pole mass (PDG2012)
+    else
+        mf = 0.0;
+        //mf = SM.Mrun(SM.getMz(),SM.getQuarks(q).getMass_scale(),SM.getQuarks(q).getMass(),FULLNNLO);
+    double beta = sqrt(1.0 - 4.0*mf*mf/SM.getMz()/SM.getMz());
     double Nc = 3.0; 
     double factor = SM.getGF()*SM.getMz()*SM.getMz()*SM.getMz()/6.0/M_PI/sqrt(2.0);
     

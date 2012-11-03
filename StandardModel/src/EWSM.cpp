@@ -28,7 +28,6 @@ EWSM::EWSM(const StandardModel& SM_i) : SM(SM_i) {
     //std::cout << "Model in EWSM: " << Model << std::endl;
     if (Model=="StandardModel" 
             || Model=="NewPhysicsSTU" || Model=="NewPhysicsSTUVWXY" 
-            || Model=="NewPhysicsEpsilons" || Model=="NewPhysicsHiggs" 
             || Model=="THDM") {
         //schemeMw = NORESUM;// for test
         //schemeMw = OMSI;// for test
@@ -47,6 +46,11 @@ EWSM::EWSM(const StandardModel& SM_i) : SM(SM_i) {
             //boolR0bApproximate = false;// for test
         } else 
             boolR0bApproximate = false;
+    } else if (Model=="NewPhysicsEpsilons" || Model=="NewPhysicsHiggs") {
+        schemeMw = NORESUM;
+        schemeRhoZ = NORESUM;
+        schemeKappaZ = NORESUM;
+        boolR0bApproximate = false;
     } else {
         schemeMw = NORESUM;
         schemeRhoZ = NORESUM;
@@ -91,6 +95,45 @@ EWSM::EWSM(const StandardModel& SM_i) : SM(SM_i) {
             kappaZ_q_params_cache[i][j] = 0.0;
         }
     }
+}
+
+
+////////////////////////////////////////////////////////////////////////
+
+bool EWSM::checkSMparams(double Params_cache[]) const {
+    // 11 parameters in QCD:
+    // "AlsMz","Mz","mup","mdown","mcharm","mstrange", "mtop","mbottom",
+    // "mut","mub","muc"
+    // 10 parameters in StandardModel
+    // "GF", "ale", "dAle5Mz", "mHl", 
+    // "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau"
+    double SMparams[NumSMParams] = { 
+        SM.getAlsMz(), SM.getMz(), SM.getGF(), SM.getAle(), SM.getDAle5Mz(),
+        SM.getMHl(), SM.getMtpole(), 
+        SM.getLeptons(SM.NEUTRINO_1).getMass(), 
+        SM.getLeptons(SM.NEUTRINO_2).getMass(),
+        SM.getLeptons(SM.NEUTRINO_3).getMass(),
+        SM.getLeptons(SM.ELECTRON).getMass(),
+        SM.getLeptons(SM.MU).getMass(),
+        SM.getLeptons(SM.TAU).getMass(),
+        SM.getQuarks(SM.UP).getMass(),
+        SM.getQuarks(SM.DOWN).getMass(),
+        SM.getQuarks(SM.CHARM).getMass(),
+        SM.getQuarks(SM.STRANGE).getMass(),
+        SM.getQuarks(SM.BOTTOM).getMass(),
+        SM.getMut(), SM.getMub(), SM.getMuc()
+    };
+        
+    // check updated parameters
+    bool bCache = true;
+    for(int i=0; i<NumSMParams; ++i) {
+        if (Params_cache[i] != SMparams[i]) { 
+            Params_cache[i] = SMparams[i];                 
+            bCache &= false;
+        }
+    }
+    
+    return bCache;
 }
 
 
