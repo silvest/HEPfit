@@ -88,7 +88,8 @@ public:
 
     
     ////////////////////////////////////////////////////////////////////////        
-
+    // O(GF^2 Mt^2) contributions
+    
     /**
      * @return O(alpha^2 Mt^4/M_Z^4) contribution to Delta rho
      */
@@ -99,7 +100,7 @@ public:
      */
     double tau_2() const;
     
-    
+        
     ////////////////////////////////////////////////////////////////////////        
     
 private:
@@ -124,6 +125,34 @@ private:
      */
     double f1(const double a) const;    
 
+    
+    ////////////////////////////////////////////////////////////////////////        
+    // O(alpha^2 Mt^4/M_Z^4 + alpha^2 Mt^2/M_Z^2) contributions
+
+    double DeltaRho2(const double Mw_i) const;
+    double DeltaRho2Add(const double Mw_i) const;
+    double DeltaRw2(const double Mw_i) const;
+    double deltaEoverE2(const double Mw_i) const;
+    double f2Add(const double Mw_i) const;
+    double DeltaEta2(const double Mw_i) const;
+    complex DeltaEta2Add_l(const StandardModel::lepton l, const double Mw_i) const;
+    complex DeltaEta2Add_q(const StandardModel::quark q, const double Mw_i) const;
+    double DeltaKappa2(const double Mw_i) const;
+    complex DeltaKappa2Add_l(const StandardModel::lepton l, const double Mw_i) const;
+    complex DeltaKappa2Add_q(const StandardModel::quark q, const double Mw_i) const;
+
+    complex Vadd_l(const StandardModel::lepton l, const double Mw_i) const;
+    complex Vadd_q(const StandardModel::quark q, const double Mw_i) const;
+    complex DeltaEtaf1_l(const StandardModel::lepton l, const double Mw_i) const;
+    complex DeltaEtaf1_q(const StandardModel::quark q, const double Mw_i) const;
+    complex Vfi_l(const StandardModel::lepton l, const double Mw_i) const;
+    complex Vfi_q(const StandardModel::quark q, const double Mw_i) const;
+
+    double Lambda(const double x) const;
+    double phi(const double x) const;
+    complex FV(const double x) const;
+    complex GV(const double x) const;    
+    
 };
 
 #endif	/* EWSMTWOLOOPEW_H */

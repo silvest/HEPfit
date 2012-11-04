@@ -266,7 +266,7 @@ public:
      * @param[in] q quark
      * @return flavor-dependent correction to rho_Z^q with respect to that for the charged leptons
      */
-    complex rhoZ_q_SM_FlavorDep(const StandardModel::quark q) const;
+    complex rhoZ_q_SM_FlavorDep(StandardModel::quark q) const;
 
     /**
      * @param[in] l lepton
@@ -278,7 +278,7 @@ public:
      * @param[in] q quark
      * @return flavor-dependent correction to kappa_Z^q with respect to that for the charged leptons
      */
-    complex kappaZ_q_SM_FlavorDep(const StandardModel::quark q) const;
+    complex kappaZ_q_SM_FlavorDep(StandardModel::quark q) const;
     
     
     ////////////////////////////////////////////////////////////////////////     
