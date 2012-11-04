@@ -47,13 +47,15 @@ EWSM::EWSM(const StandardModel& SM_i) : SM(SM_i) {
         } else 
             boolR0bApproximate = false;
     } else if (Model=="NewPhysicsEpsilons" || Model=="NewPhysicsHiggs") {
-        schemeMw = NORESUM;
-        schemeRhoZ = NORESUM;
-        schemeKappaZ = NORESUM;
+        schemeMw = APPROXIMATEFORMULA;  
+        //schemeRhoZ = NORESUM;// This is preferred, but reducible two-loop EW corrections have not been implemented yet. 
+        schemeRhoZ = OMSI;
+        schemeKappaZ = APPROXIMATEFORMULA;
         boolR0bApproximate = false;
     } else {
         schemeMw = NORESUM;
-        schemeRhoZ = NORESUM;
+        //schemeRhoZ = NORESUM;// This is preferred, but reducible two-loop EW corrections have not been implemented yet. 
+        schemeRhoZ = OMSI;
         schemeKappaZ = NORESUM;
         boolR0bApproximate = false;
     } 
