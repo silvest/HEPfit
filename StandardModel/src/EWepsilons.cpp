@@ -32,8 +32,7 @@ complex EWepsilons::rhoZ_l(const StandardModel::lepton l, const double eps1) con
     #ifdef WITHOUT_NONUNIVERSAL_VERTEX_CORRECTIONS
     return ( rhoZ_e(eps1) );
     #else
-    return ( rhoZ_e(eps1) + SM.getEWSM()->rhoZ_l_SM_FlavorDep(l) );
-    //return ( rhoZ_e(eps1) + SM.getEWSM()->rhoZ_l_SM_FlavorDep(l).real() );
+    return ( rhoZ_e(eps1) + SM.getEWSM()->rhoZ_l_SM_FlavorDep(l).real() );
     #endif
 }
 
@@ -44,8 +43,7 @@ complex EWepsilons::rhoZ_q(const StandardModel::quark q, const double eps1) cons
     #ifdef WITHOUT_NONUNIVERSAL_VERTEX_CORRECTIONS
     return ( rhoZ_e(eps1) );
     #else
-    return ( rhoZ_e(eps1) + SM.getEWSM()->rhoZ_q_SM_FlavorDep(q) );
-    //return ( rhoZ_e(eps1) + SM.getEWSM()->rhoZ_q_SM_FlavorDep(q).real() );
+    return ( rhoZ_e(eps1) + SM.getEWSM()->rhoZ_q_SM_FlavorDep(q).real() );
     #endif
 }
 
@@ -55,8 +53,7 @@ complex EWepsilons::kappaZ_l(const StandardModel::lepton l,
     #ifdef WITHOUT_NONUNIVERSAL_VERTEX_CORRECTIONS
     return ( kappaZ_e(eps1,eps3) );
     #else
-    return ( kappaZ_e(eps1,eps3) + SM.getEWSM()->kappaZ_l_SM_FlavorDep(l) );
-    //return ( kappaZ_e(eps1,eps3) + SM.getEWSM()->kappaZ_l_SM_FlavorDep(l).real() );
+    return ( kappaZ_e(eps1,eps3) + SM.getEWSM()->kappaZ_l_SM_FlavorDep(l).real() );
     #endif
 }
 
@@ -68,8 +65,7 @@ complex EWepsilons::kappaZ_q(const StandardModel::quark q,
     #ifdef WITHOUT_NONUNIVERSAL_VERTEX_CORRECTIONS
     return ( kappaZ_e(eps1,eps3) );
     #else
-    return ( kappaZ_e(eps1,eps3) + SM.getEWSM()->kappaZ_q_SM_FlavorDep(q) );
-    //return ( kappaZ_e(eps1,eps3) + SM.getEWSM()->kappaZ_q_SM_FlavorDep(q).real() );
+    return ( kappaZ_e(eps1,eps3) + SM.getEWSM()->kappaZ_q_SM_FlavorDep(q).real() );
     #endif
 }
       

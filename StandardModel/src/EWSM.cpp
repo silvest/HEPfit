@@ -726,8 +726,12 @@ complex EWSM::rhoZ_l_SM_FlavorDep(const StandardModel::lepton l) const {
 }
 
 
-complex EWSM::rhoZ_q_SM_FlavorDep(const StandardModel::quark q) const {
+complex EWSM::rhoZ_q_SM_FlavorDep(StandardModel::quark q) const {
     if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
+
+    /* In the case of BOTTOM, the top contribution has to be subtracted.
+     * The remaining contribution is the same as that for DOWN and STRANGE. */
+    if (q==StandardModel::BOTTOM) q=StandardModel::DOWN;
 
     double Mz = SM.getMz(); 
     double Mw = Mw_SM();
@@ -767,9 +771,13 @@ complex EWSM::kappaZ_l_SM_FlavorDep(const StandardModel::lepton l) const {
 }
 
 
-complex EWSM::kappaZ_q_SM_FlavorDep(const StandardModel::quark q) const {
+complex EWSM::kappaZ_q_SM_FlavorDep(StandardModel::quark q) const {
     if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
 
+    /* In the case of BOTTOM, the top contribution has to be subtracted.
+     * The remaining contribution is the same as that for DOWN and STRANGE. */
+    if (q==StandardModel::BOTTOM) q=StandardModel::DOWN;
+    
     double Mz = SM.getMz(); 
     double Mw = Mw_SM();
     double cW2 = Mw*Mw/Mz/Mz, sW2 = 1.0 - cW2;

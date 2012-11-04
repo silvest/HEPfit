@@ -8,6 +8,9 @@
 #include <TMath.h>
 #include "EWSMTwoLoopEW.h"
 
+/* include O(alpha^2 M_t^2/M_Z^2) in addition to O(alpha^2 M_t^4/M_Z^4) */
+//#define EW_SUBLEADING_ALPHA2
+
 
 EWSMTwoLoopEW::EWSMTwoLoopEW(const EWSMcache& cache_i) : cache(cache_i), myOneLoopEW(cache_i) {
 }
@@ -51,11 +54,21 @@ double EWSMTwoLoopEW::DeltaRho(const double Mw_i) const {
     double Mw = cache.Mw(Mw_i);
     double sW2 = cache.sW2(Mw);
     double cW2 = cache.cW2(Mw);
+   
+    double DeltaRho = 0.0;
     
-    double DeltaRho = 3.0*rho_2();
+    #ifndef EW_SUBLEADING_ALPHA2
+    /* O(\alpha^2 Mt^4/Mz^4) */
+    DeltaRho += 3.0*rho_2();
     DeltaRho *= pow(cache.Xt_alpha(Mw), 2.0);
+    #else
+    /* O(\alpha^2 Mt^4/Mz^4 + \alpha^2 Mt^2/Mz^2) */
+    double zt = Mz*Mz/cache.Mt()/cache.Mt();
+    DeltaRho += 3.0*pow(cache.Xt_alpha(Mw), 2.0)
+                *( DeltaRho2(Mw) + 4.0*zt*cW2*DeltaRho2Add(Mw) );
+    #endif
     
-    /* added O(alpha^2) contribution from the Z-gamma mixing */
+    /* add O(alpha^2) contribution from the Z-gamma mixing */
     DeltaRho += - pow(cache.ale()/4.0/M_PI, 2.0)*cW2/sW2
                   *pow(myOneLoopEW.PiZgamma_fer(Mz,Mz*Mz,Mw).real(), 2.0);
 
@@ -64,19 +77,36 @@ double EWSMTwoLoopEW::DeltaRho(const double Mw_i) const {
 
 
 double EWSMTwoLoopEW::DeltaR_rem(const double Mw_i) const {
-
-    /*!!!! Write codes for contribution of O(G^2Mt^2Mz^2) !!!!*/
-
-    return (0.0);     
+    double DeltaRrem = 0.0;
+    
+    #ifdef EW_SUBLEADING_ALPHA2
+    /* O(\alpha^2 Mt^4/Mz^4 + \alpha^2 Mt^2/Mz^2) */
+    double Mz = cache.Mz();
+    double Mw = cache.Mw(Mw_i);
+    double sW2 = cache.sW2(Mw);
+    DeltaRrem += 3.0*pow(cache.ale()*cache.Mt()/4.0/M_PI/sW2/Mw, 2.0)
+                 *( DeltaRw2(Mw) + sW2*deltaEoverE2(Mw) + f2Add(Mw)/4.0 );
+    #endif    
+    
+    return DeltaRrem;     
 }
 
 
 complex EWSMTwoLoopEW::deltaRho_rem_l(const StandardModel::lepton l, 
                                       const double Mw_i) const {
-
-    /*!!!! Write codes for contribution of O(G^2Mt^2Mz^2) !!!!*/    
+    complex dRho = complex(0.0,0.0,false);
     
-    return ( complex(0.0,0.0,false) );
+    #ifdef EW_SUBLEADING_ALPHA2
+    /* O(\alpha^2 Mt^4/Mz^4 + \alpha^2 Mt^2/Mz^2) */
+    double Mz = cache.Mz();
+    double Mw = cache.Mw(Mw_i);
+    double cW2 = cache.cW2(Mw);
+    double zt = Mz*Mz/cache.Mt()/cache.Mt();
+    dRho += 3.0*pow(cache.Xt_alpha(Mw), 2.0)
+            *( 16.0*zt*cW2*DeltaEta2(Mw) + 4.0*zt*cW2*DeltaEta2Add_l(l, Mw) );
+    #endif 
+    
+    return dRho;
 }
 
 
@@ -84,18 +114,37 @@ complex EWSMTwoLoopEW::deltaRho_rem_q(const StandardModel::quark q,
                                       const double Mw_i) const {
     if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
 
-    /*!!!! Write codes for contribution of O(G^2Mt^2Mz^2) !!!!*/    
+    complex dRho = complex(0.0,0.0,false);
     
-    return ( complex(0.0,0.0,false) );
+    #ifdef EW_SUBLEADING_ALPHA2
+    /* O(\alpha^2 Mt^4/Mz^4 + \alpha^2 Mt^2/Mz^2) */
+    double Mz = cache.Mz();
+    double Mw = cache.Mw(Mw_i);
+    double cW2 = cache.cW2(Mw);
+    double zt = Mz*Mz/cache.Mt()/cache.Mt();
+    dRho += 3.0*pow(cache.Xt_alpha(Mw), 2.0)
+            *( 16.0*zt*cW2*DeltaEta2(Mw) + 4.0*zt*cW2*DeltaEta2Add_q(q, Mw) );
+    #endif 
+    
+    return dRho;
 }
 
 
 complex EWSMTwoLoopEW::deltaKappa_rem_l(const StandardModel::lepton l, 
                                         const double Mw_i) const {
-
-    /*!!!! Write codes for contribution of O(G^2Mt^2Mz^2) !!!!*/
+    complex dKappa = complex(0.0,0.0,false);
     
-    return ( complex(0.0,0.0,false) );
+    #ifdef EW_SUBLEADING_ALPHA2
+    /* O(\alpha^2 Mt^4/Mz^4 + \alpha^2 Mt^2/Mz^2) */
+    double Mz = cache.Mz();
+    double Mw = cache.Mw(Mw_i);
+    double cW2 = cache.cW2(Mw);
+    double zt = Mz*Mz/cache.Mt()/cache.Mt();
+    dKappa += 3.0*pow(cache.Xt_alpha(Mw), 2.0)
+              *( 16.0*zt*cW2*DeltaKappa2(Mw) + 4.0*zt*cW2*DeltaKappa2Add_l(l, Mw) );
+    #endif 
+    
+    return dKappa;
 }
 
 
@@ -103,9 +152,19 @@ complex EWSMTwoLoopEW::deltaKappa_rem_q(const StandardModel::quark q,
                                         const double Mw_i) const {
     if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
 
-    /*!!!! Write codes for contribution of O(G^2Mt^2Mz^2) !!!!*/    
+    complex dKappa = complex(0.0,0.0,false);
     
-    return ( complex(0.0,0.0,false) );
+    #ifdef EW_SUBLEADING_ALPHA2
+    /* O(\alpha^2 Mt^4/Mz^4 + \alpha^2 Mt^2/Mz^2) */
+    double Mz = cache.Mz();
+    double Mw = cache.Mw(Mw_i);
+    double cW2 = cache.cW2(Mw);
+    double zt = Mz*Mz/cache.Mt()/cache.Mt();
+    dKappa += 3.0*pow(cache.Xt_alpha(Mw), 2.0)
+              *( 16.0*zt*cW2*DeltaKappa2(Mw) + 4.0*zt*cW2*DeltaKappa2Add_q(q, Mw) );
+    #endif 
+    
+    return dKappa;
 }
 
 
@@ -177,9 +236,186 @@ double EWSMTwoLoopEW::f1(const double a) const {
 }
 
 
+////////////////////////////////////////////////////////////////////////        
+// O(alpha^2 Mt^4/M_Z^4 + alpha^2 Mt^2/M_Z^2) contributions
+
+double EWSMTwoLoopEW::DeltaRho2(const double Mw_i) const {
+    
+    /* Write codes!! */
+
+    return 0.0;
+}
 
 
+double EWSMTwoLoopEW::DeltaRho2Add(const double Mw_i) const {
+    
+    /* Write codes!! */
+
+    return 0.0;
+}
 
 
+double EWSMTwoLoopEW::DeltaRw2(const double Mw_i) const {
+    
+    /* Write codes!! */
+
+    return 0.0;
+}
+
+
+double EWSMTwoLoopEW::deltaEoverE2(const double Mw_i) const {
+    
+    /* Write codes!! */
+
+    return 0.0;
+}
+
+
+double EWSMTwoLoopEW::f2Add(const double Mw_i) const {
+    
+    /* Write codes!! */
+
+    return 0.0;
+}
+
+
+double EWSMTwoLoopEW::DeltaEta2(const double Mw_i) const {
+    
+    /* Write codes!! */
+
+    return 0.0;
+}
+
+
+complex EWSMTwoLoopEW::DeltaEta2Add_l(const StandardModel::lepton l, 
+                                      const double Mw_i) const {
+    
+    /* Write codes!! */
+
+    return complex(0.0, 0.0, false);
+}
+
+
+complex EWSMTwoLoopEW::DeltaEta2Add_q(const StandardModel::quark q, 
+                                      const double Mw_i) const {
+    
+    /* Write codes!! */
+
+    return complex(0.0, 0.0, false);
+}
+
+
+double EWSMTwoLoopEW::DeltaKappa2(const double Mw_i) const {
+    
+    /* Write codes!! */
+
+    return 0.0;
+}
+
+
+complex EWSMTwoLoopEW::DeltaKappa2Add_l(const StandardModel::lepton l, 
+                                        const double Mw_i) const {
+    
+    /* Write codes!! */
+
+    return complex(0.0, 0.0, false);
+}
+
+
+complex EWSMTwoLoopEW::DeltaKappa2Add_q(const StandardModel::quark q, 
+                                        const double Mw_i) const {
+    
+    /* Write codes!! */
+
+    return complex(0.0, 0.0, false);
+}
+
+
+complex EWSMTwoLoopEW::Vadd_l(const StandardModel::lepton l, 
+                              const double Mw_i) const {
+    
+    /* Write codes!! */
+
+    return complex(0.0, 0.0, false);
+}
+
+
+complex EWSMTwoLoopEW::Vadd_q(const StandardModel::quark q, 
+                              const double Mw_i) const {
+    
+    /* Write codes!! */
+
+    return complex(0.0, 0.0, false);
+}
+
+
+complex EWSMTwoLoopEW::DeltaEtaf1_l(const StandardModel::lepton l, 
+                                    const double Mw_i) const {
+    
+    /* Write codes!! */
+
+    return complex(0.0, 0.0, false);
+}
+
+
+complex EWSMTwoLoopEW::DeltaEtaf1_q(const StandardModel::quark q, 
+                                    const double Mw_i) const {
+    
+    /* Write codes!! */
+
+    return complex(0.0, 0.0, false);
+}
+
+
+complex EWSMTwoLoopEW::Vfi_l(const StandardModel::lepton l, 
+                             const double Mw_i) const {
+    
+    /* Write codes!! */
+
+    return complex(0.0, 0.0, false);
+}
+
+
+complex EWSMTwoLoopEW::Vfi_q(const StandardModel::quark q, 
+                             const double Mw_i) const {
+    
+    /* Write codes!! */
+
+    return complex(0.0, 0.0, false);
+}
+
+
+double EWSMTwoLoopEW::Lambda(const double x) const {
+    
+    /* Write codes!! */
+
+    return 0.0;
+}
+
+
+double EWSMTwoLoopEW::phi(const double x) const {
+    
+    /* Write codes!! */
+
+    return 0.0;
+}
+
+
+complex EWSMTwoLoopEW::FV(const double x) const {
+    
+    /* Write codes!! */
+
+    return complex(0.0, 0.0, false);
+}
+
+
+complex EWSMTwoLoopEW::GV(const double x) const {
+    
+    /* Write codes!! */
+
+    return complex(0.0, 0.0, false);
+}
+
+  
 
 
