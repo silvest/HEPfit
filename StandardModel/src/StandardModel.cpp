@@ -356,6 +356,12 @@ double StandardModel::epsilon2_SM() const {
     double s_W2 = myEWSM->sW2_SM(), c_W2 = myEWSM->cW2_SM();
     double DeltaRW = 1.0 - M_PI*alphaMz()/(sqrt(2.0)*GF*Mz*Mz*s_W2*c_W2);
 
+    std::cout << sin2thetaEff << std::endl; // TEST
+    std::cout << DeltaRhoPrime << std::endl; // TEST
+    std::cout << DeltaKappaPrime << std::endl; // TEST
+    std::cout << s_W2 << std::endl; // TEST
+    std::cout << DeltaRW << std::endl; // TEST
+    
     return ( c02()*DeltaRhoPrime + s02()*DeltaRW/(c02() - s02()) 
              - 2.0*s02()*DeltaKappaPrime );
 }
@@ -383,8 +389,8 @@ double StandardModel::epsilonb_SM() const {
     //double eps1 = DeltaRhoPrime;
     //return ( - 1.0 + sqrt(rhoZb.abs())/(1.0 + eps1/2.0) );
     //return ( - 1.0 + sqrt(rhoZb.real())/(1.0 + eps1/2.0) );
-    // -0.0058273485 for abs()
-    // -0.0058281258 for real()
+    // -0.0058273666 for abs()
+    // -0.0058281439 for real()
 
     /* epsilon_b from g_V^b/g_A^b 
      * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
@@ -398,7 +404,7 @@ double StandardModel::epsilonb_SM() const {
     //complex gVb_over_gAb = gVb/gAb;
     //double tmp = 1.0 - gVb_over_gAb.abs();
     //return ( -(tmp - 4.0/3.0*sin2thetaEff)/tmp );
-    // -0.0060097335 in this case
+    //  -0.0060097447 in this case
     
     /* epsilon_b from Gamma_b via Eqs.(11), (12) and (16) of IJMP A7, 
      * 1031 (1998) by Altarelli et al. 
@@ -421,8 +427,8 @@ double StandardModel::epsilonb_SM() const {
                      *Nc*RQCD*(1.0 + alphaMz()/12.0/M_PI);
     return ( (Gamma_b/Gamma_b_Born - 1.0 - 1.42*epsilon1_SM() 
               + 0.54*epsilon3_SM() )/2.29 );
-    // -0.0059315986 for mb = 4.7
-    // -0.0029610188 for mb = 2.8602168
+    // -0.0059316254 for mb = 4.7
+    // -0.0029610421 for mb = 2.8602168
 }
 
 double StandardModel::epsilon1() const{ 
