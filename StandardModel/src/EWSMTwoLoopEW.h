@@ -132,21 +132,20 @@ private:
     double DeltaRho2(const double Mw_i) const;
     double DeltaRho2Add(const double Mw_i) const;
     double DeltaRw2(const double Mw_i) const;
-    double deltaEoverE2(const double Mw_i) const;
+    double deltaEoverE2() const;
     double f2Add(const double Mw_i) const;
     double DeltaEta2(const double Mw_i) const;
+    complex DeltaEta2Add_tmp(const double I3f, const double Qf, const double Mw_i) const;
     complex DeltaEta2Add_l(const StandardModel::lepton l, const double Mw_i) const;
     complex DeltaEta2Add_q(const StandardModel::quark q, const double Mw_i) const;
     double DeltaKappa2(const double Mw_i) const;
+    complex DeltaKappa2Add_tmp(const double I3f, const double Qf, const double Mw_i) const;
     complex DeltaKappa2Add_l(const StandardModel::lepton l, const double Mw_i) const;
     complex DeltaKappa2Add_q(const StandardModel::quark q, const double Mw_i) const;
 
-    complex Vadd_l(const StandardModel::lepton l, const double Mw_i) const;
-    complex Vadd_q(const StandardModel::quark q, const double Mw_i) const;
-    complex DeltaEtaf1_l(const StandardModel::lepton l, const double Mw_i) const;
-    complex DeltaEtaf1_q(const StandardModel::quark q, const double Mw_i) const;
-    complex Vfi_l(const StandardModel::lepton l, const double Mw_i) const;
-    complex Vfi_q(const StandardModel::quark q, const double Mw_i) const;
+    complex Vadd(const double I3f, const double Qf, const double Mw_i) const;
+    complex DeltaEtaf1(const double I3f, const double Qf, const double Mw_i) const;
+    complex Vfi(const double I3f, const double Qf, const double q2, const double Mw_i) const;
 
     double Lambda(const double x) const;
     double phi(const double x) const;
