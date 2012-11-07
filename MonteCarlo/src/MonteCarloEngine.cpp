@@ -300,7 +300,7 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput& out) {
     }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end();
             it++) {
-        std::string fname = "Observables/" + it->getThname() + ".pdf";
+        std::string fname = "Observables/" + it->getThname() + "_vs_" + it->getThname2() + ".pdf";
         double th[2];
         th[0] = it->getTheoryValue();
         th[1] = it->getTheoryValue2();
