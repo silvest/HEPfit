@@ -531,8 +531,9 @@
             <pElem>../ZFitter/src</pElem>
             <pElem>../BAT_parallel/include</pElem>
             <pElem>../FeynHiggs/include</pElem>
+            <pElem>/usr/mpi/gcc/mvapich2-1.7/include</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/BAT/include -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include -I${HOME}/LoopTools/include</commandLine>
+          <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include -I${HOME}/LoopTools/include -I${HOME}/BAT_parallel/include</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -711,7 +712,7 @@
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibLibItem>ooptools</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>`root-config --ldflags` `root-config --libs` `${HOME}/gsl/bin/gsl-config --libs` -L${HOME}/BAT/lib -L${HOME}/Cuba/lib -L${HOME}/FeynHiggs/lib -L${HOME}/FeynHiggs/lib64 -L${HOME}/LoopTools/lib64 -lMinuit -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml</commandLine>
+          <commandLine>`root-config --ldflags` `root-config --libs` `${HOME}/gsl/bin/gsl-config --libs` -L${HOME}/Cuba/lib -L${HOME}/FeynHiggs/lib -L${HOME}/FeynHiggs/lib64 -L${HOME}/LoopTools/lib64 -L${HOME}/BAT_parallel/lib -lMinuit -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml</commandLine>
         </linkerTool>
       </compileType>
       <folder path="TestFiles/f1">
