@@ -59,7 +59,7 @@ void MonteCarlo::Run(const int rank) {
                     ll = log(0.);
                 else if (recvbuff[0] == 1.) {
                     pars.assign(recvbuff + 1, recvbuff + buffsize);
-                    ll = MCEngine.LogLikelihood(pars);
+                    ll = MCEngine.LogEval(pars);
                 } else if (recvbuff[0] == -1.)
                     break;
 
