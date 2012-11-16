@@ -102,7 +102,7 @@
             <pElem>../THDM/src</pElem>
             <pElem>../boost</pElem>
           </incDir>
-          <commandLine>`root-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` -I/usr/mpi/intel/mvapich2-1.7/include/</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>
