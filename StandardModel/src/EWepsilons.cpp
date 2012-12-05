@@ -12,7 +12,7 @@
 
 // Flavor non-universal vertex corrections are assumed to be the same as 
 // those for the e^+ e^- channel. 
-//#define WITHOUT_NONUNIVERSAL_VERTEX_CORRECTIONS
+#define WITHOUT_NONUNIVERSAL_VERTEX_CORRECTIONS
 
 
 ////////////////////////////////////////////////////////////////////////     
