@@ -217,7 +217,15 @@ bool StandardModel::InitializeModel() {
     myStandardModelMatching = new StandardModelMatching(*this);
     SetModelInitialized(true);
     myEWSM = new EWSM(*this);
+    this->SetEWSMflags(*myEWSM);
     return(true);
+}
+
+void StandardModel::SetEWSMflags(EWSM& myEWSM) {
+    myEWSM.setSchemeMw(EWSM::APPROXIMATEFORMULA);
+    myEWSM.setSchemeRhoZ(EWSM::OMSI);
+    myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
+    myEWSM.setBoolR0bApproximate(true);
 }
 
 

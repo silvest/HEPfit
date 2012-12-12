@@ -7,6 +7,7 @@
 
 #include <stdexcept>
 #include "NewPhysicsHiggs.h"
+#include "EWSM.h"
 
 
 const std::string NewPhysicsHiggs::NPHIGGSvars[NNPHIGGSvars] 
@@ -68,6 +69,15 @@ bool NewPhysicsHiggs::InitializeModel() {
     SetModelInitialized(StandardModel::InitializeModel());
     myEWepsilons = new EWepsilons(*this);
     return (IsModelInitialized());
+}
+
+
+void NewPhysicsHiggs::SetEWSMflags(EWSM& myEWSM) {
+    /* The flags below are used to compute the SM values of the epsilons. */
+    myEWSM.setSchemeMw(EWSM::APPROXIMATEFORMULA);
+    myEWSM.setSchemeRhoZ(EWSM::OMSI);
+    myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
+    myEWSM.setBoolR0bApproximate(false);
 }
 
 
