@@ -10,6 +10,7 @@
 
 #include <cstring>
 #include <gslpp.h>
+#include "StandardModel.h"
 #include "EWSMcache.h"
 #include "EWSMOneLoopEW.h"
 #include "EWSMTwoLoopQCD.h"
@@ -22,8 +23,6 @@
 #include "EWSMTwoFermionsLEP2.h"
 
 using namespace gslpp;
-
-class StandardModel;
 
 class EWSM {
 public:
@@ -65,7 +64,32 @@ public:
     }
     
     /**
-     * @return boolean variable: if true, the approximate formula for R_b^0 is employed. 
+     * @brief set a flag for M_W
+     * @param[in] schemeMw NORESUM, OMSI, INTERMEDIATE, OMSII or APPROXIMATEFORMULA
+     */
+    void setSchemeMw(schemes_EW schemeMw) {
+        this->schemeMw = schemeMw;
+    }
+
+    /**
+     * @brief set a flag for rho_Z
+     * @param[in] schemeRhoZ NORESUM, OMSI, INTERMEDIATE, OMSII or APPROXIMATEFORMULA
+     * @attention NORESUM is not available, since reducible two-loop EW corrections have not been implemented yet. 
+     */
+    void setSchemeRhoZ(schemes_EW schemeRhoZ) {
+        this->schemeRhoZ = schemeRhoZ;
+    }
+    
+    /**
+     * @brief set a flag for kappa_Z
+     * @param[in] schemeKappaZ NORESUM, OMSI, INTERMEDIATE, OMSII or APPROXIMATEFORMULA
+     */
+    void setSchemeKappaZ(schemes_EW schemeKappaZ) {
+        this->schemeKappaZ = schemeKappaZ;
+    }
+    
+    /**
+     * @return boolean variable: true if using the two-loop approximate formula for R_b
      */
     bool isBoolR0bApproximate() const {
         return boolR0bApproximate;
@@ -73,7 +97,7 @@ public:
     
     /**
      * @brief set boolR0bApproximate
-     * @param[in] boolR0bApproximate if true, the approximate formula for R_b^0 is employed.
+     * @param[in] boolR0bApproximate true if using the two-loop approximate formula for R_b
      */
     void setBoolR0bApproximate(bool boolR0bApproximate) {
         this->boolR0bApproximate = boolR0bApproximate;

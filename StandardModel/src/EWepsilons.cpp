@@ -10,7 +10,7 @@
 #include "EWepsilons.h"
 
 
-// Flavor non-universal vertex corrections, except for those in the b bbar chanel, \
+// Flavor non-universal vertex corrections, except for those in the b bbar chanel, 
 // are assumed to be the same as those in the e^+ e^- channel. 
 #define WITHOUT_NONUNIVERSAL_VERTEX_CORRECTIONS
 
@@ -19,7 +19,7 @@
 
 double EWepsilons::Mw(const double eps1, const double eps2, const double eps3) const {
     double Delta_r = 1.0 - (1.0 - SM.DeltaAlpha())*(1.0 - Delta_rW(eps1,eps2,eps3));
-
+    
     double tmp = 4.0*M_PI*SM.getAle()/sqrt(2.0)/SM.getGF()/SM.getMz()/SM.getMz();
     if (tmp/(1.0 - Delta_r) > 1.0) 
         throw std::runtime_error("Error in EWepsilons::Mw()"); 

@@ -103,6 +103,8 @@ public:
         
     virtual bool InitializeModel();  
     
+    virtual void SetEWSMflags(EWSM& myEWSM);
+    
     virtual StandardModelMatching* GetMyMatching() const {
         return myStandardModelMatching;
     }
