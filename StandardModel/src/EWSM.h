@@ -87,21 +87,6 @@ public:
     void setSchemeKappaZ(schemes_EW schemeKappaZ) {
         this->schemeKappaZ = schemeKappaZ;
     }
-    
-    /**
-     * @return boolean variable: true if using the two-loop approximate formula for R_b
-     */
-    bool isBoolR0bApproximate() const {
-        return boolR0bApproximate;
-    }
-    
-    /**
-     * @brief set boolR0bApproximate
-     * @param[in] boolR0bApproximate true if using the two-loop approximate formula for R_b
-     */
-    void setBoolR0bApproximate(bool boolR0bApproximate) {
-        this->boolR0bApproximate = boolR0bApproximate;
-    }
 
     
     //////////////////////////////////////////////////////////////////////// 
@@ -315,7 +300,6 @@ protected:
 private:
     bool flag_order[orders_EW_size]; 
     schemes_EW schemeMw, schemeRhoZ, schemeKappaZ;
-    bool boolR0bApproximate;
     
     EWSMcache* myCache;
     EWSMOneLoopEW* myOneLoopEW;

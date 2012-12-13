@@ -13,7 +13,8 @@ const std::string NewPhysicsEpsilons::EPSILONvars[NEPSILONvars]
                   = {"epsilon_1", "epsilon_2", "epsilon_3", "epsilon_b"};
 
 const std::string NewPhysicsEpsilons::EPSILONflags[NEPSILONflags] 
-    = {"epsilon1SM", "epsilon2SM", "epsilon3SM", "epsilonbSM", "withoutNonUniversalVCinEpsilons"};
+    = {"epsilon1SM", "epsilon2SM", "epsilon3SM", "epsilonbSM", 
+       "withoutNonUniversalVCinEpsilons"};
 
 
 NewPhysicsEpsilons::NewPhysicsEpsilons() : StandardModel() {
@@ -76,7 +77,6 @@ void NewPhysicsEpsilons::SetEWSMflags(EWSM& myEWSM) {
     myEWSM.setSchemeMw(EWSM::APPROXIMATEFORMULA);
     myEWSM.setSchemeRhoZ(EWSM::OMSI);
     myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
-    myEWSM.setBoolR0bApproximate(false);
 }
 
 
@@ -103,6 +103,9 @@ bool NewPhysicsEpsilons::SetFlag(const std::string name, const bool& value) {
     } else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
         myEWepsilons->setFlagWithoutNonUniversalVC(value);
         res = true;
+    } else if (name.compare("R0bApproximate") == 0) {
+        if (value) 
+            throw std::runtime_error("R0bApproximate=true is not applicable to NewPhysicsEpsilons"); 
     } else {
         res = StandardModel::SetFlag(name,value);
     }

@@ -640,7 +640,7 @@ double EWSM::GammaW_SM() const {
 
 
 double EWSM::R0_bottom_SM() const {
-    if (!boolR0bApproximate)
+    if (!SM.IsFlagR0bApproximate())
         throw std::runtime_error("Error in EWSM::R0_bottom_SM()"); 
 
     if (bUseCacheEWSM)      

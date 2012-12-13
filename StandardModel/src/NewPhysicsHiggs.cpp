@@ -80,27 +80,29 @@ void NewPhysicsHiggs::SetEWSMflags(EWSM& myEWSM) {
     myEWSM.setSchemeMw(EWSM::APPROXIMATEFORMULA);
     myEWSM.setSchemeRhoZ(EWSM::OMSI);
     myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
-    myEWSM.setBoolR0bApproximate(false);
 }
 
 
 bool NewPhysicsHiggs::SetFlag(const std::string name, const bool& value) {
     bool res = false;
-    if (name.compare("EWBURGESS") == 0){
+    if (name.compare("EWBURGESS") == 0)
         throw std::runtime_error("Flag EWBURGESS is not applicable to NewPhysicsHiggs"); 
-    } else if (name.compare("EWCHMN") == 0) {
+    else if (name.compare("EWCHMN") == 0) 
         throw std::runtime_error("Flag EWCHMN is not applicable to NewPhysicsHiggs"); 
-    } else if (name.compare("epsilon1SM") == 0) {
+    else if (name.compare("epsilon1SM") == 0) 
         throw std::runtime_error("Flag epsilon1SM is not applicable to NewPhysicsHiggs"); 
-    } else if (name.compare("epsilon2SM") == 0) {
+    else if (name.compare("epsilon2SM") == 0) 
         throw std::runtime_error("Flag epsilon2SM is not applicable to NewPhysicsHiggs"); 
-    } else if (name.compare("epsilon3SM") == 0) {
+    else if (name.compare("epsilon3SM") == 0) 
         throw std::runtime_error("Flag epsilon3SM is not applicable to NewPhysicsHiggs"); 
-    } else if (name.compare("epsilonbSM") == 0) {
+    else if (name.compare("epsilonbSM") == 0) 
         throw std::runtime_error("Flag epsilonbSM is not applicable to NewPhysicsHiggs"); 
-    } else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
+    else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
         myEWepsilons->setFlagWithoutNonUniversalVC(value);
         res = true;
+    } else if (name.compare("R0bApproximate") == 0) {
+        if (value) 
+            throw std::runtime_error("R0bApproximate=true is not applicable to NewPhysicsHiggs"); 
     } else {
         res = StandardModel::SetFlag(name,value);
     }

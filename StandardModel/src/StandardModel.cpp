@@ -30,9 +30,10 @@ const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutr
  *   EWABC:  use EW_ABC class based on the formulae by Altarelli et al.
  *   EWABC2: use EW_ABC2 class based on the formulae by Altarelli et al.
  *   EWBURGESS: use the formulae for STU contributions by Burgess et al.
+ *   R0bApproximate: use the two-loop approximate formula for R_b by Freitas and Huang
  */
 const std::string StandardModel::SMflags[NSMflags] 
-    = {"FixedAllSMparams", "EWCHMN", "EWABC", "EWABC2", "EWBURGESS"};
+    = {"FixedAllSMparams", "EWCHMN", "EWABC", "EWABC2", "EWBURGESS", "R0bApproximate"};
 
 
 StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.), 
@@ -43,6 +44,7 @@ StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.),
     FlagEWABC = false;
     FlagEWABC2 = false;
     FlagEWBURGESS = false;
+    FlagR0bApproximate = false;
     
     leptons[NEUTRINO_1].setCharge(0.);
     leptons[NEUTRINO_2].setCharge(0.);    
@@ -205,6 +207,9 @@ bool StandardModel::SetFlag(const std::string name, const bool& value) {
     } else if (name.compare("EWBURGESS") == 0) {
         FlagEWBURGESS = value;
         res = true;
+    } else if (name.compare("R0bApproximate") == 0) {
+        FlagR0bApproximate = value;
+        res = true;
     }
     return(res);
 }
@@ -225,7 +230,6 @@ void StandardModel::SetEWSMflags(EWSM& myEWSM) {
     myEWSM.setSchemeMw(EWSM::APPROXIMATEFORMULA);
     myEWSM.setSchemeRhoZ(EWSM::OMSI);
     myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
-    myEWSM.setBoolR0bApproximate(true);
 }
 
 
@@ -257,7 +261,7 @@ double StandardModel::ale_OS(const double mu, orders order) const {
         case LO:
             return ( alpha_ini/v );
         case FULLNLO:
-            return ( alpha_ini/v*(1.0 - beta2/beta1*alpha_ini/M_PI*log(v)/v));
+            return ( alpha_ini/v*(1.0 - beta2/beta1*alpha_ini/M_PI*log(v)/v) );
         default:
             throw std::runtime_error("Error in StandardModel::Als_OS()"); 
     }
