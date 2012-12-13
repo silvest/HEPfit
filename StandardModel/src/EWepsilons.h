@@ -19,7 +19,7 @@ public:
      * @param[in] SM_i a StandardModel reference
      */
     EWepsilons(const StandardModel& SM_i) : SM(SM_i) {
-        FlagWithoutNonUniversalVC = true;
+        FlagWithoutNonUniversalVC = false;
     };
 
 
