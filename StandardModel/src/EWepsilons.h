@@ -14,9 +14,27 @@
 class EWepsilons {
 public:
 
-    EWepsilons(const StandardModel& SM_i) : SM(SM_i) {};
+    /**
+     * @brief EWepsilons constructor
+     * @param[in] SM_i a StandardModel reference
+     */
+    EWepsilons(const StandardModel& SM_i) : SM(SM_i) {
+        FlagWithoutNonUniversalVC = true;
+    };
 
 
+    ////////////////////////////////////////////////////////////////////////     
+   
+    /**
+     * @param[in] FlagWithoutNonUniversalVC true if flavor non-universal vertex 
+     * corrections, except for those in the b bbar chanel, are taken to be the 
+     * same as those in the e^+ e^- channel. 
+     */
+    void setFlagWithoutNonUniversalVC(bool FlagWithoutNonUniversalVC) {
+        this->FlagWithoutNonUniversalVC = FlagWithoutNonUniversalVC;
+    }
+
+             
     ////////////////////////////////////////////////////////////////////////     
     
     double Mw(const double eps1, const double eps2, const double eps3) const;
@@ -53,6 +71,7 @@ protected:
     
     ////////////////////////////////////////////////////////////////////////     
 private:
+    bool FlagWithoutNonUniversalVC;
     const StandardModel& SM;
 };
 

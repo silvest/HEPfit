@@ -10,11 +10,6 @@
 #include "EWepsilons.h"
 
 
-// Flavor non-universal vertex corrections, except for those in the b bbar chanel, 
-// are assumed to be the same as those in the e^+ e^- channel. 
-#define WITHOUT_NONUNIVERSAL_VERTEX_CORRECTIONS
-
-
 ////////////////////////////////////////////////////////////////////////     
 
 double EWepsilons::Mw(const double eps1, const double eps2, const double eps3) const {
@@ -29,32 +24,29 @@ double EWepsilons::Mw(const double eps1, const double eps2, const double eps3) c
 
 
 complex EWepsilons::rhoZ_l(const StandardModel::lepton l, const double eps1) const {
-    #ifdef WITHOUT_NONUNIVERSAL_VERTEX_CORRECTIONS
-    return ( rhoZ_e(eps1) );
-    #else
-    return ( rhoZ_e(eps1) + SM.getEWSM()->rhoZ_l_SM_FlavorDep(l).real() );
-    #endif
+    if (FlagWithoutNonUniversalVC)    
+        return ( rhoZ_e(eps1) );
+    else
+        return ( rhoZ_e(eps1) + SM.getEWSM()->rhoZ_l_SM_FlavorDep(l).real() );
 }
 
     
 complex EWepsilons::rhoZ_q(const StandardModel::quark q, const double eps1) const {
     if(q==SM.BOTTOM || q==SM.TOP)
         throw std::runtime_error("Error in EWepsilons::rhoZ_q()"); 
-    #ifdef WITHOUT_NONUNIVERSAL_VERTEX_CORRECTIONS
-    return ( rhoZ_e(eps1) );
-    #else
-    return ( rhoZ_e(eps1) + SM.getEWSM()->rhoZ_q_SM_FlavorDep(q).real() );
-    #endif
+    if (FlagWithoutNonUniversalVC) 
+        return ( rhoZ_e(eps1) );
+    else
+        return ( rhoZ_e(eps1) + SM.getEWSM()->rhoZ_q_SM_FlavorDep(q).real() );
 }
 
 
 complex EWepsilons::kappaZ_l(const StandardModel::lepton l, 
                              const double eps1, const double eps3) const {
-    #ifdef WITHOUT_NONUNIVERSAL_VERTEX_CORRECTIONS
-    return ( kappaZ_e(eps1,eps3) );
-    #else
-    return ( kappaZ_e(eps1,eps3) + SM.getEWSM()->kappaZ_l_SM_FlavorDep(l).real() );
-    #endif
+    if (FlagWithoutNonUniversalVC) 
+        return ( kappaZ_e(eps1,eps3) );
+    else
+        return ( kappaZ_e(eps1,eps3) + SM.getEWSM()->kappaZ_l_SM_FlavorDep(l).real() );
 }
 
 
@@ -62,11 +54,10 @@ complex EWepsilons::kappaZ_q(const StandardModel::quark q,
                              const double eps1, const double eps3) const {
     if(q==SM.BOTTOM || q==SM.TOP)
         throw std::runtime_error("Error in EWepsilons::kappaZ_q()"); 
-    #ifdef WITHOUT_NONUNIVERSAL_VERTEX_CORRECTIONS
-    return ( kappaZ_e(eps1,eps3) );
-    #else
-    return ( kappaZ_e(eps1,eps3) + SM.getEWSM()->kappaZ_q_SM_FlavorDep(q).real() );
-    #endif
+    if (FlagWithoutNonUniversalVC) 
+        return ( kappaZ_e(eps1,eps3) );
+    else
+        return ( kappaZ_e(eps1,eps3) + SM.getEWSM()->kappaZ_q_SM_FlavorDep(q).real() );
 }
       
     
@@ -135,25 +126,23 @@ complex EWepsilons::kappaZ_b(const double eps1, const double eps3,
 
 complex EWepsilons::gVb(const double eps1, const double eps3, 
                         const double epsb) const {
-    #ifdef WITHOUT_NONUNIVERSAL_VERTEX_CORRECTIONS
-    //return ( (1.0 - 4.0/3.0*(1.0 + Delta_kappaPrime(eps1,eps3))*SM.s02())
-    //         *gAb(eps1,epsb) );
-    return ( (1.0 - 4.0/3.0*(1.0 + Delta_kappaPrime(eps1,eps3))*SM.s02() + epsb)
-             /(1.0 + epsb)*gAb(eps1,epsb) );
-    #else
-    return ( (1.0 - 4.0/3.0*(1.0 + Delta_kappaPrime(eps1,eps3))*SM.s02() + epsb)
-             /(1.0 + epsb)*gAb(eps1,epsb) );
-    #endif
+    if (FlagWithoutNonUniversalVC) 
+        //return ( (1.0 - 4.0/3.0*(1.0 + Delta_kappaPrime(eps1,eps3))*SM.s02())
+        //         *gAb(eps1,epsb) );
+        return ( (1.0 - 4.0/3.0*(1.0 + Delta_kappaPrime(eps1,eps3))*SM.s02() + epsb)
+                 /(1.0 + epsb)*gAb(eps1,epsb) );
+    else
+        return ( (1.0 - 4.0/3.0*(1.0 + Delta_kappaPrime(eps1,eps3))*SM.s02() + epsb)
+                 /(1.0 + epsb)*gAb(eps1,epsb) );
 }
 
 
 complex EWepsilons::gAb(const double eps1, const double epsb) const {
-    #ifdef WITHOUT_NONUNIVERSAL_VERTEX_CORRECTIONS
-    //return ( gAe(eps1) );
-    return ( gAe(eps1)*(1.0 + epsb) );
-    #else
-    return ( gAe(eps1)*(1.0 + epsb) );
-    #endif    
+    if (FlagWithoutNonUniversalVC) 
+        //return ( gAe(eps1) );
+        return ( gAe(eps1)*(1.0 + epsb) );
+    else
+        return ( gAe(eps1)*(1.0 + epsb) );
 }
 
 

@@ -16,7 +16,8 @@ class NewPhysicsHiggs : public StandardModel {
 public:
     static const int NNPHIGGSvars = 7;
     static const std::string NPHIGGSvars[NNPHIGGSvars];
-
+    static const int NNPHIGGSflags = 1;
+    static const std::string NPHIGGSflags[NNPHIGGSflags];
 
     NewPhysicsHiggs();
 
@@ -30,6 +31,11 @@ public:
 
     virtual bool InitializeModel();  
     virtual void SetEWSMflags(EWSM& myEWSM);
+
+        
+    ////////////////////////////////////////////////////////////////////////     
+
+    bool SetFlag(const std::string, const bool&); 
     
     
     //////////////////////////////////////////////////////////////////////// 
