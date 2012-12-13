@@ -12,11 +12,8 @@
 const std::string NewPhysicsEpsilons::EPSILONvars[NEPSILONvars] 
                   = {"epsilon_1", "epsilon_2", "epsilon_3", "epsilon_b"};
 
-/**
- * use the SM value for an epsilon, if true
- */
 const std::string NewPhysicsEpsilons::EPSILONflags[NEPSILONflags] 
-    = {"epsilon1SM", "epsilon2SM", "epsilon3SM", "epsilonbSM"};
+    = {"epsilon1SM", "epsilon2SM", "epsilon3SM", "epsilonbSM", "withoutNonUniversalVCinEpsilons"};
 
 
 NewPhysicsEpsilons::NewPhysicsEpsilons() : StandardModel() {
@@ -102,6 +99,9 @@ bool NewPhysicsEpsilons::SetFlag(const std::string name, const bool& value) {
         res = true;
     } else if (name.compare("epsilonbSM") == 0) {
         FlagEpsilonbSM = value;
+        res = true;
+    } else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
+        myEWepsilons->setFlagWithoutNonUniversalVC(value);
         res = true;
     } else {
         res = StandardModel::SetFlag(name,value);
