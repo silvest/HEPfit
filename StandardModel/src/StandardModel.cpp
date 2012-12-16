@@ -27,8 +27,10 @@ const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutr
  * FixedSMparams: true if all the SM parameters are fixed to constants in the fit. 
  * Flags for the EW precision observables (see EW.h for detail):
  *   EWCHMN: use EW_CHMN class
- *   EWABC:  use EW_ABC class based on the formulae by Altarelli et al.
- *   EWABC2: use EW_ABC2 class based on the formulae by Altarelli et al.
+ *   EWABC:  use EW_ABC class based on the formulae in Eqs.(7)-(14) of IJMP, A7, 
+ *           1031-1058 (1998) by Altarelli et al.
+ *   EWABC2: use use the approximate formulae in Eqs.(16)-(20) of IJMP, A7, 
+ *           1031-1058 (1998) by Altarelli et al.
  *   EWBURGESS: use the formulae for STU contributions by Burgess et al.
  *   R0bApproximate: use the two-loop approximate formula for R_b by Freitas and Huang
  */
