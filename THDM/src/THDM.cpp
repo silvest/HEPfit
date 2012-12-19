@@ -47,6 +47,7 @@ bool THDM::Update(const std::map<std::string, double>& DPars) {
             Yn.assign(i, i, this->leptons[NEUTRINO_1 + 2 * i].getMass() / v1() * sqrt(2.));
         Yn = Yn * UPMNS.hconjugate();
     }
+    return (true);
 }
 
 void THDM::SetParameter(const std::string name, const double& value){    
