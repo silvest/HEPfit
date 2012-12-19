@@ -16,6 +16,8 @@ class NewPhysicsEpsilons : public StandardModel  {
 public:
     static const int NEPSILONvars = 4;
     static const std::string EPSILONvars[NEPSILONvars];
+    static const int NEPSILONflags = 5;
+    static const std::string EPSILONflags[NEPSILONflags];
     
     /**
      * @brief NewPhysicsEpsilons constructor
@@ -31,6 +33,7 @@ public:
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     virtual bool InitializeModel();  
+    virtual void SetEWSMflags(EWSM& myEWSM);    
 
         
     ////////////////////////////////////////////////////////////////////////     
@@ -40,36 +43,32 @@ public:
     
     ////////////////////////////////////////////////////////////////////////     
 
-    double GetMyEpsilon_1() const {
-        return myEpsilon_1;
-    }
-
-    double GetMyEpsilon_2() const {
-        return myEpsilon_2;
-    }
-
-    double GetMyEpsilon_3() const {
-        return myEpsilon_3;
-    }
-
-    double GetMyEpsilon_b() const {
-        return myEpsilon_b;
-    }
-
     double epsilon1() const {
-        return myEpsilon_1;
+        if (FlagEpsilon1SM) 
+            return epsilon1_SM();
+        else
+            return myEpsilon_1;
     }
 
     double epsilon2() const {
-        return myEpsilon_2;
+        if (FlagEpsilon2SM) 
+            return epsilon2_SM();
+        else
+            return myEpsilon_2;
     }
 
     double epsilon3() const {
-        return myEpsilon_3;
+        if (FlagEpsilon3SM) 
+            return epsilon3_SM();
+        else
+            return myEpsilon_3;
     }
 
     double epsilonb() const {
-        return myEpsilon_b;
+        if (FlagEpsilonbSM) 
+            return epsilonb_SM();
+        else
+            return myEpsilon_b;
     }    
     
 
@@ -162,6 +161,7 @@ protected:
     ////////////////////////////////////////////////////////////////////////     
     
 private:
+    bool FlagEpsilon1SM, FlagEpsilon2SM, FlagEpsilon3SM, FlagEpsilonbSM;
     EWepsilons* myEWepsilons;
     
 };

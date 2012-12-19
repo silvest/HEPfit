@@ -12,8 +12,16 @@
 const std::string NewPhysicsEpsilons::EPSILONvars[NEPSILONvars] 
                   = {"epsilon_1", "epsilon_2", "epsilon_3", "epsilon_b"};
 
+const std::string NewPhysicsEpsilons::EPSILONflags[NEPSILONflags] 
+    = {"epsilon1SM", "epsilon2SM", "epsilon3SM", "epsilonbSM", 
+       "withoutNonUniversalVCinEpsilons"};
+
 
 NewPhysicsEpsilons::NewPhysicsEpsilons() : StandardModel() {
+   FlagEpsilon1SM = false;
+   FlagEpsilon2SM = false;
+   FlagEpsilon3SM = false;
+   FlagEpsilonbSM = false;
 }
 
 
@@ -64,6 +72,13 @@ bool NewPhysicsEpsilons::InitializeModel() {
     return (IsModelInitialized());
 }
 
+void NewPhysicsEpsilons::SetEWSMflags(EWSM& myEWSM) {
+    /* The flags below are used to compute the SM values of the epsilons. */
+    myEWSM.setSchemeMw(EWSM::APPROXIMATEFORMULA);
+    myEWSM.setSchemeRhoZ(EWSM::OMSI);
+    myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
+}
+
 
 ////////////////////////////////////////////////////////////////////////     
 
@@ -73,6 +88,24 @@ bool NewPhysicsEpsilons::SetFlag(const std::string name, const bool& value) {
         throw std::runtime_error("Flag EWBURGESS is not applicable to NewPhysicsEpsilons"); 
     } else if (name.compare("EWCHMN") == 0) {
         throw std::runtime_error("Flag EWCHMN is not applicable to NewPhysicsEpsilons"); 
+    } else if (name.compare("epsilon1SM") == 0) {
+        FlagEpsilon1SM = value;
+        res = true;
+    } else if (name.compare("epsilon2SM") == 0) {
+        FlagEpsilon2SM = value;
+        res = true;
+    } else if (name.compare("epsilon3SM") == 0) {
+        FlagEpsilon3SM = value;
+        res = true;
+    } else if (name.compare("epsilonbSM") == 0) {
+        FlagEpsilonbSM = value;
+        res = true;
+    } else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
+        myEWepsilons->setFlagWithoutNonUniversalVC(value);
+        res = true;
+    } else if (name.compare("R0bApproximate") == 0) {
+        if (value) 
+            throw std::runtime_error("R0bApproximate=true is not applicable to NewPhysicsEpsilons"); 
     } else {
         res = StandardModel::SetFlag(name,value);
     }
@@ -83,7 +116,7 @@ bool NewPhysicsEpsilons::SetFlag(const std::string name, const bool& value) {
 ////////////////////////////////////////////////////////////////////////     
 
 double NewPhysicsEpsilons::Mw() const {
-    return myEWepsilons->Mw(myEpsilon_1, myEpsilon_2, myEpsilon_3);
+    return myEWepsilons->Mw(epsilon1(), epsilon2(), epsilon3());
 }
 
 
@@ -98,7 +131,7 @@ double NewPhysicsEpsilons::sW2() const {
 
     
 complex NewPhysicsEpsilons::rhoZ_l(const StandardModel::lepton l) const {
-    return myEWepsilons->rhoZ_l(l, myEpsilon_1);
+    return myEWepsilons->rhoZ_l(l, epsilon1());
 }
 
     
@@ -108,9 +141,9 @@ complex NewPhysicsEpsilons::rhoZ_q(const StandardModel::quark q) const {
         case StandardModel::DOWN:
         case StandardModel::CHARM:
         case StandardModel::STRANGE:
-            return myEWepsilons->rhoZ_q(q, myEpsilon_1);
+            return myEWepsilons->rhoZ_q(q, epsilon1());
         case StandardModel::BOTTOM:
-            return myEWepsilons->rhoZ_b(myEpsilon_1, myEpsilon_b);
+            return myEWepsilons->rhoZ_b(epsilon1(), epsilonb());
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:
@@ -120,7 +153,7 @@ complex NewPhysicsEpsilons::rhoZ_q(const StandardModel::quark q) const {
 
 
 complex NewPhysicsEpsilons::kappaZ_l(const StandardModel::lepton l) const {
-    return myEWepsilons->kappaZ_l(l, myEpsilon_1, myEpsilon_3);
+    return myEWepsilons->kappaZ_l(l, epsilon1(), epsilon3());
 }
 
 
@@ -130,9 +163,9 @@ complex NewPhysicsEpsilons::kappaZ_q(const StandardModel::quark q) const {
         case StandardModel::DOWN:
         case StandardModel::CHARM:
         case StandardModel::STRANGE:
-            return myEWepsilons->kappaZ_q(q, myEpsilon_1, myEpsilon_3);
+            return myEWepsilons->kappaZ_q(q, epsilon1(), epsilon3());
         case StandardModel::BOTTOM:
-            return myEWepsilons->kappaZ_b(myEpsilon_1, myEpsilon_3, myEpsilon_b);
+            return myEWepsilons->kappaZ_b(epsilon1(), epsilon3(), epsilonb());
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:
@@ -142,7 +175,7 @@ complex NewPhysicsEpsilons::kappaZ_q(const StandardModel::quark q) const {
       
     
 complex NewPhysicsEpsilons::gVl(const StandardModel::lepton l) const {
-    return myEWepsilons->gVl(l, myEpsilon_1, myEpsilon_3);
+    return myEWepsilons->gVl(l, epsilon1(), epsilon3());
 }
 
 
@@ -152,9 +185,9 @@ complex NewPhysicsEpsilons::gVq(const StandardModel::quark q) const {
         case StandardModel::DOWN:
         case StandardModel::CHARM:
         case StandardModel::STRANGE:
-            return myEWepsilons->gVq(q, myEpsilon_1, myEpsilon_3);
+            return myEWepsilons->gVq(q, epsilon1(), epsilon3());
         case StandardModel::BOTTOM:
-            return myEWepsilons->gVb(myEpsilon_1, myEpsilon_3, myEpsilon_b);
+            return myEWepsilons->gVb(epsilon1(), epsilon3(), epsilonb());
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:
@@ -164,7 +197,7 @@ complex NewPhysicsEpsilons::gVq(const StandardModel::quark q) const {
 
 
 complex NewPhysicsEpsilons::gAl(const StandardModel::lepton l) const {
-    return myEWepsilons->gAl(l, myEpsilon_1);
+    return myEWepsilons->gAl(l, epsilon1());
 }
 
 
@@ -174,9 +207,9 @@ complex NewPhysicsEpsilons::gAq(const StandardModel::quark q) const {
         case StandardModel::DOWN:
         case StandardModel::CHARM:
         case StandardModel::STRANGE:
-            return myEWepsilons->gAq(q, myEpsilon_1);
+            return myEWepsilons->gAq(q, epsilon1());
         case StandardModel::BOTTOM:
-            return myEWepsilons->gAb(myEpsilon_1, myEpsilon_b);
+            return myEWepsilons->gAb(epsilon1(), epsilonb());
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:

@@ -265,7 +265,7 @@ double EWSMTwoLoopEW::DeltaRho2(const double Mw_i) const {
         return ( 25.0 - 4.0*ht + (1.0/2.0 - 1.0/ht)*M_PI*M_PI
                  + (ht - 4.0)*sqrt(ht)*g(ht)/2.0 
                  + (- 6.0 - 6.0*ht + ht2/2.0)*log(ht) 
-                 + (6.0*ht - 15.0 + 12.0*ht - 3.0*ht2)*Li21mht 
+                 + (6.0/ht - 15.0 + 12.0*ht - 3.0*ht2)*Li21mht 
                  + 3.0/2.0*(- 10.0 + 6.0*ht - ht2)*phi(ht/4.0)
                  + zt*( 1.0/(54.0*cW2*(ht - 4.0)*ht)
                         *( - 1776.0*cW4 
@@ -320,7 +320,7 @@ double EWSMTwoLoopEW::DeltaRho2Add(const double Mw_i) const {
                        - (11.0/3.0 + 1.0/3.0/cW2 + 4.0*cW2)*B0_Mt_Mw2_Mw_Mz
                        - (2.0/3.0 + 4.0*cW2/3.0 - 8.0*cW4)*log(cW2)
                        + (1.0/cW2 - 38.0/3.0 + 34.0*cW2/3.0)*log(Mt2/mu/mu)
-                       + 2.0*(3.0 - 62.0*cW2 + 74.0*cW4 + 36.0*cW6 )*log(zt)/9.0/cW2;   
+                       + 2.0*(3.0 - 62.0*cW2 + 74.0*cW4 + 36.0*cW6)*log(zt)/9.0/cW2;   
     return dRho2add;
 }
 
@@ -652,8 +652,8 @@ double EWSMTwoLoopEW::phi(const double x) const {
     } else if (x > 1.0) {
         double lambda = sqrt(1.0 - 1.0/x);
         return ( 1.0/lambda*(- 4.0*cache.getPolyLog().Li2((1.0-lambda)/2.0).real() 
-                             + 2.0*pow(log((1.0-lambda)/2.0), 2.0) )
-                             - pow(log(4.0*x), 2.0) + M_PI*M_PI/3.0 );
+                             + 2.0*pow(log((1.0-lambda)/2.0), 2.0) 
+                             - pow(log(4.0*x), 2.0) + M_PI*M_PI/3.0) );
     } else
         throw std::runtime_error("Out of range in EWSMTwoLoopEW::phi()");
 }

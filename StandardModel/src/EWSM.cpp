@@ -24,42 +24,9 @@ EWSM::EWSM(const StandardModel& SM_i) : SM(SM_i) {
     bUseCacheEWSM = true;// use caches in the current class
     //bUseCacheEWSM = false;// do not use caches in the current class (for test)
     
-    std::string Model = SM.ModelName();
+    //std::string Model = SM.ModelName();
     //std::cout << "Model in EWSM: " << Model << std::endl;
-    if (Model=="StandardModel" 
-            || Model=="NewPhysicsSTU" || Model=="NewPhysicsSTUVWXY" 
-            || Model=="THDM") {
-        //schemeMw = NORESUM;// for test
-        //schemeMw = OMSI;// for test
-        //schemeMw = OMSII;// for test
-        schemeMw = APPROXIMATEFORMULA;    
-        
-        //schemeRhoZ = NORESUM;// This is preferred, but reducible two-loop EW corrections have not been implemented yet. 
-        schemeRhoZ = OMSI;
-
-        //schemeKappaZ = NORESUM;// for test
-        //schemeKappaZ = OMSI;// for test
-        schemeKappaZ = APPROXIMATEFORMULA;
-
-        if (schemeKappaZ==APPROXIMATEFORMULA) {
-            boolR0bApproximate = true;
-            //boolR0bApproximate = false;// for test
-        } else 
-            boolR0bApproximate = false;
-    } else if (Model=="NewPhysicsEpsilons" || Model=="NewPhysicsHiggs") {
-        schemeMw = APPROXIMATEFORMULA;  
-        //schemeRhoZ = NORESUM;// This is preferred, but reducible two-loop EW corrections have not been implemented yet. 
-        schemeRhoZ = OMSI;
-        schemeKappaZ = APPROXIMATEFORMULA;
-        boolR0bApproximate = false;
-    } else {
-        schemeMw = NORESUM;
-        //schemeRhoZ = NORESUM;// This is preferred, but reducible two-loop EW corrections have not been implemented yet. 
-        schemeRhoZ = OMSI;
-        schemeKappaZ = NORESUM;
-        boolR0bApproximate = false;
-    } 
-
+ 
     myCache = new EWSMcache(SM);
     myOneLoopEW = new EWSMOneLoopEW(*myCache);
     myTwoLoopQCD = new EWSMTwoLoopQCD(*myCache);
@@ -210,7 +177,7 @@ double EWSM::alphaMz() const {
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSM::Mw_SM() const {
+double EWSM::Mw_SM() const {    
     if (bUseCacheEWSM)       
         if (checkSMparams(Mw_params_cache))
             return Mw_cache;
@@ -673,7 +640,7 @@ double EWSM::GammaW_SM() const {
 
 
 double EWSM::R0_bottom_SM() const {
-    if (!boolR0bApproximate)
+    if (!SM.IsFlagR0bApproximate())
         throw std::runtime_error("Error in EWSM::R0_bottom_SM()"); 
 
     if (bUseCacheEWSM)      

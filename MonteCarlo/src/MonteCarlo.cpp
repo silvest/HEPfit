@@ -62,6 +62,11 @@ void MonteCarlo::Run(const int rank) {
                     ll = MCEngine.LogEval(pars);
                 } else if (recvbuff[0] == -1.)
                     break;
+                else 
+                {
+                    std::cout << "recvbuff = " << recvbuff[0] << " rank " << rank << std::endl;
+                    throw "error in MPI message!";
+                }
 
                 MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, buff, 1, MPI::DOUBLE,
                         0);
@@ -151,14 +156,12 @@ void MonteCarlo::Run(const int rank) {
             for (int il = 1; il < MCEngine.procnum; il++) {
                 sendbuff[il] = sendbuff[il - 1] + buffsize;
                 sendbuff[il][0] = -1.; //Exit command
+            }
                 MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE,
                         recvbuff, buffsize, MPI::DOUBLE,
                         0);
-
-            }
-
-
         }
+        
     } catch (std::string message) {
         std::cerr << message << std::endl;
         exit(EXIT_FAILURE);
