@@ -143,7 +143,7 @@ void MonteCarlo::Run(const int rank) {
             MCEngine.PrintHistogram(out);
             // output the correlation matrix to a eps file
             BCSummaryTool myBCSummaryTool(&MCEngine);
-            myBCSummaryTool.PrintCorrelationMatrix("correlations" + JobTag + ".eps");
+            myBCSummaryTool.PrintCorrelationMatrix(("correlations" + JobTag + ".eps").c_str());
 
             out.WriteMarginalizedDistributions();
             //out.FillAnalysisTree();
