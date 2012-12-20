@@ -1,0 +1,127 @@
+
+BAT - Bayesian Analysis Toolkit
+version 0.9.2
+-------------------------------
+
+This is the INSTALL file of BAT package
+---------------------------------------
+You can find here a short description of what to do to be able to
+compile and use BAT on your computer.
+
+
+Platforms
+----------
+BAT has been developed on Linux machines running different distributions
+and different versions of the kernel and gcc. As far as we know there
+is nothing distribution dependent inside of BAT. However, we have not yet
+started to systematically check for compatibility and portability. This is
+planned for future releases of BAT. For the moment the only statement
+we can make is that if you don't have a too old or too specific
+installation of Linux you should be able to compile and use BAT without
+problems.
+
+The installation and functionality of BAT has also been tested on MAC OS X.
+
+Windows is not supported for the moment.
+
+Dependencies
+-------------
+ROOT:
+   ROOT is an object oriented data analysis framework. You can obtain
+   it from http://root.cern.ch/. Since BAT version 0.4.2 a ROOT version
+   5.22 or later is needed to compile and run BAT. Please, check your
+   linux distribution for the availability of precompiled packages on
+   your system. Mostly used distributions nowdays have the ROOT packages
+   available.
+
+Note: To be able to use the interface to RooFit/RooStats the ROOT version
+      5.27/04 or later is necessary and ROOT has to be compiled with
+      MathMore enabled.
+
+Recommended
+-----------
+CUBA:
+   CUBA is a library containing general purpose multidimensional
+   integration algorithms. It can be obtained from
+   http://www.feynarts.de/cuba/. BAT will compile and run with Cuba
+   version 2.0 or later. Cuba is not necessary to run BAT, however, its
+   use is recommended as it provides integration routines tuned for
+   performance, which are very usefull for integration in problems with
+   large number of dimensions.
+
+Installation Procedure
+----------------------
+Unpack the tarball containing the BAT source usually named like
+BAT-x.x.tar.gz (here x.x is the version number) using command
+
+    tar -xzf BAT-x.x.tar.gz
+
+A directory called BAT-x.x will be created containing the source code.
+Enter the directory and run the configuration using commands
+
+    cd BAT-x.x
+    ./configure
+
+This will check your system for all components needed to compile BAT
+and set up the paths for installation. You can add option
+--prefix=/path/to/install/bat to ./configure to specify the the prefix
+to the BAT installation path. The BAT library files will be installed
+to $prefix/lib and the include files to $prefix/include. Default
+installation prefix is /usr/local.
+
+The configure script checks for ROOT availability in the system and
+fails if ROOT is not installed. You can specify the ROOTSYS directory
+using --with-rootsys=/path/to/rootsys.
+
+You can compile BAT with the RooFit/RooStats support using
+--with-roostats. The configure script will check whether the version of
+ROOT is sufficient and whether the ROOT was compiled with RooFit/RooStats
+support.
+
+You can compile BAT with Cuba support using option --with-cuba.
+The configure will then search for libcuba.a and cuba.h in the system.
+They either have to be available in the standard system path or you can
+specify the location using --with-cuba-include-dir=/path/to/cuba/header
+and --with-cuba-lib-dir=/path/to/cuba/lib.
+
+You can list all available options using
+
+    ./configure --help
+
+After successful configuration run
+
+    make
+    make install
+
+to compile and install BAT. Note that depending on the setting of
+installation prefix you might need root priviledges to be able to install
+BAT and run 'sudo make install' instead of plain 'make install'. If you
+are installing BAT e.g. in your $HOMEDIR, you need to add the path to the
+library and to the include files to the search path in your system.
+Depending on your shell you can do that e.g. via commands
+
+    export BATINSTALLDIR=/bat/install/prefix
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$BATINSTALLDIR/lib
+    export CPATH=$CPATH:$BATINSTALLDIR/include
+
+or
+
+    setenv BATINSTALLDIR     /bat/install/prefix
+    setenv LD_LIBRARY_PATH   $LD_LIBRARY_PATH:$BATINSTALLDIR/lib
+    setenv CPATH             $CPATH:$BATINSTALLDIR/include
+
+for bash and csh compatible shells, respectively. On Mac OS X you might
+also need to setup DYLD_LIBRARY_PATH.
+
+An option for use in compiled programs would also be to add
+-I/bat/install/include/path to CXXFLAGS and -L/bat/install/lib/path to
+LDFLAGS in your Makefile. However, the interactive ROOT macros will not
+work if libBAT.so, libBATmodels.so, libBATmtf.so, libBAT.rootmap,
+libBATmodels.rootmap and libBATmtf.rootmap are not in the system library
+search path.
+
+
+----------------------------------------------------------------------------
+Please, consult the BAT webpage http://www.mppmu.mpg.de/bat/ for further
+information. You can also contact the authors directly via
+email: bat@mppmu.mpg.de
