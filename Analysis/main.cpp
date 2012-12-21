@@ -14,7 +14,7 @@ using namespace std;
 
 int main(int argc, char** argv) {
 
-    string ModelConf, MCMCConf, FileOut;
+    string ModelConf, MCMCConf, FileOut, JobTag;
 
     cout << "\n *** SusyFit Markov Chain Montecarlo ***\n" << endl;
 
@@ -23,14 +23,17 @@ int main(int argc, char** argv) {
         desc.add_options()
                 ("modconf", value<string > (), "model config filename (1st)")
                 ("mcconf", value<string > (), "montecarlo config filename (2nd)")
-                ("rootfile", value<string > ()->default_value("MCout.root"),
-                "output root filename (3rd)")
+                ("rootfile", value<string > ()->default_value("MCout"),
+                "output root filename (without extension) (3rd)")
+                ("job_tag", value<string > ()->default_value(""),
+                "job tag (4th)")
                 ("help", "help message")
                 ;
         positional_options_description pd;
         pd.add("modconf", 1);
         pd.add("mcconf", 1);
         pd.add("rootfile", 1);
+        pd.add("job_tag", 1);
 
         variables_map vm;
         store(command_line_parser(argc,
@@ -53,8 +56,10 @@ int main(int argc, char** argv) {
             runtime_error("missing mandatory montecarlo config filename");
 
         FileOut = vm["rootfile"].as<string > ();
+        
+        JobTag = vm["job_tag"].as<string> ();
 
-        MonteCarlo MC(ModelConf, MCMCConf, FileOut);
+        MonteCarlo MC(ModelConf, MCMCConf, FileOut, JobTag);
         MC.Run();
 
         return EXIT_SUCCESS;
