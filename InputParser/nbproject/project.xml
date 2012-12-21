@@ -35,6 +35,10 @@
                     <name>Release</name>
                     <type>3</type>
                 </confElem>
+                <confElem>
+                    <name>Cluster</name>
+                    <type>3</type>
+                </confElem>
             </confList>
         </data>
     </configuration>

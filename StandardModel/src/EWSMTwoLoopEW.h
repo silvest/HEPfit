@@ -1,6 +1,8 @@
 /* 
- * File:   EWSMTwoLoopEW.h
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef EWSMTWOLOOPEW_H
@@ -26,15 +28,17 @@ public:
 
     /**
      * @brief leptonic contribution to alpha
+     * @param[in] s invariant mass squared 
      * @return Delta alpha_{lept}^{alpha^2}
      */
-    double DeltaAlpha_l() const;
+    double DeltaAlpha_l(const double s) const;
 
     /**
      * @brief top-quark contribution to alpha
+     * @param[in] s invariant mass squared 
      * @return Delta alpha_{top}^{alpha^2}
      */
-    double DeltaAlpha_t() const;    
+    double DeltaAlpha_t(const double s) const;    
     
     /**
      * @brief leading contribution to Delta r
@@ -84,7 +88,8 @@ public:
 
     
     ////////////////////////////////////////////////////////////////////////        
-
+    // O(GF^2 Mt^2) contributions
+    
     /**
      * @return O(alpha^2 Mt^4/M_Z^4) contribution to Delta rho
      */
@@ -95,7 +100,7 @@ public:
      */
     double tau_2() const;
     
-    
+        
     ////////////////////////////////////////////////////////////////////////        
     
 private:
@@ -120,6 +125,33 @@ private:
      */
     double f1(const double a) const;    
 
+    
+    ////////////////////////////////////////////////////////////////////////        
+    // O(alpha^2 Mt^4/M_Z^4 + alpha^2 Mt^2/M_Z^2) contributions
+
+    double DeltaRho2(const double Mw_i) const;
+    double DeltaRho2Add(const double Mw_i) const;
+    double DeltaRw2(const double Mw_i) const;
+    double deltaEoverE2() const;
+    double f2Add(const double Mw_i) const;
+    double DeltaEta2(const double Mw_i) const;
+    complex DeltaEta2Add_tmp(const double I3f, const double Qf, const double Mw_i) const;
+    complex DeltaEta2Add_l(const StandardModel::lepton l, const double Mw_i) const;
+    complex DeltaEta2Add_q(const StandardModel::quark q, const double Mw_i) const;
+    double DeltaKappa2(const double Mw_i) const;
+    complex DeltaKappa2Add_tmp(const double I3f, const double Qf, const double Mw_i) const;
+    complex DeltaKappa2Add_l(const StandardModel::lepton l, const double Mw_i) const;
+    complex DeltaKappa2Add_q(const StandardModel::quark q, const double Mw_i) const;
+
+    complex Vadd(const double I3f, const double Qf, const double Mw_i) const;
+    complex DeltaEtaf1(const double I3f, const double Qf, const double Mw_i) const;
+    complex Vfi(const double I3f, const double Qf, const double q2, const double Mw_i) const;
+
+    double Lambda(const double x) const;
+    double phi(const double x) const;
+    complex FV(const double x) const;
+    complex GV(const double x) const;    
+    
 };
 
 #endif	/* EWSMTWOLOOPEW_H */

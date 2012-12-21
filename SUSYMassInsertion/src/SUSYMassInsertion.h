@@ -1,8 +1,8 @@
 /* 
- * File:   SUSYMassInsertion.h
- * Author: Mauro_87 & stefano
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 19 novembre 2011, 10.30
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef SUSYMASSINSERTION_H

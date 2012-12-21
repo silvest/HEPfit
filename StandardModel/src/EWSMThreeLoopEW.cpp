@@ -1,6 +1,8 @@
 /* 
- * File:   EWSMThreeLoopEW.cpp
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "EWSMThreeLoopEW.h"
@@ -12,10 +14,17 @@ EWSMThreeLoopEW::EWSMThreeLoopEW(const EWSMcache& cache_i) : cache(cache_i) {
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSMThreeLoopEW::DeltaAlpha_l() const {
-    double log_l[3] = { 2.0*cache.logMZtoME(), 
-                        2.0*cache.logMZtoMMU(), 
-                        2.0*cache.logMZtoMTAU() };    
+double EWSMThreeLoopEW::DeltaAlpha_l(const double s) const {
+    double log_l[3];
+    if (s==cache.Mz()*cache.Mz()) {
+        log_l[0] = 2.0*cache.logMZtoME();
+        log_l[1] = 2.0*cache.logMZtoMMU();
+        log_l[2] = 2.0*cache.logMZtoMTAU();
+    } else {
+        log_l[0] = log(s/cache.ml(StandardModel::ELECTRON)/cache.ml(StandardModel::ELECTRON));
+        log_l[1] = log(s/cache.ml(StandardModel::MU)/cache.ml(StandardModel::MU));
+        log_l[2] = log(s/cache.ml(StandardModel::TAU)/cache.ml(StandardModel::TAU));
+    }
 
     double threeLoop[3];
     for (int i = 0; i < 3; i++) {
@@ -48,7 +57,7 @@ double EWSMThreeLoopEW::DeltaAlpha_l() const {
 }    
 
 
-double EWSMThreeLoopEW::DeltaAlpha_t() const {   
+double EWSMThreeLoopEW::DeltaAlpha_t(const double s) const {   
     return (0.0);
 }
 

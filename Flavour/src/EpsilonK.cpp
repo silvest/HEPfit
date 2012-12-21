@@ -1,7 +1,8 @@
 /* 
- * File:   EpsilonK.cpp
- * Author: stefano
- * Created on 1 dicembre 2011, 10.38
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "EpsilonK.h"

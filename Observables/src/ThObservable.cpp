@@ -1,8 +1,8 @@
 /* 
- * File:   ThObservable.cpp
- * Author: silvest
- * 
- * Created on March 29, 2011, 12:15 PM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "ThObservable.h"
@@ -22,4 +22,4 @@ ThObservable::ThObservable(const ThObservable& orig) : ObsType(orig.ObsType),
 ThObservable::~ThObservable() {
 }
 
-double const ThObservable::GeVminus2_to_nb = 389379.338;
+const double ThObservable::GeVminus2_to_nb = 389379.338;

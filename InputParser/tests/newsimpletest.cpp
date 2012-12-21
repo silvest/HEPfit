@@ -1,8 +1,8 @@
 /* 
- * File:   newsimpletest.cpp
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on Mar 28, 2011, 11:27:12 AM
+ * For the licensing terms see doc/COPYING.
  */
 
 #include <stdlib.h>

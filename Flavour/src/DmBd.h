@@ -1,8 +1,8 @@
 /* 
- * File:   DmBd.h
- * Author: marco
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on April 29, 2011, 12:45 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef DMBD_H

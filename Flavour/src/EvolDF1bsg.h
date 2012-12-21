@@ -1,8 +1,8 @@
 /* 
- * File:   EvolDF1bsg.h
- * Author: Mauro_87
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 11 ottobre 2011, 15.48
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef EVOLDF1BSG_H

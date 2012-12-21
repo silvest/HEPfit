@@ -1,11 +1,14 @@
 /* 
- * File:   RunningMasses.cpp
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include <stdlib.h>
 #include <iostream>
 #include <iomanip>
+#include <stdexcept>
 #include "StandardModel.h"
 using namespace std;
 
@@ -128,6 +131,7 @@ int main(int argc, char** argv) {
     try {    
         StandardModel* mySM;
         mySM = new StandardModel(true);
+        mySM->InitializeModel();
         setSMparameters(*mySM);
 
         cout.precision(8);
@@ -235,9 +239,9 @@ int main(int argc, char** argv) {
         ////////////////////////////////////////////////////////////////////////        
         
         return EXIT_SUCCESS;
-    } catch (const char* c) {
-        cerr << c << endl;
+    } catch (const runtime_error& e) {
+        cerr << e.what() << endl;
         return EXIT_FAILURE;
-    }        
+    }   
 }
 

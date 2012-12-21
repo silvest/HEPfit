@@ -1,6 +1,8 @@
 /* 
- * File:   EWObservables.h
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef EWOBSERVABLES_H
@@ -23,11 +25,25 @@
 #include "Rcharm.h"
 #include "Rbottom.h"
 #include "sigmaHadron.h"
-#include "sigmamuLEP2.h"
+
+#include "LEP2sigmaHadron.h"
+#include "LEP2sigmaMu.h"
+#include "LEP2sigmaTau.h"
+#include "LEP2AFBmu.h"
+#include "LEP2AFBtau.h"
+#include "LEP2AFBbottom.h"
+#include "LEP2AFBcharm.h"
+#include "LEP2Rbottom.h"
+#include "LEP2Rcharm.h"
 
 #include "obliqueS.h"
 #include "obliqueT.h"
 #include "obliqueU.h"
+
+#include "epsilon1.h"
+#include "epsilon2.h"
+#include "epsilon3.h"
+#include "epsilonb.h"
 
 #include "Mh0.h"
 

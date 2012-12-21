@@ -1,6 +1,8 @@
 /* 
- * File:   EWSMApproximateFormulae.h
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef EWSMAPPROXIMATEFORMULAE_H
@@ -15,9 +17,8 @@ public:
     /**
      * @brief  EWSMApproximateFormulae constructor
      * @param[in] SM_i reference to a StandardModel object
-     * @param[in] bDebug_i boolean value for debugging (true for debugging)
      */
-    EWSMApproximateFormulae(const StandardModel& SM_i, const bool bDebug_i=false);    
+    EWSMApproximateFormulae(const StandardModel& SM_i);    
 
     
     ////////////////////////////////////////////////////////////////////////

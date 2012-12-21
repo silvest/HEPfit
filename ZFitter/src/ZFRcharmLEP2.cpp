@@ -1,6 +1,8 @@
 /* 
- * File:   ZFRcharmLEP2.cpp
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "ZFRcharmLEP2.h"

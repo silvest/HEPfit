@@ -1,8 +1,8 @@
 /* 
- * File:   ThObservable.h
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on March 29, 2011, 12:15 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef THOBSERVABLE_H
@@ -20,7 +20,7 @@ public:
     virtual ~ThObservable();
     virtual double getThValue() = 0;
 
-    static double const GeVminus2_to_nb;// conversion factor from GeV^{-2} to nb
+    static const double GeVminus2_to_nb;// conversion factor from GeV^{-2} to nb
 
 protected:
     const ThObsType& ObsType;

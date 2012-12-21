@@ -1,0 +1,28 @@
+------------------------------------------
+BAT - Bayesian Analysis Toolkit
+------------------------------------------
+Release notes for version:    0.9.2
+Release date:                 2012-11-20
+Urgency:                      medium
+------------------------------------------
+
+This version is intended to be a pre-release for the stable BAT version 1.0.
+It contains an update to the RooStats interface and a few bugfixes. The most
+important changes are summarized here. For detailed list of changes see the
+Changelog. For more information consult the BAT webpage at http://mpp.mpg.de/bat/.
+
+RooStats Interface:
+-------------------
+o update to be compatible with the latest Root releases (>=5.34)
+o store nuisance parameters to RooStats MarkovChain object
+o fix std namespace issues
+
+General Updates:
+----------------
+o use BAT native output methods everywhere
+o small fix in sampled mean integration
+o fix R value calculation when all samples equal
+o fix std namespace issues
+
+If you are updating from BAT version older than 0.9.1, also check the release
+notes for the intermediate versions.

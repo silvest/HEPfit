@@ -1,8 +1,8 @@
 /* 
- * File:   InputParser.h
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on March 15, 2011, 2:36 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef INPUTPARSER_H
@@ -16,7 +16,9 @@
 #include <StandardModel.h>
 #include <StandardModelMatching.h>
 #include <NewPhysicsSTU.h>
-//#include <NewPhysicsSTUVWXY.h>
+#include <NewPhysicsSTUVWXY.h>
+#include <NewPhysicsEpsilons.h>
+#include <NewPhysicsHiggs.h>
 #include <SUSYMassInsertion.h>
 #include <SUSYMassInsertionMatching.h>
 #include <MFV.h>

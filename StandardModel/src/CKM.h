@@ -1,8 +1,8 @@
 /* 
- * File:   CKM.h
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on March 2, 2011, 2:07 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef CKM_H

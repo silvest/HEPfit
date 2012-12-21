@@ -1,6 +1,8 @@
 /* 
- * File:   EW.cpp
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "EW.h"
@@ -12,18 +14,45 @@
 #include <stdexcept>
 
 
-EW::EW(const StandardModel& SM_i, bool bDebug_i) : ThObsType(SM_i), SM(SM_i) {
-    bDebug = bDebug_i;
+EW::EW(const StandardModel& SM_i) : ThObsType(SM_i), SM(SM_i), myEW_CHMN(SM_i), 
+        myEW_ABC(SM_i) {
+    bDebug = SM_i.isBDebug();
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 
+EW::EWTYPE EW::getEWTYPE() const {
+    if ( SM.IsFlagEWABC() && SM.IsFlagEWABC2() ) 
+        throw std::runtime_error("Flags EWABC and EWABC2 cannot be set to true simultaneously");
+    if ( SM.IsFlagEWBURGESS() && SM.IsFlagEWCHMN() ) 
+        throw std::runtime_error("Flags EWBURGESS and EWCHMN cannot be set to true simultaneously");
+    if ( SM.IsFlagEWABC() && SM.IsFlagEWCHMN() ) 
+        throw std::runtime_error("Flags EWABC and EWCHMN cannot be set to true simultaneously");
+    if ( SM.IsFlagEWABC2() && SM.IsFlagEWCHMN() ) 
+        throw std::runtime_error("Flags EWABC2 and EWCHMN cannot be set to true simultaneously");
+    if ( SM.IsFlagEWABC() && SM.IsFlagEWBURGESS() ) 
+        throw std::runtime_error("Flags EWABC and EWBURGESS cannot be set to true simultaneously");
+    if ( SM.IsFlagEWABC2() && SM.IsFlagEWBURGESS() ) 
+        throw std::runtime_error("Flags EWABC2 and EWBURGESS cannot be set to true simultaneously");
+            
+    if ( SM.IsFlagEWBURGESS() ) return EWBURGESS;
+    else if ( SM.IsFlagEWCHMN() ) return EWCHMN;
+    else if ( SM.IsFlagEWABC() ) return EWABC;
+    else if ( SM.IsFlagEWABC2() ) return EWABC2;
+    else return EWDEFAULT;
+}
+
+
 bool EW::checkModelForSTU() const {
     std::string Model = SM.ModelName();
-    if (Model=="StandardModel" || Model=="SUSY")
+    //std::cout << "Model in EW: " << Model << std::endl; // TEST
+
+    if (Model=="StandardModel" || Model=="SUSY" || Model=="NewPhysicsEpsilons" 
+            || Model=="NewPhysicsHiggs")
         return false;
-    else if (Model=="NewPhysicsSTU" || Model=="THDM")
+    else if (Model=="NewPhysicsSTU" || Model=="NewPhysicsSTUVWXY" 
+            || Model=="THDM")
         return true;
     else 
         throw std::runtime_error("Error in EW::checkModelForSTU()");  
@@ -40,13 +69,34 @@ double EW::Qq(const StandardModel::quark q) const {
 }
 
 
-double EW::s2() const {
-    return ( SM.s02() );
+double EW::alpha0() const {
+    return ( SM.alphaMz() );    
+
+//    return SM.getAle(); // TEST!!
 }
 
 
-double EW::c2() const {
+double EW::Mw0() const {
+    return ( SM.Mw0() );
+
+//    return SM.Mw_tree(); // TEST!!
+//    return SM.Mw(); // TEST!!
+}
+
+
+double EW::s02() const {
+    return ( SM.s02() );
+
+//    return ( 1.0 - c02() ); // TEST!!
+//    return SM.sW2(); // TEST?!!
+}
+
+
+double EW::c02() const {
     return ( SM.c02() );
+
+//    return ( SM.Mw_tree()*SM.Mw_tree()/SM.getMz()/SM.getMz() ); // TEST!!
+//    return SM.cW2(); // TEST?!!
 }
 
 
@@ -148,7 +198,8 @@ double EW::Gamma_q(const StandardModel::quark q) const {
     }
 
     /* Logarithms */
-    double log_t = log(pow(SM.getQuarks(SM.TOP).getMass(),2.0)/s);
+    //double log_t = log(pow(SM.getQuarks(SM.TOP).getMass(),2.0)/s);
+    double log_t = log(pow(SM.getMtpole(),2.0)/s); // the pole mass
     double log_c = log(mcMz2/s);
     double log_b = log(mbMz2/s);
     double log_q;
@@ -215,7 +266,8 @@ double EW::Gamma_q(const StandardModel::quark q) const {
     double C42AL= 77.0/2.0 - 7.0/3.0*nf;
 
     /* power suppressed top-mass correction */
-    double xt = s/pow(SM.getQuarks(SM.TOP).getMass(),2.0);
+    //double xt = s/pow(SM.getQuarks(SM.TOP).getMass(),2.0);
+    double xt = s/pow(SM.getMtpole(),2.0); // the pole mass
     double C2t = xt*(44.0/675.0 - 2.0/135.0*(-log_t));
 
     /* singlet axial-vector corrections */
@@ -254,7 +306,8 @@ double EW::Gamma_q(const StandardModel::quark q) const {
             + (mcMz2 + mbMz2)/s*C23*AlsMzPi3
             + mqMz2/s*(C20A + C21A*AlsMzPi + C22A*AlsMzPi2
                        + 6.0*(3.0 + log_t)*AlsMzPi2 + C23A*AlsMzPi3)
-            - 10.0*mqMz2/pow(SM.getQuarks(SM.TOP).getMass(),2.0)
+            //- 10.0*mqMz2/pow(SM.getQuarks(SM.TOP).getMass(),2.0)
+            - 10.0*mqMz2/pow(SM.getMtpole(),2.0) // the pole mass
               *(8.0/81.0 + log_t/54.0)*AlsMzPi2
             + mcMz2*mcMz2/s/s*(C42 - log_c)*AlsMzPi2
             + mbMz2*mbMz2/s/s*(C42 - log_b)*AlsMzPi2
@@ -333,73 +386,4 @@ double EW::A_q(const StandardModel::quark q) const {
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
 }
 
-
-////////////////////////////////////////////////////////////////////////
-
-double EW::dsigma_lLEP2(const StandardModel::lepton l, const double s, 
-                        const double W, const double X, const double Y, 
-                        const double cos_theta) const {
-    return ( SM.DsigmaLEP2_l(l, s, cos_theta, W, X, Y, Gamma_Z()) );
-}
-
-
-double EW::dsigma_qLEP2(const StandardModel::quark q, const double s,
-                        const double W, const double X, const double Y, 
-                        const double cos_theta) const {
-    return ( SM.DsigmaLEP2_q(q, s, cos_theta, W, X, Y, Gamma_Z()) );
-}
-
-
-////////////////////////////////////////////////////////////////////////
-
-double EW::sigma_l_Born_LEP2(const StandardModel::lepton l, const double s) const {
-    double mf = SM.getLeptons(l).getMass();
-    double Qf = SM.getLeptons(l).getCharge();
-    double I3f = SM.getLeptons(l).getIsospin();
-    return sigma_f_Born_LEP2(s, mf, Qf, I3f, 1.0);
-}
-
-
-double EW::sigma_q_Born_LEP2(const StandardModel::quark q, const double s) const {
-    double mf = SM.getLeptons(q).getMass();
-    double Qf = SM.getLeptons(q).getCharge();
-    double I3f = SM.getLeptons(q).getIsospin();
-    return sigma_f_Born_LEP2(s, mf, Qf, I3f, 3.0);
-}
-
-
-double EW::sigma_f_Born_LEP2(const double s, const double mf, const double Qf, 
-                             const double I3f, const double Ncf) const {
-    double betaf = sqrt(1.0 - 4.0*mf*mf/s);
-    double Qe = SM.getLeptons(SM.ELECTRON).getCharge();
-    double I3e = SM.getLeptons(SM.ELECTRON).getIsospin();
-    double sW2 = SM.sW2();
-    double sW = sqrt(sW2);
-    double cW = sqrt(SM.cW2());
-    double ve = (I3e - 2.0*Qe*sW2)/(2.0*sW*cW);
-    double ae = I3e/(2.0*sW*cW);
-    double vf = (I3f - 2.0*Qf*sW2)/(2.0*sW*cW);
-    double af = I3f/(2.0*sW*cW);
-    double Mz = SM.getMz();
-    double GammaZ = Gamma_Z();
-    double Qe2 = Qe*Qe, Qf2 = Qf*Qf, betaf2 = betaf*betaf;
-    double ve2 = ve*ve, ae2 = ae*ae, vf2 = vf*vf, af2 = af*af;
-    
-    complex chi_gamma = complex(1.0, 0.0, false);
-    complex i = complex::i();
-    complex chi_Z = s/(s - Mz*Mz + i*Mz*GammaZ);
-    complex chi_gammaZ = complex(0.0, 0.0, false);
-    
-    double G1 = Qe2*Qf2*chi_gamma.abs2()
-                + 2.0*ve*vf*Qe*Qf*(chi_Z*chi_gamma.conjugate()).real()
-                + (ve2 + ae2)*(vf2 + betaf2*af2)*chi_Z.abs2()
-                + (Qe2*(vf2 + af2) + 2.0*ve*vf*Qe*Qf + (ve2 + ae2)*Qf2)*chi_gammaZ.abs2()
-                + 2.0*(vf*Qe2*Qf + ve*Qe*Qf2)*(chi_gamma*chi_gammaZ.conjugate()).real()
-                + 2.0*(ve*(vf2 + af2)*Qe + (ve2 + ae2)*vf*Qf)*(chi_Z*chi_gammaZ.conjugate()).real();
-    double G2 = Qe2*Qf2*chi_gamma.abs2()
-                + 2.0*ve*vf*Qe*Qf*(chi_Z*chi_gamma.conjugate()).real()
-                + (ve2 + ae2)*vf2*chi_Z.abs2();
-    
-    return ( 4.0*M_PI*SM.getAle()*SM.getAle()/(3.0*s)*Ncf*betaf*(G1 + 2.0*mf*mf/s*G2) );
-}
 

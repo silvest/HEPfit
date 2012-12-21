@@ -1,8 +1,8 @@
 /* 
- * File:   HeffDF1bnlep.cpp
- * Author: stefano
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 11 ottobre 2011, 15.19
+ * For the licensing terms see doc/COPYING.
  */
     
 #include "HeffDF1bnlep.h"
@@ -77,7 +77,13 @@ vector<complex>** HeffDF1bnlep::ComputeCoeffBnlep00(double mu, schemes scheme) {
     //Puts all together in a wilson coefficient object of 12 component: 
     //the first 10 terms are the ones proportional to lambda_t
     //the last two are the remainder current*current operators 
-    gslpp:: complex appoggio[10] = 0., appoggio1[10] = 0., appoggio2[10] = 0., appoggio3[10] = 0.;
+    gslpp::complex appoggio[10], appoggio1[10], appoggio2[10], appoggio3[10];
+    for (int i=0; i<10; i++) {
+        appoggio[i] = 0.;
+        appoggio1[i] = 0.;
+        appoggio2[i] = 0.;
+        appoggio3[i] = 0.;
+    }
     for (int j=LO; j <= ordDF1; j++) {
         bnlep2 = *coeffbnlep00qcd.getCoeff(orders(j));
         std::cout<< std::endl <<"$$$$$$$$$$$$ "<< j <<" $$$$$$$$$$$"<<std::endl;

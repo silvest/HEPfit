@@ -1,6 +1,8 @@
 /* 
- * File:   EWSMOneLoopEW.cpp
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "EWSMOneLoopEW.h"
@@ -12,15 +14,15 @@ EWSMOneLoopEW::EWSMOneLoopEW(const EWSMcache& cache_i) : cache(cache_i) {
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSMOneLoopEW::DeltaAlpha_l() const {  
+double EWSMOneLoopEW::DeltaAlpha_l(const double s) const {  
     double Mz = cache.Mz();
 
     double oneLoop[3];
-    oneLoop[0] = - PiGammaGamma_fer_l(Mz, Mz*Mz, StandardModel::ELECTRON).real() 
+    oneLoop[0] = - PiGammaGamma_fer_l(Mz, s, StandardModel::ELECTRON).real() 
                  + PiGammaGamma_fer_l(Mz, 0.0, StandardModel::ELECTRON).real();
-    oneLoop[1] = - PiGammaGamma_fer_l(Mz, Mz*Mz, StandardModel::MU).real() 
+    oneLoop[1] = - PiGammaGamma_fer_l(Mz, s, StandardModel::MU).real() 
                  + PiGammaGamma_fer_l(Mz, 0.0, StandardModel::MU).real();
-    oneLoop[2] = - PiGammaGamma_fer_l(Mz, Mz*Mz, StandardModel::TAU).real() 
+    oneLoop[2] = - PiGammaGamma_fer_l(Mz, s, StandardModel::TAU).real() 
                  + PiGammaGamma_fer_l(Mz, 0.0, StandardModel::TAU).real();
     
     return( cache.ale()/4.0/M_PI
@@ -28,8 +30,8 @@ double EWSMOneLoopEW::DeltaAlpha_l() const {
 }
 
 
-double EWSMOneLoopEW::DeltaAlpha_t() const {   
-    double xt = pow(cache.Mz()/cache.Mt(), 2.0);
+double EWSMOneLoopEW::DeltaAlpha_t(const double s) const {   
+    double xt = s/cache.Mt()/cache.Mt();
     double tmp = 1.0 + xt*0.1071;
     tmp *= -4.0/45.0*cache.ale()/M_PI*xt;
     return tmp;
@@ -137,7 +139,7 @@ complex EWSMOneLoopEW::deltaKappa_rem_tmp(const double deltaf, const complex uf,
     double log_cW2 = cache.log_cW2(Mw); 
 
     complex dKappa_rem(0.0,0.0,false);
-    dKappa_rem = - ( PiZgamma_bos(Mz,Mz*Mz,Mw) + PiZgamma_fer(Mz,Mz*Mz,Mw) )
+    dKappa_rem = ( PiZgamma_bos(Mz,Mz*Mz,Mw) + PiZgamma_fer(Mz,Mz*Mz,Mw) )
                  + deltaf*deltaf/4.0/cW2*FZ(Mz*Mz,Mw) - uf
                  + (1.0/12.0/cW2 + 4.0/3.0)*log_cW2;
     dKappa_rem *= cache.ale()/4.0/M_PI/sW2;
@@ -311,7 +313,7 @@ complex EWSMOneLoopEW::SigmaWW_fer(const double mu, const double s,
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
         ml[i] = cache.ml((StandardModel::lepton) i);
-        mq[i] = cache.mq((StandardModel::quark) i);        
+        mq[i] = cache.mq((StandardModel::quark) i, mu);        
     }
     double Mw = cache.Mw(Mw_i);
     double Mw2 = Mw*Mw;
@@ -423,7 +425,7 @@ complex EWSMOneLoopEW::SigmaZZ_fer(const double mu, const double s,
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
         ml[i] = cache.ml((StandardModel::lepton) i);
-        mq[i] = cache.mq((StandardModel::quark) i);        
+        mq[i] = cache.mq((StandardModel::quark) i, mu);        
     }
     double Mw = cache.Mw(Mw_i);
     double Mz = cache.Mz();    
@@ -494,7 +496,7 @@ complex EWSMOneLoopEW::PiGammaGamma_bos(const double mu, const double s,
     
     complex Pi(0.0,0.0,false);
     if (s==0.0) {
-        throw std::runtime_error("Missing codes for EWSMOneLoopEW::PiGammaGamma_bos(s=0.0)"); 
+        Pi = 7.0*log(Mw2/mu/mu) - 2.0/3.0;
     } else {
         Pi = - RW*( (4.0 + 17.0/3.0/RW - 4.0/3.0/RW2 - 1.0/12.0/RW3)*B0_s_Mw_Mw
                     + (4.0 - 4.0/3.0/RW - 1.0/6.0/RW2)*(A0_Mw/Mw2 + 1.0)
@@ -506,6 +508,11 @@ complex EWSMOneLoopEW::PiGammaGamma_bos(const double mu, const double s,
 
 complex EWSMOneLoopEW::PiGammaGamma_fer_l(const double mu, const double s, 
                                           const StandardModel::lepton l) const {
+    // Neutrinos do not contribute, since Qf=0.
+    if ( (l==StandardModel::NEUTRINO_1) || (l==StandardModel::NEUTRINO_2)
+            || (l==StandardModel::NEUTRINO_3) )
+        return 0.0;
+
     double mf = cache.ml(l);
     double Mz = cache.Mz();    
     double Mz2 = Mz*Mz;
@@ -539,7 +546,7 @@ complex EWSMOneLoopEW::PiGammaGamma_fer_l(const double mu, const double s,
 
 complex EWSMOneLoopEW::PiGammaGamma_fer_q(const double mu, const double s, 
                                           const StandardModel::quark q) const {
-    double mf = cache.mq(q);
+    double mf = cache.mq(q, mu);
     double Mz = cache.Mz();    
     double Mz2 = Mz*Mz;
 
@@ -584,7 +591,7 @@ complex EWSMOneLoopEW::PiZgamma_bos(const double mu, const double s,
                                     const double Mw_i) const {
     double Mw = cache.Mw(Mw_i);
     double cW2 = cache.cW2(Mw);
-    return ( - PiGammaGamma_bos(mu,s,Mw)*cW2);
+    return ( PiGammaGamma_bos(mu,s,Mw)*cW2 );
 }
 
 
@@ -593,7 +600,7 @@ complex EWSMOneLoopEW::PiZgamma_fer(const double mu, const double s,
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
         ml[i] = cache.ml((StandardModel::lepton) i);
-        mq[i] = cache.mq((StandardModel::quark) i); 
+        mq[i] = cache.mq((StandardModel::quark) i, mu); 
     }
     double Mz = cache.Mz();    
     double Mz2 = Mz*Mz;
@@ -604,12 +611,18 @@ complex EWSMOneLoopEW::PiZgamma_fer(const double mu, const double s,
     complex Bf_s_ml_ml[6], Bf_s_mq_mq[6];
     if (mu==Mz && s==Mz2) {
         for (int i=0; i<6; i++) {
-            Bf_s_ml_ml[i] = cache.Bf_Mz_Mz2_ml_ml((StandardModel::lepton) i);
+            if (i==0 || i==2 || i==4 )
+                Bf_s_ml_ml[i] = 0.0; // Neutrinos do not contribute, since Ql=0.
+            else
+                Bf_s_ml_ml[i] = cache.Bf_Mz_Mz2_ml_ml((StandardModel::lepton) i);
             Bf_s_mq_mq[i] = cache.Bf_Mz_Mz2_mq_mq((StandardModel::quark) i);           
         }
     } else {
         for (int i=0; i<6; i++) {
-            Bf_s_ml_ml[i] = cache.getPV().Bf(mu,s,ml[i],ml[i]);
+            if (i==0 || i==2 || i==4 )
+                Bf_s_ml_ml[i] = 0.0; // Neutrinos do not contribute, since Ql=0.
+            else    
+                Bf_s_ml_ml[i] = cache.getPV().Bf(mu,s,ml[i],ml[i]);
             Bf_s_mq_mq[i] = cache.getPV().Bf(mu,s,mq[i],mq[i]);            
         }
     }
@@ -618,10 +631,10 @@ complex EWSMOneLoopEW::PiZgamma_fer(const double mu, const double s,
     double Ql, Qq;
     for (int i=0; i<6; i++) {
         Ql = cache.Ql((StandardModel::lepton) i);
-        Pi += (fabs(Ql) - 4.0*sW2*Ql*Ql)*Bf_s_ml_ml[i];
+        Pi += - (fabs(Ql) - 4.0*sW2*Ql*Ql)*Bf_s_ml_ml[i];
         //
         Qq = cache.Qq((StandardModel::quark) i);
-        Pi += 3.0*(fabs(Qq) - 4.0*sW2*Qq*Qq)*Bf_s_mq_mq[i];
+        Pi += - 3.0*(fabs(Qq) - 4.0*sW2*Qq*Qq)*Bf_s_mq_mq[i];
     }   
     return Pi;
 }
@@ -687,7 +700,7 @@ complex EWSMOneLoopEW::SigmaPrime_WW_fer_Mw2(const double mu,
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
         ml[i] = cache.ml((StandardModel::lepton) i);
-        mq[i] = cache.mq((StandardModel::quark) i); 
+        mq[i] = cache.mq((StandardModel::quark) i, mu); 
     }
     double Mw = cache.Mw(Mw_i);
     double Mw2 = Mw*Mw;
@@ -790,7 +803,7 @@ complex EWSMOneLoopEW::SigmaPrime_ZZ_fer_Mz2(const double mu, const double Mw_i)
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
         ml[i] = cache.ml((StandardModel::lepton) i);
-        mq[i] = cache.mq((StandardModel::quark) i); 
+        mq[i] = cache.mq((StandardModel::quark) i, mu); 
     }
     double Mw = cache.Mw(Mw_i);
     double Mz = cache.Mz();    

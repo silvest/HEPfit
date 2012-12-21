@@ -1,6 +1,8 @@
 /* 
- * File:   EWSM.h
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef EWSM_H
@@ -17,10 +19,10 @@
 #include "EWSMThreeLoopEW2QCD.h"
 #include "EWSMThreeLoopEW.h"
 #include "EWSMApproximateFormulae.h"
-#include "EWSMOneLoopLEP2.h"
+#include "EWSMOneLoopEW_HV.h"
+#include "EWSMTwoFermionsLEP2.h"
 
 using namespace gslpp;
-
 
 class EWSM {
 public:
@@ -39,46 +41,78 @@ public:
      */
     enum schemes_EW {NORESUM=0, OMSI, INTERMEDIATE, OMSII, APPROXIMATEFORMULA};
     
+    // The number of the parameters relevant to EW observables
+    static const int NumSMParams = 21;
+        
     
     //////////////////////////////////////////////////////////////////////// 
     
     /**
      * @brief EWSM constructor
      * @param[in] SM_i reference to a StandardModel object
-     * @param[in] bDebug_i boolean value for debugging (true for debugging)
      */
-    EWSM(const StandardModel& SM_i, const bool bDebug_i=false);
+    EWSM(const StandardModel& SM_i);
 
     
     ////////////////////////////////////////////////////////////////////////     
 
     /**
-     * @return a reference to the EWSMcache object
+     * @return a pointer to the EWSMTwoFermionsLEP2 object
      */
-    const EWSMcache* getMyCache() const {
-        return myCache;
+    EWSMTwoFermionsLEP2* getMyTwoFermionsLEP2() const {
+        return myTwoFermionsLEP2;
     }
     
     /**
-     * @return boolean variable: if true, the approximate formula for R_b^0 is employed. 
+     * @brief set a flag for M_W
+     * @param[in] schemeMw NORESUM, OMSI, INTERMEDIATE, OMSII or APPROXIMATEFORMULA
      */
-    bool isBoolR0bApproximate() const {
-        return boolR0bApproximate;
+    void setSchemeMw(schemes_EW schemeMw) {
+        this->schemeMw = schemeMw;
+    }
+
+    /**
+     * @brief set a flag for rho_Z
+     * @param[in] schemeRhoZ NORESUM, OMSI, INTERMEDIATE, OMSII or APPROXIMATEFORMULA
+     * @attention NORESUM is not available, since reducible two-loop EW corrections have not been implemented yet. 
+     */
+    void setSchemeRhoZ(schemes_EW schemeRhoZ) {
+        this->schemeRhoZ = schemeRhoZ;
     }
     
+    /**
+     * @brief set a flag for kappa_Z
+     * @param[in] schemeKappaZ NORESUM, OMSI, INTERMEDIATE, OMSII or APPROXIMATEFORMULA
+     */
+    void setSchemeKappaZ(schemes_EW schemeKappaZ) {
+        this->schemeKappaZ = schemeKappaZ;
+    }
+
     
     //////////////////////////////////////////////////////////////////////// 
 
+    bool checkSMparams(double Params_cache[]) const;
+    
+    
+    //////////////////////////////////////////////////////////////////////// 
+    
     /**
-     * @return the leptonic corrections to alpha at Mz
+     * @param[in] s invariant mass squared 
+     * @return the leptonic corrections to alpha
      */
-    double DeltaAlphaLepton() const;    
+    double DeltaAlphaLepton(const double s) const;    
 
     /**
      * @return the sum of the leptonic and hadronic corrections to alpha at Mz
      */
     double DeltaAlphaL5q() const;
-    
+
+    /**
+     * @param[in] s invariant mass squared 
+     * @return the top-quark corrections to alpha
+     */
+    double DeltaAlphaTop(const double s) const;    
+
     /**
      * @return the total (leptonic+hadronic+top) corrections to alpha at Mz
      */
@@ -229,17 +263,32 @@ public:
     double taub() const;    
     
 
-    ////////////////////////////////////////////////////////////////////////     
-    // LEP-II observables
-
-    double dsigmaLEP2_l(const StandardModel::lepton l,const double s,const double Mw_i,
-                        const double cos_theta,const double W,const double X,const double Y,
-                        const double GammaZ) const;
+    ////////////////////////////////////////////////////////////////////////
     
-    double dsigmaLEP2_q(const StandardModel::quark q,const double s,const double Mw_i,
-                        const double cos_theta,const double W,const double X,const double Y,
-                        const double GammaZ) const;
+    /**
+     * @param[in] l lepton
+     * @return flavor-dependent correction to rho_Z^l with respect to that for the charged leptons
+     */
+    complex rhoZ_l_SM_FlavorDep(const StandardModel::lepton l) const;
 
+    /**
+     * @param[in] q quark
+     * @return flavor-dependent correction to rho_Z^q with respect to that for the charged leptons
+     */
+    complex rhoZ_q_SM_FlavorDep(StandardModel::quark q) const;
+
+    /**
+     * @param[in] l lepton
+     * @return flavor-dependent correction to kappa_Z^l with respect to that for the charged leptons
+     */
+    complex kappaZ_l_SM_FlavorDep(const StandardModel::lepton l) const;
+
+    /**
+     * @param[in] q quark
+     * @return flavor-dependent correction to kappa_Z^q with respect to that for the charged leptons
+     */
+    complex kappaZ_q_SM_FlavorDep(StandardModel::quark q) const;
+    
     
     ////////////////////////////////////////////////////////////////////////     
 protected:
@@ -251,7 +300,6 @@ protected:
 private:
     bool flag_order[orders_EW_size]; 
     schemes_EW schemeMw, schemeRhoZ, schemeKappaZ;
-    bool boolR0bApproximate;
     
     EWSMcache* myCache;
     EWSMOneLoopEW* myOneLoopEW;
@@ -262,7 +310,7 @@ private:
     EWSMThreeLoopEW* myThreeLoopEW; 
     EWSMApproximateFormulae* myApproximateFormulae;
     
-    EWSMOneLoopLEP2* myLEP2;
+    EWSMTwoFermionsLEP2* myTwoFermionsLEP2;
         
     // accuracy in the iterative calculation of Mw
     static const double Mw_error;
@@ -273,9 +321,6 @@ private:
     
     bool bUseCacheEWSM; // true for caching
     
-    // The number of the parameters relevant to EW observables
-    static const int NumSMParams = 21;
-        
     mutable double DeltaAlphaLepton_params_cache[NumSMParams];
     mutable double DeltaAlphaLepton_cache;
     
@@ -302,43 +347,7 @@ private:
     
     mutable double R0b_params_cache[NumSMParams];
     mutable double R0b_cache;
-    
-    bool checkSMparams(double Params_cache[]) const {
-        // 11 parameters in QCD:
-        // "AlsMz","Mz","mup","mdown","mcharm","mstrange", "mtop","mbottom",
-        // "mut","mub","muc"
-        // 10 parameters in StandardModel
-        // "GF", "ale", "dAle5Mz", "mHl", 
-        // "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau"
-        double SMparams[NumSMParams] = { 
-            SM.getAlsMz(), SM.getMz(), SM.getGF(), SM.getAle(), SM.getDAle5Mz(),
-            SM.getMHl(), SM.getMtpole(), 
-            SM.getLeptons(SM.NEUTRINO_1).getMass(), 
-            SM.getLeptons(SM.NEUTRINO_2).getMass(),
-            SM.getLeptons(SM.NEUTRINO_3).getMass(),
-            SM.getLeptons(SM.ELECTRON).getMass(),
-            SM.getLeptons(SM.MU).getMass(),
-            SM.getLeptons(SM.TAU).getMass(),
-            SM.getQuarks(SM.UP).getMass(),
-            SM.getQuarks(SM.DOWN).getMass(),
-            SM.getQuarks(SM.CHARM).getMass(),
-            SM.getQuarks(SM.STRANGE).getMass(),
-            SM.getQuarks(SM.BOTTOM).getMass(),
-            SM.getMut(), SM.getMub(), SM.getMuc()
-        };
         
-        // check updated parameters
-        bool bCache = true;
-        for(int i=0; i<NumSMParams; ++i) {
-             if (Params_cache[i] != SMparams[i]) { 
-                 Params_cache[i] = SMparams[i];                 
-                 bCache &= false;
-             }
-        }
-        
-        return bCache;
-    }
-    
     
     ////////////////////////////////////////////////////////////////////////     
     

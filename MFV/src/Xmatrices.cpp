@@ -1,8 +1,8 @@
 /* 
- * File:   Xmatrices.cpp
- * Author: silvest
- * 
- * Created on March 26, 2012, 2:02 PM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "Xmatrices.h"

@@ -1,11 +1,14 @@
 /* 
- * File:   LoopFunctionsTest.cpp
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include <stdlib.h>
 #include <iostream>
 #include <iomanip>
+#include <stdexcept>
 #include <cmath>
 #include "PVfunctions.h"
 
@@ -38,11 +41,12 @@ int main(int argc, char** argv) {
         cout << PVtest.B22(Mz,0.0,MHp,MHp)/Mz/Mz/M_PI << endl;        
         
         
+        //PVfunctions PVtest2;
         
         return EXIT_SUCCESS;
-    } catch (const char* c) {
-        cerr << c << endl;
+    } catch (const runtime_error& e) {
+        cerr << e.what() << endl;
         return EXIT_FAILURE;
-    }    
+    }
 }
 

@@ -1,8 +1,8 @@
 /* 
- * File:   GaussianLikelihood.cpp
- * Author: silvest
- * 
- * Created on February 22, 2011, 12:23 PM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "GaussianLikelihood.h"

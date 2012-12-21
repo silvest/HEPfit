@@ -1,6 +1,8 @@
 /* 
- * File:   EWSMcache.h
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef EWSMCACHE_H
@@ -11,7 +13,6 @@
 #include <Polylogarithms.h>
 #include <ClausenFunctions.h>
 #include "StandardModel.h"
-#include <stdexcept>
 
 using namespace gslpp;
 
@@ -23,9 +24,8 @@ public:
     /**
      * @brief EWSMcache constructor
      * @param[in] SM_i reference to a StandardModel object
-     * @param[in] bDebug_i boolean value for debugging (true for debugging)
      */
-    EWSMcache(const StandardModel& SM_i, const bool bDebug_i=false);
+    EWSMcache(const StandardModel& SM_i);
 
     
     ////////////////////////////////////////////////////////////////////////     
@@ -33,26 +33,26 @@ public:
     /**
      * @return a reference to the StandardModel object
      */
-    //const StandardModel& getSM() const {
-    //    return SM;
-    //}
+    const StandardModel& getSM() const {
+        return SM;
+    }
     
     /**
-     * @return an object of PVfunctions class
+     * @return the object of PVfunctions class
      */
     const PVfunctions getPV() const {
         return PV;
     }
 
     /**
-     * @return an object of Polylogarithms class
+     * @return the object of Polylogarithms class
      */
-    //const Polylogarithms getPolyLog() const {
-    //    return PolyLog;
-    //}
+    const Polylogarithms getPolyLog() const {
+        return PolyLog;
+    }
 
     /**
-     * @return an object of ClausenFunctions class
+     * @return the object of ClausenFunctions class
      */
     const ClausenFunctions getClausen() const {
         return Clausen;
@@ -116,35 +116,16 @@ public:
      * @param[in] l name of lepton
      * @return mass of lepton
      */
-    double ml(const StandardModel::lepton l) const {
-        return SM.getLeptons(l).getMass();
-    }
+    double ml(const StandardModel::lepton l) const;
 
     /**
      * @param[in] q name of quark
-     * @return mass of quark
+     * @param[in] mu renormalization scale
+     * @param[in] order (=LO, NLO, NNLO, FULLNLO, FULLNNLO[defalut])
+     * @return the MSbar mass of u, d, s, c, b or the pole mass of t
      */
-    double mq(const StandardModel::quark q) const {
-        switch(q) {
-            case StandardModel::UP:
-            case StandardModel::DOWN:
-            case StandardModel::STRANGE:
-                if (bDebug)
-                    return SM.getQuarks(q).getMass();
-                else
-                    return SM.Mrun(SM.getMz(), 2.0, SM.getQuarks(q).getMass(), FULLNNLO);
-            case StandardModel::CHARM:
-            case StandardModel::BOTTOM:
-                if (bDebug)
-                    return SM.getQuarks(q).getMass();
-                else
-                    return SM.Mrun(SM.getMz(), SM.getQuarks(q).getMass(), FULLNNLO);
-            case StandardModel::TOP:
-                return Mt(); // the pole mass
-            default:
-                throw std::runtime_error("Error in EWSMcache::mq()"); 
-        }
-    }
+    double mq(const StandardModel::quark q, const double mu, 
+              const orders order=FULLNNLO) const;
     
     /**
      * @return the top-quark mass
@@ -228,7 +209,7 @@ public:
     }    
 
     /**
-     * @param[in] name of quark
+     * @param[in] q name of quark
      * @return electric charge of a quark "q"
      */
     double Qq(const StandardModel::quark q) const {
@@ -246,7 +227,7 @@ public:
     }
 
     /**
-     * @param[in] f name of quark
+     * @param[in] q name of quark
      * @param[in] Mw_i the W-boson mass
      * @return the tree-level vector coupling for Z->q qbar
      * @attention depends on sW2
@@ -260,37 +241,15 @@ public:
      * @return the tree-level axial-vector coupling for Z->l lbar
      */
     double al(const StandardModel::lepton l) const {
-        switch(l) {
-            case StandardModel::NEUTRINO_1:
-            case StandardModel::NEUTRINO_2:
-            case StandardModel::NEUTRINO_3:
-                return ( 1.0/2.0 );
-            case StandardModel::ELECTRON:
-            case StandardModel::MU:
-            case StandardModel::TAU:
-                return ( -1.0/2.0 );
-            default:
-                throw std::runtime_error("Error in EWSMcache::al()");   
-        }    
+        return ( SM.getLeptons(l).getIsospin() );
     }
 
     /**
-     * @param[in] name of quark
+     * @param[in] q name of quark
      * @return the tree-level axial-vector coupling for Z->q qbar
      */
     double aq(const StandardModel::quark q) const {
-        switch(q) {
-            case StandardModel::UP:
-            case StandardModel::CHARM:
-            case StandardModel::TOP:
-                return ( 1.0/2.0 );
-            case StandardModel::DOWN:
-            case StandardModel::STRANGE:
-            case StandardModel::BOTTOM:
-                return ( -1.0/2.0 );
-            default:
-                throw std::runtime_error("Error in EWSMcache::aq()");   
-        }    
+        return ( SM.getQuarks(q).getIsospin() );
     }
     
     /**
@@ -304,7 +263,7 @@ public:
     }
 
     /**
-     * @param[in] name of quark
+     * @param[in] q name of quark
      * @param[in] Mw_i the W-boson mass
      * @return |v_q+a_q| 
      * @attention depends on sW2
@@ -324,7 +283,7 @@ public:
     } 
 
     /**
-     * @param[in] name of quark
+     * @param[in] q name of quark
      * @param[in] Mw_i the W-boson mass
      * @return v_q-a_q 
      * @attention depends on sW2

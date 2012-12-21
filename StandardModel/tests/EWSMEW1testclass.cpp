@@ -1,6 +1,8 @@
 /*
- * File:   EWSMEW1testclass.cpp
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "EWSMEW1testclass.h"
@@ -16,8 +18,9 @@ EWSMEW1testclass::~EWSMEW1testclass() {
 
 void EWSMEW1testclass::setUp() {
     mySM = new StandardModel(true);
+    mySM->InitializeModel();
     setSMparameters(*mySM);   
-    myCache = new EWSMcache(*mySM, true);
+    myCache = new EWSMcache(*mySM);
     myEW1 = new EWSMOneLoopEW(*myCache);
 
     Mw = myCache->Mw(mySM->Mw_tree());/* Tests are done with the tree-level Mw */
@@ -42,7 +45,7 @@ void EWSMEW1testclass::tearDown() {
 
 void EWSMEW1testclass::DeltaAlpha_l() {
     double ZFITTER = 0.031418982830747; /* ZFITTER result*/
-    double result = myEW1->DeltaAlpha_l();
+    double result = myEW1->DeltaAlpha_l(Mz2);
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);   
 }
@@ -118,7 +121,7 @@ void EWSMEW1testclass::SigmaZZ_fer_Mw_Mz2_imag() {
 }
 
 void EWSMEW1testclass::PiZgamma_bos_Mw_Mz2_real() {
-    double XAMM1 = -1.999074211569152; /* ZFITTER result*/
+    double XAMM1 = 1.999074211569152; /* ZFITTER result*/
     double result = myEW1->PiZgamma_bos(Mw,Mz2,Mw).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XAMM1, result, delta);    
@@ -132,14 +135,14 @@ void EWSMEW1testclass::PiZgamma_bos_Mw_Mz2_imag() {
 }
 
 void EWSMEW1testclass::PiZgamma_fer_Mw_Mz2_real() {
-    double XAMM1F = 1.641562584085382; /* ZFITTER result*/
+    double XAMM1F = - 1.641562584085382; /* ZFITTER result*/
     double result = myEW1->PiZgamma_fer(Mw,Mz2,Mw).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XAMM1F, result, delta);    
 }
 
 void EWSMEW1testclass::PiZgamma_fer_Mw_Mz2_imag() {
-    double XAMM1F = 4.547472366444150; /* ZFITTER result*/
+    double XAMM1F = - 4.547472366444150; /* ZFITTER result*/
     double result = myEW1->PiZgamma_fer(Mw,Mz2,Mw).imag();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XAMM1F, result, delta); 
@@ -221,7 +224,7 @@ void EWSMEW1testclass::SigmaWW_fer_diff_0_real() {
     double MZtoMW = 0.0;
     for (int i=0; i<6; i++) {
         MZtoMW += - 1.0/2.0*pow(myCache->ml((StandardModel::lepton)i),2.0)*log(cW2);
-        MZtoMW += - 3.0/2.0*pow(myCache->mq((StandardModel::quark)i),2.0)*log(cW2);
+        MZtoMW += - 3.0/2.0*pow(myCache->mq((StandardModel::quark)i,Mz),2.0)*log(cW2);
     }
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);
@@ -241,7 +244,7 @@ void EWSMEW1testclass::SigmaWW_fer_diff_Mw2_real() {
     double MZtoMW = 24.0/6.0*Mw2*log(cW2);
     for (int i=0; i<6; i++) {
         MZtoMW += - 1.0/2.0*pow(myCache->ml((StandardModel::lepton)i),2.0)*log(cW2);
-        MZtoMW += - 3.0/2.0*pow(myCache->mq((StandardModel::quark)i),2.0)*log(cW2);
+        MZtoMW += - 3.0/2.0*pow(myCache->mq((StandardModel::quark)i,Mz),2.0)*log(cW2);
     }
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);
@@ -262,7 +265,7 @@ void EWSMEW1testclass::SigmaZZ_fer_diff_Mz2_real() {
                          + 4.0*sW2*sW2/3.0/cW2*8.0)*log(cW2);
     for (int i=0; i<6; i++) {
         MZtoMW += - 1.0/2.0*pow(myCache->ml((StandardModel::lepton)i),2.0)*log(cW2);
-        MZtoMW += - 3.0/2.0*pow(myCache->mq((StandardModel::quark)i),2.0)*log(cW2);
+        MZtoMW += - 3.0/2.0*pow(myCache->mq((StandardModel::quark)i,Mz),2.0)*log(cW2);
     }
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);
@@ -295,7 +298,7 @@ void EWSMEW1testclass::PiGammaGamma_fer_diff_Mz2_real() {
 void EWSMEW1testclass::PiZgamma_bos_diff_Mz2_real() {
     double result_Mw = myEW1->PiZgamma_bos(Mw,Mz2,Mw).real();
     double result_Mz = myEW1->PiZgamma_bos(Mz,Mz2,Mw).real();
-    double MZtoMW = - (1.0/12.0/cW2 + 7.0/6.0 - 7.0*cW2)*log(cW2);
+    double MZtoMW = (1.0/12.0/cW2 + 7.0/6.0 - 7.0*cW2)*log(cW2);
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);
 }
@@ -303,7 +306,7 @@ void EWSMEW1testclass::PiZgamma_bos_diff_Mz2_real() {
 void EWSMEW1testclass::PiZgamma_fer_diff_Mz2_real() {
     double result_Mw = myEW1->PiZgamma_fer(Mw,Mz2,Mw).real();
     double result_Mz = myEW1->PiZgamma_fer(Mz,Mz2,Mw).real();
-    double MZtoMW = - (12.0/3.0 - 4.0/3.0*sW2*8.0)*log(cW2);
+    double MZtoMW = (12.0/3.0 - 4.0/3.0*sW2*8.0)*log(cW2);
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);
 }

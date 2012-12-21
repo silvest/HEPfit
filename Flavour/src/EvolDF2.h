@@ -1,8 +1,8 @@
 /* 
- * File:   EvolDF2.h
- * Author: marco
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on May 20, 2011, 3:55 PMModel
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef EVOLDF2_H

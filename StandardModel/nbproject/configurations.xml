@@ -9,17 +9,23 @@
       <itemPath>src/EWSM.h</itemPath>
       <itemPath>src/EWSMApproximateFormulae.h</itemPath>
       <itemPath>src/EWSMOneLoopEW.h</itemPath>
-      <itemPath>src/EWSMOneLoopLEP2.h</itemPath>
+      <itemPath>src/EWSMOneLoopEW_HV.h</itemPath>
       <itemPath>src/EWSMThreeLoopEW.h</itemPath>
       <itemPath>src/EWSMThreeLoopEW2QCD.h</itemPath>
       <itemPath>src/EWSMThreeLoopQCD.h</itemPath>
+      <itemPath>src/EWSMTwoFermionsLEP2.h</itemPath>
+      <itemPath>src/EWSMTwoFermionsLEP2_Hollik.h</itemPath>
       <itemPath>src/EWSMTwoLoopEW.h</itemPath>
       <itemPath>src/EWSMTwoLoopQCD.h</itemPath>
       <itemPath>src/EWSMcache.h</itemPath>
+      <itemPath>src/EWepsilons.h</itemPath>
       <itemPath>src/Meson.h</itemPath>
       <itemPath>src/Model.h</itemPath>
       <itemPath>src/ModelMatching.h</itemPath>
+      <itemPath>src/NewPhysicsEpsilons.h</itemPath>
+      <itemPath>src/NewPhysicsHiggs.h</itemPath>
       <itemPath>src/NewPhysicsSTU.h</itemPath>
+      <itemPath>src/NewPhysicsSTUVWXY.h</itemPath>
       <itemPath>src/OrderScheme.h</itemPath>
       <itemPath>src/Particle.h</itemPath>
       <itemPath>src/QCD.h</itemPath>
@@ -40,15 +46,21 @@
       <itemPath>src/EWSM.cpp</itemPath>
       <itemPath>src/EWSMApproximateFormulae.cpp</itemPath>
       <itemPath>src/EWSMOneLoopEW.cpp</itemPath>
-      <itemPath>src/EWSMOneLoopLEP2.cpp</itemPath>
+      <itemPath>src/EWSMOneLoopEW_HV.cpp</itemPath>
       <itemPath>src/EWSMThreeLoopEW.cpp</itemPath>
       <itemPath>src/EWSMThreeLoopEW2QCD.cpp</itemPath>
       <itemPath>src/EWSMThreeLoopQCD.cpp</itemPath>
+      <itemPath>src/EWSMTwoFermionsLEP2.cpp</itemPath>
+      <itemPath>src/EWSMTwoFermionsLEP2_Hollik.cpp</itemPath>
       <itemPath>src/EWSMTwoLoopEW.cpp</itemPath>
       <itemPath>src/EWSMTwoLoopQCD.cpp</itemPath>
       <itemPath>src/EWSMcache.cpp</itemPath>
+      <itemPath>src/EWepsilons.cpp</itemPath>
       <itemPath>src/Meson.cpp</itemPath>
+      <itemPath>src/NewPhysicsEpsilons.cpp</itemPath>
+      <itemPath>src/NewPhysicsHiggs.cpp</itemPath>
       <itemPath>src/NewPhysicsSTU.cpp</itemPath>
+      <itemPath>src/NewPhysicsSTUVWXY.cpp</itemPath>
       <itemPath>src/Particle.cpp</itemPath>
       <itemPath>src/QCD.cpp</itemPath>
       <itemPath>src/RGEvolutor.cpp</itemPath>
@@ -69,6 +81,14 @@
         <itemPath>tests/EWSMEW1testrunner.cpp</itemPath>
         <itemPath>tests/EWSMsetParameters.h</itemPath>
       </logicalFolder>
+      <logicalFolder name="f9"
+                     displayName="EWSMOneLoopEW_HV"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/EWSMEW1HVtestclass.cpp</itemPath>
+        <itemPath>tests/EWSMEW1HVtestclass.h</itemPath>
+        <itemPath>tests/EWSMEW1HVtestrunner.cpp</itemPath>
+      </logicalFolder>
       <logicalFolder name="f6"
                      displayName="EWSMThreeLoopEW"
                      projectFiles="true"
@@ -84,6 +104,14 @@
         <itemPath>tests/EWSMQCD3testclass.cpp</itemPath>
         <itemPath>tests/EWSMQCD3testclass.h</itemPath>
         <itemPath>tests/EWSMQCD3testrunner.cpp</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f10"
+                     displayName="EWSMTwoFermionsLEP2"
+                     projectFiles="true"
+                     kind="TEST">
+        <itemPath>tests/EWSMLEP2testclass.cpp</itemPath>
+        <itemPath>tests/EWSMLEP2testclass.h</itemPath>
+        <itemPath>tests/EWSMLEP2testrunner.cpp</itemPath>
       </logicalFolder>
       <logicalFolder name="f7"
                      displayName="EWSMTwoLoopEW"
@@ -141,8 +169,7 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../Utils/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
-            <pElem>/usr/include</pElem>
-            <pElem>/usr/include/root</pElem>
+            <pElem>../Observables/src</pElem>
           </incDir>
           <commandLine>`gsl-config --cflags` `root-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
@@ -189,6 +216,9 @@
           </incDir>
         </ccTool>
         <linkerTool>
+          <linkerAddLib>
+            <pElem>../LoopTools/lib</pElem>
+          </linkerAddLib>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../gslpp"
@@ -226,6 +256,8 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibLibItem>ooptools</linkerLibLibItem>
+            <linkerLibLibItem>gfortran</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>`gsl-config --cflags` `gsl-config --libs` `root-config --ldflags` `root-config --libs`</commandLine>
         </linkerTool>
@@ -274,6 +306,24 @@
             </linkerLibProjectItem>
           </linkerLibItems>
           <commandLine>-pthread -lm -ldl -rdynamic</commandLine>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f10">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f10</output>
+          <linkerLibItems>
+            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+          </linkerLibItems>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
@@ -376,11 +426,30 @@
           <output>${TESTDIR}/TestFiles/f8</output>
         </linkerTool>
       </folder>
+      <folder path="TestFiles/f9">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f9</output>
+          <linkerLibItems>
+            <linkerLibStdlibItem>CppUnit</linkerLibStdlibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </folder>
     </conf>
     <conf name="Release" type="3">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>GNU|GNU</compilerSet>
+        <compilerSet>default</compilerSet>
+        <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>
@@ -397,6 +466,141 @@
             <pElem>../LoopFunctions/src</pElem>
           </incDir>
           <commandLine>`gsl-config --cflags` `root-config --cflags`</commandLine>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <folder path="TestFiles">
+        <ccTool>
+          <incDir>
+            <pElem>src</pElem>
+          </incDir>
+        </ccTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../gslpp"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../gslpp"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../LoopFunctions"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../LoopFunctions"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Utils"
+                            CT="3"
+                            CN="Release"
+                            AC="true"
+                            BL="true"
+                            WD="../Utils"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+          </linkerLibItems>
+          <commandLine>`gsl-config --cflags` `gsl-config --libs` `root-config --ldflags` `root-config --libs`</commandLine>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f1">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f1</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f2">
+        <cTool>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f2</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f3">
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f3</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f4">
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f4</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f5">
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f5</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f6">
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f6</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f7">
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f7</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f8">
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f8</output>
+        </linkerTool>
+      </folder>
+      <folder path="TestFiles/f9">
+        <linkerTool>
+          <output>${TESTDIR}/TestFiles/f9</output>
+        </linkerTool>
+      </folder>
+    </conf>
+    <conf name="Cluster" type="3">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>.</pElem>
+          </incDir>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../Utils/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/BAT/include -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

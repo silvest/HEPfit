@@ -17,7 +17,6 @@
                 <make-dep-project>../SUSY</make-dep-project>
                 <make-dep-project>../MonteCarlo</make-dep-project>
                 <make-dep-project>../LoopFunctions</make-dep-project>
-                <make-dep-project>../ZFitter</make-dep-project>
                 <make-dep-project>../InputParser</make-dep-project>
                 <make-dep-project>../EW</make-dep-project>
                 <make-dep-project>../gslpp</make-dep-project>
@@ -37,6 +36,10 @@
                 </confElem>
                 <confElem>
                     <name>Cluster</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
+                    <name>Parallel</name>
                     <type>1</type>
                 </confElem>
             </confList>

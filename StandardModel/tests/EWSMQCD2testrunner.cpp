@@ -1,6 +1,8 @@
 /*
- * File:   EWSMQCD2testrunner.cpp
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include <cppunit/BriefTestProgressListener.h>
@@ -13,6 +15,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
+#include <stdexcept>
 #include <cstring>
 #include <cmath>
 #include <map>
@@ -58,10 +61,9 @@ int main() {
         ////////////////////////////////////////////////////////////////////        
 
         return EXIT_SUCCESS;
-    } catch (const char* c) {
-        cerr << c << endl;
+    } catch (const runtime_error& e) {
+        cerr << e.what() << endl;
         return EXIT_FAILURE;
-    }            
-    
+    }
 }
     

@@ -1,6 +1,8 @@
 /*
- * File:   EWSMQCD2testclass.cpp
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "EWSMQCD2testclass.h"
@@ -17,8 +19,9 @@ EWSMQCD2testclass::~EWSMQCD2testclass() {
 
 void EWSMQCD2testclass::setUp() {
     mySM = new StandardModel(true);
+    mySM->InitializeModel();
     setSMparameters(*mySM);   
-    myCache = new EWSMcache(*mySM, true);
+    myCache = new EWSMcache(*mySM);
     myQCD2 = new EWSMTwoLoopQCD(*myCache);
 
     Mw = myCache->Mw(mySM->Mw_tree());/* Tests are done with the tree-level Mw */

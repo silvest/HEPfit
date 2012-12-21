@@ -1,8 +1,8 @@
 /* 
- * File:   DmD.h
- * Author: Mauro_87
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 24 novembre 2011, 22.56
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef M12D_H

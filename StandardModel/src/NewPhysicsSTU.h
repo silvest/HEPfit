@@ -1,6 +1,8 @@
 /* 
- * File:   NewPhysicsSTU.h
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef NEWPHYSICSSTU_H
@@ -11,7 +13,7 @@
 
 class NewPhysicsSTU : public StandardModel {
 public:
-    static const int NSTUvars = 7;
+    static const int NSTUvars = 3;
     static const std::string STUvars[NSTUvars];
     
     /**
@@ -26,6 +28,11 @@ public:
     virtual bool Update(const std::map<std::string, double>& DPars);
     virtual bool Init(const std::map<std::string, double>& DPars);    
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
+
+    
+    ////////////////////////////////////////////////////////////////////////     
+
+    bool SetFlag(const std::string, const bool&); 
 
     
     ////////////////////////////////////////////////////////////////////////     
@@ -50,44 +57,66 @@ public:
     double obliqueU() const {
         return myObliqueU;
     }
+    
+    
+    ////////////////////////////////////////////////////////////////////////     
+    
+    /**
+     * @return Oblique parameter \hat{S}
+     */
+    double obliqueShat() const {
+        return ( alphaMz()/(4.0*s02())*obliqueS() );
+    }
+
+    /**
+     * @return Oblique parameter \hat{T}
+     */
+    double obliqueThat() const {
+        return ( alphaMz()*obliqueT() );
+    }
+
+    /**
+     * @return Oblique parameter \hat{U}
+     */
+    double obliqueUhat() const {
+        return ( - alphaMz()/(4.0*s02())*obliqueU() );
+    }
 
     /**
      * @return Oblique parameter V
      */
     double obliqueV() const {
-        return myObliqueV;
+        return 0.0;
     }
 
     /**
      * @return Oblique parameter W
      */
     double obliqueW() const {
-        return myObliqueW;
+        return 0.0;
     }
 
     /**
      * @return Oblique parameter X
      */
     double obliqueX() const {
-        return myObliqueX;
+        return 0.0;
     }
 
     /**
      * @return Oblique parameter Y
      */
     double obliqueY() const {
-        return myObliqueY;
+        return 0.0;
     }
-    
-    
+
+
     ////////////////////////////////////////////////////////////////////////     
     
 protected:    
-    virtual void SetParameter(const std::string name, const double& value);
     double myObliqueS, myObliqueT, myObliqueU;
-    double myObliqueV, myObliqueW, myObliqueX, myObliqueY;
+    virtual void SetParameter(const std::string name, const double& value);
     
-
     ////////////////////////////////////////////////////////////////////////     
     
 private:

@@ -1,6 +1,8 @@
 /* 
- * File:   EWSMThreeLoopQCD.cpp
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "EWSMThreeLoopQCD.h"
@@ -12,17 +14,25 @@ EWSMThreeLoopQCD::EWSMThreeLoopQCD(const EWSMcache& cache_i) : cache(cache_i) {
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSMThreeLoopQCD::DeltaAlpha_l() const {
+double EWSMThreeLoopQCD::DeltaAlpha_l(const double s) const {
     return (0.0);
 }    
 
 
-double EWSMThreeLoopQCD::DeltaAlpha_t() const {   
-    double xt = pow(cache.Mz()/cache.Mt(), 2.0);
-    double log_t = 2.0*cache.logMZtoMTOP();
+double EWSMThreeLoopQCD::DeltaAlpha_t(const double s) const {   
+    double xt = s/cache.Mt()/cache.Mt();
+    double log_t, als;
+    if (s==cache.Mz()*cache.Mz()) {
+        log_t = 2.0*cache.logMZtoMTOP();
+        als = cache.alsMz();
+    } else {
+        double mu = sqrt(s);
+        log_t = log(s/pow(cache.mq(StandardModel::TOP, mu), 2.0));
+        als = cache.getSM().Als(sqrt(s),FULLNNLO);
+    }
     double tmp = ( (28.220 + 9.702*log_t) 
                    + xt*(6.924 + 1.594*log_t) )
-                 *pow(cache.alsMz()/M_PI, 2.0);
+                 *pow(als/M_PI, 2.0);
     tmp *= -4.0/45.0*cache.ale()/M_PI*xt;
     return tmp;
 }

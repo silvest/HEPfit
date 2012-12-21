@@ -1,11 +1,14 @@
 /* 
- * File:   AFBbottom.h
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef AFBBOTTOM_H
 #define	AFBBOTTOM_H
 
+#include <stdexcept>
 #include <ThObservable.h>
 #include "EW.h"
 
@@ -17,7 +20,9 @@ public:
      * @brief AFBbottom constructor
      * @param[in] EW_i an object of EW class
      */
-    AFBbottom(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
+    AFBbottom(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i), 
+            myEWTYPE(EW_i.getEWTYPE()) {
+    };
 
     /**
      * @return the forward-backward asymmetry of the b-bar channel
@@ -27,6 +32,7 @@ public:
     
 private:
     const EW& myEW;
+    const EW::EWTYPE myEWTYPE;
 };
 
 #endif	/* AFBBOTTOM_H */

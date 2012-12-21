@@ -1,14 +1,16 @@
 /* 
- * File:   EWSMApproximateFormulae.cpp
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "EWSMApproximateFormulae.h"
 #include <stdexcept>
 
 
-EWSMApproximateFormulae::EWSMApproximateFormulae(const StandardModel& SM_i, const bool bDebug_i) : SM(SM_i) {
-    bDebug = bDebug_i;
+EWSMApproximateFormulae::EWSMApproximateFormulae(const StandardModel& SM_i) : SM(SM_i) {
+    bDebug = SM_i.isBDebug();
 }
 
 

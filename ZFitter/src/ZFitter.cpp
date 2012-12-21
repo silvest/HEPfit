@@ -1,12 +1,15 @@
 /* 
- * File:   ZFitter.cpp
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include <stdlib.h>
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+#include "ZFitter-f2c.h"
 #include "ZFitter.h"
 #include <stdexcept>
 
