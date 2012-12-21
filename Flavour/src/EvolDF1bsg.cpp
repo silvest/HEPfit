@@ -1,3 +1,10 @@
+/* 
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
+ */
+
 #include <gsl/gsl_sf_zeta.h>
 #include "EvolDF1bsg.h"
 #include <stdexcept>
