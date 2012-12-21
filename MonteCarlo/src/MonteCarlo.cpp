@@ -19,6 +19,7 @@ myInputParser(), MCEngine(ModPars, Obs, Obs2D) {
     JobTag = JobTag_i;
     OutFile = OutFile_i + JobTag + ".root";
     PrintAllMarginalized = false;
+    PrintKnowledgeUpdatePlots = false;
 }
 
 MonteCarlo::~MonteCarlo() {
@@ -107,6 +108,12 @@ void MonteCarlo::Run(const int rank) {
                     if (beg->compare("true") == 0) {
                         PrintAllMarginalized = true;
                     }
+                } else if (beg->compare("PrintKnowledgeUpdatePlots") == 0) {
+                    ++beg;
+                    if (beg->compare("true") == 0) {
+                        PrintKnowledgeUpdatePlots = true;
+                    }
+
                 } else {
                     std::cout << "wrong keyword in MonteCarlo config file: " << *beg << std::endl;
                     exit(EXIT_FAILURE);
@@ -130,7 +137,7 @@ void MonteCarlo::Run(const int rank) {
             MCEngine.MarginalizeAll();
 
             // find mode using the best fit parameters as start values
-            //    MCEngine.FindMode(MCEngine.GetBestFitParameters());
+            MCEngine.FindMode(MCEngine.GetBestFitParameters());
 
             // draw all marginalized distributions into a PostScript file
             if (PrintAllMarginalized)
@@ -141,10 +148,19 @@ void MonteCarlo::Run(const int rank) {
 
             // print ratio
             MCEngine.PrintHistogram(out);
-            // output the correlation matrix to a eps file
+            
+            // draw the correlation matrix into an eps file
             BCSummaryTool myBCSummaryTool(&MCEngine);
-            myBCSummaryTool.PrintCorrelationMatrix(("correlations" + JobTag + ".eps").c_str());
+            myBCSummaryTool.PrintCorrelationMatrix(("ParamCorrelations" + JobTag + ".eps").c_str());
 
+            // print comparisons of the prior knowledge to the posterior knowledge 
+            // for all parameters into a PostScript file
+            if (PrintKnowledgeUpdatePlots)
+                myBCSummaryTool.PrintKnowledgeUpdatePlots(("ParamUpdate" + JobTag + ".ps").c_str());
+
+            // print a Latex table of the parameters into a tex file
+            //myBCSummaryTool.PrintParameterLatex(("ParamSummary" + JobTag + ".tex").c_str());
+        
             out.WriteMarginalizedDistributions();
             //out.FillAnalysisTree();
             out.Close();
