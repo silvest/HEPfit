@@ -116,7 +116,8 @@ void MonteCarloEngine::SetNChains(unsigned int i) {
 MonteCarloEngine::~MonteCarloEngine()
 // default destructor
 {
-    delete [] obval, obweight;
+    delete [] obval;
+    delete [] obweight;
     for (std::map<std::string, BCH1D *>::iterator it = Histo1D.begin();
             it != Histo1D.end(); it++)
         delete it->second;
