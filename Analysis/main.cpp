@@ -62,8 +62,6 @@ int main(int argc, char** argv) {
             runtime_error("missing mandatory montecarlo config filename");
 
         FileOut = vm["rootfile"].as<string > ();
-        
-        JobTag = vm["job_tag"].as<string> ();
 
         JobTag = vm["job_tag"].as<string > ();
 
