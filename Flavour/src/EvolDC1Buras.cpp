@@ -252,11 +252,15 @@ void EvolDC1Buras::DC1EvolBuras(double mu, double M, double nf, schemes scheme) 
     switch(order) {
         case NNLO:
             *elem[NNLO] = 0.;
-            break;
         case NLO:
             *elem[NLO] = (*elem[LO]) * resNLO + (*elem[NLO]) * resLO;
         case LO:
             *elem[LO] = (*elem[LO]) * resLO;
+            break;
+        case FULLNNLO:
+        case FULLNLO:
+        default:
+            throw std::runtime_error("Error in EvolDC1Buras::DC1EvolBuras()");
     } 
     
   }

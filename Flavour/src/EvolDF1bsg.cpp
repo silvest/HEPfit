@@ -83,7 +83,7 @@ matrix<double> EvolDF1bsg::AnomalousDimension_M(orders order, unsigned int n_u,
     
     /* Delta F = 1 anomalous dimension in Misiak basis, 
        ref.: M. Misiak, Nucl. Phys. B393 (1993) 23, B439 (1995) 461 (E),  
-             A.J. Buras and M. Munz, Phys. Rev. D52 (1995) 186.    
+             A.J. Buras and M. Munz, Phys. Rev. D52 (1995) 186. */   
     
     /* gamma(row, coloumn) at the LO */
     
@@ -388,11 +388,15 @@ matrix<double>& EvolDF1bsg::Df1Evolbsg(double mu, double M, orders order, scheme
     switch(order) {
         case NNLO:
             *elem[NNLO] = 0.;
-            break;
         case NLO:
             *elem[NLO] = (*elem[LO]) * resNLO + (*elem[NLO]) * resLO;
         case LO:
             *elem[LO] = (*elem[LO]) * resLO;
+            break;
+        case FULLNNLO:
+        case FULLNLO:
+        default:
+            throw std::runtime_error("Error in EvolDF1bsg::Df1Evolbsg()");
     } 
     
   }
