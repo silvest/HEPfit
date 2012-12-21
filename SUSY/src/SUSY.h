@@ -27,7 +27,7 @@ public:
      * @brief SUSY constructor
      */
     SUSY();
-
+    
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
    ///////////////////////////////////////////////////////////////////////////
 
@@ -48,7 +48,16 @@ public:
 
     /**
      * 
-     * @return gluino mass
+     * @return the gluino mass 
+     */
+    double GetMGl() const {
+        return FHMGl;
+    }
+
+    
+    /**
+     * 
+     * @return M3
      */
     double getM3() const {
         return m3;
@@ -424,11 +433,28 @@ public:
         return Fh;
     }
 
+    complex GetM1() const {
+        return m1;
+    }
+
+    complex GetM2() const {
+        return m2;
+    }
+
     
     virtual SUSYMatching* GetMyMatching() const {
         return mySUSYMatching;
     }
      
+    /**soft breaking terms for squarks and sleptons in the SCKM basis at the scale Q**/
+    
+    double  Q;
+    double  m3, mHptree, mHp, tanb, sinb, cosb, mh[4];
+    complex m1, m2, muH, saeff;
+    
+    matrix<complex> Ru, Rd, Rl, Rn, U, V, N, UH, ZH;
+    vector<double> Msu2, Msd2, Msl2, Msn2, Mch, Mneu;
+    matrix<complex> MsQ2, MsU2, MsD2, MsL2, MsE2, MsN2, TU, TD, TE, TN;
     
 private:
     void setY(double tanb_i);
@@ -460,19 +486,16 @@ protected:
     bool CalcConstraints(void);
     bool CalcFlavour(void);
     bool CalcSpectrum(void);
-    matrix<complex> Ru, Rd, Rl, Rn, U, V, N, UH, ZH;
-    vector<double> Msu2, Msd2, Msl2, Msn2, Mch, Mneu;
     double FHgm2, FHdeltarho, FHMWMSSM, FHMWSM, FHSW2MSSM, FHSW2SM, FHedmeTh, 
     FHedmn, FHedmHg, FHMGl, FHMHtree[4], FHSAtree;
     double FHbsgMSSM, FHbsgSM, FHdeltaMsMSSM, FHdeltaMsSM, FHbsmumuMSSM, FHbsmumuSM;
     complex FHDeltab;
     
-    /**soft breaking terms for squarks and sleptons in the SCKM basis at the scale Q**/
     
-    matrix<complex> MsQ2, MsU2, MsD2, MsL2, MsE2, MsN2, TU, TD, TE, TN;
-    double  Q;
-    double  m3, mHptree, mHp, tanb, sinb, cosb, mh[4];
-    complex m1, m2, muH, saeff;
+    
+    /** test **/
+    
+    int Neve = 0;
 };
 
 #endif	/* SUSY_H */

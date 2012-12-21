@@ -122,6 +122,18 @@ public:
     void Comp_VuDCR();
     
     
+    /** Tan beta corrections to down quark masses **/
+    
+    void comp_Eps_J();
+    void Comp_Lambda0EpsY();
+    
+    /** Calcolous of charged Higgs - quark vertex **/
+    
+    void Comp_PHLR();
+    void Comp_PHRL();
+    
+    void Comp_DeltaDL();
+    
     /*** FUNZIONE - TEST  ***/
     
     void Test();
@@ -212,7 +224,7 @@ private:
     /** Rules to include in the same formulas the D - D bar mixing  **/
     gslpp::complex VdUCL(int b, int k, int j, int Dmixingflag);
     gslpp::complex VdUCR(int b, int k, int j, int flag, int Dmixingflag);
-    
+        
     gslpp::complex VdDNL(int b, int k, int j, int flag, int Dmixingflag);
     gslpp::complex VdDNR(int b, int k, int j, int flag, int Dmixingflag);
     
@@ -228,9 +240,16 @@ private:
     
     gslpp::complex DeltaMd(int J, int I);
     
-    
+    gslpp::vector<complex> Eps_JCache;
     gslpp::complex Eps_J(int J);
+    
+    gslpp::matrix<complex> Lambda0EpsYCache;
+    
     gslpp::complex Lambda0EpsY(int J, int I);
+    
+    gslpp::matrix<complex> DeltaDL_Cache;
+    
+    
     gslpp::complex DeltaDL(int J, int I);
     gslpp::complex DeltaDR(int J, int I);
     
@@ -242,10 +261,17 @@ private:
     
     
    
+    gslpp::matrix<complex> PHLRCache;
+    
     
     gslpp::complex PHLR(int j, int i);
     gslpp::complex DeltaFHL(int j, int i);
+    
+    gslpp::matrix<complex> PHRLCache;
+    
     gslpp::complex PHRL(int j, int i);
+    
+    
     gslpp::complex VUDHH(int i, int j);
     gslpp::complex PGLR(int j, int i);
     gslpp::complex PGRL(int j, int i);

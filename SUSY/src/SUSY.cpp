@@ -7,6 +7,7 @@
 
 #include "SUSY.h"
 #include "SUSYMatching.h"
+#include "Spectrum.h"
 #include <math.h>
 #include <sstream>
 #include <stdexcept>
@@ -116,15 +117,23 @@ bool SUSY::PostUpdate(){
     
     mySUSYMatching->Comp_mySUSYMQ();
     
-    mySUSYMatching->Comp_VdDNL(0);
-    mySUSYMatching->Comp_VdDNR(0);
-    mySUSYMatching->Comp_VdUCL();
-    mySUSYMatching->Comp_VdUCR(0);
+    if (IsFChi0()) mySUSYMatching->Comp_VdDNL(0);
+    if (IsFChi0()) mySUSYMatching->Comp_VdDNR(0);
+    if (IsFChi())  mySUSYMatching->Comp_VdUCL();
+    if (IsFChi())  mySUSYMatching->Comp_VdUCR(0);
     
     mySUSYMatching->Comp_DeltaMd();
+    mySUSYMatching->Comp_DeltaDL();
+    mySUSYMatching->comp_Eps_J();
+    mySUSYMatching->Comp_Lambda0EpsY();
     mySUSYMatching->Comp_mySUSY_CKM();
 
-    if (IsFh()) mySUSYMatching->Comp_VUDHH();
+    if (IsFh()) {
+        
+        mySUSYMatching->Comp_PHLR();
+        mySUSYMatching->Comp_VUDHH();
+        mySUSYMatching->Comp_PHRL();
+    }
     if (IsFChi0()) {
         
         mySUSYMatching->Comp_VdDNL(1);
@@ -141,7 +150,7 @@ bool SUSY::PostUpdate(){
     }
     
     
-    //mySUSYMatching->Test();
+     mySUSYMatching->Test();
     
      return (true);
 }
@@ -453,6 +462,71 @@ bool SUSY::CalcSpectrum(){
         //throw std::runtime_error(ss.str());
      }   
        
+   // std::cout << "MA0 = " << mh[2] << std::endl;
+    
+//    std::cout<< Ru << std::endl;
+//      std::cout << Msu2 << std::endl;
+//    std::cout << Ru*Ru.hconjugate() << std::endl;
+    
+//    std::cout<< N << std::endl;
+//    std::cout<< Mneu << std::endl;
+//  
+//    gslpp::matrix<double> MNDiag(4,4,0);
+//    
+//    for(int i = 0; i < 4; i++) MNDiag(i,i) = Mneu(i);
+//    std::cout << N.hconjugate().transpose() * MNDiag * N.hconjugate() << std::endl; 
+//    
+//    gslpp::matrix<double> MChDiag(2,2,0);
+    
+//    std::cout<< U << std::endl;
+//    std::cout<< V << std::endl;
+//    std::cout<< Mch << std::endl;
+//    MChDiag(0,0) = Mch(0);
+//    MChDiag(1,1) = Mch(1);
+//    std::cout << U.hconjugate().transpose() * MChDiag * V.hconjugate() << std::endl; 
+    
+//    
+//    Neve++;
+//    std::cout << "N = " << Neve << std::endl;
+//    
+//    Spectrum MS;
+//    
+//    MS.CalcSpectrum(*this);
+//    
+//    int i;
+//    for (i = 0; i < 2; i++) {
+//
+//        if (Mch(i) < 1.) return (false);
+//    }
+//    for (i = 0; i < 4; i++) {
+//
+//        if (Mneu(i) < 1.) return (false);
+//    }
+//    for(i = 0; i < 3; i++){
+//        
+//        if(mh[i] < 1.) return (false);
+//    }
+//    
+//    std::cout<< Ru << std::endl;
+//    std::cout << Msu2 << std::endl;
+//    std::cout << Ru*Ru.hconjugate() << std::endl;
+    
+//    std::cout<< N << std::endl;
+//    std::cout<< Mneu << std::endl;
+//    std::cout << N.hconjugate().transpose() * MNDiag * N.hconjugate() << std::endl; 
+//    std::cout<< U << std::endl;
+//    std::cout<< V << std::endl;
+//    std::cout<< Mch << std::endl;
+//    MChDiag(0,0) = Mch(0);
+//    MChDiag(1,1) = Mch(1);
+//    std::cout << U.hconjugate().transpose() * MChDiag * V.hconjugate() << std::endl; 
+    
+    //std::cout << "mu = " << muH << std::endl;
+    
+    //std::cout << "mh0 = " << mh[0] << std::endl;
+    //std::cout << "mh1 = " << mh[1] << std::endl;
+    //std::cout << "mh2 = " << mh[2] << std::endl;
+    
     return (true);
 }
 
@@ -505,20 +579,20 @@ double SUSY::Mw() const {
 
     /* SM + MSSM */
 
-    std::cout << "Write codes for SUSY::Mw() " << std::endl;
+    //std::cout << "Write codes for SUSY::Mw() " << std::endl;
     return (80.385);
 }
 
 double SUSY::cW2() const {
 
-    std::cout << "Write codes for SUSY::cW2() " << std::endl;
+    //std::cout << "Write codes for SUSY::cW2() " << std::endl;
     return (Mw() / 91.1876);
 }
 
 double SUSY::sW2() const {
 
 
-    std::cout << "Write codes for SUSY::sW2() " << std::endl;
+    //std::cout << "Write codes for SUSY::sW2() " << std::endl;
     return (1 - cW2());
 
 }
