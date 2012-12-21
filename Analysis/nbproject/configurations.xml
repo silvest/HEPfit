@@ -35,6 +35,9 @@
     <itemPath>Model.conf</itemPath>
     <itemPath>MonteCarlo.conf</itemPath>
   </logicalFolder>
+  <sourceRootList>
+    <Elem>../SUSY</Elem>
+  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="1">
@@ -311,6 +314,7 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../THDM/src</pElem>
             <pElem>../ZFitter/src</pElem>
+            <pElem>../Cuba/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags`</commandLine>
         </ccTool>
@@ -321,6 +325,9 @@
           <developmentMode>5</developmentMode>
         </asmTool>
         <linkerTool>
+          <linkerAddLib>
+            <pElem>../Cuba/lib</pElem>
+          </linkerAddLib>
           <linkerLibItems>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibProjectItem>
@@ -483,19 +490,7 @@
             <linkerLibLibItem>BAT</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>FH</linkerLibLibItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../ZFitter"
-                            CT="3"
-                            CN="Release"
-                            AC="true"
-                            BL="true"
-                            WD="../ZFitter"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibLibItem>zfitter6_43</linkerLibLibItem>
+            <linkerLibLibItem>cuba</linkerLibLibItem>
           </linkerLibItems>
           <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit</commandLine>
         </linkerTool>
@@ -525,11 +520,15 @@
     <conf name="Cluster" type="1">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>GNU|GNU</compilerSet>
+        <compilerSet>default</compilerSet>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
         <ccTool>
+          <developmentMode>5</developmentMode>
           <commandlineTool>g++</commandlineTool>
           <incDir>
             <pElem>../Utils/src</pElem>
@@ -549,8 +548,14 @@
             <pElem>../Cuba/include</pElem>
             <pElem>../FeynHiggs/include</pElem>
           </incDir>
-          <commandLine>`root-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` -I/storage/local/home/theorm3/girardi/.netbeans/remote/ui-02.roma3.infn.it/dhtripdot1x223.roma1.infn.it-MacOSX-x86_64/Users/girardi_mac/Tesi/SusyFit/BAT/include</commandLine>
         </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
@@ -593,18 +598,6 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../Flavour"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../Flavour"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -727,12 +720,24 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Flavour"
+                            CT="3"
+                            CN="Cluster"
+                            AC="true"
+                            BL="true"
+                            WD="../Flavour"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libflavour.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibLibItem>BAT</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>FH</linkerLibLibItem>
             <linkerLibLibItem>cuba</linkerLibLibItem>
           </linkerLibItems>
-          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit  -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml</commandLine>
+          <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit  -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml -L/storage/local/home/theorm3/girardi/gsl/lib -lgsl -lgslcblas -lm -L/storage/local/home/theorm3/girardi/.netbeans/remote/ui-02.roma3.infn.it/dhtripdot1x223.roma1.infn.it-MacOSX-x86_64/Users/girardi_mac/Tesi/SusyFit/BAT/lib -lboost_program_options</commandLine>
         </linkerTool>
       </compileType>
       <folder path="TestFiles/f1">
