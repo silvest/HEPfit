@@ -48,8 +48,10 @@ const std::string MFV::MFVvars[NMFVvars] = {"a1", "a2", "a3", "a4r", "a4i",
         "w2i", "w3r", "w3i", "w4r", "w4i", "w5r", "w5i"};
 
 MFV::MFV() :
-        SUSY(), X()
+        SUSY(), X(), FHPost_cache(51,0.), FHPre_cache(51,0.)
 {
+    NCache = 0;
+    Npassi = 0;
 }
 
 
@@ -71,14 +73,81 @@ bool MFV::PreUpdate(){
 
 bool MFV::PostUpdate(){
    
+    /** Cache **/
+    
+//    for (int i = 0; i < 6; i++) FHPost_cache(i) = quarks[i].getMass();
+//    FHPost_cache(6) = lambda;
+//    FHPost_cache(7) = A;
+//    FHPost_cache(8) = rhob;
+//    FHPost_cache(9) = etab;
+//    FHPost_cache(10) = leptons[TAU].getMass();
+//    FHPost_cache(11) = mut;
+//    FHPost_cache(12) = mtpole;
+//    FHPost_cache(13) = tanb;
+//    FHPost_cache(14) = mHptree;
+//    FHPost_cache(15) = muH.real();
+//    FHPost_cache(16) = muH.imag();
+//    FHPost_cache(17) = a1;
+//    FHPost_cache(18) = a2;
+//    FHPost_cache(19) = a3;
+//    FHPost_cache(20) = a4.real();
+//    FHPost_cache(21) = a4.imag();
+//    FHPost_cache(22) = a5.real();
+//    FHPost_cache(23) = a5.imag();
+//    FHPost_cache(24) = a6;
+//    FHPost_cache(25) = a7;
+//    FHPost_cache(26) = a8.real();
+//    FHPost_cache(27) = a8.imag();
+//    FHPost_cache(28) = x1;
+//    FHPost_cache(29) = x2;
+//    FHPost_cache(30) = y1;
+//    FHPost_cache(31) = y2.real();
+//    FHPost_cache(32) = y2.imag();
+//    FHPost_cache(33) = y3;
+//    FHPost_cache(34) = y4.real();
+//    FHPost_cache(35) = y4.imag();
+//    FHPost_cache(36) = y5.real();
+//    FHPost_cache(37) = y5.imag();
+//    FHPost_cache(38) = y6;
+//    FHPost_cache(39) = y7;
+//    FHPost_cache(40) = w1.real();
+//    FHPost_cache(41) = w1.imag();
+//    FHPost_cache(42) = w2.real();
+//    FHPost_cache(43) = w2.imag();
+//    FHPost_cache(44) = w3.real();
+//    FHPost_cache(45) = w3.imag();
+//    FHPost_cache(46) = w4.real();
+//    FHPost_cache(47) = w4.imag();
+//    FHPost_cache(48) = w5.real();
+//    FHPost_cache(49) = w5.imag();
+//    FHPost_cache(50) = Q;
+    /** end - cache **/
+
     
     
-    if(!StandardModel::PostUpdate())  return (false);
+//    std::cout << "Post cache = " << FHPost_cache  << std::endl;
+//    std::cout << "Pre cache = " << FHPre_cache  << std::endl;
+//    std::cout << "Delta cache = " << FHPost_cache - FHPre_cache << std::endl;
+//    if((FHPost_cache - FHPre_cache).mod() == 0){
+//        
+//        NCache++;
+//        std::cout << "NusingCache = " << NCache << std::endl;
+//        
+//    }
+//    
+//    Npassi++;
+//    std::cout << "NPassi = " << Npassi << std::endl;
     
+    
+    if (!StandardModel::PostUpdate()) return (false);
+    
+    //if((FHPost_cache - FHPre_cache).mod() != 0){
     SetSoftTerms();
-    if(!SetFeynHiggsPars())  return (false);
-    if(!CalcHiggsSpectrum()) return (false);
-    //CalcHiggsCouplings();  // DA PROBLEMI CON H0VV(1,3) E H0VV(1,4) PERCHE PRIMA GLI ABBIAMO DATO I PARAMETRI DELL'MSSM ALLA SCALA SUSY !!! CHIEDERE A FRANCO A COSA SERVE !!!
+    if(!SetFeynHiggsPars())  return (false);   //USO SPECTRUM FATTO DA ME
+    if(!CalcHiggsSpectrum()) return (false);   //USO SPECTRUM FATTO DA ME
+    
+    
+    //CalcHiggsCouplings();  
     //CalcHiggsProd(7.);     //cross sections at 7 TeV
     //if(!CalcConstraints()) return (false);
     //if(!CalcFlavour()) return (false);
@@ -87,8 +156,61 @@ bool MFV::PostUpdate(){
     
     
     if(!SUSY::PostUpdate())  return (false);
+   // }
     
-     return (true);
+    /** Cache **/
+    
+//    for (int i = 0; i < 6; i++) FHPre_cache(i) = quarks[i].getMass();
+//    FHPre_cache(6) = lambda;
+//    FHPre_cache(7) = A;
+//    FHPre_cache(8) = rhob;
+//    FHPre_cache(9) = etab;
+//    FHPre_cache(10) = leptons[TAU].getMass();
+//    FHPre_cache(11) = mut;
+//    FHPre_cache(12) = mtpole;
+//    FHPre_cache(13) = tanb;
+//    FHPre_cache(14) = mHptree;
+//    FHPre_cache(15) = muH.real();
+//    FHPre_cache(16) = muH.imag();
+//    FHPre_cache(17) = a1;
+//    FHPre_cache(18) = a2;
+//    FHPre_cache(19) = a3;
+//    FHPre_cache(20) = a4.real();
+//    FHPre_cache(21) = a4.imag();
+//    FHPre_cache(22) = a5.real();
+//    FHPre_cache(23) = a5.imag();
+//    FHPre_cache(24) = a6;
+//    FHPre_cache(25) = a7;
+//    FHPre_cache(26) = a8.real();
+//    FHPre_cache(27) = a8.imag();
+//    FHPre_cache(28) = x1;
+//    FHPre_cache(29) = x2;
+//    FHPre_cache(30) = y1;
+//    FHPre_cache(31) = y2.real();
+//    FHPre_cache(32) = y2.imag();
+//    FHPre_cache(33) = y3;
+//    FHPre_cache(34) = y4.real();
+//    FHPre_cache(35) = y4.imag();
+//    FHPre_cache(36) = y5.real();
+//    FHPre_cache(37) = y5.imag();
+//    FHPre_cache(38) = y6;
+//    FHPre_cache(39) = y7;
+//    FHPre_cache(40) = w1.real();
+//    FHPre_cache(41) = w1.imag();
+//    FHPre_cache(42) = w2.real();
+//    FHPre_cache(43) = w2.imag();
+//    FHPre_cache(44) = w3.real();
+//    FHPre_cache(45) = w3.imag();
+//    FHPre_cache(46) = w4.real();
+//    FHPre_cache(47) = w4.imag();
+//    FHPre_cache(48) = w5.real();
+//    FHPre_cache(49) = w5.imag();
+//    FHPre_cache(50) = Q;
+  
+    /** end - cache **/
+    
+    
+    return (true);
 }
 
 
@@ -247,11 +369,12 @@ void MFV::SetSoftTerms(void){
     matrix<complex> ckm(3,3,0.);
     myCKM.getCKM(ckm);
   
-    TU = sqrt(2.) * TU * ckm.hconjugate();
+    TU = sqrt(2.) * TU * ckm.hconjugate();  
     TD = sqrt(2.) * TD;
     TE = sqrt(2.) * TE;
     
-    
+//    std::cout << "TU = " << TU << std::endl;
+//    std::cout << "TD = " << TD << std::endl;
     
     
     // test - lines

@@ -33,6 +33,14 @@ public:
 private:
     void SetSoftTerms(void);
     void SetParameter(const std::string, const double&);
+    
+    
+    /** FeynHiggs Caches **/
+    gslpp::vector<double>  FHPost_cache;
+    gslpp::vector<double>  FHPre_cache;
+  
+    int NCache, Npassi;
+    
     double a1, a2, a3, a6, a7, x1, x2, y1, y3, y6, y7;
     complex a4, a5, a8, y2, y4, y5, w1, w2, w3, w4, w5;
     Xmatrices X;
