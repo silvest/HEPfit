@@ -30,7 +30,7 @@
                    projectFiles="false"
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
-    </logicalFolder>    
+    </logicalFolder>
     <itemPath>EW.conf</itemPath>
     <itemPath>MFV.conf</itemPath>
     <itemPath>Model.conf</itemPath>
