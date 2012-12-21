@@ -11,9 +11,9 @@
 #include <ThObservable.h>
 #include <ThObsType.h>
 
-class Gamma : public ThObservable {
+class CKMGamma : public ThObservable {
 public:
-    Gamma(const ThObsType& ObsType) : ThObservable(ObsType) {};
+    CKMGamma(const ThObsType& ObsType) : ThObservable(ObsType) {};
 
     double getThValue() { 
         return(SM.getCKM().getGamma()/M_PI*180.);
