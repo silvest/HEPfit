@@ -1,8 +1,8 @@
 /* 
- * File:   M2u2.h
- * Author: girardi_mac
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 28 settembre 2012, 15.56
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef MU6_H

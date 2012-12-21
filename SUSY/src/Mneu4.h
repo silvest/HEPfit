@@ -1,8 +1,8 @@
 /* 
- * File:   Mneu4.h
- * Author: girardi_mac
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 28 settembre 2012, 16.33
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef MNEU4_H
