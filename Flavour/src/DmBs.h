@@ -17,15 +17,14 @@ class DmBs : public ThObservable, AmpDB2 {
 public:
     DmBs(Flavour& ObsType) : ThObservable(ObsType), AmpDB2(ObsType) {};
    
-    double getThValue();
-    
-//    {
-//        
-//        //std::cout << "Delta MB_s = " << 2.*AmpBs(NLO).abs() << std::endl;
-//        
-//        
-//        return(2.*AmpBs(NLO).abs());
-//    };
+    double getThValue()
+    {
+        
+        //std::cout << "Delta MB_s = " << 2.*AmpBs(NLO).abs() << std::endl;
+        
+        
+        return(2.*AmpBs(NLO).abs());
+    };
 };
 
 
