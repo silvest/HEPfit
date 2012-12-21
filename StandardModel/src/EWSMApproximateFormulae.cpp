@@ -45,8 +45,8 @@ double EWSMApproximateFormulae::Mw(const double DeltaAlphaL5q_i) const {
         c10 = 0.0737;
         c11 = 114.9;
     } else
-        throw std::runtime_error("Higgs mass is out of range in ApproximateFormulae::Mw()");         
-
+        throw std::runtime_error("Higgs mass is out of range in ApproximateFormulae::Mw()");  
+        
     // Inputs have to be varied within their combined 2 sigma region around 
     // their central values (year 2003) adopted below.
     double dH = log(SM.getMHl()/100.0);
