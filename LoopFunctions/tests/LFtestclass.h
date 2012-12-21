@@ -1,6 +1,8 @@
 /*
- * File:   LFtestclass.h
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef LFTESTCLASS_H
@@ -15,6 +17,8 @@
 #include <map>
 #include "Polylogarithms.h"
 #include "ClausenFunctions.h"
+#include "PVfunctions.h"
+#include "LoopTools.h"
 using namespace std;
 
 
@@ -41,7 +45,16 @@ class LFtestclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(Li3_1);    
     CPPUNIT_TEST(Cl3_0002);    
     CPPUNIT_TEST(Cl3_1);    
-    CPPUNIT_TEST(Cl3_Pi);    
+    CPPUNIT_TEST(Cl3_Pi);  
+    CPPUNIT_TEST(A0_Mw_Mz);
+    CPPUNIT_TEST(B0_Mw_Mz2_Mw_Mw_real);
+    CPPUNIT_TEST(B0_Mw_Mz2_Mw_Mw_imag);
+    CPPUNIT_TEST(C0_Mz2_Mw_Mz_Mw_real);
+    CPPUNIT_TEST(C0_Mz2_Mw_Mz_Mw_imag);    
+    CPPUNIT_TEST(D0_s_t_Mz_0_Mz_0_real);
+    CPPUNIT_TEST(D0_s_t_Mz_0_Mz_0_imag); 
+    CPPUNIT_TEST(D0_s_t_Mz_0_Mz_Mt_real);
+    CPPUNIT_TEST(D0_s_t_Mz_0_Mz_Mt_imag); 
     
     CPPUNIT_TEST_SUITE_END();
 
@@ -54,8 +67,11 @@ public:
 private:
     Polylogarithms *myPL;
     ClausenFunctions *myClausen;
+    PVfunctions *myPV;
+    LoopTools *myLT;
     double epsilon;
-    
+    double Mz, Mw, mH, Mt;
+
     void Li2_m12_re();
     void Li2_m12_im();
     void Li2_0_re();
@@ -80,6 +96,19 @@ private:
     void Cl3_0002();
     void Cl3_1();
     void Cl3_Pi();    
+    
+    void A0_Mw_Mz();
+    
+    void B0_Mw_Mz2_Mw_Mw_real();
+    void B0_Mw_Mz2_Mw_Mw_imag();
+    
+    void C0_Mz2_Mw_Mz_Mw_real();
+    void C0_Mz2_Mw_Mz_Mw_imag();    
+    
+    void D0_s_t_Mz_0_Mz_0_real();
+    void D0_s_t_Mz_0_Mz_0_imag();    
+    void D0_s_t_Mz_0_Mz_Mt_real();
+    void D0_s_t_Mz_0_Mz_Mt_imag();     
     
 };
 

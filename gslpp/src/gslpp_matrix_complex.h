@@ -86,7 +86,7 @@ namespace gslpp
       /** Destructor */
       ~matrix();
       /** Get i-th element */
-      complex operator()(const size_t& i, const size_t& j) const;
+      const complex operator()(const size_t& i, const size_t& j) const;
       /** Set i-th element */
 //      complex& operator()(const size_t& i, const size_t& j);
       /** Assign */
@@ -104,23 +104,23 @@ namespace gslpp
       /** Identity matrix */
       static matrix<complex> Id(size_t size);
       /** Transpose matrix */
-      matrix<complex> transpose();
+      matrix<complex> transpose() const;
       /** Hermitean conjugate matrix */
-      matrix<complex> hconjugate();
-      matrix<complex> inverse();
+      matrix<complex> hconjugate() const;
+      matrix<complex> inverse() const;
       /**
        * Eigenvalues and eigenvectors
        * @param U matrix<complex>& eigenvectors 
        * @param S vector<double>& eigenvalues
        */
-      void eigensystem(matrix<complex> &U, vector<double> &S);
+      void eigensystem(matrix<complex> &U, vector<double> &S) const;
       /**
        * Singular Value Decomposition as U diagonalmatrix(S) V^+
        * @param U matrix<complex>&
        * @param V matrix<complex>&
        * @param S vector<double>&
        */
-      void singularvalue(matrix<complex> &U, matrix<complex> &V, vector<double> &S);
+      void singularvalue(matrix<complex> &U, matrix<complex> &V, vector<double> &S) const;
       /** Conversion */
       gsl_matrix_complex* as_gsl_type_ptr() const;
       gsl_matrix_complex& as_gsl_type();
@@ -131,24 +131,24 @@ namespace gslpp
        * @param m2 the second matrix
        * @return true if equal, false otherwise
        */
-      bool is_equal(const matrix<complex>& m1, const matrix<complex>& m2);
+//      bool is_equal(const matrix<complex>& m1, const matrix<complex>& m2);
       /** Unary minus */
       matrix<complex> operator-() const;
       /** Addition operator */
-      matrix<complex> operator+(const matrix<complex>& m);
+      matrix<complex> operator+(const matrix<complex>& m) const;
       /** Subtraction operator */
-      matrix<complex> operator-(const matrix<complex>& m);
+      matrix<complex> operator-(const matrix<complex>& m) const;
       /** Multiplication operator */
-      matrix<complex> operator*(const matrix<complex>& m);
+      matrix<complex> operator*(const matrix<complex>& m) const;
       /** Addition operator */
-      matrix<complex> operator+(const matrix<double>& m);
+      matrix<complex> operator+(const matrix<double>& m) const;
       /** Subtraction operator */
-      matrix<complex> operator-(const matrix<double>& m);
+      matrix<complex> operator-(const matrix<double>& m) const;
       /** Multiplication operator */
-      matrix<complex> operator*(const matrix<double>& m);
+      matrix<complex> operator*(const matrix<double>& m) const;
       /** Multiplication operator */
-      vector<complex> operator*(const vector<complex>& v);
-      vector<complex> operator*(const vector<double>& v);
+      vector<complex> operator*(const vector<complex>& v) const;
+      vector<complex> operator*(const vector<double>& v) const;
       /** Addition assignment  */
       matrix<complex>& operator+=(const matrix<complex>& m);
       /** Subtraction assignment */
@@ -156,13 +156,13 @@ namespace gslpp
       /** Multiplication assignment */
       matrix<complex>& operator*=(const matrix<complex>& m);
       /** Addition operator  */
-      matrix<complex> operator+(const complex& z);
-      /** Subtraction assignment */
-      matrix<complex> operator-(const complex& z);
+      matrix<complex> operator+(const complex& z) const;
+      /** Subtraction operator */
+      matrix<complex> operator-(const complex& z) const;
       /** Multiplication operator */
-      matrix<complex> operator*(const complex& z);
+      matrix<complex> operator*(const complex& z) const;
       /** Division operator */
-      matrix<complex> operator/(const complex& z);
+      matrix<complex> operator/(const complex& z) const;
       /** Addition assignment  */
       matrix<complex>& operator+=(const complex& z);
       /** Subtraction assignment */
@@ -172,13 +172,13 @@ namespace gslpp
       /** Division assignment */
       matrix<complex>& operator/=(const complex& z);
       /** Addition operator  */
-      matrix<complex> operator+(const double& a);
-      /** Subtraction assignment */
-      matrix<complex> operator-(const double& a);
+      matrix<complex> operator+(const double& a) const;
+      /** Subtraction operator */
+      matrix<complex> operator-(const double& a) const;
       /** Multiplication operator */
-      matrix<complex> operator*(const double& a);
+      matrix<complex> operator*(const double& a) const;
       /** Division operator */
-      matrix<complex> operator/(const double& a);
+      matrix<complex> operator/(const double& a) const;
       /** Addition assignment  */
       matrix<complex>& operator+=(const double& a);
       /** Subtraction assignment */
@@ -200,7 +200,7 @@ namespace gslpp
        * @param m2 Complex matrix
        * @return @f$ m2 + m1 @f$
        */
-      friend matrix<complex> operator+(matrix<double> m1, matrix<complex> m2);
+      friend matrix<complex> operator+(matrix<double> m1, const matrix<complex> m2);
 
      /** @{
        * @name Operations on matrix<complex>
@@ -211,7 +211,7 @@ namespace gslpp
        * @param m2 Complex matrix
        * @return @f$ -m2 + m1 @f$
        */
-      friend matrix<complex> operator-(matrix<double> m1, matrix<complex> m2);
+      friend matrix<complex> operator-(matrix<double> m1, const matrix<complex> m2);
 
       /** @{
        * @name Operations on matrix<complex>
@@ -222,7 +222,7 @@ namespace gslpp
        * @param m Complex matrix
        * @return @f$ z + m @f$
        */
-      friend matrix<complex> operator+(const complex& z, matrix<complex> m);
+      friend matrix<complex> operator+(const complex& z, const matrix<complex> m);
 
       /** Subtract a complex number from a complex matrix
        * @ingroup matrix
@@ -230,7 +230,7 @@ namespace gslpp
        * @param m Complex matrix
        * @return @f$ z - m @f$
        */
-      friend matrix<complex> operator-(const complex& z, matrix<complex> m);
+      friend matrix<complex> operator-(const complex& z, const matrix<complex> m);
 
       /** Multiply a complex number by complex matrix
        * @ingroup matrix
@@ -238,7 +238,7 @@ namespace gslpp
        * @param m Complex matrix
        * @return @f$ z*m @f$
        */
-      friend matrix<complex> operator*(const complex& z, matrix<complex> m);
+      friend matrix<complex> operator*(const complex& z, const matrix<complex> m);
 
       /** Multiply a complex vector by a complex matrix
        * @ingroup matrix
@@ -246,7 +246,7 @@ namespace gslpp
        * @param m Complex matrix
        * @return @f$ v*m @f$
        */
-      friend vector<complex> operator*(const vector<complex>& v, matrix<complex> m);
+      friend vector<complex> operator*(const vector<complex>& v, const matrix<complex> m);
 
       /** Multiply a real vector by a complex matrix
        * @ingroup matrix
@@ -254,7 +254,7 @@ namespace gslpp
        * @param m Complex matrix
        * @return @f$ v*m @f$
        */
-      friend vector<complex> operator*(const vector<double>& v, matrix<complex> m);
+      friend vector<complex> operator*(const vector<double>& v, const matrix<complex> m);
 
       /** Add a real number to a complex matrix
        * @ingroup matrix
@@ -262,7 +262,7 @@ namespace gslpp
        * @param m Complex matrix
        * @return @f$ a + m @f$
        */
-      friend matrix<complex> operator+(const double& a, matrix<complex> m);
+      friend matrix<complex> operator+(const double& a, const matrix<complex> m);
 
       /** Subtract a complex matrix from a real number
        * @ingroup matrix
@@ -270,7 +270,7 @@ namespace gslpp
        * @param m Complex matrix
        * @return @f$ a - m @f$
        */
-      friend matrix<complex> operator-(const double& a, matrix<complex> m);
+      friend matrix<complex> operator-(const double& a, const matrix<complex> m);
 
       /** Multiply a real number by a complex matrix
        * @ingroup matrix
@@ -278,7 +278,7 @@ namespace gslpp
        * @param m Complex matrix
        * @return @f$ z*m @f$
        */
-      friend matrix<complex> operator*(const double& a, matrix<complex> m);
+      friend matrix<complex> operator*(const double& a, const matrix<complex> m);
       /** @}
        */
   };

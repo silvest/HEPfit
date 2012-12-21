@@ -21,18 +21,6 @@
                    displayName="Test Files"
                    projectFiles="false"
                    kind="TEST_LOGICAL_FOLDER">
-      <logicalFolder name="f2"
-                     displayName="MonteCarlo Simple Test"
-                     projectFiles="true"
-                     kind="TEST">
-        <itemPath>tests/MCtest.cpp</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f1"
-                     displayName="New C++ Simple Test"
-                     projectFiles="true"
-                     kind="TEST">
-        <itemPath>tests/newsimpletest.cpp</itemPath>
-      </logicalFolder>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -55,20 +43,55 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>../BAT/include</pElem>
+            <pElem>../BAT_parallel/include</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../InputParser/src</pElem>
             <pElem>../Flavour/src</pElem>
             <pElem>../EW/src</pElem>
-            <pElem>/usr/local/include</pElem>
-            <pElem>/usr/local/include/BAT</pElem>
-            <pElem>/usr/local/boost_1_47_0</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../EWSM/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
@@ -78,120 +101,17 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../THDM/src</pElem>
             <pElem>../boost</pElem>
-            <pElem>/usr/include/root</pElem>
           </incDir>
-          <commandLine>`root-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` -I/usr/mpi/intel/mvapich2-1.7/include/</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>
       </compileType>
-      <folder path="TestFiles/f1">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
-      <folder path="TestFiles/f2">
-        <cTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f2</output>
-        </linkerTool>
-      </folder>
     </conf>
     <conf name="Release" type="3">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>GNU|GNU</compilerSet>
+        <compilerSet>default</compilerSet>
       </toolsSet>
       <compileType>
         <cTool>
@@ -200,21 +120,56 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
           <incDir>
-            <pElem>../BAT/include</pElem>
+            <pElem>../BAT_parallel/include</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../InputParser/src</pElem>
             <pElem>../Flavour/src</pElem>
             <pElem>../EW/src</pElem>
-            <pElem>/usr/local/include</pElem>
-            <pElem>/usr/local/include/BAT</pElem>
-            <pElem>/usr/local/boost_1_47_0</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../EWSM/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
@@ -235,8 +190,16 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <folder path="TestFiles/f1">
+    </conf>
+    <conf name="Cluster" type="3">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
         <cTool>
+          <developmentMode>5</developmentMode>
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -255,36 +218,9 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
-          </incDir>
-        </cTool>
-        <ccTool>
-          <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-          </incDir>
-        </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f1</output>
-        </linkerTool>
-      </folder>
-      <folder path="TestFiles/f2">
-        <cTool>
-          <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -309,6 +245,45 @@
           </incDir>
         </cTool>
         <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../Observables/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../InputParser/src</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../EW/src</pElem>
+            <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../EWSM/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../ZFitter/src</pElem>
+            <pElem>../MFV/src</pElem>
+            <pElem>../SUSY/src</pElem>
+            <pElem>../THDM/src</pElem>
+            <pElem>../FeynHiggs/include</pElem>
+            <pElem>../BAT_parallel/include</pElem>
+            <pElem>/usr/mpi/gcc/mvapich2-1.7/include</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include -I${HOME}/BAT_parallel/include</commandLine>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+    </conf>
+    <conf name="Parallel" type="3">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
           <incDir>
             <pElem>.</pElem>
             <pElem>.</pElem>
@@ -331,12 +306,52 @@
             <pElem>.</pElem>
             <pElem>.</pElem>
             <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
+            <pElem>.</pElem>
           </incDir>
+        </cTool>
+        <ccTool>
+          <incDir>
+            <pElem>../BAT/include</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../InputParser/src</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../EW/src</pElem>
+            <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../EWSM/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../ZFitter/src</pElem>
+            <pElem>../MFV/src</pElem>
+            <pElem>../SUSY/src</pElem>
+            <pElem>../FeynHiggs/include</pElem>
+            <pElem>../THDM/src</pElem>
+            <pElem>../boost</pElem>
+          </incDir>
+          <commandLine>-fopenmp `root-config --cflags`</commandLine>
         </ccTool>
-        <linkerTool>
-          <output>${TESTDIR}/TestFiles/f2</output>
-        </linkerTool>
-      </folder>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
     </conf>
   </confs>
 </configurationDescriptor>

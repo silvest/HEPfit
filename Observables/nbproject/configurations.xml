@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>src/GaussianLikelihood.h</itemPath>
       <itemPath>src/Likelihood.h</itemPath>
+      <itemPath>src/ModelObservable.h</itemPath>
       <itemPath>src/ModelParameter.h</itemPath>
       <itemPath>src/Observable.h</itemPath>
       <itemPath>src/Observable2D.h</itemPath>
@@ -57,44 +58,42 @@
         </ccTool>
         <archiverTool>
         </archiverTool>
-        <requiredProjects>
-          <makeArtifact PL="../Utils"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="false"
-                        WD="../Utils"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="dist/Debug/GNU-Linux-x86/libutils.a">
-          </makeArtifact>
-          <makeArtifact PL="../gslpp"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="false"
-                        WD="../gslpp"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
-          </makeArtifact>
-          <makeArtifact PL="../StandardModel"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="false"
-                        WD="../StandardModel"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
-          </makeArtifact>
-        </requiredProjects>
       </compileType>
     </conf>
     <conf name="Release" type="3">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>GNU|GNU</compilerSet>
+        <compilerSet>default</compilerSet>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+          <incDir>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../Utils/src</pElem>
+          </incDir>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+    </conf>
+    <conf name="Cluster" type="3">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+        <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <cTool>

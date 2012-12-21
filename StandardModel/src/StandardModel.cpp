@@ -1,32 +1,53 @@
 /* 
- * File:   StandardModel.cpp
- * Author: silvest
- * 
- * Created on November 30, 2010, 1:27 PM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 //#include <bt/assign/list_oost/assign/list_of.hpp> // for 'map_list_of()'
 #include <iostream>
 #include <math.h>
 #include <stdlib.h>
+#include <stdexcept>
 #include <TF1.h>
 #include <Math/WrappedTF1.h>
 #include <Math/BrentRootFinder.h>
-#include <gsl/gsl_sf_dilog.h>
-#include <gsl/gsl_sf_zeta.h>
 #include "StandardModel.h"
 #include "CKM.h"
 #include "EWSM.h"
 #include "StandardModelMatching.h"
 
 
-
 const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutrino_2",
     "mneutrino_3", "melectron", "mmu", "mtau", "lambda", "A", "rhob", "etab", "ale",
     "dAle5Mz", "mHl", "muw", "phiEpsK","DeltaMK", "KbarEpsK", "Dmk", "SM_M12D" };
 
-StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.),
-Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
+/**
+ * FixedSMparams: true if all the SM parameters are fixed to constants in the fit. 
+ * Flags for the EW precision observables (see EW.h for detail):
+ *   EWCHMN: use EW_CHMN class
+ *   EWABC:  use EW_ABC class based on the formulae in Eqs.(7)-(14) of IJMP, A7, 
+ *           1031-1058 (1998) by Altarelli et al.
+ *   EWABC2: use use the approximate formulae in Eqs.(16)-(20) of IJMP, A7, 
+ *           1031-1058 (1998) by Altarelli et al.
+ *   EWBURGESS: use the formulae for STU contributions by Burgess et al.
+ *   R0bApproximate: use the two-loop approximate formula for R_b by Freitas and Huang
+ */
+const std::string StandardModel::SMflags[NSMflags] 
+    = {"FixedAllSMparams", "EWCHMN", "EWABC", "EWABC2", "EWBURGESS", "R0bApproximate"};
+
+
+StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.), 
+        UPMNS(3, 3, 0.), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.), 
+        bDebug(bDebug_i) {
+    FlagFixedAllSMparams = false;
+    FlagEWCHMN = false;
+    FlagEWABC = false;
+    FlagEWABC2 = false;
+    FlagEWBURGESS = false;
+    FlagR0bApproximate = false;
+    
     leptons[NEUTRINO_1].setCharge(0.);
     leptons[NEUTRINO_2].setCharge(0.);    
     leptons[NEUTRINO_3].setCharge(0.);    
@@ -39,18 +60,14 @@ Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.) {
     leptons[ELECTRON].setIsospin(-1./2.);
     leptons[MU].setIsospin(-1./2.);   
     leptons[TAU].setIsospin(-1./2.);
-    myEWSM = new EWSM(*this, bDebug_i);
 }
 
-bool StandardModel::InitializeMatching(){
-    
-    myStandardModelMatching = new StandardModelMatching(*this);
-    SetMatchingInitialized(true);
-    return(true);
+bool StandardModel::Init(const std::map<std::string, double>& DPars) {
+    Update(DPars);
+    return(CheckParameters(DPars));
 }
 
 bool StandardModel::PreUpdate(){
-    
     computeCKM = false;
     computeYe = false;
     computeYn = false;
@@ -58,11 +75,24 @@ bool StandardModel::PreUpdate(){
     if(!QCD::PreUpdate())  return (false);
     
     return (true);
+}
+
+bool StandardModel::Update(const std::map<std::string, double>& DPars) {
+    if(!PreUpdate()) return (false);
+
+    UpdateError = false;
     
+    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
+        SetParameter(it->first, it->second);
+    
+    if (UpdateError) return (false);
+    
+    if(!PostUpdate())  return (false);
+    
+    return (true);
 }
 
 bool StandardModel::PostUpdate(){
-    
     if(!QCD::PostUpdate()) return (false);
     
     if (computeCKM) {
@@ -89,23 +119,6 @@ bool StandardModel::PostUpdate(){
             Yn.assign(i, i, this->leptons[NEUTRINO_1 + 2 * i].getMass() / v() * sqrt(2.));
         Yn = Yn * UPMNS.hconjugate();
     }
-    
-     return (true);
-    
-}
-
-bool StandardModel::Update(const std::map<std::string, double>& DPars) {
-    
-    if(!PreUpdate()) return (false);
-    
-    UpdateError = false;
-    
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        SetParameter(it->first, it->second);
-    
-    if (UpdateError) return (false);
-    
-    if(!PostUpdate())  return (false);
     
      return (true);
 }
@@ -165,18 +178,6 @@ void StandardModel::SetParameter(const std::string name, const double& value) {
         QCD::SetParameter(name, value);
 }
 
-
-bool StandardModel::SetFlag(const std::string name , const bool& value){  
-    return (false);
-}
-
-
-
-bool StandardModel::Init(const std::map<std::string, double>& DPars) {
-    Update(DPars);
-    return(CheckParameters(DPars));
-}
-
 bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NSMvars; i++) {
         if (DPars.find(SMvars[i]) == DPars.end()) {
@@ -189,19 +190,90 @@ bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars) 
 
 
 ///////////////////////////////////////////////////////////////////////////
+// Flags
 
-const double StandardModel::matchingScale() const {
-    return muw;
+bool StandardModel::SetFlag(const std::string name, const bool& value) {  
+    bool res = false;
+    if (name.compare("FixedAllSMparams") == 0) {
+        FlagFixedAllSMparams = value;
+        res = true;
+    } else if (name.compare("EWCHMN") == 0) {
+        FlagEWCHMN = value;
+        res = true;
+    } else if (name.compare("EWABC") == 0) {
+        FlagEWABC = value;
+        res = true;
+    } else if (name.compare("EWABC2") == 0) {
+        FlagEWABC2 = value;
+        res = true;
+    } else if (name.compare("EWBURGESS") == 0) {
+        FlagEWBURGESS = value;
+        res = true;
+    } else if (name.compare("R0bApproximate") == 0) {
+        FlagR0bApproximate = value;
+        res = true;
+    }
+    return(res);
 }
 
+
+///////////////////////////////////////////////////////////////////////////
+// Initialization and Matching
+
+bool StandardModel::InitializeModel() {
+    myStandardModelMatching = new StandardModelMatching(*this);
+    SetModelInitialized(true);
+    myEWSM = new EWSM(*this);
+    this->SetEWSMflags(*myEWSM);
+    return(true);
+}
+
+void StandardModel::SetEWSMflags(EWSM& myEWSM) {
+    myEWSM.setSchemeMw(EWSM::APPROXIMATEFORMULA);
+    myEWSM.setSchemeRhoZ(EWSM::OMSI);
+    myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
+}
+
+
+///////////////////////////////////////////////////////////////////////////
+
 double StandardModel::v() const {
-    return 1. / sqrt(sqrt(2.) * GF);
+    return ( 1. / sqrt(sqrt(2.) * GF) );
 }
 
 double StandardModel::Mw_tree() const {
     double tmp = 4.0*M_PI*ale/sqrt(2.0)/GF/Mz/Mz;
     return ( Mz/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp)) );
-    //return 80.4;
+}
+
+
+////////////////////////////////////////////////////////////////////////
+
+double StandardModel::ale_OS(const double mu, orders order) const {
+    if (mu < 50.0) 
+        throw std::runtime_error("out of range in StandardModel::Als_OS()"); 
+    
+    double N = 20.0/3.0;
+    double beta1 = N/3.0;
+    double beta2 = N/4.0;
+    double alpha_ini = alphaMz();
+    double v = 1.0 + 2.0*beta1*alpha_ini/M_PI*log(Mz/mu);
+
+    switch (order) {
+        case LO:
+            return ( alpha_ini/v );
+        case FULLNLO:
+            return ( alpha_ini/v*(1.0 - beta2/beta1*alpha_ini/M_PI*log(v)/v) );
+        default:
+            throw std::runtime_error("Error in StandardModel::Als_OS()"); 
+    }
+}
+
+
+////////////////////////////////////////////////////////////////////////
+
+double StandardModel::Mw0() const {
+    return ( sqrt(c02())*Mz );
 }
 
 double StandardModel::s02() const {
@@ -213,11 +285,10 @@ double StandardModel::c02() const {
 }
 
 
-
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::DeltaAlphaLepton() const {
-    return myEWSM->DeltaAlphaLepton();
+double StandardModel::DeltaAlphaLepton(const double s) const {
+    return myEWSM->DeltaAlphaLepton(s);
 }
 
 double StandardModel::DeltaAlphaL5q() const {
@@ -280,19 +351,132 @@ double StandardModel::GammaW() const {
     return myEWSM->GammaW_SM();
 }
 
-double StandardModel::DsigmaLEP2_l(const StandardModel::lepton l, const double s, const double cos_theta,  
-                                   const double W, const double X, const double Y, const double GammaZ) const{
-    return (myEWSM->dsigmaLEP2_l(l, s, Mw(), cos_theta, W, X, Y, GammaZ));
+double StandardModel::epsilon1_SM() const {
+    double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real();
+    double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
+
+    return DeltaRhoPrime;
 }
 
-double StandardModel::DsigmaLEP2_q(const StandardModel::quark q, const double s, 
-                                   const double cos_theta, const double W, 
-                                   const double X, const double Y, const double GammaZ) const{
-    return (myEWSM->dsigmaLEP2_q(q, s, Mw(), cos_theta, W, X, Y, GammaZ));
+double StandardModel::epsilon2_SM() const {
+    double Qe = getLeptons(ELECTRON).getCharge();
+    double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real();
+    complex gVe = myEWSM->gVl_SM(ELECTRON);
+    complex gAe = myEWSM->gAl_SM(ELECTRON);
+    double gV_over_gA = (gVe/gAe).real();
+    double sin2thetaEff = 1.0/4.0/fabs(Qe)*(1.0 - gV_over_gA);
+    double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
+    double DeltaKappaPrime = sin2thetaEff/s02() - 1.0;
+    double s_W2 = myEWSM->sW2_SM(), c_W2 = myEWSM->cW2_SM();
+    double DeltaRW = 1.0 - M_PI*alphaMz()/(sqrt(2.0)*GF*Mz*Mz*s_W2*c_W2);
+    
+    return ( c02()*DeltaRhoPrime + s02()*DeltaRW/(c02() - s02()) 
+             - 2.0*s02()*DeltaKappaPrime );
+}
+
+double StandardModel::epsilon3_SM() const {
+    double Qe = getLeptons(ELECTRON).getCharge();
+    double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real();
+    complex gVe = myEWSM->gVl_SM(ELECTRON);
+    complex gAe = myEWSM->gAl_SM(ELECTRON);
+    double gV_over_gA = (gVe/gAe).real();
+    double sin2thetaEff = 1.0/4.0/fabs(Qe)*(1.0 - gV_over_gA);
+    double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
+    double DeltaKappaPrime = sin2thetaEff/s02() - 1.0;
+    
+    return ( c02()*DeltaRhoPrime + (c02() - s02())*DeltaKappaPrime );
+}
+
+double StandardModel::epsilonb_SM() const {
+    /* epsilon_b from g_A^b
+     * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
+    //double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real();
+    //double rhoZb = myEWSM->rhoZ_q_SM(BOTTOM).real();
+    //double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
+    //double eps1 = DeltaRhoPrime;
+    //return ( - 1.0 + sqrt(rhoZb)/(1.0 + eps1/2.0) );
+    // -0.0058226259 for real()
+
+    /* epsilon_b from g_V^b/g_A^b 
+     * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
+    double Qe = getLeptons(ELECTRON).getCharge();
+    complex gVe = myEWSM->gVl_SM(ELECTRON);
+    complex gAe = myEWSM->gAl_SM(ELECTRON);
+    double gV_over_gA = (gVe/gAe).real();
+    double sin2thetaEff = 1.0/4.0/fabs(Qe)*(1.0 - gV_over_gA);    
+    complex gVb = myEWSM->gVq_SM(BOTTOM);
+    complex gAb = myEWSM->gAq_SM(BOTTOM);
+    double gVb_over_gAb = (gVb/gAb).real();
+    double tmp = 1.0 - gVb_over_gAb;
+    return ( -(tmp - 4.0/3.0*sin2thetaEff)/tmp );
+    //  -0.006032833
+    
+    /* epsilon_b from Gamma_b via Eqs.(11), (12) and (16) of IJMP A7, 
+     * 1031 (1998) by Altarelli et al. 
+     * Note: mb has to be mb=4.7, since Eq.(16) were derived with this value. 
+     */
+    //double als_Mz = Als(Mz, FULLNNLO);
+    //double delta_als = (als_Mz - 0.119)/M_PI;
+    //double delta_alpha = (alphaMz() - 1.0/128.90)/ale;
+    //double Gamma_b_Born = 0.3798*( 1.0 + delta_als - 0.42*delta_alpha);
+    //double a = als_Mz/M_PI;
+    //double RQCD = 1.0 + 1.2*a - 1.1*a*a - 13.0*a*a*a;
+    //double mb = Mrun(Mz, getQuarks(BOTTOM).getMass(), FULLNNLO);// This is wrong!
+    //double mb = 4.7;
+    //std::cout << "mb = " << mb << std::endl;
+    //double beta = sqrt(1.0 - 4.0*mb*mb/Mz/Mz);
+    //double Nc = 3.0; 
+    //double factor = GF*Mz*Mz*Mz/6.0/M_PI/sqrt(2.0);
+    //double Gamma_b = factor*beta*((3.0 - beta*beta)/2.0*myEWSM->gVq_SM(BOTTOM).abs2()
+    //                              + beta*beta*myEWSM->gAq_SM(BOTTOM).abs2())
+    //                 *Nc*RQCD*(1.0 + alphaMz()/12.0/M_PI);
+    //return ( (Gamma_b/Gamma_b_Born - 1.0 - 1.42*epsilon1_SM() 
+    //          + 0.54*epsilon3_SM() )/2.29 );
+    // -0.0059316254 for mb = 4.7
+    // -0.0029610421 for mb = 2.8602168
+
+    /* epsilon_b from rho_Z^b, including the flavor-dependent vertex 
+     * corrections which are not associated with the top loops. 
+     * This is not compatible to that by Altarelli et al. */
+    //complex rhoZe = myEWSM->rhoZ_l_SM(ELECTRON);
+    //complex rhoZb = myEWSM->rhoZ_q_SM(BOTTOM);
+    //complex DeltaRho = myEWSM->rhoZ_q_SM_FlavorDep(BOTTOM);
+    //return ( sqrt(rhoZb.real()/(rhoZe + DeltaRho).real()) - 1.0 );
+    //return ( sqrt(rhoZb.real()/rhoZe.real()) - 1.0 );
+    // -0.0065965539
+    // -0.0058226259 without DeltaRho
+    
+    /* epsilon_b from kappa_Z^b, including the flavor-dependent vertex 
+     * corrections which are not associated with the top loops.
+     * This is not compatible to that by Altarelli et al. */
+    //complex kappaZe = myEWSM->kappaZ_l_SM(ELECTRON);
+    //complex kappaZb = myEWSM->kappaZ_q_SM(BOTTOM);
+    //complex DeltaKappa = myEWSM->kappaZ_q_SM_FlavorDep(BOTTOM);
+    //return ( (kappaZe + DeltaKappa).real()/kappaZb.real() - 1.0 );
+    //return ( kappaZe.real()/kappaZb.real() - 1.0 );
+    // -0.0069378617 
+    // -0.006032833 without DeltaKappa
+}
+
+double StandardModel::epsilon1() const{ 
+    return epsilon1_SM();
+}
+
+double StandardModel::epsilon2() const {
+    return epsilon2_SM();    
+}
+    
+double StandardModel::epsilon3() const {
+    return epsilon3_SM();
+}
+
+double StandardModel::epsilonb() const {
+    return epsilonb_SM();    
 }
 
 
 ////////////////////////////////////////////////////////////////////////
+// CKM parameters
 
 // Angles
 

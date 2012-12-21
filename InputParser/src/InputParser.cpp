@@ -1,8 +1,8 @@
 /* 
- * File:   InputParser.cpp
- * Author: silvest
- * 
- * Created on March 15, 2011, 2:36 PM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "InputParser.h"
@@ -31,6 +31,10 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
         ModelPars, std::vector<Observable>& Observables, std::vector<Observable2D>& Observables2D) {
     std::string modname = "";
     std::ifstream ifile(filename.c_str());
+    if (!ifile.is_open()) {
+        std::cout << filename << " does not exist." << std::endl;
+        exit(EXIT_FAILURE);
+    }
     std::string line;
     while (!getline(ifile, line).eof()) {
         if (line.empty() || line.at(0) == '#')
@@ -41,13 +45,31 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
         if (beg->compare("StandardModel") == 0) {
             modname = *beg;
             myModel = new StandardModel();
-            myModel->InitializeMatching();
+            myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("NewPhysicsSTU") == 0) {
             modname = *beg;
             myModel = new NewPhysicsSTU();
-            myModel->InitializeMatching();
+            myModel->InitializeModel();
+            thf = new ThFactory(*myModel);
+            continue;
+        } else if (beg->compare("NewPhysicsSTUVWXY") == 0) {
+            modname = *beg;
+            myModel = new NewPhysicsSTUVWXY();
+            myModel->InitializeModel();
+            thf = new ThFactory(*myModel);
+            continue;
+        } else if (beg->compare("NewPhysicsEpsilons") == 0) {
+            modname = *beg;
+            myModel = new NewPhysicsEpsilons();
+            myModel->InitializeModel();
+            thf = new ThFactory(*myModel);
+            continue;
+        } else if (beg->compare("NewPhysicsHiggs") == 0) {
+            modname = *beg;
+            myModel = new NewPhysicsHiggs();
+            myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;
         
@@ -60,7 +82,7 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             } else if (beg->compare("MFV") == 0) {
             modname = *beg;
             myModel = new MFV();
-            myModel->InitializeMatching();
+            myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("SusyMI") == 0) {

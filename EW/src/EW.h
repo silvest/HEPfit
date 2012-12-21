@@ -1,13 +1,18 @@
 /* 
- * File:   EW.h
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef EW_H
 #define	EW_H
 
+#include <stdexcept>
 #include <ThObsType.h>
 #include <StandardModel.h>
+#include "EW_CHMN.h"
+#include "EW_ABC.h"
 
 using namespace gslpp;
 
@@ -16,17 +21,27 @@ class EW : public ThObsType {
 public:
     
     /**
+     * EWDEFAULT : use our formulae
+     * EWCHMN : use the formulae by Cho, Hagiwara, Matsumoto and Nomura in EW_CHMN class.
+     * EWBURGESS : use the formulae by Burgess et al. 
+     * EWABC : use the formulae in Eqs.(7)-(14) of IJMP, A7, 1031-1058 (1998) by Altarelli, Barbieri and Caravaglios. 
+     * EWABC2 : use the approximate formulae in Eqs.(16)-(20) of IJMP, A7, 1031-1058 (1998) by Altarelli, Barbieri and Caravaglios. 
+     */
+    enum EWTYPE {EWDEFAULT, EWCHMN, EWBURGESS, EWABC, EWABC2};
+    
+    /**
      * @brief EW constructor
      * @param[in] SM_i an object of StandardModel class
-     * @param[in] bDebug_i boolean value for debugging (true for debugging)
      */
-    EW(const StandardModel& SM_i, const bool bDebug_i=false);
+    EW(const StandardModel& SM_i);
 
     
     //////////////////////////////////////////////////////////////////////// 
 
+    EWTYPE getEWTYPE() const;
+    
     /**
-     * @return boolean: true for the case where S, T and U are employed for the current model
+     * @return boolean: true for the case where the oblique parameters are employed. 
      */
     bool checkModelForSTU() const;
     
@@ -36,7 +51,15 @@ public:
     const StandardModel& getSM() const {
         return SM;
     } 
-        
+
+    const EW_ABC getMyEW_ABC() const {
+        return myEW_ABC;
+    }
+
+    const EW_CHMN getMyEW_CHMN() const {
+        return myEW_CHMN;
+    }
+    
     /**
      * @param[in] l lepton
      * @return electric charge of a lepton "l"
@@ -50,14 +73,24 @@ public:
     double Qq(const StandardModel::quark q) const;    
 
     /**
-     * @return sin^2\theta_W without weak corrections, but with \alpha(Mz^2)
+     * @return alpha(Mz2) 
      */
-    double s2() const;
+    double alpha0() const;
 
     /**
-     * @return cos^2\theta_W without weak corrections, but with \alpha(Mz^2)
+     * @return the W boson mass without weak corrections, but with alpha(Mz^2)
      */
-    double c2() const;
+    double Mw0() const;    
+
+    /**
+     * @return sin^2 theta_W without weak corrections, but with alpha(Mz^2)
+     */
+    double s02() const;
+
+    /**
+     * @return cos^2 theta_W without weak corrections, but with alpha(Mz^2)
+     */
+    double c02() const;
 
     /**
      * @return the oblique parameters S
@@ -78,6 +111,27 @@ public:
      */    
     double U() const {
         return ( SM.obliqueU() );
+    }
+
+    /**
+     * @return Oblique parameter \hat{S}
+     */
+    double Shat() const {
+        return ( SM.obliqueShat() );
+    }
+
+    /**
+     * @return Oblique parameter \hat{T}
+     */
+    double That() const {
+        return ( SM.obliqueThat() );
+    }
+
+    /**
+     * @return Oblique parameter \hat{U}
+     */
+    double Uhat() const {
+        return ( SM.obliqueUhat() );
     }
 
     /**
@@ -174,73 +228,19 @@ public:
     double A_q(const StandardModel::quark q) const;
 
     
-    ////////////////////////////////////////////////////////////////////////
-
-    /**
-     * @param[in] l name of a lepton
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] W oblique parameter W
-     * @param[in] X oblique parameter X
-     * @param[in] Y oblique parameter Y
-     * @param[in] cos_theta cos(theta)
-     * @return the differential cross section for e^+ e^- -> l lbar in GeV^{-2}
-     */
-    double dsigma_lLEP2(const StandardModel::lepton l, const double s,
-                        const double W, const double X,const double Y, 
-                        const double cos_theta) const;
+    ////////////////////////////////////////////////////////////////////////   
     
-    /**
-     * @param[in] q name of a quark
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] W oblique parameter W
-     * @param[in] X oblique parameter X
-     * @param[in] Y oblique parameter Y
-     * @param[in] cos_theta cos(theta)
-     * @return the differential cross section for e^+ e^- -> q qbar in GeV^{-2}
-     */
-    double dsigma_qLEP2(const StandardModel::quark q, const double s,
-                        const double W, const double X, const double Y, 
-                        const double cos_theta) const;
-   
-
-    ////////////////////////////////////////////////////////////////////////
-
-    /**
-     * @param[in] l name of a lepton
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @return the toral cross section for e^+ e^- -> l lbar in GeV^{-2}
-     */
-    double sigma_l_Born_LEP2(const StandardModel::lepton l, const double s) const;
-
-    /**
-     * @param[in] q name of a quark
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @return the toral cross section for e^+ e^- -> q qbar in GeV^{-2}
-     */
-    double sigma_q_Born_LEP2(const StandardModel::quark q, const double s) const;
-
-    
-    ////////////////////////////////////////////////////////////////////////     
-    
-private:
+protected:
     bool bDebug; // true for debugging    
     
     const StandardModel& SM;
+    const EW_CHMN myEW_CHMN;
+    const EW_ABC myEW_ABC;
+    
+    ////////////////////////////////////////////////////////////////////////   
+    
+private:
 
-    
-    ////////////////////////////////////////////////////////////////////////     
-    
-    /**
-     * @param[in] s invariant mass squared of the initial-state e^+ e^- pair
-     * @param[in] mf mass of f
-     * @param[in] Qf electric charge of f
-     * @param[in] I3f isospin of f
-     * @param[in] Ncf Ncf=3 for f=q; 1 for f=l
-     * @return the toral cross section for e^+ e^- -> f fbar in GeV^{-2}
-     */
-    double sigma_f_Born_LEP2(const double s, const double mf, const double Qf, 
-                             const double I3f, const double Ncf) const;
-    
 };
 
 #endif	/* EW_H */

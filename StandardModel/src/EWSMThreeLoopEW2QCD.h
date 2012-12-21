@@ -1,6 +1,8 @@
 /* 
- * File:   EWSMThreeLoopEW2QCD.h
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef EWSMTHREELOOPEW2QCD_H
@@ -25,15 +27,17 @@ public:
     
     /**
      * @brief leptonic contribution to alpha
+     * @param[in] s invariant mass squared 
      * @return Delta alpha_{lept}^{alpha^2 alpha_s}
      */
-    double DeltaAlpha_l() const;
+    double DeltaAlpha_l(const double s) const;
 
     /**
      * @brief top-quark contribution to alpha
+     * @param[in] s invariant mass squared 
      * @return Delta alpha_{top}^{alpha^2 alpha_s}
      */
-    double DeltaAlpha_t() const;
+    double DeltaAlpha_t(const double s) const;
     
     /**
      * @brief leading contribution to Delta r

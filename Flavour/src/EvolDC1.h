@@ -1,8 +1,8 @@
 /* 
- * File:   EvolDC1.h
- * Author: Mauro_87
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 22 novembre 2011, 16.44
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef EVOLDC1_H

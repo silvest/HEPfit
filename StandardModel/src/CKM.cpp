@@ -1,8 +1,8 @@
 /* 
- * File:   CKM.cpp
- * Author: silvest
- * 
- * Created on March 2, 2011, 2:07 PM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "CKM.h"

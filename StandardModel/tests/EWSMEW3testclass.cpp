@@ -1,6 +1,8 @@
 /*
- * File:   EWSMEW3testclass.cpp
- * Author: mishima
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "EWSMEW3testclass.h"
@@ -17,8 +19,9 @@ EWSMEW3testclass::~EWSMEW3testclass() {
 
 void EWSMEW3testclass::setUp() {
     mySM = new StandardModel(true);
+    mySM->InitializeModel();
     setSMparameters(*mySM);   
-    myCache = new EWSMcache(*mySM, true);
+    myCache = new EWSMcache(*mySM);
     myEW3 = new EWSMThreeLoopEW(*myCache);
 
     Mw = myCache->Mw(mySM->Mw_tree());/* Tests are done with the tree-level Mw */
@@ -41,7 +44,7 @@ void EWSMEW3testclass::tearDown() {
 
 void EWSMEW3testclass::DeltaAlpha_l() {
     double ZFITTER = 0.00000110911008841406; /* ZFITTER result*/
-    double result = myEW3->DeltaAlpha_l();
+    double result = myEW3->DeltaAlpha_l(Mz2);
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);   
 }

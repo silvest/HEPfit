@@ -1,8 +1,8 @@
 /* 
- * File:   Observable.cpp
- * Author: silvest
- * 
- * Created on February 22, 2011, 11:45 AM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "Observable.h"

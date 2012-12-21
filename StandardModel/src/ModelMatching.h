@@ -1,8 +1,8 @@
 /* 
- * File:   ModelMatching.h
- * Author: Mauro_87
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on 13 dicembre 2011, 13.15
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef MODELMATCHING_H

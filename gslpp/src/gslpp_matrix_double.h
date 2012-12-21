@@ -95,7 +95,7 @@ namespace gslpp
        * @param m2 the second matrix
        * @return true if equal, false otherwise
        */
-      bool is_equal(const matrix<double>& m1, const matrix<double>& m2);
+//      bool is_equal(const matrix<double>& m1, const matrix<double>& m2);
       /** Unary minus (matrix) */
       matrix<double> operator-() const;
       /** Addition operator (matrix) */

@@ -1,8 +1,8 @@
 /* 
- * File:   Flavour.h
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on March 29, 2011, 12:49 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef FLAVOUR_H
@@ -21,8 +21,8 @@ public:
     Flavour(const StandardModel& SM_i) : ThObsType(SM_i), 
             HDF2(SM_i) {
         
-        if(!SM_i.IsMatchingInitialized())
-            throw std::runtime_error("Matching not initialized "); 
+        if(!SM_i.IsModelInitialized())
+            throw std::runtime_error("Model not initialized "); 
     };
 
     const HeffDF2& getHDF2() const {

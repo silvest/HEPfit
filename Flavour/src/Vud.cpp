@@ -1,8 +1,8 @@
 /* 
- * File:   Vud.cpp
- * Author: silvest
- * 
- * Created on April 1, 2011, 2:45 PM
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "Vud.h"
