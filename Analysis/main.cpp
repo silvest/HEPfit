@@ -1,22 +1,28 @@
 /* 
- * File:   main.cpp
- * Author: silvest
+ * Copyright (C) 2012 SUSYfit Collaboration
+ * All rights reserved.
  *
- * Created on March 30, 2011, 12:54 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #include <iostream>
 #include <MonteCarlo.h>
 #include <boost/program_options.hpp>
+#include <mpi.h>
 
 using namespace boost::program_options;
 using namespace std;
 
 int main(int argc, char** argv) {
 
+    MPI::Init();
+    int rank = MPI::COMM_WORLD.Get_rank();
+    MPI::Status status;
+
     string ModelConf, MCMCConf, FileOut, JobTag;
 
-    cout << "\n *** SusyFit Markov Chain Montecarlo ***\n" << endl;
+    if (rank == 0)
+        cout << "\n *** SusyFit Markov Chain Montecarlo ***\n" << endl;
 
     try {
         options_description desc("Allowed (positional) options");
@@ -59,8 +65,13 @@ int main(int argc, char** argv) {
         
         JobTag = vm["job_tag"].as<string> ();
 
+        JobTag = vm["job_tag"].as<string > ();
+
         MonteCarlo MC(ModelConf, MCMCConf, FileOut, JobTag);
-        MC.Run();
+        
+        MC.Run(rank);
+
+        MPI::Finalize();
 
         return EXIT_SUCCESS;
     } catch (const runtime_error& e) {
