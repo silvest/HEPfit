@@ -2563,6 +2563,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
                 vmdbd2.push_back(mcdbd2Hp);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbd2()");
     }
     switch (mcdbd2gg.getOrder()) {
         case NLO:
@@ -2576,6 +2581,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
                 vmdbd2.push_back(mcdbd2gg);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbd2()");
     }
     switch (mcdbd2ChiChi.getOrder()) {
         case NLO:
@@ -2588,6 +2598,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
                 vmdbd2.push_back(mcdbd2ChiChi);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbd2()");
     }
     switch (mcdbd2Chi0Chi0.getOrder()) {
         case NLO:
@@ -2600,6 +2615,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
                 vmdbd2.push_back(mcdbd2Chi0Chi0);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbd2()");
     }
     switch (mcdbd2Chi0g.getOrder()) {
         case NLO:
@@ -2612,7 +2632,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
                 vmdbd2.push_back(mcdbd2Chi0g);
             }
             break;
-
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbd2()");
     }
     
     /** Wilson coefficients of operator Q_1,2,3 tilde **/
@@ -2628,6 +2652,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
                 vmdbd2.push_back(mcdbd2HpT);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbd2()");
     }
     switch (mcdbd2ggT.getOrder()) {
         case NLO:
@@ -2641,6 +2670,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
                 vmdbd2.push_back(mcdbd2ggT);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbd2()");
     }
     switch (mcdbd2ChiChiT.getOrder()) {
         case NLO:
@@ -2653,6 +2687,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
                 vmdbd2.push_back(mcdbd2ChiChiT);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbd2()");
     }
     switch (mcdbd2Chi0Chi0T.getOrder()) {
         case NLO:
@@ -2666,6 +2705,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
                 vmdbd2.push_back(mcdbd2Chi0Chi0T);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbd2()");
     }
     switch (mcdbd2Chi0gT.getOrder()) {
         case NLO:
@@ -2678,6 +2722,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
                 vmdbd2.push_back(mcdbd2Chi0gT);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbd2()");
 
     }
     
@@ -2717,6 +2766,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
                 vmdbs2.push_back(mcdbs2Hp);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbs2()");
     }
     switch (mcdbs2gg.getOrder()) {
         case NLO:
@@ -2729,6 +2783,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
                 vmdbs2.push_back(mcdbs2gg);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbs2()");
     }
     switch (mcdbs2ChiChi.getOrder()) {
         case NLO:
@@ -2741,6 +2800,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
                 vmdbs2.push_back(mcdbs2ChiChi);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbs2()");
     }
     switch (mcdbs2Chi0Chi0.getOrder()) {
         case NLO:
@@ -2753,6 +2817,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
                 vmdbs2.push_back(mcdbs2Chi0Chi0);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbs2()");
     }
     switch (mcdbs2Chi0g.getOrder()) {
         case NLO:
@@ -2765,6 +2834,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
                 vmdbs2.push_back(mcdbs2Chi0g);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbs2()");
     }
   
     /** Wilson coefficients of operator Q_1,2,3 tilde **/
@@ -2780,6 +2854,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
                 vmdbs2.push_back(mcdbs2HpT);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbs2()");
     }
     switch (mcdbs2ggT.getOrder()) {
         case NLO:
@@ -2792,6 +2871,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
                 vmdbs2.push_back(mcdbs2ggT);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbs2()");
     }
     switch (mcdbs2ChiChiT.getOrder()) {
         case NLO:
@@ -2804,6 +2888,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
                 vmdbs2.push_back(mcdbs2ChiChiT);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbs2()");
     }
     switch (mcdbs2Chi0Chi0T.getOrder()) {
         case NLO:
@@ -2816,6 +2905,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
                 vmdbs2.push_back(mcdbs2Chi0Chi0T);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbs2()");
     }
     switch (mcdbs2Chi0gT.getOrder()) {
         case NLO:
@@ -2828,6 +2922,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
                 vmdbs2.push_back(mcdbs2Chi0gT);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdbs2()");
     }
     
     
@@ -2869,6 +2968,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
                 vmdk2.push_back(mcdk2Hp);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdk2()");
     }
     switch (mcdk2gg.getOrder()) {
         case NLO:
@@ -2881,6 +2985,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
                 vmdk2.push_back(mcdk2gg);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdk2()");
     }
     switch (mcdk2ChiChi.getOrder()) {
         case NLO:
@@ -2893,6 +3002,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
                 vmdk2.push_back(mcdk2ChiChi);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdk2()");
     }
     switch (mcdk2Chi0Chi0.getOrder()) {
         case NLO:
@@ -2905,6 +3019,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
                 vmdk2.push_back(mcdk2Chi0Chi0);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdk2()");
     }
     switch (mcdk2Chi0g.getOrder()) {
         case NLO:
@@ -2917,6 +3036,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
                 vmdk2.push_back(mcdk2Chi0g);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdk2()");
     }
     
     /** Wilson coefficients of operator Q_1,2,3 tilde **/
@@ -2932,6 +3056,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
                 vmdk2.push_back(mcdk2HpT);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdk2()");
     }
     switch (mcdk2ggT.getOrder()) {
         case NLO:
@@ -2944,6 +3073,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
                 vmdk2.push_back(mcdk2ggT);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdk2()");
     }
     switch (mcdk2ChiChiT.getOrder()) {
         case NLO:
@@ -2956,6 +3090,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
                 vmdk2.push_back(mcdk2ChiChiT);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdk2()");
     }
     switch (mcdk2Chi0Chi0T.getOrder()) {
         case NLO:
@@ -2968,6 +3107,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
                 vmdk2.push_back(mcdk2Chi0Chi0T);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdk2()");
     }
     switch (mcdk2Chi0gT.getOrder()) {
         case NLO:
@@ -2980,6 +3124,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
                 vmdk2.push_back(mcdk2Chi0gT);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdk2()");
     }
     
     
@@ -3020,7 +3169,12 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdd2(){
                 vmdd2.push_back(mcdd2Hp);
             }
             break;
-    }
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdd2()");
+     }
     switch (mcdd2gg.getOrder()) {
         case NLO:
         case LO:
@@ -3032,6 +3186,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdd2(){
                 vmdd2.push_back(mcdd2gg);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdd2()");
     }
     switch (mcdd2ChiChi.getOrder()) {
         case NLO:
@@ -3044,6 +3203,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdd2(){
                 vmdd2.push_back(mcdd2ChiChi);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdd2()");
     }
     switch (mcdd2Chi0Chi0.getOrder()) {
         case NLO:
@@ -3056,6 +3220,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdd2(){
                 vmdd2.push_back(mcdd2Chi0Chi0);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdd2()");
     }
     switch (mcdd2Chi0g.getOrder()) {
         case NLO:
@@ -3068,6 +3237,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdd2(){
                 vmdd2.push_back(mcdd2Chi0g);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdd2()");
     }
     
     /** Wilson coefficients of operator Q_1,2,3 tilde **/
@@ -3083,6 +3257,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdd2(){
                 vmdd2.push_back(mcdd2HpT);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdd2()");
     }
     switch (mcdd2ggT.getOrder()) {
         case NLO:
@@ -3095,6 +3274,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdd2(){
                 vmdd2.push_back(mcdd2ggT);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdd2()");
     }
     switch (mcdd2ChiChiT.getOrder()) {
         case NLO:
@@ -3107,6 +3291,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdd2(){
                 vmdd2.push_back(mcdd2ChiChiT);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdd2()");
     }
     switch (mcdd2Chi0Chi0T.getOrder()) {
         case NLO:
@@ -3119,6 +3308,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdd2(){
                 vmdd2.push_back(mcdd2Chi0Chi0T);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdd2()");
     }
     switch (mcdd2Chi0gT.getOrder()) {
         case NLO:
@@ -3131,6 +3325,11 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdd2(){
                 vmdd2.push_back(mcdd2Chi0gT);
             }
             break;
+        case FULLNLO:
+        case NNLO:
+        case FULLNNLO:
+        default:
+            throw std::runtime_error("Error in SUSYMatching::CMdd2()");
     }
     
     return (vmdd2);

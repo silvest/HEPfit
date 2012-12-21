@@ -496,7 +496,7 @@ protected:
     
     /** test **/
     
-    int Neve = 0;
+    //int Neve = 0;
 };
 
 #endif	/* SUSY_H */
