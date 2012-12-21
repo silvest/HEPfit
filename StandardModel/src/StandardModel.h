@@ -552,7 +552,8 @@ public:
     /**
      * @return SM contribution to epsilon_b
      */
-    double epsilonb_SM() const;  
+    double epsilonb_SM() const;
+    
     /**
      * @return epsilon_1
      */

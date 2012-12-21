@@ -72,14 +72,7 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;
-        
-//        } else if (beg->compare("NewPhysicsSTUVWXY") == 0) {
-//            modname = *beg;
-//            myModel = new NewPhysicsSTUVWXY();
-//            myModel->InitializeMatching();
-//            thf = new ThFactory(*myModel);
-//            continue;
-            } else if (beg->compare("MFV") == 0) {
+        } else if (beg->compare("MFV") == 0) {
             modname = *beg;
             myModel = new MFV();
             myModel->InitializeModel();
