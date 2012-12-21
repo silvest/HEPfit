@@ -17,7 +17,7 @@ complex AmpDK2::AmpDK(orders order) {
     vector<complex> ** allcoeff = myFlavour.ComputeCoeffK( 
             myFlavour.getModel().getBK().getMu(),
             myFlavour.getModel().getBK().getScheme());
-
+            
     vector<double> me(myFlavour.getModel().getBK().getBpars());
     double MK = myFlavour.getModel().getMesons(QCD::K_0).getMass();
     double Ms = myFlavour.getModel().getQuarks(QCD::STRANGE).getMass();
