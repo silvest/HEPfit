@@ -24,9 +24,7 @@
                 <make-dep-project>../SUSYMassInsertion</make-dep-project>
                 <make-dep-project>../StandardModel</make-dep-project>
             </make-dep-projects>
-            <sourceRootList>
-                <sourceRootElem>../SUSY</sourceRootElem>
-            </sourceRootList>
+            <sourceRootList/>
             <confList>
                 <confElem>
                     <name>Debug</name>
