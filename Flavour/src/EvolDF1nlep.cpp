@@ -718,7 +718,11 @@ void EvolDF1nlep::Df1Evolnlep(double mu, double M, double nf, schemes scheme) {
        case LO_ew:
             *elem[LO_ew] =  (*elem[LO]) * resLO_ew;
        
-            }   
+            break;
+       case NULL_ew:
+       default:
+           throw std::runtime_error("Error in EvolDF1nlep::Df1Evolnlep()");
+   }   
     
     switch(order) {
    
@@ -729,7 +733,13 @@ void EvolDF1nlep::Df1Evolnlep(double mu, double M, double nf, schemes scheme) {
             *elem[NLO] = (*elem[LO]) * resNLO + (*elem[NLO]) * resLO;
         case LO:
             *elem[LO] = (*elem[LO]) * resLO;
-       } 
+            break;
+        case FULLNNLO:
+        case FULLNLO:
+        default:
+            throw std::runtime_error("Error in EvolDF1nlep::Df1Evolnlep()");
+
+    } 
     
  
     }
@@ -745,16 +755,27 @@ void EvolDF1nlep::Df1threshold_nlep(double M, double nf){
     dreT = ale * Df1threshold_deltareT(nf);
     
      switch(order_ew){
-        case NLO_ew:
-            *elem[NLO_ew] += (*elem[LO])*dreT + (*elem[LO_ew]) * drsT ; 
-    }
+         case NLO_ew:
+             *elem[NLO_ew] += (*elem[LO])*dreT + (*elem[LO_ew]) * drsT ; 
+             break;
+         case NULL_ew:
+         case LO_ew:
+         default:
+             throw std::runtime_error("Error in EvolDF1nlep::Df1threshold_nlep()");
+     }
     
     switch(order){
         case NNLO:
             *elem[NNLO] = 0.;
-        break;
+            break;
         case NLO:
             *elem[NLO] += (*elem[LO])* drsT ; 
+            break;
+        case LO:
+        case FULLNNLO:
+        case FULLNLO:
+        default:
+            throw std::runtime_error("Error in EvolDF1nlep::Df1threshold_nlep()");
     }
     
    
