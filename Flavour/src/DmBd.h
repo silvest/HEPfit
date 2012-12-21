@@ -16,12 +16,12 @@ class DmBd : public ThObservable, AmpDB2 {
 public:
     DmBd(Flavour& ObsType) : ThObservable(ObsType), AmpDB2(ObsType) {};
     
-    double getThValue();
-//       { 
-//        
-//
-//        return(2.*AmpBd(NLO).abs());
-//    };
+    double getThValue()
+       { 
+        
+
+        return(2.*AmpBd(NLO).abs());
+    };
 };
 
 #endif	/* DMBD_H */

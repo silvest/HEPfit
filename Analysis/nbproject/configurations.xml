@@ -97,6 +97,7 @@
           <linkerDynSerch>
             <pElem>../BAT/lib</pElem>
           </linkerDynSerch>
+          <commandlineTool>mpic++</commandlineTool>
           <linkerLibItems>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibProjectItem>

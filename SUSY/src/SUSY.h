@@ -10,6 +10,7 @@
 
 #include <StandardModel.h>
 #include <CFeynHiggs.h>
+#include <EWSM.h>
 #include "SUSYMatching.h"
 
 using namespace gslpp;

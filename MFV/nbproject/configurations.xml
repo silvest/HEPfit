@@ -47,6 +47,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSY/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
+            <pElem>../LoopFunctions/src</pElem>
           </incDir>
         </ccTool>
         <archiverTool>

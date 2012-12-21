@@ -552,25 +552,6 @@ public:
     /**
      * @return SM contribution to epsilon_b
      */
-    double getDmk() const {
-        return Dmk;
-    }
-
-    /**
-     *
-     * @return the Higgs mass
-     */
-    virtual double getMHl() const {
-        return mHl;
-    }
-
-    /**
-     * @brief set the Higgs mass
-     * @param mHl the Higgs mass
-     */
-    virtual void setMHl(double mHl) {
-        this->mHl = mHl;
-    }
     double epsilonb_SM() const;  
     /**
      * @return epsilon_1

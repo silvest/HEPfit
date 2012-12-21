@@ -45,11 +45,11 @@
         <ccTool>
           <incDir>
             <pElem>../StandardModel/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../Utils/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../Observables/src</pElem>
-            <pElem>../LoopFunctions/src</pElem>
           </incDir>
         </ccTool>
         <archiverTool>
