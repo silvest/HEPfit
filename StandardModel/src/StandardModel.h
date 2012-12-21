@@ -391,7 +391,7 @@ public:
      *
      * @return the Higgs mass
      */
-    double getMHl() const {
+    virtual double getMHl() const {
         return mHl;
     }
 
@@ -399,7 +399,7 @@ public:
      * @brief set the Higgs mass
      * @param mHl the Higgs mass
      */
-    void setMHl(double mHl) {
+    virtual void setMHl(double mHl) {
         this->mHl = mHl;
     }
     
