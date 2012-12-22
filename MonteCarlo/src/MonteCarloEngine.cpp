@@ -291,13 +291,16 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput& out) {
     
     for (std::vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end();
             it++) {
-        std::string fname = "Observables/" + it->getThname() + ".pdf";
-        //        BCH1D* pippo =  Histo1D[it->getThname()];
-        //        double x = pippo->GetMean();
-        //        pippo->Print("Dmd1.pdf");
-        Histo1D[it->getThname()]->SetGlobalMode(it->getTheoryValue());
-        Histo1D[it->getThname()]->Print(fname.c_str());
-        out.Write(Histo1D[it->getThname()]->GetHistogram());
+        if (Histo1D[it->getThname()]->GetHistogram()->Integral() > 0.0) {
+            std::string fname = "Observables/" + it->getThname() + ".pdf";
+            //        BCH1D* pippo =  Histo1D[it->getThname()];
+            //        double x = pippo->GetMean();
+            //        pippo->Print("Dmd1.pdf");
+            Histo1D[it->getThname()]->SetGlobalMode(it->getTheoryValue());
+            Histo1D[it->getThname()]->Print(fname.c_str());
+            out.Write(Histo1D[it->getThname()]->GetHistogram());
+        } else
+            std::cout << "The histogram of " << it->getThname() << " is empty!" << std::endl;
     }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end();
             it++) {
