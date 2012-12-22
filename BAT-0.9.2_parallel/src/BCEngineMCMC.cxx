@@ -1442,7 +1442,7 @@ int BCEngineMCMC::MCMCMetropolis()
             {
             // get new point
             MCMCGetNewPointMetropolis();
-        }
+        
         // reset current chain
         fMCMCCurrentChain = -1;
 
@@ -1461,7 +1461,7 @@ int BCEngineMCMC::MCMCMetropolis()
             if (fMCMCFlagWriteChainToFile)
                 MCMCInChainWriteChains();
         }
-
+      }
     } // end run
 
     // print convergence status
