@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -434,28 +434,6 @@ double StandardModel::epsilonb_SM() const {
     //          + 0.54*epsilon3_SM() )/2.29 );
     // -0.0059316254 for mb = 4.7
     // -0.0029610421 for mb = 2.8602168
-
-    /* epsilon_b from rho_Z^b, including the flavor-dependent vertex 
-     * corrections which are not associated with the top loops. 
-     * This is not compatible to that by Altarelli et al. */
-    //complex rhoZe = myEWSM->rhoZ_l_SM(ELECTRON);
-    //complex rhoZb = myEWSM->rhoZ_q_SM(BOTTOM);
-    //complex DeltaRho = myEWSM->rhoZ_q_SM_FlavorDep(BOTTOM);
-    //return ( sqrt(rhoZb.real()/(rhoZe + DeltaRho).real()) - 1.0 );
-    //return ( sqrt(rhoZb.real()/rhoZe.real()) - 1.0 );
-    // -0.0065965539
-    // -0.0058226259 without DeltaRho
-    
-    /* epsilon_b from kappa_Z^b, including the flavor-dependent vertex 
-     * corrections which are not associated with the top loops.
-     * This is not compatible to that by Altarelli et al. */
-    //complex kappaZe = myEWSM->kappaZ_l_SM(ELECTRON);
-    //complex kappaZb = myEWSM->kappaZ_q_SM(BOTTOM);
-    //complex DeltaKappa = myEWSM->kappaZ_q_SM_FlavorDep(BOTTOM);
-    //return ( (kappaZe + DeltaKappa).real()/kappaZb.real() - 1.0 );
-    //return ( kappaZe.real()/kappaZb.real() - 1.0 );
-    // -0.0069378617 
-    // -0.006032833 without DeltaKappa
 }
 
 double StandardModel::epsilon1() const{ 
