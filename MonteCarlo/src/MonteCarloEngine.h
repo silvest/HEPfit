@@ -22,6 +22,7 @@
 #include <Model.h>
 #include <map>
 
+#define NBINSMODELPARS 100
 #define NBINS1D 100
 #define NBINS2D 100
 
