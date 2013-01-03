@@ -138,6 +138,7 @@ void MonteCarlo::Run(const int rank) {
             BCLog::SetLogLevel(BCLog::debug);
 
             // run the MCMC and marginalize w.r.t. to all parameters
+            MCEngine.BCIntegrate::SetNbins(NBINSMODELPARS);
             MCEngine.MarginalizeAll();
 
             // find mode using the best fit parameters as start values
