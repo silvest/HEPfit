@@ -11,24 +11,40 @@
 #include <ThObservable.h>
 #include "EW.h"
 
-
+/**
+ * @class obliqueU
+ * @ingroup EW 
+ * @brief A class for the oblique parameter U
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the oblique parameter U.  
+ */
 class obliqueU : public ThObservable {
 public:
 
     /**
-     * @brief obliqueU constructor
-     * @param[in] EW_i an object of EW class
+     * A constructor.
+     * @param[in] EW_i A reference to an object of EW class, which is the base 
+     * class of the electroweak precision observables.
      */
-    obliqueU(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
+    obliqueU(const EW& EW_i) 
+    : ThObservable(EW_i), myEW(EW_i) 
+    {
+    };
 
     /**
-     * @return the oblique parameter U
+     * @return The oblique parameter U
      */
     double getThValue();
 
     
 private:
-    const EW& myEW; 
+
+    /**
+     * A reference to an object of EW class, which is the base class of the 
+     * electroweak precision observables.
+     */
+    const EW& myEW;
 };
 
 #endif	/* OBLIQUEU_H */

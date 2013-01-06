@@ -8,7 +8,8 @@
 #include "AFBbottom.h"
 
 
-double AFBbottom::getThValue() {   
+double AFBbottom::getThValue() 
+{   
     double AFB_b;
     if (myEWTYPE==EW::EWCHMN) 
         AFB_b = myEW.getMyEW_CHMN().AFB_q(SM.BOTTOM);

@@ -298,6 +298,7 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput& out) {
             //        pippo->Print("Dmd1.pdf");
             Histo1D[it->getThname()]->SetGlobalMode(it->getTheoryValue());
             Histo1D[it->getThname()]->Print(fname.c_str());
+            std::cout << fname << " has been created." << std::endl;
             out.Write(Histo1D[it->getThname()]->GetHistogram());
         } else
             std::cout << "The histogram of " << it->getThname() << " is empty!" << std::endl;
@@ -310,6 +311,7 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput& out) {
         th[1] = it->getTheoryValue2();
         Histo2D[it->getThname() + "_vs_" + it->getThname2()]->SetGlobalMode(th);
         Histo2D[it->getThname() + "_vs_" + it->getThname2()]->Print(fname.c_str());
+        std::cout << fname << " has been created." << std::endl;
         out.Write(Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram());
     }
 }

@@ -10,7 +10,8 @@
 #include <EWSM.h>
 
 
-double Rbottom::getThValue() { 
+double Rbottom::getThValue() 
+{ 
     double R0_b;
     if (myEWTYPE==EW::EWCHMN)  
         R0_b = myEW.getMyEW_CHMN().R_b();

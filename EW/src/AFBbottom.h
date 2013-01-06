@@ -12,26 +12,47 @@
 #include <ThObservable.h>
 #include "EW.h"
 
-
+/**
+ * @class AFBbottom 
+ * @ingroup EW
+ * @brief A class for the forward-backward asymmetry of @f$Z\to b\bar{b}@f$ 
+ * at the @f$Z@f$ pole.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the forward-backward asymmetry of 
+ * the @f$Z\to b\bar{b}@f$ channel at the @f$Z@f$ pole. 
+ */
 class AFBbottom : public ThObservable {
 public:
 
     /**
-     * @brief AFBbottom constructor
-     * @param[in] EW_i an object of EW class
+     * A constructor.
+     * @param[in] EW_i A reference to an object of EW class, which is the base 
+     * class of the electroweak precision observables.
      */
-    AFBbottom(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i), 
-            myEWTYPE(EW_i.getEWTYPE()) {
+    AFBbottom(const EW& EW_i) 
+    : ThObservable(EW_i), myEW(EW_i), myEWTYPE(EW_i.getEWTYPE()) 
+    {
     };
 
     /**
-     * @return the forward-backward asymmetry of the b-bar channel
+     * @return The forward-backward asymmetry of @f$Z\to b\bar{b}@f$ at the 
+     * @f$Z@f$ pole.
      */
     double getThValue();
 
     
 private:
+
+    /**
+     * A reference to an object of EW class, which is the base class of the 
+     * electroweak precision observables.
+     */
     const EW& myEW;
+
+    /**
+     * An enumerator controlling the formulae used in the computation.
+     */
     const EW::EWTYPE myEWTYPE;
 };
 

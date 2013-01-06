@@ -9,7 +9,8 @@
 #include "epsilonb.h"
 
 
-double epsilonb::getThValue() {  
+double epsilonb::getThValue() 
+{  
     double epsb = SM.epsilonb();
     
     if ( myEW.checkModelForSTU() ) {

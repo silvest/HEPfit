@@ -8,7 +8,8 @@
 #include "Rlepton.h"
 
 
-double Rlepton::getThValue() {
+double Rlepton::getThValue() 
+{
     double R0_l;
     if (myEWTYPE==EW::EWCHMN)  
         R0_l = myEW.getMyEW_CHMN().R_l(SM.ELECTRON);

@@ -8,7 +8,8 @@
 #include "AFBlepton.h"
 
 
-double AFBlepton::getThValue() {   
+double AFBlepton::getThValue() 
+{   
     double AFB_l;
     if (myEWTYPE==EW::EWCHMN)  
         AFB_l = myEW.getMyEW_CHMN().AFB_l(SM.ELECTRON);

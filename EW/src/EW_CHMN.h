@@ -15,7 +15,7 @@ using namespace gslpp;
 
 /**
  * @class EW_CHMN
- * @brief a class for the electroweak precision observables with a simple 
+ * @details A class for the electroweak precision observables with a simple 
  * parametrization in JHEP1111 (2011) 068 [arXiv:1104.1769] by G-C. Cho, 
  * K. Hagiwara, Y. Matsumoto and D. Nomura, which is designed to be valid 
  * in the region 100 GeV <= mHl <= 1 TeV. 

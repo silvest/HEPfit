@@ -8,7 +8,8 @@
 #include "PtauPol.h"
 
 
-double PtauPol::getThValue() {  
+double PtauPol::getThValue() 
+{  
     double P_tau_pol;
     if (myEWTYPE==EW::EWCHMN)  
         P_tau_pol = myEW.getMyEW_CHMN().A_l(SM.TAU);    

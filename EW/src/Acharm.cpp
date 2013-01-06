@@ -8,7 +8,8 @@
 #include "Acharm.h"
 
 
-double Acharm::getThValue() { 
+double Acharm::getThValue() 
+{ 
     double A_c;
     if (myEWTYPE==EW::EWCHMN)  
         A_c = myEW.getMyEW_CHMN().A_q(SM.CHARM);

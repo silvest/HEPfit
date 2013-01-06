@@ -9,7 +9,8 @@
 #include "obliqueU.h"
 
 
-double obliqueU::getThValue() {   
+double obliqueU::getThValue() 
+{   
     return SM.obliqueU();
 }
 

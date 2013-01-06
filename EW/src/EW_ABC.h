@@ -16,7 +16,7 @@ using namespace gslpp;
 
 /**
  * @class EW_ABC
- * @brief a class for the electroweak precision observables with the epsilon 
+ * @details A class for the electroweak precision observables with the epsilon 
  * parameters based on IJMPA, 7, 1031-1058 (1998) by G.Altarelli, R.Barbieri 
  * and F.Caravaglios. 
  */  

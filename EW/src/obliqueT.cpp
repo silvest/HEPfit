@@ -8,7 +8,8 @@
 #include "obliqueT.h"
 
 
-double obliqueT::getThValue() {   
+double obliqueT::getThValue() 
+{   
     return SM.obliqueT();
 }
  

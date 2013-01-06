@@ -12,26 +12,47 @@
 #include <ThObservable.h>
 #include "EW.h"
 
-
+/**
+ * @class AFBlepton
+ * @ingroup EW 
+ * @brief A class for the forward-backward asymmetry of @f$Z\to \ell\bar{\ell}@f$ 
+ * at the @f$Z@f$ pole.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the forward-backward asymmetry of 
+ * a @f$Z\to \ell\bar{\ell}@f$ channel at the @f$Z@f$ pole. 
+ */
 class AFBlepton : public ThObservable {
 public:
  
     /**
-     * @brief AFBlepton constructor
-     * @param[in] EW_i an object of EW class
+     * A constructor.
+     * @param[in] EW_i A reference to an object of EW class, which is the base class of 
+     * the electroweak precision observables.
      */
-    AFBlepton(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i), 
-            myEWTYPE(EW_i.getEWTYPE()) {
+    AFBlepton(const EW& EW_i) 
+    : ThObservable(EW_i), myEW(EW_i), myEWTYPE(EW_i.getEWTYPE()) 
+    {
     };
 
     /**
-     * @return the forward-backward asymmetry of a leptonic channel
+     * @return The forward-backward asymmetry of a @f$Z\to \ell\bar{\ell}@f$ 
+     * channel at the @f$Z@f$ pole, where @f$\ell@f$ denotes a charged-lepton.
      */
     double getThValue();
 
     
 private:
+
+    /**
+     * A reference to an object of EW class, which is the base class of the electroweak 
+     * precision observables.
+     */
     const EW& myEW;
+
+    /**
+     * An enumerator controlling the formulae used in the computation.
+     */
     const EW::EWTYPE myEWTYPE;
 };
 
