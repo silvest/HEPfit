@@ -8,7 +8,8 @@
 #include "GammaZ.h"
 
 
-double GammaZ::getThValue() { 
+double GammaZ::getThValue() 
+{ 
     double Gamma_Z;
     if (myEWTYPE==EW::EWCHMN)  
         Gamma_Z = myEW.getMyEW_CHMN().GammaZ();

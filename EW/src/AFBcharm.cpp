@@ -8,7 +8,8 @@
 #include "AFBcharm.h"
 
 
-double AFBcharm::getThValue() {   
+double AFBcharm::getThValue() 
+{   
     double AFB_c;
     if (myEWTYPE==EW::EWCHMN)  
         AFB_c = myEW.getMyEW_CHMN().AFB_q(SM.CHARM);

@@ -8,7 +8,8 @@
 #include "Abottom.h"
 
 
-double Abottom::getThValue() {
+double Abottom::getThValue() 
+{
     double A_b;
     if (myEWTYPE==EW::EWCHMN)  
         A_b = myEW.getMyEW_CHMN().A_q(SM.BOTTOM);

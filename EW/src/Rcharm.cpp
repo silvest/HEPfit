@@ -8,7 +8,8 @@
 #include "Rcharm.h"
 
 
-double Rcharm::getThValue() {   
+double Rcharm::getThValue() 
+{   
     double R0_c;
     if (myEWTYPE==EW::EWCHMN)  
         R0_c = myEW.getMyEW_CHMN().R_c();

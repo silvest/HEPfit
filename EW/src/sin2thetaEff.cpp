@@ -8,7 +8,8 @@
 #include "sin2thetaEff.h"
 
 
-double sin2thetaEff::getThValue() { 
+double sin2thetaEff::getThValue() 
+{ 
     double sin2_theta_eff;
     if (myEWTYPE==EW::EWCHMN)  
         sin2_theta_eff = myEW.getMyEW_CHMN().sin2thetaEff();

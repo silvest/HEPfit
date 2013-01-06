@@ -9,7 +9,8 @@
 #include "obliqueS.h"
 
 
-double obliqueS::getThValue() {  
+double obliqueS::getThValue() 
+{  
     return SM.obliqueS();
 }
  

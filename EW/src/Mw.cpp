@@ -8,7 +8,8 @@
 #include "Mw.h"
 
 
-double Mw::getThValue() {
+double Mw::getThValue() 
+{
     double myMw;
     
     //std::cout << "myEWTYPE = " << myEWTYPE << std::endl; // TEST

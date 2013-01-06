@@ -14,15 +14,17 @@
 #include <stdexcept>
 
 
-EW::EW(const StandardModel& SM_i) : ThObsType(SM_i), SM(SM_i), myEW_CHMN(SM_i), 
-        myEW_ABC(SM_i) {
+EW::EW(const StandardModel& SM_i) 
+: ThObsType(SM_i), SM(SM_i), myEW_CHMN(SM_i), myEW_ABC(SM_i) 
+{
     bDebug = SM_i.isBDebug();
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 
-EW::EWTYPE EW::getEWTYPE() const {
+EW::EWTYPE EW::getEWTYPE() const 
+{
     if ( SM.IsFlagEWABC() && SM.IsFlagEWABC2() ) 
         throw std::runtime_error("Flags EWABC and EWABC2 cannot be set to true simultaneously");
     if ( SM.IsFlagEWBURGESS() && SM.IsFlagEWCHMN() ) 
@@ -44,7 +46,8 @@ EW::EWTYPE EW::getEWTYPE() const {
 }
 
 
-bool EW::checkModelForSTU() const {
+bool EW::checkModelForSTU() const 
+{
     std::string Model = SM.ModelName();
     //std::cout << "Model in EW: " << Model << std::endl; // TEST
 
@@ -59,24 +62,28 @@ bool EW::checkModelForSTU() const {
 }
 
 
-double EW::Ql(const StandardModel::lepton l) const {
+double EW::Ql(const StandardModel::lepton l) const 
+{
     return ( SM.getLeptons(l).getCharge() );
 }        
  
 
-double EW::Qq(const StandardModel::quark q) const {
+double EW::Qq(const StandardModel::quark q) const 
+{
     return ( SM.getQuarks(q).getCharge() );
 }
 
 
-double EW::alpha0() const {
+double EW::alpha0() const 
+{
     return ( SM.alphaMz() );    
 
 //    return SM.getAle(); // TEST!!
 }
 
 
-double EW::Mw0() const {
+double EW::Mw0() const 
+{
     return ( SM.Mw0() );
 
 //    return SM.Mw_tree(); // TEST!!
@@ -84,7 +91,8 @@ double EW::Mw0() const {
 }
 
 
-double EW::s02() const {
+double EW::s02() const 
+{
     return ( SM.s02() );
 
 //    return ( 1.0 - c02() ); // TEST!!
@@ -92,7 +100,8 @@ double EW::s02() const {
 }
 
 
-double EW::c02() const {
+double EW::c02() const 
+{
     return ( SM.c02() );
 
 //    return ( SM.Mw_tree()*SM.Mw_tree()/SM.getMz()/SM.getMz() ); // TEST!!
@@ -102,21 +111,24 @@ double EW::c02() const {
 
 ////////////////////////////////////////////////////////////////////////
 
-double EW::sin2thetaEff(const StandardModel::lepton l) const {
+double EW::sin2thetaEff(const StandardModel::lepton l) const 
+{
     complex gV_over_gA = SM.gVl(l)/SM.gAl(l);
     double absQf = fabs(Ql(l));
     return ( 1.0/4.0/absQf*(1.0 - gV_over_gA.real()) );
 }
 
 
-double EW::sin2thetaEff(const StandardModel::quark q) const {
+double EW::sin2thetaEff(const StandardModel::quark q) const 
+{
     complex gV_over_gA = SM.gVq(q)/SM.gAq(q);
     double absQf = fabs(Qq(q));
     return ( 1.0/4.0/absQf*(1.0 - gV_over_gA.real()) );
 }
 
 
-double EW::Gamma_l(const StandardModel::lepton l) const {
+double EW::Gamma_l(const StandardModel::lepton l) const 
+{
     complex rhoZ_l = SM.rhoZ_l(l);
     complex gV_over_gA = SM.gVl(l)/SM.gAl(l);
     double alphaMz = SM.alphaMz();
@@ -130,7 +142,8 @@ double EW::Gamma_l(const StandardModel::lepton l) const {
 }
 
 
-double EW::Gamma_q(const StandardModel::quark q) const {
+double EW::Gamma_q(const StandardModel::quark q) const 
+{
     complex rhoZ_q = SM.rhoZ_q(q);
     complex gV_over_gA = SM.gVq(q)/SM.gAq(q);
     double alphaMz = SM.alphaMz();
@@ -322,13 +335,15 @@ double EW::Gamma_q(const StandardModel::quark q) const {
 }
 
 
-double EW::Gamma_inv() const {
+double EW::Gamma_inv() const 
+{
     return ( Gamma_l(SM.NEUTRINO_1) + Gamma_l(SM.NEUTRINO_2) 
              + Gamma_l(SM.NEUTRINO_3) );
 }
 
 
-double EW::Gamma_had() const {
+double EW::Gamma_had() const 
+{
     double Gamma_had_tmp = Gamma_q(SM.UP) + Gamma_q(SM.DOWN) + Gamma_q(SM.CHARM)
                            + Gamma_q(SM.STRANGE) + Gamma_q(SM.BOTTOM);
 
@@ -357,31 +372,36 @@ double EW::Gamma_had() const {
 }
 
 
-double EW::Gamma_Z() const {
+double EW::Gamma_Z() const 
+{
     return ( Gamma_l(SM.ELECTRON) + Gamma_l(SM.MU) + Gamma_l(SM.TAU) 
              + Gamma_inv() + Gamma_had() );
 }
 
 
-double EW::sigma0_l(const StandardModel::lepton l) const {
+double EW::sigma0_l(const StandardModel::lepton l) const 
+{
     return ( 12.0*M_PI*Gamma_l(SM.ELECTRON)*Gamma_l(l)
              /SM.getMz()/SM.getMz()/Gamma_Z()/Gamma_Z() );
 }
 
 
-double EW::sigma0_had() const {
+double EW::sigma0_had() const 
+{
      return (12.0*M_PI*Gamma_l(SM.ELECTRON)*Gamma_had()
             /SM.getMz()/SM.getMz()/Gamma_Z()/Gamma_Z());
 }
 
 
-double EW::A_l(const StandardModel::lepton l) const {
+double EW::A_l(const StandardModel::lepton l) const 
+{
     double Re_gV_over_gA = (SM.gVl(l)/SM.gAl(l)).real();
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
 }
 
 
-double EW::A_q(const StandardModel::quark q) const {
+double EW::A_q(const StandardModel::quark q) const 
+{
     double Re_gV_over_gA = (SM.gVq(q)/SM.gAq(q)).real();    
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
 }

@@ -8,7 +8,8 @@
 #include "Alepton.h"
 
 
-double Alepton::getThValue() { 
+double Alepton::getThValue() 
+{ 
     double A_l;
     if (myEWTYPE==EW::EWCHMN)  
         A_l = myEW.getMyEW_CHMN().A_l(SM.ELECTRON);

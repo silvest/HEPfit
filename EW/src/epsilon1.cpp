@@ -8,7 +8,8 @@
 #include "epsilon1.h"
 
 
-double epsilon1::getThValue() {  
+double epsilon1::getThValue() 
+{  
     double eps1 = SM.epsilon1();
     
     if ( myEW.checkModelForSTU() )

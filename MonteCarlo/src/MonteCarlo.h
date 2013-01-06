@@ -11,6 +11,19 @@
 #include <InputParser.h>
 #include "MonteCarloEngine.h"
 
+/**
+ *  @addtogroup MonteCarlo
+ *  A project for .....
+ *  @{
+ */
+
+/**
+ * @class MonteCarlo
+ * @brief 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class MonteCarlo {
 public:
     MonteCarlo(const std::string& ModelConf_i, const std::string& 
@@ -26,4 +39,9 @@ private:
     std::string ModelConf, MCMCConf, OutFile, JobTag;
     bool PrintAllMarginalized, PrintKnowledgeUpdatePlots;
 };
+
+/** 
+ * @}
+ */
+
 #endif	/* MONTECARLO_H */
