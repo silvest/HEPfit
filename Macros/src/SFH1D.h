@@ -118,10 +118,10 @@ public:
      * @param[in] col95 The color index for the 95% interval. 
      * @param[in] maxDigits The maximum digits of axis labels. 
      * @param[in] bOrigHist A flag controlling if the original histogram is superimposed. 
+     * @param[in] superImpose A flag controlling if another histogram is superimposed. 
      */
     void Draw(const TString xlab, const TString ylab, const int col68, const int col95, 
-              const int maxDigits, const bool bOrigHist = false);
-
+              const int maxDigits, const bool bOrigHist = false, const bool superImpose = false);
     
 private:
 
