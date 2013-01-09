@@ -10,6 +10,7 @@
 #include <numeric>
 #include <TString.h>
 #include <TGaxis.h>
+#include <TPad.h>
 #include <BAT/BCH1D.h>
 #include "SFH1D.h"
 
@@ -79,8 +80,8 @@ void SFH1D::increaseNbins(const int newNbin)
 
 
 void SFH1D::Draw(const TString xlab, const TString ylab, 
-                 const int col68, const int col95, 
-                 const int maxDigits, const bool bOrigHist) 
+                 const int col68, const int col95, const int maxDigits, 
+                 const bool bOrigHist, const bool superImpose)
 {
     newHist->SetTitle("");
     newHist->GetXaxis()->SetTitleSize(0.06);
@@ -126,23 +127,32 @@ void SFH1D::Draw(const TString xlab, const TString ylab,
     newHist95->SetFillColor(col95);
     newHist68->SetLineStyle(3);
     newHist95->SetLineStyle(3);
-
+    
     // normalize the histograms
     newHist->Scale(1.0/newHist->GetBinWidth(1));
     newHist68->Scale(1.0/newHist68->GetBinWidth(1));
     newHist95->Scale(1.0/newHist95->GetBinWidth(1));
-    
+            
     // draw the histograms
-    newHist95->Draw();
+    if (!superImpose) 
+        newHist->Draw();
+    else {
+        newHist->SetLineStyle(3);
+        newHist68->SetFillStyle(3001);
+        newHist95->SetFillStyle(3001);
+    }
+    newHist95->Draw("SAME");
     newHist68->Draw("SAME");
     newHist->Draw("SAME");
-
+    
     // draw the original histogram
     if (bOrigHist) {
         origHist.SetLineColor(kRed);
         origHist.SetLineWidth(2);
         origHist.Draw("SAME");
     }
+
+    gPad->RedrawAxis();
 }
 
 

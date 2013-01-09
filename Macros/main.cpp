@@ -10,11 +10,14 @@
 #include <iostream>
 #include <fstream>
 #include <streambuf>
+#include <algorithm>
 #include <TApplication.h>
 #include <TCanvas.h>
 #include <TFile.h>
 #include <TString.h>
 #include <TObject.h>
+#include <TF1.h>
+#include <TLegend.h>
 #include "BaseMacros.h"
 #include "SFH1D.h"
 #include "Pull.h"
@@ -72,12 +75,25 @@ int main(int argc, char** argv)
         cout << "   -ylab=namey      -> y label                                   " << endl;
         cout << "   -smooth=ntime    -> iterative smoothing with TH1::Smooth()    " << endl;
         cout << "                       (default: ntime=0)                        " << endl;
-        cout << "   -moreBins=n      -> increase the number of bins               " << endl;
-        cout << "                       (default: n=100)                          " << endl;
+        cout << "   -moreBins=nbin      -> increase the number of bins            " << endl;
+        cout << "                       (default: nbin=100)                       " << endl;
         cout << "   -col68=index     -> color index of the 68% interval           " << endl;
         cout << "                       (default: index=1393)                     " << endl;
         cout << "   -col95=index     -> color index of the 95% interval           " << endl;
         cout << "                       (default: index=1392)                     " << endl;
+        cout << "   -plot2=name      -> plot to be superimposed                   " << endl;
+        cout << "   -rootfile2=filename2 -> rootfile name for plot2 (with extension)" << endl;
+        cout << "                           (default: same as rootfile)           " << endl;
+        cout << "   -smooth2=ntime   -> iterative smoothing for plot2             " << endl;
+        cout << "                       (default: ntime=0)                        " << endl;
+        cout << "   -moreBins2=nbin  -> increase the number of bins for plot2     " << endl;
+        cout << "                       (default: nbin=100)                       " << endl;
+        cout << "   -col682=index    -> color index of the 68% interval for plot2 " << endl;
+        cout << "                       (default: index=2)                        " << endl;
+        cout << "   -col952=index    -> color index of the 95% interval for plot2 " << endl;
+        cout << "                       (default: index=5)                        " << endl;
+        cout << "   -priorMean=mean  -> mean value for a Gaussian function to be superimposed" << endl;
+        cout << "   -priorSigma=sig  -> standard deviation for a Gaussian function to be superimposed" << endl;
         cout << "                                                                 " << endl;
         cout << " Optional parameters for compatibility plots:                    " << endl;
         cout << "   --compat           -> Compatibility plot (mandatory)          " << endl;
@@ -136,9 +152,10 @@ int main(int argc, char** argv)
     bool bOrig = false, bOutputTxt = false, bMoreBins = false;
     bool bContLines = false, bSuperImpose = false;
     int maxDig = 8, prec = 6, smooth = 0, newNbins = 100, col68 = 1393, col95 = 1392;
-    int nx = 100, ny = 20, smooth2 = 0, col682 = 2, col952 = 5;
+    int nx = 100, ny = 20, smooth2 = 0, newNbins2 = 100, col682 = 2, col952 = 5;
     double xval = -999.0, xerr = 0.0, x_low = 0.0, x_up = 0.0, y_low = 0.0, y_up = 0.0;
     double xval2 = -999.0, xerr2 = 0.0, yval2 = -999.0, yerr2 = 0.0;
+    double prior_mean = 0.0, prior_sigma = 0.0;
     string plotname2, filename2;
     TString xlab = "", ylab = "";
 
@@ -192,20 +209,34 @@ int main(int argc, char** argv)
         if (strncmp(argv[i], "-precision", 10) == 0) 
             sscanf(argv[i], "-precision=%d", &prec);
 
-        if (strncmp(argv[i], "-smooth", 7) == 0) 
+        if (strncmp(argv[i], "-smooth", 7) == 0)
             sscanf(argv[i], "-smooth=%d", &smooth);
+            
+        if (strncmp(argv[i], "-smooth2", 8) == 0) 
+            sscanf(argv[i], "-smooth2=%d", &smooth2);
 
         if (strncmp(argv[i], "-moreBins", 9) == 0) {
             sscanf(argv[i], "-moreBins=%d", &newNbins);
             bMoreBins = true;
         }
         
+        if (strncmp(argv[i], "-moreBins2", 10) == 0) {
+            sscanf(argv[i], "-moreBins2=%d", &newNbins2);
+            bMoreBins = true;
+        }
+
         if (strncmp(argv[i], "-col68", 6) == 0) 
             sscanf(argv[i], "-col68=%d", &col68);
         
         if (strncmp(argv[i], "-col95", 6) == 0) 
             sscanf(argv[i], "-col95=%d", &col95);
         
+        if (strncmp(argv[i], "-priorMean", 10) == 0) 
+            sscanf(argv[i], "-priorMean=%lf", &prior_mean);
+        
+        if (strncmp(argv[i], "-priorSigma", 11) == 0) 
+            sscanf(argv[i], "-priorSigma=%lf", &prior_sigma);
+
         if (strncmp(argv[i], "-val", 4) == 0) 
             sscanf(argv[i], "-val=%lf", &xval);
 
@@ -235,9 +266,6 @@ int main(int argc, char** argv)
             filename2 = str;
         }        
         
-        if (strncmp(argv[i], "-smooth2", 8) == 0) 
-            sscanf(argv[i], "-smooth2=%d", &smooth2);
-
         if (strncmp(argv[i], "-col682", 7) == 0) 
             sscanf(argv[i], "-col682=%d", &col682);
         
@@ -317,8 +345,61 @@ int main(int argc, char** argv)
         SFH1D SFHisto1D(*hist, prob68, prob95);
         SFHisto1D.smoothHist(smooth);
         SFHisto1D.increaseNbins(newNbins);
-        SFHisto1D.Draw(xlab, ylab, col68, col95, maxDig, bOrig);    
+        SFHisto1D.Draw(xlab, ylab, col68, col95, maxDig, bOrig, false);    
     
+        // rescale
+        //SFHisto1D.getNewHist()->Scale(10.0);
+        //SFHisto1D.getNewHist68()->Scale(10.0);
+        //SFHisto1D.getNewHist95()->Scale(10.0);
+        //SFHisto1D.getNewHist()->GetXaxis()->SetRange(400,1400);
+        
+        // superimpose another 1-D histogram (e.g. for a posterior)
+        // and a Gaussian (prior) function
+        if (prior_sigma != 0.0) {
+            // another 1-D histogram
+            double ymax_new;
+            TH1D* hist2 = (TH1D*) tobj2->Clone();
+            SFH1D SFHisto1D2(*hist2, prob68, prob95);
+            if (bSuperImpose) {
+                SFHisto1D2.smoothHist(smooth2);
+                SFHisto1D2.increaseNbins(newNbins2);
+                SFHisto1D2.Draw("", "", col682, col952, maxDig, bOrig, bSuperImpose);    
+                ymax_new = max( SFHisto1D.getNewHist()->GetMaximum(), 
+                                1.1*SFHisto1D2.getNewHist()->GetMaximum() );
+                SFHisto1D.getNewHist()->SetMaximum(ymax_new);
+            }
+            
+            // a Gaussian function 
+            TF1* prior = new TF1("prior",
+                    "1./sqrt(2.*TMath::Pi())/[1]* exp(- (x-[0])*(x-[0])/2./[1]/[1])",
+                    SFHisto1D.getNewHist()->GetXaxis()->GetXmin(),
+                    SFHisto1D.getNewHist()->GetXaxis()->GetXmax());
+            prior->SetParameter(0, prior_mean);
+            prior->SetParameter(1, prior_sigma);    
+            prior->SetLineStyle(2);
+            prior->SetLineWidth(4);
+            prior->SetNpx(1000);
+            ymax_new = max( 1.1*prior->GetMaximum(), 
+                            SFHisto1D.getNewHist()->GetMaximum() );
+            SFHisto1D.getNewHist()->SetMaximum(ymax_new);
+            prior->Draw("SAME");
+
+            // draw the legend
+            TLegend *legend = new TLegend(0.63,0.65,0.88,0.85);
+            //TLegend *legend = new TLegend(0.23,0.65,0.48,0.85);
+            legend->SetFillColor(0);
+            legend->SetBorderSize(0);
+            legend->SetTextFont(42);
+            legend->SetTextSize(0.043);
+            legend->SetMargin(0.4);
+            legend->AddEntry(prior,"Prior","L");
+            if (bSuperImpose) 
+                legend->AddEntry(SFHisto1D2.getNewHist68(),"Posterior","F");
+            legend->AddEntry(SFHisto1D.getNewHist68(),"Fit","F");
+            //legend->AddEntry(SFHisto1D.getNewHist68(),"Fit [x10]","F");
+            legend->Draw("");
+        }
+        
         // output results
         //   Note: after Draw(), use Integral("width"). 
         os << "  Num of bins: " << SFHisto1D.getNewHist()->GetNbinsX() 
@@ -387,7 +468,7 @@ int main(int argc, char** argv)
                             xval2, xerr2, yval2, yerr2, bContLines, true);
         }
     } 
-
+    
     gPad->RedrawAxis();
     TC.Print(epsFileName.c_str());
     
