@@ -5,7 +5,6 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include <cmath>
 #include <vector>
 #include <functional>
 #include <TPad.h>
@@ -13,7 +12,6 @@
 #include <TString.h>
 #include <TGaxis.h>
 #include <TLine.h>
-#include <TGraphErrors.h>
 #include <TROOT.h>
 #include "SFH2D.h"
 
@@ -26,6 +24,9 @@ SFH2D::SFH2D(TH2D& hist, std::ostream& os_in,
     newHist = (TH2D*) hist.Clone(NewName.c_str()); 
     double sum = newHist->Integral();
     newHist->Scale(1.0/sum);
+    
+    myCurv = NULL;
+    g1 = NULL;
 }
 
 
@@ -39,10 +40,11 @@ void SFH2D::smoothHist(const int smooth)
 
 
 void SFH2D::draw(const TString xlab, const TString ylab, 
-                 const int col68, const int col95, const int maxDigits, 
+                 const int col68, const int col95, const int lineStyle, 
+                 const int fillStyle, const int maxDigits, 
                  const double xval2, const double xerr2,
                  const double yval2, const double yerr2,            
-                 const bool bLine, const bool superImpose) 
+                 const bool bLine, const bool bOnly95, const bool superImpose) 
 {
     newHist->SetTitle("");
     newHist->SetStats(0);
@@ -81,24 +83,27 @@ void SFH2D::draw(const TString xlab, const TString ylab,
     
     if (!superImpose) {
         TH2D* null2D = (TH2D*) newHist->Clone("null2D");
+        //TH2D* null2D = new TH2D("","",100, -1., 1., 100, -1., 1.); // TEST
         null2D->Reset();
         null2D->Draw();
     }
 
-    drawFromGraph(0, "AREA", col95);
-    drawFromGraph(1, "AREA", col68);
-
-    // draw the 95% contour line. 
-    if (bLine)
-        drawFromGraph(0, "CONT", col68);
-
-    // draw error bars
+    drawFromGraph(0, "AREA", col95, lineStyle, fillStyle); // 95%
+    if (!bOnly95) drawFromGraph(1, "AREA", col68, lineStyle, fillStyle); // 68%
+        
+    // draw the contour lines. 
+    if (bLine) {
+        drawFromGraph(0, "CONT", col68, lineStyle, fillStyle); // 95%
+        if (!bOnly95) drawFromGraph(1, "CONT", col68, lineStyle, fillStyle); // 68%
+    }
+    
+    // draw a given point with error bars
     if (xval2 != -999.0 && yval2 != -999.0 && !superImpose) {
         TLine *lx = new TLine();
         lx->SetLineWidth(3);
         double zero = 0, err;
         err = xerr2;
-        TGraphErrors *g1 = new TGraphErrors(1, &xval2, &yval2, &err, &zero);
+        g1 = new TGraphErrors(1, &xval2, &yval2, &err, &zero);
         g1->SetLineWidth(3);
         g1->SetLineStyle(1);
         g1->SetMarkerStyle(20);
@@ -154,7 +159,7 @@ double SFH2D::getLevel(const double Prob) const
     // sort into descending order
     std::sort(orderedContents.begin(), orderedContents.end(), std::greater<double>());
 
-    // get the level where the probability is equal to or a bit larger than Prob.
+    // get the level where the probability corresponds to a given Prob.
     double level = 0.0, area = 0.0;
     for (int i = 0; i < (int) orderedContents.size(); i++) {
         area += orderedContents.at(i);
@@ -183,7 +188,7 @@ TObjArray* SFH2D::getContours() const
     TObjArray *contours = (TObjArray*) gROOT->GetListOfSpecials()->FindObject("contours");
 
     // output
-    os << "Contours:" << std::endl;
+    os << " *Contours:" << std::endl;
     if (contours == NULL)
         os << "  No contours were extracted!" << std::endl;
     os << "  The number of the levels: " << contours->GetSize() << std::endl;
@@ -198,7 +203,7 @@ TObjArray* SFH2D::getContours() const
 
 
 void SFH2D::drawFromGraph(const int ind, const std::string DrawOpts, 
-                          const int col) const 
+                          const int col, const int lineStyle, const int fillStyle) 
 {
     TList* contour = (TList*) getContours()->At(ind);
     
@@ -221,6 +226,7 @@ void SFH2D::drawFromGraph(const int ind, const std::string DrawOpts,
                                         newHist->GetYaxis()->FindBin(ymin * epsp));
 
     TGraph* curv = (TGraph*) contour->First();
+    TGraph* curv_new[contour->GetSize()];
     
     for (int i = 0; i < contour->GetSize(); i++) {
 
@@ -293,214 +299,286 @@ void SFH2D::drawFromGraph(const int ind, const std::string DrawOpts,
         }
         std::sort(vp.begin(), vp.end());
         
-        if (DrawOpts == "AREA") {
-            for (unsigned int i = 0; i < vp.size(); i++) {
+        if (DrawOpts == "AREA")
+            for (unsigned int i = 0; i < vp.size(); i++)
                 curv->SetPoint(curv->GetN(), vp[i].m_x, vp[i].m_y);
-            }
-        }
 
-        TGraph* tmpTGraph = CloseTGraph(curv);
-        //TGraph* tmpTGraph = (TGraph*) curv->Clone(); // test
-        if (DrawOpts.compare("AREA") == 0) {
-            tmpTGraph->SetLineWidth(2);
-            tmpTGraph->SetLineColor(col);
-            tmpTGraph->SetFillColor(col);
-            tmpTGraph->Draw("F");
+        if (contour->GetSize()==2)
+            curv_new[i] = (TGraph*) curv->Clone();
+        else {
+            curv_new[i] = CloseTGraph(curv);
+            curv_new[i]->SetLineWidth(2);
+            curv_new[i]->SetLineColor(col);            
+            curv_new[i]->SetLineStyle(lineStyle);
+            curv_new[i]->SetFillColor(col);
+            curv_new[i]->SetFillStyle(fillStyle);
+            if (DrawOpts.compare("AREA") == 0 && fillStyle!=0)
+                curv_new[i]->Draw("F");
+            else if (DrawOpts.compare("CONT") == 0)
+                curv_new[i]->Draw();
         }
-
-        // necessary to ensure that the contour lines of plot1 survive 
-        // after superimposing plot2 
-        TGraph* curv2 = (TGraph*) curv->Clone(); 
-        
-        if (DrawOpts.compare("CONT") == 0) {
-            curv2->SetLineWidth(2);
-            curv2->SetLineColor(col);
-            curv2->Draw();
-        }
+        myCurv = curv_new[i];
         curv = (TGraph*) contour->After(curv); // Get Next graph
     }
 
+    if (contour->GetSize()==2) {
+        TGraph* curv_combined = CloseTwoTGraphs(curv_new[0], curv_new[1]); 
+        curv_combined->SetLineWidth(2);
+        curv_combined->SetLineColor(col);
+        curv_combined->SetLineStyle(lineStyle);
+        curv_combined->SetFillColor(col);
+        curv_combined->SetFillStyle(fillStyle);
+        if (DrawOpts.compare("AREA") == 0 && fillStyle!=0) {
+            curv_combined->Draw("F");
+        } else if (DrawOpts.compare("CONT") == 0)
+            curv_combined->Draw();
+        myCurv = curv_combined;
+    }
+    
     return;
 }
 
 
 TGraph* SFH2D::CloseTGraph(TGraph* inputgraph) const 
 {
-
     TAxis* tmp = (TAxis*) newHist->GetXaxis();
     double xmin = tmp->GetXmin();
     double xmax = tmp->GetXmax();
-    double binx = tmp->GetNbins();
+    double deltax = tmp->GetBinWidth(1);
 
     tmp = (TAxis*) newHist->GetYaxis();
     double ymin = tmp->GetXmin();
-    double etamin = ymin;
     double ymax = tmp->GetXmax();    
     double biny = tmp->GetNbins();
-    
+    double deltay = tmp->GetBinWidth(1);
+
+    // get the end points of the contour line
     double x_i, x_j, y_i, y_j;
     inputgraph->GetPoint(0, x_i, y_i);
     inputgraph->GetPoint(inputgraph->GetN() - 1, x_j, y_j);
+    //std::cout << "  (x_i,y_i)=(" << x_i << "," << y_i 
+    //          << "), (x_j,y_j)=(" << x_j << "," << y_j << ")" << std::endl;
 
-    double xleft_i(0), xright_i(0);
-    double ybottom_i(0), ytop_i(0);
-    double xleft_j(0), xright_j(0);
-    double ybottom_j(0), ytop_j(0);
+    // check if the point (x_i,y_i) is on the boundary
+    bool xleft_i = false, xright_i = false, ybottom_i = false, ytop_i = false;
+    if (fabs(x_i - xmin) < deltax) xleft_i = true;
+    if (fabs(x_i - xmax) < deltax) xright_i = true;
+    if (fabs(y_i - ymin) < deltay) ybottom_i = true;
+    if (fabs(y_i - ymax) < deltay) ytop_i = true;
 
-    double deltax = (xmax - xmin) / binx;
-    double deltay = (ymax - etamin) / biny;
-
-    if (fabs(x_i - xmin) < deltax) xleft_i = 1.;
-    if (fabs(x_i - xmax) < deltax) xright_i = 1.;
-    if (fabs(y_i - etamin) < deltay) ybottom_i = 1.;
-    if (fabs(y_i - ymax) < deltay) ytop_i = 1.;
-
-    if (fabs(x_j - xmin) < deltax) xleft_j = 1.;
-    if (fabs(x_j - xmax) < deltax) xright_j = 1.;
-    if (fabs(y_j - etamin) < deltay) ybottom_j = 1.;
-    if (fabs(y_j - ymax) < deltay) ytop_j = 1.;
-
+    // check if the point (x_j,y_j) is on the boundary
+    bool xleft_j = false, xright_j = false, ybottom_j = false, ytop_j = false;
+    if (fabs(x_j - xmin) < deltax) xleft_j = true;
+    if (fabs(x_j - xmax) < deltax) xright_j = true;
+    if (fabs(y_j - ymin) < deltay) ybottom_j = true;
+    if (fabs(y_j - ymax) < deltay) ytop_j = true;
+    //std::cout << "  i[LRBT]: " << xleft_i << " " << xright_i << " " << ybottom_i << " " << ytop_i
+    //          << "  j[LRBT]: " << xleft_j << " " << xright_j << " " << ybottom_j << " " << ytop_j << std::endl;
+    
+    // get all the points of the contour line
     double xnew[inputgraph->GetN() + 3];
     double ynew[inputgraph->GetN() + 3];
-
-    for (int i = 0; i < inputgraph->GetN(); i++) {
+    for (int i = 0; i < inputgraph->GetN(); i++)
         inputgraph->GetPoint(i, xnew[i], ynew[i]);
-    }
 
-    if (xleft_i == 1. && ybottom_j == 1.) {
+    // set additional 3 points to connect the end points of the contour line
+    int n_start = inputgraph->GetN();
+    int n_middle = inputgraph->GetN() + 1;
+    int n_last = inputgraph->GetN() + 2;
+    if (xleft_i && ybottom_j) {
         // we go from bottom to left
         // passing through the left-bottom corner
-        xnew[inputgraph->GetN()] = x_j;
-        ynew[inputgraph->GetN()] = etamin;
-        xnew[inputgraph->GetN() + 1] = xmin;
-        ynew[inputgraph->GetN() + 1] = etamin;
-        xnew[inputgraph->GetN() + 2] = xmin;
-        ynew[inputgraph->GetN() + 2] = y_i;
-    } else if (xleft_j == 1. && ybottom_i == 1.) {
+        xnew[n_start] = x_j;   ynew[n_start] = ymin;
+        xnew[n_middle] = xmin; ynew[n_middle] = ymin;
+        xnew[n_last] = xmin;   ynew[n_last] = y_i;
+    } else if (xleft_j && ybottom_i) {
         // we go from left to bottom
         // passing through the left-bottom corner
-        xnew[inputgraph->GetN()] = xmin;
-        ynew[inputgraph->GetN()] = y_j;
-        xnew[inputgraph->GetN() + 1] = xmin;
-        ynew[inputgraph->GetN() + 1] = etamin;
-        xnew[inputgraph->GetN() + 2] = x_i;
-        ynew[inputgraph->GetN() + 2] = etamin;
-    } else if (xleft_j == 1. && ytop_i == 1.) {
+        xnew[n_start] = xmin;  ynew[n_start] = y_j;
+        xnew[n_middle] = xmin; ynew[n_middle] = ymin;
+        xnew[n_last] = x_i;    ynew[n_last] = ymin;
+    } else if (xleft_j && ytop_i) {
         // we go from left to top
         // passing through the left-top corner
-        xnew[inputgraph->GetN()] = xmin;
-        ynew[inputgraph->GetN()] = y_j;
-        xnew[inputgraph->GetN() + 1] = xmin;
-        ynew[inputgraph->GetN() + 1] = ymax;
-        xnew[inputgraph->GetN() + 2] = x_i;
-        ynew[inputgraph->GetN() + 2] = ymax;
-    } else if (xleft_i == 1. && ytop_j == 1.) {
+        xnew[n_start] = xmin;  ynew[n_start] = y_j;
+        xnew[n_middle] = xmin; ynew[n_middle] = ymax;
+        xnew[n_last] = x_i;    ynew[n_last] = ymax;
+    } else if (xleft_i && ytop_j) {
         // we go from left to top
         // passing through the left-top corner
-        //xnew[inputgraph->GetN()]   = x_j;    ynew[inputgraph->GetN()]   = ymax;
-        //xnew[inputgraph->GetN()+1] = xmin;   ynew[inputgraph->GetN()+1] = ymax;
-        //xnew[inputgraph->GetN()+2] = xmin;   ynew[inputgraph->GetN()+2] = y_i;
-    } else if (xright_i == 1. && ytop_j == 1.) {
+        xnew[n_start]   = x_j; ynew[n_start]   = ymax;
+        xnew[n_middle] = xmin; ynew[n_middle] = ymax;
+        xnew[n_last] = xmin;   ynew[n_last] = y_i;
+    } else if (xright_i && ytop_j) {
         // we go from right to top
         // passing through the tight-top corner
-        xnew[inputgraph->GetN()] = x_j;
-        ynew[inputgraph->GetN()] = ymax;
-        xnew[inputgraph->GetN() + 1] = xmax;
-        ynew[inputgraph->GetN() + 1] = ymax;
-        xnew[inputgraph->GetN() + 2] = xmax;
-        ynew[inputgraph->GetN() + 2] = y_i;
-    } else if (xright_j == 1. && ytop_i == 1.) {
+        xnew[n_start] = x_j;   ynew[n_start] = ymax;
+        xnew[n_middle] = xmax; ynew[n_middle] = ymax;
+        xnew[n_last] = xmax;   ynew[n_last] = y_i;
+    } else if (xright_j && ytop_i) {
         // we go from top to right
         // passing through the tight-top corner
-        xnew[inputgraph->GetN()] = xmax;
-        ynew[inputgraph->GetN()] = y_j;
-        xnew[inputgraph->GetN() + 1] = xmax;
-        ynew[inputgraph->GetN() + 1] = ymax;
-        xnew[inputgraph->GetN() + 2] = x_i;
-        ynew[inputgraph->GetN() + 2] = ymax;
-    } else if (xright_i == 1. && ybottom_j == 1.) {
+        xnew[n_start] = xmax;  ynew[n_start] = y_j;
+        xnew[n_middle] = xmax; ynew[n_middle] = ymax;
+        xnew[n_last] = x_i;    ynew[n_last] = ymax;
+    } else if (xright_i && ybottom_j) {
         // we go from right to bottom
         // passing through the right-bottom corner
-        xnew[inputgraph->GetN()] = x_j;
-        ynew[inputgraph->GetN()] = etamin;
-        xnew[inputgraph->GetN() + 1] = xmax;
-        ynew[inputgraph->GetN() + 1] = etamin;
-        xnew[inputgraph->GetN() + 2] = xmax;
-        ynew[inputgraph->GetN() + 2] = y_i;
-    } else if (xright_j == 1. && ybottom_i == 1.) {
+        xnew[n_start] = x_j;   ynew[n_start] = ymin;
+        xnew[n_middle] = xmax; ynew[n_middle] = ymin;
+        xnew[n_last] = xmax;   ynew[n_last] = y_i;
+    } else if (xright_j && ybottom_i) {
         // we go from bottom to right
         // passing through the right-bottom corner
-        xnew[inputgraph->GetN()] = xmax;
-        ynew[inputgraph->GetN()] = y_j;
-        xnew[inputgraph->GetN() + 1] = xmax;
-        ynew[inputgraph->GetN() + 1] = etamin;
-        xnew[inputgraph->GetN() + 2] = x_i;
-        ynew[inputgraph->GetN() + 2] = etamin;
-    } else if (xleft_i == 1. && ybottom_j == 1.) {
-        // we go from left to bottom
-        // passing through the left-bottom corner
-        xnew[inputgraph->GetN()] = x_j;
-        ynew[inputgraph->GetN()] = etamin;
-        xnew[inputgraph->GetN() + 1] = xmin;
-        ynew[inputgraph->GetN() + 1] = etamin;
-        xnew[inputgraph->GetN() + 2] = xmin;
-        ynew[inputgraph->GetN() + 2] = y_i;
-    } else if (xleft_j == 1. && ybottom_i == 1.) {
-        // we go from bottom to left
-        // passing through the left-bottom corner
-        xnew[inputgraph->GetN()] = xmin;
-        ynew[inputgraph->GetN()] = y_j;
-        xnew[inputgraph->GetN() + 1] = xmin;
-        ynew[inputgraph->GetN() + 1] = etamin;
-        xnew[inputgraph->GetN() + 2] = x_i;
-        ynew[inputgraph->GetN() + 2] = etamin;
-        //    NP C_Bs vs phi_Bs
-    } else if (ybottom_i == 1. && ytop_j == 1.) { //from top to bottom
-        xnew[inputgraph->GetN()] = x_j;
-        ynew[inputgraph->GetN()] = ymax;
-        xnew[inputgraph->GetN() + 1] = 1.0;
-        ynew[inputgraph->GetN() + 1] = ymax;
-        xnew[inputgraph->GetN() + 2] = 1.0;
-        ynew[inputgraph->GetN() + 2] = etamin;
-    } else if (ybottom_j == 1. && ytop_i == 1.) { //from bottom to top
-        xnew[inputgraph->GetN()] = x_j;
-        ynew[inputgraph->GetN()] = etamin;
-        xnew[inputgraph->GetN() + 1] = xmin;
-        ynew[inputgraph->GetN() + 1] = etamin;
-        xnew[inputgraph->GetN() + 2] = xmin;
-        ynew[inputgraph->GetN() + 2] = ymax;
-        //xnew[inputgraph->GetN()]   = x_j;    ynew[inputgraph->GetN()]   = etamin;
-        //xnew[inputgraph->GetN()+1] = 1.0;    ynew[inputgraph->GetN()+1] = etamin;
-        //xnew[inputgraph->GetN()+2] = 1.0;    ynew[inputgraph->GetN()+2] = ymax;
-
-        // achilleplot Bd
-    } else if (xleft_i == 1. && xright_j == 1.) { //from left to right
-        xnew[inputgraph->GetN()] = xmax;
-        ynew[inputgraph->GetN()] = y_j;
-        xnew[inputgraph->GetN() + 1] = xmax;
-        ynew[inputgraph->GetN() + 1] = etamin;
-        xnew[inputgraph->GetN() + 2] = xmin;
-        ynew[inputgraph->GetN() + 2] = etamin;
-    } else if (xleft_j == 1. && xright_i == 1.) { //from right to left
-        xnew[inputgraph->GetN()] = xmin;
-        ynew[inputgraph->GetN()] = y_j;
-        xnew[inputgraph->GetN() + 1] = xmin;
-        ynew[inputgraph->GetN() + 1] = etamin;
-        xnew[inputgraph->GetN() + 2] = xmax;
-        ynew[inputgraph->GetN() + 2] = etamin;
+        xnew[n_start] = xmax;  ynew[n_start] = y_j;
+        xnew[n_middle] = xmax; ynew[n_middle] = ymin;
+        xnew[n_last] = x_i;    ynew[n_last] = ymin;
+    } else if (ybottom_i && ytop_j) { //from top to bottom
+        xnew[n_start] = x_j;  ynew[n_start] = ymax;
+        xnew[n_middle] = xmax; ynew[n_middle] = ymax; // the top-right corner
+        xnew[n_last] = xmax;   ynew[n_last] = ymin;   // the bottom-right corner
+    } else if (ybottom_j && ytop_i) { //from bottom to top
+        xnew[n_start] = x_j;   ynew[n_start] = ymin;
+        xnew[n_middle] = xmin; ynew[n_middle] = ymin; // the bottom-left corner
+        xnew[n_last] = xmin;   ynew[n_last] = ymax;   // the top-left corner
+    } else if (xleft_i && xright_j) { //from left to right
+        xnew[n_start] = xmax;  ynew[n_start] = y_j;
+        xnew[n_middle] = xmax; ynew[n_middle] = ymin; // the bottom-right corner
+        xnew[n_last] = xmin;   ynew[n_last] = ymin;   // the bottom-left corner
+    } else if (xleft_j && xright_i) { //from right to left
+        xnew[n_start] = xmin;  ynew[n_start] = y_j;
+        xnew[n_middle] = xmin; ynew[n_middle] = ymax; // the top-left corner
+        xnew[n_last] = xmax;   ynew[n_last] = ymax;   // the top-right corner
     } else {
         // nominal
-        xnew[inputgraph->GetN()] = x_j;
-        ynew[inputgraph->GetN()] = y_j;
-        xnew[inputgraph->GetN() + 1] = x_j;
-        ynew[inputgraph->GetN() + 1] = y_j;
-        xnew[inputgraph->GetN() + 2] = x_j;
-        ynew[inputgraph->GetN() + 2] = y_j;
+        xnew[n_start] = x_j;  ynew[n_start] = y_j;
+        xnew[n_middle] = x_j; ynew[n_middle] = y_j;
+        xnew[n_last] = x_j;   ynew[n_last] = y_j;
     }
 
+    //std::cout << "  Additional points: ";
+    //for (int i = inputgraph->GetN(); i < inputgraph->GetN() + 3; i++)
+    //    std::cout << "(" << xnew[i] << "," << ynew[i] << ") ";
+    //std::cout << std::endl;
+    
+    // add 3 additional points to TGraph to connect the end point of the contour
     TGraph* newTGraph = new TGraph(inputgraph->GetN() + 3, xnew, ynew);
     return newTGraph;
 }
+
+
+TGraph* SFH2D::CloseTwoTGraphs(TGraph* inputgraph1, TGraph* inputgraph2) const
+{
+    double xmin = newHist->GetXaxis()->GetXmin();
+    double xmax = newHist->GetXaxis()->GetXmax();
+    double ymin = newHist->GetYaxis()->GetXmin();
+    double ymax = newHist->GetYaxis()->GetXmax();    
+
+    // the end points
+    std::vector<SFH2D_Point> p_xmin, p_xmax, p_ymin, p_ymax;
+    
+    // get all the points of the contour lines    
+    int n_all = inputgraph1->GetN() + inputgraph2->GetN();
+    std::vector<SFH2D_Point> vp_org;
+    for (int i = 0; i < n_all; i++) {
+        double xtmp, ytmp;
+        if (i < inputgraph1->GetN() ) inputgraph1->GetPoint(i, xtmp, ytmp);
+        else inputgraph2->GetPoint(i - inputgraph1->GetN(), xtmp, ytmp);
+        SFH2D_Point p(xtmp, ytmp);
+        vp_org.push_back(p);
+
+        // store the index of an end point
+        if (xtmp==xmin) p_xmin.push_back(p);
+        if (xtmp==xmax) p_xmax.push_back(p);
+        if (ytmp==ymin) p_ymin.push_back(p);
+        if (ytmp==ymax) p_ymax.push_back(p);
+    }
+
+    // add NP points in the middle of an end point of the first contour and 
+    // that of the second contour
+    int NP = 20;
+    if (p_xmin.size()==2) {
+        double xtmp, ytmp;
+        for (int i=0; i<NP; i++) {
+            xtmp = p_xmin.at(1).m_x + (p_xmin.at(0).m_x - p_xmin.at(1).m_x)/(double)NP*(double)i;
+            ytmp = p_xmin.at(1).m_y + (p_xmin.at(0).m_y - p_xmin.at(1).m_y)/(double)NP*(double)i;
+            SFH2D_Point p(xtmp, ytmp);
+            vp_org.push_back(p);
+        }
+    }
+    if (p_xmax.size()==2) {
+        double xtmp, ytmp;
+        for (int i=0; i<NP; i++) {
+            xtmp = p_xmax.at(1).m_x + (p_xmax.at(0).m_x - p_xmax.at(1).m_x)/(double)NP*(double)i;
+            ytmp = p_xmax.at(1).m_y + (p_xmax.at(0).m_y - p_xmax.at(1).m_y)/(double)NP*(double)i;
+            SFH2D_Point p(xtmp, ytmp);
+            vp_org.push_back(p);
+        }
+    }
+    if (p_ymin.size()==2) {
+        double xtmp, ytmp;
+        for (int i=0; i<NP; i++) {
+            xtmp = p_ymin.at(1).m_x + (p_ymin.at(0).m_x - p_ymin.at(1).m_x)/(double)NP*(double)i;
+            ytmp = p_ymin.at(1).m_y + (p_ymin.at(0).m_y - p_ymin.at(1).m_y)/(double)NP*(double)i;
+            SFH2D_Point p(xtmp, ytmp);
+            vp_org.push_back(p);
+        }
+    }
+    if (p_ymax.size()==2) {
+        double xtmp, ytmp;
+        for (int i=0; i<NP; i++) {
+            xtmp = p_ymax.at(1).m_x + (p_ymax.at(0).m_x - p_ymax.at(1).m_x)/(double)NP*(double)i;
+            ytmp = p_ymax.at(1).m_y + (p_ymax.at(0).m_y - p_ymax.at(1).m_y)/(double)NP*(double)i;
+            SFH2D_Point p(xtmp, ytmp);
+            vp_org.push_back(p);
+        }
+    }
+    
+    std::vector<SFH2D_Point> vp_new;
+    std::vector<SFH2D_Point>::iterator it, it_minimal;
+    int ind, ind_minimal;
+    double dist, dist_tmp;
+    double dist_max = sqrt( pow(xmax - xmin, 2.0) + pow(ymax - ymin, 2.0) );
+
+    // set the first point
+    it = vp_org.begin();
+    ind = std::distance(vp_org.begin(), it);
+    vp_new.push_back(vp_org.at(ind));
+    vp_org.erase(it);
+
+    while (vp_org.size()>0) {
+        dist = dist_max;
+        for (it = vp_org.begin(); it < vp_org.end(); it++) {
+            ind = std::distance(vp_org.begin(), it);
+            dist_tmp = vp_new.back().distance(vp_org.at(ind));
+            if (dist_tmp < dist) {
+                it_minimal = it;
+                ind_minimal = ind;
+                dist = dist_tmp;
+            }
+        }
+        vp_new.push_back(vp_org.at(ind_minimal));
+        vp_org.erase(it_minimal);
+        //std::cout << vp_org.size() << " " << vp_new.size() << " " << ind_minimal 
+        //          << " " << dist << std::endl; //debug
+    }
+
+    // Debug
+    //for (int i = 0; i < vp_new.size(); i++) {
+    //    int ind;
+    //    if(i==0) ind = 0;
+    //    else ind = i-1;        
+    //    std::cout << vp_new.at(i).m_x << " " << vp_new.at(i).m_y << " "
+    //              << vp_new.at(i).distance(vp_new.at(ind)) << std::endl;
+    //}
+    
+    TGraph* newTGraph = new TGraph(n_all);
+    for (int i = 0; i < vp_new.size(); i++)
+        newTGraph->SetPoint(i, vp_new.at(i).m_x, vp_new.at(i).m_y);
+    
+    return newTGraph;
+}
+
 
 
 

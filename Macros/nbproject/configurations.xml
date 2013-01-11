@@ -4,10 +4,10 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>../Macros/src/BaseMacros.h</itemPath>
+      <itemPath>src/BaseMacros.h</itemPath>
       <itemPath>src/Pull.h</itemPath>
-      <itemPath>../Macros/src/SFH1D.h</itemPath>
-      <itemPath>../Macros/src/SFH2D.h</itemPath>
+      <itemPath>src/SFH1D.h</itemPath>
+      <itemPath>src/SFH2D.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -16,10 +16,10 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>../Macros/src/BaseMacros.cpp</itemPath>
+      <itemPath>src/BaseMacros.cpp</itemPath>
       <itemPath>src/Pull.cpp</itemPath>
-      <itemPath>../Macros/src/SFH1D.cpp</itemPath>
-      <itemPath>../Macros/src/SFH2D.cpp</itemPath>
+      <itemPath>src/SFH1D.cpp</itemPath>
+      <itemPath>src/SFH2D.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -34,9 +34,6 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
-  <sourceRootList>
-    <Elem>./src</Elem>
-  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="1">

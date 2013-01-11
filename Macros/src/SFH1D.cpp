@@ -80,7 +80,8 @@ void SFH1D::increaseNbins(const int newNbin)
 
 
 void SFH1D::Draw(const TString xlab, const TString ylab, 
-                 const int col68, const int col95, const int maxDigits, 
+                 const int col68, const int col95, const int fillStyle, 
+                 const int maxDigits, 
                  const bool bOrigHist, const bool superImpose)
 {
     newHist->SetTitle("");
@@ -98,7 +99,7 @@ void SFH1D::Draw(const TString xlab, const TString ylab,
     newHist->SetLabelFont(42,"Y");
     newHist->SetTitleFont(42,"X");
     newHist->SetTitleFont(42,"Y");
-    //newHist->SetLabelFont(62,"X");
+    //newHist->SetLabelFont(62,"X"); // bold font
     //newHist->SetLabelFont(62,"Y");
     //newHist->SetTitleFont(62,"X");
     //newHist->SetTitleFont(62,"Y");
@@ -138,8 +139,8 @@ void SFH1D::Draw(const TString xlab, const TString ylab,
         newHist->Draw();
     else {
         newHist->SetLineStyle(3);
-        newHist68->SetFillStyle(3001);
-        newHist95->SetFillStyle(3001);
+        newHist68->SetFillStyle(fillStyle);
+        newHist95->SetFillStyle(fillStyle);
     }
     newHist95->Draw("SAME");
     newHist68->Draw("SAME");
@@ -153,6 +154,29 @@ void SFH1D::Draw(const TString xlab, const TString ylab,
     }
 
     gPad->RedrawAxis();
+}
+
+
+void SFH1D::OutputResults(ostream& os, const int smooth, const bool WasDrawed) const 
+{
+    //   Note: after Draw(), use Integral("width").     
+    char opt[10] = "";
+    if(WasDrawed) strcpy(opt, "width");
+    
+    os << "  Num of bins: " << newHist->GetNbinsX() 
+       << "   smooth: " << smooth << " time(s)" << std::endl
+       << "  Local mode: " << localMode
+       << " + " << xmax68 - localMode 
+       << " - " << localMode - xmin68 << std::endl
+       << "  Center of " << newHist68->Integral(opt)*100.0 
+       << "% interval: " << (xmin68 + xmax68)/2.0
+       << " +- " << (xmax68 - xmin68)/2.0 << std::endl
+       << "  at " << newHist68->Integral(opt)*100.0 << " % (>~"
+       << prob68*100.0 << "%)" << " [" << xmin68 << ", " << xmax68 << "]" 
+       << std::endl
+       << "  at " << newHist95->Integral(opt)*100.0 << " % (>~"
+       << prob95*100.0 << "%)" << " [" << xmin95 << ", " << xmax95 << "]" 
+       << std::endl;        
 }
 
 

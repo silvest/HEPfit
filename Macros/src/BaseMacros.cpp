@@ -155,9 +155,6 @@ TString BaseMacros::ConvertTitle(TString orig) const
     else if (strncmp(orig, "Mz", 2) == 0) str = "M_{#kern[0.2]{#lower[-0.2]{Z}}}#kern[0.1]{[GeV]}";
     else if (strncmp(orig, "mtop", 4) == 0) str = "M_{#kern[0.7]{#lower[-0.2]{t}}}#kern[0.1]{[GeV]}";
     else if (strncmp(orig, "mHl", 3) == 0) str = "m_{#kern[0.2]{#lower[-0.2]{h}}}#kern[0.1]{[GeV]}";
-    else if (strncmp(orig, "S", 1) == 0) str = "S" ;
-    else if (strncmp(orig, "T", 1) == 0) str = "T" ;
-    else if (strncmp(orig, "U", 1) == 0) str = "U" ;
     else if (strncmp(orig, "obliqueS", 8) == 0) str = "S" ;
     else if (strncmp(orig, "obliqueT", 8) == 0) str = "T" ;
     else if (strncmp(orig, "obliqueU", 8) == 0) str = "U" ;
@@ -173,7 +170,6 @@ TString BaseMacros::ConvertTitle(TString orig) const
     else if (strncmp(orig, "#varepsilon_{2}", 15) == 0) str = "#varepsilon_{#lower[-0.2]{2}}" ;
     else if (strncmp(orig, "#varepsilon_{3}", 15) == 0) str = "#varepsilon_{#lower[-0.2]{3}}" ;
     else if (strncmp(orig, "#varepsilon_{b}", 15) == 0) str = "#varepsilon_{#lower[-0.2]{b}}" ;
-    else if (strncmp(orig, "a", 1) == 0) str = "a" ;
     
     //-- EW precision observables --
     else if (strncmp(orig, "GammaZ", 6) == 0) str = "#Gamma_{#lower[-0.2]{Z}}#kern[0.1]{[GeV]}";
@@ -205,10 +201,16 @@ TString BaseMacros::ConvertTitle(TString orig) const
     else if (strncmp(orig, "Mw", 2) == 0) str = "M_{#kern[0.2]{#lower[-0.2]{W}}}#kern[0.1]{[GeV]}";
     else if (strncmp(orig, "M_{W}", 5) == 0) str = "M_{#kern[0.2]{#lower[-0.2]{W}}}#kern[0.1]{[GeV]}";
     else if (strncmp(orig, "GammaW", 6) == 0) str = "#Gamma_{#lower[-0.2]{W}}#kern[0.1]{[GeV]}";
-    else if (strncmp(orig, "#Gamma_{W}", 4) == 0) str = "#Gamma_{#lower[-0.2]{W}}#kern[0.1]{[GeV]}";
+    else if (strncmp(orig, "#Gamma_{W}", 10) == 0) str = "#Gamma_{#lower[-0.2]{W}}#kern[0.1]{[GeV]}";
+    //
+    else if (strncmp(orig, "AllForST", 8) == 0) str = "All (incl. R_{#lower[-0.5]{f}}, #sigma_{#lower[-0.2]{had}}, #Gamma_{#lower[-0.2]{W}})";    
+    else if (strncmp(orig, "AllAsymmetries", 14) == 0) str = "sin^{2}#theta_{#lower[-0.3]{eff}}^{lept}, P_{#lower[-0.3]{#tau}}^{Pol}, A_{#kern[0.2]{#lower[-0.3]{f}}}, A_{#lower[-0.3]{FB}}^{f}";    
+    else if (strncmp(orig, "EPS2EPSBSM", 9) == 0) str = "#varepsilon_{#lower[-0.2]{2}}=#varepsilon_{#lower[-0.2]{2}}^{SM}, #varepsilon_{#lower[-0.2]{b}}=#varepsilon_{#lower[-0.2]{b}}^{SM}" ;    
     
     else str = orig;
 
+    str.ReplaceAll("WHITESPACE", " ");
+    
     return str;
 }
 
