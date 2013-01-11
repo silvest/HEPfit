@@ -6,10 +6,12 @@
  */
 
 #include <iostream>
+#include <cmath>
 #include <TH2D.h>
 #include <TStyle.h>
 #include <TObjArray.h>
 #include <TGraph.h>
+#include <TGraphErrors.h>
 #include "BaseMacros.h"
 
 #ifndef SFH2D_H
@@ -46,6 +48,19 @@ public:
     }
     
     /**
+     * @return The last contour drawn by drawFromGraph(). 
+     */    
+    TGraph* getContour() const 
+    {
+        return myCurv;
+    }
+
+    TGraphErrors* getG1() const 
+    {
+        return g1;
+    }
+
+    /**
      * Smooth the bin contents of th histogram by using TH2::Smooth(). 
      * @param smooth
      */
@@ -57,19 +72,24 @@ public:
      * @param[in] ylab The label of the y axis. 
      * @param[in] col68 The color index for the 68% interval. 
      * @param[in] col95 The color index for the 95% interval. 
+     * @param[in] lineStyle
+     * @param[in] fillStyle The index of the fill area style. 
      * @param[in] maxDigits The maximum digits of axis labels. 
      * @param xval2
      * @param xerr2
      * @param yval2
      * @param yerr2
      * @param[in] bLine  
+     * @param[in] bOnly95
      * @param[in] superImpose
      */
     void draw(const TString xlab, const TString ylab, 
-              const int col68, const int col95, const int maxDigits, 
+              const int col68, const int col95, const int lineStyle, 
+              const int fillStyle, const int maxDigits, 
               const double xval2 = -999.0, const double xerr2 = 0.0,
               const double yval2 = -999.0, const double yerr2 = 0.0,            
-              const bool bLine=true, const bool superImpose=false);
+              const bool bLine=true, const bool bOnly95=false, 
+              const bool superImpose=false);
 
         
 private:
@@ -104,6 +124,10 @@ private:
      */
     TH2D* newHist;
     
+    TGraph* myCurv;
+    
+    TGraphErrors *g1;
+    
     /**
      * @param[in] Prob A probability.
      * @return The contour level at a given probability. 
@@ -120,14 +144,24 @@ private:
      * @param[in] ind
      * @param[in] DrawOpts
      * @param[in] col
+     * @param[in] lineStyle
+     * @param[in] fillStyle
      */
-    void drawFromGraph(const int ind, const std::string DrawOpts, const int col) const;    
+    void drawFromGraph(const int ind, const std::string DrawOpts, 
+                       const int col, const int lineStyle, const int fillStyle); 
     
     /**
      * @param[in] inputgraph
      * @return 
      */
     TGraph* CloseTGraph(TGraph* inputgraph) const;
+
+    /**
+     * @param[in] inputgraph1
+     * @param[in] inputgraph2
+     * @return 
+     */
+    TGraph* CloseTwoTGraphs(TGraph* inputgraph1, TGraph* inputgraph2) const;
     
 };
 
@@ -160,10 +194,17 @@ public:
         return m_r < b.m_r;
     }
     
+    double distance(const SFH2D_Point& b) const
+    {
+        return sqrt( pow(this->m_x - b.m_x, 2.0) + pow(this->m_y - b.m_y, 2.0) );
+    }
+    
     double m_x;
     double m_y;
     double m_r;
 };
+
+
 
 #endif	/* SFH2D_H */
 

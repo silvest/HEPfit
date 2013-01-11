@@ -116,12 +116,24 @@ public:
      * @param[in] ylab The label of the y axis. 
      * @param[in] col68 The color index for the 68% interval. 
      * @param[in] col95 The color index for the 95% interval. 
+     * @param[in] fillStyle The index of the fill area style. 
      * @param[in] maxDigits The maximum digits of axis labels. 
      * @param[in] bOrigHist A flag controlling if the original histogram is superimposed. 
      * @param[in] superImpose A flag controlling if another histogram is superimposed. 
      */
     void Draw(const TString xlab, const TString ylab, const int col68, const int col95, 
+              const int fillStyle, 
               const int maxDigits, const bool bOrigHist = false, const bool superImpose = false);
+    
+
+    /**
+     * Output results. 
+     * @param[in] os An output stream. 
+     * @param[in] smooth 
+     * @param[in] WasDrawed
+     */    
+    void OutputResults(ostream& os, const int smooth, const bool WasDrawed = false) const;
+    
     
 private:
 
