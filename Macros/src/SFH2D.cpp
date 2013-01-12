@@ -27,6 +27,20 @@ SFH2D::SFH2D(TH2D& hist, std::ostream& os_in,
     
     myCurv = NULL;
     g1 = NULL;
+    
+    xLow = 0.0;
+    xUp = 0.0;
+    yLow = 0.0;
+    yUp = 0.0;    
+}
+
+
+void SFH2D::SetRange(const double x_low, const double x_up, 
+                     const double y_low, const double y_up) {
+    xLow = x_low;
+    xUp = x_up;
+    yLow = y_low;
+    yUp = y_up;
 }
 
 
@@ -46,44 +60,53 @@ void SFH2D::draw(const TString xlab, const TString ylab,
                  const double yval2, const double yerr2,            
                  const bool bLine, const bool bOnly95, const bool superImpose) 
 {
-    newHist->SetTitle("");
-    newHist->SetStats(0);
-    newHist->GetXaxis()->SetTitleSize(0.075);
-    newHist->GetYaxis()->SetTitleSize(0.075);
-    newHist->GetXaxis()->SetTitleOffset(0.85);
-    newHist->GetYaxis()->SetTitleOffset(0.90);    
-    newHist->GetXaxis()->SetNdivisions(505);
-    newHist->GetYaxis()->SetNdivisions(505);
-    newHist->GetXaxis()->SetLabelSize(0.043);
-    newHist->GetYaxis()->SetLabelSize(0.043);
-    newHist->GetXaxis()->SetLabelOffset(0.013);
-    newHist->GetYaxis()->SetLabelOffset(0.013);
-    newHist->SetLabelFont(42,"X");
-    newHist->SetLabelFont(42,"Y");
-    newHist->SetTitleFont(42,"X");
-    newHist->SetTitleFont(42,"Y");
-    //newHist->SetLabelFont(62,"X");
-    //newHist->SetLabelFont(62,"Y");
-    //newHist->SetTitleFont(62,"X");
-    //newHist->SetTitleFont(62,"Y");
-    ((TGaxis*) newHist->GetXaxis())->SetMaxDigits(maxDigits);
-    ((TGaxis*) newHist->GetYaxis())->SetMaxDigits(maxDigits);
-
-    // Titles of the axes 
-    if (xlab.CompareTo("")==0) {
-        TString Xtitle = ConvertTitle(newHist->GetXaxis()->GetTitle());
-        newHist->GetXaxis()->SetTitle(Xtitle);
-    } else
-        newHist->GetXaxis()->SetTitle(xlab);
-    if (ylab.CompareTo("")==0) {
-        TString Ytitle = ConvertTitle(newHist->GetYaxis()->GetTitle());
-        newHist->GetYaxis()->SetTitle(Ytitle);     
-    } else 
-        newHist->GetYaxis()->SetTitle(ylab);    
-    
+    // draw the axes 
     if (!superImpose) {
-        TH2D* null2D = (TH2D*) newHist->Clone("null2D");
-        //TH2D* null2D = new TH2D("","",100, -1., 1., 100, -1., 1.); // TEST
+        TH2D* null2D;
+        if (xLow==0.0 && xUp ==0.0 && yLow==0.0 && yUp ==0.0)
+            null2D = (TH2D*) newHist->Clone("null2D");
+        else {
+            null2D = (TH2D*) newHist->Clone("null2D");
+            null2D->Reset("M");
+            null2D = new TH2D("null2D","null2D", 100, xLow, xUp, 100, yLow, yUp); 
+            null2D->SetXTitle(newHist->GetXaxis()->GetTitle());
+            null2D->SetYTitle(newHist->GetYaxis()->GetTitle());
+        }
+        null2D->SetTitle("");
+        null2D->SetStats(0);
+        null2D->GetXaxis()->SetTitleSize(0.075);
+        null2D->GetYaxis()->SetTitleSize(0.075);
+        null2D->GetXaxis()->SetTitleOffset(0.85);
+        null2D->GetYaxis()->SetTitleOffset(0.90);    
+        null2D->GetXaxis()->SetNdivisions(505);
+        null2D->GetYaxis()->SetNdivisions(505);
+        null2D->GetXaxis()->SetLabelSize(0.043);
+        null2D->GetYaxis()->SetLabelSize(0.043);
+        null2D->GetXaxis()->SetLabelOffset(0.013);
+        null2D->GetYaxis()->SetLabelOffset(0.013);
+        null2D->SetLabelFont(42,"X");
+        null2D->SetLabelFont(42,"Y");
+        null2D->SetTitleFont(42,"X");
+        null2D->SetTitleFont(42,"Y");
+        //null2D->SetLabelFont(62,"X");
+        //null2D->SetLabelFont(62,"Y");
+        //null2D->SetTitleFont(62,"X");
+        //null2D->SetTitleFont(62,"Y");
+        ((TGaxis*) null2D->GetXaxis())->SetMaxDigits(maxDigits);
+        ((TGaxis*) null2D->GetYaxis())->SetMaxDigits(maxDigits);
+        
+        // Titles of the axes 
+        if (xlab.CompareTo("")==0) {
+            TString Xtitle = ConvertTitle(null2D->GetXaxis()->GetTitle());
+            null2D->GetXaxis()->SetTitle(Xtitle);
+        } else
+            null2D->GetXaxis()->SetTitle(xlab);
+        if (ylab.CompareTo("")==0) {
+            TString Ytitle = ConvertTitle(null2D->GetYaxis()->GetTitle());
+            null2D->GetYaxis()->SetTitle(Ytitle);     
+        } else 
+            null2D->GetYaxis()->SetTitle(ylab);         
+        
         null2D->Reset();
         null2D->Draw();
     }
