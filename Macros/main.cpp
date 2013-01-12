@@ -143,10 +143,11 @@ int main(int argc, char** argv)
         cout << "                       (default: n=8)                            " << endl;
         cout << "   -precision=n     -> precision of values in the std output     " << endl;
         cout << "                       (default: n=6)                            " << endl;
-        cout << "   -xlab=namex      -> x label                                   " << endl;
-        cout << "   -ylab=namey      -> y label                                   " << endl;
         cout << "   -addtext=text    -> attach additional information             " << endl;
         cout << "   -addtextAt=\"[x,y]\" -> position of the text                  " << endl;
+        cout << "   -range=\"[xmin,xmax]x[ymin,ymax]\" -> define the graph range  " << endl;
+        cout << "   -xlab=namex      -> x label                                   " << endl;
+        cout << "   -ylab=namey      -> y label                                   " << endl;
         cout << "   -smooth=ntime    -> iterative smoothing with TH2::Smooth()    " << endl;
         cout << "                       (default: ntime=0)                        " << endl;
         cout << "   -col68=index     -> color index of the 68% interval           " << endl;
@@ -294,160 +295,160 @@ int main(int argc, char** argv)
         if (strncmp(argv[i], "--only953", 9) == 0) bOnly953 = true;
         if (strncmp(argv[i], "--only954", 9) == 0) bOnly954 = true;
         
-        if (strncmp(argv[i], "-output", 7) == 0) {
+        if (strncmp(argv[i], "-output=", 8) == 0) {
             sscanf(argv[i], "-output=%s", str);
             outputFileName = str;
         }
 
-        if (strncmp(argv[i], "-xlab", 5) == 0) {
+        if (strncmp(argv[i], "-xlab=", 6) == 0) {
             sscanf(argv[i], "-xlab=%s", str);
             xlab = str;
         }
         
-        if (strncmp(argv[i], "-ylab", 5) == 0) {
+        if (strncmp(argv[i], "-ylab=", 6) == 0) {
             sscanf(argv[i], "-ylab=%s", str);
             ylab = str;
         }        
         
-        if (strncmp(argv[i], "-addtext", 8) == 0) {
+        if (strncmp(argv[i], "-addtext=", 9) == 0) {
             sscanf(argv[i], "-addtext=%s", str);
             addtext = str;
         }
-        if (strncmp(argv[i], "-addtextAt", 10) == 0)
+        if (strncmp(argv[i], "-addtextAt=", 11) == 0)
             sscanf(argv[i], "-addtextAt=[%lf,%lf]", &addtext_x, &addtext_y);
         
-        if (strncmp(argv[i], "-maxDigits", 10) == 0) 
+        if (strncmp(argv[i], "-maxDigits=", 11) == 0) 
             sscanf(argv[i], "-maxDigits=%d", &maxDig);
 
-        if (strncmp(argv[i], "-precision", 10) == 0) 
+        if (strncmp(argv[i], "-precision=", 11) == 0) 
             sscanf(argv[i], "-precision=%d", &prec);
         
-        if (strncmp(argv[i], "-priorMean", 10) == 0) 
+        if (strncmp(argv[i], "-priorMean=", 11) == 0) 
             sscanf(argv[i], "-priorMean=%lf", &prior_mean);
-        if (strncmp(argv[i], "-priorSigma", 11) == 0) 
+        if (strncmp(argv[i], "-priorSigma=", 12) == 0) 
             sscanf(argv[i], "-priorSigma=%lf", &prior_sigma);
 
-        if (strncmp(argv[i], "-range", 6) == 0) {
+        if (strncmp(argv[i], "-range=", 7) == 0) {
             TString stmp(argv[i] + 7);
             sscanf(stmp.Data(), "[%lf,%lf]x[%lf,%lf]", &x_low, &x_up, &y_low, &y_up);
         }
 
-        if (strncmp(argv[i], "-bins", 5) == 0) {
+        if (strncmp(argv[i], "-bins=", 6) == 0) {
             TString stmp(argv[i] + 6);
             sscanf(stmp.Data(), "[%d]x[%d]", &nx, &ny);
         }
 
-        if (strncmp(argv[i], "-val", 4) == 0) 
+        if (strncmp(argv[i], "-val=", 5) == 0) 
             sscanf(argv[i], "-val=%lf", &xval);
-        if (strncmp(argv[i], "-err", 4) == 0) 
+        if (strncmp(argv[i], "-err=", 5) == 0) 
             sscanf(argv[i], "-err=%lf", &xerr);
         
-        if (strncmp(argv[i], "-Xval", 5) == 0) 
+        if (strncmp(argv[i], "-Xval=", 6) == 0) 
             sscanf(argv[i], "-Xval=%lf", &xval2);
-        if (strncmp(argv[i], "-Xerr", 5) == 0) 
+        if (strncmp(argv[i], "-Xerr=", 6) == 0) 
             sscanf(argv[i], "-Xerr=%lf", &xerr2);
-        if (strncmp(argv[i], "-Yval", 5) == 0) 
+        if (strncmp(argv[i], "-Yval=", 6) == 0) 
             sscanf(argv[i], "-Yval=%lf", &yval2);
-        if (strncmp(argv[i], "-Yerr", 5) == 0) 
+        if (strncmp(argv[i], "-Yerr=", 6) == 0) 
             sscanf(argv[i], "-Yerr=%lf", &yerr2);
 
         if (strncmp(argv[i], "-moreBins=", 10) == 0)
             sscanf(argv[i], "-moreBins=%d", &newNbins);
-        if (strncmp(argv[i], "-moreBins2", 10) == 0)
+        if (strncmp(argv[i], "-moreBins2=", 11) == 0)
             sscanf(argv[i], "-moreBins2=%d", &newNbins2);
         
         if (strncmp(argv[i], "-smooth=", 8) == 0)
             sscanf(argv[i], "-smooth=%d", &smooth);
-        if (strncmp(argv[i], "-smooth2", 8) == 0) 
+        if (strncmp(argv[i], "-smooth2=", 9) == 0) 
             sscanf(argv[i], "-smooth2=%d", &smooth2);
-        if (strncmp(argv[i], "-smooth3", 8) == 0) 
+        if (strncmp(argv[i], "-smooth3=", 9) == 0) 
             sscanf(argv[i], "-smooth3=%d", &smooth3);
-        if (strncmp(argv[i], "-smooth4", 8) == 0) 
+        if (strncmp(argv[i], "-smooth4=", 9) == 0) 
             sscanf(argv[i], "-smooth4=%d", &smooth4);
 
         if (strncmp(argv[i], "-col68=", 7) == 0) 
             sscanf(argv[i], "-col68=%d", &col68);
         if (strncmp(argv[i], "-col95=", 7) == 0) 
             sscanf(argv[i], "-col95=%d", &col95);
-        if (strncmp(argv[i], "-col682", 7) == 0) 
+        if (strncmp(argv[i], "-col682=", 8) == 0) 
             sscanf(argv[i], "-col682=%d", &col682);
-        if (strncmp(argv[i], "-col952", 7) == 0) 
+        if (strncmp(argv[i], "-col952=", 8) == 0) 
             sscanf(argv[i], "-col952=%d", &col952);
-        if (strncmp(argv[i], "-col683", 7) == 0) 
+        if (strncmp(argv[i], "-col683=", 8) == 0) 
             sscanf(argv[i], "-col683=%d", &col683);
-        if (strncmp(argv[i], "-col953", 7) == 0) 
+        if (strncmp(argv[i], "-col953=", 8) == 0) 
             sscanf(argv[i], "-col953=%d", &col953);
-        if (strncmp(argv[i], "-col684", 7) == 0) 
+        if (strncmp(argv[i], "-col684=", 8) == 0) 
             sscanf(argv[i], "-col684=%d", &col684);
-        if (strncmp(argv[i], "-col954", 7) == 0) 
+        if (strncmp(argv[i], "-col954=", 8) == 0) 
             sscanf(argv[i], "-col954=%d", &col954);
 
         if (strncmp(argv[i], "-line=", 6) == 0) 
             sscanf(argv[i], "-line=%d", &lineStyle);
-        if (strncmp(argv[i], "-line2", 6) == 0) 
+        if (strncmp(argv[i], "-line2=", 7) == 0) 
             sscanf(argv[i], "-line2=%d", &lineStyle2);
-        if (strncmp(argv[i], "-line3", 6) == 0) 
+        if (strncmp(argv[i], "-line3=", 7) == 0) 
             sscanf(argv[i], "-line3=%d", &lineStyle3);
-        if (strncmp(argv[i], "-line4", 6) == 0) 
+        if (strncmp(argv[i], "-line4=", 7) == 0) 
             sscanf(argv[i], "-line4=%d", &lineStyle4);
         
         if (strncmp(argv[i], "-fill=", 6) == 0) 
             sscanf(argv[i], "-fill=%d", &fillStyle);
-        if (strncmp(argv[i], "-fill2", 6) == 0) 
+        if (strncmp(argv[i], "-fill2=", 7) == 0) 
             sscanf(argv[i], "-fill2=%d", &fillStyle2);
-        if (strncmp(argv[i], "-fill3", 6) == 0) 
+        if (strncmp(argv[i], "-fill3=", 7) == 0) 
             sscanf(argv[i], "-fill3=%d", &fillStyle3);
-        if (strncmp(argv[i], "-fill4", 6) == 0) 
+        if (strncmp(argv[i], "-fill4=", 7) == 0) 
             sscanf(argv[i], "-fill4=%d", &fillStyle4);
         
-        if (strncmp(argv[i], "-plot2", 6) == 0) {
+        if (strncmp(argv[i], "-plot2=", 7) == 0) {
             sscanf(argv[i], "-plot2=%s", str);
             plotname2 = str;
             b2ndplot = true;
         }
-        if (strncmp(argv[i], "-plot3", 6) == 0) {
+        if (strncmp(argv[i], "-plot3=", 7) == 0) {
             sscanf(argv[i], "-plot3=%s", str);
             plotname3 = str;
             b3rdplot = true;
         }
-        if (strncmp(argv[i], "-plot4", 6) == 0) {
+        if (strncmp(argv[i], "-plot4=", 7) == 0) {
             sscanf(argv[i], "-plot4=%s", str);
             plotname4 = str;
             b4thplot = true;
         }
         
-        if (strncmp(argv[i], "-rootfile2", 10) == 0) {
+        if (strncmp(argv[i], "-rootfile2=", 11) == 0) {
             sscanf(argv[i], "-rootfile2=%s", str);
             filename2 = str;
         }        
-        if (strncmp(argv[i], "-rootfile3", 10) == 0) {
+        if (strncmp(argv[i], "-rootfile3=", 11) == 0) {
             sscanf(argv[i], "-rootfile3=%s", str);
             filename3 = str;
         }        
-        if (strncmp(argv[i], "-rootfile4", 10) == 0) {
+        if (strncmp(argv[i], "-rootfile4=", 11) == 0) {
             sscanf(argv[i], "-rootfile4=%s", str);
             filename4 = str;
         }        
 
-        if (strncmp(argv[i], "-legScale", 9) == 0) 
+        if (strncmp(argv[i], "-legScale=", 10) == 0) 
             sscanf(argv[i], "-legScale=%lf", &legend_scale);
         if (strncmp(argv[i], "-leg=", 5) == 0) {
             sscanf(argv[i], "-leg=%s", str);
             leg = str;
         }
-        if (strncmp(argv[i], "-leg2", 5) == 0) {
+        if (strncmp(argv[i], "-leg2=", 6) == 0) {
             sscanf(argv[i], "-leg2=%s", str);
             leg2 = str;
         }
-        if (strncmp(argv[i], "-leg3", 5) == 0) {
+        if (strncmp(argv[i], "-leg3=", 6) == 0) {
             sscanf(argv[i], "-leg3=%s", str);
             leg3 = str;
         }
-        if (strncmp(argv[i], "-leg4", 5) == 0) {
+        if (strncmp(argv[i], "-leg4=", 6) == 0) {
             sscanf(argv[i], "-leg4=%s", str);
             leg4 = str;
         }
-        if (strncmp(argv[i], "-legP", 5) == 0) {
+        if (strncmp(argv[i], "-legP=", 6) == 0) {
             sscanf(argv[i], "-legP=%s", str);
             legP = str;
         }
@@ -647,6 +648,7 @@ int main(int argc, char** argv)
         
         // output the 2-D histogram
         SFH2D SFHisto2D(*hist, os, prob68, prob95);
+        SFHisto2D.SetRange(x_low, x_up, y_low, y_up);
         SFHisto2D.smoothHist(smooth);
         SFHisto2D.draw(xlab, ylab, col68, col95, lineStyle, fillStyle, maxDig, 
                        xval2, xerr2, yval2, yerr2, bContLines, bOnly95, false);

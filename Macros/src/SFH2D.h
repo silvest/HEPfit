@@ -60,6 +60,10 @@ public:
         return g1;
     }
 
+    void SetRange(const double x_low, const double x_up, 
+                  const double y_low, const double y_up);
+    
+    
     /**
      * Smooth the bin contents of th histogram by using TH2::Smooth(). 
      * @param smooth
@@ -127,6 +131,11 @@ private:
     TGraph* myCurv;
     
     TGraphErrors *g1;
+    
+    double xLow;
+    double xUp;
+    double yLow;
+    double yUp;    
     
     /**
      * @param[in] Prob A probability.
