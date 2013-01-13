@@ -6,6 +6,7 @@
  */
 
 #include "MonteCarlo.h"
+#include <TSystem.h>
 #include <BAT/BCAux.h>
 #include <BAT/BCLog.h>
 #include <BAT/BCSummaryTool.h>
@@ -27,6 +28,16 @@ MonteCarlo::~MonteCarlo() {
 
 void MonteCarlo::Run(const int rank) {
     try {
+        FileStat_t info;
+        if (gSystem->GetPathInfo("Observables", info) != 0) {
+            if (gSystem->MakeDirectory("Observables") == 0)
+                std::cout << "Observables directory has been created." << std::endl;
+            else {
+                std::cout << "Observables director cannot be created." << std::endl;
+                exit(EXIT_FAILURE);
+            }
+        }
+        
         MCEngine.SetName(myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D).c_str());
         int buffsize = 0;
         std::map<std::string, double> DP;
@@ -163,7 +174,7 @@ void MonteCarlo::Run(const int rank) {
             if (PrintKnowledgeUpdatePlots)
                 myBCSummaryTool.PrintKnowledgeUpdatePlots(("ParamUpdate" + JobTag + ".ps").c_str());
 
-            // print a Latex table of the parameters into a tex file
+            // print a LaTeX table of the parameters into a tex file
             //myBCSummaryTool.PrintParameterLatex(("ParamSummary" + JobTag + ".tex").c_str());
         
             out.WriteMarginalizedDistributions();
