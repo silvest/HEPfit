@@ -35,9 +35,15 @@ public:
      * @param[in] os_in The standard output stream. 
      * @param[in] prob68_in The probability of the 68% interval. 
      * @param[in] prob95_in The probability of the 95% interval. 
+     * @param[in] x_low
+     * @param[in] x_up
+     * @param[in] y_low
+     * @param[in] y_up
      */
     SFH2D(TH2D& hist, std::ostream& os_in, 
-          const double prob68_in=0.68, const double prob95_in=0.95);
+          const double prob68_in=0.68, const double prob95_in=0.95,
+          const double x_low=0.0, const double x_up=0.0, 
+          const double y_low=0.0, const double y_up=0.0);
 
     /**
      * @return A modified 2-D histogram. 
@@ -54,15 +60,6 @@ public:
     {
         return myCurv;
     }
-
-    TGraphErrors* getG1() const 
-    {
-        return g1;
-    }
-
-    void SetRange(const double x_low, const double x_up, 
-                  const double y_low, const double y_up);
-    
     
     /**
      * Smooth the bin contents of th histogram by using TH2::Smooth(). 
@@ -79,10 +76,6 @@ public:
      * @param[in] lineStyle
      * @param[in] fillStyle The index of the fill area style. 
      * @param[in] maxDigits The maximum digits of axis labels. 
-     * @param xval2
-     * @param xerr2
-     * @param yval2
-     * @param yerr2
      * @param[in] bLine  
      * @param[in] bOnly95
      * @param[in] superImpose
@@ -90,8 +83,6 @@ public:
     void draw(const TString xlab, const TString ylab, 
               const int col68, const int col95, const int lineStyle, 
               const int fillStyle, const int maxDigits, 
-              const double xval2 = -999.0, const double xerr2 = 0.0,
-              const double yval2 = -999.0, const double yerr2 = 0.0,            
               const bool bLine=true, const bool bOnly95=false, 
               const bool superImpose=false);
 
@@ -130,8 +121,6 @@ private:
     
     TGraph* myCurv;
     
-    TGraphErrors *g1;
-    
     double xLow;
     double xUp;
     double yLow;
@@ -166,11 +155,14 @@ private:
     TGraph* CloseTGraph(TGraph* inputgraph) const;
 
     /**
+     * Connect an end point of a contour with an end point of the other contour 
+     * in the case where if both points are on the same boundary of the plot. 
+     * @param[in] cont_ind
      * @param[in] inputgraph1
      * @param[in] inputgraph2
      * @return 
      */
-    TGraph* CloseTwoTGraphs(TGraph* inputgraph1, TGraph* inputgraph2) const;
+    TGraph* CloseTwoTGraphs(const int cont_ind, TGraph* inputgraph1, TGraph* inputgraph2) const;
     
 };
 

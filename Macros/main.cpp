@@ -218,6 +218,8 @@ int main(int argc, char** argv)
         cout << "   -Xerr=xerr2      -> xerr2 is the error of xval2               " << endl;
         cout << "   -Yval=yval2      -> yval2 is the y value of the point         " << endl;
         cout << "   -Yerr=yerr2      -> yerr2 is the error of yval2               " << endl;
+        cout << "   -colP=index      -> color index of the measured point         " << endl;
+        cout << "                       (default: index=1)                        " << endl;
         cout << "   -legP=legend     -> legend for the point                      " << endl;
         cout << "                       (default: no legend)                      " << endl;
         cout << "#################################################################" << endl;
@@ -238,6 +240,7 @@ int main(int argc, char** argv)
     
     double xval2 = -999.0, xerr2 = 0.0, yval2 = -999.0, yerr2 = 0.0;
     TString legP="";
+    int colP = 1;
     
     bool bOnly95 = false;
     string plotname = "", filename = "";
@@ -351,6 +354,8 @@ int main(int argc, char** argv)
             sscanf(argv[i], "-Yval=%lf", &yval2);
         if (strncmp(argv[i], "-Yerr=", 6) == 0) 
             sscanf(argv[i], "-Yerr=%lf", &yerr2);
+        if (strncmp(argv[i], "-colP=", 6) == 0) 
+            sscanf(argv[i], "-colP=%d", &colP);
 
         if (strncmp(argv[i], "-moreBins=", 10) == 0)
             sscanf(argv[i], "-moreBins=%d", &newNbins);
@@ -550,14 +555,15 @@ int main(int argc, char** argv)
     else legend_ymin = 0.47;
     legend_ymin = (0.88 - 0.02)*(1.0 - legend_scale) + legend_ymin*legend_scale;
     if (!bLeftLegend)
-        legend = new TLegend(0.63,legend_ymin,0.88,0.88);
+        legend = new TLegend(0.63,legend_ymin,0.75,0.88);
     else
-        legend = new TLegend(0.23,legend_ymin,0.48,0.88);
+        //legend = new TLegend(0.23,legend_ymin,0.48,0.88);
+        legend = new TLegend(0.23,legend_ymin,0.35,0.88);
     legend->SetFillColor(0);
     legend->SetBorderSize(0);
     legend->SetTextFont(42);
     legend->SetTextSize(0.043*legend_scale);
-    legend->SetMargin(0.4);
+    legend->SetMargin(0.7);
 
     //----------------------------------------------------------------------
 
@@ -647,11 +653,10 @@ int main(int argc, char** argv)
         os << "  smooth: " << smooth << " time(s)" << endl;
         
         // output the 2-D histogram
-        SFH2D SFHisto2D(*hist, os, prob68, prob95);
-        SFHisto2D.SetRange(x_low, x_up, y_low, y_up);
+        SFH2D SFHisto2D(*hist, os, prob68, prob95, x_low, x_up, y_low, y_up);
         SFHisto2D.smoothHist(smooth);
         SFHisto2D.draw(xlab, ylab, col68, col95, lineStyle, fillStyle, maxDig, 
-                       xval2, xerr2, yval2, yerr2, bContLines, bOnly95, false);
+                       bContLines, bOnly95, false);
         TGraph* contour_pt = SFHisto2D.getContour();
         
         // superimpose the 2nd histogram
@@ -663,7 +668,7 @@ int main(int argc, char** argv)
             SFH2D SFHisto2D2(*hist2, os, prob68, prob95);
             SFHisto2D2.smoothHist(smooth2);
             SFHisto2D2.draw("", "", col682, col952, lineStyle2, fillStyle2, maxDig, 
-                            0.0, 0.0, 0.0, 0.0, bContLines, bOnly952, true);
+                            bContLines, bOnly952, true);
             contour2_pt = SFHisto2D2.getContour();
         }
 
@@ -676,21 +681,67 @@ int main(int argc, char** argv)
             SFH2D SFHisto2D3(*hist3, os, prob68, prob95);
             SFHisto2D3.smoothHist(smooth3);
             SFHisto2D3.draw("", "", col683, col953, lineStyle3, fillStyle3, maxDig, 
-                            0.0, 0.0, 0.0, 0.0, bContLines, bOnly953, true);
+                            bContLines, bOnly953, true);
             contour3_pt = SFHisto2D3.getContour();
         }
         
         // superimpose the 4th histogram
         TGraph* contour4_pt = NULL;
+        SFH2D* SFHisto2D4 = NULL;
         if (b4thplot) {
             os << "[Fourth graph]" << endl;
             os << "  smooth: " << smooth4 << " time(s)" << endl;
             TH2D* hist4 = (TH2D*) tobj4->Clone();
-            SFH2D SFHisto2D4(*hist4, os, prob68, prob95);
-            SFHisto2D4.smoothHist(smooth4);
-            SFHisto2D4.draw("", "", col684, col954, lineStyle4, fillStyle4, maxDig, 
-                            0.0, 0.0, 0.0, 0.0, bContLines, bOnly954, true);
-            contour4_pt = SFHisto2D4.getContour();
+            SFHisto2D4 = new SFH2D(*hist4, os, prob68, prob95);
+            SFHisto2D4->smoothHist(smooth4);
+            SFHisto2D4->draw("", "", col684, col954, lineStyle4, fillStyle4, maxDig, 
+                             bContLines, bOnly954, true);
+            contour4_pt = SFHisto2D4->getContour();
+        }
+        
+        // draw a given point with error bars
+        TGraphErrors* g1 = NULL;
+        if (xval2 != -999.0 && yval2 != -999.0) {
+            TLine *lx = new TLine();
+            lx->SetLineWidth(3);
+            lx->SetLineColor(colP);
+            double zero = 0, err;
+            err = xerr2;
+            g1 = new TGraphErrors(1, &xval2, &yval2, &err, &zero);
+            g1->SetLineWidth(3);
+            g1->SetLineStyle(1);
+            g1->SetLineColor(colP);
+            g1->SetMarkerStyle(20);
+            g1->SetMarkerSize(1);
+            g1->SetMarkerColor(colP);
+            g1->Draw("P");
+            
+            double xmin = hist->GetXaxis()->GetXmin();
+            double xmax = hist->GetXaxis()->GetXmax();
+            double ymin = hist->GetYaxis()->GetXmin();
+            double ymax = hist->GetYaxis()->GetXmax();
+            
+            err = xerr2;
+            double min_x = std::max(xval2 - err, xmin);
+            double max_x = std::min(xval2 + err, xmax);
+            lx->DrawLine(min_x, yval2, max_x, yval2);
+            
+            TLine *ly = new TLine();
+            ly->SetLineWidth(3);
+            ly->SetLineColor(colP);
+            err = yerr2;
+            TGraphErrors* g2 = new TGraphErrors(1, &xval2, &yval2, &zero, &err);
+            g2->SetLineWidth(3);
+            g2->SetLineStyle(1);
+            g2->SetLineColor(colP);
+            g2->SetMarkerStyle(20);
+            g2->SetMarkerSize(1);
+            g2->SetMarkerColor(colP);
+            g2->Draw("P");
+            
+            double min_y = std::max(yval2 - err, ymin);
+            double max_y = std::min(yval2 + err, ymax);
+            ly->DrawLine(xval2, min_y, xval2, max_y);
         }
         
         // legends: Change the order if needed. 
@@ -715,8 +766,8 @@ int main(int argc, char** argv)
             else leg_opt = "L";
             legend->AddEntry(contour_pt, myMacros.ConvertTitle(leg), leg_opt.c_str());
         }
-        if (SFHisto2D.getG1() != NULL && legP.CompareTo("")!= 0) 
-            legend->AddEntry(SFHisto2D.getG1(), myMacros.ConvertTitle(legP), "LP");
+        if (g1 != NULL && legP.CompareTo("")!= 0) 
+            legend->AddEntry(g1, myMacros.ConvertTitle(legP), "LP");
     } 
 
     // additional text

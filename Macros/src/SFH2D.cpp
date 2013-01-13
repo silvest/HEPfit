@@ -13,10 +13,13 @@
 #include <TGaxis.h>
 #include <TLine.h>
 #include <TROOT.h>
+#include <TF1.h>
 #include "SFH2D.h"
 
 SFH2D::SFH2D(TH2D& hist, std::ostream& os_in, 
-             const double prob68_in, const double prob95_in) 
+             const double prob68_in, const double prob95_in, 
+             const double x_low, const double x_up, 
+             const double y_low, const double y_up)
 : os(os_in), prob68(prob68_in), prob95(prob95_in), origHist(hist), 
         origName(hist.GetName())
 {
@@ -26,21 +29,18 @@ SFH2D::SFH2D(TH2D& hist, std::ostream& os_in,
     newHist->Scale(1.0/sum);
     
     myCurv = NULL;
-    g1 = NULL;
     
-    xLow = 0.0;
-    xUp = 0.0;
-    yLow = 0.0;
-    yUp = 0.0;    
-}
-
-
-void SFH2D::SetRange(const double x_low, const double x_up, 
-                     const double y_low, const double y_up) {
-    xLow = x_low;
-    xUp = x_up;
-    yLow = y_low;
-    yUp = y_up;
+    if (x_low==0.0 && x_up==0.0 && y_low==0.0 && y_up==0.0) {
+        xLow = newHist->GetXaxis()->GetXmin();
+        xUp = newHist->GetXaxis()->GetXmax();
+        yLow = newHist->GetYaxis()->GetXmin();
+        yUp = newHist->GetYaxis()->GetXmax();
+    } else { 
+        xLow = x_low;
+        xUp = x_up;
+        yLow = y_low;
+        yUp = y_up;
+    }
 }
 
 
@@ -56,22 +56,17 @@ void SFH2D::smoothHist(const int smooth)
 void SFH2D::draw(const TString xlab, const TString ylab, 
                  const int col68, const int col95, const int lineStyle, 
                  const int fillStyle, const int maxDigits, 
-                 const double xval2, const double xerr2,
-                 const double yval2, const double yerr2,            
                  const bool bLine, const bool bOnly95, const bool superImpose) 
 {
     // draw the axes 
     if (!superImpose) {
         TH2D* null2D;
-        if (xLow==0.0 && xUp ==0.0 && yLow==0.0 && yUp ==0.0)
-            null2D = (TH2D*) newHist->Clone("null2D");
-        else {
-            null2D = (TH2D*) newHist->Clone("null2D");
-            null2D->Reset("M");
-            null2D = new TH2D("null2D","null2D", 100, xLow, xUp, 100, yLow, yUp); 
-            null2D->SetXTitle(newHist->GetXaxis()->GetTitle());
-            null2D->SetYTitle(newHist->GetYaxis()->GetTitle());
-        }
+        null2D = (TH2D*) newHist->Clone("null2D");
+        null2D->Reset("M");
+        delete null2D;
+        null2D = new TH2D("null2D","null2D", 100, xLow, xUp, 100, yLow, yUp); 
+        null2D->SetXTitle(newHist->GetXaxis()->GetTitle());
+        null2D->SetYTitle(newHist->GetYaxis()->GetTitle());
         null2D->SetTitle("");
         null2D->SetStats(0);
         null2D->GetXaxis()->SetTitleSize(0.075);
@@ -119,45 +114,7 @@ void SFH2D::draw(const TString xlab, const TString ylab,
         drawFromGraph(0, "CONT", col68, lineStyle, fillStyle); // 95%
         if (!bOnly95) drawFromGraph(1, "CONT", col68, lineStyle, fillStyle); // 68%
     }
-    
-    // draw a given point with error bars
-    if (xval2 != -999.0 && yval2 != -999.0 && !superImpose) {
-        TLine *lx = new TLine();
-        lx->SetLineWidth(3);
-        double zero = 0, err;
-        err = xerr2;
-        g1 = new TGraphErrors(1, &xval2, &yval2, &err, &zero);
-        g1->SetLineWidth(3);
-        g1->SetLineStyle(1);
-        g1->SetMarkerStyle(20);
-        g1->SetMarkerSize(1);
-        g1->Draw("P");
-
-        double xmin = newHist->GetXaxis()->GetXmin();
-        double xmax = newHist->GetXaxis()->GetXmax();
-        double ymin = newHist->GetYaxis()->GetXmin();
-        double ymax = newHist->GetYaxis()->GetXmax();
-
-        err = xerr2;
-        double min_x = std::max(xval2 - err, xmin);
-        double max_x = std::min(xval2 + err, xmax);
-        lx->DrawLine(min_x, yval2, max_x, yval2);
-
-        TLine *ly = new TLine();
-        ly->SetLineWidth(3);
-        err = yerr2;
-        TGraphErrors* g2 = new TGraphErrors(1, &xval2, &yval2, &zero, &err);
-        g2->SetLineWidth(3);
-        g2->SetLineStyle(1);
-        g2->SetMarkerStyle(20);
-        g2->SetMarkerSize(1);
-        g2->Draw("P");
-
-        double min_y = std::max(yval2 - err, ymin);
-        double max_y = std::min(yval2 + err, ymax);
-        ly->DrawLine(xval2, min_y, xval2, max_y);
-    }
-    
+        
     gPad->RedrawAxis();
 }
 
@@ -228,23 +185,27 @@ TObjArray* SFH2D::getContours() const
 void SFH2D::drawFromGraph(const int ind, const std::string DrawOpts, 
                           const int col, const int lineStyle, const int fillStyle) 
 {
+    // get contours with the index "ind" 
     TList* contour = (TList*) getContours()->At(ind);
-    
-    TAxis* tmp = (TAxis*) newHist->GetXaxis();
-    double xmin = tmp->GetXmin();
-    double xmax = tmp->GetXmax();
-    tmp = (TAxis*) newHist->GetYaxis();
-    double ymin = tmp->GetXmin();
-    double ymax = tmp->GetXmax();
+
+    // the minimum and the maximum of the axes in the histogram
+    double xmin = newHist->GetXaxis()->GetXmin();
+    double xmax = newHist->GetXaxis()->GetXmax();
+    double ymin = newHist->GetYaxis()->GetXmin();
+    double ymax = newHist->GetYaxis()->GetXmax();
     
     double epsp = 1.0;
     double epsm = 1.0 - 1.0e-6;
+    // the bin content of the most top-left bin
     double x01 = newHist->GetBinContent(newHist->GetXaxis()->FindBin(xmin * epsp), 
                                         newHist->GetYaxis()->FindBin(ymax * epsm));
+    // the bin content of the most top-right bin
     double x11 = newHist->GetBinContent(newHist->GetXaxis()->FindBin(xmax * epsm), 
                                         newHist->GetYaxis()->FindBin(ymax * epsm));
+    // the bin content of the most bottom-left bin
     double x00 = newHist->GetBinContent(newHist->GetXaxis()->FindBin(xmin * epsp), 
                                         newHist->GetYaxis()->FindBin(ymin * epsp));
+    // the bin content of the most bottom-right bin
     double x10 = newHist->GetBinContent(newHist->GetXaxis()->FindBin(xmax * epsm), 
                                         newHist->GetYaxis()->FindBin(ymin * epsp));
 
@@ -260,68 +221,63 @@ void SFH2D::drawFromGraph(const int ind, const std::string DrawOpts,
         double binwx = newHist->GetXaxis()->GetBinWidth(1);
         double binwy = newHist->GetYaxis()->GetBinWidth(1);
 
-        double val00 = -1., val01 = -1., val10 = -1., val11 = -1.;
         double val;
         for (int j = 0; j < curv->GetN(); j++) {
-            double xx, yy;
+            double xx, yy, xx_next, yy_next;
             curv->GetPoint(j, xx, yy);
-            if (xx >= xmax - binwx / 2.) curv->SetPoint(j, xmax, yy);
-            if (xx <= xmin + binwx / 2.) curv->SetPoint(j, xmin, yy);
-            if (yy >= ymax - binwy / 2.) curv->SetPoint(j, xx, ymax);
-            if (yy <= ymin + binwy / 2.) curv->SetPoint(j, xx, ymin);
+            
+            // add corresponding points on the boundaries
+            // Note: The factor for (xmax-xmin) may have to be tuned by hand. 
+            if (xx >= xmax - binwx / 2.) { 
+                curv->Fit("pol1","Q","", xmax-(xmax-xmin)*0.1, xmax); 
+                curv->SetPoint(j, xmax, curv->GetFunction("pol1")->Eval(xmax));
+            }
+            if (xx <= xmin + binwx / 2.) { 
+                curv->Fit("pol1","Q","", xmin, xmin+(xmax-xmin)*0.1);       
+                curv->SetPoint(j, xmin, curv->GetFunction("pol1")->Eval(xmin));
+            }
+            if (yy >= ymax - binwy / 2.) { 
+                curv->Fit("pol1","Q","", xx-(xmax-xmin)*0.05, xx+(xmax-xmin)*0.05); 
+                curv->SetPoint(j, curv->GetFunction("pol1")->GetX(ymax), ymax);                
+            }
+            if (yy <= ymin + binwy / 2.) {
+                curv->Fit("pol1","Q","", xx-(xmax-xmin)*0.05, xx+(xmax-xmin)*0.05); 
+                curv->SetPoint(j, curv->GetFunction("pol1")->GetX(ymin), ymin);
+            }
             val = newHist->GetBinContent(newHist->GetXaxis()->FindBin(xx), 
                                          newHist->GetYaxis()->FindBin(yy));
-            if (val < x01) {
-                l01 = true;
-                val01 = val;
-            }
-            if (val < x00) {
-                l00 = true;
-                val00 = val;
-            }
-            if (val < x10) {
-                l10 = true;
-                val10 = val;
-            }
-            if (val < x11) {
-                l11 = true;
-                val11 = val;
-            }
+            if (val < x01) l01 = true;
+            if (val < x00) l00 = true;
+            if (val < x10) l10 = true;
+            if (val < x11) l11 = true;
         }
-
-        //cout << "--------------" << endl;
-        //cout << "x00  " << x00 << endl;
-        //cout << "x01  " << x01 << endl;
-        //cout << "x10  " << x10 << endl;
-        //cout << "x11  " << x11 << endl;
-        //cout << "val  " << val << endl;
-        //cout << "--------------" << endl;
         
         std::vector<SFH2D_Point> vp;
         double xl, yl;
         curv->GetPoint(curv->GetN() - 1, xl, yl);
         if (l01) {
-            SFH2D_Point p(xmin, ymax);
+            SFH2D_Point p(xmin, ymax); // top-left corner
             p.R(sqrt(pow(xmin - xl, 2) + pow(ymax - yl, 2)));
             vp.push_back(p);
         }
         if (l11) {
-            SFH2D_Point p(xmax, ymax);
+            SFH2D_Point p(xmax, ymax); // top-right corner
             p.R(sqrt(pow(xmax - xl, 2) + pow(ymax - yl, 2)));
             vp.push_back(p);
         }
         if (l10) {
-            SFH2D_Point p(xmax, ymin);
+            SFH2D_Point p(xmax, ymin); // bottom-right corner
             p.R(sqrt(pow(xmax - xl, 2) + pow(ymin - yl, 2)));
             vp.push_back(p);
         }
         if (l00) {
-            SFH2D_Point p(xmin, ymin);
+            SFH2D_Point p(xmin, ymin); // bottom-left corner
             p.R(sqrt(pow(xmin - xl, 2) + pow(ymin - yl, 2)));
             vp.push_back(p);
         }
         std::sort(vp.begin(), vp.end());
         
+        // add the additional points to curv 
         if (DrawOpts == "AREA")
             for (unsigned int i = 0; i < vp.size(); i++)
                 curv->SetPoint(curv->GetN(), vp[i].m_x, vp[i].m_y);
@@ -345,7 +301,9 @@ void SFH2D::drawFromGraph(const int ind, const std::string DrawOpts,
     }
 
     if (contour->GetSize()==2) {
-        TGraph* curv_combined = CloseTwoTGraphs(curv_new[0], curv_new[1]); 
+        // connect an end point of a contour with an end point of the other contour 
+        // in the case where if both points are on the same boundary of the plot. 
+        TGraph* curv_combined = CloseTwoTGraphs(ind, curv_new[0], curv_new[1]); 
         curv_combined->SetLineWidth(2);
         curv_combined->SetLineColor(col);
         curv_combined->SetLineStyle(lineStyle);
@@ -490,17 +448,33 @@ TGraph* SFH2D::CloseTGraph(TGraph* inputgraph) const
 }
 
 
-TGraph* SFH2D::CloseTwoTGraphs(TGraph* inputgraph1, TGraph* inputgraph2) const
+TGraph* SFH2D::CloseTwoTGraphs(const int cont_ind, TGraph* inputgraph1, 
+                               TGraph* inputgraph2) const
 {
     double xmin = newHist->GetXaxis()->GetXmin();
     double xmax = newHist->GetXaxis()->GetXmax();
     double ymin = newHist->GetYaxis()->GetXmin();
     double ymax = newHist->GetYaxis()->GetXmax();    
 
+    double epsp = 1.0;
+    double epsm = 1.0 - 1.0e-6;
+    // the bin content of the most top-left bin
+    double TL = newHist->GetBinContent(newHist->GetXaxis()->FindBin(xmin * epsp), 
+                                       newHist->GetYaxis()->FindBin(ymax * epsm));
+    // the bin content of the most top-right bin
+    double TR = newHist->GetBinContent(newHist->GetXaxis()->FindBin(xmax * epsm), 
+                                       newHist->GetYaxis()->FindBin(ymax * epsm));
+    // the bin content of the most bottom-left bin
+    double BL = newHist->GetBinContent(newHist->GetXaxis()->FindBin(xmin * epsp), 
+                                       newHist->GetYaxis()->FindBin(ymin * epsp));
+    // the bin content of the most bottom-right bin
+    double BR = newHist->GetBinContent(newHist->GetXaxis()->FindBin(xmax * epsm), 
+                                       newHist->GetYaxis()->FindBin(ymin * epsp));
+    
     // the end points
     std::vector<SFH2D_Point> p_xmin, p_xmax, p_ymin, p_ymax;
     
-    // get all the points of the contour lines    
+    // get all the points of the contour lines and store them into vp_org
     int n_all = inputgraph1->GetN() + inputgraph2->GetN();
     std::vector<SFH2D_Point> vp_org;
     for (int i = 0; i < n_all; i++) {
@@ -511,16 +485,48 @@ TGraph* SFH2D::CloseTwoTGraphs(TGraph* inputgraph1, TGraph* inputgraph2) const
         vp_org.push_back(p);
 
         // store the index of an end point
-        if (xtmp==xmin) p_xmin.push_back(p);
-        if (xtmp==xmax) p_xmax.push_back(p);
-        if (ytmp==ymin) p_ymin.push_back(p);
-        if (ytmp==ymax) p_ymax.push_back(p);
+        if (xtmp==xmin) p_xmin.push_back(p); // left
+        if (xtmp==xmax) p_xmax.push_back(p); // right
+        if (ytmp==ymin) p_ymin.push_back(p); // bottom
+        if (ytmp==ymax) p_ymax.push_back(p); // top
     }
 
-    // add NP points in the middle of an end point of the first contour and 
-    // that of the second contour
-    int NP = 20;
-    if (p_xmin.size()==2) {
+    // the contour_level
+    double contour_level;
+    if (cont_ind==0) contour_level = getLevel(prob95);
+    else if (cont_ind==1) contour_level = getLevel(prob68);
+    else contour_level = 0.0;
+
+    // add the points at the corners of the histograms if needed
+    if (p_xmin.size()==1 && p_ymax.size()==1 && contour_level <= TL) { // top-left
+        SFH2D_Point p(xmin, ymax);
+        vp_org.push_back(p);
+        p_xmin.push_back(p);
+        p_ymax.push_back(p);
+    }
+    if (p_xmax.size()==1 && p_ymax.size()==1 && contour_level <= TR) { // top-right
+        SFH2D_Point p(xmax, ymax);
+        vp_org.push_back(p);
+        p_xmax.push_back(p);
+        p_ymax.push_back(p);
+    }
+    if (p_xmin.size()==1 && p_ymin.size()==1 && contour_level <= BL) { // bottom-left
+        SFH2D_Point p(xmin, ymin);
+        vp_org.push_back(p);
+        p_xmin.push_back(p);
+        p_ymin.push_back(p);
+    }
+    if (p_xmax.size()==1 && p_ymin.size()==1 && contour_level <= BR) { // bottom-right
+        SFH2D_Point p(xmax, ymin);
+        vp_org.push_back(p);
+        p_xmax.push_back(p);
+        p_ymin.push_back(p);
+    }
+
+    // add more points to the interval between an end point of the first contour 
+    // and that of the second contour
+    int NP = 200;
+    if (p_xmin.size()==2) { // left
         double xtmp, ytmp;
         for (int i=0; i<NP; i++) {
             xtmp = p_xmin.at(1).m_x + (p_xmin.at(0).m_x - p_xmin.at(1).m_x)/(double)NP*(double)i;
@@ -529,7 +535,7 @@ TGraph* SFH2D::CloseTwoTGraphs(TGraph* inputgraph1, TGraph* inputgraph2) const
             vp_org.push_back(p);
         }
     }
-    if (p_xmax.size()==2) {
+    if (p_xmax.size()==2) { // right
         double xtmp, ytmp;
         for (int i=0; i<NP; i++) {
             xtmp = p_xmax.at(1).m_x + (p_xmax.at(0).m_x - p_xmax.at(1).m_x)/(double)NP*(double)i;
@@ -538,7 +544,7 @@ TGraph* SFH2D::CloseTwoTGraphs(TGraph* inputgraph1, TGraph* inputgraph2) const
             vp_org.push_back(p);
         }
     }
-    if (p_ymin.size()==2) {
+    if (p_ymin.size()==2) { // bottom
         double xtmp, ytmp;
         for (int i=0; i<NP; i++) {
             xtmp = p_ymin.at(1).m_x + (p_ymin.at(0).m_x - p_ymin.at(1).m_x)/(double)NP*(double)i;
@@ -547,7 +553,7 @@ TGraph* SFH2D::CloseTwoTGraphs(TGraph* inputgraph1, TGraph* inputgraph2) const
             vp_org.push_back(p);
         }
     }
-    if (p_ymax.size()==2) {
+    if (p_ymax.size()==2) { // top
         double xtmp, ytmp;
         for (int i=0; i<NP; i++) {
             xtmp = p_ymax.at(1).m_x + (p_ymax.at(0).m_x - p_ymax.at(1).m_x)/(double)NP*(double)i;
@@ -556,7 +562,7 @@ TGraph* SFH2D::CloseTwoTGraphs(TGraph* inputgraph1, TGraph* inputgraph2) const
             vp_org.push_back(p);
         }
     }
-    
+       
     std::vector<SFH2D_Point> vp_new;
     std::vector<SFH2D_Point>::iterator it, it_minimal;
     int ind, ind_minimal;
@@ -594,6 +600,17 @@ TGraph* SFH2D::CloseTwoTGraphs(TGraph* inputgraph1, TGraph* inputgraph2) const
     //    std::cout << vp_new.at(i).m_x << " " << vp_new.at(i).m_y << " "
     //              << vp_new.at(i).distance(vp_new.at(ind)) << std::endl;
     //}
+    
+    // add more points to the interval of the first and the last points 
+    double xtmp, ytmp;
+    SFH2D_Point p_last(vp_new.back().m_x, vp_new.back().m_y);
+    int NP2 = 200;
+    for (int i=0; i<NP2; i++) {
+        xtmp = p_last.m_x + (vp_new.front().m_x - p_last.m_x)/NP2*(double)i;
+        ytmp = p_last.m_y + (vp_new.front().m_y - p_last.m_y)/NP2*(double)i;
+        SFH2D_Point p(xtmp, ytmp);
+        vp_new.push_back(p);        
+    }
     
     TGraph* newTGraph = new TGraph(n_all);
     for (int i = 0; i < vp_new.size(); i++)
