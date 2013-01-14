@@ -174,26 +174,26 @@ TString BaseMacros::ConvertTitle(TString orig) const
     //-- EW precision observables --
     else if (strncmp(orig, "GammaZ", 6) == 0) str = "#Gamma_{#lower[-0.2]{Z}}#kern[0.1]{[GeV]}";
     else if (strncmp(orig, "#Gamma_{Z}", 10) == 0) str = "#Gamma_{#lower[-0.2]{Z}}#kern[0.1]{[GeV]}";
-    else if (strncmp(orig, "sigmaHadron", 11) == 0) str = "#sigma_{#lower[-0.2]{had}}#kern[0.1]{[nb]}";
-    else if (strncmp(orig, "#sigma_{had}", 12) == 0) str = "#sigma_{#lower[-0.2]{had}}#kern[0.1]{[nb]}";
-    else if (strncmp(orig, "Rlepton", 7) == 0) str = "R_{#kern[0.4]{#lower[-0.2]{l}}}";
-    else if (strncmp(orig, "R_{l}", 5) == 0) str = "R_{#kern[0.4]{#lower[-0.2]{l}}}";
-    else if (strncmp(orig, "AFBlepton", 9) == 0) str = "A_{#lower[-0.2]{FB}}^{l}";
-    else if (strncmp(orig, "A_{FB}^{l}", 10) == 0) str = "A_{#lower[-0.2]{FB}}^{l}";
+    else if (strncmp(orig, "sigmaHadron", 11) == 0) str = "#sigma^{0}_{#lower[-0.2]{h}}#kern[0.1]{[nb]}";
+    else if (strncmp(orig, "#sigma_{had}", 12) == 0) str = "#sigma^{0}_{#lower[-0.2]{had}}#kern[0.1]{[nb]}";
+    else if (strncmp(orig, "Rlepton", 7) == 0) str = "R^{0}_{#kern[0.4]{#lower[-0.2]{l}}}";
+    else if (strncmp(orig, "R_{l}", 5) == 0) str = "R^{0}_{#kern[0.4]{#lower[-0.2]{l}}}";
+    else if (strncmp(orig, "AFBlepton", 9) == 0) str = "A_{#lower[-0.2]{FB}}^{0,l}";
+    else if (strncmp(orig, "A_{FB}^{l}", 10) == 0) str = "A_{#lower[-0.2]{FB}}^{0,l}";
     else if (strncmp(orig, "PtauPol", 7) == 0) str = "P_{#lower[-0.2]{#tau}}^{Pol}";
     else if (strncmp(orig, "P_{#tau}^{Pol}", 14) == 0) str = "P_{#lower[-0.2]{#tau}}^{Pol}";
     else if (strncmp(orig, "sin2thetaEff", 12) == 0) str = "sin^{2}#theta_{#lower[-0.3]{eff}}^{lept}";
     else if (strncmp(orig, "sin^{2}#theta_{eff}", 19) == 0) str = "sin^{2}#theta_{#lower[-0.3]{eff}}^{lept}";
     else if (strncmp(orig, "Alepton", 7) == 0) str = "A_{#kern[0.2]{#lower[-0.2]{l}}}";
     else if (strncmp(orig, "A_{l}", 5) == 0) str = "A_{#kern[0.2]{#lower[-0.2]{l}}}";
-    else if (strncmp(orig, "Rbottom", 7) == 0) str = "R_{#lower[-0.2]{b}}";
-    else if (strncmp(orig, "R_{b}", 5) == 0) str = "R_{#lower[-0.2]{b}}";
-    else if (strncmp(orig, "Rcharm", 6) == 0) str = "R_{#lower[-0.2]{c}}";
-    else if (strncmp(orig, "R_{c}", 5) == 0) str = "R_{#lower[-0.2]{c}}";
-    else if (strncmp(orig, "AFBbottom", 9) == 0) str = "A_{#lower[-0.2]{FB}}^{b}";
-    else if (strncmp(orig, "A_{FB}^{b}", 10) == 0) str = "A_{#lower[-0.2]{FB}}^{b}";
-    else if (strncmp(orig, "AFBcharm", 8) == 0) str = "A_{#lower[-0.2]{FB}}^{c}";
-    else if (strncmp(orig, "A_{FB}^{c}", 10) == 0) str = "A_{#lower[-0.2]{FB}}^{c}";
+    else if (strncmp(orig, "Rbottom", 7) == 0) str = "R^{0}_{#lower[-0.2]{b}}";
+    else if (strncmp(orig, "R_{b}", 5) == 0) str = "R^{0}_{#lower[-0.2]{b}}";
+    else if (strncmp(orig, "Rcharm", 6) == 0) str = "R^{0}_{#lower[-0.2]{c}}";
+    else if (strncmp(orig, "R_{c}", 5) == 0) str = "R^{0}_{#lower[-0.2]{c}}";
+    else if (strncmp(orig, "AFBbottom", 9) == 0) str = "A_{#lower[-0.2]{FB}}^{0,b}";
+    else if (strncmp(orig, "A_{FB}^{b}", 10) == 0) str = "A_{#lower[-0.2]{FB}}^{0,b}";
+    else if (strncmp(orig, "AFBcharm", 8) == 0) str = "A_{#lower[-0.2]{FB}}^{0,c}";
+    else if (strncmp(orig, "A_{FB}^{c}", 10) == 0) str = "A_{#lower[-0.2]{FB}}^{0,c}";
     else if (strncmp(orig, "Abottom", 7) == 0) str = "A_{#lower[-0.2]{b}}";
     else if (strncmp(orig, "A_{b}", 5) == 0) str = "A_{#lower[-0.2]{b}}";
     else if (strncmp(orig, "Acharm", 6) == 0) str = "A_{#lower[-0.2]{c}}";
@@ -203,8 +203,8 @@ TString BaseMacros::ConvertTitle(TString orig) const
     else if (strncmp(orig, "GammaW", 6) == 0) str = "#Gamma_{#lower[-0.2]{W}}#kern[0.1]{[GeV]}";
     else if (strncmp(orig, "#Gamma_{W}", 10) == 0) str = "#Gamma_{#lower[-0.2]{W}}#kern[0.1]{[GeV]}";
     //
-    else if (strncmp(orig, "AllForST", 8) == 0) str = "All (incl. R_{#lower[-0.5]{f}}, #sigma_{#lower[-0.2]{had}}, #Gamma_{#lower[-0.2]{W}})";    
-    else if (strncmp(orig, "AllAsymmetries", 14) == 0) str = "sin^{2}#theta_{#lower[-0.3]{eff}}^{lept}, P_{#lower[-0.3]{#tau}}^{Pol}, A_{#kern[0.2]{#lower[-0.3]{f}}}, A_{#lower[-0.3]{FB}}^{f}";    
+    else if (strncmp(orig, "AllForST", 8) == 0) str = "All (incl. R^{0}_{#lower[-0.5]{f}}, #sigma^{0}_{#lower[-0.2]{h}}, #Gamma_{#lower[-0.2]{W}})";    
+    else if (strncmp(orig, "AllAsymmetries", 14) == 0) str = "sin^{2}#theta_{#lower[-0.3]{eff}}^{lept}, P_{#lower[-0.3]{#tau}}^{Pol}, A_{#kern[0.2]{#lower[-0.3]{f}}}, A_{#lower[-0.3]{FB}}^{0,f}";    
     else if (strncmp(orig, "EPS2EPSBSM", 9) == 0) str = "#varepsilon_{#lower[-0.2]{2}}=#varepsilon_{#lower[-0.2]{2}}^{SM}, #varepsilon_{#lower[-0.2]{b}}=#varepsilon_{#lower[-0.2]{b}}^{SM}" ;    
     
     else str = orig;
