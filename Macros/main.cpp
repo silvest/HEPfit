@@ -76,6 +76,7 @@ int main(int argc, char** argv)
         cout << "   -ylab=namey      -> y label                                   " << endl;
         cout << "   -addtext=text    -> attach additional information             " << endl;
         cout << "   -addtextAt=\"[x,y]\" -> position of the text                  " << endl;
+        cout << "   -xrange=\"[xmin,xmax]\" -> define the graph range             " << endl;
         cout << "   -smooth=ntime    -> iterative smoothing with TH1::Smooth()    " << endl;
         cout << "                       (default: ntime=0)                        " << endl;
         cout << "   -moreBins=nbin   -> increase the number of bins               " << endl;
@@ -106,11 +107,27 @@ int main(int argc, char** argv)
         cout << "                       (default: index=1001)                     " << endl;
         cout << "   -leg2=legend     -> legend for plot2                          " << endl;
         cout << "                       (default: no legend)                      " << endl;
+        cout << "   *** superimpose the third histogram ***                       " << endl;
+        cout << "   -plot3=name      -> name of the histogram                     " << endl;
+        cout << "   -rootfile3=filename3 -> rootfile name for plot3 (with extension)" << endl;
+        cout << "                           (default: same as rootfile)           " << endl;
+        cout << "   -smooth3=ntime   -> iterative smoothing for plot3             " << endl;
+        cout << "                       (default: ntime=0)                        " << endl;
+        cout << "   -moreBins3=nbin  -> increase the number of bins for plot3     " << endl;
+        cout << "                       (default: nbin=100)                       " << endl;
+        cout << "   -col683=index    -> color index of the 68% interval for plot3 " << endl;
+        cout << "                       (default: index=2)                        " << endl;
+        cout << "   -col953=index    -> color index of the 95% interval for plot3 " << endl;
+        cout << "                       (default: index=5)                        " << endl;
+        cout << "   -fill3=index     -> index of the fill area style              " << endl;
+        cout << "                       (default: index=1001)                     " << endl;
+        cout << "   -leg3=legend     -> legend for plot3                          " << endl;
+        cout << "                       (default: no legend)                      " << endl;
         cout << "   *** superimpose a Gaussian function ***                       " << endl;
         cout << "   -priorMean=mean  -> mean value for the Gaussian function      " << endl;
         cout << "   -priorSigma=sig  -> standard deviation for the Gaussian function" << endl;
         cout << "                                                                 " << endl;
-        cout << "   -leg3=legend     -> legend for the Gaussian function          " << endl;
+        cout << "   -leg4=legend     -> legend for the Gaussian function          " << endl;
         cout << "                       (default: no legend)                      " << endl;
         cout << " Optional parameters for compatibility plots:                    " << endl;
         cout << "   --compat           -> Compatibility plot (mandatory)          " << endl;
@@ -255,7 +272,7 @@ int main(int argc, char** argv)
     bool b3rdplot = false, bOnly953 = false;
     string plotname3 = "", filename3 = "";
     TString leg3 = "";
-    int smooth3 = 0, col683 = 2, col953 = 5, fillStyle3 = 1001, lineStyle3 = 1;
+    int smooth3 = 0, col683 = 2, col953 = 5, fillStyle3 = 1001, lineStyle3 = 1, newNbins3 = 100;
     //
     bool b4thplot = false, bOnly954 = false;
     string plotname4 = "", filename4 = "";
@@ -331,6 +348,11 @@ int main(int argc, char** argv)
         if (strncmp(argv[i], "-priorSigma=", 12) == 0) 
             sscanf(argv[i], "-priorSigma=%lf", &prior_sigma);
 
+        if (strncmp(argv[i], "-xrange=", 8) == 0) {
+            TString stmp(argv[i] + 8);
+            sscanf(stmp.Data(), "[%lf,%lf]", &x_low, &x_up);
+        }
+
         if (strncmp(argv[i], "-range=", 7) == 0) {
             TString stmp(argv[i] + 7);
             sscanf(stmp.Data(), "[%lf,%lf]x[%lf,%lf]", &x_low, &x_up, &y_low, &y_up);
@@ -361,6 +383,8 @@ int main(int argc, char** argv)
             sscanf(argv[i], "-moreBins=%d", &newNbins);
         if (strncmp(argv[i], "-moreBins2=", 11) == 0)
             sscanf(argv[i], "-moreBins2=%d", &newNbins2);
+        if (strncmp(argv[i], "-moreBins3=", 11) == 0)
+            sscanf(argv[i], "-moreBins3=%d", &newNbins3);
         
         if (strncmp(argv[i], "-smooth=", 8) == 0)
             sscanf(argv[i], "-smooth=%d", &smooth);
@@ -576,7 +600,7 @@ int main(int argc, char** argv)
         SFH1D SFHisto1D(*hist, prob68, prob95);
         SFHisto1D.smoothHist(smooth);
         SFHisto1D.increaseNbins(newNbins);
-        SFHisto1D.Draw(xlab, ylab, col68, col95, fillStyle, maxDig, bOrig, false); 
+        SFHisto1D.Draw(xlab, ylab, col68, col95, fillStyle, maxDig, bOrig, false, x_low, x_up); 
     
         // rescale (for mHl)
         //SFHisto1D.getNewHist()->Scale(10.0);
@@ -585,7 +609,7 @@ int main(int argc, char** argv)
         //SFHisto1D.getNewHist()->GetXaxis()->SetRange(400,1400);
         //leg += " [x10]";
             
-        // superimpose another 1-D histogram (e.g. for a posterior)
+        // superimpose the second 1-D histogram (e.g. for a posterior)
         TH1D* plot2_pt = NULL;
         if (b2ndplot) {
             TH1D* hist2 = (TH1D*) tobj2->Clone();
@@ -596,18 +620,39 @@ int main(int argc, char** argv)
             plot2_pt = SFHisto1D2.getNewHist68();
 
             // rescale the y axis
-            double ymax_new = max( SFHisto1D.getNewHist()->GetMaximum(), 
+            double ymax_new = max( SFHisto1D.getHistAxes()->GetMaximum(), 
                                    1.1*SFHisto1D2.getNewHist()->GetMaximum() );
-            SFHisto1D.getNewHist()->SetMaximum(ymax_new);
+            SFHisto1D.getHistAxes()->SetMaximum(ymax_new);
         }
             
+        // superimpose the third 1-D histogram
+        TH1D* plot3_pt = NULL;
+        if (b3rdplot) {
+            TH1D* hist3 = (TH1D*) tobj3->Clone();
+            SFH1D SFHisto1D3(*hist3, prob68, prob95);
+            SFHisto1D3.smoothHist(smooth3);
+            SFHisto1D3.increaseNbins(newNbins3);
+            SFHisto1D3.Draw("", "", col683, col953, fillStyle3, maxDig, bOrig, true);    
+            plot3_pt = SFHisto1D3.getNewHist68();
+
+            // rescale the y axis
+            double ymax_new = max( SFHisto1D.getHistAxes()->GetMaximum(), 
+                                   1.1*SFHisto1D3.getNewHist()->GetMaximum() );
+            SFHisto1D.getHistAxes()->SetMaximum(ymax_new);
+        }
+
         // superimpose a Gaussian (prior) function
         TF1* prior = NULL;
         if (prior_sigma != 0.0) {
+            double xmin = SFHisto1D.getNewHist()->GetXaxis()->GetXmin();
+            double xmax = SFHisto1D.getNewHist()->GetXaxis()->GetXmax();
+            if (x_low != 0.0 || x_up != 0.0) {
+                xmin = x_low;
+                xmax = x_up;
+            }
             prior = new TF1("prior",
                     "1./sqrt(2.*TMath::Pi())/[1]* exp(- (x-[0])*(x-[0])/2./[1]/[1])",
-                    SFHisto1D.getNewHist()->GetXaxis()->GetXmin(),
-                    SFHisto1D.getNewHist()->GetXaxis()->GetXmax());
+                    xmin, xmax);
             prior->SetParameter(0, prior_mean);
             prior->SetParameter(1, prior_sigma);    
             prior->SetLineStyle(2);
@@ -616,14 +661,15 @@ int main(int argc, char** argv)
             prior->Draw("SAME");
             
             // rescale the y axis
-            double ymax_new = max( SFHisto1D.getNewHist()->GetMaximum(),
+            double ymax_new = max( SFHisto1D.getHistAxes()->GetMaximum(),
                                    1.1*prior->GetMaximum() );
-            SFHisto1D.getNewHist()->SetMaximum(ymax_new);
+            SFHisto1D.getHistAxes()->SetMaximum(ymax_new);
         }
 
-        // legends: Change the order if needed. 
-        if (prior != NULL) legend->AddEntry(prior, myMacros.ConvertTitle(leg3), "L");
+        // legends: Change the order if necessary. 
+        if (prior != NULL) legend->AddEntry(prior, myMacros.ConvertTitle(leg4), "L");
         if (plot2_pt != NULL) legend->AddEntry(plot2_pt, myMacros.ConvertTitle(leg2), "F");
+        if (plot3_pt != NULL) legend->AddEntry(plot3_pt, myMacros.ConvertTitle(leg3), "F");
         legend->AddEntry(SFHisto1D.getNewHist68(), myMacros.ConvertTitle(leg), "F");
         
         // output results to os
@@ -744,7 +790,7 @@ int main(int argc, char** argv)
             ly->DrawLine(xval2, min_y, xval2, max_y);
         }
         
-        // legends: Change the order if needed. 
+        // legends: Change the order if necessary. 
         string leg_opt;
         if (contour4_pt != NULL && leg4.CompareTo("")!= 0) {
             if (fillStyle4!=0) leg_opt = "F";

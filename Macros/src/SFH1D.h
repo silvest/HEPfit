@@ -96,6 +96,15 @@ public:
     {
         return localMode;        
     }
+ 
+    /**
+     * @return Empty histogram for axes.
+     */
+    TH1D* getHistAxes() const 
+    {
+        return HistAxes;
+    }
+    
     
     /**
      * Smooth the bin contents of th histogram by using TH1::Smooth(). 
@@ -120,10 +129,14 @@ public:
      * @param[in] maxDigits The maximum digits of axis labels. 
      * @param[in] bOrigHist A flag controlling if the original histogram is superimposed. 
      * @param[in] superImpose A flag controlling if another histogram is superimposed. 
+     * @param[in] x_low
+     * @param[in] x_up
      */
     void Draw(const TString xlab, const TString ylab, const int col68, const int col95, 
               const int fillStyle, 
-              const int maxDigits, const bool bOrigHist = false, const bool superImpose = false);
+              const int maxDigits, const bool bOrigHist = false, 
+              const bool superImpose = false, 
+              const double x_low = 0.0, const double x_up = 0.0);
     
 
     /**
@@ -196,6 +209,11 @@ private:
      * The local mode of the modified histogram. 
      */
     double localMode;
+    
+    /*
+     * Empty histogram for axes.
+     */
+    TH1D* HistAxes;
     
     /**
      * Compute @f$y(x)=ax^2+bx+c@f$ for a given x, where a, b and c are fixed 

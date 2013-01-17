@@ -26,6 +26,7 @@ SFH1D::SFH1D(TH1D& hist, const double prob68_in, const double prob95_in)
     newHist95 = (TH1D*) newHist->Clone("95");     
     
     computeIntervals();
+    HistAxes = NULL;
 }
 
 
@@ -82,43 +83,9 @@ void SFH1D::increaseNbins(const int newNbin)
 void SFH1D::Draw(const TString xlab, const TString ylab, 
                  const int col68, const int col95, const int fillStyle, 
                  const int maxDigits, 
-                 const bool bOrigHist, const bool superImpose)
-{
-    newHist->SetTitle("");
-    newHist->GetXaxis()->SetTitleSize(0.06);
-    newHist->GetYaxis()->SetTitleSize(0.06);
-    newHist->GetXaxis()->SetTitleOffset(1.1);
-    newHist->GetYaxis()->SetTitleOffset(1.5);
-    newHist->GetXaxis()->SetNdivisions(505);
-    newHist->GetYaxis()->SetNdivisions(505);
-    newHist->GetXaxis()->SetLabelOffset(0.013);
-    newHist->GetXaxis()->SetLabelSize(0.043);
-    newHist->GetYaxis()->SetLabelOffset(0.013);
-    newHist->GetYaxis()->SetLabelSize(0.043);
-    newHist->SetLabelFont(42,"X");
-    newHist->SetLabelFont(42,"Y");
-    newHist->SetTitleFont(42,"X");
-    newHist->SetTitleFont(42,"Y");
-    //newHist->SetLabelFont(62,"X"); // bold font
-    //newHist->SetLabelFont(62,"Y");
-    //newHist->SetTitleFont(62,"X");
-    //newHist->SetTitleFont(62,"Y");
-    newHist->SetMinimum(0.0);
-    newHist->SetLineStyle(1);
-    ((TGaxis*) newHist->GetXaxis())->SetMaxDigits(maxDigits);
-    ((TGaxis*) newHist->GetYaxis())->SetMaxDigits(maxDigits);
-
-    // Titles of the axes 
-    if (xlab.CompareTo("")==0) {
-        TString Xtitle = ConvertTitle(newHist->GetXaxis()->GetTitle());
-        newHist->GetXaxis()->SetTitle(Xtitle);
-    } else
-        newHist->GetXaxis()->SetTitle(xlab);
-    if (ylab.CompareTo("")==0)
-        newHist->GetYaxis()->SetTitle("Probability density");
-    else 
-        newHist->GetYaxis()->SetTitle(ylab);
-    
+                 const bool bOrigHist, const bool superImpose,
+                 const double x_low, const double x_up)
+{    
     // This is necessary to set the same styles and titles as newHist 
     // to newHist68 and newHist95. 
     computeIntervals();
@@ -135,9 +102,54 @@ void SFH1D::Draw(const TString xlab, const TString ylab,
     newHist95->Scale(1.0/newHist95->GetBinWidth(1));
             
     // draw the histograms
-    if (!superImpose) 
-        newHist->Draw();
-    else {
+    if (!superImpose) {
+        if (x_low != 0.0 || x_up != 0.0) {
+            HistAxes = (TH1D*) newHist->Clone();
+            HistAxes->Reset("M");
+            delete HistAxes;
+            HistAxes = new TH1D("HistAxes","HistAxes", 100, x_low, x_up); 
+            HistAxes->SetMinimum(0.0);
+            HistAxes->SetMaximum(1.1*newHist->GetMaximum());
+
+            HistAxes->SetTitle("");
+            HistAxes->GetXaxis()->SetTitleSize(0.06);
+            HistAxes->GetYaxis()->SetTitleSize(0.06);
+            HistAxes->GetXaxis()->SetTitleOffset(1.1);
+            HistAxes->GetYaxis()->SetTitleOffset(1.5);
+            HistAxes->GetXaxis()->SetNdivisions(505);
+            HistAxes->GetYaxis()->SetNdivisions(505);
+            HistAxes->GetXaxis()->SetLabelOffset(0.013);
+            HistAxes->GetXaxis()->SetLabelSize(0.043);
+            HistAxes->GetYaxis()->SetLabelOffset(0.013);
+            HistAxes->GetYaxis()->SetLabelSize(0.043);
+            HistAxes->SetLabelFont(42,"X");
+            HistAxes->SetLabelFont(42,"Y");
+            HistAxes->SetTitleFont(42,"X");
+            HistAxes->SetTitleFont(42,"Y");
+            //HistAxes->SetLabelFont(62,"X"); // bold font
+            //HistAxes->SetLabelFont(62,"Y");
+            //HistAxes->SetTitleFont(62,"X");
+            //HistAxes->SetTitleFont(62,"Y");
+            ((TGaxis*) HistAxes->GetXaxis())->SetMaxDigits(maxDigits);
+            ((TGaxis*) HistAxes->GetYaxis())->SetMaxDigits(maxDigits);
+            
+            // Titles of the axes 
+            if (xlab.CompareTo("")==0) {
+                TString Xtitle = ConvertTitle(newHist->GetXaxis()->GetTitle());
+                HistAxes->GetXaxis()->SetTitle(Xtitle);
+            } else
+                HistAxes->GetXaxis()->SetTitle(xlab);
+            if (ylab.CompareTo("")==0)
+                HistAxes->GetYaxis()->SetTitle("Probability density");
+            else 
+                HistAxes->GetYaxis()->SetTitle(ylab);
+
+            HistAxes->Draw();
+            newHist->SetLineStyle(1);
+            newHist->Draw("SAME");
+        } else 
+            newHist->Draw();
+    } else {
         newHist->SetLineStyle(3);
         newHist68->SetFillStyle(fillStyle);
         newHist95->SetFillStyle(fillStyle);
