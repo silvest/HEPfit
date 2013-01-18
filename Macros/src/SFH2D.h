@@ -73,7 +73,7 @@ public:
      * @param[in] ylab The label of the y axis. 
      * @param[in] col68 The color index for the 68% interval. 
      * @param[in] col95 The color index for the 95% interval. 
-     * @param[in] lineStyle
+     * @param[in] lineStyle The index of the line style. 
      * @param[in] fillStyle The index of the fill area style. 
      * @param[in] maxDigits The maximum digits of axis labels. 
      * @param[in] bLine  

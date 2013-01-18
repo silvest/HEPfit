@@ -47,199 +47,104 @@ int main(int argc, char** argv)
 {
     
     if (argc < 3) {
-        cout << "#################################################################" << endl;
-        cout << " Usage:                                                          " << endl;
-        cout << "   1-D histogram:                                                " << endl;
-        cout << "     > macros rootfile plotname --oneDim <optional parameters>   " << endl;
-        cout << "   Compatibility plot:                                           " << endl;
-        cout << "     > macros rootfile plotname --compat <optional parameters>   " << endl;
-        cout << "   2-D histogram:                                                " << endl;
-        cout << "     > macros rootfile plotname --twoDim <optional parameters>   " << endl;
-        cout << "       'rootfile' (with extension)                               " << endl;
-        cout << "       'plotname' (e.g. sin2b)                                   " << endl;
-        cout << "                                                                 " << endl;
-        cout << "   Check the contents of a rootfile:                             " << endl;
-        cout << "     > macros rootfile info                                      " << endl;
-        cout << "                                                                 " << endl;
-        cout << " Optional parameters for 1-D histograms:                         " << endl;
-        cout << "   --oneDim         -> 1-D histogram (mandatory)                 " << endl;
-        cout << "   --orig           -> superimpose the original histogram        " << endl;
-        cout << "   --leftLegend     -> put the legend in the left area           " << endl;
-        cout << "   --outputTxt      -> output results to a text file             " << endl;
+        cout << "######################################################################" << endl;
+        cout << " Usage:                                                               " << endl;
+        cout << "   1-D histogram:                                                     " << endl;
+        cout << "     > macros --oneDim -rootfile1=rootfile -plot1=plotname <optional parameters>" << endl;
+        cout << "   Compatibility plot:                                                " << endl;
+        cout << "     > macros --compat -rootfile1=rootfile -plot1=plotname <optional parameters>" << endl;
+        cout << "   2-D histogram:                                                     " << endl;
+        cout << "     > macros --twoDim -rootfile1=rootfile -plot1=plotname <optional parameters>" << endl;
+        cout << "       'rootfile' (with extension)                                    " << endl;
+        cout << "       'plotname' (e.g. sin2b)                                        " << endl;
+        cout << "                                                                      " << endl;
+        cout << "   Check the contents of a rootfile:                                  " << endl;
+        cout << "     > macros info -rootfile1=rootfile                                " << endl;
+        cout << "                                                                      " << endl;
+        cout << " Optional parameters for 1-D histograms:                              " << endl;
+        cout << "   --oneDim         -> 1-D histogram (mandatory)                      " << endl;
+        cout << "   --orig           -> superimpose the original histogram             " << endl;
+        cout << "   --leftLegend     -> put the legend in the left area                " << endl;
+        cout << "   --outputTxt      -> output results to a text file                  " << endl;
         cout << "   -output=filename -> the base name of output eps and text files (without extension)" << endl;
-        cout << "                       (default: plotname)                       " << endl;
-        cout << "   -maxDigits=n     -> set max digits in the axis labels         " << endl;
-        cout << "                       (default: n=8)                            " << endl;
-        cout << "   -precision=n     -> precision of values in the std output     " << endl;
-        cout << "                       (default: n=6)                            " << endl;
-        cout << "   -xlab=namex      -> x label                                   " << endl;
-        cout << "   -ylab=namey      -> y label                                   " << endl;
-        cout << "   -addtext=text    -> attach additional information             " << endl;
-        cout << "   -addtextAt=\"[x,y]\" -> position of the text                  " << endl;
-        cout << "   -xrange=\"[xmin,xmax]\" -> define the graph range             " << endl;
-        cout << "   -smooth=ntime    -> iterative smoothing with TH1::Smooth()    " << endl;
-        cout << "                       (default: ntime=0)                        " << endl;
-        cout << "   -moreBins=nbin   -> increase the number of bins               " << endl;
-        cout << "                       (default: nbin=100)                       " << endl;
-        cout << "   -col68=index     -> color index of the 68% interval           " << endl;
-        cout << "                       (default: index=1393)                     " << endl;
-        cout << "   -col95=index     -> color index of the 95% interval           " << endl;
-        cout << "                       (default: index=1392)                     " << endl;
-        cout << "   -fill=index      -> index of the fill area style              " << endl;
-        cout << "                       (default: index=1001)                     " << endl;
-        cout << "   -leg=legend      -> legend for the histogram                  " << endl;
-        cout << "                       (default: no legend)                      " << endl;
-        cout << "   -legScale=scale  -> scale factor for the legend               " << endl;
-        cout << "                       (default: scale=1.0)                      " << endl;
-        cout << "   *** superimpose the second histogram ***                      " << endl;
-        cout << "   -plot2=name      -> name of the histogram                     " << endl;
-        cout << "   -rootfile2=filename2 -> rootfile name for plot2 (with extension)" << endl;
-        cout << "                           (default: same as rootfile)           " << endl;
-        cout << "   -smooth2=ntime   -> iterative smoothing for plot2             " << endl;
-        cout << "                       (default: ntime=0)                        " << endl;
-        cout << "   -moreBins2=nbin  -> increase the number of bins for plot2     " << endl;
-        cout << "                       (default: nbin=100)                       " << endl;
-        cout << "   -col682=index    -> color index of the 68% interval for plot2 " << endl;
-        cout << "                       (default: index=2)                        " << endl;
-        cout << "   -col952=index    -> color index of the 95% interval for plot2 " << endl;
-        cout << "                       (default: index=5)                        " << endl;
-        cout << "   -fill2=index     -> index of the fill area style              " << endl;
-        cout << "                       (default: index=1001)                     " << endl;
-        cout << "   -leg2=legend     -> legend for plot2                          " << endl;
-        cout << "                       (default: no legend)                      " << endl;
-        cout << "   *** superimpose the third histogram ***                       " << endl;
-        cout << "   -plot3=name      -> name of the histogram                     " << endl;
-        cout << "   -rootfile3=filename3 -> rootfile name for plot3 (with extension)" << endl;
-        cout << "                           (default: same as rootfile)           " << endl;
-        cout << "   -smooth3=ntime   -> iterative smoothing for plot3             " << endl;
-        cout << "                       (default: ntime=0)                        " << endl;
-        cout << "   -moreBins3=nbin  -> increase the number of bins for plot3     " << endl;
-        cout << "                       (default: nbin=100)                       " << endl;
-        cout << "   -col683=index    -> color index of the 68% interval for plot3 " << endl;
-        cout << "                       (default: index=2)                        " << endl;
-        cout << "   -col953=index    -> color index of the 95% interval for plot3 " << endl;
-        cout << "                       (default: index=5)                        " << endl;
-        cout << "   -fill3=index     -> index of the fill area style              " << endl;
-        cout << "                       (default: index=1001)                     " << endl;
-        cout << "   -leg3=legend     -> legend for plot3                          " << endl;
-        cout << "                       (default: no legend)                      " << endl;
-        cout << "   *** superimpose a Gaussian function ***                       " << endl;
-        cout << "   -priorMean=mean  -> mean value for the Gaussian function      " << endl;
-        cout << "   -priorSigma=sig  -> standard deviation for the Gaussian function" << endl;
-        cout << "                                                                 " << endl;
-        cout << "   -leg4=legend     -> legend for the Gaussian function          " << endl;
-        cout << "                       (default: no legend)                      " << endl;
-        cout << " Optional parameters for compatibility plots:                    " << endl;
-        cout << "   --compat           -> Compatibility plot (mandatory)          " << endl;
-        cout << "   --outputTxt      -> output results to a text file             " << endl;
+        cout << "                       [default: plotname]                            " << endl;
+        cout << "   -maxDigits=n     -> set max digits in the axis labels [default: n=8]" << endl;
+        cout << "   -precision=n     -> precision of values in the std output [default: n=6]" << endl;
+        cout << "   -xlab=namex      -> x label                                        " << endl;
+        cout << "   -ylab=namey      -> y label                                        " << endl;
+        cout << "   -addtext=text    -> attach additional information                  " << endl;
+        cout << "   -addtextAt=\"[x,y]\" -> position of the text                       " << endl;
+        cout << "   -xrange=\"[xmin,xmax]\" -> define the graph range                  " << endl;
+        cout << "   -legScale=scale  -> scale factor for the legend [default: scale=1] " << endl;
+        cout << "   *** options for histograms (N=1,2,3,4) ***                         " << endl;
+        cout << "   -plotN=name      -> name of the histogram                          " << endl;
+        cout << "   -rootfileN=filename -> rootfile name for plotN (with extension)    " << endl;
+        cout << "         [For N=2,3, the same as the rootfile for plot1 by default]   " << endl;
+        cout << "   -smoothN=ntime   -> iterative smoothing for plotN [default: ntime=0]" << endl;
+        cout << "   -moreBinsN=nbin  -> increase the number of bins for plotN [default: nbin=100]" << endl;
+        cout << "   -lineStyleN=index -> index of the line style [default: index=1]    " << endl;
+        cout << "   -lineWidthN=index -> index of the line width [default: index=1]    " << endl;
+        cout << "   -lineColorN=index -> index of the line color [default: index=1]    " << endl;
+        cout << "   -col68N=index    -> color index of the 68% interval for plotN [default: index=1393]" << endl;
+        cout << "   -col95N=index    -> color index of the 95% interval for plotN [default: index=1392]" << endl;
+        cout << "   -fillN=index     -> index of the fill area style [default: index=1001]" << endl;
+        cout << "   -legN=legend     -> legend for plotN [default: no legend]          " << endl;
+        cout << "   [e.g. -plot2=Mw -roogfile2=test.root -smooth2=3 -col682=2 -col952=5]" << endl;
+        cout << "   *** superimpose a Gaussian function ***                            " << endl;
+        cout << "   -priorMean=mean  -> mean value for the Gaussian function           " << endl;
+        cout << "   -priorSigma=sig  -> standard deviation for the Gaussian function   " << endl;
+        cout << "   -legGauss=legend -> legend for the Gaussian function [default: no legend]" << endl;
+        cout << "                                                                      " << endl;
+        cout << " Optional parameters for compatibility plots:                         " << endl;
+        cout << "   --compat         -> Compatibility plot (mandatory)                 " << endl;
+        cout << "   --outputTxt      -> output results to a text file                  " << endl;
         cout << "   -output=filename -> the base name of output eps and text files (without extension)" << endl;
-        cout << "                       (default: plotname)                       " << endl;
-        cout << "   -maxDigits=n     -> set max digits in the axis labels         " << endl;
-        cout << "                       (default: n=8)                            " << endl;
-        cout << "   -precision=n     -> precision of values in the std output     " << endl;
-        cout << "                       (default: n=6)                            " << endl;
-        cout << "   -addtext=text    -> attach additional information             " << endl;
-        cout << "   -addtextAt=\"[x,y]\" -> position of the text                  " << endl;
-        cout << "   -range=\"[xmin,xmax]x[ymin,ymax]\" -> define the graph range  " << endl;
-        cout << "   -bins=\"[xbins]x[ybins]\"          -> define the graph binning" << endl;
-        cout << "                                         (default: 100x20)       " << endl;
-        cout << "   -xlab=namex      -> x label                                   " << endl;
-        cout << "   -ylab=namey      -> y label                                   " << endl;
-        cout << "   *** put a measured point ***                                  " << endl;
-        cout << "   -val=xval        -> xval is the measured point                " << endl;
-        cout << "   -err=xerr        -> xerr is the error of xval                 " << endl;
-        cout << "                                                                 " << endl;
-        cout << " Optional parameters for 2-D histograms:                         " << endl;
-        cout << "   --twoDim         -> 2-D histogram (mandatory)                 " << endl;
-        cout << "   --drawlines      -> draw contour lines                        " << endl;
-        cout << "   --outputTxt      -> output results to a text file             " << endl;
-        cout << "   --only951        -> draw only the 95% contour                 " << endl;
+        cout << "                       [default: plotname]                            " << endl;
+        cout << "   -maxDigits=n     -> set max digits in the axis labels [default: n=8]" << endl;
+        cout << "   -precision=n     -> precision of values in the std output [default: n=6]" << endl;
+        cout << "   -addtext=text    -> attach additional information                  " << endl;
+        cout << "   -addtextAt=\"[x,y]\" -> position of the text                       " << endl;
+        cout << "   -range=\"[xmin,xmax]x[ymin,ymax]\" -> define the graph range       " << endl;
+        cout << "   -bins=\"[xbins]x[ybins]\"  -> define the graph binning [default: 100x20]" << endl;
+        cout << "   -xlab=namex      -> x label                                        " << endl;
+        cout << "   -ylab=namey      -> y label                                        " << endl;
+        cout << "   *** put a measured point ***                                       " << endl;
+        cout << "   -val=xval        -> xval is the measured point                     " << endl;
+        cout << "   -err=xerr        -> xerr is the error of xval                      " << endl;
+        cout << "                                                                      " << endl;
+        cout << " Optional parameters for 2-D histograms:                              " << endl;
+        cout << "   --twoDim         -> 2-D histogram (mandatory)                      " << endl;
+        cout << "   --drawlines      -> draw contour lines                             " << endl;
+        cout << "   --outputTxt      -> output results to a text file                  " << endl;
         cout << "   -output=filename -> the base name of output eps and text files (without extension)" << endl;
-        cout << "                       (default: plotname)                       " << endl;
-        cout << "   -maxDigits=n     -> set max digits in the axis labels         " << endl;
-        cout << "                       (default: n=8)                            " << endl;
-        cout << "   -precision=n     -> precision of values in the std output     " << endl;
-        cout << "                       (default: n=6)                            " << endl;
-        cout << "   -addtext=text    -> attach additional information             " << endl;
-        cout << "   -addtextAt=\"[x,y]\" -> position of the text                  " << endl;
-        cout << "   -range=\"[xmin,xmax]x[ymin,ymax]\" -> define the graph range  " << endl;
-        cout << "   -xlab=namex      -> x label                                   " << endl;
-        cout << "   -ylab=namey      -> y label                                   " << endl;
-        cout << "   -smooth=ntime    -> iterative smoothing with TH2::Smooth()    " << endl;
-        cout << "                       (default: ntime=0)                        " << endl;
-        cout << "   -col68=index     -> color index of the 68% interval           " << endl;
-        cout << "                       (default: index=1393)                     " << endl;
-        cout << "   -col95=index     -> color index of the 95% interval           " << endl;
-        cout << "                       (default: index=1392)                     " << endl;
-        cout << "   -line=index      -> index of the line style                   " << endl;
-        cout << "                       (default: index=1)                        " << endl;
-        cout << "   -fill=index      -> index of the fill area style              " << endl;
-        cout << "                       (default: index=1001)                     " << endl;
-        cout << "   -leg=legend      -> legend for the histogram                  " << endl;
-        cout << "                       (default: no legend)                      " << endl;
-        cout << "   -legScale=scale  -> scale factor for the legend               " << endl;
-        cout << "                       (default: scale=1.0)                      " << endl;
-        cout << "   *** superimpose the second histogram ***                      " << endl;
-        cout << "   --only952        -> draw only the 95% contour                 " << endl;
-        cout << "   -plot2=name      -> name of the histogram                     " << endl;
-        cout << "   -rootfile2=filename -> rootfile name for plot2 (with extension)" << endl;
-        cout << "                          (default: same as rootfile)            " << endl;
-        cout << "   -smooth2=ntime   -> iterative smoothing for plot2             " << endl;
-        cout << "                       (default: ntime=0)                        " << endl;
-        cout << "   -col682=index    -> color index of the 68% interval for plot2 " << endl;
-        cout << "                       (default: index=2)                        " << endl;
-        cout << "   -col952=index    -> color index of the 95% interval for plot2 " << endl;
-        cout << "                       (default: index=5)                        " << endl;
-        cout << "   -line2=index     -> index of the line style                   " << endl;
-        cout << "                       (default: index=1)                        " << endl;
-        cout << "   -fill2=index     -> index of the fill area style              " << endl;
-        cout << "                       (default: index=1001)                     " << endl;
-        cout << "   -leg2=legend     -> legend for plot2                          " << endl;
-        cout << "                       (default: no legend)                      " << endl;
-        cout << "   *** superimpose the third histogram ***                       " << endl;
-        cout << "   --only953        -> draw only the 95% contour                 " << endl;
-        cout << "   -plot3=name      -> name of the histogram                     " << endl;
-        cout << "   -rootfile3=filename -> rootfile name for plot3 (with extension)" << endl;
-        cout << "                          (default: same as rootfile)            " << endl;
-        cout << "   -smooth3=ntime   -> iterative smoothing for plot3             " << endl;
-        cout << "                       (default: ntime=0)                        " << endl;
-        cout << "   -col683=index    -> color index of the 68% interval for plot3 " << endl;
-        cout << "                       (default: index=2)                        " << endl;
-        cout << "   -col953=index    -> color index of the 95% interval for plot3 " << endl;
-        cout << "                       (default: index=5)                        " << endl;
-        cout << "   -line3=index     -> index of the line style                   " << endl;
-        cout << "                       (default: index=1)                        " << endl;
-        cout << "   -fill3=index     -> index of the fill area style              " << endl;
-        cout << "                       (default: index=1001)                     " << endl;
-        cout << "   -leg3=legend     -> legend for plot3                          " << endl;
-        cout << "                       (default: no legend)                      " << endl;
-        cout << "   *** superimpose the fourth histogram ***                      " << endl;
-        cout << "   --only954        -> draw only the 95% contour                 " << endl;
-        cout << "   -plot4=name      -> name of the histogram                     " << endl;
-        cout << "   -rootfile4=filename -> rootfile name for plot4 (with extension)" << endl;
-        cout << "                          (default: same as rootfile)            " << endl;
-        cout << "   -smooth4=ntime   -> iterative smoothing for plot4             " << endl;
-        cout << "                       (default: ntime=0)                        " << endl;
-        cout << "   -col684=index    -> color index of the 68% interval for plot4 " << endl;
-        cout << "                       (default: index=2)                        " << endl;
-        cout << "   -col954=index    -> color index of the 95% interval for plot4 " << endl;
-        cout << "                       (default: index=5)                        " << endl;
-        cout << "   -line4=index     -> index of the line style                   " << endl;
-        cout << "                       (default: index=1)                        " << endl;
-        cout << "   -fill4=index     -> index of the fill area style              " << endl;
-        cout << "                       (default: index=1001)                     " << endl;
-        cout << "   -leg4=legend     -> legend for plot4                          " << endl;
-        cout << "                       (default: no legend)                      " << endl;
-        cout << "   *** put a measured point ***                                  " << endl;
-        cout << "   -Xval=xval2      -> xval2 is the x value of the point         " << endl;
-        cout << "   -Xerr=xerr2      -> xerr2 is the error of xval2               " << endl;
-        cout << "   -Yval=yval2      -> yval2 is the y value of the point         " << endl;
-        cout << "   -Yerr=yerr2      -> yerr2 is the error of yval2               " << endl;
-        cout << "   -colP=index      -> color index of the measured point         " << endl;
-        cout << "                       (default: index=1)                        " << endl;
-        cout << "   -legP=legend     -> legend for the point                      " << endl;
-        cout << "                       (default: no legend)                      " << endl;
-        cout << "#################################################################" << endl;
+        cout << "                       [default: plotname]                            " << endl;
+        cout << "   -maxDigits=n     -> set max digits in the axis labels [default: n=8]" << endl;
+        cout << "   -precision=n     -> precision of values in the std output [default: n=6]" << endl;
+        cout << "   -addtext=text    -> attach additional information                  " << endl;
+        cout << "   -addtextAt=\"[x,y]\" -> position of the text                       " << endl;
+        cout << "   -range=\"[xmin,xmax]x[ymin,ymax]\" -> define the graph range       " << endl;
+        cout << "   -xlab=namex      -> x label                                        " << endl;
+        cout << "   -ylab=namey      -> y label                                        " << endl;
+        cout << "   -legScale=scale  -> scale factor for the legend [default: scale=1.0]" << endl;
+        cout << "   *** options for histogram (N=1,2,3,4) ***                          " << endl;
+        cout << "   --only95N        -> draw only the 95% contour                      " << endl;
+        cout << "   -plotN=name      -> name of the histogram                          " << endl;
+        cout << "   -rootfileN=filename -> rootfile name for plotN (with extension)    " << endl;
+        cout << "         [For N=2,3, the same as the rootfile for plot1 by default]   " << endl;
+        cout << "   -smoothN=ntime   -> iterative smoothing for plotN [default: ntime=0]" << endl;
+        cout << "   -col68N=index    -> color index of the 68% interval for plotN [default: index=1393]" << endl;
+        cout << "   -col95N=index    -> color index of the 95% interval for plotN [default: index=1392]" << endl;
+        cout << "   -lineN=index     -> index of the line style [default: index=1]     " << endl;
+        cout << "   -fillN=index     -> index of the fill area style [default: index=1001]" << endl;
+        cout << "   -legN=legend     -> legend for plotN [default: no legend]          " << endl;
+        cout << "   *** put a measured point ***                                       " << endl;
+        cout << "   -Xval=xval2      -> xval2 is the x value of the point              " << endl;
+        cout << "   -Xerr=xerr2      -> xerr2 is the error of xval2                    " << endl;
+        cout << "   -Yval=yval2      -> yval2 is the y value of the point              " << endl;
+        cout << "   -Yerr=yerr2      -> yerr2 is the error of yval2                    " << endl;
+        cout << "   -colP=index      -> color index of the measured point [default: index=1]" << endl;
+        cout << "   -legP=legend     -> legend for the point [default: no legend]      " << endl;
+        cout << "######################################################################" << endl;
         return 0;
     }
 
@@ -249,240 +154,265 @@ int main(int argc, char** argv)
     int maxDig = 8, prec = 6;
     int nx = 100, ny = 20;
     double xval = -999.0, xerr = 0.0, x_low = 0.0, x_up = 0.0, y_low = 0.0, y_up = 0.0;
-    double prior_mean = 0.0, prior_sigma = 0.0;
     double legend_scale = 1.0;
     TString addtext = "";
     double addtext_x = 0.0, addtext_y = 0.0;
     TString xlab = "", ylab = "";
-    
+    //
     double xval2 = -999.0, xerr2 = 0.0, yval2 = -999.0, yerr2 = 0.0;
     TString legP="";
     int colP = 1;
+    //
+    TString legGauss = "";
+    double prior_mean = 0.0, prior_sigma = 0.0;
+    //
+    const int NumHist = 4;   
+    TObject* tobj[NumHist];
+    TFile *datafile[NumHist];
+    string plotname[NumHist] = {"", "", "", ""};
+    string filename[NumHist] = {"", "", "", ""};
+    TString leg[NumHist] = {"", "", "", ""};
+    int smooth[NumHist] = {0, 0, 0, 0};
+    int lineStyle[NumHist] = {1, 1, 1, 1};
+    int lineWidth[NumHist] = {1, 1, 1, 1};
+    int lineColor[NumHist] = {1, 1, 1, 1};
+    int col68[NumHist] = {1393, 1393, 1393, 1393};
+    int col95[NumHist] = {1392, 1392, 1392, 1392};
+    int fillStyle[NumHist] = {1001, 1001, 1001, 1001};
+    int newNbins[NumHist] = {100, 100, 100, 100};
+    bool bOnly95[NumHist] = {false, false, false, false};
     
-    bool bOnly95 = false;
-    string plotname = "", filename = "";
-    TString leg="";
-    int smooth = 0, col68 = 1393, col95 = 1392, fillStyle = 1001, lineStyle = 1, newNbins = 100 ;
-    //
-    bool b2ndplot = false, bOnly952 = false;
-    string plotname2 = "", filename2 = "";
-    TString leg2 = "";
-    int smooth2 = 0, col682 = 2, col952 = 5, fillStyle2 = 1001, lineStyle2 = 1, newNbins2 = 100;
-    //
-    bool b3rdplot = false, bOnly953 = false;
-    string plotname3 = "", filename3 = "";
-    TString leg3 = "";
-    int smooth3 = 0, col683 = 2, col953 = 5, fillStyle3 = 1001, lineStyle3 = 1, newNbins3 = 100;
-    //
-    bool b4thplot = false, bOnly954 = false;
-    string plotname4 = "", filename4 = "";
-    TString leg4 = "";
-    int smooth4 = 0, col684 = 2, col954 = 5, fillStyle4 = 1001, lineStyle4 = 1;
+    if (strncmp(argv[1], "--oneDim", 8) == 0) bOneDim = true;
+    if (strncmp(argv[1], "--compat", 8) == 0) bCompat = true;
+    if (strncmp(argv[1], "--twoDim", 8) == 0) bTwoDim = true;    
 
-    // root file
-    filename = argv[1];
-    TFile *datafile = new TFile(filename.c_str());
-    if (argc == 3 && strncmp(argv[2], "info", 4) == 0) {
-        datafile->ls();
+    if (strncmp(argv[2], "-rootfile1=", 11) == 0) {
+        char str[100];
+        sscanf(argv[2], "-rootfile1=%s", str);
+        filename[0] = str;
+    }        
+    datafile[0] = new TFile(filename[0].c_str());
+    if (argc == 3 && strncmp(argv[1], "info", 4) == 0) {
+        datafile[0]->ls();
         return 0;
     }
-    filename2 = filename;
-    filename3 = filename;
-    filename4 = filename;
+    filename[1] = filename[0];
+    filename[2] = filename[0];
+    filename[3] = filename[0];
+
+    string outputFileName = plotname[0];   
     
-    // plot name
-    plotname = argv[2];
-    TObject* tobj;
-    tobj = datafile->Get(plotname.c_str());
-    if (tobj == NULL) {
-        cout << "Error: plot \"" << plotname << "\" does not exist..." << endl;
-        return 1;
-    }
-    
-    // options
-    string outputFileName = plotname;
     for (int i = 3; i < argc; i++) {
         char str[100];
-        if (strncmp(argv[i], "--oneDim", 8) == 0) bOneDim = true;
-        if (strncmp(argv[i], "--compat", 8) == 0) bCompat = true;
-        if (strncmp(argv[i], "--twoDim", 8) == 0) bTwoDim = true;    
         if (strncmp(argv[i], "--orig", 6) == 0) bOrig = true;
-        if (strncmp(argv[i], "--outputTxt", 11) == 0) bOutputTxt = true;        
-        if (strncmp(argv[i], "--drawlines", 11) == 0) bContLines = true;        
-        if (strncmp(argv[i], "--leftLegend", 12) == 0) bLeftLegend = true;        
-        if (strncmp(argv[i], "--only951", 9) == 0) bOnly95 = true;
-        if (strncmp(argv[i], "--only952", 9) == 0) bOnly952 = true; 
-        if (strncmp(argv[i], "--only953", 9) == 0) bOnly953 = true;
-        if (strncmp(argv[i], "--only954", 9) == 0) bOnly954 = true;
+        else if (strncmp(argv[i], "--outputTxt", 11) == 0) bOutputTxt = true;        
+        else if (strncmp(argv[i], "--drawlines", 11) == 0) bContLines = true;        
+        else if (strncmp(argv[i], "--leftLegend", 12) == 0) bLeftLegend = true;        
+        else if (strncmp(argv[i], "--only951", 9) == 0) bOnly95[0] = true;
+        else if (strncmp(argv[i], "--only952", 9) == 0) bOnly95[1] = true; 
+        else if (strncmp(argv[i], "--only953", 9) == 0) bOnly95[2] = true;
+        else if (strncmp(argv[i], "--only954", 9) == 0) bOnly95[3] = true;
         
-        if (strncmp(argv[i], "-output=", 8) == 0) {
+        else if (strncmp(argv[i], "-output=", 8) == 0) {
             sscanf(argv[i], "-output=%s", str);
             outputFileName = str;
         }
 
-        if (strncmp(argv[i], "-xlab=", 6) == 0) {
+        else if (strncmp(argv[i], "-xlab=", 6) == 0) {
             sscanf(argv[i], "-xlab=%s", str);
             xlab = str;
         }
         
-        if (strncmp(argv[i], "-ylab=", 6) == 0) {
+        else if (strncmp(argv[i], "-ylab=", 6) == 0) {
             sscanf(argv[i], "-ylab=%s", str);
             ylab = str;
         }        
         
-        if (strncmp(argv[i], "-addtext=", 9) == 0) {
+        else if (strncmp(argv[i], "-addtext=", 9) == 0) {
             sscanf(argv[i], "-addtext=%s", str);
             addtext = str;
         }
-        if (strncmp(argv[i], "-addtextAt=", 11) == 0)
+        else if (strncmp(argv[i], "-addtextAt=", 11) == 0)
             sscanf(argv[i], "-addtextAt=[%lf,%lf]", &addtext_x, &addtext_y);
         
-        if (strncmp(argv[i], "-maxDigits=", 11) == 0) 
+        else if (strncmp(argv[i], "-maxDigits=", 11) == 0) 
             sscanf(argv[i], "-maxDigits=%d", &maxDig);
 
-        if (strncmp(argv[i], "-precision=", 11) == 0) 
+        else if (strncmp(argv[i], "-precision=", 11) == 0) 
             sscanf(argv[i], "-precision=%d", &prec);
         
-        if (strncmp(argv[i], "-priorMean=", 11) == 0) 
+        else if (strncmp(argv[i], "-priorMean=", 11) == 0) 
             sscanf(argv[i], "-priorMean=%lf", &prior_mean);
-        if (strncmp(argv[i], "-priorSigma=", 12) == 0) 
+        else if (strncmp(argv[i], "-priorSigma=", 12) == 0) 
             sscanf(argv[i], "-priorSigma=%lf", &prior_sigma);
 
-        if (strncmp(argv[i], "-xrange=", 8) == 0) {
+        else if (strncmp(argv[i], "-xrange=", 8) == 0) {
             TString stmp(argv[i] + 8);
             sscanf(stmp.Data(), "[%lf,%lf]", &x_low, &x_up);
         }
 
-        if (strncmp(argv[i], "-range=", 7) == 0) {
+        else if (strncmp(argv[i], "-range=", 7) == 0) {
             TString stmp(argv[i] + 7);
             sscanf(stmp.Data(), "[%lf,%lf]x[%lf,%lf]", &x_low, &x_up, &y_low, &y_up);
         }
 
-        if (strncmp(argv[i], "-bins=", 6) == 0) {
+        else if (strncmp(argv[i], "-bins=", 6) == 0) {
             TString stmp(argv[i] + 6);
             sscanf(stmp.Data(), "[%d]x[%d]", &nx, &ny);
         }
 
-        if (strncmp(argv[i], "-val=", 5) == 0) 
+        else if (strncmp(argv[i], "-val=", 5) == 0) 
             sscanf(argv[i], "-val=%lf", &xval);
-        if (strncmp(argv[i], "-err=", 5) == 0) 
+        else if (strncmp(argv[i], "-err=", 5) == 0) 
             sscanf(argv[i], "-err=%lf", &xerr);
         
-        if (strncmp(argv[i], "-Xval=", 6) == 0) 
+        else if (strncmp(argv[i], "-Xval=", 6) == 0) 
             sscanf(argv[i], "-Xval=%lf", &xval2);
-        if (strncmp(argv[i], "-Xerr=", 6) == 0) 
+        else if (strncmp(argv[i], "-Xerr=", 6) == 0) 
             sscanf(argv[i], "-Xerr=%lf", &xerr2);
-        if (strncmp(argv[i], "-Yval=", 6) == 0) 
+        else if (strncmp(argv[i], "-Yval=", 6) == 0) 
             sscanf(argv[i], "-Yval=%lf", &yval2);
-        if (strncmp(argv[i], "-Yerr=", 6) == 0) 
+        else if (strncmp(argv[i], "-Yerr=", 6) == 0) 
             sscanf(argv[i], "-Yerr=%lf", &yerr2);
-        if (strncmp(argv[i], "-colP=", 6) == 0) 
+        else if (strncmp(argv[i], "-colP=", 6) == 0) 
             sscanf(argv[i], "-colP=%d", &colP);
 
-        if (strncmp(argv[i], "-moreBins=", 10) == 0)
-            sscanf(argv[i], "-moreBins=%d", &newNbins);
-        if (strncmp(argv[i], "-moreBins2=", 11) == 0)
-            sscanf(argv[i], "-moreBins2=%d", &newNbins2);
-        if (strncmp(argv[i], "-moreBins3=", 11) == 0)
-            sscanf(argv[i], "-moreBins3=%d", &newNbins3);
+        else if (strncmp(argv[i], "-moreBins1=", 11) == 0)
+            sscanf(argv[i], "-moreBins1=%d", &newNbins[0]);
+        else if (strncmp(argv[i], "-moreBins2=", 11) == 0)
+            sscanf(argv[i], "-moreBins2=%d", &newNbins[1]);
+        else if (strncmp(argv[i], "-moreBins3=", 11) == 0)
+            sscanf(argv[i], "-moreBins3=%d", &newNbins[2]);
+        else if (strncmp(argv[i], "-moreBins4=", 11) == 0)
+            sscanf(argv[i], "-moreBins4=%d", &newNbins[3]);
         
-        if (strncmp(argv[i], "-smooth=", 8) == 0)
-            sscanf(argv[i], "-smooth=%d", &smooth);
-        if (strncmp(argv[i], "-smooth2=", 9) == 0) 
-            sscanf(argv[i], "-smooth2=%d", &smooth2);
-        if (strncmp(argv[i], "-smooth3=", 9) == 0) 
-            sscanf(argv[i], "-smooth3=%d", &smooth3);
-        if (strncmp(argv[i], "-smooth4=", 9) == 0) 
-            sscanf(argv[i], "-smooth4=%d", &smooth4);
+        else if (strncmp(argv[i], "-smooth1=", 9) == 0)
+            sscanf(argv[i], "-smooth1=%d", &smooth[0]);
+        else if (strncmp(argv[i], "-smooth2=", 9) == 0) 
+            sscanf(argv[i], "-smooth2=%d", &smooth[1]);
+        else if (strncmp(argv[i], "-smooth3=", 9) == 0) 
+            sscanf(argv[i], "-smooth3=%d", &smooth[2]);
+        else if (strncmp(argv[i], "-smooth4=", 9) == 0) 
+            sscanf(argv[i], "-smooth4=%d", &smooth[3]);
 
-        if (strncmp(argv[i], "-col68=", 7) == 0) 
-            sscanf(argv[i], "-col68=%d", &col68);
-        if (strncmp(argv[i], "-col95=", 7) == 0) 
-            sscanf(argv[i], "-col95=%d", &col95);
-        if (strncmp(argv[i], "-col682=", 8) == 0) 
-            sscanf(argv[i], "-col682=%d", &col682);
-        if (strncmp(argv[i], "-col952=", 8) == 0) 
-            sscanf(argv[i], "-col952=%d", &col952);
-        if (strncmp(argv[i], "-col683=", 8) == 0) 
-            sscanf(argv[i], "-col683=%d", &col683);
-        if (strncmp(argv[i], "-col953=", 8) == 0) 
-            sscanf(argv[i], "-col953=%d", &col953);
-        if (strncmp(argv[i], "-col684=", 8) == 0) 
-            sscanf(argv[i], "-col684=%d", &col684);
-        if (strncmp(argv[i], "-col954=", 8) == 0) 
-            sscanf(argv[i], "-col954=%d", &col954);
+        else if (strncmp(argv[i], "-col681=", 8) == 0) 
+            sscanf(argv[i], "-col681=%d", &col68[0]);
+        else if (strncmp(argv[i], "-col951=", 8) == 0) 
+            sscanf(argv[i], "-col951=%d", &col95[0]);
+        else if (strncmp(argv[i], "-col682=", 8) == 0) 
+            sscanf(argv[i], "-col682=%d", &col68[1]);
+        else if (strncmp(argv[i], "-col952=", 8) == 0) 
+            sscanf(argv[i], "-col952=%d", &col95[1]);
+        else if (strncmp(argv[i], "-col683=", 8) == 0) 
+            sscanf(argv[i], "-col683=%d", &col68[2]);
+        else if (strncmp(argv[i], "-col953=", 8) == 0) 
+            sscanf(argv[i], "-col953=%d", &col95[2]);
+        else if (strncmp(argv[i], "-col684=", 8) == 0) 
+            sscanf(argv[i], "-col684=%d", &col68[3]);
+        else if (strncmp(argv[i], "-col954=", 8) == 0) 
+            sscanf(argv[i], "-col954=%d", &col95[3]);
 
-        if (strncmp(argv[i], "-line=", 6) == 0) 
-            sscanf(argv[i], "-line=%d", &lineStyle);
-        if (strncmp(argv[i], "-line2=", 7) == 0) 
-            sscanf(argv[i], "-line2=%d", &lineStyle2);
-        if (strncmp(argv[i], "-line3=", 7) == 0) 
-            sscanf(argv[i], "-line3=%d", &lineStyle3);
-        if (strncmp(argv[i], "-line4=", 7) == 0) 
-            sscanf(argv[i], "-line4=%d", &lineStyle4);
+        else if (strncmp(argv[i], "-lineStyle1=", 12) == 0) 
+            sscanf(argv[i], "-lineStyle1=%d", &lineStyle[0]);
+        else if (strncmp(argv[i], "-lineStyle2=", 12) == 0) 
+            sscanf(argv[i], "-lineStyle2=%d", &lineStyle[1]);
+        else if (strncmp(argv[i], "-lineStyle3=", 12) == 0) 
+            sscanf(argv[i], "-lineStyle3=%d", &lineStyle[2]);
+        else if (strncmp(argv[i], "-lineStyle4=", 12) == 0) 
+            sscanf(argv[i], "-lineStyle4=%d", &lineStyle[3]);
         
-        if (strncmp(argv[i], "-fill=", 6) == 0) 
-            sscanf(argv[i], "-fill=%d", &fillStyle);
-        if (strncmp(argv[i], "-fill2=", 7) == 0) 
-            sscanf(argv[i], "-fill2=%d", &fillStyle2);
-        if (strncmp(argv[i], "-fill3=", 7) == 0) 
-            sscanf(argv[i], "-fill3=%d", &fillStyle3);
-        if (strncmp(argv[i], "-fill4=", 7) == 0) 
-            sscanf(argv[i], "-fill4=%d", &fillStyle4);
+        else if (strncmp(argv[i], "-lineWidth1=", 12) == 0) 
+            sscanf(argv[i], "-lineWidth1=%d", &lineWidth[0]);
+        else if (strncmp(argv[i], "-lineWidth2=", 12) == 0) 
+            sscanf(argv[i], "-lineWidth2=%d", &lineWidth[1]);
+        else if (strncmp(argv[i], "-lineWidth3=", 12) == 0) 
+            sscanf(argv[i], "-lineWidth3=%d", &lineWidth[2]);
+        else if (strncmp(argv[i], "-lineWidth4=", 12) == 0) 
+            sscanf(argv[i], "-lineWidth4=%d", &lineWidth[3]);
+
+        else if (strncmp(argv[i], "-lineColor1=", 12) == 0) 
+            sscanf(argv[i], "-lineColor1=%d", &lineColor[0]);
+        else if (strncmp(argv[i], "-lineColor2=", 12) == 0) 
+            sscanf(argv[i], "-lineColor2=%d", &lineColor[1]);
+        else if (strncmp(argv[i], "-lineColor3=", 12) == 0) 
+            sscanf(argv[i], "-lineColor3=%d", &lineColor[2]);
+        else if (strncmp(argv[i], "-lineColor4=", 12) == 0) 
+            sscanf(argv[i], "-lineColor4=%d", &lineColor[3]);
+
+        else if (strncmp(argv[i], "-fill1=", 7) == 0) 
+            sscanf(argv[i], "-fill1=%d", &fillStyle[0]);
+        else if (strncmp(argv[i], "-fill2=", 7) == 0) 
+            sscanf(argv[i], "-fill2=%d", &fillStyle[1]);
+        else if (strncmp(argv[i], "-fill3=", 7) == 0) 
+            sscanf(argv[i], "-fill3=%d", &fillStyle[2]);
+        else if (strncmp(argv[i], "-fill4=", 7) == 0) 
+            sscanf(argv[i], "-fill4=%d", &fillStyle[3]);
         
-        if (strncmp(argv[i], "-plot2=", 7) == 0) {
+        else if (strncmp(argv[i], "-plot1=", 7) == 0) {
+            sscanf(argv[i], "-plot1=%s", str);
+            plotname[0] = str;
+        }
+        else if (strncmp(argv[i], "-plot2=", 7) == 0) {
             sscanf(argv[i], "-plot2=%s", str);
-            plotname2 = str;
-            b2ndplot = true;
+            plotname[1] = str;
         }
-        if (strncmp(argv[i], "-plot3=", 7) == 0) {
+        else if (strncmp(argv[i], "-plot3=", 7) == 0) {
             sscanf(argv[i], "-plot3=%s", str);
-            plotname3 = str;
-            b3rdplot = true;
+            plotname[2] = str;
         }
-        if (strncmp(argv[i], "-plot4=", 7) == 0) {
+        else if (strncmp(argv[i], "-plot4=", 7) == 0) {
             sscanf(argv[i], "-plot4=%s", str);
-            plotname4 = str;
-            b4thplot = true;
+            plotname[3] = str;
         }
         
-        if (strncmp(argv[i], "-rootfile2=", 11) == 0) {
+        else if (strncmp(argv[i], "-rootfile2=", 11) == 0) {
             sscanf(argv[i], "-rootfile2=%s", str);
-            filename2 = str;
+            filename[1] = str;
         }        
-        if (strncmp(argv[i], "-rootfile3=", 11) == 0) {
+        else if (strncmp(argv[i], "-rootfile3=", 11) == 0) {
             sscanf(argv[i], "-rootfile3=%s", str);
-            filename3 = str;
+            filename[2] = str;
         }        
-        if (strncmp(argv[i], "-rootfile4=", 11) == 0) {
+        else if (strncmp(argv[i], "-rootfile4=", 11) == 0) {
             sscanf(argv[i], "-rootfile4=%s", str);
-            filename4 = str;
+            filename[3] = str;
         }        
 
-        if (strncmp(argv[i], "-legScale=", 10) == 0) 
+        else if (strncmp(argv[i], "-legScale=", 10) == 0) 
             sscanf(argv[i], "-legScale=%lf", &legend_scale);
-        if (strncmp(argv[i], "-leg=", 5) == 0) {
-            sscanf(argv[i], "-leg=%s", str);
-            leg = str;
+
+        else if (strncmp(argv[i], "-leg1=", 6) == 0) {
+            sscanf(argv[i], "-leg1=%s", str);
+            leg[0] = str;
         }
-        if (strncmp(argv[i], "-leg2=", 6) == 0) {
+        else if (strncmp(argv[i], "-leg2=", 6) == 0) {
             sscanf(argv[i], "-leg2=%s", str);
-            leg2 = str;
+            leg[1] = str;
         }
-        if (strncmp(argv[i], "-leg3=", 6) == 0) {
+        else if (strncmp(argv[i], "-leg3=", 6) == 0) {
             sscanf(argv[i], "-leg3=%s", str);
-            leg3 = str;
+            leg[2] = str;
         }
-        if (strncmp(argv[i], "-leg4=", 6) == 0) {
+        else if (strncmp(argv[i], "-leg4=", 6) == 0) {
             sscanf(argv[i], "-leg4=%s", str);
-            leg4 = str;
+            leg[3] = str;
         }
-        if (strncmp(argv[i], "-legP=", 6) == 0) {
+        else if (strncmp(argv[i], "-legGauss=", 10) == 0) {
+            sscanf(argv[i], "-legGauss=%s", str);
+            legGauss = str;
+        }
+        else if (strncmp(argv[i], "-legP=", 6) == 0) {
             sscanf(argv[i], "-legP=%s", str);
             legP = str;
         }
+        
+        else {
+            cout << "Wrong option: " << argv[i] << endl;
+            return 1;            
+        } 
     }        
-
+    
+    // Errors
     if (!(bOneDim | bCompat | bTwoDim)) {
         cout << "Error: A mandatory option --oneDim, --compat or --twoDim is missing!" << endl;
         return 1;
@@ -494,42 +424,17 @@ int main(int argc, char** argv)
 
     // output files
     string epsFileName = outputFileName + ".eps";
-    string txtFileName = outputFileName + ".txt";
+    string txtFileName = outputFileName + ".txt";    
 
-    // 2rd plot
-    TFile *datafile2;
-    TObject* tobj2;
-    if (b2ndplot) {
-        datafile2 = new TFile(filename2.c_str());
-        tobj2 = datafile2->Get(plotname2.c_str());
-        if (tobj2 == NULL && b2ndplot) {
-            cout << "Error: plot \"" << plotname2 << "\" does not exist..." << endl;
-            return 1;
-        }
-    }
-    
-    // 3rd plot
-    TFile *datafile3;
-    TObject* tobj3;
-    if (b3rdplot) {
-        datafile3 = new TFile(filename3.c_str());
-        tobj3 = datafile3->Get(plotname3.c_str());
-        if (tobj3 == NULL && b3rdplot) {
-            cout << "Error: plot \"" << plotname3 << "\" does not exist..." << endl;
-            return 1;
-        }
-    }
-
-    // 4th plot
-    TFile *datafile4;
-    TObject* tobj4;
-    if (b4thplot) {
-        datafile4 = new TFile(filename4.c_str());
-        tobj4 = datafile4->Get(plotname4.c_str());
-        if (tobj4 == NULL && b4thplot) {
-            cout << "Error: plot \"" << plotname4 << "\" does not exist..." << endl;
-            return 1;
-        }
+    for (int n=0; n<NumHist; n++) {
+        if ( plotname[n].compare("")!=0 ) {
+            if (n!=0) datafile[n] = new TFile(filename[n].c_str());
+            tobj[n] = datafile[n]->Get(plotname[n].c_str());
+            if (tobj[n] == NULL) {
+                cout << "Error: plot \"" << plotname[n] << "\" does not exist..." << endl;
+                return 1;
+            }
+        }    
     }
 
     //----------------------------------------------------------------------
@@ -565,11 +470,10 @@ int main(int argc, char** argv)
 
     TLegend *legend;
     int num_leg = 0;
-    if ( leg.CompareTo("")!= 0 ) num_leg++;
-    if ( leg2.CompareTo("")!= 0 ) num_leg++;
-    if ( leg3.CompareTo("")!= 0 ) num_leg++;
-    if ( leg4.CompareTo("")!= 0 ) num_leg++;
+    for (int n=0; n<NumHist; n++)
+        if ( leg[n].CompareTo("")!= 0 ) num_leg++;
     if ( legP.CompareTo("")!= 0 ) num_leg++;
+    if ( legGauss.CompareTo("")!= 0 ) num_leg++;
     double legend_ymin;
     if (num_leg == 1) legend_ymin = 0.80;
     else if (num_leg == 2) legend_ymin = 0.74;
@@ -590,66 +494,53 @@ int main(int argc, char** argv)
     legend->SetMargin(0.7);
 
     //----------------------------------------------------------------------
-
+    // 1-D histogram
+    
     if (bOneDim) {
-        // 1-D histogram
-        TH1D* hist = (TH1D*) tobj->Clone();   
-        os << hist->GetXaxis()->GetTitle() << " in " << plotname << endl;
+        SFH1D* SFHisto1D[NumHist];
+        TH1D* plot_pt[NumHist];
+        TH1D* hist[NumHist];
 
-        // output the 1-D histogram
-        SFH1D SFHisto1D(*hist, prob68, prob95);
-        SFHisto1D.smoothHist(smooth);
-        SFHisto1D.increaseNbins(newNbins);
-        SFHisto1D.Draw(xlab, ylab, col68, col95, fillStyle, maxDig, bOrig, false, x_low, x_up); 
+        hist[0] = (TH1D*) tobj[0]->Clone();   
+        os << hist[0]->GetXaxis()->GetTitle() << " in " << plotname[0] << endl;
+
+        SFHisto1D[0] = new SFH1D(*hist[0], prob68, prob95);
+        SFHisto1D[0]->smoothHist(smooth[0]);
+        SFHisto1D[0]->increaseNbins(newNbins[0]);
+        SFHisto1D[0]->DrawAxes(xlab, ylab, maxDig, x_low, x_up); // draw the axes
+        SFHisto1D[0]->Draw(lineStyle[0], lineWidth[0], lineColor[0], 
+                           col68[0], col95[0], fillStyle[0], bOrig); 
     
         // rescale (for mHl)
-        //SFHisto1D.getNewHist()->Scale(10.0);
-        //SFHisto1D.getNewHist68()->Scale(10.0);
-        //SFHisto1D.getNewHist95()->Scale(10.0);
-        //SFHisto1D.getNewHist()->GetXaxis()->SetRange(400,1400);
-        //leg += " [x10]";
+        //SFHisto1D[0]->getHistAxes()->Scale(10.0);
+        //SFHisto1D[0]->getNewHist()->Scale(10.0);
+        //SFHisto1D[0]->getNewHist68()->Scale(10.0);
+        //SFHisto1D[0]->getNewHist95()->Scale(10.0);
+        //SFHisto1D[0]->getHistAxes()->GetXaxis()->SetRange(400,1400);
+        //leg[0] += " [x10]";
             
-        // superimpose the second 1-D histogram (e.g. for a posterior)
-        TH1D* plot2_pt = NULL;
-        if (b2ndplot) {
-            TH1D* hist2 = (TH1D*) tobj2->Clone();
-            SFH1D SFHisto1D2(*hist2, prob68, prob95);
-            SFHisto1D2.smoothHist(smooth2);
-            SFHisto1D2.increaseNbins(newNbins2);
-            SFHisto1D2.Draw("", "", col682, col952, fillStyle2, maxDig, bOrig, true);    
-            plot2_pt = SFHisto1D2.getNewHist68();
-
-            // rescale the y axis
-            double ymax_new = max( SFHisto1D.getHistAxes()->GetMaximum(), 
-                                   1.1*SFHisto1D2.getNewHist()->GetMaximum() );
-            SFHisto1D.getHistAxes()->SetMaximum(ymax_new);
+        // superimpose other histograms
+        for (int n=1; n<NumHist; n++) {
+            if ( plotname[n].compare("")!=0 ) {
+                hist[n] = (TH1D*) tobj[n]->Clone();
+                SFHisto1D[n] = new SFH1D(*hist[n], prob68, prob95);
+                SFHisto1D[n]->smoothHist(smooth[n]);
+                SFHisto1D[n]->increaseNbins(newNbins[n]);
+                SFHisto1D[n]->Draw(lineStyle[n], lineWidth[n], lineColor[n], 
+                                   col68[n], col95[n], fillStyle[n], bOrig);    
+                plot_pt[n] = SFHisto1D[n]->getNewHist68();
+                
+                // rescale the y axis
+                SFHisto1D[0]->RescaleYaxis(SFHisto1D[n]->getNewHist()->GetMaximum());
+            } else 
+                plot_pt[n] = NULL;
         }
             
-        // superimpose the third 1-D histogram
-        TH1D* plot3_pt = NULL;
-        if (b3rdplot) {
-            TH1D* hist3 = (TH1D*) tobj3->Clone();
-            SFH1D SFHisto1D3(*hist3, prob68, prob95);
-            SFHisto1D3.smoothHist(smooth3);
-            SFHisto1D3.increaseNbins(newNbins3);
-            SFHisto1D3.Draw("", "", col683, col953, fillStyle3, maxDig, bOrig, true);    
-            plot3_pt = SFHisto1D3.getNewHist68();
-
-            // rescale the y axis
-            double ymax_new = max( SFHisto1D.getHistAxes()->GetMaximum(), 
-                                   1.1*SFHisto1D3.getNewHist()->GetMaximum() );
-            SFHisto1D.getHistAxes()->SetMaximum(ymax_new);
-        }
-
         // superimpose a Gaussian (prior) function
         TF1* prior = NULL;
         if (prior_sigma != 0.0) {
-            double xmin = SFHisto1D.getNewHist()->GetXaxis()->GetXmin();
-            double xmax = SFHisto1D.getNewHist()->GetXaxis()->GetXmax();
-            if (x_low != 0.0 || x_up != 0.0) {
-                xmin = x_low;
-                xmax = x_up;
-            }
+            double xmin = SFHisto1D[0]->getHistAxes()->GetXaxis()->GetXmin();
+            double xmax = SFHisto1D[0]->getHistAxes()->GetXaxis()->GetXmax();
             prior = new TF1("prior",
                     "1./sqrt(2.*TMath::Pi())/[1]* exp(- (x-[0])*(x-[0])/2./[1]/[1])",
                     xmin, xmax);
@@ -661,90 +552,71 @@ int main(int argc, char** argv)
             prior->Draw("SAME");
             
             // rescale the y axis
-            double ymax_new = max( SFHisto1D.getHistAxes()->GetMaximum(),
-                                   1.1*prior->GetMaximum() );
-            SFHisto1D.getHistAxes()->SetMaximum(ymax_new);
+            SFHisto1D[0]->RescaleYaxis(prior->GetMaximum());
         }
 
         // legends: Change the order if necessary. 
-        if (prior != NULL) legend->AddEntry(prior, myMacros.ConvertTitle(leg4), "L");
-        if (plot2_pt != NULL) legend->AddEntry(plot2_pt, myMacros.ConvertTitle(leg2), "F");
-        if (plot3_pt != NULL) legend->AddEntry(plot3_pt, myMacros.ConvertTitle(leg3), "F");
-        legend->AddEntry(SFHisto1D.getNewHist68(), myMacros.ConvertTitle(leg), "F");
+        if (prior != NULL) legend->AddEntry(prior, myMacros.ConvertTitle(legGauss), "L");
+        if (plot_pt[1] != NULL) legend->AddEntry(plot_pt[1], myMacros.ConvertTitle(leg[1]), "F");
+        if (plot_pt[2] != NULL) legend->AddEntry(plot_pt[2], myMacros.ConvertTitle(leg[2]), "F");
+        if (plot_pt[3] != NULL) legend->AddEntry(plot_pt[3], myMacros.ConvertTitle(leg[3]), "F");
+        legend->AddEntry(SFHisto1D[0]->getNewHist68(), myMacros.ConvertTitle(leg[0]), "F");
         
         // output results to os
-        SFHisto1D.OutputResults(os, smooth, true);
+        SFHisto1D[0]->OutputResults(os, smooth[0], true);
 
         // output results for the original histogram before smoothing 
         // nor increasing the number of bins for comparison
-        SFH1D orig1D(*hist, prob68, prob95);
+        SFH1D orig1D(*hist[0], prob68, prob95);
         os << endl << "[Original histogram]" << endl;
         orig1D.OutputResults(os, 0, false);
+ 
+    //----------------------------------------------------------------------
+    // Compatibility plot
         
     } else if (bCompat) {
-        // 1-D histogram
-        TH1D* hist = (TH1D*) tobj->Clone();
-        os << hist->GetXaxis()->GetTitle() << " in " << plotname << endl;
+        TH1D* hist = (TH1D*) tobj[0]->Clone();
+        os << hist->GetXaxis()->GetTitle() << " in " << plotname[0] << endl;
         os << "  Num of bins: " << nx << " x " << ny << endl;
         
-        // output the compatibility plot
         Pull CompatPlot(*hist, nx, ny, x_low, x_up, y_low, y_up);
         CompatPlot.Draw(xlab, ylab, xval, xerr, maxDig);
         
+    //----------------------------------------------------------------------
+    // 2-D histogram        
+
     } else if (bTwoDim) {    
-        // 2-D histogram
-        TH2D* hist = (TH2D*) tobj->Clone();
-        os << hist->GetXaxis()->GetTitle() << " vs " << hist->GetYaxis()->GetTitle() 
-           << " in " << plotname << endl;
-        os << "  smooth: " << smooth << " time(s)" << endl;
+        SFH2D* SFHisto2D[NumHist];
+        TGraph* contour_pt[NumHist];
+        TH2D* hist[NumHist];
+
+        hist[0] = (TH2D*) tobj[0]->Clone();
+        os << hist[0]->GetXaxis()->GetTitle() << " vs " << hist[0]->GetYaxis()->GetTitle() 
+           << " in " << plotname[0] << endl;
+        os << "  smooth: " << smooth[0] << " time(s)" << endl;
         
-        // output the 2-D histogram
-        SFH2D SFHisto2D(*hist, os, prob68, prob95, x_low, x_up, y_low, y_up);
-        SFHisto2D.smoothHist(smooth);
-        SFHisto2D.draw(xlab, ylab, col68, col95, lineStyle, fillStyle, maxDig, 
-                       bContLines, bOnly95, false);
-        TGraph* contour_pt = SFHisto2D.getContour();
+        SFHisto2D[0] = new SFH2D(*hist[0], os, prob68, prob95, x_low, x_up, y_low, y_up);
+        SFHisto2D[0]->smoothHist(smooth[0]);
+        SFHisto2D[0]->draw(xlab, ylab, col68[0], col95[0], lineStyle[0], fillStyle[0], 
+                           maxDig, bContLines, bOnly95[0], false);
+        contour_pt[0] = SFHisto2D[0]->getContour();
         
-        // superimpose the 2nd histogram
-        TGraph* contour2_pt = NULL;
-        if (b2ndplot) {
-            os << "[Second graph]" << endl;
-            os << "  smooth: " << smooth2 << " time(s)" << endl;
-            TH2D* hist2 = (TH2D*) tobj2->Clone();
-            SFH2D SFHisto2D2(*hist2, os, prob68, prob95);
-            SFHisto2D2.smoothHist(smooth2);
-            SFHisto2D2.draw("", "", col682, col952, lineStyle2, fillStyle2, maxDig, 
-                            bContLines, bOnly952, true);
-            contour2_pt = SFHisto2D2.getContour();
+        // superimpose other histograms
+        for (int n=1; n<NumHist; n++) {
+            if ( plotname[n].compare("")!=0 ) {
+                os << "[Graph " << n+1 << "]" << endl;
+                os << "  smooth: " << smooth[n] << " time(s)" << endl;
+                hist[n] = (TH2D*) tobj[n]->Clone();
+                SFHisto2D[n] = new SFH2D(*hist[n], os, prob68, prob95);
+                SFHisto2D[n]->smoothHist(smooth[n]);
+                SFHisto2D[n]->draw("", "", col68[n], col95[n], 
+                                   lineStyle[n], fillStyle[n], 
+                                   maxDig, bContLines, bOnly95[n], true);
+                contour_pt[n] = SFHisto2D[n]->getContour();
+            } else 
+                contour_pt[n] = NULL;
         }
 
-        // superimpose the 3rd histogram
-        TGraph* contour3_pt = NULL;
-        if (b3rdplot) {
-            os << "[Third graph]" << endl;
-            os << "  smooth: " << smooth3 << " time(s)" << endl;
-            TH2D* hist3 = (TH2D*) tobj3->Clone();
-            SFH2D SFHisto2D3(*hist3, os, prob68, prob95);
-            SFHisto2D3.smoothHist(smooth3);
-            SFHisto2D3.draw("", "", col683, col953, lineStyle3, fillStyle3, maxDig, 
-                            bContLines, bOnly953, true);
-            contour3_pt = SFHisto2D3.getContour();
-        }
-        
-        // superimpose the 4th histogram
-        TGraph* contour4_pt = NULL;
-        SFH2D* SFHisto2D4 = NULL;
-        if (b4thplot) {
-            os << "[Fourth graph]" << endl;
-            os << "  smooth: " << smooth4 << " time(s)" << endl;
-            TH2D* hist4 = (TH2D*) tobj4->Clone();
-            SFHisto2D4 = new SFH2D(*hist4, os, prob68, prob95);
-            SFHisto2D4->smoothHist(smooth4);
-            SFHisto2D4->draw("", "", col684, col954, lineStyle4, fillStyle4, maxDig, 
-                             bContLines, bOnly954, true);
-            contour4_pt = SFHisto2D4->getContour();
-        }
-        
         // draw a given point with error bars
         TGraphErrors* g1 = NULL;
         if (xval2 != -999.0 && yval2 != -999.0) {
@@ -762,10 +634,10 @@ int main(int argc, char** argv)
             g1->SetMarkerColor(colP);
             g1->Draw("P");
             
-            double xmin = hist->GetXaxis()->GetXmin();
-            double xmax = hist->GetXaxis()->GetXmax();
-            double ymin = hist->GetYaxis()->GetXmin();
-            double ymax = hist->GetYaxis()->GetXmax();
+            double xmin = hist[0]->GetXaxis()->GetXmin();
+            double xmax = hist[0]->GetXaxis()->GetXmax();
+            double ymin = hist[0]->GetYaxis()->GetXmin();
+            double ymax = hist[0]->GetYaxis()->GetXmax();
             
             err = xerr2;
             double min_x = std::max(xval2 - err, xmin);
@@ -792,29 +664,31 @@ int main(int argc, char** argv)
         
         // legends: Change the order if necessary. 
         string leg_opt;
-        if (contour4_pt != NULL && leg4.CompareTo("")!= 0) {
-            if (fillStyle4!=0) leg_opt = "F";
+        if (contour_pt[3] != NULL && leg[3].CompareTo("")!= 0) {
+            if (fillStyle[3]!=0) leg_opt = "F";
             else leg_opt = "L";
-            legend->AddEntry(contour4_pt, myMacros.ConvertTitle(leg4), leg_opt.c_str());
+            legend->AddEntry(contour_pt[3], myMacros.ConvertTitle(leg[3]), leg_opt.c_str());
         }
-        if (contour3_pt != NULL && leg3.CompareTo("")!= 0) {
-            if (fillStyle3!=0) leg_opt = "F";
+        if (contour_pt[2] != NULL && leg[2].CompareTo("")!= 0) {
+            if (fillStyle[2]!=0) leg_opt = "F";
             else leg_opt = "L";
-            legend->AddEntry(contour3_pt, myMacros.ConvertTitle(leg3), leg_opt.c_str()); 
+            legend->AddEntry(contour_pt[2], myMacros.ConvertTitle(leg[2]), leg_opt.c_str()); 
         }
-        if (contour2_pt != NULL && leg2.CompareTo("")!= 0) {
-            if (fillStyle2!=0) leg_opt = "F";
+        if (contour_pt[1] != NULL && leg[1].CompareTo("")!= 0) {
+            if (fillStyle[1]!=0) leg_opt = "F";
             else leg_opt = "L";
-            legend->AddEntry(contour2_pt, myMacros.ConvertTitle(leg2), leg_opt.c_str());
+            legend->AddEntry(contour_pt[1], myMacros.ConvertTitle(leg[1]), leg_opt.c_str());
         }
-        if (leg.CompareTo("")!= 0) {
-            if (fillStyle!=0) leg_opt = "F";
+        if (leg[0].CompareTo("")!= 0) {
+            if (fillStyle[0]!=0) leg_opt = "F";
             else leg_opt = "L";
-            legend->AddEntry(contour_pt, myMacros.ConvertTitle(leg), leg_opt.c_str());
+            legend->AddEntry(contour_pt[0], myMacros.ConvertTitle(leg[0]), leg_opt.c_str());
         }
         if (g1 != NULL && legP.CompareTo("")!= 0) 
             legend->AddEntry(g1, myMacros.ConvertTitle(legP), "LP");
     } 
+
+    //----------------------------------------------------------------------
 
     // additional text
     if ( addtext.CompareTo("")!= 0 ) {
