@@ -144,7 +144,7 @@ void SFH1D::DrawAxes(const TString xlab, const TString ylab,
 
 void SFH1D::Draw(const int lineStyle, const int lineWidth, const int lineColor, 
                  const int col68, const int col95, const int fillStyle, 
-                 const bool bOrigHist)
+                 const bool bOnlyLine, const bool bOrigHist)
 {    
     // normalize the histograms
     newHist->Scale(1.0/newHist->Integral());
@@ -169,8 +169,10 @@ void SFH1D::Draw(const int lineStyle, const int lineWidth, const int lineColor,
     newHist68->SetFillStyle(fillStyle);
     newHist95->SetFillStyle(fillStyle);
 
-    if (prob95 != 0.0) newHist95->Draw("SAME");
-    if (prob68 != 0.0) newHist68->Draw("SAME");
+    if (prob95!=0.0 && !bOnlyLine)
+        newHist95->Draw("SAME");
+    if (prob68!=0.0 && !bOnlyLine)
+        newHist68->Draw("SAME");
     newHist->Draw("SAME");
     
     // draw the original histogram

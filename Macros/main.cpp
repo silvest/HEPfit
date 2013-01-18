@@ -31,12 +31,6 @@ using namespace std;
  *  @{
  */
 
-//-- set probability ranges --
-//const double prob68 = 0.6827;
-//const double prob95 = 0.9545;
-const double prob68 = 0.68;
-const double prob95 = 0.95;
-
 /**
  * @brief 
  * @author SusyFit Collaboration
@@ -70,16 +64,21 @@ int main(int argc, char** argv)
         cout << "                       [default: plotname]                            " << endl;
         cout << "   -maxDigits=n     -> set max digits in the axis labels [default: n=8]" << endl;
         cout << "   -precision=n     -> precision of values in the std output [default: n=6]" << endl;
+        cout << "   -prob68=prob     -> probability for the first interval [default: prob=0.68]" << endl;
+        cout << "   -prob95=prob     -> probability for the second interval [default: prob=0.95]"<< endl;
         cout << "   -xlab=namex      -> x label                                        " << endl;
         cout << "   -ylab=namey      -> y label                                        " << endl;
         cout << "   -addtext=text    -> attach additional information                  " << endl;
         cout << "   -addtextAt=\"[x,y]\" -> position of the text                       " << endl;
         cout << "   -xrange=\"[xmin,xmax]\" -> define the graph range                  " << endl;
         cout << "   -legScale=scale  -> scale factor for the legend [default: scale=1] " << endl;
+        cout << "   -legXmin=xmin    -> xmin for the position of the legend [default: xmin=0.63]" << endl;
+        cout << "   -legYmax=ymax    -> ymax for the position of the legend [default: ymax=0.88]" << endl;
         cout << "   *** options for histograms (N=1,2,3,4) ***                         " << endl;
         cout << "   -plotN=name      -> name of the histogram                          " << endl;
         cout << "   -rootfileN=filename -> rootfile name for plotN (with extension)    " << endl;
         cout << "         [For N=2,3, the same as the rootfile for plot1 by default]   " << endl;
+        cout << "   --onlyLineN      -> draw only the line                             " << endl;
         cout << "   -smoothN=ntime   -> iterative smoothing for plotN [default: ntime=0]" << endl;
         cout << "   -moreBinsN=nbin  -> increase the number of bins for plotN [default: nbin=100]" << endl;
         cout << "   -lineStyleN=index -> index of the line style [default: index=1]    " << endl;
@@ -102,6 +101,8 @@ int main(int argc, char** argv)
         cout << "                       [default: plotname]                            " << endl;
         cout << "   -maxDigits=n     -> set max digits in the axis labels [default: n=8]" << endl;
         cout << "   -precision=n     -> precision of values in the std output [default: n=6]" << endl;
+        cout << "   -prob68=prob     -> probability for the first interval [default: prob=0.68]" << endl;
+        cout << "   -prob95=prob     -> probability for the second interval [default: prob=0.95]"<< endl;
         cout << "   -addtext=text    -> attach additional information                  " << endl;
         cout << "   -addtextAt=\"[x,y]\" -> position of the text                       " << endl;
         cout << "   -range=\"[xmin,xmax]x[ymin,ymax]\" -> define the graph range       " << endl;
@@ -126,6 +127,8 @@ int main(int argc, char** argv)
         cout << "   -xlab=namex      -> x label                                        " << endl;
         cout << "   -ylab=namey      -> y label                                        " << endl;
         cout << "   -legScale=scale  -> scale factor for the legend [default: scale=1.0]" << endl;
+        cout << "   -legXmin=xmin    -> xmin for the position of the legend [default: xmin=0.63]" << endl;
+        cout << "   -legYmax=ymax    -> ymax for the position of the legend [default: ymax=0.88]" << endl;
         cout << "   *** options for histogram (N=1,2,3,4) ***                          " << endl;
         cout << "   --only95N        -> draw only the 95% contour                      " << endl;
         cout << "   -plotN=name      -> name of the histogram                          " << endl;
@@ -148,13 +151,16 @@ int main(int argc, char** argv)
         return 0;
     }
 
-    // parameters which can be changed by command-line arguments
+    //----  parameters which can be changed by command-line arguments  -----
+    
+    //double prob68 = 0.6827, prob95 = 0.9545;
+    double prob68 = 0.68, prob95 = 0.95;
+    //
     bool bOneDim = false, bCompat = false, bTwoDim = false;
     bool bOrig = false, bOutputTxt = false, bContLines = false, bLeftLegend = false;
     int maxDig = 8, prec = 6;
     int nx = 100, ny = 20;
     double xval = -999.0, xerr = 0.0, x_low = 0.0, x_up = 0.0, y_low = 0.0, y_up = 0.0;
-    double legend_scale = 1.0;
     TString addtext = "";
     double addtext_x = 0.0, addtext_y = 0.0;
     TString xlab = "", ylab = "";
@@ -180,7 +186,13 @@ int main(int argc, char** argv)
     int col95[NumHist] = {1392, 1392, 1392, 1392};
     int fillStyle[NumHist] = {1001, 1001, 1001, 1001};
     int newNbins[NumHist] = {100, 100, 100, 100};
+    bool bOnlyLine[NumHist] = {false, false, false, false};
     bool bOnly95[NumHist] = {false, false, false, false};
+    
+    double legend_scale = 1.0;
+    double leg_xmin = 0.63, leg_ymax = 0.88;
+
+    //----------------------------------------------------------------------
     
     if (strncmp(argv[1], "--oneDim", 8) == 0) bOneDim = true;
     if (strncmp(argv[1], "--compat", 8) == 0) bCompat = true;
@@ -208,10 +220,19 @@ int main(int argc, char** argv)
         else if (strncmp(argv[i], "--outputTxt", 11) == 0) bOutputTxt = true;        
         else if (strncmp(argv[i], "--drawlines", 11) == 0) bContLines = true;        
         else if (strncmp(argv[i], "--leftLegend", 12) == 0) bLeftLegend = true;        
+        else if (strncmp(argv[i], "--onlyLine1", 11) == 0) bOnlyLine[0] = true;
+        else if (strncmp(argv[i], "--onlyLine2", 11) == 0) bOnlyLine[1] = true;
+        else if (strncmp(argv[i], "--onlyLine3", 11) == 0) bOnlyLine[2] = true;
+        else if (strncmp(argv[i], "--onlyLine4", 11) == 0) bOnlyLine[3] = true;
         else if (strncmp(argv[i], "--only951", 9) == 0) bOnly95[0] = true;
         else if (strncmp(argv[i], "--only952", 9) == 0) bOnly95[1] = true; 
         else if (strncmp(argv[i], "--only953", 9) == 0) bOnly95[2] = true;
         else if (strncmp(argv[i], "--only954", 9) == 0) bOnly95[3] = true;
+
+        else if (strncmp(argv[i], "-prob68=", 8) == 0) 
+            sscanf(argv[i], "-prob68=%lf", &prob68);
+        else if (strncmp(argv[i], "-prob95=", 8) == 0) 
+            sscanf(argv[i], "-prob95=%lf", &prob95);
         
         else if (strncmp(argv[i], "-output=", 8) == 0) {
             sscanf(argv[i], "-output=%s", str);
@@ -380,7 +401,10 @@ int main(int argc, char** argv)
 
         else if (strncmp(argv[i], "-legScale=", 10) == 0) 
             sscanf(argv[i], "-legScale=%lf", &legend_scale);
-
+        else if (strncmp(argv[i], "-legXmin=", 9) == 0) 
+            sscanf(argv[i], "-legXmin=%lf", &leg_xmin);
+        else if (strncmp(argv[i], "-legYmax=", 9) == 0) 
+            sscanf(argv[i], "-legYmax=%lf", &leg_ymax);
         else if (strncmp(argv[i], "-leg1=", 6) == 0) {
             sscanf(argv[i], "-leg1=%s", str);
             leg[0] = str;
@@ -467,7 +491,11 @@ int main(int argc, char** argv)
     gStyle->SetOptStat(0);
     gStyle->SetOptTitle(0);
     //gStyle->SetStripDecimals(false);   
-
+    
+    // New line styles
+    gStyle->SetLineStyleString(11,"28 25");
+    gStyle->SetLineStyleString(12,"35 25 13 25");
+    
     TLegend *legend;
     int num_leg = 0;
     for (int n=0; n<NumHist; n++)
@@ -475,18 +503,15 @@ int main(int argc, char** argv)
     if ( legP.CompareTo("")!= 0 ) num_leg++;
     if ( legGauss.CompareTo("")!= 0 ) num_leg++;
     double legend_ymin;
-    if (num_leg == 1) legend_ymin = 0.80;
-    else if (num_leg == 2) legend_ymin = 0.74;
-    else if (num_leg == 3) legend_ymin = 0.68;
-    else if (num_leg == 4) legend_ymin = 0.62;
-    else if (num_leg == 5) legend_ymin = 0.56;
-    else legend_ymin = 0.47;
-    legend_ymin = (0.88 - 0.02)*(1.0 - legend_scale) + legend_ymin*legend_scale;
-    if (!bLeftLegend)
-        legend = new TLegend(0.63,legend_ymin,0.75,0.88);
-    else
-        //legend = new TLegend(0.23,legend_ymin,0.48,0.88);
-        legend = new TLegend(0.23,legend_ymin,0.35,0.88);
+    if (num_leg == 1) legend_ymin = leg_ymax - 0.08;
+    else if (num_leg == 2) legend_ymin = leg_ymax - 0.14;
+    else if (num_leg == 3) legend_ymin = leg_ymax - 0.20;
+    else if (num_leg == 4) legend_ymin = leg_ymax - 0.26;
+    else if (num_leg == 5) legend_ymin = leg_ymax - 0.32;
+    else legend_ymin = leg_ymax - 0.38;
+    legend_ymin = (leg_ymax - 0.02)*(1.0 - legend_scale) + legend_ymin*legend_scale;
+    if (bLeftLegend) leg_xmin -= 0.40; // default: 0.23
+    legend = new TLegend(leg_xmin, legend_ymin, leg_xmin+0.12, leg_ymax);
     legend->SetFillColor(0);
     legend->SetBorderSize(0);
     legend->SetTextFont(42);
@@ -509,8 +534,12 @@ int main(int argc, char** argv)
         SFHisto1D[0]->increaseNbins(newNbins[0]);
         SFHisto1D[0]->DrawAxes(xlab, ylab, maxDig, x_low, x_up); // draw the axes
         SFHisto1D[0]->Draw(lineStyle[0], lineWidth[0], lineColor[0], 
-                           col68[0], col95[0], fillStyle[0], bOrig); 
-    
+                           col68[0], col95[0], fillStyle[0], bOnlyLine[0], bOrig); 
+        if (bOnlyLine[0]) 
+            plot_pt[0] = SFHisto1D[0]->getNewHist();
+        else 
+            plot_pt[0] = SFHisto1D[0]->getNewHist68();
+        
         // rescale (for mHl)
         //SFHisto1D[0]->getHistAxes()->Scale(10.0);
         //SFHisto1D[0]->getNewHist()->Scale(10.0);
@@ -527,8 +556,11 @@ int main(int argc, char** argv)
                 SFHisto1D[n]->smoothHist(smooth[n]);
                 SFHisto1D[n]->increaseNbins(newNbins[n]);
                 SFHisto1D[n]->Draw(lineStyle[n], lineWidth[n], lineColor[n], 
-                                   col68[n], col95[n], fillStyle[n], bOrig);    
-                plot_pt[n] = SFHisto1D[n]->getNewHist68();
+                                   col68[n], col95[n], fillStyle[n], bOnlyLine[n], bOrig);    
+                if (bOnlyLine[n]) 
+                    plot_pt[n] = SFHisto1D[n]->getNewHist();
+                else 
+                    plot_pt[n] = SFHisto1D[n]->getNewHist68();
                 
                 // rescale the y axis
                 SFHisto1D[0]->RescaleYaxis(SFHisto1D[n]->getNewHist()->GetMaximum());
@@ -556,11 +588,26 @@ int main(int argc, char** argv)
         }
 
         // legends: Change the order if necessary. 
+        string leg_opt;
         if (prior != NULL) legend->AddEntry(prior, myMacros.ConvertTitle(legGauss), "L");
-        if (plot_pt[1] != NULL) legend->AddEntry(plot_pt[1], myMacros.ConvertTitle(leg[1]), "F");
-        if (plot_pt[2] != NULL) legend->AddEntry(plot_pt[2], myMacros.ConvertTitle(leg[2]), "F");
-        if (plot_pt[3] != NULL) legend->AddEntry(plot_pt[3], myMacros.ConvertTitle(leg[3]), "F");
-        legend->AddEntry(SFHisto1D[0]->getNewHist68(), myMacros.ConvertTitle(leg[0]), "F");
+        if (plot_pt[1] != NULL) {
+            if (!bOnlyLine[1]) leg_opt = "F";
+            else leg_opt = "L";
+            legend->AddEntry(plot_pt[1], myMacros.ConvertTitle(leg[1]), leg_opt.c_str());
+        }
+        if (plot_pt[2] != NULL) {
+            if (!bOnlyLine[2]) leg_opt = "F";
+            else leg_opt = "L";
+            legend->AddEntry(plot_pt[2], myMacros.ConvertTitle(leg[2]), leg_opt.c_str());
+        }
+        if (plot_pt[3] != NULL) {
+            if (!bOnlyLine[3]) leg_opt = "F";
+            else leg_opt = "L";
+            legend->AddEntry(plot_pt[3], myMacros.ConvertTitle(leg[3]), leg_opt.c_str());
+        }
+        if (!bOnlyLine[0]) leg_opt = "F";
+        else leg_opt = "L";
+        legend->AddEntry(plot_pt[0], myMacros.ConvertTitle(leg[0]), leg_opt.c_str());
         
         // output results to os
         SFHisto1D[0]->OutputResults(os, smooth[0], true);
