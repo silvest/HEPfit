@@ -32,6 +32,14 @@ public:
      * @param[in] prob95_in The probability of the 95% interval. 
      */
     SFH1D(TH1D& hist, const double prob68_in=0.68, const double prob95_in=0.95);
+ 
+    /**
+     * @return Empty histogram for the axes.
+     */
+    TH1D* getHistAxes() const 
+    {
+        return HistAxes;
+    }
 
     /**
      * @return The modified 1-D histogram. 
@@ -95,16 +103,7 @@ public:
     double getLocalMode() const
     {
         return localMode;        
-    }
- 
-    /**
-     * @return Empty histogram for axes.
-     */
-    TH1D* getHistAxes() const 
-    {
-        return HistAxes;
-    }
-    
+    }    
     
     /**
      * Smooth the bin contents of th histogram by using TH1::Smooth(). 
@@ -118,27 +117,39 @@ public:
      * @param[in] newNbin The number of new bins [Default: 1000]. 
      */
     void increaseNbins(const int newNbin=1000);
-    
+
     /**
-     * Draw the modified histogram. 
+     * Draw the axes. 
      * @param[in] xlab The label of the x axis. 
      * @param[in] ylab The label of the y axis. 
-     * @param[in] col68 The color index for the 68% interval. 
-     * @param[in] col95 The color index for the 95% interval. 
-     * @param[in] fillStyle The index of the fill area style. 
      * @param[in] maxDigits The maximum digits of axis labels. 
-     * @param[in] bOrigHist A flag controlling if the original histogram is superimposed. 
-     * @param[in] superImpose A flag controlling if another histogram is superimposed. 
      * @param[in] x_low
      * @param[in] x_up
      */
-    void Draw(const TString xlab, const TString ylab, const int col68, const int col95, 
-              const int fillStyle, 
-              const int maxDigits, const bool bOrigHist = false, 
-              const bool superImpose = false, 
-              const double x_low = 0.0, const double x_up = 0.0);
+    void DrawAxes(const TString xlab, const TString ylab, 
+                  const int maxDigits, 
+                  const double x_low = 0.0, const double x_up = 0.0);
     
+    /**
+     * Draw the modified histogram. 
+     * @param[in] lineStyle The index of the line style. 
+     * @param[in] lineWidth The line width. 
+     * @param[in] lineCorlo The index of the line color. 
+     * @param[in] col68 The color index for the 68% interval. 
+     * @param[in] col95 The color index for the 95% interval. 
+     * @param[in] fillStyle The index of the fill area style. 
+     * @param[in] bOrigHist A flag controlling if the original histogram is superimposed. 
+     */
+    void Draw(const int lineStyle, const int lineWidth, const int lineColor, 
+              const int col68, const int col95, const int fillStyle,
+              const bool bOrigHist = false);
 
+    /**
+     * Rescale the y axis.
+     * @param[in] max_another The maximum of another histogram to be superimposed. 
+     */    
+    void RescaleYaxis(double max_another);
+    
     /**
      * Output results. 
      * @param[in] os An output stream. 
@@ -169,6 +180,11 @@ private:
      * The name of the original histogram.
      */
     const std::string origName;
+    
+    /*
+     * Empty histogram for the axes.
+     */
+    TH1D* HistAxes;
 
     /**
      * A modified histogram.  
@@ -209,11 +225,6 @@ private:
      * The local mode of the modified histogram. 
      */
     double localMode;
-    
-    /*
-     * Empty histogram for axes.
-     */
-    TH1D* HistAxes;
     
     /**
      * Compute @f$y(x)=ax^2+bx+c@f$ for a given x, where a, b and c are fixed 

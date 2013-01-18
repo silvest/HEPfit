@@ -64,7 +64,8 @@ void SFH2D::draw(const TString xlab, const TString ylab,
         null2D = (TH2D*) newHist->Clone("null2D");
         null2D->Reset("M");
         delete null2D;
-        null2D = new TH2D("null2D","null2D", 100, xLow, xUp, 100, yLow, yUp); 
+        null2D = new TH2D("null2D","null2D", newHist->GetNbinsX(), xLow, xUp, 
+                          newHist->GetNbinsY(), yLow, yUp); 
         null2D->SetXTitle(newHist->GetXaxis()->GetTitle());
         null2D->SetYTitle(newHist->GetYaxis()->GetTitle());
         null2D->SetTitle("");
