@@ -20,7 +20,9 @@ myInputParser(), MCEngine(ModPars, Obs, Obs2D) {
     JobTag = JobTag_i;
     OutFile = OutFile_i + JobTag + ".root";
     PrintAllMarginalized = false;
+    PrintCorrelationMatrix = false;
     PrintKnowledgeUpdatePlots = false;
+    PrintParameterPlot = false;
 }
 
 MonteCarlo::~MonteCarlo() {
@@ -123,10 +125,20 @@ void MonteCarlo::Run(const int rank) {
                     if (beg->compare("true") == 0) {
                         PrintAllMarginalized = true;
                     }
+                } else if (beg->compare("PrintCorrelationMatrix") == 0) {
+                    ++beg;
+                    if (beg->compare("true") == 0) {
+                        PrintCorrelationMatrix = true;
+                    }
                 } else if (beg->compare("PrintKnowledgeUpdatePlots") == 0) {
                     ++beg;
                     if (beg->compare("true") == 0) {
                         PrintKnowledgeUpdatePlots = true;
+                    }
+                } else if (beg->compare("PrintParameterPlot") == 0) {
+                    ++beg;
+                    if (beg->compare("true") == 0) {
+                        PrintParameterPlot = true;
                     }
 
                 } else {
@@ -165,15 +177,21 @@ void MonteCarlo::Run(const int rank) {
             // print ratio
             MCEngine.PrintHistogram(out);
             
-            // draw the correlation matrix into an eps file
             BCSummaryTool myBCSummaryTool(&MCEngine);
-            myBCSummaryTool.PrintCorrelationMatrix(("ParamCorrelations" + JobTag + ".eps").c_str());
+
+            // draw the correlation matrix into an eps file
+            if (PrintCorrelationMatrix)
+                myBCSummaryTool.PrintCorrelationMatrix(("ParamCorrelations" + JobTag + ".eps").c_str());
 
             // print comparisons of the prior knowledge to the posterior knowledge 
             // for all parameters into a PostScript file
             if (PrintKnowledgeUpdatePlots)
                 myBCSummaryTool.PrintKnowledgeUpdatePlots(("ParamUpdate" + JobTag + ".ps").c_str());
 
+            // draw an overview plot of the parameters into an eps file
+            if (PrintParameterPlot)
+                myBCSummaryTool.PrintParameterPlot(("ParamSummary" + JobTag + ".eps").c_str());
+            
             // print a LaTeX table of the parameters into a tex file
             //myBCSummaryTool.PrintParameterLatex(("ParamSummary" + JobTag + ".tex").c_str());
         
