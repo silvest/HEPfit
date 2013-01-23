@@ -37,7 +37,8 @@ private:
     std::vector<Observable> Obs;
     std::vector<Observable2D> Obs2D;   
     std::string ModelConf, MCMCConf, OutFile, JobTag;
-    bool PrintAllMarginalized, PrintKnowledgeUpdatePlots;
+    bool PrintAllMarginalized;
+    bool PrintCorrelationMatrix, PrintKnowledgeUpdatePlots, PrintParameterPlot;
 };
 
 /** 
