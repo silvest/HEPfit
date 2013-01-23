@@ -300,6 +300,19 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput& out) {
             Histo1D[it->getThname()]->Print(fname.c_str());
             std::cout << fname << " has been created." << std::endl;
             out.Write(Histo1D[it->getThname()]->GetHistogram());
+            
+            // output the portions of underflow and overflow bins
+            double UnderFlowContent = Histo1D[it->getThname()]->GetHistogram()->GetBinContent(0);
+            double OverFlowContent = Histo1D[it->getThname()]->GetHistogram()->GetBinContent(NBINS1D+1);
+            double Integral = Histo1D[it->getThname()]->GetHistogram()->Integral();
+            double TotalContent = 0.0;
+            for (int n = 0; n<=NBINS1D+1; n++)
+                TotalContent += Histo1D[it->getThname()]->GetHistogram()->GetBinContent(n);            
+            std::cout << it->getThname() << ": " 
+                      << Integral/TotalContent*100. << "% within the range, " 
+                      << UnderFlowContent/TotalContent*100. << "% underflow, " 
+                      << OverFlowContent/TotalContent*100. << "% overflow"
+                      << std::endl;
         } else
             std::cout << "The histogram of " << it->getThname() << " is empty!" << std::endl;
     }
