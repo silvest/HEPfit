@@ -231,6 +231,10 @@ int main(int argc, char** argv) {
         cout << "M_t_pole from M_t(M_t): " << mySM->Mbar2Mp(mySM->Mp2Mbar(mySM->getMtpole())) 
              << endl << endl;
 
+        cout << "M_t_pole from m_t=163.3: " << mySM->Mbar2Mp(163.3) 
+             << endl << endl;
+
+        
         cout << "m_b(m_b):               " << mySM->getQuarks(mySM->BOTTOM).getMass() << endl;
         cout << "M_b_pole from m_b(m_b): " << mySM->Mbar2Mp(mySM->getQuarks(mySM->BOTTOM).getMass()) << endl;
         cout << "m_b(m_b) from M_b_pole: " << mySM->Mp2Mbar(mySM->Mbar2Mp(mySM->getQuarks(mySM->BOTTOM).getMass())) 
