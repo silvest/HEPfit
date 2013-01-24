@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,7 +8,7 @@
 #ifndef NEWPHYSICSSTU_H
 #define	NEWPHYSICSSTU_H
 
-#include "StandardModel.h"
+#include <StandardModel.h>
 
 
 class NewPhysicsSTU : public StandardModel {

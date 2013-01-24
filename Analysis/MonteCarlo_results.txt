@@ -1,0 +1,175 @@
+
+ -----------------------------------------------------
+ Summary
+ -----------------------------------------------------
+
+ Model summary
+ =============
+ Model: NewPhysicsHiggs
+ Number of parameters: 6
+ List of Parameters and ranges:
+  (0) Parameter "a": (0.9, 1.15)
+  (1) Parameter "AlsMz": (0.1154, 0.1214)
+  (2) Parameter "dAle5Mz": (0.02585, 0.02915)
+  (3) Parameter "Mz": (91.177, 91.198)
+  (4) Parameter "mtop": (168.7, 177.7)
+  (5) Parameter "mHl": (123.6, 127.6)
+
+ Results of the optimization
+ ===========================
+ Optimization algorithm used: Minuit
+ List of parameters and global mode:
+  (0) Parameter "a": 1.0220187 +- 0.022504844
+  (1) Parameter "AlsMz": 0.11843501 +- 0.00058222396
+  (2) Parameter "dAle5Mz": 0.027607118 +- 0.00030807153
+  (3) Parameter "Mz": 91.187188 +- 0.0020755034
+  (4) Parameter "mtop": 173.2006 +- 0.89002175
+  (5) Parameter "mHl": 125.60015 +- 0.39733679
+
+ Results of the model test
+ =========================
+ p-value at global mode: 0
+
+ WARNING: the Markov Chain did not converge!
+ Be cautious using the following results!
+
+ Results of the marginalization
+ ==============================
+ List of parameters and properties of the marginalized
+ distributions:
+  (0) Parameter "a":
+      Mean +- sqrt(V):                1.0196219 +- 0.020629681
+      Median +- central 68% interval: 1.0184177 +  0.018616177 - 0.016258631
+      (Marginalized) mode:            1.01125
+       5% quantile:                   0.98421875
+      10% quantile:                   0.99544393
+      16% quantile:                   1.0021591
+      84% quantile:                   1.0392308
+      90% quantile:                   1.0471053
+      95% quantile:                   1.0538298
+      Smallest interval(s) containing at least 68% and local mode(s):
+       (0.995, 1) (local mode at 0.995 with rel. height 0.4439834; rel. area 0.0535)
+       (1.005, 1.01) (local mode at 1.005 with rel. height 0.5186722; rel. area 0.0625)
+       (1.01, 1.025) (local mode at 1.01 with rel. height 1; rel. area 0.281)
+       (1.025, 1.04) (local mode at 1.025 with rel. height 0.81327801; rel. area 0.259)
+       (1.0425, 1.0475) (local mode at 1.0425 with rel. height 0.29045643; rel. area 0.035)
+
+  (1) Parameter "AlsMz":
+      Mean +- sqrt(V):                0.11842856 +- 0.00059966696
+      Median +- central 68% interval: 0.11845753 +  0.00057165494 - 0.00066120772
+      (Marginalized) mode:            0.11843
+       5% quantile:                   0.11744182
+      10% quantile:                   0.11758437
+      16% quantile:                   0.11779633
+      84% quantile:                   0.11904541
+      90% quantile:                   0.11915207
+      95% quantile:                   0.11936
+      Smallest interval(s) containing at least 68% and local mode(s):
+       (0.11738, 0.1175) (local mode at 0.11738 with rel. height 0.39041096; rel. area 0.0285)
+       (0.1175, 0.11762) (local mode at 0.1175 with rel. height 0.37671233; rel. area 0.0275)
+       (0.1178, 0.11816) (local mode at 0.1178 with rel. height 0.6369863; rel. area 0.163)
+       (0.11816, 0.11828) (local mode at 0.11816 with rel. height 0.53424658; rel. area 0.039)
+       (0.11834, 0.11858) (local mode at 0.11843 with rel. height 1; rel. area 0.171)
+       (0.11858, 0.1187) (local mode at 0.11858 with rel. height 0.68493151; rel. area 0.05)
+       (0.11882, 0.11912) (local mode at 0.11891 with rel. height 0.93150685; rel. area 0.18)
+       (0.11912, 0.11924) (local mode at 0.11912 with rel. height 0.39726027; rel. area 0.029)
+
+  (2) Parameter "dAle5Mz":
+      Mean +- sqrt(V):                0.027531364 +- 0.00030216571
+      Median +- central 68% interval: 0.027500258 +  0.00040523534 - 0.00027815255
+      (Marginalized) mode:            0.0274505
+       5% quantile:                   0.027082
+      10% quantile:                   0.0271568
+      16% quantile:                   0.027222105
+      84% quantile:                   0.027910014
+      90% quantile:                   0.027944529
+      95% quantile:                   0.02802525
+      Smallest interval(s) containing at least 68% and local mode(s):
+       (0.027137, 0.027203) (local mode at 0.027137 with rel. height 0.50595238; rel. area 0.0425)
+       (0.027203, 0.027269) (local mode at 0.027203 with rel. height 0.45238095; rel. area 0.038)
+       (0.027269, 0.027566) (local mode at 0.0274505 with rel. height 1; rel. area 0.3645)
+       (0.027566, 0.027665) (local mode at 0.027566 with rel. height 0.55357143; rel. area 0.083)
+       (0.027731, 0.027797) (local mode at 0.027731 with rel. height 0.3452381; rel. area 0.029)
+       (0.027797, 0.027863) (local mode at 0.027797 with rel. height 0.36904762; rel. area 0.031)
+       (0.027896, 0.027962) (local mode at 0.027896 with rel. height 0.86904762; rel. area 0.073)
+       (0.027962, 0.028028) (local mode at 0.027962 with rel. height 0.42261905; rel. area 0.0355)
+
+  (3) Parameter "Mz":
+      Mean +- sqrt(V):                91.187192 +- 0.0018680301
+      Median +- central 68% interval: 91.187192 +  0.0019071292 - 0.0016499263
+      (Marginalized) mode:            91.185715
+       5% quantile:                   91.184083
+      10% quantile:                   91.184735
+      16% quantile:                   91.185542
+      84% quantile:                   91.189136
+      90% quantile:                   91.18952
+      95% quantile:                   91.190335
+      Smallest interval(s) containing at least 68% and local mode(s):
+       (91.18435, 91.18477) (local mode at 91.18435 with rel. height 0.41059603; rel. area 0.031)
+       (91.18477, 91.18519) (local mode at 91.18477 with rel. height 0.32450331; rel. area 0.0245)
+       (91.18561, 91.18624) (local mode at 91.18561 with rel. height 1; rel. area 0.123)
+       (91.18624, 91.18687) (local mode at 91.18624 with rel. height 0.61589404; rel. area 0.0775)
+       (91.18687, 91.18834) (local mode at 91.18687 with rel. height 0.9205298; rel. area 0.2895)
+       (91.18834, 91.18876) (local mode at 91.18834 with rel. height 0.68211921; rel. area 0.0515)
+       (91.18897, 91.18939) (local mode at 91.18897 with rel. height 0.75496689; rel. area 0.057)
+       (91.18939, 91.18981) (local mode at 91.18939 with rel. height 0.43708609; rel. area 0.033)
+
+  (4) Parameter "mtop":
+      Mean +- sqrt(V):                173.16613 +- 0.83134705
+      Median +- central 68% interval: 173.1122 +  0.92168243 - 0.75144512
+      (Marginalized) mode:            172.615
+       5% quantile:                   171.94
+      10% quantile:                   172.18857
+      16% quantile:                   172.36075
+      84% quantile:                   174.07061
+      90% quantile:                   174.27379
+      95% quantile:                   174.532
+      Smallest interval(s) containing at least 68% and local mode(s):
+       (172.03, 172.21) (local mode at 172.03 with rel. height 0.37724551; rel. area 0.0315)
+       (172.3, 172.48) (local mode at 172.3 with rel. height 0.71856287; rel. area 0.06)
+       (172.48, 173.2) (local mode at 172.615 with rel. height 1; rel. area 0.296)
+       (173.2, 173.38) (local mode at 173.2 with rel. height 0.35329341; rel. area 0.0295)
+       (173.38, 174.01) (local mode at 173.875 with rel. height 0.62275449; rel. area 0.252)
+       (174.19, 174.37) (local mode at 174.19 with rel. height 0.34730539; rel. area 0.029)
+
+  (5) Parameter "mHl":
+      Mean +- sqrt(V):                125.61131 +- 0.35855186
+      Median +- central 68% interval: 125.60911 +  0.35769459 - 0.34647241
+      (Marginalized) mode:            125.58
+       5% quantile:                   125.03625
+      10% quantile:                   125.13231
+      16% quantile:                   125.26264
+      84% quantile:                   125.98383
+      90% quantile:                   126.065
+      95% quantile:                   126.235
+      Smallest interval(s) containing at least 68% and local mode(s):
+       (125.2, 125.36) (local mode at 125.2 with rel. height 0.38509317; rel. area 0.086)
+       (125.36, 125.52) (local mode at 125.36 with rel. height 0.98136646; rel. area 0.154)
+       (125.56, 125.96) (local mode at 125.56 with rel. height 1; rel. area 0.419)
+       (126.04, 126.12) (local mode at 126.04 with rel. height 0.34782609; rel. area 0.028)
+
+ Status of the MCMC
+ ==================
+ Convergence reached:                    no
+ WARNING: the Markov Chain did not converge! Be
+ cautious using the following results!
+
+ Number of chains:                       2
+ Number of iterations per chain:         1000
+ Average efficiencies:
+  (0) Parameter "a": 12.404082%
+  (1) Parameter "AlsMz": 19.194531%
+  (2) Parameter "dAle5Mz": 14.057377%
+  (3) Parameter "Mz": 17.182834%
+  (4) Parameter "mtop": 17.672301%
+  (5) Parameter "mHl": 18.537405%
+
+ -----------------------------------------------------
+ Notation:
+ Mean        : mean value of the marg. pdf
+ Median      : maximum of the marg. pdf
+ Marg. mode  : most probable value of the marg. pdf
+ V           : Variance of the marg. pdf
+ Quantiles   : most commonly used quantiles
+ -----------------------------------------------------
+
