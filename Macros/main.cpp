@@ -212,7 +212,7 @@ int main(int argc, char** argv)
     filename[2] = filename[0];
     filename[3] = filename[0];
 
-    string outputFileName = plotname[0];   
+    string outputFileName;   
     
     for (int i = 3; i < argc; i++) {
         char str[100];
@@ -447,6 +447,8 @@ int main(int argc, char** argv)
     }
 
     // output files
+    if (outputFileName.compare("")==0)
+        outputFileName = plotname[0];
     string epsFileName = outputFileName + ".eps";
     string txtFileName = outputFileName + ".txt";    
 
