@@ -15,10 +15,10 @@
 #include <ModelParameter.h>
 #include <StandardModel.h>
 #include <StandardModelMatching.h>
-#include <NewPhysicsSTU.h>
-#include <NewPhysicsSTUVWXY.h>
-#include <NewPhysicsEpsilons.h>
-#include <NewPhysicsHiggs.h>
+#include <NPSTU.h>
+#include <NPSTUVWXY.h>
+#include <NPEpsilons.h>
+#include <NPHiggs.h>
 #include <SUSYMassInsertion.h>
 #include <SUSYMassInsertionMatching.h>
 #include <MFV.h>

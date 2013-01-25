@@ -5,25 +5,26 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef NEWPHYSICSSTUVWXY_H
-#define	NEWPHYSICSSTUVWXY_H
+#ifndef NPSTUVWXY_H
+#define	NPSTUVWXY_H
 
 #include <cmath>
 #include <StandardModel.h>
 
 
-class NewPhysicsSTUVWXY : public StandardModel {
+class NPSTUVWXY : public StandardModel {
 public:
     static const int NSTUVWXYvars = 7;
     static const std::string STUVWXYvars[NSTUVWXYvars];
     
     /**
-     * @brief NewPhysicsSTUVWXY constructor
+     * @brief NPSTUVWXY constructor
      */
-    NewPhysicsSTUVWXY();
+    NPSTUVWXY();
 
-    virtual std::string ModelName() const {
-        return "NewPhysicsSTUVWXY";
+    virtual std::string ModelName() const 
+    {
+        return "NPSTUVWXY";
     }
 
     virtual bool Update(const std::map<std::string, double>& DPars);
@@ -41,49 +42,56 @@ public:
     /**
      * @return Oblique parameter \hat{S}
      */
-    double obliqueShat() const {
+    double obliqueShat() const
+    {
         return myObliqueShat;
     }
 
     /**
      * @return Oblique parameter \hat{T}
      */
-    double obliqueThat() const {
+    double obliqueThat() const 
+    {
         return myObliqueThat;
     }
 
     /**
      * @return Oblique parameter \hat{U}
      */
-    double obliqueUhat() const {
+    double obliqueUhat() const 
+    {
         return myObliqueUhat;
     }
 
     /**
      * @return Oblique parameter V
      */
-    double obliqueV() const {
+    double obliqueV() const 
+    {
         return myObliqueV;
     }
 
     /**
      * @return Oblique parameter W
      */
-    double obliqueW() const {
+    double obliqueW() const 
+    {
         return myObliqueW;
     }
 
     /**
      * @return Oblique parameter X
      */
-    double obliqueX() const {
+    double obliqueX() const 
+    {
         return myObliqueX;
     }
 
     /**
      * @return Oblique parameter Y
      */
-    double obliqueY() const {
+    double obliqueY() const 
+    {
         return myObliqueY;
     }
     
@@ -94,7 +102,8 @@ public:
     /**
      * @return Oblique parameter S'
      */
-    double obliqueS() const {
+    double obliqueS() const 
+    {
         double s0 = sqrt(s02());
         double c0 = sqrt(c02());
         return ( ( myObliqueShat - myObliqueW + myObliqueX/(s0*c0) - myObliqueY )
@@ -104,7 +113,8 @@ public:
     /**
      * @return Oblique parameter T'
      */
-    double obliqueT() const {
+    double obliqueT() const 
+    {
         double s0 = sqrt(s02());
         double c0 = sqrt(c02());
         return ( ( myObliqueThat - myObliqueW + 2.0*s0/c0*myObliqueX 
@@ -114,7 +124,8 @@ public:
     /**
      * @return Oblique parameter U'
      */
-    double obliqueU() const {
+    double obliqueU() const 
+    {
         double s0 = sqrt(s02());
         double c0 = sqrt(c02());
         return ( ( - myObliqueUhat + myObliqueV + myObliqueW 
@@ -135,5 +146,5 @@ private:
 
 };
 
-#endif	/* NEWPHYSICSSTUVWXY_H */
+#endif	/* NPSTUVWXY_H */
 

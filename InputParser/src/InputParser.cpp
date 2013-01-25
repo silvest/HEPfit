@@ -48,27 +48,27 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;
-        } else if (beg->compare("NewPhysicsSTU") == 0) {
+        } else if (beg->compare("NPSTU") == 0) {
             modname = *beg;
-            myModel = new NewPhysicsSTU();
+            myModel = new NPSTU();
             myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;
-        } else if (beg->compare("NewPhysicsSTUVWXY") == 0) {
+        } else if (beg->compare("NPSTUVWXY") == 0) {
             modname = *beg;
-            myModel = new NewPhysicsSTUVWXY();
+            myModel = new NPSTUVWXY();
             myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;
-        } else if (beg->compare("NewPhysicsEpsilons") == 0) {
+        } else if (beg->compare("NPEpsilons") == 0) {
             modname = *beg;
-            myModel = new NewPhysicsEpsilons();
+            myModel = new NPEpsilons();
             myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;
-        } else if (beg->compare("NewPhysicsHiggs") == 0) {
+        } else if (beg->compare("NPHiggs") == 0) {
             modname = *beg;
-            myModel = new NewPhysicsHiggs();
+            myModel = new NPHiggs();
             myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;

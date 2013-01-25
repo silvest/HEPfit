@@ -329,19 +329,19 @@ complex StandardModel::rhoZ_q(const quark q) const {
     double G0 = GF*pow(Mz,3.0)/24.0/sqrt(2.0)/M_PI;    
     double Gamma = 0.0;
     Gamma += 3.0*G0*rhoZ_q(UP).abs()
-             * ( (gVq(UP)/gAq(UP)).abs2()*RVq(UP) + RAq(UP) ) + Delta_EWQCD(UP); 
+             * ( (myEWSM->gVq_SM(UP)/myEWSM->gAq_SM(UP)).abs2()*RVq(UP) + RAq(UP) ) + Delta_EWQCD(UP); 
     Gamma += 3.0*G0*rhoZ_q(DOWN).abs()
-             * ( (gVq(DOWN)/gAq(DOWN)).abs2()*RVq(DOWN) + RAq(DOWN) ) + Delta_EWQCD(DOWN); 
+             * ( (myEWSM->gVq_SM(DOWN)/myEWSM->gAq_SM(DOWN)).abs2()*RVq(DOWN) + RAq(DOWN) ) + Delta_EWQCD(DOWN); 
     Gamma += 3.0*G0*rhoZ_q(CHARM).abs()
-             * ( (gVq(CHARM)/gAq(CHARM)).abs2()*RVq(CHARM) + RAq(CHARM) ) + Delta_EWQCD(CHARM); 
+             * ( (myEWSM->gVq_SM(CHARM)/myEWSM->gAq_SM(CHARM)).abs2()*RVq(CHARM) + RAq(CHARM) ) + Delta_EWQCD(CHARM); 
     Gamma += 3.0*G0*rhoZ_q(STRANGE).abs()
-             * ( (gVq(STRANGE)/gAq(STRANGE)).abs2()*RVq(STRANGE) + RAq(STRANGE) ) + Delta_EWQCD(STRANGE); 
+             * ( (myEWSM->gVq_SM(STRANGE)/myEWSM->gAq_SM(STRANGE)).abs2()*RVq(STRANGE) + RAq(STRANGE) ) + Delta_EWQCD(STRANGE); 
     //Gamma += 4.0*3.0*G0*RVh(); /* RVh depends on rho_Z_q(BOTTOM). */
     
     // |kappaZ_b| from R_0^b
     double R0b = myEWSM->R0_bottom_SM();
     double Qb = getQuarks(BOTTOM).getCharge();  
-    double gVb_over_gAb_abs2 = (1.0 - 4.0*fabs(Qb)*kappaZ_q(BOTTOM)*myEWSM->sW2_SM()).abs2();
+    double gVb_over_gAb_abs2 = (1.0 - 4.0*fabs(Qb)*myEWSM->kappaZ_q_SM(BOTTOM)*myEWSM->sW2_SM()).abs2();
     double absRhoZb = ( Gamma*R0b/(1.0-R0b) - Delta_EWQCD(BOTTOM) )
                       /( 3.0*G0*( gVb_over_gAb_abs2*RVq(BOTTOM) + RAq(BOTTOM) ) );
     
@@ -370,8 +370,8 @@ complex StandardModel::gVq(const quark q) const {
         return myEWSM->gVq_SM(q);
 
     double Qb = getQuarks(BOTTOM).getCharge();  
-    return ( gAq(BOTTOM)
-             *(1.0 - 4.0*fabs(Qb)*kappaZ_q(BOTTOM)*myEWSM->sW2_SM()) );
+    return ( StandardModel::gAq(BOTTOM)
+             *(1.0 - 4.0*fabs(Qb)*myEWSM->kappaZ_q_SM(BOTTOM)*myEWSM->sW2_SM()) );
 }
     
 complex StandardModel::gAl(const lepton l) const {
@@ -382,7 +382,7 @@ complex StandardModel::gAq(const quark q) const {
     if (q!=BOTTOM || (q==BOTTOM && !FlagR0bApproximate) ) 
         return myEWSM->gAq_SM(q);
 
-    return ( sqrt(rhoZ_q(BOTTOM))*getQuarks(BOTTOM).getIsospin() );
+    return ( sqrt(StandardModel::rhoZ_q(BOTTOM))*getQuarks(BOTTOM).getIsospin() );
 }
 
 double StandardModel::Delta_EWQCD(const StandardModel::quark q) const 
