@@ -112,9 +112,6 @@ bool NPEpsilons::SetFlag(const std::string name, const bool& value)
     } else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
         myEWepsilons->setFlagWithoutNonUniversalVC(value);
         res = true;
-    } else if (name.compare("R0bApproximate") == 0) {
-        if (value) 
-            throw std::runtime_error("R0bApproximate=true is not applicable to NPEpsilons"); 
     } else {
         res = StandardModel::SetFlag(name,value);
     }

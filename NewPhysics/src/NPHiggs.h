@@ -8,11 +8,11 @@
 #ifndef NPHIGGS_H
 #define	NPHIGGS_H
 
-#include <StandardModel.h>
+#include "NPZbbbar.h"
 #include <EWepsilons.h>
 
 
-class NPHiggs : public StandardModel {
+class NPHiggs : public NPZbbbar {
 public:
     static const int NNPHIGGSvars = 7;
     static const std::string NPHIGGSvars[NNPHIGGSvars];

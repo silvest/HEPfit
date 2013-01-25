@@ -17,14 +17,14 @@ const std::string NPHiggs::NPHIGGSflags[NNPHIGGSflags]
     = {"withoutNonUniversalVCinEpsilons"};
 
 
-NPHiggs::NPHiggs() : StandardModel() {
+NPHiggs::NPHiggs() : NPZbbbar() {
 }
 
 
 bool NPHiggs::Update(const std::map<std::string,double>& DPars) {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         SetParameter(it->first, it->second);
-    if(!StandardModel::Update(DPars)) return (false);
+    if(!NPZbbbar::Update(DPars)) return (false);
 
     return (true);
 }
@@ -44,7 +44,7 @@ bool NPHiggs::CheckParameters(const std::map<std::string, double>& DPars) {
             return false;
         }
     }
-    return(StandardModel::CheckParameters(DPars));
+    return(NPZbbbar::CheckParameters(DPars));
 }
 
     
@@ -64,12 +64,12 @@ void NPHiggs::SetParameter(const std::string name, const double& value) {
     else if (name.compare("d_4") == 0)
         d_4 = value;
     else
-        StandardModel::SetParameter(name, value);       
+        NPZbbbar::SetParameter(name, value);       
 }
 
 
 bool NPHiggs::InitializeModel() {
-    SetModelInitialized(StandardModel::InitializeModel());
+    SetModelInitialized(NPZbbbar::InitializeModel());
     myEWepsilons = new EWepsilons(*this);
     return (IsModelInitialized());
 }
@@ -100,11 +100,8 @@ bool NPHiggs::SetFlag(const std::string name, const bool& value) {
     else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
         myEWepsilons->setFlagWithoutNonUniversalVC(value);
         res = true;
-    } else if (name.compare("R0bApproximate") == 0) {
-        if (value) 
-            throw std::runtime_error("R0bApproximate=true is not applicable to NPHiggs"); 
     } else {
-        res = StandardModel::SetFlag(name,value);
+        res = NPZbbbar::SetFlag(name,value);
     }
     return(res);
 }
@@ -142,7 +139,8 @@ double NPHiggs::epsilon3() const {
 
 
 double NPHiggs::epsilonb() const {
-    return epsilonb_SM();    
+    //return epsilonb_SM();    
+    return NPZbbbar::epsilonb();
 }
 
 
@@ -176,7 +174,7 @@ complex NPHiggs::rhoZ_q(const StandardModel::quark q) const {
         case StandardModel::STRANGE:
             return myEWepsilons->rhoZ_q(q, epsilon1());
         case StandardModel::BOTTOM:
-            return myEWepsilons->rhoZ_b(epsilon1(), epsilonb());
+            return ( gAq(q)*gAq(q)/getQuarks(q).getIsospin()/getQuarks(q).getIsospin() );
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:
@@ -198,7 +196,7 @@ complex NPHiggs::kappaZ_q(const StandardModel::quark q) const {
         case StandardModel::STRANGE:
             return myEWepsilons->kappaZ_q(q, epsilon1(), epsilon3());
         case StandardModel::BOTTOM:
-            return myEWepsilons->kappaZ_b(epsilon1(), epsilon3(), epsilonb());
+            return ( (1.0 - gVq(q)/gAq(q))/(4.0*fabs(getQuarks(q).getCharge())*sW2()) );
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:
@@ -220,7 +218,7 @@ complex NPHiggs::gVq(const StandardModel::quark q) const {
         case StandardModel::STRANGE:
             return myEWepsilons->gVq(q, epsilon1(), epsilon3());
         case StandardModel::BOTTOM:
-            return myEWepsilons->gVb(epsilon1(), epsilon3(), epsilonb());
+            return ( myEWepsilons->gVb(epsilon1(), epsilon3(), epsilonb_SM()) + myDeltaGVb );
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:
@@ -242,7 +240,7 @@ complex NPHiggs::gAq(const StandardModel::quark q) const {
         case StandardModel::STRANGE:
             return myEWepsilons->gAq(q, epsilon1());
         case StandardModel::BOTTOM:
-            return myEWepsilons->gAb(epsilon1(), epsilonb());
+            return ( myEWepsilons->gAb(epsilon1(), epsilonb_SM()) + myDeltaGAb );
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:

@@ -14,14 +14,14 @@ const std::string NPSTUVWXY::STUVWXYvars[NSTUVWXYvars]
                      "obliqueV", "obliqueW", "obliqueX", "obliqueY"};
 
 
-NPSTUVWXY::NPSTUVWXY() : StandardModel() {
+NPSTUVWXY::NPSTUVWXY() : NPZbbbar() {
 }
 
 
 bool NPSTUVWXY::Update(const std::map<std::string,double>& DPars) {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         SetParameter(it->first, it->second);
-    if(!StandardModel::Update(DPars)) return (false);
+    if(!NPZbbbar::Update(DPars)) return (false);
 
     return (true);
 }
@@ -41,7 +41,7 @@ bool NPSTUVWXY::CheckParameters(const std::map<std::string, double>& DPars) {
             return false;
         }
     }
-    return(StandardModel::CheckParameters(DPars));
+    return(NPZbbbar::CheckParameters(DPars));
 }
 
     
@@ -61,7 +61,7 @@ void NPSTUVWXY::SetParameter(const std::string name, const double& value) {
     else if (name.compare("obliqueY") == 0)
         myObliqueY = value;    
     else
-        StandardModel::SetParameter(name, value);       
+        NPZbbbar::SetParameter(name, value);       
 }
 
 
@@ -72,7 +72,7 @@ bool NPSTUVWXY::SetFlag(const std::string name, const bool& value){
     } else if (name.compare("EWABC2") == 0) {
         throw std::runtime_error("Flag EWABC2 is not applicable to NPSTUVWXY"); 
     } else {
-        res = StandardModel::SetFlag(name,value);
+        res = NPZbbbar::SetFlag(name,value);
     }
     return(res);
 }

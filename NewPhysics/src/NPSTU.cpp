@@ -13,14 +13,14 @@ const std::string NPSTU::STUvars[NSTUvars]
                   = {"obliqueS", "obliqueT", "obliqueU"};
 
 
-NPSTU::NPSTU() : StandardModel() {
+NPSTU::NPSTU() : NPZbbbar() {
 }
 
 
 bool NPSTU::Update(const std::map<std::string,double>& DPars) {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         SetParameter(it->first, it->second);
-    if(!StandardModel::Update(DPars)) return (false);
+    if(!NPZbbbar::Update(DPars)) return (false);
 
     return (true);
 }
@@ -40,7 +40,7 @@ bool NPSTU::CheckParameters(const std::map<std::string, double>& DPars) {
             return false;
         }
     }
-    return(StandardModel::CheckParameters(DPars));
+    return(NPZbbbar::CheckParameters(DPars));
 }
 
     
@@ -52,7 +52,7 @@ void NPSTU::SetParameter(const std::string name, const double& value) {
     else if (name.compare("obliqueU") == 0)
         myObliqueU = value;    
     else
-        StandardModel::SetParameter(name, value);       
+        NPZbbbar::SetParameter(name, value);       
 }
 
 
@@ -63,7 +63,7 @@ bool NPSTU::SetFlag(const std::string name, const bool& value) {
     } else if (name.compare("EWABC2") == 0) {
         throw std::runtime_error("Flag EWABC2 is not applicable to NPSTU"); 
     } else {
-        res = StandardModel::SetFlag(name,value);
+        res = NPZbbbar::SetFlag(name,value);
     }
     return(res);
 }
