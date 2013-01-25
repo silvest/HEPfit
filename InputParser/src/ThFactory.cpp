@@ -9,6 +9,7 @@
 #include <boost/lexical_cast.hpp>
 #include "ThFactory.h"
 #include <SMInputs.h>
+#include <NPInputs.h>
 #include <SusyObservables.h>
 #include <FlavourObservables.h>
 #include <EWObservables.h>
@@ -63,6 +64,12 @@ myFlavour(myModel), myEW(myModel), myMO(myModel)
     thobs["mHl"] = new mHl(myMO);
     thobs["mZ"] = new mZ(myMO);
     thobs["mtpole"] = new mtpole(myMO);
+    
+    //-----  NP input parameters  -----
+    thobs["deltaGVb"] = new deltaGVb(myMO);
+    thobs["deltaGAb"] = new deltaGAb(myMO);
+    thobs["deltaGLb"] = new deltaGLb(myMO);
+    thobs["deltaGRb"] = new deltaGRb(myMO);
     
     //-----   Higgs mass   -----
     thobs["Mh0"] = new Mh0(myEW);
