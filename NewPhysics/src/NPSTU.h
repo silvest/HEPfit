@@ -8,10 +8,10 @@
 #ifndef NPSTU_H
 #define	NPSTU_H
 
-#include <StandardModel.h>
+#include "NPZbbbar.h"
 
 
-class NPSTU : public StandardModel {
+class NPSTU : public NPZbbbar {
 public:
     static const int NSTUvars = 3;
     static const std::string STUvars[NSTUvars];
