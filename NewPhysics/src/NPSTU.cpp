@@ -6,18 +6,18 @@
  */
 
 #include <stdexcept>
-#include "NewPhysicsSTU.h"
+#include "NPSTU.h"
 
 
-const std::string NewPhysicsSTU::STUvars[NSTUvars] 
+const std::string NPSTU::STUvars[NSTUvars] 
                   = {"obliqueS", "obliqueT", "obliqueU"};
 
 
-NewPhysicsSTU::NewPhysicsSTU() : StandardModel() {
+NPSTU::NPSTU() : StandardModel() {
 }
 
 
-bool NewPhysicsSTU::Update(const std::map<std::string,double>& DPars) {
+bool NPSTU::Update(const std::map<std::string,double>& DPars) {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         SetParameter(it->first, it->second);
     if(!StandardModel::Update(DPars)) return (false);
@@ -26,16 +26,16 @@ bool NewPhysicsSTU::Update(const std::map<std::string,double>& DPars) {
 }
 
 
-bool NewPhysicsSTU::Init(const std::map<std::string, double>& DPars) {
+bool NPSTU::Init(const std::map<std::string, double>& DPars) {
     Update(DPars);
     return(CheckParameters(DPars)); 
 }
 
 
-bool NewPhysicsSTU::CheckParameters(const std::map<std::string, double>& DPars) {
+bool NPSTU::CheckParameters(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NSTUvars; i++) {
         if (DPars.find(STUvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory NewPhysicsSTU parameter " 
+            std::cout << "missing mandatory NPSTU parameter " 
                       << STUvars[i] << std::endl;
             return false;
         }
@@ -44,7 +44,7 @@ bool NewPhysicsSTU::CheckParameters(const std::map<std::string, double>& DPars) 
 }
 
     
-void NewPhysicsSTU::SetParameter(const std::string name, const double& value) {
+void NPSTU::SetParameter(const std::string name, const double& value) {
     if (name.compare("obliqueS") == 0)
         myObliqueS = value;
     else if (name.compare("obliqueT") == 0)
@@ -56,12 +56,12 @@ void NewPhysicsSTU::SetParameter(const std::string name, const double& value) {
 }
 
 
-bool NewPhysicsSTU::SetFlag(const std::string name, const bool& value) {
+bool NPSTU::SetFlag(const std::string name, const bool& value) {
     bool res = false;
     if (name.compare("EWABC") == 0) {
-        throw std::runtime_error("Flag EWABC is not applicable to NewPhysicsSTU"); 
+        throw std::runtime_error("Flag EWABC is not applicable to NPSTU"); 
     } else if (name.compare("EWABC2") == 0) {
-        throw std::runtime_error("Flag EWABC2 is not applicable to NewPhysicsSTU"); 
+        throw std::runtime_error("Flag EWABC2 is not applicable to NPSTU"); 
     } else {
         res = StandardModel::SetFlag(name,value);
     }

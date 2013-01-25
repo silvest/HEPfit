@@ -6,19 +6,19 @@
  */
 
 #include <stdexcept>
-#include "NewPhysicsSTUVWXY.h"
+#include "NPSTUVWXY.h"
 
 
-const std::string NewPhysicsSTUVWXY::STUVWXYvars[NSTUVWXYvars] 
+const std::string NPSTUVWXY::STUVWXYvars[NSTUVWXYvars] 
                   = {"obliqueShat", "obliqueThat", "obliqueUhat", 
                      "obliqueV", "obliqueW", "obliqueX", "obliqueY"};
 
 
-NewPhysicsSTUVWXY::NewPhysicsSTUVWXY() : StandardModel() {
+NPSTUVWXY::NPSTUVWXY() : StandardModel() {
 }
 
 
-bool NewPhysicsSTUVWXY::Update(const std::map<std::string,double>& DPars) {
+bool NPSTUVWXY::Update(const std::map<std::string,double>& DPars) {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         SetParameter(it->first, it->second);
     if(!StandardModel::Update(DPars)) return (false);
@@ -27,16 +27,16 @@ bool NewPhysicsSTUVWXY::Update(const std::map<std::string,double>& DPars) {
 }
 
 
-bool NewPhysicsSTUVWXY::Init(const std::map<std::string, double>& DPars) {
+bool NPSTUVWXY::Init(const std::map<std::string, double>& DPars) {
     Update(DPars);
     return(CheckParameters(DPars)); 
 }
 
 
-bool NewPhysicsSTUVWXY::CheckParameters(const std::map<std::string, double>& DPars) {
+bool NPSTUVWXY::CheckParameters(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NSTUVWXYvars; i++) {
         if (DPars.find(STUVWXYvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory NewPhysicsSTUVWXY parameter " 
+            std::cout << "missing mandatory NPSTUVWXY parameter " 
                       << STUVWXYvars[i] << std::endl;
             return false;
         }
@@ -45,7 +45,7 @@ bool NewPhysicsSTUVWXY::CheckParameters(const std::map<std::string, double>& DPa
 }
 
     
-void NewPhysicsSTUVWXY::SetParameter(const std::string name, const double& value) {
+void NPSTUVWXY::SetParameter(const std::string name, const double& value) {
     if (name.compare("obliqueShat") == 0)
         myObliqueShat = value;
     else if (name.compare("obliqueThat") == 0)
@@ -65,12 +65,12 @@ void NewPhysicsSTUVWXY::SetParameter(const std::string name, const double& value
 }
 
 
-bool NewPhysicsSTUVWXY::SetFlag(const std::string name, const bool& value){
+bool NPSTUVWXY::SetFlag(const std::string name, const bool& value){
     bool res = false;
     if (name.compare("EWABC") == 0) {
-        throw std::runtime_error("Flag EWABC is not applicable to NewPhysicsSTUVWXY"); 
+        throw std::runtime_error("Flag EWABC is not applicable to NPSTUVWXY"); 
     } else if (name.compare("EWABC2") == 0) {
-        throw std::runtime_error("Flag EWABC2 is not applicable to NewPhysicsSTUVWXY"); 
+        throw std::runtime_error("Flag EWABC2 is not applicable to NPSTUVWXY"); 
     } else {
         res = StandardModel::SetFlag(name,value);
     }

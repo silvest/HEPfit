@@ -5,24 +5,25 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef NEWPHYSICSSTU_H
-#define	NEWPHYSICSSTU_H
+#ifndef NPSTU_H
+#define	NPSTU_H
 
 #include <StandardModel.h>
 
 
-class NewPhysicsSTU : public StandardModel {
+class NPSTU : public StandardModel {
 public:
     static const int NSTUvars = 3;
     static const std::string STUvars[NSTUvars];
     
     /**
-     * @brief NewPhysicsSTU constructor
+     * @brief NPSTU constructor
      */
-    NewPhysicsSTU();
+    NPSTU();
 
-    virtual std::string ModelName() const {
-        return "NewPhysicsSTU";
+    virtual std::string ModelName() const 
+    {
+        return "NPSTU";
     }
 
     virtual bool Update(const std::map<std::string, double>& DPars);
@@ -40,21 +41,24 @@ public:
     /**
      * @return Oblique parameter S
      */
-    double obliqueS() const {
+    double obliqueS() const 
+    {
         return myObliqueS;
     }
 
     /**
      * @return Oblique parameter T
      */
-    double obliqueT() const {
+    double obliqueT() const 
+    {
         return myObliqueT;
     }
 
     /**
      * @return Oblique parameter U
      */
-    double obliqueU() const {
+    double obliqueU() const 
+    {
         return myObliqueU;
     }
     
@@ -64,49 +68,56 @@ public:
     /**
      * @return Oblique parameter \hat{S}
      */
-    double obliqueShat() const {
+    double obliqueShat() const 
+    {
         return ( alphaMz()/(4.0*s02())*obliqueS() );
     }
 
     /**
      * @return Oblique parameter \hat{T}
      */
-    double obliqueThat() const {
+    double obliqueThat() const 
+    {
         return ( alphaMz()*obliqueT() );
     }
 
     /**
      * @return Oblique parameter \hat{U}
      */
-    double obliqueUhat() const {
+    double obliqueUhat() const 
+    {
         return ( - alphaMz()/(4.0*s02())*obliqueU() );
     }
 
     /**
      * @return Oblique parameter V
      */
-    double obliqueV() const {
+    double obliqueV() const 
+    {
         return 0.0;
     }
 
     /**
      * @return Oblique parameter W
      */
-    double obliqueW() const {
+    double obliqueW() const 
+    {
         return 0.0;
     }
 
     /**
      * @return Oblique parameter X
      */
-    double obliqueX() const {
+    double obliqueX() const 
+    {
         return 0.0;
     }
 
     /**
      * @return Oblique parameter Y
      */
-    double obliqueY() const {
+    double obliqueY() const 
+    {
         return 0.0;
     }
 
@@ -123,5 +134,5 @@ private:
 
 };
 
-#endif	/* NEWPHYSICSSTU_H */
+#endif	/* NPSTU_H */
 

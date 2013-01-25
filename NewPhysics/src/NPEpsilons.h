@@ -5,24 +5,28 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef NEWPHYSICSHIGGS_H
-#define	NEWPHYSICSHIGGS_H
+#ifndef NPEPSILONS_H
+#define	NPEPSILONS_H
 
 #include <StandardModel.h>
 #include <EWepsilons.h>
 
 
-class NewPhysicsHiggs : public StandardModel {
+class NPEpsilons : public StandardModel  {
 public:
-    static const int NNPHIGGSvars = 7;
-    static const std::string NPHIGGSvars[NNPHIGGSvars];
-    static const int NNPHIGGSflags = 1;
-    static const std::string NPHIGGSflags[NNPHIGGSflags];
+    static const int NEPSILONvars = 4;
+    static const std::string EPSILONvars[NEPSILONvars];
+    static const int NEPSILONflags = 5;
+    static const std::string EPSILONflags[NEPSILONflags];
+    
+    /**
+     * @brief NPEpsilons constructor
+     */
+    NPEpsilons();
 
-    NewPhysicsHiggs();
-
-    virtual std::string ModelName() const {
-        return "NewPhysicsHiggs";
+    virtual std::string ModelName() const 
+    {
+        return "NPEpsilons";
     }
 
     virtual bool Update(const std::map<std::string, double>& DPars);
@@ -30,7 +34,7 @@ public:
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     virtual bool InitializeModel();  
-    virtual void SetEWSMflags(EWSM& myEWSM);
+    virtual void SetEWSMflags(EWSM& myEWSM);    
 
         
     ////////////////////////////////////////////////////////////////////////     
@@ -38,29 +42,41 @@ public:
     bool SetFlag(const std::string, const bool&); 
     
     
-    //////////////////////////////////////////////////////////////////////// 
+    ////////////////////////////////////////////////////////////////////////     
 
-    /**
-     * @return epsilon_1
-     */
-    virtual double epsilon1() const;
+    double epsilon1() const 
+    {
+        if (FlagEpsilon1SM) 
+            return epsilon1_SM();
+        else
+            return myEpsilon_1;
+    }
 
-    /**
-     * @return epsilon_2
-     */
-    virtual double epsilon2() const;
-    
-    /**
-     * @return epsilon_3
-     */
-    virtual double epsilon3() const;
-    
-    /**
-     * @return epsilon_b
-     */
-    virtual double epsilonb() const;    
+    double epsilon2() const 
+    {
+        if (FlagEpsilon2SM) 
+            return epsilon2_SM();
+        else
+            return myEpsilon_2;
+    }
 
+    double epsilon3() const 
+    {
+        if (FlagEpsilon3SM) 
+            return epsilon3_SM();
+        else
+            return myEpsilon_3;
+    }
+
+    double epsilonb() const 
+    {
+        if (FlagEpsilonbSM) 
+            return epsilonb_SM();
+        else
+            return myEpsilon_b;
+    }    
     
+
     ////////////////////////////////////////////////////////////////////////     
     
     /**
@@ -140,18 +156,20 @@ public:
     virtual double GammaW() const;    
 
     
-    ////////////////////////////////////////////////////////////////////////     
-    
+    ////////////////////////////////////////////////////////////////////////   
+
 protected:    
-    double a, b, c_u, c_d, c_e, d_3, d_4;
+    double myEpsilon_1, myEpsilon_2, myEpsilon_3, myEpsilon_b;
     virtual void SetParameter(const std::string name, const double& value);
     
-    //////////////////////////////////////////////////////////////////////// 
-
+    
+    ////////////////////////////////////////////////////////////////////////     
+    
 private:
+    bool FlagEpsilon1SM, FlagEpsilon2SM, FlagEpsilon3SM, FlagEpsilonbSM;
     EWepsilons* myEWepsilons;
     
 };
 
-#endif	/* NEWPHYSICSHIGGS_H */
+#endif	/* NPEPSILONS_H */
 

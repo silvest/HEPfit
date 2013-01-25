@@ -4,10 +4,11 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>src/NewPhysicsEpsilons.h</itemPath>
-      <itemPath>src/NewPhysicsHiggs.h</itemPath>
-      <itemPath>src/NewPhysicsSTU.h</itemPath>
-      <itemPath>src/NewPhysicsSTUVWXY.h</itemPath>
+      <itemPath>src/NPEpsilons.h</itemPath>
+      <itemPath>src/NPHiggs.h</itemPath>
+      <itemPath>src/NPSTU.h</itemPath>
+      <itemPath>src/NPSTUVWXY.h</itemPath>
+      <itemPath>src/NPZbbbar.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -16,10 +17,11 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>src/NewPhysicsEpsilons.cpp</itemPath>
-      <itemPath>src/NewPhysicsHiggs.cpp</itemPath>
-      <itemPath>src/NewPhysicsSTU.cpp</itemPath>
-      <itemPath>src/NewPhysicsSTUVWXY.cpp</itemPath>
+      <itemPath>src/NPEpsilons.cpp</itemPath>
+      <itemPath>src/NPHiggs.cpp</itemPath>
+      <itemPath>src/NPSTU.cpp</itemPath>
+      <itemPath>src/NPSTUVWXY.cpp</itemPath>
+      <itemPath>src/NPZbbbar.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
