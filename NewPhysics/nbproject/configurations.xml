@@ -6,9 +6,14 @@
                    projectFiles="true">
       <itemPath>src/NPEpsilons.h</itemPath>
       <itemPath>src/NPHiggs.h</itemPath>
+      <itemPath>src/NPInputs.h</itemPath>
       <itemPath>src/NPSTU.h</itemPath>
       <itemPath>src/NPSTUVWXY.h</itemPath>
       <itemPath>src/NPZbbbar.h</itemPath>
+      <itemPath>src/deltaGAb.h</itemPath>
+      <itemPath>src/deltaGLb.h</itemPath>
+      <itemPath>src/deltaGRb.h</itemPath>
+      <itemPath>src/deltaGVb.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
