@@ -202,13 +202,13 @@ public:
      * @return the partial width of Z decay into an l\bar{l} pair 
      */
     double Gamma_l(const StandardModel::lepton l) const;
-        
+    
     /**
      * @param[in] q name of a quark
      * @return the partial width of Z decay into a q\bar{q} pair 
      */
     double Gamma_q(const StandardModel::quark q) const;
-        
+    
     /**
      * @return the partial width of Z decay into neutrinos
      */

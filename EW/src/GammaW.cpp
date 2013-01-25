@@ -20,7 +20,7 @@ double GammaW::getThValue()
         
         if ( myEW.checkModelForSTU() ) {
             double Wbar = 0.0;        
-            if (SM.ModelName()=="NewPhysicsSTUVWXY") {
+            if (SM.ModelName()=="NPSTUVWXY") {
                 Wbar = (myEW.V() - myEW.W())/SM.alphaMz();
             }
 
