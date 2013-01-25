@@ -72,6 +72,12 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;
+        } else if (beg->compare("NPZbbbar") == 0) {
+            modname = *beg;
+            myModel = new NPZbbbar();
+            myModel->InitializeModel();
+            thf = new ThFactory(*myModel);
+            continue;
         } else if (beg->compare("MFV") == 0) {
             modname = *beg;
             myModel = new MFV();

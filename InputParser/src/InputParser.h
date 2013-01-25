@@ -19,6 +19,7 @@
 #include <NPSTUVWXY.h>
 #include <NPEpsilons.h>
 #include <NPHiggs.h>
+#include <NPZbbbar.h>
 #include <SUSYMassInsertion.h>
 #include <SUSYMassInsertionMatching.h>
 #include <MFV.h>
