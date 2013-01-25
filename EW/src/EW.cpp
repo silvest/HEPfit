@@ -165,8 +165,13 @@ double EW::Gamma_had() const
 {
     double Gamma_had_tmp = Gamma_q(SM.UP) + Gamma_q(SM.DOWN) + Gamma_q(SM.CHARM)
                            + Gamma_q(SM.STRANGE) + Gamma_q(SM.BOTTOM);
-    double G0 = SM.getGF()*pow(SM.getMz(),3.0)/24.0/sqrt(2.0)/M_PI; 
-    Gamma_had_tmp += 4.0*3.0*G0*SM.RVh();
+
+    /* We neglect the singlet contribution, since it makes the connection between 
+       rho_Z^b and the two-loop approximate formula of R_b^0 complicated, and is 
+       negligible compared to the experimental uncertainty. */
+    //double G0 = SM.getGF()*pow(SM.getMz(),3.0)/24.0/sqrt(2.0)/M_PI; 
+    //Gamma_had_tmp += 4.0*3.0*G0*SM.RVh();
+
     return Gamma_had_tmp;    
 }
 
