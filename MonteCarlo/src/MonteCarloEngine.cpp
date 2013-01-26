@@ -314,18 +314,23 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput& out) {
                       << OverFlowContent/TotalContent*100. << "% overflow"
                       << std::endl;
         } else
-            std::cout << "The histogram of " << it->getThname() << " is empty!" << std::endl;
+            std::cout << "WARNING: The histogram of " << it->getThname() << " is empty!" << std::endl;
     }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end();
             it++) {
-        std::string fname = "Observables/" + it->getThname() + "_vs_" + it->getThname2() + ".pdf";
-        double th[2];
-        th[0] = it->getTheoryValue();
-        th[1] = it->getTheoryValue2();
-        Histo2D[it->getThname() + "_vs_" + it->getThname2()]->SetGlobalMode(th);
-        Histo2D[it->getThname() + "_vs_" + it->getThname2()]->Print(fname.c_str());
-        std::cout << fname << " has been created." << std::endl;
-        out.Write(Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram());
+        if (Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram()->Integral() > 0.0) {
+            std::string fname = "Observables/" + it->getThname() + "_vs_" + it->getThname2() + ".pdf";
+            double th[2];
+            th[0] = it->getTheoryValue();
+            th[1] = it->getTheoryValue2();
+            Histo2D[it->getThname() + "_vs_" + it->getThname2()]->SetGlobalMode(th);
+            Histo2D[it->getThname() + "_vs_" + it->getThname2()]->Print(fname.c_str());
+            std::cout << fname << " has been created." << std::endl;
+            out.Write(Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram());
+        } else
+            std::cout << "WARNING: The histogram of " 
+                      << it->getThname() << "_vs_" << it->getThname2()
+                      << " is empty!" << std::endl;
     }
 }
 
