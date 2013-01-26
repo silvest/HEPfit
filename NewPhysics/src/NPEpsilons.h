@@ -16,7 +16,7 @@ class NPEpsilons : public StandardModel  {
 public:
     static const int NEPSILONvars = 4;
     static const std::string EPSILONvars[NEPSILONvars];
-    static const int NEPSILONflags = 5;
+    static const int NEPSILONflags = 4;
     static const std::string EPSILONflags[NEPSILONflags];
     
     /**

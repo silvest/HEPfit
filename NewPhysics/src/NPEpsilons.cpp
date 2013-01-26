@@ -13,8 +13,7 @@ const std::string NPEpsilons::EPSILONvars[NEPSILONvars]
                   = {"epsilon_1", "epsilon_2", "epsilon_3", "epsilon_b"};
 
 const std::string NPEpsilons::EPSILONflags[NEPSILONflags] 
-    = {"epsilon1SM", "epsilon2SM", "epsilon3SM", "epsilonbSM", 
-       "withoutNonUniversalVCinEpsilons"};
+    = {"epsilon1SM", "epsilon2SM", "epsilon3SM", "epsilonbSM"};
 
 
 NPEpsilons::NPEpsilons() 
@@ -108,9 +107,6 @@ bool NPEpsilons::SetFlag(const std::string name, const bool& value)
         res = true;
     } else if (name.compare("epsilonbSM") == 0) {
         FlagEpsilonbSM = value;
-        res = true;
-    } else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
-        myEWepsilons->setFlagWithoutNonUniversalVC(value);
         res = true;
     } else {
         res = StandardModel::SetFlag(name,value);

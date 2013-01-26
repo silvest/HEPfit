@@ -97,10 +97,7 @@ bool NPHiggs::SetFlag(const std::string name, const bool& value) {
         throw std::runtime_error("Flag epsilon3SM is not applicable to NPHiggs"); 
     else if (name.compare("epsilonbSM") == 0) 
         throw std::runtime_error("Flag epsilonbSM is not applicable to NPHiggs"); 
-    else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
-        myEWepsilons->setFlagWithoutNonUniversalVC(value);
-        res = true;
-    } else {
+    else {
         res = NPZbbbar::SetFlag(name,value);
     }
     return(res);
