@@ -36,7 +36,8 @@ const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutr
  *   R0bApproximate: use the two-loop approximate formula for R_b by Freitas and Huang
  */
 const std::string StandardModel::SMflags[NSMflags] 
-    = {"FixedAllSMparams", "EWCHMN", "EWABC", "EWABC2", "EWBURGESS", "R0bApproximate"};
+    = {"FixedAllSMparams", "EWCHMN", "EWABC", "EWABC2", "EWBURGESS", "R0bApproximate", 
+       "withoutNonUniversalVCinEpsilons"};
 
 
 StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.), 
@@ -48,6 +49,7 @@ StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.),
     FlagEWABC2 = false;
     FlagEWBURGESS = false;
     FlagR0bApproximate = false;
+    FlagWithoutNonUniversalVC = false;
     
     leptons[NEUTRINO_1].setCharge(0.);
     leptons[NEUTRINO_2].setCharge(0.);    
@@ -212,6 +214,9 @@ bool StandardModel::SetFlag(const std::string name, const bool& value) {
         res = true;
     } else if (name.compare("R0bApproximate") == 0) {
         FlagR0bApproximate = value;
+        res = true;
+    } else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
+        FlagWithoutNonUniversalVC = value;
         res = true;
     }
     return(res);
@@ -728,17 +733,13 @@ double StandardModel::epsilonb_SM() const {
 
     /* epsilon_b from Re(g_V^b/g_A^b), i.e. Re(kappaZ_b)
      * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
-    double Qe = getLeptons(ELECTRON).getCharge();
-    complex gVe = myEWSM->gVl_SM(ELECTRON);
-    complex gAe = myEWSM->gAl_SM(ELECTRON);
-    double gV_over_gA = (gVe/gAe).real();
-    double sin2thetaEff = 1.0/4.0/fabs(Qe)*(1.0 - gV_over_gA);    
-    double Qb = getQuarks(BOTTOM).getCharge();
-    double s_W2 = myEWSM->sW2_SM();
+    complex kappaZe = myEWSM->kappaZ_l_SM(ELECTRON);
     complex kappaZb = myEWSM->kappaZ_q_SM(BOTTOM);
-    double gVb_over_gAb = 1.0 - 4.0*fabs(Qb)*kappaZb.real()*s_W2;
-    double tmp = 1.0 - gVb_over_gAb;
-    return ( -(tmp - 4.0/3.0*sin2thetaEff)/tmp );
+    if (FlagWithoutNonUniversalVC) 
+        return ( kappaZe.real()/kappaZb.real() - 1.0 ); 
+    else 
+        return ( (kappaZe.real() + myEWSM->kappaZ_q_SM_FlavorDep(BOTTOM).real())
+                 /kappaZb.real() - 1.0 );     
     
     /* epsilon_b from Gamma_b via Eqs.(11), (12) and (16) of IJMP A7, 
      * 1031 (1998) by Altarelli et al. 

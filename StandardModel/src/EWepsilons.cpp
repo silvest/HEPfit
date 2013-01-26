@@ -24,7 +24,7 @@ double EWepsilons::Mw(const double eps1, const double eps2, const double eps3) c
 
 
 complex EWepsilons::rhoZ_l(const StandardModel::lepton l, const double eps1) const {
-    if (FlagWithoutNonUniversalVC)    
+    if (SM.IsFlagWithoutNonUniversalVC())    
         return ( rhoZ_e(eps1) );
     else
         return ( rhoZ_e(eps1) + SM.getEWSM()->rhoZ_l_SM_FlavorDep(l).real() );
@@ -34,7 +34,7 @@ complex EWepsilons::rhoZ_l(const StandardModel::lepton l, const double eps1) con
 complex EWepsilons::rhoZ_q(const StandardModel::quark q, const double eps1) const {
     if(q==SM.BOTTOM || q==SM.TOP)
         throw std::runtime_error("Error in EWepsilons::rhoZ_q()"); 
-    if (FlagWithoutNonUniversalVC) 
+    if (SM.IsFlagWithoutNonUniversalVC()) 
         return ( rhoZ_e(eps1) );
     else
         return ( rhoZ_e(eps1) + SM.getEWSM()->rhoZ_q_SM_FlavorDep(q).real() );
@@ -43,7 +43,7 @@ complex EWepsilons::rhoZ_q(const StandardModel::quark q, const double eps1) cons
 
 complex EWepsilons::kappaZ_l(const StandardModel::lepton l, 
                              const double eps1, const double eps3) const {
-    if (FlagWithoutNonUniversalVC) 
+    if (SM.IsFlagWithoutNonUniversalVC()) 
         return ( kappaZ_e(eps1,eps3) );
     else
         return ( kappaZ_e(eps1,eps3) + SM.getEWSM()->kappaZ_l_SM_FlavorDep(l).real() );
@@ -54,7 +54,7 @@ complex EWepsilons::kappaZ_q(const StandardModel::quark q,
                              const double eps1, const double eps3) const {
     if(q==SM.BOTTOM || q==SM.TOP)
         throw std::runtime_error("Error in EWepsilons::kappaZ_q()"); 
-    if (FlagWithoutNonUniversalVC) 
+    if (SM.IsFlagWithoutNonUniversalVC()) 
         return ( kappaZ_e(eps1,eps3) );
     else
         return ( kappaZ_e(eps1,eps3) + SM.getEWSM()->kappaZ_q_SM_FlavorDep(q).real() );
@@ -65,8 +65,8 @@ complex EWepsilons::gVl(const StandardModel::lepton l, const double eps1,
                         const double eps3) const {
     double I3f = SM.getLeptons(l).getIsospin();
     double Qf = SM.getLeptons(l).getCharge();
-    return ( sqrt(rhoZ_l(l,eps1).abs())*I3f
-             *(1.0 - 4.0*fabs(Qf)*kappaZ_l(l,eps1,eps3)*SM.s02()) );
+    return ( sqrt(rhoZ_l(l,eps1).real())*I3f
+             *(1.0 - 4.0*fabs(Qf)*kappaZ_l(l,eps1,eps3)*SM.sW2()) );
 }
 
 
@@ -79,8 +79,8 @@ complex EWepsilons::gVq(const StandardModel::quark q, const double eps1,
         case StandardModel::DOWN:
         case StandardModel::CHARM:
         case StandardModel::STRANGE:
-            return ( sqrt(rhoZ_q(q,eps1).abs())*I3f
-                     *(1.0 - 4.0*fabs(Qf)*kappaZ_q(q,eps1,eps3)*SM.s02()) );
+            return ( sqrt(rhoZ_q(q,eps1).real())*I3f
+                     *(1.0 - 4.0*fabs(Qf)*kappaZ_q(q,eps1,eps3)*SM.sW2()) );
         case StandardModel::BOTTOM:
         case StandardModel::TOP:
         default:
@@ -91,7 +91,7 @@ complex EWepsilons::gVq(const StandardModel::quark q, const double eps1,
 
 complex EWepsilons::gAl(const StandardModel::lepton l, const double eps1) const {
     double I3f = SM.getLeptons(l).getIsospin();
-    return ( complex(sqrt(rhoZ_l(l,eps1).abs())*I3f, 0.0, false) );
+    return ( complex(sqrt(rhoZ_l(l,eps1).real())*I3f, 0.0, false) );
 }
 
 
@@ -102,7 +102,7 @@ complex EWepsilons::gAq(const StandardModel::quark q, const double eps1) const {
         case StandardModel::DOWN:
         case StandardModel::CHARM:
         case StandardModel::STRANGE:
-            return ( sqrt(rhoZ_q(q,eps1).abs())*I3f );
+            return ( sqrt(rhoZ_q(q,eps1).real())*I3f );
         case StandardModel::BOTTOM:
         case StandardModel::TOP:
         default:
@@ -112,37 +112,40 @@ complex EWepsilons::gAq(const StandardModel::quark q, const double eps1) const {
 
 
 complex EWepsilons::rhoZ_b(const double eps1, const double epsb) const {
-    double I3f = SM.getQuarks(SM.BOTTOM).getIsospin();
-    return ( gAb(eps1,epsb)*gAb(eps1,epsb)/I3f/I3f );
+    complex rhoZe = rhoZ_l(SM.ELECTRON, eps1);
+    if (SM.IsFlagWithoutNonUniversalVC()) 
+        return ( rhoZe*(1.0 + epsb)*(1.0 + epsb) );
+    else {            
+        double DeltaRhoZb = SM.getEWSM()->rhoZ_q_SM_FlavorDep(SM.BOTTOM).real();
+        return ( (rhoZe + DeltaRhoZb)*(1.0 + epsb)*(1.0 + epsb) );
+    }
 }
 
 
 complex EWepsilons::kappaZ_b(const double eps1, const double eps3, 
                              const double epsb) const {
-    double Qf = SM.getQuarks(SM.BOTTOM).getCharge();
-    return ( (1.0 - gVb(eps1,eps3,epsb)/gAb(eps1,epsb))/4.0/fabs(Qf)/SM.s02() );
+    complex kappaZe = kappaZ_l(SM.ELECTRON, eps1, eps3);
+    if (SM.IsFlagWithoutNonUniversalVC()) 
+        return ( kappaZe/(1.0 + epsb) );
+    else {
+        double DeltaKappaZb = SM.getEWSM()->kappaZ_q_SM_FlavorDep(SM.BOTTOM).real();
+        return ( (kappaZe + DeltaKappaZb)/(1.0 + epsb) );
+    }
 }
 
 
 complex EWepsilons::gVb(const double eps1, const double eps3, 
                         const double epsb) const {
-    if (FlagWithoutNonUniversalVC) 
-        //return ( (1.0 - 4.0/3.0*(1.0 + Delta_kappaPrime(eps1,eps3))*SM.s02())
-        //         *gAb(eps1,epsb) );
-        return ( (1.0 - 4.0/3.0*(1.0 + Delta_kappaPrime(eps1,eps3))*SM.s02() + epsb)
-                 /(1.0 + epsb)*gAb(eps1,epsb) );
-    else
-        return ( (1.0 - 4.0/3.0*(1.0 + Delta_kappaPrime(eps1,eps3))*SM.s02() + epsb)
-                 /(1.0 + epsb)*gAb(eps1,epsb) );
+    double Qb = SM.getQuarks(SM.BOTTOM).getCharge();
+    double I3b = SM.getQuarks(SM.BOTTOM).getIsospin();
+    return ( sqrt(rhoZ_b(eps1, epsb).real())*I3b
+            *(1.0 - 4.0*fabs(Qb)*kappaZ_b(eps1,eps3,epsb)*SM.sW2()) );
 }
 
 
 complex EWepsilons::gAb(const double eps1, const double epsb) const {
-    if (FlagWithoutNonUniversalVC) 
-        //return ( gAe(eps1) );
-        return ( gAe(eps1)*(1.0 + epsb) );
-    else
-        return ( gAe(eps1)*(1.0 + epsb) );
+    double I3b = SM.getQuarks(SM.BOTTOM).getIsospin();
+    return ( sqrt(rhoZ_b(eps1,epsb).real())*I3b );
 }
 
 
@@ -168,8 +171,7 @@ complex EWepsilons::rhoZ_e(const double eps1) const {
 
 
 complex EWepsilons::kappaZ_e(const double eps1, const double eps3) const {
-    double s02 = SM.s02();
-    return ( (1.0 - gVe(eps1,eps3)/gAe(eps1))/(4.0*s02) );
+    return ( (1.0 - gVe(eps1,eps3)/gAe(eps1))/(4.0*SM.sW2()) );
 }
 
 
