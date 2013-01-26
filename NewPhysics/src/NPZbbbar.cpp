@@ -219,18 +219,13 @@ double NPZbbbar::epsilon3() const
 
 double NPZbbbar::epsilonb() const 
 {
-    double Qe = getLeptons(ELECTRON).getCharge();
-    complex gVe = gVl(ELECTRON);
-    complex gAe = gAl(ELECTRON);
-    double gV_over_gA = (gVe/gAe).real();
-    double sin2thetaEff = 1.0/4.0/fabs(Qe)*(1.0 - gV_over_gA);    
-
-    complex gVb = gVq(BOTTOM);
-    complex gAb = gAq(BOTTOM);
-    double gVb_over_gAb = (gVb/gAb).real();
-
-    double tmp = 1.0 - gVb_over_gAb;
-    return ( -(tmp - 4.0/3.0*sin2thetaEff)/tmp );
+    complex kappaZe = kappaZ_l(ELECTRON);
+    complex kappaZb = kappaZ_q(BOTTOM);
+    if (IsFlagWithoutNonUniversalVC()) 
+        return ( kappaZe.real()/kappaZb.real() - 1.0 ); 
+    else 
+        return ( (kappaZe.real() + myEWSM->kappaZ_q_SM_FlavorDep(BOTTOM).real())
+                 /kappaZb.real() - 1.0 );   
 }
 
 
