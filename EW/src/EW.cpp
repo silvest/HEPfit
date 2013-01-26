@@ -53,7 +53,8 @@ bool EW::checkModelForSTU() const
     if (Model=="StandardModel" || Model=="SUSY" || Model=="NPEpsilons" 
             || Model=="NPHiggs" || Model=="NPZbbbar" )
         return false;
-    else if (Model=="NPSTU" || Model=="NPSTUVWXY" || Model=="THDM")
+    else if (Model=="NPSTU" || Model=="NPSTUVWXY" || Model=="NPHiggsST" 
+            || Model=="THDM")
         return true;
     else 
         throw std::runtime_error("Error in EW::checkModelForSTU()");  

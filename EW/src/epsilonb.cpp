@@ -13,9 +13,9 @@ double epsilonb::getThValue()
 {  
     double epsb = SM.epsilonb();
     
-    if ( myEW.checkModelForSTU() ) {
-        throw std::runtime_error("Write codes in epsilonb::getThValue()");   
-    }
+    //if ( myEW.checkModelForSTU() ) {
+    //    throw std::runtime_error("Write codes in epsilonb::getThValue()");   
+    //}
     
     return epsb;
 }

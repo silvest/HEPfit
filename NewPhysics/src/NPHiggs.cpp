@@ -13,11 +13,10 @@
 const std::string NPHiggs::NPHIGGSvars[NNPHIGGSvars] 
                   = {"a", "b", "c_u", "c_d", "c_e", "d_3", "d_4"};
 
-const std::string NPHiggs::NPHIGGSflags[NNPHIGGSflags] 
-    = {"withoutNonUniversalVCinEpsilons"};
 
-
-NPHiggs::NPHiggs() : NPZbbbar() {
+NPHiggs::NPHiggs() 
+: NPZbbbar() 
+{
 }
 
 
