@@ -97,8 +97,6 @@ bool NPZbbbar::SetFlag(const std::string name, const bool& value)
         throw std::runtime_error("Flag epsilon3SM is not applicable to NPZbbbar"); 
     else if (name.compare("epsilonbSM") == 0) 
         throw std::runtime_error("Flag epsilonbSM is not applicable to NPZbbbar"); 
-    else if (name.compare("withoutNonUniversalVCinEpsilons") == 0)
-        throw std::runtime_error("Flag withoutNonUniversalVCinEpsilons is not applicable to NPZbbbar"); 
     else {
         res = StandardModel::SetFlag(name,value);
     }
