@@ -1,44 +1,49 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef NPHIGGS_H
-#define	NPHIGGS_H
+#ifndef NPHIGGSST_H
+#define	NPHIGGSST_H
 
-#include "NPZbbbar.h"
-#include <EWepsilons.h>
+#include "NPHiggs.h"
 
-
-class NPHiggs : public NPZbbbar {
+class NPHiggsST : public NPHiggs {
 public:
-    static const int NNPHIGGSvars = 7;
-    static const std::string NPHIGGSvars[NNPHIGGSvars];
-
-    NPHiggs();
+    
+    NPHiggsST()
+    : NPHiggs()
+    {
+    }
 
     virtual std::string ModelName() const 
     {
-        return "NPHiggs";
+        return "NPHiggsST";
     }
 
-    virtual bool Update(const std::map<std::string, double>& DPars);
-    virtual bool Init(const std::map<std::string, double>& DPars);    
-    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
-
-    virtual bool InitializeModel();  
-    virtual void SetEWSMflags(EWSM& myEWSM);
-
-        
+    
     ////////////////////////////////////////////////////////////////////////     
-
-    bool SetFlag(const std::string, const bool&); 
+    
+    /**
+     * @return NP contribution to oblique parameter S
+     */
+    virtual double obliqueS() const;
+        
+    /**
+     * @return NP contribution to oblique parameter T
+     */
+    virtual double obliqueT() const;
+    
+    /**
+     * @return NP contribution to oblique parameter U
+     */
+    virtual double obliqueU() const;
     
     
-    //////////////////////////////////////////////////////////////////////// 
-
+    ////////////////////////////////////////////////////////////////////////     
+    
     /**
      * @return epsilon_1
      */
@@ -142,15 +147,10 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
 protected:    
-    double a, b, c_u, c_d, c_e, d_3, d_4;
-    virtual void SetParameter(const std::string name, const double& value);
     
-    //////////////////////////////////////////////////////////////////////// 
-
 private:
-    EWepsilons* myEWepsilons;
-    
+
 };
 
-#endif	/* NPHIGGS_H */
+#endif	/* NPHIGGSST_H */
 

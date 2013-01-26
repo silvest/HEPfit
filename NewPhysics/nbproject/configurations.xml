@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>src/NPEpsilons.h</itemPath>
       <itemPath>src/NPHiggs.h</itemPath>
+      <itemPath>src/NPHiggsST.h</itemPath>
       <itemPath>src/NPInputs.h</itemPath>
       <itemPath>src/NPSTU.h</itemPath>
       <itemPath>src/NPSTUVWXY.h</itemPath>
@@ -24,6 +25,7 @@
                    projectFiles="true">
       <itemPath>src/NPEpsilons.cpp</itemPath>
       <itemPath>src/NPHiggs.cpp</itemPath>
+      <itemPath>src/NPHiggsST.cpp</itemPath>
       <itemPath>src/NPSTU.cpp</itemPath>
       <itemPath>src/NPSTUVWXY.cpp</itemPath>
       <itemPath>src/NPZbbbar.cpp</itemPath>
@@ -93,7 +95,7 @@
     <conf name="Cluster" type="3">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>GNU_MPI</compilerSet>
+        <compilerSet>GNU_MPI|GNU_MPI</compilerSet>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
