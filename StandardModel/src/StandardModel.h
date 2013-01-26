@@ -26,7 +26,7 @@ public:
     enum lepton {NEUTRINO_1,ELECTRON,NEUTRINO_2,MU,NEUTRINO_3,TAU};
     static const int NSMvars = 20;
     static const std::string SMvars[NSMvars];
-    static const int NSMflags = 6;
+    static const int NSMflags = 7;
     static const std::string SMflags[NSMflags];
     
     StandardModel(const bool bDebug_i=false);
@@ -103,6 +103,10 @@ public:
         this->FlagR0bApproximate = FlagR0bApproximate;
     }
     
+    bool IsFlagWithoutNonUniversalVC() const {
+        return FlagWithoutNonUniversalVC;
+    }
+
     
     ///////////////////////////////////////////////////////////////////////////
     // Initialization and Matching
@@ -649,7 +653,7 @@ protected:
 private:
     bool bDebug; // for debugging
     bool FlagFixedAllSMparams, FlagEWCHMN, FlagEWABC, FlagEWABC2, FlagEWBURGESS;
-    bool FlagR0bApproximate;
+    bool FlagR0bApproximate, FlagWithoutNonUniversalVC;
     bool computeCKM, computeYe, computeYn;
     StandardModelMatching* myStandardModelMatching;
     
