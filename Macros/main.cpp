@@ -626,10 +626,12 @@ int main(int argc, char** argv)
     } else if (bCompat) {
         TH1D* hist = (TH1D*) tobj[0]->Clone();
         os << hist->GetXaxis()->GetTitle() << " in " << plotname[0] << endl;
-        os << "  Num of bins: " << nx << " x " << ny << endl;
+        os << "  Num of bins: " << nx << " x " << ny << endl;        
         
         Pull CompatPlot(*hist, nx, ny, x_low, x_up, y_low, y_up);
         CompatPlot.Draw(xlab, ylab, xval, xerr, maxDig);
+        
+        os << "  Pull: " << CompatPlot.f2(xval, xerr) << endl;
         
     //----------------------------------------------------------------------
     // 2-D histogram        
