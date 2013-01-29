@@ -50,6 +50,9 @@ public:
     void Draw(const TString xlab, const TString ylab, 
               const double xval, const double xerr, const int maxDigits);
     
+    double f2(const double x, const double y); 
+
+    
 private:
 
     int nx;
@@ -93,8 +96,6 @@ private:
     double fzero(const double x, const double area) const;
 
     double finverfc(const double x) const;    
-    
-    double f2(const double x, const double y); 
     
     void makeCompatPlot();
     
