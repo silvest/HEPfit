@@ -207,6 +207,11 @@ TString BaseMacros::ConvertTitle(TString orig) const
     else if (strncmp(orig, "AllForST", 8) == 0) str = "All (incl. R^{0}_{#lower[-0.5]{f}}, #sigma^{0}_{#lower[-0.2]{h}}, #Gamma_{#lower[-0.2]{W}})";    
     else if (strncmp(orig, "AllAsymmetries", 14) == 0) str = "sin^{2}#theta_{#lower[-0.3]{eff}}^{lept}, P_{#lower[-0.3]{#tau}}^{Pol}, A_{#kern[0.2]{#lower[-0.3]{f}}}, A_{#lower[-0.3]{FB}}^{0,f}";    
     else if (strncmp(orig, "EPS2EPSBSM", 9) == 0) str = "#varepsilon_{#lower[-0.2]{2}}=#varepsilon_{#lower[-0.2]{2}}^{SM}, #varepsilon_{#lower[-0.2]{b}}=#varepsilon_{#lower[-0.2]{b}}^{SM}" ;    
+    //
+    else if (strncmp(orig, "#deltag_{V}^{b}", 15) == 0) str = "#delta#kern[0.1]{g_{#kern[0.1]{#lower[-0.2]{V}}}^{#kern[0.2]{b}}}";
+    else if (strncmp(orig, "#deltag_{A}^{b}", 15) == 0) str = "#delta#kern[0.1]{g_{#kern[0.1]{#lower[-0.2]{A}}}^{#kern[0.2]{b}}}";
+    else if (strncmp(orig, "#deltag_{R}^{b}", 15) == 0) str = "#delta#kern[0.1]{g_{#kern[0.1]{#lower[-0.2]{R}}}^{#kern[0.2]{b}}}";
+    else if (strncmp(orig, "#deltag_{L}^{b}", 15) == 0) str = "#delta#kern[0.1]{g_{#kern[0.1]{#lower[-0.2]{L}}}^{#kern[0.2]{b}}}";
     
     else str = orig;
 
