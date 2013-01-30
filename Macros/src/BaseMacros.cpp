@@ -153,7 +153,8 @@ TString BaseMacros::ConvertTitle(TString orig) const
     else if (strncmp(orig, "AlsMz", 5) == 0) str = "#alpha_{#lower[-0.2]{s}}(M^{#kern[0.2]{2}}_{#kern[0.2]{#lower[-0.2]{Z}}})";
     else if (strncmp(orig, "dAle5Mz", 7) == 0) str = "#Delta#alpha_{#lower[-0.2]{had}}^{(5)}(M^{#kern[0.2]{2}}_{#kern[0.2]{#lower[-0.2]{Z}}})";
     else if (strncmp(orig, "Mz", 2) == 0) str = "M_{#kern[0.2]{#lower[-0.2]{Z}}}#kern[0.1]{[GeV]}";
-    else if (strncmp(orig, "mtop", 4) == 0) str = "M_{#kern[0.7]{#lower[-0.2]{t}}}#kern[0.1]{[GeV]}";
+    //else if (strncmp(orig, "mtop", 4) == 0) str = "M_{#kern[0.7]{#lower[-0.2]{t}}}#kern[0.1]{[GeV]}";
+    else if (strncmp(orig, "mtop", 4) == 0) str = "m_{#kern[0.5]{#lower[-0.2]{t}}}#kern[0.1]{[GeV]}";
     else if (strncmp(orig, "mHl", 3) == 0) str = "m_{#kern[0.2]{#lower[-0.2]{h}}}#kern[0.1]{[GeV]}";
     else if (strncmp(orig, "obliqueS", 8) == 0) str = "S" ;
     else if (strncmp(orig, "obliqueT", 8) == 0) str = "T" ;

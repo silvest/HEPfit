@@ -93,6 +93,7 @@ int main(int argc, char** argv)
         cout << "   -priorMean=mean  -> mean value for the Gaussian function           " << endl;
         cout << "   -priorSigma=sig  -> standard deviation for the Gaussian function   " << endl;
         cout << "   -legGauss=legend -> legend for the Gaussian function [default: no legend]" << endl;
+        cout << "   --rescaleForMHl  -> rescale the histogram for mHl                  " << endl;
         cout << "                                                                      " << endl;
         cout << " Optional parameters for compatibility plots:                         " << endl;
         cout << "   --compat         -> Compatibility plot (mandatory)                 " << endl;
@@ -158,6 +159,7 @@ int main(int argc, char** argv)
     //
     bool bOneDim = false, bCompat = false, bTwoDim = false;
     bool bOrig = false, bOutputTxt = false, bContLines = false, bLeftLegend = false;
+    bool bRescaleForMHl = false;
     int maxDig = 8, prec = 6;
     int nx = 100, ny = 20;
     double xval = -999.0, xerr = 0.0, x_low = 0.0, x_up = 0.0, y_low = 0.0, y_up = 0.0;
@@ -228,7 +230,8 @@ int main(int argc, char** argv)
         else if (strncmp(argv[i], "--only952", 9) == 0) bOnly95[1] = true; 
         else if (strncmp(argv[i], "--only953", 9) == 0) bOnly95[2] = true;
         else if (strncmp(argv[i], "--only954", 9) == 0) bOnly95[3] = true;
-
+        else if (strncmp(argv[i], "--rescaleForMHl", 15) == 0) bRescaleForMHl = true;
+        
         else if (strncmp(argv[i], "-prob68=", 8) == 0) 
             sscanf(argv[i], "-prob68=%lf", &prob68);
         else if (strncmp(argv[i], "-prob95=", 8) == 0) 
@@ -543,12 +546,14 @@ int main(int argc, char** argv)
             plot_pt[0] = SFHisto1D[0]->getNewHist68();
         
         // rescale (for mHl)
-        //SFHisto1D[0]->getHistAxes()->Scale(10.0);
-        //SFHisto1D[0]->getNewHist()->Scale(10.0);
-        //SFHisto1D[0]->getNewHist68()->Scale(10.0);
-        //SFHisto1D[0]->getNewHist95()->Scale(10.0);
-        //SFHisto1D[0]->getHistAxes()->GetXaxis()->SetRange(400,1400);
-        //leg[0] += " [x10]";
+        if (bRescaleForMHl) {
+            SFHisto1D[0]->getHistAxes()->Scale(10.0);
+            SFHisto1D[0]->getNewHist()->Scale(10.0);
+            SFHisto1D[0]->getNewHist68()->Scale(10.0);
+            SFHisto1D[0]->getNewHist95()->Scale(10.0);
+            SFHisto1D[0]->getHistAxes()->GetXaxis()->SetRange(400,1400);
+            leg[0] += " [x10]";
+        }
             
         // superimpose other histograms
         for (int n=1; n<NumHist; n++) {
