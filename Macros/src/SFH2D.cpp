@@ -70,10 +70,10 @@ void SFH2D::draw(const TString xlab, const TString ylab,
         null2D->SetYTitle(newHist->GetYaxis()->GetTitle());
         null2D->SetTitle("");
         null2D->SetStats(0);
-        null2D->GetXaxis()->SetTitleSize(0.075);
-        null2D->GetYaxis()->SetTitleSize(0.075);
-        null2D->GetXaxis()->SetTitleOffset(0.85);
-        null2D->GetYaxis()->SetTitleOffset(0.90);    
+        null2D->GetXaxis()->SetTitleSize(0.06);
+        null2D->GetYaxis()->SetTitleSize(0.06);
+        null2D->GetXaxis()->SetTitleOffset(1.1);
+        null2D->GetYaxis()->SetTitleOffset(1.5);    
         null2D->GetXaxis()->SetNdivisions(505);
         null2D->GetYaxis()->SetNdivisions(505);
         null2D->GetXaxis()->SetLabelSize(0.043);
