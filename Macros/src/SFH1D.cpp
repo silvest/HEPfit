@@ -82,7 +82,8 @@ void SFH1D::increaseNbins(const int newNbin)
 
 void SFH1D::DrawAxes(const TString xlab, const TString ylab, 
                      const int maxDigits, 
-                     const double x_low, const double x_up)
+                     const double x_low, const double x_up, 
+                     const double YTitleOffset)
 {    
     // the range of the x axis    
     double xLow, xUp;
@@ -109,7 +110,7 @@ void SFH1D::DrawAxes(const TString xlab, const TString ylab,
     HistAxes->GetXaxis()->SetTitleSize(0.06);
     HistAxes->GetYaxis()->SetTitleSize(0.06);
     HistAxes->GetXaxis()->SetTitleOffset(1.1);
-    HistAxes->GetYaxis()->SetTitleOffset(1.5);
+    HistAxes->GetYaxis()->SetTitleOffset(YTitleOffset);
     HistAxes->GetXaxis()->SetNdivisions(505);
     HistAxes->GetYaxis()->SetNdivisions(505);
     HistAxes->GetXaxis()->SetLabelOffset(0.013);

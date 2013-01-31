@@ -79,12 +79,13 @@ public:
      * @param[in] bLine  
      * @param[in] bOnly95
      * @param[in] superImpose
+     * @param[in] YTitleOffset 
      */
-    void draw(const TString xlab, const TString ylab, 
+    void Draw(const TString xlab, const TString ylab, 
               const int col68, const int col95, const int lineStyle, 
               const int fillStyle, const int maxDigits, 
               const bool bLine=true, const bool bOnly95=false, 
-              const bool superImpose=false);
+              const bool superImpose=false, const double YTitleOffset=1.5);
 
         
 private:

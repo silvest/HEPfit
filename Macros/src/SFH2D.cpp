@@ -53,10 +53,11 @@ void SFH2D::smoothHist(const int smooth)
 }
 
 
-void SFH2D::draw(const TString xlab, const TString ylab, 
+void SFH2D::Draw(const TString xlab, const TString ylab, 
                  const int col68, const int col95, const int lineStyle, 
                  const int fillStyle, const int maxDigits, 
-                 const bool bLine, const bool bOnly95, const bool superImpose) 
+                 const bool bLine, const bool bOnly95, const bool superImpose, 
+                 const double YTitleOffset) 
 {
     // draw the axes 
     if (!superImpose) {
@@ -73,7 +74,7 @@ void SFH2D::draw(const TString xlab, const TString ylab,
         null2D->GetXaxis()->SetTitleSize(0.06);
         null2D->GetYaxis()->SetTitleSize(0.06);
         null2D->GetXaxis()->SetTitleOffset(1.1);
-        null2D->GetYaxis()->SetTitleOffset(1.5);    
+        null2D->GetYaxis()->SetTitleOffset(YTitleOffset);    
         null2D->GetXaxis()->SetNdivisions(505);
         null2D->GetYaxis()->SetNdivisions(505);
         null2D->GetXaxis()->SetLabelSize(0.043);

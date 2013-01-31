@@ -38,7 +38,8 @@ Pull::Pull(TH1D& hist, const int nbinX, const int nbinY,
 
 
 void Pull::Draw(const TString xlab, const TString ylab, 
-                const double xval, const double xerr, const int maxDigits) 
+                const double xval, const double xerr, const int maxDigits, 
+                const double YTitleOffset) 
 {
 
     makeCompatPlot();
@@ -46,7 +47,7 @@ void Pull::Draw(const TString xlab, const TString ylab,
     CompatPlot->GetXaxis()->SetTitleSize(0.06);
     CompatPlot->GetYaxis()->SetTitleSize(0.06);
     CompatPlot->GetXaxis()->SetTitleOffset(1.1);
-    CompatPlot->GetYaxis()->SetTitleOffset(1.5);
+    CompatPlot->GetYaxis()->SetTitleOffset(YTitleOffset);
     //CompatPlot->GetXaxis()->SetNdivisions(508);
     CompatPlot->GetXaxis()->SetNdivisions(506);
     //CompatPlot->GetYaxis()->SetNdivisions(510);

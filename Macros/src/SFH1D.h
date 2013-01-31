@@ -125,10 +125,12 @@ public:
      * @param[in] maxDigits The maximum digits of axis labels. 
      * @param[in] x_low
      * @param[in] x_up
+     * @param[in] YTitleOffset 
      */
     void DrawAxes(const TString xlab, const TString ylab, 
                   const int maxDigits, 
-                  const double x_low = 0.0, const double x_up = 0.0);
+                  const double x_low = 0.0, const double x_up = 0.0, 
+                  const double YTitleOffset=1.5);
     
     /**
      * Draw the modified histogram. 
