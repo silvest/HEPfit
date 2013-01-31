@@ -66,8 +66,9 @@ int main(int argc, char** argv)
         cout << "   -precision=n     -> precision of values in the std output [default: n=6]" << endl;
         cout << "   -prob68=prob     -> probability for the first interval [default: prob=0.68]" << endl;
         cout << "   -prob95=prob     -> probability for the second interval [default: prob=0.95]"<< endl;
-        cout << "   -xlab=namex      -> x label                                        " << endl;
-        cout << "   -ylab=namey      -> y label                                        " << endl;
+        cout << "   -xlab=namex      -> title of the x axis                            " << endl;
+        cout << "   -ylab=namey      -> title of the y axis                            " << endl;
+        cout << "   -yTitleOffset=d  -> offset of the title of the y axis [default: d=1.5]" << endl; 
         cout << "   -addtext=text    -> attach additional information                  " << endl;
         cout << "   -addtextAt=\"[x,y]\" -> position of the text                       " << endl;
         cout << "   -xrange=\"[xmin,xmax]\" -> define the graph range                  " << endl;
@@ -108,8 +109,9 @@ int main(int argc, char** argv)
         cout << "   -addtextAt=\"[x,y]\" -> position of the text                       " << endl;
         cout << "   -range=\"[xmin,xmax]x[ymin,ymax]\" -> define the graph range       " << endl;
         cout << "   -bins=\"[xbins]x[ybins]\"  -> define the graph binning [default: 100x20]" << endl;
-        cout << "   -xlab=namex      -> x label                                        " << endl;
-        cout << "   -ylab=namey      -> y label                                        " << endl;
+        cout << "   -xlab=namex      -> title of the x axis                            " << endl;
+        cout << "   -ylab=namey      -> title of the y axis                            " << endl;
+        cout << "   -yTitleOffset=d  -> offset of the title of the y axis [default: d=1.5]" << endl; 
         cout << "   *** put a measured point ***                                       " << endl;
         cout << "   -val=xval        -> xval is the measured point                     " << endl;
         cout << "   -err=xerr        -> xerr is the error of xval                      " << endl;
@@ -125,8 +127,9 @@ int main(int argc, char** argv)
         cout << "   -addtext=text    -> attach additional information                  " << endl;
         cout << "   -addtextAt=\"[x,y]\" -> position of the text                       " << endl;
         cout << "   -range=\"[xmin,xmax]x[ymin,ymax]\" -> define the graph range       " << endl;
-        cout << "   -xlab=namex      -> x label                                        " << endl;
-        cout << "   -ylab=namey      -> y label                                        " << endl;
+        cout << "   -xlab=namex      -> title of the x axis                            " << endl;
+        cout << "   -ylab=namey      -> title of the y axis                            " << endl;
+        cout << "   -yTitleOffset=d  -> offset of the title of the y axis [default: d=1.5]" << endl; 
         cout << "   -legScale=scale  -> scale factor for the legend [default: scale=1.0]" << endl;
         cout << "   -legXmin=xmin    -> xmin for the position of the legend [default: xmin=0.63]" << endl;
         cout << "   -legYmax=ymax    -> ymax for the position of the legend [default: ymax=0.88]" << endl;
@@ -166,6 +169,7 @@ int main(int argc, char** argv)
     TString addtext = "";
     double addtext_x = 0.0, addtext_y = 0.0;
     TString xlab = "", ylab = "";
+    double yTitleOffset = 1.5;
     //
     double xval2 = -999.0, xerr2 = 0.0, yval2 = -999.0, yerr2 = 0.0;
     TString legP="";
@@ -285,6 +289,9 @@ int main(int argc, char** argv)
             sscanf(stmp.Data(), "[%d]x[%d]", &nx, &ny);
         }
 
+        else if (strncmp(argv[i], "-yTitleOffset=", 14) == 0) 
+            sscanf(argv[i], "-yTitleOffset=%lf", &yTitleOffset);        
+        
         else if (strncmp(argv[i], "-val=", 5) == 0) 
             sscanf(argv[i], "-val=%lf", &xval);
         else if (strncmp(argv[i], "-err=", 5) == 0) 
@@ -537,7 +544,7 @@ int main(int argc, char** argv)
         SFHisto1D[0] = new SFH1D(*hist[0], prob68, prob95);
         SFHisto1D[0]->smoothHist(smooth[0]);
         SFHisto1D[0]->increaseNbins(newNbins[0]);
-        SFHisto1D[0]->DrawAxes(xlab, ylab, maxDig, x_low, x_up); // draw the axes
+        SFHisto1D[0]->DrawAxes(xlab, ylab, maxDig, x_low, x_up, yTitleOffset); // draw the axes
         SFHisto1D[0]->Draw(lineStyle[0], lineWidth[0], lineColor[0], 
                            col68[0], col95[0], fillStyle[0], bOnlyLine[0], bOrig); 
         if (bOnlyLine[0]) 
@@ -634,7 +641,7 @@ int main(int argc, char** argv)
         os << "  Num of bins: " << nx << " x " << ny << endl;        
         
         Pull CompatPlot(*hist, nx, ny, x_low, x_up, y_low, y_up);
-        CompatPlot.Draw(xlab, ylab, xval, xerr, maxDig);
+        CompatPlot.Draw(xlab, ylab, xval, xerr, maxDig, yTitleOffset);
         
         os << "  Pull: " << CompatPlot.f2(xval, xerr) << endl;
         
@@ -653,8 +660,8 @@ int main(int argc, char** argv)
         
         SFHisto2D[0] = new SFH2D(*hist[0], os, prob68, prob95, x_low, x_up, y_low, y_up);
         SFHisto2D[0]->smoothHist(smooth[0]);
-        SFHisto2D[0]->draw(xlab, ylab, col68[0], col95[0], lineStyle[0], fillStyle[0], 
-                           maxDig, bContLines, bOnly95[0], false);
+        SFHisto2D[0]->Draw(xlab, ylab, col68[0], col95[0], lineStyle[0], fillStyle[0], 
+                           maxDig, bContLines, bOnly95[0], false, yTitleOffset);
         contour_pt[0] = SFHisto2D[0]->getContour();
         
         // superimpose other histograms
@@ -665,9 +672,9 @@ int main(int argc, char** argv)
                 hist[n] = (TH2D*) tobj[n]->Clone();
                 SFHisto2D[n] = new SFH2D(*hist[n], os, prob68, prob95);
                 SFHisto2D[n]->smoothHist(smooth[n]);
-                SFHisto2D[n]->draw("", "", col68[n], col95[n], 
+                SFHisto2D[n]->Draw("", "", col68[n], col95[n], 
                                    lineStyle[n], fillStyle[n], 
-                                   maxDig, bContLines, bOnly95[n], true);
+                                   maxDig, bContLines, bOnly95[n], true, yTitleOffset);
                 contour_pt[n] = SFHisto2D[n]->getContour();
             } else 
                 contour_pt[n] = NULL;

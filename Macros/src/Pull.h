@@ -46,9 +46,11 @@ public:
      * @param[in] xval The measured point to be superimposed. 
      * @param[in] xerr The error of xval. 
      * @param[in] maxDigits The maximum digits of axis labels. 
+     * @param[in] YTitleOffset 
      */
     void Draw(const TString xlab, const TString ylab, 
-              const double xval, const double xerr, const int maxDigits);
+              const double xval, const double xerr, const int maxDigits, 
+              const double YTitleOffset=1.5);
     
     double f2(const double x, const double y); 
 
