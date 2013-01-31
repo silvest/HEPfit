@@ -15,6 +15,8 @@
       <itemPath>src/deltaGLb.h</itemPath>
       <itemPath>src/deltaGRb.h</itemPath>
       <itemPath>src/deltaGVb.h</itemPath>
+      <itemPath>src/deltaKappaZb.h</itemPath>
+      <itemPath>src/deltaRhoZb.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -95,7 +97,7 @@
     <conf name="Cluster" type="3">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
-        <compilerSet>default</compilerSet>
+        <compilerSet>GNU_MPI|GNU</compilerSet>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>

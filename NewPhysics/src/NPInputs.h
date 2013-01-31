@@ -12,6 +12,8 @@
 #include "deltaGAb.h"
 #include "deltaGLb.h"
 #include "deltaGRb.h"
+#include "deltaRhoZb.h"
+#include "deltaKappaZb.h"
 
 #endif	/* NPINPUTS_H */
 
