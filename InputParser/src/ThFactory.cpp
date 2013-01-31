@@ -70,6 +70,8 @@ myFlavour(myModel), myEW(myModel), myMO(myModel)
     thobs["deltaGAb"] = new deltaGAb(myMO);
     thobs["deltaGLb"] = new deltaGLb(myMO);
     thobs["deltaGRb"] = new deltaGRb(myMO);
+    thobs["deltaRhoZb"] = new deltaRhoZb(myMO);
+    thobs["deltaKappaZb"] = new deltaKappaZb(myMO);
     
     //-----   Higgs mass   -----
     thobs["Mh0"] = new Mh0(myEW);
