@@ -176,7 +176,7 @@ TString BaseMacros::ConvertTitle(TString orig) const
     else if (strncmp(orig, "GammaZ", 6) == 0) str = "#Gamma_{#lower[-0.2]{Z}}#kern[0.1]{[GeV]}";
     else if (strncmp(orig, "#Gamma_{Z}", 10) == 0) str = "#Gamma_{#lower[-0.2]{Z}}#kern[0.1]{[GeV]}";
     else if (strncmp(orig, "sigmaHadron", 11) == 0) str = "#sigma^{0}_{#lower[-0.2]{h}}#kern[0.1]{[nb]}";
-    else if (strncmp(orig, "#sigma_{had}", 12) == 0) str = "#sigma^{0}_{#lower[-0.2]{had}}#kern[0.1]{[nb]}";
+    else if (strncmp(orig, "#sigma_{had}", 12) == 0) str = "#sigma^{0}_{#lower[-0.2]{h}}#kern[0.1]{[nb]}";
     else if (strncmp(orig, "Rlepton", 7) == 0) str = "R^{0}_{#kern[0.4]{#lower[-0.2]{l}}}";
     else if (strncmp(orig, "R_{l}", 5) == 0) str = "R^{0}_{#kern[0.4]{#lower[-0.2]{l}}}";
     else if (strncmp(orig, "AFBlepton", 9) == 0) str = "A_{#lower[-0.2]{FB}}^{0,l}";
@@ -212,6 +212,8 @@ TString BaseMacros::ConvertTitle(TString orig) const
     else if (strncmp(orig, "#deltag_{A}^{b}", 15) == 0) str = "#delta#kern[0.1]{g_{#kern[0.1]{#lower[-0.2]{A}}}^{#kern[0.2]{b}}}";
     else if (strncmp(orig, "#deltag_{R}^{b}", 15) == 0) str = "#delta#kern[0.1]{g_{#kern[0.1]{#lower[-0.2]{R}}}^{#kern[0.2]{b}}}";
     else if (strncmp(orig, "#deltag_{L}^{b}", 15) == 0) str = "#delta#kern[0.1]{g_{#kern[0.1]{#lower[-0.2]{L}}}^{#kern[0.2]{b}}}";
+    else if (strncmp(orig, "#delta#rho_{Z}^{b}", 18) == 0) str = "#delta#kern[0.1]{#rho_{#kern[0.1]{#lower[-0.2]{Z}}}^{#kern[0.2]{b}}}";
+    else if (strncmp(orig, "#delta#kappa_{Z}^{b}", 20) == 0) str = "#delta#kern[0.1]{#kappa_{#kern[0.1]{#lower[-0.1]{Z}}}^{#kern[0.2]{b}}}";
     
     else str = orig;
 
