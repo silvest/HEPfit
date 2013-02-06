@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -60,7 +60,8 @@ double EWSMApproximateFormulae::Mw(const double DeltaAlphaL5q_i) const {
 
     return (Mw0 - c1*dH - c2*dH*dH + c3*pow(dH, 4.0)
             + c4*(dh - 1.0) - c5*dalphae + c6*dt - c7*dt*dt
-            - c8*dH*dt + c9*dh*dt - c10*dalphas + c11*dZ);
+            - c8*dH*dt + c9*dh*dt - c10*dalphas + c11*dZ
+            + SM.getDelMw());
 }
     
  
@@ -112,11 +113,12 @@ double EWSMApproximateFormulae::sin2thetaEff_l(const StandardModel::lepton l,
     double Delta_t = pow((SM.getMtpole()/178.0), 2.0) - 1.0;
     double Delta_alphas = SM.getAlsMz()/0.117 - 1.0;
     double Delta_Z = SM.getMz()/91.1876 - 1.0;
-
+    
     return (s0 + d1*L_H + d2*L_H*L_H + d3*pow(L_H, 4.0)
             + d4*(Delta_H*Delta_H - 1.0) + d5*Delta_ale + d6*Delta_t
             + d7*Delta_t*Delta_t + d8*Delta_t*(Delta_H - 1.0)
-            + d9*Delta_alphas + d10*Delta_Z );
+            + d9*Delta_alphas + d10*Delta_Z
+            + SM.getDelSin2th_l());
 }
 
  
