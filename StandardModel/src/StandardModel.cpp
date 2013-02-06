@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -22,7 +22,8 @@
 
 const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutrino_2",
     "mneutrino_3", "melectron", "mmu", "mtau", "lambda", "A", "rhob", "etab", "ale",
-    "dAle5Mz", "mHl", "muw", "phiEpsK","DeltaMK", "KbarEpsK", "Dmk", "SM_M12D" };
+    "dAle5Mz", "mHl", "muw", "phiEpsK","DeltaMK", "KbarEpsK", "Dmk", "SM_M12D",
+    "delMw", "delSin2th_l"};
 
 /**
  * FixedSMparams: true if all the SM parameters are fixed to constants in the fit. 
@@ -177,7 +178,11 @@ void StandardModel::SetParameter(const std::string name, const double& value) {
     } else if (name.compare("etab") == 0) {
         etab = value;
         computeCKM = true;
-    } else
+    } else if (name.compare("delMw") == 0)
+        delMw = value;
+    else if (name.compare("delSin2th_l") == 0)
+        delSin2th_l = value;
+    else
         QCD::SetParameter(name, value);
 }
 
@@ -283,7 +288,11 @@ double StandardModel::Mw0() const {
 }
 
 double StandardModel::s02() const {
-    return ( ( 1.0 - sqrt(1.0 - 4.0*M_PI*alphaMz()/sqrt(2.0)/GF/Mz/Mz) )/2.0 );
+    double tmp = 1.0 - 4.0*M_PI*alphaMz()/sqrt(2.0)/GF/Mz/Mz;
+    if (tmp < 0.0)
+        throw std::runtime_error("Error in StandardModel::s02()");
+    
+    return ( ( 1.0 - sqrt(tmp) )/2.0 );
 }
 
 double StandardModel::c02() const {
@@ -695,14 +704,11 @@ double StandardModel::epsilon1_SM() const {
 
 double StandardModel::epsilon2_SM() const {
     double Qe = getLeptons(ELECTRON).getCharge();
+    double s_W2 = myEWSM->sW2_SM(), c_W2 = myEWSM->cW2_SM();
     double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real();
-    complex gVe = myEWSM->gVl_SM(ELECTRON);
-    complex gAe = myEWSM->gAl_SM(ELECTRON);
-    double gV_over_gA = (gVe/gAe).real();
-    double sin2thetaEff = 1.0/4.0/fabs(Qe)*(1.0 - gV_over_gA);
+    double sin2thetaEff = myEWSM->kappaZ_l_SM(ELECTRON).real()*s_W2;
     double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
     double DeltaKappaPrime = sin2thetaEff/s02() - 1.0;
-    double s_W2 = myEWSM->sW2_SM(), c_W2 = myEWSM->cW2_SM();
     double DeltaRW = 1.0 - M_PI*alphaMz()/(sqrt(2.0)*GF*Mz*Mz*s_W2*c_W2);
     
     return ( c02()*DeltaRhoPrime + s02()*DeltaRW/(c02() - s02()) 
@@ -712,13 +718,10 @@ double StandardModel::epsilon2_SM() const {
 double StandardModel::epsilon3_SM() const {
     double Qe = getLeptons(ELECTRON).getCharge();
     double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real();
-    complex gVe = myEWSM->gVl_SM(ELECTRON);
-    complex gAe = myEWSM->gAl_SM(ELECTRON);
-    double gV_over_gA = (gVe/gAe).real();
-    double sin2thetaEff = 1.0/4.0/fabs(Qe)*(1.0 - gV_over_gA);
+    double sin2thetaEff = myEWSM->kappaZ_l_SM(ELECTRON).real()*myEWSM->sW2_SM();
     double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
     double DeltaKappaPrime = sin2thetaEff/s02() - 1.0;
-    
+
     return ( c02()*DeltaRhoPrime + (c02() - s02())*DeltaKappaPrime );
 }
 

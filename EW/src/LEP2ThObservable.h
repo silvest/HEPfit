@@ -84,7 +84,7 @@ public:
     }
     
     bool checkSMparams(const double s, const double Mw, const double GammaZ) const {
-        // 21 SM parameters in checkSMparams() + s, Mw, GammaZ + 5 booleans
+        // 23 SM parameters in checkSMparams() + s, Mw, GammaZ + 5 booleans
         bool bCache = true;
         bCache &= myEW.getSM().getEWSM()->checkSMparams(SMparams_cache);
         
