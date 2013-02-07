@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,7 +8,8 @@
 #include "sigmaHadron.h"
 
 
-double sigmaHadron::getThValue() { 
+double sigmaHadron::getThValue() 
+{ 
     double sigma_had;
     if (myEWTYPE==EW::EWCHMN)  
         sigma_had = myEW.getMyEW_CHMN().sigma0_had();

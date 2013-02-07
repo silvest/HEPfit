@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -105,9 +105,8 @@ double THDM::v2() {
 
 ///////////////////////////////////////////////////////////////////////////////
 
-double THDM::obliqueS(){
+double THDM::obliqueS() const {
   
-    double Mz2;
     complex B22prime_Mz_Mz2_mH_mA;
     complex B22prime_Mz_Mz2_mHp_mHp;
     complex B22prime_Mz_Mz2_mh_mA;
@@ -118,10 +117,9 @@ double THDM::obliqueS(){
     complex B0prime_Mz_Mz2_Mz_mh;
     
     double mh = mHl;
-    Mz2 = Mz*Mz;
-    DeltaS = 0.0;
-    sin2_ba = sin_ba*sin_ba;
-    cos2_ba = 1. - sin2_ba;
+    double Mz2 = Mz*Mz;
+    double sin2_ba = sin_ba*sin_ba;
+    double cos2_ba = 1. - sin2_ba;
     
     B22prime_Mz_Mz2_mH_mA = - mycache.B22_Mz_Mz2_mH_mA(Mz,mH,mA) + mycache.B22_Mz_0_mH_mA(Mz,mH,mA);
     B22prime_Mz_Mz2_mHp_mHp = - mycache.B22_Mz_Mz2_mHp_mHp(Mz,mHp) + mycache.B22_Mz_0_mHp_mHp(Mz,mHp);
@@ -131,7 +129,7 @@ double THDM::obliqueS(){
     B0prime_Mz_Mz2_Mz_mH = mycache.B0_Mz_Mz2_Mz_mH(Mz,mH) - mycache.B0_Mz_0_Mz_mH(Mz,mH);
     B0prime_Mz_Mz2_Mz_mh = mycache.B0_Mz_Mz2_Mz_mh(Mz,mh) - mycache.B0_Mz_0_Mz_mh(Mz,mh);
     
-    DeltaS = 1./Mz2/M_PI*(sin2_ba * B22prime_Mz_Mz2_mH_mA.real() - B22prime_Mz_Mz2_mHp_mHp.real()
+    double DeltaS = 1./Mz2/M_PI*(sin2_ba * B22prime_Mz_Mz2_mH_mA.real() - B22prime_Mz_Mz2_mHp_mHp.real()
            + cos2_ba * (B22prime_Mz_Mz2_mh_mA.real() + B22prime_Mz_Mz2_Mz_mH.real() 
            - B22prime_Mz_Mz2_Mz_mh.real() - Mz2 * B0prime_Mz_Mz2_Mz_mH.real() 
            + Mz2 * B0prime_Mz_Mz2_Mz_mh.real()));
@@ -140,9 +138,8 @@ double THDM::obliqueS(){
    
 }
 
-double THDM::obliqueT(){
+double THDM::obliqueT() const {
     
-    double Mz2;
     complex B0_Mz_0_Mz_mH;
     complex B0_Mz_0_Mz_mh;
     complex B0_Mz_0_Mw_mH;
@@ -151,20 +148,18 @@ double THDM::obliqueT(){
     
     double M_w = Mw();
     double mh = mHl;
-    Mz2 = Mz*Mz;
-    Mw2 = M_w*M_w;
-    sin2_ba = sin_ba*sin_ba;
-    cos2_ba = 1. - sin2_ba;
-    s_W2 = sW2(); 
+    double Mz2 = Mz*Mz;
+    double Mw2 = M_w*M_w;
+    double sin2_ba = sin_ba*sin_ba;
+    double cos2_ba = 1. - sin2_ba;
+    double s_W2 = sW2(); 
     
     B0_Mz_0_Mw_mH = mycache.B0_Mz_0_Mw_mH(Mz,M_w,mH);
     B0_Mz_0_Mz_mH = mycache.B0_Mz_0_Mz_mH(Mz,mH);
     B0_Mz_0_Mz_mh = mycache.B0_Mz_0_Mw_mh(Mz,M_w,mh);
     B0_Mz_0_Mw_mh = mycache.B0_Mz_0_Mw_mh(Mz,M_w,mh); 
     
-    DeltaT = 0.0;
-  
-    DeltaT = 1. / 16. / M_PI / Mw2 / s_W2 * (F(mHp,mA)
+    double DeltaT = 1. / 16. / M_PI / Mw2 / s_W2 * (F(mHp,mA)
            + sin2_ba * (F(mHp,mH) - F(mA,mH)) + cos2_ba * (F(mHp,mh) 
            - F(mA,mh) + F(M_w,mH) - F(M_w,mh) - F(Mz,mH) 
            + F(Mz,mh) + 4. * Mz2 * (B0_Mz_0_Mz_mH.real() - B0_Mz_0_Mz_mh.real()) 
@@ -173,9 +168,8 @@ double THDM::obliqueT(){
     return DeltaT;
 }
 
-double THDM::obliqueU(){
+double THDM::obliqueU() const {
     
-    double Mz2;
     complex B22prime_Mz_Mw2_mA_mHp;
     complex B22prime_Mz_Mw2_mHp_mHp;
     complex B22prime_Mz_Mw2_mH_mHp;
@@ -188,10 +182,10 @@ double THDM::obliqueU(){
     
     double M_w = Mw();
     double mh = mHl;
-    Mz2 = Mz*Mz;
-    Mw2 = M_w*M_w;//
-    sin2_ba = sin_ba*sin_ba;
-    cos2_ba = 1. - sin2_ba;
+    double Mz2 = Mz*Mz;
+    double Mw2 = M_w*M_w;//
+    double sin2_ba = sin_ba*sin_ba;
+    double cos2_ba = 1. - sin2_ba;
       
     B22prime_Mz_Mw2_mA_mHp = - mycache.B22_Mz_Mw2_mA_mHp(Mz,M_w,mA,mHp) + mycache.B22_Mz_0_mA_mHp(Mz,mA,mHp);
     B22prime_Mz_Mw2_mHp_mHp = - mycache.B22_Mz_Mw2_mHp_mHp(Mz,M_w,mHp) + mycache.B22_Mz_0_mHp_mHp(Mz,mHp);
@@ -202,9 +196,7 @@ double THDM::obliqueU(){
     B0prime_Mz_Mw2_Mw_mh = mycache.B0_Mz_Mw2_Mw_mh(Mz,M_w,mh) - mycache.B0_Mz_0_Mw_mh(Mz,M_w,mh);
     B22prime_Mz_Mw2_mH_mHp = - mycache.B22_Mz_Mw2_mH_mHp(Mz,M_w,mH,mHp) + mycache.B22_Mz_0_mH_mHp(Mz,mH,mHp);
     
-    DeltaU = 0.0;
-    
-    DeltaU = - obliqueS() + 1. / M_PI / Mz2 * (B22prime_Mz_Mw2_mA_mHp.real() 
+    double DeltaU = - obliqueS() + 1. / M_PI / Mz2 * (B22prime_Mz_Mw2_mA_mHp.real() 
            - 2. * B22prime_Mz_Mw2_mHp_mHp.real() + sin2_ba * B22prime_Mz_Mw2_mH_mHp.real() 
            + cos2_ba * (B22prime_Mz_Mw2_mh_mHp.real() + B22prime_Mz_Mw2_Mw_mH.real() 
            - B22prime_Mz_Mw2_Mw_mh.real() - Mw2 * B0prime_Mz_Mw2_Mw_mH.real() 

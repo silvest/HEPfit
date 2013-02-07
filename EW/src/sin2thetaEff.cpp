@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,7 +8,8 @@
 #include "sin2thetaEff.h"
 
 
-double sin2thetaEff::getThValue() { 
+double sin2thetaEff::getThValue() 
+{ 
     double sin2_theta_eff;
     if (myEWTYPE==EW::EWCHMN)  
         sin2_theta_eff = myEW.getMyEW_CHMN().sin2thetaEff();

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,15 +15,25 @@
 class ThObservable {
 public:
     ThObservable(const ThObsType& ObsType_i);
-    ThObservable(const StandardModel& SM_i);
     ThObservable(const ThObservable& orig);
     virtual ~ThObservable();
     virtual double getThValue() = 0;
 
-    static const double GeVminus2_to_nb;// conversion factor from GeV^{-2} to nb
+    /**
+     * The conversion factor from GeV^{-2} to nb. 
+     */
+    static const double GeVminus2_to_nb;
 
 protected:
+    
+    /**
+     * A reference to an object of ThObsType class. 
+     */
     const ThObsType& ObsType;
+    
+    /**
+     * A reference to an object of StandardModel class. 
+     */
     const StandardModel& SM;
 };
 

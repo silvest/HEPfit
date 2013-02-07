@@ -4,7 +4,25 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/Mch1.h</itemPath>
+      <itemPath>src/Mch2.h</itemPath>
+      <itemPath>src/Mneu1.h</itemPath>
+      <itemPath>src/Mneu2.h</itemPath>
+      <itemPath>src/Mneu3.h</itemPath>
+      <itemPath>src/Mneu4.h</itemPath>
+      <itemPath>src/Msd1.h</itemPath>
+      <itemPath>src/Msd2.h</itemPath>
+      <itemPath>src/Msd3.h</itemPath>
+      <itemPath>src/Msd4.h</itemPath>
+      <itemPath>src/Msd5.h</itemPath>
+      <itemPath>src/Msd6.h</itemPath>
       <itemPath>src/Msq.h</itemPath>
+      <itemPath>src/Msu1.h</itemPath>
+      <itemPath>src/Msu2.h</itemPath>
+      <itemPath>src/Msu3.h</itemPath>
+      <itemPath>src/Msu4.h</itemPath>
+      <itemPath>src/Msu5.h</itemPath>
+      <itemPath>src/Msu6.h</itemPath>
       <itemPath>src/SUSY.h</itemPath>
       <itemPath>src/SUSYMatching.h</itemPath>
       <itemPath>src/Spectrum.h</itemPath>
@@ -74,6 +92,7 @@
             <pElem>../Utils/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopFunctions/src</pElem>
+            <pElem>../Observables/src</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>
@@ -104,6 +123,7 @@
             <pElem>../Utils/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopFunctions/src</pElem>
+            <pElem>../Observables/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/BAT/include -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include</commandLine>
         </ccTool>

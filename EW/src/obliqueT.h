@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -11,23 +11,39 @@
 #include <ThObservable.h>
 #include "EW.h"
 
-
+/**
+ * @class obliqueT
+ * @ingroup EW 
+ * @brief A class for the oblique parameter T
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the oblique parameter T.  
+ */
 class obliqueT : public ThObservable {
 public:
 
     /**
-     * @brief obliqueT constructor
-     * @param[in] EW_i an object of EW class
+     * A constructor.
+     * @param[in] EW_i A reference to an object of EW class, which is the base 
+     * class of the electroweak precision observables.
      */
-    obliqueT(const EW& EW_i) : ThObservable(EW_i), myEW(EW_i) {};
+    obliqueT(const EW& EW_i) 
+    : ThObservable(EW_i), myEW(EW_i) 
+    {
+    };
 
     /**
-     * @return the oblique parameter T
+     * @return The oblique parameter T
      */
     double getThValue();
 
 
 private:
+
+    /**
+     * A reference to an object of EW class, which is the base class of the 
+     * electroweak precision observables.
+     */
     const EW& myEW;
 };
 

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -496,7 +496,7 @@ protected:
     
     /** test **/
     
-    int Neve = 0;
+    //int Neve = 0;
 };
 
 #endif	/* SUSY_H */

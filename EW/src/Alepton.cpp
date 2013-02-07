@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,7 +8,8 @@
 #include "Alepton.h"
 
 
-double Alepton::getThValue() { 
+double Alepton::getThValue() 
+{ 
     double A_l;
     if (myEWTYPE==EW::EWCHMN)  
         A_l = myEW.getMyEW_CHMN().A_l(SM.ELECTRON);

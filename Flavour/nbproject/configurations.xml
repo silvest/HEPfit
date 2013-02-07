@@ -27,6 +27,7 @@
       <itemPath>src/HeffDF2.h</itemPath>
       <itemPath>src/M12D.h</itemPath>
       <itemPath>src/SJPsiK.h</itemPath>
+      <itemPath>src/SJPsiPhi.h</itemPath>
       <itemPath>src/Vcb.h</itemPath>
       <itemPath>src/Vub.h</itemPath>
       <itemPath>src/Vud.h</itemPath>
@@ -45,6 +46,8 @@
       <itemPath>src/AmpDB2.cpp</itemPath>
       <itemPath>src/AmpDD2.cpp</itemPath>
       <itemPath>src/AmpDK2.cpp</itemPath>
+      <itemPath>src/DmBd.cpp</itemPath>
+      <itemPath>src/DmBs.cpp</itemPath>
       <itemPath>src/DmK.cpp</itemPath>
       <itemPath>src/EpsilonK.cpp</itemPath>
       <itemPath>src/EvolDC1.cpp</itemPath>

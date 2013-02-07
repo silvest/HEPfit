@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -288,9 +288,9 @@ bool SUSY::SetFeynHiggsPars(void) {
 
 bool SUSY::CalcHiggsSpectrum(void){
     int err;
-    Complex SAeff;
-    Complex UHiggs[3][3];
-    Complex ZHiggs[3][3];
+    ComplexType SAeff;
+    ComplexType UHiggs[3][3];
+    ComplexType ZHiggs[3][3];
     //FHSetDebug(2);
     FHHiggsCorr(&err, mh, &SAeff, UHiggs, ZHiggs);  
     saeff = complex(SAeff.real(),SAeff.imag()); 
@@ -347,8 +347,8 @@ bool SUSY::CalcHiggsSpectrum(void){
 
 void SUSY::CalcHiggsCouplings(void){
     int err;
-    Complex couplings[ncouplings];
-    Complex couplingsms[ncouplingsms];    
+    ComplexType couplings[ncouplings];
+    ComplexType couplingsms[ncouplingsms];    
     double gammas[ngammas];
     double gammasms[ngammasms];
     //FHSetDebug(2);
@@ -414,7 +414,7 @@ bool SUSY::CalcFlavour(){
 bool SUSY::CalcSpectrum(){
     int err, nmfv;
     double MASf[4][6], MCha[2], MNeu[4];
-    Complex UASf[4][6][6], UCha[2][2], VCha[2][2], ZNeu[4][4], Deltab;
+    ComplexType UASf[4][6][6], UCha[2][2], VCha[2][2], ZNeu[4][4], Deltab;
     FHGetPara(&err, &nmfv, MASf, UASf, MCha, UCha, VCha, MNeu, ZNeu, &Deltab, 
             &FHMGl, FHMHtree, &FHSAtree);
 //            FHMHtree, &FHSAtree);

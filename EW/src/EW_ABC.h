@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -16,7 +16,7 @@ using namespace gslpp;
 
 /**
  * @class EW_ABC
- * @brief a class for the electroweak precision observables with the epsilon 
+ * @details A class for the electroweak precision observables with the epsilon 
  * parameters based on IJMPA, 7, 1031-1058 (1998) by G.Altarelli, R.Barbieri 
  * and F.Caravaglios. 
  */  

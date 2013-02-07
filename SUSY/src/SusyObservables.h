@@ -1,8 +1,8 @@
 /* 
- * File:   SusyObservables.h
- * Author: silvest
+ * Copyright (C) 2012 SusyFit Collaboration
+ * All rights reserved.
  *
- * Created on September 28, 2012, 1:53 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef SUSYOBSERVABLES_H

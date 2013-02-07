@@ -1,8 +1,8 @@
 /* 
- * File:   Spectrum.cpp
- * Author: silvest
- * 
- * Created on October 5, 2012, 4:22 PM
+ * Copyright (C) 2012 SusyFit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "Spectrum.h"

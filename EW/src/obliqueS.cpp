@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -9,7 +9,8 @@
 #include "obliqueS.h"
 
 
-double obliqueS::getThValue() {  
+double obliqueS::getThValue() 
+{  
     return SM.obliqueS();
 }
  

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,7 +13,7 @@
 #include <stdexcept>
 
 // set in case where LoopTools library is employed. 
-#define USE_LOOPTOOLS
+//#define USE_LOOPTOOLS
 
 #define LEPS 1.e-7 // tolerance in the limit of masses
 

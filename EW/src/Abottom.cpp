@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,7 +8,8 @@
 #include "Abottom.h"
 
 
-double Abottom::getThValue() {
+double Abottom::getThValue() 
+{
     double A_b;
     if (myEWTYPE==EW::EWCHMN)  
         A_b = myEW.getMyEW_CHMN().A_q(SM.BOTTOM);

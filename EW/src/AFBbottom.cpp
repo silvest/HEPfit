@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,7 +8,8 @@
 #include "AFBbottom.h"
 
 
-double AFBbottom::getThValue() {   
+double AFBbottom::getThValue() 
+{   
     double AFB_b;
     if (myEWTYPE==EW::EWCHMN) 
         AFB_b = myEW.getMyEW_CHMN().AFB_q(SM.BOTTOM);

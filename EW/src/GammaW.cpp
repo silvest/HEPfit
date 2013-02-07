@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,7 +8,8 @@
 #include "GammaW.h"
 
 
-double GammaW::getThValue() {  
+double GammaW::getThValue() 
+{  
     double Gamma_W;
     if (myEWTYPE==EW::EWCHMN)  
         Gamma_W = myEW.getMyEW_CHMN().GammaW();
@@ -19,7 +20,7 @@ double GammaW::getThValue() {
         
         if ( myEW.checkModelForSTU() ) {
             double Wbar = 0.0;        
-            if (SM.ModelName()=="NewPhysicsSTUVWXY") {
+            if (SM.ModelName()=="NPSTUVWXY") {
                 Wbar = (myEW.V() - myEW.W())/SM.alphaMz();
             }
 

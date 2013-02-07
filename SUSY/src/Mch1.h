@@ -1,8 +1,8 @@
 /* 
- * File:   Mch1.h
- * Author: girardi_mac
+ * Copyright (C) 2012 SusyFit Collaboration
+ * All rights reserved.
  *
- * Created on 28 settembre 2012, 16.25
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef MCH1_H

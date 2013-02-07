@@ -2151,6 +2151,8 @@ void BCModel::PrintResults(const char * file)
       return;
    }
 
+   ofi.precision(8);
+
    // number of parameters and chains
    int npar = MCMCGetNParameters();
    int nchains = MCMCGetNChains();
@@ -2233,29 +2235,29 @@ void BCModel::PrintResults(const char * file)
          ofi << "  (" << i << ") Parameter \""
              << fParameterSet->at(i)->GetName().data() << "\":" << std::endl
 
-             << "      Mean +- sqrt(V):                " << std::setprecision(4)
-             << bch1d->GetMean() << " +- " << std::setprecision(4)
+             << "      Mean +- sqrt(V):                " << std::setprecision(8)
+             << bch1d->GetMean() << " +- " << std::setprecision(8)
              << bch1d->GetRMS() << std::endl
 
                    << "      Median +- central 68% interval: "
-             << std::setprecision(4) << bch1d->GetMedian() << " +  "
-             << std::setprecision(4) << bch1d->GetQuantile(0.84) - bch1d->GetMedian()
-             << " - " << std::setprecision(4)
+             << std::setprecision(8) << bch1d->GetMedian() << " +  "
+             << std::setprecision(8) << bch1d->GetQuantile(0.84) - bch1d->GetMedian()
+             << " - " << std::setprecision(8)
              << bch1d->GetMedian() - bch1d->GetQuantile(0.16) << std::endl
 
              << "      (Marginalized) mode:            " << bch1d->GetMode() << std::endl;
 
-         ofi << "       5% quantile:                   " << std::setprecision(4)
+         ofi << "       5% quantile:                   " << std::setprecision(8)
              << bch1d->GetQuantile(0.05) << std::endl
-             << "      10% quantile:                   " << std::setprecision(4)
+             << "      10% quantile:                   " << std::setprecision(8)
              << bch1d->GetQuantile(0.10) << std::endl
-             << "      16% quantile:                   " << std::setprecision(4)
+             << "      16% quantile:                   " << std::setprecision(8)
              << bch1d->GetQuantile(0.16) << std::endl
-             << "      84% quantile:                   " << std::setprecision(4)
+             << "      84% quantile:                   " << std::setprecision(8)
              << bch1d->GetQuantile(0.85) << std::endl
-             << "      90% quantile:                   " << std::setprecision(4)
+             << "      90% quantile:                   " << std::setprecision(8)
              << bch1d->GetQuantile(0.90) << std::endl
-             << "      95% quantile:                   " << std::setprecision(4)
+             << "      95% quantile:                   " << std::setprecision(8)
              << bch1d->GetQuantile(0.95) << std::endl;
 
          std::vector<double> v;

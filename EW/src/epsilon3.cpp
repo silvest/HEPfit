@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,7 +8,8 @@
 #include "epsilon3.h"
 
 
-double epsilon3::getThValue() {  
+double epsilon3::getThValue() 
+{  
     double eps3 = SM.epsilon3();
     
     if ( myEW.checkModelForSTU() )
