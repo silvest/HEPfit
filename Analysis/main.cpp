@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -30,16 +30,18 @@ int main(int argc, char** argv) {
                 ("modconf", value<string > (), "model config filename (1st)")
                 ("mcconf", value<string > (), "montecarlo config filename (2nd)")
                 ("rootfile", value<string > ()->default_value("MCout"),
-                "output root filename (without extension) (3rd)")
+                "output root filename (without extension)")
                 ("job_tag", value<string > ()->default_value(""),
-                "job tag (4th)")
+                "job tag")
+                ("noMC", value<string > ()->default_value(""),
+                "use Yes to run a single event (default: No)")
                 ("help", "help message")
                 ;
         positional_options_description pd;
         pd.add("modconf", 1);
         pd.add("mcconf", 1);
-        pd.add("rootfile", 1);
-        pd.add("job_tag", 1);
+//        pd.add("rootfile", 1);
+//        pd.add("job_tag", 1);
 
         variables_map vm;
         store(command_line_parser(argc,
@@ -62,11 +64,16 @@ int main(int argc, char** argv) {
             runtime_error("missing mandatory montecarlo config filename");
 
         FileOut = vm["rootfile"].as<string > ();
-        
-        JobTag = vm["job_tag"].as<string> ();
 
         JobTag = vm["job_tag"].as<string > ();
-
+        
+        if (vm.count("noMC") && vm["noMC"].as<string > ().compare("Yes") == 0) {
+            std::cout << "Running in Single Event mode" << std::endl;
+            FileOut = "";
+        }
+        else 
+            std::cout << "Running in MonteCarlo mode" << std::endl;
+            
         MonteCarlo MC(ModelConf, MCMCConf, FileOut, JobTag);
         
         MC.Run(rank);

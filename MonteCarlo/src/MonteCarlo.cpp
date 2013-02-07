@@ -1,11 +1,12 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
  */
 
 #include "MonteCarlo.h"
+#include <TSystem.h>
 #include <BAT/BCAux.h>
 #include <BAT/BCLog.h>
 #include <BAT/BCSummaryTool.h>
@@ -17,8 +18,13 @@ myInputParser(), MCEngine(ModPars, Obs, Obs2D) {
     ModelConf = ModelConf_i;
     MCMCConf = MonteCarloConf_i;
     JobTag = JobTag_i;
+    if(OutFile_i.compare("")==0)
+        noMC = true;
     OutFile = OutFile_i + JobTag + ".root";
     PrintAllMarginalized = false;
+    PrintCorrelationMatrix = false;
+    PrintKnowledgeUpdatePlots = false;
+    PrintParameterPlot = false;
 }
 
 MonteCarlo::~MonteCarlo() {
@@ -26,6 +32,16 @@ MonteCarlo::~MonteCarlo() {
 
 void MonteCarlo::Run(const int rank) {
     try {
+        FileStat_t info;
+        if (gSystem->GetPathInfo("Observables", info) != 0) {
+            if (gSystem->MakeDirectory("Observables") == 0)
+                std::cout << "Observables directory has been created." << std::endl;
+            else {
+                std::cout << "Observables director cannot be created." << std::endl;
+                exit(EXIT_FAILURE);
+            }
+        }
+        
         MCEngine.SetName(myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D).c_str());
         int buffsize = 0;
         std::map<std::string, double> DP;
@@ -39,6 +55,16 @@ void MonteCarlo::Run(const int rank) {
             std::cout << "parameter(s) missing in model initialization" << std::endl;
             exit(EXIT_FAILURE);
         }
+        
+        if(noMC) {
+            for (std::vector<Observable>::iterator it = Obs.begin();
+                it < Obs.end(); it++) {
+              double th = it->getTheoryValue();
+              std::cout << it->getName() << " = " << th << std::endl;
+            }
+            return;
+        }
+        
         MCEngine.Initialize(myInputParser.getMyModel());
         double *recvbuff = new double[buffsize];
 
@@ -78,6 +104,10 @@ void MonteCarlo::Run(const int rank) {
             std::cout << Obs.size() << " observables defined." << std::endl;
             //MonteCarlo configuration parser
             std::ifstream ifile(MCMCConf.c_str());
+            if (!ifile.is_open()) {
+                std::cout << MCMCConf << " does not exist." << std::endl;
+                exit(EXIT_FAILURE);
+            }
             std::string line;
             while (!getline(ifile, line).eof()) {
                 if (line.at(0) == '#') continue;
@@ -107,6 +137,22 @@ void MonteCarlo::Run(const int rank) {
                     if (beg->compare("true") == 0) {
                         PrintAllMarginalized = true;
                     }
+                } else if (beg->compare("PrintCorrelationMatrix") == 0) {
+                    ++beg;
+                    if (beg->compare("true") == 0) {
+                        PrintCorrelationMatrix = true;
+                    }
+                } else if (beg->compare("PrintKnowledgeUpdatePlots") == 0) {
+                    ++beg;
+                    if (beg->compare("true") == 0) {
+                        PrintKnowledgeUpdatePlots = true;
+                    }
+                } else if (beg->compare("PrintParameterPlot") == 0) {
+                    ++beg;
+                    if (beg->compare("true") == 0) {
+                        PrintParameterPlot = true;
+                    }
+
                 } else {
                     std::cout << "wrong keyword in MonteCarlo config file: " << *beg << std::endl;
                     exit(EXIT_FAILURE);
@@ -127,10 +173,11 @@ void MonteCarlo::Run(const int rank) {
             BCLog::SetLogLevel(BCLog::debug);
 
             // run the MCMC and marginalize w.r.t. to all parameters
+            MCEngine.BCIntegrate::SetNbins(NBINSMODELPARS);
             MCEngine.MarginalizeAll();
 
             // find mode using the best fit parameters as start values
-            //    MCEngine.FindMode(MCEngine.GetBestFitParameters());
+            MCEngine.FindMode(MCEngine.GetBestFitParameters());
 
             // draw all marginalized distributions into a PostScript file
             if (PrintAllMarginalized)
@@ -141,10 +188,25 @@ void MonteCarlo::Run(const int rank) {
 
             // print ratio
             MCEngine.PrintHistogram(out);
-            // output the correlation matrix to a eps file
+            
             BCSummaryTool myBCSummaryTool(&MCEngine);
-            myBCSummaryTool.PrintCorrelationMatrix(("correlations" + JobTag + ".eps").c_str());
 
+            // draw the correlation matrix into an eps file
+            if (PrintCorrelationMatrix)
+                myBCSummaryTool.PrintCorrelationMatrix(("ParamCorrelations" + JobTag + ".eps").c_str());
+
+            // print comparisons of the prior knowledge to the posterior knowledge 
+            // for all parameters into a PostScript file
+            if (PrintKnowledgeUpdatePlots)
+                myBCSummaryTool.PrintKnowledgeUpdatePlots(("ParamUpdate" + JobTag + ".ps").c_str());
+
+            // draw an overview plot of the parameters into an eps file
+            if (PrintParameterPlot)
+                myBCSummaryTool.PrintParameterPlot(("ParamSummary" + JobTag + ".eps").c_str());
+            
+            // print a LaTeX table of the parameters into a tex file
+            //myBCSummaryTool.PrintParameterLatex(("ParamSummary" + JobTag + ".tex").c_str());
+        
             out.WriteMarginalizedDistributions();
             //out.FillAnalysisTree();
             out.Close();
