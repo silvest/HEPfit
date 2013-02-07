@@ -1,3 +1,10 @@
+/* 
+ * Copyright (C) 2012 SusyFit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
+ */
+
 #include "SUSYMassInsertionMatching.h"
 #include "gslpp.h"
 #include "gsl/gsl_sf_dilog.h"

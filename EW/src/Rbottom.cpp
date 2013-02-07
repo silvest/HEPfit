@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -10,7 +10,8 @@
 #include <EWSM.h>
 
 
-double Rbottom::getThValue() { 
+double Rbottom::getThValue() 
+{ 
     double R0_b;
     if (myEWTYPE==EW::EWCHMN)  
         R0_b = myEW.getMyEW_CHMN().R_b();
@@ -20,12 +21,12 @@ double Rbottom::getThValue() {
         double R_b0 = 0.2182355;
         R0_b = R_b0*(1.0 - 0.06*SM.epsilon1() + 0.07*SM.epsilon3() + 1.79*SM.epsilonb());
     } else {    
-        if (SM.IsFlagR0bApproximate() 
-                && SM.ModelName()!="NewPhysicsEpsilons"
-                && SM.ModelName()!="NewPhysicsHiggs") 
-            R0_b = SM.getEWSM()->R0_bottom_SM();// use an approximate formula
-        else
-            R0_b = myEW.Gamma_q(SM.BOTTOM)/myEW.Gamma_had();
+        //if (SM.IsFlagR0bApproximate() 
+        //        && SM.ModelName()!="NPEpsilons"
+        //        && SM.ModelName()!="NPHiggs") 
+        //    R0_b = SM.getEWSM()->R0_bottom_SM();// use an approximate formula
+        //else
+        R0_b = myEW.Gamma_q(SM.BOTTOM)/myEW.Gamma_had();
         
         if ( myEW.checkModelForSTU() ) {
             if(myEWTYPE==EW::EWBURGESS) {

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -75,7 +75,8 @@ bool EWSM::checkSMparams(double Params_cache[]) const {
     // "mut","mub","muc"
     // 10 parameters in StandardModel
     // "GF", "ale", "dAle5Mz", "mHl", 
-    // "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau"
+    // "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau",
+    // "delMw", "delSin2th_l"
     double SMparams[NumSMParams] = { 
         SM.getAlsMz(), SM.getMz(), SM.getGF(), SM.getAle(), SM.getDAle5Mz(),
         SM.getMHl(), SM.getMtpole(), 
@@ -90,7 +91,8 @@ bool EWSM::checkSMparams(double Params_cache[]) const {
         SM.getQuarks(SM.CHARM).getMass(),
         SM.getQuarks(SM.STRANGE).getMass(),
         SM.getQuarks(SM.BOTTOM).getMass(),
-        SM.getMut(), SM.getMub(), SM.getMuc()
+        SM.getMut(), SM.getMub(), SM.getMuc(),
+        SM.getDelMw(), SM.getDelSin2th_l()
     };
         
     // check updated parameters
@@ -254,30 +256,24 @@ complex EWSM::rhoZ_l_SM(const StandardModel::lepton l) const {
         
         /* compute delta rho_rem^f */
         complex deltaRho_rem_f[orders_EW_size];
+        deltaRho_rem_f[EW1] = complex(0.0, 0.0, false);        
+        deltaRho_rem_f[EW1QCD1] = complex(0.0, 0.0, false);
+        deltaRho_rem_f[EW1QCD2] = complex(0.0, 0.0, false);        
+        deltaRho_rem_f[EW2] = complex(0.0, 0.0, false);       
+        deltaRho_rem_f[EW2QCD1] = complex(0.0, 0.0, false);
+        deltaRho_rem_f[EW3] = complex(0.0, 0.0, false);    
         if (flag_order[EW1]) 
             deltaRho_rem_f[EW1] = myOneLoopEW->deltaRho_rem_l(l,Mw);
-        else 
-            deltaRho_rem_f[EW1] = complex(0.0, 0.0, false);
         if (flag_order[EW1QCD1]) 
-            deltaRho_rem_f[EW1QCD1] = myTwoLoopQCD->deltaRho_rem_l(l,Mw);
-        else 
-            deltaRho_rem_f[EW1QCD1] = complex(0.0, 0.0, false);
+            deltaRho_rem_f[EW1QCD1] = complex(myTwoLoopQCD->deltaRho_rem_l(l,Mw).real(), 0.0, false);
         if (flag_order[EW1QCD2]) 
-            deltaRho_rem_f[EW1QCD2] = myThreeLoopQCD->deltaRho_rem_l(l,Mw);
-        else 
-            deltaRho_rem_f[EW1QCD2] = complex(0.0, 0.0, false);        
+            deltaRho_rem_f[EW1QCD2] = complex(myThreeLoopQCD->deltaRho_rem_l(l,Mw).real(), 0.0, false);
         if (flag_order[EW2]) 
-            deltaRho_rem_f[EW2] = myTwoLoopEW->deltaRho_rem_l(l,Mw);
-        else  
-            deltaRho_rem_f[EW2] = complex(0.0, 0.0, false);       
+            deltaRho_rem_f[EW2] = complex(myTwoLoopEW->deltaRho_rem_l(l,Mw).real(), 0.0, false);
         if (flag_order[EW2QCD1]) 
-            deltaRho_rem_f[EW2QCD1] = myThreeLoopEW2QCD->deltaRho_rem_l(l,Mw);
-        else 
-            deltaRho_rem_f[EW2QCD1] = complex(0.0, 0.0, false);
+            deltaRho_rem_f[EW2QCD1] = complex(myThreeLoopEW2QCD->deltaRho_rem_l(l,Mw).real(), 0.0, false);
         if (flag_order[EW3]) 
-            deltaRho_rem_f[EW3] = myThreeLoopEW->deltaRho_rem_l(l,Mw);  
-        else
-            deltaRho_rem_f[EW3] = complex(0.0, 0.0, false);    
+            deltaRho_rem_f[EW3] = complex(myThreeLoopEW->deltaRho_rem_l(l,Mw).real(), 0.0, false);  
         
         /* compute Delta rbar_rem */
         double DeltaRbar_rem = 0.0;
@@ -320,30 +316,24 @@ complex EWSM::rhoZ_q_SM(const StandardModel::quark q) const {
         
         /* compute delta rho_rem^f */
         complex deltaRho_rem_f[orders_EW_size];
+        deltaRho_rem_f[EW1] = complex(0.0, 0.0, false); 
+        deltaRho_rem_f[EW1QCD1] = complex(0.0, 0.0, false); 
+        deltaRho_rem_f[EW1QCD2] = complex(0.0, 0.0, false); 
+        deltaRho_rem_f[EW2] = complex(0.0, 0.0, false); 
+        deltaRho_rem_f[EW2QCD1] = complex(0.0, 0.0, false); 
+        deltaRho_rem_f[EW3] = complex(0.0, 0.0, false); 
         if (flag_order[EW1]) 
             deltaRho_rem_f[EW1] = myOneLoopEW->deltaRho_rem_q(q,Mw);
-        else 
-            deltaRho_rem_f[EW1] = complex(0.0, 0.0, false); 
         if (flag_order[EW1QCD1]) 
-            deltaRho_rem_f[EW1QCD1] = myTwoLoopQCD->deltaRho_rem_q(q,Mw);
-        else 
-            deltaRho_rem_f[EW1QCD1] = complex(0.0, 0.0, false); 
+            deltaRho_rem_f[EW1QCD1] = complex(myTwoLoopQCD->deltaRho_rem_q(q,Mw).real(), 0.0, false);
         if (flag_order[EW1QCD2]) 
-            deltaRho_rem_f[EW1QCD2] = myThreeLoopQCD->deltaRho_rem_q(q,Mw);
-        else 
-            deltaRho_rem_f[EW1QCD2] = complex(0.0, 0.0, false); 
+            deltaRho_rem_f[EW1QCD2] = complex(myThreeLoopQCD->deltaRho_rem_q(q,Mw).real(), 0.0, false);
         if (flag_order[EW2]) 
-            deltaRho_rem_f[EW2] = myTwoLoopEW->deltaRho_rem_q(q,Mw);
-        else 
-            deltaRho_rem_f[EW2] = complex(0.0, 0.0, false); 
+            deltaRho_rem_f[EW2] = complex(myTwoLoopEW->deltaRho_rem_q(q,Mw).real(), 0.0, false);
         if (flag_order[EW2QCD1]) 
-            deltaRho_rem_f[EW2QCD1] = myThreeLoopEW2QCD->deltaRho_rem_q(q,Mw);
-        else 
-            deltaRho_rem_f[EW2QCD1] = complex(0.0, 0.0, false); 
+            deltaRho_rem_f[EW2QCD1] = complex(myThreeLoopEW2QCD->deltaRho_rem_q(q,Mw).real(), 0.0, false);
         if (flag_order[EW3]) 
-            deltaRho_rem_f[EW3] = myThreeLoopEW->deltaRho_rem_q(q,Mw);    
-        else 
-            deltaRho_rem_f[EW3] = complex(0.0, 0.0, false); 
+            deltaRho_rem_f[EW3] = complex(myThreeLoopEW->deltaRho_rem_q(q,Mw).real(), 0.0, false);  
         
         /* compute Delta rbar_rem */
         double DeltaRbar_rem = 0.0;
@@ -380,46 +370,41 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const {
 
     double Mw = Mw_SM();
     
-    /* compute Delta rho */
-    double DeltaRho[orders_EW_size];
-    ComputeDeltaRho(Mw, DeltaRho);
-    
-    /* compute delta kappa_rem^f */
-    complex deltaKappa_rem_f[orders_EW_size];
-    if (flag_order[EW1]) 
-        deltaKappa_rem_f[EW1] = myOneLoopEW->deltaKappa_rem_l(l,Mw);
-    else 
-        deltaKappa_rem_f[EW1] = complex(0.0, 0.0, false); 
-    if (flag_order[EW1QCD1]) 
-        deltaKappa_rem_f[EW1QCD1] = myTwoLoopQCD->deltaKappa_rem_l(l,Mw);
-    else 
-        deltaKappa_rem_f[EW1QCD1] = complex(0.0, 0.0, false); 
-    if (flag_order[EW1QCD2]) 
-        deltaKappa_rem_f[EW1QCD2] = myThreeLoopQCD->deltaKappa_rem_l(l,Mw);
-    else 
-        deltaKappa_rem_f[EW1QCD2] = complex(0.0, 0.0, false); 
-    if (flag_order[EW2]) 
-        deltaKappa_rem_f[EW2] = myTwoLoopEW->deltaKappa_rem_l(l,Mw);
-    else 
-        deltaKappa_rem_f[EW2] = complex(0.0, 0.0, false); 
-    if (flag_order[EW2QCD1]) 
-        deltaKappa_rem_f[EW2QCD1] = myThreeLoopEW2QCD->deltaKappa_rem_l(l,Mw);
-    else 
-        deltaKappa_rem_f[EW2QCD1] = complex(0.0, 0.0, false); 
-    if (flag_order[EW3]) 
-        deltaKappa_rem_f[EW3] = myThreeLoopEW->deltaKappa_rem_l(l,Mw);    
-    else 
-        deltaKappa_rem_f[EW3] = complex(0.0, 0.0, false); 
-    
-    /* compute Delta rbar_rem */
-    double DeltaRbar_rem = 0.0;
-    if (flag_order[EW1])
-        DeltaRbar_rem = myOneLoopEW->DeltaRbar_rem(Mw);    
-    
-    double ReKappaZf = 0.0;
+    double ReKappaZf = 0.0, ImKappaZf = 0.0;
     if (schemeKappaZ==APPROXIMATEFORMULA) {
         ReKappaZf = myApproximateFormulae->sin2thetaEff_l(l, DeltaAlphaL5q())/sW2_SM(); 
-    } else {    
+        ImKappaZf = myOneLoopEW->deltaKappa_rem_l(l,Mw).imag();
+    } else {
+        /* compute Delta rho */
+        double DeltaRho[orders_EW_size];
+        ComputeDeltaRho(Mw, DeltaRho);
+        
+        /* compute delta kappa_rem^f */
+        complex deltaKappa_rem_f[orders_EW_size];
+        deltaKappa_rem_f[EW1] = complex(0.0, 0.0, false); 
+        deltaKappa_rem_f[EW1QCD1] = complex(0.0, 0.0, false); 
+        deltaKappa_rem_f[EW1QCD2] = complex(0.0, 0.0, false); 
+        deltaKappa_rem_f[EW2] = complex(0.0, 0.0, false); 
+        deltaKappa_rem_f[EW2QCD1] = complex(0.0, 0.0, false);         
+        deltaKappa_rem_f[EW3] = complex(0.0, 0.0, false); 
+        if (flag_order[EW1]) 
+            deltaKappa_rem_f[EW1] = myOneLoopEW->deltaKappa_rem_l(l,Mw);
+        if (flag_order[EW1QCD1]) 
+            deltaKappa_rem_f[EW1QCD1] = complex(myTwoLoopQCD->deltaKappa_rem_l(l,Mw).real(), 0.0, false);
+        if (flag_order[EW1QCD2]) 
+            deltaKappa_rem_f[EW1QCD2] = complex(myThreeLoopQCD->deltaKappa_rem_l(l,Mw).real(), 0.0, false);
+        if (flag_order[EW2]) 
+            deltaKappa_rem_f[EW2] = complex(myTwoLoopEW->deltaKappa_rem_l(l,Mw).real(), 0.0, false);
+        if (flag_order[EW2QCD1]) 
+            deltaKappa_rem_f[EW2QCD1] = complex(myThreeLoopEW2QCD->deltaKappa_rem_l(l,Mw).real(), 0.0, false);
+        if (flag_order[EW3]) 
+            deltaKappa_rem_f[EW3] = complex(myThreeLoopEW->deltaKappa_rem_l(l,Mw).real(), 0.0, false);   
+    
+        /* compute Delta rbar_rem */
+        double DeltaRbar_rem = 0.0;
+        if (flag_order[EW1])
+            DeltaRbar_rem = myOneLoopEW->DeltaRbar_rem(Mw);    
+        
         /* Re[kappa_Z^f] with or without resummation */
         double deltaKappa_rem_f_real[orders_EW_size];
         for (int j=0; j<orders_EW_size; ++j)
@@ -430,13 +415,12 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const {
         /* O(alpha^2) correction to Re[kappa_Z^f] from the Z-gamma mixing */
         ReKappaZf += 35.0*alphaMz()*alphaMz()/18.0/sW2_SM()
                 *(1.0 - 8.0/3.0*ReKappaZf*sW2_SM());
+    
+        /* Im[kappa_Z^f] without resummation */
+        for (int j=0; j<orders_EW_size; ++j)
+            ImKappaZf += deltaKappa_rem_f[j].imag();    
     }
-    
-    /* Im[kappa_Z^f] without resummation */
-    double ImKappaZf = 0.0;
-    for (int j=0; j<orders_EW_size; ++j)
-        ImKappaZf += deltaKappa_rem_f[j].imag();    
-    
+        
     kappaZ_l_cache[(int)l] = complex(ReKappaZf, ImKappaZf, false);
     return (complex(ReKappaZf, ImKappaZf, false));       
 }
@@ -448,49 +432,44 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const {
     if (bUseCacheEWSM)     
         if (checkSMparams(kappaZ_q_params_cache[(int)q]))
             return kappaZ_q_cache[(int)q];
-    
+
     double Mw = Mw_SM();
     
-    /* compute Delta rho */
-    double DeltaRho[orders_EW_size];
-    ComputeDeltaRho(Mw, DeltaRho);
-    
-    /* compute delta kappa_rem^f */
-    complex deltaKappa_rem_f[orders_EW_size];
-    if (flag_order[EW1]) 
-        deltaKappa_rem_f[EW1] = myOneLoopEW->deltaKappa_rem_q(q,Mw);
-    else 
-        deltaKappa_rem_f[EW1] = complex(0.0, 0.0, false);
-    if (flag_order[EW1QCD1]) 
-        deltaKappa_rem_f[EW1QCD1] = myTwoLoopQCD->deltaKappa_rem_q(q,Mw);
-    else 
-        deltaKappa_rem_f[EW1QCD1] = complex(0.0, 0.0, false);
-    if (flag_order[EW1QCD2]) 
-        deltaKappa_rem_f[EW1QCD2] = myThreeLoopQCD->deltaKappa_rem_q(q,Mw);
-    else 
-        deltaKappa_rem_f[EW1QCD2] = complex(0.0, 0.0, false);
-    if (flag_order[EW2]) 
-        deltaKappa_rem_f[EW2] = myTwoLoopEW->deltaKappa_rem_q(q,Mw);
-    else 
-        deltaKappa_rem_f[EW2] = complex(0.0, 0.0, false);
-    if (flag_order[EW2QCD1]) 
-        deltaKappa_rem_f[EW2QCD1] = myThreeLoopEW2QCD->deltaKappa_rem_q(q,Mw);
-    else 
-        deltaKappa_rem_f[EW2QCD1] = complex(0.0, 0.0, false);
-    if (flag_order[EW3]) 
-        deltaKappa_rem_f[EW3] = myThreeLoopEW->deltaKappa_rem_q(q,Mw);    
-    else 
-        deltaKappa_rem_f[EW3] = complex(0.0, 0.0, false);
-    
-    /* compute Delta rbar_rem */
-    double DeltaRbar_rem = 0.0;
-    if (flag_order[EW1])
-        DeltaRbar_rem = myOneLoopEW->DeltaRbar_rem(Mw);    
-    
-    double ReKappaZf = 0.0;
+    double ReKappaZf = 0.0,  ImKappaZf = 0.0;    
     if (schemeKappaZ==APPROXIMATEFORMULA) {
         ReKappaZf = myApproximateFormulae->sin2thetaEff_q(q, DeltaAlphaL5q())/sW2_SM(); 
-    } else {    
+        ImKappaZf = myOneLoopEW->deltaKappa_rem_q(q,Mw).imag();
+    } else { 
+        /* compute Delta rho */
+        double DeltaRho[orders_EW_size];
+        ComputeDeltaRho(Mw, DeltaRho); 
+
+        /* compute delta kappa_rem^f */        
+        complex deltaKappa_rem_f[orders_EW_size];
+        deltaKappa_rem_f[EW1] = complex(0.0, 0.0, false);
+        deltaKappa_rem_f[EW1QCD1] = complex(0.0, 0.0, false);
+        deltaKappa_rem_f[EW1QCD2] = complex(0.0, 0.0, false);
+        deltaKappa_rem_f[EW2] = complex(0.0, 0.0, false);
+        deltaKappa_rem_f[EW2QCD1] = complex(0.0, 0.0, false);
+        deltaKappa_rem_f[EW3] = complex(0.0, 0.0, false);
+        if (flag_order[EW1]) 
+            deltaKappa_rem_f[EW1] = myOneLoopEW->deltaKappa_rem_q(q,Mw);
+        if (flag_order[EW1QCD1]) 
+            deltaKappa_rem_f[EW1QCD1] = complex(myTwoLoopQCD->deltaKappa_rem_q(q,Mw).real(), 0.0, false);
+        if (flag_order[EW1QCD2]) 
+            deltaKappa_rem_f[EW1QCD2] = complex(myThreeLoopQCD->deltaKappa_rem_q(q,Mw).real(), 0.0, false);
+        if (flag_order[EW2]) 
+            deltaKappa_rem_f[EW2] = complex(myTwoLoopEW->deltaKappa_rem_q(q,Mw).real(), 0.0, false);
+        if (flag_order[EW2QCD1]) 
+            deltaKappa_rem_f[EW2QCD1] = complex(myThreeLoopEW2QCD->deltaKappa_rem_q(q,Mw).real(), 0.0, false);
+        if (flag_order[EW3]) 
+            deltaKappa_rem_f[EW3] = complex(myThreeLoopEW->deltaKappa_rem_q(q,Mw).real(), 0.0, false);   
+    
+        /* compute Delta rbar_rem */
+        double DeltaRbar_rem = 0.0;
+        if (flag_order[EW1])
+            DeltaRbar_rem = myOneLoopEW->DeltaRbar_rem(Mw);    
+    
         /* Re[kappa_Z^f] with or without resummation */
         double deltaKappa_rem_f_real[orders_EW_size];
         for (int j=0; j<orders_EW_size; ++j)
@@ -503,12 +482,12 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const {
         /* O(alpha^2) correction to Re[kappa_Z^f] from the Z-gamma mixing */
         ReKappaZf += 35.0*alphaMz()*alphaMz()/18.0/sW2_SM()
                 *(1.0 - 8.0/3.0*ReKappaZf*sW2_SM());
-    }
     
-    /* Im[kappa_Z^f] without resummation */
-    double ImKappaZf = 0.0;
-    for (int j=0; j<orders_EW_size; ++j)
-        ImKappaZf += deltaKappa_rem_f[j].imag();    
+        /* Im[kappa_Z^f] without resummation */
+        for (int j=0; j<orders_EW_size; ++j)
+            ImKappaZf += deltaKappa_rem_f[j].imag();    
+    }
+        
     if (q==StandardModel::BOTTOM)
         ImKappaZf /= (1.0 + taub());/* Corrections to the Z-b-bbar vertex */ 
     
@@ -531,30 +510,13 @@ complex EWSM::gVq_SM(const StandardModel::quark q) const {
 
 
 complex EWSM::gAl_SM(const StandardModel::lepton l) const {
-    double I3f;
-    if ( l==StandardModel::NEUTRINO_1 || l==StandardModel::NEUTRINO_2 
-            || l==StandardModel::NEUTRINO_3 )
-        I3f = 1.0/2.0;
-    else if (l==StandardModel::ELECTRON || l==StandardModel::MU
-                || l==StandardModel::TAU )
-        I3f = - 1.0/2.0;
-    else 
-        throw std::runtime_error("Error in EWSM::gAl_SM()"); 
-    return ( sqrt(rhoZ_l_SM(l))*I3f );
+    return ( sqrt(rhoZ_l_SM(l))*SM.getLeptons(l).getIsospin() );
 }
 
 
 complex EWSM::gAq_SM(const StandardModel::quark q) const {
     if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
-    double I3f;
-    if ( q==StandardModel::UP || q==StandardModel::CHARM)
-        I3f = 1.0/2.0;
-    else if (q==StandardModel::DOWN || q==StandardModel::STRANGE
-               || q==StandardModel::BOTTOM )
-        I3f = - 1.0/2.0;
-    else 
-        throw std::runtime_error("Error in EWSM::gAq_SM()"); 
-    return ( sqrt(rhoZ_q_SM(q))*I3f );
+    return ( sqrt(rhoZ_q_SM(q))*SM.getQuarks(q).getIsospin() );
 }
 
 

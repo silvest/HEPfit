@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -9,12 +9,13 @@
 #include "epsilonb.h"
 
 
-double epsilonb::getThValue() {  
+double epsilonb::getThValue() 
+{  
     double epsb = SM.epsilonb();
     
-    if ( myEW.checkModelForSTU() ) {
-        throw std::runtime_error("Write codes in epsilonb::getThValue()");   
-    }
+    //if ( myEW.checkModelForSTU() ) {
+    //    throw std::runtime_error("Write codes in epsilonb::getThValue()");   
+    //}
     
     return epsb;
 }

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -9,7 +9,8 @@
 #include "obliqueU.h"
 
 
-double obliqueU::getThValue() {   
+double obliqueU::getThValue() 
+{   
     return SM.obliqueU();
 }
 

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -16,7 +16,14 @@
 
 using namespace gslpp;
 
-
+/**
+ * @class EW
+ * @ingroup EW 
+ * @brief The base class for the electroweak precision observables at the Z pole. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class EW : public ThObsType {
 public:
     
@@ -30,8 +37,8 @@ public:
     enum EWTYPE {EWDEFAULT, EWCHMN, EWBURGESS, EWABC, EWABC2};
     
     /**
-     * @brief EW constructor
-     * @param[in] SM_i an object of StandardModel class
+     * @brief A constructor.
+     * @param[in] SM_i A reference to an object of StandardModel class
      */
     EW(const StandardModel& SM_i);
 
@@ -48,15 +55,18 @@ public:
     /**
      * @return a reference to the StandardModel object in the current class
      */
-    const StandardModel& getSM() const {
+    const StandardModel& getSM() const 
+    {
         return SM;
     } 
 
-    const EW_ABC getMyEW_ABC() const {
+    const EW_ABC getMyEW_ABC() const 
+    {
         return myEW_ABC;
     }
 
-    const EW_CHMN getMyEW_CHMN() const {
+    const EW_CHMN getMyEW_CHMN() const 
+    {
         return myEW_CHMN;
     }
     
@@ -95,70 +105,80 @@ public:
     /**
      * @return the oblique parameters S
      */
-    double S() const {
+    double S() const 
+    {
         return ( SM.obliqueS() );
     }
     
     /**
      * @return the oblique parameters T
      */    
-    double T() const {
+    double T() const 
+    {
         return ( SM.obliqueT() );
     }
     
     /**
      * @return the oblique parameters U
      */    
-    double U() const {
+    double U() const 
+    {
         return ( SM.obliqueU() );
     }
 
     /**
      * @return Oblique parameter \hat{S}
      */
-    double Shat() const {
+    double Shat() const 
+    {
         return ( SM.obliqueShat() );
     }
 
     /**
      * @return Oblique parameter \hat{T}
      */
-    double That() const {
+    double That() const 
+    {
         return ( SM.obliqueThat() );
     }
 
     /**
      * @return Oblique parameter \hat{U}
      */
-    double Uhat() const {
+    double Uhat() const 
+    {
         return ( SM.obliqueUhat() );
     }
 
     /**
      * @return the oblique parameters V
      */    
-    double V() const {
+    double V() const 
+    {
         return ( SM.obliqueV() );
     }
     
     /**
      * @return the oblique parameters W
      */    
-    double W() const {
+    double W() const 
+    {
         return ( SM.obliqueW() );
     }
     
     /**
      * @return the oblique parameters X
      */    
-    double X() const {
+    double X() const 
+    {
         return ( SM.obliqueX() );
     }
     
     /**
      * @return the oblique parameters Y
      */    
-    double Y() const {
+    double Y() const 
+    {
         return ( SM.obliqueY() );
     }    
 
@@ -182,13 +202,13 @@ public:
      * @return the partial width of Z decay into an l\bar{l} pair 
      */
     double Gamma_l(const StandardModel::lepton l) const;
-        
+    
     /**
      * @param[in] q name of a quark
      * @return the partial width of Z decay into a q\bar{q} pair 
      */
     double Gamma_q(const StandardModel::quark q) const;
-        
+    
     /**
      * @return the partial width of Z decay into neutrinos
      */

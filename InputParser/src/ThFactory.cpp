@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,8 +8,10 @@
 #include <vector>
 #include <boost/lexical_cast.hpp>
 #include "ThFactory.h"
-#include <FlavourObservables.h>
+#include <SMInputs.h>
+#include <NPInputs.h>
 #include <SusyObservables.h>
+#include <FlavourObservables.h>
 #include <EWObservables.h>
 //#include <ZFEWObservables.h>
 
@@ -54,9 +56,22 @@ myFlavour(myModel), myEW(myModel), myMO(myModel)
         thobs["Mneu2"] = new Mneu2(myMO);
         thobs["Mneu3"] = new Mneu3(myMO);
         thobs["Mneu4"] = new Mneu4(myMO);
-        ;
-        
     }
+    
+    //-----  SM input parameters  -----
+    thobs["alsMz"] = new alsMz(myMO);
+    thobs["dAle5Mz"] = new dAle5Mz(myMO);
+    thobs["mHl"] = new mHl(myMO);
+    thobs["mZ"] = new mZ(myMO);
+    thobs["mtpole"] = new mtpole(myMO);
+    
+    //-----  NP input parameters  -----
+    thobs["deltaGVb"] = new deltaGVb(myMO);
+    thobs["deltaGAb"] = new deltaGAb(myMO);
+    thobs["deltaGLb"] = new deltaGLb(myMO);
+    thobs["deltaGRb"] = new deltaGRb(myMO);
+    thobs["deltaRhoZb"] = new deltaRhoZb(myMO);
+    thobs["deltaKappaZb"] = new deltaKappaZb(myMO);
     
     //-----   Higgs mass   -----
     thobs["Mh0"] = new Mh0(myEW);

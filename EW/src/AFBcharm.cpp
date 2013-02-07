@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,7 +8,8 @@
 #include "AFBcharm.h"
 
 
-double AFBcharm::getThValue() {   
+double AFBcharm::getThValue() 
+{   
     double AFB_c;
     if (myEWTYPE==EW::EWCHMN)  
         AFB_c = myEW.getMyEW_CHMN().AFB_q(SM.CHARM);

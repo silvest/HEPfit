@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -24,9 +24,9 @@ class EWSM; // forward reference to EWSM class
 class StandardModel: public QCD {
 public:
     enum lepton {NEUTRINO_1,ELECTRON,NEUTRINO_2,MU,NEUTRINO_3,TAU};
-    static const int NSMvars = 20;
+    static const int NSMvars = 22;
     static const std::string SMvars[NSMvars];
-    static const int NSMflags = 6;
+    static const int NSMflags = 7;
     static const std::string SMflags[NSMflags];
     
     StandardModel(const bool bDebug_i=false);
@@ -62,6 +62,8 @@ public:
      * "KbarEpsK"
      * "Dmk"
      * "SM_M12D" 
+     * "delMw"
+     * "delSin2th_l"
      */
     virtual bool Update(const std::map<std::string, double>&);
      
@@ -103,6 +105,10 @@ public:
         this->FlagR0bApproximate = FlagR0bApproximate;
     }
     
+    bool IsFlagWithoutNonUniversalVC() const {
+        return FlagWithoutNonUniversalVC;
+    }
+
     
     ///////////////////////////////////////////////////////////////////////////
     // Initialization and Matching
@@ -199,6 +205,22 @@ public:
     void setMHl(double mHl) {
         this->mHl = mHl;
     }    
+    
+    /**
+     * @return Theoretical uncertainty in the approximate formula for M_W. 
+     */
+    double getDelMw() const 
+    {
+        return delMw;
+    }
+
+    /**
+     * @return Theoretical uncertainty in the approximate formula for the leptonic weak mixing angle. 
+     */
+    double getDelSin2th_l() const 
+    {
+        return delSin2th_l;
+    }
     
     /**
      * @return the CKM matrix
@@ -459,6 +481,31 @@ public:
      */
     virtual complex gAq(const StandardModel::quark q) const; 
     
+    /* 
+     * @param[in] q name of a quark
+     * @return non-factorizable EW-QCD corrections in GeV
+     */
+    double Delta_EWQCD(const StandardModel::quark q) const;
+    
+    /**
+     * @param[in] q name of a quark
+     * @return Radiator functions to the vector current due to the 
+     * final-state QED and QCD corrections. 
+     */    
+    double RVq(const StandardModel::quark q) const;
+    
+    /**
+     * @param[in] q name of a quark
+     * @return Radiator functions to the axial-vector current due to the 
+     * final-state QED and QCD corrections. 
+     */    
+    double RAq(const StandardModel::quark q) const;
+        
+    /**
+     * @return Singlet vector corrections to the width of Z->hadrons
+     */
+    double RVh() const;
+
     /**
      * @return the total width of the W boson
      */
@@ -552,7 +599,8 @@ public:
     /**
      * @return SM contribution to epsilon_b
      */
-    double epsilonb_SM() const;  
+    double epsilonb_SM() const;
+    
     /**
      * @return epsilon_1
      */
@@ -573,6 +621,10 @@ public:
      */
     virtual double epsilonb() const;
 
+    virtual double deltaGVb() const;
+
+    virtual double deltaGAb() const;
+    
     
     ////////////////////////////////////////////////////////////////////////
     // CKM parameters
@@ -605,6 +657,7 @@ public:
     ////////////////////////////////////////////////////////////////////////
 protected:
     double GF, ale, dAle5Mz, mHl;
+    double delMw, delSin2th_l;
     matrix<complex> VCKM, UPMNS, Yu, Yd, Yn, Ye;
     double lambda, A, rhob, etab;
     double muw, KbarEpsK, phiEpsK, DeltaMK, Dmk, SM_M12D;
@@ -619,7 +672,7 @@ protected:
 private:
     bool bDebug; // for debugging
     bool FlagFixedAllSMparams, FlagEWCHMN, FlagEWABC, FlagEWABC2, FlagEWBURGESS;
-    bool FlagR0bApproximate;
+    bool FlagR0bApproximate, FlagWithoutNonUniversalVC;
     bool computeCKM, computeYe, computeYn;
     StandardModelMatching* myStandardModelMatching;
     

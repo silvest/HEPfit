@@ -35,9 +35,6 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
   </logicalFolder>
-  <sourceRootList>
-    <Elem>src</Elem>
-  </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
     <conf name="Debug" type="3">
@@ -54,6 +51,7 @@
             <pElem>../Observables/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
             <pElem>../Flavour/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../MFV/src</pElem>
@@ -260,6 +258,7 @@
             <pElem>../Observables/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
             <pElem>../Flavour/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../MFV/src</pElem>
@@ -349,6 +348,7 @@
             <pElem>../Observables/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
             <pElem>../Flavour/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../MFV/src</pElem>

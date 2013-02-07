@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,7 +8,8 @@
 #include "Acharm.h"
 
 
-double Acharm::getThValue() { 
+double Acharm::getThValue() 
+{ 
     double A_c;
     if (myEWTYPE==EW::EWCHMN)  
         A_c = myEW.getMyEW_CHMN().A_q(SM.CHARM);

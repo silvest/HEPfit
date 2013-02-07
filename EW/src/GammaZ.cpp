@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,7 +8,8 @@
 #include "GammaZ.h"
 
 
-double GammaZ::getThValue() { 
+double GammaZ::getThValue() 
+{ 
     double Gamma_Z;
     if (myEWTYPE==EW::EWCHMN)  
         Gamma_Z = myEW.getMyEW_CHMN().GammaZ();

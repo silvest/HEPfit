@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -116,7 +116,8 @@ void MonteCarloEngine::SetNChains(unsigned int i) {
 MonteCarloEngine::~MonteCarloEngine()
 // default destructor
 {
-    delete [] obval, obweight;
+    delete [] obval;
+    delete [] obweight;
     for (std::map<std::string, BCH1D *>::iterator it = Histo1D.begin();
             it != Histo1D.end(); it++)
         delete it->second;
@@ -290,23 +291,46 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput& out) {
     
     for (std::vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end();
             it++) {
-        std::string fname = "Observables/" + it->getThname() + ".pdf";
-        //        BCH1D* pippo =  Histo1D[it->getThname()];
-        //        double x = pippo->GetMean();
-        //        pippo->Print("Dmd1.pdf");
-        Histo1D[it->getThname()]->SetGlobalMode(it->getTheoryValue());
-        Histo1D[it->getThname()]->Print(fname.c_str());
-        out.Write(Histo1D[it->getThname()]->GetHistogram());
+        if (Histo1D[it->getThname()]->GetHistogram()->Integral() > 0.0) {
+            std::string fname = "Observables/" + it->getThname() + ".pdf";
+            //        BCH1D* pippo =  Histo1D[it->getThname()];
+            //        double x = pippo->GetMean();
+            //        pippo->Print("Dmd1.pdf");
+            Histo1D[it->getThname()]->SetGlobalMode(it->getTheoryValue());
+            Histo1D[it->getThname()]->Print(fname.c_str());
+            std::cout << fname << " has been created." << std::endl;
+            out.Write(Histo1D[it->getThname()]->GetHistogram());
+            
+            // output the portions of underflow and overflow bins
+            double UnderFlowContent = Histo1D[it->getThname()]->GetHistogram()->GetBinContent(0);
+            double OverFlowContent = Histo1D[it->getThname()]->GetHistogram()->GetBinContent(NBINS1D+1);
+            double Integral = Histo1D[it->getThname()]->GetHistogram()->Integral();
+            double TotalContent = 0.0;
+            for (int n = 0; n<=NBINS1D+1; n++)
+                TotalContent += Histo1D[it->getThname()]->GetHistogram()->GetBinContent(n);            
+            std::cout << it->getThname() << ": " 
+                      << Integral/TotalContent*100. << "% within the range, " 
+                      << UnderFlowContent/TotalContent*100. << "% underflow, " 
+                      << OverFlowContent/TotalContent*100. << "% overflow"
+                      << std::endl;
+        } else
+            std::cout << "WARNING: The histogram of " << it->getThname() << " is empty!" << std::endl;
     }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end();
             it++) {
-        std::string fname = "Observables/" + it->getThname() + "_vs_" + it->getThname2() + ".pdf";
-        double th[2];
-        th[0] = it->getTheoryValue();
-        th[1] = it->getTheoryValue2();
-        Histo2D[it->getThname() + "_vs_" + it->getThname2()]->SetGlobalMode(th);
-        Histo2D[it->getThname() + "_vs_" + it->getThname2()]->Print(fname.c_str());
-        out.Write(Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram());
+        if (Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram()->Integral() > 0.0) {
+            std::string fname = "Observables/" + it->getThname() + "_vs_" + it->getThname2() + ".pdf";
+            double th[2];
+            th[0] = it->getTheoryValue();
+            th[1] = it->getTheoryValue2();
+            Histo2D[it->getThname() + "_vs_" + it->getThname2()]->SetGlobalMode(th);
+            Histo2D[it->getThname() + "_vs_" + it->getThname2()]->Print(fname.c_str());
+            std::cout << fname << " has been created." << std::endl;
+            out.Write(Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram());
+        } else
+            std::cout << "WARNING: The histogram of " 
+                      << it->getThname() << "_vs_" << it->getThname2()
+                      << " is empty!" << std::endl;
     }
 }
 

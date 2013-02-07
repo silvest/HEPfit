@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -22,9 +22,18 @@
 #include <Model.h>
 #include <map>
 
+#define NBINSMODELPARS 100
 #define NBINS1D 100
 #define NBINS2D 100
 
+/**
+ * @class MonteCarloEngine
+ * @ingroup MonteCarlo 
+ * @brief 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class MonteCarloEngine : public BCModel {
 public:
 

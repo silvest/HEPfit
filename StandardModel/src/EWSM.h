@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -42,7 +42,7 @@ public:
     enum schemes_EW {NORESUM=0, OMSI, INTERMEDIATE, OMSII, APPROXIMATEFORMULA};
     
     // The number of the parameters relevant to EW observables
-    static const int NumSMParams = 21;
+    static const int NumSMParams = 23;
         
     
     //////////////////////////////////////////////////////////////////////// 

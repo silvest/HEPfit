@@ -23,9 +23,7 @@
                 <make-dep-project>../Observables</make-dep-project>
                 <make-dep-project>../StandardModel</make-dep-project>
             </make-dep-projects>
-            <sourceRootList>
-                <sourceRootElem>src</sourceRootElem>
-            </sourceRootList>
+            <sourceRootList/>
             <confList>
                 <confElem>
                     <name>Debug</name>

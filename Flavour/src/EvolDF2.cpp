@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -170,6 +170,11 @@ void EvolDF2::Df2Evol(double mu, double M, double nf, schemes scheme) {
             *elem[NLO] = (*elem[LO]) * resNLO + (*elem[NLO]) * resLO;
         case LO:
             *elem[LO] = (*elem[LO]) * resLO;
+            break;
+        case FULLNNLO:
+        case FULLNLO:
+        default:
+            throw std::runtime_error("Error in EvolDF2::Df2Evol()");
     }
 }
 

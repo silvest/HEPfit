@@ -1,8 +1,8 @@
 /* 
- * File:   RunningMass.cpp
- * Author: marco
+ * Copyright (C) 2012 SusyFit Collaboration
+ * All rights reserved.
  *
- * Created on Aug 4, 2011, 2:34:39 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #include <stdlib.h>

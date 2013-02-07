@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,10 +15,12 @@
 #include <ModelParameter.h>
 #include <StandardModel.h>
 #include <StandardModelMatching.h>
-#include <NewPhysicsSTU.h>
-#include <NewPhysicsSTUVWXY.h>
-#include <NewPhysicsEpsilons.h>
-#include <NewPhysicsHiggs.h>
+#include <NPSTU.h>
+#include <NPSTUVWXY.h>
+#include <NPEpsilons.h>
+#include <NPHiggs.h>
+#include <NPHiggsST.h>
+#include <NPZbbbar.h>
 #include <SUSYMassInsertion.h>
 #include <SUSYMassInsertionMatching.h>
 #include <MFV.h>

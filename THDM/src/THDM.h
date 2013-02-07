@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -220,9 +220,9 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     /* Functions for EW precision observables */
 
-    double obliqueS();
-    double obliqueT();
-    double obliqueU();
+    double obliqueS() const;
+    double obliqueT() const;
+    double obliqueU() const;
     
     
     ///////////////////////////////////////////////////////////////////////////
@@ -236,14 +236,14 @@ protected:
         
     //PVfunctions PV;
     
-    double DeltaS, DeltaT, DeltaU;
+    //double DeltaS, DeltaT, DeltaU;
     
     double mH, mA, mHp, tanb, sinb, cosb, sin_ba, m12_2, lambda6, lambda7, mh;
     
-//    double Mz2;
-    double s_W2;//\sin^2(\theta_W)   
-    double Mw_i, Mw2;
-    double cos2_ba, sin2_ba;   
+    //double Mz2;
+    //double s_W2;//\sin^2(\theta_W)   
+    //double Mw_i, Mw2;
+    //double cos2_ba, sin2_ba;   
     
     bool computeCKM, computeYe, computeYn;
     
