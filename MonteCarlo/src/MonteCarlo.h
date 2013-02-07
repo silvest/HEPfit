@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -11,6 +11,19 @@
 #include <InputParser.h>
 #include "MonteCarloEngine.h"
 
+/**
+ *  @addtogroup MonteCarlo
+ *  A project for .....
+ *  @{
+ */
+
+/**
+ * @class MonteCarlo
+ * @brief 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class MonteCarlo {
 public:
     MonteCarlo(const std::string& ModelConf_i, const std::string& 
@@ -24,7 +37,13 @@ private:
     std::vector<Observable> Obs;
     std::vector<Observable2D> Obs2D;   
     std::string ModelConf, MCMCConf, OutFile, JobTag;
+    bool noMC = false;
     bool PrintAllMarginalized;
+    bool PrintCorrelationMatrix, PrintKnowledgeUpdatePlots, PrintParameterPlot;
 };
+
+/** 
+ * @}
+ */
 
 #endif	/* MONTECARLO_H */
