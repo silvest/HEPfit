@@ -34,7 +34,7 @@ MonteCarlo::~MonteCarlo() {
 void MonteCarlo::Run(const int rank) {
     try {
         FileStat_t info;
-        if (gSystem->GetPathInfo("Observables", info) != 0) {
+        if (gSystem->GetPathInfo("Observables", info) != 0 && !noMC) {
             if (gSystem->MakeDirectory("Observables") == 0)
                 std::cout << "Observables directory has been created." << std::endl;
             else {
