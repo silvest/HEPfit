@@ -18,10 +18,10 @@ myInputParser(), MCEngine(ModPars, Obs, Obs2D) {
     ModelConf = ModelConf_i;
     MCMCConf = MonteCarloConf_i;
     JobTag = JobTag_i;
+    noMC = false;
     if(OutFile_i.compare("")==0)
         noMC = true;
     OutFile = OutFile_i + JobTag + ".root";
-    noMC = false;
     PrintAllMarginalized = false;
     PrintCorrelationMatrix = false;
     PrintKnowledgeUpdatePlots = false;
