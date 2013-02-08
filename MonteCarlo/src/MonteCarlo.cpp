@@ -21,6 +21,7 @@ myInputParser(), MCEngine(ModPars, Obs, Obs2D) {
     if(OutFile_i.compare("")==0)
         noMC = true;
     OutFile = OutFile_i + JobTag + ".root";
+    noMC = false;
     PrintAllMarginalized = false;
     PrintCorrelationMatrix = false;
     PrintKnowledgeUpdatePlots = false;

@@ -149,6 +149,8 @@ double Pull::fconv(const double x) const
 double Pull::integral(const char* funcname, const double xmin, 
                       const double xmax) 
 {
+    // Numerical integration with composite Simpson's rule
+    
     int n = 100;
     double val = 0.0;
     double x0, x1, x2, w = (xmax - xmin)/(double)n;
