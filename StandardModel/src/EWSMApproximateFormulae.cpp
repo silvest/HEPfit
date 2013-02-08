@@ -8,6 +8,12 @@
 #include "EWSMApproximateFormulae.h"
 #include <stdexcept>
 
+// The latter value should be used in a test for the determination of m_h 
+// from A_FB^b. 
+#define UpperBoundForApproximateFormulae 1000.0
+//#define UpperBoundForApproximateFormulae 1500.0
+
+
 
 EWSMApproximateFormulae::EWSMApproximateFormulae(const StandardModel& SM_i) : SM(SM_i) {
     bDebug = SM_i.isBDebug();
@@ -18,7 +24,7 @@ EWSMApproximateFormulae::EWSMApproximateFormulae(const StandardModel& SM_i) : SM
 
 double EWSMApproximateFormulae::Mw(const double DeltaAlphaL5q_i) const {
     double Mw0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11;    
-    if( SM.getMHl() >= 100.0 && SM.getMHl() <= 1000.0 && !bDebug ) {
+    if( SM.getMHl() >= 100.0 && SM.getMHl() <= UpperBoundForApproximateFormulae && !bDebug ) {
         // applicable for 100 GeV <= mHl <= 1 TeV
         Mw0 = 80.3800;
         c1 = 0.05253;
@@ -32,7 +38,7 @@ double EWSMApproximateFormulae::Mw(const double DeltaAlphaL5q_i) const {
         c9 = 0.000110;
         c10 = 0.0716;
         c11 = 115.0;
-    } else if (SM.getMHl() >= 10.0 && SM.getMHl() < 1000.0 ) {        
+    } else if ( SM.getMHl() >= 10.0 && SM.getMHl() < 1000.0 ) {        
         // applicable for 10 GeV <= mHl <= 1 TeV
         Mw0 = 80.3799;
         c1 = 0.05429;
@@ -45,7 +51,7 @@ double EWSMApproximateFormulae::Mw(const double DeltaAlphaL5q_i) const {
         c8 = 0.00179;
         c9 = 0.0000659;
         c10 = 0.0737;
-        c11 = 114.9;
+        c11 = 114.9;      
     } else
         throw std::runtime_error("Higgs mass is out of range in ApproximateFormulae::Mw()");  
         
@@ -68,7 +74,7 @@ double EWSMApproximateFormulae::Mw(const double DeltaAlphaL5q_i) const {
 double EWSMApproximateFormulae::sin2thetaEff_l(const StandardModel::lepton l, 
                                                const double DeltaAlphaL5q_i) const {
     // applicable for 10 GeV <= mHl <= 1 TeV
-    if( SM.getMHl() < 10.0 || SM.getMHl() > 1000.0 )
+    if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae )
         throw std::runtime_error("Higgs mass is out of range in ApproximateFormulae::sin2thetaEff_l()"); 
     
     double s0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10;
@@ -125,7 +131,7 @@ double EWSMApproximateFormulae::sin2thetaEff_l(const StandardModel::lepton l,
 double EWSMApproximateFormulae::sin2thetaEff_q(const StandardModel::quark q, 
                                                const double DeltaAlphaL5q_i) const {
     // applicable for 10 GeV <= mHl <= 1 TeV
-    if( SM.getMHl() < 10.0 || SM.getMHl() > 1000.0 )
+    if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae )
         throw std::runtime_error("Higgs mass is out of range in ApproximateFormulae::sin2thetaEff_q()"); 
     
     double s0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10;
@@ -193,7 +199,7 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const StandardModel::quark q,
 
 double EWSMApproximateFormulae::DeltaR_TwoLoopEW(const double DeltaAlphaL5q_i) const {
     // applicable for 10 GeV <= mHl <= 1 TeV
-    if( SM.getMHl() < 10.0 || SM.getMHl() > 1000.0 )
+    if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae )
         throw std::runtime_error("Higgs mass is out of range in ApproximateFormulae::DeltaR_TwoLoopEW()"); 
     
     double r0 =  0.003354;
@@ -234,7 +240,7 @@ double EWSMApproximateFormulae::DeltaR_TwoLoopEW(const double DeltaAlphaL5q_i) c
 
 double EWSMApproximateFormulae::DeltaKappa_l_TwoLoopEW(const double DeltaAlphaL5q_i) const {
     // applicable for 10 GeV <= mHl <= 1 TeV
-    if( SM.getMHl() < 10.0 || SM.getMHl() > 1000.0 )
+    if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae )
         throw std::runtime_error("Higgs mass is out of range in ApproximateFormulae::DeltaKappa_l_TwoLoopEW()"); 
     
     double k0 = -0.002711;
@@ -274,7 +280,7 @@ double EWSMApproximateFormulae::DeltaKappa_l_TwoLoopEW(const double DeltaAlphaL5
 
 double EWSMApproximateFormulae::DeltaKappa_b_TwoLoopEW(const double DeltaAlphaL5q_i) const {
     // applicable for 10 GeV <= mHl <= 1 TeV
-    if( SM.getMHl() < 10.0 || SM.getMHl() > 1000.0 )
+    if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae )
         throw std::runtime_error("Higgs mass is out of range in ApproximateFormulae::DeltaKappa_b_TwoLoopEW()"); 
     
     double k0 = -0.002666;
@@ -314,7 +320,7 @@ double EWSMApproximateFormulae::DeltaKappa_b_TwoLoopEW(const double DeltaAlphaL5
 
 double EWSMApproximateFormulae::R0_bottom(const double DeltaAlphaL5q_i) const {
     // applicable for 10 GeV <= mHl <= 1 TeV
-    if( SM.getMHl() < 10.0 || SM.getMHl() > 1000.0 )
+    if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae )
         throw std::runtime_error("Higgs mass is out of range in ApproximateFormulae::R0_bottom()"); 
     
     double Rb00 = 0.2147464;
