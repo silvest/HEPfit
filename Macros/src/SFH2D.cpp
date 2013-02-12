@@ -54,7 +54,9 @@ void SFH2D::smoothHist(const int smooth)
 
 
 void SFH2D::Draw(const TString xlab, const TString ylab, 
+                 const int lineWidth, const int lineColor, 
                  const int col68, const int col95, const int lineStyle, 
+                 const int lineStyle68,
                  const int fillStyle, const int maxDigits, 
                  const bool bLine, const bool bOnly95, const bool superImpose, 
                  const double YTitleOffset) 
@@ -108,13 +110,13 @@ void SFH2D::Draw(const TString xlab, const TString ylab,
         null2D->Draw();
     }
 
-    drawFromGraph(0, "AREA", col95, lineStyle, fillStyle); // 95%
-    if (!bOnly95) drawFromGraph(1, "AREA", col68, lineStyle, fillStyle); // 68%
+    drawFromGraph(0, "AREA", lineWidth, lineColor, col95, lineStyle, fillStyle); // 95%
+    if (!bOnly95) drawFromGraph(1, "AREA", lineWidth, lineColor, col68, lineStyle68, fillStyle); // 68%
         
     // draw the contour lines. 
     if (bLine) {
-        drawFromGraph(0, "CONT", col68, lineStyle, fillStyle); // 95%
-        if (!bOnly95) drawFromGraph(1, "CONT", col68, lineStyle, fillStyle); // 68%
+        drawFromGraph(0, "CONT", lineWidth, lineColor, col68, lineStyle, fillStyle); // 95%
+        if (!bOnly95) drawFromGraph(1, "CONT", lineWidth, lineColor, col68, lineStyle68, fillStyle); // 68%
     }
         
     gPad->RedrawAxis();
@@ -185,6 +187,7 @@ TObjArray* SFH2D::getContours() const
 
 
 void SFH2D::drawFromGraph(const int ind, const std::string DrawOpts, 
+                          const int lineWidth, const int lineColor, 
                           const int col, const int lineStyle, const int fillStyle) 
 {
     // get contours with the index "ind" 
@@ -288,8 +291,9 @@ void SFH2D::drawFromGraph(const int ind, const std::string DrawOpts,
             curv_new[i] = (TGraph*) curv->Clone();
         else {
             curv_new[i] = CloseTGraph(curv);
-            curv_new[i]->SetLineWidth(2);
-            curv_new[i]->SetLineColor(col);            
+            curv_new[i]->SetLineWidth(lineWidth);
+            //curv_new[i]->SetLineColor(col);
+            curv_new[i]->SetLineColor(lineColor);
             curv_new[i]->SetLineStyle(lineStyle);
             curv_new[i]->SetFillColor(col);
             curv_new[i]->SetFillStyle(fillStyle);
@@ -306,8 +310,9 @@ void SFH2D::drawFromGraph(const int ind, const std::string DrawOpts,
         // connect an end point of a contour with an end point of the other contour 
         // in the case where if both points are on the same boundary of the plot. 
         TGraph* curv_combined = CloseTwoTGraphs(ind, curv_new[0], curv_new[1]); 
-        curv_combined->SetLineWidth(2);
-        curv_combined->SetLineColor(col);
+        curv_combined->SetLineWidth(lineWidth);
+        //curv_combined->SetLineColor(col);
+        curv_combined->SetLineColor(lineColor);
         curv_combined->SetLineStyle(lineStyle);
         curv_combined->SetFillColor(col);
         curv_combined->SetFillStyle(fillStyle);
