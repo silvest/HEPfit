@@ -141,7 +141,10 @@ int main(int argc, char** argv)
         cout << "   -smoothN=ntime   -> iterative smoothing for plotN [default: ntime=0]" << endl;
         cout << "   -col68N=index    -> color index of the 68% interval for plotN [default: index=1393]" << endl;
         cout << "   -col95N=index    -> color index of the 95% interval for plotN [default: index=1392]" << endl;
-        cout << "   -lineN=index     -> index of the line style [default: index=1]     " << endl;
+        cout << "   -lineStyleN=index-> index of the line style [default: index=1]     " << endl;
+        cout << "   -lineStyle68N=index-> index of the line style for the 68% contour [default: index=3]" << endl;
+        cout << "   -lineWidthN=index-> index of the line width [default: index=1]    " << endl;
+        cout << "   -lineColorN=index-> index of the line color [default: index=1]    " << endl;
         cout << "   -fillN=index     -> index of the fill area style [default: index=1001]" << endl;
         cout << "   -legN=legend     -> legend for plotN [default: no legend]          " << endl;
         cout << "   *** put a measured point ***                                       " << endl;
@@ -186,6 +189,7 @@ int main(int argc, char** argv)
     TString leg[NumHist] = {"", "", "", ""};
     int smooth[NumHist] = {0, 0, 0, 0};
     int lineStyle[NumHist] = {1, 1, 1, 1};
+    int lineStyle68[NumHist] = {3, 3, 3, 3};
     int lineWidth[NumHist] = {1, 1, 1, 1};
     int lineColor[NumHist] = {1, 1, 1, 1};
     int col68[NumHist] = {1393, 1393, 1393, 1393};
@@ -351,6 +355,15 @@ int main(int argc, char** argv)
             sscanf(argv[i], "-lineStyle3=%d", &lineStyle[2]);
         else if (strncmp(argv[i], "-lineStyle4=", 12) == 0) 
             sscanf(argv[i], "-lineStyle4=%d", &lineStyle[3]);
+        
+        else if (strncmp(argv[i], "-lineStyle681=", 14) == 0) 
+            sscanf(argv[i], "-lineStyle681=%d", &lineStyle68[0]);
+        else if (strncmp(argv[i], "-lineStyle682=", 14) == 0) 
+            sscanf(argv[i], "-lineStyle682=%d", &lineStyle68[1]);
+        else if (strncmp(argv[i], "-lineStyle683=", 14) == 0) 
+            sscanf(argv[i], "-lineStyle683=%d", &lineStyle68[2]);
+        else if (strncmp(argv[i], "-lineStyle684=", 14) == 0) 
+            sscanf(argv[i], "-lineStyle684=%d", &lineStyle68[3]);
         
         else if (strncmp(argv[i], "-lineWidth1=", 12) == 0) 
             sscanf(argv[i], "-lineWidth1=%d", &lineWidth[0]);
@@ -660,7 +673,8 @@ int main(int argc, char** argv)
         
         SFHisto2D[0] = new SFH2D(*hist[0], os, prob68, prob95, x_low, x_up, y_low, y_up);
         SFHisto2D[0]->smoothHist(smooth[0]);
-        SFHisto2D[0]->Draw(xlab, ylab, col68[0], col95[0], lineStyle[0], fillStyle[0], 
+        SFHisto2D[0]->Draw(xlab, ylab, lineWidth[0], lineColor[0], col68[0], col95[0], 
+                           lineStyle[0], lineStyle68[0], fillStyle[0], 
                            maxDig, bContLines, bOnly95[0], false, yTitleOffset);
         contour_pt[0] = SFHisto2D[0]->getContour();
         
@@ -672,8 +686,8 @@ int main(int argc, char** argv)
                 hist[n] = (TH2D*) tobj[n]->Clone();
                 SFHisto2D[n] = new SFH2D(*hist[n], os, prob68, prob95);
                 SFHisto2D[n]->smoothHist(smooth[n]);
-                SFHisto2D[n]->Draw("", "", col68[n], col95[n], 
-                                   lineStyle[n], fillStyle[n], 
+                SFHisto2D[n]->Draw("", "", lineWidth[n], lineColor[n], col68[n], col95[n], 
+                                   lineStyle[n], lineStyle68[n], fillStyle[n], 
                                    maxDig, bContLines, bOnly95[n], true, yTitleOffset);
                 contour_pt[n] = SFHisto2D[n]->getContour();
             } else 

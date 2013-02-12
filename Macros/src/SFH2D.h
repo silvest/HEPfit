@@ -71,9 +71,12 @@ public:
      * Draw the modified histogram. 
      * @param[in] xlab The label of the x axis. 
      * @param[in] ylab The label of the y axis. 
+     * @param[in] lineWidth The line width. 
+     * @param[in] lineColor The index of the line color. 
      * @param[in] col68 The color index for the 68% interval. 
      * @param[in] col95 The color index for the 95% interval. 
      * @param[in] lineStyle The index of the line style. 
+     * @param[in] lineStyle68 The index of the line style for the 68% contour line. 
      * @param[in] fillStyle The index of the fill area style. 
      * @param[in] maxDigits The maximum digits of axis labels. 
      * @param[in] bLine  
@@ -82,7 +85,9 @@ public:
      * @param[in] YTitleOffset 
      */
     void Draw(const TString xlab, const TString ylab, 
+              const int lineWidth, const int lineColor,  
               const int col68, const int col95, const int lineStyle, 
+              const int lineStyle68,
               const int fillStyle, const int maxDigits, 
               const bool bLine=true, const bool bOnly95=false, 
               const bool superImpose=false, const double YTitleOffset=1.5);
@@ -142,11 +147,14 @@ private:
      * 
      * @param[in] ind
      * @param[in] DrawOpts
+     * @param[in] lineWidth The line width. 
+     * @param[in] lineColor The index of the line color. 
      * @param[in] col
      * @param[in] lineStyle
      * @param[in] fillStyle
      */
     void drawFromGraph(const int ind, const std::string DrawOpts, 
+                       const int lineWidth, const int lineColor, 
                        const int col, const int lineStyle, const int fillStyle); 
     
     /**
