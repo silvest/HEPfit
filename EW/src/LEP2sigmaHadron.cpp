@@ -48,45 +48,50 @@ double LEP2sigmaHadron::getThValue() {
             ROOT::Math::Functor1D wf_UP(this, &LEP2sigmaHadron::Integrand_sigmaWithISR_q);
             ROOT::Math::Integrator ig_UP(wf_UP, ROOT::Math::IntegrationOneDim::kADAPTIVESINGULAR);
             ig_UP.SetAbsTolerance(1.E-13); // desired absolute error
-            ig_UP.SetRelTolerance(1.E-5); // desired relative error
+            ig_UP.SetRelTolerance(1.E-4); // desired relative error
             double sigma_UP = ig_UP.Integral(0.0, 1.0-0.85*0.85); // interval
-            //std::cout << "UP " << sigma_UP << std::endl;
+            //std::cout << "UP " << sigma_UP << " +- " << ig_UP.Error() << std::endl;
+            // results: 1.2e-8 -- 4.7e-8
             //
             q_flavor = StandardModel::DOWN;
             mq_cache = mqForHad_cache[SM.DOWN];
             ROOT::Math::Functor1D wf_DOWN(this, &LEP2sigmaHadron::Integrand_sigmaWithISR_q);
             ROOT::Math::Integrator ig_DOWN(wf_DOWN, ROOT::Math::IntegrationOneDim::kADAPTIVESINGULAR);
-            ig_DOWN.SetAbsTolerance(1.E-13); // desired absolute error
-            ig_DOWN.SetRelTolerance(1.E-5); // desired relative error
+            ig_DOWN.SetAbsTolerance(1.E-14); // desired absolute error
+            ig_DOWN.SetRelTolerance(1.E-4); // desired relative error
             double sigma_DOWN = ig_DOWN.Integral(0.0, 1.0-0.85*0.85); // interval
-            //std::cout << "DOWN " << sigma_DOWN << std::endl;
+            //std::cout << "DOWN " << sigma_DOWN << " +- " << ig_DOWN.Error() << std::endl;
+            // results: 7.1e-9 -- 4.0e-8
             //
             q_flavor = StandardModel::CHARM;
             mq_cache = mqForHad_cache[SM.CHARM];
             ROOT::Math::Functor1D wf_CHARM(this, &LEP2sigmaHadron::Integrand_sigmaWithISR_q);
             ROOT::Math::Integrator ig_CHARM(wf_CHARM, ROOT::Math::IntegrationOneDim::kADAPTIVESINGULAR);
             ig_CHARM.SetAbsTolerance(1.E-13); // desired absolute error
-            ig_CHARM.SetRelTolerance(1.E-5); // desired relative error
+            ig_CHARM.SetRelTolerance(1.E-4); // desired relative error
             double sigma_CHARM = ig_CHARM.Integral(0.0, 1.0-0.85*0.85); // interval
-            //std::cout << "CHARM " << sigma_CHARM << std::endl;
+            //std::cout << "CHARM " << sigma_CHARM << " +- " << ig_CHARM.Error() << std::endl;
+            // results: 1.2e-8 -- 4.7e-8
             //
             q_flavor = StandardModel::STRANGE;
             mq_cache = mqForHad_cache[SM.STRANGE];
             ROOT::Math::Functor1D wf_STRANGE(this, &LEP2sigmaHadron::Integrand_sigmaWithISR_q);
             ROOT::Math::Integrator ig_STRANGE(wf_STRANGE, ROOT::Math::IntegrationOneDim::kADAPTIVESINGULAR);
-            ig_STRANGE.SetAbsTolerance(1.E-13); // desired absolute error
-            ig_STRANGE.SetRelTolerance(1.E-5); // desired relative error
+            ig_STRANGE.SetAbsTolerance(1.E-14); // desired absolute error
+            ig_STRANGE.SetRelTolerance(1.E-4); // desired relative error
             double sigma_STRANGE = ig_STRANGE.Integral(0.0, 1.0-0.85*0.85); // interval
-            //std::cout << "STRANGE " << sigma_STRANGE << std::endl;
+            //std::cout << "STRANGE " << sigma_STRANGE << " +- " << ig_STRANGE.Error() << std::endl;
+            // results: 7.1e-9 -- 4.0e-8
             //
             q_flavor = StandardModel::BOTTOM;
             mq_cache = mqForHad_cache[SM.BOTTOM];
             ROOT::Math::Functor1D wf_BOTTOM(this, &LEP2sigmaHadron::Integrand_sigmaWithISR_q);
             ROOT::Math::Integrator ig_BOTTOM(wf_BOTTOM, ROOT::Math::IntegrationOneDim::kADAPTIVESINGULAR);
-            ig_BOTTOM.SetAbsTolerance(1.E-13); // desired absolute error
-            ig_BOTTOM.SetRelTolerance(1.E-5); // desired relative error
+            ig_BOTTOM.SetAbsTolerance(1.E-14); // desired absolute error
+            ig_BOTTOM.SetRelTolerance(1.E-4); // desired relative error
             double sigma_BOTTOM = ig_BOTTOM.Integral(0.0, 1.0-0.85*0.85); // interval
-            //std::cout << "BOTTOM " << sigma_BOTTOM << std::endl;
+            //std::cout << "BOTTOM " << sigma_BOTTOM << " +- " << ig_BOTTOM.Error() << std::endl;
+            // results: 7.0e-9 -- 4.0e-8
             //
             SMresult_cache = sigma_UP + sigma_DOWN + sigma_CHARM 
                              + sigma_STRANGE + sigma_BOTTOM;
@@ -97,46 +102,51 @@ double LEP2sigmaHadron::getThValue() {
             mq_cache = mqForHad_cache[SM.UP];
             ROOT::Math::Functor1D wf_box_UP(this, &LEP2sigmaHadron::Integrand_dsigmaBox_q);
             ROOT::Math::Integrator ig_box_UP(wf_box_UP, ROOT::Math::IntegrationOneDim::kADAPTIVESINGULAR);
-            ig_box_UP.SetAbsTolerance(1.E-13); // desired absolute error
+            ig_box_UP.SetAbsTolerance(1.E-16); // desired absolute error
             ig_box_UP.SetRelTolerance(1.E-4); // desired relative error
             double sigma_box_UP = ig_box_UP.Integral(-1.0, 1.0); // interval
-            //std::cout << "UP_box " << sigma_box_UP << std::endl;
+            //std::cout << "UP_box " << sigma_box_UP << " +- " << ig_box_UP.Error() << std::endl;
+            // results: 6.2e-11 -- 4.2e-10
             //
             q_flavor = StandardModel::DOWN;
             mq_cache = mqForHad_cache[SM.DOWN];
             ROOT::Math::Functor1D wf_box_DOWN(this, &LEP2sigmaHadron::Integrand_dsigmaBox_q);
             ROOT::Math::Integrator ig_box_DOWN(wf_box_DOWN, ROOT::Math::IntegrationOneDim::kADAPTIVESINGULAR);
-            ig_box_DOWN.SetAbsTolerance(1.E-14); // desired absolute error
+            ig_box_DOWN.SetAbsTolerance(1.E-16); // desired absolute error
             ig_box_DOWN.SetRelTolerance(1.E-4); // desired relative error
             double sigma_box_DOWN = ig_box_DOWN.Integral(-1.0, 1.0); // interval
-            //std::cout << "DOWN_box " << sigma_box_DOWN << std::endl;
+            //std::cout << "DOWN_box " << sigma_box_DOWN << " +- " << ig_box_DOWN.Error() << std::endl;
+            // results: 1.4e-11 -- 6.8e-10
             //
             q_flavor = StandardModel::CHARM;
             mq_cache = mqForHad_cache[SM.CHARM];
             ROOT::Math::Functor1D wf_box_CHARM(this, &LEP2sigmaHadron::Integrand_dsigmaBox_q);
             ROOT::Math::Integrator ig_box_CHARM(wf_box_CHARM, ROOT::Math::IntegrationOneDim::kADAPTIVESINGULAR);
-            ig_box_CHARM.SetAbsTolerance(1.E-13); // desired absolute error
+            ig_box_CHARM.SetAbsTolerance(1.E-16); // desired absolute error
             ig_box_CHARM.SetRelTolerance(1.E-4); // desired relative error
             double sigma_box_CHARM = ig_box_CHARM.Integral(-1.0, 1.0); // interval
-            //std::cout << "CHARM_box " << sigma_box_CHARM << std::endl;
+            //std::cout << "CHARM_box " << sigma_box_CHARM << " +- " << ig_box_CHARM.Error() << std::endl;
+            // results: 6.2e-11 -- 4.2e-10
             //
             q_flavor = StandardModel::STRANGE;
             mq_cache = mqForHad_cache[SM.STRANGE];
             ROOT::Math::Functor1D wf_box_STRANGE(this, &LEP2sigmaHadron::Integrand_dsigmaBox_q);
             ROOT::Math::Integrator ig_box_STRANGE(wf_box_STRANGE, ROOT::Math::IntegrationOneDim::kADAPTIVESINGULAR);
-            ig_box_STRANGE.SetAbsTolerance(1.E-14); // desired absolute error
+            ig_box_STRANGE.SetAbsTolerance(1.E-16); // desired absolute error
             ig_box_STRANGE.SetRelTolerance(1.E-4); // desired relative error
             double sigma_box_STRANGE = ig_box_STRANGE.Integral(-1.0, 1.0); // interval
-            //std::cout << "STRANGE_box " << sigma_box_STRANGE << std::endl;
+            //std::cout << "STRANGE_box " << sigma_box_STRANGE << " +- " << ig_box_STRANGE.Error() << std::endl;
+            // results: 1.4e-11 -- 6.8e-10
             //
             q_flavor = StandardModel::BOTTOM;
             mq_cache = mqForHad_cache[SM.BOTTOM];
             ROOT::Math::Functor1D wf_box_BOTTOM(this, &LEP2sigmaHadron::Integrand_dsigmaBox_q);
             ROOT::Math::Integrator ig_box_BOTTOM(wf_box_BOTTOM, ROOT::Math::IntegrationOneDim::kADAPTIVESINGULAR);
-            ig_box_BOTTOM.SetAbsTolerance(1.E-14); // desired absolute error
+            ig_box_BOTTOM.SetAbsTolerance(1.E-16); // desired absolute error
             ig_box_BOTTOM.SetRelTolerance(1.E-4); // desired relative error
             double sigma_box_BOTTOM = ig_box_BOTTOM.Integral(-1.0, 1.0); // interval
-            //std::cout << "BOTTOM_box " << sigma_box_BOTTOM << std::endl;
+            //std::cout << "BOTTOM_box " << sigma_box_BOTTOM << " +- " << ig_box_BOTTOM.Error() << std::endl;
+            // results: 1.4e-11 -- 2.5e-10
             //
             SMresult_cache += sigma_box_UP + sigma_box_DOWN + sigma_box_CHARM 
                               + sigma_box_STRANGE + sigma_box_BOTTOM;
