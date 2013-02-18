@@ -25,9 +25,10 @@ double LEP2AFBbottom::getThValue() {
             ROOT::Math::Functor1D wf(this, &LEP2AFBbottom::Integrand_AFBnumeratorWithISR_q);
             ROOT::Math::Integrator ig(wf, ROOT::Math::IntegrationOneDim::kADAPTIVESINGULAR);
             ig.SetAbsTolerance(1.E-14); // desired absolute error
-            ig.SetRelTolerance(1.E-5); // desired relative error
+            ig.SetRelTolerance(1.E-4); // desired relative error
             double numerator = ig.Integral(0.0, 1.0-0.85*0.85); // interval
-            //std::cout << "numertor = " << numerator << std::endl;
+            //std::cout << numerator << " +- " << ig.Error() << std::endl;
+            // results: 4.0e-9 -- 1.8e-8
             
             // denominator
             myLEP2sigmaBottom.setFlags(flag);
@@ -41,17 +42,19 @@ double LEP2AFBbottom::getThValue() {
             // numerator
             ROOT::Math::Functor1D wf_F(this, &LEP2AFBbottom::Integrand_dsigmaBox_q);
             ROOT::Math::Integrator ig_F(wf_F, ROOT::Math::IntegrationOneDim::kADAPTIVESINGULAR);
-            ig_F.SetAbsTolerance(1.E-15); // desired absolute error
-            ig_F.SetRelTolerance(1.E-5); // desired relative error
+            ig_F.SetAbsTolerance(1.E-17); // desired absolute error
+            ig_F.SetRelTolerance(1.E-4); // desired relative error
             double sigma_box_F = ig_F.Integral(0.0, 1.0); // interval
-            //std::cout << "sigma_box_F = " << sigma_box_F << std::endl;
+            //std::cout << sigma_box_F << " +- " << ig_F.Error()  << std::endl;
+            // results: 3.7e-12 -- 1.5e-10
             //
             ROOT::Math::Functor1D wf_B(this, &LEP2AFBbottom::Integrand_dsigmaBox_q);
             ROOT::Math::Integrator ig_B(wf_B, ROOT::Math::IntegrationOneDim::kADAPTIVESINGULAR);
-            ig_B.SetAbsTolerance(1.E-15); // desired absolute error
-            ig_B.SetRelTolerance(1.E-5); // desired relative error
+            ig_B.SetAbsTolerance(1.E-17); // desired absolute error
+            ig_B.SetRelTolerance(1.E-4); // desired relative error
             double sigma_box_B = ig_B.Integral(-1.0, 0.0); // interval
-            //std::cout << "sigma_box_B = " << sigma_box_B << std::endl;
+            //std::cout << sigma_box_B << " +- " << ig_B.Error()  << std::endl;
+            // results: 2.2e-12 -- 5.0e-11
                         
             // denominator
             if (!flag[ISR]) {
