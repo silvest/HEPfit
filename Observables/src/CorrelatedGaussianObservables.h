@@ -1,8 +1,8 @@
 /* 
- * File:   CorrelatedGaussianObservables.h
- * Author: silvest
+ * Copyright (C) 2013 SusyFit Collaboration
+ * All rights reserved.
  *
- * Created on February 19, 2013, 10:08 AM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef CORRELATEDGAUSSIANOBSERVABLES_H
