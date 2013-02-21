@@ -1,8 +1,8 @@
 /* 
- * File:   CorrelatedGaussianObservables.cpp
- * Author: silvest
- * Copyright (C) 2012 SUSYfit Collaboration
- * Created on February 19, 2013, 10:08 AM
+ * Copyright (C) 2013 SusyFit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "CorrelatedGaussianObservables.h"
@@ -18,12 +18,12 @@ CorrelatedGaussianObservables::CorrelatedGaussianObservables(const CorrelatedGau
 }
 
 CorrelatedGaussianObservables::~CorrelatedGaussianObservables(){
-  if(Cov != NULL)
-    delete(Cov);
+    if(Cov != NULL)
+        delete(Cov);
 }
 
 void CorrelatedGaussianObservables::AddObs(Observable& Obs_i){
-  Obs.push_back(Obs_i);
+    Obs.push_back(Obs_i);
 }
 
 void CorrelatedGaussianObservables::ComputeCov(gslpp::matrix<double> Corr) {
@@ -33,6 +33,6 @@ void CorrelatedGaussianObservables::ComputeCov(gslpp::matrix<double> Corr) {
     Cov = new gslpp::matrix<double>(size,size,0.);
     for(int i = 0; i < size; i++)
         for(int j = 0; j < size; j++)
-	  (*Cov)(i,j) = Obs.at(i).getErrg()*Corr(i,j)*Obs.at(j).getErrg();
+            (*Cov)(i,j) = Obs.at(i).getErrg()*Corr(i,j)*Obs.at(j).getErrg();
     *Cov = Cov->inverse();
 }
