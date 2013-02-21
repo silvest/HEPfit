@@ -17,8 +17,8 @@
 MonteCarloEngine::MonteCarloEngine(
         const std::vector<ModelParameter>& ModPars_i,
         std::vector<Observable>& Obs_i,
-        std::vector<Observable2D>& Obs2D_i) : BCModel(""),
-ModPars(ModPars_i), Obs_ALL(Obs_i), Obs2D_ALL(Obs2D_i) {
+        std::vector<Observable2D>& Obs2D_i, std::vector<CorrelatedGaussianObservables>& CGO_i) : BCModel(""),
+ModPars(ModPars_i), Obs_ALL(Obs_i), Obs2D_ALL(Obs2D_i), CGO(CGO_i) {
     obval = NULL;
     obweight = NULL;
     Mod = NULL;
@@ -61,8 +61,6 @@ void MonteCarloEngine::Initialize(Model* Mod_i) {
             Histo1D[it->getThname()] = bchisto;
         }
     }
-    kmax = k;
-    kwmax = kweight;
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin();
             it < Obs2D_ALL.end(); it++) {
         if ((it->getDistr()).compare("file") == 0) {
@@ -102,6 +100,32 @@ void MonteCarloEngine::Initialize(Model* Mod_i) {
             Histo2D[it->getThname() + "_vs_" + it->getThname2()] = bchisto2;
         }
     }
+    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
+	 it1 != CGO.end(); ++it1) {
+      std::vector<Observable> pino(it1->GetObs());
+        for (std::vector<Observable>::iterator it = pino.begin();
+        	   it != pino.end(); ++it) {
+      //            for (int i = 0; i < it1->GetObs().size(); i++) {
+      //		Observable * it = &(it1->GetObs().at(i));
+            if ((it->getDistr()).compare("file") == 0)
+                throw std::runtime_error("Cannot use file in CorrelatedGaussianObservables!");
+            if (!(it->isTMCMC())) {
+                k++;
+                if (it->getDistr().compare("noweight") != 0)
+                    throw std::runtime_error("Cannot use weight in CorrelatedGaussianObservables!");
+            }
+            if (Histo1D.find(it->getThname()) == Histo1D.end()) {
+	     	      TH1D * histo = new TH1D(it->getThname().c_str(), it->getLabel().c_str(), NBINS1D,
+	              it->getMin(), it->getMax());
+                histo->GetXaxis()->SetTitle(it->getLabel().c_str());
+                BCH1D * bchisto = new BCH1D(histo);	
+                Histo1D[it->getThname()] = bchisto;
+            }
+        }
+    }
+    kmax = k;
+    kwmax = kweight;
+
     DefineParameters();
 };
 
@@ -178,8 +202,7 @@ double MonteCarloEngine::Weight(const Observable& obs, const double& th) {
         } else
             logprob = log(TMath::Erf((th - obs.getAve() + obs.getErrf()) / sqrt(2.) / obs.getErrg()) -
                 TMath::Erf((th - obs.getAve() - obs.getErrf()) / sqrt(2.) / obs.getErrg()));
-    }
-    else if (obs.getDistr().compare("file") == 0) {
+    } else if (obs.getDistr().compare("file") == 0) {
         TH1D * h = InHisto1D[obs.getFilename() + obs.getHistoname()];
         int i = h->FindBin(th);
         if (h->IsBinOverflow(i) || h->IsBinUnderflow(i))
@@ -209,6 +232,18 @@ double MonteCarloEngine::Weight(const Observable2D& obs, const double& th1, cons
         exit(EXIT_FAILURE);
     }
     return (logprob);
+}
+
+double MonteCarloEngine::Weight(const CorrelatedGaussianObservables& obs) {
+
+    int size = obs.GetObs().size();
+    gslpp::vector<double> x(size);
+
+    for (int i = 0; i < size; i++) {
+        x(i) = obs.GetObs().at(i).getTheoryValue() - obs.GetObs().at(i).getAve();
+    }
+
+    return (-0.5 * x * (obs.GetCov() * x));
 }
 
 double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
@@ -241,6 +276,9 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
         logprob += Weight(*it, th1, th2);
     }
 
+    for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++) {
+        logprob += Weight(*it);
+    }
     // std::cout << "logprob " << logprob <<std::endl;    
     //std::cout << MPI::COMM_WORLD.Get_rank()<< ": logprob = " << logprob << std::endl;
     return logprob;
@@ -279,43 +317,64 @@ void MonteCarloEngine::MCMCIterationInterface() {
             double th2 = it->getTheoryValue2();
             Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram()->Fill(th1, th2);
         }
+        for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
+	     it1 < CGO.end(); it1++){
+	  std::vector<Observable> pino(it1->GetObs());
+            for (std::vector<Observable>::iterator it = pino.begin();
+                    it != pino.end(); ++it) {
+                double th = it->getTheoryValue();
+                Histo1D[it->getThname()]->GetHistogram()->Fill(th);
+            }
+	}
     }
 }
 
-void MonteCarloEngine::PrintHistogram(BCModelOutput& out) {
+void MonteCarloEngine::PrintHistogram(BCModelOutput & out, std::vector<Observable>::iterator it) {
+    if (Histo1D[it->getThname()]->GetHistogram()->Integral() > 0.0) {
+        std::string fname = "Observables/" + it->getThname() + ".pdf";
+        //        BCH1D* pippo =  Histo1D[it->getThname()];
+        //        double x = pippo->GetMean();
+        //        pippo->Print("Dmd1.pdf");
+        Histo1D[it->getThname()]->SetGlobalMode(it->getTheoryValue());
+        Histo1D[it->getThname()]->Print(fname.c_str());
+        std::cout << fname << " has been created." << std::endl;
+        out.Write(Histo1D[it->getThname()]->GetHistogram());
+
+        // output the portions of underflow and overflow bins
+        double UnderFlowContent = Histo1D[it->getThname()]->GetHistogram()->GetBinContent(0);
+        double OverFlowContent = Histo1D[it->getThname()]->GetHistogram()->GetBinContent(NBINS1D + 1);
+        double Integral = Histo1D[it->getThname()]->GetHistogram()->Integral();
+        double TotalContent = 0.0;
+        for (int n = 0; n <= NBINS1D + 1; n++)
+            TotalContent += Histo1D[it->getThname()]->GetHistogram()->GetBinContent(n);
+        std::cout << it->getThname() << ": "
+                << Integral / TotalContent * 100. << "% within the range, "
+                << UnderFlowContent / TotalContent * 100. << "% underflow, "
+                << OverFlowContent / TotalContent * 100. << "% overflow"
+                << std::endl;
+    } else
+        std::cout << "WARNING: The histogram of " << it->getThname() << " is empty!" << std::endl;
+
+}
+
+void MonteCarloEngine::PrintHistogram(BCModelOutput & out) {
     //print the BAT histograms to an eps file
     std::vector<double> mode(GetBestFitParameters());
     for (int k = 0; k < fMCMCNParameters; k++)
         DPars[GetParameter(k)->GetName()] = mode[k];
     Mod->Update(DPars);
-    
+
     for (std::vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end();
             it++) {
-        if (Histo1D[it->getThname()]->GetHistogram()->Integral() > 0.0) {
-            std::string fname = "Observables/" + it->getThname() + ".pdf";
-            //        BCH1D* pippo =  Histo1D[it->getThname()];
-            //        double x = pippo->GetMean();
-            //        pippo->Print("Dmd1.pdf");
-            Histo1D[it->getThname()]->SetGlobalMode(it->getTheoryValue());
-            Histo1D[it->getThname()]->Print(fname.c_str());
-            std::cout << fname << " has been created." << std::endl;
-            out.Write(Histo1D[it->getThname()]->GetHistogram());
-            
-            // output the portions of underflow and overflow bins
-            double UnderFlowContent = Histo1D[it->getThname()]->GetHistogram()->GetBinContent(0);
-            double OverFlowContent = Histo1D[it->getThname()]->GetHistogram()->GetBinContent(NBINS1D+1);
-            double Integral = Histo1D[it->getThname()]->GetHistogram()->Integral();
-            double TotalContent = 0.0;
-            for (int n = 0; n<=NBINS1D+1; n++)
-                TotalContent += Histo1D[it->getThname()]->GetHistogram()->GetBinContent(n);            
-            std::cout << it->getThname() << ": " 
-                      << Integral/TotalContent*100. << "% within the range, " 
-                      << UnderFlowContent/TotalContent*100. << "% underflow, " 
-                      << OverFlowContent/TotalContent*100. << "% overflow"
-                      << std::endl;
-        } else
-            std::cout << "WARNING: The histogram of " << it->getThname() << " is empty!" << std::endl;
+        PrintHistogram(out, it);
     }
+    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
+	 it1 < CGO.end(); it1++){
+      std::vector<Observable> pino(it1->GetObs());
+        for (std::vector<Observable>::iterator it = pino.begin();
+                it != pino.end(); ++it)
+	  PrintHistogram(out, it);
+        }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end();
             it++) {
         if (Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram()->Integral() > 0.0) {
@@ -328,9 +387,9 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput& out) {
             std::cout << fname << " has been created." << std::endl;
             out.Write(Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram());
         } else
-            std::cout << "WARNING: The histogram of " 
-                      << it->getThname() << "_vs_" << it->getThname2()
-                      << " is empty!" << std::endl;
+            std::cout << "WARNING: The histogram of "
+                << it->getThname() << "_vs_" << it->getThname2()
+            << " is empty!" << std::endl;
     }
 }
 

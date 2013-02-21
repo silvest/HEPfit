@@ -4,6 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/CorrelatedGaussianObservables.h</itemPath>
       <itemPath>src/GaussianLikelihood.h</itemPath>
       <itemPath>src/Likelihood.h</itemPath>
       <itemPath>src/ModelObservable.h</itemPath>
@@ -20,6 +21,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/CorrelatedGaussianObservables.cpp</itemPath>
       <itemPath>src/GaussianLikelihood.cpp</itemPath>
       <itemPath>src/Likelihood.cpp</itemPath>
       <itemPath>src/ModelParameter.cpp</itemPath>
