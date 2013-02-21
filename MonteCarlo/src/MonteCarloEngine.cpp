@@ -100,13 +100,13 @@ void MonteCarloEngine::Initialize(Model* Mod_i) {
             Histo2D[it->getThname() + "_vs_" + it->getThname2()] = bchisto2;
         }
     }
-    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
-	 it1 != CGO.end(); ++it1) {
-      std::vector<Observable> pino(it1->GetObs());
+    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); 
+            it1 != CGO.end(); ++it1) {
+        std::vector<Observable> pino(it1->GetObs());
         for (std::vector<Observable>::iterator it = pino.begin();
-        	   it != pino.end(); ++it) {
-      //            for (int i = 0; i < it1->GetObs().size(); i++) {
-      //		Observable * it = &(it1->GetObs().at(i));
+                it != pino.end(); ++it) {
+            //for (int i = 0; i < it1->GetObs().size(); i++) {
+            //Observable * it = &(it1->GetObs().at(i));
             if ((it->getDistr()).compare("file") == 0)
                 throw std::runtime_error("Cannot use file in CorrelatedGaussianObservables!");
             if (!(it->isTMCMC())) {
@@ -115,8 +115,8 @@ void MonteCarloEngine::Initialize(Model* Mod_i) {
                     throw std::runtime_error("Cannot use weight in CorrelatedGaussianObservables!");
             }
             if (Histo1D.find(it->getThname()) == Histo1D.end()) {
-	     	      TH1D * histo = new TH1D(it->getThname().c_str(), it->getLabel().c_str(), NBINS1D,
-	              it->getMin(), it->getMax());
+                TH1D * histo = new TH1D(it->getThname().c_str(), it->getLabel().c_str(), NBINS1D,
+                                        it->getMin(), it->getMax());
                 histo->GetXaxis()->SetTitle(it->getLabel().c_str());
                 BCH1D * bchisto = new BCH1D(histo);	
                 Histo1D[it->getThname()] = bchisto;
@@ -347,14 +347,13 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, std::vector<Observabl
         double TotalContent = 0.0;
         for (int n = 0; n <= NBINS1D + 1; n++)
             TotalContent += Histo1D[it->getThname()]->GetHistogram()->GetBinContent(n);
-        std::cout << it->getThname() << ": "
-                << Integral / TotalContent * 100. << "% within the range, "
-                << UnderFlowContent / TotalContent * 100. << "% underflow, "
-                << OverFlowContent / TotalContent * 100. << "% overflow"
-                << std::endl;
+        HistoLog << it->getThname() << ": "
+                 << Integral / TotalContent * 100. << "% within the range, "
+                 << UnderFlowContent / TotalContent * 100. << "% underflow, "
+                 << OverFlowContent / TotalContent * 100. << "% overflow"
+                 << std::endl;
     } else
-        std::cout << "WARNING: The histogram of " << it->getThname() << " is empty!" << std::endl;
-
+        HistoLog << "WARNING: The histogram of " << it->getThname() << " is empty!" << std::endl;
 }
 
 void MonteCarloEngine::PrintHistogram(BCModelOutput & out) {
@@ -369,12 +368,12 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out) {
         PrintHistogram(out, it);
     }
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
-	 it1 < CGO.end(); it1++){
-      std::vector<Observable> pino(it1->GetObs());
+            it1 < CGO.end(); it1++){
+        std::vector<Observable> pino(it1->GetObs());
         for (std::vector<Observable>::iterator it = pino.begin();
                 it != pino.end(); ++it)
-	  PrintHistogram(out, it);
-        }
+            PrintHistogram(out, it);
+    }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end();
             it++) {
         if (Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram()->Integral() > 0.0) {
@@ -387,9 +386,9 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out) {
             std::cout << fname << " has been created." << std::endl;
             out.Write(Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram());
         } else
-            std::cout << "WARNING: The histogram of "
-                << it->getThname() << "_vs_" << it->getThname2()
-            << " is empty!" << std::endl;
+            HistoLog << "WARNING: The histogram of "
+                     << it->getThname() << "_vs_" << it->getThname2()
+                     << " is empty!" << std::endl;
     }
 }
 

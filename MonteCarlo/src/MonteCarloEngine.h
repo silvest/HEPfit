@@ -22,6 +22,8 @@
 #include <ModelParameter.h>
 #include <Model.h>
 #include <map>
+#include <string>
+#include <sstream>
 
 #define NBINSMODELPARS 100
 #define NBINS1D 100
@@ -64,6 +66,10 @@ public:
     void SetMod(Model* Mod) {
         this->Mod = Mod;
     }
+    
+    std::string GetHistoLog() const {
+        return HistoLog.str().c_str();
+    }
 
 private:
     const std::vector<ModelParameter>& ModPars;
@@ -80,6 +86,7 @@ private:
     std::map<std::string, TH2D * > InHisto2D;
     double *obval, *obweight;
     unsigned int kwmax, kmax;
+    std::ostringstream HistoLog;
     
 };
 // ---------------------------------------------------------
