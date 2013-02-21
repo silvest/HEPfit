@@ -11,6 +11,7 @@
 #include "ThFactory.h"
 #include <Observable.h>
 #include <Observable2D.h>
+#include <CorrelatedGaussianObservables.h>
 #include <ThObservable.h>
 #include <ModelParameter.h>
 #include <StandardModel.h>
@@ -37,10 +38,14 @@ public:
     InputParser();
     InputParser(const InputParser& orig);
     virtual ~InputParser();
+
+    Observable ParseObservable(boost::tokenizer<boost::char_separator<char> >::iterator & beg);
+    
     std::string ReadParameters(const std::string filename,
             std::vector<ModelParameter>& ModelPars,
             std::vector<Observable>& Observables,
-            std::vector<Observable2D>& Observables2D);
+            std::vector<Observable2D>& Observables2D,
+            std::vector<CorrelatedGaussianObservables>& CGO);
 
     StandardModel* getMyModel() const {
         return myModel;

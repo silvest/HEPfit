@@ -36,6 +36,7 @@ private:
     std::vector<ModelParameter> ModPars;
     std::vector<Observable> Obs;
     std::vector<Observable2D> Obs2D;   
+    std::vector<CorrelatedGaussianObservables> CGO;
     std::string ModelConf, MCMCConf, OutFile, JobTag;
     bool noMC;
     bool PrintAllMarginalized;

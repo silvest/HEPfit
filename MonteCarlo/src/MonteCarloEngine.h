@@ -18,6 +18,7 @@
 #include <TRandom3.h>
 #include <Observable.h>
 #include <Observable2D.h>
+#include <CorrelatedGaussianObservables.h>
 #include <ModelParameter.h>
 #include <Model.h>
 #include <map>
@@ -40,7 +41,7 @@ public:
     // Constructors and destructor
     MonteCarloEngine(const std::vector<ModelParameter>& ModPars,
             std::vector<Observable>& Obs, 
-            std::vector<Observable2D>& Obs2D);
+            std::vector<Observable2D>& Obs2D, std::vector<CorrelatedGaussianObservables>& CGO);
     ~MonteCarloEngine();
 
     void Initialize(Model* Mod_i);
@@ -48,12 +49,14 @@ public:
     // Methods to overload, see file MonteCarloEngine.cxx
     void DefineParameters();
     double LogLikelihood(const std::vector <double>& parameters);
+    void PrintHistogram(BCModelOutput & out, std::vector<Observable>::iterator it);
     void PrintHistogram(BCModelOutput& out);
     void MCMCIterationInterface();
     void SetNChains(unsigned int i);
     void AddChains();
     double Weight(const Observable& obs, const double& th);
-    double Weight(const Observable2D& obs, const double& th1, const double& th2);     
+    double Weight(const Observable2D& obs, const double& th1, const double& th2);    
+    double Weight(const CorrelatedGaussianObservables& obs);
     Model* GetMod() const {
         return Mod;
     }
@@ -68,6 +71,7 @@ private:
     std::vector<Observable>& Obs_ALL; 
     std::vector<Observable2D> Obs2D_MCMC;
     std::vector<Observable2D>& Obs2D_ALL;
+    std::vector<CorrelatedGaussianObservables>& CGO;
     Model* Mod;
     std::map<std::string, double> DPars;
     std::map<std::string, BCH1D * > Histo1D;

@@ -27,8 +27,56 @@ InputParser::~InputParser() {
         delete thf;
 }
 
+Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<char> >::iterator & beg) {
+    std::string name = *beg;
+    ++beg;
+    std::string thname = *beg;
+    ++beg;
+    std::string label = *beg;
+    size_t pos = -1;
+    while ((pos = label.find("~", pos + 1)) != std::string::npos)
+        label.replace(pos, 1, " ");
+    ++beg;
+    double min = atof((*beg).c_str());
+    ++beg;
+    double max = atof((*beg).c_str());
+    ++beg;
+    std::string toMCMC = *beg;
+    bool tMCMC;
+    if (toMCMC.compare("MCMC") == 0)
+        tMCMC = true;
+    else if (toMCMC.compare("noMCMC") == 0)
+        tMCMC = false;
+    else {
+        std::cout << "wrong MCMC flag in " << name << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    Observable o(name, thname, label, tMCMC, min, max, thf->getThMethod(thname));
+    ++beg;
+    std::string distr = *beg;
+    if (distr.compare("file") == 0) {
+        ++beg;
+        o.setFilename(*beg);
+        ++beg;
+        o.setHistoname(*beg);
+    } else if (distr.compare("weight") == 0) {
+        ++beg;
+        o.setAve(atof((*beg).c_str()));
+        ++beg;
+        o.setErrg(atof((*beg).c_str()));
+        ++beg;
+        o.setErrf(atof((*beg).c_str()));
+    } else if (distr.compare("noweight") == 0) {
+    } else {
+        std::cout << "wrong distribution flag in " << name << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    o.setDistr(distr);
+    return (o);
+}
+
 std::string InputParser::ReadParameters(const std::string filename, std::vector<ModelParameter>&
-        ModelPars, std::vector<Observable>& Observables, std::vector<Observable2D>& Observables2D) {
+        ModelPars, std::vector<Observable>& Observables, std::vector<Observable2D>& Observables2D, std::vector<CorrelatedGaussianObservables>& CGO) {
     std::string modname = "";
     std::ifstream ifile(filename.c_str());
     if (!ifile.is_open()) {
@@ -118,93 +166,94 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             ModelPars.push_back(m);
             if (beg != tok.end())
                 std::cout << "warning: unread information in parameter " << name << std::endl;
-        } else if (type.compare("Observable") == 0 || type.compare("Observable2D") == 0) {
-            std::string name = *beg;
+        } else if (type.compare("Observable") == 0) {
+            Observables.push_back(ParseObservable(beg));
             ++beg;
-            std::string thname = *beg;
+            if (beg != tok.end()) std::cout << "warning: unread information in observable "
+                    << Observables.back().getName() << std::endl;
+        } else if (type.compare("Observable2D") == 0) {
+            Observable2D o2(ParseObservable(beg));
+            ++beg;
+            o2.setThname2(*beg);
+            o2.setTho2(thf->getThMethod(*beg));
             ++beg;
             std::string label = *beg;
-            size_t pos = -1;
-            while ((pos = label.find("~", pos + 1)) != std::string::npos)
+            size_t pos = 0;
+            while ((pos = label.find("~", pos)) != std::string::npos)
                 label.replace(pos, 1, " ");
+            o2.setLabel2(label);
             ++beg;
-            double min = atof((*beg).c_str());
+            o2.setMin2(atof((*beg).c_str()));
             ++beg;
-            double max = atof((*beg).c_str());
+            o2.setMax2(atof((*beg).c_str()));
+            Observables2D.push_back(o2);
             ++beg;
-            std::string toMCMC = *beg;
-            bool tMCMC;
-            if (toMCMC.compare("MCMC") == 0)
-                tMCMC = true;
-            else if (toMCMC.compare("noMCMC") == 0)
-                tMCMC = false;
-            else {
-                std::cout << "wrong MCMC flag in " << name << std::endl;
-                exit(EXIT_FAILURE);
+            if (beg != tok.end()) std::cout << "warning: unread information in observable "
+                    << Observables.back().getName() << std::endl;
+        } else if (type.compare("CorrelatedGaussianObservables") == 0) {
+            std::string name = *beg;
+            ++beg;
+            int size = atoi((*beg).c_str());
+	    CorrelatedGaussianObservables o3(name);
+            int nlines = 0;
+            std::vector<bool> lines;
+            for (int i = 0; i < size; i++) {
+                getline(ifile, line);
+                if (line.empty() || line.at(0) == '#')
+                    throw std::runtime_error("no comments or empty lines in CorrelatedGaussianObservables please!");
+                boost::tokenizer<boost::char_separator<char> > mytok(line, sep);
+                beg = mytok.begin();
+                std::string type = *beg;
+                ++beg;
+                if (type.compare("Observable") != 0)
+                    throw std::runtime_error("Expecting an Observable type here...");
+                Observable tmp = ParseObservable(beg);
+                if (tmp.isTMCMC()) {
+		  o3.AddObs(tmp);
+                    lines.push_back(true);
+                    nlines++;
+                } else {
+                    Observables.push_back(tmp);
+                    lines.push_back(false);
+                }
             }
-            Observable o(name, thname, label, tMCMC, min, max, thf->getThMethod(thname));
-            ++beg;
-            std::string distr = *beg;
-            if (distr.compare("file") == 0) {
-                ++beg;
-                o.setFilename(*beg);
-                ++beg;
-                o.setHistoname(*beg);
-            } else if (distr.compare("weight") == 0) {
-                ++beg;
-                o.setAve(atof((*beg).c_str()));
-                ++beg;
-                o.setErrg(atof((*beg).c_str()));
-                ++beg;
-                o.setErrf(atof((*beg).c_str()));
-            } else if (distr.compare("noweight") == 0) {
-            } else {
-                std::cout << "wrong distribution flag in " << name << std::endl;
-                exit(EXIT_FAILURE);
+            gslpp::matrix<double> myCorr(gslpp::matrix<double>::Id(nlines));
+	    int ni = 0;
+            for (int i = 0; i < size; i++) {
+	      getline(ifile, line);
+	      if (lines.at(i)) {
+		boost::tokenizer<boost::char_separator<char> > mytok(line, sep);
+		beg = mytok.begin();
+		int nj = 0;
+		for (int j = 0; j < size; j++) {
+		  if (lines.at(j)){
+		    myCorr(ni, nj) = atof((*beg).c_str());
+		    nj++;
+		  }
+		  beg++;
+		}
+		ni++;   
+	      }
             }
-            o.setDistr(distr);
-            if (type.compare("Observable") == 0) {
-                Observables.push_back(o);
-                ++beg;
-                if (beg != tok.end()) std::cout << "warning: unread information in observable "
-                        << Observables.back().getName() << std::endl;
-            } else { // Observable2D
-                ++beg;
-                Observable2D o2(o);
-                o2.setThname2(*beg);
-                o2.setTho2(thf->getThMethod(*beg));
-                ++beg;
-                label = *beg;
-                size_t pos = 0;
-                while ((pos = label.find("~", pos)) != std::string::npos)
-                    label.replace(pos, 1, " ");
-                o2.setLabel2(label);
-                ++beg;
-                o2.setMin2(atof((*beg).c_str()));
-                ++beg;
-                o2.setMax2(atof((*beg).c_str()));
-                Observables2D.push_back(o2);
-                ++beg;
-                if (beg != tok.end()) std::cout << "warning: unread information in observable "
-                        << Observables.back().getName() << std::endl;
-            }
+            o3.ComputeCov(myCorr);
+            CGO.push_back(o3);
         } else if (type.compare("ModelFlag") == 0) {
 
             std::string name = *beg;
-            ++beg;
-            bool value = boost::lexical_cast<bool>((*beg).c_str());
-            ++beg;
+                    ++beg;
+                    bool value = boost::lexical_cast<bool>((*beg).c_str());
+                    ++beg;
 
             if (!myModel->SetFlag(name, value)) {
                 std::stringstream ss;
-                ss << myModel->ModelName() << " SetFlag error for Flag " << name;
-                throw std::runtime_error(ss.str());
+                        ss << myModel->ModelName() << " SetFlag error for Flag " << name;
+                        throw std::runtime_error(ss.str());
             }
             if (beg != tok.end())
-                std::cout << "warning: unread information in Flag " << name << std::endl;
-        } else {
+                    std::cout << "warning: unread information in Flag " << name << std::endl;
+            } else {
             std::cout << "wrong keyword " << *beg << " in config file (first word must be ModelParameter, ModelFlag or Observable)" << std::endl;
-            exit(EXIT_FAILURE);
+                    exit(EXIT_FAILURE);
         }
     }
     return (modname);
