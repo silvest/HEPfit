@@ -11,6 +11,7 @@
 #include <BAT/BCLog.h>
 #include <BAT/BCSummaryTool.h>
 #include <mpi.h>
+#include <fstream>
 
 MonteCarlo::MonteCarlo(const std::string& ModelConf_i,
         const std::string& MonteCarloConf_i, const std::string& OutFile_i, const std::string& JobTag_i) :
@@ -104,8 +105,8 @@ void MonteCarlo::Run(const int rank) {
             std::cout << Obs.size() << " observables defined." << std::endl;
             std::cout << CGO.size() << " correlated gaussian observables defined:" << std::endl;
 	    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
-		 it1 != CGO.end(); ++it1)
-	      std::cout << it1->GetName() << " containing " << it1->GetObs().size() << " observables." << std::endl;
+                it1 != CGO.end(); ++it1)
+            std::cout << it1->GetName() << " containing " << it1->GetObs().size() << " observables." << std::endl;
             //MonteCarlo configuration parser
             std::ifstream ifile(MCMCConf.c_str());
             if (!ifile.is_open()) {
@@ -215,6 +216,12 @@ void MonteCarlo::Run(const int rank) {
             //out.FillAnalysisTree();
             out.Close();
 
+            // print logs for the histograms of the observables into a text file
+            std::ofstream outHistoLog;
+            outHistoLog.open("Observables/HistoLog.txt", std::ios::out);
+            outHistoLog << MCEngine.GetHistoLog();
+            outHistoLog.close();
+            
             // close log file
             BCLog::CloseLog();
             double ** sendbuff = new double *[MCEngine.procnum];
@@ -223,9 +230,8 @@ void MonteCarlo::Run(const int rank) {
                 sendbuff[il] = sendbuff[il - 1] + buffsize;
                 sendbuff[il][0] = -1.; //Exit command
             }
-                MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE,
-                        recvbuff, buffsize, MPI::DOUBLE,
-                        0);
+            MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE,
+                                    recvbuff, buffsize, MPI::DOUBLE, 0);
         }
         
     } catch (std::string message) {
