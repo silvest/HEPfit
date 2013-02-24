@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -10,10 +10,17 @@
 
 #include <map>
 
+/**
+ * @class Model
+ * @ingroup StandardModel
+ * @brief A class for the template of models. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class Model {
 public:
     Model(){
-        
         ModelInitialized = false; 
     };
     virtual bool Update(const std::map<std::string, double>&) = 0;
@@ -26,20 +33,24 @@ public:
     
     virtual std::string ModelName() const = 0;
     
-    bool IsModelInitialized() const {
+    bool IsModelInitialized() const 
+    {
         return ModelInitialized;
     }
 
-    void SetModelInitialized(bool ModelInitialized) {
+    void SetModelInitialized(bool ModelInitialized) 
+    {
         this->ModelInitialized = ModelInitialized;
     }
     
     
-    bool IsUpdateError() const {
+    bool IsUpdateError() const 
+    {
         return UpdateError;
     }
 
-    void SetUpdateError(bool UpdateError) {
+    void SetUpdateError(bool UpdateError) 
+    {
         this->UpdateError = UpdateError;
     }
     

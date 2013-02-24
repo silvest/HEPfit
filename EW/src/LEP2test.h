@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -11,59 +11,78 @@
 #include <iostream>
 #include <stdexcept>
 
-
+/**
+ * @class LEP2test
+ * @ingroup EW 
+ * @brief A test class for the LEP-II observables. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class LEP2test {
 public:
     
-    LEP2test() {};
+    LEP2test() 
+    {};
     
-    int checkSqrtS(const double sqrt_s_i) const {
+    int checkSqrtS(const double sqrt_s_i) const 
+    {
         for (int i=0; i<12; i++)
             if (sqrt_s_i == sqrt_s[i]) 
                 return i; 
         throw std::runtime_error("Error in LEP2test::checkSqrtS()");   
     }
     
-    int checkSqrtS_HF(const double sqrt_s_i) const {
+    int checkSqrtS_HF(const double sqrt_s_i) const 
+    {
         for (int i=0; i<10; i++)
             if (sqrt_s_i == sqrt_s_HF[i]) 
                 return i; 
         throw std::runtime_error("Error in LEP2test::checkSqrtS()");   
     }
     
-    double sigmaHadronTEST(const double sqrt_s_i) const {
+    double sigmaHadronTEST(const double sqrt_s_i) const 
+    {
         return sigmaHadron[checkSqrtS(sqrt_s_i)];
     } 
 
-    double sigmaMuTEST(const double sqrt_s_i) const {
+    double sigmaMuTEST(const double sqrt_s_i) const 
+    {
         return sigmaMu[checkSqrtS(sqrt_s_i)];
     } 
 
-    double sigmaTauTEST(const double sqrt_s_i) const {
+    double sigmaTauTEST(const double sqrt_s_i) const
+    {
         return sigmaTau[checkSqrtS(sqrt_s_i)];
     } 
 
-    double AFBmuTEST(const double sqrt_s_i) const {
+    double AFBmuTEST(const double sqrt_s_i) const 
+    {
         return AFBmu[checkSqrtS(sqrt_s_i)];
     } 
 
-    double AFBtauTEST(const double sqrt_s_i) const {
+    double AFBtauTEST(const double sqrt_s_i) const 
+    {
         return AFBtau[checkSqrtS(sqrt_s_i)];
     } 
 
-    double AFBbottomTEST(const double sqrt_s_i) const {
+    double AFBbottomTEST(const double sqrt_s_i) const
+    {
         return AFBbottom[checkSqrtS_HF(sqrt_s_i)];
     } 
     
-    double AFBcharmTEST(const double sqrt_s_i) const {
+    double AFBcharmTEST(const double sqrt_s_i) const
+    {
         return AFBcharm[checkSqrtS_HF(sqrt_s_i)];
     } 
 
-    double RbottomTEST(const double sqrt_s_i) const {
+    double RbottomTEST(const double sqrt_s_i) const 
+    {
         return Rbottom[checkSqrtS_HF(sqrt_s_i)];
     } 
     
-    double RcharmTEST(const double sqrt_s_i) const {
+    double RcharmTEST(const double sqrt_s_i) const 
+    {
         return Rcharm[checkSqrtS_HF(sqrt_s_i)];
     } 
 

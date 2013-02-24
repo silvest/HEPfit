@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -12,16 +12,28 @@
 
 #define HCUT 6.58211899E-13 // GeV psec
 
+/**
+ * @class Particle
+ * @ingroup StandardModel
+ * @brief A class for particles. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class Particle {
 public:
-    Particle() {
-    mass_scale = 0.;};
+    Particle() 
+    {
+        mass_scale = 0.;
+    };
+    
     Particle(double mass, double mass_scale = 0., double width = 0., double charge = 0.,double isospin = 0.);
+
     /**
-     * 
      * @return the particle mass in GeV
      */
-    double getMass() const {
+    double getMass() const 
+    {
         return mass;
     }
 
@@ -29,15 +41,16 @@ public:
      * set the particle mass
      * @param mass the particle mass in GeV
      */
-    void setMass(double mass) {
+    void setMass(double mass) 
+    {
         this->mass = mass;
     }
 
     /**
-     *
      * @return the particle width in GeV
      */
-    double getWidth() const {
+    double getWidth() const 
+    {
         return width;
     }
 
@@ -45,15 +58,16 @@ public:
      * set the particle width
      * @param width the particle width in GeV
      */
-    void setWidth(double width) {
+    void setWidth(double width) 
+    {
         this->width = width;
     }
 
     /**
-     *
      * @return the particle charge
      */
-    double getCharge() const {
+    double getCharge() const 
+    {
         return charge;
     }
 
@@ -61,16 +75,17 @@ public:
      * set the particle charge
      * @param width the particle charge
      */
-    void setCharge(double charge) {
+    void setCharge(double charge) 
+    {
         this->charge = charge;
     }    
     
 
     /**
-     *
      * @return the particle isospin
      */
-    double getIsospin() const {
+    double getIsospin() const 
+    {
         return isospin;
     }
 
@@ -78,15 +93,18 @@ public:
      * set the particle isospin
      * @param width the particle isospin
      */
-    void setIsospin(double isospin) {
+    void setIsospin(double isospin) 
+    {
         this->isospin = isospin;
     }
     
-    double getMass_scale() const {
+    double getMass_scale() const 
+    {
         return mass_scale;
     }
 
-    void setMass_scale(double mass_scale) {
+    void setMass_scale(double mass_scale) 
+    {
         this->mass_scale = mass_scale;
     }
 

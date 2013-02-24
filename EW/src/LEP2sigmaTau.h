@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -10,7 +10,14 @@
 
 #include "LEP2ThObservable.h"
 
-
+/**
+ * @class LEP2sigmaTau
+ * @ingroup EW
+ * @brief A class for the cross section of @f$e^+e^-\to \tau^+\tau^-@f$ above the @f$Z@f$ pole.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class LEP2sigmaTau : public LEP2ThObservable {
 public:
 
@@ -21,7 +28,9 @@ public:
      * @param[in] bSigmaForAFB_i true for the denominator of A_FB
      */
     LEP2sigmaTau(const EW& EW_i, const double sqrt_s_i, 
-                 const bool bSigmaForAFB_i=false) : LEP2ThObservable(EW_i, sqrt_s_i, bSigmaForAFB_i) {
+                 const bool bSigmaForAFB_i=false) 
+    : LEP2ThObservable(EW_i, sqrt_s_i, bSigmaForAFB_i) 
+    {
         l_flavor = StandardModel::TAU;
     }
 

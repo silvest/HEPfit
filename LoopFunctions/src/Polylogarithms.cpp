@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,25 +13,29 @@
 #include <stdexcept>
 
 
-Polylogarithms::Polylogarithms() {
+Polylogarithms::Polylogarithms() 
+{
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 
-complex Polylogarithms::Li2(const double x) const {
+complex Polylogarithms::Li2(const double x) const 
+{
     gsl_sf_result re, im;
     gsl_sf_complex_dilog_xy_e(x, 0.0, &re, &im);
     return complex(re.val, im.val, false);
 }
 
-complex Polylogarithms::Li2(const complex z) const {
+complex Polylogarithms::Li2(const complex z) const 
+{
     gsl_sf_result re, im;
     gsl_sf_complex_dilog_xy_e(z.real(), z.imag(), &re, &im);
     return complex(re.val, im.val, false);
 }
 
-double Polylogarithms::Li3(const double x) const {
+double Polylogarithms::Li3(const double x) const 
+{
     double Li3 = 0.0;
     if (x < 0.0) {
         Li3 = -gsl_sf_fermi_dirac_2(log(-x));

@@ -12,6 +12,19 @@
 #include <ThObsType.h>
 #include "QCD.h"
 
+/**
+ * @addtogroup StandardModel 
+ * @brief A project for Standard Model. 
+ * @{
+ */
+
+/**
+ * @class alsMz
+ * @brief A class for an interface to the input paramter @f$\alpha_s(M_Z^2)@f$.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class alsMz : public ThObservable {
 public:
 
@@ -28,6 +41,10 @@ public:
 private:
 
 };
+
+/** 
+ * @}
+ */
 
 #endif	/* ALSMZ_H */
 

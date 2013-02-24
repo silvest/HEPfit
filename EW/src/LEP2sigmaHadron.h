@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -10,7 +10,14 @@
 
 #include "LEP2ThObservable.h"
 
-
+/**
+ * @class LEP2sigmaHadron
+ * @ingroup EW
+ * @brief A class for the hadronic cross section of @f$e^+e^-@f$ annihilations above the @f$Z@f$ pole.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class LEP2sigmaHadron : public LEP2ThObservable {
 public:
 
@@ -23,7 +30,9 @@ public:
      */
     LEP2sigmaHadron(const EW& EW_i, const double sqrt_s_i,
                     const bool bSigmaForAFB_i=false,
-                    const bool bSigmaForR_i=false) : LEP2ThObservable(EW_i, sqrt_s_i, bSigmaForAFB_i, bSigmaForR_i) {
+                    const bool bSigmaForR_i=false) 
+    : LEP2ThObservable(EW_i, sqrt_s_i, bSigmaForAFB_i, bSigmaForR_i) 
+    {
     }
 
     /**

@@ -11,7 +11,14 @@
 #include <cmath>
 #include "NPZbbbar.h"
 
-
+/**
+ * @class NPSTUVWXY
+ * @brief A class for new physics with the extended oblique parameters. 
+ * @ingroup NewPhysics
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class NPSTUVWXY : public NPZbbbar {
 public:
     static const int NSTUVWXYvars = 7;

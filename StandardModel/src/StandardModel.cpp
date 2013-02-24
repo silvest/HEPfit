@@ -41,9 +41,10 @@ const std::string StandardModel::SMflags[NSMflags]
        "withoutNonUniversalVCinEpsilons"};
 
 
-StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.), 
-        UPMNS(3, 3, 0.), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.), Ye(3, 3, 0.), 
-        bDebug(bDebug_i) {
+StandardModel::StandardModel(const bool bDebug_i) 
+: QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.), 
+        Ye(3, 3, 0.), bDebug(bDebug_i) 
+{
     FlagFixedAllSMparams = false;
     FlagEWCHMN = false;
     FlagEWABC = false;
@@ -66,12 +67,14 @@ StandardModel::StandardModel(const bool bDebug_i) : QCD(), VCKM(3, 3, 0.),
     leptons[TAU].setIsospin(-1./2.);
 }
 
-bool StandardModel::Init(const std::map<std::string, double>& DPars) {
+bool StandardModel::Init(const std::map<std::string, double>& DPars)
+{
     Update(DPars);
     return(CheckParameters(DPars));
 }
 
-bool StandardModel::PreUpdate(){
+bool StandardModel::PreUpdate()
+{
     computeCKM = false;
     computeYe = false;
     computeYn = false;
@@ -81,7 +84,8 @@ bool StandardModel::PreUpdate(){
     return (true);
 }
 
-bool StandardModel::Update(const std::map<std::string, double>& DPars) {
+bool StandardModel::Update(const std::map<std::string, double>& DPars)
+{
     if(!PreUpdate()) return (false);
 
     UpdateError = false;
@@ -96,7 +100,8 @@ bool StandardModel::Update(const std::map<std::string, double>& DPars) {
     return (true);
 }
 
-bool StandardModel::PostUpdate(){
+bool StandardModel::PostUpdate()
+{
     if(!QCD::PostUpdate()) return (false);
     
     if (computeCKM) {
@@ -127,7 +132,8 @@ bool StandardModel::PostUpdate(){
      return (true);
 }
 
-void StandardModel::SetParameter(const std::string name, const double& value) {
+void StandardModel::SetParameter(const std::string name, const double& value)
+{
     if (name.compare("GF") == 0)
         GF = value;
     else if (name.compare("ale") == 0)
@@ -186,7 +192,8 @@ void StandardModel::SetParameter(const std::string name, const double& value) {
         QCD::SetParameter(name, value);
 }
 
-bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars) {
+bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars) 
+{
     for (int i = 0; i < NSMvars; i++) {
         if (DPars.find(SMvars[i]) == DPars.end()) {
             std::cout << "missing mandatory SM parameter " << SMvars[i] << std::endl;
@@ -200,7 +207,8 @@ bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars) 
 ///////////////////////////////////////////////////////////////////////////
 // Flags
 
-bool StandardModel::SetFlag(const std::string name, const bool& value) {  
+bool StandardModel::SetFlag(const std::string name, const bool& value) 
+{  
     bool res = false;
     if (name.compare("FixedAllSMparams") == 0) {
         FlagFixedAllSMparams = value;
@@ -231,7 +239,8 @@ bool StandardModel::SetFlag(const std::string name, const bool& value) {
 ///////////////////////////////////////////////////////////////////////////
 // Initialization and Matching
 
-bool StandardModel::InitializeModel() {
+bool StandardModel::InitializeModel() 
+{
     myStandardModelMatching = new StandardModelMatching(*this);
     SetModelInitialized(true);
     myEWSM = new EWSM(*this);
@@ -239,7 +248,8 @@ bool StandardModel::InitializeModel() {
     return(true);
 }
 
-void StandardModel::SetEWSMflags(EWSM& myEWSM) {
+void StandardModel::SetEWSMflags(EWSM& myEWSM) 
+{
     myEWSM.setSchemeMw(EWSM::APPROXIMATEFORMULA);
     myEWSM.setSchemeRhoZ(EWSM::OMSI);
     myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
@@ -248,11 +258,13 @@ void StandardModel::SetEWSMflags(EWSM& myEWSM) {
 
 ///////////////////////////////////////////////////////////////////////////
 
-double StandardModel::v() const {
+double StandardModel::v() const 
+{
     return ( 1. / sqrt(sqrt(2.) * GF) );
 }
 
-double StandardModel::Mw_tree() const {
+double StandardModel::Mw_tree() const 
+{
     double tmp = 4.0*M_PI*ale/sqrt(2.0)/GF/Mz/Mz;
     return ( Mz/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp)) );
 }
@@ -260,7 +272,8 @@ double StandardModel::Mw_tree() const {
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::ale_OS(const double mu, orders order) const {
+double StandardModel::ale_OS(const double mu, orders order) const
+{
     if (mu < 50.0) 
         throw std::runtime_error("out of range in StandardModel::Als_OS()"); 
     
@@ -283,11 +296,13 @@ double StandardModel::ale_OS(const double mu, orders order) const {
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::Mw0() const {
+double StandardModel::Mw0() const 
+{
     return ( sqrt(c02())*Mz );
 }
 
-double StandardModel::s02() const {
+double StandardModel::s02() const
+{
     double tmp = 1.0 - 4.0*M_PI*alphaMz()/sqrt(2.0)/GF/Mz/Mz;
     if (tmp < 0.0)
         throw std::runtime_error("Error in StandardModel::s02()");
@@ -295,46 +310,56 @@ double StandardModel::s02() const {
     return ( ( 1.0 - sqrt(tmp) )/2.0 );
 }
 
-double StandardModel::c02() const {
+double StandardModel::c02() const 
+{
     return ( 1.0 - s02() );
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::DeltaAlphaLepton(const double s) const {
+double StandardModel::DeltaAlphaLepton(const double s) const 
+{
     return myEWSM->DeltaAlphaLepton(s);
 }
 
-double StandardModel::DeltaAlphaL5q() const {
+double StandardModel::DeltaAlphaL5q() const 
+{
     return myEWSM->DeltaAlphaL5q();
 }
     
-double StandardModel::DeltaAlpha() const {
+double StandardModel::DeltaAlpha() const 
+{
     return myEWSM->DeltaAlpha();
 }
     
-double StandardModel::alphaMz() const {
+double StandardModel::alphaMz() const 
+{
     return myEWSM->alphaMz();
 }
     
-double StandardModel::Mw() const {
+double StandardModel::Mw() const 
+{
     return myEWSM->Mw_SM();
 }
 
-double StandardModel::cW2() const {
+double StandardModel::cW2() const 
+{
     return myEWSM->cW2_SM();
 }
 
-double StandardModel::sW2() const {
+double StandardModel::sW2() const 
+{
     return myEWSM->sW2_SM();
 }
     
-complex StandardModel::rhoZ_l(const lepton l) const {
+complex StandardModel::rhoZ_l(const lepton l) const
+{
     return myEWSM->rhoZ_l_SM(l);
 }
     
-complex StandardModel::rhoZ_q(const quark q) const {
+complex StandardModel::rhoZ_q(const quark q) const 
+{
     //if (q!=BOTTOM) // TEST
     if (q!=BOTTOM || (q==BOTTOM && !FlagR0bApproximate) ) 
         return myEWSM->rhoZ_q_SM(q);
@@ -367,19 +392,23 @@ complex StandardModel::rhoZ_q(const quark q) const {
     return complex(sqrt(absRhoZb*absRhoZb - ImRhoZb*ImRhoZb), ImRhoZb, false);
 }
     
-complex StandardModel::kappaZ_l(const lepton l) const {
+complex StandardModel::kappaZ_l(const lepton l) const 
+{
     return myEWSM->kappaZ_l_SM(l);
 }
     
-complex StandardModel::kappaZ_q(const quark q) const {
+complex StandardModel::kappaZ_q(const quark q) const 
+{
     return myEWSM->kappaZ_q_SM(q);
 }
 
-complex StandardModel::gVl(const lepton l) const {
+complex StandardModel::gVl(const lepton l) const 
+{
     return myEWSM->gVl_SM(l);
 }
 
-complex StandardModel::gVq(const quark q) const {
+complex StandardModel::gVq(const quark q) const 
+{
     if (q!=BOTTOM || (q==BOTTOM && !FlagR0bApproximate) ) 
         return myEWSM->gVq_SM(q);
 
@@ -388,11 +417,13 @@ complex StandardModel::gVq(const quark q) const {
              *(1.0 - 4.0*fabs(Qb)*myEWSM->kappaZ_q_SM(BOTTOM)*myEWSM->sW2_SM()) );
 }
     
-complex StandardModel::gAl(const lepton l) const {
+complex StandardModel::gAl(const lepton l) const 
+{
     return myEWSM->gAl_SM(l);
 }
 
-complex StandardModel::gAq(const quark q) const {
+complex StandardModel::gAq(const quark q) const 
+{
     if (q!=BOTTOM || (q==BOTTOM && !FlagR0bApproximate) ) 
         return myEWSM->gAq_SM(q);
 
@@ -691,19 +722,21 @@ double StandardModel::RVh() const
     return ( gV_sum.abs2()*(-0.4132*AlsMzPi3 - 4.9841*AlsMzPi4) );
 }
 
-double StandardModel::GammaW() const {
+double StandardModel::GammaW() const 
+{
     return myEWSM->GammaW_SM();
 }
 
-double StandardModel::epsilon1_SM() const {
+double StandardModel::epsilon1_SM() const 
+{
     double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real();
     double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
 
     return DeltaRhoPrime;
 }
 
-double StandardModel::epsilon2_SM() const {
-    double Qe = getLeptons(ELECTRON).getCharge();
+double StandardModel::epsilon2_SM() const 
+{
     double s_W2 = myEWSM->sW2_SM(), c_W2 = myEWSM->cW2_SM();
     double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real();
     double sin2thetaEff = myEWSM->kappaZ_l_SM(ELECTRON).real()*s_W2;
@@ -715,8 +748,8 @@ double StandardModel::epsilon2_SM() const {
              - 2.0*s02()*DeltaKappaPrime );
 }
 
-double StandardModel::epsilon3_SM() const {
-    double Qe = getLeptons(ELECTRON).getCharge();
+double StandardModel::epsilon3_SM() const 
+{
     double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real();
     double sin2thetaEff = myEWSM->kappaZ_l_SM(ELECTRON).real()*myEWSM->sW2_SM();
     double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
@@ -725,7 +758,8 @@ double StandardModel::epsilon3_SM() const {
     return ( c02()*DeltaRhoPrime + (c02() - s02())*DeltaKappaPrime );
 }
 
-double StandardModel::epsilonb_SM() const {
+double StandardModel::epsilonb_SM() const 
+{
     /* epsilon_b from g_A^b
      * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
     //double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real();
@@ -767,19 +801,23 @@ double StandardModel::epsilonb_SM() const {
     //          + 0.54*epsilon3_SM() )/2.29 );
 }
 
-double StandardModel::epsilon1() const{ 
+double StandardModel::epsilon1() const
+{ 
     return epsilon1_SM();
 }
 
-double StandardModel::epsilon2() const {
+double StandardModel::epsilon2() const 
+{
     return epsilon2_SM();    
 }
     
-double StandardModel::epsilon3() const {
+double StandardModel::epsilon3() const 
+{
     return epsilon3_SM();
 }
 
-double StandardModel::epsilonb() const {
+double StandardModel::epsilonb() const 
+{
     return epsilonb_SM();    
 }
 
@@ -799,57 +837,70 @@ double StandardModel::deltaGAb() const
 
 // Angles
 
-double StandardModel::getBeta() const {
+double StandardModel::getBeta() const 
+{
     return (-VCKM(1, 0) * VCKM(1, 2).conjugate() / (VCKM(2, 0) * VCKM(2, 2).conjugate())).arg();
 }
 
-double StandardModel::getGamma() const {
+double StandardModel::getGamma() const 
+{
     return (-VCKM(0, 0) * VCKM(0, 2).conjugate() / (VCKM(1, 0) * VCKM(1, 2).conjugate())).arg();
 }
 
-double StandardModel::getAlpha() const {
+double StandardModel::getAlpha() const 
+{
     return (-VCKM(2, 0) * VCKM(2, 2).conjugate() / (VCKM(0, 0) * VCKM(0, 2).conjugate())).arg();
 }
 
-double StandardModel::getBetas() const {
+double StandardModel::getBetas() const 
+{
     return (-VCKM(2, 1) * VCKM(2, 2).conjugate() / (VCKM(1, 1) * VCKM(1, 2).conjugate())).arg();
 }
 
 // Lambda_q
 
-complex StandardModel::getlamt() const {
+complex StandardModel::getlamt() const 
+{
     return VCKM(2, 0) * VCKM(2, 1).conjugate();
 }
 
-complex StandardModel::getlamc() const {
+complex StandardModel::getlamc() const 
+{
     return VCKM(1, 0) * VCKM(1, 1).conjugate();
 }
 
-complex StandardModel::getlamu() const {
+complex StandardModel::getlamu() const 
+{
     return VCKM(0, 0) * VCKM(0, 1).conjugate();
 }
 
-complex StandardModel::getlamt_d() const {
+complex StandardModel::getlamt_d() const
+{
     return VCKM(2, 0) * VCKM(2, 2).conjugate();
 }
 
-complex StandardModel::getlamc_d() const {
+complex StandardModel::getlamc_d() const 
+{
     return VCKM(1, 0) * VCKM(1, 2).conjugate();
 }
 
-complex StandardModel::getlamu_d() const {
+complex StandardModel::getlamu_d() const 
+{
     return VCKM(0, 0) * VCKM(0, 2).conjugate();
 }
 
-complex StandardModel::getlamt_s() const {
+complex StandardModel::getlamt_s() const 
+{
     return VCKM(2, 1) * VCKM(2, 2).conjugate();
 }
 
-complex StandardModel::getlamc_s() const {
+complex StandardModel::getlamc_s() const 
+{
     return VCKM(1, 1) * VCKM(1, 2).conjugate();
 }
 
-complex StandardModel::getlamu_s() const {
+complex StandardModel::getlamu_s() const 
+{
     return VCKM(0, 1) * VCKM(0, 2).conjugate();
 }
 

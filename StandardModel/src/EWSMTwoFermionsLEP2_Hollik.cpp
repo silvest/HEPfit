@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -10,12 +10,11 @@
 #include "EWSMTwoFermionsLEP2_Hollik.h"
 
 
-EWSMTwoFermionsLEP2_Hollik::EWSMTwoFermionsLEP2_Hollik(const StandardModel& SM_i) : SM(SM_i), 
-        myOneLoopEW_HV(SM_i) {
-
+EWSMTwoFermionsLEP2_Hollik::EWSMTwoFermionsLEP2_Hollik(const StandardModel& SM_i) 
+: SM(SM_i), myOneLoopEW_HV(SM_i) 
+{
     bUseHollik = false;
     //bUseHollik = true; // for test (use the self-energies in Hollik's paper)
-
 }
 
 
@@ -23,7 +22,8 @@ EWSMTwoFermionsLEP2_Hollik::EWSMTwoFermionsLEP2_Hollik(const StandardModel& SM_i
 
 double EWSMTwoFermionsLEP2_Hollik::sigma_l(const StandardModel::lepton l, 
                                     const double s, const double Mw, const double GammaZ, 
-                                    const bool bDP, const bool bWEAK, const bool bQED) const {
+                                    const bool bDP, const bool bWEAK, const bool bQED) const 
+{
     double Ncf = 1.0;
     double mf = myOneLoopEW_HV.ml(l);
     double betaf = sqrt(1.0 - 4.0*mf*mf/s);
@@ -36,7 +36,8 @@ double EWSMTwoFermionsLEP2_Hollik::sigma_l(const StandardModel::lepton l,
 
 double EWSMTwoFermionsLEP2_Hollik::sigma_q(const StandardModel::quark q, 
                                     const double s, const double Mw, const double GammaZ, 
-                                    const bool bDP, const bool bWEAK, const bool bQED) const {
+                                    const bool bDP, const bool bWEAK, const bool bQED) const 
+{
     double Ncf = 3.0;
     double mf = myOneLoopEW_HV.mq(q, sqrt(s));
     double betaf = sqrt(1.0 - 4.0*mf*mf/s);
@@ -49,7 +50,8 @@ double EWSMTwoFermionsLEP2_Hollik::sigma_q(const StandardModel::quark q,
 
 double EWSMTwoFermionsLEP2_Hollik::AFB_l(const StandardModel::lepton l, 
                                   const double s, const double Mw, const double GammaZ, 
-                                  const bool bDP, const bool bWEAK, const bool bQED) const {
+                                  const bool bDP, const bool bWEAK, const bool bQED) const 
+{
     double mf = myOneLoopEW_HV.ml(l);
     double betaf = sqrt(1.0 - 4.0*mf*mf/s);
     
@@ -61,7 +63,8 @@ double EWSMTwoFermionsLEP2_Hollik::AFB_l(const StandardModel::lepton l,
 
 double EWSMTwoFermionsLEP2_Hollik::AFB_q(const StandardModel::quark q, 
                                   const double s, const double Mw, const double GammaZ, 
-                                  const bool bDP, const bool bWEAK, const bool bQED) const {
+                                  const bool bDP, const bool bWEAK, const bool bQED) const 
+{
     double mf = myOneLoopEW_HV.mq(q, sqrt(s));
     double betaf = sqrt(1.0 - 4.0*mf*mf/s);
     
@@ -75,7 +78,8 @@ double EWSMTwoFermionsLEP2_Hollik::AFB_q(const StandardModel::quark q,
 
 double EWSMTwoFermionsLEP2_Hollik::sigma_l_old(const StandardModel::lepton l, const double s,
                                         const double Mw, const double GammaZ, 
-                                        const bool bDP, const bool bQED) const {
+                                        const bool bDP, const bool bQED) const 
+{
     double mf = SM.getLeptons(l).getMass();
     double Qf = SM.getLeptons(l).getCharge();
     double I3f = SM.getLeptons(l).getIsospin();
@@ -86,7 +90,8 @@ double EWSMTwoFermionsLEP2_Hollik::sigma_l_old(const StandardModel::lepton l, co
 
 double EWSMTwoFermionsLEP2_Hollik::sigma_q_old(const StandardModel::quark q, const double s,
                                         const double Mw, const double GammaZ, 
-                                        const bool bDP, const bool bQED) const {
+                                        const bool bDP, const bool bQED) const 
+{
     double mf = myOneLoopEW_HV.mq(q, sqrt(s));
     double Qf = SM.getQuarks(q).getCharge();
     double I3f = SM.getQuarks(q).getIsospin();
@@ -98,7 +103,8 @@ double EWSMTwoFermionsLEP2_Hollik::sigma_q_old(const StandardModel::quark q, con
 double EWSMTwoFermionsLEP2_Hollik::sigma_f_old(const double s, const double Mw, const double GammaZ, 
                                         const double mf, const double Qf,  const double I3f, 
                                         const double Ncf,
-                                        const bool bDP, const bool bQED) const {
+                                        const bool bDP, const bool bQED) const 
+{
     double betaf = sqrt(1.0 - 4.0*mf*mf/s);
     double Qe = SM.getLeptons(SM.ELECTRON).getCharge();
     double I3e = SM.getLeptons(SM.ELECTRON).getIsospin();
@@ -143,7 +149,8 @@ double EWSMTwoFermionsLEP2_Hollik::sigma_f_old(const double s, const double Mw, 
 
 //////////////////////////////////////////////////////////////////////// 
 
-void EWSMTwoFermionsLEP2_Hollik::TEST(const double s, const double Mw) const {
+void EWSMTwoFermionsLEP2_Hollik::TEST(const double s, const double Mw) const 
+{
     //-----------------------------------
     // Test for renormalization scale dependence of the renormalized self-energies
     std::cout << "TEST1 (mu=Mz)   : " 
@@ -162,7 +169,8 @@ void EWSMTwoFermionsLEP2_Hollik::TEST(const double s, const double Mw) const {
 // Renormalized self-energies
 
 complex EWSMTwoFermionsLEP2_Hollik::Sigma_hat_ZZ(const double mu, const double s, 
-                                          const double Mw) const {
+                                          const double Mw) const 
+{
     double Mw2 = Mw*Mw;
     double Mz = SM.getMz(), Mz2 = Mz*Mz;
     double cW2 = Mw2/Mz2, cW = sqrt(cW2);
@@ -213,7 +221,8 @@ complex EWSMTwoFermionsLEP2_Hollik::Sigma_hat_ZZ(const double mu, const double s
 
 
 complex EWSMTwoFermionsLEP2_Hollik::Sigma_hat_gZ(const double mu, const double s,
-                                          const double Mw) const {
+                                          const double Mw) const 
+{
     double Mw2 = Mw*Mw;
     double Mz = SM.getMz(), Mz2 = Mz*Mz;
     double cW2 = Mw2/Mz2, cW = sqrt(cW2);
@@ -257,7 +266,8 @@ complex EWSMTwoFermionsLEP2_Hollik::Sigma_hat_gZ(const double mu, const double s
 
 
 complex EWSMTwoFermionsLEP2_Hollik::Sigma_hat_gg(const double mu, const double s,
-                                          const double Mw) const {
+                                          const double Mw) const
+{
     // Bosonic contributions to self-energies
     complex Sigma_gg_s, Pi_gg_0;
     if (!bUseHollik) {
@@ -285,27 +295,31 @@ complex EWSMTwoFermionsLEP2_Hollik::Sigma_hat_gg(const double mu, const double s
 //////////////////////////////////////////////////////////////////////// 
 // Tree-level couplings for neutral-current interactions
 
-double EWSMTwoFermionsLEP2_Hollik::vl(const StandardModel::lepton l, const double Mw) const {
+double EWSMTwoFermionsLEP2_Hollik::vl(const StandardModel::lepton l, const double Mw) const
+{
     double cW = Mw/SM.getMz(), sW2 = 1.0 - cW*cW, sW = sqrt(sW2);
     return ( - (SM.getLeptons(l).getIsospin() 
                 - 2.0*SM.getLeptons(l).getCharge()*sW2)/(2.0*sW*cW) );
 }
 
  
-double EWSMTwoFermionsLEP2_Hollik::vq(const StandardModel::quark q, const double Mw) const {
+double EWSMTwoFermionsLEP2_Hollik::vq(const StandardModel::quark q, const double Mw) const 
+{
     double cW = Mw/SM.getMz(), sW2 = 1.0 - cW*cW, sW = sqrt(sW2);
     return ( - (SM.getQuarks(q).getIsospin() 
                 - 2.0*SM.getQuarks(q).getCharge()*sW2)/(2.0*sW*cW) );
 }
     
 
-double EWSMTwoFermionsLEP2_Hollik::al(const StandardModel::lepton l, const double Mw) const {
+double EWSMTwoFermionsLEP2_Hollik::al(const StandardModel::lepton l, const double Mw) const 
+{
     double cW = Mw/SM.getMz(), sW = sqrt(1.0 - cW*cW);
     return ( - SM.getLeptons(l).getIsospin()/(2.0*sW*cW) );
 }
 
 
-double EWSMTwoFermionsLEP2_Hollik::aq(const StandardModel::quark q, const double Mw) const {
+double EWSMTwoFermionsLEP2_Hollik::aq(const StandardModel::quark q, const double Mw) const 
+{
     double cW = Mw/SM.getMz(), sW = sqrt(1.0 - cW*cW);
     return ( - SM.getQuarks(q).getIsospin()/(2.0*sW*cW) );
 }
@@ -315,7 +329,8 @@ double EWSMTwoFermionsLEP2_Hollik::aq(const StandardModel::quark q, const double
 // Dressed gauge-boson propagators
 
 complex EWSMTwoFermionsLEP2_Hollik::chi_Z(const double mu, const double s, 
-                                   const double Mw, const bool bDP) const {        
+                                   const double Mw, const bool bDP) const 
+{        
     complex chi;
     if (bDP) {
         double Mz = SM.getMz();
@@ -335,7 +350,8 @@ complex EWSMTwoFermionsLEP2_Hollik::chi_Z(const double mu, const double s,
 
 
 complex EWSMTwoFermionsLEP2_Hollik::chi_gamma(const double mu, const double s, 
-                                       const double Mw, const bool bDP) const {
+                                       const double Mw, const bool bDP) const 
+{
     complex chi;
     if (bDP) 
         chi = s/(s + Sigma_hat_gg(mu,s,Mw));
@@ -347,7 +363,8 @@ complex EWSMTwoFermionsLEP2_Hollik::chi_gamma(const double mu, const double s,
 
 
 complex EWSMTwoFermionsLEP2_Hollik::chi_gammaZ(const double mu, const double s, 
-                                        const double Mw, const bool bDP) const {
+                                        const double Mw, const bool bDP) const 
+{
     complex chi;
     if (bDP) {
         // O(alpha) approximation
@@ -363,7 +380,8 @@ complex EWSMTwoFermionsLEP2_Hollik::chi_gammaZ(const double mu, const double s,
 // Renormalized vertex form factors for the Z-f-f vertex (non-QED part)  
 
 complex EWSMTwoFermionsLEP2_Hollik::FVZ_l(const StandardModel::lepton l, 
-                                   const double s, const double Mw) const {
+                                   const double s, const double Mw) const 
+{
     double cW = Mw/SM.getMz(), cW2 = cW*cW;
     double sW2 = 1.0 - cW2, sW = sqrt(sW2);
     double v_l = vl(l,Mw), a_l = al(l,Mw);
@@ -388,7 +406,8 @@ complex EWSMTwoFermionsLEP2_Hollik::FVZ_l(const StandardModel::lepton l,
 
 
 complex EWSMTwoFermionsLEP2_Hollik::FAZ_l(const StandardModel::lepton l, 
-                                   const double s, const double Mw) const {
+                                   const double s, const double Mw) const 
+{
     double cW = Mw/SM.getMz(), cW2 = cW*cW;
     double sW2 = 1.0 - cW2, sW = sqrt(sW2);
     double v_l = vl(l,Mw), a_l = al(l,Mw);
@@ -413,7 +432,8 @@ complex EWSMTwoFermionsLEP2_Hollik::FAZ_l(const StandardModel::lepton l,
 
 
 complex EWSMTwoFermionsLEP2_Hollik::FVZ_q(const StandardModel::quark q, 
-                                   const double s, const double Mw) const {
+                                   const double s, const double Mw) const 
+{
     double v_q = vq(q,Mw), a_q = aq(q,Mw);
 
     return ( SM.getAle()/(4.0*M_PI)
@@ -422,7 +442,8 @@ complex EWSMTwoFermionsLEP2_Hollik::FVZ_q(const StandardModel::quark q,
 
 
 complex EWSMTwoFermionsLEP2_Hollik::FAZ_q(const StandardModel::quark q,  
-                                   const double s, const double Mw) const {
+                                   const double s, const double Mw) const 
+{
     double v_q = vq(q,Mw), a_q = aq(q,Mw);
 
     return ( SM.getAle()/(4.0*M_PI)
@@ -431,7 +452,8 @@ complex EWSMTwoFermionsLEP2_Hollik::FAZ_q(const StandardModel::quark q,
 
 
 complex EWSMTwoFermionsLEP2_Hollik::FL_l(const StandardModel::lepton l, 
-                                  const double s, const double Mw) const {
+                                  const double s, const double Mw) const 
+{
     if ( (l==StandardModel::NEUTRINO_1) || (l==StandardModel::NEUTRINO_2)
             || (l==StandardModel::NEUTRINO_3))
         throw std::runtime_error("Error in EWSMTwoFermionsLEP2_Hollik::FL_l()"); 
@@ -445,7 +467,8 @@ complex EWSMTwoFermionsLEP2_Hollik::FL_l(const StandardModel::lepton l,
 
 
 complex EWSMTwoFermionsLEP2_Hollik::FL_q(const StandardModel::quark q,
-                                  const double s, const double Mw) const {
+                                  const double s, const double Mw) const 
+{
     switch(q) {
         case StandardModel::UP:
         case StandardModel::CHARM:
@@ -468,7 +491,8 @@ complex EWSMTwoFermionsLEP2_Hollik::FL_q(const StandardModel::quark q,
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::FL_u(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2_Hollik::FL_u(const double s, const double Mw) const
+{
     double cW = Mw/SM.getMz();
     double sW2 = 1.0 - cW*cW, sW = sqrt(sW2), sW3 = sW2*sW;
 
@@ -477,7 +501,8 @@ complex EWSMTwoFermionsLEP2_Hollik::FL_u(const double s, const double Mw) const 
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::FL_d(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2_Hollik::FL_d(const double s, const double Mw) const
+{
     double cW = Mw/SM.getMz();
     double sW2 = 1.0 - cW*cW, sW = sqrt(sW2), sW3 = sW2*sW;
 
@@ -486,7 +511,8 @@ complex EWSMTwoFermionsLEP2_Hollik::FL_d(const double s, const double Mw) const 
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::Lambda2(const double s, const double M) const{
+complex EWSMTwoFermionsLEP2_Hollik::Lambda2(const double s, const double M) const
+{
     if (s <= 0.0)
         throw std::runtime_error("Error in EWSMTwoFermionsLEP2_Hollik::Lambda2()");    
     
@@ -499,7 +525,8 @@ complex EWSMTwoFermionsLEP2_Hollik::Lambda2(const double s, const double M) cons
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::Lambda3(const double s, const double M) const {
+complex EWSMTwoFermionsLEP2_Hollik::Lambda3(const double s, const double M) const 
+{
     if (s <= 0.0) 
         throw std::runtime_error("Error in EWSMTwoFermionsLEP2_Hollik::Lambda3()");
 
@@ -522,7 +549,8 @@ complex EWSMTwoFermionsLEP2_Hollik::Lambda3(const double s, const double M) cons
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::deltaZL_fin(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2_Hollik::deltaZL_fin(const double s, const double Mw) const 
+{
     double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
     double mb = myOneLoopEW_HV.mq(StandardModel::BOTTOM, sqrt(s));
     double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
@@ -533,7 +561,8 @@ complex EWSMTwoFermionsLEP2_Hollik::deltaZL_fin(const double s, const double Mw)
 }
             
 
-complex EWSMTwoFermionsLEP2_Hollik::Fb(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2_Hollik::Fb(const double s, const double Mw) const 
+{
     double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
     double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
     double vt = vq(StandardModel::TOP, Mw);
@@ -547,7 +576,8 @@ complex EWSMTwoFermionsLEP2_Hollik::Fb(const double s, const double Mw) const {
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::Fc(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2_Hollik::Fc(const double s, const double Mw) const 
+{
     double cW = Mw/SM.getMz();
     double sW2 = 1.0 - cW*cW, sW = sqrt(sW2), sW3 = sW2*sW;
     double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
@@ -559,7 +589,8 @@ complex EWSMTwoFermionsLEP2_Hollik::Fc(const double s, const double Mw) const {
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::Fd(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2_Hollik::Fd(const double s, const double Mw) const 
+{
     double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
     double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
     double vt = vq(StandardModel::TOP, Mw);
@@ -572,7 +603,8 @@ complex EWSMTwoFermionsLEP2_Hollik::Fd(const double s, const double Mw) const {
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::Fe(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2_Hollik::Fe(const double s, const double Mw) const
+{
     double cW2 = Mw*Mw/SM.getMz()/SM.getMz(), cW = sqrt(cW2);
     double sW2 = 1.0 - cW2, sW = sqrt(sW2), sW3 = sW2*sW;
     double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
@@ -582,7 +614,8 @@ complex EWSMTwoFermionsLEP2_Hollik::Fe(const double s, const double Mw) const {
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::Ff(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2_Hollik::Ff(const double s, const double Mw) const 
+{
     double cW = Mw/SM.getMz();
     double sW2 = 1.0 - cW*cW, sW = sqrt(sW2);
     double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
@@ -591,7 +624,8 @@ complex EWSMTwoFermionsLEP2_Hollik::Ff(const double s, const double Mw) const {
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::Fg(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2_Hollik::Fg(const double s, const double Mw) const 
+{
     return ( Ff(s, Mw) );
 }
 
@@ -600,7 +634,8 @@ complex EWSMTwoFermionsLEP2_Hollik::Fg(const double s, const double Mw) const {
 // Renormalized vertex form factors for the gamma-f-f vertex (non-QED part)
 
 complex EWSMTwoFermionsLEP2_Hollik::FVgamma_l(const StandardModel::lepton l, 
-                                       const double s, const double Mw) const {
+                                       const double s, const double Mw) const 
+{
     double Q_l = SM.getLeptons(l).getCharge();
     double v_l = vl(l,Mw), a_l = al(l,Mw);
 
@@ -610,7 +645,8 @@ complex EWSMTwoFermionsLEP2_Hollik::FVgamma_l(const StandardModel::lepton l,
 
 
 complex EWSMTwoFermionsLEP2_Hollik::FAgamma_l(const StandardModel::lepton l, 
-                                       const double s, const double Mw) const {
+                                       const double s, const double Mw) const 
+{
     double Q_l = SM.getLeptons(l).getCharge();
     double v_l = vl(l,Mw), a_l = al(l,Mw);
 
@@ -620,7 +656,8 @@ complex EWSMTwoFermionsLEP2_Hollik::FAgamma_l(const StandardModel::lepton l,
 
 
 complex EWSMTwoFermionsLEP2_Hollik::FVgamma_q(const StandardModel::quark q, 
-                                       const double s, const double Mw) const {
+                                       const double s, const double Mw) const 
+{
     double Q_q = SM.getQuarks(q).getCharge();
     double v_q = vq(q,Mw), a_q = aq(q,Mw);
 
@@ -630,7 +667,8 @@ complex EWSMTwoFermionsLEP2_Hollik::FVgamma_q(const StandardModel::quark q,
 
 
 complex EWSMTwoFermionsLEP2_Hollik::FAgamma_q(const StandardModel::quark q, 
-                                       const double s, const double Mw) const {
+                                       const double s, const double Mw) const 
+{
     double Q_q = SM.getQuarks(q).getCharge();
     double v_q = vq(q,Mw), a_q = aq(q,Mw);
 
@@ -640,7 +678,8 @@ complex EWSMTwoFermionsLEP2_Hollik::FAgamma_q(const StandardModel::quark q,
 
 
 complex EWSMTwoFermionsLEP2_Hollik::GL_l(const StandardModel::lepton l, 
-                                  const double s, const double Mw) const {
+                                  const double s, const double Mw) const 
+{
     if ( (l==StandardModel::NEUTRINO_1) || (l==StandardModel::NEUTRINO_2)
             || (l==StandardModel::NEUTRINO_3))
         return complex(0.0, 0.0, false);
@@ -653,7 +692,8 @@ complex EWSMTwoFermionsLEP2_Hollik::GL_l(const StandardModel::lepton l,
 
 
 complex EWSMTwoFermionsLEP2_Hollik::GL_q(const StandardModel::quark q,
-                                  const double s, const double Mw) const {
+                                  const double s, const double Mw) const 
+{
     switch(q) {
         case StandardModel::UP:
         case StandardModel::CHARM:
@@ -672,7 +712,8 @@ complex EWSMTwoFermionsLEP2_Hollik::GL_q(const StandardModel::quark q,
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::GL_u(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2_Hollik::GL_u(const double s, const double Mw) const 
+{
     double cW = Mw/SM.getMz();
     double sW2 = 1.0 - cW*cW;
 
@@ -680,7 +721,8 @@ complex EWSMTwoFermionsLEP2_Hollik::GL_u(const double s, const double Mw) const 
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::GL_d(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2_Hollik::GL_d(const double s, const double Mw) const 
+{
     double cW = Mw/SM.getMz();
     double sW2 = 1.0 - cW*cW;
 
@@ -688,7 +730,8 @@ complex EWSMTwoFermionsLEP2_Hollik::GL_d(const double s, const double Mw) const 
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::Gb(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2_Hollik::Gb(const double s, const double Mw) const 
+{
     double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
     double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
     
@@ -700,7 +743,8 @@ complex EWSMTwoFermionsLEP2_Hollik::Gb(const double s, const double Mw) const {
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::Gc(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2_Hollik::Gc(const double s, const double Mw) const 
+{
     double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
     double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
     
@@ -711,7 +755,8 @@ complex EWSMTwoFermionsLEP2_Hollik::Gc(const double s, const double Mw) const {
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::Gd(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2_Hollik::Gd(const double s, const double Mw) const 
+{
     double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
     double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
    
@@ -722,7 +767,8 @@ complex EWSMTwoFermionsLEP2_Hollik::Gd(const double s, const double Mw) const {
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::Ge(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2_Hollik::Ge(const double s, const double Mw) const 
+{
     double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
     double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
     
@@ -731,7 +777,8 @@ complex EWSMTwoFermionsLEP2_Hollik::Ge(const double s, const double Mw) const {
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::Gf(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2_Hollik::Gf(const double s, const double Mw) const 
+{
     double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
     double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
     
@@ -739,7 +786,8 @@ complex EWSMTwoFermionsLEP2_Hollik::Gf(const double s, const double Mw) const {
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::Gg(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2_Hollik::Gg(const double s, const double Mw) const 
+{
     return ( Gf(s, Mw) );
 }
 
@@ -748,7 +796,8 @@ complex EWSMTwoFermionsLEP2_Hollik::Gg(const double s, const double Mw) const {
 // Born + dressed propagators + non-QED vertex corrections 
 
 complex EWSMTwoFermionsLEP2_Hollik::V_e(const int j, const double s, 
-                                 const double Mw, const bool bWEAK) const {
+                                 const double Mw, const bool bWEAK) const 
+{
     switch (j) {
         case 1:
         case 3:
@@ -778,7 +827,8 @@ complex EWSMTwoFermionsLEP2_Hollik::V_e(const int j, const double s,
 
 
 complex EWSMTwoFermionsLEP2_Hollik::A_e(const int j, const double s, 
-                                 const double Mw, const bool bWEAK) const {
+                                 const double Mw, const bool bWEAK) const 
+{
     switch (j) {
         case 1:
         case 3:
@@ -809,7 +859,8 @@ complex EWSMTwoFermionsLEP2_Hollik::A_e(const int j, const double s,
 
 complex EWSMTwoFermionsLEP2_Hollik::V_l(const int j, const StandardModel::lepton l, 
                                  const double s, const double Mw, 
-                                 const bool bWEAK) const {
+                                 const bool bWEAK) const 
+{
     switch (j) {
         case 1:
         case 4:
@@ -839,7 +890,8 @@ complex EWSMTwoFermionsLEP2_Hollik::V_l(const int j, const StandardModel::lepton
 
 complex EWSMTwoFermionsLEP2_Hollik::V_q(const int j, const StandardModel::quark q, 
                                  const double s, const double Mw, 
-                                 const bool bWEAK) const {
+                                 const bool bWEAK) const 
+{
     switch (j) {
         case 1:
         case 4:
@@ -869,7 +921,8 @@ complex EWSMTwoFermionsLEP2_Hollik::V_q(const int j, const StandardModel::quark 
 
 complex EWSMTwoFermionsLEP2_Hollik::A_l(const int j, const StandardModel::lepton l, 
                                  const double s, const double Mw, 
-                                 const bool bWEAK) const {
+                                 const bool bWEAK) const 
+{
     switch (j) {
         case 1:
         case 4:
@@ -899,7 +952,8 @@ complex EWSMTwoFermionsLEP2_Hollik::A_l(const int j, const StandardModel::lepton
 
 complex EWSMTwoFermionsLEP2_Hollik::A_q(const int j, const StandardModel::quark q, 
                                  const double s, const double Mw, 
-                                 const bool bWEAK) const {
+                                 const bool bWEAK) const 
+{
     switch (j) {
         case 1:
         case 4:
@@ -928,7 +982,8 @@ complex EWSMTwoFermionsLEP2_Hollik::A_q(const int j, const StandardModel::quark 
 
 
 complex EWSMTwoFermionsLEP2_Hollik::chi(const int j, const double s, 
-                                 const double Mw, const bool bDP) const {
+                                 const double Mw, const bool bDP) const
+{
     double mu = Mw; // The result is independent of the renormalization scale.  
 
     switch (j) {
@@ -963,7 +1018,8 @@ complex EWSMTwoFermionsLEP2_Hollik::chi(const int j, const double s,
 double EWSMTwoFermionsLEP2_Hollik::G1_l(const StandardModel::lepton l, const double s, 
                                  const double Mw, const double GammaZ, 
                                  const bool bDP, const bool bWEAK, 
-                                 const bool bQED) const {
+                                 const bool bQED) const 
+{
     int j,k;
     double G1 = 0.0;
     for (j=1; j<=8; j++) {
@@ -1001,7 +1057,8 @@ double EWSMTwoFermionsLEP2_Hollik::G1_l(const StandardModel::lepton l, const dou
 double EWSMTwoFermionsLEP2_Hollik::G1_q(const StandardModel::quark q, const double s, 
                                  const double Mw, const double GammaZ,
                                  const bool bDP, const bool bWEAK, 
-                                 const bool bQED) const {
+                                 const bool bQED) const
+{
     int j,k;
     double G1 = 0.0;
     for (j=1; j<=8; j++) {
@@ -1037,7 +1094,9 @@ double EWSMTwoFermionsLEP2_Hollik::G1_q(const StandardModel::quark q, const doub
 
 
 double EWSMTwoFermionsLEP2_Hollik::G2_l(const StandardModel::lepton l, const double s, 
-                                 const double Mw, const bool bDP) const {
+                                 const double Mw, const bool bDP) const 
+
+{
     double Qe = SM.getLeptons(SM.ELECTRON).getCharge();
     double Qf = SM.getLeptons(l).getCharge();
     double ve = vl(SM.ELECTRON, Mw);
@@ -1055,7 +1114,8 @@ double EWSMTwoFermionsLEP2_Hollik::G2_l(const StandardModel::lepton l, const dou
 
 
 double EWSMTwoFermionsLEP2_Hollik::G2_q(const StandardModel::quark q, const double s, 
-                                 const double Mw, const bool bDP) const {
+                                 const double Mw, const bool bDP) const
+{
     double Qe = SM.getLeptons(SM.ELECTRON).getCharge();
     double Qf = SM.getQuarks(q).getCharge();
     double ve = vl(SM.ELECTRON, Mw);
@@ -1075,7 +1135,8 @@ double EWSMTwoFermionsLEP2_Hollik::G2_q(const StandardModel::quark q, const doub
 double EWSMTwoFermionsLEP2_Hollik::G3_l(const StandardModel::lepton l, const double s, 
                                  const double Mw, const double GammaZ,
                                  const bool bDP, const bool bWEAK, 
-                                 const bool bQED) const {
+                                 const bool bQED) const 
+{
     int j,k;
     double G3 = 0.0;
     for (j=1; j<=8; j++) {
@@ -1113,7 +1174,8 @@ double EWSMTwoFermionsLEP2_Hollik::G3_l(const StandardModel::lepton l, const dou
 double EWSMTwoFermionsLEP2_Hollik::G3_q(const StandardModel::quark q, const double s, 
                                  const double Mw, const double GammaZ,
                                  const bool bDP, const bool bWEAK, 
-                                 const bool bQED) const {
+                                 const bool bQED) const
+{
     int j,k;
     double G3 = 0.0;
     for (j=1; j<=8; j++) {
@@ -1151,19 +1213,22 @@ double EWSMTwoFermionsLEP2_Hollik::G3_q(const StandardModel::quark q, const doub
 //////////////////////////////////////////////////////////////////////// 
 // QED corrections    
 
-double EWSMTwoFermionsLEP2_Hollik::delta() const {
+double EWSMTwoFermionsLEP2_Hollik::delta() const 
+{
     return ( 1.0 - 0.85*0.85 ); // sqrt{s'} > 0.85*sqrt{s}
     
 }
 
 
-double EWSMTwoFermionsLEP2_Hollik::Bf(const double s, const double mf) const {
+double EWSMTwoFermionsLEP2_Hollik::Bf(const double s, const double mf) const
+{
     return ( log(s/mf/mf) - 1.0 );
     
 }
 
 
-double EWSMTwoFermionsLEP2_Hollik::gamma_delta(const double s, const double mf, const double Qf) const {
+double EWSMTwoFermionsLEP2_Hollik::gamma_delta(const double s, const double mf, const double Qf) const 
+{
     double me = SM.getLeptons(SM.ELECTRON).getMass();
 
     return ( 2.0*SM.getAle()/M_PI
@@ -1172,7 +1237,8 @@ double EWSMTwoFermionsLEP2_Hollik::gamma_delta(const double s, const double mf, 
 
 
 complex EWSMTwoFermionsLEP2_Hollik::gamma_delta_int(const double s, const double GammaZ, 
-                                             const double mf, const double Qf) const {
+                                             const double mf, const double Qf) const
+{
     double me = SM.getLeptons(SM.ELECTRON).getMass();
     double Mz = SM.getMz();
     complex M2 = complex(Mz*Mz, -Mz*GammaZ, false);
@@ -1184,7 +1250,8 @@ complex EWSMTwoFermionsLEP2_Hollik::gamma_delta_int(const double s, const double
 
 
 double EWSMTwoFermionsLEP2_Hollik::gamma_delta_res(const double s, const double GammaZ, 
-                                            const double mf, const double Qf) const {
+                                            const double mf, const double Qf) const
+{
     double me = SM.getLeptons(SM.ELECTRON).getMass();
     double Mz = SM.getMz();
     complex M2 = complex(Mz*Mz, -Mz*GammaZ, false);
@@ -1196,7 +1263,8 @@ double EWSMTwoFermionsLEP2_Hollik::gamma_delta_res(const double s, const double 
 }
 
 
-double EWSMTwoFermionsLEP2_Hollik::gamma_tail(const double s, const double GammaZ) const {
+double EWSMTwoFermionsLEP2_Hollik::gamma_tail(const double s, const double GammaZ) const
+{
     double me = SM.getLeptons(SM.ELECTRON).getMass();
     double Mz = SM.getMz();
     double d = delta();
@@ -1207,7 +1275,8 @@ double EWSMTwoFermionsLEP2_Hollik::gamma_tail(const double s, const double Gamma
 }
 
 
-double EWSMTwoFermionsLEP2_Hollik::gamma_fin(const double s, const double mf, const double Qf) const {
+double EWSMTwoFermionsLEP2_Hollik::gamma_fin(const double s, const double mf, const double Qf) const 
+{
     double me = SM.getLeptons(SM.ELECTRON).getMass();
 
     return ( 3.0*SM.getAle()/2.0/M_PI * (Bf(s,me) + Qf*Qf*Bf(s,mf))
@@ -1215,34 +1284,40 @@ double EWSMTwoFermionsLEP2_Hollik::gamma_fin(const double s, const double mf, co
 }
 
 
-double EWSMTwoFermionsLEP2_Hollik::C11V(const double s, const double mf, const double Qf) const {
+double EWSMTwoFermionsLEP2_Hollik::C11V(const double s, const double mf, const double Qf) const 
+{
     return ( gamma_delta(s,mf,Qf) + gamma_fin(s,mf,Qf) );
 }  
 
 
-double EWSMTwoFermionsLEP2_Hollik::C11A(const double s, const double mf, const double Qf) const {
+double EWSMTwoFermionsLEP2_Hollik::C11A(const double s, const double mf, const double Qf) const 
+{
     return 0.0;
 }
 
 
 complex EWSMTwoFermionsLEP2_Hollik::C12V(const double s, const double GammaZ, 
-                                  const double mf, const double Qf) const {
+                                  const double mf, const double Qf) const 
+{
     return ( gamma_delta_int(s,GammaZ,mf,Qf).conjugate() + gamma_fin(s,mf,Qf) );
 }
 
 
-complex EWSMTwoFermionsLEP2_Hollik::C12A(const double s, const double mf, const double Qf) const {
+complex EWSMTwoFermionsLEP2_Hollik::C12A(const double s, const double mf, const double Qf) const 
+{
     return complex(0.0, 0.0, false);    
 }
 
 
 double EWSMTwoFermionsLEP2_Hollik::C22V(const double s, const double GammaZ, 
-                                 const double mf, const double Qf) const {
+                                 const double mf, const double Qf) const 
+{
     return ( gamma_delta_res(s,GammaZ,mf,Qf) + gamma_tail(s,GammaZ) + gamma_fin(s,mf,Qf) );
 }
 
 
-double EWSMTwoFermionsLEP2_Hollik::C22A(const double s, const double mf, const double Qf) const {
+double EWSMTwoFermionsLEP2_Hollik::C22A(const double s, const double mf, const double Qf) const 
+{
     return 0.0;   
 }
 
@@ -1251,34 +1326,39 @@ double EWSMTwoFermionsLEP2_Hollik::C22A(const double s, const double mf, const d
 // Loop functions
 
 complex EWSMTwoFermionsLEP2_Hollik::B0bar_Hollik(const double s, const double m1, 
-                                          const double m2) const {
+                                          const double m2) const 
+{
     double mu = sqrt(s); // The result is independent of the renormalization scale. 
     return ( PV.B0(mu, s, m1, m2) + log(m1*m2/mu/mu) );   
 }
 
 
 complex EWSMTwoFermionsLEP2_Hollik::B1bar_Hollik(const double s, const double m1, 
-                                          const double m2) const {
+                                          const double m2) const 
+{
     double mu = sqrt(s); // The result is independent of the renormalization scale. 
     return ( PV.B1(mu, s, m1, m2) - log(m1*m2/mu/mu)/2.0 );       
 }
 
 
 complex EWSMTwoFermionsLEP2_Hollik::B1barPrime_Hollik(const double s, const double m1, 
-                                               const double m2) const {
+                                               const double m2) const 
+{
     double mu = sqrt(s); // The result is independent of the renormalization scale. 
     return ( PV.B1p(mu, s, m1, m2) );           
 }
 
 
 complex EWSMTwoFermionsLEP2_Hollik::C0_Hollik(const double s, const double M, 
-                                              const double Mprime) const {
+                                              const double Mprime) const
+{
     return ( - PV.C0(s, M, Mprime, M) );
 }
 
 
 complex EWSMTwoFermionsLEP2_Hollik::C1plus_Hollik(const double s, const double M, 
-                                           const double Mprime) const {
+                                           const double Mprime) const
+{
     double mb = myOneLoopEW_HV.mq(StandardModel::BOTTOM, sqrt(s));
     if(s==4.0*mb*mb)
         throw std::runtime_error("Error in EWSMTwoFermionsLEP2_Hollik::C1plus()"); 
@@ -1291,7 +1371,8 @@ complex EWSMTwoFermionsLEP2_Hollik::C1plus_Hollik(const double s, const double M
 
 
 complex EWSMTwoFermionsLEP2_Hollik::C2zero_Hollik(const double s, const double M, 
-                                           const double Mprime) const {
+                                           const double Mprime) const
+{
     double mb = myOneLoopEW_HV.mq(StandardModel::BOTTOM, sqrt(s));
     return ( (B0bar_Hollik(s, M, M) + 1.0)/4.0 
               + (M*M - Mprime*Mprime - mb*mb)/2.0*C1plus_Hollik(s, M, Mprime)
@@ -1300,7 +1381,8 @@ complex EWSMTwoFermionsLEP2_Hollik::C2zero_Hollik(const double s, const double M
 
 
 complex EWSMTwoFermionsLEP2_Hollik::C2plus_Hollik(const double s, const double M, 
-                                           const double Mprime) const {
+                                           const double Mprime) const 
+{
     double mb = myOneLoopEW_HV.mq(StandardModel::BOTTOM, sqrt(s));
     if(s==4.0*mb*mb)
         throw std::runtime_error("Error in EWSMTwoFermionsLEP2_Hollik::C2plus()"); 
@@ -1313,7 +1395,8 @@ complex EWSMTwoFermionsLEP2_Hollik::C2plus_Hollik(const double s, const double M
 
 
 complex EWSMTwoFermionsLEP2_Hollik::C2minus_Hollik(const double s, const double M, 
-                                            const double Mprime) const {
+                                            const double Mprime) const 
+{
     if(s==0.0)
         throw std::runtime_error("Error in EWSMTwoFermionsLEP2_Hollik::C1plus()"); 
 

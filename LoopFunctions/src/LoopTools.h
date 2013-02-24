@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,6 +8,14 @@
 #ifndef LOOPTOOLS_H
 #define	LOOPTOOLS_H
 
+/**
+ * @class LoopTools
+ * @ingroup LoopFunctions 
+ * @brief A class for an interface to LoopTools library. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 #include <gslpp.h>
 using namespace gslpp;
    

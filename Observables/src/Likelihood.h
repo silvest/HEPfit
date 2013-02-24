@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,6 +8,14 @@
 #ifndef LIKELIHOOD_H
 #define	LIKELIHOOD_H
 
+/**
+ * @class Likelihood
+ * @ingroup Observable
+ * @brief A class for likelihood function (Not used). 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class Likelihood {
 public:
     Likelihood();

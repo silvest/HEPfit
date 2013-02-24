@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,10 +13,13 @@
 #include "EW.h"
 using namespace gslpp;
 
-
 /**
  * @class LEP2oblique
- * @brief a class for NP analyses of LEP-II observables with the extended oblique parameters
+ * @ingroup EW
+ * @brief A class for NP analyses of LEP-II observables with the extended oblique parameters. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
  */
 class LEP2oblique {
 public:
@@ -60,23 +63,27 @@ private:
     double epsilonGammaGamma(const double alpha0, const double ObParam_i[]) const;
     double epsilonGammaZ(const double alpha0, const double ObParam_i[]) const;
     
-    double alpha_at_s(const double s) const {
+    double alpha_at_s(const double s) const 
+    {
         //return ( myEW.getSM().alphaMz() ); // TEST
         return ( myEW.getSM().ale_OS(sqrt(s), FULLNLO) );
     }
     
-    double Mw0(const double alpha0) const {
+    double Mw0(const double alpha0) const
+    {
         double Mz = myEW.getSM().getMz();
         return ( sqrt(c02(alpha0))*Mz );
     }
     
-    double s02(const double alpha0) const {
+    double s02(const double alpha0) const 
+    {
         double GF = myEW.getSM().getGF();
         double Mz = myEW.getSM().getMz();
         return ( ( 1.0 - sqrt(1.0 - 4.0*M_PI*alpha0/sqrt(2.0)/GF/Mz/Mz) )/2.0 );
     }
     
-    double c02(const double alpha0) const {
+    double c02(const double alpha0) const
+    {
         return ( 1.0 - s02(alpha0) );
     }
     

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,10 +14,19 @@
 
 using namespace gslpp;
 
+/**
+ * @class PVfunctions
+ * @ingroup LoopFunctions 
+ * @brief A class for Passarino-Veltman function. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class PVfunctions {
 public:
 
-    PVfunctions() {};
+    PVfunctions() 
+    {};
 
     /**
      * @brief the scalar one-point Passarino-Veltman function
@@ -161,7 +170,6 @@ public:
     complex D0(const double s, const double t, const double m0, const double m1, 
                const double m2, const double m3) const;
 
-    
 private:
     Polylogarithms myPolylog;
     LoopTools myLT;

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -12,6 +12,14 @@
 #include <iostream>
 #include "ThObservable.h"
 
+/**
+ * @class Observable
+ * @ingroup Observable
+ * @brief A class for observables. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class Observable {
 public:
     Observable(const std::string name_i, const std::string thname_i,
@@ -21,107 +29,133 @@ public:
     double getTheoryValue();
     virtual ~Observable();
 
-    double getAve() const {
+    double getAve() const 
+    {
         return ave;
     }
 
-    void setAve(double ave) {
+    void setAve(double ave) 
+    {
         this->ave = ave;
     }
 
-    std::string getDistr() const {
+    std::string getDistr() const 
+    {
         return distr;
     }
 
-    void setDistr(std::string distr) {
+    void setDistr(std::string distr) 
+    {
         this->distr = distr;
     }
 
-    double getErrf() const {
+    double getErrf() const 
+    {
         return errf;
     }
 
-    void setErrf(double errf) {
+    void setErrf(double errf) 
+    {
         this->errf = errf;
     }
 
-    double getErrg() const {
+    double getErrg() const 
+    {
         return errg;
     }
 
-    void setErrg(double errg) {
+    void setErrg(double errg) 
+    {
         this->errg = errg;
     }
 
-    std::string getFilename() const {
+    std::string getFilename() const 
+    {
         return filename;
     }
 
-    void setFilename(std::string filename) {
+    void setFilename(std::string filename) 
+    {
         this->filename = filename;
     }
 
-    std::string getHistoname() const {
+    std::string getHistoname() const 
+    {
         return histoname;
     }
 
-    void setHistoname(std::string histoname) {
+    void setHistoname(std::string histoname) 
+    {
         this->histoname = histoname;
     }
 
-    std::string getLabel() const {
+    std::string getLabel() const 
+    {
         return label;
     }
 
-    void setLabel(std::string label) {
+    void setLabel(std::string label) 
+    {
         this->label = label;
     }
 
-    double getMax() const {
+    double getMax() const 
+    {
         return max;
     }
 
-    void setMax(double max) {
+    void setMax(double max) 
+    {
         this->max = max;
     }
 
-    double getMin() const {
+    double getMin() const 
+    {
         return min;
     }
 
-    void setMin(double min) {
+    void setMin(double min) 
+    {
         this->min = min;
     }
 
-    std::string getName() const {
+    std::string getName() const 
+    {
         return name;
     }
 
-    void setName(std::string name) {
+    void setName(std::string name) 
+    {
         this->name = name;
     }
 
-    bool isTMCMC() const {
+    bool isTMCMC() const 
+    {
         return tMCMC;
     }
 
-    void setTMCMC(bool tMCMC) {
+    void setTMCMC(bool tMCMC) 
+    {
         this->tMCMC = tMCMC;
     }
 
-    std::string getThname() const {
+    std::string getThname() const 
+    {
         return thname;
     }
 
-    void setThname(std::string thname) {
+    void setThname(std::string thname) 
+    {
         this->thname = thname;
     }
 
-    ThObservable* getTho() const {
+    ThObservable* getTho() const 
+    {
         return tho;
     }
 
-    void setTho(ThObservable* tho) {
+    void setTho(ThObservable* tho) 
+    {
         this->tho = tho;
     }
 

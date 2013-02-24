@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -24,6 +24,14 @@
 
 using namespace gslpp;
 
+/**
+ * @class EWSM
+ * @ingroup StandardModel
+ * @brief A class for radiative corrections to the EW precision observables.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class EWSM {
 public:
     
@@ -59,7 +67,8 @@ public:
     /**
      * @return a pointer to the EWSMTwoFermionsLEP2 object
      */
-    EWSMTwoFermionsLEP2* getMyTwoFermionsLEP2() const {
+    EWSMTwoFermionsLEP2* getMyTwoFermionsLEP2() const 
+    {
         return myTwoFermionsLEP2;
     }
     
@@ -67,7 +76,8 @@ public:
      * @brief set a flag for M_W
      * @param[in] schemeMw NORESUM, OMSI, INTERMEDIATE, OMSII or APPROXIMATEFORMULA
      */
-    void setSchemeMw(schemes_EW schemeMw) {
+    void setSchemeMw(schemes_EW schemeMw) 
+    {
         this->schemeMw = schemeMw;
     }
 
@@ -76,7 +86,8 @@ public:
      * @param[in] schemeRhoZ NORESUM, OMSI, INTERMEDIATE, OMSII or APPROXIMATEFORMULA
      * @attention NORESUM is not available, since reducible two-loop EW corrections have not been implemented yet. 
      */
-    void setSchemeRhoZ(schemes_EW schemeRhoZ) {
+    void setSchemeRhoZ(schemes_EW schemeRhoZ) 
+    {
         this->schemeRhoZ = schemeRhoZ;
     }
     
@@ -84,7 +95,8 @@ public:
      * @brief set a flag for kappa_Z
      * @param[in] schemeKappaZ NORESUM, OMSI, INTERMEDIATE, OMSII or APPROXIMATEFORMULA
      */
-    void setSchemeKappaZ(schemes_EW schemeKappaZ) {
+    void setSchemeKappaZ(schemes_EW schemeKappaZ)
+    {
         this->schemeKappaZ = schemeKappaZ;
     }
 

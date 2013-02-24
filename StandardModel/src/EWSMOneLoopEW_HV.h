@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,9 +13,14 @@
 using namespace gslpp;
 
 
+
 /**
  * @class EWSMOneLoopEW_HV
- * @brief One-loop EW corrections in the 't Hooft-Feynman gauge
+ * @ingroup StandardModel
+ * @brief A class for EW one-loop radiative corrections to the EW precision observables in the 't Hooft-Feynman gauge.  
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
  */
 class EWSMOneLoopEW_HV {
 public:
@@ -33,7 +38,8 @@ public:
      * @param[in] l name of lepton
      * @return mass of lepton
      */
-    double ml(const StandardModel::lepton l) const {
+    double ml(const StandardModel::lepton l) const 
+    {
         return SM.getLeptons(l).getMass();
     }
 
@@ -43,7 +49,8 @@ public:
      * @param[in] order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return the MSbar mass of u, d, s, c, b or the pole mass of t
      */
-    double mq(const StandardModel::quark q, const double mu, const orders order=FULLNLO) const {
+    double mq(const StandardModel::quark q, const double mu, const orders order=FULLNLO) const 
+    {
         switch(q) {
             case StandardModel::UP:
             case StandardModel::DOWN:
@@ -65,7 +72,8 @@ public:
      * @return the tree-level vector coupling for Z->l lbar
      * @attention depends on sW2
      */
-    double vl(const StandardModel::lepton l, const double Mw) const {
+    double vl(const StandardModel::lepton l, const double Mw) const 
+    {
         double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
         return ( al(l) - 2.0*SM.getLeptons(l).getCharge()*sW2 );
     }
@@ -76,7 +84,8 @@ public:
      * @return the tree-level vector coupling for Z->q qbar
      * @attention depends on sW2
      */
-    double vq(const StandardModel::quark q, const double Mw) const {
+    double vq(const StandardModel::quark q, const double Mw) const 
+    {
         double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
         return ( aq(q) - 2.0*SM.getQuarks(q).getCharge()*sW2 );
     }
@@ -85,7 +94,8 @@ public:
      * @param[in] l name of lepton
      * @return the tree-level axial-vector coupling for Z->l lbar
      */
-    double al(const StandardModel::lepton l) const {
+    double al(const StandardModel::lepton l) const 
+    {
         return ( SM.getLeptons(l).getIsospin() );
     }
 
@@ -93,7 +103,8 @@ public:
      * @param[in] q name of quark
      * @return the tree-level axial-vector coupling for Z->q qbar
      */
-    double aq(const StandardModel::quark q) const {
+    double aq(const StandardModel::quark q) const 
+    {
         return ( SM.getQuarks(q).getIsospin() );
     }
     

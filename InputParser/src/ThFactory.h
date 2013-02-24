@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -16,6 +16,14 @@
 #include <EW.h>
 //#include <ZFitter.h>
 
+/**
+ * @class ThFactory
+ * @ingroup InputParser 
+ * @brief A class for an interface to theoretical predictions for observables. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class ThFactory {
 public:
     ThFactory(const StandardModel& myModel);

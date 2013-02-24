@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -12,7 +12,14 @@
 #include "BernoulliNumbers.h"
 using namespace gslpp;
 
-
+/**
+ * @class ClausenFunctions
+ * @ingroup LoopFunctions 
+ * @brief A class for Clausen functions. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class ClausenFunctions : public BernoulliNumbers {
 public:
     
@@ -20,7 +27,6 @@ public:
      * @brief  ClausenFunctions constructor
      */
     ClausenFunctions();
-
     
     ////////////////////////////////////////////////////////////////////////
 
@@ -36,13 +42,11 @@ public:
      * @attention applicable for 0<=phi<=Pi 
      */
     double Cl3(const double phi) const;
-    
-    
+        
     ////////////////////////////////////////////////////////////////////////    
     
 private:
-
-    
+  
 };
 
 #endif	/* CLAUSENFUNCTIONS_H */

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,7 +13,9 @@
 #include "EWSMcache.h"
 
 
-EWSMcache::EWSMcache(const StandardModel& SM_i) : SM(SM_i) {
+EWSMcache::EWSMcache(const StandardModel& SM_i) 
+: SM(SM_i) 
+{
     bDebug = SM_i.isBDebug();
     
     bUseCacheEWSMcache = true;// use caches in the current class
@@ -40,13 +42,15 @@ EWSMcache::EWSMcache(const StandardModel& SM_i) : SM(SM_i) {
 
 //////////////////////////////////////////////////////////////////////// 
 
-double EWSMcache::ml(const StandardModel::lepton l) const {
+double EWSMcache::ml(const StandardModel::lepton l) const 
+{
     return SM.getLeptons(l).getMass();
 }
 
 
 double EWSMcache::mq(const StandardModel::quark q, const double mu, 
-                     const orders order) const {
+                     const orders order) const 
+{
     switch(q) {
         case StandardModel::UP:
         case StandardModel::DOWN:
@@ -72,7 +76,8 @@ double EWSMcache::mq(const StandardModel::quark q, const double mu,
 
 //////////////////////////////////////////////////////////////////////// 
 
-double EWSMcache::logMZtoME() const {
+double EWSMcache::logMZtoME() const 
+{
     int NumPar = 2;
     double params[] = {Mz(), ml(SM.ELECTRON)};
 
@@ -86,7 +91,8 @@ double EWSMcache::logMZtoME() const {
 }
 
 
-double EWSMcache::logMZtoMMU() const {
+double EWSMcache::logMZtoMMU() const 
+{
     int NumPar = 2;
     double params[] = {Mz(), ml(SM.MU)};
 
@@ -100,7 +106,8 @@ double EWSMcache::logMZtoMMU() const {
 }
     
     
-double EWSMcache::logMZtoMTAU() const {
+double EWSMcache::logMZtoMTAU() const 
+{
     int NumPar = 2;
     double params[] = {Mz(), ml(SM.TAU)};
 
@@ -114,7 +121,8 @@ double EWSMcache::logMZtoMTAU() const {
 }
     
 
-double EWSMcache::logMZtoMTOP() const {
+double EWSMcache::logMZtoMTOP() const 
+{
     int NumPar = 2;
     double params[] = {Mz(), Mt()};
 
@@ -128,7 +136,8 @@ double EWSMcache::logMZtoMTOP() const {
 }
     
     
-double EWSMcache::logMTOPtoMH() const {
+double EWSMcache::logMTOPtoMH() const
+{
     int NumPar = 2;
     double params[] = {Mt(), mh()};
 
@@ -142,7 +151,8 @@ double EWSMcache::logMTOPtoMH() const {
 }
 
     
-double EWSMcache::log_cW2(const double Mw_i) const {
+double EWSMcache::log_cW2(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), Mw(Mw_i)};
 
@@ -156,7 +166,8 @@ double EWSMcache::log_cW2(const double Mw_i) const {
 }    
 
 
-double EWSMcache::Li2_MW2toMTOP2(const double Mw_i) const {
+double EWSMcache::Li2_MW2toMTOP2(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mw(Mw_i), Mt()};
 
@@ -170,7 +181,8 @@ double EWSMcache::Li2_MW2toMTOP2(const double Mw_i) const {
 }
 
 
-double EWSMcache::Li3_MW2toMTOP2(const double Mw_i) const {
+double EWSMcache::Li3_MW2toMTOP2(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mw(Mw_i), Mt()};
 
@@ -184,7 +196,8 @@ double EWSMcache::Li3_MW2toMTOP2(const double Mw_i) const {
 }
 
 
-double EWSMcache::Li3_for_F1(const double Mw_i) const {
+double EWSMcache::Li3_for_F1(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mw(Mw_i), Mt()};
 
@@ -199,7 +212,8 @@ double EWSMcache::Li3_for_F1(const double Mw_i) const {
 }
 
 
-double EWSMcache::A0_Mz_Mw(const double Mw_i) const {
+double EWSMcache::A0_Mz_Mw(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), Mw(Mw_i)};
 
@@ -213,7 +227,8 @@ double EWSMcache::A0_Mz_Mw(const double Mw_i) const {
 }
 
 
-double EWSMcache::A0_Mz_mh() const {
+double EWSMcache::A0_Mz_mh() const 
+{
     int NumPar = 2;
     double params[] = {Mz(), mh()};
 
@@ -227,7 +242,8 @@ double EWSMcache::A0_Mz_mh() const {
 }
 
 
-double EWSMcache::A0_Mw_Mz(const double Mw_i) const {
+double EWSMcache::A0_Mw_Mz(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {Mw(Mw_i), Mz()};
 
@@ -241,7 +257,8 @@ double EWSMcache::A0_Mw_Mz(const double Mw_i) const {
 }
 
 
-double EWSMcache::A0_Mw_mh(const double Mw_i) const {
+double EWSMcache::A0_Mw_mh(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mw(Mw_i), mh()};
 
@@ -255,7 +272,8 @@ double EWSMcache::A0_Mw_mh(const double Mw_i) const {
 }
 
 
-double EWSMcache::A0_Mz_Mz() const {
+double EWSMcache::A0_Mz_Mz() const 
+{
     int NumPar = 1;
     double params[] = {Mz()};
 
@@ -269,7 +287,8 @@ double EWSMcache::A0_Mz_Mz() const {
 }
 
 
-double EWSMcache::A0_Mw_Mw(const double Mw_i) const {
+double EWSMcache::A0_Mw_Mw(const double Mw_i) const 
+{
     int NumPar = 1;
     double params[] = {Mw(Mw_i)};
 
@@ -283,7 +302,8 @@ double EWSMcache::A0_Mw_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0_Mz_Mw2_mh_Mw(const double Mw_i) const {
+complex EWSMcache::B0_Mz_Mw2_mh_Mw(const double Mw_i) const 
+{
     int NumPar = 3;
     double params[] = {Mz(), Mw(Mw_i), mh()};
 
@@ -298,7 +318,8 @@ complex EWSMcache::B0_Mz_Mw2_mh_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0_Mz_0_mh_Mw(const double Mw_i) const {
+complex EWSMcache::B0_Mz_0_mh_Mw(const double Mw_i) const 
+{
     int NumPar = 3;
     double params[] = {Mz(), mh(), Mw(Mw_i)};
 
@@ -313,7 +334,8 @@ complex EWSMcache::B0_Mz_0_mh_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0_Mw_Mz2_Mt_Mt(const double Mw_i) const {
+complex EWSMcache::B0_Mw_Mz2_Mt_Mt(const double Mw_i) const 
+{
     int NumPar = 3;
     double params[] = {Mw(Mw_i), Mz(), Mt()};
 
@@ -328,7 +350,8 @@ complex EWSMcache::B0_Mw_Mz2_Mt_Mt(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0_Mz_Mz2_Mw_Mw(const double Mw_i) const {
+complex EWSMcache::B0_Mz_Mz2_Mw_Mw(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), Mw(Mw_i)};
 
@@ -343,7 +366,8 @@ complex EWSMcache::B0_Mz_Mz2_Mw_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0_Mz_Mz2_mh_Mz() const {
+complex EWSMcache::B0_Mz_Mz2_mh_Mz() const 
+{
     int NumPar = 2;
     double params[] = {Mz(), mh()};
 
@@ -358,7 +382,8 @@ complex EWSMcache::B0_Mz_Mz2_mh_Mz() const {
 }
 
 
-complex EWSMcache::B0_Mz_Mw2_Mz_Mw(const double Mw_i) const {
+complex EWSMcache::B0_Mz_Mw2_Mz_Mw(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), Mw(Mw_i)};
 
@@ -373,7 +398,8 @@ complex EWSMcache::B0_Mz_Mw2_Mz_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0_Mz_Mw2_0_Mw(const double Mw_i) const {
+complex EWSMcache::B0_Mz_Mw2_0_Mw(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), Mw(Mw_i)};
 
@@ -388,7 +414,8 @@ complex EWSMcache::B0_Mz_Mw2_0_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0_Mz_0_Mz_Mw(const double Mw_i) const {
+complex EWSMcache::B0_Mz_0_Mz_Mw(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), Mw(Mw_i)};
 
@@ -403,7 +430,8 @@ complex EWSMcache::B0_Mz_0_Mz_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0_Mz_0_0_Mw(const double Mw_i) const {
+complex EWSMcache::B0_Mz_0_0_Mw(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), Mw(Mw_i)};
 
@@ -418,7 +446,8 @@ complex EWSMcache::B0_Mz_0_0_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0_Mw_Mz2_Mw_Mw(const double Mw_i) const {
+complex EWSMcache::B0_Mw_Mz2_Mw_Mw(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mw(Mw_i), Mz()};
 
@@ -433,7 +462,8 @@ complex EWSMcache::B0_Mw_Mz2_Mw_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0_Mw_Mw2_Mz_Mw(const double Mw_i) const {
+complex EWSMcache::B0_Mw_Mw2_Mz_Mw(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mw(Mw_i), Mz()};
 
@@ -448,7 +478,8 @@ complex EWSMcache::B0_Mw_Mw2_Mz_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0_Mw_Mw2_mh_Mw(const double Mw_i) const {
+complex EWSMcache::B0_Mw_Mw2_mh_Mw(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {Mw(Mw_i), mh()};
 
@@ -463,7 +494,8 @@ complex EWSMcache::B0_Mw_Mw2_mh_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0_Mw_Mw2_0_Mw(const double Mw_i) const {
+complex EWSMcache::B0_Mw_Mw2_0_Mw(const double Mw_i) const 
+{
     int NumPar = 1;
     double params[] = {Mw(Mw_i)};
     
@@ -478,7 +510,8 @@ complex EWSMcache::B0_Mw_Mw2_0_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
+complex EWSMcache::B0_Mz_Mz2_ml_ml(const StandardModel::lepton l) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), ml(l)};
 
@@ -493,7 +526,8 @@ complex EWSMcache::B0_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
 }
 
 
-complex EWSMcache::B0_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
+complex EWSMcache::B0_Mz_Mz2_mq_mq(const StandardModel::quark q) const
+{
     int NumPar = 2;
     double params[] = {Mz(), mq(q, Mz())};
 
@@ -508,7 +542,8 @@ complex EWSMcache::B0_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
 }
 
 
-complex EWSMcache::B0p_Mz_0_mh_Mw(const double Mw_i) const {
+complex EWSMcache::B0p_Mz_0_mh_Mw(const double Mw_i) const 
+{
     int NumPar = 3;
     double params[] = {Mz(), mh(), Mw(Mw_i)};
 
@@ -523,7 +558,8 @@ complex EWSMcache::B0p_Mz_0_mh_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0p_Mz_Mz2_mh_Mz() const {
+complex EWSMcache::B0p_Mz_Mz2_mh_Mz() const 
+{
     int NumPar = 2;
     double params[] = {Mz(), mh()};
 
@@ -538,7 +574,8 @@ complex EWSMcache::B0p_Mz_Mz2_mh_Mz() const {
 }
 
 
-complex EWSMcache::B0p_Mz_0_Mz_Mw(const double Mw_i) const {
+complex EWSMcache::B0p_Mz_0_Mz_Mw(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), Mw(Mw_i)};
 
@@ -553,7 +590,8 @@ complex EWSMcache::B0p_Mz_0_Mz_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0p_Mz_Mz2_Mw_Mw(const double Mw_i) const {
+complex EWSMcache::B0p_Mz_Mz2_Mw_Mw(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), Mw(Mw_i)};
 
@@ -568,7 +606,8 @@ complex EWSMcache::B0p_Mz_Mz2_Mw_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0p_Mw_Mw2_Mz_Mw(const double Mw_i) const {
+complex EWSMcache::B0p_Mw_Mw2_Mz_Mw(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mw(Mw_i), Mz()};
 
@@ -583,7 +622,8 @@ complex EWSMcache::B0p_Mw_Mw2_Mz_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0p_Mw_Mw2_mh_Mw(const double Mw_i) const {
+complex EWSMcache::B0p_Mw_Mw2_mh_Mw(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mw(Mw_i), mh()};
 
@@ -598,7 +638,8 @@ complex EWSMcache::B0p_Mw_Mw2_mh_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0p_Mw_Mw2_0_Mw(const double Mw_i) const {
+complex EWSMcache::B0p_Mw_Mw2_0_Mw(const double Mw_i) const
+{
     int NumPar = 1;
     double params[] = {Mw(Mw_i)};
 
@@ -613,7 +654,8 @@ complex EWSMcache::B0p_Mw_Mw2_0_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::B0p_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
+complex EWSMcache::B0p_Mz_Mz2_ml_ml(const StandardModel::lepton l) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), ml(l)};
 
@@ -628,7 +670,8 @@ complex EWSMcache::B0p_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
 }
 
 
-complex EWSMcache::B0p_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
+complex EWSMcache::B0p_Mz_Mz2_mq_mq(const StandardModel::quark q) const
+{
     int NumPar = 2;
     double params[] = {Mz(), mq(q, Mz())};
 
@@ -643,7 +686,8 @@ complex EWSMcache::B0p_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
 }
 
         
-complex EWSMcache::B1_Mz_0_ml_mlprime(const int gen) const {
+complex EWSMcache::B1_Mz_0_ml_mlprime(const int gen) const 
+{
     int NumPar = 3;
     double mf = ml((StandardModel::lepton)(2*gen));    
     double mfprime = ml((StandardModel::lepton)(2*gen+1));
@@ -660,7 +704,8 @@ complex EWSMcache::B1_Mz_0_ml_mlprime(const int gen) const {
 }   
 
 
-complex EWSMcache::B1_Mz_0_mq_mqprime(const int gen) const {
+complex EWSMcache::B1_Mz_0_mq_mqprime(const int gen) const 
+{
     int NumPar = 3;
     double mf = mq((StandardModel::quark)(2*gen), Mz());    
     double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
@@ -677,7 +722,8 @@ complex EWSMcache::B1_Mz_0_mq_mqprime(const int gen) const {
 } 
 
 
-complex EWSMcache::B1_Mz_0_mlprime_ml(const int gen) const {
+complex EWSMcache::B1_Mz_0_mlprime_ml(const int gen) const 
+{
     int NumPar = 3;
     double mf = ml((StandardModel::lepton)(2*gen));    
     double mfprime = ml((StandardModel::lepton)(2*gen+1));
@@ -694,7 +740,8 @@ complex EWSMcache::B1_Mz_0_mlprime_ml(const int gen) const {
 } 
 
 
-complex EWSMcache::B1_Mz_0_mqprime_mq(const int gen) const {
+complex EWSMcache::B1_Mz_0_mqprime_mq(const int gen) const
+{
     int NumPar = 3;
     double mf = mq((StandardModel::quark)(2*gen), Mz());    
     double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
@@ -711,7 +758,8 @@ complex EWSMcache::B1_Mz_0_mqprime_mq(const int gen) const {
 }
 
 
-complex EWSMcache::B1_Mz_Mw2_ml_mlprime(const int gen, const double Mw_i) const {
+complex EWSMcache::B1_Mz_Mw2_ml_mlprime(const int gen, const double Mw_i) const 
+{
     int NumPar = 4;
     double mf = ml((StandardModel::lepton)(2*gen));    
     double mfprime = ml((StandardModel::lepton)(2*gen+1));
@@ -728,7 +776,8 @@ complex EWSMcache::B1_Mz_Mw2_ml_mlprime(const int gen, const double Mw_i) const 
 }  
 
 
-complex EWSMcache::B1_Mz_Mw2_mq_mqprime(const int gen, const double Mw_i) const {
+complex EWSMcache::B1_Mz_Mw2_mq_mqprime(const int gen, const double Mw_i) const 
+{
     int NumPar = 4;
     double mf = mq((StandardModel::quark)(2*gen), Mz());    
     double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
@@ -745,7 +794,8 @@ complex EWSMcache::B1_Mz_Mw2_mq_mqprime(const int gen, const double Mw_i) const 
 } 
 
 
-complex EWSMcache::B1_Mz_Mw2_mlprime_ml(const int gen, const double Mw_i) const {
+complex EWSMcache::B1_Mz_Mw2_mlprime_ml(const int gen, const double Mw_i) const
+{
     int NumPar = 4;
     double mf = ml((StandardModel::lepton)(2*gen));    
     double mfprime = ml((StandardModel::lepton)(2*gen+1));
@@ -762,7 +812,8 @@ complex EWSMcache::B1_Mz_Mw2_mlprime_ml(const int gen, const double Mw_i) const 
 }  
 
 
-complex EWSMcache::B1_Mz_Mw2_mqprime_mq(const int gen, const double Mw_i) const {
+complex EWSMcache::B1_Mz_Mw2_mqprime_mq(const int gen, const double Mw_i) const
+{
     int NumPar = 4;
     double mf = mq((StandardModel::quark)(2*gen), Mz());    
     double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
@@ -779,7 +830,8 @@ complex EWSMcache::B1_Mz_Mw2_mqprime_mq(const int gen, const double Mw_i) const 
 } 
 
 
-complex EWSMcache::B1p_Mw_Mw2_ml_mlprime(const int gen, const double Mw_i) const {
+complex EWSMcache::B1p_Mw_Mw2_ml_mlprime(const int gen, const double Mw_i) const
+{
     int NumPar = 3;
     double mf = ml((StandardModel::lepton)(2*gen));    
     double mfprime = ml((StandardModel::lepton)(2*gen+1));
@@ -796,7 +848,8 @@ complex EWSMcache::B1p_Mw_Mw2_ml_mlprime(const int gen, const double Mw_i) const
 }
 
 
-complex EWSMcache::B1p_Mw_Mw2_mq_mqprime(const int gen, const double Mw_i) const {
+complex EWSMcache::B1p_Mw_Mw2_mq_mqprime(const int gen, const double Mw_i) const 
+{
     int NumPar = 3;
     double mf = mq((StandardModel::quark)(2*gen), Mz());    
     double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
@@ -813,7 +866,8 @@ complex EWSMcache::B1p_Mw_Mw2_mq_mqprime(const int gen, const double Mw_i) const
 }
 
 
-complex EWSMcache::B1p_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const {
+complex EWSMcache::B1p_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const 
+{
     int NumPar = 3;
     double mf = ml((StandardModel::lepton)(2*gen));    
     double mfprime = ml((StandardModel::lepton)(2*gen+1));
@@ -830,7 +884,8 @@ complex EWSMcache::B1p_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const
 }
 
 
-complex EWSMcache::B1p_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const {
+complex EWSMcache::B1p_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const
+{
     int NumPar = 3;
     double mf = mq((StandardModel::quark)(2*gen), Mz());    
     double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
@@ -847,7 +902,8 @@ complex EWSMcache::B1p_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const
 }
 
 
-complex EWSMcache::Bf_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
+complex EWSMcache::Bf_Mz_Mz2_ml_ml(const StandardModel::lepton l) const
+{
     int NumPar = 2;
     double params[] = {Mz(), ml(l)};
 
@@ -862,7 +918,8 @@ complex EWSMcache::Bf_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
 }
 
 
-complex EWSMcache::Bf_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
+complex EWSMcache::Bf_Mz_Mz2_mq_mq(const StandardModel::quark q) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), mq(q, Mz())};
 
@@ -877,7 +934,8 @@ complex EWSMcache::Bf_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
 }
 
 
-complex EWSMcache::Bf_Mz_0_ml_ml(const StandardModel::lepton l) const {
+complex EWSMcache::Bf_Mz_0_ml_ml(const StandardModel::lepton l) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), ml(l)};
     if (ml(l)==0.0)
@@ -894,7 +952,8 @@ complex EWSMcache::Bf_Mz_0_ml_ml(const StandardModel::lepton l) const {
 }
 
 
-complex EWSMcache::Bf_Mz_0_mq_mq(const StandardModel::quark q) const {
+complex EWSMcache::Bf_Mz_0_mq_mq(const StandardModel::quark q) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), mq(q, Mz())};
     if (mq(q, Mz())==0.0)
@@ -911,7 +970,8 @@ complex EWSMcache::Bf_Mz_0_mq_mq(const StandardModel::quark q) const {
 }
 
 
-complex EWSMcache::Bf_Mz_Mw2_mlprime_ml(const int gen, const double Mw_i) const {
+complex EWSMcache::Bf_Mz_Mw2_mlprime_ml(const int gen, const double Mw_i) const 
+{
     int NumPar = 4;
     double mf = ml((StandardModel::lepton)(2*gen));    
     double mfprime = ml((StandardModel::lepton)(2*gen+1));
@@ -928,7 +988,8 @@ complex EWSMcache::Bf_Mz_Mw2_mlprime_ml(const int gen, const double Mw_i) const 
 }        
         
         
-complex EWSMcache::Bf_Mz_Mw2_mqprime_mq(const int gen, const double Mw_i) const {
+complex EWSMcache::Bf_Mz_Mw2_mqprime_mq(const int gen, const double Mw_i) const 
+{
     int NumPar = 4;
     double mf = mq((StandardModel::quark)(2*gen), Mz());    
     double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
@@ -945,7 +1006,8 @@ complex EWSMcache::Bf_Mz_Mw2_mqprime_mq(const int gen, const double Mw_i) const 
 }
 
 
-complex EWSMcache::Bf_Mz_0_mlprime_ml(const int gen) const {
+complex EWSMcache::Bf_Mz_0_mlprime_ml(const int gen) const 
+{
     int NumPar = 3;
     double mf = ml((StandardModel::lepton)(2*gen));    
     double mfprime = ml((StandardModel::lepton)(2*gen+1));
@@ -962,7 +1024,8 @@ complex EWSMcache::Bf_Mz_0_mlprime_ml(const int gen) const {
 }
 
 
-complex EWSMcache::Bf_Mz_0_mqprime_mq(const int gen) const {
+complex EWSMcache::Bf_Mz_0_mqprime_mq(const int gen) const 
+{
     int NumPar = 3;
     double mf = mq((StandardModel::quark)(2*gen), Mz());    
     double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
@@ -979,7 +1042,8 @@ complex EWSMcache::Bf_Mz_0_mqprime_mq(const int gen) const {
 }
 
 
-complex EWSMcache::Bf_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const {
+complex EWSMcache::Bf_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const
+{
     int NumPar = 3;
     double mf = ml((StandardModel::lepton)(2*gen));    
     double mfprime = ml((StandardModel::lepton)(2*gen+1));
@@ -996,7 +1060,8 @@ complex EWSMcache::Bf_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const 
 }
 
 
-complex EWSMcache::Bf_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const {
+complex EWSMcache::Bf_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const
+{
     int NumPar = 3;
     double mf = mq((StandardModel::quark)(2*gen), Mz());    
     double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
@@ -1013,7 +1078,8 @@ complex EWSMcache::Bf_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const 
 }
 
 
-complex EWSMcache::Bfp_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
+complex EWSMcache::Bfp_Mz_Mz2_ml_ml(const StandardModel::lepton l) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), ml(l)};
 
@@ -1028,7 +1094,8 @@ complex EWSMcache::Bfp_Mz_Mz2_ml_ml(const StandardModel::lepton l) const {
 }
 
 
-complex EWSMcache::Bfp_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
+complex EWSMcache::Bfp_Mz_Mz2_mq_mq(const StandardModel::quark q) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), mq(q, Mz())};
 
@@ -1043,7 +1110,8 @@ complex EWSMcache::Bfp_Mz_Mz2_mq_mq(const StandardModel::quark q) const {
 }
 
 
-complex EWSMcache::Bfp_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const {
+complex EWSMcache::Bfp_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const 
+{
     int NumPar = 3;
     double mf = ml((StandardModel::lepton)(2*gen));    
     double mfprime = ml((StandardModel::lepton)(2*gen+1));
@@ -1060,7 +1128,8 @@ complex EWSMcache::Bfp_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const
 }
 
 
-complex EWSMcache::Bfp_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const {
+complex EWSMcache::Bfp_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const 
+{
     int NumPar = 3;
     double mf = mq((StandardModel::quark)(2*gen), Mz());    
     double mfprime = mq((StandardModel::quark)(2*gen+1), Mz());
@@ -1077,7 +1146,8 @@ complex EWSMcache::Bfp_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const
 }
 
 
-complex EWSMcache::C0_Mz2_Mw_Mt_Mw(const double Mw_i) const {
+complex EWSMcache::C0_Mz2_Mw_Mt_Mw(const double Mw_i) const 
+{
     int NumPar = 3;
     double params[] = {Mz(), Mw(Mw_i), Mt()};
 
@@ -1092,7 +1162,8 @@ complex EWSMcache::C0_Mz2_Mw_Mt_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::C0_Mz2_Mt_Mw_Mt(const double Mw_i) const {
+complex EWSMcache::C0_Mz2_Mt_Mw_Mt(const double Mw_i) const 
+{
     int NumPar = 3;
     double params[] = {Mz(), Mt(), Mw(Mw_i)};
 
@@ -1107,7 +1178,8 @@ complex EWSMcache::C0_Mz2_Mt_Mw_Mt(const double Mw_i) const {
 }
 
 
-complex EWSMcache::C0_Mz2_0_Mw_0(const double Mw_i) const {
+complex EWSMcache::C0_Mz2_0_Mw_0(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), Mw(Mw_i)};
 
@@ -1122,7 +1194,8 @@ complex EWSMcache::C0_Mz2_0_Mw_0(const double Mw_i) const {
 }
 
 
-complex EWSMcache::C0_Mz2_Mw_0_Mw(const double Mw_i) const {
+complex EWSMcache::C0_Mz2_Mw_0_Mw(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mz(), Mw(Mw_i)};
 
@@ -1137,7 +1210,8 @@ complex EWSMcache::C0_Mz2_Mw_0_Mw(const double Mw_i) const {
 }
 
 
-complex EWSMcache::C0_Mw2_Mw_0_Mz(const double Mw_i) const {
+complex EWSMcache::C0_Mw2_Mw_0_Mz(const double Mw_i) const 
+{
     int NumPar = 2;
     double params[] = {Mw(Mw_i), Mz()};
 
@@ -1152,7 +1226,8 @@ complex EWSMcache::C0_Mw2_Mw_0_Mz(const double Mw_i) const {
 }
 
 
-complex EWSMcache::C0_Mw2_0_Mz_0(const double Mw_i) const {
+complex EWSMcache::C0_Mw2_0_Mz_0(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {Mw(Mw_i), Mz()};
 
@@ -1167,7 +1242,8 @@ complex EWSMcache::C0_Mw2_0_Mz_0(const double Mw_i) const {
 }
 
 
-complex EWSMcache::C0_Mz2_0_Mz_0() const {
+complex EWSMcache::C0_Mz2_0_Mz_0() const 
+{
     int NumPar = 1;
     double params[] = {Mz()};
 

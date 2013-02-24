@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -17,11 +17,17 @@
 #include "LEP2oblique.h"
 #include "LEP2test.h"
 
-
 // TEST: use the Zfitter outputs defined in LEP2test class for SM predictions
 //#define LEP2TEST
 
-
+/**
+ * @class LEP2ThObservable
+ * @ingroup EW 
+ * @brief A class for the LEP-II observables. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class LEP2ThObservable : public ThObservable  {
 public:
 
@@ -37,10 +43,12 @@ public:
      */
     LEP2ThObservable(const EW& EW_i, const double sqrt_s_i, 
                      const bool bSigmaForAFB_i=false,
-                     const bool bSigmaForR_i=false) : ThObservable(EW_i), 
+                     const bool bSigmaForR_i=false) 
+            : ThObservable(EW_i), 
             myEW(EW_i), myTwoFermions(EW_i.getSM()), myLEP2oblique(EW_i), 
             sqrt_s(sqrt_s_i), s(sqrt_s_i*sqrt_s_i), bSigmaForAFB(bSigmaForAFB_i),
-            bSigmaForR(bSigmaForR_i){
+            bSigmaForR(bSigmaForR_i)
+    {
         flag[Weak] = true;
         flag[WeakBox] = true;
         flag[ISR] = true;
@@ -60,7 +68,8 @@ public:
      * @param[in] str "Weak", "WeakBox", "ISR", "QEDFSR" or "QCDFSR"
      * @param[in] flag_i boolean variable
      */
-    void setFlag(const std::string str, const bool flag_i) {
+    void setFlag(const std::string str, const bool flag_i) 
+    {
         if (str=="Weak")
             flag[Weak] = flag_i;
         else if (str=="WeakBox")
@@ -75,7 +84,8 @@ public:
             throw std::runtime_error("Error in LEP2ThObservable::setFlag()");
     } 
 
-    void setFlags(const bool flag_i[]) {
+    void setFlags(const bool flag_i[])
+    {
         setFlag("Weak", flag_i[Weak]);
         setFlag("WeakBox", flag_i[WeakBox]);
         setFlag("ISR", flag_i[ISR]);
@@ -83,7 +93,8 @@ public:
         setFlag("QCDFSR", flag_i[QCDFSR]);        
     }
     
-    bool checkSMparams(const double s, const double Mw, const double GammaZ) const {
+    bool checkSMparams(const double s, const double Mw, const double GammaZ) const 
+    {
         // 23 SM parameters in checkSMparams() + s, Mw, GammaZ + 5 booleans
         bool bCache = true;
         bCache &= myEW.getSM().getEWSM()->checkSMparams(SMparams_cache);
@@ -136,18 +147,21 @@ protected:
     mutable double Coeff_cache[7];
     
     
-    void SetObParam(LEP2oblique::Oblique ob, double ObParam_i[]) const {
+    void SetObParam(LEP2oblique::Oblique ob, double ObParam_i[]) const 
+    {
         for (int i=0; i<7; i++) {
             if (i==ob) ObParam_i[ob] = 1.0;
             else ObParam_i[i] = 0.0;
         }
     }
     
-    double m_l(const StandardModel::lepton l) const {
+    double m_l(const StandardModel::lepton l) const 
+    {
         return myEW.getSM().getLeptons(l).getMass();
     }
 
-    double m_q(const StandardModel::quark q, const double mu, const orders order=FULLNLO) const {
+    double m_q(const StandardModel::quark q, const double mu, const orders order=FULLNLO) const 
+    {
         switch(q) {
             case StandardModel::UP:
             case StandardModel::DOWN:
@@ -164,7 +178,8 @@ protected:
         }
     }
     
-    double sigma_NoISR_l() {
+    double sigma_NoISR_l() 
+    {
         double sigma = myTwoFermions.sigma_l(l_flavor, ml_cache, s, Mw, GammaZ, flag[Weak]);
 
         if (!bSigmaForAFB && flag[QEDFSR])
@@ -173,7 +188,8 @@ protected:
         return sigma;
     }   
     
-    double sigma_NoISR_q() {
+    double sigma_NoISR_q() 
+    {
         double sigma = myTwoFermions.sigma_q(q_flavor, mq_cache, s, Mw, GammaZ, flag[Weak]);
     
         if (!bSigmaForAFB && flag[QEDFSR])
@@ -185,13 +201,15 @@ protected:
         return sigma;
     }      
     
-    double AFB_NoISR_l() {
+    double AFB_NoISR_l() 
+    {
         double AFB = myTwoFermions.AFB_l(l_flavor, ml_cache, s, Mw, GammaZ, flag[Weak]);
 
         return AFB;
     }
     
-    double AFB_NoISR_q() {
+    double AFB_NoISR_q() 
+    {
         double AFB = myTwoFermions.AFB_q(q_flavor, mq_cache, s, Mw, GammaZ, flag[Weak]);
         
         if (flag[QCDFSR])
@@ -200,7 +218,8 @@ protected:
         return AFB;
     }
     
-    double Integrand_sigmaWithISR_l(double x) {
+    double Integrand_sigmaWithISR_l(double x) 
+    {
         double sprime = (1.0 - x)*s;
         double sigma = myTwoFermions.sigma_l(l_flavor, ml_cache, sprime, Mw, GammaZ, 
                                              flag[Weak]);
@@ -212,7 +231,8 @@ protected:
         return ( H*sigma );
     }    
     
-    double Integrand_sigmaWithISR_q(double x) {
+    double Integrand_sigmaWithISR_q(double x) 
+    {
         double sprime = (1.0 - x)*s;
         double sigma = myTwoFermions.sigma_q(q_flavor, mq_cache, sprime, Mw, GammaZ, 
                                              flag[Weak]);
@@ -228,15 +248,18 @@ protected:
         return ( H*sigma );
     }    
     
-    double Integrand_dsigmaBox_l(double cosTheta) {
+    double Integrand_dsigmaBox_l(double cosTheta) 
+    {
         return ( myTwoFermions.dsigma_l_box(l_flavor, ml_cache, s, cosTheta, Mw, GammaZ) );
     }       
     
-    double Integrand_dsigmaBox_q(double cosTheta) {
+    double Integrand_dsigmaBox_q(double cosTheta) 
+    {
         return ( myTwoFermions.dsigma_q_box(q_flavor, mq_cache, s, cosTheta, Mw, GammaZ) );
     }       
     
-    double Integrand_AFBnumeratorWithISR_l(double x) {
+    double Integrand_AFBnumeratorWithISR_l(double x)
+    {
         double sprime = (1.0 - x)*s;
         double Ncf = 1.0;
         double G3prime = myTwoFermions.G_3prime_l(l_flavor, ml_cache, sprime, Mw, GammaZ, 
@@ -246,7 +269,8 @@ protected:
         return ( M_PI*SM.getAle()*SM.getAle()*Ncf*H*G3prime/sprime );
     }
     
-    double Integrand_AFBnumeratorWithISR_q(double x) {
+    double Integrand_AFBnumeratorWithISR_q(double x) 
+    {
         double sprime = (1.0 - x)*s;
         double Ncf = 3.0;
         double G3prime = myTwoFermions.G_3prime_q(q_flavor, mq_cache, sprime, Mw, GammaZ, 

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -17,14 +17,16 @@
 MonteCarloEngine::MonteCarloEngine(
         const std::vector<ModelParameter>& ModPars_i,
         std::vector<Observable>& Obs_i,
-        std::vector<Observable2D>& Obs2D_i, std::vector<CorrelatedGaussianObservables>& CGO_i) : BCModel(""),
-ModPars(ModPars_i), Obs_ALL(Obs_i), Obs2D_ALL(Obs2D_i), CGO(CGO_i) {
+        std::vector<Observable2D>& Obs2D_i, std::vector<CorrelatedGaussianObservables>& CGO_i) 
+: BCModel(""), ModPars(ModPars_i), Obs_ALL(Obs_i), Obs2D_ALL(Obs2D_i), CGO(CGO_i) 
+{
     obval = NULL;
     obweight = NULL;
     Mod = NULL;
 };
 
-void MonteCarloEngine::Initialize(Model* Mod_i) {
+void MonteCarloEngine::Initialize(Model* Mod_i) 
+{
     Mod = Mod_i;
     int k = 0, kweight = 0;
     for (std::vector<Observable>::iterator it = Obs_ALL.begin();
@@ -34,7 +36,7 @@ void MonteCarloEngine::Initialize(Model* Mod_i) {
             TH1D *htmp = (TH1D*) (lik->Get(it->getHistoname().c_str()));
             if (htmp == NULL) {
                 std::cout << "nonexistent histogram called " + it->getHistoname()
-                        + " in " + it->getFilename() + ".root\n";
+                             + " in " + it->getFilename() + ".root\n";
                 exit(EXIT_FAILURE);
             }
             TH1D *inhisto = (TH1D *) htmp->Clone((it->getFilename() + "_" + it->getHistoname()).c_str());
@@ -68,7 +70,7 @@ void MonteCarloEngine::Initialize(Model* Mod_i) {
             TH2D *htmp2 = (TH2D*) (lik2->Get(it->getHistoname().c_str()));
             if (htmp2 == NULL) {
                 std::cout << "nonexistent histogram called " + it->getHistoname()
-                        + " in " + it->getFilename() + ".root\n";
+                             + " in " + it->getFilename() + ".root\n";
                 exit(EXIT_FAILURE);
             }
             TH2D *inhisto2 = (TH2D *) htmp2->Clone((it->getFilename() + "_" + it->getHistoname()).c_str());
@@ -93,7 +95,7 @@ void MonteCarloEngine::Initialize(Model* Mod_i) {
         }
         if (Histo2D.find(it->getThname() + "_vs_" + it->getThname2()) == Histo2D.end()) {
             TH2D * histo2 = new TH2D((it->getThname() + "_vs_" + it->getThname2()).c_str(), (it->getLabel() + " vs " + it->getLabel2()).c_str(), NBINS2D,
-                    it->getMin(), it->getMax(), NBINS2D, it->getMin2(), it->getMax2());
+                                     it->getMin(), it->getMax(), NBINS2D, it->getMin2(), it->getMax2());
             histo2->GetXaxis()->SetTitle(it->getLabel().c_str());
             histo2->GetYaxis()->SetTitle(it->getLabel2().c_str());
             BCH2D * bchisto2 = new BCH2D(histo2);
@@ -129,7 +131,8 @@ void MonteCarloEngine::Initialize(Model* Mod_i) {
     DefineParameters();
 };
 
-void MonteCarloEngine::SetNChains(unsigned int i) {
+void MonteCarloEngine::SetNChains(unsigned int i) 
+{
     MCMCSetNChains(i);
     obval = new double[fMCMCNChains * kmax];
     obweight = new double[fMCMCNChains * kwmax];
@@ -158,7 +161,8 @@ MonteCarloEngine::~MonteCarloEngine()
 
 // ---------------------------------------------------------
 
-void MonteCarloEngine::DefineParameters() {
+void MonteCarloEngine::DefineParameters() 
+{
     // Add parameters to your model here.
     // You can then use them in the methods below by calling the
     // parameters.at(i) or parameters[i], where i is the index
@@ -189,7 +193,8 @@ void MonteCarloEngine::DefineParameters() {
 
 // ---------------------------------------------------------
 
-double MonteCarloEngine::Weight(const Observable& obs, const double& th) {
+double MonteCarloEngine::Weight(const Observable& obs, const double& th) 
+{
     double logprob;
     if (obs.getDistr().compare("weight") == 0) {
         if (obs.getErrf() == 0.)
@@ -217,7 +222,8 @@ double MonteCarloEngine::Weight(const Observable& obs, const double& th) {
     return (logprob);
 }
 
-double MonteCarloEngine::Weight(const Observable2D& obs, const double& th1, const double& th2) {
+double MonteCarloEngine::Weight(const Observable2D& obs, const double& th1, const double& th2) 
+{
     double logprob;
     if (obs.getDistr().compare("file") == 0) {
         TH2D * h = InHisto2D[obs.getFilename() + obs.getHistoname()];
@@ -234,7 +240,8 @@ double MonteCarloEngine::Weight(const Observable2D& obs, const double& th1, cons
     return (logprob);
 }
 
-double MonteCarloEngine::Weight(const CorrelatedGaussianObservables& obs) {
+double MonteCarloEngine::Weight(const CorrelatedGaussianObservables& obs) 
+{
 
     int size = obs.GetObs().size();
     gslpp::vector<double> x(size);
@@ -246,7 +253,8 @@ double MonteCarloEngine::Weight(const CorrelatedGaussianObservables& obs) {
     return (-0.5 * x * (obs.GetCov() * x));
 }
 
-double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
+double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) 
+{
     // This methods returns the logarithm of the conditional probability
     // p(data|parameters). This is where you have to define your model.
 
@@ -284,7 +292,8 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
     return logprob;
 }
 
-void MonteCarloEngine::MCMCIterationInterface() {
+void MonteCarloEngine::MCMCIterationInterface() 
+{
 
     for (int i = 0; i < fMCMCNChains; ++i) {
         for (int k = 0; k < fMCMCNParameters; k++) {
@@ -329,7 +338,8 @@ void MonteCarloEngine::MCMCIterationInterface() {
     }
 }
 
-void MonteCarloEngine::PrintHistogram(BCModelOutput & out, std::vector<Observable>::iterator it) {
+void MonteCarloEngine::PrintHistogram(BCModelOutput & out, std::vector<Observable>::iterator it) 
+{
     if (Histo1D[it->getThname()]->GetHistogram()->Integral() > 0.0) {
         std::string fname = "Observables/" + it->getThname() + ".pdf";
         //        BCH1D* pippo =  Histo1D[it->getThname()];
@@ -356,7 +366,8 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, std::vector<Observabl
         HistoLog << "WARNING: The histogram of " << it->getThname() << " is empty!" << std::endl;
 }
 
-void MonteCarloEngine::PrintHistogram(BCModelOutput & out) {
+void MonteCarloEngine::PrintHistogram(BCModelOutput & out) 
+{
     //print the BAT histograms to an eps file
     std::vector<double> mode(GetBestFitParameters());
     for (int k = 0; k < fMCMCNParameters; k++)
@@ -392,7 +403,8 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out) {
     }
 }
 
-void MonteCarloEngine::AddChains() {
+void MonteCarloEngine::AddChains() 
+{
     fMCMCFlagWritePreRunToFile = false;
     int k = 0, kweight = 0;
     for (std::vector<Observable>::iterator it = Obs_ALL.begin();

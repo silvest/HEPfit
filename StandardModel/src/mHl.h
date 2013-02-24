@@ -12,6 +12,14 @@
 #include <ThObsType.h>
 #include "StandardModel.h"
 
+/**
+ * @class mHl
+ * @ingroup StandardModel
+ * @brief A class for an interface to the input paramter @f$m_h@f$.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class mHl : public ThObservable {
 public:
 

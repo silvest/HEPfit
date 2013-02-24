@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -12,9 +12,12 @@
 #include <StandardModel.h>
 using namespace gslpp;
 
-
 /**
  * @class EW_CHMN
+ * @ingroup EW 
+ * @brief A test class for the electroweak precision observables. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
  * @details A class for the electroweak precision observables with a simple 
  * parametrization in JHEP1111 (2011) 068 [arXiv:1104.1769] by G-C. Cho, 
  * K. Hagiwara, Y. Matsumoto and D. Nomura, which is designed to be valid 
@@ -23,7 +26,7 @@ using namespace gslpp;
  * g_L^f and g_R^f except for f=b, to R_Z, and to R_W are assumed to be 0. 
  * See also NPB574 (2000) 623 [hep-ph/9912260] by G-C. Cho and K. Hagiwara. 
  * This class is used for a test. 
- */  
+ */
 class EW_CHMN {
 public:
 
@@ -79,21 +82,24 @@ public:
     /**
      * @return the oblique parameters S
      */
-    double S() const {
+    double S() const 
+    {
         return ( SM.obliqueS() );
     }
     
     /**
      * @return the oblique parameters T
      */    
-    double T() const {
+    double T() const 
+    {
         return ( SM.obliqueT() );
     }
     
     /**
      * @return the oblique parameters U
      */    
-    double U() const {
+    double U() const 
+    {
         return ( SM.obliqueU() );
     }
     

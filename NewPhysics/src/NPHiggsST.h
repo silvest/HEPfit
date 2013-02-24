@@ -10,6 +10,14 @@
 
 #include "NPHiggs.h"
 
+/**
+ * @class NPHiggsST
+ * @brief A class for new physics with a non-standard @f$HVV@f$ coupling. 
+ * @ingroup NewPhysics
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class NPHiggsST : public NPHiggs {
 public:
     

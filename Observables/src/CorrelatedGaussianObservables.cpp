@@ -7,26 +7,31 @@
 
 #include "CorrelatedGaussianObservables.h"
 
-CorrelatedGaussianObservables::CorrelatedGaussianObservables(std::string name_i) {
+CorrelatedGaussianObservables::CorrelatedGaussianObservables(std::string name_i) 
+{
     name = name_i;
 }
 
-CorrelatedGaussianObservables::CorrelatedGaussianObservables(const CorrelatedGaussianObservables& orig) {
+CorrelatedGaussianObservables::CorrelatedGaussianObservables(const CorrelatedGaussianObservables& orig) 
+{
     Obs = orig.Obs;
     name = orig.name;
     Cov = new gslpp::matrix<double>(*orig.Cov);
 }
 
-CorrelatedGaussianObservables::~CorrelatedGaussianObservables(){
+CorrelatedGaussianObservables::~CorrelatedGaussianObservables()
+{
     if(Cov != NULL)
         delete(Cov);
 }
 
-void CorrelatedGaussianObservables::AddObs(Observable& Obs_i){
+void CorrelatedGaussianObservables::AddObs(Observable& Obs_i)
+{
     Obs.push_back(Obs_i);
 }
 
-void CorrelatedGaussianObservables::ComputeCov(gslpp::matrix<double> Corr) {
+void CorrelatedGaussianObservables::ComputeCov(gslpp::matrix<double> Corr) 
+{
     int size = Obs.size();
     if (Corr.size_i() != size || Corr.size_j() != size)
         throw std::runtime_error("The size of the correlated observables in "+name+" does not match the size of the correlation matrix!");

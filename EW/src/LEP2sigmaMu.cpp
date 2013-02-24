@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -11,7 +11,8 @@
 #include "LEP2sigmaMu.h"
 
 
-double LEP2sigmaMu::getThValue() { 
+double LEP2sigmaMu::getThValue() 
+{ 
     Mw = SM.Mw(); 
     GammaZ = myEW.Gamma_Z();
 

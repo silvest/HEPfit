@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -32,7 +32,7 @@
 /**
  * @class MonteCarloEngine
  * @ingroup MonteCarlo 
- * @brief 
+ * @brief An engine class for Monte Carlo. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details  
@@ -59,15 +59,18 @@ public:
     double Weight(const Observable& obs, const double& th);
     double Weight(const Observable2D& obs, const double& th1, const double& th2);    
     double Weight(const CorrelatedGaussianObservables& obs);
-    Model* GetMod() const {
+    Model* GetMod() const 
+    {
         return Mod;
     }
 
-    void SetMod(Model* Mod) {
+    void SetMod(Model* Mod) 
+    {
         this->Mod = Mod;
     }
     
-    std::string GetHistoLog() const {
+    std::string GetHistoLog() const 
+    {
         return HistoLog.str().c_str();
     }
 
@@ -89,7 +92,6 @@ private:
     std::ostringstream HistoLog;
     
 };
-// ---------------------------------------------------------
 
 #endif
 

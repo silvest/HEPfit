@@ -19,7 +19,11 @@ class EWSM; // forward reference to EWSM class
 
 /**
  * @class StandardModel
- * @brief Standard Model Class
+ * @ingroup StandardModel
+ * @brief A class for the Standard Model. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
  */
 class StandardModel: public QCD {
 public:
@@ -31,7 +35,8 @@ public:
     
     StandardModel(const bool bDebug_i=false);
 
-    virtual std::string ModelName() const {
+    virtual std::string ModelName() const 
+    {
         return "StandardModel";
     }
 
@@ -77,35 +82,43 @@ public:
         
     virtual bool SetFlag(const std::string, const bool&);    
     
-    bool IsFlagFixedAllSMparams() const {    
+    bool IsFlagFixedAllSMparams() const
+    {    
         return FlagFixedAllSMparams;
     }
 
-    bool IsFlagEWCHMN() const {
+    bool IsFlagEWCHMN() const
+    {
         return FlagEWCHMN;
     }
     
-    bool IsFlagEWABC() const {
+    bool IsFlagEWABC() const
+    {
         return FlagEWABC;
     }
 
-    bool IsFlagEWABC2() const {
+    bool IsFlagEWABC2() const
+    {
         return FlagEWABC2;
     }
     
-    bool IsFlagEWBURGESS() const {
+    bool IsFlagEWBURGESS() const
+    {
         return FlagEWBURGESS;
     }
 
-    bool IsFlagR0bApproximate() const {
+    bool IsFlagR0bApproximate() const 
+    {
         return FlagR0bApproximate;
     }
     
-    void SetFlagR0bApproximate(bool FlagR0bApproximate) {
+    void SetFlagR0bApproximate(bool FlagR0bApproximate)
+    {
         this->FlagR0bApproximate = FlagR0bApproximate;
     }
     
-    bool IsFlagWithoutNonUniversalVC() const {
+    bool IsFlagWithoutNonUniversalVC() const 
+    {
         return FlagWithoutNonUniversalVC;
     }
 
@@ -119,15 +132,18 @@ public:
     
     virtual void SetEWSMflags(EWSM& myEWSM);
     
-    virtual StandardModelMatching* GetMyMatching() const {
+    virtual StandardModelMatching* GetMyMatching() const 
+    {
         return myStandardModelMatching;
     }
 
-    virtual void SetMyMatching(StandardModelMatching* myMatching) {
+    virtual void SetMyMatching(StandardModelMatching* myMatching) 
+    {
         this->myStandardModelMatching = myMatching;
     }
     
-    virtual const double matchingScale() const {
+    virtual const double matchingScale() const 
+    {
         return muw;
     }
 
@@ -138,18 +154,21 @@ public:
     /**
      * @return boolean variable for debugging
      */    
-    bool isBDebug() const {
+    bool isBDebug() const 
+    {
         return bDebug;
     }
     
-    Particle getLeptons(const StandardModel::lepton p) const {
+    Particle getLeptons(const StandardModel::lepton p) const 
+    {
         return leptons[p];
     }
     
     /**
      * @return the Fermi constant
      */
-    double getGF() const {
+    double getGF() const 
+    {
         return GF;
     }
 
@@ -157,14 +176,16 @@ public:
      * @brief set the Fermi constant
      * @param GF the Fermi constant
      */
-    void setGF(double GF) {
+    void setGF(double GF) 
+    {
         this->GF = GF;
     }
 
     /**
      * @return the electromagnetic coupling
      */
-    double getAle() const {
+    double getAle() const 
+    {
         return ale;
     }
 
@@ -172,14 +193,16 @@ public:
      * @brief set the electromagnetic coupling
      * @param ale the electromagnetic coupling
      */
-    void setAle(double ale) {
+    void setAle(double ale) 
+    {
         this->ale = ale;
     }
 
     /**
      * @return @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
      */
-    double getDAle5Mz() const {
+    double getDAle5Mz() const 
+    {
         return dAle5Mz;
     }
 
@@ -187,14 +210,16 @@ public:
      * set @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
      * @param dAle5Mz @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
      */
-    void setDAle5Mz(double dAle5Mz) {
+    void setDAle5Mz(double dAle5Mz) 
+    {
         this->dAle5Mz = dAle5Mz;
     }
     
     /**
      * @return the Higgs mass
      */
-    double getMHl() const {
+    double getMHl() const 
+    {
         return mHl;
     }
 
@@ -202,7 +227,8 @@ public:
      * @brief set the Higgs mass
      * @param mHl the Higgs mass
      */
-    void setMHl(double mHl) {
+    void setMHl(double mHl)
+    {
         this->mHl = mHl;
     }    
     
@@ -225,7 +251,8 @@ public:
     /**
      * @return the CKM matrix
      */
-    matrix<complex> getVCKM() const { 
+    matrix<complex> getVCKM() const
+    { 
         return VCKM; 
     }
 
@@ -233,14 +260,16 @@ public:
      * @brief set the CKM matrix
      * @param VCKM the CKM matrix
      */
-    void setVCKM(matrix<complex> VCKM) { 
+    void setVCKM(matrix<complex> VCKM)
+    { 
         this->VCKM = VCKM; 
     }
 
     /**
      * @return the PMNS matrix
      */
-    matrix<complex> getUPMNS() const { 
+    matrix<complex> getUPMNS() const 
+    { 
         return UPMNS; 
     }
 
@@ -248,35 +277,40 @@ public:
      * @brief set the PMNS matrix
      * @param UPMNS the PMNS matrix
      */
-    void setUPMNS(matrix<complex> UPMNS) { 
+    void setUPMNS(matrix<complex> UPMNS)
+    { 
         this->UPMNS = UPMNS; 
     }
 
     /**
      * @return up Yukawa matrix
      */
-    matrix<complex> getYu() const {
+    matrix<complex> getYu() const
+    {
         return Yu;
     }
 
     /**
      * @return down Yukawa matrix
      */
-    matrix<complex> getYd() const {
+    matrix<complex> getYd() const 
+    {
         return Yd;
     }
 
     /**
      * @return neutrino Yukawa matrix
      */
-    matrix<complex> getYn() const {
+    matrix<complex> getYn() const 
+    {
         return Yn;
     }
 
     /**
      * @return charged lepton Yukawa matrix
      */
-    matrix<complex> getYe() const {
+    matrix<complex> getYe() const 
+    {
         return Ye;
     }
     
@@ -284,57 +318,69 @@ public:
      * @brief set the value Standard Model contribution to \f$ \Delta m_{K} \f$
      * @param Dmk Standard Model contribution to \f$ \Delta m_{K} \f$
      */
-    void setDmk(double Dmk) {
+    void setDmk(double Dmk) 
+    {
         this->Dmk = Dmk;
     }
     
     /**
      * @return the value of Standard Model contribution to \f$ \Delta m_{K} \f$
      */
-    double getDmk() const {
+    double getDmk() const 
+    {
         return Dmk;
     }
     
     /**
      * @return the Standard Model amplitude of the \f$ D^{0} - \bar{D}^{0} \f$ mixing
      */
-    double getSM_M12D() const {
+    double getSM_M12D() const
+    {
         return SM_M12D;
     }
 
-    double getMuw() const {
+    double getMuw() const 
+    {
         return muw;
     }
     
-    double getKbarEpsK() const {
+    double getKbarEpsK() const 
+    {
         return KbarEpsK;
     }
     
-    double getphiEpsK() const {
+    double getphiEpsK() const 
+    {
         return phiEpsK;
     }
     
-    double getDeltaMK() const {
+    double getDeltaMK() const 
+    {
         return DeltaMK;
     }
 
-    double GetA() const {
+    double GetA() const 
+    {
         return A;
     }
 
-    double GetEtab() const {
+    double GetEtab() const 
+    {
         return etab;
     }
 
-    double GetLambda() const {
+    double GetLambda() const 
+    {
         return lambda;
     }
 
-    double GetRhob() const {
+    double GetRhob() const 
+    {
         return rhob;
     }
     
-    CKM getCKM() const {
+    CKM getCKM() const 
+    {
         return myCKM;
     }
 
@@ -384,7 +430,8 @@ public:
     /**
      * @return pointer to EWSM object
      */
-    EWSM* getEWSM() const {
+    EWSM* getEWSM() const 
+    {
         return myEWSM;
     }
     
@@ -514,70 +561,80 @@ public:
     /**
      * @return NP contribution to oblique parameter S
      */
-    virtual double obliqueS() const {
+    virtual double obliqueS() const 
+    {
         return 0.0;
     }
         
     /**
      * @return NP contribution to oblique parameter T
      */
-    virtual double obliqueT() const {
+    virtual double obliqueT() const 
+    {
         return 0.0;
     }
     
     /**
      * @return NP contribution to oblique parameter U
      */
-    virtual double obliqueU() const {
+    virtual double obliqueU() const 
+    {
         return 0.0;
     }
     
     /**
      * @return NP contribution to oblique parameter \hat{S}
      */
-    virtual double obliqueShat() const {
+    virtual double obliqueShat() const 
+    {
         return 0.0;
     }
         
     /**
      * @return NP contribution to oblique parameter \hat{T}
      */
-    virtual double obliqueThat() const {
+    virtual double obliqueThat() const 
+    {
         return 0.0;
     }
     
     /**
      * @return NP contribution to oblique parameter \hat{U}
      */
-    virtual double obliqueUhat() const {
+    virtual double obliqueUhat() const 
+    {
         return 0.0;
     }
 
     /**
      * @return NP contribution to oblique parameter V
      */
-    virtual double obliqueV() const {
+    virtual double obliqueV() const 
+    {
         return 0.0;
     }
 
     /**
      * @return NP contribution to oblique parameter W
      */
-    virtual double obliqueW() const {
+    virtual double obliqueW() const 
+    {
         return 0.0;
     }
 
     /**
      * @return NP contribution to oblique parameter X
      */
-    virtual double obliqueX() const {
+    virtual double obliqueX() const 
+    {
         return 0.0;
     }
 
     /**
      * @return NP contribution to oblique parameter Y
      */
-    virtual double obliqueY() const {
+    virtual double obliqueY() const 
+    {
         return 0.0;
     }
 

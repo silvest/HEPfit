@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -12,12 +12,15 @@
 #include "EW.h"
 using namespace gslpp;
 
-
 /**
  * @class LEP2TwoFermions
- * @brief Cross sections and forward-backward asymmetries for e^+e^- -> f fbar at LEP-II
+ * @ingroup EW
+ * @brief A class for cross sections and forward-backward asymmetries of @f$e^+e^-\to f \bar{f}@f$ above the @f$Z@f$ pole.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
  */
-    class LEP2TwoFermions : public EW {
+class LEP2TwoFermions : public EW {
 public:
 
     /**

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -18,7 +18,8 @@
 #define LEPS 1.e-7 // tolerance in the limit of masses
 
 
-double PVfunctions::A0(const double mu, const double m) const {
+double PVfunctions::A0(const double mu, const double m) const 
+{
 #ifdef USE_LOOPTOOLS
     return myLT.PV_A0(mu, m);
 #else    
@@ -35,7 +36,8 @@ double PVfunctions::A0(const double mu, const double m) const {
 }
 
 complex PVfunctions::B0(const double mu, const double p2, 
-                        const double m0, const double m1) const {   
+                        const double m0, const double m1) const 
+{   
 #ifdef USE_LOOPTOOLS
     return myLT.PV_B0(mu, p2, m0, m1);
 #else    
@@ -97,7 +99,8 @@ complex PVfunctions::B0(const double mu, const double p2,
 }
 
 complex PVfunctions::B1(const double mu, const double p2, 
-                        const double m0, const double m1) const {   
+                        const double m0, const double m1) const 
+{   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw std::runtime_error("Invalid argument for PVfunctions::B1()"); 
     }
@@ -130,7 +133,8 @@ complex PVfunctions::B1(const double mu, const double p2,
 }
 
 complex PVfunctions::B21(const double mu, const double p2, 
-                         const double m0, const double m1) const {   
+                         const double m0, const double m1) const 
+{   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw std::runtime_error("Invalid argument for PVfunctions::B21()"); 
     }
@@ -167,7 +171,8 @@ complex PVfunctions::B21(const double mu, const double p2,
 }
 
 complex PVfunctions::B22(const double mu, const double p2, 
-                         const double m0, const double m1) const {   
+                         const double m0, const double m1) const 
+{   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw std::runtime_error("Invalid argument for PVfunctions::B22()"); 
     }
@@ -205,7 +210,8 @@ complex PVfunctions::B22(const double mu, const double p2,
 }
 
 complex PVfunctions::Bf(const double mu, const double p2, 
-                        const double m0, const double m1) const {   
+                        const double m0, const double m1) const 
+{   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw std::runtime_error("Invalid argument for PVfunctions::Bf()"); 
     }
@@ -215,7 +221,8 @@ complex PVfunctions::Bf(const double mu, const double p2,
 }
 
 complex PVfunctions::B0p(const double muIR, const double p2, 
-                         const double m0, const double m1) const {   
+                         const double m0, const double m1) const 
+{   
     if ( muIR<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 )
         throw std::runtime_error("Invalid argument for PVfunctions::B0p()"); 
     
@@ -275,7 +282,8 @@ complex PVfunctions::B0p(const double muIR, const double p2,
 }
 
 complex PVfunctions::B1p(const double mu, const double p2, 
-                         const double m0, const double m1) const {   
+                         const double m0, const double m1) const 
+{   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw std::runtime_error("Invalid argument for PVfunctions::B1p()"); 
     }
@@ -292,7 +300,8 @@ complex PVfunctions::B1p(const double mu, const double p2,
 }
 
 complex PVfunctions::B21p(const double mu, const double p2, 
-                          const double m0, const double m1) const {   
+                          const double m0, const double m1) const 
+{   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw std::runtime_error("Invalid argument for PVfunctions::B21p()"); 
     }
@@ -315,7 +324,8 @@ complex PVfunctions::B21p(const double mu, const double p2,
 }
 
 //complex PVfunctions::B22p(const double mu, const double p2, 
-//                          const double m0, const double m1) {   
+//                          const double m0, const double m1) 
+//{   
 //    if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
 //        throw std::runtime_error("Invalid argument for PVfunctions::B22p()"); 
 //    }
@@ -326,7 +336,8 @@ complex PVfunctions::B21p(const double mu, const double p2,
 //}
 
 complex PVfunctions::Bfp(const double mu, const double p2, 
-                         const double m0, const double m1) const {   
+                         const double m0, const double m1) const 
+{   
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw std::runtime_error("Invalid argument for PVfunctions::Bfp()"); 
     }
@@ -336,7 +347,8 @@ complex PVfunctions::Bfp(const double mu, const double p2,
 }
 
 complex PVfunctions::C0(const double p2, 
-                        const double m0, const double m1, const double m2) const {
+                        const double m0, const double m1, const double m2) const 
+{
 #ifdef USE_LOOPTOOLS
     return myLT.PV_C0(p2, m0, m1, m2);
 #else 
@@ -456,7 +468,8 @@ complex PVfunctions::C0(const double p2,
 }
 
 complex PVfunctions::D0(const double s, const double t, const double m0, 
-                        const double m1, const double m2, const double m3) const{
+                        const double m1, const double m2, const double m3) const
+{
 #ifdef USE_LOOPTOOLS
     return myLT.PV_D0(s, t, m0, m1, m2, m3);
 #else 

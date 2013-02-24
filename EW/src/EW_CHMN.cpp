@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,36 +8,43 @@
 #include "EW_CHMN.h"
 
 
-EW_CHMN::EW_CHMN(const StandardModel& SM_i) : SM(SM_i) {
+EW_CHMN::EW_CHMN(const StandardModel& SM_i) 
+: SM(SM_i) 
+{
 }
 
 
 ////////////////////////////////////////////////////////////////////////   
 
-double EW_CHMN::Mw() const {
+double EW_CHMN::Mw() const 
+{
     return ( 80.365 + DeltaMw() );
 }
 
 
-double EW_CHMN::GammaW() const {
+double EW_CHMN::GammaW() const 
+{
     double Rw = 2.1940 + DeltaRw();
     return ( 0.33904*pow(Mw(), 3.0)
              *SM.getGF()*(1.0 + 0.008478*Rw + 0.00065*x_s()) );
 }
 
 
-double EW_CHMN::DeltaSz() const {
+double EW_CHMN::DeltaSz() const 
+{
     return ( S() + DeltaRz() + DeltaSz_SM() );
 }
 
 
-double EW_CHMN::DeltaTz() const {
+double EW_CHMN::DeltaTz() const 
+{
     // \Delta\bar\delta_G = 0
     return ( T() + 1.49*DeltaRz() + DeltaTz_SM() );
 }
 
 
-double EW_CHMN::gL_l(const StandardModel::lepton l) const {
+double EW_CHMN::gL_l(const StandardModel::lepton l) const 
+{
     double c1, c2, c3;
     switch (l) {
         case StandardModel::NEUTRINO_1:
@@ -62,7 +69,8 @@ double EW_CHMN::gL_l(const StandardModel::lepton l) const {
 }
 
 
-double EW_CHMN::gR_l(const StandardModel::lepton l) const {
+double EW_CHMN::gR_l(const StandardModel::lepton l) const 
+{
     double c1, c2, c3;
     switch (l) {
         case StandardModel::NEUTRINO_1:
@@ -87,7 +95,8 @@ double EW_CHMN::gR_l(const StandardModel::lepton l) const {
 }
 
 
-double EW_CHMN::gL_q(const StandardModel::quark q) const {
+double EW_CHMN::gL_q(const StandardModel::quark q) const
+{
     double c1, c2, c3;
     switch (q) {
         case StandardModel::UP:
@@ -117,7 +126,8 @@ double EW_CHMN::gL_q(const StandardModel::quark q) const {
 }
 
 
-double EW_CHMN::gR_q(const StandardModel::quark q) const {
+double EW_CHMN::gR_q(const StandardModel::quark q) const
+{
     double c1, c2, c3;
     switch (q) {
         case StandardModel::UP:
@@ -147,7 +157,8 @@ double EW_CHMN::gR_q(const StandardModel::quark q) const {
 }
 
 
-double EW_CHMN::GammaZ_l(StandardModel::lepton l) const {
+double EW_CHMN::GammaZ_l(StandardModel::lepton l) const 
+{
     double Qf = SM.getLeptons(l).getCharge();
     double gL = gL_l(l);
     double gR = gR_l(l);
@@ -160,7 +171,8 @@ double EW_CHMN::GammaZ_l(StandardModel::lepton l) const {
 }
 
 
-double EW_CHMN::GammaZ_q(StandardModel::quark q) const {
+double EW_CHMN::GammaZ_q(StandardModel::quark q) const
+{
     double Qf = SM.getQuarks(q).getCharge();
     double gL = gL_q(q);
     double gR = gR_q(q);
@@ -173,7 +185,8 @@ double EW_CHMN::GammaZ_q(StandardModel::quark q) const {
 }
 
 
-double EW_CHMN::GammaZ_had() const {
+double EW_CHMN::GammaZ_had() const
+{
     return ( GammaZ_q(StandardModel::UP) 
              + GammaZ_q(StandardModel::DOWN) 
              + GammaZ_q(StandardModel::CHARM) 
@@ -182,7 +195,8 @@ double EW_CHMN::GammaZ_had() const {
 }
 
 
-double EW_CHMN::GammaZ() const {
+double EW_CHMN::GammaZ() const 
+{
     return ( GammaZ_l(StandardModel::NEUTRINO_1)*3.0 
              + GammaZ_l(StandardModel::ELECTRON) 
              + GammaZ_l(StandardModel::MU) 
@@ -191,54 +205,63 @@ double EW_CHMN::GammaZ() const {
 }
 
 
-double EW_CHMN::R_l(const StandardModel::lepton l) const {
+double EW_CHMN::R_l(const StandardModel::lepton l) const
+{
     return ( GammaZ_had()/GammaZ_l(l) );
 }
 
 
-double EW_CHMN::R_c() const {
+double EW_CHMN::R_c() const 
+{
     return ( GammaZ_q(StandardModel::CHARM)/GammaZ_had() );
 }
 
 
-double EW_CHMN::R_b() const {
+double EW_CHMN::R_b() const 
+{
     return ( GammaZ_q(StandardModel::BOTTOM)/GammaZ_had() );    
 }
 
 
-double EW_CHMN::sigma0_had() const {
+double EW_CHMN::sigma0_had() const
+{
     return ( 12.0*M_PI/SM.getMz()/SM.getMz()
              *GammaZ_l(StandardModel::ELECTRON)*GammaZ_had()/GammaZ()/GammaZ() );
 }
 
 
-double EW_CHMN::A_l(const StandardModel::lepton l) const {
+double EW_CHMN::A_l(const StandardModel::lepton l) const
+{
     double gL = gL_l(l);
     double gR = gR_l(l);
     return ( (gL*gL - gR*gR)/(gL*gL + gR*gR) );
 }
 
 
-double EW_CHMN::A_q(const StandardModel::quark q) const {
+double EW_CHMN::A_q(const StandardModel::quark q) const
+{
     double gL = gL_q(q);
     double gR = gR_q(q);
     return ( (gL*gL - gR*gR)/(gL*gL + gR*gR) );
 }
 
 
-double EW_CHMN::AFB_l(const StandardModel::lepton l) const {
+double EW_CHMN::AFB_l(const StandardModel::lepton l) const
+{
     return ( 3.0/4.0*A_l(StandardModel::ELECTRON)
              *A_l(l) );   
 }
 
 
-double EW_CHMN::AFB_q(const StandardModel::quark q) const {
+double EW_CHMN::AFB_q(const StandardModel::quark q) const
+{
     return ( 3.0/4.0*A_l(StandardModel::ELECTRON)
              *A_q(q) );    
 }
     
 
-double EW_CHMN::sin2thetaEff() const {
+double EW_CHMN::sin2thetaEff() const 
+{
     double gL = gL_l(StandardModel::ELECTRON);
     double gR = gR_l(StandardModel::ELECTRON);
     return ( gR/(gR - gL)/2.0 );
@@ -247,84 +270,99 @@ double EW_CHMN::sin2thetaEff() const {
     
 ////////////////////////////////////////////////////////////////////////   
 
-double EW_CHMN::x_alpha() const {
+double EW_CHMN::x_alpha() const 
+{
     return ( (SM.getDAle5Mz() - 0.0277)/0.0003 );
 }
 
 
-double EW_CHMN::x_t() const {
+double EW_CHMN::x_t() const 
+{
     return ( (SM.getMtpole() - 172.0)/3.0 );
 }
 
 
-double EW_CHMN::x_h() const {
+double EW_CHMN::x_h() const
+{
     return ( log(SM.getMHl()/100.0)/log(10.0) );
 }
 
 
-double EW_CHMN::x_s() const {
+double EW_CHMN::x_s() const 
+{
     return ( (SM.getAlsMz() - 0.118)/0.003 );
 }
     
     
-double EW_CHMN::DeltaRz() const {
+double EW_CHMN::DeltaRz() const 
+{
     return DeltaRz_SM();
 }
 
-double EW_CHMN::DeltaRw() const {
+double EW_CHMN::DeltaRw() const 
+{
     return DeltaRw_SM();    
 }
 
 
-double EW_CHMN::DeltaMw() const {
+double EW_CHMN::DeltaMw() const 
+{
     // \Delta\bar\delta_G = 0
     return ( - 0.288*S() + 0.418*T() + 0.337*U() - 0.0055*x_alpha()
              + DeltaMw_SM() );
 }
 
 
-double EW_CHMN::Delta_gbarZ2() const {
+double EW_CHMN::Delta_gbarZ2() const
+{
     return ( 0.00412*DeltaTz() ); 
 }
 
 
-double EW_CHMN::Delta_sbar2() const {
+double EW_CHMN::Delta_sbar2() const
+{
     return ( 0.00360*DeltaSz() - 0.00241*DeltaTz() + 0.00011*x_alpha() );
 }
 
 
-double EW_CHMN::DeltaSz_SM() const { 
+double EW_CHMN::DeltaSz_SM() const 
+{ 
     return ( 0.2217*x_h() - 0.1188*x_h()*x_h() + 0.0320*x_h()*x_h()*x_h() 
              - 0.0014*x_t() + 0.0005*x_s() );
 }
 
 
-double EW_CHMN::DeltaTz_SM() const {
+double EW_CHMN::DeltaTz_SM() const 
+{
     return ( - 0.0995*x_h() - 0.2858*x_h()*x_h() + 0.1175*x_h()*x_h()*x_h() 
              + 0.0367*x_t() + 0.00026*x_t()*x_t() - 0.0017*x_h()*x_t() 
              - 0.0033*x_s() - 0.0001*x_t()*x_s() );
 }
     
     
-double EW_CHMN::DeltaMw_SM() const { 
+double EW_CHMN::DeltaMw_SM() const 
+{ 
     return ( - 0.137*x_h() - 0.019*x_h()*x_h() + 0.018*x_t() 
              - 0.005*x_alpha() - 0.002*x_s() );
 }
 
 
-double EW_CHMN::DeltaRz_SM() const {
+double EW_CHMN::DeltaRz_SM() const
+{
     return ( -0.124*(log(1.0 + (26.0/SM.getMHl())*(26.0/SM.getMHl())) 
                      - log(1.0 + (26.0/100.0)*(26.0/100.0))) );
 }
 
 
-double EW_CHMN::DeltaRw_SM() const {
+double EW_CHMN::DeltaRw_SM() const 
+{
     return ( -0.16*(log(1.0 + (23.0/SM.getMHl())*(23.0/SM.getMHl())) 
                     - log(1.0 + (23.0/100.0)*(23.0/100.0))) );    
 }
 
 
-double EW_CHMN::CV_l(StandardModel::lepton l) const {
+double EW_CHMN::CV_l(StandardModel::lepton l) const 
+{
     switch (l) {
         case StandardModel::NEUTRINO_1:
         case StandardModel::NEUTRINO_2:
@@ -339,7 +377,8 @@ double EW_CHMN::CV_l(StandardModel::lepton l) const {
 }
 
 
-double EW_CHMN::CV_q(StandardModel::quark q) const {
+double EW_CHMN::CV_q(StandardModel::quark q) const 
+{
     switch (q) {
         case StandardModel::UP:
             return ( 3.1166 + 0.0030*x_s() );
@@ -356,7 +395,8 @@ double EW_CHMN::CV_q(StandardModel::quark q) const {
 }
 
 
-double EW_CHMN::CA_l(StandardModel::lepton l) const {
+double EW_CHMN::CA_l(StandardModel::lepton l) const
+{
     switch (l) {
         case StandardModel::NEUTRINO_1:
         case StandardModel::NEUTRINO_2:
@@ -372,7 +412,8 @@ double EW_CHMN::CA_l(StandardModel::lepton l) const {
 }
 
 
-double EW_CHMN::CA_q(StandardModel::quark q) const {
+double EW_CHMN::CA_q(StandardModel::quark q) const 
+{
     switch (q) {
         case StandardModel::UP:
             return ( 3.1377 + 0.00014*x_t() + 0.0041*x_s() );
@@ -390,7 +431,8 @@ double EW_CHMN::CA_q(StandardModel::quark q) const {
 }
 
 
-double EW_CHMN::deltaImKappa_l(StandardModel::lepton l) const {
+double EW_CHMN::deltaImKappa_l(StandardModel::lepton l) const 
+{
     switch (l) {
         case StandardModel::NEUTRINO_1:
         case StandardModel::NEUTRINO_2:
@@ -406,7 +448,8 @@ double EW_CHMN::deltaImKappa_l(StandardModel::lepton l) const {
 }
     
     
-double EW_CHMN::deltaImKappa_q(StandardModel::quark q) const {
+double EW_CHMN::deltaImKappa_q(StandardModel::quark q) const 
+{
     switch (q) {
         case StandardModel::UP:
         case StandardModel::CHARM:
@@ -423,7 +466,8 @@ double EW_CHMN::deltaImKappa_q(StandardModel::quark q) const {
 }
 
 
-double EW_CHMN::DeltaEWQCD_l(StandardModel::lepton l) const {
+double EW_CHMN::DeltaEWQCD_l(StandardModel::lepton l) const 
+{
     switch (l) {
         case StandardModel::NEUTRINO_1:
         case StandardModel::NEUTRINO_2:
@@ -438,7 +482,8 @@ double EW_CHMN::DeltaEWQCD_l(StandardModel::lepton l) const {
 }
     
 
-double EW_CHMN::DeltaEWQCD_q(StandardModel::quark q) const {
+double EW_CHMN::DeltaEWQCD_q(StandardModel::quark q) const 
+{
     switch (q) {
         case StandardModel::UP:
         case StandardModel::CHARM:

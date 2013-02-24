@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -11,14 +11,17 @@
 #include "EWSMOneLoopEW.h"
 
 
-EWSMOneLoopEW_HV::EWSMOneLoopEW_HV(const StandardModel& SM_i) : SM(SM_i) {
+EWSMOneLoopEW_HV::EWSMOneLoopEW_HV(const StandardModel& SM_i) 
+: SM(SM_i) 
+{
 }
 
 
 //////////////////////////////////////////////////////////////////////// 
 
 complex EWSMOneLoopEW_HV::SigmaWW_bos(const double mu, const double s,
-                                      const double Mw) const {
+                                      const double Mw) const 
+{
     double Mz = SM.getMz(), mh = SM.getMHl();
     double Mw2 = Mw*Mw, Mz2 = Mz*Mz, mh2 = mh*mh;
     double cW2 = Mw2/Mz2, cW4 = cW2*cW2; 
@@ -55,7 +58,8 @@ complex EWSMOneLoopEW_HV::SigmaWW_bos(const double mu, const double s,
 
 
 complex EWSMOneLoopEW_HV::SigmaWW_fer(const double mu, const double muForMq, 
-                                      const double s) const {
+                                      const double s) const 
+{
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
         ml[i] = this->ml((StandardModel::lepton) i);
@@ -97,7 +101,8 @@ complex EWSMOneLoopEW_HV::SigmaWW_fer(const double mu, const double muForMq,
 
 
 complex EWSMOneLoopEW_HV::SigmaZZ_bos(const double mu, const double s,
-                                      const double Mw) const {
+                                      const double Mw) const 
+{
     double Mz = SM.getMz(), mh = SM.getMHl();
     double Mw2 = Mw*Mw, Mz2 = Mz*Mz, mh2 = mh*mh;
     double cW2 = Mw2/Mz2, cW4 = cW2*cW2, cW6 = cW4*cW2;
@@ -130,7 +135,8 @@ complex EWSMOneLoopEW_HV::SigmaZZ_bos(const double mu, const double s,
 
 
 complex EWSMOneLoopEW_HV::SigmaZZ_fer(const double mu, const double muForMq, 
-                                      const double s, const double Mw) const {
+                                      const double s, const double Mw) const 
+{
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
         ml[i] = this->ml((StandardModel::lepton) i);
@@ -171,19 +177,22 @@ complex EWSMOneLoopEW_HV::SigmaZZ_fer(const double mu, const double muForMq,
 
 
 complex EWSMOneLoopEW_HV::SigmaGammaGamma_bos(const double mu, const double s,
-                                              const double Mw) const {
+                                              const double Mw) const 
+{
     return ( s*PiGammaGamma_bos(mu, s, Mw) );
 }
 
 
 complex EWSMOneLoopEW_HV::SigmaGammaGamma_fer(const double mu, const double muForMq,
-                                              const double s) const {
+                                              const double s) const 
+{
     return ( s*PiGammaGamma_fer(mu, muForMq, s) );
 }
 
 
 complex EWSMOneLoopEW_HV::PiGammaGamma_bos(const double mu, const double s,
-                                           const double Mw) const {
+                                           const double Mw) const 
+{
     double Mw2 = Mw*Mw;
     double w = - s/Mw2;
     
@@ -202,7 +211,8 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_bos(const double mu, const double s,
 
 
 complex EWSMOneLoopEW_HV::PiGammaGamma_fer_l(const double mu, const double s, 
-                                             const StandardModel::lepton l) const {
+                                             const StandardModel::lepton l) const
+{
     // Neutrinos do not contribute, since Qf=0.
     if ( (l==StandardModel::NEUTRINO_1) || (l==StandardModel::NEUTRINO_2)
             || (l==StandardModel::NEUTRINO_3) )
@@ -223,7 +233,8 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_fer_l(const double mu, const double s,
 
 
 complex EWSMOneLoopEW_HV::PiGammaGamma_fer_q(const double mu, const double muForMq,
-                                             const double s, const StandardModel::quark q) const {
+                                             const double s, const StandardModel::quark q) const 
+{
     double mf = this->mq((StandardModel::quark) q, muForMq);
     double Qf = SM.getQuarks(q).getCharge();
  
@@ -239,7 +250,8 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_fer_q(const double mu, const double muFor
 
 
 complex EWSMOneLoopEW_HV::PiGammaGamma_fer(const double mu, const double muForMq, 
-                                           const double s) const {
+                                           const double s) const 
+{
     complex Pi(0.0,0.0,false);
     for (int i=0; i<6; i++) {
         Pi += PiGammaGamma_fer_l(mu, s, (StandardModel::lepton) i);
@@ -250,7 +262,8 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_fer(const double mu, const double muForMq
 
 
 complex EWSMOneLoopEW_HV::SigmaZgamma_bos(const double mu, const double s,
-                                          const double Mw) const {
+                                          const double Mw) const 
+{
     double Mz = SM.getMz();
     double Mw2 = Mw*Mw, Mz2 = Mz*Mz;
     double cW2 = Mw2/Mz2;
@@ -272,7 +285,8 @@ complex EWSMOneLoopEW_HV::SigmaZgamma_bos(const double mu, const double s,
 
 
 complex EWSMOneLoopEW_HV::SigmaZgamma_fer(const double mu, const double muForMq,
-                                          const double s, const double Mw) const {
+                                          const double s, const double Mw) const 
+{
     double ml[6], mq[6];
     for (int i=0; i<6; i++) { 
         ml[i] = this->ml((StandardModel::lepton) i);
@@ -308,7 +322,8 @@ complex EWSMOneLoopEW_HV::SigmaZgamma_fer(const double mu, const double muForMq,
 //////////////////////////////////////////////////////////////////////// 
 
 complex EWSMOneLoopEW_HV::F_Hollik(const double s, const double m1, 
-                                   const double m2) const {
+                                   const double m2) const 
+{
     double m12 = m1*m1, m22 = m2*m2;
     double mu = SM.getMz(); // The result is independent of mu. 
     
@@ -329,13 +344,15 @@ complex EWSMOneLoopEW_HV::F_Hollik(const double s, const double m1,
 
 
 complex EWSMOneLoopEW_HV::Fprime_Hollik(const double muIR, const double s, 
-                                        const double m1, const double m2) const {
+                                        const double m1, const double m2) const
+{
     return ( PV.B0p(muIR,s,m1,m2) );
 }
 
 
 complex EWSMOneLoopEW_HV::SigmaWW_bos_Hollik(const double mu, const double s,
-                                             const double Mw) const {
+                                             const double Mw) const 
+{
     double Mz = SM.getMz(), mh = SM.getMHl();
     double Mw2 = Mw*Mw, Mz2 = Mz*Mz, mh2 = mh*mh;
     double cW2 = Mw2/Mz2;
@@ -367,7 +384,8 @@ complex EWSMOneLoopEW_HV::SigmaWW_bos_Hollik(const double mu, const double s,
     
 
 complex EWSMOneLoopEW_HV::SigmaZZ_bos_Hollik(const double mu, const double s,
-                                             const double Mw) const {
+                                             const double Mw) const
+{
     double Mz = SM.getMz(), mh = SM.getMHl();
     double Mw2 = Mw*Mw, Mz2 = Mz*Mz, mh2 = mh*mh;
     double cW2 = Mw2/Mz2;
@@ -396,7 +414,8 @@ complex EWSMOneLoopEW_HV::SigmaZZ_bos_Hollik(const double mu, const double s,
 
 
 complex EWSMOneLoopEW_HV::SigmaGammaGamma_bos_Hollik(const double mu, const double s, 
-                                                     const double Mw) const {
+                                                     const double Mw) const 
+{
     double Mw2 = Mw*Mw;
     double w = Mw2;
         
@@ -411,7 +430,8 @@ complex EWSMOneLoopEW_HV::SigmaGammaGamma_bos_Hollik(const double mu, const doub
 
 
 complex EWSMOneLoopEW_HV::PiGammaGamma_bos_Hollik(const double mu, const double s, 
-                                                  const double Mw) const {
+                                                  const double Mw) const 
+{
     double Mw2 = Mw*Mw;
     double w = Mw2;
     
@@ -435,7 +455,8 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_bos_Hollik(const double mu, const double 
 
 
 complex EWSMOneLoopEW_HV::SigmaZgamma_bos_Hollik(const double mu, const double s,
-                                                 const double Mw) const {
+                                                 const double Mw) const 
+{
     double Mz = SM.getMz();
     double Mw2 = Mw*Mw, Mz2 = Mz*Mz;
     double cW2 = Mw2/Mz2;
