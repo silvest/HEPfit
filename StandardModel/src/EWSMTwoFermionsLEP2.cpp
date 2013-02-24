@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,8 +13,9 @@
 
 
 EWSMTwoFermionsLEP2::EWSMTwoFermionsLEP2(const StandardModel& SM_i, 
-                                         const bool bKeepNonUnitary_i) : SM(SM_i), 
-        myCache(SM_i), myOneLoopEW(myCache) {
+                                         const bool bKeepNonUnitary_i) 
+: SM(SM_i), myCache(SM_i), myOneLoopEW(myCache) 
+{
     bDebug = SM_i.isBDebug();
     bKeepNonUnitary = bKeepNonUnitary_i;
 }
@@ -27,7 +28,8 @@ double EWSMTwoFermionsLEP2::G_1(const double s, const double t,
                                 const double I3f, const double Qf, 
                                 const double mf, const double mfp, 
                                 const bool bWeak, const bool bWWbox, 
-                                const bool bZZbox) const {
+                                const bool bZZbox) const 
+{
     complex Vpol = V_pol(s);
     complex rhoef, Ge, Gf, Gef;
     rhoef = rho_ef(s, t, Mw, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox);
@@ -47,7 +49,8 @@ double EWSMTwoFermionsLEP2::G_2(const double s, const double t,
                                 const double I3f, const double Qf, 
                                 const double mf, const double mfp, 
                                 const bool bWeak, const bool bWWbox, 
-                                const bool bZZbox) const {
+                                const bool bZZbox) const 
+{
     complex Vpol = V_pol(s);
     complex rhoef, Ge, Gf, Gef;
     rhoef = rho_ef(s, t, Mw, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox);
@@ -66,7 +69,8 @@ double EWSMTwoFermionsLEP2::G_3(const double s, const double t,
                                 const double I3f, const double Qf, 
                                 const double mf, const double mfp, 
                                 const bool bWeak, const bool bWWbox, 
-                                const bool bZZbox) const {
+                                const bool bZZbox) const 
+{
     complex Vpol = V_pol(s);
     complex rhoef, Ge, Gf, Gef;
     rhoef = rho_ef(s, t, Mw, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox);
@@ -83,7 +87,8 @@ double EWSMTwoFermionsLEP2::G_3(const double s, const double t,
 double EWSMTwoFermionsLEP2::G_1_noBox(const double s, const double Mw, 
                                       const double GammaZ, const double I3f, 
                                       const double Qf, const double mf, 
-                                      const double mfp, const bool bWeak) const {
+                                      const double mfp, const bool bWeak) const 
+{
     bool bWWbox = false, bZZbox = false;
     double t = 0.0; //dummy
     return ( G_1(s, t, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox) );
@@ -93,7 +98,8 @@ double EWSMTwoFermionsLEP2::G_1_noBox(const double s, const double Mw,
 double EWSMTwoFermionsLEP2::G_2_noBox(const double s, const double Mw, 
                                       const double GammaZ, const double I3f, 
                                       const double Qf, const double mf, 
-                                      const double mfp, const bool bWeak) const {
+                                      const double mfp, const bool bWeak) const 
+{
     bool bWWbox = false, bZZbox = false;
     double t = 0.0; //dummy
     return ( G_2(s, t, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox) );
@@ -103,7 +109,8 @@ double EWSMTwoFermionsLEP2::G_2_noBox(const double s, const double Mw,
 double EWSMTwoFermionsLEP2::G_3_noBox(const double s, const double Mw, 
                                       const double GammaZ, const double I3f, 
                                       const double Qf, const double mf, 
-                                      const double mfp, const bool bWeak) const {
+                                      const double mfp, const bool bWeak) const 
+{
     bool bWWbox = false, bZZbox = false;
     double t = 0.0; //dummy
     return ( G_3(s, t, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak, bWWbox, bZZbox) );
@@ -114,7 +121,8 @@ double EWSMTwoFermionsLEP2::G_1_box(const double s, const double t,
                                     const double Mw, const double GammaZ, 
                                     const double I3f, const double Qf, 
                                     const double mf, const double mfp, 
-                                    const bool bWWbox, const bool bZZbox) const {
+                                    const bool bWWbox, const bool bZZbox) const 
+{
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
         
@@ -185,7 +193,8 @@ double EWSMTwoFermionsLEP2::G_2_box(const double s, const double t,
                                     const double Mw, const double GammaZ, 
                                     const double I3f, const double Qf, 
                                     const double mf, const double mfp, 
-                                    const bool bWWbox, const bool bZZbox) const {
+                                    const bool bWWbox, const bool bZZbox) const 
+{
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
         
@@ -256,7 +265,8 @@ double EWSMTwoFermionsLEP2::G_3_box(const double s, const double t,
                                     const double Mw, const double GammaZ, 
                                     const double I3f, const double Qf, 
                                     const double mf, const double mfp, 
-                                    const bool bWWbox, const bool bZZbox) const {
+                                    const bool bWWbox, const bool bZZbox) const 
+{
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
 
@@ -322,7 +332,8 @@ double EWSMTwoFermionsLEP2::G_3_box(const double s, const double t,
 
 //////////////////////////////////////////////////////////////////////// 
 
-complex EWSMTwoFermionsLEP2::V_pol(const double s) const {
+complex EWSMTwoFermionsLEP2::V_pol(const double s) const 
+{
     complex V;
     if (bDebug)
         V = complex(1.0715119759, -0.0186242179, false); // for debug
@@ -336,7 +347,8 @@ complex EWSMTwoFermionsLEP2::V_pol(const double s) const {
 
 
 complex EWSMTwoFermionsLEP2::chi_Z(const double s, const double Mw, 
-                                   const double GammaZ) const {
+                                   const double GammaZ) const 
+{
     double Mz = SM.getMz();
     complex denom = complex(s - Mz*Mz, GammaZ/Mz*s, false);
     double prefactor = SM.getGF()*Mz*Mz/(sqrt(2.0)*8.0*M_PI*SM.getAle());
@@ -349,7 +361,8 @@ complex EWSMTwoFermionsLEP2::G_e(const double s, const double t,
                                  const double Mw, const double I3f, 
                                  const double Qf, const double mf, 
                                  const double mfp, const bool bWeak,
-                                 const bool bWWbox, const bool bZZbox) const {
+                                 const bool bWWbox, const bool bZZbox) const 
+{
     double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
     return ( 1.0 
              - 4.0*( kappa_e(s,t,Mw,I3f,Qf,mf,mfp,bWeak,bWWbox,bZZbox)*sW2 
@@ -362,7 +375,8 @@ complex EWSMTwoFermionsLEP2::G_f(const double s, const double t,
                                  const double Mw, const double I3f, 
                                  const double Qf, const double mf, 
                                  const double mfp, const bool bWeak,
-                                 const bool bWWbox, const bool bZZbox) const {
+                                 const bool bWWbox, const bool bZZbox) const 
+{
     double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
     return ( 1.0 
              - 4.0*fabs(Qf)*( kappa_f(s,t,Mw,I3f,Qf,mf,mfp,bWeak,bWWbox,bZZbox)*sW2 
@@ -375,7 +389,8 @@ complex EWSMTwoFermionsLEP2::G_ef(const double s, const double t,
                                   const double Mw, const double I3f, 
                                   const double Qf, const double mf, 
                                   const double mfp, const bool bWeak,
-                                  const bool bWWbox, const bool bZZbox) const {
+                                  const bool bWWbox, const bool bZZbox) const 
+{
     double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
     return ( - 1.0 + G_e(s,t,Mw,I3f,Qf,mf,mfp,bWeak,bWWbox,bZZbox) 
              + G_f(s,t,Mw,I3f,Qf,mf,mfp,bWeak,bWWbox,bZZbox) 
@@ -391,7 +406,8 @@ complex EWSMTwoFermionsLEP2::rho_ef(const double s, const double t,
                                     const double Mw, const double I3f, 
                                     const double Qf, const double mf, 
                                     const double mfp, const bool bWeak,
-                                    const bool bWWbox, const bool bZZbox) const {
+                                    const bool bWWbox, const bool bZZbox) const 
+{
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
@@ -431,7 +447,8 @@ complex EWSMTwoFermionsLEP2::kappa_e(const double s, const double t,
                                      const double Mw, const double I3f, 
                                      const double Qf, const double mf, 
                                      const double mfp, const bool bWeak,
-                                     const bool bWWbox, const bool bZZbox) const {
+                                     const bool bWWbox, const bool bZZbox) const 
+{
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
@@ -485,7 +502,8 @@ complex EWSMTwoFermionsLEP2::kappa_f(const double s, const double t,
                                      const double Mw, const double I3f, 
                                      const double Qf, const double mf, 
                                      const double mfp, const bool bWeak,
-                                     const bool bWWbox, const bool bZZbox) const {
+                                     const bool bWWbox, const bool bZZbox) const 
+{
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
@@ -526,7 +544,8 @@ complex EWSMTwoFermionsLEP2::kappa_ef(const double s, const double t,
                                       const double Mw, const double I3f, 
                                       const double Qf, const double mf, 
                                       const double mfp, const bool bWeak,
-                                      const bool bWWbox, const bool bZZbox) const {
+                                      const bool bWWbox, const bool bZZbox) const 
+{
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
@@ -566,7 +585,8 @@ complex EWSMTwoFermionsLEP2::kappa_ef(const double s, const double t,
 
 complex EWSMTwoFermionsLEP2::Delta_rho_ef_TOP(const double s, const double t, 
                                               const double u, const double Mw, 
-                                              const bool bWWbox) const {
+                                              const bool bWWbox) const 
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     double Mt = SM.getMtpole();
     double mu = Mw; // renormalization scale
@@ -583,7 +603,8 @@ complex EWSMTwoFermionsLEP2::Delta_rho_ef_TOP(const double s, const double t,
 
 complex EWSMTwoFermionsLEP2::Delta_kappa_e_TOP(const double s, const double t, 
                                                const double u, const double Mw, 
-                                               const bool bWWbox) const {
+                                               const bool bWWbox) const 
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     double Qfp = SM.getQuarks(SM.TOP).getCharge();
     
@@ -599,7 +620,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_e_TOP(const double s, const double t,
 
 complex EWSMTwoFermionsLEP2::Delta_kappa_f_TOP(const double s, const double t, 
                                                const double u, const double Mw, 
-                                               const bool bWWbox) const {
+                                               const bool bWWbox) const 
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     double Mt = SM.getMtpole();
     double mu = Mw; // renormalization scale
@@ -616,7 +638,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_f_TOP(const double s, const double t,
 
 complex EWSMTwoFermionsLEP2::Delta_kappa_ef_TOP(const double s, const double t, 
                                                 const double u, const double Mw, 
-                                                const bool bWWbox) const {
+                                                const bool bWWbox) const
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     double Mt = SM.getMtpole();
     double mu = Mw; // renormalization scale
@@ -633,7 +656,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_ef_TOP(const double s, const double t,
 
 complex EWSMTwoFermionsLEP2::Delta_rho_ef_WW_hat(const double s, const double t, 
                                                  const double u, const double Mw,
-                                                 const double I3f) const {
+                                                 const double I3f) const 
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
 
     if (I3f==SM.getLeptons(SM.ELECTRON).getIsospin() 
@@ -651,7 +675,8 @@ complex EWSMTwoFermionsLEP2::Delta_rho_ef_WW_hat(const double s, const double t,
 
 complex EWSMTwoFermionsLEP2::Delta_kappa_e_WW_hat(const double s, const double t, 
                                                   const double u, const double Mw,
-                                                  const double I3f) const {
+                                                  const double I3f) const 
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
 
     if (I3f==SM.getLeptons(SM.ELECTRON).getIsospin() 
@@ -669,7 +694,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_e_WW_hat(const double s, const double t
 
 complex EWSMTwoFermionsLEP2::Delta_kappa_f_WW_hat(const double s, const double t, 
                                                   const double u, const double Mw,
-                                                  const double I3f) const {
+                                                  const double I3f) const 
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
        
     if (I3f==SM.getLeptons(SM.ELECTRON).getIsospin() 
@@ -687,7 +713,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_f_WW_hat(const double s, const double t
 
 complex EWSMTwoFermionsLEP2::Delta_kappa_ef_WW_hat(const double s, const double t, 
                                                    const double u, const double Mw,
-                                                   const double I3f) const {
+                                                   const double I3f) const 
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
 
     if (I3f==SM.getLeptons(SM.ELECTRON).getIsospin() 
@@ -704,7 +731,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_ef_WW_hat(const double s, const double 
 
 
 complex EWSMTwoFermionsLEP2::Delta_rho_ef_WW_TOP_hat(const double s, const double t, 
-                                                     const double u, const double Mw) const {
+                                                     const double u, const double Mw) const
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     return ( SM.getAle()/4.0/M_PI/sW2
              *( - cW2*(Mz*Mz - s)*Delta_B_WW_d_hat(s, t, u, Mw) ) );    
@@ -712,7 +740,8 @@ complex EWSMTwoFermionsLEP2::Delta_rho_ef_WW_TOP_hat(const double s, const doubl
 
 
 complex EWSMTwoFermionsLEP2::Delta_kappa_e_WW_TOP_hat(const double s, const double t, 
-                                                      const double u, const double Mw) const {
+                                                      const double u, const double Mw) const
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     return ( SM.getAle()/4.0/M_PI/sW2
              *( cW2*(Mz*Mz - s)*Delta_B_WW_d_hat(s, t, u, Mw) ) );
@@ -720,7 +749,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_e_WW_TOP_hat(const double s, const doub
 
 
 complex EWSMTwoFermionsLEP2::Delta_kappa_f_WW_TOP_hat(const double s, const double t, 
-                                                      const double u, const double Mw) const {
+                                                      const double u, const double Mw) const 
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     return ( SM.getAle()/4.0/M_PI/sW2
              *( cW2*(Mz*Mz - s)*Delta_B_WW_d_hat(s, t, u, Mw) ) );    
@@ -728,7 +758,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_f_WW_TOP_hat(const double s, const doub
 
 
 complex EWSMTwoFermionsLEP2::Delta_kappa_ef_WW_TOP_hat(const double s, const double t, 
-                                                       const double u, const double Mw) const {
+                                                       const double u, const double Mw) const
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     return ( SM.getAle()/4.0/M_PI/sW2
              *( cW2*(Mz*Mz - s)*Delta_B_WW_d_hat(s, t, u, Mw) ) );    
@@ -738,7 +769,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_ef_WW_TOP_hat(const double s, const dou
 complex EWSMTwoFermionsLEP2::Delta_rho_ef_ZZ(const double mu, const double s, 
                                              const double t, const double u, 
                                              const double Mw, const double I3f, 
-                                             const double Qf) const {
+                                             const double Qf) const 
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     double I3e = -0.5;
     double ve = - 0.5 + 2.0*sW2, ae = -0.5;
@@ -755,7 +787,8 @@ complex EWSMTwoFermionsLEP2::Delta_rho_ef_ZZ(const double mu, const double s,
 complex EWSMTwoFermionsLEP2::Delta_kappa_e_ZZ(const double mu, const double s, 
                                               const double t, const double u, 
                                               const double Mw, const double I3f,
-                                              const double Qf) const {
+                                              const double Qf) const 
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     double ve = - 0.5 + 2.0*sW2, ae = -0.5, deltae = ve - ae;
     double vf = I3f - 2.0*Qf*sW2, af = I3f, sigmaf = vf + af, deltaf = vf - af;
@@ -770,7 +803,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_e_ZZ(const double mu, const double s,
 complex EWSMTwoFermionsLEP2::Delta_kappa_f_ZZ(const double mu, const double s, 
                                               const double t, const double u, 
                                               const double Mw, const double I3f,
-                                              const double Qf) const {
+                                              const double Qf) const 
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     double I3e = -0.5;
     double ve = - 0.5 + 2.0*sW2, ae = -0.5, sigmae = ve + ae, deltae = ve - ae;
@@ -786,7 +820,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_f_ZZ(const double mu, const double s,
 complex EWSMTwoFermionsLEP2::Delta_kappa_ef_ZZ(const double mu, const double s, 
                                                const double t, const double u, 
                                                const double Mw, const double I3f,
-                                               const double Qf) const {
+                                               const double Qf) const 
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     double ve = - 0.5 + 2.0*sW2, ae = -0.5, deltae = ve - ae;
     double vf = I3f - 2.0*Qf*sW2, af = I3f, deltaf = vf - af;
@@ -799,7 +834,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_ef_ZZ(const double mu, const double s,
 
 ////////////////////////////////////////////////////////////////////////
 
-//complex EWSMTwoFermionsLEP2::I2e(const double s, const double Mw, const bool bWeak) const {
+//complex EWSMTwoFermionsLEP2::I2e(const double s, const double Mw, const bool bWeak) const
+//{
 //    if (bWeak) {
 //        double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
 //        double alpha = SM.getAle()*V_pol(s).real();
@@ -810,7 +846,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_ef_ZZ(const double mu, const double s,
 //}
 
 
-//complex EWSMTwoFermionsLEP2::I2f(const double s, const double Mw, const bool bWeak) const {
+//complex EWSMTwoFermionsLEP2::I2f(const double s, const double Mw, const bool bWeak) const 
+//{
 //    if (bWeak) {
 //        double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
 //        double alpha = SM.getAle()*V_pol(s).real();
@@ -821,18 +858,21 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_ef_ZZ(const double mu, const double s,
 //}
 
 
-complex EWSMTwoFermionsLEP2::DeltaRhobar(const double mu, const double Mw) const {
+complex EWSMTwoFermionsLEP2::DeltaRhobar(const double mu, const double Mw) const 
+{
     return myOneLoopEW.DeltaRhobar(mu,Mw);
 }
 
 
-complex EWSMTwoFermionsLEP2::DeltaRhobarZ(const double mu, const double Mw) const {
+complex EWSMTwoFermionsLEP2::DeltaRhobarZ(const double mu, const double Mw) const 
+{
     return ( myOneLoopEW.DeltaRhobar(mu,Mw) + myOneLoopEW.DeltaRhobarW(mu,Mw) );
 }
 
 
 complex EWSMTwoFermionsLEP2::D_Z(const double mu, const double s, 
-                                 const double Mw) const {
+                                 const double Mw) const 
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
     complex D_Z_bos = (myOneLoopEW.SigmaZZ_bos(mu,s,Mw) 
                        - myOneLoopEW.SigmaZZ_bos(mu,Mz*Mz,Mw))/cW2/(Mz*Mz - s);
@@ -843,7 +883,8 @@ complex EWSMTwoFermionsLEP2::D_Z(const double mu, const double s,
 
 
 complex EWSMTwoFermionsLEP2::Pibar_Zgamma(const double mu, const double s, 
-                                          const double Mw) const {
+                                          const double Mw) const 
+{
     complex Pibar_Zgamma_bos = myOneLoopEW.PiZgamma_bos(mu,s,Mw);
     complex Pibar_Zgamma_fer = myOneLoopEW.PiZgamma_fer(mu,s,Mw);
     return ( Pibar_Zgamma_bos + Pibar_Zgamma_fer );    
@@ -851,44 +892,52 @@ complex EWSMTwoFermionsLEP2::Pibar_Zgamma(const double mu, const double s,
 
 
 complex EWSMTwoFermionsLEP2::Pibar_gg_bos(const double mu, const double s, 
-                                          const double Mw) const {
+                                          const double Mw) const
+{
     complex Pibar_gg_bos = myOneLoopEW.PiGammaGamma_bos(mu,s,Mw);
     return Pibar_gg_bos;  
 }
 
 
-complex EWSMTwoFermionsLEP2::F_za_0(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2::F_za_0(const double s, const double Mw) const
+{
     return myOneLoopEW.FZa_0(s, Mw);
 }
 
 
-complex EWSMTwoFermionsLEP2::F_Wa_0(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2::F_Wa_0(const double s, const double Mw) const
+{
     return myOneLoopEW.FWa_0(s, Mw);  
 } 
 
 
-complex EWSMTwoFermionsLEP2::F_Wa_t(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2::F_Wa_t(const double s, const double Mw) const 
+{
     return myOneLoopEW.FWa_t(s, Mw);    
 }
 
 
-complex EWSMTwoFermionsLEP2::F_Wn_0(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2::F_Wn_0(const double s, const double Mw) const 
+{
     return myOneLoopEW.FWn_0(s, Mw);  
 }
 
 
-complex EWSMTwoFermionsLEP2::F_Wn_t(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2::F_Wn_t(const double s, const double Mw) const 
+{
     return myOneLoopEW.FWn_t(s, Mw);
 }
 
     
-complex EWSMTwoFermionsLEP2::F_W_0(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2::F_W_0(const double s, const double Mw) const 
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
     return ( cW2*F_Wn_0(s, Mw) - F_Wa_0(s, Mw)/2.0 );
 }
 
 
-complex EWSMTwoFermionsLEP2::F_W_t(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2::F_W_t(const double s, const double Mw) const 
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
     return ( cW2*F_Wn_t(s, Mw) - F_Wa_t(s, Mw)/2.0 
              - myOneLoopEW.FbarWa_t(s, Mw)/2.0 );        
@@ -897,7 +946,8 @@ complex EWSMTwoFermionsLEP2::F_W_t(const double s, const double Mw) const {
 
 complex EWSMTwoFermionsLEP2::B_WW_d_0(const double mu, const double s, 
                                       const double t, const double u, 
-                                      const double Mw) const {
+                                      const double Mw) const 
+{
     double s2 = s*s, t2 = t*t, u2 = u*u, Mw2 = Mw*Mw;
     return ( ( - t*(1.0 + t2/u2) - 4.0*Mw2*t2/u2 + 2.0*Mw2*Mw2/u*(1.0 + 2.0*s/u) )
               *PV.D0(s, t, Mw, 0.0, Mw, 0.0)
@@ -911,7 +961,8 @@ complex EWSMTwoFermionsLEP2::B_WW_d_0(const double mu, const double s,
 
 complex EWSMTwoFermionsLEP2::B_WW_d(const double mu, const double s, 
                                     const double t, const double u, 
-                                    const double Mw) const {
+                                    const double Mw) const 
+{
     double Mt = SM.getMtpole(), Mt2 = Mt*Mt;
     double s2 = s*s, t2 = t*t, u2 = u*u, Mw2 = Mw*Mw;
     return ( ( - t*(1.0 + t2/u2) - 4.0*Mw2*t2/u2 + 2.0*Mw2*Mw2/u*(1.0 + 2.0*s/u) 
@@ -935,14 +986,16 @@ complex EWSMTwoFermionsLEP2::B_WW_d(const double mu, const double s,
 
 complex EWSMTwoFermionsLEP2::Delta_B_WW_d(const double mu, const double s, 
                                           const double t, const double u, 
-                                          const double Mw) const {
+                                          const double Mw) const 
+{
     return ( B_WW_d(mu, s, t, u, Mw) - B_WW_d_0(mu, s, t, u, Mw) );
 }
 
 
 complex EWSMTwoFermionsLEP2::B_WW_c_0(const double mu, const double s, 
                                       const double t, const double u, 
-                                      const double Mw) const {
+                                      const double Mw) const 
+{
     double Mw2 = Mw*Mw;
     return ( 2.0*u*PV.D0(s, u, Mw, 0.0, Mw, 0.0)
              + 4.0*PV.C0(s, Mw, 0.0, Mw) 
@@ -952,7 +1005,8 @@ complex EWSMTwoFermionsLEP2::B_WW_c_0(const double mu, const double s,
 
 
 complex EWSMTwoFermionsLEP2::B_ZZ_0(const double mu, const double s,
-                                    const double t, const double u) const {
+                                    const double t, const double u) const 
+{
     double Mz = SM.getMz(), Mz2 = Mz*Mz;
     double t2 = t*t, u2 = u*u;
     return ( 2.0*u*PV.D0(s, u, Mz, 0.0, Mz, 0.0)
@@ -968,7 +1022,8 @@ complex EWSMTwoFermionsLEP2::B_ZZ_0(const double mu, const double s,
 
 ////////////////////////////////////////////////////////////////////////
 
-complex EWSMTwoFermionsLEP2::Pibar_Zgamma_hat(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2::Pibar_Zgamma_hat(const double s, const double Mw) const 
+{
     double mu = Mw;
 
     complex add = complex(0.0, 0.0, false);
@@ -983,7 +1038,8 @@ complex EWSMTwoFermionsLEP2::Pibar_Zgamma_hat(const double s, const double Mw) c
 }
 
 
-complex EWSMTwoFermionsLEP2::Pibar_gg_bos_hat(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2::Pibar_gg_bos_hat(const double s, const double Mw) const 
+{
     double mu = Mw;
     
     complex add = complex(0.0, 0.0, false);
@@ -1001,7 +1057,8 @@ complex EWSMTwoFermionsLEP2::Pibar_gg_bos_hat(const double s, const double Mw) c
 }
 
 
-complex EWSMTwoFermionsLEP2::D_Z_hat(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2::D_Z_hat(const double s, const double Mw) const 
+{
     double mu = Mw;
     
     complex add = complex(0.0, 0.0, false);
@@ -1016,7 +1073,8 @@ complex EWSMTwoFermionsLEP2::D_Z_hat(const double s, const double Mw) const {
 }
 
 
-complex EWSMTwoFermionsLEP2::F_Wn_0_hat(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2::F_Wn_0_hat(const double s, const double Mw) const 
+{
     complex add = complex(0.0, 0.0, false);
     if (!bKeepNonUnitary) {
         double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
@@ -1031,7 +1089,8 @@ complex EWSMTwoFermionsLEP2::F_Wn_0_hat(const double s, const double Mw) const {
 }   
 
 
-complex EWSMTwoFermionsLEP2::F_Wn_t_hat(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2::F_Wn_t_hat(const double s, const double Mw) const 
+{
     complex add = complex(0.0, 0.0, false);
     if (!bKeepNonUnitary) {
         double Mz = SM.getMz(), Rw = Mw*Mw/s, Mt = SM.getMtpole();
@@ -1043,7 +1102,8 @@ complex EWSMTwoFermionsLEP2::F_Wn_t_hat(const double s, const double Mw) const {
 }   
 
 
-complex EWSMTwoFermionsLEP2::F_W_0_hat(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2::F_W_0_hat(const double s, const double Mw) const 
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
     complex F_W_0 = cW2*F_Wn_0(s, Mw) - F_Wa_0(s, Mw)/2.0;
 
@@ -1059,7 +1119,8 @@ complex EWSMTwoFermionsLEP2::F_W_0_hat(const double s, const double Mw) const {
 }
 
 
-complex EWSMTwoFermionsLEP2::F_W_t_hat(const double s, const double Mw) const {
+complex EWSMTwoFermionsLEP2::F_W_t_hat(const double s, const double Mw) const 
+{
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
     complex F_W_t = cW2*F_Wn_t(s, Mw) - F_Wa_t(s, Mw)/2.0 
                     - myOneLoopEW.FbarWa_t(s, Mw)/2.0;
@@ -1076,7 +1137,8 @@ complex EWSMTwoFermionsLEP2::F_W_t_hat(const double s, const double Mw) const {
 }
 
 complex EWSMTwoFermionsLEP2::B_WW_d_0_hat(const double s, const double t, 
-                                          const double u, const double Mw) const {
+                                          const double u, const double Mw) const 
+{
     double mu = Mw;
     
     complex add = complex(0.0, 0.0, false);
@@ -1090,7 +1152,8 @@ complex EWSMTwoFermionsLEP2::B_WW_d_0_hat(const double s, const double t,
 }
 
 complex EWSMTwoFermionsLEP2::B_WW_d_0_hat_TEST(const double s, const double t, 
-                                               const double u, const double Mw) const {
+                                               const double u, const double Mw) const 
+{
     double mu = Mw;
     
     if (!bKeepNonUnitary) {
@@ -1107,7 +1170,8 @@ complex EWSMTwoFermionsLEP2::B_WW_d_0_hat_TEST(const double s, const double t,
 
 
 complex EWSMTwoFermionsLEP2::Delta_B_WW_d_hat(const double s, const double t, 
-                                              const double u, const double Mw) const {
+                                              const double u, const double Mw) const 
+{
     double mu = Mw;
     
     complex add = complex(0.0, 0.0, false);
@@ -1121,7 +1185,8 @@ complex EWSMTwoFermionsLEP2::Delta_B_WW_d_hat(const double s, const double t,
 
 
 complex EWSMTwoFermionsLEP2::B_WW_c_0_hat(const double s, const double t, 
-                                          const double u, const double Mw) const {
+                                          const double u, const double Mw) const 
+{
     double mu = Mw;
     
     complex add = complex(0.0, 0.0, false);

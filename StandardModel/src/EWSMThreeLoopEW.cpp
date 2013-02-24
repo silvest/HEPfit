@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,13 +8,16 @@
 #include "EWSMThreeLoopEW.h"
 
 
-EWSMThreeLoopEW::EWSMThreeLoopEW(const EWSMcache& cache_i) : cache(cache_i) {
+EWSMThreeLoopEW::EWSMThreeLoopEW(const EWSMcache& cache_i) 
+: cache(cache_i) 
+{
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSMThreeLoopEW::DeltaAlpha_l(const double s) const {
+double EWSMThreeLoopEW::DeltaAlpha_l(const double s) const 
+{
     double log_l[3];
     if (s==cache.Mz()*cache.Mz()) {
         log_l[0] = 2.0*cache.logMZtoME();
@@ -57,12 +60,14 @@ double EWSMThreeLoopEW::DeltaAlpha_l(const double s) const {
 }    
 
 
-double EWSMThreeLoopEW::DeltaAlpha_t(const double s) const {   
+double EWSMThreeLoopEW::DeltaAlpha_t(const double s) const 
+{   
     return (0.0);
 }
 
 
-double EWSMThreeLoopEW::DeltaRho(const double Mw_i) const {
+double EWSMThreeLoopEW::DeltaRho(const double Mw_i) const 
+{
     double Mw = cache.Mw(Mw_i);
     double mh = cache.mh();
     double Mt = cache.Mt();
@@ -101,32 +106,37 @@ double EWSMThreeLoopEW::DeltaRho(const double Mw_i) const {
 }
 
 
-double EWSMThreeLoopEW::DeltaR_rem(const double Mw_i) const {
+double EWSMThreeLoopEW::DeltaR_rem(const double Mw_i) const
+{
     return (0.0);    
 }
 
 
 complex EWSMThreeLoopEW::deltaRho_rem_l(const StandardModel::lepton l, 
-                                        const double Mw_i) const {
+                                        const double Mw_i) const
+{
     return ( complex(0.0,0.0,false) );
 }
 
 
 complex EWSMThreeLoopEW::deltaRho_rem_q(const StandardModel::quark q, 
-                                        const double Mw_i) const {
+                                        const double Mw_i) const 
+{
     if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     return ( complex(0.0,0.0,false) );
 }
 
 
 complex EWSMThreeLoopEW::deltaKappa_rem_l(const StandardModel::lepton l, 
-                                          const double Mw_i) const {
+                                          const double Mw_i) const 
+{
     return ( complex(0.0,0.0,false) );
 }
 
 
 complex EWSMThreeLoopEW::deltaKappa_rem_q(const StandardModel::quark q, 
-                                          const double Mw_i) const {
+                                          const double Mw_i) const 
+{
     if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     return ( complex(0.0,0.0,false) );
 }

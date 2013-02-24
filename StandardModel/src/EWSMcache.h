@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -16,7 +16,14 @@
 
 using namespace gslpp;
 
-
+/**
+ * @class EWSMcache
+ * @ingroup StandardModel
+ * @brief A class for caches storing variables used in the EW precision observables.  
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class EWSMcache {
 
 public:
@@ -33,28 +40,32 @@ public:
     /**
      * @return a reference to the StandardModel object
      */
-    const StandardModel& getSM() const {
+    const StandardModel& getSM() const 
+    {
         return SM;
     }
     
     /**
      * @return the object of PVfunctions class
      */
-    const PVfunctions getPV() const {
+    const PVfunctions getPV() const 
+    {
         return PV;
     }
 
     /**
      * @return the object of Polylogarithms class
      */
-    const Polylogarithms getPolyLog() const {
+    const Polylogarithms getPolyLog() const 
+    {
         return PolyLog;
     }
 
     /**
      * @return the object of ClausenFunctions class
      */
-    const ClausenFunctions getClausen() const {
+    const ClausenFunctions getClausen() const 
+    {
         return Clausen;
     }
 
@@ -65,47 +76,55 @@ public:
     /**
      * @return the zeta function zeta(2)
      */
-    double GetZeta2() const {
+    double GetZeta2() const 
+    {
         return zeta2;
     }
 
     /**
      * @return the zeta function zeta(3)
      */
-    double GetZeta3() const {
+    double GetZeta3() const 
+    {
         return zeta3;
     }
     
     /**
      * @return the zeta function zeta(4)
      */
-    double GetZeta4() const {
+    double GetZeta4() const 
+    {
         return zeta4;
     }        
     
     /**
      * @return the zeta function zeta(5)
      */
-    double GetZeta5() const {
+    double GetZeta5() const 
+    {
         return zeta5;
     }
     
-    double GetS2() const {
+    double GetS2() const 
+    {
         return S2;
     }
  
-    double GetD3() const {
+    double GetD3() const 
+    {
         return D3;
     }   
     
-    double GetB4() const {
+    double GetB4() const 
+    {
         return B4;
     }    
 
     /**
      * @return the logarithmic function log(2)
      */
-    double GetLog2() const {
+    double GetLog2() const 
+    {
         return log2;
     }    
 
@@ -130,49 +149,56 @@ public:
     /**
      * @return the top-quark mass
      */
-    double Mt() const {
+    double Mt() const 
+    {
         return SM.getMtpole();
     }
     
     /**
      * @return alpha_s(M_z^2)
      */
-    double alsMz() const {
+    double alsMz() const 
+    {
         return SM.getAlsMz();
     }
     
     /**
      * @return G_F
      */
-    double GF() const {
+    double GF() const
+    {
         return SM.getGF();
     }
     
     /**
      * @return electromagnetic coupling at q^2=0
      */
-    double ale() const {
+    double ale() const
+    {
         return SM.getAle();
     }
 
     /**
      * @return five-flavour hadronic correction to alpha at Mz^2
      */
-    double dAle5Mz() const {
+    double dAle5Mz() const 
+    {
         return SM.getDAle5Mz();
     }
 
     /**
      * @return the Z-boson mass
      */
-    double Mz() const {
+    double Mz() const 
+    {
         return SM.getMz();
     }
 
     /**
      * @return the higgs mass
      */
-    double mh() const {
+    double mh() const 
+    {
         return SM.getMHl();
     }
     
@@ -180,7 +206,8 @@ public:
      * @param[in] Mw_i the W-boson mass
      * @return the W-boson mass
      */
-    double Mw(const double Mw_i) const {
+    double Mw(const double Mw_i) const
+    {
         return Mw_i;
     }
     
@@ -188,7 +215,8 @@ public:
      * @param[in] Mw_i the W-boson mass
      * @return c_W^2
      */
-    double cW2(const double Mw_i) const {
+    double cW2(const double Mw_i) const 
+    {
         return ( Mw(Mw_i)*Mw(Mw_i)/Mz()/Mz() );
     }   
     
@@ -196,7 +224,8 @@ public:
      * @param[in] Mw_i the W-boson mass
      * @return s_W^2
      */
-    double sW2(const double Mw_i) const {
+    double sW2(const double Mw_i) const 
+    {
         return ( 1.0 - cW2(Mw_i) );
     } 
     
@@ -204,7 +233,8 @@ public:
      * @param[in] l name of lepton
      * @return electric charge of a lepton "l"
      */
-    double Ql(const StandardModel::lepton l) const {
+    double Ql(const StandardModel::lepton l) const
+    {
         return SM.getLeptons(l).getCharge();
     }    
 
@@ -212,7 +242,8 @@ public:
      * @param[in] q name of quark
      * @return electric charge of a quark "q"
      */
-    double Qq(const StandardModel::quark q) const {
+    double Qq(const StandardModel::quark q) const
+    {
         return SM.getQuarks(q).getCharge();
     }
 
@@ -222,7 +253,8 @@ public:
      * @return the tree-level vector coupling for Z->l lbar
      * @attention depends on sW2
      */
-    double vl(const StandardModel::lepton l, const double Mw_i) const {
+    double vl(const StandardModel::lepton l, const double Mw_i) const 
+    {
         return ( al(l) - 2.0*Ql(l)*sW2(Mw_i) );
     }
 
@@ -232,7 +264,8 @@ public:
      * @return the tree-level vector coupling for Z->q qbar
      * @attention depends on sW2
      */
-    double vq(const StandardModel::quark q, const double Mw_i) const {
+    double vq(const StandardModel::quark q, const double Mw_i) const
+    {
         return ( aq(q) - 2.0*Qq(q)*sW2(Mw_i) );
     }
     
@@ -240,7 +273,8 @@ public:
      * @param[in] l name of lepton
      * @return the tree-level axial-vector coupling for Z->l lbar
      */
-    double al(const StandardModel::lepton l) const {
+    double al(const StandardModel::lepton l) const
+    {
         return ( SM.getLeptons(l).getIsospin() );
     }
 
@@ -248,7 +282,8 @@ public:
      * @param[in] q name of quark
      * @return the tree-level axial-vector coupling for Z->q qbar
      */
-    double aq(const StandardModel::quark q) const {
+    double aq(const StandardModel::quark q) const
+    {
         return ( SM.getQuarks(q).getIsospin() );
     }
     
@@ -258,7 +293,8 @@ public:
      * @return |v_l+a_l| 
      * @attention depends on sW2
      */
-    double sigmal(const StandardModel::lepton l, const double Mw_i) const {
+    double sigmal(const StandardModel::lepton l, const double Mw_i) const
+    {
         return ( 1.0 - 2.0*fabs(Ql(l))*sW2(Mw_i) );
     }
 
@@ -268,7 +304,8 @@ public:
      * @return |v_q+a_q| 
      * @attention depends on sW2
      */
-    double sigmaq(const StandardModel::quark q, const double Mw_i) const {
+    double sigmaq(const StandardModel::quark q, const double Mw_i) const 
+    {
         return ( 1.0 - 2.0*fabs(Qq(q))*sW2(Mw_i) );
     }  
     
@@ -278,7 +315,8 @@ public:
      * @return v_l-a_l 
      * @attention depends on sW2
      */    
-    double deltal(const StandardModel::lepton l, const double Mw_i) const {
+    double deltal(const StandardModel::lepton l, const double Mw_i) const 
+    {
         return ( - 2.0*Ql(l)*sW2(Mw_i) );   
     } 
 
@@ -288,7 +326,8 @@ public:
      * @return v_q-a_q 
      * @attention depends on sW2
      */    
-    double deltaq(const StandardModel::quark q, const double Mw_i) const {
+    double deltaq(const StandardModel::quark q, const double Mw_i) const 
+    {
         return ( - 2.0*Qq(q)*sW2(Mw_i) );   
     }  
     
@@ -296,14 +335,16 @@ public:
      * @param[in] Mw_i the W-boson mass
      * @return the conversion factor from alpha to GF
      */
-    double f_AlphaToGF(const double Mw_i) const {
+    double f_AlphaToGF(const double Mw_i) const 
+    {
         return ( sqrt(2.0)*GF()*pow(Mz(),2.0)*sW2(Mw_i)*cW2(Mw_i)/M_PI/ale() );
     }
    
     /**
      * @return X_t with G_F
      */
-    double Xt_GF() const {
+    double Xt_GF() const 
+    {
         return ( GF()*Mt()*Mt()/8.0/sqrt(2.0)/M_PI/M_PI );
     }
     
@@ -311,14 +352,16 @@ public:
      * @param[in] Mw_i the W-boson mass
      * @return X_t with alpha(0)
      */
-    double Xt_alpha(const double Mw_i) const {
+    double Xt_alpha(const double Mw_i) const 
+    {
         return ( Xt_GF()/f_AlphaToGF(Mw_i) );
     }
     
     /**
      * @return alpha_s(M_t^2)
      */
-    double alsMt() const {
+    double alsMt() const 
+    {
         if (!bDebug) {
             return ( SM.Als(Mt(),FULLNNLO) );
         } else 
@@ -330,7 +373,8 @@ public:
      * @brief for two-loop QCD corrections
      * @return 
      */
-    double Phi_QCD2() const {
+    double Phi_QCD2() const 
+    {
         double r_QCD2 = Mz()*Mz()/4.0/Mt()/Mt();
         return ( asin(sqrt(r_QCD2)) );
     }
@@ -339,7 +383,8 @@ public:
      * @brief for two-loop QCD corrections
      * @return 
      */
-    double gamma_QCD2() const {
+    double gamma_QCD2() const 
+    {
         double r_QCD2 = Mz()*Mz()/4.0/Mt()/Mt();
         return ( log(2.0*sqrt(r_QCD2)) );
     }
@@ -348,7 +393,8 @@ public:
      * @brief for two-loop QCD corrections
      * @return 
      */
-    double h_QCD2() const {
+    double h_QCD2() const 
+    {
         double r_QCD2 = Mz()*Mz()/4.0/Mt()/Mt();
         return ( log(2.0*sqrt(1.0-r_QCD2)) );
     }
@@ -357,7 +403,8 @@ public:
      * @brief for two-loop QCD corrections
      * @return 
      */
-    double logV1primeAndA1prime() const {
+    double logV1primeAndA1prime() const 
+    {
         gsl_complex OneMinusE2Iphi = gsl_complex_rect(1.0-cos(2.0*Phi_QCD2()), 
                                      -sin(2.0*Phi_QCD2()));
         gsl_complex OneMinusE4Iphi = gsl_complex_rect(1.0-cos(4.0*Phi_QCD2()), 
@@ -370,7 +417,8 @@ public:
      * @brief for two-loop QCD corrections
      * @return 
      */
-    double Cl2_2Phi() const {
+    double Cl2_2Phi() const 
+    {
         double Phi= asin(Mz()/2.0/Mt());
         return ( Clausen.Cl2(2.0*Phi) );
     }
@@ -379,7 +427,8 @@ public:
      * @brief for two-loop QCD corrections
      * @return 
      */
-    double Cl2_4Phi() const {
+    double Cl2_4Phi() const 
+    {
         double Phi= asin(Mz()/2.0/Mt());
         return ( Clausen.Cl2(4.0*Phi) );
     }
@@ -388,7 +437,8 @@ public:
      * @brief for two-loop QCD corrections
      * @return 
      */
-    double Cl3_2Phi() const {
+    double Cl3_2Phi() const 
+    {
         double Phi= asin(Mz()/2.0/Mt());
         return ( Clausen.Cl3(2.0*Phi) );
     }
@@ -397,7 +447,8 @@ public:
      * @brief for two-loop QCD corrections
      * @return 
      */
-    double Cl3_4Phi() const {
+    double Cl3_4Phi() const 
+    {
         double Phi= asin(Mz()/2.0/Mt());
         return ( Clausen.Cl3(4.0*Phi) );
     }
@@ -603,7 +654,8 @@ private:
     ////////////////////////////////////////////////////////////////////////     
 
     bool CacheCheck(const double cache[], 
-                    const int NumPar, const double params[]) const {
+                    const int NumPar, const double params[]) const 
+    {
         if (!bUseCacheEWSMcache) return false;
         bool bCache = true;
         for(int i=0; i<NumPar; ++i)
@@ -612,7 +664,8 @@ private:
     }
 
     void newCacheForDouble(double cache[], const int NumPar, 
-                           const double params[], const double newResult) const {
+                           const double params[], const double newResult) const 
+    {
         if (!bUseCacheEWSMcache) return;
         for(int i=0; i<NumPar; ++i)
             cache[i] = params[i];
@@ -620,7 +673,8 @@ private:
     }
     
     void newCacheForComplex(double cache[], const int NumPar, 
-                            const double params[], const complex newResult) const {
+                            const double params[], const complex newResult) const 
+    {
         if (!bUseCacheEWSMcache) return;
         for(int i=0; i<NumPar; ++i)
             cache[i] = params[i];

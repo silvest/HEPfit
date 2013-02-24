@@ -10,6 +10,20 @@
 
 #include "Observable.h"
 
+/**
+ * @addtogroup Observable
+ * @brief A project for observable. 
+ * @{
+ */
+
+/**
+ * @class CorrelatedGaussianObservables
+ * @ingroup Observable
+ * @brief A class for correlated Gaussian observables. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class CorrelatedGaussianObservables {
 public:
     CorrelatedGaussianObservables(std::string name_i);
@@ -20,19 +34,23 @@ public:
 
     void AddObs(Observable& Obs_i);
 
-    std::vector<Observable> GetObs() const {
+    std::vector<Observable> GetObs() const 
+    {
         return Obs;
     }
 
-    std::string GetName() const {
+    std::string GetName() const 
+    {
         return name;
     }
 
-    void SetName(std::string name) {
+    void SetName(std::string name) 
+    {
         this->name = name;
     }
 
-    gslpp::matrix<double> GetCov() const {
+    gslpp::matrix<double> GetCov() const 
+    {
         return *Cov;
     }
     
@@ -41,6 +59,10 @@ private:
     gslpp::matrix<double>* Cov;
     std::string name;
 };
+
+/** 
+ * @}
+ */
 
 #endif	/* CORRELATEDGAUSSIANOBSERVABLES_H */
 

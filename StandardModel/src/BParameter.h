@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,35 +13,51 @@
 
 using namespace gslpp;
 
+/**
+ * @class BParameter
+ * @ingroup StandardModel
+ * @brief A class for the bag paramters.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class BParameter {
 public:
-    BParameter(int n) : bpars(n,0.) {};
+    BParameter(int n) : bpars(n,0.) 
+    {};
 
-    vector<double> getBpars() const {
+    vector<double> getBpars() const 
+    {
         return bpars;
     }
 
-    void setBpars(vector<double> bpars) {
+    void setBpars(vector<double> bpars) 
+    {
         this->bpars = bpars;
     }
 
-    void setBpars(int i, double value) {
+    void setBpars(int i, double value) 
+    {
         this->bpars(i) = value;
     }
 
-    double getMu() const {
+    double getMu() const 
+    {
         return mu;
     }
 
-    void setMu(double mu) {
+    void setMu(double mu) 
+    {
         this->mu = mu;
     }
 
-    schemes getScheme() const {
+    schemes getScheme() const
+    {
         return scheme;
     }
 
-    void setScheme(schemes scheme) {
+    void setScheme(schemes scheme) 
+    {
         this->scheme = scheme;
     }
 

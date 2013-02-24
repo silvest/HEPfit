@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,13 +14,14 @@
 #include "EWSMOneLoopEW_HV.h"
 using namespace gslpp;
 
-
 /**
  * @class EWSMTwoFermionsLEP2_Hollik
- * @brief Cross sections and forward-backward asymmetries for e^+e^- -> f fbar at LEP-II
- * 
- * The formulae used in the current class are referred to Hollik's pape, Fortschr. 
- * Phys 38 (1990), 3, 165, and calculated in the 't Hooft-Feynman gauge.
+ * @ingroup StandardModel
+ * @brief A class for the cross sections and forward-backward asymmetries of @f$e^+e^-\to f\bar{f}@f$ at LEP-II. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details The formulae used in the current class are referred to Hollik's pape, Fortschr. 
+ * Phys 38 (1990), 3, 165, and calculated in the 't Hooft-Feynman gauge. 
  */
 class EWSMTwoFermionsLEP2_Hollik {
 public:

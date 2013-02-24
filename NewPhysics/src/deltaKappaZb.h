@@ -8,6 +8,14 @@
 #ifndef DELTAKAPPAZB_H
 #define	DELTAKAPPAZB_H
 
+/**
+ * @class deltaKappaZb
+ * @brief A class for @f$\delta\kappa_Z^b@f$. 
+ * @ingroup NewPhysics
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class deltaKappaZb : public ThObservable {
 public:
 

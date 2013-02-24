@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -12,17 +12,20 @@
 #include <stdexcept>
 
 
-ClausenFunctions::ClausenFunctions() {
+ClausenFunctions::ClausenFunctions() 
+{
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 
-double ClausenFunctions::Cl2(const double phi) const {
+double ClausenFunctions::Cl2(const double phi) const 
+{
     return ( gsl_sf_clausen(phi) );    
 }
 
-double ClausenFunctions::Cl3(const double phi) const {
+double ClausenFunctions::Cl3(const double phi) const 
+{
     if (phi < 0.0 || phi > M_PI) 
         throw std::runtime_error("phi is out of range in ClausenFunctions::Cl3()"); 
     

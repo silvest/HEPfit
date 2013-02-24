@@ -10,7 +10,14 @@
 
 #include "NPZbbbar.h"
 
-
+/**
+ * @class NPSTU
+ * @brief A class for new physics with the oblique parameters. 
+ * @ingroup NewPhysics
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class NPSTU : public NPZbbbar {
 public:
     static const int NSTUvars = 3;

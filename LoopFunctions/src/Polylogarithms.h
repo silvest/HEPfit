@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -12,15 +12,21 @@
 #include "BernoulliNumbers.h"
 using namespace gslpp;
 
-
+/**
+ * @class Polylogarithms
+ * @ingroup LoopFunctions 
+ * @brief A class for polylogarithms. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class Polylogarithms : public BernoulliNumbers {
 public:
 
     /**
-     * @brief Polylogarithms constructor
+     * @brief Polylogarithms constructor. 
      */
     Polylogarithms();
-
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -43,12 +49,9 @@ public:
      */
     double Li3(const double x) const;
 
-
     ////////////////////////////////////////////////////////////////////////
 
 private:
-
-  
     
 };
 

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,6 +13,14 @@
 #include "OrderScheme.h"
 #define MEPS 1.e-10 // mass precision
 
+/**
+ * @class QCD
+ * @ingroup StandardModel
+ * @brief A class for QCD. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class QCD: public Model {
 public:
     enum meson {B_D, B_S, B_P, K_0, K_P, D_0, MESON_END}; 
@@ -26,11 +34,14 @@ public:
      */
     static const std::string QCDvars[NQCDvars];
 
-    virtual std::string ModelName() const {
+    virtual std::string ModelName() const 
+    {
         return "QCD";
     }
     
-    QCD() : BBs(5), BBd(5), BD(5), BK(5) {
+    QCD() 
+    : BBs(5), BBd(5), BD(5), BK(5) 
+    {
         Nc=3.;
         CF = Nc/2.-1./(2.*Nc);
         quarks[UP].setCharge(2./3.);
@@ -132,18 +143,21 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
-    Meson getMesons(const QCD::meson i) const {
+    Meson getMesons(const QCD::meson i) const 
+    {
         return mesons[i];
     }
 
-    Particle getQuarks(const QCD::quark i) const {
+    Particle getQuarks(const QCD::quark i) const 
+    {
         return quarks[i];
     }
     
     /**
      * @return @f$\alpha_s(Mz)@f$
      */
-    double getAlsMz() const {
+    double getAlsMz() const 
+    {
         return AlsMz;
     }
 
@@ -151,14 +165,16 @@ public:
      * set the initial condition @f$\alpha_s(Mz)@f$
      * @param AlsMz the initial condition @f$\alpha_s(Mz)@f$
      */
-    void setAlsMz(double AlsMz) {
+    void setAlsMz(double AlsMz) 
+    {
         this->AlsMz = AlsMz;
     }
 
     /**
      * @return the scale Mz at which the initial condition for @f$\alpha_s(Mz)@f$ is given
      */
-    double getMz() const {
+    double getMz() const 
+    {
         return Mz;
     }
 
@@ -166,14 +182,16 @@ public:
      * set the scale M at which the initial condition for @f$\alpha_s(M)@f$ is given
      * @param M the scale M in GeV
      */
-    void setMz(double Mz) {
+    void setMz(double Mz) 
+    {
         this->Mz = Mz;
     }
 
     /**
      * @return the number of colours
      */
-    double getNc() const {
+    double getNc() const
+    {
         return Nc;
     }
 
@@ -181,14 +199,16 @@ public:
      * set the number of colours
      * @param Nc the number of colours
      */
-    void setNc(double Nc) {
+    void setNc(double Nc)
+    {
         this->Nc = Nc;
     }
 
     /**
      * @return the threshold between six- and five-flavour theory in GeV
      */
-    double getMut() const {
+    double getMut() const 
+    {
         return mut;
     }
 
@@ -196,14 +216,16 @@ public:
      * set the threshold between six- and five-flavour theory
      * @param mut the threshold between six- and five-flavour theory in GeV
      */
-    void setMut(double mut) {
+    void setMut(double mut)
+    {
         this->mut = mut;
     }
 
     /**
      * @return the threshold between five- and four-flavour theory in GeV
      */
-    double getMub() const {
+    double getMub() const 
+    {
         return mub;
     }
 
@@ -211,14 +233,16 @@ public:
      * set the threshold between five- and four-flavour theory
      * @param mub the threshold between five- and four-flavour theory in GeV
      */
-    void setMub(double mub) {
+    void setMub(double mub) 
+    {
         this->mub = mub;
     }
 
     /**
      * @return the threshold between four- and three-flavour theory in GeV
      */
-    double getMuc() const {
+    double getMuc() const 
+    {
         return muc;
     }
 
@@ -226,38 +250,46 @@ public:
      * set the threshold between four- and three-flavour theory
      * @param muc the threshold between four- and three-flavour theory in GeV
      */
-    void setMuc(double muc) {
+    void setMuc(double muc) 
+    {
         this->muc = muc;
     }
 
     /**
      * @return the pole mass of the top quark
      */
-    double getMtpole() const {
+    double getMtpole() const 
+    {
         return mtpole;
     }
 
-    double getCF() const {
+    double getCF() const 
+    {
         return CF;
     }
 
-    BParameter getBBd() const {
+    BParameter getBBd() const 
+    {
         return BBd;
     }
 
-    BParameter getBBs() const {
+    BParameter getBBs() const 
+    {
         return BBs;
     }
     
-    BParameter getBD() const {
+    BParameter getBD() const 
+    {
         return BD;
     }
     
-    BParameter getBK() const {
+    BParameter getBK() const 
+    {
         return BK;
     }
     
-    /*BParameter getBD() const {
+    /*BParameter getBD() const 
+     {
         return BD;
     }*/
     

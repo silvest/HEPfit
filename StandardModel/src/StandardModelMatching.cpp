@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,13 +13,14 @@
 #include <stdexcept>
 
 
-StandardModelMatching::StandardModelMatching(const StandardModel & SM_i) : ModelMatching(), SM(SM_i),
-                mcdbd2(5, NDR, NLO), mcdbs2(5, NDR, NLO),
-                mcdd2(5, NDR, NLO), mcdk2(5, NDR, NLO), 
-                mcbsg(10, NDR, NLO), mcbnlep(10, NDR, NLO, NLO_ew), 
-                mcbnlepCC(10, NDR, NLO), mcd1(10, NDR, NLO), 
-                mcd1Buras(10, NDR, NLO) {
-   
+StandardModelMatching::StandardModelMatching(const StandardModel & SM_i) 
+: ModelMatching(), SM(SM_i),
+        mcdbd2(5, NDR, NLO), mcdbs2(5, NDR, NLO),
+        mcdd2(5, NDR, NLO), mcdk2(5, NDR, NLO), 
+        mcbsg(10, NDR, NLO), mcbnlep(10, NDR, NLO, NLO_ew), 
+        mcbnlepCC(10, NDR, NLO), mcd1(10, NDR, NLO), 
+        mcd1Buras(10, NDR, NLO) 
+{   
     swa = 0.;  swb = 0.; swc = 0.;
     xcachea = 0.; xcacheb = 0.; xcachec = 0.;
     
@@ -35,11 +36,13 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i) : Model
     };
 }
 
-double StandardModelMatching::S0(double x) const {
+double StandardModelMatching::S0(double x) const 
+{
     return S0(x, x);
 }
 
-double StandardModelMatching::S0(double x, double y) const { // Buras 2000 Appendix
+double StandardModelMatching::S0(double x, double y) const 
+{ // Buras 2000 Appendix
     if (fabs(1. - y / x) < LEPS){
         return ((x * (-4. + 15. * x - 12. * x * x + x*x*x +
             6. * x * x * log(x))) / (4. * pow(-1. + x, 3.)));
@@ -52,12 +55,14 @@ double StandardModelMatching::S0(double x, double y) const { // Buras 2000 Appen
             3. / 4. / (1. - x) / (1. - y)));
 }
 
-double StandardModelMatching::S0p( double x) const {
+double StandardModelMatching::S0p( double x) const 
+{
     return (x * (-4. + 18. * x + 3. * x*x + x*x*x) / 4. / pow(x - 1., 3.)
             - 9. * x*x*x / 2. / pow(x - 1., 4.) * log(x));
 }
 
-double StandardModelMatching::S11(double x) const {
+double StandardModelMatching::S11(double x) const 
+{
     return (x * (4. - 39. * x + 168. * x*x + 11. * x*x*x) / 4. / pow(x - 1., 3.)
             + 3. * x*x*x * gsl_sf_dilog(1. - x)*(5. + x) / pow(x - 1., 3.)
             + 3. * x * log(x)*(-4. + 24. * x - 36. * x*x - 7. * x*x*x - x*x*x*x) / 2.
@@ -65,7 +70,8 @@ double StandardModelMatching::S11(double x) const {
             / pow(x - 1., 4.));
 }
 
-double StandardModelMatching::S18(double x) const {
+double StandardModelMatching::S18(double x) const 
+{
     return ((-64. + 68. * x + 17. * x*x - 11. * x*x*x) / 4. / pow(x - 1., 2.)
             + pow(M_PI, 2.)*8. / 3. / x + 2. * gsl_sf_dilog(1. - x)*(8. - 24. * x
             + 20. * x*x - x*x*x + 7. * x*x*x*x - pow(x, 5.)) / x / pow(x - 1., 3.)
@@ -74,7 +80,8 @@ double StandardModelMatching::S18(double x) const {
             - 2. * x*x*x) / 2. / pow(x - 1., 4.));
 }
 
-double StandardModelMatching::S1(double x) const {
+double StandardModelMatching::S1(double x) const 
+{
     return (SM.getCF() * S11(x) + (SM.getNc()-1.)/2./SM.getNc() * S18(x));
 }
 
@@ -86,39 +93,47 @@ double StandardModelMatching::S1(double x) const {
  *                 - semileptonic                                              * 
  * ****************************************************************************/
 
-double StandardModelMatching::A0t(double x)const{
+double StandardModelMatching::A0t(double x) const
+{
     return ( (-3.*x*x*x + 2.*x*x)/(2.*pow(1.-x,4.)) *log(x) + (22.*x*x*x - 153.*x*x +
             159.*x - 46.)/(36.*pow(1.-x,3.)) );
 }
 
-double StandardModelMatching::B0t(double x)const{
+double StandardModelMatching::B0t(double x) const
+{
     return( x / (4.* (1.-x)*(1.-x)) *log(x) + 1. / 4.*(1.-x) );
 }
 
-double StandardModelMatching::C0t(double x)const{
+double StandardModelMatching::C0t(double x) const
+{
     return( (3.*x*x + 2.*x)/(8.*(1.-x)*(1.-x)) *log(x) + (-x*x + 6.*x)/(8.*(1.-x)) );
 }
 
-double StandardModelMatching::D0t(double x)const{
+double StandardModelMatching::D0t(double x) const
+{
     return( (-3.*x*x*x*x + 30.*x*x*x - 54.*x*x + 32.*x -8.) / (18.*pow(1. -x, 4)) *log(x)
             + (-47.*x*x*x + 237.*x*x -312.*x +104.) / (108.*pow (1.-x,3.)) );
 }
 
-double StandardModelMatching::E0t(double x)const{
+double StandardModelMatching::E0t(double x) const
+{
     return (x*(18. - 11.*x - x*x)/(12. *pow(1.-x,3.) + x*x*(15. - 16.*x + 4.*x*x)/
             (6. *pow(1.-x,4.))*log(x) - 2./3.*log(x)));
 }
 
-double StandardModelMatching::C7LOeff(double x)const{
+double StandardModelMatching::C7LOeff(double x) const
+{
     return( (3.*x*x*x - 2.*x*x)/(4.*pow(x-1.,4.))*log(x) + (-8.*x*x*x - 5.*x*x +
               7.*x)/(24.*pow(x-1.,3.)) );
 }
 
-double StandardModelMatching::C8LOeff(double x)const{
+double StandardModelMatching::C8LOeff(double x) const
+{
     return( -3.*x*x/(4.*pow(x-1.,4.))*log(x) + (-x*x*x + 5.*x*x + 2.*x)/(8.*pow(x-1.,3)) );
 }
 
-double StandardModelMatching::C7NLOeff(double x)const{
+double StandardModelMatching::C7NLOeff(double x) const
+{
     double Li2 = gsl_sf_dilog(1.-1./x);
     return( Li2*( -16.*x*x*x*x - 122.*x*x*x + 80.*x*x - 8.*x)/(9.*pow(x-1.,4.)) +
             (6.*x*x*x*x + 46.*x*x*x -28.*x*x)/(3.*pow(x-1.,5.))*log(x)*log(x) + 
@@ -126,7 +141,8 @@ double StandardModelMatching::C7NLOeff(double x)const{
             (1646.*x*x*x*x + 12205.*x*x*x - 10740.*x*x + 2509.*x - 436.)/(486.*pow(x-1.,4.)));
 }
 
-double StandardModelMatching::C8NLOeff(double x)const{
+double StandardModelMatching::C8NLOeff(double x) const
+{
     double Li2 = gsl_sf_dilog(1.-1./x);
     return(Li2*(-4.*x*x*x*x + 40.*x*x*x + 41.*x*x + x)/(6.*pow(x-1.,4.)) +
             (-17.*x*x*x - 31.*x*x)/(2.*pow(x-1.,5.))*log(x)*log(x) +
@@ -134,7 +150,8 @@ double StandardModelMatching::C8NLOeff(double x)const{
             (737.*x*x*x*x - 14102.*x*x*x - 28209.*x*x + 610.*x -508.)/(1296.*pow(x-1.,4.)));
 }
 
-double StandardModelMatching::F0t(double x)const{
+double StandardModelMatching::F0t(double x) const
+{
     return ( (3.*x*x)/(2.*pow((1.-x), 4.)) * log(x) + ( 5.*x*x*x - 9.*x*x + 30.*x -8)/
             (12.*(1.-x)*(1.-x)*(1.-x)) );
 }
@@ -149,27 +166,31 @@ double StandardModelMatching::F0t(double x)const{
  *                 - ew penguins                                               *
  * ****************************************************************************/
 
-double StandardModelMatching::B0b(double x) const{
+double StandardModelMatching::B0b(double x) const
+{
     return ( 0.25*( x/(1.-x) + x/(x*x-2.*x+1.) * log(x) ) );
 }
 
-double StandardModelMatching::C0b(double x) const{
+double StandardModelMatching::C0b(double x) const
+{
     return ( x/8. * ( (x-6.)/(x-1.) + (3.*x+2.)/(x*x-2.*x+1.) * log(x) ) );
 }
 
-double StandardModelMatching::D0b(double x) const{
+double StandardModelMatching::D0b(double x) const
+{
     return ( -4./9. * log(x) + (-19.*x*x*x + 25.*x*x)/(36.*(x*x*x -3.*x*x +3.*x -1.)) 
             + ( x*x*(5.*x*x -2.*x -6.) )/(18.*pow(x-1.,4.)) * log(x) );
 }
 
-double StandardModelMatching::E0b(double x) const{
+double StandardModelMatching::E0b(double x) const
+{
     return ( -2./3. *log(x) + (x*(18. -11.*x -x*x))/(12.*(-x*x*x +3.*x*x -3.*x +1.)) +
             (x*x*(15. -16.*x +4.*x*x))/(6.*pow(1.-x,4.)) *log(x) );
 }
 
 /******************************************************************************/
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2() {
-   
+const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2() 
+{   
 //    if(SM_i == SM)
 //        return(vmc);
     
@@ -217,8 +238,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2() {
     return(vmcdb);
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbs2() {
-   
+const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbs2() 
+{   
 //    if(SM_i == SM)
 //        return(vmc);
     
@@ -264,8 +285,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbs2() {
     return(vmcds);
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMdk2() {
-
+const std::vector<WilsonCoefficient>& StandardModelMatching::CMdk2() 
+{
     vmck2.clear();
     
     mcdk2.setMu(SM.getMut());
@@ -287,8 +308,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdk2() {
     return(vmck2);
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMd1Buras() {
-    
+const std::vector<WilsonCoefficient>& StandardModelMatching::CMd1Buras()
+{    
     vmcd1Buras.clear();
     
     switch (mcd1Buras.getScheme()) {
@@ -331,10 +352,9 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMd1Buras() {
 
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMd1() { 
-    
-
-  vmcd1.clear();
+const std::vector<WilsonCoefficient>& StandardModelMatching::CMd1()
+{ 
+    vmcd1.clear();
     
     switch (mcd1.getScheme()) {
         case NDR:
@@ -375,8 +395,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMd1() {
     
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMdd2() {
-
+const std::vector<WilsonCoefficient>& StandardModelMatching::CMdd2() 
+{
     vmcd2.clear();
 
     switch (mcdd2.getScheme()) {
@@ -418,9 +438,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdd2() {
  *                 - magnetic and chromomagnetic penguins                      *         
  *                 - semileptonic                                              * 
  * ****************************************************************************/
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() {
-    
-    
+const std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() 
+{    
     double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass())
             / SM.Mw_tree(), 2.);
     complex co = (- 4. * SM.getGF() / sqrt(2)) * SM.getlamt_s();
@@ -467,8 +486,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() {
  * Wilson coefficients calcoulus, misiak base for b -> s gamma                  *  
  * ****************************************************************************/
 
-double StandardModelMatching::setWCbsg(int i, double x, orders order){
-    
+double StandardModelMatching::setWCbsg(int i, double x, orders order)
+{    
     sw =  sqrt( (M_PI * SM.getAle() )/( sqrt(2) * SM.getGF() * SM.Mw_tree() * SM.Mw_tree()) ) ;
 
     if ( swa == sw && xcachea == x){
@@ -542,9 +561,8 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order){
  *                 - semileptonic                                              *
  * i=0 deltaS=0 deltaC=0;  i=1 1,0 ;                                           *
  * ****************************************************************************/
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlep
-        (const int& a) {
-    
+const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlep(const int& a)
+{
     complex lambda;
     
     switch (a) {
@@ -607,9 +625,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlep
  * operator basis: - current current opertors                                  *         
  * i=0 deltaS=0 deltaC=0;  i=1 1,0 ;  i=2 0,1 ; i=3 1,1                        *
  * ****************************************************************************/
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC
-        (const int& a) {
-    
+const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC(const int& a) 
+{    
     complex lambda1 = 0.;
     //complex lambda2 = 0.;
     matrix<complex> ckm = SM.getVCKM();
@@ -680,8 +697,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC
 /*******************************************************************************
  * Wilson coefficients calculus, Buras base for nonlep. b decays               *  
  * ****************************************************************************/
-double StandardModelMatching::setWCbnlep(int i, double x, orders order) {
-    
+double StandardModelMatching::setWCbnlep(int i, double x, orders order) 
+{    
     sw =  sqrt( (M_PI * SM.getAle() )/( sqrt(2) * SM.getGF() * SM.Mw_tree() * SM.Mw_tree()) );
     
     if ( swb == sw && xcacheb == x){
@@ -735,8 +752,8 @@ double StandardModelMatching::setWCbnlep(int i, double x, orders order) {
         }
 }
 
-double StandardModelMatching::setWCbnlepEW(int i, double x) {
-     
+double StandardModelMatching::setWCbnlepEW(int i, double x) 
+{     
     sw =  sqrt( (M_PI * SM.getAle() )/( sqrt(2) * SM.getGF() * SM.Mw_tree() * SM.Mw_tree()) ) ;
     
     if ( swb == sw && xcacheb == x){
@@ -754,7 +771,8 @@ double StandardModelMatching::setWCbnlepEW(int i, double x) {
     return (CWbnlepArrayNLOew[i]);
 }
 
-complex StandardModelMatching::S0c() const {
+complex StandardModelMatching::S0c() const 
+{
     double xc = pow(SM.Mrun(SM.getMuc(), SM.getQuarks(QCD::CHARM).getMass(), SM.getQuarks(QCD::CHARM).getMass(), 4.)
                 / SM.Mw_tree(), 2.);
     complex co = SM.getGF() / 2. / M_PI * SM.Mw_tree() * SM.getlamc().conjugate();
@@ -762,7 +780,8 @@ complex StandardModelMatching::S0c() const {
     return(co*co*xc);    
 }
 
-complex StandardModelMatching::S0ct() const {
+complex StandardModelMatching::S0ct() const 
+{
     double xc = pow(SM.Mrun(SM.getMuc(), SM.getQuarks(QCD::CHARM).getMass(), SM.getQuarks(QCD::CHARM).getMass(), 4.)
                 / SM.Mw_tree(), 2.);
     double xt = pow(SM.Mrun(SM.getMut(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
@@ -773,7 +792,8 @@ complex StandardModelMatching::S0ct() const {
             (log(xt/xc) - 3.*xt/4./(1.-xt) - 3.*xt*xt*log(xt)/4./(1.-xt)/(1.-xt)) );
 }
 
-complex StandardModelMatching::S0tt() const{
+complex StandardModelMatching::S0tt() const
+{
     double x = pow(SM.Mrun(SM.getMut(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
                 / SM.Mw_tree(), 2.);
     complex co = SM.getGF() / 2. / M_PI * SM.Mw_tree() * SM.getlamt().conjugate();

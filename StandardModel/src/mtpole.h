@@ -12,6 +12,14 @@
 #include <ThObsType.h>
 #include "QCD.h"
 
+/**
+ * @class mtpole
+ * @ingroup StandardModel
+ * @brief A class for an interface to the input paramter @f$m_t@f$.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class mtpole : public ThObservable {
 public:
 

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -10,24 +10,28 @@
 #include <boost/lexical_cast.hpp>
 #include <iostream>
 
-InputParser::InputParser() {
+InputParser::InputParser() 
+{
     myModel = NULL;
     thf = NULL;
 }
 
-InputParser::InputParser(const InputParser& orig) {
+InputParser::InputParser(const InputParser& orig) 
+{
     myModel = new StandardModel(*orig.myModel);
     thf = new ThFactory(*orig.thf);
 }
 
-InputParser::~InputParser() {
+InputParser::~InputParser() 
+{
     if (myModel != NULL)
         delete myModel;
     if (thf != NULL)
         delete thf;
 }
 
-Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<char> >::iterator & beg) {
+Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<char> >::iterator & beg) 
+{
     std::string name = *beg;
     ++beg;
     std::string thname = *beg;
@@ -76,7 +80,8 @@ Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<c
 }
 
 std::string InputParser::ReadParameters(const std::string filename, std::vector<ModelParameter>&
-        ModelPars, std::vector<Observable>& Observables, std::vector<Observable2D>& Observables2D, std::vector<CorrelatedGaussianObservables>& CGO) {
+        ModelPars, std::vector<Observable>& Observables, std::vector<Observable2D>& Observables2D, std::vector<CorrelatedGaussianObservables>& CGO) 
+{
     std::string modname = "";
     std::ifstream ifile(filename.c_str());
     if (!ifile.is_open()) {
@@ -194,7 +199,7 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             std::string name = *beg;
             ++beg;
             int size = atoi((*beg).c_str());
-	    CorrelatedGaussianObservables o3(name);
+            CorrelatedGaussianObservables o3(name);
             int nlines = 0;
             std::vector<bool> lines;
             for (int i = 0; i < size; i++) {
@@ -209,7 +214,7 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
                     throw std::runtime_error("Expecting an Observable type here...");
                 Observable tmp = ParseObservable(beg);
                 if (tmp.isTMCMC()) {
-		  o3.AddObs(tmp);
+                    o3.AddObs(tmp);
                     lines.push_back(true);
                     nlines++;
                 } else {
@@ -218,27 +223,27 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
                 }
             }
             gslpp::matrix<double> myCorr(gslpp::matrix<double>::Id(nlines));
-	    int ni = 0;
+            int ni = 0;
             for (int i = 0; i < size; i++) {
-	      getline(ifile, line);
-	      if (lines.at(i)) {
-		boost::tokenizer<boost::char_separator<char> > mytok(line, sep);
-		beg = mytok.begin();
-		int nj = 0;
-		for (int j = 0; j < size; j++) {
-		  if (lines.at(j)){
-		    myCorr(ni, nj) = atof((*beg).c_str());
-		    nj++;
-		  }
-		  beg++;
-		}
-		ni++;   
-	      }
+                getline(ifile, line);
+                if (lines.at(i)) {
+                    boost::tokenizer<boost::char_separator<char> > mytok(line, sep);
+                    beg = mytok.begin();
+                    int nj = 0;
+                    for (int j = 0; j < size; j++) {
+                        if (lines.at(j)){
+                            myCorr(ni, nj) = atof((*beg).c_str());
+                            nj++;
+                        }
+                        beg++;
+                    }
+                    ni++;   
+                }
             }
             o3.ComputeCov(myCorr);
             CGO.push_back(o3);
         } else if (type.compare("ModelFlag") == 0) {
-
+            
             std::string name = *beg;
                     ++beg;
                     bool value = boost::lexical_cast<bool>((*beg).c_str());

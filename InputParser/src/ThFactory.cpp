@@ -15,8 +15,8 @@
 #include <EWObservables.h>
 //#include <ZFEWObservables.h>
 
-ThFactory::ThFactory(const StandardModel& myModel) :
-myFlavour(myModel), myEW(myModel), myMO(myModel)
+ThFactory::ThFactory(const StandardModel& myModel) 
+: myFlavour(myModel), myEW(myModel), myMO(myModel)
 //, myZFitter(myModel) 
 {
     //-----   Flavour observables   -----
@@ -135,7 +135,7 @@ myFlavour(myModel), myEW(myModel), myMO(myModel)
     for (int i=0; i<12; i++) { 
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_s[i]);
         myLEP2sigmaHadron[i] = new LEP2sigmaHadron(myEW, sqrt_s[i]);
-        thobs["sigmaqLEP2_" + sqrt_s_str] = myLEP2sigmaHadron[i];
+        thobs["sigmaqLEP2_" + sqrt_s_str] = myLEP2sigmaHadron[i];        
         myLEP2sigmaMu[i] = new LEP2sigmaMu(myEW, sqrt_s[i]);
         thobs["sigmamuLEP2_" + sqrt_s_str] = myLEP2sigmaMu[i];
         myLEP2sigmaTau[i] = new LEP2sigmaTau(myEW, sqrt_s[i]);
@@ -157,16 +157,52 @@ myFlavour(myModel), myEW(myModel), myMO(myModel)
         thobs["RcharmLEP2_" + sqrt_s_str] = myLEP2Rcharm[i];  
     }    
 
+    //-----  LEP-II observables (with ZFitter)  -----
+    //ZFsigmaQuarksLEP2* myZFsigmaQuarks[12];
+    //ZFsigmaMuLEP2* myZFsigmaMu[12];
+    //ZFsigmaTauLEP2* myZFsigmaTau[12];
+    //ZFAFBmuLEP2* myZFAFBmu[12];
+    //ZFAFBtauLEP2* myZFAFBtau[12];
+    //ZFAFBbottomLEP2* myZFAFBbottomLEP2[10];
+    //ZFAFBcharmLEP2* myZFAFBcharmLEP2[10];
+    //ZFRbottomLEP2* myZFRbottomLEP2[10];
+    //ZFRcharmLEP2* myZFRcharmLEP2[10];
+    //for (int i=0; i<12; i++) { 
+    //    std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_s[i]);
+    //    myZFsigmaQuarks[i] = new ZFsigmaQuarksLEP2(myZFitter, sqrt_s[i]);
+    //    thobs["sigmaqLEP2_" + sqrt_s_str] = myZFsigmaQuarks[i];
+    //    myZFsigmaMu[i] = new ZFsigmaMuLEP2(myZFitter, sqrt_s[i]);
+    //    thobs["sigmamuLEP2_" + sqrt_s_str] = myZFsigmaMu[i];
+    //    myZFsigmaTau[i] = new ZFsigmaTauLEP2(myZFitter, sqrt_s[i]);
+    //    thobs["sigmatauLEP2_" + sqrt_s_str] = myZFsigmaTau[i];
+    //    myZFAFBmu[i] = new ZFAFBmuLEP2(myZFitter, sqrt_s[i]);
+    //    thobs["AFBmuLEP2_" + sqrt_s_str] = myZFAFBmu[i];
+    //    myZFAFBtau[i] = new ZFAFBtauLEP2(myZFitter, sqrt_s[i]);
+    //    thobs["AFBtauLEP2_" + sqrt_s_str] = myZFAFBtau[i];
+    //}
+    //for (int i=0; i<10; i++) { 
+    //    std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_s_HF[i]);
+    //    myZFAFBbottomLEP2[i] = new ZFAFBbottomLEP2(myZFitter, sqrt_s_HF[i]);
+    //    thobs["AFBbottomLEP2_" + sqrt_s_str] = myZFAFBbottomLEP2[i];
+    //    myZFAFBcharmLEP2[i] = new ZFAFBcharmLEP2(myZFitter, sqrt_s_HF[i]);
+    //    thobs["AFBcharmLEP2_" + sqrt_s_str] = myZFAFBcharmLEP2[i];
+    //    myZFRbottomLEP2[i] = new ZFRbottomLEP2(myZFitter, sqrt_s_HF[i]);  
+    //    thobs["RbottomLEP2_" + sqrt_s_str] = myZFRbottomLEP2[i];
+    //    myZFRcharmLEP2[i] = new ZFRcharmLEP2(myZFitter, sqrt_s_HF[i]);
+    //    thobs["RcharmLEP2_" + sqrt_s_str] = myZFRcharmLEP2[i];  
+    //}    
 }
 
-ThFactory::~ThFactory() {
+ThFactory::~ThFactory() 
+{
     for (std::map<std::string, ThObservable *>::iterator it = thobs.begin();
             it != thobs.end(); it++)
         if (it->second != NULL)
             delete it->second;
 }
 
-ThObservable * ThFactory::getThMethod(const std::string& name) {
+ThObservable * ThFactory::getThMethod(const std::string& name) 
+{
     if (thobs.find(name) == thobs.end()) {
         std::cout << "wrong observable " << name << " in ThFactory" << std::endl;
         exit(EXIT_FAILURE);

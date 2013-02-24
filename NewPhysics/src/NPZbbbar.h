@@ -10,7 +10,14 @@
 
 #include <StandardModel.h>
 
-
+/**
+ * @class NPZbbbar
+ * @brief A class for new physics with non-standard @f$Zb\bar{b}@f$ couplings. 
+ * @ingroup NewPhysics
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class NPZbbbar : public StandardModel  {
 public:
     static const int NZbbbarVars = 2;

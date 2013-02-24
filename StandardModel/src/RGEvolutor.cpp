@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -9,8 +9,8 @@
 #include <sstream>
 #include <stdexcept>
 
-void RGEvolutor::setEvol(unsigned int i, unsigned int  j, double x, orders order_i) {
-    
+void RGEvolutor::setEvol(unsigned int i, unsigned int  j, double x, orders order_i) 
+{    
     if (i > size || j > size) {
         std::stringstream out;
         out << i << " " << j;
@@ -24,8 +24,8 @@ void RGEvolutor::setEvol(unsigned int i, unsigned int  j, double x, orders order
     (*elem[order_i])(i,j) = x;   
 }
 
-void RGEvolutor::setEvol(unsigned int i, unsigned int  j, double x, orders order_i, orders_ew order_ew_i) {
-    
+void RGEvolutor::setEvol(unsigned int i, unsigned int  j, double x, orders order_i, orders_ew order_ew_i) 
+{    
     if (i > size || j > size) {
         std::stringstream out;
         out << i << " " << j;

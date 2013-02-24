@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,23 +14,36 @@
 
 using namespace gslpp;
 
+/**
+ * @class RGEvolutor
+ * @ingroup StandardModel
+ * @brief A class for the RG evolutor of the Wilson coefficients. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class RGEvolutor : public WilsonTemplate<matrix<double> > {
 public:
-    RGEvolutor(unsigned int dim, schemes scheme, orders order) : 
-    WilsonTemplate<matrix<double> >(dim, scheme, order) {};
+    RGEvolutor(unsigned int dim, schemes scheme, orders order) 
+    : WilsonTemplate<matrix<double> >(dim, scheme, order) 
+    {};
     
-    RGEvolutor(unsigned int dim, schemes scheme, orders order, orders_ew order_ew) : 
-    WilsonTemplate<matrix<double> >(dim, scheme, order, order_ew) {};
+    RGEvolutor(unsigned int dim, schemes scheme, orders order, orders_ew order_ew) 
+    : WilsonTemplate<matrix<double> >(dim, scheme, order, order_ew) 
+    {};
     
-    matrix<double>** getEvol() const {
+    matrix<double>** getEvol() const 
+    {
         return (matrix<double>**) elem;
     }
 
-    double getM() const {
+    double getM() const 
+    {
         return M;
     }
 
-    void setScales(double mu, double M) {
+    void setScales(double mu, double M) 
+    {
         this->M = M;
         this->mu = mu;
         *(elem[LO]) = matrix<double>::Id(size);
@@ -43,7 +56,8 @@ public:
         }
     }
 
-    void setM(double M) {
+    void setM(double M) 
+    {
         this->M = M;
         *(elem[LO]) = matrix<double>::Id(size);
         for(int i = NLO; i <= order; i++)
@@ -55,7 +69,8 @@ public:
         }
     }
     
-    void setMu(double mu) {
+    void setMu(double mu) 
+    {
         this->mu = mu;
         *(elem[LO]) = matrix<double>::Id(size);
         for(int i = NLO; i <= order; i++)
@@ -68,19 +83,27 @@ public:
     }
     
     void setEvol(unsigned int i, unsigned int j, double x, orders order_i);
-    void setEvol(unsigned int i, unsigned int j, double x, orders order_i, orders_ew order_ew) ;
+    void setEvol(unsigned int i, unsigned int j, double x, orders order_i, orders_ew order_ew);
 
-    void setEvol(const matrix<double>& m, orders order_i) { 
-        setElem(m, order_i); }
+    void setEvol(const matrix<double>& m, orders order_i) 
+    { 
+        setElem(m, order_i);
+    }
     
-    void setEvol(const matrix<double>& m, orders_ew order_ew_i) { 
-        setElem(m, order_ew_i); }
+    void setEvol(const matrix<double>& m, orders_ew order_ew_i) 
+    { 
+        setElem(m, order_ew_i);
+    }
     
-    matrix<double>* Evol(orders order) { 
-        return Elem(order);}
+    matrix<double>* Evol(orders order) 
+    { 
+        return Elem(order);
+    }
         
-    matrix<double>* Evol(orders_ew order_ew) { 
-        return Elem(order_ew);}
+    matrix<double>* Evol(orders_ew order_ew) 
+    { 
+        return Elem(order_ew);
+    }
     
 protected:
     double M;

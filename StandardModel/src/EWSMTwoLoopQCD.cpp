@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -9,18 +9,22 @@
 #include "EWSMTwoLoopQCD.h"
 
 
-EWSMTwoLoopQCD::EWSMTwoLoopQCD(const EWSMcache& cache_i) : cache(cache_i) {
+EWSMTwoLoopQCD::EWSMTwoLoopQCD(const EWSMcache& cache_i) 
+: cache(cache_i) 
+{
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSMTwoLoopQCD::DeltaAlpha_l(const double s) const {
+double EWSMTwoLoopQCD::DeltaAlpha_l(const double s) const 
+{
     return (0.0);
 }    
 
 
-double EWSMTwoLoopQCD::DeltaAlpha_t(const double s) const {   
+double EWSMTwoLoopQCD::DeltaAlpha_t(const double s) const 
+{   
     double xt = s/cache.Mt()/cache.Mt();
     double als;
     if (s==cache.Mz()*cache.Mz())
@@ -33,13 +37,15 @@ double EWSMTwoLoopQCD::DeltaAlpha_t(const double s) const {
 } 
 
 
-double EWSMTwoLoopQCD::DeltaRho(const double Mw_i) const {
+double EWSMTwoLoopQCD::DeltaRho(const double Mw_i) const 
+{
     double Mw = cache.Mw(Mw_i);
     return ( 3.0*cache.Xt_alpha(Mw)*cache.alsMt()/M_PI*deltaQCD_2() );     
 }
 
 
-double EWSMTwoLoopQCD::DeltaR_rem(const double Mw_i) const {
+double EWSMTwoLoopQCD::DeltaR_rem(const double Mw_i) const 
+{
     double Mw = cache.Mw(Mw_i);
     return ( (2.0*DeltaR_ud(Mw) + DeltaR_tb(Mw))
               + cache.cW2(Mw)/cache.sW2(Mw)*DeltaRho(Mw) );     
@@ -47,14 +53,16 @@ double EWSMTwoLoopQCD::DeltaR_rem(const double Mw_i) const {
 
 
 complex EWSMTwoLoopQCD::deltaRho_rem_l(const StandardModel::lepton l, 
-                                       const double Mw_i) const {
+                                       const double Mw_i) const 
+{
     double Mw = cache.Mw(Mw_i);
     return ( (2.0*DeltaRho_ud(Mw) + DeltaRho_tb(Mw)) - DeltaRho(Mw) );    
 }
 
 
 complex EWSMTwoLoopQCD::deltaRho_rem_q(const StandardModel::quark q, 
-                                       const double Mw_i) const {
+                                       const double Mw_i) const 
+{
     if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     double Mw = cache.Mw(Mw_i);
     return ( (2.0*DeltaRho_ud(Mw) + DeltaRho_tb(Mw)) - DeltaRho(Mw) );    
@@ -62,7 +70,8 @@ complex EWSMTwoLoopQCD::deltaRho_rem_q(const StandardModel::quark q,
 
 
 complex EWSMTwoLoopQCD::deltaKappa_rem_l(const StandardModel::lepton l, 
-                                         const double Mw_i) const {
+                                         const double Mw_i) const 
+{
     double Mw = cache.Mw(Mw_i);
     return ( (2.0*DeltaKappa_ud(Mw) + DeltaKappa_tb(Mw))
               - cache.cW2(Mw)/cache.sW2(Mw)*DeltaRho(Mw) );    
@@ -70,7 +79,8 @@ complex EWSMTwoLoopQCD::deltaKappa_rem_l(const StandardModel::lepton l,
 
 
 complex EWSMTwoLoopQCD::deltaKappa_rem_q(const StandardModel::quark q, 
-                                         const double Mw_i) const {
+                                         const double Mw_i) const 
+{
     if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     double Mw = cache.Mw(Mw_i);
     return ( (2.0*DeltaKappa_ud(Mw) + DeltaKappa_tb(Mw))
@@ -80,12 +90,14 @@ complex EWSMTwoLoopQCD::deltaKappa_rem_q(const StandardModel::quark q,
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSMTwoLoopQCD::deltaQCD_2() const {
+double EWSMTwoLoopQCD::deltaQCD_2() const 
+{
     return ( -2.0/3.0*(1.0+2.0*cache.GetZeta2()) );
 }
 
 
-double EWSMTwoLoopQCD::F1(const double x, const double Mw_i) const {
+double EWSMTwoLoopQCD::F1(const double x, const double Mw_i) const 
+{
     if (x < 0.0 || x >= 1.0) throw std::runtime_error("x is out of range in EWSMTwoLoopQCD::F1");     
        
     /* Zeta functions */
@@ -122,7 +134,8 @@ double EWSMTwoLoopQCD::F1(const double x, const double Mw_i) const {
 }
 
 
-double EWSMTwoLoopQCD::V1(const double r) const {
+double EWSMTwoLoopQCD::V1(const double r) const 
+{
     if (r < 0.0 || r >= 1.0) throw std::runtime_error("r is out of range in EWSMTwoLoopQCD::V1"); 
 
     /* Zeta functions */
@@ -174,7 +187,8 @@ double EWSMTwoLoopQCD::V1(const double r) const {
 }
 
 
-double EWSMTwoLoopQCD::A1(const double r) const {
+double EWSMTwoLoopQCD::A1(const double r) const 
+{
     if (r < 0.0 || r >= 1.0) throw std::runtime_error("r is out of range in EWSMTwoLoopQCD::A1"); 
  
     /* Zeta functions */
@@ -227,7 +241,8 @@ double EWSMTwoLoopQCD::A1(const double r) const {
 }
 
 
-double EWSMTwoLoopQCD::V1prime(const double r) const {
+double EWSMTwoLoopQCD::V1prime(const double r) const
+{
     if (r < 0.0 || r >= 1.0) throw std::runtime_error("r is out of range in EWSMTwoLoopQCD::V1prime"); 
 
     /* Zeta functions */
@@ -320,7 +335,8 @@ double EWSMTwoLoopQCD::V1prime(const double r) const {
 }
 
 
-double EWSMTwoLoopQCD::A1prime(const double r) const {
+double EWSMTwoLoopQCD::A1prime(const double r) const
+{
     if (r < 0.0 || r >= 1.0) throw std::runtime_error("r is out of range in EWSMTwoLoopQCD::A1prime"); 
  
     /* Zeta functions */
@@ -413,7 +429,8 @@ double EWSMTwoLoopQCD::A1prime(const double r) const {
 }
 
 
-double EWSMTwoLoopQCD::DeltaR_ud(const double Mw_i) const {
+double EWSMTwoLoopQCD::DeltaR_ud(const double Mw_i) const
+{
     double Mw = cache.Mw(Mw_i);
     double sW2 = cache.sW2(Mw);
     double cW2 = cache.cW2(Mw);
@@ -429,7 +446,8 @@ double EWSMTwoLoopQCD::DeltaR_ud(const double Mw_i) const {
 }
 
 
-double EWSMTwoLoopQCD::DeltaR_tb(const double Mw_i) const {
+double EWSMTwoLoopQCD::DeltaR_tb(const double Mw_i) const 
+{
     double Mw = cache.Mw(Mw_i);
     double sW2 = cache.sW2(Mw);
     double cW2 = cache.cW2(Mw);
@@ -462,7 +480,8 @@ double EWSMTwoLoopQCD::DeltaR_tb(const double Mw_i) const {
 }
 
 
-double EWSMTwoLoopQCD::DeltaRho_ud(const double Mw_i) const {
+double EWSMTwoLoopQCD::DeltaRho_ud(const double Mw_i) const 
+{
     double Mw = cache.Mw(Mw_i);
     double sW2 = cache.sW2(Mw);
     double cW2 = cache.cW2(Mw);
@@ -478,7 +497,8 @@ double EWSMTwoLoopQCD::DeltaRho_ud(const double Mw_i) const {
 }
 
 
-double EWSMTwoLoopQCD::DeltaRho_tb(const double Mw_i) const {
+double EWSMTwoLoopQCD::DeltaRho_tb(const double Mw_i) const 
+{
     double Mw = cache.Mw(Mw_i);
     double Mz = cache.Mz();  
     double sW2 = cache.sW2(Mw);
@@ -502,7 +522,8 @@ double EWSMTwoLoopQCD::DeltaRho_tb(const double Mw_i) const {
 }
 
 
-complex EWSMTwoLoopQCD::DeltaKappa_ud(const double Mw_i) const {
+complex EWSMTwoLoopQCD::DeltaKappa_ud(const double Mw_i) const 
+{
     double Mw = cache.Mw(Mw_i);
     double sW2 = cache.sW2(Mw);
     double cW2 = cache.cW2(Mw);
@@ -518,7 +539,8 @@ complex EWSMTwoLoopQCD::DeltaKappa_ud(const double Mw_i) const {
 }
 
 
-complex EWSMTwoLoopQCD::DeltaKappa_tb(const double Mw_i) const {
+complex EWSMTwoLoopQCD::DeltaKappa_tb(const double Mw_i) const 
+{
     double Mw = cache.Mw(Mw_i);
     double Mz = cache.Mz();  
     double sW2 = cache.sW2(Mw);

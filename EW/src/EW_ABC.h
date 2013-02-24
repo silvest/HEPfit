@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,17 +13,22 @@
 #include <EWepsilons.h>
 using namespace gslpp;
 
-
 /**
  * @class EW_ABC
+ * @ingroup EW 
+ * @brief A test class for the electroweak precision observables. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
  * @details A class for the electroweak precision observables with the epsilon 
  * parameters based on IJMPA, 7, 1031-1058 (1998) by G.Altarelli, R.Barbieri 
  * and F.Caravaglios. 
- */  
+ */
 class EW_ABC {
 public:
 
-    EW_ABC(const StandardModel& SM_i) : SM(SM_i), myEWepsilons(SM_i) {};
+    EW_ABC(const StandardModel& SM_i) 
+    : SM(SM_i), myEWepsilons(SM_i)
+    {};
 
     double Mw(const double eps1, const double eps2, const double eps3) const;
     double Gamma_l(StandardModel::lepton l, const double eps1, const double eps3) const;

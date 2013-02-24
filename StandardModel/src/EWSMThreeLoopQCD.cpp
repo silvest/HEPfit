@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,18 +8,22 @@
 #include "EWSMThreeLoopQCD.h"
 
 
-EWSMThreeLoopQCD::EWSMThreeLoopQCD(const EWSMcache& cache_i) : cache(cache_i) {
+EWSMThreeLoopQCD::EWSMThreeLoopQCD(const EWSMcache& cache_i) 
+: cache(cache_i) 
+{
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSMThreeLoopQCD::DeltaAlpha_l(const double s) const {
+double EWSMThreeLoopQCD::DeltaAlpha_l(const double s) const 
+{
     return (0.0);
 }    
 
 
-double EWSMThreeLoopQCD::DeltaAlpha_t(const double s) const {   
+double EWSMThreeLoopQCD::DeltaAlpha_t(const double s) const 
+{   
     double xt = s/cache.Mt()/cache.Mt();
     double log_t, als;
     if (s==cache.Mz()*cache.Mz()) {
@@ -38,13 +42,15 @@ double EWSMThreeLoopQCD::DeltaAlpha_t(const double s) const {
 }
 
 
-double EWSMThreeLoopQCD::DeltaRho(const double Mw_i) const {
+double EWSMThreeLoopQCD::DeltaRho(const double Mw_i) const 
+{
     double Mw = cache.Mw(Mw_i);
     return ( 3.0*cache.Xt_alpha(Mw)*pow(cache.alsMt()/M_PI,2.0)*deltaQCD_3(Mw));     
 }
 
 
-double EWSMThreeLoopQCD::DeltaR_rem(const double Mw_i) const {
+double EWSMThreeLoopQCD::DeltaR_rem(const double Mw_i) const 
+{
     double Mw = cache.Mw(Mw_i);
     double sW2 = cache.sW2(Mw);
     double cW2 = cache.cW2(Mw);
@@ -63,20 +69,23 @@ double EWSMThreeLoopQCD::DeltaR_rem(const double Mw_i) const {
 
 
 complex EWSMThreeLoopQCD::deltaRho_rem_l(const StandardModel::lepton l, 
-                                         const double Mw_i) const {
+                                         const double Mw_i) const
+{
     return ( complex(0.0,0.0,false) );
 }
 
 
 complex EWSMThreeLoopQCD::deltaRho_rem_q(const StandardModel::quark q, 
-                                         const double Mw_i) const {
+                                         const double Mw_i) const 
+{
     if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     return ( complex(0.0,0.0,false) );
 }
 
 
 complex EWSMThreeLoopQCD::deltaKappa_rem_l(const StandardModel::lepton l, 
-                                           const double Mw_i) const {
+                                           const double Mw_i) const 
+{
     double Mw = cache.Mw(Mw_i);
     return ( - 3.0*cache.Xt_alpha(Mw)*cache.cW2(Mw)/cache.sW2(Mw)
                *pow(cache.alsMt()/M_PI,2.0)
@@ -85,7 +94,8 @@ complex EWSMThreeLoopQCD::deltaKappa_rem_l(const StandardModel::lepton l,
 
 
 complex EWSMThreeLoopQCD::deltaKappa_rem_q(const StandardModel::quark q, 
-                                           const double Mw_i) const {
+                                           const double Mw_i) const 
+{
     if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     double Mw = cache.Mw(Mw_i);
     return ( - 3.0*cache.Xt_alpha(Mw)*cache.cW2(Mw)/cache.sW2(Mw)
@@ -96,7 +106,8 @@ complex EWSMThreeLoopQCD::deltaKappa_rem_q(const StandardModel::quark q,
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSMThreeLoopQCD::deltaQCD_3(const double Mw_i) const {
+double EWSMThreeLoopQCD::deltaQCD_3(const double Mw_i) const 
+{
     double dQCD3;
     double lZ = 2.0*cache.logMZtoMTOP();
     double Mw = cache.Mw(Mw_i);
@@ -123,7 +134,8 @@ double EWSMThreeLoopQCD::deltaQCD_3(const double Mw_i) const {
 }
 
 
-complex EWSMThreeLoopQCD::deltaQCD_kappa3(const double Mw_i) const {
+complex EWSMThreeLoopQCD::deltaQCD_kappa3(const double Mw_i) const 
+{
     complex dQCDk3;
     double lZ = 2.0*cache.logMZtoMTOP();
     double Mw = cache.Mw(Mw_i);

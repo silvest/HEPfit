@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,8 +14,9 @@
 #include <fstream>
 
 MonteCarlo::MonteCarlo(const std::string& ModelConf_i,
-        const std::string& MonteCarloConf_i, const std::string& OutFile_i, const std::string& JobTag_i) :
-myInputParser(), MCEngine(ModPars, Obs, Obs2D, CGO) {
+        const std::string& MonteCarloConf_i, const std::string& OutFile_i, const std::string& JobTag_i) 
+: myInputParser(), MCEngine(ModPars, Obs, Obs2D, CGO) 
+{
     ModelConf = ModelConf_i;
     MCMCConf = MonteCarloConf_i;
     JobTag = JobTag_i;
@@ -29,10 +30,12 @@ myInputParser(), MCEngine(ModPars, Obs, Obs2D, CGO) {
     PrintParameterPlot = false;
 }
 
-MonteCarlo::~MonteCarlo() {
+MonteCarlo::~MonteCarlo() 
+{
 }
 
-void MonteCarlo::Run(const int rank) {
+void MonteCarlo::Run(const int rank) 
+{
     try {
         FileStat_t info;
         if (gSystem->GetPathInfo("Observables", info) != 0 && !noMC) {
@@ -60,8 +63,8 @@ void MonteCarlo::Run(const int rank) {
         if(noMC) {
             for (std::vector<Observable>::iterator it = Obs.begin();
                 it < Obs.end(); it++) {
-              double th = it->getTheoryValue();
-              std::cout << it->getName() << " = " << th << std::endl;
+                double th = it->getTheoryValue();
+                std::cout << it->getName() << " = " << th << std::endl;
             }
             return;
         }
@@ -89,14 +92,12 @@ void MonteCarlo::Run(const int rank) {
                     ll = MCEngine.LogEval(pars);
                 } else if (recvbuff[0] == -1.)
                     break;
-                else 
-                {
+                else {
                     std::cout << "recvbuff = " << recvbuff[0] << " rank " << rank << std::endl;
                     throw "error in MPI message!";
                 }
 
-                MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, buff, 1, MPI::DOUBLE,
-                        0);
+                MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, buff, 1, MPI::DOUBLE, 0);
             }
         } else {
 

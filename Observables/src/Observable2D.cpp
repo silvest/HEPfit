@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -11,8 +11,9 @@ Observable2D::Observable2D(const std::string name_i, const std::string thname_i,
         const std::string thname2_i, const std::string label_i, 
         const std::string label2_i, const bool tMCMC_i, const double min_i,
         const double max_i, const double min2_i, const double max2_i, 
-        ThObservable * tho_i, ThObservable * tho2_i) : Observable (name_i, thname_i,
-        label_i, tMCMC_i, min_i, max_i, tho_i){
+        ThObservable * tho_i, ThObservable * tho2_i) 
+: Observable(name_i, thname_i, label_i, tMCMC_i, min_i, max_i, tho_i)
+{
     thname2 = thname2_i;
     label2 = label2_i;
     min2 = min2_i;
@@ -20,7 +21,9 @@ Observable2D::Observable2D(const std::string name_i, const std::string thname_i,
     tho2 = tho2_i;
 }
 
-Observable2D::Observable2D(const Observable& o1d) :  Observable (o1d){
+Observable2D::Observable2D(const Observable& o1d) 
+: Observable (o1d)
+{
     thname2 = "";
     label2 = "";
     min2 = 0.;
@@ -28,8 +31,9 @@ Observable2D::Observable2D(const Observable& o1d) :  Observable (o1d){
     tho2 = NULL;   
 }
 
-Observable2D::Observable2D(const Observable2D& orig) :  Observable (orig.name, orig.thname,
-        orig.label, orig.tMCMC, orig.min, orig.max, orig.tho){
+Observable2D::Observable2D(const Observable2D& orig) 
+: Observable(orig.name, orig.thname, orig.label, orig.tMCMC, orig.min, orig.max, orig.tho)
+{
    
     distr = orig.distr; 
     filename = orig.filename; 
@@ -45,9 +49,11 @@ Observable2D::Observable2D(const Observable2D& orig) :  Observable (orig.name, o
     tho2 = orig.tho2;   
 }
 
-Observable2D::~Observable2D() {
+Observable2D::~Observable2D() 
+{
 }
 
-double Observable2D::getTheoryValue2(){
+double Observable2D::getTheoryValue2()
+{
     return tho2->getThValue();
 }

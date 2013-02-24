@@ -12,6 +12,14 @@
 #include <ThObsType.h>
 #include "NPZbbbar.h"
 
+/**
+ * @class deltaGRb
+ * @brief A class for @f$\delta g_R^b@f$. 
+ * @ingroup NewPhysics
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class deltaGRb : public ThObservable {
 public:
 

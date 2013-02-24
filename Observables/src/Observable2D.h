@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -10,6 +10,14 @@
 
 #include "Observable.h"
 
+/**
+ * @class Observable2D
+ * @ingroup Observable
+ * @brief A class for 2d observables. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class Observable2D : public Observable {
 public:
     Observable2D(const std::string name_i, const std::string thname_i,
@@ -23,43 +31,53 @@ public:
 
     double getTheoryValue2();
 
-    std::string getLabel2() const {
+    std::string getLabel2() const 
+    {
         return label2;
     }
 
-    void setLabel2(std::string label2) {
+    void setLabel2(std::string label2) 
+    {
         this->label2 = label2;
     }
 
-    double getMax2() const {
+    double getMax2() const 
+    {
         return max2;
     }
 
-    void setMax2(double max2) {
+    void setMax2(double max2) 
+    {
         this->max2 = max2;
     }
 
-    double getMin2() const {
+    double getMin2() const 
+    {
         return min2;
     }
 
-    void setMin2(double min2) {
+    void setMin2(double min2) 
+    {
         this->min2 = min2;
     }
 
-    std::string getThname2() const {
+    std::string getThname2() const 
+    {
         return thname2;
     }
 
-    void setThname2(std::string thname2) {
+    void setThname2(std::string thname2) 
+    {
         this->thname2 = thname2;
     }
 
-    ThObservable* getTho2() const {
+    ThObservable* getTho2() const 
+    {
         return tho2;
     }
 
-    void setTho2(ThObservable* tho2) {
+    void setTho2(ThObservable* tho2) 
+    {
         this->tho2 = tho2;
     }
 

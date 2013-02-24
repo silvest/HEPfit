@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,26 +13,38 @@
 
 using namespace gslpp;
 
+/**
+ * @class Meson
+ * @ingroup StandardModel
+ * @brief A class for mesons. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class Meson : public Particle {
 public:
 
-    Meson() {};
+    Meson() 
+    {};
     Meson(double mass, double width, double decayconst);
     virtual ~Meson();
 
     /**
      *
-     * @return the particle lifetime in ps
+     * @return The particle lifetime in ps. 
      */
-    double Lifetime() const {
+    double Lifetime() const 
+    {
         return (HCUT / width);
     }
 
-    double getDecayconst() const {
+    double getDecayconst() const 
+    {
         return decayconst;
     }
 
-    void setDecayconst(double decayconst) {
+    void setDecayconst(double decayconst)
+    {
         this->decayconst = decayconst;
     }
 

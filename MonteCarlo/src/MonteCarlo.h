@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -12,14 +12,13 @@
 #include "MonteCarloEngine.h"
 
 /**
- *  @addtogroup MonteCarlo
- *  A project for .....
- *  @{
+ * @addtogroup MonteCarlo
+ * @brief A project for Monte Carlo. 
+ * @{
  */
-
 /**
  * @class MonteCarlo
- * @brief 
+ * @brief A class for Monte Carlo. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 

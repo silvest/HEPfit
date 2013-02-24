@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -9,8 +9,8 @@
 #include <sstream>
 #include <stdexcept>
 
-void WilsonCoefficient::setCoeff(unsigned int i, complex z, orders order_i) {
-    
+void WilsonCoefficient::setCoeff(unsigned int i, complex z, orders order_i) 
+{    
     if ((unsigned int) i > size) {
         std::stringstream out;
         out << i;
@@ -26,8 +26,8 @@ void WilsonCoefficient::setCoeff(unsigned int i, complex z, orders order_i) {
     elem[order_i]->assign(i, z);
 }
 
-void WilsonCoefficient::setCoeff(unsigned int i, complex z, orders_ew order_ew_i) {
-    
+void WilsonCoefficient::setCoeff(unsigned int i, complex z, orders_ew order_ew_i) 
+{    
     if ((unsigned int) i > size) {
         std::stringstream out;
         out << i;

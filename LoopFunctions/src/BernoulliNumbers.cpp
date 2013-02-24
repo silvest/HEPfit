@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,7 +8,8 @@
 #include "BernoulliNumbers.h"
 
 
-BernoulliNumbers::BernoulliNumbers() {
+BernoulliNumbers::BernoulliNumbers() 
+{
     B[0] = 1.0; B[1] = -1.0/2.0; B[2] = 1.0/6.0; B[3] = 0.0; 
     B[4] = -1.0/30.0; B[5] = 0.0; B[6] = 1.0/42.0; B[7] = 0.0;
     B[8] = -1.0/30.0; B[9] = 0.0; B[10] = 5.0/66.0; B[11] = 0.0; 

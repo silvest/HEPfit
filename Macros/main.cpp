@@ -26,9 +26,9 @@
 using namespace std;
 
 /**
- *  @addtogroup Macros
- *  A project for drawing histograms and outputting results. 
- *  @{
+ * @addtogroup Macros
+ * @brief A project for drawing histograms and outputting results. 
+ * @{
  */
 
 /**

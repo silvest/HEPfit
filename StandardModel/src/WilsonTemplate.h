@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -12,31 +12,41 @@
 #include <sstream>
 #include <stdexcept>
 
+/**
+ * @class WilsonTemplate
+ * @ingroup StandardModel
+ * @brief A template class for the Wilson coefficients. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 template <class T> class WilsonTemplate {
 public:
     WilsonTemplate(unsigned int dim, schemes scheme_i, orders order_i , 
-                    orders_ew order_ew_i = NULL_ew){
-    size = dim;
-    scheme = scheme_i;
-    order = order_i;
-    order_ew = order_ew_i; 
-    mu = -1.;
-    
-    for (int i = LO; i <= MAXORDER; i++)
-        if (i <= order)
-            elem[i] = new T(size, 0.);
-        else
-            elem[i] = NULL;
-    elem[orders_ew(NULL_ew)] = NULL;
-   for (int i = LO_ew; i <= NLO_ew; i++){
-        if (i <= order_ew)
-           elem[i] = new T(size, 0.);
-       else
-           elem[i] = NULL;
+                   orders_ew order_ew_i = NULL_ew)
+    {
+        size = dim;
+        scheme = scheme_i;
+        order = order_i;
+        order_ew = order_ew_i; 
+        mu = -1.;
+        
+        for (int i = LO; i <= MAXORDER; i++)
+            if (i <= order)
+                elem[i] = new T(size, 0.);
+            else
+                elem[i] = NULL;
+        elem[orders_ew(NULL_ew)] = NULL;
+        for (int i = LO_ew; i <= NLO_ew; i++){
+            if (i <= order_ew)
+                elem[i] = new T(size, 0.);
+            else
+                elem[i] = NULL;
         }
-   };
+    };
     
-    WilsonTemplate<T>(const WilsonTemplate<T>& orig) {
+    WilsonTemplate<T>(const WilsonTemplate<T>& orig) 
+    {
         size = orig.size;
         scheme = orig.scheme;
         order = orig.order;
@@ -49,25 +59,30 @@ public:
                 elem[i] = NULL;
     }
     
-    virtual ~WilsonTemplate(){
-    for (int i = LO; i <= MAXORDER_EW; i++)
-        if (elem[i] != NULL)
-            delete elem[i];
+    virtual ~WilsonTemplate()
+    {
+        for (int i = LO; i <= MAXORDER_EW; i++)
+            if (elem[i] != NULL)
+                delete elem[i];
     };
 
-    orders getOrder() const {
+    orders getOrder() const 
+    {
         return order;
     }
     
-    orders_ew getOrder_ew() const {
+    orders_ew getOrder_ew() const
+    {
         return order_ew;
     }
 
-    double getMu() const {
+    double getMu() const
+    {
         return mu;
     }
 
-    virtual void setMu(double mu) {
+    virtual void setMu(double mu)
+    {
         this->mu = mu;
         for(int i = LO; i <= order; i++){
             *(elem[i]) = 0.;
@@ -79,15 +94,18 @@ public:
         }
     }
     
-    schemes getScheme() const {
+    schemes getScheme() const 
+    {
         return scheme;
     }
 
-    void setScheme(schemes scheme) {
+    void setScheme(schemes scheme)
+    {
         this->scheme = scheme;
     }
 
-    unsigned int  getSize() const {
+    unsigned int  getSize() const
+    {
         return size;
     }
 
@@ -99,7 +117,8 @@ protected:
     orders order;
     orders_ew order_ew;
 
-    T * Elem(orders order) const {
+    T * Elem(orders order) const
+    {
         if (order > this->order) {
             std::stringstream out;
             out << order;
@@ -109,7 +128,8 @@ protected:
         return elem[order];
     };
     
-    T * Elem(orders_ew order_ew) const {
+    T * Elem(orders_ew order_ew) const
+    {
         if ((order_ew > this->order_ew)) {
             std::stringstream out;
             out << order_ew;
@@ -119,7 +139,8 @@ protected:
         return elem[order_ew];
     };
 
-    void setElem(const T & v, orders order_i) {
+    void setElem(const T & v, orders order_i)
+    {
         if (order_i > order) {
             std::stringstream out;
             out << order_i;
@@ -129,7 +150,8 @@ protected:
         *elem[order_i] = v;
     };
     
-     void setElem(const T & v, orders_ew order_ew_i) {
+    void setElem(const T & v, orders_ew order_ew_i)
+    {
         if (order_ew_i > order_ew) {
             std::stringstream out;
             out << order_ew_i;

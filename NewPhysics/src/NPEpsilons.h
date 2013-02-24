@@ -11,7 +11,14 @@
 #include <StandardModel.h>
 #include <EWepsilons.h>
 
-
+/**
+ * @class NPEpsilons
+ * @brief A class for new physics with the @f$\varepsilon@f$ parameters. 
+ * @ingroup NewPhysics
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class NPEpsilons : public StandardModel  {
 public:
     static const int NEPSILONvars = 4;

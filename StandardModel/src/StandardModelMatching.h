@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,7 +15,15 @@
 
 class StandardModel;
 
-class StandardModelMatching : public ModelMatching{
+/**
+ * @class StandardModelMatching
+ * @ingroup StandardModel
+ * @brief A class for the matching in the Standard Model. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class StandardModelMatching : public ModelMatching {
 public:
     StandardModelMatching(const StandardModel & SM_i);
     

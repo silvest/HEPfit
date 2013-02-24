@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -9,7 +9,8 @@
 
 Observable::Observable (const std::string name_i, const std::string thname_i,
         const std::string label_i, const bool tMCMC_i, const double min_i,
-        const double max_i, ThObservable * tho_i) {
+        const double max_i, ThObservable * tho_i) 
+{
     name = name_i;
     thname = thname_i;
     label = label_i;
@@ -25,7 +26,8 @@ Observable::Observable (const std::string name_i, const std::string thname_i,
     errf = 0.;
 }
 
-Observable::Observable(const Observable& orig) {
+Observable::Observable(const Observable& orig) 
+{
     name = orig.name;
     thname = orig.thname;
     label = orig.label;
@@ -41,19 +43,21 @@ Observable::Observable(const Observable& orig) {
     errf = orig.errf;
 }
 
-Observable::~Observable() {
+Observable::~Observable() 
+{
 }
 
 std::ostream& operator<<(std::ostream& output, const Observable& o)
-  {
+{
     output << "Observable name, tMCMC, min, max, distribution, distribution parameters" << std::endl;
     output << o.name << " " << o.tMCMC << " " << o.min << " " << o.max << " " 
-            << o.distr << " " << o.filename << " " << o.histoname << " " << o.ave << 
-            " " << o.errg << " " << o.errf << std::endl;
+           << o.distr << " " << o.filename << " " << o.histoname << " " << o.ave 
+           << " " << o.errg << " " << o.errf << std::endl;
     return output;
-  }
+}
 
-double Observable::getTheoryValue(){
+double Observable::getTheoryValue()
+{
     return tho->getThValue();
 }
 

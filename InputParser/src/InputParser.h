@@ -33,6 +33,19 @@
 #include <boost/tokenizer.hpp>
 #include <string>
 
+/**
+ * @addtogroup InputParser 
+ * @brief A project for interfaces to model parameters and observables. 
+ * @{
+ */
+
+/**
+ * @class InputParser
+ * @brief A class for reading input parameters. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class InputParser {
 public:
     InputParser();
@@ -47,11 +60,13 @@ public:
             std::vector<Observable2D>& Observables2D,
             std::vector<CorrelatedGaussianObservables>& CGO);
 
-    StandardModel* getMyModel() const {
+    StandardModel* getMyModel() const 
+    {
         return myModel;
     }
 
-    StandardModelMatching* getMyModelMatching() const {
+    StandardModelMatching* getMyModelMatching() const 
+    {
         return myModelMatching;
     }
 
@@ -62,5 +77,9 @@ private:
     ThFactory* thf;
     std::string modname;
 };
+
+/** 
+ * @}
+ */
 
 #endif	/* INPUTPARSER_H */

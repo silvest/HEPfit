@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -10,7 +10,14 @@
 
 #include "StandardModel.h"
 
-
+/**
+ * @class EWSMApproximateFormulae
+ * @ingroup StandardModel
+ * @brief A class for approximate formulae of @f$M_W@f$, @f$\sin\theta_{\rm eff}^f@f$ and @f$R_b^0@f$.  
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class EWSMApproximateFormulae {
 public:
       
