@@ -389,6 +389,9 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const
     if (schemeKappaZ==APPROXIMATEFORMULA) {
         ReKappaZf = myApproximateFormulae->sin2thetaEff_l(l, DeltaAlphaL5q())/sW2_SM(); 
         ImKappaZf = myOneLoopEW->deltaKappa_rem_l(l,Mw).imag();
+        
+        /* TEST */
+        //ImKappaZf -= SM.getAle()*SM.getAlsMz()/24.0/M_PI*(cW2_SM() - sW2_SM())/sW2_SM()/sW2_SM();        
     } else {
         /* compute Delta rho */
         double DeltaRho[orders_EW_size];
@@ -433,7 +436,7 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const
     
         /* Im[kappa_Z^f] without resummation */
         for (int j=0; j<orders_EW_size; ++j)
-            ImKappaZf += deltaKappa_rem_f[j].imag();    
+            ImKappaZf += deltaKappa_rem_f[j].imag();   
     }
         
     kappaZ_l_cache[(int)l] = complex(ReKappaZf, ImKappaZf, false);
@@ -455,6 +458,9 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
     if (schemeKappaZ==APPROXIMATEFORMULA) {
         ReKappaZf = myApproximateFormulae->sin2thetaEff_q(q, DeltaAlphaL5q())/sW2_SM(); 
         ImKappaZf = myOneLoopEW->deltaKappa_rem_q(q,Mw).imag();
+
+        /* TEST */
+        //ImKappaZf -= SM.getAle()*SM.getAlsMz()/24.0/M_PI*(cW2_SM() - sW2_SM())/sW2_SM()/sW2_SM();        
     } else { 
         /* compute Delta rho */
         double DeltaRho[orders_EW_size];
