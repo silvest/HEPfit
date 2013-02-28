@@ -41,8 +41,37 @@ double GammaZ::getThValue()
                               + (63.0-126.0*s2-40.0*s4)*myEW.T() );
             }
         }
+        
+        if (SM.IsFlagNPZbbbarLinearize() && (SM.deltaGVb()!=0.0 || SM.deltaGAb()!=0.0) ) {
+            double alpha = myEW.alpha0();  
+            double c2 = myEW.c02();
+            double s2 = myEW.s02();
+            double gVb0 = SM.getQuarks(SM.BOTTOM).getIsospin() 
+                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.s02();
+            double gAb0 = SM.getQuarks(SM.BOTTOM).getIsospin();        
+            double Nc = 3.0;
+            double coeff = Nc*alpha*SM.getMz()/6.0/s2/c2;
+            double coeffV = coeff*gVb0;
+            double coeffA = coeff*gAb0;
+            //std::cout << "cV: " << coeffV << std::endl;
+            //std::cout << "cA: " << coeffA << std::endl;
+            //std::cout << "cL: " << coeffV+coeffA << std::endl;
+            //std::cout << "cR: " << coeffV-coeffA << std::endl;
+
+            Gamma_Z += coeffV*SM.deltaGVb() + coeffA*SM.deltaGAb();
+            
+            /* TEST */        
+            //double Gamma_b = myEW.Gamma_q(SM.BOTTOM);
+            //coeff = 2.0/(gVb0*gVb0 + gAb0*gAb0);
+            //coeffV = coeff*gVb0;
+            //coeffA = coeff*gAb0;
+            //Gamma_Z += Gamma_b*(coeffV*SM.deltaGVb() + coeffA*SM.deltaGAb());  
+        }
+        
+        /* TEST */
+        //Gamma_Z -=  myEW.Gamma_Z();
     }
-  
+      
     return Gamma_Z;
 }
         
