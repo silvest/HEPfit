@@ -39,6 +39,29 @@ double AFBbottom::getThValue()
                          *( myEW.S() - 4.0*c2*s2*myEW.T() ); 
             }
         }
+        
+        if (SM.IsFlagNPZbbbarLinearize() && (SM.deltaGVb()!=0.0 || SM.deltaGAb()!=0.0) ) {
+            double gVb0 = SM.getQuarks(SM.BOTTOM).getIsospin() 
+                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.s02();
+            double gAb0 = SM.getQuarks(SM.BOTTOM).getIsospin();        
+            double gVe0 = SM.getLeptons(SM.ELECTRON).getIsospin() 
+                          - 2.0*SM.getLeptons(SM.ELECTRON).getCharge()*myEW.s02();
+            double gAe0 = SM.getLeptons(SM.ELECTRON).getIsospin();        
+            double coeff = - 3.0*gVe0*gAe0*(gVb0*gVb0 - gAb0*gAb0)
+                           /(gVe0*gVe0 + gAe0*gAe0)
+                           /(gVb0*gVb0 + gAb0*gAb0)/(gVb0*gVb0 + gAb0*gAb0);
+            double coeffV = coeff*gAb0;
+            double coeffA = - coeff*gVb0;
+            //std::cout << "cV: " << coeffV << std::endl;
+            //std::cout << "cA: " << coeffA << std::endl;
+            //std::cout << "cL: " << coeffV+coeffA << std::endl;
+            //std::cout << "cR: " << coeffV-coeffA << std::endl;
+
+            AFB_b += coeffV*SM.deltaGVb() + coeffA*SM.deltaGAb();
+        }
+        
+        /* TEST */
+        //AFB_b -= 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.BOTTOM);
     }
 
     //std::cout << "EWTYPE = " << myEW.getEWTYPE() << std::endl; // TEST

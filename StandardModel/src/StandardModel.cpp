@@ -39,7 +39,7 @@ const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutr
  */
 const std::string StandardModel::SMflags[NSMflags] 
     = {"FixedAllSMparams", "EWCHMN", "EWABC", "EWABC2", "EWBURGESS", "R0bApproximate", 
-       "RhoZbFromR0b", "withoutNonUniversalVCinEpsilons"};
+       "RhoZbFromR0b", "withoutNonUniversalVCinEpsilons", "NPZbbbarLinearize"};
 
 
 StandardModel::StandardModel(const bool bDebug_i) 
@@ -54,6 +54,7 @@ StandardModel::StandardModel(const bool bDebug_i)
     FlagR0bApproximate = false;
     FlagRhoZbFromR0b = false;
     FlagWithoutNonUniversalVC = false;
+    FlagNPZbbbarLinearize = false;
     
     leptons[NEUTRINO_1].setCharge(0.);
     leptons[NEUTRINO_2].setCharge(0.);    
@@ -235,6 +236,9 @@ bool StandardModel::SetFlag(const std::string name, const bool& value)
         res = true;        
     } else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
         FlagWithoutNonUniversalVC = value;
+        res = true;
+    } else if (name.compare("NPZbbbarLinearize") == 0) {
+        FlagNPZbbbarLinearize = value;
         res = true;
     }
     return(res);

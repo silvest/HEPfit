@@ -169,7 +169,10 @@ complex NPZbbbar::gVq(const StandardModel::quark q) const
         case StandardModel::TOP:
             return StandardModel::gVq(q);
         case StandardModel::BOTTOM:
-            return ( StandardModel::gVq(q) + myDeltaGVb );
+            if (IsFlagNPZbbbarLinearize())
+                return StandardModel::gVq(q);            
+            else
+                return ( StandardModel::gVq(q) + myDeltaGVb );
         default:
             throw std::runtime_error("Error in NPZbbbar::gVq()");        
     }
@@ -192,7 +195,10 @@ complex NPZbbbar::gAq(const StandardModel::quark q) const
         case StandardModel::TOP:
             return StandardModel::gAq(q);
         case StandardModel::BOTTOM:
-            return ( StandardModel::gAq(q) + myDeltaGAb );
+            if (IsFlagNPZbbbarLinearize())
+                return StandardModel::gAq(q);
+            else
+                return ( StandardModel::gAq(q) + myDeltaGAb );
         default:
             throw std::runtime_error("Error in NPZbbbar::gAq()");        
     }

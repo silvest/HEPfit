@@ -49,6 +49,31 @@ double Rbottom::getThValue()
                         *( myEW.S() - 4.0*c2*s2*myEW.T() );
             }
         }
+        
+        if (SM.IsFlagNPZbbbarLinearize() && (SM.deltaGVb()!=0.0 || SM.deltaGAb()!=0.0) ) {
+            double gVb0 = SM.getQuarks(SM.BOTTOM).getIsospin() 
+                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.s02();
+            double gAb0 = SM.getQuarks(SM.BOTTOM).getIsospin();        
+            double gVu0 = SM.getQuarks(SM.UP).getIsospin() 
+                          - 2.0*SM.getQuarks(SM.UP).getCharge()*myEW.s02();
+            double gAu0 = SM.getQuarks(SM.UP).getIsospin();        
+            double Nc = 3.0;
+            double sum = Nc*2.0*(gVu0*gVu0 + gAu0*gAu0)
+                         + Nc*3.0*(gVb0*gVb0 + gAb0*gAb0);
+            double R0b0 = Nc*(gVb0*gVb0 + gAb0*gAb0)/sum;
+            double coeff = 2.0*Nc*(1.0 - R0b0)/sum;
+            double coeffV = coeff*gVb0;
+            double coeffA = coeff*gAb0;
+            //std::cout << "cV: " << coeffV << std::endl;
+            //std::cout << "cA: " << coeffA << std::endl;
+            //std::cout << "cL: " << coeffV+coeffA << std::endl;
+            //std::cout << "cR: " << coeffV-coeffA << std::endl;
+
+            R0_b += coeffV*SM.deltaGVb() + coeffA*SM.deltaGAb();
+        }        
+        
+        /* TEST */
+        //R0_b -= myEW.Gamma_q(SM.BOTTOM)/myEW.Gamma_had();
     }
     
     return R0_b;
