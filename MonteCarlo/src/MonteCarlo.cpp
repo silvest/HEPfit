@@ -168,7 +168,7 @@ void MonteCarlo::Run(const int rank)
             BCModelOutput out(&MCEngine, OutFile.c_str());
             if (writechains) {
                 out.WriteMarkovChain(true);
-                //            MCEngine.AddChains();
+                MCEngine.AddChains();
             }
 
             // set nicer style for drawing than the ROOT default
@@ -214,7 +214,7 @@ void MonteCarlo::Run(const int rank)
             //myBCSummaryTool.PrintParameterLatex(("ParamSummary" + JobTag + ".tex").c_str());
         
             out.WriteMarginalizedDistributions();
-            //out.FillAnalysisTree();
+            out.FillAnalysisTree();
             out.Close();
 
             // print logs for the histograms of the observables into a text file
