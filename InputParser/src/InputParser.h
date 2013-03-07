@@ -22,6 +22,7 @@
 #include <NPHiggs.h>
 #include <NPHiggsST.h>
 #include <NPZbbbar.h>
+#include <GeneralSUSY.h>
 #include <SUSYMassInsertion.h>
 #include <SUSYMassInsertionMatching.h>
 #include <MFV.h>
