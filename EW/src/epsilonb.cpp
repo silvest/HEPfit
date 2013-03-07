@@ -11,13 +11,17 @@
 
 double epsilonb::getThValue() 
 {  
-    double epsb = SM.epsilonb();
-    
-    //if ( myEW.checkModelForSTU() ) {
-    //    throw std::runtime_error("Write codes in epsilonb::getThValue()");   
-    //}
-    
-    return epsb;
+    if (SM.IsFlagR0bApproximate() && !SM.IsFlagRhoZbFromR0b())
+        throw std::runtime_error("deltaKappaZb::getThValue() cannot be used!");
+    else {
+        double epsb = SM.epsilonb();
+        
+        //if ( myEW.checkModelForSTU() ) {
+        //    throw std::runtime_error("Write codes in epsilonb::getThValue()");   
+        //}
+        
+        return epsb;
+    }
 }
 
 
