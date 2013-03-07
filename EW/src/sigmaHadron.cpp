@@ -50,6 +50,41 @@ double sigmaHadron::getThValue()
                              *( myEW.S() - 4.0*c2*s2*myEW.T() );         
             }
         }
+        
+        if (SM.IsFlagNPZbbbarLinearize() && (SM.deltaGVb()!=0.0 || SM.deltaGAb()!=0.0) ) {
+            double gVb0 = SM.getQuarks(SM.BOTTOM).getIsospin() 
+                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.s02();
+            double gAb0 = SM.getQuarks(SM.BOTTOM).getIsospin();        
+            double gVu0 = SM.getQuarks(SM.UP).getIsospin() 
+                          - 2.0*SM.getQuarks(SM.UP).getCharge()*myEW.s02();
+            double gAu0 = SM.getQuarks(SM.UP).getIsospin();        
+            double gVnu0 = SM.getLeptons(SM.NEUTRINO_1).getIsospin() 
+                          - 2.0*SM.getLeptons(SM.NEUTRINO_1).getCharge()*myEW.s02();
+            double gAnu0 = SM.getLeptons(SM.NEUTRINO_1).getIsospin();        
+            double gVe0 = SM.getLeptons(SM.ELECTRON).getIsospin() 
+                          - 2.0*SM.getLeptons(SM.ELECTRON).getCharge()*myEW.s02();
+            double gAe0 = SM.getLeptons(SM.ELECTRON).getIsospin();        
+            double Nc = 3.0;
+            double sum_q = Nc*2.0*(gVu0*gVu0 + gAu0*gAu0)
+                           + Nc*3.0*(gVb0*gVb0 + gAb0*gAb0);
+            double sum_f = 3.0*(gVnu0*gVnu0 + gAnu0*gAnu0) 
+                           + 3.0*(gVe0*gVe0 + gAe0*gAe0)
+                           + sum_q;
+            double sigmah0 = 12.0*M_PI/SM.getMz()/SM.getMz()
+                             *(gVe0*gVe0 + gAe0*gAe0)*sum_q/sum_f/sum_f;
+            double coeff = 2.0*Nc*sigmah0*(1.0/sum_q - 2.0/sum_f);
+            double coeffV = coeff*gVb0;
+            double coeffA = coeff*gAb0;
+            //std::cout << "cV: " << coeffV << std::endl;
+            //std::cout << "cA: " << coeffA << std::endl;
+            //std::cout << "cL: " << coeffV+coeffA << std::endl;
+            //std::cout << "cR: " << coeffV-coeffA << std::endl;
+
+            sigma_had += coeffV*SM.deltaGVb() + coeffA*SM.deltaGAb();
+        }      
+        
+        /* TEST */
+        //sigma_had -= myEW.sigma0_had();
     }
     
     return ( sigma_had*GeVminus2_to_nb );
