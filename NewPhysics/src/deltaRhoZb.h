@@ -30,8 +30,11 @@ public:
     
     double getThValue()
     {
-        return ( SM.rhoZ_q(SM.BOTTOM).real() 
-                 - SM.StandardModel::rhoZ_q(SM.BOTTOM).real() );
+        if (SM.IsFlagR0bApproximate() && !SM.IsFlagRhoZbFromR0b())
+            throw std::runtime_error("deltaRhoZb::getThValue() cannot be used!");
+        else
+            return ( SM.rhoZ_q(SM.BOTTOM).real() 
+                     - SM.StandardModel::rhoZ_q(SM.BOTTOM).real() );
     };
     
 private:

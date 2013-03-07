@@ -26,8 +26,11 @@ public:
     
     double getThValue()
     {
-        return ( SM.kappaZ_q(SM.BOTTOM).real() 
-                 - SM.StandardModel::kappaZ_q(SM.BOTTOM).real() );
+        if (SM.IsFlagR0bApproximate() && !SM.IsFlagRhoZbFromR0b())
+            throw std::runtime_error("deltaKappaZb::getThValue() cannot be used!");
+        else
+            return ( SM.kappaZ_q(SM.BOTTOM).real() 
+                     - SM.StandardModel::kappaZ_q(SM.BOTTOM).real() );
     };
     
 private:
