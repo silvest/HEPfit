@@ -38,8 +38,27 @@ double Abottom::getThValue()
                        *( myEW.S() - 4.0*c2*s2*myEW.T() );
             }
         }
+        
+        if (SM.IsFlagNPZbbbarLinearize() && (SM.deltaGVb()!=0.0 || SM.deltaGAb()!=0.0) ) {
+            double gVb0 = SM.getQuarks(SM.BOTTOM).getIsospin() 
+                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.s02();
+            double gAb0 = SM.getQuarks(SM.BOTTOM).getIsospin();        
+            double coeff = - 2.0*(gVb0*gVb0 - gAb0*gAb0)
+                           /(gVb0*gVb0 + gAb0*gAb0)/(gVb0*gVb0 + gAb0*gAb0);
+            double coeffV = coeff*gAb0;
+            double coeffA = - coeff*gVb0;
+            //std::cout << "cV: " << coeffV << std::endl;
+            //std::cout << "cA: " << coeffA << std::endl;
+            //std::cout << "cL: " << coeffV+coeffA << std::endl;
+            //std::cout << "cR: " << coeffV-coeffA << std::endl;
+
+            A_b += coeffV*SM.deltaGVb() + coeffA*SM.deltaGAb();
+        }
+        
+        /* TEST */
+        //A_b -= myEW.A_q(SM.BOTTOM);
     }
-   
+    
     return A_b;
 }
         

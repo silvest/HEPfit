@@ -44,6 +44,28 @@ double Rlepton::getThValue()
                         *( myEW.S() - 4.0*c2*s2*myEW.T() );                
             }
         }
+
+        if (SM.IsFlagNPZbbbarLinearize() && (SM.deltaGVb()!=0.0 || SM.deltaGAb()!=0.0) ) {
+            double gVb0 = SM.getQuarks(SM.BOTTOM).getIsospin() 
+                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.s02();
+            double gAb0 = SM.getQuarks(SM.BOTTOM).getIsospin();        
+            double gVe0 = SM.getLeptons(SM.ELECTRON).getIsospin() 
+                          - 2.0*SM.getLeptons(SM.ELECTRON).getCharge()*myEW.s02();
+            double gAe0 = SM.getLeptons(SM.ELECTRON).getIsospin();        
+            double Nc = 3.0;
+            double coeff = 2.0*Nc/(gVe0*gVe0 + gAe0*gAe0);
+            double coeffV = coeff*gVb0;
+            double coeffA = coeff*gAb0;
+            //std::cout << "cV: " << coeffV << std::endl;
+            //std::cout << "cA: " << coeffA << std::endl;
+            //std::cout << "cL: " << coeffV+coeffA << std::endl;
+            //std::cout << "cR: " << coeffV-coeffA << std::endl;
+
+            R0_l += coeffV*SM.deltaGVb() + coeffA*SM.deltaGAb();
+        }      
+    
+        /* TEST */
+        //R0_l -= myEW.Gamma_had()/myEW.Gamma_l(SM.ELECTRON);
     }
  
     return R0_l;

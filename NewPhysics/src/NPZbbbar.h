@@ -22,7 +22,7 @@ class NPZbbbar : public StandardModel  {
 public:
     static const int NZbbbarVars = 2;
     static const std::string ZbbbarVars[NZbbbarVars];
-
+    
     NPZbbbar();
 
     virtual std::string ModelName() const 
@@ -145,7 +145,7 @@ protected:
     ////////////////////////////////////////////////////////////////////////   
 
 private:
-
+    
 };
 
 #endif	/* NPZBBBAR_H */
