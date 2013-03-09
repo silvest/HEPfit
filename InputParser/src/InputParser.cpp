@@ -263,7 +263,7 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             if (beg != tok.end())
                     std::cout << "warning: unread information in Flag " << name << std::endl;
             } else {
-            std::cout << "wrong keyword " << *beg << " in config file (first word must be ModelParameter, ModelFlag or Observable)" << std::endl;
+            std::cout << "wrong keyword " << type << " in config file (first word must be ModelParameter, ModelFlag or Observable)" << std::endl;
                     exit(EXIT_FAILURE);
         }
     }
