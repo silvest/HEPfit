@@ -11,8 +11,18 @@
 #include <SUSY.h>
 
 /**
+ * @addtogroup GeneralSUSY
+ * @brief A project for the general MSSM. 
+ * @{
+ */
+
+/**
  * @class GeneralSUSY
- * @brief sets all soft masses and trilinear couplings for squarks and sleptons 
+ * @ingroup GeneralSUSY
+ * @brief A class for the general MSSM. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details Sets all soft masses and trilinear couplings for squarks and sleptons.
  */
 class GeneralSUSY : public SUSY {
 public:
@@ -46,5 +56,9 @@ private:
     TN_11r, TN_12r, TN_13r, TN_21r, TN_22r, TN_23r, TN_31r, TN_32r, TN_33r,
     TN_11i, TN_12i, TN_13i, TN_21i, TN_22i, TN_23i, TN_31i, TN_32i, TN_33i;
 };
+
+/** 
+ * @}
+ */
 
 #endif	/* GeneralSUSY_H */
