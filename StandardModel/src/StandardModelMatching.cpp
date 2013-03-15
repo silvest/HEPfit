@@ -431,6 +431,103 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdd2()
     vmcd2.push_back(mcdd2);
     return(vmcd2);
 }
+
+const std::vector<WilsonCoefficient>& StandardModelMatching::CMK(){
+    
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), 
+            SM.getQuarks(QCD::TOP).getMass(), 5.) / SM.Mw_tree(), 2.); // always FULLNLO
+    
+    vmck.clear();
+    
+    switch (mck.getScheme()) {
+        case NDR:
+        //case HV:
+        //case LRI:
+        break;
+        default:
+            std::stringstream out;
+            out << mck.getScheme();
+            throw "StandardModel::CMbsg(): scheme " + out.str() + "not implemented";
+    }
+
+    mck.setMu(SM.getMuw());
+    
+    switch (mck.getOrder()) {
+        case NNLO:
+        case NLO:
+            for (int j=0; j<10; j++){
+                mck.setCoeff(j, SM.getlamt() * SM.Als(SM.getMuw()) / 4. / M_PI * 
+                                setWCbnlep(j, xt,  NLO), NLO);
+                mck.setCoeff(j, SM.getlamt() * SM.getAle() / 4. / M_PI *
+                                setWCbnlepEW(j, xt), NLO_ew);
+                }
+        case LO:
+            for (int j=0; j<10; j++){
+                mck.setCoeff(j, SM.getlamt() *  setWCbnlep(j, xt,  LO), LO);
+                mck.setCoeff(j, 0., LO_ew); 
+                }                   
+            break;
+        default:
+            std::stringstream out;
+            out << mck.getOrder();
+            throw "StandardModelMatching::CMbsg(): order " + out.str() + "not implemented";
+    }
+
+    vmck.push_back(mck);
+    return(vmck);
+}
+
+/*******************************************************************************
+ * Wilson coefficients Buras base for K -> pi pi decays                        * 
+ * operator basis: - current current                                           *
+ * ****************************************************************************/
+const std::vector<WilsonCoefficient>& StandardModelMatching::CMKCC(){
+    
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
+            / SM.Mw_tree(), 2.); // always FULLNLO
+    
+    vmckcc.clear();
+    
+    switch (mckcc.getScheme()) {
+        case NDR:
+        //case HV:
+        //case LRI:
+        break;
+        default:
+            std::stringstream out;
+            out << mckcc.getScheme();
+            throw "StandardModel::CMbsg(): scheme " + out.str() + "not implemented";
+    }
+
+    mckcc.setMu(SM.getMuw());
+    
+    switch (mckcc.getOrder()) {
+        case NNLO:
+        case NLO:
+            for (int j=0; j<2; j++){
+                mckcc.setCoeff(j, SM.getlamt() * setWCbnlep(j, xt, NLO), NLO); 
+            }
+            for (int j=2; j<10; j++){
+                mckcc.setCoeff(j, 0. , NLO); 
+            }
+        case LO:
+            for (int j=0; j<2; j++){
+                mckcc.setCoeff(j, SM.getlamt() * setWCbnlep(j, xt, LO), LO); 
+            }
+            for (int j=2; j<10; j++){
+                mckcc.setCoeff(j, 0. , LO); 
+            }
+            break;
+        default:
+            std::stringstream out;
+            out << mckcc.getOrder();
+            throw "StandardModelMatching::CMbsg(): order " + out.str() + "not implemented";
+    }
+
+    vmckcc.push_back(mckcc);
+    return(vmckcc);
+}
+
     
 /*******************************************************************************
  * Wilson coefficients misiak base for b -> s gamma                            * 
