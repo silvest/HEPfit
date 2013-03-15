@@ -22,7 +22,7 @@
 
 const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutrino_2",
     "mneutrino_3", "melectron", "mmu", "mtau", "lambda", "A", "rhob", "etab", "ale",
-    "dAle5Mz", "mHl", "muw", "phiEpsK","DeltaMK", "KbarEpsK", "Dmk", "SM_M12D",
+    "dAle5Mz", "mHl", "muw", "phiEpsK","DeltaMK", "KbarEpsK", "Dmk", "EpsK", "SM_M12D",
     "delMw", "delSin2th_l"};
 
 /**
@@ -157,6 +157,8 @@ void StandardModel::SetParameter(const std::string name, const double& value)
         Dmk = value;
     else if (name.compare("DeltaMK") == 0)
         DeltaMK = value;
+    else if (name.compare("EpsK") == 0)
+        EpsK = value;
     else if (name.compare("mneutrino_1") == 0) {
         leptons[NEUTRINO_1].setMass(value);
         computeYn = true;

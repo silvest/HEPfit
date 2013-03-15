@@ -368,6 +368,10 @@ public:
     {
         return DeltaMK;
     }
+    
+    double getEpsK() const {
+        return EpsK;
+    }
 
     double GetA() const 
     {
@@ -727,7 +731,7 @@ protected:
     double delMw, delSin2th_l;
     matrix<complex> VCKM, UPMNS, Yu, Yd, Yn, Ye;
     double lambda, A, rhob, etab;
-    double muw, KbarEpsK, phiEpsK, DeltaMK, Dmk, SM_M12D;
+    double muw, KbarEpsK, phiEpsK, DeltaMK, Dmk, SM_M12D, EpsK;
     Particle leptons[6];
     EWSM* myEWSM;
     CKM myCKM;
