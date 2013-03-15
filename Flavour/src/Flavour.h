@@ -11,6 +11,7 @@
 #include <ThObsType.h>
 #include <StandardModel.h>
 #include "HeffDF2.h"
+#include "HeffDS1.h"
 #include <stdexcept>
 
 using namespace gslpp;
@@ -19,7 +20,7 @@ class Flavour : public ThObsType {
 public:
 
     Flavour(const StandardModel& SM_i) : ThObsType(SM_i), 
-            HDF2(SM_i) {
+            HDF2(SM_i), HDS1(SM_i){
         
         if(!SM_i.IsModelInitialized())
             throw std::runtime_error("Model not initialized "); 
@@ -28,6 +29,14 @@ public:
     const HeffDF2& getHDF2() const {
         return HDF2;
     }
+    
+    const HeffDS1& getHDS1() const {
+        return HDS1;
+    }
+    
+    /*const HeffDB1& getHDB1() const {
+        return HDB1;
+    }*/
     
     vector<complex>** ComputeCoeffBd(double mu, schemes scheme = NDR) {
         return HDF2.ComputeCoeffBd(mu, scheme);
@@ -45,8 +54,48 @@ public:
         return HDF2.ComputeCoeffK(mu, scheme);
     }
     
+    /*vector<complex>** ComputeCoeffmK(double mu, schemes scheme = NDR) {
+        return HDF2.ComputeCoeffmK(mu, scheme);
+    }*/
+    
+    vector<complex>** ComputeCoeffDS1PP(double mu, schemes scheme = NDR) {
+        return HDS1.ComputeCoeffDS1PP(mu, scheme);
+    }
+    
+    vector<complex>** ComputeCoeffDS1p0nunu() {
+        return HDS1.ComputeCoeffDS1p0nunu();
+    }
+    
+    vector<complex>** ComputeCoeffDS1ppnunu() {
+        return HDS1.ComputeCoeffDS1ppnunu();
+    }
+    
+    vector<complex>** ComputeCoeffDS1mumu() {
+        return HDS1.ComputeCoeffDS1mumu();
+    }
+    
+    /*vector<complex>** ComputeCoeffsmumu() {
+        return HDB1.ComputeCoeffsmumu();
+    }
+    
+    
+    vector<complex>** ComputeCoeffdmumu() {
+        return HDB1.ComputeCoeffdmumu();
+    }
+    
+    vector<complex>** ComputeCoeffsnunu() {
+        return HDB1.ComputeCoeffdmumu();
+    }
+    
+    vector<complex>** ComputeCoeffdnunu() {
+        return HDB1.ComputeCoeffdmumu();
+    }*/
+    
+    
 private:
     HeffDF2 HDF2;
+    HeffDS1 HDS1;
+    //HeffDB1 HDB1;  
 };
 
 #endif	/* FLAVOUR_H */
