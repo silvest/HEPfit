@@ -27,6 +27,7 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["M12D"] = new M12D(myFlavour);
     thobs["ArgD"] = new ArgD(myFlavour);
     thobs["EpsilonK"] = new EpsilonK(myFlavour) ;
+    thobs["EpsiloP_o_Epsilon"] = new EpsilonP_O_Epsilon(myFlavour);
     thobs["DmK"] = new DmK(myFlavour);
     thobs["Vud"] = new Vud(myFlavour);
     thobs["Vus"] = new Vus(myFlavour);
