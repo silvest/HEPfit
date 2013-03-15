@@ -25,7 +25,11 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "MBs","MBp","MK0","MKp","MD","FBs","FBsoFBd", "FD",
     "BBsoBBd","BBs1","BBs2","BBs3","BBs4","BBs5", "BBsscale", "BBsscheme",
     "BD1","BD2","BD3","BD4","BD5", "BDscale", "BDscheme",
-    "BK1","BK2","BK3","BK4","BK5", "BKscale", "BKscheme", "FK"
+    "BK1","BK2","BK3","BK4","BK5", "BKscale", "BKscheme", "FK",
+    "BK(1/2)1", "BK(1/2)2", "BK(1/2)3", "BK(1/2)4", "BK(1/2)5", 
+    "BK(1/2)6","BK(1/2)7","BK(1/2)8","BK(1/2)9","BK(1/2)10", "BKd_scale", "BKd_scheme",
+    "BK(3/2)1", "BK(3/2)2", "BK(3/2)3", "BK(3/2)4", "BK(3/2)5", "BK(3/2)6", 
+    "BK(3/2)7", "BK(3/2)8", "BK(3/2)9", "BK(3/2)10", "ReA2_Kd", "ReA0_Kd", "Omega_eta_etap"
 };
 
 bool QCD::SetFlag(const std::string name , const bool& value)
@@ -140,6 +144,10 @@ void QCD::SetParameter(const std::string name, const double& value)
     else if(name.compare("FK")==0) {
         mesons[K_0].setDecayconst(value);
     }
+    else if(name.compare("FP")==0) {
+        mesons[P_0].setDecayconst(value);
+        mesons[P_P].setDecayconst(value);
+    }
     else if(name.compare("BBsoBBd")==0) {
         BBsoBBd = value;
         computeBd = true;
@@ -211,6 +219,84 @@ void QCD::SetParameter(const std::string name, const double& value)
     }    
     else if(name.compare("BKscheme")==0){
         BK.setScheme((schemes) value);
+    }
+    else if(name.compare("BK(1/2)1")==0) {
+        BKd1.setBpars(0,value);
+    }
+    else if(name.compare("BK(1/2)2")==0) {
+        BKd1.setBpars(1,value);
+    }
+    else if(name.compare("BK(1/2)3")==0) {
+        BKd1.setBpars(2,value);
+    }
+    else if(name.compare("BK(1/2)4")==0) {
+        BKd1.setBpars(3,value);
+    }
+    else if(name.compare("BK(1/2)5")==0){
+        BKd1.setBpars(4,value);
+    }
+    else if(name.compare("BK(1/2)6")==0){
+        BKd1.setBpars(5,value);
+    }
+    else if(name.compare("BK(1/2)7")==0){
+        BKd1.setBpars(6,value);
+    }
+    else if(name.compare("BK(1/2)8")==0){
+        BKd1.setBpars(7,value);
+    }
+    else if(name.compare("BK(1/2)9")==0){
+        BKd1.setBpars(8,value);
+    }
+    else if(name.compare("BK(1/2)10")==0){
+        BKd1.setBpars(9,value);
+    }
+    /**/
+    else if(name.compare("BK(3/2)1")==0) {
+        BKd3.setBpars(0,value);
+    }
+    else if(name.compare("BK(3/2)2")==0) {
+        BKd3.setBpars(1,value);
+    }
+    else if(name.compare("BK(3/2)3")==0) {
+        BKd3.setBpars(2,value);
+    }
+    else if(name.compare("BK(3/2)4")==0) {
+        BKd3.setBpars(3,value);
+    }
+    else if(name.compare("BK(3/2)5")==0){
+        BKd3.setBpars(4,value);
+    }
+    else if(name.compare("BK(3/2)6")==0){
+        BKd3.setBpars(5,value);
+    }
+    else if(name.compare("BK(3/2)7")==0){
+        BKd3.setBpars(6,value);
+    }
+    else if(name.compare("BK(3/2)8")==0){
+        BKd3.setBpars(7,value);
+    }
+    else if(name.compare("BK(3/2)9")==0){
+        BKd3.setBpars(8,value);
+    }
+    else if(name.compare("BK(3/2)10")==0){
+        BKd3.setBpars(9,value);
+    }
+    else if(name.compare("BKd_scale")==0){
+        BKd1.setMu(value);
+        BKd3.setMu(value);
+    }    
+    else if(name.compare("BKd_scheme")==0){
+        BKd1.setScheme((schemes) value);
+        BKd3.setScheme((schemes) value);
+    }
+    else if (name.compare("ReA0_kd")==0){
+        ReA0_kd = value;
+    }
+    else if (name.compare("ReA2_kd")==0){
+        ReA2_kd = value;
+    }
+    else if (name.compare("Omega_eta_etap")==0){
+        Omega_eta_etap = value;
     }
 //    else {
 //        std::cout << "cannot set parameter " << name << " in SetQCDParameter" << std::endl;
