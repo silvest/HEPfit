@@ -17,6 +17,14 @@
        
 class SUSY;
 
+/**
+ * @class SUSYMatching
+ * @ingroup SUSY
+ * @brief A class for the matching in the MSSM. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
+ */
 class SUSYMatching : public StandardModelMatching {
 public:
     SUSYMatching(const SUSY & SUSY_i);

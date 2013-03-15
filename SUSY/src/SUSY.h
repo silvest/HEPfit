@@ -14,9 +14,20 @@
 #include "SUSYMatching.h"
 
 using namespace gslpp;
+
+/**
+ * @addtogroup SUSY
+ * @brief A project for a basis of SUSY models. 
+ * @{
+ */
+
 /**
  * @class SUSY
- * @brief generic SUSY model
+ * @ingroup SUSY
+ * @brief A base class for SUSY models. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details  
  */
 class SUSY: public StandardModel {
 public:
@@ -498,6 +509,10 @@ protected:
     
     //int Neve = 0;
 };
+
+/** 
+ * @}
+ */
 
 #endif	/* SUSY_H */
 
