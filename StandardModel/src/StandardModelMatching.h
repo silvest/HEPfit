@@ -80,6 +80,24 @@ public:
      */
     virtual const std::vector<WilsonCoefficient>& CMbsg();
     
+    /** 
+     * 
+     * @brief operator basis: 
+     * @brief current-current; qcd penguins;
+     * @brief hep/ph 9512380  
+     * @return Wilson coefficients Buras base for \f$ K \rightarrow \pi \pi \f decays
+     */
+    virtual const std::vector<WilsonCoefficient>& CMK();
+    
+    /** 
+     * 
+     * @brief operator basis: 
+     * @brief current-current (open up - open charm) 
+     * @brief hep/ph 9512380 
+     * @return Wilson coefficients Buras base for \f$ B \rightarrow \pi \pi \f decays
+     */
+    virtual const std::vector<WilsonCoefficient>& CMKCC();
+    
     /**
      * 
      * @brief current-current oerators, Misiak basis
@@ -229,7 +247,7 @@ public:
 
    
 protected:
-    std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2;
+    std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2, vmck, vmckcc;
     std::vector<WilsonCoefficient> vmcbsg, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
     
     
@@ -241,7 +259,7 @@ private:
     double S11(double x) const;
     double S18(double x) const;
     double S1(double x) const;
-    WilsonCoefficient mcdbd2, mcdbs2, mcdd2, mcdk2;  
+    WilsonCoefficient mcdbd2, mcdbs2, mcdd2, mcdk2, mck, mckcc;  
     WilsonCoefficient mcbsg, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     
     /**
