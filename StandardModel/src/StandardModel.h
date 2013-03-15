@@ -28,7 +28,7 @@ class EWSM; // forward reference to EWSM class
 class StandardModel: public QCD {
 public:
     enum lepton {NEUTRINO_1,ELECTRON,NEUTRINO_2,MU,NEUTRINO_3,TAU};
-    static const int NSMvars = 22;
+    static const int NSMvars = 23;
     static const std::string SMvars[NSMvars];
     static const int NSMflags = 9;
     static const std::string SMflags[NSMflags];

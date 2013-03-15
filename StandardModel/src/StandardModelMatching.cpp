@@ -16,7 +16,8 @@
 StandardModelMatching::StandardModelMatching(const StandardModel & SM_i) 
 : ModelMatching(), SM(SM_i),
         mcdbd2(5, NDR, NLO), mcdbs2(5, NDR, NLO),
-        mcdd2(5, NDR, NLO), mcdk2(5, NDR, NLO), 
+        mcdd2(5, NDR, NLO), mcdk2(5, NDR, NLO),
+        mck(10, NDR, NLO), mckcc(10, NDR, NLO), 
         mcbsg(10, NDR, NLO), mcbnlep(10, NDR, NLO, NLO_ew), 
         mcbnlepCC(10, NDR, NLO), mcd1(10, NDR, NLO), 
         mcd1Buras(10, NDR, NLO) 
