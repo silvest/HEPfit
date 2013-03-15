@@ -23,10 +23,10 @@
  */
 class QCD: public Model {
 public:
-    enum meson {B_D, B_S, B_P, K_0, K_P, D_0, MESON_END}; 
+    enum meson {B_D, B_S, B_P, K_0, K_P, D_0, P_0, P_P, MESON_END}; 
     enum quark {UP,DOWN,CHARM,STRANGE,TOP,BOTTOM};
 
-    static const int NQCDvars = 43;//26;
+    static const int NQCDvars = 68;//43;//26;
 
     /**
      * array containing the labels under which all QCD parameters must be
@@ -40,7 +40,7 @@ public:
     }
     
     QCD() 
-    : BBs(5), BBd(5), BD(5), BK(5) 
+    : BBs(5), BBd(5), BD(5), BK(5), BKd1(10), BKd3(10)
     {
         Nc=3.;
         CF = Nc/2.-1./(2.*Nc);
@@ -138,6 +138,30 @@ public:
      * "BK5"
      * "BKscale"
      * "BKscheme"
+     * "BK(1/2)1"
+     * "BK(1/2)2"
+     * "BK(1/2)3"
+     * "BK(1/2)4"
+     * "BK(1/2)5"
+     * "BK(1/2)6"
+     * "BK(1/2)7"
+     * "BK(1/2)8"
+     * "BK(1/2)9"
+     * "BK(1/2)10"
+     * "BKd_scale"
+     * "BKd_scheme"
+     * "BK(3/2)1"
+     * "BK(3/2)2"
+     * "BK(3/2)3"
+     * "BK(3/2)4"
+     * "BK(3/2)5"
+     * "BK(3/2)6"
+     * "BK(3/2)7"
+     * "BK(3/2)8"
+     * "BK(3/2)9"
+     * "BK(3/2)10"
+     * "ReA2_Kd"
+     * "ReA0_Kd"
      */
     virtual bool Init(const std::map<std::string, double>&);
 
@@ -267,6 +291,33 @@ public:
     {
         return CF;
     }
+    
+    /**
+      * 
+      * @return Expirimental value of the real part of the amplitude for the decay
+      * K_L in two pions wthout ispspin change
+      */
+    double getReA0_kd() const{
+        return ReA0_kd;
+    }
+    
+    /**
+      * 
+      * @return Expirimental value of the real part of the amplitude for the decay
+      * K_L in two pions with double isospin change
+      */
+    double getReA2_kd() const{
+        return ReA2_kd;
+    }
+    
+    /**
+      * 
+      * @return value of isospin breacking contribution for the decay
+      * K_L in two pions
+      */
+    double getOmega_eta_etap() const {
+        return Omega_eta_etap;
+    }
 
     BParameter getBBd() const 
     {
@@ -286,6 +337,14 @@ public:
     BParameter getBK() const 
     {
         return BK;
+    }
+    
+    BParameter getBKd1() const {
+        return BKd1;
+    }
+    
+    BParameter getBKd3() const {
+        return BKd3;
     }
     
     /*BParameter getBD() const 
@@ -471,9 +530,10 @@ public:
 
 protected:
     double Nc, CF, AlsMz, Mz, mut, mub, muc, mtpole;
+    double ReA0_kd, ReA2_kd, Omega_eta_etap;
     Particle quarks[6];
     Meson mesons[MESON_END];
-    BParameter BBs, BBd, BD, BK;
+    BParameter BBs, BBd, BD, BK, BKd1, BKd3;
     virtual void SetParameter(const std::string, const double&);
     bool computeYu, computeYd;
 
