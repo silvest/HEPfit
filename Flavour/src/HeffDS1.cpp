@@ -128,3 +128,50 @@ vector<complex>** HeffDS1::ComputeCoeffDS1PP(double mu, schemes scheme) {
             throw "HeffDS1::ComputeCoeffDS1PP(double mu, schemes scheme): scheme not implemented";
     }
 }
+
+void HeffDS1::CharmMatch(){
+    DS1cc = *coeffds1cc.getCoeff(LO);
+    DS1cce = *coeffds1cc.getCoeff(LO_ew);
+    
+    double mc = model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass(), NNLO);
+
+    DS1cc.assign(2, (-model.Als(model.getMuc())/24./M_PI)*(-2./3.*
+                        (log(mc*mc/model.getMuc()/model.getMuc())+1.)*DS1cc(1)));
+    DS1cc.assign(3, (model.Als(model.getMuc())/8./M_PI)*(-2./3.*
+                        (log(mc*mc/model.getMuc()/model.getMuc())+1.)*DS1cc(1)));
+    DS1cc.assign(4, (-model.Als(model.getMuc())/24./M_PI)*(-2./3.*
+                        (log(mc*mc/model.getMuc()/model.getMuc())+1.)*DS1cc(1)));
+    DS1cc.assign(5, (model.Als(model.getMuc())/8./M_PI)*(-2./3.*
+                        (log(mc*mc/model.getMuc()/model.getMuc())+1.)*DS1cc(1)));
+    DS1cc.assign(8, 0.);
+    DS1cc.assign(7, 0.);
+    DS1cc.assign(8, 0.);
+    DS1cc.assign(9, 0.);
+    
+    DS1cc.assign(2, (-model.Als(model.getMuc())/24./M_PI)*(-2./3.*
+                        (log(mc*mc/model.getMuc()/model.getMuc())+1.)*DS1cce(1)));
+    DS1cc.assign(3, (model.Als(model.getMuc())/8./M_PI)*(-2./3.*
+                        (log(mc*mc/model.getMuc()/model.getMuc())+1.)*DS1cce(1)));
+    DS1cc.assign(4, (-model.Als(model.getMuc())/24./M_PI)*(-2./3.*
+                        (log(mc*mc/model.getMuc()/model.getMuc())+1.)*DS1cce(1)));
+    DS1cc.assign(5, (model.Als(model.getMuc())/8./M_PI)*(-2./3.*
+                        (log(mc*mc/model.getMuc()/model.getMuc())+1.)*DS1cce(1)));
+    DS1cce.assign(8, -model.getAle()/6./M_PI*4./9.*
+                 (log(mc*mc/model.getMuc()/model.getMuc())+1.)*(3.*DS1cc(0)+DS1cc(1)));
+    DS1cce.assign(7, 0.);
+    DS1cce.assign(8, -model.getAle()/6./M_PI*4./9.*
+                 (log(mc*mc/model.getMuc()/model.getMuc())+1.)*(3.*DS1cc(0)+DS1cc(1)));
+    DS1cce.assign(9, 0.);
+    DS1cce.assign(0, 0.);
+    DS1cce.assign(1, 0.);
+
+    coeffds1cc.setCoeff(DS1cc, NLO);
+    coeffds1cc.setCoeff(DS1cce, NLO_ew);
+    
+    coeffds1.setCoeff(*coeffds1.getCoeff(NLO_ew) - *coeffds1cc.getCoeff(NLO_ew), NLO);
+
+    coeffds1.setCoeff(*coeffds1.getCoeff(NLO) - *coeffds1cc.getCoeff(NLO), NLO);
+    coeffds1.setCoeff(*coeffds1.getCoeff(LO) - *coeffds1cc.getCoeff(LO), LO);
+    
+    coeffds1cc.setMu(0.);
+}
