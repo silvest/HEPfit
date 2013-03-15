@@ -103,7 +103,7 @@ class EvolDF1nlep : public RGEvolutor {
     double a[3][10], b[3][10][10][10], c[3][10][10][10], d[3][10][10][10],
            m[3][10][10][10], n[3][10][10][10], o[3][10][10][10], 
            p[3][10][10][10], q[3][10][10][10], r[3][10][10][10], 
-           s[3][10][10][10], t[3][10][10][10];
+           s[3][10][10][10], t[3][10][10][10], u[3][10][10][10];
     const StandardModel& model;
     /**
      * @brief a void type method storing properly the magic numbers for the implementation of the evolutor
@@ -119,10 +119,9 @@ class EvolDF1nlep : public RGEvolutor {
      * @param nf a double for the active number of flavors
      */
     void Df1threshold_nlep(double M, double nf);
-    gslpp::matrix <gslpp::complex> v, vi, js, h, gg, jv, vij, g_0, k_0, vk_0, k_0vi, g_1,
-                       k_11, vk_11, k_11vi, k_12, vh, k_12vi, k12s, s_svi, k_12s, k_12svi,
-                       k_13s, vk_13s, vs_s, Gamma_T, Gamma_ew, k_13, vk_13, vg_1, vg_0h, 
-                       hvi, vhg_0, vg_0, Gamma_1, s_s, jss, jssv; 
+    gslpp::matrix <gslpp::complex>  V, Vi, gs, Js, ge0, K0, ge11, K11, JsK0V, ViK0Js,
+                                    Gamma_s0T, Gamma_s1T, Gamma_eT, Gamma_seT, JsV, ViJs,
+                                    K0V, ViK0, K11V, ViK11, ge11sing, K11sing, K11singV;
     gslpp::vector<gslpp::complex> e;
     
 
