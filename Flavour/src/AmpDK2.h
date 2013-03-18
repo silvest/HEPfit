@@ -24,6 +24,7 @@ public:
 
 protected:
     complex AmpDK(orders order);
+    complex AmpMK(orders order);
     
 private:
     Flavour& myFlavour;
