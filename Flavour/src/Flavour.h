@@ -54,9 +54,9 @@ public:
         return HDF2.ComputeCoeffK(mu, scheme);
     }
     
-    /*vector<complex>** ComputeCoeffmK(double mu, schemes scheme = NDR) {
+    vector<complex>** ComputeCoeffmK(double mu, schemes scheme = NDR) {
         return HDF2.ComputeCoeffmK(mu, scheme);
-    }*/
+    }
     
     vector<complex>** ComputeCoeffDS1PP(double mu, schemes scheme = NDR) {
         return HDS1.ComputeCoeffDS1PP(mu, scheme);

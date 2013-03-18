@@ -10,5 +10,5 @@
 using namespace std;
 
 double DmK::getThValue() {
-        return(2.*AmpDK(NLO).real() + SM.getDmk());
+        return(2.*AmpMK(NLO).real() + SM.getDmk());
 }
