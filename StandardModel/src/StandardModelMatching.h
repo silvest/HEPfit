@@ -111,6 +111,48 @@ public:
      * @return Wilson coefficients for \f$ D^{0} \rightarrow \pi \pi , K K \f$
      */
     virtual const std::vector<WilsonCoefficient>& CMd1Buras();
+    
+    /**
+     * 
+     * @return Wilson coefficients for \f$ K_{L} \rightarrow \pi \nu \nu \f$
+     */
+    virtual const std::vector<WilsonCoefficient>& CMkp0nn();
+    
+    /**
+     * 
+     * @return Wilson coefficients for \f$ K^{+} \rightarrow \pi^{+} \nu \nu \f$
+     */
+    virtual const std::vector<WilsonCoefficient>& CMkppnn();
+    
+    /**
+     * 
+     * @return Wilson coefficient for \f$ K^{+} \rightarrow \mu \mu \f$, short distance top contribution
+     */
+    virtual const std::vector<WilsonCoefficient>& CMkmm();
+    
+    /**
+     * 
+     * @return Wilson coefficient for \f$ B_{s} \rightarrow \mu \mu \f$
+     */
+    virtual const std::vector<WilsonCoefficient>& CMbsmm();
+    
+    /**
+     * 
+     * @return Wilson coefficient for \f$ B_{d} \rightarrow \mu \mu \f$
+     */
+    virtual const std::vector<WilsonCoefficient>& CMbdmm();
+    
+    /**
+     * 
+     * @return Wilson coefficients for \f$ B_{s} \rightarrow X_{s} \nu \nu \f$
+     */
+    virtual const std::vector<WilsonCoefficient>& CMBXsnn();
+    
+    /**
+     * 
+     * @return Wilson coefficients for \f$ B_{d} \rightarrow X_{s} \nu \nu \f$
+     */
+    virtual const std::vector<WilsonCoefficient>& CMBXdnn();
 
     /**
      * 
@@ -244,11 +286,48 @@ public:
      * @return the loop function for the top-top contribution to the Delta S = 2 effective hamiltonian
      */
     complex S0tt() const;
-
-   
+    
+    /**
+     *
+     * @brief hep-ph/1009.0947v2
+     * @return 0th order loop function for the top contribution to K -> pi nu nu decays
+     */
+    double X0t(double x)const;
+    
+    /**
+     *
+     * @brief hep-ph/1009.0947v2
+     * @return first order in QCD loop function for the top contribution to K -> pi nu nu decays
+     */
+    double X1t(double x)const;
+    
+    /**
+     *
+     * @brief hep-ph/1009.0947v2
+     * @return two loop EW loop function for the top contribution to K -> pi nu nu decays
+     * @return in the limit of small theta_W
+     */
+    double Xewt(double x, double a, double mu)const;
+    
+    /**
+     * 
+     * @param x
+     * @return 0th order loop function for the top contribution to K_L -> mu mu decays
+     */
+    double Y0t(double x)const;
+    
+    /**
+     * 
+     * @param x
+     * @return first order in QCD loop function for the top contribution to K_L -> mu mu decays
+     */
+    double Y1t(double x)const;
+    
 protected:
     std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2, vmck, vmckcc;
     std::vector<WilsonCoefficient> vmcbsg, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
+    std::vector<WilsonCoefficient> vmckpnn, vmckppnn, vmckmm, vmcbsnn, vmcbdnn, 
+                                   vmcbsmm, vmcbdmm;
     
     
 private:
@@ -261,6 +340,7 @@ private:
     double S1(double x) const;
     WilsonCoefficient mcdbd2, mcdbs2, mcdd2, mcdk2, mck, mckcc;  
     WilsonCoefficient mcbsg, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
+    WilsonCoefficient mckpnn, mckppnn, mckmm, mcbsnn, mcbdnn, mcbsmm, mcbdmm;
     
     /**
      * 
@@ -287,6 +367,20 @@ private:
      * @return return the value of the electroweak contribution to the Wilson coefficients for non-leptonic B decays
      */
     double setWCbnlepEW (int i, double x);
+    
+    /**
+     * 
+     * @param z
+     * @return two loop EW loop functions for K-> P nu nu, hep-ph/1009.0947v2 
+     */
+    double phi1(double z) const;
+    
+    /**
+     * 
+     * @param z
+     * @return two loop EW loop functions for K-> P nu nu, hep-ph/1009.0947v2 
+     */
+    double phi2 (double x, double y) const;
     
     double CWbsgArrayLO[10], CWbsgArrayNLO[10];
     double CWD1ArrayLO[10], CWD1ArrayNLO[10];
