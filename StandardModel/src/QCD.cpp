@@ -29,7 +29,8 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "BK(1/2)1", "BK(1/2)2", "BK(1/2)3", "BK(1/2)4", "BK(1/2)5", 
     "BK(1/2)6","BK(1/2)7","BK(1/2)8","BK(1/2)9","BK(1/2)10", "BKd_scale", "BKd_scheme",
     "BK(3/2)1", "BK(3/2)2", "BK(3/2)3", "BK(3/2)4", "BK(3/2)5", "BK(3/2)6", 
-    "BK(3/2)7", "BK(3/2)8", "BK(3/2)9", "BK(3/2)10", "ReA2_Kd", "ReA0_Kd", "Omega_eta_etap"
+    "BK(3/2)7", "BK(3/2)8", "BK(3/2)9", "BK(3/2)10", "ReA2_Kd", "ReA0_Kd", "Omega_eta_etap",
+    "DeltaP_cu", "Br_Kp_Ppenu", "IB,_Kl", "IB_Kp"
 };
 
 bool QCD::SetFlag(const std::string name , const bool& value)
@@ -297,6 +298,18 @@ void QCD::SetParameter(const std::string name, const double& value)
     }
     else if (name.compare("Omega_eta_etap")==0){
         Omega_eta_etap = value;
+    }
+    else if (name.compare("DeltaP_cu")==0){
+        DeltaP_cu = value;
+    }
+    else if (name.compare("Br_Kp_ppenu")==0){
+        Br_Kp_Ppenu = value;
+    }
+    else if (name.compare("IB_Kl")==0){
+        IB_Kl = value;
+    }
+    else if (name.compare("IB_Kp")==0){
+        IB_Kp = value;
     }
 //    else {
 //        std::cout << "cannot set parameter " << name << " in SetQCDParameter" << std::endl;
