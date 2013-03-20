@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -209,7 +209,8 @@ matrix<double> EvolDF1nlep::AnomalousDimension_nlep_S(orders order, unsigned int
     case NLO:
         
     if (!(nf == 3 || nf == 4 || nf == 5 || nf == 6)){ 
-                throw "EvolDF1nlep::AnomalousDimension_B(): wrong number of flavours";
+                throw std::runtime_error("EvolDF1nlep::AnomalousDimension_nlep_S("
+                "orders order, unsigned int n_u, unsigned int n_d) " " wrong number of flavour"); 
         }
     
     /*gamma(riga, colonna) next to leading order*/
@@ -280,7 +281,12 @@ matrix<double> EvolDF1nlep::AnomalousDimension_nlep_S(orders order, unsigned int
     break;
     
     default:
-            throw "EvolDF1nlep::AnomalousDimensio_B_S(): order not implemented";
+        std::stringstream out;
+        out << order;
+        throw std::runtime_error("EvolDF1nlep::AnomalousDimension_nlep_S("
+                "orders order, unsigned int n_u, unsigned int n_d) " 
+                + out.str() + " not implemented"); 
+        
     }
    
     return (gammaDF1);
@@ -344,7 +350,8 @@ matrix<double> EvolDF1nlep::AnomalousDimension_nlep_EM(orders order, unsigned in
     case NLO:
         
      if (!(nf == 3 || nf == 4 || nf == 5 || nf == 6)){ 
-                throw "EvolDF1nlep::AnomalousDimension_EM(): wrong number of flavours";
+               throw std::runtime_error("EvolDF1nlep::AnomalousDimension_nlep_EM("
+                "orders order, unsigned int n_u, unsigned int n_d) " " wrong number of flavour"); 
       }
     
     /*gamma(riga, colonna) next to leading order*/
@@ -446,7 +453,12 @@ matrix<double> EvolDF1nlep::AnomalousDimension_nlep_EM(orders order, unsigned in
     break;
     
     default:
-            throw "EvolDF1nlep::AnomalousDimension_B_EM(): order not implemented";
+        std::stringstream out;
+        out << order;
+        throw std::runtime_error("EvolDF1nlep::AnomalousDimension_nlep_EM("
+                "orders order, unsigned int n_u, unsigned int n_d) " 
+                + out.str() + " not implemented"); 
+        
     }
    
     return (gammaDF1);
@@ -557,7 +569,8 @@ matrix<double>& EvolDF1nlep::Df1Evolnlep(double mu, double M, orders order, orde
         default:
             std::stringstream out;
             out << scheme;
-            throw "EvolDF1nlep::Df1Evolnlep_EM(): scheme " + out.str() + " not implemented ";
+            throw std::runtime_error("EvolDF1nlep::Df1Evolnlep_EM(): scheme " + out.str()
+                    + " not implemented ");
     }
 
     if (mu == this->mu && M == this->M && scheme == this->scheme && order_ew == NULL_ew)
