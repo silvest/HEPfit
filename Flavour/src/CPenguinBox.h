@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -111,8 +111,6 @@ private:
     
     double r1tau, r2tau, r1e, r2e;
     double tbp, tbb, eta;
-    double Muc, Muw, mc;
-    double etac, etab, etacb, xtau, kc;
     
     double cpm, cbmt, cbme;
 

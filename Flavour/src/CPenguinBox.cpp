@@ -1,6 +1,6 @@
 
 /* 
- * Copyright (C) 2012 SUSYfit Collaboration
+ * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -240,15 +240,15 @@ double CPenguinBox::Cmatch(orders order){
     p0 = WMatchP(LO);
     b0 = WMatchB(LO);
     
-    Muc = model.getMuc();
-    Muw = model.getMuw();
-    mc = model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass(), NNLO);
+    double Muc = model.getMuc();
+    double Muw = model.getMuw();
+    double mc = model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass(), NNLO);
     
-    etac = model.Als(Muc)/model.Als(mc);
-    etab = model.Als(Muw)/model.Als(model.getMub());
-    etacb = model.Als(model.getMub())/model.Als(Muc);
-    xtau = pow(1.7769/Muw,2.);
-    kc = pow(etac, 24./25.);
+    double etac = model.Als(Muc)/model.Als(mc);
+    double etab = model.Als(Muw)/model.Als(model.getMub());
+    double etacb = model.Als(model.getMub())/model.Als(Muc);
+    double xtau = pow(1.7769/Muw,2.);
+    double kc = pow(etac, 24./25.);
     
     r1(0) = 4.*(1-log(Muc*Muc/mc/mc));
     r1(1) = -2.*(1-log(Muc*Muc/mc/mc));
@@ -438,7 +438,7 @@ double CPenguinBox::Cmatch(orders order){
                 + etacb * ub4 * (j5b1 -j4b1) * ub5 *  b0
                 + etab * etacb * ub4 * ub5 * (b1 - j5b1 * b0) ;
             
-            pow(mc/Muw, 2.)/32. * 4.*M_PI/model.Als(model.getMuc(), 4, FULLNNLO) * (
+            cpm = pow(mc/Muw, 2.)/32. * 4.*M_PI/model.Als(model.getMuc(), 4, FULLNNLO) * (
                     
                     CPM0(2) +
                     
