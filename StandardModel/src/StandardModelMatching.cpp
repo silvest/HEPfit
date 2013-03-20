@@ -217,7 +217,7 @@ double StandardModelMatching::Xewt(double x, double a, double mu) const{
     
     double swsq = (M_PI * SM.getAle() )/( sqrt(2) * SM.getGF() * SM.Mw_tree() * SM.Mw_tree());
     
-    double A[16], C[16];
+    double A[17], C[17];
     
     A[0]=(16. - 48.*a)*M_PI*M_PI + (288.*a - (32. - 88.*a)*M_PI*M_PI )*x 
         + (2003.*a + 4.*(4. - 6.*a - a*a )*M_PI*M_PI )*x*x
