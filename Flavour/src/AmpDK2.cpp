@@ -21,11 +21,11 @@ complex AmpDK2::AmpDK(orders order) {
     vector<double> me(myFlavour.getModel().getBK().getBpars());
     double MK = myFlavour.getModel().getMesons(QCD::K_0).getMass();
     double Ms = myFlavour.getModel().Mrun(myFlavour.getModel().getBK().getMu(),
-                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass(),
-                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass(), 3);
+                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass_scale(),
+                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass(), 3., NNLO);
     double Md = myFlavour.getModel().Mrun(myFlavour.getModel().getBK().getMu(),
-                myFlavour.getModel().getQuarks(QCD::DOWN).getMass(),
-                myFlavour.getModel().getQuarks(QCD::DOWN).getMass(), 3);
+                myFlavour.getModel().getQuarks(QCD::DOWN).getMass_scale(),
+                myFlavour.getModel().getQuarks(QCD::DOWN).getMass(), 3., NNLO);
     double KK = MK/(Ms+Md)*MK/(Ms+Md);
     double FK = myFlavour.getModel().getMesons(QCD::K_0).getDecayconst();
     me(0) *= 1./3.*MK*FK*FK;
