@@ -29,12 +29,12 @@ complex AmpDS1::AmpDS1pp0(orders order) {
     double MP = myFlavour.getModel().getMesons(QCD::P_0).getMass();
     double FK = myFlavour.getModel().getMesons(QCD::K_0).getDecayconst();
     double FP = myFlavour.getModel().getMesons(QCD::P_0).getDecayconst();
-    double Ms = myFlavour.getModel().Mrun(myFlavour.getModel().getBK().getMu(),
-                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass(),
-                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass(), 3);
-    double Md = myFlavour.getModel().Mrun(myFlavour.getModel().getBK().getMu(),
-                myFlavour.getModel().getQuarks(QCD::DOWN).getMass(),
-                myFlavour.getModel().getQuarks(QCD::DOWN).getMass(), 3);
+    double Ms = myFlavour.getModel().Mrun(myFlavour.getModel().getBKd1().getMu(),
+                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass_scale(),
+                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
+    double Md = myFlavour.getModel().Mrun(myFlavour.getModel().getBKd1().getMu(),
+                myFlavour.getModel().getQuarks(QCD::DOWN).getMass_scale(),
+                myFlavour.getModel().getQuarks(QCD::DOWN).getMass(), FULLNNLO);
     
     double X = sqrt(1.5)*FP*(MK*MK-MP*MP);
     double KK = FP/(FK-FP);
@@ -83,12 +83,12 @@ complex AmpDS1::AmpDS1pp2(orders order) {
     double MP = myFlavour.getModel().getMesons(QCD::P_0).getMass();
     double FK = myFlavour.getModel().getMesons(QCD::K_0).getDecayconst();
     double FP = myFlavour.getModel().getMesons(QCD::P_0).getDecayconst();
-    double Ms = myFlavour.getModel().Mrun(myFlavour.getModel().getBK().getMu(),
-                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass(),
-                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass(), 3);
-    double Md = myFlavour.getModel().Mrun(myFlavour.getModel().getBK().getMu(),
-                myFlavour.getModel().getQuarks(QCD::DOWN).getMass(),
-                myFlavour.getModel().getQuarks(QCD::DOWN).getMass(), 3);
+    double Ms = myFlavour.getModel().Mrun(myFlavour.getModel().getBKd3().getMu(),
+                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass_scale(),
+                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
+    double Md = myFlavour.getModel().Mrun(myFlavour.getModel().getBKd3().getMu(),
+                myFlavour.getModel().getQuarks(QCD::DOWN).getMass_scale(),
+                myFlavour.getModel().getQuarks(QCD::DOWN).getMass(), FULLNNLO);
     
     double X = sqrt(1.5)*FP*(MK*MK-MP*MP);
     double KK = FP/(FK-FP);

@@ -17,11 +17,15 @@ complex AmpDB2::AmpBd(orders order) {
     vector<complex> ** allcoeff = myFlavour.ComputeCoeffBd( 
             myFlavour.getModel().getBBd().getMu(), 
         myFlavour.getModel().getBBd().getScheme()); 
-
+    
     vector<double> me(myFlavour.getModel().getBBd().getBpars()); 
     double MBd = myFlavour.getModel().getMesons(QCD::B_D).getMass();
-    double Mb = myFlavour.getModel().getQuarks(QCD::BOTTOM).getMass();
-    double Md = myFlavour.getModel().getQuarks(QCD::DOWN).getMass();
+    double Mb = myFlavour.getModel().Mrun(myFlavour.getModel().getBBd().getMu(),
+                myFlavour.getModel().getQuarks(QCD::BOTTOM).getMass_scale(),
+                myFlavour.getModel().getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+    double Md = myFlavour.getModel().Mrun(myFlavour.getModel().getBBd().getMu(),
+                myFlavour.getModel().getQuarks(QCD::DOWN).getMass_scale(),
+                myFlavour.getModel().getQuarks(QCD::DOWN).getMass(), FULLNNLO);
     double KBd = MBd/(Mb+Md)*MBd/(Mb+Md);
     double Fb = myFlavour.getModel().getMesons(QCD::B_D).getDecayconst();
     me(0) *= 1./3.*MBd*Fb*Fb;
@@ -51,7 +55,9 @@ complex AmpDB2::AmpBs(orders order) {
     vector<double> me(myFlavour.getModel().getBBs().getBpars());
     double MBs = myFlavour.getModel().getMesons(QCD::B_S).getMass();
     double Mb = myFlavour.getModel().getQuarks(QCD::BOTTOM).getMass();
-    double Ms = myFlavour.getModel().getQuarks(QCD::STRANGE).getMass();
+    double Ms = myFlavour.getModel().Mrun(myFlavour.getModel().getBBs().getMu(),
+                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass_scale(),
+                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
     double KBs = MBs/(Mb+Ms)*MBs/(Mb+Ms);
     double Fbs = myFlavour.getModel().getMesons(QCD::B_S).getDecayconst();
     me(0) *= 1./3.*MBs*Fbs*Fbs;
