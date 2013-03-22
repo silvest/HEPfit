@@ -61,8 +61,8 @@ CPenguinBox::~CPenguinBox(){
 vector<double> CPenguinBox::WMatchP(orders order){
     double x = pow(model.Mrun(model.getMuw(), model.getQuarks(QCD::TOP).getMass(), model.getQuarks(QCD::TOP).getMass(), 5.)  
             / model.Mw_tree(), 2.); // always FULLNLO
-    double muw = model.getMuw();
-    double Mw = model.Mw_tree();
+    
+    double l = log(model.getMuw()*model.getMuw()/model.Mw_tree()/model.Mw_tree());
     
     switch(order){
         case(LO):
@@ -72,24 +72,21 @@ vector<double> CPenguinBox::WMatchP(orders order){
             
             return(p);
         case(NLO):
-            p(0) = 4.*0.5*2./3.*(11. + 6.*log(muw*muw/Mw/Mw));
-            p(1) =-4.*0.5*4./3.*(11. + 6.*log(muw*muw/Mw/Mw));
-            p(2) = 8.*(2. + log(muw*muw/Mw/Mw));
+            p(0) = 4.*0.5*2./3.*(11. + 6.*l);
+            p(1) =-4.*0.5*4./3.*(11. + 6.*l);
+            p(2) = 8.*(2. + l);
             
             return(p);
         case(NNLO):
             p(0) = 4.*(-(135677.-124095.)/3600. + 58./18.*M_PI*M_PI-0.5*(2./3.)*
                     ( 112./9. + 34.*x +(20./3. + 16.*x)*log(x) - (8.+16.*x)*
-                    sqrt(4.*x - 1.)*gsl_sf_clausen(2.*asin(1./(2.*sqrt(x)))) ))
-                    + (5./36.*238.*log(muw*muw/Mw/Mw)) +58./6.*log(muw*muw/Mw/Mw)
-                    * log(muw*muw/Mw/Mw);
+                    sqrt(4.*x - 1.)*gsl_sf_clausen(2.*asin(1./(2.*sqrt(x))))))
+                    + (5./36.*238.*l) +58./6.*l*l;
             p(1) = -4.*((135677.+124095.)/3600. - 44./18.*M_PI*M_PI+0.5*(4./3.)*
                     ( 112./9. + 34.*x +(20./3. + 16.*x)*log(x) - (8.+16.*x)*
-                    sqrt(4.*x - 1.)*gsl_sf_clausen(2.*asin(1./(2.*sqrt(x)))) ))
-                    + (-5./36.*260.*log(muw*muw/Mw/Mw)) -44./6.*log(muw*muw/Mw/Mw)
-                    * log(muw*muw/Mw/Mw);
-            p(2) = 4.*model.getCF()*(33.+4.*M_PI*M_PI+34.*log(muw*muw/Mw/Mw)
-                   + 12.*log(muw*muw/Mw/Mw)*log(muw*muw/Mw/Mw));
+                    sqrt(4.*x - 1.)*gsl_sf_clausen(2.*asin(1./(2.*sqrt(x))))))
+                    + (-5./36.*260.*l) -44./6.*l*l;
+            p(2) = 4.*model.getCF()*(33.+4.*M_PI*M_PI+34.*l + 12.*l*l);
             
             return(p);
         default:
@@ -132,7 +129,8 @@ matrix<double> CPenguinBox::RGevolP(int nf) {
 double CPenguinBox::BmatchP(orders order){
     
 double mub = model.getMub();
-double Mb = model.getQuarks(QCD::BOTTOM).getMass();
+double Mb = model.Mrun(model.getMub(), model.getQuarks(QCD::BOTTOM).getMass_scale(),
+            model.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
 eta = model.Als(model.getMuw())/mub;
 
     switch (order){
@@ -155,8 +153,7 @@ eta = model.Als(model.getMuw())/mub;
 }
 
 vector<double> CPenguinBox::WMatchB(orders order){
-    double Mw = model.Mw_tree();
-    double muw = model.getMuw();
+    double l = log(model.getMuw()*model.getMuw()/model.Mw_tree()/model.Mw_tree());
     
     switch(order){
         case(LO):
@@ -165,13 +162,12 @@ vector<double> CPenguinBox::WMatchB(orders order){
             
             return(b);
         case(NLO):
-            b(0) = -4.*(9.+4.*log(muw*muw/Mw/Mw));
+            b(0) = -4.*(9.+4.*l);
             b(1) = 4.;
             
             return(b);
         case(NNLO):
-            b(0) = -8.*model.getCF()*(20.+2.*M_PI*M_PI+25.*log(muw*muw/Mw/Mw)
-                                     +6.*log(muw*muw/Mw/Mw)*log(muw*muw/Mw/Mw));
+            b(0) = -8.*model.getCF()*(20.+2.*M_PI*M_PI+25.*l+6.*l*l);
             b(1) = 4.;
             
             return(b);
@@ -211,7 +207,8 @@ matrix<double> CPenguinBox::RGevolB(int nf) {
 double CPenguinBox::BmatchB(orders order){
     
     double mub = model.getMub();
-    double Mb = model.getQuarks(QCD::BOTTOM).getMass();
+    double Mb = model.Mrun(model.getMub(), model.getQuarks(QCD::BOTTOM).getMass_scale(),
+            model.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
     eta = model.Als(model.getMuw())/mub;            
     
     switch (order){
@@ -242,7 +239,10 @@ double CPenguinBox::Cmatch(orders order){
     
     double Muc = model.getMuc();
     double Muw = model.getMuw();
-    double mc = model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass(), NNLO);
+    double mc = model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass_scale(),
+            model.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
+    double l=log(Muc*Muc/mc/mc);
+    double A = model.Als(Muc, 4, FULLNNLO);
     
     double etac = model.Als(Muc)/model.Als(mc);
     double etab = model.Als(Muw)/model.Als(model.getMub());
@@ -250,20 +250,19 @@ double CPenguinBox::Cmatch(orders order){
     double xtau = pow(1.7769/Muw,2.);
     double kc = pow(etac, 24./25.);
     
-    r1(0) = 4.*(1-log(Muc*Muc/mc/mc));
-    r1(1) = -2.*(1-log(Muc*Muc/mc/mc));
+    r1(0) = 4.*(1.-l);
+    r1(1) = -2.*(1.-l);
     
-    r2(0) = 11.+20.*log(Muc*Muc/mc/mc)-12.*log(Muc*Muc/mc/mc)*log(Muc*Muc/mc/mc);
-    r2(0) = -7.-12.*log(Muc*Muc/mc/mc)+12.*log(Muc*Muc/mc/mc)*log(Muc*Muc/mc/mc);
+    r2(0) = 11.+20.*l-12.*l*l;
+    r2(0) = -7.-12.*l+12.*l*l;
     
-    r1tau = 5. + 4.*xtau/(1-xtau)*log(xtau) + 4.*log(Muc*Muc/mc/mc);
+    r1tau = 5. + 4.*xtau/(1-xtau)*log(xtau) + 4.*l;
     r2tau = -2.*model.getCF()*((9.+7.*xtau)/(1.-xtau) + (3.*xtau+13.*xtau*xtau)/(1.-xtau)/(1.-xtau)
             -12.*xtau*gsl_sf_dilog(1.-xtau)/(1.-xtau)
-            -((1.-13.*xtau)/(1.-xtau) - 12.*xtau*xtau/(1.-xtau)/(1.-xtau)*log(xtau))
-            *log(Muc*Muc/mc/mc)-6.*log(Muc*Muc/mc/mc)*log(Muc*Muc/mc/mc));
+            -((1.-13.*xtau)/(1.-xtau) - 12.*xtau*xtau/(1.-xtau)/(1.-xtau)*log(xtau))*l-6.*l*l);
     
-    r1e = 5.+4.*log(Muc+Muc/mc/mc);
-    r2e = -2.*model.getCF()*(9.-log(Muc/Muc/mc/mc)-6.*log(Muc/Muc/mc/mc)*log(Muc/Muc/mc/mc));
+    r1e = 5.+4.*l;
+    r2e = -2.*model.getCF()*(9.-l-6.*l*l);
     
     /*
      * this commented lines gives the matching in the approximation given in
@@ -350,39 +349,29 @@ double CPenguinBox::Cmatch(orders order){
                 + etab * etacb * etacb * ub4 * (j5b1 - j4b1) * ub5 * (b1 - j5b1 * b0)
                 + etab * etab * etacb * etacb * ub4 * ub5 * (b2 - j5b1 * b1 - (j5b2 - j5b1 * j5b1) * b0);
             
-            cpm = pow(mc/Muw, 2.)/32. * 4.*M_PI/model.Als(model.getMuc(), 4, FULLNNLO) * (
+            cpm = pow(mc/Muw, 2.)/32. * 4.*M_PI/A * (
                     CPM0(2) +
 
-                    model.Als(model.getMuc(), 4, FULLNNLO)/4./M_PI *
-                    (CPM1(2) + 4.*CPM0(0)*r1(0) + 4.*CPM0(1)*r1(1) ) +
+                    A/4./M_PI * (CPM1(2) + 4.*CPM0(0)*r1(0) + 4.*CPM0(1)*r1(1) ) +
                     
-                    model.Als(model.getMuc(), 4, FULLNNLO)/4./M_PI*
-                    model.Als(model.getMuc(), 4, FULLNNLO)/4./M_PI*
-                    (CPM2(2) + 4.*CPM0(0)*r2(0) + 4.*CPM1(0)*r1(0)
+                    A/4./M_PI*A/4./M_PI*(CPM2(2) + 4.*CPM0(0)*r2(0) + 4.*CPM1(0)*r1(0)
                              + 4.*CPM0(1)*r2(1) + 4.*CPM1(1)*r1(1))
                     );
             
-            cbmt = pow(mc/Muw, 2.)/16. * 4.*M_PI/model.Als(model.getMuc(), 4, FULLNNLO) * (
+            cbmt = pow(mc/Muw, 2.)/16. * 4.*M_PI/A * (
                     CBM0(1) +
                     
-                    model.Als(model.getMuc(), 4, FULLNNLO)/4./M_PI *
-                    (CBM1(1) + 4.*CBM0(0)*r1tau) +
+                    A/4./M_PI * (CBM1(1) + 4.*CBM0(0)*r1tau) +
                     
-                    model.Als(model.getMuc(), 4, FULLNNLO)/4./M_PI*
-                    model.Als(model.getMuc(), 4, FULLNNLO)/4./M_PI*
-                    (CBM2(1) + 4.*CBM0(0)*r2tau + 4.*CBM1(0)*r1tau)
+                    A/4./M_PI*A/4./M_PI * (CBM2(1) + 4.*CBM0(0)*r2tau + 4.*CBM1(0)*r1tau)
                     );
             
-            cbme = pow(mc/Muw, 2.)/16. * 4.*M_PI/model.Als(model.getMuc(), 4, FULLNNLO) * (
+            cbme = pow(mc/Muw, 2.)/16. * 4.*M_PI/A * (
                     CBM0(1) +
                     
-                    model.Als(model.getMuc(), 4, FULLNNLO)/4./M_PI *
-                    (CBM1(1) + 4.*CBM0(0)*r1e) +
+                    A/4./M_PI * (CBM1(1) + 4.*CBM0(0)*r1e) +
                     
-                    model.Als(model.getMuc(), 4, FULLNNLO)/4./M_PI*
-                    model.Als(model.getMuc(), 4, FULLNNLO)/4./M_PI*
-                    (CBM2(1) + 4.*CBM0(0)*r2e + 4.*CBM1(0)*r1e)
-                    );
+                    A/4./M_PI*A/4./M_PI*(CBM2(1) + 4.*CBM0(0)*r2e + 4.*CBM1(0)*r1e));
                     
             /*
             cpm = kc * pow(mc/Muw, 2.) / 32. *(
@@ -438,24 +427,21 @@ double CPenguinBox::Cmatch(orders order){
                 + etacb * ub4 * (j5b1 -j4b1) * ub5 *  b0
                 + etab * etacb * ub4 * ub5 * (b1 - j5b1 * b0) ;
             
-            cpm = pow(mc/Muw, 2.)/32. * 4.*M_PI/model.Als(model.getMuc(), 4, FULLNNLO) * (
+            cpm = pow(mc/Muw, 2.)/32. * 4.*M_PI/A * (
                     
                     CPM0(2) +
                     
-                    model.Als(model.getMuc(), 4, FULLNNLO)/4./M_PI *
-                    (CPM1(2) + 4.*CPM0(0)*r1(0) + 4.*CPM0(1)*r1(1) ) );
+                    A/4./M_PI * (CPM1(2) + 4.*CPM0(0)*r1(0) + 4.*CPM0(1)*r1(1) ) );
             
-            cbmt = pow(mc/Muw, 2.)/16. * 4.*M_PI/model.Als(model.getMuc(), 4, FULLNNLO) * (
+            cbmt = pow(mc/Muw, 2.)/16. * 4.*M_PI/A * (
                     CBM0(1) +
                     
-                    model.Als(model.getMuc(), 4, FULLNNLO)/4./M_PI *
-                    (CBM1(1) + 4.*CBM0(0)*r1tau) );
+                    A/4./M_PI * (CBM1(1) + 4.*CBM0(0)*r1tau) );
             
-            cbme = pow(mc/Muw, 2.)/16. * 4.*M_PI/model.Als(model.getMuc(), 4, FULLNNLO) * (
+            cbme = pow(mc/Muw, 2.)/16. * 4.*M_PI/A * (
                     CBM0(1) +
                     
-                    model.Als(model.getMuc(), 4, FULLNNLO)/4./M_PI *
-                    (CBM1(1) + 4.*CBM0(0)*r1e) );
+                    A/4./M_PI * (CBM1(1) + 4.*CBM0(0)*r1e) );
             /*
             cpm = kc * pow(mc/Muw, 2.) / 32. *(
                     
@@ -483,14 +469,11 @@ double CPenguinBox::Cmatch(orders order){
         case(LO):
             CPM0 = up4 * up5 * p0;
             
-            cpm = pow(mc/Muw, 2.)/32. * 4.*M_PI/model.Als(model.getMuc(), 4, FULLNNLO) * (
-                    CPM0(2) );
+            cpm = pow(mc/Muw, 2.)/32. * 4.*M_PI/A * CPM0(2);
             
-            cbmt = pow(mc/Muw, 2.)/16. * 4.*M_PI/model.Als(model.getMuc(), 4, FULLNNLO) * (
-                    CBM0(1) );
+            cbmt = pow(mc/Muw, 2.)/16. * 4.*M_PI/A * CBM0(1);
             
-            cbme = pow(mc/Muw, 2.)/16. * 4.*M_PI/model.Als(model.getMuc(), 4, FULLNNLO) * (
-                    CBM0(1) );
+            cbme = pow(mc/Muw, 2.)/16. * 4.*M_PI/A * CBM0(1);
             break;
         default:
             std::stringstream out;
