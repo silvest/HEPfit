@@ -100,10 +100,10 @@ class EvolDF1nlep : public RGEvolutor {
      * @param s array of double for the magic numbers of the evolutor ( QED corrections proportional to \f$ \alpha_{em} \f$ )
      * @param t array of double for the magic numbers of the evolutor ( QED corrections proportional to \f$ \alpha_{strong}(\mu) / \alpha_{strong}(M) * \alpha_{em} \f$ )
      */
-    double a[3][10], b[3][10][10][10], c[3][10][10][10], d[3][10][10][10],
-           m[3][10][10][10], n[3][10][10][10], o[3][10][10][10], 
-           p[3][10][10][10], q[3][10][10][10], r[3][10][10][10], 
-           s[3][10][10][10], t[3][10][10][10], u[3][10][10][10];
+    double a[4][10], b[4][10][10][10], c[4][10][10][10], d[4][10][10][10],
+           m[4][10][10][10], n[4][10][10][10], o[4][10][10][10], 
+           p[4][10][10][10], q[4][10][10][10], r[4][10][10][10], 
+           s[4][10][10][10], t[4][10][10][10], u[4][10][10][10];
     const StandardModel& model;
     /**
      * @brief a void type method storing properly the magic numbers for the implementation of the evolutor
