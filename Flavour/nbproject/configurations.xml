@@ -9,6 +9,9 @@
       <itemPath>src/AmpDK2.h</itemPath>
       <itemPath>src/AmpDS1.h</itemPath>
       <itemPath>src/ArgD.h</itemPath>
+      <itemPath>src/BR_Kmumu.h</itemPath>
+      <itemPath>src/BR_Kp0nunu.h</itemPath>
+      <itemPath>src/BR_Kppnunu.h</itemPath>
       <itemPath>src/CPenguinBox.h</itemPath>
       <itemPath>src/DmBd.h</itemPath>
       <itemPath>src/DmBd0.h</itemPath>
@@ -51,6 +54,9 @@
       <itemPath>src/AmpDD2.cpp</itemPath>
       <itemPath>src/AmpDK2.cpp</itemPath>
       <itemPath>src/AmpDS1.cpp</itemPath>
+      <itemPath>src/BR_Kmumu.cpp</itemPath>
+      <itemPath>src/BR_Kp0nunu.cpp</itemPath>
+      <itemPath>src/BR_Kppnunu.cpp</itemPath>
       <itemPath>src/CPenguinBox.cpp</itemPath>
       <itemPath>src/DmBd.cpp</itemPath>
       <itemPath>src/DmBs.cpp</itemPath>
@@ -136,6 +142,18 @@
       <item path="src/AmpDS1.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/BR_Kmumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BR_Kmumu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/BR_Kp0nunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BR_Kp0nunu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/BR_Kppnunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BR_Kppnunu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/CPenguinBox.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -288,6 +306,18 @@
       <item path="src/AmpDS1.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/BR_Kmumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BR_Kmumu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/BR_Kp0nunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BR_Kp0nunu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/BR_Kppnunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BR_Kppnunu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/CPenguinBox.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -442,6 +472,18 @@
       <item path="src/AmpDS1.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/BR_Kmumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BR_Kmumu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/BR_Kp0nunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BR_Kp0nunu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/BR_Kppnunu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BR_Kppnunu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/CPenguinBox.cpp" ex="false" tool="1" flavor2="0">
       </item>
