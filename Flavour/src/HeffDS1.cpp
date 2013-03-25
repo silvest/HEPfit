@@ -129,6 +129,58 @@ vector<complex>** HeffDS1::ComputeCoeffDS1PP(double mu, schemes scheme) {
     }
 }
 
+vector<complex>** HeffDS1::ComputeCoeffDS1p0nunu() {
+    
+    const std::vector<WilsonCoefficient>& mcb = model.GetMyMatching()-> CMkp0nn();
+    
+    orders ordDF1 = coeffds1p0nunu.getOrder();
+    orders_ew ordDF1_ew = coeffds1p0nunu.getOrder_ew();
+    
+    for (int i = 0; i < mcb.size(); i++){
+        for (int j = LO; j <= ordDF1; j++){
+            coeffds1p0nunu.setCoeff(*coeffds1p0nunu.getCoeff(orders(j))
+                                    + *mcb[i].getCoeff(orders(j)), orders(j));
+        }
+        for (int j = LO_ew; j <= ordDF1_ew; j++){
+            coeffds1p0nunu.setCoeff(*coeffds1p0nunu.getCoeff(orders(j))
+                                    + *mcb[i].getCoeff(orders(j)), orders(j));
+        }
+    }
+}            
+
+vector<complex>** HeffDS1::ComputeCoeffDS1ppnunu() {
+    
+    const std::vector<WilsonCoefficient>& mcb = model.GetMyMatching()-> CMkppnn();
+    
+    orders ordDF1 = coeffds1ppnunu.getOrder();
+    orders_ew ordDF1_ew = coeffds1ppnunu.getOrder_ew();
+    
+    for (int i = 0; i < mcb.size(); i++){
+        for (int j = LO; j <= ordDF1; j++){ 
+            coeffds1ppnunu.setCoeff(*coeffds1ppnunu.getCoeff(orders(j))
+                                    + *mcb[i].getCoeff(orders(j)), orders(j));
+        }
+        for (int j = LO_ew; j <= ordDF1_ew; j++){ 
+            coeffds1ppnunu.setCoeff(*coeffds1ppnunu.getCoeff(orders(j))
+                                    + *mcb[i].getCoeff(orders(j)), orders(j));
+        }
+    }
+}            
+
+vector<complex>** HeffDS1::ComputeCoeffDS1mumu() {
+    
+    const std::vector<WilsonCoefficient>& mcb = model.GetMyMatching()-> CMkmm();
+    
+    orders ordDF1 = coeffds1mumu.getOrder();
+    
+    for (int i = 0; i < mcb.size(); i++){
+        for (int j = LO; j <= ordDF1; j++){
+            coeffds1mumu.setCoeff(*coeffds1mumu.getCoeff(orders(j))
+                                    + *mcb[i].getCoeff(orders(j)), orders(j));
+        }
+    }
+}       
+
 void HeffDS1::CharmMatch(){
     DS1cc = *coeffds1cc.getCoeff(LO);
     DS1cce = *coeffds1cc.getCoeff(LO_ew);
