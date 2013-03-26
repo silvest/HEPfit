@@ -9,6 +9,8 @@
 #include "EWSM.h"
 #include <iostream>
 
+// include the imaginary part of O(alpha alpha_s) contribution
+//#define WITHIMTWOLOOPQCD
 
 const double EWSM::Mw_error = 0.00001; /* 0.01 MeV */ 
 
@@ -278,7 +280,12 @@ complex EWSM::rhoZ_l_SM(const StandardModel::lepton l) const
         if (flag_order[EW1]) 
             deltaRho_rem_f[EW1] = myOneLoopEW->deltaRho_rem_l(l,Mw);
         if (flag_order[EW1QCD1]) 
+#ifdef WITHIMTWOLOOPQCD
+            deltaRho_rem_f[EW1QCD1] = complex(myTwoLoopQCD->deltaRho_rem_l(l,Mw).real(), 
+                                              myTwoLoopQCD->deltaRho_rem_l(l,Mw).imag(), false);
+#else
             deltaRho_rem_f[EW1QCD1] = complex(myTwoLoopQCD->deltaRho_rem_l(l,Mw).real(), 0.0, false);
+#endif
         if (flag_order[EW1QCD2]) 
             deltaRho_rem_f[EW1QCD2] = complex(myThreeLoopQCD->deltaRho_rem_l(l,Mw).real(), 0.0, false);
         if (flag_order[EW2]) 
@@ -339,7 +346,12 @@ complex EWSM::rhoZ_q_SM(const StandardModel::quark q) const
         if (flag_order[EW1]) 
             deltaRho_rem_f[EW1] = myOneLoopEW->deltaRho_rem_q(q,Mw);
         if (flag_order[EW1QCD1]) 
+#ifdef WITHIMTWOLOOPQCD
+            deltaRho_rem_f[EW1QCD1] = complex(myTwoLoopQCD->deltaRho_rem_q(q,Mw).real(), 
+                                              myTwoLoopQCD->deltaRho_rem_q(q,Mw).imag(), false);
+#else
             deltaRho_rem_f[EW1QCD1] = complex(myTwoLoopQCD->deltaRho_rem_q(q,Mw).real(), 0.0, false);
+#endif
         if (flag_order[EW1QCD2]) 
             deltaRho_rem_f[EW1QCD2] = complex(myThreeLoopQCD->deltaRho_rem_q(q,Mw).real(), 0.0, false);
         if (flag_order[EW2]) 
@@ -389,7 +401,9 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const
     if (schemeKappaZ==APPROXIMATEFORMULA) {
         ReKappaZf = myApproximateFormulae->sin2thetaEff_l(l, DeltaAlphaL5q())/sW2_SM(); 
         ImKappaZf = myOneLoopEW->deltaKappa_rem_l(l,Mw).imag();
-        
+#ifdef WITHIMTWOLOOPQCD
+        ImKappaZf += myTwoLoopQCD->deltaKappa_rem_l(l,Mw).imag();
+#endif         
         /* TEST */
         //ImKappaZf -= SM.getAle()*SM.getAlsMz()/24.0/M_PI*(cW2_SM() - sW2_SM())/sW2_SM()/sW2_SM();        
     } else {
@@ -408,7 +422,12 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const
         if (flag_order[EW1]) 
             deltaKappa_rem_f[EW1] = myOneLoopEW->deltaKappa_rem_l(l,Mw);
         if (flag_order[EW1QCD1]) 
+#ifdef WITHIMTWOLOOPQCD
+            deltaKappa_rem_f[EW1QCD1] = complex(myTwoLoopQCD->deltaKappa_rem_l(l,Mw).real(), 
+                                                myTwoLoopQCD->deltaKappa_rem_l(l,Mw).imag(), false);
+#else
             deltaKappa_rem_f[EW1QCD1] = complex(myTwoLoopQCD->deltaKappa_rem_l(l,Mw).real(), 0.0, false);
+#endif
         if (flag_order[EW1QCD2]) 
             deltaKappa_rem_f[EW1QCD2] = complex(myThreeLoopQCD->deltaKappa_rem_l(l,Mw).real(), 0.0, false);
         if (flag_order[EW2]) 
@@ -458,7 +477,10 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
     if (schemeKappaZ==APPROXIMATEFORMULA) {
         ReKappaZf = myApproximateFormulae->sin2thetaEff_q(q, DeltaAlphaL5q())/sW2_SM(); 
         ImKappaZf = myOneLoopEW->deltaKappa_rem_q(q,Mw).imag();
-
+#ifdef WITHIMTWOLOOPQCD
+        ImKappaZf += myTwoLoopQCD->deltaKappa_rem_q(q,Mw).imag();
+#endif       
+            
         /* TEST */
         //ImKappaZf -= SM.getAle()*SM.getAlsMz()/24.0/M_PI*(cW2_SM() - sW2_SM())/sW2_SM()/sW2_SM();        
     } else { 
@@ -477,7 +499,12 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
         if (flag_order[EW1]) 
             deltaKappa_rem_f[EW1] = myOneLoopEW->deltaKappa_rem_q(q,Mw);
         if (flag_order[EW1QCD1]) 
+#ifdef WITHIMTWOLOOPQCD
+            deltaKappa_rem_f[EW1QCD1] = complex(myTwoLoopQCD->deltaKappa_rem_q(q,Mw).real(), 
+                                                myTwoLoopQCD->deltaKappa_rem_q(q,Mw).imag(), false);
+#else
             deltaKappa_rem_f[EW1QCD1] = complex(myTwoLoopQCD->deltaKappa_rem_q(q,Mw).real(), 0.0, false);
+#endif
         if (flag_order[EW1QCD2]) 
             deltaKappa_rem_f[EW1QCD2] = complex(myThreeLoopQCD->deltaKappa_rem_q(q,Mw).real(), 0.0, false);
         if (flag_order[EW2]) 

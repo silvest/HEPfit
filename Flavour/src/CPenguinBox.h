@@ -32,7 +32,7 @@ public:
      * 
      * @brief constructor
      */
-    CPenguinBox(const StandardModel& model);
+    CPenguinBox(const StandardModel& model_i);
     
     /**
      * 

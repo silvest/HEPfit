@@ -53,8 +53,6 @@ public:
 private:
     const EW& myEW;
    
-    double ObParam[7];
-    
     double DeltaEpsilon_1(const double alpha0, const double ObParam_i[]) const;
     double DeltaEpsilon_2(const double alpha0, const double ObParam_i[]) const;    
     double DeltaEpsilon_3(const double alpha0, const double ObParam_i[]) const;
