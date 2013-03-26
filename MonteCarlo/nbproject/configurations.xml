@@ -104,7 +104,7 @@
             <pElem>../NewPhysics/src</pElem>
             <pElem>../GeneralSUSY/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` -I/usr/mpi/intel/mvapich2-1.7/include/</commandLine>
+          <commandLine>`root-config --cflags`</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>
@@ -189,6 +189,7 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../THDM/src</pElem>
             <pElem>../NewPhysics/src</pElem>
+            <pElem>../GeneralSUSY/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags`</commandLine>
         </ccTool>
@@ -281,8 +282,8 @@
             <pElem>../THDM/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../BAT_parallel/include</pElem>
-            <pElem>/usr/mpi/gcc/mvapich2-1.7/include</pElem>
             <pElem>../NewPhysics/src</pElem>
+            <pElem>../GeneralSUSY/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include -I${HOME}/BAT_parallel/include</commandLine>
         </ccTool>
