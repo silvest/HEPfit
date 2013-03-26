@@ -146,6 +146,8 @@ vector<complex>** HeffDS1::ComputeCoeffDS1p0nunu() {
                                     + *mcb[i].getCoeff(orders(j)), orders(j));
         }
     }
+    
+    return coeffds1p0nunu.getCoeff();
 }            
 
 vector<complex>** HeffDS1::ComputeCoeffDS1ppnunu() {
@@ -165,6 +167,8 @@ vector<complex>** HeffDS1::ComputeCoeffDS1ppnunu() {
                                     + *mcb[i].getCoeff(orders(j)), orders(j));
         }
     }
+    
+    return coeffds1ppnunu.getCoeff();
 }            
 
 vector<complex>** HeffDS1::ComputeCoeffDS1mumu() {
@@ -179,6 +183,8 @@ vector<complex>** HeffDS1::ComputeCoeffDS1mumu() {
                                     + *mcb[i].getCoeff(orders(j)), orders(j));
         }
     }
+            
+    return coeffds1mumu.getCoeff();
 }       
 
 void HeffDS1::CharmMatch(){

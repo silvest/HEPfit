@@ -136,8 +136,6 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Initialization and Matching
     
-    StandardModelMatching* myMatching;
-        
     virtual bool InitializeModel();  
     
     virtual void SetEWSMflags(EWSM& myEWSM);

@@ -1,4 +1,3 @@
-
 /* 
  * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
@@ -8,14 +7,16 @@
 
 #include "CPenguinBox.h"
 
-CPenguinBox::CPenguinBox(const StandardModel& model) : model(model), modelmatching (model),
-                up(3,0.), j5p1(3,0.), j4p1(3,0.), j5p2(3,0.), j4p2(1,0.),
-                ub(2,0.), j5b1(2,0.), j4b1(2,0.), j5b2(2,0.), j4b2(2,0.),
-                up4(3,0.), up5(3,0.), ub4(2,0.), ub5(2,0.),
-                p(3,0.), b(2,0.),
-                p0(3,0.), p1(3,0.), p2(3,0.), b0(2,0.), b1(2,0.), b2(2,0.),
-                r1(3,0.), r2(3,0.), CPM0(3,0.), CPM1(3,0.), CPM2(3,0.),
-                CBM0(3,0.), CBM1(3,0.), CBM2(3,0.){
+CPenguinBox::CPenguinBox(const StandardModel& model_i) 
+: model(model_i), modelmatching(*(model_i.GetMyMatching())),
+        up(3,0.), j5p1(3,0.), j4p1(3,0.), j5p2(3,0.), j4p2(1,0.),
+        ub(2,0.), j5b1(2,0.), j4b1(2,0.), j5b2(2,0.), j4b2(2,0.),
+        up4(3,0.), up5(3,0.), ub4(2,0.), ub5(2,0.),
+        p(3,0.), b(2,0.),
+        p0(3,0.), p1(3,0.), p2(3,0.), b0(2,0.), b1(2,0.), b2(2,0.),
+        r1(3,0.), r2(3,0.), CPM0(3,0.), CPM1(3,0.), CPM2(3,0.),
+        CBM0(3,0.), CBM1(3,0.), CBM2(3,0.) 
+{
     
     j5p1(0,0) =  5165./3174.;
     j5p1(1,1) = -2267./1587.;          
