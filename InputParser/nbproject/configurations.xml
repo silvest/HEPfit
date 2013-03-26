@@ -61,7 +61,6 @@
             <pElem>../EW/src</pElem>
             <pElem>../ZFitter/src</pElem>
             <pElem>../boost/</pElem>
-            <pElem>../Cuba/include</pElem>
             <pElem>../GeneralSUSY/src</pElem>
           </incDir>
         </ccTool>
@@ -278,7 +277,7 @@
             <pElem>../THDM/src</pElem>
             <pElem>../EW/src</pElem>
             <pElem>../ZFitter/src</pElem>
-            <pElem>../Cuba/include</pElem>
+            <pElem>../GeneralSUSY/src</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>
@@ -378,7 +377,7 @@
             <pElem>../EW/src</pElem>
             <pElem>../ZFitter/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
-            <pElem>../Cuba/include</pElem>
+            <pElem>../GeneralSUSY/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/BAT/include -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include</commandLine>
         </ccTool>
