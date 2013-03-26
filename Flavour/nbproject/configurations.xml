@@ -9,7 +9,6 @@
       <itemPath>src/AmpDK2.h</itemPath>
       <itemPath>src/AmpDS1.h</itemPath>
       <itemPath>src/ArgD.h</itemPath>
-      <itemPath>src/BR_Kmumu.h</itemPath>
       <itemPath>src/BR_Kp0nunu.h</itemPath>
       <itemPath>src/BR_Kppnunu.h</itemPath>
       <itemPath>src/CPenguinBox.h</itemPath>
@@ -54,7 +53,6 @@
       <itemPath>src/AmpDD2.cpp</itemPath>
       <itemPath>src/AmpDK2.cpp</itemPath>
       <itemPath>src/AmpDS1.cpp</itemPath>
-      <itemPath>src/BR_Kmumu.cpp</itemPath>
       <itemPath>src/BR_Kp0nunu.cpp</itemPath>
       <itemPath>src/BR_Kppnunu.cpp</itemPath>
       <itemPath>src/CPenguinBox.cpp</itemPath>
