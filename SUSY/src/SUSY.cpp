@@ -151,7 +151,7 @@ bool SUSY::PostUpdate(){
     }
     
     
-     mySUSYMatching->Test();
+     //mySUSYMatching->Test();
     
      return (true);
 }
@@ -462,71 +462,12 @@ bool SUSY::CalcSpectrum(){
         return (false);
         //throw std::runtime_error(ss.str());
      }   
-       
-   // std::cout << "MA0 = " << mh[2] << std::endl;
+  
+    // Test lines
     
-//    std::cout<< Ru << std::endl;
-//      std::cout << Msu2 << std::endl;
-//    std::cout << Ru*Ru.hconjugate() << std::endl;
+    TestSpectrum();
     
-//    std::cout<< N << std::endl;
-//    std::cout<< Mneu << std::endl;
-//  
-//    gslpp::matrix<double> MNDiag(4,4,0);
-//    
-//    for(int i = 0; i < 4; i++) MNDiag(i,i) = Mneu(i);
-//    std::cout << N.hconjugate().transpose() * MNDiag * N.hconjugate() << std::endl; 
-//    
-//    gslpp::matrix<double> MChDiag(2,2,0);
-    
-//    std::cout<< U << std::endl;
-//    std::cout<< V << std::endl;
-//    std::cout<< Mch << std::endl;
-//    MChDiag(0,0) = Mch(0);
-//    MChDiag(1,1) = Mch(1);
-//    std::cout << U.hconjugate().transpose() * MChDiag * V.hconjugate() << std::endl; 
-    
-//    
-//    Neve++;
-//    std::cout << "N = " << Neve << std::endl;
-//    
-//    Spectrum MS;
-//    
-//    MS.CalcSpectrum(*this);
-//    
-//    int i;
-//    for (i = 0; i < 2; i++) {
-//
-//        if (Mch(i) < 1.) return (false);
-//    }
-//    for (i = 0; i < 4; i++) {
-//
-//        if (Mneu(i) < 1.) return (false);
-//    }
-//    for(i = 0; i < 3; i++){
-//        
-//        if(mh[i] < 1.) return (false);
-//    }
-//    
-//    std::cout<< Ru << std::endl;
-//    std::cout << Msu2 << std::endl;
-//    std::cout << Ru*Ru.hconjugate() << std::endl;
-    
-//    std::cout<< N << std::endl;
-//    std::cout<< Mneu << std::endl;
-//    std::cout << N.hconjugate().transpose() * MNDiag * N.hconjugate() << std::endl; 
-//    std::cout<< U << std::endl;
-//    std::cout<< V << std::endl;
-//    std::cout<< Mch << std::endl;
-//    MChDiag(0,0) = Mch(0);
-//    MChDiag(1,1) = Mch(1);
-//    std::cout << U.hconjugate().transpose() * MChDiag * V.hconjugate() << std::endl; 
-    
-    //std::cout << "mu = " << muH << std::endl;
-    
-    //std::cout << "mh0 = " << mh[0] << std::endl;
-    //std::cout << "mh1 = " << mh[1] << std::endl;
-    //std::cout << "mh2 = " << mh[2] << std::endl;
+    // End - Test 
     
     return (true);
 }
@@ -625,7 +566,16 @@ double SUSY::Delta_r() const {
     return (0.0378211);
 }
 
+void SUSY::TestSpectrum(){
+    
+    
+    Spectrum MS;
+    
+    MS.Sflav_init(*this);
+    MS.CalcSpectrum(*this);
 
+    
+}
 
 
 

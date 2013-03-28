@@ -14,20 +14,9 @@
 #include "SUSYMatching.h"
 
 using namespace gslpp;
-
-/**
- * @addtogroup SUSY
- * @brief A project for a basis of SUSY models. 
- * @{
- */
-
 /**
  * @class SUSY
- * @ingroup SUSY
- * @brief A base class for SUSY models. 
- * @author SusyFit Collaboration
- * @copyright GNU General Public License
- * @details  
+ * @brief generic SUSY model
  */
 class SUSY: public StandardModel {
 public:
@@ -477,7 +466,7 @@ private:
     bool Fh, Fg, FChi, FChi0;
     SUSYMatching* mySUSYMatching;
      
-     
+    void TestSpectrum();
     
 protected:
     void SetParameter(const std::string, const double&);    
@@ -509,10 +498,6 @@ protected:
     
     //int Neve = 0;
 };
-
-/** 
- * @}
- */
 
 #endif	/* SUSY_H */
 

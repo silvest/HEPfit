@@ -15,6 +15,9 @@ public:
     Spectrum();
     
     void CalcSpectrum(SUSY & SUSY);
+    void Sflav_init(SUSY & SUSY);
+    void Sflav_Spectrum(const std::string);
+    
 private:
 
 };
