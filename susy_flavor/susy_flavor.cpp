@@ -475,7 +475,7 @@ double var(const string variable){
     
     const string com1 = "grep -r ";
     const string com2 ="| awk '{print $(NF-2)}' > var.txt \n";
-    const string file ="GeneralSusy_NEW.conf";
+    const string file ="GeneralSUSY_NEW.conf";
     string com;
     com.append(com1);
     com.append(variable);

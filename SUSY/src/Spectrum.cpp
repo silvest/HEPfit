@@ -349,7 +349,7 @@ void Spectrum::Sflav_init(SUSY& SUSY){
     else std::cout << "Unable to open GeneralSUSY_NEW.conf";
  
     
-      system("../susy_flavor/./sflav \n");
+      system("./../susy_flavor/sflav \n");
 
 
     
