@@ -403,9 +403,10 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const
         ImKappaZf = myOneLoopEW->deltaKappa_rem_l(l,Mw).imag();
 #ifdef WITHIMTWOLOOPQCD
         ImKappaZf += myTwoLoopQCD->deltaKappa_rem_l(l,Mw).imag();
-#endif         
+
         /* TEST */
         //ImKappaZf -= SM.getAle()*SM.getAlsMz()/24.0/M_PI*(cW2_SM() - sW2_SM())/sW2_SM()/sW2_SM();        
+#endif         
     } else {
         /* compute Delta rho */
         double DeltaRho[orders_EW_size];
@@ -479,10 +480,10 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
         ImKappaZf = myOneLoopEW->deltaKappa_rem_q(q,Mw).imag();
 #ifdef WITHIMTWOLOOPQCD
         ImKappaZf += myTwoLoopQCD->deltaKappa_rem_q(q,Mw).imag();
-#endif       
-            
+        
         /* TEST */
         //ImKappaZf -= SM.getAle()*SM.getAlsMz()/24.0/M_PI*(cW2_SM() - sW2_SM())/sW2_SM()/sW2_SM();        
+#endif                   
     } else { 
         /* compute Delta rho */
         double DeltaRho[orders_EW_size];
