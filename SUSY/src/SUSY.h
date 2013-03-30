@@ -14,6 +14,7 @@
 #include "SUSYMatching.h"
 
 using namespace gslpp;
+<<<<<<< HEAD
 
 /**
  * @addtogroup SUSY
@@ -28,6 +29,11 @@ using namespace gslpp;
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details  
+=======
+/**
+ * @class SUSY
+ * @brief generic SUSY model
+>>>>>>> FETCH_HEAD
  */
 class SUSY: public StandardModel {
 public:
@@ -510,9 +516,12 @@ protected:
     //int Neve = 0;
 };
 
+<<<<<<< HEAD
 /** 
  * @}
  */
 
+=======
+>>>>>>> FETCH_HEAD
 #endif	/* SUSY_H */
 
