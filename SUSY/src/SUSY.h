@@ -477,7 +477,7 @@ private:
     bool Fh, Fg, FChi, FChi0;
     SUSYMatching* mySUSYMatching;
      
-     
+    void TestSpectrum();
     
 protected:
     void SetParameter(const std::string, const double&);    

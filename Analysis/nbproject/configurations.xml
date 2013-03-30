@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="88">
+<configurationDescriptor version="84">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -271,14 +271,6 @@
           <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit -lFH -lBAT -lBATmodels </commandLine>
         </linkerTool>
       </compileType>
-      <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Model.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -300,10 +292,6 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
@@ -545,14 +533,6 @@
           <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit</commandLine>
         </linkerTool>
       </compileType>
-      <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Model.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -574,10 +554,6 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
     <conf name="Cluster" type="1">
       <toolsSet>
@@ -819,14 +795,6 @@
           <commandLine>`root-config --ldflags` `root-config --libs` `${HOME}/gsl/bin/gsl-config --libs` -lMinuit -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml</commandLine>
         </linkerTool>
       </compileType>
-      <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Model.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -848,10 +816,6 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
     <conf name="Parallel" type="1">
       <toolsSet>
@@ -1071,14 +1035,6 @@
           <commandLine>-fopenmp `gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit -lFH -lBAT -lBATmodels</commandLine>
         </linkerTool>
       </compileType>
-      <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="MFV.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="Model.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
-      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1100,10 +1056,6 @@
           <output>${TESTDIR}/TestFiles/f1</output>
         </linkerTool>
       </folder>
-      <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
-      </item>
     </conf>
   </confs>
 </configurationDescriptor>
