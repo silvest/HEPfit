@@ -164,7 +164,7 @@ public:
      * "ReA0_Kd"
      * "DeltaP_cu"
      * "Br_Kp_Ppenu"
-     * "IB,_Kl"
+     * "IB_Kl"
      * "IB_Kp"
      */
     virtual bool Init(const std::map<std::string, double>&);

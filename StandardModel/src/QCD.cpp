@@ -30,7 +30,7 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "BK(1/2)6","BK(1/2)7","BK(1/2)8","BK(1/2)9","BK(1/2)10", "BKd_scale", "BKd_scheme",
     "BK(3/2)1", "BK(3/2)2", "BK(3/2)3", "BK(3/2)4", "BK(3/2)5", "BK(3/2)6", 
     "BK(3/2)7", "BK(3/2)8", "BK(3/2)9", "BK(3/2)10", "ReA2_Kd", "ReA0_Kd", "Omega_eta_etap",
-    "DeltaP_cu", "Br_Kp_Ppenu", "IB,_Kl", "IB_Kp"
+    "DeltaP_cu", "Br_Kp_Ppenu", "IB_Kl", "IB_Kp"
 };
 
 bool QCD::SetFlag(const std::string name , const bool& value)
