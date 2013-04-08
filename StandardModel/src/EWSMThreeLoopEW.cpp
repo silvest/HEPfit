@@ -41,15 +41,18 @@ double EWSMThreeLoopEW::DeltaAlpha_l(const double s) const
                                 + (5.0/18.0 - 4.0/3.0*cache.GetZeta3())*log_l[j]
                                 + log_l[i]*log_l[i]/6.0
                                 - log_l[i]*log_l[j]/3.0;
+                threeLoop[i] += M_PI*M_PI/6.0;
             } else if (i == j) { /* Pi^{(2)}_F */
                 threeLoop[i] += - 307.0/216.0 - 8.0/3.0*cache.GetZeta2() 
                                 + 545.0/144.0*cache.GetZeta3()
                                 + (11.0/6.0 - 4.0/3.0*cache.GetZeta3())*log_l[i]
                                 - log_l[i]*log_l[i]/6.0;
+                threeLoop[i] += M_PI*M_PI/6.0;
             } else { /* Pi^{(2)}_h */
                 threeLoop[i] += - 37.0/6.0 + 38.0/9.0*cache.GetZeta3()
                                 + (11.0/6.0 - 4.0/3.0*cache.GetZeta3())*log_l[j]
                                 - log_l[j]*log_l[j]/6.0;
+                threeLoop[i] += M_PI*M_PI/6.0;
             }
         }
         threeLoop[i] /= -4.0;
