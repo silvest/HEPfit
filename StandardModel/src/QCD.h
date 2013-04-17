@@ -26,7 +26,7 @@ public:
     enum meson {B_D, B_S, B_P, K_0, K_P, D_0, P_0, P_P, MESON_END}; 
     enum quark {UP,DOWN,CHARM,STRANGE,TOP,BOTTOM};
 
-    static const int NQCDvars = 72;//43;//26;
+    static const int NQCDvars = 76;//43;//26;
 
     /**
      * array containing the labels under which all QCD parameters must be
@@ -166,6 +166,10 @@ public:
      * "Br_Kp_Ppenu"
      * "IB_Kl"
      * "IB_Kp"
+     * "W_Kl"
+     * "W_Kp"
+     * "Br_Kp_Mupnu"
+     * "Br_B_Xcenu"
      */
     virtual bool Init(const std::map<std::string, double>&);
 
@@ -334,6 +338,24 @@ public:
     
     /**
      * 
+     * @return the experimental value for the Br of the semileptonic decay of
+     * the K+ in mu+ and neutrino
+     */
+    double getBr_Kp_Mupnu() const{
+        return Br_Kp_Mupnu;
+    }
+    
+    /**
+     * 
+     * @return the experimental value for the Br of the semileptonic decay of
+     * the B -> Xc electron and neutrino
+     */
+    double getBr_B_Xcenu() const{
+        return Br_B_Xcenu;
+    }
+    
+    /**
+     * 
      * @return isospin breaking corrections in relating Br(K_l -> pi0 nu nu) and
      * Br(K+ -> pi0 e nu)
      */
@@ -343,7 +365,7 @@ public:
     
     /**
      * 
-     * @return isospin breaking corrections in relating Br(K_l -> pi+ nu nu) and
+     * @return isospin breaking corrections in relating Br(K+ -> pi+ nu nu) and
      * Br(K+ -> pi0 e nu)
      */
     double getIB_Kp() const{
@@ -571,7 +593,7 @@ public:
 protected:
     double Nc, CF, AlsMz, Mz, mut, mub, muc, mtpole;
     double ReA0_kd, ReA2_kd, Omega_eta_etap;
-    double Br_Kp_Ppenu, IB_Kl, IB_Kp, DeltaP_cu;
+    double Br_Kp_Ppenu, IB_Kl, IB_Kp, DeltaP_cu, Br_Kp_Mupnu, Br_B_Xcenu;
     Particle quarks[6];
     Meson mesons[MESON_END];
     BParameter BBs, BBd, BD, BK, BKd1, BKd3;

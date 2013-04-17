@@ -30,7 +30,7 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "BK(1/2)6","BK(1/2)7","BK(1/2)8","BK(1/2)9","BK(1/2)10", "BKd_scale", "BKd_scheme",
     "BK(3/2)1", "BK(3/2)2", "BK(3/2)3", "BK(3/2)4", "BK(3/2)5", "BK(3/2)6", 
     "BK(3/2)7", "BK(3/2)8", "BK(3/2)9", "BK(3/2)10", "ReA2_Kd", "ReA0_Kd", "Omega_eta_etap",
-    "DeltaP_cu", "Br_Kp_Ppenu", "IB_Kl", "IB_Kp"
+    "DeltaP_cu", "Br_Kp_Ppenu", "IB,_Kl", "IB_Kp", "W_Kl", "W_Kp", "Br_Kp_Mupnu", "Br_B_Xcenu"
 };
 
 bool QCD::SetFlag(const std::string name , const bool& value)
@@ -131,6 +131,12 @@ void QCD::SetParameter(const std::string name, const double& value)
         mesons[K_P].setMass(value);
     else if(name.compare("MD")==0)
         mesons[D_0].setMass(value);
+    else if (name.compare("W_Kl")==0){
+        mesons[K_0].setWidth(value);
+    }
+    else if (name.compare("W_Kp")==0){
+        mesons[K_P].setWidth(value);
+    }
     else if(name.compare("FBs")==0) {
         mesons[B_S].setDecayconst(value);
         computeFBd = true;
@@ -304,6 +310,12 @@ void QCD::SetParameter(const std::string name, const double& value)
     }
     else if (name.compare("Br_Kp_ppenu")==0){
         Br_Kp_Ppenu = value;
+    }
+    else if (name.compare("Br_Kp_Mupnu")==0){
+        Br_Kp_Mupnu = value;
+    }
+    else if (name.compare("Br_B_Xcenu")==0){
+        Br_B_Xcenu = value;
     }
     else if (name.compare("IB_Kl")==0){
         IB_Kl = value;
