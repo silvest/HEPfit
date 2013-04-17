@@ -357,16 +357,28 @@ public:
         return KbarEpsK;
     }
     
+    /**
+     * 
+     * @return the experimental value of \f$ \Delta M_{K}/(\Delta\Gamma_{K}/2) \f$
+     */
     double getphiEpsK() const 
     {
         return phiEpsK;
     }
     
+    /**
+     * 
+     * @return the experimental value of \f$ \Delta M_{K} \f$
+     */
     double getDeltaMK() const 
     {
         return DeltaMK;
     }
     
+    /**
+     * 
+     * @return the experimental value of \f$ \varespilon_{K} \f$
+     */
     double getEpsK() const {
         return EpsK;
     }
@@ -749,4 +761,3 @@ private:
 };
 
 #endif	/* STANDARDMODEL_H */
-
