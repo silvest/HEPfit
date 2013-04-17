@@ -197,7 +197,7 @@ double StandardModelMatching::E0b(double x) const
 /******************************************************************************/
 
 double StandardModelMatching::X0t(double x) const{
-    return ( (x/8.)*( (x+2.)/(x-1.) - (6.-3.*x)/(1.-x)/(1.-x)*log(x) ) );
+    return ( (x/8.)*( (-x-2.)/(x-1.) - (6.-3.*x)/(1.-x)/(1.-x)*log(x) ) );
 }
 
 double StandardModelMatching::X1t(double x) const{
@@ -376,17 +376,19 @@ double StandardModelMatching::phi2(double x, double y) const{
 }
 
 double StandardModelMatching::Y0t(double x) const{
-    return( x/8.*((4.-x)/(1.-x) + 3.*x*log(x)*(1.-x)*(1.-x)) );
+    return( x/8.*((4.-x)/(1.-x) + 3.*x*log(x)/(1.-x)/(1.-x)) );
 }
 
 double StandardModelMatching::Y1t(double x) const{
     return( (4.*x+16.*x*x+4.*x*x*x)/(3.*(1.-x)*(1.-x))
-           -(4.*x-10.*x*x+x*x*x-x*x*x*x)*log(x)/(1.-x)/(1.-x)/(1.-x)
-           +(2.*x-14.*x*x+x*x*x-x*x*x*x)*log(x)*log(x)/2./(1.-x)/(1.-x)
+           -(4.*x-10.*x*x-x*x*x-x*x*x*x)*log(x)/(1.-x)/(1.-x)/(1.-x)
+           +(2.*x-14.*x*x+x*x*x-x*x*x*x)*log(x)*log(x)/2./(1.-x)/(1.-x)/(1.-x)
            +(2.*x+x*x*x)/(1.-x)/(1.-x)*gsl_sf_dilog(1.-x) 
-           +x*((4.-x)/(1.-x) + 3.*x*log(x)*(1.-x)*(1.-x))*0.//log(mu^2/Muw^2)
+           +x*((4.-x)/(1.-x) + 3.*x*log(x)*(1.-x)*(1.-x))*
+           log(SM.getMut()*SM.getMut()/SM.getMuw()/SM.getMuw())
            +x*x*(-1./(1.-x) + (4.-x)/(1.-x)/(1.-x) + 3.*log(x)/(1.-x)/(1.-x)
-                 +6.*x*log(x)/(1.-x)/(1.-x)/(1.-x) +3./(1.-x)/(1.-x))*0.////log(mu^2/Muw^2)
+                 +6.*x*log(x)/(1.-x)/(1.-x)/(1.-x) +3./(1.-x)/(1.-x))*
+                 log(SM.getMut()*SM.getMut()/SM.getMuw()/SM.getMuw())
             );
 }
 
@@ -400,8 +402,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2()
     double Bt;  
     
     
-    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)  
-            / SM.Mw_tree(), 2.); // always FULLNLO
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass_scale(), 
+            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO) / SM.Mw_tree(), 2.); // always FULLNNLO
     complex co = SM.getGF() / 4. / M_PI * SM.Mw_tree() * SM.getlamt_d();
     double Nc = SM.getNc();
 
@@ -448,8 +450,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbs2()
    
     double gammam = 8.;
     double Bt;
-    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-            / SM.Mw_tree(), 2.); // always FULLNLO
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass_scale(), 
+            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO) / SM.Mw_tree(), 2.); // always FULLNNLO
     complex co = SM.getGF() / 4. / M_PI * SM.Mw_tree() * SM.getlamt_s();
     double Nc = SM.getNc();
 
@@ -635,8 +637,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdd2()
 
 const std::vector<WilsonCoefficient>& StandardModelMatching::CMK(){
     
-    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), 
-            SM.getQuarks(QCD::TOP).getMass(), 5.) / SM.Mw_tree(), 2.); // always FULLNLO
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass_scale(), 
+            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO) / SM.Mw_tree(), 2.); // always FULLNNLO
     
     vmck.clear();
     
@@ -684,8 +686,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMK(){
  * ****************************************************************************/
 const std::vector<WilsonCoefficient>& StandardModelMatching::CMKCC(){
     
-    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-            / SM.Mw_tree(), 2.); // always FULLNLO
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass_scale(), 
+            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO) / SM.Mw_tree(), 2.); // always FULLNNLO
     
     vmckcc.clear();
     
@@ -739,8 +741,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMKCC(){
  * ****************************************************************************/
 const std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() 
 {    
-    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass())
-            / SM.Mw_tree(), 2.);
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass_scale(), 
+            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO) / SM.Mw_tree(), 2.); // always FULLNNLO
     complex co = (- 4. * SM.getGF() / sqrt(2)) * SM.getlamt_s();
     
     vmcbsg.clear();
@@ -1039,10 +1041,10 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMkppnn() {
     
     //PROBLEMI: mu e sin(theta_weak) e la scala di als
     
-    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-            / SM.Mw_tree(), 2.); // always FULLNLO
-    double a = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-            / SM.getMHl(), 2.);
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass_scale(), 
+            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO) / SM.Mw_tree(), 2.); // always FULLNNLO
+    double a = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass_scale(), 
+            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO) / SM.getMHl(), 2.);
     
     vmckppnn.clear();
     
@@ -1081,8 +1083,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMkmm() {
     
     //PROBLEMI: mu e sin(theta_weak) e la scala di als
     
-    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-            / SM.Mw_tree(), 2.); // always FULLNLO
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass_scale(), 
+            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO) / SM.Mw_tree(), 2.); // always FULLNNLO
     
     
     vmckmm.clear();
@@ -1109,8 +1111,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMkmm() {
 
 const std::vector<WilsonCoefficient>& StandardModelMatching::CMBXsnn() {
     
-    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-            / SM.Mw_tree(), 2.); // always FULLNLO
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass_scale(), 
+            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO) / SM.Mw_tree(), 2.); // always FULLNNLO
     
     vmcbsnn.clear();
     
@@ -1138,8 +1140,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMBXsnn() {
 
 const std::vector<WilsonCoefficient>& StandardModelMatching::CMBXdnn() {
     
-    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-            / SM.Mw_tree(), 2.); 
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass_scale(), 
+            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO) / SM.Mw_tree(), 2.); // always FULLNNLO
     
     vmcbdnn.clear();
     
@@ -1167,8 +1169,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMBXdnn() {
 
 const std::vector<WilsonCoefficient>& StandardModelMatching::CMbsmm() {
     
-    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-            / SM.Mw_tree(), 2.); 
+    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass_scale(), 
+            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO) / SM.Mw_tree(), 2.); // always FULLNNLO
     
     vmcbsmm.clear();
     
@@ -1196,8 +1198,8 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbsmm() {
 
 const std::vector<WilsonCoefficient>& StandardModelMatching::CMbdmm() {
     
-    double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
-            / SM.Mw_tree(), 2.); 
+   double xt = pow(SM.Mrun(SM.getMuw(), SM.getQuarks(QCD::TOP).getMass_scale(), 
+            SM.getQuarks(QCD::TOP).getMass(), FULLNNLO) / SM.Mw_tree(), 2.); // always FULLNNLO 
     
     vmcbdmm.clear();
     
@@ -1312,9 +1314,9 @@ complex StandardModelMatching::S0c() const
 
 complex StandardModelMatching::S0ct() const 
 {
-    double xc = pow(SM.Mrun(SM.getMuc(), SM.getQuarks(QCD::CHARM).getMass(), SM.getQuarks(QCD::CHARM).getMass(), 4.)
+    double xc = pow(SM.Mrun(SM.getMuc(), SM.getQuarks(QCD::CHARM).getMass_scale(), SM.getQuarks(QCD::CHARM).getMass(), FULLNNLO)
                 / SM.Mw_tree(), 2.);
-    double xt = pow(SM.Mrun(SM.getMut(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
+    double xt = pow(SM.Mrun(SM.getMut(), SM.getQuarks(QCD::TOP).getMass_scale(), SM.getQuarks(QCD::TOP).getMass(), FULLNNLO)
                 / SM.Mw_tree(), 2.);
     double co = SM.getGF() / 2. / M_PI * SM.Mw_tree();
     
@@ -1324,7 +1326,7 @@ complex StandardModelMatching::S0ct() const
 
 complex StandardModelMatching::S0tt() const
 {
-    double x = pow(SM.Mrun(SM.getMut(), SM.getQuarks(QCD::TOP).getMass(), SM.getQuarks(QCD::TOP).getMass(), 5.)
+    double x = pow(SM.Mrun(SM.getMut(), SM.getQuarks(QCD::TOP).getMass_scale(), SM.getQuarks(QCD::TOP).getMass(), FULLNNLO)
                 / SM.Mw_tree(), 2.);
     complex co = SM.getGF() / 2. / M_PI * SM.Mw_tree() * SM.getlamt().conjugate();
     
