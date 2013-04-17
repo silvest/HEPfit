@@ -282,14 +282,14 @@ public:
     
     /**
      *  
-     * @brief hep-ph/9512380
+     * @brief hep-ph/9512380v1
      * @return the loop function for the top-top contribution to the Delta S = 2 effective hamiltonian
      */
     complex S0tt() const;
     
     /**
      *
-     * @brief hep-ph/1009.0947v2
+     * @brief hep-ph/9512380v1
      * @return 0th order loop function for the top contribution to K -> pi nu nu decays
      */
     double X0t(double x)const;
@@ -392,5 +392,4 @@ private:
 };
 
 #endif	/* STANDARDMODELMATCHING_H */
-
 
