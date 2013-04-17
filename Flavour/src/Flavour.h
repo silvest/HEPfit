@@ -12,6 +12,7 @@
 #include <StandardModel.h>
 #include "HeffDF2.h"
 #include "HeffDS1.h"
+#include "HeffDB1.h"
 #include <stdexcept>
 
 using namespace gslpp;
@@ -20,7 +21,7 @@ class Flavour : public ThObsType {
 public:
 
     Flavour(const StandardModel& SM_i) : ThObsType(SM_i), 
-            HDF2(SM_i), HDS1(SM_i){
+            HDF2(SM_i), HDS1(SM_i), HDB1(SM_i) {
         
         if(!SM_i.IsModelInitialized())
             throw std::runtime_error("Model not initialized "); 
@@ -34,9 +35,9 @@ public:
         return HDS1;
     }
     
-    /*const HeffDB1& getHDB1() const {
+    const HeffDB1& getHDB1() const {
         return HDB1;
-    }*/
+    }
     
     vector<complex>** ComputeCoeffBd(double mu, schemes scheme = NDR) {
         return HDF2.ComputeCoeffBd(mu, scheme);
@@ -74,7 +75,7 @@ public:
         return HDS1.ComputeCoeffDS1mumu();
     }
     
-    /*vector<complex>** ComputeCoeffsmumu() {
+    vector<complex>** ComputeCoeffsmumu() {
         return HDB1.ComputeCoeffsmumu();
     }
     
@@ -89,13 +90,13 @@ public:
     
     vector<complex>** ComputeCoeffdnunu() {
         return HDB1.ComputeCoeffdmumu();
-    }*/
+    }
     
     
 private:
     HeffDF2 HDF2;
     HeffDS1 HDS1;
-    //HeffDB1 HDB1;  
+    HeffDB1 HDB1;  
 };
 
 #endif	/* FLAVOUR_H */
