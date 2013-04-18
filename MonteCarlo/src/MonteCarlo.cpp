@@ -62,9 +62,18 @@ void MonteCarlo::Run(const int rank)
         
         if(noMC) {
             for (std::vector<Observable>::iterator it = Obs.begin();
-                it < Obs.end(); it++) {
+                 it < Obs.end(); it++) {
                 double th = it->getTheoryValue();
                 std::cout << it->getName() << " = " << th << std::endl;
+            }
+            for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin();
+                 it < CGO.end(); it++) {
+                std::vector<Observable> ObsInCGO = it->GetObs();
+                for (std::vector<Observable>::iterator it2 = ObsInCGO.begin();
+                     it2 < ObsInCGO.end(); it2++) {
+                    double th = it2->getTheoryValue();
+                    std::cout << it2->getName() << " = " << th << std::endl;
+                }
             }
             return;
         }

@@ -269,7 +269,7 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters)
 
     // if update false set probability equal zero
     if (!Mod->Update(DPars)) {
-        std::cout << "evento scartato" << std::endl;
+        std::cout << "event discarded" << std::endl;
         return (log(0.));
     }
     //std::cout << "punto buono" << std::endl;
