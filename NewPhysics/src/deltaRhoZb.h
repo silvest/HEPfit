@@ -31,6 +31,7 @@ public:
     double getThValue()
     {
         if (SM.IsFlagR0bApproximate() && !SM.IsFlagRhoZbFromR0b())
+            // SM prediction for rho_Z^b is missing!
             throw std::runtime_error("deltaRhoZb::getThValue() cannot be used!");
         else
             return ( SM.rhoZ_q(SM.BOTTOM).real() 

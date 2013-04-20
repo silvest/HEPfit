@@ -41,7 +41,7 @@ void EWSMQCD2testclass::setUp() {
 void EWSMQCD2testclass::tearDown() {
     delete myQCD2;        
     delete myCache;
-    delete mySM;  
+    //delete mySM;  
 }
 
 void EWSMQCD2testclass::F1() {

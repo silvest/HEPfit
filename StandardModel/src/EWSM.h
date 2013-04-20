@@ -260,12 +260,16 @@ public:
 
     /**
      * @brief R_b^0 with the complete fermionic EW two-loop corrections
-     * @param[in] DeltaAlphaL5q_i the sum of the leptonic and hadronic corrections to alpha at Mz
+     * @param[in] bDebug
      * @return R_b^0 in the SM, obtained from an approximate formula
      * @attention This function will be used if boolR0bApproximate is true. 
      */
-    double R0_bottom_SM() const;    
+    double R0_bottom_SM(bool bDebug=false) const;    
     
+    double Gu_over_Gb() const;    
+
+    double Gd_over_Gb() const;    
+
     
     ////////////////////////////////////////////////////////////////////////     
 

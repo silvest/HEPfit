@@ -191,7 +191,7 @@ void HeffDS1::CharmMatch(){
     DS1cc = *coeffds1cc.getCoeff(LO);
     DS1cce = *coeffds1cc.getCoeff(LO_ew);
     
-    double mc = model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass(), NNLO);
+    double mc = model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
 
     DS1cc.assign(2, (-model.Als(model.getMuc())/24./M_PI)*(-2./3.*
                         (log(mc*mc/model.getMuc()/model.getMuc())+1.)*DS1cc(1)));

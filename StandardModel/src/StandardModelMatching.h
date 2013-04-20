@@ -154,6 +154,10 @@ public:
      */
     virtual const std::vector<WilsonCoefficient>& CMBXdnn();
 
+    double x_c(const double mu) const;
+    double x_t(const double mu) const;
+    double mt2omh2(const double mu) const;
+    
     /**
      * 
      * @brief loop function which appear in the Wilson coefficient for the magnetic operator

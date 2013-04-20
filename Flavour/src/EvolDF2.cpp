@@ -243,9 +243,9 @@ double EvolDF2::etacc(double  mu) const{
     }
     
     eta *= pow(model.Als(model.getMuc()), d[0][0]);
-    eta *= pow(model.Als(mu, 3, FULLNLO), -2./9.);
+    eta *= pow(model.Als(mu, FULLNLO), -2./9.);
 
-    return (eta * (1. + model.Als(mu, 3, FULLNLO)/4./M_PI*J[0][0]));
+    return (eta * (1. + model.Als(mu, FULLNLO)/4./M_PI*J[0][0]));
 }
 
 double EvolDF2::etact(double mu) const{
@@ -255,10 +255,8 @@ double EvolDF2::etact(double mu) const{
     double Kpm = pow(K, -6./25.);
     double Kmm = pow(K, -24./25.);
     double K7 = pow(K, 1./5.);                                                                 
-    double xt = pow(model.Mrun(model.getMut(), model.getQuarks(QCD::TOP).getMass(), model.getQuarks(QCD::TOP).getMass(), 4.)
-                / model.Mw_tree(), 2.);                                                                 
-    double xc = pow(model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass(), model.getQuarks(QCD::CHARM).getMass(), 4.)
-                / model.Mw_tree(), 2.);
+    double xt = model.GetMyMatching()->x_t(model.getMut());
+    double xc = model.GetMyMatching()->x_c(model.getMuc());
     double J3 = 6.*(3.-1.)/3./2./model.Beta0(3)/model.Beta0(3)*model.Beta1(3) - 
                 ((3.-1.)/(2.*3.)) * ( -21. + 57./3. - 19. + 4.)/2./model.Beta0(3) ;
     
@@ -274,8 +272,8 @@ double EvolDF2::etact(double mu) const{
             xc / (xc*(log(xt/xc)-(3.*xt)/(4.-4.*xt) - log(xt)*(3.*xt*xt)/4./(1.-xt)/(1.-xt)))*
             pow(model.Als(model.getMuc()),2./9.);
     
-    return (eta * (1. + model.Als(mu, 3, FULLNLO)/4./M_PI*J3) * 
-            pow(model.Als(mu, 3, FULLNLO),-2./9.));
+    return (eta * (1. + model.Als(mu, FULLNLO)/4./M_PI*J3) * 
+            pow(model.Als(mu, FULLNLO),-2./9.));
 }
 
 double EvolDF2::etatt(double m) const {
@@ -283,14 +281,13 @@ double EvolDF2::etatt(double m) const {
     double J3 = 6.*(N - 1.)/N * (model.Beta1(3)/2./model.Beta0(3)/model.Beta0(3)) - 
            (N - 1.)/(2.*N) * (-21. + 57./N - 19./3.*N + 4.)/2./model.Beta0(3);
     
-    return (S1tt() * (1. + model.Als(m, 3, FULLNLO)/4./M_PI*J3) * 
-            pow(model.Als(m, 3, FULLNLO), -2./9.));
+    return (S1tt() * (1. + model.Als(m, FULLNLO)/4./M_PI*J3) * 
+            pow(model.Als(m, FULLNLO), -2./9.));
 }
 
 double EvolDF2::S1tt() const {
     double N = model.getNc();
-    double x = pow(model.Mrun(model.getMut(), model.getQuarks(QCD::TOP).getMass(), model.getQuarks(QCD::TOP).getMass(), 5.)
-                / model.Mw_tree(), 2.);
+    double x = model.GetMyMatching()->x_t(model.getMut());
     double Li2 = gsl_sf_dilog(1-x);
     
     double S18 = - (64. - 68.*x - 17.*x*x + 11.*x*x*x)/(4.*(1.-x)*(1.-x)) +

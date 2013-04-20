@@ -77,6 +77,12 @@ public:
      */
     double R0_bottom(const double DeltaAlphaL5q_i) const;
     
+    double Gu_over_Gb(const double DeltaAlphaL5q_i) const;
+    
+    double Gd_over_Gb(const double DeltaAlphaL5q_i) const;
+
+    double R0_bottom_TEST(const double DeltaAlphaL5q_i) const;
+
     
     ////////////////////////////////////////////////////////////////////////
     

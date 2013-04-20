@@ -41,7 +41,7 @@ void EWSMEW2testclass::tearDown() {
     delete myEWSM;
     delete myEW2;        
     delete myCache;
-    delete mySM;  
+    //delete mySM;  
 }
 
 void EWSMEW2testclass::DeltaAlpha_l() {

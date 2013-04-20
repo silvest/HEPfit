@@ -39,7 +39,7 @@ void EWSMEW3testclass::setUp() {
 void EWSMEW3testclass::tearDown() {
     delete myEW3;        
     delete myCache;
-    delete mySM;  
+    //delete mySM;  
 }
 
 void EWSMEW3testclass::DeltaAlpha_l() {

@@ -12,7 +12,7 @@
 
 void setSMparameters(StandardModel& SM_i) {
     std::map<std::string, double> Parameters;
-    // 15+5 parameters defined in StandardModel
+    // parameters defined in StandardModel
     Parameters["GF"] = 1.16637E-5;
     Parameters["mneutrino_1"] = 0.0;
     Parameters["mneutrino_2"] = 0.0;
@@ -28,14 +28,8 @@ void setSMparameters(StandardModel& SM_i) {
     Parameters["dAle5Mz"] = 0.02758;
     Parameters["mHl"] = 130.0;
     Parameters["muw"] = 80.0;
-    //
-    Parameters["phiEpsK"] = 0.0;
-    Parameters["DeltaMK"] = 0.0;
-    Parameters["KbarEpsK"] = 0.0;
-    Parameters["Dmk"] = 0.0;
-    Parameters["SM_M12D" ] = 0.0;
     
-    // 26+16+1 parameters defined in QCD    
+    // parameters defined in QCD    
     Parameters["AlsMz"] = 0.1184;
     Parameters["Mz"] = 91.1876;
     Parameters["mup"] = 0.003;
@@ -47,39 +41,6 @@ void setSMparameters(StandardModel& SM_i) {
     Parameters["mut"] = 175.0;
     Parameters["mub"] = 5.0;
     Parameters["muc"] = 1.5;
-    Parameters["MBd"] = 0.0;
-    Parameters["MBs"] = 0.0;
-    Parameters["MBp"] = 0.0;
-    Parameters["MK0"] = 0.0;
-    Parameters["MKp"] = 0.0;
-    Parameters["FBs"] = 0.0;
-    Parameters["FBsoFBd"] = 0.0;
-    Parameters["BBsoBBd"] = 0.0;
-    Parameters["BBs1"] = 0.0;
-    Parameters["BBs2"] = 0.0;  
-    Parameters["BBs3"] = 0.0;
-    Parameters["BBs4"] = 0.0;
-    Parameters["BBs5"] = 0.0;
-    Parameters["BBsscale"] = 0.0;
-    Parameters["BBsscheme"] = 0.0;
-    //
-    Parameters["MD"] = 0.0;
-    Parameters["FD"] = 0.0;
-    Parameters["BD1"] = 0.0;
-    Parameters["BD2"] = 0.0;
-    Parameters["BD3"] = 0.0;
-    Parameters["BD4"] = 0.0;
-    Parameters["BD5"] = 0.0;
-    Parameters["BDscale"] = 0.0;
-    Parameters["BDscheme"] = 0.0;
-    Parameters["BK1"] = 0.0;
-    Parameters["BK2"] = 0.0;
-    Parameters["BK3"] = 0.0;
-    Parameters["BK4"] = 0.0;
-    Parameters["BK5"] = 0.0;
-    Parameters["BKscale"] = 0.0;
-    Parameters["BKscheme"] = 0.0; 
-    Parameters["FK"] = 0.0; 
     
     /** Test for alpha_lep **/
     //Parameters["melectron"] = 0.00051099907;
@@ -116,7 +77,8 @@ void setSMparameters(StandardModel& SM_i) {
     //Parameters["mcharm"] = 1.171;
     //Parameters["muc"] = 1.171;    
     
-    SM_i.Init(Parameters);
+    //SM_i.Init(Parameters);
+    SM_i.Update(Parameters);
 }
 
 #endif	/* EWSMSETPARAMETERS_H */

@@ -60,8 +60,7 @@ CPenguinBox::~CPenguinBox(){
 }
 
 vector<double> CPenguinBox::WMatchP(orders order){
-    double x = pow(model.Mrun(model.getMuw(), model.getQuarks(QCD::TOP).getMass(), model.getQuarks(QCD::TOP).getMass(), 5.)  
-            / model.Mw_tree(), 2.); // always FULLNLO
+    double x = modelmatching.x_t(model.getMuw());
     
     double l = log(model.getMuw()*model.getMuw()/model.Mw_tree()/model.Mw_tree());
     
@@ -129,10 +128,10 @@ matrix<double> CPenguinBox::RGevolP(int nf) {
 
 double CPenguinBox::BmatchP(orders order){
     
-double mub = model.getMub();
-double Mb = model.Mrun(model.getMub(), model.getQuarks(QCD::BOTTOM).getMass_scale(),
-            model.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
-eta = model.Als(model.getMuw())/mub;
+    double mub = model.getMub();
+    double Mb = model.Mrun(model.getMub(), model.getQuarks(QCD::BOTTOM).getMass_scale(),
+                           model.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+    eta = model.Als(model.getMuw())/mub;
 
     switch (order){
         case(NNLO):
@@ -209,7 +208,7 @@ double CPenguinBox::BmatchB(orders order){
     
     double mub = model.getMub();
     double Mb = model.Mrun(model.getMub(), model.getQuarks(QCD::BOTTOM).getMass_scale(),
-            model.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+                           model.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
     eta = model.Als(model.getMuw())/mub;            
     
     switch (order){
@@ -241,9 +240,9 @@ double CPenguinBox::Cmatch(orders order){
     double Muc = model.getMuc();
     double Muw = model.getMuw();
     double mc = model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass_scale(),
-            model.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
+                           model.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
     double l=log(Muc*Muc/mc/mc);
-    double A = model.Als(Muc, 4, FULLNNLO);
+    double A = model.Als(Muc, FULLNNLO);
     
     double etac = model.Als(Muc)/model.Als(mc);
     double etab = model.Als(Muw)/model.Als(model.getMub());
@@ -488,10 +487,8 @@ double CPenguinBox::Cmatch(orders order){
 double CPenguinBox::CT_tot(orders order, orders_ew order_ew){
     
     double IBT = model.getDeltaP_cu();
-    double xt = pow(model.Mrun(model.getMuw(), model.getQuarks(QCD::TOP).getMass(), model.getQuarks(QCD::TOP).getMass(), 5.)
-            / model.Mw_tree(), 2.);
-    double a = pow(model.Mrun(model.getMuw(), model.getQuarks(QCD::TOP).getMass(), model.getQuarks(QCD::TOP).getMass(), 5.)
-            / model.getMHl(), 2.);
+    double xt = modelmatching.x_t(model.getMuw());
+    double a = modelmatching.mt2omh2(model.getMuw());
     
     switch(order){
         case(NNLO):

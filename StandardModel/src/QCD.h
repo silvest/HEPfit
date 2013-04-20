@@ -26,7 +26,7 @@ public:
     enum meson {B_D, B_S, B_P, K_0, K_P, D_0, P_0, P_P, MESON_END}; 
     enum quark {UP,DOWN,CHARM,STRANGE,TOP,BOTTOM};
 
-    static const int NQCDvars = 76;//43;//26;
+    static const int NQCDvars = 76;
 
     /**
      * array containing the labels under which all QCD parameters must be
@@ -34,45 +34,15 @@ public:
      */
     static const std::string QCDvars[NQCDvars];
 
+    QCD();
+
     virtual std::string ModelName() const 
     {
         return "QCD";
     }
     
-    QCD() 
-    : BBs(5), BBd(5), BD(5), BK(5), BKd1(10), BKd3(10)
-    {
-        Nc=3.;
-        CF = Nc/2.-1./(2.*Nc);
-        quarks[UP].setCharge(2./3.);
-        quarks[UP].setMass_scale(2.);
-        quarks[UP].setIsospin(1./2.);
-        quarks[CHARM].setCharge(2./3.);
-        quarks[CHARM].setIsospin(1./2.);    
-        quarks[TOP].setCharge(2./3.);
-        quarks[TOP].setIsospin(1./2.);    
-        quarks[DOWN].setCharge(-1./3.);
-        quarks[DOWN].setMass_scale(2.);
-        quarks[DOWN].setIsospin(-1./2.);
-        quarks[STRANGE].setCharge(-1./3.);
-        quarks[STRANGE].setMass_scale(2.);
-        quarks[STRANGE].setIsospin(-1./2.);   
-        quarks[BOTTOM].setCharge(-1./3.); 
-        quarks[BOTTOM].setIsospin(-1./2.);
-        //to be moved to the Als class
-        for (int i = 0; i < CacheSize; i++)
-        {
-            for (int j = 0; j < 8; j++)
-                als_cache[j][i] = 0.;
-            for (int j = 0; j < 10; j++)
-                mrun_cache[j][i] = 0.;
-            for (int j = 0; j < 4; j++)
-                logLambda5_cache[j][i] = 0.;
-            for (int j = 0; j < 4; j++)
-                mp2mbar_cache[j][i] = 0.;
-        }
-    };
-
+    std::string orderToString(const orders order) const;
+    
     ////////////////////////////////////////////////////////////////////////
 
     virtual bool SetFlag(const std::string, const bool&);
@@ -301,83 +271,83 @@ public:
     }
     
     /**
-      * 
       * @return Expirimental value of the real part of the amplitude for the decay
       * K_L in two pions wthout ispspin change
       */
-    double getReA0_kd() const{
+    double getReA0_kd() const
+    {
         return ReA0_kd;
     }
     
     /**
-      * 
       * @return Expirimental value of the real part of the amplitude for the decay
       * K_L in two pions with double isospin change
       */
-    double getReA2_kd() const{
+    double getReA2_kd() const
+    {
         return ReA2_kd;
     }
     
     /**
-      * 
       * @return value of isospin breacking contribution for the decay
       * K_L in two pions
       */
-    double getOmega_eta_etap() const {
+    double getOmega_eta_etap() const 
+    {
         return Omega_eta_etap;
     }
     
     /**
-     * 
      * @return the experimental value for the Br of the semileptonic decay of
      * the K+ in pion, electron and neutrino
      */
-    double getBr_Kp_ppenu() const{
+    double getBr_Kp_ppenu() const
+    {
         return Br_Kp_Ppenu;
     }
     
     /**
-     * 
      * @return the experimental value for the Br of the semileptonic decay of
      * the K+ in mu+ and neutrino
      */
-    double getBr_Kp_Mupnu() const{
+    double getBr_Kp_Mupnu() const
+    {
         return Br_Kp_Mupnu;
     }
     
     /**
-     * 
      * @return the experimental value for the Br of the semileptonic decay of
      * the B -> Xc electron and neutrino
      */
-    double getBr_B_Xcenu() const{
+    double getBr_B_Xcenu() const
+    {
         return Br_B_Xcenu;
     }
     
     /**
-     * 
      * @return isospin breaking corrections in relating Br(K_l -> pi0 nu nu) and
      * Br(K+ -> pi0 e nu)
      */
-    double getIB_Kl() const{
+    double getIB_Kl() const
+    {
         return IB_Kl;
     }
     
     /**
-     * 
      * @return isospin breaking corrections in relating Br(K+ -> pi+ nu nu) and
      * Br(K+ -> pi0 e nu)
      */
-    double getIB_Kp() const{
+    double getIB_Kp() const
+    {
         return IB_Kp;
     }
     
     /**
-     * 
      * @return long distance correction to the charm contribution to 
      * Br(K+ -> P+ nu nu), hep-ph/0503107 and hep-ph/0603079
      */
-    double getDeltaP_cu() const{
+    double getDeltaP_cu() const
+    {
         return DeltaP_cu;
     }
 
@@ -401,33 +371,30 @@ public:
         return BK;
     }
     
-    BParameter getBKd1() const {
+    BParameter getBKd1() const 
+    {
         return BKd1;
     }
     
-    BParameter getBKd3() const {
+    BParameter getBKd3() const 
+    {
         return BKd3;
     }
     
-    /*BParameter getBD() const 
-     {
-        return BD;
-    }*/
-    
     ////////////////////////////////////////////////////////////////////////
 
-    double Thresholds(int i) const;
+    double Thresholds(const int i) const;
 
-    double AboveTh(double mu) const;
+    double AboveTh(const double mu) const;
 
-    double BelowTh(double mu) const;
+    double BelowTh(const double mu) const;
 
     /**
      * the number of active flavour at scale @f$\mu@f$
      * @param mu the scale @f$\mu@f$ in GeV
      * @return the number of active flavour at scale @f$\mu@f$
      */
-    double Nf(double mu) const;
+    double Nf(const double mu) const;
     
     ////////////////////////////////////////////////////////////////////////
 
@@ -436,51 +403,34 @@ public:
      * @param nf the number of active flavours
      * @return the @f$\beta_0@f$ coefficient
      */
-    double Beta0(double nf) const;
+    double Beta0(const double nf) const;
 
     /**
      * the @f$\beta_1@f$ coefficient
      * @param nf the number of active flavours
      * @return the @f$\beta_1@f$ coefficient
      */
-    double Beta1(double nf) const;
+    double Beta1(const double nf) const;
 
     /**
      * the @f$\beta_2@f$ coefficient
      * @param nf the number of active flavours
      * @return the @f$\beta_2@f$ coefficient
      */
-    double Beta2(double nf) const;
+    double Beta2(const double nf) const;
 
     /**
      * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
      * @param mu the scale @f$\mu@f$ in GeV
-     * @param logLambda log(Lambda)
-     * @param nf the number of active flavours @f$n_f@f$
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
-     * @return @f$\alpha_s@f$
-     */
-    double AlsWithLambda(double mu, double logLambda, double nf, orders order) const;
-
-    /**
-     * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
-     * @param mu the scale @f$\mu@f$ in GeV
-     * @param nf the number of active flavours
      * @param alsi the initial condition @f$\alpha_s(m_i)@f$
-     * @param mi the scale @f$m_i@f$ in GeV
+     * @param mu_i the scale @f$m_i@f$ in GeV
      * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return @f$\alpha_s@f$
      */
-    double Als(double mu, double nf, double alsi, double mi, orders order) const;
-
-    /**
-     * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
-     * @param mu the scale @f$\mu@f$ in GeV
-     * @param nfmu the number of active flavours at the scale @f$\mu@f$
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
-     * @return @f$\alpha_s@f$
-     */
-    double Als(double mu, double nfmu, orders order) const;
+    double AlsWithInit(const double mu, const double alsi, const double mu_i, 
+                       const orders order) const;    
+    
+    double AlsWithLambda(const double mu, const orders order) const;
 
     /**
      * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
@@ -488,19 +438,15 @@ public:
      * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return @f$\alpha_s@f$
      */
-    double Als(double mu, orders order = FULLNLO) const;
+    double Als(const double mu, const orders order = FULLNNLO) const;
 
     /**
-     * @f$\ln\Lambda_\mathrm{QCD}@f$ with five active flavours in GeV
+     * @f$\ln\Lambda_\mathrm{QCD}@f$ with nf flavours in GeV
+     * @param The number of active flavours. 
      * @param order (=LO, FULLNLO, FULLNNLO)
      * @return @f$\ln\Lambda_\mathrm{QCD}@f$ for five active flavours
      */
-    double logLambda5(orders order) const;
-
-    double logLambda(double muMatching, double mf, double nfNEW, double nfORG, 
-                     double logLambdaORG, orders order) const;
-
-    double logLambda(double mu, orders order) const;  
+    double logLambda(const double nf, orders order) const;  
     
     ////////////////////////////////////////////////////////////////////////
     
@@ -509,29 +455,21 @@ public:
      * @param nf the number of active flavours
      * @return the @f$\gamma_0@f$ coefficient
      */
-    double Gamma0(double nf) const;
+    double Gamma0(const double nf) const;
 
     /**
      * the @f$\gamma_1@f$ coefficient
      * @param nf the number of active flavours
      * @return the @f$\gamma_1@f$ coefficient
      */
-    double Gamma1(double nf) const;
+    double Gamma1(const double nf) const;
 
     /**
      * the @f$\gamma_2@f$ coefficient
      * @param nf the number of active flavours
      * @return the @f$\gamma_2@f$ coefficient
      */
-    double Gamma2(double nf) const;
-    
-    /**
-     * @brief threshold corrections to the running mass
-     * @param nf_f
-     * @param nf_i
-     * @return 
-     */
-    double threCorrForMass(double nf_f, double nf_i) const;
+    double Gamma2(const double nf) const;
     
     /**
      * the running quark mass @f$m(\mu)@f$
@@ -540,7 +478,7 @@ public:
      * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return the running quark mass @f$m(\mu)@f$
      */
-    double Mrun(double mu, double m, orders order = FULLNLO) const;
+    double Mrun(const double mu, const double m, const orders order = FULLNLO) const;
     
     /**
      * runs the quark mass from @f$\mu_i@f$ to @f$\mu_f@f$
@@ -550,64 +488,71 @@ public:
      * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return the running quark mass @f$m(\mu_f)@f$
      */
-    double Mrun(double mu_f, double mu_i, double m, orders order = FULLNLO) const;
-
-    /**
-     * runs the quark mass from @f$\mu_i@f$ to @f$\mu_f@f$ at fixed nf
-     * @param mu_f the scale @f$\mu_f@f$ in GeV
-     * @param mu_i the scale @f$\mu_i@f$ in GeV
-     * @param m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(mu_i)@f$
-     * @param nf the number of active flavours
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
-     * @return the running quark mass @f$m(\mu_f)@f$
-     */
-    double Mrun(double mu_f, double mu_i, double m, double nf, orders order = FULLNLO) const;
+    double Mrun(const double mu_f, const double mu_i, const double m, 
+                const orders order = FULLNNLO) const;
 
     ////////////////////////////////////////////////////////////////////////    
     
     /**
      * convert the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ to the pole mass
      * @param mbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return the pole mass in GeV
      */
-    double Mbar2Mp(double mbar) const;
+    double Mbar2Mp(const double mbar, const orders order = FULLNNLO) const;
 
     /**
      * convert the pole mass to the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
      * @param mp the pole mass in GeV
+     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
      */
-    double Mp2Mbar(double mp) const;
+    double Mp2Mbar(const double mp, const orders order = FULLNNLO) const;
 
-    double MS2DRqmass(const double& MSscale, const double& MSbar) const;
+    double MS2DRqmass(const double MSscale, const double MSbar) const;
     
     /**
      * convert @f$\overline{\mathrm{MS}}@f$ to @f$\overline{\mathrm{DR}}@f$ quark masses
      * @param MSbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
      * @return the @f$\overline{\mathrm{DR}}@f$ mass @f$m(m)@f$
      */
-    double MS2DRqmass(const double& MSbar) const;
+    double MS2DRqmass(const double MSbar) const;
     
     ////////////////////////////////////////////////////////////////////////
 
 protected:
-    double Nc, CF, AlsMz, Mz, mut, mub, muc, mtpole;
-    double ReA0_kd, ReA2_kd, Omega_eta_etap;
-    double Br_Kp_Ppenu, IB_Kl, IB_Kp, DeltaP_cu, Br_Kp_Mupnu, Br_B_Xcenu;
+    double Nc, CF, mtpole;
     Particle quarks[6];
     Meson mesons[MESON_END];
-    BParameter BBs, BBd, BD, BK, BKd1, BKd3;
-    virtual void SetParameter(const std::string, const double&);
     bool computeYu, computeYd;
 
+    // model parameters
+    double AlsMz, Mz, mut, mub, muc;
+    double ReA0_kd, ReA2_kd, Omega_eta_etap;
+    double Br_Kp_Ppenu, IB_Kl, IB_Kp, DeltaP_cu, Br_Kp_Mupnu, Br_B_Xcenu;
+    double BBsoBBd, FBsoFBd;
+    BParameter BBs, BBd, BD, BK, BKd1, BKd3;
+    virtual void SetParameter(const std::string, const double&);
+
 private:
+    double zeta2, zeta3;
+    bool computeFBd, computeBd, computemt;
+    double AlsWithLambda(const double mu, const double logLambda, 
+                         const orders order) const;
+    double ZeroNf5(double *x, double *) const;
+    double logLambda5(orders order) const;
+    double logLambda(const double muMatching, const double mf, 
+                     const double nfNEW, const double nfORG, 
+                     const double logLambdaORG, orders order) const;
+    double threCorrForMass(const double nf_f, const double nf_i) const;
+    double MrunTMP(const double mu_f, const double mu_i, const double m, 
+                   const orders order = FULLNNLO) const;
+    double Mp2MbarTMP(double *mu, double *params) const;
+
+    // caches
     static const int CacheSize = 5;
     mutable double als_cache[8][CacheSize], logLambda5_cache[4][CacheSize], 
-                   mp2mbar_cache[4][CacheSize], mrun_cache[10][CacheSize];
-    bool computeFBd, computeBd, computemt;
-    double BBsoBBd, FBsoFBd;
-    double ZeroNf5(double *x, double *) const;
-    double Mp2Mbara(double * mu, double * mp) const;
+                   mrun_cache[10][CacheSize], mp2mbar_cache[5][CacheSize];
     void CacheShift(double cache[][5], int n) const;
 };
 

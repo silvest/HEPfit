@@ -17,7 +17,6 @@
  */
 enum schemes {NDR=0, HV, LRI};
 
-
 /**
  * @enum orders
  * @ingroup StandardModel

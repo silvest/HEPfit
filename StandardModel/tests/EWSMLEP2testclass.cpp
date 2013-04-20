@@ -45,7 +45,7 @@ void EWSMLEP2testclass::setUp() {
 
 void EWSMLEP2testclass::tearDown() {
     delete myLEP2; 
-    delete SM; 
+    //delete SM; 
 }
 
 /*  Parameters for StandardModel class  */

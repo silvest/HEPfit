@@ -37,7 +37,7 @@ void EWSMEW1HVtestclass::setUp() {
 
 void EWSMEW1HVtestclass::tearDown() {
     delete myEW1HV; 
-    delete mySM;  
+    //delete mySM;  
 }
 
 void EWSMEW1HVtestclass::F_Hollik_0_Mw_Mw_real() {

@@ -311,7 +311,7 @@ complex EWSM::rhoZ_l_SM(const StandardModel::lepton l) const
         double ImRhoZf = 0.0;
         for (int j=0; j<orders_EW_size; ++j)
             ImRhoZf += deltaRho_rem_f[j].imag();    
-        
+
         rhoZ_l_cache[(int)l] = complex(ReRhoZf, ImRhoZf, false);
         return (complex(ReRhoZf, ImRhoZf, false));    
     }
@@ -635,7 +635,7 @@ double EWSM::GammaW_q_SM(const StandardModel::quark qi,
         V = SM.getCKM().V_cb();
     else if ( qi==StandardModel::TOP || qj==StandardModel::TOP) 
         return (0.0);
-    double AlsMw = SM.Als(Mw_SM(), 5.0, SM.getAlsMz(), SM.getMz(), FULLNLO); 
+    double AlsMw = SM.AlsWithInit(Mw_SM(), SM.getAlsMz(), SM.getMz(), FULLNLO); 
     return ( 3.0*V.abs2()*G0*rho_GammaW_q_SM(qi,qj)*(1.0 + AlsMw/M_PI) );    
 }
 
@@ -660,18 +660,34 @@ double EWSM::GammaW_SM() const
 }
 
 
-double EWSM::R0_bottom_SM() const 
+double EWSM::R0_bottom_SM(bool bDebug) const 
 {
     if (!SM.IsFlagR0bApproximate())
-        throw std::runtime_error("Error in EWSM::R0_bottom_SM()"); 
+        throw std::runtime_error("Error in EWSM::R0_bottom_SM()");     
 
-    if (bUseCacheEWSM)      
-        if (checkSMparams(R0b_params_cache))
-            return R0b_cache;
-
-    double Rb = myApproximateFormulae->R0_bottom(DeltaAlphaL5q());
-    R0b_cache = Rb;
+    double Rb;
+    if (!bDebug) {
+        if (bUseCacheEWSM)
+            if (checkSMparams(R0b_params_cache))
+                return R0b_cache;
+        Rb = myApproximateFormulae->R0_bottom(DeltaAlphaL5q());
+        R0b_cache = Rb;
+    } else
+        Rb = myApproximateFormulae->R0_bottom_TEST(DeltaAlphaL5q());
+    
     return Rb;
+}
+
+
+double EWSM::Gu_over_Gb() const
+{
+    return myApproximateFormulae->Gu_over_Gb(DeltaAlphaL5q());
+}
+
+
+double EWSM::Gd_over_Gb() const
+{
+    return myApproximateFormulae->Gd_over_Gb(DeltaAlphaL5q());
 }
 
 
@@ -862,6 +878,9 @@ double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
             || (DeltaR_rem[EW3]!=0.0) )
         throw std::runtime_error("Error in EWSM::resumMw()"); 
 
+    if (!flag_order[EW2] && schemeMw!=NORESUM)
+        throw std::runtime_error("Error in EWSM::resumMw()");       
+    
     double cW2_TMP = Mw_i*Mw_i/SM.getMz()/SM.getMz();
     double sW2_TMP = 1.0 - cW2_TMP;
     
@@ -931,6 +950,9 @@ double EWSM::resumRhoZ(const double DeltaRho[orders_EW_size],
             || (deltaRho_rem[EW3]!=0.0) )
         throw std::runtime_error("Error in EWSM::resumRhoZ()");   
 
+    if (!flag_order[EW2] && schemeRhoZ!=NORESUM)
+        throw std::runtime_error("Error in EWSM::resumRhoZ()");       
+    
     double Mw_TMP = Mw_SM();
     double cW2_TMP = cW2_SM();
     double sW2_TMP = sW2_SM();
@@ -1017,6 +1039,9 @@ double EWSM::resumKappaZ(const double DeltaRho[orders_EW_size],
             || (deltaKappa_rem[EW3]!=0.0) )
         throw std::runtime_error("Error in EWSM::resumKappaZ()");      
 
+    if (!flag_order[EW2] && schemeKappaZ!=NORESUM)
+        throw std::runtime_error("Error in EWSM::resumKappaZ()");       
+    
     double Mw_TMP = Mw_SM();
     double cW2_TMP = cW2_SM();
     double sW2_TMP = sW2_SM();

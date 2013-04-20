@@ -11,9 +11,9 @@
 
 double epsilonb::getThValue() 
 {  
-    if (SM.IsFlagR0bApproximate() && !SM.IsFlagRhoZbFromR0b())
-        throw std::runtime_error("deltaKappaZb::getThValue() cannot be used!");
-    else {
+//    if (SM.IsFlagR0bApproximate() && !SM.IsFlagRhoZbFromR0b())
+//        throw std::runtime_error("epsilonb::getThValue() cannot be used!");
+//    else {
         double epsb = SM.epsilonb();
         
         //if ( myEW.checkModelForSTU() ) {
@@ -21,7 +21,7 @@ double epsilonb::getThValue()
         //}
         
         return epsb;
-    }
+  //  }
 }
 
 

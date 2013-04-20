@@ -41,7 +41,7 @@ void EWSMQCD3testclass::setUp() {
 void EWSMQCD3testclass::tearDown() {
     delete myQCD3;
     delete myCache;
-    delete mySM;  
+    //delete mySM;  
 }
 
 void EWSMQCD3testclass::DeltaRho() {

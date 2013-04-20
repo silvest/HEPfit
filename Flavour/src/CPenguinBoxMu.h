@@ -24,7 +24,7 @@ public:
      * 
      * @brief constructor
      */
-    CPenguinBoxMu(const StandardModel& model);
+    CPenguinBoxMu(const StandardModel& model_i);
     
     /**
      * 
