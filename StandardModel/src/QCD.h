@@ -19,144 +19,210 @@
  * @brief A class for QCD. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details 
+ * @details This class is .... 
+ * 
+ * Model parameters: 
+ * \li \b AlsMz:&nbsp; The strong coupling constant at the Z-boson mass, @f$\alpha_s(M_Z)@f$
+ * \li \b Mz:&nbsp; The mass of the @f$Z@f$ boson in GeV. 
+ * \li \b mup:&nbsp; The @f$\overline{\mathrm{MS}}@f$ mass of the up quark at 2 GeV, @f$m_u(2\,\mathrm{GeV})@f$, in GeV.
+ * \li \b mdown:&nbsp; The @f$\overline{\mathrm{MS}}@f$ mass of the down quark at 2 GeV, @f$m_d(2\,\mathrm{GeV})@f$, in GeV.
+ * \li \b mcharm:&nbsp; The @f$\overline{\mathrm{MS}}@f$ scale-invariant mass of the charm quark, @f$m_c(m_c)@f$, in GeV.
+ * \li \b mstrange:&nbsp; The @f$\overline{\mathrm{MS}}@f$ mass of the strange quark at 2 GeV, @f$m_s(2\,\mathrm{GeV})@f$, in GeV. 
+ * \li \b mtop:&nbsp; The pole mass of the top quark in GeV.
+ * \li \b mbottom:&nbsp; The @f$\overline{\mathrm{MS}}@f$ scale-invariant mass of the bottom quark, @f$m_b(m_b)@f$, in GeV. 
+ * \li \b mut:&nbsp; The threshold between six- and five-flavour theory in GeV. 
+ * \li \b mub:&nbsp; The threshold between five- and four-flavour theory in GeV. 
+ * \li \b muc:&nbsp; The threshold between four- and three-flavour theory in GeV. 
+ * \li \b MBd:&nbsp;
+ * \li \b MBs:&nbsp;
+ * \li \b MBp:&nbsp;
+ * \li \b MK0:&nbsp;
+ * \li \b MKp:&nbsp;
+ * \li \b MD:&nbsp;
+ * \li \b W_Kl:&nbsp;
+ * \li \b W_Kp:&nbsp;
+ * \li \b FBs:&nbsp;
+ * \li \b FBsoFBd:&nbsp;
+ * \li \b FD:&nbsp;
+ * \li \b BBsoBBd:&nbsp;
+ * \li \b BBs1:&nbsp;
+ * \li \b BBs2:&nbsp;
+ * \li \b BBs3:&nbsp;
+ * \li \b BBs4:&nbsp;
+ * \li \b BBs5:&nbsp;
+ * \li \b BBsscale:&nbsp;
+ * \li \b BBsscheme:&nbsp;
+ * \li \b BD1:&nbsp;
+ * \li \b BD2:&nbsp;
+ * \li \b BD3:&nbsp;
+ * \li \b BD4:&nbsp;
+ * \li \b BD5:&nbsp;
+ * \li \b BDscale:&nbsp;
+ * \li \b BDscheme:&nbsp;
+ * \li \b BK1:&nbsp;
+ * \li \b BK2:&nbsp;
+ * \li \b BK3:&nbsp;
+ * \li \b BK4:&nbsp;
+ * \li \b BK5:&nbsp;
+ * \li \b BKscale:&nbsp;
+ * \li \b BKscheme:&nbsp;
+ * \li \b BK(1/2)1:&nbsp;
+ * \li \b BK(1/2)2:&nbsp;
+ * \li \b BK(1/2)3:&nbsp;
+ * \li \b BK(1/2)4:&nbsp;
+ * \li \b BK(1/2)5:&nbsp;
+ * \li \b BK(1/2)6:&nbsp;
+ * \li \b BK(1/2)7:&nbsp;
+ * \li \b BK(1/2)8:&nbsp;
+ * \li \b BK(1/2)9:&nbsp;
+ * \li \b BK(1/2)10:&nbsp;
+ * \li \b BKd_scale:&nbsp;
+ * \li \b BKd_scheme:&nbsp;
+ * \li \b BK(3/2)1:&nbsp;
+ * \li \b BK(3/2)2:&nbsp;
+ * \li \b BK(3/2)3:&nbsp;
+ * \li \b BK(3/2)4:&nbsp;
+ * \li \b BK(3/2)5:&nbsp;
+ * \li \b BK(3/2)6:&nbsp;
+ * \li \b BK(3/2)7:&nbsp;
+ * \li \b BK(3/2)8:&nbsp;
+ * \li \b BK(3/2)9:&nbsp;
+ * \li \b BK(3/2)10:&nbsp;
+ * \li \b ReA0_Kd:&nbsp; The experimental value of the real part of the amplitude for @f$K^0\to\pi\pi@f$ with @f$\Delta I=0@f$@. 
+ * \li \b ReA2_Kd:&nbsp; The experimental value of the real part of the amplitude for @f$K^0\to\pi\pi@f$ with @f$\Delta I=2@f$@. 
+ * \li \b Omega_eta_etap:&nbsp; The isospin breaking contribution in @f$K^0\to\pi\pi@f$. 
+ * \li \b Br_Kp_P0enu:&nbsp; The experimental value of the branching ratio of @f$K^+\to\pi^0e^+\nu@f$. 
+ * \li \b Br_Kp_munu:&nbsp; The experimental value for the branching ratio of @f$K^+\to\mu^+\nu@f$. 
+ * \li \b Br_B_Xcenu:&nbsp; The experimental value for the branching ratio of @f$B\to X_c e\nu@f$. 
+ * \li \b DeltaP_cu:&nbsp; The long-distance correction to the charm contribution of @f$K^+\to\pi^+\nu\bar{\nu}@f$. 
+ * \li \b IB_Kl:&nbsp; The isospin breaking corrections between @f$K_L\to\pi^0\nu\bar{\nu}@f$ and @f$K^+\to\pi^0 e^+\nu@f$. 
+ * \li \b IB_Kp:&nbsp; The isospin breaking corrections between @f$K^+\to\pi^+ \nu\bar{\nu}@f$ and @f$K^+\to\pi^0 e^+\nu@f$. 
+ * 
  */
 class QCD: public Model {
 public:
-    enum meson {B_D, B_S, B_P, K_0, K_P, D_0, P_0, P_P, MESON_END}; 
-    enum quark {UP,DOWN,CHARM,STRANGE,TOP,BOTTOM};
-
-    static const int NQCDvars = 76;
 
     /**
-     * array containing the labels under which all QCD parameters must be
-     * stored in a Parameters object
+     * An enum type for mesons. 
+     */
+    enum meson 
+    {
+        B_D, /**< @f$B_d@f$ meson */
+        B_S, /**< @f$B_s@f$ meson */
+        B_P, /**< @f$B^\pm@f$ meson */
+        K_0, /**< @f$K^0@f$ meson */
+        K_P, /**< @f$K^\pm@f$ meson */
+        D_0, /**< @f$D^0@f$ meson */
+        P_0, /**< @f$\pi^0@f$ meson */
+        P_P, /**< @f$\pi^\pm@f$ meson */
+        MESON_END /**< The last element in this enum. */
+    }; 
+
+    /**
+     * An enum type for quarks. 
+     */
+    enum quark 
+    {
+        UP, /**< Up quark */
+        DOWN, /**< Down quark */
+        CHARM, /**< Charm quark */
+        STRANGE, /**< Strange quark */
+        TOP, /**< Top quark */
+        BOTTOM /**< Bottom quark */
+    };
+
+    static const int NQCDvars = 76; /**< The number of model parameters in QCD. */
+
+    /**
+     * An array containing the labels under which all QCD parameters are stored 
+     * in a vector of ModelParameter via InputParser::ReadParameters(). 
      */
     static const std::string QCDvars[NQCDvars];
 
+    /**
+     * The default constructor. 
+     */
     QCD();
 
+    /**
+     * @return The name of the model defined in the current class. 
+     */
     virtual std::string ModelName() const 
     {
         return "QCD";
     }
     
+    /**
+     * Converts an object of the enum type "orders" to the corresponding string. 
+     * @param[in] An object of the enum type "orders". 
+     * @return The string of the given "order". 
+     */
     std::string orderToString(const orders order) const;
     
     ////////////////////////////////////////////////////////////////////////
 
-    virtual bool SetFlag(const std::string, const bool&);
+    /**
+     * Sets flags for QCD. 
+     * @param[in] name A name of a flag. 
+     * @param[in] value A value of the given flag. 
+     * @return A boolean value indicating whether the given flag name is associated 
+     * with QCD. 
+     */
+    virtual bool SetFlag(const std::string name, const bool& value);
     
+    /**
+     * Pre update. 
+     * @return 
+     */
     virtual bool PreUpdate();
-     
+
+    /**
+     * Post update. 
+     * @return 
+     */
     virtual bool PostUpdate();      
     
     /**
-     * updates the QCD parameters found in the argument
-     * @param a map containing the parameters (all as double) to be updated
+     * Updates the QCD parameters found in the argument. 
+     * @param[in] DPars A map containing the parameters (all as double) to be updated. 
      */
-    virtual bool Update(const std::map<std::string, double>&);
+    virtual bool Update(const std::map<std::string, double>& DPars);
     
     /**
-     * Checks that all required parameters are present
-     * @param a map containing the parameters (all as double) to be updated
+     * Checks that all required parameters are present in a given map. 
+     * @param[in] DPars A map containing the parameters (all as double) to be used in Monte Carlo. 
      */
-    virtual bool CheckParameters(const std::map<std::string, double>&);
+    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
     
     /**
-     * Initializes the QCD parameters found in the argument
-     * @param a map containing the parameters (all as double) to be updated
-     * "AlsMz"
-     * "Mz"
-     * "mup" @f$\overline{\mathrm{MS}}@f$ mass @f$m_u(2\mathrm{GeV})@f$
-     * "mdown" @f$\overline{\mathrm{MS}}@f$ mass @f$m_d(2\mathrm{GeV})@f$
-     * "mcharm" @f$\overline{\mathrm{MS}}@f$ mass @f$m_c(m_c)@f$
-     * "mstrange" @f$\overline{\mathrm{MS}}@f$ mass @f$m_s(2\mathrm{GeV})@f$
-     * "mtop" the top quark pole mass @f$m_t@f$
-     * "mbottom" @f$\overline{\mathrm{MS}}@f$ mass @f$m_b(m_b)@f$
-     * "mut"
-     * "mub"
-     * "muc"
-     * "MBd"
-     * "MBs"
-     * "MBp"
-     * "MK0"
-     * "MKp"
-     * "MD"
-     * "FBs"
-     * "FBsoFBd"
-     * "FD"
-     * "BBsoBBd"
-     * "BBs1"
-     * "BBs2"
-     * "BBs3"
-     * "BBs4"
-     * "BBs5"
-     * "BBsscale"
-     * "BBsscheme"
-     * "BD1"
-     * "BD2"
-     * "BD3"
-     * "BD4"
-     * "BD5"
-     * "BDscale"
-     * "BDscheme"
-     * "BK1"
-     * "BK2"
-     * "BK3"
-     * "BK4"
-     * "BK5"
-     * "BKscale"
-     * "BKscheme"
-     * "BK(1/2)1"
-     * "BK(1/2)2"
-     * "BK(1/2)3"
-     * "BK(1/2)4"
-     * "BK(1/2)5"
-     * "BK(1/2)6"
-     * "BK(1/2)7"
-     * "BK(1/2)8"
-     * "BK(1/2)9"
-     * "BK(1/2)10"
-     * "BKd_scale"
-     * "BKd_scheme"
-     * "BK(3/2)1"
-     * "BK(3/2)2"
-     * "BK(3/2)3"
-     * "BK(3/2)4"
-     * "BK(3/2)5"
-     * "BK(3/2)6"
-     * "BK(3/2)7"
-     * "BK(3/2)8"
-     * "BK(3/2)9"
-     * "BK(3/2)10"
-     * "ReA2_Kd"
-     * "ReA0_Kd"
-     * "DeltaP_cu"
-     * "Br_Kp_Ppenu"
-     * "IB_Kl"
-     * "IB_Kp"
-     * "W_Kl"
-     * "W_Kp"
-     * "Br_Kp_Mupnu"
-     * "Br_B_Xcenu"
+     * Initializes the QCD parameters found in the argument. 
+     * @param[in] DPars A map containing the parameters (all as double) to be used in Monte Carlo. 
      */
-    virtual bool Init(const std::map<std::string, double>&);
+    virtual bool Init(const std::map<std::string, double>& DPars);
 
     ////////////////////////////////////////////////////////////////////////
+    // get and set methods for class members
 
-    Meson getMesons(const QCD::meson i) const 
+    /**
+     * @param[in] m The name of a meson. 
+     * @return The object of the meson found in the argument. 
+     */
+    Meson getMesons(const meson m) const 
     {
-        return mesons[i];
+        return mesons[m];
     }
 
-    Particle getQuarks(const QCD::quark i) const 
+    /**
+     * @param[in] q The name of a quark. 
+     * @return The object of the quark found in the argument. 
+     */
+    Particle getQuarks(const quark q) const 
     {
-        return quarks[i];
+        return quarks[q];
     }
     
     /**
-     * @return @f$\alpha_s(Mz)@f$
+     * @return The strong coupling constant at @f$M_Z@f$, @f$\alpha_s(M_Z)@f$. 
      */
     double getAlsMz() const 
     {
@@ -164,8 +230,8 @@ public:
     }
 
     /**
-     * set the initial condition @f$\alpha_s(Mz)@f$
-     * @param AlsMz the initial condition @f$\alpha_s(Mz)@f$
+     * Sets the strong coupling constant at @f$M_Z@f$, @f$\alpha_s(M_Z)@f$. 
+     * @param[in] AlsMz @f$\alpha_s(M_Z)@f$. 
      */
     void setAlsMz(double AlsMz) 
     {
@@ -173,7 +239,7 @@ public:
     }
 
     /**
-     * @return the scale Mz at which the initial condition for @f$\alpha_s(Mz)@f$ is given
+     * @return The @f$Z@f$-boson mass @f$M_Z@f$. 
      */
     double getMz() const 
     {
@@ -181,8 +247,8 @@ public:
     }
 
     /**
-     * set the scale M at which the initial condition for @f$\alpha_s(M)@f$ is given
-     * @param M the scale M in GeV
+     * Sets the @f$Z@f$-boson mass @f$M_Z@f$. 
+     * @param[in] Mz @f$M_Z@f$ in GeV. 
      */
     void setMz(double Mz) 
     {
@@ -190,7 +256,7 @@ public:
     }
 
     /**
-     * @return the number of colours
+     * @return The number of colours. 
      */
     double getNc() const
     {
@@ -198,8 +264,8 @@ public:
     }
 
     /**
-     * set the number of colours
-     * @param Nc the number of colours
+     * Sets the number of colours. 
+     * @param[in] Nc The number of colours. 
      */
     void setNc(double Nc)
     {
@@ -207,7 +273,7 @@ public:
     }
 
     /**
-     * @return the threshold between six- and five-flavour theory in GeV
+     * @return The threshold between six- and five-flavour theory in GeV. 
      */
     double getMut() const 
     {
@@ -215,8 +281,8 @@ public:
     }
 
     /**
-     * set the threshold between six- and five-flavour theory
-     * @param mut the threshold between six- and five-flavour theory in GeV
+     * Sets the threshold between six- and five-flavour theory. 
+     * @param[in] mut The threshold between six- and five-flavour theory in GeV. 
      */
     void setMut(double mut)
     {
@@ -224,7 +290,7 @@ public:
     }
 
     /**
-     * @return the threshold between five- and four-flavour theory in GeV
+     * @return The threshold between five- and four-flavour theory in GeV. 
      */
     double getMub() const 
     {
@@ -232,8 +298,8 @@ public:
     }
 
     /**
-     * set the threshold between five- and four-flavour theory
-     * @param mub the threshold between five- and four-flavour theory in GeV
+     * Sets the threshold between five- and four-flavour theory. 
+     * @param[in] mub The threshold between five- and four-flavour theory in GeV. 
      */
     void setMub(double mub) 
     {
@@ -241,7 +307,7 @@ public:
     }
 
     /**
-     * @return the threshold between four- and three-flavour theory in GeV
+     * @return The threshold between four- and three-flavour theory in GeV. 
      */
     double getMuc() const 
     {
@@ -249,8 +315,8 @@ public:
     }
 
     /**
-     * set the threshold between four- and three-flavour theory
-     * @param muc the threshold between four- and three-flavour theory in GeV
+     * Set the threshold between four- and three-flavour theory. 
+     * @param[in] muc The threshold between four- and three-flavour theory in GeV. 
      */
     void setMuc(double muc) 
     {
@@ -258,39 +324,89 @@ public:
     }
 
     /**
-     * @return the pole mass of the top quark
+     * @return The pole mass of the top quark. 
      */
     double getMtpole() const 
     {
         return mtpole;
     }
 
+    /**
+     * @return The Casimir factor of QCD. 
+     */
     double getCF() const 
     {
         return CF;
     }
     
     /**
-      * @return Expirimental value of the real part of the amplitude for the decay
-      * K_L in two pions wthout ispspin change
-      */
-    double getReA0_kd() const
+     * @return 
+     */
+    BParameter getBBd() const 
     {
-        return ReA0_kd;
+        return BBd;
+    }
+
+    /**
+     * @return 
+     */
+    BParameter getBBs() const 
+    {
+        return BBs;
     }
     
     /**
-      * @return Expirimental value of the real part of the amplitude for the decay
-      * K_L in two pions with double isospin change
-      */
-    double getReA2_kd() const
+     * @return 
+     */
+    BParameter getBD() const 
     {
-        return ReA2_kd;
+        return BD;
     }
     
     /**
-      * @return value of isospin breacking contribution for the decay
-      * K_L in two pions
+     * @return 
+     */
+    BParameter getBK() const 
+    {
+        return BK;
+    }
+    
+    /**
+     * @return 
+     */
+    BParameter getBKd1() const 
+    {
+        return BKd1;
+    }
+    
+    /**
+     * @return 
+     */
+    BParameter getBKd3() const 
+    {
+        return BKd3;
+    }
+    
+    /**
+      * @return The experimental value of the real part of the amplitude for 
+      * @f$K^0\to\pi\pi@f$ with @f$\Delta I=0@f$@. 
+      */
+    double getReA0_Kd() const
+    {
+        return ReA0_Kd;
+    }
+    
+    /**
+      * @return The experimental value of the real part of the amplitude for 
+      * @f$K^0\to\pi\pi@f$ with @f$\Delta I=2@f$@.
+      */
+    double getReA2_Kd() const
+    {
+        return ReA2_Kd;
+    }
+    
+    /**
+      * @return The isospin breaking contribution in @f$K^0\to\pi\pi@f$. 
       */
     double getOmega_eta_etap() const 
     {
@@ -298,26 +414,23 @@ public:
     }
     
     /**
-     * @return the experimental value for the Br of the semileptonic decay of
-     * the K+ in pion, electron and neutrino
+     * @return The experimental value for the branching ratio of @f$K^+\to\pi^0e^+\nu@f$. 
      */
-    double getBr_Kp_ppenu() const
+    double getBr_Kp_P0enu() const
     {
-        return Br_Kp_Ppenu;
+        return Br_Kp_P0enu;
     }
     
     /**
-     * @return the experimental value for the Br of the semileptonic decay of
-     * the K+ in mu+ and neutrino
+     * @return The experimental value for the branching ratio of @f$K^+\to\mu^+\nu@f$. 
      */
-    double getBr_Kp_Mupnu() const
+    double getBr_Kp_munu() const
     {
-        return Br_Kp_Mupnu;
+        return Br_Kp_munu;
     }
     
     /**
-     * @return the experimental value for the Br of the semileptonic decay of
-     * the B -> Xc electron and neutrino
+     * @return The experimental value for the branching ratio of @f$B\to X_c e\nu@f$. 
      */
     double getBr_B_Xcenu() const
     {
@@ -325,8 +438,20 @@ public:
     }
     
     /**
-     * @return isospin breaking corrections in relating Br(K_l -> pi0 nu nu) and
-     * Br(K+ -> pi0 e nu)
+     * @return The long-distance correction to the charm contribution of @f$K^+\to\pi^+\nu\bar{\nu}@f$. 
+     * 
+     * References: 
+     * <A HREF="http://inspirehep.net/record/678222?ln=en">Isidori et al.(2005)</A>, 
+     * <A HREF="http://inspirehep.net/record/712083?ln=en">Buras et al.(2006)</A>
+     */
+    double getDeltaP_cu() const
+    {
+        return DeltaP_cu;
+    }
+
+    /**
+     * @return The isospin breaking corrections between 
+     * @f$K_L\to\pi^0\nu\bar{\nu}@f$ and @f$K^+\to\pi^0 e^+\nu@f$. 
      */
     double getIB_Kl() const
     {
@@ -334,159 +459,143 @@ public:
     }
     
     /**
-     * @return isospin breaking corrections in relating Br(K+ -> pi+ nu nu) and
-     * Br(K+ -> pi0 e nu)
+     * @return The isospin breaking corrections between  
+     * @f$K^+\to\pi^+ \nu\bar{\nu}@f$ and @f$K^+\to\pi^0 e^+\nu@f$. 
      */
     double getIB_Kp() const
     {
         return IB_Kp;
     }
     
-    /**
-     * @return long distance correction to the charm contribution to 
-     * Br(K+ -> P+ nu nu), hep-ph/0503107 and hep-ph/0603079
-     */
-    double getDeltaP_cu() const
-    {
-        return DeltaP_cu;
-    }
-
-    BParameter getBBd() const 
-    {
-        return BBd;
-    }
-
-    BParameter getBBs() const 
-    {
-        return BBs;
-    }
-    
-    BParameter getBD() const 
-    {
-        return BD;
-    }
-    
-    BParameter getBK() const 
-    {
-        return BK;
-    }
-    
-    BParameter getBKd1() const 
-    {
-        return BKd1;
-    }
-    
-    BParameter getBKd3() const 
-    {
-        return BKd3;
-    }
-    
     ////////////////////////////////////////////////////////////////////////
 
+    /**
+     * 
+     * @param[in] i
+     * @return 
+     */
     double Thresholds(const int i) const;
 
+    /**
+     * 
+     * @param[in] mu
+     * @return 
+     */
     double AboveTh(const double mu) const;
 
+    /**
+     * 
+     * @param[in] mu
+     * @return 
+     */
     double BelowTh(const double mu) const;
 
     /**
-     * the number of active flavour at scale @f$\mu@f$
-     * @param mu the scale @f$\mu@f$ in GeV
-     * @return the number of active flavour at scale @f$\mu@f$
+     * @param[in] mu A scale @f$\mu@f$ in GeV. 
+     * @return The number of active flavour at scale @f$\mu@f$. 
      */
     double Nf(const double mu) const;
     
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * the @f$\beta_0@f$ coefficient
-     * @param nf the number of active flavours
-     * @return the @f$\beta_0@f$ coefficient
+     * @param[in] nf The number of active flavours. 
+     * @return The @f$\beta_0@f$ coefficient. 
      */
     double Beta0(const double nf) const;
 
     /**
-     * the @f$\beta_1@f$ coefficient
-     * @param nf the number of active flavours
-     * @return the @f$\beta_1@f$ coefficient
+     * @param[in] nf The number of active flavours. 
+     * @return The @f$\beta_1@f$ coefficient. 
      */
     double Beta1(const double nf) const;
 
     /**
-     * the @f$\beta_2@f$ coefficient
-     * @param nf the number of active flavours
-     * @return the @f$\beta_2@f$ coefficient
+     * @param[in] nf The number of active flavours. 
+     * @return The @f$\beta_2@f$ coefficient. 
      */
     double Beta2(const double nf) const;
 
     /**
-     * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
-     * @param mu the scale @f$\mu@f$ in GeV
-     * @param alsi the initial condition @f$\alpha_s(m_i)@f$
-     * @param mu_i the scale @f$m_i@f$ in GeV
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
-     * @return @f$\alpha_s@f$
+     * Computes the running strong coupling @f$\alpha_s(\mu)@f$ from @f$\alpha_s(\mu_i)@f$ 
+     * in the @f$\overline{\mathrm{MS}}@f$ scheme, where it is forbidden to across 
+     * a flavour threshould in the RG running from @f$\mu_i@f$ to @f$\mu@f$. 
+     * @param[in] mu A scale @f$\mu@f$ in GeV. 
+     * @param[in] alsi An initial condition for the coupling at the scale given below. 
+     * @param[in] mu_i An initial scale @f$\mu_i@f$ in GeV. 
+     * @param[in] order LO, NLO or FULLNLO in the @f$\alpha_s@f$ expansion. 
+     * @return The strong coupling constant @f$\alpha_s(\mu)@f$ in the 
+     * @f$\overline{\mathrm{MS}}@f$ scheme. 
      */
     double AlsWithInit(const double mu, const double alsi, const double mu_i, 
                        const orders order) const;    
     
+    /**
+     * Computes the running strong coupling @f$\alpha_s(\mu)@f$ in the 
+     * @f$\overline{\mathrm{MS}}@f$ scheme with the use of @f$\Lambda_{\rm QCD}@f$. 
+     * @param[in] mu A scale @f$\mu@f$ in GeV. 
+     * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion. 
+     * @return The strong coupling constant @f$\alpha_s(\mu)@f$ in the 
+     * @f$\overline{\mathrm{MS}}@f$ scheme. 
+     */
     double AlsWithLambda(const double mu, const orders order) const;
 
     /**
-     * the strong running coupling @f$\alpha_s@f$ in the @f$\overline{\mathrm{MS}}@f$ scheme
-     * @param mu the scale @f$\mu@f$ in GeV
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
-     * @return @f$\alpha_s@f$
+     * Computes the running strong coupling @f$\alpha_s(\mu)@f$ in the 
+     * @f$\overline{\mathrm{MS}}@f$ scheme. In the cases of LO, NLO and FULLNNLO, 
+     * the coupling is computed with AlsWithInit(). On the other hand, in the 
+     * cases of NNLO and FULLNNLO, the coupling is computed with AlsWithLambda(). 
+     * @param[in] mu A scale @f$\mu@f$ in GeV. 
+     * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion. 
+     * @return The strong coupling constant @f$\alpha_s(\mu)@f$ in the 
+     * @f$\overline{\mathrm{MS}}@f$ scheme. 
      */
     double Als(const double mu, const orders order = FULLNNLO) const;
 
     /**
-     * @f$\ln\Lambda_\mathrm{QCD}@f$ with nf flavours in GeV
-     * @param The number of active flavours. 
-     * @param order (=LO, FULLNLO, FULLNNLO)
-     * @return @f$\ln\Lambda_\mathrm{QCD}@f$ for five active flavours
+     * Computes @f$\ln\Lambda_\mathrm{QCD}@f$ with nf flavours in GeV. 
+     * @param[in] nf The number of active flavours. 
+     * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion. 
+     * @return @f$\ln\Lambda_\mathrm{QCD}@f$ with nf flavours in GeV. 
      */
     double logLambda(const double nf, orders order) const;  
     
     ////////////////////////////////////////////////////////////////////////
     
     /**
-     * the @f$\gamma_0@f$ coefficient
-     * @param nf the number of active flavours
-     * @return the @f$\gamma_0@f$ coefficient
+     * @param[in] nf The number of active flavours. 
+     * @return The @f$\gamma_0@f$ coefficient. 
      */
     double Gamma0(const double nf) const;
 
     /**
-     * the @f$\gamma_1@f$ coefficient
-     * @param nf the number of active flavours
-     * @return the @f$\gamma_1@f$ coefficient
+     * @param[in] nf The number of active flavours. 
+     * @return The @f$\gamma_1@f$ coefficient. 
      */
     double Gamma1(const double nf) const;
 
     /**
-     * the @f$\gamma_2@f$ coefficient
-     * @param nf the number of active flavours
-     * @return the @f$\gamma_2@f$ coefficient
+     * @param[in] nf The number of active flavours. 
+     * @return The @f$\gamma_2@f$ coefficient. 
      */
     double Gamma2(const double nf) const;
     
     /**
-     * the running quark mass @f$m(\mu)@f$
-     * @param mu the scale @f$\mu@f$ in GeV
-     * @param m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
-     * @return the running quark mass @f$m(\mu)@f$
+     * Computes a running quark mass @f$m(\mu)@f$ from @f$m(m)@f$. 
+     * @param[in] mu A scale @f$\mu@f$ in GeV
+     * @param[in] m The @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV. 
+     * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion. 
+     * @return The running quark mass @f$m(\mu)@f$ in GeV. 
      */
     double Mrun(const double mu, const double m, const orders order = FULLNLO) const;
     
     /**
-     * runs the quark mass from @f$\mu_i@f$ to @f$\mu_f@f$
-     * @param mu_f the scale @f$\mu_f@f$ in GeV
-     * @param mu_i the scale @f$\mu_i@f$ in GeV
-     * @param m the @f$\overline{\mathrm{MS}}@f$ mass @f$m(mu_i)@f$
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
-     * @return the running quark mass @f$m(\mu_f)@f$
+     * Runs a quark mass from @f$\mu_i@f$ to @f$\mu_f@f$. 
+     * @param[in] mu_f A scale @f$\mu_f@f$ in GeV. 
+     * @param[in] mu_i A scale @f$\mu_i@f$ in GeV. 
+     * @param[in] m The @f$\overline{\mathrm{MS}}@f$ mass @f$m(mu_i)@f$ in GeV. 
+     * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion. 
+     * @return The running quark mass @f$m(\mu_f)@f$ in GeV. 
      */
     double Mrun(const double mu_f, const double mu_i, const double m, 
                 const orders order = FULLNNLO) const;
@@ -494,42 +603,51 @@ public:
     ////////////////////////////////////////////////////////////////////////    
     
     /**
-     * convert the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ to the pole mass
-     * @param mbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
-     * @return the pole mass in GeV
+     * Converts the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ to the pole mass
+     * @param[in] mbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
+     * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion. 
+     * @return The pole mass in GeV
      */
     double Mbar2Mp(const double mbar, const orders order = FULLNNLO) const;
 
     /**
-     * convert the pole mass to the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
-     * @param mp the pole mass in GeV
-     * @param order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
-     * @return the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
+     * Converts a quark pole mass to the corresponding @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$. 
+     * @param[in] mp The pole mass of the bottom or top quark in GeV. 
+     * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion. 
+     * @return The @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV. 
      */
     double Mp2Mbar(const double mp, const orders order = FULLNNLO) const;
 
+    /**
+     * 
+     * @param[in] MSscale
+     * @param[in] MSbar
+     * @return 
+     */
     double MS2DRqmass(const double MSscale, const double MSbar) const;
     
     /**
-     * convert @f$\overline{\mathrm{MS}}@f$ to @f$\overline{\mathrm{DR}}@f$ quark masses
-     * @param MSbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$
-     * @return the @f$\overline{\mathrm{DR}}@f$ mass @f$m(m)@f$
+     * Converts a quark mass from the @f$\overline{\mathrm{MS}}@f$ scheme to 
+     * the @f$\overline{\mathrm{DR}}@f$ scheme. 
+     * @param[in] MSbar The @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV. 
+     * @return The @f$\overline{\mathrm{DR}}@f$ mass @f$m(m)@f$ in GeV. 
      */
     double MS2DRqmass(const double MSbar) const;
     
     ////////////////////////////////////////////////////////////////////////
 
 protected:
-    double Nc, CF, mtpole;
+    double Nc; /**< The number of colours. */
+    double CF; /**< The Casimir factor in the SU(Nc) gauge theory. */
+    double mtpole;  /**< The pole mass of the top quark. */
     Particle quarks[6];
     Meson mesons[MESON_END];
     bool computeYu, computeYd;
 
     // model parameters
     double AlsMz, Mz, mut, mub, muc;
-    double ReA0_kd, ReA2_kd, Omega_eta_etap;
-    double Br_Kp_Ppenu, IB_Kl, IB_Kp, DeltaP_cu, Br_Kp_Mupnu, Br_B_Xcenu;
+    double ReA0_Kd, ReA2_Kd, Omega_eta_etap;
+    double Br_Kp_P0enu, IB_Kl, IB_Kp, DeltaP_cu, Br_Kp_munu, Br_B_Xcenu;
     double BBsoBBd, FBsoFBd;
     BParameter BBs, BBd, BD, BK, BKd1, BKd3;
     virtual void SetParameter(const std::string, const double&);

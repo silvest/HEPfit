@@ -12,7 +12,7 @@ double BR_Kppnunu::getThValue(){
                    SM.Mw_tree() * SM.Mw_tree()) ));
     
     return( SM.getIB_Kp() * 3.*SM.getAle()*SM.getAle()/(2.*M_PI*M_PI*pow(sin(theta),4.))
-           * SM.getBr_Kp_ppenu() * BRKppnunu(NLO, NLO_ew).real());
+           * SM.getBr_Kp_P0enu() * BRKppnunu(NLO, NLO_ew).real());
 }
 
 complex BR_Kppnunu::BRKppnunu(orders order, orders_ew order_ew){

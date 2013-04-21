@@ -13,7 +13,7 @@ double BR_Kmumu::getThValue(){
     
     return((myFlavour.getModel().getMesons(QCD::K_0).Lifetime()/myFlavour.getModel().getMesons(QCD::K_P).Lifetime()) 
            * myFlavour.getModel().getAle()*myFlavour.getModel().getAle()/(2.*M_PI*M_PI*pow(sin(theta),4.)) 
-           * myFlavour.getModel().getBr_Kp_Mupnu() * BRKmumu(NLO).real());
+           * myFlavour.getModel().getBr_Kp_munu() * BRKmumu(NLO).real());
 }
 
 complex BR_Kmumu::BRKmumu(orders order){

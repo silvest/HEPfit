@@ -22,15 +22,15 @@
 const std::string QCD::QCDvars[NQCDvars] = {
     "AlsMz","Mz","mup","mdown","mcharm","mstrange",
     "mtop","mbottom","mut","mub","muc","MBd",
-    "MBs","MBp","MK0","MKp","MD","FBs","FBsoFBd", "FD",
+    "MBs","MBp","MK0","MKp","MD", "W_Kl", "W_Kp", "FBs", "FBsoFBd", "FD",
     "BBsoBBd","BBs1","BBs2","BBs3","BBs4","BBs5", "BBsscale", "BBsscheme",
     "BD1","BD2","BD3","BD4","BD5", "BDscale", "BDscheme",
     "BK1","BK2","BK3","BK4","BK5", "BKscale", "BKscheme", "FK",
     "BK(1/2)1", "BK(1/2)2", "BK(1/2)3", "BK(1/2)4", "BK(1/2)5", 
     "BK(1/2)6","BK(1/2)7","BK(1/2)8","BK(1/2)9","BK(1/2)10", "BKd_scale", "BKd_scheme",
     "BK(3/2)1", "BK(3/2)2", "BK(3/2)3", "BK(3/2)4", "BK(3/2)5", "BK(3/2)6", 
-    "BK(3/2)7", "BK(3/2)8", "BK(3/2)9", "BK(3/2)10", "ReA2_kd", "ReA0_kd", "Omega_eta_etap",
-    "DeltaP_cu", "Br_Kp_Ppenu", "IB_Kl", "IB_Kp", "W_Kl", "W_Kp", "Br_Kp_Mupnu", "Br_B_Xcenu"
+    "BK(3/2)7", "BK(3/2)8", "BK(3/2)9", "BK(3/2)10", "ReA2_Kd", "ReA0_Kd", "Omega_eta_etap",
+    "Br_Kp_P0enu", "Br_Kp_munu", "Br_B_Xcenu", "DeltaP_cu", "IB_Kl", "IB_Kp"
 };
 
 QCD::QCD() 
@@ -316,18 +316,18 @@ void QCD::SetParameter(const std::string name, const double& value)
         BKd1.setScheme((schemes) value);
         BKd3.setScheme((schemes) value);
     }
-    else if (name.compare("ReA0_kd")==0)
-        ReA0_kd = value;
-    else if (name.compare("ReA2_kd")==0)
-        ReA2_kd = value;
+    else if (name.compare("ReA0_Kd")==0)
+        ReA0_Kd = value;
+    else if (name.compare("ReA2_Kd")==0)
+        ReA2_Kd = value;
     else if (name.compare("Omega_eta_etap")==0)
         Omega_eta_etap = value;
     else if (name.compare("DeltaP_cu")==0)
         DeltaP_cu = value;
-    else if (name.compare("Br_Kp_Ppenu")==0)
-        Br_Kp_Ppenu = value;
-    else if (name.compare("Br_Kp_Mupnu")==0)
-        Br_Kp_Mupnu = value;
+    else if (name.compare("Br_Kp_P0enu")==0)
+        Br_Kp_P0enu = value;
+    else if (name.compare("Br_Kp_munu")==0)
+        Br_Kp_munu = value;
     else if (name.compare("Br_B_Xcenu")==0)
         Br_B_Xcenu = value;
     else if (name.compare("IB_Kl")==0)
