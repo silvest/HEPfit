@@ -587,7 +587,7 @@ public:
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion. 
      * @return The running quark mass @f$m(\mu)@f$ in GeV. 
      */
-    double Mrun(const double mu, const double m, const orders order = FULLNLO) const;
+    double Mrun(const double mu, const double m, const orders order = FULLNNLO) const;
     
     /**
      * Runs a quark mass from @f$\mu_i@f$ to @f$\mu_f@f$. 
