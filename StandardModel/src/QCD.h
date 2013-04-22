@@ -22,17 +22,17 @@
  * @details This class is .... 
  * 
  * Model parameters: 
- * \li \b AlsMz:&nbsp; The strong coupling constant at the Z-boson mass, @f$\alpha_s(M_Z)@f$
- * \li \b Mz:&nbsp; The mass of the @f$Z@f$ boson in GeV. 
- * \li \b mup:&nbsp; The @f$\overline{\mathrm{MS}}@f$ mass of the up quark at 2 GeV, @f$m_u(2\,\mathrm{GeV})@f$, in GeV.
- * \li \b mdown:&nbsp; The @f$\overline{\mathrm{MS}}@f$ mass of the down quark at 2 GeV, @f$m_d(2\,\mathrm{GeV})@f$, in GeV.
- * \li \b mcharm:&nbsp; The @f$\overline{\mathrm{MS}}@f$ scale-invariant mass of the charm quark, @f$m_c(m_c)@f$, in GeV.
- * \li \b mstrange:&nbsp; The @f$\overline{\mathrm{MS}}@f$ mass of the strange quark at 2 GeV, @f$m_s(2\,\mathrm{GeV})@f$, in GeV. 
- * \li \b mtop:&nbsp; The pole mass of the top quark in GeV.
- * \li \b mbottom:&nbsp; The @f$\overline{\mathrm{MS}}@f$ scale-invariant mass of the bottom quark, @f$m_b(m_b)@f$, in GeV. 
- * \li \b mut:&nbsp; The threshold between six- and five-flavour theory in GeV. 
- * \li \b mub:&nbsp; The threshold between five- and four-flavour theory in GeV. 
- * \li \b muc:&nbsp; The threshold between four- and three-flavour theory in GeV. 
+ * \li \b AlsMz:&nbsp; the strong coupling constant at the Z-boson mass, @f$\alpha_s(M_Z)@f$,
+ * \li \b Mz:&nbsp; the mass of the @f$Z@f$ boson in GeV,
+ * \li \b mup:&nbsp; the @f$\overline{\mathrm{MS}}@f$ mass of the up quark at 2 GeV, @f$m_u(2\,\mathrm{GeV})@f$, in GeV,
+ * \li \b mdown:&nbsp; the @f$\overline{\mathrm{MS}}@f$ mass of the down quark at 2 GeV, @f$m_d(2\,\mathrm{GeV})@f$, in GeV,
+ * \li \b mcharm:&nbsp; the @f$\overline{\mathrm{MS}}@f$ scale-invariant mass of the charm quark, @f$m_c(m_c)@f$, in GeV,
+ * \li \b mstrange:&nbsp; the @f$\overline{\mathrm{MS}}@f$ mass of the strange quark at 2 GeV, @f$m_s(2\,\mathrm{GeV})@f$, in GeV,
+ * \li \b mtop:&nbsp; the pole mass of the top quark in GeV,
+ * \li \b mbottom:&nbsp; the @f$\overline{\mathrm{MS}}@f$ scale-invariant mass of the bottom quark, @f$m_b(m_b)@f$, in GeV,
+ * \li \b mut:&nbsp; the threshold between six- and five-flavour theory in GeV,
+ * \li \b mub:&nbsp; the threshold between five- and four-flavour theory in GeV, 
+ * \li \b muc:&nbsp; the threshold between four- and three-flavour theory in GeV, 
  * \li \b MBd:&nbsp;
  * \li \b MBs:&nbsp;
  * \li \b MBp:&nbsp;
@@ -88,15 +88,15 @@
  * \li \b BK(3/2)8:&nbsp;
  * \li \b BK(3/2)9:&nbsp;
  * \li \b BK(3/2)10:&nbsp;
- * \li \b ReA0_Kd:&nbsp; The experimental value of the real part of the amplitude for @f$K^0\to\pi\pi@f$ with @f$\Delta I=0@f$@. 
- * \li \b ReA2_Kd:&nbsp; The experimental value of the real part of the amplitude for @f$K^0\to\pi\pi@f$ with @f$\Delta I=2@f$@. 
- * \li \b Omega_eta_etap:&nbsp; The isospin breaking contribution in @f$K^0\to\pi\pi@f$. 
- * \li \b Br_Kp_P0enu:&nbsp; The experimental value of the branching ratio of @f$K^+\to\pi^0e^+\nu@f$. 
- * \li \b Br_Kp_munu:&nbsp; The experimental value for the branching ratio of @f$K^+\to\mu^+\nu@f$. 
- * \li \b Br_B_Xcenu:&nbsp; The experimental value for the branching ratio of @f$B\to X_c e\nu@f$. 
- * \li \b DeltaP_cu:&nbsp; The long-distance correction to the charm contribution of @f$K^+\to\pi^+\nu\bar{\nu}@f$. 
- * \li \b IB_Kl:&nbsp; The isospin breaking corrections between @f$K_L\to\pi^0\nu\bar{\nu}@f$ and @f$K^+\to\pi^0 e^+\nu@f$. 
- * \li \b IB_Kp:&nbsp; The isospin breaking corrections between @f$K^+\to\pi^+ \nu\bar{\nu}@f$ and @f$K^+\to\pi^0 e^+\nu@f$. 
+ * \li \b ReA0_Kd:&nbsp; the experimental value of the real part of the amplitude for @f$K^0\to\pi\pi@f$ with @f$\Delta I=0@f$,
+ * \li \b ReA2_Kd:&nbsp; the experimental value of the real part of the amplitude for @f$K^0\to\pi\pi@f$ with @f$\Delta I=2@f$, 
+ * \li \b Omega_eta_etap:&nbsp; the isospin breaking contribution in @f$K^0\to\pi\pi@f$,
+ * \li \b Br_Kp_P0enu:&nbsp; the experimental value for the branching ratio of @f$K^+\to\pi^0e^+\nu@f$,
+ * \li \b Br_Kp_munu:&nbsp; the experimental value for the branching ratio of @f$K^+\to\mu^+\nu@f$,
+ * \li \b Br_B_Xcenu:&nbsp; the experimental value for the branching ratio of @f$B\to X_c e\nu@f$,
+ * \li \b DeltaP_cu:&nbsp; the long-distance correction to the charm contribution of @f$K^+\to\pi^+\nu\bar{\nu}@f$,
+ * \li \b IB_Kl:&nbsp; the isospin breaking corrections between @f$K_L\to\pi^0\nu\bar{\nu}@f$ and @f$K^+\to\pi^0 e^+\nu@f$,
+ * \li \b IB_Kp:&nbsp; the isospin breaking corrections between @f$K^+\to\pi^+ \nu\bar{\nu}@f$ and @f$K^+\to\pi^0 e^+\nu@f$. 
  * 
  */
 class QCD: public Model {
@@ -389,7 +389,7 @@ public:
     
     /**
       * @return The experimental value of the real part of the amplitude for 
-      * @f$K^0\to\pi\pi@f$ with @f$\Delta I=0@f$@. 
+      * @f$K^0\to\pi\pi@f$ with @f$\Delta I=0@f$. 
       */
     double getReA0_Kd() const
     {
@@ -398,7 +398,7 @@ public:
     
     /**
       * @return The experimental value of the real part of the amplitude for 
-      * @f$K^0\to\pi\pi@f$ with @f$\Delta I=2@f$@.
+      * @f$K^0\to\pi\pi@f$ with @f$\Delta I=2@f$.
       */
     double getReA2_Kd() const
     {
@@ -441,8 +441,8 @@ public:
      * @return The long-distance correction to the charm contribution of @f$K^+\to\pi^+\nu\bar{\nu}@f$. 
      * 
      * References: 
-     * <A HREF="http://inspirehep.net/record/678222?ln=en">Isidori et al.(2005)</A>, 
-     * <A HREF="http://inspirehep.net/record/712083?ln=en">Buras et al.(2006)</A>
+     * [<A HREF="http://inspirehep.net/record/678222?ln=en">Isidori et al.(2005)</A>], 
+     * [<A HREF="http://inspirehep.net/record/712083?ln=en">Buras et al.(2006)</A>]
      */
     double getDeltaP_cu() const
     {
@@ -593,7 +593,7 @@ public:
      * Runs a quark mass from @f$\mu_i@f$ to @f$\mu_f@f$. 
      * @param[in] mu_f A scale @f$\mu_f@f$ in GeV. 
      * @param[in] mu_i A scale @f$\mu_i@f$ in GeV. 
-     * @param[in] m The @f$\overline{\mathrm{MS}}@f$ mass @f$m(mu_i)@f$ in GeV. 
+     * @param[in] m The @f$\overline{\mathrm{MS}}@f$ mass @f$m(\mu_i)@f$ in GeV. 
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion. 
      * @return The running quark mass @f$m(\mu_f)@f$ in GeV. 
      */
@@ -643,13 +643,13 @@ protected:
     Particle quarks[6];
     Meson mesons[MESON_END];
     bool computeYu, computeYd;
+    BParameter BBs, BBd, BD, BK, BKd1, BKd3;
 
     // model parameters
     double AlsMz, Mz, mut, mub, muc;
     double ReA0_Kd, ReA2_Kd, Omega_eta_etap;
     double Br_Kp_P0enu, IB_Kl, IB_Kp, DeltaP_cu, Br_Kp_munu, Br_B_Xcenu;
     double BBsoBBd, FBsoFBd;
-    BParameter BBs, BBd, BD, BK, BKd1, BKd3;
     virtual void SetParameter(const std::string, const double&);
 
 private:

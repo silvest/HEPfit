@@ -23,16 +23,71 @@ class EWSM; // forward reference to EWSM class
  * @brief A class for the Standard Model. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details 
+ * @details This class is .... 
+ * 
+ * Model parameters: 
+ * \li \b ale:&nbsp; the fine-structure constant @f$\alpha(0)@f$, 
+ * \li \b dAle5Mz:&nbsp; the five-flavour hadronic contribution to the electromagnetic coupling, 
+ * \li \b GF:&nbsp; the Fermi constant in @f${\rm GeV}^{-2}@f$, 
+ * \li \b mHl:&nbsp; the Higgs mass in GeV, 
+ * \li \b delMw:&nbsp; the theoretical uncertainty in @f$M_W@f$ in GeV, 
+ * \li \b delSin2th_l:&nbsp; the theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$, 
+ * \li \b muw:&nbsp;
+ * \li \b mneutrino_1:&nbsp; 
+ * \li \b mneutrino_2:&nbsp; 
+ * \li \b mneutrino_3:&nbsp;
+ * \li \b melectron:&nbsp; the electron mass in GeV, 
+ * \li \b mmu:&nbsp; the muon mass in GeV, 
+ * \li \b mtau:&nbsp; the tau mass in GeV, 
+ * \li \b lambda:&nbsp;
+ * \li \b A:&nbsp;
+ * \li \b rhob:&nbsp;
+ * \li \b etab:&nbsp;
+ * \li \b EpsK:&nbsp; the experimental value of @f$\varepsilon_{K}@f$, 
+ * \li \b phiEpsK:&nbsp; the experimental value of @f$\Delta M_{K}/(\Delta\Gamma_{K}/2)@f$, 
+ * \li \b DeltaMK:&nbsp; the experimental value of @f$\Delta M_{K}@f$ in GeV, 
+ * \li \b KbarEpsK:&nbsp;
+ * \li \b Dmk:&nbsp; the SM contribution to @f$\Delta m_{K}@f$ in GeV, 
+ * \li \b SM_M12D:&nbsp; the SM amplitude of the @f$D^{0}-\bar{D}^{0}@f$ mixing, 
+ * 
+ * Flags:
+ * \li \b FixedSMparams:&nbsp; true if all the SM parameters are fixed to constants in the fit. 
+ * Flags for the EW precision observables (see EW.h for detail):
+ * \li \b EWCHMN:&nbsp; use EW_CHMN class
+ * \li \b EWABC:&nbsp; use EW_ABC class based on the formulae in Eqs.(7)-(14) 
+ * of IJMP, A7, 1031-1058 (1998) by Altarelli et al.
+ * \li \b EWABC2:&nbsp; use use the approximate formulae in Eqs.(16)-(20) of 
+ * IJMP, A7, 1031-1058 (1998) by Altarelli et al.
+ * \li \b EWBURGESS:&nbsp; use the formulae for STU contributions by Burgess et al.
+ * \li \b R0bApproximate:&nbsp; use the two-loop approximate formula for R_b in 
+ * [<A HREF="http://inspirehep.net/record/1113324?ln=en">Freitas et al.(2012)</A>], 
+ * \li \b RhoZbFromR0b:&nbsp; derive rho_Z^b from the approximate formula for R_b
+ * 
  */
 class StandardModel: public QCD {
 public:
-    enum lepton {NEUTRINO_1,ELECTRON,NEUTRINO_2,MU,NEUTRINO_3,TAU};
+    
+    /**
+     * An enum type for leptons. 
+     */    
+    enum lepton {
+        NEUTRINO_1,
+        ELECTRON, /**< Electron */
+        NEUTRINO_2,
+        MU, /**< Muon */
+        NEUTRINO_3,
+        TAU /**< Tau */
+    };
+    
     static const int NSMvars = 23;
     static const std::string SMvars[NSMvars];
     static const int NSMflags = 9;
     static const std::string SMflags[NSMflags];
     
+    /**
+     * A constructor. 
+     * @param[in] bDebug_i 
+     */
     StandardModel(const bool bDebug_i=false);
 
     virtual std::string ModelName() const 
@@ -40,47 +95,25 @@ public:
         return "StandardModel";
     }
 
-    virtual bool Init(const std::map<std::string, double>&);
+    virtual bool Init(const std::map<std::string, double>& DPars);
 
     virtual bool PreUpdate();    
 
     /**
-     * updates the SM parameters found in the argument
-     * @param a map containing the parameters (all as double) to be updated
-     * "GF"
-     * "mneutrino_1"
-     * "mneutrino_2"
-     * "mneutrino_3"
-     * "melectron"
-     * "mmu"
-     * "mtau"
-     * "lambda"
-     * "A"
-     * "rhob"
-     * "etab"
-     * "ale"
-     * "dAle5Mz"
-     * "mHl"
-     * "muw"
-     * "phiEpsK"
-     * "DeltaMK"
-     * "KbarEpsK"
-     * "Dmk"
-     * "SM_M12D" 
-     * "delMw"
-     * "delSin2th_l"
+     * Updates the SM parameters found in the argument. 
+     * @param[in] DPars A map containing the parameters (all as double) to be updated. 
      */
-    virtual bool Update(const std::map<std::string, double>&);
+    virtual bool Update(const std::map<std::string, double>& DPars);
      
     virtual bool PostUpdate();
         
-    virtual bool CheckParameters(const std::map<std::string, double>&);
+    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     
     ///////////////////////////////////////////////////////////////////////////
     // Flags    
         
-    virtual bool SetFlag(const std::string, const bool&);    
+    virtual bool SetFlag(const std::string name, const bool& value);    
     
     bool IsFlagFixedAllSMparams() const
     {    
@@ -160,7 +193,7 @@ public:
     // get and set methods for class members
 
     /**
-     * @return boolean variable for debugging
+     * @return A boolean variable for debugging. 
      */    
     bool isBDebug() const 
     {
@@ -173,23 +206,6 @@ public:
     }
     
     /**
-     * @return the Fermi constant
-     */
-    double getGF() const 
-    {
-        return GF;
-    }
-
-    /**
-     * @brief set the Fermi constant
-     * @param GF the Fermi constant
-     */
-    void setGF(double GF) 
-    {
-        this->GF = GF;
-    }
-
-    /**
      * @return the electromagnetic coupling
      */
     double getAle() const 
@@ -198,8 +214,8 @@ public:
     }
 
     /**
-     * @brief set the electromagnetic coupling
-     * @param ale the electromagnetic coupling
+     * Sets the fine-structure constant. 
+     * @param[in] ale the fine-structure constant. 
      */
     void setAle(double ale) 
     {
@@ -207,7 +223,7 @@ public:
     }
 
     /**
-     * @return @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
+     * @return @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$. 
      */
     double getDAle5Mz() const 
     {
@@ -215,16 +231,33 @@ public:
     }
 
     /**
-     * set @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
-     * @param dAle5Mz @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$
+     * Sets @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$. 
+     * @param[in] dAle5Mz @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$. 
      */
     void setDAle5Mz(double dAle5Mz) 
     {
         this->dAle5Mz = dAle5Mz;
     }
+
+    /**
+     * @return The Fermi constant. 
+     */
+    double getGF() const 
+    {
+        return GF;
+    }
+
+    /**
+     * Sets the Fermi constant. 
+     * @param[in] GF the Fermi constant. 
+     */
+    void setGF(double GF) 
+    {
+        this->GF = GF;
+    }
     
     /**
-     * @return the Higgs mass
+     * @return The Higgs mass. 
      */
     double getMHl() const 
     {
@@ -232,8 +265,8 @@ public:
     }
 
     /**
-     * @brief set the Higgs mass
-     * @param mHl the Higgs mass
+     * Sets the Higgs mass. 
+     * @param[in] mHl The Higgs mass. 
      */
     void setMHl(double mHl)
     {
@@ -241,7 +274,7 @@ public:
     }    
     
     /**
-     * @return Theoretical uncertainty in the approximate formula for M_W. 
+     * @return Theoretical uncertainty in the approximate formula for @f$M_W@f$. 
      */
     double getDelMw() const 
     {
@@ -257,7 +290,7 @@ public:
     }
     
     /**
-     * @return the CKM matrix
+     * @return The CKM matrix. 
      */
     matrix<complex> getVCKM() const
     { 
@@ -265,16 +298,40 @@ public:
     }
 
     /**
-     * @brief set the CKM matrix
-     * @param VCKM the CKM matrix
+     * Sets the CKM matrix. 
+     * @param[in] VCKM The CKM matrix. 
      */
     void setVCKM(matrix<complex> VCKM)
     { 
         this->VCKM = VCKM; 
     }
+    
+    CKM getCKM() const 
+    {
+        return myCKM;
+    }
+
+    double GetLambda() const 
+    {
+        return lambda;
+    }
+
+    double GetA() const 
+    {
+        return A;
+    }
+
+    double GetEtab() const 
+    {
+        return etab;
+    }
+    double GetRhob() const 
+    {
+        return rhob;
+    }
 
     /**
-     * @return the PMNS matrix
+     * @return The PMNS matrix. 
      */
     matrix<complex> getUPMNS() const 
     { 
@@ -282,8 +339,8 @@ public:
     }
 
     /**
-     * @brief set the PMNS matrix
-     * @param UPMNS the PMNS matrix
+     * Sets the PMNS matrix. 
+     * @param[in] UPMNS The PMNS matrix. 
      */
     void setUPMNS(matrix<complex> UPMNS)
     { 
@@ -291,7 +348,7 @@ public:
     }
 
     /**
-     * @return up Yukawa matrix
+     * @return The up Yukawa matrix. 
      */
     matrix<complex> getYu() const
     {
@@ -299,7 +356,7 @@ public:
     }
 
     /**
-     * @return down Yukawa matrix
+     * @return The down Yukawa matrix. 
      */
     matrix<complex> getYd() const 
     {
@@ -307,7 +364,7 @@ public:
     }
 
     /**
-     * @return neutrino Yukawa matrix
+     * @return The neutrino Yukawa matrix. 
      */
     matrix<complex> getYn() const 
     {
@@ -315,7 +372,7 @@ public:
     }
 
     /**
-     * @return charged lepton Yukawa matrix
+     * @return The charged lepton Yukawa matrix. 
      */
     matrix<complex> getYe() const 
     {
@@ -323,8 +380,8 @@ public:
     }
     
     /**
-     * @brief set the value Standard Model contribution to \f$ \Delta m_{K} \f$
-     * @param Dmk Standard Model contribution to \f$ \Delta m_{K} \f$
+     * Sets the Standard Model contribution to @f$ \Delta m_{K} @f$. 
+     * @param[in] Dmk The Standard Model contribution to @f$ \Delta m_{K} @f$. 
      */
     void setDmk(double Dmk) 
     {
@@ -332,7 +389,7 @@ public:
     }
     
     /**
-     * @return the value of Standard Model contribution to \f$ \Delta m_{K} \f$
+     * @return The Standard Model contribution to @f$ \Delta m_{K} @f$. 
      */
     double getDmk() const 
     {
@@ -340,7 +397,7 @@ public:
     }
     
     /**
-     * @return the Standard Model amplitude of the \f$ D^{0} - \bar{D}^{0} \f$ mixing
+     * @return The Standard Model amplitude of the @f$ D^{0} - \bar{D}^{0} @f$ mixing. 
      */
     double getSM_M12D() const
     {
@@ -358,8 +415,7 @@ public:
     }
     
     /**
-     * 
-     * @return the experimental value of \f$ \Delta M_{K}/(\Delta\Gamma_{K}/2) \f$
+     * @return The experimental value of @f$ \Delta M_{K}/(\Delta\Gamma_{K}/2) @f$. 
      */
     double getphiEpsK() const 
     {
@@ -367,8 +423,7 @@ public:
     }
     
     /**
-     * 
-     * @return the experimental value of \f$ \Delta M_{K} \f$
+     * @return The experimental value of @f$ \Delta M_{K} @f$. 
      */
     double getDeltaMK() const 
     {
@@ -376,57 +431,31 @@ public:
     }
     
     /**
-     * 
-     * @return the experimental value of \f$ \varespilon_{K} \f$
+     * @return The experimental value of @f$ \varepsilon_{K} @f$. 
      */
     double getEpsK() const {
         return EpsK;
     }
-
-    double GetA() const 
-    {
-        return A;
-    }
-
-    double GetEtab() const 
-    {
-        return etab;
-    }
-
-    double GetLambda() const 
-    {
-        return lambda;
-    }
-
-    double GetRhob() const 
-    {
-        return rhob;
-    }
     
-    CKM getCKM() const 
-    {
-        return myCKM;
-    }
-
     
     ///////////////////////////////////////////////////////////////////////////
     
     /**
-     * @return the VEV
+     * @return The VEV. 
      */
     double v() const;
 
     /**
-     * @return the W boson mass at tree level
+     * @return The W boson mass at tree level. 
      */
     double Mw_tree() const;    
         
     /**
-     * the running electromagnetic coupling alpha(mu) in the on-shell scheme, 
-     * where the top-quark contribution is not included. 
-     * @param[in] mu the scale @f$\mu@f$ in GeV
+     * Computes the running electromagnetic coupling alpha(mu) in the on-shell 
+     * scheme, where the top-quark contribution is not included. 
+     * @param[in] mu A scale @f$\mu@f$ in GeV. 
      * @param[in] order (=LO, FULLNLO)
-     * @return @f$\alpha@f$
+     * @return @f$\alpha(\mu)@f$ in the on-shell scheme. 
      */
     double ale_OS(const double mu, orders order=FULLNLO) const;
     
@@ -434,17 +463,17 @@ public:
     //////////////////////////////////////////////////////////////////////// 
     
     /**
-     * @return the W boson mass without weak corrections, but with alpha(Mz^2)
+     * @return The W boson mass without weak corrections. 
      */
     double Mw0() const;
     
     /**
-     * @return sin^2 theta_W without weak corrections, but with alpha(Mz^2)
+     * @return @f$sin^2\theta_W@f$ without weak corrections. 
      */
     double s02() const;
 
     /**
-     * @return cos^2 theta_W without weak corrections, but with alpha(Mz^2)
+     * @return @f$\cos^2\theta_W@f$ without weak corrections. 
      */
     double c02() const;
     
@@ -452,7 +481,7 @@ public:
     //////////////////////////////////////////////////////////////////////// 
 
     /**
-     * @return pointer to EWSM object
+     * @return A pointer to EWSM object. 
      */
     EWSM* getEWSM() const 
     {
@@ -460,130 +489,121 @@ public:
     }
     
     /**
-     * @param[in] s invariant mass squared 
-     * @return the leptonic corrections to alpha at Mz
+     * @param[in] s An invariant mass squared. 
+     * @return The leptonic corrections to alpha at @f$M_Z@f$. 
      */
     double DeltaAlphaLepton(const double s) const;
 
     /**
-     * @return the sum of the leptonic and hadronic corrections to alpha at Mz
+     * @return The sum of the leptonic and hadronic corrections to alpha at @f$M_Z@f$.
      */
     double DeltaAlphaL5q() const;
     
     /**
-     * @return the total (leptonic+hadronic+top) corrections to alpha at Mz
+     * @return The total (leptonic+hadronic+top) corrections to alpha at @f$M_Z@f$.
      */
     double DeltaAlpha() const;
     
     /**
-     * @brief electromagnetic coupling alpha at Mz
-     * @return alpha(Mz)
+     * @return The electromagnetic coupling at @f$M_Z@f$, @f$\alpha(M_Z)@f$. 
      */
     double alphaMz() const;
     
     /**
-     * @return the W boson mass
+     * @return The W boson mass.
      */
     virtual double Mw() const;
 
     /**
-     * @return Mw^2/Mz^2
+     * @return @f$M_W^2/M_Z^2@f$.
      */
     virtual double cW2() const;
     
     /**
-     * @return 1-Mw^2/Mz^2
+     * @return @f$1-M_W^2/M_Z^2@f$. 
      */
     virtual double sW2() const;
     
     /**
-     * @brief effective coupling rho_Z^l
-     * @param[in] l lepton
-     * @return rho_Z^l
+     * @param[in] l lepton.
+     * @return The effective coupling @f$\rho_Z^l@f$.
      */
     virtual complex rhoZ_l(const StandardModel::lepton l) const;
     
     /**
-     * @brief effective coupling rho_Z^q
-     * @param[in] q quark
-     * @return rho_Z^q
+     * @param[in] q quark.
+     * @return The effective coupling @f$\rho_Z^q@f$.
      */
     virtual complex rhoZ_q(const StandardModel::quark q) const;
 
     /**
-     * @brief effective coupling kappa_Z^l
-     * @param[in] l name of lepton
-     * @return kappa_Z^l in the SM
+     * @param[in] l name of lepton.
+     * @return The effective coupling @f$\kappa_Z^l@f$ in the SM.
      */
     virtual complex kappaZ_l(const StandardModel::lepton l) const;
 
     /**
-     * @brief effective coupling kappa_Z^q
-     * @param[in] q name of quark
-     * @return kappa_Z^q in the SM
+     * @param[in] q name of quark.
+     * @return The effective coupling @f$\kappa_Z^q@f$ in the SM.
      */
     virtual complex kappaZ_q(const StandardModel::quark q) const;       
     
     /**
-     * @brief vector effective coupling for neutral-current interactions
-     * @param[in] l lepton
-     * @return g_V^l
+     * @param[in] l lepton.
+     * @return The effective vector coupling for neutral-current interactions @f$g_V^l@f$.
      */
     virtual complex gVl(const StandardModel::lepton l) const;
 
     /**
-     * @brief vector effective coupling for neutral-current interactions
-     * @param[in] q quark
-     * @return g_V^q
+     * @param[in] q quark.
+     * @return The effective vector coupling for neutral-current interactions @f$g_V^q@f$.
      */
     virtual complex gVq(const StandardModel::quark q) const;
 
     /**
-     * @brief axial-vector effective coupling for neutral-current interactions
-     * @param[in] l lepton
-     * @return g_A^l
+     * @param[in] l lepton.
+     * @return The effective axial-vector coupling for neutral-current interactions @f$g_A^l@f$.
      */
     virtual complex gAl(const StandardModel::lepton l) const;
 
     /**
-     * @brief axial-vector effective coupling for neutral-current interactions
-     * @param[in] q quark
-     * @return g_A^q
+     * @param[in] q quark.
+     * @return The effective axial-vector coupling for neutral-current interactions @f$g_A^q@f$.
      */
     virtual complex gAq(const StandardModel::quark q) const; 
     
     /* 
-     * @param[in] q name of a quark
-     * @return non-factorizable EW-QCD corrections in GeV
+     * @param[in] q name of a quark.
+     * @return non-factorizable EW-QCD corrections in GeV.
      */
     double Delta_EWQCD(const StandardModel::quark q) const;
     
     /**
-     * @param[in] q name of a quark
+     * @param[in] q name of a quark.
      * @return Radiator functions to the vector current due to the 
      * final-state QED and QCD corrections. 
      */    
     double RVq(const StandardModel::quark q) const;
     
     /**
-     * @param[in] q name of a quark
+     * @param[in] q name of a quark.
      * @return Radiator functions to the axial-vector current due to the 
      * final-state QED and QCD corrections. 
      */    
     double RAq(const StandardModel::quark q) const;
         
     /**
-     * @return Singlet vector corrections to the width of Z->hadrons
+     * @return Singlet vector corrections to the width of Z to hadrons.
      */
     double RVh() const;
 
     /**
-     * @return the total width of the W boson
+     * @return The total width of the W boson.
      */
     virtual double GammaW() const;
     
     /**
-     * @return NP contribution to oblique parameter S
+     * @return NP contribution to oblique parameter @f$S@f$.
      */
     virtual double obliqueS() const 
     {
@@ -591,7 +611,7 @@ public:
     }
         
     /**
-     * @return NP contribution to oblique parameter T
+     * @return NP contribution to oblique parameter @f$T@f$.
      */
     virtual double obliqueT() const 
     {
@@ -599,7 +619,7 @@ public:
     }
     
     /**
-     * @return NP contribution to oblique parameter U
+     * @return NP contribution to oblique parameter @f$U@f$.
      */
     virtual double obliqueU() const 
     {
@@ -607,7 +627,7 @@ public:
     }
     
     /**
-     * @return NP contribution to oblique parameter \hat{S}
+     * @return NP contribution to oblique parameter @f$\hat{S}@f$.
      */
     virtual double obliqueShat() const 
     {
@@ -615,7 +635,7 @@ public:
     }
         
     /**
-     * @return NP contribution to oblique parameter \hat{T}
+     * @return NP contribution to oblique parameter @f$\hat{T}@f$.
      */
     virtual double obliqueThat() const 
     {
@@ -623,7 +643,7 @@ public:
     }
     
     /**
-     * @return NP contribution to oblique parameter \hat{U}
+     * @return NP contribution to oblique parameter @f$\hat{U}@f$.
      */
     virtual double obliqueUhat() const 
     {
@@ -631,7 +651,7 @@ public:
     }
 
     /**
-     * @return NP contribution to oblique parameter V
+     * @return NP contribution to oblique parameter @f$V@f$.
      */
     virtual double obliqueV() const 
     {
@@ -639,7 +659,7 @@ public:
     }
 
     /**
-     * @return NP contribution to oblique parameter W
+     * @return NP contribution to oblique parameter @f$W@f$.
      */
     virtual double obliqueW() const 
     {
@@ -647,7 +667,7 @@ public:
     }
 
     /**
-     * @return NP contribution to oblique parameter X
+     * @return NP contribution to oblique parameter @f$X@f$.
      */
     virtual double obliqueX() const 
     {
@@ -655,7 +675,7 @@ public:
     }
 
     /**
-     * @return NP contribution to oblique parameter Y
+     * @return NP contribution to oblique parameter @f$Y@f$.
      */
     virtual double obliqueY() const 
     {
@@ -663,42 +683,42 @@ public:
     }
 
     /**
-     * @return SM contribution to epsilon_1
+     * @return SM contribution to @f$\epsilon_1@f$.
      */
     double epsilon1_SM() const;
 
     /**
-     * @return SM contribution to epsilon_2
+     * @return SM contribution to @f$\epsilon_2@f$.
      */
     double epsilon2_SM() const;
     
     /**
-     * @return SM contribution to epsilon_3
+     * @return SM contribution to @f$\epsilon_3@f$.
      */
     double epsilon3_SM() const;
     
     /**
-     * @return SM contribution to epsilon_b
+     * @return SM contribution to @f$\epsilon_b@f$.
      */
     double epsilonb_SM() const;
     
     /**
-     * @return epsilon_1
+     * @return @f$\epsilon_1@f$.
      */
     virtual double epsilon1() const;
 
     /**
-     * @return epsilon_2
+     * @return @f$\epsilon_2@f$.
      */
     virtual double epsilon2() const;
     
     /**
-     * @return epsilon_3
+     * @return @f$\epsilon_3@f$.
      */
     virtual double epsilon3() const;
     
     /**
-     * @return epsilon_b
+     * @return @f$\epsilon_b@f$.
      */
     virtual double epsilonb() const;
 
@@ -737,15 +757,15 @@ public:
     
     ////////////////////////////////////////////////////////////////////////
 protected:
-    double GF, ale, dAle5Mz, mHl;
-    double delMw, delSin2th_l;
     matrix<complex> VCKM, UPMNS, Yu, Yd, Yn, Ye;
-    double lambda, A, rhob, etab;
-    double muw, KbarEpsK, phiEpsK, DeltaMK, Dmk, SM_M12D, EpsK;
     Particle leptons[6];
     EWSM* myEWSM;
     CKM myCKM;
     
+    // model parameters
+    double ale, dAle5Mz, GF, mHl, delMw, delSin2th_l, muw;
+    double lambda, A, rhob, etab;
+    double EpsK, phiEpsK, DeltaMK, KbarEpsK, Dmk, SM_M12D;
     virtual void SetParameter(const std::string, const double&);
     
     

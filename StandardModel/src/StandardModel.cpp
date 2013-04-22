@@ -5,7 +5,6 @@
  * For the licensing terms see doc/COPYING.
  */
 
-//#include <bt/assign/list_oost/assign/list_of.hpp> // for 'map_list_of()'
 #include <iostream>
 #include <math.h>
 #include <stdlib.h>
@@ -20,27 +19,17 @@
 #include "StandardModelMatching.h"
 
 
-const std::string StandardModel::SMvars[NSMvars] = {"GF", "mneutrino_1", "mneutrino_2",
-    "mneutrino_3", "melectron", "mmu", "mtau", "lambda", "A", "rhob", "etab", "ale",
-    "dAle5Mz", "mHl", "muw", "phiEpsK","DeltaMK", "KbarEpsK", "Dmk", "EpsK", "SM_M12D",
-    "delMw", "delSin2th_l"};
+const std::string StandardModel::SMvars[NSMvars] = {
+    "ale", "dAle5Mz", "GF", "mHl", "delMw", "delSin2th_l", "muw",
+    "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", 
+    "lambda", "A", "rhob", "etab", 
+    "EpsK", "phiEpsK", "DeltaMK", "KbarEpsK", "Dmk", "SM_M12D"
+};
 
-/**
- * FixedSMparams: true if all the SM parameters are fixed to constants in the fit. 
- * Flags for the EW precision observables (see EW.h for detail):
- *   EWCHMN: use EW_CHMN class
- *   EWABC:  use EW_ABC class based on the formulae in Eqs.(7)-(14) of IJMP, A7, 
- *           1031-1058 (1998) by Altarelli et al.
- *   EWABC2: use use the approximate formulae in Eqs.(16)-(20) of IJMP, A7, 
- *           1031-1058 (1998) by Altarelli et al.
- *   EWBURGESS: use the formulae for STU contributions by Burgess et al.
- *   R0bApproximate: use the two-loop approximate formula for R_b by Freitas and Huang
- *   RhoZbFromR0b: derive rho_Z^b from the approximate formula for R_b
- */
-const std::string StandardModel::SMflags[NSMflags] 
-    = {"FixedAllSMparams", "EWCHMN", "EWABC", "EWABC2", "EWBURGESS", "R0bApproximate", 
-       "RhoZbFromR0b", "withoutNonUniversalVCinEpsilons", "NPZbbbarLinearize"};
-
+const std::string StandardModel::SMflags[NSMflags] = {
+    "FixedAllSMparams", "EWCHMN", "EWABC", "EWABC2", "EWBURGESS", "R0bApproximate", 
+    "RhoZbFromR0b", "withoutNonUniversalVCinEpsilons", "NPZbbbarLinearize"
+};
 
 StandardModel::StandardModel(const bool bDebug_i) 
 : QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.), 
@@ -137,28 +126,20 @@ bool StandardModel::PostUpdate()
 
 void StandardModel::SetParameter(const std::string name, const double& value)
 {
-    if (name.compare("GF") == 0)
-        GF = value;
-    else if (name.compare("ale") == 0)
+    if (name.compare("ale") == 0)
         ale = value;
     else if (name.compare("dAle5Mz") == 0)
-        dAle5Mz = value;
+        dAle5Mz = value;    
+    else if (name.compare("GF") == 0)
+        GF = value;
     else if (name.compare("mHl") == 0)
         mHl = value;
+    else if (name.compare("delMw") == 0)
+        delMw = value;
+    else if (name.compare("delSin2th_l") == 0)
+        delSin2th_l = value;
     else if (name.compare("muw") == 0)
         muw = value;
-    else if (name.compare("SM_M12D") == 0)
-        SM_M12D = value;
-    else if (name.compare("phiEpsK") == 0)
-        phiEpsK = value;
-    else if (name.compare("KbarEpsK") == 0)
-        KbarEpsK = value;
-    else if (name.compare("Dmk") == 0)
-        Dmk = value;
-    else if (name.compare("DeltaMK") == 0)
-        DeltaMK = value;
-    else if (name.compare("EpsK") == 0)
-        EpsK = value;
     else if (name.compare("mneutrino_1") == 0) {
         leptons[NEUTRINO_1].setMass(value);
         computeYn = true;
@@ -189,10 +170,18 @@ void StandardModel::SetParameter(const std::string name, const double& value)
     } else if (name.compare("etab") == 0) {
         etab = value;
         computeCKM = true;
-    } else if (name.compare("delMw") == 0)
-        delMw = value;
-    else if (name.compare("delSin2th_l") == 0)
-        delSin2th_l = value;
+    } else if (name.compare("EpsK") == 0)
+        EpsK = value;
+    else if (name.compare("phiEpsK") == 0)
+        phiEpsK = value;
+    else if (name.compare("DeltaMK") == 0)
+        DeltaMK = value;
+    else if (name.compare("KbarEpsK") == 0)
+        KbarEpsK = value;
+    else if (name.compare("Dmk") == 0)
+        Dmk = value;
+    else if (name.compare("SM_M12D") == 0)
+        SM_M12D = value;
     else
         QCD::SetParameter(name, value);
 }
