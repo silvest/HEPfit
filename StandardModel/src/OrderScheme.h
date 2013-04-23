@@ -21,7 +21,7 @@ enum schemes {NDR=0, HV, LRI};
  * @enum orders
  * @ingroup StandardModel
  */
-enum orders {LO=0, NLO, FULLNLO, NNLO, FULLNNLO};
+enum orders {LO=0, NLO, NNLO, FULLNLO, FULLNNLO};
 
 /**
  * @enum orders_ew
