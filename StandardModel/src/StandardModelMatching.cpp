@@ -40,24 +40,24 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
     };
 }
 
-double StandardModelMatching::x_c(const double mu) const 
+double StandardModelMatching::x_c(const double mu, const orders order) const 
 {
     double mc = SM.Mrun(mu, SM.getQuarks(QCD::CHARM).getMass_scale(), 
-                        SM.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
+                        SM.getQuarks(QCD::CHARM).getMass(), order);
     return pow(mc / SM.Mw_tree(), 2.); 
 }
 
-double StandardModelMatching::x_t(const double mu) const 
+double StandardModelMatching::x_t(const double mu, const orders order) const 
 {
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
-                        SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+                        SM.getQuarks(QCD::TOP).getMass(), order);
     return pow(mt / SM.Mw_tree(), 2.); 
 }
 
-double StandardModelMatching::mt2omh2(const double mu) const 
+double StandardModelMatching::mt2omh2(const double mu, const orders order) const 
 {
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
-                        SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+                        SM.getQuarks(QCD::TOP).getMass(), order);
     return pow(mt / SM.getMHl(), 2.);
 }
 

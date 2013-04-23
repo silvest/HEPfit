@@ -154,7 +154,7 @@ public:
     
     /**
      * Converts an object of the enum type "orders" to the corresponding string. 
-     * @param[in] An object of the enum type "orders". 
+     * @param[in] order An object of the enum type "orders". 
      * @return The string of the given "order". 
      */
     std::string orderToString(const orders order) const;
