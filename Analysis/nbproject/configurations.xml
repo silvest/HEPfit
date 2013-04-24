@@ -31,6 +31,7 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <itemPath>EW.conf</itemPath>
     <itemPath>GeneralSUSY.conf</itemPath>
     <itemPath>MFV.conf</itemPath>
     <itemPath>Model.conf</itemPath>
@@ -272,6 +273,8 @@
           <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit -lFH -lBAT -lBATmodels </commandLine>
         </linkerTool>
       </compileType>
+      <item path="EW.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
@@ -547,6 +550,8 @@
           <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit</commandLine>
         </linkerTool>
       </compileType>
+      <item path="EW.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
@@ -822,6 +827,8 @@
           <commandLine>`root-config --ldflags` `root-config --libs` `${HOME}/gsl/bin/gsl-config --libs` -lMinuit -L/storage/local/exp_soft/local/intel_64/F_Compiler/11.0/074/lib/intel64 -lifport -lifcore -limf -lsvml</commandLine>
         </linkerTool>
       </compileType>
+      <item path="EW.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
@@ -1075,6 +1082,8 @@
           <commandLine>-fopenmp `gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit -lFH -lBAT -lBATmodels</commandLine>
         </linkerTool>
       </compileType>
+      <item path="EW.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
