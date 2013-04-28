@@ -10,6 +10,7 @@
 #include <gslpp.h>
 #include <iostream>
 #include <fstream>
+//#include "../tests/SusyFlavour.h" // Please include to test with Susy Flavour
 
 using namespace gslpp;
 
@@ -65,15 +66,17 @@ void Spectrum::CalcSpectrum(SUSY & SUSY){
             MDOWN2.assign(i+3,j+3,dRR(i,j));
         }
    
-    // test lines
+    // test lines // For testing with Susy Flavour. Include ../tests/SusyFlavour.h
     
-    Sflav_Spectrum("\"Up-squark LR mixing matrix, real part:\"");
-    Sflav_Spectrum("\"Up-squark LR mixing matrix, imaginary part:\"");
-    std::cout << "Matrice uLR = " << uLR << std::endl;
+//    SusyFlavourSpectrum SF;
     
-    Sflav_Spectrum("\"Down-squark LR mixing matrix, real part:\"");
-    Sflav_Spectrum("\"Down-squark LR mixing matrix, imaginary part:\"");
-    std::cout << "Matrice dLR = " << dLR << std::endl;
+//    SF.Sflav_Spectrum("\"Up-squark LR mixing matrix, real part:\"");
+//    SF.Sflav_Spectrum("\"Up-squark LR mixing matrix, imaginary part:\"");
+//    std::cout << "Matrice uLR = " << uLR << std::endl;
+    
+//    SF.Sflav_Spectrum("\"Down-squark LR mixing matrix, real part:\"");
+//    SF.Sflav_Spectrum("\"Down-squark LR mixing matrix, imaginary part:\"");
+//    std::cout << "Matrice dLR = " << dLR << std::endl;
     
     
 
@@ -132,226 +135,3 @@ void Spectrum::CalcSpectrum(SUSY & SUSY){
    
     
 }
-
-void Spectrum::Sflav_Spectrum(const std::string block){
-    
-        
-    const std::string com1 = "grep -r -A3 ";
-    const std::string file = "mssm_data.txt";
-    std::string com;
-    
-    
-    com.append(com1);
-    com.append(block);
-    com.append(" ");
-    com.append(file);
-    com.append(" \n ");
-    
-    const char * c = com.c_str();
-    
-    system(c);
-    
-}
-void Spectrum::Sflav_init(SUSY& SUSY){
-    
-   
-    system("rm GeneralSUSY_NEW.conf");
-    std::ofstream myfile("GeneralSUSY_NEW.conf");
-     if (myfile.is_open())
-    {
-         
-    int i,j;
-    
-    
-    for( i = 0; i < 3; i++){
-        for( j = 0; j < 3; j++){
-            
-           
-    const std::string temp = "TU_";
-    const std::string temp1 = "TD_";
-    std::string TUr;
-    std::string TUi;
-    std::string TDr;
-    std::string TDi;
-    TUr.append(temp);
-    TDr.append(temp1);
-    std::ostringstream ss;
-    ss << i + 1;
-    ss << j + 1;
-    TUr.append(ss.str());
-    TDr.append(ss.str());
-    TUi.append(TUr);
-    TDi.append(TDr);
-    TUi.append("i");
-    TUr.append("r");
-    TDr.append("r");
-    TDi.append("i");
-    
-    // test - lines
-    
-    //std::cout << "TUr(" << i+1 << "," << j + 1 << ")= " << TUr << std::endl;
-    //std::cout << "TUi(" << i+1 << "," << j + 1 << ")= " << TUi << std::endl;
-    
-    // end - test
-    
-    myfile << TUr;
-    myfile << "  ";
-    myfile << SUSY.TU(i,j).real();
-    myfile << " 0.  0.  "; 
-    myfile << "\n" ;
-    myfile << TUi;
-    myfile << "  ";
-    myfile << SUSY.TU(i,j).imag();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    
-    myfile << TDr;
-    myfile << "  ";
-    myfile << SUSY.TD(i,j).real();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    myfile << TDi;
-    myfile << "  ";
-    myfile << SUSY.TD(i,j).imag();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    
-    
-    const std::string temp2 = "msQ2_";
-    std::string msQ2r;
-    std::string msQ2i;
-    
-    msQ2r.append(temp2);
-    msQ2r.append(ss.str());
-    msQ2i.append(msQ2r);
-    msQ2r.append("r");
-    msQ2i.append("i");
-    
-    myfile << msQ2r;
-    myfile << "  ";
-    myfile << SUSY.MsQ2(i,j).real();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    myfile << msQ2i;
-    myfile << "  ";
-    myfile << SUSY.MsQ2(i,j).imag();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    
-    
-    const std::string temp3 = "msU2_";
-    std::string msU2r;
-    std::string msU2i;
-    
-    msU2r.append(temp3);
-    msU2r.append(ss.str());
-    msU2i.append(msU2r);
-    msU2r.append("r");
-    msU2i.append("i");
-    
-    myfile << msU2r;
-    myfile << "  ";
-    myfile << SUSY.MsU2(i,j).real();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    myfile << msU2i;
-    myfile << "  ";
-    myfile << SUSY.MsU2(i,j).imag();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    
-    const std::string temp4 = "msD2_";
-    std::string msD2r;
-    std::string msD2i;
-    
-    msD2r.append(temp4);
-    msD2r.append(ss.str());
-    msD2i.append(msD2r);
-    msD2r.append("r");
-    msD2i.append("i");
-    
-    myfile << msD2r;
-    myfile << "  ";
-    myfile << SUSY.MsD2(i,j).real();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    myfile << msD2i;
-    myfile << "  ";
-    myfile << SUSY.MsD2(i,j).imag();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;  
-    
-        }
-    }
-    
- 
-    myfile << "m1r  ";
-    myfile << SUSY.m1.real();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    myfile << "m1i  ";
-    myfile << SUSY.m1.imag();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    myfile << "m2r  ";
-    myfile << SUSY.m2.real();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    myfile << "m2i  ";
-    myfile << SUSY.m2.imag();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    myfile << "m3  ";    
-    myfile << SUSY.m3;
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    myfile << "muHr  ";
-    myfile << SUSY.muH.real();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    myfile << "muHi  ";
-    myfile << SUSY.muH.imag();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    myfile << "tanb  ";
-    myfile << SUSY.getTanb();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    myfile << "etab  ";
-    myfile << SUSY.GetEtab();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    myfile << "rhob  ";
-    myfile << SUSY.GetRhob();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    myfile << "A  ";
-    myfile << SUSY.GetA();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    myfile << "lambda  ";
-    myfile << SUSY.GetLambda();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    myfile << "M_z  ";
-    myfile << SUSY.getMz();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    myfile << "GF  ";
-    myfile << SUSY.getGF();
-    myfile << " 0.  0.  ";
-    myfile << "\n" ;
-    
-    
-    
-    myfile.close();
-    }
-    else std::cout << "Unable to open GeneralSUSY_NEW.conf";
- 
-    
-      system("./../susy_flavor/sflav \n");
-
-
-    
-}
-

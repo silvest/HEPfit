@@ -12,6 +12,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <FHCouplings.h>
+// #include "../tests/SusyFlavour.h"
 
 
 const std::string SUSY::SUSYvars[NSUSYvars] = {"m1r", "m1i", "m2r", "m2i", "m3" , "muHr", "muHi", "mHptree", "tanb", "Q"};
@@ -463,9 +464,9 @@ bool SUSY::CalcSpectrum(){
         //throw std::runtime_error(ss.str());
      }   
   
-    // Test lines
-    
-    TestSpectrum();
+    // Test lines // For testing with Susy Flavour. Include ../tests/SusyFlavour.h
+//   SusyFlavourSpectrum SF;
+//   SF.TestSpectrum(*this); 
     
     // End - Test 
     
@@ -566,16 +567,7 @@ double SUSY::Delta_r() const {
     return (0.0378211);
 }
 
-void SUSY::TestSpectrum(){
-    
-    
-    Spectrum MS;
-    
-    MS.Sflav_init(*this);
-    MS.CalcSpectrum(*this);
 
-    
-}
 
 
 
