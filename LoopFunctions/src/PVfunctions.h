@@ -14,6 +14,10 @@
 
 using namespace gslpp;
 
+// set in case where LoopTools library is employed. 
+//#define USE_LOOPTOOLS
+
+
 /**
  * @class PVfunctions
  * @ingroup LoopFunctions 
@@ -172,7 +176,9 @@ public:
 
 private:
     Polylogarithms myPolylog;
+#ifdef USE_LOOPTOOLS
     LoopTools myLT;
+#endif
     
 };
 
