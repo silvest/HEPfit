@@ -378,8 +378,6 @@ complex EWSM::rhoZ_q_SM(const StandardModel::quark q) const
         double ImRhoZf = 0.0;
         for (int j=0; j<orders_EW_size; ++j)
             ImRhoZf += deltaRho_rem_f[j].imag();    
-        if (q==StandardModel::BOTTOM)
-            ImRhoZf *= pow(1.0 + taub(), 2.0);/* Corrections to the Z-b-bbar vertex */ 
 
         rhoZ_q_cache[(int)q] = complex(ReRhoZf, ImRhoZf, false);
         return (complex(ReRhoZf, ImRhoZf, false));    
@@ -536,9 +534,6 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
         for (int j=0; j<orders_EW_size; ++j)
             ImKappaZf += deltaKappa_rem_f[j].imag();    
     }
-        
-    if (q==StandardModel::BOTTOM)
-        ImKappaZf /= (1.0 + taub());/* Corrections to the Z-b-bbar vertex */ 
     
     kappaZ_q_cache[(int)q] = complex(ReKappaZf, ImKappaZf, false);
     return (complex(ReKappaZf, ImKappaZf, false));       
