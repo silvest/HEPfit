@@ -30,7 +30,10 @@ public:
     
     double getThValue()
     {
-        if (SM.IsFlagR0bApproximate() && !SM.IsFlagRhoZbFromR0b())
+        if (SM.IsFlagApproximateGqOverGb() 
+                && !SM.IsFlagRhoZbFromGuOverGb() 
+                && !SM.IsFlagRhoZbFromGdOverGb()
+                && !SM.IsFlagTestSubleadingTwoLoopEW())
             // SM prediction for rho_Z^b is missing!
             throw std::runtime_error("deltaRhoZb::getThValue() cannot be used!");
         else

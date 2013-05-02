@@ -5,12 +5,13 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include "EW.h"
 #include <cstdlib>
 #include <iostream>
 #include <iomanip>
 #include <cmath>
 #include <stdexcept>
+#include <EWSM.h>
+#include "EW.h"
 
 
 EW::EW(const StandardModel& SM_i) 
@@ -25,18 +26,40 @@ EW::EW(const StandardModel& SM_i)
 EW::EWTYPE EW::getEWTYPE() const 
 {
     if ( SM.IsFlagEWABC() && SM.IsFlagEWABC2() ) 
-        throw std::runtime_error("Flags EWABC and EWABC2 cannot be set to true simultaneously");
+        throw std::runtime_error("ERROR: Flags EWABC and EWABC2 cannot be set to true simultaneously");
     if ( SM.IsFlagEWBURGESS() && SM.IsFlagEWCHMN() ) 
-        throw std::runtime_error("Flags EWBURGESS and EWCHMN cannot be set to true simultaneously");
+        throw std::runtime_error("ERROR: Flags EWBURGESS and EWCHMN cannot be set to true simultaneously");
     if ( SM.IsFlagEWABC() && SM.IsFlagEWCHMN() ) 
-        throw std::runtime_error("Flags EWABC and EWCHMN cannot be set to true simultaneously");
+        throw std::runtime_error("ERROR: Flags EWABC and EWCHMN cannot be set to true simultaneously");
     if ( SM.IsFlagEWABC2() && SM.IsFlagEWCHMN() ) 
-        throw std::runtime_error("Flags EWABC2 and EWCHMN cannot be set to true simultaneously");
+        throw std::runtime_error("ERROR: Flags EWABC2 and EWCHMN cannot be set to true simultaneously");
     if ( SM.IsFlagEWABC() && SM.IsFlagEWBURGESS() ) 
-        throw std::runtime_error("Flags EWABC and EWBURGESS cannot be set to true simultaneously");
+        throw std::runtime_error("ERROR: Flags EWABC and EWBURGESS cannot be set to true simultaneously");
     if ( SM.IsFlagEWABC2() && SM.IsFlagEWBURGESS() ) 
-        throw std::runtime_error("Flags EWABC2 and EWBURGESS cannot be set to true simultaneously");
-            
+        throw std::runtime_error("ERROR: Flags EWABC2 and EWBURGESS cannot be set to true simultaneously");
+
+    if ( !SM.IsFlagApproximateGqOverGb() && SM.IsFlagRhoZbFromGuOverGb())
+        throw std::runtime_error("ERROR: Flag RhoZbFromGuOverGb=true has to be used together with ApproximateGqOverGb=true");
+    if ( !SM.IsFlagApproximateGqOverGb() && SM.IsFlagRhoZbFromGdOverGb())
+        throw std::runtime_error("ERROR: Flag RhoZbFromGdOverGb=true has to be used together with ApproximateGqOverGb=true");
+    if ( SM.IsFlagRhoZbFromGuOverGb() && SM.IsFlagRhoZbFromGdOverGb())
+        throw std::runtime_error("ERROR: Flags RhoZbFromGuOverGb and RhoZbFromGdOverGb cannot be set to true simultaneously");
+    if ( !SM.IsFlagApproximateGqOverGb() && SM.IsFlagTestSubleadingTwoLoopEW())
+        throw std::runtime_error("ERROR: Flag TestSubleadingTwoLoopEW=true has to be used together with ApproximateGqOverGb=true");
+    if ( SM.IsFlagTestSubleadingTwoLoopEW() && SM.IsFlagRhoZbFromGuOverGb())
+        throw std::runtime_error("ERROR: Flags TestSubleadingTwoLoopEW and RhoZbFromGuOverGb cannot be set to true simultaneously");
+    if ( SM.IsFlagTestSubleadingTwoLoopEW() && SM.IsFlagRhoZbFromGdOverGb())
+        throw std::runtime_error("ERROR: Flags TestSubleadingTwoLoopEW and RhoZbFromGdOverGb cannot be set to true simultaneously");
+
+    if ( SM.ModelName()=="NPEpsilons" && SM.IsFlagApproximateGqOverGb() 
+            && !SM.IsFlagRhoZbFromGuOverGb() && !SM.IsFlagRhoZbFromGdOverGb()
+            && !SM.IsFlagTestSubleadingTwoLoopEW())
+        throw std::runtime_error("ERROR: The current flags cannot be used with NPEpsilons model");
+    if ( SM.ModelName()=="NPHiggs" && SM.IsFlagApproximateGqOverGb() 
+            && !SM.IsFlagRhoZbFromGuOverGb() && !SM.IsFlagRhoZbFromGdOverGb()
+            && !SM.IsFlagTestSubleadingTwoLoopEW())
+        throw std::runtime_error("ERROR: The current flags cannot be used with NPHiggs model");
+    
     if ( SM.IsFlagEWBURGESS() ) return EWBURGESS;
     else if ( SM.IsFlagEWCHMN() ) return EWCHMN;
     else if ( SM.IsFlagEWABC() ) return EWABC;
@@ -150,7 +173,11 @@ double EW::Gamma_q(const StandardModel::quark q) const
     
     double G0 = SM.getGF()*pow(SM.getMz(),3.0)/24.0/sqrt(2.0)/M_PI;    
     double Gamma = 3.0*G0*rhoZ_q.abs()
-                   * ( gV_over_gA.abs2()*SM.RVq(q) + SM.RAq(q) ) + SM.Delta_EWQCD(q);
+                   * ( gV_over_gA.abs2()*SM.getEWSM()->RVq(q) + SM.getEWSM()->RAq(q) );
+
+    /* Nonfactorizable EW-QCD corrections */
+    Gamma += SM.getEWSM()->Delta_EWQCD(q);
+
     return Gamma;
 }
 
@@ -167,11 +194,9 @@ double EW::Gamma_had() const
     double Gamma_had_tmp = Gamma_q(SM.UP) + Gamma_q(SM.DOWN) + Gamma_q(SM.CHARM)
                            + Gamma_q(SM.STRANGE) + Gamma_q(SM.BOTTOM);
 
-    /* We neglect the singlet contribution, since it makes the connection between 
-       rho_Z^b and the two-loop approximate formula of R_b^0 complicated, and is 
-       negligible compared to the experimental uncertainty. */
-    //double G0 = SM.getGF()*pow(SM.getMz(),3.0)/24.0/sqrt(2.0)/M_PI; 
-    //Gamma_had_tmp += 4.0*3.0*G0*SM.RVh();
+    /* Singlet vector contribution */
+    double G0 = SM.getGF()*pow(SM.getMz(),3.0)/24.0/sqrt(2.0)/M_PI; 
+    Gamma_had_tmp += 4.0*3.0*G0*SM.getEWSM()->RVh();
 
     return Gamma_had_tmp;    
 }

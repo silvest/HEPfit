@@ -32,6 +32,9 @@ class EWSM; // forward reference to EWSM class
  * \li \b mHl:&nbsp; the Higgs mass in GeV, 
  * \li \b delMw:&nbsp; the theoretical uncertainty in @f$M_W@f$ in GeV, 
  * \li \b delSin2th_l:&nbsp; the theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$, 
+ * \li \b delRhoZ_nu:&nbsp;
+ * \li \b delRhoZ_e:&nbsp;
+ * \li \b delRhoZ_b:&nbsp;
  * \li \b muw:&nbsp;
  * \li \b mneutrino_1:&nbsp; 
  * \li \b mneutrino_2:&nbsp; 
@@ -59,9 +62,15 @@ class EWSM; // forward reference to EWSM class
  * \li \b EWABC2:&nbsp; use use the approximate formulae in Eqs.(16)-(20) of 
  * IJMP, A7, 1031-1058 (1998) by Altarelli et al.
  * \li \b EWBURGESS:&nbsp; use the formulae for STU contributions by Burgess et al.
- * \li \b R0bApproximate:&nbsp; use the two-loop approximate formula for R_b in 
+ * \li \b WithoutNonUniversalVC:&nbsp; 
+ * \li \b NPZbbbarLinearize:&nbsp; 
+ * \li \b ApproximateGqOverGb:&nbsp; 
+ * \li \b RhoZbFromGuOverGb:&nbsp; 
+ * \li \b RhoZbFromGdOverGb:&nbsp; 
+ * \li \b TestSubleadingTwoLoopEW:&nbsp; 
+ * 
+ * \li \b R0bApproximate (obsolete):&nbsp; use the two-loop approximate formula for R_b in 
  * [<A HREF="http://inspirehep.net/record/1113324?ln=en">Freitas et al.(2012)</A>], 
- * \li \b RhoZbFromR0b:&nbsp; derive rho_Z^b from the approximate formula for R_b
  * 
  */
 class StandardModel: public QCD {
@@ -79,9 +88,9 @@ public:
         TAU /**< Tau */
     };
     
-    static const int NSMvars = 23;
+    static const int NSMvars = 26;
     static const std::string SMvars[NSMvars];
-    static const int NSMflags = 9;
+    static const int NSMflags = 11;
     static const std::string SMflags[NSMflags];
     
     /**
@@ -140,29 +149,34 @@ public:
         return FlagEWBURGESS;
     }
 
-    bool IsFlagR0bApproximate() const 
-    {
-        return FlagR0bApproximate;
-    }
-    
-    void SetFlagR0bApproximate(bool FlagR0bApproximate)
-    {
-        this->FlagR0bApproximate = FlagR0bApproximate;
-    }
-    
-    bool IsFlagRhoZbFromR0b() const 
-    {
-        return FlagRhoZbFromR0b;
-    }
-    
     bool IsFlagWithoutNonUniversalVC() const 
     {
         return FlagWithoutNonUniversalVC;
     }
-
+    
     bool IsFlagNPZbbbarLinearize() const 
     {
         return FlagNPZbbbarLinearize;
+    }
+
+    bool IsFlagApproximateGqOverGb() const 
+    {
+        return FlagApproximateGqOverGb;
+    }
+
+    bool IsFlagRhoZbFromGuOverGb() const 
+    {
+        return FlagRhoZbFromGuOverGb;
+    }
+
+    bool IsFlagRhoZbFromGdOverGb() const 
+    {
+        return FlagRhoZbFromGdOverGb;
+    }
+
+    bool IsFlagTestSubleadingTwoLoopEW() const 
+    {
+        return FlagTestSubleadingTwoLoopEW;
     }
 
     
@@ -287,6 +301,21 @@ public:
     double getDelSin2th_l() const 
     {
         return delSin2th_l;
+    }
+    
+    double getDelRhoZ_nu() const 
+    {
+        return delRhoZ_nu;
+    }
+
+    double getDelRhoZ_e() const 
+    {
+        return delRhoZ_e;
+    }
+
+    double getDelRhoZ_b() const 
+    {
+        return delRhoZ_b;
     }
     
     /**
@@ -571,31 +600,6 @@ public:
      * @return The effective axial-vector coupling for neutral-current interactions @f$g_A^q@f$.
      */
     virtual complex gAq(const StandardModel::quark q) const; 
-    
-    /* 
-     * @param[in] q name of a quark.
-     * @return non-factorizable EW-QCD corrections in GeV.
-     */
-    double Delta_EWQCD(const StandardModel::quark q) const;
-    
-    /**
-     * @param[in] q name of a quark.
-     * @return Radiator functions to the vector current due to the 
-     * final-state QED and QCD corrections. 
-     */    
-    double RVq(const StandardModel::quark q) const;
-    
-    /**
-     * @param[in] q name of a quark.
-     * @return Radiator functions to the axial-vector current due to the 
-     * final-state QED and QCD corrections. 
-     */    
-    double RAq(const StandardModel::quark q) const;
-        
-    /**
-     * @return Singlet vector corrections to the width of Z to hadrons.
-     */
-    double RVh() const;
 
     /**
      * @return The total width of the W boson.
@@ -763,7 +767,9 @@ protected:
     CKM myCKM;
     
     // model parameters
-    double ale, dAle5Mz, GF, mHl, delMw, delSin2th_l, muw;
+    double ale, dAle5Mz, GF, mHl;
+    double delMw, delSin2th_l, delRhoZ_nu, delRhoZ_e, delRhoZ_b;
+    double muw;
     double lambda, A, rhob, etab;
     double EpsK, phiEpsK, DeltaMK, KbarEpsK, Dmk, SM_M12D;
     virtual void SetParameter(const std::string, const double&);
@@ -773,8 +779,8 @@ protected:
 private:
     bool bDebug; // for debugging
     bool FlagFixedAllSMparams, FlagEWCHMN, FlagEWABC, FlagEWABC2, FlagEWBURGESS;
-    bool FlagR0bApproximate, FlagRhoZbFromR0b, FlagWithoutNonUniversalVC;
-    bool FlagNPZbbbarLinearize;
+    bool FlagWithoutNonUniversalVC, FlagNPZbbbarLinearize, FlagApproximateGqOverGb;
+    bool FlagRhoZbFromGuOverGb, FlagRhoZbFromGdOverGb, FlagTestSubleadingTwoLoopEW;
     bool computeCKM, computeYe, computeYn;
     StandardModelMatching* myStandardModelMatching;
     

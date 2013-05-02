@@ -50,7 +50,7 @@ public:
     enum schemes_EW {NORESUM=0, OMSI, INTERMEDIATE, OMSII, APPROXIMATEFORMULA};
     
     // The number of the parameters relevant to EW observables
-    static const int NumSMParams = 23;
+    static const int NumSMParams = 26;
         
     
     //////////////////////////////////////////////////////////////////////// 
@@ -145,7 +145,7 @@ public:
     double Mw_SM() const;
     
     /** 
-     * @brief computes Delta r from Mw()
+     * @brief Computes Delta r from Mw(). 
      * @return Delta r in the SM
      */
     double DeltaR_SM() const;
@@ -215,7 +215,77 @@ public:
      * @return g_A^q
      */
     complex gAq_SM(const StandardModel::quark q) const;    
+
+
+    ////////////////////////////////////////////////////////////////////////     
+
+    /**
+     * @return the top-quark corrections to the Z-b-bbar vertex
+     */
+    double taub() const;    
     
+
+    ////////////////////////////////////////////////////////////////////////
+    
+    /**
+     * @param[in] l lepton
+     * @return flavor-dependent correction to rho_Z^l with respect to that for the charged leptons
+     */
+    complex rhoZ_l_SM_FlavorDep(const StandardModel::lepton l) const;
+
+    /**
+     * @param[in] q quark
+     * @return flavor-dependent correction to rho_Z^q with respect to that for the charged leptons
+     */
+    complex rhoZ_q_SM_FlavorDep(StandardModel::quark q) const;
+
+    /**
+     * @param[in] l lepton
+     * @return flavor-dependent correction to kappa_Z^l with respect to that for the charged leptons
+     */
+    complex kappaZ_l_SM_FlavorDep(const StandardModel::lepton l) const;
+
+    /**
+     * @param[in] q quark
+     * @return flavor-dependent correction to kappa_Z^q with respect to that for the charged leptons
+     */
+    complex kappaZ_q_SM_FlavorDep(StandardModel::quark q) const;
+    
+    
+    ////////////////////////////////////////////////////////////////////////     
+    
+    /* 
+     * @param[in] q name of a quark.
+     * @return non-factorizable EW-QCD corrections in GeV.
+     */
+    double Delta_EWQCD(const StandardModel::quark q) const;
+    
+    /**
+     * @param[in] q name of a quark.
+     * @return Radiator functions to the vector current due to the 
+     * final-state QED and QCD corrections. 
+     */    
+    double RVq(const StandardModel::quark q) const;
+    
+    /**
+     * @param[in] q name of a quark.
+     * @return Radiator functions to the axial-vector current due to the 
+     * final-state QED and QCD corrections. 
+     */    
+    double RAq(const StandardModel::quark q) const;
+        
+    /**
+     * @return Singlet vector corrections to the width of Z to hadrons.
+     */
+    double RVh() const;
+
+    double Gu_over_Gb_SM() const;    
+
+    double Gd_over_Gb_SM() const;    
+
+
+    ////////////////////////////////////////////////////////////////////////     
+
     /**
      * @param[in] li name of a neutrino
      * @param[in] lj name of a charged lepton
@@ -258,53 +328,6 @@ public:
      */
     double GammaW_SM() const;   
 
-    /**
-     * @brief R_b^0 with the complete fermionic EW two-loop corrections
-     * @param[in] bDebug
-     * @return R_b^0 in the SM, obtained from an approximate formula
-     * @attention This function will be used if boolR0bApproximate is true. 
-     */
-    double R0_bottom_SM(bool bDebug=false) const;    
-    
-    double Gu_over_Gb() const;    
-
-    double Gd_over_Gb() const;    
-
-    
-    ////////////////////////////////////////////////////////////////////////     
-
-    /**
-     * @return the top-quark corrections to the Z-b-bbar vertex
-     */
-    double taub() const;    
-    
-
-    ////////////////////////////////////////////////////////////////////////
-    
-    /**
-     * @param[in] l lepton
-     * @return flavor-dependent correction to rho_Z^l with respect to that for the charged leptons
-     */
-    complex rhoZ_l_SM_FlavorDep(const StandardModel::lepton l) const;
-
-    /**
-     * @param[in] q quark
-     * @return flavor-dependent correction to rho_Z^q with respect to that for the charged leptons
-     */
-    complex rhoZ_q_SM_FlavorDep(StandardModel::quark q) const;
-
-    /**
-     * @param[in] l lepton
-     * @return flavor-dependent correction to kappa_Z^l with respect to that for the charged leptons
-     */
-    complex kappaZ_l_SM_FlavorDep(const StandardModel::lepton l) const;
-
-    /**
-     * @param[in] q quark
-     * @return flavor-dependent correction to kappa_Z^q with respect to that for the charged leptons
-     */
-    complex kappaZ_q_SM_FlavorDep(StandardModel::quark q) const;
-    
     
     ////////////////////////////////////////////////////////////////////////     
 protected:
@@ -360,9 +383,6 @@ private:
     
     mutable double GammaW_params_cache[NumSMParams];
     mutable double GammaW_cache;
-    
-    mutable double R0b_params_cache[NumSMParams];
-    mutable double R0b_cache;
         
     
     ////////////////////////////////////////////////////////////////////////     

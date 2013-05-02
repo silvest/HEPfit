@@ -349,6 +349,10 @@ double EWSMApproximateFormulae::R0_bottom(const double DeltaAlphaL5q_i) const
     double Delta_alphas = SM.getAlsMz()/0.1184 - 1.0;
     double Delta_Z = SM.getMz()/91.1876 - 1.0;
 
+    /* Freitas and Huang (2012) 
+     * --> Instead of this function, Gu_over_Gb() and Gd_over_Gb*() should be used. */
+    std::cout << "EWSMApproximateFormulae::R0_bottom() is obsolete!" << std::endl;
+    
     return (Rb00 + c1*L_H + c2*L_H*L_H + c3*pow(L_H, 4.0)
             + c4*(Delta_H*Delta_H - 1.0) + c5*Delta_ale + c6*Delta_t
             + c7*Delta_t*L_H + c8*Delta_alphas + c9*Delta_Z );    
@@ -361,18 +365,20 @@ double EWSMApproximateFormulae::Gu_over_Gb(const double DeltaAlphaL5q_i) const
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae )
         throw std::runtime_error("Higgs mass is out of range in ApproximateFormulae::Gu_over_Gb()"); 
 
-    double R  = 0.7991490;
-    double c1 = -1.9299e-4;
-    double c2 = -2.178e-5;
-    double c3 = 6.77e-6;
-    double c4 = -1.0317e-6;
-    double c5 = -8.116e-3;
-    double c6 = 1.821e-4;
-    double c7 = 1.6176e-2;
-    double c8 = 4.557e-3;
-    double c9 = -3.252e-4;
-    double c10 = 2.724e-3;
-    double c11 = -0.134;
+    // obtained from Prof. Freitas on Apr. 23, 2013
+    double R = 0.8024769; 
+    double c1 = -1.9007e-4;
+    double c2 = -2.112e-5;
+    double c3 = 6.63e-6;
+    double c4 = -1.0284e-6;
+    double c5 = -8.081e-3;
+    double c6 = 1.830e-4;
+    double c7 = 1.7522e-2;
+    double c8 = 4.440e-3;
+    double c9 = -3.245e-4;
+    double c10 = 1.8079e-2;
+    double c11 = 1.0720e-2;
+    double c12 = -0.129;
     
     double LH = log(SM.getMHl()/100.0);
     double DH = pow((SM.getMHl()/100.0), 2.0) - 1.0;
@@ -380,55 +386,43 @@ double EWSMApproximateFormulae::Gu_over_Gb(const double DeltaAlphaL5q_i) const
     double Dt = pow((SM.getMtpole()/173.2), 2.0) - 1.0;
     double Das = SM.getAlsMz()/0.1184 - 1.0;
     double Dmz = SM.getMz()/91.1876 - 1.0;
-
-    //Gamma_u/Gamma_b:
-    //avg./max error: 7.5e-7/4e-6
-
-    return ( R + c1*LH + c2*LH*LH + c3*pow(LH, 4.0) 
-             + c4*DH + c5*Dal + c6*LH*Dal
-             + c7*Dt + c8*Dt*Dt + c9*LH*Dt + c10*Das + c11*Dmz );
+    
+    return ( R + c1*LH + c2*LH*LH + c3*pow(LH, 4.0) + c4*DH + c5*Dal + c6*LH*Dal
+             + c7*Dt + c8*Dt*Dt + c9*LH*Dt + c10*Das + c11*Das*Das + c12*Dmz );
 }
     
+
 double EWSMApproximateFormulae::Gd_over_Gb(const double DeltaAlphaL5q_i) const 
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae )
         throw std::runtime_error("Higgs mass is out of range in ApproximateFormulae::Gd_over_Gb()"); 
 
-    double R = 1.0291780;
-    double c1 = -4.699e-5;
-    double c2 = -6.45e-6;
-    double c3 = 6.3e-7;
-    double c4 = 4.33e-8;
-    double c5 = 1.010e-3;
+    // obtained from Prof. Freitas on Apr. 23, 2013
+    double R = 1.0239191;
+    double c1 = -5.093e-5;
+    double c2 = -7.08e-6;
+    double c3 = 7.4e-7;
+    double c4 = 3.27e-8;
+    double c5 = 8.68e-4;
     double c6 = 1.064e-4;
-    double c7 = 1.8941e-2;
-    double c8 = 7.101e-3;
+    double c7 = 1.8875e-2;
+    double c8 = 7.093e-3;
     double c9 = -4.128e-4;
-    double c10 = 7.92e-4;
-    double c11 = -0.528;
-
+    double c10 = 1.898e-4;
+    double c11 = -8.0e-6;
+    double c12 = -0.513;
+   
     double LH = log(SM.getMHl()/100.0);
     double DH = pow((SM.getMHl()/100.0), 2.0) - 1.0;
     double Dal = DeltaAlphaL5q_i/0.059 - 1.0;
     double Dt = pow((SM.getMtpole()/173.2), 2.0) - 1.0;
     double Das = SM.getAlsMz()/0.1184 - 1.0;
     double Dmz = SM.getMz()/91.1876 - 1.0;
-
-    //Gamma_d/Gamma_b:
-    //avg./max error: 7e-7/3e-6
-
-    return ( R + c1*LH + c2*LH*LH + c3*pow(LH, 4.0) 
-             + c4*DH + c5*Dal + c6*LH*Dal
-             + c7*Dt + c8*Dt*Dt + c9*LH*Dt + c10*Das + c11*Dmz );
+    
+    return ( R + c1*LH + c2*LH*LH + c3*pow(LH, 4.0) + c4*DH + c5*Dal + c6*LH*Dal
+             + c7*Dt + c8*Dt*Dt + c9*LH*Dt + c10*Das + c11*Das*Das + c12*Dmz );
 }
-
-
-double EWSMApproximateFormulae::R0_bottom_TEST(const double DeltaAlphaL5q_i) const 
-{
-    return ( 1.0/(1.0 + 2.0*(Gd_over_Gb(DeltaAlphaL5q_i) + Gu_over_Gb(DeltaAlphaL5q_i)) ) );
-}
-
 
 
 

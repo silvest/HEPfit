@@ -57,31 +57,39 @@ public:
     double DeltaR_TwoLoopEW(const double DeltaAlphaL5q_i) const;
 
     /**
-     * @brief EW two-loop contribution to Delta kappa_Z^l = kappaZ^l - 1  
+     * @brief EW two-loop contribution to @f$\Delta\kappa_Z^l = \kappaZ^l - 1@f$  
      * @param[in] DeltaAlphaL5q_i the sum of the leptonic and hadronic corrections to alpha at Mz
      * @return Delta kappa^{l, alpha^2} from an approximate formula
      */
     double DeltaKappa_l_TwoLoopEW(const double DeltaAlphaL5q_i) const;    
 
     /**
-     * @brief EW two-loop contribution to Delta kappa_Z^b = kappaZ^b - 1 
+     * @brief EW two-loop contribution to @f$\Delta\kappa_Z^b = \kappaZ^b - 1@f$ 
      * @param[in] DeltaAlphaL5q_i the sum of the leptonic and hadronic corrections to alpha at Mz
      * @return Delta kappa^{b, alpha^2} from an approximate formula
      */
     double DeltaKappa_b_TwoLoopEW(const double DeltaAlphaL5q_i) const;    
     
     /**
-     * @brief R_b^0 with the complete fermionic EW two-loop corrections
+     * @brief @f$R_b^0@f$ with the complete fermionic EW two-loop corrections
      * @param[in] DeltaAlphaL5q_i the sum of the leptonic and hadronic corrections to alpha at Mz
-     * @return R_b^0 from an approximate two-loop formula
+     * @return @f$R_b^0@f$ from an approximate two-loop formula
      */
     double R0_bottom(const double DeltaAlphaL5q_i) const;
-    
+
+    /**
+     * 
+     * @param[in] DeltaAlphaL5q_i
+     * @return @f$\Gamma_u/\Gamma_b@f$
+     */
     double Gu_over_Gb(const double DeltaAlphaL5q_i) const;
     
+    /**
+     * 
+     * @param[in] DeltaAlphaL5q_i
+     * @return @f$\Gamma_d/\Gamma_b@f$
+     */
     double Gd_over_Gb(const double DeltaAlphaL5q_i) const;
-
-    double R0_bottom_TEST(const double DeltaAlphaL5q_i) const;
 
     
     ////////////////////////////////////////////////////////////////////////
