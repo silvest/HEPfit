@@ -15,7 +15,7 @@
 /**
  * @class mZ
  * @ingroup StandardModel
- * @brief A class for an interface to the input paramter @f$M_Z@f$.
+ * @brief A class for an interface to the input parameter @f$M_Z@f$.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 

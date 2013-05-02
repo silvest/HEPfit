@@ -21,6 +21,9 @@
 #include "mHl.h"
 #include "mZ.h"
 #include "mtpole.h"
+#include "delRhoZ_u.h"
+#include "delRhoZ_d.h"
+#include "delRhoZ_b.h"
 
 #endif	/* SMINPUTS_H */
 

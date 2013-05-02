@@ -15,7 +15,7 @@
 /**
  * @class dAle5Mz
  * @ingroup StandardModel
- * @brief A class for an interface to the input paramter @f$\Delta\alpha_{\rm had}^{(5)}(M_Z^2)@f$.
+ * @brief A class for an interface to the input parameter @f$\Delta\alpha_{\rm had}^{(5)}(M_Z^2)@f$.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 

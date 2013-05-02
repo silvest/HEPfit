@@ -5,37 +5,39 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef MHL_H
-#define	MHL_H
+#ifndef DELRHOZ_D_H
+#define	DELRHOZ_D_H
 
 #include <ThObservable.h>
 #include <ThObsType.h>
 #include "StandardModel.h"
+#include "EWSM.h"
 
 /**
- * @class mHl
+ * @class delRhoZ_d
  * @ingroup StandardModel
- * @brief A class for an interface to the input parameter @f$m_h@f$.
+ * @brief A class for an interface to the input parameter @f$\delta\rho_Z^d@f$.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
  */
-class mHl : public ThObservable {
+class delRhoZ_d : public ThObservable {
 public:
 
-    mHl(const ThObsType& ObsType) 
+    delRhoZ_d(const ThObsType& ObsType) 
     : ThObservable(ObsType) 
     {
     };
     
     double getThValue()
     {
-        return SM.getMHl();
+        return ( SM.StandardModel::rhoZ_q(SM.DOWN).real()
+                 - SM.getEWSM()->rhoZ_q_SM(SM.DOWN).real() );
     };
 
 private:
 
 };
 
-#endif	/* MHL_H */
+#endif	/* DELRHOZ_D_H */
 
