@@ -686,6 +686,123 @@ complex EWSM::kappaZ_q_SM_FlavorDep(StandardModel::quark q) const
     return dKappa; 
 }
     
+    
+////////////////////////////////////////////////////////////////////////
+
+double EWSM::delRhoZ_l(const StandardModel::lepton l) const
+{
+    if (SM.IsFlagApproximateGqOverGb() && SM.IsFlagTestSubleadingTwoLoopEW()) {
+        switch(l) {
+            case StandardModel::NEUTRINO_1:
+            case StandardModel::NEUTRINO_2:
+            case StandardModel::NEUTRINO_3:
+                return SM.getDelRhoZ_nu();
+            case StandardModel::ELECTRON:
+            case StandardModel::MU:
+            case StandardModel::TAU:
+                return SM.getDelRhoZ_e();
+            default:
+                throw std::runtime_error("Error in EWSM::delRhoZ_l");
+        }
+    } else
+        return 0.0;
+}
+
+
+double EWSM::delRhoZ_q(const StandardModel::quark q) const
+{
+    if (q==StandardModel::TOP) return 0.0;
+    if (SM.IsFlagApproximateGqOverGb() && !SM.IsFlagTestSubleadingTwoLoopEW() 
+            && q!=StandardModel::BOTTOM) return 0.0;
+    
+    if (!SM.IsFlagApproximateGqOverGb()) 
+        return 0.0;
+    else {
+        if (SM.IsFlagTestSubleadingTwoLoopEW() && q==StandardModel::BOTTOM) 
+            return SM.getDelRhoZ_b();
+
+        double sW2 = sW2_SM();
+        double Qb = SM.getQuarks(SM.BOTTOM).getCharge();  
+        complex kappaZb = kappaZ_q_SM(SM.BOTTOM);
+        double gVb_over_gAb_abs2 = (1.0 - 4.0*fabs(Qb)*kappaZb*sW2).abs2();
+        double RVb = RVq(SM.BOTTOM);
+        double RAb = RAq(SM.BOTTOM);
+        double Qq, gVq_over_gAq_abs2;
+        complex kappaZq;
+        double Gq_over_Gb;
+        StandardModel::quark qk;
+
+        double absRhoZq;        
+        if (SM.IsFlagTestSubleadingTwoLoopEW()) {
+            /* use model parameter delRhoZ_b */
+            complex rhoZb = rhoZ_q_SM(SM.BOTTOM) + SM.getDelRhoZ_b();
+            
+            switch(q) {
+                case StandardModel::UP:
+                case StandardModel::CHARM:
+                    /* use Gamma_u/Gamma_b */
+                    Gq_over_Gb = Gu_over_Gb_SM();
+                    qk = SM.UP;
+                    break;
+                case StandardModel::DOWN:
+                case StandardModel::STRANGE:
+                    /* use Gamma_d/Gamma_b */
+                    Gq_over_Gb = Gd_over_Gb_SM();                
+                    qk = SM.DOWN;
+                    break;
+                default:
+                    throw std::runtime_error("Error in EWSM::delRhoZ_q"); 
+            }
+            
+            Qq = SM.getQuarks(qk).getCharge();  
+            kappaZq = kappaZ_q_SM(qk);
+            gVq_over_gAq_abs2 = (1.0 - 4.0*fabs(Qq)*kappaZq*sW2).abs2();  
+            absRhoZq = rhoZb.abs()*Gq_over_Gb
+                       *( gVb_over_gAb_abs2*RVb + RAb )
+                       /( gVq_over_gAq_abs2*RVq(qk) + RAq(qk) );
+        } else {
+            switch(q) {
+                case StandardModel::BOTTOM:
+                    if (SM.IsFlagRhoZbFromGuOverGb()) {
+                        /* use Gamma_u/Gamma_b */
+                        Gq_over_Gb = Gu_over_Gb_SM();
+                        qk = SM.UP;
+                    } else if (SM.IsFlagRhoZbFromGdOverGb()) {
+                        /* use Gamma_d/Gamma_b */
+                        Gq_over_Gb = Gd_over_Gb_SM();
+                        qk = SM.DOWN;
+                    } else {
+                        /* In this case, the subleading corrections to rhoZb 
+                         * is dropped by hand, though R_c and R_b are computed 
+                         * from the approximate formulae of Gamma_u/Gamma_b 
+                         * and Gamma_d/Gamma_b, which include the subleading 
+                         * corrections. 
+                         */
+                        return 0.0; 
+                    }
+                    
+                    // |Rho_Z^b| from Gamma_q/Gamma_b
+                    Qq = SM.getQuarks(qk).getCharge();  
+                    kappaZq = kappaZ_q_SM(qk);
+                    gVq_over_gAq_abs2 = (1.0 - 4.0*fabs(Qq)*kappaZq*sW2).abs2();
+                    absRhoZq = rhoZ_q_SM(qk).abs()/Gq_over_Gb
+                            *(gVq_over_gAq_abs2*RVq(qk) + RAq(qk))
+                            /(gVb_over_gAb_abs2*RVb + RAb);    
+                    break;                    
+                default:
+                    throw std::runtime_error("Error in EWSM::delRhoZ_q"); 
+            }
+        }
+
+        // Im(Rho_Z^q)
+        double ImRhoZq = rhoZ_q_SM(q).imag();
+        if (absRhoZq < ImRhoZq)
+            throw std::runtime_error("Error in EWSM::delRhoZ_q"); 
+        
+        return ( sqrt(absRhoZq*absRhoZq - ImRhoZq*ImRhoZq) - rhoZ_q_SM(q).real() );
+    }
+}
+
 
 ////////////////////////////////////////////////////////////////////////     
 
@@ -1295,6 +1412,17 @@ double EWSM::resumRhoZ(const double DeltaRho[orders_EW_size],
                         + DeltaRho_G*DeltaRho_G
                         + deltaRho_rem_G*(1.0 + DeltaRho_G) + deltaRho_rem_G2)
                         *OnePlusTaub2;
+
+                /* TEST */
+                //std::cout << "DeltaRho_G=" << DeltaRho_G << std::endl;
+                //std::cout << "DeltaRho_G_als=" << f_AlphaToGF*DeltaRho[EW1QCD1] << std::endl;
+                //std::cout << "deltaRho_rem_G=" << deltaRho_rem_G << std::endl;
+                //std::cout << "DeltaRho_G*DeltaRho_G=" << DeltaRho_G*DeltaRho_G << std::endl;
+                //std::cout << "DeltaRho_G2=" << pow(f_AlphaToGF,2.0)*DeltaRho[EW2] << std::endl;
+                //std::cout << "deltaRho_rem_G2=" << deltaRho_rem_G2 << std::endl;
+                //std::cout << "-DeltaRho_G*DeltaRbar_rem_G=" << - DeltaRho_G*DeltaRbar_rem_G << std::endl;
+                //std::cout << "(1+taub)^2-1=" << OnePlusTaub2-1.0 << std::endl;                
+
                 break;
             case OMSI:
                 rhoZbL = OnePlusTaub2/(1.0 - DeltaRho_sum);
@@ -1385,6 +1513,16 @@ double EWSM::resumKappaZ(const double DeltaRho[orders_EW_size],
                           - cW2_TMP/sW2_TMP*DeltaRho_G*DeltaRbar_rem_G
                           + deltaKappa_rem_G*(1.0 + cW2_TMP/sW2_TMP*DeltaRho_G)
                           + deltaKappa_rem_G2)/OnePlusTaub;
+                
+                /* TEST */
+                //std::cout << "cW2/sW2*DeltaRho_G=" << cW2_TMP/sW2_TMP*DeltaRho_G << std::endl;
+                //std::cout << "deltaKappa_rem_G=" << deltaKappa_rem_G << std::endl;
+                //std::cout << "cW2/sW2*DeltaRho_G2=" << cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2] << std::endl;
+                //std::cout << "deltaKappa_rem_G2=" << deltaKappa_rem_G2 << std::endl;
+                //std::cout << "-cW2/sW2*DeltaRho_G*DeltaRbar_rem_G=" << - cW2_TMP/sW2_TMP*DeltaRho_G*DeltaRbar_rem_G << std::endl;
+                //std::cout << "cW2/sW2*DeltaRho_G*deltaKappa_rem_G=" << cW2_TMP/sW2_TMP*DeltaRho_G*deltaKappa_rem_G << std::endl;
+                //std::cout << "1/(1+taub)-1=" << 1.0/OnePlusTaub-1.0 << std::endl;                
+                
                 break;
             case OMSI:
                 kappaZbL = (1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)/OnePlusTaub;

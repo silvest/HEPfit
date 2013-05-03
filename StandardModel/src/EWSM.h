@@ -252,6 +252,23 @@ public:
     complex kappaZ_q_SM_FlavorDep(StandardModel::quark q) const;
     
     
+    ////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @brief Subleading two-loop EW corrections to rho_Z^l.
+     * @param[in] l lepton
+     * @return 
+     */
+    double delRhoZ_l(const StandardModel::lepton l) const;
+
+    /**
+     * @brief Subleading two-loop EW corrections to rho_Z^q.
+     * @param[in] q quark
+     * @return 
+     */
+    double delRhoZ_q(const StandardModel::quark q) const;
+
+
     ////////////////////////////////////////////////////////////////////////     
     
     /* 

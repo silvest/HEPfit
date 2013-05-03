@@ -379,108 +379,12 @@ double StandardModel::sW2() const
     
 complex StandardModel::rhoZ_l(const lepton l) const
 {
-    if (FlagApproximateGqOverGb && FlagTestSubleadingTwoLoopEW) {
-        /* Re[rho_Z^l] from inputs */
-        if (l==NEUTRINO_1 || l==NEUTRINO_2 || l==NEUTRINO_3)
-            return complex(myEWSM->rhoZ_l_SM(l).real() + delRhoZ_nu, 
-                           myEWSM->rhoZ_l_SM(l).imag(), false);
-        else if (l==ELECTRON || l==MU || l==TAU)
-            return complex(myEWSM->rhoZ_l_SM(l).real() + delRhoZ_e, 
-                           myEWSM->rhoZ_l_SM(l).imag(), false);
-        else 
-            throw std::runtime_error("Error in StandardModel::rhoZ_l()");
-    } else 
-        return myEWSM->rhoZ_l_SM(l);
+    return ( myEWSM->rhoZ_l_SM(l) + myEWSM->delRhoZ_l(l) );
 }
     
 complex StandardModel::rhoZ_q(const quark q) const 
 {
-    if ( (q!=BOTTOM && !FlagTestSubleadingTwoLoopEW)
-            || (q==BOTTOM && (!FlagRhoZbFromGuOverGb && !FlagRhoZbFromGdOverGb 
-                              && !FlagTestSubleadingTwoLoopEW)) ) 
-        return myEWSM->rhoZ_q_SM(q);
-
-    if (FlagApproximateGqOverGb) {
-        
-        if (q==BOTTOM && FlagTestSubleadingTwoLoopEW) {
-            /* use model parameter delRhoZ_b */
-            return complex(myEWSM->rhoZ_q_SM(BOTTOM).real() + delRhoZ_b, 
-                           myEWSM->rhoZ_q_SM(BOTTOM).imag(), false);
-        }
-        
-        double sW2 = myEWSM->sW2_SM();
-        double Qb = getQuarks(BOTTOM).getCharge();  
-        complex kappaZb = myEWSM->kappaZ_q_SM(BOTTOM);
-        double gVb_over_gAb_abs2 = (1.0 - 4.0*fabs(Qb)*kappaZb*sW2).abs2();
-        double RVb = myEWSM->RVq(BOTTOM);
-        double RAb = myEWSM->RAq(BOTTOM);
-        double Qq, gVq_over_gAq_abs2, RVq, RAq;
-        complex kappaZq;
-        double Gq_over_Gb;
-        quark qk;
-
-        double absRhoZq;
-        if (q!=BOTTOM && FlagTestSubleadingTwoLoopEW) {
-            /* use model parameter delRhoZ_b */
-            complex rhoZb = complex(myEWSM->rhoZ_q_SM(BOTTOM).real() + delRhoZ_b, 
-                                    myEWSM->rhoZ_q_SM(BOTTOM).imag(), false);
-            
-            if (q==UP || q==CHARM) {
-                /* use Gamma_u/Gamma_b */
-                Gq_over_Gb = myEWSM->Gu_over_Gb_SM();
-                qk = UP;
-            } else if (q==DOWN || q==STRANGE) {
-                /* use Gamma_d/Gamma_b */
-                Gq_over_Gb = myEWSM->Gd_over_Gb_SM();                
-                qk = DOWN;
-            } else if (q==TOP)
-                return complex(0.0, myEWSM->rhoZ_q_SM(TOP).imag(), false);
-            else 
-                throw std::runtime_error("Error in StandardModel::rhoZ_q"); 
-
-            Qq = getQuarks(qk).getCharge();  
-            kappaZq = myEWSM->kappaZ_q_SM(qk);
-            gVq_over_gAq_abs2 = (1.0 - 4.0*fabs(Qq)*kappaZq*sW2).abs2();  
-            RVq = myEWSM->RVq(qk);
-            RAq = myEWSM->RAq(qk);
-            absRhoZq = rhoZb.abs()*Gq_over_Gb
-                       *( gVb_over_gAb_abs2*RVb + RAb )
-                       /( gVq_over_gAq_abs2*RVq + RAq );
-
-        } else if (q==BOTTOM && !FlagTestSubleadingTwoLoopEW) {
-            if (FlagRhoZbFromGuOverGb) {
-                /* use Gamma_u/Gamma_b */
-                Gq_over_Gb = myEWSM->Gu_over_Gb_SM();
-                qk = UP;
-            } else if (FlagRhoZbFromGdOverGb) {
-                /* use Gamma_d/Gamma_b */
-                Gq_over_Gb = myEWSM->Gd_over_Gb_SM();
-                qk = DOWN;
-            } else     
-                throw std::runtime_error("Error in StandardModel::rhoZ_q"); 
-        
-            // |Rho_Z^b| from Gamma_q/Gamma_b
-            complex rhoZq = myEWSM->rhoZ_q_SM(qk);
-            Qq = getQuarks(qk).getCharge();  
-            kappaZq = myEWSM->kappaZ_q_SM(qk);
-            gVq_over_gAq_abs2 = (1.0 - 4.0*fabs(Qq)*kappaZq*sW2).abs2();
-            RVq = myEWSM->RVq(qk);
-            RAq = myEWSM->RAq(qk);
-            absRhoZq = rhoZq.abs()/Gq_over_Gb
-                       *(gVq_over_gAq_abs2*RVq + RAq)
-                       /(gVb_over_gAb_abs2*RVb + RAb);
-        } else
-            throw std::runtime_error("Error in StandardModel::rhoZ_q"); 
-
-        // Im(Rho_Z^q)
-        double ImRhoZq = myEWSM->rhoZ_q_SM(q).imag();
-        if (absRhoZq < ImRhoZq)
-            throw std::runtime_error("Error in StandardModel::rhoZ_q"); 
-        
-        return complex(sqrt(absRhoZq*absRhoZq - ImRhoZq*ImRhoZq), ImRhoZq, false);
-        
-    } else
-        throw std::runtime_error("Error in StandardModel::rhoZ_q"); 
+    return ( myEWSM->rhoZ_q_SM(q) + myEWSM->delRhoZ_q(q) );
 }
     
 complex StandardModel::kappaZ_l(const lepton l) const 

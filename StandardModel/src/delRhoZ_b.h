@@ -31,8 +31,7 @@ public:
     
     double getThValue()
     {
-        return ( SM.StandardModel::rhoZ_q(SM.BOTTOM).real()
-                 - SM.getEWSM()->rhoZ_q_SM(SM.BOTTOM).real() );
+        return SM.getEWSM()->delRhoZ_q(SM.BOTTOM);
     };
 
 private:
