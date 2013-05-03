@@ -37,6 +37,9 @@ public:
     virtual bool Update(const std::map<std::string, double>& DPars);
     virtual bool Init(const std::map<std::string, double>& DPars);    
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
+
+    virtual bool InitializeModel();  
+    virtual void SetEWSMflags(EWSM& myEWSM);    
     
     
     ////////////////////////////////////////////////////////////////////////     

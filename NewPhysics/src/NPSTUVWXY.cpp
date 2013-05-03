@@ -65,6 +65,19 @@ void NPSTUVWXY::SetParameter(const std::string name, const double& value) {
 }
 
 
+bool NPSTUVWXY::InitializeModel() 
+{
+    SetModelInitialized(NPZbbbar::InitializeModel());
+    return (IsModelInitialized());
+}
+
+
+void NPSTUVWXY::SetEWSMflags(EWSM& myEWSM) 
+{
+    StandardModel::SetEWSMflags(myEWSM);
+}
+
+
 bool NPSTUVWXY::SetFlag(const std::string name, const bool& value){
     bool res = false;
     if (name.compare("EWABC") == 0) {

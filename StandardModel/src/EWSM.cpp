@@ -42,6 +42,10 @@ EWSM::EWSM(const StandardModel& SM_i)
 
     myTwoFermionsLEP2 = new EWSMTwoFermionsLEP2(SM);
 
+    schemeMw = APPROXIMATEFORMULA;
+    schemeRhoZ = NORESUM;
+    schemeKappaZ = APPROXIMATEFORMULA;
+    
     // Initializations of the caches
     DeltaAlphaLepton_cache = 0.0;
     DeltaAlpha_cache = 0.0;

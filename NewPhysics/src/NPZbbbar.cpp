@@ -70,9 +70,7 @@ bool NPZbbbar::InitializeModel()
 
 void NPZbbbar::SetEWSMflags(EWSM& myEWSM) 
 {
-    myEWSM.setSchemeMw(EWSM::APPROXIMATEFORMULA);
-    myEWSM.setSchemeRhoZ(EWSM::OMSI);
-    myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
+    StandardModel::SetEWSMflags(myEWSM);
 }
 
 
