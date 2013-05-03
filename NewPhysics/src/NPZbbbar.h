@@ -42,12 +42,12 @@ public:
     
     ////////////////////////////////////////////////////////////////////////    
     
-    double deltaGVb() const 
+    virtual double deltaGVb() const 
     {
         return myDeltaGVb;
     }
 
-    double deltaGAb() const 
+    virtual double deltaGAb() const 
     {
         return myDeltaGAb;
     }
