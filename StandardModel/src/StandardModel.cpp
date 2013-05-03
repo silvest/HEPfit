@@ -218,47 +218,36 @@ bool StandardModel::SetFlag(const std::string name, const bool& value)
     if (name.compare("FixedAllSMparams") == 0) {
         FlagFixedAllSMparams = value;
         res = true;
-        std::cout << "set flag " << name << "=" << value << std::endl;
     } else if (name.compare("EWCHMN") == 0) {
         FlagEWCHMN = value;
         res = true;
-        std::cout << "set flag " << name << "=" << value << std::endl;
     } else if (name.compare("EWABC") == 0) {
         FlagEWABC = value;
         res = true;
-        std::cout << "set flag " << name << "=" << value << std::endl;
     } else if (name.compare("EWABC2") == 0) {
         FlagEWABC2 = value;
         res = true;
-        std::cout << "set flag " << name << "=" << value << std::endl;
     } else if (name.compare("EWBURGESS") == 0) {
         FlagEWBURGESS = value;
         res = true;
-        std::cout << "set flag " << name << "=" << value << std::endl;
     } else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
         FlagWithoutNonUniversalVC = value;
         res = true;
-        std::cout << "set flag " << name << "=" << value << std::endl;
     } else if (name.compare("NPZbbbarLinearize") == 0) {
         FlagNPZbbbarLinearize = value;
         res = true;
-        std::cout << "set flag " << name << "=" << value << std::endl;
     } else if (name.compare("ApproximateGqOverGb") == 0) {
         FlagApproximateGqOverGb = value;
         res = true;
-        std::cout << "set flag " << name << "=" << value << std::endl;
     } else if (name.compare("RhoZbFromGuOverGb") == 0) {
         FlagRhoZbFromGuOverGb = value;
         res = true;
-        std::cout << "set flag " << name << "=" << value << std::endl;
     } else if (name.compare("RhoZbFromGdOverGb") == 0) {
         FlagRhoZbFromGdOverGb = value;
         res = true;
-        std::cout << "set flag " << name << "=" << value << std::endl;
     } else if (name.compare("TestSubleadingTwoLoopEW") == 0) {
         FlagTestSubleadingTwoLoopEW = value;
         res = true;
-        std::cout << "set flag " << name << "=" << value << std::endl;
     }
     return(res);
 }

@@ -259,7 +259,8 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
                 std::stringstream ss;
                         ss << myModel->ModelName() << " SetFlag error for Flag " << name;
                         throw std::runtime_error(ss.str());
-            }
+            } else 
+                std::cout << "set flag " << name << "=" << value << std::endl;
             if (beg != tok.end())
                     std::cout << "warning: unread information in Flag " << name << std::endl;
             } else {
