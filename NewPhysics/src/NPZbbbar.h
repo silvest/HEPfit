@@ -37,10 +37,7 @@ public:
     virtual bool InitializeModel();  
     virtual void SetEWSMflags(EWSM& myEWSM);    
 
-        
-    ////////////////////////////////////////////////////////////////////////     
-
-    bool SetFlag(const std::string, const bool&); 
+    virtual bool SetFlag(const std::string, const bool&); 
     
     
     ////////////////////////////////////////////////////////////////////////    

@@ -74,8 +74,6 @@ void NPZbbbar::SetEWSMflags(EWSM& myEWSM)
 }
 
 
-////////////////////////////////////////////////////////////////////////     
-
 bool NPZbbbar::SetFlag(const std::string name, const bool& value) 
 {
     bool res = false;

@@ -78,13 +78,12 @@ bool NPEpsilons::InitializeModel()
     return (IsModelInitialized());
 }
 
+
 void NPEpsilons::SetEWSMflags(EWSM& myEWSM) 
 {
     StandardModel::SetEWSMflags(myEWSM);
 }
 
-
-////////////////////////////////////////////////////////////////////////     
 
 bool NPEpsilons::SetFlag(const std::string name, const bool& value) 
 {
@@ -96,15 +95,19 @@ bool NPEpsilons::SetFlag(const std::string name, const bool& value)
     } else if (name.compare("epsilon1SM") == 0) {
         FlagEpsilon1SM = value;
         res = true;
+        std::cout << "set flag " << name << "=" << value << std::endl;
     } else if (name.compare("epsilon2SM") == 0) {
         FlagEpsilon2SM = value;
         res = true;
+        std::cout << "set flag " << name << "=" << value << std::endl;
     } else if (name.compare("epsilon3SM") == 0) {
         FlagEpsilon3SM = value;
         res = true;
+        std::cout << "set flag " << name << "=" << value << std::endl;
     } else if (name.compare("epsilonbSM") == 0) {
         FlagEpsilonbSM = value;
         res = true;
+        std::cout << "set flag " << name << "=" << value << std::endl;
     } else {
         res = StandardModel::SetFlag(name,value);
     }
