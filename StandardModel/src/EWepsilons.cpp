@@ -129,9 +129,9 @@ complex EWepsilons::rhoZ_b(const double eps1, const double epsb) const
         return ( rhoZe*(1.0 + epsb)*(1.0 + epsb) );
     else {            
         double DeltaRhoZb = SM.getEWSM()->rhoZ_q_SM_FlavorDep(SM.BOTTOM).real();
-        return ( (rhoZe + DeltaRhoZb - SM.getEWSM()->delRhoZ_l(SM.ELECTRON))
-                 *(1.0 + epsb)*(1.0 + epsb) 
-                 + SM.getEWSM()->delRhoZ_q(SM.BOTTOM) );
+        return ( (rhoZe + DeltaRhoZb)*(1.0 + epsb)*(1.0 + epsb) 
+                 + SM.getEWSM()->delRhoZ_q(SM.BOTTOM) 
+                 - SM.getEWSM()->delRhoZ_l(SM.ELECTRON) );
     }
 }
 
