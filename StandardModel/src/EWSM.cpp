@@ -1409,14 +1409,15 @@ double EWSM::resumRhoZ(const double DeltaRho[orders_EW_size],
         double OnePlusTaub = 1.0 + taub(); 
         double OnePlusTaub2 = OnePlusTaub*OnePlusTaub;
         double rhoZbL;
-        deltaRho_rem_G += myCache->ale()/4.0/M_PI/sW2_TMP*pow(myCache->Mt()/Mw_TMP, 2.0);        
+        deltaRho_rem_G += f_AlphaToGF*myCache->ale()/4.0/M_PI/sW2_TMP
+                          *pow(myCache->Mt()/Mw_TMP, 2.0);        
         switch (schemeRhoZ) {
             case NORESUM: 
                 rhoZ = (1.0 + DeltaRho_sum - DeltaRho_G*DeltaRbar_rem_G
                         + DeltaRho_G*DeltaRho_G
                         + deltaRho_rem_G*(1.0 + DeltaRho_G) + deltaRho_rem_G2)
                         *OnePlusTaub2;
-
+                
                 /* TEST */
                 //std::cout << "DeltaRho_G=" << DeltaRho_G << std::endl;
                 //std::cout << "DeltaRho_G_als=" << f_AlphaToGF*DeltaRho[EW1QCD1] << std::endl;
@@ -1510,7 +1511,8 @@ double EWSM::resumKappaZ(const double DeltaRho[orders_EW_size],
         /* Z to bb */
         double OnePlusTaub = 1.0 + taub(); 
         double kappaZbL;
-        deltaKappa_rem_G -= myCache->ale()/8.0/M_PI/sW2_TMP*pow(myCache->Mt()/Mw_TMP, 2.0);
+        deltaKappa_rem_G -= f_AlphaToGF*myCache->ale()/8.0/M_PI/sW2_TMP
+                            *pow(myCache->Mt()/Mw_TMP, 2.0);
         switch (schemeKappaZ) {
             case NORESUM: 
                 kappaZ = (1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum
