@@ -331,6 +331,9 @@ double EWSMApproximateFormulae::R0_bottom(const double DeltaAlphaL5q_i) const
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae )
         throw std::runtime_error("Higgs mass is out of range in ApproximateFormulae::R0_bottom()"); 
     
+    /*-----------------------------------------------*/
+    /* arXiv:1205.0299v1 by Freitas and Huang */
+    /*
     double Rb00 = 0.2147464;
     double c1 =  0.0000221;
     double c2 =  0.0000026;
@@ -349,13 +352,37 @@ double EWSMApproximateFormulae::R0_bottom(const double DeltaAlphaL5q_i) const
     double Delta_alphas = SM.getAlsMz()/0.1184 - 1.0;
     double Delta_Z = SM.getMz()/91.1876 - 1.0;
 
-    /* Freitas and Huang (2012) 
-     * --> Instead of this function, Gu_over_Gb() and Gd_over_Gb*() should be used. */
-    std::cout << "EWSMApproximateFormulae::R0_bottom() is obsolete!" << std::endl;
-    
     return (Rb00 + c1*L_H + c2*L_H*L_H + c3*pow(L_H, 4.0)
             + c4*(Delta_H*Delta_H - 1.0) + c5*Delta_ale + c6*Delta_t
             + c7*Delta_t*L_H + c8*Delta_alphas + c9*Delta_Z );    
+     */
+
+    /*-----------------------------------------------*/
+    /* arXiv:1205.0299v2 by Freitas and Huang */
+
+    double Rb00 = 0.2149246;
+    double c1 = 2.23 * pow(10.0, -5.); 
+    double c2 = 2.6 * pow(10.0, -6.);
+    double c3 = -6.8 * pow(10.0, -7.);
+    double c4 = 9.19 *pow(10.0, -8.);
+    double c5 = 6.58 * pow(10.0, -4.);
+    double c6 = -3.363 * pow(10.0, -3.);
+    double c7 = 6.74 * pow(10.0, -5.);
+    double c8 = -1.688 * pow(10.0, -3.);
+    double c9 = -9.26 * pow(10.0, -4.);
+    double c10 = 5.93 * pow(10.0, -2.);
+
+    double L_H = log(SM.getMHl()/100.0);
+    double Delta_H = SM.getMHl()/100.0;
+    double Delta_ale = DeltaAlphaL5q_i/0.05900 - 1.0;
+    double Delta_t = pow((SM.getMtpole()/173.2), 2.0) - 1.0;
+    double Delta_alphas = SM.getAlsMz()/0.1184 - 1.0;
+    double Delta_Z = SM.getMz()/91.1876 - 1.0;    
+    
+    return (Rb00 + c1*L_H + c2*L_H*L_H + c3*pow(L_H, 4.0)
+            + c4*(Delta_H*Delta_H - 1.0) + c5*Delta_ale + c6*Delta_t
+            + c7*Delta_t*L_H + c8*Delta_alphas + c9*Delta_alphas*Delta_alphas 
+            + c10*Delta_Z );
 }
 
 
