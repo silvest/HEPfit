@@ -37,8 +37,11 @@ public:
             // SM prediction for rho_Z^b is missing!
             throw std::runtime_error("deltaRhoZb::getThValue() cannot be used!");
         else
+        if (!SM.IsFlagNPZbbbarLinearize())
             return ( SM.rhoZ_q(SM.BOTTOM).real() 
                      - SM.StandardModel::rhoZ_q(SM.BOTTOM).real() );
+        else 
+            throw std::runtime_error("ERROR: deltaRhoZb::getThValue() cannot be used with flag NPZbbbarLinearize=1.");
     };
     
 private:
