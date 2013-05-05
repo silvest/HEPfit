@@ -13,6 +13,8 @@
 double Rbottom::getThValue() 
 { 
     double R0_b;
+    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+
     if (myEWTYPE==EW::EWCHMN)  
         R0_b = myEW.getMyEW_CHMN().R_b();
     else if (myEWTYPE==EW::EWABC) 

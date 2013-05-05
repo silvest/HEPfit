@@ -11,6 +11,8 @@
 double Abottom::getThValue() 
 {
     double A_b;
+    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+
     if (myEWTYPE==EW::EWCHMN)  
         A_b = myEW.getMyEW_CHMN().A_q(SM.BOTTOM);
     else if (myEWTYPE==EW::EWABC || myEWTYPE==EW::EWABC2) 

@@ -11,6 +11,8 @@
 double Acharm::getThValue() 
 { 
     double A_c;
+    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+
     if (myEWTYPE==EW::EWCHMN)  
         A_c = myEW.getMyEW_CHMN().A_q(SM.CHARM);
     else if (myEWTYPE==EW::EWABC || myEWTYPE==EW::EWABC2) 

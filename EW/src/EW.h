@@ -45,6 +45,11 @@ public:
     
     //////////////////////////////////////////////////////////////////////// 
 
+    /**
+     * @attention This function has to be called after initializing model flags 
+     * by InputParser::ReadParameters(). 
+     * @return 
+     */
     EWTYPE getEWTYPE() const;
     
     /**

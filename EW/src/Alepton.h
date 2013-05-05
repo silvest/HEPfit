@@ -31,7 +31,7 @@ public:
      * the electroweak precision observables.
      */
     Alepton(const EW& EW_i) 
-    : ThObservable(EW_i), myEW(EW_i), myEWTYPE(EW_i.getEWTYPE()) 
+    : ThObservable(EW_i), myEW(EW_i)
     {
     };
 
@@ -49,11 +49,6 @@ private:
      * precision observables.
      */
     const EW& myEW;
-
-    /**
-     * An enumerator controlling the formulae used in the computation.
-     */
-    const EW::EWTYPE myEWTYPE;
 };
 
 

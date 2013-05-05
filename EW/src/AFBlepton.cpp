@@ -11,6 +11,8 @@
 double AFBlepton::getThValue() 
 {   
     double AFB_l;
+    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+
     if (myEWTYPE==EW::EWCHMN)  
         AFB_l = myEW.getMyEW_CHMN().AFB_l(SM.ELECTRON);
     else if (myEWTYPE==EW::EWABC) 

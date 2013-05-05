@@ -11,6 +11,8 @@
 double PtauPol::getThValue() 
 {  
     double P_tau_pol;
+    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+
     if (myEWTYPE==EW::EWCHMN)  
         P_tau_pol = myEW.getMyEW_CHMN().A_l(SM.TAU);    
     else if (myEWTYPE==EW::EWABC) 

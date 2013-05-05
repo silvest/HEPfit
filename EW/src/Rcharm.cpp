@@ -12,6 +12,8 @@
 double Rcharm::getThValue() 
 {   
     double R0_c;
+    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+
     if (myEWTYPE==EW::EWCHMN)  
         R0_c = myEW.getMyEW_CHMN().R_c();
     else if (myEWTYPE==EW::EWABC || myEWTYPE==EW::EWABC2) 
