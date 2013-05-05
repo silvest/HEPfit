@@ -399,32 +399,28 @@ complex StandardModel::kappaZ_q(const quark q) const
 
 complex StandardModel::gVl(const lepton l) const 
 {
-    return myEWSM->gVl_SM(l);
+    double Ql = getLeptons(l).getCharge();
+    return ( gAl(l)
+             *(1.0 - 4.0*fabs(Ql)*(myEWSM->kappaZ_l_SM(l))*myEWSM->sW2_SM()) );
 }
 
 complex StandardModel::gVq(const quark q) const 
 {
-    if (q!=BOTTOM || (q==BOTTOM && !FlagApproximateGqOverGb) ) 
-        return myEWSM->gVq_SM(q);
-
-    /* gVb = gAb*(gVb/gAb) */
-    double Qb = getQuarks(BOTTOM).getCharge();  
-    return ( StandardModel::gAq(BOTTOM)
-             *(1.0 - 4.0*fabs(Qb)*myEWSM->kappaZ_q_SM(BOTTOM)*myEWSM->sW2_SM()) );
+    double Qq = getQuarks(q).getCharge();
+    return ( gAq(q)
+             *(1.0 - 4.0*fabs(Qq)*(myEWSM->kappaZ_q_SM(q))*myEWSM->sW2_SM()) );
 }
     
 complex StandardModel::gAl(const lepton l) const 
 {
-    return myEWSM->gAl_SM(l);
+    double I3l = getLeptons(l).getIsospin();
+    return ( sqrt(myEWSM->rhoZ_l_SM(l) + myEWSM->delRhoZ_l(l))*I3l );
 }
 
 complex StandardModel::gAq(const quark q) const 
 {
-    if (q!=BOTTOM || (q==BOTTOM && !FlagApproximateGqOverGb) ) 
-        return myEWSM->gAq_SM(q);
-
-    /* gAb = sqrt(rhoZb)*I3b */
-    return ( sqrt(StandardModel::rhoZ_q(BOTTOM))*getQuarks(BOTTOM).getIsospin() );
+    double I3q = getQuarks(q).getIsospin();
+    return ( sqrt(myEWSM->rhoZ_q_SM(q) + myEWSM->delRhoZ_q(q))*I3q );
 }
 
 double StandardModel::GammaW() const 

@@ -188,34 +188,6 @@ public:
      */
     complex kappaZ_q_SM(const StandardModel::quark q) const;    
 
-    /**
-     * @brief SM contribution to g_V^l
-     * @param[in] l lepton
-     * @return g_V^l
-     */
-   complex gVl_SM(const StandardModel::lepton l) const;
-
-    /**
-     * @brief SM contribution to g_V^q
-     * @param[in] q quark
-     * @return g_V^q
-     */
-    complex gVq_SM(const StandardModel::quark q) const;
-
-    /**
-     * @brief SM contribution to g_A^l
-     * @param[in] l lepton
-     * @return g_A^l
-     */
-    complex gAl_SM(const StandardModel::lepton l) const;
-
-    /**
-     * @brief SM contribution to g_A^q
-     * @param[in] q quark
-     * @return g_A^q
-     */
-    complex gAq_SM(const StandardModel::quark q) const;    
-
 
     ////////////////////////////////////////////////////////////////////////     
 

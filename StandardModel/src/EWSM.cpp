@@ -544,34 +544,6 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
 }
 
 
-complex EWSM::gVl_SM(const StandardModel::lepton l) const 
-{
-    return ( gAl_SM(l)
-             *(1.0 - 4.0*fabs(myCache->Ql(l))*kappaZ_l_SM(l)*sW2_SM()) );
-}
-
-
-complex EWSM::gVq_SM(const StandardModel::quark q) const 
-{
-    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
-    return ( gAq_SM(q)
-             *(1.0 - 4.0*fabs(myCache->Qq(q))*kappaZ_q_SM(q)*sW2_SM()) );
-}
-
-
-complex EWSM::gAl_SM(const StandardModel::lepton l) const 
-{
-    return ( sqrt(rhoZ_l_SM(l))*SM.getLeptons(l).getIsospin() );
-}
-
-
-complex EWSM::gAq_SM(const StandardModel::quark q) const 
-{
-    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
-    return ( sqrt(rhoZ_q_SM(q))*SM.getQuarks(q).getIsospin() );
-}
-
-
 ////////////////////////////////////////////////////////////////////////  
 
 double EWSM::taub() const 
@@ -732,15 +704,12 @@ double EWSM::delRhoZ_q(const StandardModel::quark q) const
         double RVb = RVq(SM.BOTTOM);
         double RAb = RAq(SM.BOTTOM);
         double Qq, gVq_over_gAq_abs2;
-        complex kappaZq;
+        complex rhoZq, kappaZq;
         double Gq_over_Gb;
         StandardModel::quark qk;
 
         double absRhoZq;        
         if (SM.IsFlagTestSubleadingTwoLoopEW()) {
-            /* use model parameter delRhoZ_b */
-            complex rhoZb = rhoZ_q_SM(SM.BOTTOM) + SM.getDelRhoZ_b();
-            
             switch(q) {
                 case StandardModel::UP:
                 case StandardModel::CHARM:
@@ -758,6 +727,7 @@ double EWSM::delRhoZ_q(const StandardModel::quark q) const
                     throw std::runtime_error("Error in EWSM::delRhoZ_q"); 
             }
             
+            complex rhoZb = rhoZ_q_SM(SM.BOTTOM) + SM.getDelRhoZ_b();
             Qq = SM.getQuarks(qk).getCharge();  
             kappaZq = kappaZ_q_SM(qk);
             gVq_over_gAq_abs2 = (1.0 - 4.0*fabs(Qq)*kappaZq*sW2).abs2();  
@@ -786,10 +756,11 @@ double EWSM::delRhoZ_q(const StandardModel::quark q) const
                     }
                     
                     // |Rho_Z^b| from Gamma_q/Gamma_b
+                    rhoZq = rhoZ_q_SM(qk); // In this case, delRhoZ_q=0. 
                     Qq = SM.getQuarks(qk).getCharge();  
                     kappaZq = kappaZ_q_SM(qk);
                     gVq_over_gAq_abs2 = (1.0 - 4.0*fabs(Qq)*kappaZq*sW2).abs2();
-                    absRhoZq = rhoZ_q_SM(qk).abs()/Gq_over_Gb
+                    absRhoZq = rhoZq.abs()/Gq_over_Gb
                             *(gVq_over_gAq_abs2*RVq(qk) + RAq(qk))
                             /(gVb_over_gAb_abs2*RVb + RAb);    
                     break;                    
