@@ -222,12 +222,19 @@ double NPZbbbar::epsilon3() const
 double NPZbbbar::epsilonb() const 
 {
     complex kappaZe = kappaZ_l(ELECTRON);
-    complex kappaZb = kappaZ_q(BOTTOM);
+    complex kappaZb;
+    if (IsFlagNPZbbbarLinearize()) {
+        complex gVb = StandardModel::gVq(BOTTOM) + myDeltaGVb;
+        complex gAb = StandardModel::gAq(BOTTOM) + myDeltaGAb;
+        kappaZb = (1.0 - gVb/gAb)/(4.0*fabs(getQuarks(BOTTOM).getCharge())*sW2());
+    } else
+        kappaZb = kappaZ_q(BOTTOM); /* In this case, kappaZ_q(BOTTOM) includes deltaGVb and deltaGAb. */
+        
     if (IsFlagWithoutNonUniversalVC()) 
         return ( kappaZe.real()/kappaZb.real() - 1.0 ); 
     else 
         return ( (kappaZe.real() + myEWSM->kappaZ_q_SM_FlavorDep(BOTTOM).real())
-                 /kappaZb.real() - 1.0 );   
+                /kappaZb.real() - 1.0 );   
 }
 
 
