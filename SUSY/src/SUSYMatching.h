@@ -95,6 +95,14 @@ public:
 //     * @return Wilson coefficients for \f$ D^{0} \rightarrow \pi \pi , K K \f$
 //     */
 //    virtual const std::vector<WilsonCoefficient>& CMd1Buras();
+    
+//    /**
+//     *
+//     * @brief Updates to new parameter sets.
+//     * @return 
+//     */
+    
+    void updateParameters();
 
    
     /** Large tan beta correction to CKM, down-quark mass **/
@@ -167,6 +175,25 @@ private:
     std::vector<WilsonCoefficient> vmdk2;
     std::vector<WilsonCoefficient> vmdd2;
     std::vector<WilsonCoefficient> vmcbsg;
+    
+    gslpp::matrix<complex> myCKM;
+    gslpp::matrix<complex> myRu;
+    gslpp::matrix<complex> myRd;
+    gslpp::vector<double> MChi0;
+    gslpp::vector<double> MChi;
+    gslpp::matrix<complex> myN;
+    double Q;
+    double mu2R;
+    double Als;
+    double Mg;
+    double tanb;
+    double sinb;
+    double cosb;
+    double v;
+    double v1;
+    double v2;
+    double gW;
+    
     
     /** Passarino Veltman functions, Dk with k = 0,2 , and their limits **/
     
@@ -300,14 +327,24 @@ private:
     gslpp::matrix<complex> VUDHH_cache;
     gslpp::matrix<complex> DeltaMd_cache;
     gslpp::vector<double> mySUSYMQ;
+
+    //***// 
+/*  double CWbsgArrayLO[10];
+    double CWbsgArrayNLO[10];
+    double CWD1ArrayLO[10];
+    double CWD1ArrayNLO[10];
+    double CWbnlepArrayLOqcd[10];
+    double CWbnlepArrayNLOqcd[10];
+    double CWbnlepArrayLOew[10];
+    double CWbnlepArrayNLOew[10]; */
     
-    double CWbsgArrayLO[10], CWbsgArrayNLO[10];
-    double CWD1ArrayLO[10], CWD1ArrayNLO[10];
-    double CWbnlepArrayLOqcd[10], CWbnlepArrayNLOqcd[10];
-    double CWbnlepArrayLOew[10], CWbnlepArrayNLOew[10];
-    
-    double sw, swa, swb, swc; //sen(theta_W) tree level
-    double xcachea, xcacheb, xcachec; // caching
+    double sw;
+    double swa;
+    double swb;
+    double swc; //sin(theta_W) tree level
+    double xcachea; // caching
+    double xcacheb; // caching
+    double xcachec; // caching
 };
 
 #endif	/* SUSYMATCHING_H */

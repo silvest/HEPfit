@@ -106,6 +106,7 @@ void Spectrum::CalcSpectrum(SUSY & SUSY){
     
     //std::cout << "MN = " << MN << std::endl;
     //MN.eigensystem(SUSY.N,SUSY.Mneu);
+    vector<double> M2Neu(2,0);
     matrix<complex> Ntemp(4,4,0.);
     Ntemp = SUSY.N.transpose();
     MN.singularvalue(Ntemp, SUSY.N , SUSY.Mneu);
@@ -120,8 +121,9 @@ void Spectrum::CalcSpectrum(SUSY & SUSY){
     
     vector<double> M2Chi(2,0);
     (MC.hconjugate() * MC).eigensystem(SUSY.V,M2Chi);
-    SUSY.Mch(0) = sqrt(M2Chi(0));
-    SUSY.Mch(1) = sqrt(M2Chi(1));
+    SUSY.setMch(M2Chi);
+    //SUSY.Mch(0) = sqrt(M2Chi(0));
+    //SUSY.Mch(1) = sqrt(M2Chi(1));
     
     (MC * MC.hconjugate()).eigensystem(SUSY.U,M2Chi);
     
