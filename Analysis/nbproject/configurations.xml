@@ -35,6 +35,7 @@
     <itemPath>MFV.conf</itemPath>
     <itemPath>Model.conf</itemPath>
     <itemPath>MonteCarlo.conf</itemPath>
+    <itemPath>StandardModel.conf</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -279,6 +280,8 @@
       <item path="Model.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
@@ -555,6 +558,8 @@
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -830,6 +835,8 @@
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <folder path="TestFiles/f1">
         <cTool>
           <incDir>
@@ -1082,6 +1089,8 @@
       <item path="Model.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MonteCarlo.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="StandardModel.conf" ex="false" tool="3" flavor2="0">
       </item>
       <folder path="TestFiles/f1">
         <cTool>
