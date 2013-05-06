@@ -115,7 +115,7 @@ public:
         D_0, /**< @f$D^0@f$ meson */
         P_0, /**< @f$\pi^0@f$ meson */
         P_P, /**< @f$\pi^\pm@f$ meson */
-        MESON_END /**< The last element in this enum. */
+        MESON_END /**< The size of this enum. */
     }; 
 
     /**
@@ -162,7 +162,7 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * Sets flags for QCD. 
+     * @brief Sets flags for QCD. 
      * @param[in] name A name of a flag. 
      * @param[in] value A value of the given flag. 
      * @return A boolean value indicating whether the given flag name is associated 

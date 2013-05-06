@@ -74,11 +74,9 @@ bool NPHiggs::InitializeModel() {
 }
 
 
-void NPHiggs::SetEWSMflags(EWSM& myEWSM) {
-    /* The flags below are used to compute the SM values of the epsilons. */
-    myEWSM.setSchemeMw(EWSM::APPROXIMATEFORMULA);
-    myEWSM.setSchemeRhoZ(EWSM::OMSI);
-    myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
+void NPHiggs::SetEWSMflags(EWSM& myEWSM) 
+{
+    StandardModel::SetEWSMflags(myEWSM);
 }
 
 

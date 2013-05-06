@@ -43,15 +43,12 @@ public:
     virtual bool InitializeModel();  
     virtual void SetEWSMflags(EWSM& myEWSM);    
 
-        
-    ////////////////////////////////////////////////////////////////////////     
-
-    bool SetFlag(const std::string, const bool&); 
+    virtual bool SetFlag(const std::string, const bool&); 
     
     
     ////////////////////////////////////////////////////////////////////////     
 
-    double epsilon1() const 
+    virtual double epsilon1() const 
     {
         if (FlagEpsilon1SM) 
             return epsilon1_SM();
@@ -59,7 +56,7 @@ public:
             return myEpsilon_1;
     }
 
-    double epsilon2() const 
+    virtual double epsilon2() const 
     {
         if (FlagEpsilon2SM) 
             return epsilon2_SM();
@@ -67,7 +64,7 @@ public:
             return myEpsilon_2;
     }
 
-    double epsilon3() const 
+    virtual double epsilon3() const 
     {
         if (FlagEpsilon3SM) 
             return epsilon3_SM();
@@ -75,7 +72,7 @@ public:
             return myEpsilon_3;
     }
 
-    double epsilonb() const 
+    virtual double epsilonb() const 
     {
         if (FlagEpsilonbSM) 
             return epsilonb_SM();

@@ -11,6 +11,8 @@
 double GammaZ::getThValue() 
 { 
     double Gamma_Z;
+    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+
     if (myEWTYPE==EW::EWCHMN)  
         Gamma_Z = myEW.getMyEW_CHMN().GammaZ();
     else if (myEWTYPE==EW::EWABC) 

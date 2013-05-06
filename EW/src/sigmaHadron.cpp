@@ -11,6 +11,8 @@
 double sigmaHadron::getThValue() 
 { 
     double sigma_had;
+    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+
     if (myEWTYPE==EW::EWCHMN)  
         sigma_had = myEW.getMyEW_CHMN().sigma0_had();
     else if (myEWTYPE==EW::EWABC) 

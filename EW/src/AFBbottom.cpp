@@ -11,6 +11,8 @@
 double AFBbottom::getThValue() 
 {   
     double AFB_b;
+    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+
     if (myEWTYPE==EW::EWCHMN) 
         AFB_b = myEW.getMyEW_CHMN().AFB_q(SM.BOTTOM);
     else if (myEWTYPE==EW::EWABC || myEWTYPE==EW::EWABC2) 

@@ -56,6 +56,19 @@ void NPSTU::SetParameter(const std::string name, const double& value) {
 }
 
 
+bool NPSTU::InitializeModel() 
+{
+    SetModelInitialized(NPZbbbar::InitializeModel());
+    return (IsModelInitialized());
+}
+
+
+void NPSTU::SetEWSMflags(EWSM& myEWSM) 
+{
+    StandardModel::SetEWSMflags(myEWSM);
+}
+
+
 bool NPSTU::SetFlag(const std::string name, const bool& value) {
     bool res = false;
     if (name.compare("EWABC") == 0) {
@@ -67,3 +80,4 @@ bool NPSTU::SetFlag(const std::string name, const bool& value) {
     }
     return(res);
 }
+

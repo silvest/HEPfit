@@ -37,11 +37,11 @@ public:
     virtual bool Update(const std::map<std::string, double>& DPars);
     virtual bool Init(const std::map<std::string, double>& DPars);    
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
-    
-    
-    ////////////////////////////////////////////////////////////////////////     
 
-    bool SetFlag(const std::string, const bool&); 
+    virtual bool InitializeModel();  
+    virtual void SetEWSMflags(EWSM& myEWSM);    
+
+    virtual bool SetFlag(const std::string, const bool&); 
     
     
     ////////////////////////////////////////////////////////////////////////     
@@ -49,7 +49,7 @@ public:
     /**
      * @return Oblique parameter \hat{S}
      */
-    double obliqueShat() const
+    virtual double obliqueShat() const
     {
         return myObliqueShat;
     }
@@ -57,7 +57,7 @@ public:
     /**
      * @return Oblique parameter \hat{T}
      */
-    double obliqueThat() const 
+    virtual double obliqueThat() const 
     {
         return myObliqueThat;
     }
@@ -65,7 +65,7 @@ public:
     /**
      * @return Oblique parameter \hat{U}
      */
-    double obliqueUhat() const 
+    virtual double obliqueUhat() const 
     {
         return myObliqueUhat;
     }
@@ -73,7 +73,7 @@ public:
     /**
      * @return Oblique parameter V
      */
-    double obliqueV() const 
+    virtual double obliqueV() const 
     {
         return myObliqueV;
     }
@@ -81,7 +81,7 @@ public:
     /**
      * @return Oblique parameter W
      */
-    double obliqueW() const 
+    virtual double obliqueW() const 
     {
         return myObliqueW;
     }
@@ -89,7 +89,7 @@ public:
     /**
      * @return Oblique parameter X
      */
-    double obliqueX() const 
+    virtual double obliqueX() const 
     {
         return myObliqueX;
     }
@@ -97,7 +97,7 @@ public:
     /**
      * @return Oblique parameter Y
      */
-    double obliqueY() const 
+    virtual double obliqueY() const 
     {
         return myObliqueY;
     }
@@ -109,7 +109,7 @@ public:
     /**
      * @return Oblique parameter S'
      */
-    double obliqueS() const 
+    virtual double obliqueS() const 
     {
         double s0 = sqrt(s02());
         double c0 = sqrt(c02());
@@ -120,7 +120,7 @@ public:
     /**
      * @return Oblique parameter T'
      */
-    double obliqueT() const 
+    virtual double obliqueT() const 
     {
         double s0 = sqrt(s02());
         double c0 = sqrt(c02());
@@ -131,7 +131,7 @@ public:
     /**
      * @return Oblique parameter U'
      */
-    double obliqueU() const 
+    virtual double obliqueU() const 
     {
         double s0 = sqrt(s02());
         double c0 = sqrt(c02());

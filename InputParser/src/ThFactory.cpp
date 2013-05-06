@@ -59,14 +59,17 @@ ThFactory::ThFactory(const StandardModel& myModel)
         thobs["Mneu4"] = new Mneu4(myMO);
     }
     
-    //-----  SM input parameters  -----
+    //-----  SM input parameters, etc.  -----
     thobs["alsMz"] = new alsMz(myMO);
     thobs["dAle5Mz"] = new dAle5Mz(myMO);
     thobs["mHl"] = new mHl(myMO);
     thobs["mZ"] = new mZ(myMO);
     thobs["mtpole"] = new mtpole(myMO);
+    thobs["delRhoZ_u"] = new delRhoZ_u(myMO);
+    thobs["delRhoZ_d"] = new delRhoZ_d(myMO);
+    thobs["delRhoZ_b"] = new delRhoZ_b(myMO);
     
-    //-----  NP input parameters  -----
+    //-----  NP input parameters, etc.  -----
     thobs["deltaGVb"] = new deltaGVb(myMO);
     thobs["deltaGAb"] = new deltaGAb(myMO);
     thobs["deltaGLb"] = new deltaGLb(myMO);

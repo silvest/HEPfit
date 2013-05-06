@@ -11,6 +11,8 @@
 double AFBcharm::getThValue() 
 {   
     double AFB_c;
+    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+
     if (myEWTYPE==EW::EWCHMN)  
         AFB_c = myEW.getMyEW_CHMN().AFB_q(SM.CHARM);
     else if (myEWTYPE==EW::EWABC || myEWTYPE==EW::EWABC2) 

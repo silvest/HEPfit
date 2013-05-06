@@ -20,7 +20,7 @@
 
 /**
  * @class alsMz
- * @brief A class for an interface to the input paramter @f$\alpha_s(M_Z^2)@f$.
+ * @brief A class for an interface to the input parameter @f$\alpha_s(M_Z^2)@f$.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 

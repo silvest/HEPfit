@@ -11,6 +11,8 @@
 double Rlepton::getThValue() 
 {
     double R0_l;
+    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+
     if (myEWTYPE==EW::EWCHMN)  
         R0_l = myEW.getMyEW_CHMN().R_l(SM.ELECTRON);
     else if (myEWTYPE==EW::EWABC) 

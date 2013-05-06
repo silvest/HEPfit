@@ -37,20 +37,17 @@ public:
     virtual bool InitializeModel();  
     virtual void SetEWSMflags(EWSM& myEWSM);    
 
-        
-    ////////////////////////////////////////////////////////////////////////     
-
-    bool SetFlag(const std::string, const bool&); 
+    virtual bool SetFlag(const std::string, const bool&); 
     
     
     ////////////////////////////////////////////////////////////////////////    
     
-    double deltaGVb() const 
+    virtual double deltaGVb() const 
     {
         return myDeltaGVb;
     }
 
-    double deltaGAb() const 
+    virtual double deltaGAb() const 
     {
         return myDeltaGAb;
     }

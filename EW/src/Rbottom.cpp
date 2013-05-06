@@ -13,6 +13,8 @@
 double Rbottom::getThValue() 
 { 
     double R0_b;
+    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+
     if (myEWTYPE==EW::EWCHMN)  
         R0_b = myEW.getMyEW_CHMN().R_b();
     else if (myEWTYPE==EW::EWABC) 
@@ -21,12 +23,17 @@ double Rbottom::getThValue()
         double R_b0 = 0.2182355;
         R0_b = R_b0*(1.0 - 0.06*SM.epsilon1() + 0.07*SM.epsilon3() + 1.79*SM.epsilonb());
     } else {    
-        if (SM.IsFlagR0bApproximate() 
-                && !SM.IsFlagRhoZbFromR0b()
-                && SM.ModelName()!="NPEpsilons"
-                && SM.ModelName()!="NPHiggs") 
-            R0_b = SM.getEWSM()->R0_bottom_SM();// use an approximate formula
-        else
+        if (SM.IsFlagApproximateGqOverGb() 
+                && !SM.IsFlagRhoZbFromGuOverGb()
+                && !SM.IsFlagRhoZbFromGdOverGb()
+                && !SM.IsFlagTestSubleadingTwoLoopEW()) {
+            /* We use this part in the case where rhoZb is not derived from 
+             * the approximate formula of either Gu/Gb or Gd/Gb, or where 
+             * it is not calculated from the input delRhoZb. */
+            double Gu_over_Gb = SM.getEWSM()->Gu_over_Gb_SM();
+            double Gd_over_Gb = SM.getEWSM()->Gd_over_Gb_SM();
+            R0_b = 1.0/(1.0 + 2.0*(Gd_over_Gb + Gu_over_Gb));
+        } else
             R0_b = myEW.Gamma_q(SM.BOTTOM)/myEW.Gamma_had();
         
         if ( myEW.checkModelForSTU() ) {

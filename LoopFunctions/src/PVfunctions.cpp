@@ -12,9 +12,6 @@
 #include "PVfunctions.h"
 #include <stdexcept>
 
-// set in case where LoopTools library is employed. 
-//#define USE_LOOPTOOLS
-
 #define LEPS 1.e-7 // tolerance in the limit of masses
 
 

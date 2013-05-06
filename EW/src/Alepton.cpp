@@ -11,6 +11,8 @@
 double Alepton::getThValue() 
 { 
     double A_l;
+    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+
     if (myEWTYPE==EW::EWCHMN)  
         A_l = myEW.getMyEW_CHMN().A_l(SM.ELECTRON);
     else if (myEWTYPE==EW::EWABC) 

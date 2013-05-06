@@ -11,6 +11,8 @@
 double GammaW::getThValue() 
 {  
     double Gamma_W;
+    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+
     if (myEWTYPE==EW::EWCHMN)  
         Gamma_W = myEW.getMyEW_CHMN().GammaW();
     else if (myEWTYPE==EW::EWABC || myEWTYPE==EW::EWABC2) 

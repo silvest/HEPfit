@@ -11,6 +11,7 @@
 double Mw::getThValue() 
 {
     double myMw;
+    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
     
     //std::cout << "myEWTYPE = " << myEWTYPE << std::endl; // TEST
     //std::cout << "SM.epsilon1() = " << SM.epsilon1() << std::endl; // TEST

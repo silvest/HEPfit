@@ -11,6 +11,8 @@
 double sin2thetaEff::getThValue() 
 { 
     double sin2_theta_eff;
+    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+
     if (myEWTYPE==EW::EWCHMN)  
         sin2_theta_eff = myEW.getMyEW_CHMN().sin2thetaEff();
     else if (myEWTYPE==EW::EWABC) 
