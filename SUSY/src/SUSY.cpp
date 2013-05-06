@@ -12,7 +12,6 @@
 #include <sstream>
 #include <stdexcept>
 #include <FHCouplings.h>
-// #include "../tests/SusyFlavour.h"
 
 
 const std::string SUSY::SUSYvars[NSUSYvars] = {"m1r", "m1i", "m2r", "m2i", "m3" , "muHr", "muHi", "mHptree", "tanb", "Q"};
@@ -45,6 +44,13 @@ SUSY::SUSY() :
     
 }
 
+double SUSY::v1() const {
+    return v() * cosb;
+}
+
+double SUSY::v2() const {
+    return v() * sinb;
+}
 
 bool SUSY::SetFlag(const std::string name, const bool& value){
 
@@ -96,7 +102,7 @@ void SUSY::SetParameter(const std::string name, const double& value) {
         Q = value;
     else
         StandardModel::SetParameter(name, value);
-        
+
 }
 
 bool SUSY::InitializeModel(){
@@ -117,6 +123,7 @@ bool SUSY::PreUpdate(){
 
 bool SUSY::PostUpdate(){
     
+    mySUSYMatching->updateParameters(); // Necessary for updating SUSY and SUSY-derived parameters in SUSYMatching.
     mySUSYMatching->Comp_mySUSYMQ();
     
     if (IsFChi0()) mySUSYMatching->Comp_VdDNL(0);
@@ -142,8 +149,6 @@ bool SUSY::PostUpdate(){
         mySUSYMatching->Comp_VdDNR(1);
         mySUSYMatching->Comp_VuUN();
     }
-    
-    
     if (IsFChi()) {
         
         mySUSYMatching->Comp_VdUCR(1);
@@ -160,7 +165,7 @@ bool SUSY::PostUpdate(){
 bool SUSY::Update(const std::map<std::string, double>& DPars) {
 
     UpdateError = false;
-    
+
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
     SetParameter(it->first, it->second);
     
@@ -464,21 +469,8 @@ bool SUSY::CalcSpectrum(){
         //throw std::runtime_error(ss.str());
      }   
   
-    // Test lines // For testing with Susy Flavour. Include ../tests/SusyFlavour.h
-//   SusyFlavourSpectrum SF;
-//   SF.TestSpectrum(*this); 
-    
-    // End - Test 
     
     return (true);
-}
-
-double SUSY::v1() {
-    return v()*cosb;
-}
-
-double SUSY::v2() {
-    return v()*sinb;
 }
 
 
@@ -498,21 +490,25 @@ void SUSY::setY(double tanb_i) {
 }
 
 void SUSY::setTanb(double tanb) {
-    sinb = tanb * sqrt(1. / (1. + tanb * tanb));
-    cosb = sqrt(1. / (1. + tanb * tanb));
+//***//    sinb = tanb * sqrt(1. / (1. + tanb * tanb));
+//***//    cosb = sqrt(1. / (1. + tanb * tanb));
     this->tanb = tanb;
+    setSinb();
+    setCosb();
 }
 
-void SUSY::setSinb(double sinb) {
-    cosb = sqrt(1. - sinb * sinb);
-    tanb = sinb / cosb;
-    this->sinb = sinb;
+void SUSY::setSinb() {
+    sinb = tanb * sqrt(1. / (1. + tanb * tanb));
+//***//    cosb = sqrt(1. - sinb * sinb);
+//***//    tanb = sinb / cosb;
+//***//    this->sinb = sinb;
 }
 
-void SUSY::setCosb(double cosb) {
-    sinb = sqrt(1. - cosb * cosb);
-    tanb = sinb / cosb;
-    this->cosb = cosb;
+void SUSY::setCosb() {
+    cosb = sqrt(1. / (1. + tanb * tanb));
+//***//    sinb = sqrt(1. - cosb * cosb);
+//***//    tanb = sinb / cosb;
+//***//    this->cosb = cosb;
 }
 
 

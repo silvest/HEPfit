@@ -35,6 +35,11 @@ public:
     static const std::string SUSYvars[NSUSYvars];
     static const int NSUSYFlags = 4;
     static const std::string SUSYFlags[NSUSYFlags];
+    
+    /**
+     * @brief Friends of SUSY.
+     */
+    friend class Spectrum;
     /**
      * @brief SUSY constructor
      */
@@ -47,13 +52,13 @@ public:
      * 
      * @return the down-type VEV
      */
-    double v1();
+    double v1() const;
 
     /**
      *
      * @return the up-type VEV
      */
-    double v2();
+    double v2() const;
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -62,7 +67,7 @@ public:
      * 
      * @return the gluino mass 
      */
-    double GetMGl() const {
+    double getMGl() const {
         return FHMGl;
     }
 
@@ -116,7 +121,7 @@ public:
     }
 
     /**
-     * @brief set tan beta, sin beta and cos beta
+     * @brief set tan beta
      * @param tanb tan beta
      */
     void setTanb(double tanb);
@@ -130,10 +135,10 @@ public:
     }
 
     /**
-     * @brief set tan beta, sin beta and cos beta
+     * @brief set sin beta
      * @param sinb sin beta
      */
-    void setSinb(double sinb);
+    void setSinb();
 
     /**
      *
@@ -144,10 +149,10 @@ public:
     }
 
     /**
-     * @brief set tan beta, sin beta and cos beta
+     * @brief set cos beta
      * @param cosb cos beta
      */
-    void setCosb(double cosb);
+    void setCosb();
 
     /**
      * 
@@ -461,13 +466,13 @@ public:
     /**soft breaking terms for squarks and sleptons in the SCKM basis at the scale Q**/
     
     double  Q;
-    double  m3, mHptree, mHp, tanb, sinb, cosb, mh[4];
+    double  m3, mHptree, mHp, mh[4];
     complex m1, m2, muH, saeff;
-    
+
     matrix<complex> Ru, Rd, Rl, Rn, U, V, N, UH, ZH;
-    vector<double> Msu2, Msd2, Msl2, Msn2, Mch, Mneu;
+    vector<double> Msu2, Msd2, Msl2, Msn2;
     matrix<complex> MsQ2, MsU2, MsD2, MsL2, MsE2, MsN2, TU, TD, TE, TN;
-    
+ 
 private:
     void setY(double tanb_i);
     matrix<complex> CMsQ2, CMsU2, CMsD2, CMsL2, CMsE2, CMsN2, CTU, CTD, CTE, CTN;
@@ -476,8 +481,16 @@ private:
     complex Cm1, Cm2, CmuH;
     bool Fh, Fg, FChi, FChi0;
     SUSYMatching* mySUSYMatching;
+    
+    double tanb;
+    double sinb;
+    double cosb;
+    
+    vector<double> Mch;
+    vector<double> Mneu;
+    
      
-    void TestSpectrum();
+    //***// void TestSpectrum();
     
 protected:
     void SetParameter(const std::string, const double&);    
