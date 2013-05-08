@@ -816,6 +816,9 @@ double QCD::Mrun(const double mu_f, const double mu_i, const double m,
             throw std::runtime_error("Error in QCD::Mrun(mu_f,mu_i,m,order)"); 
     }
 
+    if (mrun < 0.0)
+        throw std::runtime_error("ERROR: A quark mass becomes tachyonic in QCD::Mrun(mu_f,mu_i m,order).");
+    
     CacheShift(mrun_cache,10);
     mrun_cache[0][0] = mu_f;
     mrun_cache[1][0] = mu_i;

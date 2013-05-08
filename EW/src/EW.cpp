@@ -99,35 +99,31 @@ double EW::Qq(const StandardModel::quark q) const
 double EW::alpha0() const 
 {
     return ( SM.alphaMz() );    
-
 //    return SM.getAle(); // TEST!!
 }
 
 
 double EW::Mw0() const 
 {
-    return ( SM.Mw0() );
-
+//    return ( SM.Mw0() );
 //    return SM.Mw_tree(); // TEST!!
-//    return SM.Mw(); // TEST!!
+    return SM.StandardModel::Mw();
 }
 
 
 double EW::s02() const 
 {
-    return ( SM.s02() );
-
+//    return ( SM.s02() );
 //    return ( 1.0 - c02() ); // TEST!!
-//    return SM.sW2(); // TEST?!!
+    return SM.StandardModel::sW2();
 }
 
 
 double EW::c02() const 
 {
-    return ( SM.c02() );
-
+//    return ( SM.c02() );
 //    return ( SM.Mw_tree()*SM.Mw_tree()/SM.getMz()/SM.getMz() ); // TEST!!
-//    return SM.cW2(); // TEST?!!
+    return SM.StandardModel::cW2();
 }
 
 

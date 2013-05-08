@@ -81,10 +81,6 @@ bool NPZbbbar::SetFlag(const std::string name, const bool& value)
         throw std::runtime_error("Flag EWABC is not applicable to NPSTU"); 
     else if (name.compare("EWABC2") == 0)
         throw std::runtime_error("Flag EWABC2 is not applicable to NPSTU"); 
-    else if (name.compare("EWBURGESS") == 0) 
-        throw std::runtime_error("Flag EWBURGESS is not applicable to NPZbbbar"); 
-    else if (name.compare("EWCHMN") == 0) 
-        throw std::runtime_error("Flag EWCHMN is not applicable to NPZbbbar"); 
     else if (name.compare("epsilon1SM") == 0) 
         throw std::runtime_error("Flag epsilon1SM is not applicable to NPZbbbar"); 
     else if (name.compare("epsilon2SM") == 0) 

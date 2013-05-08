@@ -430,7 +430,7 @@ double StandardModel::GammaW() const
 
 double StandardModel::epsilon1_SM() const 
 {
-    double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real();
+    double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real() + myEWSM->delRhoZ_l(ELECTRON);
     double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
 
     return DeltaRhoPrime;
@@ -439,7 +439,7 @@ double StandardModel::epsilon1_SM() const
 double StandardModel::epsilon2_SM() const 
 {
     double s_W2 = myEWSM->sW2_SM(), c_W2 = myEWSM->cW2_SM();
-    double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real();
+    double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real() + myEWSM->delRhoZ_l(ELECTRON);
     double sin2thetaEff = myEWSM->kappaZ_l_SM(ELECTRON).real()*s_W2;
     double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
     double DeltaKappaPrime = sin2thetaEff/s02() - 1.0;
@@ -451,7 +451,7 @@ double StandardModel::epsilon2_SM() const
 
 double StandardModel::epsilon3_SM() const 
 {
-    double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real();
+    double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real() + myEWSM->delRhoZ_l(ELECTRON);
     double sin2thetaEff = myEWSM->kappaZ_l_SM(ELECTRON).real()*myEWSM->sW2_SM();
     double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
     double DeltaKappaPrime = sin2thetaEff/s02() - 1.0;
@@ -463,8 +463,8 @@ double StandardModel::epsilonb_SM() const
 {
     /* epsilon_b from g_A^b
      * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
-    //double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real();
-    //double rhoZb = myEWSM->rhoZ_q_SM(BOTTOM).real();
+    //double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real() + myEWSM->delRhoZ_l(ELECTRON);
+    //double rhoZb = myEWSM->rhoZ_q_SM(BOTTOM).real() + myEWSM->delRhoZ_q(BOTTOM);
     //double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
     //double eps1 = DeltaRhoPrime;
     //return ( - 1.0 + sqrt(rhoZb)/(1.0 + eps1/2.0) );
