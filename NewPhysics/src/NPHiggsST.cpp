@@ -74,7 +74,7 @@ double NPHiggsST::obliqueT() const
     else
         Lambda = 4.0*M_PI*v()/sqrt(fabs(1.0 - a*a));
     
-    return ( - 3.0/16.0/M_PI/c02()*(1.0 - a*a)*log(Lambda*Lambda/mHl/mHl) );
+    return ( - 3.0/16.0/M_PI/cW2()*(1.0 - a*a)*log(Lambda*Lambda/mHl/mHl) );
 }
     
 
@@ -98,7 +98,7 @@ double NPHiggsST::epsilon2() const
     
 double NPHiggsST::epsilon3() const
 {
-    return ( epsilon3_SM() + alphaMz()/4.0/s02()*obliqueS() ); 
+    return ( epsilon3_SM() + alphaMz()/4.0/sW2()*obliqueS() ); 
 }
 
     

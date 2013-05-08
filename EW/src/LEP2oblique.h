@@ -75,6 +75,9 @@ private:
     
     double s02(const double alpha0) const 
     {
+        
+        throw std::runtime_error("Error in LEP2oblique::s02() needs to be modified with sW2 in the SM!");
+        
         double GF = myEW.getSM().getGF();
         double Mz = myEW.getSM().getMz();
         return ( ( 1.0 - sqrt(1.0 - 4.0*M_PI*alpha0/sqrt(2.0)/GF/Mz/Mz) )/2.0 );

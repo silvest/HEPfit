@@ -111,10 +111,11 @@ public:
      */
     virtual double obliqueS() const 
     {
-        double s0 = sqrt(s02());
-        double c0 = sqrt(c02());
-        return ( ( myObliqueShat - myObliqueW + myObliqueX/(s0*c0) - myObliqueY )
-                 * 4.0*s02()/alphaMz() );
+        double sW2_SM = StandardModel::sW2();
+        double sW_SM = sqrt(sW2_SM);
+        double cW_SM = sqrt(StandardModel::cW2());
+        return ( ( myObliqueShat - myObliqueW + myObliqueX/(sW_SM*cW_SM) - myObliqueY )
+                 * 4.0*sW2_SM/alphaMz() );
     }
 
     /**
@@ -122,10 +123,12 @@ public:
      */
     virtual double obliqueT() const 
     {
-        double s0 = sqrt(s02());
-        double c0 = sqrt(c02());
-        return ( ( myObliqueThat - myObliqueW + 2.0*s0/c0*myObliqueX 
-                   - s02()/c02()*myObliqueY )/alphaMz() );
+        double sW2_SM = StandardModel::sW2();
+        double sW_SM = sqrt(sW2_SM);
+        double cW2_SM = StandardModel::cW2();
+        double cW_SM = sqrt(cW2_SM);
+        return ( ( myObliqueThat - myObliqueW + 2.0*sW_SM/cW_SM*myObliqueX 
+                   - sW2_SM/cW2_SM*myObliqueY )/alphaMz() );
     }
 
     /**
@@ -133,10 +136,11 @@ public:
      */
     virtual double obliqueU() const 
     {
-        double s0 = sqrt(s02());
-        double c0 = sqrt(c02());
+        double sW2_SM = StandardModel::sW2();
+        double sW_SM = sqrt(sW2_SM);
+        double cW_SM = sqrt(StandardModel::cW2());
         return ( ( - myObliqueUhat + myObliqueV + myObliqueW 
-                   - 2.0*s0/c0*myObliqueX )*4.0*s02()/alphaMz() );
+                   - 2.0*sW_SM/cW_SM*myObliqueX )*4.0*sW2_SM/alphaMz() );
     }
     
     

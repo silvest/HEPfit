@@ -33,9 +33,9 @@ double sin2thetaEff::getThValue()
 
                 sin2_theta_eff += 0.00362*myEW.S() - 0.00256*myEW.T();
             } else {
-                double alpha = myEW.alpha0();  
-                double c2 = myEW.c02();
-                double s2 = myEW.s02();
+                double alpha = myEW.alpha();  
+                double c2 = myEW.cW2_SM();
+                double s2 = myEW.sW2_SM();
                 
                 sin2_theta_eff += alpha/4.0/(c2-s2)
                                   *( myEW.S() - 4.0*c2*s2*myEW.T() );

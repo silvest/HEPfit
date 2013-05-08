@@ -31,9 +31,9 @@ double Acharm::getThValue()
                 double delta_A_l = - 0.0284*myEW.S() + 0.0201*myEW.T();
                 A_c *= 1.0 + delta_AFB_c/AFB_c - delta_A_l/myEW.A_l(SM.ELECTRON);
             } else {
-                double alpha = myEW.alpha0();  
-                double c2 = myEW.c02();
-                double s2 = myEW.s02();
+                double alpha = myEW.alpha();  
+                double c2 = myEW.cW2_SM();
+                double s2 = myEW.sW2_SM();
                 double s4 = s2*s2;
                 
                 A_c -= 48.0*alpha*s2*(3.0-4.0*s2)/pow(9.0-24.0*s2+32.0*s4, 2.0)/(c2-s2)

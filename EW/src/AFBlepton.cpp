@@ -32,9 +32,9 @@ double AFBlepton::getThValue()
             
                 AFB_l += - 0.00677*myEW.S() + 0.00479*myEW.T();
             } else {
-                double alpha = myEW.alpha0();  
-                double c2 = myEW.c02();
-                double s2 = myEW.s02();
+                double alpha = myEW.alpha();  
+                double c2 = myEW.cW2_SM();
+                double s2 = myEW.sW2_SM();
                 double s4 = s2*s2;
                 
                 AFB_l -= 6.0*alpha*s2*(1.0-4.0*s2)/pow(1.0-4.0*s2+8.0*s4, 3.0)

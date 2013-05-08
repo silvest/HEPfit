@@ -33,10 +33,10 @@ double GammaW::getThValue()
                 
                 Gamma_W *= 1.0 - 0.00723*myEW.S() + 0.0111*myEW.T() + 0.00849*myEW.U() + 0.00781*Wbar;
             } else {
-                double alpha = myEW.alpha0();  
-                double c = sqrt(myEW.c02());
-                double c2 = myEW.c02();
-                double s2 = myEW.s02();
+                double alpha = myEW.alpha();  
+                double c = sqrt(myEW.cW2_SM());
+                double c2 = myEW.cW2_SM();
+                double s2 = myEW.sW2_SM();
             
                 // TEST!!
                 //std::cout << 3.0*alpha*alpha*c*SM.getMz()/8.0/s2/(c2-s2) << " "

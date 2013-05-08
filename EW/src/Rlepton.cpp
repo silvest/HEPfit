@@ -36,9 +36,9 @@ double Rlepton::getThValue()
                 R0_l *= 1.0 + delta_had/myEW.Gamma_had()
                         - delta_l/myEW.Gamma_l(SM.ELECTRON);
             } else {
-                double alpha = myEW.alpha0();  
-                double c2 = myEW.c02();
-                double s2 = myEW.s02();
+                double alpha = myEW.alpha();  
+                double c2 = myEW.cW2_SM();
+                double s2 = myEW.sW2_SM();
                 double s4 = s2*s2;
                 
                 R0_l += 8.0*alpha*(3.0-2.0*s2)*(1.0-5.0*s2)
@@ -49,10 +49,10 @@ double Rlepton::getThValue()
 
         if (SM.IsFlagNPZbbbarLinearize() && (SM.deltaGVb()!=0.0 || SM.deltaGAb()!=0.0) ) {
             double gVb0 = SM.getQuarks(SM.BOTTOM).getIsospin() 
-                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.s02();
+                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.sW2_SM();
             double gAb0 = SM.getQuarks(SM.BOTTOM).getIsospin();        
             double gVe0 = SM.getLeptons(SM.ELECTRON).getIsospin() 
-                          - 2.0*SM.getLeptons(SM.ELECTRON).getCharge()*myEW.s02();
+                          - 2.0*SM.getLeptons(SM.ELECTRON).getCharge()*myEW.sW2_SM();
             double gAe0 = SM.getLeptons(SM.ELECTRON).getIsospin();        
             double Nc = 3.0;
             double coeff = 2.0*Nc/(gVe0*gVe0 + gAe0*gAe0);

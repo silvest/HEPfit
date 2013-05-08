@@ -108,7 +108,7 @@ double NPHiggs::epsilon1() const{
     else
         Lambda = 4.0*M_PI*v()/sqrt(fabs(1.0 - a*a));
 
-    double DeltaEps1 = - 3.0/16.0/M_PI*alphaMz()/c02()*(1.0 - a*a)
+    double DeltaEps1 = - 3.0/16.0/M_PI*alphaMz()/cW2()*(1.0 - a*a)
                        *log(Lambda*Lambda/mHl/mHl);
     return ( epsilon1_SM() + DeltaEps1 );
 }
@@ -126,7 +126,7 @@ double NPHiggs::epsilon3() const {
     else
         Lambda = 4.0*M_PI*v()/sqrt(fabs(1.0 - a*a));
 
-    double DeltaEps3 = 1.0/48.0/M_PI*alphaMz()/s02()*(1.0 - a*a)
+    double DeltaEps3 = 1.0/48.0/M_PI*alphaMz()/sW2()*(1.0 - a*a)
                        *log(Lambda*Lambda/mHl/mHl);
     return ( epsilon3_SM() + DeltaEps3 );
 }

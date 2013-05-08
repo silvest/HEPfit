@@ -33,9 +33,9 @@ double GammaZ::getThValue()
 
                 Gamma_Z += - 0.00961*myEW.S() + 0.0263*myEW.T();
             } else {
-                double alpha = myEW.alpha0();  
-                double c2 = myEW.c02();
-                double s2 = myEW.s02();
+                double alpha = myEW.alpha();  
+                double c2 = myEW.cW2_SM();
+                double s2 = myEW.sW2_SM();
                 double s4 = s2*s2;
                 
                 Gamma_Z += alpha*alpha*SM.getMz()/72.0/c2/s2/(c2-s2)
@@ -45,11 +45,11 @@ double GammaZ::getThValue()
         }
         
         if (SM.IsFlagNPZbbbarLinearize() && (SM.deltaGVb()!=0.0 || SM.deltaGAb()!=0.0) ) {
-            double alpha = myEW.alpha0();  
-            double c2 = myEW.c02();
-            double s2 = myEW.s02();
+            double alpha = myEW.alpha();  
+            double c2 = myEW.cW2_SM();
+            double s2 = myEW.sW2_SM();
             double gVb0 = SM.getQuarks(SM.BOTTOM).getIsospin() 
-                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.s02();
+                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.sW2_SM();
             double gAb0 = SM.getQuarks(SM.BOTTOM).getIsospin();        
             double Nc = 3.0;
             double coeff = Nc*alpha*SM.getMz()/6.0/s2/c2;

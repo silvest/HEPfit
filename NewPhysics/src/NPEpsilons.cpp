@@ -19,10 +19,10 @@ const std::string NPEpsilons::EPSILONflags[NEPSILONflags]
 NPEpsilons::NPEpsilons() 
 : StandardModel() 
 {
-   FlagEpsilon1SM = false;
-   FlagEpsilon2SM = false;
-   FlagEpsilon3SM = false;
-   FlagEpsilonbSM = false;
+    FlagEpsilon1SM = false;
+    FlagEpsilon2SM = false;
+    FlagEpsilon3SM = false;
+    FlagEpsilonbSM = false;
 }
 
 

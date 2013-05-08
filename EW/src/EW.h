@@ -90,22 +90,22 @@ public:
     /**
      * @return alpha(Mz2) 
      */
-    double alpha0() const;
+    double alpha() const;
 
     /**
-     * @return the W boson mass without weak corrections, but with alpha(Mz^2)
+     * @return the W boson mass in the SM. 
      */
-    double Mw0() const;    
+    double Mw_SM() const;    
 
     /**
-     * @return sin^2 theta_W without weak corrections, but with alpha(Mz^2)
+     * @return sin^2 theta_W in the SM.
      */
-    double s02() const;
+    double sW2_SM() const;
 
     /**
-     * @return cos^2 theta_W without weak corrections, but with alpha(Mz^2)
+     * @return cos^2 theta_W in the SM.
      */
-    double c02() const;
+    double cW2_SM() const;
 
     /**
      * @return the oblique parameters S

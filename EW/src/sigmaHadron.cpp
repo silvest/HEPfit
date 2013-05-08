@@ -38,10 +38,10 @@ double sigmaHadron::getThValue()
                              + delta_had/myEW.Gamma_had()
                              - 2.0*delta_Z/myEW.Gamma_Z();
             } else {
-                double alpha = myEW.alpha0();  
+                double alpha = myEW.alpha();  
                 double Mz = SM.getMz();
-                double c2 = myEW.c02();
-                double s2 = myEW.s02();
+                double c2 = myEW.cW2_SM();
+                double s2 = myEW.sW2_SM();
                 double s4 = s2*s2;
                 double s6 = s4*s2;        
                 double s8 = s6*s2;
@@ -55,16 +55,16 @@ double sigmaHadron::getThValue()
         
         if (SM.IsFlagNPZbbbarLinearize() && (SM.deltaGVb()!=0.0 || SM.deltaGAb()!=0.0) ) {
             double gVb0 = SM.getQuarks(SM.BOTTOM).getIsospin() 
-                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.s02();
+                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.sW2_SM();
             double gAb0 = SM.getQuarks(SM.BOTTOM).getIsospin();        
             double gVu0 = SM.getQuarks(SM.UP).getIsospin() 
-                          - 2.0*SM.getQuarks(SM.UP).getCharge()*myEW.s02();
+                          - 2.0*SM.getQuarks(SM.UP).getCharge()*myEW.sW2_SM();
             double gAu0 = SM.getQuarks(SM.UP).getIsospin();        
             double gVnu0 = SM.getLeptons(SM.NEUTRINO_1).getIsospin() 
-                          - 2.0*SM.getLeptons(SM.NEUTRINO_1).getCharge()*myEW.s02();
+                          - 2.0*SM.getLeptons(SM.NEUTRINO_1).getCharge()*myEW.sW2_SM();
             double gAnu0 = SM.getLeptons(SM.NEUTRINO_1).getIsospin();        
             double gVe0 = SM.getLeptons(SM.ELECTRON).getIsospin() 
-                          - 2.0*SM.getLeptons(SM.ELECTRON).getCharge()*myEW.s02();
+                          - 2.0*SM.getLeptons(SM.ELECTRON).getCharge()*myEW.sW2_SM();
             double gAe0 = SM.getLeptons(SM.ELECTRON).getIsospin();        
             double Nc = 3.0;
             double sum_q = Nc*2.0*(gVu0*gVu0 + gAu0*gAu0)

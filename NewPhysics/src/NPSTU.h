@@ -77,7 +77,8 @@ public:
      */
     virtual double obliqueShat() const 
     {
-        return ( alphaMz()/(4.0*s02())*obliqueS() );
+        double sW2_SM = StandardModel::sW2();
+        return ( alphaMz()/(4.0*sW2_SM)*obliqueS() );
     }
 
     /**
@@ -93,7 +94,8 @@ public:
      */
     virtual double obliqueUhat() const 
     {
-        return ( - alphaMz()/(4.0*s02())*obliqueU() );
+        double sW2_SM = StandardModel::sW2();
+        return ( - alphaMz()/(4.0*sW2_SM)*obliqueU() );
     }
 
     /**

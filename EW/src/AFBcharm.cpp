@@ -28,9 +28,9 @@ double AFBcharm::getThValue()
                 
                 AFB_c += - 0.0147*myEW.S() + 0.0104*myEW.T();
             } else {
-                double alpha = myEW.alpha0();  
-                double c2 = myEW.c02();
-                double s2 = myEW.s02();
+                double alpha = myEW.alpha();  
+                double c2 = myEW.cW2_SM();
+                double s2 = myEW.sW2_SM();
                 double s4 = s2*s2;
                 double s6 = s4*s2;        
                 double s8 = s6*s2;

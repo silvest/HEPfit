@@ -47,9 +47,9 @@ double Rbottom::getThValue()
                 R0_b *= 1.0 + delta_b/myEW.Gamma_q(SM.BOTTOM) 
                         - delta_had/myEW.Gamma_had();
             } else {
-                double alpha = myEW.alpha0();  
-                double c2 = myEW.c02();
-                double s2 = myEW.s02();
+                double alpha = myEW.alpha();  
+                double c2 = myEW.cW2_SM();
+                double s2 = myEW.sW2_SM();
                 double s4 = s2*s2;
                 R0_b += 6.0*alpha*(9.0-36.0*s2+16.0*s4)
                         /pow(45.0-84.0*s2+88.0*s4, 2.0)/(c2-s2)
@@ -59,10 +59,10 @@ double Rbottom::getThValue()
         
         if (SM.IsFlagNPZbbbarLinearize() && (SM.deltaGVb()!=0.0 || SM.deltaGAb()!=0.0) ) {
             double gVb0 = SM.getQuarks(SM.BOTTOM).getIsospin() 
-                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.s02();
+                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.sW2_SM();
             double gAb0 = SM.getQuarks(SM.BOTTOM).getIsospin();        
             double gVu0 = SM.getQuarks(SM.UP).getIsospin() 
-                          - 2.0*SM.getQuarks(SM.UP).getCharge()*myEW.s02();
+                          - 2.0*SM.getQuarks(SM.UP).getCharge()*myEW.sW2_SM();
             double gAu0 = SM.getQuarks(SM.UP).getIsospin();        
             double Nc = 3.0;
             double sum = Nc*2.0*(gVu0*gVu0 + gAu0*gAu0)

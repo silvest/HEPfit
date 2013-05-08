@@ -39,9 +39,9 @@ double Rcharm::getThValue()
                 double delta_had = - 0.00901*myEW.S() + 0.0200*myEW.T();
                 R0_c *= 1.0 + delta_c_over_Gamma_c - delta_had/myEW.Gamma_had();
             } else {            
-                double alpha = myEW.alpha0();  
-                double c2 = myEW.c02();
-                double s2 = myEW.s02();
+                double alpha = myEW.alpha();  
+                double c2 = myEW.cW2_SM();
+                double s2 = myEW.sW2_SM();
                 double s4 = s2*s2;
                 
                 R0_c -= 9.0*alpha*(9.0-36.0*s2+16.0*s4)
@@ -52,10 +52,10 @@ double Rcharm::getThValue()
 
         if (SM.IsFlagNPZbbbarLinearize() && (SM.deltaGVb()!=0.0 || SM.deltaGAb()!=0.0) ) {
             double gVb0 = SM.getQuarks(SM.BOTTOM).getIsospin() 
-                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.s02();
+                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.sW2_SM();
             double gAb0 = SM.getQuarks(SM.BOTTOM).getIsospin();        
             double gVc0 = SM.getQuarks(SM.CHARM).getIsospin() 
-                          - 2.0*SM.getQuarks(SM.CHARM).getCharge()*myEW.s02();
+                          - 2.0*SM.getQuarks(SM.CHARM).getCharge()*myEW.sW2_SM();
             double gAc0 = SM.getQuarks(SM.CHARM).getIsospin();        
             double Nc = 3.0;
             double sum = Nc*2.0*(gVc0*gVc0 + gAc0*gAc0)
