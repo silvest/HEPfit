@@ -106,6 +106,42 @@ matrix<double> EvolDF2::AnomalousDimension(orders order, unsigned int nf) const 
     return (ad);
 }
 
+matrix<double> EvolDF2::AnomalousDimensionBuras(orders order, unsigned int nf) const {
+    matrix<double> adB(5, 5, 0.);
+    double Nc = model.getNc();
+    switch (order) {
+        case LO:
+            adB(0, 0) = 6. - 6. / Nc;
+            adB(1, 1) = 6. / Nc;
+            adB(1, 2) = 12. ;
+            adB(2, 2) = 6. / Nc - 6. * Nc;
+            adB(3, 3) = 6. + 6. / Nc - 6. * Nc;
+            adB(3, 4) = 1. / 2. - 1. / Nc;
+            adB(4, 3) = -24. - 48. / Nc;
+            adB(4, 4) = 6. - 2. / Nc + 2. * Nc;
+            break;
+        case NLO:
+            
+            // MSbar-NDR scheme with evanescent operators of Buras, Misiak & Urban
+            
+            if (!(nf == 3 || nf == 4 || nf == 5 || nf == 6))
+                throw std::runtime_error("EvolDF2::AnomalousDimensionBuras(): wrong number of flavours");
+            adB(0, 0) = -22. / 3. - 57. / (2. * Nc * Nc) + 39. / Nc - (19. * Nc) / 6.  + (2. * nf) / 3. - (2. * nf) / 3. / Nc;
+            adB(1, 1) = 137. / 6. + 15. / (2 * Nc * Nc) - (22 * nf) / (3 * Nc);
+            adB(1, 2) = -(6. / Nc) + (200. * Nc) / 3. - (44 * nf) / 3.;
+            adB(2, 1) = 9. / Nc + (71. * Nc) / 4. - 2. * nf;
+            adB(2, 2) = 479. / 6. + 15. / (2. * Nc * Nc) - (203. * Nc * Nc) / 6. - (22. * nf) / (3. * Nc) + (10. * Nc * nf) / 3.;
+            adB(3, 3) = 136. / 3. - 107. / (2. * Nc * Nc) - 12. / Nc + (107. * Nc) / 3. - (203. * Nc * Nc) / 6. - (2. * nf) / 3. - (10. * nf) / (3. * Nc) + (10. * Nc * nf) / 3.;
+            adB(3, 4) = -31. / 9. - 4. / (Nc * Nc) + 9. / Nc - Nc / 36. - nf / 18. + nf / (9 * Nc);
+            adB(4, 3) = -704. / 3. - 320. / (Nc * Nc) - 208. / Nc - (364. * Nc) / 3. + (136. * nf) / 3. + (176. * nf) / (3. * Nc);
+            adB(4, 4) = -188. / 9. + 21. / (2. * Nc * Nc) + 44. / Nc + 21. * Nc + (343. * Nc * Nc) / 18. - 6. * nf + (2. * nf) / (9. * Nc) - (26. * Nc * nf) / 9.;
+            break;
+        default:
+            throw std::runtime_error("EvolDF2::AnomalousDimensionBuras(): order not implemented");
+    }
+    return (adB);
+}
+
 matrix<double>& EvolDF2::Df2Evol(double mu, double M, orders order, schemes scheme) {
     switch (scheme) {
         case NDR:
@@ -288,28 +324,34 @@ double EvolDF2::etatt(double m) const {
 double EvolDF2::S1tt() const {
     double N = model.getNc();
     double x = model.GetMyMatching()->x_t(model.getMut());
+    double x2 = x * x;
+    double x3 = x2 * x;
+    double x4 = x3 * x;
+    double xm2 = (1 - x) * (1 - x);
+    double xm3 = xm2 * (1 - x);
+    double xm4 = xm3 * (1 - x);
     double Li2 = gsl_sf_dilog(1-x);
     
-    double S18 = - (64. - 68.*x - 17.*x*x + 11.*x*x*x)/(4.*(1.-x)*(1.-x)) +
-                (32. - 68.*x + 32.*x*x - 28.*x*x*x + 3.*x*x*x*x)/2./(1.-x)/(1.-x)/(1.-x) * log(x)
-                + (x*x*(4. - 7.*x + 7.*x*x - 2.*x*x*x))/2./(1.-x)/(1.-x)/(1.-x)/(1.-x) * log(x) * log(x)
-                + (2.*x*(4. - 7.*x - 7*x*x + x*x*x))/(1.-x)/(1.-x)/(1.-x) * Li2
-                + (16./x)*(M_PI * M_PI/6. - Li2);
+    double S18 = - (64. - 68. * x - 17. * x2 + 11. * x3)/(4. * (1. - x) * (1. - x) ) +
+                (32. - 68. * x + 32. * x2 - 28. * x3 + 3. * x4) / (2. *  xm3) * log(x)
+                + (x2 * (4. - 7. * x + 7. * x2 - 2. * x3) ) / (2. * xm4) * log(x) * log(x)
+                + (2. * x * (4. - 7. * x - 7 * x2 + x3) ) / xm3 * Li2
+                + (16. / x) * (M_PI * M_PI/6. - Li2);
     
-    double S11 = - x*(4. - 39.*x + 168.*x*x + 11.*x*x*x)/4./(1.-x)/(1.-x)/(1.-x) -
-                 3.*x*(4. - 24.*x + 36.*x*x + 7.*x*x*x + x*x*x*x)/2./(1.-x)/(1.-x)/(1.-x)/(1.-x) * log(x)
-                 + 3.*x*x*x*(13. + 4.*x + x*x)/2./(1.-x)/(1.-x)/(1.-x)/(1.-x) * log(x) * log(x) -
-                 3.*x*x*x*(5. + x)/(1.-x)/(1.-x)/(1.-x)*Li2;
+    double S11 = - x * (4. - 39. * x + 168. * x2 + 11. * x3) / (4. * xm3) -
+                 3. * x * (4. - 24. * x + 36. * x2 + 7. * x3 + x4) / (2. * xm4) * log(x)
+                 + 3. * x3 * (13. + 4.* x + x2) / (2. * xm4) * log(x) * log(x) -
+                 3. * x3 * (5. + x) / xm3 * Li2;
     
-    double S1tt = (N - 1.)/2./N * S18 + (N*N - 1.)/2./N * S11 ;
+    double S1tt = (N - 1.)/ 2. / N * S18 + (N * N - 1.) / 2. / N * S11 ;
     
-    double S0tt = (4.*x - 11.*x*x + x*x*x)/4./(1.-x)/(1.-x) - 
-                  3.*x*x*x/2./(1.-x)/(1.-x)/(1.-x) * log(x);
+    double S0tt = (4. * x - 11. * x2 + x3) / 4. / xm2 -
+                  3. * x3 / (2. * xm3) * log(x);
    
     double eta = 0.;
-    double Bt = 5.*(N - 1.)/2./N + 3.*(N*N - 1.)/2./N;
+    double Bt = 5. * (N - 1.) / 2. / N + 3. * (N * N - 1.) / 2. / N;
     
-    double gamma0 = 6.*(N - 1.)/N;
+    double gamma0 = 6. * (N - 1.) / N;
     
     double gamma1[4] = {0.}, J[4] = {0.};
     
@@ -318,12 +360,12 @@ double EvolDF2::S1tt() const {
     }
     
     for(int k=0; k<4; k++){
-        J[k] = gamma0 * model.Beta1(3+k)/2./model.Beta0(3+k)/model.Beta0(3+k)
-               - gamma1[k]/2./model.Beta0(3+k);
+        J[k] = gamma0 * model.Beta1(3+k) / 2. / model.Beta0(3+k) / model.Beta0(3+k)
+               - gamma1[k] / 2. / model.Beta0(3+k);
     }
         
-    double b = (4. - 22.*x + 15.*x*x + 2.*x*x*x + x*x*x*x - 18.*x*x*log(x))
-               /((-1. + x)*(-2. + 15.*x - 12.*x*x + x*x*x + 6.*x*x*log(x)));
+    double b = (4. - 22. * x + 15. * x2 + 2. * x3 + x4 - 18. * x2 * log(x))
+               / ((-1. + x) * (-2. + 15. * x - 12. * x2 + x3 + 6. * x2 * log(x)));
     
     eta = pow(model.Als(model.getMuc()), 6./27.) *
           pow(model.Als(model.getMub())/model.Als(model.getMuc()), 6./25.) *

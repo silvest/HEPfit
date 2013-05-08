@@ -34,11 +34,21 @@ public:
     
     /**
      * 
+     * @brief ADM in the basis used in Ciuchini et.al. hep-ph/9711402
      * @param order
      * @param nf number of active flavours
      * @return Anomalous dimension for DeltaF=2 processes
      */
     matrix<double> AnomalousDimension(orders order, unsigned int nf) const;
+
+    /**
+     *
+     * @brief ADM in the basis (QVLL, QLR, QSLL) used in Buras et.al. hep-ph/0005183     
+     * @param order
+     * @param nf number of active flavours
+     * @return Anomalous dimension for DeltaF=2 processes
+     */
+    matrix<double> AnomalousDimensionBuras(orders order, unsigned int nf) const;
     
     /**
      * 
