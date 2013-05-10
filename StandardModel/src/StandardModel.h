@@ -607,7 +607,7 @@ public:
     virtual double GammaW() const;
     
     /**
-     * @return NP contribution to oblique parameter @f$S@f$.
+     * @return Oblique parameter @f$S@f$.
      */
     virtual double obliqueS() const 
     {
@@ -615,7 +615,7 @@ public:
     }
         
     /**
-     * @return NP contribution to oblique parameter @f$T@f$.
+     * @return Oblique parameter @f$T@f$.
      */
     virtual double obliqueT() const 
     {
@@ -623,7 +623,7 @@ public:
     }
     
     /**
-     * @return NP contribution to oblique parameter @f$U@f$.
+     * @return Oblique parameter @f$U@f$.
      */
     virtual double obliqueU() const 
     {
@@ -631,31 +631,33 @@ public:
     }
     
     /**
-     * @return NP contribution to oblique parameter @f$\hat{S}@f$.
+     * @return Oblique parameter @f$\hat{S}@f$.
      */
     virtual double obliqueShat() const 
     {
-        return 0.0;
-    }
-        
-    /**
-     * @return NP contribution to oblique parameter @f$\hat{T}@f$.
-     */
-    virtual double obliqueThat() const 
-    {
-        return 0.0;
-    }
-    
-    /**
-     * @return NP contribution to oblique parameter @f$\hat{U}@f$.
-     */
-    virtual double obliqueUhat() const 
-    {
-        return 0.0;
+        double sW2_SM = StandardModel::sW2(); /* This has to be the SM value. */
+        return ( alphaMz()/(4.0*sW2_SM)*obliqueS() );
     }
 
     /**
-     * @return NP contribution to oblique parameter @f$V@f$.
+     * @return Oblique parameter @f$\hat{T}@f$.
+     */
+    virtual double obliqueThat() const 
+    {
+        return ( alphaMz()*obliqueT() );
+    }
+
+    /**
+     * @return Oblique parameter @f$\hat{U}@f$.
+     */
+    virtual double obliqueUhat() const 
+    {
+        double sW2_SM = StandardModel::sW2(); /* This has to be the SM value. */
+        return ( - alphaMz()/(4.0*sW2_SM)*obliqueU() );
+    }
+
+    /**
+     * @return Oblique parameter @f$V@f$.
      */
     virtual double obliqueV() const 
     {
@@ -663,7 +665,7 @@ public:
     }
 
     /**
-     * @return NP contribution to oblique parameter @f$W@f$.
+     * @return Oblique parameter @f$W@f$.
      */
     virtual double obliqueW() const 
     {
@@ -671,7 +673,7 @@ public:
     }
 
     /**
-     * @return NP contribution to oblique parameter @f$X@f$.
+     * @return Oblique parameter @f$X@f$.
      */
     virtual double obliqueX() const 
     {
@@ -679,7 +681,7 @@ public:
     }
 
     /**
-     * @return NP contribution to oblique parameter @f$Y@f$.
+     * @return Oblique parameter @f$Y@f$.
      */
     virtual double obliqueY() const 
     {

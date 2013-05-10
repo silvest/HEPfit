@@ -504,17 +504,17 @@ double StandardModel::epsilonb_SM() const
 
 double StandardModel::epsilon1() const
 { 
-    return epsilon1_SM();
+    return ( epsilon1_SM() + obliqueThat() );
 }
 
 double StandardModel::epsilon2() const 
 {
-    return epsilon2_SM();    
+    return ( epsilon2_SM() + obliqueUhat() );    
 }
     
 double StandardModel::epsilon3() const 
 {
-    return epsilon3_SM();
+    return ( epsilon3_SM() + obliqueShat() );
 }
 
 double StandardModel::epsilonb() const 
