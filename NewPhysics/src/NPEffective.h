@@ -8,6 +8,7 @@
 #ifndef NPEFFECTIVE_H
 #define	NPEFFECTIVE_H
 
+#include <stdexcept>
 #include <StandardModel.h>
 
 /**
@@ -78,6 +79,17 @@ public:
     virtual double deltaGAl(StandardModel::lepton l) const;
     
     virtual double deltaGAq(StandardModel::quark q) const;
+
+
+    ////////////////////////////////////////////////////////////////////////
+
+    virtual double epsilon1() const;
+
+    virtual double epsilon2() const;
+
+    virtual double epsilon3() const;
+
+    virtual double epsilonb() const;
 
     
     ////////////////////////////////////////////////////////////////////////    

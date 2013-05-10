@@ -25,7 +25,8 @@ double PtauPol::getThValue()
     } else {
         P_tau_pol = myEW.A_l(SM.TAU);
 
-        if ( myEW.checkModelForSTU() ) {
+        /* Oblique NP */
+        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
             if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
@@ -40,6 +41,20 @@ double PtauPol::getThValue()
                 
                 P_tau_pol -= 4.0*alpha*s2/pow(1.0-4.0*s2+8.0*s4, 2.0)
                              *( myEW.S() - 4.0*c2*s2*myEW.T() );
+            }
+        }
+
+        /* NP contribution to the Zff vertex */
+        if ( !SM.IsFlagNotLinearizedNP() ) {
+            double delGVf = SM.deltaGVl(SM.TAU);
+            double delGAf = SM.deltaGAl(SM.TAU);
+            if (delGVf!=0.0 || delGAf!=0.0) {
+                double gVf = SM.StandardModel::gVl(SM.TAU).real();
+                double gAf = SM.StandardModel::gAl(SM.TAU).real();
+                double Gf = gVf*gVf + gAf*gAf;
+                double delGVfOverGAf = (gAf*delGVf - gVf*delGAf)/gAf/gAf;
+
+                P_tau_pol -= 2.0*(gVf*gVf - gAf*gAf)*gAf*gAf/Gf/Gf*delGVfOverGAf;
             }
         }
     }

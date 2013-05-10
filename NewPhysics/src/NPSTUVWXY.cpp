@@ -98,4 +98,30 @@ bool NPSTUVWXY::SetFlag(const std::string name, const bool& value)
 }
 
 
+////////////////////////////////////////////////////////////////////////
+
+double NPSTUVWXY::epsilon1() const
+{
+    throw std::runtime_error("ERROR: NPSTUVWXY::epsilon1() is not implemented");
+}
+
+
+double NPSTUVWXY::epsilon2() const
+{
+    throw std::runtime_error("ERROR: NPSTUVWXY::epsilon2() is not implemented");
+}
+
+
+double NPSTUVWXY::epsilon3() const
+{
+    throw std::runtime_error("ERROR: NPSTUVWXY::epsilon3() is not implemented");
+}
+
+
+double NPSTUVWXY::epsilonb() const
+{
+    throw std::runtime_error("ERROR: NPSTUVWXY::epsilonb() is not implemented");
+}
+
+
 

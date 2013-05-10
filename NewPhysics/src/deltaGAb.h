@@ -35,7 +35,7 @@ public:
     
     double getThValue()
     {
-        return SM.deltaGAb();
+        return SM.deltaGAq(SM.BOTTOM);
     };
     
 private:

@@ -20,7 +20,8 @@ double AFBbottom::getThValue()
     else {
         AFB_b = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.BOTTOM);
         
-        if ( myEW.checkModelForSTU() ) {
+        /* Oblique NP */
+        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
             if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
@@ -42,26 +43,28 @@ double AFBbottom::getThValue()
             }
         }
         
-        if (SM.IsFlagNPZbbbarLinearize() && (SM.deltaGVb()!=0.0 || SM.deltaGAb()!=0.0) ) {
-            double gVb0 = SM.getQuarks(SM.BOTTOM).getIsospin() 
-                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.sW2_SM();
-            double gAb0 = SM.getQuarks(SM.BOTTOM).getIsospin();        
-            double gVe0 = SM.getLeptons(SM.ELECTRON).getIsospin() 
-                          - 2.0*SM.getLeptons(SM.ELECTRON).getCharge()*myEW.sW2_SM();
-            double gAe0 = SM.getLeptons(SM.ELECTRON).getIsospin();        
-            double coeff = - 3.0*gVe0*gAe0*(gVb0*gVb0 - gAb0*gAb0)
-                           /(gVe0*gVe0 + gAe0*gAe0)
-                           /(gVb0*gVb0 + gAb0*gAb0)/(gVb0*gVb0 + gAb0*gAb0);
-            double coeffV = coeff*gAb0;
-            double coeffA = - coeff*gVb0;
-            //std::cout << "cV: " << coeffV << std::endl;
-            //std::cout << "cA: " << coeffA << std::endl;
-            //std::cout << "cL: " << coeffV+coeffA << std::endl;
-            //std::cout << "cR: " << coeffV-coeffA << std::endl;
+        /* NP contribution to the Zff vertex */
+        if ( !SM.IsFlagNotLinearizedNP() ) {
+            double delGVe = SM.deltaGVl(SM.ELECTRON);
+            double delGAe = SM.deltaGAl(SM.ELECTRON);
+            double delGVf = SM.deltaGVq(SM.BOTTOM);
+            double delGAf = SM.deltaGAq(SM.BOTTOM);
+            if (delGVe!=0.0 || delGAe!=0.0 || delGVf!=0.0 || delGAf!=0.0) {
+                double gVe = SM.StandardModel::gVl(SM.ELECTRON).real();
+                double gAe = SM.StandardModel::gAl(SM.ELECTRON).real();
+                double Ge = gVe*gVe + gAe*gAe;
+                double delGVeOverGAe = (gAe*delGVe - gVe*delGAe)/gAe/gAe;
+                //
+                double gVf = SM.StandardModel::gVq(SM.BOTTOM).real();
+                double gAf = SM.StandardModel::gAq(SM.BOTTOM).real();
+                double Gf = gVf*gVf + gAf*gAf;
+                double delGVfOverGAf = (gAf*delGVf - gVf*delGAf)/gAf/gAf;
 
-            AFB_b += coeffV*SM.deltaGVb() + coeffA*SM.deltaGAb();
+                AFB_b -= 3.0*gVf*gAf*(gVe*gVe - gAe*gAe)*gAe*gAe/Gf/Ge/Ge*delGVeOverGAe
+                         + 3.0*gVe*gAe*(gVf*gVf - gAf*gAf)*gAf*gAf/Ge/Gf/Gf*delGVfOverGAf;
+            }
         }
-        
+
         /* TEST */
         //AFB_b -= 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.BOTTOM);
     }

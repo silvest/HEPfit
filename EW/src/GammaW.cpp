@@ -20,7 +20,8 @@ double GammaW::getThValue()
     else {
         Gamma_W = SM.GammaW();
         
-        if ( myEW.checkModelForSTU() ) {
+        /* Oblique NP */
+        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
             double Wbar = 0.0;        
             if (SM.ModelName()=="NPSTUVWXY") {
                 Wbar = (myEW.V() - myEW.W())/SM.alphaMz();

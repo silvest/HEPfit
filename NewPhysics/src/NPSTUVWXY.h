@@ -101,7 +101,18 @@ public:
     {
         return myObliqueY;
     }
-    
+
+
+    ////////////////////////////////////////////////////////////////////////
+
+    virtual double epsilon1() const;
+
+    virtual double epsilon2() const;
+
+    virtual double epsilon3() const;
+
+    virtual double epsilonb() const;
+
     
     ////////////////////////////////////////////////////////////////////////     
     // Combinations of the extended oblique parameters

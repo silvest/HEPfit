@@ -30,7 +30,7 @@ public:
     
     double getThValue()
     {
-        return SM.deltaGVb();
+        return SM.deltaGVq(SM.BOTTOM);
     };
     
 private:

@@ -101,6 +101,8 @@ bool NPHiggsST::SetFlag(const std::string name, const bool& value)
 }
 
 
+////////////////////////////////////////////////////////////////////////
+
 double NPHiggsST::obliqueS() const
 {
     double Lambda;
@@ -130,4 +132,31 @@ double NPHiggsST::obliqueU() const
 {
     return 0.0;
 }
+
+
+////////////////////////////////////////////////////////////////////////
+
+double NPHiggsST::epsilon1() const
+{
+    throw std::runtime_error("ERROR: NPHiggsST::epsilon1() is not implemented");
+}
+
+
+double NPHiggsST::epsilon2() const
+{
+    throw std::runtime_error("ERROR: NPHiggsST::epsilon2() is not implemented");
+}
+
+
+double NPHiggsST::epsilon3() const
+{
+    throw std::runtime_error("ERROR: NPHiggsST::epsilon3() is not implemented");
+}
+
+
+double NPHiggsST::epsilonb() const
+{
+    throw std::runtime_error("ERROR: NPHiggsST::epsilonb() is not implemented");
+}
+
     

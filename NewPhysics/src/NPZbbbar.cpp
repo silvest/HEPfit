@@ -161,10 +161,10 @@ complex NPZbbbar::gVq(const StandardModel::quark q) const
         case StandardModel::TOP:
             return StandardModel::gVq(q);
         case StandardModel::BOTTOM:
-            if (IsFlagNPZbbbarLinearize())
-                return StandardModel::gVq(q);            
-            else
+            if (IsFlagNotLinearizedNP())
                 return ( StandardModel::gVq(q) + myDeltaGVb );
+            else
+                return StandardModel::gVq(q);
         default:
             throw std::runtime_error("Error in NPZbbbar::gVq()");        
     }
@@ -187,10 +187,10 @@ complex NPZbbbar::gAq(const StandardModel::quark q) const
         case StandardModel::TOP:
             return StandardModel::gAq(q);
         case StandardModel::BOTTOM:
-            if (IsFlagNPZbbbarLinearize())
-                return StandardModel::gAq(q);
-            else
+            if (IsFlagNotLinearizedNP())
                 return ( StandardModel::gAq(q) + myDeltaGAb );
+            else
+                return StandardModel::gAq(q);
         default:
             throw std::runtime_error("Error in NPZbbbar::gAq()");        
     }
@@ -201,13 +201,14 @@ double NPZbbbar::epsilonb() const
 {
     complex kappaZe = kappaZ_l(ELECTRON);
     complex kappaZb;
-    if (IsFlagNPZbbbarLinearize()) {
+    if (IsFlagNotLinearizedNP())
+        kappaZb = kappaZ_q(BOTTOM); /* In this case, kappaZ_q(BOTTOM) includes deltaGVb and deltaGAb. */
+    else {
         complex gVb = StandardModel::gVq(BOTTOM) + myDeltaGVb;
         complex gAb = StandardModel::gAq(BOTTOM) + myDeltaGAb;
         kappaZb = (1.0 - gVb/gAb)/(4.0*fabs(getQuarks(BOTTOM).getCharge())*sW2());
-    } else
-        kappaZb = kappaZ_q(BOTTOM); /* In this case, kappaZ_q(BOTTOM) includes deltaGVb and deltaGAb. */
-        
+    }
+    
     if (IsFlagWithoutNonUniversalVC()) 
         return ( kappaZe.real()/kappaZb.real() - 1.0 ); 
     else 

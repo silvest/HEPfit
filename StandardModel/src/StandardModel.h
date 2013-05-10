@@ -63,7 +63,7 @@ class EWSM; // forward reference to EWSM class
  * IJMP, A7, 1031-1058 (1998) by Altarelli et al.
  * \li \b EWBURGESS:&nbsp; use the formulae for STU contributions by Burgess et al.
  * \li \b WithoutNonUniversalVC:&nbsp; 
- * \li \b NPZbbbarLinearize:&nbsp; 
+ * \li \b NotLinearizedNP:&nbsp;
  * \li \b ApproximateGqOverGb:&nbsp; 
  * \li \b RhoZbFromGuOverGb:&nbsp; 
  * \li \b RhoZbFromGdOverGb:&nbsp; 
@@ -154,9 +154,9 @@ public:
         return FlagWithoutNonUniversalVC;
     }
     
-    bool IsFlagNPZbbbarLinearize() const 
+    bool IsFlagNotLinearizedNP() const
     {
-        return FlagNPZbbbarLinearize;
+        return FlagNotLinearizedNP;
     }
 
     bool IsFlagApproximateGqOverGb() const 
@@ -747,16 +747,6 @@ public:
     {
         return 0.0;
     }
-
-    virtual double deltaGVb() const
-    {
-        return deltaGVq(BOTTOM);
-    }
-
-    virtual double deltaGAb() const
-    {
-        return deltaGAq(BOTTOM);
-    }
     
     
     ////////////////////////////////////////////////////////////////////////
@@ -807,7 +797,7 @@ protected:
 private:
     bool bDebug; // for debugging
     bool FlagFixedAllSMparams, FlagEWCHMN, FlagEWABC, FlagEWABC2, FlagEWBURGESS;
-    bool FlagWithoutNonUniversalVC, FlagNPZbbbarLinearize, FlagApproximateGqOverGb;
+    bool FlagWithoutNonUniversalVC, FlagNotLinearizedNP, FlagApproximateGqOverGb;
     bool FlagRhoZbFromGuOverGb, FlagRhoZbFromGdOverGb, FlagTestSubleadingTwoLoopEW;
     bool computeCKM, computeYe, computeYn;
     StandardModelMatching* myStandardModelMatching;

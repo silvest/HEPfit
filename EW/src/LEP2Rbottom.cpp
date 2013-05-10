@@ -26,7 +26,7 @@ double LEP2Rbottom::getThValue()
 
         SMresult_cache = sigma_b/sigma_had;
 
-        if ( myEW.checkModelForSTU() && SM.IsFlagFixedAllSMparams() ) {
+        if ( myEW.checkSTUVWXY() && SM.IsFlagFixedAllSMparams() ) {
             double ObParam[7];
             for (int i=0; i<7; i++) {
                 SetObParam((LEP2oblique::Oblique)i, ObParam);
@@ -41,7 +41,7 @@ double LEP2Rbottom::getThValue()
     R_b = myTEST.RbottomTEST(sqrt_s);
     #endif
             
-    if ( myEW.checkModelForSTU() ) {
+    if ( myEW.checkSTUVWXY() ) {
         if ( SM.IsFlagFixedAllSMparams() ) {
             R_b += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()
                  + Coeff_cache[myLEP2oblique.That]*myEW.That()

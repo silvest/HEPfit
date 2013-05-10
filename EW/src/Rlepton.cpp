@@ -25,7 +25,8 @@ double Rlepton::getThValue()
     } else {       
         R0_l = myEW.Gamma_had()/myEW.Gamma_l(SM.ELECTRON);
         
-        if ( myEW.checkModelForSTU() ) {
+        /* Oblique NP */
+        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
             if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
@@ -47,25 +48,44 @@ double Rlepton::getThValue()
             }
         }
 
-        if (SM.IsFlagNPZbbbarLinearize() && (SM.deltaGVb()!=0.0 || SM.deltaGAb()!=0.0) ) {
-            double gVb0 = SM.getQuarks(SM.BOTTOM).getIsospin() 
-                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.sW2_SM();
-            double gAb0 = SM.getQuarks(SM.BOTTOM).getIsospin();        
-            double gVe0 = SM.getLeptons(SM.ELECTRON).getIsospin() 
-                          - 2.0*SM.getLeptons(SM.ELECTRON).getCharge()*myEW.sW2_SM();
-            double gAe0 = SM.getLeptons(SM.ELECTRON).getIsospin();        
-            double Nc = 3.0;
-            double coeff = 2.0*Nc/(gVe0*gVe0 + gAe0*gAe0);
-            double coeffV = coeff*gVb0;
-            double coeffA = coeff*gAb0;
-            //std::cout << "cV: " << coeffV << std::endl;
-            //std::cout << "cA: " << coeffA << std::endl;
-            //std::cout << "cL: " << coeffV+coeffA << std::endl;
-            //std::cout << "cR: " << coeffV-coeffA << std::endl;
+        /* NP contribution to the Zff vertex */
+        if ( !SM.IsFlagNotLinearizedNP() ) {
+            bool nonZeroNP = false;
 
-            R0_l += coeffV*SM.deltaGVb() + coeffA*SM.deltaGAb();
-        }      
-    
+            double delGVe = SM.deltaGVl(SM.ELECTRON);
+            double delGAe = SM.deltaGAl(SM.ELECTRON);
+            if (delGVe!=0.0 || delGAe!=0.0) nonZeroNP = true;
+
+            double delGVq[6], delGAq[6];
+            for (int p=0; p<6; ++p) {
+                delGVq[p] = SM.deltaGVq((StandardModel::quark)p);
+                delGAq[p] = SM.deltaGAq((StandardModel::quark)p);
+                if (delGVq[p]!=0.0 || delGAq[p]!=0.0) nonZeroNP = true;
+            }
+
+            if (nonZeroNP) {
+                double gVe = SM.StandardModel::gVl(SM.ELECTRON).real();
+                double gAe = SM.StandardModel::gAl(SM.ELECTRON).real();
+                double Ge = gVe*gVe + gAe*gAe;
+                double deltaGe = 2.0*(gVe*delGVe + gAe*delGAe);
+
+                double Gq[6], deltaGq[6];
+                double gVq, gAq;
+                double Gq_sum = 0.0, delGq_sum = 0.0;
+                for (int p=0; p<6; ++p) {
+                    gVq = SM.StandardModel::gVq((StandardModel::quark)p).real();
+                    gAq = SM.StandardModel::gAq((StandardModel::quark)p).real();
+                    Gq[p] = gVq*gVq + gAq*gAq;
+                    deltaGq[p] = 2.0*(gVq*delGVq[p] + gAq*delGAq[p]);
+
+                    Gq_sum += 3.0*Gq[p];
+                    delGq_sum += 3.0*deltaGq[p];
+                }
+
+                R0_l += delGq_sum/Ge - Gq_sum*deltaGe/Ge/Ge;
+            }
+        }
+        
         /* TEST */
         //R0_l -= myEW.Gamma_had()/myEW.Gamma_l(SM.ELECTRON);
     }

@@ -28,7 +28,8 @@ double Mw::getThValue()
     } else {
         myMw = SM.Mw();    
 
-        if ( myEW.checkModelForSTU() ) {
+        /* Oblique NP */
+        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
             if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 

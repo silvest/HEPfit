@@ -25,7 +25,8 @@ double sigmaHadron::getThValue()
     } else {   
         sigma_had = myEW.sigma0_had();
         
-        if ( myEW.checkModelForSTU() ) {
+        /* Oblique NP */
+        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
             if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
@@ -52,38 +53,50 @@ double sigmaHadron::getThValue()
                              *( myEW.S() - 4.0*c2*s2*myEW.T() );         
             }
         }
-        
-        if (SM.IsFlagNPZbbbarLinearize() && (SM.deltaGVb()!=0.0 || SM.deltaGAb()!=0.0) ) {
-            double gVb0 = SM.getQuarks(SM.BOTTOM).getIsospin() 
-                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.sW2_SM();
-            double gAb0 = SM.getQuarks(SM.BOTTOM).getIsospin();        
-            double gVu0 = SM.getQuarks(SM.UP).getIsospin() 
-                          - 2.0*SM.getQuarks(SM.UP).getCharge()*myEW.sW2_SM();
-            double gAu0 = SM.getQuarks(SM.UP).getIsospin();        
-            double gVnu0 = SM.getLeptons(SM.NEUTRINO_1).getIsospin() 
-                          - 2.0*SM.getLeptons(SM.NEUTRINO_1).getCharge()*myEW.sW2_SM();
-            double gAnu0 = SM.getLeptons(SM.NEUTRINO_1).getIsospin();        
-            double gVe0 = SM.getLeptons(SM.ELECTRON).getIsospin() 
-                          - 2.0*SM.getLeptons(SM.ELECTRON).getCharge()*myEW.sW2_SM();
-            double gAe0 = SM.getLeptons(SM.ELECTRON).getIsospin();        
-            double Nc = 3.0;
-            double sum_q = Nc*2.0*(gVu0*gVu0 + gAu0*gAu0)
-                           + Nc*3.0*(gVb0*gVb0 + gAb0*gAb0);
-            double sum_f = 3.0*(gVnu0*gVnu0 + gAnu0*gAnu0) 
-                           + 3.0*(gVe0*gVe0 + gAe0*gAe0)
-                           + sum_q;
-            double sigmah0 = 12.0*M_PI/SM.getMz()/SM.getMz()
-                             *(gVe0*gVe0 + gAe0*gAe0)*sum_q/sum_f/sum_f;
-            double coeff = 2.0*Nc*sigmah0*(1.0/sum_q - 2.0/sum_f);
-            double coeffV = coeff*gVb0;
-            double coeffA = coeff*gAb0;
-            //std::cout << "cV: " << coeffV << std::endl;
-            //std::cout << "cA: " << coeffA << std::endl;
-            //std::cout << "cL: " << coeffV+coeffA << std::endl;
-            //std::cout << "cR: " << coeffV-coeffA << std::endl;
 
-            sigma_had += coeffV*SM.deltaGVb() + coeffA*SM.deltaGAb();
-        }      
+        /* NP contribution to the Zff vertex */
+        if ( !SM.IsFlagNotLinearizedNP() ) {
+            bool nonZeroNP = false;
+
+            double delGVl[6], delGAl[6], delGVq[6], delGAq[6];
+            for (int p=0; p<6; ++p) {
+                delGVl[p] = SM.deltaGVl((StandardModel::lepton)p);
+                delGAl[p] = SM.deltaGAl((StandardModel::lepton)p);
+                delGVq[p] = SM.deltaGVq((StandardModel::quark)p);
+                delGAq[p] = SM.deltaGAq((StandardModel::quark)p);
+                if (delGVl[p]!=0.0 || delGAl[p]!=0.0
+                        || delGVq[p]!=0.0 || delGAq[p]!=0.0)
+                    nonZeroNP = true;
+            }
+
+            if (nonZeroNP) {
+                double gVf, gAf;
+                double Gl[6], deltaGl[6], Gq[6], deltaGq[6];
+                double Gq_sum = 0.0, delGq_sum = 0.0;
+                double Gf_sum = 0.0, delGf_sum = 0.0;
+                for (int p=0; p<6; ++p) {
+                    gVf = SM.StandardModel::gVl((StandardModel::lepton)p).real();
+                    gAf = SM.StandardModel::gAl((StandardModel::lepton)p).real();
+                    Gl[p] = gVf*gVf + gAf*gAf;
+                    deltaGl[p] = 2.0*(gVf*delGVl[p] + gAf*delGAl[p]);
+
+                    gVf = SM.StandardModel::gVq((StandardModel::quark)p).real();
+                    gAf = SM.StandardModel::gAq((StandardModel::quark)p).real();
+                    Gq[p] = gVf*gVf + gAf*gAf;
+                    deltaGq[p] = 2.0*(gVf*delGVq[p] + gAf*delGAq[p]);
+
+                    Gq_sum += 3.0*Gq[p];
+                    Gf_sum += Gl[p] + 3.0*Gq[p];
+                    delGq_sum += 3.0*deltaGq[p];
+                    delGf_sum += deltaGl[p] + 3.0*deltaGq[p];
+                }
+
+                sigma_had += 12.0*M_PI/SM.getMz()/SM.getMz()
+                             *Gl[(int)SM.ELECTRON]*Gq_sum/Gf_sum/Gf_sum
+                             *( deltaGl[(int)SM.ELECTRON]/Gl[(int)SM.ELECTRON]
+                                + delGq_sum/Gq_sum - 2.0*delGf_sum/Gf_sum );
+            }
+        }
         
         /* TEST */
         //sigma_had -= myEW.sigma0_had();

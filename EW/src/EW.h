@@ -53,9 +53,11 @@ public:
     EWTYPE getEWTYPE() const;
     
     /**
-     * @return boolean: true for the case where the oblique parameters are employed. 
+     * @return boolean: true for the case where any of STU parameters are non zero.
      */
-    bool checkModelForSTU() const;
+    bool checkSTU() const;
+
+    bool checkSTUVWXY() const;
     
     /**
      * @return a reference to the StandardModel object in the current class

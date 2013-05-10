@@ -59,6 +59,17 @@ public:
 
     
     ////////////////////////////////////////////////////////////////////////     
+
+    virtual double epsilon1() const;
+
+    virtual double epsilon2() const;
+
+    virtual double epsilon3() const;
+
+    virtual double epsilonb() const;
+
+
+    ////////////////////////////////////////////////////////////////////////
     
 protected:    
     double a, b, c_u, c_d, c_e, d_3, d_4;

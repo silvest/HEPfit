@@ -26,11 +26,11 @@ public:
     
     double getThValue()
     {
-        if (!SM.IsFlagNPZbbbarLinearize())
+        if (SM.IsFlagNotLinearizedNP())
             return ( SM.kappaZ_q(SM.BOTTOM).real() 
                      - SM.StandardModel::kappaZ_q(SM.BOTTOM).real() );
         else
-            throw std::runtime_error("ERROR: deltaKappaZb::getThValue() cannot be used with flag NPZbbbarLinearize=1.");    
+            throw std::runtime_error("ERROR: deltaKappaZb::getThValue() cannot be used with flag NotLinearizedNP=1.");
     };
     
 private:

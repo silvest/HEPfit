@@ -68,19 +68,30 @@ EW::EWTYPE EW::getEWTYPE() const
 }
 
 
-bool EW::checkModelForSTU() const 
+bool EW::checkSTU() const 
 {
     std::string Model = SM.ModelName();
     //std::cout << "Model in EW: " << Model << std::endl; // TEST
-
-    if (Model=="StandardModel" || Model=="SUSY" || Model=="NPEpsilons" 
-            || Model=="NPHiggs" || Model=="NPZbbbar" )
-        return false;
-    else if (Model=="NPSTU" || Model=="NPSTUVWXY" || Model=="NPHiggsST" 
-            || Model=="THDM")
+    if ( (Model=="NPSTU" || Model=="NPSTUVWXY" || Model=="NPHiggsST"
+            || Model=="THDM") 
+            && (S()!=0.0 || T()!=0.0 || U()!=0.0) )
         return true;
-    else 
-        throw std::runtime_error("Error in EW::checkModelForSTU()");  
+    else
+        return false;
+}
+
+
+bool EW::checkSTUVWXY() const
+{
+    std::string Model = SM.ModelName();
+    if ( (Model=="NPSTU" || Model=="NPSTUVWXY" || Model=="NPHiggsST"
+            || Model=="THDM")
+            && (Shat()!=0.0 || That()!=0.0 || Uhat()!=0.0
+            || V()!=0.0|| W()!=0.0|| X()!=0.0|| Y()!=0.0) )
+        return true;
+    else
+        return false;
+
 }
 
 

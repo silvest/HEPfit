@@ -20,7 +20,8 @@ double Acharm::getThValue()
     else {
         A_c = myEW.A_q(SM.CHARM);
 
-        if ( myEW.checkModelForSTU() ) {
+        /* Oblique NP */
+        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
             if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
@@ -38,6 +39,20 @@ double Acharm::getThValue()
                 
                 A_c -= 48.0*alpha*s2*(3.0-4.0*s2)/pow(9.0-24.0*s2+32.0*s4, 2.0)/(c2-s2)
                        *( myEW.S() - 4.0*c2*s2*myEW.T() );
+            }
+        }
+        
+        /* NP contribution to the Zff vertex */
+        if ( !SM.IsFlagNotLinearizedNP() ) {
+            double delGVf = SM.deltaGVq(SM.CHARM);
+            double delGAf = SM.deltaGAq(SM.CHARM);
+            if (delGVf!=0.0 || delGAf!=0.0) {
+                double gVf = SM.StandardModel::gVq(SM.CHARM).real();
+                double gAf = SM.StandardModel::gAq(SM.CHARM).real();
+                double Gf = gVf*gVf + gAf*gAf;
+                double delGVfOverGAf = (gAf*delGVf - gVf*delGAf)/gAf/gAf;
+
+                A_c -= 2.0*(gVf*gVf - gAf*gAf)*gAf*gAf/Gf/Gf*delGVfOverGAf;
             }
         }
     }

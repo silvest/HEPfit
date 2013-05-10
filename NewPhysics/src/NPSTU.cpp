@@ -88,3 +88,30 @@ bool NPSTU::SetFlag(const std::string name, const bool& value)
     return(res);
 }
 
+
+////////////////////////////////////////////////////////////////////////
+
+double NPSTU::epsilon1() const
+{
+    throw std::runtime_error("ERROR: NPSTU::epsilon1() is not implemented");
+}
+
+
+double NPSTU::epsilon2() const
+{
+    throw std::runtime_error("ERROR: NPSTU::epsilon2() is not implemented");
+}
+
+
+double NPSTU::epsilon3() const
+{
+    throw std::runtime_error("ERROR: NPSTU::epsilon3() is not implemented");
+}
+
+
+double NPSTU::epsilonb() const
+{
+    throw std::runtime_error("ERROR: NPSTU::epsilonb() is not implemented");
+}
+
+

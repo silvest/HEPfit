@@ -12,12 +12,12 @@ double epsilon3::getThValue()
 {  
     double eps3 = SM.epsilon3();
     
-    if ( myEW.checkModelForSTU() ) {
-        double c2 = myEW.cW2_SM();
-        double s2 = myEW.sW2_SM();
-        eps3 += myEW.Shat() 
-                - myEW.W() + myEW.X()/sqrt(s2)/sqrt(c2) - myEW.Y();
-    }
+    //if ( myEW.checkSTUVWXY() ) {
+    //    double c2 = myEW.cW2_SM();
+    //    double s2 = myEW.sW2_SM();
+    //    eps3 += myEW.Shat()
+    //            - myEW.W() + myEW.X()/sqrt(s2)/sqrt(c2) - myEW.Y();
+    //}
     
     return eps3;
 }

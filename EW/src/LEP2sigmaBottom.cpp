@@ -40,7 +40,7 @@ double LEP2sigmaBottom::getThValue()
             //std::cout << sigma_box << " +- " << ig_box.Error() << std::endl;
         }
 
-        if ( myEW.checkModelForSTU() && !bSigmaForAFB && SM.IsFlagFixedAllSMparams()) {
+        if ( myEW.checkSTUVWXY() && !bSigmaForAFB && SM.IsFlagFixedAllSMparams()) {
             double ObParam[7];
             for (int i=0; i<7; i++) {
                 SetObParam((LEP2oblique::Oblique)i, ObParam);
@@ -51,7 +51,7 @@ double LEP2sigmaBottom::getThValue()
     }
     double sigma_bottom = SMresult_cache;
     
-    if ( myEW.checkModelForSTU() && !bSigmaForAFB) {
+    if ( myEW.checkSTUVWXY() && !bSigmaForAFB) {
         if ( SM.IsFlagFixedAllSMparams() ) {
             sigma_bottom += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()
                           + Coeff_cache[myLEP2oblique.That]*myEW.That()

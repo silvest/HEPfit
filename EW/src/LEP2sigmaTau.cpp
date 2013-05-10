@@ -42,7 +42,7 @@ double LEP2sigmaTau::getThValue()
             // results: 3.6e-12 -- 2.9e-10
         }
 
-        if ( myEW.checkModelForSTU() && !bSigmaForAFB && SM.IsFlagFixedAllSMparams() ) {
+        if ( myEW.checkSTUVWXY() && !bSigmaForAFB && SM.IsFlagFixedAllSMparams() ) {
             double ObParam[7];
             for (int i=0; i<7; i++) {
                 SetObParam((LEP2oblique::Oblique)i, ObParam);
@@ -57,7 +57,7 @@ double LEP2sigmaTau::getThValue()
     sigma_tau = myTEST.sigmaTauTEST(sqrt_s)/GeVminus2_to_nb/1000.0;
     #endif 
     
-    if ( myEW.checkModelForSTU() && !bSigmaForAFB ) {
+    if ( myEW.checkSTUVWXY() && !bSigmaForAFB ) {
         if ( SM.IsFlagFixedAllSMparams() ) {
             sigma_tau += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()
                        + Coeff_cache[myLEP2oblique.That]*myEW.That()

@@ -26,7 +26,7 @@ double LEP2Rcharm::getThValue()
 
         SMresult_cache = sigma_c/sigma_had;
 
-        if ( myEW.checkModelForSTU() && SM.IsFlagFixedAllSMparams() ) {
+        if ( myEW.checkSTUVWXY() && SM.IsFlagFixedAllSMparams() ) {
             double ObParam[7];
             for (int i=0; i<7; i++) {
                 SetObParam((LEP2oblique::Oblique)i, ObParam);
@@ -41,7 +41,7 @@ double LEP2Rcharm::getThValue()
     R_c = myTEST.RcharmTEST(sqrt_s);
     #endif
     
-    if ( myEW.checkModelForSTU() ) {
+    if ( myEW.checkSTUVWXY() ) {
         if ( SM.IsFlagFixedAllSMparams() ) {
             R_c += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()
                  + Coeff_cache[myLEP2oblique.That]*myEW.That()

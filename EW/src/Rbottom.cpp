@@ -35,8 +35,9 @@ double Rbottom::getThValue()
             R0_b = 1.0/(1.0 + 2.0*(Gd_over_Gb + Gu_over_Gb));
         } else
             R0_b = myEW.Gamma_q(SM.BOTTOM)/myEW.Gamma_had();
-        
-        if ( myEW.checkModelForSTU() ) {
+
+        /* Oblique NP */
+        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
             if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
@@ -56,28 +57,35 @@ double Rbottom::getThValue()
                         *( myEW.S() - 4.0*c2*s2*myEW.T() );
             }
         }
-        
-        if (SM.IsFlagNPZbbbarLinearize() && (SM.deltaGVb()!=0.0 || SM.deltaGAb()!=0.0) ) {
-            double gVb0 = SM.getQuarks(SM.BOTTOM).getIsospin() 
-                          - 2.0*SM.getQuarks(SM.BOTTOM).getCharge()*myEW.sW2_SM();
-            double gAb0 = SM.getQuarks(SM.BOTTOM).getIsospin();        
-            double gVu0 = SM.getQuarks(SM.UP).getIsospin() 
-                          - 2.0*SM.getQuarks(SM.UP).getCharge()*myEW.sW2_SM();
-            double gAu0 = SM.getQuarks(SM.UP).getIsospin();        
-            double Nc = 3.0;
-            double sum = Nc*2.0*(gVu0*gVu0 + gAu0*gAu0)
-                         + Nc*3.0*(gVb0*gVb0 + gAb0*gAb0);
-            double R0b0 = Nc*(gVb0*gVb0 + gAb0*gAb0)/sum;
-            double coeff = 2.0*Nc*(1.0 - R0b0)/sum;
-            double coeffV = coeff*gVb0;
-            double coeffA = coeff*gAb0;
-            //std::cout << "cV: " << coeffV << std::endl;
-            //std::cout << "cA: " << coeffA << std::endl;
-            //std::cout << "cL: " << coeffV+coeffA << std::endl;
-            //std::cout << "cR: " << coeffV-coeffA << std::endl;
 
-            R0_b += coeffV*SM.deltaGVb() + coeffA*SM.deltaGAb();
-        }        
+        /* NP contribution to the Zff vertex */
+        if ( !SM.IsFlagNotLinearizedNP() ) {
+            bool nonZeroNP = false;
+            double delGVq[6], delGAq[6];
+            for (int p=0; p<6; ++p) {
+                delGVq[p] = SM.deltaGVq((StandardModel::quark)p);
+                delGAq[p] = SM.deltaGAq((StandardModel::quark)p);
+                if (delGVq[p]!=0.0 || delGAq[p]!=0.0) nonZeroNP = true;
+            }
+
+            if (nonZeroNP) {
+                double gVf, gAf;
+                double Gq[6], deltaGq[6];
+                double Gq_sum = 0.0, delGq_sum = 0.0;
+                for (int p=0; p<6; ++p) {
+                    gVf = SM.StandardModel::gVq((StandardModel::quark)p).real();
+                    gAf = SM.StandardModel::gAq((StandardModel::quark)p).real();
+                    Gq[p] = gVf*gVf + gAf*gAf;
+                    deltaGq[p] = 2.0*(gVf*delGVq[p] + gAf*delGAq[p]);
+
+                    Gq_sum += Gq[p]; /* without the color factor */
+                    delGq_sum += deltaGq[p]; /* without the color factor */
+                }
+
+                R0_b += deltaGq[(int)SM.BOTTOM]/Gq_sum
+                        - Gq[(int)SM.BOTTOM]*delGq_sum/Gq_sum/Gq_sum;
+            }
+        }
         
         /* TEST */
         //R0_b -= myEW.Gamma_q(SM.BOTTOM)/myEW.Gamma_had();

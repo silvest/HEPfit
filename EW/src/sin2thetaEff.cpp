@@ -25,7 +25,8 @@ double sin2thetaEff::getThValue()
     } else { 
         sin2_theta_eff = myEW.sin2thetaEff(SM.ELECTRON);
     
-        if ( myEW.checkModelForSTU() ) {
+        /* Oblique NP */
+        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
             if(myEWTYPE==EW::EWBURGESS) {
                 // TEST: the fit result by Gfitter in arXiv:1209.2716, 
                 //       corresponding to MH=125.7 and Mt=173.52 
@@ -39,6 +40,19 @@ double sin2thetaEff::getThValue()
                 
                 sin2_theta_eff += alpha/4.0/(c2-s2)
                                   *( myEW.S() - 4.0*c2*s2*myEW.T() );
+            }
+        }
+
+        /* NP contribution to the Zff vertex */
+        if ( !SM.IsFlagNotLinearizedNP() ) {
+            double delGVf = SM.deltaGVl(SM.ELECTRON);
+            double delGAf = SM.deltaGAl(SM.ELECTRON);
+            if (delGVf!=0.0 || delGAf!=0.0) {
+                double gVf = SM.StandardModel::gVl(SM.ELECTRON).real();
+                double gAf = SM.StandardModel::gAl(SM.ELECTRON).real();
+                double delGVfOverGAf = (gAf*delGVf - gVf*delGAf)/gAf/gAf;
+
+                sin2_theta_eff -= delGVfOverGAf/4.0;
             }
         }
     }

@@ -153,7 +153,7 @@ double LEP2sigmaHadron::getThValue()
                               + sigma_box_STRANGE + sigma_box_BOTTOM;
         }        
 
-        if ( myEW.checkModelForSTU() && !bSigmaForR && SM.IsFlagFixedAllSMparams()) {
+        if ( myEW.checkSTUVWXY() && !bSigmaForR && SM.IsFlagFixedAllSMparams()) {
             double ObParam[7];
             for (int i=0; i<7; i++) {
                 SetObParam((LEP2oblique::Oblique)i, ObParam);
@@ -172,7 +172,7 @@ double LEP2sigmaHadron::getThValue()
     sigmaH = myTEST.sigmaHadronTEST(sqrt_s)/GeVminus2_to_nb/1000.0;
     #endif
     
-    if ( myEW.checkModelForSTU() && !bSigmaForR) {
+    if ( myEW.checkSTUVWXY() && !bSigmaForR) {
         if ( SM.IsFlagFixedAllSMparams() ) {
             sigmaH += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()
                     + Coeff_cache[myLEP2oblique.That]*myEW.That()

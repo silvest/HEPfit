@@ -108,8 +108,8 @@ bool NPEffective::SetFlag(const std::string name, const bool& value)
         throw std::runtime_error("ERROR: Flag epsilon3SM is not applicable to NPEffective"); 
     else if (name.compare("epsilonbSM") == 0) 
         throw std::runtime_error("ERROR: Flag epsilonbSM is not applicable to NPEffective"); 
-    else if (name.compare("NPZbbbarLinearize") == 0) 
-        throw std::runtime_error("ERROR: Flag NPZbbbarLinearize is not applicable to NPEffective"); 
+    else if (name.compare("NotLinearizedNP") == 0)
+        throw std::runtime_error("ERROR: Flag NotLinearizedNP is not applicable to NPEffective");
     else
         res = StandardModel::SetFlag(name,value);
 
@@ -244,5 +244,32 @@ double NPEffective::deltaGAq(StandardModel::quark q) const
 {
     return ( deltaGLq(q) - deltaGRq(q) );
 }
+
+
+////////////////////////////////////////////////////////////////////////
+
+double NPEffective::epsilon1() const
+{
+    throw std::runtime_error("ERROR: NPEffective::epsilon1() is not implemented");
+}
+
+
+double NPEffective::epsilon2() const
+{
+    throw std::runtime_error("ERROR: NPEffective::epsilon2() is not implemented");
+}
+
+
+double NPEffective::epsilon3() const
+{
+    throw std::runtime_error("ERROR: NPEffective::epsilon3() is not implemented");
+}
+
+
+double NPEffective::epsilonb() const
+{
+    throw std::runtime_error("ERROR: NPEffective::epsilonb() is not implemented");
+}
+
 
 

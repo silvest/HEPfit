@@ -41,17 +41,48 @@ public:
     
     
     ////////////////////////////////////////////////////////////////////////    
-    
-    virtual double deltaGVb() const 
+
+    virtual double deltaGVl(StandardModel::lepton l) const
     {
-        return myDeltaGVb;
+        return 0.0;
     }
 
-    virtual double deltaGAb() const 
+    virtual double deltaGVq(StandardModel::quark q) const
     {
-        return myDeltaGAb;
+        switch (q) {
+            case StandardModel::UP:
+            case StandardModel::CHARM:
+            case StandardModel::TOP:
+            case StandardModel::DOWN:
+            case StandardModel::STRANGE:
+                return 0.0;
+            case StandardModel::BOTTOM:
+                return myDeltaGVb;
+            default:
+            throw std::runtime_error("Error in NPZbbbar::deltaGVq()");
+        }
     }
 
+    virtual double deltaGAl(StandardModel::lepton l) const
+    {
+        return 0.0;
+    }
+
+    virtual double deltaGAq(StandardModel::quark q) const
+    {
+        switch (q) {
+            case StandardModel::UP:
+            case StandardModel::CHARM:
+            case StandardModel::TOP:
+            case StandardModel::DOWN:
+            case StandardModel::STRANGE:
+                return 0.0;
+            case StandardModel::BOTTOM:
+                return myDeltaGAb;
+            default:
+            throw std::runtime_error("Error in NPZbbbar::deltaGAq()");
+        }
+    }
     
     ////////////////////////////////////////////////////////////////////////    
     
