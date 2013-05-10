@@ -96,11 +96,7 @@ bool NPEffective::SetFlag(const std::string name, const bool& value)
 {
     bool res = false;
     
-    if (name.compare("EWCHMN") == 0) 
-        throw std::runtime_error("ERROR: Flag EWCHMN is not applicable to NPEffective"); 
-    else if (name.compare("EWBURGESS") == 0) 
-        throw std::runtime_error("ERROR: Flag EWBURGESS is not applicable to NPEffective"); 
-    else if (name.compare("EWABC") == 0) 
+    if (name.compare("EWABC") == 0) 
         throw std::runtime_error("ERROR: Flag EWABC is not applicable to NPEffective"); 
     else if (name.compare("EWABC2") == 0)
         throw std::runtime_error("ERROR: Flag EWABC2 is not applicable to NPEffective"); 
