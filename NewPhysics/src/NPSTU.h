@@ -24,7 +24,7 @@ public:
     static const std::string STUvars[NSTUvars];
     
     /**
-     * @brief NPSTU constructor
+     * @brief NPSTU constructor.
      */
     NPSTU();
 
@@ -46,7 +46,7 @@ public:
     ////////////////////////////////////////////////////////////////////////     
 
     /**
-     * @return Oblique parameter S
+     * @return Oblique parameter S.
      */
     virtual double obliqueS() const 
     {
@@ -54,7 +54,7 @@ public:
     }
 
     /**
-     * @return Oblique parameter T
+     * @return Oblique parameter T.
      */
     virtual double obliqueT() const 
     {
@@ -62,72 +62,11 @@ public:
     }
 
     /**
-     * @return Oblique parameter U
+     * @return Oblique parameter U.
      */
     virtual double obliqueU() const 
     {
         return myObliqueU;
-    }
-    
-    
-    ////////////////////////////////////////////////////////////////////////     
-    
-    /**
-     * @return Oblique parameter \hat{S}
-     */
-    virtual double obliqueShat() const 
-    {
-        double sW2_SM = StandardModel::sW2();
-        return ( alphaMz()/(4.0*sW2_SM)*obliqueS() );
-    }
-
-    /**
-     * @return Oblique parameter \hat{T}
-     */
-    virtual double obliqueThat() const 
-    {
-        return ( alphaMz()*obliqueT() );
-    }
-
-    /**
-     * @return Oblique parameter \hat{U}
-     */
-    virtual double obliqueUhat() const 
-    {
-        double sW2_SM = StandardModel::sW2();
-        return ( - alphaMz()/(4.0*sW2_SM)*obliqueU() );
-    }
-
-    /**
-     * @return Oblique parameter V
-     */
-    virtual double obliqueV() const 
-    {
-        return 0.0;
-    }
-
-    /**
-     * @return Oblique parameter W
-     */
-    virtual double obliqueW() const 
-    {
-        return 0.0;
-    }
-
-    /**
-     * @return Oblique parameter X
-     */
-    virtual double obliqueX() const 
-    {
-        return 0.0;
-    }
-
-    /**
-     * @return Oblique parameter Y
-     */
-    virtual double obliqueY() const 
-    {
-        return 0.0;
     }
 
 
@@ -136,6 +75,7 @@ public:
 protected:    
     double myObliqueS, myObliqueT, myObliqueU;
     virtual void SetParameter(const std::string name, const double& value);
+
     
     ////////////////////////////////////////////////////////////////////////     
     

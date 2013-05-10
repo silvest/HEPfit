@@ -11,7 +11,7 @@
 
 
 const std::string NPZbbbar::ZbbbarVars[NZbbbarVars] 
-                  = {"deltaGVb", "deltaGAb"};
+= {"deltaGVb", "deltaGAb"};
 
 
 NPZbbbar::NPZbbbar() 
@@ -41,7 +41,7 @@ bool NPZbbbar::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for (int i = 0; i < NZbbbarVars; i++) {
         if (DPars.find(ZbbbarVars[i]) == DPars.end()) {
-            std::cout << "missing mandatory NPZbbbar parameter " 
+            std::cout << "ERROR: Missing mandatory NPZbbbar parameter" 
                       << ZbbbarVars[i] << std::endl;
             return false;
         }
@@ -78,20 +78,20 @@ bool NPZbbbar::SetFlag(const std::string name, const bool& value)
 {
     bool res = false;
     if (name.compare("EWABC") == 0) 
-        throw std::runtime_error("Flag EWABC is not applicable to NPSTU"); 
+        throw std::runtime_error("ERROR: Flag EWABC is not applicable to NPZbbbar"); 
     else if (name.compare("EWABC2") == 0)
-        throw std::runtime_error("Flag EWABC2 is not applicable to NPSTU"); 
+        throw std::runtime_error("ERROR: Flag EWABC2 is not applicable to NPZbbbar"); 
     else if (name.compare("epsilon1SM") == 0) 
-        throw std::runtime_error("Flag epsilon1SM is not applicable to NPZbbbar"); 
+        throw std::runtime_error("ERROR: Flag epsilon1SM is not applicable to NPZbbbar"); 
     else if (name.compare("epsilon2SM") == 0) 
-        throw std::runtime_error("Flag epsilon2SM is not applicable to NPZbbbar"); 
+        throw std::runtime_error("ERROR: Flag epsilon2SM is not applicable to NPZbbbar"); 
     else if (name.compare("epsilon3SM") == 0) 
-        throw std::runtime_error("Flag epsilon3SM is not applicable to NPZbbbar"); 
+        throw std::runtime_error("ERROR: Flag epsilon3SM is not applicable to NPZbbbar"); 
     else if (name.compare("epsilonbSM") == 0) 
-        throw std::runtime_error("Flag epsilonbSM is not applicable to NPZbbbar"); 
-    else {
+        throw std::runtime_error("ERROR: Flag epsilonbSM is not applicable to NPZbbbar"); 
+    else
         res = StandardModel::SetFlag(name,value);
-    }
+
     return(res);
 }
 
@@ -194,24 +194,6 @@ complex NPZbbbar::gAq(const StandardModel::quark q) const
         default:
             throw std::runtime_error("Error in NPZbbbar::gAq()");        
     }
-}
-
-
-double NPZbbbar::epsilon1() const
-{ 
-    return epsilon1_SM();
-}
-
-
-double NPZbbbar::epsilon2() const 
-{
-    return epsilon2_SM();    
-}
-
-
-double NPZbbbar::epsilon3() const 
-{
-    return epsilon3_SM();
 }
 
 

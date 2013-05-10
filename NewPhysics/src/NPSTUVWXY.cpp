@@ -10,15 +10,18 @@
 
 
 const std::string NPSTUVWXY::STUVWXYvars[NSTUVWXYvars] 
-                  = {"obliqueShat", "obliqueThat", "obliqueUhat", 
-                     "obliqueV", "obliqueW", "obliqueX", "obliqueY"};
+= {"obliqueShat", "obliqueThat", "obliqueUhat", 
+   "obliqueV", "obliqueW", "obliqueX", "obliqueY"};
 
 
-NPSTUVWXY::NPSTUVWXY() : NPZbbbar() {
+NPSTUVWXY::NPSTUVWXY()
+: NPZbbbar() 
+{
 }
 
 
-bool NPSTUVWXY::Update(const std::map<std::string,double>& DPars) {
+bool NPSTUVWXY::Update(const std::map<std::string,double>& DPars)
+{
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         SetParameter(it->first, it->second);
     if(!NPZbbbar::Update(DPars)) return (false);
@@ -27,16 +30,18 @@ bool NPSTUVWXY::Update(const std::map<std::string,double>& DPars) {
 }
 
 
-bool NPSTUVWXY::Init(const std::map<std::string, double>& DPars) {
+bool NPSTUVWXY::Init(const std::map<std::string, double>& DPars) 
+{
     Update(DPars);
     return(CheckParameters(DPars)); 
 }
 
 
-bool NPSTUVWXY::CheckParameters(const std::map<std::string, double>& DPars) {
+bool NPSTUVWXY::CheckParameters(const std::map<std::string, double>& DPars) 
+{
     for (int i = 0; i < NSTUVWXYvars; i++) {
         if (DPars.find(STUVWXYvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory NPSTUVWXY parameter " 
+            std::cout << "ERROR: Missing mandatory NPSTUVWXY parameter" 
                       << STUVWXYvars[i] << std::endl;
             return false;
         }
@@ -45,7 +50,8 @@ bool NPSTUVWXY::CheckParameters(const std::map<std::string, double>& DPars) {
 }
 
     
-void NPSTUVWXY::SetParameter(const std::string name, const double& value) {
+void NPSTUVWXY::SetParameter(const std::string name, const double& value) 
+{
     if (name.compare("obliqueShat") == 0)
         myObliqueShat = value;
     else if (name.compare("obliqueThat") == 0)
@@ -78,15 +84,16 @@ void NPSTUVWXY::SetEWSMflags(EWSM& myEWSM)
 }
 
 
-bool NPSTUVWXY::SetFlag(const std::string name, const bool& value){
+bool NPSTUVWXY::SetFlag(const std::string name, const bool& value)
+{
     bool res = false;
-    if (name.compare("EWABC") == 0) {
-        throw std::runtime_error("Flag EWABC is not applicable to NPSTUVWXY"); 
-    } else if (name.compare("EWABC2") == 0) {
-        throw std::runtime_error("Flag EWABC2 is not applicable to NPSTUVWXY"); 
-    } else {
+    if (name.compare("EWABC") == 0)
+        throw std::runtime_error("ERROR: Flag EWABC is not applicable to NPSTUVWXY"); 
+    else if (name.compare("EWABC2") == 0)
+        throw std::runtime_error("ERROR: Flag EWABC2 is not applicable to NPSTUVWXY"); 
+    else
         res = NPZbbbar::SetFlag(name,value);
-    }
+
     return(res);
 }
 

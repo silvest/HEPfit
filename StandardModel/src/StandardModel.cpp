@@ -522,16 +522,6 @@ double StandardModel::epsilonb() const
     return epsilonb_SM();    
 }
 
-double StandardModel::deltaGVb() const 
-{
-    return 0.0;
-}
-
-double StandardModel::deltaGAb() const
-{
-    return 0.0;
-}
-
 
 ////////////////////////////////////////////////////////////////////////
 // CKM parameters

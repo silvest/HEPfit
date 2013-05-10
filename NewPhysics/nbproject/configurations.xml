@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="84">
+<configurationDescriptor version="88">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/NPEffective.h</itemPath>
       <itemPath>src/NPEpsilons.h</itemPath>
       <itemPath>src/NPHiggs.h</itemPath>
       <itemPath>src/NPHiggsST.h</itemPath>
@@ -25,6 +26,7 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/NPEffective.cpp</itemPath>
       <itemPath>src/NPEpsilons.cpp</itemPath>
       <itemPath>src/NPHiggs.cpp</itemPath>
       <itemPath>src/NPHiggsST.cpp</itemPath>
@@ -50,6 +52,7 @@
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
@@ -64,11 +67,54 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/NPEffective.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPEffective.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPEpsilons.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPHiggs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPHiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPHiggsST.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPHiggsST.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPInputs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSTU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSTU.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSTUVWXY.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSTUVWXY.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPZbbbar.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPZbbbar.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaGAb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaGLb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaGRb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaGVb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaKappaZb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaRhoZb.h" ex="false" tool="3" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="3">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
@@ -93,11 +139,54 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/NPEffective.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPEffective.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPEpsilons.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPHiggs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPHiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPHiggsST.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPHiggsST.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPInputs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSTU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSTU.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSTUVWXY.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSTUVWXY.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPZbbbar.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPZbbbar.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaGAb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaGLb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaGRb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaGVb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaKappaZb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaRhoZb.h" ex="false" tool="3" flavor2="0">
+      </item>
     </conf>
     <conf name="Cluster" type="3">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
@@ -122,6 +211,48 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/NPEffective.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPEffective.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPEpsilons.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPHiggs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPHiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPHiggsST.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPHiggsST.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPInputs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSTU.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSTU.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPSTUVWXY.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPSTUVWXY.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPZbbbar.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPZbbbar.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaGAb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaGLb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaGRb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaGVb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaKappaZb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/deltaRhoZb.h" ex="false" tool="3" flavor2="0">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>

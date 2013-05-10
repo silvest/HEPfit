@@ -112,21 +112,6 @@ public:
     virtual complex gAq(const StandardModel::quark q) const; 
     
     /**
-     * @return epsilon_1
-     */
-    virtual double epsilon1() const;
-
-    /**
-     * @return epsilon_2
-     */
-    virtual double epsilon2() const;
-    
-    /**
-     * @return epsilon_3
-     */
-    virtual double epsilon3() const;
-    
-    /**
      * @return epsilon_b
      */
     virtual double epsilonb() const;

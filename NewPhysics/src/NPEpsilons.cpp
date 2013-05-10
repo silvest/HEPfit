@@ -10,10 +10,10 @@
 #include <EWSM.h>
 
 const std::string NPEpsilons::EPSILONvars[NEPSILONvars] 
-                  = {"epsilon_1", "epsilon_2", "epsilon_3", "epsilon_b"};
+= {"epsilon_1", "epsilon_2", "epsilon_3", "epsilon_b"};
 
 const std::string NPEpsilons::EPSILONflags[NEPSILONflags] 
-    = {"epsilon1SM", "epsilon2SM", "epsilon3SM", "epsilonbSM"};
+= {"epsilon1SM", "epsilon2SM", "epsilon3SM", "epsilonbSM"};
 
 
 NPEpsilons::NPEpsilons() 
@@ -47,7 +47,7 @@ bool NPEpsilons::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for (int i = 0; i < NEPSILONvars; i++) {
         if (DPars.find(EPSILONvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory NPEpsilons parameter " 
+            std::cout << "ERROR: Missing mandatory NPEpsilons parameter" 
                       << EPSILONvars[i] << std::endl;
             return false;
         }
@@ -89,9 +89,9 @@ bool NPEpsilons::SetFlag(const std::string name, const bool& value)
 {
     bool res = false;
     if (name.compare("EWBURGESS") == 0) {
-        throw std::runtime_error("Flag EWBURGESS is not applicable to NPEpsilons"); 
+        throw std::runtime_error("ERROR: Flag EWBURGESS is not applicable to NPEpsilons"); 
     } else if (name.compare("EWCHMN") == 0) {
-        throw std::runtime_error("Flag EWCHMN is not applicable to NPEpsilons"); 
+        throw std::runtime_error("ERROR: Flag EWCHMN is not applicable to NPEpsilons"); 
     } else if (name.compare("epsilon1SM") == 0) {
         FlagEpsilon1SM = value;
         res = true;
@@ -104,9 +104,9 @@ bool NPEpsilons::SetFlag(const std::string name, const bool& value)
     } else if (name.compare("epsilonbSM") == 0) {
         FlagEpsilonbSM = value;
         res = true;
-    } else {
+    } else
         res = StandardModel::SetFlag(name,value);
-    }
+
     return(res);
 }
 

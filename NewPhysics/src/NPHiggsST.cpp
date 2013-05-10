@@ -9,34 +9,70 @@
 #include "NPHiggsST.h"
 
 
-bool NPHiggsST::Update(const std::map<std::string,double>& DPars) {
+const std::string NPHiggsST::NPHIGGSSTvars[NNPHIGGSSTvars] 
+= {"a", "b", "c_u", "c_d", "c_e", "d_3", "d_4"};
+
+
+NPHiggsST::NPHiggsST()
+: NPZbbbar()
+{
+}
+
+
+bool NPHiggsST::Update(const std::map<std::string,double>& DPars) 
+{
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         SetParameter(it->first, it->second);
-    if(!NPHiggs::Update(DPars)) return (false);
+    if(!NPZbbbar::Update(DPars)) return (false);
 
     return (true);
 }
 
 
-bool NPHiggsST::Init(const std::map<std::string, double>& DPars) {
+bool NPHiggsST::Init(const std::map<std::string, double>& DPars) 
+{
     Update(DPars);
     return(CheckParameters(DPars)); 
 }
 
 
-bool NPHiggsST::CheckParameters(const std::map<std::string, double>& DPars) {
-    return(NPHiggs::CheckParameters(DPars));
+bool NPHiggsST::CheckParameters(const std::map<std::string, double>& DPars) 
+{
+    for (int i = 0; i < NNPHIGGSSTvars; i++) {
+        if (DPars.find(NPHIGGSSTvars[i]) == DPars.end()) {
+            std::cout << "ERROR: Missing mandatory NPHiggsST parameter" 
+                      << NPHIGGSSTvars[i] << std::endl;
+            return false;
+        }
+    }
+    return(NPZbbbar::CheckParameters(DPars));
 }
 
     
-void NPHiggsST::SetParameter(const std::string name, const double& value) {
-    NPHiggs::SetParameter(name, value);       
+void NPHiggsST::SetParameter(const std::string name, const double& value) 
+{
+    if (name.compare("a") == 0)
+        a = value;
+    else if (name.compare("b") == 0)
+        b = value;
+    else if (name.compare("c_u") == 0)
+        c_u = value;
+    else if (name.compare("c_d") == 0)
+        c_d = value;
+    else if (name.compare("c_e") == 0)
+        c_e = value;
+    else if (name.compare("d_3") == 0)
+        d_3 = value;
+    else if (name.compare("d_4") == 0)
+        d_4 = value;
+    else
+        NPZbbbar::SetParameter(name, value);       
 }
 
 
 bool NPHiggsST::InitializeModel() 
 {
-    SetModelInitialized(NPHiggs::InitializeModel());
+    SetModelInitialized(NPZbbbar::InitializeModel());
     return (IsModelInitialized());
 }
 
@@ -47,9 +83,20 @@ void NPHiggsST::SetEWSMflags(EWSM& myEWSM)
 }
 
 
-bool NPHiggsST::SetFlag(const std::string name, const bool& value) {
+bool NPHiggsST::SetFlag(const std::string name, const bool& value) 
+{
     bool res = false;
-    res = NPHiggs::SetFlag(name,value);
+    if (name.compare("epsilon1SM") == 0) 
+        throw std::runtime_error("ERROR: Flag epsilon1SM is not applicable to NPHiggsST"); 
+    else if (name.compare("epsilon2SM") == 0) 
+        throw std::runtime_error("ERROR: Flag epsilon2SM is not applicable to NPHiggsST"); 
+    else if (name.compare("epsilon3SM") == 0) 
+        throw std::runtime_error("ERROR: Flag epsilon3SM is not applicable to NPHiggsST"); 
+    else if (name.compare("epsilonbSM") == 0) 
+        throw std::runtime_error("ERROR: Flag epsilonbSM is not applicable to NPHiggsST"); 
+    else
+        res = NPZbbbar::SetFlag(name,value);
+
     return(res);
 }
 
@@ -69,12 +116,13 @@ double NPHiggsST::obliqueS() const
 double NPHiggsST::obliqueT() const
 {
     double Lambda;
+    double cW2_SM = StandardModel::cW2(); /* This has to be the SM value. */
     if (fabs(1.0-a*a) < pow(10.0, -32.0) ) 
         Lambda = pow(10.0, 19.0);
     else
         Lambda = 4.0*M_PI*v()/sqrt(fabs(1.0 - a*a));
     
-    return ( - 3.0/16.0/M_PI/cW2()*(1.0 - a*a)*log(Lambda*Lambda/mHl/mHl) );
+    return ( - 3.0/16.0/M_PI/cW2_SM*(1.0 - a*a)*log(Lambda*Lambda/mHl/mHl) );
 }
     
 
@@ -83,102 +131,3 @@ double NPHiggsST::obliqueU() const
     return 0.0;
 }
     
-
-double NPHiggsST::epsilon1() const
-{
-    return ( epsilon1_SM() + alphaMz()*obliqueT() ); 
-}
-
-
-double NPHiggsST::epsilon2() const
-{
-    return epsilon2_SM();
-}
-
-    
-double NPHiggsST::epsilon3() const
-{
-    return ( epsilon3_SM() + alphaMz()/4.0/sW2()*obliqueS() ); 
-}
-
-    
-double NPHiggsST::epsilonb() const
-{
-    return epsilonb_SM();
-}
-
-
-double NPHiggsST::Mw() const
-{
-    return StandardModel::Mw();
-}
-
-
-double NPHiggsST::cW2() const
-{
-    return StandardModel::cW2();
-}
-
-
-double NPHiggsST::sW2() const
-{
-    return StandardModel::sW2();
-}
-
-
-complex NPHiggsST::rhoZ_l(const StandardModel::lepton l) const
-{
-    return NPZbbbar::rhoZ_l(l);
-}
-
-    
-complex NPHiggsST::rhoZ_q(const StandardModel::quark q) const
-{
-    return NPZbbbar::rhoZ_q(q);
-}
-
-
-complex NPHiggsST::kappaZ_l(const StandardModel::lepton l) const
-{
-    return NPZbbbar::kappaZ_l(l);
-}
-
-
-complex NPHiggsST::kappaZ_q(const StandardModel::quark q) const
-{
-    return NPZbbbar::kappaZ_q(q);
-}
-
-    
-complex NPHiggsST::gVl(const StandardModel::lepton l) const
-{
-    return NPZbbbar::gVl(l);
-}
-
-
-complex NPHiggsST::gVq(const StandardModel::quark q) const
-{
-    return NPZbbbar::gVq(q);
-}
-
-
-complex NPHiggsST::gAl(const StandardModel::lepton l) const
-{
-    return NPZbbbar::gAl(l);
-}
-
-
-complex NPHiggsST::gAq(const StandardModel::quark q) const
-{
-    return NPZbbbar::gAq(q);
-}
-
-    
-double NPHiggsST::GammaW() const
-{
-    return StandardModel::GammaW();
-}
-
-
-
-

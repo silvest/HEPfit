@@ -11,7 +11,7 @@
 
 
 const std::string NPHiggs::NPHIGGSvars[NNPHIGGSvars] 
-                  = {"a", "b", "c_u", "c_d", "c_e", "d_3", "d_4"};
+= {"a", "b", "c_u", "c_d", "c_e", "d_3", "d_4"};
 
 
 NPHiggs::NPHiggs() 
@@ -20,7 +20,8 @@ NPHiggs::NPHiggs()
 }
 
 
-bool NPHiggs::Update(const std::map<std::string,double>& DPars) {
+bool NPHiggs::Update(const std::map<std::string,double>& DPars) 
+{
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         SetParameter(it->first, it->second);
     if(!NPZbbbar::Update(DPars)) return (false);
@@ -29,16 +30,18 @@ bool NPHiggs::Update(const std::map<std::string,double>& DPars) {
 }
 
 
-bool NPHiggs::Init(const std::map<std::string, double>& DPars) {
+bool NPHiggs::Init(const std::map<std::string, double>& DPars) 
+{
     Update(DPars);
     return(CheckParameters(DPars)); 
 }
 
 
-bool NPHiggs::CheckParameters(const std::map<std::string, double>& DPars) {
+bool NPHiggs::CheckParameters(const std::map<std::string, double>& DPars) 
+{
     for (int i = 0; i < NNPHIGGSvars; i++) {
         if (DPars.find(NPHIGGSvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory NPHiggs parameter " 
+            std::cout << "ERROR: Missing mandatory NPHiggs parameter" 
                       << NPHIGGSvars[i] << std::endl;
             return false;
         }
@@ -47,7 +50,8 @@ bool NPHiggs::CheckParameters(const std::map<std::string, double>& DPars) {
 }
 
     
-void NPHiggs::SetParameter(const std::string name, const double& value) {
+void NPHiggs::SetParameter(const std::string name, const double& value) 
+{
     if (name.compare("a") == 0)
         a = value;
     else if (name.compare("b") == 0)
@@ -67,7 +71,8 @@ void NPHiggs::SetParameter(const std::string name, const double& value) {
 }
 
 
-bool NPHiggs::InitializeModel() {
+bool NPHiggs::InitializeModel() 
+{
     SetModelInitialized(NPZbbbar::InitializeModel());
     myEWepsilons = new EWepsilons(*this);
     return (IsModelInitialized());
@@ -80,28 +85,30 @@ void NPHiggs::SetEWSMflags(EWSM& myEWSM)
 }
 
 
-bool NPHiggs::SetFlag(const std::string name, const bool& value) {
+bool NPHiggs::SetFlag(const std::string name, const bool& value) 
+{
     bool res = false;
     if (name.compare("EWBURGESS") == 0)
-        throw std::runtime_error("Flag EWBURGESS is not applicable to NPHiggs"); 
+        throw std::runtime_error("ERROR: Flag EWBURGESS is not applicable to NPHiggs"); 
     else if (name.compare("EWCHMN") == 0) 
-        throw std::runtime_error("Flag EWCHMN is not applicable to NPHiggs"); 
+        throw std::runtime_error("ERROR: Flag EWCHMN is not applicable to NPHiggs"); 
     else if (name.compare("epsilon1SM") == 0) 
-        throw std::runtime_error("Flag epsilon1SM is not applicable to NPHiggs"); 
+        throw std::runtime_error("ERROR: Flag epsilon1SM is not applicable to NPHiggs"); 
     else if (name.compare("epsilon2SM") == 0) 
-        throw std::runtime_error("Flag epsilon2SM is not applicable to NPHiggs"); 
+        throw std::runtime_error("ERROR: Flag epsilon2SM is not applicable to NPHiggs"); 
     else if (name.compare("epsilon3SM") == 0) 
-        throw std::runtime_error("Flag epsilon3SM is not applicable to NPHiggs"); 
+        throw std::runtime_error("ERROR: Flag epsilon3SM is not applicable to NPHiggs"); 
     else if (name.compare("epsilonbSM") == 0) 
-        throw std::runtime_error("Flag epsilonbSM is not applicable to NPHiggs"); 
-    else {
+        throw std::runtime_error("ERROR: Flag epsilonbSM is not applicable to NPHiggs"); 
+    else
         res = NPZbbbar::SetFlag(name,value);
-    }
+
     return(res);
 }
 
 
-double NPHiggs::epsilon1() const{ 
+double NPHiggs::epsilon1() const
+{ 
     double Lambda;
     if (fabs(1.0-a*a) < pow(10.0, -32.0) ) 
         Lambda = pow(10.0, 19.0);
@@ -114,12 +121,14 @@ double NPHiggs::epsilon1() const{
 }
 
 
-double NPHiggs::epsilon2() const {
+double NPHiggs::epsilon2() const 
+{
     return epsilon2_SM();    
 }
     
 
-double NPHiggs::epsilon3() const {
+double NPHiggs::epsilon3() const 
+{
     double Lambda;
     if (fabs(1.0-a*a) < pow(10.0, -32.0) ) 
         Lambda = pow(10.0, 19.0);
@@ -132,7 +141,8 @@ double NPHiggs::epsilon3() const {
 }
 
 
-double NPHiggs::epsilonb() const {
+double NPHiggs::epsilonb() const 
+{
     //return epsilonb_SM();    
     return NPZbbbar::epsilonb();
 }
@@ -140,27 +150,32 @@ double NPHiggs::epsilonb() const {
 
 ////////////////////////////////////////////////////////////////////////     
 
-double NPHiggs::Mw() const {
+double NPHiggs::Mw() const 
+{
     return myEWepsilons->Mw(epsilon1(), epsilon2(), epsilon3());
 }
 
 
-double NPHiggs::cW2() const {
+double NPHiggs::cW2() const 
+{
     return ( Mw()*Mw()/Mz/Mz );
 }
 
     
-double NPHiggs::sW2() const {
+double NPHiggs::sW2() const 
+{
     return ( 1.0 - cW2() );
 }
 
     
-complex NPHiggs::rhoZ_l(const StandardModel::lepton l) const {
+complex NPHiggs::rhoZ_l(const StandardModel::lepton l) const 
+{
     return myEWepsilons->rhoZ_l(l, epsilon1());
 }
 
     
-complex NPHiggs::rhoZ_q(const StandardModel::quark q) const {
+complex NPHiggs::rhoZ_q(const StandardModel::quark q) const 
+{
     switch (q) {
         case StandardModel::UP:
         case StandardModel::DOWN:
@@ -177,12 +192,14 @@ complex NPHiggs::rhoZ_q(const StandardModel::quark q) const {
 }
 
 
-complex NPHiggs::kappaZ_l(const StandardModel::lepton l) const {
+complex NPHiggs::kappaZ_l(const StandardModel::lepton l) const 
+{
     return myEWepsilons->kappaZ_l(l, epsilon1(), epsilon3());
 }
 
 
-complex NPHiggs::kappaZ_q(const StandardModel::quark q) const {
+complex NPHiggs::kappaZ_q(const StandardModel::quark q) const 
+{
     switch (q) {
         case StandardModel::UP:
         case StandardModel::DOWN:
@@ -199,12 +216,14 @@ complex NPHiggs::kappaZ_q(const StandardModel::quark q) const {
 }
       
     
-complex NPHiggs::gVl(const StandardModel::lepton l) const {
+complex NPHiggs::gVl(const StandardModel::lepton l) const 
+{
     return myEWepsilons->gVl(l, epsilon1(), epsilon3());
 }
 
 
-complex NPHiggs::gVq(const StandardModel::quark q) const {
+complex NPHiggs::gVq(const StandardModel::quark q) const 
+{
     switch (q) {
         case StandardModel::UP:
         case StandardModel::DOWN:
@@ -221,12 +240,14 @@ complex NPHiggs::gVq(const StandardModel::quark q) const {
 }
 
 
-complex NPHiggs::gAl(const StandardModel::lepton l) const {
+complex NPHiggs::gAl(const StandardModel::lepton l) const 
+{
     return myEWepsilons->gAl(l, epsilon1());
 }
 
 
-complex NPHiggs::gAq(const StandardModel::quark q) const {
+complex NPHiggs::gAq(const StandardModel::quark q) const 
+{
     switch (q) {
         case StandardModel::UP:
         case StandardModel::DOWN:
@@ -243,7 +264,8 @@ complex NPHiggs::gAq(const StandardModel::quark q) const {
 }
 
     
-double NPHiggs::GammaW() const {
+double NPHiggs::GammaW() const 
+{
     throw std::runtime_error("NPHiggs::GammaW() is not implemented.");         
 }
  

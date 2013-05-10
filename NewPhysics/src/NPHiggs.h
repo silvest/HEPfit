@@ -148,6 +148,7 @@ public:
 protected:    
     double a, b, c_u, c_d, c_e, d_3, d_4;
     virtual void SetParameter(const std::string name, const double& value);
+
     
     //////////////////////////////////////////////////////////////////////// 
 

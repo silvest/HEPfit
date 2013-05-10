@@ -728,9 +728,35 @@ public:
      */
     virtual double epsilonb() const;
 
-    virtual double deltaGVb() const;
+    virtual double deltaGVl(StandardModel::lepton l) const
+    {
+        return 0.0;
+    }
+    
+    virtual double deltaGVq(StandardModel::quark q) const
+    {
+        return 0.0;
+    }
+    
+    virtual double deltaGAl(StandardModel::lepton l) const
+    {
+        return 0.0;
+    }
+    
+    virtual double deltaGAq(StandardModel::quark q) const
+    {
+        return 0.0;
+    }
 
-    virtual double deltaGAb() const;
+    virtual double deltaGVb() const
+    {
+        return deltaGVq(BOTTOM);
+    }
+
+    virtual double deltaGAb() const
+    {
+        return deltaGAq(BOTTOM);
+    }
     
     
     ////////////////////////////////////////////////////////////////////////

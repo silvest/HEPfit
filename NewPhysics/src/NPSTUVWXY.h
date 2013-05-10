@@ -151,6 +151,7 @@ protected:
     double myObliqueShat, myObliqueThat, myObliqueUhat;
     double myObliqueV, myObliqueW, myObliqueX, myObliqueY;
 
+    
     ////////////////////////////////////////////////////////////////////////     
     
 private:
