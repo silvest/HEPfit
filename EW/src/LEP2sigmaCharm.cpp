@@ -53,16 +53,16 @@ double LEP2sigmaCharm::getThValue()
     
     if ( myEW.checkSTUVWXY() && !bSigmaForAFB) {
         if ( SM.IsFlagFixedAllSMparams() ) {
-            sigma_charm += Coeff_cache[myLEP2oblique.Shat]*myEW.Shat()
-                         + Coeff_cache[myLEP2oblique.That]*myEW.That()
-                         + Coeff_cache[myLEP2oblique.Uhat]*myEW.Uhat()
-                         + Coeff_cache[myLEP2oblique.V]*myEW.V()
-                         + Coeff_cache[myLEP2oblique.W]*myEW.W()
-                         + Coeff_cache[myLEP2oblique.X]*myEW.X()
-                         + Coeff_cache[myLEP2oblique.Y]*myEW.Y();
+            sigma_charm += Coeff_cache[myLEP2oblique.Shat]*SM.obliqueShat()
+                         + Coeff_cache[myLEP2oblique.That]*SM.obliqueThat()
+                         + Coeff_cache[myLEP2oblique.Uhat]*SM.obliqueUhat()
+                         + Coeff_cache[myLEP2oblique.V]*SM.obliqueV()
+                         + Coeff_cache[myLEP2oblique.W]*SM.obliqueW()
+                         + Coeff_cache[myLEP2oblique.X]*SM.obliqueX()
+                         + Coeff_cache[myLEP2oblique.Y]*SM.obliqueY();
         } else {
-            double ObParam[7] = {myEW.Shat(), myEW.That(), myEW.Uhat(),
-                                 myEW.V(), myEW.W(), myEW.X(), myEW.Y()};
+            double ObParam[7] = {SM.obliqueShat(), SM.obliqueThat(), SM.obliqueUhat(),
+                                 SM.obliqueV(), SM.obliqueW(), SM.obliqueX(), SM.obliqueY()};
             sigma_charm += myLEP2oblique.sigma_q_LEP2_NP(StandardModel::CHARM, s, mq_cache, ObParam);
         }
     }

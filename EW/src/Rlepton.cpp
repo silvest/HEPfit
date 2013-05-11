@@ -25,27 +25,12 @@ double Rlepton::getThValue()
     } else {       
         R0_l = myEW.Gamma_had()/myEW.Gamma_l(SM.ELECTRON);
         
-        /* Oblique NP */
-        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
-            if(myEWTYPE==EW::EWBURGESS) {
-                // TEST: the fit result by Gfitter in arXiv:1209.2716, 
-                //       corresponding to MH=125.7 and Mt=173.52 
-                //R0_l = 20.740;
-
-                double delta_had = - 0.00901*myEW.S() + 0.0200*myEW.T();
-                double delta_l = - 0.000192*myEW.S() + 0.000790*myEW.T();
-                R0_l *= 1.0 + delta_had/myEW.Gamma_had()
-                        - delta_l/myEW.Gamma_l(SM.ELECTRON);
-            } else {
-                double alpha = myEW.alpha();  
-                double c2 = myEW.cW2_SM();
-                double s2 = myEW.sW2_SM();
-                double s4 = s2*s2;
-                
-                R0_l += 8.0*alpha*(3.0-2.0*s2)*(1.0-5.0*s2)
-                        /3.0/pow(1.0-4.0*s2+8.0*s4, 2.0)/(c2-s2)
-                        *( myEW.S() - 4.0*c2*s2*myEW.T() );                
-            }
+        if(myEWTYPE==EW::EWBURGESS) {
+            double delta_had = - 0.00901*SM.obliqueS() + 0.0200*SM.obliqueT();
+            double delta_l = - 0.000192*SM.obliqueS() + 0.000790*SM.obliqueT();
+            R0_l *= 1.0 + delta_had/myEW.Gamma_had()
+                    - delta_l/myEW.Gamma_l(SM.ELECTRON);
+            return R0_l;
         }
 
         /* NP contribution to the Zff vertex */
@@ -54,12 +39,22 @@ double Rlepton::getThValue()
 
             double delGVe = SM.deltaGVl(SM.ELECTRON);
             double delGAe = SM.deltaGAl(SM.ELECTRON);
+
+            /* Oblique corrections */
+            delGVe += myEW.delGVl_oblique(SM.ELECTRON);
+            delGAe += myEW.delGAl_oblique(SM.ELECTRON);
+
             if (delGVe!=0.0 || delGAe!=0.0) nonZeroNP = true;
 
             double delGVq[6], delGAq[6];
             for (int p=0; p<6; ++p) {
                 delGVq[p] = SM.deltaGVq((StandardModel::quark)p);
                 delGAq[p] = SM.deltaGAq((StandardModel::quark)p);
+
+                /* Oblique corrections */
+                delGVq[p] += myEW.delGVq_oblique((StandardModel::quark)p);
+                delGAq[p] += myEW.delGAq_oblique((StandardModel::quark)p);
+
                 if (delGVq[p]!=0.0 || delGAq[p]!=0.0) nonZeroNP = true;
             }
 
@@ -84,9 +79,11 @@ double Rlepton::getThValue()
 
                 R0_l += delGq_sum/Ge - Gq_sum*deltaGe/Ge/Ge;
             }
-        }
-        
-        /* TEST */
+        }  else
+            if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
+                throw std::runtime_error("Rlepton::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+
+        /* Debug: extract pure NP contribution */
         //R0_l -= myEW.Gamma_had()/myEW.Gamma_l(SM.ELECTRON);
     }
  

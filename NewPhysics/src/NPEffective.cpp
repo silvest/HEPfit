@@ -121,9 +121,9 @@ bool NPEffective::SetFlag(const std::string name, const bool& value)
 
 double NPEffective::obliqueS() const 
 {
+    double ratio = v()*v()/LambdaNP/LambdaNP;
     double sW_SM = sqrt(StandardModel::sW2()); /* This has to be the SM value. */
     double cW_SM = sqrt(StandardModel::cW2()); /* This has to be the SM value. */
-    double ratio = v()*v()/LambdaNP/LambdaNP;
 
     return ( 4.0*sW_SM*cW_SM*cWB/alphaMz()*ratio );
 }
@@ -139,8 +139,8 @@ double NPEffective::obliqueT() const
 
 double NPEffective::obliqueU() const
 {
-    double sW2_SM = StandardModel::sW2(); /* This has to be the SM value. */
     double ratio = v()*v()/LambdaNP/LambdaNP;
+    double sW2_SM = StandardModel::sW2(); /* This has to be the SM value. */
 
     return ( - 4.0*sW2_SM*(cLL - 2.0*cHLp)/alphaMz()*ratio );
 }

@@ -28,7 +28,7 @@ public:
      * the electroweak precision observables.
      */
     epsilon2(const EW& EW_i) 
-    : ThObservable(EW_i), myEW(EW_i) 
+    : ThObservable(EW_i)//, myEW(EW_i)
     {
     };
 
@@ -44,7 +44,7 @@ private:
      * A reference to an object of EW class, which is the base class of the electroweak 
      * precision observables.
      */
-    const EW& myEW;
+    //const EW& myEW;
 };
 
 #endif	/* EPSILON2_H */

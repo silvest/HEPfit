@@ -29,26 +29,11 @@ double Rcharm::getThValue()
         } else
             R0_c = myEW.Gamma_q(SM.CHARM)/myEW.Gamma_had();
         
-        /* Oblique NP */
-        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
-            if(myEWTYPE==EW::EWBURGESS) {
-                // TEST: the fit result by Gfitter in arXiv:1209.2716, 
-                //       corresponding to MH=125.7 and Mt=173.52 
-                //R0_c = 0.17223;
-                    
-                double delta_c_over_Gamma_c = - 0.00649*myEW.S() + 0.0124*myEW.T();
-                double delta_had = - 0.00901*myEW.S() + 0.0200*myEW.T();
-                R0_c *= 1.0 + delta_c_over_Gamma_c - delta_had/myEW.Gamma_had();
-            } else {            
-                double alpha = myEW.alpha();  
-                double c2 = myEW.cW2_SM();
-                double s2 = myEW.sW2_SM();
-                double s4 = s2*s2;
-                
-                R0_c -= 9.0*alpha*(9.0-36.0*s2+16.0*s4)
-                        /pow(45.0-84.0*s2+88.0*s4, 2.0)/(c2-s2)
-                        *( myEW.S() - 4.0*c2*s2*myEW.T() );
-            }
+        if(myEWTYPE==EW::EWBURGESS) {
+            double delta_c_over_Gamma_c = - 0.00649*SM.obliqueS() + 0.0124*SM.obliqueT();
+            double delta_had = - 0.00901*SM.obliqueS() + 0.0200*SM.obliqueT();
+            R0_c *= 1.0 + delta_c_over_Gamma_c - delta_had/myEW.Gamma_had();
+            return R0_c;
         }
 
         /* NP contribution to the Zff vertex */
@@ -58,6 +43,11 @@ double Rcharm::getThValue()
             for (int p=0; p<6; ++p) {
                 delGVq[p] = SM.deltaGVq((StandardModel::quark)p);
                 delGAq[p] = SM.deltaGAq((StandardModel::quark)p);
+
+                /* Oblique corrections */
+                delGVq[p] += myEW.delGVq_oblique((StandardModel::quark)p);
+                delGAq[p] += myEW.delGAq_oblique((StandardModel::quark)p);
+
                 if (delGVq[p]!=0.0 || delGAq[p]!=0.0) nonZeroNP = true;
             }
 
@@ -78,9 +68,11 @@ double Rcharm::getThValue()
                 R0_c += deltaGq[(int)SM.CHARM]/Gq_sum
                         - Gq[(int)SM.CHARM]*delGq_sum/Gq_sum/Gq_sum;
             }
-        }
-        
-        /* TEST */
+        } else
+            if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
+                throw std::runtime_error("Rcharm::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+
+        /* Debug: extract pure NP contribution */
         //R0_c -= myEW.Gamma_q(SM.CHARM)/myEW.Gamma_had();
     }
 

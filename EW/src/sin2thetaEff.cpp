@@ -25,28 +25,20 @@ double sin2thetaEff::getThValue()
     } else { 
         sin2_theta_eff = myEW.sin2thetaEff(SM.ELECTRON);
     
-        /* Oblique NP */
-        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
-            if(myEWTYPE==EW::EWBURGESS) {
-                // TEST: the fit result by Gfitter in arXiv:1209.2716, 
-                //       corresponding to MH=125.7 and Mt=173.52 
-                //sin2_theta_eff = 0.23148;
-
-                sin2_theta_eff += 0.00362*myEW.S() - 0.00256*myEW.T();
-            } else {
-                double alpha = myEW.alpha();  
-                double c2 = myEW.cW2_SM();
-                double s2 = myEW.sW2_SM();
-                
-                sin2_theta_eff += alpha/4.0/(c2-s2)
-                                  *( myEW.S() - 4.0*c2*s2*myEW.T() );
-            }
+        if(myEWTYPE==EW::EWBURGESS) {
+            sin2_theta_eff += 0.00362*SM.obliqueS() - 0.00256*SM.obliqueT();
+            return sin2_theta_eff;
         }
 
         /* NP contribution to the Zff vertex */
         if ( !SM.IsFlagNotLinearizedNP() ) {
             double delGVf = SM.deltaGVl(SM.ELECTRON);
             double delGAf = SM.deltaGAl(SM.ELECTRON);
+
+            /* Oblique corrections */
+            delGVf += myEW.delGVl_oblique(SM.ELECTRON);
+            delGAf += myEW.delGAl_oblique(SM.ELECTRON);
+
             if (delGVf!=0.0 || delGAf!=0.0) {
                 double gVf = SM.StandardModel::gVl(SM.ELECTRON).real();
                 double gAf = SM.StandardModel::gAl(SM.ELECTRON).real();
@@ -54,7 +46,12 @@ double sin2thetaEff::getThValue()
 
                 sin2_theta_eff -= delGVfOverGAf/4.0;
             }
-        }
+        } else
+            if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
+                throw std::runtime_error("sin2thetaEff::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+
+        /* Debug: extract pure NP contribution */
+        //sin2_theta_eff -= myEW.sin2thetaEff(SM.ELECTRON);
     }
 
     return sin2_theta_eff;

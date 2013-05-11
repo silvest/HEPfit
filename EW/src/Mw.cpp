@@ -13,9 +13,6 @@ double Mw::getThValue()
     double myMw;
     EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
     
-    //std::cout << "myEWTYPE = " << myEWTYPE << std::endl; // TEST
-    //std::cout << "SM.epsilon1() = " << SM.epsilon1() << std::endl; // TEST
-    
     if (myEWTYPE==EW::EWCHMN)  
         myMw = myEW.getMyEW_CHMN().Mw();
     else if (myEWTYPE==EW::EWABC)
@@ -28,24 +25,24 @@ double Mw::getThValue()
     } else {
         myMw = SM.Mw();    
 
-        /* Oblique NP */
-        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
-            if(myEWTYPE==EW::EWBURGESS) {
-                // TEST: the fit result by Gfitter in arXiv:1209.2716, 
-                //       corresponding to MH=125.7 and Mt=173.52 
-                //myMw = 80.367; 
-                
-                myMw *= 1.0 - 0.00723/2.0*myEW.S() + 0.0111/2.0*myEW.T() + 0.00849/2.0*myEW.U();
-            } else {
-                double alpha = myEW.alpha();  
-                double c = sqrt(myEW.cW2_SM());
-                double c2 = myEW.cW2_SM();
-                double s2 = myEW.sW2_SM();
-                
-                myMw -= alpha*c*SM.getMz()/4.0/(c2-s2)
-                        *( myEW.S() - 2.0*c2*myEW.T() - (c2-s2)*myEW.U()/2.0/s2 );
-            }
+        if(myEWTYPE==EW::EWBURGESS) {
+            myMw *= 1.0 - 0.00723/2.0*SM.obliqueS() + 0.0111/2.0*SM.obliqueT() + 0.00849/2.0*SM.obliqueU();
+            return myMw;
         }
+
+        if (!SM.IsFlagNotLinearizedNP() ) {
+            double alpha = myEW.alpha();
+            double c2 = myEW.cW2_SM();
+            double s2 = myEW.sW2_SM();
+
+            myMw *= 1.0 - alpha/4.0/(c2-s2)
+                    *( SM.obliqueS() - 2.0*c2*SM.obliqueT() - (c2-s2)*SM.obliqueU()/2.0/s2 );
+        } else
+            if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
+                throw std::runtime_error("Mw::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+
+        /* Debug: extract pure NP contribution */
+        //myMw -= SM.Mw();
     }
     
     return myMw;

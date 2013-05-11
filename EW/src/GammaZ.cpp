@@ -25,24 +25,9 @@ double GammaZ::getThValue()
     } else {
         Gamma_Z = myEW.Gamma_Z();
 
-        /* Oblique NP */
-        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
-            if(myEWTYPE==EW::EWBURGESS) {
-                // TEST: the fit result by Gfitter in arXiv:1209.2716, 
-                //       corresponding to MH=125.7 and Mt=173.52 
-                //Gamma_Z = 2.4954; 
-
-                Gamma_Z += - 0.00961*myEW.S() + 0.0263*myEW.T();
-            } else {
-                double alpha = myEW.alpha();  
-                double c2 = myEW.cW2_SM();
-                double s2 = myEW.sW2_SM();
-                double s4 = s2*s2;
-                
-                Gamma_Z += alpha*alpha*SM.getMz()/72.0/c2/s2/(c2-s2)
-                           *( -10.0*(3.0-8.0*s2)*myEW.S() 
-                              + (63.0-126.0*s2-40.0*s4)*myEW.T() );
-            }
+        if(myEWTYPE==EW::EWBURGESS) {
+            Gamma_Z += - 0.00961*SM.obliqueS() + 0.0263*SM.obliqueT();
+            return Gamma_Z;
         }
 
         /* NP contribution to the Zff vertex */
@@ -55,6 +40,13 @@ double GammaZ::getThValue()
                 delGAl[p] = SM.deltaGAl((StandardModel::lepton)p);
                 delGVq[p] = SM.deltaGVq((StandardModel::quark)p);
                 delGAq[p] = SM.deltaGAq((StandardModel::quark)p);
+
+                /* Oblique corrections */
+                delGVl[p] += myEW.delGVl_oblique((StandardModel::lepton)p);
+                delGAl[p] += myEW.delGAl_oblique((StandardModel::lepton)p);
+                delGVq[p] += myEW.delGVq_oblique((StandardModel::quark)p);
+                delGAq[p] += myEW.delGAq_oblique((StandardModel::quark)p);
+
                 if (delGVl[p]!=0.0 || delGAl[p]!=0.0
                         || delGVq[p]!=0.0 || delGAq[p]!=0.0)
                     nonZeroNP = true;
@@ -79,10 +71,12 @@ double GammaZ::getThValue()
                 Gamma_Z += SM.alphaMz()*SM.getMz()/12.0/myEW.sW2_SM()/myEW.cW2_SM()
                            * delGammaZ;
             }
-        }
-        
-        /* TEST */
-        //Gamma_Z -=  myEW.Gamma_Z();
+        } else
+            if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
+                throw std::runtime_error("GammaZ::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+
+        /* Debug: extract pure NP contribution */
+        //Gamma_Z -= myEW.Gamma_Z();
     }
       
     return Gamma_Z;

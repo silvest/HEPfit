@@ -52,11 +52,6 @@ public:
      */
     EWTYPE getEWTYPE() const;
     
-    /**
-     * @return boolean: true for the case where any of STU parameters are non zero.
-     */
-    bool checkSTU() const;
-
     bool checkSTUVWXY() const;
     
     /**
@@ -109,87 +104,7 @@ public:
      */
     double cW2_SM() const;
 
-    /**
-     * @return the oblique parameters S
-     */
-    double S() const 
-    {
-        return ( SM.obliqueS() );
-    }
-    
-    /**
-     * @return the oblique parameters T
-     */    
-    double T() const 
-    {
-        return ( SM.obliqueT() );
-    }
-    
-    /**
-     * @return the oblique parameters U
-     */    
-    double U() const 
-    {
-        return ( SM.obliqueU() );
-    }
 
-    /**
-     * @return Oblique parameter \hat{S}
-     */
-    double Shat() const 
-    {
-        return ( SM.obliqueShat() );
-    }
-
-    /**
-     * @return Oblique parameter \hat{T}
-     */
-    double That() const 
-    {
-        return ( SM.obliqueThat() );
-    }
-
-    /**
-     * @return Oblique parameter \hat{U}
-     */
-    double Uhat() const 
-    {
-        return ( SM.obliqueUhat() );
-    }
-
-    /**
-     * @return the oblique parameters V
-     */    
-    double V() const 
-    {
-        return ( SM.obliqueV() );
-    }
-    
-    /**
-     * @return the oblique parameters W
-     */    
-    double W() const 
-    {
-        return ( SM.obliqueW() );
-    }
-    
-    /**
-     * @return the oblique parameters X
-     */    
-    double X() const 
-    {
-        return ( SM.obliqueX() );
-    }
-    
-    /**
-     * @return the oblique parameters Y
-     */    
-    double Y() const 
-    {
-        return ( SM.obliqueY() );
-    }    
-
-    
     ////////////////////////////////////////////////////////////////////////     
     
     /**
@@ -256,7 +171,37 @@ public:
 
     
     ////////////////////////////////////////////////////////////////////////   
-    
+
+    /**
+     * @brief The oblique corrections to the Zll vector coupling.
+     * @param[in] l 
+     * @return The oblique corrections to the Zll vector coupling.
+     */
+    double delGVl_oblique(const StandardModel::lepton l) const;
+    /**
+     * @brief The oblique corrections to the Zqq vector coupling.
+     * @param[in] q
+     * @return The oblique corrections to the Zqq vector coupling.
+     */
+    double delGVq_oblique(const StandardModel::quark q) const;
+
+    /**
+     * @brief The oblique corrections to the Zll axial-vector coupling.
+     * @param[in] l
+     * @return The oblique corrections to the Zll axial-vector coupling.
+     */
+    double delGAl_oblique(const StandardModel::lepton l) const;
+
+    /**
+     * @brief The oblique corrections to the Zqq axial-vector coupling.
+     * @param[in] q
+     * @return The oblique corrections to the Zqq axial-vector coupling.
+     */
+    double delGAq_oblique(const StandardModel::quark q) const;
+
+
+    ////////////////////////////////////////////////////////////////////////
+
 protected:
     bool bDebug; // true for debugging    
     

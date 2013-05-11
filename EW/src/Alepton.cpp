@@ -25,29 +25,20 @@ double Alepton::getThValue()
     } else {
         A_l = myEW.A_l(SM.ELECTRON);
 
-        /* Oblique NP */
-        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
-            if(myEWTYPE==EW::EWBURGESS) {
-                // TEST: the fit result by Gfitter in arXiv:1209.2716, 
-                //       corresponding to MH=125.7 and Mt=173.52 
-                //A_l = 0.1473;
-
-                A_l += - 0.0284*myEW.S() + 0.0201*myEW.T();
-            } else {
-                double alpha = myEW.alpha();
-                double c2 = myEW.cW2_SM();
-                double s2 = myEW.sW2_SM();
-                double s4 = s2*s2;
-
-                A_l -= 4.0*alpha*s2/pow(1.0-4.0*s2+8.0*s4, 2.0)
-                       *( myEW.S() - 4.0*c2*s2*myEW.T() );
-            }
+        if(myEWTYPE==EW::EWBURGESS) {
+            A_l += - 0.0284*SM.obliqueS() + 0.0201*SM.obliqueT();
+            return A_l;
         }
 
         /* NP contribution to the Zff vertex */
         if ( !SM.IsFlagNotLinearizedNP() ) {
             double delGVf = SM.deltaGVl(SM.ELECTRON);
             double delGAf = SM.deltaGAl(SM.ELECTRON);
+
+            /* Oblique corrections */
+            delGVf += myEW.delGVl_oblique(SM.ELECTRON);
+            delGAf += myEW.delGAl_oblique(SM.ELECTRON);
+
             if (delGVf!=0.0 || delGAf!=0.0) {
                 double gVf = SM.StandardModel::gVl(SM.ELECTRON).real();
                 double gAf = SM.StandardModel::gAl(SM.ELECTRON).real();
@@ -56,7 +47,12 @@ double Alepton::getThValue()
 
                 A_l -= 2.0*(gVf*gVf - gAf*gAf)*gAf*gAf/Gf/Gf*delGVfOverGAf;
             }
-        }
+        } else
+            if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
+                throw std::runtime_error("Alepton::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+
+        /* Debug: extract pure NP contribution */
+        //A_l -= myEW.A_l(SM.ELECTRON);
     }
 
     return A_l;

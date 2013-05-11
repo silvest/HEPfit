@@ -68,26 +68,13 @@ EW::EWTYPE EW::getEWTYPE() const
 }
 
 
-bool EW::checkSTU() const 
-{
-    std::string Model = SM.ModelName();
-    //std::cout << "Model in EW: " << Model << std::endl; // TEST
-    if ( (Model=="NPSTU" || Model=="NPSTUVWXY" || Model=="NPHiggsST"
-            || Model=="THDM") 
-            && (S()!=0.0 || T()!=0.0 || U()!=0.0) )
-        return true;
-    else
-        return false;
-}
-
-
 bool EW::checkSTUVWXY() const
 {
     std::string Model = SM.ModelName();
     if ( (Model=="NPSTU" || Model=="NPSTUVWXY" || Model=="NPHiggsST"
             || Model=="THDM")
-            && (Shat()!=0.0 || That()!=0.0 || Uhat()!=0.0
-            || V()!=0.0|| W()!=0.0|| X()!=0.0|| Y()!=0.0) )
+            && (SM.obliqueShat()!=0.0 || SM.obliqueThat()!=0.0 || SM.obliqueUhat()!=0.0
+            || SM.obliqueV()!=0.0|| SM.obliqueW()!=0.0|| SM.obliqueX()!=0.0|| SM.obliqueY()!=0.0) )
         return true;
     else
         return false;
@@ -242,5 +229,55 @@ double EW::A_q(const StandardModel::quark q) const
     double Re_gV_over_gA = (SM.gVq(q)/SM.gAq(q)).real();    
     return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
 }
+
+
+////////////////////////////////////////////////////////////////////////
+
+double EW::delGVl_oblique(const StandardModel::lepton l) const
+{
+    /* SM values */
+    double sW2SM = sW2_SM();
+    double cW2SM = cW2_SM();
+    double gVSM = SM.StandardModel::gVl(l).real();
+    double gASM = SM.StandardModel::gAl(l).real();
+
+    return ( gVSM*SM.alphaMz()*SM.obliqueT()/2.0 
+             + (gVSM - gASM)*SM.alphaMz()/4.0/sW2SM/(cW2SM - sW2SM)
+               *(SM.obliqueS() - 4.0*cW2SM*sW2SM*SM.obliqueT()) );
+}
+
+
+double EW::delGVq_oblique(const StandardModel::quark q) const
+{
+    /* SM values */
+    double sW2SM = sW2_SM();
+    double cW2SM = cW2_SM();
+    double gVSM = SM.StandardModel::gVq(q).real();
+    double gASM = SM.StandardModel::gAq(q).real();
+
+    return ( gVSM*SM.alphaMz()*SM.obliqueT()/2.0
+             + (gVSM - gASM)*SM.alphaMz()/4.0/sW2SM/(cW2SM - sW2SM)
+               *(SM.obliqueS() - 4.0*cW2SM*sW2SM*SM.obliqueT()) );
+}
+
+
+double EW::delGAl_oblique(const StandardModel::lepton l) const
+{
+    /* SM values */
+    double gASM = SM.StandardModel::gAl(l).real();
+
+    return ( gASM*SM.alphaMz()*SM.obliqueT()/2.0 );
+}
+
+
+double EW::delGAq_oblique(const StandardModel::quark q) const
+{
+    /* SM values */
+    double gASM = SM.StandardModel::gAq(q).real();
+
+    return ( gASM*SM.alphaMz()*SM.obliqueT()/2.0 );
+}
+
+
 
 

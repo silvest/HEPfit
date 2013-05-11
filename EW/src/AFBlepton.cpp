@@ -24,29 +24,20 @@ double AFBlepton::getThValue()
     } else {    
         AFB_l = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_l(SM.ELECTRON);
 
-        /* Oblique NP */
-        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
-            if(myEWTYPE==EW::EWBURGESS) {
-                // TEST: the fit result by Gfitter in arXiv:1209.2716, 
-                //       corresponding to MH=125.7 and Mt=173.52 
-                //AFB_l = 0.01627;
-            
-                AFB_l += - 0.00677*myEW.S() + 0.00479*myEW.T();
-            } else {
-                double alpha = myEW.alpha();  
-                double c2 = myEW.cW2_SM();
-                double s2 = myEW.sW2_SM();
-                double s4 = s2*s2;
-                
-                AFB_l -= 6.0*alpha*s2*(1.0-4.0*s2)/pow(1.0-4.0*s2+8.0*s4, 3.0)
-                         *( myEW.S() - 4.0*c2*s2*myEW.T() );        
-            } 
+        if(myEWTYPE==EW::EWBURGESS) {
+            AFB_l += - 0.00677*SM.obliqueS() + 0.00479*SM.obliqueT();
+            return AFB_l;
         }
 
         /* NP contribution to the Zff vertex */
         if ( !SM.IsFlagNotLinearizedNP() ) {
             double delGVe = SM.deltaGVl(SM.ELECTRON);
             double delGAe = SM.deltaGAl(SM.ELECTRON);
+
+            /* Oblique corrections */
+            delGVe += myEW.delGVl_oblique(SM.ELECTRON);
+            delGAe += myEW.delGAl_oblique(SM.ELECTRON);
+
             if (delGVe!=0.0 || delGAe!=0.0) {
                 double gVe = SM.StandardModel::gVl(SM.ELECTRON).real();
                 double gAe = SM.StandardModel::gAl(SM.ELECTRON).real();
@@ -55,7 +46,12 @@ double AFBlepton::getThValue()
 
                 AFB_l -= 6.0*gVe*gAe*(gVe*gVe - gAe*gAe)*gAe*gAe/Ge/Ge/Ge*delGVeOverGAe;
             }
-        }
+        } else
+            if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
+                throw std::runtime_error("AFBlepton::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+
+        /* Debug: extract pure NP contribution */
+        //AFB_l -= 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_l(SM.ELECTRON);
     }
 
     return AFB_l;

@@ -36,26 +36,12 @@ double Rbottom::getThValue()
         } else
             R0_b = myEW.Gamma_q(SM.BOTTOM)/myEW.Gamma_had();
 
-        /* Oblique NP */
-        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
-            if(myEWTYPE==EW::EWBURGESS) {
-                // TEST: the fit result by Gfitter in arXiv:1209.2716, 
-                //       corresponding to MH=125.7 and Mt=173.52 
-                //R0_b = 0.21474;
-                
-                double delta_b = - 0.00171*myEW.S() + 0.00416*myEW.T();
-                double delta_had = - 0.00901*myEW.S() + 0.0200*myEW.T();
-                R0_b *= 1.0 + delta_b/myEW.Gamma_q(SM.BOTTOM) 
-                        - delta_had/myEW.Gamma_had();
-            } else {
-                double alpha = myEW.alpha();  
-                double c2 = myEW.cW2_SM();
-                double s2 = myEW.sW2_SM();
-                double s4 = s2*s2;
-                R0_b += 6.0*alpha*(9.0-36.0*s2+16.0*s4)
-                        /pow(45.0-84.0*s2+88.0*s4, 2.0)/(c2-s2)
-                        *( myEW.S() - 4.0*c2*s2*myEW.T() );
-            }
+        if(myEWTYPE==EW::EWBURGESS) {
+            double delta_b = - 0.00171*SM.obliqueS() + 0.00416*SM.obliqueT();
+            double delta_had = - 0.00901*SM.obliqueS() + 0.0200*SM.obliqueT();
+            R0_b *= 1.0 + delta_b/myEW.Gamma_q(SM.BOTTOM)
+                    - delta_had/myEW.Gamma_had();
+            return R0_b;
         }
 
         /* NP contribution to the Zff vertex */
@@ -65,6 +51,11 @@ double Rbottom::getThValue()
             for (int p=0; p<6; ++p) {
                 delGVq[p] = SM.deltaGVq((StandardModel::quark)p);
                 delGAq[p] = SM.deltaGAq((StandardModel::quark)p);
+
+                /* Oblique corrections */
+                delGVq[p] += myEW.delGVq_oblique((StandardModel::quark)p);
+                delGAq[p] += myEW.delGAq_oblique((StandardModel::quark)p);
+
                 if (delGVq[p]!=0.0 || delGAq[p]!=0.0) nonZeroNP = true;
             }
 
@@ -85,9 +76,11 @@ double Rbottom::getThValue()
                 R0_b += deltaGq[(int)SM.BOTTOM]/Gq_sum
                         - Gq[(int)SM.BOTTOM]*delGq_sum/Gq_sum/Gq_sum;
             }
-        }
-        
-        /* TEST */
+        } else
+            if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
+                throw std::runtime_error("Rbottom::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+
+        /* Debug: extract pure NP contribution */
         //R0_b -= myEW.Gamma_q(SM.BOTTOM)/myEW.Gamma_had();
     }
     

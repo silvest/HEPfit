@@ -25,29 +25,20 @@ double PtauPol::getThValue()
     } else {
         P_tau_pol = myEW.A_l(SM.TAU);
 
-        /* Oblique NP */
-        if ( myEW.checkSTU() && !SM.IsFlagNotLinearizedNP() ) {
-            if(myEWTYPE==EW::EWBURGESS) {
-                // TEST: the fit result by Gfitter in arXiv:1209.2716, 
-                //       corresponding to MH=125.7 and Mt=173.52 
-                //P_tau_pol = 0.1473;
-
-                P_tau_pol += - 0.0284*myEW.S() + 0.0201*myEW.T();
-            } else {
-                double alpha = myEW.alpha();  
-                double c2 = myEW.cW2_SM();
-                double s2 = myEW.sW2_SM();
-                double s4 = s2*s2;
-                
-                P_tau_pol -= 4.0*alpha*s2/pow(1.0-4.0*s2+8.0*s4, 2.0)
-                             *( myEW.S() - 4.0*c2*s2*myEW.T() );
-            }
+        if(myEWTYPE==EW::EWBURGESS) {
+            P_tau_pol += - 0.0284*SM.obliqueS() + 0.0201*SM.obliqueT();
+            return P_tau_pol;
         }
 
         /* NP contribution to the Zff vertex */
         if ( !SM.IsFlagNotLinearizedNP() ) {
             double delGVf = SM.deltaGVl(SM.TAU);
             double delGAf = SM.deltaGAl(SM.TAU);
+
+            /* Oblique corrections */
+            delGVf += myEW.delGVl_oblique(SM.TAU);
+            delGAf += myEW.delGAl_oblique(SM.TAU);
+
             if (delGVf!=0.0 || delGAf!=0.0) {
                 double gVf = SM.StandardModel::gVl(SM.TAU).real();
                 double gAf = SM.StandardModel::gAl(SM.TAU).real();
@@ -56,7 +47,12 @@ double PtauPol::getThValue()
 
                 P_tau_pol -= 2.0*(gVf*gVf - gAf*gAf)*gAf*gAf/Gf/Gf*delGVfOverGAf;
             }
-        }
+        } else
+            if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
+                throw std::runtime_error("PtauPol::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+
+        /* Debug: extract pure NP contribution */
+        //P_tau_pol -= myEW.A_l(SM.TAU);
     }
  
     return P_tau_pol;
