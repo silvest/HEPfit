@@ -65,7 +65,8 @@ double EW_CHMN::gL_l(const StandardModel::lepton l) const
             throw std::runtime_error("Error in EW_CHMN::gL_l()");  
     }
 
-    return ( c1 + c2*Delta_gbarZ2() + c3*Delta_sbar2() );
+    return ( c1 + c2*Delta_gbarZ2() + c3*Delta_sbar2() 
+             + (SM.deltaGVl(l) + SM.deltaGAl(l))/2.0 );
 }
 
 
@@ -91,7 +92,8 @@ double EW_CHMN::gR_l(const StandardModel::lepton l) const
             throw std::runtime_error("Error in EW_CHMN::gR_l()");  
     }
 
-    return ( c1 + c2*Delta_gbarZ2() + c3*Delta_sbar2() );
+    return ( c1 + c2*Delta_gbarZ2() + c3*Delta_sbar2()
+             + (SM.deltaGVl(l) - SM.deltaGAl(l))/2.0 );
 }
 
 
@@ -122,7 +124,8 @@ double EW_CHMN::gL_q(const StandardModel::quark q) const
             throw std::runtime_error("Error in EW_CHMN::gL_q()");  
     }
 
-    return ( c1 + c2*Delta_gbarZ2() + c3*Delta_sbar2() );    
+    return ( c1 + c2*Delta_gbarZ2() + c3*Delta_sbar2()
+             + (SM.deltaGVq(q) + SM.deltaGAq(q))/2.0 );
 }
 
 
@@ -153,7 +156,8 @@ double EW_CHMN::gR_q(const StandardModel::quark q) const
             throw std::runtime_error("Error in EW_CHMN::gR_q()");  
     }
 
-    return ( c1 + c2*Delta_gbarZ2() + c3*Delta_sbar2() );      
+    return ( c1 + c2*Delta_gbarZ2() + c3*Delta_sbar2()
+             + (SM.deltaGVq(q) - SM.deltaGAq(q))/2.0 );
 }
 
 
