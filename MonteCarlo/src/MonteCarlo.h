@@ -38,7 +38,7 @@ private:
     std::vector<CorrelatedGaussianObservables> CGO;
     std::string ModelConf, MCMCConf, OutFile, JobTag;
     bool noMC;
-    bool PrintAllMarginalized;
+    bool FindModeWithMinuit, PrintAllMarginalized;
     bool PrintCorrelationMatrix, PrintKnowledgeUpdatePlots, PrintParameterPlot;
 };
 

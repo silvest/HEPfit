@@ -24,6 +24,7 @@ MonteCarlo::MonteCarlo(const std::string& ModelConf_i,
     if(OutFile_i.compare("")==0)
         noMC = true;
     OutFile = OutFile_i + JobTag + ".root";
+    FindModeWithMinuit = false;
     PrintAllMarginalized = false;
     PrintCorrelationMatrix = false;
     PrintKnowledgeUpdatePlots = false;
@@ -147,6 +148,11 @@ void MonteCarlo::Run(const int rank)
                     ++beg;
                     if (beg->compare("true") == 0)
                         writechains = true;
+                } else if (beg->compare("FindModeWithMinuit") == 0) {
+                    ++beg;
+                    if (beg->compare("true") == 0) {
+                        FindModeWithMinuit = true;
+                    }
                 } else if (beg->compare("PrintAllMarginalized") == 0) {
                     ++beg;
                     if (beg->compare("true") == 0) {
@@ -192,7 +198,8 @@ void MonteCarlo::Run(const int rank)
             MCEngine.MarginalizeAll();
 
             // find mode using the best fit parameters as start values
-            MCEngine.FindMode(MCEngine.GetBestFitParameters());
+            if (FindModeWithMinuit)
+                MCEngine.FindMode(MCEngine.GetBestFitParameters());
 
             // draw all marginalized distributions into a PostScript file
             if (PrintAllMarginalized)
