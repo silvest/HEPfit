@@ -21,6 +21,8 @@
 #include "mHl.h"
 #include "mZ.h"
 #include "mtpole.h"
+#include "delRhoZ_nu.h"
+#include "delRhoZ_e.h"
 #include "delRhoZ_u.h"
 #include "delRhoZ_d.h"
 #include "delRhoZ_b.h"

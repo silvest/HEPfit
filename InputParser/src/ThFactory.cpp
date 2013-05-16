@@ -65,6 +65,8 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["mHl"] = new mHl(myMO);
     thobs["mZ"] = new mZ(myMO);
     thobs["mtpole"] = new mtpole(myMO);
+    thobs["delRhoZ_nu"] = new delRhoZ_nu(myMO);
+    thobs["delRhoZ_e"] = new delRhoZ_e(myMO);
     thobs["delRhoZ_u"] = new delRhoZ_u(myMO);
     thobs["delRhoZ_d"] = new delRhoZ_d(myMO);
     thobs["delRhoZ_b"] = new delRhoZ_b(myMO);

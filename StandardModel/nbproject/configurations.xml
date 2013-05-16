@@ -35,6 +35,8 @@
       <itemPath>src/dAle5Mz.h</itemPath>
       <itemPath>src/delRhoZ_b.h</itemPath>
       <itemPath>src/delRhoZ_d.h</itemPath>
+      <itemPath>src/delRhoZ_e.h</itemPath>
+      <itemPath>src/delRhoZ_nu.h</itemPath>
       <itemPath>src/delRhoZ_u.h</itemPath>
       <itemPath>src/mHl.h</itemPath>
       <itemPath>src/mZ.h</itemPath>
@@ -550,6 +552,10 @@
       </item>
       <item path="src/delRhoZ_d.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/delRhoZ_e.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/delRhoZ_nu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/delRhoZ_u.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/mHl.h" ex="false" tool="3" flavor2="0">
@@ -848,6 +854,10 @@
       </item>
       <item path="src/delRhoZ_d.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/delRhoZ_e.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/delRhoZ_nu.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/delRhoZ_u.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/mHl.h" ex="false" tool="3" flavor2="0">
@@ -1135,6 +1145,10 @@
       <item path="src/delRhoZ_b.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/delRhoZ_d.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/delRhoZ_e.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/delRhoZ_nu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/delRhoZ_u.h" ex="false" tool="3" flavor2="0">
       </item>
