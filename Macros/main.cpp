@@ -66,6 +66,7 @@ int main(int argc, char** argv)
         cout << "   -precision=n     -> precision of values in the std output [default: n=6]" << endl;
         cout << "   -prob68=prob     -> probability for the first interval [default: prob=0.68]" << endl;
         cout << "   -prob95=prob     -> probability for the second interval [default: prob=0.95]"<< endl;
+        cout << "   -prob99=prob     -> probability for the third interval [default: prob=0.99]"<< endl;
         cout << "   -xlab=namex      -> title of the x axis                            " << endl;
         cout << "   -ylab=namey      -> title of the y axis                            " << endl;
         cout << "   -yTitleOffset=d  -> offset of the title of the y axis [default: d=1.5]" << endl; 
@@ -160,8 +161,8 @@ int main(int argc, char** argv)
 
     //----  parameters which can be changed by command-line arguments  -----
     
-    //double prob68 = 0.6827, prob95 = 0.9545;
-    double prob68 = 0.68, prob95 = 0.95;
+    //double prob68 = 0.6827, prob95 = 0.9545, prob99 = 0.9973; //,0.9995,0.9999
+    double prob68 = 0.68, prob95 = 0.95, prob99 = 0.99;
     //
     bool bOneDim = false, bCompat = false, bTwoDim = false;
     bool bOrig = false, bOutputTxt = false, bContLines = false, bLeftLegend = false;
@@ -244,6 +245,8 @@ int main(int argc, char** argv)
             sscanf(argv[i], "-prob68=%lf", &prob68);
         else if (strncmp(argv[i], "-prob95=", 8) == 0) 
             sscanf(argv[i], "-prob95=%lf", &prob95);
+        else if (strncmp(argv[i], "-prob99=", 8) == 0)
+            sscanf(argv[i], "-prob99=%lf", &prob99);
         
         else if (strncmp(argv[i], "-output=", 8) == 0) {
             sscanf(argv[i], "-output=%s", str);
@@ -473,6 +476,7 @@ int main(int argc, char** argv)
     if (outputFileName.compare("")==0)
         outputFileName = plotname[0];
     string epsFileName = outputFileName + ".eps";
+//    string epsFileName = outputFileName + ".pdf";
     string txtFileName = outputFileName + ".txt";    
 
     for (int n=0; n<NumHist; n++) {
@@ -554,7 +558,7 @@ int main(int argc, char** argv)
         hist[0] = (TH1D*) tobj[0]->Clone();   
         os << hist[0]->GetXaxis()->GetTitle() << " in " << plotname[0] << endl;
 
-        SFHisto1D[0] = new SFH1D(*hist[0], prob68, prob95);
+        SFHisto1D[0] = new SFH1D(*hist[0], prob68, prob95, prob99);
         SFHisto1D[0]->smoothHist(smooth[0]);
         SFHisto1D[0]->increaseNbins(newNbins[0]);
         SFHisto1D[0]->DrawAxes(xlab, ylab, maxDig, x_low, x_up, yTitleOffset); // draw the axes
@@ -579,7 +583,7 @@ int main(int argc, char** argv)
         for (int n=1; n<NumHist; n++) {
             if ( plotname[n].compare("")!=0 ) {
                 hist[n] = (TH1D*) tobj[n]->Clone();
-                SFHisto1D[n] = new SFH1D(*hist[n], prob68, prob95);
+                SFHisto1D[n] = new SFH1D(*hist[n], prob68, prob95, prob99);
                 SFHisto1D[n]->smoothHist(smooth[n]);
                 SFHisto1D[n]->increaseNbins(newNbins[n]);
                 SFHisto1D[n]->Draw(lineStyle[n], lineWidth[n], lineColor[n], 
@@ -641,7 +645,7 @@ int main(int argc, char** argv)
 
         // output results for the original histogram before smoothing 
         // nor increasing the number of bins for comparison
-        SFH1D orig1D(*hist[0], prob68, prob95);
+        SFH1D orig1D(*hist[0], prob68, prob95, prob99);
         os << endl << "[Original histogram]" << endl;
         orig1D.OutputResults(os, 0, false);
  
@@ -655,8 +659,7 @@ int main(int argc, char** argv)
         
         Pull CompatPlot(*hist, nx, ny, x_low, x_up, y_low, y_up);
         CompatPlot.Draw(xlab, ylab, xval, xerr, maxDig, yTitleOffset);
-        
-        os << "  Pull: " << CompatPlot.f2(xval, xerr) << endl;
+        os << "  Pull: " << CompatPlot.calcPull(xval, xerr) << endl;
         
     //----------------------------------------------------------------------
     // 2-D histogram        
@@ -673,8 +676,8 @@ int main(int argc, char** argv)
         
         SFHisto2D[0] = new SFH2D(*hist[0], os, prob68, prob95, x_low, x_up, y_low, y_up);
         SFHisto2D[0]->smoothHist(smooth[0]);
-        SFHisto2D[0]->Draw(xlab, ylab, lineWidth[0], lineColor[0], col68[0], col95[0], 
-                           lineStyle[0], lineStyle68[0], fillStyle[0], 
+        SFHisto2D[0]->Draw(xlab, ylab, lineWidth[0], lineColor[0], col68[0], col95[0],
+                           lineStyle[0], lineStyle68[0], fillStyle[0],
                            maxDig, bContLines, bOnly95[0], false, yTitleOffset);
         contour_pt[0] = SFHisto2D[0]->getContour();
         
@@ -700,7 +703,7 @@ int main(int argc, char** argv)
             TLine *lx = new TLine();
             lx->SetLineWidth(3);
             lx->SetLineColor(colP);
-            double zero = 0, err;
+            double zero = 0., err;
             err = xerr2;
             g1 = new TGraphErrors(1, &xval2, &yval2, &err, &zero);
             g1->SetLineWidth(3);

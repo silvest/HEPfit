@@ -67,6 +67,19 @@ void SFH2D::Draw(const TString xlab, const TString ylab,
         null2D = (TH2D*) newHist->Clone("null2D");
         null2D->Reset("M");
         delete null2D;
+
+//        double scaleFactor = 0.1;
+//        double scaleFactor = -0.3;
+        double scaleFactor = 0.0;
+
+        xLow += (xUp - xLow)*scaleFactor;
+        xUp -= (xUp - xLow)*scaleFactor;
+        yLow += (yUp - yLow)*scaleFactor;
+        yUp -= (yUp - yLow)*scaleFactor;
+
+        /* Debug */
+        std::cout << "SFH2D::Draw(): " << xLow << " " << xUp << " " << yLow << " " << yUp << std::endl;
+
         null2D = new TH2D("null2D","null2D", newHist->GetNbinsX(), xLow, xUp, 
                           newHist->GetNbinsY(), yLow, yUp); 
         null2D->SetXTitle(newHist->GetXaxis()->GetTitle());
@@ -93,7 +106,7 @@ void SFH2D::Draw(const TString xlab, const TString ylab,
         //null2D->SetTitleFont(62,"Y");
         ((TGaxis*) null2D->GetXaxis())->SetMaxDigits(maxDigits);
         ((TGaxis*) null2D->GetYaxis())->SetMaxDigits(maxDigits);
-        
+
         // Titles of the axes 
         if (xlab.CompareTo("")==0) {
             TString Xtitle = ConvertTitle(null2D->GetXaxis()->GetTitle());
@@ -110,6 +123,7 @@ void SFH2D::Draw(const TString xlab, const TString ylab,
         null2D->Draw();
     }
 
+    // draw the histogram
     drawFromGraph(0, "AREA", lineWidth, lineColor, col95, lineStyle, fillStyle); // 95%
     if (!bOnly95) drawFromGraph(1, "AREA", lineWidth, lineColor, col68, lineStyle68, fillStyle); // 68%
         
@@ -199,6 +213,9 @@ void SFH2D::drawFromGraph(const int ind, const std::string DrawOpts,
     double ymin = newHist->GetYaxis()->GetXmin();
     double ymax = newHist->GetYaxis()->GetXmax();
     
+    /* Debug */
+    std::cout << "SFH2D::drawFromGraph():" << xmin << " " << xmax << " " << ymin << " " << ymax << std::endl;
+
     double epsp = 1.0;
     double epsm = 1.0 - 1.0e-6;
     // the bin content of the most top-left bin
@@ -339,6 +356,9 @@ TGraph* SFH2D::CloseTGraph(TGraph* inputgraph) const
     double ymax = tmp->GetXmax();    
     double biny = tmp->GetNbins();
     double deltay = tmp->GetBinWidth(1);
+
+    /* Debug */
+    std::cout << "SFH2D::CloseTGraph():" << xmin << " " << xmax << " " << ymin << " " << ymax << std::endl;
 
     // get the end points of the contour line
     double x_i, x_j, y_i, y_j;
@@ -533,6 +553,7 @@ TGraph* SFH2D::CloseTwoTGraphs(const int cont_ind, TGraph* inputgraph1,
     // add more points to the interval between an end point of the first contour 
     // and that of the second contour
     int NP = 200;
+    //int NP = 20;
     if (p_xmin.size()==2) { // left
         double xtmp, ytmp;
         for (int i=0; i<NP; i++) {

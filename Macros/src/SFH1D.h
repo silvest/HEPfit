@@ -28,10 +28,12 @@ public:
     /**
      * A constructor.
      * @param[in] hist A 1-D ROOT histogram 
-     * @param[in] prob68_in The probability of the 68% interval. 
-     * @param[in] prob95_in The probability of the 95% interval. 
+     * @param[in] prob68_in The probability of the first interval.
+     * @param[in] prob95_in The probability of the second interval.
+     * @param[in] prob99_in The probability of the third interval.
      */
-    SFH1D(TH1D& hist, const double prob68_in=0.68, const double prob95_in=0.95);
+    SFH1D(TH1D& hist, const double prob68_in=0.68, const double prob95_in=0.95,
+          const double prob99_in=0.99);
  
     /**
      * @return Empty histogram for the axes.
@@ -50,7 +52,7 @@ public:
     }
     
     /**
-     * @return A histogram containing only the 68% interval. 
+     * @return A histogram containing only the first interval.
      */
     TH1D* getNewHist68() const 
     {
@@ -58,15 +60,23 @@ public:
     }
     
     /**
-     * @return A histogram containing only the 95% interval. 
+     * @return A histogram containing only the second interval.
      */
     TH1D* getNewHist95() const 
     {
         return newHist95;
     }
+
+    /**
+     * @return A histogram containing only the third interval.
+     */
+    TH1D* getNewHist99() const
+    {
+        return newHist99;
+    }
     
     /**
-     * @return The minimum of the 68% interval.
+     * @return The minimum of the first interval.
      */ 
     double getXmin68() const 
     {
@@ -74,7 +84,7 @@ public:
     }
 
     /**
-     * @return The maximum of the 68% interval.
+     * @return The maximum of the first interval.
      */
     double getXmax68() const 
     {
@@ -82,7 +92,7 @@ public:
     }
 
     /**
-     * @return The minimum of the 95% interval.
+     * @return The minimum of the second interval.
      */
     double getXmin95() const 
     {
@@ -90,11 +100,27 @@ public:
     }
 
     /**
-     * @return The maximum of the 95% interval.
+     * @return The maximum of the second interval.
      */
     double getXmax95() const 
     {
         return xmax95;
+    }
+
+    /**
+     * @return The minimum of the third interval.
+     */
+    double getXmin99() const
+    {
+        return xmin99;
+    }
+
+    /**
+     * @return The maximum of the third interval.
+     */
+    double getXmax99() const
+    {
+        return xmax99;
     }
     
     /**
@@ -165,14 +191,19 @@ public:
 private:
 
     /**
-     * Probability of the 68% interval.
+     * Probability of the first interval.
      */
     const double prob68;
     
     /**
-     * Probability of the 95% interval. 
+     * Probability of the second interval.
      */
     const double prob95;
+
+    /**
+     * Probability of the third interval.
+     */
+    const double prob99;
 
     /**
      * The original 1-D histogram.
@@ -195,34 +226,49 @@ private:
     TH1D* newHist;
     
     /**
-     * A histogram containing only the 68% interval of newHist. 
+     * A histogram containing only the first interval of newHist.
      */
     TH1D *newHist68;
     
     /**
-     * A histogram containing only the 95% interval of newHist. 
+     * A histogram containing only the second interval of newHist.
      */
     TH1D *newHist95;    
 
     /**
-     * The minimum of the 68% interval.
+     * A histogram containing only the third interval of newHist.
+     */
+    TH1D *newHist99;
+
+    /**
+     * The minimum of the first interval.
      */
     double xmin68;
     
     /**
-     * The maximum of the 68% interval.
+     * The maximum of the first interval.
      */
     double xmax68;
     
     /**
-     * The minimum of the 95% interval.
+     * The minimum of the second interval.
      */
     double xmin95;
     
     /**
-     * The maximum of the 95% interval.
+     * The maximum of the second interval.
      */
     double xmax95;
+
+    /**
+     * The minimum of the third interval.
+     */
+    double xmin99;
+
+    /**
+     * The maximum of the third interval.
+     */
+    double xmax99;
     
     /**
      * The local mode of the modified histogram. 
@@ -249,7 +295,7 @@ private:
     TH1D* HistInterval(double &min, double &max, const double level) const;
 
     /**
-     * Compute the 68% and 95% intervals with  
+     * Compute the intervals. 
      */
     void computeIntervals();
     

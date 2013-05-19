@@ -5,11 +5,12 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include <TROOT.h>
 #include "BaseMacros.h"
 
 void BaseMacros::DefineNewColours() 
 {
-    TColor *color[120];
+    TColor *color[150];
     color[0] = new TColor(1300, 1.0, 1.0, 1.0, "");
     color[1] = new TColor(1301, 0.0, 0.0, 0.0, "");
     color[2] = new TColor(1302, 1.0, 0.0, 0.0, "");
@@ -115,6 +116,29 @@ void BaseMacros::DefineNewColours()
     color[107] = new TColor(1407, 0.40, 0.40, 0.40, "");
     color[108] = new TColor(1408, 0.10, 0.60, 0.10, ""); // dark green
     color[109] = new TColor(1409, 0.10, 0.40, 0.10, "");
+    color[110] = new TColor(1410, 0.00, 0.00, 0.00, "");
+
+    /* Transparent colors 
+     *   cf. white   1,1,1
+     *       black   0,0,0
+     *       red     1,0,0
+     *       green   0,1,0
+     *       blue    0,0,1
+     *       yellow  1,1,0
+     *       magenta 1,0,1
+     *       cyan    0,1,1
+     */
+    color[111] = new TColor(1501, 1.00, 0.00, 1.00, "", 0.6); // magenta
+    color[112] = new TColor(1502, 0.00, 1.00, 0.00, "", 0.6); // lime
+    color[113] = new TColor(1503, 0.00, 0.00, 1.00, "", 0.6); // blue
+    color[114] = new TColor(1504, 0.00, 0.00, 0.00, "", 0.6); // black
+    color[115] = new TColor(1505, 0.30, 0.30, 0.30, "", 0.8); // gray
+    color[116] = new TColor(1506, 0.00, 1.00, 1.00, "", 0.6); // cyan
+    color[117] = new TColor(1507, 1.00, 0.50, 0.00, "", 0.6); // orange
+    color[118] = new TColor(1508, 0.00, 0.50, 1.00, "", 0.6); // blue(+green)
+    color[119] = new TColor(1509, 75./255., 0./255., 130./255., "", 0.6); // indigo
+    color[120] = new TColor(1510, 0.00, 0.50, 0.00, "", 0.6); // green
+    color[121] = new TColor(1511, 1., 69./255., 0., "", 0.6); // orange red
 }
 
 

@@ -13,6 +13,9 @@
 #include <TGaxis.h>
 #include <TColor.h>
 #include <TLatex.h>
+#include <Math/Functor.h>
+#include <Math/IntegratorMultiDim.h>
+#include <Math/AllIntegrationTypes.h>
 #include "Pull.h"
 
 
@@ -30,7 +33,7 @@ Pull::Pull(TH1D& hist, const int nbinX, const int nbinY,
     copyHist = (TH1D*) hist.Clone("copy"); 
     double sum = copyHist->Integral();
     copyHist->Scale(1.0/sum);
-    
+
     CompatPlot = NULL;
     lx = new TLine();
     tText = new TLatex();
@@ -106,7 +109,7 @@ void Pull::Draw(const TString xlab, const TString ylab,
     double yadd = (y_up - y_low)*0.01;
     tText->DrawLatex(x_up + xadd, y_up - yadd, "#sigma");
     
-    // the measured point
+    // draw the measured value
     if (xval != -999.0) {
         double lw = (y_up - y_low)/40.0;   
         lx->SetLineWidth(4);
@@ -136,93 +139,106 @@ double Pull::fhisto(const double x) const
 }
 
 
-double Pull::fconv(const double x) const 
+double Pull::integrand(const double* x) const
 {
-    double f1 = fhisto(x);
-    double f2 = TMath::Gaus(x - deltaTmp, meanTmp, sigmaTmp, true);
+    double x1 = x[0];
+    double y = x[1];
+
+    double f1 = fhisto(x1);
+    double f2 = TMath::Gaus(x1 - y, meanTmp, sigmaTmp, true);
     if (f1 <= 0.0) f1 = 0.0;
     if (f2 <= 0.0) f2 = 0.0;
-    return f1*f2;
+
+    return ( f1*f2 );
 }
 
 
-double Pull::integral(const char* funcname, const double xmin, 
-                      const double xmax) 
+double Pull::calcPull(const double mean, const double sigma, const bool lowStat)
 {
-    // Numerical integration with composite Simpson's rule
-    
-    int n = 100;
-    double val = 0.0;
-    double x0, x1, x2, w = (xmax - xmin)/(double)n;
-    for (int i=0; i<n; i+=2) {
-        x0 = xmin + (double)i*w;
-        x1 = x0 + w;
-        x2 = x1 + w;
-        if (strcmp(funcname,"fconv")==0)
-            val += w/3.0*(fconv(x0) + 4.0*fconv(x1) + fconv(x2));
-        else if (strcmp(funcname,"fdelta")==0)
-            val += w/3.0*(fdelta(x0) + 4.0*fdelta(x1) + fdelta(x2));
-        else 
-            std::cout << "Error in Pull::integral()" << std::endl;
+    /* Mean and sigma for the indirect measurement */
+    meanTmp = mean;
+    sigmaTmp = sigma;
+
+    /* parameters for numerical integrations */
+    double AbsTolerance = 1.E-14; // desired absolute error (irrelevant to VEGAS)
+    double RelTolerance = 1.E-6; // desired relative error (irrelevant to VEGAS)
+    double ncall = 5000000; // maximum number of function calls
+    if (lowStat)
+        ncall = 50000; // maximum number of function calls
+
+    /* Set the integrand which is the convolution of the two p.d.f.'s */
+    ROOT::Math::Functor wf(this, &Pull::integrand, 2);
+
+    /* The range of the histogram for the indirect measurement */
+    double x1Min = copyHist->GetXaxis()->GetXmin();
+    double x1Max = copyHist->GetXaxis()->GetXmax();
+
+    /* The range of the histogram for y=x1-x2, where x1 and x2 denote the
+     * random variables associated with the indirect and direct measurements
+     * under consideration, respectively. */
+    double yMin, yMax;
+    yMin = x1Min - (meanTmp + 5.0*sigmaTmp);
+    yMax = x1Max - (meanTmp - 5.0*sigmaTmp);
+
+    /* Note that the result of the integration over the full range of x1
+     is not normalized to unity, since it depends on the bin size of the
+     histogram. */
+
+    /* Total */
+    ROOT::Math::IntegratorMultiDim ig2(wf, ROOT::Math::IntegrationMultiDim::kVEGAS,
+                                       AbsTolerance, RelTolerance, ncall);
+    double min2[2] = {x1Min, yMin};
+    double max2[2] = {x1Max, yMax};
+    double total = ig2.Integral(min2, max2);
+    if (ig2.Status())
+        std::cout << "Pull::calcPull(): Error in ig2.Integral()" << std::endl;
+    if (ig2.Error() > fabs(ig2.Result())*0.01) {
+        std::cout << "Pull::calcPull(): ig2.Error() > fabs(ig2.Result())*0.01" << std::endl;
+        std::cout << "total= " << total << " +- " << ig2.Error()
+                  << " [status=" << ig2.Status() << "]" << std::endl;
     }
-    return val;
-}
 
-
-double Pull::fdelta(const double x) 
-{
-    deltaTmp = x;
-    return integral("fconv", copyHist->GetXaxis()->GetXmin(), 
-                    copyHist->GetXaxis()->GetXmax());
-}
-
-
-double Pull::fzero(const double x, const double area) const 
-{
-    return ( 2.0*area - TMath::Erfc(x/sqrt(2.0)) );
-}
-
-
-double Pull::finverfc(const double x) const 
-{
-    double w = 3.0, eps = 0.001;
-    double diff, val, s = 0.0;
-
-    if (x <= 1.0e-100) return 20.0;
-    if (x >= 0.5) return 0.0;
-    do {
-        if (fzero(s, x) == 0.0) val = s;
-        if (fzero(s + w, x) == 0.0) val = s + w;
-        diff = fzero(s, x) * fzero(s + w, x);
-        if (diff < 0.0) {
-            w /= 2.0;
-            val = s + w;
-        } else if (diff > 0.0) {
-            s += w;
+    ROOT::Math::IntegratorMultiDim ig(wf, ROOT::Math::IntegrationMultiDim::kVEGAS,
+                                      AbsTolerance, RelTolerance, ncall);
+    double val;
+    if (0.0 > yMax)
+        val = 0.0;
+    else if (0.0 < yMin)
+        val = 1.0;
+    else {
+        if ( copyHist->GetMean() - meanTmp < 0.0 ) {
+            double min[2] = {x1Min, 0.0};
+            double max[2] = {x1Max, yMax};
+            val = ig.Integral(min, max)/total;
+        } else {
+            double min[2] = {x1Min, yMin};
+            double max[2] = {x1Max, 0.0};
+            val = 1.0 - ig.Integral(min, max)/total;
         }
-    } while (w > eps || diff == 0.0);
+        if (ig.Status())
+            std::cout << "Pull::calcPull(): Error in ig.Integral()" << std::endl;
+        if (ig.Error() > fabs(ig.Result())*0.01) {
+            std::cout << "Pull::calcPull(): ig.Error() > fabs(ig.Result())*0.01" << std::endl;
+            std::cout << "val= " << ig.Result() << " +- " << ig.Error()
+                      << " [status=" << ig.Status() << "]" << std::endl;
+        }
+    }
 
-    return val;
-}
 
+    /* Pull in units of the standard deviation */
+    double pull = 0.0;
+    if ( fabs(1.0-2.0*val) < 1.0  ) {
+        /* ErfInverse(x): x must be -1<x<1 */
+        //pull = - sqrt(2.0)*TMath::ErfInverse(1.0 - 2.0*val);
+        /* ErfcInverse(x): x must be 0<x<2 */
+        pull = - sqrt(2.0)*TMath::ErfcInverse(2.0*val);
+    } else {
+        double sign = 1.0;
+        if (1.0-2.0*val < 0.0) sign = -1.0;
+        pull = - 6.01 * sign;
+    }
 
-double Pull::f2(const double x, const double y) 
-{
-    double sump, val, tot;
-
-    meanTmp = x;
-    sigmaTmp = y;
-    
-    //tot = 1.0; sump = 0.2; // test
-    tot = integral("fdelta", -(x_up - x_low), 0.0);
-    sump = integral("fdelta", 0.0, x_up - x_low);
-    sump /= (sump + tot);
-
-    if (sump > 0.5) sump = 1.0 - sump;
-    val = finverfc(sump);
-
-    if (val >= 5.9) val = 6.01;
-    return val;
+    return pull;
 }
 
 
@@ -232,24 +248,29 @@ void Pull::makeCompatPlot()
         x_low = copyHist->GetXaxis()->GetXmin();
         x_up = copyHist->GetXaxis()->GetXmax();
         y_low = 0.0;
-        double rms = copyHist->GetRMS();
-        y_up = rms * 3.0;
+        y_up = copyHist->GetRMS() * 3.0;
     }
 
     if (CompatPlot!=NULL) delete CompatPlot;
     CompatPlot = new TH2D("CompatPlot", "", nx, x_low, x_up, ny, y_low, y_up);
 
-    double stepx = (x_up - x_low) / nx;
-    double stepy = (y_up - y_low) / ny;
+    double stepx = (x_up - x_low) / (double)nx;
+    double stepy = (y_up - y_low) / (double)ny;
     double x, y;
 
+    double pull;
+    std::cout << "nx: " << std::endl;
     for (int i = 0; i < nx; i++) {
-        x = (i + 0.5) * stepx + x_low;
+        if (i%10==0.0) std::cout << i << "/" << nx << std::endl;
+        x = ((double)i + 0.5) * stepx + x_low;
         for (int j = 0; j < ny; j++) {
-            y = (j + 0.5) * stepy + y_low;
-            CompatPlot->Fill(x, y, f2(x, y));
+            y = ((double)j + 0.5) * stepy + y_low;
+            pull = fabs(calcPull(x, y, true));
+            if (pull > 6.0) pull = 6.01;
+
+            CompatPlot->Fill(x, y, pull);
         }
-    }    
+    }
 }
 
 

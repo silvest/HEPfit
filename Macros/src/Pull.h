@@ -51,10 +51,11 @@ public:
     void Draw(const TString xlab, const TString ylab, 
               const double xval, const double xerr, const int maxDigits, 
               const double YTitleOffset=1.5);
-    
-    double f2(const double x, const double y); 
 
-    
+    double calcPull(const double mean, const double sigma, const bool lowStat=false);
+
+
+
 private:
 
     int nx;
@@ -79,7 +80,7 @@ private:
     
     double sigmaTmp;
     
-    double deltaTmp;
+    double integrand(const double* x) const;
 
     /**
      * @param[in] x
@@ -87,17 +88,6 @@ private:
      * underflow and overflow bins are set to 0. 
      */
     double fhisto(const double x) const;    
-
-    double fconv(const double x) const;
-    
-    double integral(const char* funcname, 
-                    const double xmin, const double xmax); 
-
-    double fdelta(const double x);
-
-    double fzero(const double x, const double area) const;
-
-    double finverfc(const double x) const;    
     
     void makeCompatPlot();
     

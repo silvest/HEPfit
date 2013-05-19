@@ -12,11 +12,12 @@
 #include <TString.h>
 #include <TGaxis.h>
 #include <TPad.h>
-#include <BAT/BCH1D.h>
 #include "SFH1D.h"
 
-SFH1D::SFH1D(TH1D& hist, const double prob68_in, const double prob95_in) 
-: prob68(prob68_in), prob95(prob95_in), origHist(hist), origName(hist.GetName())
+SFH1D::SFH1D(TH1D& hist, const double prob68_in, const double prob95_in,
+             const double prob99_in)
+: prob68(prob68_in), prob95(prob95_in), prob99(prob99_in),
+        origHist(hist), origName(hist.GetName())
 {
     std::string NewName = origName + "_new";
     newHist = (TH1D*) hist.Clone(NewName.c_str()); 
@@ -26,6 +27,7 @@ SFH1D::SFH1D(TH1D& hist, const double prob68_in, const double prob95_in)
     
     newHist68 = (TH1D*) newHist->Clone("68"); 
     newHist95 = (TH1D*) newHist->Clone("95");     
+    newHist99 = (TH1D*) newHist->Clone("99");
 
     computeIntervals();
 }
@@ -151,9 +153,11 @@ void SFH1D::Draw(const int lineStyle, const int lineWidth, const int lineColor,
     newHist->Scale(1.0/newHist->Integral());
     newHist68->Scale(1.0/newHist->Integral());
     newHist95->Scale(1.0/newHist->Integral());
+    newHist99->Scale(1.0/newHist->Integral()); /* This is necessary even in case where the 99% one is not drawn. */
     newHist->Scale(1.0/newHist->GetBinWidth(1));
     newHist68->Scale(1.0/newHist->GetBinWidth(1));
     newHist95->Scale(1.0/newHist->GetBinWidth(1));
+    newHist99->Scale(1.0/newHist->GetBinWidth(1)); /* This is necessary even in case where the 99% one is not drawn. */
     
     // styles
     newHist->SetLineStyle(lineStyle);
@@ -200,7 +204,8 @@ void SFH1D::OutputResults(ostream& os, const int smooth, const bool WasDrawed) c
     char opt[10] = "";
     if(WasDrawed) strcpy(opt, "width");
     
-    os << "  Num of bins: " << newHist->GetNbinsX() 
+    os << std::fixed
+       << "  Num of bins: " << newHist->GetNbinsX()
        << "   smooth: " << smooth << " time(s)" << std::endl
        << "  Local mode: " << localMode
        << " + " << xmax68 - localMode 
@@ -209,10 +214,13 @@ void SFH1D::OutputResults(ostream& os, const int smooth, const bool WasDrawed) c
        << "% interval: " << (xmin68 + xmax68)/2.0
        << " +- " << (xmax68 - xmin68)/2.0 << std::endl
        << "  at " << newHist68->Integral(opt)*100.0 << " % (>~"
-       << prob68*100.0 << "%)" << " [" << xmin68 << ", " << xmax68 << "]" 
+       << prob68*100.0 << "%)" << " [" << xmin68 << ", " << xmax68 << "]"
        << std::endl
        << "  at " << newHist95->Integral(opt)*100.0 << " % (>~"
        << prob95*100.0 << "%)" << " [" << xmin95 << ", " << xmax95 << "]" 
+       << std::endl
+       << "  at " << newHist99->Integral(opt)*100.0 << " % (>~"
+       << prob99*100.0 << "%)" << " [" << xmin99 << ", " << xmax99 << "]"
        << std::endl;        
 }
 
@@ -232,34 +240,52 @@ double SFH1D::quadra(const double x, const double xx[3], const double yy[3]) con
 
 TH1D* SFH1D::HistInterval(double &min, double &max, const double level) const
 {
+    if( newHist->Integral()==0.0 ) return 0;
     newHist->Scale(1.0/newHist->Integral());
-    
-    BCH1D *myBCH1D = new BCH1D(newHist);  
-    TH1D* tmpHist = myBCH1D->GetSmallestIntervalHistogram(level);
-    for (int n = 1; n <= tmpHist->GetNbinsX(); n++) {
-        if (tmpHist->GetBinContent(n)!=0.0) 
-            tmpHist->SetBinContent(n, newHist->GetBinContent(n));
-    }    
+
+    // Clone
+    TH1D* histClone = (TH1D*)newHist->Clone();
+    histClone->Scale(1.0/newHist->Integral());
+
+    // the histogram containing only the smallest interval of the original
+    // histogram at the level given in the argument. 
+    TH1D* HistSmallestInterval = (TH1D*)newHist->Clone();
+    HistSmallestInterval->Reset();
+    double sum = 0.0;
+    while (sum < level) {
+        double content = histClone->GetMaximum(); /* maximum bin content */
+        int bin = histClone->GetMaximumBin(); /* bin number */
+
+        // add the maximum bin of histClone to HistSmallestInterval
+        HistSmallestInterval->SetBinContent(bin, content);
+
+        // remove the maximum bin from histClone
+        histClone->SetBinContent(bin, 0.0);
+
+        sum += content;
+    }
     
     // get the minimum of the interval
     bool flag = false;
-    for (int n = 1; n <= tmpHist->GetNbinsX(); n++) {
-        if (tmpHist->GetBinContent(n)!=0.0 && !flag) {
-            min = tmpHist->GetBinLowEdge(n);
+    for (int n = 1; n <= HistSmallestInterval->GetNbinsX(); n++) {
+        if (HistSmallestInterval->GetBinContent(n)!=0.0 && !flag) {
+            min = HistSmallestInterval->GetBinLowEdge(n);
             flag = true;
         }
     }
+    if (!flag) min = newHist->GetXaxis()->GetXmin();
 
     // get the maximum of the interval
     flag = false;
-    for (int n = tmpHist->GetNbinsX(); n >= 1; n--) {
-        if (tmpHist->GetBinContent(n)!=0.0 && !flag) {
-            max = tmpHist->GetBinLowEdge(n) + tmpHist->GetBinWidth(1);
+    for (int n = HistSmallestInterval->GetNbinsX(); n >= 1; n--) {
+        if (HistSmallestInterval->GetBinContent(n)!=0.0 && !flag) {
+            max = HistSmallestInterval->GetBinLowEdge(n) + HistSmallestInterval->GetBinWidth(1);
             flag = true;
         }
     }
-    
-    return tmpHist;
+    if (!flag) max = newHist->GetXaxis()->GetXmax();
+
+    return HistSmallestInterval;
 }
 
 
@@ -274,7 +300,11 @@ void SFH1D::computeIntervals()
     newHist95 = HistInterval(min, max, prob95);
     xmin95 = min;
     xmax95 = max;
-    
+    if(newHist99!=NULL) delete newHist99;
+    newHist99 = HistInterval(min, max, prob99);
+    xmin99 = min;
+    xmax99 = max;
+
     localMode = newHist->GetBinCenter(newHist->GetMaximumBin());
 }
 
