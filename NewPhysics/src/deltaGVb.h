@@ -10,7 +10,6 @@
 
 #include <ThObservable.h>
 #include <ThObsType.h>
-#include "NPZbbbar.h"
 
 /**
  * @class deltaGVb

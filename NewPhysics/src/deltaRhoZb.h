@@ -10,7 +10,6 @@
 
 #include <ThObservable.h>
 #include <ThObsType.h>
-#include "NPZbbbar.h"
 
 /**
  * @class deltaRhoZb
@@ -40,8 +39,13 @@ public:
         if (SM.IsFlagNotLinearizedNP())
             return ( SM.rhoZ_q(SM.BOTTOM).real() 
                      - SM.StandardModel::rhoZ_q(SM.BOTTOM).real() );
-        else 
-            throw std::runtime_error("ERROR: deltaRhoZb::getThValue() cannot be used with flag NotLinearizedNP=1.");
+        else {
+            complex gAb = SM.StandardModel::gAq(SM.BOTTOM) + SM.deltaGAq(SM.BOTTOM);
+            double I3b = SM.getQuarks(SM.BOTTOM).getIsospin();
+            double rhoZb_full = (gAb*gAb/I3b/I3b).real();
+            return ( rhoZb_full
+                     - SM.StandardModel::rhoZ_q(SM.BOTTOM).real() );
+        }
     };
     
 private:
