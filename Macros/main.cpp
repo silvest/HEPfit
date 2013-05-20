@@ -62,6 +62,7 @@ int main(int argc, char** argv)
         cout << "   --outputTxt      -> output results to a text file                  " << endl;
         cout << "   -output=filename -> the base name of output eps and text files (without extension)" << endl;
         cout << "                       [default: plotname]                            " << endl;
+        cout << "   --pdf            -> output pdf instead of eps                      " << endl;
         cout << "   -maxDigits=n     -> set max digits in the axis labels [default: n=8]" << endl;
         cout << "   -precision=n     -> precision of values in the std output [default: n=6]" << endl;
         cout << "   -prob68=prob     -> probability for the first interval [default: prob=0.68]" << endl;
@@ -102,6 +103,7 @@ int main(int argc, char** argv)
         cout << "   --outputTxt      -> output results to a text file                  " << endl;
         cout << "   -output=filename -> the base name of output eps and text files (without extension)" << endl;
         cout << "                       [default: plotname]                            " << endl;
+        cout << "   --pdf            -> output pdf instead of eps                      " << endl;
         cout << "   -maxDigits=n     -> set max digits in the axis labels [default: n=8]" << endl;
         cout << "   -precision=n     -> precision of values in the std output [default: n=6]" << endl;
         cout << "   -prob68=prob     -> probability for the first interval [default: prob=0.68]" << endl;
@@ -123,6 +125,7 @@ int main(int argc, char** argv)
         cout << "   --outputTxt      -> output results to a text file                  " << endl;
         cout << "   -output=filename -> the base name of output eps and text files (without extension)" << endl;
         cout << "                       [default: plotname]                            " << endl;
+        cout << "   --pdf            -> output pdf instead of eps                      " << endl;
         cout << "   -maxDigits=n     -> set max digits in the axis labels [default: n=8]" << endl;
         cout << "   -precision=n     -> precision of values in the std output [default: n=6]" << endl;
         cout << "   -addtext=text    -> attach additional information                  " << endl;
@@ -165,6 +168,7 @@ int main(int argc, char** argv)
     double prob68 = 0.68, prob95 = 0.95, prob99 = 0.99;
     //
     bool bOneDim = false, bCompat = false, bTwoDim = false;
+    bool bPDF = false;
     bool bOrig = false, bOutputTxt = false, bContLines = false, bLeftLegend = false;
     bool bRescaleForMHl = false;
     int maxDig = 8, prec = 6;
@@ -228,6 +232,7 @@ int main(int argc, char** argv)
     for (int i = 3; i < argc; i++) {
         char str[100];
         if (strncmp(argv[i], "--orig", 6) == 0) bOrig = true;
+        if (strncmp(argv[i], "--pdf", 5) == 0) bPDF = true;
         else if (strncmp(argv[i], "--outputTxt", 11) == 0) bOutputTxt = true;        
         else if (strncmp(argv[i], "--drawlines", 11) == 0) bContLines = true;        
         else if (strncmp(argv[i], "--leftLegend", 12) == 0) bLeftLegend = true;        
@@ -475,8 +480,9 @@ int main(int argc, char** argv)
     // output files
     if (outputFileName.compare("")==0)
         outputFileName = plotname[0];
-    string epsFileName = outputFileName + ".eps";
-//    string epsFileName = outputFileName + ".pdf";
+    string epsFileName = outputFileName;
+    if (!bPDF) epsFileName += ".eps";
+    else epsFileName += ".pdf";
     string txtFileName = outputFileName + ".txt";    
 
     for (int n=0; n<NumHist; n++) {
@@ -578,7 +584,7 @@ int main(int argc, char** argv)
             SFHisto1D[0]->getHistAxes()->GetXaxis()->SetRange(400,1400);
             leg[0] += " [x10]";
         }
-            
+
         // superimpose other histograms
         for (int n=1; n<NumHist; n++) {
             if ( plotname[n].compare("")!=0 ) {
@@ -648,7 +654,17 @@ int main(int argc, char** argv)
         SFH1D orig1D(*hist[0], prob68, prob95, prob99);
         os << endl << "[Original histogram]" << endl;
         orig1D.OutputResults(os, 0, false);
- 
+
+        /* write the modified histograms to a root file */
+        TFile *outRootFile;
+        string outRootFileName = outputFileName + ".root";
+        outRootFile = new TFile(outRootFileName.c_str(), "RECREATE");
+        for (int n=0; n<NumHist; n++)
+            if ( plotname[n].compare("")!=0 )
+                SFHisto1D[n]->getNewHist()->Write(plotname[n].c_str());
+        outRootFile->Close();
+        cout << outRootFileName << " has been created." << endl;
+
     //----------------------------------------------------------------------
     // Compatibility plot
         
@@ -785,7 +801,8 @@ int main(int argc, char** argv)
     
     gPad->RedrawAxis();
     TC.Print(epsFileName.c_str());
-    
+
+    /* close the output text file */
     if (bOutputTxt) {
         fout->close();          
         cout << txtFileName << " has been created." << endl;
