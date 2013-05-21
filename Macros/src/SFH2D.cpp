@@ -41,6 +41,9 @@ SFH2D::SFH2D(TH2D& hist, std::ostream& os_in,
         yLow = y_low;
         yUp = y_up;
     }
+
+    /* Debug */
+    //std::cout << "SFH2D::SFH2D(): " << xLow << " " << xUp << " " << yLow << " " << yUp << std::endl;
 }
 
 
@@ -68,20 +71,23 @@ void SFH2D::Draw(const TString xlab, const TString ylab,
         null2D->Reset("M");
         delete null2D;
 
-//        double scaleFactor = 0.1;
-//        double scaleFactor = -0.3;
-        double scaleFactor = 0.0;
+        double xmin = xLow;
+        double xmax = xUp;
+        double ymin = yLow;
+        double ymax = yUp;
 
-        xLow += (xUp - xLow)*scaleFactor;
-        xUp -= (xUp - xLow)*scaleFactor;
-        yLow += (yUp - yLow)*scaleFactor;
-        yUp -= (yUp - yLow)*scaleFactor;
+        //double scaleFactor = -0.2; // wide ranges (for debug)
+        double scaleFactor = 0.0; // normal
+        xmin += (xUp - xLow)*scaleFactor;
+        xmax -= (xUp - xLow)*scaleFactor;
+        ymin += (yUp - yLow)*scaleFactor;
+        ymax -= (yUp - yLow)*scaleFactor;
 
         /* Debug */
-        std::cout << "SFH2D::Draw(): " << xLow << " " << xUp << " " << yLow << " " << yUp << std::endl;
+        //std::cout << "SFH2D::Draw(): " << xmin << " " << xmax << " " << ymin << " " << ymax << std::endl;
 
-        null2D = new TH2D("null2D","null2D", newHist->GetNbinsX(), xLow, xUp, 
-                          newHist->GetNbinsY(), yLow, yUp); 
+        null2D = new TH2D("null2D","null2D", newHist->GetNbinsX(), xmin, xmax,
+                          newHist->GetNbinsY(), ymin, ymax);
         null2D->SetXTitle(newHist->GetXaxis()->GetTitle());
         null2D->SetYTitle(newHist->GetYaxis()->GetTitle());
         null2D->SetTitle("");
@@ -207,14 +213,14 @@ void SFH2D::drawFromGraph(const int ind, const std::string DrawOpts,
     // get contours with the index "ind" 
     TList* contour = (TList*) getContours()->At(ind);
 
-    // the minimum and the maximum of the axes in the histogram
-    double xmin = newHist->GetXaxis()->GetXmin();
-    double xmax = newHist->GetXaxis()->GetXmax();
-    double ymin = newHist->GetYaxis()->GetXmin();
-    double ymax = newHist->GetYaxis()->GetXmax();
+    // the minimum and the maximum of the axes
+    double xmin = xLow;
+    double xmax = xUp;
+    double ymin = yLow;
+    double ymax = yUp;
     
     /* Debug */
-    std::cout << "SFH2D::drawFromGraph():" << xmin << " " << xmax << " " << ymin << " " << ymax << std::endl;
+    //std::cout << "SFH2D::drawFromGraph():" << xmin << " " << xmax << " " << ymin << " " << ymax << std::endl;
 
     double epsp = 1.0;
     double epsm = 1.0 - 1.0e-6;
@@ -347,18 +353,18 @@ void SFH2D::drawFromGraph(const int ind, const std::string DrawOpts,
 TGraph* SFH2D::CloseTGraph(TGraph* inputgraph) const 
 {
     TAxis* tmp = (TAxis*) newHist->GetXaxis();
-    double xmin = tmp->GetXmin();
-    double xmax = tmp->GetXmax();
     double deltax = tmp->GetBinWidth(1);
 
     tmp = (TAxis*) newHist->GetYaxis();
-    double ymin = tmp->GetXmin();
-    double ymax = tmp->GetXmax();    
-    double biny = tmp->GetNbins();
     double deltay = tmp->GetBinWidth(1);
 
+    double xmin = xLow;
+    double xmax = xUp;
+    double ymin = yLow;
+    double ymax = yUp;
+
     /* Debug */
-    std::cout << "SFH2D::CloseTGraph():" << xmin << " " << xmax << " " << ymin << " " << ymax << std::endl;
+    //std::cout << "SFH2D::CloseTGraph():" << xmin << " " << xmax << " " << ymin << " " << ymax << std::endl;
 
     // get the end points of the contour line
     double x_i, x_j, y_i, y_j;
@@ -478,10 +484,13 @@ TGraph* SFH2D::CloseTGraph(TGraph* inputgraph) const
 TGraph* SFH2D::CloseTwoTGraphs(const int cont_ind, TGraph* inputgraph1, 
                                TGraph* inputgraph2) const
 {
-    double xmin = newHist->GetXaxis()->GetXmin();
-    double xmax = newHist->GetXaxis()->GetXmax();
-    double ymin = newHist->GetYaxis()->GetXmin();
-    double ymax = newHist->GetYaxis()->GetXmax();    
+    double xmin = xLow;
+    double xmax = xUp;
+    double ymin = yLow;
+    double ymax = yUp;
+
+    /* Debug */
+    //std::cout << "SFH2D::CloseTwoTGraph():" << xmin << " " << xmax << " " << ymin << " " << ymax << std::endl;
 
     double epsp = 1.0;
     double epsm = 1.0 - 1.0e-6;
@@ -552,8 +561,7 @@ TGraph* SFH2D::CloseTwoTGraphs(const int cont_ind, TGraph* inputgraph1,
 
     // add more points to the interval between an end point of the first contour 
     // and that of the second contour
-    int NP = 200;
-    //int NP = 20;
+    int NP = 2000;
     if (p_xmin.size()==2) { // left
         double xtmp, ytmp;
         for (int i=0; i<NP; i++) {
@@ -632,7 +640,7 @@ TGraph* SFH2D::CloseTwoTGraphs(const int cont_ind, TGraph* inputgraph1,
     // add more points to the interval of the first and the last points 
     double xtmp, ytmp;
     SFH2D_Point p_last(vp_new.back().m_x, vp_new.back().m_y);
-    int NP2 = 200;
+    int NP2 = 2000;
     for (int i=0; i<NP2; i++) {
         xtmp = p_last.m_x + (vp_new.front().m_x - p_last.m_x)/NP2*(double)i;
         ytmp = p_last.m_y + (vp_new.front().m_y - p_last.m_y)/NP2*(double)i;

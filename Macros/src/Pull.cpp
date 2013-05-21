@@ -18,6 +18,8 @@
 #include <Math/AllIntegrationTypes.h>
 #include "Pull.h"
 
+#define SIGMA_UPPERBOUND 6.01
+
 
 Pull::Pull(TH1D& hist, const int nbinX, const int nbinY, 
            const double xLow, const double xUp, 
@@ -177,8 +179,8 @@ double Pull::calcPull(const double mean, const double sigma, const bool lowStat)
      * random variables associated with the indirect and direct measurements
      * under consideration, respectively. */
     double yMin, yMax;
-    yMin = x1Min - (meanTmp + 5.0*sigmaTmp);
-    yMax = x1Max - (meanTmp - 5.0*sigmaTmp);
+    yMin = x1Min - (meanTmp + SIGMA_UPPERBOUND*sigmaTmp);
+    yMax = x1Max - (meanTmp - SIGMA_UPPERBOUND*sigmaTmp);
 
     /* Note that the result of the integration over the full range of x1
      is not normalized to unity, since it depends on the bin size of the
@@ -235,7 +237,7 @@ double Pull::calcPull(const double mean, const double sigma, const bool lowStat)
     } else {
         double sign = 1.0;
         if (1.0-2.0*val < 0.0) sign = -1.0;
-        pull = - 6.01 * sign;
+        pull = - SIGMA_UPPERBOUND * sign;
     }
 
     return pull;
@@ -266,7 +268,7 @@ void Pull::makeCompatPlot()
         for (int j = 0; j < ny; j++) {
             y = ((double)j + 0.5) * stepy + y_low;
             pull = fabs(calcPull(x, y, true));
-            if (pull > 6.0) pull = 6.01;
+            if (pull > 6.0) pull = SIGMA_UPPERBOUND;
 
             CompatPlot->Fill(x, y, pull);
         }

@@ -10,7 +10,7 @@
 
 void BaseMacros::DefineNewColours() 
 {
-    TColor *color[150];
+    TColor *color[200];
     color[0] = new TColor(1300, 1.0, 1.0, 1.0, "");
     color[1] = new TColor(1301, 0.0, 0.0, 0.0, "");
     color[2] = new TColor(1302, 1.0, 0.0, 0.0, "");
@@ -100,17 +100,17 @@ void BaseMacros::DefineNewColours()
     color[91] = new TColor(1391, 0.70, 0.25, 0.25, "");
     color[92] = new TColor(1392, 0.87, 0.87, 0.91, ""); //blue
     color[93] = new TColor(1393, 0.59, 0.58, 0.91, "");
-    color[94] = new TColor(1394, 0.65, 0.55, 0.85, ""); //violet (gamma)
+    color[94] = new TColor(1394, 0.65, 0.55, 0.85, ""); //violet
     color[95] = new TColor(1395, 0.49, 0.26, 0.64, "");
-    color[96] = new TColor(1396, 0.95, 0.95, 0.45, ""); // yellow (alpha)
+    color[96] = new TColor(1396, 0.95, 0.95, 0.45, ""); // yellow
     color[97] = new TColor(1397, 0.95, 0.95, 0.05, "");
-    color[98] = new TColor(1398, 0.75, 0.92, 0.68, ""); //green (2beta+gamma)
+    color[98] = new TColor(1398, 0.75, 0.92, 0.68, ""); //green
     color[99] = new TColor(1399, 0.36, 0.57, 0.30, "");
     color[100] = new TColor(1400, 0.97, 0.50, 0.09, ""); // orange
     color[101] = new TColor(1401, 0.76, 0.34, 0.09, "");
     color[102] = new TColor(1402, 0.97, 0.52, 0.75, ""); // pink 
     color[103] = new TColor(1403, 0.76, 0.32, 0.51, "");
-    color[104] = new TColor(1404, 0.49, 0.60, 0.82, ""); // dark blue (kpnn)
+    color[104] = new TColor(1404, 0.49, 0.60, 0.82, ""); // dark blue
     color[105] = new TColor(1405, 0.43, 0.48, 0.52, "");
     color[106] = new TColor(1406, 0.70, 0.70, 0.70, ""); // black
     color[107] = new TColor(1407, 0.40, 0.40, 0.40, "");
@@ -118,7 +118,7 @@ void BaseMacros::DefineNewColours()
     color[109] = new TColor(1409, 0.10, 0.40, 0.10, "");
     color[110] = new TColor(1410, 0.00, 0.00, 0.00, "");
 
-    /* Transparent colors 
+    /* 
      *   cf. white   1,1,1
      *       black   0,0,0
      *       red     1,0,0
@@ -128,17 +128,13 @@ void BaseMacros::DefineNewColours()
      *       magenta 1,0,1
      *       cyan    0,1,1
      */
-    color[111] = new TColor(1501, 1.00, 0.00, 1.00, "", 0.6); // magenta
-    color[112] = new TColor(1502, 0.00, 1.00, 0.00, "", 0.6); // lime
-    color[113] = new TColor(1503, 0.00, 0.00, 1.00, "", 0.6); // blue
-    color[114] = new TColor(1504, 0.00, 0.00, 0.00, "", 0.6); // black
-    color[115] = new TColor(1505, 0.30, 0.30, 0.30, "", 0.8); // gray
-    color[116] = new TColor(1506, 0.00, 1.00, 1.00, "", 0.6); // cyan
-    color[117] = new TColor(1507, 1.00, 0.50, 0.00, "", 0.6); // orange
-    color[118] = new TColor(1508, 0.00, 0.50, 1.00, "", 0.6); // blue(+green)
-    color[119] = new TColor(1509, 75./255., 0./255., 130./255., "", 0.6); // indigo
-    color[120] = new TColor(1510, 0.00, 0.50, 0.00, "", 0.6); // green
-    color[121] = new TColor(1511, 1., 69./255., 0., "", 0.6); // orange red
+    color[151] = new TColor(2151, 1.00, 0.00, 1.00); // magenta
+    color[152] = new TColor(2152, 100./255., 149./255., 237./255.); // corn flower blue #6495ED
+    color[153] = new TColor(2153, 255./255., 140./255., 0.); // dark orange #FF8C00
+    color[154] = new TColor(2154, 0., 1., 0.); // lime #00FF00
+    color[155] = new TColor(2155, 173./255., 1., 47./255.); // green yellow #ADFF2F
+    color[156] = new TColor(2156, 0., 100./255., 0.); // dark green #006400
+    color[157] = new TColor(2157, 192./255., 192./255., 192./255.); // silver
 }
 
 
@@ -228,7 +224,7 @@ TString BaseMacros::ConvertTitle(TString orig) const
     else if (strncmp(orig, "GammaW", 6) == 0) str = "#Gamma_{#lower[-0.2]{W}}#kern[0.1]{[GeV]}";
     else if (strncmp(orig, "#Gamma_{W}", 10) == 0) str = "#Gamma_{#lower[-0.2]{W}}#kern[0.1]{[GeV]}";
     //
-    else if (strncmp(orig, "AllForST", 8) == 0) str = "All (incl. R^{0}_{#lower[-0.5]{f}}, #sigma^{0}_{#lower[-0.2]{h}}, #Gamma_{#lower[-0.2]{W}})";    
+    else if (strncmp(orig, "AllForST", 8) == 0) str = "All (incl. #Gamma_{#lower[-0.2]{W}}, #sigma^{0}_{#lower[-0.2]{h}}, R^{0}_{#lower[-0.5]{f}})";
     else if (strncmp(orig, "AllAsymmetries", 14) == 0) str = "sin^{2}#theta_{#lower[-0.3]{eff}}^{lept}, P_{#lower[-0.3]{#tau}}^{Pol}, A_{#kern[0.2]{#lower[-0.3]{f}}}, A_{#lower[-0.3]{FB}}^{0,f}";    
     else if (strncmp(orig, "EPS2EPSBSM", 9) == 0) str = "#varepsilon_{#lower[-0.2]{2}}=#varepsilon_{#lower[-0.2]{2}}^{SM}, #varepsilon_{#lower[-0.2]{b}}=#varepsilon_{#lower[-0.2]{b}}^{SM}" ;    
     //

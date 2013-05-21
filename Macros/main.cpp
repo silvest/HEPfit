@@ -11,9 +11,12 @@
 #include <fstream>
 #include <streambuf>
 #include <algorithm>
+#include <TRoot.h>
+#include <TSystem.h>
 #include <TApplication.h>
 #include <TCanvas.h>
 #include <TFile.h>
+#include <TColor.h>
 #include <TString.h>
 #include <TObject.h>
 #include <TF1.h>
@@ -89,6 +92,8 @@ int main(int argc, char** argv)
         cout << "   -lineColorN=index -> index of the line color [default: index=1]    " << endl;
         cout << "   -col68N=index    -> color index of the 68% interval for plotN [default: index=1393]" << endl;
         cout << "   -col95N=index    -> color index of the 95% interval for plotN [default: index=1392]" << endl;
+        cout << "   -col68alphaN=alpha -> color transparency of the 68% interval for plotN [default: alpha=1]" << endl;
+        cout << "   -col95alphaN=alpha -> color transparency of the 95% interval for plotN [default: alpha=1]" << endl;
         cout << "   -fillN=index     -> index of the fill area style [default: index=1001]" << endl;
         cout << "   -legN=legend     -> legend for plotN [default: no legend]          " << endl;
         cout << "   [e.g. -plot2=Mw -roogfile2=test.root -smooth2=3 -col682=2 -col952=5]" << endl;
@@ -145,6 +150,8 @@ int main(int argc, char** argv)
         cout << "   -smoothN=ntime   -> iterative smoothing for plotN [default: ntime=0]" << endl;
         cout << "   -col68N=index    -> color index of the 68% interval for plotN [default: index=1393]" << endl;
         cout << "   -col95N=index    -> color index of the 95% interval for plotN [default: index=1392]" << endl;
+        cout << "   -col68alphaN=alpha -> color transparency of the 68% interval for plotN [default: alpha=1]" << endl;
+        cout << "   -col95alphaN=alpha -> color transparency of the 95% interval for plotN [default: alpha=1]" << endl;
         cout << "   -lineStyleN=index-> index of the line style [default: index=1]     " << endl;
         cout << "   -lineStyle68N=index-> index of the line style for the 68% contour [default: index=3]" << endl;
         cout << "   -lineWidthN=index-> index of the line width [default: index=1]    " << endl;
@@ -199,6 +206,8 @@ int main(int argc, char** argv)
     int lineColor[NumHist] = {1, 1, 1, 1};
     int col68[NumHist] = {1393, 1393, 1393, 1393};
     int col95[NumHist] = {1392, 1392, 1392, 1392};
+    double col68alpha[NumHist] = {1.0, 1.0, 1.0, 1.0};
+    double col95alpha[NumHist] = {1.0, 1.0, 1.0, 1.0};
     int fillStyle[NumHist] = {1001, 1001, 1001, 1001};
     int newNbins[NumHist] = {100, 100, 100, 100};
     bool bOnlyLine[NumHist] = {false, false, false, false};
@@ -206,6 +215,7 @@ int main(int argc, char** argv)
     
     double legend_scale = 1.0;
     double leg_xmin = 0.63, leg_ymax = 0.88;
+
 
     //----------------------------------------------------------------------
     
@@ -355,6 +365,23 @@ int main(int argc, char** argv)
         else if (strncmp(argv[i], "-col954=", 8) == 0) 
             sscanf(argv[i], "-col954=%d", &col95[3]);
 
+        else if (strncmp(argv[i], "-col68alpha1=", 13) == 0)
+            sscanf(argv[i], "-col68alpha1=%lf", &col68alpha[0]);
+        else if (strncmp(argv[i], "-col95alpha1=", 13) == 0)
+            sscanf(argv[i], "-col95alpha1=%lf", &col95alpha[0]);
+        else if (strncmp(argv[i], "-col68alpha2=", 13) == 0)
+            sscanf(argv[i], "-col68alpha2=%lf", &col68alpha[1]);
+        else if (strncmp(argv[i], "-col95alpha2=", 13) == 0)
+            sscanf(argv[i], "-col95alpha2=%lf", &col95alpha[1]);
+        else if (strncmp(argv[i], "-col68alpha3=", 13) == 0)
+            sscanf(argv[i], "-col68alpha3=%lf", &col68alpha[2]);
+        else if (strncmp(argv[i], "-col95alpha3=", 13) == 0)
+            sscanf(argv[i], "-col95alpha3=%lf", &col95alpha[2]);
+        else if (strncmp(argv[i], "-col68alpha4=", 13) == 0)
+            sscanf(argv[i], "-col68alpha4=%lf", &col68alpha[3]);
+        else if (strncmp(argv[i], "-col95alpha4=", 13) == 0)
+            sscanf(argv[i], "-col95alpha4=%lf", &col95alpha[3]);
+
         else if (strncmp(argv[i], "-lineStyle1=", 12) == 0) 
             sscanf(argv[i], "-lineStyle1=%d", &lineStyle[0]);
         else if (strncmp(argv[i], "-lineStyle2=", 12) == 0) 
@@ -466,7 +493,7 @@ int main(int argc, char** argv)
             return 1;            
         } 
     }        
-    
+
     // Errors
     if (!(bOneDim | bCompat | bTwoDim)) {
         cout << "Error: A mandatory option --oneDim, --compat or --twoDim is missing!" << endl;
@@ -497,6 +524,25 @@ int main(int argc, char** argv)
     }
 
     //----------------------------------------------------------------------
+    // Colors
+
+    BaseMacros::DefineNewColours();
+    BaseMacros myMacros;
+
+    // Fill colors
+    TColor *FillCol68[NumHist], *FillCol95[NumHist];
+    for (int i=0; i<NumHist; i++) {
+        TColor *colTmp = gROOT->GetColor(col68[i]);
+        FillCol68[i] = new TColor(col68[i]+10000, colTmp->GetRed(),
+                                  colTmp->GetGreen(), colTmp->GetBlue());
+        FillCol68[i]->SetAlpha(col68alpha[i]);
+        TColor *colTmp2 = gROOT->GetColor(col95[i]);
+        FillCol95[i] = new TColor(col95[i]+10000, colTmp2->GetRed(),
+                                  colTmp2->GetGreen(), colTmp2->GetBlue());
+        FillCol95[i]->SetAlpha(col95alpha[i]);
+    }
+
+    //----------------------------------------------------------------------
 
     ofstream* fout;
     streambuf* buf;
@@ -511,9 +557,12 @@ int main(int argc, char** argv)
     ostream os(buf);
     os.precision(prec);
 
-    BaseMacros::DefineNewColours();
-    BaseMacros myMacros;
-    
+    //double CanvasWidth = 300.0;
+    //double CanvasHeight = 300.0;
+    //TCanvas TC("TC", "TC", CanvasWidth, CanvasHeight);
+    //TC.SetWindowSize(CanvasWidth + (CanvasWidth - TC.GetWw()),
+    //                 CanvasHeight + (CanvasHeight - TC.GetWh()));
+    //gSystem->ProcessEvents();
     TCanvas TC("TC", "TC", 3);
     TC.SetLeftMargin(0.20);
     // TC.SetRightMargin(0.20);
@@ -526,7 +575,7 @@ int main(int argc, char** argv)
     gStyle->SetOptStat(0);
     gStyle->SetOptTitle(0);
     //gStyle->SetStripDecimals(false);   
-    
+
     // New line styles
     gStyle->SetLineStyleString(11,"28 25");
     gStyle->SetLineStyleString(12,"35 25 13 25");
@@ -569,7 +618,8 @@ int main(int argc, char** argv)
         SFHisto1D[0]->increaseNbins(newNbins[0]);
         SFHisto1D[0]->DrawAxes(xlab, ylab, maxDig, x_low, x_up, yTitleOffset); // draw the axes
         SFHisto1D[0]->Draw(lineStyle[0], lineWidth[0], lineColor[0], 
-                           col68[0], col95[0], fillStyle[0], bOnlyLine[0], bOrig); 
+                           FillCol68[0]->GetNumber(), FillCol95[0]->GetNumber(),
+                           fillStyle[0], bOnlyLine[0], bOrig);
         if (bOnlyLine[0]) 
             plot_pt[0] = SFHisto1D[0]->getNewHist();
         else 
@@ -593,7 +643,8 @@ int main(int argc, char** argv)
                 SFHisto1D[n]->smoothHist(smooth[n]);
                 SFHisto1D[n]->increaseNbins(newNbins[n]);
                 SFHisto1D[n]->Draw(lineStyle[n], lineWidth[n], lineColor[n], 
-                                   col68[n], col95[n], fillStyle[n], bOnlyLine[n], bOrig);    
+                                   FillCol68[n]->GetNumber(), FillCol95[n]->GetNumber(),
+                                   fillStyle[n], bOnlyLine[n], bOrig);
                 if (bOnlyLine[n]) 
                     plot_pt[n] = SFHisto1D[n]->getNewHist();
                 else 
@@ -692,7 +743,8 @@ int main(int argc, char** argv)
         
         SFHisto2D[0] = new SFH2D(*hist[0], os, prob68, prob95, x_low, x_up, y_low, y_up);
         SFHisto2D[0]->smoothHist(smooth[0]);
-        SFHisto2D[0]->Draw(xlab, ylab, lineWidth[0], lineColor[0], col68[0], col95[0],
+        SFHisto2D[0]->Draw(xlab, ylab, lineWidth[0], lineColor[0],
+                           FillCol68[0]->GetNumber(), FillCol95[0]->GetNumber(),
                            lineStyle[0], lineStyle68[0], fillStyle[0],
                            maxDig, bContLines, bOnly95[0], false, yTitleOffset);
         contour_pt[0] = SFHisto2D[0]->getContour();
@@ -703,9 +755,10 @@ int main(int argc, char** argv)
                 os << "[Graph " << n+1 << "]" << endl;
                 os << "  smooth: " << smooth[n] << " time(s)" << endl;
                 hist[n] = (TH2D*) tobj[n]->Clone();
-                SFHisto2D[n] = new SFH2D(*hist[n], os, prob68, prob95);
+                SFHisto2D[n] = new SFH2D(*hist[n], os, prob68, prob95, x_low, x_up, y_low, y_up);
                 SFHisto2D[n]->smoothHist(smooth[n]);
-                SFHisto2D[n]->Draw("", "", lineWidth[n], lineColor[n], col68[n], col95[n], 
+                SFHisto2D[n]->Draw("", "", lineWidth[n], lineColor[n],
+                                   FillCol68[n]->GetNumber(), FillCol95[n]->GetNumber(),
                                    lineStyle[n], lineStyle68[n], fillStyle[n], 
                                    maxDig, bContLines, bOnly95[n], true, yTitleOffset);
                 contour_pt[n] = SFHisto2D[n]->getContour();
