@@ -14,9 +14,14 @@ const std::string NPZbbbar::ZbbbarVars[NZbbbarVars]
 = {"deltaGVb", "deltaGAb"};
 
 
+const std::string NPZbbbar::Zbbbarflags[NZbbbarflags]
+= {"NPZbbbarLR"};
+
+
 NPZbbbar::NPZbbbar() 
 : StandardModel() 
 {
+    FlagNPZbbbarLR = false;
 }
 
 
@@ -77,7 +82,10 @@ void NPZbbbar::SetEWSMflags(EWSM& myEWSM)
 bool NPZbbbar::SetFlag(const std::string name, const bool& value) 
 {
     bool res = false;
-    if (name.compare("EWABC") == 0) 
+    if (name.compare("NPZbbbarLR") == 0) {
+        FlagNPZbbbarLR = value;
+        res = true;
+    } else if (name.compare("EWABC") == 0)
         throw std::runtime_error("ERROR: Flag EWABC is not applicable to NPZbbbar"); 
     else if (name.compare("EWABC2") == 0)
         throw std::runtime_error("ERROR: Flag EWABC2 is not applicable to NPZbbbar"); 
@@ -162,7 +170,7 @@ complex NPZbbbar::gVq(const StandardModel::quark q) const
             return StandardModel::gVq(q);
         case StandardModel::BOTTOM:
             if (IsFlagNotLinearizedNP())
-                return ( StandardModel::gVq(q) + myDeltaGVb );
+                return ( StandardModel::gVq(q) + deltaGVq(q) );
             else
                 return StandardModel::gVq(q);
         default:
@@ -188,7 +196,7 @@ complex NPZbbbar::gAq(const StandardModel::quark q) const
             return StandardModel::gAq(q);
         case StandardModel::BOTTOM:
             if (IsFlagNotLinearizedNP())
-                return ( StandardModel::gAq(q) + myDeltaGAb );
+                return ( StandardModel::gAq(q) + deltaGAq(q) );
             else
                 return StandardModel::gAq(q);
         default:
@@ -204,8 +212,8 @@ double NPZbbbar::epsilonb() const
     if (IsFlagNotLinearizedNP())
         kappaZb = kappaZ_q(BOTTOM); /* In this case, kappaZ_q(BOTTOM) includes deltaGVb and deltaGAb. */
     else {
-        complex gVb = StandardModel::gVq(BOTTOM) + myDeltaGVb;
-        complex gAb = StandardModel::gAq(BOTTOM) + myDeltaGAb;
+        complex gVb = StandardModel::gVq(BOTTOM) + deltaGVq(BOTTOM);
+        complex gAb = StandardModel::gAq(BOTTOM) + deltaGAq(BOTTOM);
         kappaZb = (1.0 - gVb/gAb)/(4.0*fabs(getQuarks(BOTTOM).getCharge())*sW2());
     }
     

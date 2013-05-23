@@ -231,7 +231,8 @@ complex NPHiggs::gVq(const StandardModel::quark q) const
         case StandardModel::STRANGE:
             return myEWepsilons->gVq(q, epsilon1(), epsilon3());
         case StandardModel::BOTTOM:
-            return ( myEWepsilons->gVb(epsilon1(), epsilon3(), epsilonb_SM()) + myDeltaGVb );
+            return ( myEWepsilons->gVb(epsilon1(), epsilon3(), epsilonb_SM()) 
+                    + deltaGVq(StandardModel::BOTTOM) );
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:
@@ -255,7 +256,8 @@ complex NPHiggs::gAq(const StandardModel::quark q) const
         case StandardModel::STRANGE:
             return myEWepsilons->gAq(q, epsilon1());
         case StandardModel::BOTTOM:
-            return ( myEWepsilons->gAb(epsilon1(), epsilonb_SM()) + myDeltaGAb );
+            return ( myEWepsilons->gAb(epsilon1(), epsilonb_SM()) 
+                    + deltaGAq(StandardModel::BOTTOM) );
         case StandardModel::TOP:
             return complex(0.0, 0.0, false);
         default:

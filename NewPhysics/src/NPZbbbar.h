@@ -22,7 +22,9 @@ class NPZbbbar : public StandardModel  {
 public:
     static const int NZbbbarVars = 2;
     static const std::string ZbbbarVars[NZbbbarVars];
-    
+    static const int NZbbbarflags = 1;
+    static const std::string Zbbbarflags[NZbbbarflags];
+
     NPZbbbar();
 
     virtual std::string ModelName() const 
@@ -57,7 +59,10 @@ public:
             case StandardModel::STRANGE:
                 return 0.0;
             case StandardModel::BOTTOM:
-                return myDeltaGVb;
+                if (FlagNPZbbbarLR)
+                    return ( myDeltaGVb + myDeltaGAb ); // delta g_L^b + delta g_R^b
+                else
+                    return myDeltaGVb;
             default:
             throw std::runtime_error("Error in NPZbbbar::deltaGVq()");
         }
@@ -78,7 +83,10 @@ public:
             case StandardModel::STRANGE:
                 return 0.0;
             case StandardModel::BOTTOM:
-                return myDeltaGAb;
+                if (FlagNPZbbbarLR)
+                    return ( myDeltaGVb - myDeltaGAb ); // delta g_L^b - delta g_R^b
+                else
+                    return myDeltaGAb;
             default:
             throw std::runtime_error("Error in NPZbbbar::deltaGAq()");
         }
@@ -151,14 +159,25 @@ public:
     ////////////////////////////////////////////////////////////////////////   
 
 protected:
-    double myDeltaGVb, myDeltaGAb;
     virtual void SetParameter(const std::string name, const double& value);
     
 
     ////////////////////////////////////////////////////////////////////////   
 
 private:
-    
+    /* These variables may be used as the deviations in the left-handed 
+     * and right-handed couplings if the flag "NPZbbbarLR" is set to true.
+     * Therefore, they should not be used directly. Instead, the functions
+     * deltaGVq() and deltaGAq() have to be called. */
+    double myDeltaGVb, myDeltaGAb;
+
+    /*
+     * If true,
+     *    myDeltaGVb --> delta g_L^b
+     *    myDeltaGAb --> delta g_R^b
+     */
+    bool FlagNPZbbbarLR;
+
 };
 
 #endif	/* NPZBBBAR_H */
