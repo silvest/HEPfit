@@ -128,13 +128,29 @@ void BaseMacros::DefineNewColours()
      *       magenta 1,0,1
      *       cyan    0,1,1
      */
-    color[151] = new TColor(2151, 1.00, 0.00, 1.00); // magenta
     color[152] = new TColor(2152, 100./255., 149./255., 237./255.); // corn flower blue #6495ED
+    //
     color[153] = new TColor(2153, 255./255., 140./255., 0.); // dark orange #FF8C00
+    //
     color[154] = new TColor(2154, 0., 1., 0.); // lime #00FF00
     color[155] = new TColor(2155, 173./255., 1., 47./255.); // green yellow #ADFF2F
     color[156] = new TColor(2156, 0., 100./255., 0.); // dark green #006400
+    //
     color[157] = new TColor(2157, 192./255., 192./255., 192./255.); // silver
+    //
+    color[158] = new TColor(2158, 72./255., 61./255., 139./255.); // dark slate blue #483D8B
+    color[159] = new TColor(2159, 106./255., 90./255., 205./255.); // slate blue #6A5ACD
+    //
+    color[160] = new TColor(2160, 1.00, 0.00, 1.00); // magenta
+    color[161] = new TColor(2161, 1., 20./255., 147./255.); // deep pink #FF1493
+    color[162] = new TColor(2162, 238./255., 130./255., 238./255.); // violet #EE82EE
+    //
+    color[163] = new TColor(2163, 0., 206./255., 209./255.); // dark turquoise #00CED1
+    color[164] = new TColor(2164, 64./255., 224./255., 208./255.); // turquoise #40E0D0
+    color[165] = new TColor(2165, 175./255., 238./255., 238./255.); // pale turquoise #AFEEEE
+    //
+    color[166] = new TColor(2166, 135./255., 206./255., 250./255.); // light sky blue #87CEFA
+    color[167] = new TColor(2167, 224./255., 1., 1.); // light cyan #E0FFFF
 }
 
 

@@ -214,10 +214,10 @@ void SFH2D::drawFromGraph(const int ind, const std::string DrawOpts,
     TList* contour = (TList*) getContours()->At(ind);
 
     // the minimum and the maximum of the axes
-    double xmin = xLow;
-    double xmax = xUp;
-    double ymin = yLow;
-    double ymax = yUp;
+    double xmin = newHist->GetXaxis()->GetXmin();
+    double xmax = newHist->GetXaxis()->GetXmax();
+    double ymin = newHist->GetYaxis()->GetXmin();
+    double ymax = newHist->GetYaxis()->GetXmax();
     
     /* Debug */
     //std::cout << "SFH2D::drawFromGraph():" << xmin << " " << xmax << " " << ymin << " " << ymax << std::endl;
@@ -358,11 +358,11 @@ TGraph* SFH2D::CloseTGraph(TGraph* inputgraph) const
     tmp = (TAxis*) newHist->GetYaxis();
     double deltay = tmp->GetBinWidth(1);
 
-    double xmin = xLow;
-    double xmax = xUp;
-    double ymin = yLow;
-    double ymax = yUp;
-
+    double xmin = newHist->GetXaxis()->GetXmin();
+    double xmax = newHist->GetXaxis()->GetXmax();
+    double ymin = newHist->GetYaxis()->GetXmin();
+    double ymax = newHist->GetYaxis()->GetXmax();
+    
     /* Debug */
     //std::cout << "SFH2D::CloseTGraph():" << xmin << " " << xmax << " " << ymin << " " << ymax << std::endl;
 
@@ -484,10 +484,10 @@ TGraph* SFH2D::CloseTGraph(TGraph* inputgraph) const
 TGraph* SFH2D::CloseTwoTGraphs(const int cont_ind, TGraph* inputgraph1, 
                                TGraph* inputgraph2) const
 {
-    double xmin = xLow;
-    double xmax = xUp;
-    double ymin = yLow;
-    double ymax = yUp;
+    double xmin = newHist->GetXaxis()->GetXmin();
+    double xmax = newHist->GetXaxis()->GetXmax();
+    double ymin = newHist->GetYaxis()->GetXmin();
+    double ymax = newHist->GetYaxis()->GetXmax();
 
     /* Debug */
     //std::cout << "SFH2D::CloseTwoTGraph():" << xmin << " " << xmax << " " << ymin << " " << ymax << std::endl;
@@ -624,7 +624,7 @@ TGraph* SFH2D::CloseTwoTGraphs(const int cont_ind, TGraph* inputgraph1,
         }
         vp_new.push_back(vp_org.at(ind_minimal));
         vp_org.erase(it_minimal);
-        //std::cout << vp_org.size() << " " << vp_new.size() << " " << ind_minimal 
+        //std::cout << vp_org.size() << " " << vp_new.size() << " " << ind_minimal
         //          << " " << dist << std::endl; //debug
     }
 
@@ -632,7 +632,7 @@ TGraph* SFH2D::CloseTwoTGraphs(const int cont_ind, TGraph* inputgraph1,
     //for (int i = 0; i < vp_new.size(); i++) {
     //    int ind;
     //    if(i==0) ind = 0;
-    //    else ind = i-1;        
+    //    else ind = i-1;
     //    std::cout << vp_new.at(i).m_x << " " << vp_new.at(i).m_y << " "
     //              << vp_new.at(i).distance(vp_new.at(ind)) << std::endl;
     //}

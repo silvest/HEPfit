@@ -166,7 +166,7 @@ double Pull::calcPull(const double mean, const double sigma, const bool lowStat)
     double RelTolerance = 1.E-6; // desired relative error (irrelevant to VEGAS)
     double ncall = 5000000; // maximum number of function calls
     if (lowStat)
-        ncall = 50000; // maximum number of function calls
+        ncall = 500000; // maximum number of function calls
 
     /* Set the integrand which is the convolution of the two p.d.f.'s */
     ROOT::Math::Functor wf(this, &Pull::integrand, 2);

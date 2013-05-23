@@ -42,7 +42,7 @@ using namespace std;
  */
 int main(int argc, char** argv) 
 {
-    
+
     if (argc < 3) {
         cout << "######################################################################" << endl;
         cout << " Usage:                                                               " << endl;
@@ -242,7 +242,7 @@ int main(int argc, char** argv)
     for (int i = 3; i < argc; i++) {
         char str[100];
         if (strncmp(argv[i], "--orig", 6) == 0) bOrig = true;
-        if (strncmp(argv[i], "--pdf", 5) == 0) bPDF = true;
+        else if (strncmp(argv[i], "--pdf", 5) == 0) bPDF = true;
         else if (strncmp(argv[i], "--outputTxt", 11) == 0) bOutputTxt = true;        
         else if (strncmp(argv[i], "--drawlines", 11) == 0) bContLines = true;        
         else if (strncmp(argv[i], "--leftLegend", 12) == 0) bLeftLegend = true;        
@@ -533,13 +533,19 @@ int main(int argc, char** argv)
     TColor *FillCol68[NumHist], *FillCol95[NumHist];
     for (int i=0; i<NumHist; i++) {
         TColor *colTmp = gROOT->GetColor(col68[i]);
-        FillCol68[i] = new TColor(col68[i]+10000, colTmp->GetRed(),
-                                  colTmp->GetGreen(), colTmp->GetBlue());
-        FillCol68[i]->SetAlpha(col68alpha[i]);
+        if (gROOT->GetColor(col68[i]+10000) == NULL ) {
+            FillCol68[i] = new TColor(col68[i]+10000, colTmp->GetRed(),
+                                      colTmp->GetGreen(), colTmp->GetBlue());
+            FillCol68[i]->SetAlpha(col68alpha[i]);
+        } else
+            FillCol68[i] = gROOT->GetColor(col68[i]+10000);
         TColor *colTmp2 = gROOT->GetColor(col95[i]);
-        FillCol95[i] = new TColor(col95[i]+10000, colTmp2->GetRed(),
-                                  colTmp2->GetGreen(), colTmp2->GetBlue());
-        FillCol95[i]->SetAlpha(col95alpha[i]);
+        if (gROOT->GetColor(col95[i]+10000) == NULL ) {
+            FillCol95[i] = new TColor(col95[i]+10000, colTmp2->GetRed(),
+                                      colTmp2->GetGreen(), colTmp2->GetBlue());
+            FillCol95[i]->SetAlpha(col95alpha[i]);
+        } else
+            FillCol95[i] = gROOT->GetColor(col95[i]+10000);
     }
 
     //----------------------------------------------------------------------
@@ -715,7 +721,7 @@ int main(int argc, char** argv)
                 SFHisto1D[n]->getNewHist()->Write(plotname[n].c_str());
         outRootFile->Close();
         cout << outRootFileName << " has been created." << endl;
-
+        
     //----------------------------------------------------------------------
     // Compatibility plot
         
