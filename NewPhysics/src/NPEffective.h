@@ -42,8 +42,13 @@ public:
     virtual void SetEWSMflags(EWSM& myEWSM);    
 
     virtual bool SetFlag(const std::string, const bool&); 
-    
-    
+
+
+    ////////////////////////////////////////////////////////////////////////
+
+    virtual double DeltaGF() const;
+
+
     ////////////////////////////////////////////////////////////////////////     
 
     /**

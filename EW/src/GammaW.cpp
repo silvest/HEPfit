@@ -35,7 +35,8 @@ double GammaW::getThValue()
                 
             Gamma_W *= 1.0 - alpha/2.0/(c2-s2)
                        *( SM.obliqueS() - 2.0*c2*SM.obliqueT()
-                          - (c2-s2)*SM.obliqueU()/2.0/s2 - 2.0*(c2 - s2)*Wbar );
+                          - (c2-s2)*SM.obliqueU()/2.0/s2 - 2.0*(c2 - s2)*Wbar )
+                        - s2/(c2-s2)*SM.DeltaGF();
         } else
             if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
                 throw std::runtime_error("GammaW::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");

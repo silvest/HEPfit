@@ -605,7 +605,7 @@ public:
      * @return The total width of the W boson.
      */
     virtual double GammaW() const;
-    
+
     /**
      * @return Oblique parameter @f$S@f$.
      */
@@ -727,6 +727,15 @@ public:
      * @return @f$\epsilon_b@f$.
      */
     virtual double epsilonb() const;
+
+    /**
+     * @brief NP contribution to the Fermi constant @f$G_{\mu}=G_{\mu}^{\rm SM}(1+DeltaGF)@f$.
+     * @return
+     */
+    virtual double DeltaGF() const
+    {
+        return 0.0;
+    }
 
     virtual double deltaGVl(StandardModel::lepton l) const
     {

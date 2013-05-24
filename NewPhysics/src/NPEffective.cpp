@@ -117,6 +117,16 @@ bool NPEffective::SetFlag(const std::string name, const bool& value)
 }
 
 
+////////////////////////////////////////////////////////////////////////
+
+double NPEffective::DeltaGF() const
+{
+    double ratio = v()*v()/LambdaNP/LambdaNP;
+
+    return ( - (cLL - 2.0*cHLp)*ratio );
+}
+
+
 ////////////////////////////////////////////////////////////////////////     
 
 double NPEffective::obliqueS() const 
@@ -133,16 +143,13 @@ double NPEffective::obliqueT() const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
 
-    return ( - cH/2.0/alphaMz()*ratio + (cLL - 2.0*cHLp)/alphaMz()*ratio );    
+    return ( - cH/2.0/alphaMz()*ratio );    
 }
 
 
 double NPEffective::obliqueU() const
 {
-    double ratio = v()*v()/LambdaNP/LambdaNP;
-    double sW2_SM = StandardModel::sW2(); /* This has to be the SM value. */
-
-    return ( - 4.0*sW2_SM*(cLL - 2.0*cHLp)/alphaMz()*ratio );
+    return 0.0;
 }
 
 
@@ -151,15 +158,20 @@ double NPEffective::obliqueU() const
 double NPEffective::deltaGLl(StandardModel::lepton l) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
+    double sW2_SM = StandardModel::sW2(); /* This has to be the SM value. */
+    double cW2_SM = StandardModel::cW2(); /* This has to be the SM value. */
+    double gVf_SM = StandardModel::gVl(l).real(); /* This has to be the SM value. */
+    double gAf_SM = StandardModel::gAl(l).real(); /* This has to be the SM value. */
     switch (l) {
         case StandardModel::NEUTRINO_1:
         case StandardModel::NEUTRINO_2:
         case StandardModel::NEUTRINO_3:
-            return ( (cHLp - cHL)/2.0*ratio );
+            return ( (cHLp - cHL)/2.0*ratio - (gVf_SM + gAf_SM)/4.0*DeltaGF() );
         case StandardModel::ELECTRON:
         case StandardModel::MU:
         case StandardModel::TAU:
-            return ( - (cHLp + cHL)/2.0*ratio );
+            return ( - (cHLp + cHL)/2.0*ratio - (gVf_SM + gAf_SM)/4.0*DeltaGF()
+                     + (gVf_SM - gAf_SM)*cW2_SM/2.0/(cW2_SM - sW2_SM)*DeltaGF() );
         default:
             throw std::runtime_error("Error in NPEffective::deltaGLl()");        
     }   
@@ -169,16 +181,22 @@ double NPEffective::deltaGLl(StandardModel::lepton l) const
 double NPEffective::deltaGLq(StandardModel::quark q) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
+    double sW2_SM = StandardModel::sW2(); /* This has to be the SM value. */
+    double cW2_SM = StandardModel::cW2(); /* This has to be the SM value. */
+    double gVf_SM = StandardModel::gVq(q).real(); /* This has to be the SM value. */
+    double gAf_SM = StandardModel::gAq(q).real(); /* This has to be the SM value. */
     switch (q) {
         case StandardModel::UP:
         case StandardModel::CHARM:
-            return ( (cHQp - cHQ)/2.0*ratio );
+            return ( (cHQp - cHQ)/2.0*ratio - (gVf_SM + gAf_SM)/4.0*DeltaGF()
+                     + (gVf_SM - gAf_SM)*cW2_SM/2.0/(cW2_SM - sW2_SM)*DeltaGF() );
         case StandardModel::TOP:
             return 0.0;
         case StandardModel::DOWN:
         case StandardModel::STRANGE:
         case StandardModel::BOTTOM:
-            return ( - (cHQp + cHQ)/2.0*ratio );
+            return ( - (cHQp + cHQ)/2.0*ratio - (gVf_SM + gAf_SM)/4.0*DeltaGF()
+                     + (gVf_SM - gAf_SM)*cW2_SM/2.0/(cW2_SM - sW2_SM)*DeltaGF() );
         default:
             throw std::runtime_error("Error in NPEffective::deltaGLq()");        
     }
@@ -188,6 +206,10 @@ double NPEffective::deltaGLq(StandardModel::quark q) const
 double NPEffective::deltaGRl(StandardModel::lepton l) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
+    double sW2_SM = StandardModel::sW2(); /* This has to be the SM value. */
+    double cW2_SM = StandardModel::cW2(); /* This has to be the SM value. */
+    double gVf_SM = StandardModel::gVl(l).real(); /* This has to be the SM value. */
+    double gAf_SM = StandardModel::gAl(l).real(); /* This has to be the SM value. */
     switch (l) {
         case StandardModel::NEUTRINO_1:
         case StandardModel::NEUTRINO_2:
@@ -196,7 +218,8 @@ double NPEffective::deltaGRl(StandardModel::lepton l) const
         case StandardModel::ELECTRON:
         case StandardModel::MU:
         case StandardModel::TAU:
-            return ( - cHE/2.0*ratio );
+            return ( - cHE/2.0*ratio 
+                     + (gVf_SM - gAf_SM)/4.0/(cW2_SM - sW2_SM)*DeltaGF() );
         default:
             throw std::runtime_error("Error in NPEffective::deltaGRl()");        
     } 
@@ -206,16 +229,22 @@ double NPEffective::deltaGRl(StandardModel::lepton l) const
 double NPEffective::deltaGRq(StandardModel::quark q) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
+    double sW2_SM = StandardModel::sW2(); /* This has to be the SM value. */
+    double cW2_SM = StandardModel::cW2(); /* This has to be the SM value. */
+    double gVf_SM = StandardModel::gVq(q).real(); /* This has to be the SM value. */
+    double gAf_SM = StandardModel::gAq(q).real(); /* This has to be the SM value. */
     switch (q) {
         case StandardModel::UP:
         case StandardModel::CHARM:
-            return ( - cHU/2.0*ratio );
+            return ( - cHU/2.0*ratio 
+                     + (gVf_SM - gAf_SM)/4.0/(cW2_SM - sW2_SM)*DeltaGF() );
         case StandardModel::TOP:
             return 0.0;
         case StandardModel::DOWN:
         case StandardModel::STRANGE:
         case StandardModel::BOTTOM:
-            return ( - cHD/2.0*ratio );
+            return ( - cHD/2.0*ratio 
+                     + (gVf_SM - gAf_SM)/4.0/(cW2_SM - sW2_SM)*DeltaGF() );
         default:
             throw std::runtime_error("Error in NPEffective::deltaGRq()");        
     }   
