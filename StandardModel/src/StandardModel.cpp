@@ -101,6 +101,10 @@ bool StandardModel::PostUpdate()
 {
     if(!QCD::PostUpdate()) return (false);
     
+    if(updateFlag == 1){
+        myStandardModelMatching->updateSMParameters(); // Necessary for updating Standard Model parameters in Standard ModelMatching.
+    }
+    
     if (computeCKM) {
         myCKM.setWolfenstein(lambda, A, rhob, etab);
         myCKM.getCKM(VCKM);
@@ -262,6 +266,7 @@ bool StandardModel::InitializeModel()
     SetModelInitialized(true);
     myEWSM = new EWSM(*this);
     this->SetEWSMflags(*myEWSM);
+    updateFlag = 1;
     return(true);
 }
 

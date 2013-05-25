@@ -23,8 +23,7 @@ public:
      * @param order
      * @param model 
      */
-    EvolDF2(unsigned int dim, schemes scheme, orders order,
-            const StandardModel& model);
+    EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardModel& model);
     
     /**
      * 
@@ -86,6 +85,10 @@ public:
     double etatt(double mu) const;    
     
 private:
+    // c and d are the coefficient of als(mu) e als(M)
+    // first index number of flavours
+    // double b[5][5][5], c[3][5][5][5], d[3][5][5][5];
+    
     double S1tt() const;
     void Df2Evol(double mu, double M, double nf, schemes scheme);
     double a[5], b[5][5][5], c[3][5][5][5], d[3][5][5][5];

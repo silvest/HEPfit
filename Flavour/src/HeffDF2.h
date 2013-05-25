@@ -109,21 +109,17 @@ public:
     }
     
     EvolDF2 getUDF2() const {
-        return u;
+        return evolDF2;
     }
 
 
 private:
-    // Magic Number
-    // c and d are the coefficient of als(mu) e als(M)
-    // first index number of flavours
-    // double b[5][5][5], c[3][5][5][5], d[3][5][5][5];
     complex S0tt(double mu) const;
     const StandardModel& model;
     matrix<double> drNDRLRI;
     WilsonCoefficient coeffbd, coeffbs, coeffDd, coeffk, coeffmk;
     
-    EvolDF2 u;
+    EvolDF2 evolDF2;
 };
 
 #endif	/* HEFFDF2_H */

@@ -469,10 +469,11 @@ public:
     double  m3, mHptree, mHp, mh[4];
     complex m1, m2, muH, saeff;
 
+    
     matrix<complex> Ru, Rd, Rl, Rn, U, V, N, UH, ZH;
     vector<double> Msu2, Msd2, Msl2, Msn2;
     matrix<complex> MsQ2, MsU2, MsD2, MsL2, MsE2, MsN2, TU, TD, TE, TN;
- 
+
 private:
     void setY(double tanb_i);
     matrix<complex> CMsQ2, CMsU2, CMsD2, CMsL2, CMsE2, CMsN2, CTU, CTD, CTE, CTN;
@@ -488,6 +489,8 @@ private:
     
     vector<double> Mch;
     vector<double> Mneu;
+    
+    int updateFlag;
     
      
     //***// void TestSpectrum();

@@ -10,20 +10,27 @@
 #include <QCD.h>
 #include <stdexcept>
 
-HeffDF2::HeffDF2(const StandardModel& SM): model(SM), coeffbd(5, NDR, NLO), coeffbs(5, NDR, NLO), 
-        coeffDd(5, NDR, NLO), coeffk(5, NDR, NLO), coeffmk(5, NDR, NLO),
-        u(5, NDR, NLO, SM), drNDRLRI(5, 5, 0){
+HeffDF2::HeffDF2(const StandardModel& SM):
+        model(SM),
+        coeffbd(5, NDR, NLO),
+        coeffbs(5, NDR, NLO),
+        coeffDd(5, NDR, NLO),
+        coeffk(5, NDR, NLO),
+        coeffmk(5, NDR, NLO),
+        evolDF2(5, NDR, NLO, SM),
+        drNDRLRI(5, 5, 0)
+{
     
     double Nc = SM.getNc();
-    drNDRLRI(0,0) = -(((-1. + Nc)*(-7. + log(4096.))) / Nc);                   
-    drNDRLRI(1,1) = (-2.*(-1. + 6.*Nc*Nc - 8.*log(2.) + Nc*(-13. + log(1024.))))/(3.*Nc);
-    drNDRLRI(1,2) = (-2.*(13. - 10.*log(2.) + Nc*(-5. + log(256.))))/(3.*Nc);   
-    drNDRLRI(2,1) = (-8. + 6.*Nc*Nc + 20.*log(2.) - 8.*Nc*(1. + log(4.)))/(3.*Nc);
-    drNDRLRI(2,2) = (2.*(4. + Nc - 10.*Nc*log(2.) + log(256.)))/(3.*Nc);
-    drNDRLRI(3,3) = (2. - 4.*Nc*Nc + log(4.))/Nc;
+    drNDRLRI(0,0) = -(((-1. + Nc) * (-7. + log(4096.))) / Nc);
+    drNDRLRI(1,1) = (-2. * (-1. + 6. * Nc * Nc - 8. * log(2.) + Nc * (-13. + log(1024.)))) / (3. * Nc);
+    drNDRLRI(1,2) = (-2. * (13. - 10. * log(2.) + Nc * (-5. + log(256.)))) / (3. * Nc);
+    drNDRLRI(2,1) = (-8. + 6. * Nc * Nc + 20. * log(2.) - 8. * Nc * (1. + log(4.))) / (3. * Nc);
+    drNDRLRI(2,2) = (2. * (4. + Nc - 10. * Nc * log(2.) + log(256.))) / (3. * Nc);
+    drNDRLRI(3,3) = (2. - 4. * Nc * Nc + log(4.)) / Nc;
     drNDRLRI(3,4) = 2. - log(4.);
-    drNDRLRI(4,3) = -2.*(1. + log(2.));
-    drNDRLRI(4,4) = (2. + log(4.))/Nc;
+    drNDRLRI(4,3) = -2. * (1. + log(2.));
+    drNDRLRI(4,4) = (2. + log(4.)) / Nc;
 }
 
 HeffDF2::~HeffDF2() {
@@ -40,7 +47,7 @@ vector<complex>** HeffDF2::ComputeCoeffBd(double mu, schemes scheme) {
         for (int j = LO; j <= ordDF2; j++){
             for (int k = LO; k <= j; k++){                
                 coeffbd.setCoeff(*coeffbd.getCoeff(orders(j)) +
-                    u.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                    evolDF2.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                     (*(mc[i].getCoeff(orders(j - k)))), orders(j));
             }
         }
@@ -64,7 +71,7 @@ vector<complex>** HeffDF2::ComputeCoeffBs(double mu, schemes scheme) {
         for (int j = LO; j <= ordDF2; j++){
             for (int k = LO; k <= j; k++){
                 coeffbs.setCoeff(*coeffbs.getCoeff(orders(j)) +
-                    u.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                    evolDF2.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                     (*(mc[i].getCoeff(orders(j - k)))), orders(j));
             }
         }
@@ -88,7 +95,7 @@ vector<complex>** HeffDF2::ComputeCoeffdd(double mu, schemes scheme) {
         for (int j = LO; j <= ordDF2; j++){
             for (int k = LO; k <= j; k++){
                 coeffDd.setCoeff(*coeffDd.getCoeff(orders(j)) +
-                    u.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                    evolDF2.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                     (*(mc[i].getCoeff(orders(j - k)))), orders(j));
             }
         }
@@ -109,14 +116,14 @@ vector<complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme) {
     orders ordDF2 = coeffk.getOrder();
     for (int i = 0; i < mc.size(); i++){
         if (i == 0){
-            coeffk.setCoeff(0, u.etatt(mu) * model.GetMyMatching()->S0tt() +
-                u.etacc(mu) * model.GetMyMatching()->S0c() + u.etact(mu) * model.GetMyMatching()->S0ct(), NLO);
+            coeffk.setCoeff(0, evolDF2.etatt(mu) * model.GetMyMatching()->S0tt() +
+                evolDF2.etacc(mu) * model.GetMyMatching()->S0c() + evolDF2.etact(mu) * model.GetMyMatching()->S0ct(), NLO);
             coeffk.setCoeff(zero, LO);
         }else{
             for (int j = LO; j <= ordDF2; j++){
                 for (int k = LO; k <= j; k++){
                     coeffk.setCoeff(*coeffk.getCoeff(orders(j)) +
-                        u.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                        evolDF2.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                         (*(mc[i].getCoeff(orders(j - k)))), orders(j));
                 }
             }
@@ -145,7 +152,7 @@ vector<complex>** HeffDF2::ComputeCoeffmK(double mu, schemes scheme) {
             for (int j = LO; j <= ordDF2; j++){
                 for (int k = LO; k <= j; k++){
                     coeffmk.setCoeff(*coeffmk.getCoeff(orders(j)) +
-                        u.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                        evolDF2.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                         (*(mc[i].getCoeff(orders(j - k)))), orders(j));
                 }
             }

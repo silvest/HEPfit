@@ -12,18 +12,50 @@
 #include <sstream>
 #include <stdexcept>
 #include <FHCouplings.h>
+#include <StandardModelMatching.h>
+//#include "../tests/SusyFlavour.h" //***//
 
 
 const std::string SUSY::SUSYvars[NSUSYvars] = {"m1r", "m1i", "m2r", "m2i", "m3" , "muHr", "muHi", "mHptree", "tanb", "Q"};
 const std::string SUSY::SUSYFlags[NSUSYFlags] = {"Flag_H","Flag_g","Flag_Chi","Flag_Chi0"};
 SUSY::SUSY() :
-        StandardModel(), Ru(6,6,0.), Rd(6,6,0.), Rl(6,6,0.), Rn(6,6,0.),
-        U(2,2,0.), V(2,2,0.), N(4,4,0.), Msu2(6,0.), Msd2(6,0.), Msl2(6,0.),
-        Msn2(6,0.), Mch(2,0.), Mneu(4,0.), MsQ2(3,3,0.), MsU2(3,3,0.), 
-        MsD2(3,3,0.), MsL2(3,3,0.), MsE2(3,3,0.), MsN2(3,3,0.), TU(3,3,0.), 
-        TD(3,3,0.), TE(3,3,0.), TN(3,3,0.), CMsQ2(3,3,0.), CMsU2(3,3,0.), CMsD2(3,3,0.), 
-        CMsL2(3,3,0.), CMsE2(3,3,0.), CMsN2(3,3,0.), CTU(3,3,0.), CTD(3,3,0.), 
-        CTE(3,3,0.), CTN(3,3,0.), UH(3,3,0.), ZH(3,3,0.) {
+        StandardModel(),
+        Ru(6,6,0.),
+        Rd(6,6,0.),
+        Rl(6,6,0.),
+        Rn(6,6,0.),
+        U(2,2,0.),
+        V(2,2,0.),
+        N(4,4,0.),
+        Msu2(6,0.),
+        Msd2(6,0.),
+        Msl2(6,0.),
+        Msn2(6,0.),
+        Mch(2,0.),
+        Mneu(4,0.),
+        MsQ2(3,3,0.),
+        MsU2(3,3,0.),
+        MsD2(3,3,0.),
+        MsL2(3,3,0.),
+        MsE2(3,3,0.),
+        MsN2(3,3,0.),
+        TU(3,3,0.),
+        TD(3,3,0.),
+        TE(3,3,0.),
+        TN(3,3,0.),
+        CMsQ2(3,3,0.),
+        CMsU2(3,3,0.),
+        CMsD2(3,3,0.),
+        CMsL2(3,3,0.),
+        CMsE2(3,3,0.),
+        CMsN2(3,3,0.),
+        CTU(3,3,0.),
+        CTD(3,3,0.),
+        CTE(3,3,0.),
+        CTN(3,3,0.),
+        UH(3,3,0.),
+        ZH(3,3,0.)
+{
     int err;
     FHSetFlags(&err,
             4, // Full MSSM 
@@ -106,10 +138,10 @@ void SUSY::SetParameter(const std::string name, const double& value) {
 }
 
 bool SUSY::InitializeModel(){
-    
     mySUSYMatching = new SUSYMatching(*this);
     SetModelInitialized(true);
     myEWSM = new EWSM(*this);
+    updateFlag = 1;
     return(true);
 }
 
@@ -123,7 +155,11 @@ bool SUSY::PreUpdate(){
 
 bool SUSY::PostUpdate(){
     
-    mySUSYMatching->updateParameters(); // Necessary for updating SUSY and SUSY-derived parameters in SUSYMatching.
+    if(updateFlag == 1){
+    mySUSYMatching->StandardModelMatching::updateSMParameters(); // Necessary for updating Standard Model parameters in StandardModelMatching.
+    mySUSYMatching->updateSUSYParameters(); // Necessary for updating SUSY and SUSY-derived parameters in SUSYMatching.
+    }
+    
     mySUSYMatching->Comp_mySUSYMQ();
     
     if (IsFChi0()) mySUSYMatching->Comp_VdDNL(0);
@@ -195,7 +231,7 @@ bool SUSY::SetFeynHiggsPars(void) {
             AlsMz, GF, 
             leptons[ELECTRON].getMass(), quarks[UP].getMass(), quarks[DOWN].getMass(),
             leptons[MU].getMass(), quarks[CHARM].getMass(), quarks[STRANGE].getMass(),
-            leptons[TAU].getMass(),                           quarks[BOTTOM].getMass(),
+            leptons[TAU].getMass(), quarks[BOTTOM].getMass(),
             Mw_tree(), Mz,
             lambda, A, rhob, etab);
      if (err != 0) {
@@ -298,7 +334,7 @@ bool SUSY::CalcHiggsSpectrum(void){
     ComplexType UHiggs[3][3];
     ComplexType ZHiggs[3][3];
     //FHSetDebug(2);
-    FHHiggsCorr(&err, mh, &SAeff, UHiggs, ZHiggs);  
+    FHHiggsCorr(&err, mh, &SAeff, UHiggs, ZHiggs);
     saeff = complex(SAeff.real(),SAeff.imag()); 
     
     // test - lines
@@ -317,6 +353,7 @@ bool SUSY::CalcHiggsSpectrum(void){
 //    std::cout << "mh[1] = mH = " << mh[1] << std::endl;
 //    std::cout << "mh[2] = mA = " << mh[2] << std::endl;
 //    std::cout << "mh[3] = mH+ =" << mh[3] << std::endl;
+//    std::cout << std::endl;
     
     for(int i = 0; i < 4; i++){
         if(std::isnan(mh[i])){
@@ -467,8 +504,13 @@ bool SUSY::CalcSpectrum(){
         std::cout << "FeynHiggs FHGetPara error " << std::endl;
         return (false);
         //throw std::runtime_error(ss.str());
-     }   
+    }   
   
+    //***// Test lines // For testing with Susy Flavour. Include ../tests/SusyFlavour.h
+   // SusyFlavourSpectrum SF;
+   // SF.TestSpectrum(*this);
+    
+    //***// End - Test
     
     return (true);
 }
