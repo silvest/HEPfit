@@ -25,7 +25,16 @@ class StandardModel;
  */
 class StandardModelMatching : public ModelMatching {
 public:
+
     StandardModelMatching(const StandardModel & SM_i);
+    
+    /**
+     *
+     * @brief Updates to new Standard Model parameter sets.
+     * @return
+     */
+    
+    void updateSMParameters();
     
     /**
      * 
@@ -326,6 +335,14 @@ public:
      * @return first order in QCD loop function for the top contribution to K_L -> mu mu decays
      */
     double Y1t(double x)const;
+
+    /**
+     *
+     * @param x
+     * @return
+     */
+
+    double S1(double x) const;
     
 protected:
     std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2, vmck, vmckcc;
@@ -335,16 +352,23 @@ protected:
     
     
 private:
+    
     const StandardModel & SM;
     double S0(double, double) const;
     double S0(double) const;
     double S0p(double x) const;
     double S11(double x) const;
     double S18(double x) const;
-    double S1(double x) const;
-    WilsonCoefficient mcdbd2, mcdbs2, mcdd2, mcdk2, mck, mckcc;  
+    WilsonCoefficient mcdbd2, mcdbs2, mcdd2, mcdk2, mck, mckcc;
     WilsonCoefficient mcbsg, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     WilsonCoefficient mckpnn, mckppnn, mckmm, mcbsnn, mcbdnn, mcbsmm, mcbdmm;
+    
+    double Mut;
+    double Muw;
+    double Ale;
+    double GF;
+    double Mw_tree;
+    double MM;
     
     /**
      * 

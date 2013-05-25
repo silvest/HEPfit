@@ -96,13 +96,13 @@ public:
 //     */
 //    virtual const std::vector<WilsonCoefficient>& CMd1Buras();
     
-//    /**
-//     *
-//     * @brief Updates to new parameter sets.
-//     * @return 
-//     */
+    /**
+     *
+     * @brief Updates to new SUSY parameter sets.
+     * @return
+     */
     
-    void updateParameters();
+    void updateSUSYParameters();
 
    
     /** Large tan beta correction to CKM, down-quark mass **/
@@ -338,6 +338,8 @@ private:
     double CWbnlepArrayLOew[10];
     double CWbnlepArrayNLOew[10]; */
     
+    //***//
+    /*
     double sw;
     double swa;
     double swb;
@@ -345,6 +347,7 @@ private:
     double xcachea; // caching
     double xcacheb; // caching
     double xcachec; // caching
+     */
 };
 
 #endif	/* SUSYMATCHING_H */

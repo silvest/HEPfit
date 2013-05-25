@@ -7,9 +7,7 @@
 
 #include "EpsilonK.h"
 
-double EpsilonK::getThValue(){
-    
-    std::cout << "EpsK = " << 1./SM.getDeltaMK() * (AmpDK(NLO).imag()) * SM.getKbarEpsK() / sqrt(2.) << std::endl;
-    
+double EpsilonK::getThValue()
+{
     return(1./SM.getDeltaMK() * (AmpDK(NLO).imag()) * SM.getKbarEpsK() / sqrt(2.));
 }

@@ -8,13 +8,15 @@
 #include "EvolDF2.h"
 #include <stdexcept>
 
-EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order,
-    const StandardModel& model) : model(model), RGEvolutor(dim, scheme, order) {
+EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardModel& model) :
+        model(model),
+        RGEvolutor(dim, scheme, order)
+{
     double Nc = model.getNc();
     matrix<double> v(5, 5, 0.);
     vector<double> e(5, 0.);
 
-    // Magic numbers in the basis of Gabbiani et al.
+    // Magic numbers in the basis of Gabbiani et al. (There is no magic in these numbers. They are just the eigensystem of the LO ADM.)
     
     e(0) = 6. / Nc;
     e(1) = 6. * (-1. + Nc) / Nc;
@@ -35,12 +37,27 @@ EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order,
     v(4, 0) = 1.;
 
     matrix<double> vi = v.inverse();
+//***//    double bb[5][5];
     for (int i = 0; i < 5; i++){
-        a[i] = e(i);
-        for (int j = 0; j < 5; j++)
-            for (int k = 0; k < 5; k++)
+        for (int j = 0; j < 5; j++){
+            for (int k = 0; k < 5; k++){
+                a[k] = e(k);
                 b[i][j][k] = v(i, k) * vi(k, j);
+//***//                bb[i][j] += b[i][j][k] * pow(0.5, a[k] / 2. / model.Beta0(5));
+            }
+//***//            std::cout << bb[i][j]  << "  ";
+        }
     }
+    
+    
+//***//    std::cout<< "   " << std::endl;
+    
+//***//    for (int k = 0; k < 5; k++) {
+//***//       for (int i = 3; i <=6; ++i) {
+//***//            std::cout << a[k] / 2. / model.Beta0(i) << "  ";
+//***//        }
+//***//        std::cout << std::endl;
+//***//    }
     
     matrix<double> h(5, 5, 0.);
     for (int l = 0; l < 3; l++) {
@@ -298,15 +315,16 @@ double EvolDF2::etact(double mu) const{
     
     
     double eta = 0.;
+    double AlsC = model.Als(model.getMuc());
     
-    eta = ( M_PI/model.Als(model.getMuc()) * (-18./7.*Kpp - 12./11.*Kpm + 6./29.*Kmm + 7716./2233.*K7)*
-            (1. - model.Als(model.getMuc())/4./M_PI * 307./162.) + (log(model.getMuc()/
-            model.getQuarks(QCD::CHARM).getMass()) - 0.25) * (3.*Kpp - 2.*Kpm + Kmm) +
-            262497./35000.*Kpp - 123./625.*Kpm + 1108657./1305000.*Kmm - 277133./50750.*K7 +
-            K * (-21093./8750.*Kpp + 13331./13750.*Kpm - 10181./18125.*Kmm - 1731104./2512125.*K7)+
-            (log(xt) - (3.*xt)/(4.-4.*xt) - log(xt)*(3.*xt*xt)/4./(1.-xt)/(1.-xt) + 0.5)*K*K7 )*
-            xc / (xc*(log(xt/xc)-(3.*xt)/(4.-4.*xt) - log(xt)*(3.*xt*xt)/4./(1.-xt)/(1.-xt)))*
-            pow(model.Als(model.getMuc()),2./9.);
+    eta = ( M_PI / AlsC * (-18. / 7. * Kpp - 12. / 11. * Kpm + 6. / 29. * Kmm + 7716. / 2233. * K7) *
+            (1. - AlsC / 4. / M_PI * 307. / 162.) + (log(model.getMuc() /
+            model.getQuarks(QCD::CHARM).getMass()) - 0.25) * (3. * Kpp - 2. * Kpm + Kmm) +
+            262497. / 35000. * Kpp - 123. / 625. * Kpm + 1108657. / 1305000. * Kmm - 277133. / 50750. * K7 +
+            K * (-21093. / 8750. * Kpp + 13331. / 13750. * Kpm - 10181. / 18125. * Kmm - 1731104. / 2512125. * K7)+
+            (log(xt) - (3. * xt) / (4. - 4. * xt) - log(xt)*(3. * xt * xt) / 4. / (1.-xt) / (1.-xt) + 0.5) * K * K7 )
+            * xc / (xc * (log(xt / xc) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) /4. / (1.-xt) / (1.-xt))) *
+            pow(AlsC, 2. / 9.);
     
     return (eta * (1. + model.Als(mu, FULLNLO)/4./M_PI*J3) * 
             pow(model.Als(mu, FULLNLO),-2./9.));
@@ -317,7 +335,7 @@ double EvolDF2::etatt(double m) const {
     double J3 = 6.*(N - 1.)/N * (model.Beta1(3)/2./model.Beta0(3)/model.Beta0(3)) - 
            (N - 1.)/(2.*N) * (-21. + 57./N - 19./3.*N + 4.)/2./model.Beta0(3);
     
-    return (S1tt() * (1. + model.Als(m, FULLNLO)/4./M_PI*J3) * 
+    return (S1tt() * (1. + model.Als(m, FULLNLO)/4./M_PI*J3) *
             pow(model.Als(m, FULLNLO), -2./9.));
 }
 
@@ -330,52 +348,39 @@ double EvolDF2::S1tt() const {
     double xm2 = (1 - x) * (1 - x);
     double xm3 = xm2 * (1 - x);
     double xm4 = xm3 * (1 - x);
+    double logx = log(x);
     double Li2 = gsl_sf_dilog(1-x);
     
-    double S18 = - (64. - 68. * x - 17. * x2 + 11. * x3)/(4. * (1. - x) * (1. - x) ) +
-                (32. - 68. * x + 32. * x2 - 28. * x3 + 3. * x4) / (2. *  xm3) * log(x)
-                + (x2 * (4. - 7. * x + 7. * x2 - 2. * x3) ) / (2. * xm4) * log(x) * log(x)
-                + (2. * x * (4. - 7. * x - 7 * x2 + x3) ) / xm3 * Li2
-                + (16. / x) * (M_PI * M_PI/6. - Li2);
-    
-    double S11 = - x * (4. - 39. * x + 168. * x2 + 11. * x3) / (4. * xm3) -
-                 3. * x * (4. - 24. * x + 36. * x2 + 7. * x3 + x4) / (2. * xm4) * log(x)
-                 + 3. * x3 * (13. + 4.* x + x2) / (2. * xm4) * log(x) * log(x) -
-                 3. * x3 * (5. + x) / xm3 * Li2;
-    
-    double S1tt = (N - 1.)/ 2. / N * S18 + (N * N - 1.) / 2. / N * S11 ;
-    
     double S0tt = (4. * x - 11. * x2 + x3) / 4. / xm2 -
-                  3. * x3 / (2. * xm3) * log(x);
+                  3. * x3 / (2. * xm3) * logx;
    
-    double eta = 0.;
     double Bt = 5. * (N - 1.) / 2. / N + 3. * (N * N - 1.) / 2. / N;
     
     double gamma0 = 6. * (N - 1.) / N;
     
     double gamma1[4] = {0.}, J[4] = {0.};
     
-    for(int i=0; i<4; i++){
-        gamma1[i] = (N - 1.)/(2.*N) * (-21. + 57./N - 19./3.*N + 4./3.*(i+3.));
+    for(int i = 0; i < 4; ++i){
+        gamma1[i] = (N - 1.)/(2. * N) * (-21. + 57./N - 19./3. * N + 4./3. * (i + 3.));
     }
     
-    for(int k=0; k<4; k++){
-        J[k] = gamma0 * model.Beta1(3+k) / 2. / model.Beta0(3+k) / model.Beta0(3+k)
-               - gamma1[k] / 2. / model.Beta0(3+k);
+    for(int k = 0; k < 4; ++k){
+        J[k] = gamma0 * model.Beta1(3 + k) / 2. / model.Beta0(3 + k) / model.Beta0(3 + k)
+               - gamma1[k] / 2. / model.Beta0(3 + k);
     }
         
-    double b = (4. - 22. * x + 15. * x2 + 2. * x3 + x4 - 18. * x2 * log(x))
-               / ((-1. + x) * (-2. + 15. * x - 12. * x2 + x3 + 6. * x2 * log(x)));
+    double b = (4. - 22. * x + 15. * x2 + 2. * x3 + x4 - 18. * x2 * logx)
+               / ((-1. + x) * (-2. + 15. * x - 12. * x2 + x3 + 6. * x2 * logx));
+    double AlsT = model.Als(model.getMut());
+    double AlsB = model.Als(model.getMub());
+    double AlsC = model.Als(model.getMuc());
     
-    eta = pow(model.Als(model.getMuc()), 6./27.) *
-          pow(model.Als(model.getMub())/model.Als(model.getMuc()), 6./25.) *
-          pow(model.Als(model.getMut())/model.Als(model.getMub()), 6./23.) *
-          (1. + model.Als(model.getMuc())/4./M_PI * (J[1]-J[0]) + 
-          model.Als(model.getMub())/4./M_PI * (J[2]-J[1]) 
-          + model.Als(model.getMut())/4./M_PI * (S1tt/S0tt
-          + Bt - J[2] + gamma0*log(model.getMut()/model.getMuw()) + 
-          12.*(3./2.-1./6.)*log(model.getMut()/model.getMuw())*b));
-    
-    return (eta);
+    return (pow(model.Als(model.getMuc()), 6./27.) *
+            pow(model.Als(model.getMub())/model.Als(model.getMuc()), 6./25.) *
+            pow(model.Als(model.getMut())/model.Als(model.getMub()), 6./23.) *
+            (1. + model.Als(model.getMuc())/4./M_PI * (J[1]-J[0]) +
+            model.Als(model.getMub())/4./M_PI * (J[2]-J[1])
+            + model.Als(model.getMut())/4./M_PI * (model.GetMyMatching()->S1(x)/S0tt
+            + Bt - J[2] + gamma0*log(model.getMut()/model.getMuw())
+            + 12.*(3./2.-1./6.)*log(model.getMut()/model.getMuw())*b)));
 }
-

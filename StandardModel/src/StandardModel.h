@@ -798,6 +798,7 @@ private:
     bool FlagRhoZbFromGuOverGb, FlagRhoZbFromGdOverGb, FlagTestSubleadingTwoLoopEW;
     bool computeCKM, computeYe, computeYn;
     StandardModelMatching* myStandardModelMatching;
+    int updateFlag;
     
 };
 
