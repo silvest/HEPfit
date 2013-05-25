@@ -19,7 +19,6 @@
 #include <NPSTU.h>
 #include <NPSTUVWXY.h>
 #include <NPEpsilons.h>
-#include <NPHiggs.h>
 #include <NPHiggsST.h>
 #include <NPZbbbar.h>
 #include <NPEffective.h>
