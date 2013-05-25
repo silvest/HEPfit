@@ -188,7 +188,7 @@ double NPEffective::deltaGLq(StandardModel::quark q) const
     switch (q) {
         case StandardModel::UP:
         case StandardModel::CHARM:
-            return ( (cHQp - cHQ)/2.0*ratio - (gVf_SM + gAf_SM)/4.0*DeltaGF()
+           return ( (cHQp - cHQ)/2.0*ratio - (gVf_SM + gAf_SM)/4.0*DeltaGF()
                      + (gVf_SM - gAf_SM)*cW2_SM/2.0/(cW2_SM - sW2_SM)*DeltaGF() );
         case StandardModel::TOP:
             return 0.0;
@@ -253,25 +253,25 @@ double NPEffective::deltaGRq(StandardModel::quark q) const
 
 double NPEffective::deltaGVl(StandardModel::lepton l) const
 {
-    return ( deltaGLl(l) + deltaGRl(l) );
+    return ( deltaGLl(l) + deltaGRl(l) + StandardModel::deltaGVl(l) );
 }
 
 
 double NPEffective::deltaGVq(StandardModel::quark q) const
 {
-    return ( deltaGLq(q) + deltaGRq(q) );
+    return ( deltaGLq(q) + deltaGRq(q) + StandardModel::deltaGVq(q) );
 }
 
 
 double NPEffective::deltaGAl(StandardModel::lepton l) const
 {
-    return ( deltaGLl(l) - deltaGRl(l) );
+    return ( deltaGLl(l) - deltaGRl(l) + StandardModel::deltaGAl(l) );
 }
 
 
 double NPEffective::deltaGAq(StandardModel::quark q) const
 {
-    return ( deltaGLq(q) - deltaGRq(q) );
+    return ( deltaGLq(q) - deltaGRq(q) + StandardModel::deltaGAq(q) );
 }
 
 

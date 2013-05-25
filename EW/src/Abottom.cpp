@@ -32,11 +32,6 @@ double Abottom::getThValue()
         if ( !SM.IsFlagNotLinearizedNP() ) {
             double delGVf = SM.deltaGVq(SM.BOTTOM);
             double delGAf = SM.deltaGAq(SM.BOTTOM);
-
-            /* Oblique corrections */
-            delGVf += myEW.delGVq_oblique(SM.BOTTOM);
-            delGAf += myEW.delGAq_oblique(SM.BOTTOM);
-
             if (delGVf!=0.0 || delGAf!=0.0) {
                 double gVf = SM.StandardModel::gVq(SM.BOTTOM).real();
                 double gAf = SM.StandardModel::gAq(SM.BOTTOM).real();

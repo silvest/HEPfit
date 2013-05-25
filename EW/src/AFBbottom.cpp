@@ -31,13 +31,6 @@ double AFBbottom::getThValue()
             double delGAe = SM.deltaGAl(SM.ELECTRON);
             double delGVf = SM.deltaGVq(SM.BOTTOM);
             double delGAf = SM.deltaGAq(SM.BOTTOM);
-
-            /* Oblique corrections */
-            delGVe += myEW.delGVl_oblique(SM.ELECTRON);
-            delGAe += myEW.delGAl_oblique(SM.ELECTRON);
-            delGVf += myEW.delGVq_oblique(SM.BOTTOM);
-            delGAf += myEW.delGAq_oblique(SM.BOTTOM);
-
             if (delGVe!=0.0 || delGAe!=0.0 || delGVf!=0.0 || delGAf!=0.0) {
                 double gVe = SM.StandardModel::gVl(SM.ELECTRON).real();
                 double gAe = SM.StandardModel::gAl(SM.ELECTRON).real();

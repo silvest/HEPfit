@@ -33,11 +33,6 @@ double AFBlepton::getThValue()
         if ( !SM.IsFlagNotLinearizedNP() ) {
             double delGVe = SM.deltaGVl(SM.ELECTRON);
             double delGAe = SM.deltaGAl(SM.ELECTRON);
-
-            /* Oblique corrections */
-            delGVe += myEW.delGVl_oblique(SM.ELECTRON);
-            delGAe += myEW.delGAl_oblique(SM.ELECTRON);
-
             if (delGVe!=0.0 || delGAe!=0.0) {
                 double gVe = SM.StandardModel::gVl(SM.ELECTRON).real();
                 double gAe = SM.StandardModel::gAl(SM.ELECTRON).real();

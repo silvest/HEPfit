@@ -39,22 +39,12 @@ double Rlepton::getThValue()
 
             double delGVe = SM.deltaGVl(SM.ELECTRON);
             double delGAe = SM.deltaGAl(SM.ELECTRON);
-
-            /* Oblique corrections */
-            delGVe += myEW.delGVl_oblique(SM.ELECTRON);
-            delGAe += myEW.delGAl_oblique(SM.ELECTRON);
-
             if (delGVe!=0.0 || delGAe!=0.0) nonZeroNP = true;
 
             double delGVq[6], delGAq[6];
             for (int p=0; p<6; ++p) {
                 delGVq[p] = SM.deltaGVq((StandardModel::quark)p);
                 delGAq[p] = SM.deltaGAq((StandardModel::quark)p);
-
-                /* Oblique corrections */
-                delGVq[p] += myEW.delGVq_oblique((StandardModel::quark)p);
-                delGAq[p] += myEW.delGAq_oblique((StandardModel::quark)p);
-
                 if (delGVq[p]!=0.0 || delGAq[p]!=0.0) nonZeroNP = true;
             }
 

@@ -44,53 +44,11 @@ public:
     
     ////////////////////////////////////////////////////////////////////////    
 
-    virtual double deltaGVl(StandardModel::lepton l) const
-    {
-        return 0.0;
-    }
+    virtual double deltaGVl(StandardModel::lepton l) const;
+    virtual double deltaGVq(StandardModel::quark q) const;
+    virtual double deltaGAl(StandardModel::lepton l) const;
+    virtual double deltaGAq(StandardModel::quark q) const;
 
-    virtual double deltaGVq(StandardModel::quark q) const
-    {
-        switch (q) {
-            case StandardModel::UP:
-            case StandardModel::CHARM:
-            case StandardModel::TOP:
-            case StandardModel::DOWN:
-            case StandardModel::STRANGE:
-                return 0.0;
-            case StandardModel::BOTTOM:
-                if (FlagNPZbbbarLR)
-                    return ( myDeltaGVb + myDeltaGAb ); // delta g_L^b + delta g_R^b
-                else
-                    return myDeltaGVb;
-            default:
-            throw std::runtime_error("Error in NPZbbbar::deltaGVq()");
-        }
-    }
-
-    virtual double deltaGAl(StandardModel::lepton l) const
-    {
-        return 0.0;
-    }
-
-    virtual double deltaGAq(StandardModel::quark q) const
-    {
-        switch (q) {
-            case StandardModel::UP:
-            case StandardModel::CHARM:
-            case StandardModel::TOP:
-            case StandardModel::DOWN:
-            case StandardModel::STRANGE:
-                return 0.0;
-            case StandardModel::BOTTOM:
-                if (FlagNPZbbbarLR)
-                    return ( myDeltaGVb - myDeltaGAb ); // delta g_L^b - delta g_R^b
-                else
-                    return myDeltaGAb;
-            default:
-            throw std::runtime_error("Error in NPZbbbar::deltaGAq()");
-        }
-    }
     
     ////////////////////////////////////////////////////////////////////////    
     

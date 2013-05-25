@@ -6,7 +6,6 @@
                    projectFiles="true">
       <itemPath>src/NPEffective.h</itemPath>
       <itemPath>src/NPEpsilons.h</itemPath>
-      <itemPath>src/NPHiggs.h</itemPath>
       <itemPath>src/NPHiggsST.h</itemPath>
       <itemPath>src/NPInputs.h</itemPath>
       <itemPath>src/NPSTU.h</itemPath>
@@ -28,7 +27,6 @@
                    projectFiles="true">
       <itemPath>src/NPEffective.cpp</itemPath>
       <itemPath>src/NPEpsilons.cpp</itemPath>
-      <itemPath>src/NPHiggs.cpp</itemPath>
       <itemPath>src/NPHiggsST.cpp</itemPath>
       <itemPath>src/NPSTU.cpp</itemPath>
       <itemPath>src/NPSTUVWXY.cpp</itemPath>
@@ -74,10 +72,6 @@
       <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEpsilons.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/NPHiggs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NPHiggs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPHiggsST.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -147,10 +141,6 @@
       </item>
       <item path="src/NPEpsilons.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/NPHiggs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NPHiggs.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/NPHiggsST.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPHiggsST.h" ex="false" tool="3" flavor2="0">
@@ -218,10 +208,6 @@
       <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEpsilons.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/NPHiggs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NPHiggs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPHiggsST.cpp" ex="false" tool="1" flavor2="0">
       </item>

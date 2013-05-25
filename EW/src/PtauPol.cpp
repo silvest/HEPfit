@@ -34,11 +34,6 @@ double PtauPol::getThValue()
         if ( !SM.IsFlagNotLinearizedNP() ) {
             double delGVf = SM.deltaGVl(SM.TAU);
             double delGAf = SM.deltaGAl(SM.TAU);
-
-            /* Oblique corrections */
-            delGVf += myEW.delGVl_oblique(SM.TAU);
-            delGAf += myEW.delGAl_oblique(SM.TAU);
-
             if (delGVf!=0.0 || delGAf!=0.0) {
                 double gVf = SM.StandardModel::gVl(SM.TAU).real();
                 double gAf = SM.StandardModel::gAl(SM.TAU).real();

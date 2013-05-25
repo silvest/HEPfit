@@ -51,11 +51,6 @@ double Rbottom::getThValue()
             for (int p=0; p<6; ++p) {
                 delGVq[p] = SM.deltaGVq((StandardModel::quark)p);
                 delGAq[p] = SM.deltaGAq((StandardModel::quark)p);
-
-                /* Oblique corrections */
-                delGVq[p] += myEW.delGVq_oblique((StandardModel::quark)p);
-                delGAq[p] += myEW.delGAq_oblique((StandardModel::quark)p);
-
                 if (delGVq[p]!=0.0 || delGAq[p]!=0.0) nonZeroNP = true;
             }
 

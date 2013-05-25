@@ -522,6 +522,57 @@ double StandardModel::epsilonb() const
     return epsilonb_SM();    
 }
 
+double StandardModel::deltaGVl(StandardModel::lepton l) const
+{
+    /* SM values */
+    double alpha = StandardModel::alphaMz();
+    double sW2SM = StandardModel::sW2();
+    double cW2SM = StandardModel::cW2();
+    double gVSM = StandardModel::gVl(l).real();
+    double gASM = StandardModel::gAl(l).real();
+
+    return ( gVSM*alpha*obliqueT()/2.0
+            + (gVSM - gASM)*alpha/4.0/sW2SM/(cW2SM - sW2SM)
+              *(obliqueS() - 4.0*cW2SM*sW2SM*obliqueT()) );
+}
+
+double StandardModel::deltaGVq(StandardModel::quark q) const
+{
+    if (q==TOP) return 0.0;
+
+    /* SM values */
+    double alpha = StandardModel::alphaMz();
+    double sW2SM = StandardModel::sW2();
+    double cW2SM = StandardModel::cW2();
+    double gVSM = StandardModel::gVq(q).real();
+    double gASM = StandardModel::gAq(q).real();
+
+    return ( gVSM*alpha*obliqueT()/2.0
+             + (gVSM - gASM)*alpha/4.0/sW2SM/(cW2SM - sW2SM)
+               *(obliqueS() - 4.0*cW2SM*sW2SM*obliqueT()) );
+}
+
+double StandardModel::deltaGAl(StandardModel::lepton l) const
+{
+    /* SM values */
+    double alpha = StandardModel::alphaMz();
+    double gASM = StandardModel::gAl(l).real();
+
+    return ( gASM*alpha*obliqueT()/2.0 );
+
+}
+
+double StandardModel::deltaGAq(StandardModel::quark q) const
+{
+    if (q==TOP) return 0.0;
+
+    /* SM values */
+    double alpha = StandardModel::alphaMz();
+    double gASM = StandardModel::gAq(q).real();
+
+    return ( gASM*alpha*obliqueT()/2.0 );
+}
+
 
 ////////////////////////////////////////////////////////////////////////
 // CKM parameters

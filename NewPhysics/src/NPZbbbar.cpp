@@ -106,6 +106,64 @@ bool NPZbbbar::SetFlag(const std::string name, const bool& value)
 
 ////////////////////////////////////////////////////////////////////////     
 
+
+double NPZbbbar::deltaGVl(StandardModel::lepton l) const
+{
+    return StandardModel::deltaGVl(l);
+}
+
+
+double NPZbbbar::deltaGVq(StandardModel::quark q) const
+{
+    switch (q) {
+        case StandardModel::UP:
+        case StandardModel::CHARM:
+        case StandardModel::TOP:
+        case StandardModel::DOWN:
+        case StandardModel::STRANGE:
+            return StandardModel::deltaGVq(q);
+        case StandardModel::BOTTOM:
+            if (FlagNPZbbbarLR)
+                // delta g_L^b + delta g_R^b
+                return ( myDeltaGVb + StandardModel::deltaGVq(q)
+                         + myDeltaGAb + StandardModel::deltaGAq(q)); 
+            else
+                return ( myDeltaGVb + StandardModel::deltaGVq(q) );
+        default:
+            throw std::runtime_error("Error in NPZbbbar::deltaGVq()");
+    }
+}
+
+
+double NPZbbbar::deltaGAl(StandardModel::lepton l) const
+{
+    return StandardModel::deltaGAl(l);
+}
+
+
+ double NPZbbbar::deltaGAq(StandardModel::quark q) const
+ {
+     switch (q) {
+         case StandardModel::UP:
+         case StandardModel::CHARM:
+         case StandardModel::TOP:
+         case StandardModel::DOWN:
+         case StandardModel::STRANGE:
+             return StandardModel::deltaGAq(q);
+         case StandardModel::BOTTOM:
+             if (FlagNPZbbbarLR)
+                // delta g_L^b - delta g_R^b
+                return ( myDeltaGVb + StandardModel::deltaGVq(q)
+                         - myDeltaGAb - StandardModel::deltaGAq(q));
+             else
+                 return ( myDeltaGAb + StandardModel::deltaGAq(q) );
+         default:
+             throw std::runtime_error("Error in NPZbbbar::deltaGAq()");
+     }
+ }
+
+
+////////////////////////////////////////////////////////////////////////
     
 complex NPZbbbar::rhoZ_l(const StandardModel::lepton l) const 
 {

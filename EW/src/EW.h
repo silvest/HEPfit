@@ -170,36 +170,6 @@ public:
     double A_q(const StandardModel::quark q) const;
 
     
-    ////////////////////////////////////////////////////////////////////////   
-
-    /**
-     * @brief The oblique corrections to the Zll vector coupling.
-     * @param[in] l 
-     * @return The oblique corrections to the Zll vector coupling.
-     */
-    double delGVl_oblique(const StandardModel::lepton l) const;
-    /**
-     * @brief The oblique corrections to the Zqq vector coupling.
-     * @param[in] q
-     * @return The oblique corrections to the Zqq vector coupling.
-     */
-    double delGVq_oblique(const StandardModel::quark q) const;
-
-    /**
-     * @brief The oblique corrections to the Zll axial-vector coupling.
-     * @param[in] l
-     * @return The oblique corrections to the Zll axial-vector coupling.
-     */
-    double delGAl_oblique(const StandardModel::lepton l) const;
-
-    /**
-     * @brief The oblique corrections to the Zqq axial-vector coupling.
-     * @param[in] q
-     * @return The oblique corrections to the Zqq axial-vector coupling.
-     */
-    double delGAq_oblique(const StandardModel::quark q) const;
-
-
     ////////////////////////////////////////////////////////////////////////
 
 protected:

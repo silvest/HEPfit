@@ -32,11 +32,6 @@ double Acharm::getThValue()
         if ( !SM.IsFlagNotLinearizedNP() ) {
             double delGVf = SM.deltaGVq(SM.CHARM);
             double delGAf = SM.deltaGAq(SM.CHARM);
-
-            /* Oblique corrections */
-            delGVf += myEW.delGVq_oblique(SM.CHARM);
-            delGAf += myEW.delGAq_oblique(SM.CHARM);
-
             if (delGVf!=0.0 || delGAf!=0.0) {
                 double gVf = SM.StandardModel::gVq(SM.CHARM).real();
                 double gAf = SM.StandardModel::gAq(SM.CHARM).real();

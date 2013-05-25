@@ -34,11 +34,6 @@ double sin2thetaEff::getThValue()
         if ( !SM.IsFlagNotLinearizedNP() ) {
             double delGVf = SM.deltaGVl(SM.ELECTRON);
             double delGAf = SM.deltaGAl(SM.ELECTRON);
-
-            /* Oblique corrections */
-            delGVf += myEW.delGVl_oblique(SM.ELECTRON);
-            delGAf += myEW.delGAl_oblique(SM.ELECTRON);
-
             if (delGVf!=0.0 || delGAf!=0.0) {
                 double gVf = SM.StandardModel::gVl(SM.ELECTRON).real();
                 double gAf = SM.StandardModel::gAl(SM.ELECTRON).real();

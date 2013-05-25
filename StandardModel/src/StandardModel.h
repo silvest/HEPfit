@@ -737,27 +737,15 @@ public:
         return 0.0;
     }
 
-    virtual double deltaGVl(StandardModel::lepton l) const
-    {
-        return 0.0;
-    }
+    virtual double deltaGVl(StandardModel::lepton l) const;
     
-    virtual double deltaGVq(StandardModel::quark q) const
-    {
-        return 0.0;
-    }
+    virtual double deltaGVq(StandardModel::quark q) const;
     
-    virtual double deltaGAl(StandardModel::lepton l) const
-    {
-        return 0.0;
-    }
+    virtual double deltaGAl(StandardModel::lepton l) const;
     
-    virtual double deltaGAq(StandardModel::quark q) const
-    {
-        return 0.0;
-    }
-    
-    
+    virtual double deltaGAq(StandardModel::quark q) const;
+
+
     ////////////////////////////////////////////////////////////////////////
     // CKM parameters
     
