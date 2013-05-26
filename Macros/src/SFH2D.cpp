@@ -19,9 +19,10 @@
 SFH2D::SFH2D(TH2D& hist, std::ostream& os_in, 
              const double prob68_in, const double prob95_in, 
              const double x_low, const double x_up, 
-             const double y_low, const double y_up)
+             const double y_low, const double y_up,
+             const int NumNewPoints_in)
 : os(os_in), prob68(prob68_in), prob95(prob95_in), origHist(hist), 
-        origName(hist.GetName())
+        origName(hist.GetName()), NumNewPoints(NumNewPoints_in)
 {
     std::string NewName = origName + "_new";
     newHist = (TH2D*) hist.Clone(NewName.c_str()); 
@@ -60,7 +61,7 @@ void SFH2D::Draw(const TString xlab, const TString ylab,
                  const int lineWidth, const int lineColor, 
                  const int col68, const int col95, const int lineStyle, 
                  const int lineStyle68,
-                 const int fillStyle, const int maxDigits, 
+                 const int fillStyle, const int maxDigits,
                  const bool bLine, const bool bOnly95, const bool superImpose, 
                  const double YTitleOffset) 
 {
@@ -310,9 +311,7 @@ void SFH2D::drawFromGraph(const int ind, const std::string DrawOpts,
             for (unsigned int i = 0; i < vp.size(); i++)
                 curv->SetPoint(curv->GetN(), vp[i].m_x, vp[i].m_y);
 
-        if (contour->GetSize()==2)
-            curv_new[i] = (TGraph*) curv->Clone();
-        else {
+        if (contour->GetSize()==1) {
             curv_new[i] = CloseTGraph(curv);
             curv_new[i]->SetLineWidth(lineWidth);
             //curv_new[i]->SetLineColor(col);
@@ -324,12 +323,38 @@ void SFH2D::drawFromGraph(const int ind, const std::string DrawOpts,
                 curv_new[i]->Draw("F");
             else if (DrawOpts.compare("CONT") == 0)
                 curv_new[i]->Draw();
+        } else if (contour->GetSize()==2)
+            curv_new[i] = (TGraph*) curv->Clone();
+        else {
+            /* For contour->GetSize()>=2, additional codes have to be implemented.
+             * Below we simply consider only the first and second graphs.
+             * This is only applicable in the case where the other graphs are
+             * irrelevant to the plot.
+             */
+            if (i<2)
+                curv_new[i] = (TGraph*) curv->Clone();
+            else {
+                os << "  SFH2D::drawFromGraph(): contour->GetSize()="
+                   << contour->GetSize() << " exceeds the limit in the codes."
+                   << std::endl
+                   << "    Only the first and second contour graphs are considered!"
+                   << std::endl
+                   << "    The other graphs with the following points are neglected!"
+                   << std::endl
+                   << "    Graph " << i << ":" << std::endl;
+                for (int n=0; n < curv->GetN(); n++) {
+                    double xtmp, ytmp;
+                    curv->GetPoint(n, xtmp, ytmp);
+                    os << "    " << xtmp << ", " << ytmp << std::endl;
+                }
+            }
         }
+
         myCurv = curv_new[i];
         curv = (TGraph*) contour->After(curv); // Get Next graph
     }
 
-    if (contour->GetSize()==2) {
+    if (contour->GetSize()>=2) {
         // connect an end point of a contour with an end point of the other contour 
         // in the case where if both points are on the same boundary of the plot. 
         TGraph* curv_combined = CloseTwoTGraphs(ind, curv_new[0], curv_new[1]); 
@@ -561,39 +586,38 @@ TGraph* SFH2D::CloseTwoTGraphs(const int cont_ind, TGraph* inputgraph1,
 
     // add more points to the interval between an end point of the first contour 
     // and that of the second contour
-    int NP = 2000;
     if (p_xmin.size()==2) { // left
         double xtmp, ytmp;
-        for (int i=0; i<NP; i++) {
-            xtmp = p_xmin.at(1).m_x + (p_xmin.at(0).m_x - p_xmin.at(1).m_x)/(double)NP*(double)i;
-            ytmp = p_xmin.at(1).m_y + (p_xmin.at(0).m_y - p_xmin.at(1).m_y)/(double)NP*(double)i;
+        for (int i=0; i<NumNewPoints; i++) {
+            xtmp = p_xmin.at(1).m_x + (p_xmin.at(0).m_x - p_xmin.at(1).m_x)/(double)NumNewPoints*(double)i;
+            ytmp = p_xmin.at(1).m_y + (p_xmin.at(0).m_y - p_xmin.at(1).m_y)/(double)NumNewPoints*(double)i;
             SFH2D_Point p(xtmp, ytmp);
             vp_org.push_back(p);
         }
     }
     if (p_xmax.size()==2) { // right
         double xtmp, ytmp;
-        for (int i=0; i<NP; i++) {
-            xtmp = p_xmax.at(1).m_x + (p_xmax.at(0).m_x - p_xmax.at(1).m_x)/(double)NP*(double)i;
-            ytmp = p_xmax.at(1).m_y + (p_xmax.at(0).m_y - p_xmax.at(1).m_y)/(double)NP*(double)i;
+        for (int i=0; i<NumNewPoints; i++) {
+            xtmp = p_xmax.at(1).m_x + (p_xmax.at(0).m_x - p_xmax.at(1).m_x)/(double)NumNewPoints*(double)i;
+            ytmp = p_xmax.at(1).m_y + (p_xmax.at(0).m_y - p_xmax.at(1).m_y)/(double)NumNewPoints*(double)i;
             SFH2D_Point p(xtmp, ytmp);
             vp_org.push_back(p);
         }
     }
     if (p_ymin.size()==2) { // bottom
         double xtmp, ytmp;
-        for (int i=0; i<NP; i++) {
-            xtmp = p_ymin.at(1).m_x + (p_ymin.at(0).m_x - p_ymin.at(1).m_x)/(double)NP*(double)i;
-            ytmp = p_ymin.at(1).m_y + (p_ymin.at(0).m_y - p_ymin.at(1).m_y)/(double)NP*(double)i;
+        for (int i=0; i<NumNewPoints; i++) {
+            xtmp = p_ymin.at(1).m_x + (p_ymin.at(0).m_x - p_ymin.at(1).m_x)/(double)NumNewPoints*(double)i;
+            ytmp = p_ymin.at(1).m_y + (p_ymin.at(0).m_y - p_ymin.at(1).m_y)/(double)NumNewPoints*(double)i;
             SFH2D_Point p(xtmp, ytmp);
             vp_org.push_back(p);
         }
     }
     if (p_ymax.size()==2) { // top
         double xtmp, ytmp;
-        for (int i=0; i<NP; i++) {
-            xtmp = p_ymax.at(1).m_x + (p_ymax.at(0).m_x - p_ymax.at(1).m_x)/(double)NP*(double)i;
-            ytmp = p_ymax.at(1).m_y + (p_ymax.at(0).m_y - p_ymax.at(1).m_y)/(double)NP*(double)i;
+        for (int i=0; i<NumNewPoints; i++) {
+            xtmp = p_ymax.at(1).m_x + (p_ymax.at(0).m_x - p_ymax.at(1).m_x)/(double)NumNewPoints*(double)i;
+            ytmp = p_ymax.at(1).m_y + (p_ymax.at(0).m_y - p_ymax.at(1).m_y)/(double)NumNewPoints*(double)i;
             SFH2D_Point p(xtmp, ytmp);
             vp_org.push_back(p);
         }
@@ -640,7 +664,7 @@ TGraph* SFH2D::CloseTwoTGraphs(const int cont_ind, TGraph* inputgraph1,
     // add more points to the interval of the first and the last points 
     double xtmp, ytmp;
     SFH2D_Point p_last(vp_new.back().m_x, vp_new.back().m_y);
-    int NP2 = 2000;
+    int NP2 = 20;
     for (int i=0; i<NP2; i++) {
         xtmp = p_last.m_x + (vp_new.front().m_x - p_last.m_x)/NP2*(double)i;
         ytmp = p_last.m_y + (vp_new.front().m_y - p_last.m_y)/NP2*(double)i;

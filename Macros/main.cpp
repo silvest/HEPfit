@@ -10,6 +10,7 @@
 #include <iostream>
 #include <fstream>
 #include <streambuf>
+#include <sstream>
 #include <algorithm>
 #include <TRoot.h>
 #include <TSystem.h>
@@ -80,7 +81,7 @@ int main(int argc, char** argv)
         cout << "   -legScale=scale  -> scale factor for the legend [default: scale=1] " << endl;
         cout << "   -legXmin=xmin    -> xmin for the position of the legend [default: xmin=0.63]" << endl;
         cout << "   -legYmax=ymax    -> ymax for the position of the legend [default: ymax=0.88]" << endl;
-        cout << "   *** options for histograms (N=1,2,3,4) ***                         " << endl;
+        cout << "   *** options for histograms (N=1,2,3,4,5) ***                       " << endl;
         cout << "   -plotN=name      -> name of the histogram                          " << endl;
         cout << "   -rootfileN=filename -> rootfile name for plotN (with extension)    " << endl;
         cout << "         [For N=2,3, the same as the rootfile for plot1 by default]   " << endl;
@@ -142,7 +143,7 @@ int main(int argc, char** argv)
         cout << "   -legScale=scale  -> scale factor for the legend [default: scale=1.0]" << endl;
         cout << "   -legXmin=xmin    -> xmin for the position of the legend [default: xmin=0.63]" << endl;
         cout << "   -legYmax=ymax    -> ymax for the position of the legend [default: ymax=0.88]" << endl;
-        cout << "   *** options for histogram (N=1,2,3,4) ***                          " << endl;
+        cout << "   *** options for histogram (N=1,2,3,4,5) ***                        " << endl;
         cout << "   --only95N        -> draw only the 95% contour                      " << endl;
         cout << "   -plotN=name      -> name of the histogram                          " << endl;
         cout << "   -rootfileN=filename -> rootfile name for plotN (with extension)    " << endl;
@@ -158,6 +159,7 @@ int main(int argc, char** argv)
         cout << "   -lineColorN=index-> index of the line color [default: index=1]    " << endl;
         cout << "   -fillN=index     -> index of the fill area style [default: index=1001]" << endl;
         cout << "   -legN=legend     -> legend for plotN [default: no legend]          " << endl;
+        cout << "   -NumNewPointsN=num-> add more points to close contours [default: num=20]" << endl;
         cout << "   *** put a measured point ***                                       " << endl;
         cout << "   -Xval=xval2      -> xval2 is the x value of the point              " << endl;
         cout << "   -Xerr=xerr2      -> xerr2 is the error of xval2                    " << endl;
@@ -190,32 +192,40 @@ int main(int argc, char** argv)
     TString legP="";
     int colP = 1;
     //
-    TString legGauss = "";
-    double prior_mean = 0.0, prior_sigma = 0.0;
-    //
-    const int NumHist = 4;   
-    TObject* tobj[NumHist];
-    TFile *datafile[NumHist];
-    string plotname[NumHist] = {"", "", "", ""};
-    string filename[NumHist] = {"", "", "", ""};
-    TString leg[NumHist] = {"", "", "", ""};
-    int smooth[NumHist] = {0, 0, 0, 0};
-    int lineStyle[NumHist] = {1, 1, 1, 1};
-    int lineStyle68[NumHist] = {3, 3, 3, 3};
-    int lineWidth[NumHist] = {1, 1, 1, 1};
-    int lineColor[NumHist] = {1, 1, 1, 1};
-    int col68[NumHist] = {1393, 1393, 1393, 1393};
-    int col95[NumHist] = {1392, 1392, 1392, 1392};
-    double col68alpha[NumHist] = {1.0, 1.0, 1.0, 1.0};
-    double col95alpha[NumHist] = {1.0, 1.0, 1.0, 1.0};
-    int fillStyle[NumHist] = {1001, 1001, 1001, 1001};
-    int newNbins[NumHist] = {100, 100, 100, 100};
-    bool bOnlyLine[NumHist] = {false, false, false, false};
-    bool bOnly95[NumHist] = {false, false, false, false};
-    
     double legend_scale = 1.0;
     double leg_xmin = 0.63, leg_ymax = 0.88;
+    TString legGauss = "";
+    double prior_mean = 0.0, prior_sigma = 0.0;
 
+    const int NumHist = 5;
+    TObject* tobj[NumHist];
+    TFile *datafile[NumHist];
+    string plotname[NumHist], filename[NumHist];
+    TString leg[NumHist];
+    int smooth[NumHist], col68[NumHist], col95[NumHist];
+    int lineStyle[NumHist], lineStyle68[NumHist], lineWidth[NumHist], lineColor[NumHist];
+    double col68alpha[NumHist], col95alpha[NumHist];
+    int fillStyle[NumHist], newNbins[NumHist], NumNewPoints[NumHist];
+    bool bOnlyLine[NumHist], bOnly95[NumHist];
+    for (int hist=0; hist<NumHist; hist++) {
+        plotname[hist] = "";
+        filename[hist] = "";
+        leg[hist] = "";
+        smooth[hist] = 0;
+        lineStyle[hist] = 1;
+        lineStyle68[hist] = 3;
+        lineWidth[hist] = 1;
+        lineColor[hist] = 1;
+        col68[hist] = 1393;
+        col95[hist] = 1392;
+        col68alpha[hist] = 1.0;
+        col95alpha[hist] = 1.0;
+        fillStyle[hist] = 1001;
+        newNbins[hist] = 100;
+        NumNewPoints[hist] = 20;
+        bOnlyLine[hist] = false;
+        bOnly95[hist] = false;
+    }
 
     //----------------------------------------------------------------------
     
@@ -233,266 +243,249 @@ int main(int argc, char** argv)
         datafile[0]->ls();
         return 0;
     }
-    filename[1] = filename[0];
-    filename[2] = filename[0];
-    filename[3] = filename[0];
+    for (int hist=1; hist<NumHist; hist++)
+        filename[hist] = filename[0];
 
     string outputFileName;   
     
     for (int i = 3; i < argc; i++) {
         char str[100];
+        bool flag = true;
+        
         if (strncmp(argv[i], "--orig", 6) == 0) bOrig = true;
         else if (strncmp(argv[i], "--pdf", 5) == 0) bPDF = true;
-        else if (strncmp(argv[i], "--outputTxt", 11) == 0) bOutputTxt = true;        
-        else if (strncmp(argv[i], "--drawlines", 11) == 0) bContLines = true;        
-        else if (strncmp(argv[i], "--leftLegend", 12) == 0) bLeftLegend = true;        
-        else if (strncmp(argv[i], "--onlyLine1", 11) == 0) bOnlyLine[0] = true;
-        else if (strncmp(argv[i], "--onlyLine2", 11) == 0) bOnlyLine[1] = true;
-        else if (strncmp(argv[i], "--onlyLine3", 11) == 0) bOnlyLine[2] = true;
-        else if (strncmp(argv[i], "--onlyLine4", 11) == 0) bOnlyLine[3] = true;
-        else if (strncmp(argv[i], "--only951", 9) == 0) bOnly95[0] = true;
-        else if (strncmp(argv[i], "--only952", 9) == 0) bOnly95[1] = true; 
-        else if (strncmp(argv[i], "--only953", 9) == 0) bOnly95[2] = true;
-        else if (strncmp(argv[i], "--only954", 9) == 0) bOnly95[3] = true;
+        else if (strncmp(argv[i], "--outputTxt", 11) == 0) bOutputTxt = true;
+        else if (strncmp(argv[i], "--drawlines", 11) == 0) bContLines = true;
+        else if (strncmp(argv[i], "--leftLegend", 12) == 0) bLeftLegend = true;
         else if (strncmp(argv[i], "--rescaleForMHl", 15) == 0) bRescaleForMHl = true;
-        
-        else if (strncmp(argv[i], "-prob68=", 8) == 0) 
+        //
+        else if (strncmp(argv[i], "-prob68=", 8) == 0)
             sscanf(argv[i], "-prob68=%lf", &prob68);
-        else if (strncmp(argv[i], "-prob95=", 8) == 0) 
+        else if (strncmp(argv[i], "-prob95=", 8) == 0)
             sscanf(argv[i], "-prob95=%lf", &prob95);
         else if (strncmp(argv[i], "-prob99=", 8) == 0)
             sscanf(argv[i], "-prob99=%lf", &prob99);
-        
+        //
         else if (strncmp(argv[i], "-output=", 8) == 0) {
             sscanf(argv[i], "-output=%s", str);
             outputFileName = str;
         }
-
+        //
         else if (strncmp(argv[i], "-xlab=", 6) == 0) {
             sscanf(argv[i], "-xlab=%s", str);
             xlab = str;
         }
-        
+        //
         else if (strncmp(argv[i], "-ylab=", 6) == 0) {
             sscanf(argv[i], "-ylab=%s", str);
             ylab = str;
-        }        
-        
+        }
+        //
         else if (strncmp(argv[i], "-addtext=", 9) == 0) {
             sscanf(argv[i], "-addtext=%s", str);
             addtext = str;
         }
         else if (strncmp(argv[i], "-addtextAt=", 11) == 0)
             sscanf(argv[i], "-addtextAt=[%lf,%lf]", &addtext_x, &addtext_y);
-        
-        else if (strncmp(argv[i], "-maxDigits=", 11) == 0) 
+        //
+        else if (strncmp(argv[i], "-maxDigits=", 11) == 0)
             sscanf(argv[i], "-maxDigits=%d", &maxDig);
-
-        else if (strncmp(argv[i], "-precision=", 11) == 0) 
+        //
+        else if (strncmp(argv[i], "-precision=", 11) == 0)
             sscanf(argv[i], "-precision=%d", &prec);
-        
-        else if (strncmp(argv[i], "-priorMean=", 11) == 0) 
+        //
+        else if (strncmp(argv[i], "-priorMean=", 11) == 0)
             sscanf(argv[i], "-priorMean=%lf", &prior_mean);
-        else if (strncmp(argv[i], "-priorSigma=", 12) == 0) 
+        else if (strncmp(argv[i], "-priorSigma=", 12) == 0)
             sscanf(argv[i], "-priorSigma=%lf", &prior_sigma);
-
+        //
         else if (strncmp(argv[i], "-xrange=", 8) == 0) {
             TString stmp(argv[i] + 8);
             sscanf(stmp.Data(), "[%lf,%lf]", &x_low, &x_up);
         }
-
+        //
         else if (strncmp(argv[i], "-range=", 7) == 0) {
             TString stmp(argv[i] + 7);
             sscanf(stmp.Data(), "[%lf,%lf]x[%lf,%lf]", &x_low, &x_up, &y_low, &y_up);
         }
-
+        //
         else if (strncmp(argv[i], "-bins=", 6) == 0) {
             TString stmp(argv[i] + 6);
             sscanf(stmp.Data(), "[%d]x[%d]", &nx, &ny);
         }
-
-        else if (strncmp(argv[i], "-yTitleOffset=", 14) == 0) 
-            sscanf(argv[i], "-yTitleOffset=%lf", &yTitleOffset);        
-        
-        else if (strncmp(argv[i], "-val=", 5) == 0) 
+        //
+        else if (strncmp(argv[i], "-yTitleOffset=", 14) == 0)
+            sscanf(argv[i], "-yTitleOffset=%lf", &yTitleOffset);
+        //
+        else if (strncmp(argv[i], "-val=", 5) == 0)
             sscanf(argv[i], "-val=%lf", &xval);
-        else if (strncmp(argv[i], "-err=", 5) == 0) 
+        else if (strncmp(argv[i], "-err=", 5) == 0)
             sscanf(argv[i], "-err=%lf", &xerr);
-        
-        else if (strncmp(argv[i], "-Xval=", 6) == 0) 
+        //
+        else if (strncmp(argv[i], "-Xval=", 6) == 0)
             sscanf(argv[i], "-Xval=%lf", &xval2);
-        else if (strncmp(argv[i], "-Xerr=", 6) == 0) 
+        else if (strncmp(argv[i], "-Xerr=", 6) == 0)
             sscanf(argv[i], "-Xerr=%lf", &xerr2);
-        else if (strncmp(argv[i], "-Yval=", 6) == 0) 
+        else if (strncmp(argv[i], "-Yval=", 6) == 0)
             sscanf(argv[i], "-Yval=%lf", &yval2);
-        else if (strncmp(argv[i], "-Yerr=", 6) == 0) 
+        else if (strncmp(argv[i], "-Yerr=", 6) == 0)
             sscanf(argv[i], "-Yerr=%lf", &yerr2);
-        else if (strncmp(argv[i], "-colP=", 6) == 0) 
+        else if (strncmp(argv[i], "-colP=", 6) == 0)
             sscanf(argv[i], "-colP=%d", &colP);
-
-        else if (strncmp(argv[i], "-moreBins1=", 11) == 0)
-            sscanf(argv[i], "-moreBins1=%d", &newNbins[0]);
-        else if (strncmp(argv[i], "-moreBins2=", 11) == 0)
-            sscanf(argv[i], "-moreBins2=%d", &newNbins[1]);
-        else if (strncmp(argv[i], "-moreBins3=", 11) == 0)
-            sscanf(argv[i], "-moreBins3=%d", &newNbins[2]);
-        else if (strncmp(argv[i], "-moreBins4=", 11) == 0)
-            sscanf(argv[i], "-moreBins4=%d", &newNbins[3]);
-        
-        else if (strncmp(argv[i], "-smooth1=", 9) == 0)
-            sscanf(argv[i], "-smooth1=%d", &smooth[0]);
-        else if (strncmp(argv[i], "-smooth2=", 9) == 0) 
-            sscanf(argv[i], "-smooth2=%d", &smooth[1]);
-        else if (strncmp(argv[i], "-smooth3=", 9) == 0) 
-            sscanf(argv[i], "-smooth3=%d", &smooth[2]);
-        else if (strncmp(argv[i], "-smooth4=", 9) == 0) 
-            sscanf(argv[i], "-smooth4=%d", &smooth[3]);
-
-        else if (strncmp(argv[i], "-col681=", 8) == 0) 
-            sscanf(argv[i], "-col681=%d", &col68[0]);
-        else if (strncmp(argv[i], "-col951=", 8) == 0) 
-            sscanf(argv[i], "-col951=%d", &col95[0]);
-        else if (strncmp(argv[i], "-col682=", 8) == 0) 
-            sscanf(argv[i], "-col682=%d", &col68[1]);
-        else if (strncmp(argv[i], "-col952=", 8) == 0) 
-            sscanf(argv[i], "-col952=%d", &col95[1]);
-        else if (strncmp(argv[i], "-col683=", 8) == 0) 
-            sscanf(argv[i], "-col683=%d", &col68[2]);
-        else if (strncmp(argv[i], "-col953=", 8) == 0) 
-            sscanf(argv[i], "-col953=%d", &col95[2]);
-        else if (strncmp(argv[i], "-col684=", 8) == 0) 
-            sscanf(argv[i], "-col684=%d", &col68[3]);
-        else if (strncmp(argv[i], "-col954=", 8) == 0) 
-            sscanf(argv[i], "-col954=%d", &col95[3]);
-
-        else if (strncmp(argv[i], "-col68alpha1=", 13) == 0)
-            sscanf(argv[i], "-col68alpha1=%lf", &col68alpha[0]);
-        else if (strncmp(argv[i], "-col95alpha1=", 13) == 0)
-            sscanf(argv[i], "-col95alpha1=%lf", &col95alpha[0]);
-        else if (strncmp(argv[i], "-col68alpha2=", 13) == 0)
-            sscanf(argv[i], "-col68alpha2=%lf", &col68alpha[1]);
-        else if (strncmp(argv[i], "-col95alpha2=", 13) == 0)
-            sscanf(argv[i], "-col95alpha2=%lf", &col95alpha[1]);
-        else if (strncmp(argv[i], "-col68alpha3=", 13) == 0)
-            sscanf(argv[i], "-col68alpha3=%lf", &col68alpha[2]);
-        else if (strncmp(argv[i], "-col95alpha3=", 13) == 0)
-            sscanf(argv[i], "-col95alpha3=%lf", &col95alpha[2]);
-        else if (strncmp(argv[i], "-col68alpha4=", 13) == 0)
-            sscanf(argv[i], "-col68alpha4=%lf", &col68alpha[3]);
-        else if (strncmp(argv[i], "-col95alpha4=", 13) == 0)
-            sscanf(argv[i], "-col95alpha4=%lf", &col95alpha[3]);
-
-        else if (strncmp(argv[i], "-lineStyle1=", 12) == 0) 
-            sscanf(argv[i], "-lineStyle1=%d", &lineStyle[0]);
-        else if (strncmp(argv[i], "-lineStyle2=", 12) == 0) 
-            sscanf(argv[i], "-lineStyle2=%d", &lineStyle[1]);
-        else if (strncmp(argv[i], "-lineStyle3=", 12) == 0) 
-            sscanf(argv[i], "-lineStyle3=%d", &lineStyle[2]);
-        else if (strncmp(argv[i], "-lineStyle4=", 12) == 0) 
-            sscanf(argv[i], "-lineStyle4=%d", &lineStyle[3]);
-        
-        else if (strncmp(argv[i], "-lineStyle681=", 14) == 0) 
-            sscanf(argv[i], "-lineStyle681=%d", &lineStyle68[0]);
-        else if (strncmp(argv[i], "-lineStyle682=", 14) == 0) 
-            sscanf(argv[i], "-lineStyle682=%d", &lineStyle68[1]);
-        else if (strncmp(argv[i], "-lineStyle683=", 14) == 0) 
-            sscanf(argv[i], "-lineStyle683=%d", &lineStyle68[2]);
-        else if (strncmp(argv[i], "-lineStyle684=", 14) == 0) 
-            sscanf(argv[i], "-lineStyle684=%d", &lineStyle68[3]);
-        
-        else if (strncmp(argv[i], "-lineWidth1=", 12) == 0) 
-            sscanf(argv[i], "-lineWidth1=%d", &lineWidth[0]);
-        else if (strncmp(argv[i], "-lineWidth2=", 12) == 0) 
-            sscanf(argv[i], "-lineWidth2=%d", &lineWidth[1]);
-        else if (strncmp(argv[i], "-lineWidth3=", 12) == 0) 
-            sscanf(argv[i], "-lineWidth3=%d", &lineWidth[2]);
-        else if (strncmp(argv[i], "-lineWidth4=", 12) == 0) 
-            sscanf(argv[i], "-lineWidth4=%d", &lineWidth[3]);
-
-        else if (strncmp(argv[i], "-lineColor1=", 12) == 0) 
-            sscanf(argv[i], "-lineColor1=%d", &lineColor[0]);
-        else if (strncmp(argv[i], "-lineColor2=", 12) == 0) 
-            sscanf(argv[i], "-lineColor2=%d", &lineColor[1]);
-        else if (strncmp(argv[i], "-lineColor3=", 12) == 0) 
-            sscanf(argv[i], "-lineColor3=%d", &lineColor[2]);
-        else if (strncmp(argv[i], "-lineColor4=", 12) == 0) 
-            sscanf(argv[i], "-lineColor4=%d", &lineColor[3]);
-
-        else if (strncmp(argv[i], "-fill1=", 7) == 0) 
-            sscanf(argv[i], "-fill1=%d", &fillStyle[0]);
-        else if (strncmp(argv[i], "-fill2=", 7) == 0) 
-            sscanf(argv[i], "-fill2=%d", &fillStyle[1]);
-        else if (strncmp(argv[i], "-fill3=", 7) == 0) 
-            sscanf(argv[i], "-fill3=%d", &fillStyle[2]);
-        else if (strncmp(argv[i], "-fill4=", 7) == 0) 
-            sscanf(argv[i], "-fill4=%d", &fillStyle[3]);
-        
-        else if (strncmp(argv[i], "-plot1=", 7) == 0) {
-            sscanf(argv[i], "-plot1=%s", str);
-            plotname[0] = str;
-        }
-        else if (strncmp(argv[i], "-plot2=", 7) == 0) {
-            sscanf(argv[i], "-plot2=%s", str);
-            plotname[1] = str;
-        }
-        else if (strncmp(argv[i], "-plot3=", 7) == 0) {
-            sscanf(argv[i], "-plot3=%s", str);
-            plotname[2] = str;
-        }
-        else if (strncmp(argv[i], "-plot4=", 7) == 0) {
-            sscanf(argv[i], "-plot4=%s", str);
-            plotname[3] = str;
-        }
-        
-        else if (strncmp(argv[i], "-rootfile2=", 11) == 0) {
-            sscanf(argv[i], "-rootfile2=%s", str);
-            filename[1] = str;
-        }        
-        else if (strncmp(argv[i], "-rootfile3=", 11) == 0) {
-            sscanf(argv[i], "-rootfile3=%s", str);
-            filename[2] = str;
-        }        
-        else if (strncmp(argv[i], "-rootfile4=", 11) == 0) {
-            sscanf(argv[i], "-rootfile4=%s", str);
-            filename[3] = str;
-        }        
-
-        else if (strncmp(argv[i], "-legScale=", 10) == 0) 
+        //
+        else if (strncmp(argv[i], "-legScale=", 10) == 0)
             sscanf(argv[i], "-legScale=%lf", &legend_scale);
-        else if (strncmp(argv[i], "-legXmin=", 9) == 0) 
+        else if (strncmp(argv[i], "-legXmin=", 9) == 0)
             sscanf(argv[i], "-legXmin=%lf", &leg_xmin);
-        else if (strncmp(argv[i], "-legYmax=", 9) == 0) 
+        else if (strncmp(argv[i], "-legYmax=", 9) == 0)
             sscanf(argv[i], "-legYmax=%lf", &leg_ymax);
-        else if (strncmp(argv[i], "-leg1=", 6) == 0) {
-            sscanf(argv[i], "-leg1=%s", str);
-            leg[0] = str;
-        }
-        else if (strncmp(argv[i], "-leg2=", 6) == 0) {
-            sscanf(argv[i], "-leg2=%s", str);
-            leg[1] = str;
-        }
-        else if (strncmp(argv[i], "-leg3=", 6) == 0) {
-            sscanf(argv[i], "-leg3=%s", str);
-            leg[2] = str;
-        }
-        else if (strncmp(argv[i], "-leg4=", 6) == 0) {
-            sscanf(argv[i], "-leg4=%s", str);
-            leg[3] = str;
-        }
+        else if (strncmp(argv[i], "-legP=", 6) == 0) {
+            sscanf(argv[i], "-legP=%s", str);
+            legP = str;
+        } 
         else if (strncmp(argv[i], "-legGauss=", 10) == 0) {
             sscanf(argv[i], "-legGauss=%s", str);
             legGauss = str;
         }
-        else if (strncmp(argv[i], "-legP=", 6) == 0) {
-            sscanf(argv[i], "-legP=%s", str);
-            legP = str;
+        else
+            flag = false;
+
+        /* Options for multiple histograms */
+        bool flag2 = true;
+        for (int hist=1; hist<=NumHist; hist++) {
+            stringstream ss;
+            bool flagtmp = false;
+
+            ss << "--onlyLine" << hist;
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                bOnlyLine[hist-1] = true;
+                flagtmp = true;
+            }
+            ss.str("");
+
+            ss << "--only95" << hist;
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                bOnly95[hist-1] = true;
+                flagtmp = true;
+            }
+            ss.str("");
+            
+            ss << "-moreBins" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%d").c_str(), &newNbins[hist-1]);
+                flagtmp = true;
+            }
+            ss.str("");
+
+            ss << "-smooth" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%d").c_str(), &smooth[hist-1]);
+                flagtmp = true;
+            }
+            ss.str("");
+
+            ss << "-col68" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%d").c_str(), &col68[hist-1]);
+                flagtmp = true;
+            }
+            ss.str("");
+            
+            ss << "-col95" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%d").c_str(), &col95[hist-1]);
+                flagtmp = true;
+            }
+            ss.str("");
+
+            ss << "-col68alpha" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%lf").c_str(), &col68alpha[hist-1]);
+                flagtmp = true;
+            }
+            ss.str("");
+
+            ss << "-col95alpha" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%lf").c_str(), &col95alpha[hist-1]);
+                flagtmp = true;
+            }
+            ss.str("");
+            
+            ss << "-lineStyle" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%d").c_str(), &lineStyle[hist-1]);
+                flagtmp = true;
+            }
+            ss.str("");
+
+            ss << "-lineStyle68" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%d").c_str(), &lineStyle68[hist-1]);
+                flagtmp = true;
+            }
+            ss.str("");
+
+            ss << "-lineWidth" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%d").c_str(), &lineWidth[hist-1]);
+                flagtmp = true;
+            }
+            ss.str("");
+
+            ss << "-lineColor" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%d").c_str(), &lineColor[hist-1]);
+                flagtmp = true;
+            }
+            ss.str("");
+
+            ss << "-fill" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%d").c_str(), &fillStyle[hist-1]);
+                flagtmp = true;
+            }
+            ss.str("");
+
+            ss << "-plot" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%s").c_str(), str);
+                plotname[hist-1] = str;
+                flagtmp = true;
+            }
+            ss.str("");
+
+            ss << "-rootfile" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%s").c_str(), str);
+                filename[hist-1] = str;
+                flagtmp = true;
+            }
+            ss.str("");
+
+            ss << "-leg" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%s").c_str(), str);
+                leg[hist-1] = str;
+                flagtmp = true;
+            }
+            ss.str("");
+
+            ss << "-NumNewPoints" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%d").c_str(), &NumNewPoints[hist-1]);
+                flagtmp = true;
+            }
+            ss.str("");
+
+            flag2 |= flagtmp;
         }
-        
-        else {
+
+        if (!flag && !flag2) {
             cout << "Wrong option: " << argv[i] << endl;
             return 1;            
-        } 
-    }        
+        }
+    }
 
     // Errors
     if (!(bOneDim | bCompat | bTwoDim)) {
@@ -684,25 +677,17 @@ int main(int argc, char** argv)
         // legends: Change the order if necessary. 
         string leg_opt;
         if (prior != NULL) legend->AddEntry(prior, myMacros.ConvertTitle(legGauss), "L");
-        if (plot_pt[1] != NULL) {
-            if (!bOnlyLine[1]) leg_opt = "F";
-            else leg_opt = "L";
-            legend->AddEntry(plot_pt[1], myMacros.ConvertTitle(leg[1]), leg_opt.c_str());
-        }
-        if (plot_pt[2] != NULL) {
-            if (!bOnlyLine[2]) leg_opt = "F";
-            else leg_opt = "L";
-            legend->AddEntry(plot_pt[2], myMacros.ConvertTitle(leg[2]), leg_opt.c_str());
-        }
-        if (plot_pt[3] != NULL) {
-            if (!bOnlyLine[3]) leg_opt = "F";
-            else leg_opt = "L";
-            legend->AddEntry(plot_pt[3], myMacros.ConvertTitle(leg[3]), leg_opt.c_str());
+        for (int n=1; n<NumHist; n++) {
+            if (plot_pt[n] != NULL) {
+                if (!bOnlyLine[n]) leg_opt = "F";
+                else leg_opt = "L";
+                legend->AddEntry(plot_pt[n], myMacros.ConvertTitle(leg[n]), leg_opt.c_str());
+            }
         }
         if (!bOnlyLine[0]) leg_opt = "F";
         else leg_opt = "L";
         legend->AddEntry(plot_pt[0], myMacros.ConvertTitle(leg[0]), leg_opt.c_str());
-        
+
         // output results to os
         SFHisto1D[0]->OutputResults(os, smooth[0], true);
 
@@ -747,7 +732,8 @@ int main(int argc, char** argv)
            << " in " << plotname[0] << endl;
         os << "  smooth: " << smooth[0] << " time(s)" << endl;
         
-        SFHisto2D[0] = new SFH2D(*hist[0], os, prob68, prob95, x_low, x_up, y_low, y_up);
+        SFHisto2D[0] = new SFH2D(*hist[0], os, prob68, prob95,
+                                 x_low, x_up, y_low, y_up, NumNewPoints[0]);
         SFHisto2D[0]->smoothHist(smooth[0]);
         SFHisto2D[0]->Draw(xlab, ylab, lineWidth[0], lineColor[0],
                            FillCol68[0]->GetNumber(), FillCol95[0]->GetNumber(),
@@ -761,7 +747,8 @@ int main(int argc, char** argv)
                 os << "[Graph " << n+1 << "]" << endl;
                 os << "  smooth: " << smooth[n] << " time(s)" << endl;
                 hist[n] = (TH2D*) tobj[n]->Clone();
-                SFHisto2D[n] = new SFH2D(*hist[n], os, prob68, prob95, x_low, x_up, y_low, y_up);
+                SFHisto2D[n] = new SFH2D(*hist[n], os, prob68, prob95,
+                                         x_low, x_up, y_low, y_up, NumNewPoints[n]);
                 SFHisto2D[n]->smoothHist(smooth[n]);
                 SFHisto2D[n]->Draw("", "", lineWidth[n], lineColor[n],
                                    FillCol68[n]->GetNumber(), FillCol95[n]->GetNumber(),
@@ -819,25 +806,12 @@ int main(int argc, char** argv)
         
         // legends: Change the order if necessary. 
         string leg_opt;
-        if (contour_pt[3] != NULL && leg[3].CompareTo("")!= 0) {
-            if (fillStyle[3]!=0) leg_opt = "F";
-            else leg_opt = "L";
-            legend->AddEntry(contour_pt[3], myMacros.ConvertTitle(leg[3]), leg_opt.c_str());
-        }
-        if (contour_pt[2] != NULL && leg[2].CompareTo("")!= 0) {
-            if (fillStyle[2]!=0) leg_opt = "F";
-            else leg_opt = "L";
-            legend->AddEntry(contour_pt[2], myMacros.ConvertTitle(leg[2]), leg_opt.c_str()); 
-        }
-        if (contour_pt[1] != NULL && leg[1].CompareTo("")!= 0) {
-            if (fillStyle[1]!=0) leg_opt = "F";
-            else leg_opt = "L";
-            legend->AddEntry(contour_pt[1], myMacros.ConvertTitle(leg[1]), leg_opt.c_str());
-        }
-        if (leg[0].CompareTo("")!= 0) {
-            if (fillStyle[0]!=0) leg_opt = "F";
-            else leg_opt = "L";
-            legend->AddEntry(contour_pt[0], myMacros.ConvertTitle(leg[0]), leg_opt.c_str());
+        for (int n=NumHist-1; n>=0; n--) {
+            if (contour_pt[n] != NULL && leg[n].CompareTo("")!= 0) {
+                if (fillStyle[n]!=0) leg_opt = "F";
+                else leg_opt = "L";
+                legend->AddEntry(contour_pt[n], myMacros.ConvertTitle(leg[n]), leg_opt.c_str());
+            }
         }
         if (g1 != NULL && legP.CompareTo("")!= 0) 
             legend->AddEntry(g1, myMacros.ConvertTitle(legP), "LP");

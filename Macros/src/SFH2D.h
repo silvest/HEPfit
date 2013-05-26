@@ -39,11 +39,13 @@ public:
      * @param[in] x_up
      * @param[in] y_low
      * @param[in] y_up
+     * @param[in] NumNewPoints_in
      */
     SFH2D(TH2D& hist, std::ostream& os_in, 
           const double prob68_in=0.68, const double prob95_in=0.95,
           const double x_low=0.0, const double x_up=0.0, 
-          const double y_low=0.0, const double y_up=0.0);
+          const double y_low=0.0, const double y_up=0.0,
+          const int NumNewPoints_in=20);
 
     /**
      * @return A modified 2-D histogram. 
@@ -78,7 +80,7 @@ public:
      * @param[in] lineStyle The index of the line style. 
      * @param[in] lineStyle68 The index of the line style for the 68% contour line. 
      * @param[in] fillStyle The index of the fill area style. 
-     * @param[in] maxDigits The maximum digits of axis labels. 
+     * @param[in] maxDigits The maximum digits of axis labels.
      * @param[in] bLine  
      * @param[in] bOnly95
      * @param[in] superImpose
@@ -131,7 +133,9 @@ private:
     double xUp;
     double yLow;
     double yUp;    
-    
+
+    int NumNewPoints;
+
     /**
      * @param[in] Prob A probability.
      * @return The contour level at a given probability. 
@@ -171,7 +175,8 @@ private:
      * @param[in] inputgraph2
      * @return 
      */
-    TGraph* CloseTwoTGraphs(const int cont_ind, TGraph* inputgraph1, TGraph* inputgraph2) const;
+    TGraph* CloseTwoTGraphs(const int cont_ind, TGraph* inputgraph1, 
+                            TGraph* inputgraph2) const;
     
 };
 
