@@ -70,6 +70,29 @@ public:
 
 
     ////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @return The W boson mass.
+     */
+    virtual double Mw() const;
+
+    /**
+     * @return @f$M_W^2/M_Z^2@f$.
+     */
+    virtual double cW2() const;
+
+    /**
+     * @return @f$1-M_W^2/M_Z^2@f$.
+     */
+    virtual double sW2() const;
+
+    /**
+     * @return The total width of the W boson.
+     */
+    virtual double GammaW() const;
+    
+
+    ////////////////////////////////////////////////////////////////////////
     
 protected:    
     double a, b, c_u, c_d, c_e, d_3, d_4;

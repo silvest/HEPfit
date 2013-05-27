@@ -119,6 +119,23 @@ bool NPEffective::SetFlag(const std::string name, const bool& value)
 
 ////////////////////////////////////////////////////////////////////////
 
+double NPEffective::v() const
+{
+    double ratio = StandardModel::v()*StandardModel::v()/LambdaNP/LambdaNP;
+    double DelGF = - (cLL - 2.0*cHLp)*ratio;
+
+    return ( sqrt( (1.0 + DelGF)/sqrt(2.0)/GF ) );
+}
+
+
+double NPEffective::Mw_tree() const
+{
+    double GF0 = GF*(1.0 - DeltaGF());
+    double tmp = 4.0*M_PI*ale/sqrt(2.0)/GF0/Mz/Mz;
+    return ( Mz/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp)) );
+}
+
+
 double NPEffective::DeltaGF() const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
@@ -299,6 +316,64 @@ double NPEffective::epsilonb() const
 {
     throw std::runtime_error("ERROR: NPEffective::epsilonb() is not implemented");
 }
+
+
+////////////////////////////////////////////////////////////////////////
+
+double NPEffective::Mw() const
+{
+    double myMw = StandardModel::Mw();
+
+    if (!IsFlagNotLinearizedNP() ) {
+        double alpha = StandardModel::alphaMz();
+        double c2 = StandardModel::cW2();
+        double s2 = StandardModel::sW2();
+
+        myMw *= 1.0 - alpha/4.0/(c2-s2)
+                *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 )
+                - s2/2.0/(c2-s2)*DeltaGF();
+    } else
+        if (obliqueS()!=0.0 || obliqueT()!=0.0 || obliqueU()!=0.0)
+            throw std::runtime_error("NPEffective::Mw(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+
+    return myMw;
+}
+
+
+double NPEffective::cW2() const
+{
+    return ( Mw()*Mw()/Mz/Mz );
+}
+
+
+double NPEffective::sW2() const
+{
+    return ( 1.0 - cW2() );
+}
+
+
+double NPEffective::GammaW() const
+{
+    double Gamma_W = StandardModel::GammaW();
+
+    if (!IsFlagNotLinearizedNP() ) {
+        double alpha = StandardModel::alphaMz();
+        double c2 = StandardModel::cW2();
+        double s2 = StandardModel::sW2();
+
+        Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
+                   *( obliqueS() - 2.0*c2*obliqueT()
+                      - (c2-s2)*obliqueU()/2.0/s2 )
+                    - 3.0*s2/2.0/(c2-s2)*DeltaGF();
+        } else
+            if (obliqueS()!=0.0 || obliqueT()!=0.0 || obliqueU()!=0.0)
+                throw std::runtime_error("NPEffective::GammaW(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+
+    return Gamma_W;
+}
+
+
+
 
 
 

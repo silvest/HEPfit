@@ -159,4 +159,60 @@ double NPHiggsST::epsilonb() const
     throw std::runtime_error("ERROR: NPHiggsST::epsilonb() is not implemented");
 }
 
+
+////////////////////////////////////////////////////////////////////////
+
+double NPHiggsST::Mw() const
+{
+    double myMw = StandardModel::Mw();
+
+    if (!IsFlagNotLinearizedNP() ) {
+        double alpha = StandardModel::alphaMz();
+        double c2 = StandardModel::cW2();
+        double s2 = StandardModel::sW2();
+
+        myMw *= 1.0 - alpha/4.0/(c2-s2)
+                *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 );
+    } else
+        if (obliqueS()!=0.0 || obliqueT()!=0.0 || obliqueU()!=0.0)
+            throw std::runtime_error("NPHiggsST::Mw(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+
+    return myMw;
+}
+
+
+double NPHiggsST::cW2() const
+{
+    return ( Mw()*Mw()/Mz/Mz );
+}
+
+
+double NPHiggsST::sW2() const
+{
+    return ( 1.0 - cW2() );
+}
+
+
+double NPHiggsST::GammaW() const
+{
+    double Gamma_W = StandardModel::GammaW();
+
+    if (!IsFlagNotLinearizedNP() ) {
+        double alpha = StandardModel::alphaMz();
+        double c2 = StandardModel::cW2();
+        double s2 = StandardModel::sW2();
+
+        Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
+                   *( obliqueS() - 2.0*c2*obliqueT()
+                      - (c2-s2)*obliqueU()/2.0/s2 );
+        } else
+            if (obliqueS()!=0.0 || obliqueT()!=0.0 || obliqueU()!=0.0)
+                throw std::runtime_error("NPHiggsST::GammaW(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+
+    return Gamma_W;
+}
+
+
+
+
     

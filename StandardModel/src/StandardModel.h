@@ -472,12 +472,12 @@ public:
     /**
      * @return The VEV. 
      */
-    double v() const;
+    virtual double v() const;
 
     /**
      * @return The W boson mass at tree level. 
      */
-    double Mw_tree() const;    
+    virtual double Mw_tree() const;
         
     /**
      * Computes the running electromagnetic coupling alpha(mu) in the on-shell 

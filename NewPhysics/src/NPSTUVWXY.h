@@ -153,6 +153,29 @@ public:
         return ( ( - myObliqueUhat + myObliqueV + myObliqueW 
                    - 2.0*sW_SM/cW_SM*myObliqueX )*4.0*sW2_SM/alphaMz() );
     }
+
+
+    ////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @return The W boson mass.
+     */
+    virtual double Mw() const;
+
+    /**
+     * @return @f$M_W^2/M_Z^2@f$.
+     */
+    virtual double cW2() const;
+
+    /**
+     * @return @f$1-M_W^2/M_Z^2@f$.
+     */
+    virtual double sW2() const;
+
+    /**
+     * @return The total width of the W boson.
+     */
+    virtual double GammaW() const;
     
     
     ////////////////////////////////////////////////////////////////////////     
