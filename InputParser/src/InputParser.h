@@ -21,7 +21,8 @@
 #include <NPEpsilons.h>
 #include <NPHiggsST.h>
 #include <NPZbbbar.h>
-#include <NPEffective.h>
+#include <NPEffective1.h>
+#include <NPEffective2.h>
 #include <GeneralSUSY.h>
 #include <SUSYMassInsertion.h>
 #include <SUSYMassInsertionMatching.h>

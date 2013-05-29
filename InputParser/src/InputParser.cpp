@@ -131,9 +131,15 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;
-        } else if (beg->compare("NPEffective") == 0) {
+        } else if (beg->compare("NPEffective1") == 0) {
             modname = *beg;
-            myModel = new NPEffective();
+            myModel = new NPEffective1();
+            myModel->InitializeModel();
+            thf = new ThFactory(*myModel);
+            continue;
+        } else if (beg->compare("NPEffective2") == 0) {
+            modname = *beg;
+            myModel = new NPEffective2();
             myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;

@@ -13,7 +13,7 @@
 
 /**
  * @class NPEffective
- * @brief A class for new physics with an effective Lagrangian. 
+ * @brief A base class for new physics with the effective Lagrangian approach.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -21,22 +21,14 @@
  */
 class NPEffective : public StandardModel {
 public:
-    static const int NNPEffectiveVars = 11;
-    static const std::string NPEffectiveVars[NNPEffectiveVars];
 
     /**
      * @brief NPEffective constructor. 
      */
     NPEffective();
 
-    virtual std::string ModelName() const 
-    {
-        return "NPEffective";
-    }
-
     virtual bool Update(const std::map<std::string, double>& DPars);
     virtual bool Init(const std::map<std::string, double>& DPars);    
-    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     virtual bool InitializeModel();  
     virtual void SetEWSMflags(EWSM& myEWSM);    
@@ -127,8 +119,16 @@ public:
     ////////////////////////////////////////////////////////////////////////    
 
 protected:
-    double cWB, cH, cLL, cHLp, cHQp, cHL, cHQ, cHE, cHU, cHD, LambdaNP;
-    virtual void SetParameter(const std::string name, const double& value);
+    double cWB, cH;
+    double cL1L1, cL1L2, cL1L3, cL2L2, cL2L3, cL3L3;
+    double cHL1p, cHL2p, cHL3p;
+    double cHQ1p, cHQ2p, cHQ3p;
+    double cHL1, cHL2, cHL3;
+    double cHQ1, cHQ2, cHQ3;
+    double cHE1, cHE2, cHE3;
+    double cHU1, cHU2, cHU3;
+    double cHD1, cHD2, cHD3;
+    double LambdaNP;
     
 
     ////////////////////////////////////////////////////////////////////////   
