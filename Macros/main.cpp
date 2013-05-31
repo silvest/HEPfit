@@ -630,7 +630,7 @@ int main(int argc, char** argv)
             SFHisto1D[0]->getNewHist()->Scale(10.0);
             SFHisto1D[0]->getNewHist68()->Scale(10.0);
             SFHisto1D[0]->getNewHist95()->Scale(10.0);
-            SFHisto1D[0]->getHistAxes()->GetXaxis()->SetRange(400,1400);
+            //SFHisto1D[0]->getHistAxes()->GetXaxis()->SetRange(400,1400);
             leg[0] += " [x10]";
         }
 
