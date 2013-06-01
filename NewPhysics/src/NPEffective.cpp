@@ -74,8 +74,11 @@ bool NPEffective::SetFlag(const std::string name, const bool& value)
 
 double NPEffective::v() const
 {
-    return ( sqrt( (1.0 - (cL1L2 - cHL1p - cHL2p)/sqrt(2.0)/GF/LambdaNP/LambdaNP)
-                   /sqrt(2.0)/GF ) );
+    //return ( sqrt( (1.0 - (cL1L2 - cHL1p - cHL2p)/sqrt(2.0)/GF/LambdaNP/LambdaNP)
+    //               /sqrt(2.0)/GF ) );
+
+    /* use the tree-level relation */
+    return StandardModel::v();
 }
 
 

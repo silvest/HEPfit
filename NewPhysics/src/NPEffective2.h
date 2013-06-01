@@ -20,7 +20,7 @@
  */
 class NPEffective2 : public NPEffective {
 public:
-    static const int NNPEffectiveVars = 12;
+    static const int NNPEffectiveVars = 19;
     static const std::string NPEffectiveVars[NNPEffectiveVars];
 
     /**
@@ -40,7 +40,6 @@ public:
 
 
 protected:
-    double l_NP;
     virtual void SetParameter(const std::string name, const double& value);
 
 };
