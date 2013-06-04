@@ -38,7 +38,12 @@ Pull::Pull(TH1D& hist, const int nbinX, const int nbinY,
 
     CompatPlot = NULL;
     lx = new TLine();
-    tText = new TLatex();
+    tText[0] = new TLatex();
+    tText[1] = new TLatex();
+    tText[2] = new TLatex();
+    tText[3] = new TLatex();
+    tText[4] = new TLatex();
+    tText[5] = new TLatex();
 }
 
 
@@ -69,12 +74,12 @@ void Pull::Draw(const TString xlab, const TString ylab,
     CompatPlot->SetTitleFont(42,"X");
     CompatPlot->SetTitleFont(42,"Y");
     CompatPlot->SetTitleFont(42,"Z");
-    //CompatPlot->SetLabelFont(62,"X");
-    //CompatPlot->SetLabelFont(62,"Y");
-    //CompatPlot->SetLabelFont(62,"Z");
-    //CompatPlot->SetTitleFont(62,"X");
-    //CompatPlot->SetTitleFont(62,"Y");
-    //CompatPlot->SetTitleFont(62,"Z");
+    //CompatPlot->SetLabelFont(62,"X"); // bold
+    //CompatPlot->SetLabelFont(62,"Y"); // bold
+    //CompatPlot->SetLabelFont(62,"Z"); // bold
+    //CompatPlot->SetTitleFont(62,"X"); // bold
+    //CompatPlot->SetTitleFont(62,"Y"); // bold
+    //CompatPlot->SetTitleFont(62,"Z"); // bold
     ((TGaxis*) CompatPlot->GetXaxis())->SetMaxDigits(maxDigits);
     ((TGaxis*) CompatPlot->GetYaxis())->SetMaxDigits(maxDigits);
     
@@ -87,9 +92,9 @@ void Pull::Draw(const TString xlab, const TString ylab,
     if (ylab.CompareTo("")==0) {
         TString Xtitle = CompatPlot->GetXaxis()->GetTitle();
         CompatPlot->GetYaxis()->SetTitle("#sigma(" + Xtitle + ")");
-    } else 
+    } else
         CompatPlot->GetYaxis()->SetTitle(ylab);
-    
+
     // color palette
     TColor col85(65,0.00,0.75,1.00);
     TColor col84(64,0.12,0.56,1.00);
@@ -106,20 +111,31 @@ void Pull::Draw(const TString xlab, const TString ylab,
     
     // add "sigma" to the label of the z axis
     gPad->SetRightMargin(0.20);
-    tText->SetTextSize(0.06);
-    double xadd = (x_up - x_low)*0.15;
-    double yadd = (y_up - y_low)*0.01;
-    tText->DrawLatex(x_up + xadd, y_up - yadd, "#sigma");
+    double xadd = (x_up - x_low)*0.142;
+    double yadd = (y_up - y_low)*0.020;
+    double yadd2 = (y_up - y_low)*0.1673;
+    tText[0]->SetTextSize(0.048);
+    tText[1]->SetTextSize(0.048);
+    tText[2]->SetTextSize(0.048);
+    tText[3]->SetTextSize(0.048);
+    tText[4]->SetTextSize(0.048);
+    tText[5]->SetTextSize(0.048);
+    tText[0]->DrawLatex(x_up + xadd, y_up - yadd, "#sigma");
+    tText[1]->DrawLatex(x_up + xadd, y_up - yadd - yadd2, "#sigma");
+    tText[2]->DrawLatex(x_up + xadd, y_up - yadd - yadd2*2.01, "#sigma");
+    tText[3]->DrawLatex(x_up + xadd, y_up - yadd - yadd2*3.0, "#sigma");
+    tText[4]->DrawLatex(x_up + xadd, y_up - yadd - yadd2*4.0, "#sigma");
+    tText[5]->DrawLatex(x_up + xadd, y_up - yadd - yadd2*5.0, "#sigma");
     
     // draw the measured value
     if (xval != -999.0) {
         double lw = (y_up - y_low)/40.0;   
-        lx->SetLineWidth(4);
+        lx->SetLineWidth(7);
         //std::cout << xval - 0.1 * (y_up - y_low) << std::endl;
-        lx->DrawLine(xval - 0.025 * (x_up - x_low), xerr, 
-                     xval + 0.025 * (x_up - x_low), xerr);
-        lx->DrawLine(xval, xerr + 0.025 * (y_up - y_low), 
-                     xval, xerr - 0.025 * (y_up - y_low));
+        lx->DrawLine(xval - 0.040 * (x_up - x_low), xerr,
+                     xval + 0.040 * (x_up - x_low), xerr);
+        lx->DrawLine(xval, xerr + 0.040 * (y_up - y_low),
+                     xval, xerr - 0.040 * (y_up - y_low));
     }
 
     gPad->Modified();

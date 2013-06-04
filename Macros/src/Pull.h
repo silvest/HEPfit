@@ -74,7 +74,7 @@ private:
     
     TLine* lx;
     
-    TLatex* tText;
+    TLatex* tText[6];
     
     double meanTmp;
     
