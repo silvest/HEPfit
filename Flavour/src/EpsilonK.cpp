@@ -9,5 +9,5 @@
 
 double EpsilonK::getThValue()
 {
-    return(1./SM.getDeltaMK() * (AmpDK(NLO).imag()) * SM.getKbarEpsK() / sqrt(2.));
+    return(1. / SM.getDeltaMK() * AmpDK(FULLNLO).imag() * SM.getKbarEpsK() * M_SQRT1_2);
 }

@@ -11,7 +11,7 @@ AmpDK2::AmpDK2(Flavour& Flavour) : myFlavour(Flavour) {
 }
 
 complex AmpDK2::AmpDK(orders order) {
-    if (myFlavour.getHDF2().getCoeffK().getOrder() < order)
+    if (myFlavour.getHDF2().getCoeffK().getOrder() < order % 3)
         throw std::runtime_error("AmpDK::getThValue(): requires cofficient of order not computed"); 
 
     vector<complex> ** allcoeff = myFlavour.ComputeCoeffK( 
@@ -35,7 +35,7 @@ complex AmpDK2::AmpDK(orders order) {
     me(4) *= 1./12.*KK*MK*FK*FK;
 
     switch(order) {
-        case NLO:
+        case FULLNLO:
            return((*(allcoeff[LO]) + *(allcoeff[NLO])) * me);
         //case LO:
         //    return((*(allcoeff[LO])) * me / HCUT);
@@ -45,8 +45,8 @@ complex AmpDK2::AmpDK(orders order) {
 }
 
 complex AmpDK2::AmpMK(orders order) {
-    if (myFlavour.getHDF2().getCoeffmK().getOrder() < order)
-        throw "AmpDK::getThValue(): requires cofficient of order not computed";
+    if (myFlavour.getHDF2().getCoeffmK().getOrder() < order % 3)
+        throw std::runtime_error("AmpDK::getThValue(): requires cofficient of order not computed");
 
     vector<complex> ** allcoeff = myFlavour.ComputeCoeffmK( 
             myFlavour.getModel().getBK().getMu(),
@@ -69,7 +69,7 @@ complex AmpDK2::AmpMK(orders order) {
     me(4) *= 1./12.*KK*MK*FK*FK;
 
     switch(order) {
-        case NLO:
+        case FULLNLO:
             return((*(allcoeff[LO]) + *(allcoeff[NLO])) * me);
         case LO:
             return((*(allcoeff[LO])) * me);

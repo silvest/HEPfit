@@ -112,14 +112,18 @@ vector<complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme) {
     vector<complex> zero(5,0.);
     
     coeffk.setMu(mu);
+    coeffk.setCoeff(zero,LO);
+    coeffk.setCoeff(zero,NLO);
 
     orders ordDF2 = coeffk.getOrder();
     for (int i = 0; i < mc.size(); i++){
         if (i == 0){
-            coeffk.setCoeff(0, evolDF2.etatt(mu) * model.GetMyMatching()->S0tt() +
-                evolDF2.etacc(mu) * model.GetMyMatching()->S0c() + evolDF2.etact(mu) * model.GetMyMatching()->S0ct(), NLO);
-            coeffk.setCoeff(zero, LO);
-        }else{
+            coeffk.setCoeff(0, evolDF2.etatt(mu) * model.GetMyMatching()->S0tt()
+                             + evolDF2.etacc(mu) * model.GetMyMatching()->S0c()
+                             + evolDF2.etact(mu) * model.GetMyMatching()->S0ct(),
+                            NLO);
+        }
+        else {
             for (int j = LO; j <= ordDF2; j++){
                 for (int k = LO; k <= j; k++){
                     coeffk.setCoeff(*coeffk.getCoeff(orders(j)) +
@@ -148,7 +152,8 @@ vector<complex>** HeffDF2::ComputeCoeffmK(double mu, schemes scheme) {
         if (i == 0){
             coeffmk.setCoeff(zero, NLO);
             coeffmk.setCoeff(zero, LO);
-        }else{
+        }
+        else {
             for (int j = LO; j <= ordDF2; j++){
                 for (int k = LO; k <= j; k++){
                     coeffmk.setCoeff(*coeffmk.getCoeff(orders(j)) +

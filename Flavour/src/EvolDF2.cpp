@@ -37,27 +37,14 @@ EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardM
     v(4, 0) = 1.;
 
     matrix<double> vi = v.inverse();
-//***//    double bb[5][5];
     for (int i = 0; i < 5; i++){
         for (int j = 0; j < 5; j++){
             for (int k = 0; k < 5; k++){
                 a[k] = e(k);
                 b[i][j][k] = v(i, k) * vi(k, j);
-//***//                bb[i][j] += b[i][j][k] * pow(0.5, a[k] / 2. / model.Beta0(5));
             }
-//***//            std::cout << bb[i][j]  << "  ";
         }
     }
-    
-    
-//***//    std::cout<< "   " << std::endl;
-    
-//***//    for (int k = 0; k < 5; k++) {
-//***//       for (int i = 3; i <=6; ++i) {
-//***//            std::cout << a[k] / 2. / model.Beta0(i) << "  ";
-//***//        }
-//***//        std::cout << std::endl;
-//***//    }
     
     matrix<double> h(5, 5, 0.);
     for (int l = 0; l < 3; l++) {
@@ -317,26 +304,23 @@ double EvolDF2::etact(double mu) const{
     double eta = 0.;
     double AlsC = model.Als(model.getMuc());
     
-    eta = ( M_PI / AlsC * (-18. / 7. * Kpp - 12. / 11. * Kpm + 6. / 29. * Kmm + 7716. / 2233. * K7) *
-            (1. - AlsC / 4. / M_PI * 307. / 162.) + (log(model.getMuc() /
+    eta = ( M_PI / AlsC * (-18./7. * Kpp - 12./11. * Kpm + 6./29. * Kmm + 7716./2233. * K7) *
+            (1. - AlsC / (4. * M_PI) * 307./162.) + (log(model.getMuc() /
             model.getQuarks(QCD::CHARM).getMass()) - 0.25) * (3. * Kpp - 2. * Kpm + Kmm) +
-            262497. / 35000. * Kpp - 123. / 625. * Kpm + 1108657. / 1305000. * Kmm - 277133. / 50750. * K7 +
-            K * (-21093. / 8750. * Kpp + 13331. / 13750. * Kpm - 10181. / 18125. * Kmm - 1731104. / 2512125. * K7)+
-            (log(xt) - (3. * xt) / (4. - 4. * xt) - log(xt)*(3. * xt * xt) / 4. / (1.-xt) / (1.-xt) + 0.5) * K * K7 )
-            * xc / (xc * (log(xt / xc) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) /4. / (1.-xt) / (1.-xt))) *
-            pow(AlsC, 2. / 9.);
+            262497./35000. * Kpp - 123./625. * Kpm + 1108657./1305000. * Kmm - 277133./50750. * K7 +
+            K * (-21093./8750. * Kpp + 13331./13750. * Kpm - 10181./18125. * Kmm - 1731104./2512125. * K7) +
+            (log(xt) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) / (4. * (1.-xt) * (1.-xt)) + 0.5) * K *
+            K7 ) * xc / (xc * (log(xt / xc) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) /4. / (1.-xt) / (1.-xt))) * pow(AlsC, 2. / 9.);
     
-    return (eta * (1. + model.Als(mu, FULLNLO)/4./M_PI*J3) * 
-            pow(model.Als(mu, FULLNLO),-2./9.));
+    return (eta * (1. + model.Als(mu, FULLNLO)/4./M_PI*J3) * pow(model.Als(mu, FULLNLO),-2./9.));
 }
 
 double EvolDF2::etatt(double m) const {
     double N = model.getNc();
-    double J3 = 6.*(N - 1.)/N * (model.Beta1(3)/2./model.Beta0(3)/model.Beta0(3)) - 
-           (N - 1.)/(2.*N) * (-21. + 57./N - 19./3.*N + 4.)/2./model.Beta0(3);
+    double J3 = 6. * (N - 1.) / N * (model.Beta1(3) / 2. / model.Beta0(3) / model.Beta0(3)) -
+           (N - 1.) / (2. * N) * (-21. + 57. / N - 19./3. * N + 4.) / 2. / model.Beta0(3);
     
-    return (S1tt() * (1. + model.Als(m, FULLNLO)/4./M_PI*J3) *
-            pow(model.Als(m, FULLNLO), -2./9.));
+    return (S1tt() * (1. + model.Als(m, FULLNLO)/4./M_PI*J3) * pow(model.Als(m, FULLNLO), -2./9.));
 }
 
 double EvolDF2::S1tt() const {
@@ -362,11 +346,8 @@ double EvolDF2::S1tt() const {
     
     for(int i = 0; i < 4; ++i){
         gamma1[i] = (N - 1.)/(2. * N) * (-21. + 57./N - 19./3. * N + 4./3. * (i + 3.));
-    }
-    
-    for(int k = 0; k < 4; ++k){
-        J[k] = gamma0 * model.Beta1(3 + k) / 2. / model.Beta0(3 + k) / model.Beta0(3 + k)
-               - gamma1[k] / 2. / model.Beta0(3 + k);
+        J[i] = gamma0 * model.Beta1(3 + i) / 2. / model.Beta0(3 + i) / model.Beta0(3 + i)
+        - gamma1[i] / 2. / model.Beta0(3 + i);
     }
         
     double b = (4. - 22. * x + 15. * x2 + 2. * x3 + x4 - 18. * x2 * logx)
@@ -381,6 +362,6 @@ double EvolDF2::S1tt() const {
             (1. + model.Als(model.getMuc())/4./M_PI * (J[1]-J[0]) +
             model.Als(model.getMub())/4./M_PI * (J[2]-J[1])
             + model.Als(model.getMut())/4./M_PI * (model.GetMyMatching()->S1(x)/S0tt
-            + Bt - J[2] + gamma0*log(model.getMut()/model.getMuw())
-            + 12.*(3./2.-1./6.)*log(model.getMut()/model.getMuw())*b)));
+            + Bt - J[2] + gamma0 * log(model.getMut() / model.getMuw())
+            + 12. * (3./2. - 1./6.) * log(model.getMut() / model.getMuw()) * b)));
 }

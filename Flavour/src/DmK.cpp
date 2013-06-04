@@ -9,6 +9,7 @@
 
 using namespace std;
 
-double DmK::getThValue() {
-        return(2.*AmpMK(NLO).real() + SM.getDmk());
+double DmK::getThValue()
+{
+    return(2.*AmpMK(FULLNLO).real() + SM.getDmk());
 }

@@ -14,6 +14,23 @@
 #include <WilsonCoefficient.h>
 #include "EvolDF2.h"
 
+/**
+ * @addtogroup Flavour
+ * @brief A project for Flavour observables.
+ * @{
+ */
+
+/**
+ * @class HeffDF2
+ * @brief A class for the @f$\Delta F = 2$ effective Hamiltonian.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the contributions to the
+ * @f$\Delta F = 2$ by taking the values of the Wilson coefficients 
+ * from the model matching classes and runs them down to the relevant scale
+ * for the observables.
+ */
+
 using namespace gslpp;
 
 class HeffDF2 {
@@ -117,10 +134,18 @@ private:
     complex S0tt(double mu) const;
     const StandardModel& model;
     matrix<double> drNDRLRI;
-    WilsonCoefficient coeffbd, coeffbs, coeffDd, coeffk, coeffmk;
+    WilsonCoefficient coeffbd;
+    WilsonCoefficient coeffbs;
+    WilsonCoefficient coeffDd;
+    WilsonCoefficient coeffk;
+    WilsonCoefficient coeffmk;
     
     EvolDF2 evolDF2;
 };
+
+/**
+ * @}
+ */
 
 #endif	/* HEFFDF2_H */
 

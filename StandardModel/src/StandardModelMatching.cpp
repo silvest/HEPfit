@@ -33,7 +33,8 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcbsnn(1, NDR, NLO),
         mcbdnn(1, NDR, NLO),
         mcbsmm(1, NDR, NLO),
-        mcbdmm(1, NDR, NLO)
+        mcbdmm(1, NDR, NLO),
+        Vckm(3, 3, 0)
 {
     swa = 0.;
     swb = 0.;
@@ -63,6 +64,8 @@ void StandardModelMatching::updateSMParameters()
     Ale = SM.getAle();
     GF = SM.getGF();
     Mw_tree = SM.Mw_tree();
+    Vckm = SM.getVCKM();
+    lam_t = SM.getlamt();
 //    std::cout << "UPDATED SM" << std::endl;
 
 }
@@ -774,14 +777,14 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMK(){
         case NNLO:
         case NLO:
             for (int j=0; j<10; j++){
-                mck.setCoeff(j, SM.getlamt() * SM.Als(Muw, FULLNLO) / 4. / M_PI * 
+                mck.setCoeff(j, lam_t * SM.Als(Muw, FULLNLO) / 4. / M_PI * 
                                 setWCbnlep(j, xt,  NLO), NLO);
-                mck.setCoeff(j, SM.getlamt() * Ale / 4. / M_PI *
+                mck.setCoeff(j, lam_t * Ale / 4. / M_PI *
                                 setWCbnlepEW(j, xt), NLO_ew);
                 }
         case LO:
             for (int j=0; j<10; j++){
-                mck.setCoeff(j, SM.getlamt() *  setWCbnlep(j, xt,  LO), LO);
+                mck.setCoeff(j, lam_t *  setWCbnlep(j, xt,  LO), LO);
                 mck.setCoeff(j, 0., LO_ew); 
                 }                   
             break;
@@ -822,14 +825,14 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMKCC(){
         case NNLO:
         case NLO:
             for (int j=0; j<2; j++){
-                mckcc.setCoeff(j, SM.getlamt() * setWCbnlep(j, xt, NLO), NLO); 
+                mckcc.setCoeff(j, lam_t * setWCbnlep(j, xt, NLO), NLO); 
             }
             for (int j=2; j<10; j++){
                 mckcc.setCoeff(j, 0. , NLO); 
             }
         case LO:
             for (int j=0; j<2; j++){
-                mckcc.setCoeff(j, SM.getlamt() * setWCbnlep(j, xt, LO), LO); 
+                mckcc.setCoeff(j, lam_t * setWCbnlep(j, xt, LO), LO); 
             }
             for (int j=2; j<10; j++){
                 mckcc.setCoeff(j, 0. , LO); 
@@ -1042,20 +1045,20 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC(const int
 {    
     complex lambda1 = 0.;
     //complex lambda2 = 0.;
-    matrix<complex> ckm = SM.getVCKM();
+    //matrix<complex> ckm = SM.getVCKM();
     
     switch (a) {
         case 0: lambda1 = SM.getlamu_d();
                 break;
         case 1: lambda1 = SM.getlamu_s();
                 break;
-        case 2: lambda1 = ckm(0,2).conjugate()*ckm(1,0);
+        case 2: lambda1 = Vckm(0,2).conjugate()*Vckm(1,0);
                 break;
-        case 3: lambda1 = ckm(1,2).conjugate()*ckm(0,0); 
+        case 3: lambda1 = Vckm(1,2).conjugate()*Vckm(0,0); 
                 break;
-        case 4: lambda1 = ckm(0,2).conjugate()*ckm(1,1);
+        case 4: lambda1 = Vckm(0,2).conjugate()*Vckm(1,1);
                 break;
-        case 5: lambda1 = ckm(1,2).conjugate()*ckm(2,1);
+        case 5: lambda1 = Vckm(1,2).conjugate()*Vckm(2,1);
                 break;
         default:
             std::stringstream out;
@@ -1120,9 +1123,9 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMkp0nn() {
     switch (mckpnn.getOrder()) {
         case NNLO:
         case NLO:
-            mckpnn.setCoeff(0, SM.Als(Muw, FULLNLO)/4./M_PI*SM.getlamt().imag()*X1t(xt)/SM.GetLambda(), NLO);
+            mckpnn.setCoeff(0, SM.Als(Muw, FULLNLO)/4./M_PI*lam_t.imag()*X1t(xt)/SM.GetLambda(), NLO);
         case LO:
-            mckpnn.setCoeff(0, SM.getlamt().imag()*X0t(xt)/SM.GetLambda(), LO);
+            mckpnn.setCoeff(0, lam_t.imag()*X0t(xt)/SM.GetLambda(), LO);
             break;
         default:
             std::stringstream out;
@@ -1132,7 +1135,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMkp0nn() {
     
     switch (mckpnn.getOrder_ew()) {
         case NLO_ew:
-            mckpnn.setCoeff(0, Ale/4./M_PI*SM.getlamt().imag()*Xewt(xt, a, Muw)/SM.GetLambda(), NLO_ew);
+            mckpnn.setCoeff(0, Ale/4./M_PI*lam_t.imag()*Xewt(xt, a, Muw)/SM.GetLambda(), NLO_ew);
         case LO_ew:
             break; 
         default:
@@ -1160,9 +1163,9 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMkppnn() {
     switch (mckppnn.getOrder()) {
         case NNLO:
         case NLO:
-            mckppnn.setCoeff(0, SM.Als(Muw, FULLNLO)/4./M_PI*SM.getlamt().imag()*X1t(xt)/SM.GetLambda(), NLO);
+            mckppnn.setCoeff(0, SM.Als(Muw, FULLNLO)/4./M_PI*lam_t.imag()*X1t(xt)/SM.GetLambda(), NLO);
         case LO:
-            mckppnn.setCoeff(0, SM.getlamt().imag()*X0t(xt)/SM.GetLambda(), LO);
+            mckppnn.setCoeff(0, lam_t.imag()*X0t(xt)/SM.GetLambda(), LO);
             break;
         default:
             std::stringstream out;
@@ -1172,7 +1175,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMkppnn() {
     
     switch (mckppnn.getOrder_ew()) {
         case NLO_ew:
-            mckppnn.setCoeff(0, Ale/4./M_PI*SM.getlamt().imag()*Xewt(xt, a, Muw)/SM.GetLambda(), NLO_ew);
+            mckppnn.setCoeff(0, Ale/4./M_PI*lam_t.imag()*Xewt(xt, a, Muw)/SM.GetLambda(), NLO_ew);
         case LO_ew:
             break; 
         default:
@@ -1199,9 +1202,9 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMkmm() {
     switch (mckmm.getOrder()) {
         case NNLO:
         case NLO:
-            mckmm.setCoeff(0, SM.Als(Muw, FULLNLO)/4./M_PI*SM.getlamt().real()*Y1t(xt)/SM.GetLambda(), NLO);
+            mckmm.setCoeff(0, SM.Als(Muw, FULLNLO)/4./M_PI*lam_t.real()*Y1t(xt)/SM.GetLambda(), NLO);
         case LO:
-            mckmm.setCoeff(0, SM.getlamt().real()*Y0t(xt)/SM.GetLambda(), LO);
+            mckmm.setCoeff(0, lam_t.real()*Y0t(xt)/SM.GetLambda(), LO);
             break;
         default:
             std::stringstream out;
@@ -1225,10 +1228,10 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMBXsnn() {
     switch (mcbsnn.getOrder()) {
         case NNLO:
         case NLO:
-            mcbsnn.setCoeff( 0, (SM.getVCKM()(2,1).abs() / SM.getVCKM()(1,2).abs())*
+            mcbsnn.setCoeff( 0, (Vckm(2,1).abs() / Vckm(1,2).abs())*
                                 SM.Als(Muw, FULLNLO)/4./M_PI*X1t(xt), NLO);
         case LO:
-            mcbsnn.setCoeff(0,  (SM.getVCKM()(2,1).abs() / SM.getVCKM()(1,2).abs())*
+            mcbsnn.setCoeff(0,  (Vckm(2,1).abs() / Vckm(1,2).abs())*
                                 X0t(xt), LO);
             break;
         default:
@@ -1253,10 +1256,10 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMBXdnn() {
     switch (mcbdnn.getOrder()) {
         case NNLO:
         case NLO:
-            mcbsnn.setCoeff( 0, (SM.getVCKM()(2,2).abs() / SM.getVCKM()(1,2).abs()) *
+            mcbsnn.setCoeff( 0, (Vckm(2,2).abs() / Vckm(1,2).abs()) *
                                 SM.Als(Muw, FULLNLO)/4./M_PI*X1t(xt), NLO);
         case LO:
-            mcbsnn.setCoeff(0,  (SM.getVCKM()(2,2).abs() / SM.getVCKM()(1,2).abs()) *
+            mcbsnn.setCoeff(0,  (Vckm(2,2).abs() / Vckm(1,2).abs()) *
                                 X0t(xt), LO);
             break;
         default:
@@ -1281,10 +1284,10 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbsmm() {
     switch (mcbsmm.getOrder()) {
         case NNLO:
         case NLO:
-            mcbsnn.setCoeff( 0, (SM.getVCKM()(2,2).conjugate() * SM.getVCKM()(2,1)).abs() *
+            mcbsnn.setCoeff( 0, (Vckm(2,2).conjugate() * Vckm(2,1)).abs() *
                                 SM.Als(Muw, FULLNLO) / 4. / M_PI*Y1t(xt), NLO);
         case LO:
-            mcbsnn.setCoeff(0,  (SM.getVCKM()(2,2).conjugate() * SM.getVCKM()(2,1)).abs() *
+            mcbsnn.setCoeff(0,  (Vckm(2,2).conjugate() * Vckm(2,1)).abs() *
                                 Y0t(xt), LO);
             break;
         default:
@@ -1309,10 +1312,10 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbdmm() {
     switch (mcbdmm.getOrder()) {
         case NNLO:
         case NLO:
-            mcbsnn.setCoeff( 0, (SM.getVCKM()(2,2).conjugate() * SM.getVCKM()(2,0)).abs() *
+            mcbsnn.setCoeff( 0, (Vckm(2,2).conjugate() * Vckm(2,0)).abs() *
                                 SM.Als(Muw, FULLNLO) / 4. /M_PI * Y1t(xt), NLO);
         case LO:
-            mcbsnn.setCoeff(0,  (SM.getVCKM()(2,2).conjugate() * SM.getVCKM()(2,0)).abs() *
+            mcbsnn.setCoeff(0,  (Vckm(2,2).conjugate() * Vckm(2,0)).abs() *
                                 Y0t(xt), LO);
             break;
         default:
@@ -1409,7 +1412,7 @@ complex StandardModelMatching::S0c() const
     double xc = x_c(SM.getMuc());
     complex co = GF / 2. / M_PI * Mw_tree * SM.getlamc().conjugate();
     
-    return(co * co * xc);
+    return(co * co * S0(xc, xc));
 }
 
 complex StandardModelMatching::S0ct() const 
@@ -1418,17 +1421,18 @@ complex StandardModelMatching::S0ct() const
     double xt = x_t(Mut);
     double co = GF / 2. / M_PI * Mw_tree;
     
-    return( co * co * 2. * SM.getlamc().conjugate() * SM.getlamt().conjugate() * xc *
-            (log(xt/xc) - 3. * xt / (4. * (1. - xt)) - 3. * xt * xt * log(xt) / (4.* (1. - xt) * (1. - xt))) );
+ //   return( co * co * 2. * SM.getlamc().conjugate() * lam_t.conjugate() * xc * (log(xt/xc) - 3. * xt / (4. * (1. - xt)) - 3. * xt * xt * log(xt) / (4.* (1. - xt) * (1. - xt))) );
+    
+    return( co * co * 2. * SM.getlamc().conjugate() * lam_t.conjugate() * S0(xc, xt) );
 }
 
 complex StandardModelMatching::S0tt() const
 {
-    double x = x_t(Mut);
-    double x2 = x * x;
-    double xm2 = pow(1 - x,2);
-    complex co = GF / 2. / M_PI * Mw_tree * SM.getlamt().conjugate();
+    double xt = x_t(Mut);
+    double xt2 = xt * xt;
+    double xtm2 = pow(1 - xt,2);
+    complex co = GF / 2. / M_PI * Mw_tree * lam_t.conjugate();
     
-    return ( co * co * ((4. * x - 11. * x2 + x2 * x) / (4. * xm2) -
-            3.* x2 * x / (2. * xm2 *(1.-x)) * log(x)) );
+//    return ( co * co * ((4. * xt - 11. * xt2 + xt2 * xt) / (4. * xtm2) - 3.* xt2 * xt / (2. * xmt2 *(1.-xt)) * log(xt)) );
+    return ( co * co * S0(xt, xt) );
 }

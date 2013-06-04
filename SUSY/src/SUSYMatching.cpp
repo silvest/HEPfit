@@ -191,9 +191,9 @@ double SUSYMatching::DL(double a, double b, double c, int k) {
         else
 
             return ((-a * a * b + (a * a + b * b) * c - b * c * c) * log(a)
-                + (-a + c)*((a - b)*(-b + c) + b * (-a + c) * log(b))
-                - (a - b)*(a - b) * c * log(c)) / ((a - b)*(a - b)*(-a
-                + c)*(-a + c)*(-b + c));
+                + (-a + c) * ((a - b) * (-b + c) + b * (-a + c) * log(b))
+                - (a - b)*(a - b) * c * log(c)) / ((a - b) * (a - b) * (-a
+                + c) * (-a + c) * (-b + c));
     }
     else if (k == 2) {
 
@@ -210,11 +210,11 @@ double SUSYMatching::DL(double a, double b, double c, int k) {
             return ( (-a + b + b * log(a) - b * log(b)) / (4. * (a - b) * (a - b)));
         }
         
-        return (a * (-b + c)*(a * b + (a - 2. * b) * c) * log(a)
-                + (-a + c)*(a * (a - b)*(-b + c)
+        return (a * (-b + c) * (a * b + (a - 2. * b) * c) * log(a)
+                + (-a + c) * (a * (a - b) * (-b + c)
                 + b * b * (-a + c) * log(b))
-                - (a - b)*(a - b) * c * c * log(c)) /
-                (4. * (a - b)*(a - b)*(-a + c)*(-a + c)*(-b + c));
+                - (a - b) * (a - b) * c * c * log(c)) /
+                (4. * (a - b) * (a - b) * (-a + c) * (-a + c) * (-b + c));
     }
     else {
 
@@ -237,7 +237,7 @@ double SUSYMatching::DLL(double a, double b, int k) {
         }
         else
             return ( (-a * a + b * b + 2 * a * b * log(a) - 2 * a * b * log(b)) /
-                (2. * a * (a - b)*(a - b)*(a - b)));
+                (2. * a * (a - b) * (a - b) * (a - b)));
     }
     else if (k == 2) {
 
@@ -252,7 +252,7 @@ double SUSYMatching::DLL(double a, double b, int k) {
         }
         else
             return (a * a - 4 * a * b + 3 * b * b + 2 * b * b * log(a)
-                - 2 * b * b * log(b)) / (8. * (-a + b)*(-a + b)*(-a + b));
+                - 2 * b * b * log(b)) / (8. * (-a + b) * (-a + b) * (-a + b));
     }
     else {
 

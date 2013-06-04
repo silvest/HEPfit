@@ -10,6 +10,7 @@
 
 //#include "StandardModel.h"
 #include "ModelMatching.h"
+#include <gslpp.h>
 
 #define LEPS 1.e-5 // tolerance in the limit of S(x,y) to S(x)
 
@@ -369,6 +370,8 @@ private:
     double GF;
     double Mw_tree;
     double MM;
+    gslpp::matrix<complex> Vckm;
+    complex lam_t;
     
     /**
      * 

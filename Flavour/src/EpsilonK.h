@@ -14,6 +14,26 @@
 
 using namespace gslpp;
 
+/**
+ * @addtogroup Flavour
+ * @brief A project for Flavour observables.
+ * @{
+ */
+
+/**
+ * @class EpsilonK
+ * @brief A class for @f$\eps_K@f$ that parametrizes
+ * indirect CPV in the Kaon sector
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the theoretical value of
+ * @f$\eps_K@f$. This parameter gets contributions both
+ * from the SM and many NP models. It is an important
+ * constraint on FCNC from NP models, specially those contributing
+ * to chirality flipping @f$\Delta F = 2@f$ operators due to large
+ * enhancement by QCD running of these operators to Koan mass scales.
+ */
+
 class EpsilonK : public ThObservable, AmpDK2 {
 public:   
     /**
@@ -29,6 +49,10 @@ public:
     double getThValue();
     
 };
+
+/**
+ * @}
+ */
 
 #endif	/* EPSILONK_H */
 
