@@ -9,6 +9,7 @@
 #include <TH2D.h>
 #include <TStyle.h>
 #include <TLine.h>
+#include <TMarker.h>
 #include "BaseMacros.h"
 
 #ifndef PULL_H
@@ -75,6 +76,8 @@ private:
     TLine* lx;
     
     TLatex* tText[6];
+
+    TMarker* ExpData;
     
     double meanTmp;
     

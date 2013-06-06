@@ -44,6 +44,7 @@ Pull::Pull(TH1D& hist, const int nbinX, const int nbinY,
     tText[3] = new TLatex();
     tText[4] = new TLatex();
     tText[5] = new TLatex();
+    ExpData = new TMarker();
 }
 
 
@@ -129,13 +130,12 @@ void Pull::Draw(const TString xlab, const TString ylab,
     
     // draw the measured value
     if (xval != -999.0) {
-        double lw = (y_up - y_low)/40.0;   
-        lx->SetLineWidth(7);
-        //std::cout << xval - 0.1 * (y_up - y_low) << std::endl;
-        lx->DrawLine(xval - 0.040 * (x_up - x_low), xerr,
-                     xval + 0.040 * (x_up - x_low), xerr);
-        lx->DrawLine(xval, xerr + 0.040 * (y_up - y_low),
-                     xval, xerr - 0.040 * (y_up - y_low));
+        ExpData->SetX(xval);
+        ExpData->SetY(xerr);
+        ExpData->SetMarkerColor(kBlack);
+        ExpData->SetMarkerSize(3);
+        ExpData->SetMarkerStyle(29);
+        ExpData->Draw();
     }
 
     gPad->Modified();
