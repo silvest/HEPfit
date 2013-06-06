@@ -13,12 +13,16 @@
       <itemPath>src/NPSTU.h</itemPath>
       <itemPath>src/NPSTUVWXY.h</itemPath>
       <itemPath>src/NPZbbbar.h</itemPath>
+      <itemPath>src/cHQ1pPLUScHQ2p_NP.h</itemPath>
+      <itemPath>src/cHQ2pMINUScHQ2_NP.h</itemPath>
+      <itemPath>src/cHQ3pPLUScHQ3_NP.h</itemPath>
       <itemPath>src/deltaGAb.h</itemPath>
       <itemPath>src/deltaGLb.h</itemPath>
       <itemPath>src/deltaGRb.h</itemPath>
       <itemPath>src/deltaGVb.h</itemPath>
       <itemPath>src/deltaKappaZb.h</itemPath>
       <itemPath>src/deltaRhoZb.h</itemPath>
+      <itemPath>src/l_NP.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -103,6 +107,12 @@
       </item>
       <item path="src/NPZbbbar.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/cHQ1pPLUScHQ2p_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHQ2pMINUScHQ2_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHQ3pPLUScHQ3_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/deltaGAb.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/deltaGLb.h" ex="false" tool="3" flavor2="0">
@@ -114,6 +124,8 @@
       <item path="src/deltaKappaZb.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/deltaRhoZb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/l_NP.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="3">
@@ -179,6 +191,12 @@
       </item>
       <item path="src/NPZbbbar.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/cHQ1pPLUScHQ2p_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHQ2pMINUScHQ2_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHQ3pPLUScHQ3_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/deltaGAb.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/deltaGLb.h" ex="false" tool="3" flavor2="0">
@@ -190,6 +208,8 @@
       <item path="src/deltaKappaZb.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/deltaRhoZb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/l_NP.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Cluster" type="3">
@@ -255,6 +275,12 @@
       </item>
       <item path="src/NPZbbbar.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/cHQ1pPLUScHQ2p_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHQ2pMINUScHQ2_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHQ3pPLUScHQ3_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/deltaGAb.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/deltaGLb.h" ex="false" tool="3" flavor2="0">
@@ -266,6 +292,8 @@
       <item path="src/deltaKappaZb.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/deltaRhoZb.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/l_NP.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

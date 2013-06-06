@@ -38,6 +38,44 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
+    double getCHQ1p() const
+    {
+        return cHQ1p;
+    }
+
+    double getCHQ2p() const
+    {
+        return cHQ2p;
+    }
+
+    double getCHQ3p() const
+    {
+        return cHQ3p;
+    }
+
+    double getCHQ1() const
+    {
+        return cHQ1;
+    }
+
+    double getCHQ2() const
+    {
+        return cHQ2;
+    }
+
+    double getCHQ3() const
+    {
+        return cHQ3;
+    }
+
+    double getLambdaNP() const
+    {
+        return LambdaNP;
+    }
+
+
+    ////////////////////////////////////////////////////////////////////////
+
     virtual double v() const;
 
     virtual double Mw_tree() const;

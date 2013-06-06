@@ -8,6 +8,10 @@
 #ifndef NPINPUTS_H
 #define	NPINPUTS_H
 
+#include "cHQ1pPLUScHQ2p_NP.h"
+#include "cHQ2pMINUScHQ2_NP.h"
+#include "cHQ3pPLUScHQ3_NP.h"
+#include "l_NP.h"
 #include "deltaGVb.h"
 #include "deltaGAb.h"
 #include "deltaGLb.h"
