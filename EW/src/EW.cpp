@@ -51,14 +51,14 @@ EW::EWTYPE EW::getEWTYPE() const
     if ( SM.IsFlagTestSubleadingTwoLoopEW() && SM.IsFlagRhoZbFromGdOverGb())
         throw std::runtime_error("ERROR: Flags TestSubleadingTwoLoopEW and RhoZbFromGdOverGb cannot be set to true simultaneously");
 
-    if ( SM.ModelName()=="NPEpsilons" && SM.IsFlagApproximateGqOverGb() 
-            && !SM.IsFlagRhoZbFromGuOverGb() && !SM.IsFlagRhoZbFromGdOverGb()
-            && !SM.IsFlagTestSubleadingTwoLoopEW())
-        throw std::runtime_error("ERROR: The current flags cannot be used with NPEpsilons model");
-    if ( SM.ModelName()=="NPHiggs" && SM.IsFlagApproximateGqOverGb() 
-            && !SM.IsFlagRhoZbFromGuOverGb() && !SM.IsFlagRhoZbFromGdOverGb()
-            && !SM.IsFlagTestSubleadingTwoLoopEW())
-        throw std::runtime_error("ERROR: The current flags cannot be used with NPHiggs model");
+    //if ( SM.ModelName()=="NPEpsilons" && SM.IsFlagApproximateGqOverGb()
+    //        && !SM.IsFlagRhoZbFromGuOverGb() && !SM.IsFlagRhoZbFromGdOverGb()
+    //        && !SM.IsFlagTestSubleadingTwoLoopEW())
+    //    throw std::runtime_error("ERROR: The current flags cannot be used with NPEpsilons model");
+    //if ( SM.ModelName()=="NPHiggs" && SM.IsFlagApproximateGqOverGb()
+    //        && !SM.IsFlagRhoZbFromGuOverGb() && !SM.IsFlagRhoZbFromGdOverGb()
+    //        && !SM.IsFlagTestSubleadingTwoLoopEW())
+    //    throw std::runtime_error("ERROR: The current flags cannot be used with NPHiggs model");
     
     if ( SM.IsFlagEWBURGESS() ) return EWBURGESS;
     else if ( SM.IsFlagEWCHMN() ) return EWCHMN;

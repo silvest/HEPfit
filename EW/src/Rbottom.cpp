@@ -24,12 +24,10 @@ double Rbottom::getThValue()
         R0_b = R_b0*(1.0 - 0.06*SM.epsilon1() + 0.07*SM.epsilon3() + 1.79*SM.epsilonb());
     } else {    
         if (SM.IsFlagApproximateGqOverGb() 
-                && !SM.IsFlagRhoZbFromGuOverGb()
-                && !SM.IsFlagRhoZbFromGdOverGb()
-                && !SM.IsFlagTestSubleadingTwoLoopEW()) {
-            /* We use this part in the case where rhoZb is not derived from 
-             * the approximate formula of either Gu/Gb or Gd/Gb, or where 
-             * it is not calculated from the input delRhoZb. */
+                //&& !SM.IsFlagRhoZbFromGuOverGb()
+                //&& !SM.IsFlagRhoZbFromGdOverGb()
+                //&& !SM.IsFlagTestSubleadingTwoLoopEW()
+                ) {
             double Gu_over_Gb = SM.getEWSM()->Gu_over_Gb_SM();
             double Gd_over_Gb = SM.getEWSM()->Gd_over_Gb_SM();
             R0_b = 1.0/(1.0 + 2.0*(Gd_over_Gb + Gu_over_Gb));

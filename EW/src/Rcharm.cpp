@@ -20,9 +20,10 @@ double Rcharm::getThValue()
         R0_c = myEW.getMyEW_ABC().R_c(SM.epsilon1(),SM.epsilon3(),SM.epsilonb());
     else {    
         if (SM.IsFlagApproximateGqOverGb() 
-                && !SM.IsFlagRhoZbFromGuOverGb()
-                && !SM.IsFlagRhoZbFromGdOverGb()
-                && !SM.IsFlagTestSubleadingTwoLoopEW()) {
+                //&& !SM.IsFlagRhoZbFromGuOverGb()
+                //&& !SM.IsFlagRhoZbFromGdOverGb()
+                //&& !SM.IsFlagTestSubleadingTwoLoopEW()
+                ) {
             double Gu_over_Gb = SM.getEWSM()->Gu_over_Gb_SM();
             double Gd_over_Gb = SM.getEWSM()->Gd_over_Gb_SM();
             R0_c = Gu_over_Gb/(1.0 + 2.0*(Gd_over_Gb + Gu_over_Gb));
