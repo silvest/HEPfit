@@ -23,6 +23,7 @@ double Rcharm::getThValue()
                 //&& !SM.IsFlagRhoZbFromGuOverGb()
                 //&& !SM.IsFlagRhoZbFromGdOverGb()
                 //&& !SM.IsFlagTestSubleadingTwoLoopEW()
+                && SM.ModelName() != "NPEpsilons"
                 ) {
             double Gu_over_Gb = SM.getEWSM()->Gu_over_Gb_SM();
             double Gd_over_Gb = SM.getEWSM()->Gd_over_Gb_SM();
