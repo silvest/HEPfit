@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <stdlib.h>
+#include <sstream>
 #include <math.h>
 #include <map>
 #include <stdexcept>
@@ -816,9 +817,18 @@ double QCD::Mrun(const double mu_f, const double mu_i, const double m,
             throw std::runtime_error("Error in QCD::Mrun(mu_f,mu_i,m,order)"); 
     }
 
-    if (mrun < 0.0)
-        throw std::runtime_error("ERROR: A quark mass becomes tachyonic in QCD::Mrun(mu_f,mu_i m,order).");
-    
+    if (mrun < 0.0) {
+        std::stringstream out;
+        out << "QCD::Mrun(): A quark mass becomes tachyonic in QCD::Mrun("
+            << mu_f << ", " <<  mu_i << ", " <<  m << ", " << orderToString(order) << ")"
+            << std::endl
+            << "             Als(" << mu_i << ", " << orderToString(order) << ")/(4pi)="
+            << Als(mu_i, order)/(4.*M_PI) << std::endl
+            << "             Als(" << mu_f << ", " << orderToString(order) << ")/(4pi)="
+            << Als(mu_f, order)/(4.*M_PI);
+        throw std::runtime_error(out.str());
+    }
+
     CacheShift(mrun_cache,10);
     mrun_cache[0][0] = mu_f;
     mrun_cache[1][0] = mu_i;
