@@ -5,17 +5,17 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef L_NP_H
-#define	L_NP_H
+#ifndef C_GAMMAZ_UDS_NP_H
+#define	C_GAMMAZ_UDS_NP_H
 
 #include <ThObservable.h>
 #include <ThObsType.h>
 #include "NPEffective.h"
 
-class l_NP : public ThObservable {
+class c_GammaZ_uds_NP : public ThObservable {
 public:
 
-    l_NP(const ThObsType& ObsType)
+    c_GammaZ_uds_NP(const ThObsType& ObsType)
     : ThObservable(ObsType)
     {
     };
@@ -49,5 +49,5 @@ private:
 
 };
 
-#endif	/* L_NP_H */
+#endif	/* C_GAMMAZ_UDS_NP_H */
 
