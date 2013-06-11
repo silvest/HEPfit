@@ -74,6 +74,8 @@ public:
         return HistoLog.str().c_str();
     }
 
+    void PrintCorrelationMatrix(const std::string filename);
+
 private:
     const std::vector<ModelParameter>& ModPars;
     std::vector<Observable> Obs_MCMC;

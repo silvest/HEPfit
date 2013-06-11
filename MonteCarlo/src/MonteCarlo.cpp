@@ -217,6 +217,10 @@ void MonteCarlo::Run(const int rank)
             if (PrintCorrelationMatrix)
                 myBCSummaryTool.PrintCorrelationMatrix(("ParamCorrelations" + JobTag + ".eps").c_str());
 
+            // print the correlation matrix into a tex file
+            if (PrintCorrelationMatrix)
+                MCEngine.PrintCorrelationMatrix(("ParamCorrelations" + JobTag + ".tex").c_str());
+
             // print comparisons of the prior knowledge to the posterior knowledge 
             // for all parameters into a PostScript file
             if (PrintKnowledgeUpdatePlots)

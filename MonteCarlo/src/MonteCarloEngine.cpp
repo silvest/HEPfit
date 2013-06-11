@@ -13,6 +13,7 @@
 #include <TROOT.h>
 #include <TH1.h>
 #include <mpi.h>
+#include <fstream>
 
 MonteCarloEngine::MonteCarloEngine(
         const std::vector<ModelParameter>& ModPars_i,
@@ -423,3 +424,35 @@ void MonteCarloEngine::AddChains()
         }
     }
 }
+
+void MonteCarloEngine::PrintCorrelationMatrix(const std::string filename) 
+{
+    std::ofstream out;
+    out.open(filename.c_str(), std::ios::out);
+
+    int npar = GetNParameters();
+
+    for (int i = 0; i < npar; ++i) 
+        out << " & " << GetParameter(i)->GetName();
+    out << " \\\\"  << std::endl;
+
+    for (int i = 0; i < npar; ++i) {
+        out << GetParameter(i)->GetName() << " & $";
+        for (int j = 0; j < npar; ++j) {
+            if (i!=j) {
+                BCH2D* bch2d_temp = GetMarginalized(GetParameter(i), GetParameter(j));
+                if (bch2d_temp != NULL)
+                    out << bch2d_temp->GetHistogram()->GetCorrelationFactor();
+                else
+                    out << 0.;
+            }
+            else
+                out << 1.;            
+            if (j==npar-1) out<< "$ \\\\" << std::endl;
+            else out << "$ & $";
+        }
+    }
+
+    out.close();
+}
+ 
