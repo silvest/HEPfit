@@ -38,6 +38,29 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
+    double getCHL1p() const {
+        return cHL1p;
+    }
+
+    double getCHL2p() const {
+        return cHL2p;
+    }
+    double getCHL3p() const {
+        return cHL3p;
+    }
+
+    double getCHL1() const {
+        return cHL1;
+    }
+
+    double getCHL2() const {
+        return cHL2;
+    }
+
+    double getCHL3() const {
+        return cHL3;
+    }
+
     double getCHQ1p() const
     {
         return cHQ1p;
@@ -66,6 +89,26 @@ public:
     double getCHQ3() const
     {
         return cHQ3;
+    }
+
+    double getCHE1() const {
+        return cHE1;
+    }
+
+    double getCHE2() const {
+        return cHE2;
+    }
+
+    double getCHE3() const {
+        return cHE3;
+    }
+    
+    double getCHU2() const {
+        return cHU2;
+    }
+
+    double getCHD3() const {
+        return cHD3;
     }
 
     double getLambdaNP() const

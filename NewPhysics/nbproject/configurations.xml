@@ -13,9 +13,14 @@
       <itemPath>src/NPSTU.h</itemPath>
       <itemPath>src/NPSTUVWXY.h</itemPath>
       <itemPath>src/NPZbbbar.h</itemPath>
+      <itemPath>src/cHD3_NP.h</itemPath>
+      <itemPath>src/cHE_NP.h</itemPath>
+      <itemPath>src/cHL_NP.h</itemPath>
+      <itemPath>src/cHLp_NP.h</itemPath>
       <itemPath>src/cHQ1pPLUScHQ2p_NP.h</itemPath>
       <itemPath>src/cHQ2pMINUScHQ2_NP.h</itemPath>
       <itemPath>src/cHQ3pPLUScHQ3_NP.h</itemPath>
+      <itemPath>src/cHU2_NP.h</itemPath>
       <itemPath>src/c_Ae_NP.h</itemPath>
       <itemPath>src/c_GammaZ_uds_NP.h</itemPath>
       <itemPath>src/deltaGAb.h</itemPath>
@@ -108,11 +113,21 @@
       </item>
       <item path="src/NPZbbbar.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/cHD3_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHE_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHL_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHLp_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/cHQ1pPLUScHQ2p_NP.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/cHQ2pMINUScHQ2_NP.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/cHQ3pPLUScHQ3_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHU2_NP.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/c_Ae_NP.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -194,11 +209,21 @@
       </item>
       <item path="src/NPZbbbar.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/cHD3_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHE_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHL_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHLp_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/cHQ1pPLUScHQ2p_NP.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/cHQ2pMINUScHQ2_NP.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/cHQ3pPLUScHQ3_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHU2_NP.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/c_Ae_NP.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -280,11 +305,21 @@
       </item>
       <item path="src/NPZbbbar.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/cHD3_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHE_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHL_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHLp_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/cHQ1pPLUScHQ2p_NP.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/cHQ2pMINUScHQ2_NP.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/cHQ3pPLUScHQ3_NP.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/cHU2_NP.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/c_Ae_NP.h" ex="false" tool="3" flavor2="0">
       </item>

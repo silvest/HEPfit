@@ -72,6 +72,11 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["delRhoZ_b"] = new delRhoZ_b(myMO);
     
     //-----  NP input parameters, etc.  -----
+    thobs["cHLp_NP"] = new cHLp_NP(myMO);
+    thobs["cHL_NP"] = new cHL_NP(myMO);
+    thobs["cHE_NP"] = new cHE_NP(myMO);
+    thobs["cHU2_NP"] = new cHU2_NP(myMO);
+    thobs["cHD3_NP"] = new cHD3_NP(myMO);
     thobs["cHQ1pPLUScHQ2p_NP"] = new cHQ1pPLUScHQ2p_NP(myMO);
     thobs["cHQ2pMINUScHQ2_NP"] = new cHQ2pMINUScHQ2_NP(myMO);
     thobs["cHQ3pPLUScHQ3_NP"] = new cHQ3pPLUScHQ3_NP(myMO);
