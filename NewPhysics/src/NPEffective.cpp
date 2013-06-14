@@ -340,7 +340,8 @@ double NPEffective::GammaW() const
         
         Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
                          *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 )
-                   - 3.0*s2/2.0/(c2-s2)*DeltaGF()
+                   //- 3.0*s2/2.0/(c2-s2)*DeltaGF()
+                   - (1.0 + c2)/2.0/(c2-s2)*DeltaGF()
                    + (cHL1p + cHL2p + cHL3p + cHQ1p + cHQ2p)*ratio;
     } else
         if (obliqueS()!=0.0 || obliqueT()!=0.0 || obliqueU()!=0.0)
