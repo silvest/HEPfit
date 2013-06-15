@@ -888,7 +888,7 @@ double EWSM::RVq(const StandardModel::quark q) const
 
     /* quartic massive corrections */
     double C42  = 13.0/3.0 - 4.0*zeta3;
-    //double C40V = -6.0; /* not used */
+    double C40V = -6.0;
     double C41V = -22.0;
     double C42V = -3029.0/12.0 + 162.0*zeta2 + 112.0*zeta3
                   + (143.0/18.0 - 4.0*zeta2 - 8.0/3.0*zeta3)*nf;
@@ -916,7 +916,7 @@ double EWSM::RVq(const StandardModel::quark q) const
             + mqMz2/s*(C21V*AlsMzPi + C22V*AlsMzPi2 + C23V*AlsMzPi3)
             + mcMz2*mcMz2/s/s*(C42 - log_c)*AlsMzPi2
             + mbMz2*mbMz2/s/s*(C42 - log_b)*AlsMzPi2
-            + mqMz2*mqMz2/s/s*(C41V*AlsMzPi + (C42V + C42VL*log_q)*AlsMzPi2)
+            + mqMz2*mqMz2/s/s*(C40V + C41V*AlsMzPi + (C42V + C42VL*log_q)*AlsMzPi2)
             + 12.0*mqdash4/s/s*AlsMzPi2
             - mqMz2*mqMz2*mqMz2/s/s/s
               *(8.0+16.0/27.0*(155.0 + 6.0*log_q)*AlsMzPi);    
