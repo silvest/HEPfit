@@ -9,6 +9,8 @@
 #define	NPINPUTS_H
 
 #include "cHLp_NP.h"
+#include "cHQp_NP.h"
+#include "cHQ_NP.h"
 #include "cHL_NP.h"
 #include "cHE_NP.h"
 #include "cHU2_NP.h"

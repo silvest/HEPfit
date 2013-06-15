@@ -60,11 +60,11 @@ ThFactory::ThFactory(const StandardModel& myModel)
     }
     
     //-----  SM input parameters, etc.  -----
-    thobs["alsMz"] = new alsMz(myMO);
+    thobs["AlsMz"] = new alsMz(myMO);
     thobs["dAle5Mz"] = new dAle5Mz(myMO);
     thobs["mHl"] = new mHl(myMO);
-    thobs["mZ"] = new mZ(myMO);
-    thobs["mtpole"] = new mtpole(myMO);
+    thobs["Mz"] = new mZ(myMO);
+    thobs["mtop"] = new mtpole(myMO);
     thobs["delRhoZ_nu"] = new delRhoZ_nu(myMO);
     thobs["delRhoZ_e"] = new delRhoZ_e(myMO);
     thobs["delRhoZ_u"] = new delRhoZ_u(myMO);
@@ -73,6 +73,8 @@ ThFactory::ThFactory(const StandardModel& myModel)
     
     //-----  NP input parameters, etc.  -----
     thobs["cHLp_NP"] = new cHLp_NP(myMO);
+    thobs["cHQp_NP"] = new cHQp_NP(myMO);
+    thobs["cHQ_NP"] = new cHQ_NP(myMO);
     thobs["cHL_NP"] = new cHL_NP(myMO);
     thobs["cHE_NP"] = new cHE_NP(myMO);
     thobs["cHU2_NP"] = new cHU2_NP(myMO);
