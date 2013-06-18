@@ -101,6 +101,8 @@ int main(int argc, char** argv)
         cout << "   *** superimpose a Gaussian function ***                            " << endl;
         cout << "   -priorMean=mean  -> mean value for the Gaussian function           " << endl;
         cout << "   -priorSigma=sig  -> standard deviation for the Gaussian function   " << endl;
+        cout << "   -priorLineStyle=index -> index of the line style [default: index=2]" << endl;
+        cout << "   -priorLineWidth=index -> index of the line width [default: index=4]" << endl;
         cout << "   -legGauss=legend -> legend for the Gaussian function [default: no legend]" << endl;
         cout << "   --rescaleForMHl  -> rescale the histogram for mHl                  " << endl;
         cout << "                                                                      " << endl;
@@ -196,6 +198,7 @@ int main(int argc, char** argv)
     double leg_xmin = 0.63, leg_ymax = 0.88;
     TString legGauss = "";
     double prior_mean = 0.0, prior_sigma = 0.0;
+    int prior_LineStyle = 2, prior_LineWidth = 4;
 
     const int NumHist = 5;
     TObject* tobj[NumHist];
@@ -342,7 +345,11 @@ int main(int argc, char** argv)
         else if (strncmp(argv[i], "-legP=", 6) == 0) {
             sscanf(argv[i], "-legP=%s", str);
             legP = str;
-        } 
+        }
+        else if (strncmp(argv[i], "-priorLineStyle=", 16) == 0)
+            sscanf(argv[i], "-priorLineStyle=%d", &prior_LineStyle);
+        else if (strncmp(argv[i], "-priorLineWidth=", 16) == 0)
+            sscanf(argv[i], "-priorLineWidth=%d", &prior_LineWidth);
         else if (strncmp(argv[i], "-legGauss=", 10) == 0) {
             sscanf(argv[i], "-legGauss=%s", str);
             legGauss = str;
@@ -665,8 +672,8 @@ int main(int argc, char** argv)
                     xmin, xmax);
             prior->SetParameter(0, prior_mean);
             prior->SetParameter(1, prior_sigma);    
-            prior->SetLineStyle(2);
-            prior->SetLineWidth(4);
+            prior->SetLineStyle(prior_LineStyle);
+            prior->SetLineWidth(prior_LineWidth);
             prior->SetNpx(1000);
             prior->Draw("SAME");
             
