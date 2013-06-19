@@ -10,11 +10,11 @@
 
 
 const std::string NPHiggsST::NPHIGGSSTvars[NNPHIGGSSTvars] 
-= {"a", "b", "c_u", "c_d", "c_e", "d_3", "d_4"};
+= {"a", "b", "c_u", "c_d", "c_e", "d_3", "d_4", "LambdaNP"};
 
 
 NPHiggsST::NPHiggsST()
-: NPZbbbar()
+: NPZbbbar(), LambdaNP_in(0.0)
 {
 }
 
@@ -65,6 +65,8 @@ void NPHiggsST::SetParameter(const std::string name, const double& value)
         d_3 = value;
     else if (name.compare("d_4") == 0)
         d_4 = value;
+    else if (name.compare("LambdaNP") == 0)
+        LambdaNP_in = value;
     else
         NPZbbbar::SetParameter(name, value);       
 }
@@ -106,7 +108,9 @@ bool NPHiggsST::SetFlag(const std::string name, const bool& value)
 double NPHiggsST::obliqueS() const
 {
     double Lambda;
-    if (fabs(1.0-a*a) < pow(10.0, -32.0) ) 
+    if (LambdaNP_in != 0.0)
+        Lambda = LambdaNP_in;
+    else if (fabs(1.0-a*a) < pow(10.0, -32.0))
         Lambda = pow(10.0, 19.0);
     else
         Lambda = 4.0*M_PI*v()/sqrt(fabs(1.0 - a*a));
@@ -119,7 +123,9 @@ double NPHiggsST::obliqueT() const
 {
     double Lambda;
     double cW2_SM = StandardModel::cW2(); /* This has to be the SM value. */
-    if (fabs(1.0-a*a) < pow(10.0, -32.0) ) 
+    if (LambdaNP_in != 0.0)
+        Lambda = LambdaNP_in;
+    else if (fabs(1.0-a*a) < pow(10.0, -32.0))
         Lambda = pow(10.0, 19.0);
     else
         Lambda = 4.0*M_PI*v()/sqrt(fabs(1.0 - a*a));

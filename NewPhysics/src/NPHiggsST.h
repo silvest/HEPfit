@@ -20,7 +20,7 @@
  */
 class NPHiggsST : public NPZbbbar {
 public:
-    static const int NNPHIGGSSTvars = 7;
+    static const int NNPHIGGSSTvars = 8;
     static const std::string NPHIGGSSTvars[NNPHIGGSSTvars];
     
     NPHiggsST();
@@ -95,7 +95,7 @@ public:
     ////////////////////////////////////////////////////////////////////////
     
 protected:    
-    double a, b, c_u, c_d, c_e, d_3, d_4;
+    double a, b, c_u, c_d, c_e, d_3, d_4, LambdaNP_in;
     virtual void SetParameter(const std::string name, const double& value);
     
     
