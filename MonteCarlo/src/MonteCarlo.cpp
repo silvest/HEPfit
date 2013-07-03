@@ -24,6 +24,7 @@ MonteCarlo::MonteCarlo(const std::string& ModelConf_i,
     if(OutFile_i.compare("")==0)
         noMC = true;
     OutFile = OutFile_i + JobTag + ".root";
+    ObsDirName = "Observables" + JobTag;
     FindModeWithMinuit = false;
     PrintAllMarginalized = false;
     PrintCorrelationMatrix = false;
@@ -38,12 +39,12 @@ MonteCarlo::~MonteCarlo()
 void MonteCarlo::Run(const int rank) 
 {
     try {
-        FileStat_t info;
-        if (gSystem->GetPathInfo("Observables", info) != 0 && !noMC) {
-            if (gSystem->MakeDirectory("Observables") == 0)
-                std::cout << "Observables directory has been created." << std::endl;
+        FileStat_t info;        
+        if (gSystem->GetPathInfo(ObsDirName.c_str(), info) != 0 && !noMC) {
+            if (gSystem->MakeDirectory(ObsDirName.c_str()) == 0)
+                std::cout << ObsDirName << " directory has been created." << std::endl;
             else {
-                std::cout << "Observables director cannot be created." << std::endl;
+                std::cout << ObsDirName << " director cannot be created." << std::endl;
                 exit(EXIT_FAILURE);
             }
         }
@@ -208,8 +209,8 @@ void MonteCarlo::Run(const int rank)
             // print results of the analysis into a text file
             MCEngine.PrintResults(("MonteCarlo_results" + JobTag + ".txt").c_str());
 
-            // print ratio
-            MCEngine.PrintHistogram(out);
+            // print histograms
+            MCEngine.PrintHistogram(out, ObsDirName);
             
             BCSummaryTool myBCSummaryTool(&MCEngine);
 
@@ -239,7 +240,7 @@ void MonteCarlo::Run(const int rank)
 
             // print logs for the histograms of the observables into a text file
             std::ofstream outHistoLog;
-            outHistoLog.open("Observables/HistoLog.txt", std::ios::out);
+            outHistoLog.open((ObsDirName + "/HistoLog.txt").c_str(), std::ios::out);
             outHistoLog << MCEngine.GetHistoLog();
             outHistoLog.close();
             

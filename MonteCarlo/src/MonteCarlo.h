@@ -36,7 +36,7 @@ private:
     std::vector<Observable> Obs;
     std::vector<Observable2D> Obs2D;   
     std::vector<CorrelatedGaussianObservables> CGO;
-    std::string ModelConf, MCMCConf, OutFile, JobTag;
+    std::string ModelConf, MCMCConf, OutFile, JobTag, ObsDirName;
     bool noMC;
     bool FindModeWithMinuit, PrintAllMarginalized;
     bool PrintCorrelationMatrix, PrintKnowledgeUpdatePlots, PrintParameterPlot;

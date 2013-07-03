@@ -339,10 +339,12 @@ void MonteCarloEngine::MCMCIterationInterface()
     }
 }
 
-void MonteCarloEngine::PrintHistogram(BCModelOutput & out, std::vector<Observable>::iterator it) 
+void MonteCarloEngine::PrintHistogram(BCModelOutput & out, 
+                                      std::vector<Observable>::iterator it,
+                                      const std::string OutputDir)
 {
     if (Histo1D[it->getThname()]->GetHistogram()->Integral() > 0.0) {
-        std::string fname = "Observables/" + it->getThname() + ".pdf";
+        std::string fname = OutputDir + "/" + it->getThname() + ".pdf";
         //        BCH1D* pippo =  Histo1D[it->getThname()];
         //        double x = pippo->GetMean();
         //        pippo->Print("Dmd1.pdf");
@@ -367,7 +369,7 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, std::vector<Observabl
         HistoLog << "WARNING: The histogram of " << it->getThname() << " is empty!" << std::endl;
 }
 
-void MonteCarloEngine::PrintHistogram(BCModelOutput & out) 
+void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string OutputDir)
 {
     //print the BAT histograms to an eps file
     std::vector<double> mode(GetBestFitParameters());
@@ -377,19 +379,19 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out)
 
     for (std::vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end();
             it++) {
-        PrintHistogram(out, it);
+        PrintHistogram(out, it, OutputDir);
     }
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
             it1 < CGO.end(); it1++){
         std::vector<Observable> pino(it1->GetObs());
         for (std::vector<Observable>::iterator it = pino.begin();
                 it != pino.end(); ++it)
-            PrintHistogram(out, it);
+            PrintHistogram(out, it, OutputDir);
     }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end();
             it++) {
         if (Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram()->Integral() > 0.0) {
-            std::string fname = "Observables/" + it->getThname() + "_vs_" + it->getThname2() + ".pdf";
+            std::string fname = OutputDir + "/" + it->getThname() + "_vs_" + it->getThname2() + ".pdf";
             double th[2];
             th[0] = it->getTheoryValue();
             th[1] = it->getTheoryValue2();
