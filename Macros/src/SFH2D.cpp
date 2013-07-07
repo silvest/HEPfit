@@ -16,13 +16,13 @@
 #include <TF1.h>
 #include "SFH2D.h"
 
-SFH2D::SFH2D(TH2D& hist, std::ostream& os_in, 
-             const double prob68_in, const double prob95_in, 
+SFH2D::SFH2D(TH2D& hist, std::ostream& os_in, const double prob68_in,
+             const double prob95_in, const double prob99_in,
              const double x_low, const double x_up, 
              const double y_low, const double y_up,
              const int NumNewPoints_in)
-: os(os_in), prob68(prob68_in), prob95(prob95_in), origHist(hist), 
-        origName(hist.GetName()), NumNewPoints(NumNewPoints_in)
+: os(os_in), prob68(prob68_in), prob95(prob95_in), prob99(prob99_in),
+        origHist(hist), origName(hist.GetName()), NumNewPoints(NumNewPoints_in)
 {
     std::string NewName = origName + "_new";
     newHist = (TH2D*) hist.Clone(NewName.c_str()); 
@@ -59,11 +59,11 @@ void SFH2D::smoothHist(const int smooth)
 
 void SFH2D::Draw(const TString xlab, const TString ylab, 
                  const int lineWidth, const int lineColor, 
-                 const int col68, const int col95, const int lineStyle, 
-                 const int lineStyle68,
-                 const int fillStyle, const int maxDigits,
-                 const bool bLine, const bool bOnly95, const bool superImpose, 
-                 const double YTitleOffset) 
+                 const int col68, const int col95, const int col99,
+                 const int lineStyle68, const int lineStyle95, const int lineStyle99,
+                 const int fillStyle, const int maxDigits, const bool bLine, 
+                 const bool bDraw68, const bool bDraw95, const bool bDraw99,
+                 const bool superImpose, const double YTitleOffset)
 {
     // draw the axes 
     if (!superImpose) {
@@ -131,13 +131,21 @@ void SFH2D::Draw(const TString xlab, const TString ylab,
     }
 
     // draw the histogram
-    drawFromGraph(0, "AREA", lineWidth, lineColor, col95, lineStyle, fillStyle); // 95%
-    if (!bOnly95) drawFromGraph(1, "AREA", lineWidth, lineColor, col68, lineStyle68, fillStyle); // 68%
+    if (bDraw99)
+        drawFromGraph(0, "AREA", lineWidth, lineColor, col99, lineStyle99, fillStyle); // 99%
+    if (bDraw95)
+        drawFromGraph(1, "AREA", lineWidth, lineColor, col95, lineStyle95, fillStyle); // 95%
+    if (bDraw68)
+        drawFromGraph(2, "AREA", lineWidth, lineColor, col68, lineStyle68, fillStyle); // 68%
         
     // draw the contour lines. 
     if (bLine) {
-        drawFromGraph(0, "CONT", lineWidth, lineColor, col68, lineStyle, fillStyle); // 95%
-        if (!bOnly95) drawFromGraph(1, "CONT", lineWidth, lineColor, col68, lineStyle68, fillStyle); // 68%
+        if (bDraw99)
+            drawFromGraph(0, "CONT", lineWidth, lineColor, col68, lineStyle99, fillStyle); // 99%
+        if (bDraw95)
+            drawFromGraph(1, "CONT", lineWidth, lineColor, col68, lineStyle95, fillStyle); // 95%
+        if (bDraw68)
+            drawFromGraph(2, "CONT", lineWidth, lineColor, col68, lineStyle68, fillStyle); // 68%
     }
         
     gPad->RedrawAxis();
@@ -180,14 +188,15 @@ double SFH2D::getLevel(const double Prob) const
 TObjArray* SFH2D::getContours() const
 {
     // set levels
-    double levels[2];
-    levels[0] = getLevel(prob95);
-    levels[1] = getLevel(prob68);
+    double levels[3];
+    levels[2] = getLevel(prob68);
+    levels[1] = getLevel(prob95);
+    levels[0] = getLevel(prob99);
     
     // get contours
     TCanvas c1("c1", "contours", 3);
     TH2D* tmpHist = (TH2D*) newHist->Clone("tmp");
-    tmpHist->SetContour(2, levels);
+    tmpHist->SetContour(3, levels);
     tmpHist->Draw("contlist");
     c1.Update(); // Needed to force the plotting and retrieve the contours in TGraphs
     TObjArray *contours = (TObjArray*) gROOT->GetListOfSpecials()->FindObject("contours");

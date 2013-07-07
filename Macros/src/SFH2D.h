@@ -35,6 +35,7 @@ public:
      * @param[in] os_in The standard output stream. 
      * @param[in] prob68_in The probability of the 68% interval. 
      * @param[in] prob95_in The probability of the 95% interval. 
+     * @param[in] prob99_in The probability of the 99% interval.
      * @param[in] x_low
      * @param[in] x_up
      * @param[in] y_low
@@ -43,6 +44,7 @@ public:
      */
     SFH2D(TH2D& hist, std::ostream& os_in, 
           const double prob68_in=0.68, const double prob95_in=0.95,
+          const double prob99_in=0.99,
           const double x_low=0.0, const double x_up=0.0, 
           const double y_low=0.0, const double y_up=0.0,
           const int NumNewPoints_in=20);
@@ -77,21 +79,26 @@ public:
      * @param[in] lineColor The index of the line color. 
      * @param[in] col68 The color index for the 68% interval. 
      * @param[in] col95 The color index for the 95% interval. 
-     * @param[in] lineStyle The index of the line style. 
+     * @param[in] col99 The color index for the 99% interval.
      * @param[in] lineStyle68 The index of the line style for the 68% contour line. 
+     * @param[in] lineStyle95 The index of the line style for the 95% contour line.
+     * @param[in] lineStyle99 The index of the line style for the 99% contour line.
      * @param[in] fillStyle The index of the fill area style. 
      * @param[in] maxDigits The maximum digits of axis labels.
      * @param[in] bLine  
-     * @param[in] bOnly95
+     * @param[in] bDraw68
+     * @param[in] bDraw95
+     * @param[in] bDraw99
      * @param[in] superImpose
      * @param[in] YTitleOffset 
      */
     void Draw(const TString xlab, const TString ylab, 
               const int lineWidth, const int lineColor,  
-              const int col68, const int col95, const int lineStyle, 
-              const int lineStyle68,
-              const int fillStyle, const int maxDigits, 
-              const bool bLine=true, const bool bOnly95=false, 
+              const int col68, const int col95, const int col99,
+              const int lineStyle68, const int lineStyle95, const int lineStyle99,
+              const int fillStyle, const int maxDigits,
+              const bool bLine=true, const bool bDraw68=false,
+              const bool bDraw95=false, const bool bDraw99=false,
               const bool superImpose=false, const double YTitleOffset=1.5);
 
         
@@ -112,6 +119,11 @@ private:
      */
     const double prob95;
     
+    /**
+     * Probability of the 99% interval.
+     */
+    const double prob99;
+
     /**
      * The original 2-D histogram.
      */
