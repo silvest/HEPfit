@@ -109,6 +109,11 @@ bool StandardModel::PostUpdate()
         myCKM.setWolfenstein(lambda, A, rhob, etab);
         myCKM.getCKM(VCKM);
     }
+    UPMNS = matrix<complex>::Id(3);
+
+    /* THE FOLLOWING CODES HAVE TO BE MODIFIED!!
+     *   The Yukawa matrices have to be computed at a common scale
+     *   for all the fermions!!! */
     if (computeYu || computeCKM) {
         Yu = matrix<complex>::Id(3);
         for (int i = 0; i < 3; i++)
@@ -117,7 +122,7 @@ bool StandardModel::PostUpdate()
     }
     if (computeYd) {
         for (int i = 0; i < 3; i++)
-            Yd.assign(i, i, this->QCD::quarks[DOWN + 2 * i].getMass() / v() * sqrt(2.));
+            Yd.assign(i, i, this->quarks[DOWN + 2 * i].getMass() / v() * sqrt(2.));
     }
     if (computeYe) {
         for (int i = 0; i < 3; i++)
@@ -130,7 +135,7 @@ bool StandardModel::PostUpdate()
         Yn = Yn * UPMNS.hconjugate();
     }
     
-     return (true);
+    return (true);
 }
 
 void StandardModel::SetParameter(const std::string name, const double& value)
