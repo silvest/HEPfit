@@ -483,11 +483,11 @@ protected:
     // sinb and cosb computed with setTanb()
     double sinb, cosb;
 
-    // squark and slepton mass matrices and trilinear couplings in the SCKM basis,
-    // which are set with SetSoftTerms()
+    // soft-breaking parameters associated with squark and slepton mass terms and
+    // trilinear couplings in the SCKM basis, which will be set with SetSoftTerms()
     matrix<complex> MsQ2, MsU2, MsD2, MsL2, MsN2, MsE2, TU, TD, TN, TE;
 
-    // other soft-breaking parameters computed with FeynHiggs
+    // soft-breaking parameters computed with FeynHiggs
     double mHp, mh[4];
     complex saeff;
     vector<double> Mch, Mneu;
