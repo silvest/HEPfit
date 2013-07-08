@@ -140,7 +140,7 @@ public:
     
     /** Tan beta corrections to down quark masses **/
     
-    void comp_Eps_J();
+    void Comp_Eps_J();
     void Comp_Lambda0EpsY();
     
     /** Calcolous of charged Higgs - quark vertex **/

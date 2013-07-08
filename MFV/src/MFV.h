@@ -23,24 +23,23 @@ public:
 
     MFV();
 
-    virtual bool Update(const std::map<std::string, double>& DPars);
-    virtual bool PreUpdate();
-    virtual bool PostUpdate();
-    virtual bool Init(const std::map<std::string, double>& DPars);
-    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
+    virtual std::string ModelName() const
+    {
+        return "MFV";
+    }
+
     virtual bool InitializeModel();
+    virtual bool Init(const std::map<std::string, double>& DPars);
+    virtual bool PreUpdate();
+    virtual bool Update(const std::map<std::string, double>& DPars);
+    virtual bool PostUpdate();
+    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
+
     
-private:
-    void SetSoftTerms(void);
-    void SetParameter(const std::string, const double&);
-    
-    
-    /** FeynHiggs Caches **/
-    gslpp::vector<double>  FHPost_cache;
-    gslpp::vector<double>  FHPre_cache;
-  
-    int NCache, Npassi;
-    
+protected:
+    virtual void SetParameter(const std::string, const double&);
+    virtual void SetSoftTerms();
+
     double a1, a2, a3, a6, a7, x1, x2, y1, y3, y6, y7;
     complex a4, a5, a8, y2, y4, y5, w1, w2, w3, w4, w5;
     Xmatrices X;

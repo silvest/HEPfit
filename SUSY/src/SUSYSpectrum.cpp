@@ -5,19 +5,20 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include "Spectrum.h"
-#include "SUSY.h"
 #include <gslpp.h>
 #include <iostream>
 #include <fstream>
+#include "SUSYSpectrum.h"
 //#include "../tests/SusyFlavour.h" // Please include to test with Susy Flavour
 
 using namespace gslpp;
 
-Spectrum::Spectrum() {
+SUSYSpectrum::SUSYSpectrum()
+{
 }
 
-void Spectrum::CalcSpectrum(SUSY & SUSY){
+void SUSYSpectrum::CalcSpectrum(SUSY & SUSY)
+{
     matrix<complex> CKM(SUSY.getVCKM());
     matrix<double> Mu(3,3,0.);
     matrix<double> Md(3,3,0.);
@@ -41,13 +42,13 @@ void Spectrum::CalcSpectrum(SUSY & SUSY){
     //Up-type squark masses
     matrix<complex> uLL(CKM * SUSY.MsQ2 * CKM.hconjugate() + Mu * Mu + matrix<complex>::Id(3)*(.5 - 2. / 3. * SUSY.s02()) * SUSY.getMz() * SUSY.getMz() * cos(2. * atan(SUSY.getTanb())));
     matrix<complex> uRR(SUSY.MsU2 + Mu * Mu + matrix<complex>::Id(3)*(2. / 3. * SUSY.s02()) * SUSY.getMz() * SUSY.getMz() * cos(2. * atan(SUSY.getTanb())));
-    matrix<complex> uLR(SUSY.v2() / sqrt(2.) * SUSY.GetTU().hconjugate() - SUSY.getMuH() * Mu / SUSY.getTanb());
+    matrix<complex> uLR(SUSY.v2() / sqrt(2.) * SUSY.getTU().hconjugate() - SUSY.getMuH() * Mu / SUSY.getTanb());
 
     // Down-type squark masses
 
     matrix<complex> dLL(SUSY.MsQ2 + Md * Md + matrix<complex>::Id(3)*(-.5 + 1. / 3. * SUSY.s02()) * SUSY.getMz() * SUSY.getMz() * cos(2. * atan(SUSY.getTanb())));
     matrix<complex> dRR(SUSY.MsD2 + Md * Md + matrix<complex>::Id(3)*(-1. / 3. * SUSY.s02()) * SUSY.getMz() * SUSY.getMz() * cos(2. * atan(SUSY.getTanb())));
-    matrix<complex> dLR(SUSY.v1() / sqrt(2.) * SUSY.GetTD().hconjugate() - SUSY.getMuH() * Md * SUSY.getTanb());
+    matrix<complex> dLR(SUSY.v1() / sqrt(2.) * SUSY.getTD().hconjugate() - SUSY.getMuH() * Md * SUSY.getTanb());
     
     matrix<complex> MUP2(6,6,0.);
     matrix<complex> MDOWN2(6,6,0.);
@@ -91,8 +92,8 @@ void Spectrum::CalcSpectrum(SUSY & SUSY){
     
     
     matrix<complex> MN(4,4,0.);
-    MN.assign(0,0,SUSY.GetM1());
-    MN.assign(1,1,SUSY.GetM2());
+    MN.assign(0,0,SUSY.getM1());
+    MN.assign(1,1,SUSY.getM2());
     MN.assign(0,2,-SUSY.getCosb()*sqrt(SUSY.s02())*SUSY.getMz());
     MN.assign(2,0,MN(0,2));
     MN.assign(0,3,SUSY.getSinb()*sqrt(SUSY.s02())*SUSY.getMz());
@@ -114,14 +115,14 @@ void Spectrum::CalcSpectrum(SUSY & SUSY){
     
     
     matrix<complex> MC(2,2,0.);
-    MC.assign(0,0,SUSY.GetM2());
+    MC.assign(0,0,SUSY.getM2());
     MC.assign(0,1,sqrt(2) * SUSY.getSinb() * SUSY.getMz());
     MC.assign(1,0,sqrt(2) * SUSY.getCosb()*SUSY.getMz());
     MC.assign(1,1,SUSY.getMuH());
     
     vector<double> M2Chi(2,0);
     (MC.hconjugate() * MC).eigensystem(SUSY.V,M2Chi);
-    SUSY.setMch(M2Chi);
+    SUSY.Mch = M2Chi;
     //SUSY.Mch(0) = sqrt(M2Chi(0));
     //SUSY.Mch(1) = sqrt(M2Chi(1));
     
@@ -133,7 +134,7 @@ void Spectrum::CalcSpectrum(SUSY & SUSY){
     double temp1 = SUSY.mh[2] * SUSY.getMz();
     SUSY.mh[0] = sqrt(0.5 * ( temp - sqrt(temp * temp - 4. * temp1 * temp1 * cos(2. * atan(SUSY.getTanb())) * cos(2. * atan(SUSY.getTanb())) ) ) );
     SUSY.mh[1] = sqrt(0.5 * ( temp + sqrt(temp * temp - 4. * temp1 * temp1 * cos(2. * atan(SUSY.getTanb())) * cos(2. * atan(SUSY.getTanb())) ) ) );
-    SUSY.mHp = SUSY.mHptree;
+    SUSY.mh[3] = SUSY.mHptree;
    
     
 }

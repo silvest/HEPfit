@@ -5,22 +5,21 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef SPECTRUM_H
-#define	SPECTRUM_H
+#ifndef SUSYSPECTRUM_H
+#define	SUSYSPECTRUM_H
 
 #include "SUSY.h"
 
-class Spectrum {
+class SUSYSpectrum {
 public:
-    Spectrum();
+
+    SUSYSpectrum();
     
     void CalcSpectrum(SUSY & SUSY);
-//    void Sflav_init(SUSY & SUSY);
-//    void Sflav_Spectrum(const std::string);
     
 private:
 
 };
 
-#endif	/* SPECTRUM_H */
+#endif	/* SUSYSPECTRUM_H */
 
