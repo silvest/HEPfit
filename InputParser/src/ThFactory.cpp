@@ -10,7 +10,7 @@
 #include "ThFactory.h"
 #include <SMInputs.h>
 #include <NPInputs.h>
-#include <SusyObservables.h>
+#include <SUSYObservables.h>
 #include <FlavourObservables.h>
 #include <EWObservables.h>
 //#include <ZFEWObservables.h>
