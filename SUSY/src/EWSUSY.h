@@ -40,11 +40,14 @@ private:
     /* A reference to the SUSY object passed to the constructor. */
     const SUSY& mySUSY;
 
-    /* Yukawa couplings in Janusz Rosiek's notation */
-    matrix<complex> Yu_JR, Yd_JR, Yl_JR;
+    /* Yukawa couplings in Rosiek's notation */
+    matrix<complex> Yu, Yd, Yl;
 
-    /* Trilinear couplings in Janusz Rosiek's notation */
-    matrix<complex> Au_JR, Ad_JR, Al_JR;
+    /* Trilinear couplings in Rosiek's notation */
+    matrix<complex> Au, Ad, Al;
+
+    /* rotation matrices in Rosiek's notation */
+    matrix<complex> Zm, Zp, Zn, ZU, ZD, ZL;
 
 };
 
