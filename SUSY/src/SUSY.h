@@ -41,7 +41,7 @@ public:
     static const std::string SUSYFlags[NSUSYFlags];
     
     /**
-     * @brief A friend classes of SUSY class.
+     * @brief Friend classes of SUSY class.
      */
     friend class SUSYSpectrum;
     friend class FeynHiggs;
