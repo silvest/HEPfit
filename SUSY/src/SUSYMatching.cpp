@@ -7,7 +7,6 @@
 
 #include "SUSYMatching.h"
 #include "SUSY.h"
-#include "Mch1.h"
 #include <math.h>
 #include <stdexcept>
 

@@ -6,25 +6,10 @@
                    projectFiles="true">
       <itemPath>src/EWSUSY.h</itemPath>
       <itemPath>src/FeynHiggs.h</itemPath>
-      <itemPath>src/Mch1.h</itemPath>
-      <itemPath>src/Mch2.h</itemPath>
-      <itemPath>src/Mneu1.h</itemPath>
-      <itemPath>src/Mneu2.h</itemPath>
-      <itemPath>src/Mneu3.h</itemPath>
-      <itemPath>src/Mneu4.h</itemPath>
-      <itemPath>src/Msd1.h</itemPath>
-      <itemPath>src/Msd2.h</itemPath>
-      <itemPath>src/Msd3.h</itemPath>
-      <itemPath>src/Msd4.h</itemPath>
-      <itemPath>src/Msd5.h</itemPath>
-      <itemPath>src/Msd6.h</itemPath>
-      <itemPath>src/Msq.h</itemPath>
-      <itemPath>src/Msu1.h</itemPath>
-      <itemPath>src/Msu2.h</itemPath>
-      <itemPath>src/Msu3.h</itemPath>
-      <itemPath>src/Msu4.h</itemPath>
-      <itemPath>src/Msu5.h</itemPath>
-      <itemPath>src/Msu6.h</itemPath>
+      <itemPath>src/Mchargino.h</itemPath>
+      <itemPath>src/Mneutralino.h</itemPath>
+      <itemPath>src/Msdown.h</itemPath>
+      <itemPath>src/Msup.h</itemPath>
       <itemPath>src/SUSY.h</itemPath>
       <itemPath>src/SUSYMatching.h</itemPath>
       <itemPath>src/SUSYObservables.h</itemPath>
@@ -86,43 +71,13 @@
       </item>
       <item path="src/FeynHiggs.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Mch1.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Mchargino.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Mch2.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Mneutralino.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Mneu1.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Msdown.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Mneu2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Mneu3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Mneu4.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd4.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd5.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd6.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msq.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu4.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu5.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu6.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Msup.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SUSY.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -178,43 +133,13 @@
       </item>
       <item path="src/FeynHiggs.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Mch1.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Mchargino.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Mch2.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Mneutralino.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Mneu1.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Msdown.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Mneu2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Mneu3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Mneu4.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd4.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd5.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd6.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msq.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu4.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu5.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu6.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Msup.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SUSY.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -271,43 +196,13 @@
       </item>
       <item path="src/FeynHiggs.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Mch1.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Mchargino.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Mch2.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Mneutralino.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Mneu1.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Msdown.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/Mneu2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Mneu3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Mneu4.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd4.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd5.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msd6.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msq.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu4.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu5.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Msu6.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Msup.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SUSY.cpp" ex="false" tool="1" flavor2="0">
       </item>
