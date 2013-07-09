@@ -44,7 +44,7 @@ EWSM::EWSM(const StandardModel& SM_i)
 
     /* Default flags (see also StandardModel::SetEWSMflags(), etc.) */
     schemeMw = APPROXIMATEFORMULA;
-    ≈;
+    schemeRhoZ = NORESUM;
     schemeKappaZ = APPROXIMATEFORMULA;
     
     // Initializations of the caches
