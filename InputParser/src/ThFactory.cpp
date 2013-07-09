@@ -38,25 +38,26 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["gamma"] = new CKMGamma(myFlavour);
     thobs["SJPsiK"] = new SJPsiK(myFlavour);
     thobs["SJPsiPhi"] = new SJPsiPhi(myFlavour);
-    if(myModel.ModelName().compare("MFV")) {
-        thobs["Msu1"] = new Msu1(myMO);
-        thobs["Msu2"] = new Msu2(myMO);
-        thobs["Msu3"] = new Msu3(myMO);
-        thobs["Msu4"] = new Msu4(myMO);
-        thobs["Msu5"] = new Msu5(myMO);
-        thobs["Msu6"] = new Msu6(myMO);
-        thobs["Msd1"] = new Msd1(myMO);
-        thobs["Msd2"] = new Msd2(myMO);
-        thobs["Msd3"] = new Msd3(myMO);
-        thobs["Msd4"] = new Msd4(myMO);
-        thobs["Msd5"] = new Msd5(myMO);
-        thobs["Msd6"] = new Msd6(myMO);    
-        thobs["Mch1"] = new Mch1(myMO);
-        thobs["Mch2"] = new Mch2(myMO);
-        thobs["Mneu1"] = new Mneu1(myMO);
-        thobs["Mneu2"] = new Mneu2(myMO);
-        thobs["Mneu3"] = new Mneu3(myMO);
-        thobs["Mneu4"] = new Mneu4(myMO);
+    if(myModel.ModelName().compare("SUSY") || myModel.ModelName().compare("GeneralSUSY")
+            || myModel.ModelName().compare("MFV")) {
+        thobs["Msu1"] = new Msup(myMO, 0);
+        thobs["Msu2"] = new Msup(myMO, 1);
+        thobs["Msu3"] = new Msup(myMO, 2);
+        thobs["Msu4"] = new Msup(myMO, 3);
+        thobs["Msu5"] = new Msup(myMO, 4);
+        thobs["Msu6"] = new Msup(myMO, 5);
+        thobs["Msd1"] = new Msdown(myMO, 0);
+        thobs["Msd2"] = new Msdown(myMO, 1);
+        thobs["Msd3"] = new Msdown(myMO, 2);
+        thobs["Msd4"] = new Msdown(myMO, 3);
+        thobs["Msd5"] = new Msdown(myMO, 4);
+        thobs["Msd6"] = new Msdown(myMO, 5);
+        thobs["Mch1"] = new Mchargino(myMO, 0);
+        thobs["Mch2"] = new Mchargino(myMO, 1);
+        thobs["Mneu1"] = new Mneutralino(myMO, 0);
+        thobs["Mneu2"] = new Mneutralino(myMO, 1);
+        thobs["Mneu3"] = new Mneutralino(myMO, 2);
+        thobs["Mneu4"] = new Mneutralino(myMO, 3);
     }
     
     //-----  SM input parameters, etc.  -----
