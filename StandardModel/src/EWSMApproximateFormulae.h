@@ -22,72 +22,81 @@ class EWSMApproximateFormulae {
 public:
       
     /**
-     * @brief  EWSMApproximateFormulae constructor
-     * @param[in] SM_i reference to a StandardModel object
+     * @brief An EWSMApproximateFormulae constructor.
+     * @param[in] SM_i A reference to a StandardModel object.
      */
     EWSMApproximateFormulae(const StandardModel& SM_i);    
 
     
     ////////////////////////////////////////////////////////////////////////
 
-    /** 
-     * @param[in] DeltaAlpha_i the sum of the leptonic and hadronic corrections to alpha at Mz
-     * @return the W-boson mass from an approximate two-loop formula
+    /**
+     * @brief The W-boson mass with the full two-loop EW corrections. 
+     * @param[in] DeltaAlpha_i The sum of the leptonic and hadronic corrections to @f$\alpha@f$ at @f$M_Z@f$..
+     * @return The W-boson mass obtained from an approximate two-loop formula.
      */
     double Mw(const double DeltaAlphaL5q_i) const;
     
     /**
-     * @param[in] l name of lepton
-     * @param[in] DeltaAlphaL5q_i the sum of the leptonic and hadronic corrections to alpha at Mz
-     * @return the effective weak mixing angle for Z->l lbar from an approximate two-loop formula
+     * @brief @f$\sin^2\theta_{\rm eff}^\ell@f$ with the full two-loop EW corrections. 
+     * @param[in] l Name of lepton.
+     * @param[in] DeltaAlphaL5q_i The sum of the leptonic and hadronic corrections to @f$\alpha@f$ at @f$M_Z@f$..
+     * @return The effective weak mixing angle for @f$Z\to\ell\bar{\ell}@f$ obtained from an approximate two-loop formula.
      */
     double sin2thetaEff_l(const StandardModel::lepton l, const double DeltaAlphaL5q_i) const;
 
     /**
-     * @param[in] q name of quark
-     * @param[in] DeltaAlphaL5q_i the sum of the leptonic and hadronic corrections to alpha at Mz
-     * @return the effective weak mixing angle for Z->q qbar from an approximate two-loop formula
+     * @brief @f$\sin^2\theta_{\rm eff}^q@f$ with the full two-loop EW corrections.
+     * @param[in] q Name of quark.
+     * @param[in] DeltaAlphaL5q_i The sum of the leptonic and hadronic corrections to @f$\alpha@f$ at @f$M_Z@f$..
+     * @return The effective weak mixing angle for @f$Z\to q\bar{q}@f$ obtained from an approximate two-loop formula.
+     * @attention EW two-loop bosonic contribution is missing for @f$q=b@f$. 
      */
     double sin2thetaEff_q(const StandardModel::quark q, const double DeltaAlphaL5q_i) const;    
     
-    /** 
-     * @param[in] DeltaAlphaL5q_i the sum of the leptonic and hadronic corrections to alpha at Mz
-     * @return EW two-loop contribution to Delta r from an approximate formula
+    /**
+     * @brief @f$\Delta r@f$ with the full two-loop EW corrections. 
+     * @param[in] DeltaAlphaL5q_i The sum of the leptonic and hadronic corrections to @f$\alpha@f$ at @f$M_Z@f$..
+     * @param[in] DeltaR_EW1 @f$O(\alpha)@f$ contribution to @f$\Delta r@f$.
+     * @return EW two-loop contribution to @f$\Delta r@f$ obtained from an approximate formula.
+     * @attention DeltaR_EW1 does not include the corrections to @f$\alpha@f$. 
      */
-    double DeltaR_TwoLoopEW(const double DeltaAlphaL5q_i) const;
+    double DeltaR_TwoLoopEW(const double DeltaAlphaL5q_i, const double DeltaR_EW1, const double Mw_i) const;
 
     /**
-     * @brief EW two-loop contribution to @f$\Delta\kappa_Z^l = \kappaZ^l - 1@f$  
-     * @param[in] DeltaAlphaL5q_i the sum of the leptonic and hadronic corrections to alpha at Mz
-     * @return Delta kappa^{l, alpha^2} from an approximate formula
+     * @brief EW two-loop contribution to @f$\Delta\kappa_Z^\ell = \kappa_Z^\ell - 1@f$.
+     * @param[in] DeltaAlphaL5q_i the sum of the leptonic and hadronic corrections to @f$\alpha@f$ at @f$M_Z@f$.
+     * @param[in] DeltaKappa_EW1 @f$O(\alpha)@f$ contribution to @f$\Delta\kappa@f$.
+     * @return EW two-loop contribution to @f$\Delta\kappa^{\ell, \alpha^2}@f$ obtained from an approximate formula.
      */
-    double DeltaKappa_l_TwoLoopEW(const double DeltaAlphaL5q_i) const;    
+    double DeltaKappa_l_TwoLoopEW(const double DeltaAlphaL5q_i, const double DeltaKappa_EW1) const;
 
     /**
-     * @brief EW two-loop contribution to @f$\Delta\kappa_Z^b = \kappaZ^b - 1@f$ 
-     * @param[in] DeltaAlphaL5q_i the sum of the leptonic and hadronic corrections to alpha at Mz
-     * @return Delta kappa^{b, alpha^2} from an approximate formula
+     * @brief EW two-loop fermionic contribution to @f$\Delta\kappa_Z^b = \kappa_Z^b - 1@f$.
+     * @param[in] DeltaAlphaL5q_i The sum of the leptonic and hadronic corrections to @f$\alpha@f$ at @f$M_Z@f$.
+     * @param[in] DeltaKappa_EW1 @f$O(\alpha)@f$ contribution to @f$\Delta\kappa@f$. 
+     * @return EW two-loop fermionic contribution to @f$\Delta\kappa^{b, \alpha^2}@f$ obtained from an approximate formula.
      */
-    double DeltaKappa_b_TwoLoopEW(const double DeltaAlphaL5q_i) const;    
+    double DeltaKappa_b_TwoLoopEW(const double DeltaAlphaL5q_i, const double DeltaKappa_EW1) const;
     
     /**
-     * @brief @f$R_b^0@f$ with the complete fermionic EW two-loop corrections
-     * @param[in] DeltaAlphaL5q_i the sum of the leptonic and hadronic corrections to alpha at Mz
-     * @return @f$R_b^0@f$ from an approximate two-loop formula
+     * @brief @f$R_b^0@f$ with the complete fermionic EW two-loop corrections.
+     * @param[in] DeltaAlphaL5q_i The sum of the leptonic and hadronic corrections to @f$\alpha@f$ at @f$M_Z@f$..
+     * @return @f$R_b^0@f$ obtained from an approximate two-loop formula.
      */
     double R0_bottom(const double DeltaAlphaL5q_i) const;
 
     /**
-     * 
-     * @param[in] DeltaAlphaL5q_i
-     * @return @f$\Gamma_u/\Gamma_b@f$
+     * @brief @f$\Gamma_u/\Gamma_b@f$.
+     * @param[in] DeltaAlphaL5q_i The sum of the leptonic and hadronic corrections to @f$\alpha@f$ at @f$M_Z@f$..
+     * @return @f$\Gamma_u/\Gamma_b@f$.
      */
     double Gu_over_Gb(const double DeltaAlphaL5q_i) const;
     
     /**
-     * 
-     * @param[in] DeltaAlphaL5q_i
-     * @return @f$\Gamma_d/\Gamma_b@f$
+     * @brief @f$\Gamma_u/\Gamma_b@f$.
+     * @param[in] DeltaAlphaL5q_i The sum of the leptonic and hadronic corrections to @f$\alpha@f$ at @f$M_Z@f$..
+     * @return @f$\Gamma_d/\Gamma_b@f$.
      */
     double Gd_over_Gb(const double DeltaAlphaL5q_i) const;
 

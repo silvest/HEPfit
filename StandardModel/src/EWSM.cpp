@@ -42,8 +42,9 @@ EWSM::EWSM(const StandardModel& SM_i)
 
     myTwoFermionsLEP2 = new EWSMTwoFermionsLEP2(SM);
 
+    /* Default flags (see also StandardModel::SetEWSMflags(), etc.) */
     schemeMw = APPROXIMATEFORMULA;
-    schemeRhoZ = NORESUM;
+    ≈;
     schemeKappaZ = APPROXIMATEFORMULA;
     
     // Initializations of the caches
@@ -1281,14 +1282,38 @@ double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
         
     double R;
     double DeltaR_rem_sum = 0.0;
+    double DeltaR_EW1 = 0.0, DeltaR_EW2 = 0.0;
     switch (schemeMw) {
         case NORESUM:
             for (int j=0; j<orders_EW_size; ++j)
                 DeltaR_rem_sum += DeltaR_rem[(orders_EW)j];
-            
-            // R = 1 + Delta r
+
+            // Full EW one-loop contribution (without the full DeltaAlphaL5q)
+            DeltaR_EW1 = - cW2_TMP/sW2_TMP*DeltaRho[EW1] + DeltaR_rem[EW1];
+
+            // Full EW two-loop contribution with reducible corrections
+            DeltaR_EW2 = myApproximateFormulae->DeltaR_TwoLoopEW(DeltaAlphaL5q(), DeltaR_EW1, Mw_i);
+
+            // subtract the EW two-loop contributions from DeltaRho_sum and DeltaR_rem_sum
+            DeltaRho_sum -= DeltaRho[EW2];
+            DeltaR_rem_sum -= DeltaR_rem[EW2];
+
+            // R = 1 + Delta r, including the full EW two-loop contribution
             R = 1.0 + DeltaAlphaL5q() - cW2_TMP/sW2_TMP*DeltaRho_sum
                 + DeltaR_rem_sum;
+            R += DeltaR_EW2 + DeltaR_EW1*DeltaR_EW1; // Full EW two-loop contribution
+
+            /* Debug */
+            //std::cout << "Delta r       = " << R - 1.0 << std::endl;
+            //std::cout << "  EW1:       " << - cW2_TMP/sW2_TMP*DeltaRho[EW1] + DeltaR_rem[EW1] << std::endl;
+            //std::cout << "  EW1QCD1:   " << - cW2_TMP/sW2_TMP*DeltaRho[EW1QCD1] + DeltaR_rem[EW1QCD1] << std::endl;
+            //std::cout << "  EW1QCD2:   " << - cW2_TMP/sW2_TMP*DeltaRho[EW1QCD2] + DeltaR_rem[EW1QCD2] << std::endl;
+            //std::cout << "  EW2(full): " << DeltaR_EW2 + DeltaR_EW1*DeltaR_EW1 << std::endl;
+            //std::cout << "  EW2(old):  " << - cW2_TMP/sW2_TMP*DeltaRho[EW2] + DeltaR_rem[EW2] << std::endl;
+            //std::cout << "  EW2QCD1:   " << - cW2_TMP/sW2_TMP*DeltaRho[EW2QCD1] + DeltaR_rem[EW2QCD1] << std::endl;
+            //std::cout << "  EW3:       " << - cW2_TMP/sW2_TMP*DeltaRho[EW3] + DeltaR_rem[EW3] << std::endl;
+            //std::cout << "DeltaAlphaL5q = " << DeltaAlphaL5q() << std::endl;
+
             break;
         case OMSI:
             // R = 1/(1 - Delta r)
