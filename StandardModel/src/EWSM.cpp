@@ -1632,7 +1632,7 @@ void EWSM::outputEachDeltaR(const double Mw_i) const
         deltaR -= DeltaR_rem[EW2];
         deltaR += DeltaAlphaL5q()*DeltaAlphaL5q() + 2.0*DeltaAlphaL5q()*DeltaR_EW1 + DeltaR_EW2_rem;
 
-        std::cout << "Delta r           =  " << deltaR << std::endl;
+        std::cout << "(1+dr) - 1        =  " << deltaR << std::endl;
         std::cout << "  EW1             =  " << DeltaAlphaL5q() + DeltaR_EW1 << std::endl;
         std::cout << "    DeltaAlphaL5q =  " << DeltaAlphaL5q() << std::endl;
         std::cout << "    dR            = " << DeltaR_EW1 << std::endl;
@@ -1651,6 +1651,54 @@ void EWSM::outputEachDeltaR(const double Mw_i) const
                      - DeltaAlphaL5q()*DeltaAlphaL5q()
                      - 2.0*DeltaAlphaL5q()*DeltaR_EW1 << std::endl;
 
+    } else if (schemeMw == OMSI) {
+
+        // R = 1/(1 - Delta r)
+        double R = 1.0/( 1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)
+                   /(1.0 - DeltaAlphaL5q() - DeltaR_rem[EW1] - DeltaR_rem[EW1QCD1] - DeltaR_rem[EW2] );
+
+        std::cout << "1/(1-dr) - 1 (exact)                 = " << R - 1.0 << std::endl;
+        std::cout << "     --> dr = " << 1.0 - 1.0/R << std::endl;
+
+        // each contribution
+        double DeltaR_EW1 = DeltaAlphaL5q() - cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1] + DeltaR_rem[EW1];
+        double DeltaR_EW1QCD1 = - cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1QCD1] + DeltaR_rem[EW1QCD1];
+        double DeltaR_EW2 = - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2]
+                            + DeltaR_rem[EW2]
+                            + cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1]
+                              *(DeltaAlphaL5q() + DeltaR_rem[EW1])
+                            + DeltaR_EW1*DeltaR_EW1;
+        double DeltaR_EW1QCD2 = - cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1QCD2];
+        double DeltaR_EW2QCD1 = - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2QCD1]
+                                + cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1QCD1]
+                                  *(DeltaAlphaL5q() + DeltaR_rem[EW1])
+                                + 2.0*DeltaR_EW1*DeltaR_EW1QCD1;
+        double DeltaR_EW3 = - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,3.0)*DeltaRho[EW3]
+                            + cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2]
+                              *(DeltaAlphaL5q() + DeltaR_rem[EW1])
+                            + pow(DeltaR_EW1, 3.0)
+                            + 2.0*DeltaR_EW1*(DeltaR_EW2 - DeltaR_EW1*DeltaR_EW1);
+
+        std::cout << "  EW1             =  " << DeltaR_EW1 << std::endl;
+        std::cout << "    DeltaAlphaL5q =  " << DeltaAlphaL5q() << std::endl;
+        std::cout << "    -cW2/sW2*dRho1= " << - cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1]  << std::endl;
+        std::cout << "    DeltaR1_rem   =  " << DeltaR_rem[EW1] << std::endl;
+        std::cout << "  EW1QCD1         =  " << DeltaR_EW1QCD1 << std::endl;
+        std::cout << "  EW2(full)       =  " << DeltaR_EW2 << std::endl;
+        std::cout << "    EW1*EW1       =  " << DeltaR_EW1*DeltaR_EW1 << std::endl;
+        std::cout << "      dAle*dAle   =  " << DeltaAlphaL5q()*DeltaAlphaL5q() << std::endl;
+        std::cout << "      others      = " << DeltaR_EW1*DeltaR_EW1 - DeltaAlphaL5q()*DeltaAlphaL5q() << std::endl;
+        std::cout << "    -cW2/sW2*dRho2=  " << - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2] << std::endl;
+        std::cout << "    DeltaR2_rem   =  " << DeltaR_rem[EW2] << std::endl;
+        std::cout << "    others        =  " << cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1]*(DeltaAlphaL5q() + DeltaR_rem[EW1]) << std::endl;
+        std::cout << "  EW1QCD2         =  " << DeltaR_EW1QCD2 << std::endl;
+        std::cout << "  EW2QCD1         = " << DeltaR_EW2QCD1 << std::endl;
+        std::cout << "  EW3             =  " << DeltaR_EW3 << std::endl;
+        std::cout << "    -cW2/sW2*dRho3= " << - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,3.0)*DeltaRho[EW3] << std::endl;
+        std::cout << "    EW1^3         =  " << pow(DeltaR_EW1, 3.0) << std::endl;
+        std::cout << "    2*EW1*(EW2-EW1^2)=" << 2.0*DeltaR_EW1*(DeltaR_EW2 - DeltaR_EW1*DeltaR_EW1) << std::endl;
+        std::cout << "    others        = " << cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2]*(DeltaAlphaL5q() + DeltaR_rem[EW1]) << std::endl;
+
     } else if (schemeMw == OMSII) {
 
         // R = 1/(1 - Delta r)
@@ -1663,7 +1711,8 @@ void EWSM::outputEachDeltaR(const double Mw_i) const
         double DeltaR_EW1QCD1 = - cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1QCD1] + DeltaR_rem[EW1QCD1];
         double DeltaR_EW2 = - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2]
                             + DeltaR_rem[EW2]
-                            + cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1]*(DeltaAlphaL5q()+DeltaR_rem[EW1])
+                            + cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1]
+                              *(DeltaAlphaL5q() + DeltaR_rem[EW1])
                             + DeltaR_EW1*DeltaR_EW1;
         double DeltaR_EW1QCD2 = - cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1QCD2];
         double DeltaR_EW2QCD1 = - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2QCD1]
@@ -1675,6 +1724,7 @@ void EWSM::outputEachDeltaR(const double Mw_i) const
                             + 2.0*DeltaR_EW1*(DeltaR_EW2 - DeltaR_EW1*DeltaR_EW1);
 
         std::cout << "1/(1-dr) - 1 (exact)                 = " << R - 1.0 << std::endl;
+        std::cout << "     --> dr = " << 1.0 - 1.0/R << std::endl;
         std::cout << "1/(1-dr) - 1 (sum of expanded terms) = "
                   << DeltaR_EW1 + DeltaR_EW1QCD1 + DeltaR_EW2 + DeltaR_EW1QCD2
                      + DeltaR_EW2QCD1 + DeltaR_EW3 << std::endl;
@@ -1696,6 +1746,7 @@ void EWSM::outputEachDeltaR(const double Mw_i) const
         std::cout << "    -cW2/sW2*dRho3= " << - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,3.0)*DeltaRho[EW3] << std::endl;
         std::cout << "    EW1^3         =  " << pow(DeltaR_EW1, 3.0) << std::endl;
         std::cout << "    2*EW1*(EW2-EW1^2)=" << 2.0*DeltaR_EW1*(DeltaR_EW2 - DeltaR_EW1*DeltaR_EW1) << std::endl;
+        std::cout << "    others        = " << cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2]*DeltaAlphaL5q() << std::endl;
 
     } else
         std::cout << "EWSM::outputEachDeltaR(): Not implemented for schemeMw="
