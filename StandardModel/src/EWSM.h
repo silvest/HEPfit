@@ -105,7 +105,7 @@ public:
 
     bool checkSMparams(double Params_cache[]) const;
 
-    bool checkScheme(bool scheme_cache, const bool scheme_current) const;
+    bool checkScheme(schemes_EW scheme_cache, const schemes_EW scheme_current) const;
 
     
     //////////////////////////////////////////////////////////////////////// 
@@ -324,9 +324,9 @@ public:
 
     void outputEachDeltaR(const double Mw_i) const;
 
-    void outputEachDeltaRho(const double Mw_i) const;
+    void outputEachDeltaRhoZ(const double Mw_i) const;
 
-    void outputEachDeltaKappa(const double Mw_i) const;
+    void outputEachDeltaKappaZ(const double Mw_i) const;
 
 
     ////////////////////////////////////////////////////////////////////////     
@@ -384,7 +384,7 @@ private:
     mutable double GammaW_params_cache[NumSMParams];
     mutable double GammaW_cache;
 
-    mutable bool schemeMw_cache, schemeRhoZ_cache, schemeKappaZ_cache;
+    mutable schemes_EW schemeMw_cache, schemeRhoZ_cache, schemeKappaZ_cache;
 
     
     ////////////////////////////////////////////////////////////////////////     

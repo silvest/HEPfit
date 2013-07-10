@@ -201,8 +201,8 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const StandardModel::quark q,
 }
 
 
-double EWSMApproximateFormulae::DeltaR_TwoLoopEW(const double DeltaAlphaL5q_i,
-                                                 const double DeltaR_EW1, const double Mw_i) const
+double EWSMApproximateFormulae::DeltaR_TwoLoopEW_rem(const double DeltaAlphaL5q_i,
+                                                     const double Mw_i) const
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae )
@@ -231,18 +231,15 @@ double EWSMApproximateFormulae::DeltaR_TwoLoopEW(const double DeltaAlphaL5q_i,
     double Delta_Z = SM.getMz()/91.1876 - 1.0;
     double Delta_W = Mw/80.404 - 1.0;
     
-    double DeltaR_alpha2_rem = r0 + r1*L_H + r2*L_H*L_H + r3*pow(L_H, 4.0)
-                               + r4*(Delta_H*Delta_H - 1.0) + r5*Delta_t 
-                               + r6*Delta_t*Delta_t + r7*Delta_t*L_H + r8*Delta_W
-                               + r9*Delta_W*Delta_t + r10*Delta_Z;
-
-    return ( DeltaAlphaL5q_i*DeltaAlphaL5q_i + 2.0*DeltaAlphaL5q_i*DeltaR_EW1
-             + DeltaR_alpha2_rem );
+    return ( r0 + r1*L_H + r2*L_H*L_H + r3*pow(L_H, 4.0)
+             + r4*(Delta_H*Delta_H - 1.0) + r5*Delta_t 
+             + r6*Delta_t*Delta_t + r7*Delta_t*L_H + r8*Delta_W
+             + r9*Delta_W*Delta_t + r10*Delta_Z );
 }
 
 
-double EWSMApproximateFormulae::DeltaKappa_l_TwoLoopEW(const double DeltaAlphaL5q_i,
-                                                       const double DeltaKappa_EW1) const
+double EWSMApproximateFormulae::DeltaKappa_l_TwoLoopEW_rem(const double DeltaAlphaL5q_i,
+                                                           const double Mw_i) const
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae )
@@ -266,19 +263,17 @@ double EWSMApproximateFormulae::DeltaKappa_l_TwoLoopEW(const double DeltaAlphaL5
     double Delta_t = pow((SM.getMtpole()/178.0), 2.0) - 1.0;
     //double Delta_alphas = SM.getAlsMz()/0.117 - 1.0;
     double Delta_Z = SM.getMz()/91.1876 - 1.0;
-    double Delta_W = Mw(DeltaAlphaL5q_i)/80.404 - 1.0;        
+    double Delta_W = Mw_i/80.404 - 1.0;
    
-    double DeltaKappa_alpha2_rem = k0 + k1*L_H + k2*L_H*L_H + k3*pow(L_H, 4.0)
-                                   + k4*(Delta_H*Delta_H - 1.0) + k5*Delta_t 
-                                   + k6*Delta_t*Delta_t + k7*Delta_t*L_H 
-                                   + k8*Delta_W + k9*Delta_W*Delta_t + k10*Delta_Z;
-    
-    return ( DeltaAlphaL5q_i*DeltaKappa_EW1 + DeltaKappa_alpha2_rem );
+    return ( k0 + k1*L_H + k2*L_H*L_H + k3*pow(L_H, 4.0)
+             + k4*(Delta_H*Delta_H - 1.0) + k5*Delta_t 
+             + k6*Delta_t*Delta_t + k7*Delta_t*L_H 
+             + k8*Delta_W + k9*Delta_W*Delta_t + k10*Delta_Z );
 }
 
 
-double EWSMApproximateFormulae::DeltaKappa_b_TwoLoopEW(const double DeltaAlphaL5q_i,
-                                                       const double DeltaKappa_EW1) const
+double EWSMApproximateFormulae::DeltaKappa_b_TwoLoopEW_rem(const double DeltaAlphaL5q_i,
+                                                           const double Mw_i) const
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae )
@@ -302,14 +297,12 @@ double EWSMApproximateFormulae::DeltaKappa_b_TwoLoopEW(const double DeltaAlphaL5
     double Delta_t = pow((SM.getMtpole()/178.0), 2.0) - 1.0;
     //double Delta_alphas = SM.getAlsMz()/0.117 - 1.0;
     double Delta_Z = SM.getMz()/91.1876 - 1.0;
-    double Delta_W = Mw(DeltaAlphaL5q_i)/80.404 - 1.0;    
+    double Delta_W = Mw_i/80.404 - 1.0;    
    
-    double DeltaKappa_alpha2_rem = k0 + k1*L_H + k2*L_H*L_H + k3*pow(L_H, 4.0)
-                                   + k4*(Delta_H*Delta_H - 1.0) + k5*Delta_t 
-                                   + k6*Delta_t*Delta_t + k7*Delta_t*L_H 
-                                   + k8*Delta_W + k9*Delta_W*Delta_t + k10*Delta_Z;
-    
-    return ( DeltaAlphaL5q_i*DeltaKappa_EW1 + DeltaKappa_alpha2_rem );
+    return ( k0 + k1*L_H + k2*L_H*L_H + k3*pow(L_H, 4.0)
+             + k4*(Delta_H*Delta_H - 1.0) + k5*Delta_t 
+             + k6*Delta_t*Delta_t + k7*Delta_t*L_H 
+             + k8*Delta_W + k9*Delta_W*Delta_t + k10*Delta_Z );
 }
 
 

@@ -55,29 +55,28 @@ public:
     double sin2thetaEff_q(const StandardModel::quark q, const double DeltaAlphaL5q_i) const;    
     
     /**
-     * @brief @f$\Delta r@f$ with the full two-loop EW corrections. 
-     * @param[in] DeltaAlphaL5q_i The sum of the leptonic and hadronic corrections to @f$\alpha@f$ at @f$M_Z@f$..
-     * @param[in] DeltaR_EW1 @f$O(\alpha)@f$ contribution to @f$\Delta r@f$.
-     * @return EW two-loop contribution to @f$\Delta r@f$ obtained from an approximate formula.
-     * @attention DeltaR_EW1 does not include the corrections to @f$\alpha@f$. 
+     * @brief @f$\Delta r_{\rm rem}^{(\alpha^2)}@f$
+     * @param[in] DeltaAlphaL5q_i The sum of the leptonic and hadronic corrections to @f$\alpha@f$ at @f$M_Z@f$.
+     * @param[in] Mw_i The W-boson mass.
+     * @return Irreducible two-loop EW contribution to @f$\Delta r@f$ obtained from an approximate formula.
      */
-    double DeltaR_TwoLoopEW(const double DeltaAlphaL5q_i, const double DeltaR_EW1, const double Mw_i) const;
+    double DeltaR_TwoLoopEW_rem(const double DeltaAlphaL5q_i, const double Mw_i) const;
 
     /**
      * @brief EW two-loop contribution to @f$\Delta\kappa_Z^\ell = \kappa_Z^\ell - 1@f$.
      * @param[in] DeltaAlphaL5q_i the sum of the leptonic and hadronic corrections to @f$\alpha@f$ at @f$M_Z@f$.
-     * @param[in] DeltaKappa_EW1 @f$O(\alpha)@f$ contribution to @f$\Delta\kappa@f$.
+     * @param[in] Mw_i The W-boson mass.
      * @return EW two-loop contribution to @f$\Delta\kappa^{\ell, \alpha^2}@f$ obtained from an approximate formula.
      */
-    double DeltaKappa_l_TwoLoopEW(const double DeltaAlphaL5q_i, const double DeltaKappa_EW1) const;
+    double DeltaKappa_l_TwoLoopEW_rem(const double DeltaAlphaL5q_i, const double Mw_i) const;
 
     /**
      * @brief EW two-loop fermionic contribution to @f$\Delta\kappa_Z^b = \kappa_Z^b - 1@f$.
      * @param[in] DeltaAlphaL5q_i The sum of the leptonic and hadronic corrections to @f$\alpha@f$ at @f$M_Z@f$.
-     * @param[in] DeltaKappa_EW1 @f$O(\alpha)@f$ contribution to @f$\Delta\kappa@f$. 
+     * @param[in] Mw_i The W-boson mass.
      * @return EW two-loop fermionic contribution to @f$\Delta\kappa^{b, \alpha^2}@f$ obtained from an approximate formula.
      */
-    double DeltaKappa_b_TwoLoopEW(const double DeltaAlphaL5q_i, const double DeltaKappa_EW1) const;
+    double DeltaKappa_b_TwoLoopEW_rem(const double DeltaAlphaL5q_i, const double Mw_i) const;
     
     /**
      * @brief @f$R_b^0@f$ with the complete fermionic EW two-loop corrections.
