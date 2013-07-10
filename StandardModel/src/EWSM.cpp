@@ -71,15 +71,15 @@ EWSM::EWSM(const StandardModel& SM_i)
             kappaZ_q_params_cache[i][j] = 0.0;
         }
     }
-    schemeMw_cache = schemeMw;
-    schemeRhoZ_cache = schemeRhoZ;
-    schemeKappaZ_cache = schemeKappaZ;
+    schemeMw_cache = schemes_EW_size;
+    schemeRhoZ_cache = schemes_EW_size;
+    schemeKappaZ_cache = schemes_EW_size;
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 
-bool EWSM::checkSMparams(double Params_cache[]) const 
+bool EWSM::checkSMparams(double Params_cache[], const bool bUpdate) const
 {
     // 11 parameters in QCD:
     // "AlsMz","Mz","mup","mdown","mcharm","mstrange", "mtop","mbottom",
@@ -111,7 +111,7 @@ bool EWSM::checkSMparams(double Params_cache[]) const
     bool bCache = true;
     for(int i=0; i<NumSMParams; ++i) {
         if (Params_cache[i] != SMparams[i]) { 
-            Params_cache[i] = SMparams[i];                 
+            if (bUpdate) Params_cache[i] = SMparams[i];
             bCache &= false;
         }
     }
@@ -120,12 +120,13 @@ bool EWSM::checkSMparams(double Params_cache[]) const
 }
 
 
-bool EWSM::checkScheme(schemes_EW scheme_cache, const schemes_EW scheme_current) const
+bool EWSM::checkScheme(schemes_EW& scheme_cache, const schemes_EW scheme_current,
+                       const bool bUpdate) const
 {
     bool bCache = true;
     if (scheme_cache != scheme_current) {
-        scheme_cache = scheme_current;
-        bCache &= false;
+        if (bUpdate) scheme_cache = scheme_current;
+        bCache = false;
     }
 
     return bCache;
@@ -209,7 +210,13 @@ double EWSM::alphaMz() const
 ////////////////////////////////////////////////////////////////////////
 
 double EWSM::Mw_SM() const 
-{    
+{
+    /* Debug */
+    //std::cout << std::boolalpha
+    //          << checkScheme(schemeMw_cache,schemeMw,false)
+    //          << " [cache:" << schemeMw_cache
+    //          << " current:" << schemeMw << "]" << std::endl;
+
     if (bUseCacheEWSM)
         if (checkSMparams(Mw_params_cache)
                 && checkScheme(schemeMw_cache,schemeMw))
@@ -241,7 +248,7 @@ double EWSM::Mw_SM() const
             //std::cout.precision(prec_def);
         }
     } 
-    
+
     Mw_cache = Mw;
     return Mw;
 }

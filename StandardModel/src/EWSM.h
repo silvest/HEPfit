@@ -47,7 +47,7 @@ public:
      * 
      * APPROXIMATEFORMULA for the use of approximate formulae
      */
-    enum schemes_EW {NORESUM=0, OMSI, INTERMEDIATE, OMSII, APPROXIMATEFORMULA};
+    enum schemes_EW {NORESUM=0, OMSI, INTERMEDIATE, OMSII, APPROXIMATEFORMULA, schemes_EW_size};
     
     // The number of the parameters relevant to EW observables
     static const int NumSMParams = 26;
@@ -71,7 +71,12 @@ public:
     {
         return myTwoFermionsLEP2;
     }
-    
+
+    schemes_EW getSchemeMw() const
+    {
+        return schemeMw;
+    }
+
     /**
      * @brief set a flag for M_W
      * @param[in] schemeMw NORESUM, OMSI, INTERMEDIATE, OMSII or APPROXIMATEFORMULA
@@ -79,6 +84,11 @@ public:
     void setSchemeMw(schemes_EW schemeMw) 
     {
         this->schemeMw = schemeMw;
+    }
+
+    schemes_EW getSchemeRhoZ() const
+    {
+        return schemeRhoZ;
     }
 
     /**
@@ -89,6 +99,11 @@ public:
     void setSchemeRhoZ(schemes_EW schemeRhoZ) 
     {
         this->schemeRhoZ = schemeRhoZ;
+    }
+
+    schemes_EW getSchemeKappaZ() const
+    {
+        return schemeKappaZ;
     }
     
     /**
@@ -103,9 +118,10 @@ public:
     
     //////////////////////////////////////////////////////////////////////// 
 
-    bool checkSMparams(double Params_cache[]) const;
+    bool checkSMparams(double Params_cache[], const bool bUpdate=true) const;
 
-    bool checkScheme(schemes_EW scheme_cache, const schemes_EW scheme_current) const;
+    bool checkScheme(schemes_EW& scheme_cache, const schemes_EW scheme_current,
+                     const bool bUpdate=true) const;
 
     
     //////////////////////////////////////////////////////////////////////// 
