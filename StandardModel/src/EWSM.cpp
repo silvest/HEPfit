@@ -12,7 +12,7 @@
 // include the imaginary part of O(alpha alpha_s) contribution (for a test)
 //#define WITHIMTWOLOOPQCD
 
-const double EWSM::Mw_error = 0.00001; /* 0.01 MeV */ 
+const double EWSM::Mw_error = 0.00001; /* 0.01 MeV */
 
 
 EWSM::EWSM(const StandardModel& SM_i) 
@@ -71,6 +71,9 @@ EWSM::EWSM(const StandardModel& SM_i)
             kappaZ_q_params_cache[i][j] = 0.0;
         }
     }
+    schemeMw_cache = schemeMw;
+    schemeRhoZ_cache = schemeRhoZ;
+    schemeKappaZ_cache = schemeKappaZ;
 }
 
 
@@ -113,6 +116,18 @@ bool EWSM::checkSMparams(double Params_cache[]) const
         }
     }
     
+    return bCache;
+}
+
+
+bool EWSM::checkScheme(bool scheme_cache, const bool scheme_current) const
+{
+    bool bCache = true;
+    if (scheme_cache != scheme_current) {
+        scheme_cache = scheme_current;
+        bCache &= false;
+    }
+
     return bCache;
 }
 
@@ -196,7 +211,8 @@ double EWSM::alphaMz() const
 double EWSM::Mw_SM() const 
 {    
     if (bUseCacheEWSM)       
-        if (checkSMparams(Mw_params_cache))
+        if (checkSMparams(Mw_params_cache)
+                && checkScheme(schemeMw_cache,schemeMw))
             return Mw_cache;
 
     double Mw;
@@ -264,7 +280,8 @@ complex EWSM::rhoZ_l_SM(const StandardModel::lepton l) const
     else {
         
         if (bUseCacheEWSM)        
-            if (checkSMparams(rhoZ_l_params_cache[(int)l]))
+            if (checkSMparams(rhoZ_l_params_cache[(int)l])
+                     && checkScheme(schemeRhoZ_cache,schemeRhoZ))
                 return rhoZ_l_cache[(int)l];
         
         double Mw = Mw_SM();
@@ -330,7 +347,8 @@ complex EWSM::rhoZ_q_SM(const StandardModel::quark q) const
     else {
 
         if (bUseCacheEWSM)        
-            if (checkSMparams(rhoZ_q_params_cache[(int)q]))
+            if (checkSMparams(rhoZ_q_params_cache[(int)q])
+                    && checkScheme(schemeRhoZ_cache,schemeRhoZ))
                 return rhoZ_q_cache[(int)q];
         
         double Mw = Mw_SM();
@@ -394,7 +412,8 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const
 {
 
     if (bUseCacheEWSM)    
-        if (checkSMparams(kappaZ_l_params_cache[(int)l]))
+        if (checkSMparams(kappaZ_l_params_cache[(int)l])
+                && checkScheme(schemeKappaZ_cache,schemeKappaZ))
             return kappaZ_l_cache[(int)l];
 
     double Mw = Mw_SM();
@@ -471,7 +490,8 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
     if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
     
     if (bUseCacheEWSM)     
-        if (checkSMparams(kappaZ_q_params_cache[(int)q]))
+        if (checkSMparams(kappaZ_q_params_cache[(int)q])
+                && checkScheme(schemeKappaZ_cache,schemeKappaZ))
             return kappaZ_q_cache[(int)q];
 
     double Mw = Mw_SM();
@@ -1188,6 +1208,91 @@ double EWSM::GammaW_SM() const
 }
 
 
+////////////////////////////////////////////////////////////////////////
+
+void EWSM::outputEachDeltaR(const double Mw_i) const
+{
+    if (schemeMw == APPROXIMATEFORMULA) {
+        std::cout << "Mw = " << Mw_SM() << std::endl;
+        std::cout << "Delta r (from the approximate formula of Mw) = " << DeltaR_SM() << std::endl;
+    } else if (schemeMw == NORESUM) {
+        double cW2_TMP = Mw_i*Mw_i/SM.getMz()/SM.getMz();
+        double sW2_TMP = 1.0 - cW2_TMP;
+
+        // conversion factor
+        //double f_AlphaToGF = sqrt(2.0)*SM.getGF()*pow(SM.getMz(),2.0)*sW2_TMP*cW2_TMP/M_PI/SM.getAle();
+        double f_AlphaToGF = 1.0;
+
+        double DeltaRho[orders_EW_size], DeltaRho_sum = 0.0;
+        DeltaRho[EW1] = myOneLoopEW->DeltaRho(Mw_i);
+        DeltaRho[EW1QCD1] = myTwoLoopQCD->DeltaRho(Mw_i);
+        DeltaRho[EW1QCD2] = myThreeLoopQCD->DeltaRho(Mw_i);
+        DeltaRho[EW2] = myTwoLoopEW->DeltaRho(Mw_i);
+        DeltaRho[EW2QCD1] = myThreeLoopEW2QCD->DeltaRho(Mw_i);
+        DeltaRho[EW3] = myThreeLoopEW->DeltaRho(Mw_i);
+        DeltaRho[EW1QCD2] *= f_AlphaToGF;
+        DeltaRho[EW2QCD1] *= f_AlphaToGF;
+        DeltaRho[EW3] *= f_AlphaToGF;
+        for (int j=0; j<orders_EW_size; ++j)
+            DeltaRho_sum += DeltaRho[(orders_EW)j];
+        DeltaRho_sum -= DeltaRho[EW2];
+
+        double DeltaR_rem[orders_EW_size], DeltaR_rem_sum = 0.0;
+        DeltaR_rem[EW1] = myOneLoopEW->DeltaR_rem(Mw_i);
+        DeltaR_rem[EW1QCD1] = myTwoLoopQCD->DeltaR_rem(Mw_i);
+        DeltaR_rem[EW1QCD2] = myThreeLoopQCD->DeltaR_rem(Mw_i);
+        DeltaR_rem[EW2] = myTwoLoopEW->DeltaR_rem(Mw_i);
+        DeltaR_rem[EW2QCD1] = myThreeLoopEW2QCD->DeltaR_rem(Mw_i);
+        DeltaR_rem[EW3] = myThreeLoopEW->DeltaR_rem(Mw_i);
+        for (int j=0; j<orders_EW_size; ++j)
+            DeltaR_rem_sum += DeltaR_rem[(orders_EW)j];
+        DeltaR_rem_sum -= DeltaR_rem[EW2];
+
+        // Full EW one-loop contribution (without the full DeltaAlphaL5q)
+        double DeltaR_EW1 = - cW2_TMP/sW2_TMP*DeltaRho[EW1] + DeltaR_rem[EW1];
+
+        // Full EW two-loop contribution with reducible corrections
+        double DeltaR_EW2 = myApproximateFormulae->DeltaR_TwoLoopEW(DeltaAlphaL5q(), DeltaR_EW1, Mw_i);
+
+        // EW two-loop irreducible contributions with large-mt expansion
+        double DeltaR_EW2_old = - cW2_TMP/sW2_TMP*DeltaRho[EW2] + DeltaR_rem[EW2];
+
+        // Delta r, including the full EW two-loop contribution
+        double deltaR = DeltaAlphaL5q() - cW2_TMP/sW2_TMP*DeltaRho_sum
+        + DeltaR_rem_sum;
+        deltaR += DeltaR_EW2;
+
+        std::cout << "Mw = " << Mw_i << std::endl;
+        std::cout << "Delta r       = " << deltaR << std::endl;
+        std::cout << "  EW1:       " << DeltaAlphaL5q() + DeltaR_EW1 << std::endl;
+        std::cout << "    DeltaAlphaL5q = " << DeltaAlphaL5q() << std::endl;
+        std::cout << "    dR            = " << DeltaR_EW1 << std::endl;
+        std::cout << "  EW1QCD1:   " << - cW2_TMP/sW2_TMP*DeltaRho[EW1QCD1] + DeltaR_rem[EW1QCD1] << std::endl;
+        std::cout << "  EW2(full): " << DeltaR_EW2 << std::endl;
+        std::cout << "    dAle*dAle = " << DeltaAlphaL5q()*DeltaAlphaL5q() << std::endl;
+        std::cout << "    2*dAle*dR = " << 2.0*DeltaAlphaL5q()*DeltaR_EW1 << std::endl;
+        std::cout << "    others    = " << DeltaR_EW2 - DeltaAlphaL5q()*DeltaAlphaL5q() - 2.0*DeltaAlphaL5q()*DeltaR_EW1 << std::endl;
+        std::cout << "  EW2(old):  " << DeltaR_EW2_old << std::endl;
+        std::cout << "  EW1QCD2:   " << - cW2_TMP/sW2_TMP*DeltaRho[EW1QCD2] + DeltaR_rem[EW1QCD2] << std::endl;
+        std::cout << "  EW2QCD1:   " << - cW2_TMP/sW2_TMP*DeltaRho[EW2QCD1] + DeltaR_rem[EW2QCD1] << std::endl;
+        std::cout << "  EW3:       " << - cW2_TMP/sW2_TMP*DeltaRho[EW3] + DeltaR_rem[EW3] << std::endl;
+    } else
+        std::cout << "EWSM::outputEachDeltaR(): " << schemeMw << " is not implemented" << std::endl;
+}
+
+
+void EWSM::outputEachDeltaRho(const double Mw_i) const
+{
+    std::cout << "Write codes!" << std::endl;
+}
+
+
+void EWSM::outputEachDeltaKappa(const double Mw_i) const
+{
+    std::cout << "Write codes!" << std::endl;
+}
+
+
 ////////////////////////////////////////////////////////////////////////     
 
 void EWSM::ComputeDeltaRho(const double Mw_i,
@@ -1266,8 +1371,14 @@ double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
     
     double f_AlphaToGF, DeltaRho_sum = 0.0, DeltaRho_G;
     if (schemeMw==NORESUM) {
-        for (int j=0; j<orders_EW_size; ++j)
+        for (int j=0; j<orders_EW_size; ++j) {
+            //f_AlphaToGF = sqrt(2.0)*SM.getGF()*pow(SM.getMz(),2.0)*sW2_TMP*cW2_TMP/M_PI/SM.getAle();
+            //if (j==(int)EW1QCD2)
+            //    DeltaRho_sum += f_AlphaToGF*DeltaRho[(orders_EW)j];
+            //else
+
             DeltaRho_sum += DeltaRho[(orders_EW)j];
+        }
     } else {
         // conversion: alpha(0) --> G_F
         f_AlphaToGF = sqrt(2.0)*SM.getGF()*pow(SM.getMz(),2.0)*sW2_TMP*cW2_TMP/M_PI/SM.getAle();
@@ -1301,18 +1412,7 @@ double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
             // R = 1 + Delta r, including the full EW two-loop contribution
             R = 1.0 + DeltaAlphaL5q() - cW2_TMP/sW2_TMP*DeltaRho_sum
                 + DeltaR_rem_sum;
-            R += DeltaR_EW2 + DeltaR_EW1*DeltaR_EW1; // Full EW two-loop contribution
-
-            /* Debug */
-            //std::cout << "Delta r       = " << R - 1.0 << std::endl;
-            //std::cout << "  EW1:       " << - cW2_TMP/sW2_TMP*DeltaRho[EW1] + DeltaR_rem[EW1] << std::endl;
-            //std::cout << "  EW1QCD1:   " << - cW2_TMP/sW2_TMP*DeltaRho[EW1QCD1] + DeltaR_rem[EW1QCD1] << std::endl;
-            //std::cout << "  EW1QCD2:   " << - cW2_TMP/sW2_TMP*DeltaRho[EW1QCD2] + DeltaR_rem[EW1QCD2] << std::endl;
-            //std::cout << "  EW2(full): " << DeltaR_EW2 + DeltaR_EW1*DeltaR_EW1 << std::endl;
-            //std::cout << "  EW2(old):  " << - cW2_TMP/sW2_TMP*DeltaRho[EW2] + DeltaR_rem[EW2] << std::endl;
-            //std::cout << "  EW2QCD1:   " << - cW2_TMP/sW2_TMP*DeltaRho[EW2QCD1] + DeltaR_rem[EW2QCD1] << std::endl;
-            //std::cout << "  EW3:       " << - cW2_TMP/sW2_TMP*DeltaRho[EW3] + DeltaR_rem[EW3] << std::endl;
-            //std::cout << "DeltaAlphaL5q = " << DeltaAlphaL5q() << std::endl;
+            R += DeltaR_EW2;
 
             break;
         case OMSI:

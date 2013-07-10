@@ -62,7 +62,7 @@ public:
     EWSM(const StandardModel& SM_i);
 
     
-    ////////////////////////////////////////////////////////////////////////     
+    ////////////////////////////////////////////////////////////////////////
 
     /**
      * @return a pointer to the EWSMTwoFermionsLEP2 object
@@ -104,7 +104,9 @@ public:
     //////////////////////////////////////////////////////////////////////// 
 
     bool checkSMparams(double Params_cache[]) const;
-    
+
+    bool checkScheme(bool scheme_cache, const bool scheme_current) const;
+
     
     //////////////////////////////////////////////////////////////////////// 
     
@@ -318,6 +320,15 @@ public:
     double GammaW_SM() const;   
 
     
+    ////////////////////////////////////////////////////////////////////////
+
+    void outputEachDeltaR(const double Mw_i) const;
+
+    void outputEachDeltaRho(const double Mw_i) const;
+
+    void outputEachDeltaKappa(const double Mw_i) const;
+
+
     ////////////////////////////////////////////////////////////////////////     
 protected:
 
@@ -372,7 +383,9 @@ private:
     
     mutable double GammaW_params_cache[NumSMParams];
     mutable double GammaW_cache;
-        
+
+    mutable bool schemeMw_cache, schemeRhoZ_cache, schemeKappaZ_cache;
+
     
     ////////////////////////////////////////////////////////////////////////     
     
