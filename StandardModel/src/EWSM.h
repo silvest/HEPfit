@@ -163,11 +163,11 @@ public:
     double Mw_SM() const;
     
     /** 
-     * @brief Computes Delta r from Mw(). 
-     * @return Delta r in the SM
+     * @brief Delta r derived from Mw().
+     * @return Delta r in the SM. 
      */
     double DeltaR_SM() const;
-    
+
     /**
      * @return Mw^2/Mz^2 in the SM
      */
@@ -205,6 +205,35 @@ public:
      * @return kappa_Z^q in the SM
      */
     complex kappaZ_q_SM(const StandardModel::quark q) const;    
+
+
+    ////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @brief The Z boson mass in the complex-pole scheme.
+     * @return The Z boson mass in the complex-pole scheme.
+     */
+    double Mzbar() const;
+
+    /**
+     * @brief Converts the W-boson mass from the experimental scheme to the complex-pole one.
+     * @param[in] Mw The W boson mass in the experimental scheme.
+     * @return The W boson mass in the complex-pole scheme.
+     */
+    double MwbarFromMw(const double Mw) const;
+
+    /**
+     * @brief Converts the W-boson mass from the complex-pole scheme to the experimental one.
+     * @param[in] Mwbar The W boson mass in the complex-pole scheme.
+     * @return The W boson mass in the experimental scheme.
+     */
+    double MwFromMwbar(const double Mwbar) const;
+
+    /**
+     * @brief The SM prediction for Delta r derived from Mwbar in the complex-pole scheme.
+     * @return The SM prediction for Delta r in the complex-pole scheme.
+     */
+    double DeltaRbar_SM() const;
 
 
     ////////////////////////////////////////////////////////////////////////     

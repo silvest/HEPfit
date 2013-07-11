@@ -256,6 +256,7 @@ double EWSM::Mw_SM() const
 
 double EWSM::DeltaR_SM() const 
 {
+    /* in the experimental/running-width scheme */
     double Mw = Mw_SM();
     double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
     double tmp = sqrt(2.0)*SM.getGF()*sW2*Mw*Mw/M_PI/SM.getAle();
@@ -569,6 +570,45 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
     
     kappaZ_q_cache[(int)q] = complex(ReKappaZf, ImKappaZf, false);
     return (complex(ReKappaZf, ImKappaZf, false));       
+}
+
+
+////////////////////////////////////////////////////////////////////////
+
+double EWSM::Mzbar() const
+{
+    double Gz = 2.4952; // see Eq.(5) in hep-ph/0311148 and Table 1 in hep-ph/0608099v2
+    return ( SM.getMz() - Gz*Gz/2.0/SM.getMz() );
+}
+
+
+double EWSM::MwbarFromMw(const double Mw) const
+{
+    double AlsMw = SM.AlsWithInit(Mw, SM.getAlsMz(), SM.getMz(), FULLNLO);
+    double Gw_SM = 3.0*SM.getGF()*pow(Mw, 3.0)/2.0/sqrt(2.0)/M_PI
+                   *(1.0 + 2.0*AlsMw/3.0/M_PI);
+    
+    return ( Mw - Gw_SM*Gw_SM/2.0/Mw );
+}
+
+
+double EWSM::MwFromMwbar(const double Mwbar) const
+{
+    double AlsMw = SM.AlsWithInit(Mwbar, SM.getAlsMz(), SM.getMz(), FULLNLO);
+    double Gw_SM = 3.0*SM.getGF()*pow(Mwbar, 3.0)/2.0/sqrt(2.0)/M_PI
+                   *(1.0 + 2.0*AlsMw/3.0/M_PI);
+
+    return (Mwbar + Gw_SM*Gw_SM/2.0/Mwbar);
+}
+
+
+double EWSM::DeltaRbar_SM() const
+{
+    double Mwbar_SM = MwbarFromMw(Mw_SM());
+    double sW2bar = 1.0 - Mwbar_SM*Mwbar_SM/Mzbar()/Mzbar();
+    double tmp = sqrt(2.0)*SM.getGF()*sW2bar*Mwbar_SM*Mwbar_SM/M_PI/SM.getAle();
+
+    return (tmp - 1.0);
 }
 
 
@@ -1360,10 +1400,20 @@ double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
             throw std::runtime_error("Error in EWSM::resumMw()");             
     }   
 
-    double tmp = 4.0*M_PI*SM.getAle()/sqrt(2.0)/SM.getGF()/SM.getMz()/SM.getMz();
-    if (tmp*R > 1.0) throw std::runtime_error("Negative (1-tmp*R) in EWSM::resumMw()"); 
+    if (schemeMw == NORESUM) {
+        /* Mzbar and Mwbar are defined in the complex-pole scheme. */
+
+        double tmp = 4.0*M_PI*SM.getAle()/sqrt(2.0)/SM.getGF()/Mzbar()/Mzbar();
+        if (tmp*R > 1.0) throw std::runtime_error("EWSM::resumMw(): Negative (1-tmp*R)");
+        double Mwbar = Mzbar()/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp*R));
+
+        return MwFromMwbar(Mwbar);
+    } else {
+        double tmp = 4.0*M_PI*SM.getAle()/sqrt(2.0)/SM.getGF()/SM.getMz()/SM.getMz();
+        if (tmp*R > 1.0) throw std::runtime_error("EWSM::resumMw(): Negative (1-tmp*R)");
     
-    return (SM.getMz()/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp*R)));
+        return (SM.getMz()/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp*R)));
+    }
 }
 
 
@@ -1571,9 +1621,10 @@ double EWSM::resumKappaZ(const double DeltaRho[orders_EW_size],
 
 void EWSM::outputEachDeltaR(const double Mw_i) const
 {
-    std::cout << "Mw_SM       = " << Mw_SM() << std::endl;
-    std::cout << "DeltaR_SM() = " << DeltaR_SM() << std::endl;
-    std::cout << "Mw(input)   = " << Mw_i << std::endl;
+    std::cout << "Mw_SM          = " << Mw_SM() << std::endl;
+    std::cout << "DeltaR_SM()    = " << DeltaR_SM() << std::endl;
+    std::cout << "DeltaRbar_SM() = " << DeltaRbar_SM() << std::endl;
+    std::cout << "Mw(input)      = " << Mw_i << std::endl;
 
     double cW2_TMP = Mw_i*Mw_i/SM.getMz()/SM.getMz();
     double sW2_TMP = 1.0 - cW2_TMP;
@@ -1595,6 +1646,7 @@ void EWSM::outputEachDeltaR(const double Mw_i) const
     DeltaR_rem[EW3] = myThreeLoopEW->DeltaR_rem(Mw_i);
 
     double f_AlphaToGF = sqrt(2.0)*SM.getGF()*pow(SM.getMz(),2.0)*sW2_TMP*cW2_TMP/M_PI/SM.getAle();
+    //f_AlphaToGF = 1.0; /* for test */
     double DeltaRho_sum = f_AlphaToGF*DeltaRho[EW1]
                           + f_AlphaToGF*DeltaRho[EW1QCD1]
                           + f_AlphaToGF*DeltaRho[EW1QCD2]
