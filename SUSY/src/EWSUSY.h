@@ -9,6 +9,7 @@
 #define	EWSUSY_H
 
 #include <gslpp.h>
+#include <PVfunctions.h>
 #include "SUSY.h"
 
 using namespace gslpp;
@@ -35,7 +36,29 @@ public:
      */
     void SetRosiekParameters();
 
+    /**
+     * @brief Fermionic contribuiton to the transverse part of a gauge-boson self-energy.
+     * @param[in] mu The renormalization scale. 
+     * @param[in] p2
+     * @param[in] mi
+     * @param[in] mj
+     * @param[in] cV_aij
+     * @param[in] cV_bji
+     * @param[in] cA_aij
+     * @param[in] cA_bji
+     * @return
+     */
+    complex FA(const double mu, const double p2, const double mi, const double mj,
+               const double cV_aij, const double cV_bji,
+               const double cA_aij, const double cA_bji) const;
+
+    complex PiT_Z(const double mu, const double p2, const double Mw) const;
+
+
 private:
+
+    /* An object of PVdunctions class */
+    const PVfunctions PV;
 
     /* A reference to the SUSY object passed to the constructor. */
     const SUSY& mySUSY;

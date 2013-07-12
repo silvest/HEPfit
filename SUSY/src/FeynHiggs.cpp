@@ -210,8 +210,9 @@ bool FeynHiggs::CalcHiggsSpectrum()
 bool FeynHiggs::CalcSpectrum()
 {
     int err, nmfv;
-    double MASf[4][6], MCha[2], MNeu[4];
-    ComplexType UASf[4][6][6], UCha[2][2], VCha[2][2], ZNeu[4][4], Deltab;
+    double MSf[3][4][2], MASf[4][6], MCha[2], MNeu[4];
+    ComplexType USf[3][4][2][2], UASf[4][6][6];
+    ComplexType UCha[2][2], VCha[2][2], ZNeu[4][4], Deltab;
 
     /* Get some of the MSSM parameters computed with FeynHiggs:
      *   MSf: the MFV sfermion masses
@@ -227,8 +228,8 @@ bool FeynHiggs::CalcSpectrum()
      *   FHMHtree: the tree-level Higgs masses
      *   FHSAtree: the tree-level sin(alpha)
      */
-    FHGetPara(&err, &nmfv, MASf, UASf, MCha, UCha, VCha, MNeu, ZNeu, &Deltab,
-              &FHMGl, FHMHtree, &FHSAtree);
+    FHGetPara(&err, &nmfv, MSf, USf, MASf, UASf, MCha, UCha, VCha, MNeu, ZNeu,
+              &Deltab, &FHMGl, FHMHtree, &FHSAtree);
     if (err != 0) {
         std::cout << "FeynHiggs::CalcSpectrum(): Error has been detected in GetPara.F:"
                   << err << std::endl;
