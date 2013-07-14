@@ -258,6 +258,10 @@ void test1() {
   std::cout << "md1*vc1 = " << md1*vc1 << std::endl;
   std::cout << "vc2*md2 = " << vc2*md2 << std::endl;
 
+  std::cout << "md3 = " << md3 << std::endl;
+  md3.assign(1,2, 10.);
+  std::cout << "md3.assign(1,2, 10.) = " << md3 << std::endl;
+
 // Tests of gslpp::matrix<complex>
   std::cout << "\nTests of gslpp::matrix<complex>" << std::endl;
   std::cout << "Id(3) = " << matrix<complex>::Id(3) << std::endl;

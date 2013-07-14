@@ -100,6 +100,11 @@ namespace gslpp
     return *this;
   }
 
+  void matrix<double>::assign(const size_t& i, const size_t& j, const double& a)
+  {
+    gsl_matrix_set(_matrix, i, j, a);
+  }
+
   /** Assign submatrix */
   void matrix<double>::assign(const size_t& i, const size_t& j, const matrix<double>& a)
   {
