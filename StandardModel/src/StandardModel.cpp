@@ -121,10 +121,12 @@ bool StandardModel::PostUpdate()
         Yu = VCKM.transpose()*Yu;
     }
     if (computeYd) {
+        Yd = matrix<complex>::Id(3);
         for (int i = 0; i < 3; i++)
             Yd.assign(i, i, this->quarks[DOWN + 2 * i].getMass() / v() * sqrt(2.));
     }
     if (computeYe) {
+        Ye = matrix<complex>::Id(3);
         for (int i = 0; i < 3; i++)
             Ye.assign(i, i, this->leptons[ELECTRON + 2 * i].getMass() / v() * sqrt(2.));
     }
