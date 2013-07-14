@@ -30,7 +30,7 @@ SUSY::SUSY()
 : StandardModel(),
         MsQ2(3,3,0.), MsU2(3,3,0.), MsD2(3,3,0.),MsL2(3,3,0.), MsN2(3,3,0.), MsE2(3,3,0.),
         TU(3,3,0.), TD(3,3,0.), TN(3,3,0.), TE(3,3,0.),
-        Mch(2,0.), Mneu(4,0.), Msu2(6,0.), Msd2(6,0.), Msn2(6,0.), Msl2(6,0.),
+        mch(2,0.), mneu(4,0.), m_su2(6,0.), m_sd2(6,0.), m_sn2(6,0.), m_se2(6,0.),
         U(2,2,0.), V(2,2,0.), N(4,4,0.),
         Ru(6,6,0.), Rd(6,6,0.), Rn(6,6,0.), Rl(6,6,0.)
 {
@@ -219,19 +219,25 @@ void SUSY::setTanb(const double tanb)
 
 void SUSY::setYukawas()
 {
+    /* initializations */
+    Yu = matrix<complex>::Id(3);
+    Yd = matrix<complex>::Id(3);
+    Ye = matrix<complex>::Id(3);
+    Yn = matrix<complex>::Id(3);
+
     for (int i = 0; i < 3; i++) {
         /* Run the quark masses to scale Q */
         mu_Q[i] = Mrun(Q, getQuarks((quark)(UP + 2 * i)).getMass_scale(),
                        getQuarks((quark)(UP + 2 * i)).getMass(), FULLNLO);
         md_Q[i] = Mrun(Q, getQuarks((quark)(DOWN + 2 * i)).getMass_scale(),
                        getQuarks((quark)(DOWN + 2 * i)).getMass(), FULLNLO);
-        double me_Q = getLeptons((lepton)(ELECTRON + 2 * i)).getMass();
-        double mn_Q = getLeptons((lepton)(NEUTRINO_1 + 2 * i)).getMass();
+        me_Q[i] = getLeptons((lepton)(ELECTRON + 2 * i)).getMass();
+        mn_Q[i] = getLeptons((lepton)(NEUTRINO_1 + 2 * i)).getMass();
 
         Yu.assign(i, i, mu_Q[i] / v2() * sqrt(2.));
         Yd.assign(i, i, md_Q[i] / v1() * sqrt(2.));
-        Ye.assign(i, i, me_Q / v1() * sqrt(2.));
-        Yn.assign(i, i, mn_Q / v2() * sqrt(2.));
+        Ye.assign(i, i, me_Q[i] / v1() * sqrt(2.));
+        Yn.assign(i, i, mn_Q[i] / v2() * sqrt(2.));
     }
 
     Yu = VCKM.transpose()*Yu;
@@ -290,12 +296,17 @@ double SUSY::getMGl() const
 
 double SUSY::Mw() const
 {
-    /* SM + MSSM */
+
+    /* Write codes! */
+
 
     //std::cout << "DeltaRho = " << myFH->getFHdeltarho() << std::endl;
 
-    //std::cout << "Write codes for SUSY::Mw() " << std::endl;
-    return (80.385);
+    /* Delta rho approximation */
+    double Mw_SM = StandardModel::Mw();
+    double cW2_SM = Mw_SM*Mw_SM/getMz()/getMz();
+    double sW2_SM = 1.0 - cW2_SM;
+    return ( Mw_SM*(1.0 + cW2_SM/2.0/(cW2_SM - sW2_SM)*myFH->getFHdeltarho()) );
 }
 
 double SUSY::cW2() const
@@ -308,31 +319,5 @@ double SUSY::sW2() const
     return (1.0 - cW2());
 }
 
-
-gslpp::complex SUSY::gZf(const int INDF) const
-{
-    /* SM + MSSM */
-
-    std::cout << "Write codes for SUSY::gZf() " << std::endl;
-    gslpp::complex tmp(0.0738065, -0.0120949, false);
-    return (tmp);
-}
-
-gslpp::complex SUSY::rhoZf(const int INDF) const
-{
-    /* SM + MSSM */
-
-    std::cout << "Write codes for SUSY::rhoZf() " << std::endl;
-    gslpp::complex tmp(1.00516, -0.00473674, false);
-    return (tmp);
-}
-
-double SUSY::Delta_r() const
-{
-    /* SM + MSSM */
-
-    std::cout << "Write codes for SUSY::Delta_r() " << std::endl;
-    return (0.0378211);
-}
 
 

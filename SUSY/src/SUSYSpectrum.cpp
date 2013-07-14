@@ -84,8 +84,8 @@ void SUSYSpectrum::CalcSpectrum(SUSY & SUSY)
     
     // end lines
     
-    MUP2.eigensystem(SUSY.Ru,SUSY.Msu2);
-    MDOWN2.eigensystem(SUSY.Rd,SUSY.Msd2);
+    MUP2.eigensystem(SUSY.Ru,SUSY.m_su2);
+    MDOWN2.eigensystem(SUSY.Rd,SUSY.m_sd2);
     
     
     // Neutralino masses
@@ -110,7 +110,7 @@ void SUSYSpectrum::CalcSpectrum(SUSY & SUSY)
     vector<double> M2Neu(2,0);
     matrix<complex> Ntemp(4,4,0.);
     Ntemp = SUSY.N.transpose();
-    MN.singularvalue(Ntemp, SUSY.N , SUSY.Mneu);
+    MN.singularvalue(Ntemp, SUSY.N , SUSY.mneu);
     
     
     
@@ -122,7 +122,7 @@ void SUSYSpectrum::CalcSpectrum(SUSY & SUSY)
     
     vector<double> M2Chi(2,0);
     (MC.hconjugate() * MC).eigensystem(SUSY.V,M2Chi);
-    SUSY.Mch = M2Chi;
+    SUSY.mch = M2Chi;
     //SUSY.Mch(0) = sqrt(M2Chi(0));
     //SUSY.Mch(1) = sqrt(M2Chi(1));
     

@@ -20,13 +20,25 @@ using namespace gslpp;
  * @brief A class for SUSY contributions to the EW precision observables.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details
+ * @details This class is used for the calculations of SUSY contributions to
+ * the EW precision observables, where Rosiek's notation is adopted internally.
+ * The conversions from Rosiek's notation to SLHA one are implemented in 
+ * EWSUSY::SetRosiekParameters(), which is called from SUSY::PostUpdate().
+ * @par References
+ * <A HREF="http://inspirehep.net/record/363948?ln=en">
+ * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>;
+ * @n
+ * <A HREF="http://inspirehep.net/record/344599?ln=en">
+ * Chankowski, Pokorski and Rosiek, NPB 423 (1994) 437</A>;
+ * @n
+ * <A HREF="http://inspirehep.net/record/401937?ln=en">Rosiek, hep-ph/9511250</A>,
+ * where an updated version is available at author's webpage. 
  */
 class EWSUSY {
 public:
 
     /**
-     * @brief A constructor.
+     * @brief An EWSUSY constructor.
      * @param[in] SUSY_in A reference to a SUSY object. 
      */
     EWSUSY(const SUSY& SUSY_in);
@@ -37,40 +49,187 @@ public:
     void SetRosiekParameters();
 
     /**
-     * @brief Fermionic contribuiton to the transverse part of a gauge-boson self-energy.
-     * @param[in] mu The renormalization scale. 
-     * @param[in] p2
-     * @param[in] mi
-     * @param[in] mj
-     * @param[in] cV_aij
-     * @param[in] cV_bji
-     * @param[in] cA_aij
-     * @param[in] cA_bji
-     * @return
+     * @brief Fermionic contribuiton to the transverse part of a gauge-boson 
+     * self-energy, @f$F_A^{ab}(p^2,m_i,m_j,c_V^{aij},c_V^{bji},c_A^{aij},c_A^{bji})@f$.
+     * @param[in] mu The renormalization scale @f$\mu@f$.
+     * @param[in] p2 The momentum squared @f$p^2@f$.
+     * @param[in] mi The mass of a fermion @f$(i)@f$ running in the loop.
+     * @param[in] mj The mass of a fermion @f$(j)@f$ running in the loop.
+     * @param[in] cV_aij The vector coupling @f$c_V^{aij}@f$ for a vertex with
+     * an incoming vector meson @f$(a)@f$, an incoming fermion @f$(i)@f$ and
+     * an outgoing fermion @f$(j)@f$.
+     * @param[in] cV_bji The vector coupling @f$c_V^{bji}@f$ for a vertex with
+     * an incoming vector meson @f$(b)@f$, an incoming fermion @f$(j)@f$ and
+     * an outgoing fermion @f$(i)@f$.
+     * @param[in] cA_aij The axial-vector coupling @f$c_A^{aij}@f$ for a vertex with
+     * an incoming vector meson @f$(a)@f$, an incoming fermion @f$(i)@f$ and
+     * an outgoing fermion @f$(j)@f$.
+     * @param[in] cA_bji The axial-vector coupling @f$c_A^{bji}@f$ for a vertex with
+     * an incoming vector meson @f$(b)@f$, an incoming fermion @f$(j)@f$ and
+     * an outgoing fermion @f$(i)@f$.
+     * @return @f$F_A^{ab}(p^2,m_i,m_j,c_V^{aij},c_V^{bji},c_A^{aij},c_A^{bji})@f$
+     * renormalized at the scale @f$\mu@f$.
+     * @par References
+     * Eq. (A.7) in [<A HREF="http://inspirehep.net/record/344599?ln=en">
+     * Chankowski, Pokorski and Rosiek, NPB 423 (1994) 437</A>].
      */
     complex FA(const double mu, const double p2, const double mi, const double mj,
-               const double cV_aij, const double cV_bji,
-               const double cA_aij, const double cA_bji) const;
+               const complex cV_aij, const complex cV_bji,
+               const complex cA_aij, const complex cA_bji) const;
 
-    complex PiT_Z(const double mu, const double p2, const double Mw) const;
+    /**
+     * @brief The transverse part of the Z-boson self-energy, @f$\Pi_Z^T(p^2)@f$,
+     * in the 't Hooft-Feynman gauge.
+     * @param[in] mu The renormalization scale @f$\mu@f$.
+     * @param[in] p2 The momentum squared @f$p^2@f$.
+     * @param[in] Mw_i The W-boson mass @f$M_W@f$.
+     * @return @f$\Pi_Z^T(p^2)@f$ renormalized at the scale @f$\mu@f$ in the
+     * 't Hooft-Feynman gauge.
+     * @par References
+     * Eq. (A.15) in [<A HREF="http://inspirehep.net/record/344599?ln=en">
+     * Chankowski, Pokorski and Rosiek, NPB 423 (1994) 437</A>].
+     */
+    complex PiT_Z(const double mu, const double p2, const double Mw_i) const;
+
+    /**
+     * @brief The transverse part of the self-energy, @f$\Pi_{\gamma Z}^T(p^2)@f$,
+     * for the mixing between photon and Z boson in the 't Hooft-Feynman gauge.
+     * @param[in] mu The renormalization scale @f$\mu@f$.
+     * @param[in] p2 The momentum squared @f$p^2@f$.
+     * @param[in] Mw_i The W-boson mass @f$M_W@f$.
+     * @return @f$\Pi_{\gamma Z}^T(p^2)@f$ renormalized at the scale @f$\mu@f$
+     * in the 't Hooft-Feynman gauge.
+     * @par References
+     * Eq. (A.18) in [<A HREF="http://inspirehep.net/record/344599?ln=en">
+     * Chankowski, Pokorski and Rosiek, NPB 423 (1994) 437</A>].
+     */
+    complex PiT_AZ(const double mu, const double p2, const double Mw_i) const;
+
+    /**
+     * @brief The transverse part of the W-boson self-energy, @f$\Pi_W^T(p^2)@f$,
+     * in the 't Hooft-Feynman gauge.
+     * @param[in] mu The renormalization scale @f$\mu@f$.
+     * @param[in] p2 The momentum squared @f$p^2@f$.
+     * @param[in] Mw_i The W-boson mass @f$M_W@f$.
+     * @return @f$\Pi_W^T(p^2)@f$ renormalized at the scale @f$\mu@f$ in the
+     * 't Hooft-Feynman gauge.
+     * @par References
+     * Eq. (A.20) in [<A HREF="http://inspirehep.net/record/344599?ln=en">
+     * Chankowski, Pokorski and Rosiek, NPB 423 (1994) 437</A>].
+     */
+    complex PiT_W(const double mu, const double p2, const double Mw_i) const;
+
+    /**
+     * @brief The derivative of the transverse part of the photon self-energy
+     * with respect to @f$p^2@f$, @f$\Pi_{\gamma}^{T\prime}(p^2)@f$,
+     * in the 't Hooft-Feynman gauge.
+     * @param[in] mu The renormalization scale @f$\mu@f$.
+     * @param[in] p2 The momentum squared @f$p^2@f$.
+     * @param[in] Mw_i The W-boson mass @f$M_W@f$.
+     * @return @f$\Pi_{\gamma}^{T\prime}(p^2)@f$ renormalized at the scale @f$\mu@f$
+     * in the 't Hooft-Feynman gauge.
+     * @par References
+     * Eq. (A.17) in [<A HREF="http://inspirehep.net/record/344599?ln=en">
+     * Chankowski, Pokorski and Rosiek, NPB 423 (1994) 437</A>].
+     */
+    complex PiTp_A(const double mu, const double p2, const double Mw_i) const;
+
+    /**
+     * @brief The SM one-loop vertex, box and fermion self-energy corrections
+     * to @f$\Delta r@f$ in the 't Hooft-Feynman gauge. 
+     * @param[in] mu The renormalization scale @f$\mu@f$.
+     * @param[in] Mw_i The W-boson mass @f$M_W@f$.
+     * @return The SM one-loop contribution of vertex, box and fermion self-energy
+     * diagrams to @f$\Delta r@f$ renormalized at the scale @f$\mu@f$
+     * in the 't Hooft-Feynman gauge.
+     * @par References
+     * e.g., Sec. 4.6.2.1 in [<A HREF="http://inspirehep.net/record/571258?ln=en">
+     * Bohm, Denner and Joos, ``Gauge theories of the strong and electroweak interaction,''
+     * B.G. Teubner Stuttgart (2001) 784 p</A>];
+     * @n
+     * Eq. (4) in [<A HREF="http://inspirehep.net/record/363948?ln=en">
+     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>],
+     * in which only the finite contribution is presented. 
+     */
+    double DeltaR_rem_SM(const double mu, const double Mw_i) const;
+
+    /**
+     * @brief The SUSY vertex corrections to @f$\Delta r@f$ in the 't Hooft-Feynman gauge. 
+     * @param[in] mu The renormalization scale @f$\mu@f$.
+     * @param[in] Mw_i The W-boson mass @f$M_W@f$.
+     * @return The SUSY vertex corrections to @f$\Delta r@f$
+     * renormalized at the scale @f$\mu@f$ in the 't Hooft-Feynman gauge.
+     * @attention This differs from Eq. (A.23) in
+     * [<A HREF="http://inspirehep.net/record/363948?ln=en">
+     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>],
+     * since the counter terms associated with the wave function renormalizations
+     * of the external fermion lines, denoted by @f$\delta v@f$'s
+     * in the above reference, are not added here. 
+     * @see EWSUSY::DeltaR_fermionSE_SUSY().
+     */
+    double DeltaR_vertex_SUSY(const double mu, const double Mw_i) const;
+
+    /**
+     * @brief The SUSY box corrections to @f$\Delta r@f$ in the 't Hooft-Feynman gauge.
+     * @param[in] Mw_i The W-boson mass @f$M_W@f$.
+     * @return The SUSY box corrections to @f$\Delta r@f$ in the 't Hooft-Feynman gauge.
+     * @par References
+     * Eq. (A.17) in [<A HREF="http://inspirehep.net/record/363948?ln=en">
+     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
+     */
+    double DeltaR_box_SUSY(const double Mw_i) const;
+
+    /**
+     * @brief The SUSY fermion self-energy corrections to @f$\Delta r@f$ in the 't Hooft-Feynman gauge.
+     * @param[in] mu The renormalization scale @f$\mu@f$.
+     * @param[in] Mw_i The W-boson mass @f$M_W@f$.
+     * @return The SUSY fermion self-energy corrections to @f$\Delta r@f$
+     * renormalized at the scale @f$\mu@f$ in the 't Hooft-Feynman gauge.
+     * @par References
+     * Eqs. (A.21), (A.23),(A.24) and (A.25)
+     * in [<A HREF="http://inspirehep.net/record/363948?ln=en">
+     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
+     */
+    double DeltaR_fermionSE_SUSY(const double mu, const double Mw_i) const;
+
+    /**
+     * @brief The one-loop contribution to @f$\Delta r@f$ in the MSSM. 
+     * @return @f$\Delta r_{\rm MSSM}^{\alpha} = \Delta r_{\rm SM}^{\alpha} + \Delta r_{\rm SUSY}^{\alpha}@f$.
+     * @par References
+     * Sec. 4.6.2.1 in [<A HREF="http://inspirehep.net/record/571258?ln=en">
+     * Bohm, Denner and Joos, ``Gauge theories of the strong and electroweak interaction,''
+     * B.G. Teubner Stuttgart (2001) 784 p</A>].
+     */
+    double DeltaR_MSSM_EW1(const double Mw_i) const;
+
+    /**
+     * @brief The one-loop SUSY contribution to @f$\Delta r@f$.
+     * @return @f$\Delta r_{\rm SUSY}^{\alpha}@f$.
+     */
+    double DeltaR_SUSY_EW1(const double Mw_i) const;
 
 
 private:
 
-    /* An object of PVdunctions class */
-    const PVfunctions PV;
+    const PVfunctions PV; ///< An object of PVfunctions class.
+    const SUSY& mySUSY; ///< A reference to the SUSY object passed to the constructor.
 
-    /* A reference to the SUSY object passed to the constructor. */
-    const SUSY& mySUSY;
+    matrix<complex> Yu; ///< The Yukawa coupling matrix for up-type quarks in Rosiek's notation.
+    matrix<complex> Yd; ///< The Yukawa coupling matrix for down-type quarks in Rosiek's notation.
+    matrix<complex> Yl; ///< The Yukawa coupling matrix for charged leptons in Rosiek's notation.
 
-    /* Yukawa couplings in Rosiek's notation */
-    matrix<complex> Yu, Yd, Yl;
+    matrix<complex> Au; ///< The trilinear coupling matrix for up-type squarks in Rosiek's notation.
+    matrix<complex> Ad; ///< The trilinear coupling matrix for down-type squarks in Rosiek's notation.
+    matrix<complex> Al; ///< The trilinear coupling matrix for charged sleptons in Rosiek's notation.
 
-    /* Trilinear couplings in Rosiek's notation */
-    matrix<complex> Au, Ad, Al;
-
-    /* rotation matrices in Rosiek's notation */
-    matrix<complex> Zm, Zp, Zn, ZU, ZD, ZL;
+    matrix<complex> Zm; ///< The rotation matrix for negative charginos in Rosiek's notation.
+    matrix<complex> Zp; ///< The rotation matrix for positive charginos in Rosiek's notation.
+    matrix<complex> ZN; ///< The rotation matrix for neutralinos in Rosiek's notation.
+    matrix<complex> ZU; ///< The rotation matrix for up-type squarks in Rosiek's notation.
+    matrix<complex> ZD; ///< The rotation matrix for down-type squarks in Rosiek's notation.
+    matrix<complex> ZL; ///< The rotation matrix for charged sleptons in Rosiek's notation.
+    matrix<double> ZR; ///< The rotation matrix for CP-even neutral Higgses in Rosiek's notation.
+    matrix<double> ZH; ///< The rotation matrix for charged (CP-odd neutral) Higgs and charged (neutral) Goldstone boson in Rosiek's notation.
 
 };
 

@@ -36,6 +36,9 @@ bool FeynHiggs::SetFeynHiggsPars()
 {
     int err;
 
+    //double Mw = mySUSY.Mw_tree(); /* SM prediction for the W-boson mass */
+    double Mw = mySUSY.StandardModel::Mw(); /* SM prediction for the W-boson mass in the on-shell scheme */
+
     /* Set the FeynHiggs SM input parameters */
     FHSetSMPara(&err,
                 1.0/mySUSY.alphaMz(),
@@ -48,7 +51,7 @@ bool FeynHiggs::SetFeynHiggsPars()
                 mySUSY.quarks[mySUSY.STRANGE].getMass(),
                 mySUSY.leptons[mySUSY.TAU].getMass(),
                 mySUSY.quarks[mySUSY.BOTTOM].getMass(),
-                mySUSY.Mw_tree(), mySUSY.Mz,          /* Which W mass should be used? */
+                Mw, mySUSY.Mz,
                 mySUSY.lambda, mySUSY.A, mySUSY.rhob, mySUSY.etab);
     if (err != 0) {
         std::cout << "FeynHiggs::SetFeynHiggsPars(): Error has been detected in SetPara.F:"
@@ -238,10 +241,10 @@ bool FeynHiggs::CalcSpectrum()
 
     /* squark and slepton */
     for(int i = 0; i < 6; i++) {
-        mySUSY.Msu2(i) = MASf[2][i]*MASf[2][i];
-        mySUSY.Msd2(i) = MASf[3][i]*MASf[3][i];
-        mySUSY.Msl2(i) = MASf[1][i]*MASf[1][i];
-        mySUSY.Msn2(i) = MASf[0][i]*MASf[0][i];
+        mySUSY.m_su2(i) = MASf[2][i]*MASf[2][i];
+        mySUSY.m_sd2(i) = MASf[3][i]*MASf[3][i];
+        mySUSY.m_se2(i) = MASf[1][i]*MASf[1][i];
+        mySUSY.m_sn2(i) = MASf[0][i]*MASf[0][i];
         for(int j = 0; j < 6; j++) {
             mySUSY.Ru.assign(i,j, complex(UASf[2][i][j].real(), UASf[2][i][j].imag()));
             mySUSY.Rd.assign(i,j, complex(UASf[3][i][j].real(), UASf[3][i][j].imag()));
@@ -252,7 +255,7 @@ bool FeynHiggs::CalcSpectrum()
 
     /* charginos */
     for(int i = 0; i < 2; i++) {
-        mySUSY.Mch(i) = MCha[i];
+        mySUSY.mch(i) = MCha[i];
         for(int j = 0; j < 2; j++) {
             mySUSY.U.assign(i,j, complex(UCha[i][j].real(), UCha[i][j].imag()));
             mySUSY.V.assign(i,j, complex(VCha[i][j].real(), VCha[i][j].imag()));
@@ -261,7 +264,7 @@ bool FeynHiggs::CalcSpectrum()
 
     /* neutralinos */
     for(int i = 0; i < 4; i++) {
-        mySUSY.Mneu(i) = MNeu[i];
+        mySUSY.mneu(i) = MNeu[i];
         for(int j = 0; j < 4; j++)
             mySUSY.N.assign(i,j, complex(ZNeu[i][j].real(), ZNeu[i][j].imag()));
     }

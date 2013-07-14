@@ -8,6 +8,7 @@
 #ifndef SUSY_H
 #define	SUSY_H
 
+#include <gslpp.h>
 #include <StandardModel.h>
 #include <EWSM.h>
 #include "SUSYMatching.h"
@@ -209,6 +210,29 @@ public:
     }
 
     /**
+     * @brief Gets the sine of the effective mixing angle for the CP-even neutral Higgs bosons. 
+     * @return
+     */
+    complex getSaeff() const
+    {
+        return saeff;
+    }
+
+    /**
+     * @brief Gets the neutral Higgs masses.
+     * @return The neutral Higgs masses
+     */
+    vector<double> getMH0() const
+    {
+        vector<double> tmp(4,0.);
+        tmp(0) = mh[0];
+        tmp(1) = mh[1];
+        tmp(2) = mh[2];
+        tmp(3) = mh[3];
+        return tmp;
+    }
+
+    /**
      * @brief Gets the light Higgs mass.
      * @return The light Higgs mass.
      */
@@ -244,7 +268,7 @@ public:
         return mh[3];
     }
 
-    
+
     ///////////////////////////////////////////////////////////////////////////
     // functions for the parameters in the gaugino sector.
 
@@ -259,12 +283,12 @@ public:
     // functions for the parameters in the chargino sector.
 
     /**
-     * @brief Gets the chargino mass.
-     * @return The chargino mass.
+     * @brief Gets the chargino masses.
+     * @return The chargino masses.
      */
     vector<double> getMch() const
     {
-        return Mch;
+        return mch;
     }
 
     /**
@@ -290,12 +314,12 @@ public:
     // functions for the parameters in the neutralino sector.
     
     /**
-     * @brief Gets the neutralino mass.
-     * @return The neutralino mass
+     * @brief Gets the neutralino masses.
+     * @return The neutralino masses. 
      */
     vector<double> getMneu() const
     {
-        return Mneu;
+        return mneu;
     }
 
     /**
@@ -335,7 +359,7 @@ public:
      */
     vector<double> getMsu2() const
     {
-        return Msu2;
+        return m_su2;
     }
 
     /**
@@ -344,7 +368,7 @@ public:
      */
     vector<double> getMsd2() const
     {
-        return Msd2;
+        return m_sd2;
     }
 
     /**
@@ -393,16 +417,16 @@ public:
      */
     vector<double> getMsn2() const
     {
-        return Msn2;
+        return m_sn2;
     }
 
     /**
      * @brief Gets the charged slepton mass squared.
      * @return The charged slepton mass squared.
      */
-    vector<double> getMsl2() const
+    vector<double> getMse2() const
     {
-        return Msl2;
+        return m_se2;
     }
 
     /**
@@ -425,6 +449,42 @@ public:
 
     
     ///////////////////////////////////////////////////////////////////////////
+    // functions for SM fermions
+
+    double Mq_Q(const quark q) const
+    {
+        switch (q) {
+            case UP:
+            case CHARM:
+            case TOP:
+                return mu_Q[(int)(q - UP)/2];
+            case DOWN:
+            case STRANGE:
+            case BOTTOM:
+                return md_Q[((int)(q - DOWN))/2];
+            default:
+                throw std::runtime_error("SUSY::Mq_Q(): Error!");
+        }
+    }
+
+    double Ml_Q(const lepton l) const
+    {
+        switch (l) {
+            case ELECTRON:
+            case MU:
+            case TAU:
+                return me_Q[(int)(l - ELECTRON)/2];
+            case NEUTRINO_1:
+            case NEUTRINO_2:
+            case NEUTRINO_3:
+                return mn_Q[((int)(l - NEUTRINO_1))/2];
+            default:
+                throw std::runtime_error("SUSY::Ml_Q(): Error!");
+        }
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
     // EW precision observables
 
     /**
@@ -444,26 +504,6 @@ public:
      * @return
      */
     double sW2() const;
-
-    /**
-     * @brief
-     * @param[in] INDF fermion index [0-9] (see EWphysics::flavour_st_to_int())
-     * @return The ratio of the effective vector coupling constants @f$g_Z^f=g_V^f/g_A^f@f$ for INDF.
-     */
-    complex gZf(const int INDF) const; // gZf = gVf/gAf
-
-    /**
-     * @brief
-     * @param[in] INDF fermion index [0-9] (see EWphysics::flavour_st_to_int())
-     * @return The weak form factor for INDF.
-     */
-    complex rhoZf(const int INDF) const;
-
-    /**
-     * @brief
-     * @return The radiative-correction factor @f$\Delta r@f$. 
-     */
-    double Delta_r() const;
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -490,14 +530,14 @@ protected:
     // soft-breaking parameters computed with FeynHiggs
     double mHp, mh[4];
     complex saeff;
-    vector<double> Mch, Mneu;
-    vector<double> Msu2, Msd2, Msn2, Msl2;
+    vector<double> mch, mneu;
+    vector<double> m_su2, m_sd2, m_sn2, m_se2;
 
     // rotation matrices
     matrix<complex> U, V, N, Ru, Rd, Rn, Rl;
 
-    // quark masses at scale Q, computed in setYukawas()
-    double mu_Q[3], md_Q[3];
+    // quark and lepton masses at scale Q, computed in setYukawas()
+    double mu_Q[3], md_Q[3], me_Q[3], mn_Q[3];
 
     
     ///////////////////////////////////////////////////////////////////////////
