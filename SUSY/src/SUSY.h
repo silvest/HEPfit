@@ -120,7 +120,7 @@ public:
      */
     double getM1() const
     {
-        return m3;
+        return m1;
     }
 
     /**
@@ -129,7 +129,7 @@ public:
      */
     double getM2() const
     {
-        return m3;
+        return m2;
     }
 
     /**

@@ -304,7 +304,7 @@ double SUSY::Mw() const
 
     /* Delta rho approximation */
     double Mw_SM = StandardModel::Mw();
-    double cW2_SM = Mw_SM*Mw_SM/getMz()/getMz();
+    double cW2_SM = Mw_SM*Mw_SM/Mz/Mz;
     double sW2_SM = 1.0 - cW2_SM;
     return ( Mw_SM*(1.0 + cW2_SM/2.0/(cW2_SM - sW2_SM)*myFH->getFHdeltarho()) );
 }
