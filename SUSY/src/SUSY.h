@@ -335,6 +335,21 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // functions for the parameters in the squark sector.
 
+    matrix<complex> getMsQ2() const
+    {
+        return MsQ2;
+    }
+
+    matrix<complex> getMsU2() const
+    {
+        return MsU2;
+    }
+
+    matrix<complex> getMsD2() const
+    {
+        return MsD2;
+    }
+
     /**
      * @brief Gets the trilinear-coupling matrix for up-type squarks.
      * @return The trilinear-coupling matrix for up-type squarks.
@@ -392,6 +407,21 @@ public:
 
     ///////////////////////////////////////////////////////////////////////////
     // functions for the parameters in the slepton sector.
+
+    matrix<complex> getMsL2() const
+    {
+        return MsL2;
+    }
+
+    matrix<complex> getMsN2() const
+    {
+        return MsN2;
+    }
+
+    matrix<complex> getMsE2() const
+    {
+        return MsE2;
+    }
 
     /**
      * @brief Gets the trilinear-coupling matrix for sneutrinos.

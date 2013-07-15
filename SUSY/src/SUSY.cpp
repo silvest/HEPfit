@@ -121,6 +121,9 @@ bool SUSY::PostUpdate()
     if(!myFH->CalcHiggsSpectrum()) return (false);
     if(!myFH->CalcSpectrum()) return (false);
 
+    /* Set the mass of the SM-like Higgs */
+    mHl = mh[0];
+
     /* For EWSUSY class */
     myEWSUSY->SetRosiekParameters();
 
