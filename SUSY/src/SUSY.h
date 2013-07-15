@@ -118,7 +118,7 @@ public:
      * @brief Gets the bino mass.
      * @return The bino mass.
      */
-    double getM1() const
+    complex getM1() const
     {
         return m1;
     }
@@ -127,7 +127,7 @@ public:
      * @brief Gets the wino mass.
      * @return The wino mass.
      */
-    double getM2() const
+    complex getM2() const
     {
         return m2;
     }
