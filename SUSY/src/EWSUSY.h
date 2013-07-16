@@ -381,6 +381,47 @@ private:
     complex L_eLN(const int N, const int k, const int j, const double Mw_i) const;
     complex R_eLN(const int N, const int k, const int j, const double Mw_i) const;
 
+    /**
+     * @brief
+     * @param[in] m1
+     * @param[in] m2
+     * @param[in] m3
+     * @param[in] m4
+     * @return 
+     * @par References
+     * Eqs. (A.11) and (A.13)
+     * in [<A HREF="http://inspirehep.net/record/363948?ln=en">
+     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
+     */
+    complex F(const double m1, const double m2, const double m3, const double m4) const;
+
+    /**
+     * @brief
+     * @param[in] m1
+     * @param[in] m2
+     * @param[in] m3
+     * @param[in] m4
+     * @return
+     * @par References
+     * Eqs. (A.12) and (A.14)
+     * in [<A HREF="http://inspirehep.net/record/363948?ln=en">
+     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
+     */
+    complex H(const double m1, const double m2, const double m3, const double m4) const;
+
+    /**
+     * @brief
+     * @param[in] m1
+     * @param[in] m2
+     * @param[in] m3
+     * @return
+     * @par References
+     * Eqs. (A.15) and (A.16)
+     * in [<A HREF="http://inspirehep.net/record/363948?ln=en">
+     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
+     */
+    complex f(const double m1, const double m2, const double m3) const;
+
 };
 
 #endif	/* EWSUSY_H */

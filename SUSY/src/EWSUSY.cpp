@@ -431,26 +431,25 @@ double EWSUSY::DeltaR_boxLL_SUSY(const double Mw_i) const
 
     complex a11 = complex(0.0, 0.0, false);
     complex a12 = complex(0.0, 0.0, false);
-    complex F, H;
 
     /* charged-lepton - sneutrino - chargino - neutralino loop */
     for (int k=0; k<6; ++k)
         for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
             for (int i=0; i<2; ++i)
                 for (int j=0; j<4; ++j) {
-                    F = PV.D0(0.0, 0.0, Mse[k], Msn[K], mC[i], mN[j]);
+                    complex FF = F(Mse[k], Msn[K], mC[i], mN[j]);
                     a11 += 0.5
                            *L_esnC(M, K, i, Mw_i)
                            *L_nLC(I, k, i, Mw_i)
                            *L_nsnN(J, K, j, Mw_i).conjugate()
                            *L_eLN(N, k, j, Mw_i).conjugate()
-                           *mC[i]*mN[j]*F;
+                           *mC[i]*mN[j]*FF;
                     a11 += 0.5
                            *L_eLN(M, k, j, Mw_i)
                            *L_nsnN(I, K, j, Mw_i)
                            *L_nLC(J, k, i, Mw_i).conjugate()
                            *L_esnC(N, K, i, Mw_i).conjugate()
-                           *mC[i]*mN[j]*F;
+                           *mC[i]*mN[j]*FF;
                 }
     
     /* charged-lepton - charged-lepton - chargino - neutralino loop */
@@ -458,16 +457,11 @@ double EWSUSY::DeltaR_boxLL_SUSY(const double Mw_i) const
         for (int l=0; l<6; ++l)
             for (int i=0; i<2; ++i)
                 for (int j=0; j<4; ++j) {
-
-
-                    H = 0.0; /* Write codes! */
-
-
                     a11 +=  L_eLN(M, k, j, Mw_i)
                            *L_nLC(J, k, i, Mw_i).conjugate()
                            *L_nLC(I, l, i, Mw_i)
                            *L_eLN(N, l, j, Mw_i).conjugate()
-                           *H;
+                           *H(Mse[k], Mse[l], mC[i], mN[j]);
                 }
 
     /* sneutrino - sneutrino - chargino - neutralino loop */
@@ -475,16 +469,11 @@ double EWSUSY::DeltaR_boxLL_SUSY(const double Mw_i) const
         for (int L=0; L<3; ++L)  /* L=0-3 for left-handed sneutrinos */
             for (int i=0; i<2; ++i)
                 for (int j=0; j<4; ++j) {
-
-
-                    H = 0.0; /* Write codes! */
-
-                    
                     a11 +=  L_esnC(M, K, j, Mw_i)
                            *L_nsnN(J, K, i, Mw_i).conjugate()
                            *L_nsnN(I, L, i, Mw_i)
                            *L_esnC(N, L, j, Mw_i).conjugate()
-                           *H;
+                           *H(Msn[K], Msn[L], mC[i], mN[j]);
                 }
 
     /* charged-lepton - sneutrino - chargino - chargino loop */
@@ -492,14 +481,12 @@ double EWSUSY::DeltaR_boxLL_SUSY(const double Mw_i) const
         for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
             for (int i=0; i<2; ++i)
                 for (int j=0; j<2; ++j) {
-                    F = PV.D0(0.0, 0.0, Mse[k], Msn[K], mC[i], mC[j]);
-
                     a12 += 0.5
                            *L_esnC(M, K, i, Mw_i)
                            *L_nLC(I, k, i, Mw_i)
                            *L_nLC(J, k, j, Mw_i).conjugate()
                            *L_esnC(N, K, j, Mw_i).conjugate()
-                           *mC[i]*mC[j]*F;
+                           *mC[i]*mC[j]*F(Mse[k], Msn[K], mC[i], mC[j]);;
                 }
 
     /* charged-lepton - sneutrino - neutralino - neutralino loop */
@@ -507,23 +494,17 @@ double EWSUSY::DeltaR_boxLL_SUSY(const double Mw_i) const
         for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
             for (int i=0; i<4; ++i)
                 for (int j=0; j<4; ++j) {
-                    F = PV.D0(0.0, 0.0, Mse[k], Msn[K], mN[i], mN[j]);
                     a12 += 0.5
                            *L_eLN(M, k, i, Mw_i)
                            *L_nsnN(I, K, i, Mw_i)
                            *L_nsnN(J, K, j, Mw_i).conjugate()
                            *L_eLN(N, k, j, Mw_i).conjugate()
-                           *mN[i]*mN[j]*F;
-
-
-                    H = 0.0; /* Write codes! */
-
-
+                           *mN[i]*mN[j]*F(Mse[k], Msn[K], mN[i], mN[j]);
                     a12 +=  L_eLN(M, k, i, Mw_i)
                            *L_nsnN(J, K, i, Mw_i).conjugate()
                            *L_nsnN(I, K, j, Mw_i)
                            *L_eLN(N, k, j, Mw_i).conjugate()
-                           *H;
+                           *H(Mse[k], Msn[K], mN[i], mN[j]);
                }
 
     complex a1 = (a11 + a12)/16.0/M_PI/M_PI;
@@ -541,30 +522,25 @@ double EWSUSY::DeltaR_boxLR_SUSY(const double Mw_i) const
 
     complex a21 = complex(0.0, 0.0, false);
     complex a22 = complex(0.0, 0.0, false);
-    complex F, H;
 
     /* charged-lepton - sneutrino - chargino - neutralino loop */
     for (int k=0; k<6; ++k)
         for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
             for (int i=0; i<2; ++i)
                 for (int j=0; j<4; ++j) {
-
-
-                    H = 0.0; /* Write codes! */
-
-
+                    complex HH = H(Mse[k], Msn[K], mC[i], mN[j]);
                     a21 += - 2.0
                              *R_esnC(M, K, i)
                              *L_nLC(I, k, i, Mw_i)
                              *L_nsnN(J, K, j, Mw_i).conjugate()
                              *R_eLN(N, k, j, Mw_i).conjugate()
-                             *H;
+                             *HH;
                     a21 += - 2.0
                              *R_eLN(M, k, j, Mw_i)
                              *L_nsnN(I, K, j, Mw_i)
                              *L_nLC(J, k, i, Mw_i).conjugate()
                              *R_esnC(N, K, i).conjugate()
-                             *H;
+                             *HH;
                 }
 
     /* charged-lepton - charged-lepton - chargino - neutralino loop */
@@ -572,17 +548,12 @@ double EWSUSY::DeltaR_boxLR_SUSY(const double Mw_i) const
         for (int l=0; l<6; ++l)
             for (int i=0; i<2; ++i)
                 for (int j=0; j<4; ++j) {
-
-
-                    H = 0.0; /* Write codes! */
-
-
                     a21 += - 2.0
                              *R_eLN(M, k, j, Mw_i)
                              *L_nLC(J, k, i, Mw_i).conjugate()
                              *L_nLC(I, l, i, Mw_i)
                              *R_eLN(N, l, j, Mw_i).conjugate()
-                             *H;
+                             *H(Mse[k], Mse[l], mC[i], mN[j]);
                 }
 
     /* sneutrino - sneutrino - chargino - neutralino loop */
@@ -590,17 +561,12 @@ double EWSUSY::DeltaR_boxLR_SUSY(const double Mw_i) const
         for (int L=0; L<3; ++L)  /* L=0-3 for left-handed sneutrinos */
             for (int i=0; i<2; ++i)
                 for (int j=0; j<4; ++j) {
-
-
-                    H = 0.0; /* Write codes! */
-
-
                     a21 += - 2.0
                              *R_esnC(M, K, i)
                              *L_nsnN(J, K, j, Mw_i).conjugate()
                              *L_nsnN(I, L, j, Mw_i)
                              *R_esnC(N, L, i).conjugate()
-                             *H;
+                             *H(Msn[K], Msn[L], mC[i], mN[j]);
                 }
 
     /* charged-lepton - sneutrino - neutralino - neutralino loop */
@@ -608,23 +574,17 @@ double EWSUSY::DeltaR_boxLR_SUSY(const double Mw_i) const
         for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
             for (int i=0; i<4; ++i)
                 for (int j=0; j<4; ++j) {
-                    F = PV.D0(0.0, 0.0, Mse[k], Msn[K], mN[i], mN[j]);
                     a22 += R_eLN(M, k, i, Mw_i)
                            *L_nsnN(J, K, i, Mw_i).conjugate()
                            *L_nsnN(I, K, j, Mw_i)
                            *R_eLN(N, k, j, Mw_i).conjugate()
-                           *mN[i]*mN[j]*F;
-
-                    
-                    H = 0.0; /* Write codes! */
-
-
+                           *mN[i]*mN[j]*F(Mse[k], Msn[K], mN[i], mN[j]);;
                     a22 += 2.0
                            *R_eLN(M, k, i, Mw_i)
                            *L_nsnN(I, K, i, Mw_i)
                            *L_nsnN(J, K, j, Mw_i).conjugate()
                            *R_eLN(N, k, j, Mw_i).conjugate()
-                           *H;
+                           *H(Mse[k], Msn[K], mN[i], mN[j]);
                 }
 
     /* charged-lepton - sneutrino - chargino - chargino loop */
@@ -632,17 +592,12 @@ double EWSUSY::DeltaR_boxLR_SUSY(const double Mw_i) const
         for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
             for (int i=0; i<2; ++i)
                 for (int j=0; j<2; ++j) {
-
-
-                    H = 0.0; /* Write codes! */
-
-                    
                     a22 += 2.0
                            *R_esnC(M, K, i)
                            *L_nLC(I, k, i, Mw_i)
                            *L_nLC(J, k, j, Mw_i).conjugate()
                            *R_esnC(N, K, j).conjugate()
-                           *H;
+                           *H(Mse[k], Msn[K], mC[i], mC[j]);
                 }
 
     complex a2 = (a21 + a22)/16.0/M_PI/M_PI;
@@ -675,55 +630,49 @@ complex EWSUSY::v(const double mu, const StandardModel::lepton M,
     }
 
     complex v = complex(0.0, 0.0, false);
-    complex b0, f;
+    complex b0, ff;
     complex CL_ji, CR_ji; /* chargino-neutralino-W couplings */
     
     /* charged-slepton - chargino - neutralino loops */
-    for (int k=0; k<6; ++k) {
-        for (int j=0; j<4; ++j) {
+    for (int k=0; k<6; ++k)
+        for (int j=0; j<4; ++j)
             for (int i=0; i<2; ++i) {
                 CL_ji = ZN(1,j)*Zp(0,i).conjugate()
                         - ZN(3,i)*Zp(1,i).conjugate()/sqrt(2.0);
                 CR_ji = ZN(1,j).conjugate()*Zm(0,i)
                         + ZN(2,i).conjugate()*Zm(1,i)/sqrt(2.0);
                 b0 = PV.B0(mu, 0.0, mC[i], mN[j]);
-                f = - PV.C0(0.0, Mse[k], mC[i], mN[j]);
+                ff = f(Mse[k], mC[i], mN[j]);
                 v += L_nLC(intJ, k, i, Mw_i).conjugate()*L_eLN(intM, k, j, Mw_i)
-                     *( sqrt(2.0)*CL_ji*mC[i]*mN[j]*f
-                        - CR_ji/sqrt(2.0)*(b0 - 0.5 + Mse[k]*Mse[k]*f) );
+                     *( sqrt(2.0)*CL_ji*mC[i]*mN[j]*ff
+                        - CR_ji/sqrt(2.0)*(b0 - 0.5 + Mse[k]*Mse[k]*ff) );
             }
-        }
-    }
 
     /* sneutrino - neutralino - chargino loops */
-    for (int K=0; K<3; ++K) {  /* K=0-3 for left-handed sneutrinos */
-        for (int j=0; j<4; ++j) {
+    for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+        for (int j=0; j<4; ++j)
             for (int i=0; i<2; ++i) {
                 CL_ji = ZN(1,j)*Zp(0,i).conjugate()
                         - ZN(3,i)*Zp(1,i).conjugate()/sqrt(2.0);
                 CR_ji = ZN(1,j).conjugate()*Zm(0,i)
                         + ZN(2,i).conjugate()*Zm(1,i)/sqrt(2.0);
                 b0 = PV.B0(mu, 0.0, mC[i], mN[j]);
-                f = - PV.C0(0.0, Msn[K], mC[i], mN[j]);
+                ff = f(Msn[K], mC[i], mN[j]);
                 v += L_nsnN(intJ, K, j, Mw_i).conjugate()*L_esnC(intM, K, i, Mw_i)
-                     *( - sqrt(2.0)*CR_ji*mC[i]*mN[j]*f
-                        + CL_ji/sqrt(2.0)*(b0 - 0.5 + Msn[K]*Msn[K]*f) );
+                     *( - sqrt(2.0)*CR_ji*mC[i]*mN[j]*ff
+                        + CL_ji/sqrt(2.0)*(b0 - 0.5 + Msn[K]*Msn[K]*ff) );
             }
-        }
-    }
     
     /* sneutrino - charged-slepton - neutralino loops */
     matrix<complex> ZneT_ZL = Zne.transpose()*ZL;
-    for (int i=0; i<6; ++i) {
-        for (int j=0; j<4; ++j) {
+    for (int i=0; i<6; ++i)
+        for (int j=0; j<4; ++j)
             for (int K=0; K<3; ++K) {  /* K=0-3 for left-handed sneutrinos */
                 b0 = PV.B0(mu, 0.0, Mse[i], Msn[K]);
-                f = - PV.C0(0.0, mN[j], Mse[i], Msn[K]);
+                ff = f(mN[j], Mse[i], Msn[K]);
                 v += 0.5*L_nsnN(intJ, K, j, Mw_i).conjugate()*L_eLN(intM, i, j, Mw_i)
-                     *ZneT_ZL(K, i).conjugate()*(b0 + 0.5 + mN[j]*mN[j]*f);
+                     *ZneT_ZL(K, i).conjugate()*(b0 + 0.5 + mN[j]*mN[j]*ff);
             }
-        }
-    }
 
     return ( v/16.0/M_PI/M_PI );
 }
@@ -756,24 +705,22 @@ complex EWSUSY::delta_v(const double mu, const StandardModel::lepton M,
     complex b0p, b0;
 
     /* charged-slepton - neutralino loops */
-    for (int k=0; k<6; ++k) {
+    for (int k=0; k<6; ++k)
         for (int j=0; j<4; ++j) {
             b0p = PV.B0p(muIR, 0.0, Mse[k], mN[j]);
             b0 = PV.B0(mu, 0.0, Mse[k], mN[j]);
             delv += 0.5*L_eLN(intM, k, j, Mw_i)*L_eLN(intJ, k, j, Mw_i).conjugate()
                     *( (Mse[k]*Mse[k] - mN[j]*mN[j])*b0p - b0 );
         }
-    }
 
     /* sneutrino - chargino loops */
-    for (int K=0; K<3; ++K) {  /* K=0-3 for left-handed sneutrinos */
+    for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
         for (int i=0; i<2; ++i) {
             b0p = PV.B0p(muIR, 0.0, Msn[K], mC[i]);
             b0 = PV.B0(mu, 0.0, Msn[K], mC[i]);
             delv += 0.5*L_esnC(intM, K, i, Mw_i)*L_esnC(intJ, K, i, Mw_i).conjugate()
                     *( (Msn[K]*Msn[K] - mC[i]*mC[i])*b0p - b0 );
         }
-    }
 
     return ( delv/16.0/M_PI/M_PI );
 }
@@ -817,24 +764,22 @@ complex EWSUSY::Sigma_nu_0(const double mu, const StandardModel::lepton I,
     complex b0p, b0;
 
     /* charged-slepton - chargino loops */
-    for (int k=0; k<6; ++k) {
+    for (int k=0; k<6; ++k)
         for (int i=0; i<2; ++i) {
             b0p = PV.B0p(muIR, 0.0, Mse[k], mC[i]);
             b0 = PV.B0(mu, 0.0, Mse[k], mC[i]);
             Sigma += 0.5*L_nLC(intI, k, i, Mw_i)*L_nLC(intJ, k, i, Mw_i).conjugate()
                      *( (Mse[k]*Mse[k] - mC[i]*mC[i])*b0p - b0 );
         }
-    }
 
     /* sneutrino - neutralino loops */
-    for (int K=0; K<3; ++K) {  /* K=0-3 for left-handed sneutrinos */
+    for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
         for (int j=0; j<4; ++j) {
             b0p = PV.B0p(muIR, 0.0, Msn[K], mN[j]);
             b0 = PV.B0(mu, 0.0, Msn[K], mN[j]);
             Sigma += 0.5*L_nsnN(intI, K, j, Mw_i)*L_nsnN(intJ, K, j, Mw_i).conjugate()
                      *( (Msn[K]*Msn[K] - mN[j]*mN[j])*b0p - b0 );
         }
-    }
 
     return ( Sigma/16.0/M_PI/M_PI );
 }
@@ -876,6 +821,9 @@ double EWSUSY::DeltaR_MSSM_EW1(const double Mw_i) const
 double EWSUSY::DeltaR_SUSY_EW1(const double Mw_i) const
 {
     double DeltaR_SM_EW1; 
+
+
+    std::cout << "EWSUSY::DeltaR_SUSY_EW1(): Write codes!" << std::endl;
 
     
     /* Write codes for DeltaR_SM_EW1! */
@@ -937,5 +885,26 @@ complex EWSUSY::R_eLN(const int N, const int k, const int j, const double Mw_i) 
              + Yl(N,N)*ZL(N,k)*ZN(2,j).conjugate() );
 }
 
+complex EWSUSY::F(const double m1, const double m2, const double m3,
+                  const double m4) const
+{
+    return PV.D0(0.0, 0.0, m1, m2, m3, m4);
+}
+
+complex EWSUSY::H(const double m1, const double m2, const double m3,
+                  const double m4) const
+{
+
+    
+    std::cout << "EWSUSY::H(): Write codes!" << std::endl;
+
+
+    return complex(0.0, 0.0, false);
+}
+
+complex EWSUSY::f(const double m1, const double m2, const double m3) const
+{
+    return ( - PV.C0(0.0, m1, m2, m3) );
+}
 
 
