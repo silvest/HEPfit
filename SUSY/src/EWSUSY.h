@@ -122,6 +122,10 @@ public:
      *      <td align="center"> @f$R_d^T@f$ </td>
      *    </tr>
      *    <tr>
+     *      <td align="center"> @f$Z_\nu@f$ </td>
+     *      <td align="center"> @f$R_\nu^\dagger@f$ </td>
+     *    </tr>
+     *    <tr>
      *      <td align="center"> @f$Z_L@f$ </td>
      *      <td align="center"> @f$R_e^T@f$ </td>
      *    </tr>
@@ -130,7 +134,7 @@ public:
      *  </tr>
      *  </table>
      * @f$Z_R=\left(\begin{array}{cc} \cos\alpha & -\sin\alpha \\ \sin\alpha & \cos\alpha \end{array}\right)@f$,
-     * @f$Z_H=\left(\begin{array}{cc} \sin\beta & -\cos\beta \\ \cos\beta & \sin\beta \end{array}\right)@f$,
+     * @f$Z_H=\left(\begin{array}{cc} \sin\beta & -\cos\beta \\ \cos\beta & \sin\beta \end{array}\right)@f$.
      */
     void SetRosiekParameters();
 
@@ -365,6 +369,13 @@ private:
     matrix<complex> Zne; ///< The rotation matrix for sneutrinos in Rosiek's notation.
     matrix<double> ZR; ///< The rotation matrix for CP-even neutral Higgses in Rosiek's notation.
     matrix<double> ZH; ///< The rotation matrix for charged (CP-odd neutral) Higgs and charged (neutral) Goldstone boson in Rosiek's notation.
+
+    complex L_esnC(const int N, const int K, const int i, const double Mw_i) const;
+    complex R_esnC(const int N, const int K, const int i) const;
+    complex L_nLC(const int I, const int k, const int i, const double Mw_i) const;
+    complex L_nsnN(const int J, const int K, const int j, const double Mw_i) const;
+    complex L_eLN(const int N, const int k, const int j, const double Mw_i) const;
+    complex R_eLN(const int N, const int k, const int j, const double Mw_i) const;
 
 };
 
