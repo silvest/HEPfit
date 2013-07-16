@@ -58,7 +58,12 @@ void EWSUSY::SetRosiekParameters()
         m_d[I] = mySUSY.Mq_Q((StandardModel::quark)(2*I + 1));
         /* charged leptons */
         m_l[I] = mySUSY.Ml_Q((StandardModel::lepton)(2*I + 1));
-    }    
+    }
+    /* H^0_i = (H^0, h^0, A^0, G^0) */
+    mH0[0] = mySUSY.getMHh();
+    mH0[1] = mySUSY.getMHl();
+    mH0[2] = mySUSY.getMHa();
+    mH0[3] = mySUSY.getMz(); /* mass of the neutral Goldstone boson */
     for (int k=0; k<6; ++k) {
         Msu[k] = sqrt(mySUSY.getMsu2()(k));
         Msd[k] = sqrt(mySUSY.getMsd2()(k));
@@ -96,6 +101,7 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     double Nc = mySUSY.getNc();
 
     /* variables depending on Mw_i */
+    double mHp[2] = {mySUSY.getMHp(), Mw_i}; /* H^+_i = (H^+, G^+) */
     double cW = Mw_i/Mz;
     double cW2 = cW*cW;
     double sW2 = 1.0 - cW2;
@@ -222,29 +228,23 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
         }
     
     /* charged-Higgs loops */
-    double mi, mj;
     double cot_2thW = (cW2 - sW2)/(2.0*sW*cW);
-    mi = mySUSY.getMHp();
-    b22 = PV.B22(mu, p2, mi, mi);
-    a0 = PV.A0(mu, mi);
-    PiT += 4.0*e2*cot_2thW*cot_2thW*(2.0*b22 + a0);
-
+    for (int i=0; i<2; ++i) {
+        b22 = PV.B22(mu, p2, mHp[i], mHp[i]);
+        a0 = PV.A0(mu, mHp[i]);
+        PiT += 2.0*e2*cot_2thW*cot_2thW*(2.0*b22 + a0);
+    }
+    
     /* neutral-Higgs loops */
     double AM_ij;
-    for (int i=0; i<2; ++i) {
-        if (i==0) mi = mySUSY.getMHh();
-        else mi = mySUSY.getMHl();
+    for (int i=0; i<2; ++i)
         for (int j=0; j<2; ++j) {
-            if (j==0) mj = mySUSY.getMHa();
-            else mj = Mz; /* mass of the neutral Goldstone boson */
             AM_ij = ZR(0,i)*ZH(0,j) - ZR(1,i)*ZH(1,j);
-            b22 = PV.B22(mu, p2, mi, mj);
+            b22 = PV.B22(mu, p2, mH0[i], mH0[j+2]);
             PiT += g2sq/cW2*AM_ij*AM_ij*b22;
         }
-    }
     for (int j=0; j<4; ++j) {
-        mj = mySUSY.getMH0()(j);
-        a0 = PV.A0(mu, mj);
+        a0 = PV.A0(mu, mH0[j]);
         PiT += g2sq/4.0/cW2*a0;
     }
 
@@ -259,10 +259,8 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     /* Z-boson and Higgs loops */
     double CR_i;
     for (int i=0; i<2; ++i) {
-        if (i==0) mi = mySUSY.getMHh();
-        else mi = mySUSY.getMHl();
         CR_i = mySUSY.v1()*ZR(0,i) + mySUSY.v2()*ZR(1,i);
-        b0 = PV.B0(mu, p2, mySUSY.getMz(), mi);
+        b0 = PV.B0(mu, p2, mySUSY.getMz(), mH0[i]);
         PiT += - g2sq/4.0/cW2/cW2*CR_i*CR_i*b0;
     }
     
@@ -278,6 +276,7 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
     double Nc = mySUSY.getNc();
 
     /* variables depending on Mw_i */
+    double mHp[2] = {mySUSY.getMHp(), Mw_i}; /* H^+_i = (H^+, G^+) */
     double cW = Mw_i/Mz;
     double cW2 = cW*cW;
     double sW2 = 1.0 - cW2;
@@ -316,6 +315,7 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
     double Nc = mySUSY.getNc();
 
     /* variables depending on Mw_i */
+    double mHp[2] = {mySUSY.getMHp(), Mw_i}; /* H^+_i = (H^+, G^+) */
     double cW = Mw_i/Mz;
     double cW2 = cW*cW;
     double sW2 = 1.0 - cW2;

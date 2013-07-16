@@ -219,20 +219,6 @@ public:
     }
 
     /**
-     * @brief Gets the neutral Higgs masses.
-     * @return The neutral Higgs masses
-     */
-    vector<double> getMH0() const
-    {
-        vector<double> tmp(4,0.);
-        tmp(0) = mh[0];
-        tmp(1) = mh[1];
-        tmp(2) = mh[2];
-        tmp(3) = mh[3];
-        return tmp;
-    }
-
-    /**
      * @brief Gets the light Higgs mass.
      * @return The light Higgs mass.
      */
