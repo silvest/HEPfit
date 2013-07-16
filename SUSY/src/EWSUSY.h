@@ -241,8 +241,7 @@ public:
      * to @f$\Delta r@f$ in the 't Hooft-Feynman gauge.
      * @par References
      * Eq. (4) in [<A HREF="http://inspirehep.net/record/363948?ln=en">
-     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>],
-     * in which only the finite contribution is presented. 
+     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
      */
     double DeltaR_rem_SM(const double Mw_i) const;
 
@@ -251,7 +250,8 @@ public:
      * @param[in] Mw_i The W-boson mass @f$M_W@f$.
      * @return The LL SUSY box corrections to @f$\Delta r@f$ in the 't Hooft-Feynman gauge.
      * @par References
-     * Eq. (A.17) in [<A HREF="http://inspirehep.net/record/363948?ln=en">
+     * Eqs. (A.5), (A.6), (A.7) and (A.19)
+     * in [<A HREF="http://inspirehep.net/record/363948?ln=en">
      * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
      */
     double DeltaR_boxLL_SUSY(const double Mw_i) const;
@@ -260,6 +260,10 @@ public:
      * @brief The LR SUSY box corrections to @f$\Delta r@f$ in the 't Hooft-Feynman gauge.
      * @param[in] Mw_i The W-boson mass @f$M_W@f$.
      * @return The LR SUSY box corrections to @f$\Delta r@f$ in the 't Hooft-Feynman gauge.
+     * @par References
+     * Eqs. (A.8), (A.9) and (A.10)
+     * in [<A HREF="http://inspirehep.net/record/363948?ln=en">
+     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
      */
     double DeltaR_boxLR_SUSY(const double Mw_i) const;
     
@@ -272,8 +276,7 @@ public:
      * @return @f$v(M,J)@f$.
      * @par References
      * Eq. (A.19) in [<A HREF="http://inspirehep.net/record/363948?ln=en">
-     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>],
-     * in which only the finite contribution is presented.
+     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
      */
     complex v(const double mu, const StandardModel::lepton M,
               const StandardModel::lepton J, const double Mw_i) const;
@@ -287,8 +290,7 @@ public:
      * @return @f$\delta v(M,J)@f$.
      * @par References
      * Eq. (A.21) in [<A HREF="http://inspirehep.net/record/363948?ln=en">
-     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>],
-     * in which only the finite contribution is presented.
+     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
      */
     complex delta_v(const double mu, const StandardModel::lepton M,
                     const StandardModel::lepton J, const double Mw_i) const;

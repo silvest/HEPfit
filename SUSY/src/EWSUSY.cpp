@@ -341,33 +341,244 @@ double EWSUSY::DeltaR_rem_SM(const double Mw_i) const
 
 double EWSUSY::DeltaR_boxLL_SUSY(const double Mw_i) const
 {
-    double cW2 = Mw_i*Mw_i/mySUSY.getMz()/mySUSY.getMz();
-    double sW2 = 1.0 - cW2;
+    int M = 1; // MU
+    int N = 0; // ELECTRON
+    int J = 1; // NEUTRINO_2
+    int I = 0; // NEUTRINO_1
 
-    complex a11, a12;
+    complex a11 = complex(0.0, 0.0, false);
+    complex a12 = complex(0.0, 0.0, false);
+    complex F, H;
+    double ML[6] = {sqrt(mySUSY.getMse2()(0)), sqrt(mySUSY.getMse2()(1)),
+                    sqrt(mySUSY.getMse2()(2)), sqrt(mySUSY.getMse2()(3)),
+                    sqrt(mySUSY.getMse2()(4)), sqrt(mySUSY.getMse2()(5))};
+    double Msn[3] = {sqrt(mySUSY.getMsn2()(0)), sqrt(mySUSY.getMsn2()(1))};
+    double mC[2] = {mySUSY.getMch()(0), mySUSY.getMch()(1)};
+    double mN[4] = {mySUSY.getMneu()(0), mySUSY.getMneu()(1),
+                    mySUSY.getMneu()(2), mySUSY.getMneu()(3)};
+
+    /* charged-lepton - sneutrino - chargino - neutralino loop */
+    for (int k=0; k<6; ++k)
+        for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+            for (int i=0; i<2; ++i)
+                for (int j=0; j<4; ++j) {
+                    F = PV.D0(0.0, 0.0, ML[k], Msn[K], mC[i], mN[j]);
+                    a11 += 0.5
+                           *L_esnC(M, K, i, Mw_i)
+                           *L_nLC(I, k, i, Mw_i)
+                           *L_nsnN(J, K, j, Mw_i).conjugate()
+                           *L_eLN(N, k, j, Mw_i).conjugate()
+                           *mC[i]*mN[j]*F;
+                    a11 += 0.5
+                           *L_eLN(M, k, j, Mw_i)
+                           *L_nsnN(I, K, j, Mw_i)
+                           *L_nLC(J, k, i, Mw_i).conjugate()
+                           *L_esnC(N, K, i, Mw_i).conjugate()
+                           *mC[i]*mN[j]*F;
+                }
+    
+    /* charged-lepton - charged-lepton - chargino - neutralino loop */
+    for (int k=0; k<6; ++k)
+        for (int l=0; l<6; ++l)
+            for (int i=0; i<2; ++i)
+                for (int j=0; j<4; ++j) {
 
 
-    /* Write codes! */
+                    H = 0.0; /* Write codes! */
 
+
+                    a11 +=  L_eLN(M, k, j, Mw_i)
+                           *L_nLC(J, k, i, Mw_i).conjugate()
+                           *L_nLC(I, l, i, Mw_i)
+                           *L_eLN(N, l, j, Mw_i).conjugate()
+                           *H;
+                }
+
+    /* sneutrino - sneutrino - chargino - neutralino loop */
+    for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+        for (int L=0; L<3; ++L)  /* L=0-3 for left-handed sneutrinos */
+            for (int i=0; i<2; ++i)
+                for (int j=0; j<4; ++j) {
+
+
+                    H = 0.0; /* Write codes! */
+
+                    
+                    a11 +=  L_esnC(M, K, j, Mw_i)
+                           *L_nsnN(J, K, i, Mw_i).conjugate()
+                           *L_nsnN(I, L, i, Mw_i)
+                           *L_esnC(N, L, j, Mw_i).conjugate()
+                           *H;
+                }
+
+    /* charged-lepton - sneutrino - chargino - chargino loop */
+    for (int k=0; k<6; ++k)
+        for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+            for (int i=0; i<2; ++i)
+                for (int j=0; j<2; ++j) {
+                    F = PV.D0(0.0, 0.0, ML[k], Msn[K], mC[i], mC[j]);
+
+                    a12 += 0.5
+                           *L_esnC(M, K, i, Mw_i)
+                           *L_nLC(I, k, i, Mw_i)
+                           *L_nLC(J, k, j, Mw_i).conjugate()
+                           *L_esnC(N, K, j, Mw_i).conjugate()
+                           *mC[i]*mC[j]*F;
+                }
+
+    /* charged-lepton - sneutrino - neutralino - neutralino loop */
+    for (int k=0; k<6; ++k)
+        for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+            for (int i=0; i<4; ++i)
+                for (int j=0; j<4; ++j) {
+                    F = PV.D0(0.0, 0.0, ML[k], Msn[K], mN[i], mN[j]);
+                    a12 += 0.5
+                           *L_eLN(M, k, i, Mw_i)
+                           *L_nsnN(I, K, i, Mw_i)
+                           *L_nsnN(J, K, j, Mw_i).conjugate()
+                           *L_eLN(N, k, j, Mw_i).conjugate()
+                           *mN[i]*mN[j]*F;
+
+
+                    H = 0.0; /* Write codes! */
+
+
+                    a12 +=  L_eLN(M, k, i, Mw_i)
+                           *L_nsnN(J, K, i, Mw_i).conjugate()
+                           *L_nsnN(I, K, j, Mw_i)
+                           *L_eLN(N, k, j, Mw_i).conjugate()
+                           *H;
+               }
 
     complex a1 = (a11 + a12)/16.0/M_PI/M_PI;
 
+    double sW2 = 1.0 - Mw_i*Mw_i/mySUSY.getMz()/mySUSY.getMz();
     return ( - sW2*Mw_i*Mw_i/2.0/M_PI/mySUSY.getAle()*a1.real() );
 }
 
 double EWSUSY::DeltaR_boxLR_SUSY(const double Mw_i) const
 {
-    double cW2 = Mw_i*Mw_i/mySUSY.getMz()/mySUSY.getMz();
-    double sW2 = 1.0 - cW2;
+    int M = 1; // MU
+    int N = 0; // ELECTRON
+    int J = 1; // NEUTRINO_2
+    int I = 0; // NEUTRINO_1
 
-    complex a21, a22;
+    complex a21 = complex(0.0, 0.0, false);
+    complex a22 = complex(0.0, 0.0, false);
+    complex F, H;
+    double ML[6] = {sqrt(mySUSY.getMse2()(0)), sqrt(mySUSY.getMse2()(1)),
+                    sqrt(mySUSY.getMse2()(2)), sqrt(mySUSY.getMse2()(3)),
+                    sqrt(mySUSY.getMse2()(4)), sqrt(mySUSY.getMse2()(5))};
+    double Msn[3] = {sqrt(mySUSY.getMsn2()(0)), sqrt(mySUSY.getMsn2()(1))};
+    double mC[2] = {mySUSY.getMch()(0), mySUSY.getMch()(1)};
+    double mN[4] = {mySUSY.getMneu()(0), mySUSY.getMneu()(1),
+                    mySUSY.getMneu()(2), mySUSY.getMneu()(3)};
+
+    /* charged-lepton - sneutrino - chargino - neutralino loop */
+    for (int k=0; k<6; ++k)
+        for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+            for (int i=0; i<2; ++i)
+                for (int j=0; j<4; ++j) {
 
 
-    /* Write codes! */
+                    H = 0.0; /* Write codes! */
 
+
+                    a21 += - 2.0
+                             *R_esnC(M, K, i)
+                             *L_nLC(I, k, i, Mw_i)
+                             *L_nsnN(J, K, j, Mw_i).conjugate()
+                             *R_eLN(N, k, j, Mw_i).conjugate()
+                             *H;
+                    a21 += - 2.0
+                             *R_eLN(M, k, j, Mw_i)
+                             *L_nsnN(I, K, j, Mw_i)
+                             *L_nLC(J, k, i, Mw_i).conjugate()
+                             *R_esnC(N, K, i).conjugate()
+                             *H;
+                }
+
+    /* charged-lepton - charged-lepton - chargino - neutralino loop */
+    for (int k=0; k<6; ++k)
+        for (int l=0; l<6; ++l)
+            for (int i=0; i<2; ++i)
+                for (int j=0; j<4; ++j) {
+
+
+                    H = 0.0; /* Write codes! */
+
+
+                    a21 += - 2.0
+                             *R_eLN(M, k, j, Mw_i)
+                             *L_nLC(J, k, i, Mw_i).conjugate()
+                             *L_nLC(I, l, i, Mw_i)
+                             *R_eLN(N, l, j, Mw_i).conjugate()
+                             *H;
+                }
+
+    /* sneutrino - sneutrino - chargino - neutralino loop */
+    for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+        for (int L=0; L<3; ++L)  /* L=0-3 for left-handed sneutrinos */
+            for (int i=0; i<2; ++i)
+                for (int j=0; j<4; ++j) {
+
+
+                    H = 0.0; /* Write codes! */
+
+
+                    a21 += - 2.0
+                             *R_esnC(M, K, i)
+                             *L_nsnN(J, K, j, Mw_i).conjugate()
+                             *L_nsnN(I, L, j, Mw_i)
+                             *R_esnC(N, L, i).conjugate()
+                             *H;
+                }
+
+    /* charged-lepton - sneutrino - neutralino - neutralino loop */
+    for (int k=0; k<6; ++k)
+        for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+            for (int i=0; i<4; ++i)
+                for (int j=0; j<4; ++j) {
+                    F = PV.D0(0.0, 0.0, ML[k], Msn[K], mN[i], mN[j]);
+                    a22 += R_eLN(M, k, i, Mw_i)
+                           *L_nsnN(J, K, i, Mw_i).conjugate()
+                           *L_nsnN(I, K, j, Mw_i)
+                           *R_eLN(N, k, j, Mw_i).conjugate()
+                           *mN[i]*mN[j]*F;
+
+                    
+                    H = 0.0; /* Write codes! */
+
+
+                    a22 += 2.0
+                           *R_eLN(M, k, i, Mw_i)
+                           *L_nsnN(I, K, i, Mw_i)
+                           *L_nsnN(J, K, j, Mw_i).conjugate()
+                           *R_eLN(N, k, j, Mw_i).conjugate()
+                           *H;
+                }
+
+    /* charged-lepton - sneutrino - chargino - chargino loop */
+    for (int k=0; k<6; ++k)
+        for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+            for (int i=0; i<2; ++i)
+                for (int j=0; j<2; ++j) {
+
+
+                    H = 0.0; /* Write codes! */
+
+                    
+                    a22 += 2.0
+                           *R_esnC(M, K, i)
+                           *L_nLC(I, k, i, Mw_i)
+                           *L_nLC(J, k, j, Mw_i).conjugate()
+                           *R_esnC(N, K, j).conjugate()
+                           *H;
+                }
 
     complex a2 = (a21 + a22)/16.0/M_PI/M_PI;
 
+    double sW2 = 1.0 - Mw_i*Mw_i/mySUSY.getMz()/mySUSY.getMz();
     return ( sW2*Mw_i*Mw_i/4.0/M_PI/mySUSY.getAle()*a2.real() );
 }
 
