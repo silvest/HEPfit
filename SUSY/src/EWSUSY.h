@@ -133,7 +133,7 @@ public:
      *  </td>
      *  </tr>
      *  </table>
-     * @f$Z_R=\left(\begin{array}{cc} \cos\alpha & -\sin\alpha \\ \sin\alpha & \cos\alpha \end{array}\right)@f$,
+     * @f$Z_R=\left(\begin{array}{cc} \cos\alpha & -\sin\alpha \\ \sin\alpha & \cos\alpha \end{array}\right)@f$, 
      * @f$Z_H=\left(\begin{array}{cc} \sin\beta & -\cos\beta \\ \cos\beta & \sin\beta \end{array}\right)@f$.
      */
     void SetRosiekParameters();

@@ -113,9 +113,10 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     complex PiT = complex(0.0, 0.0, false);
     double a0;
     complex b0, b22;
-    complex VZss, VZZss, cV_Zij, cV_Zji, cA_Zij, cA_Zji;
+    complex cV_Zij, cV_Zji, cA_Zij, cA_Zji;
     matrix<double> Id6 = matrix<double>::Id(6);
-
+    matrix<double> Id2 = matrix<double>::Id(2);
+    
     /* neutrino loops */
     b0 = PV.B0(mu, p2, 0.0, 0.0);
     b22 = PV.B22(mu, p2, 0.0, 0.0);
@@ -140,58 +141,60 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     }
 
     /* sneutrino loops */
-    VZss = e_2sc;
-    VZZss = e2/2.0/sW2/cW2;
+    complex VZsnsn_II = e_2sc;
+    complex VZZsnsn_II = e2/2.0/sW2/cW2;
     for (int I=0; I<3; ++I) {  /* I=0-3 for left-handed sneutrinos */
         b22 = PV.B22(mu, p2, Msn[I], Msn[I]);
-        PiT += 4.0*VZss.abs2()*b22;
+        PiT += 4.0*VZsnsn_II.abs2()*b22;
 
         a0 = PV.A0(mu, Msn[I]);
-        PiT += VZZss*a0;
+        PiT += VZZsnsn_II*a0;
     }
 
     /* charged slepton loops */
+    complex VZLL_mn, VZZLL_nn;
     matrix<complex> ZLhc_ZL = ZL.hconjugate()*ZL; 
-    for (int m=0; m<6; ++m) {
-        for (int n=0; n<6; ++n) {
-            VZss = - e_2sc*(ZLhc_ZL(m,n) - 2.0*sW2*Id6(m,n));
+    for (int n=0; n<6; ++n) {
+        for (int m=0; m<6; ++m) {
+            VZLL_mn = - e_2sc*(ZLhc_ZL(m,n) - 2.0*sW2*Id6(m,n));
             b22 = PV.B22(mu, p2, Mse[m], Mse[n]);
-            PiT += 4.0*VZss.abs2()*b22;
+            PiT += 4.0*VZLL_mn.abs2()*b22;
         }
-        VZZss = 2.0*e2/cW2*(sW2 + (1.0 - 4.0*sW2)/4.0/sW2*ZLhc_ZL(m,m));
-        a0 = PV.A0(mu, Mse[m]);
-        PiT += VZZss*a0;
+        VZZLL_nn = 2.0*e2/cW2*(sW2 + (1.0 - 4.0*sW2)/4.0/sW2*ZLhc_ZL(n,n));
+        a0 = PV.A0(mu, Mse[n]);
+        PiT += VZZLL_nn*a0;
     }
 
     /* down-type squark loops */
+    complex VZDD_mn, VZZDD_nn;
     matrix<complex> ZDhc_ZD = ZD.hconjugate()*ZD; 
-    for (int m=0; m<6; ++m) {
-        for (int n=0; n<6; ++n) {
-            VZss = - e_2sc*(ZDhc_ZD(m,n) - 2.0/3.0*sW2*Id6(m,n));
+    for (int n=0; n<6; ++n) {
+        for (int m=0; m<6; ++m) {
+            VZDD_mn = - e_2sc*(ZDhc_ZD(m,n) - 2.0/3.0*sW2*Id6(m,n));
             b22 = PV.B22(mu, p2, Msd[m], Msd[n]);
-            PiT += 4.0*Nc*VZss.abs2()*b22;
+            PiT += 4.0*Nc*VZDD_mn.abs2()*b22;
         }
-        VZZss = 2.0*e2/3.0/cW2*(sW2/3.0 + (3.0 - 4.0*sW2)/4.0/sW2*ZDhc_ZD(m,m));
-        a0 = PV.A0(mu, Msd[m]);
-        PiT += Nc*VZZss*a0;
+        VZZDD_nn = 2.0*e2/3.0/cW2*(sW2/3.0 + (3.0 - 4.0*sW2)/4.0/sW2*ZDhc_ZD(n,n));
+        a0 = PV.A0(mu, Msd[n]);
+        PiT += Nc*VZZDD_nn*a0;
     }
 
     /* up-type squark loops */
+    complex VZUU_mn, VZZUU_nn;
     matrix<complex> ZUhc_ZU = ZU.hconjugate()*ZU;
-    for (int m=0; m<6; ++m) {
-        for (int n=0; n<6; ++n) {
+    for (int n=0; n<6; ++n) {
+        for (int m=0; m<6; ++m) {
             /* (n,m) instead of (m,n) */
-            VZss = e_2sc*(ZUhc_ZU(n,m) - 4.0/3.0*sW2*Id6(m,n));
+            VZUU_mn = e_2sc*(ZUhc_ZU(n,m) - 4.0/3.0*sW2*Id6(m,n));
             b22 = PV.B22(mu, p2, Msu[m], Msu[n]);
-            PiT += 4.0*Nc*VZss.abs2()*b22;
+            PiT += 4.0*Nc*VZUU_mn.abs2()*b22;
         }
-        VZZss = 2.0*e2/3.0/cW2*(4.0*sW2/3.0 + (3.0 - 8.0*sW2)/4.0/sW2*ZUhc_ZU(m,m));
-        a0 = PV.A0(mu, Msu[m]);
-        PiT += Nc*VZZss*a0;
+        VZZUU_nn = 2.0*e2/3.0/cW2*(4.0*sW2/3.0 + (3.0 - 8.0*sW2)/4.0/sW2*ZUhc_ZU(n,n));
+        a0 = PV.A0(mu, Msu[n]);
+        PiT += Nc*VZZUU_nn*a0;
     }
 
     /* chargino loops */
-    matrix<double> Id2 = matrix<double>::Id(2);
     for (int i=0; i<2; ++i)
         for (int j=0; j<2; ++j) {
             cV_Zij = e_4sc*(Zp(0,j).conjugate()*Zp(0,i) 
@@ -282,16 +285,72 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
     double sW2 = 1.0 - cW2;
     double sW = sqrt(sW2);
     double g2sq = e2/sW2; /* g2 squared */
-    double e_4sc = e/4.0/sW/cW;
-    double e_2sc = 2.0*e_4sc;
+    double e_sq2s = e/sqrt(2.0)/sW;
+    double e_2sq2s = e_sq2s/2.0;
+    double e2_2s2 = e2/2.0/sW2;
 
     complex PiT = complex(0.0, 0.0, false);
-
+    double a0;
+    complex b0, b22;
+    complex cV_Wij, cV_Wji, cA_Wij, cA_Wji;
+    matrix<double> Id6 = matrix<double>::Id(6);
+    matrix<double> Id2 = matrix<double>::Id(2);
+    
     /* SM fermion loops */
+    complex cV_Wen = e_2sq2s;
+    complex cA_Wen = e_2sq2s;
+    complex cV_Wne = e_2sq2s;
+    complex cA_Wne = e_2sq2s;
+    complex cV_Wdu = e_2sq2s;
+    complex cA_Wdu = e_2sq2s;
+    complex cV_Wud = e_2sq2s;
+    complex cA_Wud = e_2sq2s;
+    for (int I=0; I<3; ++I) {
+        /* leptons */
+        PiT += FA(mu, p2 ,m_l[I], 0.0, cV_Wen, cV_Wne, cA_Wen, cA_Wne);
+
+        /* quarks (no CKM) */
+        PiT += Nc*FA(mu, p2 ,m_d[I], m_u[I], cV_Wdu, cV_Wud, cA_Wdu, cA_Wud);
+    }
 
     /* slepton loops */
+    complex VWsnL_In, VWWsnsn_II, VWWLL_nn;
+    matrix<complex> ZLT_Zne = ZL.transpose()*Zne;
+    for (int I=0; I<3; ++I) {  /* I=0-3 for left-handed sneutrinos */
+        for (int n=0; n<6; ++n) {
+            VWsnL_In = e_sq2s*ZLT_Zne(n,I);
+            b22 = PV.B22(mu, p2, Msn[I], Mse[n]);
+            PiT += 4.0*VWsnL_In.abs2()*b22;
+        }
+        VWWsnsn_II = e2_2s2;
+        a0 = PV.A0(mu, Msn[I]);
+        PiT += VWWsnsn_II*a0;
+    }
+    matrix<complex> ZLhc_ZL = ZL.hconjugate()*ZL;
+    for (int n=0; n<6; ++n) {
+        VWWLL_nn = e2_2s2*ZLhc_ZL(n,n);
+        a0 = PV.A0(mu, Mse[n]);
+        PiT += VWWLL_nn*a0;
+    }
 
-    /* squark loops */
+    /* squark loops (no CKM) */
+    complex VWUD_mn, VWWDD_nn, VWWUU_nn;
+    matrix<complex> ZDT_ZU = ZD.transpose()*ZU;
+    matrix<complex> ZDhc_ZD = ZD.hconjugate()*ZD;
+    matrix<complex> ZUhc_ZU = ZU.hconjugate()*ZU;
+    for (int n=0; n<6; ++n) {
+        for (int m=0; m<6; ++m) {
+            VWUD_mn = e_sq2s*ZDT_ZU(n,m);
+            b22 = PV.B22(mu, p2, Msu[m], Msd[n]);
+            PiT += 4.0*Nc*VWUD_mn.abs2()*b22;
+        }
+        VWWDD_nn = e2_2s2*ZDhc_ZD(n,n);
+        a0 = PV.A0(mu, Msd[n]);
+        PiT += Nc*VWWDD_nn*a0;
+        VWWUU_nn = e2_2s2*ZUhc_ZU(n,n);
+        a0 = PV.A0(mu, Msu[n]);
+        PiT += Nc*VWWUU_nn*a0;
+    }
 
     /* chargino - neutralino loops */
 
