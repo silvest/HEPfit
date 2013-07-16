@@ -374,11 +374,25 @@ double EWSUSY::DeltaR_boxLR_SUSY(const double Mw_i) const
 complex EWSUSY::v(const double mu, const StandardModel::lepton M, 
                   const StandardModel::lepton J, const double Mw_i) const
 {
-    if ( (M!=StandardModel::ELECTRON && M!=StandardModel::MU
-            && M!=StandardModel::TAU)
-            || (J!=StandardModel::NEUTRINO_1 && J!=StandardModel::NEUTRINO_2
-                  && J!=StandardModel::NEUTRINO_3) )
-        throw std::runtime_error("EWSUSY::v(): Wrong argument(s)!");
+    int intM, intJ;
+    switch (M) {
+        case StandardModel::ELECTRON:
+        case StandardModel::MU:
+        case StandardModel::TAU:
+            intM = ((int)M - StandardModel::ELECTRON)/2;
+            break;
+        default:
+            throw std::runtime_error("EWSUSY::v(): Wrong argument!");
+    }
+    switch (J) {
+        case StandardModel::NEUTRINO_1:
+        case StandardModel::NEUTRINO_2:
+        case StandardModel::NEUTRINO_3:
+            intJ = ((int)J - StandardModel::NEUTRINO_1)/2;
+            break;
+        default:
+            throw std::runtime_error("EWSUSY::v(): Wrong argument!");
+    }
 
 
     /* Write codes! */
@@ -390,11 +404,25 @@ complex EWSUSY::v(const double mu, const StandardModel::lepton M,
 complex EWSUSY::delta_v(const double mu, const StandardModel::lepton M,
                         const StandardModel::lepton J, const double Mw_i) const
 {
-    if ( (M!=StandardModel::ELECTRON && M!=StandardModel::MU
-            && M!=StandardModel::TAU)
-            || (J!=StandardModel::NEUTRINO_1 && J!=StandardModel::NEUTRINO_2
-                  && J!=StandardModel::NEUTRINO_3) )
-        throw std::runtime_error("EWSUSY::delta_v(): Wrong argument(s)!");
+    int intM, intJ;
+    switch (M) {
+        case StandardModel::ELECTRON:
+        case StandardModel::MU:
+        case StandardModel::TAU:
+            intM = ((int)M - StandardModel::ELECTRON)/2;
+            break;
+        default:
+            throw std::runtime_error("EWSUSY::delta_v(): Wrong argument!");
+    }
+    switch (J) {
+        case StandardModel::NEUTRINO_1:
+        case StandardModel::NEUTRINO_2:
+        case StandardModel::NEUTRINO_3:
+            intJ = ((int)J - StandardModel::NEUTRINO_1)/2;
+            break;
+        default:
+            throw std::runtime_error("EWSUSY::delta_v(): Wrong argument!");
+    }
 
 
     /* Write codes! */
@@ -417,11 +445,25 @@ double EWSUSY::DeltaR_vertex_SUSY(const double Mw_i) const
 complex EWSUSY::Sigma_nu_0(const double mu, const StandardModel::lepton I,
                            const StandardModel::lepton J, const double Mw_i) const
 {
-    if ( (I!=StandardModel::NEUTRINO_1 && I!=StandardModel::NEUTRINO_2
-            && I!=StandardModel::NEUTRINO_3)
-            || (J!=StandardModel::NEUTRINO_1 && J!=StandardModel::NEUTRINO_2
-                  && J!=StandardModel::NEUTRINO_3) )
-        throw std::runtime_error("EWSUSY::Sigma_nu(): Wrong argument(s)!");
+    int intI, intJ;
+    switch (I) {
+        case StandardModel::NEUTRINO_1:
+        case StandardModel::NEUTRINO_2:
+        case StandardModel::NEUTRINO_3:
+            intI = ((int)I - StandardModel::NEUTRINO_1)/2;
+            break;
+        default:
+            throw std::runtime_error("EWSUSY::Sigma_nu(): Wrong argument!");
+    }
+    switch (J) {
+        case StandardModel::NEUTRINO_1:
+        case StandardModel::NEUTRINO_2:
+        case StandardModel::NEUTRINO_3:
+            intJ = ((int)J - StandardModel::NEUTRINO_1)/2;
+            break;
+        default:
+            throw std::runtime_error("EWSUSY::Sigma_nu(): Wrong argument!");
+    }
 
     double e = sqrt(4.0*M_PI*mySUSY.getAle());
     double cW = Mw_i/mySUSY.getMz();
@@ -439,8 +481,8 @@ complex EWSUSY::Sigma_nu_0(const double mu, const StandardModel::lepton I,
         MLk = sqrt(mySUSY.getMse2()(k));
         for (int i=0; i<2; ++i) {
             mCi = mySUSY.getMch()(i);
-            L_nLC_Iki = e/sW*ZL(I,k)*Zm(0,i);
-            L_nLC_Jki = e/sW*ZL(J,k)*Zm(0,i);
+            L_nLC_Iki = e/sW*ZL(intI,k)*Zm(0,i);
+            L_nLC_Jki = e/sW*ZL(intJ,k)*Zm(0,i);
             b0p = PV.B0p(muIR, 0.0, MLk, mCi);
             b0 = PV.B0(mu, 0.0, MLk, mCi);
             Sigma += 0.5*L_nLC_Iki*L_nLC_Jki.conjugate()
@@ -455,8 +497,10 @@ complex EWSUSY::Sigma_nu_0(const double mu, const StandardModel::lepton I,
         MsNk = sqrt(mySUSY.getMsn2()(K));
         for (int j=0; j<4; ++j) {
             mNj = mySUSY.getMneu()(j);
-            L_nsnN_Iki = e_sq2cs*Zne(I,K).conjugate()*(ZN(0,j)*sW - ZN(1,j)*cW);
-            L_nsnN_Jki = e_sq2cs*Zne(J,K).conjugate()*(ZN(0,j)*sW - ZN(1,j)*cW);
+            L_nsnN_Iki = e_sq2cs*Zne(intI,K).conjugate()
+                         *(ZN(0,j)*sW - ZN(1,j)*cW);
+            L_nsnN_Jki = e_sq2cs*Zne(intJ,K).conjugate()
+                         *(ZN(0,j)*sW - ZN(1,j)*cW);
             b0p = PV.B0p(muIR, 0.0, MsNk, mNj);
             b0 = PV.B0(mu, 0.0, MsNk, mNj);
             Sigma += 0.5*L_nsnN_Iki*L_nsnN_Jki.conjugate()
