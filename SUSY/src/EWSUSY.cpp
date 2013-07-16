@@ -6,6 +6,7 @@
  */
 
 #include <cmath>
+#include <stdexcept>
 #include "EWSUSY.h"
 
 EWSUSY::EWSUSY(const SUSY& SUSY_in)
@@ -140,7 +141,7 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
         VZZss = 2.0*e2/cW2*(sW2 + (1.0 - 4.0*sW2)/4.0/sW2*ZLhc_ZL(m,m));
         a0 = PV.A0(mu, mm);
         PiT += VZZss*a0;
-      }
+    }
 
     /* down-type squark loops */
     matrix<complex> ZDhc_ZD = ZD.hconjugate()*ZD; 
@@ -297,29 +298,47 @@ complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) cons
     return ( PiTp/16.0/M_PI/M_PI );
 }
 
-double EWSUSY::DeltaR_rem_SM(const double mu, const double Mw_i) const
+double EWSUSY::PiThat_W_0(const double Mw_i) const
+{
+    /* Renormalization scale (varied for checking the cancellation of UV divergences */
+    double mu = Mw_i;
+
+    double Mz = mySUSY.getMz();
+    double cW = Mw_i/Mz;
+    double cW2 = cW*cW;
+    double sW2 = 1.0 - cW2;
+    double sW = sqrt(sW2);
+
+    double PiThat = 0.0;
+
+    /* W self-energy */
+    PiThat += PiT_W(mu, 0.0, Mw_i).real();
+
+    /* W-mass counter term */
+    double delMw2 = PiT_W(mu, Mw_i*Mw_i, Mw_i).real();
+    PiThat -= delMw2;
+
+    /* W wave-function counter term */
+    double delZ2w = - PiTp_A(mu, 0.0, Mw_i).real()
+                    + 2.0*cW/sW*PiT_AZ(mu, 0.0, Mw_i).real()/Mz/Mz
+                    - cW2/sW2*(PiT_W(mu, Mw_i*Mw_i, Mw_i).real()/Mw_i/Mw_i
+                               - PiT_Z(mu, Mz*Mz, Mw_i).real()/Mz/Mz);
+    PiThat -= delZ2w*Mw_i*Mw_i;
+
+    return PiThat;
+}
+
+double EWSUSY::DeltaR_rem_SM(const double Mw_i) const
 {
     double cW2 = Mw_i*Mw_i/mySUSY.getMz()/mySUSY.getMz();
     double sW2 = 1.0 - cW2;
 
-    /* UV divergent part + finite part */
+    /* renormalized vertex corrections + box*/
     return ( mySUSY.getAle()/4.0/M_PI/sW2
-             *( - 4.0*log(Mw_i*Mw_i/mu/mu) 
-                + 6.0 + (7.0 - 4.0*sW2)/2.0/sW2*log(cW2) ) );
+             *(6.0 + (7.0 - 4.0*sW2)/2.0/sW2*log(cW2)) );
 }
 
-double EWSUSY::DeltaR_vertex_SUSY(const double mu, const double Mw_i) const
-{
-    // Re[ v(1,1) + v(2,2) ]
-    
-    
-    /* Write codes! */
-
-
-    return 0.0;
-}
-
-double EWSUSY::DeltaR_box_SUSY(const double Mw_i) const
+double EWSUSY::DeltaR_boxLL_SUSY(const double Mw_i) const
 {
     double cW2 = Mw_i*Mw_i/mySUSY.getMz()/mySUSY.getMz();
     double sW2 = 1.0 - cW2;
@@ -332,26 +351,97 @@ double EWSUSY::DeltaR_box_SUSY(const double Mw_i) const
 
     complex a1 = (a11 + a12)/16.0/M_PI/M_PI;
 
-    return (  - sW2*Mw_i*Mw_i/2.0/M_PI/mySUSY.getAle()*a1.real() );
+    return ( - sW2*Mw_i*Mw_i/2.0/M_PI/mySUSY.getAle()*a1.real() );
 }
 
-double EWSUSY::DeltaR_fermionSE_SUSY(const double mu, const double Mw_i) const
+double EWSUSY::DeltaR_boxLR_SUSY(const double Mw_i) const
 {
-    // 0.5*Re[ delta_v(1,1) + delta_v(2,2) + Sigma_nu(0,1,1) + Sigma_nu(0,2,2) ]
+    double cW2 = Mw_i*Mw_i/mySUSY.getMz()/mySUSY.getMz();
+    double sW2 = 1.0 - cW2;
 
-    
+    complex a21, a22;
+
+
     /* Write codes! */
 
 
-    return 0.0;
+    complex a2 = (a21 + a22)/16.0/M_PI/M_PI;
+
+    return ( sW2*Mw_i*Mw_i/4.0/M_PI/mySUSY.getAle()*a2.real() );
 }
 
-double EWSUSY::DeltaR_MSSM_EW1(const double Mw_i) const
+complex EWSUSY::v(const double mu, const StandardModel::lepton M, 
+                  const StandardModel::lepton J, const double Mw_i) const
+{
+    if ( (M!=StandardModel::ELECTRON && M!=StandardModel::MU
+            && M!=StandardModel::TAU)
+            || (J!=StandardModel::NEUTRINO_1 && J!=StandardModel::NEUTRINO_2
+                  && J!=StandardModel::NEUTRINO_3) )
+        throw std::runtime_error("EWSUSY::v(): Wrong argument(s)!");
+
+
+    /* Write codes! */
+
+
+    return complex(0.0, 0.0, false);
+}
+
+complex EWSUSY::delta_v(const double mu, const StandardModel::lepton M,
+                        const StandardModel::lepton J, const double Mw_i) const
+{
+    if ( (M!=StandardModel::ELECTRON && M!=StandardModel::MU
+            && M!=StandardModel::TAU)
+            || (J!=StandardModel::NEUTRINO_1 && J!=StandardModel::NEUTRINO_2
+                  && J!=StandardModel::NEUTRINO_3) )
+        throw std::runtime_error("EWSUSY::delta_v(): Wrong argument(s)!");
+
+
+    /* Write codes! */
+
+
+    return complex(0.0, 0.0, false);
+}
+
+double EWSUSY::DeltaR_vertex_SUSY(const double Mw_i) const
 {
     /* Renormalization scale (varied for checking the cancellation of UV divergences */
     double mu = Mw_i;
 
-    double Mw_i2 = Mw_i*Mw_i;
+    return ( v(mu, mySUSY.ELECTRON, mySUSY.NEUTRINO_1, Mw_i).real()
+            + delta_v(mu, mySUSY.ELECTRON, mySUSY.NEUTRINO_1, Mw_i).real()
+            + v(mu, mySUSY.MU, mySUSY.NEUTRINO_2, Mw_i).real()
+            + delta_v(mu, mySUSY.MU, mySUSY.NEUTRINO_2, Mw_i).real() );
+}
+
+complex EWSUSY::Sigma_nu_0(const double mu, const StandardModel::lepton I,
+                           const StandardModel::lepton J, const double Mw_i) const
+{
+    if ( (I!=StandardModel::NEUTRINO_1 && I!=StandardModel::NEUTRINO_2
+            && I!=StandardModel::NEUTRINO_3)
+            || (J!=StandardModel::NEUTRINO_1 && J!=StandardModel::NEUTRINO_2
+                  && J!=StandardModel::NEUTRINO_3) )
+        throw std::runtime_error("EWSUSY::Sigma_nu(): Wrong argument(s)!");
+
+
+    /* Write codes! */
+
+
+    return complex(0.0, 0.0, false);
+}
+
+double EWSUSY::DeltaR_neutrino_SUSY(const double Mw_i) const
+{
+    /* Renormalization scale (varied for checking the cancellation of UV divergences */
+    double mu = Mw_i;
+    
+    return ( ( Sigma_nu_0(mu, mySUSY.NEUTRINO_1, mySUSY.NEUTRINO_1, Mw_i).real()
+              - delta_v(mu, mySUSY.ELECTRON, mySUSY.NEUTRINO_1, Mw_i).real()
+              + Sigma_nu_0(mu, mySUSY.NEUTRINO_2, mySUSY.NEUTRINO_2, Mw_i).real()
+              - delta_v(mu, mySUSY.MU, mySUSY.NEUTRINO_2, Mw_i).real() )/2.0 );
+}
+
+double EWSUSY::DeltaR_MSSM_EW1(const double Mw_i) const
+{
     double Mz2 = mySUSY.getMz()*mySUSY.getMz();
     double cW = Mw_i/mySUSY.getMz();
     double cW2 = cW*cW;
@@ -360,28 +450,21 @@ double EWSUSY::DeltaR_MSSM_EW1(const double Mw_i) const
 
     double DeltaR = 0.0;
     
-    /* SM+SUSY gauge-boson vacuum polarizations 
-     * Note: The counter terms associated with the WF renormalizations for 
-     * the external fermion lines are not taken into account. Therefore, 
-     * the coefficient for PiT_AZ is -2.0*sW/cW, instead of +2.0*cW/sW.
-     */
-    DeltaR += - (PiT_W(mu, 0.0, Mw_i).real() - PiT_W(mu, Mw_i2, Mw_i).real())/Mw_i2
-              - PiTp_A(mu, 0.0, Mw_i).real()
-              - 2.0*sW/cW*PiT_AZ(mu, 0.0, Mw_i).real()
-              - cW2/sW2*(PiT_W(mu, Mw_i2, Mw_i).real()/Mw_i2
-                         - PiT_Z(mu, Mz2, Mw_i).real()/Mz2);
+    /* SM+SUSY renormalized W self energy */
+    DeltaR += - PiThat_W_0(Mw_i)/Mw_i/Mw_i;
 
-    /* SM vertex, box and fermion self-energies */
-    DeltaR += DeltaR_rem_SM(mu, Mw_i);
-
-    /* SUSY vertex corrections */
-    DeltaR += DeltaR_vertex_SUSY(mu, Mw_i);
+    /* SM renormalized vertex + box */
+    DeltaR += DeltaR_rem_SM(Mw_i);
 
     /* SUSY box corrections */
-    DeltaR += DeltaR_box_SUSY(Mw_i);
+    DeltaR += DeltaR_boxLL_SUSY(Mw_i);
+    DeltaR += DeltaR_boxLR_SUSY(Mw_i);
 
-    /* SUSY fermion self-energy correction */
-    DeltaR += DeltaR_fermionSE_SUSY(mu, Mw_i);
+    /* SUSY renormalized vertex corrections */
+    DeltaR += DeltaR_vertex_SUSY(Mw_i);
+
+    /* SUSY renormalized neutrino wave function */
+    DeltaR += DeltaR_neutrino_SUSY(Mw_i);
 
     return DeltaR;
 }
@@ -389,9 +472,10 @@ double EWSUSY::DeltaR_MSSM_EW1(const double Mw_i) const
 double EWSUSY::DeltaR_SUSY_EW1(const double Mw_i) const
 {
     double DeltaR_SM_EW1; 
-    
+
     
     /* Write codes for DeltaR_SM_EW1! */
+    /* How to take into account the discrepancy in the hVV couplings between SM and MSSM? */
 
 
     return ( DeltaR_MSSM_EW1(Mw_i) - DeltaR_SM_EW1 );

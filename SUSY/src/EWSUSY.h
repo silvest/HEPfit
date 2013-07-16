@@ -135,62 +135,114 @@ public:
     complex PiTp_A(const double mu, const double p2, const double Mw_i) const;
 
     /**
-     * @brief The SM one-loop vertex, box and fermion self-energy corrections
-     * to @f$\Delta r@f$ in the 't Hooft-Feynman gauge. 
-     * @param[in] mu The renormalization scale @f$\mu@f$.
+     * @brief The renormalized transverse W-boson self-energy at zero momentum 
+     * transefer in the 't Hooft-Feynman gauge.
+     * @param [in] mu The renormalization scale @f$\mu@f$.
      * @param[in] Mw_i The W-boson mass @f$M_W@f$.
-     * @return The SM one-loop contribution of vertex, box and fermion self-energy
-     * diagrams to @f$\Delta r@f$ renormalized at the scale @f$\mu@f$
-     * in the 't Hooft-Feynman gauge.
+     * @return @f$\hat{\Pi}_W^T(0)@f$ in the 't Hooft-Feynman gauge.
+     */
+    double PiThat_W_0(const double Mw_i) const;
+
+    /**
+     * @brief The SM one-loop renormalized vertex and box corrections
+     * to @f$\Delta r@f$ in the 't Hooft-Feynman gauge. 
+     * @param[in] Mw_i The W-boson mass @f$M_W@f$.
+     * @return The SM one-loop renormalized vertex and box corrections
+     * to @f$\Delta r@f$ in the 't Hooft-Feynman gauge.
      * @par References
-     * e.g., Sec. 4.6.2.1 in [<A HREF="http://inspirehep.net/record/571258?ln=en">
-     * Bohm, Denner and Joos, ``Gauge theories of the strong and electroweak interaction,''
-     * B.G. Teubner Stuttgart (2001) 784 p</A>];
-     * @n
      * Eq. (4) in [<A HREF="http://inspirehep.net/record/363948?ln=en">
      * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>],
      * in which only the finite contribution is presented. 
      */
-    double DeltaR_rem_SM(const double mu, const double Mw_i) const;
+    double DeltaR_rem_SM(const double Mw_i) const;
 
     /**
-     * @brief The SUSY vertex corrections to @f$\Delta r@f$ in the 't Hooft-Feynman gauge. 
-     * @param[in] mu The renormalization scale @f$\mu@f$.
+     * @brief The LL SUSY box corrections to @f$\Delta r@f$ in the 't Hooft-Feynman gauge.
      * @param[in] Mw_i The W-boson mass @f$M_W@f$.
-     * @return The SUSY vertex corrections to @f$\Delta r@f$
-     * renormalized at the scale @f$\mu@f$ in the 't Hooft-Feynman gauge.
-     * @attention This differs from Eq. (A.23) in
-     * [<A HREF="http://inspirehep.net/record/363948?ln=en">
-     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>],
-     * since the counter terms associated with the wave function renormalizations
-     * of the external fermion lines, denoted by @f$\delta v@f$'s
-     * in the above reference, are not added here. 
-     * @see EWSUSY::DeltaR_fermionSE_SUSY().
-     */
-    double DeltaR_vertex_SUSY(const double mu, const double Mw_i) const;
-
-    /**
-     * @brief The SUSY box corrections to @f$\Delta r@f$ in the 't Hooft-Feynman gauge.
-     * @param[in] Mw_i The W-boson mass @f$M_W@f$.
-     * @return The SUSY box corrections to @f$\Delta r@f$ in the 't Hooft-Feynman gauge.
+     * @return The LL SUSY box corrections to @f$\Delta r@f$ in the 't Hooft-Feynman gauge.
      * @par References
      * Eq. (A.17) in [<A HREF="http://inspirehep.net/record/363948?ln=en">
      * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
      */
-    double DeltaR_box_SUSY(const double Mw_i) const;
+    double DeltaR_boxLL_SUSY(const double Mw_i) const;
 
     /**
-     * @brief The SUSY fermion self-energy corrections to @f$\Delta r@f$ in the 't Hooft-Feynman gauge.
-     * @param[in] mu The renormalization scale @f$\mu@f$.
+     * @brief The LR SUSY box corrections to @f$\Delta r@f$ in the 't Hooft-Feynman gauge.
      * @param[in] Mw_i The W-boson mass @f$M_W@f$.
-     * @return The SUSY fermion self-energy corrections to @f$\Delta r@f$
-     * renormalized at the scale @f$\mu@f$ in the 't Hooft-Feynman gauge.
+     * @return The LR SUSY box corrections to @f$\Delta r@f$ in the 't Hooft-Feynman gauge.
+     */
+    double DeltaR_boxLR_SUSY(const double Mw_i) const;
+    
+    /**
+     * @brief
+     * @param[in] mu The renormalization scale @f$\mu@f$.
+     * @param[in] M A charged lepton.
+     * @param[in] J A neutrino. 
+     * @param[in] Mw_i The W-boson mass @f$M_W@f$.
+     * @return @f$v(M,J)@f$.
      * @par References
-     * Eqs. (A.21), (A.23),(A.24) and (A.25)
+     * Eq. (A.19) in [<A HREF="http://inspirehep.net/record/363948?ln=en">
+     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>],
+     * in which only the finite contribution is presented.
+     */
+    complex v(const double mu, const StandardModel::lepton M,
+              const StandardModel::lepton J, const double Mw_i) const;
+
+    /**
+     * @brief
+     * @param[in] mu The renormalization scale @f$\mu@f$.
+     * @param[in] M A charged lepton.
+     * @param[in] J A neutrino.
+     * @param[in] Mw_i The W-boson mass @f$M_W@f$.
+     * @return @f$\delta v(M,J)@f$.
+     * @par References
+     * Eq. (A.21) in [<A HREF="http://inspirehep.net/record/363948?ln=en">
+     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>],
+     * in which only the finite contribution is presented.
+     */
+    complex delta_v(const double mu, const StandardModel::lepton M,
+                    const StandardModel::lepton J, const double Mw_i) const;
+
+    /**
+     * @brief The renormalized SUSY vertex corrections to @f$\Delta r@f$
+     * in the 't Hooft-Feynman gauge.
+     * @param[in] Mw_i The W-boson mass @f$M_W@f$.
+     * @return The renormalized SUSY vertex corrections to @f$\Delta r@f$
+     * in the 't Hooft-Feynman gauge.
+     * @par References
+     * Eqs. (A.19), (A.21) and (A.23)
      * in [<A HREF="http://inspirehep.net/record/363948?ln=en">
      * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
      */
-    double DeltaR_fermionSE_SUSY(const double mu, const double Mw_i) const;
+    double DeltaR_vertex_SUSY(const double Mw_i) const;
+
+    /**
+     * @brief The SUSY neutrino self-energy at zero momentum transfer
+     * in the 't Hooft-Feynman gauge.
+     * @param[in] mu The renormalization scale @f$\mu@f$.
+     * @param[in] I A neutrino.
+     * @param[in] J A neutrino.
+     * @param[in] Mw_i The W-boson mass @f$M_W@f$.
+     * @return @f$\Sigma_\nu(0,I,J)@f$ in the 't Hooft-Feynman gauge.
+     * @par References
+     * Eq. (A.24) in [<A HREF="http://inspirehep.net/record/363948?ln=en">
+     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
+     */
+    complex Sigma_nu_0(const double mu, const StandardModel::lepton I,
+                       const StandardModel::lepton J, const double Mw_i) const;
+
+    /**
+     * @brief The renormalized SUSY neutrino wave-function contribution to
+     * @f$\Delta r@f$ in the 't Hooft-Feynman gauge.
+     * @param[in] Mw_i The W-boson mass @f$M_W@f$.
+     * @return The renormalized SUSY neutrino wave-function contribution to
+     * @f$\Delta r@f$ in the 't Hooft-Feynman gauge.
+     * @par References
+     * Eqs. (A.21), (A.24) and (A.25)
+     * in [<A HREF="http://inspirehep.net/record/363948?ln=en">
+     * Chankowski, Dabelstein, Hollik, Mosle, Pokorski and Rosiek, NPB 417 (1994) 101</A>].
+     */
+    double DeltaR_neutrino_SUSY(const double Mw_i) const;
 
     /**
      * @brief The one-loop contribution to @f$\Delta r@f$ in the MSSM. 
