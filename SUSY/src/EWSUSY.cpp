@@ -424,11 +424,48 @@ complex EWSUSY::delta_v(const double mu, const StandardModel::lepton M,
             throw std::runtime_error("EWSUSY::delta_v(): Wrong argument!");
     }
 
+    double e = sqrt(4.0*M_PI*mySUSY.getAle());
+    double cW = Mw_i/mySUSY.getMz();
+    double sW = sqrt(1.0 - cW*cW);
+    double e_sq2sc = e/sqrt(2.0)/sW/cW;
 
-    /* Write codes! */
+    complex delv = complex(0.0, 0.0, false);
+    double muIR = mu; /* fictional scale, since B0p(0,m1,m2) is IR finite */
+    complex b0p, b0;
 
+    /* charged-slepton - neutralino loops */
+    double MLk, mNj;
+    complex L_eLN_Mkj, L_eLN_Jkj;
+    for (int k=0; k<6; ++k) {
+        MLk = sqrt(mySUSY.getMse2()(k));
+        for (int j=0; j<4; ++j) {
+            mNj = mySUSY.getMneu()(j);
+            L_eLN_Mkj = e_sq2sc*ZL(intM,k)*(ZN(0,j)*sW + ZN(1,j)*cW);
+            L_eLN_Jkj = e_sq2sc*ZL(intJ,k)*(ZN(0,j)*sW + ZN(1,j)*cW);
+            b0p = PV.B0p(muIR, 0.0, MLk, mNj);
+            b0 = PV.B0(mu, 0.0, MLk, mNj);
+            delv += 0.5*L_eLN_Mkj*L_eLN_Jkj.conjugate()
+                    *( (MLk*MLk - mNj*mNj)*b0p - b0 );
+        }
+    }
 
-    return complex(0.0, 0.0, false);
+    /* sneutrino - chargino loops */
+    double MsNk, mCi;
+    complex L_esnC_Mki, L_esnC_Jki;
+    for (int K=0; K<3; ++K) {  /* K=0-3 for left-handed sneutrinos */
+        MsNk = sqrt(mySUSY.getMsn2()(K));
+        for (int i=0; i<2; ++i) {
+            mCi = mySUSY.getMch()(i);
+            L_esnC_Mki = e/sW*Zp(0,i)*Zne(intM,K).conjugate();
+            L_esnC_Jki = e/sW*Zp(0,i)*Zne(intJ,K).conjugate();
+            b0p = PV.B0p(muIR, 0.0, MsNk, mCi);
+            b0 = PV.B0(mu, 0.0, MsNk, mCi);
+            delv += 0.5*L_esnC_Mki*L_esnC_Jki.conjugate()
+                    *( (MsNk*MsNk - mCi*mCi)*b0p - b0 );
+        }
+    }
+
+    return ( delv/16.0/M_PI/M_PI );
 }
 
 double EWSUSY::DeltaR_vertex_SUSY(const double Mw_i) const
@@ -468,21 +505,23 @@ complex EWSUSY::Sigma_nu_0(const double mu, const StandardModel::lepton I,
     double e = sqrt(4.0*M_PI*mySUSY.getAle());
     double cW = Mw_i/mySUSY.getMz();
     double sW = sqrt(1.0 - cW*cW);
-    double e_sq2cs = e/sqrt(2.0)/sW/cW;
+    double e_sq2sc = e/sqrt(2.0)/sW/cW;
 
     complex Sigma = complex(0.0, 0.0, false);
     double muIR = mu; /* fictional scale, since B0p(0,m1,m2) is IR finite */
     complex b0p, b0;
 
-    /* chargino - charged-slepton loops */
+    /* charged-slepton - chargino loops */
     double MLk, mCi;
     complex L_nLC_Iki, L_nLC_Jki;
     for (int k=0; k<6; ++k) {
         MLk = sqrt(mySUSY.getMse2()(k));
         for (int i=0; i<2; ++i) {
-            mCi = mySUSY.getMch()(i);
-            L_nLC_Iki = e/sW*ZL(intI,k)*Zm(0,i);
+            mCi = mySUSY.getMch()(i);            
+            L_nLC_Iki = e/sW*ZL(intI,k)*Zm(0,i)
+                        + Yl(intI,intI)*ZL(intI+3,k)*Zm(2,i);
             L_nLC_Jki = e/sW*ZL(intJ,k)*Zm(0,i);
+                        + Yl(intJ,intJ)*ZL(intJ+3,k)*Zm(2,i);
             b0p = PV.B0p(muIR, 0.0, MLk, mCi);
             b0 = PV.B0(mu, 0.0, MLk, mCi);
             Sigma += 0.5*L_nLC_Iki*L_nLC_Jki.conjugate()
@@ -490,16 +529,16 @@ complex EWSUSY::Sigma_nu_0(const double mu, const StandardModel::lepton I,
         }
     }
 
-    /* neutralino - sneutrino loops */
+    /* sneutrino - neutralino loops */
     double MsNk, mNj;
     complex L_nsnN_Iki, L_nsnN_Jki;
     for (int K=0; K<3; ++K) {  /* K=0-3 for left-handed sneutrinos */
         MsNk = sqrt(mySUSY.getMsn2()(K));
         for (int j=0; j<4; ++j) {
             mNj = mySUSY.getMneu()(j);
-            L_nsnN_Iki = e_sq2cs*Zne(intI,K).conjugate()
+            L_nsnN_Iki = e_sq2sc*Zne(intI,K).conjugate()
                          *(ZN(0,j)*sW - ZN(1,j)*cW);
-            L_nsnN_Jki = e_sq2cs*Zne(intJ,K).conjugate()
+            L_nsnN_Jki = e_sq2sc*Zne(intJ,K).conjugate()
                          *(ZN(0,j)*sW - ZN(1,j)*cW);
             b0p = PV.B0p(muIR, 0.0, MsNk, mNj);
             b0 = PV.B0(mu, 0.0, MsNk, mNj);
