@@ -362,6 +362,7 @@ private:
     matrix<complex> ZU; ///< The rotation matrix for up-type squarks in Rosiek's notation.
     matrix<complex> ZD; ///< The rotation matrix for down-type squarks in Rosiek's notation.
     matrix<complex> ZL; ///< The rotation matrix for charged sleptons in Rosiek's notation.
+    matrix<complex> Zne; ///< The rotation matrix for sneutrinos in Rosiek's notation.
     matrix<double> ZR; ///< The rotation matrix for CP-even neutral Higgses in Rosiek's notation.
     matrix<double> ZH; ///< The rotation matrix for charged (CP-odd neutral) Higgs and charged (neutral) Goldstone boson in Rosiek's notation.
 

@@ -14,7 +14,7 @@ EWSUSY::EWSUSY(const SUSY& SUSY_in)
         Yu(3,3,0.0), Yd(3,3,0.0), Yl(3,3,0.0),
         Au(3,3,0.0), Ad(3,3,0.0), Al(3,3,0.0),
         Zm(2,2,0.), Zp(2,2,0.), ZN(4,4,0.),
-        ZU(6,6,0.), ZD(6,6,0.), ZL(6,6,0.),
+        ZU(6,6,0.), ZD(6,6,0.), ZL(6,6,0.), Zne(6,6,0.), 
         ZR(2,2,0.), ZH(2,2,0.)
 {
 }
@@ -36,6 +36,7 @@ void EWSUSY::SetRosiekParameters()
     ZU = mySUSY.getRu().hconjugate();
     ZD = mySUSY.getRd().transpose();
     ZL = mySUSY.getRl().transpose();
+    Zne = mySUSY.getRn().hconjugate();
 
     double sinAlpha = mySUSY.getSaeff().real(); /* Correct? */
     double cosAlpha = sqrt(1.0 - sinAlpha*sinAlpha); /* -Pi/2 < alpha < 0 */
@@ -118,8 +119,8 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     /* sneutrino loops */
     VZss = e_2sc;
     VZZss = e2/2.0/sW2/cW2;
-    for (int I=0; I<3; ++I) {
-        mI = std::sqrt(mySUSY.getMsn2()(I)); /* I=0-3 for left-handed sneutrinos */
+    for (int I=0; I<3; ++I) {  /* I=0-3 for left-handed sneutrinos */
+        mI = sqrt(mySUSY.getMsn2()(I));
 
         b22 = PV.B22(mu, p2, mI, mI);
         PiT += 4.0*VZss.abs2()*b22;
@@ -131,9 +132,9 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     /* charged slepton loops */
     matrix<complex> ZLhc_ZL = ZL.hconjugate()*ZL; 
     for (int m=0; m<6; ++m) {
-        mm = std::sqrt(mySUSY.getMse2()(m));
+        mm = sqrt(mySUSY.getMse2()(m));
         for (int n=0; n<6; ++n) {
-            mn = std::sqrt(mySUSY.getMse2()(n));
+            mn = sqrt(mySUSY.getMse2()(n));
             VZss = - e_2sc*(ZLhc_ZL(m,n) - 2.0*sW2*Id6(m,n));
             b22 = PV.B22(mu, p2, mm, mn);
             PiT += 4.0*VZss.abs2()*b22;
@@ -146,10 +147,10 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     /* down-type squark loops */
     matrix<complex> ZDhc_ZD = ZD.hconjugate()*ZD; 
     for (int m=0; m<6; ++m) {
-        mm = std::sqrt(mySUSY.getMsd2()(m));
+        mm = sqrt(mySUSY.getMsd2()(m));
         for (int n=0; n<6; ++n) {
             VZss = - e_2sc*(ZDhc_ZD(m,n) - 2.0/3.0*sW2*Id6(m,n));
-            mn = std::sqrt(mySUSY.getMsd2()(n));
+            mn = sqrt(mySUSY.getMsd2()(n));
             b22 = PV.B22(mu, p2, mm, mn);
             PiT += 4.0*Nc*VZss.abs2()*b22;
         }
@@ -161,11 +162,11 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     /* up-type squark loops */
     matrix<complex> ZUhc_ZU = ZU.hconjugate()*ZU;
     for (int m=0; m<6; ++m) {
-        mm = std::sqrt(mySUSY.getMsu2()(m));
+        mm = sqrt(mySUSY.getMsu2()(m));
         for (int n=0; n<6; ++n) {
             /* (n,m) instead of (m,n) */
             VZss = e_2sc*(ZUhc_ZU(n,m) - 4.0/3.0*sW2*Id6(m,n));
-            mn = std::sqrt(mySUSY.getMsu2()(n));
+            mn = sqrt(mySUSY.getMsu2()(n));
             b22 = PV.B22(mu, p2, mm, mn);
             PiT += 4.0*Nc*VZss.abs2()*b22;
         }
@@ -422,11 +423,48 @@ complex EWSUSY::Sigma_nu_0(const double mu, const StandardModel::lepton I,
                   && J!=StandardModel::NEUTRINO_3) )
         throw std::runtime_error("EWSUSY::Sigma_nu(): Wrong argument(s)!");
 
+    double e = sqrt(4.0*M_PI*mySUSY.getAle());
+    double cW = Mw_i/mySUSY.getMz();
+    double sW = sqrt(1.0 - cW*cW);
+    double e_sq2cs = e/sqrt(2.0)/sW/cW;
 
-    /* Write codes! */
+    complex Sigma = complex(0.0, 0.0, false);
+    double muIR = mu; /* fictional scale, since B0p(0,m1,m2) is IR finite */
+    complex b0p, b0;
 
+    /* chargino - charged-slepton loops */
+    double MLk, mCi;
+    complex L_nLC_Iki, L_nLC_Jki;
+    for (int k=0; k<6; ++k) {
+        MLk = sqrt(mySUSY.getMse2()(k));
+        for (int i=0; i<2; ++i) {
+            mCi = mySUSY.getMch()(i);
+            L_nLC_Iki = e/sW*ZL(I,k)*Zm(0,i);
+            L_nLC_Jki = e/sW*ZL(J,k)*Zm(0,i);
+            b0p = PV.B0p(muIR, 0.0, MLk, mCi);
+            b0 = PV.B0(mu, 0.0, MLk, mCi);
+            Sigma += 0.5*L_nLC_Iki*L_nLC_Jki.conjugate()
+                     *( (MLk*MLk - mCi*mCi)*b0p - b0 );
+        }
+    }
 
-    return complex(0.0, 0.0, false);
+    /* neutralino - sneutrino loops */
+    double MsNk, mNj;
+    complex L_nsnN_Iki, L_nsnN_Jki;
+    for (int K=0; K<3; ++K) {  /* K=0-3 for left-handed sneutrinos */
+        MsNk = sqrt(mySUSY.getMsn2()(K));
+        for (int j=0; j<4; ++j) {
+            mNj = mySUSY.getMneu()(j);
+            L_nsnN_Iki = e_sq2cs*Zne(I,K).conjugate()*(ZN(0,j)*sW - ZN(1,j)*cW);
+            L_nsnN_Jki = e_sq2cs*Zne(J,K).conjugate()*(ZN(0,j)*sW - ZN(1,j)*cW);
+            b0p = PV.B0p(muIR, 0.0, MsNk, mNj);
+            b0 = PV.B0(mu, 0.0, MsNk, mNj);
+            Sigma += 0.5*L_nsnN_Iki*L_nsnN_Jki.conjugate()
+                     *( (MsNk*MsNk - mNj*mNj)*b0p - b0 );
+        }
+    }
+
+    return ( Sigma/16.0/M_PI/M_PI );
 }
 
 double EWSUSY::DeltaR_neutrino_SUSY(const double Mw_i) const
