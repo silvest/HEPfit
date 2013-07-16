@@ -45,6 +45,92 @@ public:
 
     /**
      * @brief Sets parameters in Rosiek's notation. 
+     *  <table border=0>
+     *  <tr>
+     *  <td>
+     *    <table border>
+     *    <tr>
+     *      <td align="center"><b> Rosiek </b></td>
+     *      <td align="center"><b> SLHA </b></td>
+     *    </tr>
+     *    <tr>
+     *      <td align="center"> @f$Y_u@f$ </td>
+     *      <td align="center"> @f$Y_U@f$ </td>
+     *    </tr>
+     *    <tr>
+     *      <td align="center"> @f$Y_d@f$ </td>
+     *      <td align="center"> @f$-Y_D@f$ </td>
+     *    </tr>
+     *    <tr>
+     *      <td align="center"> @f$Y_\ell@f$ </td>
+     *      <td align="center"> @f$-Y_E@f$ </td>
+     *    </tr>
+     *    </table>
+     *  </td>
+     *  <td>
+     *    <table border>
+     *    <tr>
+     *      <td align="center"><b> Rosiek </b></td>
+     *      <td align="center"><b> SLHA </b></td>
+     *    </tr>
+     *    <tr>
+     *      <td align="center"> @f$A_u@f$ </td>
+     *      <td align="center"> @f$-T_U@f$ </td>
+     *    </tr>
+     *    <tr>
+     *      <td align="center"> @f$A_d@f$ </td>
+     *      <td align="center"> @f$T_D@f$ </td>
+     *    </tr>
+     *    <tr>
+     *      <td align="center"> @f$A_\ell@f$ </td>
+     *      <td align="center"> @f$T_E@f$ </td>
+     *    </tr>
+     *    </table>
+     *  </td>
+     *  <td>
+     *    <table border>
+     *    <tr>
+     *      <td align="center"><b> Rosiek </b></td>
+     *      <td align="center"><b> SLHA </b></td>
+     *    </tr>
+     *    <tr>
+     *      <td align="center"> @f$Z_-@f$ </td>
+     *      <td align="center"> @f$U^\dagger@f$ </td>
+     *    </tr>
+     *    <tr>
+     *      <td align="center"> @f$Z_+@f$ </td>
+     *      <td align="center"> @f$V^\dagger@f$ </td>
+     *    </tr>
+     *    <tr>
+     *      <td align="center"> @f$Z_N@f$ </td>
+     *      <td align="center"> @f$N^\dagger@f$ </td>
+     *    </tr>
+     *    </table>
+     *  </td>
+     *  <td>
+     *    <table border>
+     *    <tr>
+     *      <td align="center"><b> Rosiek </b></td>
+     *      <td align="center"><b> SLHA </b></td>
+     *    </tr>
+     *    <tr>
+     *      <td align="center"> @f$Z_U@f$ </td>
+     *      <td align="center"> @f$R_u^\dagger@f$ </td>
+     *    </tr>
+     *    <tr>
+     *      <td align="center"> @f$Z_D@f$ </td>
+     *      <td align="center"> @f$R_d^T@f$ </td>
+     *    </tr>
+     *    <tr>
+     *      <td align="center"> @f$Z_L@f$ </td>
+     *      <td align="center"> @f$R_e^T@f$ </td>
+     *    </tr>
+     *    </table>
+     *  </td>
+     *  </tr>
+     *  </table>
+     * @f$Z_R=\left(\begin{array}{cc} \cos\alpha & -\sin\alpha \\ \sin\alpha & \cos\alpha \end{array}\right)@f$,
+     * @f$Z_H=\left(\begin{array}{cc} \sin\beta & -\cos\beta \\ \cos\beta & \sin\beta \end{array}\right)@f$,
      */
     void SetRosiekParameters();
 
@@ -247,10 +333,6 @@ public:
     /**
      * @brief The one-loop contribution to @f$\Delta r@f$ in the MSSM. 
      * @return @f$\Delta r_{\rm MSSM}^{\alpha} = \Delta r_{\rm SM}^{\alpha} + \Delta r_{\rm SUSY}^{\alpha}@f$.
-     * @par References
-     * Sec. 4.6.2.1 in [<A HREF="http://inspirehep.net/record/571258?ln=en">
-     * Bohm, Denner and Joos, ``Gauge theories of the strong and electroweak interaction,''
-     * B.G. Teubner Stuttgart (2001) 784 p</A>].
      */
     double DeltaR_MSSM_EW1(const double Mw_i) const;
 
