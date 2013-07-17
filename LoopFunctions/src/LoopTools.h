@@ -50,6 +50,83 @@ public:
                   const double m0, const double m1) const; 
     
     /**
+     * @brief the vector two-point Passarino-Veltman function
+     * @param[in] mu renormalization scale
+     * @param[in] p2 p squared
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the finite part of the vector two-point PV function at the scale mu
+     */
+    complex PV_B1(const double mu, const double p2,
+                  const double m0, const double m1) const;
+
+    /**
+     * @brief a tensor two-point Passarino-Veltman function
+     * @param[in] mu renormalization scale
+     * @param[in] p2 p squared
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the finite part of a tensor two-point PV function B_{21} at the scale mu
+     */
+    complex PV_B21(const double mu, const double p2,
+                   const double m0, const double m1) const;
+
+    /**
+     * @brief a tensor two-point Passarino-Veltman function
+     * @param[in] mu renormalization scale
+     * @param[in] p2 p squared
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the finite part of a tensor two-point PV function B_{22} at the scale mu
+     */
+    complex PV_B22(const double mu, const double p2,
+                   const double m0, const double m1) const;
+
+    /**
+     * @brief the derivative of B_0
+     * @param[in] muIR renormalization scale for an IR divergence
+     * @param[in] p2 p squared
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the finite part of B_{0p}
+     */
+    complex PV_B0p(const double muIR, const double p2,
+                   const double m0, const double m1) const;
+    
+    /**
+     * @brief the derivative of B_1
+     * @param[in] mu renormalization scale
+     * @param[in] p2 p squared
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the finite part of B_{1p}
+     */
+    complex PV_B1p(const double mu, const double p2,
+                   const double m0, const double m1) const;
+    
+    /**
+     * @brief the derivative of B_{21}
+     * @param[in] mu renormalization scale
+     * @param[in] p2 p squared
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the finite part of B_{21p}
+     */
+    complex PV_B21p(const double mu, const double p2,
+                    const double m0, const double m1) const;
+
+    /**
+     * @brief the derivative of B_{22}
+     * @param[in] mu renormalization scale
+     * @param[in] p2 p squared
+     * @param[in] m0 mass m_0
+     * @param[in] m1 mass m_1
+     * @return the finite part of B_{22p}
+     */
+    complex PV_B22p(const double mu, const double p2,
+                    const double m0, const double m1) const;
+
+    /**
      * @brief the scalar three-point Passarino-Veltman function C_0(0,0,p2;m0,m1,m2)
      * @param[in] p2 p squared
      * @param[in] m0 mass m_0

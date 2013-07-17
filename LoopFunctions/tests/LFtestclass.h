@@ -18,7 +18,8 @@
 #include "Polylogarithms.h"
 #include "ClausenFunctions.h"
 #include "PVfunctions.h"
-#include "LoopTools.h"
+//#include "LoopTools.h"
+#include "../src/LoopTools.h"
 using namespace std;
 
 
@@ -49,6 +50,20 @@ class LFtestclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(A0_Mw_Mz);
     CPPUNIT_TEST(B0_Mw_Mz2_Mw_Mw_real);
     CPPUNIT_TEST(B0_Mw_Mz2_Mw_Mw_imag);
+    CPPUNIT_TEST(B1_Mw_Mz2_Mw_Mw_real);
+    CPPUNIT_TEST(B1_Mw_Mz2_Mw_Mw_imag);
+    CPPUNIT_TEST(B21_Mw_Mz2_Mw_Mw_real);
+    CPPUNIT_TEST(B21_Mw_Mz2_Mw_Mw_imag);
+    CPPUNIT_TEST(B22_Mw_Mz2_Mw_Mw_real);
+    CPPUNIT_TEST(B22_Mw_Mz2_Mw_Mw_imag);
+    CPPUNIT_TEST(B0p_Mw_Mz2_Mw_Mw_real);
+    CPPUNIT_TEST(B0p_Mw_Mz2_Mw_Mw_imag);
+    CPPUNIT_TEST(B1p_Mw_Mz2_Mw_Mw_real);
+    CPPUNIT_TEST(B1p_Mw_Mz2_Mw_Mw_imag);
+    CPPUNIT_TEST(B21p_Mw_Mz2_Mw_Mw_real);
+    CPPUNIT_TEST(B21p_Mw_Mz2_Mw_Mw_imag);
+    CPPUNIT_TEST(B22p_Mw_Mz2_Mw_Mw_real);
+    CPPUNIT_TEST(B22p_Mw_Mz2_Mw_Mw_imag);
     CPPUNIT_TEST(C0_Mz2_Mw_Mz_Mw_real);
     CPPUNIT_TEST(C0_Mz2_Mw_Mz_Mw_imag);    
     CPPUNIT_TEST(D0_s_t_Mz_0_Mz_0_real);
@@ -101,7 +116,22 @@ private:
     
     void B0_Mw_Mz2_Mw_Mw_real();
     void B0_Mw_Mz2_Mw_Mw_imag();
-    
+    void B1_Mw_Mz2_Mw_Mw_real();
+    void B1_Mw_Mz2_Mw_Mw_imag();
+    void B21_Mw_Mz2_Mw_Mw_real();
+    void B21_Mw_Mz2_Mw_Mw_imag();
+    void B22_Mw_Mz2_Mw_Mw_real();
+    void B22_Mw_Mz2_Mw_Mw_imag();
+
+    void B0p_Mw_Mz2_Mw_Mw_real();
+    void B0p_Mw_Mz2_Mw_Mw_imag();
+    void B1p_Mw_Mz2_Mw_Mw_real();
+    void B1p_Mw_Mz2_Mw_Mw_imag();
+    void B21p_Mw_Mz2_Mw_Mw_real();
+    void B21p_Mw_Mz2_Mw_Mw_imag();
+    void B22p_Mw_Mz2_Mw_Mw_real();
+    void B22p_Mw_Mz2_Mw_Mw_imag();
+
     void C0_Mz2_Mw_Mz_Mw_real();
     void C0_Mz2_Mw_Mz_Mw_imag();    
     

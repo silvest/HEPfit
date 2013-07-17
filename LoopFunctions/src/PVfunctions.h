@@ -15,7 +15,7 @@
 using namespace gslpp;
 
 // set in case where LoopTools library is employed. 
-//#define USE_LOOPTOOLS
+#define USE_LOOPTOOLS
 
 
 /**
@@ -127,7 +127,7 @@ public:
      */
     complex B21p(const double mu, const double p2, 
                  const double m0, const double m1) const;     
-    
+
     /**
      * @brief the derivative of B_{22}
      * @param[in] mu renormalization scale
@@ -136,8 +136,8 @@ public:
      * @param[in] m1 mass m_1
      * @return the finite part of B_{22p}
      */
-    //complex B22p(const double mu, const double p2, 
-    //             const double m0, const double m1);       
+    complex B22p(const double mu, const double p2, 
+                 const double m0, const double m1) const;
     
     /**
      * @brief the derivative of B_{f}

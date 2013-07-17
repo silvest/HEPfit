@@ -97,7 +97,10 @@ complex PVfunctions::B0(const double mu, const double p2,
 
 complex PVfunctions::B1(const double mu, const double p2, 
                         const double m0, const double m1) const 
-{   
+{
+#ifdef USE_LOOPTOOLS
+    return myLT.PV_B1(mu, p2, m0, m1);
+#else
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw std::runtime_error("Invalid argument for PVfunctions::B1()"); 
     }
@@ -127,11 +130,15 @@ complex PVfunctions::B1(const double mu, const double p2,
                           + (DeltaM2 + p2)*B0(mu,p2,m0,m1));
     }
     return B1;
+#endif
 }
 
 complex PVfunctions::B21(const double mu, const double p2, 
                          const double m0, const double m1) const 
 {   
+#ifdef USE_LOOPTOOLS
+    return myLT.PV_B21(mu, p2, m0, m1);
+#else
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw std::runtime_error("Invalid argument for PVfunctions::B21()"); 
     }
@@ -165,45 +172,49 @@ complex PVfunctions::B21(const double mu, const double p2,
               + (Lambdabar2 + 3.0*p2*m02)/3.0/p2/p2*B0(mu,p2,m0,m1);
     }
     return B21;
+#endif
 }
 
 complex PVfunctions::B22(const double mu, const double p2, 
                          const double m0, const double m1) const 
 {   
+#ifdef USE_LOOPTOOLS
+    return myLT.PV_B22(mu, p2, m0, m1);
+#else
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw std::runtime_error("Invalid argument for PVfunctions::B22()"); 
     }
-    double mu2=mu*mu, m02=m0*m0, m12=m1*m1;
-    double DeltaM2 = m02 - m12;
+    double mu2 = mu*mu, m02 = m0*m0, m12 = m1*m1;
     complex B22(0.0, 0.0, false);
 
     if(p2 == 0.){
         if(m02 != 0. && m12 != 0.){
             if(fabs(m02 - m12) < LEPS){
-                B22 = - m02 / 2. * (- log(m02 / mu2) + 1.);
+                B22 = m02/2. * (- log(m02/mu2) + 1.);
             } else {
-                B22 = - 1. / 4. * (m02 + m12) * (- log(m0 * m1 / mu2) + 1.5) 
-                      + (m02 * m02 + m12 * m12) / 8. / (m02 - m12) * log(m02 / m12);  
+                B22 = 1./ 4.*(m02 + m12)*(- log(m0*m1/mu2) + 1.5) 
+                      - (m02*m02 + m12*m12)/8./(m02 - m12)*log(m02/m12);
             }             
         } else
             throw std::runtime_error("PVfunctions::B22() is undefined.");  
     } else {
         if(m0 != 0. && m1 != 0.){
             if(fabs(m02 - m12) < LEPS){
-              B22 = - (6. * m02 - p2) / 18. + A0(mu,m0) /6. 
-                    + (p2 - 4. * m02) / 12. * B0(mu,p2,m0,m1);  
+                B22 = (6.*m02 - p2)/18. - A0(mu,m0)/6.
+                       - (p2 - 4.*m02)/12.*B0(mu,p2,m0,m1);
             } else {
-              B22 = - (3. * (m02 + m12) - p2) / 18. 
-                    + (DeltaM2 + p2) / 12. / p2 * A0(mu,m0) 
-                    - (DeltaM2 - p2) / 12. / p2 * A0(mu,m1) 
-                    + (- m02 - m12 + p2 / 2. 
-                       + (DeltaM2 * DeltaM2) / 2. / p2) * B0(mu,p2,m0,m1) / 6.
-                      ;                
+                double DeltaM2 = m02 - m12;
+                double Lambdabar2 = (p2-m02-m12)*(p2-m02-m12) - 4.0*m02*m12;
+                B22 = (3.*(m02 + m12) - p2)/18.
+                       - (DeltaM2 + p2)/12./p2*A0(mu,m0)
+                       + (DeltaM2 - p2)/12./p2*A0(mu,m1)
+                       - Lambdabar2*B0(mu,p2,m0,m1)/12.;
             }
         } else
             throw std::runtime_error("PVfunctions::B22() is undefined.");  
     }
     return B22;
+#endif
 }
 
 complex PVfunctions::Bf(const double mu, const double p2, 
@@ -220,6 +231,9 @@ complex PVfunctions::Bf(const double mu, const double p2,
 complex PVfunctions::B0p(const double muIR, const double p2, 
                          const double m0, const double m1) const 
 {   
+#ifdef USE_LOOPTOOLS
+    return myLT.PV_B0p(muIR, p2, m0, m1);
+#else
     if ( muIR<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 )
         throw std::runtime_error("Invalid argument for PVfunctions::B0p()"); 
     
@@ -276,11 +290,15 @@ complex PVfunctions::B0p(const double muIR, const double p2,
         }
     }
     return B0p;
+#endif
 }
 
 complex PVfunctions::B1p(const double mu, const double p2, 
                          const double m0, const double m1) const 
 {   
+#ifdef USE_LOOPTOOLS
+    return myLT.PV_B1p(mu, p2, m0, m1);
+#else
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw std::runtime_error("Invalid argument for PVfunctions::B1p()"); 
     }
@@ -294,11 +312,15 @@ complex PVfunctions::B1p(const double mu, const double p2,
                  + (DeltaM2 + p2)*B0p(mu,p2,m0,m1) )/2.0/p2;
     }
     return B1p;
+#endif
 }
 
 complex PVfunctions::B21p(const double mu, const double p2, 
                           const double m0, const double m1) const 
 {   
+#ifdef USE_LOOPTOOLS
+    return myLT.PV_B21p(mu, p2, m0, m1);
+#else
     if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
         throw std::runtime_error("Invalid argument for PVfunctions::B21p()"); 
     }
@@ -318,19 +340,28 @@ complex PVfunctions::B21p(const double mu, const double p2,
                 + (Lambdabar2 + 3.0*p2*m02)/3.0/p4*B0p(mu,p2,m0,m1);
     }
     return B21p;
+#endif
 }
 
-//complex PVfunctions::B22p(const double mu, const double p2, 
-//                          const double m0, const double m1) 
-//{   
-//    if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
-//        throw std::runtime_error("Invalid argument for PVfunctions::B22p()"); 
-//    }
-//    double mu2=mu*mu, m02=m0*m0, m12=m1*m1;
-//    complex B22p(0.0, 0.0, false);
-//
-//    return B22p;
-//}
+complex PVfunctions::B22p(const double mu, const double p2, 
+                          const double m0, const double m1) const
+{   
+#ifdef USE_LOOPTOOLS
+    return myLT.PV_B22p(mu, p2, m0, m1);
+#else
+    if ( mu<=0.0 || p2<0.0 || m0<0.0 || m1<0.0 ) {
+        throw std::runtime_error("Invalid argument for PVfunctions::B22p()"); 
+    }
+    double mu2=mu*mu, m02=m0*m0, m12=m1*m1;
+    complex B22p(0.0, 0.0, false);
+
+
+    throw std::runtime_error("PVfunctions::B22p() is undefined.");
+
+
+    return B22p;
+#endif
+}
 
 complex PVfunctions::Bfp(const double mu, const double p2, 
                          const double m0, const double m1) const 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="84">
+<configurationDescriptor version="89">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -55,6 +55,7 @@
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
@@ -163,11 +164,40 @@
           </linkerLibItems>
         </linkerTool>
       </folder>
+      <item path="src/BernoulliNumbers.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BernoulliNumbers.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ClausenFunctions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ClausenFunctions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LoopTools.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LoopTools.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/PVfunctions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/PVfunctions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Polylogarithms.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Polylogarithms.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/LFtestclass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/LFtestclass.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/LFtestrunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/LoopFunctionsTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="3">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
@@ -197,6 +227,11 @@
         </archiverTool>
       </compileType>
       <folder path="TestFiles">
+        <ccTool>
+          <incDir>
+            <pElem>src</pElem>
+          </incDir>
+        </ccTool>
         <linkerTool>
           <linkerAddLib>
             <pElem>../LoopTools/lib</pElem>
@@ -217,6 +252,7 @@
             <linkerLibLibItem>ooptools</linkerLibLibItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
           </linkerLibItems>
+          <commandLine>`gsl-config --libs`</commandLine>
         </linkerTool>
       </folder>
       <folder path="TestFiles/f2">
@@ -263,11 +299,40 @@
           <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
       </folder>
+      <item path="src/BernoulliNumbers.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BernoulliNumbers.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ClausenFunctions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ClausenFunctions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LoopTools.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LoopTools.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/PVfunctions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/PVfunctions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Polylogarithms.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Polylogarithms.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/LFtestclass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/LFtestclass.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/LFtestrunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/LoopFunctionsTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
     <conf name="Cluster" type="3">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
@@ -364,6 +429,34 @@
           <output>${TESTDIR}/TestFiles/f3</output>
         </linkerTool>
       </folder>
+      <item path="src/BernoulliNumbers.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/BernoulliNumbers.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ClausenFunctions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ClausenFunctions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/LoopTools.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/LoopTools.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/PVfunctions.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/PVfunctions.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Polylogarithms.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Polylogarithms.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/LFtestclass.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/LFtestclass.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="tests/LFtestrunner.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="tests/LoopFunctionsTest.cpp" ex="false" tool="1" flavor2="0">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>
