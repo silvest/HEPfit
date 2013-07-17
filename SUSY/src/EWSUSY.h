@@ -168,6 +168,36 @@ public:
                const complex cA_aij, const complex cA_bji) const;
 
     /**
+     * @brief The derivative of 
+     * @f$F_A^{ab}(p^2,m_i,m_j,c_V^{aij},c_V^{bji},c_A^{aij},c_A^{bji})@f$
+     * with respect to @f$p^2@f$. 
+     * @param[in] mu The renormalization scale @f$\mu@f$.
+     * @param[in] p2 The momentum squared @f$p^2@f$.
+     * @param[in] mi The mass of a fermion @f$(i)@f$ running in the loop.
+     * @param[in] mj The mass of a fermion @f$(j)@f$ running in the loop.
+     * @param[in] cV_aij The vector coupling @f$c_V^{aij}@f$ for a vertex with
+     * an incoming vector meson @f$(a)@f$, an incoming fermion @f$(i)@f$ and
+     * an outgoing fermion @f$(j)@f$.
+     * @param[in] cV_bji The vector coupling @f$c_V^{bji}@f$ for a vertex with
+     * an incoming vector meson @f$(b)@f$, an incoming fermion @f$(j)@f$ and
+     * an outgoing fermion @f$(i)@f$.
+     * @param[in] cA_aij The axial-vector coupling @f$c_A^{aij}@f$ for a vertex with
+     * an incoming vector meson @f$(a)@f$, an incoming fermion @f$(i)@f$ and
+     * an outgoing fermion @f$(j)@f$.
+     * @param[in] cA_bji The axial-vector coupling @f$c_A^{bji}@f$ for a vertex with
+     * an incoming vector meson @f$(b)@f$, an incoming fermion @f$(j)@f$ and
+     * an outgoing fermion @f$(i)@f$.
+     * @return The derivative of @f$F_A^{ab}(p^2,m_i,m_j,c_V^{aij},c_V^{bji},c_A^{aij},c_A^{bji})@f$
+     * with respect to @f$p^2@f$ renormalized at the scale @f$\mu@f$.
+     * @par References
+     * Eq. (A.7) in [<A HREF="http://inspirehep.net/record/344599?ln=en">
+     * Chankowski, Pokorski and Rosiek, NPB 423 (1994) 437</A>].
+     */
+    complex dFA(const double mu, const double p2, const double mi, const double mj,
+                const complex cV_aij, const complex cV_bji,
+                const complex cA_aij, const complex cA_bji) const;
+    
+    /**
      * @brief The transverse part of the Z-boson self-energy, @f$\Pi_Z^T(p^2)@f$,
      * in the 't Hooft-Feynman gauge.
      * @param[in] mu The renormalization scale @f$\mu@f$.

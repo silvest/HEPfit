@@ -93,6 +93,21 @@ complex EWSUSY::FA(const double mu, const double p2,
              -4.0*(cV_aij*cV_bji - cA_aij*cA_bji)*mi*mj*B0 );
 }
 
+complex EWSUSY::dFA(const double mu, const double p2,
+                   const double mi, const double mj,
+                   const complex cV_aij, const complex cV_bji,
+                   const complex cA_aij, const complex cA_bji) const
+{
+    /* PV functions */
+    complex B0 = PV.B0(mu, p2, mi, mj);
+    complex B0p = PV.B0p(mu, p2, mi, mj);
+    complex B22p = PV.B22p(mu, p2, mi, mj);
+
+    return ( -2.0*(cV_aij*cV_bji + cA_aij*cA_bji)
+              *(4.0*B22p + (p2 - mi*mi - mj*mj)*B0p + B0)
+             -4.0*(cV_aij*cV_bji - cA_aij*cA_bji)*mi*mj*B0p );
+}
+
 complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
 {
     double e2 = 4.0*M_PI*mySUSY.getAle();
@@ -472,7 +487,8 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
     for (int n=0; n<6; ++n) {
         VZLL_nn = - e_2sc*(ZLhc_ZL(n,n) - 2.0*sW2);
         b22 = PV.B22(mu, p2, Mse[n], Mse[n]);
-        PiT += - 4.0*e2*VZLL_nn*b22;
+        /* e^2 --> e */
+        PiT += - 4.0*e*VZLL_nn*b22;
 
         VAZLL_nn = e2_sc*(ZLhc_ZL(n,n) - 2.0*sW2);
         a0 = PV.A0(mu, Mse[n]);
@@ -485,7 +501,8 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
     for (int n=0; n<6; ++n) {
         VZDD_nn = - e_2sc*(ZDhc_ZD(n,n) - 2.0/3.0*sW2);
         b22 = PV.B22(mu, p2, Msd[n], Msd[n]);
-        PiT += - 4.0*e2*Nc/3.0*VZDD_nn*b22;
+        /* e^2 --> e */
+        PiT += - 4.0*e*Nc/3.0*VZDD_nn*b22;
 
         VAZDD_nn = e2_sc/3.0*(ZDhc_ZD(n,n) - 2.0/3.0*sW2);
         a0 = PV.A0(mu, Msd[n]);
@@ -498,7 +515,8 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
     for (int n=0; n<6; ++n) {
         VZUU_nn = e_2sc*(ZUhc_ZU(n,n) - 4.0/3.0*sW2);
         b22 = PV.B22(mu, p2, Msu[n], Msu[n]);
-        PiT += 4.0*e2*Nc*2.0/3.0*VZUU_nn*b22;
+        /* e^2 --> e */
+        PiT += 4.0*e*Nc*2.0/3.0*VZUU_nn*b22;
 
         VAZUU_nn = 2.0*e2_sc/3.0*(ZUhc_ZU(n,n) - 4.0/3.0*sW2);
         a0 = PV.A0(mu, Msu[n]);
@@ -542,34 +560,67 @@ complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) cons
 {
     double e2 = 4.0*M_PI*mySUSY.getAle();
     double e = sqrt(e2);
-    double Mz = mySUSY.getMz();
     double Nc = mySUSY.getNc();
 
     /* variables depending on Mw_i */
-    double cW = Mw_i/Mz;
-    double cW2 = cW*cW;
-    double sW2 = 1.0 - cW2;
-    double sW = sqrt(sW2);
-    double g2sq = e2/sW2; /* g2 squared */
-    double e_4sc = e/4.0/sW/cW;
-    double e_2sc = 2.0*e_4sc;
+    double mHp[2] = {mySUSY.getMHp(), Mw_i}; /* H^+_i = (H^+, G^+) */
     
     complex PiTp = complex(0.0, 0.0, false);
+    complex b0, b0p, b22p;
 
     /* SM fermion loops */
+    complex cV_Aee = - e;
+    complex cA_Aee = 0.0;
+    complex cV_Add = - e/3.0;
+    complex cA_Add = 0.0;
+    complex cV_Auu = 2.0/3.0*e;
+    complex cA_Auu = 0.0;
+    for (int I=0; I<3; ++I) {
+        /* charged leptons */
+        PiTp += dFA(mu, p2 ,m_l[I], m_l[I], cV_Aee, cV_Aee, cA_Aee, cA_Aee);
 
-    /* sfermion loops */
+        /* down-type quarks */
+        PiTp += Nc*dFA(mu, p2 ,m_d[I], m_d[I], cV_Add, cV_Add, cA_Add, cA_Add);
+
+        /* up-type quarks */
+        PiTp += Nc*dFA(mu, p2 ,m_u[I], m_u[I], cV_Auu, cV_Auu, cA_Auu, cA_Auu);
+    }
+
+    /* charged-slepton loops */
+    for (int n=0; n<6; ++n) {
+        b22p = PV.B22p(mu, p2, Mse[n], Mse[n]);
+        PiTp += 4.0*e2*b22p;
+    }
+
+    /* down-type squark loops */
+    for (int n=0; n<6; ++n) {
+        b22p = PV.B22p(mu, p2, Msd[n], Msd[n]);
+        PiTp += 4.0*e2*Nc/3.0/3.0*b22p;
+    }
+
+    /* up-type squark loops */
+    for (int n=0; n<6; ++n) {
+        b22p = PV.B22p(mu, p2, Msu[n], Msu[n]);
+        PiTp += 4.0*e2*Nc*2.0/3.0*2.0/3.0*b22p;
+    }
 
     /* chargino loops */
+    complex cV_Aii = e;
+    complex cA_Aii = 0.0;
+    for (int i=0; i<2; ++i)
+        PiTp += FA(mu, p2 ,mC[i], mC[i], cV_Aii, cV_Aii, cA_Aii, cA_Aii);
 
     /* charged-Higgs loops */
+    for (int i=0; i<2; ++i) {
+        b22p = PV.B22p(mu, p2, mHp[i], mHp[i]);
+        PiTp += 4.0*e2*b22p;
+    }
 
     /* W-boson loops */
-
-
-    
-    /* Write codes! */
-
+    b0 = PV.B0(mu, p2, Mw_i, Mw_i);
+    b0p = PV.B0p(mu, p2, Mw_i, Mw_i);
+    b22p = PV.B22(mu, p2, Mw_i, Mw_i);
+    PiTp += 4.0*e2*( (p2 + 2.0*Mw_i*Mw_i)*b0p + b0 + 2.0*b22p);
 
     return ( PiTp/16.0/M_PI/M_PI );
 }
@@ -1087,12 +1138,12 @@ complex EWSUSY::F(const double m1, const double m2, const double m3,
 complex EWSUSY::H(const double m1, const double m2, const double m3,
                   const double m4) const
 {
-
-    
-    std::cout << "EWSUSY::H(): Write codes!" << std::endl;
-
-
-    return complex(0.0, 0.0, false);
+    if ( fabs(m1 - m2) > 1.0e-7 ) {
+        double m12 = m1*m1;
+        double m22 = m2*m2;
+        return ( 0.25/(m12 - m22)*(m12*f(m1, m3, m4) - m22*f(m2, m3, m4)) );
+    } else
+        return  ( 0.5*f(m1, m3, m4) );
 }
 
 complex EWSUSY::f(const double m1, const double m2, const double m3) const
