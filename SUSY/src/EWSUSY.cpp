@@ -244,23 +244,25 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
         PiT += g2sq/4.0/cW2*a0;
     }
 
-    /* W-boson loops */
+    /* W-boson - charged-Goldstone-boson loop*/
     b0 = PV.B0(mu, p2, Mw_i, Mw_i);
     PiT += - 2.0*g2sq*sW2*sW2*Mz*Mz*b0;
-    a0 = PV.A0(mu, Mw_i);
-    b0 = PV.B0(mu, p2, Mw_i, Mw_i);
-    b22 = PV.B22(mu, p2, Mw_i, Mw_i);
-    /* a0^2 --> a0 in the first term; correct? */
-    PiT += 2.0*g2sq*cW2*(2.0*a0 + (2.0*p2 + Mw_i*Mw_i)*b0 + 4.0*b22);
 
-    /* Z-boson and Higgs loops */
+    /* Z-boson - Higgs loops */
     double CR_i;
     for (int i=0; i<2; ++i) {
         CR_i = mySUSY.v1()*ZR(0,i) + mySUSY.v2()*ZR(1,i);
         b0 = PV.B0(mu, p2, Mz, mH0[i]);
         PiT += - g2sq*g2sq/4.0/cW2/cW2*CR_i*CR_i*b0;
     }
-    
+
+    /* W-boson loops */
+    a0 = PV.A0(mu, Mw_i);
+    b0 = PV.B0(mu, p2, Mw_i, Mw_i);
+    b22 = PV.B22(mu, p2, Mw_i, Mw_i);
+    /* a0^2 --> a0 in the first term; correct? */
+    PiT += 2.0*g2sq*cW2*(2.0*a0 + (2.0*p2 + Mw_i*Mw_i)*b0 + 4.0*b22);
+
     return ( PiT/16.0/M_PI/M_PI );
 }
 
@@ -386,27 +388,34 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
         PiT += g2sq/2.0*a0;
     }
 
-    /* gauge-boson loops */
+    /* photon - charged-Goldstone-boson loops */
     b0 = PV.B0(mu, p2, Mw_i, 0.0);
     PiT += - e2*Mw_i*Mw_i*b0;
-    //
-    b0 = PV.B0(mu, p2, Mw_i, Mz);
-    PiT += - e2*sW2*Mz*Mz*b0;
-    //
-    b0 = PV.B0(mu, p2, Mw_i, Mz);
-    b22 = PV.B22(mu, p2, Mz, Mw_i);
-    PiT += g2sq*cW2*(2.0*PV.A0(mu, Mz) - PV.A0(mu, Mw_i)
-                     + (4.0*p2 + Mz*Mz + Mw_i*Mw_i)*b0 + 8.0*b22);
-    //
-    PiT += 3.0*g2sq*PV.A0(mu, Mw_i);
 
-    /* W-boson and Higgs loops */
+    /* W-boson - Higgs loops */
     double CR_i;
     for (int i=0; i<2; ++i) {
         CR_i = mySUSY.v1()*ZR(0,i) + mySUSY.v2()*ZR(1,i);
         b0 = PV.B0(mu, p2, Mw_i, mH0[i]);
         PiT += - g2sq*g2sq/4.0*CR_i*CR_i*b0;
     }
+
+    /* Z-boson - charged-Goldstone-boson loops */
+    b0 = PV.B0(mu, p2, Mw_i, Mz);
+    PiT += - e2*sW2*Mz*Mz*b0;
+
+    /* gauge-boson loops */
+    a0 = PV.A0(mu, Mw_i);
+    b0 = PV.B0(mu, p2, Mw_i, Mz);
+    b22 = PV.B22(mu, p2, Mz, Mw_i);
+    PiT += g2sq*cW2*(2.0*PV.A0(mu, Mz) - a0
+                     + (4.0*p2 + Mz*Mz + Mw_i*Mw_i)*b0 + 8.0*b22);
+    //
+    PiT += 3.0*g2sq*a0;
+    //
+    b0 = PV.B0(mu, p2, Mw_i, 0.0);
+    b22 = PV.B22(mu, p2, Mw_i, 0.0);
+    PiT += e2*((4.0*p2 + Mw_i*Mw_i)*b0 - a0 + 8.0*b22);
     
     return ( PiT/16.0/M_PI/M_PI );
 }
