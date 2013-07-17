@@ -151,7 +151,7 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
         PiT += VZZsnsn_II*a0;
     }
 
-    /* charged slepton loops */
+    /* charged-slepton loops */
     complex VZLL_mn, VZZLL_nn;
     matrix<complex> ZLhc_ZL = ZL.hconjugate()*ZL; 
     for (int n=0; n<6; ++n) {
@@ -434,25 +434,106 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
     double sW2 = 1.0 - cW2;
     double sW = sqrt(sW2);
     double g2 = e/sW;
-    double g2sq = e2/sW2; /* g2 squared */
     double e_4sc = e/4.0/sW/cW;
     double e_2sc = 2.0*e_4sc;
-
+    double e2_sc = e2/sW/cW;
+    
     complex PiT = complex(0.0, 0.0, false);
+    double a0;
+    complex b0, b22;
 
     /* SM fermion loops */
+    complex cV_Aee = - e;
+    complex cA_Aee = 0.0;
+    complex cV_Add = - e/3.0;
+    complex cA_Add = 0.0;
+    complex cV_Auu = 2.0/3.0*e;
+    complex cA_Auu = 0.0;
+    complex cV_Zee = - e_4sc*(1.0 - 4.0*sW2);
+    complex cA_Zee = - e_4sc;
+    complex cV_Zdd = - e_4sc*(1.0 - 4.0/3.0*sW2);
+    complex cA_Zdd = - e_4sc;
+    complex cV_Zuu = e_4sc*(1.0 - 8.0/3.0*sW2);
+    complex cA_Zuu = e_4sc;
+    for (int I=0; I<3; ++I) {
+        /* charged leptons */
+        PiT += FA(mu, p2 ,m_l[I], m_l[I], cV_Aee, cV_Zee, cA_Aee, cA_Zee);
 
-    /* sfermion loops */
+        /* down-type quarks */
+        PiT += Nc*FA(mu, p2 ,m_d[I], m_d[I], cV_Add, cV_Zdd, cA_Add, cA_Zdd);
+
+        /* up-type quarks */
+        PiT += Nc*FA(mu, p2 ,m_u[I], m_u[I], cV_Auu, cV_Zuu, cA_Auu, cA_Zuu);
+    }
+
+    /* charged-slepton loops */
+    complex VZLL_nn, VAZLL_nn;
+    matrix<complex> ZLhc_ZL = ZL.hconjugate()*ZL;
+    for (int n=0; n<6; ++n) {
+        VZLL_nn = - e_2sc*(ZLhc_ZL(n,n) - 2.0*sW2);
+        b22 = PV.B22(mu, p2, Mse[n], Mse[n]);
+        PiT += - 4.0*e2*VZLL_nn*b22;
+
+        VAZLL_nn = e2_sc*(ZLhc_ZL(n,n) - 2.0*sW2);
+        a0 = PV.A0(mu, Mse[n]);
+        PiT += VAZLL_nn*a0;
+    }
+
+    /* down-type squark loops */
+    complex VZDD_nn, VAZDD_nn;
+    matrix<complex> ZDhc_ZD = ZD.hconjugate()*ZD;
+    for (int n=0; n<6; ++n) {
+        VZDD_nn = - e_2sc*(ZDhc_ZD(n,n) - 2.0/3.0*sW2);
+        b22 = PV.B22(mu, p2, Msd[n], Msd[n]);
+        PiT += - 4.0*e2*Nc/3.0*VZDD_nn*b22;
+
+        VAZDD_nn = e2_sc/3.0*(ZDhc_ZD(n,n) - 2.0/3.0*sW2);
+        a0 = PV.A0(mu, Msd[n]);
+        PiT += Nc*VAZDD_nn*a0;
+    }
+
+    /* up-type squark loops */
+    complex VZUU_nn, VAZUU_nn;
+    matrix<complex> ZUhc_ZU = ZU.hconjugate()*ZU;
+    for (int n=0; n<6; ++n) {
+        VZUU_nn = e_2sc*(ZUhc_ZU(n,n) - 4.0/3.0*sW2);
+        b22 = PV.B22(mu, p2, Msu[n], Msu[n]);
+        PiT += 4.0*e2*Nc*2.0/3.0*VZUU_nn*b22;
+
+        VAZUU_nn = 2.0*e2_sc/3.0*(ZUhc_ZU(n,n) - 4.0/3.0*sW2);
+        a0 = PV.A0(mu, Msu[n]);
+        PiT += Nc*VAZUU_nn*a0;
+    }
 
     /* chargino loops */
+    complex cV_Aii = e;
+    complex cA_Aii = 0.0;
+    complex cV_Zii, cA_Zii;
+    for (int i=0; i<2; ++i) {
+        cV_Zii = e_4sc*( Zp(0,i).conjugate()*Zp(0,i)
+                         + Zm(0,i)*Zm(0,i).conjugate() + 2.0*(cW2 - sW2) );
+        cA_Zii = e_4sc*( Zp(0,i).conjugate()*Zp(0,i)
+                         - Zm(0,i)*Zm(0,i).conjugate() );
+        PiT += FA(mu, p2 ,mC[i], mC[i], cV_Aii, cV_Zii, cA_Aii, cA_Zii);
+    }
+
+    /* W-boson - charged-Goldstone-boson loops */
+    b0 = PV.B0(mu, p2, Mw_i, Mw_i);
+    PiT += 2.0*e2*cW*sW*Mz*Mz*b0;
 
     /* W-boson loops */
+    a0 = PV.A0(mu, Mw_i);
+    //b0 = PV.B0(mu, p2, Mw_i, Mw_i); /* same as the above */
+    b22 = PV.B22(mu, p2, Mw_i, Mw_i);
+    PiT += 2.0*e*g2*cW*(2.0*a0 + (2.0*p2 + Mw_i*Mw_i)*b0 + 4.0*b22);
 
     /* charged-Higgs loops */
-
-    
-    /* Write codes! */
-
+    double cot_2thW = (cW2 - sW2)/(2.0*sW*cW);
+    for (int i=0; i<2; ++i) {
+        a0 = PV.A0(mu, mHp[i]);
+        b22 = PV.B22(mu, p2, mHp[i], mHp[i]);
+        PiT += 2.0*e2*cot_2thW*(2.0*b22 + a0);
+    }
 
     return ( PiT/16.0/M_PI/M_PI );
 }
@@ -945,7 +1026,6 @@ double EWSUSY::DeltaR_SUSY_EW1(const double Mw_i) const
 
     return ( DeltaR_MSSM_EW1(Mw_i) - DeltaR_SM_EW1 );
 }
-
 
 complex EWSUSY::L_esnC(const int N, const int K, const int i, const double Mw_i) const
 {
