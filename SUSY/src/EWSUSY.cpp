@@ -326,9 +326,10 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
         a0 = PV.A0(mu, Msn[I]);
         PiT += VWWsnsn_II*a0;
     }
-    matrix<complex> ZLhc_ZL = ZL.hconjugate()*ZL;
     for (int n=0; n<6; ++n) {
-        VWWLL_nn = e2_2s2*ZLhc_ZL(n,n);
+        VWWLL_nn = complex(0.0, 0.0, false);
+        for (int I=0; I<6; ++I)
+            VWWLL_nn += e2_2s2*ZL(I,n)*ZL(I,n).conjugate();
         a0 = PV.A0(mu, Mse[n]);
         PiT += VWWLL_nn*a0;
     }
@@ -336,18 +337,21 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
     /* squark loops (no CKM) */
     complex VWUD_mn, VWWDD_nn, VWWUU_nn;
     matrix<complex> ZDT_ZU = ZD.transpose()*ZU;
-    matrix<complex> ZDhc_ZD = ZD.hconjugate()*ZD;
-    matrix<complex> ZUhc_ZU = ZU.hconjugate()*ZU;
     for (int n=0; n<6; ++n) {
         for (int m=0; m<6; ++m) {
+            /* VWDU^dagger = VWUD */
             VWUD_mn = e_sq2s*ZDT_ZU(n,m);
             b22 = PV.B22(mu, p2, Msu[m], Msd[n]);
             PiT += 4.0*Nc*VWUD_mn.abs2()*b22;
         }
-        VWWDD_nn = e2_2s2*ZDhc_ZD(n,n);
+        VWWDD_nn = complex(0.0, 0.0, false);
+        for (int I=0; I<6; ++I)
+            VWWDD_nn += e2_2s2*ZD(I,n)*ZD(I,n).conjugate();
         a0 = PV.A0(mu, Msd[n]);
         PiT += Nc*VWWDD_nn*a0;
-        VWWUU_nn = e2_2s2*ZUhc_ZU(n,n);
+        VWWUU_nn = complex(0.0, 0.0, false);
+        for (int I=0; I<6; ++I)
+            VWWUU_nn += e2_2s2*ZU(I,n).conjugate()*ZU(I,n);
         a0 = PV.A0(mu, Msu[n]);
         PiT += Nc*VWWUU_nn*a0;
     }
