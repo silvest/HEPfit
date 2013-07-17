@@ -430,7 +430,7 @@ complex PVfunctions::C0(const double p2,
                 Li2[i].imag() = im.val;
             }
             C0 = 1./(-p2)*(Li2[0]-Li2[1]);
-        } else if(m0 != 0 && m1 != 0 && m2 != 0 && fabs(m0-m1) > LEPS && fabs(m1-m2) > LEPS){
+        } else if(m0 != 0. && m1 != 0. && m2 != 0. && fabs(m0-m1) > LEPS && fabs(m1-m2) > LEPS){
             double x0 = 1.-(m0*m0-m1*m1)/p2;
             double x1 = -(-p2+m0*m0-m2*m2-sqrt(fabs((m0*m0+m2*m2-p2)*(m0*m0+m2*m2-p2)-4.*m0*m0*m2*m2)))/p2/2.;
             double x2 = -(-p2+m0*m0-m2*m2+sqrt(fabs((m0*m0+m2*m2-p2)*(m0*m0+m2*m2-p2)-4.*m0*m0*m2*m2)))/p2/2.;
