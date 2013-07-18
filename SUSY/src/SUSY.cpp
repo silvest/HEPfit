@@ -302,10 +302,10 @@ double SUSY::Mw() const
 
     /* Write codes! */
 
-    /* test */
-    double delA = myEWSUSY->DeltaAlphaL5q_SM_EW1();
 
-
+    std::cout << myEWSUSY->PiT_W(getMz(), 0.0, Mw_tree()) << std::endl;
+    std::cout << myEWSUSY->PiT_W(getMz(), Mw_tree()*Mw_tree(), Mw_tree()) << std::endl;
+//    std::cout << myEWSUSY->DeltaR_SUSY_EW1(StandardModel::Mw()) << std::endl;
     
     //std::cout << "DeltaRho = " << myFH->getFHdeltarho() << std::endl;
 

@@ -278,7 +278,7 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     a0 = PV.A0(mu, Mw_i);
     b0 = PV.B0(mu, p2, Mw_i, Mw_i);
     b22 = PV.B22(mu, p2, Mw_i, Mw_i);
-    /* a0^2 --> a0 in the first term; correct? */
+    /* a0^2 --> a0 in the first term */
     PiT += 2.0*g2sq*cW2*(2.0*a0 + (2.0*p2 + Mw_i*Mw_i)*b0 + 4.0*b22);
 
     return ( PiT/16.0/M_PI/M_PI );
@@ -1075,7 +1075,7 @@ double EWSUSY::DeltaAlphaL5q_SM_EW1() const
     double e = sqrt(4.0*M_PI*mySUSY.getAle());
     double Nc = mySUSY.getNc();
 
-    double DelA = 0.0;
+    double DelA_l = 0.0, DelA_d = 0.0, DelA_u = 0.0;
 
     /* SM fermion loops */
     complex cV_Aee = - e;
@@ -1086,30 +1086,27 @@ double EWSUSY::DeltaAlphaL5q_SM_EW1() const
     complex cA_Auu = 0.0;
     for (int I=0; I<3; ++I) {
         /* charged leptons */
-        DelA += dFA(mu, Mz2, m_l[I], m_l[I], cV_Aee, cV_Aee, cA_Aee, cA_Aee).real();
-        DelA -= dFA(mu, 0.0, m_l[I], m_l[I], cV_Aee, cV_Aee, cA_Aee, cA_Aee).real();
+        DelA_l += FA(mu, Mz2, m_l[I], m_l[I], cV_Aee, cV_Aee, cA_Aee, cA_Aee).real()/Mz2;
+        DelA_l -= dFA(mu, 0.0, m_l[I], m_l[I], cV_Aee, cV_Aee, cA_Aee, cA_Aee).real();
 
         /* down-type quarks */
-//        DelA += Nc*dFA(mu, Mz2, m_d[I], m_d[I], cV_Add, cV_Add, cA_Add, cA_Add).real();
-//        DelA -= Nc*dFA(mu, 0.0, m_d[I], m_d[I], cV_Add, cV_Add, cA_Add, cA_Add).real();
+        DelA_d += Nc*FA(mu, Mz2, m_d[I], m_d[I], cV_Add, cV_Add, cA_Add, cA_Add).real()/Mz2;
+        DelA_d -= Nc*dFA(mu, 0.0, m_d[I], m_d[I], cV_Add, cV_Add, cA_Add, cA_Add).real();
 
         /* up-type quarks, not including top quark */
-//        if (I!=3) {
-//            DelA += Nc*dFA(mu, Mz2, m_u[I], m_u[I], cV_Auu, cV_Auu, cA_Auu, cA_Auu).real();
-//            DelA -= Nc*dFA(mu, 0.0, m_u[I], m_u[I], cV_Auu, cV_Auu, cA_Auu, cA_Auu).real();
-//        }
+        if (I!=3) {
+            DelA_u += Nc*FA(mu, Mz2, m_u[I], m_u[I], cV_Auu, cV_Auu, cA_Auu, cA_Auu).real()/Mz2;
+            DelA_u -= Nc*dFA(mu, 0.0, m_u[I], m_u[I], cV_Auu, cV_Auu, cA_Auu, cA_Auu).real();
+        }
     }
 
+    /* Debug */
+    //std::cout << "EWSUSY(l) " << DelA_l/16.0/M_PI/M_PI << std::endl;
+    //std::cout << "EWSM(l)   " << myEWSMOneLoopEW.DeltaAlpha_l(Mz2) << std::endl;
+    //std::cout << "EWSUSY(q) " << (DelA_d + DelA_u)/16.0/M_PI/M_PI << std::endl;
+    //std::cout << "EWSM(had) " << myEWSMOneLoopEW.DeltaAlpha_5q(Mz2) << std::endl;
 
-    std::cout << "EWSUSY::DeltaAlphaL5q_SM_EW1() has to be implemented!" << std::endl;
-    std::cout << "EWSUSY yields a larger DeltaAlpha!! Why?" << std::endl;
-
-    
-    std::cout << "EWSUSY " << DelA/16.0/M_PI/M_PI << std::endl;
-    std::cout << "EWSM   " << myEWSMOneLoopEW.DeltaAlpha_l(Mz2) << std::endl;
-    std::cout << "EWSM(had) " << myEWSMOneLoopEW.DeltaAlpha_5q(Mz2) << std::endl;
-
-    return DelA/16.0/M_PI/M_PI;
+    return ( (DelA_l + DelA_d + DelA_u)/16.0/M_PI/M_PI );
 }
 
 double EWSUSY::DeltaR_SUSY_EW1(const double Mw_i) const
