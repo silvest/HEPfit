@@ -40,6 +40,13 @@ public:
     double DeltaAlpha_l(const double s) const;
 
     /**
+     * @brief light-quark contribution to alpha
+     * @param[in] s invariant mass squared 
+     * @return
+     */
+    double DeltaAlpha_5q(const double s) const;
+
+    /**
      * @brief top-quark contribution to alpha
      * @param[in] s invariant mass squared 
      * @return Delta alpha_{top}^{alpha}

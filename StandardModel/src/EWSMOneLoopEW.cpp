@@ -33,6 +33,28 @@ double EWSMOneLoopEW::DeltaAlpha_l(const double s) const
 }
 
 
+double EWSMOneLoopEW::DeltaAlpha_5q(const double s) const
+{
+    double Mz = cache.Mz();
+
+    double oneLoop[5];
+    /* Qf and Nc are included in PiGammaGamma_fer_q(). */
+    oneLoop[0] = - PiGammaGamma_fer_q(Mz, s, StandardModel::UP).real()
+                 + PiGammaGamma_fer_q(Mz, 0.0, StandardModel::UP).real();
+    oneLoop[1] = - PiGammaGamma_fer_q(Mz, s, StandardModel::DOWN).real()
+                 + PiGammaGamma_fer_q(Mz, 0.0, StandardModel::DOWN).real();
+    oneLoop[2] = - PiGammaGamma_fer_q(Mz, s, StandardModel::CHARM).real()
+                 + PiGammaGamma_fer_q(Mz, 0.0, StandardModel::CHARM).real();
+    oneLoop[3] = - PiGammaGamma_fer_q(Mz, s, StandardModel::STRANGE).real()
+                 + PiGammaGamma_fer_q(Mz, 0.0, StandardModel::STRANGE).real();
+    oneLoop[4] = - PiGammaGamma_fer_q(Mz, s, StandardModel::BOTTOM).real()
+                 + PiGammaGamma_fer_q(Mz, 0.0, StandardModel::BOTTOM).real();
+
+    return( cache.ale()/4.0/M_PI
+            *(oneLoop[0] + oneLoop[1] + oneLoop[2] + oneLoop[3] + oneLoop[4]) );
+}
+
+
 double EWSMOneLoopEW::DeltaAlpha_t(const double s) const 
 {   
     double xt = s/cache.Mt()/cache.Mt();
