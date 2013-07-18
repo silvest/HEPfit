@@ -10,7 +10,7 @@
 #include "EWSUSY.h"
 
 EWSUSY::EWSUSY(const SUSY& SUSY_in)
-: mySUSY(SUSY_in),
+: mySUSY(SUSY_in), myEWSMCache(SUSY_in), myEWSMOneLoopEW(myEWSMCache),
         Yu(3,3,0.0), Yd(3,3,0.0), Yl(3,3,0.0),
         Au(3,3,0.0), Ad(3,3,0.0), Al(3,3,0.0),
         Zm(2,2,0.), Zp(2,2,0.), ZN(4,4,0.),
@@ -53,11 +53,11 @@ void EWSUSY::SetRosiekParameters()
     /* particle massses */
     for (int I=0; I<3; ++I) {
         /* up-type quarks */
-        m_u[I] = mySUSY.Mq_Q((StandardModel::quark)(2*I));
+        m_u[I] = myEWSMCache.mq((StandardModel::quark)(2*I), mySUSY.getMz(), FULLNNLO);
         /* down-type quarks */
-        m_d[I] = mySUSY.Mq_Q((StandardModel::quark)(2*I + 1));
+        m_d[I] = myEWSMCache.mq((StandardModel::quark)(2*I + 1), mySUSY.getMz(), FULLNNLO);
         /* charged leptons */
-        m_l[I] = mySUSY.Ml_Q((StandardModel::lepton)(2*I + 1));
+        m_l[I] = mySUSY.getLeptons((StandardModel::lepton)(2*I + 1)).getMass();
     }
     /* H^0_i = (H^0, h^0, A^0, G^0) */
     mH0[0] = mySUSY.getMHh();
@@ -103,9 +103,12 @@ complex EWSUSY::dFA(const double mu, const double p2,
     complex B0p = PV.B0p(mu, p2, mi, mj);
     complex B22p = PV.B22p(mu, p2, mi, mj);
 
-    return ( -2.0*(cV_aij*cV_bji + cA_aij*cA_bji)
-              *(4.0*B22p + (p2 - mi*mi - mj*mj)*B0p + B0)
-             -4.0*(cV_aij*cV_bji - cA_aij*cA_bji)*mi*mj*B0p );
+    if (mi == mj && cA_aij == 0.0 && cA_bji == 0.0)
+        return ( -2.0*cV_aij*cV_bji*(4.0*B22p + p2*B0p + B0) );
+    else
+        return ( -2.0*(cV_aij*cV_bji + cA_aij*cA_bji)
+                  *(4.0*B22p + (p2 - mi*mi - mj*mj)*B0p + B0)
+                 -4.0*(cV_aij*cV_bji - cA_aij*cA_bji)*mi*mj*B0p );
 }
 
 complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
@@ -146,13 +149,13 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     complex cA_Zuu = e_4sc;
     for (int I=0; I<3; ++I) {
         /* charged leptons */
-        PiT += FA(mu, p2 ,m_l[I], m_l[I], cV_Zee, cV_Zee, cA_Zee, cA_Zee);
+        PiT += FA(mu, p2, m_l[I], m_l[I], cV_Zee, cV_Zee, cA_Zee, cA_Zee);
 
         /* down-type quarks */
-        PiT += Nc*FA(mu, p2 ,m_d[I], m_d[I], cV_Zdd, cV_Zdd, cA_Zdd, cA_Zdd);
+        PiT += Nc*FA(mu, p2, m_d[I], m_d[I], cV_Zdd, cV_Zdd, cA_Zdd, cA_Zdd);
 
         /* up-type quarks */
-        PiT += Nc*FA(mu, p2 ,m_u[I], m_u[I], cV_Zuu, cV_Zuu, cA_Zuu, cA_Zuu);
+        PiT += Nc*FA(mu, p2, m_u[I], m_u[I], cV_Zuu, cV_Zuu, cA_Zuu, cA_Zuu);
     }
 
     /* sneutrino loops */
@@ -316,10 +319,10 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
     complex cA_Wud = cA_Wdu.conjugate();
     for (int I=0; I<3; ++I) {
         /* leptons */
-        PiT += FA(mu, p2 ,m_l[I], 0.0, cV_Wen, cV_Wne, cA_Wen, cA_Wne);
+        PiT += FA(mu, p2, m_l[I], 0.0, cV_Wen, cV_Wne, cA_Wen, cA_Wne);
 
         /* quarks (no CKM) */
-        PiT += Nc*FA(mu, p2 ,m_d[I], m_u[I], cV_Wdu, cV_Wud, cA_Wdu, cA_Wud);
+        PiT += Nc*FA(mu, p2, m_d[I], m_u[I], cV_Wdu, cV_Wud, cA_Wdu, cA_Wud);
     }
 
     /* slepton loops */
@@ -472,13 +475,13 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
     complex cA_Zuu = e_4sc;
     for (int I=0; I<3; ++I) {
         /* charged leptons */
-        PiT += FA(mu, p2 ,m_l[I], m_l[I], cV_Aee, cV_Zee, cA_Aee, cA_Zee);
+        PiT += FA(mu, p2, m_l[I], m_l[I], cV_Aee, cV_Zee, cA_Aee, cA_Zee);
 
         /* down-type quarks */
-        PiT += Nc*FA(mu, p2 ,m_d[I], m_d[I], cV_Add, cV_Zdd, cA_Add, cA_Zdd);
+        PiT += Nc*FA(mu, p2, m_d[I], m_d[I], cV_Add, cV_Zdd, cA_Add, cA_Zdd);
 
         /* up-type quarks */
-        PiT += Nc*FA(mu, p2 ,m_u[I], m_u[I], cV_Auu, cV_Zuu, cA_Auu, cA_Zuu);
+        PiT += Nc*FA(mu, p2, m_u[I], m_u[I], cV_Auu, cV_Zuu, cA_Auu, cA_Zuu);
     }
 
     /* charged-slepton loops */
@@ -577,13 +580,13 @@ complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) cons
     complex cA_Auu = 0.0;
     for (int I=0; I<3; ++I) {
         /* charged leptons */
-        PiTp += dFA(mu, p2 ,m_l[I], m_l[I], cV_Aee, cV_Aee, cA_Aee, cA_Aee);
+        PiTp += dFA(mu, p2, m_l[I], m_l[I], cV_Aee, cV_Aee, cA_Aee, cA_Aee);
 
         /* down-type quarks */
-        PiTp += Nc*dFA(mu, p2 ,m_d[I], m_d[I], cV_Add, cV_Add, cA_Add, cA_Add);
+        PiTp += Nc*dFA(mu, p2, m_d[I], m_d[I], cV_Add, cV_Add, cA_Add, cA_Add);
 
         /* up-type quarks */
-        PiTp += Nc*dFA(mu, p2 ,m_u[I], m_u[I], cV_Auu, cV_Auu, cA_Auu, cA_Auu);
+        PiTp += Nc*dFA(mu, p2, m_u[I], m_u[I], cV_Auu, cV_Auu, cA_Auu, cA_Auu);
     }
 
     /* charged-slepton loops */
@@ -1063,17 +1066,62 @@ double EWSUSY::DeltaR_MSSM_EW1(const double Mw_i) const
     return DeltaR;
 }
 
-double EWSUSY::DeltaR_SUSY_EW1(const double Mw_i) const
+double EWSUSY::DeltaAlphaL5q_SM_EW1() const
 {
-    double DeltaR_SM_EW1; 
+    /* Renormalization scale (varied for checking the cancellation of UV divergences */
+    double mu = mySUSY.getMz();
+
+    double Mz2 = mySUSY.getMz()*mySUSY.getMz();
+    double e = sqrt(4.0*M_PI*mySUSY.getAle());
+    double Nc = mySUSY.getNc();
+
+    double DelA = 0.0;
+
+    /* SM fermion loops */
+    complex cV_Aee = - e;
+    complex cA_Aee = 0.0;
+    complex cV_Add = - e/3.0;
+    complex cA_Add = 0.0;
+    complex cV_Auu = 2.0/3.0*e;
+    complex cA_Auu = 0.0;
+    for (int I=0; I<3; ++I) {
+        /* charged leptons */
+        DelA += dFA(mu, Mz2, m_l[I], m_l[I], cV_Aee, cV_Aee, cA_Aee, cA_Aee).real();
+        DelA -= dFA(mu, 0.0, m_l[I], m_l[I], cV_Aee, cV_Aee, cA_Aee, cA_Aee).real();
+
+        /* down-type quarks */
+//        DelA += Nc*dFA(mu, Mz2, m_d[I], m_d[I], cV_Add, cV_Add, cA_Add, cA_Add).real();
+//        DelA -= Nc*dFA(mu, 0.0, m_d[I], m_d[I], cV_Add, cV_Add, cA_Add, cA_Add).real();
+
+        /* up-type quarks, not including top quark */
+//        if (I!=3) {
+//            DelA += Nc*dFA(mu, Mz2, m_u[I], m_u[I], cV_Auu, cV_Auu, cA_Auu, cA_Auu).real();
+//            DelA -= Nc*dFA(mu, 0.0, m_u[I], m_u[I], cV_Auu, cV_Auu, cA_Auu, cA_Auu).real();
+//        }
+    }
 
 
-    std::cout << "EWSUSY::DeltaR_SUSY_EW1(): Write codes!" << std::endl;
+    std::cout << "EWSUSY::DeltaAlphaL5q_SM_EW1() has to be implemented!" << std::endl;
+    std::cout << "EWSUSY yields a larger DeltaAlpha!! Why?" << std::endl;
 
     
-    /* Write codes for DeltaR_SM_EW1! */
-    /* How to take into account the discrepancy in the hVV couplings between SM and MSSM? */
+    std::cout << "EWSUSY " << DelA/16.0/M_PI/M_PI << std::endl;
+    std::cout << "EWSM   " << myEWSMOneLoopEW.DeltaAlpha_l(Mz2) << std::endl;
+    std::cout << "EWSM(had) " << myEWSMOneLoopEW.DeltaAlpha_5q(Mz2) << std::endl;
 
+    return DelA/16.0/M_PI/M_PI;
+}
+
+double EWSUSY::DeltaR_SUSY_EW1(const double Mw_i) const
+{
+    double cW2 = Mw_i*Mw_i/mySUSY.getMz()/mySUSY.getMz();
+    double sW2 = 1.0 - cW2;
+
+    /* SM one-loop contributions */
+    double DeltaAlphaL5q_EW1 = DeltaAlphaL5q_SM_EW1();
+    double DeltaRho_EW1 = - cW2/sW2*myEWSMOneLoopEW.DeltaRho(Mw_i);
+    double DeltaR_rem_EW1 = myEWSMOneLoopEW.DeltaR_rem(Mw_i);
+    double DeltaR_SM_EW1 = DeltaAlphaL5q_EW1 - cW2/sW2*DeltaRho_EW1 + DeltaR_rem_EW1;
 
     return ( DeltaR_MSSM_EW1(Mw_i) - DeltaR_SM_EW1 );
 }

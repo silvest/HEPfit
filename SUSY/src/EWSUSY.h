@@ -367,6 +367,13 @@ public:
     double DeltaR_neutrino_SUSY(const double Mw_i) const;
 
     /**
+     * @brief The SM one-loop leptonic and five-flavour-hadronic corrections
+     * to @f$\alpha@f$ at Z-mass scale.
+     * @return @f$\Delta\alpha^{\ell + 5q}(M_Z^2)@f$ at one-loop level.
+     */
+    double DeltaAlphaL5q_SM_EW1() const;
+
+    /**
      * @brief The one-loop contribution to @f$\Delta r@f$ in the MSSM. 
      * @return @f$\Delta r_{\rm MSSM}^{\alpha} = \Delta r_{\rm SM}^{\alpha} + \Delta r_{\rm SUSY}^{\alpha}@f$.
      */
@@ -383,6 +390,8 @@ private:
 
     const PVfunctions PV; ///< An object of PVfunctions class.
     const SUSY& mySUSY; ///< A reference to the SUSY object passed to the constructor.
+    const EWSMcache myEWSMCache;
+    const EWSMOneLoopEW myEWSMOneLoopEW;
 
     matrix<complex> Yu; ///< The Yukawa coupling matrix for up-type quarks in Rosiek's notation.
     matrix<complex> Yd; ///< The Yukawa coupling matrix for down-type quarks in Rosiek's notation.

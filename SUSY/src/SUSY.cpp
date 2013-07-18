@@ -302,6 +302,10 @@ double SUSY::Mw() const
 
     /* Write codes! */
 
+    /* test */
+    double delA = myEWSUSY->DeltaAlphaL5q_SM_EW1();
+
+
     
     //std::cout << "DeltaRho = " << myFH->getFHdeltarho() << std::endl;
 
