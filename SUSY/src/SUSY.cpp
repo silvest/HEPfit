@@ -305,9 +305,13 @@ double SUSY::Mw() const
 
     std::cout << myEWSUSY->PiT_W(getMz(), 0.0, Mw_tree()) << std::endl;
     std::cout << myEWSUSY->PiT_W(getMz(), Mw_tree()*Mw_tree(), Mw_tree()) << std::endl;
-//    std::cout << myEWSUSY->DeltaR_SUSY_EW1(StandardModel::Mw()) << std::endl;
-    
-    //std::cout << "DeltaRho = " << myFH->getFHdeltarho() << std::endl;
+    std::cout << myEWSUSY->DeltaR_SUSY_EW1(StandardModel::Mw()) << std::endl;
+
+    std::cout << myEWSUSY->DeltaR_vertex_SUSY(Mw_tree()) << std::endl;
+    std::cout << myEWSUSY->DeltaR_boxLL_SUSY(Mw_tree()) << std::endl;
+    std::cout << myEWSUSY->DeltaR_boxLR_SUSY(Mw_tree()) << std::endl;
+
+    std::cout << "DeltaRho = " << myFH->getFHdeltarho() << std::endl;
 
     /* Delta rho approximation */
     double Mw_SM = StandardModel::Mw();
