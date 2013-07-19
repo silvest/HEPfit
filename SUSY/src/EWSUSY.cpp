@@ -955,9 +955,9 @@ complex EWSUSY::v(const double mu, const StandardModel::lepton M,
         for (int j=0; j<4; ++j)
             for (int i=0; i<2; ++i) {
                 CL_ji = ZN(1,j)*Zp(0,i).conjugate()
-                        - ZN(3,i)*Zp(1,i).conjugate()/sqrt(2.0);
+                        - ZN(3,j)*Zp(1,i).conjugate()/sqrt(2.0);
                 CR_ji = ZN(1,j).conjugate()*Zm(0,i)
-                        + ZN(2,i).conjugate()*Zm(1,i)/sqrt(2.0);
+                        + ZN(2,j).conjugate()*Zm(1,i)/sqrt(2.0);
                 b0 = PV.B0(mu, 0.0, mC[i], mN[j]);
                 ff = f(Mse[k], mC[i], mN[j]);
                 v += L_nLC(intJ, k, i, Mw_i).conjugate()*L_eLN(intM, k, j, Mw_i)
@@ -970,9 +970,9 @@ complex EWSUSY::v(const double mu, const StandardModel::lepton M,
         for (int j=0; j<4; ++j)
             for (int i=0; i<2; ++i) {
                 CL_ji = ZN(1,j)*Zp(0,i).conjugate()
-                        - ZN(3,i)*Zp(1,i).conjugate()/sqrt(2.0);
+                        - ZN(3,j)*Zp(1,i).conjugate()/sqrt(2.0);
                 CR_ji = ZN(1,j).conjugate()*Zm(0,i)
-                        + ZN(2,i).conjugate()*Zm(1,i)/sqrt(2.0);
+                        + ZN(2,j).conjugate()*Zm(1,i)/sqrt(2.0);
                 b0 = PV.B0(mu, 0.0, mC[i], mN[j]);
                 ff = f(Msn[K], mC[i], mN[j]);
                 v += L_nsnN(intJ, K, j, Mw_i).conjugate()*L_esnC(intM, K, i, Mw_i)
