@@ -230,11 +230,11 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     /* chargino loops */
     for (int i=0; i<2; ++i)
         for (int j=0; j<2; ++j) {
-            cV_Zij = e_4sc*(Zp(0,j).conjugate()*Zp(0,i) 
+            cV_Zij = e_4sc*(  Zp(0,j).conjugate()*Zp(0,i)
                             + Zm(0,j)*Zm(0,i).conjugate()
                             + 2.0*(cW2 - sW2)*Id2(j,i));
             cV_Zji = cV_Zij.conjugate();
-            cA_Zij = e_4sc*(Zp(0,j).conjugate()*Zp(0,i)
+            cA_Zij = e_4sc*(  Zp(0,j).conjugate()*Zp(0,i)
                             - Zm(0,j)*Zm(0,i).conjugate());
             cA_Zji = cA_Zij.conjugate();
             PiT_ch += FA(mu, p2 ,mC[i], mC[j], cV_Zij, cV_Zji, cA_Zij, cA_Zji);
@@ -243,15 +243,15 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     /* neutralino loops */
     for (int i=0; i<4; ++i)
         for (int j=0; j<4; ++j) {
-            cV_Zij = e_4sc*(  ZN(3,j)*ZN(3,i).conjugate()
-                            - ZN(2,j)*ZN(2,i).conjugate()
-                            - ZN(3,j).conjugate()*ZN(3,i)
-                            + ZN(2,j).conjugate()*ZN(2,i));
+            cV_Zij = - e_4sc*(  ZN(3,j).conjugate()*ZN(3,i)
+                              - ZN(2,j).conjugate()*ZN(2,i)
+                              - ZN(3,j)*ZN(3,i).conjugate()
+                              + ZN(2,j)*ZN(2,i).conjugate());
             cV_Zji = cV_Zij.conjugate();
-            cA_Zij = e_4sc*(  ZN(3,j)*ZN(3,i).conjugate()
-                            - ZN(2,j)*ZN(2,i).conjugate()
-                            + ZN(3,j).conjugate()*ZN(3,i)
-                            - ZN(2,j).conjugate()*ZN(2,i));
+            cA_Zij = - e_4sc*(  ZN(3,j).conjugate()*ZN(3,i)
+                              - ZN(2,j).conjugate()*ZN(2,i)
+                              + ZN(3,j)*ZN(3,i).conjugate()
+                              - ZN(2,j)*ZN(2,i).conjugate());
             cA_Zji = cA_Zij.conjugate();
             PiT_ch += 0.5*FA(mu, p2 ,mN[i], mN[j], cV_Zij, cV_Zji, cA_Zij, cA_Zji);
         }
@@ -301,7 +301,6 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
 
 
     PiT = PiT_ch;
-    //PiT = PiT_f + PiT_sf + PiT_WZH;
         
     return ( PiT/16.0/M_PI/M_PI );
 }
@@ -399,16 +398,16 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
     for (int i=0; i<2; ++i)
         for (int j=0; j<4; ++j) {
             /* indices: chargino=i, neutralino=j */
-            cV_Wij = - e_2s*(  ZN(1,j).conjugate()*Zp(0,i)
-                             - ZN(3,j).conjugate()*Zp(1,i)/sqrt(2.0)
-                             + ZN(1,j)*Zp(0,i).conjugate()
-                             + ZN(2,j)*Zp(1,i).conjugate()/sqrt(2.0) );
-            cV_Wji = cV_Wij.conjugate();
-            cA_Wij = - e_2s*(  ZN(1,j).conjugate()*Zp(0,i)
-                             - ZN(3,j).conjugate()*Zp(1,i)/sqrt(2.0)
-                             - ZN(1,j)*Zp(0,i).conjugate()
-                             - ZN(2,j)*Zp(1,i).conjugate()/sqrt(2.0) );
-            cA_Wji = cA_Wij.conjugate();
+            cV_Wji = - e_2s*(  ZN(1,j)*Zp(0,i).conjugate()
+                             - ZN(3,j)*Zp(1,i).conjugate()/sqrt(2.0)
+                             + ZN(1,j).conjugate()*Zm(0,i)
+                             + ZN(2,j).conjugate()*Zm(1,i)/sqrt(2.0) );
+            cV_Wij = cV_Wji.conjugate();
+            cA_Wji = - e_2s*(  ZN(1,j)*Zp(0,i).conjugate()
+                             - ZN(3,j)*Zp(1,i).conjugate()/sqrt(2.0)
+                             - ZN(1,j).conjugate()*Zm(0,i)
+                             - ZN(2,j).conjugate()*Zm(1,i)/sqrt(2.0) );
+            cA_Wij = cA_Wji.conjugate();
             PiT_ch += FA(mu, p2 ,mC[i], mN[j], cV_Wij, cV_Wji, cA_Wij, cA_Wji);
         }
 
@@ -466,7 +465,6 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
 
     
     PiT = PiT_ch;
-    //PiT = PiT_f + PiT_sf + PiT_WZH;
     
     return ( PiT/16.0/M_PI/M_PI );
 }
@@ -582,10 +580,10 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
     complex cA_Aii = 0.0;
     complex cV_Zii, cA_Zii;
     for (int i=0; i<2; ++i) {
-        cV_Zii = e_4sc*( Zp(0,i).conjugate()*Zp(0,i)
-                         + Zm(0,i)*Zm(0,i).conjugate() + 2.0*(cW2 - sW2) );
-        cA_Zii = e_4sc*( Zp(0,i).conjugate()*Zp(0,i)
-                         - Zm(0,i)*Zm(0,i).conjugate() );
+        cV_Zii = e_4sc*(  Zp(0,i).conjugate()*Zp(0,i)
+                        + Zm(0,i)*Zm(0,i).conjugate() + 2.0*(cW2 - sW2));
+        cA_Zii = e_4sc*(  Zp(0,i).conjugate()*Zp(0,i)
+                        - Zm(0,i)*Zm(0,i).conjugate());
         PiT_ch += FA(mu, p2 ,mC[i], mC[i], cV_Aii, cV_Zii, cA_Aii, cA_Zii);
     }
 
@@ -611,7 +609,6 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
     complex PiT = PiT_f + PiT_sf + PiT_ch + PiT_WZH;
 
     PiT = PiT_ch;
-    //PiT = PiT_f + PiT_sf + PiT_WZH;
 
 
     return ( PiT/16.0/M_PI/M_PI );
@@ -683,7 +680,7 @@ complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) cons
     /* W-boson loops */
     b0 = PV.B0(mu, p2, Mw_i, Mw_i);
     b0p = PV.B0p(mu, p2, Mw_i, Mw_i);
-    b22p = PV.B22(mu, p2, Mw_i, Mw_i);
+    b22p = PV.B22p(mu, p2, Mw_i, Mw_i);
     PiTp_WZH += 4.0*e2*( (p2 + 2.0*Mw_i*Mw_i)*b0p + b0 + 2.0*b22p);
 
     /* W-boson - charged-Goldstone-boson loop */
@@ -695,7 +692,6 @@ complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) cons
     complex PiTp = PiTp_f + PiTp_sf + PiTp_ch + PiTp_WZH;
 
     PiTp = PiTp_ch;
-    //PiTp = PiTp_f + PiTp_sf + PiTp_WZH;
 
     return ( PiTp/16.0/M_PI/M_PI );
 }
