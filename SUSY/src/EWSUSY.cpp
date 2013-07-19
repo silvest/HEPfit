@@ -87,8 +87,8 @@ complex EWSUSY::FA(const double mu, const double p2,
     complex B0 = PV.B0(mu, p2, mi, mj);
     complex B22 = PV.B22(mu, p2, mi, mj);
 
-    return ( -2.0*(cV_aij*cV_bji + cA_aij*cA_bji) 
-              *(4.0*B22 + A0i + A0j + (p2 - mi*mi - mj*mj)*B0)
+    return ( -2.0*(cV_aij*cV_bji + cA_aij*cA_bji)
+               *(4.0*B22 + A0i + A0j + (p2 - mi*mi - mj*mj)*B0)
              -4.0*(cV_aij*cV_bji - cA_aij*cA_bji)*mi*mj*B0 );
 }
 
@@ -301,6 +301,7 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
 
 
     PiT = PiT_ch;
+
         
     return ( PiT/16.0/M_PI/M_PI );
 }
@@ -465,6 +466,7 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
 
     
     PiT = PiT_ch;
+
     
     return ( PiT/16.0/M_PI/M_PI );
 }
@@ -669,7 +671,7 @@ complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) cons
     complex cV_Aii = e;
     complex cA_Aii = 0.0;
     for (int i=0; i<2; ++i)
-        PiTp_ch += FA(mu, p2 ,mC[i], mC[i], cV_Aii, cV_Aii, cA_Aii, cA_Aii);
+        PiTp_ch += dFA(mu, p2 ,mC[i], mC[i], cV_Aii, cV_Aii, cA_Aii, cA_Aii);
 
     /* charged-Higgs loops */
     for (int i=0; i<2; ++i) {

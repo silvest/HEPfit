@@ -299,15 +299,16 @@ double SUSY::getMGl() const
 
 double SUSY::Mw() const
 {
+    double mu = getMz();
 
     /* Write codes! */
 
     std::cout << "mu = getMz():" << std::endl;
-    std::cout << "PiT_W(0) = " << myEWSUSY->PiT_W(getMz(), 0.0, Mw_tree()) << std::endl;
-    std::cout << "PiT_W(Mw^2) = " << myEWSUSY->PiT_W(getMz(), Mw_tree()*Mw_tree(), Mw_tree()) << std::endl;
-    std::cout << "PiT_Z(Mz^2) = " << myEWSUSY->PiT_Z(getMz(), getMz()*getMz(), Mw_tree()) << std::endl;
-    std::cout << "PiT_AZ(0) = " << myEWSUSY->PiT_AZ(getMz(), 0.0, Mw_tree()) << std::endl;
-    std::cout << "PiTp_A(0) = " << myEWSUSY->PiTp_A(getMz(), 0.0, Mw_tree()) << std::endl;
+    std::cout << "PiT_W(0) = " << myEWSUSY->PiT_W(mu, 0.0, Mw_tree()) << std::endl;
+    std::cout << "PiT_W(Mw^2) = " << myEWSUSY->PiT_W(mu, Mw_tree()*Mw_tree(), Mw_tree()) << std::endl;
+    std::cout << "PiT_Z(Mz^2) = " << myEWSUSY->PiT_Z(mu, getMz()*getMz(), Mw_tree()) << std::endl;
+    std::cout << "PiT_AZ(0) = " << myEWSUSY->PiT_AZ(mu, 0.0, Mw_tree()) << std::endl;
+    std::cout << "PiTp_A(0) = " << myEWSUSY->PiTp_A(mu, 0.0, Mw_tree()) << std::endl;
     std::cout << std::endl;
     std::cout << "PiThat_W_0(Mw) = " << myEWSUSY->PiThat_W_0(Mw_tree()) << std::endl;
     std::cout << std::endl;
