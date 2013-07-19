@@ -68,9 +68,8 @@ void EWSUSY::SetRosiekParameters()
         Msu[k] = sqrt(mySUSY.getMsu2()(k));
         Msd[k] = sqrt(mySUSY.getMsd2()(k));
         Mse[k] = sqrt(mySUSY.getMse2()(k));
+        Msn[k] = sqrt(mySUSY.getMsn2()(k));
     }
-    for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
-        Msn[K] = sqrt(mySUSY.getMsn2()(K));
     for (int i=0; i<2; ++i)
         mC[i] = mySUSY.getMch()(i);
     for (int j=0; j<4; ++j)
@@ -128,7 +127,10 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     double e_4sc = e/4.0/sW/cW;
     double e_2sc = 2.0*e_4sc;
 
-    complex PiT = complex(0.0, 0.0, false);
+    complex PiT_f = complex(0.0, 0.0, false);
+    complex PiT_sf = complex(0.0, 0.0, false);
+    complex PiT_ch = complex(0.0, 0.0, false);
+    complex PiT_WZH = complex(0.0, 0.0, false);
     double a0;
     complex b0, b22;
     complex cV_Zij, cV_Zji, cA_Zij, cA_Zji;
@@ -138,7 +140,7 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     /* neutrino loops */
     b0 = PV.B0(mu, p2, 0.0, 0.0);
     b22 = PV.B22(mu, p2, 0.0, 0.0);
-    PiT += - 3.0/4.0*g2sq/cW2*(4.0*b22 + p2*b0);
+    PiT_f += - 3.0/4.0*g2sq/cW2*(4.0*b22 + p2*b0);
 
     /* other SM fermion loops */
     complex cV_Zee = - e_4sc*(1.0 - 4.0*sW2);
@@ -149,13 +151,13 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     complex cA_Zuu = e_4sc;
     for (int I=0; I<3; ++I) {
         /* charged leptons */
-        PiT += FA(mu, p2, m_l[I], m_l[I], cV_Zee, cV_Zee, cA_Zee, cA_Zee);
+        PiT_f += FA(mu, p2, m_l[I], m_l[I], cV_Zee, cV_Zee, cA_Zee, cA_Zee);
 
         /* down-type quarks */
-        PiT += Nc*FA(mu, p2, m_d[I], m_d[I], cV_Zdd, cV_Zdd, cA_Zdd, cA_Zdd);
+        PiT_f += Nc*FA(mu, p2, m_d[I], m_d[I], cV_Zdd, cV_Zdd, cA_Zdd, cA_Zdd);
 
         /* up-type quarks */
-        PiT += Nc*FA(mu, p2, m_u[I], m_u[I], cV_Zuu, cV_Zuu, cA_Zuu, cA_Zuu);
+        PiT_f += Nc*FA(mu, p2, m_u[I], m_u[I], cV_Zuu, cV_Zuu, cA_Zuu, cA_Zuu);
     }
 
     /* sneutrino loops */
@@ -163,53 +165,66 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     complex VZZsnsn_II = e2/2.0/sW2/cW2;
     for (int I=0; I<3; ++I) {  /* I=0-3 for left-handed sneutrinos */
         b22 = PV.B22(mu, p2, Msn[I], Msn[I]);
-        PiT += 4.0*VZsnsn_II.abs2()*b22;
-
+        PiT_sf += 4.0*VZsnsn_II.abs2()*b22;
         a0 = PV.A0(mu, Msn[I]);
-        PiT += VZZsnsn_II*a0;
+        PiT_sf += VZZsnsn_II*a0;
     }
 
     /* charged-slepton loops */
     complex VZLL_mn, VZZLL_nn;
-    matrix<complex> ZLhc_ZL = ZL.hconjugate()*ZL; 
     for (int n=0; n<6; ++n) {
         for (int m=0; m<6; ++m) {
-            VZLL_mn = - e_2sc*(ZLhc_ZL(m,n) - 2.0*sW2*Id6(m,n));
+            VZLL_mn = complex(0.0, 0.0, false);
+            for (int I=0; I<3; ++I) /* sum over left-handed sleptons */
+                VZLL_mn += - e_2sc*ZL(I,n)*ZL(I,m).conjugate();
+            VZLL_mn += - e_2sc*(- 2.0*sW2*Id6(m,n));
             b22 = PV.B22(mu, p2, Mse[m], Mse[n]);
-            PiT += 4.0*VZLL_mn.abs2()*b22;
+            PiT_sf += 4.0*VZLL_mn.abs2()*b22;
         }
-        VZZLL_nn = 2.0*e2/cW2*(sW2 + (1.0 - 4.0*sW2)/4.0/sW2*ZLhc_ZL(n,n));
+        VZZLL_nn = complex(0.0, 0.0, false);
+        VZZLL_nn += 2.0*e2/cW2*sW2;
+        for (int I=0; I<3; ++I) /* sum over left-handed sleptons */
+            VZZLL_nn += 2.0*e2/cW2*(1.0 - 4.0*sW2)/4.0/sW2*ZL(I,n)*ZL(I,n).conjugate();
         a0 = PV.A0(mu, Mse[n]);
-        PiT += VZZLL_nn*a0;
+        PiT_sf += VZZLL_nn*a0;
     }
 
     /* down-type squark loops */
     complex VZDD_mn, VZZDD_nn;
-    matrix<complex> ZDhc_ZD = ZD.hconjugate()*ZD; 
     for (int n=0; n<6; ++n) {
         for (int m=0; m<6; ++m) {
-            VZDD_mn = - e_2sc*(ZDhc_ZD(m,n) - 2.0/3.0*sW2*Id6(m,n));
+            VZDD_mn = complex(0.0, 0.0, false);
+            for (int I=0; I<3; ++I) /* sum over left-handed squarks */
+                VZDD_mn += - e_2sc*ZD(I,n)*ZD(I,m).conjugate();
+            VZDD_mn += - e_2sc*(- 2.0/3.0*sW2*Id6(m,n));
             b22 = PV.B22(mu, p2, Msd[m], Msd[n]);
-            PiT += 4.0*Nc*VZDD_mn.abs2()*b22;
+            PiT_sf += 4.0*Nc*VZDD_mn.abs2()*b22;
         }
-        VZZDD_nn = 2.0*e2/3.0/cW2*(sW2/3.0 + (3.0 - 4.0*sW2)/4.0/sW2*ZDhc_ZD(n,n));
+        VZZDD_nn = complex(0.0, 0.0, false);
+        VZZDD_nn += 2.0*e2/3.0/cW2*sW2/3.0;
+        for (int I=0; I<3; ++I) /* sum over left-handed squarks */
+            VZZDD_nn += 2.0*e2/3.0/cW2*(3.0 - 4.0*sW2)/4.0/sW2*ZD(I,n)*ZD(I,n).conjugate();
         a0 = PV.A0(mu, Msd[n]);
-        PiT += Nc*VZZDD_nn*a0;
+        PiT_sf += Nc*VZZDD_nn*a0;
     }
 
     /* up-type squark loops */
     complex VZUU_mn, VZZUU_nn;
-    matrix<complex> ZUhc_ZU = ZU.hconjugate()*ZU;
     for (int n=0; n<6; ++n) {
         for (int m=0; m<6; ++m) {
-            /* (n,m) instead of (m,n) */
-            VZUU_mn = e_2sc*(ZUhc_ZU(n,m) - 4.0/3.0*sW2*Id6(m,n));
+            VZUU_mn = complex(0.0, 0.0, false);
+            for (int I=0; I<3; ++I) /* sum over left-handed squarks */
+                VZUU_mn += e_2sc*ZU(I,m).conjugate()*ZU(I,n);
+            VZUU_mn += e_2sc*(- 4.0/3.0*sW2*Id6(m,n));
             b22 = PV.B22(mu, p2, Msu[m], Msu[n]);
-            PiT += 4.0*Nc*VZUU_mn.abs2()*b22;
+            PiT_sf += 4.0*Nc*VZUU_mn.abs2()*b22;
         }
-        VZZUU_nn = 2.0*e2/3.0/cW2*(4.0*sW2/3.0 + (3.0 - 8.0*sW2)/4.0/sW2*ZUhc_ZU(n,n));
+        VZZUU_nn = complex(0.0, 0.0, false);
+        VZZUU_nn += 2.0*e2/3.0/cW2*4.0*sW2/3.0;
+        for (int I=0; I<3; ++I) /* sum over left-handed squarks */
+            VZZUU_nn += 2.0*e2/3.0/cW2*(3.0 - 8.0*sW2)/4.0/sW2*ZU(I,n).conjugate()*ZU(I,n);
         a0 = PV.A0(mu, Msu[n]);
-        PiT += Nc*VZZUU_nn*a0;
+        PiT_sf += Nc*VZZUU_nn*a0;
     }
 
     /* chargino loops */
@@ -222,23 +237,23 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
             cA_Zij = e_4sc*(Zp(0,j).conjugate()*Zp(0,i)
                             - Zm(0,j)*Zm(0,i).conjugate());
             cA_Zji = cA_Zij.conjugate();
-            PiT += FA(mu, p2 ,mC[i], mC[j], cV_Zij, cV_Zji, cA_Zij, cA_Zji);
+            PiT_ch += FA(mu, p2 ,mC[i], mC[j], cV_Zij, cV_Zji, cA_Zij, cA_Zji);
         }
 
     /* neutralino loops */
     for (int i=0; i<4; ++i)
         for (int j=0; j<4; ++j) {
-            cV_Zij = e_4sc*(  ZN(3,j).conjugate()*ZN(3,i)
-                            - ZN(2,j).conjugate()*ZN(2,i)
-                            - ZN(3,j)*ZN(3,i).conjugate()
-                            + ZN(2,j)*ZN(2,i).conjugate());
+            cV_Zij = e_4sc*(  ZN(3,j)*ZN(3,i).conjugate()
+                            - ZN(2,j)*ZN(2,i).conjugate()
+                            - ZN(3,j).conjugate()*ZN(3,i)
+                            + ZN(2,j).conjugate()*ZN(2,i));
             cV_Zji = cV_Zij.conjugate();
-            cA_Zij = e_4sc*(  ZN(3,j).conjugate()*ZN(3,i)
-                            - ZN(2,j).conjugate()*ZN(2,i)
-                            + ZN(3,j)*ZN(3,i).conjugate()
-                            - ZN(2,j)*ZN(2,i).conjugate());
+            cA_Zij = e_4sc*(  ZN(3,j)*ZN(3,i).conjugate()
+                            - ZN(2,j)*ZN(2,i).conjugate()
+                            + ZN(3,j).conjugate()*ZN(3,i)
+                            - ZN(2,j).conjugate()*ZN(2,i));
             cA_Zji = cA_Zij.conjugate();
-            PiT += 0.5*FA(mu, p2 ,mN[i], mN[j], cV_Zij, cV_Zji, cA_Zij, cA_Zji);
+            PiT_ch += 0.5*FA(mu, p2 ,mN[i], mN[j], cV_Zij, cV_Zji, cA_Zij, cA_Zji);
         }
     
     /* charged-Higgs loops */
@@ -246,7 +261,7 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     for (int i=0; i<2; ++i) {
         b22 = PV.B22(mu, p2, mHp[i], mHp[i]);
         a0 = PV.A0(mu, mHp[i]);
-        PiT += 2.0*e2*cot_2thW*cot_2thW*(2.0*b22 + a0);
+        PiT_WZH += 2.0*e2*cot_2thW*cot_2thW*(2.0*b22 + a0);
     }
     
     /* neutral-Higgs loops */
@@ -255,23 +270,23 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
         for (int j=0; j<2; ++j) {
             AM_ij = ZR(0,i)*ZH(0,j) - ZR(1,i)*ZH(1,j);
             b22 = PV.B22(mu, p2, mH0[i], mH0[j+2]);
-            PiT += g2sq/cW2*AM_ij*AM_ij*b22;
+            PiT_WZH += g2sq/cW2*AM_ij*AM_ij*b22;
         }
     for (int j=0; j<4; ++j) {
         a0 = PV.A0(mu, mH0[j]);
-        PiT += g2sq/4.0/cW2*a0;
+        PiT_WZH += g2sq/4.0/cW2*a0;
     }
 
     /* W-boson - charged-Goldstone-boson loop*/
     b0 = PV.B0(mu, p2, Mw_i, Mw_i);
-    PiT += - 2.0*g2sq*sW2*sW2*Mz*Mz*b0;
+    PiT_WZH += - 2.0*g2sq*sW2*sW2*Mz*Mz*b0;
 
     /* Z-boson - Higgs loops */
     double CR_i;
     for (int i=0; i<2; ++i) {
         CR_i = mySUSY.v1()*ZR(0,i) + mySUSY.v2()*ZR(1,i);
         b0 = PV.B0(mu, p2, Mz, mH0[i]);
-        PiT += - g2sq*g2sq/4.0/cW2/cW2*CR_i*CR_i*b0;
+        PiT_WZH += - g2sq*g2sq/4.0/cW2/cW2*CR_i*CR_i*b0;
     }
 
     /* W-boson loops */
@@ -279,8 +294,15 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     b0 = PV.B0(mu, p2, Mw_i, Mw_i);
     b22 = PV.B22(mu, p2, Mw_i, Mw_i);
     /* a0^2 --> a0 in the first term */
-    PiT += 2.0*g2sq*cW2*(2.0*a0 + (2.0*p2 + Mw_i*Mw_i)*b0 + 4.0*b22);
+    PiT_WZH += 2.0*g2sq*cW2*(2.0*a0 + (2.0*p2 + Mw_i*Mw_i)*b0 + 4.0*b22);
 
+    /* Sum of all contributions */
+    complex PiT = PiT_f + PiT_sf + PiT_ch + PiT_WZH;
+
+
+    PiT = PiT_ch;
+    //PiT = PiT_f + PiT_sf + PiT_WZH;
+        
     return ( PiT/16.0/M_PI/M_PI );
 }
 
@@ -304,7 +326,10 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
     double e_2sq2s = e_sq2s/2.0;
     double e2_2s2 = e2/2.0/sW2;
 
-    complex PiT = complex(0.0, 0.0, false);
+    complex PiT_f = complex(0.0, 0.0, false);
+    complex PiT_sf = complex(0.0, 0.0, false);
+    complex PiT_ch = complex(0.0, 0.0, false);
+    complex PiT_WZH = complex(0.0, 0.0, false);
     double a0;
     complex b0, b22;
     
@@ -319,53 +344,54 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
     complex cA_Wud = cA_Wdu.conjugate();
     for (int I=0; I<3; ++I) {
         /* leptons */
-        PiT += FA(mu, p2, m_l[I], 0.0, cV_Wen, cV_Wne, cA_Wen, cA_Wne);
+        PiT_f += FA(mu, p2, m_l[I], 0.0, cV_Wen, cV_Wne, cA_Wen, cA_Wne);
 
         /* quarks (no CKM) */
-        PiT += Nc*FA(mu, p2, m_d[I], m_u[I], cV_Wdu, cV_Wud, cA_Wdu, cA_Wud);
+        PiT_f += Nc*FA(mu, p2, m_d[I], m_u[I], cV_Wdu, cV_Wud, cA_Wdu, cA_Wud);
     }
 
     /* slepton loops */
     complex VWsnL_In, VWWsnsn_II, VWWLL_nn;
-    matrix<complex> ZLT_Zne = ZL.transpose()*Zne;
     for (int I=0; I<3; ++I) {  /* I=0-3 for left-handed sneutrinos */
         for (int n=0; n<6; ++n) {
-            VWsnL_In = e_sq2s*ZLT_Zne(n,I);
+            VWsnL_In = complex(0.0, 0.0, false);
+            for (int J=0; J<3; ++J) /* sum over left-handed sleptons */
+                VWsnL_In += e_sq2s*Zne(J,I)*ZL(J,n);
             b22 = PV.B22(mu, p2, Msn[I], Mse[n]);
-            PiT += 4.0*VWsnL_In.abs2()*b22;
+            PiT_sf += 4.0*VWsnL_In.abs2()*b22;
         }
         VWWsnsn_II = e2_2s2;
         a0 = PV.A0(mu, Msn[I]);
-        PiT += VWWsnsn_II*a0;
+        PiT_sf += VWWsnsn_II*a0;
     }
     for (int n=0; n<6; ++n) {
         VWWLL_nn = complex(0.0, 0.0, false);
-        for (int I=0; I<6; ++I)
+        for (int I=0; I<3; ++I) /* sum over left-handed sleptons */
             VWWLL_nn += e2_2s2*ZL(I,n)*ZL(I,n).conjugate();
         a0 = PV.A0(mu, Mse[n]);
-        PiT += VWWLL_nn*a0;
+        PiT_sf += VWWLL_nn*a0;
     }
 
     /* squark loops (no CKM) */
-    complex VWUD_mn, VWWDD_nn, VWWUU_nn;
-    matrix<complex> ZDT_ZU = ZD.transpose()*ZU;
+    complex VWDU_nm, VWWDD_nn, VWWUU_nn;
     for (int n=0; n<6; ++n) {
         for (int m=0; m<6; ++m) {
-            /* VWDU^dagger = VWUD */
-            VWUD_mn = e_sq2s*ZDT_ZU(n,m);
-            b22 = PV.B22(mu, p2, Msu[m], Msd[n]);
-            PiT += 4.0*Nc*VWUD_mn.abs2()*b22;
+            VWDU_nm = complex(0.0, 0.0, false);
+            for (int I=0; I<3; ++I) /* sum over left-handed squarks */
+                VWDU_nm += e_sq2s*ZD(I,n).conjugate()*ZU(I,m).conjugate();
+            b22 = PV.B22(mu, p2, Msd[n], Msu[m]);
+            PiT_sf += 4.0*Nc*VWDU_nm.abs2()*b22;
         }
         VWWDD_nn = complex(0.0, 0.0, false);
-        for (int I=0; I<6; ++I)
+        for (int I=0; I<3; ++I) /* sum over left-handed squarks */
             VWWDD_nn += e2_2s2*ZD(I,n)*ZD(I,n).conjugate();
         a0 = PV.A0(mu, Msd[n]);
-        PiT += Nc*VWWDD_nn*a0;
+        PiT_sf += Nc*VWWDD_nn*a0;
         VWWUU_nn = complex(0.0, 0.0, false);
-        for (int I=0; I<6; ++I)
+        for (int I=0; I<3; ++I) /* sum over left-handed squarks */
             VWWUU_nn += e2_2s2*ZU(I,n).conjugate()*ZU(I,n);
         a0 = PV.A0(mu, Msu[n]);
-        PiT += Nc*VWWUU_nn*a0;
+        PiT_sf += Nc*VWWUU_nn*a0;
     }
 
     /* chargino - neutralino loops */
@@ -383,7 +409,7 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
                              - ZN(1,j)*Zp(0,i).conjugate()
                              - ZN(2,j)*Zp(1,i).conjugate()/sqrt(2.0) );
             cA_Wji = cA_Wij.conjugate();
-            PiT += FA(mu, p2 ,mC[i], mN[j], cV_Wij, cV_Wji, cA_Wij, cA_Wji);
+            PiT_ch += FA(mu, p2 ,mC[i], mN[j], cV_Wij, cV_Wji, cA_Wij, cA_Wji);
         }
 
     /* Higgs loops */
@@ -392,48 +418,55 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
         for (int j=0; j<2; ++j) {
             AM_ij = ZR(0,i)*ZH(0,j) - ZR(1,i)*ZH(1,j);
             b22 = PV.B22(mu, p2, mH0[i], mHp[j]);
-            PiT += g2sq*AM_ij*AM_ij*b22;
+            PiT_WZH += g2sq*AM_ij*AM_ij*b22;
         }
         b22 = PV.B22(mu, p2, mH0[i+2], mHp[i]);
-        PiT += g2sq*b22;
+        PiT_WZH += g2sq*b22;
     }
     for (int i=0; i<4; ++i) {
         a0 = PV.A0(mu, mH0[i]);
-        PiT += g2sq/4.0*a0;
+        PiT_WZH += g2sq/4.0*a0;
     }
     for (int i=0; i<2; ++i) {
         a0 = PV.A0(mu, mHp[i]);
-        PiT += g2sq/2.0*a0;
+        PiT_WZH += g2sq/2.0*a0;
     }
 
     /* photon - charged-Goldstone-boson loops */
     b0 = PV.B0(mu, p2, Mw_i, 0.0);
-    PiT += - e2*Mw_i*Mw_i*b0;
+    PiT_WZH += - e2*Mw_i*Mw_i*b0;
 
     /* W-boson - Higgs loops */
     double CR_i;
     for (int i=0; i<2; ++i) {
         CR_i = mySUSY.v1()*ZR(0,i) + mySUSY.v2()*ZR(1,i);
         b0 = PV.B0(mu, p2, Mw_i, mH0[i]);
-        PiT += - g2sq*g2sq/4.0*CR_i*CR_i*b0;
+        PiT_WZH += - g2sq*g2sq/4.0*CR_i*CR_i*b0;
     }
 
     /* Z-boson - charged-Goldstone-boson loops */
     b0 = PV.B0(mu, p2, Mw_i, Mz);
-    PiT += - e2*sW2*Mz*Mz*b0;
+    PiT_WZH += - e2*sW2*Mz*Mz*b0;
 
     /* gauge-boson loops */
     a0 = PV.A0(mu, Mw_i);
     b0 = PV.B0(mu, p2, Mw_i, Mz);
     b22 = PV.B22(mu, p2, Mz, Mw_i);
-    PiT += g2sq*cW2*(2.0*PV.A0(mu, Mz) - a0
-                     + (4.0*p2 + Mz*Mz + Mw_i*Mw_i)*b0 + 8.0*b22);
+    PiT_WZH += g2sq*cW2*(2.0*PV.A0(mu, Mz) - a0
+                         + (4.0*p2 + Mz*Mz + Mw_i*Mw_i)*b0 + 8.0*b22);
     //
-    PiT += 3.0*g2sq*a0;
+    PiT_WZH += 3.0*g2sq*a0;
     //
     b0 = PV.B0(mu, p2, Mw_i, 0.0);
     b22 = PV.B22(mu, p2, Mw_i, 0.0);
-    PiT += e2*((4.0*p2 + Mw_i*Mw_i)*b0 - a0 + 8.0*b22);
+    PiT_WZH += e2*((4.0*p2 + Mw_i*Mw_i)*b0 - a0 + 8.0*b22);
+
+    /* Sum of all contributions */
+    complex PiT = PiT_f + PiT_sf + PiT_ch + PiT_WZH;
+
+    
+    PiT = PiT_ch;
+    //PiT = PiT_f + PiT_sf + PiT_WZH;
     
     return ( PiT/16.0/M_PI/M_PI );
 }
@@ -456,7 +489,10 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
     double e_2sc = 2.0*e_4sc;
     double e2_sc = e2/sW/cW;
     
-    complex PiT = complex(0.0, 0.0, false);
+    complex PiT_f = complex(0.0, 0.0, false);
+    complex PiT_sf = complex(0.0, 0.0, false);
+    complex PiT_ch = complex(0.0, 0.0, false);
+    complex PiT_WZH = complex(0.0, 0.0, false);
     double a0;
     complex b0, b22;
 
@@ -475,55 +511,70 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
     complex cA_Zuu = e_4sc;
     for (int I=0; I<3; ++I) {
         /* charged leptons */
-        PiT += FA(mu, p2, m_l[I], m_l[I], cV_Aee, cV_Zee, cA_Aee, cA_Zee);
+        PiT_f += FA(mu, p2, m_l[I], m_l[I], cV_Aee, cV_Zee, cA_Aee, cA_Zee);
 
         /* down-type quarks */
-        PiT += Nc*FA(mu, p2, m_d[I], m_d[I], cV_Add, cV_Zdd, cA_Add, cA_Zdd);
+        PiT_f += Nc*FA(mu, p2, m_d[I], m_d[I], cV_Add, cV_Zdd, cA_Add, cA_Zdd);
 
         /* up-type quarks */
-        PiT += Nc*FA(mu, p2, m_u[I], m_u[I], cV_Auu, cV_Zuu, cA_Auu, cA_Zuu);
+        PiT_f += Nc*FA(mu, p2, m_u[I], m_u[I], cV_Auu, cV_Zuu, cA_Auu, cA_Zuu);
     }
 
     /* charged-slepton loops */
     complex VZLL_nn, VAZLL_nn;
-    matrix<complex> ZLhc_ZL = ZL.hconjugate()*ZL;
     for (int n=0; n<6; ++n) {
-        VZLL_nn = - e_2sc*(ZLhc_ZL(n,n) - 2.0*sW2);
+        VZLL_nn = complex(0.0, 0.0, false);
+        for (int I=0; I<3; ++I) /* sum over left-handed sleptons */
+            VZLL_nn += - e_2sc*ZL(I,n)*ZL(I,n).conjugate();
+        VZLL_nn += - e_2sc*(- 2.0*sW2);
         b22 = PV.B22(mu, p2, Mse[n], Mse[n]);
         /* e^2 --> e */
-        PiT += - 4.0*e*VZLL_nn*b22;
+        PiT_sf += - 4.0*e*VZLL_nn*b22;
 
-        VAZLL_nn = e2_sc*(ZLhc_ZL(n,n) - 2.0*sW2);
+        VAZLL_nn = complex(0.0, 0.0, false);
+        for (int I=0; I<3; ++I) /* sum over left-handed sleptons */
+            VAZLL_nn += e2_sc*ZL(I,n)*ZL(I,n).conjugate();
+        VAZLL_nn += e2_sc*(- 2.0*sW2);
         a0 = PV.A0(mu, Mse[n]);
-        PiT += VAZLL_nn*a0;
+        PiT_sf += VAZLL_nn*a0;
     }
 
     /* down-type squark loops */
     complex VZDD_nn, VAZDD_nn;
-    matrix<complex> ZDhc_ZD = ZD.hconjugate()*ZD;
     for (int n=0; n<6; ++n) {
-        VZDD_nn = - e_2sc*(ZDhc_ZD(n,n) - 2.0/3.0*sW2);
+        VZDD_nn = complex(0.0, 0.0, false);
+        for (int I=0; I<3; ++I) /* sum over left-handed squarks */
+            VZDD_nn += - e_2sc*ZD(I,n)*ZD(I,n).conjugate();
+        VZDD_nn += - e_2sc*(- 2.0/3.0*sW2);
         b22 = PV.B22(mu, p2, Msd[n], Msd[n]);
         /* e^2 --> e */
-        PiT += - 4.0*e*Nc/3.0*VZDD_nn*b22;
+        PiT_sf += - 4.0*e*Nc/3.0*VZDD_nn*b22;
 
-        VAZDD_nn = e2_sc/3.0*(ZDhc_ZD(n,n) - 2.0/3.0*sW2);
+        VAZDD_nn = complex(0.0, 0.0, false);
+        for (int I=0; I<3; ++I) /* sum over left-handed squarks */
+            VAZDD_nn += e2_sc/3.0*ZD(I,n)*ZD(I,n).conjugate();
+        VAZDD_nn += e2_sc/3.0*(- 2.0/3.0*sW2);
         a0 = PV.A0(mu, Msd[n]);
-        PiT += Nc*VAZDD_nn*a0;
+        PiT_sf += Nc*VAZDD_nn*a0;
     }
 
     /* up-type squark loops */
     complex VZUU_nn, VAZUU_nn;
-    matrix<complex> ZUhc_ZU = ZU.hconjugate()*ZU;
     for (int n=0; n<6; ++n) {
-        VZUU_nn = e_2sc*(ZUhc_ZU(n,n) - 4.0/3.0*sW2);
+        VZUU_nn = complex(0.0, 0.0, false);
+        for (int I=0; I<3; ++I) /* sum over left-handed squarks */
+            VZUU_nn += e_2sc*ZU(I,n).conjugate()*ZU(I,n);
+        VZUU_nn += e_2sc*(- 4.0/3.0*sW2);
         b22 = PV.B22(mu, p2, Msu[n], Msu[n]);
         /* e^2 --> e */
-        PiT += 4.0*e*Nc*2.0/3.0*VZUU_nn*b22;
+        PiT_sf += 4.0*e*Nc*2.0/3.0*VZUU_nn*b22;
 
-        VAZUU_nn = 2.0*e2_sc/3.0*(ZUhc_ZU(n,n) - 4.0/3.0*sW2);
+        VAZUU_nn = complex(0.0, 0.0, false);
+        for (int I=0; I<3; ++I) /* sum over left-handed squarks */
+            VAZUU_nn += 2.0*e2_sc/3.0*ZU(I,n).conjugate()*ZU(I,n);
+        VAZUU_nn += 2.0*e2_sc/3.0*(- 4.0/3.0*sW2);
         a0 = PV.A0(mu, Msu[n]);
-        PiT += Nc*VAZUU_nn*a0;
+        PiT_sf += Nc*VAZUU_nn*a0;
     }
 
     /* chargino loops */
@@ -535,26 +586,33 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
                          + Zm(0,i)*Zm(0,i).conjugate() + 2.0*(cW2 - sW2) );
         cA_Zii = e_4sc*( Zp(0,i).conjugate()*Zp(0,i)
                          - Zm(0,i)*Zm(0,i).conjugate() );
-        PiT += FA(mu, p2 ,mC[i], mC[i], cV_Aii, cV_Zii, cA_Aii, cA_Zii);
+        PiT_ch += FA(mu, p2 ,mC[i], mC[i], cV_Aii, cV_Zii, cA_Aii, cA_Zii);
     }
 
     /* W-boson - charged-Goldstone-boson loops */
     b0 = PV.B0(mu, p2, Mw_i, Mw_i);
-    PiT += 2.0*e2*cW*sW*Mz*Mz*b0;
+    PiT_WZH += 2.0*e2*cW*sW*Mz*Mz*b0;
 
     /* W-boson loops */
     a0 = PV.A0(mu, Mw_i);
     //b0 = PV.B0(mu, p2, Mw_i, Mw_i); /* same as the above */
     b22 = PV.B22(mu, p2, Mw_i, Mw_i);
-    PiT += 2.0*e*g2*cW*(2.0*a0 + (2.0*p2 + Mw_i*Mw_i)*b0 + 4.0*b22);
+    PiT_WZH += 2.0*e*g2*cW*(2.0*a0 + (2.0*p2 + Mw_i*Mw_i)*b0 + 4.0*b22);
 
     /* charged-Higgs loops */
     double cot_2thW = (cW2 - sW2)/(2.0*sW*cW);
     for (int i=0; i<2; ++i) {
         a0 = PV.A0(mu, mHp[i]);
         b22 = PV.B22(mu, p2, mHp[i], mHp[i]);
-        PiT += 2.0*e2*cot_2thW*(2.0*b22 + a0);
+        PiT_WZH += 2.0*e2*cot_2thW*(2.0*b22 + a0);
     }
+
+    /* Sum of all contributions */
+    complex PiT = PiT_f + PiT_sf + PiT_ch + PiT_WZH;
+
+    PiT = PiT_ch;
+    //PiT = PiT_f + PiT_sf + PiT_WZH;
+
 
     return ( PiT/16.0/M_PI/M_PI );
 }
@@ -568,7 +626,10 @@ complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) cons
     /* variables depending on Mw_i */
     double mHp[2] = {mySUSY.getMHp(), Mw_i}; /* H^+_i = (H^+, G^+) */
     
-    complex PiTp = complex(0.0, 0.0, false);
+    complex PiTp_f = complex(0.0, 0.0, false);
+    complex PiTp_sf = complex(0.0, 0.0, false);
+    complex PiTp_ch = complex(0.0, 0.0, false);
+    complex PiTp_WZH = complex(0.0, 0.0, false);
     complex b0, b0p, b22p;
 
     /* SM fermion loops */
@@ -580,55 +641,61 @@ complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) cons
     complex cA_Auu = 0.0;
     for (int I=0; I<3; ++I) {
         /* charged leptons */
-        PiTp += dFA(mu, p2, m_l[I], m_l[I], cV_Aee, cV_Aee, cA_Aee, cA_Aee);
+        PiTp_f += dFA(mu, p2, m_l[I], m_l[I], cV_Aee, cV_Aee, cA_Aee, cA_Aee);
 
         /* down-type quarks */
-        PiTp += Nc*dFA(mu, p2, m_d[I], m_d[I], cV_Add, cV_Add, cA_Add, cA_Add);
+        PiTp_f += Nc*dFA(mu, p2, m_d[I], m_d[I], cV_Add, cV_Add, cA_Add, cA_Add);
 
         /* up-type quarks */
-        PiTp += Nc*dFA(mu, p2, m_u[I], m_u[I], cV_Auu, cV_Auu, cA_Auu, cA_Auu);
+        PiTp_f += Nc*dFA(mu, p2, m_u[I], m_u[I], cV_Auu, cV_Auu, cA_Auu, cA_Auu);
     }
 
     /* charged-slepton loops */
     for (int n=0; n<6; ++n) {
         b22p = PV.B22p(mu, p2, Mse[n], Mse[n]);
-        PiTp += 4.0*e2*b22p;
+        PiTp_sf += 4.0*e2*b22p;
     }
 
     /* down-type squark loops */
     for (int n=0; n<6; ++n) {
         b22p = PV.B22p(mu, p2, Msd[n], Msd[n]);
-        PiTp += 4.0*e2*Nc/3.0/3.0*b22p;
+        PiTp_sf += 4.0*e2*Nc/3.0/3.0*b22p;
     }
 
     /* up-type squark loops */
     for (int n=0; n<6; ++n) {
         b22p = PV.B22p(mu, p2, Msu[n], Msu[n]);
-        PiTp += 4.0*e2*Nc*2.0/3.0*2.0/3.0*b22p;
+        PiTp_sf += 4.0*e2*Nc*2.0/3.0*2.0/3.0*b22p;
     }
 
     /* chargino loops */
     complex cV_Aii = e;
     complex cA_Aii = 0.0;
     for (int i=0; i<2; ++i)
-        PiTp += FA(mu, p2 ,mC[i], mC[i], cV_Aii, cV_Aii, cA_Aii, cA_Aii);
+        PiTp_ch += FA(mu, p2 ,mC[i], mC[i], cV_Aii, cV_Aii, cA_Aii, cA_Aii);
 
     /* charged-Higgs loops */
     for (int i=0; i<2; ++i) {
         b22p = PV.B22p(mu, p2, mHp[i], mHp[i]);
-        PiTp += 4.0*e2*b22p;
+        PiTp_WZH += 4.0*e2*b22p;
     }
 
     /* W-boson loops */
     b0 = PV.B0(mu, p2, Mw_i, Mw_i);
     b0p = PV.B0p(mu, p2, Mw_i, Mw_i);
     b22p = PV.B22(mu, p2, Mw_i, Mw_i);
-    PiTp += 4.0*e2*( (p2 + 2.0*Mw_i*Mw_i)*b0p + b0 + 2.0*b22p);
+    PiTp_WZH += 4.0*e2*( (p2 + 2.0*Mw_i*Mw_i)*b0p + b0 + 2.0*b22p);
 
     /* W-boson - charged-Goldstone-boson loop */
     /* missed in the paper */
     //b0p = PV.B0p(mu, p2, Mw_i, Mw_i); /* Same as the above */
-    PiTp += - 8.0*e2*Mw_i*Mw_i*b0p;
+    PiTp_WZH += - 8.0*e2*Mw_i*Mw_i*b0p;
+
+    /* Sum of all contributions */
+    complex PiTp = PiTp_f + PiTp_sf + PiTp_ch + PiTp_WZH;
+
+    PiTp = PiTp_ch;
+    //PiTp = PiTp_f + PiTp_sf + PiTp_WZH;
 
     return ( PiTp/16.0/M_PI/M_PI );
 }
@@ -637,6 +704,7 @@ double EWSUSY::PiThat_W_0(const double Mw_i) const
 {
     /* Renormalization scale (varied for checking the cancellation of UV divergences */
     double mu = Mw_i;
+    //mu *= 2.0; /* Debug */
 
     double Mz = mySUSY.getMz();
     double cW = Mw_i/Mz;
@@ -982,6 +1050,7 @@ double EWSUSY::DeltaR_vertex_SUSY(const double Mw_i) const
 {
     /* Renormalization scale (varied for checking the cancellation of UV divergences */
     double mu = Mw_i;
+    //mu *= 2.0; /* Debug */
 
     return ( v(mu, mySUSY.ELECTRON, mySUSY.NEUTRINO_1, Mw_i).real()
             + delta_v(mu, mySUSY.ELECTRON, mySUSY.NEUTRINO_1, Mw_i).real()
@@ -1041,6 +1110,7 @@ double EWSUSY::DeltaR_neutrino_SUSY(const double Mw_i) const
 {
     /* Renormalization scale (varied for checking the cancellation of UV divergences */
     double mu = Mw_i;
+    //mu *= 2.0; /* Debug */
     
     return ( ( Sigma_nu_0(mu, mySUSY.NEUTRINO_1, mySUSY.NEUTRINO_1, Mw_i).real()
               - delta_v(mu, mySUSY.ELECTRON, mySUSY.NEUTRINO_1, Mw_i).real()
@@ -1075,6 +1145,7 @@ double EWSUSY::DeltaAlphaL5q_SM_EW1() const
 {
     /* Renormalization scale (varied for checking the cancellation of UV divergences */
     double mu = mySUSY.getMz();
+    //mu *= 2.0; /* Debug */
 
     double Mz2 = mySUSY.getMz()*mySUSY.getMz();
     double e = sqrt(4.0*M_PI*mySUSY.getAle());

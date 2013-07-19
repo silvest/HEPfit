@@ -302,16 +302,22 @@ double SUSY::Mw() const
 
     /* Write codes! */
 
-
-    std::cout << myEWSUSY->PiT_W(getMz(), 0.0, Mw_tree()) << std::endl;
-    std::cout << myEWSUSY->PiT_W(getMz(), Mw_tree()*Mw_tree(), Mw_tree()) << std::endl;
-    std::cout << myEWSUSY->DeltaR_SUSY_EW1(StandardModel::Mw()) << std::endl;
-
-    std::cout << myEWSUSY->DeltaR_vertex_SUSY(Mw_tree()) << std::endl;
-    std::cout << myEWSUSY->DeltaR_boxLL_SUSY(Mw_tree()) << std::endl;
-    std::cout << myEWSUSY->DeltaR_boxLR_SUSY(Mw_tree()) << std::endl;
-
-    std::cout << "DeltaRho = " << myFH->getFHdeltarho() << std::endl;
+    std::cout << "mu = getMz():" << std::endl;
+    std::cout << "PiT_W(0) = " << myEWSUSY->PiT_W(getMz(), 0.0, Mw_tree()) << std::endl;
+    std::cout << "PiT_W(Mw^2) = " << myEWSUSY->PiT_W(getMz(), Mw_tree()*Mw_tree(), Mw_tree()) << std::endl;
+    std::cout << "PiT_Z(Mz^2) = " << myEWSUSY->PiT_Z(getMz(), getMz()*getMz(), Mw_tree()) << std::endl;
+    std::cout << "PiT_AZ(0) = " << myEWSUSY->PiT_AZ(getMz(), 0.0, Mw_tree()) << std::endl;
+    std::cout << "PiTp_A(0) = " << myEWSUSY->PiTp_A(getMz(), 0.0, Mw_tree()) << std::endl;
+    std::cout << std::endl;
+    std::cout << "PiThat_W_0(Mw) = " << myEWSUSY->PiThat_W_0(Mw_tree()) << std::endl;
+    std::cout << std::endl;
+    std::cout << "DeltaR_SUSY_EW1(Mw) = " << myEWSUSY->DeltaR_SUSY_EW1(StandardModel::Mw()) << std::endl;
+    std::cout << "DeltaR_vertex_SUSY(Mw) = " << myEWSUSY->DeltaR_vertex_SUSY(Mw_tree()) << std::endl;
+    std::cout << "DeltaR_boxLL_SUSY(Mw) = " << myEWSUSY->DeltaR_boxLL_SUSY(Mw_tree()) << std::endl;
+    std::cout << "DeltaR_boxLR_SUSY(Mw) = " << myEWSUSY->DeltaR_boxLR_SUSY(Mw_tree()) << std::endl;
+    std::cout << std::endl;  
+    double delRho = myFH->getFHdeltarho();
+    std::cout << "DeltaRho = " << delRho << std::endl;
 
     /* Delta rho approximation */
     double Mw_SM = StandardModel::Mw();
