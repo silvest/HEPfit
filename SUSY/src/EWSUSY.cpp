@@ -93,9 +93,9 @@ complex EWSUSY::FA(const double mu, const double p2,
 }
 
 complex EWSUSY::dFA(const double mu, const double p2,
-                   const double mi, const double mj,
-                   const complex cV_aij, const complex cV_bji,
-                   const complex cA_aij, const complex cA_bji) const
+                    const double mi, const double mj,
+                    const complex cV_aij, const complex cV_bji,
+                    const complex cA_aij, const complex cA_bji) const
 {
     /* PV functions */
     complex B0 = PV.B0(mu, p2, mi, mj);
@@ -232,10 +232,10 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
         for (int j=0; j<2; ++j) {
             cV_Zij = e_4sc*(  Zp(0,j).conjugate()*Zp(0,i)
                             + Zm(0,j)*Zm(0,i).conjugate()
-                            + 2.0*(cW2 - sW2)*Id2(j,i));
+                            + 2.0*(cW2 - sW2)*Id2(j,i) );
             cV_Zji = cV_Zij.conjugate();
             cA_Zij = e_4sc*(  Zp(0,j).conjugate()*Zp(0,i)
-                            - Zm(0,j)*Zm(0,i).conjugate());
+                            - Zm(0,j)*Zm(0,i).conjugate() );
             cA_Zji = cA_Zij.conjugate();
             PiT_ch += FA(mu, p2 ,mC[i], mC[j], cV_Zij, cV_Zji, cA_Zij, cA_Zji);
         }
@@ -246,12 +246,12 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
             cV_Zij = - e_4sc*(  ZN(3,j).conjugate()*ZN(3,i)
                               - ZN(2,j).conjugate()*ZN(2,i)
                               - ZN(3,j)*ZN(3,i).conjugate()
-                              + ZN(2,j)*ZN(2,i).conjugate());
+                              + ZN(2,j)*ZN(2,i).conjugate() );
             cV_Zji = cV_Zij.conjugate();
             cA_Zij = - e_4sc*(  ZN(3,j).conjugate()*ZN(3,i)
                               - ZN(2,j).conjugate()*ZN(2,i)
                               + ZN(3,j)*ZN(3,i).conjugate()
-                              - ZN(2,j)*ZN(2,i).conjugate());
+                              - ZN(2,j)*ZN(2,i).conjugate() );
             cA_Zji = cA_Zij.conjugate();
             PiT_ch += 0.5*FA(mu, p2 ,mN[i], mN[j], cV_Zij, cV_Zji, cA_Zij, cA_Zji);
         }
@@ -398,7 +398,8 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
     complex cV_Wij, cV_Wji, cA_Wij, cA_Wji;
     for (int i=0; i<2; ++i)
         for (int j=0; j<4; ++j) {
-            /* indices: chargino=i, neutralino=j */
+            /* W^+ + neutralino(j) -> chi^+(i) */
+            /* W^+ + chi^-(i) -> neutralino(j) */
             cV_Wji = - e_2s*(  ZN(1,j)*Zp(0,i).conjugate()
                              - ZN(3,j)*Zp(1,i).conjugate()/sqrt(2.0)
                              + ZN(1,j).conjugate()*Zm(0,i)
@@ -583,9 +584,9 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
     complex cV_Zii, cA_Zii;
     for (int i=0; i<2; ++i) {
         cV_Zii = e_4sc*(  Zp(0,i).conjugate()*Zp(0,i)
-                        + Zm(0,i)*Zm(0,i).conjugate() + 2.0*(cW2 - sW2));
+                        + Zm(0,i)*Zm(0,i).conjugate() + 2.0*(cW2 - sW2) );
         cA_Zii = e_4sc*(  Zp(0,i).conjugate()*Zp(0,i)
-                        - Zm(0,i)*Zm(0,i).conjugate());
+                        - Zm(0,i)*Zm(0,i).conjugate() );
         PiT_ch += FA(mu, p2 ,mC[i], mC[i], cV_Aii, cV_Zii, cA_Aii, cA_Zii);
     }
 
@@ -702,7 +703,7 @@ double EWSUSY::PiThat_W_0(const double Mw_i) const
 {
     /* Renormalization scale (varied for checking the cancellation of UV divergences */
     double mu = Mw_i;
-    //mu *= 2.0; /* Debug */
+    mu *= 2.0; /* Debug */
 
     double Mz = mySUSY.getMz();
     double cW = Mw_i/Mz;
@@ -712,8 +713,6 @@ double EWSUSY::PiThat_W_0(const double Mw_i) const
 
     double PiThat = 0.0;
 
-    /* see e.g. Eqs. (3.16), (3.17), (3.23) in [Hollik, Fortsch.Phys. 38 (1990) 165] */
-
     /* W self-energy */
     PiThat += PiT_W(mu, 0.0, Mw_i).real();
 
@@ -721,12 +720,22 @@ double EWSUSY::PiThat_W_0(const double Mw_i) const
     double delMw2 = PiT_W(mu, Mw_i*Mw_i, Mw_i).real();
     PiThat -= delMw2;
 
-    /* W wave-function counter term */
-    double delZ2w = - PiTp_A(mu, 0.0, Mw_i).real()
-                    + 2.0*cW/sW*PiT_AZ(mu, 0.0, Mw_i).real()/Mz/Mz
-                    - cW2/sW2*(PiT_W(mu, Mw_i*Mw_i, Mw_i).real()/Mw_i/Mw_i
-                               - PiT_Z(mu, Mz*Mz, Mw_i).real()/Mz/Mz);
-    PiThat -= delZ2w*Mw_i*Mw_i;
+    /* counter term for e: (del e)/e */
+    double dele_over_e = PiTp_A(mu, 0.0, Mw_i).real()/2.0
+                         - sW/cW*PiT_AZ(mu, 0.0, Mw_i).real()/Mz/Mz;
+    PiThat += 2.0*Mw_i*Mw_i*dele_over_e;
+
+    /* counter term for sW: (del sW)/sW */
+    double delSw_overSw = - cW2/2.0/sW2
+                            *( PiT_W(mu, Mw_i*Mw_i, Mw_i).real()/Mw_i/Mw_i
+                              - PiT_Z(mu, Mz*Mz, Mw_i).real()/Mz/Mz );
+    PiThat -= 2.0*Mw_i*Mw_i*delSw_overSw;
+
+    /* singular part of bosonic contribution to vertex+box+(external
+     * wave functions), usually denoted by 2/(sW*cW)*PiT_AZ(0)/Mz/Mz */
+    //double sing = - mySUSY.getAle()/M_PI/sW2*log(Mw_i*Mw_i/mu/mu);
+    double sing = 2.0/(sW*cW)*PiT_AZ(mu, 0.0, Mw_i).real()/Mz/Mz;
+    PiThat += Mw_i*Mw_i*sing;
 
     return PiThat;
 }
@@ -736,7 +745,7 @@ double EWSUSY::DeltaR_rem_SM(const double Mw_i) const
     double cW2 = Mw_i*Mw_i/mySUSY.getMz()/mySUSY.getMz();
     double sW2 = 1.0 - cW2;
 
-    /* renormalized vertex corrections + box*/
+    /* renormalized vertex corrections + box */
     return ( mySUSY.getAle()/4.0/M_PI/sW2
              *(6.0 + (7.0 - 4.0*sW2)/2.0/sW2*log(cW2)) );
 }

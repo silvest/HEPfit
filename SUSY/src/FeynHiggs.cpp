@@ -36,7 +36,7 @@ bool FeynHiggs::SetFeynHiggsPars()
 {
     int err;
 
-    //double Mw = mySUSY.Mw_tree(); /* SM prediction for the W-boson mass */
+    //double Mw = mySUSY.Mw_tree(); /* Tree-level W-boson mass */
     double Mw = mySUSY.StandardModel::Mw(); /* SM prediction for the W-boson mass in the on-shell scheme */
 
     /* Set the FeynHiggs SM input parameters */
@@ -223,7 +223,7 @@ bool FeynHiggs::CalcSpectrum()
      *   MASf: the NMFV sfermion masses
      *   UASf: the sfermion mixing matrices
      *   MCha: the chargino masses
-     *   UCha: the chargino mixing matrices
+     *   UCha, VCha: the chargino mixing matrices
      *   MNeu: the neutralino masses
      *   ZNeu: the neutralino mixing matrix
      *   Deltab: the correction to the bottom Yukawa coupling, Delta_b
