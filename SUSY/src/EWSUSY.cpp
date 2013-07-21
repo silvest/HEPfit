@@ -237,7 +237,7 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
             cA_Zij = e_4sc*(  Zp(0,j).conjugate()*Zp(0,i)
                             - Zm(0,j)*Zm(0,i).conjugate() );
             cA_Zji = cA_Zij.conjugate();
-            PiT_ch += FA(mu, p2 ,mC[i], mC[j], cV_Zij, cV_Zji, cA_Zij, cA_Zji);
+            PiT_ch += FA(mu, p2, mC[i], mC[j], cV_Zij, cV_Zji, cA_Zij, cA_Zji);
         }
 
     /* neutralino loops */
@@ -253,7 +253,7 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
                               + ZN(3,j)*ZN(3,i).conjugate()
                               - ZN(2,j)*ZN(2,i).conjugate() );
             cA_Zji = cA_Zij.conjugate();
-            PiT_ch += 0.5*FA(mu, p2 ,mN[i], mN[j], cV_Zij, cV_Zji, cA_Zij, cA_Zji);
+            PiT_ch += 0.5*FA(mu, p2, mN[i], mN[j], cV_Zij, cV_Zji, cA_Zij, cA_Zji);
         }
     
     /* charged-Higgs loops */
@@ -298,10 +298,6 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
 
     /* Sum of all contributions */
     complex PiT = PiT_f + PiT_sf + PiT_ch + PiT_WZH;
-
-
-    PiT = PiT_ch;
-
         
     return ( PiT/16.0/M_PI/M_PI );
 }
@@ -410,7 +406,7 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
                              - ZN(1,j).conjugate()*Zm(0,i)
                              - ZN(2,j).conjugate()*Zm(1,i)/sqrt(2.0) );
             cA_Wij = cA_Wji.conjugate();
-            PiT_ch += FA(mu, p2 ,mC[i], mN[j], cV_Wij, cV_Wji, cA_Wij, cA_Wji);
+            PiT_ch += FA(mu, p2, mC[i], mN[j], cV_Wij, cV_Wji, cA_Wij, cA_Wji);
         }
 
     /* Higgs loops */
@@ -464,10 +460,6 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
 
     /* Sum of all contributions */
     complex PiT = PiT_f + PiT_sf + PiT_ch + PiT_WZH;
-
-    
-    PiT = PiT_ch;
-
     
     return ( PiT/16.0/M_PI/M_PI );
 }
@@ -587,7 +579,7 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
                         + Zm(0,i)*Zm(0,i).conjugate() + 2.0*(cW2 - sW2) );
         cA_Zii = e_4sc*(  Zp(0,i).conjugate()*Zp(0,i)
                         - Zm(0,i)*Zm(0,i).conjugate() );
-        PiT_ch += FA(mu, p2 ,mC[i], mC[i], cV_Aii, cV_Zii, cA_Aii, cA_Zii);
+        PiT_ch += FA(mu, p2, mC[i], mC[i], cV_Aii, cV_Zii, cA_Aii, cA_Zii);
     }
 
     /* W-boson - charged-Goldstone-boson loops */
@@ -610,9 +602,6 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
 
     /* Sum of all contributions */
     complex PiT = PiT_f + PiT_sf + PiT_ch + PiT_WZH;
-
-    PiT = PiT_ch;
-
 
     return ( PiT/16.0/M_PI/M_PI );
 }
@@ -672,7 +661,7 @@ complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) cons
     complex cV_Aii = e;
     complex cA_Aii = 0.0;
     for (int i=0; i<2; ++i)
-        PiTp_ch += dFA(mu, p2 ,mC[i], mC[i], cV_Aii, cV_Aii, cA_Aii, cA_Aii);
+        PiTp_ch += dFA(mu, p2, mC[i], mC[i], cV_Aii, cV_Aii, cA_Aii, cA_Aii);
 
     /* charged-Higgs loops */
     for (int i=0; i<2; ++i) {
@@ -694,8 +683,6 @@ complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) cons
     /* Sum of all contributions */
     complex PiTp = PiTp_f + PiTp_sf + PiTp_ch + PiTp_WZH;
 
-    PiTp = PiTp_ch;
-
     return ( PiTp/16.0/M_PI/M_PI );
 }
 
@@ -703,7 +690,7 @@ double EWSUSY::PiThat_W_0(const double Mw_i) const
 {
     /* Renormalization scale (varied for checking the cancellation of UV divergences */
     double mu = Mw_i;
-    mu *= 2.0; /* Debug */
+    //mu *= 2.0; /* Debug */
 
     double Mz = mySUSY.getMz();
     double cW = Mw_i/Mz;
@@ -722,7 +709,7 @@ double EWSUSY::PiThat_W_0(const double Mw_i) const
 
     /* counter term for e: (del e)/e */
     double dele_over_e = PiTp_A(mu, 0.0, Mw_i).real()/2.0
-                         - sW/cW*PiT_AZ(mu, 0.0, Mw_i).real()/Mz/Mz;
+                         + sW/cW*PiT_AZ(mu, 0.0, Mw_i).real()/Mz/Mz;
     PiThat += 2.0*Mw_i*Mw_i*dele_over_e;
 
     /* counter term for sW: (del sW)/sW */
@@ -731,11 +718,13 @@ double EWSUSY::PiThat_W_0(const double Mw_i) const
                               - PiT_Z(mu, Mz*Mz, Mw_i).real()/Mz/Mz );
     PiThat -= 2.0*Mw_i*Mw_i*delSw_overSw;
 
-    /* singular part of bosonic contribution to vertex+box+(external
-     * wave functions), usually denoted by 2/(sW*cW)*PiT_AZ(0)/Mz/Mz */
-    //double sing = - mySUSY.getAle()/M_PI/sW2*log(Mw_i*Mw_i/mu/mu);
-    double sing = 2.0/(sW*cW)*PiT_AZ(mu, 0.0, Mw_i).real()/Mz/Mz;
-    PiThat += Mw_i*Mw_i*sing;
+    /* singular part of bosonic contribution to Delta r from vertex+
+     * box+(external wave functions), is given by
+     *    mySUSY.getAle()/M_PI/sW2*(1/epsbar - log(Mw_i*Mw_i/mu/mu)), 
+     * which is usually denoted by
+     *    2/(sW*cW)*PiT_AZ(0)/Mz/Mz.
+     * See e.g. Eq.(88) in hep-ph/9602380 */
+    PiThat += - 2.0*Mw_i*Mw_i/(sW*cW)*PiT_AZ(mu, 0.0, Mw_i).real()/Mz/Mz;
 
     return PiThat;
 }
@@ -1199,9 +1188,16 @@ double EWSUSY::DeltaR_SUSY_EW1(const double Mw_i) const
 
     /* SM one-loop contributions */
     double DeltaAlphaL5q_EW1 = DeltaAlphaL5q_SM_EW1();
-    double DeltaRho_EW1 = - cW2/sW2*myEWSMOneLoopEW.DeltaRho(Mw_i);
+    double DeltaRho_EW1 = myEWSMOneLoopEW.DeltaRho(Mw_i);
     double DeltaR_rem_EW1 = myEWSMOneLoopEW.DeltaR_rem(Mw_i);
     double DeltaR_SM_EW1 = DeltaAlphaL5q_EW1 - cW2/sW2*DeltaRho_EW1 + DeltaR_rem_EW1;
+
+    /* Debug */
+    //std::cout << std::endl;
+    //std::cout << "DeltaAlphaL5q_EW1 = " << DeltaAlphaL5q_EW1 << std::endl;
+    //std::cout << "-cW2/sW2*DeltaRho_EW1 = " << - cW2/sW2*DeltaRho_EW1 << std::endl;
+    //std::cout << "DeltaR_rem_EW1 = " << DeltaR_rem_EW1 << std::endl;
+    //std::cout << "DeltaR_SM_EW1 = " << DeltaR_SM_EW1 << std::endl;
 
     return ( DeltaR_MSSM_EW1(Mw_i) - DeltaR_SM_EW1 );
 }

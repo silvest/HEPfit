@@ -8,6 +8,7 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
+#include <CSLHA.h>
 #include "FeynHiggs.h"
 
 FeynHiggs::FeynHiggs(SUSY& SUSY_in)
@@ -36,8 +37,13 @@ bool FeynHiggs::SetFeynHiggsPars()
 {
     int err;
 
-    //double Mw = mySUSY.Mw_tree(); /* Tree-level W-boson mass */
-    double Mw = mySUSY.StandardModel::Mw(); /* SM prediction for the W-boson mass in the on-shell scheme */
+    /* Echo input parameters in detail,
+     * display Higgs mass matrix at p^2 = 0 and CTs */
+    //FHSetDebug(2);
+
+    Mw_FHinput = mySUSY.Mw_tree(); /* Tree-level W-boson mass */
+    //Mw_FHinput = mySUSY.StandardModel::Mw(); /* SM prediction, which should not be used, since mHl cannot be set before calling FeynHiggs. */
+    //std::cout << "Mw = " << Mw_FHinput << " used in FeynHiggs::SetFeynHiggsPars()" << std::endl;
 
     /* Set the FeynHiggs SM input parameters */
     FHSetSMPara(&err,
@@ -51,7 +57,7 @@ bool FeynHiggs::SetFeynHiggsPars()
                 mySUSY.quarks[mySUSY.STRANGE].getMass(),
                 mySUSY.leptons[mySUSY.TAU].getMass(),
                 mySUSY.quarks[mySUSY.BOTTOM].getMass(),
-                Mw, mySUSY.Mz,
+                Mw_FHinput, mySUSY.Mz,
                 mySUSY.lambda, mySUSY.A, mySUSY.rhob, mySUSY.etab);
     if (err != 0) {
         std::cout << "FeynHiggs::SetFeynHiggsPars(): Error has been detected in SetPara.F:"
@@ -86,23 +92,23 @@ bool FeynHiggs::SetFeynHiggsPars()
               sqrt(mySUSY.MsD2(0,0).real()),
               ToComplex2(muHFH.real(), muHFH.imag()),
               ToComplex2(TEFH(2,2).real(), TEFH(2,2).imag())
-              *x1/mySUSY.leptons[StandardModel::TAU].getMass(),
+                *x1/mySUSY.leptons[StandardModel::TAU].getMass(),
               ToComplex2(TUFH(2,2).real(), TUFH(2,2).imag())
-              *x2/mySUSY.MS2DRqmass(Q, mySUSY.mu_Q[2]),
+                *x2/mySUSY.MS2DRqmass(Q, mySUSY.mu_Q[2]),
               ToComplex2(TDFH(2,2).real(), TDFH(2,2).imag())
-              *x1/mySUSY.MS2DRqmass(Q, mySUSY.md_Q[2]),
+                *x1/mySUSY.MS2DRqmass(Q, mySUSY.md_Q[2]),
               ToComplex2(TEFH(1,1).real(), TEFH(1,1).imag())
-              *x1/mySUSY.leptons[StandardModel::MU].getMass(),
+                *x1/mySUSY.leptons[StandardModel::MU].getMass(),
               ToComplex2(TUFH(1,1).real(), TUFH(1,1).imag())
-              *x2/mySUSY.MS2DRqmass(Q, mySUSY.mu_Q[1]),
+                *x2/mySUSY.MS2DRqmass(Q, mySUSY.mu_Q[1]),
               ToComplex2(TDFH(1,1).real(), TDFH(1,1).imag())
-              *x1/mySUSY.MS2DRqmass(Q, mySUSY.md_Q[1]),
+                *x1/mySUSY.MS2DRqmass(Q, mySUSY.md_Q[1]),
               ToComplex2(TEFH(0,0).real(), TEFH(0,0).imag())
-              *x1/mySUSY.leptons[StandardModel::ELECTRON].getMass(),
+                *x1/mySUSY.leptons[StandardModel::ELECTRON].getMass(),
               ToComplex2(TUFH(0,0).real(), TUFH(0,0).imag())
-              *x2/mySUSY.MS2DRqmass(Q, mySUSY.mu_Q[0]),
+                *x2/mySUSY.MS2DRqmass(Q, mySUSY.mu_Q[0]),
               ToComplex2(TDFH(0,0).real(), TDFH(0,0).imag())
-              *x1/mySUSY.MS2DRqmass(Q, mySUSY.md_Q[0]),
+                *x1/mySUSY.MS2DRqmass(Q, mySUSY.md_Q[0]),
               ToComplex2(mySUSY.m1.real(), mySUSY.m1.imag()),
               ToComplex2(mySUSY.m2.real(), mySUSY.m2.imag()),
               ToComplex2(mySUSY.m3, 0.),
@@ -163,10 +169,6 @@ bool FeynHiggs::SetFeynHiggsPars()
         return (false);
     }
 
-    /* Echo input parameters in detail,
-     * display Higgs mass matrix at p^2 = 0 and CTs */
-    //FHSetDebug(2);
-
     computeHiggsCouplings = true;
     computeHiggsProd = true;
     computeConstraints = true;
@@ -217,6 +219,18 @@ bool FeynHiggs::CalcSpectrum()
     ComplexType USf[3][4][2][2], UASf[4][6][6];
     ComplexType UCha[2][2], VCha[2][2], ZNeu[4][4], Deltab;
 
+    /*
+     * Note that the order of indices for an array has to be take care so much!
+     * Foe example, the indices in MSf(s,t,g) for the MFV sfermion masses are
+     * defined as
+     *   s = 1..2  sfermion index
+     *   t = 1..4  sfermion type: nu, e, u, d
+     *   g = 1..3  generation index
+     * according to the manual of FeynHiggs. On the other hand, it is traslated
+     * from Fortran to C in CFeynHiggs.h as MSf,[3][4][2]. Namely, the order
+     * of the indices is reversed.
+     */
+
     /* Get some of the MSSM parameters computed with FeynHiggs:
      *   MSf: the MFV sfermion masses
      *   USf: the MFV sfermion mixing matrices
@@ -241,15 +255,16 @@ bool FeynHiggs::CalcSpectrum()
 
     /* squark and slepton */
     for(int i = 0; i < 6; i++) {
+        mySUSY.m_sn2(i) = MASf[0][i]*MASf[0][i];
+        mySUSY.m_se2(i) = MASf[1][i]*MASf[1][i];
         mySUSY.m_su2(i) = MASf[2][i]*MASf[2][i];
         mySUSY.m_sd2(i) = MASf[3][i]*MASf[3][i];
-        mySUSY.m_se2(i) = MASf[1][i]*MASf[1][i];
-        mySUSY.m_sn2(i) = MASf[0][i]*MASf[0][i];
         for(int j = 0; j < 6; j++) {
-            mySUSY.Ru.assign(i,j, complex(UASf[2][i][j].real(), UASf[2][i][j].imag()));
-            mySUSY.Rd.assign(i,j, complex(UASf[3][i][j].real(), UASf[3][i][j].imag()));
-            mySUSY.Rl.assign(i,j, complex(UASf[1][i][j].real(), UASf[1][i][j].imag()));
-            mySUSY.Rn.assign(i,j, complex(UASf[0][i][j].real(), UASf[0][i][j].imag()));
+            /* UASf: second (third) index for gauge (mass) eigenstates */
+            mySUSY.Rn.assign(j,i, complex(UASf[0][i][j].real(), UASf[0][i][j].imag()));
+            mySUSY.Rl.assign(j,i, complex(UASf[1][i][j].real(), UASf[1][i][j].imag()));
+            mySUSY.Ru.assign(j,i, complex(UASf[2][i][j].real(), UASf[2][i][j].imag()));
+            mySUSY.Rd.assign(j,i, complex(UASf[3][i][j].real(), UASf[3][i][j].imag()));
         }
     }
 
@@ -257,8 +272,9 @@ bool FeynHiggs::CalcSpectrum()
     for(int i = 0; i < 2; i++) {
         mySUSY.mch(i) = MCha[i];
         for(int j = 0; j < 2; j++) {
-            mySUSY.U.assign(i,j, complex(UCha[i][j].real(), UCha[i][j].imag()));
-            mySUSY.V.assign(i,j, complex(VCha[i][j].real(), VCha[i][j].imag()));
+            /* Ucha and VCha: first (second) index for gauge (mass) eigenstates */
+            mySUSY.U.assign(j,i, complex(UCha[i][j].real(), UCha[i][j].imag()));
+            mySUSY.V.assign(j,i, complex(VCha[i][j].real(), VCha[i][j].imag()));
         }
     }
 
@@ -266,13 +282,31 @@ bool FeynHiggs::CalcSpectrum()
     for(int i = 0; i < 4; i++) {
         mySUSY.mneu(i) = MNeu[i];
         for(int j = 0; j < 4; j++)
-            mySUSY.N.assign(i,j, complex(ZNeu[i][j].real(), ZNeu[i][j].imag()));
+            /* Zneu: first (second) index for gauge (mass) eigenstates */
+            mySUSY.N.assign(j,i, complex(ZNeu[i][j].real(), ZNeu[i][j].imag()));
     }
 
     /* the correction to the bottom Yukawa coupling */
     FHDeltab = complex(Deltab.real(), Deltab.imag());
 
     return (true);
+}
+
+void FeynHiggs::OutputSLHA(const char* filename) const
+{
+    int err;
+    COMPLEX slhadata[nslhadata];
+
+    FHOutputSLHA(&err, slhadata, 2);
+    if (err != 0)
+        throw std::runtime_error("FeynHiggs::SetFeynHiggsPars(): Error in FHOutputSLHA");
+
+    SLHAWrite(&err, slhadata, filename);
+    if (err != 0)
+        throw std::runtime_error("FeynHiggs::SetFeynHiggsPars(): Error in SLHAWrite");
+
+    /* This function does not work correctly! */
+
 }
 
 bool FeynHiggs::CalcHiggsCouplings()

@@ -52,8 +52,23 @@ public:
      */
     bool CalcSpectrum();
 
+    /**
+     * @brief Writes FeynHiggs outputs to an SLHA file.
+     * @param[in] filename 
+     */
+    void OutputSLHA(const char *filename) const;
+
 
     ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @brief The W-boson mass used as an input to FHSetSMPara(). 
+     * @return The W-boson mass used as an input to FHSetSMPara(). 
+     */
+    double getMw_FHinput() const
+    {
+        return Mw_FHinput;
+    }
 
     /**
      * @brief Gets the correction to the bottom Yukawa coupling @f$\Delta_b@f$. 
@@ -245,6 +260,8 @@ public:
     ///////////////////////////////////////////////////////////////////////////
 private:
     SUSY& mySUSY;
+
+    double Mw_FHinput; /* The W-boson mass used as an input to FHSetSMPara() */
 
     // see CalcSpectrum()
     complex FHDeltab; /* the correction to the bottom Yukawa coupling */
