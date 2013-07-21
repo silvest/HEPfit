@@ -19,10 +19,10 @@ FeynHiggs::FeynHiggs(SUSY& SUSY_in)
                4, // Full MSSM
                0, // DRbar
                0, // DRbar
-               3, // Higgs mixing in cMSSM
-               4, // UHiggs at q^2=0
+               3, // full 3x3 neutral Higgs mixing in cMSSM (complex MSSM)
+               4, // full determination of the propagator matrices’s poles with UHiggs at q^2=0
                2, // two loops where available
-               1, // running top mass,
+               1, // running top mass is used in the 1-/2-loop corrections
                1, // resum tan beta contributions
                3  // interpolation in phases for missing 2-loop corrections
               );
@@ -79,8 +79,9 @@ bool FeynHiggs::SetFeynHiggsPars()
     FHSetPara(&err,
               mySUSY.mut/mySUSY.quarks[StandardModel::TOP].getMass(),
               mySUSY.mtpole, mySUSY.tanb,
-              -1, //using MHptree
+              -1, // using mHptree instead of mA
               mySUSY.mHptree,
+              //
               sqrt(mySUSY.MsL2(2,2).real()), sqrt(mySUSY.MsE2(2,2).real()),
               sqrt(mySUSY.MsQ2(2,2).real()), sqrt(mySUSY.MsU2(2,2).real()),
               sqrt(mySUSY.MsD2(2,2).real()),
@@ -90,7 +91,9 @@ bool FeynHiggs::SetFeynHiggsPars()
               sqrt(mySUSY.MsL2(0,0).real()), sqrt(mySUSY.MsE2(0,0).real()),
               sqrt(mySUSY.MsQ2(0,0).real()), sqrt(mySUSY.MsU2(0,0).real()),
               sqrt(mySUSY.MsD2(0,0).real()),
+              //
               ToComplex2(muHFH.real(), muHFH.imag()),
+              //
               ToComplex2(TEFH(2,2).real(), TEFH(2,2).imag())
                 *x1/mySUSY.leptons[StandardModel::TAU].getMass(),
               ToComplex2(TUFH(2,2).real(), TUFH(2,2).imag())
@@ -109,9 +112,11 @@ bool FeynHiggs::SetFeynHiggsPars()
                 *x2/mySUSY.MS2DRqmass(Q, mySUSY.mu_Q[0]),
               ToComplex2(TDFH(0,0).real(), TDFH(0,0).imag())
                 *x1/mySUSY.MS2DRqmass(Q, mySUSY.md_Q[0]),
+              //
               ToComplex2(mySUSY.m1.real(), mySUSY.m1.imag()),
               ToComplex2(mySUSY.m2.real(), mySUSY.m2.imag()),
               ToComplex2(mySUSY.m3, 0.),
+              //
               Q, Q, Q);
     if (err != 0) {
         std::cout << "FeynHiggs::SetFeynHiggsPars(): Error has been detected in SetPara.F:"
@@ -120,49 +125,57 @@ bool FeynHiggs::SetFeynHiggsPars()
     }
 
     /* Set the non-minimal flavor-violating parameters */
-    FHSetNMFV(&err, 
-              ToComplex2(mySUSY.MsL2(0,1).real(),
-                         mySUSY.MsL2(0,1).imag())/sqrt(mySUSY.MsL2(0,0).real()*mySUSY.MsL2(1,1).real()),
-              ToComplex2(mySUSY.MsL2(1,2).real(),
-                         mySUSY.MsL2(1,2).imag())/sqrt(mySUSY.MsL2(1,1).real()*mySUSY.MsL2(2,2).real()),
-              ToComplex2(mySUSY.MsL2(0,2).real(),
-                         mySUSY.MsL2(0,2).imag())/sqrt(mySUSY.MsL2(0,0).real()*mySUSY.MsL2(2,2).real()),
-              ToComplex2(TUFH(0,1).real(),
-                         -TUFH(0,1).imag())*x2/sqrt(mySUSY.MsL2(0,0).real()*mySUSY.MsU2(1,1).real()),
-              ToComplex2(TUFH(1,2).real(),
-                         -TUFH(1,2).imag())*x2/sqrt(mySUSY.MsL2(1,1).real()*mySUSY.MsU2(2,2).real()),
-              ToComplex2(TUFH(0,2).real(),
-                         -TUFH(0,2).imag())*x2/sqrt(mySUSY.MsL2(0,0).real()*mySUSY.MsU2(2,2).real()),
-              ToComplex2(TUFH(1,0).real(),
-                         TUFH(1,0).imag())*x2/sqrt(mySUSY.MsU2(0,0).real()*mySUSY.MsL2(1,1).real()),
-              ToComplex2(TUFH(2,1).real(),
-                         TUFH(2,1).imag())*x2/sqrt(mySUSY.MsU2(1,1).real()*mySUSY.MsL2(2,2).real()),
-              ToComplex2(TUFH(2,0).real(),
-                         TUFH(2,0).imag())*x2/sqrt(mySUSY.MsU2(0,0).real()*mySUSY.MsL2(2,2).real()),
-              ToComplex2(mySUSY.MsU2(0,1).real(),
-                         mySUSY.MsU2(0,1).imag())/sqrt(mySUSY.MsU2(0,0).real()*mySUSY.MsU2(1,1).real()),
-              ToComplex2(mySUSY.MsU2(1,2).real(),
-                         mySUSY.MsU2(1,2).imag())/sqrt(mySUSY.MsU2(1,1).real()*mySUSY.MsU2(2,2).real()),
-              ToComplex2(mySUSY.MsU2(0,2).real(),
-                         mySUSY.MsU2(0,2).imag())/sqrt(mySUSY.MsU2(0,0).real()*mySUSY.MsU2(2,2).real()),
-              ToComplex2(TDFH(0,1).real(),
-                         -TDFH(0,1).imag())*x1/sqrt(mySUSY.MsL2(0,0).real()*mySUSY.MsD2(1,1).real()),
-              ToComplex2(TDFH(1,2).real(),
-                         -TDFH(1,2).imag())*x1/sqrt(mySUSY.MsL2(1,1).real()*mySUSY.MsD2(2,2).real()),
-              ToComplex2(TDFH(0,2).real(),
-                         -TDFH(0,2).imag())*x1/sqrt(mySUSY.MsL2(0,0).real()*mySUSY.MsD2(2,2).real()),
-              ToComplex2(TDFH(1,0).real(),
-                         TDFH(1,0).imag())*x1/sqrt(mySUSY.MsD2(0,0).real()*mySUSY.MsL2(1,1).real()),
-              ToComplex2(TDFH(2,1).real(),
-                         TDFH(2,1).imag())*x1/sqrt(mySUSY.MsD2(1,1).real()*mySUSY.MsL2(2,2).real()),
-              ToComplex2(TDFH(2,0).real(),
-                         TDFH(2,0).imag())*x1/sqrt(mySUSY.MsD2(0,0).real()*mySUSY.MsL2(2,2).real()),
-              ToComplex2(mySUSY.MsD2(0,1).real(),
-                         mySUSY.MsD2(0,1).imag())/sqrt(mySUSY.MsD2(0,0).real()*mySUSY.MsD2(1,1).real()),
-              ToComplex2(mySUSY.MsD2(1,2).real(),
-                         mySUSY.MsD2(1,2).imag())/sqrt(mySUSY.MsD2(1,1).real()*mySUSY.MsD2(2,2).real()),
-              ToComplex2(mySUSY.MsD2(0,2).real(),
-                         mySUSY.MsD2(0,2).imag())/sqrt(mySUSY.MsD2(0,0).real()*mySUSY.MsD2(2,2).real()));
+    FHSetNMFV(&err,
+              // Q_LL
+              ToComplex2(mySUSY.MsQ2(0,1).real(), mySUSY.MsQ2(0,1).imag())
+                /sqrt(mySUSY.MsQ2(0,0).real()*mySUSY.MsQ2(1,1).real()),
+              ToComplex2(mySUSY.MsQ2(1,2).real(), mySUSY.MsQ2(1,2).imag())
+                /sqrt(mySUSY.MsQ2(1,1).real()*mySUSY.MsQ2(2,2).real()),
+              ToComplex2(mySUSY.MsQ2(0,2).real(), mySUSY.MsQ2(0,2).imag())
+                /sqrt(mySUSY.MsQ2(0,0).real()*mySUSY.MsQ2(2,2).real()),
+              // U_LR
+              ToComplex2(TUFH(0,1).real(), TUFH(0,1).imag())
+                *x2/sqrt(mySUSY.MsQ2(0,0).real()*mySUSY.MsU2(1,1).real()),
+              ToComplex2(TUFH(1,2).real(), TUFH(1,2).imag())
+                *x2/sqrt(mySUSY.MsQ2(1,1).real()*mySUSY.MsU2(2,2).real()),
+              ToComplex2(TUFH(0,2).real(), TUFH(0,2).imag())
+                *x2/sqrt(mySUSY.MsQ2(0,0).real()*mySUSY.MsU2(2,2).real()),
+              // U_RL
+              ToComplex2(TUFH(1,0).real(), -TUFH(1,0).imag())
+                *x2/sqrt(mySUSY.MsU2(0,0).real()*mySUSY.MsQ2(1,1).real()),
+              ToComplex2(TUFH(2,1).real(), -TUFH(2,1).imag())
+                *x2/sqrt(mySUSY.MsU2(1,1).real()*mySUSY.MsQ2(2,2).real()),
+              ToComplex2(TUFH(2,0).real(), -TUFH(2,0).imag())
+                *x2/sqrt(mySUSY.MsU2(0,0).real()*mySUSY.MsQ2(2,2).real()),
+              // U_RR
+              ToComplex2(mySUSY.MsU2(0,1).real(), mySUSY.MsU2(0,1).imag())
+                /sqrt(mySUSY.MsU2(0,0).real()*mySUSY.MsU2(1,1).real()),
+              ToComplex2(mySUSY.MsU2(1,2).real(), mySUSY.MsU2(1,2).imag())
+                /sqrt(mySUSY.MsU2(1,1).real()*mySUSY.MsU2(2,2).real()),
+              ToComplex2(mySUSY.MsU2(0,2).real(), mySUSY.MsU2(0,2).imag())
+                /sqrt(mySUSY.MsU2(0,0).real()*mySUSY.MsU2(2,2).real()),
+              // D_LR
+              ToComplex2(TDFH(0,1).real(), TDFH(0,1).imag())
+                *x1/sqrt(mySUSY.MsQ2(0,0).real()*mySUSY.MsD2(1,1).real()),
+              ToComplex2(TDFH(1,2).real(), TDFH(1,2).imag())
+                *x1/sqrt(mySUSY.MsQ2(1,1).real()*mySUSY.MsD2(2,2).real()),
+              ToComplex2(TDFH(0,2).real(), TDFH(0,2).imag())
+                *x1/sqrt(mySUSY.MsQ2(0,0).real()*mySUSY.MsD2(2,2).real()),
+              // D_RL
+              ToComplex2(TDFH(1,0).real(), -TDFH(1,0).imag())
+                *x1/sqrt(mySUSY.MsD2(0,0).real()*mySUSY.MsQ2(1,1).real()),
+              ToComplex2(TDFH(2,1).real(), -TDFH(2,1).imag())
+                *x1/sqrt(mySUSY.MsD2(1,1).real()*mySUSY.MsQ2(2,2).real()),
+              ToComplex2(TDFH(2,0).real(), -TDFH(2,0).imag())
+                *x1/sqrt(mySUSY.MsD2(0,0).real()*mySUSY.MsQ2(2,2).real()),
+              // D_RR
+              ToComplex2(mySUSY.MsD2(0,1).real(), mySUSY.MsD2(0,1).imag())
+                /sqrt(mySUSY.MsD2(0,0).real()*mySUSY.MsD2(1,1).real()),
+              ToComplex2(mySUSY.MsD2(1,2).real(), mySUSY.MsD2(1,2).imag())
+                /sqrt(mySUSY.MsD2(1,1).real()*mySUSY.MsD2(2,2).real()),
+              ToComplex2(mySUSY.MsD2(0,2).real(), mySUSY.MsD2(0,2).imag())
+                /sqrt(mySUSY.MsD2(0,0).real()*mySUSY.MsD2(2,2).real())
+              );
     if (err != 0) {
         std::cout << "FeynHiggs::SetFeynHiggsPars(): Error was detected in SetFV.F:"
                   << err << std::endl;
@@ -220,7 +233,7 @@ bool FeynHiggs::CalcSpectrum()
     ComplexType UCha[2][2], VCha[2][2], ZNeu[4][4], Deltab;
 
     /*
-     * Note that the order of indices for an array has to be take care so much!
+     * Note that the order of indices for an array has to be taken care so much.
      * Foe example, the indices in MSf(s,t,g) for the MFV sfermion masses are
      * defined as
      *   s = 1..2  sfermion index

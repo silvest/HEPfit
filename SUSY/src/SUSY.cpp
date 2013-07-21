@@ -207,6 +207,7 @@ bool SUSY::CheckParameters(const std::map<std::string, double>& DPars)
 void SUSY::SetSoftTerms()
 {
     // MsQ2, MsU2, MsD2, MsL2, MsN2, MsE2, TU, TD, TN and TE are set to 0 in the constructor.
+    // See also GeneralSUSY::SetSoftTerms().
 }
 
 void SUSY::setTanb(const double tanb)
