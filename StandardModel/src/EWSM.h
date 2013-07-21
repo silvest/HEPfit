@@ -34,6 +34,9 @@ using namespace gslpp;
  */
 class EWSM {
 public:
+
+    // accuracy in the iterative calculation of Mw
+    static const double Mw_error;
     
     /**
      * @brief the order of radiative corrections
@@ -63,6 +66,33 @@ public:
 
     
     ////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @brief
+     * @return
+     */
+    EWSMcache* getMyCache() const
+    {
+        return myCache;
+    }
+
+    /**
+     * @brief
+     * @return
+     */
+    EWSMOneLoopEW* getMyOneLoopEW() const
+    {
+        return myOneLoopEW;
+    }
+
+    /**
+     * @brief
+     * @return
+     */
+    EWSMApproximateFormulae* getMyApproximateFormulae() const
+    {
+        return myApproximateFormulae;
+    }
 
     /**
      * @return a pointer to the EWSMTwoFermionsLEP2 object
@@ -367,6 +397,23 @@ public:
     
     ////////////////////////////////////////////////////////////////////////
 
+    /**
+     * @brief computes Delta rho
+     * @param[in] Mw_i the W boson mass
+     * @param[out] DeltaRho[]
+     */
+    void ComputeDeltaRho(const double Mw_i, double DeltaRho[orders_EW_size]) const;
+
+    /**
+     * @brief computes Delta r_rem
+     * @param[in] Mw_i the W boson mass
+     * @param[out] DeltaR_rem
+     */
+    void ComputeDeltaR_rem(const double Mw_i, double DeltaR_rem[orders_EW_size]) const;
+
+
+    ////////////////////////////////////////////////////////////////////////
+
     void outputEachDeltaR(const double Mw_i) const;
 
     void outputEachDeltaRhoZ(const double Mw_i) const;
@@ -395,9 +442,6 @@ private:
     EWSMApproximateFormulae* myApproximateFormulae;
     
     EWSMTwoFermionsLEP2* myTwoFermionsLEP2;
-        
-    // accuracy in the iterative calculation of Mw
-    static const double Mw_error;
     
     
     ////////////////////////////////////////////////////////////////////////     
@@ -433,20 +477,6 @@ private:
 
     
     ////////////////////////////////////////////////////////////////////////     
-    
-    /**
-     * @brief computes Delta rho
-     * @param[in] Mw_i the W boson mass
-     * @param[out] DeltaRho[]
-     */
-    void ComputeDeltaRho(const double Mw_i, double DeltaRho[orders_EW_size]) const;  
-     
-    /**
-     * @brief computes Delta r_rem
-     * @param[in] Mw_i the W boson mass
-     * @param[out] DeltaR_rem
-     */
-    void ComputeDeltaR_rem(const double Mw_i, double DeltaR_rem[orders_EW_size]) const;  
     
     /**
      * @param[in] Mw_i the W boson mass

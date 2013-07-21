@@ -1364,7 +1364,7 @@ double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
             // Full EW one-loop contribution (without the full DeltaAlphaL5q)
             DeltaR_EW1 = - cW2_TMP/sW2_TMP*DeltaRho[EW1] + DeltaR_rem[EW1];
 
-            // Full EW two-loop contribution with reducible corrections
+            // Full EW two-loop contribution without reducible corrections
             DeltaR_EW2_rem = myApproximateFormulae->DeltaR_TwoLoopEW_rem(DeltaAlphaL5q(), Mw_i);
 
             // subtract the EW two-loop contributions from DeltaRho_sum and DeltaR_rem_sum
