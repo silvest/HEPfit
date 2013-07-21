@@ -5,12 +5,15 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include <cmath>
+#include <iostream>
+#include <iomanip>
 #include <stdexcept>
+#include <cmath>
+#include "FeynHiggs.h"
 #include "EWSUSY.h"
 
 EWSUSY::EWSUSY(const SUSY& SUSY_in)
-: mySUSY(SUSY_in), myEWSMCache(SUSY_in), myEWSMOneLoopEW(myEWSMCache),
+: mySUSY(SUSY_in), myEWSMOneLoopEW(*(SUSY_in.getEWSM()->getMyOneLoopEW())),
         Yu(3,3,0.0), Yd(3,3,0.0), Yl(3,3,0.0),
         Au(3,3,0.0), Ad(3,3,0.0), Al(3,3,0.0),
         Zm(2,2,0.), Zp(2,2,0.), ZN(4,4,0.),
@@ -53,9 +56,9 @@ void EWSUSY::SetRosiekParameters()
     /* particle massses */
     for (int I=0; I<3; ++I) {
         /* up-type quarks */
-        m_u[I] = myEWSMCache.mq((StandardModel::quark)(2*I), mySUSY.getMz(), FULLNNLO);
+        m_u[I] = mySUSY.getEWSM()->getMyCache()->mq((StandardModel::quark)(2*I), mySUSY.getMz(), FULLNNLO);
         /* down-type quarks */
-        m_d[I] = myEWSMCache.mq((StandardModel::quark)(2*I + 1), mySUSY.getMz(), FULLNNLO);
+        m_d[I] = mySUSY.getEWSM()->getMyCache()->mq((StandardModel::quark)(2*I + 1), mySUSY.getMz(), FULLNNLO);
         /* charged leptons */
         m_l[I] = mySUSY.getLeptons((StandardModel::lepton)(2*I + 1)).getMass();
     }
@@ -293,7 +296,7 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     a0 = PV.A0(mu, Mw_i);
     b0 = PV.B0(mu, p2, Mw_i, Mw_i);
     b22 = PV.B22(mu, p2, Mw_i, Mw_i);
-    /* a0^2 --> a0 in the first term */
+    /* typo in the paper: a0^2 --> a0 in the first term */
     PiT_WZH += 2.0*g2sq*cW2*(2.0*a0 + (2.0*p2 + Mw_i*Mw_i)*b0 + 4.0*b22);
 
     /* Sum of all contributions */
@@ -521,7 +524,7 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
             VZLL_nn += - e_2sc*ZL(I,n)*ZL(I,n).conjugate();
         VZLL_nn += - e_2sc*(- 2.0*sW2);
         b22 = PV.B22(mu, p2, Mse[n], Mse[n]);
-        /* e^2 --> e */
+        /* typo in the paper: e^2 --> e */
         PiT_sf += - 4.0*e*VZLL_nn*b22;
 
         VAZLL_nn = complex(0.0, 0.0, false);
@@ -540,7 +543,7 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
             VZDD_nn += - e_2sc*ZD(I,n)*ZD(I,n).conjugate();
         VZDD_nn += - e_2sc*(- 2.0/3.0*sW2);
         b22 = PV.B22(mu, p2, Msd[n], Msd[n]);
-        /* e^2 --> e */
+        /* typo in the paper: e^2 --> e */
         PiT_sf += - 4.0*e*Nc/3.0*VZDD_nn*b22;
 
         VAZDD_nn = complex(0.0, 0.0, false);
@@ -559,7 +562,7 @@ complex EWSUSY::PiT_AZ(const double mu, const double p2, const double Mw_i) cons
             VZUU_nn += e_2sc*ZU(I,n).conjugate()*ZU(I,n);
         VZUU_nn += e_2sc*(- 4.0/3.0*sW2);
         b22 = PV.B22(mu, p2, Msu[n], Msu[n]);
-        /* e^2 --> e */
+        /* typo in the paper: e^2 --> e */
         PiT_sf += 4.0*e*Nc*2.0/3.0*VZUU_nn*b22;
 
         VAZUU_nn = complex(0.0, 0.0, false);
@@ -1114,7 +1117,7 @@ double EWSUSY::DeltaR_neutrino_SUSY(const double Mw_i) const
               - delta_v(mu, mySUSY.MU, mySUSY.NEUTRINO_2, Mw_i).real() )/2.0 );
 }
 
-double EWSUSY::DeltaR_MSSM_EW1(const double Mw_i) const
+double EWSUSY::DeltaR_TOTAL_EW1(const double Mw_i) const
 {
     double DeltaR = 0.0;
     
@@ -1199,7 +1202,74 @@ double EWSUSY::DeltaR_SUSY_EW1(const double Mw_i) const
     //std::cout << "DeltaR_rem_EW1 = " << DeltaR_rem_EW1 << std::endl;
     //std::cout << "DeltaR_SM_EW1 = " << DeltaR_SM_EW1 << std::endl;
 
-    return ( DeltaR_MSSM_EW1(Mw_i) - DeltaR_SM_EW1 );
+    return ( DeltaR_TOTAL_EW1(Mw_i) - DeltaR_SM_EW1 );
+}
+
+double EWSUSY::Mw_MSSM_TMP(const double Mw_i) const
+{
+    if (mySUSY.getEWSM()->getSchemeMw()!=EWSM::NORESUM)
+        throw std::runtime_error("EWSUSY::Mw_SUSY(): Scheme for Mw is not applicable");
+
+    double cW2 = Mw_i*Mw_i/mySUSY.getMz()/mySUSY.getMz();
+    double sW2 = 1.0 - cW2;
+
+    /* SM contributions to Delta r */
+    double dAleL5q = mySUSY.getEWSM()->DeltaAlphaL5q();
+    double DeltaRho[EWSM::orders_EW_size], DeltaRho_sum = 0.0;
+    double DeltaR_rem[EWSM::orders_EW_size], DeltaR_rem_sum = 0.0;
+    mySUSY.getEWSM()->ComputeDeltaRho(Mw_i, DeltaRho);
+    mySUSY.getEWSM()->ComputeDeltaR_rem(Mw_i, DeltaR_rem);
+    for (int j=0; j<EWSM::orders_EW_size; ++j) {
+        /* excluding EW two-loop contributions, which will be added below */
+        if (j!=(int)EWSM::EW2) {
+            DeltaRho_sum += DeltaRho[(EWSM::orders_EW)j];
+            DeltaR_rem_sum += DeltaR_rem[(EWSM::orders_EW)j];
+        }
+    }
+
+    /* Full EW one-loop contribution (without the full DeltaAlphaL5q) */
+    double DeltaR_EW1 = - cW2/sW2*DeltaRho[EWSM::EW1] + DeltaR_rem[EWSM::EW1];
+
+    /* Full EW two-loop contribution with reducible corrections */
+    double DeltaR_EW2 = dAleL5q*dAleL5q + 2.0*dAleL5q*DeltaR_EW1
+    + mySUSY.getEWSM()->getMyApproximateFormulae()->DeltaR_TwoLoopEW_rem(dAleL5q, Mw_i);
+
+    /* R = 1 + Delta r */
+    double R = 1.0 + dAleL5q - cW2/sW2*DeltaRho_sum + DeltaR_rem_sum + DeltaR_EW2;
+
+    /* SUSY contribution */
+    R += DeltaR_SUSY_EW1(Mw_i);
+
+    /* the W-boson mass in the complex pole scheme */
+    double Mzbar = mySUSY.getEWSM()->Mzbar();
+    double tmp = 4.0*M_PI*mySUSY.getAle()/sqrt(2.0)/mySUSY.getGF()/Mzbar/Mzbar;
+    if (tmp*R > 1.0) throw std::runtime_error("EWSUSY::Mw(): Negative (1-tmp*R)");
+    double Mwbar = Mzbar/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp*R));
+
+    /* complex-pole/fixed-width scheme --> experimental/running-width scheme */
+    return mySUSY.getEWSM()->MwFromMwbar(Mwbar);
+}
+
+double EWSUSY::Mw_MSSM() const
+{
+    /* initial value for Mw */
+    double Mw_org = mySUSY.getMyFH()->getMw_FHinput();
+
+    double Mw = Mw_MSSM_TMP(Mw_org);
+    //std::cout << std::endl << std::setprecision(12)
+    //          << "EWSUSY::Mw_MSSM(): Mw_org = " << Mw_org
+    //          << "  Mw_new = " << Mw << std::endl;
+
+    /* iterations */
+    while (fabs(Mw - Mw_org) > EWSM::Mw_error) {
+        Mw_org = Mw;
+        Mw = Mw_MSSM_TMP(Mw);
+        //std::cout << std::setprecision(12)
+        //          << "EWSUSY::Mw_MSSM(): Mw_org = " << Mw_org
+        //          << "  Mw_new = " << Mw << std::endl;
+    }
+
+    return Mw;
 }
 
 complex EWSUSY::L_esnC(const int N, const int K, const int i, const double Mw_i) const

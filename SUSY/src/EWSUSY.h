@@ -374,10 +374,10 @@ public:
     double DeltaAlphaL5q_SM_EW1() const;
 
     /**
-     * @brief The one-loop contribution to @f$\Delta r@f$ in the MSSM. 
+     * @brief The total one-loop contribution to @f$\Delta r@f$ in the MSSM.
      * @return @f$\Delta r_{\rm MSSM}^{\alpha} = \Delta r_{\rm SM}^{\alpha} + \Delta r_{\rm SUSY}^{\alpha}@f$.
      */
-    double DeltaR_MSSM_EW1(const double Mw_i) const;
+    double DeltaR_TOTAL_EW1(const double Mw_i) const;
 
     /**
      * @brief The one-loop SUSY contribution to @f$\Delta r@f$.
@@ -385,13 +385,26 @@ public:
      */
     double DeltaR_SUSY_EW1(const double Mw_i) const;
 
+    /**
+     * @brief The W-boson mass in the MSSM computed from the input value of
+     * @f$M_W@f$ without iterations.
+     * @param[in] Mw_i The W-boson mass @f$M_W@f$.
+     * @return @f$M_W@f$ in the MSSM computed from the input value of @f$M_W@f.
+     */
+    double Mw_MSSM_TMP(const double Mw_i) const;
+
+    /**
+     * @brief The W-boson mass in the MSSM.
+     * @return @f$M_W@f$ in the MSSM.
+     */
+    double Mw_MSSM() const;
+
 
 private:
 
     const PVfunctions PV; ///< An object of PVfunctions class.
     const SUSY& mySUSY; ///< A reference to the SUSY object passed to the constructor.
-    const EWSMcache myEWSMCache;
-    const EWSMOneLoopEW myEWSMOneLoopEW;
+    const EWSMOneLoopEW& myEWSMOneLoopEW;
 
     matrix<complex> Yu; ///< The Yukawa coupling matrix for up-type quarks in Rosiek's notation.
     matrix<complex> Yd; ///< The Yukawa coupling matrix for down-type quarks in Rosiek's notation.

@@ -54,7 +54,7 @@ bool SUSY::InitializeModel()
 
 void SUSY::SetEWSMflags(EWSM& myEWSM)
 {
-    myEWSM.setSchemeMw(EWSM::APPROXIMATEFORMULA);
+    myEWSM.setSchemeMw(EWSM::NORESUM);
     //myEWSM.setSchemeRhoZ(EWSM::OMSI);
     myEWSM.setSchemeRhoZ(EWSM::NORESUM);
     myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
@@ -300,34 +300,13 @@ double SUSY::getMGl() const
 
 double SUSY::Mw() const
 {
-    double mu = getMz();
-    double Mw_i = myFH->getMw_FHinput();
-    //std::cout << "Mw = " << Mw_i << " in SUSY::Mw()" << std::endl;
+    return myEWSUSY->Mw_MSSM();
+}
 
-    //myFH->OutputSLHA("output.slha");
-
-
-    /* Write codes! */
-
-    std::cout << "mu = getMz():" << std::endl;
-    std::cout << "PiT_W(0) = " << myEWSUSY->PiT_W(mu, 0.0, Mw_i) << std::endl;
-    std::cout << "PiT_W(Mw^2) = " << myEWSUSY->PiT_W(mu, Mw_i*Mw_i, Mw_i) << std::endl;
-    std::cout << "PiT_Z(Mz^2) = " << myEWSUSY->PiT_Z(mu, getMz()*getMz(), Mw_i) << std::endl;
-    std::cout << "PiT_AZ(0) = " << myEWSUSY->PiT_AZ(mu, 0.0, Mw_i) << std::endl;
-    std::cout << "PiTp_A(0) = " << myEWSUSY->PiTp_A(mu, 0.0, Mw_i) << std::endl;
-    std::cout << std::endl;
-    std::cout << "PiThat_W_0(Mw) = " << myEWSUSY->PiThat_W_0(Mw_i) << std::endl;
-    std::cout << std::endl;
-    std::cout << "DeltaR_MSSM_EW1(Mw) = " << myEWSUSY->DeltaR_MSSM_EW1(Mw_i) << std::endl;
-    std::cout << "DeltaR_vertex_SUSY(Mw) = " << myEWSUSY->DeltaR_vertex_SUSY(Mw_i) << std::endl;
-    std::cout << "DeltaR_boxLL_SUSY(Mw) = " << myEWSUSY->DeltaR_boxLL_SUSY(Mw_i) << std::endl;
-    std::cout << "DeltaR_boxLR_SUSY(Mw) = " << myEWSUSY->DeltaR_boxLR_SUSY(Mw_i) << std::endl;
-    std::cout << "DeltaR_neutrino_SUSY(Mw) = " << myEWSUSY->DeltaR_neutrino_SUSY(Mw_i) << std::endl;
-    std::cout << "DeltaR_SUSY_EW1(Mw) = " << myEWSUSY->DeltaR_SUSY_EW1(Mw_i) << std::endl;
-
-    std::cout << std::endl;  
+double SUSY::Mw_dRho() const
+{
     double delRho = myFH->getFHdeltarho();
-    std::cout << "DeltaRho = " << delRho << std::endl;
+    //std::cout << "DeltaRho = " << delRho << std::endl;
 
     /* Delta rho approximation */
     double Mw_SM = StandardModel::Mw();

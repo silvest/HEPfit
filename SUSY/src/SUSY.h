@@ -112,6 +112,27 @@ public:
 
 
     ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @brief
+     * @return
+     */
+    EWSUSY* getMyEWSUSY() const
+    {
+        return myEWSUSY;
+    }
+
+    /**
+     * @brief
+     * @return
+     */
+    FeynHiggs* getMyFH() const
+    {
+        return myFH;
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
     // functions for the input parameters of SUSY model
 
     /**
@@ -504,10 +525,16 @@ public:
     // EW precision observables
 
     /**
-     * @brief Computes the W boson mass. 
-     * @return The W boson mass. 
+     * @brief The W boson mass.
+     * @return @f$M_W@f$.
      */
     double Mw() const;
+
+    /**
+     * @brief The W boson mass in the @f$\Delta\rho@f$ approximation.
+     * @return @f$M_W@f$ in the @f$\Delta\rho@f$ approximation.
+     */
+    double Mw_dRho() const;
 
     /**
      * @brief
