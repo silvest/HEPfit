@@ -124,7 +124,7 @@ bool FeynHiggs::SetFeynHiggsPars()
         return (false);
     }
 
-    /* Set the non-minimal flavor-violating parameters */
+    /* Set the non-minimal flavor-violating parameters in the squark sector */
     FHSetNMFV(&err,
               // Q_LL
               ToComplex2(mySUSY.MsQ2(0,1).real(), mySUSY.MsQ2(0,1).imag())
@@ -175,6 +175,43 @@ bool FeynHiggs::SetFeynHiggsPars()
                 /sqrt(mySUSY.MsD2(1,1).real()*mySUSY.MsD2(2,2).real()),
               ToComplex2(mySUSY.MsD2(0,2).real(), mySUSY.MsD2(0,2).imag())
                 /sqrt(mySUSY.MsD2(0,0).real()*mySUSY.MsD2(2,2).real())
+              );
+    if (err != 0) {
+        std::cout << "FeynHiggs::SetFeynHiggsPars(): Error was detected in SetFV.F:"
+                  << err << std::endl;
+        return (false);
+    }
+
+    /* Set the non-minimal flavor-violating parameters in the slepton sector */
+    FHSetLFV(&err,
+              // L_LL
+              ToComplex2(mySUSY.MsL2(0,1).real(), mySUSY.MsL2(0,1).imag())
+                /sqrt(mySUSY.MsL2(0,0).real()*mySUSY.MsL2(1,1).real()),
+              ToComplex2(mySUSY.MsL2(1,2).real(), mySUSY.MsL2(1,2).imag())
+                /sqrt(mySUSY.MsL2(1,1).real()*mySUSY.MsL2(2,2).real()),
+              ToComplex2(mySUSY.MsL2(0,2).real(), mySUSY.MsL2(0,2).imag())
+                /sqrt(mySUSY.MsL2(0,0).real()*mySUSY.MsL2(2,2).real()),
+              // E_LR
+              ToComplex2(TEFH(0,1).real(), TEFH(0,1).imag())
+                *x1/sqrt(mySUSY.MsL2(0,0).real()*mySUSY.MsE2(1,1).real()),
+              ToComplex2(TEFH(1,2).real(), TEFH(1,2).imag())
+                *x1/sqrt(mySUSY.MsL2(1,1).real()*mySUSY.MsE2(2,2).real()),
+              ToComplex2(TEFH(0,2).real(), TEFH(0,2).imag())
+                *x1/sqrt(mySUSY.MsL2(0,0).real()*mySUSY.MsE2(2,2).real()),
+              // E_RL
+              ToComplex2(TEFH(1,0).real(), -TEFH(1,0).imag())
+                *x1/sqrt(mySUSY.MsE2(0,0).real()*mySUSY.MsL2(1,1).real()),
+              ToComplex2(TEFH(2,1).real(), -TEFH(2,1).imag())
+                *x1/sqrt(mySUSY.MsE2(1,1).real()*mySUSY.MsL2(2,2).real()),
+              ToComplex2(TEFH(2,0).real(), -TEFH(2,0).imag())
+                *x1/sqrt(mySUSY.MsE2(0,0).real()*mySUSY.MsL2(2,2).real()),
+              // E_RR
+              ToComplex2(mySUSY.MsE2(0,1).real(), mySUSY.MsE2(0,1).imag())
+                /sqrt(mySUSY.MsE2(0,0).real()*mySUSY.MsE2(1,1).real()),
+              ToComplex2(mySUSY.MsE2(1,2).real(), mySUSY.MsE2(1,2).imag())
+                /sqrt(mySUSY.MsE2(1,1).real()*mySUSY.MsE2(2,2).real()),
+              ToComplex2(mySUSY.MsE2(0,2).real(), mySUSY.MsE2(0,2).imag())
+                /sqrt(mySUSY.MsE2(0,0).real()*mySUSY.MsE2(2,2).real())
               );
     if (err != 0) {
         std::cout << "FeynHiggs::SetFeynHiggsPars(): Error was detected in SetFV.F:"
