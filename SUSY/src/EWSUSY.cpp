@@ -676,12 +676,12 @@ complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) cons
     b0 = PV.B0(mu, p2, Mw_i, Mw_i);
     b0p = PV.B0p(mu, p2, Mw_i, Mw_i);
     b22p = PV.B22p(mu, p2, Mw_i, Mw_i);
-    PiTp_WZH += 4.0*e2*( (p2 + 2.0*Mw_i*Mw_i)*b0p + b0 + 2.0*b22p);
+    PiTp_WZH += 2.0*e2*( (2.0*p2 + Mw_i*Mw_i)*b0p + 2.0*b0 + 4.0*b22p);
 
     /* W-boson - charged-Goldstone-boson loop */
     /* missed in the paper */
     //b0p = PV.B0p(mu, p2, Mw_i, Mw_i); /* Same as the above */
-    PiTp_WZH += - 8.0*e2*Mw_i*Mw_i*b0p;
+    PiTp_WZH += - 2.0*e2*Mw_i*Mw_i*b0p;
 
     /* Sum of all contributions */
     complex PiTp = PiTp_f + PiTp_sf + PiTp_ch + PiTp_WZH;
