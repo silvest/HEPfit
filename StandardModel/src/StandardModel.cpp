@@ -137,6 +137,10 @@ bool StandardModel::PostUpdate()
         Yn = Yn * UPMNS.hconjugate();
     }
     
+    if(updateFlag == 1){
+        myStandardModelMatching->updateSMParameters(); // Necessary for updating Standard Model parameters in Standard ModelMatching.
+    }
+    
     return (true);
 }
 

@@ -368,7 +368,7 @@ private:
     double Muw;
     double Ale;
     double GF;
-    double Mw_tree;
+    double MW_tree;
     double MM;
     gslpp::matrix<complex> Vckm;
     complex lam_t;

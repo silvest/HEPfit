@@ -11,7 +11,7 @@ AmpDB2::AmpDB2(Flavour& Flavour) : myFlavour(Flavour) {
 }
 
 complex AmpDB2::AmpBd(orders order) {
-    if (myFlavour.getHDF2().getCoeffBd().getOrder() < order)
+    if (myFlavour.getHDF2().getCoeffBd().getOrder() < order % 3)
         throw std::runtime_error("DmBd::getThValue(): requires cofficient of order not computed"); 
 
     vector<complex> ** allcoeff = myFlavour.ComputeCoeffBd( 
@@ -35,7 +35,7 @@ complex AmpDB2::AmpBd(orders order) {
     me(4) *= 1./12.*KBd*MBd*Fb*Fb;
 
     switch(order) {
-        case NLO:
+        case FULLNLO:
             return((*(allcoeff[LO]) + *(allcoeff[NLO])) * me / HCUT);
         case LO:
             return((*(allcoeff[LO])) * me / HCUT);
@@ -45,7 +45,7 @@ complex AmpDB2::AmpBd(orders order) {
 }
 
 complex AmpDB2::AmpBs(orders order) {
-    if (myFlavour.getHDF2().getCoeffBs().getOrder() < order)
+    if (myFlavour.getHDF2().getCoeffBs().getOrder() < order % 3)
         throw std::runtime_error("DmBd::getThValue(): requires cofficient of order not computed"); 
 
     vector<complex> ** allcoeff = myFlavour.ComputeCoeffBs(
@@ -68,7 +68,7 @@ complex AmpDB2::AmpBs(orders order) {
 
     
     switch(order) {
-        case NLO:
+        case FULLNLO:
             return((*(allcoeff[LO]) + *(allcoeff[NLO])) * me / HCUT);
         case LO:
             return((*(allcoeff[LO])) * me / HCUT);

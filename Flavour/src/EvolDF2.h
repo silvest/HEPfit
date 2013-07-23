@@ -91,7 +91,10 @@ private:
     
     double S1tt() const;
     void Df2Evol(double mu, double M, double nf, schemes scheme);
-    double a[5], b[5][5][5], c[3][5][5][5], d[3][5][5][5];
+    double a[5];
+    double b[5][5][5];
+    double c[3][5][5][5];
+    double d[3][5][5][5];
     const StandardModel& model;
 };
 

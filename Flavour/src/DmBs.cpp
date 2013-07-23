@@ -14,5 +14,5 @@ using namespace std;
  double  DmBs::getThValue() 
  
  {
-     return(2.*AmpBs(NLO).abs());
+     return(2. * AmpBs(FULLNLO).abs());
  }
