@@ -89,7 +89,9 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
         exit(EXIT_FAILURE);
     }
     std::string line;
-    while (!getline(ifile, line).eof()) {
+    bool IsEOF = false;
+    do {
+        IsEOF = getline(ifile, line).eof();
         if (line.empty() || line.at(0) == '#')
             continue;
         boost::char_separator<char> sep(" ");
@@ -257,23 +259,24 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
         } else if (type.compare("ModelFlag") == 0) {
             
             std::string name = *beg;
-                    ++beg;
-                    bool value = boost::lexical_cast<bool>((*beg).c_str());
-                    ++beg;
+            ++beg;
+            bool value = boost::lexical_cast<bool>((*beg).c_str());
+            ++beg;
 
             if (!myModel->SetFlag(name, value)) {
                 std::stringstream ss;
-                        ss << myModel->ModelName() << " SetFlag error for Flag " << name;
-                        throw std::runtime_error(ss.str());
+                ss << myModel->ModelName() << " SetFlag error for Flag " << name;
+                throw std::runtime_error(ss.str());
             } else 
                 std::cout << "set flag " << name << "=" << value << std::endl;
             if (beg != tok.end())
-                    std::cout << "warning: unread information in Flag " << name << std::endl;
-            } else {
+                std::cout << "warning: unread information in Flag " << name << std::endl;
+        } else {
             std::cout << "wrong keyword " << type << " in config file (first word must be ModelParameter, ModelFlag or Observable)" << std::endl;
-                    exit(EXIT_FAILURE);
+            exit(EXIT_FAILURE);
         }
-    }
+    } while (!IsEOF);
+
     return (modname);
 }
 

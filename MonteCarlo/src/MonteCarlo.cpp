@@ -48,7 +48,7 @@ void MonteCarlo::Run(const int rank)
                 exit(EXIT_FAILURE);
             }
         }
-        
+
         MCEngine.SetName(myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO).c_str());
         int buffsize = 0;
         std::map<std::string, double> DP;
@@ -126,8 +126,11 @@ void MonteCarlo::Run(const int rank)
                 exit(EXIT_FAILURE);
             }
             std::string line;
-            while (!getline(ifile, line).eof()) {
-                if (line.at(0) == '#') continue;
+            bool IsEOF = false;
+            do {
+                IsEOF = getline(ifile, line).eof();
+                if (line.empty() || line.at(0) == '#')
+                    continue;
                 boost::char_separator<char> sep(" ");
                 boost::tokenizer<boost::char_separator<char> > tok(line, sep);
                 boost::tokenizer<boost::char_separator<char> >::iterator beg = tok.begin();
@@ -179,7 +182,7 @@ void MonteCarlo::Run(const int rank)
                     std::cout << "wrong keyword in MonteCarlo config file: " << *beg << std::endl;
                     exit(EXIT_FAILURE);
                 }
-            }
+            } while (!IsEOF);
 
             BCModelOutput out(&MCEngine, OutFile.c_str());
             if (writechains) {

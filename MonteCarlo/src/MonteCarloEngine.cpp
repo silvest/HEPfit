@@ -328,14 +328,14 @@ void MonteCarloEngine::MCMCIterationInterface()
             Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram()->Fill(th1, th2);
         }
         for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
-	     it1 < CGO.end(); it1++){
-	  std::vector<Observable> pino(it1->GetObs());
+                it1 < CGO.end(); it1++){
+            std::vector<Observable> pino(it1->GetObs());
             for (std::vector<Observable>::iterator it = pino.begin();
                     it != pino.end(); ++it) {
                 double th = it->getTheoryValue();
                 Histo1D[it->getThname()]->GetHistogram()->Fill(th);
             }
-	}
+        }
     }
 }
 
