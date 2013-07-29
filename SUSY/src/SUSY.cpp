@@ -59,9 +59,9 @@ void SUSY::SetEWSMflags(EWSM& myEWSM)
     myEWSM.setSchemeRhoZ(EWSM::NORESUM);
     myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
 
-    /* Should be modified by hand! */
+    /* Should be modified by hand if the above parameters are changed! */
     std::cout << "Schemes for EWPOs:" << std::endl
-              << "  Mw: APPROXIMATEFORMULA" << std::endl
+              << "  Mw: NORESUM" << std::endl
               << "  rhoZf: NORESUM" << std::endl
               << "  kappaZf: APPROXIMATEFORMULA" << std::endl;
 }
