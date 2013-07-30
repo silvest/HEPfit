@@ -177,6 +177,9 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
         std::string type = *beg;
         ++beg;
         if (type.compare("ModelParameter") == 0) {
+            if (std::distance(tok.begin(),tok.end()) < 5)
+                throw std::runtime_error("Error: lack of information on "
+                                         + *beg + " in " + filename);
             std::string name = *beg;
             ++beg;
             double mean = atof((*beg).c_str());
@@ -190,12 +193,18 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             if (beg != tok.end())
                 std::cout << "warning: unread information in parameter " << name << std::endl;
         } else if (type.compare("Observable") == 0) {
+            if (std::distance(tok.begin(),tok.end()) < 8)
+                throw std::runtime_error("Error: lack of information on "
+                                         + *beg + " in " + filename);
             Observables.push_back(ParseObservable(beg));
             ++beg;
             if (beg != tok.end())
                 std::cout << "warning: unread information in observable "
                           << Observables.back().getName() << std::endl;
         } else if (type.compare("Observable2D") == 0) {
+            if (std::distance(tok.begin(),tok.end()) < 12)
+                throw std::runtime_error("Error: lack of information on "
+                                         + *beg + " in " + filename);
             Observable2D o2(ParseObservable(beg));
             ++beg;
             o2.setThname2(*beg);
@@ -263,6 +272,9 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             o3.ComputeCov(myCorr);
             CGO.push_back(o3);
         } else if (type.compare("ModelParaVsObs") == 0) {
+            if (std::distance(tok.begin(),tok.end()) < 10)
+                throw std::runtime_error("Error: lack of information on "
+                                         + *beg + " in " + filename);
             std::string name = *beg;
             ++beg;
             std::string ParaName = *beg;
@@ -295,7 +307,9 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             if (beg != tok.end()) std::cout << "warning: unread information in ModelParaVsObs "
                     << ParaObs.back().getName() << std::endl;
         } else if (type.compare("ModelFlag") == 0) {
-            
+            if (std::distance(tok.begin(),tok.end()) < 3)
+                throw std::runtime_error("Error: lack of information on "
+                                         + *beg + " in " + filename);
             std::string name = *beg;
             ++beg;
             bool value = boost::lexical_cast<bool>((*beg).c_str());
