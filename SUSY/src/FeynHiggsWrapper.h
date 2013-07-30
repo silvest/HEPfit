@@ -5,8 +5,8 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef FEYNHIGGS_H
-#define	FEYNHIGGS_H
+#ifndef FEYNHIGGSWRAPPER_H
+#define	FEYNHIGGSWRAPPER_H
 
 #include <CFeynHiggs.h>
 #include <gslpp.h>
@@ -15,21 +15,21 @@
 using namespace gslpp;
 
 /**
- * @class FeynHiggs
+ * @class FeynHiggsWrapper
  * @ingroup SUSY
- * @brief A class for an interface to FeynHiggs library. 
+ * @brief A wrapper class for FeynHiggs library.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details
  */
-class FeynHiggs {
+class FeynHiggsWrapper {
 public:
 
     /**
-     * @brief A FeynHiggs constructor.
+     * @brief A FeynHiggsWrapper constructor.
      * @param[in] SUSY_in An object of SUSY class.
      */
-    FeynHiggs(SUSY& SUSY_in);
+    FeynHiggsWrapper(SUSY& SUSY_in);
 
     
     ///////////////////////////////////////////////////////////////////////////
@@ -309,5 +309,5 @@ private:
     
 };
 
-#endif	/* FEYNHIGGS_H */
+#endif	/* FEYNHIGGSWRAPPER_H */
 

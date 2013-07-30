@@ -15,7 +15,7 @@
 
 using namespace gslpp;
 
-class FeynHiggs;
+class FeynHiggsWrapper; // forward reference to FeynHiggsWrapper class
 class SUSYSpectrum; // forward reference to Spectrum class
 class EWSUSY; // forward reference to EWSUSY class
 
@@ -45,7 +45,7 @@ public:
      * @brief Friend classes of SUSY class.
      */
     friend class SUSYSpectrum;
-    friend class FeynHiggs;
+    friend class FeynHiggsWrapper;
 
     /**
      * @brief A SUSY constructor. 
@@ -126,7 +126,7 @@ public:
      * @brief
      * @return
      */
-    FeynHiggs* getMyFH() const
+    FeynHiggsWrapper* getMyFH() const
     {
         return myFH;
     }
@@ -556,7 +556,7 @@ protected:
     virtual void SetSoftTerms();
     void setTanb(const double tanb);
     void setYukawas();
-    FeynHiggs* myFH;
+    FeynHiggsWrapper* myFH;
     EWSUSY* myEWSUSY;
 
     // model parameters at scale Q

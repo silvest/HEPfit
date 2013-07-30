@@ -14,8 +14,7 @@
 #include "SUSYMatching.h"
 #include "SUSYSpectrum.h"
 #include "EWSUSY.h"
-#include "FeynHiggs.h"
-//#include "../tests/SusyFlavour.h"
+#include "FeynHiggsWrapper.h"
 
 
 const std::string SUSY::SUSYvars[NSUSYvars] = {
@@ -44,7 +43,7 @@ bool SUSY::InitializeModel()
 {
     mySUSYMatching = new SUSYMatching(*this);
     SetModelInitialized(true);
-    myFH = new FeynHiggs(*this);
+    myFH = new FeynHiggsWrapper(*this);
     myEWSM = new EWSM(*this);
     this->SetEWSMflags(*myEWSM);
     myEWSUSY = new EWSUSY(*this);

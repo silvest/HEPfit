@@ -10,7 +10,7 @@
 
 #include <gslpp_complex.h>
 #include "Polylogarithms.h"
-#include "LoopTools.h"
+#include "LoopToolsWrapper.h"
 
 using namespace gslpp;
 
@@ -177,7 +177,7 @@ public:
 private:
     Polylogarithms myPolylog;
 #ifdef USE_LOOPTOOLS
-    LoopTools myLT;
+    LoopToolsWrapper myLT;
 #endif
     
 };

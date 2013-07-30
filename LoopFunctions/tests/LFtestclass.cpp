@@ -22,7 +22,7 @@ void LFtestclass::setUp() {
     myPL = new Polylogarithms();
     myClausen = new ClausenFunctions();
     myPV = new PVfunctions();
-    myLT = new LoopTools();
+    myLT = new LoopToolsWrapper();
 
     /* test */
     //delete myLT;

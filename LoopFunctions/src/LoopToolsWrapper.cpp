@@ -8,11 +8,11 @@
 #include <iostream>
 #include <complex>
 #include <clooptools.h>
-#include "LoopTools.h"
+#include "LoopToolsWrapper.h"
 
 static bool LoopToolsInit = false;
 
-LoopTools::LoopTools() 
+LoopToolsWrapper::LoopToolsWrapper()
 {
     if (!LoopToolsInit) {
         //std::cout << std::endl;
@@ -22,7 +22,7 @@ LoopTools::LoopTools()
     }
 }
 
-LoopTools::~LoopTools() 
+LoopToolsWrapper::~LoopToolsWrapper()
 {
     // for debug
     //std::cout << std::endl
@@ -31,14 +31,14 @@ LoopTools::~LoopTools()
     //std::cout << "****************************************" << std::endl;
 }
 
-double LoopTools::PV_A0(const double mu, const double m) const 
+double LoopToolsWrapper::PV_A0(const double mu, const double m) const
 {
     setmudim(mu*mu);
     std::complex<double> A0val = A0(m*m);
     return ( - A0val.real() );
 }
     
-complex LoopTools::PV_B0(const double mu, const double p2, 
+complex LoopToolsWrapper::PV_B0(const double mu, const double p2,
                          const double m0, const double m1) const 
 {
     setmudim(mu*mu);
@@ -46,7 +46,7 @@ complex LoopTools::PV_B0(const double mu, const double p2,
     return complex( B0val.real(), B0val.imag(), false );
 }
 
-complex LoopTools::PV_B1(const double mu, const double p2,
+complex LoopToolsWrapper::PV_B1(const double mu, const double p2,
                          const double m0, const double m1) const
 {
     setmudim(mu*mu);
@@ -54,7 +54,7 @@ complex LoopTools::PV_B1(const double mu, const double p2,
     return complex( B1val.real(), B1val.imag(), false );
 }
 
-complex LoopTools::PV_B21(const double mu, const double p2,
+complex LoopToolsWrapper::PV_B21(const double mu, const double p2,
                           const double m0, const double m1) const
 {
     setmudim(mu*mu);
@@ -62,7 +62,7 @@ complex LoopTools::PV_B21(const double mu, const double p2,
     return complex( B21val.real(), B21val.imag(), false );
 }
 
-complex LoopTools::PV_B22(const double mu, const double p2,
+complex LoopToolsWrapper::PV_B22(const double mu, const double p2,
                           const double m0, const double m1) const
 {
     setmudim(mu*mu);
@@ -70,7 +70,7 @@ complex LoopTools::PV_B22(const double mu, const double p2,
     return complex( B22val.real(), B22val.imag(), false );
 }
 
-complex LoopTools::PV_B0p(const double muIR, const double p2,
+complex LoopToolsWrapper::PV_B0p(const double muIR, const double p2,
                           const double m0, const double m1) const
 {
     setmudim(muIR*muIR);
@@ -78,7 +78,7 @@ complex LoopTools::PV_B0p(const double muIR, const double p2,
     return complex( B0pval.real(), B0pval.imag(), false );
 }
 
-complex LoopTools::PV_B1p(const double mu, const double p2,
+complex LoopToolsWrapper::PV_B1p(const double mu, const double p2,
                           const double m0, const double m1) const
 {
     setmudim(mu*mu);
@@ -86,7 +86,7 @@ complex LoopTools::PV_B1p(const double mu, const double p2,
     return complex( B1pval.real(), B1pval.imag(), false );
 }
 
-complex LoopTools::PV_B21p(const double mu, const double p2,
+complex LoopToolsWrapper::PV_B21p(const double mu, const double p2,
                            const double m0, const double m1) const
 {
     setmudim(mu*mu);
@@ -94,7 +94,7 @@ complex LoopTools::PV_B21p(const double mu, const double p2,
     return complex( B21pval.real(), B21pval.imag(), false );
 }
 
-complex LoopTools::PV_B22p(const double mu, const double p2,
+complex LoopToolsWrapper::PV_B22p(const double mu, const double p2,
                            const double m0, const double m1) const
 {
     setmudim(mu*mu);
@@ -102,14 +102,14 @@ complex LoopTools::PV_B22p(const double mu, const double p2,
     return complex( B22pval.real(), B22pval.imag(), false );
 }
 
-complex LoopTools::PV_C0(const double p2, 
+complex LoopToolsWrapper::PV_C0(const double p2,
                          const double m0, const double m1, const double m2) const 
 {
     std::complex<double> C0val = C0(0.0, 0.0, p2, m0*m0, m1*m1, m2*m2);
     return complex( - C0val.real(), - C0val.imag(), false );
 }
     
-complex LoopTools::PV_D0(const double s, const double t, const double m0, 
+complex LoopToolsWrapper::PV_D0(const double s, const double t, const double m0,
                          const double m1, const double m2, const double m3) const 
 {
     std::complex<double> D0val = D0(0.0, 0.0, 0.0, 0.0, s, t, m0*m0, m1*m1, m2*m2, m3*m3);

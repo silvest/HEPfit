@@ -14,7 +14,7 @@
 #include <StandardModelMatching.h>
 #include <Flavour.h>
 #include <EW.h>
-//#include <ZFitter.h>
+//#include <ZFitterWrapper.h>
 
 /**
  * @class ThFactory
@@ -34,7 +34,7 @@ private:
     Flavour myFlavour;
     EW myEW;
     ModelObservable myMO;
-    //ZFitter myZFitter;
+    //ZFitterWrapper myZFitter;
 };
 
 #endif	/* THFACTORY_H */

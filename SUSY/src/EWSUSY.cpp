@@ -9,7 +9,7 @@
 #include <iomanip>
 #include <stdexcept>
 #include <cmath>
-#include "FeynHiggs.h"
+#include "FeynHiggsWrapper.h"
 #include "EWSUSY.h"
 
 EWSUSY::EWSUSY(const SUSY& SUSY_in)

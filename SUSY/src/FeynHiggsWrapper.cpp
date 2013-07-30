@@ -9,9 +9,9 @@
 #include <sstream>
 #include <stdexcept>
 #include <CSLHA.h>
-#include "FeynHiggs.h"
+#include "FeynHiggsWrapper.h"
 
-FeynHiggs::FeynHiggs(SUSY& SUSY_in)
+FeynHiggsWrapper::FeynHiggsWrapper(SUSY& SUSY_in)
 : mySUSY(SUSY_in)
 {
     int err;
@@ -28,12 +28,12 @@ FeynHiggs::FeynHiggs(SUSY& SUSY_in)
               );
     if (err != 0) {
         std::stringstream ss;
-        ss << "FeynHiggs::FeynHiggs(): FHSetFlags error " << err;
+        ss << "FeynHiggsWrapper::FeynHiggsWrapper(): FHSetFlags error " << err;
         throw std::runtime_error(ss.str());
     }
 }
 
-bool FeynHiggs::SetFeynHiggsPars()
+bool FeynHiggsWrapper::SetFeynHiggsPars()
 {
     int err;
 
@@ -43,7 +43,7 @@ bool FeynHiggs::SetFeynHiggsPars()
 
     Mw_FHinput = mySUSY.Mw_tree(); /* Tree-level W-boson mass */
     //Mw_FHinput = mySUSY.StandardModel::Mw(); /* SM prediction, which should not be used, since mHl cannot be set before calling FeynHiggs. */
-    //std::cout << "Mw = " << Mw_FHinput << " used in FeynHiggs::SetFeynHiggsPars()" << std::endl;
+    //std::cout << "Mw = " << Mw_FHinput << " used in FeynHiggsWrapper::SetFeynHiggsPars()" << std::endl;
 
     /* Set the FeynHiggs SM input parameters */
     FHSetSMPara(&err,
@@ -60,7 +60,7 @@ bool FeynHiggs::SetFeynHiggsPars()
                 Mw_FHinput, mySUSY.Mz,
                 mySUSY.lambda, mySUSY.A, mySUSY.rhob, mySUSY.etab);
     if (err != 0) {
-        std::cout << "FeynHiggs::SetFeynHiggsPars(): Error has been detected in SetPara.F:"
+        std::cout << "FeynHiggsWrapper::SetFeynHiggsPars(): Error has been detected in SetPara.F:"
                   << err << std::endl;
         return (false);
     }
@@ -124,7 +124,7 @@ bool FeynHiggs::SetFeynHiggsPars()
               //
               Q, Q, Q);
     if (err != 0) {
-        std::cout << "FeynHiggs::SetFeynHiggsPars(): Error has been detected in SetPara.F:"
+        std::cout << "FeynHiggsWrapper::SetFeynHiggsPars(): Error has been detected in SetPara.F:"
                   << err << std::endl;
         return (false);
     }
@@ -182,7 +182,7 @@ bool FeynHiggs::SetFeynHiggsPars()
                 /sqrt(MsD2FH(0,0).real()*MsD2FH(2,2).real())
               );
     if (err != 0) {
-        std::cout << "FeynHiggs::SetFeynHiggsPars(): Error was detected in SetFV.F:"
+        std::cout << "FeynHiggsWrapper::SetFeynHiggsPars(): Error was detected in SetFV.F:"
                   << err << std::endl;
         return (false);
     }
@@ -219,7 +219,7 @@ bool FeynHiggs::SetFeynHiggsPars()
                 /sqrt(MsE2FH(0,0).real()*MsE2FH(2,2).real())
               );
     if (err != 0) {
-        std::cout << "FeynHiggs::SetFeynHiggsPars(): Error was detected in SetFV.F:"
+        std::cout << "FeynHiggsWrapper::SetFeynHiggsPars(): Error was detected in SetFV.F:"
                   << err << std::endl;
         return (false);
     }
@@ -232,7 +232,7 @@ bool FeynHiggs::SetFeynHiggsPars()
     return (true);
 }
 
-bool FeynHiggs::CalcHiggsSpectrum()
+bool FeynHiggsWrapper::CalcHiggsSpectrum()
 {
     int err;
     ComplexType SAeff;
@@ -242,7 +242,7 @@ bool FeynHiggs::CalcHiggsSpectrum()
     /* Compute the Higgs masses and mixings */
     FHHiggsCorr(&err, mySUSY.mh, &SAeff, UHiggs, ZHiggs);
     if (err != 0) {
-        std::cout << "FeynHiggs::CalcHiggsSpectrum(): Error has been detected in HiggsCorr.F:"
+        std::cout << "FeynHiggsWrapper::CalcHiggsSpectrum(): Error has been detected in HiggsCorr.F:"
                   << err << std::endl;
         return (false);
     }
@@ -259,7 +259,7 @@ bool FeynHiggs::CalcHiggsSpectrum()
     /* Check */
     for(int i = 0; i < 4; i++)
         if(std::isnan(mySUSY.mh[i])) {
-            std::cout << "FeynHiggs::CalcHiggsSpectrum(): mh[" << i << "] is undefined"
+            std::cout << "FeynHiggsWrapper::CalcHiggsSpectrum(): mh[" << i << "] is undefined"
                       << std::endl;
             return (false);
         }
@@ -267,7 +267,7 @@ bool FeynHiggs::CalcHiggsSpectrum()
     return (true);
 }
 
-bool FeynHiggs::CalcSpectrum()
+bool FeynHiggsWrapper::CalcSpectrum()
 {
     int err, nmfv;
     double MSf[3][4][2], MASf[4][6], MCha[2], MNeu[4];
@@ -303,7 +303,7 @@ bool FeynHiggs::CalcSpectrum()
     FHGetPara(&err, &nmfv, MSf, USf, MASf, UASf, MCha, UCha, VCha, MNeu, ZNeu,
               &Deltab, &FHMGl, FHMHtree, &FHSAtree);
     if (err != 0) {
-        std::cout << "FeynHiggs::CalcSpectrum(): Error has been detected in GetPara.F:"
+        std::cout << "FeynHiggsWrapper::CalcSpectrum(): Error has been detected in GetPara.F:"
                   << err << std::endl;
         return (false);
     }
@@ -347,7 +347,7 @@ bool FeynHiggs::CalcSpectrum()
     return (true);
 }
 
-void FeynHiggs::OutputSLHA(const char* filename) const
+void FeynHiggsWrapper::OutputSLHA(const char* filename) const
 {
     int err;
     COMPLEX slhadata[nslhadata];
@@ -356,14 +356,14 @@ void FeynHiggs::OutputSLHA(const char* filename) const
 
     FHOutputSLHA(&err, slhadata, -1);
     if (err != 0)
-        throw std::runtime_error("FeynHiggs::SetFeynHiggsPars(): Error in FHOutputSLHA");
+        throw std::runtime_error("FeynHiggsWrapper::SetFeynHiggsPars(): Error in FHOutputSLHA");
 
     SLHAWrite(&err, slhadata, filename);
     if (err != 0)
-        throw std::runtime_error("FeynHiggs::SetFeynHiggsPars(): Error in SLHAWrite");
+        throw std::runtime_error("FeynHiggsWrapper::SetFeynHiggsPars(): Error in SLHAWrite");
 }
 
-bool FeynHiggs::CalcHiggsCouplings()
+bool FeynHiggsWrapper::CalcHiggsCouplings()
 {
     int err;
     ComplexType couplings[ncouplings];
@@ -374,7 +374,7 @@ bool FeynHiggs::CalcHiggsCouplings()
     /* Compute the Higgs couplings, decay widths and branching ratios */
     FHCouplings(&err, couplings, couplingsms, gammas, gammasms, 0);
     if (err != 0) {
-        std::cout << "FeynHiggs::CalcHiggsCouplings(): Error has been detected in Couplings.F:"
+        std::cout << "FeynHiggsWrapper::CalcHiggsCouplings(): Error has been detected in Couplings.F:"
                   << err << std::endl;
         return (false);
     }
@@ -386,7 +386,7 @@ bool FeynHiggs::CalcHiggsCouplings()
     return (true);
 }
 
-bool FeynHiggs::CalcHiggsProd(const double& sqrts)
+bool FeynHiggsWrapper::CalcHiggsProd(const double& sqrts)
 {
     int err;
     double prodxs[nprodxs];
@@ -394,7 +394,7 @@ bool FeynHiggs::CalcHiggsProd(const double& sqrts)
     /* Compute Higgs production cross-sections with FeynHiggs */
     FHHiggsProd(&err, sqrts, prodxs);
     if (err != 0) {
-        std::cout << "FeynHiggs::CalcHiggsProd(): Error has been detected in HiggsProd.F:"
+        std::cout << "FeynHiggsWrapper::CalcHiggsProd(): Error has been detected in HiggsProd.F:"
                   << err << std::endl;
         return (false);
     }
@@ -406,7 +406,7 @@ bool FeynHiggs::CalcHiggsProd(const double& sqrts)
     return (true);
 }
 
-bool FeynHiggs::CalcConstraints()
+bool FeynHiggsWrapper::CalcConstraints()
 {
     int err, ccb;
 
@@ -414,12 +414,12 @@ bool FeynHiggs::CalcConstraints()
     FHConstraints(&err, &FHgm2, &FHdeltarho, &FHMWMSSM, &FHMWSM, &FHSW2MSSM,
                   &FHSW2SM, &FHedmeTh, &FHedmn, &FHedmHg, &ccb);
     if (err != 0) {
-        std::cout << "FeynHiggs::CalcConstraints(): Error has been detected in Constraints.F:"
+        std::cout << "FeynHiggsWrapper::CalcConstraints(): Error has been detected in Constraints.F:"
                   << err << std::endl;
         return (false);
     }
     if (ccb != 0) {
-        std::cout << "FeynHiggs::CalcConstraints(): The parameter point corresponds to a colour-breaking minimum"
+        std::cout << "FeynHiggsWrapper::CalcConstraints(): The parameter point corresponds to a colour-breaking minimum"
                   << std::endl;
         return (false);
     }
@@ -429,7 +429,7 @@ bool FeynHiggs::CalcConstraints()
     return (true);
 }
 
-bool FeynHiggs::CalcFlavour()
+bool FeynHiggsWrapper::CalcFlavour()
 {
     int err;
 
@@ -437,7 +437,7 @@ bool FeynHiggs::CalcFlavour()
     FHFlavour(&err, &FHbsgMSSM, &FHbsgSM, &FHdeltaMsMSSM, &FHdeltaMsSM,
               &FHbsmumuMSSM, &FHbsmumuSM);
     if (err != 0) {
-        std::cout << "FeynHiggs::CalcFlavour(): Error has been detected in Flavour.F:"
+        std::cout << "FeynHiggsWrapper::CalcFlavour(): Error has been detected in Flavour.F:"
                   << err << std::endl;
         return (false);
     }

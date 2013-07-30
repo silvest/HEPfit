@@ -5,13 +5,13 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef LOOPTOOLS_H
-#define	LOOPTOOLS_H
+#ifndef LOOPTOOLSWRAPPER_H
+#define	LOOPTOOLSWRAPPER_H
 
 /**
- * @class LoopTools
+ * @class LoopToolsWrapper
  * @ingroup LoopFunctions 
- * @brief A class for an interface to LoopTools library. 
+ * @brief A wrapper class for LoopTools library.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details  
@@ -20,15 +20,15 @@
 using namespace gslpp;
    
 /**
- * @class LoopTools
+ * @class LoopToolsWrapper
  * @brief C++ interface class for LoopTools library
  */
-class LoopTools {
+class LoopToolsWrapper {
 public:
 
-    LoopTools();
+    LoopToolsWrapper();
 
-    virtual ~LoopTools();
+    virtual ~LoopToolsWrapper();
     
     /**
      * @brief the scalar one-point Passarino-Veltman function
@@ -154,5 +154,5 @@ private:
 
 };
 
-#endif	/* LOOPTOOLS_H */
+#endif	/* LOOPTOOLSWRAPPER_H */
 
