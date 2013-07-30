@@ -12,6 +12,7 @@
 #include <Observable.h>
 #include <Observable2D.h>
 #include <CorrelatedGaussianObservables.h>
+#include <ModelParaVsObs.h>
 #include <ThObservable.h>
 #include <ModelParameter.h>
 #include <StandardModel.h>
@@ -60,7 +61,8 @@ public:
             std::vector<ModelParameter>& ModelPars,
             std::vector<Observable>& Observables,
             std::vector<Observable2D>& Observables2D,
-            std::vector<CorrelatedGaussianObservables>& CGO);
+            std::vector<CorrelatedGaussianObservables>& CGO,
+            std::vector<ModelParaVsObs>& ParaObs);
 
     StandardModel* getMyModel() const 
     {

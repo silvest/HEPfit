@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="84">
+<configurationDescriptor version="89">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -8,6 +8,7 @@
       <itemPath>src/GaussianLikelihood.h</itemPath>
       <itemPath>src/Likelihood.h</itemPath>
       <itemPath>src/ModelObservable.h</itemPath>
+      <itemPath>src/ModelParaVsObs.h</itemPath>
       <itemPath>src/ModelParameter.h</itemPath>
       <itemPath>src/Observable.h</itemPath>
       <itemPath>src/Observable2D.h</itemPath>
@@ -24,6 +25,7 @@
       <itemPath>src/CorrelatedGaussianObservables.cpp</itemPath>
       <itemPath>src/GaussianLikelihood.cpp</itemPath>
       <itemPath>src/Likelihood.cpp</itemPath>
+      <itemPath>src/ModelParaVsObs.cpp</itemPath>
       <itemPath>src/ModelParameter.cpp</itemPath>
       <itemPath>src/Observable.cpp</itemPath>
       <itemPath>src/Observable2D.cpp</itemPath>
@@ -47,6 +49,7 @@
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
@@ -61,11 +64,54 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/CorrelatedGaussianObservables.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/CorrelatedGaussianObservables.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/GaussianLikelihood.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GaussianLikelihood.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Likelihood.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Likelihood.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ModelObservable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ModelParaVsObs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ModelParaVsObs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ModelParameter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ModelParameter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Observable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Observable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Observable2D.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Observable2D.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ThObsType.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ThObservable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObservable.h" ex="false" tool="3" flavor2="0">
+      </item>
     </conf>
     <conf name="Release" type="3">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
@@ -90,11 +136,54 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/CorrelatedGaussianObservables.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/CorrelatedGaussianObservables.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/GaussianLikelihood.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GaussianLikelihood.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Likelihood.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Likelihood.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ModelObservable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ModelParaVsObs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ModelParaVsObs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ModelParameter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ModelParameter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Observable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Observable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Observable2D.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Observable2D.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ThObsType.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ThObservable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObservable.h" ex="false" tool="3" flavor2="0">
+      </item>
     </conf>
     <conf name="Cluster" type="3">
       <toolsSet>
         <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
       </toolsSet>
       <compileType>
@@ -119,6 +208,48 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/CorrelatedGaussianObservables.cpp"
+            ex="false"
+            tool="1"
+            flavor2="0">
+      </item>
+      <item path="src/CorrelatedGaussianObservables.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
+      </item>
+      <item path="src/GaussianLikelihood.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/GaussianLikelihood.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Likelihood.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Likelihood.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ModelObservable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ModelParaVsObs.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ModelParaVsObs.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ModelParameter.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ModelParameter.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Observable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Observable.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Observable2D.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Observable2D.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ThObsType.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ThObservable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObservable.h" ex="false" tool="3" flavor2="0">
+      </item>
     </conf>
   </confs>
 </configurationDescriptor>

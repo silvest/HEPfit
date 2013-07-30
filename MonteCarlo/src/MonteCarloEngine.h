@@ -19,6 +19,7 @@
 #include <Observable.h>
 #include <Observable2D.h>
 #include <CorrelatedGaussianObservables.h>
+#include <ModelParaVsObs.h>
 #include <ModelParameter.h>
 #include <Model.h>
 #include <map>
@@ -41,9 +42,11 @@ class MonteCarloEngine : public BCModel {
 public:
 
     // Constructors and destructor
-    MonteCarloEngine(const std::vector<ModelParameter>& ModPars,
-            std::vector<Observable>& Obs, 
-            std::vector<Observable2D>& Obs2D, std::vector<CorrelatedGaussianObservables>& CGO);
+    MonteCarloEngine(const std::vector<ModelParameter>& ModPars_i,
+                     std::vector<Observable>& Obs_i,
+                     std::vector<Observable2D>& Obs2D_i,
+                     std::vector<CorrelatedGaussianObservables>& CGO_i,
+                     std::vector<ModelParaVsObs>& ParaObs_i);
     ~MonteCarloEngine();
 
     void Initialize(Model* Mod_i);
@@ -51,6 +54,8 @@ public:
     // Methods to overload, see file MonteCarloEngine.cxx
     void DefineParameters();
     double LogLikelihood(const std::vector <double>& parameters);
+    void CheckHistogram(const TH1D& hist, const std::string name);
+    void CheckHistogram(const TH2D& hist, const std::string name);
     void PrintHistogram(BCModelOutput & out, std::vector<Observable>::iterator it,
                         const std::string OutputDir);
     void PrintHistogram(BCModelOutput& out, const std::string OutputDir);
@@ -84,6 +89,7 @@ private:
     std::vector<Observable2D> Obs2D_MCMC;
     std::vector<Observable2D>& Obs2D_ALL;
     std::vector<CorrelatedGaussianObservables>& CGO;
+    std::vector<ModelParaVsObs>& ParaObs;
     Model* Mod;
     std::map<std::string, double> DPars;
     std::map<std::string, BCH1D * > Histo1D;

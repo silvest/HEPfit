@@ -80,7 +80,10 @@ Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<c
 }
 
 std::string InputParser::ReadParameters(const std::string filename, std::vector<ModelParameter>&
-        ModelPars, std::vector<Observable>& Observables, std::vector<Observable2D>& Observables2D, std::vector<CorrelatedGaussianObservables>& CGO) 
+        ModelPars, std::vector<Observable>& Observables,
+        std::vector<Observable2D>& Observables2D,
+        std::vector<CorrelatedGaussianObservables>& CGO,
+        std::vector<ModelParaVsObs>& ParaObs)
 {
     std::string modname = "";
     std::ifstream ifile(filename.c_str());
@@ -188,8 +191,9 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
         } else if (type.compare("Observable") == 0) {
             Observables.push_back(ParseObservable(beg));
             ++beg;
-            if (beg != tok.end()) std::cout << "warning: unread information in observable "
-                    << Observables.back().getName() << std::endl;
+            if (beg != tok.end())
+                std::cout << "warning: unread information in observable "
+                          << Observables.back().getName() << std::endl;
         } else if (type.compare("Observable2D") == 0) {
             Observable2D o2(ParseObservable(beg));
             ++beg;
@@ -207,8 +211,9 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             o2.setMax2(atof((*beg).c_str()));
             Observables2D.push_back(o2);
             ++beg;
-            if (beg != tok.end()) std::cout << "warning: unread information in observable "
-                    << Observables.back().getName() << std::endl;
+            if (beg != tok.end())
+                std::cout << "warning: unread information in observable2D "
+                          << Observables2D.back().getName() << std::endl;
         } else if (type.compare("CorrelatedGaussianObservables") == 0) {
             std::string name = *beg;
             ++beg;
@@ -256,6 +261,38 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             }
             o3.ComputeCov(myCorr);
             CGO.push_back(o3);
+        } else if (type.compare("ModelParaVsObs") == 0) {
+            std::string name = *beg;
+            ++beg;
+            std::string ParaName = *beg;
+            ++beg;
+            std::string ParaLabel = *beg;
+            size_t pos = -1;
+            while ((pos = ParaLabel.find("~", pos + 1)) != std::string::npos)
+                ParaLabel.replace(pos, 1, " ");
+            ++beg;
+            double ParaMin = atof((*beg).c_str());
+            ++beg;
+            double ParaMax = atof((*beg).c_str());
+            ++beg;
+            std::string ObsName = *beg;
+            ++beg;
+            std::string ObsLabel = *beg;
+            pos = -1;
+            while ((pos = ObsLabel.find("~", pos + 1)) != std::string::npos)
+                ObsLabel.replace(pos, 1, " ");
+            ++beg;
+            double ObsMin = atof((*beg).c_str());
+            ++beg;
+            double ObsMax = atof((*beg).c_str());
+
+            ModelParaVsObs pm(name, ParaName, ParaLabel, ParaMin, ParaMax,
+                              ObsName, ObsLabel, ObsMin, ObsMax,
+                              thf->getThMethod(ObsName));
+            ParaObs.push_back(pm);
+            ++beg;
+            if (beg != tok.end()) std::cout << "warning: unread information in ModelParaVsObs "
+                    << ParaObs.back().getName() << std::endl;
         } else if (type.compare("ModelFlag") == 0) {
             
             std::string name = *beg;

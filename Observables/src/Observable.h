@@ -23,8 +23,8 @@
 class Observable {
 public:
     Observable(const std::string name_i, const std::string thname_i,
-            const std::string label_i, const bool tMCMC_i, const double min_i,
-            const double max_i, ThObservable * tho_i);
+               const std::string label_i, const bool tMCMC_i, const double min_i,
+               const double max_i, ThObservable * tho_i);
     Observable(const Observable& orig);
     double getTheoryValue();
     virtual ~Observable();

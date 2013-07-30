@@ -14,8 +14,9 @@
 #include <fstream>
 
 MonteCarlo::MonteCarlo(const std::string& ModelConf_i,
-        const std::string& MonteCarloConf_i, const std::string& OutFile_i, const std::string& JobTag_i) 
-: myInputParser(), MCEngine(ModPars, Obs, Obs2D, CGO) 
+                       const std::string& MonteCarloConf_i,
+                       const std::string& OutFile_i, const std::string& JobTag_i)
+: myInputParser(), MCEngine(ModPars, Obs, Obs2D, CGO, ParaObs)
 {
     ModelConf = ModelConf_i;
     MCMCConf = MonteCarloConf_i;
@@ -49,7 +50,7 @@ void MonteCarlo::Run(const int rank)
             }
         }
 
-        MCEngine.SetName(myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO).c_str());
+        MCEngine.SetName(myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs).c_str());
         int buffsize = 0;
         std::map<std::string, double> DP;
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
@@ -116,9 +117,11 @@ void MonteCarlo::Run(const int rank)
             std::cout << ModPars.size() << " parameters defined." << std::endl;
             std::cout << Obs.size() << " observables defined." << std::endl;
             std::cout << CGO.size() << " correlated gaussian observables defined:" << std::endl;
-	    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
-                it1 != CGO.end(); ++it1)
-            std::cout << it1->GetName() << " containing " << it1->GetObs().size() << " observables." << std::endl;
+            for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
+                    it1 != CGO.end(); ++it1)
+                std::cout << it1->GetName() << " containing "
+                          << it1->GetObs().size() << " observables." << std::endl;
+            std::cout << ParaObs.size() << " ModelParaVsObs defined:" << std::endl;
             //MonteCarlo configuration parser
             std::ifstream ifile(MCMCConf.c_str());
             if (!ifile.is_open()) {
