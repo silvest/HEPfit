@@ -132,6 +132,7 @@ void MonteCarlo::Run(const int rank)
             bool IsEOF = false;
             do {
                 IsEOF = getline(ifile, line).eof();
+                if (*line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
                 if (line.empty() || line.at(0) == '#')
                     continue;
                 boost::char_separator<char> sep(" ");
