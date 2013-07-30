@@ -352,16 +352,15 @@ void FeynHiggs::OutputSLHA(const char* filename) const
     int err;
     COMPLEX slhadata[nslhadata];
 
-    FHOutputSLHA(&err, slhadata, 2);
+    SLHAClear(slhadata);
+
+    FHOutputSLHA(&err, slhadata, -1);
     if (err != 0)
         throw std::runtime_error("FeynHiggs::SetFeynHiggsPars(): Error in FHOutputSLHA");
 
     SLHAWrite(&err, slhadata, filename);
     if (err != 0)
         throw std::runtime_error("FeynHiggs::SetFeynHiggsPars(): Error in SLHAWrite");
-
-    /* This function does not work correctly! */
-
 }
 
 bool FeynHiggs::CalcHiggsCouplings()

@@ -53,7 +53,7 @@ public:
     bool CalcSpectrum();
 
     /**
-     * @brief Writes FeynHiggs outputs to an SLHA file.
+     * @brief Writes FeynHiggs outputs to an SLHA file for test and debug.
      * @param[in] filename 
      */
     void OutputSLHA(const char *filename) const;
