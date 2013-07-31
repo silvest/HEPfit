@@ -166,7 +166,7 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     /* sneutrino loops */
     complex VZsnsn_II = e_2sc;
     complex VZZsnsn_II = e2/2.0/sW2/cW2;
-    for (int I=0; I<3; ++I) {  /* I=0-3 for left-handed sneutrinos */
+    for (int I=0; I<3; ++I) {  /* I=0-2 for left-handed sneutrinos */
         b22 = PV.B22(mu, p2, Msn[I], Msn[I]);
         PiT_sf += 4.0*VZsnsn_II.abs2()*b22;
         a0 = PV.A0(mu, Msn[I]);
@@ -289,7 +289,10 @@ complex EWSUSY::PiT_Z(const double mu, const double p2, const double Mw_i) const
     for (int i=0; i<2; ++i) {
         CR_i = mySUSY.v1()*ZR(0,i) + mySUSY.v2()*ZR(1,i);
         b0 = PV.B0(mu, p2, Mz, mH0[i]);
-        PiT_WZH += - g2sq*g2sq/4.0/cW2/cW2*CR_i*CR_i*b0;
+        /* Mw^2/v^2 is substituted for g2^2/4 compared to the expression in the
+         * paper, in order to ensure the cancellation of the UV divergences in
+         * the case where Mw is not the tree-level value. */
+        PiT_WZH += - g2sq*Mw_i*Mw_i/mySUSY.v()/mySUSY.v()/cW2/cW2*CR_i*CR_i*b0;
     }
 
     /* W-boson loops */
@@ -351,7 +354,7 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
 
     /* slepton loops */
     complex VWsnL_In, VWWsnsn_II, VWWLL_nn;
-    for (int I=0; I<3; ++I) {  /* I=0-3 for left-handed sneutrinos */
+    for (int I=0; I<3; ++I) {  /* I=0-2 for left-handed sneutrinos */
         for (int n=0; n<6; ++n) {
             VWsnL_In = complex(0.0, 0.0, false);
             for (int J=0; J<3; ++J) /* sum over left-handed sleptons */
@@ -441,7 +444,10 @@ complex EWSUSY::PiT_W(const double mu, const double p2, const double Mw_i) const
     for (int i=0; i<2; ++i) {
         CR_i = mySUSY.v1()*ZR(0,i) + mySUSY.v2()*ZR(1,i);
         b0 = PV.B0(mu, p2, Mw_i, mH0[i]);
-        PiT_WZH += - g2sq*g2sq/4.0*CR_i*CR_i*b0;
+        /* Mw^2/v^2 is substituted for g2^2/4 compared to the expression in the
+         * paper, in order to ensure the cancellation of the UV divergences in
+         * the case where Mw is not the tree-level value. */
+        PiT_WZH += - g2sq*Mw_i*Mw_i/mySUSY.v()/mySUSY.v()*CR_i*CR_i*b0;
     }
 
     /* Z-boson - charged-Goldstone-boson loops */
@@ -751,7 +757,7 @@ double EWSUSY::DeltaR_boxLL_SUSY(const double Mw_i) const
 
     /* charged-lepton - sneutrino - chargino - neutralino loop */
     for (int k=0; k<6; ++k)
-        for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+        for (int K=0; K<3; ++K)  /* K=0-2 for left-handed sneutrinos */
             for (int i=0; i<2; ++i)
                 for (int j=0; j<4; ++j) {
                     complex FF = F(Mse[k], Msn[K], mC[i], mN[j]);
@@ -782,8 +788,8 @@ double EWSUSY::DeltaR_boxLL_SUSY(const double Mw_i) const
                 }
 
     /* sneutrino - sneutrino - chargino - neutralino loop */
-    for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
-        for (int L=0; L<3; ++L)  /* L=0-3 for left-handed sneutrinos */
+    for (int K=0; K<3; ++K)  /* K=0-2 for left-handed sneutrinos */
+        for (int L=0; L<3; ++L)  /* L=0-2 for left-handed sneutrinos */
             for (int i=0; i<2; ++i)
                 for (int j=0; j<4; ++j) {
                     a11 +=  L_esnC(M, K, i, Mw_i)
@@ -795,7 +801,7 @@ double EWSUSY::DeltaR_boxLL_SUSY(const double Mw_i) const
 
     /* charged-lepton - sneutrino - chargino - chargino loop */
     for (int k=0; k<6; ++k)
-        for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+        for (int K=0; K<3; ++K)  /* K=0-2 for left-handed sneutrinos */
             for (int i=0; i<2; ++i)
                 for (int j=0; j<2; ++j) {
                     a12 += 0.5
@@ -808,7 +814,7 @@ double EWSUSY::DeltaR_boxLL_SUSY(const double Mw_i) const
 
     /* charged-lepton - sneutrino - neutralino - neutralino loop */
     for (int k=0; k<6; ++k)
-        for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+        for (int K=0; K<3; ++K)  /* K=0-2 for left-handed sneutrinos */
             for (int i=0; i<4; ++i)
                 for (int j=0; j<4; ++j) {
                     a12 += 0.5
@@ -842,7 +848,7 @@ double EWSUSY::DeltaR_boxLR_SUSY(const double Mw_i) const
 
     /* charged-lepton - sneutrino - chargino - neutralino loop */
     for (int k=0; k<6; ++k)
-        for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+        for (int K=0; K<3; ++K)  /* K=0-2 for left-handed sneutrinos */
             for (int i=0; i<2; ++i)
                 for (int j=0; j<4; ++j) {
                     complex HH = H(Mse[k], Msn[K], mC[i], mN[j]);
@@ -874,8 +880,8 @@ double EWSUSY::DeltaR_boxLR_SUSY(const double Mw_i) const
                 }
 
     /* sneutrino - sneutrino - chargino - neutralino loop */
-    for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
-        for (int L=0; L<3; ++L)  /* L=0-3 for left-handed sneutrinos */
+    for (int K=0; K<3; ++K)  /* K=0-2 for left-handed sneutrinos */
+        for (int L=0; L<3; ++L)  /* L=0-2 for left-handed sneutrinos */
             for (int i=0; i<2; ++i)
                 for (int j=0; j<4; ++j) {
                     a21 += - 2.0
@@ -888,7 +894,7 @@ double EWSUSY::DeltaR_boxLR_SUSY(const double Mw_i) const
 
     /* charged-lepton - sneutrino - neutralino - neutralino loop */
     for (int k=0; k<6; ++k)
-        for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+        for (int K=0; K<3; ++K)  /* K=0-2 for left-handed sneutrinos */
             for (int i=0; i<4; ++i)
                 for (int j=0; j<4; ++j) {
                     a22 += R_eLN(M, k, i, Mw_i)
@@ -906,7 +912,7 @@ double EWSUSY::DeltaR_boxLR_SUSY(const double Mw_i) const
 
     /* charged-lepton - sneutrino - chargino - chargino loop */
     for (int k=0; k<6; ++k)
-        for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+        for (int K=0; K<3; ++K)  /* K=0-2 for left-handed sneutrinos */
             for (int i=0; i<2; ++i)
                 for (int j=0; j<2; ++j) {
                     a22 += 2.0
@@ -966,7 +972,7 @@ complex EWSUSY::v(const double mu, const StandardModel::lepton M,
             }
 
     /* sneutrino - neutralino - chargino loops */
-    for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+    for (int K=0; K<3; ++K)  /* K=0-2 for left-handed sneutrinos */
         for (int j=0; j<4; ++j)
             for (int i=0; i<2; ++i) {
                 CL_ji = ZN(1,j)*Zp(0,i).conjugate()
@@ -984,7 +990,7 @@ complex EWSUSY::v(const double mu, const StandardModel::lepton M,
     matrix<complex> ZneT_ZL = Zne.transpose()*ZL;
     for (int i=0; i<6; ++i)
         for (int j=0; j<4; ++j)
-            for (int K=0; K<3; ++K) {  /* K=0-3 for left-handed sneutrinos */
+            for (int K=0; K<3; ++K) {  /* K=0-2 for left-handed sneutrinos */
                 b0 = PV.B0(mu, 0.0, Mse[i], Msn[K]);
                 ff = f(mN[j], Mse[i], Msn[K]);
                 v += 0.5*L_nsnN(intJ, K, j, Mw_i).conjugate()*L_eLN(intM, i, j, Mw_i)
@@ -1031,7 +1037,7 @@ complex EWSUSY::delta_v(const double mu, const StandardModel::lepton M,
         }
 
     /* sneutrino - chargino loops */
-    for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+    for (int K=0; K<3; ++K)  /* K=0-2 for left-handed sneutrinos */
         for (int i=0; i<2; ++i) {
             b0p = PV.B0p(muIR, 0.0, Msn[K], mC[i]);
             b0 = PV.B0(mu, 0.0, Msn[K], mC[i]);
@@ -1091,7 +1097,7 @@ complex EWSUSY::Sigma_nu_0(const double mu, const StandardModel::lepton I,
         }
 
     /* sneutrino - neutralino loops */
-    for (int K=0; K<3; ++K)  /* K=0-3 for left-handed sneutrinos */
+    for (int K=0; K<3; ++K)  /* K=0-2 for left-handed sneutrinos */
         for (int j=0; j<4; ++j) {
             b0p = PV.B0p(muIR, 0.0, Msn[K], mN[j]);
             b0 = PV.B0(mu, 0.0, Msn[K], mN[j]);
