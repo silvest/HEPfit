@@ -49,8 +49,12 @@ void MonteCarlo::Run(const int rank)
                 exit(EXIT_FAILURE);
             }
         }
-
-        MCEngine.SetName(myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs).c_str());
+        if (noMC) {
+            myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs).c_str();
+        }
+        else  {
+            MCEngine.SetName(myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs).c_str());
+        }
         int buffsize = 0;
         std::map<std::string, double> DP;
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
