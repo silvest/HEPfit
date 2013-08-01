@@ -19,7 +19,7 @@
 #include "ClausenFunctions.h"
 #include "PVfunctions.h"
 //#include "LoopTools.h"
-#include "../src/LoopTools.h"
+#include "../src/LoopToolsWrapper.h"
 using namespace std;
 
 
@@ -83,7 +83,7 @@ private:
     Polylogarithms *myPL;
     ClausenFunctions *myClausen;
     PVfunctions *myPV;
-    LoopTools *myLT;
+    LoopToolsWrapper *myLT;
     double epsilon;
     double Mz, Mw, mH, Mt;
 

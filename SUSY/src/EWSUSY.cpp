@@ -9,7 +9,7 @@
 #include <iomanip>
 #include <stdexcept>
 #include <cmath>
-#include "FeynHiggs.h"
+#include "FeynHiggsWrapper.h"
 #include "EWSUSY.h"
 
 EWSUSY::EWSUSY(const SUSY& SUSY_in)
@@ -673,15 +673,16 @@ complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) cons
     }
 
     /* W-boson loops */
+    /* The Mw_i*Mw_i*b0p term, adding the corresponding contribution from
+     * the W-G loop below, differs from the one in the paper. */
     b0 = PV.B0(mu, p2, Mw_i, Mw_i);
     b0p = PV.B0p(mu, p2, Mw_i, Mw_i);
     b22p = PV.B22p(mu, p2, Mw_i, Mw_i);
-    PiTp_WZH += 4.0*e2*( (p2 + 2.0*Mw_i*Mw_i)*b0p + b0 + 2.0*b22p);
+    PiTp_WZH += 2.0*e2*( (2.0*p2 + Mw_i*Mw_i)*b0p + 2.0*b0 + 4.0*b22p);
 
     /* W-boson - charged-Goldstone-boson loop */
-    /* missed in the paper */
     //b0p = PV.B0p(mu, p2, Mw_i, Mw_i); /* Same as the above */
-    PiTp_WZH += - 8.0*e2*Mw_i*Mw_i*b0p;
+    PiTp_WZH += - 2.0*e2*Mw_i*Mw_i*b0p;
 
     /* Sum of all contributions */
     complex PiTp = PiTp_f + PiTp_sf + PiTp_ch + PiTp_WZH;
@@ -721,12 +722,8 @@ double EWSUSY::PiThat_W_0(const double Mw_i) const
                               - PiT_Z(mu, Mz*Mz, Mw_i).real()/Mz/Mz );
     PiThat -= 2.0*Mw_i*Mw_i*delSw_overSw;
 
-    /* singular part of bosonic contribution to Delta r from vertex+
-     * box+(external wave functions), is given by
-     *    mySUSY.getAle()/M_PI/sW2*(1/epsbar - log(Mw_i*Mw_i/mu/mu)), 
-     * which is usually denoted by
-     *    2/(sW*cW)*PiT_AZ(0)/Mz/Mz.
-     * See e.g. Eq.(88) in hep-ph/9602380 */
+    /* remaining counter terms,
+     * usually denoted by 2/(sW*cW)*PiT_AZ(0)/Mz/Mz. */
     PiThat += - 2.0*Mw_i*Mw_i/(sW*cW)*PiT_AZ(mu, 0.0, Mw_i).real()/Mz/Mz;
 
     return PiThat;

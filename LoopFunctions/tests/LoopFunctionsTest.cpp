@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
         //cout << PVtest.B0(-1.0,1.0,1.0,1.0) << endl;
         //cout << PVtest.B0(1.0,0.0,0.0,0.0) << endl;
 
-        //cout << "B0(5,1,2,3)= " << PVtest.B0(5.0,1.0,2.0,3.0) << endl;
+        cout << "B0(5,1,2,3)= " << PVtest.B0(5.0,1.0,2.0,3.0) << endl;
         //cout << "B0(1,1,1,1)= " << PVtest.B0(1.0,1.0,1.0,1.0) << endl;
         //cout << "B0(1,0,1,1)= " << PVtest.B0(1.0,0.0,1.0,1.0) << endl;        
         //cout << "B0(1,1,0,1)= " << PVtest.B0(1.0,1.0,0.0,1.0) << endl;
@@ -32,17 +32,6 @@ int main(int argc, char** argv) {
         //cout << "B0(1,1,1,0)= " << PVtest.B0(1.0,1.0,1.0,0.0) << endl;
         //cout << "B0(1,0,0,1)= " << PVtest.B0(1.0,0.0,0.0,1.0) << endl;
         //cout << "B0(1,1,0,0)= " << PVtest.B0(1.0,1.0,0.0,0.0) << endl;
-
-        double Mw = 80.36249466866697, s, sqrts;
-        for (int i=0; i<100; i++) {
-            sqrts = 158.0837322478437 - 0.001 + 0.002*(double)i/100.0;
-            s = sqrts*sqrts;
-            cout << setprecision(16) << sqrts << " " << PVtest.B0(Mw,s,Mw,Mw) << endl;
-
-        }
-
-        cout << PVtest.B0(Mw,158.0837322478437*158.0837322478437,Mw,Mw) << endl;
-        
 
         //double Mz = 90.;
         //double MHp = 600., MA=900.,MH0=580.;

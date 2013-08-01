@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="88">
+<configurationDescriptor version="89">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -64,7 +64,7 @@
             <pElem>../MFV/src</pElem>
             <pElem>../SUSY/src</pElem>
             <pElem>../THDM/src</pElem>
-            <pElem>../ZFitter/src</pElem>
+            <pElem>../ZFitterWrapper/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
             <pElem>../BAT_parallel/include</pElem>
@@ -337,7 +337,7 @@
             <pElem>../MFV/src</pElem>
             <pElem>../SUSY/src</pElem>
             <pElem>../THDM/src</pElem>
-            <pElem>../ZFitter/src</pElem>
+            <pElem>../ZFitterWrapper/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
             <pElem>../BAT_parallel/include</pElem>
@@ -615,7 +615,7 @@
             <pElem>../MFV/src</pElem>
             <pElem>../SUSY/src</pElem>
             <pElem>../THDM/src</pElem>
-            <pElem>../ZFitter/src</pElem>
+            <pElem>../ZFitterWrapper/src</pElem>
             <pElem>../BAT_parallel/include</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../GeneralSUSY/src</pElem>
@@ -888,7 +888,7 @@
             <pElem>../SUSY/src</pElem>
             <pElem>../THDM/src</pElem>
             <pElem>../ZFitter/src</pElem>
-            <pElem>../FeynHiggs/include</pElem>
+            <pElem>../FeynHiggsWrapper/include</pElem>
             <pElem>../boost</pElem>
             <pElem>../BAT_parallel/include</pElem>
           </incDir>

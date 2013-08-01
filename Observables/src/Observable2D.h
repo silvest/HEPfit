@@ -21,10 +21,11 @@
 class Observable2D : public Observable {
 public:
     Observable2D(const std::string name_i, const std::string thname_i,
-        const std::string thname2_i, const std::string label_i, 
-        const std::string label2_i, const bool tMCMC_i, const double min_i,
-        const double max_i, const double min2_i, const double max2_i, 
-        ThObservable * tho_i, ThObservable * tho2_i);
+                 const std::string thname2_i, const std::string label_i,
+                 const std::string label2_i, const bool tMCMC_i,
+                 const double min_i, const double max_i,
+                 const double min2_i, const double max2_i,
+                 ThObservable * tho_i, ThObservable * tho2_i);
     Observable2D(const Observable& o1d);
     Observable2D(const Observable2D& orig);
     virtual ~Observable2D();

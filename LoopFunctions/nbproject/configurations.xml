@@ -6,7 +6,7 @@
                    projectFiles="true">
       <itemPath>src/BernoulliNumbers.h</itemPath>
       <itemPath>src/ClausenFunctions.h</itemPath>
-      <itemPath>src/LoopTools.h</itemPath>
+      <itemPath>src/LoopToolsWrapper.h</itemPath>
       <itemPath>src/PVfunctions.h</itemPath>
       <itemPath>src/Polylogarithms.h</itemPath>
     </logicalFolder>
@@ -19,7 +19,7 @@
                    projectFiles="true">
       <itemPath>src/BernoulliNumbers.cpp</itemPath>
       <itemPath>src/ClausenFunctions.cpp</itemPath>
-      <itemPath>src/LoopTools.cpp</itemPath>
+      <itemPath>src/LoopToolsWrapper.cpp</itemPath>
       <itemPath>src/PVfunctions.cpp</itemPath>
       <itemPath>src/Polylogarithms.cpp</itemPath>
     </logicalFolder>
@@ -172,9 +172,9 @@
       </item>
       <item path="src/ClausenFunctions.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/LoopTools.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/LoopToolsWrapper.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/LoopTools.h" ex="false" tool="3" flavor2="0">
+      <item path="src/LoopToolsWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/PVfunctions.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -307,9 +307,9 @@
       </item>
       <item path="src/ClausenFunctions.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/LoopTools.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/LoopToolsWrapper.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/LoopTools.h" ex="false" tool="3" flavor2="0">
+      <item path="src/LoopToolsWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/PVfunctions.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -437,9 +437,9 @@
       </item>
       <item path="src/ClausenFunctions.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/LoopTools.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/LoopToolsWrapper.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/LoopTools.h" ex="false" tool="3" flavor2="0">
+      <item path="src/LoopToolsWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/PVfunctions.cpp" ex="false" tool="1" flavor2="0">
       </item>
