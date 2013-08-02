@@ -20,9 +20,7 @@ ThFactory::ThFactory(const StandardModel& myModel)
 //, myZFitter(myModel)
 {
     //-----   Flavour observables   -----
-    thobs["Dmd0"] = new DmBd0(myFlavour);
     thobs["Dmd1"] = new DmBd(myFlavour);
-    thobs["Dms0"] = new DmBs0(myFlavour);
     thobs["Dms1"] = new DmBs(myFlavour);
     thobs["M12D"] = new M12D(myFlavour);
     thobs["ArgD"] = new ArgD(myFlavour);
