@@ -27,7 +27,7 @@
  * @copyright GNU General Public License
  * @details This class is used to compute the theoretical value of
  * @f$\Delta M_K@f$. While the short distance contributions to this 
- * paramter is calculable both in the SM and in NP models, the long distance
+ * parameter is calculable both in the SM and in NP models, the long distance
  * contribution can only be estimated and might contribute to as much as half the
  * value of the parameter. This long distance contribution is put in as an
  * input parameter in this code through SM.getDMK().
@@ -35,15 +35,17 @@
 
 class DmK : public ThObservable, AmpDK2 {
 public:
+    
     /**
      * constructor
-     * @param ObsType
+     * @param Flavour
      */
-    DmK(Flavour& ObsType) : ThObservable(ObsType), AmpDK2(ObsType) {};
+    
+    DmK(Flavour& Flavour) : ThObservable(Flavour), AmpDK2(Flavour) {};
     
     /**
      * 
-     * @return theoretical value of Delta M_K 
+     * @return theoretical value of @f$\Delta M_K@f$ 
      */
     virtual double getThValue();
 };
@@ -53,5 +55,3 @@ public:
  */
 
 #endif	/* DMK_H */
-
-

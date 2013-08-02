@@ -26,6 +26,15 @@
 #include <DmK.h>
 #include <EpsilonP_O_Epsilon.h>
 
+/**
+ * @addtogroup Flavour
+ * @brief A project for Flavour observables.
+ * @{
+ */
+
+/**
+ * @}
+ */
 
 #endif	/* FLAVOUROBSERVABLES_H */
 

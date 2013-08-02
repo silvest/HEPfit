@@ -8,11 +8,5 @@
 #include "EpsilonP_O_Epsilon.h"
 
 double EpsilonP_O_Epsilon::getThValue(){
-    
-    double om = SM.getReA2_Kd() / SM.getReA0_Kd();
-    
-    double a = 0.707106781*(om/SM.getReA0_Kd())*((1/om)*AmpDS1pp2(NLO).imag()-
-               (1-SM.getOmega_eta_etap())*AmpDS1pp0(NLO).imag());
-    
-    return a;
+    return (M_SQRT1_2 * (SM.getReA2_Kd() / SM.getReA0_Kd() / SM.getReA0_Kd()) * ((1 / SM.getReA2_Kd() / SM.getReA0_Kd()) * AmpDS1pp2(NLO).imag() - (1 - SM.getOmega_eta_etap()) * AmpDS1pp0(NLO).imag()));
 }

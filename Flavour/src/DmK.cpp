@@ -7,9 +7,6 @@
 
 #include "DmK.h"
 
-using namespace std;
-
-double DmK::getThValue()
-{
+double DmK::getThValue() {
     return(2.*AmpMK(FULLNLO).real() + SM.getDmk());
 }

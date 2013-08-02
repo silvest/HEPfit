@@ -14,6 +14,23 @@
 
 using namespace gslpp;
 
+/**
+ * @addtogroup Flavour
+ * @brief A project for Flavour observables.
+ * @{
+ */
+
+/**
+ * @class EpsilonK
+ * @brief A class for @f$|\epsilon'_K/\epsilon_K|@f$ that parametrizes
+ * direct CPV in the Kaon sector
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the theoretical value of
+ * @f$|\epsilon'_K/\epsilon_K|@f$. This parameter gets contributions both
+ * from the SM and many NP models.
+ */
+
 class EpsilonP_O_Epsilon : public ThObservable, AmpDS1 {
 public:   
     /**
@@ -24,7 +41,7 @@ public:
     
     /**
      * 
-     * @return theoretical value of |\f$ \epsilon ' / \epsilon \f$| 
+     * @return theoretical value of @f$|\epsilon'_K/\epsilon_K|@f$
      */
     double getThValue();
     

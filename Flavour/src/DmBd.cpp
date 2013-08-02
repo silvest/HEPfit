@@ -6,13 +6,7 @@
  */
 
 #include "DmBd.h"
-#include <iostream>
-
-using namespace std;
-
  
- double  DmBd::getThValue() 
- 
- {
-     return(2. * AmpBd(FULLNLO).abs());
- }
+double  DmBd::getThValue() {
+    return(2. * AmpBd(FULLNLO).abs());
+}

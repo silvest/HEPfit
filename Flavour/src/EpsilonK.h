@@ -22,12 +22,12 @@ using namespace gslpp;
 
 /**
  * @class EpsilonK
- * @brief A class for @f$\eps_K@f$ that parametrizes
+ * @brief A class for @f$\epsilon_K@f$ that parametrizes
  * indirect CPV in the Kaon sector
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the theoretical value of
- * @f$\eps_K@f$. This parameter gets contributions both
+ * @f$\epsilon_K@f$. This parameter gets contributions both
  * from the SM and many NP models. It is an important
  * constraint on FCNC from NP models, specially those contributing
  * to chirality flipping @f$\Delta F = 2@f$ operators due to large
@@ -44,7 +44,7 @@ public:
     
     /**
      * 
-     * @return theoretical value of Epsilon_K 
+     * @return theoretical value of @f$\epsilon_K@f$ 
      */
     double getThValue();
     
@@ -55,6 +55,3 @@ public:
  */
 
 #endif	/* EPSILONK_H */
-
-
-
