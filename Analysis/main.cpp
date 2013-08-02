@@ -49,8 +49,8 @@ int main(int argc, char** argv)
         positional_options_description pd;
         pd.add("modconf", 1);
         pd.add("mcconf", 1);
-//        pd.add("rootfile", 1);
-//        pd.add("job_tag", 1);
+        //pd.add("rootfile", 1);
+        //pd.add("job_tag", 1);
 
         variables_map vm;
         store(command_line_parser(argc,
@@ -76,12 +76,8 @@ int main(int argc, char** argv)
 
         JobTag = vm["job_tag"].as<string > ();
         
-        if (vm.count("noMC") && vm["noMC"].as<string > ().compare("Yes") == 0) {
-            std::cout << "Running in Single Event mode" << std::endl;
+        if (vm.count("noMC") && vm["noMC"].as<string > ().compare("Yes") == 0)
             FileOut = "";
-        }
-        else 
-            std::cout << "Running in MonteCarlo mode" << std::endl;
             
         MonteCarlo MC(ModelConf, MCMCConf, FileOut, JobTag);
         
