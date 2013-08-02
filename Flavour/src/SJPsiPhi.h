@@ -10,18 +10,45 @@
 
 
 #include <ThObservable.h>
-#include <Flavour.h>
-#include <AmpDB2.h>
+#include "Flavour.h"
+#include "AmpDB2.h"
+
+/**
+ * @addtogroup Flavour
+ * @brief A project for Flavour observables.
+ * @{
+ */
+
+/**
+ * @class DMK
+ * @brief A class for @f$S_{J/\psi\phi}@f$
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details This class is used to compute the theoretical value of
+ * @f$S_{J/\psi\phi}@f$.
+ */
 
 class SJPsiPhi : public ThObservable, AmpDB2 {
 public:
+    
+    /**
+     * constructor
+     * @param ObsType
+     */
+    
     SJPsiPhi(Flavour& Flavour) : ThObservable(Flavour), AmpDB2(Flavour) {};
+    
+    /**
+     *
+     * @return theoretical value of @f$S_{J/\psi\phi}@f$
+     */
+    virtual double getThValue();
 
-    double getThValue() {
-        return sin(AmpBs(NLO).arg());
-    };
 };
 
+/**
+ * @}
+ */
 
 #endif	/* SJPSIPHI_H */
 
