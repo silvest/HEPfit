@@ -40,21 +40,9 @@ MonteCarlo::~MonteCarlo()
 void MonteCarlo::Run(const int rank) 
 {
     try {
-        FileStat_t info;        
-        if (gSystem->GetPathInfo(ObsDirName.c_str(), info) != 0 && !noMC) {
-            if (gSystem->MakeDirectory(ObsDirName.c_str()) == 0)
-                std::cout << ObsDirName << " directory has been created." << std::endl;
-            else {
-                std::cout << ObsDirName << " director cannot be created." << std::endl;
-                exit(EXIT_FAILURE);
-            }
-        }
-        if (noMC) {
-            myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs).c_str();
-        }
-        else  {
-            MCEngine.SetName(myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs).c_str());
-        }
+
+        /* set model parameters */
+        std::string ModelName = myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs);
         int buffsize = 0;
         std::map<std::string, double> DP;
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
@@ -68,6 +56,7 @@ void MonteCarlo::Run(const int rank)
         }
         
         if(noMC) {
+            std::cout << std::endl << "Running in Single Event mode..." << std::endl;
             for (std::vector<Observable>::iterator it = Obs.begin();
                  it < Obs.end(); it++) {
                 double th = it->getTheoryValue();
@@ -84,7 +73,21 @@ void MonteCarlo::Run(const int rank)
             }
             return;
         }
-        
+
+        std::cout << std::endl << "Running in MonteCarlo mode..." << std::endl;
+
+        /* create a directory for outputs */
+        FileStat_t info;
+        if (gSystem->GetPathInfo(ObsDirName.c_str(), info) != 0) {
+            if (gSystem->MakeDirectory(ObsDirName.c_str()) == 0)
+                std::cout << ObsDirName << " directory has been created." << std::endl;
+            else {
+                std::cout << ObsDirName << " director cannot be created." << std::endl;
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        MCEngine.SetName(ModelName.c_str());
         MCEngine.Initialize(myInputParser.getMyModel());
         double *recvbuff = new double[buffsize];
 
@@ -120,12 +123,16 @@ void MonteCarlo::Run(const int rank)
             bool writechains = false;
             std::cout << ModPars.size() << " parameters defined." << std::endl;
             std::cout << Obs.size() << " observables defined." << std::endl;
-            std::cout << CGO.size() << " correlated gaussian observables defined:" << std::endl;
+            std::cout << CGO.size() << " correlated gaussian observables defined";
+            if (CGO.size() == 0)
+                std::cout << "." << std::endl;
+            else
+                std::cout << ":" << std::endl;
             for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
                     it1 != CGO.end(); ++it1)
-                std::cout << it1->GetName() << " containing "
+                std::cout << "  " << it1->GetName() << " containing "
                           << it1->GetObs().size() << " observables." << std::endl;
-            std::cout << ParaObs.size() << " ModelParaVsObs defined:" << std::endl;
+            std::cout << ParaObs.size() << " ModelParaVsObs defined." << std::endl;
             //MonteCarlo configuration parser
             std::ifstream ifile(MCMCConf.c_str());
             if (!ifile.is_open()) {
