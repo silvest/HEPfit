@@ -657,8 +657,13 @@ private:
     bool computeFBd, computeBd, computemt;
     double AlsWithLambda(const double mu, const double logLambda, 
                          const orders order) const;
-    double ZeroNf5(double *x, double *) const;
+    double ZeroNf6NLO(double *logLambda6, double *logLambda5_in) const;
+    double ZeroNf5(double *logLambda5, double *order) const;
+    double ZeroNf4NLO(double *logLambda4, double *logLambda5_in) const;
+    double ZeroNf3NLO(double *logLambda3, double *logLambda4_in) const;
     double logLambda5(orders order) const;
+    double logLambdaNLO(const double nfNEW, const double nfORG,
+                        const double logLambdaORG) const;
     double logLambda(const double muMatching, const double mf, 
                      const double nfNEW, const double nfORG, 
                      const double logLambdaORG, orders order) const;
@@ -669,7 +674,8 @@ private:
 
     // caches
     static const int CacheSize = 5;
-    mutable double als_cache[8][CacheSize], logLambda5_cache[4][CacheSize], 
+    mutable double als_cache[8][CacheSize], logLambda5_cache[4][CacheSize],
+                   logLambdaNLO_cache[9][CacheSize],
                    mrun_cache[10][CacheSize], mp2mbar_cache[5][CacheSize];
     void CacheShift(double cache[][5], int n) const;
 };

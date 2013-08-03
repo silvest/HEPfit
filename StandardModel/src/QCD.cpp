@@ -563,9 +563,27 @@ double QCD::Als(const double mu, const orders order) const
     return als;
 }
 
-double QCD::ZeroNf5(double *x, double *y) const
+double QCD::ZeroNf6NLO(double *logLambda6, double *logLambda5_in) const
 {
-    return ( AlsWithLambda(Mz, *x, (orders) *y) - AlsMz );
+    return ( AlsWithLambda(mut + 1.e-10, *logLambda6, FULLNLO)
+             - AlsWithLambda(mut - 1.e-10, *logLambda5_in, FULLNLO) );
+}
+
+double QCD::ZeroNf5(double *logLambda5, double *order) const
+{
+    return ( AlsWithLambda(Mz, *logLambda5, (orders) *order) - AlsMz );
+}
+
+double QCD::ZeroNf4NLO(double *logLambda4, double *logLambda5_in) const
+{
+    return ( AlsWithLambda(mub - 1.e-10, *logLambda4, FULLNLO)
+             - AlsWithLambda(mub + 1.e-10, *logLambda5_in, FULLNLO) );
+}
+
+double QCD::ZeroNf3NLO(double *logLambda3, double *logLambda4_in) const
+{
+    return ( AlsWithLambda(muc - 1.e-10, *logLambda3, FULLNLO)
+             - AlsWithLambda(muc + 1.e-10, *logLambda4_in, FULLNLO) );
 }
 
 double QCD::logLambda5(orders order) const 
@@ -604,6 +622,55 @@ double QCD::logLambda5(orders order) const
     return ( logLambda5_cache[3][0] );
 }
 
+double QCD::logLambdaNLO(const double nfNEW, const double nfORG,
+                         const double logLambdaORG) const
+{
+    for (int i=0; i<CacheSize; ++i)
+        if ( (AlsMz == logLambdaNLO_cache[0][i])
+                && (Mz == logLambdaNLO_cache[1][i])
+                && (mut == logLambdaNLO_cache[2][i])
+                && (mub == logLambdaNLO_cache[3][i])
+                && (muc == logLambdaNLO_cache[4][i])
+                && (nfNEW == logLambdaNLO_cache[5][i])
+                && (nfORG == logLambdaNLO_cache[6][i])
+                && (logLambdaORG == logLambdaNLO_cache[7][i]) )
+            return logLambdaNLO_cache[8][i];
+
+    CacheShift(logLambdaNLO_cache, 9);
+    logLambdaNLO_cache[0][0] = AlsMz;
+    logLambdaNLO_cache[1][0] = Mz;
+    logLambdaNLO_cache[2][0] = mut;
+    logLambdaNLO_cache[3][0] = mub;
+    logLambdaNLO_cache[4][0] = muc;
+    logLambdaNLO_cache[5][0] = nfNEW;
+    logLambdaNLO_cache[6][0] = nfORG;
+    logLambdaNLO_cache[7][0] = logLambdaORG;
+
+    double xmin = -4., xmax = -0.2;
+
+    TF1 f;
+    if (nfNEW == 6. && nfORG == 5.) {
+        f = TF1("f", this, &QCD::ZeroNf6NLO, xmin, xmax, 1, "QCD", "zeroNf6NLO");
+    } else if (nfNEW == 4. && nfORG == 5.) {
+        f = TF1("f", this, &QCD::ZeroNf4NLO, xmin, xmax, 1, "QCD", "zeroNf4NLO");
+    } else if (nfNEW == 3. && nfORG == 4.) {
+        f = TF1("f", this, &QCD::ZeroNf3NLO, xmin, xmax, 1, "QCD", "zeroNf3NLO");
+    } else 
+        throw std::runtime_error("Error in QCD::logLambdaNLO()");
+
+    ROOT::Math::WrappedTF1 wf1(f);
+    wf1.SetParameters(&logLambdaORG);
+
+    ROOT::Math::BrentRootFinder brf;
+    brf.SetFunction( wf1, xmin, xmax );
+
+    if (brf.Solve()) logLambdaNLO_cache[8][0] = brf.Root();
+    else
+        throw std::runtime_error("Error in QCD::logLambdaNLO()");
+
+    return ( logLambdaNLO_cache[8][0] );
+}
+
 double QCD::logLambda(const double muMatching, const double mf, 
                       const double nfNEW, const double nfORG, 
                       const double logLambdaORG, orders order) const
@@ -612,6 +679,14 @@ double QCD::logLambda(const double muMatching, const double mf,
         throw std::runtime_error("Error in QCD::logLambda()"); 
     if (order==NLO) order = FULLNLO;
     if (order==NNLO) order = FULLNNLO;
+
+    /* We do not use the codes below for FULLNLO, since threshold corrections
+     * can be regarded as an NNLO effect as long as setting the matching scale
+     * to be close to the mass scale of the decoupling quark. In order to use
+     * the relation als^{nf+1} = als^{nf} exactly, we use logLambdaNLO method.
+     */
+    if (order==FULLNLO)
+        return logLambdaNLO(nfNEW, nfORG, logLambdaORG);
     
     double logMuMatching = log(muMatching);    
     double L = 2.*(logMuMatching - logLambdaORG);
