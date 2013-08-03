@@ -15,56 +15,103 @@ EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardM
     double Nc = model.getNc();
     matrix<double> v(5, 5, 0.);
     vector<double> e(5, 0.);
-
-    // Magic numbers in the basis of Gabbiani et al. (There is no magic in these numbers. They are just the eigensystem of the LO ADM.)
+    const char *basis = "Gabbiani";
     
-    e(0) = 6. / Nc;
-    e(1) = 6. * (-1. + Nc) / Nc;
-    e(2) = -6. * (-1. + Nc * Nc) / Nc;
-    e(3) = (2. * (Nc + 3. * Nc * Nc - Nc * Nc * Nc + sqrt(Nc * Nc * (16. -
-            11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc)))) / (Nc * Nc);
-    e(4) = (-2. * (-Nc - 3. * Nc * Nc + Nc * Nc * Nc + sqrt(Nc * Nc * (16. -
-            11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc)))) / (Nc * Nc);
-    v(0, 1) = 1.;
-    v(1, 3) = -(-Nc * Nc + 2. * Nc * Nc * Nc - sqrt(Nc * Nc * (16. -
-            11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc))) / (2. * (-2. + Nc) * Nc);
-    v(1, 4) = -(-Nc * Nc + 2. * Nc * Nc * Nc + sqrt(Nc * Nc * (16. -
-            11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc))) / (2. * (-2. + Nc) * Nc);
-    v(2, 3) = 1.;
-    v(2, 4) = 1.;
-    v(3, 0) = -1. / Nc;
-    v(3, 2) = 1.;
-    v(4, 0) = 1.;
-
-    matrix<double> vi = v.inverse();
-    for (int i = 0; i < 5; i++){
-        for (int j = 0; j < 5; j++){
-            for (int k = 0; k < 5; k++){
-                a[k] = e(k);
-                b[i][j][k] = v(i, k) * vi(k, j);
+    if (basis == "Gabbiani") {
+        // Magic numbers in the basis of Gabbiani et al. (There is no magic in these numbers. They are just the eigensystem of the LO ADM.)
+        
+        e(0) = 6. / Nc;
+        e(1) = 6. * (-1. + Nc) / Nc;
+        e(2) = -6. * (-1. + Nc * Nc) / Nc;
+        e(3) = (2. * (1 + 3. * Nc - Nc * Nc + sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc))) / Nc;
+        e(4) = (2. * (-1 - 3. * Nc + Nc * Nc + sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc))) / Nc;
+        
+        v(0, 1) = 1.;
+        v(1, 3) = -(-Nc + 2. * Nc * Nc + sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc)) / (-4 - 2 * Nc + 2 * Nc * Nc);
+        v(1, 4) = -(-Nc + 2. * Nc * Nc - sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc)) / (-4 - 2 * Nc + 2 * Nc * Nc);
+        v(2, 3) = 1.;
+        v(2, 4) = 1.;
+        v(3, 2) = Nc;
+        v(4, 0) = 1.;
+        v(4, 2) = 1.;
+        
+        matrix<double> vi = v.inverse();
+        for (int i = 0; i < 5; i++){
+            for (int j = 0; j < 5; j++){
+                for (int k = 0; k < 5; k++){
+                    a[k] = e(k);
+                    b[i][j][k] = v(i, k) * vi(k, j);
+                }
             }
         }
+        
+        matrix<double> h(5, 5, 0.);
+        for (int l = 0; l < 3; l++) {
+            matrix<double> gg = vi * (AnomalousDimension(NLO, 6 - l).transpose()) * v;
+            double b0 = model.Beta0(6 - l);
+            for (int i = 0; i < 5; i++)
+                for (int j = 0; j < 5; j++)
+                    h(i, j) = (i == j) * e(i) * model.Beta1(6 - l) / (2. * b0 * b0) -
+                    gg(i, j) / (2. * b0 + e(i) - e(j));
+            matrix<double> j = v * h * vi;
+            matrix<double> jv = j*v;
+            matrix<double> vij = vi*j;
+            for (int i = 0; i < 5; i++)
+                for (int j = 0; j < 5; j++)
+                    for (int k = 0; k < 5; k++) {
+                        c[l][i][j][k] = jv(i, k) * vi(k, j);
+                        d[l][i][j][k] = -v(i, k) * vij(k, j);
+                    }
+        }
     }
-    
-    matrix<double> h(5, 5, 0.);
-    for (int l = 0; l < 3; l++) {
-        matrix<double> gg = vi * (AnomalousDimension(NLO, 6 - l).transpose()) * v;
-        double b0 = model.Beta0(6 - l);
-        for (int i = 0; i < 5; i++)
-            for (int j = 0; j < 5; j++)
-                h(i, j) = (i == j) * e(i) * model.Beta1(6 - l) / (2. * b0 * b0) -
-                gg(i, j) / (2. * b0 + e(i) - e(j));
-        matrix<double> j = v * h * vi;
-        matrix<double> jv = j*v;
-        matrix<double> vij = vi*j;
-        for (int i = 0; i < 5; i++)
-            for (int j = 0; j < 5; j++)
-                for (int k = 0; k < 5; k++) {
-                    c[l][i][j][k] = jv(i, k) * vi(k, j);
-                    d[l][i][j][k] = -v(i, k) * vij(k, j);
+    else if (basis == "Buras") {
+        e(0) = 6. / Nc;
+        e(1) = 6. * (-1. + Nc) / Nc;
+        e(2) = -6. * (-1. + Nc * Nc) / Nc;
+        e(3) = (2. * (1 + 3. * Nc - Nc * Nc + sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc))) / Nc;
+        e(4) = (-2. * (-1 - 3. * Nc + Nc * Nc + sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc))) / Nc;
+        
+        v(0, 1) = 1.;
+        v(1, 0) = 1.;
+        v(1, 2) = -2 / Nc;
+        v(2, 2) = 1;
+        v(3, 3) = -(-2 + 2. * Nc * Nc - sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc)) / (-24. - 12 * Nc);
+        v(3, 4) = -(-2 + 2. * Nc * Nc + sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc)) / (-24. - 12 * Nc);
+        v(4, 3) = 1.;
+        v(4, 4) = 1.;
+        
+        matrix<double> vi = v.inverse();
+        for (int i = 0; i < 5; i++){
+            for (int j = 0; j < 5; j++){
+                for (int k = 0; k < 5; k++){
+                    a[k] = e(k);
+                    b[i][j][k] = v(i, k) * vi(k, j);
                 }
+            }
+        }
+        
+        matrix<double> h(5, 5, 0.);
+        for (int l = 0; l < 3; l++) {
+            matrix<double> gg = vi * (AnomalousDimensionBuras(NLO, 6 - l).transpose()) * v;
+            double b0 = model.Beta0(6 - l);
+            for (int i = 0; i < 5; i++)
+                for (int j = 0; j < 5; j++)
+                    h(i, j) = (i == j) * e(i) * model.Beta1(6 - l) / (2. * b0 * b0) -
+                    gg(i, j) / (2. * b0 + e(i) - e(j));
+            matrix<double> j = v * h * vi;
+            matrix<double> jv = j*v;
+            matrix<double> vij = vi*j;
+            for (int i = 0; i < 5; i++)
+                for (int j = 0; j < 5; j++)
+                    for (int k = 0; k < 5; k++) {
+                        c[l][i][j][k] = jv(i, k) * vi(k, j);
+                        d[l][i][j][k] = -v(i, k) * vij(k, j);
+                    }
+        }
     }
-
+    else {
+        throw std::runtime_error("EvolDF2::EvolDF2(): Basis of DF = 2 evolution not defined in constructor");
+    }
 }
 
 EvolDF2::~EvolDF2() {
@@ -220,10 +267,11 @@ void EvolDF2::Df2Evol(double mu, double M, double nf, schemes scheme) {
 
 double EvolDF2::etacc(double  mu) const{
     double N = model.getNc();
+    double N2 = N * N;
     double gamma0[2] = {0.}, gamma1[2][4] = {0.}, d[2][4] = {0.}, 
            J[2][4] = {0.}, dd[2][2][4] = {0.}, JJ[2][2][4] = {0.}, 
            B[2] = {0.}; // 0 = + ; 1 = - ;
-    double tau[2][2] = {0.}, K[2][2] = {0.}, b[2][2] = {0.};
+    double tau[2][2] = {0.}, K[2][2] = {0.}, beta[2][2] = {0.};
     
     gamma0[0] = 6.*(N-1.)/N;
     gamma0[1] = -6.*(N+1.)/N;
@@ -237,8 +285,8 @@ double EvolDF2::etacc(double  mu) const{
     gamma1[0][3]=((N-1.)/(2.*N)) * ( -21. + 57./N - 19./3.*N + 4./3.*6.);
     gamma1[1][3]=((N+1.)/(2.*N)) * ( -21. - 57./N + 19./3.*N - 4./3.*6.);
     
-    for (int i=0; i<2; i++){
-        for (int j=0; j<4; j++){
+    for (int i=0; i<2; i++){ // 0 = + ; 1 = - ;
+        for (int j=0; j<4; j++){ // j = nf - 3;
             d[i][j] = gamma0[i]/2./model.Beta0(j+3);
             J[i][j] = d[i][j]/model.Beta0(j+3)*model.Beta1(j+3) - 
                       gamma1[i][j]/2./model.Beta0(j+3) ;
@@ -246,9 +294,9 @@ double EvolDF2::etacc(double  mu) const{
     
     }
     
-    for (int i=0; i<2; i++){
-        for (int j=0; j<2; j++){
-            for (int k=0; k<4; k++){
+    for (int i=0; i<2; i++){ // 0 = + ; 1 = - ;
+        for (int j=0; j<2; j++){ // 0 = + ; 1 = - ;
+            for (int k=0; k<4; k++){ // k = nf - 3;
                 dd[i][j][k] = d[i][k] + d[j][k];
                 JJ[i][j][k] = J[i][k] + J[j][k];
             }
@@ -263,22 +311,28 @@ double EvolDF2::etacc(double  mu) const{
     K[1][0] = 3.*(N+1.)*tau[0][1]; K[0][1] = K[1][0];
     K[1][1] = 3.*(N+3.)*tau[1][1];
     
-    b[0][0] = (1.-N)*( M_PI*M_PI*(N*N-6.)/(12.*N) + 3.*(-N*N+2.*N+13.)/(4.*N) );
-    b[1][0] = (1.-N)*( M_PI*M_PI*(-N*N+2.*N-2.)/(12.*N) + (3.*N*N+13.)/(4.*N) );
-    b[0][1] = b[1][0];
-    b[1][1] = (1.-N)*( M_PI*M_PI*(N*N-4.*N+2)/(12.*N) - (3.*N*N+10.*N+13.)/(4.*N) );
+    beta[0][0] = (1. - N) * ( M_PI * M_PI * ( N2 - 6.)/(12. * N) + 3. * (-N2 + 2. * N + 13.)/(4. * N));
+    beta[1][0] = (1. - N) * ( M_PI * M_PI * (-N2 + 2. * N - 2.)/(12. * N) + (3. * N2 + 13.)/(4. * N) );
+    beta[0][1] = beta[1][0];
+    beta[1][1] = (1. - N) * ( M_PI * M_PI * (N2 - 4. * N + 2)/(12. * N) - (3. * N2 + 10. * N + 13.)/(4. * N));
     
     double eta = 0.;
+    double as_mb__as_muc = model.Als(model.getMub()) / model.Als(model.getMuc());
+    double as_mub__as_mb = model.Als(model.getMuw()) / model.Als(model.getMub());
+    double as_muc__4pi = model.Als(model.getMuc())/ 4. / M_PI;
+    double log_muc__mc = log(model.getMuc() / model.getQuarks(QCD::CHARM).getMass());
+    double as_mb__4pi = model.Als(model.getMub()) / 4. /M_PI;
+    double as_muw__4pi = model.Als(model.getMuw()) / 4. / M_PI;
 
+    
     for(int i=0; i<2; i++){
         for (int j=0; j<2; j++){
-            eta += pow((model.Als(model.getMub())/model.Als(model.getMuc())),dd[i][j][1])*
-                   pow((model.Als(model.getMuw())/model.Als(model.getMub())),dd[i][j][2])*
-                   ( tau[i][j] + model.Als(model.getMuc())/ 4. /M_PI * (2. * K[i][j]*
-                   log(model.getMuc() / model.getQuarks(QCD::CHARM).getMass()) +
-                   tau[i][j] * (JJ[i][j][1] - J[0][0]) + b[i][j]) + 
-                   tau[i][j]*(model.Als(model.getMub()) / 4. /M_PI * (JJ[i][j][2] - JJ[i][j][1])+
-                   model.Als(model.getMuw()) / 4. / M_PI * (B[i] + B[j] - JJ[i][j][2])));
+            eta += pow(as_mb__as_muc, dd[i][j][1]) *
+                   pow(as_mub__as_mb, dd[i][j][2]) *
+                   ( tau[i][j] + as_muc__4pi * (2. * K[i][j] *
+                   log_muc__mc + tau[i][j] * (JJ[i][j][1] - J[0][0]) + beta[i][j]) + 
+                   tau[i][j]*( as_mb__4pi * (JJ[i][j][2] - JJ[i][j][1]) +
+                   as_muw__4pi * (B[i] + B[j] - JJ[i][j][2])));
         }
     }
     
@@ -309,8 +363,7 @@ double EvolDF2::etact(double mu) const{
             model.getQuarks(QCD::CHARM).getMass()) - 0.25) * (3. * Kpp - 2. * Kpm + Kmm) +
             262497./35000. * Kpp - 123./625. * Kpm + 1108657./1305000. * Kmm - 277133./50750. * K7 +
             K * (-21093./8750. * Kpp + 13331./13750. * Kpm - 10181./18125. * Kmm - 1731104./2512125. * K7) +
-            (log(xt) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) / (4. * (1.-xt) * (1.-xt)) + 0.5) * K *
-            K7 ) * xc / (xc * (log(xt / xc) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) /4. / (1.-xt) / (1.-xt))) * pow(AlsC, 2. / 9.);
+            (log(xt) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) / (4. * (1.-xt) * (1.-xt)) + 0.5) * K * K7 ) * xc / (xc * (log(xt / xc) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) / 4. / (1. - xt) / (1. - xt))) * pow(AlsC, 2. / 9.);
     
     return (eta * (1. + model.Als(mu, FULLNLO)/4./M_PI*J3) * pow(model.Als(mu, FULLNLO),-2./9.));
 }
