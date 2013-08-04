@@ -59,7 +59,7 @@ double EWSMcache::mq(const StandardModel::quark q, const double mu,
                 return SM.getQuarks(q).getMass(); // for debug
             else
                 return SM.Mrun(mu, SM.getQuarks(q).getMass_scale(), 
-                        SM.getQuarks(q).getMass(), order);                    
+                               SM.getQuarks(q).getMass(), order);
         case StandardModel::CHARM:
         case StandardModel::BOTTOM:
             if (bDebug)

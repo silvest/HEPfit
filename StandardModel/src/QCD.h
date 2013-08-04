@@ -550,7 +550,7 @@ public:
      * @return The strong coupling constant @f$\alpha_s(\mu)@f$ in the 
      * @f$\overline{\mathrm{MS}}@f$ scheme. 
      */
-    double Als(const double mu, const orders order = FULLNNLO) const;
+    double Als(const double mu, const orders order = FULLNLO) const;
 
     /**
      * Computes @f$\ln\Lambda_\mathrm{QCD}@f$ with nf flavours in GeV. 
@@ -587,7 +587,7 @@ public:
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion. 
      * @return The running quark mass @f$m(\mu)@f$ in GeV. 
      */
-    double Mrun(const double mu, const double m, const orders order = FULLNNLO) const;
+    double Mrun(const double mu, const double m, const orders order = FULLNLO) const;
     
     /**
      * Runs a quark mass from @f$\mu_i@f$ to @f$\mu_f@f$. 
@@ -598,7 +598,7 @@ public:
      * @return The running quark mass @f$m(\mu_f)@f$ in GeV. 
      */
     double Mrun(const double mu_f, const double mu_i, const double m, 
-                const orders order = FULLNNLO) const;
+                const orders order = FULLNLO) const;
 
     ////////////////////////////////////////////////////////////////////////    
     
@@ -608,7 +608,7 @@ public:
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion. 
      * @return The pole mass in GeV
      */
-    double Mbar2Mp(const double mbar, const orders order = FULLNNLO) const;
+    double Mbar2Mp(const double mbar, const orders order = FULLNLO) const;
 
     /**
      * Converts a quark pole mass to the corresponding @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$. 
@@ -616,7 +616,7 @@ public:
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion. 
      * @return The @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV. 
      */
-    double Mp2Mbar(const double mp, const orders order = FULLNNLO) const;
+    double Mp2Mbar(const double mp, const orders order = FULLNLO) const;
 
     /**
      * 
@@ -669,7 +669,7 @@ private:
                      const double logLambdaORG, orders order) const;
     double threCorrForMass(const double nf_f, const double nf_i) const;
     double MrunTMP(const double mu_f, const double mu_i, const double m, 
-                   const orders order = FULLNNLO) const;
+                   const orders order) const;
     double Mp2MbarTMP(double *mu, double *params) const;
 
     // caches
