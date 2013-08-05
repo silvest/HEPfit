@@ -315,11 +315,12 @@ bool FeynHiggsWrapper::CalcSpectrum()
         mySUSY.m_su2(i) = MASf[2][i]*MASf[2][i];
         mySUSY.m_sd2(i) = MASf[3][i]*MASf[3][i];
         for(int j = 0; j < 6; j++) {
+            /* R: first (second) index for mass (gauge) eigenstates */
             /* UASf: second (third) index for gauge (mass) eigenstates */
-            mySUSY.Rn.assign(j,i, complex(UASf[0][i][j].real(), UASf[0][i][j].imag()));
-            mySUSY.Rl.assign(j,i, complex(UASf[1][i][j].real(), UASf[1][i][j].imag()));
-            mySUSY.Ru.assign(j,i, complex(UASf[2][i][j].real(), UASf[2][i][j].imag()));
-            mySUSY.Rd.assign(j,i, complex(UASf[3][i][j].real(), UASf[3][i][j].imag()));
+            mySUSY.Rn.assign(i,j, complex(UASf[0][j][i].real(), UASf[0][j][i].imag()));
+            mySUSY.Rl.assign(i,j, complex(UASf[1][j][i].real(), UASf[1][j][i].imag()));
+            mySUSY.Ru.assign(i,j, complex(UASf[2][j][i].real(), UASf[2][j][i].imag()));
+            mySUSY.Rd.assign(i,j, complex(UASf[3][j][i].real(), UASf[3][j][i].imag()));
         }
     }
 
@@ -327,9 +328,10 @@ bool FeynHiggsWrapper::CalcSpectrum()
     for(int i = 0; i < 2; i++) {
         mySUSY.mch(i) = MCha[i];
         for(int j = 0; j < 2; j++) {
+            /* U and V: first (second) index for mass (gauge) eigenstates */
             /* Ucha and VCha: first (second) index for gauge (mass) eigenstates */
-            mySUSY.U.assign(j,i, complex(UCha[i][j].real(), UCha[i][j].imag()));
-            mySUSY.V.assign(j,i, complex(VCha[i][j].real(), VCha[i][j].imag()));
+            mySUSY.U.assign(i,j, complex(UCha[j][i].real(), UCha[j][i].imag()));
+            mySUSY.V.assign(i,j, complex(VCha[j][i].real(), VCha[j][i].imag()));
         }
     }
 
@@ -337,14 +339,29 @@ bool FeynHiggsWrapper::CalcSpectrum()
     for(int i = 0; i < 4; i++) {
         mySUSY.mneu(i) = MNeu[i];
         for(int j = 0; j < 4; j++)
+            /* N: first (second) index for mass (gauge) eigenstates */
             /* Zneu: first (second) index for gauge (mass) eigenstates */
-            mySUSY.N.assign(j,i, complex(ZNeu[i][j].real(), ZNeu[i][j].imag()));
+            mySUSY.N.assign(i,j, complex(ZNeu[j][i].real(), ZNeu[j][i].imag()));
     }
 
     /* the correction to the bottom Yukawa coupling */
     FHDeltab = complex(Deltab.real(), Deltab.imag());
 
     return (true);
+}
+
+void FeynHiggsWrapper::SetFeynHiggsParsSLHA(const char *filename) const
+{
+  int err;
+  COMPLEX slhadata[nslhadata];
+
+  SLHARead(&err, slhadata, filename, 1);
+  if(err != 0)
+      throw std::runtime_error("FeynHiggsWrapper::SetFeynHiggsParsSLHA(): Error in SLHARead");
+
+  FHSetSLHA(&err, slhadata);
+  if(err != 0)
+      throw std::runtime_error("FeynHiggsWrapper::SetFeynHiggsParsSLHA(): Error in FHSetSLHA");
 }
 
 void FeynHiggsWrapper::OutputSLHA(const char* filename) const

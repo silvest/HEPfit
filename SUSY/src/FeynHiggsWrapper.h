@@ -53,6 +53,12 @@ public:
     bool CalcSpectrum();
 
     /**
+     * @brief Sets the FeynHiggs input parameters with an SLHA file, used for
+     * test and debug. 
+     */
+    void SetFeynHiggsParsSLHA(const char *filename) const;
+
+    /**
      * @brief Writes FeynHiggs outputs to an SLHA file for test and debug.
      * @param[in] filename 
      */
