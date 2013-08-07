@@ -104,6 +104,7 @@
             <pElem>../boost</pElem>
             <pElem>../NewPhysics/src</pElem>
             <pElem>../GeneralSUSY/src</pElem>
+            <pElem>../pMSSM/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags`</commandLine>
         </ccTool>
