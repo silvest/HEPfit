@@ -25,6 +25,7 @@
 #include <NPEffective1.h>
 #include <NPEffective2.h>
 #include <GeneralSUSY.h>
+#include <pMSSM.h>
 #include <SUSYMassInsertion.h>
 #include <SUSYMassInsertionMatching.h>
 #include <MFV.h>

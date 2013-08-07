@@ -63,6 +63,7 @@
             <pElem>../ZFitterWrapper/src</pElem>
             <pElem>../boost/</pElem>
             <pElem>../GeneralSUSY/src</pElem>
+            <pElem>../pMSSM/src</pElem>
           </incDir>
         </ccTool>
         <archiverTool>
