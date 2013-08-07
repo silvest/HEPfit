@@ -36,6 +36,7 @@
     <itemPath>Model.conf</itemPath>
     <itemPath>MonteCarlo.conf</itemPath>
     <itemPath>StandardModel.conf</itemPath>
+    <itemPath>pMSSM.conf</itemPath>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -69,6 +70,7 @@
             <pElem>../boost</pElem>
             <pElem>../BAT_parallel/include</pElem>
             <pElem>../GeneralSUSY/src</pElem>
+            <pElem>../pMSSM/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
@@ -155,6 +157,18 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgeneralsusy.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../pMSSM"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../pMSSM"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libpmssm.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -305,6 +319,8 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -583,6 +599,8 @@
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -860,6 +878,8 @@
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
+      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -1114,6 +1134,8 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
       </item>
