@@ -115,6 +115,13 @@ bool SUSY::PostUpdate()
     /* Set the squark and slepton mass matrices and the trilinear-coupling matrices */
     SetSoftTerms();
 
+    /* use approximate GUT relation if M1 & M2 are zero */
+    
+    if(m1.abs() == 0. && m2.abs() == 0.) {
+        m1.real() = m3/6.;
+        m2.real() = m3/3.;
+    }
+    
     /* Compute Higgs and sparticle spectra with FeynHiggs */
     if(!myFH->SetFeynHiggsPars()) return (false);
     if(!myFH->CalcHiggsSpectrum()) return (false);
