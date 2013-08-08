@@ -1215,6 +1215,8 @@ double EWSUSY::Mw_MSSM_TMP(const double Mw_i) const
 
     double cW2 = Mw_i*Mw_i/mySUSY.getMz()/mySUSY.getMz();
     double sW2 = 1.0 - cW2;
+    if (sW2 < 0.0)
+        throw std::runtime_error("EWSUSY::Mw_SUSY(): negative sW2");
 
     /* SM contributions to Delta r */
     double dAleL5q = mySUSY.getEWSM()->DeltaAlphaL5q();
@@ -1249,6 +1251,28 @@ double EWSUSY::Mw_MSSM_TMP(const double Mw_i) const
     if (tmp*R > 1.0) throw std::runtime_error("EWSUSY::Mw(): Negative (1-tmp*R)");
     double Mwbar = Mzbar/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp*R));
 
+    if (Mwbar > mySUSY.getMz()) {
+        std::cout << "WARNING: Mw > Mz in EWSUSY::Mw_MSSM_TMP" << std::endl;
+        //std::cout << Mw_i << std::endl;
+        //std::cout << Mwbar << std::endl;
+        //std::cout << - PiThat_W_0(Mw_i)/Mw_i/Mw_i << std::endl;
+        //double mu = Mw_i, Mz = mySUSY.getMz();
+        //std::cout << "  " << PiT_W(mu, 0.0, Mw_i).real() << std::endl;
+        //std::cout << "  " << PiT_W(mu, Mw_i*Mw_i, Mw_i).real() << std::endl;
+        //std::cout << "  " << PiT_W(mu, Mw_i*Mw_i, Mw_i).real() << std::endl;
+        //std::cout << "  " << PiT_Z(mu, Mz*Mz, Mw_i).real() << std::endl;
+        //std::cout << "  " << PiT_AZ(mu, 0.0, Mw_i).real() << std::endl;
+        //std::cout << "  " << PiT_AZ(mu, 0.0, Mw_i).real() << std::endl;
+        //std::cout << "  " << PiTp_A(mu, 0.0, Mw_i).real() << std::endl;
+        //std::cout << DeltaR_rem_SM(Mw_i) << std::endl;
+        //std::cout << DeltaR_boxLL_SUSY(Mw_i) << std::endl;
+        //std::cout << DeltaR_boxLR_SUSY(Mw_i) << std::endl;
+        //std::cout << DeltaR_vertex_SUSY(Mw_i) << std::endl;
+        //std::cout << DeltaR_neutrino_SUSY(Mw_i) << std::endl;
+
+        return Mw_unphysical;
+    }
+
     /* complex-pole/fixed-width scheme --> experimental/running-width scheme */
     return mySUSY.getEWSM()->MwFromMwbar(Mwbar);
 }
@@ -1263,6 +1287,8 @@ double EWSUSY::Mw_MSSM() const
     //          << "EWSUSY::Mw_MSSM(): Mw_org = " << Mw_org
     //          << "  Mw_new = " << Mw << std::endl;
 
+    if (Mw == Mw_unphysical) return Mw_unphysical;
+
     /* iterations */
     while (fabs(Mw - Mw_org) > EWSM::Mw_error) {
         Mw_org = Mw;
@@ -1270,6 +1296,8 @@ double EWSUSY::Mw_MSSM() const
         //std::cout << std::setprecision(12)
         //          << "EWSUSY::Mw_MSSM(): Mw_org = " << Mw_org
         //          << "  Mw_new = " << Mw << std::endl;
+
+        if (Mw == Mw_unphysical) return Mw_unphysical;
     }
 
     return Mw;

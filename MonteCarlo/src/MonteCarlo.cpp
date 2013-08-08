@@ -12,6 +12,7 @@
 #include <BAT/BCSummaryTool.h>
 #include <mpi.h>
 #include <fstream>
+#include <sstream>
 
 MonteCarlo::MonteCarlo(const std::string& ModelConf_i,
                        const std::string& MonteCarloConf_i,
@@ -261,7 +262,15 @@ void MonteCarlo::Run(const int rank)
             outHistoLog.open((ObsDirName + "/HistoLog.txt").c_str(), std::ios::out);
             outHistoLog << MCEngine.GetHistoLog();
             outHistoLog.close();
-            
+
+            /* Number of events */
+            std::stringstream ss;
+            ss << "Number of used events: " << MCEngine.getNumOfUsedEvents();
+            BCLog::OutSummary(ss.str().c_str());
+            ss.str("");
+            ss << "Number of discarded events: " << MCEngine.getNumOfDiscardedEvents();
+            BCLog::OutSummary(ss.str().c_str());
+
             // close log file
             BCLog::CloseLog();
             double ** sendbuff = new double *[MCEngine.procnum];

@@ -584,7 +584,7 @@ double EWSM::Mzbar() const
 
 double EWSM::MwbarFromMw(const double Mw) const
 {
-    double AlsMw = SM.AlsWithInit(Mw, SM.getAlsMz(), SM.getMz(), FULLNLO);
+    double AlsMw = SM.Als(Mw, FULLNNLO);
     double Gw_SM = 3.0*SM.getGF()*pow(Mw, 3.0)/2.0/sqrt(2.0)/M_PI
                    *(1.0 + 2.0*AlsMw/3.0/M_PI);
     
@@ -594,7 +594,7 @@ double EWSM::MwbarFromMw(const double Mw) const
 
 double EWSM::MwFromMwbar(const double Mwbar) const
 {
-    double AlsMw = SM.AlsWithInit(Mwbar, SM.getAlsMz(), SM.getMz(), FULLNLO);
+    double AlsMw = SM.Als(Mwbar, FULLNNLO);
     double Gw_SM = 3.0*SM.getGF()*pow(Mwbar, 3.0)/2.0/sqrt(2.0)/M_PI
                    *(1.0 + 2.0*AlsMw/3.0/M_PI);
 

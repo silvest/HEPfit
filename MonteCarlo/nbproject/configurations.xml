@@ -107,6 +107,9 @@
             <pElem>../pMSSM/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags`</commandLine>
+          <preprocessorList>
+            <Elem>DEBUG</Elem>
+          </preprocessorList>
         </ccTool>
         <archiverTool>
         </archiverTool>
@@ -194,6 +197,7 @@
             <pElem>../THDM/src</pElem>
             <pElem>../NewPhysics/src</pElem>
             <pElem>../GeneralSUSY/src</pElem>
+            <pElem>../pMSSM/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags`</commandLine>
         </ccTool>
@@ -289,6 +293,7 @@
             <pElem>../BAT_parallel/include</pElem>
             <pElem>../NewPhysics/src</pElem>
             <pElem>../GeneralSUSY/src</pElem>
+            <pElem>../pMSSM/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include -I${HOME}/BAT_parallel/include</commandLine>
         </ccTool>

@@ -59,6 +59,9 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../Observables/src</pElem>
           </incDir>
+          <preprocessorList>
+            <Elem>FHDEBUG</Elem>
+          </preprocessorList>
         </ccTool>
         <archiverTool>
         </archiverTool>

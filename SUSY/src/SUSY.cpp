@@ -129,6 +129,11 @@ bool SUSY::PostUpdate()
 
     /* Set the mass of the SM-like Higgs */
     mHl = mh[0];
+    /* Upper bound for the use of EWSMApproximateFormulae class */
+    if (mHl > 1000.) { 
+        std::cout << "WARNING: mh=" << mHl << std::endl;
+        return (false);
+    }
 
     /* For EWSUSY class */
     myEWSUSY->SetRosiekParameters();

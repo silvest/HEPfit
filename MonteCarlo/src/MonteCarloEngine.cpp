@@ -22,7 +22,7 @@ MonteCarloEngine::MonteCarloEngine(
         std::vector<CorrelatedGaussianObservables>& CGO_i,
         std::vector<ModelParaVsObs>& ParaObs_i)
 : BCModel(""), ModPars(ModPars_i), Obs_ALL(Obs_i), Obs2D_ALL(Obs2D_i),
-        CGO(CGO_i), ParaObs(ParaObs_i)
+        CGO(CGO_i), ParaObs(ParaObs_i), NumOfUsedEvents(0), NumOfDiscardedEvents(0)
 {
     obval = NULL;
     obweight = NULL;
@@ -294,10 +294,22 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters)
 
     // if update false set probability equal zero
     if (!Mod->Update(DPars)) {
+#ifdef DEBUG
         std::cout << "event discarded" << std::endl;
+
+        /* Debug */
+        //for (int k = 0; k < parameters.size(); k++)
+        //    std::cout << "  " << GetParameter(k)->GetName() << " = "
+        //              << DPars[GetParameter(k)->GetName()] << std::endl;
+#endif
+        NumOfDiscardedEvents++;
         return (log(0.));
     }
-    //std::cout << "punto buono" << std::endl;
+    NumOfUsedEvents++;
+#ifdef DEBUG
+    //std::cout << "event used in MC" << std::endl;
+#endif
+
     for (std::vector<Observable>::iterator it = Obs_MCMC.begin(); it < Obs_MCMC.end(); it++) {
         double th = it->getTheoryValue();
         logprob += Weight(*it, th);

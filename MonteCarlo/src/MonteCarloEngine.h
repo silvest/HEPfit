@@ -82,6 +82,16 @@ public:
 
     void PrintCorrelationMatrix(const std::string filename);
 
+    int getNumOfDiscardedEvents() const
+    {
+        return NumOfDiscardedEvents;
+    }
+
+    int getNumOfUsedEvents() const
+    {
+        return NumOfUsedEvents;
+    }
+
 private:
     const std::vector<ModelParameter>& ModPars;
     std::vector<Observable> Obs_MCMC;
@@ -99,6 +109,8 @@ private:
     double *obval, *obweight;
     unsigned int kwmax, kmax;
     std::ostringstream HistoLog;
+    int NumOfUsedEvents;
+    int NumOfDiscardedEvents;
     
 };
 
