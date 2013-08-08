@@ -358,6 +358,7 @@
             <pElem>../boost</pElem>
             <pElem>../BAT_parallel/include</pElem>
             <pElem>../GeneralSUSY/src</pElem>
+            <pElem>../pMSSM/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -556,6 +557,18 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
               </makeArtifact>
             </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../pMSSM"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../pMSSM"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libpmssm.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibLibItem>gfortran</linkerLibLibItem>
             <linkerLibLibItem>BAT</linkerLibLibItem>
@@ -637,6 +650,7 @@
             <pElem>../BAT_parallel/include</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../GeneralSUSY/src</pElem>
+            <pElem>../pMSSM/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include -I${HOME}/LoopTools/include -I${HOME}/BAT_parallel/include -I/usr/mpi/intel/mvapich2-1.7/include/ </commandLine>
         </ccTool>
@@ -834,6 +848,18 @@
                             BC="${MAKE}  -f Makefile CONF=Cluster"
                             CC="${MAKE}  -f Makefile CONF=Cluster clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../pMSSM"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../pMSSM"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libpmssm.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>BAT</linkerLibLibItem>

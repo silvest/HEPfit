@@ -281,6 +281,7 @@
             <pElem>../EW/src</pElem>
             <pElem>../ZFitterWrapper/src</pElem>
             <pElem>../GeneralSUSY/src</pElem>
+            <pElem>../pMSSM/src</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>
@@ -382,6 +383,7 @@
             <pElem>../ZFitterWrapper/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../GeneralSUSY/src</pElem>
+            <pElem>../pMSSM/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/BAT/include -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include</commandLine>
         </ccTool>
