@@ -220,14 +220,24 @@ void SUSY::SetYukawas()
     Ye = matrix<complex>::Id(3);
     Yn = matrix<complex>::Id(3);
 
+    /* Convert the top-quark pole mass to the MSbar mass */
+    double mtbar = Mp2Mbar(mtpole, FULLNLO);
+
     for (int i = 0; i < 3; i++) {
         /* Run the quark masses to scale Q */
-        mu_Q[i] = Mrun(Q, getQuarks((quark)(UP + 2 * i)).getMass_scale(),
-                       getQuarks((quark)(UP + 2 * i)).getMass(), FULLNLO);
+        if (i != 2)
+            mu_Q[i] = Mrun(Q, getQuarks((quark)(UP + 2 * i)).getMass_scale(),
+                           getQuarks((quark)(UP + 2 * i)).getMass(), FULLNLO);
+        else
+            mu_Q[i] = Mrun(Q, mtbar, FULLNLO);
         md_Q[i] = Mrun(Q, getQuarks((quark)(DOWN + 2 * i)).getMass_scale(),
                        getQuarks((quark)(DOWN + 2 * i)).getMass(), FULLNLO);
         me_Q[i] = getLeptons((lepton)(ELECTRON + 2 * i)).getMass();
         mn_Q[i] = getLeptons((lepton)(NEUTRINO_1 + 2 * i)).getMass();
+
+        /* Convert MSbar to DRbar */
+
+        /* Write codes! */
 
         Yu.assign(i, i, mu_Q[i] / v2() * sqrt(2.));
         Yd.assign(i, i, md_Q[i] / v1() * sqrt(2.));

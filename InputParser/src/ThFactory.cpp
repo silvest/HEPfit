@@ -36,8 +36,15 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["gamma"] = new CKMGamma(myFlavour);
     thobs["SJPsiK"] = new SJPsiK(myFlavour);
     thobs["SJPsiPhi"] = new SJPsiPhi(myFlavour);
-    if(myModel.ModelName().compare("SUSY") || myModel.ModelName().compare("GeneralSUSY")
+
+    //-----   SUSY spectra and observables  -----
+    if(myModel.ModelName().compare("SUSY")
+            || myModel.ModelName().compare("GeneralSUSY")
             || myModel.ModelName().compare("MFV")) {
+        thobs["MHl"] = new Mhiggs(myMO, 0);
+        thobs["MHh"] = new Mhiggs(myMO, 1);
+        thobs["MHa"] = new Mhiggs(myMO, 2);
+        thobs["MHp"] = new Mhiggs(myMO, 3);
         thobs["Msu1"] = new Msup(myMO, 0);
         thobs["Msu2"] = new Msup(myMO, 1);
         thobs["Msu3"] = new Msup(myMO, 2);
@@ -56,6 +63,7 @@ ThFactory::ThFactory(const StandardModel& myModel)
         thobs["Mneu2"] = new Mneutralino(myMO, 1);
         thobs["Mneu3"] = new Mneutralino(myMO, 2);
         thobs["Mneu4"] = new Mneutralino(myMO, 3);
+        thobs["Mw_dRho"] = new Mw_dRho(myMO);
     }
     
     //-----  SM input parameters, etc.  -----
@@ -90,9 +98,6 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["deltaRhoZb"] = new deltaRhoZb(myMO);
     thobs["deltaKappaZb"] = new deltaKappaZb(myMO);
     
-    //-----   Higgs mass   -----
-    thobs["Mh0"] = new Mh0(myEW);
-
     //-----  Z-pole observables (with EW and StandardModel)  -----
     thobs["Mw"] = new Mw(myEW);
     thobs["sin2thetaEff"] = new sin2thetaEff(myEW);

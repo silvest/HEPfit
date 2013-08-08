@@ -53,7 +53,5 @@
 #include "epsilon3.h"
 #include "epsilonb.h"
 
-#include "Mh0.h"
-
 #endif	/* EWOBSERVABLES_H */
 

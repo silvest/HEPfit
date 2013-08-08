@@ -7,9 +7,11 @@
       <itemPath>src/EWSUSY.h</itemPath>
       <itemPath>src/FeynHiggsWrapper.h</itemPath>
       <itemPath>src/Mchargino.h</itemPath>
+      <itemPath>src/Mhiggs.h</itemPath>
       <itemPath>src/Mneutralino.h</itemPath>
       <itemPath>src/Msdown.h</itemPath>
       <itemPath>src/Msup.h</itemPath>
+      <itemPath>src/Mw_dRho.h</itemPath>
       <itemPath>src/SUSY.h</itemPath>
       <itemPath>src/SUSYMatching.h</itemPath>
       <itemPath>src/SUSYObservables.h</itemPath>
@@ -76,11 +78,15 @@
       </item>
       <item path="src/Mchargino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Mhiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Mneutralino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Msdown.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Msup.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Mw_dRho.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SUSY.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -138,11 +144,15 @@
       </item>
       <item path="src/Mchargino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Mhiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Mneutralino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Msdown.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Msup.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Mw_dRho.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SUSY.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -201,11 +211,15 @@
       </item>
       <item path="src/Mchargino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Mhiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Mneutralino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Msdown.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Msup.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Mw_dRho.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SUSY.cpp" ex="false" tool="1" flavor2="0">
       </item>
