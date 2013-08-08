@@ -401,7 +401,7 @@ public:
 
 
 private:
-    const double Mw_unphysical = 2.0;
+    static const double Mw_unphysical;
 
     const PVfunctions PV; ///< An object of PVfunctions class.
     const SUSY& mySUSY; ///< A reference to the SUSY object passed to the constructor.

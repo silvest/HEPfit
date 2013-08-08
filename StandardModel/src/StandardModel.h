@@ -776,6 +776,10 @@ public:
     
     ////////////////////////////////////////////////////////////////////////
 protected:
+    virtual void SetParameter(const std::string, const double&);
+    virtual void SetCKM();
+    virtual void SetYukawas();
+
     matrix<complex> VCKM, UPMNS, Yu, Yd, Yn, Ye;
     Particle leptons[6];
     EWSM* myEWSM;
@@ -787,7 +791,6 @@ protected:
     double muw;
     double lambda, A, rhob, etab;
     double EpsK, phiEpsK, DeltaMK, KbarEpsK, Dmk, SM_M12D;
-    virtual void SetParameter(const std::string, const double&);
     
     
     ////////////////////////////////////////////////////////////////////////    
@@ -798,7 +801,6 @@ private:
     bool FlagRhoZbFromGuOverGb, FlagRhoZbFromGdOverGb, FlagTestSubleadingTwoLoopEW;
     bool computeCKM, computeYe, computeYn;
     StandardModelMatching* myStandardModelMatching;
-    int updateFlag;
     
 };
 

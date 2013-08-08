@@ -553,9 +553,10 @@ public:
 
 protected:
     virtual void SetParameter(const std::string, const double&);
+    virtual void SetTanb(const double tanb);
+    virtual void SetYukawas();
     virtual void SetSoftTerms();
-    void setTanb(const double tanb);
-    void setYukawas();
+
     FeynHiggsWrapper* myFH;
     EWSUSY* myEWSUSY;
 
@@ -587,7 +588,6 @@ protected:
 private:    
     bool flag_h, flag_g, flag_ch, flag_ne;
     SUSYMatching* mySUSYMatching;
-    int updateFlag;
 
 };
 

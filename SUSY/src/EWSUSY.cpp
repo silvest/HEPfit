@@ -12,6 +12,8 @@
 #include "FeynHiggsWrapper.h"
 #include "EWSUSY.h"
 
+const double EWSUSY::Mw_unphysical = 2.0;
+
 EWSUSY::EWSUSY(const SUSY& SUSY_in)
 : mySUSY(SUSY_in), myEWSMOneLoopEW(*(SUSY_in.getEWSM()->getMyOneLoopEW())),
         Yu(3,3,0.0), Yd(3,3,0.0), Yl(3,3,0.0),
@@ -1251,10 +1253,13 @@ double EWSUSY::Mw_MSSM_TMP(const double Mw_i) const
     if (tmp*R > 1.0) throw std::runtime_error("EWSUSY::Mw(): Negative (1-tmp*R)");
     double Mwbar = Mzbar/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp*R));
 
-    if (Mwbar > mySUSY.getMz()) {
+    /* complex-pole/fixed-width scheme --> experimental/running-width scheme */
+    double Mw_exp = mySUSY.getEWSM()->MwFromMwbar(Mwbar);
+
+    if (Mw_exp >= mySUSY.getMz()) {
         std::cout << "WARNING: Mw > Mz in EWSUSY::Mw_MSSM_TMP" << std::endl;
         //std::cout << Mw_i << std::endl;
-        //std::cout << Mwbar << std::endl;
+        //std::cout << Mw_exp << std::endl;
         //std::cout << - PiThat_W_0(Mw_i)/Mw_i/Mw_i << std::endl;
         //double mu = Mw_i, Mz = mySUSY.getMz();
         //std::cout << "  " << PiT_W(mu, 0.0, Mw_i).real() << std::endl;
@@ -1271,10 +1276,8 @@ double EWSUSY::Mw_MSSM_TMP(const double Mw_i) const
         //std::cout << DeltaR_neutrino_SUSY(Mw_i) << std::endl;
 
         return Mw_unphysical;
-    }
-
-    /* complex-pole/fixed-width scheme --> experimental/running-width scheme */
-    return mySUSY.getEWSM()->MwFromMwbar(Mwbar);
+    } else
+        return Mw_exp;
 }
 
 double EWSUSY::Mw_MSSM() const

@@ -41,7 +41,7 @@ double EWSMApproximateFormulae::Mw(const double DeltaAlphaL5q_i) const
         c9 = 0.000110;
         c10 = 0.0716;
         c11 = 115.0;
-    } else if ( SM.getMHl() >= 10.0 && SM.getMHl() < 1000.0 ) {        
+    } else if ( SM.getMHl() >= 10.0 && SM.getMHl() <= 1000.0 ) {
         // applicable for 10 GeV <= mHl <= 1 TeV
         Mw0 = 80.3799;
         c1 = 0.05429;

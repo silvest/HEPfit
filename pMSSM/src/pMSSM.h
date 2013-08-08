@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -46,7 +46,7 @@ protected:
     virtual void SetParameter(const std::string, const double&);
     virtual void SetSoftTerms();
     double msQ12, msQ3, msU12, msU3, msD12, msD3, msL12, msL3, msE12, msE3, 
-            AU, AD, AE;
+           AU, AD, AE;
 };
 
 /**

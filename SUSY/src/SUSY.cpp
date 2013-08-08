@@ -22,7 +22,7 @@ const std::string SUSY::SUSYvars[NSUSYvars] = {
 };
 
 const std::string SUSY::SUSYFlags[NSUSYFlags] = {
-    "Flag_H","Flag_g","Flag_Chi","Flag_Chi0"
+    "Flag_H", "Flag_g", "Flag_Chi", "Flag_Chi0"
 };
 
 SUSY::SUSY()
@@ -47,7 +47,6 @@ bool SUSY::InitializeModel()
     myEWSM = new EWSM(*this);
     this->SetEWSMflags(*myEWSM);
     myEWSUSY = new EWSUSY(*this);
-    updateFlag = 1;
     return(true);
 }
 
@@ -62,7 +61,7 @@ void SUSY::SetEWSMflags(EWSM& myEWSM)
     std::cout << "Schemes for EWPOs:" << std::endl
               << "  Mw: NORESUM" << std::endl
               << "  rhoZf: NORESUM" << std::endl
-              << "  kappaZf: APPROXIMATEFORMULA" << std::endl;
+              << "  kappaZf: APPROXIMATEFORMULA" << std::endl << std::endl;
 }
 
 
@@ -100,23 +99,12 @@ bool SUSY::Update(const std::map<std::string, double>& DPars)
 
 bool SUSY::PostUpdate()
 {
-    /* StandardModel::PostUpdate() should not be called here, since the Yukawa
-       matrices in the MSSM differ from those in the SM. */
-    if(!QCD::PostUpdate()) return (false);
-
-    /* Set the CKM and PMNS matrices */
-    myCKM.setWolfenstein(lambda, A, rhob, etab);
-    myCKM.getCKM(VCKM);
-    UPMNS = matrix<complex>::Id(3);
-    
-    /* Set the Yukawa matrices */
-    setYukawas();
+    if(!StandardModel::PostUpdate()) return (false);
 
     /* Set the squark and slepton mass matrices and the trilinear-coupling matrices */
     SetSoftTerms();
 
     /* use approximate GUT relation if M1 & M2 are zero */
-    
     if(m1.abs() == 0. && m2.abs() == 0.) {
         m1.real() = m3/6.;
         m2.real() = m3/3.;
@@ -129,28 +117,26 @@ bool SUSY::PostUpdate()
 
     /* Set the mass of the SM-like Higgs */
     mHl = mh[0];
-    /* Upper bound for the use of EWSMApproximateFormulae class */
-    if (mHl > 1000.) { 
-        std::cout << "WARNING: mh=" << mHl << std::endl;
+    /* allowed range for the use of EWSMApproximateFormulae class */
+    if (mHl < 10. || mHl > 1000.) {
+        std::cout << "WARNING: mh=" << mHl << " in SUSY::PostUpdate" << std::endl;
         return (false);
     }
 
     /* For EWSUSY class */
     myEWSUSY->SetRosiekParameters();
 
-    if(updateFlag == 1) {
-        /* Necessary for updating Standard Model parameters in StandardModelMatching. */
-        mySUSYMatching->StandardModelMatching::updateSMParameters();
-        /* Necessary for updating SUSY and SUSY-derived parameters in SUSYMatching. */
-        mySUSYMatching->updateSUSYParameters();
-    }
+    /* Necessary for updating StandardModel parameters in StandardModelMatching,
+     * and SUSY and SUSY-derived parameters in SUSYMatching */
+    mySUSYMatching->StandardModelMatching::updateSMParameters();
+    mySUSYMatching->updateSUSYParameters();
 
     mySUSYMatching->Comp_mySUSYMQ();
 
     if (IsFlag_ne()) mySUSYMatching->Comp_VdDNL(0);
     if (IsFlag_ne()) mySUSYMatching->Comp_VdDNR(0);
-    if (IsFlag_ch())  mySUSYMatching->Comp_VdUCL();
-    if (IsFlag_ch())  mySUSYMatching->Comp_VdUCR(0);
+    if (IsFlag_ch()) mySUSYMatching->Comp_VdUCL();
+    if (IsFlag_ch()) mySUSYMatching->Comp_VdUCR(0);
 
     mySUSYMatching->Comp_DeltaMd();
     mySUSYMatching->Comp_DeltaDL();
@@ -198,7 +184,7 @@ void SUSY::SetParameter(const std::string name, const double& value)
     else if (name.compare("mHptree") == 0)
         mHptree = value;
     else if (name.compare("tanb") == 0)
-        setTanb(value);
+        SetTanb(value);
     else if (name.compare("Q") == 0)
         Q = value;
     else
@@ -207,7 +193,7 @@ void SUSY::SetParameter(const std::string name, const double& value)
 
 bool SUSY::CheckParameters(const std::map<std::string, double>& DPars)
 {
-    for(int i=0;i<NSUSYvars;i++)
+    for(int i=0; i<NSUSYvars; i++)
         if(DPars.find(SUSYvars[i])==DPars.end()) {
             std::cout << "missing mandatory SUSY parameter " << SUSYvars[i] << std::endl;
             return false;
@@ -215,16 +201,10 @@ bool SUSY::CheckParameters(const std::map<std::string, double>& DPars)
     return(StandardModel::CheckParameters(DPars));
 }
 
-void SUSY::SetSoftTerms()
-{
-    // MsQ2, MsU2, MsD2, MsL2, MsN2, MsE2, TU, TD, TN and TE are set to 0 in the constructor.
-    // See also GeneralSUSY::SetSoftTerms().
-}
-
-void SUSY::setTanb(const double tanb)
+void SUSY::SetTanb(const double tanb)
 {
     this->tanb = tanb;
-    if (tanb < 0)
+    if (tanb < 0.)
         throw std::runtime_error("SUSY::setTanb(): Negative tanb is not allowed");
 
     /* cosb and sinb are defined to be positive, corresponding to 0<=beta<=pi/2 */
@@ -232,7 +212,7 @@ void SUSY::setTanb(const double tanb)
     sinb = tanb * cosb;
 }
 
-void SUSY::setYukawas()
+void SUSY::SetYukawas()
 {
     /* initializations */
     Yu = matrix<complex>::Id(3);
@@ -259,6 +239,12 @@ void SUSY::setYukawas()
     Yn = Yn * UPMNS.hconjugate();
 }
 
+void SUSY::SetSoftTerms()
+{
+    // MsQ2, MsU2, MsD2, MsL2, MsN2, MsE2, TU, TD, TN and TE are set to 0 in the constructor.
+    // See also GeneralSUSY::SetSoftTerms().
+}
+
 
 ///////////////////////////////////////////////////////////////////////////
 // Flags
@@ -266,19 +252,19 @@ void SUSY::setYukawas()
 bool SUSY::SetFlag(const std::string name, const bool& value)
 {
     bool res = false;
-    if(name.compare("Flag_H") == 0){
+    if(name.compare("Flag_H") == 0) {
         flag_h = value;
         res = true;
     }
-    else if(name.compare("Flag_g") == 0){
+    else if(name.compare("Flag_g") == 0) {
         flag_g = value;
         res = true;
     }
-    else if(name.compare("Flag_Chi") == 0){
+    else if(name.compare("Flag_Chi") == 0) {
         flag_ch = value;
         res = true;
     }
-    else if(name.compare("Flag_Chi0") == 0){
+    else if(name.compare("Flag_Chi0") == 0) {
         flag_ne = value;
         res = true;
     }

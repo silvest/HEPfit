@@ -64,6 +64,37 @@ StandardModel::StandardModel(const bool bDebug_i)
     leptons[TAU].setIsospin(-1./2.);
 }
 
+
+///////////////////////////////////////////////////////////////////////////
+// Initialization and Matching
+
+bool StandardModel::InitializeModel()
+{
+    myStandardModelMatching = new StandardModelMatching(*this);
+    SetModelInitialized(true);
+    myEWSM = new EWSM(*this);
+    this->SetEWSMflags(*myEWSM);
+    return(true);
+}
+
+void StandardModel::SetEWSMflags(EWSM& myEWSM)
+{
+    myEWSM.setSchemeMw(EWSM::APPROXIMATEFORMULA);
+    //myEWSM.setSchemeRhoZ(EWSM::OMSI);
+    myEWSM.setSchemeRhoZ(EWSM::NORESUM);
+    myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
+
+    /* Should be modified by hand! */
+    std::cout << "Schemes for EWPOs:" << std::endl
+              << "  Mw: APPROXIMATEFORMULA" << std::endl
+              << "  rhoZf: NORESUM" << std::endl
+              << "  kappaZf: APPROXIMATEFORMULA" << std::endl << std::endl;
+}
+
+
+///////////////////////////////////////////////////////////////////////////
+// Parameters
+
 bool StandardModel::Init(const std::map<std::string, double>& DPars)
 {
     Update(DPars);
@@ -100,46 +131,16 @@ bool StandardModel::Update(const std::map<std::string, double>& DPars)
 bool StandardModel::PostUpdate()
 {
     if(!QCD::PostUpdate()) return (false);
-    
-    if(updateFlag == 1){
-        myStandardModelMatching->updateSMParameters(); // Necessary for updating Standard Model parameters in Standard ModelMatching.
-    }
-    
-    if (computeCKM) {
-        myCKM.setWolfenstein(lambda, A, rhob, etab);
-        myCKM.getCKM(VCKM);
-    }
-    UPMNS = matrix<complex>::Id(3);
 
-    /* THE FOLLOWING CODES HAVE TO BE MODIFIED!!
-     *   The Yukawa matrices have to be computed at a common scale
-     *   for all the fermions!!! */
-    if (computeYu || computeCKM) {
-        Yu = matrix<complex>::Id(3);
-        for (int i = 0; i < 3; i++)
-            Yu.assign(i, i, this->quarks[UP + 2 * i].getMass() / v() * sqrt(2.));
-        Yu = VCKM.transpose()*Yu;
-    }
-    if (computeYd) {
-        Yd = matrix<complex>::Id(3);
-        for (int i = 0; i < 3; i++)
-            Yd.assign(i, i, this->quarks[DOWN + 2 * i].getMass() / v() * sqrt(2.));
-    }
-    if (computeYe) {
-        Ye = matrix<complex>::Id(3);
-        for (int i = 0; i < 3; i++)
-            Ye.assign(i, i, this->leptons[ELECTRON + 2 * i].getMass() / v() * sqrt(2.));
-    }
-    if (computeYn) {
-        Yn = matrix<complex>::Id(3);
-        for (int i = 0; i < 3; i++)
-            Yn.assign(i, i, this->leptons[NEUTRINO_1 + 2 * i].getMass() / v() * sqrt(2.));
-        Yn = Yn * UPMNS.hconjugate();
-    }
-    
-    if(updateFlag == 1){
-        myStandardModelMatching->updateSMParameters(); // Necessary for updating Standard Model parameters in Standard ModelMatching.
-    }
+    /* Set the CKM and PMNS matrices */
+    SetCKM();
+
+    /* Set the Yukawa matrices */
+    SetYukawas();
+
+    /* Necessary for updating StandardModel parameters in StandardModelMatching */
+    if (ModelName()=="StandardModel")
+        myStandardModelMatching->updateSMParameters();
     
     return (true);
 }
@@ -223,6 +224,44 @@ bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars)
     return(QCD::CheckParameters(DPars));
 }
 
+void StandardModel::SetCKM()
+{
+    if (computeCKM) {
+        myCKM.setWolfenstein(lambda, A, rhob, etab);
+        myCKM.getCKM(VCKM);
+    }
+    UPMNS = matrix<complex>::Id(3);
+}
+
+void StandardModel::SetYukawas()
+{
+    /* THE FOLLOWING CODES HAVE TO BE MODIFIED!!
+     *   The Yukawa matrices have to be computed at a common scale
+     *   for all the fermions!!! */
+    if (computeYu || computeCKM) {
+        Yu = matrix<complex>::Id(3);
+        for (int i = 0; i < 3; i++)
+            Yu.assign(i, i, this->quarks[UP + 2 * i].getMass() / v() * sqrt(2.));
+        Yu = VCKM.transpose()*Yu;
+    }
+    if (computeYd) {
+        Yd = matrix<complex>::Id(3);
+        for (int i = 0; i < 3; i++)
+            Yd.assign(i, i, this->quarks[DOWN + 2 * i].getMass() / v() * sqrt(2.));
+    }
+    if (computeYe) {
+        Ye = matrix<complex>::Id(3);
+        for (int i = 0; i < 3; i++)
+            Ye.assign(i, i, this->leptons[ELECTRON + 2 * i].getMass() / v() * sqrt(2.));
+    }
+    if (computeYn) {
+        Yn = matrix<complex>::Id(3);
+        for (int i = 0; i < 3; i++)
+            Yn.assign(i, i, this->leptons[NEUTRINO_1 + 2 * i].getMass() / v() * sqrt(2.));
+        Yn = Yn * UPMNS.hconjugate();
+    }
+}
+
 
 ///////////////////////////////////////////////////////////////////////////
 // Flags
@@ -265,34 +304,6 @@ bool StandardModel::SetFlag(const std::string name, const bool& value)
         res = true;
     }
     return(res);
-}
-
-
-///////////////////////////////////////////////////////////////////////////
-// Initialization and Matching
-
-bool StandardModel::InitializeModel() 
-{
-    myStandardModelMatching = new StandardModelMatching(*this);
-    SetModelInitialized(true);
-    myEWSM = new EWSM(*this);
-    this->SetEWSMflags(*myEWSM);
-    updateFlag = 1;
-    return(true);
-}
-
-void StandardModel::SetEWSMflags(EWSM& myEWSM) 
-{
-    myEWSM.setSchemeMw(EWSM::APPROXIMATEFORMULA);
-    //myEWSM.setSchemeRhoZ(EWSM::OMSI);
-    myEWSM.setSchemeRhoZ(EWSM::NORESUM);
-    myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
-    
-    /* Should be modified by hand! */
-    std::cout << "Schemes for EWPOs:" << std::endl
-              << "  Mw: APPROXIMATEFORMULA" << std::endl
-              << "  rhoZf: NORESUM" << std::endl
-              << "  kappaZf: APPROXIMATEFORMULA" << std::endl;
 }
 
 
