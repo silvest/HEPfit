@@ -330,7 +330,72 @@ bool FeynHiggsWrapper::CalcSpectrum()
             mySUSY.Rd.assign(i,j, complex(UASf[3][j][i].real(), UASf[3][j][i].imag()));
         }
     }
+    
+/** The SLHA2 convention requires increasing eigenvalues of the squark masses:
+     *  this is not done automatically by FeynHiggs. **/
 
+    gslpp::vector<double> ordu(6, 0.),ordd(6, 0.), ordl(6, 0.), ordn(6, 0.);
+    gslpp::matrix<complex> MyRU(6,0.), MyRD(6,0.), MyRL(6,0.), MyRN(6,0.); 
+    double temp, temp1; 
+    
+    for (int i = 0; i < 6; i++) {
+        ordu(i) = i;
+        ordd(i) = i;
+        ordl(i) = i;
+        ordn(i) = i;
+    }
+    
+    for (int i = 0; i < 5; i++) {
+        for (int k = i + 1; k < 6; k++) {
+            if (mySUSY.m_su2(i) > mySUSY.m_su2(k)) {
+                temp = mySUSY.m_su2(i);
+                mySUSY.m_su2(i) = mySUSY.m_su2(k);
+                mySUSY.m_su2(k) = temp;
+                temp1 = ordu(i);
+                ordu(i) = ordu(k);
+                ordu(k) = temp1;
+            }
+            if(mySUSY.m_sd2(i) > mySUSY.m_sd2(k)){
+                temp = mySUSY.m_sd2(i);
+                mySUSY.m_sd2(i) = mySUSY.m_sd2(k);
+                mySUSY.m_sd2(k) = temp;
+                temp1 = ordd(i);
+                ordd(i) = ordd(k);
+                ordd(k) = temp1;
+            }
+            if(mySUSY.m_se2(i) > mySUSY.m_se2(k)){
+                temp = mySUSY.m_se2(i);
+                mySUSY.m_se2(i) = mySUSY.m_se2(k);
+                mySUSY.m_se2(k) = temp;
+                temp1 = ordl(i);
+                ordl(i) = ordl(k);
+                ordl(k) = temp1;
+            }
+            if(mySUSY.m_sn2(i) > mySUSY.m_sn2(k)){
+                temp = mySUSY.m_sn2(i);
+                mySUSY.m_sn2(i) = mySUSY.m_sn2(k);
+                mySUSY.m_sn2(k) = temp;
+                temp1 = ordn(i);
+                ordn(i) = ordn(k);
+                ordn(k) = temp1;
+            }
+        }
+    }
+/*
+    for (int i = 0; i < 6; i++) {
+        for (int k = 0; k < 6; k++) {
+            MyRU.assign(i, k, mySUSY.Ru(ordu(k), i));
+            MyRD.assign(i, k, mySUSY.Rd(ordd(k), i));
+            MyRL.assign(i, k, mySUSY.Rl(ordl(k), i));
+            MyRN.assign(i, k, mySUSY.Rn(ordn(k), i));
+        }
+    }
+    
+    mySUSY.Ru = MyRU;
+    mySUSY.Rd = MyRD;
+    mySUSY.Rl = MyRL;
+    mySUSY.Rn = MyRN;
+    */
     /* charginos */
     for(int i = 0; i < 2; i++) {
         mySUSY.mch(i) = MCha[i];
