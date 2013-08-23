@@ -336,7 +336,8 @@ bool FeynHiggsWrapper::CalcSpectrum()
 
     gslpp::vector<double> ordu(6, 0.),ordd(6, 0.), ordl(6, 0.), ordn(6, 0.);
     gslpp::matrix<complex> MyRU(6,0.), MyRD(6,0.), MyRL(6,0.), MyRN(6,0.); 
-    double temp, temp1; 
+    double temp;
+    int temp1; 
     
     for (int i = 0; i < 6; i++) {
         ordu(i) = i;
@@ -381,7 +382,7 @@ bool FeynHiggsWrapper::CalcSpectrum()
             }
         }
     }
-/*
+
     for (int i = 0; i < 6; i++) {
         for (int k = 0; k < 6; k++) {
             MyRU.assign(i, k, mySUSY.Ru(ordu(k), i));
@@ -395,7 +396,7 @@ bool FeynHiggsWrapper::CalcSpectrum()
     mySUSY.Rd = MyRD;
     mySUSY.Rl = MyRL;
     mySUSY.Rn = MyRN;
-    */
+    
     /* charginos */
     for(int i = 0; i < 2; i++) {
         mySUSY.mch(i) = MCha[i];
