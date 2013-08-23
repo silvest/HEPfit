@@ -226,6 +226,14 @@ public:
         return sqrt( pow(this->m_x - b.m_x, 2.0) + pow(this->m_y - b.m_y, 2.0) );
     }
     
+    double rescaled_distance(const SFH2D_Point& b,
+                             const double x_scale, const double y_scale) const
+    {
+        return sqrt( pow(this->m_x/x_scale - b.m_x/x_scale, 2.0)
+                     + pow(this->m_y/y_scale - b.m_y/y_scale, 2.0) );
+    }
+
+
     double m_x;
     double m_y;
     double m_r;

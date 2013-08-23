@@ -648,7 +648,8 @@ TGraph* SFH2D::CloseTwoTGraphs(const int cont_ind, TGraph* inputgraph1,
         dist = dist_max;
         for (it = vp_org.begin(); it < vp_org.end(); it++) {
             ind = std::distance(vp_org.begin(), it);
-            dist_tmp = vp_new.back().distance(vp_org.at(ind));
+            //dist_tmp = vp_new.back().distance(vp_org.at(ind));
+            dist_tmp = vp_new.back().rescaled_distance(vp_org.at(ind), xmax - xmin, ymax - ymin);
             if (dist_tmp < dist) {
                 it_minimal = it;
                 ind_minimal = ind;
