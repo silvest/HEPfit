@@ -480,23 +480,21 @@ bool FeynHiggsWrapper::CalcFlavour()
 
 void FeynHiggsWrapper::SortSfermionMasses(vector<double>& m_sf2, matrix<complex>& Rf) const
 {
-    std::vector<int> newIndex;
+    int newIndex[6];
     for (int i = 0; i < 6; i++)
-        newIndex.push_back(i);
+        newIndex[i] = i;
 
     /* sort sfermion masses in increasing order */
-    for (int i = 0; i < 5; i++) {
-        for (int k = i + 1; k < 6; k++) {
+    for (int i = 0; i < 5; i++)
+        for (int k = i + 1; k < 6; k++)
             if (m_sf2(i) > m_sf2(k)) {
                 std::swap(m_sf2(i), m_sf2(k));
                 std::swap(newIndex[i], newIndex[k]);
             }
-        }
-    }
 
     /* sort the corresponding rotation matrix, where the first(second) index
      * denotes mass(gauge) eigenstates. */
-    gslpp::matrix<complex> myRf(6,0.);
+    gslpp::matrix<complex> myRf(6, 6, 0.);
     for (int i = 0; i < 6; i++)
         for (int k = 0; k < 6; k++)
             myRf.assign(k, i, Rf(newIndex[k], i));
