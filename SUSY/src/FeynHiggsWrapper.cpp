@@ -330,73 +330,14 @@ bool FeynHiggsWrapper::CalcSpectrum()
             mySUSY.Rd.assign(i,j, complex(UASf[3][j][i].real(), UASf[3][j][i].imag()));
         }
     }
-    
-/** The SLHA2 convention requires increasing eigenvalues of the squark masses:
-     *  this is not done automatically by FeynHiggs. **/
 
-    gslpp::vector<double> ordu(6, 0.),ordd(6, 0.), ordl(6, 0.), ordn(6, 0.);
-    gslpp::matrix<complex> MyRU(6,0.), MyRD(6,0.), MyRL(6,0.), MyRN(6,0.); 
-    double temp;
-    int temp1; 
-    
-    for (int i = 0; i < 6; i++) {
-        ordu(i) = i;
-        ordd(i) = i;
-        ordl(i) = i;
-        ordn(i) = i;
-    }
-    
-    for (int i = 0; i < 5; i++) {
-        for (int k = i + 1; k < 6; k++) {
-            if (mySUSY.m_su2(i) > mySUSY.m_su2(k)) {
-                temp = mySUSY.m_su2(i);
-                mySUSY.m_su2(i) = mySUSY.m_su2(k);
-                mySUSY.m_su2(k) = temp;
-                temp1 = ordu(i);
-                ordu(i) = ordu(k);
-                ordu(k) = temp1;
-            }
-            if(mySUSY.m_sd2(i) > mySUSY.m_sd2(k)){
-                temp = mySUSY.m_sd2(i);
-                mySUSY.m_sd2(i) = mySUSY.m_sd2(k);
-                mySUSY.m_sd2(k) = temp;
-                temp1 = ordd(i);
-                ordd(i) = ordd(k);
-                ordd(k) = temp1;
-            }
-            if(mySUSY.m_se2(i) > mySUSY.m_se2(k)){
-                temp = mySUSY.m_se2(i);
-                mySUSY.m_se2(i) = mySUSY.m_se2(k);
-                mySUSY.m_se2(k) = temp;
-                temp1 = ordl(i);
-                ordl(i) = ordl(k);
-                ordl(k) = temp1;
-            }
-            if(mySUSY.m_sn2(i) > mySUSY.m_sn2(k)){
-                temp = mySUSY.m_sn2(i);
-                mySUSY.m_sn2(i) = mySUSY.m_sn2(k);
-                mySUSY.m_sn2(k) = temp;
-                temp1 = ordn(i);
-                ordn(i) = ordn(k);
-                ordn(k) = temp1;
-            }
-        }
-    }
+    /* The SLHA2 convention requires increasing eigenvalues of the sfermion masses.
+     * This is not done automatically by FeynHiggs. */
+    SortSfermionMasses(mySUSY.m_sn2, mySUSY.Rn);
+    SortSfermionMasses(mySUSY.m_se2, mySUSY.Rl);
+    SortSfermionMasses(mySUSY.m_su2, mySUSY.Ru);
+    SortSfermionMasses(mySUSY.m_sd2, mySUSY.Rd);
 
-    for (int i = 0; i < 6; i++) {
-        for (int k = 0; k < 6; k++) {
-            MyRU.assign(i, k, mySUSY.Ru(ordu(k), i));
-            MyRD.assign(i, k, mySUSY.Rd(ordd(k), i));
-            MyRL.assign(i, k, mySUSY.Rl(ordl(k), i));
-            MyRN.assign(i, k, mySUSY.Rn(ordn(k), i));
-        }
-    }
-    
-    mySUSY.Ru = MyRU;
-    mySUSY.Rd = MyRD;
-    mySUSY.Rl = MyRL;
-    mySUSY.Rn = MyRN;
-    
     /* charginos */
     for(int i = 0; i < 2; i++) {
         mySUSY.mch(i) = MCha[i];
@@ -425,16 +366,16 @@ bool FeynHiggsWrapper::CalcSpectrum()
 
 void FeynHiggsWrapper::SetFeynHiggsParsSLHA(const char *filename) const
 {
-  int err;
-  COMPLEX slhadata[nslhadata];
+    int err;
+    COMPLEX slhadata[nslhadata];
 
-  SLHARead(&err, slhadata, filename, 1);
-  if(err != 0)
-      throw std::runtime_error("FeynHiggsWrapper::SetFeynHiggsParsSLHA(): Error in SLHARead");
+    SLHARead(&err, slhadata, filename, 1);
+    if(err != 0)
+        throw std::runtime_error("FeynHiggsWrapper::SetFeynHiggsParsSLHA(): Error in SLHARead");
 
-  FHSetSLHA(&err, slhadata);
-  if(err != 0)
-      throw std::runtime_error("FeynHiggsWrapper::SetFeynHiggsParsSLHA(): Error in FHSetSLHA");
+    FHSetSLHA(&err, slhadata);
+    if(err != 0)
+        throw std::runtime_error("FeynHiggsWrapper::SetFeynHiggsParsSLHA(): Error in FHSetSLHA");
 }
 
 void FeynHiggsWrapper::OutputSLHA(const char* filename) const
@@ -536,4 +477,30 @@ bool FeynHiggsWrapper::CalcFlavour()
 
     return (true);
 }
+
+void FeynHiggsWrapper::SortSfermionMasses(vector<double>& m_sf2, matrix<complex>& Rf) const
+{
+    gslpp::vector<double> newIndex(6, 0.);
+    for (int i = 0; i < 6; i++)
+        newIndex(i) = i;
+
+    /* sort sfermion masses in increasing order */
+    for (int i = 0; i < 5; i++) {
+        for (int k = i + 1; k < 6; k++) {
+            if (m_sf2(i) > m_sf2(k)) {
+                std::swap(m_sf2(i), m_sf2(k));
+                std::swap(newIndex(i), newIndex(k));
+            }
+        }
+    }
+
+    /* sort the corresponding rotation matrix, where the first(second) index
+     * denotes mass(gauge) eigenstates. */
+    gslpp::matrix<complex> myRf(6,0.);
+    for (int i = 0; i < 6; i++)
+        for (int k = 0; k < 6; k++)
+            myRf.assign(k, i, Rf(newIndex(k), i));
+    Rf = myRf;
+}
+
 
