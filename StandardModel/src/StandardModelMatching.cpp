@@ -290,6 +290,8 @@ double StandardModelMatching::E0b(double x) const
 /******************************************************************************/
 
 double StandardModelMatching::X0t(double x) const{
+    // weird signs! according to hep-ph/1009.0947v2:
+    // return((x/8.)*((x+2.)/(x-1.)+(3.*x -6)/(x-1.)/(x-1.)*log(x)))
     return ( (x / 8.) * ( (-x - 2.) / (x - 1.) - (6. - 3. * x) / (1. - x) / (1. - x) * log(x) ) );
 }
 
@@ -301,21 +303,27 @@ double StandardModelMatching::X1t(double x) const{
     double xm3 = pow(x-1.,3.);
     double logx = log(x);
     
+    // according to hep-ph/1009.0947v2, again:
+    /* return( -(29.*x-x2-4.*x3)/(3.*(1.-x)/(1.-x)) 
+             +(x + 9.*x2-x3-x4)/xm3*logx 
+             -(8.*x+4.*x2+x3-x4)/2./xm3*logx*logx
+             -(4.*x-x3)/(1.-x)/(1-x.)*gsl_sf_dilog(1.-x)
+             +8.*x* log(Mut*Mut/Muw/Muw)* (8.-9.*x+x3+6.*logx)/8./xm3 )*/
     return ( 
             -(29. * x - x2 -4. * x3) / (3. * (1. - x) * (1. - x))
             - logx * (x + 9. * x2 - x3 - x4) / xm3
             + logx * logx * (8. * x + 4. * x2 + x3 - x4) / (2. * xm3)
             - gsl_sf_dilog(1.-x) * (4. * x - x3) / ((1. - x) * (1. - x))
             + 8. * x * (1 / 8.) * ( (x + 2.) / (x - 1.) + (3. *x - 6.) / (x-1.) / (x-1.) * logx )
-            * log(Mut*Mut/Muw/Muw)
-            + 8. * x * (x / 8.) * ( 1. / (x - 1.) - (x + 2.) / (x2 - 2. * x + 1.) + (3. * x - 6.) / (x3 - 2. * x2 + x)
+            * log(Mut*Mut/Muw/Muw) + 8. * x * (x / 8.) * ( 1. / (x - 1.) 
+            - (x + 2.) / (x2 - 2. * x + 1.) + (3. * x - 6.) / (x3 - 2. * x2 + x)
             + 3. * logx / (x2 - 2. * x + 1.) - 2. * logx * (3. * x - 6.) / xm3 ) );
 }
 
 double StandardModelMatching::Xewt(double x, double a, double mu) const{
     double b = 0.;
-    
-    double swsq = (M_PI * Ale )/( sqrt(2) * GF * MW_tree * MW_tree);
+    // WARNING: sin^{2}(theta_w) needs to be implemented at NLO in the MSbar scheme, according to hep-ph/1009.0947v2
+    double swsq = (M_PI * Ale )/( sqrt(2) * GF * Mw_tree * Mw_tree);
     
     double A[17], C[17];
     
@@ -333,9 +341,8 @@ double StandardModelMatching::Xewt(double x, double a, double mu) const{
     double a5 = a4 * a;
     double a6 = a5 * a;
     double xm2 = (x - 1.) * (x - 1.);
-    double xm3 = xm2 * (x - 1);
-//***//    double xm4 = xm3 * (x - 1);
-    double axm = (a * x - 1);
+    double xm3 = xm2 * (x - 1.);
+    double axm = a * x - 1.;
     double logx = log(x);
     double loga = log(a);
     
@@ -344,7 +351,7 @@ double StandardModelMatching::Xewt(double x, double a, double mu) const{
         + (9. * a * (93. + 28. * a) - 4. * a * (3. - 2. * a + 8. * a2) * M_PI2 ) * x3
         + (3. * a * (172. - 49. * a - 32. * a2) + 4. * a * (20. - a + 16. * a2 ) * M_PI2 ) * x4
         - (3. * a * (168. + 11. * a - 24. * a2 ) + 4. * a * (45. + 8. *a2) * M_PI2) * x5
-        + 96. * a * M_PI2 * x5 * x;
+        + 96. * a * M_PI2 * x6;
     
     A[1] = -768. * x - (525. - 867. * a)  * x2 + (303. + 318. * a) * x3 - 195. * a * x4;
     
@@ -366,7 +373,7 @@ double StandardModelMatching::Xewt(double x, double a, double mu) const{
         + a2 * (479. + 362. *  a + 28. * a2 ) * x5
         - a3 *(143. + 42. * a) * x6 + 16. * a4 * x7;
     
-    A[6] = + 32. - 4.*(44. - 9. * a) * x+ (384. - 322. *  a - 400. * a2 ) * x2
+    A[6] = + 32. - 4.*(44. - 9. * a) * x + (384. - 322. *  a - 400. * a2 ) * x2
         - (400. - 869. *  a - 1126. * a2 - 696. * a3 ) * x3
         + 2.*(80. - 488. *  a - 517. * a2 - 631. * a3 - 264. * a4 ) * x4
         + (48. + 394. *  a + 269. * a2 + 190. * a3 + 882. * a4 + 196. * a5 ) * x5
@@ -377,7 +384,7 @@ double StandardModelMatching::Xewt(double x, double a, double mu) const{
     
     A[7] = + 28. * a2 * x2 - 32. * a3 * x3;
     
-    A[8] = - 288. + 36.*(1. + 8. * a) * x+ 6.*(647. + 87. * a) * x2 + 5.*(55. - 927. *  a - 132. * a2 ) * x3
+    A[8] = - 288. + 36.*(1. + 8. * a) * x + 6.*(647. + 87. * a) * x2 + 5.*(55. - 927. *  a - 132. * a2 ) * x3
         - (1233. + 98. *  a - 879. * a2 - 192. * a3 ) * x4 
         + (360. + 1371. *  a - 315. * a2 - 264. * a3 ) * x5
         - 24. * a * (17. - 4. * a2) * x6;
@@ -413,8 +420,6 @@ double StandardModelMatching::Xewt(double x, double a, double mu) const{
         + 8. * a2 * (47. + 51. *  a + 4. * a2) * x4 - 16. * a3 * (15. + 4. * a) * x5 
         + 32. * a4 * x6;
     
-    ////////////////////////////////////////////////////////////////////////////
-    
     C[0] = 1. / (3.* a * xm2 * x);
     
     C[1] = phi1(0.25) / (xm3 * axm);
@@ -427,7 +432,7 @@ double StandardModelMatching::Xewt(double x, double a, double mu) const{
     
     C[5] = phi1(a * x * 0.25) / (xm3 * axm);
     
-    C[6] = phi2(1 / a / x, 1 / a) / (2. * a2 * x2 * xm3 * axm);
+    C[6] = phi2(1. / a / x, 1. / a) / (2. * a2 * x2 * xm3 * axm);
     
     C[7] = loga * log(a) / axm;
     
@@ -435,9 +440,9 @@ double StandardModelMatching::Xewt(double x, double a, double mu) const{
     
     C[9] = logx * logx / ((x-1.) * xm3 * axm * 2. * a * x);
     
-    C[10] = 2. * log(mu/MW_tree) / xm2;
+    C[10] = 2. * log(mu/Mw_tree) / xm2;
     
-    C[11] = logx * 2. * log(mu/MW_tree) / xm3;
+    C[11] = logx * 2. * log(mu/Mw_tree) / xm3;
     
     C[12] = loga / (xm2 * axm);
     
@@ -445,9 +450,9 @@ double StandardModelMatching::Xewt(double x, double a, double mu) const{
     
     C[14] = gsl_sf_dilog(1. - a) / xm2;
     
-    C[15] = gsl_sf_dilog(1. - x) / a * x;
+    C[15] = gsl_sf_dilog(1. - x) / a / x;
     
-    C[16] = gsl_sf_dilog(1. - a * x) / (a * x * xm2); // Check Formula.
+    C[16] = gsl_sf_dilog(1. - a * x) / (a * x * xm2); // Check Formula. (checked!)
     
     for (int i=0; i<10; i++){
         b += C[i]*A[i];
