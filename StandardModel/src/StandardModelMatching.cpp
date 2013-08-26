@@ -290,9 +290,7 @@ double StandardModelMatching::E0b(double x) const
 /******************************************************************************/
 
 double StandardModelMatching::X0t(double x) const{
-    // weird signs! according to hep-ph/1009.0947v2:
-    // return((x/8.)*((x+2.)/(x-1.)+(3.*x -6)/(x-1.)/(x-1.)*log(x)))
-    return ( (x / 8.) * ( (-x - 2.) / (x - 1.) - (6. - 3. * x) / (1. - x) / (1. - x) * log(x) ) );
+    return((x/8.)*((x+2.)/(x-1.)+(3.*x -6)/(x-1.)/(x-1.)*log(x)));
 }
 
 double StandardModelMatching::X1t(double x) const{
@@ -300,25 +298,15 @@ double StandardModelMatching::X1t(double x) const{
     double x2 = x * x;
     double x3 = x2 * x;
     double x4 = x3 * x;
-    double xm3 = pow(x-1.,3.);
+    double xm3 = pow(1.-x,3.);
     double logx = log(x);
     
-    // according to hep-ph/1009.0947v2, again:
-    /* return( -(29.*x-x2-4.*x3)/(3.*(1.-x)/(1.-x)) 
-             +(x + 9.*x2-x3-x4)/xm3*logx 
-             -(8.*x+4.*x2+x3-x4)/2./xm3*logx*logx
-             -(4.*x-x3)/(1.-x)/(1-x.)*gsl_sf_dilog(1.-x)
-             +8.*x* log(Mut*Mut/Muw/Muw)* (8.-9.*x+x3+6.*logx)/8./xm3 )*/
-    return ( 
-            -(29. * x - x2 -4. * x3) / (3. * (1. - x) * (1. - x))
+    return (-(29. * x - x2 -4. * x3) / (3. * (1. - x) * (1. - x))
             - logx * (x + 9. * x2 - x3 - x4) / xm3
             + logx * logx * (8. * x + 4. * x2 + x3 - x4) / (2. * xm3)
             - gsl_sf_dilog(1.-x) * (4. * x - x3) / ((1. - x) * (1. - x))
-            + 8. * x * (1 / 8.) * ( (x + 2.) / (x - 1.) + (3. *x - 6.) / (x-1.) / (x-1.) * logx )
-            * log(Mut*Mut/Muw/Muw) + 8. * x * (x / 8.) * ( 1. / (x - 1.) 
-            - (x + 2.) / (x2 - 2. * x + 1.) + (3. * x - 6.) / (x3 - 2. * x2 + x)
-            + 3. * logx / (x2 - 2. * x + 1.) - 2. * logx * (3. * x - 6.) / xm3 ) );
-}
+            - 8. * x * log(Mut*Mut/Muw/Muw) * (8. - 9. * x + x3 + 6. * logx)/8./xm3 );
+  }
 
 double StandardModelMatching::Xewt(double x, double a, double mu) const{
     double b = 0.;
@@ -452,7 +440,7 @@ double StandardModelMatching::Xewt(double x, double a, double mu) const{
     
     C[15] = gsl_sf_dilog(1. - x) / a / x;
     
-    C[16] = gsl_sf_dilog(1. - a * x) / (a * x * xm2); // Check Formula. (checked!)
+    C[16] = gsl_sf_dilog(1. - a * x) / (a * x * xm2); 
     
     for (int i=0; i<10; i++){
         b += C[i]*A[i];
