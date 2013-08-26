@@ -323,7 +323,7 @@ double StandardModelMatching::X1t(double x) const{
 double StandardModelMatching::Xewt(double x, double a, double mu) const{
     double b = 0.;
     // WARNING: sin^{2}(theta_w) needs to be implemented at NLO in the MSbar scheme, according to hep-ph/1009.0947v2
-    double swsq = (M_PI * Ale )/( sqrt(2) * GF * Mw_tree * Mw_tree);
+    double swsq = (M_PI * Ale )/( sqrt(2) * GF * MW_tree * MW_tree);
     
     double A[17], C[17];
     
@@ -440,9 +440,9 @@ double StandardModelMatching::Xewt(double x, double a, double mu) const{
     
     C[9] = logx * logx / ((x-1.) * xm3 * axm * 2. * a * x);
     
-    C[10] = 2. * log(mu/Mw_tree) / xm2;
+    C[10] = 2. * log(mu/MW_tree) / xm2;
     
-    C[11] = logx * 2. * log(mu/Mw_tree) / xm3;
+    C[11] = logx * 2. * log(mu/MW_tree) / xm3;
     
     C[12] = loga / (xm2 * axm);
     
