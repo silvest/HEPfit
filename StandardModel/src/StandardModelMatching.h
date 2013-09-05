@@ -341,8 +341,7 @@ public:
 protected:
     std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2, vmck, vmckcc;
     std::vector<WilsonCoefficient> vmcbsg, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
-    std::vector<WilsonCoefficient> vmckpnn, vmckppnn, vmckmm, vmcbsnn, vmcbdnn, 
-                                   vmcbsmm, vmcbdmm;
+    std::vector<WilsonCoefficient> vmckpnn, vmckmm, vmcbsnn, vmcbdnn, vmcbsmm, vmcbdmm;
     
     
 private:
@@ -355,7 +354,7 @@ private:
     double S18(double x) const;
     WilsonCoefficient mcdbd2, mcdbs2, mcdd2, mcdk2, mck, mckcc;
     WilsonCoefficient mcbsg, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
-    WilsonCoefficient mckpnn, mckppnn, mckmm, mcbsnn, mcbdnn, mcbsmm, mcbdmm;
+    WilsonCoefficient mckpnn, mckmm, mcbsnn, mcbdnn, mcbsmm, mcbdmm;
     
     double Mut;
     double Muw;
