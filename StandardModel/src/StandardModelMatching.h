@@ -126,14 +126,7 @@ public:
      * 
      * @return Wilson coefficients for \f$ K_{L} \rightarrow \pi \nu \nu \f$
      */
-    virtual const std::vector<WilsonCoefficient>& CMkp0nn();
-    
-    /**
-     * 
-     * @return Wilson coefficients for \f$ K^{+} \rightarrow \pi^{+} \nu \nu \f$
-     */
-    virtual const std::vector<WilsonCoefficient>& CMkppnn();
-    
+    virtual const std::vector<WilsonCoefficient>& CMkpnn();
     /**
      * 
      * @return Wilson coefficient for \f$ K^{+} \rightarrow \mu \mu \f$, short distance top contribution
@@ -160,7 +153,7 @@ public:
     
     /**
      * 
-     * @return Wilson coefficients for \f$ B_{d} \rightarrow X_{s} \nu \nu \f$
+     * @return Wilson coefficients for \f$ B_{d} \rightarrow X_{d} \nu \nu \f$
      */
     virtual const std::vector<WilsonCoefficient>& CMBXdnn();
 
