@@ -42,9 +42,7 @@ public:
      */
     vector<complex>** ComputeCoeffDS1PP(double mu, schemes scheme = NDR);
     
-    vector<complex>** ComputeCoeffDS1p0nunu();
-    
-    vector<complex>** ComputeCoeffDS1ppnunu();
+    vector<complex>** ComputeCoeffDS1pnunu();
     
     vector<complex>** ComputeCoeffDS1mumu();
     
@@ -56,12 +54,8 @@ public:
         return coeffds1cc;
     }
     
-    WilsonCoefficient getCoeffDS1p0nunu() const {
-        return coeffds1p0nunu;
-    }
-    
-    WilsonCoefficient getCoeffDS1ppnunu() const {
-        return coeffds1ppnunu;
+    WilsonCoefficient getCoeffDS1pnunu() const {
+        return coeffds1pnunu;
     }
     
     WilsonCoefficient getCoeffDS1mumu() const {
@@ -83,8 +77,7 @@ public:
 private :
     const StandardModel& model;
     
-    WilsonCoefficient coeffds1, coeffds1cc, coeffds1p0nunu, 
-                      coeffds1ppnunu, coeffds1mumu;
+    WilsonCoefficient coeffds1, coeffds1cc, coeffds1pnunu, coeffds1mumu;
     EvolDF1nlep u;
     EvolDF1bsg uM;
     
