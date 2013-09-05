@@ -63,12 +63,8 @@ public:
         return HDS1.ComputeCoeffDS1PP(mu, scheme);
     }
     
-    vector<complex>** ComputeCoeffDS1p0nunu() {
-        return HDS1.ComputeCoeffDS1p0nunu();
-    }
-    
-    vector<complex>** ComputeCoeffDS1ppnunu() {
-        return HDS1.ComputeCoeffDS1ppnunu();
+    vector<complex>** ComputeCoeffDS1pnunu() {
+        return HDS1.ComputeCoeffDS1pnunu();
     }
     
     vector<complex>** ComputeCoeffDS1mumu() {
