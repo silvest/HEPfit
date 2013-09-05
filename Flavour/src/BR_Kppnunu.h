@@ -10,7 +10,7 @@
 
 #include <ThObservable.h>
 #include "Flavour.h"
-#include "CPenguinBox.h"
+#include "Charm_Kpnunu.h"
 
 using namespace gslpp;
 
@@ -20,7 +20,7 @@ public:
      * constructor
      * @param Flavour
      */
-    BR_Kppnunu(Flavour& Flavour): ThObservable(Flavour), myFlavour(Flavour), CPB(SM) {};
+    BR_Kppnunu(Flavour& Flavour): ThObservable(Flavour), myFlavour(Flavour), CKpnunu(SM) {};
     
     /**
      * 
@@ -51,7 +51,7 @@ protected:
     
 private:
     Flavour& myFlavour;
-    CPenguinBox CPB;
+    Charm_Kpnunu CKpnunu;
 };
 
 #endif	/* BR_KPPNUNU_H */
