@@ -1102,12 +1102,13 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC(const int
     return(vmcbnlepCC);
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMkp0nn() {
+const std::vector<WilsonCoefficient>& StandardModelMatching::CMkpnn() {
     
-    //PROBLEMI: mu e sin(theta_weak) e la scala di als
+    //scales assigned to xt, a and Xewt to be checked!
     
-    double xt = x_t(Muw);
-    double a = mt2omh2(Muw);
+    double xt = x_t(SM.getMut());
+    double a = 1./mt2omh2(Muw);
+    double lambda5 = SM.GetLambda()*SM.GetLambda()*SM.GetLambda()*SM.GetLambda()*SM.GetLambda();
     
     vmckpnn.clear();
     
@@ -1116,69 +1117,29 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMkp0nn() {
     switch (mckpnn.getOrder()) {
         case NNLO:
         case NLO:
-            mckpnn.setCoeff(0, SM.Als(Muw, FULLNLO)/4./M_PI*lam_t.imag()*X1t(xt)/SM.GetLambda(), NLO);
+            mckpnn.setCoeff(0, SM.Als(SM.getMut(), FULLNLO)/4./M_PI*lam_t.imag()*X1t(xt)/lambda5, NLO);
         case LO:
-            mckpnn.setCoeff(0, lam_t.imag()*X0t(xt)/SM.GetLambda(), LO);
+            mckpnn.setCoeff(0, lam_t.imag()*X0t(xt)/lambda5, LO);
             break;
         default:
             std::stringstream out;
             out << mckpnn.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMkp0nn(): order " + out.str() + "not implemented"); 
+            throw std::runtime_error("StandardModelMatching::CMkpnn(): order " + out.str() + "not implemented"); 
     }
     
     switch (mckpnn.getOrder_ew()) {
         case NLO_ew:
-            mckpnn.setCoeff(0, Ale/4./M_PI*lam_t.imag()*Xewt(xt, a, Muw)/SM.GetLambda(), NLO_ew);
+            mckpnn.setCoeff(0, Ale/4./M_PI*lam_t.imag()*Xewt(xt, a, Muw)/lambda5, NLO_ew);
         case LO_ew:
             break; 
         default:
             std::stringstream out;
             out << mckpnn.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMkp0nn(): order " + out.str() + "not implemented"); 
+            throw std::runtime_error("StandardModelMatching::CMkpnn(): order " + out.str() + "not implemented"); 
     }
 
     vmckpnn.push_back(mckpnn);
     return(vmckpnn);
-    
-}
-
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMkppnn() {
-    
-    //PROBLEMI: mu e sin(theta_weak) e la scala di als
-    
-    double xt = x_t(Muw);
-    double a = mt2omh2(Muw);
-    
-    vmckppnn.clear();
-    
-    mckppnn.setMu(Mut);
- 
-    switch (mckppnn.getOrder()) {
-        case NNLO:
-        case NLO:
-            mckppnn.setCoeff(0, SM.Als(Muw, FULLNLO)/4./M_PI*lam_t.imag()*X1t(xt)/SM.GetLambda(), NLO);
-        case LO:
-            mckppnn.setCoeff(0, lam_t.imag()*X0t(xt)/SM.GetLambda(), LO);
-            break;
-        default:
-            std::stringstream out;
-            out << mckppnn.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMkppnn(): order " + out.str() + "not implemented"); 
-    }
-    
-    switch (mckppnn.getOrder_ew()) {
-        case NLO_ew:
-            mckppnn.setCoeff(0, Ale/4./M_PI*lam_t.imag()*Xewt(xt, a, Muw)/SM.GetLambda(), NLO_ew);
-        case LO_ew:
-            break; 
-        default:
-            std::stringstream out;
-            out << mckppnn.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMkppnn(): order " + out.str() + "not implemented"); 
-    }
-
-    vmckppnn.push_back(mckppnn);
-    return(vmckppnn);
     
 }
 
