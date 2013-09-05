@@ -28,7 +28,6 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcd1(10, NDR, NLO),
         mcd1Buras(10, NDR, NLO),
         mckpnn(1, NDR, NLO, NLO_ew),
-        mckppnn(1, NDR, NLO, NLO_ew),
         mckmm(1, NDR, NLO),
         mcbsnn(1, NDR, NLO),
         mcbdnn(1, NDR, NLO),
