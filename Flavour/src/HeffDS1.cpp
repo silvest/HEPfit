@@ -10,7 +10,7 @@
 HeffDS1::HeffDS1(const StandardModel & SM) :
         model(SM), u(10, NDR, NLO, NLO_ew, SM), uM(10, NDR, NLO, SM),
         coeffds1 (10, NDR, NLO, NLO_ew), 
-        coeffds1p0nunu(1, NDR, NLO, NLO_ew), coeffds1ppnunu(1, NDR, NLO, NLO_ew),
+        coeffds1pnunu(1, NDR, NLO, NLO_ew),
         coeffds1mumu(1, NDR, NLO), coeffds1cc(10, NDR, NLO), 
         DS1cce(10, 0.), DS1cc(10, 0.){
 }
@@ -129,47 +129,26 @@ vector<complex>** HeffDS1::ComputeCoeffDS1PP(double mu, schemes scheme) {
     }
 }
 
-vector<complex>** HeffDS1::ComputeCoeffDS1p0nunu() {
+vector<complex>** HeffDS1::ComputeCoeffDS1pnunu() {
     
-    const std::vector<WilsonCoefficient>& mcb = model.GetMyMatching()-> CMkp0nn();
+    const std::vector<WilsonCoefficient>& mcb = model.GetMyMatching()-> CMkpnn();
     
-    orders ordDF1 = coeffds1p0nunu.getOrder();
-    orders_ew ordDF1_ew = coeffds1p0nunu.getOrder_ew();
+    orders ordDF1 = coeffds1pnunu.getOrder();
+    orders_ew ordDF1_ew = coeffds1pnunu.getOrder_ew();
     
     for (int i = 0; i < mcb.size(); i++){
         for (int j = LO; j <= ordDF1; j++){
-            coeffds1p0nunu.setCoeff(*coeffds1p0nunu.getCoeff(orders(j))
+            coeffds1pnunu.setCoeff(*coeffds1pnunu.getCoeff(orders(j))
                                     + *mcb[i].getCoeff(orders(j)), orders(j));
         }
         for (int j = LO_ew; j <= ordDF1_ew; j++){
-            coeffds1p0nunu.setCoeff(*coeffds1p0nunu.getCoeff(orders(j))
+            coeffds1pnunu.setCoeff(*coeffds1pnunu.getCoeff(orders(j))
                                     + *mcb[i].getCoeff(orders(j)), orders(j));
         }
     }
     
-    return coeffds1p0nunu.getCoeff();
-}            
-
-vector<complex>** HeffDS1::ComputeCoeffDS1ppnunu() {
-    
-    const std::vector<WilsonCoefficient>& mcb = model.GetMyMatching()-> CMkppnn();
-    
-    orders ordDF1 = coeffds1ppnunu.getOrder();
-    orders_ew ordDF1_ew = coeffds1ppnunu.getOrder_ew();
-    
-    for (int i = 0; i < mcb.size(); i++){
-        for (int j = LO; j <= ordDF1; j++){ 
-            coeffds1ppnunu.setCoeff(*coeffds1ppnunu.getCoeff(orders(j))
-                                    + *mcb[i].getCoeff(orders(j)), orders(j));
-        }
-        for (int j = LO_ew; j <= ordDF1_ew; j++){ 
-            coeffds1ppnunu.setCoeff(*coeffds1ppnunu.getCoeff(orders(j))
-                                    + *mcb[i].getCoeff(orders(j)), orders(j));
-        }
-    }
-    
-    return coeffds1ppnunu.getCoeff();
-}            
+    return coeffds1pnunu.getCoeff();
+}              
 
 vector<complex>** HeffDS1::ComputeCoeffDS1mumu() {
     
