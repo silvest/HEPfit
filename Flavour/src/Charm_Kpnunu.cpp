@@ -21,12 +21,12 @@ etab = model.Als(model.getMuw())/model.Als(model.getMub());
 etacb = model.Als(model.getMub())/model.Als(model.getMuc());
 // WARNING: we need to put mc(mc) for xc, line right below to be checked!
 mc = model.Mrun(model.getMuc(), model.getQuarks(QCD::CHARM).getMass_scale(),
-            model.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
+     model.getQuarks(QCD::CHARM).getMass(), FULLNNLO);
 etac = model.Als(model.getMuc())/model.Als(mc);
 kc = pow(etac, 24./25.);
 xi1c = 15212./1875.*(etac - 1.)/etac;
 xi2c = 966966391./10546875. - 231404944./3515625.*(1./etac) - 272751559./10546875.*
-                  (1./etac)*(1./etac) - 128./5.*(1.-(1./etac)*(1./etac))*gsl_sf_zeta_int(3);
+       (1./etac)*(1./etac) - 128./5.*(1.-(1./etac)*(1./etac))*gsl_sf_zeta_int(3);
 xc = kc*(1. + model.Als(mc)/4./M_PI*xi1c + (model.Als(mc)/4./M_PI)*(model.Als(mc)/4./M_PI)*xi2c);
 }
 
@@ -160,7 +160,7 @@ matrix<double> Charm_Kpnunu::RGevolP(int nf, orders order) {
     }
 }
 
-vector<double> Charm_Kpnunu::MatchingCp(orders order){
+vector<double> Charm_Kpnunu::ThresholdCp(orders order){
     
     double mub = model.getMub();
     double Mb = model.Mrun(model.getMub(), model.getQuarks(QCD::BOTTOM).getMass_scale(),
@@ -213,7 +213,7 @@ vector<double> Charm_Kpnunu::C_p(orders order){
     J5p2 = RGevolP(5,NLO);
     
     for(int i=0; i++; i<3){
-    dc_p(i,i) =  MatchingCp(NNLO)(i);
+    dc_p(i,i) =  ThresholdCp(NNLO)(i);
     }
     
     switch(order){
@@ -396,7 +396,7 @@ matrix<double> Charm_Kpnunu::RGevolB(int nf, orders order){
     } 
 }
 
-vector<double> Charm_Kpnunu::MatchingCb(orders order){
+vector<double> Charm_Kpnunu::ThresholdCb(orders order){
     
     double mub = model.getMub();
     double Mb = model.Mrun(model.getMub(), model.getQuarks(QCD::BOTTOM).getMass_scale(),
@@ -442,7 +442,7 @@ vector<double> Charm_Kpnunu::C_b(orders order){
     J5b2 = RGevolB(5,NLO);
     
     for(int i=0; i++; i<3){
-    dc_b(i,i) =  MatchingCb(NNLO)(i);
+    dc_b(i,i) =  ThresholdCb(NNLO)(i);
     }
     
     switch(order){
