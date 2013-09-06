@@ -19,7 +19,7 @@ using namespace gslpp;
 /**
  * 
  * @class: Charm_Kpnunu
- * @details: class to compute the charm contribution to the process \f$  K_{0} \rightarrow \pi_{0}  
+ * @details: class to compute the charm contribution to the process \f$  K^{0} \rightarrow \pi^{0}  
  * \nu \bar{\nu}\f$ at the NNLO in QCD corrections, according to hep-ph/0603079.
  */
 class Charm_Kpnunu {
@@ -138,7 +138,7 @@ public:
      * @param order, QCD perturbation theory order 
      * @return P_C + isospin correction + peculiar contribution of the top quark coming from the 
      * loop function X_t for this process (in respect with the one present also in 
-     * \f$  K_{0} \rightarrow \pi_{0}  \nu \bar{\nu} \f$)
+     * \f$  K^{0} \rightarrow \pi^{0}  \nu \bar{\nu} \f$)
      */
     double C_TOT(orders order, orders_ew order_ew);
     
