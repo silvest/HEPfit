@@ -16,38 +16,130 @@
 
 using namespace gslpp;
 
+/**
+ * 
+ * @class: Charm_Kpnunu
+ * @details: class to compute the charm contribution to the process \f$  K_{0} \rightarrow \pi_{0}  
+ * \nu \bar{\nu}\f$ at the NNLO in QCD corrections, according to hep-ph/0603079.
+ */
 class Charm_Kpnunu {
 
 public:
     
+    /**
+     * 
+     * @brief constructor
+     */
     Charm_Kpnunu(const StandardModel& model_i);
     
+    /**
+     * 
+     * @brief destructor
+     */
     ~Charm_Kpnunu();
     
+    /**
+     * 
+     * @param order, QCD perturbation theory order 
+     * @return Wilson coefficients related to the Z-penguin contribution, given
+     * at the renormalization scale \f$ \mu_{W} \f$
+     */
     vector<double> Cp(orders order);
     
+    /**
+     * 
+     * @param order, QCD perturbation theory order
+     * @param nf, number of flavours
+     * @return LO, NLO and NNLO RG evolution matrix for the Z-penguin contribution
+     */
     matrix<double> RGevolP(int nf, orders order);
-
-    vector<double> MatchingCp(orders order);    
     
+    /**
+     * 
+     * @param order, QCD perturbation theory order
+     * @param nf, number of flavours
+     * @return non trivial threshold matching at NNLO level for the Wilson coefficients 
+     * related to the Z-penguin contribution
+     */
+    vector<double> ThresholdCp(orders order);    
+    
+    /**
+     * 
+     * @param order, QCD perturbation theory order 
+     * @return Wilson coefficients related to the Z-penguin contribution evolved
+     * down to the renormalization scale \f$ mu_{c} \f$ 
+     */
     vector<double> C_p(orders order);
     
+    /**
+     * 
+     * @param order, QCD perturbation theory order 
+     * @return coefficient recasting the total Z-penguin contribution to BR of the process
+     */
     double C_P(orders order);
     
+    /**
+     * 
+     * @param order, QCD perturbation theory order 
+     * @return Wilson coefficients related to the EW box contribution, given
+     * at the renormalization scale \f$ \mu_{W} \f$
+     */
     vector<double> Cb(orders order);
     
+    /**
+     * 
+     * @param order, QCD perturbation theory order
+     * @param nf, number of flavours
+     * @return LO, NLO and NNLO RG evolution matrix for the EW box contribution
+     */
     matrix<double> RGevolB(int nf, orders order);
+    /**
+     * 
+     * @param order, QCD perturbation theory order
+     * @return non trivial threshold matching at NNLO level for the Wilson coefficients 
+     * related to the EW box contribution
+     */
+    vector<double> ThresholdCb(orders order);
     
-    vector<double> MatchingCb(orders order);
-    
+    /**
+     * 
+     * @param order, QCD perturbation theory order 
+     * @return Wilson coefficients related to the EW box contribution evolved
+     * down to the renormalization scale \f$ \mu_{c} \f$ 
+     */
     vector<double> C_b(orders order);
     
+    /**
+     * 
+     * @param order, QCD perturbation theory order 
+     * @return coefficient recasting the EW box contribution related to the light leptons
+     *  to the BR of the process
+     */
     double C_Be(orders order);
     
+    /**
+     * 
+     * @param order, QCD perturbation theory order 
+     * @return coefficient recasting the EW box contribution related to the tau lepton
+     *  to the BR of the process
+     */
     double C_Bt(orders order);
     
+    /**
+     * 
+     * @param order, QCD perturbation theory order 
+     * @return the phenomenological function P_C which contains the appropriate C_P, C_Be and C_Bt 
+     *  linear combination appearing explicitly in the final BR formula of the process 
+     */
     double P_C(orders order);
     
+    /**
+     * 
+     * @param order, QCD perturbation theory order 
+     * @return P_C + isospin correction + peculiar contribution of the top quark coming from the 
+     * loop function X_t for this process (in respect with the one present also in 
+     * \f$  K_{0} \rightarrow \pi_{0}  \nu \bar{\nu} \f$)
+     */
     double C_TOT(orders order, orders_ew order);
     
 private:
