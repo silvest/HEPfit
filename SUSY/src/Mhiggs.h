@@ -13,6 +13,14 @@
 #include <ThObsType.h>
 #include "SUSY.h"
 
+/**
+ * @class Mhiggs
+ * @ingroup SUSY
+ * @brief A class for the Higgs masses.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details
+ */
 class Mhiggs : public ThObservable {
 public:
 

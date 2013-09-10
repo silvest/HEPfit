@@ -13,6 +13,8 @@
 #include "EWSUSY.h"
 
 const double EWSUSY::Mw_unphysical = 2.0;
+const double EWSUSY::RenormalizationScaleFactor = 1.0;
+//const double EWSUSY::RenormalizationScaleFactor = 2.0; // for debug
 
 EWSUSY::EWSUSY(const SUSY& SUSY_in)
 : mySUSY(SUSY_in), myEWSMOneLoopEW(*(SUSY_in.getEWSM()->getMyOneLoopEW())),
@@ -30,9 +32,9 @@ void EWSUSY::SetRosiekParameters()
     Yd = - mySUSY.getYd();
     Yl = - mySUSY.getYe();
 
-    Au = - mySUSY.getTU();
-    Ad = mySUSY.getTD();
-    Al = mySUSY.getTE();
+    Au = - mySUSY.getTUhat().transpose();
+    Ad = mySUSY.getTDhat().transpose();
+    Al = mySUSY.getTEhat().transpose();
 
     Zm = mySUSY.getU().hconjugate();
     Zp = mySUSY.getV().hconjugate();
@@ -701,8 +703,7 @@ complex EWSUSY::PiTp_A(const double mu, const double p2, const double Mw_i) cons
 double EWSUSY::PiThat_W_0(const double Mw_i) const
 {
     /* Renormalization scale (varied for checking the cancellation of UV divergences */
-    double mu = Mw_i;
-    //mu *= 2.0; /* Debug */
+    double mu = Mw_i * RenormalizationScaleFactor;
 
     double Mz = mySUSY.getMz();
     double cW = Mw_i/Mz;
@@ -1053,8 +1054,7 @@ complex EWSUSY::delta_v(const double mu, const StandardModel::lepton M,
 double EWSUSY::DeltaR_vertex_SUSY(const double Mw_i) const
 {
     /* Renormalization scale (varied for checking the cancellation of UV divergences */
-    double mu = Mw_i;
-    //mu *= 2.0; /* Debug */
+    double mu = Mw_i * RenormalizationScaleFactor;
 
     return ( v(mu, mySUSY.ELECTRON, mySUSY.NEUTRINO_1, Mw_i).real()
             + delta_v(mu, mySUSY.ELECTRON, mySUSY.NEUTRINO_1, Mw_i).real()
@@ -1113,8 +1113,7 @@ complex EWSUSY::Sigma_nu_0(const double mu, const StandardModel::lepton I,
 double EWSUSY::DeltaR_neutrino_SUSY(const double Mw_i) const
 {
     /* Renormalization scale (varied for checking the cancellation of UV divergences */
-    double mu = Mw_i;
-    //mu *= 2.0; /* Debug */
+    double mu = Mw_i * RenormalizationScaleFactor;
     
     return ( ( Sigma_nu_0(mu, mySUSY.NEUTRINO_1, mySUSY.NEUTRINO_1, Mw_i).real()
               - delta_v(mu, mySUSY.ELECTRON, mySUSY.NEUTRINO_1, Mw_i).real()
@@ -1148,8 +1147,7 @@ double EWSUSY::DeltaR_TOTAL_EW1(const double Mw_i) const
 double EWSUSY::DeltaAlphaL5q_SM_EW1() const
 {
     /* Renormalization scale (varied for checking the cancellation of UV divergences */
-    double mu = mySUSY.getMz();
-    //mu *= 2.0; /* Debug */
+    double mu = mySUSY.getMz() * RenormalizationScaleFactor;
 
     double Mz2 = mySUSY.getMz()*mySUSY.getMz();
     double e = sqrt(4.0*M_PI*mySUSY.getAle());

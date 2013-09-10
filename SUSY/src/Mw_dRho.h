@@ -12,6 +12,14 @@
 #include <ThObsType.h>
 #include "SUSY.h"
 
+/**
+ * @class Mw_dRho
+ * @ingroup SUSY
+ * @brief A class for the W-boson mass in the delta rho approximation. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details
+ */
 class Mw_dRho : public ThObservable {
 public:
 

@@ -41,6 +41,7 @@ ThFactory::ThFactory(const StandardModel& myModel)
     if(myModel.ModelName().compare("SUSY")
             || myModel.ModelName().compare("GeneralSUSY")
             || myModel.ModelName().compare("MFV")) {
+        thobs["OutputSLHAfromFH"] = new OutputSLHAfromFH(myMO); // for debug
         thobs["MHl"] = new Mhiggs(myMO, 0);
         thobs["MHh"] = new Mhiggs(myMO, 1);
         thobs["MHa"] = new Mhiggs(myMO, 2);

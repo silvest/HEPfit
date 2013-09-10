@@ -45,20 +45,20 @@ public:
 protected:
     virtual void SetParameter(const std::string, const double&);
     virtual void SetSoftTerms();
-    double msQ2_11r, msQ2_12r, msQ2_12i, msQ2_13r, msQ2_13i, msQ2_22r, msQ2_23r, msQ2_23i, msQ2_33r,
-           msU2_11r, msU2_12r, msU2_12i, msU2_13r, msU2_13i, msU2_22r, msU2_23r, msU2_23i, msU2_33r,
-           msD2_11r, msD2_12r, msD2_12i, msD2_13r, msD2_13i, msD2_22r, msD2_23r, msD2_23i, msD2_33r,
-           msL2_11r, msL2_12r, msL2_12i, msL2_13r, msL2_13i, msL2_22r, msL2_23r, msL2_23i, msL2_33r,
-           msE2_11r, msE2_12r, msE2_12i, msE2_13r, msE2_13i, msE2_22r, msE2_23r, msE2_23i, msE2_33r,
-           msN2_11r, msN2_12r, msN2_12i, msN2_13r, msN2_13i, msN2_22r, msN2_23r, msN2_23i, msN2_33r,
-           TU_11r, TU_12r, TU_13r, TU_21r, TU_22r, TU_23r, TU_31r, TU_32r, TU_33r,
-           TU_11i, TU_12i, TU_13i, TU_21i, TU_22i, TU_23i, TU_31i, TU_32i, TU_33i,
-           TD_11r, TD_12r, TD_13r, TD_21r, TD_22r, TD_23r, TD_31r, TD_32r, TD_33r,
-           TD_11i, TD_12i, TD_13i, TD_21i, TD_22i, TD_23i, TD_31i, TD_32i, TD_33i,
-           TE_11r, TE_12r, TE_13r, TE_21r, TE_22r, TE_23r, TE_31r, TE_32r, TE_33r,
-           TE_11i, TE_12i, TE_13i, TE_21i, TE_22i, TE_23i, TE_31i, TE_32i, TE_33i,
-           TN_11r, TN_12r, TN_13r, TN_21r, TN_22r, TN_23r, TN_31r, TN_32r, TN_33r,
-           TN_11i, TN_12i, TN_13i, TN_21i, TN_22i, TN_23i, TN_31i, TN_32i, TN_33i;
+    double msQhat2_11r, msQhat2_12r, msQhat2_12i, msQhat2_13r, msQhat2_13i, msQhat2_22r, msQhat2_23r, msQhat2_23i, msQhat2_33r,
+           msUhat2_11r, msUhat2_12r, msUhat2_12i, msUhat2_13r, msUhat2_13i, msUhat2_22r, msUhat2_23r, msUhat2_23i, msUhat2_33r,
+           msDhat2_11r, msDhat2_12r, msDhat2_12i, msDhat2_13r, msDhat2_13i, msDhat2_22r, msDhat2_23r, msDhat2_23i, msDhat2_33r,
+           msLhat2_11r, msLhat2_12r, msLhat2_12i, msLhat2_13r, msLhat2_13i, msLhat2_22r, msLhat2_23r, msLhat2_23i, msLhat2_33r,
+           msEhat2_11r, msEhat2_12r, msEhat2_12i, msEhat2_13r, msEhat2_13i, msEhat2_22r, msEhat2_23r, msEhat2_23i, msEhat2_33r,
+           msNhat2_11r, msNhat2_12r, msNhat2_12i, msNhat2_13r, msNhat2_13i, msNhat2_22r, msNhat2_23r, msNhat2_23i, msNhat2_33r,
+           TUhat_11r, TUhat_12r, TUhat_13r, TUhat_21r, TUhat_22r, TUhat_23r, TUhat_31r, TUhat_32r, TUhat_33r,
+           TUhat_11i, TUhat_12i, TUhat_13i, TUhat_21i, TUhat_22i, TUhat_23i, TUhat_31i, TUhat_32i, TUhat_33i,
+           TDhat_11r, TDhat_12r, TDhat_13r, TDhat_21r, TDhat_22r, TDhat_23r, TDhat_31r, TDhat_32r, TDhat_33r,
+           TDhat_11i, TDhat_12i, TDhat_13i, TDhat_21i, TDhat_22i, TDhat_23i, TDhat_31i, TDhat_32i, TDhat_33i,
+           TEhat_11r, TEhat_12r, TEhat_13r, TEhat_21r, TEhat_22r, TEhat_23r, TEhat_31r, TEhat_32r, TEhat_33r,
+           TEhat_11i, TEhat_12i, TEhat_13i, TEhat_21i, TEhat_22i, TEhat_23i, TEhat_31i, TEhat_32i, TEhat_33i,
+           TNhat_11r, TNhat_12r, TNhat_13r, TNhat_21r, TNhat_22r, TNhat_23r, TNhat_31r, TNhat_32r, TNhat_33r,
+           TNhat_11i, TNhat_12i, TNhat_13i, TNhat_21i, TNhat_22i, TNhat_23i, TNhat_31i, TNhat_32i, TNhat_33i;
 };
 
 /**

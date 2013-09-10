@@ -75,15 +75,15 @@ public:
      *    </tr>
      *    <tr>
      *      <td align="center"> @f$A_u@f$ </td>
-     *      <td align="center"> @f$-T_U@f$ </td>
+     *      <td align="center"> @f$-\hat{T}_U^T@f$ </td>
      *    </tr>
      *    <tr>
      *      <td align="center"> @f$A_d@f$ </td>
-     *      <td align="center"> @f$T_D@f$ </td>
+     *      <td align="center"> @f$\hat{T}_D^T@f$ </td>
      *    </tr>
      *    <tr>
      *      <td align="center"> @f$A_\ell@f$ </td>
-     *      <td align="center"> @f$T_E@f$ </td>
+     *      <td align="center"> @f$\hat{T}_E^T@f$ </td>
      *    </tr>
      *    </table>
      *  </td>
@@ -399,9 +399,18 @@ public:
      */
     double Mw_MSSM() const;
 
+    /**
+     * @brief 
+     * @return
+     */
+    double getRenormalizationScaleFactor() const
+    {
+        return RenormalizationScaleFactor;
+    }
 
 private:
     static const double Mw_unphysical;
+    static const double RenormalizationScaleFactor;
 
     const PVfunctions PV; ///< An object of PVfunctions class.
     const SUSY& mySUSY; ///< A reference to the SUSY object passed to the constructor.

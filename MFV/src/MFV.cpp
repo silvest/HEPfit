@@ -147,28 +147,28 @@ void MFV::SetSoftTerms()
 {
     // Colangelo's expressions in Colangelo's basis
     X.Update(myCKM);
-    MsQ2 = matrix<complex>::Id(3) * a1 + X.GetX13() * x1 + X.GetX1() * y1 + 
-            X.GetX5() * y2 + X.GetX9() * y2.conjugate();
-    MsU2 = matrix<complex>::Id(3) * a2 + X.GetX1() * x2;
-    MsD2 = matrix<complex>::Id(3) * a3 + X.GetX1() * y3 + X.GetX3() * w1 + 
-            X.GetX4() * w1.conjugate();
-    TU = (X.GetX5() * a4 + X.GetX1() * y4 + 
-            X.GetX6() * w2).transpose();
-    TD = (X.GetX1() * a5 + X.GetX5() * y5 + 
-            X.GetX2() * w3 + X.GetX4() * w4).transpose();
-    MsL2 = matrix<complex>::Id(3) * a6 + X.GetX1() * y6;
-    MsE2 = matrix<complex>::Id(3) * a7 + X.GetX1() * y7;
-    TE = (X.GetX1() * a8 + X.GetX2() * w5).transpose();
+    msQhat2 = matrix<complex>::Id(3) * a1 + X.GetX13() * x1 + X.GetX1() * y1 +
+               X.GetX5() * y2 + X.GetX9() * y2.conjugate();
+    msUhat2 = matrix<complex>::Id(3) * a2 + X.GetX1() * x2;
+    msDhat2 = matrix<complex>::Id(3) * a3 + X.GetX1() * y3 + X.GetX3() * w1 +
+               X.GetX4() * w1.conjugate();
+    TUhat = (X.GetX5() * a4 + X.GetX1() * y4 +
+               X.GetX6() * w2).transpose();
+    TDhat = (X.GetX1() * a5 + X.GetX5() * y5 +
+               X.GetX2() * w3 + X.GetX4() * w4).transpose();
+    msLhat2 = matrix<complex>::Id(3) * a6 + X.GetX1() * y6;
+    msEhat2 = matrix<complex>::Id(3) * a7 + X.GetX1() * y7;
+    TEhat = (X.GetX1() * a8 + X.GetX2() * w5).transpose();
     
     // rotation to the SCKM basis according to SLHA notation
     
     matrix<complex> ckm(3,3,0.);
     myCKM.getCKM(ckm);
   
-    TU = sqrt(2.) * TU * ckm.hconjugate();  
-    TD = sqrt(2.) * TD;
-    TE = sqrt(2.) * TE;
+    TUhat = sqrt(2.) * TUhat * ckm.hconjugate();
+    TDhat = sqrt(2.) * TDhat;
+    TEhat = sqrt(2.) * TEhat;
 
-    // MsN2 and TN remain 0.
+    // msNhat2 and TNhat remain 0.
 }
 

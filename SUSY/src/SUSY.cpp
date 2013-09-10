@@ -27,8 +27,8 @@ const std::string SUSY::SUSYFlags[NSUSYFlags] = {
 
 SUSY::SUSY()
 : StandardModel(),
-        MsQ2(3,3,0.), MsU2(3,3,0.), MsD2(3,3,0.),MsL2(3,3,0.), MsN2(3,3,0.), MsE2(3,3,0.),
-        TU(3,3,0.), TD(3,3,0.), TN(3,3,0.), TE(3,3,0.),
+        msQhat2(3,3,0.), msUhat2(3,3,0.), msDhat2(3,3,0.),msLhat2(3,3,0.), msNhat2(3,3,0.), msEhat2(3,3,0.),
+        TUhat(3,3,0.), TDhat(3,3,0.), TNhat(3,3,0.), TEhat(3,3,0.),
         mch(2,0.), mneu(4,0.), m_su2(6,0.), m_sd2(6,0.), m_sn2(6,0.), m_se2(6,0.),
         U(2,2,0.), V(2,2,0.), N(4,4,0.),
         Ru(6,6,0.), Rd(6,6,0.), Rn(6,6,0.), Rl(6,6,0.)

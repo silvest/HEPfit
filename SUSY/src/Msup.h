@@ -12,6 +12,14 @@
 #include <ThObsType.h>
 #include "SUSY.h"
 
+/**
+ * @class Msup
+ * @ingroup SUSY
+ * @brief A class for the up-type-squark masses.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details
+ */
 class Msup : public ThObservable {
 public:
 

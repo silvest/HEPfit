@@ -342,37 +342,37 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // functions for the parameters in the squark sector.
 
-    matrix<complex> getMsQ2() const
+    matrix<complex> getMsQhat2() const
     {
-        return MsQ2;
+        return msQhat2;
     }
 
-    matrix<complex> getMsU2() const
+    matrix<complex> getMsUhat2() const
     {
-        return MsU2;
+        return msUhat2;
     }
 
-    matrix<complex> getMsD2() const
+    matrix<complex> getMsDhat2() const
     {
-        return MsD2;
+        return msDhat2;
     }
 
     /**
      * @brief Gets the trilinear-coupling matrix for up-type squarks.
      * @return The trilinear-coupling matrix for up-type squarks.
      */
-    matrix<complex> getTU() const
+    matrix<complex> getTUhat() const
     {
-        return TU;
+        return TUhat;
     }
 
     /**
      * @brief Gets the trilinear-coupling matrix for down-type squarks.
      * @return The trilinear-coupling matrix for down-type squarks.
      */
-    matrix<complex> getTD() const
+    matrix<complex> getTDhat() const
     {
-        return TD;
+        return TDhat;
     }
 
     /**
@@ -415,37 +415,37 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // functions for the parameters in the slepton sector.
 
-    matrix<complex> getMsL2() const
+    matrix<complex> getMsLhat2() const
     {
-        return MsL2;
+        return msLhat2;
     }
 
-    matrix<complex> getMsN2() const
+    matrix<complex> getMsNhat2() const
     {
-        return MsN2;
+        return msNhat2;
     }
 
-    matrix<complex> getMsE2() const
+    matrix<complex> getMsEhat2() const
     {
-        return MsE2;
+        return msEhat2;
     }
 
     /**
      * @brief Gets the trilinear-coupling matrix for sneutrinos.
      * @return The trilinear-coupling matrix for sneutrinos.
      */
-    matrix<complex> getTN() const
+    matrix<complex> getTNhat() const
     {
-        return TN;
+        return TNhat;
     }
 
     /**
      * @brief Gets the trilinear-coupling matrix for charged sleptons.
      * @return The trilinear-coupling matrix for charged sleptons.
      */
-    matrix<complex> getTE() const
+    matrix<complex> getTEhat() const
     {
-        return TE;
+        return TEhat;
     }
 
     /**
@@ -569,7 +569,8 @@ protected:
 
     // soft-breaking parameters associated with squark and slepton mass terms and
     // trilinear couplings in the SCKM basis, which will be set with SetSoftTerms()
-    matrix<complex> MsQ2, MsU2, MsD2, MsL2, MsN2, MsE2, TU, TD, TN, TE;
+    matrix<complex> msQhat2, msUhat2, msDhat2, msLhat2, msNhat2, msEhat2;
+    matrix<complex> TUhat, TDhat, TNhat, TEhat;
 
     // soft-breaking parameters computed with FeynHiggs
     double mHp, mh[4];

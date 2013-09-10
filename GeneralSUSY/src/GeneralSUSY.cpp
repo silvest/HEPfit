@@ -3,26 +3,26 @@
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
- */
+// */
 
 #include <math.h>
 #include "GeneralSUSY.h"
 
 const std::string GeneralSUSY::GeneralSUSYvars[NGeneralSUSYvars] = {
-    "msQ2_11r","msQ2_12r","msQ2_12i","msQ2_13r","msQ2_13i","msQ2_22r","msQ2_23r","msQ2_23i","msQ2_33r",
-    "msU2_11r","msU2_12r","msU2_12i","msU2_13r","msU2_13i","msU2_22r","msU2_23r","msU2_23i","msU2_33r",
-    "msD2_11r","msD2_12r","msD2_12i","msD2_13r","msD2_13i","msD2_22r","msD2_23r","msD2_23i","msD2_33r",
-    "msL2_11r","msL2_12r","msL2_12i","msL2_13r","msL2_13i","msL2_22r","msL2_23r","msL2_23i","msL2_33r",
-    "msE2_11r","msE2_12r","msE2_12i","msE2_13r","msE2_13i","msE2_22r","msE2_23r","msE2_23i","msE2_33r",
-    "msN2_11r","msN2_12r","msN2_12i","msN2_13r","msN2_13i","msN2_22r","msN2_23r","msN2_23i","msN2_33r",
-    "TU_11r","TU_12r","TU_13r","TU_21r","TU_22r","TU_23r","TU_31r","TU_32r","TU_33r",
-    "TU_11i","TU_12i","TU_13i","TU_21i","TU_22i","TU_23i","TU_31i","TU_32i","TU_33i",
-    "TD_11r","TD_12r","TD_13r","TD_21r","TD_22r","TD_23r","TD_31r","TD_32r","TD_33r",
-    "TD_11i","TD_12i","TD_13i","TD_21i","TD_22i","TD_23i","TD_31i","TD_32i","TD_33i",
-    "TE_11r","TE_12r","TE_13r","TE_21r","TE_22r","TE_23r","TE_31r","TE_32r","TE_33r",
-    "TE_11i","TE_12i","TE_13i","TE_21i","TE_22i","TE_23i","TE_31i","TE_32i","TE_33i",
-    "TN_11r","TN_12r","TN_13r","TN_21r","TN_22r","TN_23r","TN_31r","TN_32r","TN_33r",
-    "TN_11i","TN_12i","TN_13i","TN_21i","TN_22i","TN_23i","TN_31i","TN_32i","TN_33i"
+    "msQhat2_11r","msQhat2_12r","msQhat2_12i","msQhat2_13r","msQhat2_13i","msQhat2_22r","msQhat2_23r","msQhat2_23i","msQhat2_33r",
+    "msUhat2_11r","msUhat2_12r","msUhat2_12i","msUhat2_13r","msUhat2_13i","msUhat2_22r","msUhat2_23r","msUhat2_23i","msUhat2_33r",
+    "msDhat2_11r","msDhat2_12r","msDhat2_12i","msDhat2_13r","msDhat2_13i","msDhat2_22r","msDhat2_23r","msDhat2_23i","msDhat2_33r",
+    "msLhat2_11r","msLhat2_12r","msLhat2_12i","msLhat2_13r","msLhat2_13i","msLhat2_22r","msLhat2_23r","msLhat2_23i","msLhat2_33r",
+    "msEhat2_11r","msEhat2_12r","msEhat2_12i","msEhat2_13r","msEhat2_13i","msEhat2_22r","msEhat2_23r","msEhat2_23i","msEhat2_33r",
+    "msNhat2_11r","msNhat2_12r","msNhat2_12i","msNhat2_13r","msNhat2_13i","msNhat2_22r","msNhat2_23r","msNhat2_23i","msNhat2_33r",
+    "TUhat_11r","TUhat_12r","TUhat_13r","TUhat_21r","TUhat_22r","TUhat_23r","TUhat_31r","TUhat_32r","TUhat_33r",
+    "TUhat_11i","TUhat_12i","TUhat_13i","TUhat_21i","TUhat_22i","TUhat_23i","TUhat_31i","TUhat_32i","TUhat_33i",
+    "TDhat_11r","TDhat_12r","TDhat_13r","TDhat_21r","TDhat_22r","TDhat_23r","TDhat_31r","TDhat_32r","TDhat_33r",
+    "TDhat_11i","TDhat_12i","TDhat_13i","TDhat_21i","TDhat_22i","TDhat_23i","TDhat_31i","TDhat_32i","TDhat_33i",
+    "TEhat_11r","TEhat_12r","TEhat_13r","TEhat_21r","TEhat_22r","TEhat_23r","TEhat_31r","TEhat_32r","TEhat_33r",
+    "TEhat_11i","TEhat_12i","TEhat_13i","TEhat_21i","TEhat_22i","TEhat_23i","TEhat_31i","TEhat_32i","TEhat_33i",
+    "TNhat_11r","TNhat_12r","TNhat_13r","TNhat_21r","TNhat_22r","TNhat_23r","TNhat_31r","TNhat_32r","TNhat_33r",
+    "TNhat_11i","TNhat_12i","TNhat_13i","TNhat_21i","TNhat_22i","TNhat_23i","TNhat_31i","TNhat_32i","TNhat_33i"
 };
 
 GeneralSUSY::GeneralSUSY()
@@ -72,258 +72,258 @@ bool GeneralSUSY::PostUpdate()
 
 void GeneralSUSY::SetParameter(const std::string name, const double& value)
 {
-    if(name.compare("msQ2_11r") == 0)
-        msQ2_11r = value;
-    else if(name.compare("msQ2_12r") == 0)
-        msQ2_12r = value;
-    else if(name.compare("msQ2_12i") == 0)
-        msQ2_12i = value;
-    else if(name.compare("msQ2_13r") == 0)
-        msQ2_13r = value;
-    else if(name.compare("msQ2_13i") == 0)
-        msQ2_13i = value;
-    else if(name.compare("msQ2_22r") == 0)
-        msQ2_22r = value;
-    else if(name.compare("msQ2_23r") == 0)
-        msQ2_23r = value;
-    else if(name.compare("msQ2_23i") == 0)
-        msQ2_23i = value;
-    else if(name.compare("msQ2_33r") == 0)
-        msQ2_33r = value;
-    else if(name.compare("msU2_11r") == 0)
-        msU2_11r = value;
-    else if(name.compare("msU2_12r") == 0)
-        msU2_12r = value;
-    else if(name.compare("msU2_12i") == 0)
-        msU2_12i = value;
-    else if(name.compare("msU2_13r") == 0)
-        msU2_13r = value;
-    else if(name.compare("msU2_13i") == 0)
-        msU2_13i = value;
-    else if(name.compare("msU2_22r") == 0)
-        msU2_22r = value;
-    else if(name.compare("msU2_23r") == 0)
-        msU2_23r = value;
-    else if(name.compare("msU2_23i") == 0)
-        msU2_23i = value;
-    else if(name.compare("msU2_33r") == 0)
-        msU2_33r = value;
-    else if(name.compare("msD2_11r") == 0)
-        msD2_11r = value;
-    else if(name.compare("msD2_12r") == 0)
-        msD2_12r = value;
-    else if(name.compare("msD2_12i") == 0)
-        msD2_12i = value;
-    else if(name.compare("msD2_13r") == 0)
-        msD2_13r = value;
-    else if(name.compare("msD2_13i") == 0)
-        msD2_13i = value;
-    else if(name.compare("msD2_22r") == 0)
-        msD2_22r = value;
-    else if(name.compare("msD2_23r") == 0)
-        msD2_23r = value;
-    else if(name.compare("msD2_23i") == 0)
-        msD2_23i = value;
-    else if(name.compare("msD2_33r") == 0)
-        msD2_33r = value;
-    else if(name.compare("msL2_11r") == 0)
-        msL2_11r = value;
-    else if(name.compare("msL2_12r") == 0)
-        msL2_12r = value;
-    else if(name.compare("msL2_12i") == 0)
-        msL2_12i = value;
-    else if(name.compare("msL2_13r") == 0)
-        msL2_13r = value;
-    else if(name.compare("msL2_13i") == 0)
-        msL2_13i = value;
-    else if(name.compare("msL2_22r") == 0)
-        msL2_22r = value;
-    else if(name.compare("msL2_23r") == 0)
-        msL2_23r = value;
-    else if(name.compare("msL2_23i") == 0)
-        msL2_23i = value;
-    else if(name.compare("msL2_33r") == 0)
-        msL2_33r = value;
-    else if(name.compare("msE2_11r") == 0)
-        msE2_11r = value;
-    else if(name.compare("msE2_12r") == 0)
-        msE2_12r = value;
-    else if(name.compare("msE2_12i") == 0)
-        msE2_12i = value;
-    else if(name.compare("msE2_13r") == 0)
-        msE2_13r = value;
-    else if(name.compare("msE2_13i") == 0)
-        msE2_13i = value;
-    else if(name.compare("msE2_22r") == 0)
-        msE2_22r = value;
-    else if(name.compare("msE2_23r") == 0)
-        msE2_23r = value;
-    else if(name.compare("msE2_23i") == 0)
-        msE2_23i = value;
-    else if(name.compare("msE2_33r") == 0)
-        msE2_33r = value;
-    else if(name.compare("msN2_11r") == 0)
-        msN2_11r = value;
-    else if(name.compare("msN2_12r") == 0)
-        msN2_12r = value;
-    else if(name.compare("msN2_12i") == 0)
-        msN2_12i = value;
-    else if(name.compare("msN2_13r") == 0)
-        msN2_13r = value;
-    else if(name.compare("msN2_13i") == 0)
-        msN2_13i = value;
-    else if(name.compare("msN2_22r") == 0)
-        msN2_22r = value;
-    else if(name.compare("msN2_23r") == 0)
-        msN2_23r = value;
-    else if(name.compare("msN2_23i") == 0)
-        msN2_23i = value;
-    else if(name.compare("msN2_33r") == 0)
-        msN2_33r = value;
-    else if(name.compare("TU_11r") == 0)
-        TU_11r = value;
-    else if(name.compare("TU_11i") == 0)
-        TU_11i = value;
-    else if(name.compare("TU_12r") == 0)
-        TU_12r = value;
-    else if(name.compare("TU_12i") == 0)
-        TU_12i = value;
-    else if(name.compare("TU_13r") == 0)
-        TU_13r = value;
-    else if(name.compare("TU_13i") == 0)
-        TU_13i = value;
-    else if(name.compare("TU_21r") == 0)
-        TU_21r = value;
-    else if(name.compare("TU_21i") == 0)
-        TU_21i = value;
-    else if(name.compare("TU_22r") == 0)
-        TU_22r = value;
-    else if(name.compare("TU_22i") == 0)
-        TU_22i = value;
-    else if(name.compare("TU_23r") == 0)
-        TU_23r = value;
-    else if(name.compare("TU_23i") == 0)
-        TU_23i = value;
-    else if(name.compare("TU_31r") == 0)
-        TU_31r = value;
-    else if(name.compare("TU_31i") == 0)
-        TU_31i = value;
-    else if(name.compare("TU_32r") == 0)
-        TU_32r = value;
-    else if(name.compare("TU_32i") == 0)
-        TU_32i = value;
-    else if(name.compare("TU_33r") == 0)
-        TU_33r = value;
-    else if(name.compare("TU_33i") == 0)
-        TU_33i = value;
-    else if(name.compare("TD_11r") == 0)
-        TD_11r = value;
-    else if(name.compare("TD_11i") == 0)
-        TD_11i = value;
-    else if(name.compare("TD_12r") == 0)
-        TD_12r = value;
-    else if(name.compare("TD_12i") == 0)
-        TD_12i = value;
-    else if(name.compare("TD_13r") == 0)
-        TD_13r = value;
-    else if(name.compare("TD_13i") == 0)
-        TD_13i = value;
-    else if(name.compare("TD_21r") == 0)
-        TD_21r = value;
-    else if(name.compare("TD_21i") == 0)
-        TD_21i = value;
-    else if(name.compare("TD_22r") == 0)
-        TD_22r = value;
-    else if(name.compare("TD_22i") == 0)
-        TD_22i = value;
-    else if(name.compare("TD_23r") == 0)
-        TD_23r = value;
-    else if(name.compare("TD_23i") == 0)
-        TD_23i = value;
-    else if(name.compare("TD_31r") == 0)
-        TD_31r = value;
-    else if(name.compare("TD_31i") == 0)
-        TD_31i = value;
-    else if(name.compare("TD_32r") == 0)
-        TD_32r = value;
-    else if(name.compare("TD_32i") == 0)
-        TD_32i = value;
-    else if(name.compare("TD_33r") == 0)
-        TD_33r = value;
-    else if(name.compare("TD_33i") == 0)
-        TD_33i = value;
-    else if(name.compare("TE_11r") == 0)
-        TE_11r = value;
-    else if(name.compare("TE_11i") == 0)
-        TE_11i = value;
-    else if(name.compare("TE_12r") == 0)
-        TE_12r = value;
-    else if(name.compare("TE_12i") == 0)
-        TE_12i = value;
-    else if(name.compare("TE_13r") == 0)
-        TE_13r = value;
-    else if(name.compare("TE_13i") == 0)
-        TE_13i = value;
-    else if(name.compare("TE_21r") == 0)
-        TE_21r = value;
-    else if(name.compare("TE_21i") == 0)
-        TE_21i = value;
-    else if(name.compare("TE_22r") == 0)
-        TE_22r = value;
-    else if(name.compare("TE_22i") == 0)
-        TE_22i = value;
-    else if(name.compare("TE_23r") == 0)
-        TE_23r = value;
-    else if(name.compare("TE_23i") == 0)
-        TE_23i = value;
-    else if(name.compare("TE_31r") == 0)
-        TE_31r = value;
-    else if(name.compare("TE_31i") == 0)
-        TE_31i = value;
-    else if(name.compare("TE_32r") == 0)
-        TE_32r = value;
-    else if(name.compare("TE_32i") == 0)
-        TE_32i = value;
-    else if(name.compare("TE_33r") == 0)
-        TE_33r = value;
-    else if(name.compare("TE_33i") == 0)
-        TE_33i = value;
-    else if(name.compare("TN_11r") == 0)
-        TN_11r = value;
-    else if(name.compare("TN_11i") == 0)
-        TN_11i = value;
-    else if(name.compare("TN_12r") == 0)
-        TN_12r = value;
-    else if(name.compare("TN_12i") == 0)
-        TN_12i = value;
-    else if(name.compare("TN_13r") == 0)
-        TN_13r = value;
-    else if(name.compare("TN_13i") == 0)
-        TN_13i = value;
-    else if(name.compare("TN_21r") == 0)
-        TN_21r = value;
-    else if(name.compare("TN_21i") == 0)
-        TN_21i = value;
-    else if(name.compare("TN_22r") == 0)
-        TN_22r = value;
-    else if(name.compare("TN_22i") == 0)
-        TN_22i = value;
-    else if(name.compare("TN_23r") == 0)
-        TN_23r = value;
-    else if(name.compare("TN_23i") == 0)
-        TN_23i = value;
-    else if(name.compare("TN_31r") == 0)
-        TN_31r = value;
-    else if(name.compare("TN_31i") == 0)
-        TN_31i = value;
-    else if(name.compare("TN_32r") == 0)
-        TN_32r = value;
-    else if(name.compare("TN_32i") == 0)
-        TN_32i = value;
-    else if(name.compare("TN_33r") == 0)
-        TN_33r = value;
-    else if(name.compare("TN_33i") == 0)
-        TN_33i = value;
+    if(name.compare("msQhat2_11r") == 0)
+        msQhat2_11r = value;
+    else if(name.compare("msQhat2_12r") == 0)
+        msQhat2_12r = value;
+    else if(name.compare("msQhat2_12i") == 0)
+        msQhat2_12i = value;
+    else if(name.compare("msQhat2_13r") == 0)
+        msQhat2_13r = value;
+    else if(name.compare("msQhat2_13i") == 0)
+        msQhat2_13i = value;
+    else if(name.compare("msQhat2_22r") == 0)
+        msQhat2_22r = value;
+    else if(name.compare("msQhat2_23r") == 0)
+        msQhat2_23r = value;
+    else if(name.compare("msQhat2_23i") == 0)
+        msQhat2_23i = value;
+    else if(name.compare("msQhat2_33r") == 0)
+        msQhat2_33r = value;
+    else if(name.compare("msUhat2_11r") == 0)
+        msUhat2_11r = value;
+    else if(name.compare("msUhat2_12r") == 0)
+        msUhat2_12r = value;
+    else if(name.compare("msUhat2_12i") == 0)
+        msUhat2_12i = value;
+    else if(name.compare("msUhat2_13r") == 0)
+        msUhat2_13r = value;
+    else if(name.compare("msUhat2_13i") == 0)
+        msUhat2_13i = value;
+    else if(name.compare("msUhat2_22r") == 0)
+        msUhat2_22r = value;
+    else if(name.compare("msUhat2_23r") == 0)
+        msUhat2_23r = value;
+    else if(name.compare("msUhat2_23i") == 0)
+        msUhat2_23i = value;
+    else if(name.compare("msUhat2_33r") == 0)
+        msUhat2_33r = value;
+    else if(name.compare("msDhat2_11r") == 0)
+        msDhat2_11r = value;
+    else if(name.compare("msDhat2_12r") == 0)
+        msDhat2_12r = value;
+    else if(name.compare("msDhat2_12i") == 0)
+        msDhat2_12i = value;
+    else if(name.compare("msDhat2_13r") == 0)
+        msDhat2_13r = value;
+    else if(name.compare("msDhat2_13i") == 0)
+        msDhat2_13i = value;
+    else if(name.compare("msDhat2_22r") == 0)
+        msDhat2_22r = value;
+    else if(name.compare("msDhat2_23r") == 0)
+        msDhat2_23r = value;
+    else if(name.compare("msDhat2_23i") == 0)
+        msDhat2_23i = value;
+    else if(name.compare("msDhat2_33r") == 0)
+        msDhat2_33r = value;
+    else if(name.compare("msLhat2_11r") == 0)
+        msLhat2_11r = value;
+    else if(name.compare("msLhat2_12r") == 0)
+        msLhat2_12r = value;
+    else if(name.compare("msLhat2_12i") == 0)
+        msLhat2_12i = value;
+    else if(name.compare("msLhat2_13r") == 0)
+        msLhat2_13r = value;
+    else if(name.compare("msLhat2_13i") == 0)
+        msLhat2_13i = value;
+    else if(name.compare("msLhat2_22r") == 0)
+        msLhat2_22r = value;
+    else if(name.compare("msLhat2_23r") == 0)
+        msLhat2_23r = value;
+    else if(name.compare("msLhat2_23i") == 0)
+        msLhat2_23i = value;
+    else if(name.compare("msLhat2_33r") == 0)
+        msLhat2_33r = value;
+    else if(name.compare("msEhat2_11r") == 0)
+        msEhat2_11r = value;
+    else if(name.compare("msEhat2_12r") == 0)
+        msEhat2_12r = value;
+    else if(name.compare("msEhat2_12i") == 0)
+        msEhat2_12i = value;
+    else if(name.compare("msEhat2_13r") == 0)
+        msEhat2_13r = value;
+    else if(name.compare("msEhat2_13i") == 0)
+        msEhat2_13i = value;
+    else if(name.compare("msEhat2_22r") == 0)
+        msEhat2_22r = value;
+    else if(name.compare("msEhat2_23r") == 0)
+        msEhat2_23r = value;
+    else if(name.compare("msEhat2_23i") == 0)
+        msEhat2_23i = value;
+    else if(name.compare("msEhat2_33r") == 0)
+        msEhat2_33r = value;
+    else if(name.compare("msNhat2_11r") == 0)
+        msNhat2_11r = value;
+    else if(name.compare("msNhat2_12r") == 0)
+        msNhat2_12r = value;
+    else if(name.compare("msNhat2_12i") == 0)
+        msNhat2_12i = value;
+    else if(name.compare("msNhat2_13r") == 0)
+        msNhat2_13r = value;
+    else if(name.compare("msNhat2_13i") == 0)
+        msNhat2_13i = value;
+    else if(name.compare("msNhat2_22r") == 0)
+        msNhat2_22r = value;
+    else if(name.compare("msNhat2_23r") == 0)
+        msNhat2_23r = value;
+    else if(name.compare("msNhat2_23i") == 0)
+        msNhat2_23i = value;
+    else if(name.compare("msNhat2_33r") == 0)
+        msNhat2_33r = value;
+    else if(name.compare("TUhat_11r") == 0)
+        TUhat_11r = value;
+    else if(name.compare("TUhat_11i") == 0)
+        TUhat_11i = value;
+    else if(name.compare("TUhat_12r") == 0)
+        TUhat_12r = value;
+    else if(name.compare("TUhat_12i") == 0)
+        TUhat_12i = value;
+    else if(name.compare("TUhat_13r") == 0)
+        TUhat_13r = value;
+    else if(name.compare("TUhat_13i") == 0)
+        TUhat_13i = value;
+    else if(name.compare("TUhat_21r") == 0)
+        TUhat_21r = value;
+    else if(name.compare("TUhat_21i") == 0)
+        TUhat_21i = value;
+    else if(name.compare("TUhat_22r") == 0)
+        TUhat_22r = value;
+    else if(name.compare("TUhat_22i") == 0)
+        TUhat_22i = value;
+    else if(name.compare("TUhat_23r") == 0)
+        TUhat_23r = value;
+    else if(name.compare("TUhat_23i") == 0)
+        TUhat_23i = value;
+    else if(name.compare("TUhat_31r") == 0)
+        TUhat_31r = value;
+    else if(name.compare("TUhat_31i") == 0)
+        TUhat_31i = value;
+    else if(name.compare("TUhat_32r") == 0)
+        TUhat_32r = value;
+    else if(name.compare("TUhat_32i") == 0)
+        TUhat_32i = value;
+    else if(name.compare("TUhat_33r") == 0)
+        TUhat_33r = value;
+    else if(name.compare("TUhat_33i") == 0)
+        TUhat_33i = value;
+    else if(name.compare("TDhat_11r") == 0)
+        TDhat_11r = value;
+    else if(name.compare("TDhat_11i") == 0)
+        TDhat_11i = value;
+    else if(name.compare("TDhat_12r") == 0)
+        TDhat_12r = value;
+    else if(name.compare("TDhat_12i") == 0)
+        TDhat_12i = value;
+    else if(name.compare("TDhat_13r") == 0)
+        TDhat_13r = value;
+    else if(name.compare("TDhat_13i") == 0)
+        TDhat_13i = value;
+    else if(name.compare("TDhat_21r") == 0)
+        TDhat_21r = value;
+    else if(name.compare("TDhat_21i") == 0)
+        TDhat_21i = value;
+    else if(name.compare("TDhat_22r") == 0)
+        TDhat_22r = value;
+    else if(name.compare("TDhat_22i") == 0)
+        TDhat_22i = value;
+    else if(name.compare("TDhat_23r") == 0)
+        TDhat_23r = value;
+    else if(name.compare("TDhat_23i") == 0)
+        TDhat_23i = value;
+    else if(name.compare("TDhat_31r") == 0)
+        TDhat_31r = value;
+    else if(name.compare("TDhat_31i") == 0)
+        TDhat_31i = value;
+    else if(name.compare("TDhat_32r") == 0)
+        TDhat_32r = value;
+    else if(name.compare("TDhat_32i") == 0)
+        TDhat_32i = value;
+    else if(name.compare("TDhat_33r") == 0)
+        TDhat_33r = value;
+    else if(name.compare("TDhat_33i") == 0)
+        TDhat_33i = value;
+    else if(name.compare("TEhat_11r") == 0)
+        TEhat_11r = value;
+    else if(name.compare("TEhat_11i") == 0)
+        TEhat_11i = value;
+    else if(name.compare("TEhat_12r") == 0)
+        TEhat_12r = value;
+    else if(name.compare("TEhat_12i") == 0)
+        TEhat_12i = value;
+    else if(name.compare("TEhat_13r") == 0)
+        TEhat_13r = value;
+    else if(name.compare("TEhat_13i") == 0)
+        TEhat_13i = value;
+    else if(name.compare("TEhat_21r") == 0)
+        TEhat_21r = value;
+    else if(name.compare("TEhat_21i") == 0)
+        TEhat_21i = value;
+    else if(name.compare("TEhat_22r") == 0)
+        TEhat_22r = value;
+    else if(name.compare("TEhat_22i") == 0)
+        TEhat_22i = value;
+    else if(name.compare("TEhat_23r") == 0)
+        TEhat_23r = value;
+    else if(name.compare("TEhat_23i") == 0)
+        TEhat_23i = value;
+    else if(name.compare("TEhat_31r") == 0)
+        TEhat_31r = value;
+    else if(name.compare("TEhat_31i") == 0)
+        TEhat_31i = value;
+    else if(name.compare("TEhat_32r") == 0)
+        TEhat_32r = value;
+    else if(name.compare("TEhat_32i") == 0)
+        TEhat_32i = value;
+    else if(name.compare("TEhat_33r") == 0)
+        TEhat_33r = value;
+    else if(name.compare("TEhat_33i") == 0)
+        TEhat_33i = value;
+    else if(name.compare("TNhat_11r") == 0)
+        TNhat_11r = value;
+    else if(name.compare("TNhat_11i") == 0)
+        TNhat_11i = value;
+    else if(name.compare("TNhat_12r") == 0)
+        TNhat_12r = value;
+    else if(name.compare("TNhat_12i") == 0)
+        TNhat_12i = value;
+    else if(name.compare("TNhat_13r") == 0)
+        TNhat_13r = value;
+    else if(name.compare("TNhat_13i") == 0)
+        TNhat_13i = value;
+    else if(name.compare("TNhat_21r") == 0)
+        TNhat_21r = value;
+    else if(name.compare("TNhat_21i") == 0)
+        TNhat_21i = value;
+    else if(name.compare("TNhat_22r") == 0)
+        TNhat_22r = value;
+    else if(name.compare("TNhat_22i") == 0)
+        TNhat_22i = value;
+    else if(name.compare("TNhat_23r") == 0)
+        TNhat_23r = value;
+    else if(name.compare("TNhat_23i") == 0)
+        TNhat_23i = value;
+    else if(name.compare("TNhat_31r") == 0)
+        TNhat_31r = value;
+    else if(name.compare("TNhat_31i") == 0)
+        TNhat_31i = value;
+    else if(name.compare("TNhat_32r") == 0)
+        TNhat_32r = value;
+    else if(name.compare("TNhat_32i") == 0)
+        TNhat_32i = value;
+    else if(name.compare("TNhat_33r") == 0)
+        TNhat_33r = value;
+    else if(name.compare("TNhat_33i") == 0)
+        TNhat_33i = value;
     else
         SUSY::SetParameter(name, value);
 }
@@ -341,104 +341,104 @@ bool GeneralSUSY::CheckParameters(const std::map<std::string, double>& DPars)
 
 void GeneralSUSY::SetSoftTerms()
 {
-    MsQ2.assign(0,0, msQ2_11r);
-    MsQ2.assign(0,1, gslpp::complex(msQ2_12r, msQ2_12i));
-    MsQ2.assign(0,2, gslpp::complex(msQ2_13r, msQ2_13i));
-    MsQ2.assign(1,1, msQ2_22r);
-    MsQ2.assign(1,2, gslpp::complex(msQ2_23r, msQ2_23i));
-    MsQ2.assign(1,0, MsQ2(0,1).conjugate());
-    MsQ2.assign(2,0, MsQ2(0,2).conjugate());
-    MsQ2.assign(2,1, MsQ2(1,2).conjugate());
-    MsQ2.assign(2,2, msQ2_33r);
+    msQhat2.assign(0,0, msQhat2_11r);
+    msQhat2.assign(0,1, gslpp::complex(msQhat2_12r, msQhat2_12i));
+    msQhat2.assign(0,2, gslpp::complex(msQhat2_13r, msQhat2_13i));
+    msQhat2.assign(1,1, msQhat2_22r);
+    msQhat2.assign(1,2, gslpp::complex(msQhat2_23r, msQhat2_23i));
+    msQhat2.assign(1,0, msQhat2(0,1).conjugate());
+    msQhat2.assign(2,0, msQhat2(0,2).conjugate());
+    msQhat2.assign(2,1, msQhat2(1,2).conjugate());
+    msQhat2.assign(2,2, msQhat2_33r);
     
-    MsU2.assign(0,0, msU2_11r);
-    MsU2.assign(0,1, gslpp::complex(msU2_12r, msU2_12i));
-    MsU2.assign(0,2, gslpp::complex(msU2_13r, msU2_13i));
-    MsU2.assign(1,1, msU2_22r);
-    MsU2.assign(1,2, gslpp::complex(msU2_23r, msU2_23i));
-    MsU2.assign(2,2, msU2_33r);
-    MsU2.assign(1,0, MsU2(0,1).conjugate());
-    MsU2.assign(2,0, MsU2(0,2).conjugate());
-    MsU2.assign(2,1, MsU2(1,2).conjugate());
+    msUhat2.assign(0,0, msUhat2_11r);
+    msUhat2.assign(0,1, gslpp::complex(msUhat2_12r, msUhat2_12i));
+    msUhat2.assign(0,2, gslpp::complex(msUhat2_13r, msUhat2_13i));
+    msUhat2.assign(1,1, msUhat2_22r);
+    msUhat2.assign(1,2, gslpp::complex(msUhat2_23r, msUhat2_23i));
+    msUhat2.assign(2,2, msUhat2_33r);
+    msUhat2.assign(1,0, msUhat2(0,1).conjugate());
+    msUhat2.assign(2,0, msUhat2(0,2).conjugate());
+    msUhat2.assign(2,1, msUhat2(1,2).conjugate());
     
-    MsD2.assign(0,0, msD2_11r);
-    MsD2.assign(0,1, gslpp::complex(msD2_12r, msD2_12i));
-    MsD2.assign(0,2, gslpp::complex(msD2_13r, msD2_13i));
-    MsD2.assign(1,1, msD2_22r);
-    MsD2.assign(1,2, gslpp::complex(msD2_23r, msD2_23i));
-    MsD2.assign(2,2, msD2_33r);
-    MsD2.assign(1,0, MsD2(0,1).conjugate());
-    MsD2.assign(2,0, MsD2(0,2).conjugate());
-    MsD2.assign(2,1, MsD2(1,2).conjugate());
+    msDhat2.assign(0,0, msDhat2_11r);
+    msDhat2.assign(0,1, gslpp::complex(msDhat2_12r, msDhat2_12i));
+    msDhat2.assign(0,2, gslpp::complex(msDhat2_13r, msDhat2_13i));
+    msDhat2.assign(1,1, msDhat2_22r);
+    msDhat2.assign(1,2, gslpp::complex(msDhat2_23r, msDhat2_23i));
+    msDhat2.assign(2,2, msDhat2_33r);
+    msDhat2.assign(1,0, msDhat2(0,1).conjugate());
+    msDhat2.assign(2,0, msDhat2(0,2).conjugate());
+    msDhat2.assign(2,1, msDhat2(1,2).conjugate());
     
-    MsL2.assign(0,0, msL2_11r);
-    MsL2.assign(0,1, gslpp::complex(msL2_12r, msL2_12i));
-    MsL2.assign(0,2, gslpp::complex(msL2_13r, msL2_13i));
-    MsL2.assign(1,1, msL2_22r);
-    MsL2.assign(1,2, gslpp::complex(msL2_23r, msL2_23i));
-    MsL2.assign(2,2, msL2_33r);
-    MsL2.assign(1,0, MsL2(0,1).conjugate());
-    MsL2.assign(2,0, MsL2(0,2).conjugate());
-    MsL2.assign(2,1, MsL2(1,2).conjugate());
+    msLhat2.assign(0,0, msLhat2_11r);
+    msLhat2.assign(0,1, gslpp::complex(msLhat2_12r, msLhat2_12i));
+    msLhat2.assign(0,2, gslpp::complex(msLhat2_13r, msLhat2_13i));
+    msLhat2.assign(1,1, msLhat2_22r);
+    msLhat2.assign(1,2, gslpp::complex(msLhat2_23r, msLhat2_23i));
+    msLhat2.assign(2,2, msLhat2_33r);
+    msLhat2.assign(1,0, msLhat2(0,1).conjugate());
+    msLhat2.assign(2,0, msLhat2(0,2).conjugate());
+    msLhat2.assign(2,1, msLhat2(1,2).conjugate());
     
-    MsE2.assign(0,0, msE2_11r);
-    MsE2.assign(0,1, gslpp::complex(msE2_12r, msE2_12i));
-    MsE2.assign(0,2, gslpp::complex(msE2_13r, msE2_13i));
-    MsE2.assign(1,1, msE2_22r);
-    MsE2.assign(1,2, gslpp::complex(msE2_23r, msE2_23i));
-    MsE2.assign(2,2, msE2_33r);
-    MsE2.assign(1,0, MsE2(0,1).conjugate());
-    MsE2.assign(2,0, MsE2(0,2).conjugate());
-    MsE2.assign(2,1, MsE2(1,2).conjugate());
+    msEhat2.assign(0,0, msEhat2_11r);
+    msEhat2.assign(0,1, gslpp::complex(msEhat2_12r, msEhat2_12i));
+    msEhat2.assign(0,2, gslpp::complex(msEhat2_13r, msEhat2_13i));
+    msEhat2.assign(1,1, msEhat2_22r);
+    msEhat2.assign(1,2, gslpp::complex(msEhat2_23r, msEhat2_23i));
+    msEhat2.assign(2,2, msEhat2_33r);
+    msEhat2.assign(1,0, msEhat2(0,1).conjugate());
+    msEhat2.assign(2,0, msEhat2(0,2).conjugate());
+    msEhat2.assign(2,1, msEhat2(1,2).conjugate());
     
-    MsN2.assign(0,0, msN2_11r);
-    MsN2.assign(0,1, gslpp::complex(msN2_12r, msN2_12i));
-    MsN2.assign(0,2, gslpp::complex(msN2_13r, msN2_13i));
-    MsN2.assign(1,1, msN2_22r);
-    MsN2.assign(1,2, gslpp::complex(msN2_23r, msN2_23i));
-    MsN2.assign(2,2, msN2_33r);
-    MsN2.assign(1,0, MsN2(0,1).conjugate());
-    MsN2.assign(2,0, MsN2(0,2).conjugate());
-    MsN2.assign(2,1, MsN2(1,2).conjugate());
+    msNhat2.assign(0,0, msNhat2_11r);
+    msNhat2.assign(0,1, gslpp::complex(msNhat2_12r, msNhat2_12i));
+    msNhat2.assign(0,2, gslpp::complex(msNhat2_13r, msNhat2_13i));
+    msNhat2.assign(1,1, msNhat2_22r);
+    msNhat2.assign(1,2, gslpp::complex(msNhat2_23r, msNhat2_23i));
+    msNhat2.assign(2,2, msNhat2_33r);
+    msNhat2.assign(1,0, msNhat2(0,1).conjugate());
+    msNhat2.assign(2,0, msNhat2(0,2).conjugate());
+    msNhat2.assign(2,1, msNhat2(1,2).conjugate());
     
-    TU.assign(0,0, gslpp::complex(TU_11r, TU_11i));
-    TU.assign(0,1, gslpp::complex(TU_12r, TU_12i));
-    TU.assign(0,2, gslpp::complex(TU_13r, TU_13i));
-    TU.assign(1,0, gslpp::complex(TU_21r, TU_21i));
-    TU.assign(1,1, gslpp::complex(TU_22r, TU_22i));
-    TU.assign(1,2, gslpp::complex(TU_23r, TU_23i));
-    TU.assign(2,0, gslpp::complex(TU_31r, TU_31i));
-    TU.assign(2,1, gslpp::complex(TU_32r, TU_32i));
-    TU.assign(2,2, gslpp::complex(TU_33r, TU_33i));
+    TUhat.assign(0,0, gslpp::complex(TUhat_11r, TUhat_11i));
+    TUhat.assign(0,1, gslpp::complex(TUhat_12r, TUhat_12i));
+    TUhat.assign(0,2, gslpp::complex(TUhat_13r, TUhat_13i));
+    TUhat.assign(1,0, gslpp::complex(TUhat_21r, TUhat_21i));
+    TUhat.assign(1,1, gslpp::complex(TUhat_22r, TUhat_22i));
+    TUhat.assign(1,2, gslpp::complex(TUhat_23r, TUhat_23i));
+    TUhat.assign(2,0, gslpp::complex(TUhat_31r, TUhat_31i));
+    TUhat.assign(2,1, gslpp::complex(TUhat_32r, TUhat_32i));
+    TUhat.assign(2,2, gslpp::complex(TUhat_33r, TUhat_33i));
     
-    TD.assign(0,0, gslpp::complex(TD_11r, TD_11i));
-    TD.assign(0,1, gslpp::complex(TD_12r, TD_12i));
-    TD.assign(0,2, gslpp::complex(TD_13r, TD_13i));
-    TD.assign(1,0, gslpp::complex(TD_21r, TD_21i));
-    TD.assign(1,1, gslpp::complex(TD_22r, TD_22i));
-    TD.assign(1,2, gslpp::complex(TD_23r, TD_23i));
-    TD.assign(2,0, gslpp::complex(TD_31r, TD_31i));
-    TD.assign(2,1, gslpp::complex(TD_32r, TD_32i));
-    TD.assign(2,2, gslpp::complex(TD_33r, TD_33i));
+    TDhat.assign(0,0, gslpp::complex(TDhat_11r, TDhat_11i));
+    TDhat.assign(0,1, gslpp::complex(TDhat_12r, TDhat_12i));
+    TDhat.assign(0,2, gslpp::complex(TDhat_13r, TDhat_13i));
+    TDhat.assign(1,0, gslpp::complex(TDhat_21r, TDhat_21i));
+    TDhat.assign(1,1, gslpp::complex(TDhat_22r, TDhat_22i));
+    TDhat.assign(1,2, gslpp::complex(TDhat_23r, TDhat_23i));
+    TDhat.assign(2,0, gslpp::complex(TDhat_31r, TDhat_31i));
+    TDhat.assign(2,1, gslpp::complex(TDhat_32r, TDhat_32i));
+    TDhat.assign(2,2, gslpp::complex(TDhat_33r, TDhat_33i));
 
-    TE.assign(0,0, gslpp::complex(TE_11r, TE_11i));
-    TE.assign(0,1, gslpp::complex(TE_12r, TE_12i));
-    TE.assign(0,2, gslpp::complex(TE_13r, TE_13i));
-    TE.assign(1,0, gslpp::complex(TE_21r, TE_21i));
-    TE.assign(1,1, gslpp::complex(TE_22r, TE_22i));
-    TE.assign(1,2, gslpp::complex(TE_23r, TE_23i));
-    TE.assign(2,0, gslpp::complex(TE_31r, TE_31i));
-    TE.assign(2,1, gslpp::complex(TE_32r, TE_32i));
-    TE.assign(2,2, gslpp::complex(TE_33r, TE_33i));
+    TEhat.assign(0,0, gslpp::complex(TEhat_11r, TEhat_11i));
+    TEhat.assign(0,1, gslpp::complex(TEhat_12r, TEhat_12i));
+    TEhat.assign(0,2, gslpp::complex(TEhat_13r, TEhat_13i));
+    TEhat.assign(1,0, gslpp::complex(TEhat_21r, TEhat_21i));
+    TEhat.assign(1,1, gslpp::complex(TEhat_22r, TEhat_22i));
+    TEhat.assign(1,2, gslpp::complex(TEhat_23r, TEhat_23i));
+    TEhat.assign(2,0, gslpp::complex(TEhat_31r, TEhat_31i));
+    TEhat.assign(2,1, gslpp::complex(TEhat_32r, TEhat_32i));
+    TEhat.assign(2,2, gslpp::complex(TEhat_33r, TEhat_33i));
     
-    TN.assign(0,0, gslpp::complex(TN_11r, TN_11i));
-    TN.assign(0,1, gslpp::complex(TN_12r, TN_12i));
-    TN.assign(0,2, gslpp::complex(TN_13r, TN_13i));
-    TN.assign(1,0, gslpp::complex(TN_21r, TN_21i));
-    TN.assign(1,1, gslpp::complex(TN_22r, TN_22i));
-    TN.assign(1,2, gslpp::complex(TN_23r, TN_23i));
-    TN.assign(2,0, gslpp::complex(TN_31r, TN_31i));
-    TN.assign(2,1, gslpp::complex(TN_32r, TN_32i));
-    TN.assign(2,2, gslpp::complex(TN_33r, TN_33i));
+    TNhat.assign(0,0, gslpp::complex(TNhat_11r, TNhat_11i));
+    TNhat.assign(0,1, gslpp::complex(TNhat_12r, TNhat_12i));
+    TNhat.assign(0,2, gslpp::complex(TNhat_13r, TNhat_13i));
+    TNhat.assign(1,0, gslpp::complex(TNhat_21r, TNhat_21i));
+    TNhat.assign(1,1, gslpp::complex(TNhat_22r, TNhat_22i));
+    TNhat.assign(1,2, gslpp::complex(TNhat_23r, TNhat_23i));
+    TNhat.assign(2,0, gslpp::complex(TNhat_31r, TNhat_31i));
+    TNhat.assign(2,1, gslpp::complex(TNhat_32r, TNhat_32i));
+    TNhat.assign(2,2, gslpp::complex(TNhat_33r, TNhat_33i));
 }
 

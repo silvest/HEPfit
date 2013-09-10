@@ -12,6 +12,14 @@
 #include <ThObsType.h>
 #include "SUSY.h"
 
+/**
+ * @class Mneutralino
+ * @ingroup SUSY
+ * @brief A class for the neutralino masses.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details
+ */
 class Mneutralino : public ThObservable {
 public:
 

@@ -1441,8 +1441,8 @@ void SUSYMatching::Comp_VUDHH(){
     //myRd = mySUSY.getRd();
 
 
-    myTU = mySUSY.getTU();
-    myTD = mySUSY.getTD();
+    myTU = mySUSY.getTUhat();
+    myTD = mySUSY.getTDhat();
     gslpp::matrix<complex> ZH(2, 2, 0.);
     ZH.assign(0, 0, mySUSY.getSinb());
     ZH.assign(0, 1, -mySUSY.getCosb());

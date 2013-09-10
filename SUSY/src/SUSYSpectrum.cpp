@@ -40,15 +40,15 @@ void SUSYSpectrum::CalcSpectrum(SUSY & SUSY)
       Md(2,2) = SUSY.getQuarks(QCD::BOTTOM).getMass();
     
     //Up-type squark masses
-    matrix<complex> uLL(CKM * SUSY.MsQ2 * CKM.hconjugate() + Mu * Mu + matrix<complex>::Id(3)*(.5 - 2. / 3. * SUSY.s02()) * SUSY.getMz() * SUSY.getMz() * cos(2. * atan(SUSY.getTanb())));
-    matrix<complex> uRR(SUSY.MsU2 + Mu * Mu + matrix<complex>::Id(3)*(2. / 3. * SUSY.s02()) * SUSY.getMz() * SUSY.getMz() * cos(2. * atan(SUSY.getTanb())));
-    matrix<complex> uLR(SUSY.v2() / sqrt(2.) * SUSY.getTU().hconjugate() - SUSY.getMuH() * Mu / SUSY.getTanb());
+    matrix<complex> uLL(CKM * SUSY.msQhat2 * CKM.hconjugate() + Mu * Mu + matrix<complex>::Id(3)*(.5 - 2. / 3. * SUSY.s02()) * SUSY.getMz() * SUSY.getMz() * cos(2. * atan(SUSY.getTanb())));
+    matrix<complex> uRR(SUSY.msUhat2 + Mu * Mu + matrix<complex>::Id(3)*(2. / 3. * SUSY.s02()) * SUSY.getMz() * SUSY.getMz() * cos(2. * atan(SUSY.getTanb())));
+    matrix<complex> uLR(SUSY.v2() / sqrt(2.) * SUSY.getTUhat().hconjugate() - SUSY.getMuH() * Mu / SUSY.getTanb());
 
     // Down-type squark masses
 
-    matrix<complex> dLL(SUSY.MsQ2 + Md * Md + matrix<complex>::Id(3)*(-.5 + 1. / 3. * SUSY.s02()) * SUSY.getMz() * SUSY.getMz() * cos(2. * atan(SUSY.getTanb())));
-    matrix<complex> dRR(SUSY.MsD2 + Md * Md + matrix<complex>::Id(3)*(-1. / 3. * SUSY.s02()) * SUSY.getMz() * SUSY.getMz() * cos(2. * atan(SUSY.getTanb())));
-    matrix<complex> dLR(SUSY.v1() / sqrt(2.) * SUSY.getTD().hconjugate() - SUSY.getMuH() * Md * SUSY.getTanb());
+    matrix<complex> dLL(SUSY.msQhat2 + Md * Md + matrix<complex>::Id(3)*(-.5 + 1. / 3. * SUSY.s02()) * SUSY.getMz() * SUSY.getMz() * cos(2. * atan(SUSY.getTanb())));
+    matrix<complex> dRR(SUSY.msDhat2 + Md * Md + matrix<complex>::Id(3)*(-1. / 3. * SUSY.s02()) * SUSY.getMz() * SUSY.getMz() * cos(2. * atan(SUSY.getTanb())));
+    matrix<complex> dLR(SUSY.v1() / sqrt(2.) * SUSY.getTDhat().hconjugate() - SUSY.getMuH() * Md * SUSY.getTanb());
     
     matrix<complex> MUP2(6,6,0.);
     matrix<complex> MDOWN2(6,6,0.);

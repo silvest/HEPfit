@@ -67,14 +67,16 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
         return (false);
     }
 
-    /* Inputs for FeynHiggs:
-     *   The FeynHiggs notation is related to the SLHA one by the hermitian
-     *   conjugate operation for T matrices and the conjugate operation for
-     *   mu parameter */
-    matrix<complex> TUFH = mySUSY.TU.hconjugate();
-    matrix<complex> TDFH = mySUSY.TD.hconjugate();
-    matrix<complex> TEFH = mySUSY.TE.hconjugate();
-    complex muHFH = mySUSY.muH.conjugate();
+    /* Parameters for FeynHiggs */
+    matrix<complex> TUFH = mySUSY.TUhat.hconjugate();
+    matrix<complex> TDFH = mySUSY.TDhat.hconjugate();
+    matrix<complex> TEFH = mySUSY.TEhat.hconjugate();
+    matrix<complex> MsQ2 = mySUSY.msQhat2;
+    matrix<complex> MsU2 = mySUSY.msUhat2;
+    matrix<complex> MsD2 = mySUSY.msDhat2;
+    matrix<complex> MsL2 = mySUSY.msLhat2;
+    matrix<complex> MsE2 = mySUSY.msEhat2;
+    complex muHFH = mySUSY.muH;
 
     /* Set the FeynHiggs parameters */
     double Q = mySUSY.Q;
@@ -86,15 +88,15 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
               -1, // using mHptree instead of mA
               mySUSY.mHptree,
               //
-              sqrt(mySUSY.MsL2(2,2).real()), sqrt(mySUSY.MsE2(2,2).real()),
-              sqrt(mySUSY.MsQ2(2,2).real()), sqrt(mySUSY.MsU2(2,2).real()),
-              sqrt(mySUSY.MsD2(2,2).real()),
-              sqrt(mySUSY.MsL2(1,1).real()), sqrt(mySUSY.MsE2(1,1).real()),
-              sqrt(mySUSY.MsQ2(1,1).real()), sqrt(mySUSY.MsU2(1,1).real()),
-              sqrt(mySUSY.MsD2(1,1).real()),
-              sqrt(mySUSY.MsL2(0,0).real()), sqrt(mySUSY.MsE2(0,0).real()),
-              sqrt(mySUSY.MsQ2(0,0).real()), sqrt(mySUSY.MsU2(0,0).real()),
-              sqrt(mySUSY.MsD2(0,0).real()),
+              sqrt(MsL2(2,2).real()), sqrt(MsE2(2,2).real()),
+              sqrt(MsQ2(2,2).real()), sqrt(MsU2(2,2).real()),
+              sqrt(MsD2(2,2).real()),
+              sqrt(MsL2(1,1).real()), sqrt(MsE2(1,1).real()),
+              sqrt(MsQ2(1,1).real()), sqrt(MsU2(1,1).real()),
+              sqrt(MsD2(1,1).real()),
+              sqrt(MsL2(0,0).real()), sqrt(MsE2(0,0).real()),
+              sqrt(MsQ2(0,0).real()), sqrt(MsU2(0,0).real()),
+              sqrt(MsD2(0,0).real()),
               //
               ToComplex2(muHFH.real(), muHFH.imag()),
               //
@@ -133,54 +135,54 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
     /* Set the non-minimal flavor-violating parameters in the squark sector */
     FHSetNMFV(&err,
               // Q_LL
-              ToComplex2(mySUSY.MsQ2(0,1).real(), mySUSY.MsQ2(0,1).imag())
-                /sqrt(mySUSY.MsQ2(0,0).real()*mySUSY.MsQ2(1,1).real()),
-              ToComplex2(mySUSY.MsQ2(1,2).real(), mySUSY.MsQ2(1,2).imag())
-                /sqrt(mySUSY.MsQ2(1,1).real()*mySUSY.MsQ2(2,2).real()),
-              ToComplex2(mySUSY.MsQ2(0,2).real(), mySUSY.MsQ2(0,2).imag())
-                /sqrt(mySUSY.MsQ2(0,0).real()*mySUSY.MsQ2(2,2).real()),
+              ToComplex2(MsQ2(0,1).real(), MsQ2(0,1).imag())
+                /sqrt(MsQ2(0,0).real()*MsQ2(1,1).real()),
+              ToComplex2(MsQ2(1,2).real(), MsQ2(1,2).imag())
+                /sqrt(MsQ2(1,1).real()*MsQ2(2,2).real()),
+              ToComplex2(MsQ2(0,2).real(), MsQ2(0,2).imag())
+                /sqrt(MsQ2(0,0).real()*MsQ2(2,2).real()),
               // U_LR
               ToComplex2(TUFH(0,1).real(), TUFH(0,1).imag())
-                *x2/sqrt(mySUSY.MsQ2(0,0).real()*mySUSY.MsU2(1,1).real()),
+                *x2/sqrt(MsQ2(0,0).real()*MsU2(1,1).real()),
               ToComplex2(TUFH(1,2).real(), TUFH(1,2).imag())
-                *x2/sqrt(mySUSY.MsQ2(1,1).real()*mySUSY.MsU2(2,2).real()),
+                *x2/sqrt(MsQ2(1,1).real()*MsU2(2,2).real()),
               ToComplex2(TUFH(0,2).real(), TUFH(0,2).imag())
-                *x2/sqrt(mySUSY.MsQ2(0,0).real()*mySUSY.MsU2(2,2).real()),
+                *x2/sqrt(MsQ2(0,0).real()*MsU2(2,2).real()),
               // U_RL
               ToComplex2(TUFH(1,0).real(), -TUFH(1,0).imag())
-                *x2/sqrt(mySUSY.MsU2(0,0).real()*mySUSY.MsQ2(1,1).real()),
+                *x2/sqrt(MsU2(0,0).real()*MsQ2(1,1).real()),
               ToComplex2(TUFH(2,1).real(), -TUFH(2,1).imag())
-                *x2/sqrt(mySUSY.MsU2(1,1).real()*mySUSY.MsQ2(2,2).real()),
+                *x2/sqrt(MsU2(1,1).real()*MsQ2(2,2).real()),
               ToComplex2(TUFH(2,0).real(), -TUFH(2,0).imag())
-                *x2/sqrt(mySUSY.MsU2(0,0).real()*mySUSY.MsQ2(2,2).real()),
+                *x2/sqrt(MsU2(0,0).real()*MsQ2(2,2).real()),
               // U_RR
-              ToComplex2(mySUSY.MsU2(0,1).real(), mySUSY.MsU2(0,1).imag())
-                /sqrt(mySUSY.MsU2(0,0).real()*mySUSY.MsU2(1,1).real()),
-              ToComplex2(mySUSY.MsU2(1,2).real(), mySUSY.MsU2(1,2).imag())
-                /sqrt(mySUSY.MsU2(1,1).real()*mySUSY.MsU2(2,2).real()),
-              ToComplex2(mySUSY.MsU2(0,2).real(), mySUSY.MsU2(0,2).imag())
-                /sqrt(mySUSY.MsU2(0,0).real()*mySUSY.MsU2(2,2).real()),
+              ToComplex2(MsU2(0,1).real(), MsU2(0,1).imag())
+                /sqrt(MsU2(0,0).real()*MsU2(1,1).real()),
+              ToComplex2(MsU2(1,2).real(), MsU2(1,2).imag())
+                /sqrt(MsU2(1,1).real()*MsU2(2,2).real()),
+              ToComplex2(MsU2(0,2).real(), MsU2(0,2).imag())
+                /sqrt(MsU2(0,0).real()*MsU2(2,2).real()),
               // D_LR
               ToComplex2(TDFH(0,1).real(), TDFH(0,1).imag())
-                *x1/sqrt(mySUSY.MsQ2(0,0).real()*mySUSY.MsD2(1,1).real()),
+                *x1/sqrt(MsQ2(0,0).real()*MsD2(1,1).real()),
               ToComplex2(TDFH(1,2).real(), TDFH(1,2).imag())
-                *x1/sqrt(mySUSY.MsQ2(1,1).real()*mySUSY.MsD2(2,2).real()),
+                *x1/sqrt(MsQ2(1,1).real()*MsD2(2,2).real()),
               ToComplex2(TDFH(0,2).real(), TDFH(0,2).imag())
-                *x1/sqrt(mySUSY.MsQ2(0,0).real()*mySUSY.MsD2(2,2).real()),
+                *x1/sqrt(MsQ2(0,0).real()*MsD2(2,2).real()),
               // D_RL
               ToComplex2(TDFH(1,0).real(), -TDFH(1,0).imag())
-                *x1/sqrt(mySUSY.MsD2(0,0).real()*mySUSY.MsQ2(1,1).real()),
+                *x1/sqrt(MsD2(0,0).real()*MsQ2(1,1).real()),
               ToComplex2(TDFH(2,1).real(), -TDFH(2,1).imag())
-                *x1/sqrt(mySUSY.MsD2(1,1).real()*mySUSY.MsQ2(2,2).real()),
+                *x1/sqrt(MsD2(1,1).real()*MsQ2(2,2).real()),
               ToComplex2(TDFH(2,0).real(), -TDFH(2,0).imag())
-                *x1/sqrt(mySUSY.MsD2(0,0).real()*mySUSY.MsQ2(2,2).real()),
+                *x1/sqrt(MsD2(0,0).real()*MsQ2(2,2).real()),
               // D_RR
-              ToComplex2(mySUSY.MsD2(0,1).real(), mySUSY.MsD2(0,1).imag())
-                /sqrt(mySUSY.MsD2(0,0).real()*mySUSY.MsD2(1,1).real()),
-              ToComplex2(mySUSY.MsD2(1,2).real(), mySUSY.MsD2(1,2).imag())
-                /sqrt(mySUSY.MsD2(1,1).real()*mySUSY.MsD2(2,2).real()),
-              ToComplex2(mySUSY.MsD2(0,2).real(), mySUSY.MsD2(0,2).imag())
-                /sqrt(mySUSY.MsD2(0,0).real()*mySUSY.MsD2(2,2).real())
+              ToComplex2(MsD2(0,1).real(), MsD2(0,1).imag())
+                /sqrt(MsD2(0,0).real()*MsD2(1,1).real()),
+              ToComplex2(MsD2(1,2).real(), MsD2(1,2).imag())
+                /sqrt(MsD2(1,1).real()*MsD2(2,2).real()),
+              ToComplex2(MsD2(0,2).real(), MsD2(0,2).imag())
+                /sqrt(MsD2(0,0).real()*MsD2(2,2).real())
               );
     if (err != 0) {
 #ifdef FHDEBUG
@@ -193,33 +195,33 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
     /* Set the non-minimal flavor-violating parameters in the slepton sector */
     FHSetLFV(&err,
               // L_LL
-              ToComplex2(mySUSY.MsL2(0,1).real(), mySUSY.MsL2(0,1).imag())
-                /sqrt(mySUSY.MsL2(0,0).real()*mySUSY.MsL2(1,1).real()),
-              ToComplex2(mySUSY.MsL2(1,2).real(), mySUSY.MsL2(1,2).imag())
-                /sqrt(mySUSY.MsL2(1,1).real()*mySUSY.MsL2(2,2).real()),
-              ToComplex2(mySUSY.MsL2(0,2).real(), mySUSY.MsL2(0,2).imag())
-                /sqrt(mySUSY.MsL2(0,0).real()*mySUSY.MsL2(2,2).real()),
+              ToComplex2(MsL2(0,1).real(), MsL2(0,1).imag())
+                /sqrt(MsL2(0,0).real()*MsL2(1,1).real()),
+              ToComplex2(MsL2(1,2).real(), MsL2(1,2).imag())
+                /sqrt(MsL2(1,1).real()*MsL2(2,2).real()),
+              ToComplex2(MsL2(0,2).real(), MsL2(0,2).imag())
+                /sqrt(MsL2(0,0).real()*MsL2(2,2).real()),
               // E_LR
               ToComplex2(TEFH(0,1).real(), TEFH(0,1).imag())
-                *x1/sqrt(mySUSY.MsL2(0,0).real()*mySUSY.MsE2(1,1).real()),
+                *x1/sqrt(MsL2(0,0).real()*MsE2(1,1).real()),
               ToComplex2(TEFH(1,2).real(), TEFH(1,2).imag())
-                *x1/sqrt(mySUSY.MsL2(1,1).real()*mySUSY.MsE2(2,2).real()),
+                *x1/sqrt(MsL2(1,1).real()*MsE2(2,2).real()),
               ToComplex2(TEFH(0,2).real(), TEFH(0,2).imag())
-                *x1/sqrt(mySUSY.MsL2(0,0).real()*mySUSY.MsE2(2,2).real()),
+                *x1/sqrt(MsL2(0,0).real()*MsE2(2,2).real()),
               // E_RL
               ToComplex2(TEFH(1,0).real(), -TEFH(1,0).imag())
-                *x1/sqrt(mySUSY.MsE2(0,0).real()*mySUSY.MsL2(1,1).real()),
+                *x1/sqrt(MsE2(0,0).real()*MsL2(1,1).real()),
               ToComplex2(TEFH(2,1).real(), -TEFH(2,1).imag())
-                *x1/sqrt(mySUSY.MsE2(1,1).real()*mySUSY.MsL2(2,2).real()),
+                *x1/sqrt(MsE2(1,1).real()*MsL2(2,2).real()),
               ToComplex2(TEFH(2,0).real(), -TEFH(2,0).imag())
-                *x1/sqrt(mySUSY.MsE2(0,0).real()*mySUSY.MsL2(2,2).real()),
+                *x1/sqrt(MsE2(0,0).real()*MsL2(2,2).real()),
               // E_RR
-              ToComplex2(mySUSY.MsE2(0,1).real(), mySUSY.MsE2(0,1).imag())
-                /sqrt(mySUSY.MsE2(0,0).real()*mySUSY.MsE2(1,1).real()),
-              ToComplex2(mySUSY.MsE2(1,2).real(), mySUSY.MsE2(1,2).imag())
-                /sqrt(mySUSY.MsE2(1,1).real()*mySUSY.MsE2(2,2).real()),
-              ToComplex2(mySUSY.MsE2(0,2).real(), mySUSY.MsE2(0,2).imag())
-                /sqrt(mySUSY.MsE2(0,0).real()*mySUSY.MsE2(2,2).real())
+              ToComplex2(MsE2(0,1).real(), MsE2(0,1).imag())
+                /sqrt(MsE2(0,0).real()*MsE2(1,1).real()),
+              ToComplex2(MsE2(1,2).real(), MsE2(1,2).imag())
+                /sqrt(MsE2(1,1).real()*MsE2(2,2).real()),
+              ToComplex2(MsE2(0,2).real(), MsE2(0,2).imag())
+                /sqrt(MsE2(0,0).real()*MsE2(2,2).real())
               );
     if (err != 0) {
 #ifdef FHDEBUG
