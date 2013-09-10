@@ -236,8 +236,8 @@ void SUSY::SetYukawas()
         mn_Q[i] = getLeptons((lepton)(NEUTRINO_1 + 2 * i)).getMass();
 
         /* Convert MSbar to DRbar */
-
-        /* Write codes! */
+        mu_Q[i] = MS2DRqmass(Q, mu_Q[i]);
+        md_Q[i] = MS2DRqmass(Q, md_Q[i]);
 
         Yu.assign(i, i, mu_Q[i] / v2() * sqrt(2.));
         Yd.assign(i, i, md_Q[i] / v1() * sqrt(2.));

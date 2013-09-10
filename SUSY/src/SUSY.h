@@ -249,7 +249,7 @@ public:
     }
 
     /**
-     * @brief Gets the Heavy Higgs mass.
+     * @brief Gets the heavy Higgs mass.
      * @return The heavy Higgs mass.
      */
     double getMHh() const

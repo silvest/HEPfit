@@ -68,6 +68,8 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
     }
 
     /* Parameters for FeynHiggs */
+    //complex muHFH = mySUSY.muH.conjugate(); /* Incorrect! See the chargino and neutralino mass matrices. */
+    complex muHFH = mySUSY.muH;
     matrix<complex> TUFH = mySUSY.TUhat.hconjugate();
     matrix<complex> TDFH = mySUSY.TDhat.hconjugate();
     matrix<complex> TEFH = mySUSY.TEhat.hconjugate();
@@ -76,7 +78,6 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
     matrix<complex> MsD2 = mySUSY.msDhat2;
     matrix<complex> MsL2 = mySUSY.msLhat2;
     matrix<complex> MsE2 = mySUSY.msEhat2;
-    complex muHFH = mySUSY.muH;
 
     /* Set the FeynHiggs parameters */
     double Q = mySUSY.Q;
