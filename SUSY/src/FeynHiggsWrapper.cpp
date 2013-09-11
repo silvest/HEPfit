@@ -70,14 +70,33 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
     /* Parameters for FeynHiggs */
     //complex muHFH = mySUSY.muH.conjugate(); /* Incorrect! See the chargino and neutralino mass matrices. */
     complex muHFH = mySUSY.muH;
-    matrix<complex> TUFH = mySUSY.TUhat.hconjugate();
-    matrix<complex> TDFH = mySUSY.TDhat.hconjugate();
-    matrix<complex> TEFH = mySUSY.TEhat.hconjugate();
     matrix<complex> MsQ2 = mySUSY.msQhat2;
     matrix<complex> MsU2 = mySUSY.msUhat2;
     matrix<complex> MsD2 = mySUSY.msDhat2;
     matrix<complex> MsL2 = mySUSY.msLhat2;
     matrix<complex> MsE2 = mySUSY.msEhat2;
+    matrix<complex> KU = mySUSY.TUhat.hconjugate() * mySUSY.v2() / sqrt(2.0);
+    matrix<complex> KD = mySUSY.TDhat.hconjugate() * mySUSY.v1() / sqrt(2.0);
+    matrix<complex> KE = mySUSY.TEhat.hconjugate() * mySUSY.v1() / sqrt(2.0);
+    matrix<complex> deltaQLL(3,3,0.);
+    matrix<complex> deltaULR(3,3,0.), deltaURL(3,3,0.), deltaURR(3,3,0.);
+    matrix<complex> deltaDLR(3,3,0.), deltaDRL(3,3,0.), deltaDRR(3,3,0.);
+    matrix<complex> deltaLLL(3,3,0.);
+    matrix<complex> deltaELR(3,3,0.), deltaERL(3,3,0.), deltaERR(3,3,0.);
+    for (int i=0; i<3; i++)
+        for (int j=0; j<3; j++) {
+            deltaQLL.assign(i, j, MsQ2(i,j) / sqrt(MsQ2(i,i).real() * MsQ2(j,j).real()));
+            deltaULR.assign(i, j, KU(i,j) / sqrt(MsQ2(i,i).real() * MsU2(j,j).real()));
+            deltaURL.assign(i, j, KU(j,i).conjugate() / sqrt(MsU2(i,i).real() * MsQ2(j,j).real()));
+            deltaURR.assign(i, j, MsU2(i,j) / sqrt(MsU2(i,i).real() * MsU2(j,j).real()));
+            deltaDLR.assign(i, j, KD(i,j) / sqrt(MsQ2(i,i).real() * MsD2(j,j).real()));
+            deltaDRL.assign(i, j, KD(j,i).conjugate() / sqrt(MsD2(i,i).real() * MsQ2(j,j).real()));
+            deltaDRR.assign(i, j, MsD2(i,j) / sqrt(MsD2(i,i).real() * MsD2(j,j).real()));
+            deltaLLL.assign(i, j, MsL2(i,j) / sqrt(MsL2(i,i).real() * MsL2(j,j).real()));
+            deltaELR.assign(i, j, KE(i,j) / sqrt(MsL2(i,i).real() * MsE2(j,j).real()));
+            deltaERL.assign(i, j, KE(j,i).conjugate() / sqrt(MsE2(i,i).real() * MsL2(j,j).real()));
+            deltaERR.assign(i, j, MsE2(i,j) / sqrt(MsE2(i,i).real() * MsE2(j,j).real()));
+        }
 
     /* Set the FeynHiggs parameters */
     double Q = mySUSY.Q;
@@ -101,24 +120,15 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
               //
               ToComplex2(muHFH.real(), muHFH.imag()),
               //
-              ToComplex2(TEFH(2,2).real(), TEFH(2,2).imag())
-                *x1/mySUSY.leptons[StandardModel::TAU].getMass(),
-              ToComplex2(TUFH(2,2).real(), TUFH(2,2).imag())
-                *x2/mySUSY.MS2DRqmass(Q, mySUSY.mu_Q[2]),
-              ToComplex2(TDFH(2,2).real(), TDFH(2,2).imag())
-                *x1/mySUSY.MS2DRqmass(Q, mySUSY.md_Q[2]),
-              ToComplex2(TEFH(1,1).real(), TEFH(1,1).imag())
-                *x1/mySUSY.leptons[StandardModel::MU].getMass(),
-              ToComplex2(TUFH(1,1).real(), TUFH(1,1).imag())
-                *x2/mySUSY.MS2DRqmass(Q, mySUSY.mu_Q[1]),
-              ToComplex2(TDFH(1,1).real(), TDFH(1,1).imag())
-                *x1/mySUSY.MS2DRqmass(Q, mySUSY.md_Q[1]),
-              ToComplex2(TEFH(0,0).real(), TEFH(0,0).imag())
-                *x1/mySUSY.leptons[StandardModel::ELECTRON].getMass(),
-              ToComplex2(TUFH(0,0).real(), TUFH(0,0).imag())
-                *x2/mySUSY.MS2DRqmass(Q, mySUSY.mu_Q[0]),
-              ToComplex2(TDFH(0,0).real(), TDFH(0,0).imag())
-                *x1/mySUSY.MS2DRqmass(Q, mySUSY.md_Q[0]),
+              ToComplex2(KE(2,2).real(), KE(2,2).imag())/mySUSY.Ml_Q(mySUSY.TAU),
+              ToComplex2(KU(2,2).real(), KU(2,2).imag())/mySUSY.Mq_Q(mySUSY.TOP),
+              ToComplex2(KD(2,2).real(), KD(2,2).imag())/mySUSY.Mq_Q(mySUSY.BOTTOM),
+              ToComplex2(KE(1,1).real(), KE(1,1).imag())/mySUSY.Ml_Q(mySUSY.MU),
+              ToComplex2(KU(1,1).real(), KU(1,1).imag())/mySUSY.Mq_Q(mySUSY.CHARM),
+              ToComplex2(KD(1,1).real(), KD(1,1).imag())/mySUSY.Mq_Q(mySUSY.STRANGE),
+              ToComplex2(KE(0,0).real(), KE(0,0).imag())/mySUSY.Ml_Q(mySUSY.ELECTRON),
+              ToComplex2(KU(0,0).real(), KU(0,0).imag())/mySUSY.Mq_Q(mySUSY.UP),
+              ToComplex2(KD(0,0).real(), KD(0,0).imag())/mySUSY.Mq_Q(mySUSY.DOWN),
               //
               ToComplex2(mySUSY.m1.real(), mySUSY.m1.imag()),
               ToComplex2(mySUSY.m2.real(), mySUSY.m2.imag()),
@@ -136,54 +146,33 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
     /* Set the non-minimal flavor-violating parameters in the squark sector */
     FHSetNMFV(&err,
               // Q_LL
-              ToComplex2(MsQ2(0,1).real(), MsQ2(0,1).imag())
-                /sqrt(MsQ2(0,0).real()*MsQ2(1,1).real()),
-              ToComplex2(MsQ2(1,2).real(), MsQ2(1,2).imag())
-                /sqrt(MsQ2(1,1).real()*MsQ2(2,2).real()),
-              ToComplex2(MsQ2(0,2).real(), MsQ2(0,2).imag())
-                /sqrt(MsQ2(0,0).real()*MsQ2(2,2).real()),
+              ToComplex2(deltaQLL(0,1).real(), deltaQLL(0,1).imag()),
+              ToComplex2(deltaQLL(1,2).real(), deltaQLL(1,2).imag()),
+              ToComplex2(deltaQLL(0,2).real(), deltaQLL(0,2).imag()),
               // U_LR
-              ToComplex2(TUFH(0,1).real(), TUFH(0,1).imag())
-                *x2/sqrt(MsQ2(0,0).real()*MsU2(1,1).real()),
-              ToComplex2(TUFH(1,2).real(), TUFH(1,2).imag())
-                *x2/sqrt(MsQ2(1,1).real()*MsU2(2,2).real()),
-              ToComplex2(TUFH(0,2).real(), TUFH(0,2).imag())
-                *x2/sqrt(MsQ2(0,0).real()*MsU2(2,2).real()),
+              ToComplex2(deltaULR(0,1).real(), deltaULR(0,1).imag()),
+              ToComplex2(deltaULR(1,2).real(), deltaULR(1,2).imag()),
+              ToComplex2(deltaULR(0,2).real(), deltaULR(0,2).imag()),
               // U_RL
-              ToComplex2(TUFH(1,0).real(), -TUFH(1,0).imag())
-                *x2/sqrt(MsU2(0,0).real()*MsQ2(1,1).real()),
-              ToComplex2(TUFH(2,1).real(), -TUFH(2,1).imag())
-                *x2/sqrt(MsU2(1,1).real()*MsQ2(2,2).real()),
-              ToComplex2(TUFH(2,0).real(), -TUFH(2,0).imag())
-                *x2/sqrt(MsU2(0,0).real()*MsQ2(2,2).real()),
+              ToComplex2(deltaURL(0,1).real(), deltaURL(0,1).imag()),
+              ToComplex2(deltaURL(1,2).real(), deltaURL(1,2).imag()),
+              ToComplex2(deltaURL(0,2).real(), deltaURL(0,2).imag()),
               // U_RR
-              ToComplex2(MsU2(0,1).real(), MsU2(0,1).imag())
-                /sqrt(MsU2(0,0).real()*MsU2(1,1).real()),
-              ToComplex2(MsU2(1,2).real(), MsU2(1,2).imag())
-                /sqrt(MsU2(1,1).real()*MsU2(2,2).real()),
-              ToComplex2(MsU2(0,2).real(), MsU2(0,2).imag())
-                /sqrt(MsU2(0,0).real()*MsU2(2,2).real()),
+              ToComplex2(deltaURR(0,1).real(), deltaURR(0,1).imag()),
+              ToComplex2(deltaURR(1,2).real(), deltaURR(1,2).imag()),
+              ToComplex2(deltaURR(0,2).real(), deltaURR(0,2).imag()),
               // D_LR
-              ToComplex2(TDFH(0,1).real(), TDFH(0,1).imag())
-                *x1/sqrt(MsQ2(0,0).real()*MsD2(1,1).real()),
-              ToComplex2(TDFH(1,2).real(), TDFH(1,2).imag())
-                *x1/sqrt(MsQ2(1,1).real()*MsD2(2,2).real()),
-              ToComplex2(TDFH(0,2).real(), TDFH(0,2).imag())
-                *x1/sqrt(MsQ2(0,0).real()*MsD2(2,2).real()),
+              ToComplex2(deltaDLR(0,1).real(), deltaDLR(0,1).imag()),
+              ToComplex2(deltaDLR(1,2).real(), deltaDLR(1,2).imag()),
+              ToComplex2(deltaDLR(0,2).real(), deltaDLR(0,2).imag()),
               // D_RL
-              ToComplex2(TDFH(1,0).real(), -TDFH(1,0).imag())
-                *x1/sqrt(MsD2(0,0).real()*MsQ2(1,1).real()),
-              ToComplex2(TDFH(2,1).real(), -TDFH(2,1).imag())
-                *x1/sqrt(MsD2(1,1).real()*MsQ2(2,2).real()),
-              ToComplex2(TDFH(2,0).real(), -TDFH(2,0).imag())
-                *x1/sqrt(MsD2(0,0).real()*MsQ2(2,2).real()),
+              ToComplex2(deltaDRL(0,1).real(), deltaDRL(0,1).imag()),
+              ToComplex2(deltaDRL(1,2).real(), deltaDRL(1,2).imag()),
+              ToComplex2(deltaDRL(0,2).real(), deltaDRL(0,2).imag()),
               // D_RR
-              ToComplex2(MsD2(0,1).real(), MsD2(0,1).imag())
-                /sqrt(MsD2(0,0).real()*MsD2(1,1).real()),
-              ToComplex2(MsD2(1,2).real(), MsD2(1,2).imag())
-                /sqrt(MsD2(1,1).real()*MsD2(2,2).real()),
-              ToComplex2(MsD2(0,2).real(), MsD2(0,2).imag())
-                /sqrt(MsD2(0,0).real()*MsD2(2,2).real())
+              ToComplex2(deltaDRR(0,1).real(), deltaDRR(0,1).imag()),
+              ToComplex2(deltaDRR(1,2).real(), deltaDRR(1,2).imag()),
+              ToComplex2(deltaDRR(0,2).real(), deltaDRR(0,2).imag())
               );
     if (err != 0) {
 #ifdef FHDEBUG
@@ -196,33 +185,21 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
     /* Set the non-minimal flavor-violating parameters in the slepton sector */
     FHSetLFV(&err,
               // L_LL
-              ToComplex2(MsL2(0,1).real(), MsL2(0,1).imag())
-                /sqrt(MsL2(0,0).real()*MsL2(1,1).real()),
-              ToComplex2(MsL2(1,2).real(), MsL2(1,2).imag())
-                /sqrt(MsL2(1,1).real()*MsL2(2,2).real()),
-              ToComplex2(MsL2(0,2).real(), MsL2(0,2).imag())
-                /sqrt(MsL2(0,0).real()*MsL2(2,2).real()),
+              ToComplex2(deltaLLL(0,1).real(), deltaLLL(0,1).imag()),
+              ToComplex2(deltaLLL(1,2).real(), deltaLLL(1,2).imag()),
+              ToComplex2(deltaLLL(0,2).real(), deltaLLL(0,2).imag()),
               // E_LR
-              ToComplex2(TEFH(0,1).real(), TEFH(0,1).imag())
-                *x1/sqrt(MsL2(0,0).real()*MsE2(1,1).real()),
-              ToComplex2(TEFH(1,2).real(), TEFH(1,2).imag())
-                *x1/sqrt(MsL2(1,1).real()*MsE2(2,2).real()),
-              ToComplex2(TEFH(0,2).real(), TEFH(0,2).imag())
-                *x1/sqrt(MsL2(0,0).real()*MsE2(2,2).real()),
+              ToComplex2(deltaELR(0,1).real(), deltaELR(0,1).imag()),
+              ToComplex2(deltaELR(1,2).real(), deltaELR(1,2).imag()),
+              ToComplex2(deltaELR(0,2).real(), deltaELR(0,2).imag()),
               // E_RL
-              ToComplex2(TEFH(1,0).real(), -TEFH(1,0).imag())
-                *x1/sqrt(MsE2(0,0).real()*MsL2(1,1).real()),
-              ToComplex2(TEFH(2,1).real(), -TEFH(2,1).imag())
-                *x1/sqrt(MsE2(1,1).real()*MsL2(2,2).real()),
-              ToComplex2(TEFH(2,0).real(), -TEFH(2,0).imag())
-                *x1/sqrt(MsE2(0,0).real()*MsL2(2,2).real()),
+              ToComplex2(deltaERL(0,1).real(), deltaERL(0,1).imag()),
+              ToComplex2(deltaERL(1,2).real(), deltaERL(1,2).imag()),
+              ToComplex2(deltaERL(0,2).real(), deltaERL(0,2).imag()),
               // E_RR
-              ToComplex2(MsE2(0,1).real(), MsE2(0,1).imag())
-                /sqrt(MsE2(0,0).real()*MsE2(1,1).real()),
-              ToComplex2(MsE2(1,2).real(), MsE2(1,2).imag())
-                /sqrt(MsE2(1,1).real()*MsE2(2,2).real()),
-              ToComplex2(MsE2(0,2).real(), MsE2(0,2).imag())
-                /sqrt(MsE2(0,0).real()*MsE2(2,2).real())
+              ToComplex2(deltaERR(0,1).real(), deltaERR(0,1).imag()),
+              ToComplex2(deltaERR(1,2).real(), deltaERR(1,2).imag()),
+              ToComplex2(deltaERR(0,2).real(), deltaERR(0,2).imag())
               );
     if (err != 0) {
 #ifdef FHDEBUG

@@ -104,7 +104,7 @@ void SUSYSpectrum::CalcNeutralino()
     //std::cout << "Nleft = " << Nleft << std::endl;
     //std::cout << "Nright = " << Nright << std::endl;
 
-    /* adopt Nright as diag = N^* M N^+, not N M N^+.
+    /* adopt N=Nright as N^* M N^+ = diag, not as N M N^+.
      * As a result, a phase rotation is required for N. */
     matrix<complex> Mdiag_tmp(4, 4, 0.);
     Mdiag_tmp = Nright.hconjugate().transpose() * Mneutralino * Nright.hconjugate();
