@@ -269,6 +269,8 @@ private:
 
     double Mw_FHinput; /* The W-boson mass used as an input to FHSetSMPara() */
 
+    bool NMFVu, NMFVd, NMFVnu, NMFVe; /* true if off-diagonal entries exist in the sfermion mass matrix */
+
     // see CalcSpectrum()
     complex FHDeltab; /* the correction to the bottom Yukawa coupling */
 

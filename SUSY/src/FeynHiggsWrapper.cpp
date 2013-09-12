@@ -68,8 +68,10 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
     }
 
     /* Parameters for FeynHiggs */
-    //complex muHFH = mySUSY.muH.conjugate(); /* Incorrect! See the chargino and neutralino mass matrices. */
+    double Q = mySUSY.Q;
     complex muHFH = mySUSY.muH;
+    complex M1FH = mySUSY.m1;
+    complex M2FH = mySUSY.m2;
     matrix<complex> MsQ2 = mySUSY.msQhat2;
     matrix<complex> MsU2 = mySUSY.msUhat2;
     matrix<complex> MsD2 = mySUSY.msDhat2;
@@ -78,6 +80,53 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
     matrix<complex> KU = mySUSY.TUhat.hconjugate() * mySUSY.v2() / sqrt(2.0);
     matrix<complex> KD = mySUSY.TDhat.hconjugate() * mySUSY.v1() / sqrt(2.0);
     matrix<complex> KE = mySUSY.TEhat.hconjugate() * mySUSY.v1() / sqrt(2.0);
+
+    /* MFV trilinear couplings */
+    vector<complex> AU(3,0.), AD(3,0.), AE(3,0.);
+    for (int i=0; i<3; i++) {
+        int p = (int)mySUSY.UP + 2*i;
+        AU.assign(i, KU(i,i) / mySUSY.Mq_Q((QCD::quark)p));
+        p = (int)mySUSY.DOWN + 2*i;
+        AD.assign(i, KD(i,i) / mySUSY.Mq_Q((QCD::quark)p));
+        p = (int)mySUSY.ELECTRON + 2*i;
+        AE.assign(i, KE(i,i) / mySUSY.Ml_Q((StandardModel::lepton)p));
+    }
+
+    /* Check if non-minimal flavor-violating (NMFV) entries exist in the
+     * sfermion mass matrices. See also IniFV() in SetFV.F of FeynHiggs. */
+    NMFVu = true; NMFVd = true; NMFVnu = true; NMFVe = true;
+    double TMPu = 0.0, TMPd = 0.0, TMPnu = 0.0, TMPe = 0.0;
+    for (int i=0; i<3; i++) {
+        for (int j=0; j<3; j++) {
+           if (i < j) {
+               TMPu += MsQ2(i, j).abs2() + MsU2(i, j).abs2();
+               TMPd += MsQ2(i, j).abs2() + MsD2(i, j).abs2();
+               //TMPnu += MsL2(i, j).abs2(); /* not used */
+               TMPe += MsL2(i, j).abs2() + MsE2(i, j).abs2();
+           }
+           if (i != j) {
+               TMPu += KU(i, j).abs2();
+               TMPd += KD(i, j).abs2();
+               TMPe += KE(i, j).abs2();
+           }
+        }
+    }
+    if (TMPu < 1.e-13) NMFVu = false;
+    if (TMPe < 1.e-13) NMFVd = false;
+    if (TMPe < 1.e-13) NMFVe = false;
+
+    /* NMFV trilinear couplings. In the case of NMFV, the trilinear couplings
+     * AU, AD and AE for FHSetPara() as well as KU, KD and KE for FHSetNMFV()
+     * and FHSetLFV() have to be rotated. */
+    complex muHphase(1.0, - 2.0*muHFH.arg(), true);
+    if (NMFVu) AU *= muHphase;
+    if (NMFVd) AD *= muHphase;
+    if (NMFVe) AE *= muHphase;
+    KU *= muHphase;
+    KD *= muHphase;
+    KE *= muHphase;
+
+    /* NMFV parameters for FeynHiggs */
     matrix<complex> deltaQLL(3,3,0.);
     matrix<complex> deltaULR(3,3,0.), deltaURL(3,3,0.), deltaURR(3,3,0.);
     matrix<complex> deltaDLR(3,3,0.), deltaDRL(3,3,0.), deltaDRR(3,3,0.);
@@ -98,10 +147,7 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
             deltaERR.assign(i, j, MsE2(i,j) / sqrt(MsE2(i,i).real() * MsE2(j,j).real()));
         }
 
-    /* Set the FeynHiggs parameters */
-    double Q = mySUSY.Q;
-    double x1 = mySUSY.v1()/sqrt(2.);
-    double x2 = mySUSY.v2()/sqrt(2.);
+    /* Set the FeynHiggs parameters, where the GUT relation is used for M1=0. */
     FHSetPara(&err,
               mySUSY.mut/mySUSY.quarks[StandardModel::TOP].getMass(),
               mySUSY.mtpole, mySUSY.tanb,
@@ -120,18 +166,18 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
               //
               ToComplex2(muHFH.real(), muHFH.imag()),
               //
-              ToComplex2(KE(2,2).real(), - KE(2,2).imag())/mySUSY.Ml_Q(mySUSY.TAU),
-              ToComplex2(KU(2,2).real(), - KU(2,2).imag())/mySUSY.Mq_Q(mySUSY.TOP),
-              ToComplex2(KD(2,2).real(), - KD(2,2).imag())/mySUSY.Mq_Q(mySUSY.BOTTOM),
-              ToComplex2(KE(1,1).real(), - KE(1,1).imag())/mySUSY.Ml_Q(mySUSY.MU),
-              ToComplex2(KU(1,1).real(), - KU(1,1).imag())/mySUSY.Mq_Q(mySUSY.CHARM),
-              ToComplex2(KD(1,1).real(), - KD(1,1).imag())/mySUSY.Mq_Q(mySUSY.STRANGE),
-              ToComplex2(KE(0,0).real(), - KE(0,0).imag())/mySUSY.Ml_Q(mySUSY.ELECTRON),
-              ToComplex2(KU(0,0).real(), - KU(0,0).imag())/mySUSY.Mq_Q(mySUSY.UP),
-              ToComplex2(KD(0,0).real(), - KD(0,0).imag())/mySUSY.Mq_Q(mySUSY.DOWN),
+              ToComplex2(AE(2).real(), AE(2).imag()),
+              ToComplex2(AU(2).real(), AU(2).imag()),
+              ToComplex2(AD(2).real(), AD(2).imag()),
+              ToComplex2(AE(1).real(), AE(1).imag()),
+              ToComplex2(AU(1).real(), AU(1).imag()),
+              ToComplex2(AD(1).real(), AD(1).imag()),
+              ToComplex2(AE(0).real(), AE(0).imag()),
+              ToComplex2(AU(0).real(), AU(0).imag()),
+              ToComplex2(AD(0).real(), AD(0).imag()),
               //
-              ToComplex2(mySUSY.m1.real(), mySUSY.m1.imag()),
-              ToComplex2(mySUSY.m2.real(), mySUSY.m2.imag()),
+              ToComplex2(M1FH.real(), M1FH.imag()),
+              ToComplex2(M2FH.real(), M2FH.imag()),
               ToComplex2(mySUSY.m3, 0.),
               //
               Q, Q, Q);
@@ -182,7 +228,8 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
         return (false);
     }
 
-    /* Set the non-minimal flavor-violating parameters in the slepton sector */
+    /* Set the non-minimal flavor-violating parameters in the slepton sector,
+     * which are not used to compute the sneutrino mass spectrum. */
     FHSetLFV(&err,
               // L_LL
               ToComplex2(deltaLLL(0,1).real(), deltaLLL(0,1).imag()),
@@ -244,7 +291,7 @@ bool FeynHiggsWrapper::CalcHiggsSpectrum()
     //std::cout << "mh[3] = mH+ = " << mySUSY.mh[3] << std::endl;
 
     /* Check */
-    for(int i = 0; i < 4; i++)
+    for (int i = 0; i < 4; i++)
         if(std::isnan(mySUSY.mh[i])) {
             std::cout << "FeynHiggsWrapper::CalcHiggsSpectrum(): mh[" << i << "] is undefined"
                       << std::endl;
@@ -295,13 +342,31 @@ bool FeynHiggsWrapper::CalcSpectrum()
         return (false);
     }
 
-    /* squark and slepton */
-    for(int i = 0; i < 6; i++) {
+    /* sfermions in MFV for debug*/
+    //vector<double> m_sn2_MFV(6,0.), m_se2_MFV(6,0.), m_su2_MFV(6,0.), m_sd2_MFV(6,0.);
+    //matrix<complex> Rn_MFV(6,6,0.), Rl_MFV(6,6,0.), Ru_MFV(6,6,0.), Rd_MFV(6,6,0.);
+    //for (int g = 0; g < 3; g++) { /* generations */
+    //    for (int s = 0; s < 2; s++) { /* left or right */
+    //        m_sn2_MFV(g + 3*s) = MSf[g][0][s]*MSf[g][0][s];
+    //        m_se2_MFV(g + 3*s) = MSf[g][1][s]*MSf[g][1][s];
+    //        m_su2_MFV(g + 3*s) = MSf[g][2][s]*MSf[g][2][s];
+    //        m_sd2_MFV(g + 3*s) = MSf[g][3][s]*MSf[g][3][s];
+    //        for (int t = 0; t < 2; t++) { /* left or right */
+    //            Rn_MFV.assign(s,t, complex(USf[g][0][t][s].real(), USf[g][0][t][s].imag()));
+    //            Rl_MFV.assign(s,t, complex(USf[g][1][t][s].real(), USf[g][1][t][s].imag()));
+    //            Ru_MFV.assign(s,t, complex(USf[g][2][t][s].real(), USf[g][2][t][s].imag()));
+    //            Rd_MFV.assign(s,t, complex(USf[g][3][t][s].real(), USf[g][3][t][s].imag()));
+    //        }
+    //    }
+    //}
+
+    /* sfermions in NMFV */
+    for (int i = 0; i < 6; i++) {
         mySUSY.m_sn2(i) = MASf[0][i]*MASf[0][i];
         mySUSY.m_se2(i) = MASf[1][i]*MASf[1][i];
         mySUSY.m_su2(i) = MASf[2][i]*MASf[2][i];
         mySUSY.m_sd2(i) = MASf[3][i]*MASf[3][i];
-        for(int j = 0; j < 6; j++) {
+        for (int j = 0; j < 6; j++) {
             /* R: first (second) index for mass (gauge) eigenstates */
             /* UASf: second (third) index for gauge (mass) eigenstates */
             mySUSY.Rn.assign(i,j, complex(UASf[0][j][i].real(), UASf[0][j][i].imag()));
@@ -311,6 +376,18 @@ bool FeynHiggsWrapper::CalcSpectrum()
         }
     }
 
+    /* For debug: Phase rotations due to differences between the SLHA and
+     * FeynHiggs notations, which is necessary in the caes of NMFV. */
+    complex muHphase(1.0, mySUSY.muH.arg(), true);
+    matrix<complex> muHphaseMatrix(6,6,0.);
+    for (int i = 0; i < 3; i++) {
+        muHphaseMatrix.assign(i, i, muHphase.conjugate());
+        muHphaseMatrix.assign(i+3, i+3, muHphase);
+    }
+    if (NMFVe) mySUSY.Rl = mySUSY.Rl * muHphaseMatrix;
+    if (NMFVu) mySUSY.Ru = mySUSY.Ru * muHphaseMatrix;
+    if (NMFVd) mySUSY.Rd = mySUSY.Rd * muHphaseMatrix;
+
     /* The SLHA2 convention requires increasing eigenvalues of the sfermion masses.
      * This is not done automatically by FeynHiggs. */
     SortSfermionMasses(mySUSY.m_sn2, mySUSY.Rn);
@@ -319,9 +396,9 @@ bool FeynHiggsWrapper::CalcSpectrum()
     SortSfermionMasses(mySUSY.m_sd2, mySUSY.Rd);
 
     /* charginos */
-    for(int i = 0; i < 2; i++) {
+    for (int i = 0; i < 2; i++) {
         mySUSY.mch(i) = MCha[i];
-        for(int j = 0; j < 2; j++) {
+        for (int j = 0; j < 2; j++) {
             /* U and V: first (second) index for mass (gauge) eigenstates */
             /* Ucha and VCha: first (second) index for gauge (mass) eigenstates */
             mySUSY.U.assign(i,j, complex(UCha[j][i].real(), UCha[j][i].imag()));
@@ -330,9 +407,9 @@ bool FeynHiggsWrapper::CalcSpectrum()
     }
 
     /* neutralinos */
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
         mySUSY.mneu(i) = MNeu[i];
-        for(int j = 0; j < 4; j++)
+        for (int j = 0; j < 4; j++)
             /* N: first (second) index for mass (gauge) eigenstates */
             /* Zneu: first (second) index for gauge (mass) eigenstates */
             mySUSY.N.assign(i,j, complex(ZNeu[j][i].real(), ZNeu[j][i].imag()));
@@ -434,7 +511,7 @@ bool FeynHiggsWrapper::CalcConstraints()
                   << std::endl;
         return (false);
     }
-    
+
     computeConstraints = false;
 
     return (true);
