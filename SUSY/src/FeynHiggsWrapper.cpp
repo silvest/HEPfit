@@ -315,7 +315,7 @@ bool FeynHiggsWrapper::CalcSpectrum()
      *   s = 1..2  sfermion index
      *   t = 1..4  sfermion type: nu, e, u, d
      *   g = 1..3  generation index
-     * according to the manual of FeynHiggs. On the other hand, it is traslated
+     * according to the manual of FeynHiggs. On the other hand, it is translated
      * from Fortran to C in CFeynHiggs.h as MSf,[3][4][2]. Namely, the order
      * of the indices is reversed.
      */
@@ -376,8 +376,8 @@ bool FeynHiggsWrapper::CalcSpectrum()
         }
     }
 
-    /* For debug: Phase rotations due to differences between the SLHA and
-     * FeynHiggs notations, which is necessary in the caes of NMFV. */
+    /* Phase rotations due to differences between the SLHA and FeynHiggs
+     * notations, which is necessary in the case of NMFV. */
     complex muHphase(1.0, mySUSY.muH.arg(), true);
     matrix<complex> muHphaseMatrix(6,6,0.);
     for (int i = 0; i < 3; i++) {
