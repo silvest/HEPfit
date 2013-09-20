@@ -42,28 +42,28 @@ public:
      * @brief \f$ \Delta B = 2 \f$, \f$ B_{d} \f$ 
      * @return return the vector of SM Wilson coefficients
      */
-    virtual const std::vector<WilsonCoefficient>& CMdbd2();
+    virtual  std::vector<WilsonCoefficient>& CMdbd2();
     
     /**
      * 
      * @brief \f$ \Delta B = 2 \f$, \f$ B_{s} \f$ 
      * @return return the vector of SM Wilson coefficients
      */
-    virtual const std::vector<WilsonCoefficient>& CMdbs2();
+    virtual  std::vector<WilsonCoefficient>& CMdbs2();
     
     /**
      * 
      * @brief \f$ \Delta C = 2 \f$,
      * @return return the vector of SM Wilson coefficients
      */
-    virtual const std::vector<WilsonCoefficient>& CMdd2();
+    virtual  std::vector<WilsonCoefficient>& CMdd2();
     
     /**
      * 
      * @brief \f$ \Delta S = 2 \f$ 
      * @return return the vector of SM Wilson coefficients
      */
-    virtual const std::vector<WilsonCoefficient>& CMdk2();
+    virtual  std::vector<WilsonCoefficient>& CMdk2();
     
     /** 
      * 
@@ -72,7 +72,7 @@ public:
      * @param a, a=0 deltaS=0 deltaC=0;  a=1 deltaS=1 deltaC=0;
      * @return Wilson coefficients Buras base for non-leptonic B decays 
      */
-    virtual const std::vector<WilsonCoefficient>& CMbnlep(const int& a);
+    virtual  std::vector<WilsonCoefficient>& CMbnlep( int a);
     
     /**
      * 
@@ -80,7 +80,7 @@ public:
      * @param a, a=0 deltaS=0 deltaC=0;  a=1 1,0 ;  a=2 0,1 ; a=3 1,1 
      * @return Wilson coefficients, Buras basis, for non-leptonic B decays 
      */
-    virtual const std::vector<WilsonCoefficient>& CMbnlepCC(const int& a);
+    virtual  std::vector<WilsonCoefficient>& CMbnlepCC( int a);
     
     /** 
      * 
@@ -88,7 +88,7 @@ public:
      * magnetic and chromomagnetic penguins; semileptonic 
      * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
      */
-    virtual const std::vector<WilsonCoefficient>& CMbsg();
+    virtual  std::vector<WilsonCoefficient>& CMbsg();
     
     /** 
      * 
@@ -97,7 +97,7 @@ public:
      * @brief hep/ph 9512380  
      * @return Wilson coefficients Buras base for \f$ K \rightarrow \pi \pi \f decays
      */
-    virtual const std::vector<WilsonCoefficient>& CMK();
+    virtual  std::vector<WilsonCoefficient>& CMK();
     
     /** 
      * 
@@ -106,56 +106,56 @@ public:
      * @brief hep/ph 9512380 
      * @return Wilson coefficients Buras base for \f$ B \rightarrow \pi \pi \f decays
      */
-    virtual const std::vector<WilsonCoefficient>& CMKCC();
+    virtual  std::vector<WilsonCoefficient>& CMKCC();
     
     /**
      * 
      * @brief current-current oerators, Misiak basis
      * @return Wilson coefficients for \f$ D^{0} \rightarrow \pi \pi , K K \f$
      */
-    virtual const std::vector<WilsonCoefficient>& CMd1();
+    virtual  std::vector<WilsonCoefficient>& CMd1();
     
     /**
      * 
      * @brief current-current oerators, Buras basis
      * @return Wilson coefficients for \f$ D^{0} \rightarrow \pi \pi , K K \f$
      */
-    virtual const std::vector<WilsonCoefficient>& CMd1Buras();
+    virtual  std::vector<WilsonCoefficient>& CMd1Buras();
     
     /**
      * 
      * @return Wilson coefficients for \f$ K_{L} \rightarrow \pi \nu \nu \f$
      */
-    virtual const std::vector<WilsonCoefficient>& CMkpnn();
+    virtual  std::vector<WilsonCoefficient>& CMkpnn();
     /**
      * 
      * @return Wilson coefficient for \f$ K^{+} \rightarrow \mu \mu \f$, short distance top contribution
      */
-    virtual const std::vector<WilsonCoefficient>& CMkmm();
+    virtual  std::vector<WilsonCoefficient>& CMkmm();
     
     /**
      * 
      * @return Wilson coefficient for \f$ B_{s} \rightarrow \mu \mu \f$
      */
-    virtual const std::vector<WilsonCoefficient>& CMbsmm();
+    virtual  std::vector<WilsonCoefficient>& CMbsmm();
     
     /**
      * 
      * @return Wilson coefficient for \f$ B_{d} \rightarrow \mu \mu \f$
      */
-    virtual const std::vector<WilsonCoefficient>& CMbdmm();
+    virtual  std::vector<WilsonCoefficient>& CMbdmm();
     
     /**
      * 
      * @return Wilson coefficients for \f$ B_{s} \rightarrow X_{s} \nu \nu \f$
      */
-    virtual const std::vector<WilsonCoefficient>& CMBXsnn();
+    virtual  std::vector<WilsonCoefficient>& CMBXsnn();
     
     /**
      * 
      * @return Wilson coefficients for \f$ B_{d} \rightarrow X_{d} \nu \nu \f$
      */
-    virtual const std::vector<WilsonCoefficient>& CMBXdnn();
+    virtual  std::vector<WilsonCoefficient>& CMBXdnn();
 
     double x_c(const double mu, const orders order = FULLNNLO) const;
     double x_t(const double mu, const orders order = FULLNNLO) const;

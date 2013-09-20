@@ -80,6 +80,7 @@ double StandardModelMatching::x_t(const double mu, const orders order) const
 {
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), order);
+//    std::cout << "mtrun = " << mt << " Mw = " << MW_tree << std::endl;
     return pow(mt / MW_tree, 2.); 
 }
 
@@ -506,7 +507,7 @@ double StandardModelMatching::Y1t(double x) const{
 }
 
 /******************************************************************************/
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2() 
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2() 
 {   
 //    if(SM_i == SM)
 //        return(vmc);
@@ -554,7 +555,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2()
     return(vmcdb);
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbs2() 
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMdbs2() 
 {   
 //    if(SM_i == SM)
 //        return(vmc);
@@ -600,7 +601,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdbs2()
     return(vmcds);
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMdk2() 
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMdk2() 
 {
     vmck2.clear();
     
@@ -623,7 +624,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdk2()
     return(vmck2);
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMd1Buras()
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMd1Buras()
 {    
     vmcd1Buras.clear();
     
@@ -667,7 +668,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMd1Buras()
 
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMd1()
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMd1()
 { 
     vmcd1.clear();
     
@@ -710,7 +711,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMd1()
     
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMdd2() 
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMdd2() 
 {
     vmcd2.clear();
 
@@ -746,7 +747,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMdd2()
     return(vmcd2);
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMK(){
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMK(){
     
     double xt = x_t(Muw);
     
@@ -794,7 +795,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMK(){
  * Wilson coefficients Buras base for K -> pi pi decays                        * 
  * operator basis: - current current                                           *
  * ****************************************************************************/
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMKCC(){
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMKCC(){
     
     double xt = x_t(Muw);
     
@@ -848,7 +849,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMKCC(){
  *                 - magnetic and chromomagnetic penguins                      *         
  *                 - semileptonic                                              * 
  * ****************************************************************************/
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() 
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() 
 {    
     double xt = x_t(Muw);
     complex co = (- 4. * GF / sqrt(2)) * SM.getlamt_s();
@@ -970,7 +971,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
  *                 - semileptonic                                              *
  * i=0 deltaS=0 deltaC=0;  i=1 1,0 ;                                           *
  * ****************************************************************************/
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlep(const int& a)
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlep(const int a)
 {
     complex lambda;
     
@@ -1033,7 +1034,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlep(const int& 
  * operator basis: - current current opertors                                  *         
  * i=0 deltaS=0 deltaC=0;  i=1 1,0 ;  i=2 0,1 ; i=3 1,1                        *
  * ****************************************************************************/
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC(const int& a) 
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC(const int a) 
 {    
     complex lambda1 = 0.;
     //complex lambda2 = 0.;
@@ -1101,7 +1102,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbnlepCC(const int
     return(vmcbnlepCC);
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMkpnn() {
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMkpnn() {
     
     //scales assigned to xt, a and Xewt to be checked!
     
@@ -1142,7 +1143,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMkpnn() {
     
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMkmm() {
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMkmm() {
     
     //PROBLEMI: mu e sin(theta_weak) e la scala di als
     
@@ -1170,7 +1171,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMkmm() {
     
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMBXsnn() {
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMBXsnn() {
     
     double xt = x_t(Muw);
     
@@ -1198,7 +1199,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMBXsnn() {
     
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMBXdnn() {
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMBXdnn() {
     
     double xt = x_t(Muw);
     
@@ -1226,7 +1227,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMBXdnn() {
     
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMbsmm() {
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMbsmm() {
     
     double xt = x_t(Muw);
     
@@ -1254,7 +1255,7 @@ const std::vector<WilsonCoefficient>& StandardModelMatching::CMbsmm() {
     
 }
 
-const std::vector<WilsonCoefficient>& StandardModelMatching::CMbdmm() {
+ std::vector<WilsonCoefficient>& StandardModelMatching::CMbdmm() {
     
     double xt = x_t(Muw);
     
