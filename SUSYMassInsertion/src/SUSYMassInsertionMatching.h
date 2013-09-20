@@ -215,35 +215,35 @@ public :
      * @brief \f$ \Delta C = 2 \f$
      * @return the vector of 8 wilson coefficients: SM + SusyMI
      */
-    virtual const std::vector<WilsonCoefficient>& CMdd2();
+    virtual  std::vector<WilsonCoefficient>& CMdd2();
     
     /**
      * 
      * @brief \f$ \Delta B = 2 \f$, \f$ B_{d} \f$
      * @return the vector of 8 wilson coefficients: SM + SusyMI
      */
-    virtual const std::vector<WilsonCoefficient>& CMdbd2();
+    virtual  std::vector<WilsonCoefficient>& CMdbd2();
     
     /**
      * 
      * @brief \f$ \Delta B = 2 \f$, \f$ B_{s} \f$
      * @return the vector of 8 wilson coefficients: SM + SusyMI
      */
-    virtual const std::vector<WilsonCoefficient>& CMdbs2();
+    virtual  std::vector<WilsonCoefficient>& CMdbs2();
     
     /**
      * 
      * @brief \f$ \Delta S = 2 \f$
      * @return the vector of 8 wilson coefficients: SM + SusyMI
      */
-    virtual const std::vector<WilsonCoefficient>& CMdk2();
+    virtual  std::vector<WilsonCoefficient>& CMdk2();
     
     /**
      * 
      * @brief \f$ \Delta F = 1 \f$
      * @return the vector of 8 wilson coefficients: SM + SusyMI
      */
-    virtual const std::vector<WilsonCoefficient>& CMd1();
+    virtual  std::vector<WilsonCoefficient>& CMd1();
     
     /**
      * @brief Misiak et al, hep-ph/0005183

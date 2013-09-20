@@ -843,7 +843,7 @@ double SUSYMassInsertionMatching::C4NLOB(double x, double mumatch2, double Ms2){
             );
 }
 
-const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMd1() {
+ std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMd1() {
     
     vmcd1.clear();
     vmcd1 = StandardModelMatching::CMd1();
@@ -959,7 +959,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMd1() {
     return(vmcd1);
 }
 
-const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdd2 () {
+ std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdd2 () {
     
     vmcd2.clear();
     vmcd2 = StandardModelMatching::CMdd2();
@@ -1039,7 +1039,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdd2 () {
     return(vmcd2);
 }
 
-const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdbd2() {
+ std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdbd2() {
     
     vmcdb.clear();
     
@@ -1123,7 +1123,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdbd2() {
     return(vmcdb);
 }
 
-const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdbs2() {
+ std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdbs2() {
     
     
     vmcds.clear();
@@ -1208,7 +1208,7 @@ const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdbs2() {
     return(vmcds);
 }
 
-const std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdk2() {
+ std::vector<WilsonCoefficient>& SUSYMassInsertionMatching::CMdk2() {
     
     vmck2.clear();
     vmck2 = StandardModelMatching::CMdk2();
