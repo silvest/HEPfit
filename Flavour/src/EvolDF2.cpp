@@ -20,20 +20,20 @@ EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardM
     if (basis == "Gabbiani") {
         // Magic numbers in the basis of Gabbiani et al. (There is no magic in these numbers. They are just the eigensystem of the LO ADM.)
         
-        e(0) = 6. / Nc;
-        e(1) = 6. * (-1. + Nc) / Nc;
-        e(2) = -6. * (-1. + Nc * Nc) / Nc;
-        e(3) = (2. * (1 + 3. * Nc - Nc * Nc + sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc))) / Nc;
-        e(4) = (2. * (-1 - 3. * Nc + Nc * Nc + sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc))) / Nc;
+        e(0) = 6./Nc;
+        e(1) = 6 - 6/Nc;
+        e(2) = 6/Nc - 6 * Nc;
+        e(3) = (2. * (1 + 3. * Nc - Nc * Nc - sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc))) / Nc;
+        e(4) = (2. * (1 + 3. * Nc - Nc * Nc + sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc))) / Nc;
         
         v(0, 1) = 1.;
-        v(1, 3) = -(-Nc + 2. * Nc * Nc + sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc)) / (-4 - 2 * Nc + 2 * Nc * Nc);
-        v(1, 4) = -(-Nc + 2. * Nc * Nc - sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc)) / (-4 - 2 * Nc + 2 * Nc * Nc);
+        v(1, 3) = (Nc - 2. * Nc * Nc - sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc)) / (-4. + 2. * Nc);
+        v(1, 4) = (Nc - 2. * Nc * Nc + sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc)) / (-4. + 2. * Nc);
         v(2, 3) = 1.;
         v(2, 4) = 1.;
-        v(3, 2) = Nc;
+        v(3, 0) = -1./Nc;
+        v(3, 2) = 1.;
         v(4, 0) = 1.;
-        v(4, 2) = 1.;
         
         matrix<double> vi = v.inverse();
         for (int i = 0; i < 5; i++){
@@ -69,14 +69,14 @@ EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardM
         e(1) = 6. * (-1. + Nc) / Nc;
         e(2) = -6. * (-1. + Nc * Nc) / Nc;
         e(3) = (2. * (1 + 3. * Nc - Nc * Nc + sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc))) / Nc;
-        e(4) = (-2. * (-1 - 3. * Nc + Nc * Nc + sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc))) / Nc;
+        e(4) = (2. * (1 + 3. * Nc - Nc * Nc - sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc))) / Nc;
         
         v(0, 1) = 1.;
-        v(1, 0) = 1.;
-        v(1, 2) = -2 / Nc;
-        v(2, 2) = 1;
-        v(3, 3) = -(-2 + 2. * Nc * Nc - sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc)) / (-24. - 12 * Nc);
-        v(3, 4) = -(-2 + 2. * Nc * Nc + sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc)) / (-24. - 12 * Nc);
+        v(1, 0) = Nc/2.;
+        v(2, 0) = 1.;
+        v(2, 2) = 1.;
+        v(3, 3) = (8. - 8. * Nc * Nc + 4. * sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc)) / (-2. + Nc);
+        v(3, 4) = (8. - 8. * Nc * Nc - 4. * sqrt(16. - 11. * Nc * Nc + 4. * Nc * Nc * Nc * Nc)) / (-2. + Nc);
         v(4, 3) = 1.;
         v(4, 4) = 1.;
         
@@ -317,12 +317,12 @@ double EvolDF2::etacc(double  mu) const{
     beta[1][1] = (1. - N) * ( M_PI * M_PI * (N2 - 4. * N + 2)/(12. * N) - (3. * N2 + 10. * N + 13.)/(4. * N));
     
     double eta = 0.;
-    double as_mb__as_muc = model.Als(model.getMub()) / model.Als(model.getMuc());
-    double as_mub__as_mb = model.Als(model.getMuw()) / model.Als(model.getMub());
-    double as_muc__4pi = model.Als(model.getMuc())/ 4. / M_PI;
+    double as_mb__as_muc = model.Als(model.getMub(), FULLNLO) / model.Als(model.getMuc(), FULLNLO);
+    double as_mub__as_mb = model.Als(model.getMuw(), FULLNLO) / model.Als(model.getMub(), FULLNLO);
+    double as_muc__4pi = model.Als(model.getMuc(), FULLNLO)/ 4. / M_PI;
     double log_muc__mc = log(model.getMuc() / model.getQuarks(QCD::CHARM).getMass());
-    double as_mb__4pi = model.Als(model.getMub()) / 4. /M_PI;
-    double as_muw__4pi = model.Als(model.getMuw()) / 4. / M_PI;
+    double as_mb__4pi = model.Als(model.getMub(), FULLNLO) / 4. /M_PI;
+    double as_muw__4pi = model.Als(model.getMuw(), FULLNLO) / 4. / M_PI;
 
     
     for(int i=0; i<2; i++){
@@ -344,7 +344,7 @@ double EvolDF2::etacc(double  mu) const{
 
 double EvolDF2::etact(double mu) const{
     
-    double K = model.Als(model.getMuw())/model.Als(model.getMuc());
+    double K = model.Als(model.getMuw(), FULLNLO)/model.Als(model.getMuc(), FULLNLO);
     double Kpp = pow(K, 12./25.);
     double Kpm = pow(K, -6./25.);
     double Kmm = pow(K, -24./25.);
@@ -365,7 +365,7 @@ double EvolDF2::etact(double mu) const{
             K * (-21093./8750. * Kpp + 13331./13750. * Kpm - 10181./18125. * Kmm - 1731104./2512125. * K7) +
             (log(xt) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) / (4. * (1.-xt) * (1.-xt)) + 0.5) * K * K7 ) * xc / (xc * (log(xt / xc) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) / 4. / (1. - xt) / (1. - xt))) * pow(AlsC, 2. / 9.);
     
-    return (eta * (1. + model.Als(mu, FULLNLO)/4./M_PI*J3) * pow(model.Als(mu, FULLNLO),-2./9.));
+    return (eta * (1. + model.Als(mu, FULLNLO)/4./M_PI * J3) * pow(model.Als(mu, FULLNLO),-2./9.));
 }
 
 double EvolDF2::etatt(double m) const {
@@ -399,12 +399,12 @@ double EvolDF2::S1tt() const {
     
     for(int i = 0; i < 4; ++i){
         gamma1[i] = (N - 1.)/(2. * N) * (-21. + 57./N - 19./3. * N + 4./3. * (i + 3.));
-        J[i] = gamma0 * model.Beta1(3 + i) / 2. / model.Beta0(3 + i) / model.Beta0(3 + i)
+        J[i] = gamma0 / 2. / model.Beta0(3 + i) / model.Beta0(3 + i)
         - gamma1[i] / 2. / model.Beta0(3 + i);
     }
         
     double b = (4. - 22. * x + 15. * x2 + 2. * x3 + x4 - 18. * x2 * logx)
-               / ((-1. + x) * (-2. + 15. * x - 12. * x2 + x3 + 6. * x2 * logx));
+               / ((-1. + x) * (-4. + 15. * x - 12. * x2 + x3 + 6. * x2 * logx));
     double AlsT = model.Als(model.getMut());
     double AlsB = model.Als(model.getMub());
     double AlsC = model.Als(model.getMuc());
@@ -416,5 +416,5 @@ double EvolDF2::S1tt() const {
             model.Als(model.getMub())/4./M_PI * (J[2]-J[1])
             + model.Als(model.getMut())/4./M_PI * (model.GetMyMatching()->S1(x)/S0tt
             + Bt - J[2] + gamma0 * log(model.getMut() / model.getMuw())
-            + 12. * (3./2. - 1./6.) * log(model.getMut() / model.getMuw()) * b)));
+            + 6 * (N * N - 1) / N * log(model.getMut() / model.getMuw()) * b)));
 }
