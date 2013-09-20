@@ -2758,7 +2758,7 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0g(int b, int q, int Dmixingflag) {
 //////////////////////////////////////////////////////////////////////////////// 
 
 /******************************************************************************/
-const std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
+std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
 
     //double Q = mySUSY.GetQ();
     int i;
@@ -2961,7 +2961,7 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
 
 /******************************************************************************/
 
-const std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
+std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
 
 //***// double Q = mySUSY.GetQ();
     int i;
@@ -3161,7 +3161,7 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-const std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
+std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
 
 
 
@@ -3367,7 +3367,7 @@ const std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
 
 ////////////////////////////////////////////////////////////////////////////////
 
-const std::vector<WilsonCoefficient>& SUSYMatching::CMdd2(){
+ std::vector<WilsonCoefficient>& SUSYMatching::CMdd2(){
 
 
 //***// double Q = mySUSY.GetQ();
@@ -3796,7 +3796,7 @@ void SUSYMatching::Test() {
 
 
 
-const std::vector<WilsonCoefficient>& SUSYMatching::CMbsg(){
+ std::vector<WilsonCoefficient>& SUSYMatching::CMbsg(){
 
 
   
