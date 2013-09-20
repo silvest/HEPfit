@@ -38,12 +38,15 @@ HeffDF2::~HeffDF2() {
 
 vector<complex>** HeffDF2::ComputeCoeffBd(double mu, schemes scheme) {
 
-    const std::vector<WilsonCoefficient>& mc = model.GetMyMatching()->CMdbd2();
+     std::vector<WilsonCoefficient>& mc = model.GetMyMatching()->CMdbd2();
     
     coeffbd.setMu(mu);
     
+    coeffbd.setScheme(mc[0].getScheme());
+    
     orders ordDF2 = coeffbd.getOrder();
     for (int i = 0; i < mc.size(); i++){
+        ChangeScheme(mc[0].getScheme(),mc[i],ordDF2);
         for (int j = LO; j <= ordDF2; j++){
             for (int k = LO; k <= j; k++){                
                 coeffbd.setCoeff(*coeffbd.getCoeff(orders(j)) +
@@ -53,21 +56,22 @@ vector<complex>** HeffDF2::ComputeCoeffBd(double mu, schemes scheme) {
         }
     }
     
-    ChangeScheme(scheme, mc[0].getScheme(), ordDF2, 0);
-
-    coeffbd.setScheme(scheme);
+    ChangeScheme(scheme, coeffbd, ordDF2);
     
     return coeffbd.getCoeff();
 }
 
 vector<complex>** HeffDF2::ComputeCoeffBs(double mu, schemes scheme) {
 
-    const std::vector<WilsonCoefficient>& mc = model.GetMyMatching()->CMdbs2();
+     std::vector<WilsonCoefficient>& mc = model.GetMyMatching()->CMdbs2();
 
     coeffbs.setMu(mu);
+    
+    coeffbs.setScheme(mc[0].getScheme());
 
     orders ordDF2 = coeffbs.getOrder();
     for (int i = 0; i < mc.size(); i++){
+        ChangeScheme(mc[0].getScheme(),mc[i],ordDF2);
         for (int j = LO; j <= ordDF2; j++){
             for (int k = LO; k <= j; k++){
                 coeffbs.setCoeff(*coeffbs.getCoeff(orders(j)) +
@@ -77,22 +81,23 @@ vector<complex>** HeffDF2::ComputeCoeffBs(double mu, schemes scheme) {
         }
     }
 
-    ChangeScheme(scheme, mc[0].getScheme(), ordDF2, 1);
-
-    coeffbs.setScheme(scheme);
+    ChangeScheme(scheme, coeffbs, ordDF2);
 
     return coeffbs.getCoeff();
 }
 
 vector<complex>** HeffDF2::ComputeCoeffdd(double mu, schemes scheme) {
 
-    const std::vector<WilsonCoefficient>& mc = model.GetMyMatching()->CMdd2();
+     std::vector<WilsonCoefficient>& mc = model.GetMyMatching()->CMdd2();
     
     coeffDd.setMu(mu);
 
+    coeffDd.setScheme(mc[0].getScheme());
+
     orders ordDF2 = coeffDd.getOrder();
     for (int i = 0; i < mc.size(); i++){
-        for (int j = LO; j <= ordDF2; j++){
+       ChangeScheme(mc[0].getScheme(),mc[i],ordDF2);
+       for (int j = LO; j <= ordDF2; j++){
             for (int k = LO; k <= j; k++){
                 coeffDd.setCoeff(*coeffDd.getCoeff(orders(j)) +
                     evolDF2.Df2Evol(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
@@ -101,16 +106,18 @@ vector<complex>** HeffDF2::ComputeCoeffdd(double mu, schemes scheme) {
         }
     }
 
-    coeffDd.setScheme(scheme); 
+    ChangeScheme(scheme, coeffDd, ordDF2);
     
     return coeffDd.getCoeff();
 }
 
 vector<complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme) {
 
-    const std::vector<WilsonCoefficient>& mc = model.GetMyMatching()->CMdk2();
+     std::vector<WilsonCoefficient>& mc = model.GetMyMatching()->CMdk2();
     vector<complex> zero(5,0.);
     
+    coeffk.setScheme(mc[0].getScheme());
+
     coeffk.setMu(mu);
     coeffk.setCoeff(zero,LO);
     coeffk.setCoeff(zero,NLO);
@@ -124,6 +131,7 @@ vector<complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme) {
                             NLO);
         }
         else {
+            ChangeScheme(mc[0].getScheme(),mc[i],ordDF2);
             for (int j = LO; j <= ordDF2; j++){
                 for (int k = LO; k <= j; k++){
                     coeffk.setCoeff(*coeffk.getCoeff(orders(j)) +
@@ -134,7 +142,7 @@ vector<complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme) {
         }
     }
     
-    coeffk.setScheme(scheme); 
+    ChangeScheme(scheme, coeffk, ordDF2);
     
     return coeffk.getCoeff();
 }
@@ -142,7 +150,7 @@ vector<complex>** HeffDF2::ComputeCoeffK(double mu, schemes scheme) {
 
 vector<complex>** HeffDF2::ComputeCoeffmK(double mu, schemes scheme) {
 
-    const std::vector<WilsonCoefficient>& mc = model.GetMyMatching()->CMdk2();
+     std::vector<WilsonCoefficient>& mc = model.GetMyMatching()->CMdk2();
     vector<complex> zero(5,0.);
     
     coeffmk.setMu(mu);
@@ -164,40 +172,29 @@ vector<complex>** HeffDF2::ComputeCoeffmK(double mu, schemes scheme) {
         }
     }
     
-    coeffmk.setScheme(scheme); 
+    ChangeScheme(scheme, coeffmk, ordDF2);
     
     return coeffmk.getCoeff();
 }
 
-void HeffDF2::ChangeScheme(schemes schout, schemes schin, orders order, int j) {
-    if (schout == schin) return;
+void HeffDF2::ChangeScheme(schemes schout, WilsonCoefficient& c_in, orders order) {
+    schemes schin = c_in.getScheme();
+    if (schout == schin || order == LO) return;
+    WilsonCoefficient c_out(5, schout, order);
     switch(schin) {
         case NDR:
             switch(schout) {
                 case LRI:
-                    if (j == 0)
-                        coeffbd.setCoeff(*coeffbd.getCoeff(NLO) -
-                            model.Als(coeffbd.getMu()) / 4. / M_PI * drNDRLRI.transpose()*
-                            (*coeffbd.getCoeff(LO)), NLO);
+                        c_out.setCoeff(*c_in.getCoeff(NLO) -
+                            model.Als(c_in.getMu()) / 4. / M_PI * drNDRLRI.transpose()*
+                            (*c_in.getCoeff(LO)), NLO);
+                    c_in.setCoeff(*c_out.getCoeff(NLO),NLO);
+                    c_in.setScheme(schout);
                     break;
-                    if (j == 1)
-                        coeffbs.setCoeff(*coeffbs.getCoeff(NLO) -
-                            model.Als(coeffbs.getMu()) / 4. / M_PI * drNDRLRI.transpose()*
-                            (*coeffbs.getCoeff(LO)), NLO);
-                    break;
-                    if (j == 2)
-                        coeffk.setCoeff(*coeffk.getCoeff(NLO) -
-                            model.Als(coeffk.getMu()) / 4. / M_PI * drNDRLRI.transpose()*
-                            (*coeffk.getCoeff(LO)), NLO);
-                    break;
-                    if (j == 3)
-                        coeffDd.setCoeff(*coeffDd.getCoeff(NLO) -
-                            model.Als(coeffDd.getMu()) / 4. / M_PI * drNDRLRI.transpose()*
-                            (*coeffDd.getCoeff(LO)), NLO);
-                    break;
-                default:
+                 default:
                     throw std::runtime_error("HeffDF2::ChangeScheme(): out scheme not implemented"); 
             }
+            break;
         default:
             throw std::runtime_error("HeffDF2::ChangeScheme(): in scheme not implemented"); 
     }

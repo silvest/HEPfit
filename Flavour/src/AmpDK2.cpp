@@ -28,11 +28,13 @@ complex AmpDK2::AmpDK(orders order) {
                 myFlavour.getModel().getQuarks(QCD::DOWN).getMass(), FULLNNLO);
     double KK = MK/(Ms+Md)*MK/(Ms+Md);
     double FK = myFlavour.getModel().getMesons(QCD::K_0).getDecayconst();
-    me(0) *= 1./3.*MK*FK*FK;
-    me(1) *= -5./24.*KK*MK*FK*FK;
-    me(2) *= 1./24.*KK*MK*FK*FK;
-    me(3) *= 1./4.*KK*MK*FK*FK;
-    me(4) *= 1./12.*KK*MK*FK*FK;
+    double mm = MK*FK*FK;
+    KK *= mm;
+    me(0) *= 1./3.*mm;
+    me(1) *= -5./24.*KK;
+    me(2) *= 1./24.*KK;
+    me(3) *= 1./4.*KK;
+    me(4) *= 1./12.*KK;
 
     switch(order) {
         case FULLNLO:

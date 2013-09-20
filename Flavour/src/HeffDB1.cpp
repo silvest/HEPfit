@@ -31,8 +31,8 @@ HeffDB1::~HeffDB1() {
  ******************************************************************************/
 vector<complex>** HeffDB1::ComputeCoeffBnlep00(double mu, schemes scheme) {
     
-    const std::vector<WilsonCoefficient>& mcb = model.GetMyMatching()->CMbnlep( 0);
-    const std::vector<WilsonCoefficient>& mcbCC = model.GetMyMatching()->CMbnlepCC( 0);
+     std::vector<WilsonCoefficient>& mcb = model.GetMyMatching()->CMbnlep( 0);
+     std::vector<WilsonCoefficient>& mcbCC = model.GetMyMatching()->CMbnlepCC( 0);
     
     coeffnlep00qcd.setMu(mu); //inizializes to zero the coefficients
     coeffnlep00CC.setMu(mu);
@@ -106,8 +106,8 @@ vector<complex>** HeffDB1::ComputeCoeffBnlep00(double mu, schemes scheme) {
  ******************************************************************************/
 vector<complex>** HeffDB1::ComputeCoeffBnlep10(double mu, schemes scheme) {
     
-    const std::vector<WilsonCoefficient>& mcb = model.GetMyMatching()->CMbnlep( 1);
-    const std::vector<WilsonCoefficient>& mcbCC = model.GetMyMatching()->CMbnlepCC( 1);
+     std::vector<WilsonCoefficient>& mcb = model.GetMyMatching()->CMbnlep( 1);
+     std::vector<WilsonCoefficient>& mcbCC = model.GetMyMatching()->CMbnlepCC( 1);
     
     coeffnlep10qcd.setMu(mu);
     coeffnlep10CC.setMu(mu);
@@ -179,8 +179,8 @@ vector<complex>** HeffDB1::ComputeCoeffBnlep10(double mu, schemes scheme) {
  ******************************************************************************/
 vector<complex>** HeffDB1::ComputeCoeffBnlep01(double mu, schemes scheme) {
     
-    const std::vector<WilsonCoefficient>& mcbCC1 =model.GetMyMatching()->CMbnlepCC( 2);
-    const std::vector<WilsonCoefficient>& mcbCC2 = model.GetMyMatching()->CMbnlepCC( 3);
+     std::vector<WilsonCoefficient>& mcbCC1 =model.GetMyMatching()->CMbnlepCC( 2);
+     std::vector<WilsonCoefficient>& mcbCC2 = model.GetMyMatching()->CMbnlepCC( 3);
     
     coeffnlep01.setMu(mu);
     coeffnlep01A.setMu(mu);
@@ -229,8 +229,8 @@ vector<complex>** HeffDB1::ComputeCoeffBnlep01(double mu, schemes scheme) {
  ******************************************************************************/
 vector<complex>** HeffDB1::ComputeCoeffBnlep11(double mu, schemes scheme) {
     
-    const std::vector<WilsonCoefficient>& mcbCC1 = model.GetMyMatching()->CMbnlepCC( 2);
-    const std::vector<WilsonCoefficient>& mcbCC2 = model.GetMyMatching()->CMbnlepCC( 3);
+     std::vector<WilsonCoefficient>& mcbCC1 = model.GetMyMatching()->CMbnlepCC( 2);
+     std::vector<WilsonCoefficient>& mcbCC2 = model.GetMyMatching()->CMbnlepCC( 3);
     
     coeffnlep11.setMu(mu);
     coeffnlep11A.setMu(mu);
@@ -272,7 +272,7 @@ vector<complex>** HeffDB1::ComputeCoeffBnlep11(double mu, schemes scheme) {
 
 vector<complex>** HeffDB1::ComputeCoeffsmumu() {
     
-    const std::vector<WilsonCoefficient>& mcb = model.GetMyMatching() -> CMbsmm();
+     std::vector<WilsonCoefficient>& mcb = model.GetMyMatching() -> CMbsmm();
     
     orders ordDF1 = coeffsmumu.getOrder();
     
@@ -288,7 +288,7 @@ vector<complex>** HeffDB1::ComputeCoeffsmumu() {
 
 vector<complex>** HeffDB1::ComputeCoeffdmumu() {
     
-    const std::vector<WilsonCoefficient>& mcb = model.GetMyMatching() -> CMbsmm();
+     std::vector<WilsonCoefficient>& mcb = model.GetMyMatching() -> CMbsmm();
     
     orders ordDF1 = coeffdmumu.getOrder();
     
@@ -303,7 +303,7 @@ vector<complex>** HeffDB1::ComputeCoeffdmumu() {
 
 vector<complex>** HeffDB1::ComputeCoeffsnunu() {
     
-    const std::vector<WilsonCoefficient>& mcb = model.GetMyMatching() -> CMbsmm();
+     std::vector<WilsonCoefficient>& mcb = model.GetMyMatching() -> CMbsmm();
     
     orders ordDF1 = coeffsnunu.getOrder();
     
@@ -319,7 +319,7 @@ vector<complex>** HeffDB1::ComputeCoeffsnunu() {
 
 vector<complex>** HeffDB1::ComputeCoeffdnunu() {
     
-    const std::vector<WilsonCoefficient>& mcb = model.GetMyMatching() -> CMbsmm();
+     std::vector<WilsonCoefficient>& mcb = model.GetMyMatching() -> CMbsmm();
     
     orders ordDF1 = coeffdnunu.getOrder();
     

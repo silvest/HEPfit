@@ -48,13 +48,12 @@ public:
     virtual ~HeffDF2();
     
     /**
-     * @brief change scheme from NDR to LRI
+     * @brief change scheme for a Wilson Coefficient
      * @param schout is the renormalization scheme in output
-     * @param schin is the renormalization scheme in output
+     * @param c_in is the Wilson Coefficient to be converted to scheme schout
      * @param order
-     * @param j, j=0 B_s, j=1 B_d, j=2 K, j=3 D.
      */ 
-    void ChangeScheme(schemes schout, schemes schin, orders order, int j);
+    void ChangeScheme(schemes schout, WilsonCoefficient& c_in, orders order);
     
     /**
      * 
