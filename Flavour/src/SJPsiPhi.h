@@ -20,7 +20,7 @@
  */
 
 /**
- * @class DMK
+ * @class SJPsiPhi
  * @brief A class for @f$S_{J/\psi\phi}@f$
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -33,7 +33,7 @@ public:
     
     /**
      * constructor
-     * @param ObsType
+     * @param Flavour
      */
     
     SJPsiPhi(Flavour& Flavour) : ThObservable(Flavour), AmpDB2(Flavour) {};
