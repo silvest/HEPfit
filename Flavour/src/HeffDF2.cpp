@@ -6,9 +6,7 @@
  */
 
 #include "HeffDF2.h"
-#include <sstream>
 #include <QCD.h>
-#include <stdexcept>
 
 HeffDF2::HeffDF2(const StandardModel& SM):
         model(SM),

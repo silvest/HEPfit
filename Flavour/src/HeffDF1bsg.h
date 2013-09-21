@@ -12,7 +12,6 @@
 #include <StandardModelMatching.h>
 #include <WilsonCoefficient.h>
 #include "EvolDF1bsg.h"
-#include <sstream>
 
 using namespace gslpp;
 
@@ -41,7 +40,7 @@ public:
     
     
     EvolDF1bsg getUDF1() const {
-        return u;
+        return evolDF1bsg;
     }
 
     const StandardModel& GetModel() const {
@@ -52,7 +51,7 @@ private :
     const StandardModel& model;
     ModelMatching& modelmatching;
     WilsonCoefficient coeffbsg;
-    EvolDF1bsg u;
+    EvolDF1bsg evolDF1bsg;
     
 };
 

@@ -11,7 +11,7 @@ using namespace gslpp;
 
 HeffDF1bsg::HeffDF1bsg(const StandardModel & SM, StandardModelMatching & SM_Matching) :
         model(SM), modelmatching(SM_Matching), coeffbsg(10, NDR, NLO), 
-        u(10, NDR, NLO, SM) {
+        evolDF1bsg(10, NDR, NLO, SM) {
 }
 
 HeffDF1bsg::~HeffDF1bsg() {
@@ -32,7 +32,7 @@ vector<complex>** HeffDF1bsg::ComputeCoeffBsg(double mu, schemes scheme) {
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
                 coeffbsg.setCoeff(*coeffbsg.getCoeff(orders(j)) +
-                    u.Df1Evolbsg(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                    evolDF1bsg.Df1Evolbsg(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
                     (*(mc[i].getCoeff(orders(j - k)))), orders(j));
             }
         }
