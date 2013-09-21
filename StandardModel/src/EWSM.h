@@ -9,6 +9,7 @@
 #define	EWSM_H
 
 #include <cstring>
+#include <stdexcept>
 #include <gslpp.h>
 #include "StandardModel.h"
 #include "EWSMcache.h"
@@ -24,6 +25,8 @@
 
 using namespace gslpp;
 
+class EWSM_Output; // forward reference to EWSM_Output class
+
 /**
  * @class EWSM
  * @ingroup StandardModel
@@ -34,6 +37,11 @@ using namespace gslpp;
  */
 class EWSM {
 public:
+
+    /**
+     * @brief Friend class of EWSM class.
+     */
+    friend class EWSM_Output;
 
     // accuracy in the iterative calculation of Mw
     static const double Mw_error;
@@ -50,8 +58,21 @@ public:
      * 
      * APPROXIMATEFORMULA for the use of approximate formulae
      */
-    enum schemes_EW {NORESUM=0, OMSI, INTERMEDIATE, OMSII, APPROXIMATEFORMULA, schemes_EW_size};
-    
+    enum schemes_EW {NORESUM=0, OMSI, INTERMEDIATE, OMSII, APPROXIMATEFORMULA,
+                     DEBUG, schemes_EW_size};
+
+    std::string SchemeString(const schemes_EW scheme) const
+    {
+        if (scheme == NORESUM) return "NORESUM";
+        else if (scheme == OMSI) return "OMSI";
+        else if (scheme == INTERMEDIATE) return "INTERMEDIATE";
+        else if (scheme == OMSII) return "OMSII";
+        else if (scheme == APPROXIMATEFORMULA) return "APPROXIMATEFORMULA";
+        else if (scheme == DEBUG) return "DEBUG";
+        else
+            throw std::runtime_error("Undefined scheme in EWSM::SchemeString");
+    }
+
     // The number of the parameters relevant to EW observables
     static const int NumSMParams = 26;
         
@@ -114,6 +135,7 @@ public:
     void setSchemeMw(schemes_EW schemeMw) 
     {
         this->schemeMw = schemeMw;
+        std::cout << "Mw: " << SchemeString(schemeMw) << std::endl;
     }
 
     schemes_EW getSchemeRhoZ() const
@@ -129,6 +151,7 @@ public:
     void setSchemeRhoZ(schemes_EW schemeRhoZ) 
     {
         this->schemeRhoZ = schemeRhoZ;
+        std::cout << "rhoZf: " << SchemeString(schemeRhoZ) << std::endl;
     }
 
     schemes_EW getSchemeKappaZ() const
@@ -143,6 +166,7 @@ public:
     void setSchemeKappaZ(schemes_EW schemeKappaZ)
     {
         this->schemeKappaZ = schemeKappaZ;
+        std::cout << "kappaZf: " << SchemeString(schemeKappaZ) << std::endl;
     }
 
     
@@ -410,15 +434,6 @@ public:
      * @param[out] DeltaR_rem
      */
     void ComputeDeltaR_rem(const double Mw_i, double DeltaR_rem[orders_EW_size]) const;
-
-
-    ////////////////////////////////////////////////////////////////////////
-
-    void outputEachDeltaR(const double Mw_i) const;
-
-    void outputEachDeltaRhoZ(const double Mw_i) const;
-
-    void outputEachDeltaKappaZ(const double Mw_i) const;
 
 
     ////////////////////////////////////////////////////////////////////////     

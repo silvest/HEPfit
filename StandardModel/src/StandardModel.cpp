@@ -79,16 +79,14 @@ bool StandardModel::InitializeModel()
 
 void StandardModel::SetEWSMflags(EWSM& myEWSM)
 {
+    std::cout << "Schemes for EWPOs:" << std::endl;
+    std::cout << "  ";
     myEWSM.setSchemeMw(EWSM::APPROXIMATEFORMULA);
+    std::cout << "  ";
     //myEWSM.setSchemeRhoZ(EWSM::OMSI);
     myEWSM.setSchemeRhoZ(EWSM::NORESUM);
+    std::cout << "  ";
     myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
-
-    /* Should be modified by hand! */
-    std::cout << "Schemes for EWPOs:" << std::endl
-              << "  Mw: APPROXIMATEFORMULA" << std::endl
-              << "  rhoZf: NORESUM" << std::endl
-              << "  kappaZf: APPROXIMATEFORMULA" << std::endl << std::endl;
 }
 
 

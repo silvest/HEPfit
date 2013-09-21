@@ -6,8 +6,8 @@
  */
 
 #include <cmath>
-#include "EWSM.h"
 #include <iostream>
+#include "EWSM.h"
 
 // include the imaginary part of O(alpha alpha_s) contribution (for a test)
 //#define WITHIMTWOLOOPQCD
@@ -225,7 +225,10 @@ double EWSM::Mw_SM() const
     double Mw;
     if (schemeMw==APPROXIMATEFORMULA)
         Mw = myApproximateFormulae->Mw(DeltaAlphaL5q());
-    else {
+    else if (schemeMw==DEBUG) {
+        Mw = 80.385;
+        std::cout << "Mw is fixed to " << Mw << " GeV for test!" << std::endl;
+    } else {
         //std::cout << std::setprecision(12) 
         //          << "TEST: Mw_tree = " << SM.Mw_tree() << std::endl;
         
@@ -328,7 +331,7 @@ complex EWSM::rhoZ_l_SM(const StandardModel::lepton l) const
         double DeltaRbar_rem = 0.0;
         if (flag_order[EW1])
             DeltaRbar_rem = myOneLoopEW->DeltaRbar_rem(Mw);    
-        
+
         /* Re[rho_Z^f] with or without resummation */
         double deltaRho_rem_f_real[orders_EW_size];
         for (int j=0; j<orders_EW_size; ++j)
@@ -471,7 +474,7 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const
         double DeltaRbar_rem = 0.0;
         if (flag_order[EW1])
             DeltaRbar_rem = myOneLoopEW->DeltaRbar_rem(Mw);    
-        
+
         /* Re[kappa_Z^f] with or without resummation */
         double deltaKappa_rem_f_real[orders_EW_size];
         for (int j=0; j<orders_EW_size; ++j)
@@ -481,7 +484,7 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const
         
         /* O(alpha^2) correction to Re[kappa_Z^f] from the Z-gamma mixing */
         ReKappaZf += 35.0*alphaMz()*alphaMz()/18.0/sW2_SM()
-                *(1.0 - 8.0/3.0*ReKappaZf*sW2_SM());
+                     *(1.0 - 8.0/3.0*ReKappaZf*sW2_SM());
     
         /* Im[kappa_Z^f] without resummation */
         for (int j=0; j<orders_EW_size; ++j)
@@ -549,7 +552,7 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
         double DeltaRbar_rem = 0.0;
         if (flag_order[EW1])
             DeltaRbar_rem = myOneLoopEW->DeltaRbar_rem(Mw);    
-    
+        
         /* Re[kappa_Z^f] with or without resummation */
         double deltaKappa_rem_f_real[orders_EW_size];
         for (int j=0; j<orders_EW_size; ++j)
@@ -561,8 +564,8 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
         
         /* O(alpha^2) correction to Re[kappa_Z^f] from the Z-gamma mixing */
         ReKappaZf += 35.0*alphaMz()*alphaMz()/18.0/sW2_SM()
-                *(1.0 - 8.0/3.0*ReKappaZf*sW2_SM());
-    
+                     *(1.0 - 8.0/3.0*ReKappaZf*sW2_SM());
+
         /* Im[kappa_Z^f] without resummation */
         for (int j=0; j<orders_EW_size; ++j)
             ImKappaZf += deltaKappa_rem_f[j].imag();    
@@ -1451,7 +1454,7 @@ double EWSM::resumRhoZ(const double DeltaRho[orders_EW_size],
     deltaRho_rem_G = f_AlphaToGF*(deltaRho_rem[EW1] 
                                   + deltaRho_rem[EW1QCD1]);
     deltaRho_rem_G2 = pow(f_AlphaToGF,2.0)*deltaRho_rem[EW2];
-    
+
     /* Real parts */
     double rhoZ;
     if (!bool_Zbb) {
@@ -1469,7 +1472,7 @@ double EWSM::resumRhoZ(const double DeltaRho[orders_EW_size],
             case OMSII:
                 rhoZ = 1.0 + DeltaRho_sum - DeltaRho_G*DeltaRbar_rem_G
                         + DeltaRho_G*DeltaRho_G
-                        + deltaRho_rem_G*(1.0 + DeltaRho_G) + deltaRho_rem_G2;  
+                        + deltaRho_rem_G*(1.0 + DeltaRho_G) + deltaRho_rem_G2;
                 break;
             default:
                 throw std::runtime_error("Error in EWSM::resumRhoZ()"); 
@@ -1487,17 +1490,6 @@ double EWSM::resumRhoZ(const double DeltaRho[orders_EW_size],
                         + DeltaRho_G*DeltaRho_G
                         + deltaRho_rem_G*(1.0 + DeltaRho_G) + deltaRho_rem_G2)
                         *OnePlusTaub2;
-                
-                /* TEST */
-                //std::cout << "DeltaRho_G=" << DeltaRho_G << std::endl;
-                //std::cout << "DeltaRho_G_als=" << f_AlphaToGF*DeltaRho[EW1QCD1] << std::endl;
-                //std::cout << "deltaRho_rem_G=" << deltaRho_rem_G << std::endl;
-                //std::cout << "DeltaRho_G*DeltaRho_G=" << DeltaRho_G*DeltaRho_G << std::endl;
-                //std::cout << "DeltaRho_G2=" << pow(f_AlphaToGF,2.0)*DeltaRho[EW2] << std::endl;
-                //std::cout << "deltaRho_rem_G2=" << deltaRho_rem_G2 << std::endl;
-                //std::cout << "-DeltaRho_G*DeltaRbar_rem_G=" << - DeltaRho_G*DeltaRbar_rem_G << std::endl;
-                //std::cout << "(1+taub)^2-1=" << OnePlusTaub2-1.0 << std::endl;                
-
                 break;
             case OMSI:
                 rhoZbL = OnePlusTaub2/(1.0 - DeltaRho_sum);
@@ -1553,7 +1545,7 @@ double EWSM::resumKappaZ(const double DeltaRho[orders_EW_size],
                                     + deltaKappa_rem[EW1QCD1]
                                     + deltaKappa_rem[EW1QCD2]);
     deltaKappa_rem_G2 = pow(f_AlphaToGF,2.0)*deltaKappa_rem[EW2];
-    
+
     /* Real parts */
     double kappaZ;
     if (!bool_Zbb) {
@@ -1589,16 +1581,6 @@ double EWSM::resumKappaZ(const double DeltaRho[orders_EW_size],
                           - cW2_TMP/sW2_TMP*DeltaRho_G*DeltaRbar_rem_G
                           + deltaKappa_rem_G*(1.0 + cW2_TMP/sW2_TMP*DeltaRho_G)
                           + deltaKappa_rem_G2)/OnePlusTaub;
-                
-                /* TEST */
-                //std::cout << "cW2/sW2*DeltaRho_G=" << cW2_TMP/sW2_TMP*DeltaRho_G << std::endl;
-                //std::cout << "deltaKappa_rem_G=" << deltaKappa_rem_G << std::endl;
-                //std::cout << "cW2/sW2*DeltaRho_G2=" << cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2] << std::endl;
-                //std::cout << "deltaKappa_rem_G2=" << deltaKappa_rem_G2 << std::endl;
-                //std::cout << "-cW2/sW2*DeltaRho_G*DeltaRbar_rem_G=" << - cW2_TMP/sW2_TMP*DeltaRho_G*DeltaRbar_rem_G << std::endl;
-                //std::cout << "cW2/sW2*DeltaRho_G*deltaKappa_rem_G=" << cW2_TMP/sW2_TMP*DeltaRho_G*deltaKappa_rem_G << std::endl;
-                //std::cout << "1/(1+taub)-1=" << 1.0/OnePlusTaub-1.0 << std::endl;                
-                
                 break;
             case OMSI:
                 kappaZbL = (1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)/OnePlusTaub;
@@ -1616,286 +1598,5 @@ double EWSM::resumKappaZ(const double DeltaRho[orders_EW_size],
 
     return kappaZ;
 }
-
-
-////////////////////////////////////////////////////////////////////////
-
-void EWSM::outputEachDeltaR(const double Mw_i) const
-{
-    std::cout << "Mw_SM          = " << Mw_SM() << std::endl;
-    std::cout << "DeltaR_SM()    = " << DeltaR_SM() << std::endl;
-    std::cout << "DeltaRbar_SM() = " << DeltaRbar_SM() << std::endl;
-    std::cout << "Mw(input)      = " << Mw_i << std::endl;
-
-    double cW2_TMP = Mw_i*Mw_i/SM.getMz()/SM.getMz();
-    double sW2_TMP = 1.0 - cW2_TMP;
-
-    double DeltaRho[orders_EW_size];
-    DeltaRho[EW1] = myOneLoopEW->DeltaRho(Mw_i);
-    DeltaRho[EW1QCD1] = myTwoLoopQCD->DeltaRho(Mw_i);
-    DeltaRho[EW1QCD2] = myThreeLoopQCD->DeltaRho(Mw_i);
-    DeltaRho[EW2] = myTwoLoopEW->DeltaRho(Mw_i);
-    DeltaRho[EW2QCD1] = myThreeLoopEW2QCD->DeltaRho(Mw_i);
-    DeltaRho[EW3] = myThreeLoopEW->DeltaRho(Mw_i);
-
-    double DeltaR_rem[orders_EW_size];
-    DeltaR_rem[EW1] = myOneLoopEW->DeltaR_rem(Mw_i);
-    DeltaR_rem[EW1QCD1] = myTwoLoopQCD->DeltaR_rem(Mw_i);
-    DeltaR_rem[EW1QCD2] = myThreeLoopQCD->DeltaR_rem(Mw_i);
-    DeltaR_rem[EW2] = myTwoLoopEW->DeltaR_rem(Mw_i);
-    DeltaR_rem[EW2QCD1] = myThreeLoopEW2QCD->DeltaR_rem(Mw_i);
-    DeltaR_rem[EW3] = myThreeLoopEW->DeltaR_rem(Mw_i);
-
-    double f_AlphaToGF = sqrt(2.0)*SM.getGF()*pow(SM.getMz(),2.0)*sW2_TMP*cW2_TMP/M_PI/SM.getAle();
-    //f_AlphaToGF = 1.0; /* for test */
-    double DeltaRho_sum = f_AlphaToGF*DeltaRho[EW1]
-                          + f_AlphaToGF*DeltaRho[EW1QCD1]
-                          + f_AlphaToGF*DeltaRho[EW1QCD2]
-                          + pow(f_AlphaToGF,2.0)*DeltaRho[EW2]
-                          + pow(f_AlphaToGF,2.0)*DeltaRho[EW2QCD1]
-                          + pow(f_AlphaToGF,3.0)*DeltaRho[EW3];
-    double DeltaRho_G = f_AlphaToGF*DeltaRho[EW1];
-
-    if (schemeMw == NORESUM) {
-
-        f_AlphaToGF = 1.0;
-        DeltaRho[EW1QCD2] *= f_AlphaToGF;
-        DeltaRho[EW2QCD1] *= pow(f_AlphaToGF, 2.0);
-        DeltaRho[EW3] *= pow(f_AlphaToGF, 3.0);
-
-        // Full EW one-loop contribution (without the full DeltaAlphaL5q)
-        double DeltaR_EW1 = - cW2_TMP/sW2_TMP*DeltaRho[EW1] + DeltaR_rem[EW1];
-
-        // Full EW two-loop contribution with reducible corrections
-        double DeltaR_EW2_rem = myApproximateFormulae->DeltaR_TwoLoopEW_rem(DeltaAlphaL5q(), Mw_i);
-
-        // EW two-loop irreducible contributions with large-mt expansion
-        double DeltaR_EW2_old_red = DeltaAlphaL5q()*DeltaAlphaL5q()
-                                    - 2.0*cW2_TMP/sW2_TMP*DeltaAlphaL5q()*DeltaRho[EW1]
-                                    + pow(cW2_TMP/sW2_TMP*DeltaRho[EW1], 2.0);
-        double DeltaR_EW2_old_irred = - cW2_TMP/sW2_TMP*DeltaRho[EW2] + DeltaR_rem[EW2];
-
-        // Delta r, including the full EW two-loop contribution
-        double deltaR = DeltaAlphaL5q();
-        for (int j=0; j<orders_EW_size; ++j) {
-            deltaR += - cW2_TMP/sW2_TMP*DeltaRho[(orders_EW)j];
-            deltaR += DeltaR_rem[(orders_EW)j];
-        }
-        deltaR -= -cW2_TMP/sW2_TMP*DeltaRho[EW2];
-        deltaR -= DeltaR_rem[EW2];
-        deltaR += DeltaAlphaL5q()*DeltaAlphaL5q() + 2.0*DeltaAlphaL5q()*DeltaR_EW1 + DeltaR_EW2_rem;
-
-        std::cout << "(1+dr) - 1        =  " << deltaR << std::endl;
-        std::cout << "  EW1             =  " << DeltaAlphaL5q() + DeltaR_EW1 << std::endl;
-        std::cout << "    DeltaAlphaL5q =  " << DeltaAlphaL5q() << std::endl;
-        std::cout << "    dR            = " << DeltaR_EW1 << std::endl;
-        std::cout << "  EW1QCD1         =  " << - cW2_TMP/sW2_TMP*DeltaRho[EW1QCD1] + DeltaR_rem[EW1QCD1] << std::endl;
-        std::cout << "  EW2(full)       =  " << DeltaR_EW2_rem + DeltaAlphaL5q()*DeltaAlphaL5q() + 2.0*DeltaAlphaL5q()*DeltaR_EW1 << std::endl;
-        std::cout << "    dAle*dAle     =  " << DeltaAlphaL5q()*DeltaAlphaL5q() << std::endl;
-        std::cout << "    2*dAle*dR     = " << 2.0*DeltaAlphaL5q()*DeltaR_EW1 << std::endl;
-        std::cout << "    others        =  " << DeltaR_EW2_rem << std::endl;
-        std::cout << "  EW1QCD2         =  " << - cW2_TMP/sW2_TMP*DeltaRho[EW1QCD2] + DeltaR_rem[EW1QCD2] << std::endl;
-        std::cout << "  EW2QCD1         = " << - cW2_TMP/sW2_TMP*DeltaRho[EW2QCD1] + DeltaR_rem[EW2QCD1] << std::endl;
-        std::cout << "  EW3             = " << - cW2_TMP/sW2_TMP*DeltaRho[EW3] + DeltaR_rem[EW3] << std::endl;
-        std::cout << "  EW2(old,irreducible) = " << DeltaR_EW2_old_irred << std::endl;
-        std::cout << "  EW2(old,red+irred)   = " << DeltaR_EW2_old_red + DeltaR_EW2_old_irred << std::endl;
-        std::cout << "  EW2(old,red+irred-dAle*dAle-2*dAle*dR) = "
-                  << DeltaR_EW2_old_red + DeltaR_EW2_old_irred
-                     - DeltaAlphaL5q()*DeltaAlphaL5q()
-                     - 2.0*DeltaAlphaL5q()*DeltaR_EW1 << std::endl;
-
-    } else if (schemeMw == OMSI) {
-
-        // R = 1/(1 - Delta r)
-        double R = 1.0/( 1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)
-                   /(1.0 - DeltaAlphaL5q() - DeltaR_rem[EW1] - DeltaR_rem[EW1QCD1] - DeltaR_rem[EW2] );
-
-        std::cout << "1/(1-dr) - 1 (exact)                 = " << R - 1.0 << std::endl;
-        std::cout << "     --> dr = " << 1.0 - 1.0/R << std::endl;
-
-        // each contribution
-        double DeltaR_EW1 = DeltaAlphaL5q() - cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1] + DeltaR_rem[EW1];
-        double DeltaR_EW1QCD1 = - cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1QCD1] + DeltaR_rem[EW1QCD1];
-        double DeltaR_EW2 = - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2]
-                            + DeltaR_rem[EW2]
-                            + cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1]
-                              *(DeltaAlphaL5q() + DeltaR_rem[EW1])
-                            + DeltaR_EW1*DeltaR_EW1;
-        double DeltaR_EW1QCD2 = - cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1QCD2];
-        double DeltaR_EW2QCD1 = - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2QCD1]
-                                + cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1QCD1]
-                                  *(DeltaAlphaL5q() + DeltaR_rem[EW1])
-                                + 2.0*DeltaR_EW1*DeltaR_EW1QCD1;
-        double DeltaR_EW3 = - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,3.0)*DeltaRho[EW3]
-                            + cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2]
-                              *(DeltaAlphaL5q() + DeltaR_rem[EW1])
-                            + pow(DeltaR_EW1, 3.0)
-                            + 2.0*DeltaR_EW1*(DeltaR_EW2 - DeltaR_EW1*DeltaR_EW1);
-
-        std::cout << "  EW1             =  " << DeltaR_EW1 << std::endl;
-        std::cout << "    DeltaAlphaL5q =  " << DeltaAlphaL5q() << std::endl;
-        std::cout << "    -cW2/sW2*dRho1= " << - cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1]  << std::endl;
-        std::cout << "    DeltaR1_rem   =  " << DeltaR_rem[EW1] << std::endl;
-        std::cout << "  EW1QCD1         =  " << DeltaR_EW1QCD1 << std::endl;
-        std::cout << "  EW2(full)       =  " << DeltaR_EW2 << std::endl;
-        std::cout << "    EW1*EW1       =  " << DeltaR_EW1*DeltaR_EW1 << std::endl;
-        std::cout << "      dAle*dAle   =  " << DeltaAlphaL5q()*DeltaAlphaL5q() << std::endl;
-        std::cout << "      others      = " << DeltaR_EW1*DeltaR_EW1 - DeltaAlphaL5q()*DeltaAlphaL5q() << std::endl;
-        std::cout << "    -cW2/sW2*dRho2=  " << - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2] << std::endl;
-        std::cout << "    DeltaR2_rem   =  " << DeltaR_rem[EW2] << std::endl;
-        std::cout << "    others        =  " << cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1]*(DeltaAlphaL5q() + DeltaR_rem[EW1]) << std::endl;
-        std::cout << "  EW1QCD2         =  " << DeltaR_EW1QCD2 << std::endl;
-        std::cout << "  EW2QCD1         = " << DeltaR_EW2QCD1 << std::endl;
-        std::cout << "  EW3             =  " << DeltaR_EW3 << std::endl;
-        std::cout << "    -cW2/sW2*dRho3= " << - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,3.0)*DeltaRho[EW3] << std::endl;
-        std::cout << "    EW1^3         =  " << pow(DeltaR_EW1, 3.0) << std::endl;
-        std::cout << "    2*EW1*(EW2-EW1^2)=" << 2.0*DeltaR_EW1*(DeltaR_EW2 - DeltaR_EW1*DeltaR_EW1) << std::endl;
-        std::cout << "    others        = " << cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2]*(DeltaAlphaL5q() + DeltaR_rem[EW1]) << std::endl;
-
-    } else if (schemeMw == OMSII) {
-
-        // R = 1/(1 - Delta r)
-        double R = 1.0/( (1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)*(1.0 - DeltaAlphaL5q())
-                         - (1.0 + cW2_TMP/sW2_TMP*DeltaRho_G)*DeltaR_rem[EW1]
-                         - DeltaR_rem[EW1QCD1] - DeltaR_rem[EW2] );
-
-        // each contribution
-        double DeltaR_EW1 = DeltaAlphaL5q() - cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1] + DeltaR_rem[EW1];
-        double DeltaR_EW1QCD1 = - cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1QCD1] + DeltaR_rem[EW1QCD1];
-        double DeltaR_EW2 = - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2]
-                            + DeltaR_rem[EW2]
-                            + cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1]
-                              *(DeltaAlphaL5q() + DeltaR_rem[EW1])
-                            + DeltaR_EW1*DeltaR_EW1;
-        double DeltaR_EW1QCD2 = - cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1QCD2];
-        double DeltaR_EW2QCD1 = - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2QCD1]
-                                + cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1QCD1]*DeltaAlphaL5q()
-                                + 2.0*DeltaR_EW1*DeltaR_EW1QCD1;
-        double DeltaR_EW3 = - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,3.0)*DeltaRho[EW3]
-                            + cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2]*DeltaAlphaL5q()
-                            + pow(DeltaR_EW1, 3.0)
-                            + 2.0*DeltaR_EW1*(DeltaR_EW2 - DeltaR_EW1*DeltaR_EW1);
-
-        std::cout << "1/(1-dr) - 1 (exact)                 = " << R - 1.0 << std::endl;
-        std::cout << "     --> dr = " << 1.0 - 1.0/R << std::endl;
-        std::cout << "1/(1-dr) - 1 (sum of expanded terms) = "
-                  << DeltaR_EW1 + DeltaR_EW1QCD1 + DeltaR_EW2 + DeltaR_EW1QCD2
-                     + DeltaR_EW2QCD1 + DeltaR_EW3 << std::endl;
-        std::cout << "  EW1             =  " << DeltaR_EW1 << std::endl;
-        std::cout << "    DeltaAlphaL5q =  " << DeltaAlphaL5q() << std::endl;
-        std::cout << "    -cW2/sW2*dRho1= " << - cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1]  << std::endl;
-        std::cout << "    DeltaR1_rem   =  " << DeltaR_rem[EW1] << std::endl;
-        std::cout << "  EW1QCD1         =  " << DeltaR_EW1QCD1 << std::endl;
-        std::cout << "  EW2(full)       =  " << DeltaR_EW2 << std::endl;
-        std::cout << "    EW1*EW1       =  " << DeltaR_EW1*DeltaR_EW1 << std::endl;
-        std::cout << "      dAle*dAle   =  " << DeltaAlphaL5q()*DeltaAlphaL5q() << std::endl;
-        std::cout << "      others      = " << DeltaR_EW1*DeltaR_EW1 - DeltaAlphaL5q()*DeltaAlphaL5q() << std::endl;
-        std::cout << "    -cW2/sW2*dRho2=  " << - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2] << std::endl;
-        std::cout << "    DeltaR2_rem   =  " << DeltaR_rem[EW2] << std::endl;
-        std::cout << "    others        =  " << cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1]*(DeltaAlphaL5q()+DeltaR_rem[EW1]) << std::endl;
-        std::cout << "  EW1QCD2         =  " << DeltaR_EW1QCD2 << std::endl;
-        std::cout << "  EW2QCD1         = " << DeltaR_EW2QCD1 << std::endl;
-        std::cout << "  EW3             =  " << DeltaR_EW3 << std::endl;
-        std::cout << "    -cW2/sW2*dRho3= " << - cW2_TMP/sW2_TMP*pow(f_AlphaToGF,3.0)*DeltaRho[EW3] << std::endl;
-        std::cout << "    EW1^3         =  " << pow(DeltaR_EW1, 3.0) << std::endl;
-        std::cout << "    2*EW1*(EW2-EW1^2)=" << 2.0*DeltaR_EW1*(DeltaR_EW2 - DeltaR_EW1*DeltaR_EW1) << std::endl;
-        std::cout << "    others        = " << cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2]*DeltaAlphaL5q() << std::endl;
-
-    } else
-        std::cout << "EWSM::outputEachDeltaR(): Not implemented for schemeMw="
-                  << schemeMw << std::endl;
-}
-
-
-void EWSM::outputEachDeltaRhoZ(const double Mw_i) const
-{
-    std::cout << "Mw(input)   = " << Mw_i << std::endl;
-
-    if (schemeRhoZ == APPROXIMATEFORMULA) {
-
-    } else if (schemeRhoZ == NORESUM) {
-
-    } else
-        std::cout << "EWSM::outputEachDeltaRhoZ(): Not implemented for schemeRhoZ="
-                  << schemeRhoZ << std::endl;
-}
-
-
-void EWSM::outputEachDeltaKappaZ(const double Mw_i) const
-{
-    std::cout << "Mw(input)   = " << Mw_i << std::endl;
-
-    if (schemeKappaZ == APPROXIMATEFORMULA) {
-        std::cout << "Delta kappaZb (from the approximate formula of sin2thb) = "
-                  << kappaZ_q_SM(StandardModel::BOTTOM)  - 1.0 << std::endl;
-    } else if (schemeKappaZ == NORESUM) {
-        double cW2_TMP = Mw_i*Mw_i/SM.getMz()/SM.getMz();
-        double sW2_TMP = 1.0 - cW2_TMP;
-
-        double DeltaRho[orders_EW_size];
-        ComputeDeltaRho(Mw_i, DeltaRho);
-
-        double deltaKappa_rem[orders_EW_size];
-        deltaKappa_rem[EW1] = myOneLoopEW->deltaKappa_rem_q(StandardModel::BOTTOM,Mw_i).real();
-        deltaKappa_rem[EW1QCD1] = myTwoLoopQCD->deltaKappa_rem_q(StandardModel::BOTTOM,Mw_i).real();
-        deltaKappa_rem[EW1QCD2] = myThreeLoopQCD->deltaKappa_rem_q(StandardModel::BOTTOM,Mw_i).real();
-        deltaKappa_rem[EW2] = myTwoLoopEW->deltaKappa_rem_q(StandardModel::BOTTOM,Mw_i).real();
-        deltaKappa_rem[EW2QCD1] = myThreeLoopEW2QCD->deltaKappa_rem_q(StandardModel::BOTTOM,Mw_i).real();
-        deltaKappa_rem[EW3] = myThreeLoopEW->deltaKappa_rem_q(StandardModel::BOTTOM,Mw_i).real();
-        double DeltaRbar_rem = myOneLoopEW->DeltaRbar_rem(Mw_i);
-
-        double f_AlphaToGF = sqrt(2.0)*SM.getGF()*pow(SM.getMz(),2.0)
-                             *sW2_TMP*cW2_TMP/M_PI/SM.getAle();
-        double DeltaRho_sum = f_AlphaToGF*DeltaRho[EW1]
-                              + f_AlphaToGF*DeltaRho[EW1QCD1]
-                              + f_AlphaToGF*DeltaRho[EW1QCD2]
-                              + pow(f_AlphaToGF,2.0)*DeltaRho[EW2]
-                              + pow(f_AlphaToGF,2.0)*DeltaRho[EW2QCD1]
-                              + pow(f_AlphaToGF,3.0)*DeltaRho[EW3];
-        double DeltaRho_G = f_AlphaToGF*DeltaRho[EW1];
-        double DeltaRbar_rem_G = f_AlphaToGF*DeltaRbar_rem;
-        double deltaKappa_rem_G = f_AlphaToGF*(deltaKappa_rem[EW1]
-                                  + deltaKappa_rem[EW1QCD1]
-                                  + deltaKappa_rem[EW1QCD2]);
-        deltaKappa_rem_G -= f_AlphaToGF*myCache->ale()/8.0/M_PI/sW2_TMP
-                            *pow(myCache->Mt()/Mw_i, 2.0);
-        double deltaKappa_rem_G2 = pow(f_AlphaToGF,2.0)*deltaKappa_rem[EW2];
-
-        double OnePlusTaub = 1.0 + taub();
-        complex kappaZ = (1.0
-                         + cW2_TMP/sW2_TMP*DeltaRho_sum
-                         - cW2_TMP/sW2_TMP*DeltaRho_G*DeltaRbar_rem_G
-                         + deltaKappa_rem_G*(1.0 + cW2_TMP/sW2_TMP*DeltaRho_G)
-                         + deltaKappa_rem_G2)
-                         /OnePlusTaub;
-
-        // one-loop contribution including large logs in vertex corrections
-        double EW1_b = cW2_TMP/sW2_TMP*f_AlphaToGF*DeltaRho[EW1]
-                       + f_AlphaToGF*deltaKappa_rem[EW1];
-        // The following two contributions are identical to each other:
-        EW1_b -= f_AlphaToGF*myCache->ale()/8.0/M_PI/sW2_TMP*pow(myCache->Mt()/Mw_i, 2.0);
-        EW1_b += 2.0*myCache->Xt_GF();
-
-        // full two-loop EW contribution
-        double EW2_b = DeltaAlphaL5q()*EW1_b
-                       + myApproximateFormulae->DeltaKappa_b_TwoLoopEW_rem(DeltaAlphaL5q(), Mw_i);
-
-        // two-loop EW contribution with large-mt expansion
-//        double EW2_b_old = cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EW2]
-//                           + pow(f_AlphaToGF,2.0)*deltaKappa_rem[EW2]
-//        + ...
-//        ;
-
-        std::cout << "Delta kappa^b        =  " << kappaZ.real() - 1.0 << std::endl;
-        std::cout << "  Delta kappa^b(EW1) =  " << EW1_b << std::endl;
-        std::cout << "  Delta kappa^b(EW2) =  " << EW2_b << std::endl;
-        std::cout << "    dAle*dKappa      =  " << DeltaAlphaL5q()*EW1_b << std::endl;
-        std::cout << "    rem              = " << myApproximateFormulae->DeltaKappa_b_TwoLoopEW_rem(DeltaAlphaL5q(), Mw_i) << std::endl;
-
-    } else
-        std::cout << "EWSM::outputEachDeltaKappaZ(): Not implemented for schemeKappaZ="
-                  << schemeKappaZ << std::endl;
-}
-
 
 
