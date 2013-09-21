@@ -58,7 +58,7 @@ public:
     /**
      * 
      * @param mu is the low energy scale
-     * @param scheme indicates the renormalization scheme
+     * @param scheme indicates the renormalization scheme (Default: NDR)
      * @return the effective hamiltonian at the scale mu for B_d oscillations
      */
     vector<complex>** ComputeCoeffBd(double mu, schemes scheme = NDR);
@@ -66,7 +66,7 @@ public:
     /**
      * 
      * @param mu is the low energy scale
-     * @param scheme indicates the renormalization scheme
+     * @param scheme indicates the renormalization scheme (Default: NDR)
      * @return the effective hamiltonian at the scale mu for B_s oscillations
      */
     vector<complex>** ComputeCoeffBs(double mu, schemes scheme = NDR);
@@ -74,7 +74,7 @@ public:
     /**
      * 
      * @param mu is the low energy scale
-     * @param scheme indicates the renormalization scheme
+     * @param scheme indicates the renormalization scheme (Default: NDR)
      * @return the effective hamiltonian at the scale mu for D oscillations
      */
     vector<complex>** ComputeCoeffdd(double mu, schemes scheme = NDR);
@@ -82,7 +82,7 @@ public:
     /**
      * 
      * @param mu is the low energy scale
-     * @param scheme indicates the renormalization scheme
+     * @param scheme indicates the renormalization scheme (Default: NDR)
      * @return the effective hamiltonian at the scale mu for K oscillations
      */
     vector<complex>** ComputeCoeffK(double mu, schemes scheme = NDR);
@@ -90,7 +90,7 @@ public:
     /**
      * 
      * @param mu is the low energy scale
-     * @param scheme indicates the renormalization scheme
+     * @param scheme indicates the renormalization scheme (Default: NDR)
      * @brief for Delta M_K the SM contribution is set to zero
      * @return the effective hamiltonian at the scale mu for Delta M_K
      */

@@ -254,7 +254,7 @@ void EvolDF2::Df2Evol(double mu, double M, double nf, schemes scheme) {
         case NNLO:
             *elem[NNLO] = 0.; // Marco can implement it if he wishes to!
         case NLO:
-            *elem[NLO] = (*elem[LO]) * resNLO + (*elem[NLO]) * resLO;
+            *elem[NLO] = /*(*elem[LO]) * resNLO +*/ (*elem[NLO]) * resNLO;
         case LO:
             *elem[LO] = (*elem[LO]) * resLO;
             break;
