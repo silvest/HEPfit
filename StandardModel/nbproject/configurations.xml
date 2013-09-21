@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="88">
+<configurationDescriptor version="89">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -17,6 +17,7 @@
       <itemPath>src/EWSMTwoFermionsLEP2_Hollik.h</itemPath>
       <itemPath>src/EWSMTwoLoopEW.h</itemPath>
       <itemPath>src/EWSMTwoLoopQCD.h</itemPath>
+      <itemPath>src/EWSM_Output.h</itemPath>
       <itemPath>src/EWSMcache.h</itemPath>
       <itemPath>src/EWepsilons.h</itemPath>
       <itemPath>src/Meson.h</itemPath>
@@ -61,6 +62,7 @@
       <itemPath>src/EWSMTwoFermionsLEP2_Hollik.cpp</itemPath>
       <itemPath>src/EWSMTwoLoopEW.cpp</itemPath>
       <itemPath>src/EWSMTwoLoopQCD.cpp</itemPath>
+      <itemPath>src/EWSM_Output.cpp</itemPath>
       <itemPath>src/EWSMcache.cpp</itemPath>
       <itemPath>src/EWepsilons.cpp</itemPath>
       <itemPath>src/Meson.cpp</itemPath>
@@ -498,6 +500,10 @@
       </item>
       <item path="src/EWSMTwoLoopQCD.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/EWSM_Output.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EWSM_Output.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/EWSMcache.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EWSMcache.h" ex="false" tool="3" flavor2="0">
@@ -800,6 +806,10 @@
       </item>
       <item path="src/EWSMTwoLoopQCD.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/EWSM_Output.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EWSM_Output.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/EWSMcache.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EWSMcache.h" ex="false" tool="3" flavor2="0">
@@ -1091,6 +1101,10 @@
       <item path="src/EWSMTwoLoopQCD.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EWSMTwoLoopQCD.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EWSM_Output.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EWSM_Output.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/EWSMcache.cpp" ex="false" tool="1" flavor2="0">
       </item>
