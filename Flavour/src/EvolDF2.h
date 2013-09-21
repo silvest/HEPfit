@@ -10,7 +10,6 @@
 
 #include <RGEvolutor.h>
 #include <StandardModel.h>
-#include <sstream>
 #include <gsl/gsl_sf_dilog.h>
 
 class EvolDF2 : public RGEvolutor {

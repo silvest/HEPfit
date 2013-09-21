@@ -65,6 +65,7 @@ void StandardModelMatching::updateSMParameters()
     MW_tree = SM.Mw_tree();
     Vckm = SM.getVCKM();
     lam_t = SM.getlamt();
+    Nc = SM.getNc();
 //   std::cout << "UPDATED SM" << std::endl;
 
 }
@@ -149,7 +150,7 @@ double StandardModelMatching::S18(double x) const
 
 double StandardModelMatching::S1(double x) const 
 {
-    return (SM.getCF() * S11(x) + (SM.getNc() - 1.) / 2. / SM.getNc() * S18(x));
+    return (SM.getCF() * S11(x) + (Nc - 1.) / 2. / Nc * S18(x));
 }
 
 /*******************************************************************************
@@ -506,19 +507,18 @@ double StandardModelMatching::Y1t(double x) const{
             );
 }
 
-/******************************************************************************/
+/*******************************************************************************
+ * Wilson coefficients Buras base for Delta B = 2 observables                  *                                           
+ * ****************************************************************************/
+
  std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2() 
-{   
-//    if(SM_i == SM)
-//        return(vmc);
-    
+{
     double gammam = 8.;                                                         
     double Bt;  
     
     
     double xt = x_t(Muw);
     complex co = GF / 4. / M_PI * MW_tree * SM.getlamt_d();
-    double Nc = SM.getNc();
 
     vmcdb.clear();
 
@@ -556,16 +556,11 @@ double StandardModelMatching::Y1t(double x) const{
 }
 
  std::vector<WilsonCoefficient>& StandardModelMatching::CMdbs2() 
-{   
-//    if(SM_i == SM)
-//        return(vmc);
-    
-   
+{
     double gammam = 8.;
     double Bt;
     double xt = x_t(Muw);
     complex co = GF / 4. / M_PI * MW_tree * SM.getlamt_s();
-    double Nc = SM.getNc();
 
     vmcds.clear();
 
@@ -600,6 +595,12 @@ double StandardModelMatching::Y1t(double x) const{
     vmcds.push_back(mcdbs2);
     return(vmcds);
 }
+
+/*******************************************************************************
+ * Wilson coefficients Buras base for Delta S = 2 observables                  *
+ * Comment: they look empty because they are computed in Flavour/EvolDF2.cpp   *
+ *          due to historical reasons.                                         *
+ * ****************************************************************************/
 
  std::vector<WilsonCoefficient>& StandardModelMatching::CMdk2() 
 {

@@ -6,7 +6,6 @@
  */
 
 #include "EvolDF2.h"
-#include <stdexcept>
 
 EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardModel& model) :
         model(model),
@@ -235,8 +234,8 @@ void EvolDF2::Df2Evol(double mu, double M, double nf, schemes scheme) {
     matrix<double> resLO(5, 0.), resNLO(5, 0.), resNNLO(5, 0.);
 
     int l = 6 - (int) nf;
-    double alsM = model.Als(M) / 4. / M_PI;
-    double alsmu = model.Als(mu) / 4. / M_PI;
+    double alsM = model.Als(M,FULLNLO) / 4. / M_PI;
+    double alsmu = model.Als(mu,FULLNLO) / 4. / M_PI;
 
     double eta = alsM / alsmu;
 
@@ -254,7 +253,7 @@ void EvolDF2::Df2Evol(double mu, double M, double nf, schemes scheme) {
         case NNLO:
             *elem[NNLO] = 0.; // Marco can implement it if he wishes to!
         case NLO:
-            *elem[NLO] = /*(*elem[LO]) * resNLO +*/ (*elem[NLO]) * resNLO;
+            *elem[NLO] = (*elem[LO]) * resNLO + (*elem[NLO]) * resLO;
         case LO:
             *elem[LO] = (*elem[LO]) * resLO;
             break;

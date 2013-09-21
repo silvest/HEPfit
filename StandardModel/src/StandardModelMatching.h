@@ -8,7 +8,6 @@
 #ifndef STANDARDMODELMATCHING_H
 #define	STANDARDMODELMATCHING_H
 
-//#include "StandardModel.h"
 #include "ModelMatching.h"
 #include <gslpp.h>
 
@@ -361,6 +360,7 @@ private:
     double Ale;
     double GF;
     double MW_tree;
+    double Nc;
     //double MM;
     gslpp::matrix<complex> Vckm;
     complex lam_t;
