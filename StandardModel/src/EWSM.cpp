@@ -225,7 +225,7 @@ double EWSM::Mw_SM() const
     double Mw;
     if (schemeMw==APPROXIMATEFORMULA)
         Mw = myApproximateFormulae->Mw(DeltaAlphaL5q());
-    else if (schemeMw==DEBUG) {
+    else if (schemeMw==FIXED) {
         Mw = 80.385;
         std::cout << "Mw is fixed to " << Mw << " GeV for test!" << std::endl;
     } else {

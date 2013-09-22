@@ -59,7 +59,7 @@ public:
      * APPROXIMATEFORMULA for the use of approximate formulae
      */
     enum schemes_EW {NORESUM=0, OMSI, INTERMEDIATE, OMSII, APPROXIMATEFORMULA,
-                     DEBUG, schemes_EW_size};
+                     FIXED, schemes_EW_size};
 
     std::string SchemeString(const schemes_EW scheme) const
     {
@@ -68,7 +68,7 @@ public:
         else if (scheme == INTERMEDIATE) return "INTERMEDIATE";
         else if (scheme == OMSII) return "OMSII";
         else if (scheme == APPROXIMATEFORMULA) return "APPROXIMATEFORMULA";
-        else if (scheme == DEBUG) return "DEBUG";
+        else if (scheme == FIXED) return "FIXED";
         else
             throw std::runtime_error("Undefined scheme in EWSM::SchemeString");
     }
