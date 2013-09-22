@@ -362,7 +362,7 @@ double EWSMApproximateFormulae::R0_bottom(const double DeltaAlphaL5q_i) const
 
     /*-----------------------------------------------*/
     /* arXiv:1205.0299v2 by Freitas and Huang */
-
+    /*
     double Rb00 = 0.2149246;
     double c1 = 2.23 * pow(10.0, -5.); 
     double c2 = 2.6 * pow(10.0, -6.);
@@ -386,6 +386,48 @@ double EWSMApproximateFormulae::R0_bottom(const double DeltaAlphaL5q_i) const
             + c4*(Delta_H*Delta_H - 1.0) + c5*Delta_ale + c6*Delta_t
             + c7*Delta_t*L_H + c8*Delta_alphas + c9*Delta_alphas*Delta_alphas 
             + c10*Delta_Z );
+     */
+    
+    /*-----------------------------------------------*/
+    /* arXiv:1205.0299v3 by Freitas and Huang */
+
+    double Rb00 = 0.2154940;
+    double c1 = 1.88 * pow(10.0, -5.);
+    double c2 = 2.0 * pow(10.0, -6.);
+    double c3 = -6.0 * pow(10.0, -7.);
+    double c4 = 8.53 *pow(10.0, -8.);
+    double c5 = 7.05 * pow(10.0, -4.);
+    double c6 = -3.159 * pow(10.0, -3.);
+    double c7 = 6.65 * pow(10.0, -5.);
+    double c8 = -1.704 * pow(10.0, -3.);
+    double c9 = -9.30 * pow(10.0, -4.);
+    double c10 = 6.26 * pow(10.0, -2.);
+
+    double L_H = log(SM.getMHl()/100.0);
+    double Delta_H = SM.getMHl()/100.0;
+    double Delta_ale = DeltaAlphaL5q_i/0.05900 - 1.0;
+    double Delta_t = pow((SM.getMtpole()/173.2), 2.0) - 1.0;
+    double Delta_alphas = SM.getAlsMz()/0.1184 - 1.0;
+    double Delta_Z = SM.getMz()/91.1876 - 1.0;
+
+    /* Debug (parameters in arXiv:1205.0299v3) */
+    //double mHpaper = 100.0;
+    //double mHpaper = 200.0;
+    //double mHpaper = 400.0;
+    //double mHpaper = 600.0;
+    //double mHpaper = 1000.0;
+    //L_H = log(mHpaper/100.0);
+    //Delta_H = mHpaper/100.0;
+    //Delta_ale = 0.0;//0.05900/0.05900 - 1.0;
+    //Delta_t = 0.0;//pow((173.2/173.2), 2.0) - 1.0;
+    //Delta_alphas = 0.0;//0.1184/0.1184 - 1.0;
+    //Delta_Z = 0.0;//91.1876/91.1876 - 1.0;
+
+    return (Rb00 + c1*L_H + c2*L_H*L_H + c3*pow(L_H, 4.0)
+            + c4*(Delta_H*Delta_H - 1.0) + c5*Delta_ale + c6*Delta_t
+            + c7*Delta_t*L_H + c8*Delta_alphas + c9*Delta_alphas*Delta_alphas
+            + c10*Delta_Z );
+
 }
 
 
@@ -398,7 +440,8 @@ double EWSMApproximateFormulae::Gu_over_Gb(const double DeltaAlphaL5q_i) const
         throw std::runtime_error("ApproximateFormulae::Gu_over_Gb(): mh=" + out.str() + " is out of range");
     }
 
-    // obtained from Prof. Freitas on Apr. 23, 2013
+    // obtained from Freitas on Apr. 23, 2013
+    /*
     double R = 0.8024769; 
     double c1 = -1.9007e-4;
     double c2 = -2.112e-5;
@@ -412,7 +455,23 @@ double EWSMApproximateFormulae::Gu_over_Gb(const double DeltaAlphaL5q_i) const
     double c10 = 1.8079e-2;
     double c11 = 1.0720e-2;
     double c12 = -0.129;
-    
+     */
+
+    // obtained from Freitas on Sep. 21, 2013
+    double R = 0.7997930;
+    double c1 = -1.7991e-4;
+    double c2 = -1.980e-5;
+    double c3 = 6.24e-6;
+    double c4 = -0.9829e-6;
+    double c5 = -8.200e-3;
+    double c6 = 1.657e-4;
+    double c7 = 1.6476e-2;
+    double c8 = 4.463e-3;
+    double c9 = -3.187e-4;
+    double c10 = 1.8113e-2;
+    double c11 = 1.0720e-2;
+    double c12 = -0.144;
+
     double LH = log(SM.getMHl()/100.0);
     double DH = pow((SM.getMHl()/100.0), 2.0) - 1.0;
     double Dal = DeltaAlphaL5q_i/0.059 - 1.0;
@@ -434,7 +493,8 @@ double EWSMApproximateFormulae::Gd_over_Gb(const double DeltaAlphaL5q_i) const
         throw std::runtime_error("ApproximateFormulae::Gd_over_Gb(): mh=" + out.str() + " is out of range");
     }
 
-    // obtained from Prof. Freitas on Apr. 23, 2013
+    // obtained from Freitas on Apr. 23, 2013
+    /*
     double R = 1.0239191;
     double c1 = -5.093e-5;
     double c2 = -7.08e-6;
@@ -448,7 +508,23 @@ double EWSMApproximateFormulae::Gd_over_Gb(const double DeltaAlphaL5q_i) const
     double c10 = 1.898e-4;
     double c11 = -8.0e-6;
     double c12 = -0.513;
-   
+     */
+
+    // obtained from Freitas on Sep. 21, 2013
+    double R = 1.0204024;
+    double c1 = -2.242e-5;
+    double c2 = -1.70e-6;
+    double c3 = 2.1e-7;
+    double c4 = 6.38e-8;
+    double c5 = 5.28e-4;
+    double c6 = 0.999e-4;
+    double c7 = 1.7539e-2;
+    double c8 = 7.138e-3;
+    double c9 = -4.041e-4;
+    double c10 = 2.290e-4;
+    double c11 = -8.0e-6;
+    double c12 = -0.530;
+
     double LH = log(SM.getMHl()/100.0);
     double DH = pow((SM.getMHl()/100.0), 2.0) - 1.0;
     double Dal = DeltaAlphaL5q_i/0.059 - 1.0;
