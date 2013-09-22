@@ -52,16 +52,14 @@ bool SUSY::InitializeModel()
 
 void SUSY::SetEWSMflags(EWSM& myEWSM)
 {
+    std::cout << "Schemes for EWPOs:" << std::endl;
+    std::cout << "  ";
     myEWSM.setSchemeMw(EWSM::NORESUM);
+    std::cout << "  ";
     //myEWSM.setSchemeRhoZ(EWSM::OMSI);
     myEWSM.setSchemeRhoZ(EWSM::NORESUM);
+    std::cout << "  ";
     myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
-
-    /* Should be modified by hand if the above parameters are changed! */
-    std::cout << "Schemes for EWPOs:" << std::endl
-              << "  Mw: NORESUM" << std::endl
-              << "  rhoZf: NORESUM" << std::endl
-              << "  kappaZf: APPROXIMATEFORMULA" << std::endl << std::endl;
 }
 
 

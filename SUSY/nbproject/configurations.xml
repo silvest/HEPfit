@@ -59,6 +59,9 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../Observables/src</pElem>
           </incDir>
+          <preprocessorList>
+            <Elem>FHDEBUG</Elem>
+          </preprocessorList>
         </ccTool>
         <archiverTool>
         </archiverTool>
@@ -78,8 +81,6 @@
       <item path="src/Msdown.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Msup.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/OutputSLHAfromFH.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SUSY.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -143,8 +144,6 @@
       </item>
       <item path="src/Msup.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/OutputSLHAfromFH.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/SUSY.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/SUSY.h" ex="false" tool="3" flavor2="0">
@@ -207,8 +206,6 @@
       <item path="src/Msdown.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Msup.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/OutputSLHAfromFH.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/SUSY.cpp" ex="false" tool="1" flavor2="0">
       </item>
