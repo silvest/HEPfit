@@ -203,7 +203,7 @@ void EWSM_Output::outputEachDeltaR(const double Mw_i) const
 void EWSM_Output::outputEachDeltaRhoZ_l(const StandardModel::lepton l, const double Mw_i) const
 {
     std::cout << "================================================" << std::endl;
-    std::cout << "rhoZ_q[(StandardModel::lepton)" << l << "]" << std::endl;
+    std::cout << "rhoZ_l[(StandardModel::lepton)" << l << "]" << std::endl;
     std::cout << "Mw(input)   = " << Mw_i << std::endl;
 
     double cW2_TMP = Mw_i*Mw_i/SM.getMz()/SM.getMz();

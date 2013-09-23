@@ -1233,8 +1233,8 @@ double EWSM::GammaW_q_SM(const StandardModel::quark qi,
         V = SM.getCKM().V_cb();
     else if ( qi==StandardModel::TOP || qj==StandardModel::TOP )
         return (0.0);
-    double AlsMw = SM.AlsWithInit(Mw_SM(), SM.getAlsMz(), SM.getMz(), FULLNLO);
-    //double AlsMw = SM.Als(Mw_SM(), FULLNNLO);
+    //double AlsMw = SM.AlsWithInit(Mw_SM(), SM.getAlsMz(), SM.getMz(), FULLNLO);
+    double AlsMw = SM.Als(Mw_SM(), FULLNNLO);
     return ( 3.0*V.abs2()*G0*rho_GammaW_q_SM(qi,qj)*(1.0 + AlsMw/M_PI) );    
 }
 
