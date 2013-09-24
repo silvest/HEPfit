@@ -15,7 +15,7 @@
 using namespace gslpp;
 
 // set in case where LoopTools library is employed. 
-#define USE_LOOPTOOLS
+//#define USE_LOOPTOOLS
 
 
 /**

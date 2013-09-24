@@ -20,6 +20,11 @@ LoopToolsWrapper::LoopToolsWrapper()
         std::cout << std::endl;
         LoopToolsInit = true;
     }
+
+    /* set the photon mass regulating IR divergences to 0, which means that
+     * dimensional regularization is employed for IR divergences and that 
+     * the finite piece is returned from an IR-divergent loop function. */
+    setlambda(0.0);
 }
 
 LoopToolsWrapper::~LoopToolsWrapper()
