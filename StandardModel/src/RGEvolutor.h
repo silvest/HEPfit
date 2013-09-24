@@ -22,88 +22,124 @@ using namespace gslpp;
  * @copyright GNU General Public License
  * @details 
  */
+
 class RGEvolutor : public WilsonTemplate<matrix<double> > {
 public:
-    RGEvolutor(unsigned int dim, schemes scheme, orders order) 
-    : WilsonTemplate<matrix<double> >(dim, scheme, order) 
-    {};
     
-    RGEvolutor(unsigned int dim, schemes scheme, orders order, orders_ew order_ew) 
-    : WilsonTemplate<matrix<double> >(dim, scheme, order, order_ew) 
-    {};
+    /**
+     *
+     * @brief constructor
+     * @param[in] dim dimension of the operator basis
+     * @param[in] scheme renormalizations scheme
+     * @param[in] order order of QCD coupling
+     */
+    RGEvolutor(unsigned int dim, schemes scheme, orders order);
     
-    matrix<double>** getEvol() const 
-    {
-        return (matrix<double>**) elem;
-    }
-
-    double getM() const 
-    {
-        return M;
-    }
-
-    void setScales(double mu, double M) 
-    {
-        this->M = M;
-        this->mu = mu;
-        *(elem[LO]) = matrix<double>::Id(size);
-        for(int i = NLO; i <= order; i++)
-          *(elem[i]) = 0.;
-        
-        if (order_ew != NULL_ew){
-            for(int i = NLO_ew; i <= order_ew; i++)
-                *(elem[i]) = 0.;
-        }
-    }
-
-    void setM(double M) 
-    {
-        this->M = M;
-        *(elem[LO]) = matrix<double>::Id(size);
-        for(int i = NLO; i <= order; i++)
-          *(elem[i]) = 0.;
-        
-        if (order_ew != NULL_ew){
-            for(int i = NLO_ew; i <= order_ew; i++)
-                *(elem[i]) = 0.;
-        }
-    }
+    /**
+     *
+     * @brief constructor
+     * @param[in] dim dimension of the operator basis
+     * @param[in] scheme renormalizations scheme
+     * @param[in] order order of QCD coupling
+     * @param[in] order_ew order of Electroweak coupling
+     */
+    RGEvolutor(unsigned int dim, schemes scheme, orders order, orders_ew order_ew);
     
-    void setMu(double mu) 
-    {
-        this->mu = mu;
-        *(elem[LO]) = matrix<double>::Id(size);
-        for(int i = NLO; i <= order; i++)
-          *(elem[i]) = 0.;
-        
-        if (order_ew != NULL_ew){
-            for(int i = NLO_ew; i <= order_ew; i++)
-                *(elem[i]) = 0.;
-        }
-    }
+    /**
+     *
+     * @brief destructor
+     */
+    virtual ~RGEvolutor();
     
+    /**
+     *
+     * @brief
+     * @param[in] i
+     * @param[in] j
+     * @param[in] x
+     * @param[in] order_i order of QCD coupling
+     */
     void setEvol(unsigned int i, unsigned int j, double x, orders order_i);
+    
+    /**
+     *
+     * @brief
+     * @param[in] i
+     * @param[in] j
+     * @param[in] x
+     * @param[in] order_i order of QCD coupling
+     * @param[in] order_ew order of Electroweak coupling
+     */
     void setEvol(unsigned int i, unsigned int j, double x, orders order_i, orders_ew order_ew);
+    
+    /**
+     *
+     * @brief
+     * @param[in] m Evolution matrix
+     * @param[in] order_i order of QCD coupling
+     */
+    void setEvol(const matrix<double>& m, orders order_i);
+    
+    /**
+     *
+     * @brief
+     * @param[in] matrix<double>& m
+     * @param[in] order_i order of QCD coupling
+     * @param[in] order_ew order of Electroweak coupling
+     */
+    void setEvol(const matrix<double>& m, orders_ew order_ew_i);
+    
+    /**
+     *
+     * @brief
+     * @return
+     */
+    matrix<double>** getEvol() const;
 
-    void setEvol(const matrix<double>& m, orders order_i) 
-    { 
-        setElem(m, order_i);
-    }
+    /**
+     *
+     * @brief Retrieve the upper scale of the Wilson Coefficients
+     * @return M The scale of the Wilson Coefficients set by the model
+     */
+    double getM() const;
+
+    /**
+     *
+     * @brief Sets the upper and lower scale for the running of the Wilson Coefficients
+     * @param[in] mu Lower RGE running scale
+     * @param[in] M Upper RGE running scale
+     */
+    void setScales(double mu, double M);
+
+    /**
+     *
+     * @brief Sets the upper scale for the running of the Wilson Coefficients
+     * @param[in] M Upper RGE running scale
+     */
+    void setM(double M);
     
-    void setEvol(const matrix<double>& m, orders_ew order_ew_i) 
-    { 
-        setElem(m, order_ew_i);
-    }
+    /**
+     *
+     * @brief Sets the lower scale for the running of the Wilson Coefficients
+     * @param[in] mu Lower RGE running scale
+     */
+    void setMu(double mu);
+
+    /**
+     *
+     * @brief Evolution matrix set at a fixed order of QCD coupling
+     * @param[in] order order of QCD coupling
+     * @return The RGE evolution matrix at a fixed order of QCD coupling
+     */
+    matrix<double>* Evol(orders order);
     
-    matrix<double>* Evol(orders order) 
-    { 
-        return Elem(order);
-    }
-        
-    matrix<double>* Evol(orders_ew order_ew) 
-    { 
-        return Elem(order_ew);
-    }
+    /**
+     *
+     * @brief Evolution matrix set at a fixed order of Electroweak coupling
+     * @param[in] order_ew order of Electroweak coupling
+     * @return The RGE evolution matrix at a fixed order of Electroweak coupling
+     */
+    matrix<double>* Evol(orders_ew order_ew);
     
 protected:
     double M;

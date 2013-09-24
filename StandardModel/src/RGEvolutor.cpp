@@ -6,8 +6,19 @@
  */
 
 #include "RGEvolutor.h"
-#include <sstream>
-#include <stdexcept>
+
+using namespace gslpp;
+
+RGEvolutor::RGEvolutor(unsigned int dim, schemes scheme, orders order)
+: WilsonTemplate<matrix<double> >(dim, scheme, order)
+{}
+
+RGEvolutor::RGEvolutor(unsigned int dim, schemes scheme, orders order, orders_ew order_ew)
+: WilsonTemplate<matrix<double> >(dim, scheme, order, order_ew)
+{}
+
+RGEvolutor::~RGEvolutor()
+{}
 
 void RGEvolutor::setEvol(unsigned int i, unsigned int  j, double x, orders order_i) 
 {    
@@ -53,4 +64,72 @@ void RGEvolutor::setEvol(unsigned int i, unsigned int  j, double x, orders order
     }
 }
 
+void RGEvolutor::setEvol(const matrix<double>& m, orders order_i)
+{
+    setElem(m, order_i);
+}
 
+void RGEvolutor::setEvol(const matrix<double>& m, orders_ew order_ew_i)
+{
+    setElem(m, order_ew_i);
+}
+
+matrix<double>** RGEvolutor::getEvol() const
+{
+    return (matrix<double>**) elem;
+}
+
+double RGEvolutor::getM() const
+{
+    return M;
+}
+
+void RGEvolutor::setScales(double mu, double M)
+{
+    this->M = M;
+    this->mu = mu;
+    *(elem[LO]) = matrix<double>::Id(size);
+    for(int i = NLO; i <= order; i++)
+        *(elem[i]) = 0.;
+    
+    if (order_ew != NULL_ew){
+        for(int i = NLO_ew; i <= order_ew; i++)
+            *(elem[i]) = 0.;
+    }
+}
+
+void RGEvolutor::setM(double M)
+{
+    this->M = M;
+    *(elem[LO]) = matrix<double>::Id(size);
+    for(int i = NLO; i <= order; i++)
+        *(elem[i]) = 0.;
+    
+    if (order_ew != NULL_ew){
+        for(int i = NLO_ew; i <= order_ew; i++)
+            *(elem[i]) = 0.;
+    }
+}
+
+void RGEvolutor::setMu(double mu)
+{
+    this->mu = mu;
+    *(elem[LO]) = matrix<double>::Id(size);
+    for(int i = NLO; i <= order; i++)
+        *(elem[i]) = 0.;
+    
+    if (order_ew != NULL_ew){
+        for(int i = NLO_ew; i <= order_ew; i++)
+            *(elem[i]) = 0.;
+    }
+}
+
+matrix<double>* RGEvolutor::Evol(orders order)
+{
+    return Elem(order);
+}
+
+matrix<double>* RGEvolutor::Evol(orders_ew order_ew)
+{
+    return Elem(order_ew);
+}
