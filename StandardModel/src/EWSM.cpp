@@ -1218,24 +1218,30 @@ double EWSM::GammaW_q_SM(const StandardModel::quark qi,
     
     double G0 = SM.getGF()*pow(Mw_SM(),3.0)/6.0/sqrt(2.0)/M_PI;    
     complex V(0.0, 0.0, false);
-    
+
     if ( qi==StandardModel::UP && qj==StandardModel::DOWN )
-        V = SM.getCKM().V_ud();
+        //V = SM.getCKM().V_ud();
+        V = complex(1.0, 0.0, false);
     else if ( qi==StandardModel::UP && qj==StandardModel::STRANGE )
-        V = SM.getCKM().V_us();
+        //V = SM.getCKM().V_us();
+        V = complex(0.0, 0.0, false);
     else if ( qi==StandardModel::UP && qj==StandardModel::BOTTOM )
-        V = SM.getCKM().V_ub();
+        //V = SM.getCKM().V_ub();
+        V = complex(0.0, 0.0, false);
     else if ( qi==StandardModel::CHARM && qj==StandardModel::DOWN )
-        V = SM.getCKM().V_cd();
+        //V = SM.getCKM().V_cd();
+        V = complex(0.0, 0.0, false);
     else if ( qi==StandardModel::CHARM && qj==StandardModel::STRANGE )
-        V = SM.getCKM().V_cs();
+        //V = SM.getCKM().V_cs();
+        V = complex(1.0, 0.0, false);
     else if ( qi==StandardModel::CHARM && qj==StandardModel::BOTTOM )
-        V = SM.getCKM().V_cb();
+        //V = SM.getCKM().V_cb();
+        V = complex(0.0, 0.0, false);
     else if ( qi==StandardModel::TOP || qj==StandardModel::TOP )
         return (0.0);
-    //double AlsMw = SM.AlsWithInit(Mw_SM(), SM.getAlsMz(), SM.getMz(), FULLNLO);
-    double AlsMw = SM.Als(Mw_SM(), FULLNNLO);
-    return ( 3.0*V.abs2()*G0*rho_GammaW_q_SM(qi,qj)*(1.0 + AlsMw/M_PI) );    
+    double AlsMw = SM.AlsWithInit(Mw_SM(), SM.getAlsMz(), SM.getMz(), FULLNLO);
+    //double AlsMw = SM.Als(Mw_SM(), FULLNNLO);
+    return ( 3.0*V.abs2()*G0*rho_GammaW_q_SM(qi,qj)*(1.0 + AlsMw/M_PI) );
 }
 
 
