@@ -131,7 +131,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 76; /**< The number of model parameters in QCD. */
+    static const int NQCDvars = 78; /**< The number of model parameters in QCD. */
 
     /**
      * An array containing the labels under which all QCD parameters are stored 

@@ -31,8 +31,8 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mckmm(1, NDR, NLO),
         mcbsnn(1, NDR, NLO),
         mcbdnn(1, NDR, NLO),
-        mcbsmm(3, NDR, NLO),
-        mcbdmm(3, NDR, NLO),
+        mcbsmm(1, NDR, NLO),
+        mcbdmm(1, NDR, NLO),
         Vckm(3, 3, 0)
 {
     swa = 0.;
@@ -1258,22 +1258,22 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
     
 }
 
- std::vector<WilsonCoefficient>& StandardModelMatching::CMbdmm() {
+std::vector<WilsonCoefficient>& StandardModelMatching::CMbdmm() {
     
     double xt = x_t(Muw);
     
     vmcbdmm.clear();
     
     mcbdmm.setMu(Muw);
- 
+    
     switch (mcbdmm.getOrder()) {
         case NNLO:
         case NLO:
-            mcbsmm.setCoeff(0, (Vckm(2,2).conjugate() * Vckm(2,0)).abs() *
-                                SM.Als(Muw, FULLNLO)/4./M_PI * Y1(xt)/sW2, NLO);
+            mcbdmm.setCoeff(0, (Vckm(2,2).conjugate() * Vckm(2,0)).abs() *
+                            SM.Als(Muw, FULLNLO) / 4. / M_PI * Y1(xt), NLO);
         case LO:
-            mcbsmm.setCoeff(0, (Vckm(2,2).conjugate() * Vckm(2,0)).abs() *
-                                Y0(xt)/sW2, LO);
+            mcbdmm.setCoeff(0, (Vckm(2,2).conjugate() * Vckm(2,0)).abs() *
+                            Y0(xt), LO);
             break;
         default:
             std::stringstream out;
