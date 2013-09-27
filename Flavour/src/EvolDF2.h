@@ -88,7 +88,7 @@ private:
     // first index number of flavours
     // double b[5][5][5], c[3][5][5][5], d[3][5][5][5];
     
-    double S1tt() const;
+    //double S1tt() const;
     void Df2Evol(double mu, double M, double nf, schemes scheme);
     double a[5];
     double b[5][5][5];

@@ -369,13 +369,52 @@ double EvolDF2::etact(double mu) const{
 
 double EvolDF2::etatt(double m) const {
     double N = model.getNc();
-    double J3 = 6. * (N - 1.) / N * (model.Beta1(3) / 2. / model.Beta0(3) / model.Beta0(3)) -
-           (N - 1.) / (2. * N) * (-21. + 57. / N - 19./3. * N + 4.) / 2. / model.Beta0(3);
+    double x = model.GetMyMatching()->x_t(model.getMut());
+    double x2 = x * x;
+    double x3 = x2 * x;
+    double x4 = x3 * x;
+    double xm2 = (1 - x) * (1 - x);
+    double xm3 = xm2 * (1 - x);
+    double xm4 = xm3 * (1 - x);
+    double logx = log(x);
+    double Li2 = gsl_sf_dilog(1-x);
     
-    return (S1tt() * (1. + model.Als(m, FULLNLO)/4./M_PI*J3) * pow(model.Als(m, FULLNLO), -2./9.));
+    double S0tt = (4. * x - 11. * x2 + x3) / 4. / xm2 -
+    3. * x3 / (2. * xm3) * logx;
+    
+    double Bt = 5. * (N - 1.) / 2. / N + 3. * (N * N - 1.) / 2. / N;
+    
+    double gamma0 = 6. * (N - 1.) / N;
+    
+    double gamma1[4] = {0.}, J[4] = {0.};
+    
+    for(int i = 0; i < 4; ++i){
+        gamma1[i] = (N - 1.)/(2. * N) * (-21. + 57./N - 19./3. * N + 4./3. * (i + 3.));
+        J[i] = gamma0 * model.Beta1(3 + i) / 2. / model.Beta0(3 + i) / model.Beta0(3 + i)
+        - gamma1[i] / 2. / model.Beta0(3 + i);
+    }
+    
+    double b = (4. - 22. * x + 15. * x2 + 2. * x3 + x4 - 18. * x2 * logx)
+    / ((-1. + x) * (-4. + 15. * x - 12. * x2 + x3 + 6. * x2 * logx));
+    double AlsT = model.Als(model.getMut());
+    double AlsB = model.Als(model.getMub());
+    double AlsC = model.Als(model.getMuc());
+    
+    double eta =  pow(model.Als(model.getMuc()), 6./27.) *
+                  pow(model.Als(model.getMub())/model.Als(model.getMuc()), 6./25.) *
+                  pow(model.Als(model.getMut())/model.Als(model.getMub()), 6./23.) *
+                  (1. + model.Als(model.getMuc())/4./M_PI * (J[1]-J[0]) +
+                  model.Als(model.getMub())/4./M_PI * (J[2]-J[1])
+                  + model.Als(model.getMut())/4./M_PI * (model.GetMyMatching()->S1(x)/S0tt
+                  + Bt - J[2] + gamma0 * log(model.getMut() / model.getMuw())
+                  + 6 * (N * N - 1) / N * log(model.getMut() / model.getMuw()) * b));
+   /* double J3 = 6. * (N - 1.) / N * (model.Beta1(3) / 2. / model.Beta0(3) / model.Beta0(3)) -
+           (N - 1.) / (2. * N) * (-21. + 57. / N - 19./3. * N + 4.) / 2. / model.Beta0(3);*/
+    
+    return (eta * (1. + model.Als(m, FULLNLO)/4./M_PI*J[0]) * pow(model.Als(m, FULLNLO), -2./9.));
 }
 
-double EvolDF2::S1tt() const {
+/*double EvolDF2::S1tt() const {
     double N = model.getNc();
     double x = model.GetMyMatching()->x_t(model.getMut());
     double x2 = x * x;
@@ -398,7 +437,7 @@ double EvolDF2::S1tt() const {
     
     for(int i = 0; i < 4; ++i){
         gamma1[i] = (N - 1.)/(2. * N) * (-21. + 57./N - 19./3. * N + 4./3. * (i + 3.));
-        J[i] = gamma0 / 2. / model.Beta0(3 + i) / model.Beta0(3 + i)
+        J[i] = gamma0 * model.Beta1(3 + i) / 2. / model.Beta0(3 + i) / model.Beta0(3 + i)
         - gamma1[i] / 2. / model.Beta0(3 + i);
     }
         
@@ -416,4 +455,4 @@ double EvolDF2::S1tt() const {
             + model.Als(model.getMut())/4./M_PI * (model.GetMyMatching()->S1(x)/S0tt
             + Bt - J[2] + gamma0 * log(model.getMut() / model.getMuw())
             + 6 * (N * N - 1) / N * log(model.getMut() / model.getMuw()) * b)));
-}
+}*/
