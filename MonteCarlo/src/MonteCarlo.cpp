@@ -16,8 +16,9 @@
 
 MonteCarlo::MonteCarlo(const std::string& ModelConf_i,
                        const std::string& MonteCarloConf_i,
-                       const std::string& OutFile_i, const std::string& JobTag_i)
-: myInputParser(), MCEngine(ModPars, Obs, Obs2D, CGO, ParaObs)
+                       const std::string& OutFile_i, const std::string& JobTag_i,
+                       const bool checkTheoryRange_i)
+: myInputParser(), MCEngine(ModPars, Obs, Obs2D, CGO, ParaObs, checkTheoryRange_i)
 {
     ModelConf = ModelConf_i;
     MCMCConf = MonteCarloConf_i;

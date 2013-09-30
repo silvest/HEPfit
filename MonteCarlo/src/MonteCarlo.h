@@ -26,7 +26,8 @@
 class MonteCarlo {
 public:
     MonteCarlo(const std::string& ModelConf_i, const std::string& 
-            MonteCarloConf_i, const std::string& OutFile_i, const std::string& JobTag_i);
+            MonteCarloConf_i, const std::string& OutFile_i, 
+            const std::string& JobTag_i, const bool checkTheoryRange_i=false);
     virtual ~MonteCarlo();
     void Run(const int rank);
 private:

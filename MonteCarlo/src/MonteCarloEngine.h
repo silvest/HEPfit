@@ -46,7 +46,8 @@ public:
                      std::vector<Observable>& Obs_i,
                      std::vector<Observable2D>& Obs2D_i,
                      std::vector<CorrelatedGaussianObservables>& CGO_i,
-                     std::vector<ModelParaVsObs>& ParaObs_i);
+                     std::vector<ModelParaVsObs>& ParaObs_i,
+                     const bool checkHistRange_i=false);
     ~MonteCarloEngine();
 
     void Initialize(Model* Mod_i);
@@ -106,11 +107,14 @@ private:
     std::map<std::string, TH1D * > InHisto1D;
     std::map<std::string, BCH2D * > Histo2D;
     std::map<std::string, TH2D * > InHisto2D;
+    std::map<std::string, double> thMin;
+    std::map<std::string, double> thMax;
     double *obval, *obweight;
     unsigned int kwmax, kmax;
     std::ostringstream HistoLog;
     int NumOfUsedEvents;
     int NumOfDiscardedEvents;
+    bool checkTheoryRange;
     
 };
 

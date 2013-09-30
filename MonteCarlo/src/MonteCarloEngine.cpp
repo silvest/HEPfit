@@ -20,9 +20,10 @@ MonteCarloEngine::MonteCarloEngine(
         std::vector<Observable>& Obs_i,
         std::vector<Observable2D>& Obs2D_i,
         std::vector<CorrelatedGaussianObservables>& CGO_i,
-        std::vector<ModelParaVsObs>& ParaObs_i)
+        std::vector<ModelParaVsObs>& ParaObs_i, const bool checkHistRange_i)
 : BCModel(""), ModPars(ModPars_i), Obs_ALL(Obs_i), Obs2D_ALL(Obs2D_i),
-        CGO(CGO_i), ParaObs(ParaObs_i), NumOfUsedEvents(0), NumOfDiscardedEvents(0)
+        CGO(CGO_i), ParaObs(ParaObs_i), NumOfUsedEvents(0), NumOfDiscardedEvents(0),
+        checkTheoryRange(checkHistRange_i)
 {
     obval = NULL;
     obweight = NULL;
@@ -67,6 +68,8 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
             histo->GetXaxis()->SetTitle(it->getLabel().c_str());
             BCH1D * bchisto = new BCH1D(histo);
             Histo1D[it->getThname()] = bchisto;
+            thMin[it->getThname()] = std::numeric_limits<double>::max();
+            thMax[it->getThname()] = - std::numeric_limits<double>::max();
         }
     }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin();
@@ -132,6 +135,8 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
                 histo->GetXaxis()->SetTitle(it->getLabel().c_str());
                 BCH1D * bchisto = new BCH1D(histo);	
                 Histo1D[it->getThname()] = bchisto;
+                thMin[it->getThname()] = std::numeric_limits<double>::max();
+                thMax[it->getThname()] = - std::numeric_limits<double>::max();
             }
         }
     }
@@ -347,6 +352,13 @@ void MonteCarloEngine::MCMCIterationInterface()
         for (std::vector<Observable>::iterator it = Obs_ALL.begin();
                 it < Obs_ALL.end(); it++) {
             double th = it->getTheoryValue();
+
+            /* set the min and max of theory values */
+            if (checkTheoryRange) {
+                if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
+                if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
+            }
+            
             Histo1D[it->getThname()]->GetHistogram()->Fill(th);
             if (!it->isTMCMC()) {
                 obval[i * kmax + k] = th;
@@ -373,6 +385,13 @@ void MonteCarloEngine::MCMCIterationInterface()
             for (std::vector<Observable>::iterator it = pino.begin();
                     it != pino.end(); ++it) {
                 double th = it->getTheoryValue();
+
+                /* set the min and max of theory values */
+                if (checkTheoryRange) {
+                    if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
+                    if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
+                }
+
                 Histo1D[it->getThname()]->GetHistogram()->Fill(th);
             }
         }
@@ -432,6 +451,10 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out,
     } else
         HistoLog << "WARNING: The histogram of "
                  << it->getThname() << " is empty!" << std::endl;
+
+    if (checkTheoryRange)
+        HistoLog << " [" << thMin[it->getThname()] << ", "
+                 << thMax[it->getThname()] << "]" << std::endl;
 }
 
 void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string OutputDir)
