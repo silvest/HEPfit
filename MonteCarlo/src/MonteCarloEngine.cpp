@@ -452,9 +452,13 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out,
         HistoLog << "WARNING: The histogram of "
                  << it->getThname() << " is empty!" << std::endl;
 
-    if (checkTheoryRange)
-        HistoLog << " [" << thMin[it->getThname()] << ", "
-                 << thMax[it->getThname()] << "]" << std::endl;
+    if (checkTheoryRange) {
+        double min = thMin[it->getThname()];
+        double max = thMax[it->getThname()];
+        double range = max - min;
+        HistoLog << "  [" << min << ", " << max << "] --> suggested range: "
+                 << min - range/7.0 << " " << max + range/7.0 << std::endl;
+    }
 }
 
 void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string OutputDir)

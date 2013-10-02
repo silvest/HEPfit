@@ -58,6 +58,7 @@ void MonteCarlo::Run(const int rank)
         }
         
         if(noMC) {
+            std::cout.precision(10);
             std::cout << std::endl << "Running in Single Event mode..." << std::endl;
             for (std::vector<Observable>::iterator it = Obs.begin();
                  it < Obs.end(); it++) {
