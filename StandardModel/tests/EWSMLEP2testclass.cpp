@@ -21,8 +21,8 @@ EWSMLEP2testclass::~EWSMLEP2testclass() {
 void EWSMLEP2testclass::setUp() {
     const bool bDebug = true;
     SM = new StandardModel(bDebug);
-    setModelParameters(*SM);
     SM->InitializeModel();
+    setModelParameters(*SM);
     myLEP2 = new EWSMTwoFermionsLEP2(*SM, false);
     myLEP2_NU = new EWSMTwoFermionsLEP2(*SM, true);
 
@@ -38,7 +38,7 @@ void EWSMLEP2testclass::setUp() {
     cW2 = Mw2/Mz2;
     sW2 = 1.0 - cW2;
     Mt = SM->getMtpole();
-    
+
     /* accuracy for CPPUNIT_ASSERT_DOUBLES_EQUAL */
     epsilon = 1.0e-7; 
 }
@@ -146,7 +146,8 @@ void EWSMLEP2testclass::setModelParameters(StandardModel& Model_i) {
     Parameters["mcharm"] = 0.56381685;
     Parameters["mbottom"] = 2.8194352;
     
-    Model_i.Init(Parameters);
+    //Model_i.Init(Parameters);
+    Model_i.Update(Parameters);
 }
 
 void EWSMLEP2testclass::sqrtsTEST() {

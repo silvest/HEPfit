@@ -331,7 +331,7 @@ void SFH2D::drawFromGraph(const int ind, const std::string DrawOpts,
             if (DrawOpts.compare("AREA") == 0 && fillStyle!=0)
                 curv_new[i]->Draw("F");
             else if (DrawOpts.compare("CONT") == 0)
-                curv_new[i]->Draw();
+                curv_new[i]->Draw("L");
         } else if (contour->GetSize()==2)
             curv_new[i] = (TGraph*) curv->Clone();
         else {
@@ -376,7 +376,7 @@ void SFH2D::drawFromGraph(const int ind, const std::string DrawOpts,
         if (DrawOpts.compare("AREA") == 0 && fillStyle!=0) {
             curv_combined->Draw("F");
         } else if (DrawOpts.compare("CONT") == 0)
-            curv_combined->Draw();
+            curv_combined->Draw("L");
         myCurv = curv_combined;
     }
     
