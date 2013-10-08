@@ -16,7 +16,7 @@ HeffDB1::HeffDB1(const StandardModel & SM) :
         coeffnlep10 (12, NDR, NLO, NLO_ew), coeffnlep10qcd (10, NDR, NLO, NLO_ew), coeffnlep10CC(10, NDR, NLO),
         coeffnlep01 (10, NDR, NLO), coeffnlep01A(10, NDR, NLO), coeffnlep01B(4, NDR, NLO),
         coeffnlep11 (10, NDR, NLO), coeffnlep11A(10, NDR, NLO), coeffnlep11B(4, NDR, NLO),
-        coeffsmumu (1, NDR, NLO), coeffdmumu (1, NDR, NLO),
+        coeffsmumu (6, NDR, NLO), coeffdmumu (6, NDR, NLO),
         coeffsnunu (1, NDR, NLO), coeffdnunu (1, NDR, NLO),
         nlep (12, 0.), nlep2(10, 0.), nlepCC(4, 0.){
 }
