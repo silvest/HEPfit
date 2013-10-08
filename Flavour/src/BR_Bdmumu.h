@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
@@ -11,36 +11,56 @@
 #include <ThObservable.h>
 #include "Flavour.h"
 
-using namespace gslpp;
-
 class BR_Bdmumu : public ThObservable {
-public:   
+public:
     /**
      * constructor
      * @param Flavour
      */
-    BR_Bdmumu(Flavour& Flavour): ThObservable(Flavour), myFlavour(Flavour){};
+    BR_Bdmumu(Flavour& Flavour, double timeFlag);
     
     /**
-     * 
+     *
+     * @brief hep-ph/9512380v2
      * @return theoretical value of |\f$ BR(B_d \rightarrow \mu \bar{\mu}) \f$|
      */
     double getThValue();
+    void setAmp(orders order);
+    double getAmumu(orders order);
+    double getSmumu(orders order);
     
     
 protected:
     
     /**
-     * 
+     *
      * @param order
      * @param order_ew
-     * @return the short distance contribution to the 
-     * |\f$ BR(B_d \rightarrow \mu \bar{\mu}) \f$|
+     * @return the short distance contribution to the
+     * |\f$ BR(B_s \rightarrow \mu \bar{\mu}) \f$|
      */
-    complex BRBdmumu(orders order);
+    void AmpSqBdmumu(orders order);
     
 private:
     Flavour& myFlavour;
+    double beta;
+    double mBd;
+    double mmu;
+    double mb;
+    double md;
+    double chiral;
+    double absP;
+    double argP;
+    double absS;
+    double argS;
+    double ampSq;
+    double Amumu;
+    double Smumu;
+    double phiNP;
+    double timeInt;
+    double yd;
+    double tF;
+    
 };
 
 #endif	/* BR_BDMUMU_H */

@@ -11,15 +11,13 @@
 #include <ThObservable.h>
 #include "Flavour.h"
 
-using namespace gslpp;
-
 class BR_Bsmumu : public ThObservable {
 public:   
     /**
      * constructor
      * @param Flavour
      */
-    BR_Bsmumu(Flavour& Flavour): ThObservable(Flavour), myFlavour(Flavour){};
+    BR_Bsmumu(Flavour& Flavour, double timeFlag);
     
     /**
      * 
@@ -27,6 +25,9 @@ public:
      * @return theoretical value of |\f$ BR(B_s \rightarrow \mu \bar{\mu}) \f$|
      */
     double getThValue();
+    void setAmp(orders order);
+    double getAmumu(orders order);
+    double getSmumu(orders order);
     
     
 protected:
@@ -38,10 +39,28 @@ protected:
      * @return the short distance contribution to the 
      * |\f$ BR(B_s \rightarrow \mu \bar{\mu}) \f$|
      */
-    complex BRBsmumu(orders order);
+    void AmpSqBsmumu(orders order);
     
 private:
     Flavour& myFlavour;
+    double beta;
+    double mBs;
+    double mmu;
+    double mb;
+    double ms;
+    double chiral;
+    double absP;
+    double argP;
+    double absS;
+    double argS;
+    double ampSq;
+    double Amumu;
+    double Smumu;
+    double phiNP;
+    double timeInt;
+    double ys;
+    double tF;
+
 };
 
 #endif	/* BR_BSMUMU_H */

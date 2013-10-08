@@ -273,7 +273,7 @@ vector<complex>** HeffDB1::ComputeCoeffBnlep11(double mu, schemes scheme) {
 vector<complex>** HeffDB1::ComputeCoeffsmumu() {
     
      std::vector<WilsonCoefficient>& mcb = model.GetMyMatching() -> CMbsmm();
-    
+    coeffsmumu.resetCoefficient();
     orders ordDF1 = coeffsmumu.getOrder();
     
     for (int i = 0; i < mcb.size(); i++){
@@ -289,7 +289,7 @@ vector<complex>** HeffDB1::ComputeCoeffsmumu() {
 vector<complex>** HeffDB1::ComputeCoeffdmumu() {
     
      std::vector<WilsonCoefficient>& mcb = model.GetMyMatching() -> CMbdmm();
-    
+    coeffdmumu.resetCoefficient();
     orders ordDF1 = coeffdmumu.getOrder();
     
     for (int i = 0; i < mcb.size(); i++){

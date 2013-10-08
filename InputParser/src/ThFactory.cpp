@@ -36,9 +36,10 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["gamma"] = new CKMGamma(myFlavour);
     thobs["SJPsiK"] = new SJPsiK(myFlavour);
     thobs["SJPsiPhi"] = new SJPsiPhi(myFlavour);
-    thobs["BR_Bdmumu"] = new BR_Bdmumu(myFlavour);
-    thobs["BR_Bsmumu"] = new BR_Bsmumu(myFlavour);
-
+    thobs["BR_Bdmumu"] = new BR_Bdmumu(myFlavour, 0);
+    thobs["BRbar_Bdmumu"] = new BR_Bdmumu(myFlavour, 1);
+    thobs["BR_Bsmumu"] = new BR_Bsmumu(myFlavour, 0);
+    thobs["BRbar_Bsmumu"] = new BR_Bsmumu(myFlavour, 1);
     //-----   SUSY spectra and observables  -----
     if(myModel.ModelName().compare("SUSY")
             || myModel.ModelName().compare("GeneralSUSY")
