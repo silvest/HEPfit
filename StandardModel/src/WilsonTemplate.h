@@ -81,17 +81,22 @@ public:
         return mu;
     }
 
-    virtual void setMu(double mu)
+        virtual void resetCoefficient()
     {
-        this->mu = mu;
         for(int i = LO; i <= order; i++){
             *(elem[i]) = 0.;
         }
         if (order_ew != NULL_ew){
             for(int i = LO_ew; i <= order_ew; i++){
                 *(elem[i]) = 0.;
-            }  
+            }
         }
+    }
+
+    virtual void setMu(double mu)
+    {
+        this->mu = mu;
+        resetCoefficient();
     }
     
     schemes getScheme() const 
