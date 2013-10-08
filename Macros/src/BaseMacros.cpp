@@ -156,6 +156,9 @@ void BaseMacros::DefineNewColours()
     //
     color[169] = new TColor(2169, 65./255., 105./255., 225./255.); // royal blue #4169E1
     color[170] = new TColor(2170, 148./255., 158./255., 197./255.); // intermediate between dark state blue and light cyan
+    //
+    color[171] = new TColor(2171, 255./255., 165./255., 0.); // orange #FFA500
+    color[172] = new TColor(2172, 255./255., 215./255., 0.); // gold #FFD700
 }
 
 

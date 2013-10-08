@@ -144,9 +144,10 @@ int main(int argc, char** argv)
         cout << "   -legXmin=xmin    -> xmin for the position of the legend [default: xmin=0.63]" << endl;
         cout << "   -legYmax=ymax    -> ymax for the position of the legend [default: ymax=0.88]" << endl;
         cout << "   *** options for histogram (N=1,2,3,4,5) ***                        " << endl;
-        cout << "   --draw68N        -> draw the 68% contour           [default: true] " << endl;
-        cout << "   --draw95N        -> draw the 95% contour           [default: true] " << endl;
+        cout << "   --draw68N        -> draw the 68% contour           [default: false] " << endl;
+        cout << "   --draw95N        -> draw the 95% contour           [default: false] " << endl;
         cout << "   --draw99N        -> draw the 99% contour           [default: false]" << endl;
+        cout << "   --legReverse     -> reverse the order in the legend                " << endl;
         cout << "   -plotN=name      -> name of the histogram                          " << endl;
         cout << "   -rootfileN=filename -> rootfile name for plotN (with extension)    " << endl;
         cout << "         [For N=2,3, the same as the rootfile for plot1 by default]   " << endl;
@@ -188,7 +189,7 @@ int main(int argc, char** argv)
     bool bOneDim = false, bCompat = false, bTwoDim = false;
     bool bPDF = false;
     bool bOrig = false, bOutputTxt = false, bContLines = false, bLeftLegend = false;
-    bool bRescaleForMHl = false;
+    bool bRescaleForMHl = false, bLegReverse = false;
     int maxDig = 8, prec = 6;
     int nx = 100, ny = 20;
     double xval = -999.0, xerr = 0.0, x_low = 0.0, x_up = 0.0, y_low = 0.0, y_up = 0.0;
@@ -244,8 +245,8 @@ int main(int argc, char** argv)
         newNbins[hist] = 100;
         NumNewPoints[hist] = 20;
         bOnlyLine[hist] = false;
-        bDraw68[hist] = true;
-        bDraw95[hist] = true;
+        bDraw68[hist] = false;
+        bDraw95[hist] = false;
         bDraw99[hist] = false;
     }
 
@@ -280,6 +281,7 @@ int main(int argc, char** argv)
         else if (strncmp(argv[i], "--drawlines", 11) == 0) bContLines = true;
         else if (strncmp(argv[i], "--leftLegend", 12) == 0) bLeftLegend = true;
         else if (strncmp(argv[i], "--rescaleForMHl", 15) == 0) bRescaleForMHl = true;
+        else if (strncmp(argv[i], "--legReverse", 12) == 0) bLegReverse = true;
         //
         else if (strncmp(argv[i], "-prob68=", 8) == 0)
             sscanf(argv[i], "-prob68=%lf", &prob68);
@@ -628,19 +630,19 @@ int main(int argc, char** argv)
         } else
             FillCol68[i] = gROOT->GetColor(col68[i]+10000);
         TColor *colTmp2 = gROOT->GetColor(col95[i]);
-        if (gROOT->GetColor(col95[i]+10000) == NULL ) {
-            FillCol95[i] = new TColor(col95[i]+10000, colTmp2->GetRed(),
+        if (gROOT->GetColor(col95[i]+20000) == NULL ) {
+            FillCol95[i] = new TColor(col95[i]+20000, colTmp2->GetRed(),
                                       colTmp2->GetGreen(), colTmp2->GetBlue());
             FillCol95[i]->SetAlpha(col95alpha[i]);
         } else
-            FillCol95[i] = gROOT->GetColor(col95[i]+10000);
+            FillCol95[i] = gROOT->GetColor(col95[i]+20000);
         TColor *colTmp3 = gROOT->GetColor(col99[i]);
-        if (gROOT->GetColor(col99[i]+10000) == NULL ) {
-            FillCol99[i] = new TColor(col99[i]+10000, colTmp3->GetRed(),
+        if (gROOT->GetColor(col99[i]+30000) == NULL ) {
+            FillCol99[i] = new TColor(col99[i]+30000, colTmp3->GetRed(),
                                       colTmp3->GetGreen(), colTmp3->GetBlue());
             FillCol99[i]->SetAlpha(col99alpha[i]);
         } else
-            FillCol99[i] = gROOT->GetColor(col99[i]+10000);
+            FillCol99[i] = gROOT->GetColor(col99[i]+30000);
     }
 
     //----------------------------------------------------------------------
@@ -918,7 +920,7 @@ int main(int argc, char** argv)
                 Points[ind_p]->SetX(xvalN[ind_p]);
                 Points[ind_p]->SetY(yvalN[ind_p]);
                 Points[ind_p]->SetMarkerColor(colPN[ind_p]);
-                Points[ind_p]->SetMarkerSize(1.3);
+                Points[ind_p]->SetMarkerSize(1.1);
                 Points[ind_p]->SetMarkerStyle(20+ind_p);
                 Points[ind_p]->Draw();
             }
@@ -926,7 +928,12 @@ int main(int argc, char** argv)
 
         // legends: Change the order if necessary.
         string leg_opt;
-        for (int n=NumHist-1; n>=0; n--) {
+        int beginLeg = 0, endLeg = NumHist-1;
+        if(bLegReverse) {
+            beginLeg = NumHist-1;
+            endLeg = 0;
+        }
+        for (int n=-beginLeg; n<=endLeg; n++) {
             if (contour_pt[n] != NULL && leg[n].CompareTo("")!= 0) {
                 if (fillStyle[n]!=0) leg_opt = "F";
                 else leg_opt = "L";
