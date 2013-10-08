@@ -217,9 +217,10 @@ public:
     /**
      *
      * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
      * @return first order in QCD loop function for the top contribution to K_L -> mu mu decays
      */
-    double Y1(double x)const;
+    double Y1(double x, double mu)const;
     
     /**
      * 
