@@ -56,7 +56,7 @@ double CPenguinBoxMu::X_ch(){
                               model.getQuarks(QCD::TOP).getMass(), FULLNNLO) / model.Mw_tree(), 2.);
     double a = model.getlamc().real()/model.GetLambda()*(C_NL() - B_NL());
     double b = model.getlamt().real()/model.GetLambda()*
-              (modelmatching.Y0(x) + model.Als(model.getMuw())/4./M_PI*modelmatching.Y1(x));
+              (modelmatching.Y0(x) + model.Als(model.getMuw())/4./M_PI*modelmatching.Y1(x, model.getMuw()));
     
     return( a*a + 2.*a*b );
 }
