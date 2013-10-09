@@ -129,6 +129,7 @@ int main(int argc, char** argv)
         cout << " Optional parameters for 2-D histograms:                              " << endl;
         cout << "   --twoDim         -> 2-D histogram (mandatory)                      " << endl;
         cout << "   --drawlines      -> draw contour lines                             " << endl;
+        cout << "   --gridOrigin     -> draw grid lines on the origin                  " << endl;
         cout << "   --outputTxt      -> output results to a text file                  " << endl;
         cout << "   -output=filename -> the base name of output eps and text files (without extension)" << endl;
         cout << "                       [default: plotname]                            " << endl;
@@ -188,7 +189,7 @@ int main(int argc, char** argv)
     //----  parameters which can be changed by command-line arguments  -----
 
     bool bOneDim = false, bCompat = false, bTwoDim = false;
-    bool bPDF = false;
+    bool bPDF = false, bGridOrigin = false;
     bool bOrig = false, bOutputTxt = false, bContLines = false, bLeftLegend = false;
     bool bRescaleForMHl = false, bLegReverse = false;
     int maxDig = 8, prec = 6;
@@ -287,6 +288,7 @@ int main(int argc, char** argv)
         else if (strncmp(argv[i], "--pdf", 5) == 0) bPDF = true;
         else if (strncmp(argv[i], "--outputTxt", 11) == 0) bOutputTxt = true;
         else if (strncmp(argv[i], "--drawlines", 11) == 0) bContLines = true;
+        else if (strncmp(argv[i], "--gridOrigin", 12) == 0) bGridOrigin = true;
         else if (strncmp(argv[i], "--leftLegend", 12) == 0) bLeftLegend = true;
         else if (strncmp(argv[i], "--rescaleForMHl", 15) == 0) bRescaleForMHl = true;
         else if (strncmp(argv[i], "--legReverse", 12) == 0) bLegReverse = true;
@@ -921,14 +923,9 @@ int main(int argc, char** argv)
             g1->SetMarkerColor(colP);
             g1->Draw("P");
 
-            double xmin = hist[0]->GetXaxis()->GetXmin();
-            double xmax = hist[0]->GetXaxis()->GetXmax();
-            double ymin = hist[0]->GetYaxis()->GetXmin();
-            double ymax = hist[0]->GetYaxis()->GetXmax();
-
             err = xerr2;
-            double min_x = std::max(xval2 - err, xmin);
-            double max_x = std::min(xval2 + err, xmax);
+            double min_x = std::max(xval2 - err, x_low);
+            double max_x = std::min(xval2 + err, x_up);
             lx->DrawLine(min_x, yval2, max_x, yval2);
 
             TLine *ly = new TLine();
@@ -942,8 +939,8 @@ int main(int argc, char** argv)
             g2->SetMarkerColor(colP);
             g2->Draw("P");
 
-            double min_y = std::max(yval2 - err, ymin);
-            double max_y = std::min(yval2 + err, ymax);
+            double min_y = std::max(yval2 - err, y_low);
+            double max_y = std::min(yval2 + err, y_up);
             ly->DrawLine(xval2, min_y, xval2, max_y);
         }
 
@@ -959,6 +956,19 @@ int main(int argc, char** argv)
                 Points[ind_p]->SetMarkerStyle(20+ind_p);
                 Points[ind_p]->Draw();
             }
+        }
+
+        // draw grid lines on the origin
+        if (bGridOrigin) {
+            TLine *xgrid = new TLine();
+            xgrid->SetLineStyle(3);
+            xgrid->SetLineWidth(1);
+            xgrid->DrawLine(x_low, 0.0, x_up, 0.0);
+
+            TLine *ygrid = new TLine();
+            ygrid->SetLineStyle(3);
+            ygrid->SetLineWidth(1);
+            ygrid->DrawLine(0.0, y_low, 0.0, y_up);
         }
 
         // legends: Change the order if necessary.
