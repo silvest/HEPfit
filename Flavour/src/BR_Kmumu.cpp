@@ -11,7 +11,7 @@ double BR_Kmumu::getThValue(){
     double theta= asin(sqrt( (M_PI * myFlavour.getModel().getAle() )/( sqrt(2) * myFlavour.getModel().getGF() * 
                    myFlavour.getModel().Mw_tree() * myFlavour.getModel().Mw_tree()) ));
     
-    return((myFlavour.getModel().getMesons(QCD::K_0).Lifetime()/myFlavour.getModel().getMesons(QCD::K_P).Lifetime()) 
+    return((myFlavour.getModel().getMesons(QCD::K_0).getLifetime() / HCUT / myFlavour.getModel().getMesons(QCD::K_P).getLifetime() / HCUT)
            * myFlavour.getModel().getAle()*myFlavour.getModel().getAle()/(2.*M_PI*M_PI*pow(sin(theta),4.)) 
            * myFlavour.getModel().getBr_Kp_munu() * BRKmumu(NLO).real());
 }

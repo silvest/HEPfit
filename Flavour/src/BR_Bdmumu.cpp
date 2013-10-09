@@ -16,13 +16,13 @@ double BR_Bdmumu::getThValue(){
     setAmp(FULLNLO);
     double FBd = myFlavour.getModel().getMesons(QCD::B_D).getDecayconst();
     double coupling = myFlavour.getModel().getGF() * myFlavour.getModel().getAle() / 4. / M_PI;
-    double PRF = pow(coupling, 2.) / M_PI / myFlavour.getModel().getMesons(QCD::B_D).getWidth() * pow(FBd, 2.) * pow(mmu, 2.) * mBd * beta;
+    double PRF = pow(coupling, 2.) / M_PI / myFlavour.getModel().getMesons(QCD::B_D).computeWidth() * pow(FBd, 2.) * pow(mmu, 2.) * mBd * beta;
     yd = 0; // For now. To be explicitly calculated.
     timeInt = (1. + Amumu * yd) / (1. - yd * yd); // Note modification in form due to algorithm
     /*    double theta = asin(sqrt( (M_PI * myFlavour.getModel().getAle() )/( sqrt(2) * myFlavour.getModel().getGF() *
      myFlavour.getModel().Mw_tree() * myFlavour.getModel().Mw_tree()) ));
      
-     return( myFlavour.getModel().getMesons(QCD::B_S).Lifetime() * myFlavour.getModel().getGF()*myFlavour.getModel().getGF()/M_PI
+     return( myFlavour.getModel().getMesons(QCD::B_S).getLifetime() / HCUT * myFlavour.getModel().getGF()*myFlavour.getModel().getGF()/M_PI
      * myFlavour.getModel().getAle()*myFlavour.getModel().getAle()/(16.*M_PI*M_PI*pow(sin(theta),4.))
      * mBs * myFlavour.getModel().getMesons(QCD::B_S).getDecayconst()
      * mmu * mmu * sqrt(1.-4.*mmu*mmu/mBs/mBs) * BRBsmumu(NLO).real());*/

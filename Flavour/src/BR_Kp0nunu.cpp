@@ -11,7 +11,7 @@ double BR_Kp0nunu::getThValue(){
     double theta = asin(sqrt( (M_PI * SM.getAle() )/( sqrt(2) * SM.getGF() * 
                    SM.Mw_tree() * SM.Mw_tree()) ));
     
-    return(SM.getIB_Kl() * (SM.getMesons(QCD::K_0).Lifetime()/SM.getMesons(QCD::K_P).Lifetime())
+    return(SM.getIB_Kl() * (SM.getMesons(QCD::K_0).getLifetime() / HCUT / SM.getMesons(QCD::K_P).getLifetime() / HCUT)
            * 3. * SM.getAle() * SM.getAle() / (2.*M_PI*M_PI*pow(sin(theta),4.)) * SM.getBr_Kp_P0enu() *
            BRKp0nunu(NLO, NLO_ew).real());
 }
