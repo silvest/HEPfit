@@ -23,7 +23,7 @@
 const std::string QCD::QCDvars[NQCDvars] = {
     "AlsMz","Mz","mup","mdown","mcharm","mstrange",
     "mtop","mbottom","mut","mub","muc","MBd","tBd",
-    "MBs","tBs","MBp","MK0","MKp","MD", "W_Kl", "W_Kp", "FBs", "FBsoFBd", "FD",
+    "MBs","tBs","MBp","MK0","MKp","MD", "tKl", "tKp", "FBs", "FBsoFBd", "FD",
     "BBsoBBd","BBs1","BBs2","BBs3","BBs4","BBs5", "BBsscale", "BBsscheme",
     "BD1","BD2","BD3","BD4","BD5", "BDscale", "BDscheme",
     "BK1","BK2","BK3","BK4","BK5", "BKscale", "BKscheme", "FK",
@@ -180,11 +180,11 @@ void QCD::SetParameter(const std::string name, const double& value)
     else if(name.compare("MBd")==0)
         mesons[B_D].setMass(value);
     else if(name.compare("tBd")==0)
-        mesons[B_D].setWidth(HCUT / value);
+        mesons[B_D].setLifetime(value);
     else if(name.compare("MBs")==0)
         mesons[B_S].setMass(value);
     else if(name.compare("tBs")==0)
-        mesons[B_S].setWidth(HCUT / value);
+        mesons[B_S].setLifetime(value);
     else if(name.compare("MBp")==0)
         mesons[B_P].setMass(value);
     else if(name.compare("MK0")==0)
@@ -193,10 +193,10 @@ void QCD::SetParameter(const std::string name, const double& value)
         mesons[K_P].setMass(value);
     else if(name.compare("MD")==0)
         mesons[D_0].setMass(value);
-    else if (name.compare("W_Kl")==0)
-        mesons[K_0].setWidth(value);
-    else if (name.compare("W_Kp")==0)
-        mesons[K_P].setWidth(value);
+    else if (name.compare("tKl")==0)
+        mesons[K_0].setLifetime(value);
+    else if (name.compare("tKp")==0)
+        mesons[K_P].setLifetime(value);
     else if(name.compare("FBs")==0) {
         mesons[B_S].setDecayconst(value);
         computeFBd = true;

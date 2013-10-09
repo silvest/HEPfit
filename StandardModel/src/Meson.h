@@ -26,30 +26,26 @@ public:
 
     Meson() 
     {};
-    Meson(double mass, double width, double decayconst);
+    Meson(double mass, double lifetime, double decayconst);
     virtual ~Meson();
+    
+    double getLifetime() const;
 
     /**
      *
      * @return The particle lifetime in ps. 
      */
-    double Lifetime() const 
-    {
-        return (HCUT / width);
-    }
+    void setLifetime(double lifetime);
+    
+    double computeWidth() const;
 
-    double getDecayconst() const 
-    {
-        return decayconst;
-    }
+    double getDecayconst() const;
 
-    void setDecayconst(double decayconst)
-    {
-        this->decayconst = decayconst;
-    }
+    void setDecayconst(double decayconst);
 
 private:
     double decayconst;
+    double lifetime;
 
 };
 
