@@ -22,6 +22,7 @@
 #include <TObject.h>
 #include <TF1.h>
 #include <TLegend.h>
+#include <TRandom3.h>
 #include "BaseMacros.h"
 #include "SFH1D.h"
 #include "Pull.h"
@@ -69,9 +70,6 @@ int main(int argc, char** argv)
         cout << "   --pdf            -> output pdf instead of eps                      " << endl;
         cout << "   -maxDigits=n     -> set max digits in the axis labels [default: n=8]" << endl;
         cout << "   -precision=n     -> precision of values in the std output [default: n=6]" << endl;
-        cout << "   -prob68=prob     -> probability for the first interval [default: prob=0.68]" << endl;
-        cout << "   -prob95=prob     -> probability for the second interval [default: prob=0.95]"<< endl;
-        cout << "   -prob99=prob     -> probability for the third interval [default: prob=0.99]"<< endl;
         cout << "   -xlab=namex      -> title of the x axis                            " << endl;
         cout << "   -ylab=namey      -> title of the y axis                            " << endl;
         cout << "   -yTitleOffset=d  -> offset of the title of the y axis [default: d=1.5]" << endl;
@@ -91,6 +89,9 @@ int main(int argc, char** argv)
         cout << "   -lineStyleN=index -> index of the line style [default: index=1]    " << endl;
         cout << "   -lineWidthN=index -> index of the line width [default: index=1]    " << endl;
         cout << "   -lineColorN=index -> index of the line color [default: index=1]    " << endl;
+        cout << "   -prob68N=prob     -> probability for the first interval [default: 0.68]" << endl;
+        cout << "   -prob95N=prob     -> probability for the second interval [default: 0.95]"<< endl;
+        cout << "   -prob99N=prob     -> probability for the third interval [default: 0.99]"<< endl;
         cout << "   -col68N=index    -> color index of the 68% interval for plotN [default: index=1393]" << endl;
         cout << "   -col95N=index    -> color index of the 95% interval for plotN [default: index=1392]" << endl;
         cout << "   -col68alphaN=alpha -> color transparency of the 68% interval for plotN [default: alpha=1]" << endl;
@@ -128,6 +129,7 @@ int main(int argc, char** argv)
         cout << " Optional parameters for 2-D histograms:                              " << endl;
         cout << "   --twoDim         -> 2-D histogram (mandatory)                      " << endl;
         cout << "   --drawlines      -> draw contour lines                             " << endl;
+        cout << "   --gridOrigin     -> draw grid lines on the origin                  " << endl;
         cout << "   --outputTxt      -> output results to a text file                  " << endl;
         cout << "   -output=filename -> the base name of output eps and text files (without extension)" << endl;
         cout << "                       [default: plotname]                            " << endl;
@@ -152,6 +154,9 @@ int main(int argc, char** argv)
         cout << "   -rootfileN=filename -> rootfile name for plotN (with extension)    " << endl;
         cout << "         [For N=2,3, the same as the rootfile for plot1 by default]   " << endl;
         cout << "   -smoothN=ntime   -> iterative smoothing for plotN [default: ntime=0]" << endl;
+        cout << "   -prob68N=prob     -> probability for the first interval [default: 0.68]" << endl;
+        cout << "   -prob95N=prob     -> probability for the second interval [default: 0.95]"<< endl;
+        cout << "   -prob99N=prob     -> probability for the third interval [default: 0.99]"<< endl;
         cout << "   -col68N=index    -> color index of the 68% interval for plotN [default: index=1393]" << endl;
         cout << "   -col95N=index    -> color index of the 95% interval for plotN [default: index=1392]" << endl;
         cout << "   -col99N=index    -> color index of the 99% interval for plotN [default: index=1392]" << endl;
@@ -183,11 +188,8 @@ int main(int argc, char** argv)
 
     //----  parameters which can be changed by command-line arguments  -----
 
-    //double prob68 = 0.6827, prob95 = 0.9545, prob99 = 0.9973; //,0.9995,0.9999
-    double prob68 = 0.68, prob95 = 0.95, prob99 = 0.99;
-    //
     bool bOneDim = false, bCompat = false, bTwoDim = false;
-    bool bPDF = false;
+    bool bPDF = false, bGridOrigin = false;
     bool bOrig = false, bOutputTxt = false, bContLines = false, bLeftLegend = false;
     bool bRescaleForMHl = false, bLegReverse = false;
     int maxDig = 8, prec = 6;
@@ -214,11 +216,12 @@ int main(int argc, char** argv)
     double prior_mean = 0.0, prior_sigma = 0.0;
     int prior_LineStyle = 2, prior_LineWidth = 4;
 
-    const int NumHist = 5;
+    const int NumHist = 6;
     TObject* tobj[NumHist];
     TFile *datafile[NumHist];
     string plotname[NumHist], filename[NumHist];
     TString leg[NumHist];
+    double prob68[NumHist], prob95[NumHist], prob99[NumHist];
     int smooth[NumHist], col68[NumHist], col95[NumHist], col99[NumHist];
     int lineStyle68[NumHist], lineStyle95[NumHist], lineStyle99[NumHist];
     int lineWidth[NumHist], lineColor[NumHist];
@@ -229,6 +232,12 @@ int main(int argc, char** argv)
         plotname[hist] = "";
         filename[hist] = "";
         leg[hist] = "";
+        //prob68[hist] = 0.6827;
+        //prob95[hist] = 0.9545;
+        //prob99[hist] = 0.9973;
+        prob68[hist] = 0.68;
+        prob95[hist] = 0.95;
+        prob99[hist] = 0.99;
         smooth[hist] = 0;
         lineStyle68[hist] = 1;
         lineStyle95[hist] = 1;
@@ -279,16 +288,10 @@ int main(int argc, char** argv)
         else if (strncmp(argv[i], "--pdf", 5) == 0) bPDF = true;
         else if (strncmp(argv[i], "--outputTxt", 11) == 0) bOutputTxt = true;
         else if (strncmp(argv[i], "--drawlines", 11) == 0) bContLines = true;
+        else if (strncmp(argv[i], "--gridOrigin", 12) == 0) bGridOrigin = true;
         else if (strncmp(argv[i], "--leftLegend", 12) == 0) bLeftLegend = true;
         else if (strncmp(argv[i], "--rescaleForMHl", 15) == 0) bRescaleForMHl = true;
         else if (strncmp(argv[i], "--legReverse", 12) == 0) bLegReverse = true;
-        //
-        else if (strncmp(argv[i], "-prob68=", 8) == 0)
-            sscanf(argv[i], "-prob68=%lf", &prob68);
-        else if (strncmp(argv[i], "-prob95=", 8) == 0)
-            sscanf(argv[i], "-prob95=%lf", &prob95);
-        else if (strncmp(argv[i], "-prob99=", 8) == 0)
-            sscanf(argv[i], "-prob99=%lf", &prob99);
         //
         else if (strncmp(argv[i], "-output=", 8) == 0) {
             sscanf(argv[i], "-output=%s", str);
@@ -422,6 +425,27 @@ int main(int argc, char** argv)
             ss << "-smooth" << hist << "=";
             if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
                 sscanf(argv[i], (ss.str() + "%d").c_str(), &smooth[hist-1]);
+                flagtmp = true;
+            }
+            ss.str("");
+
+            ss << "-prob68" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%lf").c_str(), &prob68[hist-1]);
+                flagtmp = true;
+            }
+            ss.str("");
+
+            ss << "-prob95" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%lf").c_str(), &prob95[hist-1]);
+                flagtmp = true;
+            }
+            ss.str("");
+
+            ss << "-prob99" << hist << "=";
+            if (strncmp(argv[i], ss.str().c_str(), ss.str().size()) == 0) {
+                sscanf(argv[i], (ss.str() + "%lf").c_str(), &prob99[hist-1]);
                 flagtmp = true;
             }
             ss.str("");
@@ -622,27 +646,40 @@ int main(int argc, char** argv)
     // Fill colors
     TColor *FillCol68[NumHist], *FillCol95[NumHist], *FillCol99[NumHist];
     for (int i=0; i<NumHist; i++) {
+        TRandom3 rndnum;
+        int col68_tmp, col95_tmp, col99_tmp;
+        do {
+            col68_tmp = (int)(10000*rndnum.Rndm());
+        } while (gROOT->GetColor(col68_tmp) != NULL );
+        do {
+            col95_tmp = (int)(10000*rndnum.Rndm());
+        } while (gROOT->GetColor(col95_tmp) != NULL );
+        do {
+            col99_tmp = (int)(10000*rndnum.Rndm());
+        } while (gROOT->GetColor(col99_tmp) != NULL );
+
         TColor *colTmp = gROOT->GetColor(col68[i]);
-        if (gROOT->GetColor(col68[i]+10000) == NULL ) {
-            FillCol68[i] = new TColor(col68[i]+10000, colTmp->GetRed(),
-                                      colTmp->GetGreen(), colTmp->GetBlue());
-            FillCol68[i]->SetAlpha(col68alpha[i]);
-        } else
-            FillCol68[i] = gROOT->GetColor(col68[i]+10000);
+        FillCol68[i] = new TColor(col68_tmp, colTmp->GetRed(),
+                                  colTmp->GetGreen(), colTmp->GetBlue());
+        FillCol68[i]->SetAlpha(col68alpha[i]);
+
         TColor *colTmp2 = gROOT->GetColor(col95[i]);
-        if (gROOT->GetColor(col95[i]+20000) == NULL ) {
-            FillCol95[i] = new TColor(col95[i]+20000, colTmp2->GetRed(),
-                                      colTmp2->GetGreen(), colTmp2->GetBlue());
-            FillCol95[i]->SetAlpha(col95alpha[i]);
-        } else
-            FillCol95[i] = gROOT->GetColor(col95[i]+20000);
+        FillCol95[i] = new TColor(col95_tmp, colTmp2->GetRed(),
+                                  colTmp2->GetGreen(), colTmp2->GetBlue());
+        FillCol95[i]->SetAlpha(col95alpha[i]);
+
         TColor *colTmp3 = gROOT->GetColor(col99[i]);
-        if (gROOT->GetColor(col99[i]+30000) == NULL ) {
-            FillCol99[i] = new TColor(col99[i]+30000, colTmp3->GetRed(),
-                                      colTmp3->GetGreen(), colTmp3->GetBlue());
-            FillCol99[i]->SetAlpha(col99alpha[i]);
-        } else
-            FillCol99[i] = gROOT->GetColor(col99[i]+30000);
+        FillCol99[i] = new TColor(col99_tmp, colTmp3->GetRed(),
+                                  colTmp3->GetGreen(), colTmp3->GetBlue());
+        FillCol99[i]->SetAlpha(col99alpha[i]);
+
+        // Debug
+        //cout << i << " " << FillCol68[i]->GetNumber() << " "
+        //     << FillCol68[i]->GetAlpha() << endl;
+        //cout << i << " " << FillCol95[i]->GetNumber() << " "
+        //     << FillCol95[i]->GetAlpha() << endl;
+        //cout << i << " " << FillCol99[i]->GetNumber() << " "
+        //     << FillCol99[i]->GetAlpha() << endl;
     }
 
     //----------------------------------------------------------------------
@@ -718,7 +755,7 @@ int main(int argc, char** argv)
         hist[0] = (TH1D*) tobj[0]->Clone();
         os << hist[0]->GetXaxis()->GetTitle() << " in " << plotname[0] << endl;
 
-        SFHisto1D[0] = new SFH1D(*hist[0], prob68, prob95, prob99);
+        SFHisto1D[0] = new SFH1D(*hist[0], prob68[0], prob95[0], prob99[0]);
         SFHisto1D[0]->smoothHist(smooth[0]);
         SFHisto1D[0]->increaseNbins(newNbins[0]);
         SFHisto1D[0]->DrawAxes(xlab, ylab, maxDig, x_low, x_up, yTitleOffset); // draw the axes
@@ -744,7 +781,7 @@ int main(int argc, char** argv)
         for (int n=1; n<NumHist; n++) {
             if ( plotname[n].compare("")!=0 ) {
                 hist[n] = (TH1D*) tobj[n]->Clone();
-                SFHisto1D[n] = new SFH1D(*hist[n], prob68, prob95, prob99);
+                SFHisto1D[n] = new SFH1D(*hist[n], prob68[n], prob95[n], prob99[n]);
                 SFHisto1D[n]->smoothHist(smooth[n]);
                 SFHisto1D[n]->increaseNbins(newNbins[n]);
                 SFHisto1D[n]->Draw(lineStyle68[n], lineWidth[n], lineColor[n],
@@ -799,7 +836,7 @@ int main(int argc, char** argv)
 
         // output results for the original histogram before smoothing
         // nor increasing the number of bins for comparison
-        SFH1D orig1D(*hist[0], prob68, prob95, prob99);
+        SFH1D orig1D(*hist[0], prob68[0], prob95[0], prob99[0]);
         os << endl << "[Original histogram]" << endl;
         orig1D.OutputResults(os, 0, false);
 
@@ -838,7 +875,7 @@ int main(int argc, char** argv)
            << " in " << plotname[0] << endl;
         os << "  smooth: " << smooth[0] << " time(s)" << endl;
 
-        SFHisto2D[0] = new SFH2D(*hist[0], os, prob68, prob95, prob99,
+        SFHisto2D[0] = new SFH2D(*hist[0], os, prob68[0], prob95[0], prob99[0],
                                  x_low, x_up, y_low, y_up, NumNewPoints[0]);
         SFHisto2D[0]->smoothHist(smooth[0]);
         SFHisto2D[0]->Draw(xlab, ylab, lineWidth[0], lineColor[0],
@@ -855,7 +892,7 @@ int main(int argc, char** argv)
                 os << "[Graph " << n+1 << "]" << endl;
                 os << "  smooth: " << smooth[n] << " time(s)" << endl;
                 hist[n] = (TH2D*) tobj[n]->Clone();
-                SFHisto2D[n] = new SFH2D(*hist[n], os, prob68, prob95, prob99,
+                SFHisto2D[n] = new SFH2D(*hist[n], os, prob68[n], prob95[n], prob99[n],
                                          x_low, x_up, y_low, y_up, NumNewPoints[n]);
                 SFHisto2D[n]->smoothHist(smooth[n]);
                 SFHisto2D[n]->Draw("", "", lineWidth[n], lineColor[n],
@@ -886,14 +923,9 @@ int main(int argc, char** argv)
             g1->SetMarkerColor(colP);
             g1->Draw("P");
 
-            double xmin = hist[0]->GetXaxis()->GetXmin();
-            double xmax = hist[0]->GetXaxis()->GetXmax();
-            double ymin = hist[0]->GetYaxis()->GetXmin();
-            double ymax = hist[0]->GetYaxis()->GetXmax();
-
             err = xerr2;
-            double min_x = std::max(xval2 - err, xmin);
-            double max_x = std::min(xval2 + err, xmax);
+            double min_x = std::max(xval2 - err, x_low);
+            double max_x = std::min(xval2 + err, x_up);
             lx->DrawLine(min_x, yval2, max_x, yval2);
 
             TLine *ly = new TLine();
@@ -907,8 +939,8 @@ int main(int argc, char** argv)
             g2->SetMarkerColor(colP);
             g2->Draw("P");
 
-            double min_y = std::max(yval2 - err, ymin);
-            double max_y = std::min(yval2 + err, ymax);
+            double min_y = std::max(yval2 - err, y_low);
+            double max_y = std::min(yval2 + err, y_up);
             ly->DrawLine(xval2, min_y, xval2, max_y);
         }
 
@@ -926,6 +958,19 @@ int main(int argc, char** argv)
             }
         }
 
+        // draw grid lines on the origin
+        if (bGridOrigin) {
+            TLine *xgrid = new TLine();
+            xgrid->SetLineStyle(3);
+            xgrid->SetLineWidth(1);
+            xgrid->DrawLine(x_low, 0.0, x_up, 0.0);
+
+            TLine *ygrid = new TLine();
+            ygrid->SetLineStyle(3);
+            ygrid->SetLineWidth(1);
+            ygrid->DrawLine(0.0, y_low, 0.0, y_up);
+        }
+
         // legends: Change the order if necessary.
         string leg_opt;
         int beginLeg = 0, endLeg = NumHist-1;
@@ -934,10 +979,12 @@ int main(int argc, char** argv)
             endLeg = 0;
         }
         for (int n=-beginLeg; n<=endLeg; n++) {
-            if (contour_pt[n] != NULL && leg[n].CompareTo("")!= 0) {
-                if (fillStyle[n]!=0) leg_opt = "F";
+            int n_tmp = n;
+            if(bLegReverse) n_tmp = - n_tmp;
+            if (contour_pt[n_tmp] != NULL && leg[n_tmp].CompareTo("")!= 0) {
+                if (fillStyle[n_tmp]!=0) leg_opt = "F";
                 else leg_opt = "L";
-                legend->AddEntry(contour_pt[n], myMacros.ConvertTitle(leg[n]), leg_opt.c_str());
+                legend->AddEntry(contour_pt[n_tmp], myMacros.ConvertTitle(leg[n_tmp]), leg_opt.c_str());
             }
         }
         if (g1 != NULL && legP.CompareTo("")!= 0)
