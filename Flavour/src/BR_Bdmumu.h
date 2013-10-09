@@ -17,7 +17,7 @@ public:
      * constructor
      * @param Flavour
      */
-    BR_Bdmumu(Flavour& Flavour, double timeFlag);
+    BR_Bdmumu(Flavour& Flavour, int obsFlag);
     
     /**
      *
@@ -60,6 +60,7 @@ private:
     double timeInt;
     double yd;
     double tF;
+    int obs;
     
 };
 

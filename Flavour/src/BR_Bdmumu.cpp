@@ -7,10 +7,9 @@
 
 #include "BR_Bdmumu.h"
 
-BR_Bdmumu::BR_Bdmumu(Flavour& Flavour, double timeFlag): ThObservable(Flavour), myFlavour(Flavour), tF(timeFlag){
-    if (timeFlag == 0) tF = 0.;
-    else if (timeFlag == 1) tF = 1.;
-    else throw std::runtime_error("timeFlag in BR_Bdmumu(myFlavour, timeFlag) called from ThFactory::ThFactory() can only be 0 or 1");
+BR_Bdmumu::BR_Bdmumu(Flavour& Flavour, int obsFlag): ThObservable(Flavour), myFlavour(Flavour){
+    if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
+    else throw std::runtime_error("obsFlag in BR_Bsmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
 };
 
 double BR_Bdmumu::getThValue(){
@@ -19,7 +18,7 @@ double BR_Bdmumu::getThValue(){
     double coupling = myFlavour.getModel().getGF() * myFlavour.getModel().getAle() / 4. / M_PI;
     double PRF = pow(coupling, 2.) / M_PI / myFlavour.getModel().getMesons(QCD::B_D).getWidth() * pow(FBd, 2.) * pow(mmu, 2.) * mBd * beta;
     yd = 0; // For now. To be explicitly calculated.
-    timeInt = (yd * yd + Amumu * yd) / (1. - yd * yd); // Note modification in form due to algorithm
+    timeInt = (1. + Amumu * yd) / (1. - yd * yd); // Note modification in form due to algorithm
     /*    double theta = asin(sqrt( (M_PI * myFlavour.getModel().getAle() )/( sqrt(2) * myFlavour.getModel().getGF() *
      myFlavour.getModel().Mw_tree() * myFlavour.getModel().Mw_tree()) ));
      
@@ -30,7 +29,10 @@ double BR_Bdmumu::getThValue(){
     
     //std::cout << getAmumu(FULLNLO) << "  " << getSmumu(FULLNLO) << argP << std::endl;
     
-    return( PRF * ampSq * (1 + tF * timeInt));
+    if (obs == 1) return( PRF * ampSq);
+    if (obs == 2) return( PRF * ampSq * timeInt);
+    if (obs == 3) return( Amumu );
+    if (obs == 4) return( Smumu );
 }
 
 void BR_Bdmumu::setAmp(orders order){
