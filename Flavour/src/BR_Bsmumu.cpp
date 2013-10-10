@@ -15,7 +15,7 @@ BR_Bsmumu::BR_Bsmumu(Flavour& Flavour, int obsFlag): ThObservable(Flavour), myFl
 double BR_Bsmumu::getThValue(){
     setAmp(FULLNLO);
     double FBs = myFlavour.getModel().getMesons(QCD::B_S).getDecayconst();
-    double coupling = myFlavour.getModel().getGF() * myFlavour.getModel().getAle() / 4. / M_PI;
+    double coupling = myFlavour.getModel().getGF() * myFlavour.getModel().alphaMz() / 4. / M_PI;
     double PRF = pow(coupling, 2.) / M_PI / myFlavour.getModel().getMesons(QCD::B_S).computeWidth() * pow(FBs, 2.) * pow(mmu, 2.) * mBs * beta;
     ys = 0.087; // For now. To be explicitly calculated.
     timeInt = (1. + Amumu * ys) / (1. - ys * ys); // Note modification in form due to algorithm

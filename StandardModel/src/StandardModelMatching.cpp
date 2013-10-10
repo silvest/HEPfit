@@ -79,14 +79,14 @@ double StandardModelMatching::x_c(const double mu, const orders order) const
 {
     double mc = SM.Mrun(mu, SM.getQuarks(QCD::CHARM).getMass_scale(), 
                         SM.getQuarks(QCD::CHARM).getMass(), order);
-    return pow(mc / Mw_tree, 2.); 
+    return pow(mc / Mw, 2.); 
 }
 
 double StandardModelMatching::x_t(const double mu, const orders order) const 
 {
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), order);
-    return pow(mt / Mw_tree, 2.); 
+    return pow(mt / Mw, 2.); 
 }
 
 double StandardModelMatching::mt2omh2(const double mu, const orders order) const 
@@ -219,9 +219,11 @@ double StandardModelMatching::Y1(double x, double mu) const
     double x3 = x2 * x;
     double x4 = x3 * x;
     double logx = log(x);
-    double xm3 = pow(1. - x, 3.);
+    double xm = 1. - x;
+    double xm2 = xm * xm;
+    double xm3 = xm2 * xm;
     
-    return ((4. * x + 16. * x2 + 4. * x3)/(3 * pow(1. - x, 2.)) - (4. * x - 10. * x2 - x3 - x4)/xm3 * logx + (2. * x - 14. * x2 + x3 - x4)/(2. * xm3) * pow(logx, 2.) + (2. * x + x3)/pow(1. - x, 2.) * gsl_sf_dilog(1. - x) + 16. * x * (-4. + 3. * x + x3 - 6. * x * logx)/(8. * -xm3) * log(mu / Mw));
+    return ((10. * x + 10. * x2 + 4. * x3)/(3 * xm2) - (2. * x - 8. * x2 - x3 - x4)/xm3 * logx + (2. * x - 14. * x2 + x3 - x4)/(2. * xm3) * pow(logx, 2.) + (2. * x + x3)/xm2 * gsl_sf_dilog(1. - x) + 16. * x * (-4. + 3. * x + x3 - 6. * x * logx)/(8. * -xm3) * log(mu / Mw));
 }
 
 double StandardModelMatching::C7LOeff(double x) const
