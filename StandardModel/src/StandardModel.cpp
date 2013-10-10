@@ -20,7 +20,7 @@
 
 
 const std::string StandardModel::SMvars[NSMvars] = {
-    "ale", "dAle5Mz", "GF", "mHl", "delMw", "delSin2th_l", 
+    "ale", "dAle5Mz", "GF", "mHl", "delMw", "delSin2th_l", "delGammaZ", 
     "delRhoZ_nu", "delRhoZ_e", "delRhoZ_b", "muw",
     "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", 
     "lambda", "A", "rhob", "etab", 
@@ -157,6 +157,8 @@ void StandardModel::SetParameter(const std::string name, const double& value)
         delMw = value;
     else if (name.compare("delSin2th_l") == 0)
         delSin2th_l = value;
+    else if (name.compare("delGammaZ") == 0)
+        delGammaZ = value;
     else if (name.compare("delRhoZ_nu") == 0)
         delRhoZ_nu = value;
     else if (name.compare("delRhoZ_e") == 0)

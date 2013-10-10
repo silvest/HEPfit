@@ -74,7 +74,7 @@ public:
     }
 
     // The number of the parameters relevant to EW observables
-    static const int NumSMParams = 26;
+    static const int NumSMParams = 27;
         
     
     //////////////////////////////////////////////////////////////////////// 

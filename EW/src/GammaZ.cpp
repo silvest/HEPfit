@@ -25,6 +25,9 @@ double GammaZ::getThValue()
     } else {
         Gamma_Z = myEW.Gamma_Z();
 
+        /* Theoretical uncertainty */
+        Gamma_Z += SM.getDelGammaZ();
+
         if(myEWTYPE==EW::EWBURGESS) {
             Gamma_Z += - 0.00961*SM.obliqueS() + 0.0263*SM.obliqueT();
             return Gamma_Z;
