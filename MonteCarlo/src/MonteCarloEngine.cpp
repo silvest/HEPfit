@@ -140,8 +140,22 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
             }
         }
     }
+    kmax = k;
+    kwmax = kweight;
+
+    DefineParameters();
+
     for (std::vector<ModelParaVsObs>::iterator it = ParaObs.begin();
             it < ParaObs.end(); it++) {
+
+        /* check if the parameter in ModelParaVsObs exists in MCMCparameters */
+        bool checkParam = false;
+        for (int k = 0; k < fMCMCNParameters; k++)
+            if (it->getParaName().compare(GetParameter(k)->GetName())==0)
+                checkParam = true;
+        if(!checkParam)
+            throw std::runtime_error(it->getParaName() + " cannot be used in ModelParaVsObs!");
+
         if (Histo2D.find(it->getParaName() + "_vs_" + it->getThname()) == Histo2D.end()) {
             TH2D * histo2 = new TH2D((it->getParaName() + "_vs_" + it->getThname()).c_str(),
                                      (it->getParaLabel() + " vs " + it->getLabel()).c_str(),
@@ -153,10 +167,6 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
             Histo2D[it->getParaName() + "_vs_" + it->getThname()] = bchisto2;
         }
     }
-    kmax = k;
-    kwmax = kweight;
-
-    DefineParameters();
 };
 
 void MonteCarloEngine::SetNChains(unsigned int i) 
@@ -347,7 +357,7 @@ void MonteCarloEngine::MCMCIterationInterface()
 
         Mod->Update(DPars);
 
-        // fill the histograms for observables
+            // fill the histograms for observables
         int k = 0, kweight = 0;
         for (std::vector<Observable>::iterator it = Obs_ALL.begin();
                 it < Obs_ALL.end(); it++) {
