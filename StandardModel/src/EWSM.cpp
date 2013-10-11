@@ -84,10 +84,10 @@ bool EWSM::checkSMparams(double Params_cache[], const bool bUpdate) const
     // 11 parameters in QCD:
     // "AlsMz","Mz","mup","mdown","mcharm","mstrange", "mtop","mbottom",
     // "mut","mub","muc"
-    // 15 parameters in StandardModel
+    // 16 parameters in StandardModel
     // "GF", "ale", "dAle5Mz", "mHl", 
     // "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau",
-    // "delMw", "delSin2th_l", "delRhoZ_nu", "delRhoZ_e", "delRhoZ_b"
+    // "delMw", "delSin2th_l", "delGammaZ", delRhoZ_nu", "delRhoZ_e", "delRhoZ_b"
     double SMparams[NumSMParams] = { 
         SM.getAlsMz(), SM.getMz(), SM.getGF(), SM.getAle(), SM.getDAle5Mz(),
         SM.getMHl(), SM.getMtpole(), 
@@ -103,7 +103,7 @@ bool EWSM::checkSMparams(double Params_cache[], const bool bUpdate) const
         SM.getQuarks(SM.STRANGE).getMass(),
         SM.getQuarks(SM.BOTTOM).getMass(),
         SM.getMut(), SM.getMub(), SM.getMuc(),
-        SM.getDelMw(), SM.getDelSin2th_l(),
+        SM.getDelMw(), SM.getDelSin2th_l(), SM.getDelGammaZ(), 
         SM.getDelRhoZ_nu(), SM.getDelRhoZ_e(), SM.getDelRhoZ_b()
     };
         

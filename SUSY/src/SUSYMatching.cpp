@@ -892,10 +892,19 @@ gslpp::complex SUSYMatching::VdUCR(int b, int k, int j, int flag) {
 
 void SUSYMatching::Comp_VdDNL(int flag){
     
+    /* tree-level cW2 */
+    double cW2 = mySUSY.Mw_tree()*mySUSY.Mw_tree()/mySUSY.getMz()/mySUSY.getMz();
+    /* SM value for cW2 in the on-shell scheme */
+    //double cW2 = mySUSY.StandardModel::cW2();
+    /* MSSM value for cW2 in the on-shell scheme */
+    //double cW2 = mySUSY.cW2();
+
+    double sW2 = 1.0 - cW2;
+
+    double CosThetaW = sqrt(cW2);
+    double SinThetaW = sqrt(sW2);
     
     complex VdDNL_bkj(0., 0., false);
-    double CosThetaW = sqrt(mySUSY.cW2());
-    double SinThetaW = sqrt(mySUSY.sW2());
     int l;
 
     int b, k, j;
@@ -958,8 +967,18 @@ gslpp::complex SUSYMatching::VdDNL(int b, int k, int j, int flag) {
 void SUSYMatching::Comp_VdDNR(int flag) {
 
     complex VdDNR_bkj(0., 0., false);
-    double CosThetaW = sqrt(mySUSY.cW2());
-    double SinThetaW = sqrt(mySUSY.sW2());
+
+    /* tree-level cW2 */
+    double cW2 = mySUSY.Mw_tree()*mySUSY.Mw_tree()/mySUSY.getMz()/mySUSY.getMz();
+    /* SM value for cW2 in the on-shell scheme */
+    //double cW2 = mySUSY.StandardModel::cW2();
+    /* MSSM value for cW2 in the on-shell scheme */
+    //double cW2 = mySUSY.cW2();
+
+    double sW2 = 1.0 - cW2;
+
+    double CosThetaW = sqrt(cW2);
+    double SinThetaW = sqrt(sW2);
     int l;
 
     int b, k, j;
@@ -1144,7 +1163,16 @@ gslpp::complex SUSYMatching::VdUCR(int b, int k, int j, int flag, int Dmixingfla
 
 void SUSYMatching::Comp_VuUN(){
  
-    double TanThetaW = sqrt(mySUSY.sW2() / mySUSY.cW2());
+    /* tree-level cW2 */
+    double cW2 = mySUSY.Mw_tree()*mySUSY.Mw_tree()/mySUSY.getMz()/mySUSY.getMz();
+    /* SM value for cW2 in the on-shell scheme */
+    //double cW2 = mySUSY.StandardModel::cW2();
+    /* MSSM value for cW2 in the on-shell scheme */
+    //double cW2 = mySUSY.cW2();
+
+    double sW2 = 1.0 - cW2;
+
+    double TanThetaW = sqrt(sW2 / cW2);
     complex VuUNL_bkj(0.,0.,false);
     complex VuUNR_bkj(0.,0.,false);
     double Yub;

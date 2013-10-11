@@ -88,7 +88,7 @@ public:
         TAU /**< Tau */
     };
     
-    static const int NSMvars = 26;
+    static const int NSMvars = 27;
     static const std::string SMvars[NSMvars];
     static const int NSMflags = 11;
     static const std::string SMflags[NSMflags];
@@ -302,7 +302,15 @@ public:
     {
         return delSin2th_l;
     }
-    
+
+    /**
+     * @return Theoretical uncertainty in the total width of Z boson. 
+     */
+    double getDelGammaZ() const
+    {
+        return delGammaZ;
+    }
+
     double getDelRhoZ_nu() const 
     {
         return delRhoZ_nu;
@@ -787,7 +795,7 @@ protected:
     
     // model parameters
     double ale, dAle5Mz, GF, mHl;
-    double delMw, delSin2th_l, delRhoZ_nu, delRhoZ_e, delRhoZ_b;
+    double delMw, delSin2th_l, delGammaZ, delRhoZ_nu, delRhoZ_e, delRhoZ_b;
     double muw;
     double lambda, A, rhob, etab;
     double EpsK, phiEpsK, DeltaMK, KbarEpsK, Dmk, SM_M12D;
