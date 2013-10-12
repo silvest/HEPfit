@@ -636,7 +636,8 @@ TGraph* SFH2D::CloseTwoTGraphs(const int cont_ind, TGraph* inputgraph1,
     std::vector<SFH2D_Point>::iterator it, it_minimal;
     int ind, ind_minimal;
     double dist, dist_tmp;
-    double dist_max = sqrt( pow(xmax - xmin, 2.0) + pow(ymax - ymin, 2.0) );
+    //double dist_max = sqrt( pow(xmax - xmin, 2.0) + pow(ymax - ymin, 2.0) );
+    double dist_max = sqrt(2.0); // for rescaled_distance below
 
     // set the first point
     it = vp_org.begin();
@@ -685,7 +686,7 @@ TGraph* SFH2D::CloseTwoTGraphs(const int cont_ind, TGraph* inputgraph1,
     TGraph* newTGraph = new TGraph(n_all);
     for (int i = 0; i < vp_new.size(); i++)
         newTGraph->SetPoint(i, vp_new.at(i).m_x, vp_new.at(i).m_y);
-    
+
     return newTGraph;
 }
 
