@@ -18,27 +18,7 @@ Meson::~Meson()
 {
 }
 
-double Meson::getLifetime() const
-{
-    return lifetime;
-}
-
-void Meson::setLifetime(double lifetime)
-{
-    this->lifetime = lifetime;
-}
-
 double Meson::computeWidth() const
 {
     return (HCUT / lifetime);
-}
-
-double Meson::getDecayconst() const
-{
-    return decayconst;
-}
-
-void Meson::setDecayconst(double decayconst)
-{
-    this->decayconst = decayconst;
 }

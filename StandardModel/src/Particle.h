@@ -18,19 +18,35 @@
  * @brief A class for particles. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details 
+ * @details This is the class for defining particles and their properties
+ * like mass \f$ (GeV) \f$, width \f$ (GeV) \f$, charge, isospin. One can also
+ * define the scale, in \f$ GeV \f$, at which the mass of a particle is specified. This class can
+ * be used for both fundamental particles and for composite ones like mesons.
  */
 class Particle {
 public:
-    Particle() 
+    
+    /**
+     * @brief The default constructor. It sets the scale at which the particle.
+     * mass is defined, mass_scale, to 0.
+     */
+    Particle()
     {
         mass_scale = 0.;
     };
     
+    /**
+     * @brief The overloaded constructor. It sets the properties of the particle.
+     * @param[in] mass the mass of the particle in \f$ GeV \f$
+     * @param[in] mass_scale the scale in \f$ GeV \f$ at which the mass is defined, set to 0. by default
+     * @param[in] width the decay width of the particle in \f$ GeV \f$, set to 0. by default
+     * @param[in] charge the charge of the particle, set to 0. by default
+     * @param[in] isospin the isospin of the particle, set to 0. by default
+     */
     Particle(double mass, double mass_scale = 0., double width = 0., double charge = 0.,double isospin = 0.);
 
     /**
-     * @return the particle mass in GeV
+     * @return the particle mass in \f$ GeV \f$
      */
     double getMass() const 
     {
@@ -39,7 +55,7 @@ public:
 
     /**
      * set the particle mass
-     * @param mass the particle mass in GeV
+     * @param[in] mass the particle mass in \f$ GeV \f$
      */
     void setMass(double mass) 
     {
@@ -47,7 +63,7 @@ public:
     }
 
     /**
-     * @return the particle width in GeV
+     * @return the particle width in  \f$ GeV \f$
      */
     double getWidth() const 
     {
@@ -56,7 +72,7 @@ public:
 
     /**
      * set the particle width
-     * @param width the particle width in GeV
+     * @param[in] width the particle width in  \f$ GeV \f$
      */
     void setWidth(double width) 
     {
@@ -73,13 +89,12 @@ public:
 
     /**
      * set the particle charge
-     * @param width the particle charge
+     * @param[in] width the particle charge
      */
     void setCharge(double charge) 
     {
         this->charge = charge;
-    }    
-    
+    }        
 
     /**
      * @return the particle isospin
@@ -91,26 +106,37 @@ public:
 
     /**
      * set the particle isospin
-     * @param width the particle isospin
+     * @param[in] width the particle isospin
      */
     void setIsospin(double isospin) 
     {
         this->isospin = isospin;
     }
     
-    double getMass_scale() const 
+    /**
+     * @return the scale at which the particle mass is defined
+     */
+    double getMass_scale() const
     {
         return mass_scale;
     }
 
-    void setMass_scale(double mass_scale) 
+    /**
+     * set the scale at which the particle mass is defined
+     * @param[in] mass_scale the scale at which the particle mass is defined
+     */
+    void setMass_scale(double mass_scale)
     {
         this->mass_scale = mass_scale;
     }
 
     
 protected:
-    double mass, width, charge, mass_scale, isospin;
+    double mass;
+    double width;
+    double charge;
+    double mass_scale;
+    double isospin;
 };
 
 #endif	/* PARTICLE_H */
