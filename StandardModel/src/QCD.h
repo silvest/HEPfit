@@ -652,7 +652,7 @@ protected:
     double ReA0_Kd, ReA2_Kd, Omega_eta_etap;
     double Br_Kp_P0enu, IB_Kl, IB_Kp, DeltaP_cu, Br_Kp_munu, Br_B_Xcenu;
     double BBsoBBd, FBsoFBd;
-    virtual void SetParameter(const std::string, const double&);
+    virtual void parseParameters(const std::string, const double&);
 
 private:
     double zeta2, zeta3;

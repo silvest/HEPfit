@@ -229,7 +229,7 @@ public:
 
 protected: 
     
-    virtual void SetParameter(const std::string, const double&);
+    virtual void parseParameters(const std::string, const double&);
     THDMcache mycache;
 
     private:

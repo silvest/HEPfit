@@ -117,7 +117,7 @@ bool StandardModel::Update(const std::map<std::string, double>& DPars)
     UpdateError = false;
     
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        SetParameter(it->first, it->second);
+        parseParameters(it->first, it->second);
     
     if (UpdateError) return (false);
     
@@ -143,7 +143,7 @@ bool StandardModel::PostUpdate()
     return (true);
 }
 
-void StandardModel::SetParameter(const std::string name, const double& value)
+void StandardModel::parseParameters(const std::string name, const double& value)
 {
     if (name.compare("ale") == 0)
         ale = value;
@@ -210,7 +210,7 @@ void StandardModel::SetParameter(const std::string name, const double& value)
     else if (name.compare("SM_M12D") == 0)
         SM_M12D = value;
     else
-        QCD::SetParameter(name, value);
+        QCD::parseParameters(name, value);
 }
 
 bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars) 

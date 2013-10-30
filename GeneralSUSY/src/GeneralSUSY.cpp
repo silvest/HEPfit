@@ -55,7 +55,7 @@ bool GeneralSUSY::Update(const std::map<std::string, double>& DPars)
     UpdateError = false;
     
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        SetParameter(it->first, it->second);
+        parseParameters(it->first, it->second);
     
     if (UpdateError) return (false);
     
@@ -70,7 +70,7 @@ bool GeneralSUSY::PostUpdate()
     return (true);
 }
 
-void GeneralSUSY::SetParameter(const std::string name, const double& value)
+void GeneralSUSY::parseParameters(const std::string name, const double& value)
 {
     if(name.compare("msQhat2_11r") == 0)
         msQhat2_11r = value;
@@ -325,7 +325,7 @@ void GeneralSUSY::SetParameter(const std::string name, const double& value)
     else if(name.compare("TNhat_33i") == 0)
         TNhat_33i = value;
     else
-        SUSY::SetParameter(name, value);
+        SUSY::parseParameters(name, value);
 }
 
 bool GeneralSUSY::CheckParameters(const std::map<std::string, double>& DPars)

@@ -22,7 +22,7 @@ NPHiggsST::NPHiggsST()
 bool NPHiggsST::Update(const std::map<std::string,double>& DPars) 
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        SetParameter(it->first, it->second);
+        parseParameters(it->first, it->second);
     if(!NPZbbbar::Update(DPars)) return (false);
 
     return (true);
@@ -49,7 +49,7 @@ bool NPHiggsST::CheckParameters(const std::map<std::string, double>& DPars)
 }
 
     
-void NPHiggsST::SetParameter(const std::string name, const double& value) 
+void NPHiggsST::parseParameters(const std::string name, const double& value) 
 {
     if (name.compare("a") == 0)
         a = value;
@@ -68,7 +68,7 @@ void NPHiggsST::SetParameter(const std::string name, const double& value)
     else if (name.compare("LambdaNP") == 0)
         LambdaNP_in = value;
     else
-        NPZbbbar::SetParameter(name, value);       
+        NPZbbbar::parseParameters(name, value);       
 }
 
 
