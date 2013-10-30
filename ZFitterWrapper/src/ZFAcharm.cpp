@@ -8,7 +8,7 @@
 #include "ZFAcharm.h"
 
 
-double ZFAcharm::getThValue() {
+double ZFAcharm::computeThValue() {
     return myZF.Af(6);
 }
 

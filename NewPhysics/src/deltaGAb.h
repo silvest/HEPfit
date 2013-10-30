@@ -32,7 +32,7 @@ public:
     {
     };
     
-    double getThValue()
+    double computeThValue()
     {
         return SM.deltaGAq(SM.BOTTOM);
     };

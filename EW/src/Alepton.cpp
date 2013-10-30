@@ -8,7 +8,7 @@
 #include "Alepton.h"
 
 
-double Alepton::getThValue()
+double Alepton::computeThValue()
 {
     double A_l;
     EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
@@ -44,7 +44,7 @@ double Alepton::getThValue()
             }
         } else
             if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("Alepton::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+                throw std::runtime_error("Alepton::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
 
         /* Debug: extract pure NP contribution */
         //A_l -= myEW.A_l(SM.ELECTRON);

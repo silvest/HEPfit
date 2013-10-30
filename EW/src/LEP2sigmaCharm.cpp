@@ -11,7 +11,7 @@
 #include "LEP2sigmaCharm.h"
 
 
-double LEP2sigmaCharm::getThValue() 
+double LEP2sigmaCharm::computeThValue() 
 { 
     Mw = SM.Mw(); 
     GammaZ = myEW.Gamma_Z();

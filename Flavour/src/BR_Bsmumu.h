@@ -24,7 +24,7 @@ public:
      * @brief hep-ph/9512380v2
      * @return theoretical value of |\f$ BR(B_s \rightarrow \mu \bar{\mu}) \f$|
      */
-    double getThValue();
+    double computeThValue();
     void setAmp(orders order);
     double getAmumu(orders order);
     double getSmumu(orders order);

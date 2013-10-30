@@ -8,7 +8,7 @@
 #include "Rlepton.h"
 
 
-double Rlepton::getThValue() 
+double Rlepton::computeThValue() 
 {
     double R0_l;
     EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
@@ -71,7 +71,7 @@ double Rlepton::getThValue()
             }
         }  else
             if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("Rlepton::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+                throw std::runtime_error("Rlepton::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
 
         /* Debug: extract pure NP contribution */
         //R0_l -= myEW.Gamma_had()/myEW.Gamma_l(SM.ELECTRON);

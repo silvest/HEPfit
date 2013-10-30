@@ -28,7 +28,7 @@ public:
     {
     };
     
-    double getThValue()
+    double computeThValue()
     {
         return SM.getDAle5Mz();
     };

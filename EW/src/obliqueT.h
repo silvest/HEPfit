@@ -35,7 +35,7 @@ public:
     /**
      * @return The oblique parameter T
      */
-    double getThValue();
+    double computeThValue();
 
 
 private:

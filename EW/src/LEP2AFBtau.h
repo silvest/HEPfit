@@ -37,7 +37,7 @@ public:
     /**
      * @return the forward-backward asymmetry for e^+ e^- -> tau^+ tau^- at sqrt_s
      */
-    double getThValue();
+    double computeThValue();
 
 private:
     LEP2sigmaTau myLEP2sigmaTau;

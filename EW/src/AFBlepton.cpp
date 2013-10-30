@@ -8,7 +8,7 @@
 #include "AFBlepton.h"
 
 
-double AFBlepton::getThValue() 
+double AFBlepton::computeThValue() 
 {   
     double AFB_l;
     EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
@@ -43,7 +43,7 @@ double AFBlepton::getThValue()
             }
         } else
             if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("AFBlepton::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+                throw std::runtime_error("AFBlepton::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
 
         /* Debug: extract pure NP contribution */
         //AFB_l -= 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_l(SM.ELECTRON);

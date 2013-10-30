@@ -27,7 +27,7 @@ public:
     {
     };
     
-    double getThValue()
+    double computeThValue()
     {
         if (SM.IsFlagNotLinearizedNP())
             return ( SM.kappaZ_q(SM.BOTTOM).real() 

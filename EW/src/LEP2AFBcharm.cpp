@@ -11,7 +11,7 @@
 #include "LEP2AFBcharm.h"
 
 
-double LEP2AFBcharm::getThValue() 
+double LEP2AFBcharm::computeThValue() 
 { 
     Mw = SM.Mw(); 
     GammaZ = myEW.Gamma_Z();
@@ -33,7 +33,7 @@ double LEP2AFBcharm::getThValue()
             
             // denominator
             myLEP2sigmaCharm.setFlags(flag);
-            sigma = myLEP2sigmaCharm.getThValue()/GeVminus2_to_nb/1000.0;
+            sigma = myLEP2sigmaCharm.computeThValue()/GeVminus2_to_nb/1000.0;
             
             AFB_noBox = numerator/sigma;
         }
@@ -60,7 +60,7 @@ double LEP2AFBcharm::getThValue()
             // denominator
             if (!flag[ISR]) {
                 myLEP2sigmaCharm.setFlags(flag);
-                sigma = myLEP2sigmaCharm.getThValue()/GeVminus2_to_nb/1000.0;
+                sigma = myLEP2sigmaCharm.computeThValue()/GeVminus2_to_nb/1000.0;
             }
             
             SMresult_cache += (sigma_box_F - sigma_box_B)/sigma;

@@ -27,7 +27,7 @@ public:
     /**
      * @return the cross section for e^+ e^- -> tau^+ tau^- in pb at sqrt_s
      */
-    double getThValue();
+    double computeThValue();
     
 private:
     const ZFitterWrapper& myZF;

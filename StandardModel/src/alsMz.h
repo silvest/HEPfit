@@ -33,7 +33,7 @@ public:
     {
     };
     
-    double getThValue()
+    double computeThValue()
     {
         return SM.getAlsMz();
     };

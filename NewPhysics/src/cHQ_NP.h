@@ -21,7 +21,7 @@ public:
     {
     };
 
-    double getThValue()
+    double computeThValue()
     {
         double cHQ1 = (static_cast<const NPEffective*> (&SM))->getCHQ1();
         double cHQ2 = (static_cast<const NPEffective*> (&SM))->getCHQ2();
@@ -29,7 +29,7 @@ public:
         if ( (cHQ1 == cHQ2) && (cHQ2 == cHQ3) )
             return cHQ1;
         else
-            throw std::runtime_error("cHQ_NP::getThValue(): No quark-flavor universality!");
+            throw std::runtime_error("cHQ_NP::computeThValue(): No quark-flavor universality!");
     };
 
 private:

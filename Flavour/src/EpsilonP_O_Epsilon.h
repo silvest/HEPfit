@@ -43,7 +43,7 @@ public:
      * 
      * @return theoretical value of @f$|\epsilon'_K/\epsilon_K|@f$
      */
-    double getThValue();
+    double computeThValue();
     
 private:
     

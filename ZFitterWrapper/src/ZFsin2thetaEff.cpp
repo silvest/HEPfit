@@ -8,7 +8,7 @@
 #include "ZFsin2thetaEff.h"
 
 
-double ZFsin2thetaEff::getThValue() {
+double ZFsin2thetaEff::computeThValue() {
     return myZF.s2teff_f(1);
 }
 

@@ -15,7 +15,7 @@ class Vus : public ThObservable {
 public:
     Vus(const ThObsType& ObsType) : ThObservable(ObsType) {};
 
-    double getThValue();
+    double computeThValue();
 };
 
 #endif	/* VUS_H */

@@ -8,7 +8,7 @@
 #include "ZFAFBbottom.h"
 
 
-double ZFAFBbottom::getThValue() {
+double ZFAFBbottom::computeThValue() {
     return ( 3.0/4.0*myZF.Af(1)*myZF.Af(9) );
 }
 

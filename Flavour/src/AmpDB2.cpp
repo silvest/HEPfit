@@ -12,7 +12,7 @@ AmpDB2::AmpDB2(Flavour& Flavour) : myFlavour(Flavour) {
 
 complex AmpDB2::AmpBd(orders order) {
     if (myFlavour.getHDF2().getCoeffBd().getOrder() < order % 3)
-        throw std::runtime_error("DmBd::getThValue(): requires cofficient of order not computed"); 
+        throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed"); 
 
     vector<complex> ** allcoeff = myFlavour.ComputeCoeffBd( 
             myFlavour.getModel().getBBd().getMu(), 
@@ -46,7 +46,7 @@ complex AmpDB2::AmpBd(orders order) {
 
 complex AmpDB2::AmpBs(orders order) {
     if (myFlavour.getHDF2().getCoeffBs().getOrder() < order % 3)
-        throw std::runtime_error("DmBd::getThValue(): requires cofficient of order not computed"); 
+        throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed"); 
 
     vector<complex> ** allcoeff = myFlavour.ComputeCoeffBs(
             myFlavour.getModel().getBBs().getMu(),

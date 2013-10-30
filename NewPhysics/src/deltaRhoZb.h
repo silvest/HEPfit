@@ -27,14 +27,14 @@ public:
     {
     };
     
-    double getThValue()
+    double computeThValue()
     {
         if (SM.IsFlagApproximateGqOverGb() 
                 && !SM.IsFlagRhoZbFromGuOverGb() 
                 && !SM.IsFlagRhoZbFromGdOverGb()
                 && !SM.IsFlagTestSubleadingTwoLoopEW())
             // SM prediction for rho_Z^b is missing!
-            throw std::runtime_error("deltaRhoZb::getThValue() cannot be used!");
+            throw std::runtime_error("deltaRhoZb::computeThValue() cannot be used!");
         else
         if (SM.IsFlagNotLinearizedNP())
             return ( SM.rhoZ_q(SM.BOTTOM).real() 

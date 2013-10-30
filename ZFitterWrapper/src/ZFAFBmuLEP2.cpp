@@ -8,7 +8,7 @@
 #include "ZFAFBmuLEP2.h"
 
 
-double ZFAFBmuLEP2::getThValue() { 
+double ZFAFBmuLEP2::computeThValue() { 
     double myZFAFBmuLEP2, dummy;
     myZF.calcXS_AFB(2, sqrt_s, &dummy, &myZFAFBmuLEP2);
     return myZFAFBmuLEP2;

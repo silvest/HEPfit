@@ -8,7 +8,7 @@
 #include "ZFRcharmLEP2.h"
 
 
-double ZFRcharmLEP2::getThValue() { 
+double ZFRcharmLEP2::computeThValue() { 
     double myZFsigmaCharmLEP2;
     double myZFsigmaQuarksLEP2 = 0.0, tmp, dummy;
     for (int i=4; i<=9; i++) {

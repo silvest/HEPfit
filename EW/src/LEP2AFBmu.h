@@ -37,7 +37,7 @@ public:
     /**
      * @return the forward-backward asymmetry for e^+ e^- -> mu^+ mu^- at sqrt_s
      */
-    double getThValue();
+    double computeThValue();
 
 private:
     LEP2sigmaMu myLEP2sigmaMu;

@@ -25,7 +25,7 @@ public:
     ThObservable(const ThObsType& ObsType_i);
     ThObservable(const ThObservable& orig);
     virtual ~ThObservable();
-    virtual double getThValue() = 0;
+    virtual double computeThValue() = 0;
 
     /**
      * The conversion factor from GeV^{-2} to nb. 

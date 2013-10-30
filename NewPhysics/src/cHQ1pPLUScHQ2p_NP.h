@@ -20,7 +20,7 @@ public:
     {
     };
 
-    double getThValue()
+    double computeThValue()
     {
         return ( (static_cast<const NPEffective*> (&SM))->getCHQ1p()
                   + (static_cast<const NPEffective*> (&SM))->getCHQ2p() );

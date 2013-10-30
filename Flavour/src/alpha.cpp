@@ -7,6 +7,6 @@
 
 #include "alpha.h"
 
-double Alpha::getThValue() {
+double Alpha::computeThValue() {
     return(SM.getCKM().getAlpha()/M_PI*180.);
 }

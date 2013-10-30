@@ -24,7 +24,7 @@ public:
     /**
      * @return the hadronic cross section in nb
      */
-    double getThValue();
+    double computeThValue();
 
     
 private:

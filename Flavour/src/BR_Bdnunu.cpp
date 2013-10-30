@@ -25,7 +25,7 @@ public:
      * 
      * @return theoretical value of |\f$ BR(B_s \rightarrow \nu \bar{\nu}) \f$|
      */
-    double getThValue();
+    double computeThValue();
     
     
 protected:

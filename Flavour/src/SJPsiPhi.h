@@ -42,7 +42,7 @@ public:
      *
      * @return theoretical value of @f$S_{J/\psi\phi}@f$
      */
-    virtual double getThValue();
+    virtual double computeThValue();
 
 };
 

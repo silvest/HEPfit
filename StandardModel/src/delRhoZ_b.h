@@ -29,7 +29,7 @@ public:
     {
     };
     
-    double getThValue()
+    double computeThValue()
     {
         return SM.getEWSM()->delRhoZ_q(SM.BOTTOM);
     };

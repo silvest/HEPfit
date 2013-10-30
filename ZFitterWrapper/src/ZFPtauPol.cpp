@@ -8,7 +8,7 @@
 #include "ZFPtauPol.h"
 
 
-double ZFPtauPol::getThValue() {
+double ZFPtauPol::computeThValue() {
     return myZF.Af(3);
 }
 

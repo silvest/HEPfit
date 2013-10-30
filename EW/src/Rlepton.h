@@ -39,7 +39,7 @@ public:
      * @return The ratio of the @f$Z@f$-boson hadronic width to the 
      * @f$Z\to \ell\bar{\ell}@f$ width at the @f$Z@f$ pole. 
      */
-    double getThValue();
+    double computeThValue();
 
     
 private:

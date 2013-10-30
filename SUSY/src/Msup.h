@@ -28,7 +28,7 @@ public:
     {
     };
 
-    double getThValue()
+    double computeThValue()
     {
         return (sqrt((static_cast<const SUSY*> (&SM))->getMsu2()(index)));
     };

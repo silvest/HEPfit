@@ -7,6 +7,6 @@
 
 #include "Vud.h"
 
-double Vud::getThValue() { 
+double Vud::computeThValue() { 
     return((SM.getCKM()).getVud());
 }

@@ -20,7 +20,7 @@ public:
     {
     };
 
-    double getThValue()
+    double computeThValue()
     {
         double delGVu = SM.deltaGVq(SM.UP);
         double delGVd = SM.deltaGVq(SM.DOWN);

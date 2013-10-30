@@ -8,7 +8,7 @@
 #include "sigmaHadron.h"
 
 
-double sigmaHadron::getThValue() 
+double sigmaHadron::computeThValue() 
 { 
     double sigma_had;
     EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
@@ -79,7 +79,7 @@ double sigmaHadron::getThValue()
             }
         } else
             if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("sigmaHadron::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+                throw std::runtime_error("sigmaHadron::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
 
         /* Debug: extract pure NP contribution */
         //sigma_had -= myEW.sigma0_had();

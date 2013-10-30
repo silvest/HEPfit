@@ -8,7 +8,7 @@
 #include "Abottom.h"
 
 
-double Abottom::getThValue() 
+double Abottom::computeThValue() 
 {
     double A_b;
     EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
@@ -42,7 +42,7 @@ double Abottom::getThValue()
             }
         } else
             if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("Abottom::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+                throw std::runtime_error("Abottom::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
 
         /* Debug: extract pure NP contribution */
         //A_b -= myEW.A_q(SM.BOTTOM);

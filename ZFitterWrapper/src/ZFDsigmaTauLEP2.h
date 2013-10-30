@@ -29,7 +29,7 @@ public:
     /**
      * @return the differential cross section for e^+ e^- -> tau^+ tau^- in pb at sqrt_s and cos_theta
      */
-    double getThValue();
+    double computeThValue();
     
 private:
     const ZFitterWrapper& myZF;

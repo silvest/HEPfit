@@ -15,7 +15,7 @@ class CKMGamma : public ThObservable {
 public:
     CKMGamma(const ThObsType& ObsType) : ThObservable(ObsType) {};
 
-    double getThValue() { 
+    double computeThValue() { 
         return(SM.getCKM().getGamma()/M_PI*180.);
     };
 };

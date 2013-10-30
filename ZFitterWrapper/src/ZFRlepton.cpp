@@ -8,7 +8,7 @@
 #include "ZFRlepton.h"
 
 
-double ZFRlepton::getThValue() {
+double ZFRlepton::computeThValue() {
     return myZF.Gamma_had()/myZF.Gamma_f(1);
 }
 

@@ -35,7 +35,7 @@ public:
     /**
      * @return The electroweak precision parameter @f$\epsilon_2@f$. 
      */
-    double getThValue();
+    double computeThValue();
 
 
 private:

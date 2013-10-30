@@ -8,7 +8,7 @@
 #include "PtauPol.h"
 
 
-double PtauPol::getThValue() 
+double PtauPol::computeThValue() 
 {  
     double P_tau_pol;
     EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
@@ -44,7 +44,7 @@ double PtauPol::getThValue()
             }
         } else
             if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("PtauPol::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+                throw std::runtime_error("PtauPol::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
 
         /* Debug: extract pure NP contribution */
         //P_tau_pol -= myEW.A_l(SM.TAU);

@@ -28,7 +28,7 @@ public:
      * the absorptive part of the \f$ | \Delta C = 2 | \f$ mixing
      * @return the argument of the complex amplitude of \f$ D^{0} \f$ oscillations 
      */
-    double getThValue() {   
+    double computeThValue() {   
        return(AmpDD(NLO).arg() / M_PI * 180. );
     };
 };

@@ -15,7 +15,7 @@ class Vcb : public ThObservable {
 public:
     Vcb(const ThObsType& ObsType) : ThObservable(ObsType) {};
 
-    double getThValue();
+    double computeThValue();
 };
 
 #endif	/* VCB_H */

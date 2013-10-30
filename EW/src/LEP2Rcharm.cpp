@@ -11,7 +11,7 @@
 #include "LEP2Rcharm.h"
 
 
-double LEP2Rcharm::getThValue() 
+double LEP2Rcharm::computeThValue() 
 { 
     Mw = SM.Mw(); 
     GammaZ = myEW.Gamma_Z();
@@ -20,9 +20,9 @@ double LEP2Rcharm::getThValue()
         mq_cache = m_q(SM.CHARM, sqrt_s);
         
         myLEP2sigmaCharm.setFlags(flag);
-        double sigma_c = myLEP2sigmaCharm.getThValue();
+        double sigma_c = myLEP2sigmaCharm.computeThValue();
         myLEP2sigmaHadron.setFlags(flag);        
-        double sigma_had = myLEP2sigmaHadron.getThValue();
+        double sigma_had = myLEP2sigmaHadron.computeThValue();
 
         SMresult_cache = sigma_c/sigma_had;
 

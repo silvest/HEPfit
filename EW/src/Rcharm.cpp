@@ -9,7 +9,7 @@
 #include <EWSM.h>
 
 
-double Rcharm::getThValue() 
+double Rcharm::computeThValue() 
 {   
     double R0_c;
     EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
@@ -67,7 +67,7 @@ double Rcharm::getThValue()
             }
         } else
             if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("Rcharm::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+                throw std::runtime_error("Rcharm::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
 
         /* Debug: extract pure NP contribution */
         //R0_c -= myEW.Gamma_q(SM.CHARM)/myEW.Gamma_had();

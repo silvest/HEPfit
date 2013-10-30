@@ -13,7 +13,7 @@ AmpDD2::AmpDD2(Flavour& Flavour) : myFlavour(Flavour) {
 
 complex AmpDD2::AmpDD(orders order) {
     if (myFlavour.getHDF2().getCoeffDD().getOrder() < order)
-        throw std::runtime_error("DmD::getThValue(): requires cofficient of order not computed"); 
+        throw std::runtime_error("DmD::computeThValue(): requires cofficient of order not computed"); 
 
     vector<complex> ** allcoeff =  myFlavour.ComputeCoeffdd(
             myFlavour.getModel().getBD().getMu(), 

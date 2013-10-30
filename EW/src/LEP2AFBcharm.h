@@ -37,7 +37,7 @@ public:
     /**
      * @return the forward-backward asymmetry for e^+ e^- -> c cbar at sqrt_s
      */
-    double getThValue();
+    double computeThValue();
 
 private:
     LEP2sigmaCharm myLEP2sigmaCharm;

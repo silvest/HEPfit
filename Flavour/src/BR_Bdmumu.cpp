@@ -12,7 +12,7 @@ BR_Bdmumu::BR_Bdmumu(Flavour& Flavour, int obsFlag): ThObservable(Flavour), myFl
     else throw std::runtime_error("obsFlag in BR_Bsmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
 };
 
-double BR_Bdmumu::getThValue(){
+double BR_Bdmumu::computeThValue(){
     setAmp(FULLNLO);
     double FBd = myFlavour.getModel().getMesons(QCD::B_D).getDecayconst();
     double coupling = myFlavour.getModel().getGF() * myFlavour.getModel().alphaMz() / 4. / M_PI;
@@ -61,7 +61,7 @@ void BR_Bdmumu::AmpSqBdmumu(orders order){
     if (myFlavour.getHDB1().getCoeffdmumu().getOrder() < order % 3){
         std::stringstream out;
         out << order;
-        throw std::runtime_error("BRBdmumu::getThValue(): required cofficient of "
+        throw std::runtime_error("BRBdmumu::computeThValue(): required cofficient of "
                                  "order " + out.str() + " not computed");
     }
     vector<complex> ** allcoeff = myFlavour.ComputeCoeffdmumu();
