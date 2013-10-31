@@ -10,7 +10,9 @@
 #include <BAT/BCAux.h>
 #include <BAT/BCLog.h>
 #include <BAT/BCSummaryTool.h>
+#ifdef _MPI
 #include <mpi.h>
+#endif
 #include <fstream>
 #include <sstream>
 
@@ -92,20 +94,21 @@ void MonteCarlo::Run(const int rank)
 
         MCEngine.SetName(ModelName.c_str());
         MCEngine.Initialize(myInputParser.getMyModel());
+
         double *recvbuff = new double[buffsize];
 
         if (rank != 0) {
-
+#ifdef _MPI
             double **sendbuff = new double*[1];
             sendbuff[0] = new double[1];
 
             std::vector<double> pars;
             double * buff = new double[1024];
             double ll;
+
             while (true) {
                 MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE,
-                        recvbuff, buffsize, MPI::DOUBLE,
-                        0);
+                                        recvbuff, buffsize, MPI::DOUBLE, 0);
 
                 if (recvbuff[0] == 0.)
                     ll = log(0.);
@@ -121,6 +124,7 @@ void MonteCarlo::Run(const int rank)
 
                 MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, buff, 1, MPI::DOUBLE, 0);
             }
+#endif
         } else {
 
             bool writechains = false;
@@ -275,6 +279,8 @@ void MonteCarlo::Run(const int rank)
 
             // close log file
             BCLog::CloseLog();
+
+#ifdef _MPI
             double ** sendbuff = new double *[MCEngine.procnum];
             sendbuff[0] = new double[MCEngine.procnum * buffsize];
             for (int il = 1; il < MCEngine.procnum; il++) {
@@ -283,6 +289,7 @@ void MonteCarlo::Run(const int rank)
             }
             MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE,
                                     recvbuff, buffsize, MPI::DOUBLE, 0);
+#endif
         }
         
     } catch (std::string message) {

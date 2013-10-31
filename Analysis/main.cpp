@@ -8,7 +8,9 @@
 #include <iostream>
 #include <MonteCarlo.h>
 #include <boost/program_options.hpp>
+#ifdef _MPI
 #include <mpi.h>
+#endif
 
 using namespace boost::program_options;
 using namespace std;
@@ -24,9 +26,13 @@ using namespace std;
 int main(int argc, char** argv) 
 {
 
+#ifdef _MPI
     MPI::Init();
     int rank = MPI::COMM_WORLD.Get_rank();
     MPI::Status status;
+#else
+    int rank = 0;
+#endif
 
     string ModelConf, MCMCConf, FileOut, JobTag;
     bool checkTheoryRange = false;
@@ -93,8 +99,10 @@ int main(int argc, char** argv)
         
         MC.Run(rank);
 
+#ifdef _MPI
         MPI::Finalize();
-
+#endif
+        
         return EXIT_SUCCESS;
     } catch (const runtime_error& e) {
         cerr << e.what() << endl;

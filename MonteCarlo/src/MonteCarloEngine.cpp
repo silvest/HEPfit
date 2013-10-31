@@ -12,7 +12,6 @@
 #include <TTree.h>
 #include <TROOT.h>
 #include <TH1.h>
-#include <mpi.h>
 #include <fstream>
 
 MonteCarloEngine::MonteCarloEngine(
@@ -309,7 +308,7 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters)
 
     // if update false set probability equal zero
     if (!Mod->Update(DPars)) {
-#ifdef DEBUG
+#ifdef _MCDEBUG
         std::cout << "event discarded" << std::endl;
 
         /* Debug */
@@ -321,7 +320,7 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters)
         return (log(0.));
     }
     NumOfUsedEvents++;
-#ifdef DEBUG
+#ifdef _MCDEBUG
     //std::cout << "event used in MC" << std::endl;
 #endif
 
@@ -339,8 +338,7 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters)
     for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++) {
         logprob += Weight(*it);
     }
-    // std::cout << "logprob " << logprob <<std::endl;    
-    //std::cout << MPI::COMM_WORLD.Get_rank()<< ": logprob = " << logprob << std::endl;
+    //std::cout << "logprob " << logprob <<std::endl;    
     return logprob;
 }
 
@@ -357,7 +355,7 @@ void MonteCarloEngine::MCMCIterationInterface()
 
         Mod->Update(DPars);
 
-            // fill the histograms for observables
+        // fill the histograms for observables
         int k = 0, kweight = 0;
         for (std::vector<Observable>::iterator it = Obs_ALL.begin();
                 it < Obs_ALL.end(); it++) {
