@@ -8,7 +8,7 @@
 #include "ZFMh0.h"
 
 
-double ZFMh0::getThValue() {   
+double ZFMh0::computeThValue() {   
     return myZF.getModel().getMHl();
 }
 

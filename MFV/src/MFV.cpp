@@ -45,7 +45,7 @@ bool MFV::Update(const std::map<std::string, double>& DPars)
     UpdateError = false;
     
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        SetParameter(it->first, it->second);
+        parseParameters(it->first, it->second);
     
     if (UpdateError) return (false);
     
@@ -60,7 +60,7 @@ bool MFV::PostUpdate()
     return (true);
 }
 
-void MFV::SetParameter(const std::string name, const double& value)
+void MFV::parseParameters(const std::string name, const double& value)
 {
     if(name.compare("a1") == 0)
         a1 = value;
@@ -129,7 +129,7 @@ void MFV::SetParameter(const std::string name, const double& value)
     else if(name.compare("w5i") == 0)
         w5.imag() = value;
     else
-        SUSY::SetParameter(name, value);
+        SUSY::parseParameters(name, value);
 }
 
 bool MFV::CheckParameters(const std::map<std::string, double>& DPars)

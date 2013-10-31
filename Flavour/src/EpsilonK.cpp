@@ -7,7 +7,7 @@
 
 #include "EpsilonK.h"
 
-double EpsilonK::getThValue()
+double EpsilonK::computeThValue()
 {
     return(1. / SM.getDeltaMK() * AmpDK(FULLNLO).imag() * SM.getKbarEpsK() * M_SQRT1_2);
 }

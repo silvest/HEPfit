@@ -8,7 +8,7 @@
 #include "Mw.h"
 
 
-double Mw::getThValue() 
+double Mw::computeThValue() 
 {
     double myMw;
     EW::EWTYPE myEWTYPE = myEW.getEWTYPE();

@@ -552,7 +552,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
 
 protected:
-    virtual void SetParameter(const std::string, const double&);
+    virtual void parseParameters(const std::string, const double&);
     virtual void SetTanb(const double tanb);
     virtual void SetYukawas();
     virtual void SetSoftTerms();

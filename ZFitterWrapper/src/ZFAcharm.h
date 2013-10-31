@@ -24,7 +24,7 @@ public:
     /**
      * @return the left-right asymmetry of the c-cbar channel
      */
-    double getThValue();
+    double computeThValue();
 
     
 private:

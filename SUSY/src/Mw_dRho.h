@@ -28,7 +28,7 @@ public:
     {
     };
 
-    double getThValue()
+    double computeThValue()
     {
         return (static_cast<const SUSY*> (&SM))->Mw_dRho();
     };

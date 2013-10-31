@@ -7,7 +7,7 @@
 
 #include "BR_Bsnunu.h"
 
-double BR_Bsnunu::getThValue(){
+double BR_Bsnunu::computeThValue(){
     double theta= asin(sqrt( (M_PI * myFlavour.getModel().getAle() )/( sqrt(2) *
                   myFlavour.getModel().getGF() * myFlavour.getModel().Mw_tree() * 
                   myFlavour.getModel().Mw_tree()) ));
@@ -27,7 +27,7 @@ complex BR_Bsnunu::BRBsnunu(orders order){
     if (myFlavour.getHDB1().getCoeffsnunu().getOrder() < order){
         std::stringstream out;
         out << order;
-        throw std::runtime_error("BRBsnunu::getThValue(): requires cofficient of "
+        throw std::runtime_error("BRBsnunu::computeThValue(): requires cofficient of "
                                  "order" + out.str() + "not computed");
     }
     

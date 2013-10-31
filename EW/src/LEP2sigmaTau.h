@@ -37,7 +37,7 @@ public:
     /**
      * @return the cross section for e^+ e^- -> tau^+ tau^- at sqrt_s in pb
      */
-    double getThValue();
+    double computeThValue();
 
 private:
 

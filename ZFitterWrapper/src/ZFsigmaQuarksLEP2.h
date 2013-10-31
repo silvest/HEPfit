@@ -26,7 +26,7 @@ public:
     /**
      * @return the hadronic cross section in pb at sqrt_s
      */
-    double getThValue();
+    double computeThValue();
 
     
 private:

@@ -43,7 +43,7 @@ public:
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
 protected:
-    virtual void SetParameter(const std::string, const double&);
+    virtual void parseParameters(const std::string, const double&);
     virtual void SetSoftTerms();
     double msQhat2_11r, msQhat2_12r, msQhat2_12i, msQhat2_13r, msQhat2_13i, msQhat2_22r, msQhat2_23r, msQhat2_23i, msQhat2_33r,
            msUhat2_11r, msUhat2_12r, msUhat2_12i, msUhat2_13r, msUhat2_13i, msUhat2_22r, msUhat2_23r, msUhat2_23i, msUhat2_33r,

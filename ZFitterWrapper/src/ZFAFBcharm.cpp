@@ -8,7 +8,7 @@
 #include "ZFAFBcharm.h"
 
 
-double ZFAFBcharm::getThValue() {
+double ZFAFBcharm::computeThValue() {
     return ( 3.0/4.0*myZF.Af(1)*myZF.Af(6) );
 }
 

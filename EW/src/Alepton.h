@@ -39,7 +39,7 @@ public:
      * @return The left-right asymmetry of a @f$Z\to \ell\bar{\ell}@f$ channel 
      * at the @f$Z@f$ pole, where @f$\ell@f$ denotes a charged-lepton.
      */
-    double getThValue();
+    double computeThValue();
 
     
 private:

@@ -47,7 +47,7 @@ public:
      * 
      * @return theoretical value of @f$\Delta M_K@f$ 
      */
-    virtual double getThValue();
+    virtual double computeThValue();
 };
 
 /**

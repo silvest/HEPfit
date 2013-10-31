@@ -38,7 +38,7 @@ public:
     /**
      * @return the cross section for e^+ e^- -> hadrons at sqrt_s in pb
      */
-    double getThValue();
+    double computeThValue();
 
 private:
 

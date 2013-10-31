@@ -86,7 +86,7 @@ bool SUSY::Update(const std::map<std::string, double>& DPars)
     UpdateError = false;
 
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        SetParameter(it->first, it->second);
+        parseParameters(it->first, it->second);
 
     if (UpdateError) return (false);
 
@@ -163,7 +163,7 @@ bool SUSY::PostUpdate()
     return (true);
 }
 
-void SUSY::SetParameter(const std::string name, const double& value)
+void SUSY::parseParameters(const std::string name, const double& value)
 {
     if (name.compare("m1r") == 0)
         m1.real() = value;
@@ -186,7 +186,7 @@ void SUSY::SetParameter(const std::string name, const double& value)
     else if (name.compare("Q") == 0)
         Q = value;
     else
-        StandardModel::SetParameter(name, value);
+        StandardModel::parseParameters(name, value);
 }
 
 bool SUSY::CheckParameters(const std::map<std::string, double>& DPars)

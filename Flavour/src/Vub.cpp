@@ -7,6 +7,6 @@
 
 #include "Vub.h"
 
-double Vub::getThValue() { 
+double Vub::computeThValue() { 
     return(SM.getCKM().getVub());
 }

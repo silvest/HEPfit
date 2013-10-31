@@ -11,7 +11,7 @@
 #include "LEP2sigmaTau.h"
 
 
-double LEP2sigmaTau::getThValue() 
+double LEP2sigmaTau::computeThValue() 
 { 
     Mw = SM.Mw(); 
     GammaZ = myEW.Gamma_Z();

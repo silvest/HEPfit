@@ -48,7 +48,7 @@ public:
      * @return theoretical value of @f$\Delta M_{B_s}@f$
      */
     
-    double getThValue();
+    double computeThValue();
 };
 
 /**

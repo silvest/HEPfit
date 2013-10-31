@@ -9,7 +9,7 @@
 #include "epsilonb.h"
 
 
-double epsilonb::getThValue() 
+double epsilonb::computeThValue() 
 {  
     return SM.epsilonb();
 }

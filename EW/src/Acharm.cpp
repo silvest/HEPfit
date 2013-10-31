@@ -8,7 +8,7 @@
 #include "Acharm.h"
 
 
-double Acharm::getThValue() 
+double Acharm::computeThValue() 
 { 
     double A_c;
     EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
@@ -42,7 +42,7 @@ double Acharm::getThValue()
             }
         } else
             if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("Acharm::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+                throw std::runtime_error("Acharm::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
 
         /* Debug: extract pure NP contribution */
         //A_c -= myEW.A_q(SM.CHARM);

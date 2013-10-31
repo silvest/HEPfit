@@ -8,7 +8,7 @@
 #include "sin2thetaEff.h"
 
 
-double sin2thetaEff::getThValue() 
+double sin2thetaEff::computeThValue() 
 { 
     double sin2_theta_eff;
     EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
@@ -43,7 +43,7 @@ double sin2thetaEff::getThValue()
             }
         } else
             if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("sin2thetaEff::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+                throw std::runtime_error("sin2thetaEff::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
 
         /* Debug: extract pure NP contribution */
         //sin2_theta_eff -= myEW.sin2thetaEff(SM.ELECTRON);

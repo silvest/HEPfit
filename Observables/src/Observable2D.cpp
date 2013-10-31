@@ -55,5 +55,5 @@ Observable2D::~Observable2D()
 
 double Observable2D::getTheoryValue2()
 {
-    return tho2->getThValue();
+    return tho2->computeThValue();
 }

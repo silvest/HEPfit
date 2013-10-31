@@ -33,39 +33,41 @@
  * \li \b mut:&nbsp; the threshold between six- and five-flavour theory in GeV,
  * \li \b mub:&nbsp; the threshold between five- and four-flavour theory in GeV, 
  * \li \b muc:&nbsp; the threshold between four- and three-flavour theory in GeV, 
- * \li \b MBd:&nbsp;
- * \li \b MBs:&nbsp;
- * \li \b MBp:&nbsp;
- * \li \b MK0:&nbsp;
- * \li \b MKp:&nbsp;
- * \li \b MD:&nbsp;
- * \li \b W_Kl:&nbsp;
- * \li \b W_Kp:&nbsp;
- * \li \b FBs:&nbsp;
- * \li \b FBsoFBd:&nbsp;
- * \li \b FD:&nbsp;
+ * \li \b MBd:&nbsp; the mass of the \f$ B_d \f$ meson in \f$ GeV \f$,
+ * \li \b tBd:&nbsp; the lifetime of the \f$ B_d \f$ meson in \f$ ps^{-1} \f$,
+ * \li \b MBs:&nbsp; the mass of the \f$ B_s \f$ meson in \f$ GeV \f$,
+ * \li \b tBs:&nbsp; the lifetime of the \f$ B_s \f$ meson in \f$ ps^{-1} \f$,
+ * \li \b MBp:&nbsp; the mass of the \f$ B^\pm \f$ meson in \f$ GeV \f$,
+ * \li \b MK0:&nbsp; the mass of the \f$ K^0 \f$ meson in \f$ GeV \f$,
+ * \li \b MKp:&nbsp; the mass of the \f$ K^\pm \f$ meson in \f$ GeV \f$,
+ * \li \b MD:&nbsp; the mass of the \f$ D^0 \f$ meson in \f$ GeV \f$,
+ * \li \b tKl:&nbsp; the lifetime of the \f$ K_L \f$ meson in \f$ ps^{-1} \f$,
+ * \li \b tKp:&nbsp; the lifetime of the \f$ K^\pm \f$ meson in \f$ ps^{-1} \f$,
+ * \li \b FBs:&nbsp; the decay constant of the \f$ B_s \f$ meson in \f$ GeV \f$,
+ * \li \b FBsoFBd:&nbsp; the ratio \f$ F_{B_d}/F_{B_s} \f$ in \f$ GeV \f$ necessary to compute \f$ F_{B_s} \f$,
+ * \li \b FD:&nbsp; the decay constant of the \f$ D^0 \f$ meson in \f$ GeV \f$,
  * \li \b BBsoBBd:&nbsp;
- * \li \b BBs1:&nbsp;
- * \li \b BBs2:&nbsp;
- * \li \b BBs3:&nbsp;
- * \li \b BBs4:&nbsp;
- * \li \b BBs5:&nbsp;
- * \li \b BBsscale:&nbsp;
- * \li \b BBsscheme:&nbsp;
- * \li \b BD1:&nbsp;
- * \li \b BD2:&nbsp;
- * \li \b BD3:&nbsp;
- * \li \b BD4:&nbsp;
- * \li \b BD5:&nbsp;
- * \li \b BDscale:&nbsp;
- * \li \b BDscheme:&nbsp;
- * \li \b BK1:&nbsp;
- * \li \b BK2:&nbsp;
- * \li \b BK3:&nbsp;
- * \li \b BK4:&nbsp;
- * \li \b BK5:&nbsp;
- * \li \b BKscale:&nbsp;
- * \li \b BKscheme:&nbsp;
+ * \li \b BBs1:&nbsp; the bag parameter for \f$ O_1 \f$ in \f$ \Delta b = 2 \f$ processes in \f$ B_s \f$,
+ * \li \b BBs2:&nbsp; the bag parameter for \f$ O_2 \f$ in \f$ \Delta b = 2 \f$ processes in \f$ B_s \f$,
+ * \li \b BBs3:&nbsp; the bag parameter for \f$ O_3 \f$ in \f$ \Delta b = 2 \f$ processes in \f$ B_s \f$,
+ * \li \b BBs4:&nbsp; the bag parameter for \f$ O_4 \f$ in \f$ \Delta b = 2 \f$ processes in \f$ B_s \f$,
+ * \li \b BBs5:&nbsp; the bag parameter for \f$ O_5 \f$ in \f$ \Delta b = 2 \f$ processes in \f$ B_s \f$,
+ * \li \b BBsscale:&nbsp; the scale at which the bag parameters are specified for the \f$ B_s \f$ system,
+ * \li \b BBsscheme:&nbsp; the scheme in which the bag parameters are specified for the \f$ B_s \f$ system,
+ * \li \b BD1:&nbsp; the bag parameter for \f$ O_1 \f$ in \f$ \Delta c = 2 \f$ processes in \f$ D^0 \f$,
+ * \li \b BD2:&nbsp; the bag parameter for \f$ O_2 \f$ in \f$ \Delta c = 2 \f$ processes in \f$ D^0 \f$,
+ * \li \b BD3:&nbsp; the bag parameter for \f$ O_3 \f$ in \f$ \Delta c = 2 \f$ processes in \f$ D^0 \f$,
+ * \li \b BD4:&nbsp; the bag parameter for \f$ O_4 \f$ in \f$ \Delta c = 2 \f$ processes in \f$ D^0 \f$,
+ * \li \b BD5:&nbsp; the bag parameter for \f$ O_5 \f$ in \f$ \Delta c = 2 \f$ processes in \f$ D^0 \f$,
+ * \li \b BDscale:&nbsp; the scale at which the bag parameters are specified for the \f$ D_0 \f$ system,
+ * \li \b BDscheme:&nbsp; the scheme in which the bag parameters are specified for the \f$ D_0 \f$ system,
+ * \li \b BK1:&nbsp; the bag parameter for \f$ O_1 \f$ in \f$ \Delta c = 2 \f$ processes in \f$ K^0 \f$,
+ * \li \b BK2:&nbsp; the bag parameter for \f$ O_2 \f$ in \f$ \Delta c = 2 \f$ processes in \f$ K^0 \f$,
+ * \li \b BK3:&nbsp; the bag parameter for \f$ O_3 \f$ in \f$ \Delta c = 2 \f$ processes in \f$ K^0 \f$,
+ * \li \b BK4:&nbsp; the bag parameter for \f$ O_4 \f$ in \f$ \Delta c = 2 \f$ processes in \f$ K^0 \f$,
+ * \li \b BK5:&nbsp; the bag parameter for \f$ O_5 \f$ in \f$ \Delta c = 2 \f$ processes in \f$ K^0 \f$,
+ * \li \b BKscale:&nbsp; the scale at which the bag parameters are specified for the \f$ K^0 \f$ system,
+ * \li \b BKscheme:&nbsp; the scheme in which the bag parameters are specified for the \f$ K^0 \f$ system,
  * \li \b BK(1/2)1:&nbsp;
  * \li \b BK(1/2)2:&nbsp;
  * \li \b BK(1/2)3:&nbsp;
@@ -650,7 +652,7 @@ protected:
     double ReA0_Kd, ReA2_Kd, Omega_eta_etap;
     double Br_Kp_P0enu, IB_Kl, IB_Kp, DeltaP_cu, Br_Kp_munu, Br_B_Xcenu;
     double BBsoBBd, FBsoFBd;
-    virtual void SetParameter(const std::string, const double&);
+    virtual void parseParameters(const std::string, const double&);
 
 private:
     double zeta2, zeta3;

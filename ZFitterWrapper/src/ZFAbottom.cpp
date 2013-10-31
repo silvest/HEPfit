@@ -8,7 +8,7 @@
 #include "ZFAbottom.h"
 
 
-double ZFAbottom::getThValue() {
+double ZFAbottom::computeThValue() {
     return myZF.Af(9);
 }
 

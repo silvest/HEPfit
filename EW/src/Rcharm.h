@@ -39,7 +39,7 @@ public:
      * @return The ratio of the @f$Z\to c\bar{c}@f$ width to the @f$Z@f$-boson 
      * hadronic width at the @f$Z@f$ pole. 
      */
-    double getThValue();
+    double computeThValue();
 
     
 private:

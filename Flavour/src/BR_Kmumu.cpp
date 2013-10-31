@@ -7,7 +7,7 @@
 
 #include "BR_Kmumu.h"
 
-double BR_Kmumu::getThValue(){
+double BR_Kmumu::computeThValue(){
     double theta= asin(sqrt( (M_PI * myFlavour.getModel().getAle() )/( sqrt(2) * myFlavour.getModel().getGF() * 
                    myFlavour.getModel().Mw_tree() * myFlavour.getModel().Mw_tree()) ));
     
@@ -20,7 +20,7 @@ complex BR_Kmumu::BRKmumu(orders order){
     if (myFlavour.getHDS1().getCoeffDS1mumu().getOrder() < order){
         std::stringstream out;
         out << order;
-        throw std::runtime_error("BRKmumu::getThValue(): requires cofficient of "
+        throw std::runtime_error("BRKmumu::computeThValue(): requires cofficient of "
                                  "order" + out.str() + "not computed");
     }
     

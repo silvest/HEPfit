@@ -11,7 +11,7 @@
 #include "LEP2sigmaHadron.h"
 
 
-double LEP2sigmaHadron::getThValue()
+double LEP2sigmaHadron::computeThValue()
 { 
     Mw = SM.Mw(); 
     GammaZ = myEW.Gamma_Z();

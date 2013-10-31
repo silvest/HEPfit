@@ -7,7 +7,7 @@
 
 #include "ZFsigmaQuarksLEP2.h"
 
-double ZFsigmaQuarksLEP2::getThValue() { 
+double ZFsigmaQuarksLEP2::computeThValue() { 
     double myZFsigmaQuarksLEP2 = 0.0, tmp, dummy;
     for (int i=4; i<=9; i++) {
         if (i!=8) {

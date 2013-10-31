@@ -24,7 +24,7 @@ public:
     /**
      * @return the effective weak mixing angle for a leptonic channel
      */
-    double getThValue();
+    double computeThValue();
 
     
 private:

@@ -27,7 +27,7 @@ public:
     {
     };
     
-    double getThValue()
+    double computeThValue()
     {
         return SM.deltaGVq(SM.BOTTOM);
     };

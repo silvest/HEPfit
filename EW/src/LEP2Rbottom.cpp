@@ -11,7 +11,7 @@
 #include "LEP2Rbottom.h"
 
 
-double LEP2Rbottom::getThValue() 
+double LEP2Rbottom::computeThValue() 
 { 
     Mw = SM.Mw(); 
     GammaZ = myEW.Gamma_Z();
@@ -20,9 +20,9 @@ double LEP2Rbottom::getThValue()
         mq_cache = m_q(SM.BOTTOM, sqrt_s);
         
         myLEP2sigmaBottom.setFlags(flag);
-        double sigma_b = myLEP2sigmaBottom.getThValue();
+        double sigma_b = myLEP2sigmaBottom.computeThValue();
         myLEP2sigmaHadron.setFlags(flag);
-        double sigma_had = myLEP2sigmaHadron.getThValue();
+        double sigma_had = myLEP2sigmaHadron.computeThValue();
 
         SMresult_cache = sigma_b/sigma_had;
 

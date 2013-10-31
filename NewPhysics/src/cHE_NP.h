@@ -21,7 +21,7 @@ public:
     {
     };
 
-    double getThValue()
+    double computeThValue()
     {
         double cHE1 = (static_cast<const NPEffective*> (&SM))->getCHE1();
         double cHE2 = (static_cast<const NPEffective*> (&SM))->getCHE2();
@@ -29,7 +29,7 @@ public:
         if ( (cHE1 == cHE2) && (cHE2 == cHE3) )
             return cHE1;
         else
-            throw std::runtime_error("cHE_NP::getThValue(): No lepton-flavor universality!");
+            throw std::runtime_error("cHE_NP::computeThValue(): No lepton-flavor universality!");
     };
 
 private:

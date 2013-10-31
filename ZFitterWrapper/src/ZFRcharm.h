@@ -24,7 +24,7 @@ public:
     /**
      * @return the ratio of the c-cbar width to the hadronic width
      */
-    double getThValue();
+    double computeThValue();
 
     
 private:

@@ -24,7 +24,7 @@ public:
     /**
      * @return the left-right asymmetry of the b-bbar channel
      */
-    double getThValue();
+    double computeThValue();
 
     
 private:

@@ -29,7 +29,7 @@ public:
     {
     };
 
-    double getThValue()
+    double computeThValue()
     {
         switch(index) {
             case 0:
@@ -41,7 +41,7 @@ public:
             case 3:
                 return (static_cast<const SUSY*> (&SM))->getMHp();
             default:
-                throw std::runtime_error("Mhiggs::getThValue(): undefined index");
+                throw std::runtime_error("Mhiggs::computeThValue(): undefined index");
         }
     };
 

@@ -124,7 +124,7 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
     UpdateError = false; 
    
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        SetParameter(it->first, it->second);
+        parseParameters(it->first, it->second);
 
     if (UpdateError) return (false);
     
@@ -133,7 +133,7 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
     return (true);
 }
 
-void QCD::SetParameter(const std::string name, const double& value) 
+void QCD::parseParameters(const std::string name, const double& value) 
 {
     if(name.compare("AlsMz")==0) {
         AlsMz = value;

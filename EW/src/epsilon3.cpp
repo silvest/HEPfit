@@ -8,7 +8,7 @@
 #include "epsilon3.h"
 
 
-double epsilon3::getThValue() 
+double epsilon3::computeThValue() 
 {  
     double eps3 = SM.epsilon3();
     

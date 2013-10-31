@@ -24,7 +24,7 @@ public:
     /**
      * @return the longitudinal polarization of the tau-taubar channel
      */
-    double getThValue();
+    double computeThValue();
 
     
 private:

@@ -8,7 +8,7 @@
 #include "AFBbottom.h"
 
 
-double AFBbottom::getThValue() 
+double AFBbottom::computeThValue() 
 {   
     double AFB_b;
     EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
@@ -47,7 +47,7 @@ double AFBbottom::getThValue()
             }
         } else
             if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("AFBbottom::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+                throw std::runtime_error("AFBbottom::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
         
         /* Debug: extract pure NP contribution */
         //AFB_b -= 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.BOTTOM);

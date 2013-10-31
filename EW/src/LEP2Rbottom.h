@@ -38,7 +38,7 @@ public:
     /**
      * @return the ratio of the b-bbar cross section to the hadronic cross section at sqrt_s
      */
-    double getThValue();
+    double computeThValue();
 
 private:
     LEP2sigmaBottom myLEP2sigmaBottom;

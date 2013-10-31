@@ -15,7 +15,7 @@ complex AmpDS1::AmpDS1pp0(orders order) {
     if (myFlavour.getHDS1().getCoeffDS1PP().getOrder() < order){
         std::stringstream out;
         out << order;
-        throw std::runtime_error("AmpDK1::getThValue(): requires cofficient of order" 
+        throw std::runtime_error("AmpDK1::computeThValue(): requires cofficient of order" 
                                  + out.str() + "not computed");
     }
 
@@ -69,7 +69,7 @@ complex AmpDS1::AmpDS1pp2(orders order) {
     if (myFlavour.getHDS1().getCoeffDS1PP().getOrder() < order){
         std::stringstream out;
         out << order;
-        throw std::runtime_error("AmpDK1::getThValue(): requires cofficient of "
+        throw std::runtime_error("AmpDK1::computeThValue(): requires cofficient of "
                                  "order" + out.str() + "not computed");
     }
     

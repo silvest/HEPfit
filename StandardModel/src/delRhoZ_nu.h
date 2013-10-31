@@ -29,7 +29,7 @@ public:
     {
     };
 
-    double getThValue()
+    double computeThValue()
     {
         return SM.getDelRhoZ_nu();
     };

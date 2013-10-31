@@ -8,7 +8,7 @@
 #include "epsilon1.h"
 
 
-double epsilon1::getThValue() 
+double epsilon1::computeThValue() 
 {  
     double eps1 = SM.epsilon1();
     

@@ -8,7 +8,7 @@
 #include "GammaZ.h"
 
 
-double GammaZ::getThValue() 
+double GammaZ::computeThValue() 
 { 
     double Gamma_Z;
     EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
@@ -69,7 +69,7 @@ double GammaZ::getThValue()
             }
         } else
             if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("GammaZ::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+                throw std::runtime_error("GammaZ::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
 
         /* Debug: extract pure NP contribution */
         //Gamma_Z -= myEW.Gamma_Z();

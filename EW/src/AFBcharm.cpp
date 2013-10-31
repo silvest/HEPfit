@@ -8,7 +8,7 @@
 #include "AFBcharm.h"
 
 
-double AFBcharm::getThValue() 
+double AFBcharm::computeThValue() 
 {   
     double AFB_c;
     EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
@@ -47,7 +47,7 @@ double AFBcharm::getThValue()
             }
         } else
             if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("AFBcharm::getThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+                throw std::runtime_error("AFBcharm::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
 
         /* Debug: extract pure NP contribution */
         //AFB_c -= 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.CHARM);

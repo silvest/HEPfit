@@ -20,7 +20,7 @@ public:
     {
     };
 
-    double getThValue()
+    double computeThValue()
     {
         double delGVe = SM.deltaGVl(SM.ELECTRON);
         double delGAe = SM.deltaGAl(SM.ELECTRON);
