@@ -48,7 +48,6 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <commandlineTool>mpic++</commandlineTool>
           <incDir>
             <pElem>../Utils/src</pElem>
             <pElem>../Observables/src</pElem>
@@ -84,7 +83,6 @@
           <linkerDynSerch>
             <pElem>../BAT/lib</pElem>
           </linkerDynSerch>
-          <commandlineTool>mpic++</commandlineTool>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"
@@ -373,7 +371,6 @@
             <pElem>../BAT/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
-          <commandlineTool>mpic++</commandlineTool>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"
@@ -667,7 +664,6 @@
             <pElem>../BAT_parallel/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
-          <commandlineTool>mpic++</commandlineTool>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"
@@ -921,7 +917,6 @@
         </cTool>
         <ccTool>
           <developmentMode>5</developmentMode>
-          <commandlineTool>mpic++</commandlineTool>
           <incDir>
             <pElem>../Utils/src</pElem>
             <pElem>../Observables/src</pElem>
@@ -962,7 +957,6 @@
             <pElem>../BAT_parallel/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
           </linkerAddLib>
-          <commandlineTool>mpic++</commandlineTool>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"

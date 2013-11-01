@@ -87,7 +87,6 @@
           <commandLine>`root-config --cflags`</commandLine>
         </ccTool>
         <linkerTool>
-          <commandlineTool>mpic++</commandlineTool>
           <commandLine>`root-config --ldflags` `root-config --libs` -lMinuit</commandLine>
         </linkerTool>
       </compileType>
