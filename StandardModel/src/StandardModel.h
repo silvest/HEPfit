@@ -843,6 +843,8 @@ private:
     bool FlagWithoutNonUniversalVC;
     bool FlagNotLinearizedNP;
     bool FlagApproximateGqOverGb;
+    bool FlagApproximateGammaZ;
+    bool FlagApproximateSigmaH;
     bool FlagRhoZbFromGuOverGb;
     bool FlagRhoZbFromGdOverGb;
     bool FlagTestSubleadingTwoLoopEW;
