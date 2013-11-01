@@ -42,7 +42,7 @@ SUSY::SUSY()
 bool SUSY::InitializeModel()
 {
     mySUSYMatching = new SUSYMatching(*this);
-    SetModelInitialized(true);
+    setModelInitialized(true);
     myFH = new FeynHiggsWrapper(*this);
     myEWSM = new EWSM(*this);
     this->SetEWSMflags(*myEWSM);
@@ -86,7 +86,7 @@ bool SUSY::Update(const std::map<std::string, double>& DPars)
     UpdateError = false;
 
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        parseParameters(it->first, it->second);
+        setParameters(it->first, it->second);
 
     if (UpdateError) return (false);
 
@@ -163,7 +163,7 @@ bool SUSY::PostUpdate()
     return (true);
 }
 
-void SUSY::parseParameters(const std::string name, const double& value)
+void SUSY::setParameters(const std::string name, const double& value)
 {
     if (name.compare("m1r") == 0)
         m1.real() = value;
@@ -186,7 +186,7 @@ void SUSY::parseParameters(const std::string name, const double& value)
     else if (name.compare("Q") == 0)
         Q = value;
     else
-        StandardModel::parseParameters(name, value);
+        StandardModel::setParameters(name, value);
 }
 
 bool SUSY::CheckParameters(const std::map<std::string, double>& DPars)
@@ -210,7 +210,7 @@ void SUSY::SetTanb(const double tanb)
     sinb = tanb * cosb;
 }
 
-void SUSY::SetYukawas()
+void SUSY::computeYukawas()
 {
     /* initializations */
     Yu = matrix<complex>::Id(3);

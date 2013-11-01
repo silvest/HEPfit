@@ -40,7 +40,7 @@ public:
 
 
 protected:
-    virtual void parseParameters(const std::string name, const double& value);
+    virtual void setParameters(const std::string name, const double& value);
 
 };
 

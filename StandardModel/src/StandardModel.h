@@ -358,21 +358,21 @@ public:
         return myCKM;
     }
 
-    double GetLambda() const
+    double getLambda() const 
     {
         return lambda;
     }
 
-    double GetA() const
+    double getA() const
     {
         return A;
     }
 
-    double GetEtab() const
+    double getEtab() const
     {
         return etab;
     }
-    double GetRhob() const
+    double getRhob() const
     {
         return rhob;
     }
@@ -768,23 +768,23 @@ public:
     // CKM parameters
 
     // Angles
-    double getBeta() const;
-    double getGamma() const;
-    double getAlpha() const;
-    double getBetas() const;
+    double computeBeta() const;
+    double computeGamma() const;
+    double computeAlpha() const;
+    double computeBetas() const;
 
     // Lambda_q
-    complex getlamt() const;
-    complex getlamc() const;
-    complex getlamu() const;
+    complex computelamt() const;
+    complex computelamc() const;
+    complex computelamu() const;
 
-    complex getlamt_d() const;
-    complex getlamc_d() const;
-    complex getlamu_d() const;
+    complex computelamt_d() const;
+    complex computelamc_d() const;
+    complex computelamu_d() const;
 
-    complex getlamt_s() const;
-    complex getlamc_s() const;
-    complex getlamu_s() const;
+    complex computelamt_s() const;
+    complex computelamc_s() const;
+    complex computelamu_s() const;
 
     // Sides
     double getRt() const;
@@ -794,32 +794,61 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 protected:
-    virtual void parseParameters(const std::string, const double&);
-    virtual void SetCKM();
-    virtual void SetYukawas();
+    virtual void setParameters(const std::string, const double&);
+    virtual void computeCKM();
+    virtual void computeYukawas();
 
-    matrix<complex> VCKM, UPMNS, Yu, Yd, Yn, Ye;
+    matrix<complex> VCKM;
+    matrix<complex> UPMNS;
+    matrix<complex> Yu;
+    matrix<complex> Yd;
+    matrix<complex> Yn;
+    matrix<complex> Ye;
     Particle leptons[6];
     EWSM* myEWSM;
     CKM myCKM;
 
     // model parameters
-    double ale, dAle5Mz, GF, mHl;
-    double delMw, delSin2th_l, delGammaZ, delRhoZ_nu, delRhoZ_e, delRhoZ_b;
+    double ale;
+    double dAle5Mz;
+    double GF;
+    double mHl;
+    double delMw;
+    double delSin2th_l;
+    double delGammaZ;
+    double delRhoZ_nu;
+    double delRhoZ_e;
+    double delRhoZ_b;
     double muw;
-    double lambda, A, rhob, etab;
-    double EpsK, phiEpsK, DeltaMK, KbarEpsK, Dmk, SM_M12D;
-
-
-    ////////////////////////////////////////////////////////////////////////
+    double lambda;
+    double A;
+    double rhob;
+    double etab;
+    double EpsK;
+    double phiEpsK;
+    double DeltaMK;
+    double KbarEpsK;
+    double Dmk;
+    double SM_M12D;
+    
+    
+    ////////////////////////////////////////////////////////////////////////    
 private:
     bool bDebug; // for debugging
-    bool FlagFixedAllSMparams, FlagEWCHMN, FlagEWABC, FlagEWABC2, FlagEWBURGESS;
-    bool FlagWithoutNonUniversalVC, FlagNotLinearizedNP, FlagApproximateGqOverGb;
-    bool FlagApproximateGammaZ;
-    bool FlagApproximateSigmaH;
-    bool FlagRhoZbFromGuOverGb, FlagRhoZbFromGdOverGb, FlagTestSubleadingTwoLoopEW;
-    bool computeCKM, computeYe, computeYn;
+    bool FlagFixedAllSMparams;
+    bool FlagEWCHMN;
+    bool FlagEWABC;
+    bool FlagEWABC2;
+    bool FlagEWBURGESS;
+    bool FlagWithoutNonUniversalVC;
+    bool FlagNotLinearizedNP;
+    bool FlagApproximateGqOverGb;
+    bool FlagRhoZbFromGuOverGb;
+    bool FlagRhoZbFromGdOverGb;
+    bool FlagTestSubleadingTwoLoopEW;
+    bool requireCKM;
+    bool requireYe;
+    bool requireYn;
     StandardModelMatching* myStandardModelMatching;
 
 };

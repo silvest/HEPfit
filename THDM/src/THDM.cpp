@@ -16,32 +16,32 @@ THDM::THDM() : StandardModel(), mycache() {
 }
 
 bool THDM::Update(const std::map<std::string, double>& DPars) {
-    computeCKM = false;
-    computeYe = false;
-    computeYn = false;
+    requireCKM = false;
+    requireYe = false;
+    requireYn = false;
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        parseParameters(it->first, it->second);
+        setParameters(it->first, it->second);
     QCD::Update(DPars);
-    if (computeCKM) {
+    if (requireCKM) {
         myCKM.setWolfenstein(lambda, A, rhob, etab);
         myCKM.getCKM(VCKM);
     }
     //In THDM U couple with v2, D with v1 and L with v1
-    if (computeYu || computeCKM) {
+    if (requireYu || requireCKM) {
         Yu = matrix<complex>::Id(3);
         for (int i = 0; i < 3; i++)
             Yu.assign(i, i, this->quarks[UP + 2 * i].getMass() / v2() * sqrt(2.));
         Yu = VCKM.transpose()*Yu;
     }
-    if (computeYd) {
+    if (requireYd) {
         for (int i = 0; i < 3; i++)
             Yd.assign(i, i, this->QCD::quarks[DOWN + 2 * i].getMass() / v1() * sqrt(2.));
     }
-    if (computeYe) {
+    if (requireYe) {
         for (int i = 0; i < 3; i++)
             Ye.assign(i, i, this->leptons[ELECTRON + 2 * i].getMass() / v1() * sqrt(2.));
     }
-    if (computeYn) {
+    if (requireYn) {
         Yn = matrix<complex>::Id(3);
         for (int i = 0; i < 3; i++)
             Yn.assign(i, i, this->leptons[NEUTRINO_1 + 2 * i].getMass() / v1() * sqrt(2.));
@@ -50,7 +50,7 @@ bool THDM::Update(const std::map<std::string, double>& DPars) {
     return (true);
 }
 
-void THDM::parseParameters(const std::string name, const double& value){    
+void THDM::setParameters(const std::string name, const double& value){    
     if(name.compare("mHp") == 0)
         mHp = value;
     else if(name.compare("tanb") == 0) {
@@ -75,7 +75,7 @@ void THDM::parseParameters(const std::string name, const double& value){
     else if(name.compare("mH") == 0)
         mH = value;
     else
-        StandardModel::parseParameters(name,value);
+        StandardModel::setParameters(name,value);
 }
 
 bool THDM::Init(const std::map<std::string, double>& DPars) {

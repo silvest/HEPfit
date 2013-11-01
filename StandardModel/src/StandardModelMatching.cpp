@@ -77,7 +77,7 @@ void StandardModelMatching::updateSMParameters()
         sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
     }
     Vckm = SM.getVCKM();
-    lam_t = SM.getlamt();
+    lam_t = SM.computelamt();
 
 }
 
@@ -525,7 +525,7 @@ double StandardModelMatching::phi2(double x, double y) const{
     
     
     double xt = x_t(Muw);
-    complex co = GF / 4. / M_PI * Mw * SM.getlamt_d();
+    complex co = GF / 4. / M_PI * Mw * SM.computelamt_d();
 
     vmcdb.clear();
 
@@ -566,7 +566,7 @@ double StandardModelMatching::phi2(double x, double y) const{
 {
     double Bt;
     double xt = x_t(Muw);
-    complex co = GF / 4. / M_PI * Mw * SM.getlamt_s();
+    complex co = GF / 4. / M_PI * Mw * SM.computelamt_s();
 
     vmcds.clear();
 
@@ -859,7 +859,7 @@ double StandardModelMatching::phi2(double x, double y) const{
  std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() 
 {    
     double xt = x_t(Muw);
-    complex co = (- 4. * GF / sqrt(2)) * SM.getlamt_s();
+    complex co = (- 4. * GF / sqrt(2)) * SM.computelamt_s();
     
     vmcbsg.clear();
     
@@ -983,9 +983,9 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
     complex lambda;
     
     switch (a) {
-        case 0: lambda = SM.getlamt_d();
+        case 0: lambda = SM.computelamt_d();
         break;
-        case 1: lambda = SM.getlamt_s();
+        case 1: lambda = SM.computelamt_s();
         break;   
         default:
             std::stringstream out;
@@ -1048,9 +1048,9 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
     //matrix<complex> ckm = SM.getVCKM();
     
     switch (a) {
-        case 0: lambda1 = SM.getlamu_d();
+        case 0: lambda1 = SM.computelamu_d();
                 break;
-        case 1: lambda1 = SM.getlamu_s();
+        case 1: lambda1 = SM.computelamu_s();
                 break;
         case 2: lambda1 = Vckm(0,2).conjugate()*Vckm(1,0);
                 break;
@@ -1115,7 +1115,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
     
     double xt = x_t(SM.getMut());
     double a = 1./mt2omh2(Muw);
-    double lambda5 = SM.GetLambda()*SM.GetLambda()*SM.GetLambda()*SM.GetLambda()*SM.GetLambda();
+    double lambda5 = SM.getLambda()*SM.getLambda()*SM.getLambda()*SM.getLambda()*SM.getLambda();
     
     vmckpnn.clear();
     
@@ -1163,9 +1163,9 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
     switch (mckmm.getOrder()) {
         case NNLO:
         case NLO:
-            mckmm.setCoeff(0, SM.Als(Muw, FULLNLO)/4./M_PI*lam_t.real()*Y1(xt, Muw)/SM.GetLambda(), NLO);
+            mckmm.setCoeff(0, SM.Als(Muw, FULLNLO)/4./M_PI*lam_t.real()*Y1(xt, Muw)/SM.getLambda(), NLO);
         case LO:
-            mckmm.setCoeff(0, lam_t.real()*Y0(xt)/SM.GetLambda(), LO);
+            mckmm.setCoeff(0, lam_t.real()*Y0(xt)/SM.getLambda(), LO);
             break;
         default:
             std::stringstream out;
@@ -1375,7 +1375,7 @@ double StandardModelMatching::setWCbnlepEW(int i, double x)
 complex StandardModelMatching::S0c() const 
 {
     double xc = x_c(SM.getMuc());
-    complex co = GF / 2. / M_PI * Mw_tree * SM.getlamc().conjugate();
+    complex co = GF / 2. / M_PI * Mw_tree * SM.computelamc().conjugate();
     
     return(co * co * S0(xc, xc));
 }
@@ -1386,7 +1386,7 @@ complex StandardModelMatching::S0ct() const
     double xt = x_t(Mut);
     double co = GF / 2. / M_PI * Mw_tree;
     
-    return( co * co * 2. * SM.getlamc().conjugate() * lam_t.conjugate() * S0(xc, xt) );
+    return( co * co * 2. * SM.computelamc().conjugate() * lam_t.conjugate() * S0(xc, xt) );
 }
 
 complex StandardModelMatching::S0tt() const

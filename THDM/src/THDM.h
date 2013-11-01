@@ -229,7 +229,7 @@ public:
 
 protected: 
     
-    virtual void parseParameters(const std::string, const double&);
+    virtual void setParameters(const std::string, const double&);
     THDMcache mycache;
 
     private:
@@ -245,7 +245,7 @@ protected:
     //double Mw_i, Mw2;
     //double cos2_ba, sin2_ba;   
     
-    bool computeCKM, computeYe, computeYn;
+    bool requireCKM, requireYe, requireYn;
     
     ////////////////////////////////////////////////////////////////////////////
     /*One-loop functions*/

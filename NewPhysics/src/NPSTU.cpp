@@ -22,7 +22,7 @@ NPSTU::NPSTU()
 bool NPSTU::Update(const std::map<std::string,double>& DPars) 
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        parseParameters(it->first, it->second);
+        setParameters(it->first, it->second);
     if(!NPZbbbar::Update(DPars)) return (false);
 
     return (true);
@@ -49,7 +49,7 @@ bool NPSTU::CheckParameters(const std::map<std::string, double>& DPars)
 }
 
     
-void NPSTU::parseParameters(const std::string name, const double& value) 
+void NPSTU::setParameters(const std::string name, const double& value) 
 {
     if (name.compare("obliqueS") == 0)
         myObliqueS = value;
@@ -58,13 +58,13 @@ void NPSTU::parseParameters(const std::string name, const double& value)
     else if (name.compare("obliqueU") == 0)
         myObliqueU = value;    
     else
-        NPZbbbar::parseParameters(name, value);       
+        NPZbbbar::setParameters(name, value);       
 }
 
 
 bool NPSTU::InitializeModel() 
 {
-    SetModelInitialized(NPZbbbar::InitializeModel());
+    setModelInitialized(NPZbbbar::InitializeModel());
     return (IsModelInitialized());
 }
 

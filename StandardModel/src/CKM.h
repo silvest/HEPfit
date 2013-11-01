@@ -86,23 +86,23 @@ public:
     complex V_tb();
     
     // Angles
-    double getBeta();
-    double getGamma();
-    double getAlpha();
-    double getBetas();
+    /*double computeBeta();
+    double computeGamma();
+    double computeAlpha();
+    double computeBetas();
     
     // Lambda_q
-    complex getlamt();
-    complex getlamc();
-    complex getlamu();
+    complex computelamt();
+    complex computelamc();
+    complex computelamu();
     
-    complex getlamt_d();
-    complex getlamc_d();
-    complex getlamu_d();
+    complex computelamt_d();
+    complex computelamc_d();
+    complex computelamu_d();
     
-    complex getlamt_s();
-    complex getlamc_s();
-    complex getlamu_s();
+    complex computelamt_s();
+    complex computelamc_s();
+    complex computelamu_s();*/
     
     // Sides
     double getRt();

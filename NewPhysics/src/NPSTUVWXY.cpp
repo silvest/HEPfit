@@ -23,7 +23,7 @@ NPSTUVWXY::NPSTUVWXY()
 bool NPSTUVWXY::Update(const std::map<std::string,double>& DPars)
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        parseParameters(it->first, it->second);
+        setParameters(it->first, it->second);
     if(!NPZbbbar::Update(DPars)) return (false);
 
     return (true);
@@ -50,7 +50,7 @@ bool NPSTUVWXY::CheckParameters(const std::map<std::string, double>& DPars)
 }
 
     
-void NPSTUVWXY::parseParameters(const std::string name, const double& value) 
+void NPSTUVWXY::setParameters(const std::string name, const double& value) 
 {
     if (name.compare("obliqueShat") == 0)
         myObliqueShat = value;
@@ -67,13 +67,13 @@ void NPSTUVWXY::parseParameters(const std::string name, const double& value)
     else if (name.compare("obliqueY") == 0)
         myObliqueY = value;    
     else
-        NPZbbbar::parseParameters(name, value);       
+        NPZbbbar::setParameters(name, value);       
 }
 
 
 bool NPSTUVWXY::InitializeModel() 
 {
-    SetModelInitialized(NPZbbbar::InitializeModel());
+    setModelInitialized(NPZbbbar::InitializeModel());
     return (IsModelInitialized());
 }
 

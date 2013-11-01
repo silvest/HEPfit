@@ -37,7 +37,7 @@ public:
 
     
 protected:
-    virtual void parseParameters(const std::string, const double&);
+    virtual void setParameters(const std::string, const double&);
     virtual void SetSoftTerms();
 
     double a1, a2, a3, a6, a7, x1, x2, y1, y3, y6, y7;

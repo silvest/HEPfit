@@ -28,7 +28,7 @@ NPZbbbar::NPZbbbar()
 bool NPZbbbar::Update(const std::map<std::string,double>& DPars) 
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        parseParameters(it->first, it->second);
+        setParameters(it->first, it->second);
     if(!StandardModel::Update(DPars)) return (false);
 
     return (true);
@@ -55,20 +55,20 @@ bool NPZbbbar::CheckParameters(const std::map<std::string, double>& DPars)
 }
 
     
-void NPZbbbar::parseParameters(const std::string name, const double& value) 
+void NPZbbbar::setParameters(const std::string name, const double& value) 
 {
     if (name.compare("deltaGVb") == 0)
         myDeltaGVb = value;
     else if (name.compare("deltaGAb") == 0)
         myDeltaGAb = value;
     else
-        StandardModel::parseParameters(name, value);       
+        StandardModel::setParameters(name, value);       
 }
 
 
 bool NPZbbbar::InitializeModel() 
 {
-    SetModelInitialized(StandardModel::InitializeModel());
+    setModelInitialized(StandardModel::InitializeModel());
     return (IsModelInitialized());
 }
 

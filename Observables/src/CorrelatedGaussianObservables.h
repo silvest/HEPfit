@@ -34,22 +34,22 @@ public:
 
     void AddObs(Observable& Obs_i);
 
-    std::vector<Observable> GetObs() const 
+    std::vector<Observable> getObs() const 
     {
         return Obs;
     }
 
-    std::string GetName() const 
+    std::string getName() const 
     {
         return name;
     }
 
-    void SetName(std::string name) 
+    void setName(std::string name)
     {
         this->name = name;
     }
 
-    gslpp::matrix<double> GetCov() const 
+    gslpp::matrix<double> getCov() const
     {
         return *Cov;
     }

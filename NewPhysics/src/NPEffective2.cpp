@@ -33,7 +33,7 @@ bool NPEffective2::CheckParameters(const std::map<std::string, double>& DPars)
 }
 
 
-void NPEffective2::parseParameters(const std::string name, const double& value)
+void NPEffective2::setParameters(const std::string name, const double& value)
 {
     if (name.compare("cWB_NP") == 0)
         cWB = value;
@@ -85,7 +85,7 @@ void NPEffective2::parseParameters(const std::string name, const double& value)
     } else if (name.compare("Lambda_NP") == 0)
         LambdaNP = value;
     else
-        StandardModel::parseParameters(name, value);
+        StandardModel::setParameters(name, value);
 }
 
 

@@ -64,15 +64,15 @@ void MonteCarlo::Run(const int rank)
             std::cout << std::endl << "Running in Single Event mode..." << std::endl;
             for (std::vector<Observable>::iterator it = Obs.begin();
                  it < Obs.end(); it++) {
-                double th = it->getTheoryValue();
+                double th = it->computeTheoryValue();
                 std::cout << it->getName() << " = " << th << std::endl;
             }
             for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin();
                  it < CGO.end(); it++) {
-                std::vector<Observable> ObsInCGO = it->GetObs();
+                std::vector<Observable> ObsInCGO = it->getObs();
                 for (std::vector<Observable>::iterator it2 = ObsInCGO.begin();
                      it2 < ObsInCGO.end(); it2++) {
-                    double th = it2->getTheoryValue();
+                    double th = it2->computeTheoryValue();
                     std::cout << it2->getName() << " = " << th << std::endl;
                 }
             }
@@ -137,8 +137,8 @@ void MonteCarlo::Run(const int rank)
                 std::cout << ":" << std::endl;
             for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
                     it1 != CGO.end(); ++it1)
-                std::cout << "  " << it1->GetName() << " containing "
-                          << it1->GetObs().size() << " observables." << std::endl;
+                std::cout << "  " << it1->getName() << " containing "
+                          << it1->getObs().size() << " observables." << std::endl;
             std::cout << ParaObs.size() << " ModelParaVsObs defined." << std::endl;
             //MonteCarlo configuration parser
             std::ifstream ifile(MCMCConf.c_str());
@@ -158,7 +158,7 @@ void MonteCarlo::Run(const int rank)
                 boost::tokenizer<boost::char_separator<char> >::iterator beg = tok.begin();
                 if (beg->compare("NChains") == 0) {
                     ++beg;
-                    MCEngine.SetNChains(atoi((*beg).c_str()));
+                    MCEngine.setNChains(atoi((*beg).c_str()));
                 } else if (beg->compare("PrerunMaxIter") == 0) {
                     ++beg;
                     MCEngine.MCMCSetNIterationsMax(atoi((*beg).c_str()));
@@ -266,7 +266,7 @@ void MonteCarlo::Run(const int rank)
             // print logs for the histograms of the observables into a text file
             std::ofstream outHistoLog;
             outHistoLog.open((ObsDirName + "/HistoLog.txt").c_str(), std::ios::out);
-            outHistoLog << MCEngine.GetHistoLog();
+            outHistoLog << MCEngine.getHistoLog();
             outHistoLog.close();
 
             /* Number of events */

@@ -96,7 +96,7 @@ public:
     
 protected:    
     double a, b, c_u, c_d, c_e, d_3, d_4, LambdaNP_in;
-    virtual void parseParameters(const std::string name, const double& value);
+    virtual void setParameters(const std::string name, const double& value);
     
     
     ////////////////////////////////////////////////////////////////////////   

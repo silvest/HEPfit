@@ -541,7 +541,7 @@ void SUSYMassInsertion::SetSusyMIParameter(std::string name, double value) {
         Dd_RR.assignim(2,2,iDDRR33);}
     
     else 
-        StandardModel::parseParameters(name, value);
+        StandardModel::setParameters(name, value);
 }
 
 bool SUSYMassInsertion::Init(const std::map<std::string, double>& DPars) {

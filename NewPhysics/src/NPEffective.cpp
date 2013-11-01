@@ -18,7 +18,7 @@ NPEffective::NPEffective()
 bool NPEffective::Update(const std::map<std::string,double>& DPars) 
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        parseParameters(it->first, it->second);
+        setParameters(it->first, it->second);
     if(!StandardModel::Update(DPars)) return (false);
 
     return (true);
@@ -34,7 +34,7 @@ bool NPEffective::Init(const std::map<std::string, double>& DPars)
 
 bool NPEffective::InitializeModel() 
 {
-    SetModelInitialized(StandardModel::InitializeModel());
+    setModelInitialized(StandardModel::InitializeModel());
     return (IsModelInitialized());
 }
 
