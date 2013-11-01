@@ -285,18 +285,6 @@
           </linkerLibItems>
           <commandLine>`gsl-config --libs` `root-config --ldflags` `root-config --libs` -lMinuit -lFH -lBAT -lBATmodels </commandLine>
         </linkerTool>
-        <requiredProjects>
-          <makeArtifact PL="../EW"
-                        CT="3"
-                        CN="Release"
-                        AC="true"
-                        BL="false"
-                        WD="../EW"
-                        BC="${MAKE} -j 8 -f Makefile CONF=Release"
-                        CC="${MAKE} -j 8 -f Makefile CONF=Release clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
-          </makeArtifact>
-        </requiredProjects>
       </compileType>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -688,8 +676,8 @@
                             AC="false"
                             BL="true"
                             WD="../MonteCarlo"
-                            BC="${MAKE} -j 4 -f Makefile CONF=Release_MPI"
-                            CC="${MAKE} -j 4 -f Makefile CONF=Release_MPI clean"
+                            BC="${MAKE}  -f Makefile CONF=Release_MPI"
+                            CC="${MAKE}  -f Makefile CONF=Release_MPI clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libmontecarlo.a">
               </makeArtifact>
             </linkerLibProjectItem>
@@ -700,8 +688,8 @@
                             AC="true"
                             BL="true"
                             WD="../InputParser"
-                            BC="${MAKE} -j 4 -f Makefile CONF=Release"
-                            CC="${MAKE} -j 4 -f Makefile CONF=Release clean"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libinputparser.a">
               </makeArtifact>
             </linkerLibProjectItem>
@@ -724,8 +712,8 @@
                             AC="true"
                             BL="true"
                             WD="../EW"
-                            BC="${MAKE} -j 4 -f Makefile CONF=Release"
-                            CC="${MAKE} -j 4 -f Makefile CONF=Release clean"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libew.a">
               </makeArtifact>
             </linkerLibProjectItem>
