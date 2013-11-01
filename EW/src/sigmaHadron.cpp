@@ -25,7 +25,7 @@ double sigmaHadron::computeThValue()
         sigma_had = sigma_h0*(1.0 - 0.03*SM.epsilon1() + 0.04*SM.epsilon3() - 0.20*SM.epsilonb());
     } else {   
         if (SM.IsFlagApproximateSigmaH())
-            sigma_had = SM.getEWSM()->sigmaHadron_SM();
+            sigma_had = SM.getEWSM()->sigmaHadron_SM()/GeVminus2_to_nb;
         else
             sigma_had = myEW.sigma0_had();
         
