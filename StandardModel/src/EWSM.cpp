@@ -1170,6 +1170,18 @@ double EWSM::Gd_over_Gb_SM() const
 }
 
 
+double EWSM::GammaZ_SM() const
+{
+    return myApproximateFormulae->GammaZ(DeltaAlphaL5q());
+}
+
+
+double EWSM::sigmaHadron_SM() const
+{
+    return myApproximateFormulae->sigmaHadron(DeltaAlphaL5q());
+}
+
+
 ////////////////////////////////////////////////////////////////////////     
 
 double EWSM::rho_GammaW_l_SM(const StandardModel::lepton li, 
