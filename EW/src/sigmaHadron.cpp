@@ -6,6 +6,7 @@
  */
 
 #include "sigmaHadron.h"
+#include <EWSM.h>
 
 
 double sigmaHadron::computeThValue() 
@@ -23,7 +24,10 @@ double sigmaHadron::computeThValue()
         double sigma_h0 = 41.420*(1.0 - 0.41*delta_als + 0.03*delta_alpha)/GeVminus2_to_nb;
         sigma_had = sigma_h0*(1.0 - 0.03*SM.epsilon1() + 0.04*SM.epsilon3() - 0.20*SM.epsilonb());
     } else {   
-        sigma_had = myEW.sigma0_had();
+        if (SM.IsFlagApproximateSigmaH())
+            sigma_had = SM.getEWSM()->sigmaHadron_SM();
+        else
+            sigma_had = myEW.sigma0_had();
         
         if(myEWTYPE==EW::EWBURGESS) {
             double delta_l = - 0.000192*SM.obliqueS() + 0.000790*SM.obliqueT();

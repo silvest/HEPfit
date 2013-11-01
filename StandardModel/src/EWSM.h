@@ -373,6 +373,10 @@ public:
 
     double Gd_over_Gb_SM() const;    
 
+    double GammaZ_SM() const;
+
+    double sigmaHadron_SM() const;
+    
 
     ////////////////////////////////////////////////////////////////////////     
 

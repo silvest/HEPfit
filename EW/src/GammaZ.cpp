@@ -6,6 +6,7 @@
  */
 
 #include "GammaZ.h"
+#include <EWSM.h>
 
 
 double GammaZ::computeThValue() 
@@ -23,7 +24,10 @@ double GammaZ::computeThValue()
         double Gamma_T0 = 2.48946*(1.0 + 0.73*delta_als - 0.35*delta_alpha);
         Gamma_Z = Gamma_T0*(1.0 + 1.35*SM.epsilon1() - 0.46*SM.epsilon3() + 0.35*SM.epsilonb());
     } else {
-        Gamma_Z = myEW.Gamma_Z();
+        if (SM.IsFlagApproximateGammaZ())
+            Gamma_Z = SM.getEWSM()->GammaZ_SM();
+        else
+            Gamma_Z = myEW.Gamma_Z();
 
         /* Theoretical uncertainty */
         Gamma_Z += SM.getDelGammaZ();
