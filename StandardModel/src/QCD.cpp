@@ -94,8 +94,8 @@ bool QCD::SetFlag(const std::string name , const bool& value)
 
 bool QCD::PreUpdate() 
 {
-    computeYu = false;
-    computeYd = false;
+    requireYu = false;
+    requireYd = false;
     computeBd = false;
     computeFBd = false;
     computemt = false;
@@ -124,7 +124,7 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
     UpdateError = false; 
    
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        parseParameters(it->first, it->second);
+        setParameters(it->first, it->second);
 
     if (UpdateError) return (false);
     
@@ -133,7 +133,7 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
     return (true);
 }
 
-void QCD::parseParameters(const std::string name, const double& value) 
+void QCD::setParameters(const std::string name, const double& value) 
 {
     if(name.compare("AlsMz")==0) {
         AlsMz = value;
@@ -144,32 +144,32 @@ void QCD::parseParameters(const std::string name, const double& value)
     else if(name.compare("mup")==0) {
         if(value < MEPS) UpdateError = true; 
         quarks[UP].setMass(value);
-        computeYu = true;
+        requireYu = true;
     }
     else if(name.compare("mdown")==0) {
         if(value < MEPS) UpdateError = true;
         quarks[DOWN].setMass(value);
-        computeYd = true;
+        requireYd = true;
     }
     else if(name.compare("mcharm")==0) {
         quarks[CHARM].setMass(value);
         quarks[CHARM].setMass_scale(value);        
-        computeYu = true;
+        requireYu = true;
     }
     else if(name.compare("mstrange")==0) {
         if(value < MEPS) UpdateError = true;
         quarks[STRANGE].setMass(value);
-        computeYd = true;
+        requireYd = true;
     }
     else if(name.compare("mtop")==0) {
         mtpole = value;
-        computeYu = true;
+        requireYu = true;
         computemt = true;
     }
     else if(name.compare("mbottom")==0) {
         quarks[BOTTOM].setMass(value);
         quarks[BOTTOM].setMass_scale(value);        
-        computeYd = true;
+        requireYd = true;
     }
     else if(name.compare("mut")==0)
         mut = value;

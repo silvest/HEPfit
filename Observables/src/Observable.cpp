@@ -56,7 +56,7 @@ std::ostream& operator<<(std::ostream& output, const Observable& o)
     return output;
 }
 
-double Observable::getTheoryValue()
+double Observable::computeTheoryValue()
 {
     return tho->computeThValue();
 }

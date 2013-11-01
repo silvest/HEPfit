@@ -29,7 +29,7 @@ NPEpsilons::NPEpsilons()
 bool NPEpsilons::Update(const std::map<std::string,double>& DPars) 
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        parseParameters(it->first, it->second);
+        setParameters(it->first, it->second);
     if(!StandardModel::Update(DPars)) return (false);
 
     return (true);
@@ -56,7 +56,7 @@ bool NPEpsilons::CheckParameters(const std::map<std::string, double>& DPars)
 }
 
     
-void NPEpsilons::parseParameters(const std::string name, const double& value) 
+void NPEpsilons::setParameters(const std::string name, const double& value) 
 {
     if (name.compare("epsilon_1") == 0)
         myEpsilon_1 = value;
@@ -67,13 +67,13 @@ void NPEpsilons::parseParameters(const std::string name, const double& value)
     else if (name.compare("epsilon_b") == 0)
         myEpsilon_b = value;    
     else
-        StandardModel::parseParameters(name, value);       
+        StandardModel::setParameters(name, value);       
 }
 
 
 bool NPEpsilons::InitializeModel() 
 {
-    SetModelInitialized(StandardModel::InitializeModel());
+    setModelInitialized(StandardModel::InitializeModel());
     myEWepsilons = new EWepsilons(*this);
     return (IsModelInitialized());
 }

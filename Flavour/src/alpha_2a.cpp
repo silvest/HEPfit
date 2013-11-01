@@ -8,6 +8,6 @@
 #include "alpha_2a.h"
 
 double Alpha_2a::computeThValue() { 
-    double twoa = SM.getCKM().getAlpha()/M_PI*180.;
+    double twoa = SM.computeAlpha()/M_PI*180.;
     return(twoa < 0. ? twoa + 180. : twoa);
 }

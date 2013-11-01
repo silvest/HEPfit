@@ -552,9 +552,9 @@ public:
     ///////////////////////////////////////////////////////////////////////////
 
 protected:
-    virtual void parseParameters(const std::string, const double&);
+    virtual void setParameters(const std::string, const double&);
     virtual void SetTanb(const double tanb);
-    virtual void SetYukawas();
+    virtual void computeYukawas();
     virtual void SetSoftTerms();
 
     FeynHiggsWrapper* myFH;

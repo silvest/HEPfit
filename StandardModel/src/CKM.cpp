@@ -300,74 +300,74 @@ double CKM::getArgVtb()
 
 // Angles
 
-double CKM::getBeta() 
+/*double CKM::computeBeta()
 {
     return (-Vcd*Vcb.conjugate()/(Vtd*Vtb.conjugate())).arg();
 }
 
-double CKM::getGamma() 
+double CKM::computeGamma() 
 {
     return (-Vud*Vub.conjugate()/(Vcd*Vcb.conjugate())).arg();
 }
 
-double CKM::getAlpha() 
+double CKM::computeAlpha() 
 {
     return (-Vtd*Vtb.conjugate()/(Vud*Vub.conjugate())).arg();
 }
 
-double CKM::getBetas() 
+double CKM::computeBetas() 
 {
     return (-Vts*Vtb.conjugate()/(Vcs*Vcb.conjugate())).arg();
-}
+}*/
 
 // Lambda_q
 
-complex CKM::getlamt() 
+/*complex CKM::computelamt()
 {
     return Vtd*Vts.conjugate();
 }
 
-complex CKM::getlamc() 
+complex CKM::computelamc() 
 {
     return Vcd*Vcs.conjugate();
 }
 
-complex CKM::getlamu()
+complex CKM::computelamu()
 {
     return Vud*Vus.conjugate();
 }
 
 
-complex CKM::getlamt_d() 
+complex CKM::computelamt_d() 
 {
     return Vtd*Vtb.conjugate();
 }
 
-complex CKM::getlamc_d() 
+complex CKM::computelamc_d() 
 {
     return Vcd*Vcb.conjugate();
 }
 
-complex CKM::getlamu_d() 
+complex CKM::computelamu_d() 
 {
     return Vud*Vub.conjugate();
 }
 
 
-complex CKM::getlamt_s() 
+complex CKM::computelamt_s() 
 {
     return Vts*Vtb.conjugate();
 }
 
-complex CKM::getlamc_s() 
+complex CKM::computelamc_s() 
 {
     return Vcs*Vcb.conjugate();
 }
 
-complex CKM::getlamu_s() 
+complex CKM::computelamu_s() 
 {
     return Vus*Vub.conjugate();
-}
+}*/
 
 
 //Complex values of CKM elements

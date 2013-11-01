@@ -30,7 +30,7 @@ public:
     Observable2D(const Observable2D& orig);
     virtual ~Observable2D();
 
-    double getTheoryValue2();
+    double computeTheoryValue2();
 
     std::string getLabel2() const 
     {
