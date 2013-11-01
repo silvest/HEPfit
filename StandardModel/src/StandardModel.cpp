@@ -512,7 +512,7 @@ double StandardModel::epsilonb_SM() const
      */
     //double als_Mz = Als(Mz, FULLNNLO);
     //double delta_als = (als_Mz - 0.119)/M_PI;
-    //double delta_alpha = (.DeltaAlpha( - 1.0/128.90)/ale;
+    //double delta_alpha = (alphaMz() - 1.0/128.90)/ale;
     //double Gamma_b_Born = 0.3798*( 1.0 + delta_als - 0.42*delta_alpha);
     //double a = als_Mz/M_PI;
     //double RQCD = 1.0 + 1.2*a - 1.1*a*a - 13.0*a*a*a;
@@ -524,7 +524,7 @@ double StandardModel::epsilonb_SM() const
     //double factor = GF*Mz*Mz*Mz/6.0/M_PI/sqrt(2.0);
     //double Gamma_b = factor*beta*((3.0 - beta*beta)/2.0*myEWSM->gVq_SM(BOTTOM).abs2()
     //                              + beta*beta*myEWSM->gAq_SM(BOTTOM).abs2())
-    //                 *Nc*RQCD*(1.0 + .DeltaAlpha(/12.0/M_PI);
+    //                 *Nc*RQCD*(1.0 + alphaMz()/12.0/M_PI);
     //return ( (Gamma_b/Gamma_b_Born - 1.0 - 1.42*epsilon1_SM() 
     //          + 0.54*epsilon3_SM() )/2.29 );
 }
