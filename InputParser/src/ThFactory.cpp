@@ -46,7 +46,9 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["Smumu_Bs"] = new BR_Bsmumu(myFlavour, 4);
     //-----   SUSY spectra and observables  -----
     if(myModel.ModelName().compare("SUSY") == 0
+            || myModel.ModelName().compare("SUSYMassInsertion") == 0
             || myModel.ModelName().compare("GeneralSUSY") == 0
+            || myModel.ModelName().compare("pMSSM") == 0
             || myModel.ModelName().compare("MFV") == 0) {
         thobs["OutputSLHAfromFH"] = new OutputSLHAfromFH(myMO); // for debug
         thobs["MHl"] = new Mhiggs(myMO, 0);
