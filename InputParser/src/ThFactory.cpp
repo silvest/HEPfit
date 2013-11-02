@@ -9,7 +9,7 @@
 #include <boost/lexical_cast.hpp>
 #include "ThFactory.h"
 #include <StandardModelParams.h>
-#include <NPInputs.h>
+#include <NewPhysicsParams.h>
 #include <SUSYObservables.h>
 #include <FlavourObservables.h>
 #include <EWObservables.h>
@@ -44,6 +44,7 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["BRbar_Bsmumu"] = new BR_Bsmumu(myFlavour, 2);
     thobs["Amumu_Bs"] = new BR_Bsmumu(myFlavour, 3);
     thobs["Smumu_Bs"] = new BR_Bsmumu(myFlavour, 4);
+
     //-----   SUSY spectra and observables  -----
     if(myModel.ModelName().compare("SUSY") == 0
             || myModel.ModelName().compare("SUSYMassInsertion") == 0
@@ -87,30 +88,37 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["delGammaZ"] = new StandardModelParams(myMO, "delGammaZ");
     thobs["delRhoZ_nu"] = new StandardModelParams(myMO, "delRhoZ_nu");
     thobs["delRhoZ_e"] = new StandardModelParams(myMO, "delRhoZ_e");
-    thobs["delRhoZ_u"] = new StandardModelParams(myMO, "delRhoZ_u");
-    thobs["delRhoZ_d"] = new StandardModelParams(myMO, "delRhoZ_d");
+    if (myMO.getModel().IsFlagTestSubleadingTwoLoopEW()) {
+        thobs["delRhoZ_u"] = new StandardModelParams(myMO, "delRhoZ_u");
+        thobs["delRhoZ_d"] = new StandardModelParams(myMO, "delRhoZ_d");
+    }
     thobs["delRhoZ_b"] = new StandardModelParams(myMO, "delRhoZ_b");
 
     //-----  NP input parameters, etc.  -----
-    thobs["cHLp_NP"] = new cHLp_NP(myMO);
-    thobs["cHQp_NP"] = new cHQp_NP(myMO);
-    thobs["cHQ_NP"] = new cHQ_NP(myMO);
-    thobs["cHL_NP"] = new cHL_NP(myMO);
-    thobs["cHE_NP"] = new cHE_NP(myMO);
-    thobs["cHU2_NP"] = new cHU2_NP(myMO);
-    thobs["cHD3_NP"] = new cHD3_NP(myMO);
-    thobs["cHQ1pPLUScHQ2p_NP"] = new cHQ1pPLUScHQ2p_NP(myMO);
-    thobs["cHQ2pMINUScHQ2_NP"] = new cHQ2pMINUScHQ2_NP(myMO);
-    thobs["cHQ3pPLUScHQ3_NP"] = new cHQ3pPLUScHQ3_NP(myMO);
-    thobs["c_Ae_NP"] = new c_Ae_NP(myMO);
-    thobs["c_GammaZ_uds_NP"] = new c_GammaZ_uds_NP(myMO);
-    thobs["deltaGVb"] = new deltaGVb(myMO);
-    thobs["deltaGAb"] = new deltaGAb(myMO);
-    thobs["deltaGLb"] = new deltaGLb(myMO);
-    thobs["deltaGRb"] = new deltaGRb(myMO);
-    thobs["deltaRhoZb"] = new deltaRhoZb(myMO);
-    thobs["deltaKappaZb"] = new deltaKappaZb(myMO);
-    
+    if(myModel.ModelName().compare("NPEffective1") == 0
+            || myModel.ModelName().compare("NPEffective2") == 0 ) {
+        thobs["cHLp_NP"] = new NewPhysicsParams(myMO, "cHLp_NP");
+        thobs["cHQp_NP"] = new NewPhysicsParams(myMO, "cHQp_NP");
+        thobs["cHQ_NP"] = new NewPhysicsParams(myMO, "cHQ_NP");
+        thobs["cHL_NP"] = new NewPhysicsParams(myMO, "cHL_NP");
+        thobs["cHE_NP"] = new NewPhysicsParams(myMO, "cHE_NP");
+        thobs["c_Ae_NP"] = new NewPhysicsParams(myMO, "c_Ae_NP");
+        thobs["c_GammaZ_uds_NP"] = new NewPhysicsParams(myMO, "c_GammaZ_uds_NP");
+        thobs["cHU2_NP"] = new NewPhysicsParams(myMO, "cHU2_NP");
+        thobs["cHD3_NP"] = new NewPhysicsParams(myMO, "cHD3_NP");
+        thobs["cHQ1pPLUScHQ2p_NP"] = new NewPhysicsParams(myMO, "cHQ1pPLUScHQ2p_NP");
+        thobs["cHQ2pMINUScHQ2_NP"] = new NewPhysicsParams(myMO, "cHQ2pMINUScHQ2_NP");
+        thobs["cHQ3pPLUScHQ3_NP"] = new NewPhysicsParams(myMO, "cHQ3pPLUScHQ3_NP");
+    }
+    if(myModel.ModelName().compare("NPZbbbar") == 0) {
+        thobs["deltaGVb"] = new NewPhysicsParams(myMO, "deltaGVb");
+        thobs["deltaGAb"] = new NewPhysicsParams(myMO, "deltaGAb");
+        thobs["deltaGLb"] = new NewPhysicsParams(myMO, "deltaGLb");
+        thobs["deltaGRb"] = new NewPhysicsParams(myMO, "deltaGRb");
+        thobs["deltaRhoZb"] = new NewPhysicsParams(myMO, "deltaRhoZb");
+        thobs["deltaKappaZb"] = new NewPhysicsParams(myMO, "deltaKappaZb");
+    }
+
     //-----  Z-pole observables (with EW and StandardModel)  -----
     thobs["Mw"] = new Mw(myEW);
     thobs["sin2thetaEff"] = new sin2thetaEff(myEW);
