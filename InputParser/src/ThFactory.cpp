@@ -8,7 +8,7 @@
 #include <vector>
 #include <boost/lexical_cast.hpp>
 #include "ThFactory.h"
-#include <SMInputs.h>
+#include <StandardModelParams.h>
 #include <NPInputs.h>
 #include <SUSYObservables.h>
 #include <FlavourObservables.h>
@@ -45,9 +45,9 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["Amumu_Bs"] = new BR_Bsmumu(myFlavour, 3);
     thobs["Smumu_Bs"] = new BR_Bsmumu(myFlavour, 4);
     //-----   SUSY spectra and observables  -----
-    if(myModel.ModelName().compare("SUSY")
-            || myModel.ModelName().compare("GeneralSUSY")
-            || myModel.ModelName().compare("MFV")) {
+    if(myModel.ModelName().compare("SUSY") == 0
+            || myModel.ModelName().compare("GeneralSUSY") == 0
+            || myModel.ModelName().compare("MFV") == 0) {
         thobs["OutputSLHAfromFH"] = new OutputSLHAfromFH(myMO); // for debug
         thobs["MHl"] = new Mhiggs(myMO, 0);
         thobs["MHh"] = new Mhiggs(myMO, 1);
@@ -75,17 +75,20 @@ ThFactory::ThFactory(const StandardModel& myModel)
     }
     
     //-----  SM input parameters, etc.  -----
-    thobs["AlsMz"] = new alsMz(myMO);
-    thobs["dAle5Mz"] = new dAle5Mz(myMO);
-    thobs["mHl"] = new mHl(myMO);
-    thobs["Mz"] = new mZ(myMO);
-    thobs["mtop"] = new mtpole(myMO);
-    thobs["delRhoZ_nu"] = new delRhoZ_nu(myMO);
-    thobs["delRhoZ_e"] = new delRhoZ_e(myMO);
-    thobs["delRhoZ_u"] = new delRhoZ_u(myMO);
-    thobs["delRhoZ_d"] = new delRhoZ_d(myMO);
-    thobs["delRhoZ_b"] = new delRhoZ_b(myMO);
-    
+    thobs["AlsMz"] = new StandardModelParams(myMO, "AlsMz");
+    thobs["dAle5Mz"] = new StandardModelParams(myMO, "dAle5Mz");
+    thobs["Mz"] = new StandardModelParams(myMO, "Mz");
+    thobs["mtop"] = new StandardModelParams(myMO, "mtop");
+    thobs["mHl"] = new StandardModelParams(myMO, "mHl");
+    thobs["delMw"] = new StandardModelParams(myMO, "delMw");
+    thobs["delSin2th_l"] = new StandardModelParams(myMO, "delSin2th_l");
+    thobs["delGammaZ"] = new StandardModelParams(myMO, "delGammaZ");
+    thobs["delRhoZ_nu"] = new StandardModelParams(myMO, "delRhoZ_nu");
+    thobs["delRhoZ_e"] = new StandardModelParams(myMO, "delRhoZ_e");
+    thobs["delRhoZ_u"] = new StandardModelParams(myMO, "delRhoZ_u");
+    thobs["delRhoZ_d"] = new StandardModelParams(myMO, "delRhoZ_d");
+    thobs["delRhoZ_b"] = new StandardModelParams(myMO, "delRhoZ_b");
+
     //-----  NP input parameters, etc.  -----
     thobs["cHLp_NP"] = new cHLp_NP(myMO);
     thobs["cHQp_NP"] = new cHQp_NP(myMO);
