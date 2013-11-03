@@ -6,11 +6,11 @@
  */
 
 #include <cstdlib>
+#include <stdexcept>
 #include <cmath>
 #include <gsl/gsl_complex.h>
 #include <gsl/gsl_sf.h>
 #include "Polylogarithms.h"
-#include <stdexcept>
 
 
 Polylogarithms::Polylogarithms() 
@@ -37,11 +37,11 @@ complex Polylogarithms::Li2(const complex z) const
 double Polylogarithms::Li3(const double x) const 
 {
     double Li3 = 0.0;
-    if (x < 0.0) {
+    if (x < 0.0)
         Li3 = -gsl_sf_fermi_dirac_2(log(-x));
-    } else if (x == 0.0) {
+    else if (x == 0.0)
         Li3 = 0.0;    
-    } else if (x > 0.0 && x < 0.5) {
+    else if (x > 0.0 && x < 0.5) {
         double log_1mx = log(1.0 - x);
         double lfactorial = 1.0, kfactorial = 1.0;
         for (int l=0; l<19; l++) {
@@ -68,11 +68,10 @@ double Polylogarithms::Li3(const double x) const
         }
         Li3 = - S12 - log_x*gsl_sf_dilog(1.0-x) - 0.5*log_x*log_x*log(1.0-x)
               + gsl_sf_zeta_int(2)*log_x + gsl_sf_zeta_int(3);
-    } else if (x == 1.0) {
+    } else if (x == 1.0)
         Li3 = gsl_sf_zeta_int(3);
-    } else {
-        throw std::runtime_error("x is out of range in Polylogarithms::Li3()"); 
-    }
+    else
+        throw std::runtime_error("Polylogarithms::Li3(): x is out of range!");
     return (Li3);
 }
 

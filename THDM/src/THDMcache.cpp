@@ -51,7 +51,7 @@ complex THDMcache::B0_Mz_Mz2_Mz_mH(const double Mz, const double mH) const {
     if (i>=0) {
         return ( B0_Mz_Mz2_Mz_mH_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B0(Mz, Mz*Mz, Mz, mH);
+        complex newResult = PV.B0(Mz*Mz, Mz*Mz, Mz*Mz, mH*mH, true);
         CacheShift(B0_Mz_Mz2_Mz_mH_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -65,7 +65,7 @@ complex THDMcache::B0_Mz_0_Mz_mH(const double Mz, const double mH) const {
     if (i>=0) {
         return ( B0_Mz_0_Mz_mH_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B0(Mz, 0., Mz, mH);
+        complex newResult = PV.B0(Mz*Mz, 0., Mz*Mz, mH*mH, true);
         CacheShift(B0_Mz_0_Mz_mH_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -79,7 +79,7 @@ complex THDMcache::B0_Mz_Mz2_Mz_mh(const double Mz, const double mh) const {
     if (i>=0) {
         return ( B0_Mz_Mz2_Mz_mh_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B0(Mz, Mz*Mz, Mz, mh);
+        complex newResult = PV.B0(Mz*Mz, Mz*Mz, Mz*Mz, mh*mh, true);
         CacheShift(B0_Mz_Mz2_Mz_mh_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -93,7 +93,7 @@ complex THDMcache::B0_Mz_0_Mz_mh(const double Mz, const double mh) const {
     if (i>=0) {
         return ( B0_Mz_0_Mz_mh_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B0(Mz, 0., Mz, mh);
+        complex newResult = PV.B0(Mz*Mz, 0., Mz*Mz, mh*mh, true);
         CacheShift(B0_Mz_0_Mz_mh_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -107,7 +107,7 @@ complex THDMcache::B0_Mz_Mw2_Mw_mH(const double Mz, const double Mw, const doubl
     if (i>=0) {
         return ( B0_Mz_Mw2_Mw_mH_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B0(Mz, Mw*Mw, Mw, mH);
+        complex newResult = PV.B0(Mz*Mz, Mw*Mw, Mw*Mz, mH*mH, true);
         CacheShift(B0_Mz_Mw2_Mw_mH_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -121,7 +121,7 @@ complex THDMcache::B0_Mz_0_Mw_mH(const double Mz, const double Mw, const double 
     if (i>=0) {
         return ( B0_Mz_0_Mw_mH_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B0(Mz, 0., Mw, mH);
+        complex newResult = PV.B0(Mz*Mz, 0., Mw*Mw, mH*mH, true);
         CacheShift(B0_Mz_0_Mw_mH_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -135,7 +135,7 @@ complex THDMcache::B0_Mz_Mw2_Mw_mh(const double Mz, const double Mw, const doubl
     if (i>=0) {
         return ( B0_Mz_Mw2_Mw_mh_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B0(Mz, Mw*Mw, Mw, mh);
+        complex newResult = PV.B0(Mz*Mz, Mw*Mw, Mw*Mw, mh*mh, true);
         CacheShift(B0_Mz_Mw2_Mw_mh_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -149,7 +149,7 @@ complex THDMcache::B0_Mz_0_Mw_mh(const double Mz, const double Mw, const double 
     if (i>=0) {
         return ( B0_Mz_0_Mw_mh_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B0(Mz, 0., Mw, mh);
+        complex newResult = PV.B0(Mz*Mz, 0., Mw*Mw, mh*mh, true);
         CacheShift(B0_Mz_0_Mw_mh_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -163,7 +163,7 @@ complex THDMcache::B22_Mz_Mz2_mH_mA(const double Mz, const double mH, const doub
     if (i>=0) {
         return ( B22_Mz_Mz2_mH_mA_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, Mz*Mz, mH, mA);
+        complex newResult = PV.B22(Mz*Mz, Mz*Mz, mH*mH, mA*mA, true);
         CacheShift(B22_Mz_Mz2_mH_mA_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -177,7 +177,7 @@ complex THDMcache::B22_Mz_0_mH_mA(const double Mz, const double mH, const double
     if (i>=0) {
         return ( B22_Mz_0_mH_mA_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, 0., mH, mA);
+        complex newResult = PV.B22(Mz*Mz, 0., mH*mH, mA*mA, true);
         CacheShift(B22_Mz_0_mH_mA_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -191,7 +191,7 @@ complex THDMcache::B22_Mz_Mz2_mHp_mHp(const double Mz, const double mHp) const {
     if (i>=0) {
         return ( B22_Mz_Mz2_mHp_mHp_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, Mz*Mz, mHp, mHp);
+        complex newResult = PV.B22(Mz*Mz, Mz*Mz, mHp*mHp, mHp*mHp, true);
         CacheShift(B22_Mz_Mz2_mHp_mHp_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -205,7 +205,7 @@ complex THDMcache::B22_Mz_0_mHp_mHp(const double Mz, const double mHp) const {
     if (i>=0) {
         return ( B22_Mz_0_mHp_mHp_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, 0., mHp, mHp);
+        complex newResult = PV.B22(Mz*Mz, 0., mHp*mHp, mHp*mHp, true);
         CacheShift(B22_Mz_0_mHp_mHp_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -219,7 +219,7 @@ complex THDMcache::B22_Mz_Mz2_mh_mA(const double Mz, const double mh, const doub
     if (i>=0) {
         return ( B22_Mz_Mz2_mh_mA_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, Mz*Mz, mh, mA);
+        complex newResult = PV.B22(Mz*Mz, Mz*Mz, mh*mh, mA*mA, true);
         CacheShift(B22_Mz_Mz2_mh_mA_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -233,7 +233,7 @@ complex THDMcache::B22_Mz_0_mh_mA(const double Mz, const double mh, const double
     if (i>=0) {
         return ( B22_Mz_0_mh_mA_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, 0., mh, mA);
+        complex newResult = PV.B22(Mz*Mz, 0., mh*mh, mA*mA, true);
         CacheShift(B22_Mz_0_mh_mA_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -247,7 +247,7 @@ complex THDMcache::B22_Mz_Mz2_Mz_mH(const double Mz, const double mH) const {
     if (i>=0) {
         return ( B22_Mz_Mz2_Mz_mH_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, Mz*Mz, Mz, mH);
+        complex newResult = PV.B22(Mz*Mz, Mz*Mz, Mz*Mz, mH*mH, true);
         CacheShift(B22_Mz_Mz2_Mz_mH_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -261,7 +261,7 @@ complex THDMcache::B22_Mz_0_Mz_mH(const double Mz, const double mH) const {
     if (i>=0) {
         return ( B22_Mz_0_Mz_mH_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, 0., Mz, mH);
+        complex newResult = PV.B22(Mz*Mz, 0., Mz*Mz, mH*mH, true);
         CacheShift(B22_Mz_0_Mz_mH_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -275,7 +275,7 @@ complex THDMcache::B22_Mz_Mz2_Mz_mh(const double Mz, const double mh) const {
     if (i>=0) {
         return ( B22_Mz_Mz2_Mz_mh_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, Mz*Mz, Mz, mh);
+        complex newResult = PV.B22(Mz*Mz, Mz*Mz, Mz*Mz, mh*mh, true);
         CacheShift(B22_Mz_Mz2_Mz_mh_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -289,7 +289,7 @@ complex THDMcache::B22_Mz_0_Mz_mh(const double Mz, const double mh) const {
     if (i>=0) {
         return ( B22_Mz_0_Mz_mh_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, 0., Mz, mh);
+        complex newResult = PV.B22(Mz*Mz, 0., Mz*Mz, mh*mh, true);
         CacheShift(B22_Mz_0_Mz_mh_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -303,7 +303,7 @@ complex THDMcache::B22_Mz_Mw2_mA_mHp(const double Mz, const double Mw, const dou
     if (i>=0) {
         return ( B22_Mz_Mw2_mA_mHp_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, Mw*Mw, mA, mHp);
+        complex newResult = PV.B22(Mz*Mz, Mw*Mw, mA*mA, mHp*mHp, true);
         CacheShift(B22_Mz_Mw2_mA_mHp_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -317,7 +317,7 @@ complex THDMcache::B22_Mz_0_mA_mHp(const double Mz, const double mA, const doubl
     if (i>=0) {
         return ( B22_Mz_0_mA_mHp_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, 0., mA, mHp);
+        complex newResult = PV.B22(Mz*Mz, 0., mA*mA, mHp*mHp, true);
         CacheShift(B22_Mz_0_mA_mHp_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -331,7 +331,7 @@ complex THDMcache::B22_Mz_Mw2_mHp_mHp(const double Mz, const double Mw, const do
     if (i>=0) {
         return ( B22_Mz_Mw2_mHp_mHp_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, Mw*Mw, mHp, mHp);
+        complex newResult = PV.B22(Mz*Mz, Mw*Mw, mHp*mHp, mHp*mHp, true);
         CacheShift(B22_Mz_Mw2_mHp_mHp_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -345,7 +345,7 @@ complex THDMcache::B22_Mz_Mw2_Mw_mH(const double Mz, const double Mw, const doub
     if (i>=0) {
         return ( B22_Mz_Mw2_Mw_mH_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, Mw*Mw, Mw, mH);
+        complex newResult = PV.B22(Mz*Mz, Mw*Mw, Mw*Mw, mH*mH, true);
         CacheShift(B22_Mz_Mw2_Mw_mH_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -359,7 +359,7 @@ complex THDMcache::B22_Mz_0_Mw_mH(const double Mz, const double Mw, const double
     if (i>=0) {
         return ( B22_Mz_0_Mw_mH_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, Mw*Mw, Mw, mH);
+        complex newResult = PV.B22(Mz*Mz, Mw*Mw, Mw*Mw, mH*mH, true);
         CacheShift(B22_Mz_0_Mw_mH_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -374,7 +374,7 @@ complex THDMcache::B22_Mz_Mw2_Mw_mh(const double Mz, const double Mw, const doub
     if (i>=0) {
         return ( B22_Mz_Mw2_Mw_mh_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, Mw*Mw, Mw, mh);
+        complex newResult = PV.B22(Mz*Mz, Mw*Mw, Mw*Mw, mh*mh, true);
         CacheShift(B22_Mz_Mw2_Mw_mh_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -388,7 +388,7 @@ complex THDMcache::B22_Mz_0_Mw_mh(const double Mz, const double Mw, const double
     if (i>=0) {
         return ( B22_Mz_0_Mw_mh_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, 0., Mw, mh);
+        complex newResult = PV.B22(Mz*Mz, 0., Mw*Mw, mh*mh, true);
         CacheShift(B22_Mz_0_Mw_mh_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -402,7 +402,7 @@ complex THDMcache::B22_Mz_Mw2_mH_mHp(const double Mz, const double Mw, const dou
     if (i>=0) {
         return ( B22_Mz_Mw2_mH_mHp_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, Mw*Mw, mH, mHp);
+        complex newResult = PV.B22(Mz*Mz, Mw*Mw, mH*mH, mHp*mHp, true);
         CacheShift(B22_Mz_Mw2_mH_mHp_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -416,7 +416,7 @@ complex THDMcache::B22_Mz_0_mH_mHp(const double Mz, const double mH, const doubl
     if (i>=0) {
         return ( B22_Mz_0_mH_mHp_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, 0., mH, mHp);
+        complex newResult = PV.B22(Mz*Mz, 0., mH*mH, mHp*mHp, true);
         CacheShift(B22_Mz_0_mH_mHp_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -430,7 +430,7 @@ complex THDMcache::B22_Mz_Mw2_mh_mHp(const double Mz, const double Mw, const dou
     if (i>=0) {
         return ( B22_Mz_Mw2_mh_mHp_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, Mw*Mw, mh, mHp);
+        complex newResult = PV.B22(Mz*Mz, Mw*Mw, mh*mh, mHp*mHp, true);
         CacheShift(B22_Mz_Mw2_mh_mHp_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -444,7 +444,7 @@ complex THDMcache::B22_Mz_0_mh_mHp(const double Mz, const double mh, const doubl
     if (i>=0) {
         return ( B22_Mz_0_mh_mHp_cache[NumPar][i] );
     } else {
-        complex newResult = PV.B22(Mz, 0., mh, mHp);
+        complex newResult = PV.B22(Mz*Mz, 0., mh*mh, mHp*mHp, true);
         CacheShift(B22_Mz_0_mh_mHp_cache, NumPar, params, newResult);
         return newResult;
     } 

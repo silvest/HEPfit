@@ -1326,38 +1326,38 @@ double EWSMTwoFermionsLEP2_Hollik::C22A(const double s, const double mf, const d
 // Loop functions
 
 complex EWSMTwoFermionsLEP2_Hollik::B0bar_Hollik(const double s, const double m1, 
-                                          const double m2) const 
+                                                 const double m2) const
 {
     double mu = sqrt(s); // The result is independent of the renormalization scale. 
-    return ( PV.B0(mu, s, m1, m2) + log(m1*m2/mu/mu) );   
+    return ( PV.B0(mu*mu, s, m1*m1, m2*m2, true) + log(m1*m2/mu/mu) );
 }
 
 
 complex EWSMTwoFermionsLEP2_Hollik::B1bar_Hollik(const double s, const double m1, 
-                                          const double m2) const 
+                                                 const double m2) const
 {
     double mu = sqrt(s); // The result is independent of the renormalization scale. 
-    return ( PV.B1(mu, s, m1, m2) - log(m1*m2/mu/mu)/2.0 );       
+    return ( PV.B1(mu*mu, s, m1*m1, m2*m2, true) - log(m1*m2/mu/mu)/2.0 );
 }
 
 
 complex EWSMTwoFermionsLEP2_Hollik::B1barPrime_Hollik(const double s, const double m1, 
-                                               const double m2) const 
+                                                      const double m2) const
 {
     double mu = sqrt(s); // The result is independent of the renormalization scale. 
-    return ( PV.B1p(mu, s, m1, m2) );           
+    return ( PV.B1p(mu*mu, s, m1*m1, m2*m2, true) );
 }
 
 
 complex EWSMTwoFermionsLEP2_Hollik::C0_Hollik(const double s, const double M, 
                                               const double Mprime) const
 {
-    return ( - PV.C0(s, M, Mprime, M) );
+    return ( - PV.C0(s, M*M, Mprime*Mprime, M*M, true) );
 }
 
 
 complex EWSMTwoFermionsLEP2_Hollik::C1plus_Hollik(const double s, const double M, 
-                                           const double Mprime) const
+                                                  const double Mprime) const
 {
     double mb = myOneLoopEW_HV.mq(StandardModel::BOTTOM, sqrt(s));
     if(s==4.0*mb*mb)
@@ -1371,7 +1371,7 @@ complex EWSMTwoFermionsLEP2_Hollik::C1plus_Hollik(const double s, const double M
 
 
 complex EWSMTwoFermionsLEP2_Hollik::C2zero_Hollik(const double s, const double M, 
-                                           const double Mprime) const
+                                                  const double Mprime) const
 {
     double mb = myOneLoopEW_HV.mq(StandardModel::BOTTOM, sqrt(s));
     return ( (B0bar_Hollik(s, M, M) + 1.0)/4.0 
@@ -1381,7 +1381,7 @@ complex EWSMTwoFermionsLEP2_Hollik::C2zero_Hollik(const double s, const double M
 
 
 complex EWSMTwoFermionsLEP2_Hollik::C2plus_Hollik(const double s, const double M, 
-                                           const double Mprime) const 
+                                                  const double Mprime) const
 {
     double mb = myOneLoopEW_HV.mq(StandardModel::BOTTOM, sqrt(s));
     if(s==4.0*mb*mb)
@@ -1395,7 +1395,7 @@ complex EWSMTwoFermionsLEP2_Hollik::C2plus_Hollik(const double s, const double M
 
 
 complex EWSMTwoFermionsLEP2_Hollik::C2minus_Hollik(const double s, const double M, 
-                                            const double Mprime) const 
+                                                   const double Mprime) const
 {
     if(s==0.0)
         throw std::runtime_error("Error in EWSMTwoFermionsLEP2_Hollik::C1plus()"); 
