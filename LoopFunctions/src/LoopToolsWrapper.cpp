@@ -40,7 +40,7 @@ double LoopToolsWrapper::PV_A0(const double mu2, const double m2) const
 {
     setmudim(mu2);
     std::complex<double> A0val = A0(m2);
-    return ( - A0val.real() );
+    return ( A0val.real() );
 }
     
 complex LoopToolsWrapper::PV_B0(const double mu2, const double p2,
@@ -111,7 +111,7 @@ complex LoopToolsWrapper::PV_C0(const double p2,
                                 const double m02, const double m12, const double m22) const
 {
     std::complex<double> C0val = C0(0.0, 0.0, p2, m02, m12, m22);
-    return complex( - C0val.real(), - C0val.imag(), false );
+    return complex( C0val.real(), C0val.imag(), false );
 }
     
 complex LoopToolsWrapper::PV_D0(const double s, const double t, const double m02,

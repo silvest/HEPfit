@@ -11,7 +11,7 @@
 
 
 EWSMTwoFermionsLEP2_Hollik::EWSMTwoFermionsLEP2_Hollik(const StandardModel& SM_i) 
-: SM(SM_i), myOneLoopEW_HV(SM_i) 
+: SM(SM_i), myOneLoopEW_HV(SM_i), PV(true)
 {
     bUseHollik = false;
     //bUseHollik = true; // for test (use the self-energies in Hollik's paper)
@@ -1329,7 +1329,7 @@ complex EWSMTwoFermionsLEP2_Hollik::B0bar_Hollik(const double s, const double m1
                                                  const double m2) const
 {
     double mu = sqrt(s); // The result is independent of the renormalization scale. 
-    return ( PV.B0(mu*mu, s, m1*m1, m2*m2, true) + log(m1*m2/mu/mu) );
+    return ( PV.B0(mu*mu, s, m1*m1, m2*m2) + log(m1*m2/mu/mu) );
 }
 
 
@@ -1337,7 +1337,7 @@ complex EWSMTwoFermionsLEP2_Hollik::B1bar_Hollik(const double s, const double m1
                                                  const double m2) const
 {
     double mu = sqrt(s); // The result is independent of the renormalization scale. 
-    return ( PV.B1(mu*mu, s, m1*m1, m2*m2, true) - log(m1*m2/mu/mu)/2.0 );
+    return ( PV.B1(mu*mu, s, m1*m1, m2*m2) - log(m1*m2/mu/mu)/2.0 );
 }
 
 
@@ -1345,14 +1345,14 @@ complex EWSMTwoFermionsLEP2_Hollik::B1barPrime_Hollik(const double s, const doub
                                                       const double m2) const
 {
     double mu = sqrt(s); // The result is independent of the renormalization scale. 
-    return ( PV.B1p(mu*mu, s, m1*m1, m2*m2, true) );
+    return ( PV.B1p(mu*mu, s, m1*m1, m2*m2) );
 }
 
 
 complex EWSMTwoFermionsLEP2_Hollik::C0_Hollik(const double s, const double M, 
                                               const double Mprime) const
 {
-    return ( - PV.C0(s, M*M, Mprime*Mprime, M*M, true) );
+    return ( - PV.C0(s, M*M, Mprime*Mprime, M*M) );
 }
 
 

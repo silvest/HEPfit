@@ -21,16 +21,26 @@ using namespace gslpp;
 /**
  * @class PVfunctions
  * @ingroup LoopFunctions 
- * @brief A class for Passarino-Veltman function. 
+ * @brief A class for Passarino-Veltman functions.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details  
+ * @details The definitions of the two-point and four-point functions are identical 
+ * to those in LoopTools library. The functions A_0 and C_0 are identical to those
+ * in LoopTools library when the argument passes to the constructor is "false",
+ * while an extra minus sign is added to them when the argument is "true".
+ * If the preprocessor macro "USE_LOOPTOOLS" is defined in PVdunctions.h or 
+ * Makefile, the functions in LoopTools library, called via LoopToolsWrapper class,
+ * are employed instead of those defined in the current class.
  */
 class PVfunctions {
 public:
 
-    PVfunctions() 
-    {};
+    /**
+     * @brief PVfunctions constructor. 
+     * @param[in] bExtraMinusSign true if adding an overall extra minus sign
+     * to A_0 and C_0, compared to the ones in LoopTools library.
+     */
+    PVfunctions(const bool bExtraMinusSign);
 
     /**
      * @brief The scalar one-point Passarino-Veltman function. 
@@ -38,7 +48,7 @@ public:
      * @param[in] m2 Mass squared.
      * @return The finite part of the scalar one-point PV function.
      */
-    double A0(const double mu2, const double m2, const bool debug) const;
+    double A0(const double mu2, const double m2) const;
     
     /**
      * @brief The scalar two-point Passarino-Veltman function.
@@ -48,7 +58,7 @@ public:
      * @return The finite part of the scalar two-point PV function.
      */
     complex B0(const double mu2, const double p2,
-               const double m02, const double m12, const bool debug) const;
+               const double m02, const double m12) const;
     
     /**
      * @brief The vector two-point Passarino-Veltman function,
@@ -58,7 +68,7 @@ public:
      * @return The finite part of the vector two-point PV function.
      */
     complex B1(const double mu2, const double p2,
-               const double m02, const double m12, const bool debug) const;
+               const double m02, const double m12) const;
     
     /**
      * @brief A tensor two-point Passarino-Veltman function.
@@ -68,7 +78,7 @@ public:
      * @return The finite part of a tensor two-point PV function B_{21}. 
      */
     complex B21(const double mu2, const double p2,
-                const double m02, const double m12, const bool debug) const;
+                const double m02, const double m12) const;
     
     /**
      * @brief A tensor two-point Passarino-Veltman function.
@@ -78,7 +88,7 @@ public:
      * @return The finite part of a tensor two-point PV function B_{22}. 
      */
     complex B22(const double mu2, const double p2,
-                const double m02, const double m12, const bool debug) const;
+                const double m02, const double m12) const;
     
     /**
      * @brief A sum of two-point Passarino-Veltman functions
@@ -88,7 +98,7 @@ public:
      * @return The finite part of a sum of two-point PV function B_f.
      */
     complex Bf(const double mu2, const double p2,
-               const double m02, const double m12, const bool debug) const;
+               const double m02, const double m12) const;
     
     /**
      * @brief The derivative of B_0.
@@ -98,7 +108,7 @@ public:
      * @return The finite part of B_{0p}.
      */
     complex B0p(const double muIR2, const double p2,
-                const double m02, const double m12, const bool debug) const;
+                const double m02, const double m12) const;
     
     /**
      * @brief The derivative of B_1.
@@ -108,7 +118,7 @@ public:
      * @return The finite part of B_{1p}. 
      */
     complex B1p(const double mu2, const double p2,
-                const double m02, const double m12, const bool debug) const;
+                const double m02, const double m12) const;
     
     /**
      * @brief The derivative of B_{21}.
@@ -118,7 +128,7 @@ public:
      * @return The finite part of B_{21p}.
      */
     complex B21p(const double mu2, const double p2,
-                 const double m02, const double m12, const bool debug) const;
+                 const double m02, const double m12) const;
 
     /**
      * @brief The derivative of B_{22}.
@@ -128,7 +138,7 @@ public:
      * @return The finite part of B_{22p}. 
      */
     complex B22p(const double mu2, const double p2,
-                 const double m02, const double m12, const bool debug) const;
+                 const double m02, const double m12) const;
     
     /**
      * @brief The derivative of B_{f}.
@@ -138,7 +148,7 @@ public:
      * @return The finite part of B_{fp}. 
      */
     complex Bfp(const double mu2, const double p2,
-                const double m02, const double m12, const bool debug) const;
+                const double m02, const double m12) const;
     
     /**
      * @brief The scalar three-point Passarino-Veltman function C_0(0,0,p2;m02,m12,m22).
@@ -147,7 +157,7 @@ public:
      * @return The scalar three-point PV function C_0(0,0,p2;m02,m12,m22).
      */
     complex C0(const double p2, 
-               const double m02, const double m12, const double m22, const bool debug) const;
+               const double m02, const double m12, const double m22) const;
     
     /**
      * @brief The scalar four-point Passarino-Veltman function D_0(0,0,0,0,s,t;m02,m12,m22,m32).
@@ -156,9 +166,10 @@ public:
      * @return The scalar four-point PV function D_0(0,0,0,0,s,t;m02,m12,m22,m32).
      */
     complex D0(const double s, const double t, const double m02, const double m12,
-               const double m22, const double m32, const bool debug) const;
+               const double m22, const double m32) const;
 
 private:
+    double ExtraMinusSign;
     Polylogarithms myPolylog;
 #ifdef USE_LOOPTOOLS
     LoopToolsWrapper myLT;

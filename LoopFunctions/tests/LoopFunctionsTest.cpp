@@ -16,19 +16,19 @@ using namespace std;
 
 int main(int argc, char** argv) {
     
-    PVfunctions PVtest;    
+    PVfunctions PVtest(true);
     LoopToolsWrapper LT;
     
     try {
     
         double Mw2 = 80.0*80.0;
-        cout << "B0p(Mw2; Mw2; Mw2,Mw2)= " << PVtest.B0p(Mw2,Mw2,Mw2,Mw2,false) << " "
+        cout << "B0p(Mw2; Mw2; Mw2,Mw2)= " << PVtest.B0p(Mw2,Mw2,Mw2,Mw2) << " "
              << LT.PV_B0p(Mw2,Mw2,Mw2,Mw2) << endl;
-        cout << "B0p(Mw2; Mw2; 0,Mw2)= " << PVtest.B0p(Mw2,Mw2,0.0,Mw2,false) << " "
+        cout << "B0p(Mw2; Mw2; 0,Mw2)= " << PVtest.B0p(Mw2,Mw2,0.0,Mw2) << " "
              << LT.PV_B0p(Mw2,Mw2,0.0,Mw2) << endl;
-        cout << "B0p(Mw2; Mw2; 0,0)= " << PVtest.B0p(Mw2,Mw2,0.0,0.0,false) << " "
+        cout << "B0p(Mw2; Mw2; 0,0)= " << PVtest.B0p(Mw2,Mw2,0.0,0.0) << " "
              << LT.PV_B0p(Mw2,Mw2,0.0,0.0) << endl;
-        cout << "B0p(Mw2; 0; Mw2,Mw2)= " << PVtest.B0p(Mw2,0.0,Mw2,Mw2,false) << " "
+        cout << "B0p(Mw2; 0; Mw2,Mw2)= " << PVtest.B0p(Mw2,0.0,Mw2,Mw2) << " "
              << LT.PV_B0p(Mw2,0.0,Mw2,Mw2) << endl;
 
         return EXIT_SUCCESS;

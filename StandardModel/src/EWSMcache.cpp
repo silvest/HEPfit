@@ -14,7 +14,7 @@
 
 
 EWSMcache::EWSMcache(const StandardModel& SM_i) 
-: SM(SM_i) 
+: SM(SM_i), PV(true)
 {
     bDebug = SM_i.isBDebug();
     
@@ -220,7 +220,7 @@ double EWSMcache::A0_Mz2_Mw2(const double Mw_i) const
     if ( CacheCheck(A0_Mz2_Mw2_cache, NumPar, params) )
         return A0_Mz2_Mw2_cache[NumPar];
     else {
-        double newResult = PV.A0(Mz2(), Mw2(Mw_i), true);
+        double newResult = PV.A0(Mz2(), Mw2(Mw_i));
         newCacheForDouble(A0_Mz2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }    
@@ -235,7 +235,7 @@ double EWSMcache::A0_Mz2_mh2() const
     if ( CacheCheck(A0_Mz2_mh2_cache, NumPar, params) )
         return A0_Mz2_mh2_cache[NumPar];
     else {
-        double newResult = PV.A0(Mz2(), mh2(), true);
+        double newResult = PV.A0(Mz2(), mh2());
         newCacheForDouble(A0_Mz2_mh2_cache, NumPar, params, newResult);
         return newResult;
     }      
@@ -250,7 +250,7 @@ double EWSMcache::A0_Mw2_Mz2(const double Mw_i) const
     if ( CacheCheck(A0_Mw2_Mz2_cache, NumPar, params) )
         return A0_Mw2_Mz2_cache[NumPar];
     else {
-        double newResult = PV.A0(Mw2(Mw_i), Mz2(), true);
+        double newResult = PV.A0(Mw2(Mw_i), Mz2());
         newCacheForDouble(A0_Mw2_Mz2_cache, NumPar, params, newResult);
         return newResult;
     }         
@@ -265,7 +265,7 @@ double EWSMcache::A0_Mw2_mh2(const double Mw_i) const
     if ( CacheCheck(A0_Mw2_mh2_cache, NumPar, params) )
         return A0_Mw2_mh2_cache[NumPar];
     else {
-        double newResult = PV.A0(Mw2(Mw_i), mh2(), true);
+        double newResult = PV.A0(Mw2(Mw_i), mh2());
         newCacheForDouble(A0_Mw2_mh2_cache, NumPar, params, newResult);
         return newResult;
     }     
@@ -280,7 +280,7 @@ double EWSMcache::A0_Mz2_Mz2() const
     if ( CacheCheck(A0_Mz2_Mz2_cache, NumPar, params) )
         return A0_Mz2_Mz2_cache[NumPar];
     else {
-        double newResult = PV.A0(Mz2(), Mz2(), true);
+        double newResult = PV.A0(Mz2(), Mz2());
         newCacheForDouble(A0_Mz2_Mz2_cache, NumPar, params, newResult);
         return newResult;
     }     
@@ -295,7 +295,7 @@ double EWSMcache::A0_Mw2_Mw2(const double Mw_i) const
     if ( CacheCheck(A0_Mw2_Mw2_cache, NumPar, params) )
         return A0_Mw2_Mw2_cache[NumPar];
     else {
-        double newResult = PV.A0(Mw2(Mw_i), Mw2(Mw_i), true);
+        double newResult = PV.A0(Mw2(Mw_i), Mw2(Mw_i));
         newCacheForDouble(A0_Mw2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }       
@@ -311,7 +311,7 @@ complex EWSMcache::B0_Mz2_Mw2_mh2_Mw2(const double Mw_i) const
         return complex(B0_Mz2_Mw2_mh2_Mw2_cache[NumPar],
                        B0_Mz2_Mw2_mh2_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0(Mz2(), Mw2(Mw_i), mh2(), Mw2(Mw_i), true);
+        complex newResult = PV.B0(Mz2(), Mw2(Mw_i), mh2(), Mw2(Mw_i));
         newCacheForComplex(B0_Mz2_Mw2_mh2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -327,7 +327,7 @@ complex EWSMcache::B0_Mz2_0_mh2_Mw2(const double Mw_i) const
         return complex(B0_Mz2_0_mh2_Mw2_cache[NumPar],
                        B0_Mz2_0_mh2_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0(Mz2(), 0.0, mh2(), Mw2(Mw_i), true);
+        complex newResult = PV.B0(Mz2(), 0.0, mh2(), Mw2(Mw_i));
         newCacheForComplex(B0_Mz2_0_mh2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -343,7 +343,7 @@ complex EWSMcache::B0_Mw2_Mz2_Mt2_Mt2(const double Mw_i) const
         return complex(B0_Mw2_Mz2_Mt2_Mt2_cache[NumPar],
                        B0_Mw2_Mz2_Mt2_Mt2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0(Mw2(Mw_i), Mz2(), Mt2(), Mt2(), true);
+        complex newResult = PV.B0(Mw2(Mw_i), Mz2(), Mt2(), Mt2());
         newCacheForComplex(B0_Mw2_Mz2_Mt2_Mt2_cache, NumPar, params, newResult);
         return newResult;
     }    
@@ -359,7 +359,7 @@ complex EWSMcache::B0_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const
         return complex(B0_Mz2_Mz2_Mw2_Mw2_cache[NumPar],
                        B0_Mz2_Mz2_Mw2_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0(Mz2(), Mz2(), Mw2(Mw_i), Mw2(Mw_i), true);
+        complex newResult = PV.B0(Mz2(), Mz2(), Mw2(Mw_i), Mw2(Mw_i));
         newCacheForComplex(B0_Mz2_Mz2_Mw2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -375,7 +375,7 @@ complex EWSMcache::B0_Mz2_Mz2_mh2_Mz2() const
         return complex(B0_Mz2_Mz2_mh2_Mz2_cache[NumPar],
                        B0_Mz2_Mz2_mh2_Mz2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0(Mz2(), Mz2(), mh2(), Mz2(), true);
+        complex newResult = PV.B0(Mz2(), Mz2(), mh2(), Mz2());
         newCacheForComplex(B0_Mz2_Mz2_mh2_Mz2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -391,7 +391,7 @@ complex EWSMcache::B0_Mz2_Mw2_Mz2_Mw2(const double Mw_i) const
         return complex(B0_Mz2_Mw2_Mz2_Mw2_cache[NumPar],
                        B0_Mz2_Mw2_Mz2_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0(Mz2(), Mw2(Mw_i), Mz2(), Mw2(Mw_i), true);
+        complex newResult = PV.B0(Mz2(), Mw2(Mw_i), Mz2(), Mw2(Mw_i));
         newCacheForComplex(B0_Mz2_Mw2_Mz2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -407,7 +407,7 @@ complex EWSMcache::B0_Mz2_Mw2_0_Mw2(const double Mw_i) const
         return complex(B0_Mz2_Mw2_0_Mw2_cache[NumPar],
                        B0_Mz2_Mw2_0_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0(Mz2(), Mw2(Mw_i), 0.0, Mw2(Mw_i), true);
+        complex newResult = PV.B0(Mz2(), Mw2(Mw_i), 0.0, Mw2(Mw_i));
         newCacheForComplex(B0_Mz2_Mw2_0_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -423,7 +423,7 @@ complex EWSMcache::B0_Mz2_0_Mz2_Mw2(const double Mw_i) const
         return complex(B0_Mz2_0_Mz2_Mw2_cache[NumPar],
                        B0_Mz2_0_Mz2_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0(Mz2(), 0.0, Mz2(), Mw2(Mw_i), true);
+        complex newResult = PV.B0(Mz2(), 0.0, Mz2(), Mw2(Mw_i));
         newCacheForComplex(B0_Mz2_0_Mz2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -439,7 +439,7 @@ complex EWSMcache::B0_Mz2_0_0_Mw2(const double Mw_i) const
         return complex(B0_Mz2_0_0_Mw2_cache[NumPar],
                        B0_Mz2_0_0_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0(Mz2(), 0.0, 0.0, Mw2(Mw_i), true);
+        complex newResult = PV.B0(Mz2(), 0.0, 0.0, Mw2(Mw_i));
         newCacheForComplex(B0_Mz2_0_0_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -455,7 +455,7 @@ complex EWSMcache::B0_Mw2_Mz2_Mw2_Mw2(const double Mw_i) const
         return complex(B0_Mw2_Mz2_Mw2_Mw2_cache[NumPar],
                        B0_Mw2_Mz2_Mw2_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0(Mw2(Mw_i), Mz2(), Mw2(Mw_i), Mw2(Mw_i), true);
+        complex newResult = PV.B0(Mw2(Mw_i), Mz2(), Mw2(Mw_i), Mw2(Mw_i));
         newCacheForComplex(B0_Mw2_Mz2_Mw2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -471,7 +471,7 @@ complex EWSMcache::B0_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const
         return complex(B0_Mw2_Mw2_Mz2_Mw2_cache[NumPar],
                        B0_Mw2_Mw2_Mz2_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0(Mw2(Mw_i), Mw2(Mw_i), Mz2(), Mw2(Mw_i), true);
+        complex newResult = PV.B0(Mw2(Mw_i), Mw2(Mw_i), Mz2(), Mw2(Mw_i));
         newCacheForComplex(B0_Mw2_Mw2_Mz2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -487,7 +487,7 @@ complex EWSMcache::B0_Mw2_Mw2_mh2_Mw2(const double Mw_i) const
         return complex(B0_Mw2_Mw2_mh2_Mw2_cache[NumPar],
                        B0_Mw2_Mw2_mh2_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0(Mw2(Mw_i), Mw2(Mw_i), mh2(), Mw2(Mw_i), true);
+        complex newResult = PV.B0(Mw2(Mw_i), Mw2(Mw_i), mh2(), Mw2(Mw_i));
         newCacheForComplex(B0_Mw2_Mw2_mh2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -503,7 +503,7 @@ complex EWSMcache::B0_Mw2_Mw2_0_Mw2(const double Mw_i) const
         return complex(B0_Mw2_Mw2_0_Mw2_cache[NumPar],
                        B0_Mw2_Mw2_0_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0(Mw2(Mw_i), Mw2(Mw_i), 0.0, Mw2(Mw_i), true);
+        complex newResult = PV.B0(Mw2(Mw_i), Mw2(Mw_i), 0.0, Mw2(Mw_i));
         newCacheForComplex(B0_Mw2_Mw2_0_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -519,7 +519,7 @@ complex EWSMcache::B0_Mz2_Mz2_ml2_ml2(const StandardModel::lepton l) const
         return complex(B0_Mz2_Mz2_ml2_ml2_cache[l][NumPar],
                        B0_Mz2_Mz2_ml2_ml2_cache[l][NumPar+1], false);
     else {
-        complex newResult = PV.B0(Mz2(), Mz2(), ml2(l), ml2(l), true);
+        complex newResult = PV.B0(Mz2(), Mz2(), ml2(l), ml2(l));
         newCacheForComplex(B0_Mz2_Mz2_ml2_ml2_cache[l], NumPar, params, newResult);
         return newResult;
     }
@@ -535,7 +535,7 @@ complex EWSMcache::B0_Mz2_Mz2_mq2_mq2(const StandardModel::quark q) const
         return complex(B0_Mz2_Mz2_mq2_mq2_cache[q][NumPar],
                        B0_Mz2_Mz2_mq2_mq2_cache[q][NumPar+1], false);
     else {
-        complex newResult = PV.B0(Mz2(), Mz2(), mq2(q, Mz()), mq2(q, Mz()), true);
+        complex newResult = PV.B0(Mz2(), Mz2(), mq2(q, Mz()), mq2(q, Mz()));
         newCacheForComplex(B0_Mz2_Mz2_mq2_mq2_cache[q], NumPar, params, newResult);
         return newResult;
     }    
@@ -551,7 +551,7 @@ complex EWSMcache::B0p_Mz2_0_mh2_Mw2(const double Mw_i) const
         return complex(B0p_Mz2_0_mh2_Mw2_cache[NumPar],
                        B0p_Mz2_0_mh2_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0p(Mz2(), 0.0, mh2(), Mw2(Mw_i), true);
+        complex newResult = PV.B0p(Mz2(), 0.0, mh2(), Mw2(Mw_i));
         newCacheForComplex(B0p_Mz2_0_mh2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -567,7 +567,7 @@ complex EWSMcache::B0p_Mz2_Mz2_mh2_Mz2() const
         return complex(B0p_Mz2_Mz2_mh2_Mz2_cache[NumPar],
                        B0p_Mz2_Mz2_mh2_Mz2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0p(Mz2(), Mz2(), mh2(), Mz2(), true);
+        complex newResult = PV.B0p(Mz2(), Mz2(), mh2(), Mz2());
         newCacheForComplex(B0p_Mz2_Mz2_mh2_Mz2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -583,7 +583,7 @@ complex EWSMcache::B0p_Mz2_0_Mz2_Mw2(const double Mw_i) const
         return complex(B0p_Mz2_0_Mz2_Mw2_cache[NumPar],
                        B0p_Mz2_0_Mz2_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0p(Mz2(), 0.0, Mz2(), Mw2(Mw_i), true);
+        complex newResult = PV.B0p(Mz2(), 0.0, Mz2(), Mw2(Mw_i));
         newCacheForComplex(B0p_Mz2_0_Mz2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -599,7 +599,7 @@ complex EWSMcache::B0p_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const
         return complex(B0p_Mz2_Mz2_Mw2_Mw2_cache[NumPar],
                        B0p_Mz2_Mz2_Mw2_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0p(Mz2(), Mz2(), Mw2(Mw_i), Mw2(Mw_i), true);
+        complex newResult = PV.B0p(Mz2(), Mz2(), Mw2(Mw_i), Mw2(Mw_i));
         newCacheForComplex(B0p_Mz2_Mz2_Mw2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -615,7 +615,7 @@ complex EWSMcache::B0p_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const
         return complex(B0p_Mw2_Mw2_Mz2_Mw2_cache[NumPar],
                        B0p_Mw2_Mw2_Mz2_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0p(Mw2(Mw_i), Mw2(Mw_i), Mz2(), Mw2(Mw_i), true);
+        complex newResult = PV.B0p(Mw2(Mw_i), Mw2(Mw_i), Mz2(), Mw2(Mw_i));
         newCacheForComplex(B0p_Mw2_Mw2_Mz2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -631,7 +631,7 @@ complex EWSMcache::B0p_Mw2_Mw2_mh2_Mw2(const double Mw_i) const
         return complex(B0p_Mw2_Mw2_mh2_Mw2_cache[NumPar],
                        B0p_Mw2_Mw2_mh2_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0p(Mw2(Mw_i), Mw2(Mw_i), mh2(), Mw2(Mw_i), true);
+        complex newResult = PV.B0p(Mw2(Mw_i), Mw2(Mw_i), mh2(), Mw2(Mw_i));
         newCacheForComplex(B0p_Mw2_Mw2_mh2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -647,7 +647,7 @@ complex EWSMcache::B0p_Mw2_Mw2_0_Mw2(const double Mw_i) const
         return complex(B0p_Mw2_Mw2_0_Mw2_cache[NumPar],
                        B0p_Mw2_Mw2_0_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.B0p(Mw2(Mw_i), Mw2(Mw_i), 0.0, Mw2(Mw_i), true);
+        complex newResult = PV.B0p(Mw2(Mw_i), Mw2(Mw_i), 0.0, Mw2(Mw_i));
         newCacheForComplex(B0p_Mw2_Mw2_0_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
@@ -663,7 +663,7 @@ complex EWSMcache::B0p_Mz2_Mz2_ml2_ml2(const StandardModel::lepton l) const
         return complex(B0p_Mz2_Mz2_ml2_ml2_cache[l][NumPar],
                        B0p_Mz2_Mz2_ml2_ml2_cache[l][NumPar+1], false);
     else {
-        complex newResult = PV.B0p(Mz2(), Mz2(), ml2(l), ml2(l), true);
+        complex newResult = PV.B0p(Mz2(), Mz2(), ml2(l), ml2(l));
         newCacheForComplex(B0p_Mz2_Mz2_ml2_ml2_cache[l], NumPar, params, newResult);
         return newResult;
     }
@@ -679,7 +679,7 @@ complex EWSMcache::B0p_Mz2_Mz2_mq2_mq2(const StandardModel::quark q) const
         return complex(B0p_Mz2_Mz2_mq2_mq2_cache[q][NumPar],
                        B0p_Mz2_Mz2_mq2_mq2_cache[q][NumPar+1], false);
     else {
-        complex newResult = PV.B0p(Mz2(), Mz2(), mq2(q, Mz()), mq2(q, Mz()), true);
+        complex newResult = PV.B0p(Mz2(), Mz2(), mq2(q, Mz()), mq2(q, Mz()));
         newCacheForComplex(B0p_Mz2_Mz2_mq2_mq2_cache[q], NumPar, params, newResult);
         return newResult;
     }    
@@ -699,7 +699,7 @@ complex EWSMcache::B1_Mz2_0_ml2_mlprime2(const int gen) const
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.B1(Mz2(), 0.0, mf2, mfprime2, true);
+        complex newResult = PV.B1(Mz2(), 0.0, mf2, mfprime2);
         newCacheForComplex(B1_Mz2_0_ml2_mlprime2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -719,7 +719,7 @@ complex EWSMcache::B1_Mz2_0_mq2_mqprime2(const int gen) const
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.B1(Mz2(), 0.0, mf2, mfprime2, true);
+        complex newResult = PV.B1(Mz2(), 0.0, mf2, mfprime2);
         newCacheForComplex(B1_Mz2_0_mq2_mqprime2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -739,7 +739,7 @@ complex EWSMcache::B1_Mz2_0_mlprime2_ml2(const int gen) const
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.B1(Mz2(), 0.0, mfprime2, mf2, true);
+        complex newResult = PV.B1(Mz2(), 0.0, mfprime2, mf2);
         newCacheForComplex(B1_Mz2_0_mlprime2_ml2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -759,7 +759,7 @@ complex EWSMcache::B1_Mz2_0_mqprime2_mq2(const int gen) const
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.B1(Mz2(), 0.0, mfprime2, mf2, true);
+        complex newResult = PV.B1(Mz2(), 0.0, mfprime2, mf2);
         newCacheForComplex(B1_Mz2_0_mqprime2_mq2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -779,7 +779,7 @@ complex EWSMcache::B1_Mz2_Mw2_ml2_mlprime2(const int gen, const double Mw_i) con
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.B1(Mz2(), Mw2(Mw_i), mf2, mfprime2, true);
+        complex newResult = PV.B1(Mz2(), Mw2(Mw_i), mf2, mfprime2);
         newCacheForComplex(B1_Mz2_Mw2_ml2_mlprime2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -799,7 +799,7 @@ complex EWSMcache::B1_Mz2_Mw2_mq2_mqprime2(const int gen, const double Mw_i) con
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.B1(Mz2(), Mw2(Mw_i), mf2, mfprime2, true);
+        complex newResult = PV.B1(Mz2(), Mw2(Mw_i), mf2, mfprime2);
         newCacheForComplex(B1_Mz2_Mw2_mq2_mqprime2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -819,7 +819,7 @@ complex EWSMcache::B1_Mz2_Mw2_mlprime2_ml2(const int gen, const double Mw_i) con
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.B1(Mz2(), Mw2(Mw_i), mfprime2, mf2, true);
+        complex newResult = PV.B1(Mz2(), Mw2(Mw_i), mfprime2, mf2);
         newCacheForComplex(B1_Mz2_Mw2_mlprime2_ml2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -839,7 +839,7 @@ complex EWSMcache::B1_Mz2_Mw2_mqprime2_mq2(const int gen, const double Mw_i) con
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.B1(Mz2(), Mw2(Mw_i), mfprime2, mf2, true);
+        complex newResult = PV.B1(Mz2(), Mw2(Mw_i), mfprime2, mf2);
         newCacheForComplex(B1_Mz2_Mw2_mqprime2_mq2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -859,7 +859,7 @@ complex EWSMcache::B1p_Mw2_Mw2_ml2_mlprime2(const int gen, const double Mw_i) co
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.B1p(Mw2(Mw_i), Mw2(Mw_i), mf2, mfprime2, true);
+        complex newResult = PV.B1p(Mw2(Mw_i), Mw2(Mw_i), mf2, mfprime2);
         newCacheForComplex(B1p_Mw2_Mw2_ml2_mlprime2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -879,7 +879,7 @@ complex EWSMcache::B1p_Mw2_Mw2_mq2_mqprime2(const int gen, const double Mw_i) co
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.B1p(Mw2(Mw_i), Mw2(Mw_i), mf2, mfprime2, true);
+        complex newResult = PV.B1p(Mw2(Mw_i), Mw2(Mw_i), mf2, mfprime2);
         newCacheForComplex(B1p_Mw2_Mw2_mq2_mqprime2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -899,7 +899,7 @@ complex EWSMcache::B1p_Mw2_Mw2_mlprime2_ml2(const int gen, const double Mw_i) co
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.B1p(Mw2(Mw_i), Mw2(Mw_i), mfprime2, mf2, true);
+        complex newResult = PV.B1p(Mw2(Mw_i), Mw2(Mw_i), mfprime2, mf2);
         newCacheForComplex(B1p_Mw2_Mw2_mlprime2_ml2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -919,7 +919,7 @@ complex EWSMcache::B1p_Mw2_Mw2_mqprime2_mq2(const int gen, const double Mw_i) co
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.B1p(Mw2(Mw_i), Mw2(Mw_i), mfprime2, mf2, true);
+        complex newResult = PV.B1p(Mw2(Mw_i), Mw2(Mw_i), mfprime2, mf2);
         newCacheForComplex(B1p_Mw2_Mw2_mqprime2_mq2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -935,7 +935,7 @@ complex EWSMcache::Bf_Mz2_Mz2_ml2_ml2(const StandardModel::lepton l) const
         return complex(Bf_Mz2_Mz2_ml2_ml2_cache[l][NumPar],
                        Bf_Mz2_Mz2_ml2_ml2_cache[l][NumPar+1], false);
     else {
-        complex newResult = PV.Bf(Mz2(), Mz2(), ml2(l), ml2(l), true);
+        complex newResult = PV.Bf(Mz2(), Mz2(), ml2(l), ml2(l));
         newCacheForComplex(Bf_Mz2_Mz2_ml2_ml2_cache[l], NumPar, params, newResult);
         return newResult;
     }
@@ -951,7 +951,7 @@ complex EWSMcache::Bf_Mz2_Mz2_mq2_mq2(const StandardModel::quark q) const
         return complex(Bf_Mz2_Mz2_mq2_mq2_cache[q][NumPar],
                        Bf_Mz2_Mz2_mq2_mq2_cache[q][NumPar+1], false);
     else {
-        complex newResult = PV.Bf(Mz2(), Mz2(), mq2(q, Mz()), mq2(q, Mz()), true);
+        complex newResult = PV.Bf(Mz2(), Mz2(), mq2(q, Mz()), mq2(q, Mz()));
         newCacheForComplex(Bf_Mz2_Mz2_mq2_mq2_cache[q], NumPar, params, newResult);
         return newResult;
     }    
@@ -969,7 +969,7 @@ complex EWSMcache::Bf_Mz2_0_ml2_ml2(const StandardModel::lepton l) const
         return complex(Bf_Mz2_0_ml2_ml2_cache[l][NumPar],
                        Bf_Mz2_0_ml2_ml2_cache[l][NumPar+1], false);
     else {
-        complex newResult = PV.Bf(Mz2(), 0.0, ml2(l), ml2(l), true);
+        complex newResult = PV.Bf(Mz2(), 0.0, ml2(l), ml2(l));
             newCacheForComplex(Bf_Mz2_0_ml2_ml2_cache[l], NumPar, params, newResult);
             return newResult;
     }
@@ -987,7 +987,7 @@ complex EWSMcache::Bf_Mz2_0_mq2_mq2(const StandardModel::quark q) const
         return complex(Bf_Mz2_0_mq2_mq2_cache[q][NumPar],
                        Bf_Mz2_0_mq2_mq2_cache[q][NumPar+1], false);
     else {
-        complex newResult = PV.Bf(Mz2(), 0.0, mq2(q, Mz()), mq2(q, Mz()), true);
+        complex newResult = PV.Bf(Mz2(), 0.0, mq2(q, Mz()), mq2(q, Mz()));
         newCacheForComplex(Bf_Mz2_0_mq2_mq2_cache[q], NumPar, params, newResult);
         return newResult;
     }    
@@ -1007,7 +1007,7 @@ complex EWSMcache::Bf_Mz2_Mw2_mlprime2_ml2(const int gen, const double Mw_i) con
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.Bf(Mz2(), Mw2(Mw_i), mfprime2, mf2, true);
+        complex newResult = PV.Bf(Mz2(), Mw2(Mw_i), mfprime2, mf2);
         newCacheForComplex(Bf_Mz2_Mw2_mlprime2_ml2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1027,7 +1027,7 @@ complex EWSMcache::Bf_Mz2_Mw2_mqprime2_mq2(const int gen, const double Mw_i) con
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.Bf(Mz2(), Mw2(Mw_i), mfprime2, mf2, true);
+        complex newResult = PV.Bf(Mz2(), Mw2(Mw_i), mfprime2, mf2);
         newCacheForComplex(Bf_Mz2_Mw2_mqprime2_mq2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1047,7 +1047,7 @@ complex EWSMcache::Bf_Mz2_0_mlprime2_ml2(const int gen) const
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.Bf(Mz2(), 0.0, mfprime2, mf2, true);
+        complex newResult = PV.Bf(Mz2(), 0.0, mfprime2, mf2);
         newCacheForComplex(Bf_Mz2_0_mlprime2_ml2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1067,7 +1067,7 @@ complex EWSMcache::Bf_Mz2_0_mqprime2_mq2(const int gen) const
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.Bf(Mz2(), 0.0, mfprime2, mf2, true);
+        complex newResult = PV.Bf(Mz2(), 0.0, mfprime2, mf2);
         newCacheForComplex(Bf_Mz2_0_mqprime2_mq2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1087,7 +1087,7 @@ complex EWSMcache::Bf_Mw2_Mw2_mlprime2_ml2(const int gen, const double Mw_i) con
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.Bf(Mw2(Mw_i), Mw2(Mw_i), mfprime2, mf2, true);
+        complex newResult = PV.Bf(Mw2(Mw_i), Mw2(Mw_i), mfprime2, mf2);
         newCacheForComplex(Bf_Mw2_Mw2_mlprime2_ml2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1107,7 +1107,7 @@ complex EWSMcache::Bf_Mw2_Mw2_mqprime2_mq2(const int gen, const double Mw_i) con
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.Bf(Mw2(Mw_i), Mw2(Mw_i), mfprime2, mf2, true);
+        complex newResult = PV.Bf(Mw2(Mw_i), Mw2(Mw_i), mfprime2, mf2);
         newCacheForComplex(Bf_Mw2_Mw2_mqprime2_mq2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1123,7 +1123,7 @@ complex EWSMcache::Bfp_Mz2_Mz2_ml2_ml2(const StandardModel::lepton l) const
         return complex(Bfp_Mz2_Mz2_ml2_ml2_cache[l][NumPar],
                        Bfp_Mz2_Mz2_ml2_ml2_cache[l][NumPar+1], false);
     else {
-        complex newResult = PV.Bfp(Mz2(), Mz2(), ml2(l), ml2(l), true);
+        complex newResult = PV.Bfp(Mz2(), Mz2(), ml2(l), ml2(l));
         newCacheForComplex(Bfp_Mz2_Mz2_ml2_ml2_cache[l], NumPar, params, newResult);
         return newResult;
     }
@@ -1139,7 +1139,7 @@ complex EWSMcache::Bfp_Mz2_Mz2_mq2_mq2(const StandardModel::quark q) const
         return complex(Bfp_Mz2_Mz2_mq2_mq2_cache[q][NumPar],
                        Bfp_Mz2_Mz2_mq2_mq2_cache[q][NumPar+1], false);
     else {
-        complex newResult = PV.Bfp(Mz2(), Mz2(), mq2(q, Mz()), mq2(q, Mz()), true);
+        complex newResult = PV.Bfp(Mz2(), Mz2(), mq2(q, Mz()), mq2(q, Mz()));
         newCacheForComplex(Bfp_Mz2_Mz2_mq2_mq2_cache[q], NumPar, params, newResult);
         return newResult;
     }    
@@ -1159,7 +1159,7 @@ complex EWSMcache::Bfp_Mw2_Mw2_mlprime2_ml2(const int gen, const double Mw_i) co
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.Bfp(Mw2(Mw_i), Mw2(Mw_i), mfprime2, mf2, true);
+        complex newResult = PV.Bfp(Mw2(Mw_i), Mw2(Mw_i), mfprime2, mf2);
         newCacheForComplex(Bfp_Mw2_Mw2_mlprime2_ml2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1179,7 +1179,7 @@ complex EWSMcache::Bfp_Mw2_Mw2_mqprime2_mq2(const int gen, const double Mw_i) co
     else {
         double mf2 = mf*mf;
         double mfprime2 = mfprime*mfprime;
-        complex newResult = PV.Bfp(Mw2(Mw_i), Mw2(Mw_i), mfprime2, mf2, true);
+        complex newResult = PV.Bfp(Mw2(Mw_i), Mw2(Mw_i), mfprime2, mf2);
         newCacheForComplex(Bfp_Mw2_Mw2_mqprime2_mq2_cache[gen], NumPar, params, newResult);
         return newResult;
     } 
@@ -1195,7 +1195,7 @@ complex EWSMcache::C0_Mz2_Mw2_Mt2_Mw2(const double Mw_i) const
         return complex(C0_Mz2_Mw2_Mt2_Mw2_cache[NumPar],
                        C0_Mz2_Mw2_Mt2_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.C0(Mz2(), Mw2(Mw_i), Mt2(), Mw2(Mw_i), true);
+        complex newResult = PV.C0(Mz2(), Mw2(Mw_i), Mt2(), Mw2(Mw_i));
         newCacheForComplex(C0_Mz2_Mw2_Mt2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -1211,7 +1211,7 @@ complex EWSMcache::C0_Mz2_Mt2_Mw2_Mt2(const double Mw_i) const
         return complex(C0_Mz2_Mt2_Mw2_Mt2_cache[NumPar],
                        C0_Mz2_Mt2_Mw2_Mt2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.C0(Mz2(), Mt2(), Mw2(Mw_i), Mt2(), true);
+        complex newResult = PV.C0(Mz2(), Mt2(), Mw2(Mw_i), Mt2());
         newCacheForComplex(C0_Mz2_Mt2_Mw2_Mt2_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -1227,7 +1227,7 @@ complex EWSMcache::C0_Mz2_0_Mw2_0(const double Mw_i) const
         return complex(C0_Mz2_0_Mw2_0_cache[NumPar],
                        C0_Mz2_0_Mw2_0_cache[NumPar+1], false);
     else {
-        complex newResult = PV.C0(Mz2(), 0.0, Mw2(Mw_i), 0.0, true);
+        complex newResult = PV.C0(Mz2(), 0.0, Mw2(Mw_i), 0.0);
         newCacheForComplex(C0_Mz2_0_Mw2_0_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -1243,7 +1243,7 @@ complex EWSMcache::C0_Mz2_Mw2_0_Mw2(const double Mw_i) const
         return complex(C0_Mz2_Mw2_0_Mw2_cache[NumPar],
                        C0_Mz2_Mw2_0_Mw2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.C0(Mz2(), Mw2(Mw_i), 0.0, Mw2(Mw_i), true);
+        complex newResult = PV.C0(Mz2(), Mw2(Mw_i), 0.0, Mw2(Mw_i));
         newCacheForComplex(C0_Mz2_Mw2_0_Mw2_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -1259,7 +1259,7 @@ complex EWSMcache::C0_Mw2_Mw2_0_Mz2(const double Mw_i) const
         return complex(C0_Mw2_Mw2_0_Mz2_cache[NumPar],
                        C0_Mw2_Mw2_0_Mz2_cache[NumPar+1], false);
     else {
-        complex newResult = PV.C0(Mw2(Mw_i), Mw2(Mw_i), 0.0, Mz2(), true);
+        complex newResult = PV.C0(Mw2(Mw_i), Mw2(Mw_i), 0.0, Mz2());
         newCacheForComplex(C0_Mw2_Mw2_0_Mz2_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -1275,7 +1275,7 @@ complex EWSMcache::C0_Mw2_0_Mz2_0(const double Mw_i) const
         return complex(C0_Mw2_0_Mz2_0_cache[NumPar],
                        C0_Mw2_0_Mz2_0_cache[NumPar+1], false);
     else {
-        complex newResult = PV.C0(Mw2(Mw_i), 0.0, Mz2(), 0.0, true);
+        complex newResult = PV.C0(Mw2(Mw_i), 0.0, Mz2(), 0.0);
         newCacheForComplex(C0_Mw2_0_Mz2_0_cache, NumPar, params, newResult);
         return newResult;
     } 
@@ -1291,7 +1291,7 @@ complex EWSMcache::C0_Mz2_0_Mz2_0() const
         return complex(C0_Mz2_0_Mz2_0_cache[NumPar],
                        C0_Mz2_0_Mz2_0_cache[NumPar+1], false);
     else {
-        complex newResult = PV.C0(Mz2(), 0.0, Mz2(), 0.0, true);
+        complex newResult = PV.C0(Mz2(), 0.0, Mz2(), 0.0);
         newCacheForComplex(C0_Mz2_0_Mz2_0_cache, NumPar, params, newResult);
         return newResult;
     } 

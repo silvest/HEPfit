@@ -12,7 +12,7 @@
 
 
 EWSMOneLoopEW_HV::EWSMOneLoopEW_HV(const StandardModel& SM_i) 
-: SM(SM_i) 
+: SM(SM_i), PV(true)
 {
 }
 
@@ -34,12 +34,12 @@ complex EWSMOneLoopEW_HV::SigmaWW_bos(const double mu, const double s,
         throw std::runtime_error("Missing codes for EWSMOneLoopEW_HV::SigmaWW_bos(s=0)");         
     } else {
         /* Loop functions */
-        double A0_Mw2 = PV.A0(mu*mu, Mw2, true);
-        double A0_mh2 = PV.A0(mu*mu, mh2, true);
-        double A0_Mz2 = PV.A0(mu*mu, Mz2, true);
-        complex B0_s_Mw2_Mz2 = PV.B0(mu*mu, s, Mw2, Mz2, true);
-        complex B0_s_mh2_Mw2 = PV.B0(mu*mu, s, mh2, Mw2, true);
-        complex B0_s_0_Mw2 = PV.B0(mu*mu, s, 0.0, Mw2, true);
+        double A0_Mw2 = PV.A0(mu*mu, Mw2);
+        double A0_mh2 = PV.A0(mu*mu, mh2);
+        double A0_Mz2 = PV.A0(mu*mu, Mz2);
+        complex B0_s_Mw2_Mz2 = PV.B0(mu*mu, s, Mw2, Mz2);
+        complex B0_s_mh2_Mw2 = PV.B0(mu*mu, s, mh2, Mw2);
+        complex B0_s_0_Mw2 = PV.B0(mu*mu, s, 0.0, Mw2);
 
         Sigma = Mw2/12.0
                 *( - (sW4/cW4*(1.0 + 8.0*cW2)/w - 10.0/cW2 + 54.0 
@@ -77,12 +77,12 @@ complex EWSMOneLoopEW_HV::SigmaWW_fer(const double mu, const double muForMq,
         complex B1_s_mlprime2_ml2[3], B1_s_mqprime2_mq2[3];
         complex Bf_s_mlprime2_ml2[3], Bf_s_mqprime2_mq2[3];
         for (int gen=0; gen<3; gen++) {
-            B1_s_ml2_mlprime2[gen] = PV.B1(mu*mu,s,ml2[2*gen],ml2[2*gen+1], true);
-            B1_s_mq2_mqprime2[gen] = PV.B1(mu*mu,s,mq2[2*gen],mq2[2*gen+1], true);
-            B1_s_mlprime2_ml2[gen] = PV.B1(mu*mu,s,ml2[2*gen+1],ml2[2*gen], true);
-            B1_s_mqprime2_mq2[gen] = PV.B1(mu*mu,s,mq2[2*gen+1],mq2[2*gen], true);
-            Bf_s_mlprime2_ml2[gen] = PV.Bf(mu*mu,s,ml2[2*gen+1],ml2[2*gen], true);
-            Bf_s_mqprime2_mq2[gen] = PV.Bf(mu*mu,s,mq2[2*gen+1],mq2[2*gen], true);
+            B1_s_ml2_mlprime2[gen] = PV.B1(mu*mu,s,ml2[2*gen],ml2[2*gen+1]);
+            B1_s_mq2_mqprime2[gen] = PV.B1(mu*mu,s,mq2[2*gen],mq2[2*gen+1]);
+            B1_s_mlprime2_ml2[gen] = PV.B1(mu*mu,s,ml2[2*gen+1],ml2[2*gen]);
+            B1_s_mqprime2_mq2[gen] = PV.B1(mu*mu,s,mq2[2*gen+1],mq2[2*gen]);
+            Bf_s_mlprime2_ml2[gen] = PV.Bf(mu*mu,s,ml2[2*gen+1],ml2[2*gen]);
+            Bf_s_mqprime2_mq2[gen] = PV.Bf(mu*mu,s,mq2[2*gen+1],mq2[2*gen]);
         }
     
         double mf2, mfprime2;
@@ -116,11 +116,11 @@ complex EWSMOneLoopEW_HV::SigmaZZ_bos(const double mu, const double s,
         throw std::runtime_error("Missing codes for EWSMOneLoopEW_HV::SigmaZZ_bos(s=0)");         
     } else {
         /* Loop functions */
-        double A0_Mw2 = PV.A0(mu*mu, Mw2, true);
-        double A0_mh2 = PV.A0(mu*mu, mh2, true);
-        double A0_Mz2 = PV.A0(mu*mu, Mz2, true);
-        complex B0_s_Mw2_Mw2 = PV.B0(mu*mu, s, Mw2, Mw2, true);
-        complex B0_s_mh2_Mz2 = PV.B0(mu*mu, s, mh2, Mz2, true);
+        double A0_Mw2 = PV.A0(mu*mu, Mw2);
+        double A0_mh2 = PV.A0(mu*mu, mh2);
+        double A0_Mz2 = PV.A0(mu*mu, Mz2);
+        complex B0_s_Mw2_Mw2 = PV.B0(mu*mu, s, Mw2, Mw2);
+        complex B0_s_mh2_Mz2 = PV.B0(mu*mu, s, mh2, Mz2);
         
         Sigma = Mz2/12.0
                 *( (4.0*cW2*(5.0 - 8.0*cW2 - 12.0*cW4) 
@@ -155,10 +155,10 @@ complex EWSMOneLoopEW_HV::SigmaZZ_fer(const double mu, const double muForMq,
         complex Bf_s_ml2_ml2[6], Bf_s_mq2_mq2[6];
         complex B0_s_ml2_ml2[6], B0_s_mq2_mq2[6];
         for (int i=0; i<6; i++) {
-            Bf_s_ml2_ml2[i] = PV.Bf(mu*mu,s,ml2[i],ml2[i], true);
-            Bf_s_mq2_mq2[i] = PV.Bf(mu*mu,s,mq2[i],mq2[i], true);
-            B0_s_ml2_ml2[i] = PV.B0(mu*mu,s,ml2[i],ml2[i], true);
-            B0_s_mq2_mq2[i] = PV.B0(mu*mu,s,mq2[i],mq2[i], true);
+            Bf_s_ml2_ml2[i] = PV.Bf(mu*mu,s,ml2[i],ml2[i]);
+            Bf_s_mq2_mq2[i] = PV.Bf(mu*mu,s,mq2[i],mq2[i]);
+            B0_s_ml2_ml2[i] = PV.B0(mu*mu,s,ml2[i],ml2[i]);
+            B0_s_mq2_mq2[i] = PV.B0(mu*mu,s,mq2[i],mq2[i]);
         }
 
         double mf2, vf2, af2;
@@ -205,8 +205,8 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_bos(const double mu, const double s,
         Pi = 3.0*log(Mw2/mu/mu) - 2.0/3.0;
     } else {
         /* Loop functions */
-        double A0_Mw2 = PV.A0(mu*mu, Mw2, true);
-        complex B0_s_Mw2_Mw2 = PV.B0(mu*mu, s, Mw2, Mw2, true);
+        double A0_Mw2 = PV.A0(mu*mu, Mw2);
+        complex B0_s_Mw2_Mw2 = PV.B0(mu*mu, s, Mw2, Mw2);
 
         Pi = - Mw2/s*( (4.0 - 3.0*w)*B0_s_Mw2_Mw2 + 4.0*(A0_Mw2/Mw2 + 1.0) );
     }
@@ -230,7 +230,7 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_fer_l(const double mu, const double s,
     if (mf==0.0)
         Bf_s_mf2_mf2 = 0.0;
     else 
-        Bf_s_mf2_mf2 = PV.Bf(mu*mu,s,mf*mf,mf*mf, true);
+        Bf_s_mf2_mf2 = PV.Bf(mu*mu,s,mf*mf,mf*mf);
     
     return ( - 4.0*Qf*Qf*Bf_s_mf2_mf2 );
 }
@@ -247,7 +247,7 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_fer_q(const double mu, const double muFor
     if (mf==0.0)
         Bf_s_mf2_mf2 = 0.0;
     else 
-        Bf_s_mf2_mf2 = PV.Bf(mu*mu,s,mf*mf,mf*mf, true);
+        Bf_s_mf2_mf2 = PV.Bf(mu*mu,s,mf*mf,mf*mf);
     
     return ( - 4.0*3.0*Qf*Qf*Bf_s_mf2_mf2 );
 }
@@ -278,8 +278,8 @@ complex EWSMOneLoopEW_HV::SigmaZgamma_bos(const double mu, const double s,
         Sigma = 2.0*Mw2*log(Mw2/mu/mu);
     } else {
         /* Loop functions */
-        double A0_Mw2 = PV.A0(mu*mu, Mw2, true);
-        complex B0_s_Mw2_Mw2 = PV.B0(mu*mu, s, Mw2, Mw2, true);
+        double A0_Mw2 = PV.A0(mu*mu, Mw2);
+        complex B0_s_Mw2_Mw2 = PV.B0(mu*mu, s, Mw2, Mw2);
         
         Sigma = (4.0*(1.0/3.0 + cW2)/w - 1.0/6.0 - 3.0*cW2)*s*B0_s_Mw2_Mw2
                 + (2.0/3.0 - 4.0*cW2)*Mw2*(A0_Mw2/Mw2 + 1.0) - s/9.0;
@@ -308,8 +308,8 @@ complex EWSMOneLoopEW_HV::SigmaZgamma_fer(const double mu, const double muForMq,
         if (i==0 || i==2 || i==4 )
             Bf_s_ml2_ml2[i] = 0.0; // Neutrinos do not contribute, since Ql=0.
         else
-            Bf_s_ml2_ml2[i] = PV.Bf(mu*mu,s,ml2[i],ml2[i], true);
-        Bf_s_mq2_mq2[i] = PV.Bf(mu*mu,s,mq2[i],mq2[i], true);
+            Bf_s_ml2_ml2[i] = PV.Bf(mu*mu,s,ml2[i],ml2[i]);
+        Bf_s_mq2_mq2[i] = PV.Bf(mu*mu,s,mq2[i],mq2[i]);
     }
 
     complex Pi(0.0,0.0,false);
@@ -335,14 +335,14 @@ complex EWSMOneLoopEW_HV::F_Hollik(const double s, const double m1,
     
     if (m1!=0.0 && m2!=0.0) {
         if (m1==m2)
-            return ( PV.B0(mu*mu,s,m12,m12, true) + log(m1*m1/mu/mu) );
+            return ( PV.B0(mu*mu,s,m12,m12) + log(m1*m1/mu/mu) );
         else 
-            return ( PV.B0(mu*mu,s,m12,m22, true) + log(m1*m2/mu/mu) - 1.0
+            return ( PV.B0(mu*mu,s,m12,m22) + log(m1*m2/mu/mu) - 1.0
                      + (m12 + m22)/(m12 - m22)*log(m1/m2) );
     } else if (m1==0.0 && m2!=0.0)  
-        return ( PV.B0(mu*mu,s,0.0,m22, true) + log(m2*m2/mu/mu) - 1.0 );
+        return ( PV.B0(mu*mu,s,0.0,m22) + log(m2*m2/mu/mu) - 1.0 );
     else if (m1!=0.0 && m2==0.0)  
-        return ( PV.B0(mu*mu,s,m12,0.0, true) + log(m1*m1/mu/mu) - 1.0 );
+        return ( PV.B0(mu*mu,s,m12,0.0) + log(m1*m1/mu/mu) - 1.0 );
 
     else
         throw std::runtime_error("Missing cases in EWSMOneLoopEW_HV::F_Hollik()");
@@ -352,7 +352,7 @@ complex EWSMOneLoopEW_HV::F_Hollik(const double s, const double m1,
 complex EWSMOneLoopEW_HV::Fprime_Hollik(const double muIR, const double s, 
                                         const double m1, const double m2) const
 {
-    return ( PV.B0p(muIR*muIR,s,m1*m1,m2*m2, true) );
+    return ( PV.B0p(muIR*muIR,s,m1*m1,m2*m2) );
 }
 
 
