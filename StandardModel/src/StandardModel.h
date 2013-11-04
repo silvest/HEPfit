@@ -56,21 +56,14 @@ class EWSM; // forward reference to EWSM class
  * Flags:
  * \li \b FixedSMparams:&nbsp; true if all the SM parameters are fixed to constants in the fit.
  * Flags for the EW precision observables (see EW.h for detail):
- * \li \b EWCHMN:&nbsp; use EW_CHMN class
- * \li \b EWABC:&nbsp; use EW_ABC class based on the formulae in Eqs.(7)-(14)
- * of IJMP, A7, 1031-1058 (1998) by Altarelli et al.
- * \li \b EWABC2:&nbsp; use use the approximate formulae in Eqs.(16)-(20) of
- * IJMP, A7, 1031-1058 (1998) by Altarelli et al.
- * \li \b EWBURGESS:&nbsp; use the formulae for STU contributions by Burgess et al.
  * \li \b WithoutNonUniversalVC:&nbsp;
  * \li \b NotLinearizedNP:&nbsp;
  * \li \b ApproximateGqOverGb:&nbsp;
+ * \li \b ApproximateGammaZ:&nbsp;
+ * \li \b ApproximateSigmaH:&nbsp;
  * \li \b RhoZbFromGuOverGb:&nbsp;
  * \li \b RhoZbFromGdOverGb:&nbsp;
  * \li \b TestSubleadingTwoLoopEW:&nbsp;
- *
- * \li \b R0bApproximate (obsolete):&nbsp; use the two-loop approximate formula for R_b in
- * [<A HREF="http://inspirehep.net/record/1113324?ln=en">Freitas et al.(2012)</A>],
  *
  */
 class StandardModel: public QCD {
@@ -90,7 +83,7 @@ public:
 
     static const int NSMvars = 27;
     static const std::string SMvars[NSMvars];
-    static const int NSMflags = 13;
+    static const int NSMflags = 10;
     static const std::string SMflags[NSMflags];
 
     /**
@@ -127,26 +120,6 @@ public:
     bool IsFlagFixedAllSMparams() const
     {
         return FlagFixedAllSMparams;
-    }
-
-    bool IsFlagEWCHMN() const
-    {
-        return FlagEWCHMN;
-    }
-
-    bool IsFlagEWABC() const
-    {
-        return FlagEWABC;
-    }
-
-    bool IsFlagEWABC2() const
-    {
-        return FlagEWABC2;
-    }
-
-    bool IsFlagEWBURGESS() const
-    {
-        return FlagEWBURGESS;
     }
 
     bool IsFlagWithoutNonUniversalVC() const
@@ -836,10 +809,6 @@ protected:
 private:
     bool bDebug; // for debugging
     bool FlagFixedAllSMparams;
-    bool FlagEWCHMN;
-    bool FlagEWABC;
-    bool FlagEWABC2;
-    bool FlagEWBURGESS;
     bool FlagWithoutNonUniversalVC;
     bool FlagNotLinearizedNP;
     bool FlagApproximateGqOverGb;

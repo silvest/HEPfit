@@ -11,6 +11,8 @@
 #include <cmath>
 #include <stdexcept>
 #include <EWSM.h>
+#include <NPEpsilons.h>
+#include <NPSTU.h>
 #include "EW.h"
 
 
@@ -25,42 +27,42 @@ EW::EW(const StandardModel& SM_i)
 
 EW::EWTYPE EW::getEWTYPE() const 
 {
-    if ( SM.IsFlagEWABC() && SM.IsFlagEWABC2() ) 
-        throw std::runtime_error("ERROR: Flags EWABC and EWABC2 cannot be set to true simultaneously");
-    if ( SM.IsFlagEWBURGESS() && SM.IsFlagEWCHMN() ) 
-        throw std::runtime_error("ERROR: Flags EWBURGESS and EWCHMN cannot be set to true simultaneously");
-    if ( SM.IsFlagEWABC() && SM.IsFlagEWCHMN() ) 
-        throw std::runtime_error("ERROR: Flags EWABC and EWCHMN cannot be set to true simultaneously");
-    if ( SM.IsFlagEWABC2() && SM.IsFlagEWCHMN() ) 
-        throw std::runtime_error("ERROR: Flags EWABC2 and EWCHMN cannot be set to true simultaneously");
-    if ( SM.IsFlagEWABC() && SM.IsFlagEWBURGESS() ) 
-        throw std::runtime_error("ERROR: Flags EWABC and EWBURGESS cannot be set to true simultaneously");
-    if ( SM.IsFlagEWABC2() && SM.IsFlagEWBURGESS() ) 
-        throw std::runtime_error("ERROR: Flags EWABC2 and EWBURGESS cannot be set to true simultaneously");
-
     if ( !SM.IsFlagApproximateGqOverGb() && SM.IsFlagRhoZbFromGuOverGb())
-        throw std::runtime_error("ERROR: Flag RhoZbFromGuOverGb=true has to be used together with ApproximateGqOverGb=true");
+        throw std::runtime_error("ERROR: Flag RhoZbFromGuOverGb=true has to be used together with ApproximateGqOverGb=true.");
     if ( !SM.IsFlagApproximateGqOverGb() && SM.IsFlagRhoZbFromGdOverGb())
-        throw std::runtime_error("ERROR: Flag RhoZbFromGdOverGb=true has to be used together with ApproximateGqOverGb=true");
+        throw std::runtime_error("ERROR: Flag RhoZbFromGdOverGb=true has to be used together with ApproximateGqOverGb=true.");
     if ( SM.IsFlagRhoZbFromGuOverGb() && SM.IsFlagRhoZbFromGdOverGb())
-        throw std::runtime_error("ERROR: Flags RhoZbFromGuOverGb and RhoZbFromGdOverGb cannot be set to true simultaneously");
+        throw std::runtime_error("ERROR: Flags RhoZbFromGuOverGb and RhoZbFromGdOverGb cannot be set to true simultaneously.");
     if ( !SM.IsFlagApproximateGqOverGb() && SM.IsFlagTestSubleadingTwoLoopEW())
-        throw std::runtime_error("ERROR: Flag TestSubleadingTwoLoopEW=true has to be used together with ApproximateGqOverGb=true");
+        throw std::runtime_error("ERROR: Flag TestSubleadingTwoLoopEW=true has to be used together with ApproximateGqOverGb=true.");
     if ( SM.IsFlagTestSubleadingTwoLoopEW() && SM.IsFlagRhoZbFromGuOverGb())
-        throw std::runtime_error("ERROR: Flags TestSubleadingTwoLoopEW and RhoZbFromGuOverGb cannot be set to true simultaneously");
+        throw std::runtime_error("ERROR: Flags TestSubleadingTwoLoopEW and RhoZbFromGuOverGb cannot be set to true simultaneously.");
     if ( SM.IsFlagTestSubleadingTwoLoopEW() && SM.IsFlagRhoZbFromGdOverGb())
-        throw std::runtime_error("ERROR: Flags TestSubleadingTwoLoopEW and RhoZbFromGdOverGb cannot be set to true simultaneously");
+        throw std::runtime_error("ERROR: Flags TestSubleadingTwoLoopEW and RhoZbFromGdOverGb cannot be set to true simultaneously.");
     
     if ( SM.ModelName()=="NPEpsilons" && SM.IsFlagApproximateGqOverGb()
             && !SM.IsFlagRhoZbFromGuOverGb() && !SM.IsFlagRhoZbFromGdOverGb()
             && !SM.IsFlagTestSubleadingTwoLoopEW())
-        throw std::runtime_error("ERROR: The current flags cannot be used with NPEpsilons model");
+        throw std::runtime_error("ERROR: The current flags cannot be used with NPEpsilons model.");
 
-    if ( SM.IsFlagEWBURGESS() ) return EWBURGESS;
-    else if ( SM.IsFlagEWCHMN() ) return EWCHMN;
-    else if ( SM.IsFlagEWABC() ) return EWABC;
-    else if ( SM.IsFlagEWABC2() ) return EWABC2;
-    else return EWDEFAULT;
+    if (SM.ModelName()=="NPSTU") {
+        bool bEWBURGESS = (static_cast<const NPSTU*> (&SM))->IsFlagEWBURGESS();
+        bool bEWCHMN = (static_cast<const NPSTU*> (&SM))->IsFlagEWCHMN();
+        if ( bEWBURGESS && bEWCHMN )
+            throw std::runtime_error("ERROR: Flags EWBURGESS and EWCHMN cannot be set to true simultaneously");
+        if ( bEWBURGESS ) return EWBURGESS;
+        else if ( bEWCHMN ) return EWCHMN;
+        else return EWDEFAULT;
+    } else if (SM.ModelName()=="NPEpsilons") {
+        bool bEWABC = (static_cast<const NPEpsilons*> (&SM))->IsFlagEWABC();
+        bool bEWABC2 = (static_cast<const NPEpsilons*> (&SM))->IsFlagEWABC2();
+        if ( bEWABC && bEWABC2 )
+            throw std::runtime_error("ERROR: Flags EWABC and EWABC2 cannot be set to true simultaneously");
+        if ( bEWABC ) return EWABC;
+        else if ( bEWABC2 ) return EWABC2;
+        else return EWDEFAULT;
+    } else
+        return EWDEFAULT;
 }
 
 

@@ -9,7 +9,7 @@
 #define	NPSTU_H
 
 #include <EW_BURGESS.h>
-#include "NPZbbbar.h"
+#include "StandardModel.h"
 
 /**
  * @class NPSTU
@@ -19,10 +19,12 @@
  * @copyright GNU General Public License
  * @details  
  */
-class NPSTU : public NPZbbbar {
+class NPSTU : public StandardModel {
 public:
     static const int NSTUvars = 3;
     static const std::string STUvars[NSTUvars];
+    static const int NSTUflags = 2;
+    static const std::string STUflags[NSTUflags];
     
     /**
      * @brief NPSTU constructor.
@@ -43,8 +45,19 @@ public:
 
     virtual bool SetFlag(const std::string, const bool&); 
 
+    ////////////////////////////////////////////////////////////////////////
+
+    bool IsFlagEWCHMN() const
+    {
+        return FlagEWCHMN;
+    }
     
-    ////////////////////////////////////////////////////////////////////////     
+    bool IsFlagEWBURGESS() const
+    {
+        return FlagEWBURGESS;
+    }
+
+    ////////////////////////////////////////////////////////////////////////
 
     /**
      * @return Oblique parameter S.
@@ -115,6 +128,8 @@ protected:
     ////////////////////////////////////////////////////////////////////////     
     
 private:
+    bool FlagEWCHMN;
+    bool FlagEWBURGESS;
     const EW_BURGESS myEW_BURGESS;
     
 };

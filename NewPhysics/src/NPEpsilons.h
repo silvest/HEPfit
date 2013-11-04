@@ -18,12 +18,18 @@
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details  
+ *
+ * Flags:
+ * \li \b EWABC:&nbsp; use EW_ABC class based on the formulae in Eqs.(7)-(14)
+ * of IJMP, A7, 1031-1058 (1998) by Altarelli et al.
+ * \li \b EWABC2:&nbsp; use use the approximate formulae in Eqs.(16)-(20) of
+ * IJMP, A7, 1031-1058 (1998) by Altarelli et al.
  */
 class NPEpsilons : public StandardModel  {
 public:
     static const int NEPSILONvars = 4;
     static const std::string EPSILONvars[NEPSILONvars];
-    static const int NEPSILONflags = 4;
+    static const int NEPSILONflags = 6;
     static const std::string EPSILONflags[NEPSILONflags];
     
     /**
@@ -46,7 +52,20 @@ public:
     virtual bool SetFlag(const std::string, const bool&); 
     
     
-    ////////////////////////////////////////////////////////////////////////     
+    ////////////////////////////////////////////////////////////////////////
+
+    bool IsFlagEWABC() const
+    {
+        return FlagEWABC;
+    }
+
+    bool IsFlagEWABC2() const
+    {
+        return FlagEWABC2;
+    }
+
+    
+    ////////////////////////////////////////////////////////////////////////
 
     virtual double epsilon1() const 
     {
@@ -171,6 +190,7 @@ protected:
     
 private:
     bool FlagEpsilon1SM, FlagEpsilon2SM, FlagEpsilon3SM, FlagEpsilonbSM;
+    bool FlagEWABC, FlagEWABC2;
     EWepsilons* myEWepsilons;
     
 };

@@ -15,7 +15,7 @@ const std::string NPSTUVWXY::STUVWXYvars[NSTUVWXYvars]
 
 
 NPSTUVWXY::NPSTUVWXY()
-: NPZbbbar() 
+: StandardModel()
 {
 }
 
@@ -24,7 +24,7 @@ bool NPSTUVWXY::Update(const std::map<std::string,double>& DPars)
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameters(it->first, it->second);
-    if(!NPZbbbar::Update(DPars)) return (false);
+    if(!StandardModel::Update(DPars)) return (false);
 
     return (true);
 }
@@ -46,7 +46,7 @@ bool NPSTUVWXY::CheckParameters(const std::map<std::string, double>& DPars)
             return false;
         }
     }
-    return(NPZbbbar::CheckParameters(DPars));
+    return(StandardModel::CheckParameters(DPars));
 }
 
     
@@ -67,13 +67,13 @@ void NPSTUVWXY::setParameters(const std::string name, const double& value)
     else if (name.compare("obliqueY") == 0)
         myObliqueY = value;    
     else
-        NPZbbbar::setParameters(name, value);       
+        StandardModel::setParameters(name, value);
 }
 
 
 bool NPSTUVWXY::InitializeModel() 
 {
-    setModelInitialized(NPZbbbar::InitializeModel());
+    setModelInitialized(StandardModel::InitializeModel());
     return (IsModelInitialized());
 }
 
@@ -92,7 +92,7 @@ bool NPSTUVWXY::SetFlag(const std::string name, const bool& value)
     else if (name.compare("EWABC2") == 0)
         throw std::runtime_error("ERROR: Flag EWABC2 is not applicable to NPSTUVWXY"); 
     else
-        res = NPZbbbar::SetFlag(name,value);
+        res = StandardModel::SetFlag(name,value);
 
     return(res);
 }
@@ -177,11 +177,6 @@ double NPSTUVWXY::Mw() const
 {
     double myMw = StandardModel::Mw();
 
-    if (IsFlagEWBURGESS()) {
-        myMw *= 1.0 - 0.00723/2.0*obliqueS() + 0.0111/2.0*obliqueT() + 0.00849/2.0*obliqueU();
-        return myMw;
-    }
-
     if (!IsFlagNotLinearizedNP() ) {
         double alpha = StandardModel::alphaMz();
         double c2 = StandardModel::cW2();
@@ -214,12 +209,6 @@ double NPSTUVWXY::GammaW() const
     double Gamma_W = StandardModel::GammaW();
 
     double Wbar = (obliqueV() - obliqueW())/alphaMz();
-
-    if (IsFlagEWBURGESS()) {
-        Gamma_W *= 1.0 - 0.00723*obliqueS() + 0.0111*obliqueT()
-                   + 0.00849*obliqueU() + 0.00781*Wbar;
-        return Gamma_W;
-    }
 
     if (!IsFlagNotLinearizedNP() ) {
         double alpha = StandardModel::alphaMz();

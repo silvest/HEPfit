@@ -9,7 +9,7 @@
 #define	NPSTUVWXY_H
 
 #include <cmath>
-#include "NPZbbbar.h"
+#include "StandardModel.h"
 
 /**
  * @class NPSTUVWXY
@@ -19,7 +19,7 @@
  * @copyright GNU General Public License
  * @details  
  */
-class NPSTUVWXY : public NPZbbbar {
+class NPSTUVWXY : public StandardModel {
 public:
     static const int NSTUVWXYvars = 7;
     static const std::string STUVWXYvars[NSTUVWXYvars];

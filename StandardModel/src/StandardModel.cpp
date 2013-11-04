@@ -28,7 +28,7 @@ const std::string StandardModel::SMvars[NSMvars] = {
 };
 
 const std::string StandardModel::SMflags[NSMflags] = {
-    "FixedAllSMparams", "EWCHMN", "EWABC", "EWABC2", "EWBURGESS", 
+    "FixedAllSMparams", 
     "withoutNonUniversalVCinEpsilons", "NotLinearizedNP",
     "ApproximateGqOverGb", "ApproximateGammaZ", "ApproximateSigmaH",
     "RhoZbFromGuOverGb", "RhoZbFromGdOverGb", "TestSubleadingTwoLoopEW"
@@ -39,10 +39,6 @@ StandardModel::StandardModel(const bool bDebug_i)
         Ye(3, 3, 0.), bDebug(bDebug_i) 
 {
     FlagFixedAllSMparams = false;
-    FlagEWCHMN = false;
-    FlagEWABC = false;
-    FlagEWABC2 = false;
-    FlagEWBURGESS = false;
     FlagWithoutNonUniversalVC = false;
     FlagApproximateGqOverGb = false;
     FlagRhoZbFromGuOverGb = false;
@@ -271,18 +267,6 @@ bool StandardModel::SetFlag(const std::string name, const bool& value)
     bool res = false;
     if (name.compare("FixedAllSMparams") == 0) {
         FlagFixedAllSMparams = value;
-        res = true;
-    } else if (name.compare("EWCHMN") == 0) {
-        FlagEWCHMN = value;
-        res = true;
-    } else if (name.compare("EWABC") == 0) {
-        FlagEWABC = value;
-        res = true;
-    } else if (name.compare("EWABC2") == 0) {
-        FlagEWABC2 = value;
-        res = true;
-    } else if (name.compare("EWBURGESS") == 0) {
-        FlagEWBURGESS = value;
         res = true;
     } else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
         FlagWithoutNonUniversalVC = value;
