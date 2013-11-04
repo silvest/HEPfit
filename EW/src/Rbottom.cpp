@@ -35,13 +35,8 @@ double Rbottom::computeThValue()
         } else
             R0_b = myEW.Gamma_q(SM.BOTTOM)/myEW.Gamma_had();
 
-        if(myEWTYPE==EW::EWBURGESS) {
-            double delta_b = - 0.00171*SM.obliqueS() + 0.00416*SM.obliqueT();
-            double delta_had = - 0.00901*SM.obliqueS() + 0.0200*SM.obliqueT();
-            R0_b *= 1.0 + delta_b/myEW.Gamma_q(SM.BOTTOM)
-                    - delta_had/myEW.Gamma_had();
-            return R0_b;
-        }
+        if(myEWTYPE==EW::EWBURGESS)
+            return myEW.getMyEW_BURGESS().Rbottom(R0_b, myEW.Gamma_had(), myEW.Gamma_q(SM.BOTTOM));
 
         /* NP contribution to the Zff vertex */
         if ( !SM.IsFlagNotLinearizedNP() ) {

@@ -31,12 +31,8 @@ double Rcharm::computeThValue()
         } else
             R0_c = myEW.Gamma_q(SM.CHARM)/myEW.Gamma_had();
         
-        if(myEWTYPE==EW::EWBURGESS) {
-            double delta_c_over_Gamma_c = - 0.00649*SM.obliqueS() + 0.0124*SM.obliqueT();
-            double delta_had = - 0.00901*SM.obliqueS() + 0.0200*SM.obliqueT();
-            R0_c *= 1.0 + delta_c_over_Gamma_c - delta_had/myEW.Gamma_had();
-            return R0_c;
-        }
+        if(myEWTYPE==EW::EWBURGESS)
+            return myEW.getMyEW_BURGESS().Rcharm(R0_c, myEW.Gamma_had());
 
         /* NP contribution to the Zff vertex */
         if ( !SM.IsFlagNotLinearizedNP() ) {

@@ -32,10 +32,8 @@ double GammaZ::computeThValue()
         /* Theoretical uncertainty */
         Gamma_Z += SM.getDelGammaZ();
 
-        if(myEWTYPE==EW::EWBURGESS) {
-            Gamma_Z += - 0.00961*SM.obliqueS() + 0.0263*SM.obliqueT();
-            return Gamma_Z;
-        }
+        if(myEWTYPE==EW::EWBURGESS)
+            return myEW.getMyEW_BURGESS().GammaZ(Gamma_Z);
 
         /* NP contribution to the Zff vertex */
         if ( !SM.IsFlagNotLinearizedNP() ) {

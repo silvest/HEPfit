@@ -58,6 +58,7 @@
             <pElem>../Observables/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
+            <pElem>../EW/src</pElem>
           </incDir>
         </ccTool>
         <archiverTool>
@@ -117,6 +118,7 @@
             <pElem>../Observables/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
+            <pElem>../EW/src</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>
@@ -182,6 +184,7 @@
             <pElem>../Observables/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
+            <pElem>../EW/src</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>

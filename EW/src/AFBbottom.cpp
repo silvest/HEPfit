@@ -20,10 +20,8 @@ double AFBbottom::computeThValue()
     else {
         AFB_b = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.BOTTOM);
         
-        if(myEWTYPE==EW::EWBURGESS) {
-            AFB_b += - 0.0188*SM.obliqueS() + 0.0131*SM.obliqueT();
-            return AFB_b;
-        }
+        if(myEWTYPE==EW::EWBURGESS)
+            return myEW.getMyEW_BURGESS().AFBbottom(AFB_b);
               
         /* NP contribution to the Zff vertex */
         if ( !SM.IsFlagNotLinearizedNP() ) {

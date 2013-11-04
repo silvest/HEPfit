@@ -13,6 +13,7 @@
 #include <StandardModel.h>
 #include "EW_CHMN.h"
 #include "EW_ABC.h"
+#include "EW_BURGESS.h"
 
 using namespace gslpp;
 
@@ -71,7 +72,12 @@ public:
     {
         return myEW_CHMN;
     }
-    
+
+    const EW_BURGESS getMyEW_BURGESS() const
+    {
+        return myEW_BURGESS;
+    }
+
     /**
      * @param[in] l lepton
      * @return electric charge of a lepton "l"
@@ -178,6 +184,7 @@ protected:
     const StandardModel& SM;
     const EW_CHMN myEW_CHMN;
     const EW_ABC myEW_ABC;
+    const EW_BURGESS myEW_BURGESS;
     
     ////////////////////////////////////////////////////////////////////////   
     

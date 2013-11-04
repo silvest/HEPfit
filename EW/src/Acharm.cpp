@@ -20,13 +20,8 @@ double Acharm::computeThValue()
     else {
         A_c = myEW.A_q(SM.CHARM);
 
-        if(myEWTYPE==EW::EWBURGESS) {
-            double AFB_c = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.CHARM);
-            double delta_AFB_c = - 0.0147*SM.obliqueS() + 0.0104*SM.obliqueT();
-            double delta_A_l = - 0.0284*SM.obliqueS() + 0.0201*SM.obliqueT();
-            A_c *= 1.0 + delta_AFB_c/AFB_c - delta_A_l/myEW.A_l(SM.ELECTRON);
-            return A_c;
-        }
+        if(myEWTYPE==EW::EWBURGESS)
+            return myEW.getMyEW_BURGESS().Acharm(A_c, myEW.A_l(SM.ELECTRON));
         
         /* NP contribution to the Zff vertex */
         if ( !SM.IsFlagNotLinearizedNP() ) {

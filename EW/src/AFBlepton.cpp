@@ -24,10 +24,8 @@ double AFBlepton::computeThValue()
     } else {    
         AFB_l = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_l(SM.ELECTRON);
 
-        if(myEWTYPE==EW::EWBURGESS) {
-            AFB_l += - 0.00677*SM.obliqueS() + 0.00479*SM.obliqueT();
-            return AFB_l;
-        }
+        if(myEWTYPE==EW::EWBURGESS)
+            return myEW.getMyEW_BURGESS().AFBlepton(AFB_l);
 
         /* NP contribution to the Zff vertex */
         if ( !SM.IsFlagNotLinearizedNP() ) {

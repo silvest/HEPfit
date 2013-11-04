@@ -8,6 +8,7 @@
 #ifndef NPSTU_H
 #define	NPSTU_H
 
+#include <EW_BURGESS.h>
 #include "NPZbbbar.h"
 
 /**
@@ -114,7 +115,8 @@ protected:
     ////////////////////////////////////////////////////////////////////////     
     
 private:
-
+    const EW_BURGESS myEW_BURGESS;
+    
 };
 
 #endif	/* NPSTU_H */
