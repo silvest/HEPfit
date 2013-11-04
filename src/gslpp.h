@@ -14,5 +14,13 @@
 #include <gslpp_matrix_double.h>
 #include <gslpp_matrix_complex.h>
 
+/**
+ * @ingroup gslpp
+ * @brief Header file for inclusion of all gslpp claases for vector
+ * matrix manipulation, both real and complex.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ */
+
 #endif	/* GSLPP_H */
 

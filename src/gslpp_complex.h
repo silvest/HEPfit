@@ -15,33 +15,74 @@
 # include <gsl/gsl_complex_math.h>
 #endif
 
+/**
+ * @namespace gslpp 
+ * @brief Complex number, vector and matrix manipulation
+ * using <a href="http://www.gnu.org/software/gsl/" target=blank>gsl libraries</a>.
+ * @{
+ */
+
 namespace gslpp
 {
-  /** @defgroup complex complex
-   */
-  /** @class gslpp::complex gslpp_complex.h <gslpp/gslpp_complex.h>
-    *  Complex numbers.
-    * @ingroup complex
-    */
+    /**
+     * @class complex
+     * @ingroup gslpp
+     * @brief Class for defining operations on and functions of complex numbers.
+     * @author SusyFit Collaboration
+     * @copyright GNU General Public License
+     * @details  This class defines some common operations on complex variables
+     * using the <a href="http://www.gnu.org/software/gsl/">gsl libraries</a>.
+     */
   class complex
   {
       gsl_complex _complex;
     public:
       static const complex& i();
-      /** Constructor */
+      /**
+       * @brief Default constructor for the complex class.
+       */
       complex();
+      
+      /**
+       * @brief Overleaded constructor for the complex class.
+       * @param[in] real real part of the comlex number
+       * @param[in] imag imaginary part of the complex number
+       * @param[in] polar boolean switch for specifying polar form of
+       * of the complex number (default: false)
+       */
       complex(const double& real, const double& imag, bool polar = false);
-      /** Copy constructor */
+      /**
+       * @brief Copy constructor for the complex class.
+       */
       complex(const complex& z);
+      /**
+       * @brief Conversion constructor for the complex class.
+       * Converts a real double to a complex type.
+       */
       complex(const double& a);
-      /** Conversion constructor */
+      /**
+       * @brief Conversion constructor for the complex class.
+       * Converts a gsl_complex type pointer to a complex type.
+       */
       complex(const gsl_complex* z);
+      /**
+       * @brief Conversion constructor for the complex class.
+       * Converts a gsl_complex type reference to a complex type.
+       */
       complex(const gsl_complex& z);
-      /** Destructor */
+      /**
+       * @brief Default destructor for the complex class.
+       */
       virtual ~complex();
-      /** Check if this is purely real  */
+      /**
+       * @brief Check if complex number is purely real
+       * @return boolean true/false
+       */
       bool is_real() const;
-      /** Check if this is purely imaginary  */
+      /**
+       * @brief Check if complex number is purely imaginary
+       * @return boolean true/false
+       */
       bool is_imag() const;
       /** Assign */
       void assign(const double& real, const double& imag, bool polar);
@@ -53,57 +94,113 @@ namespace gslpp
       double& real();
       /** Get the imaginary part */
       double& imag();
-      /** Get arg */
+      /**
+       * @return The argument of a complex number
+       */
       double arg() const;
-      /** Get abs */
+      /**
+       * @return The absolute value of a complex number
+       */
       double abs() const;
-      /** Get the abs squared */
+      /**
+       * @return The square of the absolute value of a complex number
+       */
       double abs2() const;
-      /** Get the log of the abs */
+      /**
+       * @return The logarithm of the absolute value of a complex number
+       */
       double log_of_abs() const;
-      /** Assign */
+      /**
+       * @brief Assignment operator for a complex variable of complex type
+       */
       complex& operator=(const complex& z);
+      /**
+       * @brief Assignment operator for a double variable to complex type
+       */
       complex& operator=(const double& x);
-      /** Compare */
+      /**
+       * @brief Equivalence operator between two complex variables
+       */
       bool operator==(const complex& z1) const;
+      /**
+       * @brief Inequivalence operator between two complex variables
+       */
       bool operator!=(const complex& z1) const;
-      /** Unary minus */
+      /**
+       * @brief Unary minus operator for a complex number
+       */
       complex operator-() const;
-      /** Addition operator */
+      /**
+       * @brief Addition operator for a complex number
+       */
       complex operator+(const complex& z1) const;
-      /** Subtraction operator */
+      /**
+       * @brief Subtraction operator for a complex number
+       */
       complex operator-(const complex& z1) const;
-      /** Multiplication operator */
+      /**
+       * @brief Multiplication operator for a complex number
+       */
       complex operator*(const complex& z1) const;
-      /** Division operator */
+      /**
+       * @brief Division operator for a complex number
+       */
       complex operator/(const complex& z1) const;
-      /** Addition assignment */
+      /**
+       * @brief Addition assignment operator for a complex number
+       */
       complex& operator+=(const complex& z1);
-      /** Subtraction assignment */
+      /**
+       * @brief Subtraction assignment operator for a complex number
+       */
       complex& operator-=(const complex& z1);
-      /** Multiplication assignment */
+      /**
+       * @brief Muliplication assignment operator for a complex number
+       */
       complex& operator*=(const complex& z1);
-      /** Division assignment */
+      /**
+       * @brief Division assignment operator for a complex number
+       */
       complex& operator/=(const complex& z1);
-      /** Addition operator */
+      /**
+       * @brief Addition operator for adding a real number to a complex number
+       */
       complex operator+(const double& a) const;
-      /** Subtraction assignment */
+      /**
+       * @brief Subtraction operator for subtracting a real number from a complex number
+       */
       complex operator-(const double& a) const;
-      /** Multiplication operator */
+      /**
+       * @brief Multiplication operator for multiplying a real number to a complex number
+       */
       complex operator*(const double& a) const;
-      /** Division operator */
+      /**
+       * @brief Divsion operator for dividing a complex number by a real number
+       */
       complex operator/(const double& a) const;
-      /** Addition assignment  */
+      /**
+       * @brief Addition assignment operator for adding a real number to a complex number
+       */
       complex& operator+=(const double& a);
-      /** Subtraction assignment */
+      /**
+       * @brief Subtraction assignment operator for subtracting a real number from a complex number
+       */
       complex& operator-=(const double& a);
-      /** Multiplication assignment */
+      /**
+       * @brief Multiplication assignment operator for mulitplying a real number to a complex number
+       */
       complex& operator*=(const double& a);
-      /** Division assignment */
+      /**
+       * @brief Division assignment operator for dividing a complex number by a real number
+       */
       complex& operator/=(const double& a);
-      /** Return complex conjugate  */
+      /**
+       * @return The conjugate of a complex number
+       */
       complex conjugate() const;
-      /** Return 1 / z */
+      /**
+       * @return The inverse of a complex number
+       */
       complex inverse() const;
       /** Conversion  */
       gsl_complex* as_gsl_type_ptr() const;
@@ -115,8 +212,8 @@ namespace gslpp
       /** Friend functions */
       /**
         * @ingroup complex
-        * @param output output stream
-        * @param z1 Complex number
+        * @param[in] output output stream
+        * @param[in] z1 Complex number
         * @return formatted output for complex
         */
       friend std::ostream& operator<<(std::ostream& output, const complex& z1);
@@ -125,32 +222,32 @@ namespace gslpp
        */
       /** Add a real and complex numbers
        * @ingroup complex
-       * @param x1 Real number
-       * @param z2 Complex number
+       * @param[in] x1 Real number
+       * @param[in] z2 Complex number
        * @return @f$ x_1 + z_2 @f$
        */
       friend complex operator+(const double& x1, const complex& z2);
 
       /** Subtract a real and complex numbers
        * @ingroup complex
-       * @param x1 Real number
-       * @param z2 Complex number
+       * @param[in] x1 Real number
+       * @param[in] z2 Complex number
        * @return @f$ x_1 - z_2 @f$
        */
       friend complex operator-(const double& x1, const complex& z2);
 
       /** Multiply a real and complex numbers
        * @ingroup complex
-       * @param x1 Real number
-       * @param z2 Complex number
+       * @param[in] x1 Real number
+       * @param[in] z2 Complex number
        * @return @f$ x_1 z_2 @f$
        */
       friend complex operator*(const double& x1, const complex& z2);
 
       /** Divide a real and complex numbers
        * @ingroup complex
-       * @param x1 Real number
-       * @param z2 Complex number
+       * @param[in] x1 Real number
+       * @param[in] z2 Complex number
        * @return @f$ x_1 / z_2 @f$
        */
       friend complex operator/(const double& x1,const complex& z2);
@@ -194,6 +291,4 @@ namespace gslpp
   };
 }
 #endif
-//
-// EOF
-//
+/** @} */
