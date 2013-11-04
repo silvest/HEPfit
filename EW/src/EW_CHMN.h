@@ -18,14 +18,13 @@ using namespace gslpp;
  * @brief A test class for the electroweak precision observables. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details A class for the electroweak precision observables with a simple 
+ * @details A test class for the electroweak precision observables with a simple
  * parametrization in JHEP1111 (2011) 068 [arXiv:1104.1769] by G-C. Cho, 
  * K. Hagiwara, Y. Matsumoto and D. Nomura, which is designed to be valid 
  * in the region 100 GeV <= mHl <= 1 TeV. 
  * The NP contributions to the Fermi constant G_F, to the effective couplings 
  * g_L^f and g_R^f except for f=b, to R_Z, and to R_W are assumed to be 0. 
  * See also NPB574 (2000) 623 [hep-ph/9912260] by G-C. Cho and K. Hagiwara. 
- * This class is used for a test. 
  */
 class EW_CHMN {
 public:
