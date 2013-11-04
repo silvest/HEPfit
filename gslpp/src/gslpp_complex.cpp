@@ -16,7 +16,6 @@
 
 namespace gslpp
 {
-  /** Constructor  */
   complex::complex()
   {
     assign(0., 0., false);
@@ -26,7 +25,7 @@ namespace gslpp
   {
     assign(real, imag, polar);
   }
-  /** Copy constructor  */
+
   complex::complex(const complex& z)
   {
     assign(z.real(), z.imag(), false);
@@ -35,126 +34,112 @@ namespace gslpp
   {
     assign(a, 0., false);
   }
-  /** Destructor */
+
   complex::~complex()
   {
   }
-  /** Check if this is purely real  */
+
   bool complex::is_real() const
-    {
+  {
       return ::fabs(imag()/real()) < GSLEPS;
-    }
+  }
 
-  /** Check if this is purely imaginary  */
+
   bool complex::is_imag() const
-    {
+  {
       return ::fabs(real()/imag()) < GSLEPS;
-    }
+  }
 
-    /** Get the real part  */
-    const double& complex::real() const
-    {
+
+  const double& complex::real() const
+  {
       return GSL_REAL(_complex);
-    }
+  }
 
-  /** Get imaginary part  */
+
   const double& complex::imag() const
-    {
+  {
       return GSL_IMAG(_complex);
-    }
+  }
 
-  /** Set the real part  */
+
   double& complex::real()
   {
     return GSL_REAL(_complex);
   }
 
-  /** Set the imaginary part */
+
   double& complex::imag()
   {
     return GSL_IMAG(_complex);
   }
 
-  /** Get arg */
   double complex::arg() const
-    {
+  {
       return gsl_complex_arg(_complex);
-    }
+  }
 
-  /** Get abs */
   double complex::abs() const
-    {
+  {
       return gsl_complex_abs(_complex);
-    }
+  }
 
-  /** Get the abs squared */
   double complex::abs2() const
-    {
+  {
       return gsl_complex_abs2(_complex);
-    }
-
-  /** Get the log of the length */
+  }
 
   double complex::log_of_abs() const
-    {
+  {
       return gsl_complex_logabs(_complex);
-    }
+  }
 
-  /** Assign */
   complex& complex::operator=(const complex& z)
   {
     GSL_SET_COMPLEX(&_complex, z.real(), z.imag());
     return *this;
   }
 
-  /** Assign */
   complex& complex::operator=(const double& x)
   {
     GSL_SET_COMPLEX(&_complex, x, 0);
     return *this;
   }
 
-  /** compare */
   bool complex::operator==(const complex& z1) const
-    {
+  {
       return GSL_COMPLEX_EQ(_complex, z1._complex);
-    }
+  }
 
-  /** compare */
   bool complex::operator!=(const complex& z1) const
-    {
+  {
       return !(GSL_COMPLEX_EQ(_complex, z1._complex));
-    }
+  }
 
-  /** Conversion  */
   gsl_complex* complex::as_gsl_type_ptr() const
-    {
+  {
       return const_cast<gsl_complex*>(&_complex);
-    }
+  }
 
-  /** Conversion  */
   gsl_complex& complex::as_gsl_type()
   {
     return _complex;
   }
 
-  /** Conversion  */
   const gsl_complex& complex::as_gsl_type() const
-    {
+  {
       return _complex;
-    }
+  }
 
-  /** Conversion  */
   complex::operator gsl_complex& ()
   {
     return _complex;
   }
 
-  /** Conversion  */
   complex::operator const gsl_complex& () const
-    {
+  {
       return _complex;
-    }
+  }
 
   std::ostream& operator<<(std::ostream& output, const complex& z)
   {
@@ -302,24 +287,24 @@ namespace gslpp
   }
 
   complex complex::conjugate() const
-    {
+  {
       gsl_complex t = gsl_complex_conjugate(_complex);
       return complex(t);
-    }
+  }
 
   complex complex::inverse() const
-    {
+  {
       gsl_complex t = gsl_complex_inverse(_complex);
       return complex(t);
-    }
+  }
 
   //==================================================================
   /** @{
   \name Operations on complex numbers  */
   /** Add a real and complex numbers
   \ingroup complex
-  \param x1 Real number
-  \param z2 Complex number
+  \param[in] x1 Real number
+  \param[in] z2 Complex number
   \return \f$ x_1 + z_2 \f$ */
   complex operator+(const double& x1, const complex& z2)
   {
@@ -329,8 +314,8 @@ namespace gslpp
 
   /** Subtract a real and complex numbers
   \ingroup complex
-  \param x1 Real number
-  \param z2 Complex number
+  \param[in] x1 Real number
+  \param[in] z2 Complex number
   \return \f$ x_1 - z_2 \f$ */
   complex operator-(const double& x1, const complex& z2)
   {
@@ -340,8 +325,8 @@ namespace gslpp
 
   /** Multiply a real and complex numbers
   \ingroup complex
-  \param x1 Real number
-  \param z2 Complex number
+  \param[in] x1 Real number
+  \param[in] z2 Complex number
   \return \f$ x_1 z_2 \f$ */
   complex operator*(const double& x1, const complex& z2)
   {
@@ -351,8 +336,8 @@ namespace gslpp
 
   /** Divide a real and complex numbers
   \ingroup complex
-  \param x1 Real number
-  \param z2 Complex number
+  \param[in] x1 Real number
+  \param[in] z2 Complex number
   \return \f$ x_1 / z_2 \f$ */
   complex operator/(const double& x1, const complex& z2)
   {
@@ -367,7 +352,7 @@ namespace gslpp
   \name Exponential and logarithms of complex numbers */
   /** exponentioal of a complex number
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ e^z \f$*/
   complex exp(const complex& z)
   {
@@ -376,7 +361,7 @@ namespace gslpp
 
   /** Logarithm of a complex number (base e)
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \log z \f$*/
   complex log(const complex& z)
   {
@@ -385,7 +370,7 @@ namespace gslpp
 
   /** Logarithm of a complex number (base 10)
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \log_{10} z \f$*/
   complex log10(const complex& z)
   {
@@ -394,8 +379,8 @@ namespace gslpp
 
   /** Logarithm of a complex number (base b)
   \ingroup complex
-  \param z Complex number
-  \param b Complex number
+  \param[in] z Complex number
+  \param[in] b Complex number
   \return \f$ \log_b z \f$*/
   complex log(const complex& z,
               const complex& b)
@@ -409,7 +394,7 @@ namespace gslpp
   \name Powers of complex numbers */
   /** Square root of a complex number
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \sqrt z \f$*/
   complex sqrt(const complex& z)
   {
@@ -418,8 +403,8 @@ namespace gslpp
 
   /** Complex number to the z2 complex order
   \ingroup complex
-  \param z1 Complex number
-  \param z2 Complex number
+  \param[in] z1 Complex number
+  \param[in] z2 Complex number
   \return \f$ z_1^{z_2} \f$*/
   complex pow(const complex& z1,
               const complex& z2)
@@ -430,8 +415,8 @@ namespace gslpp
 
   /** Complex number to the x real order
   \ingroup complex
-  \param z Complex number
-  \param x Real number
+  \param[in] z Complex number
+  \param[in] x Real number
   \return \f$ z^x \f$ */
   complex pow(const complex& z, const double  x)
   {
@@ -444,7 +429,7 @@ namespace gslpp
   \name trigonometric functions on complex numbers */
   /** Sine
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \sin z \f$*/
   complex sin(const complex& z)
   {
@@ -453,7 +438,7 @@ namespace gslpp
 
   /** Cosine
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \cos z \f$*/
   complex cos(const complex& z)
   {
@@ -462,7 +447,7 @@ namespace gslpp
 
   /** Tangent
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \tan z \f$*/
   complex tan(const complex& z)
   {
@@ -471,7 +456,7 @@ namespace gslpp
 
   /** Secant
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \sec z \f$*/
   complex sec(const complex& z)
   {
@@ -480,7 +465,7 @@ namespace gslpp
 
   /** Cosecant
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \csc z \f$*/
   complex csc(const complex& z)
   {
@@ -489,7 +474,7 @@ namespace gslpp
 
   /** Cotangent
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \cot z \f$*/
   complex cot(const complex& z)
   {
@@ -498,7 +483,7 @@ namespace gslpp
 
   /** Inverse sine
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \arcsin z \f$*/
   complex arcsin(const complex& z)
   {
@@ -507,7 +492,7 @@ namespace gslpp
 
   /** Inverse cosine
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \arccos z \f$*/
   complex arccos(const complex& z)
   {
@@ -516,7 +501,7 @@ namespace gslpp
 
   /** Inverse tangent
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \arctan z \f$*/
   complex arctan(const complex& z)
   {
@@ -525,7 +510,7 @@ namespace gslpp
 
   /** Inverse secant
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \mathrm{asec} z \f$*/
   complex arcsec(const complex& z)
   {
@@ -534,7 +519,7 @@ namespace gslpp
 
   /** Inverse cosecant
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \mathrm{acsc} z \f$*/
   complex arccsc(const complex& z)
   {
@@ -543,7 +528,7 @@ namespace gslpp
 
   /** Inverse cotangent
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \mathrm{acot} z \f$*/
   complex arccot(const complex& z)
   {
@@ -557,7 +542,7 @@ namespace gslpp
   \name Hyperbolic functions on complex numbers */
   /** Hyperbolic sine
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \sinh z \f$*/
   complex sinh(const complex& z)
   {
@@ -566,7 +551,7 @@ namespace gslpp
 
   /** Hyperbolic cosine
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \cosh z \f$*/
   complex cosh(const complex& z)
   {
@@ -575,7 +560,7 @@ namespace gslpp
 
   /** Hyperbolic tangent
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \tanh z \f$*/
   complex tanh(const complex& z)
   {
@@ -584,7 +569,7 @@ namespace gslpp
 
   /** Hyperbolic secant
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \mathrm{sech} z \f$*/
   complex sech(const complex& z)
   {
@@ -593,7 +578,7 @@ namespace gslpp
 
   /** Hyperbolic cosecant
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \mathrm{csch} z \f$*/
   complex csch(const complex& z)
   {
@@ -602,7 +587,7 @@ namespace gslpp
 
   /** Hyperbolic cotangent
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \coth z \f$*/
   complex coth(const complex& z)
   {
@@ -611,7 +596,7 @@ namespace gslpp
 
   /** Inverse hyperbolic sine
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \mathrm{asinh} z \f$*/
   complex arcsinh(const complex& z)
   {
@@ -620,7 +605,7 @@ namespace gslpp
 
   /** Inverse hyperbolic cosine
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \mathrm{acosh} z \f$*/
   complex arccosh(const complex& z)
   {
@@ -629,7 +614,7 @@ namespace gslpp
 
   /** Inverse hyperbolic tangent
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \mathrm{atanh} z \f$*/
   complex arctanh(const complex& z)
   {
@@ -638,7 +623,7 @@ namespace gslpp
 
   /** Inverse hyperbolic secant
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \mathrm{asech} z \f$*/
   complex arcsech(const complex& z)
   {
@@ -647,7 +632,7 @@ namespace gslpp
 
   /** Inverse hyperbolic cosecant
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \mathrm{acsch} z \f$*/
   complex arccsch(const complex& z)
   {
@@ -656,7 +641,7 @@ namespace gslpp
 
   /** Inverse hyperbolic cotangent
   \ingroup complex
-  \param z Complex number
+  \param[in] z Complex number
   \return \f$ \mathrm{acoth}(z) \f$*/
   complex arccoth(const complex& z)
   {
