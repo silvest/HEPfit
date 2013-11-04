@@ -171,7 +171,13 @@ public:
      * with QCD. 
      */
     virtual bool SetFlag(const std::string name, const bool& value);
-    
+
+    /**
+     * @brief 
+     * @return
+     */
+    virtual bool CheckFlags() const;
+
     /**
      * Pre update. 
      * @return 

@@ -23,7 +23,7 @@ class NPSTU : public StandardModel {
 public:
     static const int NSTUvars = 3;
     static const std::string STUvars[NSTUvars];
-    static const int NSTUflags = 2;
+    static const int NSTUflags = 1;
     static const std::string STUflags[NSTUflags];
     
     /**
@@ -44,14 +44,10 @@ public:
     virtual void SetEWSMflags(EWSM& myEWSM);    
 
     virtual bool SetFlag(const std::string, const bool&); 
+    virtual bool CheckFlags() const;
 
     ////////////////////////////////////////////////////////////////////////
 
-    bool IsFlagEWCHMN() const
-    {
-        return FlagEWCHMN;
-    }
-    
     bool IsFlagEWBURGESS() const
     {
         return FlagEWBURGESS;
@@ -128,7 +124,6 @@ protected:
     ////////////////////////////////////////////////////////////////////////     
     
 private:
-    bool FlagEWCHMN;
     bool FlagEWBURGESS;
     const EW_BURGESS myEW_BURGESS;
     

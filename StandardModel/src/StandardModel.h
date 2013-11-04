@@ -54,16 +54,16 @@ class EWSM; // forward reference to EWSM class
  * \li \b SM_M12D:&nbsp; the SM amplitude of the @f$D^{0}-\bar{D}^{0}@f$ mixing,
  *
  * Flags:
- * \li \b FixedSMparams:&nbsp; true if all the SM parameters are fixed to constants in the fit.
- * Flags for the EW precision observables (see EW.h for detail):
+ * \li \b FixedSMparams:&nbsp; --> will be moved to another class
  * \li \b WithoutNonUniversalVC:&nbsp;
- * \li \b NotLinearizedNP:&nbsp;
+ * \li \b NotLinearizedNP:&nbsp; --> will be moved to another class
  * \li \b ApproximateGqOverGb:&nbsp;
  * \li \b ApproximateGammaZ:&nbsp;
  * \li \b ApproximateSigmaH:&nbsp;
  * \li \b RhoZbFromGuOverGb:&nbsp;
  * \li \b RhoZbFromGdOverGb:&nbsp;
  * \li \b TestSubleadingTwoLoopEW:&nbsp;
+ * \li \b EWCHMN:&nbsp;
  *
  */
 class StandardModel: public QCD {
@@ -117,6 +117,8 @@ public:
 
     virtual bool SetFlag(const std::string name, const bool& value);
 
+    virtual bool CheckFlags() const;
+
     bool IsFlagFixedAllSMparams() const
     {
         return FlagFixedAllSMparams;
@@ -162,7 +164,12 @@ public:
         return FlagTestSubleadingTwoLoopEW;
     }
 
+    bool IsFlagEWCHMN() const
+    {
+        return FlagEWCHMN;
+    }
 
+    
     ///////////////////////////////////////////////////////////////////////////
     // Initialization and Matching
 
@@ -817,6 +824,7 @@ private:
     bool FlagRhoZbFromGuOverGb;
     bool FlagRhoZbFromGdOverGb;
     bool FlagTestSubleadingTwoLoopEW;
+    bool FlagEWCHMN;
     bool requireCKM;
     bool requireYe;
     bool requireYn;

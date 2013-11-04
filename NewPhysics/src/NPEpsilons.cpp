@@ -114,6 +114,19 @@ bool NPEpsilons::SetFlag(const std::string name, const bool& value)
     return(res);
 }
 
+bool NPEpsilons::CheckFlags() const
+{
+    if ( IsFlagApproximateGqOverGb()
+            && !IsFlagRhoZbFromGuOverGb() && !IsFlagRhoZbFromGdOverGb()
+            && !IsFlagTestSubleadingTwoLoopEW())
+        throw std::runtime_error("ERROR: The current flags are not compatible with NPEpsilons model.");
+
+    if ( FlagEWABC && FlagEWABC2 )
+        throw std::runtime_error("ERROR: Flags EWABC and EWABC2 are incompatible with each other.");
+    
+    return(StandardModel::CheckFlags());
+}
+
 
 ////////////////////////////////////////////////////////////////////////     
 

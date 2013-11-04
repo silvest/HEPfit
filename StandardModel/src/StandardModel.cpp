@@ -31,7 +31,8 @@ const std::string StandardModel::SMflags[NSMflags] = {
     "FixedAllSMparams", 
     "withoutNonUniversalVCinEpsilons", "NotLinearizedNP",
     "ApproximateGqOverGb", "ApproximateGammaZ", "ApproximateSigmaH",
-    "RhoZbFromGuOverGb", "RhoZbFromGdOverGb", "TestSubleadingTwoLoopEW"
+    "RhoZbFromGuOverGb", "RhoZbFromGdOverGb", "TestSubleadingTwoLoopEW",
+    "EWCHMN"
 };
 
 StandardModel::StandardModel(const bool bDebug_i) 
@@ -40,11 +41,12 @@ StandardModel::StandardModel(const bool bDebug_i)
 {
     FlagFixedAllSMparams = false;
     FlagWithoutNonUniversalVC = false;
+    FlagNotLinearizedNP = false;
     FlagApproximateGqOverGb = false;
     FlagRhoZbFromGuOverGb = false;
     FlagRhoZbFromGdOverGb = false;
     FlagTestSubleadingTwoLoopEW = false;
-    FlagNotLinearizedNP = false;
+    FlagEWCHMN = false;
     
     leptons[NEUTRINO_1].setCharge(0.);
     leptons[NEUTRINO_2].setCharge(0.);    
@@ -292,8 +294,31 @@ bool StandardModel::SetFlag(const std::string name, const bool& value)
     } else if (name.compare("TestSubleadingTwoLoopEW") == 0) {
         FlagTestSubleadingTwoLoopEW = value;
         res = true;
-    }
+    } else if (name.compare("EWCHMN") == 0) {
+        FlagEWCHMN = value;
+        res = true;
+    } else
+        res = QCD::SetFlag(name,value);
+
     return(res);
+}
+
+bool StandardModel::CheckFlags() const
+{
+    if ( !FlagApproximateGqOverGb && FlagRhoZbFromGuOverGb)
+        throw std::runtime_error("ERROR: Flag RhoZbFromGuOverGb=true has to be used together with ApproximateGqOverGb=true.");
+    if ( !FlagApproximateGqOverGb && FlagRhoZbFromGdOverGb)
+        throw std::runtime_error("ERROR: Flag RhoZbFromGdOverGb=true has to be used together with ApproximateGqOverGb=true.");
+    if ( FlagRhoZbFromGuOverGb && FlagRhoZbFromGdOverGb)
+        throw std::runtime_error("ERROR: Flags RhoZbFromGuOverGb and RhoZbFromGdOverGb cannot be set to true simultaneously.");
+    if ( !FlagApproximateGqOverGb && FlagTestSubleadingTwoLoopEW)
+        throw std::runtime_error("ERROR: Flag TestSubleadingTwoLoopEW=true has to be used together with ApproximateGqOverGb=true.");
+    if ( FlagTestSubleadingTwoLoopEW && FlagRhoZbFromGuOverGb)
+        throw std::runtime_error("ERROR: Flags TestSubleadingTwoLoopEW and RhoZbFromGuOverGb cannot be set to true simultaneously.");
+    if ( FlagTestSubleadingTwoLoopEW && FlagRhoZbFromGdOverGb)
+        throw std::runtime_error("ERROR: Flags TestSubleadingTwoLoopEW and RhoZbFromGdOverGb cannot be set to true simultaneously.");
+
+    return(QCD::CheckFlags());
 }
 
 

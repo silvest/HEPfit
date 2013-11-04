@@ -13,12 +13,11 @@ const std::string NPSTU::STUvars[NSTUvars]
 = {"obliqueS", "obliqueT", "obliqueU"};
 
 const std::string NPSTU::STUflags[NSTUflags]
-= {"EWCHMN", "EWBURGESS"};
+= {"EWBURGESS"};
 
 NPSTU::NPSTU()
 : StandardModel(), myEW_BURGESS(*this)
 {
-    FlagEWCHMN = false;
     FlagEWBURGESS = false;
 }
 
@@ -82,10 +81,7 @@ void NPSTU::SetEWSMflags(EWSM& myEWSM)
 bool NPSTU::SetFlag(const std::string name, const bool& value)
 {
     bool res = false;
-    if (name.compare("EWCHMN") == 0) {
-        FlagEWCHMN = value;
-        res = true;
-    } else if (name.compare("EWBURGESS") == 0) {
+    if (name.compare("EWBURGESS") == 0) {
         FlagEWBURGESS = value;
         res = true;
     } else
@@ -93,6 +89,15 @@ bool NPSTU::SetFlag(const std::string name, const bool& value)
 
     return(res);
 }
+
+bool NPSTU::CheckFlags() const
+{
+    if ( FlagEWBURGESS && IsFlagEWCHMN() )
+        throw std::runtime_error("ERROR: Flags EWBURGESS and EWCHMN are incompatible with each other.");
+
+    return(StandardModel::CheckFlags());
+}
+
 
 
 ////////////////////////////////////////////////////////////////////////

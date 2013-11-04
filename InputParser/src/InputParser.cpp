@@ -335,6 +335,11 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
         }
     } while (!IsEOF);
 
+    if (!myModel->CheckFlags()) {
+        std::cout << "Incompatible flag(s)" << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
     return (modname);
 }
 

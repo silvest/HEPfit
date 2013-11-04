@@ -89,7 +89,14 @@ std::string QCD::orderToString(const orders order) const
 
 bool QCD::SetFlag(const std::string name , const bool& value)
 {  
+    std::cout << "WARNING: unknown flag " << name
+              << " in the model configuration file" << std::endl;
     return (false);
+}
+
+bool QCD::CheckFlags() const
+{
+    return (true);
 }
 
 bool QCD::PreUpdate() 

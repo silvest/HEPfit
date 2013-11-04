@@ -50,7 +50,7 @@ public:
     virtual void SetEWSMflags(EWSM& myEWSM);    
 
     virtual bool SetFlag(const std::string, const bool&); 
-    
+    virtual bool CheckFlags() const;
     
     ////////////////////////////////////////////////////////////////////////
 
