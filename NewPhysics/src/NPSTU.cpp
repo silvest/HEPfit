@@ -14,7 +14,7 @@ const std::string NPSTU::STUvars[NSTUvars]
 
 
 NPSTU::NPSTU() 
-: NPZbbbar() 
+: NPZbbbar(), myEW_BURGESS(*this)
 {
 }
 
@@ -121,10 +121,8 @@ double NPSTU::Mw() const
 {
     double myMw = StandardModel::Mw();
     
-    if (IsFlagEWBURGESS()) {
-        myMw *= 1.0 - 0.00723/2.0*obliqueS() + 0.0111/2.0*obliqueT() + 0.00849/2.0*obliqueU();
-        return myMw;
-    }
+    if (IsFlagEWBURGESS())
+        return myEW_BURGESS.Mw(myMw);
 
     if (!IsFlagNotLinearizedNP() ) {
         double alpha = StandardModel::alphaMz();
@@ -157,11 +155,8 @@ double NPSTU::GammaW() const
 {
     double Gamma_W = StandardModel::GammaW();
 
-    if (IsFlagEWBURGESS()) {
-        Gamma_W *= 1.0 - 0.00723*obliqueS() + 0.0111*obliqueT()
-                   + 0.00849*obliqueU();
-        return Gamma_W;
-    }
+    if (IsFlagEWBURGESS())
+        return myEW_BURGESS.GammaW(Gamma_W);
 
     if (!IsFlagNotLinearizedNP() ) {
         double alpha = StandardModel::alphaMz();

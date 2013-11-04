@@ -25,10 +25,8 @@ double Alepton::computeThValue()
     } else {
         A_l = myEW.A_l(SM.ELECTRON);
 
-        if(myEWTYPE==EW::EWBURGESS) {
-            A_l += - 0.0284*SM.obliqueS() + 0.0201*SM.obliqueT();
-            return A_l;
-        }
+        if(myEWTYPE==EW::EWBURGESS)
+            return myEW.getMyEW_BURGESS().Alepton(A_l);
 
         /* NP contribution to the Zff vertex */
         if ( !SM.IsFlagNotLinearizedNP() ) {

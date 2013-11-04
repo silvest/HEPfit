@@ -25,13 +25,8 @@ double Rlepton::computeThValue()
     } else {       
         R0_l = myEW.Gamma_had()/myEW.Gamma_l(SM.ELECTRON);
         
-        if(myEWTYPE==EW::EWBURGESS) {
-            double delta_had = - 0.00901*SM.obliqueS() + 0.0200*SM.obliqueT();
-            double delta_l = - 0.000192*SM.obliqueS() + 0.000790*SM.obliqueT();
-            R0_l *= 1.0 + delta_had/myEW.Gamma_had()
-                    - delta_l/myEW.Gamma_l(SM.ELECTRON);
-            return R0_l;
-        }
+        if(myEWTYPE==EW::EWBURGESS)
+            return myEW.getMyEW_BURGESS().Rlepton(R0_l, myEW.Gamma_had(), myEW.Gamma_l(SM.ELECTRON));
 
         /* NP contribution to the Zff vertex */
         if ( !SM.IsFlagNotLinearizedNP() ) {

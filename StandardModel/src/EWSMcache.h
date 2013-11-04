@@ -138,6 +138,15 @@ public:
     double ml(const StandardModel::lepton l) const;
 
     /**
+     * @param[in] l name of lepton
+     * @return mass squared of lepton
+     */
+    double ml2(const StandardModel::lepton l) const
+    {
+        return ( ml(l)*ml(l) );
+    }
+
+    /**
      * @param[in] q name of quark
      * @param[in] mu renormalization scale
      * @param[in] order (=LO, NLO, NNLO, FULLNLO, FULLNNLO[defalut])
@@ -145,15 +154,35 @@ public:
      */
     double mq(const StandardModel::quark q, const double mu, 
               const orders order=FULLNNLO) const;
+
+    /**
+     * @param[in] q name of quark
+     * @param[in] mu renormalization scale
+     * @param[in] order (=LO, NLO, NNLO, FULLNLO, FULLNNLO[defalut])
+     * @return the MSbar mass squared of u, d, s, c, b or the pole mass squared of t
+     */
+    double mq2(const StandardModel::quark q, const double mu,
+               const orders order=FULLNNLO) const
+    {
+        return ( mq(q, mu, order)*mq(q, mu, order) );
+    }
     
     /**
-     * @return the top-quark mass
+     * @return The top-quark mass.
      */
     double Mt() const 
     {
         return SM.getMtpole();
     }
     
+    /**
+     * @return The top-quark mass squared.
+     */
+    double Mt2() const 
+    {
+        return ( SM.getMtpole()*SM.getMtpole() ); 
+    }
+
     /**
      * @return alpha_s(M_z^2)
      */
@@ -187,7 +216,7 @@ public:
     }
 
     /**
-     * @return the Z-boson mass
+     * @return The Z-boson mass.
      */
     double Mz() const 
     {
@@ -195,7 +224,15 @@ public:
     }
 
     /**
-     * @return the higgs mass
+     * @return The Z-boson mass squared.
+     */
+    double Mz2() const
+    {
+        return ( SM.getMz()*SM.getMz() );
+    }
+
+    /**
+     * @return The higgs mass.
      */
     double mh() const 
     {
@@ -203,14 +240,31 @@ public:
     }
     
     /**
-     * @param[in] Mw_i the W-boson mass
-     * @return the W-boson mass
+     * @return The higgs mass squared.
+     */
+    double mh2() const
+    {
+        return ( SM.getMHl()*SM.getMHl() );
+    }
+
+    /**
+     * @param[in] Mw_i The W-boson mass. 
+     * @return The W-boson mass. 
      */
     double Mw(const double Mw_i) const
     {
         return Mw_i;
     }
     
+    /**
+     * @param[in] Mw_i The W-boson mass.
+     * @return The W-boson mass squared.
+     */
+    double Mw2(const double Mw_i) const
+    {
+        return ( Mw_i*Mw_i );
+    }
+
     /**
      * @param[in] Mw_i the W-boson mass
      * @return c_W^2
@@ -468,76 +522,76 @@ public:
     double Li3_MW2toMTOP2(const double Mw_i) const;
     double Li3_for_F1(const double Mw_i) const;
     
-    double A0_Mz_Mw(const double Mw_i) const;
-    double A0_Mz_mh() const;
-    double A0_Mw_Mz(const double Mw_i) const;
-    double A0_Mw_mh(const double Mw_i) const;
-    double A0_Mz_Mz() const;    
-    double A0_Mw_Mw(const double Mw_i) const;    
+    double A0_Mz2_Mw2(const double Mw_i) const;
+    double A0_Mz2_mh2() const;
+    double A0_Mw2_Mz2(const double Mw_i) const;
+    double A0_Mw2_mh2(const double Mw_i) const;
+    double A0_Mz2_Mz2() const;
+    double A0_Mw2_Mw2(const double Mw_i) const;
     
-    complex B0_Mz_Mw2_mh_Mw(const double Mw_i) const;    
-    complex B0_Mz_0_mh_Mw(const double Mw_i) const;    
-    complex B0_Mw_Mz2_Mt_Mt(const double Mw_i) const;    
-    complex B0_Mz_Mz2_Mw_Mw(const double Mw_i) const;    
-    complex B0_Mz_Mz2_mh_Mz() const;
-    complex B0_Mz_Mw2_Mz_Mw(const double Mw_i) const;    
-    complex B0_Mz_Mw2_0_Mw(const double Mw_i) const;    
-    complex B0_Mz_0_Mz_Mw(const double Mw_i) const;    
-    complex B0_Mz_0_0_Mw(const double Mw_i) const;    
-    complex B0_Mw_Mz2_Mw_Mw(const double Mw_i) const;    
-    complex B0_Mw_Mw2_Mz_Mw(const double Mw_i) const;    
-    complex B0_Mw_Mw2_mh_Mw(const double Mw_i) const;    
-    complex B0_Mw_Mw2_0_Mw(const double Mw_i) const;    
-    complex B0_Mz_Mz2_ml_ml(const StandardModel::lepton l) const;
-    complex B0_Mz_Mz2_mq_mq(const StandardModel::quark q) const;
+    complex B0_Mz2_Mw2_mh2_Mw2(const double Mw_i) const;
+    complex B0_Mz2_0_mh2_Mw2(const double Mw_i) const;
+    complex B0_Mw2_Mz2_Mt2_Mt2(const double Mw_i) const;
+    complex B0_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const;
+    complex B0_Mz2_Mz2_mh2_Mz2() const;
+    complex B0_Mz2_Mw2_Mz2_Mw2(const double Mw_i) const;
+    complex B0_Mz2_Mw2_0_Mw2(const double Mw_i) const;
+    complex B0_Mz2_0_Mz2_Mw2(const double Mw_i) const;
+    complex B0_Mz2_0_0_Mw2(const double Mw_i) const;
+    complex B0_Mw2_Mz2_Mw2_Mw2(const double Mw_i) const;
+    complex B0_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const;
+    complex B0_Mw2_Mw2_mh2_Mw2(const double Mw_i) const;
+    complex B0_Mw2_Mw2_0_Mw2(const double Mw_i) const;
+    complex B0_Mz2_Mz2_ml2_ml2(const StandardModel::lepton l) const;
+    complex B0_Mz2_Mz2_mq2_mq2(const StandardModel::quark q) const;
     
-    complex B0p_Mz_0_mh_Mw(const double Mw_i) const;
-    complex B0p_Mz_Mz2_mh_Mz() const;
-    complex B0p_Mz_0_Mz_Mw(const double Mw_i) const;
-    complex B0p_Mz_Mz2_Mw_Mw(const double Mw_i) const;
-    complex B0p_Mw_Mw2_Mz_Mw(const double Mw_i) const;
-    complex B0p_Mw_Mw2_mh_Mw(const double Mw_i) const;
-    complex B0p_Mw_Mw2_0_Mw(const double Mw_i) const;
-    complex B0p_Mz_Mz2_ml_ml(const StandardModel::lepton l) const;
-    complex B0p_Mz_Mz2_mq_mq(const StandardModel::quark q) const;
+    complex B0p_Mz2_0_mh2_Mw2(const double Mw_i) const;
+    complex B0p_Mz2_Mz2_mh2_Mz2() const;
+    complex B0p_Mz2_0_Mz2_Mw2(const double Mw_i) const;
+    complex B0p_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const;
+    complex B0p_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const;
+    complex B0p_Mw2_Mw2_mh2_Mw2(const double Mw_i) const;
+    complex B0p_Mw2_Mw2_0_Mw2(const double Mw_i) const;
+    complex B0p_Mz2_Mz2_ml2_ml2(const StandardModel::lepton l) const;
+    complex B0p_Mz2_Mz2_mq2_mq2(const StandardModel::quark q) const;
     
-    complex B1_Mz_0_ml_mlprime(const int gen) const;
-    complex B1_Mz_0_mq_mqprime(const int gen) const;
-    complex B1_Mz_0_mlprime_ml(const int gen) const;
-    complex B1_Mz_0_mqprime_mq(const int gen) const;
-    complex B1_Mz_Mw2_ml_mlprime(const int gen, const double Mw_i) const;
-    complex B1_Mz_Mw2_mq_mqprime(const int gen, const double Mw_i) const;
-    complex B1_Mz_Mw2_mlprime_ml(const int gen, const double Mw_i) const;
-    complex B1_Mz_Mw2_mqprime_mq(const int gen, const double Mw_i) const;
+    complex B1_Mz2_0_ml2_mlprime2(const int gen) const;
+    complex B1_Mz2_0_mq2_mqprime2(const int gen) const;
+    complex B1_Mz2_0_mlprime2_ml2(const int gen) const;
+    complex B1_Mz2_0_mqprime2_mq2(const int gen) const;
+    complex B1_Mz2_Mw2_ml2_mlprime2(const int gen, const double Mw_i) const;
+    complex B1_Mz2_Mw2_mq2_mqprime2(const int gen, const double Mw_i) const;
+    complex B1_Mz2_Mw2_mlprime2_ml2(const int gen, const double Mw_i) const;
+    complex B1_Mz2_Mw2_mqprime2_mq2(const int gen, const double Mw_i) const;
     
-    complex B1p_Mw_Mw2_ml_mlprime(const int gen, const double Mw_i) const;
-    complex B1p_Mw_Mw2_mq_mqprime(const int gen, const double Mw_i) const;
-    complex B1p_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const;
-    complex B1p_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const;
+    complex B1p_Mw2_Mw2_ml2_mlprime2(const int gen, const double Mw_i) const;
+    complex B1p_Mw2_Mw2_mq2_mqprime2(const int gen, const double Mw_i) const;
+    complex B1p_Mw2_Mw2_mlprime2_ml2(const int gen, const double Mw_i) const;
+    complex B1p_Mw2_Mw2_mqprime2_mq2(const int gen, const double Mw_i) const;
     
-    complex Bf_Mz_Mz2_ml_ml(const StandardModel::lepton l) const;
-    complex Bf_Mz_Mz2_mq_mq(const StandardModel::quark q) const;
-    complex Bf_Mz_0_ml_ml(const StandardModel::lepton l) const;
-    complex Bf_Mz_0_mq_mq(const StandardModel::quark q) const;
-    complex Bf_Mz_Mw2_mlprime_ml(const int gen, const double Mw_i) const;
-    complex Bf_Mz_Mw2_mqprime_mq(const int gen, const double Mw_i) const;
-    complex Bf_Mz_0_mlprime_ml(const int gen) const;
-    complex Bf_Mz_0_mqprime_mq(const int gen) const;
-    complex Bf_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const;
-    complex Bf_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const;
+    complex Bf_Mz2_Mz2_ml2_ml2(const StandardModel::lepton l) const;
+    complex Bf_Mz2_Mz2_mq2_mq2(const StandardModel::quark q) const;
+    complex Bf_Mz2_0_ml2_ml2(const StandardModel::lepton l) const;
+    complex Bf_Mz2_0_mq2_mq2(const StandardModel::quark q) const;
+    complex Bf_Mz2_Mw2_mlprime2_ml2(const int gen, const double Mw_i) const;
+    complex Bf_Mz2_Mw2_mqprime2_mq2(const int gen, const double Mw_i) const;
+    complex Bf_Mz2_0_mlprime2_ml2(const int gen) const;
+    complex Bf_Mz2_0_mqprime2_mq2(const int gen) const;
+    complex Bf_Mw2_Mw2_mlprime2_ml2(const int gen, const double Mw_i) const;
+    complex Bf_Mw2_Mw2_mqprime2_mq2(const int gen, const double Mw_i) const;
     
-    complex Bfp_Mz_Mz2_ml_ml(const StandardModel::lepton l) const;
-    complex Bfp_Mz_Mz2_mq_mq(const StandardModel::quark q) const;
-    complex Bfp_Mw_Mw2_mlprime_ml(const int gen, const double Mw_i) const;
-    complex Bfp_Mw_Mw2_mqprime_mq(const int gen, const double Mw_i) const;
+    complex Bfp_Mz2_Mz2_ml2_ml2(const StandardModel::lepton l) const;
+    complex Bfp_Mz2_Mz2_mq2_mq2(const StandardModel::quark q) const;
+    complex Bfp_Mw2_Mw2_mlprime2_ml2(const int gen, const double Mw_i) const;
+    complex Bfp_Mw2_Mw2_mqprime2_mq2(const int gen, const double Mw_i) const;
     
-    complex C0_Mz2_Mw_Mt_Mw(const double Mw_i) const;
-    complex C0_Mz2_Mt_Mw_Mt(const double Mw_i) const;
-    complex C0_Mz2_0_Mw_0(const double Mw_i) const;
-    complex C0_Mz2_Mw_0_Mw(const double Mw_i) const;
-    complex C0_Mw2_Mw_0_Mz(const double Mw_i) const;
-    complex C0_Mw2_0_Mz_0(const double Mw_i) const;
-    complex C0_Mz2_0_Mz_0() const;
+    complex C0_Mz2_Mw2_Mt2_Mw2(const double Mw_i) const;
+    complex C0_Mz2_Mt2_Mw2_Mt2(const double Mw_i) const;
+    complex C0_Mz2_0_Mw2_0(const double Mw_i) const;
+    complex C0_Mz2_Mw2_0_Mw2(const double Mw_i) const;
+    complex C0_Mw2_Mw2_0_Mz2(const double Mw_i) const;
+    complex C0_Mw2_0_Mz2_0(const double Mw_i) const;
+    complex C0_Mz2_0_Mz2_0() const;
     
     
     //////////////////////////////////////////////////////////////////////// 
@@ -575,80 +629,80 @@ private:
     mutable double Li3_for_F1_cache[3]; 
     
     /* One-loop functions */
-    mutable double A0_Mz_Mw_cache[3]; 
-    mutable double A0_Mz_mh_cache[3]; 
-    mutable double A0_Mw_Mz_cache[3]; 
-    mutable double A0_Mw_mh_cache[3]; 
-    mutable double A0_Mz_Mz_cache[2]; 
-    mutable double A0_Mw_Mw_cache[2]; 
+    mutable double A0_Mz2_Mw2_cache[3];
+    mutable double A0_Mz2_mh2_cache[3];
+    mutable double A0_Mw2_Mz2_cache[3];
+    mutable double A0_Mw2_mh2_cache[3];
+    mutable double A0_Mz2_Mz2_cache[2];
+    mutable double A0_Mw2_Mw2_cache[2];
 
     ////////////////////////////////////////////////////////////////////////     
     // Caches for complex variables
     // The last two elements are the caches for a complex variable.
     
-    mutable double B0_Mz_Mw2_mh_Mw_cache[5];
-    mutable double B0_Mz_0_mh_Mw_cache[5];
-    mutable double B0_Mw_Mz2_Mt_Mt_cache[5];
-    mutable double B0_Mz_Mz2_Mw_Mw_cache[4];
-    mutable double B0_Mz_Mz2_mh_Mz_cache[4];    
-    mutable double B0_Mz_Mw2_Mz_Mw_cache[4];
-    mutable double B0_Mz_Mw2_0_Mw_cache[4];
-    mutable double B0_Mz_0_Mz_Mw_cache[4];
-    mutable double B0_Mz_0_0_Mw_cache[4];  
-    mutable double B0_Mw_Mz2_Mw_Mw_cache[4];
-    mutable double B0_Mw_Mw2_Mz_Mw_cache[4];
-    mutable double B0_Mw_Mw2_mh_Mw_cache[4];
-    mutable double B0_Mw_Mw2_0_Mw_cache[3];    
-    mutable double B0_Mz_Mz2_ml_ml_cache[6][4];
-    mutable double B0_Mz_Mz2_mq_mq_cache[6][4];
+    mutable double B0_Mz2_Mw2_mh2_Mw2_cache[5];
+    mutable double B0_Mz2_0_mh2_Mw2_cache[5];
+    mutable double B0_Mw2_Mz2_Mt2_Mt2_cache[5];
+    mutable double B0_Mz2_Mz2_Mw2_Mw2_cache[4];
+    mutable double B0_Mz2_Mz2_mh2_Mz2_cache[4];
+    mutable double B0_Mz2_Mw2_Mz2_Mw2_cache[4];
+    mutable double B0_Mz2_Mw2_0_Mw2_cache[4];
+    mutable double B0_Mz2_0_Mz2_Mw2_cache[4];
+    mutable double B0_Mz2_0_0_Mw2_cache[4];
+    mutable double B0_Mw2_Mz2_Mw2_Mw2_cache[4];
+    mutable double B0_Mw2_Mw2_Mz2_Mw2_cache[4];
+    mutable double B0_Mw2_Mw2_mh2_Mw2_cache[4];
+    mutable double B0_Mw2_Mw2_0_Mw2_cache[3];
+    mutable double B0_Mz2_Mz2_ml2_ml2_cache[6][4];
+    mutable double B0_Mz2_Mz2_mq2_mq2_cache[6][4];
     
-    mutable double B0p_Mz_0_mh_Mw_cache[5]; 
-    mutable double B0p_Mz_Mz2_mh_Mz_cache[4]; 
-    mutable double B0p_Mz_0_Mz_Mw_cache[4]; 
-    mutable double B0p_Mz_Mz2_Mw_Mw_cache[4]; 
-    mutable double B0p_Mw_Mw2_Mz_Mw_cache[4]; 
-    mutable double B0p_Mw_Mw2_mh_Mw_cache[4]; 
-    mutable double B0p_Mw_Mw2_0_Mw_cache[3]; 
-    mutable double B0p_Mz_Mz2_ml_ml_cache[6][4];
-    mutable double B0p_Mz_Mz2_mq_mq_cache[6][4];
+    mutable double B0p_Mz2_0_mh2_Mw2_cache[5];
+    mutable double B0p_Mz2_Mz2_mh2_Mz2_cache[4];
+    mutable double B0p_Mz2_0_Mz2_Mw2_cache[4];
+    mutable double B0p_Mz2_Mz2_Mw2_Mw2_cache[4];
+    mutable double B0p_Mw2_Mw2_Mz2_Mw2_cache[4];
+    mutable double B0p_Mw2_Mw2_mh2_Mw2_cache[4];
+    mutable double B0p_Mw2_Mw2_0_Mw2_cache[3];
+    mutable double B0p_Mz2_Mz2_ml2_ml2_cache[6][4];
+    mutable double B0p_Mz2_Mz2_mq2_mq2_cache[6][4];
     
-    mutable double B1_Mz_0_ml_mlprime_cache[3][5];
-    mutable double B1_Mz_0_mq_mqprime_cache[3][5];
-    mutable double B1_Mz_0_mlprime_ml_cache[3][5];
-    mutable double B1_Mz_0_mqprime_mq_cache[3][5];
-    mutable double B1_Mz_Mw2_ml_mlprime_cache[3][6];
-    mutable double B1_Mz_Mw2_mq_mqprime_cache[3][6];
-    mutable double B1_Mz_Mw2_mlprime_ml_cache[3][6];
-    mutable double B1_Mz_Mw2_mqprime_mq_cache[3][6];
+    mutable double B1_Mz2_0_ml2_mlprime2_cache[3][5];
+    mutable double B1_Mz2_0_mq2_mqprime2_cache[3][5];
+    mutable double B1_Mz2_0_mlprime2_ml2_cache[3][5];
+    mutable double B1_Mz2_0_mqprime2_mq2_cache[3][5];
+    mutable double B1_Mz2_Mw2_ml2_mlprime2_cache[3][6];
+    mutable double B1_Mz2_Mw2_mq2_mqprime2_cache[3][6];
+    mutable double B1_Mz2_Mw2_mlprime2_ml2_cache[3][6];
+    mutable double B1_Mz2_Mw2_mqprime2_mq2_cache[3][6];
     
-    mutable double B1p_Mw_Mw2_ml_mlprime_cache[3][5];
-    mutable double B1p_Mw_Mw2_mq_mqprime_cache[3][5];
-    mutable double B1p_Mw_Mw2_mlprime_ml_cache[3][5];
-    mutable double B1p_Mw_Mw2_mqprime_mq_cache[3][5];
+    mutable double B1p_Mw2_Mw2_ml2_mlprime2_cache[3][5];
+    mutable double B1p_Mw2_Mw2_mq2_mqprime2_cache[3][5];
+    mutable double B1p_Mw2_Mw2_mlprime2_ml2_cache[3][5];
+    mutable double B1p_Mw2_Mw2_mqprime2_mq2_cache[3][5];
         
-    mutable double Bf_Mz_Mz2_ml_ml_cache[6][4];
-    mutable double Bf_Mz_Mz2_mq_mq_cache[6][4];
-    mutable double Bf_Mz_0_ml_ml_cache[6][4];
-    mutable double Bf_Mz_0_mq_mq_cache[6][4];
-    mutable double Bf_Mz_Mw2_mlprime_ml_cache[3][6];
-    mutable double Bf_Mz_Mw2_mqprime_mq_cache[3][6];
-    mutable double Bf_Mz_0_mlprime_ml_cache[3][5];
-    mutable double Bf_Mz_0_mqprime_mq_cache[3][5];
-    mutable double Bf_Mw_Mw2_mlprime_ml_cache[3][5];
-    mutable double Bf_Mw_Mw2_mqprime_mq_cache[3][5];
+    mutable double Bf_Mz2_Mz2_ml2_ml2_cache[6][4];
+    mutable double Bf_Mz2_Mz2_mq2_mq2_cache[6][4];
+    mutable double Bf_Mz2_0_ml2_ml2_cache[6][4];
+    mutable double Bf_Mz2_0_mq2_mq2_cache[6][4];
+    mutable double Bf_Mz2_Mw2_mlprime2_ml2_cache[3][6];
+    mutable double Bf_Mz2_Mw2_mqprime2_mq2_cache[3][6];
+    mutable double Bf_Mz2_0_mlprime2_ml2_cache[3][5];
+    mutable double Bf_Mz2_0_mqprime2_mq2_cache[3][5];
+    mutable double Bf_Mw2_Mw2_mlprime2_ml2_cache[3][5];
+    mutable double Bf_Mw2_Mw2_mqprime2_mq2_cache[3][5];
 
-    mutable double Bfp_Mz_Mz2_ml_ml_cache[6][4];
-    mutable double Bfp_Mz_Mz2_mq_mq_cache[6][4];    
-    mutable double Bfp_Mw_Mw2_mlprime_ml_cache[3][5];
-    mutable double Bfp_Mw_Mw2_mqprime_mq_cache[3][5];
+    mutable double Bfp_Mz2_Mz2_ml2_ml2_cache[6][4];
+    mutable double Bfp_Mz2_Mz2_mq2_mq2_cache[6][4];
+    mutable double Bfp_Mw2_Mw2_mlprime2_ml2_cache[3][5];
+    mutable double Bfp_Mw2_Mw2_mqprime2_mq2_cache[3][5];
     
-    mutable double C0_Mz2_Mw_Mt_Mw_cache[5]; 
-    mutable double C0_Mz2_Mt_Mw_Mt_cache[5]; 
-    mutable double C0_Mz2_0_Mw_0_cache[4]; 
-    mutable double C0_Mz2_Mw_0_Mw_cache[4]; 
-    mutable double C0_Mw2_Mw_0_Mz_cache[4]; 
-    mutable double C0_Mw2_0_Mz_0_cache[4]; 
-    mutable double C0_Mz2_0_Mz_0_cache[3]; 
+    mutable double C0_Mz2_Mw2_Mt2_Mw2_cache[5];
+    mutable double C0_Mz2_Mt2_Mw2_Mt2_cache[5];
+    mutable double C0_Mz2_0_Mw2_0_cache[4];
+    mutable double C0_Mz2_Mw2_0_Mw2_cache[4];
+    mutable double C0_Mw2_Mw2_0_Mz2_cache[4];
+    mutable double C0_Mw2_0_Mz2_0_cache[4];
+    mutable double C0_Mz2_0_Mz2_0_cache[3];
 
     
     ////////////////////////////////////////////////////////////////////////     

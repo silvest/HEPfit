@@ -30,12 +30,8 @@ double sigmaHadron::computeThValue()
             sigma_had = myEW.sigma0_had();
         
         if(myEWTYPE==EW::EWBURGESS) {
-            double delta_l = - 0.000192*SM.obliqueS() + 0.000790*SM.obliqueT();
-            double delta_had = - 0.00901*SM.obliqueS() + 0.0200*SM.obliqueT();
-            double delta_Z = - 0.00961*SM.obliqueS() + 0.0263*SM.obliqueT();
-            sigma_had *= 1.0 + delta_l/myEW.Gamma_l(SM.ELECTRON)
-                         + delta_had/myEW.Gamma_had()
-                         - 2.0*delta_Z/myEW.Gamma_Z();
+            sigma_had = myEW.getMyEW_BURGESS().sigmaHadron(sigma_had,
+                    myEW.Gamma_Z(), myEW.Gamma_had(), myEW.Gamma_l(SM.ELECTRON));
             return ( sigma_had*GeVminus2_to_nb );
         }
 

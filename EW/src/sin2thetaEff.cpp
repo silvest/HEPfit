@@ -25,10 +25,8 @@ double sin2thetaEff::computeThValue()
     } else { 
         sin2_theta_eff = myEW.sin2thetaEff(SM.ELECTRON);
     
-        if(myEWTYPE==EW::EWBURGESS) {
-            sin2_theta_eff += 0.00362*SM.obliqueS() - 0.00256*SM.obliqueT();
-            return sin2_theta_eff;
-        }
+        if(myEWTYPE==EW::EWBURGESS)
+            return myEW.getMyEW_BURGESS().sin2thetaEff(sin2_theta_eff);
 
         /* NP contribution to the Zff vertex */
         if ( !SM.IsFlagNotLinearizedNP() ) {

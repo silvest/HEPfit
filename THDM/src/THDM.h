@@ -9,7 +9,6 @@
 #define	THDM_H
 
 #include <StandardModel.h>
-#include <PVfunctions.h>
 #include "THDMcache.h"
 
 
@@ -233,8 +232,6 @@ protected:
     THDMcache mycache;
 
     private:
-        
-    //PVfunctions PV;
     
     //double DeltaS, DeltaT, DeltaU;
     
@@ -258,29 +255,6 @@ protected:
      * @return the function F for THDM 
      */
     double F(const double m0, const double m1) const;
-    
-//    complex B0_Mz_0_Mz_mH;
-//    complex B0_Mz_0_Mz_mh;
-//    complex B0_Mz_0_Mw_mH;
-//    complex B0_Mz_0_Mw_mh;
-//    
-//    complex B22prime_Mz_Mz2_mH_mA;
-//    complex B22prime_Mz_Mz2_mHp_mHp;
-//    complex B22prime_Mz_Mz2_mh_mA;
-//    complex B22prime_Mz_Mz2_Mz_mH;
-//    complex B22prime_Mz_Mz2_Mz_mh;
-//    complex B22prime_Mz_Mw2_mA_mHp;
-//    complex B22prime_Mz_Mw2_mHp_mHp;
-//    complex B22prime_Mz_Mw2_mH_mHp;
-//    complex B22prime_Mz_Mw2_mh_mHp;
-//    complex B22prime_Mz_Mw2_Mw_mH;
-//    complex B22prime_Mz_Mw2_Mw_mh;
-//    
-//    complex B0prime_Mz_Mz2_Mz_mH;
-//    complex B0prime_Mz_Mz2_Mz_mh;
-//    complex B0prime_Mz_Mw2_Mw_mH;
-//    complex B0prime_Mz_Mw2_Mw_mh;
-    
     
 };
 

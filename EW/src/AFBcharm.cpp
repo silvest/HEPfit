@@ -20,10 +20,8 @@ double AFBcharm::computeThValue()
     else {
         AFB_c = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.CHARM);
     
-        if(myEWTYPE==EW::EWBURGESS) {
-            AFB_c += - 0.0147*SM.obliqueS() + 0.0104*SM.obliqueT();
-            return AFB_c;
-        }
+        if(myEWTYPE==EW::EWBURGESS)
+            return myEW.getMyEW_BURGESS().AFBcharm(AFB_c);
 
         /* NP contribution to the Zff vertex */
         if ( !SM.IsFlagNotLinearizedNP() ) {

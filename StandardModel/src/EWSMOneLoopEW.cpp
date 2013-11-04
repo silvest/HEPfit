@@ -213,12 +213,12 @@ double EWSMOneLoopEW::rho_GammaW_tmp(const double Qi, const double Qj,
 
     /* Logarithm and one-loop functions */
     double log_cW2 = cache.log_cW2(Mw); 
-    complex B0_Mw_Mw2_Mz_Mw = cache.B0_Mw_Mw2_Mz_Mw(Mw);
-    complex C0_Mw2_Mw_0_Mz = cache.C0_Mw2_Mw_0_Mz(Mw);
+    complex B0_Mw2_Mw2_Mz2_Mw2 = cache.B0_Mw2_Mw2_Mz2_Mw2(Mw);
+    complex C0_Mw2_Mw2_0_Mz2 = cache.C0_Mw2_Mw2_0_Mz2(Mw);
     
     double V1 = FZa_0(Mw*Mw,Mw).real() - 3.0/2.0;
-    double V2 = - 2.0*(2.0 + cW2)*Mz*Mz*C0_Mw2_Mw_0_Mz.real()
-                - (1.0/12.0/cW2/cW2 + 5.0/3.0/cW2 + 1.0)*B0_Mw_Mw2_Mz_Mw.real()
+    double V2 = - 2.0*(2.0 + cW2)*Mz*Mz*C0_Mw2_Mw2_0_Mz2.real()
+                - (1.0/12.0/cW2/cW2 + 5.0/3.0/cW2 + 1.0)*B0_Mw2_Mw2_Mz2_Mw2.real()
                 + (1.0/12.0/cW2/cW2 + 1.0/cW2 + 1.0)*log_cW2 
                 + 1.0/12.0/cW2/cW2 + 13.0/12.0/cW2 + 59.0/18.0;
     
@@ -265,10 +265,11 @@ double EWSMOneLoopEW::rho_GammaW_q(const StandardModel::quark qi,
 complex EWSMOneLoopEW::SigmaWW_bos(const double mu, const double s,
                                    const double Mw_i) const 
 {
+    double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
     double Mw2 = Mw*Mw;
     double Mz = cache.Mz();    
-    //double Mz2 = Mz*Mz;
+    double Mz2 = Mz*Mz;
     double mh = cache.mh();
     double mh2 = mh*mh;
     double sW2 = cache.sW2(Mw);
@@ -280,64 +281,64 @@ complex EWSMOneLoopEW::SigmaWW_bos(const double mu, const double s,
     double rw = pow(mh/Mw, 2.0);
     
     /* Loop functions */
-    double A0_Mw, A0_Mz, A0_mh;
-    complex B0_s_Mz_Mw, B0_s_0_Mw, B0_s_mh_Mw;
-    complex B0p_s_Mz_Mw, B0p_s_mh_Mw; /* for s==0.0 */
+    double A0_Mw2, A0_Mz2, A0_mh2;
+    complex B0_s_Mz2_Mw2, B0_s_0_Mw2, B0_s_mh2_Mw2;
+    complex B0p_s_Mz2_Mw2, B0p_s_mh2_Mw2; /* for s==0.0 */
     if (mu==Mz && s==0.0) {
-        A0_Mw = cache.A0_Mz_Mw(Mw);
-        A0_Mz = cache.A0_Mz_Mz();
-        A0_mh = cache.A0_Mz_mh();
-        B0_s_Mz_Mw = cache.B0_Mz_0_Mz_Mw(Mw);
-        B0_s_0_Mw = cache.B0_Mz_0_0_Mw(Mw);
-        B0_s_mh_Mw = cache.B0_Mz_0_mh_Mw(Mw);
-        B0p_s_Mz_Mw = cache.B0p_Mz_0_Mz_Mw(Mw);
-        B0p_s_mh_Mw = cache.B0p_Mz_0_mh_Mw(Mw);         
+        A0_Mw2 = cache.A0_Mz2_Mw2(Mw);
+        A0_Mz2 = cache.A0_Mz2_Mz2();
+        A0_mh2 = cache.A0_Mz2_mh2();
+        B0_s_Mz2_Mw2 = cache.B0_Mz2_0_Mz2_Mw2(Mw);
+        B0_s_0_Mw2 = cache.B0_Mz2_0_0_Mw2(Mw);
+        B0_s_mh2_Mw2 = cache.B0_Mz2_0_mh2_Mw2(Mw);
+        B0p_s_Mz2_Mw2 = cache.B0p_Mz2_0_Mz2_Mw2(Mw);
+        B0p_s_mh2_Mw2 = cache.B0p_Mz2_0_mh2_Mw2(Mw);
     } else if (mu==Mz && s==Mw2) {
-        A0_Mw = cache.A0_Mz_Mw(Mw);
-        A0_Mz = cache.A0_Mz_Mz();
-        A0_mh = cache.A0_Mz_mh();
-        B0_s_Mz_Mw = cache.B0_Mz_Mw2_Mz_Mw(Mw);
-        B0_s_0_Mw = cache.B0_Mz_Mw2_0_Mw(Mw);
-        B0_s_mh_Mw = cache.B0_Mz_Mw2_mh_Mw(Mw);
+        A0_Mw2 = cache.A0_Mz2_Mw2(Mw);
+        A0_Mz2 = cache.A0_Mz2_Mz2();
+        A0_mh2 = cache.A0_Mz2_mh2();
+        B0_s_Mz2_Mw2 = cache.B0_Mz2_Mw2_Mz2_Mw2(Mw);
+        B0_s_0_Mw2 = cache.B0_Mz2_Mw2_0_Mw2(Mw);
+        B0_s_mh2_Mw2 = cache.B0_Mz2_Mw2_mh2_Mw2(Mw);
     } else {
-        A0_Mw = cache.getPV().A0(mu, Mw);
-        A0_Mz = cache.getPV().A0(mu, Mz);
-        A0_mh = cache.getPV().A0(mu, mh);
-        B0_s_Mz_Mw = cache.getPV().B0(mu, s, Mz, Mw);
-        B0_s_0_Mw = cache.getPV().B0(mu, s, 0.0, Mw);
-        B0_s_mh_Mw = cache.getPV().B0(mu, s, mh, Mw);
-        B0p_s_Mz_Mw = cache.getPV().B0p(mu, s, Mz, Mw);
-        B0p_s_mh_Mw = cache.getPV().B0p(mu, s, mh, Mw);
+        A0_Mw2 = cache.getPV().A0(mu2, Mw2);
+        A0_Mz2 = cache.getPV().A0(mu2, Mz2);
+        A0_mh2 = cache.getPV().A0(mu2, mh2);
+        B0_s_Mz2_Mw2 = cache.getPV().B0(mu2, s, Mz2, Mw2);
+        B0_s_0_Mw2 = cache.getPV().B0(mu2, s, 0.0, Mw2);
+        B0_s_mh2_Mw2 = cache.getPV().B0(mu2, s, mh2, Mw2);
+        B0p_s_Mz2_Mw2 = cache.getPV().B0p(mu2, s, Mz2, Mw2);
+        B0p_s_mh2_Mw2 = cache.getPV().B0p(mu2, s, mh2, Mw2);
     }
     
     complex Sigma(0.0,0.0,false);
     if (s==0.0) {
-        Sigma = Mw2*( 2.0/3.0*(1.0/cW2 - 4.0 - 4.0*cW2 + cW4)*B0_s_Mz_Mw
+        Sigma = Mw2*( 2.0/3.0*(1.0/cW2 - 4.0 - 4.0*cW2 + cW4)*B0_s_Mz2_Mw2
                       + (1.0/12.0/cW4 + 2.0/3.0/cW2 - 3.0/2.0 
-                          + 2.0/3.0*cW2 + 1.0/12.0*cW4)*Mw2*B0p_s_Mz_Mw
-                      - 17.0*sW2/6.0*B0_s_0_Mw + 5.0/12.0*sW2
-                      - 1.0/12.0*(- 10.0 + 2.0*rw)*B0_s_mh_Mw
-                      + 1.0/12.0*pow(1.0 - rw, 2.0)*Mw2*B0p_s_mh_Mw
-                      - 1.0/12.0*(24.0 - 2.0*cW2 + cW4)*A0_Mw/Mw2
-                      - 1.0/6.0*A0_mh/Mw2
-                      - 1.0/12.0*(1.0 + 14.0*cW2 + 9.0*cW4)*A0_Mz/Mw2
+                          + 2.0/3.0*cW2 + 1.0/12.0*cW4)*Mw2*B0p_s_Mz2_Mw2
+                      - 17.0*sW2/6.0*B0_s_0_Mw2 + 5.0/12.0*sW2
+                      - 1.0/12.0*(- 10.0 + 2.0*rw)*B0_s_mh2_Mw2
+                      + 1.0/12.0*pow(1.0 - rw, 2.0)*Mw2*B0p_s_mh2_Mw2
+                      - 1.0/12.0*(24.0 - 2.0*cW2 + cW4)*A0_Mw2/Mw2
+                      - 1.0/6.0*A0_mh2/Mw2
+                      - 1.0/12.0*(1.0 + 14.0*cW2 + 9.0*cW4)*A0_Mz2/Mw2
                       - 1.0/6.0*(1.0/cW2 + 22.0 + cW2 + cW4 + rw) );     
     } else {
         Sigma = Mw2*( ( (1.0/12.0/cW4 + 2.0/3.0/cW2 - 3.0/2.0 + 2.0/3.0*cW2 
                          + 1.0/12.0*cW4)*RW 
                        + 2.0/3.0*(1.0/cW2 - 4.0 - 4.0*cW2 + cW4)
                        - (3.0/2.0 + 8.0/3.0*cW2 + 3.0/2.0*cW4)/RW 
-                       + 2.0/3.0*cW2*(1.0 + cW2)/RW2 + 1.0/12.0*cW4/RW3 )*B0_s_Mz_Mw
-                     - sW2/6.0*(- 5.0*RW + 17.0 + 17.0/RW - 5.0/RW2)*B0_s_0_Mw
+                       + 2.0/3.0*cW2*(1.0 + cW2)/RW2 + 1.0/12.0*cW4/RW3 )*B0_s_Mz2_Mw2
+                     - sW2/6.0*(- 5.0*RW + 17.0 + 17.0/RW - 5.0/RW2)*B0_s_0_Mw2
                      - 1.0/12.0*(- pow(1.0 - rw, 2.0)*RW - 10.0 + 2.0*rw - 1.0/RW)
-                       *B0_s_mh_Mw
+                       *B0_s_mh2_Mw2
                      - 1.0/12.0*( (1.0/cW2 - 2.0 + cW2 - cW4 + rw)*RW 
                                    + 24.0 - 2.0*cW2 + cW4
-                                   + (- 10.0 + cW2 + cW4)/RW - cW4/RW2 )*A0_Mw/Mw2
+                                   + (- 10.0 + cW2 + cW4)/RW - cW4/RW2 )*A0_Mw2/Mw2
                      - 1.0/12.0*( - (1.0/cW2 + 9.0 - 9.0*cW2 - cW4)*RW 
                                      + 1.0 + 14.0*cW2 + 9.0*cW4
-                                     + cW2/RW*(1.0 - 9.0*cW2) - cW4/RW2 )*A0_Mz/Mw2 
-                     + 1.0/12.0*((mh2 - Mw2)/s - 2.0)*A0_mh/Mw2 
+                                     + cW2/RW*(1.0 - 9.0*cW2) - cW4/RW2 )*A0_Mz2/Mw2
+                     + 1.0/12.0*((mh2 - Mw2)/s - 2.0)*A0_mh2/Mw2
                      - 1.0/6.0*(1.0/cW2 + 22.0 + cW2 + cW4 + rw) 
                      + 1.0/9.0*( (6.0 + 3.0*cW2 + 7.0/2.0*cW4)/RW
                                   - (1.0 + 3.0/2.0*cW2 + 5.0/2.0*cW4)/RW2 
@@ -350,60 +351,61 @@ complex EWSMOneLoopEW::SigmaWW_bos(const double mu, const double s,
 complex EWSMOneLoopEW::SigmaWW_fer(const double mu, const double s,
                                    const double Mw_i) const 
 {
-    double ml[6], mq[6];
+    double ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
-        ml[i] = cache.ml((StandardModel::lepton) i);
-        mq[i] = cache.mq((StandardModel::quark) i, mu);        
+        ml2[i] = cache.ml2((StandardModel::lepton) i);
+        mq2[i] = cache.mq2((StandardModel::quark) i, mu);
     }
+    double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
     double Mw2 = Mw*Mw;
     double Mz = cache.Mz();        
 
     /* Loop functions */
-    complex B1_s_ml_mlprime[3], B1_s_mq_mqprime[3]; 
-    complex B1_s_mlprime_ml[3], B1_s_mqprime_mq[3];    
-    complex Bf_s_mlprime_ml[3], Bf_s_mqprime_mq[3];
+    complex B1_s_ml2_mlprime2[3], B1_s_mq2_mqprime2[3];
+    complex B1_s_mlprime2_ml2[3], B1_s_mqprime2_mq2[3];
+    complex Bf_s_mlprime2_ml2[3], Bf_s_mqprime2_mq2[3];
     if (mu==Mz && s==0.0) {
         for (int gen=0; gen<3; gen++) {
-            B1_s_ml_mlprime[gen] = cache.B1_Mz_0_ml_mlprime(gen);
-            B1_s_mq_mqprime[gen] = cache.B1_Mz_0_mq_mqprime(gen);
-            B1_s_mlprime_ml[gen] = cache.B1_Mz_0_mlprime_ml(gen);
-            B1_s_mqprime_mq[gen] = cache.B1_Mz_0_mqprime_mq(gen);
-            Bf_s_mlprime_ml[gen] = cache.Bf_Mz_0_mlprime_ml(gen);
-            Bf_s_mqprime_mq[gen] = cache.Bf_Mz_0_mqprime_mq(gen);            
+            B1_s_ml2_mlprime2[gen] = cache.B1_Mz2_0_ml2_mlprime2(gen);
+            B1_s_mq2_mqprime2[gen] = cache.B1_Mz2_0_mq2_mqprime2(gen);
+            B1_s_mlprime2_ml2[gen] = cache.B1_Mz2_0_mlprime2_ml2(gen);
+            B1_s_mqprime2_mq2[gen] = cache.B1_Mz2_0_mqprime2_mq2(gen);
+            Bf_s_mlprime2_ml2[gen] = cache.Bf_Mz2_0_mlprime2_ml2(gen);
+            Bf_s_mqprime2_mq2[gen] = cache.Bf_Mz2_0_mqprime2_mq2(gen);
         }
     } else if (mu==Mz && s==Mw2) {
         for (int gen=0; gen<3; gen++) {
-            B1_s_ml_mlprime[gen] = cache.B1_Mz_Mw2_ml_mlprime(gen,Mw);
-            B1_s_mq_mqprime[gen] = cache.B1_Mz_Mw2_mq_mqprime(gen,Mw);   
-            B1_s_mlprime_ml[gen] = cache.B1_Mz_Mw2_mlprime_ml(gen,Mw);
-            B1_s_mqprime_mq[gen] = cache.B1_Mz_Mw2_mqprime_mq(gen,Mw);           
-            Bf_s_mlprime_ml[gen] = cache.Bf_Mz_Mw2_mlprime_ml(gen,Mw);
-            Bf_s_mqprime_mq[gen] = cache.Bf_Mz_Mw2_mqprime_mq(gen,Mw);           
+            B1_s_ml2_mlprime2[gen] = cache.B1_Mz2_Mw2_ml2_mlprime2(gen,Mw);
+            B1_s_mq2_mqprime2[gen] = cache.B1_Mz2_Mw2_mq2_mqprime2(gen,Mw);
+            B1_s_mlprime2_ml2[gen] = cache.B1_Mz2_Mw2_mlprime2_ml2(gen,Mw);
+            B1_s_mqprime2_mq2[gen] = cache.B1_Mz2_Mw2_mqprime2_mq2(gen,Mw);
+            Bf_s_mlprime2_ml2[gen] = cache.Bf_Mz2_Mw2_mlprime2_ml2(gen,Mw);
+            Bf_s_mqprime2_mq2[gen] = cache.Bf_Mz2_Mw2_mqprime2_mq2(gen,Mw);
         }
     } else {
         for (int gen=0; gen<3; gen++) {
-            B1_s_ml_mlprime[gen] = cache.getPV().B1(mu,s,ml[2*gen],ml[2*gen+1]);
-            B1_s_mq_mqprime[gen] = cache.getPV().B1(mu,s,mq[2*gen],mq[2*gen+1]);
-            B1_s_mlprime_ml[gen] = cache.getPV().B1(mu,s,ml[2*gen+1],ml[2*gen]);
-            B1_s_mqprime_mq[gen] = cache.getPV().B1(mu,s,mq[2*gen+1],mq[2*gen]);
-            Bf_s_mlprime_ml[gen] = cache.getPV().Bf(mu,s,ml[2*gen+1],ml[2*gen]);
-            Bf_s_mqprime_mq[gen] = cache.getPV().Bf(mu,s,mq[2*gen+1],mq[2*gen]);            
+            B1_s_ml2_mlprime2[gen] = cache.getPV().B1(mu2,s,ml2[2*gen],ml2[2*gen+1]);
+            B1_s_mq2_mqprime2[gen] = cache.getPV().B1(mu2,s,mq2[2*gen],mq2[2*gen+1]);
+            B1_s_mlprime2_ml2[gen] = cache.getPV().B1(mu2,s,ml2[2*gen+1],ml2[2*gen]);
+            B1_s_mqprime2_mq2[gen] = cache.getPV().B1(mu2,s,mq2[2*gen+1],mq2[2*gen]);
+            Bf_s_mlprime2_ml2[gen] = cache.getPV().Bf(mu2,s,ml2[2*gen+1],ml2[2*gen]);
+            Bf_s_mqprime2_mq2[gen] = cache.getPV().Bf(mu2,s,mq2[2*gen+1],mq2[2*gen]);
         }
     }
     
     complex Sigma(0.0,0.0,false);
-    double ml2, mlprime2, mq2, mqprime2;
+    double mf2, mfprime2;
     for (int gen=0; gen<3; gen++) {
-        ml2 = ml[2*gen]*ml[2*gen];
-        mlprime2 = ml[2*gen+1]*ml[2*gen+1];
-        if(s!=0.0) Sigma += - s*Bf_s_mlprime_ml[gen];
-        Sigma += mlprime2*B1_s_ml_mlprime[gen] + ml2*B1_s_mlprime_ml[gen];
+        mf2 = ml2[2*gen];
+        mfprime2 = ml2[2*gen+1];
+        if(s!=0.0) Sigma += - s*Bf_s_mlprime2_ml2[gen];
+        Sigma += mfprime2*B1_s_ml2_mlprime2[gen] + mf2*B1_s_mlprime2_ml2[gen];
         //
-        mq2 = mq[2*gen]*mq[2*gen];
-        mqprime2 = mq[2*gen+1]*mq[2*gen+1];
-        if(s!=0.0) Sigma += 3.0*( - s*Bf_s_mqprime_mq[gen] );
-        Sigma += 3.0*( mqprime2*B1_s_mq_mqprime[gen] + mq2*B1_s_mqprime_mq[gen] );
+        mf2 = mq2[2*gen];
+        mfprime2 = mq2[2*gen+1];
+        if(s!=0.0) Sigma += 3.0*( - s*Bf_s_mqprime2_mq2[gen] );
+        Sigma += 3.0*( mfprime2*B1_s_mq2_mqprime2[gen] + mf2*B1_s_mqprime2_mq2[gen] );
     }
     return Sigma;
 }
@@ -412,6 +414,7 @@ complex EWSMOneLoopEW::SigmaWW_fer(const double mu, const double s,
 complex EWSMOneLoopEW::SigmaZZ_bos(const double mu, const double s,
                                    const double Mw_i) const 
 {
+    double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
     double Mw2 = Mw*Mw;
     double Mz = cache.Mz();    
@@ -426,20 +429,20 @@ complex EWSMOneLoopEW::SigmaZZ_bos(const double mu, const double s,
     double rw = pow(mh/Mw, 2.0);
     
     /* Loop functions */
-    double A0_Mw, A0_Mz, A0_mh;
-    complex B0_s_Mw_Mw, B0_s_mh_Mz;
+    double A0_Mw2, A0_Mz2, A0_mh2;
+    complex B0_s_Mw2_Mw2, B0_s_mh2_Mz2;
     if (mu==Mz && s==Mz2) {
-        A0_Mw = cache.A0_Mz_Mw(Mw);
-        A0_Mz = cache.A0_Mz_Mz();
-        A0_mh = cache.A0_Mz_mh();
-        B0_s_Mw_Mw = cache.B0_Mz_Mz2_Mw_Mw(Mw);
-        B0_s_mh_Mz = cache.B0_Mz_Mz2_mh_Mz();
+        A0_Mw2 = cache.A0_Mz2_Mw2(Mw);
+        A0_Mz2 = cache.A0_Mz2_Mz2();
+        A0_mh2 = cache.A0_Mz2_mh2();
+        B0_s_Mw2_Mw2 = cache.B0_Mz2_Mz2_Mw2_Mw2(Mw);
+        B0_s_mh2_Mz2 = cache.B0_Mz2_Mz2_mh2_Mz2();
     } else {
-        A0_Mw = cache.getPV().A0(mu, Mw);
-        A0_Mz = cache.getPV().A0(mu, Mz);
-        A0_mh = cache.getPV().A0(mu, mh);
-        B0_s_Mw_Mw = cache.getPV().B0(mu, s, Mw, Mw);
-        B0_s_mh_Mz = cache.getPV().B0(mu, s, mh, Mz);
+        A0_Mw2 = cache.getPV().A0(mu2, Mw2);
+        A0_Mz2 = cache.getPV().A0(mu2, Mz2);
+        A0_mh2 = cache.getPV().A0(mu2, mh2);
+        B0_s_Mw2_Mw2 = cache.getPV().B0(mu2, s, Mw2, Mw2);
+        B0_s_mh2_Mz2 = cache.getPV().B0(mu2, s, mh2, Mz2);
     }        
 
     complex Sigma(0.0,0.0,false);
@@ -447,12 +450,12 @@ complex EWSMOneLoopEW::SigmaZZ_bos(const double mu, const double s,
         throw std::runtime_error("Missing codes for EWSMOneLoopEW::SigmaZZ_bos(s=0.0)"); 
     } else {
         Sigma = Mw2*( - cW4*(4.0 + 17.0/3.0/RW - 4.0/3.0/RW2 - 1.0/12.0/RW3 )
-                        *B0_s_Mw_Mw
+                        *B0_s_Mw2_Mw2
                       + 1.0/12.0*( (1.0/cW4 - 2.0/cW2*rw + rw*rw)*RW
-                                   + 10.0/cW2 - 2.0*rw + 1.0/RW )*B0_s_mh_Mz
-                      - cW2*(4.0 - 4.0/3.0/RW - 1.0/6.0/RW2)*A0_Mw/Mz2
-                      + 1.0/12.0*((Mz2 - mh2)/s + 1.0)*(A0_Mz - A0_mh)/cW2/Mz2
-                      - 1.0/12.0*A0_mh/cW2/Mz2
+                                   + 10.0/cW2 - 2.0*rw + 1.0/RW )*B0_s_mh2_Mz2
+                      - cW2*(4.0 - 4.0/3.0/RW - 1.0/6.0/RW2)*A0_Mw2/Mz2
+                      + 1.0/12.0*((Mz2 - mh2)/s + 1.0)*(A0_Mz2 - A0_mh2)/cW2/Mz2
+                      - 1.0/12.0*A0_mh2/cW2/Mz2
                       - ( 1.0/6.0/cW2 + 4.0*cW4 + 1.0/6.0*rw
                           - (1.0/18.0 + 4.0/3.0*cW4)/RW 
                           + 1.0/9.0*cW4*(5.0 - 1.0/2.0/RW)/RW2 ) );
@@ -464,31 +467,32 @@ complex EWSMOneLoopEW::SigmaZZ_bos(const double mu, const double s,
 complex EWSMOneLoopEW::SigmaZZ_fer(const double mu, const double s, 
                                    const double Mw_i) const
 {
-    double ml[6], mq[6];
+    double ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
-        ml[i] = cache.ml((StandardModel::lepton) i);
-        mq[i] = cache.mq((StandardModel::quark) i, mu);        
+        ml2[i] = cache.ml2((StandardModel::lepton) i);
+        mq2[i] = cache.mq2((StandardModel::quark) i, mu);
     }
+    double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
     double Mz = cache.Mz();    
     double Mz2 = Mz*Mz;
 
     /* Loop functions */
-    complex Bf_s_ml_ml[6], Bf_s_mq_mq[6];
-    complex B0_s_ml_ml[6], B0_s_mq_mq[6];    
+    complex Bf_s_ml2_ml2[6], Bf_s_mq2_mq2[6];
+    complex B0_s_ml2_ml2[6], B0_s_mq2_mq2[6];
     if (mu==Mz && s==Mz2) {
         for (int i=0; i<6; i++) {
-            Bf_s_ml_ml[i] = cache.Bf_Mz_Mz2_ml_ml((StandardModel::lepton) i);
-            Bf_s_mq_mq[i] = cache.Bf_Mz_Mz2_mq_mq((StandardModel::quark) i);           
-            B0_s_ml_ml[i] = cache.B0_Mz_Mz2_ml_ml((StandardModel::lepton) i);
-            B0_s_mq_mq[i] = cache.B0_Mz_Mz2_mq_mq((StandardModel::quark) i);           
+            Bf_s_ml2_ml2[i] = cache.Bf_Mz2_Mz2_ml2_ml2((StandardModel::lepton) i);
+            Bf_s_mq2_mq2[i] = cache.Bf_Mz2_Mz2_mq2_mq2((StandardModel::quark) i);
+            B0_s_ml2_ml2[i] = cache.B0_Mz2_Mz2_ml2_ml2((StandardModel::lepton) i);
+            B0_s_mq2_mq2[i] = cache.B0_Mz2_Mz2_mq2_mq2((StandardModel::quark) i);
         }
     } else {
         for (int i=0; i<6; i++) {
-            Bf_s_ml_ml[i] = cache.getPV().Bf(mu,s,ml[i],ml[i]);
-            Bf_s_mq_mq[i] = cache.getPV().Bf(mu,s,mq[i],mq[i]);            
-            B0_s_ml_ml[i] = cache.getPV().B0(mu,s,ml[i],ml[i]);
-            B0_s_mq_mq[i] = cache.getPV().B0(mu,s,mq[i],mq[i]);            
+            Bf_s_ml2_ml2[i] = cache.getPV().Bf(mu2,s,ml2[i],ml2[i]);
+            Bf_s_mq2_mq2[i] = cache.getPV().Bf(mu2,s,mq2[i],mq2[i]);
+            B0_s_ml2_ml2[i] = cache.getPV().B0(mu2,s,ml2[i],ml2[i]);
+            B0_s_mq2_mq2[i] = cache.getPV().B0(mu2,s,mq2[i],mq2[i]);
         }
     }
     
@@ -496,19 +500,19 @@ complex EWSMOneLoopEW::SigmaZZ_fer(const double mu, const double s,
     if (s==0.0) {
         throw std::runtime_error("Missing codes for EWSMOneLoopEW::SigmaZZ_fer(s=0.0)"); 
     } else {
-        double ml2, vl2, al2, mq2, vq2, aq2;
+        double mf2, vf2, af2;
         for (int i=0; i<6; i++) {
-            ml2 = ml[i]*ml[i];
-            vl2 = pow(cache.vl((StandardModel::lepton) i, Mw), 2.0);
-            al2 = pow(cache.al((StandardModel::lepton) i), 2.0);            
-            if(s!=0.0) Sigma += - (vl2 + al2)*s*Bf_s_ml_ml[i];
-            Sigma += - 2.0*al2*ml2*B0_s_ml_ml[i];
+            mf2 = ml2[i];
+            vf2 = pow(cache.vl((StandardModel::lepton) i, Mw), 2.0);
+            af2 = pow(cache.al((StandardModel::lepton) i), 2.0);
+            if(s!=0.0) Sigma += - (vf2 + af2)*s*Bf_s_ml2_ml2[i];
+            Sigma += - 2.0*af2*mf2*B0_s_ml2_ml2[i];
             //
-            mq2 = mq[i]*mq[i];
-            vq2 = pow(cache.vq((StandardModel::quark) i, Mw), 2.0);
-            aq2 = pow(cache.aq((StandardModel::quark) i), 2.0);
-            if(s!=0.0) Sigma += - 3.0*(vq2 + aq2)*s*Bf_s_mq_mq[i];
-            Sigma += - 3.0*2.0*aq2*mq2*B0_s_mq_mq[i];
+            mf2 = mq2[i];
+            vf2 = pow(cache.vq((StandardModel::quark) i, Mw), 2.0);
+            af2 = pow(cache.aq((StandardModel::quark) i), 2.0);
+            if(s!=0.0) Sigma += - 3.0*(vf2 + af2)*s*Bf_s_mq2_mq2[i];
+            Sigma += - 3.0*2.0*af2*mf2*B0_s_mq2_mq2[i];
         }
     }   
     return Sigma;
@@ -518,6 +522,7 @@ complex EWSMOneLoopEW::SigmaZZ_fer(const double mu, const double s,
 complex EWSMOneLoopEW::PiGammaGamma_bos(const double mu, const double s,
                                         const double Mw_i) const 
 {
+    double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
     double Mw2 = Mw*Mw;
     double Mz = cache.Mz();    
@@ -527,22 +532,22 @@ complex EWSMOneLoopEW::PiGammaGamma_bos(const double mu, const double s,
     double RW3 = RW2*RW;    
     
     /* Loop functions */
-    double A0_Mw;
-    complex B0_s_Mw_Mw;
+    double A0_Mw2;
+    complex B0_s_Mw2_Mw2;
     if (mu==Mz && s==Mz2) {
-        A0_Mw = cache.A0_Mz_Mw(Mw);
-        B0_s_Mw_Mw = cache.B0_Mz_Mz2_Mw_Mw(Mw);
+        A0_Mw2 = cache.A0_Mz2_Mw2(Mw);
+        B0_s_Mw2_Mw2 = cache.B0_Mz2_Mz2_Mw2_Mw2(Mw);
     } else {
-        A0_Mw = cache.getPV().A0(mu, Mw);
-        B0_s_Mw_Mw = cache.getPV().B0(mu, s, Mw, Mw);
+        A0_Mw2 = cache.getPV().A0(mu2, Mw2);
+        B0_s_Mw2_Mw2 = cache.getPV().B0(mu2, s, Mw2, Mw2);
     }
     
     complex Pi(0.0,0.0,false);
     if (s==0.0) {
         Pi = 7.0*log(Mw2/mu/mu) - 2.0/3.0;
     } else {
-        Pi = - RW*( (4.0 + 17.0/3.0/RW - 4.0/3.0/RW2 - 1.0/12.0/RW3)*B0_s_Mw_Mw
-                    + (4.0 - 4.0/3.0/RW - 1.0/6.0/RW2)*(A0_Mw/Mw2 + 1.0)
+        Pi = - RW*( (4.0 + 17.0/3.0/RW - 4.0/3.0/RW2 - 1.0/12.0/RW3)*B0_s_Mw2_Mw2
+                    + (4.0 - 4.0/3.0/RW - 1.0/6.0/RW2)*(A0_Mw2/Mw2 + 1.0)
                     - 1.0/18.0/RW2*(1.0/RW - 13.0) );
     }
     return Pi;
@@ -557,68 +562,70 @@ complex EWSMOneLoopEW::PiGammaGamma_fer_l(const double mu, const double s,
             || (l==StandardModel::NEUTRINO_3) )
         return 0.0;
 
-    double mf = cache.ml(l);
+    double mu2 = mu*mu;
+    double mf2 = cache.ml2(l);
     double Mz = cache.Mz();    
     double Mz2 = Mz*Mz;
 
     /* Loop functions */
-    complex Bf_s_mf_mf;
+    complex Bf_s_mf2_mf2;
     if (mu==Mz && s==Mz2) {
-        if (mf==0.0) { 
-            Bf_s_mf_mf = 0.0; 
+        if (mf2==0.0) {
+            Bf_s_mf2_mf2 = 0.0;
         } else {
-            Bf_s_mf_mf = cache.Bf_Mz_Mz2_ml_ml(l);
+            Bf_s_mf2_mf2 = cache.Bf_Mz2_Mz2_ml2_ml2(l);
         }
     } else if (mu==Mz && s==0.0) {        
-        if (mf==0.0) {
-            Bf_s_mf_mf = 0.0; 
+        if (mf2==0.0) {
+            Bf_s_mf2_mf2 = 0.0;
         } else {
-            Bf_s_mf_mf = cache.Bf_Mz_0_ml_ml(l);
+            Bf_s_mf2_mf2 = cache.Bf_Mz2_0_ml2_ml2(l);
         }
     } else {
-        if (mf==0.0) {
-            Bf_s_mf_mf = 0.0; 
+        if (mf2==0.0) {
+            Bf_s_mf2_mf2 = 0.0;
         } else {
-            Bf_s_mf_mf = cache.getPV().Bf(mu,s,mf,mf);
+            Bf_s_mf2_mf2 = cache.getPV().Bf(mu2,s,mf2,mf2);
         }
     }
     
     double Qf = cache.Ql(l);
-    return ( - 4.0*Qf*Qf*Bf_s_mf_mf);
+    return ( - 4.0*Qf*Qf*Bf_s_mf2_mf2);
 }
 
 
 complex EWSMOneLoopEW::PiGammaGamma_fer_q(const double mu, const double s, 
                                           const StandardModel::quark q) const 
 {
-    double mf = cache.mq(q, mu);
+    double mu2 = mu*mu;
+    double mf2 = cache.mq2(q, mu);
     double Mz = cache.Mz();    
     double Mz2 = Mz*Mz;
 
     /* Loop functions */
-    complex Bf_s_mf_mf;
+    complex Bf_s_mf2_mf2;
     if (mu==Mz && s==Mz2) {
-        if (mf==0.0) { 
-            Bf_s_mf_mf = 0.0; 
+        if (mf2==0.0) {
+            Bf_s_mf2_mf2 = 0.0;
         } else {
-            Bf_s_mf_mf = cache.Bf_Mz_Mz2_mq_mq(q);
+            Bf_s_mf2_mf2 = cache.Bf_Mz2_Mz2_mq2_mq2(q);
         }
     } else if (mu==Mz && s==0.0) {        
-        if (mf==0.0) {
-            Bf_s_mf_mf = 0.0; 
+        if (mf2==0.0) {
+            Bf_s_mf2_mf2 = 0.0;
         } else {
-            Bf_s_mf_mf = cache.Bf_Mz_0_mq_mq(q);
+            Bf_s_mf2_mf2 = cache.Bf_Mz2_0_mq2_mq2(q);
         }
     } else {
-        if (mf==0.0) {
-            Bf_s_mf_mf = 0.0; 
+        if (mf2==0.0) {
+            Bf_s_mf2_mf2 = 0.0;
         } else {
-            Bf_s_mf_mf = cache.getPV().Bf(mu,s,mf,mf);
+            Bf_s_mf2_mf2 = cache.getPV().Bf(mu2,s,mf2,mf2);
         }
     }
     
     double Qf = cache.Qq(q);
-    return ( - 4.0*3.0*Qf*Qf*Bf_s_mf_mf);
+    return ( - 4.0*3.0*Qf*Qf*Bf_s_mf2_mf2);
 }
 
 
@@ -645,33 +652,34 @@ complex EWSMOneLoopEW::PiZgamma_bos(const double mu, const double s,
 complex EWSMOneLoopEW::PiZgamma_fer(const double mu, const double s,
                                     const double Mw_i) const
 {
-    double ml[6], mq[6];
+    double ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
-        ml[i] = cache.ml((StandardModel::lepton) i);
-        mq[i] = cache.mq((StandardModel::quark) i, mu); 
+        ml2[i] = cache.ml2((StandardModel::lepton) i);
+        mq2[i] = cache.mq2((StandardModel::quark) i, mu);
     }
+    double mu2 = mu*mu;
     double Mz = cache.Mz();    
     double Mz2 = Mz*Mz;
     double Mw = cache.Mw(Mw_i);
     double sW2 = cache.sW2(Mw);
     
     /* Loop functions */
-    complex Bf_s_ml_ml[6], Bf_s_mq_mq[6];
+    complex Bf_s_ml2_ml2[6], Bf_s_mq2_mq2[6];
     if (mu==Mz && s==Mz2) {
         for (int i=0; i<6; i++) {
             if (i==0 || i==2 || i==4 )
-                Bf_s_ml_ml[i] = 0.0; // Neutrinos do not contribute, since Ql=0.
+                Bf_s_ml2_ml2[i] = 0.0; // Neutrinos do not contribute, since Ql=0.
             else
-                Bf_s_ml_ml[i] = cache.Bf_Mz_Mz2_ml_ml((StandardModel::lepton) i);
-            Bf_s_mq_mq[i] = cache.Bf_Mz_Mz2_mq_mq((StandardModel::quark) i);           
+                Bf_s_ml2_ml2[i] = cache.Bf_Mz2_Mz2_ml2_ml2((StandardModel::lepton) i);
+            Bf_s_mq2_mq2[i] = cache.Bf_Mz2_Mz2_mq2_mq2((StandardModel::quark) i);
         }
     } else {
         for (int i=0; i<6; i++) {
             if (i==0 || i==2 || i==4 )
-                Bf_s_ml_ml[i] = 0.0; // Neutrinos do not contribute, since Ql=0.
+                Bf_s_ml2_ml2[i] = 0.0; // Neutrinos do not contribute, since Ql=0.
             else    
-                Bf_s_ml_ml[i] = cache.getPV().Bf(mu,s,ml[i],ml[i]);
-            Bf_s_mq_mq[i] = cache.getPV().Bf(mu,s,mq[i],mq[i]);            
+                Bf_s_ml2_ml2[i] = cache.getPV().Bf(mu2,s,ml2[i],ml2[i]);
+            Bf_s_mq2_mq2[i] = cache.getPV().Bf(mu2,s,mq2[i],mq2[i]);
         }
     }
 
@@ -679,10 +687,10 @@ complex EWSMOneLoopEW::PiZgamma_fer(const double mu, const double s,
     double Ql, Qq;
     for (int i=0; i<6; i++) {
         Ql = cache.Ql((StandardModel::lepton) i);
-        Pi += - (fabs(Ql) - 4.0*sW2*Ql*Ql)*Bf_s_ml_ml[i];
+        Pi += - (fabs(Ql) - 4.0*sW2*Ql*Ql)*Bf_s_ml2_ml2[i];
         //
         Qq = cache.Qq((StandardModel::quark) i);
-        Pi += - 3.0*(fabs(Qq) - 4.0*sW2*Qq*Qq)*Bf_s_mq_mq[i];
+        Pi += - 3.0*(fabs(Qq) - 4.0*sW2*Qq*Qq)*Bf_s_mq2_mq2[i];
     }   
     return Pi;
 }
@@ -693,10 +701,11 @@ complex EWSMOneLoopEW::PiZgamma_fer(const double mu, const double s,
 complex EWSMOneLoopEW::SigmaPrime_WW_bos_Mw2(const double mu, 
                                              const double Mw_i) const 
 {
+    double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
     double Mw2 = Mw*Mw;
     double Mz = cache.Mz();    
-    //double Mz2 = Mz*Mz;
+    double Mz2 = Mz*Mz;
     double mh = cache.mh();
     double mh2 = mh*mh;
     double sW2 = cache.sW2(Mw_i);
@@ -706,40 +715,40 @@ complex EWSMOneLoopEW::SigmaPrime_WW_bos_Mw2(const double mu,
     //double rz = mh2/Mz2;
     
     /* Loop functions */
-    double A0_Mw, A0_Mz, A0_mh;
-    complex B0_Mw2_Mz_Mw, B0_Mw2_0_Mw, B0_Mw2_mh_Mw;
-    complex B0p_Mw2_Mz_Mw, B0p_Mw2_0_Mw, B0p_Mw2_mh_Mw;
+    double A0_Mw2, A0_Mz2, A0_mh2;
+    complex B0_Mw2_Mz2_Mw2, B0_Mw2_0_Mw2, B0_Mw2_mh2_Mw2;
+    complex B0p_Mw2_Mz2_Mw2, B0p_Mw2_0_Mw2, B0p_Mw2_mh2_Mw2;
     if (mu==Mw) {
-        A0_Mw = cache.A0_Mw_Mw(Mw);
-        A0_Mz = cache.A0_Mw_Mz(Mw);
-        A0_mh = cache.A0_Mw_mh(Mw);
-        B0_Mw2_Mz_Mw = cache.B0_Mw_Mw2_Mz_Mw(Mw);
-        B0_Mw2_0_Mw = cache.B0_Mw_Mw2_0_Mw(Mw);
-        B0_Mw2_mh_Mw = cache.B0_Mw_Mw2_mh_Mw(Mw);
-        B0p_Mw2_Mz_Mw = cache.B0p_Mw_Mw2_Mz_Mw(Mw);
-        B0p_Mw2_0_Mw = cache.B0p_Mw_Mw2_0_Mw(Mw);
-        B0p_Mw2_mh_Mw = cache.B0p_Mw_Mw2_mh_Mw(Mw);
+        A0_Mw2 = cache.A0_Mw2_Mw2(Mw);
+        A0_Mz2 = cache.A0_Mw2_Mz2(Mw);
+        A0_mh2 = cache.A0_Mw2_mh2(Mw);
+        B0_Mw2_Mz2_Mw2 = cache.B0_Mw2_Mw2_Mz2_Mw2(Mw);
+        B0_Mw2_0_Mw2 = cache.B0_Mw2_Mw2_0_Mw2(Mw);
+        B0_Mw2_mh2_Mw2 = cache.B0_Mw2_Mw2_mh2_Mw2(Mw);
+        B0p_Mw2_Mz2_Mw2 = cache.B0p_Mw2_Mw2_Mz2_Mw2(Mw);
+        B0p_Mw2_0_Mw2 = cache.B0p_Mw2_Mw2_0_Mw2(Mw);
+        B0p_Mw2_mh2_Mw2 = cache.B0p_Mw2_Mw2_mh2_Mw2(Mw);
     } else {
-        A0_Mw = cache.getPV().A0(mu, Mw);
-        A0_Mz = cache.getPV().A0(mu, Mz);
-        A0_mh = cache.getPV().A0(mu, mh);
-        B0_Mw2_Mz_Mw = cache.getPV().B0(mu, Mw2, Mz, Mw);
-        B0_Mw2_0_Mw = cache.getPV().B0(mu, Mw2, 0.0, Mw);
-        B0_Mw2_mh_Mw = cache.getPV().B0(mu, Mw2, mh, Mw);
-        B0p_Mw2_Mz_Mw = cache.getPV().B0p(mu, Mw2, Mz, Mw);
-        B0p_Mw2_0_Mw = cache.getPV().B0p(mu, Mw2, 0.0, Mw);
-        B0p_Mw2_mh_Mw = cache.getPV().B0p(mu, Mw2, mh, Mw);
+        A0_Mw2 = cache.getPV().A0(mu2, Mw2);
+        A0_Mz2 = cache.getPV().A0(mu2, Mz2);
+        A0_mh2 = cache.getPV().A0(mu2, mh2);
+        B0_Mw2_Mz2_Mw2 = cache.getPV().B0(mu2, Mw2, Mz2, Mw2);
+        B0_Mw2_0_Mw2 = cache.getPV().B0(mu2, Mw2, 0.0, Mw2);
+        B0_Mw2_mh2_Mw2 = cache.getPV().B0(mu2, Mw2, mh, Mw2);
+        B0p_Mw2_Mz2_Mw2 = cache.getPV().B0p(mu2, Mw2, Mz2, Mw2);
+        B0p_Mw2_0_Mw2 = cache.getPV().B0p(mu2, Mw2, 0.0, Mw2);
+        B0p_Mw2_mh2_Mw2 = cache.getPV().B0p(mu2, Mw2, mh2, Mw2);
     }
     
     complex Sigma(0.0,0.0,false);
-    Sigma = - (1.0/12.0/cW4 + 2.0/3.0/cW2 + 2.0*cW2)*B0_Mw2_Mz_Mw
-            + (1.0/12.0/cW4 + 4.0/3.0/cW2 - 17.0/3.0 - 4.0*cW2)*Mw2*B0p_Mw2_Mz_Mw
-            - 2.0*sW2*B0_Mw2_0_Mw - 4.0*sW2*Mw2*B0p_Mw2_0_Mw
-            + rw/6.0*(1.0 - rw/2.0)*B0_Mw2_mh_Mw
-            + (1.0 - rw/3.0 + rw*rw/12.0)*Mw2*B0p_Mw2_mh_Mw
-            + (1.0/cW2 + 8.0 + rw)/12.0*A0_Mw/Mw2
-            - (1.0/cW2 + 9.0 - 8.0*cW2 - 12.0*cW4)/12.0*A0_Mz/Mw2
-            - (rw - 1.0)/12.0*A0_mh/Mw2 + 4.0/9.0;
+    Sigma = - (1.0/12.0/cW4 + 2.0/3.0/cW2 + 2.0*cW2)*B0_Mw2_Mz2_Mw2
+            + (1.0/12.0/cW4 + 4.0/3.0/cW2 - 17.0/3.0 - 4.0*cW2)*Mw2*B0p_Mw2_Mz2_Mw2
+            - 2.0*sW2*B0_Mw2_0_Mw2 - 4.0*sW2*Mw2*B0p_Mw2_0_Mw2
+            + rw/6.0*(1.0 - rw/2.0)*B0_Mw2_mh2_Mw2
+            + (1.0 - rw/3.0 + rw*rw/12.0)*Mw2*B0p_Mw2_mh2_Mw2
+            + (1.0/cW2 + 8.0 + rw)/12.0*A0_Mw2/Mw2
+            - (1.0/cW2 + 9.0 - 8.0*cW2 - 12.0*cW4)/12.0*A0_Mz2/Mw2
+            - (rw - 1.0)/12.0*A0_mh2/Mw2 + 4.0/9.0;
     return Sigma;    
 }
 
@@ -747,55 +756,56 @@ complex EWSMOneLoopEW::SigmaPrime_WW_bos_Mw2(const double mu,
 complex EWSMOneLoopEW::SigmaPrime_WW_fer_Mw2(const double mu,
                                              const double Mw_i) const 
 {
-    double ml[6], mq[6];
+    double ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
-        ml[i] = cache.ml((StandardModel::lepton) i);
-        mq[i] = cache.mq((StandardModel::quark) i, mu); 
+        ml2[i] = cache.ml2((StandardModel::lepton) i);
+        mq2[i] = cache.mq2((StandardModel::quark) i, mu);
     }
+    double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
     double Mw2 = Mw*Mw;
 
     /* Loop functions */
-    complex Bf_Mw2_mlprime_ml[3], Bf_Mw2_mqprime_mq[3];
-    complex Bfp_Mw2_mlprime_ml[3], Bfp_Mw2_mqprime_mq[3];    
-    complex B1p_Mw2_mlprime_ml[3], B1p_Mw2_mqprime_mq[3];  
-    complex B1p_Mw2_ml_mlprime[3], B1p_Mw2_mq_mqprime[3];    
+    complex Bf_Mw2_mlprime2_ml2[3], Bf_Mw2_mqprime2_mq2[3];
+    complex Bfp_Mw2_mlprime2_ml2[3], Bfp_Mw2_mqprime2_mq2[3];
+    complex B1p_Mw2_mlprime2_ml2[3], B1p_Mw2_mqprime2_mq2[3];
+    complex B1p_Mw2_ml2_mlprime2[3], B1p_Mw2_mq2_mqprime2[3];
     if (mu==Mw) {
         for (int gen=0; gen<3; gen++) {
-            Bf_Mw2_mlprime_ml[gen] = cache.Bf_Mw_Mw2_mlprime_ml(gen,Mw);
-            Bf_Mw2_mqprime_mq[gen] = cache.Bf_Mw_Mw2_mqprime_mq(gen,Mw);              
-            Bfp_Mw2_mlprime_ml[gen] = cache.Bfp_Mw_Mw2_mlprime_ml(gen,Mw);
-            Bfp_Mw2_mqprime_mq[gen] = cache.Bfp_Mw_Mw2_mqprime_mq(gen,Mw);            
-            B1p_Mw2_ml_mlprime[gen] = cache.B1p_Mw_Mw2_ml_mlprime(gen,Mw);
-            B1p_Mw2_mq_mqprime[gen] = cache.B1p_Mw_Mw2_mq_mqprime(gen,Mw);
-            B1p_Mw2_mlprime_ml[gen] = cache.B1p_Mw_Mw2_mlprime_ml(gen,Mw);
-            B1p_Mw2_mqprime_mq[gen] = cache.B1p_Mw_Mw2_mqprime_mq(gen,Mw);
+            Bf_Mw2_mlprime2_ml2[gen] = cache.Bf_Mw2_Mw2_mlprime2_ml2(gen,Mw);
+            Bf_Mw2_mqprime2_mq2[gen] = cache.Bf_Mw2_Mw2_mqprime2_mq2(gen,Mw);
+            Bfp_Mw2_mlprime2_ml2[gen] = cache.Bfp_Mw2_Mw2_mlprime2_ml2(gen,Mw);
+            Bfp_Mw2_mqprime2_mq2[gen] = cache.Bfp_Mw2_Mw2_mqprime2_mq2(gen,Mw);
+            B1p_Mw2_ml2_mlprime2[gen] = cache.B1p_Mw2_Mw2_ml2_mlprime2(gen,Mw);
+            B1p_Mw2_mq2_mqprime2[gen] = cache.B1p_Mw2_Mw2_mq2_mqprime2(gen,Mw);
+            B1p_Mw2_mlprime2_ml2[gen] = cache.B1p_Mw2_Mw2_mlprime2_ml2(gen,Mw);
+            B1p_Mw2_mqprime2_mq2[gen] = cache.B1p_Mw2_Mw2_mqprime2_mq2(gen,Mw);
         }
     } else {
         for (int gen=0; gen<3; gen++) {
-            Bf_Mw2_mlprime_ml[gen] = cache.getPV().Bf(mu,Mw2,ml[2*gen+1],ml[2*gen]);
-            Bf_Mw2_mqprime_mq[gen] = cache.getPV().Bf(mu,Mw2,mq[2*gen+1],mq[2*gen]);            
-            Bfp_Mw2_mlprime_ml[gen] = cache.getPV().Bfp(mu,Mw2,ml[2*gen+1],ml[2*gen]);
-            Bfp_Mw2_mqprime_mq[gen] = cache.getPV().Bfp(mu,Mw2,mq[2*gen+1],mq[2*gen]);            
-            B1p_Mw2_ml_mlprime[gen] = cache.getPV().B1p(mu,Mw2,ml[2*gen],ml[2*gen+1]);
-            B1p_Mw2_mq_mqprime[gen] = cache.getPV().B1p(mu,Mw2,mq[2*gen],mq[2*gen+1]);
-            B1p_Mw2_mlprime_ml[gen] = cache.getPV().B1p(mu,Mw2,ml[2*gen+1],ml[2*gen]);
-            B1p_Mw2_mqprime_mq[gen] = cache.getPV().B1p(mu,Mw2,mq[2*gen+1],mq[2*gen]);
+            Bf_Mw2_mlprime2_ml2[gen] = cache.getPV().Bf(mu2,Mw2,ml2[2*gen+1],ml2[2*gen]);
+            Bf_Mw2_mqprime2_mq2[gen] = cache.getPV().Bf(mu2,Mw2,mq2[2*gen+1],mq2[2*gen]);
+            Bfp_Mw2_mlprime2_ml2[gen] = cache.getPV().Bfp(mu2,Mw2,ml2[2*gen+1],ml2[2*gen]);
+            Bfp_Mw2_mqprime2_mq2[gen] = cache.getPV().Bfp(mu2,Mw2,mq2[2*gen+1],mq2[2*gen]);
+            B1p_Mw2_ml2_mlprime2[gen] = cache.getPV().B1p(mu2,Mw2,ml2[2*gen],ml2[2*gen+1]);
+            B1p_Mw2_mq2_mqprime2[gen] = cache.getPV().B1p(mu2,Mw2,mq2[2*gen],mq2[2*gen+1]);
+            B1p_Mw2_mlprime2_ml2[gen] = cache.getPV().B1p(mu2,Mw2,ml2[2*gen+1],ml2[2*gen]);
+            B1p_Mw2_mqprime2_mq2[gen] = cache.getPV().B1p(mu2,Mw2,mq2[2*gen+1],mq2[2*gen]);
         }        
     }
 
     complex Sigma(0.0,0.0,false);
-    double ml2, mlprime2, mq2, mqprime2;
+    double mf2, mfprime2;
     for (int gen=0; gen<3; gen++) {
-        ml2 = ml[2*gen]*ml[2*gen];
-        mlprime2 = ml[2*gen+1]*ml[2*gen+1];
-        Sigma += - (Bf_Mw2_mlprime_ml[gen] + Mw2*Bfp_Mw2_mlprime_ml[gen]);
-        Sigma += mlprime2*B1p_Mw2_ml_mlprime[gen] + ml2*B1p_Mw2_mlprime_ml[gen];
+        mf2 = ml2[2*gen];
+        mfprime2 = ml2[2*gen+1];
+        Sigma += - (Bf_Mw2_mlprime2_ml2[gen] + Mw2*Bfp_Mw2_mlprime2_ml2[gen]);
+        Sigma += mfprime2*B1p_Mw2_ml2_mlprime2[gen] + mf2*B1p_Mw2_mlprime2_ml2[gen];
         //
-        mq2 = mq[2*gen]*mq[2*gen];
-        mqprime2 = mq[2*gen+1]*mq[2*gen+1];
-        Sigma += - 3.0*(Bf_Mw2_mqprime_mq[gen] + Mw2*Bfp_Mw2_mqprime_mq[gen]);
-        Sigma += 3.0*( mqprime2*B1p_Mw2_mq_mqprime[gen] + mq2*B1p_Mw2_mqprime_mq[gen] );
+        mf2 = mq2[2*gen];
+        mfprime2 = mq2[2*gen+1];
+        Sigma += - 3.0*(Bf_Mw2_mqprime2_mq2[gen] + Mw2*Bfp_Mw2_mqprime2_mq2[gen]);
+        Sigma += 3.0*( mfprime2*B1p_Mw2_mq2_mqprime2[gen] + mf2*B1p_Mw2_mqprime2_mq2[gen] );
     }
     return Sigma;    
 }
@@ -804,6 +814,7 @@ complex EWSMOneLoopEW::SigmaPrime_WW_fer_Mw2(const double mu,
 complex EWSMOneLoopEW::SigmaPrime_ZZ_bos_Mz2(const double mu,
                                              const double Mw_i) const 
 {
+    double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
     double Mw2 = Mw*Mw;
     double Mz = cache.Mz();    
@@ -816,34 +827,34 @@ complex EWSMOneLoopEW::SigmaPrime_ZZ_bos_Mz2(const double mu,
     double rz = mh2/Mz2;
     
     /* Loop functions */
-    double A0_Mw, A0_Mz, A0_mh;
-    complex B0_Mz2_Mw_Mw, B0_Mz2_mh_Mz;
-    complex B0p_Mz2_Mw_Mw, B0p_Mz2_mh_Mz;
+    double A0_Mw2, A0_Mz2, A0_mh2;
+    complex B0_Mz2_Mw2_Mw2, B0_Mz2_mh2_Mz2;
+    complex B0p_Mz2_Mw2_Mw2, B0p_Mz2_mh2_Mz2;
     if (mu==Mz) {
-        A0_Mw = cache.A0_Mz_Mw(Mw);
-        A0_Mz = cache.A0_Mz_Mz();
-        A0_mh = cache.A0_Mz_mh();
-        B0_Mz2_Mw_Mw = cache.B0_Mz_Mz2_Mw_Mw(Mw);
-        B0_Mz2_mh_Mz = cache.B0_Mz_Mz2_mh_Mz();
-        B0p_Mz2_Mw_Mw = cache.B0p_Mz_Mz2_Mw_Mw(Mw);
-        B0p_Mz2_mh_Mz = cache.B0p_Mz_Mz2_mh_Mz();
+        A0_Mw2 = cache.A0_Mz2_Mw2(Mw);
+        A0_Mz2 = cache.A0_Mz2_Mz2();
+        A0_mh2 = cache.A0_Mz2_mh2();
+        B0_Mz2_Mw2_Mw2 = cache.B0_Mz2_Mz2_Mw2_Mw2(Mw);
+        B0_Mz2_mh2_Mz2 = cache.B0_Mz2_Mz2_mh2_Mz2();
+        B0p_Mz2_Mw2_Mw2 = cache.B0p_Mz2_Mz2_Mw2_Mw2(Mw);
+        B0p_Mz2_mh2_Mz2 = cache.B0p_Mz2_Mz2_mh2_Mz2();
     } else {
-        A0_Mw = cache.getPV().A0(mu, Mw);
-        A0_Mz = cache.getPV().A0(mu, Mz);
-        A0_mh = cache.getPV().A0(mu, mh);
-        B0_Mz2_Mw_Mw = cache.getPV().B0(mu, Mz2, Mw, Mw);
-        B0_Mz2_mh_Mz = cache.getPV().B0(mu, Mz2, mh, Mz);
-        B0p_Mz2_Mw_Mw = cache.getPV().B0p(mu, Mz2, Mw, Mw);
-        B0p_Mz2_mh_Mz = cache.getPV().B0p(mu, Mz2, mh, Mz);
+        A0_Mw2 = cache.getPV().A0(mu2, Mw2);
+        A0_Mz2 = cache.getPV().A0(mu2, Mz2);
+        A0_mh2 = cache.getPV().A0(mu2, mh2);
+        B0_Mz2_Mw2_Mw2 = cache.getPV().B0(mu2, Mz2, Mw2, Mw2);
+        B0_Mz2_mh2_Mz2 = cache.getPV().B0(mu2, Mz2, mh2, Mz2);
+        B0p_Mz2_Mw2_Mw2 = cache.getPV().B0p(mu2, Mz2, Mw2, Mw2);
+        B0p_Mz2_mh2_Mz2 = cache.getPV().B0p(mu2, Mz2, mh2, Mz2);
     }
 
     complex Sigma(0.0,0.0,false);
-    Sigma = (1.0/4.0/cW2 + 8.0/3.0 - 17.0/3.0*cW2)*B0_Mz2_Mw_Mw
-            + (1.0/12.0/cW2 + 4.0/3.0 - 17.0/3.0*cW2 - 4.0*cW4)*Mz2*B0p_Mz2_Mw_Mw
-            + rw/6.0*(1.0 - rz/2.0)*B0_Mz2_mh_Mz 
-            + (1.0 - rz/3.0 + rz*rz/12.0)*Mz2/cW2*B0p_Mz2_mh_Mz
-            + (1.0 + 4.0*cW2)/3.0/cW2*A0_Mw/Mz2
-            - (1.0 - rz)/12.0/cW2*(A0_Mz - A0_mh)/Mz2
+    Sigma = (1.0/4.0/cW2 + 8.0/3.0 - 17.0/3.0*cW2)*B0_Mz2_Mw2_Mw2
+            + (1.0/12.0/cW2 + 4.0/3.0 - 17.0/3.0*cW2 - 4.0*cW4)*Mz2*B0p_Mz2_Mw2_Mw2
+            + rw/6.0*(1.0 - rz/2.0)*B0_Mz2_mh2_Mz2
+            + (1.0 - rz/3.0 + rz*rz/12.0)*Mz2/cW2*B0p_Mz2_mh2_Mz2
+            + (1.0 + 4.0*cW2)/3.0/cW2*A0_Mw2/Mz2
+            - (1.0 - rz)/12.0/cW2*(A0_Mz2 - A0_mh2)/Mz2
             + 2.0/9.0/cW2 - 10.0/9.0 + 4.0/3.0*cW2;
     Sigma *= cW2;
     return Sigma;        
@@ -852,53 +863,54 @@ complex EWSMOneLoopEW::SigmaPrime_ZZ_bos_Mz2(const double mu,
 
 complex EWSMOneLoopEW::SigmaPrime_ZZ_fer_Mz2(const double mu, const double Mw_i) const 
 {
-    double ml[6], mq[6];
+    double ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
-        ml[i] = cache.ml((StandardModel::lepton) i);
-        mq[i] = cache.mq((StandardModel::quark) i, mu); 
+        ml2[i] = cache.ml2((StandardModel::lepton) i);
+        mq2[i] = cache.mq2((StandardModel::quark) i, mu);
     }
+    double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
     double Mz = cache.Mz();    
     double Mz2 = Mz*Mz;
 
     /* Loop functions */
-    complex Bf_Mz2_ml_ml[6], Bf_Mz2_mq_mq[6];
-    complex Bfp_Mz2_ml_ml[6], Bfp_Mz2_mq_mq[6];
-    complex B0p_Mz2_ml_ml[6], B0p_Mz2_mq_mq[6]; 
+    complex Bf_Mz2_ml2_ml2[6], Bf_Mz2_mq2_mq2[6];
+    complex Bfp_Mz2_ml2_ml2[6], Bfp_Mz2_mq2_mq2[6];
+    complex B0p_Mz2_ml2_ml2[6], B0p_Mz2_mq2_mq2[6];
     if (mu==Mz) {
          for (int i=0; i<6; i++) {
-             Bf_Mz2_ml_ml[i] = cache.Bf_Mz_Mz2_ml_ml((StandardModel::lepton) i);
-             Bf_Mz2_mq_mq[i] = cache.Bf_Mz_Mz2_mq_mq((StandardModel::quark) i);           
-             Bfp_Mz2_ml_ml[i] = cache.Bfp_Mz_Mz2_ml_ml((StandardModel::lepton) i);
-             Bfp_Mz2_mq_mq[i] = cache.Bfp_Mz_Mz2_mq_mq((StandardModel::quark) i);           
-             B0p_Mz2_ml_ml[i] = cache.B0p_Mz_Mz2_ml_ml((StandardModel::lepton) i);
-             B0p_Mz2_mq_mq[i] = cache.B0p_Mz_Mz2_mq_mq((StandardModel::quark) i);           
+             Bf_Mz2_ml2_ml2[i] = cache.Bf_Mz2_Mz2_ml2_ml2((StandardModel::lepton) i);
+             Bf_Mz2_mq2_mq2[i] = cache.Bf_Mz2_Mz2_mq2_mq2((StandardModel::quark) i);
+             Bfp_Mz2_ml2_ml2[i] = cache.Bfp_Mz2_Mz2_ml2_ml2((StandardModel::lepton) i);
+             Bfp_Mz2_mq2_mq2[i] = cache.Bfp_Mz2_Mz2_mq2_mq2((StandardModel::quark) i);
+             B0p_Mz2_ml2_ml2[i] = cache.B0p_Mz2_Mz2_ml2_ml2((StandardModel::lepton) i);
+             B0p_Mz2_mq2_mq2[i] = cache.B0p_Mz2_Mz2_mq2_mq2((StandardModel::quark) i);
          }        
     } else {
         for (int i=0; i<6; i++) {
-            Bf_Mz2_ml_ml[i] = cache.getPV().Bf(mu,Mz2,ml[i],ml[i]);
-            Bf_Mz2_mq_mq[i] = cache.getPV().Bf(mu,Mz2,mq[i],mq[i]);            
-            Bfp_Mz2_ml_ml[i] = cache.getPV().Bfp(mu,Mz2,ml[i],ml[i]);
-            Bfp_Mz2_mq_mq[i] = cache.getPV().Bfp(mu,Mz2,mq[i],mq[i]);            
-            B0p_Mz2_ml_ml[i] = cache.getPV().B0p(mu,Mz2,ml[i],ml[i]);
-            B0p_Mz2_mq_mq[i] = cache.getPV().B0p(mu,Mz2,mq[i],mq[i]);            
+            Bf_Mz2_ml2_ml2[i] = cache.getPV().Bf(mu2,Mz2,ml2[i],ml2[i]);
+            Bf_Mz2_mq2_mq2[i] = cache.getPV().Bf(mu2,Mz2,mq2[i],mq2[i]);
+            Bfp_Mz2_ml2_ml2[i] = cache.getPV().Bfp(mu2,Mz2,ml2[i],ml2[i]);
+            Bfp_Mz2_mq2_mq2[i] = cache.getPV().Bfp(mu2,Mz2,mq2[i],mq2[i]);
+            B0p_Mz2_ml2_ml2[i] = cache.getPV().B0p(mu2,Mz2,ml2[i],ml2[i]);
+            B0p_Mz2_mq2_mq2[i] = cache.getPV().B0p(mu2,Mz2,mq2[i],mq2[i]);
         }        
    }
     
     complex Sigma(0.0,0.0,false);
-    double ml2, vl2, al2, mq2, vq2, aq2;
+    double mf2, vf2, af2;
     for (int i=0; i<6; i++) {
-        ml2 = ml[i]*ml[i];
-        vl2 = pow(cache.vl((StandardModel::lepton) i, Mw), 2.0);
-        al2 = pow(cache.al((StandardModel::lepton) i), 2.0);            
-        Sigma += - (vl2 + al2)*(Bf_Mz2_ml_ml[i] + Mz2*Bfp_Mz2_ml_ml[i])
-                 - 2.0*al2*ml2*B0p_Mz2_ml_ml[i];
+        mf2 = ml2[i];
+        vf2 = pow(cache.vl((StandardModel::lepton) i, Mw), 2.0);
+        af2 = pow(cache.al((StandardModel::lepton) i), 2.0);
+        Sigma += - (vf2 + af2)*(Bf_Mz2_ml2_ml2[i] + Mz2*Bfp_Mz2_ml2_ml2[i])
+                 - 2.0*af2*mf2*B0p_Mz2_ml2_ml2[i];
         //
-        mq2 = mq[i]*mq[i];
-        vq2 = pow(cache.vq((StandardModel::quark) i, Mw), 2.0);
-        aq2 = pow(cache.aq((StandardModel::quark) i), 2.0);
-        Sigma += - 3.0*(vq2 + aq2)*(Bf_Mz2_mq_mq[i] + Mz2*Bfp_Mz2_mq_mq[i])
-                 - 6.0*aq2*mq2*B0p_Mz2_mq_mq[i];
+        mf2 = mq2[i];
+        vf2 = pow(cache.vq((StandardModel::quark) i, Mw), 2.0);
+        af2 = pow(cache.aq((StandardModel::quark) i), 2.0);
+        Sigma += - 3.0*(vf2 + af2)*(Bf_Mz2_mq2_mq2[i] + Mz2*Bfp_Mz2_mq2_mq2[i])
+                 - 6.0*af2*mf2*B0p_Mz2_mq2_mq2[i];
     }
     return Sigma;    
 }
@@ -942,16 +954,16 @@ double EWSMOneLoopEW::TEST_DeltaRhobar_bos(const double Mw_i) const
     double log_cW2 = cache.log_cW2(Mw); 
     
     /* B0 functions for mu=Mw */
-    complex B0_Mw_Mz2_Mw_Mw = cache.B0_Mz_Mz2_Mw_Mw(Mw) + log_cW2;
-    complex B0_Mw_Mz2_mh_Mz = cache.B0_Mz_Mz2_mh_Mz() + log_cW2;
-    complex B0_Mw_Mw2_Mz_Mw = cache.B0_Mz_Mw2_Mz_Mw(Mw) + log_cW2;
-    complex B0_Mw_Mw2_mh_Mw = cache.B0_Mz_Mw2_mh_Mw(Mw) + log_cW2;
+    complex B0_Mw2_Mz2_Mw2_Mw2 = cache.B0_Mz2_Mz2_Mw2_Mw2(Mw) + log_cW2;
+    complex B0_Mw2_Mz2_mh2_Mz2 = cache.B0_Mz2_Mz2_mh2_Mz2() + log_cW2;
+    complex B0_Mw2_Mw2_Mz2_Mw2 = cache.B0_Mz2_Mw2_Mz2_Mw2(Mw) + log_cW2;
+    complex B0_Mw2_Mw2_mh2_Mw2 = cache.B0_Mz2_Mw2_mh2_Mw2(Mw) + log_cW2;
     
     double DRhobar;    
     DRhobar = - (1.0/12.0/cW2 + 4.0/3.0 - 17.0/3.0*cW2 - 4.0*cW4)
-                 *(B0_Mw_Mz2_Mw_Mw.real() - 1.0/cW2*B0_Mw_Mw2_Mz_Mw.real())
-              + (1.0 - 1.0/3.0*rw + 1.0/12.0*rw*rw)*B0_Mw_Mw2_mh_Mw.real()
-              - (1.0 - 1.0/3.0*rz + 1.0/12.0*rz*rz)/cW2*B0_Mw_Mz2_mh_Mz.real()
+                 *(B0_Mw2_Mz2_Mw2_Mw2.real() - 1.0/cW2*B0_Mw2_Mw2_Mz2_Mw2.real())
+              + (1.0 - 1.0/3.0*rw + 1.0/12.0*rw*rw)*B0_Mw2_Mw2_mh2_Mw2.real()
+              - (1.0 - 1.0/3.0*rz + 1.0/12.0*rz*rz)/cW2*B0_Mw2_Mz2_mh2_Mz2.real()
               + 1.0/12.0*sW2*rw*rw*(log(rw) - 1.0)
               - (1.0/12.0/cW4 + 1.0/2.0/cW2 - 2.0 + 1.0/12.0*rw)*log_cW2
               - 1.0/12.0/cW4 - 19.0/36.0/cW2 - 133.0/18.0 + 8.0*cW2;
@@ -972,12 +984,12 @@ double EWSMOneLoopEW::TEST_DeltaRhobarW_bos(const double Mw_i) const
     double log_cW2 = cache.log_cW2(Mw); 
     
     /* B0 functions for mu=Mw */
-    complex B0_Mw2_Mz_Mw = cache.B0_Mz_Mw2_Mz_Mw(Mw) + log_cW2;
-    complex B0_Mw2_mh_Mw = cache.B0_Mz_Mw2_mh_Mw(Mw) + log_cW2;
+    complex B0_Mw2_Mz2_Mw2 = cache.B0_Mz2_Mw2_Mz2_Mw2(Mw) + log_cW2;
+    complex B0_Mw2_mh2_Mw2 = cache.B0_Mz2_Mw2_mh2_Mw2(Mw) + log_cW2;
     
     double DRhobarW;    
-    DRhobarW = - (1.0/12.0/cW4 + 4.0/3.0/cW2 - 17.0/3.0 - 4.0*cW2)*B0_Mw2_Mz_Mw.real()
-               - (1.0 - 1.0/3.0*rw + 1.0/12.0*rw*rw)*B0_Mw2_mh_Mw.real()
+    DRhobarW = - (1.0/12.0/cW4 + 4.0/3.0/cW2 - 17.0/3.0 - 4.0*cW2)*B0_Mw2_Mz2_Mw2.real()
+               - (1.0 - 1.0/3.0*rw + 1.0/12.0*rw*rw)*B0_Mw2_mh2_Mw2.real()
                + (3.0/4.0/(1.0-rw) + 1.0/4.0 - 1.0/12.0*rw)*rw*log(rw)
                + (1.0/12.0/cW4 + 17.0/12.0/cW2 - 3.0/sW2 + 1.0/4.0)*log_cW2
                + 1.0/12.0/cW4 + 11.0/8.0/cW2 + 139.0/36.0 - 177.0/24.0*cW2 
@@ -996,20 +1008,20 @@ complex EWSMOneLoopEW::FZa_0(const double s, const double Mw_i) const
 
     /* Logarithm and three-point one-loop functions */
     double log_Rz;
-    complex C0_s_0_Mz_0;
+    complex C0_s_0_Mz2_0;
     if (s==Mz*Mz) {
         log_Rz = 0.0;
-        C0_s_0_Mz_0 = cache.C0_Mz2_0_Mz_0();
+        C0_s_0_Mz2_0 = cache.C0_Mz2_0_Mz2_0();
     } else if (s==Mw*Mw) {
         log_Rz = - cache.log_cW2(Mw);
-        C0_s_0_Mz_0 = cache.C0_Mw2_0_Mz_0(Mw);
+        C0_s_0_Mz2_0 = cache.C0_Mw2_0_Mz2_0(Mw);
     } else {
         log_Rz = log(Rz);
-        C0_s_0_Mz_0 = cache.getPV().C0(s,0.0,Mz,0.0);
+        C0_s_0_Mz2_0 = cache.getPV().C0(s,0.0,Mz*Mz,0.0);
     }
         
     complex FZa(0.0,0.0,false);
-    FZa = 2.0*pow((Rz + 1.0), 2.0)*s*C0_s_0_Mz_0
+    FZa = 2.0*pow((Rz + 1.0), 2.0)*s*C0_s_0_Mz2_0
           - (2.0*Rz + 3.0)*(log_Rz + M_PI*complex::i()) - 2.0*Rz - 7.0/2.0;
     return FZa;    
 }
@@ -1023,17 +1035,17 @@ complex EWSMOneLoopEW::FWa_0(const double s, const double Mw_i) const
 
     /* Logarithm and three-point one-loop functions */
     double log_Rw;
-    complex C0_s_0_Mw_0;
+    complex C0_s_0_Mw2_0;
     if (s==Mz*Mz) {    
         log_Rw = cache.log_cW2(Mw);
-        C0_s_0_Mw_0 = cache.C0_Mz2_0_Mw_0(Mw); 
+        C0_s_0_Mw2_0 = cache.C0_Mz2_0_Mw2_0(Mw);
     } else {
         log_Rw = log(Rw);
-        C0_s_0_Mw_0 = cache.getPV().C0(s,0.0,Mw,0.0);
+        C0_s_0_Mw2_0 = cache.getPV().C0(s,0.0,Mw*Mw,0.0);
     }
     
     complex FWa(0.0,0.0,false);
-    FWa = 2.0*pow((Rw + 1.0), 2.0)*s*C0_s_0_Mw_0
+    FWa = 2.0*pow((Rw + 1.0), 2.0)*s*C0_s_0_Mw2_0
           - (2.0*Rw + 3.0)*(log_Rw + M_PI*complex::i()) - 2.0*Rw - 7.0/2.0;
     return FWa;     
 }
@@ -1048,23 +1060,24 @@ complex EWSMOneLoopEW::FbarWa_0(const double s) const
 complex EWSMOneLoopEW::FWn_0(const double s, const double Mw_i) const 
 {
     double Mw = cache.Mw(Mw_i);
+    double Mw2 = Mw*Mw;
     double Mz = cache.Mz();   
     double Rw = Mw*Mw/s;
 
     /* Two- and three-point one-loop functions */
-    complex B0_Mw_s_Mw_Mw;
-    complex C0_s_Mw_0_Mw;
+    complex B0_Mw_s_Mw2_Mw2;
+    complex C0_s_Mw2_0_Mw2;
     if (s==Mz*Mz) {
-        B0_Mw_s_Mw_Mw = cache.B0_Mw_Mz2_Mw_Mw(Mw);
-        C0_s_Mw_0_Mw = cache.C0_Mz2_Mw_0_Mw(Mw);
+        B0_Mw_s_Mw2_Mw2 = cache.B0_Mw2_Mz2_Mw2_Mw2(Mw);
+        C0_s_Mw2_0_Mw2 = cache.C0_Mz2_Mw2_0_Mw2(Mw);
     } else {    
-        B0_Mw_s_Mw_Mw = cache.getPV().B0(Mw,s,Mw,Mw); 
-        C0_s_Mw_0_Mw = cache.getPV().C0(s,Mw,0.0,Mw);
+        B0_Mw_s_Mw2_Mw2 = cache.getPV().B0(Mw2,s,Mw2,Mw2);
+        C0_s_Mw2_0_Mw2 = cache.getPV().C0(s,Mw2,0.0,Mw2);
     }
  
     complex FWn(0.0,0.0,false);    
-    FWn = - 2.0*(Rw + 2.0)*Mw*Mw*C0_s_Mw_0_Mw 
-          - (2.0*Rw + 7.0/3.0 - 3.0/2.0/Rw - 1.0/12.0/Rw/Rw)*B0_Mw_s_Mw_Mw
+    FWn = - 2.0*(Rw + 2.0)*Mw*Mw*C0_s_Mw2_0_Mw2
+          - (2.0*Rw + 7.0/3.0 - 3.0/2.0/Rw - 1.0/12.0/Rw/Rw)*B0_Mw_s_Mw2_Mw2
           + 2.0*Rw + 9.0/2.0 - 11.0/18.0/Rw + 1.0/18.0/Rw/Rw;  
     return FWn;
 }
@@ -1073,33 +1086,35 @@ complex EWSMOneLoopEW::FWn_0(const double s, const double Mw_i) const
 complex EWSMOneLoopEW::FWa_t(const double s, const double Mw_i) const 
 {
     double Mw = cache.Mw(Mw_i);
+    double Mw2 = Mw*Mw;
     double Mz = cache.Mz();   
     double Rw = Mw*Mw/s;
     double Mt = cache.Mt();
-    double wt = Mt*Mt/Mw/Mw; 
+    double Mt2 = Mt*Mt;
+    double wt = Mt2/Mw2;
 
     /* Logarithm and two- and three-point one-loop functions */
     double log_wt = - 2.0*cache.logMZtoMTOP() - cache.log_cW2(Mw);
     double log_Rw;
-    complex B0_Mw_s_Mt_Mt;
-    complex C0_s_Mt_Mw_Mt, C0_s_0_Mw_0;
+    complex B0_Mw2_s_Mt2_Mt2;
+    complex C0_s_Mt2_Mw2_Mt2, C0_s_0_Mw2_0;
     if (s==Mz*Mz) {
         log_Rw = cache.log_cW2(Mw);
-        B0_Mw_s_Mt_Mt = cache.B0_Mw_Mz2_Mt_Mt(Mw);
-        C0_s_Mt_Mw_Mt = cache.C0_Mz2_Mt_Mw_Mt(Mw);
-        C0_s_0_Mw_0 = cache.C0_Mz2_0_Mw_0(Mw);
+        B0_Mw2_s_Mt2_Mt2 = cache.B0_Mw2_Mz2_Mt2_Mt2(Mw);
+        C0_s_Mt2_Mw2_Mt2 = cache.C0_Mz2_Mt2_Mw2_Mt2(Mw);
+        C0_s_0_Mw2_0 = cache.C0_Mz2_0_Mw2_0(Mw);
     } else {
         log_Rw = log(Rw);
-        B0_Mw_s_Mt_Mt = cache.getPV().B0(Mw,s,Mt,Mt); 
-        C0_s_Mt_Mw_Mt = cache.getPV().C0(s,Mt,Mw,Mt);
-        C0_s_0_Mw_0 = cache.getPV().C0(s,0.0,Mw,0.0);
+        B0_Mw2_s_Mt2_Mt2 = cache.getPV().B0(Mw2,s,Mt2,Mt2);
+        C0_s_Mt2_Mw2_Mt2 = cache.getPV().C0(s,Mt2,Mw2,Mt2);
+        C0_s_0_Mw2_0 = cache.getPV().C0(s,0.0,Mw2,0.0);
     }
     
     complex FWa(0.0,0.0,false);    
-    FWa = 2.0*(Rw + 1.0)*(Rw + 1.0)*s*(C0_s_Mt_Mw_Mt - C0_s_0_Mw_0)
-          + (2.0*Rw + 3.0)*(- B0_Mw_s_Mt_Mt + log_Rw + M_PI*complex::i() + 2.0)
-          - wt*( (3.0*Rw + 2.0 - wt - wt*wt*Rw)*Mw*Mw*C0_s_Mt_Mw_Mt
-                 + (Rw + 1.0/2.0 + wt*Rw)*(1.0 - B0_Mw_s_Mt_Mt)
+    FWa = 2.0*(Rw + 1.0)*(Rw + 1.0)*s*(C0_s_Mt2_Mw2_Mt2 - C0_s_0_Mw2_0)
+          + (2.0*Rw + 3.0)*(- B0_Mw2_s_Mt2_Mt2 + log_Rw + M_PI*complex::i() + 2.0)
+          - wt*( (3.0*Rw + 2.0 - wt - wt*wt*Rw)*Mw*Mw*C0_s_Mt2_Mw2_Mt2
+                 + (Rw + 1.0/2.0 + wt*Rw)*(1.0 - B0_Mw2_s_Mt2_Mt2)
                  - (2.0*Rw + 1.0/2.0 - 2.0/(wt - 1.0) 
                     + 3.0/2.0/(wt - 1.0)/(wt - 1.0) + wt*Rw)*log_wt
                  + 3.0/2.0/(wt - 1.0) + 3.0/4.0 );
@@ -1110,26 +1125,28 @@ complex EWSMOneLoopEW::FWa_t(const double s, const double Mw_i) const
 complex EWSMOneLoopEW::FbarWa_t(const double s, const double Mw_i) const 
 {
     double Mw = cache.Mw(Mw_i);
+    double Mw2 = Mw*Mw;
     double Mz = cache.Mz();   
     double Rw = Mw*Mw/s;
     double Mt = cache.Mt();
-    double wt = Mt*Mt/Mw/Mw; 
+    double Mt2 = Mt*Mt;
+    double wt = Mt2/Mw2;
 
     /* Logarithm and two- and three-point one-loop functions */
     double log_wt = - 2.0*cache.logMZtoMTOP() - cache.log_cW2(Mw);
-    complex B0_Mw_s_Mt_Mt;
-    complex C0_s_Mt_Mw_Mt;    
+    complex B0_Mw2_s_Mt2_Mt2;
+    complex C0_s_Mt2_Mw2_Mt2;
     if (s==Mz*Mz) {
-        B0_Mw_s_Mt_Mt = cache.B0_Mw_Mz2_Mt_Mt(Mw);
-        C0_s_Mt_Mw_Mt = cache.C0_Mz2_Mt_Mw_Mt(Mw);
+        B0_Mw2_s_Mt2_Mt2 = cache.B0_Mw2_Mz2_Mt2_Mt2(Mw);
+        C0_s_Mt2_Mw2_Mt2 = cache.C0_Mz2_Mt2_Mw2_Mt2(Mw);
     } else {
-        B0_Mw_s_Mt_Mt = cache.getPV().B0(Mw,s,Mt,Mt);     
-        C0_s_Mt_Mw_Mt = cache.getPV().C0(s,Mt,Mw,Mt);    
+        B0_Mw2_s_Mt2_Mt2 = cache.getPV().B0(Mw2,s,Mt2,Mt2);
+        C0_s_Mt2_Mw2_Mt2 = cache.getPV().C0(s,Mt2,Mw2,Mt2);
     }
     
     complex FbarWa(0.0,0.0,false);        
-    FbarWa = - wt*( (Rw + 2.0 - wt*(2.0 - wt)*Rw)*Mw*Mw*C0_s_Mt_Mw_Mt
-                    - (1.0/2.0 - Rw + wt*Rw)*(- B0_Mw_s_Mt_Mt + 1.0) 
+    FbarWa = - wt*( (Rw + 2.0 - wt*(2.0 - wt)*Rw)*Mw*Mw*C0_s_Mt2_Mw2_Mt2
+                    - (1.0/2.0 - Rw + wt*Rw)*(- B0_Mw2_s_Mt2_Mt2 + 1.0)
                     + wt*Rw*log_wt );
     return FbarWa;
 }
@@ -1138,30 +1155,32 @@ complex EWSMOneLoopEW::FbarWa_t(const double s, const double Mw_i) const
 complex EWSMOneLoopEW::FWn_t(const double s, const double Mw_i) const 
 {
     double Mw = cache.Mw(Mw_i);
+    double Mw2 = Mw*Mw;
     double Mz = cache.Mz();   
     double Rw = Mw*Mw/s;
     double Mt = cache.Mt();
-    double wt = Mt*Mt/Mw/Mw; 
+    double Mt2 = Mt*Mt;
+    double wt = Mt2/Mw2;
 
     /* Logarithm and two- and three-point one-loop functions */
     double log_wt = - 2.0*cache.logMZtoMTOP() - cache.log_cW2(Mw);  
-    complex B0_Mw_s_Mw_Mw;
-    complex C0_s_Mw_Mt_Mw, C0_s_Mw_0_Mw;
+    complex B0_Mw2_s_Mw2_Mw2;
+    complex C0_s_Mw2_Mt2_Mw2, C0_s_Mw2_0_Mw2;
     if (s==Mz*Mz) {
-        B0_Mw_s_Mw_Mw = cache.B0_Mw_Mz2_Mw_Mw(Mw);
-        C0_s_Mw_Mt_Mw = cache.C0_Mz2_Mw_Mt_Mw(Mw);
-        C0_s_Mw_0_Mw = cache.C0_Mz2_Mw_0_Mw(Mw);  
+        B0_Mw2_s_Mw2_Mw2 = cache.B0_Mw2_Mz2_Mw2_Mw2(Mw);
+        C0_s_Mw2_Mt2_Mw2 = cache.C0_Mz2_Mw2_Mt2_Mw2(Mw);
+        C0_s_Mw2_0_Mw2 = cache.C0_Mz2_Mw2_0_Mw2(Mw);
     } else {
-        B0_Mw_s_Mw_Mw = cache.getPV().B0(Mw,s,Mw,Mw); 
-        C0_s_Mw_Mt_Mw = cache.getPV().C0(s,Mw,Mt,Mw);
-        C0_s_Mw_0_Mw = cache.getPV().C0(s,Mw,0.0,Mw);    
+        B0_Mw2_s_Mw2_Mw2 = cache.getPV().B0(Mw2,s,Mw2,Mw2);
+        C0_s_Mw2_Mt2_Mw2 = cache.getPV().C0(s,Mw2,Mt2,Mw2);
+        C0_s_Mw2_0_Mw2 = cache.getPV().C0(s,Mw2,0.0,Mw2);
     }
     
     complex FWn(0.0,0.0,false);        
-    FWn = - 2.0*(Rw + 2.0)*Mw*Mw*(C0_s_Mw_Mt_Mw - C0_s_Mw_0_Mw)
+    FWn = - 2.0*(Rw + 2.0)*Mw*Mw*(C0_s_Mw2_Mt2_Mw2 - C0_s_Mw2_0_Mw2)
           + wt*( (3.0*Rw + 5.0/2.0 - 2.0/Rw - wt*(2.0 - 1.0/2.0/Rw) 
-                  + wt*wt*(1.0/2.0 - Rw))*Mw*Mw*C0_s_Mw_Mt_Mw
-                  + (Rw + 1.0 - 1.0/4.0/Rw - wt*(1.0/2.0 - Rw))*(B0_Mw_s_Mw_Mw - 1.0)
+                  + wt*wt*(1.0/2.0 - Rw))*Mw*Mw*C0_s_Mw2_Mt2_Mw2
+                  + (Rw + 1.0 - 1.0/4.0/Rw - wt*(1.0/2.0 - Rw))*(B0_Mw2_s_Mw2_Mw2 - 1.0)
                   + (2.0*Rw + 1.0/2.0 - 2.0/(wt - 1.0) 
                      + 3.0/2.0/(wt - 1.0)/(wt - 1.0) - wt*(1.0/2.0 - Rw))*log_wt
                   - 3.0/2.0/(wt- 1.0) + 1.0/4.0 
@@ -1255,26 +1274,28 @@ complex EWSMOneLoopEW::TEST_FWn(const double s, const double mf,
                                 const double Mw_i) const 
 {
     double Mw = cache.Mw(Mw_i);
-    double Rw = Mw*Mw/s;
-    double wf = mf*mf/Mw/Mw; 
+    double Mw2 = Mw*Mw;
+    double Rw = Mw2/s;
+    double mf2 = mf*mf;
+    double wf = mf2/Mw2;
 
     /* Logarithm and two- and three-point one-loop functions */
     double log_wf = log(wf);  
-    double A0_Mw = cache.getPV().A0(Mw, Mw);
-    double A0_mf = cache.getPV().A0(Mw, mf);
-    complex B0_Mw_s_Mw_Mw = cache.getPV().B0(Mw,s,Mw,Mw); 
-    complex B0_Mw_0_mf_Mw = cache.getPV().B0(Mw,0.0,mf,Mw); 
-    complex C0_s_Mw_mf_Mw = cache.getPV().C0(s,Mw,mf,Mw);
-    complex C0_s_Mw_0_Mw = cache.getPV().C0(s,Mw,0.0,Mw);    
+    double A0_Mw2 = cache.getPV().A0(Mw2, Mw2);
+    double A0_mf2 = cache.getPV().A0(Mw2, mf2);
+    complex B0_Mw2_s_Mw2_Mw2 = cache.getPV().B0(Mw2,s,Mw2,Mw2);
+    complex B0_Mw2_0_mf2_Mw2 = cache.getPV().B0(Mw2,0.0,mf2,Mw2);
+    complex C0_s_Mw2_mf2_Mw2 = cache.getPV().C0(s,Mw2,mf2,Mw2);
+    complex C0_s_Mw2_0_Mw2 = cache.getPV().C0(s,Mw2,0.0,Mw2);
     
     complex FWn(0.0,0.0,false);        
     /* Eq.(5.586) in Bardin and Passarino's book */
     FWn = ((2.0 + wf)*(1.0 - wf)*(1.0 - wf)*Rw + 4.0 - 5.0/2.0*wf + 2.0*wf*wf
-            - wf*wf*wf/2.0 + wf*(2.0 - wf/2.0)/Rw)*Mw*Mw*C0_s_Mw_mf_Mw
+            - wf*wf*wf/2.0 + wf*(2.0 - wf/2.0)/Rw)*Mw*Mw*C0_s_Mw2_mf2_Mw2
            - (- (2.0 + wf)*(1.0 - wf)*Rw - 3.0 + 3.0/2.0*wf - wf*wf/2.0)
-             *(B0_Mw_s_Mw_Mw - B0_Mw_0_mf_Mw)
-           - (2.0/3.0 - wf/2.0 + (3.0/2.0 - wf/4.0)/Rw + 1.0/12.0/Rw/Rw)*B0_Mw_s_Mw_Mw
-           - A0_mf/Mw/Mw - (2.0/3.0 + 1.0/6.0/Rw)*A0_Mw/Mw/Mw
+             *(B0_Mw2_s_Mw2_Mw2 - B0_Mw2_0_mf2_Mw2)
+           - (2.0/3.0 - wf/2.0 + (3.0/2.0 - wf/4.0)/Rw + 1.0/12.0/Rw/Rw)*B0_Mw2_s_Mw2_Mw2
+           - A0_mf2/Mw/Mw - (2.0/3.0 + 1.0/6.0/Rw)*A0_Mw2/Mw/Mw
            - 2.0/3.0 - wf/2.0 + (4.0/9.0 + wf/4.0)/Rw - 1.0/18.0/Rw/Rw;
     
     /* Eq.(5.500) in Bardin and Passarino's book */    

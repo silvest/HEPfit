@@ -30,6 +30,7 @@ void EWSMEW1testclass::setUp() {
     cW2 = Mw2/Mz2;
     sW2 = 1.0 - cW2;
     Mt = myCache->Mt();
+    Mt2 = Mt*Mt;
     
     /* accuracy for CPPUNIT_ASSERT_DOUBLES_EQUAL */
     epsilon = 1.0e-10; 
@@ -155,55 +156,55 @@ void EWSMEW1testclass::PiGammaGamma_fer_Mw_0() {
     CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
 }
 
-void EWSMEW1testclass::B0_diff_Mw2_Mz_Mw() {
+void EWSMEW1testclass::B0_diff_Mw2_Mz2_Mw2() {
     PVfunctions* myPV;
-    myPV = new PVfunctions();
-    double result_Mw = myPV->B0(Mw, Mw2, Mz, Mw).real();
-    double result_Mz = myPV->B0(Mz, Mw2, Mz, Mw).real();
+    myPV = new PVfunctions(true);
+    double result_Mw = myPV->B0(Mw2, Mw2, Mz2, Mw2).real();
+    double result_Mz = myPV->B0(Mz2, Mw2, Mz2, Mw2).real();
     double MZtoMW = log(cW2);
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);   
     delete myPV;
 }
 
-void EWSMEW1testclass::B1_diff_Mw2_Mz_Mw() {
+void EWSMEW1testclass::B1_diff_Mw2_Mz2_Mw2() {
     PVfunctions* myPV;
-    myPV = new PVfunctions();
-    double result_Mw = myPV->B1(Mw, Mw2, Mz, Mw).real();
-    double result_Mz = myPV->B1(Mz, Mw2, Mz, Mw).real();
+    myPV = new PVfunctions(true);
+    double result_Mw = myPV->B1(Mw2, Mw2, Mz2, Mw2).real();
+    double result_Mz = myPV->B1(Mz2, Mw2, Mz2, Mw2).real();
     double MZtoMW = - log(cW2)/2.0;
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);   
     delete myPV;
 }
 
-void EWSMEW1testclass::B21_diff_Mw2_Mz_Mw() {
+void EWSMEW1testclass::B21_diff_Mw2_Mz2_Mw2() {
     PVfunctions* myPV;
-    myPV = new PVfunctions();
-    double result_Mw = myPV->B21(Mw, Mw2, Mz, Mw).real();
-    double result_Mz = myPV->B21(Mz, Mw2, Mz, Mw).real();
+    myPV = new PVfunctions(true);
+    double result_Mw = myPV->B21(Mw2, Mw2, Mz2, Mw2).real();
+    double result_Mz = myPV->B21(Mz2, Mw2, Mz2, Mw2).real();
     double MZtoMW = log(cW2)/3.0;
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);   
     delete myPV;
 }
 
-void EWSMEW1testclass::Bf_diff_Mw2_Mz_Mw() {
+void EWSMEW1testclass::Bf_diff_Mw2_Mz2_Mw2() {
     PVfunctions* myPV;
-    myPV = new PVfunctions();
-    double result_Mw = myPV->Bf(Mw, Mw2, Mz, Mw).real();
-    double result_Mz = myPV->Bf(Mz, Mw2, Mz, Mw).real();
+    myPV = new PVfunctions(true);
+    double result_Mw = myPV->Bf(Mw2, Mw2, Mz2, Mw2).real();
+    double result_Mz = myPV->Bf(Mz2, Mw2, Mz2, Mw2).real();
     double MZtoMW = - log(cW2)/3.0;
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);   
     delete myPV;
 }
 
-void EWSMEW1testclass::B0p_diff_Mw2_0_Mw() {
+void EWSMEW1testclass::B0p_diff_Mw2_0_Mw2() {
     PVfunctions* myPV;
-    myPV = new PVfunctions();
-    double result_Mw = myPV->B0p(Mw, Mw2, 0.0, Mw).real();
-    double result_Mz = myPV->B0p(Mz, Mw2, 0.0, Mw).real();
+    myPV = new PVfunctions(true);
+    double result_Mw = myPV->B0p(Mw2, Mw2, 0.0, Mw2).real();
+    double result_Mz = myPV->B0p(Mz2, Mw2, 0.0, Mw2).real();
     double MZtoMW = - log(cW2)/2.0/Mw2;
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);   
@@ -458,83 +459,83 @@ void EWSMEW1testclass::SigmaPrimeZZ_fer_Mw_Mz2_imag() {
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XWFM1F*cW2, result, delta);
 }
 
-void EWSMEW1testclass::C0_Mz2_Mt_Mw_Mt_real() {
+void EWSMEW1testclass::C0_Mz2_Mt2_Mw2_Mt2_real() {
     double XS3T = 0.000024702795478; /* ZFITTER result*/
     PVfunctions* myPV;
-    myPV = new PVfunctions();
-    double result = myPV->C0(Mz2,Mt,Mw,Mt).real();
+    myPV = new PVfunctions(true);
+    double result = myPV->C0(Mz2,Mt2,Mw2,Mt2).real();
     delete myPV;
     double delta = fabs(epsilon_Li2*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XS3T, result, delta);    
 }
 
-void EWSMEW1testclass::C0_Mz2_Mt_Mw_Mt_imag() {
+void EWSMEW1testclass::C0_Mz2_Mt2_Mw2_Mt2_imag() {
     double XS3T = 0.000000000000000; /* ZFITTER result*/
     PVfunctions* myPV;
-    myPV = new PVfunctions();
-    double result = myPV->C0(Mz2,Mt,Mw,Mt).imag();
+    myPV = new PVfunctions(true);
+    double result = myPV->C0(Mz2,Mt2,Mw2,Mt2).imag();
     delete myPV;
     //double delta = fabs(epsilon_Li2*result);
     double delta = pow(10.0, -10.0);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XS3T, result, delta);    
 }
 
-void EWSMEW1testclass::C0_Mz2_0_Mw_0_real() {
+void EWSMEW1testclass::C0_Mz2_0_Mw2_0_real() {
     double XS3T0 = 0.000097066726252; /* ZFITTER result*/
     PVfunctions* myPV;
-    myPV = new PVfunctions();
-    double result = myPV->C0(Mz2,0.0,Mw,0.0).real();
+    myPV = new PVfunctions(true);
+    double result = myPV->C0(Mz2,0.0,Mw2,0.0).real();
     delete myPV;
     double delta = fabs(epsilon_Li2*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XS3T0, result, delta);    
 }
 
-void EWSMEW1testclass::C0_Mz2_0_Mw_0_imag() {
+void EWSMEW1testclass::C0_Mz2_0_Mw2_0_imag() {
     double XS3T0 = 0.000309606030132; /* ZFITTER result*/
     PVfunctions* myPV;
-    myPV = new PVfunctions();
-    double result = myPV->C0(Mz2,0.0,Mw,0.0).imag();
+    myPV = new PVfunctions(true);
+    double result = myPV->C0(Mz2,0.0,Mw2,0.0).imag();
     delete myPV;
     double delta = fabs(epsilon_Li2*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XS3T0, result, delta); 
 }
 
-void EWSMEW1testclass::C0_Mz2_Mw_Mt_Mw_real() {
+void EWSMEW1testclass::C0_Mz2_Mw2_Mt2_Mw2_real() {
     double XS3W = 0.000044262165905; /* ZFITTER result*/
     PVfunctions* myPV;
-    myPV = new PVfunctions();
-    double result = myPV->C0(Mz2,Mw,Mt,Mw).real();
+    myPV = new PVfunctions(true);
+    double result = myPV->C0(Mz2,Mw2,Mt2,Mw2).real();
     delete myPV;
     double delta = fabs(epsilon_Li2*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XS3W, result, delta);    
 }
 
-void EWSMEW1testclass::C0_Mz2_Mw_Mt_Mw_imag() {
+void EWSMEW1testclass::C0_Mz2_Mw2_Mt2_Mw2_imag() {
     double XS3W = 0.000000000000000; /* ZFITTER result*/
     PVfunctions* myPV;
-    myPV = new PVfunctions();
-    double result = myPV->C0(Mz2,Mw,Mt,Mw).imag();
+    myPV = new PVfunctions(true);
+    double result = myPV->C0(Mz2,Mw2,Mt2,Mw2).imag();
     delete myPV;
     //double delta = fabs(epsilon_Li2*result);
     double delta = pow(10.0, -10.0);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XS3W, result, delta);    
 }
 
-void EWSMEW1testclass::C0_Mz2_Mw_0_Mw_real() {
+void EWSMEW1testclass::C0_Mz2_Mw2_0_Mw2_real() {
     double XS3W0 = 0.000172249280944; /* ZFITTER result*/
     PVfunctions* myPV;
-    myPV = new PVfunctions();
-    double result = myPV->C0(Mz2,Mw,0.0,Mw).real();
+    myPV = new PVfunctions(true);
+    double result = myPV->C0(Mz2,Mw2,0.0,Mw2).real();
     delete myPV;
     double delta = fabs(epsilon_Li2*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XS3W0, result, delta);    
 }
 
-void EWSMEW1testclass::C0_Mz2_Mw_0_Mw_imag() {
+void EWSMEW1testclass::C0_Mz2_Mw2_0_Mw2_imag() {
     double XS3W0 = 0.000000000000000; /* ZFITTER result*/
     PVfunctions* myPV;
-    myPV = new PVfunctions();
-    double result = myPV->C0(Mz2,Mw,0.0,Mw).imag();
+    myPV = new PVfunctions(true);
+    double result = myPV->C0(Mz2,Mw2,0.0,Mw2).imag();
     delete myPV;
     //double delta = fabs(epsilon_Li2*result);
     double delta = pow(10.0, -10.0);

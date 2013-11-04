@@ -21,160 +21,155 @@ using namespace gslpp;
 /**
  * @class PVfunctions
  * @ingroup LoopFunctions 
- * @brief A class for Passarino-Veltman function. 
+ * @brief A class for Passarino-Veltman functions.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details  
+ * @details The definitions of the two-point and four-point functions are identical 
+ * to those in LoopTools library. The functions A_0 and C_0 are identical to those
+ * in LoopTools library when the argument passes to the constructor is "false",
+ * while an extra minus sign is added to them when the argument is "true".
+ * If the preprocessor macro "USE_LOOPTOOLS" is defined in PVdunctions.h or 
+ * Makefile, the functions in LoopTools library, called via LoopToolsWrapper class,
+ * are employed instead of those defined in the current class.
  */
 class PVfunctions {
 public:
 
-    PVfunctions() 
-    {};
+    /**
+     * @brief PVfunctions constructor. 
+     * @param[in] bExtraMinusSign true if adding an overall extra minus sign
+     * to A_0 and C_0, compared to the ones in LoopTools library.
+     */
+    PVfunctions(const bool bExtraMinusSign);
 
     /**
-     * @brief the scalar one-point Passarino-Veltman function
-     * @param[in] mu renormalization scale
-     * @param[in] m mass m
-     * @return the finite part of the scalar one-point PV function at the scale mu
+     * @brief The scalar one-point Passarino-Veltman function. 
+     * @param[in] mu2 The renormalization scale squared. 
+     * @param[in] m2 Mass squared.
+     * @return The finite part of the scalar one-point PV function.
      */
-    double A0(const double mu, const double m) const;
+    double A0(const double mu2, const double m2) const;
     
     /**
-     * @brief the scalar two-point Passarino-Veltman function
-     * @param[in] mu renormalization scale
-     * @param[in] p2 p squared
-     * @param[in] m0 mass m_0
-     * @param[in] m1 mass m_1
-     * @return the finite part of the scalar two-point PV function at the scale mu
+     * @brief The scalar two-point Passarino-Veltman function.
+     * @param[in] mu2 The renormalization scale squared.
+     * @param[in] p2 Momentum squared.
+     * @param[in] m02, m12 Mass squared.
+     * @return The finite part of the scalar two-point PV function.
      */
-    complex B0(const double mu, const double p2, 
-               const double m0, const double m1) const; 
+    complex B0(const double mu2, const double p2,
+               const double m02, const double m12) const;
     
     /**
-     * @brief the vector two-point Passarino-Veltman function
-     * @param[in] mu renormalization scale
-     * @param[in] p2 p squared
-     * @param[in] m0 mass m_0
-     * @param[in] m1 mass m_1
-     * @return the finite part of the vector two-point PV function at the scale mu
+     * @brief The vector two-point Passarino-Veltman function,
+     * @param[in] mu2 The renormalization scale squared.
+     * @param[in] p2 Momentum squared.
+     * @param[in] m02, m12 Mass squared.
+     * @return The finite part of the vector two-point PV function.
      */
-    complex B1(const double mu, const double p2, 
-               const double m0, const double m1) const; 
+    complex B1(const double mu2, const double p2,
+               const double m02, const double m12) const;
     
     /**
-     * @brief a tensor two-point Passarino-Veltman function
-     * @param[in] mu renormalization scale
-     * @param[in] p2 p squared
-     * @param[in] m0 mass m_0
-     * @param[in] m1 mass m_1
-     * @return the finite part of a tensor two-point PV function B_{21} at the scale mu
+     * @brief A tensor two-point Passarino-Veltman function.
+     * @param[in] mu2 The renormalization scale squared.
+     * @param[in] p2 Momentum squared.
+     * @param[in] m02, m12 Mass squared.
+     * @return The finite part of a tensor two-point PV function B_{21}. 
      */
-    complex B21(const double mu, const double p2, 
-                const double m0, const double m1) const;     
+    complex B21(const double mu2, const double p2,
+                const double m02, const double m12) const;
     
     /**
-     * @brief a tensor two-point Passarino-Veltman function
-     * @param[in] mu renormalization scale
-     * @param[in] p2 p squared
-     * @param[in] m0 mass m_0
-     * @param[in] m1 mass m_1
-     * @return the finite part of a tensor two-point PV function B_{22} at the scale mu
+     * @brief A tensor two-point Passarino-Veltman function.
+     * @param[in] mu2 The renormalization scale squared.
+     * @param[in] p2 Momentum squared.
+     * @param[in] m02, m12 Mass squared.
+     * @return The finite part of a tensor two-point PV function B_{22}. 
      */
-    complex B22(const double mu, const double p2, 
-                const double m0, const double m1) const;       
+    complex B22(const double mu2, const double p2,
+                const double m02, const double m12) const;
     
     /**
-     * @brief a sum of two-point Passarino-Veltman functions
-     * @param[in] mu renormalization scale
-     * @param[in] p2 p squared
-     * @param[in] m0 mass m_0
-     * @param[in] m1 mass m_1
-     * @return the finite part of a sum of two-point PV function at the scale mu
+     * @brief A sum of two-point Passarino-Veltman functions
+     * @param[in] mu2 The renormalization scale squared.
+     * @param[in] p2 Momentum squared.
+     * @param[in] m02, m12 Mass squared.
+     * @return The finite part of a sum of two-point PV function B_f.
      */
-    complex Bf(const double mu, const double p2, 
-               const double m0, const double m1) const;       
+    complex Bf(const double mu2, const double p2,
+               const double m02, const double m12) const;
     
     /**
-     * @brief the derivative of B_0
-     * @param[in] muIR renormalization scale for an IR divergence
-     * @param[in] p2 p squared
-     * @param[in] m0 mass m_0
-     * @param[in] m1 mass m_1
-     * @return the finite part of B_{0p}
+     * @brief The derivative of B_0.
+     * @param[in] muIR2 The IR renormalization scale squared. 
+     * @param[in] p2 Momentum squared.
+     * @param[in] m02, m12 Mass squared.
+     * @return The finite part of B_{0p}.
      */
-    complex B0p(const double muIR, const double p2, 
-                const double m0, const double m1) const; 
+    complex B0p(const double muIR2, const double p2,
+                const double m02, const double m12) const;
     
     /**
-     * @brief the derivative of B_1
-     * @param[in] mu renormalization scale
-     * @param[in] p2 p squared
-     * @param[in] m0 mass m_0
-     * @param[in] m1 mass m_1
-     * @return the finite part of B_{1p}
+     * @brief The derivative of B_1.
+     * @param[in] mu2 The renormalization scale squared.
+     * @param[in] p2 Momentum squared.
+     * @param[in] m02, m12 Mass squared.
+     * @return The finite part of B_{1p}. 
      */
-    complex B1p(const double mu, const double p2, 
-                const double m0, const double m1) const; 
+    complex B1p(const double mu2, const double p2,
+                const double m02, const double m12) const;
     
     /**
-     * @brief the derivative of B_{21}
-     * @param[in] mu renormalization scale
-     * @param[in] p2 p squared
-     * @param[in] m0 mass m_0
-     * @param[in] m1 mass m_1
-     * @return the finite part of B_{21p}
+     * @brief The derivative of B_{21}.
+     * @param[in] mu2 The renormalization scale squared.
+     * @param[in] p2 Momentum squared.
+     * @param[in] m02, m12 Mass squared.
+     * @return The finite part of B_{21p}.
      */
-    complex B21p(const double mu, const double p2, 
-                 const double m0, const double m1) const;     
+    complex B21p(const double mu2, const double p2,
+                 const double m02, const double m12) const;
 
     /**
-     * @brief the derivative of B_{22}
-     * @param[in] mu renormalization scale
-     * @param[in] p2 p squared
-     * @param[in] m0 mass m_0
-     * @param[in] m1 mass m_1
-     * @return the finite part of B_{22p}
+     * @brief The derivative of B_{22}.
+     * @param[in] mu2 The renormalization scale squared.
+     * @param[in] p2 Momentum squared.
+     * @param[in] m02, m12 Mass squared.
+     * @return The finite part of B_{22p}. 
      */
-    complex B22p(const double mu, const double p2, 
-                 const double m0, const double m1) const;
+    complex B22p(const double mu2, const double p2,
+                 const double m02, const double m12) const;
     
     /**
-     * @brief the derivative of B_{f}
-     * @param[in] mu renormalization scale
-     * @param[in] p2 p squared
-     * @param[in] m0 mass m_0
-     * @param[in] m1 mass m_1
-     * @return the finite part of B_{fp}
+     * @brief The derivative of B_{f}.
+     * @param[in] mu2 The renormalization scale squared.
+     * @param[in] p2 Momentum squared.
+     * @param[in] m02, m12 Mass squared.
+     * @return The finite part of B_{fp}. 
      */
-    complex Bfp(const double mu, const double p2, 
-                const double m0, const double m1) const;       
+    complex Bfp(const double mu2, const double p2,
+                const double m02, const double m12) const;
     
     /**
-     * @brief the scalar three-point Passarino-Veltman function C_0(0,0,p2;m0,m1,m2)
-     * @param[in] p2 p squared
-     * @param[in] m0 mass m_0
-     * @param[in] m1 mass m_1
-     * @param[in] m2 mass m_2
-     * @return the scalar three-point PV function C_0(0,0,p2;m0,m1,m2)
+     * @brief The scalar three-point Passarino-Veltman function C_0(0,0,p2;m02,m12,m22).
+     * @param[in] p2 Momentum squared.
+     * @param[in] m02, m12, m22 Mass squared.
+     * @return The scalar three-point PV function C_0(0,0,p2;m02,m12,m22).
      */
     complex C0(const double p2, 
-               const double m0, const double m1, const double m2) const; 
+               const double m02, const double m12, const double m22) const;
     
     /**
-     * @brief the scalar four-point Passarino-Veltman function D_0(0,0,0,0,s,t;m0,m1,m2,m3)
-     * @param[in] s 
-     * @param[in] t 
-     * @param[in] m0 mass m_0
-     * @param[in] m1 mass m_1
-     * @param[in] m2 mass m_2
-     * @param[in] m3 mass m_3
-     * @return the scalar four-point PV function D_0(0,0,0,0,s,t;m0,m1,m2,m3)
+     * @brief The scalar four-point Passarino-Veltman function D_0(0,0,0,0,s,t;m02,m12,m22,m32).
+     * @param[in] s, t Momentum squared.
+     * @param[in] m02, m12, m22, m32 Mass squared.
+     * @return The scalar four-point PV function D_0(0,0,0,0,s,t;m02,m12,m22,m32).
      */
-    complex D0(const double s, const double t, const double m0, const double m1, 
-               const double m2, const double m3) const;
+    complex D0(const double s, const double t, const double m02, const double m12,
+               const double m22, const double m32) const;
 
 private:
+    double ExtraMinusSign;
     Polylogarithms myPolylog;
 #ifdef USE_LOOPTOOLS
     LoopToolsWrapper myLT;

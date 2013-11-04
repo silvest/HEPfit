@@ -27,21 +27,11 @@
       <itemPath>src/Particle.h</itemPath>
       <itemPath>src/QCD.h</itemPath>
       <itemPath>src/RGEvolutor.h</itemPath>
-      <itemPath>src/SMInputs.h</itemPath>
       <itemPath>src/StandardModel.h</itemPath>
       <itemPath>src/StandardModelMatching.h</itemPath>
+      <itemPath>src/StandardModelParams.h</itemPath>
       <itemPath>src/WilsonCoefficient.h</itemPath>
       <itemPath>src/WilsonTemplate.h</itemPath>
-      <itemPath>src/alsMz.h</itemPath>
-      <itemPath>src/dAle5Mz.h</itemPath>
-      <itemPath>src/delRhoZ_b.h</itemPath>
-      <itemPath>src/delRhoZ_d.h</itemPath>
-      <itemPath>src/delRhoZ_e.h</itemPath>
-      <itemPath>src/delRhoZ_nu.h</itemPath>
-      <itemPath>src/delRhoZ_u.h</itemPath>
-      <itemPath>src/mHl.h</itemPath>
-      <itemPath>src/mZ.h</itemPath>
-      <itemPath>src/mtpole.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -71,6 +61,7 @@
       <itemPath>src/RGEvolutor.cpp</itemPath>
       <itemPath>src/StandardModel.cpp</itemPath>
       <itemPath>src/StandardModelMatching.cpp</itemPath>
+      <itemPath>src/StandardModelParams.cpp</itemPath>
       <itemPath>src/WilsonCoefficient.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -171,6 +162,7 @@
       <compileType>
         <ccTool>
           <incDir>
+            <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../Utils/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
@@ -259,6 +251,18 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../Observables"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../Observables"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libobservables.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>ooptools</linkerLibLibItem>
@@ -533,8 +537,6 @@
       </item>
       <item path="src/RGEvolutor.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/SMInputs.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/StandardModel.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/StandardModel.h" ex="false" tool="3" flavor2="0">
@@ -543,31 +545,15 @@
       </item>
       <item path="src/StandardModelMatching.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/StandardModelParams.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/StandardModelParams.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/WilsonCoefficient.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/WilsonCoefficient.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/WilsonTemplate.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/alsMz.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/dAle5Mz.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/delRhoZ_b.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/delRhoZ_d.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/delRhoZ_e.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/delRhoZ_nu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/delRhoZ_u.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/mHl.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/mZ.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/mtpole.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/EWSMEW1HVtestclass.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -636,9 +622,11 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <incDir>
+            <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../Utils/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
+            <pElem>../Observables/src</pElem>
           </incDir>
           <commandLine>`gsl-config --cflags` `root-config --cflags`</commandLine>
         </ccTool>
@@ -838,8 +826,6 @@
       </item>
       <item path="src/RGEvolutor.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/SMInputs.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/StandardModel.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/StandardModel.h" ex="false" tool="3" flavor2="0">
@@ -848,31 +834,15 @@
       </item>
       <item path="src/StandardModelMatching.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/StandardModelParams.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/StandardModelParams.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/WilsonCoefficient.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/WilsonCoefficient.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/WilsonTemplate.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/alsMz.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/dAle5Mz.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/delRhoZ_b.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/delRhoZ_d.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/delRhoZ_e.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/delRhoZ_nu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/delRhoZ_u.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/mHl.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/mZ.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/mtpole.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/EWSMEW1HVtestclass.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -941,9 +911,11 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <incDir>
+            <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../Utils/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
+            <pElem>../Observables/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/BAT/include -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include</commandLine>
         </ccTool>
@@ -1133,8 +1105,6 @@
       </item>
       <item path="src/RGEvolutor.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/SMInputs.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/StandardModel.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/StandardModel.h" ex="false" tool="3" flavor2="0">
@@ -1143,31 +1113,15 @@
       </item>
       <item path="src/StandardModelMatching.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/StandardModelParams.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/StandardModelParams.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/WilsonCoefficient.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/WilsonCoefficient.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/WilsonTemplate.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/alsMz.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/dAle5Mz.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/delRhoZ_b.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/delRhoZ_d.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/delRhoZ_e.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/delRhoZ_nu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/delRhoZ_u.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/mHl.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/mZ.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/mtpole.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/EWSMEW1HVtestclass.cpp" ex="false" tool="1" flavor2="0">
       </item>

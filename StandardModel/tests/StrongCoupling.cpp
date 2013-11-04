@@ -33,6 +33,8 @@ void setSMparameters(StandardModel& SM_i) {
     Parameters["mut"] = 164.0;
     //Parameters["mut"] = 173.2;
 
+    Parameters["mHl"] = 125.6;
+
     SM_i.Update(Parameters);
 }
 
@@ -45,7 +47,7 @@ int main(int argc, char** argv) {
         setSMparameters(*mySM);
 
         cout.precision(8);
-        cout.setf(ios::floatfield);
+        //cout.setf(ios::floatfield);
         cout.setf(ios::left);
 
         cout << "Inputs: " << endl

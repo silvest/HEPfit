@@ -6,6 +6,7 @@
  */
 
 #include "PtauPol.h"
+#include "EW_BURGESS.h"
 
 
 double PtauPol::computeThValue() 
@@ -25,10 +26,8 @@ double PtauPol::computeThValue()
     } else {
         P_tau_pol = myEW.A_l(SM.TAU);
 
-        if(myEWTYPE==EW::EWBURGESS) {
-            P_tau_pol += - 0.0284*SM.obliqueS() + 0.0201*SM.obliqueT();
-            return P_tau_pol;
-        }
+        if(myEWTYPE==EW::EWBURGESS)
+            return myEW.getMyEW_BURGESS().PtauPol(P_tau_pol);
 
         /* NP contribution to the Zff vertex */
         if ( !SM.IsFlagNotLinearizedNP() ) {

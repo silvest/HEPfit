@@ -20,13 +20,8 @@ double Abottom::computeThValue()
     else {
         A_b = myEW.A_q(SM.BOTTOM);
 
-        if(myEWTYPE==EW::EWBURGESS) {
-            double AFB_b = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.BOTTOM);
-            double delta_AFB_b = - 0.0188*SM.obliqueS() + 0.0131*SM.obliqueT();
-            double delta_A_l = - 0.0284*SM.obliqueS() + 0.0201*SM.obliqueT();
-            A_b *= 1.0 + delta_AFB_b/AFB_b - delta_A_l/myEW.A_l(SM.ELECTRON);
-            return A_b;
-        }
+        if(myEWTYPE==EW::EWBURGESS)
+            return myEW.getMyEW_BURGESS().Abottom(A_b, myEW.A_l(SM.ELECTRON));
 
         /* NP contribution to the Zff vertex */
         if ( !SM.IsFlagNotLinearizedNP() ) {

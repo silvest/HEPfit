@@ -25,7 +25,7 @@ class BernoulliNumbers {
 public:
 
     /**
-     * @brief BernoulliNumbers constructor
+     * @brief BernoulliNumbers constructor. 
      */
     BernoulliNumbers();
     
