@@ -13,9 +13,14 @@
 #include <ThObsType.h>
 
 /**
+ * @addtogroup NewPhysics
+ * @brief A project for model-independent analyses of new physics.
+ * @{
+ */
+
+/**
  * @class NewPhysicsParams
- * @ingroup NewPhysics
- * @brief A class for posteriors of model parameters in NewPhysics.
+ * @brief A class for retrieving parameters associated with NewPhysics project.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details
@@ -34,6 +39,10 @@ private:
     const std::string name;
 
 };
+
+/**
+ * @}
+ */
 
 #endif	/* NEWPHYSICSPARAMS_H */
 
