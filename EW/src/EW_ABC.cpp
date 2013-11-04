@@ -8,9 +8,17 @@
 #include "EW_ABC.h"
 
 
-double EW_ABC::Mw(const double eps1, const double eps2, const double eps3) const 
+double EW_ABC::Mw(const double eps1, const double eps2, const double eps3,
+                  const bool bAlternative) const
 {
-    return myEWepsilons.Mw(eps1, eps2, eps3);
+    if (!bAlternative)
+        return myEWepsilons.Mw(eps1, eps2, eps3);
+    else {
+        double delta_alpha = (SM.alphaMz() - 1.0/128.90)/SM.getAle();
+        double cW2_Born = 0.768905*(1.0 - 0.40*delta_alpha);
+        double cW2 = cW2_Born*(1.0 + 1.43*eps1 - 1.00*eps2 - 0.86*eps3);
+        return ( sqrt(cW2)*SM.getMz() );
+    }
 }
 
 
@@ -75,18 +83,34 @@ double EW_ABC::Gamma_had(const double eps1, const double eps3, const double epsb
 }
 
 
-double EW_ABC::GammaZ(const double eps1, const double eps3, const double epsb) const 
+double EW_ABC::GammaZ(const double eps1, const double eps3, const double epsb,
+                      const bool bAlternative) const
 {
-    return ( Gamma_l(SM.NEUTRINO_1,eps1,eps3) + Gamma_l(SM.NEUTRINO_2,eps1,eps3) 
-             + Gamma_l(SM.NEUTRINO_3,eps1,eps3) + Gamma_l(SM.ELECTRON,eps1,eps3)
-             + Gamma_l(SM.MU,eps1,eps3) + Gamma_l(SM.TAU,eps1,eps3) 
-             + Gamma_had(eps1,eps3,epsb) );
+    if (!bAlternative)
+        return ( Gamma_l(SM.NEUTRINO_1,eps1,eps3) + Gamma_l(SM.NEUTRINO_2,eps1,eps3)
+                 + Gamma_l(SM.NEUTRINO_3,eps1,eps3) + Gamma_l(SM.ELECTRON,eps1,eps3)
+                 + Gamma_l(SM.MU,eps1,eps3) + Gamma_l(SM.TAU,eps1,eps3)
+                 + Gamma_had(eps1,eps3,epsb) );
+    else {
+        double delta_als = (SM.Als(SM.getMz(),FULLNNLO) - 0.119)/M_PI;
+        double delta_alpha = (SM.alphaMz() - 1.0/128.90)/SM.getAle();
+        double Gamma_T0 = 2.48946*(1.0 + 0.73*delta_als - 0.35*delta_alpha);
+        return ( Gamma_T0*(1.0 + 1.35*eps1 - 0.46*eps3 + 0.35*epsb) );
+    }
 }
 
    
-double EW_ABC::R_l(const double eps1, const double eps3, const double epsb) const 
+double EW_ABC::R_l(const double eps1, const double eps3, const double epsb,
+                   const bool bAlternative) const
 {
-    return ( Gamma_had(eps1,eps3,epsb)/Gamma_l(SM.ELECTRON,eps1,eps3) );
+    if (!bAlternative)
+        return ( Gamma_had(eps1,eps3,epsb)/Gamma_l(SM.ELECTRON,eps1,eps3) );
+    else {
+        double delta_als = (SM.Als(SM.getMz(),FULLNNLO) - 0.119)/M_PI;
+        double delta_alpha = (SM.alphaMz() - 1.0/128.90)/SM.getAle();
+        double R_0 = 20.8228*(1.0 + 1.05*delta_als - 0.28*delta_alpha);
+        return ( R_0*(1.0 + 0.28*eps1 - 0.36*eps3 + 0.50*epsb) );
+    }
 }
 
 
@@ -96,24 +120,46 @@ double EW_ABC::R_c(const double eps1, const double eps3, const double epsb) cons
 }
 
 
-double EW_ABC::R_b(const double eps1, const double eps3, const double epsb) const
+double EW_ABC::R_b(const double eps1, const double eps3, const double epsb,
+                   const bool bAlternative) const
 {
-    return ( Gamma_b(eps1,eps3,epsb)/Gamma_had(eps1,eps3,epsb) );        
+    if (!bAlternative)
+        return ( Gamma_b(eps1,eps3,epsb)/Gamma_had(eps1,eps3,epsb) );
+    else {
+        double R_b0 = 0.2182355;
+        return ( R_b0*(1.0 - 0.06*eps1 + 0.07*eps3 + 1.79*epsb) );
+    }
 }
 
 
-double EW_ABC::sigma0_had(const double eps1, const double eps3, const double epsb) const 
+double EW_ABC::sigma0_had(const double eps1, const double eps3, const double epsb,
+                          const bool bAlternative) const
 {
-    return ( 12.0*M_PI/SM.getMz()/SM.getMz()
-             *Gamma_l(SM.ELECTRON,eps1,eps3)*Gamma_had(eps1,eps3,epsb)
-             /GammaZ(eps1,eps3,epsb)/GammaZ(eps1,eps3,epsb) );
+    if (!bAlternative)
+        return ( 12.0*M_PI/SM.getMz()/SM.getMz()
+                 *Gamma_l(SM.ELECTRON,eps1,eps3)*Gamma_had(eps1,eps3,epsb)
+                 /GammaZ(eps1,eps3,epsb,false)/GammaZ(eps1,eps3,epsb,false) );
+    else {
+        double delta_als = (SM.Als(SM.getMz(),FULLNNLO) - 0.119)/M_PI;
+        double delta_alpha = (SM.alphaMz() - 1.0/128.90)/SM.getAle();
+        double sigma_h0 = 41.420*(1.0 - 0.41*delta_als + 0.03*delta_alpha);
+        return ( sigma_h0*(1.0 - 0.03*eps1 + 0.04*eps3 - 0.20*epsb) );
+    }
 }
 
 
-double EW_ABC::A_l(StandardModel::lepton l, const double eps1, const double eps3) const 
+double EW_ABC::A_l(StandardModel::lepton l, const double eps1, const double eps3,
+                   const bool bAlternative) const
 {
-    double x = gVl_over_gAl(l,eps1,eps3).real();
-    return ( 2.0*x/(1.0 + x*x) );    
+    if (!bAlternative) {
+        double x = gVl_over_gAl(l,eps1,eps3).real();
+        return ( 2.0*x/(1.0 + x*x) );
+    } else {
+        double delta_alpha = (SM.alphaMz() - 1.0/128.90)/SM.getAle();
+        double x0 = 0.075619 - 1.32*delta_alpha;
+        double x = x0*(1.0 + 17.6*eps1 - 22.9*eps3);
+        return ( 2.0*x/(1.0 + x*x) );
+    }
 }
 
 
@@ -133,10 +179,17 @@ double EW_ABC::A_b(const double eps1, const double eps3, const double epsb) cons
 }
 
 
-double EW_ABC::AFB_l(StandardModel::lepton l, const double eps1, const double eps3) const
+double EW_ABC::AFB_l(StandardModel::lepton l, const double eps1, const double eps3,
+                     const bool bAlternative) const
 {
-    double x = gVl_over_gAl(l,eps1,eps3).real();
-    return ( 3.0*x*x/(1.0 + x*x)/(1.0 + x*x) );
+    if (!bAlternative) {
+        double x = gVl_over_gAl(l,eps1,eps3).real();
+        return ( 3.0*x*x/(1.0 + x*x)/(1.0 + x*x) );
+    } else {
+        double delta_als = (SM.Als(SM.getMz(),FULLNNLO) - 0.119)/M_PI;
+        double AFB_l_Born = 0.01696*(1.0 - 34.0*delta_als);
+        return ( AFB_l_Born*(1.0 + 34.72*eps1 - 45.15*eps3) );
+    }
 }
 
 double EW_ABC::AFB_c(const double eps1, const double eps3) const 
@@ -155,10 +208,18 @@ double EW_ABC::AFB_b(const double eps1, const double eps3, const double epsb) co
 }
 
     
-double EW_ABC::sin2thetaEff(const double eps1, const double eps3) const
+double EW_ABC::sin2thetaEff(const double eps1, const double eps3,
+                            const bool bAlternative) const
 {
-    double x = gVl_over_gAl(SM.ELECTRON,eps1,eps3).real();
-    return ( (1.0 - x)/4.0 );
+    if (!bAlternative) {
+        double x = gVl_over_gAl(SM.ELECTRON,eps1,eps3).real();
+        return ( (1.0 - x)/4.0 );
+   } else {
+        double delta_als = (SM.Als(SM.getMz(),FULLNNLO) - 0.119)/M_PI;
+        double x0 = 0.075619 - 1.32*delta_als;
+        double x = x0*(1.0 + 17.6*eps1 - 22.9*eps3);
+        return ( (1.0 - x)/4.0 );
+   }
 }
 
     

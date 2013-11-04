@@ -17,13 +17,10 @@ double sigmaHadron::computeThValue()
     if (myEWTYPE==EW::EWCHMN)  
         sigma_had = myEW.getMyEW_CHMN().sigma0_had();
     else if (myEWTYPE==EW::EWABC) 
-        sigma_had = myEW.getMyEW_ABC().sigma0_had(SM.epsilon1(),SM.epsilon3(),SM.epsilonb());
-    else if (myEWTYPE==EW::EWABC2) {
-        double delta_als = (SM.Als(SM.getMz(),FULLNNLO) - 0.119)/M_PI;
-        double delta_alpha = (SM.alphaMz() - 1.0/128.90)/SM.getAle();
-        double sigma_h0 = 41.420*(1.0 - 0.41*delta_als + 0.03*delta_alpha)/GeVminus2_to_nb;
-        sigma_had = sigma_h0*(1.0 - 0.03*SM.epsilon1() + 0.04*SM.epsilon3() - 0.20*SM.epsilonb());
-    } else {   
+        sigma_had = myEW.getMyEW_ABC().sigma0_had(SM.epsilon1(),SM.epsilon3(),SM.epsilonb(),false);
+    else if (myEWTYPE==EW::EWABC2)
+        sigma_had = myEW.getMyEW_ABC().sigma0_had(SM.epsilon1(),SM.epsilon3(),SM.epsilonb(),true)/GeVminus2_to_nb;
+    else {   
         if (SM.IsFlagApproximateSigmaH())
             sigma_had = SM.getEWSM()->sigmaHadron_SM()/GeVminus2_to_nb;
         else

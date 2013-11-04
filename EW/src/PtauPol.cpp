@@ -17,13 +17,10 @@ double PtauPol::computeThValue()
     if (myEWTYPE==EW::EWCHMN)  
         P_tau_pol = myEW.getMyEW_CHMN().A_l(SM.TAU);    
     else if (myEWTYPE==EW::EWABC) 
-        P_tau_pol = myEW.getMyEW_ABC().A_l(SM.TAU,SM.epsilon1(),SM.epsilon3());
-    else if (myEWTYPE==EW::EWABC2) {
-        double delta_alpha = (SM.alphaMz() - 1.0/128.90)/SM.getAle();
-        double x0 = 0.075619 - 1.32*delta_alpha;
-        double x = x0*(1.0 + 17.6*SM.epsilon1() - 22.9*SM.epsilon3());
-        P_tau_pol = 2.0*x/(1.0 + x*x);
-    } else {
+        P_tau_pol = myEW.getMyEW_ABC().A_l(SM.TAU,SM.epsilon1(),SM.epsilon3(),false);
+    else if (myEWTYPE==EW::EWABC2)
+        P_tau_pol = myEW.getMyEW_ABC().A_l(SM.TAU,SM.epsilon1(),SM.epsilon3(),true);
+    else {
         P_tau_pol = myEW.A_l(SM.TAU);
 
         if(myEWTYPE==EW::EWBURGESS)

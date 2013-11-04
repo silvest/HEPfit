@@ -18,11 +18,10 @@ double Rbottom::computeThValue()
     if (myEWTYPE==EW::EWCHMN)  
         R0_b = myEW.getMyEW_CHMN().R_b();
     else if (myEWTYPE==EW::EWABC) 
-        R0_b = myEW.getMyEW_ABC().R_b(SM.epsilon1(),SM.epsilon3(),SM.epsilonb());
-    else if (myEWTYPE==EW::EWABC2) {
-        double R_b0 = 0.2182355;
-        R0_b = R_b0*(1.0 - 0.06*SM.epsilon1() + 0.07*SM.epsilon3() + 1.79*SM.epsilonb());
-    } else {    
+        R0_b = myEW.getMyEW_ABC().R_b(SM.epsilon1(),SM.epsilon3(),SM.epsilonb(),false);
+    else if (myEWTYPE==EW::EWABC2)
+        R0_b = myEW.getMyEW_ABC().R_b(SM.epsilon1(),SM.epsilon3(),SM.epsilonb(),true);
+    else {    
         if (SM.IsFlagApproximateGqOverGb() 
                 //&& !SM.IsFlagRhoZbFromGuOverGb()
                 //&& !SM.IsFlagRhoZbFromGdOverGb()

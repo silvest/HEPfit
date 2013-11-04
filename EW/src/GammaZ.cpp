@@ -17,13 +17,10 @@ double GammaZ::computeThValue()
     if (myEWTYPE==EW::EWCHMN)  
         Gamma_Z = myEW.getMyEW_CHMN().GammaZ();
     else if (myEWTYPE==EW::EWABC) 
-        Gamma_Z = myEW.getMyEW_ABC().GammaZ(SM.epsilon1(),SM.epsilon3(),SM.epsilonb());
-    else if (myEWTYPE==EW::EWABC2) {
-        double delta_als = (SM.Als(SM.getMz(),FULLNNLO) - 0.119)/M_PI;
-        double delta_alpha = (SM.alphaMz() - 1.0/128.90)/SM.getAle();
-        double Gamma_T0 = 2.48946*(1.0 + 0.73*delta_als - 0.35*delta_alpha);
-        Gamma_Z = Gamma_T0*(1.0 + 1.35*SM.epsilon1() - 0.46*SM.epsilon3() + 0.35*SM.epsilonb());
-    } else {
+        Gamma_Z = myEW.getMyEW_ABC().GammaZ(SM.epsilon1(),SM.epsilon3(),SM.epsilonb(),false);
+    else if (myEWTYPE==EW::EWABC2)
+        Gamma_Z = myEW.getMyEW_ABC().GammaZ(SM.epsilon1(),SM.epsilon3(),SM.epsilonb(),true);
+    else {
         if (SM.IsFlagApproximateGammaZ())
             Gamma_Z = SM.getEWSM()->GammaZ_SM();
         else

@@ -16,13 +16,10 @@ double Alepton::computeThValue()
     if (myEWTYPE==EW::EWCHMN)
         A_l = myEW.getMyEW_CHMN().A_l(SM.ELECTRON);
     else if (myEWTYPE==EW::EWABC)
-        A_l = myEW.getMyEW_ABC().A_l(SM.ELECTRON,SM.epsilon1(),SM.epsilon3());
-    else if (myEWTYPE==EW::EWABC2) {
-        double delta_alpha = (SM.alphaMz() - 1.0/128.90)/SM.getAle();
-        double x0 = 0.075619 - 1.32*delta_alpha;
-        double x = x0*(1.0 + 17.6*SM.epsilon1() - 22.9*SM.epsilon3());
-        A_l = 2.0*x/(1.0 + x*x);
-    } else {
+        A_l = myEW.getMyEW_ABC().A_l(SM.ELECTRON,SM.epsilon1(),SM.epsilon3(),false);
+    else if (myEWTYPE==EW::EWABC2)
+        A_l = myEW.getMyEW_ABC().A_l(SM.ELECTRON,SM.epsilon1(),SM.epsilon3(),true);
+    else {
         A_l = myEW.A_l(SM.ELECTRON);
 
         if(myEWTYPE==EW::EWBURGESS)
