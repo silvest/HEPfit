@@ -33,6 +33,9 @@ double BR_Bdmumu::computeThValue(){
     if (obs == 2) return( PRF * ampSq * timeInt);
     if (obs == 3) return( Amumu );
     if (obs == 4) return( Smumu );
+
+    throw std::runtime_error("BR_Bdmumu::BR_Bdmumu: Observable type not defined. Can be only any of (1,2,3,4)");
+    return (EXIT_FAILURE);
 }
 
 void BR_Bdmumu::setAmp(orders order){

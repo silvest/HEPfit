@@ -212,7 +212,7 @@ vector<double> Charm_Kpnunu::C_p(orders order){
     J4p2 = RGevolP(4,NNLO);
     J5p2 = RGevolP(5,NLO);
     
-    for(int i=0; i++; i<3){
+    for(int i=0; i<3; i++){
     dc_p(i,i) =  ThresholdCp(NNLO)(i);
     }
     
@@ -441,7 +441,7 @@ vector<double> Charm_Kpnunu::C_b(orders order){
     J4b2 = RGevolB(4,NNLO);
     J5b2 = RGevolB(5,NLO);
     
-    for(int i=0; i++; i<3){
+    for(int i=0; i<3; i++){
     dc_b(i,i) =  ThresholdCb(NNLO)(i);
     }
     
