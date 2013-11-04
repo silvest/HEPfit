@@ -14,8 +14,13 @@
 using namespace gslpp;
 
 /**
+ * @addtogroup StandardModel
+ * @brief A project for the Standard Model.
+ * @{
+ */
+
+/**
  * @class BParameter
- * @ingroup StandardModel
  * @brief A class for the bag paramters.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -95,5 +100,9 @@ private:
     double mu;
     schemes scheme;
 };
+
+/**
+ * @}
+ */
 
 #endif	/* BPARAMETER_H */
