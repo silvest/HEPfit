@@ -11,7 +11,15 @@
 
 double NewPhysicsParams::computeThValue()
 {
-    if (name.compare("deltaGVb") == 0)
+    if (name.compare("epsilon1") == 0)
+        return SM.epsilon1();
+    else if (name.compare("epsilon2") == 0)
+        return SM.epsilon2();
+    else if (name.compare("epsilon3") == 0)
+        return SM.epsilon3();
+    else if (name.compare("epsilonb") == 0)
+        return SM.epsilonb();
+    else if (name.compare("deltaGVb") == 0)
         return SM.deltaGVq(SM.BOTTOM);
     else if (name.compare("deltaGAb") == 0)
         return SM.deltaGAq(SM.BOTTOM);

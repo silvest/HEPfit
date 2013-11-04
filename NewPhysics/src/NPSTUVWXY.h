@@ -120,39 +120,17 @@ public:
     /**
      * @return Oblique parameter S'
      */
-    virtual double obliqueS() const 
-    {
-        double sW2_SM = StandardModel::sW2();
-        double sW_SM = sqrt(sW2_SM);
-        double cW_SM = sqrt(StandardModel::cW2());
-        return ( ( myObliqueShat - myObliqueW + myObliqueX/(sW_SM*cW_SM) - myObliqueY )
-                 * 4.0*sW2_SM/alphaMz() );
-    }
+    virtual double obliqueS() const;
 
     /**
      * @return Oblique parameter T'
      */
-    virtual double obliqueT() const 
-    {
-        double sW2_SM = StandardModel::sW2();
-        double sW_SM = sqrt(sW2_SM);
-        double cW2_SM = StandardModel::cW2();
-        double cW_SM = sqrt(cW2_SM);
-        return ( ( myObliqueThat - myObliqueW + 2.0*sW_SM/cW_SM*myObliqueX 
-                   - sW2_SM/cW2_SM*myObliqueY )/alphaMz() );
-    }
+    virtual double obliqueT() const;
 
     /**
      * @return Oblique parameter U'
      */
-    virtual double obliqueU() const 
-    {
-        double sW2_SM = StandardModel::sW2();
-        double sW_SM = sqrt(sW2_SM);
-        double cW_SM = sqrt(StandardModel::cW2());
-        return ( ( - myObliqueUhat + myObliqueV + myObliqueW 
-                   - 2.0*sW_SM/cW_SM*myObliqueX )*4.0*sW2_SM/alphaMz() );
-    }
+    virtual double obliqueU() const;
 
 
     ////////////////////////////////////////////////////////////////////////

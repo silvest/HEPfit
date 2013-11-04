@@ -37,13 +37,6 @@
       <itemPath>src/Rbottom.h</itemPath>
       <itemPath>src/Rcharm.h</itemPath>
       <itemPath>src/Rlepton.h</itemPath>
-      <itemPath>src/epsilon1.h</itemPath>
-      <itemPath>src/epsilon2.h</itemPath>
-      <itemPath>src/epsilon3.h</itemPath>
-      <itemPath>src/epsilonb.h</itemPath>
-      <itemPath>src/obliqueS.h</itemPath>
-      <itemPath>src/obliqueT.h</itemPath>
-      <itemPath>src/obliqueU.h</itemPath>
       <itemPath>src/sigmaHadron.h</itemPath>
       <itemPath>src/sin2thetaEff.h</itemPath>
     </logicalFolder>
@@ -85,13 +78,6 @@
       <itemPath>src/Rbottom.cpp</itemPath>
       <itemPath>src/Rcharm.cpp</itemPath>
       <itemPath>src/Rlepton.cpp</itemPath>
-      <itemPath>src/epsilon1.cpp</itemPath>
-      <itemPath>src/epsilon2.cpp</itemPath>
-      <itemPath>src/epsilon3.cpp</itemPath>
-      <itemPath>src/epsilonb.cpp</itemPath>
-      <itemPath>src/obliqueS.cpp</itemPath>
-      <itemPath>src/obliqueT.cpp</itemPath>
-      <itemPath>src/obliqueU.cpp</itemPath>
       <itemPath>src/sigmaHadron.cpp</itemPath>
       <itemPath>src/sin2thetaEff.cpp</itemPath>
     </logicalFolder>
@@ -415,34 +401,6 @@
       </item>
       <item path="src/Rlepton.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/epsilon1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilon2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilon3.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilonb.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilonb.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueS.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueS.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueT.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueT.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueU.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueU.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/sigmaHadron.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sigmaHadron.h" ex="false" tool="3" flavor2="0">
@@ -618,34 +576,6 @@
       </item>
       <item path="src/Rlepton.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/epsilon1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilon2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilon3.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilonb.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilonb.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueS.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueS.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueT.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueT.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueU.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueU.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/sigmaHadron.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/sigmaHadron.h" ex="false" tool="3" flavor2="0">
@@ -820,34 +750,6 @@
       <item path="src/Rlepton.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Rlepton.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilon1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilon2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilon3.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilonb.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilonb.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueS.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueS.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueT.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueT.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueU.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueU.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sigmaHadron.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -119,28 +119,28 @@ ThFactory::ThFactory(const StandardModel& myModel)
         thobs["deltaKappaZb"] = new NewPhysicsParams(myMO, "deltaKappaZb");
     }
 
+    //-----  epsilon parameters by Altarelli et al.  -----
+    thobs["epsilon1"] = new NewPhysicsParams(myMO, "epsilon1");
+    thobs["epsilon2"] = new NewPhysicsParams(myMO, "epsilon2");
+    thobs["epsilon3"] = new NewPhysicsParams(myMO, "epsilon3");
+    thobs["epsilonb"] = new NewPhysicsParams(myMO, "epsilonb");
+
     //-----  Z-pole observables (with EW and StandardModel)  -----
     thobs["Mw"] = new Mw(myEW);
-    thobs["sin2thetaEff"] = new sin2thetaEff(myEW);
     thobs["GammaW"] = new GammaW(myEW);
     thobs["GammaZ"] = new GammaZ(myEW);
+    thobs["sigmaHadron"] = new sigmaHadron(myEW);
+    thobs["sin2thetaEff"] = new sin2thetaEff(myEW);
+    thobs["PtauPol"] = new PtauPol(myEW);
     thobs["Alepton"] = new Alepton(myEW);
     thobs["Acharm"] = new Acharm(myEW);
     thobs["Abottom"] = new Abottom(myEW);
-    thobs["PtauPol"] = new PtauPol(myEW);
     thobs["AFBlepton"] = new AFBlepton(myEW);
     thobs["AFBcharm"] = new AFBcharm(myEW);
     thobs["AFBbottom"] = new AFBbottom(myEW);
     thobs["Rlepton"] = new Rlepton(myEW);
     thobs["Rcharm"] = new Rcharm(myEW);
     thobs["Rbottom"] = new Rbottom(myEW);
-    thobs["sigmaHadron"] = new sigmaHadron(myEW);
-
-    //-----  epsilon parameters by Altarelli et al.  -----
-    thobs["epsilon1"] = new epsilon1(myEW);
-    thobs["epsilon2"] = new epsilon2(myEW);
-    thobs["epsilon3"] = new epsilon3(myEW);   
-    thobs["epsilonb"] = new epsilonb(myEW);   
     
     //-----   Z-pole observables (with ZFitter)   -----
     //thobs["Mw"] = new ZFMw(myZFitter);

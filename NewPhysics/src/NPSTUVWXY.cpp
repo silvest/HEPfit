@@ -102,25 +102,72 @@ bool NPSTUVWXY::SetFlag(const std::string name, const bool& value)
 
 double NPSTUVWXY::epsilon1() const
 {
-    throw std::runtime_error("ERROR: NPSTUVWXY::epsilon1() is not implemented");
+    double c2 = StandardModel::cW2();
+    double s2 = StandardModel::sW2();
+    double eps1 = epsilon1_SM();
+    eps1 += myObliqueThat - myObliqueW + 2.0*sqrt(s2)/sqrt(c2)*myObliqueX
+            - s2/c2*myObliqueY;
+    return eps1;
 }
 
 
 double NPSTUVWXY::epsilon2() const
 {
-    throw std::runtime_error("ERROR: NPSTUVWXY::epsilon2() is not implemented");
+    double c2 = StandardModel::cW2();
+    double s2 = StandardModel::sW2();
+    double eps2 = epsilon2_SM();
+    eps2 += myObliqueUhat - myObliqueV - myObliqueW + 2.0*sqrt(s2)/sqrt(c2)*myObliqueX;
+    return eps2;
 }
 
 
 double NPSTUVWXY::epsilon3() const
 {
-    throw std::runtime_error("ERROR: NPSTUVWXY::epsilon3() is not implemented");
+    double c2 = StandardModel::cW2();
+    double s2 = StandardModel::sW2();
+    double eps3 = epsilon3_SM();
+    eps3 += myObliqueShat  - myObliqueW + myObliqueX/sqrt(s2)/sqrt(c2) - myObliqueY;
+    return eps3;
 }
 
 
 double NPSTUVWXY::epsilonb() const
 {
-    throw std::runtime_error("ERROR: NPSTUVWXY::epsilonb() is not implemented");
+    double epsb = epsilonb_SM();
+    return epsb;
+}
+
+
+////////////////////////////////////////////////////////////////////////     
+
+double NPSTUVWXY::obliqueS() const
+{
+    double sW2_SM = StandardModel::sW2();
+    double sW_SM = sqrt(sW2_SM);
+    double cW_SM = sqrt(StandardModel::cW2());
+    return ( ( myObliqueShat - myObliqueW + myObliqueX/(sW_SM*cW_SM) - myObliqueY )
+            * 4.0*sW2_SM/alphaMz() );
+}
+
+
+double NPSTUVWXY::obliqueT() const
+{
+    double sW2_SM = StandardModel::sW2();
+    double sW_SM = sqrt(sW2_SM);
+    double cW2_SM = StandardModel::cW2();
+    double cW_SM = sqrt(cW2_SM);
+    return ( ( myObliqueThat - myObliqueW + 2.0*sW_SM/cW_SM*myObliqueX
+            - sW2_SM/cW2_SM*myObliqueY )/alphaMz() );
+}
+
+
+double NPSTUVWXY::obliqueU() const
+{
+    double sW2_SM = StandardModel::sW2();
+    double sW_SM = sqrt(sW2_SM);
+    double cW_SM = sqrt(StandardModel::cW2());
+    return ( ( - myObliqueUhat + myObliqueV + myObliqueW
+            - 2.0*sW_SM/cW_SM*myObliqueX )*4.0*sW2_SM/alphaMz() );
 }
 
 
