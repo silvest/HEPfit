@@ -14,7 +14,7 @@ const std::string NPHiggsST::NPHIGGSSTvars[NNPHIGGSSTvars]
 
 
 NPHiggsST::NPHiggsST()
-: NPZbbbar(), LambdaNP_in(0.0)
+: StandardModel(), LambdaNP_in(0.0)
 {
 }
 
@@ -23,7 +23,7 @@ bool NPHiggsST::Update(const std::map<std::string,double>& DPars)
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameters(it->first, it->second);
-    if(!NPZbbbar::Update(DPars)) return (false);
+    if(!StandardModel::Update(DPars)) return (false);
 
     return (true);
 }
@@ -45,7 +45,7 @@ bool NPHiggsST::CheckParameters(const std::map<std::string, double>& DPars)
             return false;
         }
     }
-    return(NPZbbbar::CheckParameters(DPars));
+    return(StandardModel::CheckParameters(DPars));
 }
 
     
@@ -68,13 +68,13 @@ void NPHiggsST::setParameters(const std::string name, const double& value)
     else if (name.compare("LambdaNP") == 0)
         LambdaNP_in = value;
     else
-        NPZbbbar::setParameters(name, value);       
+        StandardModel::setParameters(name, value);
 }
 
 
 bool NPHiggsST::InitializeModel() 
 {
-    setModelInitialized(NPZbbbar::InitializeModel());
+    setModelInitialized(StandardModel::InitializeModel());
     return (IsModelInitialized());
 }
 
@@ -88,16 +88,8 @@ void NPHiggsST::SetEWSMflags(EWSM& myEWSM)
 bool NPHiggsST::SetFlag(const std::string name, const bool& value) 
 {
     bool res = false;
-    if (name.compare("epsilon1SM") == 0) 
-        throw std::runtime_error("ERROR: Flag epsilon1SM is not applicable to NPHiggsST"); 
-    else if (name.compare("epsilon2SM") == 0) 
-        throw std::runtime_error("ERROR: Flag epsilon2SM is not applicable to NPHiggsST"); 
-    else if (name.compare("epsilon3SM") == 0) 
-        throw std::runtime_error("ERROR: Flag epsilon3SM is not applicable to NPHiggsST"); 
-    else if (name.compare("epsilonbSM") == 0) 
-        throw std::runtime_error("ERROR: Flag epsilonbSM is not applicable to NPHiggsST"); 
-    else
-        res = NPZbbbar::SetFlag(name,value);
+
+    res = StandardModel::SetFlag(name,value);
 
     return(res);
 }
@@ -172,16 +164,12 @@ double NPHiggsST::Mw() const
 {
     double myMw = StandardModel::Mw();
 
-    if (!IsFlagNotLinearizedNP() ) {
-        double alpha = StandardModel::alphaMz();
-        double c2 = StandardModel::cW2();
-        double s2 = StandardModel::sW2();
+    double alpha = StandardModel::alphaMz();
+    double c2 = StandardModel::cW2();
+    double s2 = StandardModel::sW2();
 
-        myMw *= 1.0 - alpha/4.0/(c2-s2)
-                *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 );
-    } else
-        if (obliqueS()!=0.0 || obliqueT()!=0.0 || obliqueU()!=0.0)
-            throw std::runtime_error("NPHiggsST::Mw(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+    myMw *= 1.0 - alpha/4.0/(c2-s2)
+            *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 );
 
     return myMw;
 }
@@ -203,17 +191,13 @@ double NPHiggsST::GammaW() const
 {
     double Gamma_W = StandardModel::GammaW();
 
-    if (!IsFlagNotLinearizedNP() ) {
-        double alpha = StandardModel::alphaMz();
-        double c2 = StandardModel::cW2();
-        double s2 = StandardModel::sW2();
+    double alpha = StandardModel::alphaMz();
+    double c2 = StandardModel::cW2();
+    double s2 = StandardModel::sW2();
 
-        Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
-                   *( obliqueS() - 2.0*c2*obliqueT()
-                      - (c2-s2)*obliqueU()/2.0/s2 );
-        } else
-            if (obliqueS()!=0.0 || obliqueT()!=0.0 || obliqueU()!=0.0)
-                throw std::runtime_error("NPHiggsST::GammaW(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+    Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
+               *( obliqueS() - 2.0*c2*obliqueT()
+                  - (c2-s2)*obliqueU()/2.0/s2 );
 
     return Gamma_W;
 }

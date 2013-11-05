@@ -22,7 +22,7 @@ class NPZbbbar : public StandardModel  {
 public:
     static const int NZbbbarVars = 2;
     static const std::string ZbbbarVars[NZbbbarVars];
-    static const int NZbbbarflags = 1;
+    static const int NZbbbarflags = 2;
     static const std::string Zbbbarflags[NZbbbarflags];
 
     NPZbbbar();
@@ -41,6 +41,12 @@ public:
 
     virtual bool SetFlag(const std::string, const bool&); 
     
+    ////////////////////////////////////////////////////////////////////////
+
+    bool IsFlagNotLinearizedNP() const
+    {
+        return FlagNotLinearizedNP;
+    }
     
     ////////////////////////////////////////////////////////////////////////    
 
@@ -135,6 +141,8 @@ private:
      *    myDeltaGAb --> delta g_R^b
      */
     bool FlagNPZbbbarLR;
+
+    bool FlagNotLinearizedNP;
 
 };
 

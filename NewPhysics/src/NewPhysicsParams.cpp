@@ -6,6 +6,7 @@
  */
 
 #include <stdexcept>
+#include "NPZbbbar.h"
 #include "NPEffective.h"
 #include "NewPhysicsParams.h"
 
@@ -28,35 +29,41 @@ double NewPhysicsParams::computeThValue()
     else if (name.compare("deltaGLb") == 0)
         return ( (SM.deltaGVq(SM.BOTTOM) + SM.deltaGAq(SM.BOTTOM))/2.0 );
     else if (name.compare("deltaRhoZb") == 0) {
-        if (SM.IsFlagApproximateGqOverGb()
-                && !SM.IsFlagRhoZbFromGuOverGb()
-                && !SM.IsFlagRhoZbFromGdOverGb()
-                && !SM.IsFlagTestSubleadingTwoLoopEW())
-            // SM prediction for rho_Z^b is needed!
-            throw std::runtime_error("NewPhysicsParams::computeThValue(): deltaRhoZb is not defined");
-        else
-        if (SM.IsFlagNotLinearizedNP())
-            return ( SM.rhoZ_q(SM.BOTTOM).real()
-                     - SM.StandardModel::rhoZ_q(SM.BOTTOM).real() );
-        else {
-            complex gAb = SM.StandardModel::gAq(SM.BOTTOM) + SM.deltaGAq(SM.BOTTOM);
-            double I3b = SM.getQuarks(SM.BOTTOM).getIsospin();
-            double rhoZb_full = (gAb*gAb/I3b/I3b).real();
-            return ( rhoZb_full
-                     - SM.StandardModel::rhoZ_q(SM.BOTTOM).real() );
-        }
+        if (SM.ModelName().compare("NPZbbbar") == 0) {
+            if (SM.IsFlagApproximateGqOverGb()
+                    && !SM.IsFlagRhoZbFromGuOverGb()
+                    && !SM.IsFlagRhoZbFromGdOverGb()
+                    && !SM.IsFlagTestSubleadingTwoLoopEW())
+                // SM prediction for rho_Z^b is needed!
+                throw std::runtime_error("NewPhysicsParams::computeThValue(): deltaRhoZb is not defined");
+            else
+                if ((static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
+                    return ( SM.rhoZ_q(SM.BOTTOM).real()
+                            - SM.StandardModel::rhoZ_q(SM.BOTTOM).real() );
+                else {
+                    complex gAb = SM.StandardModel::gAq(SM.BOTTOM) + SM.deltaGAq(SM.BOTTOM);
+                    double I3b = SM.getQuarks(SM.BOTTOM).getIsospin();
+                    double rhoZb_full = (gAb*gAb/I3b/I3b).real();
+                    return ( rhoZb_full
+                            - SM.StandardModel::rhoZ_q(SM.BOTTOM).real() );
+                }
+        } else
+            return 0.0;
     } else if (name.compare("deltaKappaZb") == 0) {
-        if (SM.IsFlagNotLinearizedNP())
-            return ( SM.kappaZ_q(SM.BOTTOM).real()
-                     - SM.StandardModel::kappaZ_q(SM.BOTTOM).real() );
-        else {
-            complex gVb = SM.StandardModel::gVq(SM.BOTTOM) + SM.deltaGVq(SM.BOTTOM);
-            complex gAb = SM.StandardModel::gAq(SM.BOTTOM) + SM.deltaGAq(SM.BOTTOM);
-            double Qb = SM.getQuarks(SM.BOTTOM).getCharge();
-            double kappaZb_full = (1.0 - (gVb/gAb).real())/(4.0*fabs(Qb)*SM.sW2());
-            return ( kappaZb_full
-                     - SM.StandardModel::kappaZ_q(SM.BOTTOM).real() );
-        }
+        if (SM.ModelName().compare("NPZbbbar") == 0) {
+            if ((static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
+                return ( SM.kappaZ_q(SM.BOTTOM).real()
+                        - SM.StandardModel::kappaZ_q(SM.BOTTOM).real() );
+            else {
+                complex gVb = SM.StandardModel::gVq(SM.BOTTOM) + SM.deltaGVq(SM.BOTTOM);
+                complex gAb = SM.StandardModel::gAq(SM.BOTTOM) + SM.deltaGAq(SM.BOTTOM);
+                double Qb = SM.getQuarks(SM.BOTTOM).getCharge();
+                double kappaZb_full = (1.0 - (gVb/gAb).real())/(4.0*fabs(Qb)*SM.sW2());
+                return ( kappaZb_full
+                        - SM.StandardModel::kappaZ_q(SM.BOTTOM).real() );
+            }
+        } else
+            return 0.0;
     } else if (name.compare("cHLp_NP") == 0) {
         double cHL1p = (static_cast<const NPEffective*> (&SM))->getCHL1p();
         double cHL2p = (static_cast<const NPEffective*> (&SM))->getCHL2p();

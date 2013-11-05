@@ -5,6 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include <NPZbbbar.h>
 #include "Abottom.h"
 
 
@@ -24,20 +25,11 @@ double Abottom::computeThValue()
             return myEW.getMyEW_BURGESS().Abottom(A_b, myEW.A_l(SM.ELECTRON));
 
         /* NP contribution to the Zff vertex */
-        if ( !SM.IsFlagNotLinearizedNP() ) {
-            double delGVf = SM.deltaGVq(SM.BOTTOM);
-            double delGAf = SM.deltaGAq(SM.BOTTOM);
-            if (delGVf!=0.0 || delGAf!=0.0) {
-                double gVf = SM.StandardModel::gVq(SM.BOTTOM).real();
-                double gAf = SM.StandardModel::gAq(SM.BOTTOM).real();
-                double Gf = gVf*gVf + gAf*gAf;
-                double delGVfOverGAf = (gAf*delGVf - gVf*delGAf)/gAf/gAf;
-
-                A_b -= 2.0*(gVf*gVf - gAf*gAf)*gAf*gAf/Gf/Gf*delGVfOverGAf;
-            }
+        if (SM.ModelName().compare("NPZbbbar") == 0) {
+            if (!(static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
+                A_b = myEW.getMyEW_NPZff().Abottom(A_b);
         } else
-            if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("Abottom::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+            A_b = myEW.getMyEW_NPZff().Abottom(A_b);
 
         /* Debug: extract pure NP contribution */
         //A_b -= myEW.A_q(SM.BOTTOM);

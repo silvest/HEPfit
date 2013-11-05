@@ -87,12 +87,8 @@ void NPSTUVWXY::SetEWSMflags(EWSM& myEWSM)
 bool NPSTUVWXY::SetFlag(const std::string name, const bool& value)
 {
     bool res = false;
-    if (name.compare("EWABC") == 0)
-        throw std::runtime_error("ERROR: Flag EWABC is not applicable to NPSTUVWXY"); 
-    else if (name.compare("EWABC2") == 0)
-        throw std::runtime_error("ERROR: Flag EWABC2 is not applicable to NPSTUVWXY"); 
-    else
-        res = StandardModel::SetFlag(name,value);
+
+    res = StandardModel::SetFlag(name,value);
 
     return(res);
 }
@@ -177,16 +173,12 @@ double NPSTUVWXY::Mw() const
 {
     double myMw = StandardModel::Mw();
 
-    if (!IsFlagNotLinearizedNP() ) {
-        double alpha = StandardModel::alphaMz();
-        double c2 = StandardModel::cW2();
-        double s2 = StandardModel::sW2();
+    double alpha = StandardModel::alphaMz();
+    double c2 = StandardModel::cW2();
+    double s2 = StandardModel::sW2();
 
-        myMw *= 1.0 - alpha/4.0/(c2-s2)
-                *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 );
-    } else
-        if (obliqueS()!=0.0 || obliqueT()!=0.0 || obliqueU()!=0.0)
-            throw std::runtime_error("NPSTUVWXY::Mw(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+    myMw *= 1.0 - alpha/4.0/(c2-s2)
+            *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 );
 
     return myMw;
 }
@@ -210,17 +202,13 @@ double NPSTUVWXY::GammaW() const
 
     double Wbar = (obliqueV() - obliqueW())/alphaMz();
 
-    if (!IsFlagNotLinearizedNP() ) {
-        double alpha = StandardModel::alphaMz();
-        double c2 = StandardModel::cW2();
-        double s2 = StandardModel::sW2();
+    double alpha = StandardModel::alphaMz();
+    double c2 = StandardModel::cW2();
+    double s2 = StandardModel::sW2();
 
-        Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
-                   *( obliqueS() - 2.0*c2*obliqueT()
-                      - (c2-s2)*obliqueU()/2.0/s2 - 2.0*(c2 - s2)*Wbar );
-        } else
-            if (obliqueS()!=0.0 || obliqueT()!=0.0 || obliqueU()!=0.0)
-                throw std::runtime_error("NPSTUVWXY::GammaW(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+    Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
+               *( obliqueS() - 2.0*c2*obliqueT()
+                  - (c2-s2)*obliqueU()/2.0/s2 - 2.0*(c2 - s2)*Wbar );
 
     return Gamma_W;
 }

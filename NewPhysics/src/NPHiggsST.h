@@ -8,7 +8,7 @@
 #ifndef NPHIGGSST_H
 #define	NPHIGGSST_H
 
-#include "NPZbbbar.h"
+#include "StandardModel.h"
 
 /**
  * @class NPHiggsST
@@ -18,7 +18,7 @@
  * @copyright GNU General Public License
  * @details  
  */
-class NPHiggsST : public NPZbbbar {
+class NPHiggsST : public StandardModel {
 public:
     static const int NNPHIGGSSTvars = 8;
     static const std::string NPHIGGSSTvars[NNPHIGGSSTvars];

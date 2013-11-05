@@ -142,6 +142,10 @@ double NPSTU::Mw() const
     myMw *= 1.0 - alpha/4.0/(c2-s2)
             *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 );
 
+    //std::cout << "Mw: c_S=" << - alpha/4.0/(c2-s2) << std::endl;
+    //std::cout << "Mw: c_T=" << - alpha/4.0/(c2-s2)*(- 2.0*c2) << std::endl;
+    //std::cout << "Mw: c_U=" << - alpha/4.0/(c2-s2)*(- (c2-s2)/2.0/s2) << std::endl;
+
     return myMw;
 }
 
@@ -172,6 +176,10 @@ double NPSTU::GammaW() const
     Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
                *( obliqueS() - 2.0*c2*obliqueT()
                   - (c2-s2)*obliqueU()/2.0/s2 );
+
+    //std::cout << "Gw: c_S=" << - 3.0*alpha/4.0/(c2-s2) << std::endl;
+    //std::cout << "Gw: c_T=" << - 3.0*alpha/4.0/(c2-s2)*(- 2.0*c2) << std::endl;
+    //std::cout << "Gw: c_U=" << - 3.0*alpha/4.0/(c2-s2)*(- (c2-s2)/2.0/s2) << std::endl;
 
     return Gamma_W;
 }

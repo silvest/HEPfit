@@ -5,6 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include <NPZbbbar.h>
 #include "AFBbottom.h"
 
 
@@ -24,28 +25,11 @@ double AFBbottom::computeThValue()
             return myEW.getMyEW_BURGESS().AFBbottom(AFB_b);
               
         /* NP contribution to the Zff vertex */
-        if ( !SM.IsFlagNotLinearizedNP() ) {
-            double delGVe = SM.deltaGVl(SM.ELECTRON);
-            double delGAe = SM.deltaGAl(SM.ELECTRON);
-            double delGVf = SM.deltaGVq(SM.BOTTOM);
-            double delGAf = SM.deltaGAq(SM.BOTTOM);
-            if (delGVe!=0.0 || delGAe!=0.0 || delGVf!=0.0 || delGAf!=0.0) {
-                double gVe = SM.StandardModel::gVl(SM.ELECTRON).real();
-                double gAe = SM.StandardModel::gAl(SM.ELECTRON).real();
-                double Ge = gVe*gVe + gAe*gAe;
-                double delGVeOverGAe = (gAe*delGVe - gVe*delGAe)/gAe/gAe;
-                //
-                double gVf = SM.StandardModel::gVq(SM.BOTTOM).real();
-                double gAf = SM.StandardModel::gAq(SM.BOTTOM).real();
-                double Gf = gVf*gVf + gAf*gAf;
-                double delGVfOverGAf = (gAf*delGVf - gVf*delGAf)/gAf/gAf;
-
-                AFB_b -= 3.0*gVf*gAf*(gVe*gVe - gAe*gAe)*gAe*gAe/Gf/Ge/Ge*delGVeOverGAe
-                         + 3.0*gVe*gAe*(gVf*gVf - gAf*gAf)*gAf*gAf/Ge/Gf/Gf*delGVfOverGAf;
-            }
+        if (SM.ModelName().compare("NPZbbbar") == 0) {
+            if (!(static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
+                AFB_b = myEW.getMyEW_NPZff().AFBbottom(AFB_b);
         } else
-            if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("AFBbottom::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+            AFB_b = myEW.getMyEW_NPZff().AFBbottom(AFB_b);
         
         /* Debug: extract pure NP contribution */
         //AFB_b -= 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.BOTTOM);

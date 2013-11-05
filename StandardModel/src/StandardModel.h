@@ -56,7 +56,6 @@ class EWSM; // forward reference to EWSM class
  * Flags:
  * \li \b FixedSMparams:&nbsp; --> will be moved to another class
  * \li \b WithoutNonUniversalVC:&nbsp;
- * \li \b NotLinearizedNP:&nbsp; --> will be moved to another class
  * \li \b ApproximateGqOverGb:&nbsp;
  * \li \b ApproximateGammaZ:&nbsp;
  * \li \b ApproximateSigmaH:&nbsp;
@@ -83,7 +82,7 @@ public:
 
     static const int NSMvars = 27;
     static const std::string SMvars[NSMvars];
-    static const int NSMflags = 10;
+    static const int NSMflags = 9;
     static const std::string SMflags[NSMflags];
 
     /**
@@ -127,11 +126,6 @@ public:
     bool IsFlagWithoutNonUniversalVC() const
     {
         return FlagWithoutNonUniversalVC;
-    }
-
-    bool IsFlagNotLinearizedNP() const
-    {
-        return FlagNotLinearizedNP;
     }
 
     bool IsFlagApproximateGqOverGb() const
@@ -817,7 +811,6 @@ private:
     bool bDebug; // for debugging
     bool FlagFixedAllSMparams;
     bool FlagWithoutNonUniversalVC;
-    bool FlagNotLinearizedNP;
     bool FlagApproximateGqOverGb;
     bool FlagApproximateGammaZ;
     bool FlagApproximateSigmaH;

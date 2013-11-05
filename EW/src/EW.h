@@ -11,6 +11,7 @@
 #include <stdexcept>
 #include <ThObsType.h>
 #include <StandardModel.h>
+#include "EW_NPZff.h"
 #include "EW_CHMN.h"
 #include "EW_ABC.h"
 #include "EW_BURGESS.h"
@@ -62,6 +63,11 @@ public:
     {
         return SM;
     } 
+
+    const EW_NPZff getMyEW_NPZff() const
+    {
+        return myEW_NPZff;
+    }
 
     const EW_ABC getMyEW_ABC() const 
     {
@@ -182,6 +188,7 @@ protected:
     bool bDebug; // true for debugging    
     
     const StandardModel& SM;
+    const EW_NPZff myEW_NPZff;
     const EW_CHMN myEW_CHMN;
     const EW_ABC myEW_ABC;
     const EW_BURGESS myEW_BURGESS;

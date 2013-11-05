@@ -15,13 +15,14 @@ const std::string NPZbbbar::ZbbbarVars[NZbbbarVars]
 
 
 const std::string NPZbbbar::Zbbbarflags[NZbbbarflags]
-= {"NPZbbbarLR"};
+= {"NPZbbbarLR",  "NotLinearizedNP"};
 
 
 NPZbbbar::NPZbbbar() 
 : StandardModel() 
 {
     FlagNPZbbbarLR = false;
+    FlagNotLinearizedNP = false;
 }
 
 
@@ -85,19 +86,10 @@ bool NPZbbbar::SetFlag(const std::string name, const bool& value)
     if (name.compare("NPZbbbarLR") == 0) {
         FlagNPZbbbarLR = value;
         res = true;
-    } else if (name.compare("EWABC") == 0)
-        throw std::runtime_error("ERROR: Flag EWABC is not applicable to NPZbbbar"); 
-    else if (name.compare("EWABC2") == 0)
-        throw std::runtime_error("ERROR: Flag EWABC2 is not applicable to NPZbbbar"); 
-    else if (name.compare("epsilon1SM") == 0) 
-        throw std::runtime_error("ERROR: Flag epsilon1SM is not applicable to NPZbbbar"); 
-    else if (name.compare("epsilon2SM") == 0) 
-        throw std::runtime_error("ERROR: Flag epsilon2SM is not applicable to NPZbbbar"); 
-    else if (name.compare("epsilon3SM") == 0) 
-        throw std::runtime_error("ERROR: Flag epsilon3SM is not applicable to NPZbbbar"); 
-    else if (name.compare("epsilonbSM") == 0) 
-        throw std::runtime_error("ERROR: Flag epsilonbSM is not applicable to NPZbbbar"); 
-    else
+    } else if (name.compare("NotLinearizedNP") == 0) {
+        FlagNotLinearizedNP = value;
+        res = true;
+    } else
         res = StandardModel::SetFlag(name,value);
 
     return(res);

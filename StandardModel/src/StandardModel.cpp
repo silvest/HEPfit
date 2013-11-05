@@ -29,7 +29,7 @@ const std::string StandardModel::SMvars[NSMvars] = {
 
 const std::string StandardModel::SMflags[NSMflags] = {
     "FixedAllSMparams", 
-    "withoutNonUniversalVCinEpsilons", "NotLinearizedNP",
+    "withoutNonUniversalVCinEpsilons",
     "ApproximateGqOverGb", "ApproximateGammaZ", "ApproximateSigmaH",
     "RhoZbFromGuOverGb", "RhoZbFromGdOverGb", "TestSubleadingTwoLoopEW",
     "EWCHMN"
@@ -41,7 +41,6 @@ StandardModel::StandardModel(const bool bDebug_i)
 {
     FlagFixedAllSMparams = false;
     FlagWithoutNonUniversalVC = false;
-    FlagNotLinearizedNP = false;
     FlagApproximateGqOverGb = false;
     FlagRhoZbFromGuOverGb = false;
     FlagRhoZbFromGdOverGb = false;
@@ -272,9 +271,6 @@ bool StandardModel::SetFlag(const std::string name, const bool& value)
         res = true;
     } else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
         FlagWithoutNonUniversalVC = value;
-        res = true;
-    } else if (name.compare("NotLinearizedNP") == 0) {
-        FlagNotLinearizedNP = value;
         res = true;
     } else if (name.compare("ApproximateGqOverGb") == 0) {
         FlagApproximateGqOverGb = value;
