@@ -185,8 +185,6 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
 protected:
-    bool bDebug; // true for debugging    
-    
     const StandardModel& SM;
     const EW_NPZff myEW_NPZff;
     const EW_CHMN myEW_CHMN;

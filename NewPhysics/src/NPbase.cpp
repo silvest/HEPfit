@@ -7,9 +7,15 @@
 
 #include "NPbase.h"
 
+
+const std::string NPbase::NPbaseflags[NNPbaseflags]
+= {"FixSMcontribution"};
+
+
 NPbase::NPbase()
 : StandardModel()
 {
+    FlagFixSMcontribution = false;
 }
 
 
@@ -57,7 +63,12 @@ void NPbase::setEWSMflags(EWSM& myEWSM)
 bool NPbase::setFlag(const std::string name, const bool& value)
 {
     bool res = false;
-    res = StandardModel::setFlag(name,value);
+    if (name.compare("FixSMcontribution") == 0) {
+        FlagFixSMcontribution = value;
+        res = true;
+    } else
+        res = StandardModel::setFlag(name,value);
+
     return(res);
 }
 

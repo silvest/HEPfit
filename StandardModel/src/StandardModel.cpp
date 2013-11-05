@@ -28,18 +28,16 @@ const std::string StandardModel::SMvars[NSMvars] = {
 };
 
 const std::string StandardModel::SMflags[NSMflags] = {
-    "FixedAllSMparams", 
     "withoutNonUniversalVCinEpsilons",
     "ApproximateGqOverGb", "ApproximateGammaZ", "ApproximateSigmaH",
     "RhoZbFromGuOverGb", "RhoZbFromGdOverGb", "TestSubleadingTwoLoopEW",
     "EWCHMN"
 };
 
-StandardModel::StandardModel(const bool bDebug_i) 
+StandardModel::StandardModel() 
 : QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.), 
-        Ye(3, 3, 0.), bDebug(bDebug_i) 
+        Ye(3, 3, 0.)
 {
-    FlagFixedAllSMparams = false;
     FlagWithoutNonUniversalVC = false;
     FlagApproximateGqOverGb = false;
     FlagRhoZbFromGuOverGb = false;
@@ -266,10 +264,7 @@ void StandardModel::computeYukawas()
 bool StandardModel::setFlag(const std::string name, const bool& value) 
 {  
     bool res = false;
-    if (name.compare("FixedAllSMparams") == 0) {
-        FlagFixedAllSMparams = value;
-        res = true;
-    } else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
+    if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
         FlagWithoutNonUniversalVC = value;
         res = true;
     } else if (name.compare("ApproximateGqOverGb") == 0) {

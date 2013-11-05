@@ -21,6 +21,9 @@
 class NPbase : public StandardModel {
 public:
 
+    static const int NNPbaseflags = 1;
+    static const std::string NPbaseflags[NNPbaseflags];
+
     NPbase();
 
     virtual std::string ModelName() const
@@ -37,7 +40,15 @@ public:
 
     virtual bool setFlag(const std::string, const bool&);
     virtual bool CheckFlags() const;
+
     
+    ////////////////////////////////////////////////////////////////////////
+
+    bool IsFlagFixSMcontribution() const
+    {
+        return FlagFixSMcontribution;
+    }
+
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -127,9 +138,13 @@ public:
 
     
     ////////////////////////////////////////////////////////////////////////
-    
 protected:
     virtual void setParameter(const std::string name, const double& value);
+
+
+    ////////////////////////////////////////////////////////////////////////
+private:
+    bool FlagFixSMcontribution;
     
 };
 

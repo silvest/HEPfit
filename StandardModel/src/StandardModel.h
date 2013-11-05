@@ -54,7 +54,6 @@ class EWSM; // forward reference to EWSM class
  * \li \b SM_M12D:&nbsp; the SM amplitude of the @f$D^{0}-\bar{D}^{0}@f$ mixing,
  *
  * Flags:
- * \li \b FixedSMparams:&nbsp; --> will be moved to another class
  * \li \b WithoutNonUniversalVC:&nbsp;
  * \li \b ApproximateGqOverGb:&nbsp;
  * \li \b ApproximateGammaZ:&nbsp;
@@ -82,14 +81,13 @@ public:
 
     static const int NSMvars = 27;
     static const std::string SMvars[NSMvars];
-    static const int NSMflags = 9;
+    static const int NSMflags = 8;
     static const std::string SMflags[NSMflags];
 
     /**
      * A constructor.
-     * @param[in] bDebug_i
      */
-    StandardModel(const bool bDebug_i=false);
+    StandardModel();
 
     virtual std::string ModelName() const
     {
@@ -117,11 +115,6 @@ public:
     virtual bool setFlag(const std::string name, const bool& value);
 
     virtual bool CheckFlags() const;
-
-    bool IsFlagFixedAllSMparams() const
-    {
-        return FlagFixedAllSMparams;
-    }
 
     bool IsFlagWithoutNonUniversalVC() const
     {
@@ -189,14 +182,6 @@ public:
 
     ///////////////////////////////////////////////////////////////////////////
     // get and set methods for class members
-
-    /**
-     * @return A boolean variable for debugging.
-     */
-    bool isBDebug() const
-    {
-        return bDebug;
-    }
 
     Particle getLeptons(const StandardModel::lepton p) const
     {
@@ -709,8 +694,6 @@ protected:
     
     ////////////////////////////////////////////////////////////////////////    
 private:
-    bool bDebug; // for debugging
-    bool FlagFixedAllSMparams;
     bool FlagWithoutNonUniversalVC;
     bool FlagApproximateGqOverGb;
     bool FlagApproximateGammaZ;

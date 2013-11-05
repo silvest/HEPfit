@@ -416,11 +416,9 @@ public:
      */
     double alsMt() const 
     {
-        if (!bDebug) {
-            return ( SM.Als(Mt(),FULLNNLO) );
-        } else 
-            // This part is used in Test programs: EWSMOneLoopEW, etc. 
-            return ( 0.1074432788 );// for debug
+        return ( SM.Als(Mt(),FULLNNLO) );
+        // This part is used in Test programs: EWSMOneLoopEW, etc.
+        //return ( 0.1074432788 );// for debug
     }
 
     /**
@@ -597,7 +595,6 @@ public:
     //////////////////////////////////////////////////////////////////////// 
 
 private:
-    bool bDebug; // true for debugging
     bool bUseCacheEWSMcache; // true for caching
     
     const StandardModel& SM;

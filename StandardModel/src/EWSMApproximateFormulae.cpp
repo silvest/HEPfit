@@ -18,8 +18,7 @@
 EWSMApproximateFormulae::EWSMApproximateFormulae(const StandardModel& SM_i) 
 : SM(SM_i) 
 {
-    bDebug = SM_i.isBDebug();
-}
+ }
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -27,7 +26,7 @@ EWSMApproximateFormulae::EWSMApproximateFormulae(const StandardModel& SM_i)
 double EWSMApproximateFormulae::Mw(const double DeltaAlphaL5q_i) const 
 {
     double Mw0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11;    
-    if( SM.getMHl() >= 100.0 && SM.getMHl() <= UpperBoundForApproximateFormulae && !bDebug ) {
+    if( SM.getMHl() >= 100.0 && SM.getMHl() <= UpperBoundForApproximateFormulae) {
         // applicable for 100 GeV <= mHl <= 1 TeV
         Mw0 = 80.3800;
         c1 = 0.05253;

@@ -40,12 +40,14 @@ double LEP2sigmaBottom::computeThValue()
             //std::cout << sigma_box << " +- " << ig_box.Error() << std::endl;
         }
 
-        if ( checkLEP2NP() && !bSigmaForAFB && SM.IsFlagFixedAllSMparams()) {
-            double ObParam[7];
-            for (int i=0; i<7; i++) {
-                SetObParam((LEP2oblique::Oblique)i, ObParam);
-                Coeff_cache[i] 
-                    = myLEP2oblique.sigma_q_LEP2_NP(StandardModel::BOTTOM, s, mq_cache, ObParam);
+        if ( checkLEP2NP() && !bSigmaForAFB ) { 
+            if ( (static_cast<const NPbase*> (&SM))->IsFlagFixSMcontribution() ) {
+                double ObParam[7];
+                for (int i=0; i<7; i++) {
+                    SetObParam((LEP2oblique::Oblique)i, ObParam);
+                    Coeff_cache[i]
+                            = myLEP2oblique.sigma_q_LEP2_NP(StandardModel::BOTTOM, s, mq_cache, ObParam);
+                }
             }
         }
     }
@@ -59,7 +61,7 @@ double LEP2sigmaBottom::computeThValue()
         double obliqueW = (static_cast<const NPbase*> (&SM))->obliqueW();
         double obliqueX = (static_cast<const NPbase*> (&SM))->obliqueX();
         double obliqueY = (static_cast<const NPbase*> (&SM))->obliqueY();
-        if ( SM.IsFlagFixedAllSMparams() ) {
+        if ( (static_cast<const NPbase*> (&SM))->IsFlagFixSMcontribution() ) {
             sigma_bottom += Coeff_cache[myLEP2oblique.Shat]*obliqueShat
                           + Coeff_cache[myLEP2oblique.That]*obliqueThat
                           + Coeff_cache[myLEP2oblique.Uhat]*obliqueUhat

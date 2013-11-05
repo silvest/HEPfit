@@ -107,8 +107,6 @@ public:
     ////////////////////////////////////////////////////////////////////////
     
 private:
-    bool bDebug; // true for debugging    
-    
     const StandardModel& SM;
     
 };
