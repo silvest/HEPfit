@@ -24,14 +24,11 @@ double PtauPol::computeThValue()
     else {
         P_tau_pol = myEW.A_l(SM.TAU);
 
-        if(myEWTYPE==EW::EWBURGESS)
+        if (myEWTYPE==EW::EWBURGESS)
             return myEW.getMyEW_BURGESS().PtauPol(P_tau_pol);
 
         /* NP contribution to the Zff vertex */
-        if (SM.ModelName().compare("NPZbbbar") == 0) {
-            if (!(static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
-                P_tau_pol = myEW.getMyEW_NPZff().PtauPol(P_tau_pol);
-        } else
+        if (myEW.checkLEP1NP())
             P_tau_pol = myEW.getMyEW_NPZff().PtauPol(P_tau_pol);
         
         /* Debug: extract pure NP contribution */

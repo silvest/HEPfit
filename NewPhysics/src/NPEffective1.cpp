@@ -18,16 +18,16 @@ bool NPEffective1::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for (int i = 0; i < NNPEffectiveVars; i++) {
         if (DPars.find(NPEffectiveVars[i]) == DPars.end()) {
-            std::cout << "ERROR: Missing mandatory NPEffective1 parameter"
+            std::cout << "ERROR: Missing mandatory NPEffective1 parameter "
                       << NPEffectiveVars[i] << std::endl;
             return false;
         }
     }
-    return(StandardModel::CheckParameters(DPars));
+    return(NPEffective::CheckParameters(DPars));
 }
 
 
-void NPEffective1::setParameters(const std::string name, const double& value)
+void NPEffective1::setParameter(const std::string name, const double& value)
 {
     if (name.compare("cWB_NP") == 0)
         cWB = value;
@@ -71,7 +71,7 @@ void NPEffective1::setParameters(const std::string name, const double& value)
     } else if (name.compare("Lambda_NP") == 0)
         LambdaNP = value;
     else
-        StandardModel::setParameters(name, value);
+        NPEffective::setParameter(name, value);
 }
 
 

@@ -8,7 +8,7 @@
 #ifndef NPZBBBAR_H
 #define	NPZBBBAR_H
 
-#include <StandardModel.h>
+#include "NPbase.h"
 
 /**
  * @class NPZbbbar
@@ -18,7 +18,7 @@
  * @copyright GNU General Public License
  * @details  
  */
-class NPZbbbar : public StandardModel  {
+class NPZbbbar : public NPbase  {
 public:
     static const int NZbbbarVars = 2;
     static const std::string ZbbbarVars[NZbbbarVars];
@@ -37,9 +37,11 @@ public:
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     virtual bool InitializeModel();  
-    virtual void SetEWSMflags(EWSM& myEWSM);    
+    virtual void setEWSMflags(EWSM& myEWSM);    
 
-    virtual bool SetFlag(const std::string, const bool&); 
+    virtual bool setFlag(const std::string, const bool&); 
+    virtual bool CheckFlags() const;
+
     
     ////////////////////////////////////////////////////////////////////////
 
@@ -123,7 +125,7 @@ public:
     ////////////////////////////////////////////////////////////////////////   
 
 protected:
-    virtual void setParameters(const std::string name, const double& value);
+    virtual void setParameter(const std::string name, const double& value);
     
 
     ////////////////////////////////////////////////////////////////////////   

@@ -27,17 +27,14 @@ double sigmaHadron::computeThValue()
         else
             sigma_had = myEW.sigma0_had();
         
-        if(myEWTYPE==EW::EWBURGESS) {
+        if (myEWTYPE==EW::EWBURGESS) {
             sigma_had = myEW.getMyEW_BURGESS().sigmaHadron(sigma_had,
                     myEW.Gamma_Z(), myEW.Gamma_had(), myEW.Gamma_l(SM.ELECTRON));
             return ( sigma_had*GeVminus2_to_nb );
         }
 
         /* NP contribution to the Zff vertex */
-         if (SM.ModelName().compare("NPZbbbar") == 0) {
-            if (!(static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
-                sigma_had = myEW.getMyEW_NPZff().sigmaHadron(sigma_had);
-        } else
+        if (myEW.checkLEP1NP())
             sigma_had = myEW.getMyEW_NPZff().sigmaHadron(sigma_had);
         
         /* Debug: extract pure NP contribution */

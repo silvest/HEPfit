@@ -9,7 +9,7 @@
 #define	NPSTUVWXY_H
 
 #include <cmath>
-#include "StandardModel.h"
+#include "NPbase.h"
 
 /**
  * @class NPSTUVWXY
@@ -19,7 +19,7 @@
  * @copyright GNU General Public License
  * @details  
  */
-class NPSTUVWXY : public StandardModel {
+class NPSTUVWXY : public NPbase {
 public:
     static const int NSTUVWXYvars = 7;
     static const std::string STUVWXYvars[NSTUVWXYvars];
@@ -39,9 +39,10 @@ public:
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     virtual bool InitializeModel();  
-    virtual void SetEWSMflags(EWSM& myEWSM);    
+    virtual void setEWSMflags(EWSM& myEWSM);    
 
-    virtual bool SetFlag(const std::string, const bool&); 
+    virtual bool setFlag(const std::string, const bool&); 
+    virtual bool CheckFlags() const;
     
     
     ////////////////////////////////////////////////////////////////////////     
@@ -159,7 +160,7 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
 protected:    
-    virtual void setParameters(const std::string name, const double& value);
+    virtual void setParameter(const std::string name, const double& value);
     double myObliqueShat, myObliqueThat, myObliqueUhat;
     double myObliqueV, myObliqueW, myObliqueX, myObliqueY;
 

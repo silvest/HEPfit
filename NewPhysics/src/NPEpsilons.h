@@ -8,8 +8,8 @@
 #ifndef NPEPSILONS_H
 #define	NPEPSILONS_H
 
-#include <StandardModel.h>
 #include <EWepsilons.h>
+#include "NPbase.h"
 
 /**
  * @class NPEpsilons
@@ -25,7 +25,7 @@
  * \li \b EWABC2:&nbsp; use use the approximate formulae in Eqs.(16)-(20) of
  * IJMP, A7, 1031-1058 (1998) by Altarelli et al.
  */
-class NPEpsilons : public StandardModel  {
+class NPEpsilons : public NPbase  {
 public:
     static const int NEPSILONvars = 4;
     static const std::string EPSILONvars[NEPSILONvars];
@@ -47,10 +47,11 @@ public:
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     virtual bool InitializeModel();  
-    virtual void SetEWSMflags(EWSM& myEWSM);    
+    virtual void setEWSMflags(EWSM& myEWSM);    
 
-    virtual bool SetFlag(const std::string, const bool&); 
+    virtual bool setFlag(const std::string, const bool&); 
     virtual bool CheckFlags() const;
+
     
     ////////////////////////////////////////////////////////////////////////
 
@@ -183,7 +184,7 @@ public:
 
 protected:    
     double myEpsilon_1, myEpsilon_2, myEpsilon_3, myEpsilon_b;
-    virtual void setParameters(const std::string name, const double& value);
+    virtual void setParameter(const std::string name, const double& value);
     
     
     ////////////////////////////////////////////////////////////////////////     

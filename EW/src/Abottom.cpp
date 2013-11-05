@@ -21,14 +21,11 @@ double Abottom::computeThValue()
     else {
         A_b = myEW.A_q(SM.BOTTOM);
 
-        if(myEWTYPE==EW::EWBURGESS)
+        if (myEWTYPE==EW::EWBURGESS)
             return myEW.getMyEW_BURGESS().Abottom(A_b, myEW.A_l(SM.ELECTRON));
 
         /* NP contribution to the Zff vertex */
-        if (SM.ModelName().compare("NPZbbbar") == 0) {
-            if (!(static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
-                A_b = myEW.getMyEW_NPZff().Abottom(A_b);
-        } else
+        if (myEW.checkLEP1NP())
             A_b = myEW.getMyEW_NPZff().Abottom(A_b);
 
         /* Debug: extract pure NP contribution */

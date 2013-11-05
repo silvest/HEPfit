@@ -23,14 +23,11 @@ double Alepton::computeThValue()
     else {
         A_l = myEW.A_l(SM.ELECTRON);
 
-        if(myEWTYPE==EW::EWBURGESS)
+        if (myEWTYPE==EW::EWBURGESS)
             return myEW.getMyEW_BURGESS().Alepton(A_l);
 
         /* NP contribution to the Zff vertex */
-        if (SM.ModelName().compare("NPZbbbar") == 0) {
-            if (!(static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
-                A_l = myEW.getMyEW_NPZff().Alepton(A_l);
-        } else
+        if (myEW.checkLEP1NP())
             A_l = myEW.getMyEW_NPZff().Alepton(A_l);
 
         /* Debug: extract pure NP contribution */

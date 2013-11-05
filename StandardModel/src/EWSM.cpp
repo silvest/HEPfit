@@ -42,7 +42,7 @@ EWSM::EWSM(const StandardModel& SM_i)
 
     myTwoFermionsLEP2 = new EWSMTwoFermionsLEP2(SM);
 
-    /* Default flags (see also StandardModel::SetEWSMflags(), etc.) */
+    /* Default flags (see also StandardModel::setEWSMflags(), etc.) */
     schemeMw = APPROXIMATEFORMULA;
     schemeRhoZ = NORESUM;
     schemeKappaZ = APPROXIMATEFORMULA;

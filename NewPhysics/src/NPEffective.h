@@ -9,7 +9,7 @@
 #define	NPEFFECTIVE_H
 
 #include <stdexcept>
-#include <StandardModel.h>
+#include "NPbase.h"
 
 /**
  * @class NPEffective
@@ -19,7 +19,7 @@
  * @copyright GNU General Public License
  * @details  
  */
-class NPEffective : public StandardModel {
+class NPEffective : public NPbase {
 public:
 
     /**
@@ -27,14 +27,21 @@ public:
      */
     NPEffective();
 
+    virtual std::string ModelName() const
+    {
+        return "NPEffective";
+    }
+
     virtual bool Update(const std::map<std::string, double>& DPars);
     virtual bool Init(const std::map<std::string, double>& DPars);    
+    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     virtual bool InitializeModel();  
-    virtual void SetEWSMflags(EWSM& myEWSM);    
+    virtual void setEWSMflags(EWSM& myEWSM);    
 
-    virtual bool SetFlag(const std::string, const bool&); 
-
+    virtual bool setFlag(const std::string, const bool&); 
+    virtual bool CheckFlags() const;
+    
 
     ////////////////////////////////////////////////////////////////////////
 

@@ -23,30 +23,31 @@ class SUSYMassInsertion: public StandardModel {
 public:
     static const int NSusyMIvars = 3 + 144;
     static const std::string SusyMIvars[NSusyMIvars];
+
     /**
      * @brief SUSYMassInsertion constructor
      */
     SUSYMassInsertion();
+
     /**
      * @brief SUSYMassInsertion destructor
      */
     virtual ~SUSYMassInsertion();
+
     /**
      * @brief a method to update SM and SUSY parameters found in the argument
      * @param a map containing the parameters (all as double) to be updated
      */
-    bool Update(const std::map<std::string, double>&);
+    virtual bool Update(const std::map<std::string, double>&);
+
     /**
      * @brief a method to check the correct assignment forthe value of
      *  all the SM and SUSY parameters in respect to the one in Model.conf
      * @param a map containing the parameters (all as double) to be updated
      * @return a boolean true or false value
      */
-    bool Init(const std::map<std::string, double>&);
-    /**
-     * @brief a method to set the value of all the SUSY parameters given as input in Model.conf 
-     */
-    void SetSusyMIParameter(std::string, double);
+    virtual bool Init(const std::map<std::string, double>&);
+
     /**
      * 
      * @return the gluino mass
@@ -62,6 +63,7 @@ public:
     void setM3(double m3) {
         this->m3 = m3;
     }
+
     /**
      *
      * @return the mean value squark mass
@@ -69,6 +71,7 @@ public:
     double getMsq() const {
         return Msq;
     }
+
     /**
      * @brief set mean value squark mass
      * @param Msq a double for the mean value squark mass
@@ -76,6 +79,7 @@ public:
     void setMsq(double Msq) {
         this->Msq = Msq;
     }
+
     /**
      *
      * @return the \f$ \delta^{u}_LL \f$ mass insertion
@@ -83,6 +87,7 @@ public:
     matrix<complex> getDu_LL() const {
         return Du_LL;
     }
+
     /**
      * @brief set delta^u_LL mass insertion
      * @param delta^u_LL a matrix<complex> for the up-type left-left mass insertion parameters
@@ -90,6 +95,7 @@ public:
     void setDu_LL(matrix<complex> Du_LL) {
         this->Du_LL = Du_LL;
     }
+
     /**
      *
      * @return the \f$ \delta^{u}_LR \f$ mass insertion
@@ -97,6 +103,7 @@ public:
     matrix<complex> getDu_LR() const {
         return Du_LR;
     }
+
     /**
      * @brief set \f$ \delta^{u}_LR \f$ mass insertion
      * @param delta^u_LR a matrix<complex> for the up-type left-right mass insertion parameters
@@ -104,6 +111,7 @@ public:
     void setDu_LR(matrix<complex> Du_LL) {
         this->Du_LR = Du_LR;
     }
+
     /**
      *
      * @return the \f$ \delta^{u}_RL \f$ mass insertion
@@ -111,6 +119,7 @@ public:
     matrix<complex> getDu_RL() const {
         return Du_RL;
     }
+
     /**
      * @brief set \f$ \delta^{u}_RL \f$ mass insertion
      * @param delta^u_RL a matrix<complex> for the up-type right-left mass insertion parameters
@@ -118,6 +127,7 @@ public:
     void setDu_RL(matrix<complex> Du_LL) {
         this->Du_RL = Du_RL;
     }
+
     /**
      *
      * @return the \f$ \delta^u_RR \f$ mass insertion
@@ -125,6 +135,7 @@ public:
     matrix<complex> getDu_RR() const {
         return Du_RR;
     }
+
     /**
      * @brief set \f$ \delta^{u}_RR \f$ mass insertion
      * @param delta^u_RR a matrix<complex> for the up-type right-right mass insertion parameters
@@ -132,6 +143,7 @@ public:
     void setDu_RR(matrix<complex> Du_LL) {
         this->Du_RR = Du_RR;
     }
+
     /**
      *
      * @return the \f$ \delta^{d}_LL \f$ mass insertion
@@ -139,6 +151,7 @@ public:
     matrix<complex> getDd_LL() const {
         return Dd_LL;
     }
+
     /**
      * @brief set \f$ \delta^{d}_LL \f$ mass insertion
      * @param delta^d_LL a matrix<complex> for the down-type left-left mass insertion parameters
@@ -146,6 +159,7 @@ public:
     void setDd_LL(matrix<complex> Dd_LL) {
         this->Dd_LL = Dd_LL;
     }
+
     /**
      *
      * @return the \f$ \delta^{d}_LR \f$ mass insertion
@@ -153,6 +167,7 @@ public:
     matrix<complex> getDd_LR() const {
         return Dd_LR;
     }
+
     /**
      * @brief set \f$ \delta^{d}_LR \f$ mass insertion
      * @param delta^d_LR a matrix<complex> for the down-type left-right mass insertion parameters
@@ -160,6 +175,7 @@ public:
     void setDd_LR(matrix<complex> Dd_LL) {
         this->Dd_LR = Dd_LR;
     }
+
     /**
      *
      * @return the \f$ \delta^{d}_RL \f$ mass insertion
@@ -167,6 +183,7 @@ public:
     matrix<complex> getDd_RL() const {
         return Dd_RL;
     }
+
     /**
      * @brief set \f$ \delta^{d}_RL \f$ mass insertion
      * @param delta^d_RL a matrix<complex> for the down-type right-left mass insertion parameters
@@ -174,6 +191,7 @@ public:
     void setDd_RL(matrix<complex> Dd_LL) {
         this->Dd_RL = Dd_RL;
     }
+
     /**
      *
      * @return the \f$ \delta^{d}_RR \f$ mass insertion
@@ -181,6 +199,7 @@ public:
     matrix<complex> getDd_RR() const {
         return Dd_RR;
     }
+
     /**
      * @brief set \f$ \delta^{d}_RR \f$ mass insertion
      * @param delta^d_RR a matrix<complex> for the down-type right-right mass insertion parameters
@@ -188,12 +207,14 @@ public:
     void setDd_RR(matrix<complex> Dd_LL) {
         this->Dd_RR = Dd_RR;
     }
+
     /** 
      * @return get the SUSY matching scale
      */
     double getMuM() const{
         return MuM;
     }
+
     /**
      * @brief set the SUSY matching scale
      * @param MuM a double for the SUSY matching scale
@@ -203,6 +224,12 @@ public:
     }
     
 protected:
+
+    /**
+     * @brief a method to set the value of all the SUSY parameters given as input in Model.conf
+     */
+    virtual void setParameter(std::string, double);
+
     matrix<complex> Du_LL, Du_LR, Du_RL, Du_RR;
     matrix<complex> Dd_LL, Dd_LR, Dd_RL, Dd_RR;
     double Msq, m3, MuM;

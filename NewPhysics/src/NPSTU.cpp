@@ -16,7 +16,7 @@ const std::string NPSTU::STUflags[NSTUflags]
 = {"EWBURGESS"};
 
 NPSTU::NPSTU()
-: StandardModel(), myEW_BURGESS(*this)
+: NPbase(), myEW_BURGESS(*this)
 {
     FlagEWBURGESS = false;
 }
@@ -25,9 +25,8 @@ NPSTU::NPSTU()
 bool NPSTU::Update(const std::map<std::string,double>& DPars)
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameters(it->first, it->second);
-    if(!StandardModel::Update(DPars)) return (false);
-
+        setParameter(it->first, it->second);
+    if(!NPbase::Update(DPars)) return (false);
     return (true);
 }
 
@@ -43,16 +42,16 @@ bool NPSTU::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for (int i = 0; i < NSTUvars; i++) {
         if (DPars.find(STUvars[i]) == DPars.end()) {
-            std::cout << "ERROR: Missing mandatory NPSTU parameter"
+            std::cout << "ERROR: Missing mandatory NPSTU parameter "
                       << STUvars[i] << std::endl;
             return false;
         }
     }
-    return(StandardModel::CheckParameters(DPars));
+    return(NPbase::CheckParameters(DPars));
 }
 
 
-void NPSTU::setParameters(const std::string name, const double& value)
+void NPSTU::setParameter(const std::string name, const double& value)
 {
     if (name.compare("obliqueS") == 0)
         myObliqueS = value;
@@ -61,31 +60,31 @@ void NPSTU::setParameters(const std::string name, const double& value)
     else if (name.compare("obliqueU") == 0)
         myObliqueU = value;
     else
-        StandardModel::setParameters(name, value);
+        NPbase::setParameter(name, value);
 }
 
 
 bool NPSTU::InitializeModel()
 {
-    setModelInitialized(StandardModel::InitializeModel());
+    setModelInitialized(NPbase::InitializeModel());
     return (IsModelInitialized());
 }
 
 
-void NPSTU::SetEWSMflags(EWSM& myEWSM)
+void NPSTU::setEWSMflags(EWSM& myEWSM)
 {
-    StandardModel::SetEWSMflags(myEWSM);
+    NPbase::setEWSMflags(myEWSM);
 }
 
 
-bool NPSTU::SetFlag(const std::string name, const bool& value)
+bool NPSTU::setFlag(const std::string name, const bool& value)
 {
     bool res = false;
     if (name.compare("EWBURGESS") == 0) {
         FlagEWBURGESS = value;
         res = true;
     } else
-        res = StandardModel::SetFlag(name,value);
+        res = NPbase::setFlag(name,value);
 
     return(res);
 }
@@ -95,7 +94,7 @@ bool NPSTU::CheckFlags() const
     if ( FlagEWBURGESS && IsFlagEWCHMN() )
         throw std::runtime_error("ERROR: Flags EWBURGESS and EWCHMN are incompatible with each other.");
 
-    return(StandardModel::CheckFlags());
+    return(NPbase::CheckFlags());
 }
 
 

@@ -17,7 +17,7 @@ const std::string NPEpsilons::EPSILONflags[NEPSILONflags]
 
 
 NPEpsilons::NPEpsilons() 
-: StandardModel() 
+: NPbase()
 {
     FlagEpsilon1SM = false;
     FlagEpsilon2SM = false;
@@ -31,9 +31,8 @@ NPEpsilons::NPEpsilons()
 bool NPEpsilons::Update(const std::map<std::string,double>& DPars) 
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameters(it->first, it->second);
-    if(!StandardModel::Update(DPars)) return (false);
-
+        setParameter(it->first, it->second);
+    if(!NPbase::Update(DPars)) return (false);
     return (true);
 }
 
@@ -49,16 +48,16 @@ bool NPEpsilons::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for (int i = 0; i < NEPSILONvars; i++) {
         if (DPars.find(EPSILONvars[i]) == DPars.end()) {
-            std::cout << "ERROR: Missing mandatory NPEpsilons parameter" 
+            std::cout << "ERROR: Missing mandatory NPEpsilons parameter "
                       << EPSILONvars[i] << std::endl;
             return false;
         }
     }
-    return(StandardModel::CheckParameters(DPars));
+    return(NPbase::CheckParameters(DPars));
 }
 
     
-void NPEpsilons::setParameters(const std::string name, const double& value) 
+void NPEpsilons::setParameter(const std::string name, const double& value) 
 {
     if (name.compare("epsilon_1") == 0)
         myEpsilon_1 = value;
@@ -69,25 +68,25 @@ void NPEpsilons::setParameters(const std::string name, const double& value)
     else if (name.compare("epsilon_b") == 0)
         myEpsilon_b = value;    
     else
-        StandardModel::setParameters(name, value);       
+        NPbase::setParameter(name, value);
 }
 
 
 bool NPEpsilons::InitializeModel() 
 {
-    setModelInitialized(StandardModel::InitializeModel());
+    setModelInitialized(NPbase::InitializeModel());
     myEWepsilons = new EWepsilons(*this);
     return (IsModelInitialized());
 }
 
 
-void NPEpsilons::SetEWSMflags(EWSM& myEWSM) 
+void NPEpsilons::setEWSMflags(EWSM& myEWSM) 
 {
-    StandardModel::SetEWSMflags(myEWSM);
+    NPbase::setEWSMflags(myEWSM);
 }
 
 
-bool NPEpsilons::SetFlag(const std::string name, const bool& value) 
+bool NPEpsilons::setFlag(const std::string name, const bool& value) 
 {
     bool res = false;
     if (name.compare("epsilon1SM") == 0) {
@@ -109,7 +108,7 @@ bool NPEpsilons::SetFlag(const std::string name, const bool& value)
         FlagEWABC2 = value;
         res = true;
     } else
-        res = StandardModel::SetFlag(name,value);
+        res = NPbase::setFlag(name,value);
 
     return(res);
 }
@@ -124,7 +123,7 @@ bool NPEpsilons::CheckFlags() const
     if ( FlagEWABC && FlagEWABC2 )
         throw std::runtime_error("ERROR: Flags EWABC and EWABC2 are incompatible with each other.");
     
-    return(StandardModel::CheckFlags());
+    return(NPbase::CheckFlags());
 }
 
 

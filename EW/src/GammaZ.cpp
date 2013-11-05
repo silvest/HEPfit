@@ -30,14 +30,11 @@ double GammaZ::computeThValue()
         /* Theoretical uncertainty */
         Gamma_Z += SM.getDelGammaZ();
 
-        if(myEWTYPE==EW::EWBURGESS)
+        if (myEWTYPE==EW::EWBURGESS)
             return myEW.getMyEW_BURGESS().GammaZ(Gamma_Z);
 
         /* NP contribution to the Zff vertex */
-        if (SM.ModelName().compare("NPZbbbar") == 0) {
-            if (!(static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
-                Gamma_Z = myEW.getMyEW_NPZff().GammaZ(Gamma_Z);
-        } else
+        if (myEW.checkLEP1NP())
             Gamma_Z = myEW.getMyEW_NPZff().GammaZ(Gamma_Z);
 
         /* Debug: extract pure NP contribution */

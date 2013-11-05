@@ -32,14 +32,11 @@ double Rcharm::computeThValue()
         } else
             R0_c = myEW.Gamma_q(SM.CHARM)/myEW.Gamma_had();
         
-        if(myEWTYPE==EW::EWBURGESS)
+        if (myEWTYPE==EW::EWBURGESS)
             return myEW.getMyEW_BURGESS().Rcharm(R0_c, myEW.Gamma_had());
 
         /* NP contribution to the Zff vertex */
-         if (SM.ModelName().compare("NPZbbbar") == 0) {
-            if (!(static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
-                R0_c = myEW.getMyEW_NPZff().Rcharm(R0_c);
-        } else
+        if (myEW.checkLEP1NP())
             R0_c = myEW.getMyEW_NPZff().Rcharm(R0_c);
         
         /* Debug: extract pure NP contribution */

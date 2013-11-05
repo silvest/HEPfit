@@ -63,9 +63,9 @@ public:
 
     virtual bool InitializeModel();
 
-    virtual void SetEWSMflags(EWSM& myEWSM);
+    virtual void setEWSMflags(EWSM& myEWSM);
 
-    virtual SUSYMatching* GetMyMatching() const
+    virtual SUSYMatching* getMyMatching() const
     {
         return mySUSYMatching;
     }
@@ -88,7 +88,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Flags
 
-    virtual bool SetFlag(const std::string, const bool&);
+    virtual bool setFlag(const std::string, const bool&);
 
     bool IsFlag_h() const
     {
@@ -552,7 +552,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
 
 protected:
-    virtual void setParameters(const std::string, const double&);
+    virtual void setParameter(const std::string, const double&);
     virtual void SetTanb(const double tanb);
     virtual void computeYukawas();
     virtual void SetSoftTerms();

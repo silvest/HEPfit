@@ -13,6 +13,7 @@
 #include <EWSM.h>
 #include <NPEpsilons.h>
 #include <NPSTU.h>
+#include <NPZbbbar.h>
 #include "EW.h"
 
 
@@ -27,14 +28,14 @@ EW::EW(const StandardModel& SM_i)
 
 EW::EWTYPE EW::getEWTYPE() const 
 {
-    if (SM.ModelName()=="StandardModel") {
+    if (SM.ModelName().compare("StandardModel") == 0) {
         if ( SM.IsFlagEWCHMN() ) return EWCHMN;
         else return EWDEFAULT;
-    } else if (SM.ModelName()=="NPSTU") {
+    } else if (SM.ModelName().compare("NPSTU") == 0) {
         if ( (static_cast<const NPSTU*> (&SM))->IsFlagEWBURGESS() ) return EWBURGESS;
         else if ( SM.IsFlagEWCHMN() ) return EWCHMN;
         else return EWDEFAULT;
-    } else if (SM.ModelName()=="NPEpsilons") {
+    } else if (SM.ModelName().compare("NPEpsilons") == 0) {
         if ( (static_cast<const NPEpsilons*> (&SM))->IsFlagEWABC() ) return EWABC;
         else if ( (static_cast<const NPEpsilons*> (&SM))->IsFlagEWABC2() ) return EWABC2;
         else return EWDEFAULT;
@@ -43,17 +44,20 @@ EW::EWTYPE EW::getEWTYPE() const
 }
 
 
-bool EW::checkSTUVWXY() const
+bool EW::checkLEP1NP() const
 {
     std::string Model = SM.ModelName();
-    if ( (Model=="NPSTU" || Model=="NPSTUVWXY" || Model=="NPHiggsST"
-            || Model=="THDM")
-            && (SM.obliqueShat()!=0.0 || SM.obliqueThat()!=0.0 || SM.obliqueUhat()!=0.0
-            || SM.obliqueV()!=0.0|| SM.obliqueW()!=0.0|| SM.obliqueX()!=0.0|| SM.obliqueY()!=0.0) )
+    if (Model.compare("NPZbbbar") == 0) {
+        if (!(static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
+            return true;
+    } else if (Model.compare("NPHiggsST") == 0
+            || Model.compare("NPSTU") == 0
+            || Model.compare("NPSTUVWXY") == 0
+            || Model.compare("NPEffective1") == 0
+            || Model.compare("NPEffective2") == 0)
         return true;
-    else
-        return false;
 
+    return false;
 }
 
 

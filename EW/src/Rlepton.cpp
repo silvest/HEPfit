@@ -23,14 +23,11 @@ double Rlepton::computeThValue()
     else {       
         R0_l = myEW.Gamma_had()/myEW.Gamma_l(SM.ELECTRON);
         
-        if(myEWTYPE==EW::EWBURGESS)
+        if (myEWTYPE==EW::EWBURGESS)
             return myEW.getMyEW_BURGESS().Rlepton(R0_l, myEW.Gamma_had(), myEW.Gamma_l(SM.ELECTRON));
 
         /* NP contribution to the Zff vertex */
-         if (SM.ModelName().compare("NPZbbbar") == 0) {
-            if (!(static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
-                R0_l = myEW.getMyEW_NPZff().Rlepton(R0_l);
-        } else
+        if (myEW.checkLEP1NP())
             R0_l = myEW.getMyEW_NPZff().Rlepton(R0_l);
         
         /* Debug: extract pure NP contribution */

@@ -21,14 +21,11 @@ double AFBcharm::computeThValue()
     else {
         AFB_c = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.CHARM);
     
-        if(myEWTYPE==EW::EWBURGESS)
+        if (myEWTYPE==EW::EWBURGESS)
             return myEW.getMyEW_BURGESS().AFBcharm(AFB_c);
 
         /* NP contribution to the Zff vertex */
-        if (SM.ModelName().compare("NPZbbbar") == 0) {
-            if (!(static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
-                AFB_c = myEW.getMyEW_NPZff().AFBcharm(AFB_c);
-        } else
+        if (myEW.checkLEP1NP())
             AFB_c = myEW.getMyEW_NPZff().AFBcharm(AFB_c);
 
         /* Debug: extract pure NP contribution */

@@ -14,7 +14,7 @@ const std::string NPHiggsST::NPHIGGSSTvars[NNPHIGGSSTvars]
 
 
 NPHiggsST::NPHiggsST()
-: StandardModel(), LambdaNP_in(0.0)
+: NPbase(), LambdaNP_in(0.0)
 {
 }
 
@@ -22,9 +22,8 @@ NPHiggsST::NPHiggsST()
 bool NPHiggsST::Update(const std::map<std::string,double>& DPars) 
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameters(it->first, it->second);
-    if(!StandardModel::Update(DPars)) return (false);
-
+        setParameter(it->first, it->second);
+    if(!NPbase::Update(DPars)) return (false);
     return (true);
 }
 
@@ -40,16 +39,16 @@ bool NPHiggsST::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for (int i = 0; i < NNPHIGGSSTvars; i++) {
         if (DPars.find(NPHIGGSSTvars[i]) == DPars.end()) {
-            std::cout << "ERROR: Missing mandatory NPHiggsST parameter" 
+            std::cout << "ERROR: Missing mandatory NPHiggsST parameter "
                       << NPHIGGSSTvars[i] << std::endl;
             return false;
         }
     }
-    return(StandardModel::CheckParameters(DPars));
+    return(NPbase::CheckParameters(DPars));
 }
 
     
-void NPHiggsST::setParameters(const std::string name, const double& value) 
+void NPHiggsST::setParameter(const std::string name, const double& value) 
 {
     if (name.compare("a") == 0)
         a = value;
@@ -68,30 +67,34 @@ void NPHiggsST::setParameters(const std::string name, const double& value)
     else if (name.compare("LambdaNP") == 0)
         LambdaNP_in = value;
     else
-        StandardModel::setParameters(name, value);
+        NPbase::setParameter(name, value);
 }
 
 
 bool NPHiggsST::InitializeModel() 
 {
-    setModelInitialized(StandardModel::InitializeModel());
+    setModelInitialized(NPbase::InitializeModel());
     return (IsModelInitialized());
 }
 
 
-void NPHiggsST::SetEWSMflags(EWSM& myEWSM) 
+void NPHiggsST::setEWSMflags(EWSM& myEWSM) 
 {
-    StandardModel::SetEWSMflags(myEWSM);
+    NPbase::setEWSMflags(myEWSM);
 }
 
 
-bool NPHiggsST::SetFlag(const std::string name, const bool& value) 
+bool NPHiggsST::setFlag(const std::string name, const bool& value) 
 {
     bool res = false;
-
-    res = StandardModel::SetFlag(name,value);
-
+    res = NPbase::setFlag(name,value);
     return(res);
+}
+
+
+bool NPHiggsST::CheckFlags() const
+{
+    return(NPbase::CheckFlags());
 }
 
 

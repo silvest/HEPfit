@@ -23,14 +23,11 @@ double sin2thetaEff::computeThValue()
     else { 
         sin2_theta_eff = myEW.sin2thetaEff(SM.ELECTRON);
     
-        if(myEWTYPE==EW::EWBURGESS)
+        if (myEWTYPE==EW::EWBURGESS)
             return myEW.getMyEW_BURGESS().sin2thetaEff(sin2_theta_eff);
 
         /* NP contribution to the Zff vertex */
-         if (SM.ModelName().compare("NPZbbbar") == 0) {
-            if (!(static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
-                sin2_theta_eff = myEW.getMyEW_NPZff().sin2thetaEff(sin2_theta_eff);
-        } else
+        if (myEW.checkLEP1NP())
             sin2_theta_eff = myEW.getMyEW_NPZff().sin2thetaEff(sin2_theta_eff);
         
         /* Debug: extract pure NP contribution */

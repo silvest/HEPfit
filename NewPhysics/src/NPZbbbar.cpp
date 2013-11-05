@@ -19,7 +19,7 @@ const std::string NPZbbbar::Zbbbarflags[NZbbbarflags]
 
 
 NPZbbbar::NPZbbbar() 
-: StandardModel() 
+: NPbase()
 {
     FlagNPZbbbarLR = false;
     FlagNotLinearizedNP = false;
@@ -29,9 +29,8 @@ NPZbbbar::NPZbbbar()
 bool NPZbbbar::Update(const std::map<std::string,double>& DPars) 
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameters(it->first, it->second);
-    if(!StandardModel::Update(DPars)) return (false);
-
+        setParameter(it->first, it->second);
+    if(!NPbase::Update(DPars)) return (false);
     return (true);
 }
 
@@ -47,40 +46,40 @@ bool NPZbbbar::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for (int i = 0; i < NZbbbarVars; i++) {
         if (DPars.find(ZbbbarVars[i]) == DPars.end()) {
-            std::cout << "ERROR: Missing mandatory NPZbbbar parameter" 
+            std::cout << "ERROR: Missing mandatory NPZbbbar parameter "
                       << ZbbbarVars[i] << std::endl;
             return false;
         }
     }
-    return(StandardModel::CheckParameters(DPars));
+    return(NPbase::CheckParameters(DPars));
 }
 
     
-void NPZbbbar::setParameters(const std::string name, const double& value) 
+void NPZbbbar::setParameter(const std::string name, const double& value) 
 {
     if (name.compare("deltaGVb") == 0)
         myDeltaGVb = value;
     else if (name.compare("deltaGAb") == 0)
         myDeltaGAb = value;
     else
-        StandardModel::setParameters(name, value);       
+        NPbase::setParameter(name, value);
 }
 
 
 bool NPZbbbar::InitializeModel() 
 {
-    setModelInitialized(StandardModel::InitializeModel());
+    setModelInitialized(NPbase::InitializeModel());
     return (IsModelInitialized());
 }
 
 
-void NPZbbbar::SetEWSMflags(EWSM& myEWSM) 
+void NPZbbbar::setEWSMflags(EWSM& myEWSM) 
 {
-    StandardModel::SetEWSMflags(myEWSM);
+    NPbase::setEWSMflags(myEWSM);
 }
 
 
-bool NPZbbbar::SetFlag(const std::string name, const bool& value) 
+bool NPZbbbar::setFlag(const std::string name, const bool& value) 
 {
     bool res = false;
     if (name.compare("NPZbbbarLR") == 0) {
@@ -90,9 +89,15 @@ bool NPZbbbar::SetFlag(const std::string name, const bool& value)
         FlagNotLinearizedNP = value;
         res = true;
     } else
-        res = StandardModel::SetFlag(name,value);
+        res = NPbase::setFlag(name,value);
 
     return(res);
+}
+
+
+bool NPZbbbar::CheckFlags() const
+{
+    return(NPbase::CheckFlags());
 }
 
 
@@ -101,7 +106,7 @@ bool NPZbbbar::SetFlag(const std::string name, const bool& value)
 
 double NPZbbbar::deltaGVl(StandardModel::lepton l) const
 {
-    return StandardModel::deltaGVl(l);
+    return NPbase::deltaGVl(l);
 }
 
 
@@ -113,14 +118,14 @@ double NPZbbbar::deltaGVq(StandardModel::quark q) const
         case StandardModel::TOP:
         case StandardModel::DOWN:
         case StandardModel::STRANGE:
-            return StandardModel::deltaGVq(q);
+            return NPbase::deltaGVq(q);
         case StandardModel::BOTTOM:
             if (FlagNPZbbbarLR)
                 // delta g_L^b + delta g_R^b
-                return ( myDeltaGVb + StandardModel::deltaGVq(q)
-                         + myDeltaGAb + StandardModel::deltaGAq(q)); 
+                return ( myDeltaGVb + NPbase::deltaGVq(q)
+                         + myDeltaGAb + NPbase::deltaGAq(q));
             else
-                return ( myDeltaGVb + StandardModel::deltaGVq(q) );
+                return ( myDeltaGVb + NPbase::deltaGVq(q) );
         default:
             throw std::runtime_error("Error in NPZbbbar::deltaGVq()");
     }
@@ -129,7 +134,7 @@ double NPZbbbar::deltaGVq(StandardModel::quark q) const
 
 double NPZbbbar::deltaGAl(StandardModel::lepton l) const
 {
-    return StandardModel::deltaGAl(l);
+    return NPbase::deltaGAl(l);
 }
 
 
@@ -141,14 +146,14 @@ double NPZbbbar::deltaGAl(StandardModel::lepton l) const
          case StandardModel::TOP:
          case StandardModel::DOWN:
          case StandardModel::STRANGE:
-             return StandardModel::deltaGAq(q);
+             return NPbase::deltaGAq(q);
          case StandardModel::BOTTOM:
              if (FlagNPZbbbarLR)
                 // delta g_L^b - delta g_R^b
-                return ( myDeltaGVb + StandardModel::deltaGVq(q)
-                         - myDeltaGAb - StandardModel::deltaGAq(q));
+                return ( myDeltaGVb + NPbase::deltaGVq(q)
+                         - myDeltaGAb - NPbase::deltaGAq(q));
              else
-                 return ( myDeltaGAb + StandardModel::deltaGAq(q) );
+                 return ( myDeltaGAb + NPbase::deltaGAq(q) );
          default:
              throw std::runtime_error("Error in NPZbbbar::deltaGAq()");
      }

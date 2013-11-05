@@ -23,14 +23,11 @@ double AFBlepton::computeThValue()
     else {    
         AFB_l = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_l(SM.ELECTRON);
 
-        if(myEWTYPE==EW::EWBURGESS)
+        if (myEWTYPE==EW::EWBURGESS)
             return myEW.getMyEW_BURGESS().AFBlepton(AFB_l);
 
         /* NP contribution to the Zff vertex */
-        if (SM.ModelName().compare("NPZbbbar") == 0) {
-            if (!(static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
-                AFB_l = myEW.getMyEW_NPZff().AFBlepton(AFB_l);
-        } else
+        if (myEW.checkLEP1NP())
             AFB_l = myEW.getMyEW_NPZff().AFBlepton(AFB_l);
 
         /* Debug: extract pure NP contribution */

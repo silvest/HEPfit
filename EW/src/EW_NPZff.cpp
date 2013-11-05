@@ -6,6 +6,7 @@
  */
 
 #include <stdexcept>
+#include <NPbase.h>
 #include "EW_NPZff.h"
 #include "Rbottom.h"
 
@@ -21,10 +22,10 @@ double EW_NPZff::GammaZ(const double GammaZ_SM) const
 
     double delGVl[6], delGAl[6], delGVq[6], delGAq[6];
     for (int p=0; p<6; ++p) {
-        delGVl[p] = SM.deltaGVl((StandardModel::lepton)p);
-        delGAl[p] = SM.deltaGAl((StandardModel::lepton)p);
-        delGVq[p] = SM.deltaGVq((StandardModel::quark)p);
-        delGAq[p] = SM.deltaGAq((StandardModel::quark)p);
+        delGVl[p] = (static_cast<const NPbase*> (&SM))->deltaGVl((StandardModel::lepton)p);
+        delGAl[p] = (static_cast<const NPbase*> (&SM))->deltaGAl((StandardModel::lepton)p);
+        delGVq[p] = (static_cast<const NPbase*> (&SM))->deltaGVq((StandardModel::quark)p);
+        delGAq[p] = (static_cast<const NPbase*> (&SM))->deltaGAq((StandardModel::quark)p);
         if (delGVl[p]!=0.0 || delGAl[p]!=0.0
                 || delGVq[p]!=0.0 || delGAq[p]!=0.0)
             nonZeroNP = true;
@@ -61,10 +62,10 @@ double EW_NPZff::sigmaHadron(const double sigmaHadron_SM) const
 
     double delGVl[6], delGAl[6], delGVq[6], delGAq[6];
     for (int p=0; p<6; ++p) {
-        delGVl[p] = SM.deltaGVl((StandardModel::lepton)p);
-        delGAl[p] = SM.deltaGAl((StandardModel::lepton)p);
-        delGVq[p] = SM.deltaGVq((StandardModel::quark)p);
-        delGAq[p] = SM.deltaGAq((StandardModel::quark)p);
+        delGVl[p] = (static_cast<const NPbase*> (&SM))->deltaGVl((StandardModel::lepton)p);
+        delGAl[p] = (static_cast<const NPbase*> (&SM))->deltaGAl((StandardModel::lepton)p);
+        delGVq[p] = (static_cast<const NPbase*> (&SM))->deltaGVq((StandardModel::quark)p);
+        delGAq[p] = (static_cast<const NPbase*> (&SM))->deltaGAq((StandardModel::quark)p);
         if (delGVl[p]!=0.0 || delGAl[p]!=0.0
                 || delGVq[p]!=0.0 || delGAq[p]!=0.0)
             nonZeroNP = true;
@@ -103,8 +104,8 @@ double EW_NPZff::sigmaHadron(const double sigmaHadron_SM) const
 double EW_NPZff::sin2thetaEff(const double sin2thetaEff_SM) const
 {
     double sin2_theta_eff = sin2thetaEff_SM;
-    double delGVf = SM.deltaGVl(SM.ELECTRON);
-    double delGAf = SM.deltaGAl(SM.ELECTRON);
+    double delGVf = (static_cast<const NPbase*> (&SM))->deltaGVl(SM.ELECTRON);
+    double delGAf = (static_cast<const NPbase*> (&SM))->deltaGAl(SM.ELECTRON);
     if (delGVf!=0.0 || delGAf!=0.0) {
         double gVf = SM.StandardModel::gVl(SM.ELECTRON).real();
         double gAf = SM.StandardModel::gAl(SM.ELECTRON).real();
@@ -118,8 +119,8 @@ double EW_NPZff::sin2thetaEff(const double sin2thetaEff_SM) const
 double EW_NPZff::PtauPol(const double PtauPol_SM) const
 {
     double P_tau_pol = PtauPol_SM;
-    double delGVf = SM.deltaGVl(SM.TAU);
-    double delGAf = SM.deltaGAl(SM.TAU);
+    double delGVf = (static_cast<const NPbase*> (&SM))->deltaGVl(SM.TAU);
+    double delGAf = (static_cast<const NPbase*> (&SM))->deltaGAl(SM.TAU);
     if (delGVf!=0.0 || delGAf!=0.0) {
         double gVf = SM.StandardModel::gVl(SM.TAU).real();
         double gAf = SM.StandardModel::gAl(SM.TAU).real();
@@ -134,8 +135,8 @@ double EW_NPZff::PtauPol(const double PtauPol_SM) const
 double EW_NPZff::Alepton(const double Alepton_SM) const
 {
     double A_l = Alepton_SM;
-    double delGVf = SM.deltaGVl(SM.ELECTRON);
-    double delGAf = SM.deltaGAl(SM.ELECTRON);
+    double delGVf = (static_cast<const NPbase*> (&SM))->deltaGVl(SM.ELECTRON);
+    double delGAf = (static_cast<const NPbase*> (&SM))->deltaGAl(SM.ELECTRON);
     if (delGVf!=0.0 || delGAf!=0.0) {
         double gVf = SM.StandardModel::gVl(SM.ELECTRON).real();
         double gAf = SM.StandardModel::gAl(SM.ELECTRON).real();
@@ -150,8 +151,8 @@ double EW_NPZff::Alepton(const double Alepton_SM) const
 double EW_NPZff::Acharm(const double Acharm_SM) const
 {
     double A_c = Acharm_SM;
-    double delGVf = SM.deltaGVq(SM.CHARM);
-    double delGAf = SM.deltaGAq(SM.CHARM);
+    double delGVf = (static_cast<const NPbase*> (&SM))->deltaGVq(SM.CHARM);
+    double delGAf = (static_cast<const NPbase*> (&SM))->deltaGAq(SM.CHARM);
     if (delGVf!=0.0 || delGAf!=0.0) {
         double gVf = SM.StandardModel::gVq(SM.CHARM).real();
         double gAf = SM.StandardModel::gAq(SM.CHARM).real();
@@ -166,8 +167,8 @@ double EW_NPZff::Acharm(const double Acharm_SM) const
 double EW_NPZff::Abottom(const double Abottom_SM) const
 {
     double A_b = Abottom_SM;
-    double delGVf = SM.deltaGVq(SM.BOTTOM);
-    double delGAf = SM.deltaGAq(SM.BOTTOM);
+    double delGVf = (static_cast<const NPbase*> (&SM))->deltaGVq(SM.BOTTOM);
+    double delGAf = (static_cast<const NPbase*> (&SM))->deltaGAq(SM.BOTTOM);
     if (delGVf!=0.0 || delGAf!=0.0) {
         double gVf = SM.StandardModel::gVq(SM.BOTTOM).real();
         double gAf = SM.StandardModel::gAq(SM.BOTTOM).real();
@@ -182,8 +183,8 @@ double EW_NPZff::Abottom(const double Abottom_SM) const
 double EW_NPZff::AFBlepton(const double AFBlepton_SM) const
 {
     double AFB_l = AFBlepton_SM;
-    double delGVe = SM.deltaGVl(SM.ELECTRON);
-    double delGAe = SM.deltaGAl(SM.ELECTRON);
+    double delGVe = (static_cast<const NPbase*> (&SM))->deltaGVl(SM.ELECTRON);
+    double delGAe = (static_cast<const NPbase*> (&SM))->deltaGAl(SM.ELECTRON);
     if (delGVe!=0.0 || delGAe!=0.0) {
         double gVe = SM.StandardModel::gVl(SM.ELECTRON).real();
         double gAe = SM.StandardModel::gAl(SM.ELECTRON).real();
@@ -198,10 +199,10 @@ double EW_NPZff::AFBlepton(const double AFBlepton_SM) const
 double EW_NPZff::AFBcharm(const double AFBcharm_SM) const
 {
     double AFB_c = AFBcharm_SM;
-    double delGVe = SM.deltaGVl(SM.ELECTRON);
-    double delGAe = SM.deltaGAl(SM.ELECTRON);
-    double delGVf = SM.deltaGVq(SM.CHARM);
-    double delGAf = SM.deltaGAq(SM.CHARM);
+    double delGVe = (static_cast<const NPbase*> (&SM))->deltaGVl(SM.ELECTRON);
+    double delGAe = (static_cast<const NPbase*> (&SM))->deltaGAl(SM.ELECTRON);
+    double delGVf = (static_cast<const NPbase*> (&SM))->deltaGVq(SM.CHARM);
+    double delGAf = (static_cast<const NPbase*> (&SM))->deltaGAq(SM.CHARM);
     if (delGVe!=0.0 || delGAe!=0.0 || delGVf!=0.0 || delGAf!=0.0) {
         double gVe = SM.StandardModel::gVl(SM.ELECTRON).real();
         double gAe = SM.StandardModel::gAl(SM.ELECTRON).real();
@@ -222,10 +223,10 @@ double EW_NPZff::AFBcharm(const double AFBcharm_SM) const
 double EW_NPZff::AFBbottom(const double AFBbottom_SM) const
 {
     double AFB_b = AFBbottom_SM;
-    double delGVe = SM.deltaGVl(SM.ELECTRON);
-    double delGAe = SM.deltaGAl(SM.ELECTRON);
-    double delGVf = SM.deltaGVq(SM.BOTTOM);
-    double delGAf = SM.deltaGAq(SM.BOTTOM);
+    double delGVe = (static_cast<const NPbase*> (&SM))->deltaGVl(SM.ELECTRON);
+    double delGAe = (static_cast<const NPbase*> (&SM))->deltaGAl(SM.ELECTRON);
+    double delGVf = (static_cast<const NPbase*> (&SM))->deltaGVq(SM.BOTTOM);
+    double delGAf = (static_cast<const NPbase*> (&SM))->deltaGAq(SM.BOTTOM);
     if (delGVe!=0.0 || delGAe!=0.0 || delGVf!=0.0 || delGAf!=0.0) {
         double gVe = SM.StandardModel::gVl(SM.ELECTRON).real();
         double gAe = SM.StandardModel::gAl(SM.ELECTRON).real();
@@ -248,14 +249,14 @@ double EW_NPZff::Rlepton(const double Rlepton_SM) const
     double R0_l = Rlepton_SM;
     bool nonZeroNP = false;
 
-    double delGVe = SM.deltaGVl(SM.ELECTRON);
-    double delGAe = SM.deltaGAl(SM.ELECTRON);
+    double delGVe = (static_cast<const NPbase*> (&SM))->deltaGVl(SM.ELECTRON);
+    double delGAe = (static_cast<const NPbase*> (&SM))->deltaGAl(SM.ELECTRON);
     if (delGVe!=0.0 || delGAe!=0.0) nonZeroNP = true;
 
     double delGVq[6], delGAq[6];
     for (int p=0; p<6; ++p) {
-        delGVq[p] = SM.deltaGVq((StandardModel::quark)p);
-        delGAq[p] = SM.deltaGAq((StandardModel::quark)p);
+        delGVq[p] = (static_cast<const NPbase*> (&SM))->deltaGVq((StandardModel::quark)p);
+        delGAq[p] = (static_cast<const NPbase*> (&SM))->deltaGAq((StandardModel::quark)p);
         if (delGVq[p]!=0.0 || delGAq[p]!=0.0) nonZeroNP = true;
     }
 
@@ -289,8 +290,8 @@ double EW_NPZff::Rcharm(const double Rcharm_SM) const
     bool nonZeroNP = false;
     double delGVq[6], delGAq[6];
     for (int p=0; p<6; ++p) {
-        delGVq[p] = SM.deltaGVq((StandardModel::quark)p);
-        delGAq[p] = SM.deltaGAq((StandardModel::quark)p);
+        delGVq[p] = (static_cast<const NPbase*> (&SM))->deltaGVq((StandardModel::quark)p);
+        delGAq[p] = (static_cast<const NPbase*> (&SM))->deltaGAq((StandardModel::quark)p);
         if (delGVq[p]!=0.0 || delGAq[p]!=0.0) nonZeroNP = true;
     }
 
@@ -320,8 +321,8 @@ double EW_NPZff::Rbottom(const double Rbottom_SM) const
     bool nonZeroNP = false;
     double delGVq[6], delGAq[6];
     for (int p=0; p<6; ++p) {
-        delGVq[p] = SM.deltaGVq((StandardModel::quark)p);
-        delGAq[p] = SM.deltaGAq((StandardModel::quark)p);
+        delGVq[p] = (static_cast<const NPbase*> (&SM))->deltaGVq((StandardModel::quark)p);
+        delGAq[p] = (static_cast<const NPbase*> (&SM))->deltaGAq((StandardModel::quark)p);
         if (delGVq[p]!=0.0 || delGAq[p]!=0.0) nonZeroNP = true;
     }
 

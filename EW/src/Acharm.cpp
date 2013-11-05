@@ -21,14 +21,11 @@ double Acharm::computeThValue()
     else {
         A_c = myEW.A_q(SM.CHARM);
 
-        if(myEWTYPE==EW::EWBURGESS)
+        if (myEWTYPE==EW::EWBURGESS)
             return myEW.getMyEW_BURGESS().Acharm(A_c, myEW.A_l(SM.ELECTRON));
         
         /* NP contribution to the Zff vertex */
-        if (SM.ModelName().compare("NPZbbbar") == 0) {
-            if (!(static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
-                A_c = myEW.getMyEW_NPZff().Acharm(A_c);
-        } else
+        if (myEW.checkLEP1NP())
             A_c = myEW.getMyEW_NPZff().Acharm(A_c);
 
         /* Debug: extract pure NP contribution */

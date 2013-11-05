@@ -11,6 +11,7 @@
 #include <stdexcept>
 #include <cstring>
 #include <ThObservable.h>
+#include <NPbase.h>
 #include "EWSM.h"
 #include "EW.h"
 #include "LEP2TwoFermions.h"
@@ -62,6 +63,25 @@ public:
         //flag[QEDFSR] = false;
         //flag[QCDFSR] = false; 
     }
+
+    bool checkLEP2NP() const
+    {
+        std::string Model = SM.ModelName();
+        if ( (Model.compare("NPSTU") == 0
+                || Model.compare("NPSTUVWXY") == 0
+                || Model.compare("NPHiggsST") == 0
+                || Model.compare("THDM") == 0)
+                && ((static_cast<const NPbase*> (&SM))->obliqueShat()!=0.0
+                || (static_cast<const NPbase*> (&SM))->obliqueThat()!=0.0
+                || (static_cast<const NPbase*> (&SM))->obliqueUhat()!=0.0
+                || (static_cast<const NPbase*> (&SM))->obliqueV()!=0.0
+                || (static_cast<const NPbase*> (&SM))->obliqueW()!=0.0
+                || (static_cast<const NPbase*> (&SM))->obliqueX()!=0.0
+                || (static_cast<const NPbase*> (&SM))->obliqueY()!=0.0) )
+            return true;
+        else
+            return false;
+    }    
 
     /**
      * @brief set a flag to control radiative corrections

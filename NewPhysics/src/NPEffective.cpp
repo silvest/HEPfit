@@ -10,7 +10,7 @@
 
 
 NPEffective::NPEffective() 
-: StandardModel() 
+: NPbase()
 {
 }
 
@@ -18,7 +18,7 @@ NPEffective::NPEffective()
 bool NPEffective::Update(const std::map<std::string,double>& DPars) 
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameters(it->first, it->second);
+        setParameter(it->first, it->second);
     if(!StandardModel::Update(DPars)) return (false);
 
     return (true);
@@ -32,26 +32,36 @@ bool NPEffective::Init(const std::map<std::string, double>& DPars)
 }
 
 
+bool NPEffective::CheckParameters(const std::map<std::string, double>& DPars)
+{
+    return(NPbase::CheckParameters(DPars));
+}
+
+
 bool NPEffective::InitializeModel() 
 {
-    setModelInitialized(StandardModel::InitializeModel());
+    setModelInitialized(NPbase::InitializeModel());
     return (IsModelInitialized());
 }
 
 
-void NPEffective::SetEWSMflags(EWSM& myEWSM) 
+void NPEffective::setEWSMflags(EWSM& myEWSM) 
 {
-    StandardModel::SetEWSMflags(myEWSM);
+    NPbase::setEWSMflags(myEWSM);
 }
 
 
-bool NPEffective::SetFlag(const std::string name, const bool& value) 
+bool NPEffective::setFlag(const std::string name, const bool& value) 
 {
     bool res = false;
-    
-    res = StandardModel::SetFlag(name,value);
-
+    res = NPbase::setFlag(name,value);
     return(res);
+}
+
+
+bool NPEffective::CheckFlags() const
+{
+    return(NPbase::CheckFlags());
 }
 
 
@@ -231,25 +241,25 @@ double NPEffective::deltaGRq(StandardModel::quark q) const
 
 double NPEffective::deltaGVl(StandardModel::lepton l) const
 {
-    return ( deltaGLl(l) + deltaGRl(l) + StandardModel::deltaGVl(l) );
+    return ( deltaGLl(l) + deltaGRl(l) + NPbase::deltaGVl(l) );
 }
 
 
 double NPEffective::deltaGVq(StandardModel::quark q) const
 {
-    return ( deltaGLq(q) + deltaGRq(q) + StandardModel::deltaGVq(q) );
+    return ( deltaGLq(q) + deltaGRq(q) + NPbase::deltaGVq(q) );
 }
 
 
 double NPEffective::deltaGAl(StandardModel::lepton l) const
 {
-    return ( deltaGLl(l) - deltaGRl(l) + StandardModel::deltaGAl(l) );
+    return ( deltaGLl(l) - deltaGRl(l) + NPbase::deltaGAl(l) );
 }
 
 
 double NPEffective::deltaGAq(StandardModel::quark q) const
 {
-    return ( deltaGLq(q) - deltaGRq(q) + StandardModel::deltaGAq(q) );
+    return ( deltaGLq(q) - deltaGRq(q) + NPbase::deltaGAq(q) );
 }
 
 

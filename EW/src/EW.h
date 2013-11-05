@@ -53,8 +53,8 @@ public:
      * @return 
      */
     EWTYPE getEWTYPE() const;
-    
-    bool checkSTUVWXY() const;
+
+    bool checkLEP1NP() const;
     
     /**
      * @return a reference to the StandardModel object in the current class

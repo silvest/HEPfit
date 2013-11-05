@@ -146,7 +146,7 @@ public:
      * @return A boolean value indicating whether the given flag name is associated 
      * with QCD. 
      */
-    virtual bool SetFlag(const std::string name, const bool& value);
+    virtual bool setFlag(const std::string name, const bool& value);
     
     /**
      * @brief
@@ -673,7 +673,7 @@ protected:
      * @param[in]
      * @return
      */
-    virtual void setParameters(const std::string, const double&);  /**< */
+    virtual void setParameter(const std::string, const double&);  /**< */
 
 private:
     double zeta2; /**< \f$\zeta(2)\f$ computed from the <a href="http://www.gnu.org/software/gsl/" target=blank>gsl libraries</a>*/

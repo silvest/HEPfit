@@ -70,11 +70,11 @@ bool StandardModel::InitializeModel()
     myStandardModelMatching = new StandardModelMatching(*this);
     setModelInitialized(true);
     myEWSM = new EWSM(*this);
-    this->SetEWSMflags(*myEWSM);
+    this->setEWSMflags(*myEWSM);
     return(true);
 }
 
-void StandardModel::SetEWSMflags(EWSM& myEWSM)
+void StandardModel::setEWSMflags(EWSM& myEWSM)
 {
     std::cout << "Schemes for EWPOs:" << std::endl;
     std::cout << "  ";
@@ -114,7 +114,7 @@ bool StandardModel::Update(const std::map<std::string, double>& DPars)
     UpdateError = false;
     
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameters(it->first, it->second);
+        setParameter(it->first, it->second);
     
     if (UpdateError) return (false);
     
@@ -140,7 +140,7 @@ bool StandardModel::PostUpdate()
     return (true);
 }
 
-void StandardModel::setParameters(const std::string name, const double& value)
+void StandardModel::setParameter(const std::string name, const double& value)
 {
     if (name.compare("ale") == 0)
         ale = value;
@@ -207,7 +207,7 @@ void StandardModel::setParameters(const std::string name, const double& value)
     else if (name.compare("SM_M12D") == 0)
         SM_M12D = value;
     else
-        QCD::setParameters(name, value);
+        QCD::setParameter(name, value);
 }
 
 bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars) 
@@ -263,7 +263,7 @@ void StandardModel::computeYukawas()
 ///////////////////////////////////////////////////////////////////////////
 // Flags
 
-bool StandardModel::SetFlag(const std::string name, const bool& value) 
+bool StandardModel::setFlag(const std::string name, const bool& value) 
 {  
     bool res = false;
     if (name.compare("FixedAllSMparams") == 0) {
@@ -294,7 +294,7 @@ bool StandardModel::SetFlag(const std::string name, const bool& value)
         FlagEWCHMN = value;
         res = true;
     } else
-        res = QCD::SetFlag(name,value);
+        res = QCD::setFlag(name,value);
 
     return(res);
 }
@@ -542,73 +542,22 @@ double StandardModel::epsilonb_SM() const
 
 double StandardModel::epsilon1() const
 { 
-    return ( epsilon1_SM() + obliqueThat() );
+    return epsilon1_SM();
 }
 
 double StandardModel::epsilon2() const 
 {
-    return ( epsilon2_SM() + obliqueUhat() );    
+    return epsilon2_SM();    
 }
     
 double StandardModel::epsilon3() const 
 {
-    return ( epsilon3_SM() + obliqueShat() );
+    return epsilon3_SM();
 }
 
 double StandardModel::epsilonb() const 
 {
     return epsilonb_SM();    
-}
-
-double StandardModel::deltaGVl(StandardModel::lepton l) const
-{
-    /* SM values */
-    double alpha = StandardModel::alphaMz();
-    double sW2SM = StandardModel::sW2();
-    double cW2SM = StandardModel::cW2();
-    double gVSM = StandardModel::gVl(l).real();
-    double gASM = StandardModel::gAl(l).real();
-
-    return ( gVSM*alpha*obliqueT()/2.0
-            + (gVSM - gASM)*alpha/4.0/sW2SM/(cW2SM - sW2SM)
-              *(obliqueS() - 4.0*cW2SM*sW2SM*obliqueT()) );
-}
-
-double StandardModel::deltaGVq(StandardModel::quark q) const
-{
-    if (q==TOP) return 0.0;
-
-    /* SM values */
-    double alpha = StandardModel::alphaMz();
-    double sW2SM = StandardModel::sW2();
-    double cW2SM = StandardModel::cW2();
-    double gVSM = StandardModel::gVq(q).real();
-    double gASM = StandardModel::gAq(q).real();
-
-    return ( gVSM*alpha*obliqueT()/2.0
-             + (gVSM - gASM)*alpha/4.0/sW2SM/(cW2SM - sW2SM)
-               *(obliqueS() - 4.0*cW2SM*sW2SM*obliqueT()) );
-}
-
-double StandardModel::deltaGAl(StandardModel::lepton l) const
-{
-    /* SM values */
-    double alpha = StandardModel::alphaMz();
-    double gASM = StandardModel::gAl(l).real();
-
-    return ( gASM*alpha*obliqueT()/2.0 );
-
-}
-
-double StandardModel::deltaGAq(StandardModel::quark q) const
-{
-    if (q==TOP) return 0.0;
-
-    /* SM values */
-    double alpha = StandardModel::alphaMz();
-    double gASM = StandardModel::gAq(q).real();
-
-    return ( gASM*alpha*obliqueT()/2.0 );
 }
 
 
