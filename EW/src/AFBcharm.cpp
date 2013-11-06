@@ -5,6 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include <NPZbbbar.h>
 #include "AFBcharm.h"
 
 
@@ -20,32 +21,12 @@ double AFBcharm::computeThValue()
     else {
         AFB_c = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.CHARM);
     
-        if(myEWTYPE==EW::EWBURGESS)
+        if (myEWTYPE==EW::EWBURGESS)
             return myEW.getMyEW_BURGESS().AFBcharm(AFB_c);
 
         /* NP contribution to the Zff vertex */
-        if ( !SM.IsFlagNotLinearizedNP() ) {
-            double delGVe = SM.deltaGVl(SM.ELECTRON);
-            double delGAe = SM.deltaGAl(SM.ELECTRON);
-            double delGVf = SM.deltaGVq(SM.CHARM);
-            double delGAf = SM.deltaGAq(SM.CHARM);
-            if (delGVe!=0.0 || delGAe!=0.0 || delGVf!=0.0 || delGAf!=0.0) {
-                double gVe = SM.StandardModel::gVl(SM.ELECTRON).real();
-                double gAe = SM.StandardModel::gAl(SM.ELECTRON).real();
-                double Ge = gVe*gVe + gAe*gAe;
-                double delGVeOverGAe = (gAe*delGVe - gVe*delGAe)/gAe/gAe;
-                //
-                double gVf = SM.StandardModel::gVq(SM.CHARM).real();
-                double gAf = SM.StandardModel::gAq(SM.CHARM).real();
-                double Gf = gVf*gVf + gAf*gAf;
-                double delGVfOverGAf = (gAf*delGVf - gVf*delGAf)/gAf/gAf;
-
-                AFB_c -= 3.0*gVf*gAf*(gVe*gVe - gAe*gAe)*gAe*gAe/Gf/Ge/Ge*delGVeOverGAe
-                         + 3.0*gVe*gAe*(gVf*gVf - gAf*gAf)*gAf*gAf/Ge/Gf/Gf*delGVfOverGAf;
-            }
-        } else
-            if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("AFBcharm::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+        if (myEW.checkLEP1NP())
+            AFB_c = myEW.getMyEW_NPZff().AFBcharm(AFB_c);
 
         /* Debug: extract pure NP contribution */
         //AFB_c -= 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.CHARM);

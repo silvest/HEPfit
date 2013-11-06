@@ -20,7 +20,7 @@ void test1() {
     MFV MFVM(VCKM_i, 0.15, .02, 1.5, 0.1, 170., 4.5,
         UPMNS_i, 0.0005, 0.1, 1.5, 0., 0., 0., 10.,1.);
   
-    MFVM.setParameters(1.E4, 1.e4, 1.e4, 1.e2, 1.e2, 0., 0., 0., 0., 0.,
+    MFVM.setParameter(1.E4, 1.e4, 1.e4, 1.e2, 1.e2, 0., 0., 0., 0., 0.,
             0., 0., 0., 0., 0., 0.);
     gslpp::matrix<gslpp::complex> pippo(MFVM.getMsu2());
     std::cout << MFVM.getRu()*pippo*MFVM.getRu().hconjugate() << std::endl;

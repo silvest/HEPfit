@@ -20,8 +20,8 @@ HeffDS1::~HeffDS1() {
 
 vector<complex>** HeffDS1::ComputeCoeffDS1PP(double mu, schemes scheme) {
     
-    const std::vector<WilsonCoefficient>& mcb = model.GetMyMatching()->CMK();
-    const std::vector<WilsonCoefficient>& mcbCC = model.GetMyMatching()->CMKCC();
+    const std::vector<WilsonCoefficient>& mcb = model.getMyMatching()->CMK();
+    const std::vector<WilsonCoefficient>& mcbCC = model.getMyMatching()->CMKCC();
     
     coeffds1.setMu(mu); //inizializes to zero the coefficients
     coeffds1cc.setMu(mu);
@@ -131,7 +131,7 @@ vector<complex>** HeffDS1::ComputeCoeffDS1PP(double mu, schemes scheme) {
 
 vector<complex>** HeffDS1::ComputeCoeffDS1pnunu() {
     
-    const std::vector<WilsonCoefficient>& mcb = model.GetMyMatching()-> CMkpnn();
+    const std::vector<WilsonCoefficient>& mcb = model.getMyMatching()-> CMkpnn();
     
     orders ordDF1 = coeffds1pnunu.getOrder();
     orders_ew ordDF1_ew = coeffds1pnunu.getOrder_ew();
@@ -152,7 +152,7 @@ vector<complex>** HeffDS1::ComputeCoeffDS1pnunu() {
 
 vector<complex>** HeffDS1::ComputeCoeffDS1mumu() {
     
-    const std::vector<WilsonCoefficient>& mcb = model.GetMyMatching()-> CMkmm();
+    const std::vector<WilsonCoefficient>& mcb = model.getMyMatching()-> CMkmm();
     
     orders ordDF1 = coeffds1mumu.getOrder();
     

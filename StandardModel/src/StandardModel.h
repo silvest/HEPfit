@@ -54,9 +54,7 @@ class EWSM; // forward reference to EWSM class
  * \li \b SM_M12D:&nbsp; the SM amplitude of the @f$D^{0}-\bar{D}^{0}@f$ mixing,
  *
  * Flags:
- * \li \b FixedSMparams:&nbsp; --> will be moved to another class
  * \li \b WithoutNonUniversalVC:&nbsp;
- * \li \b NotLinearizedNP:&nbsp; --> will be moved to another class
  * \li \b ApproximateGqOverGb:&nbsp;
  * \li \b ApproximateGammaZ:&nbsp;
  * \li \b ApproximateSigmaH:&nbsp;
@@ -83,14 +81,13 @@ public:
 
     static const int NSMvars = 27;
     static const std::string SMvars[NSMvars];
-    static const int NSMflags = 10;
+    static const int NSMflags = 8;
     static const std::string SMflags[NSMflags];
 
     /**
      * A constructor.
-     * @param[in] bDebug_i
      */
-    StandardModel(const bool bDebug_i=false);
+    StandardModel();
 
     virtual std::string ModelName() const
     {
@@ -115,23 +112,13 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Flags
 
-    virtual bool SetFlag(const std::string name, const bool& value);
+    virtual bool setFlag(const std::string name, const bool& value);
 
     virtual bool CheckFlags() const;
-
-    bool IsFlagFixedAllSMparams() const
-    {
-        return FlagFixedAllSMparams;
-    }
 
     bool IsFlagWithoutNonUniversalVC() const
     {
         return FlagWithoutNonUniversalVC;
-    }
-
-    bool IsFlagNotLinearizedNP() const
-    {
-        return FlagNotLinearizedNP;
     }
 
     bool IsFlagApproximateGqOverGb() const
@@ -175,14 +162,14 @@ public:
 
     virtual bool InitializeModel();
 
-    virtual void SetEWSMflags(EWSM& myEWSM);
+    virtual void setEWSMflags(EWSM& myEWSM);
 
-    virtual StandardModelMatching* GetMyMatching() const
+    virtual StandardModelMatching* getMyMatching() const
     {
         return myStandardModelMatching;
     }
 
-    virtual void SetMyMatching(StandardModelMatching* myMatching)
+    virtual void setMyMatching(StandardModelMatching* myMatching)
     {
         this->myStandardModelMatching = myMatching;
     }
@@ -195,14 +182,6 @@ public:
 
     ///////////////////////////////////////////////////////////////////////////
     // get and set methods for class members
-
-    /**
-     * @return A boolean variable for debugging.
-     */
-    bool isBDebug() const
-    {
-        return bDebug;
-    }
 
     Particle getLeptons(const StandardModel::lepton p) const
     {
@@ -605,88 +584,6 @@ public:
     virtual double GammaW() const;
 
     /**
-     * @return Oblique parameter @f$S@f$.
-     */
-    virtual double obliqueS() const
-    {
-        return 0.0;
-    }
-
-    /**
-     * @return Oblique parameter @f$T@f$.
-     */
-    virtual double obliqueT() const
-    {
-        return 0.0;
-    }
-
-    /**
-     * @return Oblique parameter @f$U@f$.
-     */
-    virtual double obliqueU() const
-    {
-        return 0.0;
-    }
-
-    /**
-     * @return Oblique parameter @f$\hat{S}@f$.
-     */
-    virtual double obliqueShat() const
-    {
-        double sW2_SM = StandardModel::sW2(); /* This has to be the SM value. */
-        return ( alphaMz()/(4.0*sW2_SM)*obliqueS() );
-    }
-
-    /**
-     * @return Oblique parameter @f$\hat{T}@f$.
-     */
-    virtual double obliqueThat() const
-    {
-        return ( alphaMz()*obliqueT() );
-    }
-
-    /**
-     * @return Oblique parameter @f$\hat{U}@f$.
-     */
-    virtual double obliqueUhat() const
-    {
-        double sW2_SM = StandardModel::sW2(); /* This has to be the SM value. */
-        return ( - alphaMz()/(4.0*sW2_SM)*obliqueU() );
-    }
-
-    /**
-     * @return Oblique parameter @f$V@f$.
-     */
-    virtual double obliqueV() const
-    {
-        return 0.0;
-    }
-
-    /**
-     * @return Oblique parameter @f$W@f$.
-     */
-    virtual double obliqueW() const
-    {
-        return 0.0;
-    }
-
-    /**
-     * @return Oblique parameter @f$X@f$.
-     */
-    virtual double obliqueX() const
-    {
-        return 0.0;
-    }
-
-    /**
-     * @return Oblique parameter @f$Y@f$.
-     */
-    virtual double obliqueY() const
-    {
-        return 0.0;
-    }
-
-    /**
      * @return SM contribution to @f$\epsilon_1@f$.
      */
     double epsilon1_SM() const;
@@ -726,23 +623,6 @@ public:
      */
     virtual double epsilonb() const;
 
-    /**
-     * @brief NP contribution to the Fermi constant @f$G_{\mu}=G_{\mu}^{\rm SM}(1+DeltaGF)@f$.
-     * @return
-     */
-    virtual double DeltaGF() const
-    {
-        return 0.0;
-    }
-
-    virtual double deltaGVl(StandardModel::lepton l) const;
-
-    virtual double deltaGVq(StandardModel::quark q) const;
-
-    virtual double deltaGAl(StandardModel::lepton l) const;
-
-    virtual double deltaGAq(StandardModel::quark q) const;
-
 
     ////////////////////////////////////////////////////////////////////////
     // CKM parameters
@@ -774,7 +654,7 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 protected:
-    virtual void setParameters(const std::string, const double&);
+    virtual void setParameter(const std::string, const double&);
     virtual void computeCKM();
     virtual void computeYukawas();
 
@@ -814,10 +694,7 @@ protected:
     
     ////////////////////////////////////////////////////////////////////////    
 private:
-    bool bDebug; // for debugging
-    bool FlagFixedAllSMparams;
     bool FlagWithoutNonUniversalVC;
-    bool FlagNotLinearizedNP;
     bool FlagApproximateGqOverGb;
     bool FlagApproximateGammaZ;
     bool FlagApproximateSigmaH;

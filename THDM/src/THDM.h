@@ -228,7 +228,7 @@ public:
 
 protected: 
     
-    virtual void setParameters(const std::string, const double&);
+    virtual void setParameter(const std::string, const double&);
     THDMcache mycache;
 
     private:

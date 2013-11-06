@@ -5,6 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include <NPZbbbar.h>
 #include "sin2thetaEff.h"
 
 
@@ -22,24 +23,13 @@ double sin2thetaEff::computeThValue()
     else { 
         sin2_theta_eff = myEW.sin2thetaEff(SM.ELECTRON);
     
-        if(myEWTYPE==EW::EWBURGESS)
+        if (myEWTYPE==EW::EWBURGESS)
             return myEW.getMyEW_BURGESS().sin2thetaEff(sin2_theta_eff);
 
         /* NP contribution to the Zff vertex */
-        if ( !SM.IsFlagNotLinearizedNP() ) {
-            double delGVf = SM.deltaGVl(SM.ELECTRON);
-            double delGAf = SM.deltaGAl(SM.ELECTRON);
-            if (delGVf!=0.0 || delGAf!=0.0) {
-                double gVf = SM.StandardModel::gVl(SM.ELECTRON).real();
-                double gAf = SM.StandardModel::gAl(SM.ELECTRON).real();
-                double delGVfOverGAf = (gAf*delGVf - gVf*delGAf)/gAf/gAf;
-
-                sin2_theta_eff -= delGVfOverGAf/4.0;
-            }
-        } else
-            if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("sin2thetaEff::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
-
+        if (myEW.checkLEP1NP())
+            sin2_theta_eff = myEW.getMyEW_NPZff().sin2thetaEff(sin2_theta_eff);
+        
         /* Debug: extract pure NP contribution */
         //sin2_theta_eff -= myEW.sin2thetaEff(SM.ELECTRON);
     }

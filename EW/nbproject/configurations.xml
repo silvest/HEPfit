@@ -15,6 +15,7 @@
       <itemPath>src/EW_ABC.h</itemPath>
       <itemPath>src/EW_BURGESS.h</itemPath>
       <itemPath>src/EW_CHMN.h</itemPath>
+      <itemPath>src/EW_NPZff.h</itemPath>
       <itemPath>src/GammaW.h</itemPath>
       <itemPath>src/GammaZ.h</itemPath>
       <itemPath>src/LEP2AFBbottom.h</itemPath>
@@ -57,6 +58,7 @@
       <itemPath>src/EW_ABC.cpp</itemPath>
       <itemPath>src/EW_BURGESS.cpp</itemPath>
       <itemPath>src/EW_CHMN.cpp</itemPath>
+      <itemPath>src/EW_NPZff.cpp</itemPath>
       <itemPath>src/GammaW.cpp</itemPath>
       <itemPath>src/GammaZ.cpp</itemPath>
       <itemPath>src/LEP2AFBbottom.cpp</itemPath>
@@ -312,6 +314,10 @@
       </item>
       <item path="src/EW_CHMN.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/EW_NPZff.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EW_NPZff.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GammaW.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GammaW.h" ex="false" tool="3" flavor2="0">
@@ -489,6 +495,10 @@
       </item>
       <item path="src/EW_CHMN.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/EW_NPZff.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EW_NPZff.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/GammaW.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GammaW.h" ex="false" tool="3" flavor2="0">
@@ -665,6 +675,10 @@
       <item path="src/EW_CHMN.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EW_CHMN.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EW_NPZff.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EW_NPZff.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GammaW.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -43,7 +43,7 @@ public:
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
 protected:
-    virtual void setParameters(const std::string, const double&);
+    virtual void setParameter(const std::string, const double&);
     virtual void SetSoftTerms();
     double msQ12, msQ3, msU12, msU3, msD12, msD3, msL12, msL3, msE12, msE3, 
            AU, AD, AE;

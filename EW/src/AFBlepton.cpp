@@ -5,6 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include <NPZbbbar.h>
 #include "AFBlepton.h"
 
 
@@ -22,24 +23,12 @@ double AFBlepton::computeThValue()
     else {    
         AFB_l = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_l(SM.ELECTRON);
 
-        if(myEWTYPE==EW::EWBURGESS)
+        if (myEWTYPE==EW::EWBURGESS)
             return myEW.getMyEW_BURGESS().AFBlepton(AFB_l);
 
         /* NP contribution to the Zff vertex */
-        if ( !SM.IsFlagNotLinearizedNP() ) {
-            double delGVe = SM.deltaGVl(SM.ELECTRON);
-            double delGAe = SM.deltaGAl(SM.ELECTRON);
-            if (delGVe!=0.0 || delGAe!=0.0) {
-                double gVe = SM.StandardModel::gVl(SM.ELECTRON).real();
-                double gAe = SM.StandardModel::gAl(SM.ELECTRON).real();
-                double Ge = gVe*gVe + gAe*gAe;
-                double delGVeOverGAe = (gAe*delGVe - gVe*delGAe)/gAe/gAe;
-
-                AFB_l -= 6.0*gVe*gAe*(gVe*gVe - gAe*gAe)*gAe*gAe/Ge/Ge/Ge*delGVeOverGAe;
-            }
-        } else
-            if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("AFBlepton::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+        if (myEW.checkLEP1NP())
+            AFB_l = myEW.getMyEW_NPZff().AFBlepton(AFB_l);
 
         /* Debug: extract pure NP contribution */
         //AFB_l -= 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_l(SM.ELECTRON);

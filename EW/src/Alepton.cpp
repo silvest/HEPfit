@@ -5,6 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include <NPZbbbar.h>
 #include "Alepton.h"
 
 
@@ -22,24 +23,12 @@ double Alepton::computeThValue()
     else {
         A_l = myEW.A_l(SM.ELECTRON);
 
-        if(myEWTYPE==EW::EWBURGESS)
+        if (myEWTYPE==EW::EWBURGESS)
             return myEW.getMyEW_BURGESS().Alepton(A_l);
 
         /* NP contribution to the Zff vertex */
-        if ( !SM.IsFlagNotLinearizedNP() ) {
-            double delGVf = SM.deltaGVl(SM.ELECTRON);
-            double delGAf = SM.deltaGAl(SM.ELECTRON);
-            if (delGVf!=0.0 || delGAf!=0.0) {
-                double gVf = SM.StandardModel::gVl(SM.ELECTRON).real();
-                double gAf = SM.StandardModel::gAl(SM.ELECTRON).real();
-                double Gf = gVf*gVf + gAf*gAf;
-                double delGVfOverGAf = (gAf*delGVf - gVf*delGAf)/gAf/gAf;
-
-                A_l -= 2.0*(gVf*gVf - gAf*gAf)*gAf*gAf/Gf/Gf*delGVfOverGAf;
-            }
-        } else
-            if (SM.obliqueS()!=0.0 || SM.obliqueT()!=0.0 || SM.obliqueU()!=0.0)
-                throw std::runtime_error("Alepton::computeThValue(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+        if (myEW.checkLEP1NP())
+            A_l = myEW.getMyEW_NPZff().Alepton(A_l);
 
         /* Debug: extract pure NP contribution */
         //A_l -= myEW.A_l(SM.ELECTRON);

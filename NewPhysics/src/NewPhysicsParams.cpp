@@ -6,6 +6,8 @@
  */
 
 #include <stdexcept>
+#include "NPbase.h"
+#include "NPZbbbar.h"
 #include "NPEffective.h"
 #include "NewPhysicsParams.h"
 
@@ -20,43 +22,66 @@ double NewPhysicsParams::computeThValue()
     else if (name.compare("epsilonb") == 0)
         return SM.epsilonb();
     else if (name.compare("deltaGVb") == 0)
-        return SM.deltaGVq(SM.BOTTOM);
-    else if (name.compare("deltaGAb") == 0)
-        return SM.deltaGAq(SM.BOTTOM);
-    else if (name.compare("deltaGRb") == 0)
-        return ( (SM.deltaGVq(SM.BOTTOM) - SM.deltaGAq(SM.BOTTOM))/2.0 );
-    else if (name.compare("deltaGLb") == 0)
-        return ( (SM.deltaGVq(SM.BOTTOM) + SM.deltaGAq(SM.BOTTOM))/2.0 );
-    else if (name.compare("deltaRhoZb") == 0) {
-        if (SM.IsFlagApproximateGqOverGb()
-                && !SM.IsFlagRhoZbFromGuOverGb()
-                && !SM.IsFlagRhoZbFromGdOverGb()
-                && !SM.IsFlagTestSubleadingTwoLoopEW())
-            // SM prediction for rho_Z^b is needed!
-            throw std::runtime_error("NewPhysicsParams::computeThValue(): deltaRhoZb is not defined");
+        if (SM.ModelName().compare("NPZbbbar") == 0)
+            return (static_cast<const NPZbbbar*> (&SM))->deltaGVq(SM.BOTTOM);
         else
-        if (SM.IsFlagNotLinearizedNP())
-            return ( SM.rhoZ_q(SM.BOTTOM).real()
-                     - SM.StandardModel::rhoZ_q(SM.BOTTOM).real() );
-        else {
-            complex gAb = SM.StandardModel::gAq(SM.BOTTOM) + SM.deltaGAq(SM.BOTTOM);
-            double I3b = SM.getQuarks(SM.BOTTOM).getIsospin();
-            double rhoZb_full = (gAb*gAb/I3b/I3b).real();
-            return ( rhoZb_full
-                     - SM.StandardModel::rhoZ_q(SM.BOTTOM).real() );
-        }
+            return 0.0;
+    else if (name.compare("deltaGAb") == 0)
+        if (SM.ModelName().compare("NPZbbbar") == 0)
+            return (static_cast<const NPZbbbar*> (&SM))->deltaGAq(SM.BOTTOM);
+        else
+            return 0.0;
+    else if (name.compare("deltaGRb") == 0)
+        if (SM.ModelName().compare("NPZbbbar") == 0)
+            return ( ((static_cast<const NPZbbbar*> (&SM))->deltaGVq(SM.BOTTOM)
+                     - (static_cast<const NPZbbbar*> (&SM))->deltaGAq(SM.BOTTOM))/2.0 );
+        else
+            return 0.0;
+    else if (name.compare("deltaGLb") == 0)
+        if (SM.ModelName().compare("NPZbbbar") == 0)
+            return ( ((static_cast<const NPZbbbar*> (&SM))->deltaGVq(SM.BOTTOM)
+                     + (static_cast<const NPZbbbar*> (&SM))->deltaGAq(SM.BOTTOM))/2.0 );
+        else
+            return 0.0;
+    else if (name.compare("deltaRhoZb") == 0) {
+        if (SM.ModelName().compare("NPZbbbar") == 0) {
+            if (SM.IsFlagApproximateGqOverGb()
+                    && !SM.IsFlagRhoZbFromGuOverGb()
+                    && !SM.IsFlagRhoZbFromGdOverGb()
+                    && !SM.IsFlagTestSubleadingTwoLoopEW())
+                // SM prediction for rho_Z^b is needed!
+                throw std::runtime_error("NewPhysicsParams::computeThValue(): deltaRhoZb is not defined");
+            else
+                if ((static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
+                    return ( SM.rhoZ_q(SM.BOTTOM).real()
+                            - SM.StandardModel::rhoZ_q(SM.BOTTOM).real() );
+                else {
+                    complex gAb = SM.StandardModel::gAq(SM.BOTTOM) 
+                                  + (static_cast<const NPZbbbar*> (&SM))->deltaGAq(SM.BOTTOM);
+                    double I3b = SM.getQuarks(SM.BOTTOM).getIsospin();
+                    double rhoZb_full = (gAb*gAb/I3b/I3b).real();
+                    return ( rhoZb_full
+                            - SM.StandardModel::rhoZ_q(SM.BOTTOM).real() );
+                }
+        } else
+            return 0.0;
     } else if (name.compare("deltaKappaZb") == 0) {
-        if (SM.IsFlagNotLinearizedNP())
-            return ( SM.kappaZ_q(SM.BOTTOM).real()
-                     - SM.StandardModel::kappaZ_q(SM.BOTTOM).real() );
-        else {
-            complex gVb = SM.StandardModel::gVq(SM.BOTTOM) + SM.deltaGVq(SM.BOTTOM);
-            complex gAb = SM.StandardModel::gAq(SM.BOTTOM) + SM.deltaGAq(SM.BOTTOM);
-            double Qb = SM.getQuarks(SM.BOTTOM).getCharge();
-            double kappaZb_full = (1.0 - (gVb/gAb).real())/(4.0*fabs(Qb)*SM.sW2());
-            return ( kappaZb_full
-                     - SM.StandardModel::kappaZ_q(SM.BOTTOM).real() );
-        }
+        if (SM.ModelName().compare("NPZbbbar") == 0) {
+            if ((static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
+                return ( SM.kappaZ_q(SM.BOTTOM).real()
+                        - SM.StandardModel::kappaZ_q(SM.BOTTOM).real() );
+            else {
+                complex gVb = SM.StandardModel::gVq(SM.BOTTOM) 
+                              + (static_cast<const NPZbbbar*> (&SM))->deltaGVq(SM.BOTTOM);
+                complex gAb = SM.StandardModel::gAq(SM.BOTTOM) 
+                              + (static_cast<const NPZbbbar*> (&SM))->deltaGAq(SM.BOTTOM);
+                double Qb = SM.getQuarks(SM.BOTTOM).getCharge();
+                double kappaZb_full = (1.0 - (gVb/gAb).real())/(4.0*fabs(Qb)*SM.sW2());
+                return ( kappaZb_full
+                        - SM.StandardModel::kappaZ_q(SM.BOTTOM).real() );
+            }
+        } else
+            return 0.0;
     } else if (name.compare("cHLp_NP") == 0) {
         double cHL1p = (static_cast<const NPEffective*> (&SM))->getCHL1p();
         double cHL2p = (static_cast<const NPEffective*> (&SM))->getCHL2p();
@@ -111,19 +136,19 @@ double NewPhysicsParams::computeThValue()
         return ( (static_cast<const NPEffective*> (&SM))->getCHQ3p()
                   + (static_cast<const NPEffective*> (&SM))->getCHQ3() );
     else if (name.compare("c_Ae_NP") == 0) {
-        double delGVe = SM.deltaGVl(SM.ELECTRON);
-        double delGAe = SM.deltaGAl(SM.ELECTRON);
+        double delGVe = (static_cast<const NPEffective*> (&SM))->deltaGVl(SM.ELECTRON);
+        double delGAe = (static_cast<const NPEffective*> (&SM))->deltaGAl(SM.ELECTRON);
         double gVe = SM.StandardModel::gVl(SM.ELECTRON).real();
         double gAe = SM.StandardModel::gAl(SM.ELECTRON).real();
         double Lam = (static_cast<const NPEffective*> (&SM))->getLambdaNP();
         return ( (gAe*delGVe - gVe*delGAe)/2.0*Lam*Lam/SM.v()/SM.v() );
     } else if (name.compare("c_GammaZ_uds_NP") == 0) {
-        double delGVu = SM.deltaGVq(SM.UP);
-        double delGVd = SM.deltaGVq(SM.DOWN);
-        double delGVs = SM.deltaGVq(SM.STRANGE);
-        double delGAu = SM.deltaGAq(SM.UP);
-        double delGAd = SM.deltaGAq(SM.DOWN);
-        double delGAs = SM.deltaGAq(SM.STRANGE);
+        double delGVu = (static_cast<const NPEffective*> (&SM))->deltaGVq(SM.UP);
+        double delGVd = (static_cast<const NPEffective*> (&SM))->deltaGVq(SM.DOWN);
+        double delGVs = (static_cast<const NPEffective*> (&SM))->deltaGVq(SM.STRANGE);
+        double delGAu = (static_cast<const NPEffective*> (&SM))->deltaGAq(SM.UP);
+        double delGAd = (static_cast<const NPEffective*> (&SM))->deltaGAq(SM.DOWN);
+        double delGAs = (static_cast<const NPEffective*> (&SM))->deltaGAq(SM.STRANGE);
         double gVu = SM.StandardModel::gVq(SM.UP).real();
         double gVd = SM.StandardModel::gVq(SM.DOWN).real();
         double gVs = SM.StandardModel::gVq(SM.STRANGE).real();

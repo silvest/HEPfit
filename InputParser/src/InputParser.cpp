@@ -321,9 +321,9 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             bool value = boost::lexical_cast<bool>((*beg).c_str());
             ++beg;
 
-            if (!myModel->SetFlag(name, value)) {
+            if (!myModel->setFlag(name, value)) {
                 std::stringstream ss;
-                ss << myModel->ModelName() << " SetFlag error for Flag " << name;
+                ss << myModel->ModelName() << " setFlag error for " << name;
                 throw std::runtime_error(ss.str());
             } else 
                 std::cout << "set flag " << name << "=" << value << std::endl;

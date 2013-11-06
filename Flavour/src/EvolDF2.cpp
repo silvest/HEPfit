@@ -348,8 +348,8 @@ double EvolDF2::etact(double mu) const{
     double Kpm = pow(K, -6./25.);
     double Kmm = pow(K, -24./25.);
     double K7 = pow(K, 1./5.);                                                                 
-    double xt = model.GetMyMatching()->x_t(model.getMut());
-    double xc = model.GetMyMatching()->x_c(model.getMuc());
+    double xt = model.getMyMatching()->x_t(model.getMut());
+    double xc = model.getMyMatching()->x_c(model.getMuc());
     double J3 = 6.*(3.-1.)/3./2./model.Beta0(3)/model.Beta0(3)*model.Beta1(3) - 
                 ((3.-1.)/(2.*3.)) * ( -21. + 57./3. - 19. + 4.)/2./model.Beta0(3) ;
     
@@ -369,7 +369,7 @@ double EvolDF2::etact(double mu) const{
 
 double EvolDF2::etatt(double m) const {
     double N = model.getNc();
-    double x = model.GetMyMatching()->x_t(model.getMut());
+    double x = model.getMyMatching()->x_t(model.getMut());
     double x2 = x * x;
     double x3 = x2 * x;
     double x4 = x3 * x;
@@ -405,7 +405,7 @@ double EvolDF2::etatt(double m) const {
                   pow(model.Als(model.getMut())/model.Als(model.getMub()), 6./23.) *
                   (1. + model.Als(model.getMuc())/4./M_PI * (J[1]-J[0]) +
                   model.Als(model.getMub())/4./M_PI * (J[2]-J[1])
-                  + model.Als(model.getMut())/4./M_PI * (model.GetMyMatching()->S1(x)/S0tt
+                  + model.Als(model.getMut())/4./M_PI * (model.getMyMatching()->S1(x)/S0tt
                   + Bt - J[2] + gamma0 * log(model.getMut() / model.getMuw())
                   + 6 * (N * N - 1) / N * log(model.getMut() / model.getMuw()) * b));
    /* double J3 = 6. * (N - 1.) / N * (model.Beta1(3) / 2. / model.Beta0(3) / model.Beta0(3)) -
@@ -416,7 +416,7 @@ double EvolDF2::etatt(double m) const {
 
 /*double EvolDF2::S1tt() const {
     double N = model.getNc();
-    double x = model.GetMyMatching()->x_t(model.getMut());
+    double x = model.getMyMatching()->x_t(model.getMut());
     double x2 = x * x;
     double x3 = x2 * x;
     double x4 = x3 * x;
@@ -452,7 +452,7 @@ double EvolDF2::etatt(double m) const {
             pow(model.Als(model.getMut())/model.Als(model.getMub()), 6./23.) *
             (1. + model.Als(model.getMuc())/4./M_PI * (J[1]-J[0]) +
             model.Als(model.getMub())/4./M_PI * (J[2]-J[1])
-            + model.Als(model.getMut())/4./M_PI * (model.GetMyMatching()->S1(x)/S0tt
+            + model.Als(model.getMut())/4./M_PI * (model.getMyMatching()->S1(x)/S0tt
             + Bt - J[2] + gamma0 * log(model.getMut() / model.getMuw())
             + 6 * (N * N - 1) / N * log(model.getMut() / model.getMuw()) * b)));
 }*/

@@ -20,7 +20,7 @@ bool THDM::Update(const std::map<std::string, double>& DPars) {
     requireYe = false;
     requireYn = false;
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameters(it->first, it->second);
+        setParameter(it->first, it->second);
     QCD::Update(DPars);
     if (requireCKM) {
         myCKM.setWolfenstein(lambda, A, rhob, etab);
@@ -50,7 +50,7 @@ bool THDM::Update(const std::map<std::string, double>& DPars) {
     return (true);
 }
 
-void THDM::setParameters(const std::string name, const double& value){    
+void THDM::setParameter(const std::string name, const double& value){    
     if(name.compare("mHp") == 0)
         mHp = value;
     else if(name.compare("tanb") == 0) {
@@ -75,7 +75,7 @@ void THDM::setParameters(const std::string name, const double& value){
     else if(name.compare("mH") == 0)
         mH = value;
     else
-        StandardModel::setParameters(name,value);
+        StandardModel::setParameter(name,value);
 }
 
 bool THDM::Init(const std::map<std::string, double>& DPars) {

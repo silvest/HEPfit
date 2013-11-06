@@ -16,8 +16,6 @@
 EWSMcache::EWSMcache(const StandardModel& SM_i) 
 : SM(SM_i), PV(true)
 {
-    bDebug = SM_i.isBDebug();
-    
     bUseCacheEWSMcache = true;// use caches in the current class
     //bUseCacheEWSMcache = false;// do not use caches in the current class (for test)
     
@@ -55,17 +53,13 @@ double EWSMcache::mq(const StandardModel::quark q, const double mu,
         case StandardModel::UP:
         case StandardModel::DOWN:
         case StandardModel::STRANGE:
-            if (bDebug)
-                return SM.getQuarks(q).getMass(); // for debug
-            else
-                return SM.Mrun(mu, SM.getQuarks(q).getMass_scale(), 
-                               SM.getQuarks(q).getMass(), order);
+            //return SM.getQuarks(q).getMass(); // for debug
+            return SM.Mrun(mu, SM.getQuarks(q).getMass_scale(),
+                           SM.getQuarks(q).getMass(), order);
         case StandardModel::CHARM:
         case StandardModel::BOTTOM:
-            if (bDebug)
-                return SM.getQuarks(q).getMass(); // for debug
-            else
-                return SM.Mrun(mu, SM.getQuarks(q).getMass(), order);
+            //return SM.getQuarks(q).getMass(); // for debug
+            return SM.Mrun(mu, SM.getQuarks(q).getMass(), order);
         case StandardModel::TOP:
             return SM.getMtpole(); // the pole mass
         default:

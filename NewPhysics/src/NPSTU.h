@@ -9,7 +9,7 @@
 #define	NPSTU_H
 
 #include <EW_BURGESS.h>
-#include "StandardModel.h"
+#include "NPbase.h"
 
 /**
  * @class NPSTU
@@ -19,7 +19,7 @@
  * @copyright GNU General Public License
  * @details  
  */
-class NPSTU : public StandardModel {
+class NPSTU : public NPbase {
 public:
     static const int NSTUvars = 3;
     static const std::string STUvars[NSTUvars];
@@ -41,10 +41,11 @@ public:
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     virtual bool InitializeModel();  
-    virtual void SetEWSMflags(EWSM& myEWSM);    
+    virtual void setEWSMflags(EWSM& myEWSM);    
 
-    virtual bool SetFlag(const std::string, const bool&); 
+    virtual bool setFlag(const std::string, const bool&); 
     virtual bool CheckFlags() const;
+    
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -118,7 +119,7 @@ public:
     
 protected:    
     double myObliqueS, myObliqueT, myObliqueU;
-    virtual void setParameters(const std::string name, const double& value);
+    virtual void setParameter(const std::string name, const double& value);
 
     
     ////////////////////////////////////////////////////////////////////////     

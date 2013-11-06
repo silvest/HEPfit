@@ -87,7 +87,7 @@ std::string QCD::orderToString(const orders order) const
     }
 }    
 
-bool QCD::SetFlag(const std::string name , const bool& value)
+bool QCD::setFlag(const std::string name , const bool& value)
 {  
     std::cout << "WARNING: unknown flag " << name
               << " in the model configuration file" << std::endl;
@@ -131,7 +131,7 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
     UpdateError = false; 
    
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameters(it->first, it->second);
+        setParameter(it->first, it->second);
 
     if (UpdateError) return (false);
     
@@ -140,7 +140,7 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
     return (true);
 }
 
-void QCD::setParameters(const std::string name, const double& value) 
+void QCD::setParameter(const std::string name, const double& value) 
 {
     if(name.compare("AlsMz")==0) {
         AlsMz = value;

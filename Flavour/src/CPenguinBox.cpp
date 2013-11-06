@@ -8,7 +8,7 @@
 #include "CPenguinBox.h"
 
 CPenguinBox::CPenguinBox(const StandardModel& model_i) 
-: model(model_i), modelmatching(*(model_i.GetMyMatching())),
+: model(model_i), modelmatching(*(model_i.getMyMatching())),
         up(3,0.), j5p1(3,0.), j4p1(3,0.), j5p2(3,0.), j4p2(1,0.),
         ub(2,0.), j5b1(2,0.), j4b1(2,0.), j5b2(2,0.), j4b2(2,0.),
         up4(3,0.), up5(3,0.), ub4(2,0.), ub5(2,0.),
