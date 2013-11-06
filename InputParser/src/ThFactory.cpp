@@ -36,14 +36,14 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["gamma"] = new CKMGamma(myFlavour);
     thobs["SJPsiK"] = new SJPsiK(myFlavour);
     thobs["SJPsiPhi"] = new SJPsiPhi(myFlavour);
-    thobs["BR_Bdmumu"] = new BR_Bdmumu(myFlavour, 1);
-    thobs["BRbar_Bdmumu"] = new BR_Bdmumu(myFlavour, 2);
-    thobs["Amumu_Bd"] = new BR_Bdmumu(myFlavour, 3);
-    thobs["Smumu_Bd"] = new BR_Bdmumu(myFlavour, 4);
-    thobs["BR_Bsmumu"] = new BR_Bsmumu(myFlavour, 1);
-    thobs["BRbar_Bsmumu"] = new BR_Bsmumu(myFlavour, 2);
-    thobs["Amumu_Bs"] = new BR_Bsmumu(myFlavour, 3);
-    thobs["Smumu_Bs"] = new BR_Bsmumu(myFlavour, 4);
+    thobs["BR_Bdmumu"] = new Bdmumu(myFlavour, 1);
+    thobs["BRbar_Bdmumu"] = new Bdmumu(myFlavour, 2);
+    thobs["Amumu_Bd"] = new Bdmumu(myFlavour, 3);
+    thobs["Smumu_Bd"] = new Bdmumu(myFlavour, 4);
+    thobs["BR_Bsmumu"] = new Bsmumu(myFlavour, 1);
+    thobs["BRbar_Bsmumu"] = new Bsmumu(myFlavour, 2);
+    thobs["Amumu_Bs"] = new Bsmumu(myFlavour, 3);
+    thobs["Smumu_Bs"] = new Bsmumu(myFlavour, 4);
 
     //-----   SUSY spectra and observables  -----
     if(myModel.ModelName().compare("SUSY") == 0
