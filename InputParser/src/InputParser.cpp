@@ -125,6 +125,12 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;
+        } else if (beg->compare("NPEpsilons_pureNP") == 0) {
+            modname = *beg;
+            myModel = new NPEpsilons_pureNP();
+            myModel->InitializeModel();
+            thf = new ThFactory(*myModel);
+            continue;
         } else if (beg->compare("NPHiggsST") == 0) {
             modname = *beg;
             myModel = new NPHiggsST();
