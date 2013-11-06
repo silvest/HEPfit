@@ -8,6 +8,7 @@
       <itemPath>src/NPEffective1.h</itemPath>
       <itemPath>src/NPEffective2.h</itemPath>
       <itemPath>src/NPEpsilons.h</itemPath>
+      <itemPath>src/NPEpsilons_pureNP.h</itemPath>
       <itemPath>src/NPHiggsST.h</itemPath>
       <itemPath>src/NPSTU.h</itemPath>
       <itemPath>src/NPSTUVWXY.h</itemPath>
@@ -26,6 +27,7 @@
       <itemPath>src/NPEffective1.cpp</itemPath>
       <itemPath>src/NPEffective2.cpp</itemPath>
       <itemPath>src/NPEpsilons.cpp</itemPath>
+      <itemPath>src/NPEpsilons_pureNP.cpp</itemPath>
       <itemPath>src/NPHiggsST.cpp</itemPath>
       <itemPath>src/NPSTU.cpp</itemPath>
       <itemPath>src/NPSTUVWXY.cpp</itemPath>
@@ -81,6 +83,10 @@
       <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEpsilons.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPEpsilons_pureNP.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPEpsilons_pureNP.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPHiggsST.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -152,6 +158,10 @@
       </item>
       <item path="src/NPEpsilons.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPEpsilons_pureNP.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPEpsilons_pureNP.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPHiggsST.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPHiggsST.h" ex="false" tool="3" flavor2="0">
@@ -221,6 +231,10 @@
       <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEpsilons.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/NPEpsilons_pureNP.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPEpsilons_pureNP.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPHiggsST.cpp" ex="false" tool="1" flavor2="0">
       </item>

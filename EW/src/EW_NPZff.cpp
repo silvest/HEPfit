@@ -10,6 +10,9 @@
 #include "EW_NPZff.h"
 #include "Rbottom.h"
 
+/* Test for pure NP contribution */
+//#define _TEST_NP_NPZFF
+
 EW_NPZff::EW_NPZff(const StandardModel& SM_i)
 : SM(SM_i)
 {
@@ -52,6 +55,9 @@ double EW_NPZff::GammaZ(const double GammaZ_SM) const
         Gamma_Z += SM.alphaMz()*SM.getMz()/12.0/sW2_SM/cW2_SM
                    * delGammaZ;
     }
+    #ifdef _TEST_NP_NPZFF
+    return (Gamma_Z - GammaZ_SM); /* Test for NP contribution */
+    #endif
     return Gamma_Z;
 }
 
@@ -98,6 +104,9 @@ double EW_NPZff::sigmaHadron(const double sigmaHadron_SM) const
                      *( deltaGl[(int)SM.ELECTRON]/Gl[(int)SM.ELECTRON]
                         + delGq_sum/Gq_sum - 2.0*delGf_sum/Gf_sum );
     }
+    #ifdef _TEST_NP_NPZFF
+    return (sigma_had - sigmaHadron_SM); /* Test for NP contribution */
+    #endif
     return sigma_had;
 }
 
@@ -113,6 +122,9 @@ double EW_NPZff::sin2thetaEff(const double sin2thetaEff_SM) const
 
         sin2_theta_eff -= delGVfOverGAf/4.0;
     }
+    #ifdef _TEST_NP_NPZFF
+    return (sin2_theta_eff - sin2thetaEff_SM); /* Test for NP contribution */
+    #endif
     return sin2_theta_eff;
 }
 
@@ -129,6 +141,9 @@ double EW_NPZff::PtauPol(const double PtauPol_SM) const
 
         P_tau_pol -= 2.0*(gVf*gVf - gAf*gAf)*gAf*gAf/Gf/Gf*delGVfOverGAf;
     }
+    #ifdef _TEST_NP_NPZFF
+    return (P_tau_pol - PtauPol_SM); /* Test for NP contribution */
+    #endif
     return P_tau_pol;
 }
 
@@ -145,6 +160,9 @@ double EW_NPZff::Alepton(const double Alepton_SM) const
 
         A_l -= 2.0*(gVf*gVf - gAf*gAf)*gAf*gAf/Gf/Gf*delGVfOverGAf;
     }
+    #ifdef _TEST_NP_NPZFF
+    return (A_l - Alepton_SM); /* Test for NP contribution */
+    #endif
     return A_l;
 }
 
@@ -161,6 +179,9 @@ double EW_NPZff::Acharm(const double Acharm_SM) const
 
         A_c -= 2.0*(gVf*gVf - gAf*gAf)*gAf*gAf/Gf/Gf*delGVfOverGAf;
     }
+    #ifdef _TEST_NP_NPZFF
+    return (A_c - Acharm_SM); /* Test for NP contribution */
+    #endif
     return A_c;
 }
 
@@ -177,6 +198,9 @@ double EW_NPZff::Abottom(const double Abottom_SM) const
 
         A_b -= 2.0*(gVf*gVf - gAf*gAf)*gAf*gAf/Gf/Gf*delGVfOverGAf;
     }
+    #ifdef _TEST_NP_NPZFF
+    return (A_b - Abottom_SM); /* Test for NP contribution */
+    #endif
     return A_b;
 }
 
@@ -193,6 +217,9 @@ double EW_NPZff::AFBlepton(const double AFBlepton_SM) const
 
         AFB_l -= 6.0*gVe*gAe*(gVe*gVe - gAe*gAe)*gAe*gAe/Ge/Ge/Ge*delGVeOverGAe;
     }
+    #ifdef _TEST_NP_NPZFF
+    return (AFB_l - AFBlepton_SM); /* Test for NP contribution */
+    #endif
     return AFB_l;
 }
 
@@ -217,6 +244,9 @@ double EW_NPZff::AFBcharm(const double AFBcharm_SM) const
         AFB_c -= 3.0*gVf*gAf*(gVe*gVe - gAe*gAe)*gAe*gAe/Gf/Ge/Ge*delGVeOverGAe
                  + 3.0*gVe*gAe*(gVf*gVf - gAf*gAf)*gAf*gAf/Ge/Gf/Gf*delGVfOverGAf;
     } 
+    #ifdef _TEST_NP_NPZFF
+    return (AFB_c - AFBcharm_SM); /* Test for NP contribution */
+    #endif
     return AFB_c;
 }
 
@@ -241,6 +271,9 @@ double EW_NPZff::AFBbottom(const double AFBbottom_SM) const
         AFB_b -= 3.0*gVf*gAf*(gVe*gVe - gAe*gAe)*gAe*gAe/Gf/Ge/Ge*delGVeOverGAe
                  + 3.0*gVe*gAe*(gVf*gVf - gAf*gAf)*gAf*gAf/Ge/Gf/Gf*delGVfOverGAf;
     }
+    #ifdef _TEST_NP_NPZFF
+    return (AFB_b - AFBbottom_SM); /* Test for NP contribution */
+    #endif
     return AFB_b;
 }
 
@@ -281,6 +314,9 @@ double EW_NPZff::Rlepton(const double Rlepton_SM) const
 
         R0_l += delGq_sum/Ge - Gq_sum*deltaGe/Ge/Ge;
     }
+    #ifdef _TEST_NP_NPZFF
+    return (R0_l - Rlepton_SM); /* Test for NP contribution */
+    #endif
     return R0_l;
 }
 
@@ -312,6 +348,9 @@ double EW_NPZff::Rcharm(const double Rcharm_SM) const
         R0_c += deltaGq[(int)SM.CHARM]/Gq_sum
                 - Gq[(int)SM.CHARM]*delGq_sum/Gq_sum/Gq_sum;
     }
+    #ifdef _TEST_NP_NPZFF
+    return (R0_c - Rcharm_SM); /* Test for NP contribution */
+    #endif
     return R0_c;
 }
 
@@ -343,5 +382,8 @@ double EW_NPZff::Rbottom(const double Rbottom_SM) const
         R0_b += deltaGq[(int)SM.BOTTOM]/Gq_sum
                 - Gq[(int)SM.BOTTOM]*delGq_sum/Gq_sum/Gq_sum;
     }
+    #ifdef _TEST_NP_NPZFF
+    return (R0_b - Rbottom_SM); /* Test for NP contribution */
+    #endif
     return R0_b;
 }
