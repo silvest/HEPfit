@@ -20,8 +20,8 @@
 #include <gamma.h>
 #include <SJPsiK.h>
 #include <SJPsiPhi.h>
-#include <BR_Bdmumu.h>
-#include <BR_Bsmumu.h>
+#include <Bdmumu.h>
+#include <Bsmumu.h>
 #include <M12D.h>
 #include <ArgD.h>
 #include <EpsilonK.h>
