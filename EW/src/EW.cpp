@@ -52,6 +52,7 @@ bool EW::checkLEP1NP() const
     } else if (Model.compare("NPHiggsST") == 0
             || Model.compare("NPSTU") == 0
             || Model.compare("NPSTUVWXY") == 0
+            || Model.compare("NPEpsilons_pureNP") == 0
             || Model.compare("NPEffective1") == 0
             || Model.compare("NPEffective2") == 0)
         return true;

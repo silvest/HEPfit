@@ -10,7 +10,7 @@
 #include "NPEpsilons_pureNP.h"
 
 const std::string NPEpsilons_pureNP::EPSILONpureNPvars[NEPSILONpureNPvars]
-= {"deltaEpsilon_1", "deltaEpsilon_2", "deltaEpsilon_3", "deltaEpsilon_b"};
+= {"delEps_1", "delEps_2", "delEps_3", "delEps_b"};
 
 //const std::string NPEpsilons_pureNP::EPSILONpureNPflags[NEPSILONpureNPflags]
 //= {};
@@ -53,13 +53,13 @@ bool NPEpsilons_pureNP::CheckParameters(const std::map<std::string, double>& DPa
 
 void NPEpsilons_pureNP::setParameter(const std::string name, const double& value)
 {
-    if (name.compare("deltaEpsilon_1") == 0)
+    if (name.compare("delEps_1") == 0)
         deltaEps_1 = value;
-    else if (name.compare("deltaEpsilon_2") == 0)
+    else if (name.compare("delEps_2") == 0)
         deltaEps_2 = value;
-    else if (name.compare("deltaEpsilon_3") == 0)
+    else if (name.compare("delEps_3") == 0)
         deltaEps_3 = value;
-    else if (name.compare("deltaEpsilon_b") == 0)
+    else if (name.compare("delEps_b") == 0)
         deltaEps_b = value;
     else
         NPbase::setParameter(name, value);
