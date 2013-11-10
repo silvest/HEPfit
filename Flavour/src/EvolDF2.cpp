@@ -16,7 +16,7 @@ EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardM
     vector<double> e(5, 0.);
     const char *basis = "Gabbiani";
     
-    if (basis == "Gabbiani") {
+    if (std::strcmp(basis, "Gabbiani") == 0) {
         // Magic numbers in the basis of Gabbiani et al. (There is no magic in these numbers. They are just the eigensystem of the LO ADM.)
         
         e(0) = 6./Nc;
@@ -63,7 +63,7 @@ EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardM
                     }
         }
     }
-    else if (basis == "Buras") {
+    else if (std::strcmp(basis, "Buras") == 0) {
         e(0) = 6. / Nc;
         e(1) = 6. * (-1. + Nc) / Nc;
         e(2) = -6. * (-1. + Nc * Nc) / Nc;

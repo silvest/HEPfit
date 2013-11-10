@@ -228,7 +228,7 @@ protected:
     /**
      * @brief a method to set the value of all the SUSY parameters given as input in Model.conf
      */
-    virtual void setParameter(std::string, double);
+    virtual void setParameter(const std::string, const double&);
 
     matrix<complex> Du_LL, Du_LR, Du_RL, Du_RR;
     matrix<complex> Dd_LL, Dd_LR, Dd_RL, Dd_RR;

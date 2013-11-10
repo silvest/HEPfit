@@ -95,7 +95,9 @@ void MonteCarlo::Run(const int rank)
         MCEngine.SetName(ModelName.c_str());
         MCEngine.Initialize(myInputParser.getMyModel());
 
+#ifdef _MPI
         double *recvbuff = new double[buffsize];
+#endif
 
         if (rank != 0) {
 #ifdef _MPI

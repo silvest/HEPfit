@@ -31,8 +31,8 @@ public:
     virtual ~MonteCarlo();
     void Run(const int rank);
 private:
-    MonteCarloEngine MCEngine;
     InputParser myInputParser;
+    MonteCarloEngine MCEngine;
     std::vector<ModelParameter> ModPars;
     std::vector<Observable> Obs;
     std::vector<Observable2D> Obs2D;   

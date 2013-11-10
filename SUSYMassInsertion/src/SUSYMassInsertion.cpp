@@ -76,7 +76,7 @@ bool SUSYMassInsertion::Update(const std::map<std::string, double>& DPars) {
     return (true);
 }
 
-void SUSYMassInsertion::setParameter(std::string name, double value) {
+void SUSYMassInsertion::setParameter(const std::string name, const double& value) {
     if (name.compare("Msq") == 0)
         Msq = value;
     else if (name.compare("m3") == 0)
