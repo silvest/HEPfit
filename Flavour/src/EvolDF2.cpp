@@ -5,6 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include <cstring>
 #include "EvolDF2.h"
 
 EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardModel& model) :
