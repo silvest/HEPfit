@@ -5,6 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include <cstring>
 #include "EvolDF2.h"
 
 EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardModel& model) :
@@ -16,7 +17,7 @@ EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardM
     vector<double> e(5, 0.);
     const char *basis = "Gabbiani";
     
-    if (basis == "Gabbiani") {
+    if (std::strcmp(basis, "Gabbiani") == 0) {
         // Magic numbers in the basis of Gabbiani et al. (There is no magic in these numbers. They are just the eigensystem of the LO ADM.)
         
         e(0) = 6./Nc;
@@ -63,7 +64,7 @@ EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardM
                     }
         }
     }
-    else if (basis == "Buras") {
+    else if (std::strcmp(basis, "Buras") == 0) {
         e(0) = 6. / Nc;
         e(1) = 6. * (-1. + Nc) / Nc;
         e(2) = -6. * (-1. + Nc * Nc) / Nc;
@@ -370,14 +371,14 @@ double EvolDF2::etact(double mu) const{
             model.getQuarks(QCD::CHARM).getMass()) - 0.25) * (3. * Kpp - 2. * Kpm + Kmm) +
             262497./35000. * Kpp - 123./625. * Kpm + 1108657./1305000. * Kmm - 277133./50750. * K7 +
             K * (-21093./8750. * Kpp + 13331./13750. * Kpm - 10181./18125. * Kmm - 1731104./2512125. * K7) +
-            (log(xt) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) / (4. * (1.-xt) * (1.-xt)) + 0.5) * K * K7 ) * xc / (model.GetMyMatching()->S0(xc,xt)) * pow(AlsC, 2. / 9.);
+            (log(xt) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) / (4. * (1.-xt) * (1.-xt)) + 0.5) * K * K7 ) * xc / (model.getMyMatching()->S0(xc,xt)) * pow(AlsC, 2. / 9.);
     
     return (eta * (1. + model.Als(mu, FULLNLO)/4./M_PI * J3) * pow(model.Als(mu, FULLNLO),-2./9.));
 }
 
 double EvolDF2::etatt(double m) const {
     double N = model.getNc();
-    double x = model.GetMyMatching()->x_t(model.getMut());
+    double x = model.getMyMatching()->x_t(model.getMut());
     double x2 = x * x;
     double x3 = x2 * x;
     double x4 = x3 * x;
@@ -413,7 +414,7 @@ double EvolDF2::etatt(double m) const {
                   pow(model.Als(model.getMut())/model.Als(model.getMub()), 6./23.) *
                   (1. + model.Als(model.getMuc())/4./M_PI * (J[1]-J[0]) +
                   model.Als(model.getMub())/4./M_PI * (J[2]-J[1])
-                  + model.Als(model.getMut())/4./M_PI * (model.GetMyMatching()->S1(x)/S0tt
+                  + model.Als(model.getMut())/4./M_PI * (model.getMyMatching()->S1(x)/S0tt
                   + Bt - J[2] + gamma0 * log(model.getMut() / model.getMuw())
                   + 6 * (N * N - 1) / N * log(model.getMut() / model.getMuw()) * b));
    /* double J3 = 6. * (N - 1.) / N * (model.Beta1(3) / 2. / model.Beta0(3) / model.Beta0(3)) -
@@ -424,7 +425,7 @@ double EvolDF2::etatt(double m) const {
 
 /*double EvolDF2::S1tt() const {
     double N = model.getNc();
-    double x = model.GetMyMatching()->x_t(model.getMut());
+    double x = model.getMyMatching()->x_t(model.getMut());
     double x2 = x * x;
     double x3 = x2 * x;
     double x4 = x3 * x;
@@ -460,7 +461,7 @@ double EvolDF2::etatt(double m) const {
             pow(model.Als(model.getMut())/model.Als(model.getMub()), 6./23.) *
             (1. + model.Als(model.getMuc())/4./M_PI * (J[1]-J[0]) +
             model.Als(model.getMub())/4./M_PI * (J[2]-J[1])
-            + model.Als(model.getMut())/4./M_PI * (model.GetMyMatching()->S1(x)/S0tt
+            + model.Als(model.getMut())/4./M_PI * (model.getMyMatching()->S1(x)/S0tt
             + Bt - J[2] + gamma0 * log(model.getMut() / model.getMuw())
             + 6 * (N * N - 1) / N * log(model.getMut() / model.getMuw()) * b)));
 }*/

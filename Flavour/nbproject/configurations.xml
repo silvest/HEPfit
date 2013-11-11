@@ -105,6 +105,17 @@
                    kind="IMPORTANT_FILES_FOLDER">
       <itemPath>Makefile</itemPath>
     </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -160,17 +171,9 @@
       </item>
       <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/BR_Bdmumu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Bdmumu.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/BR_Bdnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BR_Bdnunu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BR_Bsmumu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Bsmumu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/BR_Bsnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -187,6 +190,14 @@
       <item path="src/BR_Kppnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BR_Kppnunu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Bdmumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Bdmumu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Bsmumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Bsmumu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/CPenguinBox.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -352,17 +363,9 @@
       </item>
       <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/BR_Bdmumu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Bdmumu.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/BR_Bdnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BR_Bdnunu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BR_Bsmumu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Bsmumu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/BR_Bsnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -379,6 +382,14 @@
       <item path="src/BR_Kppnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BR_Kppnunu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Bdmumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Bdmumu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Bsmumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Bsmumu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/CPenguinBox.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -546,17 +557,9 @@
       </item>
       <item path="src/ArgD.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/BR_Bdmumu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Bdmumu.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/BR_Bdnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BR_Bdnunu.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BR_Bsmumu.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/BR_Bsmumu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/BR_Bsnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -573,6 +576,14 @@
       <item path="src/BR_Kppnunu.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/BR_Kppnunu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Bdmumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Bdmumu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Bsmumu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/Bsmumu.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/CPenguinBox.cpp" ex="false" tool="1" flavor2="0">
       </item>

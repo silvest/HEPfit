@@ -12,7 +12,7 @@ AmpDK2::AmpDK2(Flavour& Flavour) : myFlavour(Flavour) {
 
 complex AmpDK2::AmpDK(orders order) {
     if (myFlavour.getHDF2().getCoeffK().getOrder() < order % 3)
-        throw std::runtime_error("AmpDK::getThValue(): requires cofficient of order not computed"); 
+        throw std::runtime_error("AmpDK::computeThValue(): requires cofficient of order not computed"); 
 
     vector<complex> ** allcoeff = myFlavour.ComputeCoeffK( 
             myFlavour.getModel().getBK().getMu(),
@@ -49,7 +49,7 @@ complex AmpDK2::AmpDK(orders order) {
 
 complex AmpDK2::AmpMK(orders order) {
     if (myFlavour.getHDF2().getCoeffmK().getOrder() < order % 3)
-        throw std::runtime_error("AmpDK::getThValue(): requires cofficient of order not computed");
+        throw std::runtime_error("AmpDK::computeThValue(): requires cofficient of order not computed");
 
     vector<complex> ** allcoeff = myFlavour.ComputeCoeffmK( 
             myFlavour.getModel().getBK().getMu(),
