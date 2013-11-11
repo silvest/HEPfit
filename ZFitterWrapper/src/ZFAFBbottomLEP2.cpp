@@ -8,7 +8,7 @@
 #include "ZFAFBbottomLEP2.h"
 
 
-double ZFAFBbottomLEP2::getThValue() { 
+double ZFAFBbottomLEP2::computeThValue() { 
     double myZFAFBbottomLEP2, dummy;
     myZF.calcXS_AFB(9, sqrt_s, &dummy, &myZFAFBbottomLEP2);
     return myZFAFBbottomLEP2;

@@ -10,7 +10,7 @@
 
 
 NPEffective::NPEffective() 
-: StandardModel() 
+: NPbase()
 {
 }
 
@@ -18,7 +18,7 @@ NPEffective::NPEffective()
 bool NPEffective::Update(const std::map<std::string,double>& DPars) 
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        SetParameter(it->first, it->second);
+        setParameter(it->first, it->second);
     if(!StandardModel::Update(DPars)) return (false);
 
     return (true);
@@ -32,41 +32,36 @@ bool NPEffective::Init(const std::map<std::string, double>& DPars)
 }
 
 
+bool NPEffective::CheckParameters(const std::map<std::string, double>& DPars)
+{
+    return(NPbase::CheckParameters(DPars));
+}
+
+
 bool NPEffective::InitializeModel() 
 {
-    SetModelInitialized(StandardModel::InitializeModel());
+    setModelInitialized(NPbase::InitializeModel());
     return (IsModelInitialized());
 }
 
 
-void NPEffective::SetEWSMflags(EWSM& myEWSM) 
+void NPEffective::setEWSMflags(EWSM& myEWSM) 
 {
-    StandardModel::SetEWSMflags(myEWSM);
+    NPbase::setEWSMflags(myEWSM);
 }
 
 
-bool NPEffective::SetFlag(const std::string name, const bool& value) 
+bool NPEffective::setFlag(const std::string name, const bool& value) 
 {
     bool res = false;
-    
-    if (name.compare("EWABC") == 0) 
-        throw std::runtime_error("ERROR: Flag EWABC is not applicable to NPEffective"); 
-    else if (name.compare("EWABC2") == 0)
-        throw std::runtime_error("ERROR: Flag EWABC2 is not applicable to NPEffective"); 
-    else if (name.compare("epsilon1SM") == 0) 
-        throw std::runtime_error("ERROR: Flag epsilon1SM is not applicable to NPEffective"); 
-    else if (name.compare("epsilon2SM") == 0) 
-        throw std::runtime_error("ERROR: Flag epsilon2SM is not applicable to NPEffective"); 
-    else if (name.compare("epsilon3SM") == 0) 
-        throw std::runtime_error("ERROR: Flag epsilon3SM is not applicable to NPEffective"); 
-    else if (name.compare("epsilonbSM") == 0) 
-        throw std::runtime_error("ERROR: Flag epsilonbSM is not applicable to NPEffective"); 
-    else if (name.compare("NotLinearizedNP") == 0)
-        throw std::runtime_error("ERROR: Flag NotLinearizedNP is not applicable to NPEffective");
-    else
-        res = StandardModel::SetFlag(name,value);
-
+    res = NPbase::setFlag(name,value);
     return(res);
+}
+
+
+bool NPEffective::CheckFlags() const
+{
+    return(NPbase::CheckFlags());
 }
 
 
@@ -246,25 +241,25 @@ double NPEffective::deltaGRq(StandardModel::quark q) const
 
 double NPEffective::deltaGVl(StandardModel::lepton l) const
 {
-    return ( deltaGLl(l) + deltaGRl(l) + StandardModel::deltaGVl(l) );
+    return ( deltaGLl(l) + deltaGRl(l) + NPbase::deltaGVl(l) );
 }
 
 
 double NPEffective::deltaGVq(StandardModel::quark q) const
 {
-    return ( deltaGLq(q) + deltaGRq(q) + StandardModel::deltaGVq(q) );
+    return ( deltaGLq(q) + deltaGRq(q) + NPbase::deltaGVq(q) );
 }
 
 
 double NPEffective::deltaGAl(StandardModel::lepton l) const
 {
-    return ( deltaGLl(l) - deltaGRl(l) + StandardModel::deltaGAl(l) );
+    return ( deltaGLl(l) - deltaGRl(l) + NPbase::deltaGAl(l) );
 }
 
 
 double NPEffective::deltaGAq(StandardModel::quark q) const
 {
-    return ( deltaGLq(q) - deltaGRq(q) + StandardModel::deltaGAq(q) );
+    return ( deltaGLq(q) - deltaGRq(q) + NPbase::deltaGAq(q) );
 }
 
 
@@ -300,17 +295,13 @@ double NPEffective::Mw() const
 {
     double myMw = StandardModel::Mw();
 
-    if (!IsFlagNotLinearizedNP() ) {
-        double alpha = StandardModel::alphaMz();
-        double c2 = StandardModel::cW2();
-        double s2 = StandardModel::sW2();
+    double alpha = StandardModel::alphaMz();
+    double c2 = StandardModel::cW2();
+    double s2 = StandardModel::sW2();
 
-        myMw *= 1.0 - alpha/4.0/(c2-s2)
-                      *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 )
-                - s2/2.0/(c2-s2)*DeltaGF();
-    } else
-        if (obliqueS()!=0.0 || obliqueT()!=0.0 || obliqueU()!=0.0)
-            throw std::runtime_error("NPEffective::Mw(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+    myMw *= 1.0 - alpha/4.0/(c2-s2)
+                  *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 )
+            - s2/2.0/(c2-s2)*DeltaGF();
 
     return myMw;
 }
@@ -332,20 +323,16 @@ double NPEffective::GammaW() const
 {
     double Gamma_W = StandardModel::GammaW();
 
-    if (!IsFlagNotLinearizedNP() ) {
-        double alpha = StandardModel::alphaMz();
-        double c2 = StandardModel::cW2();
-        double s2 = StandardModel::sW2();
-        double ratio = v()*v()/LambdaNP/LambdaNP;
+    double alpha = StandardModel::alphaMz();
+    double c2 = StandardModel::cW2();
+    double s2 = StandardModel::sW2();
+    double ratio = v()*v()/LambdaNP/LambdaNP;
         
-        Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
-                         *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 )
-                   //- 3.0*s2/2.0/(c2-s2)*DeltaGF()
-                   - (1.0 + c2)/2.0/(c2-s2)*DeltaGF()
-                   + (cHL1p + cHL2p + cHL3p + cHQ1p + cHQ2p)*ratio;
-    } else
-        if (obliqueS()!=0.0 || obliqueT()!=0.0 || obliqueU()!=0.0)
-            throw std::runtime_error("NPEffective::GammaW(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+    Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
+                     *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 )
+               //- 3.0*s2/2.0/(c2-s2)*DeltaGF()
+               - (1.0 + c2)/2.0/(c2-s2)*DeltaGF()
+               + (cHL1p + cHL2p + cHL3p + cHQ1p + cHQ2p)*ratio;
 
     return Gamma_W;
 }

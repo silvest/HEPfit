@@ -5,20 +5,20 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include "BR_Bsmumu.h"
+#include "Bdmumu.h"
 
-BR_Bsmumu::BR_Bsmumu(Flavour& Flavour, int obsFlag): ThObservable(Flavour), myFlavour(Flavour){
+Bdmumu::Bdmumu(Flavour& Flavour, int obsFlag): ThObservable(Flavour), myFlavour(Flavour){
     if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
-    else throw std::runtime_error("obsFlag in BR_Bsmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
+    else throw std::runtime_error("obsFlag in Bsmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
 };
 
-double BR_Bsmumu::getThValue(){
-    setAmp(FULLNLO);
-    double FBs = myFlavour.getModel().getMesons(QCD::B_S).getDecayconst();
+double Bdmumu::computeThValue(){
+    computeObs(FULLNLO);
+    double FBd = myFlavour.getModel().getMesons(QCD::B_D).getDecayconst();
     double coupling = myFlavour.getModel().getGF() * myFlavour.getModel().alphaMz() / 4. / M_PI;
-    double PRF = pow(coupling, 2.) / M_PI / myFlavour.getModel().getMesons(QCD::B_S).computeWidth() * pow(FBs, 2.) * pow(mmu, 2.) * mBs * beta;
-    ys = 0.087; // For now. To be explicitly calculated.
-    timeInt = (1. + Amumu * ys) / (1. - ys * ys); // Note modification in form due to algorithm
+    double PRF = pow(coupling, 2.) / M_PI / myFlavour.getModel().getMesons(QCD::B_D).computeWidth() * pow(FBd, 2.) * pow(mmu, 2.) * mBd * beta;
+    yd = 0; // For now. To be explicitly calculated.
+    timeInt = (1. + Amumu * yd) / (1. - yd * yd); // Note modification in form due to algorithm
     /*    double theta = asin(sqrt( (M_PI * myFlavour.getModel().getAle() )/( sqrt(2) * myFlavour.getModel().getGF() *
      myFlavour.getModel().Mw_tree() * myFlavour.getModel().Mw_tree()) ));
      
@@ -33,44 +33,47 @@ double BR_Bsmumu::getThValue(){
     if (obs == 2) return( PRF * ampSq * timeInt);
     if (obs == 3) return( Amumu );
     if (obs == 4) return( Smumu );
+
+    throw std::runtime_error("Bdmumu::computeThValue(): Observable type not defined. Can be only any of (1,2,3,4)");
+    return (EXIT_FAILURE);
 }
 
-void BR_Bsmumu::setAmp(orders order){
+void Bdmumu::computeObs(orders order){
     mmu = myFlavour.getModel().getLeptons(StandardModel::MU).getMass();
-    mBs = myFlavour.getModel().getMesons(QCD::B_S).getMass();
+    mBd = myFlavour.getModel().getMesons(QCD::B_D).getMass();
     mb = myFlavour.getModel().getQuarks(StandardModel::BOTTOM).getMass();
-    ms = myFlavour.getModel().getQuarks(StandardModel::STRANGE).getMass();
-    chiral = pow(mBs, 2.) / 2. / mmu * mb / (mb + ms);
-    beta = sqrt(1. - pow(2. * mmu / mBs, 2.));
-    AmpSqBsmumu(order);
+    md = myFlavour.getModel().getQuarks(StandardModel::DOWN).getMass();
+    chiral = pow(mBd, 2.) / 2. / mmu * mb / (mb + md);
+    beta = sqrt(1. - pow(2. * mmu / mBd, 2.));
+    computeAmpSq(order);
     Amumu = (absP * absP * cos(2. * argP - phiNP) -  absS * absS * cos(2. * argS - phiNP)) / (absP * absP + absS * absS);
     Smumu = (absP * absP * sin(2. * argP - phiNP) -  absS * absS * sin(2. * argS - phiNP)) / (absP * absP + absS * absS);
 }
 
-double BR_Bsmumu::getAmumu(orders order){
-    setAmp(FULLNLO);
+double Bdmumu::computeAmumu(orders order){
+    computeObs(FULLNLO);
     return(Amumu);
 }
 
-double BR_Bsmumu::getSmumu(orders order){
-    setAmp(FULLNLO);
+double Bdmumu::computeSmumu(orders order){
+    computeObs(FULLNLO);
     return(Smumu);
 }
 
-void BR_Bsmumu::AmpSqBsmumu(orders order){
-    if (myFlavour.getHDB1().getCoeffsmumu().getOrder() < order % 3){
+void Bdmumu::computeAmpSq(orders order){
+    if (myFlavour.getHDB1().getCoeffdmumu().getOrder() < order % 3){
         std::stringstream out;
         out << order;
-        throw std::runtime_error("BRBsmumu::getThValue(): required cofficient of "
+        throw std::runtime_error("Bdmumu::computeAmpSq(): required cofficient of "
                                  "order " + out.str() + " not computed");
     }
-    vector<complex> ** allcoeff = myFlavour.ComputeCoeffsmumu();
+    vector<complex> ** allcoeff = myFlavour.ComputeCoeffdmumu();
     
     switch(order) {
         case FULLNLO:
         {
             complex PP = (*(allcoeff[LO]) + *(allcoeff[NLO]))(0) - (*(allcoeff[LO]) + *(allcoeff[NLO]))(1)
-                        + chiral * ((*(allcoeff[LO]) + *(allcoeff[NLO]))(2) - (*(allcoeff[LO]) + *(allcoeff[NLO]))(3));
+            + chiral * ((*(allcoeff[LO]) + *(allcoeff[NLO]))(2) - (*(allcoeff[LO]) + *(allcoeff[NLO]))(3));
             absP = PP.abs();
             argP = PP.arg();
             
@@ -81,7 +84,7 @@ void BR_Bsmumu::AmpSqBsmumu(orders order){
             
             ampSq = absP * absP + absS * absS;
         }
-        break;
+            break;
         case LO:
         {
             complex PP = (*(allcoeff[LO]))(0) - (*(allcoeff[LO]))(1)
@@ -96,10 +99,10 @@ void BR_Bsmumu::AmpSqBsmumu(orders order){
             
             ampSq = absP * absP + absS * absS;
         }
-        break;
+            break;
         default:
             std::stringstream out;
             out << order;
-            throw std::runtime_error("BRBsmumu::BRBsmumu(): order " + out.str() + " not implemented");;
+            throw std::runtime_error("Bdmumu::computeAmpSq(): order " + out.str() + " not implemented");;
     }
 }

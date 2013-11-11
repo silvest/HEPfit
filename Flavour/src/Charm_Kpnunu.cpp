@@ -8,7 +8,7 @@
 #include "Charm_Kpnunu.h"
 
 Charm_Kpnunu::Charm_Kpnunu(const StandardModel& model_i) 
-: model(model_i), modelmatching(*(model_i.GetMyMatching())),
+: model(model_i), modelmatching(*(model_i.getMyMatching())),
 cp(3,0.), dcp(3,0.), c_p(3,0.), dc_p(3,0.), cpmuW0(3,0.), cpmuW1(3,0.), cpmuW2(3,0.),  
 U4p(3,0.), U5p(3,0.), J5p1(3,0.), J4p1(3,0.), J5p2(3,0.), J4p2(3,0.),
 cb(2,0.), dcb(2,0.), c_b(2,0.), dc_b(2,0.), cbmuW0(2,0.), cbmuW1(2,0.), cbmuW2(2,0.),
@@ -212,7 +212,7 @@ vector<double> Charm_Kpnunu::C_p(orders order){
     J4p2 = RGevolP(4,NNLO);
     J5p2 = RGevolP(5,NLO);
     
-    for(int i=0; i++; i<3){
+    for(int i=0; i<3; i++){
     dc_p(i,i) =  ThresholdCp(NNLO)(i);
     }
     
@@ -441,7 +441,7 @@ vector<double> Charm_Kpnunu::C_b(orders order){
     J4b2 = RGevolB(4,NNLO);
     J5b2 = RGevolB(5,NLO);
     
-    for(int i=0; i++; i<3){
+    for(int i=0; i<3; i++){
     dc_b(i,i) =  ThresholdCb(NNLO)(i);
     }
     
@@ -559,7 +559,7 @@ double Charm_Kpnunu::C_Bt(orders order){
 double Charm_Kpnunu::P_C(orders order){
     double Xe = C_P(order) + C_Be(order);
     double Xt = C_P(order) + C_Bt(order);
-    double lambda4 = model.GetLambda()*model.GetLambda()*model.GetLambda()*model.GetLambda();
+    double lambda4 = model.getLambda()*model.getLambda()*model.getLambda()*model.getLambda();
     double pc = 1./lambda4*(2./3.*Xe + 1./3.*Xt);
     
     return(pc);    
@@ -571,11 +571,11 @@ double Charm_Kpnunu::C_TOT(orders order, orders_ew order_ew){
     double Muw = model.getMuw();
     double Ale = model.getAle();
     double a = 1./modelmatching.mt2omh2(Muw);
-    complex lambdat = model.getlamt();
-    complex lambdac = model.getlamc();
-    double lambda = model.GetLambda();
-    double lambda5 = model.GetLambda()*model.GetLambda()*model.GetLambda()
-                     *model.GetLambda()*model.GetLambda();
+    complex lambdat = model.computelamt();
+    complex lambdac = model.computelamc();
+    double lambda = model.getLambda();
+    double lambda5 = model.getLambda()*model.getLambda()*model.getLambda()
+                     *model.getLambda()*model.getLambda();
     double IBT = model.getDeltaP_cu();
     double X = 0.;
     

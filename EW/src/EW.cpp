@@ -11,13 +11,15 @@
 #include <cmath>
 #include <stdexcept>
 #include <EWSM.h>
+#include <NPEpsilons.h>
+#include <NPSTU.h>
+#include <NPZbbbar.h>
 #include "EW.h"
 
 
 EW::EW(const StandardModel& SM_i) 
-: ThObsType(SM_i), SM(SM_i), myEW_CHMN(SM_i), myEW_ABC(SM_i) 
+: ThObsType(SM_i), SM(SM_i), myEW_NPZff(SM_i), myEW_CHMN(SM_i), myEW_ABC(SM_i), myEW_BURGESS(SM_i)
 {
-    bDebug = SM_i.isBDebug();
 }
 
 
@@ -25,56 +27,37 @@ EW::EW(const StandardModel& SM_i)
 
 EW::EWTYPE EW::getEWTYPE() const 
 {
-    if ( SM.IsFlagEWABC() && SM.IsFlagEWABC2() ) 
-        throw std::runtime_error("ERROR: Flags EWABC and EWABC2 cannot be set to true simultaneously");
-    if ( SM.IsFlagEWBURGESS() && SM.IsFlagEWCHMN() ) 
-        throw std::runtime_error("ERROR: Flags EWBURGESS and EWCHMN cannot be set to true simultaneously");
-    if ( SM.IsFlagEWABC() && SM.IsFlagEWCHMN() ) 
-        throw std::runtime_error("ERROR: Flags EWABC and EWCHMN cannot be set to true simultaneously");
-    if ( SM.IsFlagEWABC2() && SM.IsFlagEWCHMN() ) 
-        throw std::runtime_error("ERROR: Flags EWABC2 and EWCHMN cannot be set to true simultaneously");
-    if ( SM.IsFlagEWABC() && SM.IsFlagEWBURGESS() ) 
-        throw std::runtime_error("ERROR: Flags EWABC and EWBURGESS cannot be set to true simultaneously");
-    if ( SM.IsFlagEWABC2() && SM.IsFlagEWBURGESS() ) 
-        throw std::runtime_error("ERROR: Flags EWABC2 and EWBURGESS cannot be set to true simultaneously");
-
-    if ( !SM.IsFlagApproximateGqOverGb() && SM.IsFlagRhoZbFromGuOverGb())
-        throw std::runtime_error("ERROR: Flag RhoZbFromGuOverGb=true has to be used together with ApproximateGqOverGb=true");
-    if ( !SM.IsFlagApproximateGqOverGb() && SM.IsFlagRhoZbFromGdOverGb())
-        throw std::runtime_error("ERROR: Flag RhoZbFromGdOverGb=true has to be used together with ApproximateGqOverGb=true");
-    if ( SM.IsFlagRhoZbFromGuOverGb() && SM.IsFlagRhoZbFromGdOverGb())
-        throw std::runtime_error("ERROR: Flags RhoZbFromGuOverGb and RhoZbFromGdOverGb cannot be set to true simultaneously");
-    if ( !SM.IsFlagApproximateGqOverGb() && SM.IsFlagTestSubleadingTwoLoopEW())
-        throw std::runtime_error("ERROR: Flag TestSubleadingTwoLoopEW=true has to be used together with ApproximateGqOverGb=true");
-    if ( SM.IsFlagTestSubleadingTwoLoopEW() && SM.IsFlagRhoZbFromGuOverGb())
-        throw std::runtime_error("ERROR: Flags TestSubleadingTwoLoopEW and RhoZbFromGuOverGb cannot be set to true simultaneously");
-    if ( SM.IsFlagTestSubleadingTwoLoopEW() && SM.IsFlagRhoZbFromGdOverGb())
-        throw std::runtime_error("ERROR: Flags TestSubleadingTwoLoopEW and RhoZbFromGdOverGb cannot be set to true simultaneously");
-    
-    if ( SM.ModelName()=="NPEpsilons" && SM.IsFlagApproximateGqOverGb()
-            && !SM.IsFlagRhoZbFromGuOverGb() && !SM.IsFlagRhoZbFromGdOverGb()
-            && !SM.IsFlagTestSubleadingTwoLoopEW())
-        throw std::runtime_error("ERROR: The current flags cannot be used with NPEpsilons model");
-
-    if ( SM.IsFlagEWBURGESS() ) return EWBURGESS;
-    else if ( SM.IsFlagEWCHMN() ) return EWCHMN;
-    else if ( SM.IsFlagEWABC() ) return EWABC;
-    else if ( SM.IsFlagEWABC2() ) return EWABC2;
-    else return EWDEFAULT;
+    if (SM.ModelName().compare("StandardModel") == 0) {
+        if ( SM.IsFlagEWCHMN() ) return EWCHMN;
+        else return EWDEFAULT;
+    } else if (SM.ModelName().compare("NPSTU") == 0) {
+        if ( (static_cast<const NPSTU*> (&SM))->IsFlagEWBURGESS() ) return EWBURGESS;
+        else if ( SM.IsFlagEWCHMN() ) return EWCHMN;
+        else return EWDEFAULT;
+    } else if (SM.ModelName().compare("NPEpsilons") == 0) {
+        if ( (static_cast<const NPEpsilons*> (&SM))->IsFlagEWABC() ) return EWABC;
+        else if ( (static_cast<const NPEpsilons*> (&SM))->IsFlagEWABC2() ) return EWABC2;
+        else return EWDEFAULT;
+    } else
+        return EWDEFAULT;
 }
 
 
-bool EW::checkSTUVWXY() const
+bool EW::checkLEP1NP() const
 {
     std::string Model = SM.ModelName();
-    if ( (Model=="NPSTU" || Model=="NPSTUVWXY" || Model=="NPHiggsST"
-            || Model=="THDM")
-            && (SM.obliqueShat()!=0.0 || SM.obliqueThat()!=0.0 || SM.obliqueUhat()!=0.0
-            || SM.obliqueV()!=0.0|| SM.obliqueW()!=0.0|| SM.obliqueX()!=0.0|| SM.obliqueY()!=0.0) )
+    if (Model.compare("NPZbbbar") == 0) {
+        if (!(static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
+            return true;
+    } else if (Model.compare("NPHiggsST") == 0
+            || Model.compare("NPSTU") == 0
+            || Model.compare("NPSTUVWXY") == 0
+            || Model.compare("NPEpsilons_pureNP") == 0
+            || Model.compare("NPEffective1") == 0
+            || Model.compare("NPEffective2") == 0)
         return true;
-    else
-        return false;
 
+    return false;
 }
 
 

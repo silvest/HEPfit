@@ -7,6 +7,6 @@
 
 #include "Vcb.h"
 
-double Vcb::getThValue() { 
+double Vcb::computeThValue() { 
     return(SM.getCKM().getVcb());
 }

@@ -8,7 +8,7 @@
 #include "ZFGammaZ.h"
 
 
-double ZFGammaZ::getThValue() {
+double ZFGammaZ::computeThValue() {
     return myZF.Gamma_Z();
 }
 

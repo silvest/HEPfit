@@ -1389,8 +1389,7 @@ double StandardModelMatching::setWCbnlepEW(int i, double x)
 complex StandardModelMatching::S0c() const 
 {
     double xc = x_c(SM.getMuc());
-    complex co = GF / 2. / M_PI * Mw * SM.computelamc().conjugate();
-
+    complex co = GF / 2. / M_PI * Mw_tree * SM.computelamc().conjugate();
     
     return(co * co * S0(xc, xc));
 }

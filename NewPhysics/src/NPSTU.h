@@ -8,7 +8,8 @@
 #ifndef NPSTU_H
 #define	NPSTU_H
 
-#include "NPZbbbar.h"
+#include <EW_BURGESS.h>
+#include "NPbase.h"
 
 /**
  * @class NPSTU
@@ -18,10 +19,12 @@
  * @copyright GNU General Public License
  * @details  
  */
-class NPSTU : public NPZbbbar {
+class NPSTU : public NPbase {
 public:
     static const int NSTUvars = 3;
     static const std::string STUvars[NSTUvars];
+    static const int NSTUflags = 1;
+    static const std::string STUflags[NSTUflags];
     
     /**
      * @brief NPSTU constructor.
@@ -38,12 +41,20 @@ public:
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     virtual bool InitializeModel();  
-    virtual void SetEWSMflags(EWSM& myEWSM);    
+    virtual void setEWSMflags(EWSM& myEWSM);    
 
-    virtual bool SetFlag(const std::string, const bool&); 
-
+    virtual bool setFlag(const std::string, const bool&); 
+    virtual bool CheckFlags() const;
     
-    ////////////////////////////////////////////////////////////////////////     
+
+    ////////////////////////////////////////////////////////////////////////
+
+    bool IsFlagEWBURGESS() const
+    {
+        return FlagEWBURGESS;
+    }
+
+    ////////////////////////////////////////////////////////////////////////
 
     /**
      * @return Oblique parameter S.
@@ -108,13 +119,15 @@ public:
     
 protected:    
     double myObliqueS, myObliqueT, myObliqueU;
-    virtual void SetParameter(const std::string name, const double& value);
+    virtual void setParameter(const std::string name, const double& value);
 
     
     ////////////////////////////////////////////////////////////////////////     
     
 private:
-
+    bool FlagEWBURGESS;
+    const EW_BURGESS myEW_BURGESS;
+    
 };
 
 #endif	/* NPSTU_H */

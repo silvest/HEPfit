@@ -6,10 +6,10 @@
  */
 
 #include <cstdlib>
+#include <stdexcept>
 #include <cmath>
 #include <gsl/gsl_sf.h>
 #include "ClausenFunctions.h"
-#include <stdexcept>
 
 
 ClausenFunctions::ClausenFunctions() 
@@ -27,7 +27,7 @@ double ClausenFunctions::Cl2(const double phi) const
 double ClausenFunctions::Cl3(const double phi) const 
 {
     if (phi < 0.0 || phi > M_PI) 
-        throw std::runtime_error("phi is out of range in ClausenFunctions::Cl3()"); 
+        throw std::runtime_error("ClausenFunctions::Cl3(): phi is out of range!");
     
     if (phi==0.0) return ( gsl_sf_zeta_int(3) );
     

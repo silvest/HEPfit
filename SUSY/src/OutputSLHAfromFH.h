@@ -28,7 +28,7 @@ public:
     {
     };
 
-    double getThValue()
+    double computeThValue()
     {
         if (output) {
             (static_cast<const SUSY*> (&ObsType.getModel()))->getMyFH()->OutputSLHA("output.slha");

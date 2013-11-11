@@ -5,29 +5,28 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef BR_BDMUMU_H
-#define	BR_BDMUMU_H
+#ifndef BDMUMU_H
+#define	BDMUMU_H
 
 #include <ThObservable.h>
 #include "Flavour.h"
 
-class BR_Bdmumu : public ThObservable {
+class Bdmumu : public ThObservable {
 public:
     /**
      * constructor
      * @param Flavour
      */
-    BR_Bdmumu(Flavour& Flavour, int obsFlag);
+    Bdmumu(Flavour& Flavour, int obsFlag);
     
     /**
      *
      * @brief hep-ph/9512380v2
      * @return theoretical value of |\f$ BR(B_d \rightarrow \mu \bar{\mu}) \f$|
      */
-    double getThValue();
-    void setAmp(orders order);
-    double getAmumu(orders order);
-    double getSmumu(orders order);
+    double computeThValue();
+    double computeAmumu(orders order);
+    double computeSmumu(orders order);
     
     
 protected:
@@ -39,7 +38,8 @@ protected:
      * @return the short distance contribution to the
      * |\f$ BR(B_s \rightarrow \mu \bar{\mu}) \f$|
      */
-    void AmpSqBdmumu(orders order);
+    void computeAmpSq(orders order);
+    void computeObs(orders order);
     
 private:
     Flavour& myFlavour;
@@ -64,4 +64,4 @@ private:
     
 };
 
-#endif	/* BR_BDMUMU_H */
+#endif	/* BDMUMU_H */

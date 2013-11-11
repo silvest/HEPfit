@@ -24,7 +24,7 @@ public:
     /**
      * @return the ratio of the hadronic width to the leptonic width
      */
-    double getThValue();
+    double computeThValue();
 
     
 private:

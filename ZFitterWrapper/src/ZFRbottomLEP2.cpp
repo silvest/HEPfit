@@ -8,7 +8,7 @@
 #include "ZFRbottomLEP2.h"
 
 
-double ZFRbottomLEP2::getThValue() { 
+double ZFRbottomLEP2::computeThValue() { 
     double myZFsigmaBottomLEP2;
     double myZFsigmaQuarksLEP2 = 0.0, tmp, dummy;
     for (int i=4; i<=9; i++) {

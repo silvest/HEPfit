@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="89">
+<configurationDescriptor version="90">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -13,7 +13,9 @@
       <itemPath>src/EW.h</itemPath>
       <itemPath>src/EWObservables.h</itemPath>
       <itemPath>src/EW_ABC.h</itemPath>
+      <itemPath>src/EW_BURGESS.h</itemPath>
       <itemPath>src/EW_CHMN.h</itemPath>
+      <itemPath>src/EW_NPZff.h</itemPath>
       <itemPath>src/GammaW.h</itemPath>
       <itemPath>src/GammaZ.h</itemPath>
       <itemPath>src/LEP2AFBbottom.h</itemPath>
@@ -36,13 +38,6 @@
       <itemPath>src/Rbottom.h</itemPath>
       <itemPath>src/Rcharm.h</itemPath>
       <itemPath>src/Rlepton.h</itemPath>
-      <itemPath>src/epsilon1.h</itemPath>
-      <itemPath>src/epsilon2.h</itemPath>
-      <itemPath>src/epsilon3.h</itemPath>
-      <itemPath>src/epsilonb.h</itemPath>
-      <itemPath>src/obliqueS.h</itemPath>
-      <itemPath>src/obliqueT.h</itemPath>
-      <itemPath>src/obliqueU.h</itemPath>
       <itemPath>src/sigmaHadron.h</itemPath>
       <itemPath>src/sin2thetaEff.h</itemPath>
     </logicalFolder>
@@ -61,7 +56,9 @@
       <itemPath>src/Alepton.cpp</itemPath>
       <itemPath>src/EW.cpp</itemPath>
       <itemPath>src/EW_ABC.cpp</itemPath>
+      <itemPath>src/EW_BURGESS.cpp</itemPath>
       <itemPath>src/EW_CHMN.cpp</itemPath>
+      <itemPath>src/EW_NPZff.cpp</itemPath>
       <itemPath>src/GammaW.cpp</itemPath>
       <itemPath>src/GammaZ.cpp</itemPath>
       <itemPath>src/LEP2AFBbottom.cpp</itemPath>
@@ -83,13 +80,6 @@
       <itemPath>src/Rbottom.cpp</itemPath>
       <itemPath>src/Rcharm.cpp</itemPath>
       <itemPath>src/Rlepton.cpp</itemPath>
-      <itemPath>src/epsilon1.cpp</itemPath>
-      <itemPath>src/epsilon2.cpp</itemPath>
-      <itemPath>src/epsilon3.cpp</itemPath>
-      <itemPath>src/epsilonb.cpp</itemPath>
-      <itemPath>src/obliqueS.cpp</itemPath>
-      <itemPath>src/obliqueT.cpp</itemPath>
-      <itemPath>src/obliqueU.cpp</itemPath>
       <itemPath>src/sigmaHadron.cpp</itemPath>
       <itemPath>src/sin2thetaEff.cpp</itemPath>
     </logicalFolder>
@@ -117,7 +107,6 @@
   <confs>
     <conf name="Debug" type="3">
       <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
@@ -130,15 +119,12 @@
         </cTool>
         <ccTool>
           <incDir>
+            <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
-            <pElem>../gslpp/src</pElem>
-            <pElem>../InputParser/src</pElem>
-            <pElem>../LoopFunctions/src</pElem>
-            <pElem>../StandardModel/src</pElem>
-            <pElem>../Utils/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
@@ -320,9 +306,17 @@
       </item>
       <item path="src/EW_ABC.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/EW_BURGESS.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EW_BURGESS.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/EW_CHMN.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EW_CHMN.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EW_NPZff.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EW_NPZff.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GammaW.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -409,34 +403,6 @@
       <item path="src/Rlepton.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Rlepton.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilon1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilon2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilon3.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilonb.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilonb.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueS.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueS.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueT.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueT.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueU.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueU.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sigmaHadron.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -455,7 +421,6 @@
     </conf>
     <conf name="Release" type="3">
       <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
@@ -470,10 +435,12 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <incDir>
+            <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -520,9 +487,17 @@
       </item>
       <item path="src/EW_ABC.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/EW_BURGESS.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EW_BURGESS.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/EW_CHMN.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EW_CHMN.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EW_NPZff.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EW_NPZff.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GammaW.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -609,34 +584,6 @@
       <item path="src/Rlepton.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Rlepton.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilon1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilon2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilon3.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilonb.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilonb.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueS.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueS.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueT.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueT.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueU.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueU.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sigmaHadron.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -655,7 +602,6 @@
     </conf>
     <conf name="Cluster" type="3">
       <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
@@ -670,10 +616,12 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <incDir>
+            <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -720,9 +668,17 @@
       </item>
       <item path="src/EW_ABC.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/EW_BURGESS.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EW_BURGESS.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/EW_CHMN.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EW_CHMN.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EW_NPZff.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EW_NPZff.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GammaW.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -809,34 +765,6 @@
       <item path="src/Rlepton.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/Rlepton.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilon1.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilon2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon2.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilon3.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilon3.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/epsilonb.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/epsilonb.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueS.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueS.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueT.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueT.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/obliqueU.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/obliqueU.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/sigmaHadron.cpp" ex="false" tool="1" flavor2="0">
       </item>

@@ -125,6 +125,12 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             continue;
+        } else if (beg->compare("NPEpsilons_pureNP") == 0) {
+            modname = *beg;
+            myModel = new NPEpsilons_pureNP();
+            myModel->InitializeModel();
+            thf = new ThFactory(*myModel);
+            continue;
         } else if (beg->compare("NPHiggsST") == 0) {
             modname = *beg;
             myModel = new NPHiggsST();
@@ -321,9 +327,9 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             bool value = boost::lexical_cast<bool>((*beg).c_str());
             ++beg;
 
-            if (!myModel->SetFlag(name, value)) {
+            if (!myModel->setFlag(name, value)) {
                 std::stringstream ss;
-                ss << myModel->ModelName() << " SetFlag error for Flag " << name;
+                ss << myModel->ModelName() << " setFlag error for " << name;
                 throw std::runtime_error(ss.str());
             } else 
                 std::cout << "set flag " << name << "=" << value << std::endl;
@@ -334,6 +340,11 @@ std::string InputParser::ReadParameters(const std::string filename, std::vector<
             exit(EXIT_FAILURE);
         }
     } while (!IsEOF);
+
+    if (!myModel->CheckFlags()) {
+        std::cout << "Incompatible flag(s)" << std::endl;
+        exit(EXIT_FAILURE);
+    }
 
     return (modname);
 }

@@ -8,7 +8,7 @@
 #include "CPenguinBoxMu.h"
 
 CPenguinBoxMu::CPenguinBoxMu(const StandardModel& model_i) 
-: model(model_i), modelmatching(*(model_i.GetMyMatching()))
+: model(model_i), modelmatching(*(model_i.getMyMatching()))
 {    
 }
 
@@ -54,8 +54,8 @@ double CPenguinBoxMu::X_ch(){
     
     double x = pow(model.Mrun(model.getMuw(), model.getQuarks(QCD::TOP).getMass_scale(), 
                               model.getQuarks(QCD::TOP).getMass(), FULLNNLO) / model.Mw_tree(), 2.);
-    double a = model.getlamc().real()/model.GetLambda()*(C_NL() - B_NL());
-    double b = model.getlamt().real()/model.GetLambda()*
+    double a = model.computelamc().real()/model.getLambda()*(C_NL() - B_NL());
+    double b = model.computelamt().real()/model.getLambda()*
               (modelmatching.Y0(x) + model.Als(model.getMuw())/4./M_PI*modelmatching.Y1(x, model.getMuw()));
     
     return( a*a + 2.*a*b );

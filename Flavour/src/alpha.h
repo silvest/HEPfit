@@ -15,7 +15,7 @@ class Alpha : public ThObservable {
 public:
     Alpha(const ThObsType& ObsType) : ThObservable(ObsType) {};
 
-    double getThValue();
+    double computeThValue();
 };
 
 #endif	/* ALPHA_H */

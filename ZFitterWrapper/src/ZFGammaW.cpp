@@ -8,7 +8,7 @@
 #include "ZFGammaW.h"
 
 
-double ZFGammaW::getThValue() {
+double ZFGammaW::computeThValue() {
     return myZF.Gamma_W();
 }
 

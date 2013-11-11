@@ -14,9 +14,8 @@
 
 EWSMTwoFermionsLEP2::EWSMTwoFermionsLEP2(const StandardModel& SM_i, 
                                          const bool bKeepNonUnitary_i) 
-: SM(SM_i), myCache(SM_i), myOneLoopEW(myCache) 
+: SM(SM_i), myCache(SM_i), myOneLoopEW(myCache), PV(true)
 {
-    bDebug = SM_i.isBDebug();
     bKeepNonUnitary = bKeepNonUnitary_i;
 }
 
@@ -335,13 +334,10 @@ double EWSMTwoFermionsLEP2::G_3_box(const double s, const double t,
 complex EWSMTwoFermionsLEP2::V_pol(const double s) const 
 {
     complex V;
-    if (bDebug)
-        V = complex(1.0715119759, -0.0186242179, false); // for debug
-    else {
-        V = SM.ale_OS(sqrt(s), FULLNLO)/SM.getAle() + myOneLoopEW.DeltaAlpha_t(s);
-        //V = SM.ale_OS(sqrt(s), FULLNLO)/SM.getAle();
-        //V = complex(1.0715119759, -0.0186242179, false); //!!TEST
-    }
+    //V = complex(1.0715119759, -0.0186242179, false); // for debug
+    V = SM.ale_OS(sqrt(s), FULLNLO)/SM.getAle() + myOneLoopEW.DeltaAlpha_t(s);
+    //V = SM.ale_OS(sqrt(s), FULLNLO)/SM.getAle();
+    //V = complex(1.0715119759, -0.0186242179, false); //!!TEST
     return V;    
 }
 
@@ -410,7 +406,7 @@ complex EWSMTwoFermionsLEP2::rho_ef(const double s, const double t,
 {
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
     double ve = - 0.5 + 2.0*sW2, ae = -0.5;
     double vf = I3f - 2.0*Qf*sW2, af = I3f;
     double mu = Mw; // renormalization scale
@@ -421,7 +417,7 @@ complex EWSMTwoFermionsLEP2::rho_ef(const double s, const double t,
     if (bWeak)
         rhoef += SM.getAle()/4.0/M_PI/sW2
                  *( - DeltaRhobarZ(mu, Mw) + D_Z_hat(s, Mw) 
-                    + 5.0/3.0*PV.B0(mu, s, Mw, Mw) - 9.0*cW2/4.0/sW2*log(cW2) 
+                    + 5.0/3.0*PV.B0(mu*mu, s, Mw2, Mw2) - 9.0*cW2/4.0/sW2*log(cW2)
                     - 6.0 + 5.0*cW2/8.0*(1.0 + cW2) 
                     + (3.0*ve*ve + ae*ae + 3.0*vf*vf + af*af)/4.0/cW2*F_za_0(s, Mw)
                     + 2.0*F_W_0_hat(s, Mw) );
@@ -451,7 +447,7 @@ complex EWSMTwoFermionsLEP2::kappa_e(const double s, const double t,
 {
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
     double ve = - 0.5 + 2.0*sW2, ae = -0.5, sigmae = ve + ae;
     double vfa = 0.5 - 2.0*fabs(Qf)*sW2;
     double mu = Mw; // renormalization scale
@@ -474,7 +470,7 @@ complex EWSMTwoFermionsLEP2::kappa_e(const double s, const double t,
     if (bWeak)
         kappae += SM.getAle()/4.0/M_PI/sW2    
                   *( - cW2/sW2*DeltaRhobar(mu, Mw) + Pibar_Zgamma_hat(s, Mw)
-                     - PV.B0(mu, s, Mw, Mw)/6.0 - 1.0/9.0 
+                     - PV.B0(mu*mu, s, Mw2, Mw2)/6.0 - 1.0/9.0
                      - ve*sigmae/2.0/cW2*F_za_0(s, Mw) - F_W_0_hat(s, Mw)
                      + ( Mz*Mz/s - 1.0 )
                        *( fabs(Qf)*vfa*F_za_0(s, Mw)
@@ -506,7 +502,7 @@ complex EWSMTwoFermionsLEP2::kappa_f(const double s, const double t,
 {
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
     double vea = 0.5 - 2.0*sW2;
     double vf = I3f - 2.0*Qf*sW2, af = I3f, sigmaf = vf + af;
     double mu = Mw; // renormalization scale
@@ -517,7 +513,7 @@ complex EWSMTwoFermionsLEP2::kappa_f(const double s, const double t,
     if (bWeak)
         kappaf += SM.getAle()/4.0/M_PI/sW2    
                   *( - cW2/sW2*DeltaRhobar(mu, Mw) + Pibar_Zgamma_hat(s, Mw)
-                     - PV.B0(mu, s, Mw, Mw)/6.0 - 1.0/9.0 
+                     - PV.B0(mu*mu, s, Mw2, Mw2)/6.0 - 1.0/9.0
                      - vf*sigmaf/2.0/cW2*F_za_0(s, Mw) - F_W_0_hat(s, Mw)
                      + ( Mz*Mz/s - 1.0 )
                        *( vea*F_za_0(s, Mw) + cW2*F_Wn_0_hat(s, Mw) ) );
@@ -548,7 +544,7 @@ complex EWSMTwoFermionsLEP2::kappa_ef(const double s, const double t,
 {
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
     double ve = - 0.5 + 2.0*sW2, ae = -0.5, deltae = ve - ae;
     double vf = I3f - 2.0*Qf*sW2, af = I3f, deltaf = vf - af;
     double mu = Mw; // renormalization scale
@@ -559,7 +555,7 @@ complex EWSMTwoFermionsLEP2::kappa_ef(const double s, const double t,
     if (bWeak)
         kappaef += SM.getAle()/4.0/M_PI/sW2    
                    *( - 2.0*cW2/sW2*DeltaRhobar(mu, Mw) + 2.0*Pibar_Zgamma_hat(s, Mw)
-                      - PV.B0(mu, s, Mw, Mw)/3.0 - 2.0/9.0 
+                      - PV.B0(mu*mu, s, Mw2, Mw2)/3.0 - 2.0/9.0
                       - ((deltae*deltae + deltaf*deltaf)/sW2*(Mw*Mw/s - 1.0)
                          + 3.0*ve*ve + ae*ae + 3.0*vf*vf + af*af)*F_za_0(s, Mw)/4.0/cW2
                       - 2.0*F_W_0_hat(s, Mw)
@@ -587,7 +583,7 @@ complex EWSMTwoFermionsLEP2::Delta_rho_ef_TOP(const double s, const double t,
                                               const double u, const double Mw, 
                                               const bool bWWbox) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
     double Mt = SM.getMtpole();
     double mu = Mw; // renormalization scale
     
@@ -597,7 +593,7 @@ complex EWSMTwoFermionsLEP2::Delta_rho_ef_TOP(const double s, const double t,
         
     return ( SM.getAle()/4.0/M_PI/sW2
              *( F_W_t_hat(s, Mw) 
-                - Mt*Mt/4.0/Mw/Mw*(PV.B0(mu, s, Mw, Mw) + 1.0) ) + Bww ); 
+                - Mt*Mt/4.0/Mw/Mw*(PV.B0(mu*mu, s, Mw2, Mw2) + 1.0) ) + Bww );
 }
 
 
@@ -622,7 +618,7 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_f_TOP(const double s, const double t,
                                                const double u, const double Mw, 
                                                const bool bWWbox) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
     double Mt = SM.getMtpole();
     double mu = Mw; // renormalization scale
 
@@ -632,7 +628,7 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_f_TOP(const double s, const double t,
     
     return ( SM.getAle()/4.0/M_PI/sW2    
              *( - F_W_t_hat(s, Mw) 
-                + Mt*Mt/4.0/Mw/Mw*( PV.B0(mu, s, Mw, Mw) + 1.0) ) + Bww );
+                + Mt*Mt/4.0/Mw/Mw*( PV.B0(mu*mu, s, Mw2, Mw2) + 1.0) ) + Bww );
 }
 
 
@@ -640,7 +636,7 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_ef_TOP(const double s, const double t,
                                                 const double u, const double Mw, 
                                                 const bool bWWbox) const
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
     double Mt = SM.getMtpole();
     double mu = Mw; // renormalization scale
 
@@ -650,7 +646,7 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_ef_TOP(const double s, const double t,
     
     return ( SM.getAle()/4.0/M_PI/sW2    
              *( - F_W_t_hat(s, Mw) 
-                + Mt*Mt/4.0/Mw/Mw*( PV.B0(mu, s, Mw, Mw) + 1.0) ) + Bww );
+                + Mt*Mt/4.0/Mw/Mw*( PV.B0(mu*mu, s, Mw2, Mw2) + 1.0) ) + Bww );
 }
     
 
@@ -950,11 +946,11 @@ complex EWSMTwoFermionsLEP2::B_WW_d_0(const double mu, const double s,
 {
     double s2 = s*s, t2 = t*t, u2 = u*u, Mw2 = Mw*Mw;
     return ( ( - t*(1.0 + t2/u2) - 4.0*Mw2*t2/u2 + 2.0*Mw2*Mw2/u*(1.0 + 2.0*s/u) )
-              *PV.D0(s, t, Mw, 0.0, Mw, 0.0)
-             - 2.0*( 2.0 + 2.0*s/u + s2/u2 - 2.0*Mw2*s/u2 )*PV.C0(s, Mw, 0.0, Mw)
-             + 2.0*( 2.0 + 3.0*s/u + s2/u2 + 2.0*Mw2*t/u2 )*PV.C0(t, 0.0, Mw, 0.0)
-             + ( - 2.0/u - 5.0/3.0/Mw2 - s/12.0/Mw2/Mw2 )*PV.B0(mu, s, Mw, Mw)
-             + 2.0/u*PV.B0(mu, t, 0.0, 0.0) - 1.0/6.0/Mw2/Mw2*PV.A0(mu, Mw)
+              *PV.D0(s, t, Mw2, 0.0, Mw2, 0.0)
+             - 2.0*( 2.0 + 2.0*s/u + s2/u2 - 2.0*Mw2*s/u2 )*PV.C0(s, Mw2, 0.0, Mw2)
+             + 2.0*( 2.0 + 3.0*s/u + s2/u2 + 2.0*Mw2*t/u2 )*PV.C0(t, 0.0, Mw2, 0.0)
+             + ( - 2.0/u - 5.0/3.0/Mw2 - s/12.0/Mw2/Mw2 )*PV.B0(mu*mu, s, Mw2, Mw2)
+             + 2.0/u*PV.B0(mu*mu, t, 0.0, 0.0) - 1.0/6.0/Mw2/Mw2*PV.A0(mu*mu, Mw2)
              + 1.0/3.0/Mw2 - s/18.0/Mw2/Mw2 );
 }
 
@@ -967,19 +963,19 @@ complex EWSMTwoFermionsLEP2::B_WW_d(const double mu, const double s,
     double s2 = s*s, t2 = t*t, u2 = u*u, Mw2 = Mw*Mw;
     return ( ( - t*(1.0 + t2/u2) - 4.0*Mw2*t2/u2 + 2.0*Mw2*Mw2/u*(1.0 + 2.0*s/u) 
                + Mt2*(2.0 + 3.0*s/u + 2.0*s2/u2 - 2.0*Mw2/u*(1.0 + 2.0*s/u) ) 
-               + Mt2*Mt2*s/u2 )*PV.D0(s, t, Mw, 0.0, Mw, Mt)
+               + Mt2*Mt2*s/u2 )*PV.D0(s, t, Mw2, 0.0, Mw2, Mt2)
              + ( - 2.0 - 2.0*s/u - s2/u2 + 2.0*Mw2*s/u2 
                  + Mt2/2.0/Mw2*(4.0 - Mw2/s*(1.0 + 2.0*s2/u2)) 
                  - Mt2*Mt2/2.0/Mw2/Mw2*(1.0 - 2.0*Mw2/s) 
-                 - Mt2*Mt2*Mt2/2.0/Mw2/Mw2/s )*PV.C0(s, Mw, Mt, Mw)
-             - ( 2.0 + 2.0*s/u + s2/u2 - 2.0*Mw2*s/u2 + Mt2*s/u2)*PV.C0(s, Mw, 0.0, Mw)
+                 - Mt2*Mt2*Mt2/2.0/Mw2/Mw2/s )*PV.C0(s, Mw2, Mt2, Mw2)
+             - ( 2.0 + 2.0*s/u + s2/u2 - 2.0*Mw2*s/u2 + Mt2*s/u2)*PV.C0(s, Mw2, 0.0, Mw2)
              + ( 2.0 + 3.0*s/u + s2/u2 + 2.0*Mw2*t/u2 - Mt2*t/u2)
-               *(PV.C0(t, 0.0, Mw, Mt) + PV.C0(t, Mt, Mw, 0.0))
+               *(PV.C0(t, 0.0, Mw2, Mt2) + PV.C0(t, Mt2, Mw2, 0.0))
              + ( - 2.0/u - 5.0/3.0/Mw2 - s/12.0/Mw2/Mw2 
                  - Mt2/4.0/Mw2/s*(2.0 - s/Mw2) + Mt2*Mt2/2.0/Mw2/Mw2/s )        
-               *PV.B0(mu, s, Mw, Mw)
-             + 2.0/u*PV.B0(mu, t, Mt, 0.0) + Mt2/2.0/Mw2/Mw2/s*PV.A0(mu,Mt)
-             - 1.0/6.0/Mw2/Mw2*(1.0 + 3.0*Mt2/s)*PV.A0(mu, Mw)
+               *PV.B0(mu*mu, s, Mw2, Mw2)
+             + 2.0/u*PV.B0(mu*mu, t, Mt2, 0.0) + Mt2/2.0/Mw2/Mw2/s*PV.A0(mu*mu, Mt2)
+             - 1.0/6.0/Mw2/Mw2*(1.0 + 3.0*Mt2/s)*PV.A0(mu*mu, Mw2)
              + 1.0/3.0/Mw2*(1.0 + 3.0*Mt2/4.0/Mw2 - s/6.0/Mw2) );
 }
 
@@ -997,10 +993,10 @@ complex EWSMTwoFermionsLEP2::B_WW_c_0(const double mu, const double s,
                                       const double Mw) const 
 {
     double Mw2 = Mw*Mw;
-    return ( 2.0*u*PV.D0(s, u, Mw, 0.0, Mw, 0.0)
-             + 4.0*PV.C0(s, Mw, 0.0, Mw) 
-             + (20.0 + s/Mw2)/12.0/Mw2*PV.B0(mu, s, Mw, Mw)
-             + PV.A0(mu, Mw)/6.0/Mw2/Mw2 - (1.0 - s/6.0/Mw2)/3.0/Mw2 );
+    return ( 2.0*u*PV.D0(s, u, Mw2, 0.0, Mw2, 0.0)
+             + 4.0*PV.C0(s, Mw2, 0.0, Mw2)
+             + (20.0 + s/Mw2)/12.0/Mw2*PV.B0(mu*mu, s, Mw2, Mw2)
+             + PV.A0(mu*mu, Mw2)/6.0/Mw2/Mw2 - (1.0 - s/6.0/Mw2)/3.0/Mw2 );
 }
 
 
@@ -1009,14 +1005,14 @@ complex EWSMTwoFermionsLEP2::B_ZZ_0(const double mu, const double s,
 {
     double Mz = SM.getMz(), Mz2 = Mz*Mz;
     double t2 = t*t, u2 = u*u;
-    return ( 2.0*u*PV.D0(s, u, Mz, 0.0, Mz, 0.0)
+    return ( 2.0*u*PV.D0(s, u, Mz2, 0.0, Mz2, 0.0)
              + ( - 2.0*u - t*(3.0 + t/u)*(3.0 + t/u) 
                  + 2.0*(Mz2 - s)*(1.0 + 3.0*t/u - Mz2/u*(1.0 + 2.0*t/u)) )
-               *PV.D0(s, t, Mz, 0.0, Mz, 0.0)
+               *PV.D0(s, t, Mz2, 0.0, Mz2, 0.0)
              + 2.0*( 3.0 + 4.0*t/u + t2/u2 - 2.0*s*(s - Mz2)/u2 )
-               *PV.C0(s, Mz, 0.0, Mz)
-             - 2.0*t/u*( 3.0 + t/u + 2.0*(s - Mz2)/u )*PV.C0(t, 0.0, Mz, 0.0)
-             - 2.0/u*( PV.B0(mu, s, Mz, Mz) - PV.B0(mu, t, 0.0, 0.0) ) );
+               *PV.C0(s, Mz2, 0.0, Mz2)
+             - 2.0*t/u*( 3.0 + t/u + 2.0*(s - Mz2)/u )*PV.C0(t, 0.0, Mz2, 0.0)
+             - 2.0/u*( PV.B0(mu*mu, s, Mz2, Mz2) - PV.B0(mu*mu, t, 0.0, 0.0) ) );
 }
 
 
@@ -1030,7 +1026,7 @@ complex EWSMTwoFermionsLEP2::Pibar_Zgamma_hat(const double s, const double Mw) c
     if (!bKeepNonUnitary) {
         double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
         double Rw = Mw*Mw/s;
-        add = - cW2*( (4.0/3.0/Rw + 1.0/12.0/Rw/Rw)*PV.B0(mu,s,Mw,Mw)
+        add = - cW2*( (4.0/3.0/Rw + 1.0/12.0/Rw/Rw)*PV.B0(mu*mu,s,Mw*Mw,Mw*Mw)
                       + 1.0/18.0/Rw/Rw - 13.0/18.0/Rw );
     }
     
@@ -1047,9 +1043,9 @@ complex EWSMTwoFermionsLEP2::Pibar_gg_bos_hat(const double s, const double Mw) c
         double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
         double Rw = Mw*Mw/s;
         add = s/(s - Mz*Mz)
-                *( 1.0/12.0/Rw/cW2*PV.B0(mu,s,Mw,Mw) + 1.0/18.0/Rw/cW2 )
+                *( 1.0/12.0/Rw/cW2*PV.B0(mu*mu,s,Mw*Mw,Mw*Mw) + 1.0/18.0/Rw/cW2 )
               - s/(s - Mz*Mz)
-                *( (4.0/3.0/Rw + 1.0/12.0/Rw/Rw)*PV.B0(mu,s,Mw,Mw)
+                *( (4.0/3.0/Rw + 1.0/12.0/Rw/Rw)*PV.B0(mu*mu,s,Mw*Mw,Mw*Mw)
                    + 1.0/18.0/Rw/Rw - 13.0/18.0/Rw );
     }
     
@@ -1065,7 +1061,7 @@ complex EWSMTwoFermionsLEP2::D_Z_hat(const double s, const double Mw) const
     if (!bKeepNonUnitary) {
         double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
         double Rz = Mz*Mz/s;
-        add = ( (1.0/12.0/cW2 + 4.0/3.0)/Rz + 1.0/12.0/cW2/Rz/Rz )*PV.B0(mu,s,Mw,Mw)
+        add = ( (1.0/12.0/cW2 + 4.0/3.0)/Rz + 1.0/12.0/cW2/Rz/Rz )*PV.B0(mu*mu,s,Mw*Mw,Mw*Mw)
               + ( (1.0/cW2 - 13.0)/Rz + 1.0/cW2/Rz/Rz )/18.0;
     }
   
@@ -1081,7 +1077,7 @@ complex EWSMTwoFermionsLEP2::F_Wn_0_hat(const double s, const double Mw) const
         double Rw = Mw*Mw/s;
         double mu = Mw;
         add = - s/(s-Mz*Mz)*( - 1.0/12.0/Rw/cW2 + 3.0/2.0/Rw + 1.0/12.0/Rw/Rw )
-                *PV.B0(mu,s,Mw,Mw) 
+                *PV.B0(mu*mu,s,Mw*Mw,Mw*Mw)
               - s/(s-Mz*Mz)*( -1.0/18.0/Rw/cW2 - 11.0/18.0/Rw + 1.0/18.0/Rw/Rw );
     }
   
@@ -1095,7 +1091,7 @@ complex EWSMTwoFermionsLEP2::F_Wn_t_hat(const double s, const double Mw) const
     if (!bKeepNonUnitary) {
         double Mz = SM.getMz(), Rw = Mw*Mw/s, Mt = SM.getMtpole();
         double mu = Mw;
-        add = Mt*Mt*s/4.0/Rw/Mw/Mw/(s-Mz*Mz)*(PV.B0(mu,s,Mw,Mw) + 1.0);
+        add = Mt*Mt*s/4.0/Rw/Mw/Mw/(s-Mz*Mz)*(PV.B0(mu*mu,s,Mw*Mw,Mw*Mw) + 1.0);
     }
   
     return ( F_Wn_t(s, Mw) + add );
@@ -1111,7 +1107,7 @@ complex EWSMTwoFermionsLEP2::F_W_0_hat(const double s, const double Mw) const
     if (!bKeepNonUnitary) {
         double Rw = Mw*Mw/s;
         double mu = Mw;
-        add = cW2*( - 3.0/2.0/Rw - 1.0/12.0/Rw/Rw )*PV.B0(mu,s,Mw,Mw) 
+        add = cW2*( - 3.0/2.0/Rw - 1.0/12.0/Rw/Rw )*PV.B0(mu*mu,s,Mw*Mw,Mw*Mw)
               + cW2*( 11.0/18.0/Rw - 1.0/18.0/Rw/Rw );
     }
     
@@ -1130,7 +1126,7 @@ complex EWSMTwoFermionsLEP2::F_W_t_hat(const double s, const double Mw) const
         double Mt = SM.getMtpole();
         double Rw = Mw*Mw/s;
         double mu = Mw;
-        add = Mt*Mt/4.0/Rw/Mz/Mz*(PV.B0(mu,s,Mw,Mw) + 1.0);
+        add = Mt*Mt/4.0/Rw/Mz/Mz*(PV.B0(mu*mu,s,Mw*Mw,Mw*Mw) + 1.0);
     }
     
     return ( F_W_t + add );
@@ -1144,7 +1140,7 @@ complex EWSMTwoFermionsLEP2::B_WW_d_0_hat(const double s, const double t,
     complex add = complex(0.0, 0.0, false);
     if (!bKeepNonUnitary) {
         double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), Rw = Mw*Mw/s;
-        add = (5.0/3.0 - 1.0/12.0/cW2 + 1.0/12.0/Rw)/Rw/(s - Mz*Mz)*PV.B0(mu,s,Mw,Mw)
+        add = (5.0/3.0 - 1.0/12.0/cW2 + 1.0/12.0/Rw)/Rw/(s - Mz*Mz)*PV.B0(mu*mu,s,Mw*Mw,Mw*Mw)
                - (1.0/2.0 + 1.0/18.0/cW2 - 1.0/18.0/Rw)/Rw/(s - Mz*Mz);
     }
   
@@ -1159,10 +1155,10 @@ complex EWSMTwoFermionsLEP2::B_WW_d_0_hat_TEST(const double s, const double t,
     if (!bKeepNonUnitary) {
         double s2 = s*s, t2 = t*t, u2 = u*u, Mw2 = Mw*Mw;
         return ( ( - t*(1.0 + t2/u2) - 4.0*Mw2*t2/u2 + 2.0*Mw2*Mw2/u*(1.0 + 2.0*s/u) )
-                  *PV.D0(s, t, Mw, 0.0, Mw, 0.0)
-                 - 2.0*( 2.0 + 2.0*s/u + s2/u2 - 2.0*Mw2*s/u2 )*PV.C0(s, Mw, 0.0, Mw)
-                 + 2.0*( 2.0 + 3.0*s/u + s2/u2 + 2.0*Mw2*t/u2 )*PV.C0(t, 0.0, Mw, 0.0)
-                 - 2.0/u*( PV.B0(mu, s, Mw, Mw) - PV.B0(mu, t, 0.0, 0.0) ) );
+                  *PV.D0(s, t, Mw2, 0.0, Mw2, 0.0)
+                 - 2.0*( 2.0 + 2.0*s/u + s2/u2 - 2.0*Mw2*s/u2 )*PV.C0(s, Mw2, 0.0, Mw2)
+                 + 2.0*( 2.0 + 3.0*s/u + s2/u2 + 2.0*Mw2*t/u2 )*PV.C0(t, 0.0, Mw2, 0.0)
+                 - 2.0/u*( PV.B0(mu*mu, s, Mw2, Mw2) - PV.B0(mu*mu, t, 0.0, 0.0) ) );
     } else {
         return B_WW_d_0(mu, s, t, u, Mw);
     }
@@ -1177,7 +1173,7 @@ complex EWSMTwoFermionsLEP2::Delta_B_WW_d_hat(const double s, const double t,
     complex add = complex(0.0, 0.0, false);
     if (!bKeepNonUnitary) {
         double Mz = SM.getMz(), Rw = Mw*Mw/s, Mt = SM.getMtpole();
-        add = - Mt*Mt/4.0/Rw/Mw/Mw/(s - Mz*Mz)*( PV.B0(mu, s, Mw, Mw) + 1.0 );
+        add = - Mt*Mt/4.0/Rw/Mw/Mw/(s - Mz*Mz)*( PV.B0(mu*mu, s, Mw*Mw, Mw*Mw) + 1.0 );
     }
   
     return ( Delta_B_WW_d(mu, s, t, u, Mw) + add );
@@ -1192,7 +1188,7 @@ complex EWSMTwoFermionsLEP2::B_WW_c_0_hat(const double s, const double t,
     complex add = complex(0.0, 0.0, false);
     if (!bKeepNonUnitary) {
         double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), Rw = Mw*Mw/s;
-        add = - (5.0/3.0 - 1.0/12.0/cW2 + 1.0/12.0/Rw)/Rw/(s - Mz*Mz)*PV.B0(mu,s,Mw,Mw)
+        add = - (5.0/3.0 - 1.0/12.0/cW2 + 1.0/12.0/Rw)/Rw/(s - Mz*Mz)*PV.B0(mu*mu,s,Mw*Mw,Mw*Mw)
               + (1.0/2.0 + 1.0/18.0/cW2 - 1.0/18.0/Rw)/Rw/(s - Mz*Mz);
     }
   

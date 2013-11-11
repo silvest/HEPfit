@@ -39,7 +39,7 @@ public:
      * @return The forward-backward asymmetry of @f$Z\to b\bar{b}@f$ at the 
      * @f$Z@f$ pole.
      */
-    double getThValue();
+    double computeThValue();
 
     
 private:

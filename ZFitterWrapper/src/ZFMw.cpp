@@ -8,7 +8,7 @@
 #include "ZFMw.h"
 
 
-double ZFMw::getThValue() {   
+double ZFMw::computeThValue() {   
     return myZF.Mw();
 }
 

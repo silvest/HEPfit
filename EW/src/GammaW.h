@@ -36,7 +36,7 @@ public:
     /**
      * @return The total width of the W boson. 
      */
-    double getThValue();
+    double computeThValue();
 
     
 private:

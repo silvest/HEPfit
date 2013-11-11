@@ -268,14 +268,15 @@ double EWSMTwoLoopEW::DeltaRho2(const double Mw_i) const
     } else {
         double Mz = cache.Mz();
         double Mw = cache.Mw(Mw_i);
+        double Mz2 = Mz*Mz, Mw2 = Mw*Mw, Mt2 = Mt*Mt;
         double cW2 = cache.cW2(Mw), sW2 = cache.sW2(Mw);
         double cW4 = cW2*cW2, cW6 = cW4*cW2;
         double zt = Mz*Mz/Mt/Mt;
         double ht2 = ht*ht, ht3 = ht2*ht, ht4 = ht3*ht, ht5 = ht4*ht, ht6 = ht5*ht;        
         double mu = Mt; // renormalization scale
                 
-        double B0_Mt_Mz2_Mw_Mw = cache.getPV().B0(Mt, Mz*Mz, Mw, Mw).real();
-        double B0_Mt_Mw2_Mw_Mz = cache.getPV().B0(Mt, Mw*Mw, Mw, Mz).real();
+        double B0_Mt2_Mz2_Mw2_Mw2 = cache.getPV().B0(Mt2, Mz2, Mw2, Mw2).real();
+        double B0_Mt2_Mw2_Mw2_Mz2 = cache.getPV().B0(Mt2, Mw2, Mw2, Mz2).real();
         double Li21mht = cache.getPolyLog().Li2(1.0 - ht).real();
         
         return ( 25.0 - 4.0*ht + (1.0/2.0 - 1.0/ht)*M_PI*M_PI
@@ -290,8 +291,8 @@ double EWSMTwoLoopEW::DeltaRho2(const double Mw_i) const
                            + (68.0*cW2 - 124.0*cW4 + 128.0*cW6)*ht3 )
                         + (6.0*cW2*ht - 37.0*cW2 - 119.0*ht2 + 56.0*cW2*ht2)
                           *M_PI*M_PI/27.0/ht2
-                        + (32.0*cW4/3.0 - 2.0/3.0 - 12.0*cW2)*B0_Mt_Mz2_Mw_Mw
-                        + (20.0/3.0 + 1.0/3.0/cW2 - 8.0*cW2)*B0_Mt_Mw2_Mw_Mz
+                        + (32.0*cW4/3.0 - 2.0/3.0 - 12.0*cW2)*B0_Mt2_Mz2_Mw2_Mw2
+                        + (20.0/3.0 + 1.0/3.0/cW2 - 8.0*cW2)*B0_Mt2_Mw2_Mw2_Mz2
                         + (17.0 - 58.0*cW2 + 32.0*cW4)*(4.0 - ht)*sqrt(ht)*g(ht)/27.0 
                         - 40.0*sW2*(4.0 - ht)*Lambda(ht)/3.0/ht 
                         + 2.0*cW2*(37.0 - 6.0*ht - 12.0*ht2 - 22.0*ht3 + 9.0*ht4)
@@ -327,14 +328,14 @@ double EWSMTwoLoopEW::DeltaRho2Add(const double Mw_i) const
     double zt = Mz2/Mt2;
     double mu = Mt; // renormalization scale
     
-    double B0_Mt_Mz2_Mw_Mw = cache.getPV().B0(Mt, Mz2, Mw, Mw).real();
-    double B0_Mt_Mw2_0_Mw = cache.getPV().B0(Mt, Mw2, 0.0, Mw).real();
-    double B0_Mt_Mw2_Mw_Mz = cache.getPV().B0(Mt, Mw2, Mw, Mz).real();
+    double B0_Mt2_Mz2_Mw2_Mw2 = cache.getPV().B0(Mt2, Mz2, Mw2, Mw2).real();
+    double B0_Mt2_Mw2_0_Mw2 = cache.getPV().B0(Mt2, Mw2, 0.0, Mw2).real();
+    double B0_Mt2_Mw2_Mw2_Mz2 = cache.getPV().B0(Mt2, Mw2, Mw2, Mz2).real();
 
     double dRho2add = 542.0/27.0 - 2.0/3.0/cW2 - 800.0*cW2/27.0 
-                      + 1.0/3.0*(1.0 + 26.0*cW2 + 24.0*cW4)*B0_Mt_Mz2_Mw_Mw
-                       + 4.0*cW2*B0_Mt_Mw2_0_Mw
-                       - (11.0/3.0 + 1.0/3.0/cW2 + 4.0*cW2)*B0_Mt_Mw2_Mw_Mz
+                      + 1.0/3.0*(1.0 + 26.0*cW2 + 24.0*cW4)*B0_Mt2_Mz2_Mw2_Mw2
+                       + 4.0*cW2*B0_Mt2_Mw2_0_Mw2
+                       - (11.0/3.0 + 1.0/3.0/cW2 + 4.0*cW2)*B0_Mt2_Mw2_Mw2_Mz2
                        - (2.0/3.0 + 4.0*cW2/3.0 - 8.0*cW4)*log(cW2)
                        + (1.0/cW2 - 38.0/3.0 + 34.0*cW2/3.0)*log(Mt2/mu/mu)
                        + 2.0*(3.0 - 62.0*cW2 + 74.0*cW4 + 36.0*cW6)*log(zt)/9.0/cW2;   
@@ -358,13 +359,13 @@ double EWSMTwoLoopEW::DeltaRw2(const double Mw_i) const
 
     double dRw2;
     if (mh < 0.3*Mt) {   
-        double B0_Mt_Mw2_mh_Mw = cache.getPV().B0(Mt, Mw2, mh, Mw).real();
-        double B0_Mt_Mw2_Mw_Mz = cache.getPV().B0(Mt, Mw2, Mw, Mz).real();
+        double B0_Mt2_Mw2_mh2_Mw2 = cache.getPV().B0(Mt2, Mw2, mh2, Mw2).real();
+        double B0_Mt2_Mw2_Mw2_Mz2 = cache.getPV().B0(Mt2, Mw2, Mw2, Mz2).real();
         dRw2 = - 13.0/144.0 - 1.0/48.0/cW4 - 41.0/96.0/cW2 + 61.0*cW2/72.0 
                + (7.0 - 16.0*cW2)/27.0*M_PI*sqrt(ht) - M_PI*M_PI/36.0 
                - 5.0*ht2/144.0/cW4/zt2 + 35.0*ht/288.0/cW2/zt 
-               + 5.0/12.0*(1.0 + ht2/12.0/cW4/zt2 - ht/3.0/cW2/zt)*B0_Mt_Mw2_mh_Mw
-               + (1.0 + 20.0*cW2 - 24.0*cW4)/48.0/cW4*B0_Mt_Mw2_Mw_Mz
+               + 5.0/12.0*(1.0 + ht2/12.0/cW4/zt2 - ht/3.0/cW2/zt)*B0_Mt2_Mw2_mh2_Mw2
+               + (1.0 + 20.0*cW2 - 24.0*cW4)/48.0/cW4*B0_Mt2_Mw2_Mw2_Mz2
                - (5.0*sW2*ht2 + 3.0*ht*zt + 48.0*cW2*ht*zt - 60.0*cW4*ht*zt 
                   - 3.0*cW2*zt2 - 8.0*cW4*zt2 + 20.0*cW6*zt2)*log(cW2)
                  /144.0/cW2/sW2/zt/(ht - cW2*zt) 
@@ -375,11 +376,11 @@ double EWSMTwoLoopEW::DeltaRw2(const double Mw_i) const
                   + (3.0*cW2 + 60.0*cW4 - 20.0*cW6)*zt2)*log(zt)
                  /144.0/cW4/zt/(ht - cW2*zt);    
     } else {
-        double B0_Mt_Mw2_Mw_Mz = cache.getPV().B0(Mt, Mw2, Mw, Mz).real();
+        double B0_Mt2_Mw2_Mw2_Mz2 = cache.getPV().B0(Mt2, Mw2, Mw2, Mz2).real();
         dRw2 = - 121.0/288.0 - 1.0/48.0/cW4 - 41.0/96.0/cW2 + 77.0*cW2/12.0 
                + 19.0/72.0/ht + (41.0/216.0 - 4.0*cW2/27.0)*ht 
                - (19.0 + 21.0*ht)*M_PI*M_PI/432.0/ht2 
-               - (1.0/2.0 - 1.0/48.0/cW4 - 5.0/12.0/cW2)*B0_Mt_Mw2_Mw_Mz
+               - (1.0/2.0 - 1.0/48.0/cW4 - 5.0/12.0/cW2)*B0_Mt2_Mw2_Mw2_Mz2
                + (16.0*cW2 - 7.0)/216.0*(ht - 4.0)*sqrt(ht)*g(ht) 
                - (1.0/12.0 - 1.0/3.0/ht)*Lambda(ht) 
                + (19.0 + 21.0*ht - 12.0*ht2 - 31.0*ht3 + 9.0*ht4)/72.0/ht2
@@ -426,11 +427,11 @@ double EWSMTwoLoopEW::f2Add(const double Mw_i) const
     double Mt = cache.Mt(), Mt2 = Mt*Mt;
     double zt = Mz2/Mt2;
 
-    double B0_Mt_Mw2_0_Mw = cache.getPV().B0(Mt, Mw2, 0.0, Mw).real();
-    double B0_Mt_Mw2_Mw_Mz = cache.getPV().B0(Mt, Mw2, Mw, Mz).real();
+    double B0_Mt2_Mw2_0_Mw2 = cache.getPV().B0(Mt2, Mw2, 0.0, Mw2).real();
+    double B0_Mt2_Mw2_Mw2_Mz2 = cache.getPV().B0(Mt2, Mw2, Mw2, Mz2).real();
     
-    double f2a = 10.0/3.0 + 1.0/3.0/cW2 + 4.0*cW2*B0_Mt_Mw2_0_Mw
-                 - (11.0/3.0 + 1.0/3.0/cW2 + 4.0*cW2)*B0_Mt_Mw2_Mw_Mz
+    double f2a = 10.0/3.0 + 1.0/3.0/cW2 + 4.0*cW2*B0_Mt2_Mw2_0_Mw2
+                 - (11.0/3.0 + 1.0/3.0/cW2 + 4.0*cW2)*B0_Mt2_Mw2_Mw2_Mz2
                  + (11.0 - 8.0*cW2)*log(cW2)/6.0/sW2 
                  - (11.0/3.0 + 1.0/3.0/cW2)*log(zt);
     return f2a;
@@ -440,7 +441,7 @@ double EWSMTwoLoopEW::f2Add(const double Mw_i) const
 double EWSMTwoLoopEW::DeltaEta2(const double Mw_i) const 
 {
     double Mz = cache.Mz(), Mz2 = Mz*Mz;
-    double Mw = cache.Mw(Mw_i);
+    double Mw = cache.Mw(Mw_i), Mw2 = Mw*Mw;
     double cW2 = cache.cW2(Mw);
     double cW4 = cW2*cW2, cW6 = cW4*cW2;
     double Mt = cache.Mt(), Mt2 = Mt*Mt;
@@ -453,8 +454,8 @@ double EWSMTwoLoopEW::DeltaEta2(const double Mw_i) const
 
     double dEta2;
     if (mh < 0.57*Mt) { 
-        double B0_Mt_Mz2_Mw_Mw = cache.getPV().B0(Mt, Mz2, Mw, Mw).real();
-        double B0_Mt_Mz2_mh_Mz = cache.getPV().B0(Mt, Mz2, mh, Mz).real();
+        double B0_Mt2_Mz2_Mw2_Mw2 = cache.getPV().B0(Mt2, Mz2, Mw2, Mw2).real();
+        double B0_Mt2_Mz2_mh2_Mz2 = cache.getPV().B0(Mt2, Mz2, mh2, Mz2).real();
         dEta2 = (ht3 - 6.0*ht2*zt + 11.0*ht*zt2)/9.0/cW2/(ht - 4.0*zt)/zt2
                 + (49.0 - 289.0*cW2 - 349.0*cW4 + 292.0*cW6)/216.0/cW2/(1.0 - 4.0*cW2)
                 + (1.0 + 18.0*cW2 - 16.0*cW4)/12.0/(1.0 - 4.0*cW2)*log(cW2) 
@@ -462,15 +463,15 @@ double EWSMTwoLoopEW::DeltaEta2(const double Mw_i) const
                 + (11.0*ht2*zt - 2.0*ht3 -  24.0*ht*zt2 + 24.0*zt3)
                   /18.0/cW2/(ht - 4.0*zt)/zt2*log(ht) 
                 + (1.0 - 4.0*cW2 + 44.0*cW4 - 32.0*cW6)/24.0/cW2/(1.0 - 4.0*cW2)
-                  *B0_Mt_Mz2_Mw_Mw
+                  *B0_Mt2_Mz2_Mw2_Mw2
                 + (13.0*ht2*zt - 2.0*ht3 - 32.0*ht*zt2 + 36.0*zt3)
-                  /18.0/cW2/(ht - 4.0*zt)/zt2*B0_Mt_Mz2_mh_Mz
+                  /18.0/cW2/(ht - 4.0*zt)/zt2*B0_Mt2_Mz2_mh2_Mz2
                 - (17.0 - 34.0*cW2 + 26.0*cW4)/36.0/cW2*log(Mt2/mu/mu) 
                 + ( ht*(2.0*ht - 5.0*zt)/18.0/cW2/zt/(ht - 4.0*zt) 
                     + (10.0 - 39.0*cW2 - 70.0*cW4 + 48.0*cW6)/36.0/cW2/(4.0*cW2 - 1.0) )
                   *log(zt);
     } else {
-        double B0_Mt_Mz2_Mw_Mw = cache.getPV().B0(Mt, Mz2, Mw, Mw).real();
+        double B0_Mt2_Mz2_Mw2_Mw2 = cache.getPV().B0(Mt2, Mz2, Mw2, Mw2).real();
         dEta2 = (- 17.0 + 40.0*cW2 - 32.0*cW4)*ht/216.0/cW2
                 + 5.0/144.0/cW2/(ht - 4.0)
                 + (707.0 - 4720.0*cW2 + 5900.0*cW4 - 3696.0*cW6)/864.0/cW2/(1.0 - 4.0*cW2)
@@ -478,7 +479,7 @@ double EWSMTwoLoopEW::DeltaEta2(const double Mw_i) const
                 + (1.0 + 18.0*cW2 - 16.0*cW4)/12.0/(1.0 - 4.0*cW2)*log(cW2) 
                 + (4.0 - ht)/12.0/cW2/ht*Lambda(ht)
                 + (2.0 - 7.0*cW2 - 70.0*cW4 + 48.0*cW6)/36.0/cW2/(4.0*cW2 - 1.0)*log(zt) 
-                + (1.0 - 4.0*cW2 + 44.0*cW4 - 32.0*cW6)/24.0/cW2/(1.0 - 4.0*cW2)*B0_Mt_Mz2_Mw_Mw 
+                + (1.0 - 4.0*cW2 + 44.0*cW4 - 32.0*cW6)/24.0/cW2/(1.0 - 4.0*cW2)*B0_Mt2_Mz2_Mw2_Mw2
                 - (17.0 - 34.0*cW2 + 26.0*cW4)/36.0/cW2*log(Mt2/mu/mu) 
                 + ( (4.0*cW2 - 5.0)*(6.0 + 27.0*ht - 10.0*ht2 + ht3)/54.0/(ht - 4.0)
                     - (1152.0 + 606.0*ht + 1467.0*ht2 - 1097.0*ht3 + 238.0*ht4 - 17.0*ht5)
@@ -495,19 +496,19 @@ complex EWSMTwoLoopEW::DeltaEta2Add_tmp(const double I3f, const double Qf,
                                         const double Mw_i) const 
 {
     double Mz = cache.Mz(), Mz2 = Mz*Mz;
-    double Mw = cache.Mw(Mw_i);
+    double Mw = cache.Mw(Mw_i), Mw2 = Mw*Mw;
     double cW2 = cache.cW2(Mw);
     double cW4 = cW2*cW2, cW6 = cW4*cW2;
     double Mt = cache.Mt(), Mt2 = Mt*Mt;
     double zt = Mz2/Mt2;
     double mu = Mt; // renormalization scale
 
-    double B0_Mt_Mz2_Mw_Mw = cache.getPV().B0(Mt, Mz2, Mw, Mw).real();
+    double B0_Mt2_Mz2_Mw2_Mw2 = cache.getPV().B0(Mt2, Mz2, Mw2, Mw2).real();
     
     complex dEta2add = 16.0*M_PI*M_PI*DeltaEtaf1(I3f,Qf,Mw_i) + Vadd(I3f,Qf,Mw_i)
                        - (197.0 - 1378.0*cW2 + 1064.0*cW4)/27.0/(1.0 - 4.0*cW2) 
                        - (1.0 + 16.0*cW2 - 20.0*cW4 + 48.0*cW6)/3.0/(1.0 - 4.0*cW2)
-                          *B0_Mt_Mz2_Mw_Mw
+                          *B0_Mt2_Mz2_Mw2_Mw2
                        - 2.0*cW2*(1.0 + 26.0*cW2 + 24.0*cW4)/3.0/(1.0 - 4.0*cW2)
                          *log(cW2)
                        + (41.0/3.0 - 46.0*cW2/3.0)*log(Mt2/mu/mu) 
@@ -538,7 +539,7 @@ complex EWSMTwoLoopEW::DeltaEta2Add_q(const StandardModel::quark q,
 double EWSMTwoLoopEW::DeltaKappa2(const double Mw_i) const 
 {
     double Mz = cache.Mz(), Mz2 = Mz*Mz;
-    double Mw = cache.Mw(Mw_i);
+    double Mw = cache.Mw(Mw_i), Mw2 = Mw*Mw;
     double cW2 = cache.cW2(Mw), sW2 = cache.sW2(Mw);
     double Mt = cache.Mt(), Mt2 = Mt*Mt;
     double mh = cache.mh(), mh2 = mh*mh;
@@ -547,18 +548,18 @@ double EWSMTwoLoopEW::DeltaKappa2(const double Mw_i) const
     double ht2 = ht*ht, ht3 = ht2*ht;
     double mu = Mt; // renormalization scale
 
-    double B0_Mt_Mz2_Mw_Mw = cache.getPV().B0(Mt, Mz2, Mw, Mw).real();
+    double B0_Mt2_Mz2_Mw2_Mw2 = cache.getPV().B0(Mt2, Mz2, Mw2, Mw2).real();
     
     double dKappa2;
     if (mh < 0.57*Mt) {  
         dKappa2 = (- 175.0 + 366.0*sW2)/432.0
-                  + (3.0/8.0 - sW2/3.0)*B0_Mt_Mz2_Mw_Mw - cW2/6.0*log(cW2) 
+                  + (3.0/8.0 - sW2/3.0)*B0_Mt2_Mz2_Mw2_Mw2 - cW2/6.0*log(cW2)
                   - 2.0*M_PI/27.0*sqrt(ht)*(8.0*sW2 - 3.0)
                   - (1.0/4.0 + 2.0/9.0*sW2)*log(Mt2/mu/mu)
                   + (3.0*sW2 - 2.0)/18.0*log(zt);
     } else {
         dKappa2 = (- 211.0 + 24.0*ht + 462.0*sW2 - 64.0*ht*sW2)/432.0 
-                  + (3.0/8.0 - sW2/3.0)*B0_Mt_Mz2_Mw_Mw
+                  + (3.0/8.0 - sW2/3.0)*B0_Mt2_Mz2_Mw2_Mw2
                   - cW2/6.0*log(cW2) 
                   + (ht - 4.0)*sqrt(ht)*(8.0*sW2 - 3.0)*g(ht)/108.0 
                   - (6.0 + 27.0*ht - 10.0*ht2 + ht3)*(3.0 - 8.0*sW2)

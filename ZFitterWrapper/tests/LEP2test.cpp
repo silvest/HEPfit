@@ -90,7 +90,7 @@ int main(int argc, char** argv) {
         //ZF->printConstants();
         
         ZFMw* myZFMw = new ZFMw(*ZF);
-        cout << "Mw = " << myZFMw->getThValue() << " " << endl << endl;
+        cout << "Mw = " << myZFMw->computeThValue() << " " << endl << endl;
         
         //////////////////////////////////////////////////////////////////////        
         // Differential cross sections
@@ -107,9 +107,9 @@ int main(int argc, char** argv) {
             myZFDsigmaMu[i] = new ZFDsigmaMuLEP2(*ZF,200.0,cos_theta[i]);
             myZFDsigmaTau[i] = new ZFDsigmaTauLEP2(*ZF,200.0,cos_theta[i]);        
             cout << " 200.0  " << setw(6) <<  cos_theta[i]
-                 << setw(20) << myZFDsigmaQuarks[i]->getThValue() 
-                 << setw(20) << myZFDsigmaMu[i]->getThValue() 
-                 << setw(20) << myZFDsigmaTau[i]->getThValue()
+                 << setw(20) << myZFDsigmaQuarks[i]->computeThValue() 
+                 << setw(20) << myZFDsigmaMu[i]->computeThValue() 
+                 << setw(20) << myZFDsigmaTau[i]->computeThValue()
                  << endl;
         }
         cout << endl;
@@ -137,11 +137,11 @@ int main(int argc, char** argv) {
             myZFAFBmu[i] = new ZFAFBmuLEP2(*ZF,sqrt_s[i]);
             myZFAFBtau[i] = new ZFAFBtauLEP2(*ZF,sqrt_s[i]);
             cout << setw(6) << sqrt_s[i]
-                 << setw(10) << myZFsigmaQuarks[i]->getThValue() 
-                 << setw(10) << myZFsigmaMu[i]->getThValue() 
-                 << setw(10) << myZFsigmaTau[i]->getThValue()
-                 << setw(10) << myZFAFBmu[i]->getThValue() 
-                 << setw(10) << myZFAFBtau[i]->getThValue()
+                 << setw(10) << myZFsigmaQuarks[i]->computeThValue() 
+                 << setw(10) << myZFsigmaMu[i]->computeThValue() 
+                 << setw(10) << myZFsigmaTau[i]->computeThValue()
+                 << setw(10) << myZFAFBmu[i]->computeThValue() 
+                 << setw(10) << myZFAFBtau[i]->computeThValue()
                  << endl;
             //ZF->CutInfo();// TEST
         }
@@ -164,10 +164,10 @@ int main(int argc, char** argv) {
            myZFRcharm[i] = new ZFRcharmLEP2(*ZF,sqrt_s_HF[i]);
            myZFAFBcharm[i] = new ZFAFBcharmLEP2(*ZF,sqrt_s_HF[i]);
            cout << setw(6) << sqrt_s_HF[i]
-                << setw(10) << myZFRbottom[i]->getThValue() 
-                << setw(10) << myZFAFBbottom[i]->getThValue() 
-                << setw(10) << myZFRcharm[i]->getThValue() 
-                << setw(10) << myZFAFBcharm[i]->getThValue()
+                << setw(10) << myZFRbottom[i]->computeThValue() 
+                << setw(10) << myZFAFBbottom[i]->computeThValue() 
+                << setw(10) << myZFRcharm[i]->computeThValue() 
+                << setw(10) << myZFAFBcharm[i]->computeThValue()
                 << endl;
         }
         cout << endl;

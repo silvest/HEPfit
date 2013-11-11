@@ -6,32 +6,33 @@
  */
 
 #include <stdexcept>
-#include "NPEpsilons.h"
 #include <EWSM.h>
+#include "NPEpsilons.h"
 
 const std::string NPEpsilons::EPSILONvars[NEPSILONvars] 
 = {"epsilon_1", "epsilon_2", "epsilon_3", "epsilon_b"};
 
 const std::string NPEpsilons::EPSILONflags[NEPSILONflags] 
-= {"epsilon1SM", "epsilon2SM", "epsilon3SM", "epsilonbSM"};
+= {"epsilon1SM", "epsilon2SM", "epsilon3SM", "epsilonbSM", "EWABC", "EWABC2"};
 
 
 NPEpsilons::NPEpsilons() 
-: StandardModel() 
+: NPbase()
 {
     FlagEpsilon1SM = false;
     FlagEpsilon2SM = false;
     FlagEpsilon3SM = false;
     FlagEpsilonbSM = false;
+    FlagEWABC = false;
+    FlagEWABC2 = false;
 }
 
 
 bool NPEpsilons::Update(const std::map<std::string,double>& DPars) 
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        SetParameter(it->first, it->second);
-    if(!StandardModel::Update(DPars)) return (false);
-
+        setParameter(it->first, it->second);
+    if(!NPbase::Update(DPars)) return (false);
     return (true);
 }
 
@@ -47,16 +48,16 @@ bool NPEpsilons::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for (int i = 0; i < NEPSILONvars; i++) {
         if (DPars.find(EPSILONvars[i]) == DPars.end()) {
-            std::cout << "ERROR: Missing mandatory NPEpsilons parameter" 
+            std::cout << "ERROR: Missing mandatory NPEpsilons parameter "
                       << EPSILONvars[i] << std::endl;
             return false;
         }
     }
-    return(StandardModel::CheckParameters(DPars));
+    return(NPbase::CheckParameters(DPars));
 }
 
     
-void NPEpsilons::SetParameter(const std::string name, const double& value) 
+void NPEpsilons::setParameter(const std::string name, const double& value) 
 {
     if (name.compare("epsilon_1") == 0)
         myEpsilon_1 = value;
@@ -67,32 +68,28 @@ void NPEpsilons::SetParameter(const std::string name, const double& value)
     else if (name.compare("epsilon_b") == 0)
         myEpsilon_b = value;    
     else
-        StandardModel::SetParameter(name, value);       
+        NPbase::setParameter(name, value);
 }
 
 
 bool NPEpsilons::InitializeModel() 
 {
-    SetModelInitialized(StandardModel::InitializeModel());
+    setModelInitialized(NPbase::InitializeModel());
     myEWepsilons = new EWepsilons(*this);
     return (IsModelInitialized());
 }
 
 
-void NPEpsilons::SetEWSMflags(EWSM& myEWSM) 
+void NPEpsilons::setEWSMflags(EWSM& myEWSM) 
 {
-    StandardModel::SetEWSMflags(myEWSM);
+    NPbase::setEWSMflags(myEWSM);
 }
 
 
-bool NPEpsilons::SetFlag(const std::string name, const bool& value) 
+bool NPEpsilons::setFlag(const std::string name, const bool& value) 
 {
     bool res = false;
-    if (name.compare("EWBURGESS") == 0) {
-        throw std::runtime_error("ERROR: Flag EWBURGESS is not applicable to NPEpsilons"); 
-    } else if (name.compare("EWCHMN") == 0) {
-        throw std::runtime_error("ERROR: Flag EWCHMN is not applicable to NPEpsilons"); 
-    } else if (name.compare("epsilon1SM") == 0) {
+    if (name.compare("epsilon1SM") == 0) {
         FlagEpsilon1SM = value;
         res = true;
     } else if (name.compare("epsilon2SM") == 0) {
@@ -104,10 +101,29 @@ bool NPEpsilons::SetFlag(const std::string name, const bool& value)
     } else if (name.compare("epsilonbSM") == 0) {
         FlagEpsilonbSM = value;
         res = true;
+    } else if (name.compare("EWABC") == 0) {
+        FlagEWABC = value;
+        res = true;
+    } else if (name.compare("EWABC2") == 0) {
+        FlagEWABC2 = value;
+        res = true;
     } else
-        res = StandardModel::SetFlag(name,value);
+        res = NPbase::setFlag(name,value);
 
     return(res);
+}
+
+bool NPEpsilons::CheckFlags() const
+{
+    if ( IsFlagApproximateGqOverGb()
+            && !IsFlagRhoZbFromGuOverGb() && !IsFlagRhoZbFromGdOverGb()
+            && !IsFlagTestSubleadingTwoLoopEW())
+        throw std::runtime_error("ERROR: The current flags are not compatible with NPEpsilons model.");
+
+    if ( FlagEWABC && FlagEWABC2 )
+        throw std::runtime_error("ERROR: Flags EWABC and EWABC2 are incompatible with each other.");
+    
+    return(NPbase::CheckFlags());
 }
 
 

@@ -38,11 +38,11 @@ class EWSMEW1testclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(PiZgamma_fer_Mw_Mz2_real);
     CPPUNIT_TEST(PiZgamma_fer_Mw_Mz2_imag);
     CPPUNIT_TEST(PiGammaGamma_fer_Mw_0);    
-    CPPUNIT_TEST(B0_diff_Mw2_Mz_Mw);
-    CPPUNIT_TEST(B1_diff_Mw2_Mz_Mw);
-    CPPUNIT_TEST(B21_diff_Mw2_Mz_Mw);
-    CPPUNIT_TEST(Bf_diff_Mw2_Mz_Mw);
-    CPPUNIT_TEST(B0p_diff_Mw2_0_Mw);
+    CPPUNIT_TEST(B0_diff_Mw2_Mz2_Mw2);
+    CPPUNIT_TEST(B1_diff_Mw2_Mz2_Mw2);
+    CPPUNIT_TEST(B21_diff_Mw2_Mz2_Mw2);
+    CPPUNIT_TEST(Bf_diff_Mw2_Mz2_Mw2);
+    CPPUNIT_TEST(B0p_diff_Mw2_0_Mw2);
     CPPUNIT_TEST(SigmaWW_bos_diff_0_real);
     CPPUNIT_TEST(SigmaWW_fer_diff_0_real);    
     CPPUNIT_TEST(SigmaWW_bos_diff_Mw2_real);
@@ -73,14 +73,14 @@ class EWSMEW1testclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(SigmaPrimeZZ_bos_Mw_Mz2_imag); 
     CPPUNIT_TEST(SigmaPrimeZZ_fer_Mw_Mz2_real); 
     CPPUNIT_TEST(SigmaPrimeZZ_fer_Mw_Mz2_imag);
-    CPPUNIT_TEST(C0_Mz2_Mt_Mw_Mt_real);
-    CPPUNIT_TEST(C0_Mz2_Mt_Mw_Mt_imag);    
-    CPPUNIT_TEST(C0_Mz2_0_Mw_0_real);
-    CPPUNIT_TEST(C0_Mz2_0_Mw_0_imag);
-    CPPUNIT_TEST(C0_Mz2_Mw_Mt_Mw_real);
-    CPPUNIT_TEST(C0_Mz2_Mw_Mt_Mw_imag);
-    CPPUNIT_TEST(C0_Mz2_Mw_0_Mw_real);
-    CPPUNIT_TEST(C0_Mz2_Mw_0_Mw_imag);
+    CPPUNIT_TEST(C0_Mz2_Mt2_Mw2_Mt2_real);
+    CPPUNIT_TEST(C0_Mz2_Mt2_Mw2_Mt2_imag);
+    CPPUNIT_TEST(C0_Mz2_0_Mw2_0_real);
+    CPPUNIT_TEST(C0_Mz2_0_Mw2_0_imag);
+    CPPUNIT_TEST(C0_Mz2_Mw2_Mt2_Mw2_real);
+    CPPUNIT_TEST(C0_Mz2_Mw2_Mt2_Mw2_imag);
+    CPPUNIT_TEST(C0_Mz2_Mw2_0_Mw2_real);
+    CPPUNIT_TEST(C0_Mz2_Mw2_0_Mw2_imag);
     CPPUNIT_TEST(FZa_0_real);
     CPPUNIT_TEST(FZa_0_imag);
     CPPUNIT_TEST(FWa_0_real);
@@ -160,7 +160,7 @@ private:
     EWSMOneLoopEW* myEW1;
     
     double epsilon, epsilon_Li2;
-    double Mw, Mw2, Mz, Mz2, cW2, sW2, Mt;
+    double Mw, Mw2, Mz, Mz2, cW2, sW2, Mt, Mt2;
     
     void DeltaAlpha_l();
     
@@ -180,11 +180,11 @@ private:
     void PiZgamma_fer_Mw_Mz2_imag();
     void PiGammaGamma_fer_Mw_0();
     
-    void B0_diff_Mw2_Mz_Mw();
-    void B1_diff_Mw2_Mz_Mw();    
-    void B21_diff_Mw2_Mz_Mw();
-    void Bf_diff_Mw2_Mz_Mw();
-    void B0p_diff_Mw2_0_Mw();
+    void B0_diff_Mw2_Mz2_Mw2();
+    void B1_diff_Mw2_Mz2_Mw2();
+    void B21_diff_Mw2_Mz2_Mw2();
+    void Bf_diff_Mw2_Mz2_Mw2();
+    void B0p_diff_Mw2_0_Mw2();
     
     void SigmaWW_bos_diff_0_real();    
     void SigmaWW_fer_diff_0_real();
@@ -223,14 +223,14 @@ private:
     void SigmaPrimeZZ_fer_Mw_Mz2_real(); 
     void SigmaPrimeZZ_fer_Mw_Mz2_imag();     
     
-    void C0_Mz2_Mt_Mw_Mt_real();
-    void C0_Mz2_Mt_Mw_Mt_imag();
-    void C0_Mz2_0_Mw_0_real();
-    void C0_Mz2_0_Mw_0_imag();
-    void C0_Mz2_Mw_Mt_Mw_real();
-    void C0_Mz2_Mw_Mt_Mw_imag();
-    void C0_Mz2_Mw_0_Mw_real();
-    void C0_Mz2_Mw_0_Mw_imag();
+    void C0_Mz2_Mt2_Mw2_Mt2_real();
+    void C0_Mz2_Mt2_Mw2_Mt2_imag();
+    void C0_Mz2_0_Mw2_0_real();
+    void C0_Mz2_0_Mw2_0_imag();
+    void C0_Mz2_Mw2_Mt2_Mw2_real();
+    void C0_Mz2_Mw2_Mt2_Mw2_imag();
+    void C0_Mz2_Mw2_0_Mw2_real();
+    void C0_Mz2_Mw2_0_Mw2_imag();
 
     void FZa_0_real();
     void FZa_0_imag();

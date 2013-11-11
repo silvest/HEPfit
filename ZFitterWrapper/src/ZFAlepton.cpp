@@ -7,7 +7,7 @@
 
 #include "ZFAlepton.h"
 
-double ZFAlepton::getThValue() {
+double ZFAlepton::computeThValue() {
     return myZF.Af(1);
 }
 

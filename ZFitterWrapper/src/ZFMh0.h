@@ -25,7 +25,7 @@ public:
     /**
      * @return the Higgs mass
      */
-    double getThValue();
+    double computeThValue();
     
 private:
     const ZFitterWrapper& myZF;

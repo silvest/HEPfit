@@ -24,7 +24,7 @@ public:
     /**
      * @return the forward-backward asymmetry of a leptonic channel
      */
-    double getThValue();
+    double computeThValue();
 
     
 private:

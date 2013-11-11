@@ -7,6 +7,6 @@
 
 #include "Vus.h"
 
-double Vus::getThValue() { 
+double Vus::computeThValue() { 
     return(SM.getCKM().getVus());
 }

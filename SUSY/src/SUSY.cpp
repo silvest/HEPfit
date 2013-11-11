@@ -42,15 +42,15 @@ SUSY::SUSY()
 bool SUSY::InitializeModel()
 {
     mySUSYMatching = new SUSYMatching(*this);
-    SetModelInitialized(true);
+    setModelInitialized(true);
     myFH = new FeynHiggsWrapper(*this);
     myEWSM = new EWSM(*this);
-    this->SetEWSMflags(*myEWSM);
+    this->setEWSMflags(*myEWSM);
     myEWSUSY = new EWSUSY(*this);
     return(true);
 }
 
-void SUSY::SetEWSMflags(EWSM& myEWSM)
+void SUSY::setEWSMflags(EWSM& myEWSM)
 {
     std::cout << "Schemes for EWPOs:" << std::endl;
     std::cout << "  ";
@@ -86,7 +86,7 @@ bool SUSY::Update(const std::map<std::string, double>& DPars)
     UpdateError = false;
 
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        SetParameter(it->first, it->second);
+        setParameter(it->first, it->second);
 
     if (UpdateError) return (false);
 
@@ -163,7 +163,7 @@ bool SUSY::PostUpdate()
     return (true);
 }
 
-void SUSY::SetParameter(const std::string name, const double& value)
+void SUSY::setParameter(const std::string name, const double& value)
 {
     if (name.compare("m1r") == 0)
         m1.real() = value;
@@ -186,7 +186,7 @@ void SUSY::SetParameter(const std::string name, const double& value)
     else if (name.compare("Q") == 0)
         Q = value;
     else
-        StandardModel::SetParameter(name, value);
+        StandardModel::setParameter(name, value);
 }
 
 bool SUSY::CheckParameters(const std::map<std::string, double>& DPars)
@@ -210,7 +210,7 @@ void SUSY::SetTanb(const double tanb)
     sinb = tanb * cosb;
 }
 
-void SUSY::SetYukawas()
+void SUSY::computeYukawas()
 {
     /* initializations */
     Yu = matrix<complex>::Id(3);
@@ -257,7 +257,7 @@ void SUSY::SetSoftTerms()
 ///////////////////////////////////////////////////////////////////////////
 // Flags
 
-bool SUSY::SetFlag(const std::string name, const bool& value)
+bool SUSY::setFlag(const std::string name, const bool& value)
 {
     bool res = false;
     if(name.compare("Flag_H") == 0) {
@@ -277,7 +277,7 @@ bool SUSY::SetFlag(const std::string name, const bool& value)
         res = true;
     }
     else
-        res = StandardModel::SetFlag(name,value);
+        res = StandardModel::setFlag(name,value);
 
     return(res);
 }

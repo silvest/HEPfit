@@ -27,7 +27,7 @@ public:
      * @return theoretical value of |\f$ BR(K_L \rightarrow \mu \bar{\mu}) \f$|, 
      * for example see hep-ph/0603079 section 2.3
      */
-    double getThValue();
+    double computeThValue();
     
     
 protected:

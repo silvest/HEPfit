@@ -38,7 +38,7 @@ public:
     /**
      * @return The hadronic cross section of the @f$Z@f$ boson at the @f$Z@f$ pole in nb. 
      */
-    double getThValue();
+    double computeThValue();
 
 
 private:

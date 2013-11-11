@@ -5,42 +5,16 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef BR_BDNUNU_H
-#define	BR_BDNUNU_H
+#include "BR_Bdnunu.h"
 
-#include <ThObservable.h>
-#include "Flavour.h"
+double BR_Bdnunu::computeThValue()
+{
+    return 0.0;
+}
 
-using namespace gslpp;
 
-class BR_Bdnunu : public ThObservable {
-public:   
-    /**
-     * constructor
-     * @param Flavour
-     */
-    BR_Bdnunu(Flavour& Flavour): ThObservable(Flavour), myFlavour(Flavour){};
-    
-    /**
-     * 
-     * @return theoretical value of |\f$ BR(B_s \rightarrow \nu \bar{\nu}) \f$|
-     */
-    double getThValue();
-    
-    
-protected:
-    
-    /**
-     * 
-     * @param order
-     * @param order_ew
-     * @return the short distance contribution to the 
-     * |\f$ BR(B_s \rightarrow \nu \bar{\nu}) \f$|
-     */
-    complex BRBdnunu(orders order);
-    
-private:
-    Flavour& myFlavour;
-};
+complex BR_Bdnunu::BRBdnunu(orders order)
+{
+    return complex(0.0, 0.0);
+}
 
-#endif	/* BR_BDNUNU_H */

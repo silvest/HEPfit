@@ -434,7 +434,7 @@ private:
     matrix<double> ZR; ///< The rotation matrix for CP-even neutral Higgses in Rosiek's notation.
     matrix<double> ZH; ///< The rotation matrix for charged (CP-odd neutral) Higgs and charged (neutral) Goldstone boson in Rosiek's notation.
 
-    double m_u[3], m_d[3], m_l[3], mH0[4], Msu[6], Msd[6], Mse[6], Msn[3], mC[2], mN[4];
+    double m_u[3], m_d[3], m_l[3], mH02[4], Msu2[6], Msd2[6], Mse2[6], Msn2[3], mC[2], mN[4];
 
     complex L_esnC(const int N, const int K, const int i, const double Mw_i) const;
     complex R_esnC(const int N, const int K, const int i) const;

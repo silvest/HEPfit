@@ -15,7 +15,7 @@ class Vub : public ThObservable {
 public:
     Vub(const ThObsType& ObsType) : ThObservable(ObsType) {};
 
-    double getThValue();
+    double computeThValue();
 };
 
 #endif	/* VUB_H */

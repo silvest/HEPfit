@@ -28,27 +28,22 @@ const std::string StandardModel::SMvars[NSMvars] = {
 };
 
 const std::string StandardModel::SMflags[NSMflags] = {
-    "FixedAllSMparams", "EWCHMN", "EWABC", "EWABC2", "EWBURGESS", 
-    "withoutNonUniversalVCinEpsilons", "NotLinearizedNP",
-    "ApproximateGuOverGb", "ApproximateGdOverGb", "RhoZbFromGqOverGb", 
-    "TestSubleadingTwoLoopEW"
+    "withoutNonUniversalVCinEpsilons",
+    "ApproximateGqOverGb", "ApproximateGammaZ", "ApproximateSigmaH",
+    "RhoZbFromGuOverGb", "RhoZbFromGdOverGb", "TestSubleadingTwoLoopEW",
+    "EWCHMN"
 };
 
-StandardModel::StandardModel(const bool bDebug_i) 
+StandardModel::StandardModel() 
 : QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.), 
-        Ye(3, 3, 0.), bDebug(bDebug_i) 
+        Ye(3, 3, 0.)
 {
-    FlagFixedAllSMparams = false;
-    FlagEWCHMN = false;
-    FlagEWABC = false;
-    FlagEWABC2 = false;
-    FlagEWBURGESS = false;
     FlagWithoutNonUniversalVC = false;
     FlagApproximateGqOverGb = false;
     FlagRhoZbFromGuOverGb = false;
     FlagRhoZbFromGdOverGb = false;
     FlagTestSubleadingTwoLoopEW = false;
-    FlagNotLinearizedNP = false;
+    FlagEWCHMN = false;
     
     leptons[NEUTRINO_1].setCharge(0.);
     leptons[NEUTRINO_2].setCharge(0.);    
@@ -71,13 +66,13 @@ StandardModel::StandardModel(const bool bDebug_i)
 bool StandardModel::InitializeModel()
 {
     myStandardModelMatching = new StandardModelMatching(*this);
-    SetModelInitialized(true);
+    setModelInitialized(true);
     myEWSM = new EWSM(*this);
-    this->SetEWSMflags(*myEWSM);
+    this->setEWSMflags(*myEWSM);
     return(true);
 }
 
-void StandardModel::SetEWSMflags(EWSM& myEWSM)
+void StandardModel::setEWSMflags(EWSM& myEWSM)
 {
     std::cout << "Schemes for EWPOs:" << std::endl;
     std::cout << "  ";
@@ -101,9 +96,9 @@ bool StandardModel::Init(const std::map<std::string, double>& DPars)
 
 bool StandardModel::PreUpdate()
 {
-    computeCKM = false;
-    computeYe = false;
-    computeYn = false;
+    requireCKM = false;
+    requireYe = false;
+    requireYn = false;
     
     if(!QCD::PreUpdate())  return (false);
     
@@ -117,7 +112,7 @@ bool StandardModel::Update(const std::map<std::string, double>& DPars)
     UpdateError = false;
     
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        SetParameter(it->first, it->second);
+        setParameter(it->first, it->second);
     
     if (UpdateError) return (false);
     
@@ -131,10 +126,10 @@ bool StandardModel::PostUpdate()
     if(!QCD::PostUpdate()) return (false);
 
     /* Set the CKM and PMNS matrices */
-    SetCKM();
+    computeCKM();
 
     /* Set the Yukawa matrices */
-    SetYukawas();
+    computeYukawas();
 
     /* Necessary for updating StandardModel parameters in StandardModelMatching */
     if (ModelName()=="StandardModel")
@@ -143,7 +138,7 @@ bool StandardModel::PostUpdate()
     return (true);
 }
 
-void StandardModel::SetParameter(const std::string name, const double& value)
+void StandardModel::setParameter(const std::string name, const double& value)
 {
     if (name.compare("ale") == 0)
         ale = value;
@@ -169,34 +164,34 @@ void StandardModel::SetParameter(const std::string name, const double& value)
         muw = value;
     else if (name.compare("mneutrino_1") == 0) {
         leptons[NEUTRINO_1].setMass(value);
-        computeYn = true;
+        requireYn = true;
     } else if (name.compare("mneutrino_2") == 0) {
         leptons[NEUTRINO_2].setMass(value);
-        computeYn = true;
+        requireYn = true;
     } else if (name.compare("mneutrino_3") == 0) {
         leptons[NEUTRINO_3].setMass(value);
-        computeYn = true;
+        requireYn = true;
     } else if (name.compare("melectron") == 0) {
         leptons[ELECTRON].setMass(value);
-        computeYe = true;
+        requireYe = true;
     } else if (name.compare("mmu") == 0) {
         leptons[MU].setMass(value);
-        computeYe = true;
+        requireYe = true;
     } else if (name.compare("mtau") == 0) {
         leptons[TAU].setMass(value);
-        computeYe = true;
+        requireYe = true;
     } else if (name.compare("lambda") == 0) {
         lambda = value;
-        computeCKM = true;
+        requireCKM = true;
     } else if (name.compare("A") == 0) {
         A = value;
-        computeCKM = true;
+        requireCKM = true;
     } else if (name.compare("rhob") == 0) {
         rhob = value;
-        computeCKM = true;
+        requireCKM = true;
     } else if (name.compare("etab") == 0) {
         etab = value;
-        computeCKM = true;
+        requireCKM = true;
     } else if (name.compare("EpsK") == 0)
         EpsK = value;
     else if (name.compare("phiEpsK") == 0)
@@ -210,7 +205,7 @@ void StandardModel::SetParameter(const std::string name, const double& value)
     else if (name.compare("SM_M12D") == 0)
         SM_M12D = value;
     else
-        QCD::SetParameter(name, value);
+        QCD::setParameter(name, value);
 }
 
 bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars) 
@@ -224,37 +219,37 @@ bool StandardModel::CheckParameters(const std::map<std::string, double>& DPars)
     return(QCD::CheckParameters(DPars));
 }
 
-void StandardModel::SetCKM()
+void StandardModel::computeCKM()
 {
-    if (computeCKM) {
+    if (requireCKM) {
         myCKM.setWolfenstein(lambda, A, rhob, etab);
         myCKM.getCKM(VCKM);
     }
     UPMNS = matrix<complex>::Id(3);
 }
 
-void StandardModel::SetYukawas()
+void StandardModel::computeYukawas()
 {
     /* THE FOLLOWING CODES HAVE TO BE MODIFIED!!
      *   The Yukawa matrices have to be computed at a common scale
      *   for all the fermions!!! */
-    if (computeYu || computeCKM) {
+    if (requireYu || requireCKM) {
         Yu = matrix<complex>::Id(3);
         for (int i = 0; i < 3; i++)
             Yu.assign(i, i, this->quarks[UP + 2 * i].getMass() / v() * sqrt(2.));
         Yu = VCKM.transpose()*Yu;
     }
-    if (computeYd) {
+    if (requireYd) {
         Yd = matrix<complex>::Id(3);
         for (int i = 0; i < 3; i++)
             Yd.assign(i, i, this->quarks[DOWN + 2 * i].getMass() / v() * sqrt(2.));
     }
-    if (computeYe) {
+    if (requireYe) {
         Ye = matrix<complex>::Id(3);
         for (int i = 0; i < 3; i++)
             Ye.assign(i, i, this->leptons[ELECTRON + 2 * i].getMass() / v() * sqrt(2.));
     }
-    if (computeYn) {
+    if (requireYn) {
         Yn = matrix<complex>::Id(3);
         for (int i = 0; i < 3; i++)
             Yn.assign(i, i, this->leptons[NEUTRINO_1 + 2 * i].getMass() / v() * sqrt(2.));
@@ -266,32 +261,20 @@ void StandardModel::SetYukawas()
 ///////////////////////////////////////////////////////////////////////////
 // Flags
 
-bool StandardModel::SetFlag(const std::string name, const bool& value) 
+bool StandardModel::setFlag(const std::string name, const bool& value) 
 {  
     bool res = false;
-    if (name.compare("FixedAllSMparams") == 0) {
-        FlagFixedAllSMparams = value;
-        res = true;
-    } else if (name.compare("EWCHMN") == 0) {
-        FlagEWCHMN = value;
-        res = true;
-    } else if (name.compare("EWABC") == 0) {
-        FlagEWABC = value;
-        res = true;
-    } else if (name.compare("EWABC2") == 0) {
-        FlagEWABC2 = value;
-        res = true;
-    } else if (name.compare("EWBURGESS") == 0) {
-        FlagEWBURGESS = value;
-        res = true;
-    } else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
+    if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
         FlagWithoutNonUniversalVC = value;
-        res = true;
-    } else if (name.compare("NotLinearizedNP") == 0) {
-        FlagNotLinearizedNP = value;
         res = true;
     } else if (name.compare("ApproximateGqOverGb") == 0) {
         FlagApproximateGqOverGb = value;
+        res = true;
+    } else if (name.compare("ApproximateGammaZ") == 0) {
+        FlagApproximateGammaZ = value;
+        res = true;
+    } else if (name.compare("ApproximateSigmaH") == 0) {
+        FlagApproximateSigmaH = value;
         res = true;
     } else if (name.compare("RhoZbFromGuOverGb") == 0) {
         FlagRhoZbFromGuOverGb = value;
@@ -302,8 +285,31 @@ bool StandardModel::SetFlag(const std::string name, const bool& value)
     } else if (name.compare("TestSubleadingTwoLoopEW") == 0) {
         FlagTestSubleadingTwoLoopEW = value;
         res = true;
-    }
+    } else if (name.compare("EWCHMN") == 0) {
+        FlagEWCHMN = value;
+        res = true;
+    } else
+        res = QCD::setFlag(name,value);
+
     return(res);
+}
+
+bool StandardModel::CheckFlags() const
+{
+    if ( !FlagApproximateGqOverGb && FlagRhoZbFromGuOverGb)
+        throw std::runtime_error("ERROR: Flag RhoZbFromGuOverGb=true has to be used together with ApproximateGqOverGb=true.");
+    if ( !FlagApproximateGqOverGb && FlagRhoZbFromGdOverGb)
+        throw std::runtime_error("ERROR: Flag RhoZbFromGdOverGb=true has to be used together with ApproximateGqOverGb=true.");
+    if ( FlagRhoZbFromGuOverGb && FlagRhoZbFromGdOverGb)
+        throw std::runtime_error("ERROR: Flags RhoZbFromGuOverGb and RhoZbFromGdOverGb cannot be set to true simultaneously.");
+    if ( !FlagApproximateGqOverGb && FlagTestSubleadingTwoLoopEW)
+        throw std::runtime_error("ERROR: Flag TestSubleadingTwoLoopEW=true has to be used together with ApproximateGqOverGb=true.");
+    if ( FlagTestSubleadingTwoLoopEW && FlagRhoZbFromGuOverGb)
+        throw std::runtime_error("ERROR: Flags TestSubleadingTwoLoopEW and RhoZbFromGuOverGb cannot be set to true simultaneously.");
+    if ( FlagTestSubleadingTwoLoopEW && FlagRhoZbFromGdOverGb)
+        throw std::runtime_error("ERROR: Flags TestSubleadingTwoLoopEW and RhoZbFromGdOverGb cannot be set to true simultaneously.");
+
+    return(QCD::CheckFlags());
 }
 
 
@@ -369,17 +375,17 @@ double StandardModel::c02() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::DeltaAlphaLepton(const double s) const 
+double StandardModel::DeltaAlphaLepton(const double s) const
 {
     return myEWSM->DeltaAlphaLepton(s);
 }
 
-double StandardModel::DeltaAlphaL5q() const 
+double StandardModel::DeltaAlphaL5q() const
 {
     return myEWSM->DeltaAlphaL5q();
 }
     
-double StandardModel::DeltaAlpha() const 
+double StandardModel::DeltaAlpha() const
 {
     return myEWSM->DeltaAlpha();
 }
@@ -531,73 +537,22 @@ double StandardModel::epsilonb_SM() const
 
 double StandardModel::epsilon1() const
 { 
-    return ( epsilon1_SM() + obliqueThat() );
+    return epsilon1_SM();
 }
 
 double StandardModel::epsilon2() const 
 {
-    return ( epsilon2_SM() + obliqueUhat() );    
+    return epsilon2_SM();    
 }
     
 double StandardModel::epsilon3() const 
 {
-    return ( epsilon3_SM() + obliqueShat() );
+    return epsilon3_SM();
 }
 
 double StandardModel::epsilonb() const 
 {
     return epsilonb_SM();    
-}
-
-double StandardModel::deltaGVl(StandardModel::lepton l) const
-{
-    /* SM values */
-    double alpha = StandardModel::alphaMz();
-    double sW2SM = StandardModel::sW2();
-    double cW2SM = StandardModel::cW2();
-    double gVSM = StandardModel::gVl(l).real();
-    double gASM = StandardModel::gAl(l).real();
-
-    return ( gVSM*alpha*obliqueT()/2.0
-            + (gVSM - gASM)*alpha/4.0/sW2SM/(cW2SM - sW2SM)
-              *(obliqueS() - 4.0*cW2SM*sW2SM*obliqueT()) );
-}
-
-double StandardModel::deltaGVq(StandardModel::quark q) const
-{
-    if (q==TOP) return 0.0;
-
-    /* SM values */
-    double alpha = StandardModel::alphaMz();
-    double sW2SM = StandardModel::sW2();
-    double cW2SM = StandardModel::cW2();
-    double gVSM = StandardModel::gVq(q).real();
-    double gASM = StandardModel::gAq(q).real();
-
-    return ( gVSM*alpha*obliqueT()/2.0
-             + (gVSM - gASM)*alpha/4.0/sW2SM/(cW2SM - sW2SM)
-               *(obliqueS() - 4.0*cW2SM*sW2SM*obliqueT()) );
-}
-
-double StandardModel::deltaGAl(StandardModel::lepton l) const
-{
-    /* SM values */
-    double alpha = StandardModel::alphaMz();
-    double gASM = StandardModel::gAl(l).real();
-
-    return ( gASM*alpha*obliqueT()/2.0 );
-
-}
-
-double StandardModel::deltaGAq(StandardModel::quark q) const
-{
-    if (q==TOP) return 0.0;
-
-    /* SM values */
-    double alpha = StandardModel::alphaMz();
-    double gASM = StandardModel::gAq(q).real();
-
-    return ( gASM*alpha*obliqueT()/2.0 );
 }
 
 
@@ -606,69 +561,69 @@ double StandardModel::deltaGAq(StandardModel::quark q) const
 
 // Angles
 
-double StandardModel::getBeta() const 
+double StandardModel::computeBeta() const 
 {
     return (-VCKM(1, 0) * VCKM(1, 2).conjugate() / (VCKM(2, 0) * VCKM(2, 2).conjugate())).arg();
 }
 
-double StandardModel::getGamma() const 
+double StandardModel::computeGamma() const 
 {
     return (-VCKM(0, 0) * VCKM(0, 2).conjugate() / (VCKM(1, 0) * VCKM(1, 2).conjugate())).arg();
 }
 
-double StandardModel::getAlpha() const 
+double StandardModel::computeAlpha() const 
 {
     return (-VCKM(2, 0) * VCKM(2, 2).conjugate() / (VCKM(0, 0) * VCKM(0, 2).conjugate())).arg();
 }
 
-double StandardModel::getBetas() const 
+double StandardModel::computeBetas() const 
 {
     return (-VCKM(2, 1) * VCKM(2, 2).conjugate() / (VCKM(1, 1) * VCKM(1, 2).conjugate())).arg();
 }
 
 // Lambda_q
 
-complex StandardModel::getlamt() const 
+complex StandardModel::computelamt() const 
 {
     return VCKM(2, 0) * VCKM(2, 1).conjugate();
 }
 
-complex StandardModel::getlamc() const 
+complex StandardModel::computelamc() const 
 {
     return VCKM(1, 0) * VCKM(1, 1).conjugate();
 }
 
-complex StandardModel::getlamu() const 
+complex StandardModel::computelamu() const 
 {
     return VCKM(0, 0) * VCKM(0, 1).conjugate();
 }
 
-complex StandardModel::getlamt_d() const
+complex StandardModel::computelamt_d() const
 {
     return VCKM(2, 0) * VCKM(2, 2).conjugate();
 }
 
-complex StandardModel::getlamc_d() const 
+complex StandardModel::computelamc_d() const 
 {
     return VCKM(1, 0) * VCKM(1, 2).conjugate();
 }
 
-complex StandardModel::getlamu_d() const 
+complex StandardModel::computelamu_d() const 
 {
     return VCKM(0, 0) * VCKM(0, 2).conjugate();
 }
 
-complex StandardModel::getlamt_s() const 
+complex StandardModel::computelamt_s() const 
 {
     return VCKM(2, 1) * VCKM(2, 2).conjugate();
 }
 
-complex StandardModel::getlamc_s() const 
+complex StandardModel::computelamc_s() const 
 {
     return VCKM(1, 1) * VCKM(1, 2).conjugate();
 }
 
-complex StandardModel::getlamu_s() const 
+complex StandardModel::computelamu_s() const 
 {
     return VCKM(0, 1) * VCKM(0, 2).conjugate();
 }

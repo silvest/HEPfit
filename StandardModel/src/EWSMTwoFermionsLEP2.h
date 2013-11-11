@@ -199,7 +199,6 @@ public:
     
     ////////////////////////////////////////////////////////////////////////  
 private:
-    bool bDebug; // true for debugging    
     bool bKeepNonUnitary; // true if keeping non-unitary terms
     
     const StandardModel& SM;

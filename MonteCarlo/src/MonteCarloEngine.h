@@ -61,22 +61,22 @@ public:
                         const std::string OutputDir);
     void PrintHistogram(BCModelOutput& out, const std::string OutputDir);
     void MCMCIterationInterface();
-    void SetNChains(unsigned int i);
+    void setNChains(unsigned int i);
     void AddChains();
     double Weight(const Observable& obs, const double& th);
     double Weight(const Observable2D& obs, const double& th1, const double& th2);    
     double Weight(const CorrelatedGaussianObservables& obs);
-    Model* GetMod() const 
+    Model* getMod() const
     {
         return Mod;
     }
 
-    void SetMod(Model* Mod) 
+    void setMod(Model* Mod)
     {
         this->Mod = Mod;
     }
     
-    std::string GetHistoLog() const 
+    std::string getHistoLog() const 
     {
         return HistoLog.str().c_str();
     }

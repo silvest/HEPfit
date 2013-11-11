@@ -18,8 +18,7 @@
 EWSMApproximateFormulae::EWSMApproximateFormulae(const StandardModel& SM_i) 
 : SM(SM_i) 
 {
-    bDebug = SM_i.isBDebug();
-}
+ }
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -27,7 +26,7 @@ EWSMApproximateFormulae::EWSMApproximateFormulae(const StandardModel& SM_i)
 double EWSMApproximateFormulae::Mw(const double DeltaAlphaL5q_i) const 
 {
     double Mw0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11;    
-    if( SM.getMHl() >= 100.0 && SM.getMHl() <= UpperBoundForApproximateFormulae && !bDebug ) {
+    if( SM.getMHl() >= 100.0 && SM.getMHl() <= UpperBoundForApproximateFormulae) {
         // applicable for 100 GeV <= mHl <= 1 TeV
         Mw0 = 80.3800;
         c1 = 0.05253;
@@ -537,4 +536,60 @@ double EWSMApproximateFormulae::Gd_over_Gb(const double DeltaAlphaL5q_i) const
 }
 
 
+double EWSMApproximateFormulae::GammaZ(const double DeltaAlphaL5q_i) const
+{
+    // mHl = 125.7+-2.5 GeV
+    // mt = 173.2+-2.0
+    // als = 0.1184+-0.0050
+    // DeltaAlpha = 0.05900+-0.00050
+    // Mz= 91.1876+-0.0042
+    // --> GammaZ is better than 0.01 MeV.
+    
+    double X0 = 2494.08;
+    double c1 = -2.0;
+    double c2 = 19.7;
+    double c3 = 58.60;
+    double c4 = -4.0;
+    double c5 = 8.0;
+    double c6 = -55.8;
+    double c7 = 9266.0;
+
+    double LH = log(SM.getMHl()/125.7);
+    double Dt = SM.getMtpole()/173.2 - 1.0;
+    double Das = SM.getAlsMz()/0.1184 - 1.0;
+    double Dal = DeltaAlphaL5q_i/0.059 - 1.0;
+    double DZ = SM.getMz()/91.1876 - 1.0;
+
+    return ( (X0 + c1*LH + c2*Dt + c3*Das + c4*Das*Das + c5*Das*Dt + c6*Dal
+              + c7*DZ) / 1000.0 );
+}
+
+
+double EWSMApproximateFormulae::sigmaHadron(const double DeltaAlphaL5q_i) const
+{
+    // mHl = 125.7+-2.5 GeV
+    // mt = 173.2+-2.0
+    // als = 0.1184+-0.0050
+    // DeltaAlpha = 0.05900+-0.00050
+    // Mz= 91.1876+-0.0042
+    // --> sigmaHadron is better than 0.1 pb. 
+
+    double X0 = 41479.9;
+    double c1 = 3.1;
+    double c2 = 59.7;
+    double c3 = -579.1;
+    double c4 = 38.1;
+    double c5 = 7.3;
+    double c6 = 88.0;
+    double c7 = -86074.0;
+
+    double LH = log(SM.getMHl()/125.7);
+    double Dt = SM.getMtpole()/173.2 - 1.0;
+    double Das = SM.getAlsMz()/0.1184 - 1.0;
+    double Dal = DeltaAlphaL5q_i/0.059 - 1.0;
+    double DZ = SM.getMz()/91.1876 - 1.0;
+
+    return ( (X0 + c1*LH + c2*Dt + c3*Das + c4*Das*Das + c5*Das*Dt + c6*Dal
+              + c7*DZ) / 1000.0 );
+}
 

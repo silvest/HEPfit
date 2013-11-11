@@ -99,12 +99,14 @@ public:
      */
     double Gd_over_Gb(const double DeltaAlphaL5q_i) const;
 
+    double GammaZ(const double DeltaAlphaL5q_i) const;
+
+    double sigmaHadron(const double DeltaAlphaL5q_i) const;
+
     
     ////////////////////////////////////////////////////////////////////////
     
 private:
-    bool bDebug; // true for debugging    
-    
     const StandardModel& SM;
     
 };

@@ -36,7 +36,7 @@ public:
     /**
      * @return The W-boson mass
      */
-    double getThValue();
+    double computeThValue();
 
     
 private:

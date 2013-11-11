@@ -228,10 +228,8 @@ double LEP2TwoFermions::G_3prime_q(const StandardModel::quark q,
 double LEP2TwoFermions::alpha_at_s(const double s) const 
 {
     double alpha;
-    if(bDebug)
-        alpha = SM.getAle()/complex(1.0715119759, -0.0186242179, false).real(); // for debug, s=(200GeV)^2
-    else
-        alpha = SM.ale_OS(sqrt(s), FULLNLO);
+    //alpha = SM.getAle()/complex(1.0715119759, -0.0186242179, false).real(); // for debug, s=(200GeV)^2
+    alpha = SM.ale_OS(sqrt(s), FULLNLO);
 
     return alpha;
 }

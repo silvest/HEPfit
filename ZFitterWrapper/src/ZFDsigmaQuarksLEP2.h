@@ -29,7 +29,7 @@ public:
     /**
      * @return the differential hadronic cross section in pb at sqrt_s and cos_theta
      */
-    double getThValue();
+    double computeThValue();
     
 private:
     const ZFitterWrapper& myZF;

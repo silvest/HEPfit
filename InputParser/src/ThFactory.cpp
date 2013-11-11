@@ -8,8 +8,8 @@
 #include <vector>
 #include <boost/lexical_cast.hpp>
 #include "ThFactory.h"
-#include <SMInputs.h>
-#include <NPInputs.h>
+#include <StandardModelParams.h>
+#include <NewPhysicsParams.h>
 #include <SUSYObservables.h>
 #include <FlavourObservables.h>
 #include <EWObservables.h>
@@ -36,18 +36,21 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["gamma"] = new CKMGamma(myFlavour);
     thobs["SJPsiK"] = new SJPsiK(myFlavour);
     thobs["SJPsiPhi"] = new SJPsiPhi(myFlavour);
-    thobs["BR_Bdmumu"] = new BR_Bdmumu(myFlavour, 1);
-    thobs["BRbar_Bdmumu"] = new BR_Bdmumu(myFlavour, 2);
-    thobs["Amumu_Bd"] = new BR_Bdmumu(myFlavour, 3);
-    thobs["Smumu_Bd"] = new BR_Bdmumu(myFlavour, 4);
-    thobs["BR_Bsmumu"] = new BR_Bsmumu(myFlavour, 1);
-    thobs["BRbar_Bsmumu"] = new BR_Bsmumu(myFlavour, 2);
-    thobs["Amumu_Bs"] = new BR_Bsmumu(myFlavour, 3);
-    thobs["Smumu_Bs"] = new BR_Bsmumu(myFlavour, 4);
+    thobs["BR_Bdmumu"] = new Bdmumu(myFlavour, 1);
+    thobs["BRbar_Bdmumu"] = new Bdmumu(myFlavour, 2);
+    thobs["Amumu_Bd"] = new Bdmumu(myFlavour, 3);
+    thobs["Smumu_Bd"] = new Bdmumu(myFlavour, 4);
+    thobs["BR_Bsmumu"] = new Bsmumu(myFlavour, 1);
+    thobs["BRbar_Bsmumu"] = new Bsmumu(myFlavour, 2);
+    thobs["Amumu_Bs"] = new Bsmumu(myFlavour, 3);
+    thobs["Smumu_Bs"] = new Bsmumu(myFlavour, 4);
+
     //-----   SUSY spectra and observables  -----
-    if(myModel.ModelName().compare("SUSY")
-            || myModel.ModelName().compare("GeneralSUSY")
-            || myModel.ModelName().compare("MFV")) {
+    if(myModel.ModelName().compare("SUSY") == 0
+            || myModel.ModelName().compare("SUSYMassInsertion") == 0
+            || myModel.ModelName().compare("GeneralSUSY") == 0
+            || myModel.ModelName().compare("pMSSM") == 0
+            || myModel.ModelName().compare("MFV") == 0) {
         thobs["OutputSLHAfromFH"] = new OutputSLHAfromFH(myMO); // for debug
         thobs["MHl"] = new Mhiggs(myMO, 0);
         thobs["MHh"] = new Mhiggs(myMO, 1);
@@ -75,59 +78,69 @@ ThFactory::ThFactory(const StandardModel& myModel)
     }
     
     //-----  SM input parameters, etc.  -----
-    thobs["AlsMz"] = new alsMz(myMO);
-    thobs["dAle5Mz"] = new dAle5Mz(myMO);
-    thobs["mHl"] = new mHl(myMO);
-    thobs["Mz"] = new mZ(myMO);
-    thobs["mtop"] = new mtpole(myMO);
-    thobs["delRhoZ_nu"] = new delRhoZ_nu(myMO);
-    thobs["delRhoZ_e"] = new delRhoZ_e(myMO);
-    thobs["delRhoZ_u"] = new delRhoZ_u(myMO);
-    thobs["delRhoZ_d"] = new delRhoZ_d(myMO);
-    thobs["delRhoZ_b"] = new delRhoZ_b(myMO);
-    
+    thobs["AlsMz"] = new StandardModelParams(myMO, "AlsMz");
+    thobs["dAle5Mz"] = new StandardModelParams(myMO, "dAle5Mz");
+    thobs["Mz"] = new StandardModelParams(myMO, "Mz");
+    thobs["mtop"] = new StandardModelParams(myMO, "mtop");
+    thobs["mHl"] = new StandardModelParams(myMO, "mHl");
+    thobs["delMw"] = new StandardModelParams(myMO, "delMw");
+    thobs["delSin2th_l"] = new StandardModelParams(myMO, "delSin2th_l");
+    thobs["delGammaZ"] = new StandardModelParams(myMO, "delGammaZ");
+    thobs["delRhoZ_nu"] = new StandardModelParams(myMO, "delRhoZ_nu");
+    thobs["delRhoZ_e"] = new StandardModelParams(myMO, "delRhoZ_e");
+    if (myMO.getModel().IsFlagTestSubleadingTwoLoopEW()) {
+        thobs["delRhoZ_u"] = new StandardModelParams(myMO, "delRhoZ_u");
+        thobs["delRhoZ_d"] = new StandardModelParams(myMO, "delRhoZ_d");
+    }
+    thobs["delRhoZ_b"] = new StandardModelParams(myMO, "delRhoZ_b");
+
     //-----  NP input parameters, etc.  -----
-    thobs["cHLp_NP"] = new cHLp_NP(myMO);
-    thobs["cHQp_NP"] = new cHQp_NP(myMO);
-    thobs["cHQ_NP"] = new cHQ_NP(myMO);
-    thobs["cHL_NP"] = new cHL_NP(myMO);
-    thobs["cHE_NP"] = new cHE_NP(myMO);
-    thobs["cHU2_NP"] = new cHU2_NP(myMO);
-    thobs["cHD3_NP"] = new cHD3_NP(myMO);
-    thobs["cHQ1pPLUScHQ2p_NP"] = new cHQ1pPLUScHQ2p_NP(myMO);
-    thobs["cHQ2pMINUScHQ2_NP"] = new cHQ2pMINUScHQ2_NP(myMO);
-    thobs["cHQ3pPLUScHQ3_NP"] = new cHQ3pPLUScHQ3_NP(myMO);
-    thobs["c_Ae_NP"] = new c_Ae_NP(myMO);
-    thobs["c_GammaZ_uds_NP"] = new c_GammaZ_uds_NP(myMO);
-    thobs["deltaGVb"] = new deltaGVb(myMO);
-    thobs["deltaGAb"] = new deltaGAb(myMO);
-    thobs["deltaGLb"] = new deltaGLb(myMO);
-    thobs["deltaGRb"] = new deltaGRb(myMO);
-    thobs["deltaRhoZb"] = new deltaRhoZb(myMO);
-    thobs["deltaKappaZb"] = new deltaKappaZb(myMO);
-    
+    if(myModel.ModelName().compare("NPEffective1") == 0
+            || myModel.ModelName().compare("NPEffective2") == 0 ) {
+        thobs["cHLp_NP"] = new NewPhysicsParams(myMO, "cHLp_NP");
+        thobs["cHQp_NP"] = new NewPhysicsParams(myMO, "cHQp_NP");
+        thobs["cHQ_NP"] = new NewPhysicsParams(myMO, "cHQ_NP");
+        thobs["cHL_NP"] = new NewPhysicsParams(myMO, "cHL_NP");
+        thobs["cHE_NP"] = new NewPhysicsParams(myMO, "cHE_NP");
+        thobs["c_Ae_NP"] = new NewPhysicsParams(myMO, "c_Ae_NP");
+        thobs["c_GammaZ_uds_NP"] = new NewPhysicsParams(myMO, "c_GammaZ_uds_NP");
+        thobs["cHU2_NP"] = new NewPhysicsParams(myMO, "cHU2_NP");
+        thobs["cHD3_NP"] = new NewPhysicsParams(myMO, "cHD3_NP");
+        thobs["cHQ1pPLUScHQ2p_NP"] = new NewPhysicsParams(myMO, "cHQ1pPLUScHQ2p_NP");
+        thobs["cHQ2pMINUScHQ2_NP"] = new NewPhysicsParams(myMO, "cHQ2pMINUScHQ2_NP");
+        thobs["cHQ3pPLUScHQ3_NP"] = new NewPhysicsParams(myMO, "cHQ3pPLUScHQ3_NP");
+    }
+    if(myModel.ModelName().compare("NPZbbbar") == 0) {
+        thobs["deltaGVb"] = new NewPhysicsParams(myMO, "deltaGVb");
+        thobs["deltaGAb"] = new NewPhysicsParams(myMO, "deltaGAb");
+        thobs["deltaGLb"] = new NewPhysicsParams(myMO, "deltaGLb");
+        thobs["deltaGRb"] = new NewPhysicsParams(myMO, "deltaGRb");
+        thobs["deltaRhoZb"] = new NewPhysicsParams(myMO, "deltaRhoZb");
+        thobs["deltaKappaZb"] = new NewPhysicsParams(myMO, "deltaKappaZb");
+    }
+
+    //-----  epsilon parameters by Altarelli et al.  -----
+    thobs["epsilon1"] = new NewPhysicsParams(myMO, "epsilon1");
+    thobs["epsilon2"] = new NewPhysicsParams(myMO, "epsilon2");
+    thobs["epsilon3"] = new NewPhysicsParams(myMO, "epsilon3");
+    thobs["epsilonb"] = new NewPhysicsParams(myMO, "epsilonb");
+
     //-----  Z-pole observables (with EW and StandardModel)  -----
     thobs["Mw"] = new Mw(myEW);
-    thobs["sin2thetaEff"] = new sin2thetaEff(myEW);
     thobs["GammaW"] = new GammaW(myEW);
     thobs["GammaZ"] = new GammaZ(myEW);
+    thobs["sigmaHadron"] = new sigmaHadron(myEW);
+    thobs["sin2thetaEff"] = new sin2thetaEff(myEW);
+    thobs["PtauPol"] = new PtauPol(myEW);
     thobs["Alepton"] = new Alepton(myEW);
     thobs["Acharm"] = new Acharm(myEW);
     thobs["Abottom"] = new Abottom(myEW);
-    thobs["PtauPol"] = new PtauPol(myEW);
     thobs["AFBlepton"] = new AFBlepton(myEW);
     thobs["AFBcharm"] = new AFBcharm(myEW);
     thobs["AFBbottom"] = new AFBbottom(myEW);
     thobs["Rlepton"] = new Rlepton(myEW);
     thobs["Rcharm"] = new Rcharm(myEW);
     thobs["Rbottom"] = new Rbottom(myEW);
-    thobs["sigmaHadron"] = new sigmaHadron(myEW);
-
-    //-----  epsilon parameters by Altarelli et al.  -----
-    thobs["epsilon1"] = new epsilon1(myEW);
-    thobs["epsilon2"] = new epsilon2(myEW);
-    thobs["epsilon3"] = new epsilon3(myEW);   
-    thobs["epsilonb"] = new epsilonb(myEW);   
     
     //-----   Z-pole observables (with ZFitter)   -----
     //thobs["Mw"] = new ZFMw(myZFitter);

@@ -27,7 +27,7 @@ public:
     /**
      * @return the forward-backward asymmetry for e^+ e^- -> mu^+ mu^- 
      */
-    double getThValue();
+    double computeThValue();
     
 private:
     const ZFitterWrapper& myZF;

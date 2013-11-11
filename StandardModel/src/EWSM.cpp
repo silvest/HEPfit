@@ -42,7 +42,7 @@ EWSM::EWSM(const StandardModel& SM_i)
 
     myTwoFermionsLEP2 = new EWSMTwoFermionsLEP2(SM);
 
-    /* Default flags (see also StandardModel::SetEWSMflags(), etc.) */
+    /* Default flags (see also StandardModel::setEWSMflags(), etc.) */
     schemeMw = APPROXIMATEFORMULA;
     schemeRhoZ = NORESUM;
     schemeKappaZ = APPROXIMATEFORMULA;
@@ -876,13 +876,10 @@ double EWSM::RVq(const StandardModel::quark q) const
     if (q==StandardModel::TOP) return 0.0;
     
     double mcMz, mbMz;
-    if (!SM.isBDebug()) {
-        mcMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.CHARM).getMass(), FULLNNLO);
-        mbMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), FULLNNLO);  
-    } else {
-        mcMz = 0.56381685; 
-        mbMz = 2.8194352;
-    }
+    mcMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.CHARM).getMass(), FULLNNLO);
+    mbMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), FULLNNLO);
+    //mcMz = 0.56381685; /* for debug */
+    //mbMz = 2.8194352; /* for debug */
 
     double MtPole = SM.getMtpole();
     
@@ -1000,13 +997,10 @@ double EWSM::RAq(const StandardModel::quark q) const
     if (q==StandardModel::TOP) return 0.0;
 
     double mcMz, mbMz;
-    if (!SM.isBDebug()) {
-        mcMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.CHARM).getMass(), FULLNNLO);
-        mbMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), FULLNNLO);  
-    } else {
-        mcMz = 0.56381685; 
-        mbMz = 2.8194352;
-    }
+    mcMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.CHARM).getMass(), FULLNNLO);
+    mbMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), FULLNNLO);
+    //mcMz = 0.56381685; /* for debug */
+    //mbMz = 2.8194352; /* for debug */
 
     double MtPole = SM.getMtpole();
 
@@ -1167,6 +1161,18 @@ double EWSM::Gu_over_Gb_SM() const
 double EWSM::Gd_over_Gb_SM() const
 {
     return myApproximateFormulae->Gd_over_Gb(DeltaAlphaL5q());
+}
+
+
+double EWSM::GammaZ_SM() const
+{
+    return myApproximateFormulae->GammaZ(DeltaAlphaL5q());
+}
+
+
+double EWSM::sigmaHadron_SM() const
+{
+    return myApproximateFormulae->sigmaHadron(DeltaAlphaL5q());
 }
 
 

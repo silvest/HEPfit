@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
@@ -9,84 +9,94 @@
 #include "NPSTU.h"
 
 
-const std::string NPSTU::STUvars[NSTUvars] 
+const std::string NPSTU::STUvars[NSTUvars]
 = {"obliqueS", "obliqueT", "obliqueU"};
 
+const std::string NPSTU::STUflags[NSTUflags]
+= {"EWBURGESS"};
 
-NPSTU::NPSTU() 
-: NPZbbbar() 
+NPSTU::NPSTU()
+: NPbase(), myEW_BURGESS(*this)
 {
+    FlagEWBURGESS = false;
 }
 
 
-bool NPSTU::Update(const std::map<std::string,double>& DPars) 
+bool NPSTU::Update(const std::map<std::string,double>& DPars)
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        SetParameter(it->first, it->second);
-    if(!NPZbbbar::Update(DPars)) return (false);
-
+        setParameter(it->first, it->second);
+    if(!NPbase::Update(DPars)) return (false);
     return (true);
 }
 
 
-bool NPSTU::Init(const std::map<std::string, double>& DPars) 
+bool NPSTU::Init(const std::map<std::string, double>& DPars)
 {
     Update(DPars);
-    return(CheckParameters(DPars)); 
+    return(CheckParameters(DPars));
 }
 
 
-bool NPSTU::CheckParameters(const std::map<std::string, double>& DPars) 
+bool NPSTU::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for (int i = 0; i < NSTUvars; i++) {
         if (DPars.find(STUvars[i]) == DPars.end()) {
-            std::cout << "ERROR: Missing mandatory NPSTU parameter" 
+            std::cout << "ERROR: Missing mandatory NPSTU parameter "
                       << STUvars[i] << std::endl;
             return false;
         }
     }
-    return(NPZbbbar::CheckParameters(DPars));
+    return(NPbase::CheckParameters(DPars));
 }
 
-    
-void NPSTU::SetParameter(const std::string name, const double& value) 
+
+void NPSTU::setParameter(const std::string name, const double& value)
 {
     if (name.compare("obliqueS") == 0)
         myObliqueS = value;
     else if (name.compare("obliqueT") == 0)
         myObliqueT = value;
     else if (name.compare("obliqueU") == 0)
-        myObliqueU = value;    
+        myObliqueU = value;
     else
-        NPZbbbar::SetParameter(name, value);       
+        NPbase::setParameter(name, value);
 }
 
 
-bool NPSTU::InitializeModel() 
+bool NPSTU::InitializeModel()
 {
-    SetModelInitialized(NPZbbbar::InitializeModel());
+    setModelInitialized(NPbase::InitializeModel());
     return (IsModelInitialized());
 }
 
 
-void NPSTU::SetEWSMflags(EWSM& myEWSM) 
+void NPSTU::setEWSMflags(EWSM& myEWSM)
 {
-    StandardModel::SetEWSMflags(myEWSM);
+    NPbase::setEWSMflags(myEWSM);
 }
 
 
-bool NPSTU::SetFlag(const std::string name, const bool& value) 
+bool NPSTU::setFlag(const std::string name, const bool& value)
 {
     bool res = false;
-    if (name.compare("EWABC") == 0)
-        throw std::runtime_error("ERROR: Flag EWABC is not applicable to NPSTU"); 
-    else if (name.compare("EWABC2") == 0)
-        throw std::runtime_error("ERROR: Flag EWABC2 is not applicable to NPSTU"); 
-    else
-        res = NPZbbbar::SetFlag(name,value);
+    if (name.compare("EWBURGESS") == 0) {
+        FlagEWBURGESS = value;
+        res = true;
+    } else
+        res = NPbase::setFlag(name,value);
 
     return(res);
 }
+
+bool NPSTU::CheckFlags() const
+{
+    if ( FlagEWBURGESS && IsFlagEWCHMN() )
+        throw std::runtime_error("ERROR: Flags EWBURGESS and EWCHMN are incompatible with each other.");
+
+    return(NPbase::CheckFlags());
+}
+
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -120,22 +130,20 @@ double NPSTU::epsilonb() const
 double NPSTU::Mw() const
 {
     double myMw = StandardModel::Mw();
-    
-    if (IsFlagEWBURGESS()) {
-        myMw *= 1.0 - 0.00723/2.0*obliqueS() + 0.0111/2.0*obliqueT() + 0.00849/2.0*obliqueU();
-        return myMw;
-    }
 
-    if (!IsFlagNotLinearizedNP() ) {
-        double alpha = StandardModel::alphaMz();
-        double c2 = StandardModel::cW2();
-        double s2 = StandardModel::sW2();
+    if (IsFlagEWBURGESS())
+        return myEW_BURGESS.Mw(myMw);
 
-        myMw *= 1.0 - alpha/4.0/(c2-s2)
-                *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 );
-    } else
-        if (obliqueS()!=0.0 || obliqueT()!=0.0 || obliqueU()!=0.0)
-            throw std::runtime_error("NPSTU::Mw(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+    double alpha = StandardModel::alphaMz();
+    double c2 = StandardModel::cW2();
+    double s2 = StandardModel::sW2();
+
+    myMw *= 1.0 - alpha/4.0/(c2-s2)
+            *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 );
+
+    //std::cout << "Mw: c_S=" << - alpha/4.0/(c2-s2) << std::endl;
+    //std::cout << "Mw: c_T=" << - alpha/4.0/(c2-s2)*(- 2.0*c2) << std::endl;
+    //std::cout << "Mw: c_U=" << - alpha/4.0/(c2-s2)*(- (c2-s2)/2.0/s2) << std::endl;
 
     return myMw;
 }
@@ -157,23 +165,20 @@ double NPSTU::GammaW() const
 {
     double Gamma_W = StandardModel::GammaW();
 
-    if (IsFlagEWBURGESS()) {
-        Gamma_W *= 1.0 - 0.00723*obliqueS() + 0.0111*obliqueT()
-                   + 0.00849*obliqueU();
-        return Gamma_W;
-    }
+    if (IsFlagEWBURGESS())
+        return myEW_BURGESS.GammaW(Gamma_W);
 
-    if (!IsFlagNotLinearizedNP() ) {
-        double alpha = StandardModel::alphaMz();
-        double c2 = StandardModel::cW2();
-        double s2 = StandardModel::sW2();
+    double alpha = StandardModel::alphaMz();
+    double c2 = StandardModel::cW2();
+    double s2 = StandardModel::sW2();
 
-        Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
-                   *( obliqueS() - 2.0*c2*obliqueT()
-                      - (c2-s2)*obliqueU()/2.0/s2 );
-        } else
-            if (obliqueS()!=0.0 || obliqueT()!=0.0 || obliqueU()!=0.0)
-                throw std::runtime_error("NPSTU::GammaW(): The oblique corrections STU cannot be used with flag NotLinearizedNP=1");
+    Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
+               *( obliqueS() - 2.0*c2*obliqueT()
+                  - (c2-s2)*obliqueU()/2.0/s2 );
+
+    //std::cout << "Gw: c_S=" << - 3.0*alpha/4.0/(c2-s2) << std::endl;
+    //std::cout << "Gw: c_T=" << - 3.0*alpha/4.0/(c2-s2)*(- 2.0*c2) << std::endl;
+    //std::cout << "Gw: c_U=" << - 3.0*alpha/4.0/(c2-s2)*(- (c2-s2)/2.0/s2) << std::endl;
 
     return Gamma_W;
 }

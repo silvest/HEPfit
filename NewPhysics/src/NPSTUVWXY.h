@@ -9,7 +9,7 @@
 #define	NPSTUVWXY_H
 
 #include <cmath>
-#include "NPZbbbar.h"
+#include "NPbase.h"
 
 /**
  * @class NPSTUVWXY
@@ -19,7 +19,7 @@
  * @copyright GNU General Public License
  * @details  
  */
-class NPSTUVWXY : public NPZbbbar {
+class NPSTUVWXY : public NPbase {
 public:
     static const int NSTUVWXYvars = 7;
     static const std::string STUVWXYvars[NSTUVWXYvars];
@@ -39,9 +39,10 @@ public:
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     virtual bool InitializeModel();  
-    virtual void SetEWSMflags(EWSM& myEWSM);    
+    virtual void setEWSMflags(EWSM& myEWSM);    
 
-    virtual bool SetFlag(const std::string, const bool&); 
+    virtual bool setFlag(const std::string, const bool&); 
+    virtual bool CheckFlags() const;
     
     
     ////////////////////////////////////////////////////////////////////////     
@@ -120,39 +121,17 @@ public:
     /**
      * @return Oblique parameter S'
      */
-    virtual double obliqueS() const 
-    {
-        double sW2_SM = StandardModel::sW2();
-        double sW_SM = sqrt(sW2_SM);
-        double cW_SM = sqrt(StandardModel::cW2());
-        return ( ( myObliqueShat - myObliqueW + myObliqueX/(sW_SM*cW_SM) - myObliqueY )
-                 * 4.0*sW2_SM/alphaMz() );
-    }
+    virtual double obliqueS() const;
 
     /**
      * @return Oblique parameter T'
      */
-    virtual double obliqueT() const 
-    {
-        double sW2_SM = StandardModel::sW2();
-        double sW_SM = sqrt(sW2_SM);
-        double cW2_SM = StandardModel::cW2();
-        double cW_SM = sqrt(cW2_SM);
-        return ( ( myObliqueThat - myObliqueW + 2.0*sW_SM/cW_SM*myObliqueX 
-                   - sW2_SM/cW2_SM*myObliqueY )/alphaMz() );
-    }
+    virtual double obliqueT() const;
 
     /**
      * @return Oblique parameter U'
      */
-    virtual double obliqueU() const 
-    {
-        double sW2_SM = StandardModel::sW2();
-        double sW_SM = sqrt(sW2_SM);
-        double cW_SM = sqrt(StandardModel::cW2());
-        return ( ( - myObliqueUhat + myObliqueV + myObliqueW 
-                   - 2.0*sW_SM/cW_SM*myObliqueX )*4.0*sW2_SM/alphaMz() );
-    }
+    virtual double obliqueU() const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -181,7 +160,7 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
 protected:    
-    virtual void SetParameter(const std::string name, const double& value);
+    virtual void setParameter(const std::string name, const double& value);
     double myObliqueShat, myObliqueThat, myObliqueUhat;
     double myObliqueV, myObliqueW, myObliqueX, myObliqueY;
 

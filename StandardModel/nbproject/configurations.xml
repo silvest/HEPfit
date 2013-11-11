@@ -27,21 +27,11 @@
       <itemPath>src/Particle.h</itemPath>
       <itemPath>src/QCD.h</itemPath>
       <itemPath>src/RGEvolutor.h</itemPath>
-      <itemPath>src/SMInputs.h</itemPath>
       <itemPath>src/StandardModel.h</itemPath>
       <itemPath>src/StandardModelMatching.h</itemPath>
+      <itemPath>src/StandardModelParams.h</itemPath>
       <itemPath>src/WilsonCoefficient.h</itemPath>
       <itemPath>src/WilsonTemplate.h</itemPath>
-      <itemPath>src/alsMz.h</itemPath>
-      <itemPath>src/dAle5Mz.h</itemPath>
-      <itemPath>src/delRhoZ_b.h</itemPath>
-      <itemPath>src/delRhoZ_d.h</itemPath>
-      <itemPath>src/delRhoZ_e.h</itemPath>
-      <itemPath>src/delRhoZ_nu.h</itemPath>
-      <itemPath>src/delRhoZ_u.h</itemPath>
-      <itemPath>src/mHl.h</itemPath>
-      <itemPath>src/mZ.h</itemPath>
-      <itemPath>src/mtpole.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -71,6 +61,7 @@
       <itemPath>src/RGEvolutor.cpp</itemPath>
       <itemPath>src/StandardModel.cpp</itemPath>
       <itemPath>src/StandardModelMatching.cpp</itemPath>
+      <itemPath>src/StandardModelParams.cpp</itemPath>
       <itemPath>src/WilsonCoefficient.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"

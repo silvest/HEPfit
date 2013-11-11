@@ -39,7 +39,7 @@ public:
      * @return The longitudinal polarization of @f$Z\to \tau\bar{\tau}@f$ at the 
      * @f$Z@f$ pole.
      */
-    double getThValue();
+    double computeThValue();
 
     
 private:

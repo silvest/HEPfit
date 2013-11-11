@@ -21,7 +21,7 @@ pMSSM::pMSSM()
 
 bool pMSSM::InitializeModel()
 {
-    SetModelInitialized(SUSY::InitializeModel());
+    setModelInitialized(SUSY::InitializeModel());
     return (IsModelInitialized());
 }
 
@@ -44,7 +44,7 @@ bool pMSSM::Update(const std::map<std::string, double>& DPars)
     UpdateError = false;
     
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        SetParameter(it->first, it->second);
+        setParameter(it->first, it->second);
     
     if (UpdateError) return (false);
     
@@ -59,7 +59,7 @@ bool pMSSM::PostUpdate()
     return (true);
 }
 
-void pMSSM::SetParameter(const std::string name, const double& value)
+void pMSSM::setParameter(const std::string name, const double& value)
 {
     if(name.compare("msQ12") == 0)
         msQ12 = value;
@@ -88,7 +88,7 @@ void pMSSM::SetParameter(const std::string name, const double& value)
     else if(name.compare("AE") == 0)
         AE = value;
     else
-        SUSY::SetParameter(name, value);
+        SUSY::setParameter(name, value);
 }
 
 bool pMSSM::CheckParameters(const std::map<std::string, double>& DPars)

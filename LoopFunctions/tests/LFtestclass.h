@@ -19,7 +19,7 @@
 #include "ClausenFunctions.h"
 #include "PVfunctions.h"
 //#include "LoopTools.h"
-#include "../src/LoopToolsWrapper.h"
+#include "LoopToolsWrapper.h"
 using namespace std;
 
 
@@ -47,29 +47,29 @@ class LFtestclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(Cl3_0002);    
     CPPUNIT_TEST(Cl3_1);    
     CPPUNIT_TEST(Cl3_Pi);  
-    CPPUNIT_TEST(A0_Mw_Mz);
-    CPPUNIT_TEST(B0_Mw_Mz2_Mw_Mw_real);
-    CPPUNIT_TEST(B0_Mw_Mz2_Mw_Mw_imag);
-    CPPUNIT_TEST(B1_Mw_Mz2_Mw_Mw_real);
-    CPPUNIT_TEST(B1_Mw_Mz2_Mw_Mw_imag);
-    CPPUNIT_TEST(B21_Mw_Mz2_Mw_Mw_real);
-    CPPUNIT_TEST(B21_Mw_Mz2_Mw_Mw_imag);
-    CPPUNIT_TEST(B22_Mw_Mz2_Mw_Mw_real);
-    CPPUNIT_TEST(B22_Mw_Mz2_Mw_Mw_imag);
-    CPPUNIT_TEST(B0p_Mw_Mz2_Mw_Mw_real);
-    CPPUNIT_TEST(B0p_Mw_Mz2_Mw_Mw_imag);
-    CPPUNIT_TEST(B1p_Mw_Mz2_Mw_Mw_real);
-    CPPUNIT_TEST(B1p_Mw_Mz2_Mw_Mw_imag);
-    CPPUNIT_TEST(B21p_Mw_Mz2_Mw_Mw_real);
-    CPPUNIT_TEST(B21p_Mw_Mz2_Mw_Mw_imag);
-    CPPUNIT_TEST(B22p_Mw_Mz2_Mw_Mw_real);
-    CPPUNIT_TEST(B22p_Mw_Mz2_Mw_Mw_imag);
-    CPPUNIT_TEST(C0_Mz2_Mw_Mz_Mw_real);
-    CPPUNIT_TEST(C0_Mz2_Mw_Mz_Mw_imag);    
-    CPPUNIT_TEST(D0_s_t_Mz_0_Mz_0_real);
-    CPPUNIT_TEST(D0_s_t_Mz_0_Mz_0_imag); 
-    CPPUNIT_TEST(D0_s_t_Mz_0_Mz_Mt_real);
-    CPPUNIT_TEST(D0_s_t_Mz_0_Mz_Mt_imag); 
+    CPPUNIT_TEST(A0_Mw2_Mz2);
+    CPPUNIT_TEST(B0_Mw2_Mz2_Mw2_Mw2_real);
+    CPPUNIT_TEST(B0_Mw2_Mz2_Mw2_Mw2_imag);
+    CPPUNIT_TEST(B1_Mw2_Mz2_Mw2_Mw2_real);
+    CPPUNIT_TEST(B1_Mw2_Mz2_Mw2_Mw2_imag);
+    CPPUNIT_TEST(B21_Mw2_Mz2_Mw2_Mw2_real);
+    CPPUNIT_TEST(B21_Mw2_Mz2_Mw2_Mw2_imag);
+    CPPUNIT_TEST(B22_Mw2_Mz2_Mw2_Mw2_real);
+    CPPUNIT_TEST(B22_Mw2_Mz2_Mw2_Mw2_imag);
+    CPPUNIT_TEST(B0p_Mw2_Mz2_Mw2_Mw2_real);
+    CPPUNIT_TEST(B0p_Mw2_Mz2_Mw2_Mw2_imag);
+    CPPUNIT_TEST(B1p_Mw2_Mz2_Mw2_Mw2_real);
+    CPPUNIT_TEST(B1p_Mw2_Mz2_Mw2_Mw2_imag);
+    CPPUNIT_TEST(B21p_Mw2_Mz2_Mw2_Mw2_real);
+    CPPUNIT_TEST(B21p_Mw2_Mz2_Mw2_Mw2_imag);
+    CPPUNIT_TEST(B22p_Mw2_Mz2_Mw2_Mw2_real);
+    CPPUNIT_TEST(B22p_Mw2_Mz2_Mw2_Mw2_imag);
+    CPPUNIT_TEST(C0_Mz2_Mw2_Mz2_Mw2_real);
+    CPPUNIT_TEST(C0_Mz2_Mw2_Mz2_Mw2_imag);
+    CPPUNIT_TEST(D0_s_t_Mz2_0_Mz2_0_real);
+    CPPUNIT_TEST(D0_s_t_Mz2_0_Mz2_0_imag);
+    CPPUNIT_TEST(D0_s_t_Mz2_0_Mz2_Mt2_real);
+    CPPUNIT_TEST(D0_s_t_Mz2_0_Mz2_Mt2_imag);
     
     CPPUNIT_TEST_SUITE_END();
 
@@ -85,7 +85,7 @@ private:
     PVfunctions *myPV;
     LoopToolsWrapper *myLT;
     double epsilon;
-    double Mz, Mw, mH, Mt;
+    double Mz, Mw, Mt, Mz2, Mw2, Mt2;
 
     void Li2_m12_re();
     void Li2_m12_im();
@@ -112,33 +112,33 @@ private:
     void Cl3_1();
     void Cl3_Pi();    
     
-    void A0_Mw_Mz();
+    void A0_Mw2_Mz2();
     
-    void B0_Mw_Mz2_Mw_Mw_real();
-    void B0_Mw_Mz2_Mw_Mw_imag();
-    void B1_Mw_Mz2_Mw_Mw_real();
-    void B1_Mw_Mz2_Mw_Mw_imag();
-    void B21_Mw_Mz2_Mw_Mw_real();
-    void B21_Mw_Mz2_Mw_Mw_imag();
-    void B22_Mw_Mz2_Mw_Mw_real();
-    void B22_Mw_Mz2_Mw_Mw_imag();
+    void B0_Mw2_Mz2_Mw2_Mw2_real();
+    void B0_Mw2_Mz2_Mw2_Mw2_imag();
+    void B1_Mw2_Mz2_Mw2_Mw2_real();
+    void B1_Mw2_Mz2_Mw2_Mw2_imag();
+    void B21_Mw2_Mz2_Mw2_Mw2_real();
+    void B21_Mw2_Mz2_Mw2_Mw2_imag();
+    void B22_Mw2_Mz2_Mw2_Mw2_real();
+    void B22_Mw2_Mz2_Mw2_Mw2_imag();
 
-    void B0p_Mw_Mz2_Mw_Mw_real();
-    void B0p_Mw_Mz2_Mw_Mw_imag();
-    void B1p_Mw_Mz2_Mw_Mw_real();
-    void B1p_Mw_Mz2_Mw_Mw_imag();
-    void B21p_Mw_Mz2_Mw_Mw_real();
-    void B21p_Mw_Mz2_Mw_Mw_imag();
-    void B22p_Mw_Mz2_Mw_Mw_real();
-    void B22p_Mw_Mz2_Mw_Mw_imag();
+    void B0p_Mw2_Mz2_Mw2_Mw2_real();
+    void B0p_Mw2_Mz2_Mw2_Mw2_imag();
+    void B1p_Mw2_Mz2_Mw2_Mw2_real();
+    void B1p_Mw2_Mz2_Mw2_Mw2_imag();
+    void B21p_Mw2_Mz2_Mw2_Mw2_real();
+    void B21p_Mw2_Mz2_Mw2_Mw2_imag();
+    void B22p_Mw2_Mz2_Mw2_Mw2_real();
+    void B22p_Mw2_Mz2_Mw2_Mw2_imag();
 
-    void C0_Mz2_Mw_Mz_Mw_real();
-    void C0_Mz2_Mw_Mz_Mw_imag();    
+    void C0_Mz2_Mw2_Mz2_Mw2_real();
+    void C0_Mz2_Mw2_Mz2_Mw2_imag();
     
-    void D0_s_t_Mz_0_Mz_0_real();
-    void D0_s_t_Mz_0_Mz_0_imag();    
-    void D0_s_t_Mz_0_Mz_Mt_real();
-    void D0_s_t_Mz_0_Mz_Mt_imag();     
+    void D0_s_t_Mz2_0_Mz2_0_real();
+    void D0_s_t_Mz2_0_Mz2_0_imag();
+    void D0_s_t_Mz2_0_Mz2_Mt2_real();
+    void D0_s_t_Mz2_0_Mz2_Mt2_imag();
     
 };
 

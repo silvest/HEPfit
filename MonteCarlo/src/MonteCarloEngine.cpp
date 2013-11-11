@@ -12,7 +12,6 @@
 #include <TTree.h>
 #include <TROOT.h>
 #include <TH1.h>
-#include <mpi.h>
 #include <fstream>
 
 MonteCarloEngine::MonteCarloEngine(
@@ -117,11 +116,11 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
     }
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); 
             it1 != CGO.end(); ++it1) {
-        std::vector<Observable> pino(it1->GetObs());
+        std::vector<Observable> pino(it1->getObs());
         for (std::vector<Observable>::iterator it = pino.begin();
                 it != pino.end(); ++it) {
-            //for (int i = 0; i < it1->GetObs().size(); i++) {
-            //Observable * it = &(it1->GetObs().at(i));
+            //for (int i = 0; i < it1->getObs().size(); i++) {
+            //Observable * it = &(it1->getObs().at(i));
             if ((it->getDistr()).compare("file") == 0)
                 throw std::runtime_error("Cannot use file in CorrelatedGaussianObservables!");
             if (!(it->isTMCMC())) {
@@ -169,7 +168,7 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
     }
 };
 
-void MonteCarloEngine::SetNChains(unsigned int i) 
+void MonteCarloEngine::setNChains(unsigned int i) 
 {
     MCMCSetNChains(i);
     obval = new double[fMCMCNChains * kmax];
@@ -283,14 +282,14 @@ double MonteCarloEngine::Weight(const Observable2D& obs, const double& th1, cons
 double MonteCarloEngine::Weight(const CorrelatedGaussianObservables& obs) 
 {
 
-    int size = obs.GetObs().size();
+    int size = obs.getObs().size();
     gslpp::vector<double> x(size);
 
     for (int i = 0; i < size; i++) {
-        x(i) = obs.GetObs().at(i).getTheoryValue() - obs.GetObs().at(i).getAve();
+        x(i) = obs.getObs().at(i).computeTheoryValue() - obs.getObs().at(i).getAve();
     }
 
-    return (-0.5 * x * (obs.GetCov() * x));
+    return (-0.5 * x * (obs.getCov() * x));
 }
 
 double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) 
@@ -309,7 +308,7 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters)
 
     // if update false set probability equal zero
     if (!Mod->Update(DPars)) {
-#ifdef DEBUG
+#ifdef _MCDEBUG
         std::cout << "event discarded" << std::endl;
 
         /* Debug */
@@ -321,26 +320,25 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters)
         return (log(0.));
     }
     NumOfUsedEvents++;
-#ifdef DEBUG
+#ifdef _MCDEBUG
     //std::cout << "event used in MC" << std::endl;
 #endif
 
     for (std::vector<Observable>::iterator it = Obs_MCMC.begin(); it < Obs_MCMC.end(); it++) {
-        double th = it->getTheoryValue();
+        double th = it->computeTheoryValue();
         logprob += Weight(*it, th);
     }
 
     for (std::vector<Observable2D>::iterator it = Obs2D_MCMC.begin(); it < Obs2D_MCMC.end(); it++) {
-        double th1 = it->getTheoryValue();
-        double th2 = it->getTheoryValue2();
+        double th1 = it->computeTheoryValue();
+        double th2 = it->computeTheoryValue2();
         logprob += Weight(*it, th1, th2);
     }
 
     for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++) {
         logprob += Weight(*it);
     }
-    // std::cout << "logprob " << logprob <<std::endl;    
-    //std::cout << MPI::COMM_WORLD.Get_rank()<< ": logprob = " << logprob << std::endl;
+    //std::cout << "logprob " << logprob <<std::endl;    
     return logprob;
 }
 
@@ -357,11 +355,11 @@ void MonteCarloEngine::MCMCIterationInterface()
 
         Mod->Update(DPars);
 
-            // fill the histograms for observables
+        // fill the histograms for observables
         int k = 0, kweight = 0;
         for (std::vector<Observable>::iterator it = Obs_ALL.begin();
                 it < Obs_ALL.end(); it++) {
-            double th = it->getTheoryValue();
+            double th = it->computeTheoryValue();
 
             /* set the min and max of theory values */
             if (checkTheoryRange) {
@@ -383,18 +381,18 @@ void MonteCarloEngine::MCMCIterationInterface()
         // fill the 2D histograms for observables
         for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin();
                 it < Obs2D_ALL.end(); it++) {
-            double th1 = it->getTheoryValue();
-            double th2 = it->getTheoryValue2();
+            double th1 = it->computeTheoryValue();
+            double th2 = it->computeTheoryValue2();
             Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram()->Fill(th1, th2);
         }
 
         // fill the histograms for correlated observables
         for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
                 it1 < CGO.end(); it1++){
-            std::vector<Observable> pino(it1->GetObs());
+            std::vector<Observable> pino(it1->getObs());
             for (std::vector<Observable>::iterator it = pino.begin();
                     it != pino.end(); ++it) {
-                double th = it->getTheoryValue();
+                double th = it->computeTheoryValue();
 
                 /* set the min and max of theory values */
                 if (checkTheoryRange) {
@@ -410,7 +408,7 @@ void MonteCarloEngine::MCMCIterationInterface()
         for (std::vector<ModelParaVsObs>::iterator it = ParaObs.begin();
                 it < ParaObs.end(); it++) {
             double par = DPars[it->getParaName()];
-            double th = it->getTheoryValue();
+            double th = it->computeTheoryValue();
             Histo2D[it->getParaName() + "_vs_" + it->getThname()]->GetHistogram()->Fill(par, th);
         }
     }
@@ -453,7 +451,7 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out,
         //        BCH1D* pippo =  Histo1D[it->getThname()];
         //        double x = pippo->GetMean();
         //        pippo->Print("Dmd1.pdf");
-        Histo1D[it->getThname()]->SetGlobalMode(it->getTheoryValue());
+        Histo1D[it->getThname()]->SetGlobalMode(it->computeTheoryValue());
         Histo1D[it->getThname()]->Print(fname.c_str());
         std::cout << fname << " has been created." << std::endl;
         out.Write(Histo1D[it->getThname()]->GetHistogram());
@@ -485,7 +483,7 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string Out
     }
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
             it1 < CGO.end(); it1++){
-        std::vector<Observable> pino(it1->GetObs());
+        std::vector<Observable> pino(it1->getObs());
         for (std::vector<Observable>::iterator it = pino.begin();
                 it != pino.end(); ++it)
             PrintHistogram(out, it, OutputDir);
@@ -496,8 +494,8 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string Out
         if (Histo2D[HistName]->GetHistogram()->Integral() > 0.0) {
             std::string fname = OutputDir + "/" + HistName + ".pdf";
             double th[2];
-            th[0] = it->getTheoryValue();
-            th[1] = it->getTheoryValue2();
+            th[0] = it->computeTheoryValue();
+            th[1] = it->computeTheoryValue2();
             Histo2D[HistName]->SetGlobalMode(th);
             Histo2D[HistName]->Print(fname.c_str());
             std::cout << fname << " has been created." << std::endl;
@@ -514,7 +512,7 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string Out
             std::string fname = OutputDir + "/" + HistName + ".pdf";
             double th[2];
             th[0] = DPars[it->getParaName()];
-            th[1] = it->getTheoryValue();
+            th[1] = it->computeTheoryValue();
             Histo2D[HistName]->SetGlobalMode(th);
             Histo2D[HistName]->Print(fname.c_str());
             std::cout << fname << " has been created." << std::endl;

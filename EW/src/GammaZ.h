@@ -36,7 +36,7 @@ public:
     /**
      * @return The total width of the Z boson. 
      */
-    double getThValue();
+    double computeThValue();
 
     
 private:

@@ -38,11 +38,11 @@
                     <type>1</type>
                 </confElem>
                 <confElem>
-                    <name>Cluster</name>
+                    <name>Release_MPI</name>
                     <type>1</type>
                 </confElem>
                 <confElem>
-                    <name>Parallel</name>
+                    <name>Cluster</name>
                     <type>1</type>
                 </confElem>
             </confList>

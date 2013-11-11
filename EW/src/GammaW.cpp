@@ -8,7 +8,7 @@
 #include "GammaW.h"
 
 
-double GammaW::getThValue() 
+double GammaW::computeThValue() 
 {  
     double Gamma_W;
     EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
@@ -16,7 +16,7 @@ double GammaW::getThValue()
     if (myEWTYPE==EW::EWCHMN)  
         Gamma_W = myEW.getMyEW_CHMN().GammaW();
     else if (myEWTYPE==EW::EWABC || myEWTYPE==EW::EWABC2) 
-        throw std::runtime_error("GammaW::getThValue() is not implemented for EW::EWABC");  
+        throw std::runtime_error("GammaW::computeThValue() is not implemented for EW::EWABC");  
     else
         Gamma_W = SM.GammaW();
  
