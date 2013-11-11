@@ -87,15 +87,22 @@ std::string QCD::orderToString(const orders order) const
     }
 }    
 
-bool QCD::SetFlag(const std::string name , const bool& value)
+bool QCD::setFlag(const std::string name , const bool& value)
 {  
+    std::cout << "WARNING: unknown flag " << name
+              << " in the model configuration file" << std::endl;
     return (false);
+}
+
+bool QCD::CheckFlags() const
+{
+    return (true);
 }
 
 bool QCD::PreUpdate() 
 {
-    computeYu = false;
-    computeYd = false;
+    requireYu = false;
+    requireYd = false;
     computeBd = false;
     computeFBd = false;
     computemt = false;
@@ -124,7 +131,7 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
     UpdateError = false; 
    
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        SetParameter(it->first, it->second);
+        setParameter(it->first, it->second);
 
     if (UpdateError) return (false);
     
@@ -133,7 +140,7 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
     return (true);
 }
 
-void QCD::SetParameter(const std::string name, const double& value) 
+void QCD::setParameter(const std::string name, const double& value) 
 {
     if(name.compare("AlsMz")==0) {
         AlsMz = value;
@@ -144,32 +151,32 @@ void QCD::SetParameter(const std::string name, const double& value)
     else if(name.compare("mup")==0) {
         if(value < MEPS) UpdateError = true; 
         quarks[UP].setMass(value);
-        computeYu = true;
+        requireYu = true;
     }
     else if(name.compare("mdown")==0) {
         if(value < MEPS) UpdateError = true;
         quarks[DOWN].setMass(value);
-        computeYd = true;
+        requireYd = true;
     }
     else if(name.compare("mcharm")==0) {
         quarks[CHARM].setMass(value);
         quarks[CHARM].setMass_scale(value);        
-        computeYu = true;
+        requireYu = true;
     }
     else if(name.compare("mstrange")==0) {
         if(value < MEPS) UpdateError = true;
         quarks[STRANGE].setMass(value);
-        computeYd = true;
+        requireYd = true;
     }
     else if(name.compare("mtop")==0) {
         mtpole = value;
-        computeYu = true;
+        requireYu = true;
         computemt = true;
     }
     else if(name.compare("mbottom")==0) {
         quarks[BOTTOM].setMass(value);
         quarks[BOTTOM].setMass_scale(value);        
-        computeYd = true;
+        requireYd = true;
     }
     else if(name.compare("mut")==0)
         mut = value;
