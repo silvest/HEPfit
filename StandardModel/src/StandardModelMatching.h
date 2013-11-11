@@ -342,6 +342,22 @@ public:
      */
 
     double S1(double x) const;
+
+    double S0(double, double) const;
+
+    /**
+     * double penguin contribution to Kaon mixing - double top contribution
+     * @return 
+     */
+    complex ZDPtt() const;
+    
+    /**
+     * double penguin contribution to Kaon mixing - charm top contribution
+     * @return 
+     */
+    complex ZDPct() const;
+    
+    
     
 protected:
     std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2, vmck, vmckcc;
@@ -352,11 +368,11 @@ protected:
 private:
     
     const StandardModel & SM;
-    double S0(double, double) const;
     double S0(double) const;
     double S0p(double x) const;
     double S11(double x) const;
     double S18(double x) const;
+    double ZDP(const double x, const double y) const;
     WilsonCoefficient mcdbd2, mcdbs2, mcdd2, mcdk2, mck, mckcc;
     WilsonCoefficient mcbsg, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     WilsonCoefficient mckpnn, mckmm, mcbsnn, mcbdnn, mcbsmm, mcbdmm;

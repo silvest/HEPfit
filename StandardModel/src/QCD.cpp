@@ -449,6 +449,12 @@ double QCD::AlsWithInit(const double mu, const double alsi, const double mu_i,
             throw std::runtime_error(orderToString(order) + " is not implemented in QCD::Als(mu,alsi,mi,order)."); 
     }
 }
+
+double QCD::Als4(const double mu) const
+{
+    double v = 1. - Beta0(4.)*AlsMz/2./M_PI*log(Mz/mu);
+    return (AlsMz/v*(1. - Beta1(4.)/Beta0(4.)*AlsMz/4./M_PI*log(v)/v));
+}
     
 double QCD::AlsWithLambda(const double mu, const double logLambda, 
                           const orders order) const 
@@ -958,6 +964,26 @@ double QCD::MrunTMP(const double mu_f, const double mu_i, const double m,
     if (order==FULLNNLO) return (mLO+mNLO+mNNLO);
     
     throw std::runtime_error(orderToString(order) + " is not implemented in QCD::MrunTMP()"); 
+}
+
+double QCD::Mrun4(const double mu_f, const double mu_i, const double m) const
+{
+    double nf = 4.;
+
+    // alpha_s/(4pi)
+    double ai = Als4(mu_i)/(4.*M_PI);
+    double af = Als4(mu_f)/(4.*M_PI);    
+
+    // LO contribution
+    double b0 = Beta0(nf), g0 = Gamma0(nf);
+    double mLO = m*pow(af/ai, g0/(2.*b0));
+    
+    // NLO contribution
+    double b1 = Beta1(nf), g1 = Gamma1(nf);
+    double A1 = g1/(2.*b0) - b1*g0/(2.*b0*b0);            
+    double mNLO = mLO*A1*(af-ai);
+    return (mLO+mNLO);
+    
 }
 
 ////////////////////////////////////////////////////////////////////////

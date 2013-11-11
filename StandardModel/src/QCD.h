@@ -562,6 +562,23 @@ public:
      */
     double logLambda(const double nf, orders order) const;  
     
+    /**
+     * temporary function waiting for the implementation of NNLO etact
+     * @param mu
+     * @return 
+     */
+    
+    double Als4(const double mu) const;
+    
+    /**
+     * temporary function waiting for the implementation of NNLO etact
+     * @param mu_f
+     * @param mu_i
+     * @param m
+     * @return 
+     */
+    double Mrun4(const double mu_f, const double mu_i, const double m) const;
+    
     ////////////////////////////////////////////////////////////////////////
     
     /**

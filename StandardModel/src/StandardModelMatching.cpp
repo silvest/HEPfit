@@ -57,7 +57,7 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
     Nc = SM.getNc();
     CF = SM.getCF();
     gamma0 = 6. * (Nc - 1.) / Nc;
-    J5 = gamma0 / 2. / SM.Beta0(5) / SM.Beta0(5) - ((Nc - 1.)/(2. * Nc) * (-21. + 57./Nc - 19./3. * Nc + 20./3.)) / 2. / SM.Beta0(5);
+    J5 = SM.Beta1(5) * gamma0 / 2. / SM.Beta0(5) / SM.Beta0(5) - ((Nc - 1.)/(2. * Nc) * (-21. + 57./Nc - 19./3. * Nc + 20./3.)) / 2. / SM.Beta0(5);
     BtNDR = 5. * (Nc - 1.) / 2. / Nc + 3. * CF;
 }
 
@@ -85,21 +85,24 @@ double StandardModelMatching::x_c(const double mu, const orders order) const
 {
     double mc = SM.Mrun(mu, SM.getQuarks(QCD::CHARM).getMass_scale(), 
                         SM.getQuarks(QCD::CHARM).getMass(), order);
-    return pow(mc / Mw, 2.); 
+    return mc*mc/Mw/Mw; 
 }
 
 double StandardModelMatching::x_t(const double mu, const orders order) const 
 {
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), order);
-    return pow(mt / Mw, 2.); 
+#if SUSYFIT_DEBUG & 1
+    std::cout << "mt(" << mu << "," << order << ")=" << mt << std::endl;
+#endif
+    return mt*mt/Mw/Mw; 
 }
 
 double StandardModelMatching::mt2omh2(const double mu, const orders order) const 
 {
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), order);
-    return pow(mt / SM.getMHl(), 2.);
+    return (mt / SM.getMHl())*(mt / SM.getMHl());
 }
 
 double StandardModelMatching::S0(double x) const 
@@ -132,7 +135,7 @@ double StandardModelMatching::S11(double x) const
     double x2 = x * x;
     double x3 = x2 * x;
     double x4 = x3 * x;
-    double xm3 = pow(x - 1., 3.);
+    double xm3 = (x - 1.) * (x - 1.) * (x - 1.);
     double xm4 = xm3 * (x - 1);
     
     return (x * (4. - 39. * x + 168. * x2 + 11. * x3) / 4. / xm3
@@ -147,15 +150,14 @@ double StandardModelMatching::S18(double x) const
     double x2 = x * x;
     double x3 = x2 * x;
     double x4 = x3 * x;
-    double xm2 = pow(x - 1., 2.);
-    double xm3 = xm2 * (x - 1);
-    
+    double xm2 = (x - 1.) * (x - 1.);
+    double xm3 = xm2 * (x - 1.);
     return ((-64. + 68. * x + 17. * x2 - 11. * x3) / 4. / xm2
             + pow(M_PI, 2.) * 8./3. / x + 2. * gsl_sf_dilog(1. - x) * (8. - 24. * x
             + 20. * x2 - x3 + 7. * x4 - x4 * x) / (x * xm3)
             + log(x)*(-32. + 68. * x - 32. * x2 + 28. * x3 - 3. * x4)
             / (2. * xm3) + x2 * pow(log(x), 2.) * (4. - 7. * x + 7. * x2
-            - 2. * x3) / (2. * x4));
+            - 2. * x3) / (2. * xm2 * xm2));
 }
 
 double StandardModelMatching::S1(double x) const 
@@ -339,7 +341,7 @@ double StandardModelMatching::X1t(double x) const{
 
 double StandardModelMatching::Xewt(double x, double a, double mu) const{
     double b = 0.;
-    // WARNING: sin^{2}(theta_w) needs to be implemented at NLO in the MSbar scheme, according to hep-ph/1009.0947v2
+    // WARNING: check consistency of EW scheme choice (see Gorbahn's NNLO papers)
     double swsq = (M_PI * Ale )/( sqrt(2) * GF * Mw * Mw);
     
     double A[17], C[17];
@@ -457,9 +459,9 @@ double StandardModelMatching::Xewt(double x, double a, double mu) const{
     
     C[9] = logx * logx / ((x-1.) * xm3 * axm * 2. * a * x);
     
-    C[10] = 2. * log(mu/Mw_tree) / xm2;
+    C[10] = 2. * log(mu/Mw) / xm2;
     
-    C[11] = logx * 2. * log(mu/Mw_tree) / xm3;
+    C[11] = logx * 2. * log(mu/Mw) / xm3;
     
     C[12] = loga / (xm2 * axm);
     
@@ -521,12 +523,15 @@ double StandardModelMatching::phi2(double x, double y) const{
 
  std::vector<WilsonCoefficient>& StandardModelMatching::CMdbd2() 
 {
+    double gammam = 6. * CF;
     double Bt;  
     
     
-    double xt = x_t(Muw);
+    double xt = x_t(Mut);
     complex co = GF / 4. / M_PI * Mw * SM.getlamt_d();
-
+    // double Z penguin insertion
+    double czdp = Mw / M_PI * 4. * C0t(xt);
+    
     vmcdb.clear();
 
     switch (mcdbd2.getScheme()) {
@@ -541,15 +546,21 @@ double StandardModelMatching::phi2(double x, double y) const{
             throw std::runtime_error("StandardModel::CMdb2(): scheme " + out.str() + "not implemented"); 
     }
 
-    mcdbd2.setMu(Muw);
+    mcdbd2.setMu(Mut);
     
     switch (mcdbd2.getOrder()) {
         case NNLO:
         case NLO:
-            mcdbd2.setCoeff(0, co * co * 4. * (SM.Als(Muw, FULLNLO) / 4. / M_PI * (S1(xt) +
-                    (Bt - J5 + gamma0 * log(Muw / Mw)) * S0(xt, xt) + 12. * CF * S0p(xt) * log(Muw / Mw))), NLO);
+            mcdbd2.setCoeff(0, co * co * 4. * (SM.Als(Mut, FULLNLO) / 4. / M_PI * (S1(xt) +
+                    (Bt + gamma0 * log(Mut / Mw)) * S0(xt, xt) + 2. * gammam * S0p(xt) * log(Mut / Mw))), NLO);
+#if SUSYFIT_DEBUG & 1
+    std::cout << "Mw = " << Mw << " xt(muw=" << Muw << ")= " << xt << "matching of DB=2: S0(xt) = " << S0(xt) << 
+                ", S1(xt) = " << S1(xt) +
+                    (Bt + gamma0 * log(Muw / Mw)) * S0(xt, xt) + 2. * gammam * S0p(xt) * log(Muw / Mw) 
+            << ", lambdat_d^2 = " << SM.getlamt_d()*SM.getlamt_d() << std::endl;
+#endif
         case LO:
-            mcdbd2.setCoeff(0, co * co * 4. * S0(xt, xt), LO);
+            mcdbd2.setCoeff(0, co * co * 4. * (S0(xt, xt) + GF / sqrt(2.) * czdp * czdp), LO);
             break;
         default:
             std::stringstream out;
@@ -564,9 +575,12 @@ double StandardModelMatching::phi2(double x, double y) const{
 
  std::vector<WilsonCoefficient>& StandardModelMatching::CMdbs2() 
 {
+    double gammam = 6. * CF;
     double Bt;
-    double xt = x_t(Muw);
+    double xt = x_t(Mut);
     complex co = GF / 4. / M_PI * Mw * SM.getlamt_s();
+    // double Z penguin insertion
+    double czdp = Mw / M_PI * 4. * C0t(xt);
 
     vmcds.clear();
 
@@ -582,15 +596,15 @@ double StandardModelMatching::phi2(double x, double y) const{
             throw std::runtime_error("StandardModel::CMdbs2(): scheme " + out.str() + "not implemented"); 
     }
 
-    mcdbs2.setMu(Muw);
+    mcdbs2.setMu(Mut);
  
     switch (mcdbs2.getOrder()) {
         case NNLO:
         case NLO:          
-            mcdbs2.setCoeff(0, co * co * 4. * (SM.Als(Muw, FULLNLO) / 4. / M_PI * (S1(xt) +
-                    (Bt - J5 + gamma0 * log(Muw / Mw)) * S0(xt, xt) + 12. * CF * S0p(xt) * log(Muw / Mw))), NLO);
+            mcdbs2.setCoeff(0, co * co * 4. * (SM.Als(Mut, FULLNLO) / 4. / M_PI * (S1(xt) +
+                    (Bt + gamma0 * log(Mut / Mw)) * S0(xt, xt) + 2. * gammam * S0p(xt) * log(Mut / Mw))), NLO);
          case LO:
-            mcdbs2.setCoeff(0, co * co * 4. * S0(xt, xt), LO);
+            mcdbs2.setCoeff(0, co * co * 4. * (S0(xt, xt) + GF / sqrt(2.) * czdp * czdp), LO);
             break;
         default:
             std::stringstream out;
@@ -905,7 +919,7 @@ double StandardModelMatching::phi2(double x, double y) const{
 
 double StandardModelMatching::setWCbsg(int i, double x, orders order)
 {    
-    sw =  sqrt( (M_PI * Ale )/( sqrt(2) * GF * Mw_tree * Mw_tree) ) ;
+    sw =  sqrt( (M_PI * Ale )/( sqrt(2) * GF * Mw * Mw) ) ;
 
     if ( swa == sw && xcachea == x){
         switch (order){
@@ -1300,7 +1314,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMbdmm() {
  * ****************************************************************************/
 double StandardModelMatching::setWCbnlep(int i, double x, orders order) 
 {    
-    sw =  sqrt( (M_PI * Ale ) / ( sqrt(2) * GF * Mw_tree * Mw_tree) );
+    sw =  sqrt( (M_PI * Ale ) / ( sqrt(2) * GF * Mw * Mw) );
     
     if ( swb == sw && xcacheb == x){
         switch (order){
@@ -1355,7 +1369,7 @@ double StandardModelMatching::setWCbnlep(int i, double x, orders order)
 
 double StandardModelMatching::setWCbnlepEW(int i, double x) 
 {     
-    sw =  sqrt( (M_PI * Ale ) / ( sqrt(2) * GF * Mw_tree * Mw_tree) ) ;
+    sw =  sqrt( (M_PI * Ale ) / ( sqrt(2) * GF * Mw * Mw) ) ;
     
     if ( swb == sw && xcacheb == x){
         return (CWbnlepArrayNLOew[i]);
@@ -1375,16 +1389,21 @@ double StandardModelMatching::setWCbnlepEW(int i, double x)
 complex StandardModelMatching::S0c() const 
 {
     double xc = x_c(SM.getMuc());
-    complex co = GF / 2. / M_PI * Mw_tree * SM.getlamc().conjugate();
+    complex co = GF / 2. / M_PI * Mw * SM.getlamc().conjugate();
     
     return(co * co * S0(xc, xc));
 }
 
 complex StandardModelMatching::S0ct() const 
 {
-    double xc = x_c(SM.getMuc());
-    double xt = x_t(Mut);
-    double co = GF / 2. / M_PI * Mw_tree;
+    double xc = SM.Mrun4(SM.getMuc(),SM.getQuarks(QCD::CHARM).getMass_scale(),SM.getQuarks(QCD::CHARM).getMass())/Mw;
+    xc *= xc;
+    double xt = SM.Mrun4(SM.getMuw(),SM.getQuarks(QCD::TOP).getMass_scale(),SM.getQuarks(QCD::TOP).getMass())/Mw;
+    xt *= xt;
+    double co = GF / 2. / M_PI * Mw;
+#if SUSYFIT_DEBUG & 2
+    std::cout << "S0(" << xc << "," << xt << ") = " << S0(xc,xt) << std::endl;
+#endif
     
     return( co * co * 2. * SM.getlamc().conjugate() * lam_t.conjugate() * S0(xc, xt) );
 }
@@ -1392,7 +1411,34 @@ complex StandardModelMatching::S0ct() const
 complex StandardModelMatching::S0tt() const
 {
     double xt = x_t(Mut);
-    complex co = GF / 2. / M_PI * Mw_tree * lam_t.conjugate();
-    
+    complex co = GF / 2. / M_PI * Mw * lam_t.conjugate();
+#if SUSYFIT_DEBUG & 2
+    std::cout << "S0(" << xt << ") = " << S0(xt,xt) << std::endl;
+#endif
+
     return ( co * co * S0(xt, xt) );
+}
+
+double StandardModelMatching::ZDP(const double x, const double y) const
+{
+    double co = 2. * GF / M_PI / M_PI * Mw * Mw ;
+
+    return co * co / sqrt(2.) * GF * C0t(x) * C0t(y);
+}
+
+complex StandardModelMatching::ZDPtt() const
+{
+    double xt = x_t(Mut);
+    
+    return (ZDP(xt,xt) * lam_t.conjugate() * lam_t.conjugate());
+    
+}
+
+complex StandardModelMatching::ZDPct() const
+{
+    double xt = x_t(Mut);
+    double xc = x_c(SM.getMuc());
+    
+    return (2. * ZDP(xc,xt) * lam_t.conjugate() * SM.getlamc().conjugate());
+    
 }
