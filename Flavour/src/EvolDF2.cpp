@@ -315,9 +315,12 @@ double EvolDF2::etacc(double  mu) const{
     beta[0][1] = beta[1][0];
     beta[1][1] = (1. - N) * ( M_PI * M_PI * (N2 - 4. * N + 2)/(12. * N) - (3. * N2 + 10. * N + 13.)/(4. * N));
     
+    B[0] =  11. * (N - 1.) / (2. * N);
+    B[1] = -11. * (N + 1.) / (2. * N);
+    
     double eta = 0.;
     double as_mb__as_muc = model.Als(model.getMub(), FULLNLO) / model.Als(model.getMuc(), FULLNLO);
-    double as_mub__as_mb = model.Als(model.getMuw(), FULLNLO) / model.Als(model.getMub(), FULLNLO);
+    double as_muw__as_mb = model.Als(model.getMuw(), FULLNLO) / model.Als(model.getMub(), FULLNLO);
     double as_muc__4pi = model.Als(model.getMuc(), FULLNLO)/ 4. / M_PI;
     double log_muc__mc = log(model.getMuc() / model.getQuarks(QCD::CHARM).getMass());
     double as_mb__4pi = model.Als(model.getMub(), FULLNLO) / 4. /M_PI;
@@ -327,7 +330,7 @@ double EvolDF2::etacc(double  mu) const{
     for(int i=0; i<2; i++){
         for (int j=0; j<2; j++){
             eta += pow(as_mb__as_muc, dd[i][j][1]) *
-                   pow(as_mub__as_mb, dd[i][j][2]) *
+                   pow(as_muw__as_mb, dd[i][j][2]) *
                    ( tau[i][j] + as_muc__4pi * (2. * K[i][j] *
                    log_muc__mc + tau[i][j] * (JJ[i][j][1] - J[0][0]) + beta[i][j]) + 
                    tau[i][j]*( as_mb__4pi * (JJ[i][j][2] - JJ[i][j][1]) +
@@ -342,27 +345,32 @@ double EvolDF2::etacc(double  mu) const{
 }
 
 double EvolDF2::etact(double mu) const{
+
+//temporary fix waiting for NNLO
     
-    double K = model.Als(model.getMuw(), FULLNLO)/model.Als(model.getMuc(), FULLNLO);
+    double K = model.Als4(model.getMuw())/model.Als4(model.getMuc());
     double Kpp = pow(K, 12./25.);
     double Kpm = pow(K, -6./25.);
     double Kmm = pow(K, -24./25.);
-    double K7 = pow(K, 1./5.);                                                                 
-    double xt = model.GetMyMatching()->x_t(model.getMut());
-    double xc = model.GetMyMatching()->x_c(model.getMuc());
+    double K7 = pow(K, 1./5.);          
+    double xc = model.Mrun4(model.getMuc(),model.getQuarks(QCD::CHARM).getMass_scale(),model.getQuarks(QCD::CHARM).getMass())/model.Mw();
+    xc *= xc;
+    double xt = model.Mrun4(model.getMuw(),model.getQuarks(QCD::TOP).getMass_scale(),model.getQuarks(QCD::TOP).getMass())/model.Mw();
+    xt *= xt;
+
     double J3 = 6.*(3.-1.)/3./2./model.Beta0(3)/model.Beta0(3)*model.Beta1(3) - 
                 ((3.-1.)/(2.*3.)) * ( -21. + 57./3. - 19. + 4.)/2./model.Beta0(3) ;
     
     
     double eta = 0.;
-    double AlsC = model.Als(model.getMuc());
+    double AlsC = model.Als4(model.getMuc());
     
     eta = ( M_PI / AlsC * (-18./7. * Kpp - 12./11. * Kpm + 6./29. * Kmm + 7716./2233. * K7) *
             (1. - AlsC / (4. * M_PI) * 307./162.) + (log(model.getMuc() /
             model.getQuarks(QCD::CHARM).getMass()) - 0.25) * (3. * Kpp - 2. * Kpm + Kmm) +
             262497./35000. * Kpp - 123./625. * Kpm + 1108657./1305000. * Kmm - 277133./50750. * K7 +
             K * (-21093./8750. * Kpp + 13331./13750. * Kpm - 10181./18125. * Kmm - 1731104./2512125. * K7) +
-            (log(xt) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) / (4. * (1.-xt) * (1.-xt)) + 0.5) * K * K7 ) * xc / (xc * (log(xt / xc) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) / 4. / (1. - xt) / (1. - xt))) * pow(AlsC, 2. / 9.);
+            (log(xt) - (3. * xt) / (4. - 4. * xt) - log(xt) * (3. * xt * xt) / (4. * (1.-xt) * (1.-xt)) + 0.5) * K * K7 ) * xc / (model.GetMyMatching()->S0(xc,xt)) * pow(AlsC, 2. / 9.);
     
     return (eta * (1. + model.Als(mu, FULLNLO)/4./M_PI * J3) * pow(model.Als(mu, FULLNLO),-2./9.));
 }
