@@ -168,7 +168,7 @@ void MonteCarlo::Run(const int rank)
                     ++beg;
                     int seed = atoi((*beg).c_str());
                     if (seed != 0)
-                        MCEngine.MCMCGetTRandom3()->SetSeed(seed);
+                        MCEngine.MCMCSetRandomSeed(seed);
                 } else if (beg->compare("Iterations") == 0) {
                     ++beg;
                     MCEngine.MCMCSetNIterationsRun(atoi((*beg).c_str()));

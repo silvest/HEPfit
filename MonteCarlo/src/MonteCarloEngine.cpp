@@ -6,6 +6,7 @@
  */
 
 #include "MonteCarloEngine.h"
+#include <BAT/BCParameter.h>
 #include <BAT/BCMath.h>
 #include <TF1.h>
 #include <TMath.h>
@@ -149,7 +150,7 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
 
         /* check if the parameter in ModelParaVsObs exists in MCMCparameters */
         bool checkParam = false;
-        for (int k = 0; k < fMCMCNParameters; k++)
+        for (int k = 0; k < GetNParameters(); k++)
             if (it->getParaName().compare(GetParameter(k)->GetName())==0)
                 checkParam = true;
         if(!checkParam)
@@ -346,11 +347,11 @@ void MonteCarloEngine::MCMCIterationInterface()
 {
 
     for (int i = 0; i < fMCMCNChains; ++i) {
-        for (int k = 0; k < fMCMCNParameters; k++) {
+        for (int k = 0; k < GetNParameters(); k++) {
             //        std::string pippo = GetParameter(k)->GetName();
             //        double pluto = parameters[k];
             //        DPars[pippo]=pluto;
-            DPars[GetParameter(k)->GetName()] = fMCMCx.at(i * fMCMCNParameters + k);
+            DPars[GetParameter(k)->GetName()] = fMCMCx.at(i * GetNParameters() + k);
         }
 
         Mod->Update(DPars);
@@ -472,7 +473,7 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out,
 void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string OutputDir)
 {
     std::vector<double> mode(GetBestFitParameters());
-    for (int k = 0; k < fMCMCNParameters; k++)
+    for (int k = 0; k < GetNParameters(); k++)
         DPars[GetParameter(k)->GetName()] = mode[k];
     Mod->Update(DPars);
 
