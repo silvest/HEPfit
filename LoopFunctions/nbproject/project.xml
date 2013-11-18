@@ -18,6 +18,10 @@
                     <type>3</type>
                 </confElem>
                 <confElem>
+                    <name>Debug_LoopTools</name>
+                    <type>3</type>
+                </confElem>
+                <confElem>
                     <name>Release</name>
                     <type>3</type>
                 </confElem>
