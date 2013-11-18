@@ -402,6 +402,7 @@ int main(int argc, char** argv) {
     try {    
         StandardModel* myModel;
         myModel = new StandardModel();
+        myModel->InitializeModel();
         setSMparameters(*myModel);
         ZFitterWrapper ZF(*myModel);
         
@@ -416,6 +417,9 @@ int main(int argc, char** argv) {
             /* compute EW precision observables */
             test_ZFitterClass(ZF);
         }
+
+        cout << "Test finished" << endl;
+
         return EXIT_SUCCESS;
     } catch (const runtime_error& e) {
         cerr << e.what() << endl;
