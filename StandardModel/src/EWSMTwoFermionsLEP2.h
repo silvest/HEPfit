@@ -29,9 +29,11 @@ public:
     /**
      * @brief EWSMTwoFermionsLEP2 constructor
      * @param[in] SM_i reference to a StandardModel object
+     * @param[in] cache_i reference to an EWSMcommon object
      * @param[in] bKeepNonUnitary_i true if keeping non-unitary terms
      */
-    EWSMTwoFermionsLEP2(const StandardModel& SM_i, const bool bKeepNonUnitary_i=false);
+    EWSMTwoFermionsLEP2(const StandardModel& SM_i, const EWSMcache& cache_i,
+                        const bool bKeepNonUnitary_i=false);
 
     ////////////////////////////////////////////////////////////////////////  
     
@@ -202,9 +204,8 @@ private:
     bool bKeepNonUnitary; // true if keeping non-unitary terms
     
     const StandardModel& SM;
-    const EWSMcache myCache;
+    const EWSMcache& cache;
     const EWSMOneLoopEW myOneLoopEW;
-    const PVfunctions PV; 
     
 };
 

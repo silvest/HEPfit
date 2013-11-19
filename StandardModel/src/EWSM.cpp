@@ -40,7 +40,7 @@ EWSM::EWSM(const StandardModel& SM_i)
     myThreeLoopEW = new EWSMThreeLoopEW(*myCache);
     myApproximateFormulae = new EWSMApproximateFormulae(SM);   
 
-    myTwoFermionsLEP2 = new EWSMTwoFermionsLEP2(SM);
+    myTwoFermionsLEP2 = new EWSMTwoFermionsLEP2(SM, *myCache);
 
     /* Default flags (see also StandardModel::setEWSMflags(), etc.) */
     schemeMw = APPROXIMATEFORMULA;
