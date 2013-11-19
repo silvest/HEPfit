@@ -66,6 +66,7 @@ public:
     double Weight(const Observable& obs, const double& th);
     double Weight(const Observable2D& obs, const double& th1, const double& th2);    
     double Weight(const CorrelatedGaussianObservables& obs);
+    void generateRandomEvent(Model* Mod_i, int iterationNo);
     Model* getMod() const
     {
         return Mod;
