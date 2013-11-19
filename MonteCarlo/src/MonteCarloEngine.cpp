@@ -30,6 +30,19 @@ MonteCarloEngine::MonteCarloEngine(
     Mod = NULL;
 };
 
+void MonteCarloEngine::generateRandomEvent(Model* Mod_i, int iterationNo)
+{
+    Mod = Mod_i;
+    if (iterationNo == 0) { MCMCSetFlagInitialPosition(0); }
+    else { MCMCSetFlagInitialPosition(1); }
+    
+    MCMCInitialize();
+    for (int k = 0; k < GetNParameters(); k++) {
+        DPars[GetParameter(k)->GetName()] = fMCMCx.at(k);
+    }
+    Mod->Update(DPars);
+}
+
 void MonteCarloEngine::Initialize(Model* Mod_i) 
 {
     Mod = Mod_i;

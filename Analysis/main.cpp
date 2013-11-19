@@ -35,6 +35,7 @@ int main(int argc, char** argv)
 #endif
 
     string ModelConf, MCMCConf, FileOut, JobTag;
+    bool noMC;
     bool checkTheoryRange = false;
 
     if (rank == 0)
@@ -72,19 +73,28 @@ int main(int argc, char** argv)
             if (vm.count("modconf"))
                 ModelConf = vm["modconf"].as<string > ();
             else
-                throw runtime_error("missing mandatory model config filename");
-
-            if (vm.count("mcconf"))
+                throw runtime_error("Please specify mandatory model config filename");
+            
+            if (vm.count("noMC") && vm.count("mcconf"))
+            {
+                throw std::runtime_error("\nArgument Error:\nPlease specify EITHER --noMC OR Monte Carlo configuration file.\n");
+            }
+            else if (vm.count("noMC") && !vm.count("mcconf"))
+            {
+                noMC = true;
+                MCMCConf = "";
+            }
+            else if (!vm.count("noMC") && vm.count("mcconf"))
+            {
+                noMC = false;
                 MCMCConf = vm["mcconf"].as<string > ();
-            else
-                throw runtime_error("missing mandatory montecarlo config filename");
-
+                    
+            } else {
+                throw runtime_error("Please specify mandatory Monte Carlo config filename\nor specify --noMC for Single Event Mode (no Monte Carlo run)");
+            }
+            
             FileOut = vm["rootfile"].as<string > ();
-
             JobTag = vm["job_tag"].as<string > ();
-
-            if (vm.count("noMC"))
-                FileOut = "";
 
             if (vm.count("thRange"))
                 checkTheoryRange = true;
@@ -97,7 +107,11 @@ int main(int argc, char** argv)
 
         MonteCarlo MC(ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);
         
-        MC.Run(rank);
+        if (!noMC) {
+            MC.Run(rank);
+        } else {
+            MC.generateEvent(rank, 20, noMC);
+        }
 
 #ifdef _MPI
         MPI::Finalize();
