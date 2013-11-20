@@ -116,26 +116,6 @@ void MonteCarlo::Run(const int rank)
         if (!myInputParser.getMyModel()->Init(DP)) {
             throw std::runtime_error("parameter(s) missing in model initialization");
         }
-        
-        /*if(noMC) {
-            std::cout.precision(10);
-            std::cout << std::endl << "Running in Single Event mode..." << std::endl;
-            for (std::vector<Observable>::iterator it = Obs.begin();
-                 it < Obs.end(); it++) {
-                double th = it->computeTheoryValue();
-                std::cout << it->getName() << " = " << th << std::endl;
-            }
-            for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin();
-                 it < CGO.end(); it++) {
-                std::vector<Observable> ObsInCGO = it->getObs();
-                for (std::vector<Observable>::iterator it2 = ObsInCGO.begin();
-                     it2 < ObsInCGO.end(); it2++) {
-                    double th = it2->computeTheoryValue();
-                    std::cout << it2->getName() << " = " << th << std::endl;
-                }
-            }
-            return;
-        }*/
 
         std::cout << std::endl << "Running in MonteCarlo mode..." << std::endl;
 

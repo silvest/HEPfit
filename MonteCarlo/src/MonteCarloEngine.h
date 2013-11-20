@@ -41,81 +41,210 @@
 class MonteCarloEngine : public BCModel {
 public:
 
-    // Constructors and destructor
+    /**
+     * @brief The default constructor.
+     * @param[in]
+     * @param[in]
+     * @param[in]
+     * @param[in]
+     * @param[in]
+     * @param[in]
+     */
     MonteCarloEngine(const std::vector<ModelParameter>& ModPars_i,
                      std::vector<Observable>& Obs_i,
                      std::vector<Observable2D>& Obs2D_i,
                      std::vector<CorrelatedGaussianObservables>& CGO_i,
                      std::vector<ModelParaVsObs>& ParaObs_i,
                      const bool checkHistRange_i=false);
+    
+    /**
+     * @brief The default destructor.
+     */
     ~MonteCarloEngine();
 
+    /**
+     * @brief
+     * @param[in]
+     * @return
+     */
     void Initialize(Model* Mod_i);
     
-    // Methods to overload, see file MonteCarloEngine.cxx
+    /**
+     * @brief
+     * @return
+     */
     void DefineParameters();
+    
+    /**
+     * @brief
+     * @param[in]
+     * @param[in]
+     * @return
+     */
     double LogLikelihood(const std::vector <double>& parameters);
+    
+    /**
+     * @brief
+     * @param[in]
+     * @param[in]
+     * @return
+     */
     void CheckHistogram(const TH1D& hist, const std::string name);
+    
+    /**
+     * @brief
+     * @param[in]
+     * @param[in]
+     * @return
+     */
     void CheckHistogram(const TH2D& hist, const std::string name);
+    
+    /**
+     * @brief
+     * @param[in]
+     * @param[in]
+     * @param[in]
+     * @return
+     */
     void PrintHistogram(BCModelOutput & out, std::vector<Observable>::iterator it,
                         const std::string OutputDir);
+    
+    /**
+     * @brief
+     * @param[in]
+     * @param[in]
+     * @return
+     */
     void PrintHistogram(BCModelOutput& out, const std::string OutputDir);
+    
+    /**
+     * @brief
+     * @return
+     */
     void MCMCIterationInterface();
+    
+    /**
+     * @brief
+     * @param[in]
+     * @return
+     */
     void setNChains(unsigned int i);
+    
+    /**
+     * @brief
+     * @return
+     */
     void AddChains();
+    
+    /**
+     * @brief
+     * @param[in]
+     * @param[in]
+     * @return
+     */
     double Weight(const Observable& obs, const double& th);
-    double Weight(const Observable2D& obs, const double& th1, const double& th2);    
+    
+    /**
+     * @brief
+     * @param[in]
+     * @param[in]
+     * @param[in]
+     * @return
+     */
+    double Weight(const Observable2D& obs, const double& th1, const double& th2);
+    
+    /**
+     * @brief
+     * @param[in]
+     * @return
+     */
     double Weight(const CorrelatedGaussianObservables& obs);
+    
+    /**
+     * @brief
+     * @param[in]
+     * @param[in]
+     * @return
+     */
     void generateRandomEvent(Model* Mod_i, int iterationNo);
+    
+    /**
+     * @brief
+     * @return
+     */
     Model* getMod() const
     {
         return Mod;
     }
 
+    /**
+     * @brief
+     * @param[in]
+     */
     void setMod(Model* Mod)
     {
         this->Mod = Mod;
     }
     
-    std::string getHistoLog() const 
+    /**
+     * @brief
+     * @return
+     */
+    std::string getHistoLog() const
     {
         return HistoLog.str().c_str();
     }
 
+    /**
+     * @brief
+     * @param[in]
+     * @param[in]
+     * @return
+     */
     void PrintCorrelationMatrix(const std::string filename);
 
+    /**
+     * @brief
+     * @return
+     */
     int getNumOfDiscardedEvents() const
     {
         return NumOfDiscardedEvents;
     }
 
+    /**
+     * @brief
+     * @return
+     */
     int getNumOfUsedEvents() const
     {
         return NumOfUsedEvents;
     }
 
 private:
-    const std::vector<ModelParameter>& ModPars;
-    std::vector<Observable> Obs_MCMC;
-    std::vector<Observable>& Obs_ALL; 
-    std::vector<Observable2D> Obs2D_MCMC;
-    std::vector<Observable2D>& Obs2D_ALL;
-    std::vector<CorrelatedGaussianObservables>& CGO;
-    std::vector<ModelParaVsObs>& ParaObs;
-    Model* Mod;
-    std::map<std::string, double> DPars;
-    std::map<std::string, BCH1D * > Histo1D;
-    std::map<std::string, TH1D * > InHisto1D;
-    std::map<std::string, BCH2D * > Histo2D;
-    std::map<std::string, TH2D * > InHisto2D;
-    std::map<std::string, double> thMin;
-    std::map<std::string, double> thMax;
-    double *obval, *obweight;
-    unsigned int kwmax, kmax;
-    std::ostringstream HistoLog;
-    int NumOfUsedEvents;
-    int NumOfDiscardedEvents;
-    bool checkTheoryRange;
+    const std::vector<ModelParameter>& ModPars; /**< */
+    std::vector<Observable> Obs_MCMC; /**< */
+    std::vector<Observable>& Obs_ALL;  /**< */
+    std::vector<Observable2D> Obs2D_MCMC; /**< */
+    std::vector<Observable2D>& Obs2D_ALL; /**< */
+    std::vector<CorrelatedGaussianObservables>& CGO; /**< */
+    std::vector<ModelParaVsObs>& ParaObs; /**< */
+    Model* Mod; /**< */
+    std::map<std::string, double> DPars; /**< */
+    std::map<std::string, BCH1D * > Histo1D; /**< */
+    std::map<std::string, TH1D * > InHisto1D; /**< */
+    std::map<std::string, BCH2D * > Histo2D; /**< */
+    std::map<std::string, TH2D * > InHisto2D; /**< */
+    std::map<std::string, double> thMin; /**< */
+    std::map<std::string, double> thMax; /**< */
+    double *obval; /**< */
+    double *obweight; /**< */
+    unsigned int kwmax; /**< */
+    unsigned int kmax; /**< */
+    std::ostringstream HistoLog; /**< */
+    int NumOfUsedEvents; /**< */
+    int NumOfDiscardedEvents; /**< */
+    bool checkTheoryRange; /**< */
     
 };
 

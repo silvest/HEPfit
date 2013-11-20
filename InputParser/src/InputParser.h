@@ -53,12 +53,36 @@
  */
 class InputParser {
 public:
+    
+    /**
+     * @brief The default constructor.
+     */
     InputParser();
+    
+    /**
+     * @brief The copy constructor.
+     * @param[in] orig
+     */
     InputParser(const InputParser& orig);
+    
+    /**
+     * @brief The default destructor.
+     */
     virtual ~InputParser();
 
     Observable ParseObservable(boost::tokenizer<boost::char_separator<char> >::iterator & beg);
     
+    /**
+     * @brief responsible for parsing the SomeModel.conf file
+     * @details 
+     * @param[in] filename name of the SomeModel.conf file passed as an argument to the executable
+     * @param[out] ModelPars the vector of model parameters
+     * @param[out] Observables the vector of observables
+     * @param[out] Observables2D the vector of observable pairs
+     * @param[out] CGO the vector of correlated gaussian observables
+     * @param[out] ParaObs The vector of model parameter - observable pairs
+     * @return modname the name of the model initialized
+     */
     std::string ReadParameters(const std::string filename,
             std::vector<ModelParameter>& ModelPars,
             std::vector<Observable>& Observables,
@@ -66,22 +90,29 @@ public:
             std::vector<CorrelatedGaussianObservables>& CGO,
             std::vector<ModelParaVsObs>& ParaObs);
 
-    StandardModel* getMyModel() const 
+    /**
+     * @brief a get method to access the pointer to the object of the StandardModel() class
+     * @return myModel apointer to the object of the StandardModel() class
+     */
+    StandardModel* getMyModel() const
     {
         return myModel;
     }
 
-    StandardModelMatching* getMyModelMatching() const 
+    /**
+     * @brief a get method to access the pointer to the object of the StandardModelMatching() class
+     * @return myModelMatching apointer to the object of the StandardModelMatching() class
+     */
+    StandardModelMatching* getMyModelMatching() const
     {
         return myModelMatching;
     }
 
 private:
-    StandardModel* myModel;
-    StandardModelMatching* myModelMatching;
-
-    ThFactory* thf;
-    std::string modname;
+    StandardModel* myModel;/**< an object of the StandardModel() class*/
+    StandardModelMatching* myModelMatching;/**< an object of the StandardModelMatching() class*/
+    ThFactory* thf;/**< an object of the ThFactory() class*/
+    std::string modname;/**< a string to store the model name in*/
 };
 
 /** 

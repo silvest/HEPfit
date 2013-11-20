@@ -79,11 +79,12 @@ Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<c
     return (o);
 }
 
-std::string InputParser::ReadParameters(const std::string filename, std::vector<ModelParameter>&
-        ModelPars, std::vector<Observable>& Observables,
-        std::vector<Observable2D>& Observables2D,
-        std::vector<CorrelatedGaussianObservables>& CGO,
-        std::vector<ModelParaVsObs>& ParaObs)
+std::string InputParser::ReadParameters(const std::string filename,
+                                        std::vector<ModelParameter>& ModelPars,
+                                        std::vector<Observable>& Observables,
+                                        std::vector<Observable2D>& Observables2D,
+                                        std::vector<CorrelatedGaussianObservables>& CGO,
+                                        std::vector<ModelParaVsObs>& ParaObs)
 {
     std::string modname = "";
     std::ifstream ifile(filename.c_str());

@@ -26,14 +26,27 @@
  */
 class ThFactory {
 public:
+    
+    /**
+     * @brief The default constructor.
+     */
     ThFactory(const StandardModel& myModel);
+    
+    /**
+     * @brief The default destructor.
+     */
     virtual ~ThFactory();
+    
+    /**
+     * @brief
+     * @param[in]
+     */
     ThObservable* getThMethod(const std::string& name);
 private:
-    std::map<std::string, ThObservable *> thobs;
-    Flavour myFlavour;
-    EW myEW;
-    ModelObservable myMO;
+    std::map<std::string, ThObservable *> thobs; /**< */
+    Flavour myFlavour; /**< */
+    EW myEW; /**< */
+    ModelObservable myMO; /**< */
     //ZFitterWrapper myZFitter;
 };
 
