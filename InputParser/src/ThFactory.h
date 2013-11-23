@@ -11,10 +11,8 @@
 #include <ThObservable.h>
 #include <ModelObservable.h>
 #include <StandardModel.h>
-#include <StandardModelMatching.h>
-#include <Flavour.h>
 #include <EW.h>
-//#include <ZFitterWrapper.h>
+#include <Flavour.h>
 
 /**
  * @class ThFactory
@@ -42,12 +40,12 @@ public:
      * @param[in]
      */
     ThObservable* getThMethod(const std::string& name);
+
 private:
     std::map<std::string, ThObservable *> thobs; /**< */
-    Flavour myFlavour; /**< */
     EW myEW; /**< */
+    Flavour myFlavour; /**< */
     ModelObservable myMO; /**< */
-    //ZFitterWrapper myZFitter;
 };
 
 #endif	/* THFACTORY_H */
