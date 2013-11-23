@@ -16,7 +16,6 @@
 #include <ThObservable.h>
 #include <ModelParameter.h>
 #include <StandardModel.h>
-#include <StandardModelMatching.h>
 #include <NPSTU.h>
 #include <NPSTUVWXY.h>
 #include <NPEpsilons.h>
@@ -28,7 +27,6 @@
 #include <GeneralSUSY.h>
 #include <pMSSM.h>
 #include <SUSYMassInsertion.h>
-#include <SUSYMassInsertionMatching.h>
 #include <MFV.h>
 #include <SUSY.h>
 #include <THDM.h>
@@ -99,18 +97,8 @@ public:
         return myModel;
     }
 
-    /**
-     * @brief a get method to access the pointer to the object of the StandardModelMatching() class
-     * @return myModelMatching apointer to the object of the StandardModelMatching() class
-     */
-    StandardModelMatching* getMyModelMatching() const
-    {
-        return myModelMatching;
-    }
-
 private:
     StandardModel* myModel;/**< an object of the StandardModel() class*/
-    StandardModelMatching* myModelMatching;/**< an object of the StandardModelMatching() class*/
     ThFactory* thf;/**< an object of the ThFactory() class*/
     std::string modname;/**< a string to store the model name in*/
 };
