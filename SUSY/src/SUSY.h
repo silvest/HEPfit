@@ -17,7 +17,6 @@ using namespace gslpp;
 
 class FeynHiggsWrapper; // forward reference to FeynHiggsWrapper class
 class SUSYSpectrum; // forward reference to Spectrum class
-class EWSUSY; // forward reference to EWSUSY class
 
 /**
  * @addtogroup SUSY
@@ -59,10 +58,19 @@ public:
 
     
     ///////////////////////////////////////////////////////////////////////////
-    // Initialization and Matching
+    // Initialization
 
     virtual bool InitializeModel();
 
+    /**
+     * @brief
+     * @return
+     */
+    FeynHiggsWrapper* getMyFH() const
+    {
+        return myFH;
+    }
+    
     virtual void setEWSMflags(EWSM& myEWSM);
 
     virtual SUSYMatching* getMyMatching() const
@@ -108,27 +116,6 @@ public:
     bool IsFlag_ne() const
     {
         return flag_ne;
-    }
-
-
-    ///////////////////////////////////////////////////////////////////////////
-
-    /**
-     * @brief
-     * @return
-     */
-    EWSUSY* getMyEWSUSY() const
-    {
-        return myEWSUSY;
-    }
-
-    /**
-     * @brief
-     * @return
-     */
-    FeynHiggsWrapper* getMyFH() const
-    {
-        return myFH;
     }
 
 
@@ -528,7 +515,7 @@ public:
      * @brief The W boson mass.
      * @return @f$M_W@f$.
      */
-    double Mw() const;
+    virtual double Mw() const;
 
     /**
      * @brief The W boson mass in the @f$\Delta\rho@f$ approximation.
@@ -540,13 +527,13 @@ public:
      * @brief
      * @return
      */
-    double cW2() const;
+    virtual double cW2() const;
     
     /**
      * @brief
      * @return
      */
-    double sW2() const;
+    virtual double sW2() const;
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -558,7 +545,6 @@ protected:
     virtual void SetSoftTerms();
 
     FeynHiggsWrapper* myFH;
-    EWSUSY* myEWSUSY;
 
     // model parameters at scale Q
     complex m1, m2, muH;

@@ -10,6 +10,7 @@
 
 #include <gslpp.h>
 #include <PVfunctions.h>
+#include <EWSM.h>
 #include "SUSY.h"
 
 using namespace gslpp;
@@ -34,7 +35,7 @@ using namespace gslpp;
  * <A HREF="http://inspirehep.net/record/401937?ln=en">Rosiek, hep-ph/9511250</A>,
  * where an updated version is available at author's webpage. 
  */
-class EWSUSY {
+class EWSUSY : public EWSM {
 public:
 
     /**
@@ -414,7 +415,6 @@ private:
 
     const PVfunctions PV; ///< An object of PVfunctions class.
     const SUSY& mySUSY; ///< A reference to the SUSY object passed to the constructor.
-    const EWSMOneLoopEW& myEWSMOneLoopEW;
 
     matrix<complex> Yu; ///< The Yukawa coupling matrix for up-type quarks in Rosiek's notation.
     matrix<complex> Yd; ///< The Yukawa coupling matrix for down-type quarks in Rosiek's notation.

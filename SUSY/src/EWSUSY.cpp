@@ -17,7 +17,7 @@ const double EWSUSY::RenormalizationScaleFactor = 1.0;
 //const double EWSUSY::RenormalizationScaleFactor = 2.0; // for debug
 
 EWSUSY::EWSUSY(const SUSY& SUSY_in)
-: PV(true), mySUSY(SUSY_in), myEWSMOneLoopEW(*(SUSY_in.getEWSM()->getMyOneLoopEW())),
+: EWSM(SUSY_in), PV(true), mySUSY(SUSY_in),
         Yu(3,3,0.0), Yd(3,3,0.0), Yl(3,3,0.0),
         Au(3,3,0.0), Ad(3,3,0.0), Al(3,3,0.0),
         Zm(2,2,0.), Zp(2,2,0.), ZN(4,4,0.),
@@ -1153,6 +1153,14 @@ double EWSUSY::DeltaR_TOTAL_EW1(const double Mw_i) const
     /* SUSY renormalized neutrino wave function */
     DeltaR += DeltaR_neutrino_SUSY(Mw_i);
 
+    /* Debug */
+    //std::cout << "MSSM WSE = " << - PiThat_W_0(Mw_i)/Mw_i/Mw_i << std::endl;
+    //std::cout << "SM VC+Box = " << DeltaR_rem_SM(Mw_i) << std::endl;
+    //std::cout << "SUSY BoxLL = " << DeltaR_boxLL_SUSY(Mw_i) << std::endl;
+    //std::cout << "SUSY BoxLR = " << DeltaR_boxLR_SUSY(Mw_i) << std::endl;
+    //std::cout << "SUSY VC = " << DeltaR_vertex_SUSY(Mw_i) << std::endl;
+    //std::cout << "SUSY nuSE = " << DeltaR_neutrino_SUSY(Mw_i) << std::endl;
+
     return DeltaR;
 }
 
@@ -1192,9 +1200,9 @@ double EWSUSY::DeltaAlphaL5q_SM_EW1() const
 
     /* Debug */
     //std::cout << "EWSUSY(l) " << DelA_l/16.0/M_PI/M_PI << std::endl;
-    //std::cout << "EWSM(l)   " << myEWSMOneLoopEW.DeltaAlpha_l(Mz2) << std::endl;
+    //std::cout << "EWSM(l)   " << getMyOneLoopEW()->DeltaAlpha_l(Mz2) << std::endl;
     //std::cout << "EWSUSY(q) " << (DelA_d + DelA_u)/16.0/M_PI/M_PI << std::endl;
-    //std::cout << "EWSM(had) " << myEWSMOneLoopEW.DeltaAlpha_5q(Mz2) << std::endl;
+    //std::cout << "EWSM(had) " << getMyOneLoopEW()->DeltaAlpha_5q(Mz2) << std::endl;
 
     return ( (DelA_l + DelA_d + DelA_u)/16.0/M_PI/M_PI );
 }
@@ -1206,8 +1214,8 @@ double EWSUSY::DeltaR_SUSY_EW1(const double Mw_i) const
 
     /* SM one-loop contributions */
     double DeltaAlphaL5q_EW1 = DeltaAlphaL5q_SM_EW1();
-    double DeltaRho_EW1 = myEWSMOneLoopEW.DeltaRho(Mw_i);
-    double DeltaR_rem_EW1 = myEWSMOneLoopEW.DeltaR_rem(Mw_i);
+    double DeltaRho_EW1 = getMyOneLoopEW()->DeltaRho(Mw_i);
+    double DeltaR_rem_EW1 = getMyOneLoopEW()->DeltaR_rem(Mw_i);
     double DeltaR_SM_EW1 = DeltaAlphaL5q_EW1 - cW2/sW2*DeltaRho_EW1 + DeltaR_rem_EW1;
 
     /* Debug */

@@ -37,16 +37,15 @@ SUSY::SUSY()
 
 
 ///////////////////////////////////////////////////////////////////////////
-// Initialization and Matching
+// Initialization
 
 bool SUSY::InitializeModel()
 {
     mySUSYMatching = new SUSYMatching(*this);
-    setModelInitialized(true);
     myFH = new FeynHiggsWrapper(*this);
-    myEWSM = new EWSM(*this);
+    myEWSM = new EWSUSY(*this);
     this->setEWSMflags(*myEWSM);
-    myEWSUSY = new EWSUSY(*this);
+    setModelInitialized(true);
     return(true);
 }
 
@@ -122,7 +121,7 @@ bool SUSY::PostUpdate()
     }
 
     /* For EWSUSY class */
-    myEWSUSY->SetRosiekParameters();
+    (static_cast<EWSUSY*> (myEWSM))->SetRosiekParameters();
 
     /* Necessary for updating StandardModel parameters in StandardModelMatching,
      * and SUSY and SUSY-derived parameters in SUSYMatching */
@@ -305,7 +304,7 @@ double SUSY::getMGl() const
 
 double SUSY::Mw() const
 {
-    return myEWSUSY->Mw_MSSM();
+    return (static_cast<EWSUSY*> (myEWSM))->Mw_MSSM();
 }
 
 double SUSY::Mw_dRho() const
