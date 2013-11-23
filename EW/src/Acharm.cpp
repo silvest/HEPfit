@@ -17,7 +17,7 @@ double Acharm::computeThValue()
     if (myEWTYPE==EW::EWCHMN)  
         A_c = myEW.getMyEW_CHMN().A_q(SM.CHARM);
     else if (myEWTYPE==EW::EWABC || myEWTYPE==EW::EWABC2) 
-        A_c = myEW.getMyEW_ABC().A_q(SM.CHARM,SM.epsilon1(),SM.epsilon3());
+        A_c = myEW.getMyEW_ABC().A_q(SM.CHARM);
     else {
         A_c = myEW.A_q(SM.CHARM);
 

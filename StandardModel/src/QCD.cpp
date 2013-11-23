@@ -87,16 +87,12 @@ std::string QCD::orderToString(const orders order) const
     }
 }    
 
-bool QCD::setFlag(const std::string name , const bool& value)
-{  
-    std::cout << "WARNING: unknown flag " << name
-              << " in the model configuration file" << std::endl;
-    return (false);
-}
+////////////////////////////////////////////////////////////////////////
 
-bool QCD::CheckFlags() const
+bool QCD::Init(const std::map<std::string, double>& DPars)
 {
-    return (true);
+    Update(DPars);
+    return(CheckParameters(DPars));
 }
 
 bool QCD::PreUpdate() 
@@ -106,20 +102,6 @@ bool QCD::PreUpdate()
     computeBd = false;
     computeFBd = false;
     computemt = false;
-    
-    return (true);
-}
-
-bool QCD::PostUpdate()
-{    
-    if (computeFBd)
-        mesons[B_D].setDecayconst(mesons[B_S].getDecayconst() / FBsoFBd);
-    if (computeBd)
-        BBd.setBpars(0, BBs.getBpars()(0) / BBsoBBd);
-    if (computemt) {
-        quarks[TOP].setMass(Mp2Mbar(mtpole, FULLNNLO));
-        quarks[TOP].setMass_scale(quarks[TOP].getMass());
-    }
     
     return (true);
 }
@@ -136,6 +118,20 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
     if (UpdateError) return (false);
     
     if (!PostUpdate()) return (false);
+
+    return (true);
+}
+
+bool QCD::PostUpdate()
+{
+    if (computeFBd)
+        mesons[B_D].setDecayconst(mesons[B_S].getDecayconst() / FBsoFBd);
+    if (computeBd)
+        BBd.setBpars(0, BBs.getBpars()(0) / BBsoBBd);
+    if (computemt) {
+        quarks[TOP].setMass(Mp2Mbar(mtpole, FULLNNLO));
+        quarks[TOP].setMass_scale(quarks[TOP].getMass());
+    }
 
     return (true);
 }
@@ -361,10 +357,18 @@ bool QCD::CheckParameters(const std::map<std::string, double>& DPars)
     return true;
 }
 
-bool QCD::Init(const std::map<std::string, double>& DPars) 
+////////////////////////////////////////////////////////////////////////
+
+bool QCD::setFlag(const std::string name , const bool& value)
 {
-    Update(DPars);
-    return(CheckParameters(DPars));
+    std::cout << "WARNING: unknown flag " << name
+              << " in the model configuration file" << std::endl;
+    return (false);
+}
+
+bool QCD::CheckFlags() const
+{
+    return (true);
 }
 
 ////////////////////////////////////////////////////////////////////////

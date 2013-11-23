@@ -18,9 +18,9 @@ double GammaZ::computeThValue()
     if (myEWTYPE==EW::EWCHMN)  
         Gamma_Z = myEW.getMyEW_CHMN().GammaZ();
     else if (myEWTYPE==EW::EWABC) 
-        Gamma_Z = myEW.getMyEW_ABC().GammaZ(SM.epsilon1(),SM.epsilon3(),SM.epsilonb(),false);
+        Gamma_Z = myEW.getMyEW_ABC().GammaZ(false);
     else if (myEWTYPE==EW::EWABC2)
-        Gamma_Z = myEW.getMyEW_ABC().GammaZ(SM.epsilon1(),SM.epsilon3(),SM.epsilonb(),true);
+        Gamma_Z = myEW.getMyEW_ABC().GammaZ(true);
     else {
         if (SM.IsFlagApproximateGammaZ())
             Gamma_Z = SM.getEWSM()->GammaZ_SM();

@@ -1,3 +1,4 @@
+
 /* 
  * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
@@ -6,6 +7,7 @@
  */
 
 #include <stdexcept>
+#include <EWSM.h>
 #include "NPSTUVWXY.h"
 
 
@@ -20,12 +22,16 @@ NPSTUVWXY::NPSTUVWXY()
 }
 
 
-bool NPSTUVWXY::Update(const std::map<std::string,double>& DPars)
+bool NPSTUVWXY::InitializeModel()
 {
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameter(it->first, it->second);
-    if(!NPbase::Update(DPars)) return (false);
-    return (true);
+    setModelInitialized(NPbase::InitializeModel());
+    return (IsModelInitialized());
+}
+
+
+void NPSTUVWXY::setEWSMflags(EWSM& myEWSM)
+{
+    NPbase::setEWSMflags(myEWSM);
 }
 
 
@@ -36,16 +42,12 @@ bool NPSTUVWXY::Init(const std::map<std::string, double>& DPars)
 }
 
 
-bool NPSTUVWXY::CheckParameters(const std::map<std::string, double>& DPars) 
+bool NPSTUVWXY::Update(const std::map<std::string,double>& DPars)
 {
-    for (int i = 0; i < NSTUVWXYvars; i++) {
-        if (DPars.find(STUVWXYvars[i]) == DPars.end()) {
-            std::cout << "ERROR: Missing mandatory NPSTUVWXY parameter "
-                      << STUVWXYvars[i] << std::endl;
-            return false;
-        }
-    }
-    return(NPbase::CheckParameters(DPars));
+    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
+        setParameter(it->first, it->second);
+    if(!NPbase::Update(DPars)) return (false);
+    return (true);
 }
 
     
@@ -70,16 +72,16 @@ void NPSTUVWXY::setParameter(const std::string name, const double& value)
 }
 
 
-bool NPSTUVWXY::InitializeModel() 
+bool NPSTUVWXY::CheckParameters(const std::map<std::string, double>& DPars)
 {
-    setModelInitialized(NPbase::InitializeModel());
-    return (IsModelInitialized());
-}
-
-
-void NPSTUVWXY::setEWSMflags(EWSM& myEWSM) 
-{
-    NPbase::setEWSMflags(myEWSM);
+    for (int i = 0; i < NSTUVWXYvars; i++) {
+        if (DPars.find(STUVWXYvars[i]) == DPars.end()) {
+            std::cout << "ERROR: Missing mandatory NPSTUVWXY parameter "
+                      << STUVWXYvars[i] << std::endl;
+            return false;
+        }
+    }
+    return(NPbase::CheckParameters(DPars));
 }
 
 
@@ -101,9 +103,9 @@ bool NPSTUVWXY::CheckFlags() const
 
 double NPSTUVWXY::epsilon1() const
 {
-    double c2 = StandardModel::cW2();
-    double s2 = StandardModel::sW2();
-    double eps1 = epsilon1_SM();
+    double c2 = myEWSM->cW2_SM();
+    double s2 = myEWSM->sW2_SM();
+    double eps1 = myEWSM->epsilon1_SM();
     eps1 += myObliqueThat - myObliqueW + 2.0*sqrt(s2)/sqrt(c2)*myObliqueX
             - s2/c2*myObliqueY;
     return eps1;
@@ -112,9 +114,9 @@ double NPSTUVWXY::epsilon1() const
 
 double NPSTUVWXY::epsilon2() const
 {
-    double c2 = StandardModel::cW2();
-    double s2 = StandardModel::sW2();
-    double eps2 = epsilon2_SM();
+    double c2 = myEWSM->cW2_SM();
+    double s2 = myEWSM->sW2_SM();
+    double eps2 = myEWSM->epsilon2_SM();
     eps2 += myObliqueUhat - myObliqueV - myObliqueW + 2.0*sqrt(s2)/sqrt(c2)*myObliqueX;
     return eps2;
 }
@@ -122,9 +124,9 @@ double NPSTUVWXY::epsilon2() const
 
 double NPSTUVWXY::epsilon3() const
 {
-    double c2 = StandardModel::cW2();
-    double s2 = StandardModel::sW2();
-    double eps3 = epsilon3_SM();
+    double c2 = myEWSM->cW2_SM();
+    double s2 = myEWSM->sW2_SM();
+    double eps3 = myEWSM->epsilon3_SM();
     eps3 += myObliqueShat  - myObliqueW + myObliqueX/sqrt(s2)/sqrt(c2) - myObliqueY;
     return eps3;
 }
@@ -132,7 +134,7 @@ double NPSTUVWXY::epsilon3() const
 
 double NPSTUVWXY::epsilonb() const
 {
-    double epsb = epsilonb_SM();
+    double epsb = myEWSM->epsilonb_SM();
     return epsb;
 }
 
@@ -141,9 +143,9 @@ double NPSTUVWXY::epsilonb() const
 
 double NPSTUVWXY::obliqueS() const
 {
-    double sW2_SM = StandardModel::sW2();
+    double sW2_SM = myEWSM->sW2_SM();
     double sW_SM = sqrt(sW2_SM);
-    double cW_SM = sqrt(StandardModel::cW2());
+    double cW_SM = myEWSM->cW2_SM();
     return ( ( myObliqueShat - myObliqueW + myObliqueX/(sW_SM*cW_SM) - myObliqueY )
             * 4.0*sW2_SM/alphaMz() );
 }
@@ -151,9 +153,9 @@ double NPSTUVWXY::obliqueS() const
 
 double NPSTUVWXY::obliqueT() const
 {
-    double sW2_SM = StandardModel::sW2();
+    double sW2_SM = myEWSM->sW2_SM();
     double sW_SM = sqrt(sW2_SM);
-    double cW2_SM = StandardModel::cW2();
+    double cW2_SM = myEWSM->cW2_SM();
     double cW_SM = sqrt(cW2_SM);
     return ( ( myObliqueThat - myObliqueW + 2.0*sW_SM/cW_SM*myObliqueX
             - sW2_SM/cW2_SM*myObliqueY )/alphaMz() );
@@ -162,9 +164,9 @@ double NPSTUVWXY::obliqueT() const
 
 double NPSTUVWXY::obliqueU() const
 {
-    double sW2_SM = StandardModel::sW2();
+    double sW2_SM = myEWSM->sW2_SM();
     double sW_SM = sqrt(sW2_SM);
-    double cW_SM = sqrt(StandardModel::cW2());
+    double cW_SM = sqrt(myEWSM->cW2_SM());
     return ( ( - myObliqueUhat + myObliqueV + myObliqueW
             - 2.0*sW_SM/cW_SM*myObliqueX )*4.0*sW2_SM/alphaMz() );
 }
@@ -174,11 +176,11 @@ double NPSTUVWXY::obliqueU() const
 
 double NPSTUVWXY::Mw() const
 {
-    double myMw = StandardModel::Mw();
+    double myMw = myEWSM->Mw_SM();
 
     double alpha = StandardModel::alphaMz();
-    double c2 = StandardModel::cW2();
-    double s2 = StandardModel::sW2();
+    double c2 = myEWSM->cW2_SM();
+    double s2 = myEWSM->sW2_SM();
 
     myMw *= 1.0 - alpha/4.0/(c2-s2)
             *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 );
@@ -201,13 +203,13 @@ double NPSTUVWXY::sW2() const
 
 double NPSTUVWXY::GammaW() const
 {
-    double Gamma_W = StandardModel::GammaW();
+    double Gamma_W = myEWSM->GammaW_SM();
 
     double Wbar = (obliqueV() - obliqueW())/alphaMz();
 
     double alpha = StandardModel::alphaMz();
-    double c2 = StandardModel::cW2();
-    double s2 = StandardModel::sW2();
+    double c2 = myEWSM->cW2_SM();
+    double s2 = myEWSM->sW2_SM();
 
     Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
                *( obliqueS() - 2.0*c2*obliqueT()

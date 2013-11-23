@@ -23,16 +23,18 @@ public:
     Model(){
         ModelInitialized = false; 
     };
-    virtual bool Update(const std::map<std::string, double>&) = 0;
+
+    virtual std::string ModelName() const = 0;
+
+    virtual bool Init(const std::map<std::string, double>&) = 0;
     virtual bool PreUpdate() = 0;
+    virtual bool Update(const std::map<std::string, double>&) = 0;
     virtual bool PostUpdate() = 0;
+    virtual void setParameter(const std::string, const double&) = 0;
     virtual bool CheckParameters(const std::map<std::string, double>&) = 0;
+
     virtual bool setFlag(const std::string, const bool&) = 0;
     virtual bool CheckFlags() const = 0;
-    virtual void setParameter(const std::string, const double&) = 0;
-    virtual bool Init(const std::map<std::string, double>&) = 0;
-    
-    virtual std::string ModelName() const = 0;
     
     bool IsModelInitialized() const 
     {
@@ -44,7 +46,6 @@ public:
         this->ModelInitialized = ModelInitialized;
     }
     
-    
     bool IsUpdateError() const 
     {
         return UpdateError;
@@ -54,14 +55,11 @@ public:
     {
         this->UpdateError = UpdateError;
     }
-    
-    
+
 protected:
-    
     bool UpdateError;
     
 private:
-
     bool ModelInitialized;
     
 };

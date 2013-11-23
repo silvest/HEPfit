@@ -12,9 +12,6 @@
 const std::string NPEpsilons_pureNP::EPSILONpureNPvars[NEPSILONpureNPvars]
 = {"delEps_1", "delEps_2", "delEps_3", "delEps_b"};
 
-//const std::string NPEpsilons_pureNP::EPSILONpureNPflags[NEPSILONpureNPflags]
-//= {};
-
 
 NPEpsilons_pureNP::NPEpsilons_pureNP()
 : NPbase()
@@ -22,12 +19,16 @@ NPEpsilons_pureNP::NPEpsilons_pureNP()
 }
 
 
-bool NPEpsilons_pureNP::Update(const std::map<std::string,double>& DPars)
+bool NPEpsilons_pureNP::InitializeModel()
 {
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameter(it->first, it->second);
-    if(!NPbase::Update(DPars)) return (false);
-    return (true);
+    setModelInitialized(NPbase::InitializeModel());
+    return (IsModelInitialized());
+}
+
+
+void NPEpsilons_pureNP::setEWSMflags(EWSM& myEWSM)
+{
+    NPbase::setEWSMflags(myEWSM);
 }
 
 
@@ -38,16 +39,12 @@ bool NPEpsilons_pureNP::Init(const std::map<std::string, double>& DPars)
 }
 
 
-bool NPEpsilons_pureNP::CheckParameters(const std::map<std::string, double>& DPars)
+bool NPEpsilons_pureNP::Update(const std::map<std::string,double>& DPars)
 {
-    for (int i = 0; i < NEPSILONpureNPvars; i++) {
-        if (DPars.find(EPSILONpureNPvars[i]) == DPars.end()) {
-            std::cout << "ERROR: Missing mandatory NPEpsilons_pureNP parameter "
-                      << EPSILONpureNPvars[i] << std::endl;
-            return false;
-        }
-    }
-    return(NPbase::CheckParameters(DPars));
+    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
+        setParameter(it->first, it->second);
+    if(!NPbase::Update(DPars)) return (false);
+    return (true);
 }
 
 
@@ -66,16 +63,16 @@ void NPEpsilons_pureNP::setParameter(const std::string name, const double& value
 }
 
 
-bool NPEpsilons_pureNP::InitializeModel()
+bool NPEpsilons_pureNP::CheckParameters(const std::map<std::string, double>& DPars)
 {
-    setModelInitialized(NPbase::InitializeModel());
-    return (IsModelInitialized());
-}
-
-
-void NPEpsilons_pureNP::setEWSMflags(EWSM& myEWSM)
-{
-    NPbase::setEWSMflags(myEWSM);
+    for (int i = 0; i < NEPSILONpureNPvars; i++) {
+        if (DPars.find(EPSILONpureNPvars[i]) == DPars.end()) {
+            std::cout << "ERROR: Missing mandatory NPEpsilons_pureNP parameter "
+                      << EPSILONpureNPvars[i] << std::endl;
+            return false;
+        }
+    }
+    return(NPbase::CheckParameters(DPars));
 }
 
 
@@ -97,25 +94,25 @@ bool NPEpsilons_pureNP::CheckFlags() const
 
 double NPEpsilons_pureNP::epsilon1() const
 {
-    return (epsilon1_SM() + deltaEps_1);
+    return (myEWSM->epsilon1_SM() + deltaEps_1);
 }
 
 
 double NPEpsilons_pureNP::epsilon2() const
 {
-    return (epsilon2_SM() + deltaEps_2);
+    return (myEWSM->epsilon2_SM() + deltaEps_2);
 }
 
 
 double NPEpsilons_pureNP::epsilon3() const
 {
-    return (epsilon3_SM() + deltaEps_3);
+    return (myEWSM->epsilon3_SM() + deltaEps_3);
 }
 
 
 double NPEpsilons_pureNP::epsilonb() const
 {
-    return (epsilonb_SM() + deltaEps_b);
+    return (myEWSM->epsilonb_SM() + deltaEps_b);
 }
 
 
@@ -123,12 +120,12 @@ double NPEpsilons_pureNP::epsilonb() const
 
 double NPEpsilons_pureNP::Mw() const
 {
-    double Mw_SM = StandardModel::Mw();
-    double sW2_SM = StandardModel::sW2();
-    double cW2_SM = StandardModel::cW2();
-    return ( Mw_SM*(1.0 - (- c02()*deltaEps_1
-                           + (c02() - s02())*deltaEps_2
-                           + 2.0*s02()*deltaEps_3)/(cW2_SM - sW2_SM)/2.0) );
+    double Mw_SM = myEWSM->Mw_SM();
+    double sW2_SM = myEWSM->sW2_SM();
+    double cW2_SM = myEWSM->cW2_SM();
+    return ( Mw_SM*(1.0 - (- myEWSM->c02()*deltaEps_1
+                           + (myEWSM->c02() - myEWSM->s02())*deltaEps_2
+                           + 2.0*myEWSM->s02()*deltaEps_3)/(cW2_SM - sW2_SM)/2.0) );
 }
 
 
@@ -144,14 +141,23 @@ double NPEpsilons_pureNP::sW2() const
 }
 
 
+double NPEpsilons_pureNP::GammaW() const
+{
+    throw std::runtime_error("NPEpsilons_pureNP::GammaW() is not implemented.");
+}
+
+
+////////////////////////////////////////////////////////////////////////
+
 double NPEpsilons_pureNP::deltaGVl(StandardModel::lepton l) const
 {
     /* SM values */
-    double gV_SM = StandardModel::gVl(l).real();
-    double gA_SM = StandardModel::gAl(l).real();
+    double gV_SM = myEWSM->gVl_SM(l).real();
+    double gA_SM = myEWSM->gAl_SM(l).real();
 
     return ( gV_SM*deltaEps_1/2.0
-            + (gV_SM - gA_SM)*(deltaEps_3 - c02()*deltaEps_1)/(c02() - s02()) );
+            + (gV_SM - gA_SM)*(deltaEps_3 - myEWSM->c02()*deltaEps_1)
+              /(myEWSM->c02() - myEWSM->s02()) );
 }
 
 
@@ -160,16 +166,18 @@ double NPEpsilons_pureNP::deltaGVq(StandardModel::quark q) const
     if (q==TOP) return 0.0;
 
     /* SM values */
-    double gV_SM = StandardModel::gVq(q).real();
-    double gA_SM = StandardModel::gAq(q).real();
+    double gV_SM = myEWSM->gVq_SM(q).real();
+    double gA_SM = myEWSM->gAq_SM(q).real();
 
     if (q==BOTTOM)
         return ( gV_SM*deltaEps_1/2.0 + gV_SM*deltaEps_b
-                + (gV_SM - gA_SM)*(deltaEps_3 - c02()*deltaEps_1)/(c02() - s02())
+                + (gV_SM - gA_SM)*(deltaEps_3 - myEWSM->c02()*deltaEps_1)
+                  /(myEWSM->c02() - myEWSM->s02())
                 - (gV_SM - gA_SM)*deltaEps_b );
     else
         return ( gV_SM*deltaEps_1/2.0
-                + (gV_SM - gA_SM)*(deltaEps_3 - c02()*deltaEps_1)/(c02() - s02()) );
+                + (gV_SM - gA_SM)*(deltaEps_3 - myEWSM->c02()*deltaEps_1)
+                  /(myEWSM->c02() - myEWSM->s02()) );
 }
 
 
@@ -188,12 +196,5 @@ double NPEpsilons_pureNP::deltaGAq(StandardModel::quark q) const
     else
         return ( getQuarks(q).getIsospin()*deltaEps_1/2.0 );
 }
-
-
-double NPEpsilons_pureNP::GammaW() const
-{
-    throw std::runtime_error("NPEpsilons_pureNP::GammaW() is not implemented.");
-}
-
 
 

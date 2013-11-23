@@ -31,12 +31,12 @@ public:
         return "NPbase";
     }
 
-    virtual bool Update(const std::map<std::string, double>& DPars);
-    virtual bool Init(const std::map<std::string, double>& DPars);
-    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
-
     virtual bool InitializeModel();
     virtual void setEWSMflags(EWSM& myEWSM);
+
+    virtual bool Init(const std::map<std::string, double>& DPars);
+    virtual bool Update(const std::map<std::string, double>& DPars);
+    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     virtual bool setFlag(const std::string, const bool&);
     virtual bool CheckFlags() const;

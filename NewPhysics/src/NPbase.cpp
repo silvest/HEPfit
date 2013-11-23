@@ -5,6 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include <EWSM.h>
 #include "NPbase.h"
 
 
@@ -19,34 +20,6 @@ NPbase::NPbase()
 }
 
 
-bool NPbase::Update(const std::map<std::string,double>& DPars)
-{
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameter(it->first, it->second);
-    if(!StandardModel::Update(DPars)) return (false);
-    return (true);
-}
-
-
-bool NPbase::Init(const std::map<std::string, double>& DPars)
-{
-    Update(DPars);
-    return(CheckParameters(DPars));
-}
-
-
-bool NPbase::CheckParameters(const std::map<std::string, double>& DPars)
-{
-    return(StandardModel::CheckParameters(DPars));
-}
-
-
-void NPbase::setParameter(const std::string name, const double& value)
-{
-    StandardModel::setParameter(name, value);
-}
-
-
 bool NPbase::InitializeModel()
 {
     setModelInitialized(StandardModel::InitializeModel());
@@ -57,6 +30,34 @@ bool NPbase::InitializeModel()
 void NPbase::setEWSMflags(EWSM& myEWSM)
 {
     StandardModel::setEWSMflags(myEWSM);
+}
+
+
+bool NPbase::Init(const std::map<std::string, double>& DPars)
+{
+    Update(DPars);
+    return(CheckParameters(DPars));
+}
+
+
+bool NPbase::Update(const std::map<std::string,double>& DPars)
+{
+    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
+        setParameter(it->first, it->second);
+    if(!StandardModel::Update(DPars)) return (false);
+    return (true);
+}
+
+
+void NPbase::setParameter(const std::string name, const double& value)
+{
+    StandardModel::setParameter(name, value);
+}
+
+
+bool NPbase::CheckParameters(const std::map<std::string, double>& DPars)
+{
+    return(StandardModel::CheckParameters(DPars));
 }
 
 
@@ -83,25 +84,25 @@ bool NPbase::CheckFlags() const
 
 double NPbase::epsilon1() const
 {
-    return ( epsilon1_SM() + obliqueThat() );
+    return ( myEWSM->epsilon1_SM() + obliqueThat() );
 }
 
 
 double NPbase::epsilon2() const
 {
-    return ( epsilon2_SM() + obliqueUhat() );
+    return ( myEWSM->epsilon2_SM() + obliqueUhat() );
 }
 
 
 double NPbase::epsilon3() const
 {
-    return ( epsilon3_SM() + obliqueShat() );
+    return ( myEWSM->epsilon3_SM() + obliqueShat() );
 }
 
 
 double NPbase::epsilonb() const
 {
-    return epsilonb_SM();
+    return myEWSM->epsilonb_SM();
 }
 
 
@@ -125,7 +126,7 @@ double NPbase::obliqueU() const
 
 double NPbase::obliqueShat() const
 {
-    double sW2_SM = StandardModel::sW2(); /* This has to be the SM value. */
+    double sW2_SM = myEWSM->sW2_SM(); /* This has to be the SM value. */
     return ( alphaMz()/(4.0*sW2_SM)*obliqueS() );
 }
 
@@ -138,7 +139,7 @@ double NPbase::obliqueThat() const
 
 double NPbase::obliqueUhat() const
 {
-    double sW2_SM = StandardModel::sW2(); /* This has to be the SM value. */
+    double sW2_SM = myEWSM->sW2_SM(); /* This has to be the SM value. */
     return ( - alphaMz()/(4.0*sW2_SM)*obliqueU() );
 }
 
@@ -177,10 +178,10 @@ double NPbase::deltaGVl(StandardModel::lepton l) const
 {
     /* SM values */
     double alpha = StandardModel::alphaMz();
-    double sW2SM = StandardModel::sW2();
-    double cW2SM = StandardModel::cW2();
-    double gVSM = StandardModel::gVl(l).real();
-    double gASM = StandardModel::gAl(l).real();
+    double sW2SM = myEWSM->sW2_SM();
+    double cW2SM = myEWSM->cW2_SM();
+    double gVSM = myEWSM->gVl_SM(l).real();
+    double gASM = myEWSM->gAl_SM(l).real();
 
     return ( gVSM*alpha*obliqueT()/2.0
             + (gVSM - gASM)*alpha/4.0/sW2SM/(cW2SM - sW2SM)
@@ -193,10 +194,10 @@ double NPbase::deltaGVq(StandardModel::quark q) const
 
     /* SM values */
     double alpha = StandardModel::alphaMz();
-    double sW2SM = StandardModel::sW2();
-    double cW2SM = StandardModel::cW2();
-    double gVSM = StandardModel::gVq(q).real();
-    double gASM = StandardModel::gAq(q).real();
+    double sW2SM = myEWSM->sW2_SM();
+    double cW2SM = myEWSM->cW2_SM();
+    double gVSM = myEWSM->gVq_SM(q).real();
+    double gASM = myEWSM->gAq_SM(q).real();
 
     return ( gVSM*alpha*obliqueT()/2.0
              + (gVSM - gASM)*alpha/4.0/sW2SM/(cW2SM - sW2SM)
@@ -207,7 +208,7 @@ double NPbase::deltaGAl(StandardModel::lepton l) const
 {
     /* SM values */
     double alpha = StandardModel::alphaMz();
-    double gASM = StandardModel::gAl(l).real();
+    double gASM = myEWSM->gAl_SM(l).real();
 
     return ( gASM*alpha*obliqueT()/2.0 );
 
@@ -219,7 +220,7 @@ double NPbase::deltaGAq(StandardModel::quark q) const
 
     /* SM values */
     double alpha = StandardModel::alphaMz();
-    double gASM = StandardModel::gAq(q).real();
+    double gASM = myEWSM->gAq_SM(q).real();
 
     return ( gASM*alpha*obliqueT()/2.0 );
 }

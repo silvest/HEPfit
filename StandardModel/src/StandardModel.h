@@ -94,6 +94,41 @@ public:
         return "StandardModel";
     }
 
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Initialization
+
+    virtual bool InitializeModel();
+
+    /**
+     * @return A pointer to EWSM object.
+     */
+    EWSM* getEWSM() const
+    {
+        return myEWSM;
+    }
+
+    virtual void setEWSMflags(EWSM& myEWSM);
+
+    virtual StandardModelMatching* getMyMatching() const
+    {
+        return myStandardModelMatching;
+    }
+
+    virtual void setMyMatching(StandardModelMatching* myMatching)
+    {
+        this->myStandardModelMatching = myMatching;
+    }
+
+    virtual const double matchingScale() const
+    {
+        return muw;
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Parameters
+
     virtual bool Init(const std::map<std::string, double>& DPars);
 
     virtual bool PreUpdate();
@@ -154,29 +189,6 @@ public:
     bool IsFlagEWCHMN() const
     {
         return FlagEWCHMN;
-    }
-
-    
-    ///////////////////////////////////////////////////////////////////////////
-    // Initialization and Matching
-
-    virtual bool InitializeModel();
-
-    virtual void setEWSMflags(EWSM& myEWSM);
-
-    virtual StandardModelMatching* getMyMatching() const
-    {
-        return myStandardModelMatching;
-    }
-
-    virtual void setMyMatching(StandardModelMatching* myMatching)
-    {
-        this->myStandardModelMatching = myMatching;
-    }
-
-    virtual const double matchingScale() const
-    {
-        return muw;
     }
 
 
@@ -469,32 +481,6 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @return The W boson mass without weak corrections.
-     */
-    double Mw0() const;
-
-    /**
-     * @return @f$sin^2\theta_W@f$ without weak corrections.
-     */
-    double s02() const;
-
-    /**
-     * @return @f$\cos^2\theta_W@f$ without weak corrections.
-     */
-    double c02() const;
-
-
-    ////////////////////////////////////////////////////////////////////////
-
-    /**
-     * @return A pointer to EWSM object.
-     */
-    EWSM* getEWSM() const
-    {
-        return myEWSM;
-    }
-
-    /**
      * @param[in] s An invariant mass squared.
      * @return The leptonic corrections to alpha at @f$M_Z@f$.
      */
@@ -511,117 +497,29 @@ public:
     double DeltaAlpha() const;
 
     /**
-     * @return The electromagnetic coupling at @f$M_Z@f$, @f$\alpha(M_Z)@f$.
+     * @return The electromagnetic coupling at @f$M_Z@f$, @f$\alpha(M_Z)@f$ in the on-shell scheme.
      */
     double alphaMz() const;
 
     /**
-     * @return The W boson mass.
+     * @return The W boson mass in the on-shell scheme.
      */
     virtual double Mw() const;
 
     /**
-     * @return @f$M_W^2/M_Z^2@f$.
+     * @return @f$M_W^2/M_Z^2@f$ in the on-shell scheme.
      */
     virtual double cW2() const;
 
     /**
-     * @return @f$1-M_W^2/M_Z^2@f$.
+     * @return @f$1-M_W^2/M_Z^2@f$ in the on-shell scheme.
      */
     virtual double sW2() const;
-
-    /**
-     * @param[in] l lepton.
-     * @return The effective coupling @f$\rho_Z^l@f$.
-     */
-    virtual complex rhoZ_l(const StandardModel::lepton l) const;
-
-    /**
-     * @param[in] q quark.
-     * @return The effective coupling @f$\rho_Z^q@f$.
-     */
-    virtual complex rhoZ_q(const StandardModel::quark q) const;
-
-    /**
-     * @param[in] l name of lepton.
-     * @return The effective coupling @f$\kappa_Z^l@f$ in the SM.
-     */
-    virtual complex kappaZ_l(const StandardModel::lepton l) const;
-
-    /**
-     * @param[in] q name of quark.
-     * @return The effective coupling @f$\kappa_Z^q@f$ in the SM.
-     */
-    virtual complex kappaZ_q(const StandardModel::quark q) const;
-
-    /**
-     * @param[in] l lepton.
-     * @return The effective vector coupling for neutral-current interactions @f$g_V^l@f$.
-     */
-    virtual complex gVl(const StandardModel::lepton l) const;
-
-    /**
-     * @param[in] q quark.
-     * @return The effective vector coupling for neutral-current interactions @f$g_V^q@f$.
-     */
-    virtual complex gVq(const StandardModel::quark q) const;
-
-    /**
-     * @param[in] l lepton.
-     * @return The effective axial-vector coupling for neutral-current interactions @f$g_A^l@f$.
-     */
-    virtual complex gAl(const StandardModel::lepton l) const;
-
-    /**
-     * @param[in] q quark.
-     * @return The effective axial-vector coupling for neutral-current interactions @f$g_A^q@f$.
-     */
-    virtual complex gAq(const StandardModel::quark q) const;
 
     /**
      * @return The total width of the W boson.
      */
     virtual double GammaW() const;
-
-    /**
-     * @return SM contribution to @f$\epsilon_1@f$.
-     */
-    double epsilon1_SM() const;
-
-    /**
-     * @return SM contribution to @f$\epsilon_2@f$.
-     */
-    double epsilon2_SM() const;
-
-    /**
-     * @return SM contribution to @f$\epsilon_3@f$.
-     */
-    double epsilon3_SM() const;
-
-    /**
-     * @return SM contribution to @f$\epsilon_b@f$.
-     */
-    double epsilonb_SM() const;
-
-    /**
-     * @return @f$\epsilon_1@f$.
-     */
-    virtual double epsilon1() const;
-
-    /**
-     * @return @f$\epsilon_2@f$.
-     */
-    virtual double epsilon2() const;
-
-    /**
-     * @return @f$\epsilon_3@f$.
-     */
-    virtual double epsilon3() const;
-
-    /**
-     * @return @f$\epsilon_b@f$.
-     */
-    virtual double epsilonb() const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -658,15 +556,16 @@ protected:
     virtual void computeCKM();
     virtual void computeYukawas();
 
+    EWSM* myEWSM;
+
+    Particle leptons[6];
+    CKM myCKM;
     matrix<complex> VCKM;
     matrix<complex> UPMNS;
     matrix<complex> Yu;
     matrix<complex> Yd;
     matrix<complex> Yn;
     matrix<complex> Ye;
-    Particle leptons[6];
-    EWSM* myEWSM;
-    CKM myCKM;
 
     // model parameters
     double ale;
@@ -694,6 +593,8 @@ protected:
     
     ////////////////////////////////////////////////////////////////////////    
 private:
+    StandardModelMatching* myStandardModelMatching;
+
     bool FlagWithoutNonUniversalVC;
     bool FlagApproximateGqOverGb;
     bool FlagApproximateGammaZ;
@@ -702,10 +603,10 @@ private:
     bool FlagRhoZbFromGdOverGb;
     bool FlagTestSubleadingTwoLoopEW;
     bool FlagEWCHMN;
+
     bool requireCKM;
     bool requireYe;
     bool requireYn;
-    StandardModelMatching* myStandardModelMatching;
 
 };
 

@@ -6,6 +6,7 @@
  */
 
 #include <stdexcept>
+#include <EWSM.h>
 #include "NPEffective.h"
 
 
@@ -15,13 +16,10 @@ NPEffective::NPEffective()
 }
 
 
-bool NPEffective::Update(const std::map<std::string,double>& DPars) 
+bool NPEffective::InitializeModel()
 {
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameter(it->first, it->second);
-    if(!StandardModel::Update(DPars)) return (false);
-
-    return (true);
+    setModelInitialized(NPbase::InitializeModel());
+    return (IsModelInitialized());
 }
 
 
@@ -32,16 +30,19 @@ bool NPEffective::Init(const std::map<std::string, double>& DPars)
 }
 
 
-bool NPEffective::CheckParameters(const std::map<std::string, double>& DPars)
+bool NPEffective::Update(const std::map<std::string,double>& DPars)
 {
-    return(NPbase::CheckParameters(DPars));
+    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
+        setParameter(it->first, it->second);
+    if(!StandardModel::Update(DPars)) return (false);
+
+    return (true);
 }
 
 
-bool NPEffective::InitializeModel() 
+bool NPEffective::CheckParameters(const std::map<std::string, double>& DPars)
 {
-    setModelInitialized(NPbase::InitializeModel());
-    return (IsModelInitialized());
+    return(NPbase::CheckParameters(DPars));
 }
 
 
@@ -124,10 +125,10 @@ double NPEffective::obliqueU() const
 double NPEffective::deltaGLl(StandardModel::lepton l) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
-    double sW2_SM = StandardModel::sW2(); /* This has to be the SM value. */
-    double cW2_SM = StandardModel::cW2(); /* This has to be the SM value. */
-    double gVf_SM = StandardModel::gVl(l).real(); /* This has to be the SM value. */
-    double gAf_SM = StandardModel::gAl(l).real(); /* This has to be the SM value. */
+    double sW2_SM = myEWSM->sW2_SM(); /* This has to be the SM value. */
+    double cW2_SM = myEWSM->cW2_SM(); /* This has to be the SM value. */
+    double gVf_SM = myEWSM->gVl_SM(l).real(); /* This has to be the SM value. */
+    double gAf_SM = myEWSM->gAl_SM(l).real(); /* This has to be the SM value. */
     switch (l) {
         case StandardModel::NEUTRINO_1:
             return ( (cHL1p - cHL1)/2.0*ratio - (gVf_SM + gAf_SM)/4.0*DeltaGF() );
@@ -153,10 +154,10 @@ double NPEffective::deltaGLl(StandardModel::lepton l) const
 double NPEffective::deltaGLq(StandardModel::quark q) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
-    double sW2_SM = StandardModel::sW2(); /* This has to be the SM value. */
-    double cW2_SM = StandardModel::cW2(); /* This has to be the SM value. */
-    double gVf_SM = StandardModel::gVq(q).real(); /* This has to be the SM value. */
-    double gAf_SM = StandardModel::gAq(q).real(); /* This has to be the SM value. */
+    double sW2_SM = myEWSM->sW2_SM(); /* This has to be the SM value. */
+    double cW2_SM = myEWSM->cW2_SM(); /* This has to be the SM value. */
+    double gVf_SM = myEWSM->gVq_SM(q).real(); /* This has to be the SM value. */
+    double gAf_SM = myEWSM->gAq_SM(q).real(); /* This has to be the SM value. */
     switch (q) {
         case StandardModel::UP:
            return ( (cHQ1p - cHQ1)/2.0*ratio - (gVf_SM + gAf_SM)/4.0*DeltaGF()
@@ -184,10 +185,10 @@ double NPEffective::deltaGLq(StandardModel::quark q) const
 double NPEffective::deltaGRl(StandardModel::lepton l) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
-    double sW2_SM = StandardModel::sW2(); /* This has to be the SM value. */
-    double cW2_SM = StandardModel::cW2(); /* This has to be the SM value. */
-    double gVf_SM = StandardModel::gVl(l).real(); /* This has to be the SM value. */
-    double gAf_SM = StandardModel::gAl(l).real(); /* This has to be the SM value. */
+    double sW2_SM = myEWSM->sW2_SM(); /* This has to be the SM value. */
+    double cW2_SM = myEWSM->cW2_SM(); /* This has to be the SM value. */
+    double gVf_SM = myEWSM->gVl_SM(l).real(); /* This has to be the SM value. */
+    double gAf_SM = myEWSM->gAl_SM(l).real(); /* This has to be the SM value. */
     switch (l) {
         case StandardModel::NEUTRINO_1:
         case StandardModel::NEUTRINO_2:
@@ -211,10 +212,10 @@ double NPEffective::deltaGRl(StandardModel::lepton l) const
 double NPEffective::deltaGRq(StandardModel::quark q) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
-    double sW2_SM = StandardModel::sW2(); /* This has to be the SM value. */
-    double cW2_SM = StandardModel::cW2(); /* This has to be the SM value. */
-    double gVf_SM = StandardModel::gVq(q).real(); /* This has to be the SM value. */
-    double gAf_SM = StandardModel::gAq(q).real(); /* This has to be the SM value. */
+    double sW2_SM = myEWSM->sW2_SM(); /* This has to be the SM value. */
+    double cW2_SM = myEWSM->cW2_SM(); /* This has to be the SM value. */
+    double gVf_SM = myEWSM->gVq_SM(q).real(); /* This has to be the SM value. */
+    double gAf_SM = myEWSM->gAq_SM(q).real(); /* This has to be the SM value. */
     switch (q) {
         case StandardModel::UP:
             return ( - cHU1/2.0*ratio
@@ -293,11 +294,11 @@ double NPEffective::epsilonb() const
 
 double NPEffective::Mw() const
 {
-    double myMw = StandardModel::Mw();
+    double myMw = myEWSM->Mw_SM();
 
     double alpha = StandardModel::alphaMz();
-    double c2 = StandardModel::cW2();
-    double s2 = StandardModel::sW2();
+    double c2 = myEWSM->cW2_SM();
+    double s2 = myEWSM->sW2_SM();
 
     myMw *= 1.0 - alpha/4.0/(c2-s2)
                   *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 )
@@ -321,11 +322,11 @@ double NPEffective::sW2() const
 
 double NPEffective::GammaW() const
 {
-    double Gamma_W = StandardModel::GammaW();
+    double Gamma_W = myEWSM->GammaW_SM();
 
     double alpha = StandardModel::alphaMz();
-    double c2 = StandardModel::cW2();
-    double s2 = StandardModel::sW2();
+    double c2 = myEWSM->cW2_SM();
+    double s2 = myEWSM->sW2_SM();
     double ratio = v()*v()/LambdaNP/LambdaNP;
         
     Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)

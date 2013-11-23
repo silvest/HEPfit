@@ -138,21 +138,13 @@ public:
     std::string orderToString(const orders order) const;
     
     ////////////////////////////////////////////////////////////////////////
+    // Parameters
 
     /**
-     * @brief Sets flags for QCD. 
-     * @param[in] name A name of a flag. 
-     * @param[in] value A value of the given flag. 
-     * @return A boolean value indicating whether the given flag name is associated 
-     * with QCD. 
+     * @brief Initializes the QCD parameters found in the argument.
+     * @param[in] DPars A map containing the parameters (all as double) to be used in Monte Carlo.
      */
-    virtual bool setFlag(const std::string name, const bool& value);
-    
-    /**
-     * @brief
-     * @return
-     */
-    virtual bool CheckFlags() const;
+    virtual bool Init(const std::map<std::string, double>& DPars);
     
     /**
      * @brief Pre update.
@@ -161,28 +153,42 @@ public:
     virtual bool PreUpdate();
 
     /**
+     * @brief Updates the QCD parameters found in the argument.
+     * @param[in] DPars A map containing the parameters (all as double) to be updated.
+     */
+    virtual bool Update(const std::map<std::string, double>& DPars);
+
+    /**
      * @brief Post update.
      * @return 
      */
     virtual bool PostUpdate();      
     
     /**
-     * @brief Updates the QCD parameters found in the argument.
-     * @param[in] DPars A map containing the parameters (all as double) to be updated. 
-     */
-    virtual bool Update(const std::map<std::string, double>& DPars);
-    
-    /**
      * @brief Checks that all required parameters are present in a given map.
      * @param[in] DPars A map containing the parameters (all as double) to be used in Monte Carlo. 
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
+
     
+    ////////////////////////////////////////////////////////////////////////
+    // Flags
+
     /**
-     * @brief Initializes the QCD parameters found in the argument.
-     * @param[in] DPars A map containing the parameters (all as double) to be used in Monte Carlo. 
+     * @brief Sets flags for QCD.
+     * @param[in] name A name of a flag.
+     * @param[in] value A value of the given flag.
+     * @return A boolean value indicating whether the given flag name is associated
+     * with QCD.
      */
-    virtual bool Init(const std::map<std::string, double>& DPars);
+    virtual bool setFlag(const std::string name, const bool& value);
+
+    /**
+     * @brief
+     * @return
+     */
+    virtual bool CheckFlags() const;
+
 
     ////////////////////////////////////////////////////////////////////////
     // get and set methods for class members

@@ -18,9 +18,9 @@ double sigmaHadron::computeThValue()
     if (myEWTYPE==EW::EWCHMN)  
         sigma_had = myEW.getMyEW_CHMN().sigma0_had();
     else if (myEWTYPE==EW::EWABC) 
-        sigma_had = myEW.getMyEW_ABC().sigma0_had(SM.epsilon1(),SM.epsilon3(),SM.epsilonb(),false);
+        sigma_had = myEW.getMyEW_ABC().sigma0_had(false);
     else if (myEWTYPE==EW::EWABC2)
-        sigma_had = myEW.getMyEW_ABC().sigma0_had(SM.epsilon1(),SM.epsilon3(),SM.epsilonb(),true)/GeVminus2_to_nb;
+        sigma_had = myEW.getMyEW_ABC().sigma0_had(true)/GeVminus2_to_nb;
     else {   
         if (SM.IsFlagApproximateSigmaH())
             sigma_had = SM.getEWSM()->sigmaHadron_SM()/GeVminus2_to_nb;

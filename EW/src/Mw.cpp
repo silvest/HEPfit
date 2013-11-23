@@ -16,9 +16,9 @@ double Mw::computeThValue()
     if (myEWTYPE==EW::EWCHMN)  
         myMw = myEW.getMyEW_CHMN().Mw();
     else if (myEWTYPE==EW::EWABC)
-        myMw = myEW.getMyEW_ABC().Mw(SM.epsilon1(),SM.epsilon2(),SM.epsilon3(),false);
+        myMw = myEW.getMyEW_ABC().Mw(false);
     else if (myEWTYPE==EW::EWABC2)
-        myMw = myEW.getMyEW_ABC().Mw(SM.epsilon1(),SM.epsilon2(),SM.epsilon3(),true);
+        myMw = myEW.getMyEW_ABC().Mw(true);
     else
         myMw = SM.Mw();
 

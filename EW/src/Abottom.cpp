@@ -17,7 +17,7 @@ double Abottom::computeThValue()
     if (myEWTYPE==EW::EWCHMN)  
         A_b = myEW.getMyEW_CHMN().A_q(SM.BOTTOM);
     else if (myEWTYPE==EW::EWABC || myEWTYPE==EW::EWABC2) 
-        A_b = myEW.getMyEW_ABC().A_b(SM.epsilon1(),SM.epsilon3(),SM.epsilonb());
+        A_b = myEW.getMyEW_ABC().A_b();
     else {
         A_b = myEW.A_q(SM.BOTTOM);
 

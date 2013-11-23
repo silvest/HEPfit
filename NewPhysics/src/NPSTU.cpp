@@ -6,6 +6,7 @@
  */
 
 #include <stdexcept>
+#include <EWSM.h>
 #include "NPSTU.h"
 
 
@@ -22,12 +23,16 @@ NPSTU::NPSTU()
 }
 
 
-bool NPSTU::Update(const std::map<std::string,double>& DPars)
+bool NPSTU::InitializeModel()
 {
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameter(it->first, it->second);
-    if(!NPbase::Update(DPars)) return (false);
-    return (true);
+    setModelInitialized(NPbase::InitializeModel());
+    return (IsModelInitialized());
+}
+
+
+void NPSTU::setEWSMflags(EWSM& myEWSM)
+{
+    NPbase::setEWSMflags(myEWSM);
 }
 
 
@@ -38,16 +43,12 @@ bool NPSTU::Init(const std::map<std::string, double>& DPars)
 }
 
 
-bool NPSTU::CheckParameters(const std::map<std::string, double>& DPars)
+bool NPSTU::Update(const std::map<std::string,double>& DPars)
 {
-    for (int i = 0; i < NSTUvars; i++) {
-        if (DPars.find(STUvars[i]) == DPars.end()) {
-            std::cout << "ERROR: Missing mandatory NPSTU parameter "
-                      << STUvars[i] << std::endl;
-            return false;
-        }
-    }
-    return(NPbase::CheckParameters(DPars));
+    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
+        setParameter(it->first, it->second);
+    if(!NPbase::Update(DPars)) return (false);
+    return (true);
 }
 
 
@@ -64,16 +65,16 @@ void NPSTU::setParameter(const std::string name, const double& value)
 }
 
 
-bool NPSTU::InitializeModel()
+bool NPSTU::CheckParameters(const std::map<std::string, double>& DPars)
 {
-    setModelInitialized(NPbase::InitializeModel());
-    return (IsModelInitialized());
-}
-
-
-void NPSTU::setEWSMflags(EWSM& myEWSM)
-{
-    NPbase::setEWSMflags(myEWSM);
+    for (int i = 0; i < NSTUvars; i++) {
+        if (DPars.find(STUvars[i]) == DPars.end()) {
+            std::cout << "ERROR: Missing mandatory NPSTU parameter "
+                      << STUvars[i] << std::endl;
+            return false;
+        }
+    }
+    return(NPbase::CheckParameters(DPars));
 }
 
 
@@ -98,45 +99,18 @@ bool NPSTU::CheckFlags() const
 }
 
 
-
-////////////////////////////////////////////////////////////////////////
-
-double NPSTU::epsilon1() const
-{
-    throw std::runtime_error("ERROR: NPSTU::epsilon1() is not implemented");
-}
-
-
-double NPSTU::epsilon2() const
-{
-    throw std::runtime_error("ERROR: NPSTU::epsilon2() is not implemented");
-}
-
-
-double NPSTU::epsilon3() const
-{
-    throw std::runtime_error("ERROR: NPSTU::epsilon3() is not implemented");
-}
-
-
-double NPSTU::epsilonb() const
-{
-    throw std::runtime_error("ERROR: NPSTU::epsilonb() is not implemented");
-}
-
-
 ////////////////////////////////////////////////////////////////////////
 
 double NPSTU::Mw() const
 {
-    double myMw = StandardModel::Mw();
+    double myMw = myEWSM->Mw_SM();
 
     if (IsFlagEWBURGESS())
         return myEW_BURGESS.Mw(myMw);
 
     double alpha = StandardModel::alphaMz();
-    double c2 = StandardModel::cW2();
-    double s2 = StandardModel::sW2();
+    double c2 = myEWSM->cW2_SM();
+    double s2 = myEWSM->sW2_SM();
 
     myMw *= 1.0 - alpha/4.0/(c2-s2)
             *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 );
@@ -163,14 +137,14 @@ double NPSTU::sW2() const
 
 double NPSTU::GammaW() const
 {
-    double Gamma_W = StandardModel::GammaW();
+    double Gamma_W = myEWSM->GammaW_SM();
 
     if (IsFlagEWBURGESS())
         return myEW_BURGESS.GammaW(Gamma_W);
 
     double alpha = StandardModel::alphaMz();
-    double c2 = StandardModel::cW2();
-    double s2 = StandardModel::sW2();
+    double c2 = myEWSM->cW2_SM();
+    double s2 = myEWSM->sW2_SM();
 
     Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
                *( obliqueS() - 2.0*c2*obliqueT()

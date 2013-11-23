@@ -30,12 +30,12 @@ public:
         return "NPHiggsST";
     }
 
-    virtual bool Update(const std::map<std::string, double>& DPars);
-    virtual bool Init(const std::map<std::string, double>& DPars);    
-    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
+    virtual bool InitializeModel();
+    virtual void setEWSMflags(EWSM& myEWSM);
 
-    virtual bool InitializeModel();  
-    virtual void setEWSMflags(EWSM& myEWSM);    
+    virtual bool Init(const std::map<std::string, double>& DPars);    
+    virtual bool Update(const std::map<std::string, double>& DPars);
+    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     virtual bool setFlag(const std::string, const bool&); 
     virtual bool CheckFlags() const;
@@ -58,8 +58,8 @@ public:
      */
     virtual double obliqueU() const;
 
-    
-    ////////////////////////////////////////////////////////////////////////     
+
+    ////////////////////////////////////////////////////////////////////////
 
     virtual double epsilon1() const;
 
@@ -93,16 +93,10 @@ public:
     virtual double GammaW() const;
     
 
-    ////////////////////////////////////////////////////////////////////////
-    
+    ////////////////////////////////////////////////////////////////////////    
 protected:    
     double a, b, c_u, c_d, c_e, d_3, d_4, LambdaNP_in;
     virtual void setParameter(const std::string name, const double& value);
-    
-    
-    ////////////////////////////////////////////////////////////////////////   
-
-private:
 
 };
 

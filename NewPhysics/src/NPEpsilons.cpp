@@ -8,6 +8,7 @@
 #include <stdexcept>
 #include <EWSM.h>
 #include "NPEpsilons.h"
+#include "EWNPEpsilons.h"
 
 const std::string NPEpsilons::EPSILONvars[NEPSILONvars] 
 = {"epsilon_1", "epsilon_2", "epsilon_3", "epsilon_b"};
@@ -28,32 +29,35 @@ NPEpsilons::NPEpsilons()
 }
 
 
+bool NPEpsilons::InitializeModel()
+{
+    /* do not use setModelInitialized(NPbase::InitializeModel()); */
+    myEWSM = new EWNPEpsilons(*this);
+    this->setEWSMflags(*myEWSM);
+    setModelInitialized(true);
+    return(IsModelInitialized());
+}
+
+
+void NPEpsilons::setEWSMflags(EWSM& myEWSM)
+{
+    NPbase::setEWSMflags(myEWSM);
+}
+
+
+bool NPEpsilons::Init(const std::map<std::string, double>& DPars)
+{
+    Update(DPars);
+    return(CheckParameters(DPars));
+}
+
+
 bool NPEpsilons::Update(const std::map<std::string,double>& DPars) 
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameter(it->first, it->second);
     if(!NPbase::Update(DPars)) return (false);
     return (true);
-}
-
-
-bool NPEpsilons::Init(const std::map<std::string, double>& DPars) 
-{
-    Update(DPars);
-    return(CheckParameters(DPars)); 
-}
-
-
-bool NPEpsilons::CheckParameters(const std::map<std::string, double>& DPars) 
-{
-    for (int i = 0; i < NEPSILONvars; i++) {
-        if (DPars.find(EPSILONvars[i]) == DPars.end()) {
-            std::cout << "ERROR: Missing mandatory NPEpsilons parameter "
-                      << EPSILONvars[i] << std::endl;
-            return false;
-        }
-    }
-    return(NPbase::CheckParameters(DPars));
 }
 
     
@@ -72,17 +76,16 @@ void NPEpsilons::setParameter(const std::string name, const double& value)
 }
 
 
-bool NPEpsilons::InitializeModel() 
+bool NPEpsilons::CheckParameters(const std::map<std::string, double>& DPars)
 {
-    setModelInitialized(NPbase::InitializeModel());
-    myEWepsilons = new EWepsilons(*this);
-    return (IsModelInitialized());
-}
-
-
-void NPEpsilons::setEWSMflags(EWSM& myEWSM) 
-{
-    NPbase::setEWSMflags(myEWSM);
+    for (int i = 0; i < NEPSILONvars; i++) {
+        if (DPars.find(EPSILONvars[i]) == DPars.end()) {
+            std::cout << "ERROR: Missing mandatory NPEpsilons parameter "
+                      << EPSILONvars[i] << std::endl;
+            return false;
+        }
+    }
+    return(NPbase::CheckParameters(DPars));
 }
 
 
@@ -113,6 +116,7 @@ bool NPEpsilons::setFlag(const std::string name, const bool& value)
     return(res);
 }
 
+
 bool NPEpsilons::CheckFlags() const
 {
     if ( IsFlagApproximateGqOverGb()
@@ -127,11 +131,11 @@ bool NPEpsilons::CheckFlags() const
 }
 
 
-////////////////////////////////////////////////////////////////////////     
+////////////////////////////////////////////////////////////////////////
 
 double NPEpsilons::Mw() const 
 {
-    return myEWepsilons->Mw(epsilon1(), epsilon2(), epsilon3());
+    return (static_cast<const EWNPEpsilons*> (myEWSM))->Mw_NPEpsilons();
 }
 
 
@@ -146,105 +150,10 @@ double NPEpsilons::sW2() const
     return ( 1.0 - cW2() );
 }
 
-    
-complex NPEpsilons::rhoZ_l(const StandardModel::lepton l) const 
-{
-    return myEWepsilons->rhoZ_l(l, epsilon1());
-}
 
-    
-complex NPEpsilons::rhoZ_q(const StandardModel::quark q) const 
+double NPEpsilons::GammaW() const
 {
-    switch (q) {
-        case StandardModel::UP:
-        case StandardModel::DOWN:
-        case StandardModel::CHARM:
-        case StandardModel::STRANGE:
-            return myEWepsilons->rhoZ_q(q, epsilon1());
-        case StandardModel::BOTTOM:
-            return myEWepsilons->rhoZ_b(epsilon1(), epsilonb());
-        case StandardModel::TOP:
-            return complex(0.0, 0.0, false);
-        default:
-            throw std::runtime_error("Error in NPEpsilons::rhoZ_q()");        
-    }
+    throw std::runtime_error("NPEpsilons::GammaW() is not implemented.");
 }
 
 
-complex NPEpsilons::kappaZ_l(const StandardModel::lepton l) const 
-{
-    return myEWepsilons->kappaZ_l(l, epsilon1(), epsilon3());
-}
-
-
-complex NPEpsilons::kappaZ_q(const StandardModel::quark q) const 
-{
-    switch (q) {
-        case StandardModel::UP:
-        case StandardModel::DOWN:
-        case StandardModel::CHARM:
-        case StandardModel::STRANGE:
-            return myEWepsilons->kappaZ_q(q, epsilon1(), epsilon3());
-        case StandardModel::BOTTOM:
-            return myEWepsilons->kappaZ_b(epsilon1(), epsilon3(), epsilonb());
-        case StandardModel::TOP:
-            return complex(0.0, 0.0, false);
-        default:
-            throw std::runtime_error("Error in NPEpsilons::kappaZ_q()");        
-    }
-}
-      
-    
-complex NPEpsilons::gVl(const StandardModel::lepton l) const 
-{
-    return myEWepsilons->gVl(l, epsilon1(), epsilon3());
-}
-
-
-complex NPEpsilons::gVq(const StandardModel::quark q) const 
-{
-    switch (q) {
-        case StandardModel::UP:
-        case StandardModel::DOWN:
-        case StandardModel::CHARM:
-        case StandardModel::STRANGE:
-            return myEWepsilons->gVq(q, epsilon1(), epsilon3());
-        case StandardModel::BOTTOM:
-            return myEWepsilons->gVb(epsilon1(), epsilon3(), epsilonb());
-        case StandardModel::TOP:
-            return complex(0.0, 0.0, false);
-        default:
-            throw std::runtime_error("Error in NPEpsilons::gVq()");        
-    }
-}
-
-
-complex NPEpsilons::gAl(const StandardModel::lepton l) const 
-{
-    return myEWepsilons->gAl(l, epsilon1());
-}
-
-
-complex NPEpsilons::gAq(const StandardModel::quark q) const 
-{
-    switch (q) {
-        case StandardModel::UP:
-        case StandardModel::DOWN:
-        case StandardModel::CHARM:
-        case StandardModel::STRANGE:
-            return myEWepsilons->gAq(q, epsilon1());
-        case StandardModel::BOTTOM:
-            return myEWepsilons->gAb(epsilon1(), epsilonb());
-        case StandardModel::TOP:
-            return complex(0.0, 0.0, false);
-        default:
-            throw std::runtime_error("Error in NPEpsilons::gAq()");        
-    }
-}
-
-    
-double NPEpsilons::GammaW() const 
-{
-    throw std::runtime_error("NPEpsilons::GammaW() is not implemented.");         
-}
- 

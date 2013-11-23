@@ -19,9 +19,9 @@ double Rbottom::computeThValue()
     if (myEWTYPE==EW::EWCHMN)  
         R0_b = myEW.getMyEW_CHMN().R_b();
     else if (myEWTYPE==EW::EWABC) 
-        R0_b = myEW.getMyEW_ABC().R_b(SM.epsilon1(),SM.epsilon3(),SM.epsilonb(),false);
+        R0_b = myEW.getMyEW_ABC().R_b(false);
     else if (myEWTYPE==EW::EWABC2)
-        R0_b = myEW.getMyEW_ABC().R_b(SM.epsilon1(),SM.epsilon3(),SM.epsilonb(),true);
+        R0_b = myEW.getMyEW_ABC().R_b(true);
     else {    
         if (SM.IsFlagApproximateGqOverGb() 
                 //&& !SM.IsFlagRhoZbFromGuOverGb()

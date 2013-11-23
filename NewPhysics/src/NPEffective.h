@@ -32,12 +32,12 @@ public:
         return "NPEffective";
     }
 
+    virtual bool InitializeModel();
+    virtual void setEWSMflags(EWSM& myEWSM);
+
     virtual bool Update(const std::map<std::string, double>& DPars);
     virtual bool Init(const std::map<std::string, double>& DPars);    
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
-
-    virtual bool InitializeModel();  
-    virtual void setEWSMflags(EWSM& myEWSM);    
 
     virtual bool setFlag(const std::string, const bool&); 
     virtual bool CheckFlags() const;
@@ -205,7 +205,6 @@ public:
     
     
     ////////////////////////////////////////////////////////////////////////    
-
 protected:
     double cWB, cH;
     double cL1L1, cL1L2, cL1L3, cL2L2, cL2L3, cL3L3;
@@ -220,7 +219,6 @@ protected:
     
 
     ////////////////////////////////////////////////////////////////////////   
-
 private:
 
 };

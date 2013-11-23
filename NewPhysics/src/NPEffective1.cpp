@@ -14,19 +14,6 @@ const std::string NPEffective1::NPEffectiveVars[NNPEffectiveVars]
    "cHL_NP", "cHQ_NP", "cHE_NP", "cHU_NP", "cHD_NP", "Lambda_NP"};
 
 
-bool NPEffective1::CheckParameters(const std::map<std::string, double>& DPars)
-{
-    for (int i = 0; i < NNPEffectiveVars; i++) {
-        if (DPars.find(NPEffectiveVars[i]) == DPars.end()) {
-            std::cout << "ERROR: Missing mandatory NPEffective1 parameter "
-                      << NPEffectiveVars[i] << std::endl;
-            return false;
-        }
-    }
-    return(NPEffective::CheckParameters(DPars));
-}
-
-
 void NPEffective1::setParameter(const std::string name, const double& value)
 {
     if (name.compare("cWB_NP") == 0)
@@ -75,6 +62,16 @@ void NPEffective1::setParameter(const std::string name, const double& value)
 }
 
 
-
+bool NPEffective1::CheckParameters(const std::map<std::string, double>& DPars)
+{
+    for (int i = 0; i < NNPEffectiveVars; i++) {
+        if (DPars.find(NPEffectiveVars[i]) == DPars.end()) {
+            std::cout << "ERROR: Missing mandatory NPEffective1 parameter "
+                      << NPEffectiveVars[i] << std::endl;
+            return false;
+        }
+    }
+    return(NPEffective::CheckParameters(DPars));
+}
 
 

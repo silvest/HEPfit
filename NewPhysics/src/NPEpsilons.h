@@ -8,7 +8,7 @@
 #ifndef NPEPSILONS_H
 #define	NPEPSILONS_H
 
-#include <EWepsilons.h>
+#include <EWSM.h>
 #include "NPbase.h"
 
 /**
@@ -42,12 +42,12 @@ public:
         return "NPEpsilons";
     }
 
-    virtual bool Update(const std::map<std::string, double>& DPars);
-    virtual bool Init(const std::map<std::string, double>& DPars);    
-    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
+    virtual bool InitializeModel();
+    virtual void setEWSMflags(EWSM& myEWSM);
 
-    virtual bool InitializeModel();  
-    virtual void setEWSMflags(EWSM& myEWSM);    
+    virtual bool Init(const std::map<std::string, double>& DPars);
+    virtual bool Update(const std::map<std::string, double>& DPars);
+    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     virtual bool setFlag(const std::string, const bool&); 
     virtual bool CheckFlags() const;
@@ -71,7 +71,7 @@ public:
     virtual double epsilon1() const 
     {
         if (FlagEpsilon1SM) 
-            return epsilon1_SM();
+            return myEWSM->epsilon1_SM();
         else
             return myEpsilon_1;
     }
@@ -79,7 +79,7 @@ public:
     virtual double epsilon2() const 
     {
         if (FlagEpsilon2SM) 
-            return epsilon2_SM();
+            return myEWSM->epsilon2_SM();
         else
             return myEpsilon_2;
     }
@@ -87,7 +87,7 @@ public:
     virtual double epsilon3() const 
     {
         if (FlagEpsilon3SM) 
-            return epsilon3_SM();
+            return myEWSM->epsilon3_SM();
         else
             return myEpsilon_3;
     }
@@ -95,7 +95,7 @@ public:
     virtual double epsilonb() const 
     {
         if (FlagEpsilonbSM) 
-            return epsilonb_SM();
+            return myEWSM->epsilonb_SM();
         else
             return myEpsilon_b;
     }    
@@ -117,82 +117,23 @@ public:
      * @return 1-Mw^2/Mz^2
      */
     virtual double sW2() const;
-    
-    /**
-     * @brief effective coupling rho_Z^l
-     * @param[in] l lepton
-     * @return rho_Z^l
-     */
-    virtual complex rhoZ_l(const StandardModel::lepton l) const;
-    
-    /**
-     * @brief effective coupling rho_Z^q
-     * @param[in] q quark
-     * @return rho_Z^q
-     */
-    virtual complex rhoZ_q(const StandardModel::quark q) const;
 
-    /**
-     * @brief effective coupling kappa_Z^l
-     * @param[in] l name of lepton
-     * @return kappa_Z^l in the SM
-     */
-    virtual complex kappaZ_l(const StandardModel::lepton l) const;
-
-    /**
-     * @brief effective coupling kappa_Z^q
-     * @param[in] q name of quark
-     * @return kappa_Z^q in the SM
-     */
-    virtual complex kappaZ_q(const StandardModel::quark q) const;       
-    
-    /**
-     * @brief vector effective coupling for neutral-current interactions
-     * @param[in] l lepton
-     * @return g_V^l
-     */
-    virtual complex gVl(const StandardModel::lepton l) const;
-
-    /**
-     * @brief vector effective coupling for neutral-current interactions
-     * @param[in] q quark
-     * @return g_V^q
-     */
-    virtual complex gVq(const StandardModel::quark q) const;
-
-    /**
-     * @brief axial-vector effective coupling for neutral-current interactions
-     * @param[in] l lepton
-     * @return g_A^l
-     */
-    virtual complex gAl(const StandardModel::lepton l) const;
-
-    /**
-     * @brief axial-vector effective coupling for neutral-current interactions
-     * @param[in] q quark
-     * @return g_A^q
-     */
-    virtual complex gAq(const StandardModel::quark q) const; 
-    
     /**
      * @return the total width of the W boson
      */
-    virtual double GammaW() const;    
+    virtual double GammaW() const;
 
     
     ////////////////////////////////////////////////////////////////////////   
-
 protected:    
     double myEpsilon_1, myEpsilon_2, myEpsilon_3, myEpsilon_b;
     virtual void setParameter(const std::string name, const double& value);
     
     
-    ////////////////////////////////////////////////////////////////////////     
-    
+    ////////////////////////////////////////////////////////////////////////         
 private:
     bool FlagEpsilon1SM, FlagEpsilon2SM, FlagEpsilon3SM, FlagEpsilonbSM;
     bool FlagEWABC, FlagEWABC2;
-    EWepsilons* myEWepsilons;
     
 };
 

@@ -32,50 +32,53 @@ public:
     : SM(SM_i), myEWepsilons(SM_i)
     {};
 
-    double Mw(const double eps1, const double eps2, const double eps3,
-              const bool bAlternative) const;
-    double Gamma_l(StandardModel::lepton l, const double eps1, const double eps3) const;
-    double Gamma_q(StandardModel::quark q, const double eps1, const double eps3) const;
-    double Gamma_b(const double eps1, const double eps3, const double epsb) const;
+    double Mw(const bool bAlternative) const;
+    double Gamma_l(StandardModel::lepton l) const;
+    double Gamma_q(StandardModel::quark q) const;
+    double Gamma_b() const;
     
-    double Gamma_had(const double eps1, const double eps3, const double epsb) const;
-    double GammaZ(const double eps1, const double eps3, const double epsb,
-                  const bool bAlternative) const;
+    double Gamma_had() const;
+    double GammaZ(const bool bAlternative) const;
     
-    double R_l(const double eps1, const double eps3, const double epsb,
-               const bool bAlternative) const;
-    double R_c(const double eps1, const double eps3, const double epsb) const;    
-    double R_b(const double eps1, const double eps3, const double epsb,
-               const bool bAlternative) const;
+    double R_l(const bool bAlternative) const;
+    double R_c() const;    
+    double R_b(const bool bAlternative) const;
 
-    double sigma0_had(const double eps1, const double eps3, const double epsb,
-                      const bool bAlternative) const;
+    double sigma0_had(const bool bAlternative) const;
     
-    double A_l(StandardModel::lepton l, const double eps1, const double eps3,
-               const bool bAlternative) const;
-    double A_q(StandardModel::quark q, const double eps1, const double eps3) const;
-    double A_b(const double eps1, const double eps3, const double epsb) const;
+    double A_l(StandardModel::lepton l, const bool bAlternative) const;
+    double A_q(StandardModel::quark q) const;
+    double A_b() const;
     
-    double AFB_l(StandardModel::lepton l, const double eps1, const double eps3,
-                 const bool bAlternative) const;
-    double AFB_c(const double eps1, const double eps3) const;
-    double AFB_b(const double eps1, const double eps3, const double epsb) const;
+    double AFB_l(StandardModel::lepton l, const bool bAlternative) const;
+    double AFB_c() const;
+    double AFB_b() const;
     
-    double sin2thetaEff(const double eps1, const double eps3,
-                        const bool bAlternative) const;
+    double sin2thetaEff(const bool bAlternative) const;
 
-    //////////////////////////////////////////////////////////////////////// 
     
-    complex gVl(StandardModel::lepton l, const double eps1, const double eps3) const;
-    complex gAl(StandardModel::lepton l, const double eps1) const;
-    complex gVl_over_gAl(StandardModel::lepton l, const double eps1, const double eps3) const;
-    complex gVq(StandardModel::quark q, const double eps1, const double eps3) const;
-    complex gAq(StandardModel::quark q, const double eps1) const;
-    complex gVq_over_gAq(StandardModel::quark q, const double eps1, const double eps3) const;
-    complex gVb(const double eps1, const double eps3, const double epsb) const;
-    complex gAb(const double eps1, const double epsb) const;
-    complex gVb_over_gAb(const double eps1, const double eps3, const double epsb) const;
+    ////////////////////////////////////////////////////////////////////////
+
+    double eps1() const;
+    double eps2() const;
+    double eps3() const;
+    double epsb() const;
+
+
+    ////////////////////////////////////////////////////////////////////////
     
+    complex gVl(StandardModel::lepton l) const;
+    complex gAl(StandardModel::lepton l) const;
+    complex gVl_over_gAl(StandardModel::lepton l) const;
+    complex gVq(StandardModel::quark q) const;
+    complex gAq(StandardModel::quark q) const;
+    complex gVq_over_gAq(StandardModel::quark q) const;
+    complex gVb() const;
+    complex gAb() const;
+    complex gVb_over_gAb() const;
+
+
+    ////////////////////////////////////////////////////////////////////////
 private:
     const StandardModel& SM;
     const EWepsilons myEWepsilons;

@@ -36,12 +36,12 @@ public:
         return "NPSTU";
     }
 
-    virtual bool Update(const std::map<std::string, double>& DPars);
-    virtual bool Init(const std::map<std::string, double>& DPars);    
-    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
+    virtual bool InitializeModel();
+    virtual void setEWSMflags(EWSM& myEWSM);
 
-    virtual bool InitializeModel();  
-    virtual void setEWSMflags(EWSM& myEWSM);    
+    virtual bool Init(const std::map<std::string, double>& DPars);    
+    virtual bool Update(const std::map<std::string, double>& DPars);
+    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     virtual bool setFlag(const std::string, const bool&); 
     virtual bool CheckFlags() const;
@@ -83,17 +83,6 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
-    virtual double epsilon1() const;
-
-    virtual double epsilon2() const;
-
-    virtual double epsilon3() const;
-
-    virtual double epsilonb() const;
-
-
-    ////////////////////////////////////////////////////////////////////////     
-
     /**
      * @return The W boson mass.
      */
@@ -116,14 +105,12 @@ public:
 
     
     ////////////////////////////////////////////////////////////////////////
-    
 protected:    
     double myObliqueS, myObliqueT, myObliqueU;
     virtual void setParameter(const std::string name, const double& value);
 
     
-    ////////////////////////////////////////////////////////////////////////     
-    
+    ////////////////////////////////////////////////////////////////////////    
 private:
     bool FlagEWBURGESS;
     const EW_BURGESS myEW_BURGESS;

@@ -17,9 +17,9 @@ double AFBlepton::computeThValue()
     if (myEWTYPE==EW::EWCHMN)  
         AFB_l = myEW.getMyEW_CHMN().AFB_l(SM.ELECTRON);
     else if (myEWTYPE==EW::EWABC) 
-        AFB_l = myEW.getMyEW_ABC().AFB_l(SM.ELECTRON,SM.epsilon1(),SM.epsilon3(),false);
+        AFB_l = myEW.getMyEW_ABC().AFB_l(SM.ELECTRON, false);
     else if (myEWTYPE==EW::EWABC2)
-        AFB_l = myEW.getMyEW_ABC().AFB_l(SM.ELECTRON,SM.epsilon1(),SM.epsilon3(),true);
+        AFB_l = myEW.getMyEW_ABC().AFB_l(SM.ELECTRON, true);
     else {    
         AFB_l = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_l(SM.ELECTRON);
 

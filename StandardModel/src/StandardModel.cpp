@@ -61,14 +61,14 @@ StandardModel::StandardModel()
 
 
 ///////////////////////////////////////////////////////////////////////////
-// Initialization and Matching
+// Initialization
 
 bool StandardModel::InitializeModel()
 {
     myStandardModelMatching = new StandardModelMatching(*this);
-    setModelInitialized(true);
     myEWSM = new EWSM(*this);
     this->setEWSMflags(*myEWSM);
+    setModelInitialized(true);
     return(true);
 }
 
@@ -353,28 +353,6 @@ double StandardModel::ale_OS(const double mu, orders order) const
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::Mw0() const 
-{
-    return ( sqrt(c02())*Mz );
-}
-
-double StandardModel::s02() const
-{
-    double tmp = 1.0 - 4.0*M_PI*alphaMz()/sqrt(2.0)/GF/Mz/Mz;
-    if (tmp < 0.0)
-        throw std::runtime_error("Error in StandardModel::s02()");
-    
-    return ( ( 1.0 - sqrt(tmp) )/2.0 );
-}
-
-double StandardModel::c02() const 
-{
-    return ( 1.0 - s02() );
-}
-
-
-////////////////////////////////////////////////////////////////////////
-
 double StandardModel::DeltaAlphaLepton(const double s) const
 {
     return myEWSM->DeltaAlphaLepton(s);
@@ -409,150 +387,10 @@ double StandardModel::sW2() const
 {
     return myEWSM->sW2_SM();
 }
-    
-complex StandardModel::rhoZ_l(const lepton l) const
-{
-    return ( myEWSM->rhoZ_l_SM(l) + myEWSM->delRhoZ_l(l) );
-}
-    
-complex StandardModel::rhoZ_q(const quark q) const 
-{
-    return ( myEWSM->rhoZ_q_SM(q) + myEWSM->delRhoZ_q(q) );
-}
-    
-complex StandardModel::kappaZ_l(const lepton l) const 
-{
-    return myEWSM->kappaZ_l_SM(l);
-}
-    
-complex StandardModel::kappaZ_q(const quark q) const 
-{
-    return myEWSM->kappaZ_q_SM(q);
-}
 
-complex StandardModel::gVl(const lepton l) const 
-{
-    double Ql = getLeptons(l).getCharge();
-    return ( gAl(l)
-             *(1.0 - 4.0*fabs(Ql)*(myEWSM->kappaZ_l_SM(l))*myEWSM->sW2_SM()) );
-}
-
-complex StandardModel::gVq(const quark q) const 
-{
-    double Qq = getQuarks(q).getCharge();
-    return ( gAq(q)
-             *(1.0 - 4.0*fabs(Qq)*(myEWSM->kappaZ_q_SM(q))*myEWSM->sW2_SM()) );
-}
-    
-complex StandardModel::gAl(const lepton l) const 
-{
-    double I3l = getLeptons(l).getIsospin();
-    return ( sqrt(myEWSM->rhoZ_l_SM(l) + myEWSM->delRhoZ_l(l))*I3l );
-}
-
-complex StandardModel::gAq(const quark q) const 
-{
-    double I3q = getQuarks(q).getIsospin();
-    return ( sqrt(myEWSM->rhoZ_q_SM(q) + myEWSM->delRhoZ_q(q))*I3q );
-}
-
-double StandardModel::GammaW() const 
+double StandardModel::GammaW() const
 {
     return myEWSM->GammaW_SM();
-}
-
-double StandardModel::epsilon1_SM() const 
-{
-    double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real() + myEWSM->delRhoZ_l(ELECTRON);
-    double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
-
-    return DeltaRhoPrime;
-}
-
-double StandardModel::epsilon2_SM() const 
-{
-    double s_W2 = myEWSM->sW2_SM(), c_W2 = myEWSM->cW2_SM();
-    double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real() + myEWSM->delRhoZ_l(ELECTRON);
-    double sin2thetaEff = myEWSM->kappaZ_l_SM(ELECTRON).real()*s_W2;
-    double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
-    double DeltaKappaPrime = sin2thetaEff/s02() - 1.0;
-    double DeltaRW = 1.0 - M_PI*alphaMz()/(sqrt(2.0)*GF*Mz*Mz*s_W2*c_W2);
-    
-    return ( c02()*DeltaRhoPrime + s02()*DeltaRW/(c02() - s02()) 
-             - 2.0*s02()*DeltaKappaPrime );
-}
-
-double StandardModel::epsilon3_SM() const 
-{
-    double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real() + myEWSM->delRhoZ_l(ELECTRON);
-    double sin2thetaEff = myEWSM->kappaZ_l_SM(ELECTRON).real()*myEWSM->sW2_SM();
-    double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
-    double DeltaKappaPrime = sin2thetaEff/s02() - 1.0;
-
-    return ( c02()*DeltaRhoPrime + (c02() - s02())*DeltaKappaPrime );
-}
-
-double StandardModel::epsilonb_SM() const 
-{
-    /* epsilon_b from g_A^b
-     * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
-    //double rhoZe = myEWSM->rhoZ_l_SM(ELECTRON).real() + myEWSM->delRhoZ_l(ELECTRON);
-    //double rhoZb = myEWSM->rhoZ_q_SM(BOTTOM).real() + myEWSM->delRhoZ_q(BOTTOM);
-    //double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
-    //double eps1 = DeltaRhoPrime;
-    //return ( - 1.0 + sqrt(rhoZb)/(1.0 + eps1/2.0) );
-
-    /* epsilon_b from Re(g_V^b/g_A^b), i.e. Re(kappaZ_b)
-     * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
-    complex kappaZe = myEWSM->kappaZ_l_SM(ELECTRON);
-    complex kappaZb = myEWSM->kappaZ_q_SM(BOTTOM);
-    if (FlagWithoutNonUniversalVC) 
-        return ( kappaZe.real()/kappaZb.real() - 1.0 ); 
-    else 
-        return ( (kappaZe.real() + myEWSM->kappaZ_q_SM_FlavorDep(BOTTOM).real())
-                 /kappaZb.real() - 1.0 );     
-    
-    /* epsilon_b from Gamma_b via Eqs.(11), (12) and (16) of IJMP A7, 
-     * 1031 (1998) by Altarelli et al. 
-     * Note: mb has to be mb=4.7, since Eq.(16) were derived with this value. 
-     */
-    //double als_Mz = Als(Mz, FULLNNLO);
-    //double delta_als = (als_Mz - 0.119)/M_PI;
-    //double delta_alpha = (alphaMz() - 1.0/128.90)/ale;
-    //double Gamma_b_Born = 0.3798*( 1.0 + delta_als - 0.42*delta_alpha);
-    //double a = als_Mz/M_PI;
-    //double RQCD = 1.0 + 1.2*a - 1.1*a*a - 13.0*a*a*a;
-    //double mb = Mrun(Mz, getQuarks(BOTTOM).getMass(), FULLNNLO);// This is wrong!
-    //double mb = 4.7;
-    //std::cout << "mb = " << mb << std::endl;
-    //double beta = sqrt(1.0 - 4.0*mb*mb/Mz/Mz);
-    //double Nc = 3.0; 
-    //double factor = GF*Mz*Mz*Mz/6.0/M_PI/sqrt(2.0);
-    //double Gamma_b = factor*beta*((3.0 - beta*beta)/2.0*myEWSM->gVq_SM(BOTTOM).abs2()
-    //                              + beta*beta*myEWSM->gAq_SM(BOTTOM).abs2())
-    //                 *Nc*RQCD*(1.0 + alphaMz()/12.0/M_PI);
-    //return ( (Gamma_b/Gamma_b_Born - 1.0 - 1.42*epsilon1_SM() 
-    //          + 0.54*epsilon3_SM() )/2.29 );
-}
-
-double StandardModel::epsilon1() const
-{ 
-    return epsilon1_SM();
-}
-
-double StandardModel::epsilon2() const 
-{
-    return epsilon2_SM();    
-}
-    
-double StandardModel::epsilon3() const 
-{
-    return epsilon3_SM();
-}
-
-double StandardModel::epsilonb() const 
-{
-    return epsilonb_SM();    
 }
 
 

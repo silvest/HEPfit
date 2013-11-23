@@ -34,12 +34,12 @@ public:
         return "NPSTUVWXY";
     }
 
-    virtual bool Update(const std::map<std::string, double>& DPars);
-    virtual bool Init(const std::map<std::string, double>& DPars);    
-    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
+    virtual bool InitializeModel();
+    virtual void setEWSMflags(EWSM& myEWSM);
 
-    virtual bool InitializeModel();  
-    virtual void setEWSMflags(EWSM& myEWSM);    
+    virtual bool Init(const std::map<std::string, double>& DPars);    
+    virtual bool Update(const std::map<std::string, double>& DPars);
+    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     virtual bool setFlag(const std::string, const bool&); 
     virtual bool CheckFlags() const;
@@ -157,17 +157,11 @@ public:
     virtual double GammaW() const;
     
     
-    ////////////////////////////////////////////////////////////////////////     
-    
+    ////////////////////////////////////////////////////////////////////////
 protected:    
     virtual void setParameter(const std::string name, const double& value);
     double myObliqueShat, myObliqueThat, myObliqueUhat;
     double myObliqueV, myObliqueW, myObliqueX, myObliqueY;
-
-    
-    ////////////////////////////////////////////////////////////////////////     
-    
-private:
 
 };
 

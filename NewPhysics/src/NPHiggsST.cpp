@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2013 SusyFit Collaboration
  * All rights reserved.
  *
@@ -6,10 +6,11 @@
  */
 
 #include <stdexcept>
+#include <EWSM.h>
 #include "NPHiggsST.h"
 
 
-const std::string NPHiggsST::NPHIGGSSTvars[NNPHIGGSSTvars] 
+const std::string NPHiggsST::NPHIGGSSTvars[NNPHIGGSSTvars]
 = {"a", "b", "c_u", "c_d", "c_e", "d_3", "d_4", "LambdaNP"};
 
 
@@ -19,7 +20,27 @@ NPHiggsST::NPHiggsST()
 }
 
 
-bool NPHiggsST::Update(const std::map<std::string,double>& DPars) 
+bool NPHiggsST::InitializeModel()
+{
+    setModelInitialized(NPbase::InitializeModel());
+    return (IsModelInitialized());
+}
+
+
+void NPHiggsST::setEWSMflags(EWSM& myEWSM)
+{
+    NPbase::setEWSMflags(myEWSM);
+}
+
+
+bool NPHiggsST::Init(const std::map<std::string, double>& DPars)
+{
+    Update(DPars);
+    return(CheckParameters(DPars));
+}
+
+
+bool NPHiggsST::Update(const std::map<std::string,double>& DPars)
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameter(it->first, it->second);
@@ -28,27 +49,7 @@ bool NPHiggsST::Update(const std::map<std::string,double>& DPars)
 }
 
 
-bool NPHiggsST::Init(const std::map<std::string, double>& DPars) 
-{
-    Update(DPars);
-    return(CheckParameters(DPars)); 
-}
-
-
-bool NPHiggsST::CheckParameters(const std::map<std::string, double>& DPars) 
-{
-    for (int i = 0; i < NNPHIGGSSTvars; i++) {
-        if (DPars.find(NPHIGGSSTvars[i]) == DPars.end()) {
-            std::cout << "ERROR: Missing mandatory NPHiggsST parameter "
-                      << NPHIGGSSTvars[i] << std::endl;
-            return false;
-        }
-    }
-    return(NPbase::CheckParameters(DPars));
-}
-
-    
-void NPHiggsST::setParameter(const std::string name, const double& value) 
+void NPHiggsST::setParameter(const std::string name, const double& value)
 {
     if (name.compare("a") == 0)
         a = value;
@@ -71,20 +72,20 @@ void NPHiggsST::setParameter(const std::string name, const double& value)
 }
 
 
-bool NPHiggsST::InitializeModel() 
+bool NPHiggsST::CheckParameters(const std::map<std::string, double>& DPars)
 {
-    setModelInitialized(NPbase::InitializeModel());
-    return (IsModelInitialized());
+    for (int i = 0; i < NNPHIGGSSTvars; i++) {
+        if (DPars.find(NPHIGGSSTvars[i]) == DPars.end()) {
+            std::cout << "ERROR: Missing mandatory NPHiggsST parameter "
+                      << NPHIGGSSTvars[i] << std::endl;
+            return false;
+        }
+    }
+    return(NPbase::CheckParameters(DPars));
 }
 
 
-void NPHiggsST::setEWSMflags(EWSM& myEWSM) 
-{
-    NPbase::setEWSMflags(myEWSM);
-}
-
-
-bool NPHiggsST::setFlag(const std::string name, const bool& value) 
+bool NPHiggsST::setFlag(const std::string name, const bool& value)
 {
     bool res = false;
     res = NPbase::setFlag(name,value);
@@ -112,22 +113,22 @@ double NPHiggsST::obliqueS() const
 
     return ( 1.0/12.0/M_PI*(1.0 - a*a)*log(Lambda*Lambda/mHl/mHl) );
 }
-        
+
 
 double NPHiggsST::obliqueT() const
 {
     double Lambda;
-    double cW2_SM = StandardModel::cW2(); /* This has to be the SM value. */
+    double cW2_SM = myEWSM->cW2_SM(); /* This has to be the SM value. */
     if (LambdaNP_in != 0.0)
         Lambda = LambdaNP_in;
     else if (fabs(1.0-a*a) < pow(10.0, -32.0))
         Lambda = pow(10.0, 19.0);
     else
         Lambda = 4.0*M_PI*v()/sqrt(fabs(1.0 - a*a));
-    
+
     return ( - 3.0/16.0/M_PI/cW2_SM*(1.0 - a*a)*log(Lambda*Lambda/mHl/mHl) );
 }
-    
+
 
 double NPHiggsST::obliqueU() const
 {
@@ -165,11 +166,11 @@ double NPHiggsST::epsilonb() const
 
 double NPHiggsST::Mw() const
 {
-    double myMw = StandardModel::Mw();
+    double myMw = myEWSM->Mw_SM();
 
     double alpha = StandardModel::alphaMz();
-    double c2 = StandardModel::cW2();
-    double s2 = StandardModel::sW2();
+    double c2 = myEWSM->cW2_SM();
+    double s2 = myEWSM->sW2_SM();
 
     myMw *= 1.0 - alpha/4.0/(c2-s2)
             *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 );
@@ -192,11 +193,11 @@ double NPHiggsST::sW2() const
 
 double NPHiggsST::GammaW() const
 {
-    double Gamma_W = StandardModel::GammaW();
+    double Gamma_W = myEWSM->GammaW_SM();
 
     double alpha = StandardModel::alphaMz();
-    double c2 = StandardModel::cW2();
-    double s2 = StandardModel::sW2();
+    double c2 = myEWSM->cW2_SM();
+    double s2 = myEWSM->sW2_SM();
 
     Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
                *( obliqueS() - 2.0*c2*obliqueT()
@@ -208,4 +209,4 @@ double NPHiggsST::GammaW() const
 
 
 
-    
+

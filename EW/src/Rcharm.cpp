@@ -18,7 +18,7 @@ double Rcharm::computeThValue()
     if (myEWTYPE==EW::EWCHMN)  
         R0_c = myEW.getMyEW_CHMN().R_c();
     else if (myEWTYPE==EW::EWABC || myEWTYPE==EW::EWABC2) 
-        R0_c = myEW.getMyEW_ABC().R_c(SM.epsilon1(),SM.epsilon3(),SM.epsilonb());
+        R0_c = myEW.getMyEW_ABC().R_c();
     else {    
         if (SM.IsFlagApproximateGqOverGb() 
                 //&& !SM.IsFlagRhoZbFromGuOverGb()

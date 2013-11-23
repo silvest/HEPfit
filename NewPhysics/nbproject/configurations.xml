@@ -4,6 +4,8 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>src/EWNPEpsilons.h</itemPath>
+      <itemPath>src/EWNPZbbbar.h</itemPath>
       <itemPath>src/NPEffective.h</itemPath>
       <itemPath>src/NPEffective1.h</itemPath>
       <itemPath>src/NPEffective2.h</itemPath>
@@ -23,6 +25,8 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>src/EWNPEpsilons.cpp</itemPath>
+      <itemPath>src/EWNPZbbbar.cpp</itemPath>
       <itemPath>src/NPEffective.cpp</itemPath>
       <itemPath>src/NPEffective1.cpp</itemPath>
       <itemPath>src/NPEffective2.cpp</itemPath>
@@ -68,6 +72,14 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/EWNPEpsilons.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EWNPEpsilons.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EWNPZbbbar.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EWNPZbbbar.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPEffective.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEffective.h" ex="false" tool="3" flavor2="0">
@@ -142,6 +154,14 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/EWNPEpsilons.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EWNPEpsilons.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EWNPZbbbar.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EWNPZbbbar.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPEffective.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEffective.h" ex="false" tool="3" flavor2="0">
@@ -216,6 +236,14 @@
         <archiverTool>
         </archiverTool>
       </compileType>
+      <item path="src/EWNPEpsilons.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EWNPEpsilons.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EWNPZbbbar.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EWNPZbbbar.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPEffective.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPEffective.h" ex="false" tool="3" flavor2="0">

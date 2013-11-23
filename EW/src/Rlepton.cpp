@@ -17,9 +17,9 @@ double Rlepton::computeThValue()
     if (myEWTYPE==EW::EWCHMN)  
         R0_l = myEW.getMyEW_CHMN().R_l(SM.ELECTRON);
     else if (myEWTYPE==EW::EWABC) 
-        R0_l = myEW.getMyEW_ABC().R_l(SM.epsilon1(),SM.epsilon3(),SM.epsilonb(),false);
+        R0_l = myEW.getMyEW_ABC().R_l(false);
     else if (myEWTYPE==EW::EWABC2)
-        R0_l = myEW.getMyEW_ABC().R_l(SM.epsilon1(),SM.epsilon3(),SM.epsilonb(),true);
+        R0_l = myEW.getMyEW_ABC().R_l(true);
     else {       
         R0_l = myEW.Gamma_had()/myEW.Gamma_l(SM.ELECTRON);
         

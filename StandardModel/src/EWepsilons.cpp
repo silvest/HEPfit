@@ -171,7 +171,7 @@ complex EWepsilons::gAb(const double eps1, const double epsb) const
 double EWepsilons::Delta_rW(const double eps1, const double eps2, 
                             const double eps3) const
 {
-    double s02 = SM.s02(), c02 = SM.c02();
+    double s02 = SM.getEWSM()->s02(), c02 = SM.getEWSM()->c02();
     return (  (c02 - s02)/s02
               *(eps2 - c02*eps1 + 2.0*s02*Delta_kappaPrime(eps1,eps3)) );
 }
@@ -179,7 +179,7 @@ double EWepsilons::Delta_rW(const double eps1, const double eps2,
 
 double EWepsilons::Delta_kappaPrime(const double eps1, const double eps3) const 
 {
-    double s02 = SM.s02(), c02 = SM.c02();
+    double s02 = SM.getEWSM()->s02(), c02 = SM.getEWSM()->c02();
     return ( (eps3 - c02*eps1)/(c02 - s02) );
 }
 
@@ -198,7 +198,7 @@ complex EWepsilons::kappaZ_e(const double eps1, const double eps3) const
 
 complex EWepsilons::gVe(const double eps1, const double eps3) const 
 {
-    double s02 = SM.s02();
+    double s02 = SM.getEWSM()->s02();
     return ( (1.0 - 4.0*(1.0 + Delta_kappaPrime(eps1,eps3))*s02)*gAe(eps1) );
 }
 

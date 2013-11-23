@@ -208,7 +208,25 @@ public:
      */
     double alphaMz() const;
 
-    
+   
+    ////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @return The W boson mass without weak corrections.
+     */
+    double Mw0() const;
+
+    /**
+     * @return @f$sin^2\theta_W@f$ without weak corrections.
+     */
+    double s02() const;
+
+    /**
+     * @return @f$\cos^2\theta_W@f$ without weak corrections.
+     */
+    double c02() const;
+
+
     ////////////////////////////////////////////////////////////////////////     
         
     /**
@@ -231,36 +249,8 @@ public:
      * @return 1-Mw^2/Mz^2 in the SM
      */
     double sW2_SM() const;
+
     
-    /**
-     * @brief SM contribution to effective coupling rho_Z^l
-     * @param[in] l name of lepton
-     * @return rho_Z^l in the SM
-     */
-    complex rhoZ_l_SM(const StandardModel::lepton l) const;
-
-    /**
-     * @brief SM contribution to effective coupling rho_Z^q
-     * @param[in] q name of quark
-     * @return rho_Z^q in the SM
-     */
-    complex rhoZ_q_SM(const StandardModel::quark q) const;    
-    
-    /**
-     * @brief SM contribution to effective coupling kappa_Z^l
-     * @param[in] l name of lepton
-     * @return kappa_Z^l in the SM
-     */
-    complex kappaZ_l_SM(const StandardModel::lepton l) const;
-
-    /**
-     * @brief SM contribution to effective coupling kappa_Z^q
-     * @param[in] q name of quark
-     * @return kappa_Z^q in the SM
-     */
-    complex kappaZ_q_SM(const StandardModel::quark q) const;    
-
-
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -289,7 +279,118 @@ public:
      */
     double DeltaRbar_SM() const;
 
+    
+    ////////////////////////////////////////////////////////////////////////
+    // SM contribution to the effective couplings
 
+    /**
+     * @brief SM contribution to the effective coupling @f$\rho_Z^l@f$.
+     * @param[in] l Name of a lepton.
+     * @return @f$\rho_Z^l@f$ in the SM.
+     */
+    complex rhoZ_l_SM(const StandardModel::lepton l) const;
+
+    /**
+     * @brief SM contribution to the effective coupling @f$\rho_Z^q@f$.
+     * @param[in] q Name of a quark.
+     * @return @f$\rho_Z^q@f$ in the SM.
+     */
+    complex rhoZ_q_SM(const StandardModel::quark q) const;    
+    
+    /**
+     * @brief SM contribution to the effective coupling @f$\kappa_Z^l@f$.
+     * @param[in] l Name of a lepton.
+     * @return @f$\kappa_Z^l@f$ in the SM.
+     */
+    complex kappaZ_l_SM(const StandardModel::lepton l) const;
+
+    /**
+     * @brief SM contribution to the effective coupling @f$\kappa_Z^q@f$.
+     * @param[in] q Name of a quark.
+     * @return @f$\kappa_Z^q@f$ in the SM.
+     */
+    complex kappaZ_q_SM(const StandardModel::quark q) const;    
+
+    /**
+     * @brief SM contribution to the effective coupling @f$g_V^l@f$.
+     * @param[in] l Name of a lepton.
+     * @return @f$g_V^l@f$ in the SM.
+     */
+    complex gVl_SM(const StandardModel::lepton l) const;
+
+    /**
+     * @brief SM contribution to the effective coupling @f$g_V^q@f$.
+     * @param[in] q Name of a quark.
+     * @return @f$g_V^q@f$ in the SM.
+     */
+    complex gVq_SM(const StandardModel::quark q) const;
+
+    /**
+     * @brief SM contribution to the effective coupling @f$g_A^l@f$.
+     * @param[in] l Name of a lepton.
+     * @return @f$g_A^l@f$ in the SM.
+     */
+    complex gAl_SM(const StandardModel::lepton l) const;
+
+    /**
+     * @brief SM contribution to the effective coupling @f$g_A^q@f$.
+     * @param[in] q Name of a quark.
+     * @return @f$g_A^q@f$ in the SM.
+     */
+    complex gAq_SM(const StandardModel::quark q) const;
+    
+
+    ////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @param[in] l Name of a lepton.
+     * @return The effective coupling @f$\rho_Z^l@f$.
+     */
+    virtual complex rhoZ_l(const StandardModel::lepton l) const;
+
+    /**
+     * @param[in] q Name of a quark.
+     * @return The effective coupling neutral-current interactions @f$\rho_Z^q@f$.
+     */
+    virtual complex rhoZ_q(const StandardModel::quark q) const;
+
+    /**
+     * @param[in] l Name of a lepton.
+     * @return The effective coupling neutral-current interactions @f$\kappa_Z^l@f$.
+     */
+    virtual complex kappaZ_l(const StandardModel::lepton l) const;
+
+    /**
+     * @param[in] q Name of a quark.
+     * @return The effective coupling neutral-current interactions @f$\kappa_Z^q@f$.
+     */
+    virtual complex kappaZ_q(const StandardModel::quark q) const;
+
+    /**
+     * @param[in] l Name of a lepton.
+     * @return The effective vector coupling for neutral-current interactions @f$g_V^l@f$.
+     */
+    virtual complex gVl(const StandardModel::lepton l) const;
+
+    /**
+     * @param[in] q Name of a quark.
+     * @return The effective vector coupling for neutral-current interactions @f$g_V^q@f$.
+     */
+    virtual complex gVq(const StandardModel::quark q) const;
+
+    /**
+     * @param[in] l Name of a lepton.
+     * @return The effective axial-vector coupling for neutral-current interactions @f$g_A^l@f$.
+     */
+    virtual complex gAl(const StandardModel::lepton l) const;
+
+    /**
+     * @param[in] q Name of a quark.
+     * @return The effective axial-vector coupling for neutral-current interactions @f$g_A^q@f$.
+     */
+    virtual complex gAq(const StandardModel::quark q) const;
+
+    
     ////////////////////////////////////////////////////////////////////////     
 
     /**
@@ -379,6 +480,7 @@ public:
     
 
     ////////////////////////////////////////////////////////////////////////     
+    // The W-boson decay width
 
     /**
      * @param[in] li name of a neutrino
@@ -440,7 +542,30 @@ public:
     void ComputeDeltaR_rem(const double Mw_i, double DeltaR_rem[orders_EW_size]) const;
 
 
-    ////////////////////////////////////////////////////////////////////////     
+    ////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @return SM contribution to @f$\epsilon_1@f$.
+     */
+    double epsilon1_SM() const;
+
+    /**
+     * @return SM contribution to @f$\epsilon_2@f$.
+     */
+    double epsilon2_SM() const;
+
+    /**
+     * @return SM contribution to @f$\epsilon_3@f$.
+     */
+    double epsilon3_SM() const;
+
+    /**
+     * @return SM contribution to @f$\epsilon_b@f$.
+     */
+    double epsilonb_SM() const;
+
+
+    ////////////////////////////////////////////////////////////////////////
 protected:
 
     const StandardModel& SM;

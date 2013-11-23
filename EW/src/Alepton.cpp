@@ -17,9 +17,9 @@ double Alepton::computeThValue()
     if (myEWTYPE==EW::EWCHMN)
         A_l = myEW.getMyEW_CHMN().A_l(SM.ELECTRON);
     else if (myEWTYPE==EW::EWABC)
-        A_l = myEW.getMyEW_ABC().A_l(SM.ELECTRON,SM.epsilon1(),SM.epsilon3(),false);
+        A_l = myEW.getMyEW_ABC().A_l(SM.ELECTRON, false);
     else if (myEWTYPE==EW::EWABC2)
-        A_l = myEW.getMyEW_ABC().A_l(SM.ELECTRON,SM.epsilon1(),SM.epsilon3(),true);
+        A_l = myEW.getMyEW_ABC().A_l(SM.ELECTRON, true);
     else {
         A_l = myEW.A_l(SM.ELECTRON);
 

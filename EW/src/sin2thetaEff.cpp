@@ -17,9 +17,9 @@ double sin2thetaEff::computeThValue()
     if (myEWTYPE==EW::EWCHMN)  
         sin2_theta_eff = myEW.getMyEW_CHMN().sin2thetaEff();
     else if (myEWTYPE==EW::EWABC) 
-        sin2_theta_eff = myEW.getMyEW_ABC().sin2thetaEff(SM.epsilon1(),SM.epsilon3(),false);
+        sin2_theta_eff = myEW.getMyEW_ABC().sin2thetaEff(false);
     else if (myEWTYPE==EW::EWABC2)
-        sin2_theta_eff = myEW.getMyEW_ABC().sin2thetaEff(SM.epsilon1(),SM.epsilon3(),true);
+        sin2_theta_eff = myEW.getMyEW_ABC().sin2thetaEff(true);
     else { 
         sin2_theta_eff = myEW.sin2thetaEff(SM.ELECTRON);
     

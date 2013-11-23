@@ -18,9 +18,9 @@ double PtauPol::computeThValue()
     if (myEWTYPE==EW::EWCHMN)  
         P_tau_pol = myEW.getMyEW_CHMN().A_l(SM.TAU);    
     else if (myEWTYPE==EW::EWABC) 
-        P_tau_pol = myEW.getMyEW_ABC().A_l(SM.TAU,SM.epsilon1(),SM.epsilon3(),false);
+        P_tau_pol = myEW.getMyEW_ABC().A_l(SM.TAU, false);
     else if (myEWTYPE==EW::EWABC2)
-        P_tau_pol = myEW.getMyEW_ABC().A_l(SM.TAU,SM.epsilon1(),SM.epsilon3(),true);
+        P_tau_pol = myEW.getMyEW_ABC().A_l(SM.TAU, true);
     else {
         P_tau_pol = myEW.A_l(SM.TAU);
 
