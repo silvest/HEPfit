@@ -8,6 +8,7 @@
 #include <iostream>
 #include <complex>
 #include <clooptools.h>
+#include "PVfunctions.h" // needed for USE_LOOPTOOLS macro
 #include "LoopToolsWrapper.h"
 
 static bool LoopToolsInit = false;
