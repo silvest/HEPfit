@@ -171,10 +171,8 @@ public:
 private:
     double ExtraMinusSign;
     Polylogarithms myPolylog;
-#ifdef USE_LOOPTOOLS
     LoopToolsWrapper myLT;
-#endif
-    
+
 };
 
 #endif	/* PVFUNCTIONS_H */

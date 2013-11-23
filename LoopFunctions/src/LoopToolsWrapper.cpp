@@ -14,6 +14,7 @@ static bool LoopToolsInit = false;
 
 LoopToolsWrapper::LoopToolsWrapper()
 {
+#ifdef USE_LOOPTOOLS
     if (!LoopToolsInit) {
         //std::cout << std::endl;
         ltini();
@@ -25,6 +26,7 @@ LoopToolsWrapper::LoopToolsWrapper()
      * dimensional regularization is employed for IR divergences and that 
      * the finite piece is returned from an IR-divergent loop function. */
     setlambda(0.0);
+#endif
 }
 
 LoopToolsWrapper::~LoopToolsWrapper()
