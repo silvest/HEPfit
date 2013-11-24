@@ -37,6 +37,7 @@ int main(int argc, char** argv)
 
     string ModelConf, MCMCConf, FileOut, JobTag;
     string FolderOut;
+    int nIterations;
     bool noMC;
     bool checkTheoryRange = false;
 
@@ -52,9 +53,10 @@ int main(int argc, char** argv)
                 "output root filename (without extension)")
                 ("job_tag", value<string > ()->default_value(""),
                 "job tag")
-                ("noMC", "run a single event")
-                ("output_folder", value<string > ()->default_value("Output"),
-                "output folder for Generate Event mode")
+                ("noMC", "run in generate event mode with --noMC")
+                ("nI", value<int > ()->default_value(0), "no. of iterations in generate event mode, specify with --nI=#")
+                ("output_folder", value<string > ()->default_value(""),
+                "output folder for Generate Event mode to be specified for printing to file")
                 ("thRange", "output the min and max of theory values to HistoLog.txt")
                 ("help", "help message")
                 ;
@@ -88,6 +90,7 @@ int main(int argc, char** argv)
                 noMC = true;
                 MCMCConf = "";
                 FolderOut = vm["output_folder"].as<string > ();
+                nIterations = vm["nI"].as<int > ();
             }
             else if (!vm.count("noMC") && vm.count("mcconf"))
             {
@@ -114,8 +117,8 @@ int main(int argc, char** argv)
             MonteCarlo MC(ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);
             MC.Run(rank);
         } else {
-            GenerateEvent GE(ModelConf, FolderOut, JobTag, checkTheoryRange);
-            GE.generate(rank, 20);
+            GenerateEvent GE(ModelConf, FolderOut, JobTag, noMC, checkTheoryRange);
+            GE.generate(rank, nIterations);
         }
 
 #ifdef _MPI
