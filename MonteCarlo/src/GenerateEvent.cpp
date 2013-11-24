@@ -65,8 +65,9 @@ void GenerateEvent::generate(const int rank, int unsigned nIteration, int seed)
         if (nIteration == 0) {
             std::cout.precision(10);
             std::cout << std::endl << "Running in Single Event mode...\n" << std::endl;
+        } else {
+        std::cout << std::endl << "Generating " << nIteration << " random events...\n" << std::endl;
         }
-        std::cout << std::endl << "Generating " << nIteration << " events...\n" << std::endl;
         for (int unsigned i = 0; i < nIteration + 1; i++) {
             generateRandomEvent(myInputParser.getMyModel(),i);
             for (std::vector<Observable>::iterator it = Obs.begin();
