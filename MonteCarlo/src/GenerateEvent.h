@@ -9,7 +9,18 @@
 #define	GENERATEEVENT_H
 
 #include <InputParser.h>
-#include "MonteCarloEngine.h"
+//#include "MonteCarloEngine.h"
+#include <TFile.h>
+#include <TRandom3.h>
+#include <Observable.h>
+#include <Observable2D.h>
+#include <CorrelatedGaussianObservables.h>
+#include <ModelParaVsObs.h>
+#include <ModelParameter.h>
+#include <Model.h>
+#include <map>
+#include <string>
+#include <sstream>
 
 /**
  * @addtogroup MonteCarlo
@@ -77,21 +88,27 @@ public:
      */
     void generate(const int rank, int unsigned nIteration, int seed = 0);
     
+    void defineParameters();
+    
+    void generateRandomEvent(Model* Mod_i, int iterationNo);
+    
 private:
     InputParser myInputParser; /**< an oject of the InputParser() class */
-    MonteCarloEngine MCEngine; /**< an object of the MonteCarloEngine() class*/
+    std::map<std::string, double> DPars; /**< */
+    Model* Mod; /**< */
     std::vector<ModelParameter> ModPars; /**< vector for the model parameters defined in SomeModel.conf*/
+    std::vector<ModelParameter> ModParsVar; /**< vector for the model parameters defined in SomeModel.conf*/
     std::vector<Observable> Obs; /**< vector for the observables defined in SomeModel.conf*/
     std::vector<Observable2D> Obs2D; /**< vector for the Observables2D defined in SomeModel.conf*/
     std::vector<CorrelatedGaussianObservables> CGO; /**< vector for the Correlated Gaussian Observables defined in SomeModel.conf*/
     std::vector<ModelParaVsObs> ParaObs; /**< vector for the ModelParaVsObs defined in SomeModel.conf*/
     std::string ModelConf; /**< string for the name of the SomeModel.conf file*/
-    std::string MCMCConf; /**< string for the name of the MonteCarlo.conf file*/
     std::string OutDirName; /**< string for the name of the output root file without the .root extension*/
     std::string ObsDirName; /**< string for the name of the output root file without the .root extension*/
     std::string ParsDirName; /**< string for the name of the output root file without the .root extension*/
     std::string JobTag; /**< string for the optional JobTag argument to be passes to the executable*/
     bool noMC;
+    int npar;
 };
 
 #endif	/* GENERATEEVENT_H */
