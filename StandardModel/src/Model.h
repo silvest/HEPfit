@@ -20,47 +20,138 @@
  */
 class Model {
 public:
+    
+    /**
+     * @brief The default constructor.
+     */
     Model(){
         ModelInitialized = false; 
     };
-
-    virtual std::string ModelName() const = 0;
-
-    virtual bool Init(const std::map<std::string, double>&) = 0;
-    virtual bool PreUpdate() = 0;
+    
+    /**
+     * @brief
+     * @details
+     * @param[in]
+     * @return
+     */
     virtual bool Update(const std::map<std::string, double>&) = 0;
+    
+    /**
+     * @brief
+     * @details
+     * @param[in]
+     * @return
+     */
+    virtual bool PreUpdate() = 0;
+    
+    /**
+     * @brief
+     * @details
+     * @param[in]
+     * @return
+     */
     virtual bool PostUpdate() = 0;
-    virtual void setParameter(const std::string, const double&) = 0;
+    
+    /**
+     * @brief
+     * @details
+     * @param[in]
+     * @return
+     */
     virtual bool CheckParameters(const std::map<std::string, double>&) = 0;
-
+    
+    /**
+     * @brief
+     * @details
+     * @param[in]
+     * @return
+     */
     virtual bool setFlag(const std::string, const bool&) = 0;
+    
+    /**
+     * @brief
+     * @details
+     * @param[in]
+     * @return
+     */
     virtual bool CheckFlags() const = 0;
     
-    bool IsModelInitialized() const 
+    /**
+     * @brief
+     * @details
+     * @param[in]
+     * @return
+     */
+    virtual void setParameter(const std::string, const double&) = 0;
+    
+    /**
+     * @brief
+     * @details
+     * @param[in]
+     * @return
+     */
+    virtual bool Init(const std::map<std::string, double>&) = 0;
+    
+    /**
+     * @brief
+     * @details
+     * @param[in]
+     * @return
+     */
+    virtual std::string ModelName() const = 0;
+    
+    /**
+     * @brief
+     * @details
+     * @param[in]
+     * @return
+     */
+    bool IsModelInitialized() const
     {
         return ModelInitialized;
     }
-
-    void setModelInitialized(bool ModelInitialized) 
+    
+    /**
+     * @brief
+     * @details
+     * @param[in]
+     * @return
+     */
+    void setModelInitialized(bool ModelInitialized)
     {
         this->ModelInitialized = ModelInitialized;
     }
     
-    bool IsUpdateError() const 
+    /**
+     * @brief
+     * @details
+     * @param[in]
+     * @return
+     */
+    bool IsUpdateError() const
     {
         return UpdateError;
     }
-
+    
+    /**
+     * @brief
+     * @details
+     * @param[in]
+     * @return
+     */
     void setUpdateError(bool UpdateError)
     {
         this->UpdateError = UpdateError;
     }
-
+    
+    
 protected:
-    bool UpdateError;
+    
+    bool UpdateError; /**< */
     
 private:
-    bool ModelInitialized;
+
+    bool ModelInitialized; /**< */
     
 };
 
