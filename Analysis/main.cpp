@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <MonteCarlo.h>
+#include <GenerateEvent.h>
 #include <boost/program_options.hpp>
 #ifdef _MPI
 #include <mpi.h>
@@ -35,6 +36,7 @@ int main(int argc, char** argv)
 #endif
 
     string ModelConf, MCMCConf, FileOut, JobTag;
+    string FolderOut;
     bool noMC;
     bool checkTheoryRange = false;
 
@@ -51,6 +53,8 @@ int main(int argc, char** argv)
                 ("job_tag", value<string > ()->default_value(""),
                 "job tag")
                 ("noMC", "run a single event")
+                ("output_folder", value<string > ()->default_value("Output"),
+                "output folder for Generate Event mode")
                 ("thRange", "output the min and max of theory values to HistoLog.txt")
                 ("help", "help message")
                 ;
@@ -83,17 +87,18 @@ int main(int argc, char** argv)
             {
                 noMC = true;
                 MCMCConf = "";
+                FolderOut = vm["output_folder"].as<string > ();
             }
             else if (!vm.count("noMC") && vm.count("mcconf"))
             {
                 noMC = false;
                 MCMCConf = vm["mcconf"].as<string > ();
+                FileOut = vm["rootfile"].as<string > ();
                     
             } else {
                 throw runtime_error("Please specify mandatory Monte Carlo config filename\nor specify --noMC for Single Event Mode (no Monte Carlo run)");
             }
             
-            FileOut = vm["rootfile"].as<string > ();
             JobTag = vm["job_tag"].as<string > ();
 
             if (vm.count("thRange"))
@@ -104,13 +109,13 @@ int main(int argc, char** argv)
                  << desc << std::endl;
             return EXIT_FAILURE;
         }
-
-        MonteCarlo MC(ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);
         
         if (!noMC) {
+            MonteCarlo MC(ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);
             MC.Run(rank);
         } else {
-            MC.generateEvent(rank, 20, noMC);
+            GenerateEvent GE(ModelConf, FolderOut, JobTag, checkTheoryRange);
+            GE.generate(rank, 20);
         }
 
 #ifdef _MPI

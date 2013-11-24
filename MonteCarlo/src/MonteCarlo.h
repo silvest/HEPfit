@@ -86,14 +86,6 @@ public:
      * of BAT and run as parallel processes with mpi.
      */
     void Run(const int rank);
-    
-    /**
-     * @brief
-     * @param[in]
-     * @param[in]
-     * @return
-     */
-    void generateEvent(const int rank, int unsigned nIteration, bool noMC, int i = 0);
 private:
     InputParser myInputParser; /**< an oject of the InputParser() class */
     MonteCarloEngine MCEngine; /**< an object of the MonteCarloEngine() class*/
@@ -113,7 +105,6 @@ private:
     bool PrintCorrelationMatrix; /**< Flag for printing the correlation matrix*/
     bool PrintKnowledgeUpdatePlots; /**< */
     bool PrintParameterPlot; /**< */
-    int checkMode; /**< */
 };
 
 /** 
