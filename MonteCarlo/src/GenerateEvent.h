@@ -1,8 +1,8 @@
-/* 
- * File:   GenerateEvent.h
- * Author: ayanpaul
+/*
+ * Copyright (C) 2013 SusyFit Collaboration
+ * All rights reserved.
  *
- * Created on November 24, 2013, 2:44 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef GENERATEEVENT_H

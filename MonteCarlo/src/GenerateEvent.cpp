@@ -1,8 +1,8 @@
-/* 
- * File:   GenerateEvent.cpp
- * Author: ayanpaul
- * 
- * Created on November 24, 2013, 2:44 PM
+/*
+ * Copyright (C) 2013 SusyFit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "GenerateEvent.h"
