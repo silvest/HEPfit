@@ -443,8 +443,32 @@ public:
     double delRhoZ_q(const StandardModel::quark q) const;
 
 
-    ////////////////////////////////////////////////////////////////////////     
+    ////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @return SM contribution to @f$\epsilon_1@f$.
+     */
+    double epsilon1_SM() const;
+
+    /**
+     * @return SM contribution to @f$\epsilon_2@f$.
+     */
+    double epsilon2_SM() const;
+
+    /**
+     * @return SM contribution to @f$\epsilon_3@f$.
+     */
+    double epsilon3_SM() const;
+
+    /**
+     * @return SM contribution to @f$\epsilon_b@f$.
+     */
+    double epsilonb_SM() const;
+
     
+    ////////////////////////////////////////////////////////////////////////     
+    // The Z-boson total and partial widths
+
     /* 
      * @param[in] q name of a quark.
      * @return non-factorizable EW-QCD corrections in GeV.
@@ -469,6 +493,8 @@ public:
      * @return Singlet vector corrections to the width of Z to hadrons.
      */
     double RVh() const;
+
+    double R0_bottom_SM() const;
 
     double Gu_over_Gb_SM() const;    
 
@@ -524,8 +550,10 @@ public:
      */
     double GammaW_SM() const;   
 
-    
+
     ////////////////////////////////////////////////////////////////////////
+protected:
+    const StandardModel& SM;
 
     /**
      * @brief computes Delta rho
@@ -540,35 +568,6 @@ public:
      * @param[out] DeltaR_rem
      */
     void ComputeDeltaR_rem(const double Mw_i, double DeltaR_rem[orders_EW_size]) const;
-
-
-    ////////////////////////////////////////////////////////////////////////
-
-    /**
-     * @return SM contribution to @f$\epsilon_1@f$.
-     */
-    double epsilon1_SM() const;
-
-    /**
-     * @return SM contribution to @f$\epsilon_2@f$.
-     */
-    double epsilon2_SM() const;
-
-    /**
-     * @return SM contribution to @f$\epsilon_3@f$.
-     */
-    double epsilon3_SM() const;
-
-    /**
-     * @return SM contribution to @f$\epsilon_b@f$.
-     */
-    double epsilonb_SM() const;
-
-
-    ////////////////////////////////////////////////////////////////////////
-protected:
-
-    const StandardModel& SM;
 
 
     ////////////////////////////////////////////////////////////////////////         
@@ -619,9 +618,9 @@ private:
 
     mutable schemes_EW schemeMw_cache, schemeRhoZ_cache, schemeKappaZ_cache;
 
-    
-    ////////////////////////////////////////////////////////////////////////     
-    
+
+    ////////////////////////////////////////////////////////////////////////
+
     /**
      * @param[in] Mw_i the W boson mass
      * @param[in] DeltaRho
@@ -652,7 +651,6 @@ private:
     double resumKappaZ(const double DeltaRho[orders_EW_size],
                        const double deltaKappa_rem[orders_EW_size],
                        const double DeltaRbar_rem, const bool bool_Zbb) const;
-
     
 };
 

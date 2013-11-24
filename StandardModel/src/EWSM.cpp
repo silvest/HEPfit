@@ -954,6 +954,86 @@ double EWSM::delRhoZ_q(const StandardModel::quark q) const
 }
 
 
+////////////////////////////////////////////////////////////////////////
+
+double EWSM::epsilon1_SM() const
+{
+    double rhoZe = rhoZ_l_SM(SM.ELECTRON).real() + delRhoZ_l(SM.ELECTRON);
+    double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
+
+    return DeltaRhoPrime;
+}
+
+
+double EWSM::epsilon2_SM() const
+{
+    double s_W2 = sW2_SM(), c_W2 = cW2_SM();
+    double rhoZe = rhoZ_l_SM(SM.ELECTRON).real() + delRhoZ_l(SM.ELECTRON);
+    double sin2thetaEff = kappaZ_l_SM(SM.ELECTRON).real()*s_W2;
+    double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
+    double DeltaKappaPrime = sin2thetaEff/s02() - 1.0;
+    double DeltaRW = 1.0 - M_PI*alphaMz()/(sqrt(2.0)*SM.getGF()*SM.getMz()*SM.getMz()*s_W2*c_W2);
+
+    return ( c02()*DeltaRhoPrime + s02()*DeltaRW/(c02() - s02())
+             - 2.0*s02()*DeltaKappaPrime );
+}
+
+
+double EWSM::epsilon3_SM() const
+{
+    double rhoZe = rhoZ_l_SM(SM.ELECTRON).real() + delRhoZ_l(SM.ELECTRON);
+    double sin2thetaEff = kappaZ_l_SM(SM.ELECTRON).real()*sW2_SM();
+    double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
+    double DeltaKappaPrime = sin2thetaEff/s02() - 1.0;
+
+    return ( c02()*DeltaRhoPrime + (c02() - s02())*DeltaKappaPrime );
+}
+
+
+double EWSM::epsilonb_SM() const
+{
+    /* epsilon_b from g_A^b
+     * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
+    //double rhoZe = rhoZ_l_SM(SM.ELECTRON).real() + delRhoZ_l(SM.ELECTRON);
+    //double rhoZb = rhoZ_q_SM(SM.BOTTOM).real() + delRhoZ_q(SM.BOTTOM);
+    //double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
+    //double eps1 = DeltaRhoPrime;
+    //return ( - 1.0 + sqrt(rhoZb)/(1.0 + eps1/2.0) );
+
+    /* epsilon_b from Re(g_V^b/g_A^b), i.e. Re(kappaZ_b)
+     * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
+    complex kappaZe = kappaZ_l_SM(SM.ELECTRON);
+    complex kappaZb = kappaZ_q_SM(SM.BOTTOM);
+    if (SM.IsFlagWithoutNonUniversalVC())
+        return ( kappaZe.real()/kappaZb.real() - 1.0 );
+    else
+        return ( (kappaZe.real() + kappaZ_q_SM_FlavorDep(SM.BOTTOM).real())
+                 /kappaZb.real() - 1.0 );
+
+    /* epsilon_b from Gamma_b via Eqs.(11), (12) and (16) of IJMP A7,
+     * 1031 (1998) by Altarelli et al.
+     * Note: mb has to be mb=4.7, since Eq.(16) were derived with this value.
+     */
+    //double als_Mz = SM.Als(SM.getMz(), FULLNNLO);
+    //double delta_als = (als_Mz - 0.119)/M_PI;
+    //double delta_alpha = (alphaMz() - 1.0/128.90)/SM.getAle();
+    //double Gamma_b_Born = 0.3798*( 1.0 + delta_als - 0.42*delta_alpha);
+    //double a = als_Mz/M_PI;
+    //double RQCD = 1.0 + 1.2*a - 1.1*a*a - 13.0*a*a*a;
+    //double mb = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), FULLNNLO);// This is wrong!
+    //double mb = 4.7;
+    //std::cout << "mb = " << mb << std::endl;
+    //double beta = sqrt(1.0 - 4.0*mb*mb/SM.getMz()/SM.getMz());
+    //double Nc = 3.0;
+    //double factor = SM.getGF()*SM.getMz()*SM.getMz()*SM.getMz()/6.0/M_PI/sqrt(2.0);
+    //double Gamma_b = factor*beta*((3.0 - beta*beta)/2.0*gVq_SM(SM.BOTTOM).abs2()
+    //                              + beta*beta*gAq_SM(SM.BOTTOM).abs2())
+    //                 *Nc*RQCD*(1.0 + alphaMz()/12.0/M_PI);
+    //return ( (Gamma_b/Gamma_b_Born - 1.0 - 1.42*epsilon1_SM()
+    //          + 0.54*epsilon3_SM() )/2.29 );
+}
+
+
 ////////////////////////////////////////////////////////////////////////     
 
 double EWSM::Delta_EWQCD(const StandardModel::quark q) const 
@@ -1256,6 +1336,12 @@ double EWSM::RVh() const
 }
 
 
+double EWSM::R0_bottom_SM() const
+{
+    return myApproximateFormulae->R0_bottom(DeltaAlphaL5q());
+}
+
+
 double EWSM::Gu_over_Gb_SM() const
 {
     return myApproximateFormulae->Gu_over_Gb(DeltaAlphaL5q());
@@ -1375,145 +1461,65 @@ double EWSM::GammaW_SM() const
 }
 
 
-////////////////////////////////////////////////////////////////////////     
+////////////////////////////////////////////////////////////////////////
 
 void EWSM::ComputeDeltaRho(const double Mw_i,
-                           double DeltaRho[orders_EW_size]) const 
+                           double DeltaRho[orders_EW_size]) const
 {
-    if (flag_order[EW1]) 
+    if (flag_order[EW1])
         DeltaRho[EW1] = myOneLoopEW->DeltaRho(Mw_i);
     else
         DeltaRho[EW1] = 0.0;
-    if (flag_order[EW1QCD1]) 
+    if (flag_order[EW1QCD1])
         DeltaRho[EW1QCD1] = myTwoLoopQCD->DeltaRho(Mw_i);
     else
         DeltaRho[EW1QCD1] = 0.0;
-    if (flag_order[EW1QCD2]) 
+    if (flag_order[EW1QCD2])
         DeltaRho[EW1QCD2] = myThreeLoopQCD->DeltaRho(Mw_i);
     else
         DeltaRho[EW1QCD2] = 0.0;
-    if (flag_order[EW2]) 
+    if (flag_order[EW2])
         DeltaRho[EW2] = myTwoLoopEW->DeltaRho(Mw_i);
     else
         DeltaRho[EW2] = 0.0;
-    if (flag_order[EW2QCD1]) 
+    if (flag_order[EW2QCD1])
         DeltaRho[EW2QCD1] = myThreeLoopEW2QCD->DeltaRho(Mw_i);
     else
         DeltaRho[EW2QCD1] = 0.0;
-    if (flag_order[EW3]) 
-        DeltaRho[EW3] = myThreeLoopEW->DeltaRho(Mw_i);  
+    if (flag_order[EW3])
+        DeltaRho[EW3] = myThreeLoopEW->DeltaRho(Mw_i);
     else
         DeltaRho[EW3] = 0.0;
-}    
+}
 
 
 void EWSM::ComputeDeltaR_rem(const double Mw_i,
-                             double DeltaR_rem[orders_EW_size]) const 
-{    
-    if (flag_order[EW1]) 
+                             double DeltaR_rem[orders_EW_size]) const
+{
+    if (flag_order[EW1])
         DeltaR_rem[EW1] = myOneLoopEW->DeltaR_rem(Mw_i);
-    else 
-        DeltaR_rem[EW1] = 0.0;
-    if (flag_order[EW1QCD1]) 
-        DeltaR_rem[EW1QCD1] = myTwoLoopQCD->DeltaR_rem(Mw_i);
-    else 
-        DeltaR_rem[EW1QCD1] = 0.0;
-    if (flag_order[EW1QCD2]) 
-        DeltaR_rem[EW1QCD2] = myThreeLoopQCD->DeltaR_rem(Mw_i);
-    else 
-        DeltaR_rem[EW1QCD2] = 0.0;
-    if (flag_order[EW2]) 
-        DeltaR_rem[EW2] = myTwoLoopEW->DeltaR_rem(Mw_i);
-    else 
-        DeltaR_rem[EW2] = 0.0;
-    if (flag_order[EW2QCD1]) 
-        DeltaR_rem[EW2QCD1] = myThreeLoopEW2QCD->DeltaR_rem(Mw_i);
-    else 
-        DeltaR_rem[EW2QCD1] = 0.0;
-    if (flag_order[EW3]) 
-        DeltaR_rem[EW3] = myThreeLoopEW->DeltaR_rem(Mw_i);    
-    else 
-        DeltaR_rem[EW3] = 0.0;
-}   
-
-
-////////////////////////////////////////////////////////////////////////
-
-double EWSM::epsilon1_SM() const
-{
-    double rhoZe = rhoZ_l_SM(SM.ELECTRON).real() + delRhoZ_l(SM.ELECTRON);
-    double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
-
-    return DeltaRhoPrime;
-}
-
-
-double EWSM::epsilon2_SM() const
-{
-    double s_W2 = sW2_SM(), c_W2 = cW2_SM();
-    double rhoZe = rhoZ_l_SM(SM.ELECTRON).real() + delRhoZ_l(SM.ELECTRON);
-    double sin2thetaEff = kappaZ_l_SM(SM.ELECTRON).real()*s_W2;
-    double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
-    double DeltaKappaPrime = sin2thetaEff/s02() - 1.0;
-    double DeltaRW = 1.0 - M_PI*alphaMz()/(sqrt(2.0)*SM.getGF()*SM.getMz()*SM.getMz()*s_W2*c_W2);
-
-    return ( c02()*DeltaRhoPrime + s02()*DeltaRW/(c02() - s02())
-             - 2.0*s02()*DeltaKappaPrime );
-}
-
-
-double EWSM::epsilon3_SM() const
-{
-    double rhoZe = rhoZ_l_SM(SM.ELECTRON).real() + delRhoZ_l(SM.ELECTRON);
-    double sin2thetaEff = kappaZ_l_SM(SM.ELECTRON).real()*sW2_SM();
-    double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
-    double DeltaKappaPrime = sin2thetaEff/s02() - 1.0;
-
-    return ( c02()*DeltaRhoPrime + (c02() - s02())*DeltaKappaPrime );
-}
-
-
-double EWSM::epsilonb_SM() const
-{
-    /* epsilon_b from g_A^b
-     * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
-    //double rhoZe = rhoZ_l_SM(SM.ELECTRON).real() + delRhoZ_l(SM.ELECTRON);
-    //double rhoZb = rhoZ_q_SM(SM.BOTTOM).real() + delRhoZ_q(SM.BOTTOM);
-    //double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
-    //double eps1 = DeltaRhoPrime;
-    //return ( - 1.0 + sqrt(rhoZb)/(1.0 + eps1/2.0) );
-
-    /* epsilon_b from Re(g_V^b/g_A^b), i.e. Re(kappaZ_b)
-     * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
-    complex kappaZe = kappaZ_l_SM(SM.ELECTRON);
-    complex kappaZb = kappaZ_q_SM(SM.BOTTOM);
-    if (SM.IsFlagWithoutNonUniversalVC())
-        return ( kappaZe.real()/kappaZb.real() - 1.0 );
     else
-        return ( (kappaZe.real() + kappaZ_q_SM_FlavorDep(SM.BOTTOM).real())
-                 /kappaZb.real() - 1.0 );
-
-    /* epsilon_b from Gamma_b via Eqs.(11), (12) and (16) of IJMP A7,
-     * 1031 (1998) by Altarelli et al.
-     * Note: mb has to be mb=4.7, since Eq.(16) were derived with this value.
-     */
-    //double als_Mz = SM.Als(SM.getMz(), FULLNNLO);
-    //double delta_als = (als_Mz - 0.119)/M_PI;
-    //double delta_alpha = (alphaMz() - 1.0/128.90)/SM.getAle();
-    //double Gamma_b_Born = 0.3798*( 1.0 + delta_als - 0.42*delta_alpha);
-    //double a = als_Mz/M_PI;
-    //double RQCD = 1.0 + 1.2*a - 1.1*a*a - 13.0*a*a*a;
-    //double mb = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), FULLNNLO);// This is wrong!
-    //double mb = 4.7;
-    //std::cout << "mb = " << mb << std::endl;
-    //double beta = sqrt(1.0 - 4.0*mb*mb/SM.getMz()/SM.getMz());
-    //double Nc = 3.0;
-    //double factor = SM.getGF()*SM.getMz()*SM.getMz()*SM.getMz()/6.0/M_PI/sqrt(2.0);
-    //double Gamma_b = factor*beta*((3.0 - beta*beta)/2.0*gVq_SM(SM.BOTTOM).abs2()
-    //                              + beta*beta*gAq_SM(SM.BOTTOM).abs2())
-    //                 *Nc*RQCD*(1.0 + alphaMz()/12.0/M_PI);
-    //return ( (Gamma_b/Gamma_b_Born - 1.0 - 1.42*epsilon1_SM()
-    //          + 0.54*epsilon3_SM() )/2.29 );
+        DeltaR_rem[EW1] = 0.0;
+    if (flag_order[EW1QCD1])
+        DeltaR_rem[EW1QCD1] = myTwoLoopQCD->DeltaR_rem(Mw_i);
+    else
+        DeltaR_rem[EW1QCD1] = 0.0;
+    if (flag_order[EW1QCD2])
+        DeltaR_rem[EW1QCD2] = myThreeLoopQCD->DeltaR_rem(Mw_i);
+    else
+        DeltaR_rem[EW1QCD2] = 0.0;
+    if (flag_order[EW2])
+        DeltaR_rem[EW2] = myTwoLoopEW->DeltaR_rem(Mw_i);
+    else
+        DeltaR_rem[EW2] = 0.0;
+    if (flag_order[EW2QCD1])
+        DeltaR_rem[EW2QCD1] = myThreeLoopEW2QCD->DeltaR_rem(Mw_i);
+    else
+        DeltaR_rem[EW2QCD1] = 0.0;
+    if (flag_order[EW3])
+        DeltaR_rem[EW3] = myThreeLoopEW->DeltaR_rem(Mw_i);
+    else
+        DeltaR_rem[EW3] = 0.0;
 }
 
 
