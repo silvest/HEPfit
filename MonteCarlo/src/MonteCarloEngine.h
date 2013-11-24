@@ -162,14 +162,6 @@ public:
     
     /**
      * @brief
-     * @param[in]
-     * @param[in]
-     * @return
-     */
-    void generateRandomEvent(Model* Mod_i, int iterationNo);
-    
-    /**
-     * @brief
      * @return
      */
     Model* getMod() const
