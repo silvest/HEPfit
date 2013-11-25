@@ -104,11 +104,14 @@ private:
     std::vector<ModelParaVsObs> ParaObs; /**< vector for the ModelParaVsObs defined in SomeModel.conf*/
     std::string ModelConf; /**< string for the name of the SomeModel.conf file*/
     std::string OutDirName; /**< string for the name of the output root file without the .root extension*/
+    std::string OldOutDirName; /**< string for the name of the output root file without the .root extension*/
     std::string ObsDirName; /**< string for the name of the output root file without the .root extension*/
     std::string ParsDirName; /**< string for the name of the output root file without the .root extension*/
     std::string JobTag; /**< string for the optional JobTag argument to be passes to the executable*/
     bool noMC;
-    int npar;
+    int nPar;
+    int nObs;
+    int outputTerm;
 };
 
 #endif	/* GENERATEEVENT_H */
