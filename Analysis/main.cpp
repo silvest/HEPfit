@@ -51,22 +51,28 @@ int main(int argc, char** argv)
                 ("mcconf", value<string > (), "montecarlo config filename (2nd)")
                 ("rootfile", value<string > ()->default_value("MCout"),
                 "output root filename (without extension)")
+                ("output_folder", value<string > ()->default_value(""),
+                "output folder for Generate Event mode to be specified for printing to file")
                 ("job_tag", value<string > ()->default_value(""),
                 "job tag")
                 ("noMC", "run in generate event mode with --noMC")
                 ("nI", value<int > ()->default_value(0), "no. of iterations in generate event mode, specify with --nI=#")
-                ("output_folder", value<string > ()->default_value(""),
-                "output folder for Generate Event mode to be specified for printing to file")
                 ("thRange", "output the min and max of theory values to HistoLog.txt")
                 ("help", "help message")
                 ;
         positional_options_description pd;
-        pd.add("modconf", 1);
-        pd.add("mcconf", 1);
-        //pd.add("rootfile", 1);
-        //pd.add("job_tag", 1);
-
         variables_map vm;
+        if (vm.count("noMC")) {
+            pd.add("modconf", 1);
+            pd.add("mcconf", 1);
+            //pd.add("rootfile", 1);
+            //pd.add("job_tag", 1);
+        } else {
+            pd.add("modconf", 1);
+            pd.add("output_folder", 1);
+            //pd.add("job_tag", 1);
+        }
+        
         try {
             store(command_line_parser(argc, argv).options(desc).positional(pd).run(), vm);
             notify(vm);
