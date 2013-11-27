@@ -7,9 +7,13 @@
 
 #include "Observable.h"
 
-Observable::Observable (const std::string name_i, const std::string thname_i,
-        const std::string label_i, const bool tMCMC_i, const double min_i,
-        const double max_i, ThObservable * tho_i) 
+Observable::Observable (const std::string name_i,
+                        const std::string thname_i,
+                        const std::string label_i,
+                        const bool tMCMC_i,
+                        const double min_i,
+                        const double max_i,
+                        ThObservable * tho_i)
 {
     name = name_i;
     thname = thname_i;

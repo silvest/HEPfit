@@ -12,7 +12,7 @@
 
 /**
  * @addtogroup Observable
- * @brief A project for observable. 
+ * @brief A project for model parameters and observables.
  * @{
  */
 
@@ -22,42 +22,81 @@
  * @brief A class for correlated Gaussian observables. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details  
+ * @details This class builds the correlated Gaussian observables that
+ * are specified in the SomeModel.conf file.
  */
 class CorrelatedGaussianObservables {
 public:
+    
+    /**
+     * @brief The default constructor.
+     * @param[in] name_i a given name for the set of correlated Gaussian observables
+     */
     CorrelatedGaussianObservables(std::string name_i);
+    
+    /**
+     * @brief The copy constructor.
+     */
     CorrelatedGaussianObservables(const CorrelatedGaussianObservables& orig);
+    
+    /**
+     * @brief The default destructor.
+     */
     virtual ~CorrelatedGaussianObservables();
 
+    /**
+     * @brief Computes the covariance matrix for the correlated Gaussian observables set
+     * @param Corr the correlation matrix for the correlated Gassian observables set
+     */
     void ComputeCov(gslpp::matrix<double> Corr);
 
+    /**
+     * @brief A method to add observables to the list of correlated Gaussian observables
+     * @param obs_i reference to an object of type Observable()
+     */
     void AddObs(Observable& Obs_i);
 
-    std::vector<Observable> getObs() const 
+    /**
+     * @brief A get method to access the vector of observables that are defined in
+     * one correlated Gaussian observables set.
+     * @return a vector of type Observable()
+     */
+    std::vector<Observable> getObs() const
     {
         return Obs;
     }
 
-    std::string getName() const 
+    /**
+     * @brief A get method to access the name of the correlated Gaussian observables set.
+     * @return the name
+     */
+    std::string getName() const
     {
         return name;
     }
 
+    /**
+     * @brief A set method to fix the name of the set of correlated Gaussian observables
+     * @param name the name
+     */
     void setName(std::string name)
     {
         this->name = name;
     }
 
+    /**
+     * @brief A get method to access the covariance matrix of the correlated Gaussian observables.
+     * @param the covariance matrix
+     */
     gslpp::matrix<double> getCov() const
     {
         return *Cov;
     }
     
 private:
-    std::vector<Observable> Obs;
-    gslpp::matrix<double>* Cov;
-    std::string name;
+    std::vector<Observable> Obs;/**< A vector of observables whose correlation will be calculated. */
+    gslpp::matrix<double>* Cov;/**< The covariance matrix. */
+    std::string name;/**< The name of the correlated Gaussian Observables set. */
 };
 
 /** 

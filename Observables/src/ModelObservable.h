@@ -22,8 +22,19 @@
  */
 class ModelObservable : public ThObsType {
 public:
+    
+    /**
+     * @brief The default constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel()
+     */
     ModelObservable(const StandardModel & SM_i)
     : ThObsType(SM_i)
+    {};
+    
+    /**
+     * @brief The default destructor.
+     */
+    virtual ~ModelObservable()
     {};
 };
 

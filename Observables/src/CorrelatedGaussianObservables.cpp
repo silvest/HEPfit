@@ -22,7 +22,7 @@ CorrelatedGaussianObservables::CorrelatedGaussianObservables(const CorrelatedGau
 CorrelatedGaussianObservables::~CorrelatedGaussianObservables()
 {
     if(Cov != NULL)
-        delete(Cov);
+    delete(Cov);
 }
 
 void CorrelatedGaussianObservables::AddObs(Observable& Obs_i)

@@ -22,7 +22,7 @@ GaussianLikelihood::~GaussianLikelihood()
 {
 }
 
-double GaussianLikelihood::getLikelihood(const double value) const 
+double GaussianLikelihood::computeLikelihood(const double value) const
 {
     return(exp(-(value-mean)*(value-mean)/(2.*sigma*sigma)));
 }

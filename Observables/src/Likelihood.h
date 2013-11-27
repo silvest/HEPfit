@@ -18,10 +18,32 @@
  */
 class Likelihood {
 public:
+    
+    /**
+     * @brief The default constructor.
+     */
     Likelihood();
+    
+    /**
+     * @brief The copy constructor.
+     */
     Likelihood(const Likelihood& orig);
+    
+    /**
+     * @brief The default destructor.
+     */
     virtual ~Likelihood();
+    
+    /**
+     * @brief
+     * @param
+     */
     double getLikelihood(const double) const;
+    
+    /**
+     * @brief
+     * @param
+     */
     double getLikelihood(const double, const double) const;
 private:
 
