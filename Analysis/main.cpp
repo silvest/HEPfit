@@ -62,7 +62,7 @@ int main(int argc, char** argv)
                 ;
         positional_options_description pd;
         variables_map vm;
-        if (vm.count("noMC")) {
+        if (!vm.count("noMC")) {
             pd.add("modconf", 1);
             pd.add("mcconf", 1);
             //pd.add("rootfile", 1);
