@@ -24,17 +24,10 @@
  * @copyright GNU General Public License
  * @details This class is responsible for the MCMC runs using the
  * MCMCEngine class together with input parameters from the InputParser
- * class. It allows or two modes of runs.
- * @li <b> Event Generator Mode </b>: If --noMC is specified as a run-time flag in the
- * argument, the run will be conducted as a randomly generated events as no Markov
- * Chain runs will be initiated. The observables that are specified in the
- * SomeModel.conf file will be claculated with the central values of the parameters
- * specified in the SomeModel.conf file as the first set of valuses. After which
- * observables will be generated with random sets of parameters. This can be run with
- * or without a seed. This mode is primarily to be used for debugging purposes
- * or for test runs.
- * @li <b> Monte Carlo Mode </b>: This is the default run mode if the --noMC flag is
- * not specified.
+ * class. The Monte Carlo mode is the default run mode if the --noMC flag is
+ * not specified. The settings for the Monte Carlo run can be fixed in in the
+ * format specified in the MonteCarlo.conf file, the name of this configuration
+ * file should be specified as the second argument to the executable.
  */
 class MonteCarlo {
 public:
@@ -81,28 +74,55 @@ public:
      * for implementing MPI runs. The variable buffsize is incremented only for those model parameters
      * that are varied in the Monte Carlo run.
      *
-     * @param[in] rank rank = MPI::COMM_WORLD.Get_rank(), specifies the rank of the process. This 
+     * \li Initiate the model using the map DP checking for consistency between required model parameters
+     * and the ones supplied in the SomeModel.conf file
+     *
+     * \li Set the model name and initialize the MCMC engine with the model at hand.
+     *
+     * \li For MPI runs, send the evaluates of the loglikelihood for the prerun to the slave processes 
+     * (rank != 0)
+     *
+     * \li The master in an MPI run or the process in a serial run then parses the MonterCarlo.conf file
+     * to read the parameters for the Monte Carlo run.
+     * 
+     * \li The root ouput file is handed over to the object out of type BCModelOutput() and some 
+     * <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> options are set for the log and 
+     * output histograms.
+     *
+     * \li The MCMC is run and all the out put is generated according to the options set in the 
+     * MonteCarlo.conf file.
+     *
+     * \li For a MPI run, the final call to the MPI class prepares the processes for finalizing.
+     *
+     * The details for BCSummaryTool(), BCLog(), BCAux() and BCModelOutput() can be found in the
+     * <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT website</a>. These are used mainly
+     * to generate logs and output.
+     *
+     * The detials of the object MCEngine of type MonteCarloEngine() which overloads the BCEngineMCMC 
+     * class can be found in our documentation of the former class.
+     *
+     * @param[in] rank = MPI::COMM_WORLD.Get_rank(), specifies the rank of the process. This
      * carries a non zero value only when the executable is compiled with the parallelalized version
-     * of BAT and run as parallel processes with mpi.
+     * of <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> and run as parallel processes with mpi.
      */
     void Run(const int rank);
 private:
-    InputParser myInputParser; /**< an oject of the InputParser() class */
-    MonteCarloEngine MCEngine; /**< an object of the MonteCarloEngine() class*/
-    std::vector<ModelParameter> ModPars; /**< vector for the model parameters defined in SomeModel.conf*/
-    std::vector<Observable> Obs; /**< vector for the observables defined in SomeModel.conf*/
-    std::vector<Observable2D> Obs2D; /**< vector for the Observables2D defined in SomeModel.conf*/
-    std::vector<CorrelatedGaussianObservables> CGO; /**< vector for the Correlated Gaussian Observables defined in SomeModel.conf*/
-    std::vector<ModelParaVsObs> ParaObs; /**< vector for the ModelParaVsObs defined in SomeModel.conf*/
-    std::string ModelConf; /**< string for the name of the SomeModel.conf file*/
-    std::string MCMCConf; /**< string for the name of the MonteCarlo.conf file*/
-    std::string OutFile; /**< string for the name of the output root file without the .root extension*/
-    std::string JobTag; /**< string for the optional JobTag argument to be passes to the executable*/
-    std::string ObsDirName; /**< string for the output directory name*/
-    bool noMC; /**< flag to specify the non Monte Carlo runs passed as an optional argument to the executable*/
-    bool FindModeWithMinuit; /**< Flag for using Minuit libraries*/
-    bool PrintAllMarginalized; /**< Flag for printing all Marginalized distributions to be passed on to the BAT routines*/
-    bool PrintCorrelationMatrix; /**< Flag for printing the correlation matrix*/
+    InputParser myInputParser; /**< An oject of the InputParser() class. */
+    MonteCarloEngine MCEngine; /**< An object of the MonteCarloEngine() class. */
+    std::vector<ModelParameter> ModPars; /**< Vector for the model parameters defined in SomeModel.conf. */
+    std::vector<Observable> Obs; /**< Vector for the observables defined in SomeModel.conf. */
+    std::vector<Observable2D> Obs2D; /**< Vector for the Observables2D defined in SomeModel.conf. */
+    std::vector<CorrelatedGaussianObservables> CGO; /**< Vector for the Correlated Gaussian Observables defined in SomeModel.conf. */
+    std::vector<ModelParaVsObs> ParaObs; /**< Vector for the ModelParaVsObs defined in SomeModel.conf. */
+    std::string ModelConf; /**< String for the name of the SomeModel.conf file. */
+    std::string MCMCConf; /**< String for the name of the MonteCarlo.conf file. */
+    std::string OutFile; /**< String for the name of the output root file without the .root extension. */
+    std::string JobTag; /**< String for the optional JobTag argument to be passes to the executable. */
+    std::string ObsDirName; /**< String for the output directory name. */
+    bool noMC; /**< flag to Specify the non Monte Carlo runs passed as an optional argument to the executable. */
+    bool FindModeWithMinuit; /**< Flag for using Minuit libraries. */
+    bool PrintAllMarginalized; /**< Flag for printing all Marginalized distributions to be passed on to the <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> routines. */
+    bool PrintCorrelationMatrix; /**< Flag for printing the correlation matrix. */
     bool PrintKnowledgeUpdatePlots; /**< */
     bool PrintParameterPlot; /**< */
 };

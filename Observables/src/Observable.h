@@ -21,7 +21,6 @@
  * @details The class for building an observable and storing its different 
  * parameters read from the SomeModel.conf file. The name (thname) of the observable has
  * to correspond to the allowed name of observables listed in the ThFactory() class.
- * A list can also be found on the main page of the documentation website.
  */
 class Observable {
 public:

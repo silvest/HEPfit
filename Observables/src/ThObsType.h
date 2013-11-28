@@ -20,21 +20,38 @@
  */
 class ThObsType {
 public:
-    ThObsType(const StandardModel& SM_i) 
+    
+    /**
+     * @brief The default constructor.
+     */
+    ThObsType(const StandardModel& SM_i)
     : SM(SM_i) 
     {};
-    ThObsType(const ThObsType& orig) 
+    
+    /**
+     * @brief The copy constructor.
+     */
+    ThObsType(const ThObsType& orig)
     : SM(orig.SM) 
     {};
-    virtual ~ThObsType() 
+    
+    /**
+     * @brief The default destructor.
+     */
+    virtual ~ThObsType()
     {};
-    const StandardModel& getModel() const 
+    
+    /**
+     * @brief A get method to access the reference to the model
+     * @return the average value of the observable
+     */
+    const StandardModel& getModel() const
     {
         return SM;
     };
 
 protected:
-    const StandardModel& SM;
+    const StandardModel& SM; /**< A reference to to an object of the type StandardModel(). */
 };
 
 #endif	/* THOBSTYPE_H */

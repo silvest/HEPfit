@@ -22,8 +22,8 @@
  * correspond to the list of names in the SomeModel.cpp file in the
  * Model src directories.\n
  * e.g. GF, which can be found in StandardModel.cpp file in the
- * StandardModel project source folder StandardModel/src. A list can
- * also be found on the main page of the documentation website.
+ * StandardModel project source folder StandardModel/src. The links to the model files can
+ * be found on the main page of the documentation website.
  */
 class ModelParameter {
 public:

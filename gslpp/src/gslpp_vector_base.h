@@ -10,10 +10,9 @@
 
 namespace gslpp
 {
-  /** @defgroup vector vector */
   /** @class gslpp::vector gslpp_vector_base.h <gslpp_vector_base.h>
       Vector base class
-      @ingroup vector
+      @ingroup gslpp
    */
   template <class T>
   class vector;

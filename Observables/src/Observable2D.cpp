@@ -7,11 +7,18 @@
 
 #include "Observable2D.h"
 
-Observable2D::Observable2D(const std::string name_i, const std::string thname_i,
-        const std::string thname2_i, const std::string label_i, 
-        const std::string label2_i, const bool tMCMC_i, const double min_i,
-        const double max_i, const double min2_i, const double max2_i, 
-        ThObservable * tho_i, ThObservable * tho2_i) 
+Observable2D::Observable2D(const std::string name_i,
+                           const std::string thname_i,
+                           const std::string thname2_i,
+                           const std::string label_i,
+                           const std::string label2_i,
+                           const bool tMCMC_i,
+                           const double min_i,
+                           const double max_i,
+                           const double min2_i,
+                           const double max2_i,
+                           ThObservable * tho_i,
+                           ThObservable * tho2_i)
 : Observable(name_i, thname_i, label_i, tMCMC_i, min_i, max_i, tho_i)
 {
     thname2 = thname2_i;
