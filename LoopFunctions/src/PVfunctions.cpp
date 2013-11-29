@@ -179,30 +179,41 @@ complex PVfunctions::B22(const double mu2, const double p2,
 
     complex B22(0.0, 0.0, false);
 
-    if(p2 == 0.){
-        if(m02 != 0. && m12 != 0.) {
+    if (p2 == 0.0){
+        if (m02 != 0.0 && m12 != 0.0) {
             if(fabs(m02 - m12) < LEPS)
-                B22 = m02/2. * (- log(m02/mu2) + 1.);
+                B22 = m02/2.0*(- log(m02/mu2) + 1.0);
             else
-                B22 = 1./ 4.*(m02 + m12)*(- log(sqrt(m02)*sqrt(m12)/mu2) + 1.5)
-                      - (m02*m02 + m12*m12)/8./(m02 - m12)*log(m02/m12);
+                B22 = 1.0/4.0*(m02 + m12)*(- log(sqrt(m02)*sqrt(m12)/mu2) + 3.0/2.0)
+                      - (m02*m02 + m12*m12)/8.0/(m02 - m12)*log(m02/m12);
+        } else if ((m02 != 0.0 && m12 == 0.0) || (m02 == 0.0 && m12 != 0.0)) {
+            double M2;
+            if (m02!=0.0) M2 = m02;
+            if (m12!=0.0) M2 = m12;
+            B22 = M2/4.0*(- log(M2/mu2) + 3.0/2.0);
         } else
-            throw std::runtime_error("PVfunctions::B22(): Undefined!");
+            B22 = 0.0;
     } else {
-        if(m02 != 0. && m12 != 0.) {
+        if (m02 != 0.0 && m12 != 0.0) {
             if(fabs(m02 - m12) < LEPS)
-                B22 = (6.*m02 - p2)/18. - A0(mu2,m02)/6.
-                       - (p2 - 4.*m02)/12.*B0(mu2,p2,m02,m12);
+                B22 = (6.0*m02 - p2)/18.0 - A0(mu2,m02)/6.0
+                       - (p2 - 4.0*m02)/12.0*B0(mu2,p2,m02,m12);
             else {
                 double DeltaM2 = m02 - m12;
                 double Lambdabar2 = (p2-m02-m12)*(p2-m02-m12) - 4.0*m02*m12;
-                B22 = (3.*(m02 + m12) - p2)/18.
-                       - (DeltaM2 + p2)/12./p2*A0(mu2,m02)
-                       + (DeltaM2 - p2)/12./p2*A0(mu2,m12)
-                       - Lambdabar2*B0(mu2,p2,m02,m12)/12.;
+                B22 = (3.0*(m02 + m12) - p2)/18.0
+                       - (DeltaM2 + p2)/12.0/p2*A0(mu2,m02)
+                       + (DeltaM2 - p2)/12.0/p2*A0(mu2,m12)
+                       - Lambdabar2*B0(mu2,p2,m02,m12)/12.0/p2;
             }
+        } else if ((m02 != 0.0 && m12 == 0.0) || (m02 == 0.0 && m12 != 0.0)) {
+            double M2;
+            if (m02!=0.0) M2 = m02;
+            if (m12!=0.0) M2 = m12;
+            B22 = (3.0*M2 - p2)/18.0 - (M2 + p2)/12.0/p2*A0(mu2,M2)
+                  - (M2 - p2)*(M2 - p2)/12.0/p2*B0(mu2,p2,M2,0.0);
         } else
-            throw std::runtime_error("PVfunctions::B22(): Undefined!");  
+            B22 = - p2/18.0 - p2/12.0*B0(mu2,p2,0.0,0.0);
     }
     return B22;
 #endif
@@ -338,11 +349,32 @@ complex PVfunctions::B22p(const double mu2, const double p2,
         throw std::runtime_error("PVfunctions::B22p(): Invalid argument!");
 
     complex B22p(0.0, 0.0, false);
-
-
-    throw std::runtime_error("PVfunctions::B22p(): Undefined!");
-
-
+    double DeltaM2 = m02 - m12;
+    if (p2==0.0) {
+        if ( fabs(DeltaM2) < LEPS )
+            B22p = - 1.0/18.0 - 1.0/12.0*B0(mu2,0.0,m02,m12)
+                   + (m02 + m12)/6.0*B0p(mu2,0.0,m02,m12);
+        else if ( m02==0.0 || m12==0.0 )
+            B22p = - 1.0/18.0 - 1.0/12.0*B0(mu2,0.0,m02,m12)
+                   + (m02 + m12)/6.0*B0p(mu2,0.0,m02,m12) - 1.0/72.0;
+        else
+            B22p = - 1.0/18.0 - 1.0/12.0*B0(mu2,0.0,m02,m12)
+                   + (m02 + m12)/6.0*B0p(mu2,0.0,m02,m12)
+                   - 1.0/24.0
+                   *( (m02*m02 + 10.0*m02*m12 + m12*m12)/3.0/DeltaM2/DeltaM2
+                       + 2.0*m02*m12*(m02 + m12)/DeltaM2/DeltaM2/DeltaM2*log(m12/m02) );
+    } else {
+        double Lambdabar2 = (p2-m02-m12)*(p2-m02-m12) - 4.0*m02*m12;
+        if ( fabs(DeltaM2) < LEPS )
+            B22p = - 1.0/18.0 - B0(mu2,p2,m02,m12)/12.0
+                   - Lambdabar2/12.0/p2*B0p(mu2,p2,m02,m12);
+        else
+            B22p = - 1.0/18.0
+                   + DeltaM2/12.0/p2/p2*(A0(mu2,m02) - A0(mu2,m12)
+                                         + DeltaM2*B0(mu2,p2,m02,m12))
+                   - B0(mu2,p2,m02,m12)/12.0
+                   - Lambdabar2/12.0/p2*B0p(mu2,p2,m02,m12);
+    }
     return B22p;
 #endif
 }

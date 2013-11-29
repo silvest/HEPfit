@@ -54,16 +54,63 @@ class LFtestclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(B1_Mw2_Mz2_Mw2_Mw2_imag);
     CPPUNIT_TEST(B21_Mw2_Mz2_Mw2_Mw2_real);
     CPPUNIT_TEST(B21_Mw2_Mz2_Mw2_Mw2_imag);
+    //
+    CPPUNIT_TEST(B22_Mw2_Mz2_Mw2_Mz2_real);
+    CPPUNIT_TEST(B22_Mw2_Mz2_Mw2_Mz2_imag);
     CPPUNIT_TEST(B22_Mw2_Mz2_Mw2_Mw2_real);
     CPPUNIT_TEST(B22_Mw2_Mz2_Mw2_Mw2_imag);
+    CPPUNIT_TEST(B22_Mw2_Mz2_0_Mw2_real);
+    CPPUNIT_TEST(B22_Mw2_Mz2_0_Mw2_imag);
+    CPPUNIT_TEST(B22_Mw2_Mz2_Mw2_0_real);
+    CPPUNIT_TEST(B22_Mw2_Mz2_Mw2_0_imag);
+    CPPUNIT_TEST(B22_Mw2_Mz2_0_0_real);
+    CPPUNIT_TEST(B22_Mw2_Mz2_0_0_imag);
+    CPPUNIT_TEST(B22_Mw2_0_Mw2_Mz2_real);
+    CPPUNIT_TEST(B22_Mw2_0_Mw2_Mz2_imag);
+    CPPUNIT_TEST(B22_Mw2_0_Mw2_Mw2_real);
+    CPPUNIT_TEST(B22_Mw2_0_Mw2_Mw2_imag);
+    CPPUNIT_TEST(B22_Mw2_0_0_Mw2_real);
+    CPPUNIT_TEST(B22_Mw2_0_0_Mw2_imag);
+    CPPUNIT_TEST(B22_Mw2_0_Mw2_0_real);
+    CPPUNIT_TEST(B22_Mw2_0_Mw2_0_imag);
+    CPPUNIT_TEST(B22_Mw2_0_0_0_real);
+    CPPUNIT_TEST(B22_Mw2_0_0_0_imag);
+    //
+    CPPUNIT_TEST(B0p_Mw2_Mz2_Mw2_Mz2_real);
+    CPPUNIT_TEST(B0p_Mw2_Mz2_Mw2_Mz2_imag);
     CPPUNIT_TEST(B0p_Mw2_Mz2_Mw2_Mw2_real);
     CPPUNIT_TEST(B0p_Mw2_Mz2_Mw2_Mw2_imag);
+    CPPUNIT_TEST(B0p_Mw2_0_Mw2_Mz2_real);
+    CPPUNIT_TEST(B0p_Mw2_0_Mw2_Mz2_imag);
+    CPPUNIT_TEST(B0p_Mw2_0_Mw2_Mw2_real);
+    CPPUNIT_TEST(B0p_Mw2_0_Mw2_Mw2_imag);
+    CPPUNIT_TEST(B0p_Mw2_0_0_Mw2_real);
+    CPPUNIT_TEST(B0p_Mw2_0_0_Mw2_imag);
+    CPPUNIT_TEST(B0p_Mw2_0_Mw2_0_real);
+    CPPUNIT_TEST(B0p_Mw2_0_Mw2_0_imag);
+    //CPPUNIT_TEST(B0p_Mw2_0_0_0_real);
+    //CPPUNIT_TEST(B0p_Mw2_0_0_0_imag);
+    //
     CPPUNIT_TEST(B1p_Mw2_Mz2_Mw2_Mw2_real);
     CPPUNIT_TEST(B1p_Mw2_Mz2_Mw2_Mw2_imag);
     CPPUNIT_TEST(B21p_Mw2_Mz2_Mw2_Mw2_real);
     CPPUNIT_TEST(B21p_Mw2_Mz2_Mw2_Mw2_imag);
+
+    CPPUNIT_TEST(B22p_Mw2_Mz2_Mw2_Mz2_real);
+    CPPUNIT_TEST(B22p_Mw2_Mz2_Mw2_Mz2_imag);
     CPPUNIT_TEST(B22p_Mw2_Mz2_Mw2_Mw2_real);
     CPPUNIT_TEST(B22p_Mw2_Mz2_Mw2_Mw2_imag);
+    CPPUNIT_TEST(B22p_Mw2_0_Mw2_Mz2_real);
+    CPPUNIT_TEST(B22p_Mw2_0_Mw2_Mz2_imag);
+    CPPUNIT_TEST(B22p_Mw2_0_Mw2_Mw2_real);
+    CPPUNIT_TEST(B22p_Mw2_0_Mw2_Mw2_imag);
+    CPPUNIT_TEST(B22p_Mw2_0_0_Mw2_real);
+    CPPUNIT_TEST(B22p_Mw2_0_0_Mw2_imag);
+    CPPUNIT_TEST(B22p_Mw2_0_Mw2_0_real);
+    CPPUNIT_TEST(B22p_Mw2_0_Mw2_0_imag);
+    //CPPUNIT_TEST(B22p_Mw2_0_0_0_real);
+    //CPPUNIT_TEST(B22p_Mw2_0_0_0_imag);
+
     CPPUNIT_TEST(C0_Mz2_Mw2_Mz2_Mw2_real);
     CPPUNIT_TEST(C0_Mz2_Mw2_Mz2_Mw2_imag);
     CPPUNIT_TEST(D0_s_t_Mz2_0_Mz2_0_real);
@@ -120,17 +167,62 @@ private:
     void B1_Mw2_Mz2_Mw2_Mw2_imag();
     void B21_Mw2_Mz2_Mw2_Mw2_real();
     void B21_Mw2_Mz2_Mw2_Mw2_imag();
+
+    void B22_Mw2_Mz2_Mw2_Mz2_real();
+    void B22_Mw2_Mz2_Mw2_Mz2_imag();
     void B22_Mw2_Mz2_Mw2_Mw2_real();
     void B22_Mw2_Mz2_Mw2_Mw2_imag();
+    void B22_Mw2_Mz2_0_Mw2_real();
+    void B22_Mw2_Mz2_0_Mw2_imag();
+    void B22_Mw2_Mz2_Mw2_0_real();
+    void B22_Mw2_Mz2_Mw2_0_imag();
+    void B22_Mw2_Mz2_0_0_real();
+    void B22_Mw2_Mz2_0_0_imag();
+    void B22_Mw2_0_Mw2_Mz2_real();
+    void B22_Mw2_0_Mw2_Mz2_imag();
+    void B22_Mw2_0_Mw2_Mw2_real();
+    void B22_Mw2_0_Mw2_Mw2_imag();
+    void B22_Mw2_0_0_Mw2_real();
+    void B22_Mw2_0_0_Mw2_imag();
+    void B22_Mw2_0_Mw2_0_real();
+    void B22_Mw2_0_Mw2_0_imag();
+    void B22_Mw2_0_0_0_real();
+    void B22_Mw2_0_0_0_imag();
 
+    void B0p_Mw2_Mz2_Mw2_Mz2_real();
+    void B0p_Mw2_Mz2_Mw2_Mz2_imag();
     void B0p_Mw2_Mz2_Mw2_Mw2_real();
     void B0p_Mw2_Mz2_Mw2_Mw2_imag();
+    void B0p_Mw2_0_Mw2_Mz2_real();
+    void B0p_Mw2_0_Mw2_Mz2_imag();
+    void B0p_Mw2_0_Mw2_Mw2_real();
+    void B0p_Mw2_0_Mw2_Mw2_imag();
+    void B0p_Mw2_0_0_Mw2_real();
+    void B0p_Mw2_0_0_Mw2_imag();
+    void B0p_Mw2_0_Mw2_0_real();
+    void B0p_Mw2_0_Mw2_0_imag();
+    void B0p_Mw2_0_0_0_real();
+    void B0p_Mw2_0_0_0_imag();
+
     void B1p_Mw2_Mz2_Mw2_Mw2_real();
     void B1p_Mw2_Mz2_Mw2_Mw2_imag();
     void B21p_Mw2_Mz2_Mw2_Mw2_real();
     void B21p_Mw2_Mz2_Mw2_Mw2_imag();
+
+    void B22p_Mw2_Mz2_Mw2_Mz2_real();
+    void B22p_Mw2_Mz2_Mw2_Mz2_imag();
     void B22p_Mw2_Mz2_Mw2_Mw2_real();
     void B22p_Mw2_Mz2_Mw2_Mw2_imag();
+    void B22p_Mw2_0_Mw2_Mz2_real();
+    void B22p_Mw2_0_Mw2_Mz2_imag();
+    void B22p_Mw2_0_Mw2_Mw2_real();
+    void B22p_Mw2_0_Mw2_Mw2_imag();
+    void B22p_Mw2_0_0_Mw2_real();
+    void B22p_Mw2_0_0_Mw2_imag();
+    void B22p_Mw2_0_Mw2_0_real();
+    void B22p_Mw2_0_Mw2_0_imag();
+    void B22p_Mw2_0_0_0_real();
+    void B22p_Mw2_0_0_0_imag();
 
     void C0_Mz2_Mw2_Mz2_Mw2_real();
     void C0_Mz2_Mw2_Mz2_Mw2_imag();
