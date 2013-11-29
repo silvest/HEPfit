@@ -113,10 +113,45 @@ class LFtestclass : public CPPUNIT_NS::TestFixture {
 
     CPPUNIT_TEST(C0_Mz2_Mw2_Mz2_Mw2_real);
     CPPUNIT_TEST(C0_Mz2_Mw2_Mz2_Mw2_imag);
-    CPPUNIT_TEST(D0_s_t_Mz2_0_Mz2_0_real);
-    CPPUNIT_TEST(D0_s_t_Mz2_0_Mz2_0_imag);
-    CPPUNIT_TEST(D0_s_t_Mz2_0_Mz2_Mt2_real);
-    CPPUNIT_TEST(D0_s_t_Mz2_0_Mz2_Mt2_imag);
+    CPPUNIT_TEST(C0_0_Mt2_Mz2_Mw2_real);
+    CPPUNIT_TEST(C0_0_Mt2_Mz2_Mw2_imag);
+    CPPUNIT_TEST(C0_0_Mt2_Mw2_Mw2_real);
+    CPPUNIT_TEST(C0_0_Mt2_Mw2_Mw2_imag);
+    CPPUNIT_TEST(C0_0_Mw2_Mt2_Mw2_real);
+    CPPUNIT_TEST(C0_0_Mw2_Mt2_Mw2_imag);
+    CPPUNIT_TEST(C0_0_Mw2_Mw2_Mt2_real);
+    CPPUNIT_TEST(C0_0_Mw2_Mw2_Mt2_imag);
+    CPPUNIT_TEST(C0_0_Mw2_Mw2_Mw2_real);
+    CPPUNIT_TEST(C0_0_Mw2_Mw2_Mw2_imag);
+
+    //CPPUNIT_TEST(D0_s_t_Mz2_0_Mz2_0_real);
+    //CPPUNIT_TEST(D0_s_t_Mz2_0_Mz2_0_imag);
+    //CPPUNIT_TEST(D0_s_t_Mz2_0_Mz2_Mt2_real);
+    //CPPUNIT_TEST(D0_s_t_Mz2_0_Mz2_Mt2_imag);
+    //CPPUNIT_TEST(D0_0_0_Mt2_Mz2_Mw2_mh2_real);
+    //CPPUNIT_TEST(D0_0_0_Mt2_Mz2_Mw2_mh2_imag);
+    //CPPUNIT_TEST(D0_0_0_Mt2_Mt2_Mw2_mh2_real);
+    //CPPUNIT_TEST(D0_0_0_Mt2_Mt2_Mw2_mh2_imag);
+    //CPPUNIT_TEST(D0_0_0_Mt2_Mz2_Mt2_mh2_real);
+    //CPPUNIT_TEST(D0_0_0_Mt2_Mz2_Mt2_mh2_imag);
+    //CPPUNIT_TEST(D0_0_0_Mt2_Mz2_Mw2_Mt2_real);
+    //CPPUNIT_TEST(D0_0_0_Mt2_Mz2_Mw2_Mt2_imag);
+    //CPPUNIT_TEST(D0_0_0_Mz2_Mt2_Mt2_mh2_real);
+    //CPPUNIT_TEST(D0_0_0_Mz2_Mt2_Mt2_mh2_imag);
+    //CPPUNIT_TEST(D0_0_0_Mz2_Mt2_Mw2_Mt2_real);
+    //CPPUNIT_TEST(D0_0_0_Mz2_Mt2_Mw2_Mt2_imag);
+    //CPPUNIT_TEST(D0_0_0_Mz2_Mw2_Mt2_Mt2_real);
+    //CPPUNIT_TEST(D0_0_0_Mz2_Mw2_Mt2_Mt2_imag);
+    //CPPUNIT_TEST(D0_0_0_Mz2_Mz2_Mz2_mh2_real);
+    //CPPUNIT_TEST(D0_0_0_Mz2_Mz2_Mz2_mh2_imag);
+    //CPPUNIT_TEST(D0_0_0_Mz2_Mz2_mh2_Mz2_real);
+    //CPPUNIT_TEST(D0_0_0_Mz2_Mz2_mh2_Mz2_imag);
+    //CPPUNIT_TEST(D0_0_0_Mz2_mh2_Mz2_Mz2_real);
+    //CPPUNIT_TEST(D0_0_0_Mz2_mh2_Mz2_Mz2_imag);
+    //CPPUNIT_TEST(D0_0_0_mh2_Mz2_Mz2_Mz2_real);
+    //CPPUNIT_TEST(D0_0_0_mh2_Mz2_Mz2_Mz2_imag);
+    //CPPUNIT_TEST(D0_0_0_Mz2_Mz2_Mz2_Mz2_real);
+    //CPPUNIT_TEST(D0_0_0_Mz2_Mz2_Mz2_Mz2_imag);
     
     CPPUNIT_TEST_SUITE_END();
 
@@ -132,7 +167,7 @@ private:
     PVfunctions *myPV;
     LoopToolsWrapper *myLT;
     double epsilon;
-    double Mz, Mw, Mt, Mz2, Mw2, Mt2;
+    double Mz, Mw, Mt, mh, Mz2, Mw2, Mt2, mh2;
 
     void Li2_m12_re();
     void Li2_m12_im();
@@ -226,12 +261,46 @@ private:
 
     void C0_Mz2_Mw2_Mz2_Mw2_real();
     void C0_Mz2_Mw2_Mz2_Mw2_imag();
+    void C0_0_Mt2_Mz2_Mw2_real();
+    void C0_0_Mt2_Mz2_Mw2_imag();
+    void C0_0_Mt2_Mw2_Mw2_real();
+    void C0_0_Mt2_Mw2_Mw2_imag();
+    void C0_0_Mw2_Mt2_Mw2_real();
+    void C0_0_Mw2_Mt2_Mw2_imag();
+    void C0_0_Mw2_Mw2_Mt2_real();
+    void C0_0_Mw2_Mw2_Mt2_imag();
+    void C0_0_Mw2_Mw2_Mw2_real();
+    void C0_0_Mw2_Mw2_Mw2_imag();
     
     void D0_s_t_Mz2_0_Mz2_0_real();
     void D0_s_t_Mz2_0_Mz2_0_imag();
     void D0_s_t_Mz2_0_Mz2_Mt2_real();
     void D0_s_t_Mz2_0_Mz2_Mt2_imag();
-    
+    void D0_0_0_Mt2_Mz2_Mw2_mh2_real();
+    void D0_0_0_Mt2_Mz2_Mw2_mh2_imag();
+    void D0_0_0_Mt2_Mt2_Mw2_mh2_real();
+    void D0_0_0_Mt2_Mt2_Mw2_mh2_imag();
+    void D0_0_0_Mt2_Mz2_Mt2_mh2_real();
+    void D0_0_0_Mt2_Mz2_Mt2_mh2_imag();
+    void D0_0_0_Mt2_Mz2_Mw2_Mt2_real();
+    void D0_0_0_Mt2_Mz2_Mw2_Mt2_imag();
+    void D0_0_0_Mz2_Mt2_Mt2_mh2_real();
+    void D0_0_0_Mz2_Mt2_Mt2_mh2_imag();
+    void D0_0_0_Mz2_Mt2_Mw2_Mt2_real();
+    void D0_0_0_Mz2_Mt2_Mw2_Mt2_imag();
+    void D0_0_0_Mz2_Mw2_Mt2_Mt2_real();
+    void D0_0_0_Mz2_Mw2_Mt2_Mt2_imag();
+    void D0_0_0_Mz2_Mz2_Mz2_mh2_real();
+    void D0_0_0_Mz2_Mz2_Mz2_mh2_imag();
+    void D0_0_0_Mz2_Mz2_mh2_Mz2_real();
+    void D0_0_0_Mz2_Mz2_mh2_Mz2_imag();
+    void D0_0_0_Mz2_mh2_Mz2_Mz2_real();
+    void D0_0_0_Mz2_mh2_Mz2_Mz2_imag();
+    void D0_0_0_mh2_Mz2_Mz2_Mz2_real();
+    void D0_0_0_mh2_Mz2_Mz2_Mz2_imag();
+    void D0_0_0_Mz2_Mz2_Mz2_Mz2_real();
+    void D0_0_0_Mz2_Mz2_Mz2_Mz2_imag();
+
 };
 
 #endif	/* LFTESTCLASS_H */

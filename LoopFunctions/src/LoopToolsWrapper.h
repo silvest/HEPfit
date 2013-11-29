@@ -136,6 +136,15 @@ public:
     complex PV_D0(const double s, const double t, const double m02, const double m12,
                   const double m22, const double m32) const;
     
+    /**
+     * @brief A tensor four-point Passarino-Veltman function D_22(0,0,0,0,s,t;m02,m12,m22,m32).
+     * @param[in] s, t Momentum squared.
+     * @param[in] m02, m12, m22, m32 Mass squared.
+     * @return A tensor four-point PV function D_0(0,0,0,0,s,t;m02,m12,m22,m32).
+     */
+    complex PV_D22(const double s, const double t, const double m02, const double m12,
+                   const double m22, const double m32) const;
+
 private:
 
 };

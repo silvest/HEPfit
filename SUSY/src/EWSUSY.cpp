@@ -1377,96 +1377,18 @@ complex EWSUSY::R_eLN(const int N, const int k, const int j, const double Mw_i) 
 complex EWSUSY::F(const double m1, const double m2, const double m3,
                   const double m4) const
 {
-    //return PV.D0(0.0, 0.0, m1*m1, m2*m2, m3*m3, m4*m4);
-
-    bool diff12 = (fabs(m1 - m2) > 1.0e-7);
-
-    if ( diff12 )
-        return ( (f(m1, m3, m4) - f(m2, m3, m4))/(m1*m1 - m2*m2) );
-    else {
-        bool diff13 = (fabs(m1 - m3) > 1.0e-7);
-        bool diff14 = (fabs(m1 - m4) > 1.0e-7);
-        bool diff34 = (fabs(m3 - m4) > 1.0e-7);
-        double m12 = m1*m1;
-        double m32 = m3*m3;
-        double m42 = m4*m4;
-
-        if ( diff13 && diff14 && diff34 )
-            return ( - 1.0/(m12 - m32)/(m12 - m42)
-                     + m32/(m12 - m32)/(m12 - m32)/(m42 - m32)*log(m32/m12)
-                     + m42/(m12 - m42)/(m12 - m42)/(m32 - m42)*log(m42/m12) );
-        else if ( !diff13 && diff14 && diff34 )
-            return ( (m12*m12 - m42*m42 + 2.0*m12*m42*log(m42/m12))
-                     /2.0/m12/(m12 - m42)/(m12 - m42)/(m12 - m42) );
-        else if ( diff13 && !diff14 && diff34 )
-            return ( (m12*m12 - m32*m32 + 2.0*m12*m32*log(m32/m12))
-                     /2.0/m12/(m12 - m32)/(m12 - m32)/(m12 - m32) );
-        else if ( diff13 && diff14 && !diff34 )
-            return ( ( - 2.0*m12 + 2.0*m32 - (m12 + m32)*log(m32/m12))
-                     /(m12 - m32)/(m12 - m32)/(m12 - m32) );
-        else
-            return ( 1.0/6.0/m12/m12 );
-    }
+    return PV.D0(0.0, 0.0, m1*m1, m2*m2, m3*m3, m4*m4);
 }
 
 complex EWSUSY::H(const double m1, const double m2, const double m3,
                   const double m4) const
 {
-    bool diff12 = (fabs(m1 - m2) > 1.0e-7);
-    double m12 = m1*m1;
-
-    if ( diff12 ) {
-        double m22 = m2*m2;
-        return ( 0.25/(m12 - m22)*(m12*f(m1, m3, m4) - m22*f(m2, m3, m4)) );
-    } else {
-        bool diff13 = (fabs(m1 - m3) > 1.0e-7);
-        bool diff14 = (fabs(m1 - m4) > 1.0e-7);
-        bool diff34 = (fabs(m3 - m4) > 1.0e-7);
-        double m32 = m3*m3;
-        double m42 = m4*m4;
-
-        if ( diff13 && diff14 && diff34 )
-            return ( m12/4.0/(m12 - m32)/(m42 - m12)
-                     + m32*m32/4.0/(m12 - m32)/(m12 - m32)/(m42 - m32)*log(m32/m12)
-                     + m42*m42/4.0/(m12 - m42)/(m12 - m42)/(m32 - m42)*log(m42/m12) );
-        else if ( !diff13 && diff14 && diff34 )
-            return ( ( - m12*m12 + 4.0*m12*m42 - 3.0*m42*m42
-                       + 2.0*m42*m42*log(m42/m12) )
-                    /8.0/(m12 - m42)/(m12 - m42)/(m12 - m42) );
-        else if ( diff13 && !diff14 && diff34 )
-            return ( ( - m12*m12 + 4.0*m12*m32 - 3.0*m32*m32
-                       + 2.0*m32*m32*log(m32/m12) )
-                    /8.0/(m12 - m32)/(m12 - m32)/(m12 - m32) );
-        else if ( diff13 && diff14 && !diff34 )
-            return ( ( - m12*m12 + m32*m32 - 2.0*m12*m32*log(m32/m12) )
-                    /4.0/(m12 - m32)/(m12 - m32)/(m12 - m32) );
-        else
-             return ( - 1.0/12.0/m12 );
-    }
+    return PV.D22(0.0, 0.0, m1*m1, m2*m2, m3*m3, m4*m4);
 }
 
 complex EWSUSY::f(const double m1, const double m2, const double m3) const
 {
-    //return ( - PV.C0(0.0, m1*m1, m2*m2, m3*m3) );
-
-    bool diff12 = (fabs(m1 - m2) > 1.0e-7);
-    bool diff23 = (fabs(m2 - m3) > 1.0e-7);
-    bool diff31 = (fabs(m3 - m1) > 1.0e-7);
-    double m12 = m1*m1;
-    double m22 = m2*m2;
-    double m32 = m3*m3;
-
-    if (diff12 && diff23 && diff31)
-        return ( ( m22/(m12 - m22)*log(m22/m12)
-                   - m32/(m12 - m32)*log(m32/m12) )/(m22 - m32) );
-    else if (!diff12 && diff23 && diff31)
-        return ( (- m12 + m32 - m32*log(m32/m12))/(m12 - m32)/(m12 - m32) );
-    else if (diff12 && !diff23 && diff31)
-        return ( (  m12 - m22 + m12*log(m22/m12))/(m12 - m22)/(m12 - m22) );
-    else if (diff12 && diff23 && !diff31)
-        return ( (- m12 + m22 - m22*log(m22/m12))/(m12 - m22)/(m12 - m22) );
-    else
-        return ( - 1.0/2.0/m12 );
+    return ( - PV.C0(0.0, m1*m1, m2*m2, m3*m3) );
 }
 
 

@@ -12,7 +12,7 @@
 #include <gsl/gsl_sf.h>
 #include "PVfunctions.h"
 
-#define LEPS 1.e-7 // Tolerance in the limit of masses. 
+#define LEPS 1.0e-5 // Tolerance in the limit of masses.
 
 
 PVfunctions::PVfunctions(const bool bExtraMinusSign)
@@ -123,7 +123,8 @@ complex PVfunctions::B1(const double mu2, const double p2,
         else
             B1 = 0.0;
     } else
-        B1 = -1.0/2.0/p2*(A0(mu2,m02) - A0(mu2,m12)
+        B1 = -1.0/2.0/p2*(- ExtraMinusSign*A0(mu2,m02)
+                          + ExtraMinusSign*A0(mu2,m12)
                           + (DeltaM2 + p2)*B0(mu2,p2,m02,m12));
     return B1;
 #endif
@@ -160,8 +161,8 @@ complex PVfunctions::B21(const double mu2, const double p2,
     } else {
         double Lambdabar2 = (p2-m02-m12)*(p2-m02-m12) - 4.0*m02*m12;
         B21 = - (3.0*(m02 + m12) - p2)/18.0/p2 
-              + (DeltaM2 + p2)/3.0/p2/p2*A0(mu2,m02)
-              - (DeltaM2 + 2.0*p2)/3.0/p2/p2*A0(mu2,m12)
+              + (DeltaM2 + p2)/3.0/p2/p2*(-ExtraMinusSign)*A0(mu2,m02)
+              - (DeltaM2 + 2.0*p2)/3.0/p2/p2*(-ExtraMinusSign)*A0(mu2,m12)
               + (Lambdabar2 + 3.0*p2*m02)/3.0/p2/p2*B0(mu2,p2,m02,m12);
     }
     return B21;
@@ -196,21 +197,21 @@ complex PVfunctions::B22(const double mu2, const double p2,
     } else {
         if (m02 != 0.0 && m12 != 0.0) {
             if(fabs(m02 - m12) < LEPS)
-                B22 = (6.0*m02 - p2)/18.0 - A0(mu2,m02)/6.0
+                B22 = (6.0*m02 - p2)/18.0 + ExtraMinusSign*A0(mu2,m02)/6.0
                        - (p2 - 4.0*m02)/12.0*B0(mu2,p2,m02,m12);
             else {
                 double DeltaM2 = m02 - m12;
                 double Lambdabar2 = (p2-m02-m12)*(p2-m02-m12) - 4.0*m02*m12;
                 B22 = (3.0*(m02 + m12) - p2)/18.0
-                       - (DeltaM2 + p2)/12.0/p2*A0(mu2,m02)
-                       + (DeltaM2 - p2)/12.0/p2*A0(mu2,m12)
+                       - (DeltaM2 + p2)/12.0/p2*(-ExtraMinusSign)*A0(mu2,m02)
+                       + (DeltaM2 - p2)/12.0/p2*(-ExtraMinusSign)*A0(mu2,m12)
                        - Lambdabar2*B0(mu2,p2,m02,m12)/12.0/p2;
             }
         } else if ((m02 != 0.0 && m12 == 0.0) || (m02 == 0.0 && m12 != 0.0)) {
             double M2;
             if (m02!=0.0) M2 = m02;
             if (m12!=0.0) M2 = m12;
-            B22 = (3.0*M2 - p2)/18.0 - (M2 + p2)/12.0/p2*A0(mu2,M2)
+            B22 = (3.0*M2 - p2)/18.0 - (M2 + p2)/12.0/p2*(-ExtraMinusSign)*A0(mu2,M2)
                   - (M2 - p2)*(M2 - p2)/12.0/p2*B0(mu2,p2,M2,0.0);
         } else
             B22 = - p2/18.0 - p2/12.0*B0(mu2,p2,0.0,0.0);
@@ -330,8 +331,8 @@ complex PVfunctions::B21p(const double mu2, const double p2,
         throw std::runtime_error("PVfunctions::B21p(): Undefined!");
     else {
         double Lambdabar2 = (p2-m02-m12)*(p2-m02-m12) - 4.0*m02*m12;
-        B21p = (m02 + m12)/6.0/p4 - (2.0*DeltaM2 + p2)/3.0/p6*A0(mu2,m02)
-                + 2.0*(DeltaM2 + p2)/3.0/p6*A0(mu2,m12)
+        B21p = (m02 + m12)/6.0/p4 - (2.0*DeltaM2 + p2)/3.0/p6*(-ExtraMinusSign)*A0(mu2,m02)
+                + 2.0*(DeltaM2 + p2)/3.0/p6*(-ExtraMinusSign)*A0(mu2,m12)
                 - (2.0*DeltaM2*DeltaM2 + p2*m02 - 2.0*p2*m12)/3.0/p6*B0(mu2,p2,m02,m12)
                 + (Lambdabar2 + 3.0*p2*m02)/3.0/p4*B0p(mu2,p2,m02,m12);
     }
@@ -370,7 +371,8 @@ complex PVfunctions::B22p(const double mu2, const double p2,
                    - Lambdabar2/12.0/p2*B0p(mu2,p2,m02,m12);
         else
             B22p = - 1.0/18.0
-                   + DeltaM2/12.0/p2/p2*(A0(mu2,m02) - A0(mu2,m12)
+                   + DeltaM2/12.0/p2/p2*(- ExtraMinusSign*A0(mu2,m02)
+                                         + ExtraMinusSign*A0(mu2,m12)
                                          + DeltaM2*B0(mu2,p2,m02,m12))
                    - B0(mu2,p2,m02,m12)/12.0
                    - Lambdabar2/12.0/p2*B0p(mu2,p2,m02,m12);
@@ -401,9 +403,24 @@ complex PVfunctions::C0(const double p2,
 
     complex C0(0.0, 0.0, false);   
 
-    if (p2==0.0)
-        throw std::runtime_error("PVfunctions::C0(): Undefined-1!"); 
-    else {
+    if (p2==0.0) {
+        if (m02!=0.0 && m12!=0.0 && m22!=0.0) {
+            bool diff01 = (fabs(m02 - m12) > LEPS);
+            bool diff12 = (fabs(m12 - m22) > LEPS);
+            bool diff20 = (fabs(m22 - m02) > LEPS);
+            if (diff01 && diff12 && diff20)
+                return ( - ( m12/(m02 - m12)*log(m12/m02)
+                            - m22/(m02 - m22)*log(m22/m02) )/(m12 - m22) );
+            else if (!diff01 && diff12 && diff20)
+                return ( - (- m02 + m22 - m22*log(m22/m02))/(m02 - m22)/(m02 - m22) );
+            else if (diff01 && !diff12 && diff20)
+                return ( - (  m02 - m12 + m02*log(m12/m02))/(m02 - m12)/(m02 - m12) );
+            else if (diff01 && diff12 && !diff20)
+                return ( - (- m02 + m12 - m12*log(m12/m02))/(m02 - m12)/(m02 - m12) );
+            else
+                return ( 1.0/2.0/m02 );
+        }
+    } else {
         if (fabs(m02 - m22) < LEPS && fabs(m02 - m12) > LEPS) {
             double epsilon = 1.0e-12;
             gsl_complex tmp = gsl_complex_rect(1.0 - 4.0*m02/p2, epsilon);
@@ -508,15 +525,41 @@ complex PVfunctions::C0(const double p2,
 complex PVfunctions::D0(const double s, const double t, const double m02,
                         const double m12, const double m22, const double m32) const
 {
+    if (s==0.0 && t==0.0) {
+        bool diff01 = (fabs(m02 - m12) > LEPS);
+        if ( diff01 )
+            return ( ( ExtraMinusSign * C0(0.0, m02, m22, m32)
+                       - ExtraMinusSign * C0(0.0, m12, m22, m32) ) / (m02 - m12) );
+        else {
+            if (m02!=0.0 && m12!=0.0 && m22!=0.0 && m32!=0.0) {
+                bool diff02 = (fabs(m02 - m22) > LEPS);
+                bool diff03 = (fabs(m02 - m32) > LEPS);
+                bool diff23 = (fabs(m22 - m32) > LEPS);
+                if ( diff02 && diff03 && diff23 )
+                    return ( - 1.0/(m02 - m22)/(m02 - m32)
+                             + m22/(m02 - m22)/(m02 - m22)/(m32 - m22)*log(m22/m02)
+                             + m32/(m02 - m32)/(m02 - m32)/(m22 - m32)*log(m32/m02) );
+                else if ( !diff02 && diff03 && diff23 )
+                    return ( (m02*m02 - m32*m32 + 2.0*m02*m32*log(m32/m02))
+                             /2.0/m02/(m02 - m32)/(m02 - m32)/(m02 - m32) );
+                else if ( diff02 && !diff03 && diff23 )
+                    return ( (m02*m02 - m22*m22 + 2.0*m02*m22*log(m22/m02))
+                             /2.0/m02/(m02 - m22)/(m02 - m22)/(m02 - m22) );
+                else if ( diff02 && diff03 && !diff23 )
+                    return ( ( - 2.0*m02 + 2.0*m22 - (m02 + m22)*log(m22/m02))
+                             /(m02 - m22)/(m02 - m22)/(m02 - m22) );
+                else
+                    return ( 1.0/6.0/m02/m02 );
+            } else
+                throw std::runtime_error("PVfunctions::D0(): Undefined!");
+        }
+    } 
+
 #ifdef USE_LOOPTOOLS
     return myLT.PV_D0(s, t, m02, m12, m22, m32);
-#else 
+#else
+    complex D0(0.0, 0.0, false);
 
-    
-    /*  Write codes below!!! */
-
-
-    complex D0(0.0, 0.0, false);    
     if (s>0.0 && t<0.0 && m02!=0.0 && m12==0.0 && m22==m02 && m32!=0.0
             && m02!=m32 && t-m32*m32+m02*m02!=0.0) {
         //D0(s,t; m02, 0.0, m02, m32)
@@ -525,7 +568,7 @@ complex PVfunctions::D0(const double s, const double t, const double m02,
             x1 = (1.0 - sqrt(1.0 - 4.0*m02/s))/2.0;
             x2 = (1.0 + sqrt(1.0 - 4.0*m02/s))/2.0;        
         } else {
-            
+            throw std::runtime_error("PVfunctions::D0(): Undefined!");
         }
         double x3 = m32/(m32 - m02);
         double x4 = (t - m32)/(t - m32 + m02);
@@ -535,18 +578,65 @@ complex PVfunctions::D0(const double s, const double t, const double m02,
             x1tilde = x4/2.0*(1.0 - sqrt(d4));
             x2tilde = x4/2.0*(1.0 + sqrt(d4));
         } else {
-            
+            throw std::runtime_error("PVfunctions::D0(): Undefined!");
         }
             
-            
+
+        throw std::runtime_error("PVfunctions::D0(): Undefined!");
     } else if (s>0.0 && t<0.0 && m02!=0.0 && m12==0.0 && m22==m02 && m32==0.0) {
         //D0(s,t; m02, 0.0, m02, 0.0)
         
-        
+        throw std::runtime_error("PVfunctions::D0(): Undefined!");
     } else 
         throw std::runtime_error("PVfunctions::D0(): Undefined!");
         
     return D0; 
 #endif
 }
-    
+
+complex PVfunctions::D22(const double s, const double t, const double m02,
+                         const double m12, const double m22, const double m32) const
+{
+    if (s==0.0 && t==0.0) {
+        bool diff01 = (fabs(m02 - m12) > LEPS);
+        if ( diff01 )
+            return ( 0.25/(m02 - m12)*(m02*ExtraMinusSign*C0(0.0, m02, m22, m32)
+                     - m12*ExtraMinusSign*C0(0.0, m12, m22, m32)) );
+        else {
+            if (m02!=0.0 && m12!=0.0 && m22!=0.0 && m32!=0.0) {
+                bool diff02 = (fabs(m02 - m22) > LEPS);
+                bool diff03 = (fabs(m02 - m32) > LEPS);
+                bool diff23 = (fabs(m22 - m32) > LEPS);
+                if ( diff02 && diff03 && diff23 )
+                    return ( m02/4.0/(m02 - m22)/(m32 - m02)
+                             + m22*m22/4.0/(m02 - m22)/(m02 - m22)/(m32 - m22)*log(m22/m02)
+                             + m32*m32/4.0/(m02 - m32)/(m02 - m32)/(m22 - m32)*log(m32/m02) );
+                else if ( !diff02 && diff03 && diff23 )
+                    return ( ( - m02*m02 + 4.0*m02*m32 - 3.0*m32*m32
+                               + 2.0*m32*m32*log(m32/m02) )
+                             /8.0/(m02 - m32)/(m02 - m32)/(m02 - m32) );
+                else if ( diff02 && !diff03 && diff23 )
+                    return ( ( - m02*m02 + 4.0*m02*m22 - 3.0*m22*m22
+                               + 2.0*m22*m22*log(m22/m02) )
+                             /8.0/(m02 - m22)/(m02 - m22)/(m02 - m22) );
+                else if ( diff02 && diff03 && !diff23 )
+                    return ( ( - m02*m02 + m22*m22 - 2.0*m02*m22*log(m22/m02) )
+                             /4.0/(m02 - m22)/(m02 - m22)/(m02 - m22) );
+                else
+                    return ( - 1.0/12.0/m02 );
+            } else
+                throw std::runtime_error("PVfunctions::D22(): Undefined!");
+        }
+    }
+
+#ifdef USE_LOOPTOOLS
+    return myLT.PV_D22(s, t, m02, m12, m22, m32);
+#else
+    complex D22(0.0, 0.0, false);
+
+    throw std::runtime_error("PVfunctions::D22(): Undefined!");
+
+    return D22;
+#endif
+}
+

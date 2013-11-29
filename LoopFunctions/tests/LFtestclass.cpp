@@ -36,9 +36,11 @@ void LFtestclass::setUp() {
     Mz = 91.1875;
     Mw = 80.360848365211552;
     Mt = 175.0;
+    mh = 126.0;
     Mz2 = Mz*Mz;
     Mw2 = Mw*Mw;
     Mt2 = Mt*Mt;
+    mh2 = mh*mh;
 }
 
 void LFtestclass::tearDown() {
@@ -632,6 +634,76 @@ void LFtestclass::C0_Mz2_Mw2_Mz2_Mw2_imag() {
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);    
 }
 
+void LFtestclass::C0_0_Mt2_Mz2_Mw2_real() {
+    double expect = - myLT->PV_C0(0.0, Mt2, Mz2, Mw2).real();
+    double result = myPV->C0(0.0, Mt2, Mz2, Mw2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::C0_0_Mt2_Mz2_Mw2_imag() {
+    double expect = - myLT->PV_C0(0.0, Mt2, Mz2, Mw2).imag();
+    double result = myPV->C0(0.0, Mt2, Mz2, Mw2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::C0_0_Mt2_Mw2_Mw2_real() {
+    double expect = - myLT->PV_C0(0.0, Mt2, Mw2, Mw2).real();
+    double result = myPV->C0(0.0, Mt2, Mw2, Mw2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::C0_0_Mt2_Mw2_Mw2_imag() {
+    double expect = - myLT->PV_C0(0.0, Mt2, Mw2, Mw2).imag();
+    double result = myPV->C0(0.0, Mt2, Mw2, Mw2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::C0_0_Mw2_Mt2_Mw2_real() {
+    double expect = - myLT->PV_C0(0.0, Mw2, Mt2, Mw2).real();
+    double result = myPV->C0(0.0, Mw2, Mt2, Mw2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::C0_0_Mw2_Mt2_Mw2_imag() {
+    double expect = - myLT->PV_C0(0.0, Mw2, Mt2, Mw2).imag();
+    double result = myPV->C0(0.0, Mw2, Mt2, Mw2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::C0_0_Mw2_Mw2_Mt2_real() {
+    double expect = - myLT->PV_C0(0.0, Mw2, Mw2, Mt2).real();
+    double result = myPV->C0(0.0, Mw2, Mw2, Mt2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::C0_0_Mw2_Mw2_Mt2_imag() {
+    double expect = - myLT->PV_C0(0.0, Mw2, Mw2, Mt2).imag();
+    double result = myPV->C0(0.0, Mw2, Mw2, Mt2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::C0_0_Mw2_Mw2_Mw2_real() {
+    double expect = - myLT->PV_C0(0.0, Mw2, Mw2, Mw2).real();
+    double result = myPV->C0(0.0, Mw2, Mw2, Mw2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::C0_0_Mw2_Mw2_Mw2_imag() {
+    double expect = - myLT->PV_C0(0.0, Mw2, Mw2, Mw2).imag();
+    double result = myPV->C0(0.0, Mw2, Mw2, Mw2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
 void LFtestclass::D0_s_t_Mz2_0_Mz2_0_real() {
     double s = 200.0*200.0, t = 50.0*50.0;
     //double expect = 4.020516092470443e-08;
@@ -668,5 +740,195 @@ void LFtestclass::D0_s_t_Mz2_0_Mz2_Mt2_imag() {
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);    
 }
 
+void LFtestclass::D0_0_0_Mt2_Mz2_Mw2_mh2_real() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mt2, Mz2, Mw2, mh2).real();
+    double result = myPV->D0(0.0, 0.0, Mt2, Mz2, Mw2, mh2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
 
+void LFtestclass::D0_0_0_Mt2_Mz2_Mw2_mh2_imag() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mt2, Mz2, Mw2, mh2).imag();
+    double result = myPV->D0(0.0, 0.0, Mt2, Mz2, Mw2, mh2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mt2_Mt2_Mw2_mh2_real() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mt2, Mt2, Mw2, mh2).real();
+    double result = myPV->D0(0.0, 0.0, Mt2, Mt2, Mw2, mh2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mt2_Mt2_Mw2_mh2_imag() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mt2, Mt2, Mw2, mh2).imag();
+    double result = myPV->D0(0.0, 0.0, Mt2, Mt2, Mw2, mh2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mt2_Mz2_Mt2_mh2_real() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mt2, Mz2, Mt2, mh2).real();
+    double result = myPV->D0(0.0, 0.0, Mt2, Mz2, Mt2, mh2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mt2_Mz2_Mt2_mh2_imag() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mt2, Mz2, Mt2, mh2).imag();
+    double result = myPV->D0(0.0, 0.0, Mt2, Mz2, Mt2, mh2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mt2_Mz2_Mw2_Mt2_real() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mt2, Mz2, Mw2, Mt2).real();
+    double result = myPV->D0(0.0, 0.0, Mt2, Mz2, Mw2, Mt2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mt2_Mz2_Mw2_Mt2_imag() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mt2, Mz2, Mw2, Mt2).imag();
+    double result = myPV->D0(0.0, 0.0, Mt2, Mz2, Mw2, Mt2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mz2_Mt2_Mt2_mh2_real() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mz2, Mt2, Mt2, mh2).real();
+    double result = myPV->D0(0.0, 0.0, Mz2, Mt2, Mt2, mh2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mz2_Mt2_Mt2_mh2_imag() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mz2, Mt2, Mt2, mh2).imag();
+    double result = myPV->D0(0.0, 0.0, Mz2, Mt2, Mt2, mh2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mz2_Mt2_Mw2_Mt2_real() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mz2, Mt2, Mw2, Mt2).real();
+    double result = myPV->D0(0.0, 0.0, Mz2, Mt2, Mw2, Mt2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mz2_Mt2_Mw2_Mt2_imag() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mz2, Mt2, Mw2, Mt2).imag();
+    double result = myPV->D0(0.0, 0.0, Mz2, Mt2, Mw2, Mt2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mz2_Mw2_Mt2_Mt2_real() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mz2, Mw2, Mt2, Mt2).real();
+    double result = myPV->D0(0.0, 0.0, Mz2, Mw2, Mt2, Mt2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mz2_Mw2_Mt2_Mt2_imag() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mz2, Mw2, Mt2, Mt2).imag();
+    double result = myPV->D0(0.0, 0.0, Mz2, Mw2, Mt2, Mt2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mz2_Mz2_Mz2_mh2_real() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mz2, Mz2, Mz2, mh2).real();
+    double result = myPV->D0(0.0, 0.0, Mz2, Mz2, Mz2, mh2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mz2_Mz2_Mz2_mh2_imag() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mz2, Mz2, Mz2, mh2).imag();
+    double result = myPV->D0(0.0, 0.0, Mz2, Mz2, Mz2, mh2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mz2_Mz2_mh2_Mz2_real() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mz2, Mz2, mh2, Mz2).real();
+    double result = myPV->D0(0.0, 0.0, Mz2, Mz2, mh2, Mz2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mz2_Mz2_mh2_Mz2_imag() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mz2, Mz2, mh2, Mz2).imag();
+    double result = myPV->D0(0.0, 0.0, Mz2, Mz2, mh2, Mz2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mz2_mh2_Mz2_Mz2_real() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mz2, mh2, Mz2, Mz2).real();
+    double result = myPV->D0(0.0, 0.0, Mz2, mh2, Mz2, Mz2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mz2_mh2_Mz2_Mz2_imag() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mz2, mh2, Mz2, Mz2).imag();
+    double result = myPV->D0(0.0, 0.0, Mz2, mh2, Mz2, Mz2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_mh2_Mz2_Mz2_Mz2_real() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, mh2, Mz2, Mz2, Mz2).real();
+    double result = myPV->D0(0.0, 0.0, mh2, Mz2, Mz2, Mz2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_mh2_Mz2_Mz2_Mz2_imag() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, mh2, Mz2, Mz2, Mz2).imag();
+    double result = myPV->D0(0.0, 0.0, mh2, Mz2, Mz2, Mz2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mz2_Mz2_Mz2_Mz2_real() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mz2, Mz2, Mz2, Mz2).real();
+    double result = myPV->D0(0.0, 0.0, Mz2, Mz2, Mz2, Mz2).real();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
+
+void LFtestclass::D0_0_0_Mz2_Mz2_Mz2_Mz2_imag() {
+    double s = 200.0*200.0, t = 50.0*50.0;
+    double expect = myLT->PV_D0(0.0, 0.0, Mz2, Mz2, Mz2, Mz2).imag();
+    double result = myPV->D0(0.0, 0.0, Mz2, Mz2, Mz2, Mz2).imag();
+    double delta = fabs(epsilon*result);
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(expect, result, delta);
+}
 

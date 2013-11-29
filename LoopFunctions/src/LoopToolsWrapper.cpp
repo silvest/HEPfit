@@ -6,6 +6,7 @@
  */
 
 #include <iostream>
+#include <stdexcept>
 #include <complex>
 #include <clooptools.h>
 #include "PVfunctions.h" // needed for USE_LOOPTOOLS macro
@@ -122,6 +123,17 @@ complex LoopToolsWrapper::PV_D0(const double s, const double t, const double m02
 {
     std::complex<double> D0val = D0(0.0, 0.0, 0.0, 0.0, s, t, m02, m12, m22, m32);
     return complex( D0val.real(), D0val.imag(), false );
+}
+
+
+complex LoopToolsWrapper::PV_D22(const double s, const double t, const double m02,
+                                const double m12, const double m22, const double m32) const
+{
+// cannot be compiled?
+//    std::complex<double> D22val = D0i(dd00, 0.0, 0.0, 0.0, 0.0, s, t, m02, m12, m22, m32);
+//    return complex( D22val.real(), D22val.imag(), false );
+
+    throw std::runtime_error("LoopToolsWrapper::PV_D22: Not implemented!");
 }
 
 
