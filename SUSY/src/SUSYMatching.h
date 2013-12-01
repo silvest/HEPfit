@@ -8,13 +8,14 @@
 #ifndef SUSYMATCHING_H
 #define	SUSYMATCHING_H
 
-//#include "SUSY.h"
 #include <gslpp.h>
 #include "StandardModelMatching.h"
 
 #define LEPS 1.e-5     // tolerance in the limit of S(x,y) to S(x) 
-#define SUSYLEPS 1.e-5 // tolerance in the limits of D0[x,y,z,t] and D2[x,y,z,t]
-       
+#define SUSYLEPS 5.e-3 // tolerance in the limits of D0[x,y,z,t] and D2[x,y,z,t]
+#define SUSYLEPS2 1.e-10 // tolerance in the limits of B0[x,y]
+#define SUSYLEPS3 5.e-3 // tolerance in the limits of D0N
+
 class SUSY;
 
 /**
@@ -149,12 +150,7 @@ public:
     void Comp_PHRL();
     
     void Comp_DeltaDL();
-    
-    /*** FUNZIONE - TEST  ***/
-    
-    void Test();
-    
-   /**********/
+
     
     
 private:
@@ -170,7 +166,7 @@ private:
     
     WilsonCoefficient mcbsg, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     
-    std::vector<WilsonCoefficient> vmdbd2, vmdbd2TEST;                           
+    std::vector<WilsonCoefficient> vmdbd2;                           
     std::vector<WilsonCoefficient> vmdbs2;
     std::vector<WilsonCoefficient> vmdk2;
     std::vector<WilsonCoefficient> vmdd2;
@@ -182,6 +178,8 @@ private:
     gslpp::vector<double> MChi0;
     gslpp::vector<double> MChi;
     gslpp::matrix<complex> myN;
+    gslpp::matrix<complex> myV;
+    gslpp::matrix<complex> myU;
     double Q;
     double mu2R;
     double Als;
@@ -327,27 +325,7 @@ private:
     gslpp::matrix<complex> VUDHH_cache;
     gslpp::matrix<complex> DeltaMd_cache;
     gslpp::vector<double> mySUSYMQ;
-
-    //***// 
-/*  double CWbsgArrayLO[10];
-    double CWbsgArrayNLO[10];
-    double CWD1ArrayLO[10];
-    double CWD1ArrayNLO[10];
-    double CWbnlepArrayLOqcd[10];
-    double CWbnlepArrayNLOqcd[10];
-    double CWbnlepArrayLOew[10];
-    double CWbnlepArrayNLOew[10]; */
     
-    //***//
-    /*
-    double sw;
-    double swa;
-    double swb;
-    double swc; //sin(theta_W) tree level
-    double xcachea; // caching
-    double xcacheb; // caching
-    double xcachec; // caching
-     */
 };
 
 #endif	/* SUSYMATCHING_H */
