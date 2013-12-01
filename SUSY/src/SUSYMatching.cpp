@@ -71,6 +71,8 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     MChi0(4, 0.),
     MChi(2, 0.),
     myN(4, 4, 0.),
+    myV(2, 2, 0.),
+    myU(2, 2, 0.),
 
     myCKM_cache(3, 3, 0.),
     DeltaMd_cache(3, 3, 0.),
@@ -82,30 +84,6 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     PHRLCache(3,3,0.),
     DeltaDL_Cache(3,3,0.) {
 
-//***//
-    /*
-    swa = 0.;
-    swb = 0.;
-    swc = 0.;
-    xcachea = 0.;
-    xcacheb = 0.;
-    xcachec = 0.;
-     */
-        
-        
-
-
- //***//
-    /*   for (int j = 0; j < 10; j++) {
-        CWbsgArrayLO[j] = 0.;
-        CWbsgArrayNLO[j] = 0.;
-        CWD1ArrayLO[j] = 0.;
-        CWD1ArrayNLO[j] = 0.;
-        CWbnlepArrayLOqcd[j] = 0.;
-        CWbnlepArrayNLOqcd[j] = 0.;
-        CWbnlepArrayLOew[j] = 0.;
-        CWbnlepArrayNLOew[j] = 0.;
-    }; */
 }
 
 
@@ -128,7 +106,9 @@ void SUSYMatching::updateSUSYParameters()
     v2 = mySUSY.v2();
     gW = sqrt(8. * mySUSY.getGF() / sqrt(2.)) * mySUSY.Mw_tree();
     myN = mySUSY.getN();
-//    std::cout << "UPDATED SUSY" << std::endl;
+    myV = mySUSY.getV();
+    myU = mySUSY.getU();
+   
     
 }
 
@@ -139,7 +119,7 @@ void SUSYMatching::updateSUSYParameters()
 
 double SUSYMatching::D0N(double x, double y, double z, double t) {
 
-    if ((fabs(z) < SUSYLEPS) || (fabs(t) < SUSYLEPS)) {
+    if ((fabs(z) < SUSYLEPS3) || (fabs(t) < SUSYLEPS3)) {
         return (0.);
     }
     else
@@ -188,11 +168,9 @@ double SUSYMatching::DL(double a, double b, double c, int k) {
             return ( (-a + b + a * log(a) - a * log(b)) / (a * (a - b) * (a - b)));
         }
         else
-
-            return ((-a * a * b + (a * a + b * b) * c - b * c * c) * log(a)
-                + (-a + c) * ((a - b) * (-b + c) + b * (-a + c) * log(b))
-                - (a - b)*(a - b) * c * log(c)) / ((a - b) * (a - b) * (-a
-                + c) * (-a + c) * (-b + c));
+            return( (a*a-b*c)/(a-b)/(a-b)/(a-c)/(a-c)*log(a) +
+                     b/(a-b)/(a-b)/(c-b)*log(b) - c/(a-c)/(a-c)/(c-b)*log(c) 
+                     - 1./(a-b)/(a-c) ) ;
     }
     else if (k == 2) {
 
@@ -208,12 +186,10 @@ double SUSYMatching::DL(double a, double b, double c, int k) {
 
             return ( (-a + b + b * log(a) - b * log(b)) / (4. * (a - b) * (a - b)));
         }
-        
-        return (a * (-b + c) * (a * b + (a - 2. * b) * c) * log(a)
-                + (-a + c) * (a * (a - b) * (-b + c)
-                + b * b * (-a + c) * log(b))
-                - (a - b) * (a - b) * c * c * log(c)) /
-                (4. * (a - b) * (a - b) * (-a + c) * (-a + c) * (-b + c));
+
+            return ( a*(-2.*b*c + a*(b + c))/4./(a - b)/(a - b)/(a - c)/(a - c)*log(a)
+                    + b*b/4./(a - b)/(a - b)/(c - b)*log(b) - c*c/4./(a - c)/(a - c)/
+                    (c - b)*log(c) + a/4./(a - b)/(c - a) );
     }
     else {
 
@@ -235,7 +211,7 @@ double SUSYMatching::DLL(double a, double b, int k) {
             return (1. / (2. * a * a));
         }
         else
-            return ( (-a * a + b * b + 2 * a * b * log(a) - 2 * a * b * log(b)) /
+            return ( -(-a * a + b * b + 2 * a * b * log(a) - 2 * a * b * log(b)) /      // sign mistake found
                 (2. * a * (a - b) * (a - b) * (a - b)));
     }
     else if (k == 2) {
@@ -328,8 +304,7 @@ double SUSYMatching::DLLL(double a, int k) {
 ////////////////////////  Dk (k = 0,2) controls
 
 double SUSYMatching::Dk(double x, double y, double z, double t, int k) {
-
-
+   
     /// four variables equals
     if ((fabs(1. - y / x) < SUSYLEPS) && (fabs(1. - z / x) < SUSYLEPS) &&
             (fabs(1. - t / x) < SUSYLEPS)) {
@@ -411,10 +386,10 @@ double SUSYMatching::Dk(double x, double y, double z, double t, int k) {
                 t * log(t) / ((x - t)*(z - t)*(y - t));
     }
     else if (k == 2) {
-        return ((t * t * log(t)) / ((-t + x)*(-t + y)*(-t + z))
+        return (((t * t * log(t)) / ((-t + x)*(-t + y)*(-t + z))
                 + (x * x * log(x)) / ((t - x)*(-x + y)*(-x + z))
                 + (y * y * log(y)) / ((t - y)*(x - y)*(-y + z))
-                + (z * z * log(z)) / ((t - z)*(x - z)*(y - z))) / 4.;
+                + (z * z * log(z)) / ((t - z)*(x - z)*(y - z)))/4.);
     }
     else {
 
@@ -422,7 +397,7 @@ double SUSYMatching::Dk(double x, double y, double z, double t, int k) {
     }
 
     return (EXIT_FAILURE);
-
+    
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -531,11 +506,11 @@ double SUSYMatching::BL(double a, int k) {
 double SUSYMatching::Bk(double x, double y, int k) {
 
     /** Limit of B0 function for zero x or zero y **/
-    if((fabs(x) < SUSYLEPS)&&(k==0)) return (log(y));
-    if((fabs(y) < SUSYLEPS)&&(k==0)) return (log(x));
+    if((fabs(x) < SUSYLEPS2)&&(k==0)) return (log(y));
+    if((fabs(y) < SUSYLEPS2)&&(k==0)) return (log(x));
     
     
-    if (fabs((1. - y / x)) < SUSYLEPS) {
+    if (fabs((1. - y / x)) < SUSYLEPS2) {
         return (BL(x, k));
 
     }
@@ -577,8 +552,8 @@ void SUSYMatching::Comp_DeltaMd() {
     myMU2Squarks = mySUSY.getMsu2();
     myMD2Squarks = mySUSY.getMsd2();
 
-    int k, l, I, J;
-
+    int k, l, I, J, i, j;
+    
     for (J = 0; J < 3; J++) {
         for (I = 0; I < 3; I++) {
 
@@ -586,59 +561,33 @@ void SUSYMatching::Comp_DeltaMd() {
 
             for (k = 0; k < 6; k++) {
 
-                temp += -2. / 3. * Als / M_PI * Mg * myRd(k, J + 3)
-                        * myRd(k, I).conjugate() * Bk(Mg * Mg, myMD2Squarks(k), 0);
-
-                //                + 1. / 3. * Als / M_PI * myRd(k, J + 3) * myRd(k, I + 3).conjugate()
-                //                * Bk(Mg * Mg, myMD2Squarks(k), 1)
-                //                * mySUSYMQ(2 * I + 1).getMass()
-                //
-                //                + 1. / 3. * Als / M_PI * myRd(k, J) * myRd(k, I).conjugate() *
-                //                Bk(Mg * Mg, myMD2Squarks(k), 1) * mySUSYMQ(2 * J + 1).getMass();
+                temp += -2. / 3. * Als / M_PI * Mg * myRd(k, J + 3).conjugate()
+                        * myRd(k, I) * Bk(Mg * Mg, myMD2Squarks(k), 0);
 
             }
-            
-//            double prova = temp.real();
           
             for (k = 0; k < 6; k++) {
                 for (l = 0; l < 4; l++) {
 
-                    temp += 1. / (16. * M_PI * M_PI) * VdDNR(J, k, l, 0).conjugate()
+                    temp +=  1. / (16. * M_PI * M_PI) * VdDNR(J, k, l, 0).conjugate()
                             * VdDNL(I, k, l, 0)
                             * MChi0(l) * Bk(MChi0(l) * MChi0(l), myMD2Squarks(k), 0);
-
-                    //                    + 1. / (32. * M_PI * M_PI) * VdDNR(J, k, l, 0).conjugate()
-                    //                    * VdDNR(I, k, l, 0) * Bk(MChi0(l) * MChi0(l), myMD2Squarks(k), 1)
-                    //                    * mySUSYMQ(2 * I + 1).getMass()
-                    //
-                    //                    + 1. / (32. * M_PI * M_PI) * VdDNL(J, k, l, 0).conjugate() *
-                    //                    VdDNL(I, k, l, 0) * Bk(MChi0(l) * MChi0(l), myMD2Squarks(k), 1) *
-                    //                    mySUSYMQ(2 * J + 1).getMass();
-
                 }
 
             }
             
-//            double prova2 = temp.real();
             for (k = 0; k < 6; k++) {
                 for (l = 0; l < 2; l++) {
 
                     temp += 1. / (16. * M_PI * M_PI) * VdUCR(J, k, l, 0).conjugate() * VdUCL(I, k, l) *
                             MChi(l) * Bk(MChi(l) * MChi(l), myMU2Squarks(k), 0);
-
-                    //                    + 1. / (32. * M_PI * M_PI) * VdUCR(J, k, l, 0).conjugate() *
-                    //                    VdUCR(I, k, l, 0) * Bk(MChi(l) * MChi(l), myMU2Squarks(k), 1)
-                    //                    * mySUSYMQ(2 * I + 1).getMass()
-                    //
-                    //                    + 1. / (32. * M_PI * M_PI) * VdUCL(J, k, l).conjugate() *
-                    //                    VdUCL(I, k, l) * Bk(MChi(l) * MChi(l), myMU2Squarks(k), 1);
                 }
             }
             
             DeltaMd_cache.assign(J, I, temp);
         }
     }
-}
+} 
 
 gslpp::complex SUSYMatching::DeltaMd(int J, int I) {
 
@@ -649,12 +598,10 @@ gslpp::complex SUSYMatching::DeltaMd(int J, int I) {
 ///// Epsilon_J and EpilonY_JI
 
 void SUSYMatching::Comp_Eps_J() {
+    
+    for (int J = 0; J < 3; J++) {
 
-    int J;
-    for (J = 0; J < 3; J++) {
-
-        Eps_JCache.assign(J, DeltaMd(J, J) / (tanb
-                * mySUSYMQ(2 * J + 1)));
+        Eps_JCache.assign(J, DeltaMd(J, J) / (tanb * mySUSYMQ(2 * J + 1)));
     }
 }
 
@@ -673,7 +620,7 @@ void SUSYMatching::Comp_Lambda0EpsY(){
         for( J = 0;J < 3;J++){
             
             Lambda0EpsYCache.assign(J,I,DeltaMd(J,I)/(tanb
-            * mySUSYMQ(2 * J + 1) * 2 /(v2 * v2)  
+            * mySUSYMQ(2 * J + 1)) /( 2 /(v2 * v2)  
             * mtop * mtop ));
         }
     }
@@ -714,6 +661,7 @@ void SUSYMatching::Comp_DeltaDL() {
         }
 
     }
+    
 }
 
 gslpp::complex SUSYMatching::DeltaDL(int J, int I) {
@@ -723,16 +671,15 @@ gslpp::complex SUSYMatching::DeltaDL(int J, int I) {
 
 gslpp::complex SUSYMatching::DeltaDR(int J, int I){
     
-   return (DeltaDL(I,J).conjugate()); 
-   
+    complex C(0., 0., false);
+    C = DeltaDL_Cache(J,I).conjugate();
+    
+   return (C);  
 }
 
 void SUSYMatching::Comp_mySUSY_CKM() {
 
-    gslpp::matrix<complex> myTempCKM(3, 3, 0.);
-    mySUSY.getCKM().getCKM(myTempCKM);
- 
-    gslpp::matrix<complex> DeltaCKM(3, 3, 0.);
+  
     
     complex Delta_CKM_IJ(0.,0.,false);
     
@@ -741,40 +688,17 @@ void SUSYMatching::Comp_mySUSY_CKM() {
     for (I = 0; I < 3; I++) {
         for (J = 0; J < 3; J++) {
             
-            complex prova(0.,0.,false);
-            
-
-
             for (l = 0; l < 3; l++) {
 
-                Delta_CKM_IJ += -myTempCKM(I, l) * DeltaDL(l, J);
-                
-                //prova += -myTempCKM(I, l) * DeltaDL(l, J);
+                Delta_CKM_IJ += myCKM(I, l) * DeltaDL(l, J);
                 
             }
             
-            
-            
-            myCKM_cache.assign(I, J, myCKM(I, J) + Delta_CKM_IJ);
-            
-            /*** test - lines ***/
-            
-            DeltaCKM.assign(I, J, Delta_CKM_IJ.abs() / myCKM(I, J).abs() * 100);
-            
-            /** end - test */
-            
+            myCKM_cache.assign(I, J, myCKM(I, J) - Delta_CKM_IJ);
             Delta_CKM_IJ.assign(0.,0.,0);
-            
            
         }
-    }
-    
-    /** test - lines  **/
-    
-    //std::cout << "Delta_CKM % = " << DeltaCKM << std::endl;
-    
-    /** end - test */
-    
+    }    
 }
 
 gslpp::matrix<complex> SUSYMatching::mySUSY_CKM() {
@@ -789,13 +713,7 @@ void SUSYMatching::Comp_VdUCL() {
 
 
     complex VdUCL_bkj(0., 0., false);
-    gslpp::matrix<complex> myV(2, 2, 0.);
-    int l;
-    myV = mySUSY.getV();
-
-
-
-    int b, k, j;
+    int l, b, k, j;
 
     for (b = 0; b < 3; b++) {
         for (k = 0; k < 6; k++) {
@@ -808,14 +726,12 @@ void SUSYMatching::Comp_VdUCL() {
                             * myRu(k, l + 3) * myV(j, 1).conjugate() * myCKM(l, b);
                 }
 
-
                 VdUCL_cache[b][k][j] = VdUCL_bkj;
                 VdUCL_bkj.assign(0., 0., 0);
 
             }
         }
     }
-
 }
 
 gslpp::complex SUSYMatching::VdUCL(int b, int k, int j) {
@@ -830,54 +746,41 @@ gslpp::complex SUSYMatching::VdUCL(int b, int k, int j) {
 void SUSYMatching::Comp_VdUCR(int flag) {
 
     complex VdUCR_bkj(0., 0., false);
-    gslpp::matrix<complex> myU(2, 2, 0.);
-    myU = mySUSY.getU();
-    complex Mdb(0., 0., false);
-    complex Mdp(0., 0., false);
+    complex Ydb(0., 0., false);
+    complex Ydp(0., 0., false);
     int l, p, b, k, j;
 
     for (b = 0; b < 3; b++) {
         for (k = 0; k < 6; k++) {
             for (j = 0; j < 2; j++) {
-
-
                 for (l = 0; l < 3; l++) {
-
-                    switch (flag) {
-                        case 1:
-
-                            Mdb += mySUSYMQ(2 * b + 1) /
-                                    (1. + Eps_J(b) * tanb);
-
-                            VdUCR_bkj += Mdb * myCKM(l, b);
-
-                            for (p = 0; p < 3; p++) {
-
-                                Mdp += mySUSYMQ(2 * p + 1) /
-                                        (1. + Eps_J(p) * tanb);
-
-                                VdUCR_bkj += myCKM(l, p) * (Mdp * DeltaDR(p, b) -
-                                        DeltaDL(p, b) * Mdb);
-                            }
-
-                            VdUCR_bkj *= sqrt(2.) / v1 * myRu(k, l) * myU(j, 1);
-
-                        case 0:
-                            VdUCR_bkj += sqrt(2.) / v1
-                                    * mySUSYMQ(2 * b + 1) * myRu(k, l) * myU(j, 1)
+                    if(flag == 1) {
+                        Ydb = mySUSYMQ(2 * b + 1) * sqrt(2.) / v1 /(1. + Eps_J(b)*tanb) ;
+                        VdUCR_bkj += Ydb * myCKM(l, b) * myRu(k, l) * myU(j, 1);
+                       
+                        for (p = 0; p < 3; p++) {
+                            Ydp = mySUSYMQ(2 * p + 1)* sqrt(2.) / v1 /(1. + Eps_J(p)* tanb) ;
+                            VdUCR_bkj += (myCKM(l, p)*(Ydp * DeltaDR(p, b) 
+                                    - DeltaDL(p, b) * Ydb) * myRu(k, l) * myU(j, 1));  
+                        }
+                              
+                    }
+                    else if(flag == 0){
+                            Ydb = mySUSYMQ(2 * b + 1) * sqrt(2.) / v1;
+                            VdUCR_bkj += Ydb * myRu(k, l) * myU(j, 1)
                                     * myCKM(l, b);
                     }
+                    
+                    else{throw std::runtime_error("Wrong flag assigned to vertex VdUCR_bkj å");}
+                    
                 }
-
 
                 VdUCR_cache[b][k][j][flag] = VdUCR_bkj;
                 VdUCR_bkj.assign(0., 0., 0);
 
             }
         }
-
     }
-
 }
 
 
@@ -892,56 +795,52 @@ gslpp::complex SUSYMatching::VdUCR(int b, int k, int j, int flag) {
 
 void SUSYMatching::Comp_VdDNL(int flag){
     
+    complex VdDNL_bkj(0., 0., false);
     /* tree-level cW2 */
     double cW2 = mySUSY.Mw_tree()*mySUSY.Mw_tree()/mySUSY.getMz()/mySUSY.getMz();
     /* SM value for cW2 in the on-shell scheme */
     //double cW2 = mySUSY.StandardModel::cW2();
     /* MSSM value for cW2 in the on-shell scheme */
     //double cW2 = mySUSY.cW2();
-
     double sW2 = 1.0 - cW2;
-
     double CosThetaW = sqrt(cW2);
     double SinThetaW = sqrt(sW2);
-    
-    complex VdDNL_bkj(0., 0., false);
-    int l;
+    int l, b, k, j;
 
-    int b, k, j;
     for (b = 0; b < 3; b++) {
         for (k = 0; k < 6; k++) {
             for (j = 0; j < 4; j++) {
                 
+                    if(flag==1) {
 
-                    switch (flag) {
-
-                        case 1:
-
-                            VdDNL_bkj += -gW / sqrt(2.) * myRd(k, b).conjugate() * (1. / 3.
-                                    * SinThetaW / CosThetaW * myN(j, 1).conjugate() -
-                                    myN(j, 2).conjugate()) - sqrt(2.) / v1
+                            VdDNL_bkj += (-gW / sqrt(2.) * myRd(k, b) * (1. / 3.
+                                    * SinThetaW / CosThetaW * myN(j, 0).conjugate() -
+                                    myN(j, 1).conjugate()) - sqrt(2.) / v1
                                     * mySUSYMQ(2 * b + 1) /
-                                    (1 + Eps_J(b) * tanb)
-                                    * myRd(k, b + 3).conjugate() * myN(j, 3).conjugate();
+                                    (1. + Eps_J(b) * tanb)
+                                    * myRd(k, b + 3) * myN(j, 2).conjugate());
+                            
                             for (l = 0; l < 3; l++) {
 
                                 // correzione vertici neutralini calcolate seguendo le indicazioni di Buras    
 
-                                VdDNL_bkj += (-gW / sqrt(2.) * myRd(k, l).conjugate() * (1. / 3.
-                                        * SinThetaW / CosThetaW * myN(j, 1).conjugate() -
-                                        myN(j, 2).conjugate()) - sqrt(2.) / v1
+                                VdDNL_bkj += (-gW / sqrt(2.) * myRd(k, l) * (1. / 3.
+                                        * SinThetaW / CosThetaW * myN(j, 0).conjugate() -
+                                        myN(j, 1).conjugate()) - sqrt(2.) / v1
                                         * mySUSYMQ(2 * l + 1) /
-                                        (1 + Eps_J(l) * tanb)
-                                        * myRd(k, l + 3).conjugate() * myN(j, 3).conjugate()) *
-                                        DeltaDL(l, b);
+                                        (1. + Eps_J(l)* tanb)
+                                        * myRd(k, l + 3) * myN(j, 2).conjugate())
+                                        *DeltaDL(l, b);
                             }
+                        }
 
-                        case 0:
-                            VdDNL_bkj += -gW / sqrt(2.) * myRd(k, b).conjugate() * (1. / 3.
-                                    * SinThetaW / CosThetaW * myN(j, 1).conjugate() -
-                                    myN(j, 2).conjugate()) - sqrt(2.) / v1
+                    if(flag==0){
+                            
+                            VdDNL_bkj += -gW / sqrt(2.) * myRd(k, b) * (1. / 3.
+                                    * SinThetaW / CosThetaW * myN(j, 0).conjugate() -
+                                    myN(j, 1).conjugate()) - sqrt(2.) / v1
                                     * mySUSYMQ(2 * b + 1)
-                                    * myRd(k, b + 3).conjugate() * myN(j, 3).conjugate();
+                                    * myRd(k, b + 3) * myN(j, 2).conjugate();
 
                     }
 
@@ -952,6 +851,8 @@ void SUSYMatching::Comp_VdDNL(int flag){
 
         }
     }
+    
+    if(flag != 0 && flag != 1) throw std::runtime_error("Error in Comp_VdDNL(flag) in SUSYMatching.cpp  ");
 }
 
 gslpp::complex SUSYMatching::VdDNL(int b, int k, int j, int flag) {
@@ -967,64 +868,57 @@ gslpp::complex SUSYMatching::VdDNL(int b, int k, int j, int flag) {
 void SUSYMatching::Comp_VdDNR(int flag) {
 
     complex VdDNR_bkj(0., 0., false);
-
     /* tree-level cW2 */
     double cW2 = mySUSY.Mw_tree()*mySUSY.Mw_tree()/mySUSY.getMz()/mySUSY.getMz();
     /* SM value for cW2 in the on-shell scheme */
     //double cW2 = mySUSY.StandardModel::cW2();
     /* MSSM value for cW2 in the on-shell scheme */
     //double cW2 = mySUSY.cW2();
-
     double sW2 = 1.0 - cW2;
-
+    
     double CosThetaW = sqrt(cW2);
     double SinThetaW = sqrt(sW2);
-    int l;
-
-    int b, k, j;
+    int l, b, k, j;
+    
     for (b = 0; b < 3; b++) {
         for (k = 0; k < 6; k++) {
             for (j = 0; j < 4; j++) {
-                
 
-                    switch (flag) {
-
-                        case 1:
+                        if(flag==1){
 
                             VdDNR_bkj += -sqrt(2.) / 3. * gW * SinThetaW / CosThetaW *
-                                    myRd(k, b + 3).conjugate() * myN(j, 1) - sqrt(2.) / v1
+                                    myRd(k, b + 3) * myN(j, 0) - sqrt(2.) / v1
                                     * mySUSYMQ(2 * b + 1) /
-                                    (1 + Eps_J(b) * tanb) * myRd(k, b).conjugate() *
-                                    myN(j, 3);
+                                    (1. + Eps_J(b) * tanb) * myRd(k, b) *
+                                    myN(j, 2);
 
                             for (l = 0; l < 3; l++) {
 
                                 // correzione vertici neutralini calcolate seguendo le indicazioni di Buras   
 
                                 VdDNR_bkj += (-sqrt(2.) / 3. * gW * SinThetaW / CosThetaW *
-                                        myRd(k, l + 3).conjugate() * myN(j, 1) - sqrt(2.) / v1
+                                        myRd(k, l + 3) * myN(j, 0) - sqrt(2.) / v1
                                         * mySUSYMQ(2 * l + 1) /
-                                        (1 + Eps_J(l) * tanb) * myRd(k, l).conjugate() *
-                                        myN(j, 3)) * DeltaDR(l, b);
+                                        (1. + Eps_J(l) * tanb) * myRd(k, l) *
+                                        myN(j, 2)) * DeltaDR(l, b);
                             }
+                        }
 
-                        case 0:
+                        if(flag==0){
                             VdDNR_bkj += -sqrt(2.) / 3. * gW * SinThetaW / CosThetaW *
-                                    myRd(k, b + 3).conjugate() * myN(j, 1) - sqrt(2.) / v1
-                                    * mySUSYMQ(2 * b + 1)
-                                    * myRd(k, b).conjugate() * myN(j, 3);
-
-                    }
-
-
-
+                                        myRd(k, b + 3) * myN(j, 0) - sqrt(2.) / v1
+                                        * mySUSYMQ(2 * b + 1)* myRd(k, b) * myN(j, 2);
+                        }
+                   
                     VdDNR_cache[b][k][j][flag] = VdDNR_bkj;
                     VdDNR_bkj.assign(0., 0., 0);
 
             }
         }
     }
-
+    
+    if(flag != 0 && flag != 1) throw std::runtime_error("Error in Comp_VdDNR(flag) in SUSYMatching.cpp  "); 
+    
 }
 
 
@@ -1034,48 +928,35 @@ gslpp::complex SUSYMatching::VdDNR(int b, int k, int j, int flag) {
     
 }
 
+
 ////////////////////////////////////////////////////////////////////////////////
 /////  Feynmann rules of uDC vertex (D mixing)
 
-void SUSYMatching::Comp_VuDCL() {
+void SUSYMatching::Comp_VuDCL() { // to be corrected
 
 
     gslpp::matrix<complex> myCKM(3, 3, 0.);
-    gslpp::matrix<complex> myU(2, 2, 0.);
     complex VuDCL_bkj(0., 0., false);
     complex YdI(0., 0., false);
-    myCKM = mySUSY_CKM();
-
-    int I;
-    myU = mySUSY.getU();
-
-
-    int b, k, j;
+    int I, b, k, j;
 
     for (b = 0; b < 3; b++) {
         for (k = 0; k < 6; k++) {
             for (j = 0; j < 2; j++) {
 
-
-
                 for (I = 0; I < 3; I++) {
-
-                    YdI = sqrt(2.) / v1 * mySUSYMQ(2 * I + 1) / (1 + Eps_J(I) * tanb);
-                    VuDCL_bkj += -(gW * myRd(k, I).conjugate() * myU(j, 0).conjugate()
-                            - YdI * myRd(k, I + 3).conjugate() * myU(j, 1).conjugate()) *
+                    YdI = sqrt(2.) / v1 * mySUSYMQ(2 * I + 1); 
+                    VuDCL_bkj += -(gW * myRd(k, I) * myU(j, 0).conjugate()
+                            - YdI * myRd(k, I + 3) * myU(j, 1).conjugate()) *
                             myCKM(b, I).conjugate();
                 }
-
 
                 VuDCL_cache[b][k][j] = VuDCL_bkj;
                 VuDCL_bkj.assign(0., 0., 0);
 
-
             }
         }
-
     }
-
 }
 
 gslpp::complex SUSYMatching::VuDCL(int b, int k, int j) {
@@ -1087,38 +968,34 @@ gslpp::complex SUSYMatching::VuDCL(int b, int k, int j) {
 void SUSYMatching::Comp_VuDCR() {
 
 
-    gslpp::matrix<complex> myCKM(3, 3, 0.);
+    gslpp::matrix<complex> mySUSYCKM(3, 3, 0.);
+    mySUSYCKM = mySUSY_CKM();
     gslpp::matrix<complex> myV(2, 2, 0.);
     myV = mySUSY.getV();
-    complex Yub(0., 0., false);
+    double Yub;
     complex VuDCR_bkj(0., 0., false);
-    myCKM = mySUSY_CKM();
-    int I;
-
-
-    int b, k, j;
+   
+    int I, b, k, j;
 
     for (b = 0; b < 3; b++) {
         for (k = 0; k < 6; k++) {
             for (j = 0; j < 2; j++) {
 
-
-
                 Yub = sqrt(2.) / v2 * mySUSYMQ(2 * b); // b is the up quark type index
 
                 for (I = 0; I < 3; I++) {
 
-                    VuDCR_bkj += Yub * myRd(k, I).conjugate() * myV(j, 1) * myCKM(b, I).conjugate();
+                    VuDCR_bkj +=  mySUSYCKM(b, I).conjugate() * Yub * myRd(k, I) * myV(j, 1) ; 
 
                 }
 
                 VuDCR_cache[b][k][j] = VuDCR_bkj;
                 VuDCR_bkj.assign(0., 0., 0);
-
+            
+                
             }
         }
     }
-
 }
 
 gslpp::complex SUSYMatching::VuDCR(int b, int k, int j) {
@@ -1163,16 +1040,7 @@ gslpp::complex SUSYMatching::VdUCR(int b, int k, int j, int flag, int Dmixingfla
 
 void SUSYMatching::Comp_VuUN(){
  
-    /* tree-level cW2 */
-    double cW2 = mySUSY.Mw_tree()*mySUSY.Mw_tree()/mySUSY.getMz()/mySUSY.getMz();
-    /* SM value for cW2 in the on-shell scheme */
-    //double cW2 = mySUSY.StandardModel::cW2();
-    /* MSSM value for cW2 in the on-shell scheme */
-    //double cW2 = mySUSY.cW2();
-
-    double sW2 = 1.0 - cW2;
-
-    double TanThetaW = sqrt(sW2 / cW2);
+    double TanThetaW = sqrt(mySUSY.sW2() / mySUSY.cW2());
     complex VuUNL_bkj(0.,0.,false);
     complex VuUNR_bkj(0.,0.,false);
     double Yub;
@@ -1185,14 +1053,12 @@ void SUSYMatching::Comp_VuUN(){
 
                 Yub = sqrt(2.) / v2 * mySUSYMQ(2 * b);
 
-
-                VuUNL_bkj += (-1. / sqrt(2.) * gW * myRu(k, b) * (1. / (3. * TanThetaW) *
+                VuUNL_bkj += -1. / sqrt(2.) * gW * myRu(k, b) * (1. / (3. * TanThetaW) *
                         myN(j, 0).conjugate() + myN(j, 1).conjugate())
-                        - Yub * myRu(k, b + 3) * myN(j, 3).conjugate());
+                        - Yub * myRu(k, b + 3) * myN(j, 3).conjugate();
 
-
-                VuUNR_bkj += (2. * sqrt(2.) / 3. * gW * TanThetaW * myRu(k, b + 3) *
-                        myN(j, 0) - Yub * myRu(k, b) * myN(j, 3));
+                VuUNR_bkj += 2. * sqrt(2.) / 3. * gW * TanThetaW * myRu(k, b + 3) *
+                        myN(j, 0) - Yub * myRu(k, b) * myN(j, 3);
 
                 VuUNL_cache[b][k][j] = VuUNL_bkj;
                 VuUNL_bkj.assign(0., 0., 0);
@@ -1201,7 +1067,7 @@ void SUSYMatching::Comp_VuUN(){
 
             }
         }
-    }
+    }    
 }
 
 
@@ -1284,7 +1150,7 @@ gslpp::complex SUSYMatching::PGLR(int j, int i) {
 gslpp::complex SUSYMatching::PGRL(int j, int i) {
 
     return (sqrt(2.) / v * myCKM(j, i) *
-            mySUSYMQ(2 * i));
+            mySUSYMQ(2 * j));
 }
 
 void SUSYMatching::Comp_PHLR(){
@@ -1314,8 +1180,7 @@ void SUSYMatching::Comp_PHLR(){
             PHLRCache.assign(j,i,PHLR);
             PHLR.assign(0.,0.,0);
         }
-    }
-
+    }     
 }
 
 gslpp::complex SUSYMatching::PHLR(int j, int i) {
@@ -1331,8 +1196,8 @@ void SUSYMatching::Comp_VUDHH(){
     gslpp::matrix<complex> myTD(3, 3, 0.);
     complex YuJ(0., 0., false);
     complex YdI(0., 0., false);
-    gslpp::matrix<complex> myCKM(3, 3, 0.);
-    myCKM = mySUSY_CKM();
+    gslpp::matrix<complex> mySUSYCKM(3, 3, 0.);
+    mySUSYCKM = mySUSY_CKM();
     myTU = mySUSY.getTUhat();
     myTD = mySUSY.getTDhat();
     gslpp::matrix<complex> ZH(2, 2, 0.);
@@ -1348,24 +1213,33 @@ void SUSYMatching::Comp_VUDHH(){
 
             for (I = 0; I < 3; I++) {
                 for (J = 0; J < 3; J++) {
-                    YuJ = sqrt(2.) / v2 * mySUSYMQ(2 * J);
-                    YdI = sqrt(2.) / v1 * mySUSYMQ(2 * I + 1) /
-                            (1 + Eps_J(I) * tanb);
+                    
 
-                    VUDHijH += v / sqrt(2.) * YuJ * YdI * myCKM(J, I) * myRd(j, I + 3) *
-                            myRu(i, J + 3) + 1. / sqrt(2.) * (v1 * YdI * YdI * ZH(0, 0) +
-                            v2 * YuJ * YuJ * ZH(1, 0)) * myCKM(J, I) * myRd(j, I)
-                            * myRu(i, J) + ZH(0, 0) * mySUSY.getMuH().conjugate() *
-                            YuJ * myCKM(J, I) * myRu(i, J + 3) * myRd(j, I) +
-                            ZH(1, 0) * mySUSY.getMuH() * YdI * myCKM(J, I) * myRu(i, J) *
-                            myRd(j, I + 3);
-                    for (l = 0; l < 3; l++) {
-
-                        VUDHijH += ZH(1, 0) * myTU(l, J) * myCKM(l, I) * myRu(i, J + 3) *
-                                myRd(j, I) + ZH(0, 0) * myTD(I, l).conjugate() * myCKM(J, l) *
-                                myRu(i, J) * myRd(j, I + 3);
-
-                    }
+                    VUDHijH += v / sqrt(2.) * sqrt(2.) / v2 * mySUSYMQ(2 * J) * 
+                            sqrt(2.) / v1 * mySUSYMQ(2 * I + 1) /
+                            (1 + Eps_J(I) * tanb) * mySUSYCKM(J, I) * myRd(j, I + 3).conjugate() *
+                            myRu(i, J + 3) 
+                           
+                             + 1. / sqrt(2.) * (v1 * sqrt(2.) / v1 * mySUSYMQ(2 * I + 1) /
+                            (1 + Eps_J(I) * tanb) * sqrt(2.) / v1 * mySUSYMQ(2 * I + 1) /
+                            (1 + Eps_J(I) * tanb) * ZH(0, 0) +
+                            v2 * sqrt(2.) / v2 * mySUSYMQ(2 * J) * sqrt(2.) / v2 * mySUSYMQ(2 * J)
+                            * ZH(1, 0)) * mySUSYCKM(J, I) * myRd(j, I).conjugate() * myRu(i, J) 
+                             
+                                     
+                            + (ZH(0, 0) * (mySUSY.getMuH()).conjugate() *
+                            sqrt(2.) / v2 * mySUSYMQ(2 * J) * mySUSYCKM(J, I) +
+                            ZH(1,0)*(myTU(J,0)*mySUSYCKM(0,I) + myTU(J,1)*mySUSYCKM(1,I) 
+                            + myTU(J,2)*mySUSYCKM(2,I)))
+                            * myRu(i, J + 3) * myRd(j, I).conjugate()
+                            
+                            + (ZH(0,0) * (myTD(I,0).conjugate() * mySUSYCKM(J,0) 
+                            + myTD(I,1).conjugate() * mySUSYCKM(J,1) 
+                            + myTD(I,2).conjugate() * mySUSYCKM(J,2))
+                            + ZH(1,0) * mySUSY.getMuH() *  sqrt(2.) / v1 * mySUSYMQ(2 * I + 1) /
+                            (1 + Eps_J(I) * tanb) * mySUSYCKM(J,I)) * myRu(i,J) * 
+                            myRd(j, I + 3).conjugate(); 
+                                                            
 
                 }
             }
@@ -1375,10 +1249,7 @@ void SUSYMatching::Comp_VUDHH(){
             VUDHH_cache.assign(i, j, VUDHijH);
             VUDHijH.assign(0., 0., 0);
         }
-
     }
-
-
 }
 
 gslpp::complex SUSYMatching::VUDHH(int i, int j) {
@@ -1408,12 +1279,12 @@ gslpp::complex SUSYMatching::DeltaFHL(int j, int i) {
     for (m = 0; m < 6; m++) {
         for (l = 0; l < 6; l++) {
 
-            DFHL_ji += VUDHH(m, l)*(-2 * Als / (3. * M_PI) * Mg
-                    * myRu(m, j + 3).conjugate() * myRd(l, i).conjugate() *
-                    Ck(Mg * Mg, myMU2Squarks(m), myMD2Squarks(l), 0) +
+            DFHL_ji += VUDHH(m,l) *(-2 * Als / (3. * M_PI) * Mg 
+                    * myRu(m, j + 3).conjugate() * myRd(l, i) *
+                    Ck(Mg * Mg, myMU2Squarks(m), myMD2Squarks(l), 0)
 
-                    1. / (16. * M_PI * M_PI) * Yuj * Ydi *
-                    myRu(m, j).conjugate() * myRd(l, i + 3).conjugate() *
+                    - 1. / (16. * M_PI * M_PI) * Yuj * Ydi *  
+                    myRu(m, j).conjugate() * myRd(l, i + 3) *
                     mySUSY.getMuH().conjugate() *
                     Ck(mySUSY.getMuH().abs2(), myMU2Squarks(m), myMD2Squarks(l), 0));
 
@@ -1431,7 +1302,7 @@ void SUSYMatching::Comp_PHRL(){
         for (j = 0; j < 3; j++) {
 
             PHRLCache.assign(j, i, sqrt(2.) / (v * tanb) *
-            mySUSYMQ(2 * j) * mySUSY_CKM()(j, i) + DeltaFHL(j, i));
+            mySUSYMQ(2 * j) * myCKM(j, i) + DeltaFHL(j, i));
         }
     }
 }
@@ -1507,8 +1378,6 @@ gslpp::complex SUSYMatching::PLRk(int j, int i, int k, int Dmixingflag) {
 ////////////////////////////////////////////////////////////////////////////////
 ////// Double Penguin Functions
 
-
-
 gslpp::complex SUSYMatching::xdS(int S){
     
     double M2A = mySUSY.getMHa() * mySUSY.getMHa();
@@ -1574,13 +1443,11 @@ gslpp::complex SUSYMatching::xuS(int S){
 }
 
 gslpp::complex SUSYMatching::XRLS(int J, int I, int S){
-
-    double Y2ut = sqrt(2.) / v2 * mySUSYMQ(4);
-    Y2ut *= Y2ut;
- 
+    
     if (J > I) {            
         return (mySUSYMQ(2 * J + 1) / (v1 * (1 + Eps_J(J) * tanb) *
-                (1 + Eps_J(J) * tanb)) * Lambda0EpsY(J, I) * Y2ut *
+                (1 + Eps_J(J) * tanb))  * Lambda0EpsY(J, I) * 2. / (v2 * v2) 
+                * mySUSYMQ(4) * mySUSYMQ(4) *
                 (xuS(S) - xdS(S) * tanb));
     }
     else if (J < I) {
@@ -1601,9 +1468,8 @@ gslpp::complex SUSYMatching::XLRS(int J, int I, int S){
     complex temp(0.,0.,false);
     temp = 1 + Eps_J(J) * tanb;
     complex rJI(0.,0.,false);
-    
-
-    rJI = ((1. + (Eps_J(J) + (Eps_J(I).conjugate() - Eps_J(J).conjugate()) *
+        
+    rJI = ((1. +  (Eps_J(J) + (Eps_J(I).conjugate() - Eps_J(J).conjugate()) *
             Lambda0EpsY(J, I) / Lambda0EpsY(I, J).conjugate()) * tanb) /
             (1 + Eps_J(I).conjugate() * tanb));   
     
@@ -1631,11 +1497,7 @@ gslpp::complex SUSYMatching::XLRS(int J, int I, int S){
 //// in the D - D \bar mixing q -> u and b -> c
 
 gslpp::vector<complex> SUSYMatching::CdF2dHp(int b, int q, int Dmixingflag) {
-    
-    gslpp::matrix<complex> myCKM(3, 3, 0.);
-    myCKM = mySUSY_CKM();
-    gslpp::matrix<complex> CKMeff(3, 3, 0.);
-    mySUSY.getCKM().getCKM(CKMeff);
+
     gslpp::vector<double> M2S(3,0.);
     gslpp::vector<double> MQuarks(6,0.);
     int i;
@@ -1659,9 +1521,6 @@ gslpp::vector<complex> SUSYMatching::CdF2dHp(int b, int q, int Dmixingflag) {
     else {
         throw std::runtime_error("Error in Dmixingflag in SUSYMatching.cpp. Flag can be either 0 or 1  ");
     }
-    
-   
-    //double M2Z = mySUSY.getMz() * mySUSY.getMz();
 
     M2S(0) = mySUSY.getMHl() * mySUSY.getMHl(); 
     M2S(1) = mySUSY.getMHh() * mySUSY.getMHh();
@@ -1682,7 +1541,6 @@ gslpp::vector<complex> SUSYMatching::CdF2dHp(int b, int q, int Dmixingflag) {
     gslpp::vector<double> M2Hk(2, 0);
     M2Hk(0) = M2H;
     M2Hk(1) = M2W;
-
     
     int D = Dmixingflag;
 
@@ -1696,39 +1554,41 @@ gslpp::vector<complex> SUSYMatching::CdF2dHp(int b, int q, int Dmixingflag) {
                 M2I *= M2I;
 
                 for (J = 0; J < 3; J++) {
-
+                    
                         M2J = MQuarks(2 * J);
                         M2J *= M2J;
-                        CLO += 1. / 4. * mySUSY.getGF() * M2W / (sqrt(2) * M_PI * M_PI) *
+                        CLO +=  gW * gW / (32. * M_PI * M_PI) *
                                 myCKM(I, q).conjugate() * myCKM(J, b) * PRLk(J, q, 0, D).conjugate() *
-                                PRLk(I, b, 0, D) * D0N(M2W, M2H, M2I, M2J)
+                                PRLk(I, b, 0, D)  * D0N(M2W, M2W, M2I, M2J)
 
-                                - 1. / (32. * M_PI * M_PI) * PRLk(I, q, 0, D).conjugate() *
+                                -  1. / (32. * M_PI * M_PI) * PRLk(I, q, 0, D).conjugate() *
                                 PRLk(J, q, 0, D).conjugate() * PRLk(I, b, 0, D) * PRLk(J, b, 0, D) *
-                                Dk(M2H, M2H, M2I, M2J, 2)
+                                Dk(M2W, M2W, M2I, M2J, 2)
 
-                                - 1. / (16. * M_PI * M_PI) * PRLk(I, q, 1, D).conjugate() *
+                                -  1. / (16. * M_PI * M_PI) * PRLk(I, q, 1, D).conjugate() *
                                 PRLk(J, q, 0, D).conjugate() * PRLk(I, b, 0, D) * PRLk(J, b, 1, D) *
-                                Dk(M2W, M2H, M2I, M2J, 2);
+                                Dk(M2W, M2W, M2I, M2J, 2);
                 }
             }
         }
         else if (O == 2) {
-            for (I = 0; I < 3; I++) {
+            for (I = 1; I < 3; I++) {
                 M2I = MQuarks(2 * I);
                 M2I *= M2I;
 
-                for (J = 0; J < 3; J++) {
+                for (J = 1; J < 3; J++) {
 
                     M2J = MQuarks(2 * J);
                     M2J *= M2J;
 
                     for (k = 0; k < 2; k++) {
                         for (l = 0; l < 2; l++) {
-
-                            CLO += -1. / (32. * M_PI * M_PI) * PLRk(I, q, l, D).conjugate() *
+                   
+                                    CLO +=  -1. / (32. * M_PI * M_PI) * PLRk(I, q, l, D).conjugate() *
                                     PLRk(J, q, k, D).conjugate() * PRLk(I, b, k, D) * PRLk(J, b, l, D) *
                                     D0N(M2Hk(k), M2Hk(l), M2I, M2J);
+                                    
+        
                         }
                     }
                 }
@@ -1747,16 +1607,16 @@ gslpp::vector<complex> SUSYMatching::CdF2dHp(int b, int q, int Dmixingflag) {
                     for (k = 0; k < 2; k++) {
 
 
-                        CLO += mySUSY.getGF() * M2W / (sqrt(2) * M_PI * M_PI) *
+                        CLO +=  gW * gW / (8. * M_PI * M_PI) *
                                 myCKM(I, q).conjugate() * myCKM(J, b) *
                                 PLRk(J, q, k, D).conjugate() * PLRk(I, b, k, D) *
                                 Dk(M2W, M2Hk(k), M2I, M2J, 2);
 
-                        //std::cout << "CLO = " << CLO << std::endl;
+                       
                         
                         for (l = 0; l < 2; l++) {
 
-                            CLO += -1. / (16. * M_PI * M_PI) * PLRk(I, q, l, D).conjugate() *
+                            CLO +=  -1. / (16. * M_PI * M_PI) * PLRk(I, q, l, D).conjugate() *
                                     PRLk(J, q, k, D).conjugate() * PRLk(I, b, k, D) *
                                     PLRk(J, b, l, D) * D0N(M2Hk(k), M2Hk(l), M2I, M2J);
                         }
@@ -1764,21 +1624,17 @@ gslpp::vector<complex> SUSYMatching::CdF2dHp(int b, int q, int Dmixingflag) {
                 }
             }
          
-            /** The double Penguin contributions are calulated only for the B and K mixing **/
+           /** The double Penguin contributions are calulated only for the B and K mixing **/
 
-            if (D != 0) {
+             if (D == 0) {
                 for (S = 0; S < 3; S++) {
 
                     CLO += -XRLS(q, b, S) * XLRS(q, b, S) / M2S(S);
 
-
-                    //                complex temp(0.,0.,false);
-                    //                temp +=  - XRLS(q, b, S) * XLRS(q, b, S) / M2S(S);
-
                 }
             }
-            
-            /** end double Penguin contribution **/
+         
+            /** end double Penguin contribution **/  
 
         }
         else if (O == 5) {
@@ -1838,19 +1694,17 @@ gslpp::vector<complex> SUSYMatching::CdF2dHp(int b, int q, int Dmixingflag) {
                         for (l = 0; l < 2; l++) {
 
                             CLO += -1. / (32. * M_PI * M_PI) * PRLk(I, q, l, D).conjugate() *
-                                    PRLk(J, q, k, D).conjugate() * PLRk(I, b, k, D) * PLRk(J, b, l, D) *
-                                    D0N(M2Hk(k), M2Hk(l), M2I, M2J);      
+                                    PRLk(J, q, k, D).conjugate() * PLRk(I, b, k, D) * PLRk(J, b, l, D) 
+                                    * D0N(M2Hk(k), M2Hk(l), M2I, M2J);      
                         
                         }
                     }
                 }
             }
         }
-        
-       
-//        double CLOreal = CLO.real();
-//        double CLOimm = CLO.imag();
+
         VCLO.assign(O - 1,CLO);
+        
     }
 
     return (VCLO);
@@ -1888,9 +1742,7 @@ gslpp::vector<complex> SUSYMatching::CdF2dgg(int b, int q, int Dmixingflag) {
     double M2g = Mg*Mg;
     int h, k, O;
 
-
     
-
     for (O = 1; O < 9; O++) {
         
         CLO.assign(0., 0.,0);
@@ -1899,21 +1751,23 @@ gslpp::vector<complex> SUSYMatching::CdF2dgg(int b, int q, int Dmixingflag) {
             for (h = 0; h < 6; h++) {
                 for (k = 0; k < 6; k++) {
 
-                    CLO += -Als * Als * myR(h, b).conjugate() * myR(k, b).conjugate()
-                            * myR(h, q) * myR(k, q)*(1. / 9. * M2g *
-                            Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 0) -
+                    CLO +=  -Als * Als * 
+                            myR(h, b) * myR(k, b)
+                            * myR(h, q).conjugate() * myR(k, q).conjugate() * 
+                            (1. / 9. * M2g *
+                            Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 0) +
                             11. / 9. * Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 2));
                 }
-            }
+            }    
         }
         else if (O == 2) {
             for (h = 0; h < 6; h++) {
                 for (k = 0; k < 6; k++) {
 
-                    CLO += -Als * Als * 17. / 18. * M2g * myR(h, b).conjugate()
-                            * myR(k, b).conjugate() * myR(h, q + 3)
-                            * myR(k, q + 3)
-                            * Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 0);
+                    CLO += -Als * Als * 17. / 18. * M2g * myR(h, b)
+                            * myR(k, b) * myR(h, q + 3).conjugate()
+                            * myR(k, q + 3).conjugate() *
+                            Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 0);
                 }
             }
         }
@@ -1921,10 +1775,10 @@ gslpp::vector<complex> SUSYMatching::CdF2dgg(int b, int q, int Dmixingflag) {
             for (h = 0; h < 6; h++) {
                 for (k = 0; k < 6; k++) {
 
-                    CLO += Als * Als * 1. / 6. * M2g * myR(h, b).conjugate()
-                            * myR(k, b).conjugate() * myR(h, q + 3)
-                            * myR(k, q + 3)
-                            * Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 0);
+                    CLO += Als * Als * 1. / 6. * M2g * myR(h, b)
+                            * myR(k, b) * myR(h, q + 3).conjugate()
+                            * myR(k, q + 3).conjugate() *
+                            Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 0);
                 }
             }
         }
@@ -1932,15 +1786,16 @@ gslpp::vector<complex> SUSYMatching::CdF2dgg(int b, int q, int Dmixingflag) {
             for (h = 0; h < 6; h++) {
                 for (k = 0; k < 6; k++) {
 
-                    CLO += -Als * Als * 7. / 3. * M2g * myR(h, b).conjugate()
-                            * myR(k, b + 3).conjugate() * myR(h, q)
-                            * myR(k, q + 3)
-                            * Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 0) +
+                    CLO += -Als * Als * 7. / 3. * M2g * myR(h, b)
+                            * myR(k, b + 3) * myR(h, q).conjugate()
+                            * myR(k, q + 3).conjugate() *
+                            Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 0) +
                             Als * Als * 2. / 9. *
-                            Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 2) *
-                            myR(h, b).conjugate() * myR(k, b + 3).conjugate() *
-                            (6. * myR(h, q) * myR(k, q + 3) + 11. * myR(k, q)
-                            * myR(h, q + 3));
+                            Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 2) 
+                            * myR(h, b) * myR(k, b + 3) *
+                            (6. * myR(h, q).conjugate() * myR(k, q + 3).conjugate()
+                            + 11. * myR(k, q).conjugate() * myR(h, q + 3).conjugate())
+                    ;
                 }
             }
         }
@@ -1948,15 +1803,16 @@ gslpp::vector<complex> SUSYMatching::CdF2dgg(int b, int q, int Dmixingflag) {
             for (h = 0; h < 6; h++) {
                 for (k = 0; k < 6; k++) {
 
-                    CLO += -Als * Als * 1. / 9. * M2g * myR(h, b).conjugate()
-                            * myR(k, b + 3).conjugate() * myR(h, q)
-                            * myR(k, q + 3)
-                            * Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 0) +
+                    CLO += -Als * Als * 1. / 9. * M2g * myR(h, b)
+                            * myR(k, b + 3) * myR(h, q).conjugate()
+                            * myR(k, q + 3).conjugate() *
+                            Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 0) +
                             Als * Als * 10. / 9. *
-                            Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 2) *
-                            myR(h, b).conjugate() * myR(k, b + 3).conjugate() *
-                            (3. * myR(k, q) * myR(h, q + 3) - 2. * myR(h, q)
-                            * myR(k, q + 3));
+                            Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 2) 
+                            * myR(h, b) * myR(k, b + 3) *
+                            (3. * myR(k, q).conjugate() * myR(h, q + 3).conjugate()
+                            - 2. * myR(h, q).conjugate() * myR(k, q + 3).conjugate())
+                            ;
                 }
             }
         }
@@ -1964,21 +1820,21 @@ gslpp::vector<complex> SUSYMatching::CdF2dgg(int b, int q, int Dmixingflag) {
             for (h = 0; h < 6; h++) {
                 for (k = 0; k < 6; k++) {
 
-                    CLO += -Als * Als * myR(h, b + 3).conjugate() * myR(k, b + 3).conjugate()
-                            * myR(h, q + 3) * myR(k, q + 3)*(1. / 9. * M2g *
-                            Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 0) -
-                            11. / 9. * Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 2));
+                    CLO += -Als * Als * myR(h, b + 3) * myR(k, b + 3)
+                           * myR(h, q + 3).conjugate() * myR(k, q + 3).conjugate() *
+                           (1. / 9. * M2g * Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 0) -
+                           11. / 9. * Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 2));
                 }
             }
-        }
+        }  
         else if (O == 7) {
             for (h = 0; h < 6; h++) {
                 for (k = 0; k < 6; k++) {
 
-                    CLO += -Als * Als * 17. / 18. * M2g * myR(h, b).conjugate()
-                            * myR(k, b + 3).conjugate() * myR(h, q)
-                            * myR(k, q)
-                            * Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 0);
+                    CLO += -Als * Als * 17. / 18. * M2g * myR(h, b + 3)
+                           * myR(k, b + 3) * myR(h, q).conjugate()
+                           * myR(k, q).conjugate() *
+                           Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 0);
                 }
             }
         }
@@ -1986,18 +1842,19 @@ gslpp::vector<complex> SUSYMatching::CdF2dgg(int b, int q, int Dmixingflag) {
             for (h = 0; h < 6; h++) {
                 for (k = 0; k < 6; k++) {
 
-                    CLO += Als * Als * 1. / 6. * M2g * myR(h, b + 3).conjugate()
-                            * myR(k, b + 3).conjugate() * myR(h, q)
-                            * myR(k, q)
-                            * Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 0);
+                    CLO += Als * Als * 1. / 6. * M2g * myR(h, b + 3)
+                           * myR(k, b + 3) * myR(h, q).conjugate()
+                           * myR(k, q).conjugate() *
+                           Dk(myM2Squarks(h), myM2Squarks(k), M2g, M2g, 0);
                 }
             }
         }
 
-//        double CLOreal = CLO.real();
-//        double CLOimm = CLO.imag();
-        VCLO.assign(O - 1, CLO);
+
+          VCLO.assign(O - 1, CLO);
+        
     }
+        
     return (VCLO);
 }
 
@@ -2086,7 +1943,7 @@ gslpp::vector<complex> SUSYMatching::CdF2dChiChi(int b, int q, int Dmixingflag) 
                         for (k = 0; k < 6; k++) {
 
                             CLO += -1. / (16. * M_PI * M_PI) * VdUCL(q, k, j, D).conjugate() *
-                                    VdUCR(q, h, i, 1, D).conjugate() * VdUCL(b, h, j, D) *
+                                    VdUCR(q, h, i, 1, D).conjugate() * VdUCL(b, k, i, D) *
                                     VdUCR(b, h, j, 1, D) * D0N(myM2Squarks(k),
                                     myM2Squarks(h), MChi(i) * MChi(i), MChi(j)
                                     * MChi(j));
@@ -2127,13 +1984,9 @@ gslpp::vector<complex> SUSYMatching::CdF2dChiChi(int b, int q, int Dmixingflag) 
                 }
             }
         }
-
-//        double CLOreal = CLO.real();
-//        double CLOimm = CLO.imag();
+        
         VCLO.assign(O - 1, CLO);
-
     }
-
 
     return (VCLO);
 }
@@ -2148,13 +2001,9 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0Chi0(int b, int q, int Dmixingflag
     gslpp::vector<complex> VCLO(8, 0.);
     complex CLO(0., 0., false);
     int i, j, h, k, O;
-    std::cout << "I am Here  " << std::endl;
     
-
     // Set the D - Dbar mixing flag
     // in D - Dbar mixing the flag = 1 otherwise the flag = 0
-    
-    
 
     if (Dmixingflag == 0) {
         myM2Squarks = mySUSY.getMsd2();
@@ -2176,15 +2025,15 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0Chi0(int b, int q, int Dmixingflag
                     for (h = 0; h < 6; h++) {
                         for (k = 0; k < 6; k++) {
 
-                            CLO += VdDNL(b, k, i, 1, D) * VdDNL(q, k, j, 1, D).conjugate()
-                                    * (-1. / (32. * M_PI * M_PI) * VdDNL(b, h, j, 1, D)
-                                    * VdDNL(q, h, i, 1, D).conjugate() * Dk(myM2Squarks(k),
-                                    myM2Squarks(h), MChi0(i) * MChi0(i),
-                                    MChi0(j) * MChi0(j), 2) - MChi0(i) * MChi0(j)
-                                    / (64. * M_PI * M_PI) * Dk(myM2Squarks(k),
+                            CLO += - VdDNL(q, k, j, 1, D).conjugate()*VdDNL(b, k, i, 1, D)* 
+                                    (1./ 32. / M_PI / M_PI * VdDNL(b, h, j, 1, D)
+                                    * VdDNL(q, h, i, 1, D).conjugate()
+                                    * Dk(myM2Squarks(k),myM2Squarks(h), MChi0(i) * MChi0(i),
+                                    MChi0(j) * MChi0(j), 2) + MChi0(i) * MChi0(j) 
+                                    / 64. / M_PI / M_PI * Dk(myM2Squarks(k),
                                     myM2Squarks(h), MChi0(i) * MChi0(i), MChi0(j)
-                                    * MChi0(j), 0) * VdDNL(b, h, i, 1, D)
-                                    * VdDNL(q, h, j, 1, D).conjugate());
+                                    * MChi0(j), 0) * VdDNL(b, h, i, 1, D)*
+                                    VdDNL(q, h, j, 1, D).conjugate());
                         }
                     }
                 }
@@ -2197,10 +2046,10 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0Chi0(int b, int q, int Dmixingflag
                     for (h = 0; h < 6; h++) {
                         for (k = 0; k < 6; k++) {
 
-                            CLO += MChi0(i) * MChi0(j) / (32. * M_PI * M_PI) *
+                            CLO += MChi0(i) * MChi0(j) / 32. / M_PI / M_PI *
                                     Dk(myM2Squarks(k), myM2Squarks(h),
                                     MChi0(i) * MChi0(i), MChi0(j) * MChi0(j), 0) *
-                                    VdDNL(b, k, i, 1, D) * VdDNR(q, k, j, 1, D).conjugate() *
+                                    VdDNL(b, k, i, 1, D) * VdDNR(q, k, j, 1, D).conjugate()*
                                     VdDNL(b, h, i, 1, D) * VdDNR(q, h, j, 1, D).conjugate() ;
                         }
                     }
@@ -2214,7 +2063,7 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0Chi0(int b, int q, int Dmixingflag
                     for (h = 0; h < 6; h++) {
                         for (k = 0; k < 6; k++) {
 
-                            CLO += -MChi0(i) * MChi0(j) / (32. * M_PI * M_PI) *
+                            CLO += -MChi0(i) * MChi0(j) / 32. / M_PI / M_PI *
                                     Dk(myM2Squarks(k), myM2Squarks(h), MChi0(i) * MChi0(i),
                                     MChi0(j) * MChi0(j), 0) * VdDNL(b, k, i, 1, D) *
                                     VdDNR(q, k, j, 1, D).conjugate() *
@@ -2232,12 +2081,12 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0Chi0(int b, int q, int Dmixingflag
                     for (h = 0; h < 6; h++) {
                         for (k = 0; k < 6; k++) {
 
-                            CLO += 1. / (8. * M_PI * M_PI) * Dk(myM2Squarks(k),
+                            CLO += 1. / 8. / M_PI / M_PI * Dk(myM2Squarks(k),
                                     myM2Squarks(h), MChi0(i) * MChi0(i),
                                     MChi0(j) * MChi0(j), 2) * VdDNR(b, k, i, 1, D) *
                                     VdDNL(q, k, j, 1, D).conjugate() * (
-                                    VdDNL(b, h, j, 1, D) * VdDNR(q, h, i, 1, D).conjugate() +
-                                    VdDNL(b, h, i, 1, D) * VdDNR(q, h, j, 1, D).conjugate());
+                                    VdDNL(b, h, j, 1, D) * (VdDNR(q, h, i, 1, D).conjugate()) +
+                                    VdDNL(b, h, i, 1, D) * (VdDNR(q, h, j, 1, D).conjugate()));
                         }
                     }
                 }
@@ -2250,12 +2099,12 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0Chi0(int b, int q, int Dmixingflag
                     for (h = 0; h < 6; h++) {
                         for (k = 0; k < 6; k++) {
 
-                            CLO += -1. / (8. * M_PI * M_PI) * Dk(myM2Squarks(k),
+                            CLO += -1. / 8. / M_PI / M_PI * Dk(myM2Squarks(k),
                                     myM2Squarks(h), MChi0(i) * MChi0(i),
                                     MChi0(j) * MChi0(j), 2) * VdDNL(q, k, j, 1, D).conjugate() *
-                                    VdDNR(q, h, j, q, D).conjugate() * VdDNL(b, k, i, 1, D) *
-                                    VdDNR(b, h, i, 1, D) - MChi0(i) * MChi0(j) / (16. * M_PI *
-                                    M_PI) * Dk(myM2Squarks(k), myM2Squarks(h),
+                                    VdDNR(q, h, j, 1, D).conjugate() * VdDNL(b, k, i, 1, D) *
+                                    VdDNR(b, h, i, 1, D) - MChi0(i) * MChi0(j) / 16. / M_PI /
+                                    M_PI * Dk(myM2Squarks(k), myM2Squarks(h),
                                     MChi0(i) * MChi0(i), MChi0(j) * MChi0(j), 0) *
                                     VdDNL(q, h, i, 1, D).conjugate() * VdDNR(q, k, j, 1, D).conjugate() *
                                     VdDNL(b, h, j, 1, D) * VdDNR(b, k, i, 1, D);
@@ -2271,15 +2120,15 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0Chi0(int b, int q, int Dmixingflag
                     for (h = 0; h < 6; h++) {
                         for (k = 0; k < 6; k++) {
 
-                            CLO += VdDNR(b, k, i, 1, D) * VdDNR(q, k, j, 1, D).conjugate()
-                                    * (-1. / (32. * M_PI * M_PI) * VdDNR(b, h, j, 1, D)
-                                    * VdDNR(q, h, i, 1, D).conjugate() * Dk(myM2Squarks(k),
-                                    myM2Squarks(h), MChi0(i) * MChi0(i),
-                                    MChi0(j) * MChi0(j), 2) - MChi0(i) * MChi0(j)
-                                    / (64. * M_PI * M_PI) * Dk(myM2Squarks(k),
+                            CLO += - VdDNR(q, k, j, 1, D).conjugate()*VdDNR(b, k, i, 1, D)* 
+                                    (1./ 32. / M_PI / M_PI * VdDNR(b, h, j, 1, D)
+                                    * VdDNR(q, h, i, 1, D).conjugate() 
+                                    * Dk(myM2Squarks(k),myM2Squarks(h), MChi0(i) * MChi0(i),
+                                    MChi0(j) * MChi0(j), 2) + MChi0(i) * MChi0(j) 
+                                    / 64. / M_PI / M_PI * Dk(myM2Squarks(k),
                                     myM2Squarks(h), MChi0(i) * MChi0(i), MChi0(j)
-                                    * MChi0(j), 0) * VdDNR(b, h, i, 1, D)
-                                    * VdDNR(q, h, j, 1, D).conjugate());
+                                    * MChi0(j), 0) * VdDNR(b, h, i, 1, D)*
+                                    VdDNR(q, h, j, 1, D).conjugate());
                         }
                     }
                 }
@@ -2292,11 +2141,11 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0Chi0(int b, int q, int Dmixingflag
                     for (h = 0; h < 6; h++) {
                         for (k = 0; k < 6; k++) {
 
-                            CLO += MChi0(i) * MChi0(j) / (32. * M_PI * M_PI) *
+                            CLO += MChi0(i) * MChi0(j) / 32. / M_PI / M_PI *
                                     Dk(myM2Squarks(k), myM2Squarks(h),
                                     MChi0(i) * MChi0(i), MChi0(j) * MChi0(j), 0) *
-                                    VdDNR(b, k, i, 1, D) * VdDNL(q, k, j, 1, D).conjugate() *
-                                    VdDNR(b, h, i, 1, D) * VdDNL(q, h, j, 1, D).conjugate();
+                                    VdDNR(b, k, i, 1, D) * VdDNL(q, k, j, 1, D).conjugate()*
+                                    VdDNR(b, h, i, 1, D) * VdDNL(q, h, j, 1, D).conjugate() ;
                         }
                     }
                 }
@@ -2310,7 +2159,7 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0Chi0(int b, int q, int Dmixingflag
                     for (h = 0; h < 6; h++) {
                         for (k = 0; k < 6; k++) {
 
-                           CLO += -MChi0(i) * MChi0(j) / (32. * M_PI * M_PI) *
+                           CLO += -MChi0(i) * MChi0(j) / 32. / M_PI / M_PI *
                                     Dk(myM2Squarks(k), myM2Squarks(h), MChi0(i) * MChi0(i),
                                     MChi0(j) * MChi0(j), 0) * VdDNR(b, k, i, 1, D) *
                                     VdDNL(q, k, j, 1, D).conjugate() *
@@ -2322,8 +2171,6 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0Chi0(int b, int q, int Dmixingflag
             }
         } 
 
-//        double CLOreal = CLO.real();
-//        double CLOimm = CLO.imag();
         VCLO.assign(O - 1, CLO);
 
     }
@@ -2335,10 +2182,6 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0Chi0(int b, int q, int Dmixingflag
 //// Neutralino - Gluino contribution to Wilson coefficients of Delta F = 2
 
 gslpp::vector<complex> SUSYMatching::CdF2dChi0g(int b, int q, int Dmixingflag) {   
-
-
-    //double Q = mySUSY.GetQ();
-
 
 
     gslpp::matrix<complex> myR(6, 6, 0.);
@@ -2377,15 +2220,15 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0g(int b, int q, int Dmixingflag) {
                 for (h = 0; h < 6; h++) {
                     for (k = 0; k < 6; k++) {
 
-                CLO += -Als * 2. / (3. * 4. * M_PI ) * Dk(myM2Squarks(k), myM2Squarks(h),
-                                MChi0(i) * MChi0(i), M2g, 2) * myR(k, q)
-                                * myR(h, b).conjugate() * VdDNL(q, h, i, 1, D).conjugate() *
-                                VdDNL(b, k, i, 1, D) - Als /( 4. * M_PI ) * MChi0(i) * Mg / 6. *
-                                Dk(myM2Squarks(k), myM2Squarks(h), MChi0(i) * MChi0(i)
-                                , M2g, 0) * (myR(h, q) * myR(k, q) * VdDNL(b, h, i, 1, D) *
-                                VdDNL(b, k, i, 1, D) + myR(h, b).conjugate()
-                                * myR(k, b).conjugate() * VdDNL(q, h, i, 1, D).conjugate() *
-                                VdDNL(q, k, i, 1, D).conjugate());
+                CLO += -Als * 2. / 3. / 4. / M_PI * Dk(myM2Squarks(k), myM2Squarks(h),
+                        MChi0(i) * MChi0(i), M2g, 2) * myR(k, q).conjugate()
+                        * myR(h, b) * VdDNL(q, h, i, 1, D).conjugate() *
+                        VdDNL(b, k, i, 1, D) - Als / 4. / M_PI * MChi0(i) * Mg / 6. *
+                        Dk(myM2Squarks(k), myM2Squarks(h), MChi0(i) * MChi0(i)
+                        , M2g, 0) * (myR(h, q).conjugate() * myR(k, q).conjugate()
+                        * VdDNL(b, h, i, 1, D) *  VdDNL(b, k, i, 1, D) 
+                        + myR(h, b) * myR(k, b) * VdDNL(q, h, i, 1, D).conjugate() *
+                        VdDNL(q, k, i, 1, D).conjugate());
 
                     }
                 }
@@ -2396,14 +2239,15 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0g(int b, int q, int Dmixingflag) {
                 for (h = 0; h < 6; h++) {
                     for (k = 0; k < 6; k++) {
 
-                        CLO += Als / (4. * M_PI) * MChi0(i) * Mg / 3. *
+                        CLO +=  Als /4. / M_PI * MChi0(i) * Mg / 3. *
                                 Dk(myM2Squarks(k), myM2Squarks(h), MChi0(i)
-                                * MChi0(i), M2g, 0) * (3 * myR(h, b).conjugate() *
-                                myR(k, q + 3) * VdDNL(b, k, i, 1, D) * VdDNR(q, h, i, 1, D).conjugate()
-                                + myR(k, b).conjugate() * myR(h, b).conjugate() *
+                                * MChi0(i), M2g, 0) * (3. * myR(h, b) *
+                                myR(k, q + 3).conjugate() * VdDNL(b, k, i, 1, D) * 
+                                VdDNR(q, h, i, 1, D).conjugate()
+                                + myR(k, b) * myR(h, b) *
                                 VdDNR(q, k, i, 1, D).conjugate() * VdDNR(q, h, i, 1, D).conjugate() +
-                                myR(k, q + 3) * myR(h, q + 3) * VdDNL(b, k, i, 1, D) *
-                                VdDNL(b, h, i, 1, D));
+                                myR(k, q + 3).conjugate() * myR(h, q + 3).conjugate() * 
+                                VdDNL(b, k, i, 1, D) * VdDNL(b, h, i, 1, D));
 
                     }
                 }
@@ -2414,14 +2258,15 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0g(int b, int q, int Dmixingflag) {
                 for (h = 0; h < 6; h++) {
                     for (k = 0; k < 6; k++) {
 
-                        CLO += -Als / (4. * M_PI) * MChi0(i) * Mg / 3. *
+                        CLO +=  -Als / 4. / M_PI * MChi0(i) * Mg / 3. *
                                 Dk(myM2Squarks(k), myM2Squarks(h), MChi0(i)
                                 * MChi0(i), M2g, 0) * (
-                                myR(h, b).conjugate() * myR(k, q + 3) * VdDNL(b, k, i, 1, D) *
-                                VdDNR(q, h, i, 1, D).conjugate() - myR(k, b).conjugate() *
-                                myR(h, b).conjugate() * VdDNR(q, k, i, 1, D).conjugate() *
-                                VdDNR(q, h, i, 1, D).conjugate() - myR(k, q + 3) *
-                                myR(h, q + 3) * VdDNL(b, k, i, 1, D) * VdDNL(b, h, i, 1, D));
+                                myR(h, b) * myR(k, q + 3).conjugate() * VdDNL(b, k, i, 1, D) *
+                                VdDNR(q, h, i, 1, D).conjugate() - myR(k, b) *
+                                myR(h, b) * VdDNR(q, k, i, 1, D).conjugate() *
+                                VdDNR(q, h, i, 1, D).conjugate() - myR(k, q + 3).conjugate() *
+                                myR(h, q + 3).conjugate() * VdDNL(b, k, i, 1, D) *
+                                VdDNL(b, h, i, 1, D));
 
                     }
                 }
@@ -2432,25 +2277,27 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0g(int b, int q, int Dmixingflag) {
                 for (h = 0; h < 6; h++) {
                     for (k = 0; k < 6; k++) {
 
-                        CLO += -Als / (4. * M_PI) * 2. / 3. *
+                        CLO +=  -Als / 4. / M_PI * 2. / 3. *
                                 Dk(myM2Squarks(k), myM2Squarks(h), MChi0(i)
                                 * MChi0(i), M2g, 2) * (
-                                myR(h, b).conjugate() * myR(k, q) * VdDNR(b, k, i, 1, D) *
-                                VdDNR(q, h, i, 1, D).conjugate() + myR(h, b + 3).conjugate() *
-                                myR(k, q + 3) * VdDNL(b, k, i, 1, D) * VdDNL(q, h, i, 1, D).conjugate()
-                                - myR(h, b).conjugate() * myR(k, b + 3).conjugate() *
+                                myR(h, b) * myR(k, q).conjugate() * VdDNR(b, k, i, 1, D) *
+                                VdDNR(q, h, i, 1, D).conjugate() +
+                                myR(h, b + 3) *
+                                myR(k, q + 3).conjugate() * VdDNL(b, k, i, 1, D) * 
+                                VdDNL(q, h, i, 1, D).conjugate()
+                                - myR(h, b) * myR(k, b + 3) *
                                 VdDNL(q, k, i, 1, D).conjugate() * VdDNR(q, h, i, 1, D).conjugate()
-                                - myR(h, q) * myR(k, q + 3) * VdDNL(b, k, i, 1, D)
-                                * VdDNR(b, h, i, 1, D) - 3. * myR(k, b + 3).conjugate() *
-                                myR(h, b).conjugate() * VdDNL(q, h, i, 1, D).conjugate() *
-                                VdDNR(q, k, i, 1, D).conjugate() - 3. * myR(k, q + 3) *
-                                myR(h, q) * VdDNL(b, h, i, 1, D) * VdDNR(b, k, i, 1, D)) +
-                                Als / (4. * M_PI) * MChi0(i) * Mg *
-                                Dk(myM2Squarks(k), myM2Squarks(h), MChi0(i)
-                                * MChi0(i), M2g, 0) * (
-                                myR(h, b).conjugate() * myR(k, q + 3) *
+                                - myR(h, q).conjugate() * myR(k, q + 3).conjugate() * 
+                                VdDNL(b, k, i, 1, D) * VdDNR(b, h, i, 1, D) 
+                                - 3. * myR(k, b + 3) * myR(h, b) * 
+                                VdDNL(q, h, i, 1, D).conjugate() *VdDNR(q, k, i, 1, D).conjugate() 
+                                - 3. * myR(k, q + 3).conjugate() *
+                                myR(h, q).conjugate() * VdDNL(b, h, i, 1, D) * VdDNR(b, k, i, 1, D)) +
+                                Als / 4. / M_PI * MChi0(i) * Mg *
+                                Dk(myM2Squarks(k), myM2Squarks(h), MChi0(i)* MChi0(i), M2g, 0) * 
+                                (myR(h, b) * myR(k, q + 3).conjugate() *
                                 VdDNR(b, k, i, 1, D) * VdDNL(q, h, i, 1, D).conjugate() +
-                                myR(h, b + 3).conjugate() * myR(h, q) *
+                                myR(h, b + 3) * myR(k, q).conjugate() *
                                 VdDNL(b, k, i, 1, D) * VdDNR(q, h, i, 1, D).conjugate());
 
                     }
@@ -2462,25 +2309,25 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0g(int b, int q, int Dmixingflag) {
                 for (h = 0; h < 6; h++) {
                     for (k = 0; k < 6; k++) {
 
-                        CLO += Als / (4. * M_PI) * 2. / 3. *
+                        CLO +=  Als / 4. / M_PI * 2. / 3. *
                                 Dk(myM2Squarks(k), myM2Squarks(h), MChi0(i)
-                                * MChi0(i), M2g, 2) * (
-                                3. * myR(h, b).conjugate() * myR(k, q) * VdDNR(b, k, i, 1, D) *
-                                VdDNR(q, h, i, 1, D).conjugate() + 3. * myR(h, b + 3).conjugate() *
-                                myR(k, q + 3) * VdDNL(b, k, i, 1, D) * VdDNL(q, h, i, 1, D).conjugate()
-                                - 3. * myR(h, b).conjugate() * myR(k, b + 3).conjugate() *
+                                * MChi0(i), M2g, 2)*(
+                                3. * myR(h, b) * myR(k, q).conjugate() * VdDNR(b, k, i, 1, D) *
+                                VdDNR(q, h, i, 1, D).conjugate() + 3. * myR(h, b + 3) *
+                                myR(k, q + 3).conjugate() * VdDNL(b, k, i, 1, D) * 
+                                VdDNL(q, h, i, 1, D).conjugate()
+                                - 3. * myR(h, b) * myR(k, b + 3) *
                                 VdDNL(q, k, i, 1, D).conjugate() * VdDNR(q, h, i, 1, D).conjugate()
-                                - 3. * myR(h, q) * myR(k, q + 3) * VdDNL(b, k, i, 1, D)
-                                * VdDNR(b, h, i, 1, D) - myR(k, b + 3).conjugate() *
-                                myR(h, b).conjugate() * VdDNL(q, h, i, 1, D).conjugate() *
-                                VdDNR(q, k, i, 1, D).conjugate() - myR(k, q + 3) *
-                                myR(h, q) * VdDNL(b, h, i, 1, D) * VdDNR(b, k, i, 1, D)) -
-                                Als / (4. * M_PI) * MChi0(i) * Mg / 3. *
+                                - 3. * myR(h, q).conjugate() * myR(k, q + 3).conjugate() * 
+                                VdDNL(b, k, i, 1, D) * VdDNR(b, h, i, 1, D) - myR(k, b + 3) *
+                                myR(h, b) * VdDNL(q, h, i, 1, D).conjugate() *
+                                VdDNR(q, k, i, 1, D).conjugate() - myR(k, q + 3).conjugate() *
+                                myR(h, q).conjugate() * VdDNL(b, h, i, 1, D) * VdDNR(b, k, i, 1, D)) -
+                                Als / 4. / M_PI * MChi0(i) * Mg / 3. *
                                 Dk(myM2Squarks(k), myM2Squarks(h), MChi0(i)
-                                * MChi0(i), M2g, 0) * (
-                                myR(h, b).conjugate() * myR(k, q + 3) *
+                                * MChi0(i), M2g, 0)* (myR(h, b) * myR(k, q + 3).conjugate() *
                                 VdDNR(b, k, i, 1, D) * VdDNL(q, h, i, 1, D).conjugate() +
-                                myR(h, b + 3).conjugate() * myR(h, q) *
+                                myR(h, b + 3) * myR(k, q).conjugate() *
                                 VdDNL(b, k, i, 1, D) * VdDNR(q, h, i, 1, D).conjugate());
 
                     }
@@ -2492,14 +2339,14 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0g(int b, int q, int Dmixingflag) {
                 for (h = 0; h < 6; h++) {
                     for (k = 0; k < 6; k++) {
 
-                        CLO += -Als * 2. / (3. * 4. * M_PI) * Dk(myM2Squarks(k), myM2Squarks(h),
-                                MChi0(i) * MChi0(i), M2g, 2) * myR(k, q + 3)
-                                * myR(h, b + 3).conjugate() * VdDNR(q, h, i, 1, D).conjugate() *
-                                VdDNR(b, k, i, 1, D) - Als / (4. * M_PI) * MChi0(i) * Mg / 6. *
+                        CLO += -Als * 2. / 3. / 4. / M_PI * Dk(myM2Squarks(k), myM2Squarks(h),
+                                MChi0(i) * MChi0(i), M2g, 2) * myR(k, q + 3).conjugate()
+                                * myR(h, b + 3) * VdDNR(q, h, i, 1, D).conjugate() *
+                                VdDNR(b, k, i, 1, D) - Als / 4. / M_PI * MChi0(i) * Mg / 6. *
                                 Dk(myM2Squarks(k), myM2Squarks(h), MChi0(i) * MChi0(i)
-                                , M2g, 0) * (myR(h, q + 3) * myR(k, q + 3) * VdDNR(b, h, i, 1, D) *
-                                VdDNR(b, k, i, 1, D) + myR(h, b + 3).conjugate()
-                                * myR(k, b + 3).conjugate() * VdDNR(q, h, i, 1, D).conjugate() *
+                                , M2g, 0) * (myR(h, q + 3).conjugate() * myR(k, q + 3).conjugate()
+                                * VdDNR(b, h, i, 1, D) *  VdDNR(b, k, i, 1, D) 
+                                + myR(h, b + 3) * myR(k, b + 3) * VdDNR(q, h, i, 1, D).conjugate() *
                                 VdDNR(q, k, i, 1, D).conjugate());
 
                     }
@@ -2511,14 +2358,15 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0g(int b, int q, int Dmixingflag) {
                 for (h = 0; h < 6; h++) {
                     for (k = 0; k < 6; k++) {
 
-                        CLO += Als / (4. * M_PI) * MChi0(i) * Mg / 3. *
+                        CLO +=  Als /4. / M_PI * MChi0(i) * Mg / 3. *
                                 Dk(myM2Squarks(k), myM2Squarks(h), MChi0(i)
-                                * MChi0(i), M2g, 0) * (3. * myR(h, b + 3).conjugate() *
-                                myR(k, q) * VdDNR(b, k, i, 1, D) * VdDNL(q, h, i, 1, D).conjugate()
-                                + myR(k, b + 3).conjugate() * myR(h, b + 3).conjugate() *
+                                * MChi0(i), M2g, 0) * (3. * myR(h, b + 3) *
+                                myR(k, q).conjugate() * VdDNR(b, k, i, 1, D) * 
+                                VdDNL(q, h, i, 1, D).conjugate()
+                                + myR(k, b + 3) * myR(h, b + 3) *
                                 VdDNL(q, k, i, 1, D).conjugate() * VdDNL(q, h, i, 1, D).conjugate() +
-                                myR(k, q) * myR(h, q) * VdDNR(b, k, i, 1, D) *
-                                VdDNR(b, h, i, 1, D));
+                                myR(k, q).conjugate() * myR(h, q).conjugate() * 
+                                VdDNR(b, k, i, 1, D) * VdDNR(b, h, i, 1, D));
 
                     }
                 }
@@ -2529,23 +2377,23 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0g(int b, int q, int Dmixingflag) {
                 for (h = 0; h < 6; h++) {
                     for (k = 0; k < 6; k++) {
 
-                        CLO += -Als / (4. * M_PI) * MChi0(i) * Mg / 3. *
+                        CLO += -Als / 4. / M_PI * MChi0(i) * Mg / 3. *
                                 Dk(myM2Squarks(k), myM2Squarks(h), MChi0(i)
                                 * MChi0(i), M2g, 0) * (
-                                myR(h, b + 3).conjugate() * myR(k, q) * VdDNR(b, k, i, 1, D) *
-                                VdDNL(q, h, i, 1, D).conjugate() - myR(k, b + 3).conjugate() *
-                                myR(h, b + 3).conjugate() * VdDNL(q, k, i, 1, D).conjugate() *
-                                VdDNL(q, h, i, 1, D).conjugate() - myR(k, q) *
-                                myR(h, q) * VdDNR(b, k, i, 1, D) * VdDNR(b, h, i, 1, D));
+                                myR(h, b + 3) * myR(k, q).conjugate() * VdDNR(b, k, i, 1, D) *
+                                VdDNL(q, h, i, 1, D).conjugate() - myR(k, b + 3) *
+                                myR(h, b + 3) * VdDNL(q, k, i, 1, D).conjugate() *
+                                VdDNL(q, h, i, 1, D).conjugate() - myR(k, q).conjugate() *
+                                myR(h, q).conjugate() * VdDNR(b, k, i, 1, D) *
+                                VdDNR(b, h, i, 1, D));
 
                     }
                 }
             }
         }
         
-//        double CLOreal = CLO.real();
-//        double CLOimm = CLO.imag();
         VCLO.assign(O - 1, CLO);
+
     }
     return (VCLO);
 }
@@ -2554,10 +2402,10 @@ gslpp::vector<complex> SUSYMatching::CdF2dChi0g(int b, int q, int Dmixingflag) {
 ////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////// 
 
+
 /******************************************************************************/
 std::vector<WilsonCoefficient>& SUSYMatching::CMdbd2() {
 
-    //double Q = mySUSY.GetQ();
     int i;
     gslpp::vector<complex> CdF2dHpT(8, 0.);
     gslpp::vector<complex> CdF2dggT(8, 0.);
@@ -2958,12 +2806,6 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdbs2() {
 
 std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
 
-
-
-
-    //double Q = mySUSY.GetQ();
-
-
     int i;
     gslpp::vector<complex> CdF2dHpT(8, 0.);
     gslpp::vector<complex> CdF2dggT(8, 0.);
@@ -3163,10 +3005,6 @@ std::vector<WilsonCoefficient>& SUSYMatching::CMdk2() {
 ////////////////////////////////////////////////////////////////////////////////
 
  std::vector<WilsonCoefficient>& SUSYMatching::CMdd2(){
-
-
-//***// double Q = mySUSY.GetQ();
-
 
     int i;
     gslpp::vector<complex> CdF2dHpT(8, 0.);
@@ -3443,141 +3281,8 @@ gslpp::vector <complex> SUSYMatching::CalcC7(int b, int q) {
 }
 
 
-/*** FUNZIONE - TEST  ***/
-    
-void SUSYMatching::Test() {
-    gslpp::matrix<double> myRur(6, 6, 0.);
-    gslpp::matrix<double> myRui(6, 6, 0.);
-    gslpp::matrix<double> myRdr(6, 6, 0.);
-    gslpp::matrix<double> myRdi(6, 6, 0.);
-    
-     
-      
-    StandardModelMatching::CMdbd2();
-    
-    
-    int i, j;
-    for (i = 0; i < 6; i++) {
-        for (j = 0; j < 6; j++) {
-
-            double tempRur = myRu(i, j).real();
-            double tempRui = myRu(i, j).imag();
-            double tempRdr = myRd(i, j).real();
-            double tempRdi = myRd(i, j).imag();
-            myRur(i, j) += tempRur ;
-            myRui(i, j) += tempRui ;
-            myRdr(i, j) += tempRdr ;
-            myRdi(i, j) += tempRdi ;
-
-            
-        }
-    }
-//    std::cout << " " << std::endl;
-//    std::cout << "CdF2Hp B_d = "  << CdF2dHp(0, 2, 0) << std::endl;
-//    std::cout << " " << std::endl;
-//    std::cout << "CdF2ChiChi B_d = "  << CdF2dChiChi(0, 2, 0) << std::endl;
-//    std::cout << " " << std::endl;
-//    std::cout << "CdF2gg B_d = "  << CdF2dgg(0, 2, 0) << std::endl;
-//    std::cout << " " << std::endl;
-//    std::cout << "CdF2Chi0Chi0 B_d = "  << CdF2dChi0Chi0(0, 2, 0) << std::endl;
-//    std::cout << " " << std::endl;
-//    std::cout << "CdF2Chi0g B_d = "  << CdF2dChi0g(0, 2, 0) << std::endl;
-//    std::cout << " " << std::endl;
-//    StandardModelMatching::CMdbs2();
-//    std::cout << " " << std::endl;
-//    std::cout << "CdF2Hp B_s = "  << CdF2dHp(1, 2, 0) << std::endl;
-//    std::cout << " " << std::endl;
-//    std::cout << "CdF2ChiChi B_s = "  << CdF2dChiChi(1, 2, 0) << std::endl;
-//    std::cout << " " << std::endl;
-//    std::cout << "CdF2gg B_s = "  << CdF2dgg(1, 2, 0) << std::endl;
-//    std::cout << " " << std::endl;
-//    std::cout << "CdF2Chi0Chi0 B_s = "  << CdF2dChi0Chi0(1, 2, 0) << std::endl;
-//    std::cout << " " << std::endl;
-//    std::cout << "CdF2Chi0g B_s = "  << CdF2dChi0g(1, 2, 0) << std::endl;
-//    std::cout << " " << std::endl;
-//    
-//    std::cout << "EPSILON K C_i " << std::endl;
-//    std::cout << "CdF2Hp K = "  << CdF2dHp(0, 1, 0) << std::endl;
-//    std::cout << " " << std::endl;
-//    std::cout << "CdF2ChiChi K = "  << CdF2dChiChi(0, 1, 0) << std::endl;
-//    std::cout << " " << std::endl;
-//    std::cout << "CdF2gg K = "  << CdF2dgg(0, 1, 0) << std::endl;
-//    std::cout << " " << std::endl;
-//    std::cout << "CdF2Chi0Chi0 K = "  << CdF2dChi0Chi0(0, 1, 0) << std::endl;
-//    std::cout << " " << std::endl;
-//    std::cout << "CdF2Chi0g K = "  << CdF2dChi0g(0, 1, 0) << std::endl;
-//    std::cout << " " << std::endl;
-//    
-//    
-//    
-//    
-//    
-//    std::cout << "Rur = " << myRur << std::endl;
-//    std::cout << " " << std::endl;
-//    std::cout << "Rui = " << myRui << std::endl;
-//    std::cout << " " << std::endl;
-//    std::cout << "Rdr = " << myRdr << std::endl;
-//    std::cout << " " << std::endl;
-//    std::cout << "Rdi = " << myRdi << std::endl;
-//    std::cout << " " << std::endl;
-    gslpp::vector<double> myM2US(6,0.),myM2DS(6.,0);
-    myM2US = mySUSY.getMsu2();
-    myM2DS = mySUSY.getMsd2();
-    for(i = 0;i < 6; i++) {
-        myM2US(i) /= sqrt(myM2US(i));
-        myM2DS(i) /= sqrt(myM2DS(i));
-    }
-    std::cout << "MUSquarks = " << myM2US << std::endl;
-    std::cout << " " << std::endl;
-    std::cout << "MDSquarks = " << myM2DS << std::endl;
-    std::cout << " " << std::endl;
-    std::cout << "M2Chi = " << mySUSY.getMch() << std::endl;
-    std::cout << " " << std::endl;
-    std::cout << "M2Chi0 = " << mySUSY.getMneu() << std::endl;
-    std::cout << " " << std::endl;
-    std::cout << "Mh = " << mySUSY.getMHl() << std::endl;
-    std::cout << "MH = " << mySUSY.getMHh() << std::endl;
-    std::cout << "MA = " << mySUSY.getMHa() << std::endl;
-    std::cout << "MHp = " << mySUSY.getMHp() << std::endl;
-    
-//    std::cout << "Vckm_input = " << mySUSY.getVCKM() << std::endl;
-//    std::cout << "mtop[Q] = " << mySUSYMQ(4) << std::endl;
-//    std::cout << "mup[Q] = " << mySUSYMQ(0) << std::endl;
-//    std::cout << "mcharm[Q] = " << mySUSYMQ(2) << std::endl;
-//
-//    gslpp::matrix<complex> Temp(6,6,0.);
-//    gslpp::vector<double> MTemp = mySUSY.getMsu2();
-//    
-//    for(i = 0; i < 6; i++) 
-//        Temp.assign(i,i,MTemp(i));
-//    
-//    std::cout << "M2utilde a mano = " <<
-//            mySUSY.getRu().hconjugate() * Temp * mySUSY.getRu() << std::endl;
-//   
-//    
-//    std::cout << " CKM_eff CKM_eff^{dag} = " << mySUSY.getVCKM() * mySUSY.getVCKM().hconjugate() << std::endl;
-//    std::cout << " CKM_eff = " << mySUSY_CKM() << std::endl;
-//    std::cout << " CKM = " << mySUSY.getVCKM() << std::endl;
-//    
-    std::cout << "End Test " << std::endl;
-    
-    
-}
-    
-/**************************************/
-
-
-
-
-
-
-
-
-
  std::vector<WilsonCoefficient>& SUSYMatching::CMbsg(){
 
-
-  
     vmcbsg = StandardModelMatching::CMbsg();
 
     switch (mcbsg.getScheme()) {
