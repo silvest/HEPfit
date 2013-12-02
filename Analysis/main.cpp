@@ -69,7 +69,7 @@ int main(int argc, char** argv)
             //pd.add("job_tag", 1);
         } else {
             pd.add("modconf", 1);
-            pd.add("output_folder", 1);
+            //pd.add("output_folder", 1);
             //pd.add("job_tag", 1);
         }
         
@@ -89,7 +89,7 @@ int main(int argc, char** argv)
             
             if (vm.count("noMC") && vm.count("mcconf"))
             {
-                throw std::runtime_error("\nArgument Error:\nPlease specify EITHER --noMC OR Monte Carlo configuration file.\n");
+                throw std::runtime_error("\nArgument Error:\nPlease specify EITHER --noMC OR Monte Carlo configuration file as the second argument.\n");
             }
             else if (vm.count("noMC") && !vm.count("mcconf"))
             {
@@ -105,7 +105,7 @@ int main(int argc, char** argv)
                 FileOut = vm["rootfile"].as<string > ();
                     
             } else {
-                throw runtime_error("Please specify mandatory Monte Carlo config filename\nor specify --noMC for Single Event Mode (no Monte Carlo run)");
+                throw runtime_error("Please specify mandatory Monte Carlo config filename\nor specify --noMC for Generate Event Mode (no Monte Carlo run)");
             }
             
             JobTag = vm["job_tag"].as<string > ();
@@ -123,7 +123,7 @@ int main(int argc, char** argv)
             MonteCarlo MC(ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);
             MC.Run(rank);
         } else {
-            GenerateEvent GE(ModelConf, FolderOut, JobTag, noMC, checkTheoryRange);
+            GenerateEvent GE(ModelConf, FolderOut, JobTag, noMC);
             GE.generate(rank, nIterations);
         }
 

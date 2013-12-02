@@ -7,14 +7,8 @@
 
 #include "GenerateEvent.h"
 #include <TSystem.h>
-#include <TF1.h>
 #include <TMath.h>
-#include <TTree.h>
-#include <TROOT.h>
-#include <TH1.h>
-#include <fstream>
-#include <boost/shared_ptr.hpp>
-#include <boost/make_shared.hpp>
+#include <TRandom3.h>
 #ifdef _MPI
 #include <mpi.h>
 #endif
@@ -22,8 +16,7 @@
 GenerateEvent::GenerateEvent(const std::string& ModelConf_i,
                              const std::string& OutDirName_i,
                              const std::string& JobTag_i,
-                             const bool noMC_i,
-                             const bool checkTheoryRange_i)
+                             const bool noMC_i)
 : myInputParser()
 {
     outputTerm = 0;
@@ -37,8 +30,6 @@ GenerateEvent::GenerateEvent(const std::string& ModelConf_i,
         outputTerm = 1;
     }
     noMC = noMC_i;
-    nPar = 0;
-    nObs = 0;
 }
 
 GenerateEvent::~GenerateEvent() 
@@ -49,7 +40,9 @@ void GenerateEvent::generate(const int rank, int unsigned nIteration, int seed)
 {
         if (!noMC)
         throw std::runtime_error("\nGenerateEvent::generate():\n--noMC was not specified as an argument.\nPlease do so for running in Generate Event mode.\n");
-    if (rank == 0){
+    gRandom->SetSeed(seed);
+    if (nIteration == 0) outputTerm = 0;
+    if (rank == 0 && nIteration > 0){
         FileStat_t info;
         if (gSystem->GetPathInfo("GeneratedEvents", info) != 0) {
             gSystem->MakeDirectory("GeneratedEvents");
@@ -72,114 +65,124 @@ void GenerateEvent::generate(const int rank, int unsigned nIteration, int seed)
     try {
         /* set model parameters */
         std::string ModelName = myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs);
-        //MCEngine.SetName(ModelName.c_str());
-        //MCEngine.MCMCSetRandomSeed(seed);
+        if (Obs.size() == 0) throw std::runtime_error("\nGenerateEvent::generate(): No observables defined in SomeModel.conf file\n");
+        std::ofstream summary;
+        if (outputTerm == 1){
+            summary.open((OutDirName + "/Summary.txt").c_str(), std::ios::out);
+            summary << "Model\t" << ModelName << "\n";
+        }
         std::map<std::string, double> DP;
-        std::vector<boost::shared_ptr<ofstream> > ObsOut;
-        std::vector<boost::shared_ptr<ofstream> > ParsOut;
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
             DP[it->name] = it->ave;
             if (it->errg > 0. || it->errf > 0.){
                 ModParsVar.push_back(*it);
                 DPars[it->name] = 0.;
-                ParsOut.push_back( boost::make_shared<ofstream>((ParsDirName + "/" + it->name + ".txt").c_str(), std::ios::out));
-                ParsOut[nPar]->close();
-                nPar++;
+                if (outputTerm == 1){
+                    DDist[it->name] = NULL;
+                    ParsOut[it->name] = boost::make_shared<std::ofstream>((ParsDirName + "/" + it->name + ".txt").c_str(), std::ios::out);
+                    summary << "Parameter\t" << it->name << "\n";
+                }
             }
         }
         int buffsize = ModParsVar.size() + 1;
         if (!myInputParser.getMyModel()->Init(DP)) {
             throw std::runtime_error("parameter(s) missing in model initialization");
         }
-        defineParameters();
+        if (outputTerm == 0) std::cout << "\nModel: " << ModelName << std::endl;
+        defineParameterDistributions();
         if (nIteration == 0) {
             outputTerm = 0;
             std::cout.precision(10);
             std::cout << std::endl << "Running in Single Event mode...\nNo data will be written to disk!\n" << std::endl;
         } else {
-        std::cout << std::endl << "Generating " << nIteration << " random events...\n" << std::endl;
+            std::cout << "\nRunning in Event Generation mode... \nWARNING: The output should not be used for any statistical analysis. \n         Neither randomness or completness of the sample is gauranteed!!\n" << std::endl;
         }
         for (std::vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++){
-            ObsOut.push_back( boost::make_shared<ofstream>((ObsDirName + "/" + it->getName() + ".txt").c_str(), std::ios::out));
-            
-            nObs++;
+            if (outputTerm == 1) {
+                ObsOut[it->getName()] = boost::make_shared<std::ofstream>((ObsDirName + "/" + it->getName() + ".txt").c_str(), std::ios::out);
+                summary << "Observable\t" << it->getName() << "\n";
+            }
         }
+        Mod = myInputParser.getMyModel();
         for (int unsigned i = 0; i < nIteration + 1; i++) {
             int j = 0;
-            generateRandomEvent(myInputParser.getMyModel(),i);
+            if (i == 1) std::cout << std::endl << "Generating " << nIteration << " random events...\n" << std::endl;
+            generateRandomEvent(i);
             for (std::vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
                 double th = it->computeTheoryValue();
-                if (outputTerm == 0) std::cout << it->getName() << " = " << th << std::endl;
+                if (outputTerm == 0) {
+                    std::cout << it->getName() << " = " << th << std::endl;
+                } else {
+                    (*ObsOut[it->getName()]) << th << std::endl;
+                    if (i == nIteration) {
+                        ObsOut[it->getName()]->close();
+                }
+                }
             }
             if (outputTerm == 0) std::cout << std::endl;
-            for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++) {
-                std::vector<Observable> ObsInCGO = it->getObs();
-                for (std::vector<Observable>::iterator it2 = ObsInCGO.begin(); it2 < ObsInCGO.end(); it2++) {
-                    double th = it2->computeTheoryValue();
-                    if (outputTerm == 0) std::cout << it2->getName() << " = " << th << std::endl;
-                }
-                if (outputTerm == 0) std::cout << std::endl;
+        }
+        if (outputTerm == 1){
+            for (std::vector<ModelParameter>::iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++) {
+                ParsOut[it->name]->close();
             }
-        }
-        for (int unsigned i = 0; i < nObs; i++) {
-             ObsOut[i]->close();
-        }
-        for (int unsigned i = 0; i < nPar; i++) {
-             ParsOut[i]->close();
+            summary << "Events\t" << nIteration << "\n";
+            summary.close();
+            std::cout << "Output written to: " << OutDirName << "\n" << std::endl;
         }
         return;
         } catch (std::string message) {
         std::cerr << message << std::endl;
         exit(EXIT_FAILURE);
         }
-        if (outputTerm == 1) std::cout << "Output written to: " << OutDirName << std::endl;
 }
 
-void GenerateEvent::defineParameters() 
+void GenerateEvent::defineParameterDistributions()
 {
-   /* // Add parameters to your model here.
-    // You can then use them in the methods below by calling the
-    // parameters.at(i) or parameters[i], where i is the index
-    // of the parameter. The indices increase from 0 according to the
-    // order of adding the parameters.
-    std::cout << "Parameters varied in Monte Carlo:" << std::endl;
-    int k = 0;
-    for (std::vector<ModelParameter>::const_iterator it = ModPars.begin();
-            it < ModPars.end(); it++) {
-        if (it->errf == 0. && it->errg == 0.)
-            continue;
-        //AddParameter(it->name.c_str(), it->min, it->max);
-        std::cout << "  " << it->name << " " << k << std::endl;
-        DPars[it->name] = 0.;
-        if (it->errf == 0.) SetPriorGauss(k, it->ave, it->errg);
-        else if (it->errg == 0.) SetPriorConstant(k);
+    if (outputTerm == 0) std::cout << "Parameters varied in Event Generation:" << std::endl;
+    for (std::vector<ModelParameter>::const_iterator it = ModParsVar.begin();
+            it < ModParsVar.end(); it++) {
+        //if (it->errf == 0. && it->errg == 0.)
+            //continue;
+        if (outputTerm == 0) std::cout << it->name << ", "; //<< k << std::endl;
+        if (it->errf == 0. && it->errg != 0.){
+            DDist[it->name] = new TF1(it->name.c_str(),
+            "1./sqrt(2.*TMath::Pi())/[1] * exp(-(x-[0])*(x-[0])/2./[1]/[1])",
+            it->min,it->max);
+            DDist[it->name]->SetParameter(0, it->ave);
+            DDist[it->name]->SetParameter(1, it->errg);
+        }
+        else if (it->errg == 0. && it->errf != 0.){
+            DDist[it->name] = new TF1(it->name.c_str(),
+                    "1/([1]-[0])",
+                    it->min, it->max);
+            DDist[it->name]->SetParameter(0,it->min);
+            DDist[it->name]->SetParameter(1,it->max);
+        }
         else {
-            TF1 * combined = new TF1(it->name.c_str(),
+            DDist[it->name] = new TF1(it->name.c_str(),
                     "(TMath::Erf((x-[0]+[2])/sqrt(2.)/[1])-TMath::Erf((x-[0]-[2])/sqrt(2.)/[1]))/4./[2]",
                     it->min, it->max);
-            combined->SetParameter(0, it->ave);
-            combined->SetParameter(1, it->errg);
-            combined->SetParameter(2, it->errf);
-            SetPrior(k, combined);
-            delete combined;
+            DDist[it->name]->SetParameter(0, it->ave);
+            DDist[it->name]->SetParameter(1, it->errg);
+            DDist[it->name]->SetParameter(2, it->errf);
         }
-        k++;
-    }*/
+    }
+    if (outputTerm == 0) std::cout << std::endl;
 }
 
-void GenerateEvent::generateRandomEvent(Model* Mod_i, int iterationNo)
+void GenerateEvent::generateRandomEvent(int iterationNo)
 {
-    Mod = Mod_i;
-    //if (iterationNo == 0) { MCMCSetFlagInitialPosition(0); }
-    //else { MCMCSetFlagInitialPosition(1); }
-    
-    //MCMCInitialize();
     if (iterationNo == 0){
+        if (outputTerm == 0) std::cout << "\nThe central event is: " <<std::endl;
         for (std::vector<ModelParameter>::iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++) {
-        DPars[it->name] = it->ave;
+            DPars[it->name] = it->ave;
+            if (outputTerm == 1) (*ParsOut[it->name]) << DPars[it->name] << std::endl;
         }
     } else {
-        throw std::runtime_error("\nGenerateEvent::generateRandomEvent():\nRandom number generator not implemented.\n");
+        for (std::vector<ModelParameter>::iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++) {
+            DPars[it->name] = DDist[it->name]->GetRandom();
+            if (outputTerm == 1) (*ParsOut[it->name]) << DPars[it->name] << std::endl;
+        }
     }
     Mod->Update(DPars);
 }
