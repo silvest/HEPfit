@@ -42,7 +42,7 @@ public:
      * the model parameters and observables to be calculated.
      * @param[in] OutDirName_i the name of the root output directory to be given
      * @param[in] JobTag_i optional job tag that might be specified
-     * @param[in] noMC_i the noMC specifiaction given to the exectable
+     * @param[in] noMC_i the noMC specification given to the executable
      */
     GenerateEvent(const std::string& ModelConf_i,
                   const std::string& OutDirName_i,
@@ -58,17 +58,17 @@ public:
      * @brief The method used to generate events and format output
      * @details This member creates all out directories that might be needed in case the 
      * output is stored on disk. Output on disk is generated as follows:
-     * \li Existence of GenerateEvents folder is checked or else crearted in the current directory.
+     * \li Existence of GenerateEvents folder is checked or else created in the current directory.
      * \li The user specified OutDirName_i and a directory called OLD is created under 
      * GenerateEvents if it does not already exist.
      * \li If OutDirName_i exists, it is moved into OLD.
      * \li If OutDirName_i exits in OLD is deleted before the existing GenerateEvents/OutDirName_i
      * is moved into OLD.
      * \li In the now empty GenerateEvents/OutDirName_i the directories Parameters and Observables
-     * are created. The names indicate wht they will contain.\n
+     * are created. The names indicate what they will contain.\n
      * The file Summary.txt contains the list of parameters that are varied and observables that 
      * are generated in a run. This is in the GenerateEvents/OutDirName_i directory.\n
-     * @param[in] rank the rank of the process for MPI implemetations (0 for serial implementation)
+     * @param[in] rank the rank of the process for MPI implementations (0 for serial implementation)
      * @param[in] nIteration number of events generated
      * @param[in] seed seed for the random number generator (default = 0)
      */
@@ -89,7 +89,7 @@ private:
     /**
      * @brief This member generates random numbers for the parameters being varied in the model.
      * The first set is always the central value of the parameter.
-     * @param[in] iterationNo the intertion number
+     * @param[in] iterationNo the iteration number
      */
     void generateRandomEvent(int iterationNo);
     
