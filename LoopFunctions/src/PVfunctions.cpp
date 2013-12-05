@@ -29,7 +29,7 @@ double PVfunctions::A0(const double mu2, const double m2) const
         throw std::runtime_error("PVfunctions::A0(): Invalid argument!");
 
     const double Tolerance = 1.0e-10;
-    const bool m2zero = (m2 < mu2*Tolerance);
+    const bool m2zero = (m2 <= mu2*Tolerance);
     
     if ( m2zero )
         return ( 0.0 );
@@ -49,10 +49,10 @@ complex PVfunctions::B0(const double mu2, const double p2,
 
     const double Tolerance = 1.0e-8;
     const double maxM2 = std::max(p2, std::max(m02, m12));
-    const bool p2zero = (p2 < maxM2*Tolerance);
-    const bool m02zero = (m02 < maxM2*Tolerance);
-    const bool m12zero = (m12 < maxM2*Tolerance);
-    const bool m02_eq_m12 = (fabs(m02 - m12) < (m02 + m12)*Tolerance);
+    const bool p2zero = (p2 <= maxM2*Tolerance);
+    const bool m02zero = (m02 <= maxM2*Tolerance);
+    const bool m12zero = (m12 <= maxM2*Tolerance);
+    const bool m02_eq_m12 = (fabs(m02 - m12) <= (m02 + m12)*Tolerance);
 
     complex B0(0.0, 0.0, false);
     if ( p2zero ) {
@@ -118,10 +118,10 @@ complex PVfunctions::B1(const double mu2, const double p2,
 
     const double Tolerance = 1.0e-8;
     const double maxM2 = std::max(p2, std::max(m02, m12));
-    const bool p2zero = (p2 < maxM2*Tolerance);
-    const bool m02zero = (m02 < maxM2*Tolerance);
-    const bool m12zero = (m12 < maxM2*Tolerance);
-    const bool m02_eq_m12 = (fabs(m02 - m12) < (m02 + m12)*Tolerance);
+    const bool p2zero = (p2 <= maxM2*Tolerance);
+    const bool m02zero = (m02 <= maxM2*Tolerance);
+    const bool m12zero = (m12 <= maxM2*Tolerance);
+    const bool m02_eq_m12 = (fabs(m02 - m12) <= (m02 + m12)*Tolerance);
 
     complex B1(0.0, 0.0, false);    
     double DeltaM2 = m02 - m12;
@@ -160,10 +160,10 @@ complex PVfunctions::B21(const double mu2, const double p2,
 
     const double Tolerance = 1.0e-8;
     const double maxM2 = std::max(p2, std::max(m02, m12));
-    const bool p2zero = (p2 < maxM2*Tolerance);
-    const bool m02zero = (m02 < maxM2*Tolerance);
-    const bool m12zero = (m12 < maxM2*Tolerance);
-    const bool m02_eq_m12 = (fabs(m02 - m12) < (m02 + m12)*Tolerance);
+    const bool p2zero = (p2 <= maxM2*Tolerance);
+    const bool m02zero = (m02 <= maxM2*Tolerance);
+    const bool m12zero = (m12 <= maxM2*Tolerance);
+    const bool m02_eq_m12 = (fabs(m02 - m12) <= (m02 + m12)*Tolerance);
 
     complex B21(0.0, 0.0, false);
     double DeltaM2 = m02 - m12;
@@ -206,13 +206,13 @@ complex PVfunctions::B22(const double mu2, const double p2,
 
     const double Tolerance = 1.0e-8;
     const double maxM2 = std::max(p2, std::max(m02, m12));
-    const bool p2zero = (p2 < maxM2*Tolerance);
-    const bool m02zero = (m02 < maxM2*Tolerance);
-    const bool m12zero = (m12 < maxM2*Tolerance);
-    const bool m02_eq_m12 = (fabs(m02 - m12) < (m02 + m12)*Tolerance);
+    const bool p2zero = (p2 <= maxM2*Tolerance);
+    const bool m02zero = (m02 <= maxM2*Tolerance);
+    const bool m12zero = (m12 <= maxM2*Tolerance);
+    const bool m02_eq_m12 = (fabs(m02 - m12) <= (m02 + m12)*Tolerance);
 
     complex B22(0.0, 0.0, false);
-    if ( p2==0.0 ) {
+    if ( p2zero ) {
         if ( !m02zero && !m12zero ) {
             if( m02_eq_m12 )
                 B22 = m02/2.0*(- log(m02/mu2) + 1.0);
@@ -274,10 +274,10 @@ complex PVfunctions::B0p(const double muIR2, const double p2,
 
     const double Tolerance = 1.0e-8;
     const double maxM2 = std::max(p2, std::max(m02, m12));
-    const bool p2zero = (p2 < maxM2*Tolerance);
-    const bool m02zero = (m02 < maxM2*Tolerance);
-    const bool m12zero = (m12 < maxM2*Tolerance);
-    const bool m02_eq_m12 = (fabs(m02 - m12) < (m02 + m12)*Tolerance);
+    const bool p2zero = (p2 <= maxM2*Tolerance);
+    const bool m02zero = (m02 <= maxM2*Tolerance);
+    const bool m12zero = (m12 <= maxM2*Tolerance);
+    const bool m02_eq_m12 = (fabs(m02 - m12) <= (m02 + m12)*Tolerance);
 
     complex B0p(0.0, 0.0, false);        
     if ( p2zero ) {
@@ -341,7 +341,7 @@ complex PVfunctions::B1p(const double mu2, const double p2,
 
     const double Tolerance = 1.0e-8;
     const double maxM2 = std::max(p2, std::max(m02, m12));
-    const bool p2zero = (p2 < maxM2*Tolerance);
+    const bool p2zero = (p2 <= maxM2*Tolerance);
 
     complex B1p(0.0, 0.0, false);    
     if ( p2zero )
@@ -366,7 +366,7 @@ complex PVfunctions::B21p(const double mu2, const double p2,
 
     const double Tolerance = 1.0e-8;
     const double maxM2 = std::max(p2, std::max(m02, m12));
-    const bool p2zero = (p2 < maxM2*Tolerance);
+    const bool p2zero = (p2 <= maxM2*Tolerance);
 
     double p4 = p2*p2, p6=p2*p2*p2;
     double DeltaM2 = m02 - m12; 
@@ -395,10 +395,10 @@ complex PVfunctions::B22p(const double mu2, const double p2,
 
     const double Tolerance = 1.0e-8;
     const double maxM2 = std::max(p2, std::max(m02, m12));
-    const bool p2zero = (p2 < maxM2*Tolerance);
-    const bool m02zero = (m02 < maxM2*Tolerance);
-    const bool m12zero = (m12 < maxM2*Tolerance);
-    const bool m02_eq_m12 = (fabs(m02 - m12) < (m02 + m12)*Tolerance);
+    const bool p2zero = (p2 <= maxM2*Tolerance);
+    const bool m02zero = (m02 <= maxM2*Tolerance);
+    const bool m12zero = (m12 <= maxM2*Tolerance);
+    const bool m02_eq_m12 = (fabs(m02 - m12) <= (m02 + m12)*Tolerance);
 
     complex B22p(0.0, 0.0, false);
     double DeltaM2 = m02 - m12;
@@ -454,10 +454,10 @@ complex PVfunctions::C0(const double p2,
 
     const double Tolerance = 1.0e-8;
     const double maxM2 = std::max(p2, std::max(m02, std::max(m12, m22)));
-    const bool p2zero = (p2 < maxM2*Tolerance);
-    const bool m02zero = (m02 < maxM2*Tolerance);
-    const bool m12zero = (m12 < maxM2*Tolerance);
-    const bool m22zero = (m22 < maxM2*Tolerance);
+    const bool p2zero = (p2 <= maxM2*Tolerance);
+    const bool m02zero = (m02 <= maxM2*Tolerance);
+    const bool m12zero = (m12 <= maxM2*Tolerance);
+    const bool m22zero = (m22 <= maxM2*Tolerance);
     bool diff01 = (fabs(m02 - m12) > (m02 + m12)*Tolerance);
     bool diff12 = (fabs(m12 - m22) > (m12 + m22)*Tolerance);
     bool diff20 = (fabs(m22 - m02) > (m22 + m02)*Tolerance);
@@ -585,12 +585,12 @@ complex PVfunctions::D0(const double s, const double t, const double m02,
 
     const double Tolerance = 1.0e-8;
     const double maxM2 = std::max(s, std::max(t, std::max(m02, std::max(m12, std::max(m22, m32)))));
-    const bool szero = (s < maxM2*Tolerance);
-    const bool tzero = (t < maxM2*Tolerance);
-    const bool m02zero = (m02 < maxM2*Tolerance);
-    const bool m12zero = (m12 < maxM2*Tolerance);
-    const bool m22zero = (m22 < maxM2*Tolerance);
-    const bool m32zero = (m32 < maxM2*Tolerance);
+    const bool szero = (s <= maxM2*Tolerance);
+    const bool tzero = (t <= maxM2*Tolerance);
+    const bool m02zero = (m02 <= maxM2*Tolerance);
+    const bool m12zero = (m12 <= maxM2*Tolerance);
+    const bool m22zero = (m22 <= maxM2*Tolerance);
+    const bool m32zero = (m32 <= maxM2*Tolerance);
     bool diff01 = (fabs(m02 - m12) > (m02 + m12)*Tolerance);
     bool diff02 = (fabs(m02 - m22) > (m02 + m22)*Tolerance);
     bool diff03 = (fabs(m02 - m32) > (m02 + m32)*Tolerance);
@@ -670,12 +670,12 @@ complex PVfunctions::D22(const double s, const double t, const double m02,
 
     const double Tolerance = 1.0e-8;
     const double maxM2 = std::max(s, std::max(t, std::max(m02, std::max(m12, std::max(m22, m32)))));
-    const bool szero = (s < maxM2*Tolerance);
-    const bool tzero = (t < maxM2*Tolerance);
-    const bool m02zero = (m02 < maxM2*Tolerance);
-    const bool m12zero = (m12 < maxM2*Tolerance);
-    const bool m22zero = (m22 < maxM2*Tolerance);
-    const bool m32zero = (m32 < maxM2*Tolerance);
+    const bool szero = (s <= maxM2*Tolerance);
+    const bool tzero = (t <= maxM2*Tolerance);
+    const bool m02zero = (m02 <= maxM2*Tolerance);
+    const bool m12zero = (m12 <= maxM2*Tolerance);
+    const bool m22zero = (m22 <= maxM2*Tolerance);
+    const bool m32zero = (m32 <= maxM2*Tolerance);
     bool diff01 = (fabs(m02 - m12) > (m02 + m12)*Tolerance);
     bool diff02 = (fabs(m02 - m22) > (m02 + m22)*Tolerance);
     bool diff03 = (fabs(m02 - m32) > (m02 + m32)*Tolerance);
