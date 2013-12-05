@@ -10,6 +10,14 @@
 #include "EW_ABC.h"
 
 
+EW_ABC::EW_ABC(const StandardModel& SM_i)
+: SM(SM_i), myEWepsilons(SM_i)
+{
+    if (SM.ModelName().compare("NPEpsilons") != 0)
+        throw std::runtime_error("EW_ABC::EW_ABC() is not applicable for the model " + SM.ModelName());
+}
+
+
 double EW_ABC::Mw(const bool bAlternative) const
 {
     if (!bAlternative)

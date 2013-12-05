@@ -26,10 +26,7 @@ public:
      * @brief EW_BURGESS constructor.
      * @param SM_i An object of StandardModel class.
      */
-    EW_BURGESS(const StandardModel& SM_i)
-    : SM(SM_i)
-    {
-    };
+    EW_BURGESS(const StandardModel& SM_i);
 
     ////////////////////////////////////////////////////////////////////////
 

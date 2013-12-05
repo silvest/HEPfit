@@ -12,6 +12,9 @@
 EW_CHMN::EW_CHMN(const StandardModel& SM_i) 
 : SM(SM_i) 
 {
+    if ( SM.ModelName().compare("StandardModel") != 0
+            && SM.ModelName().compare("NPSTU") != 0 )
+        throw std::runtime_error("EW_CHMN::EW_CHMN() is not applicable for the model " + SM.ModelName());
 }
 
 

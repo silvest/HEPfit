@@ -61,7 +61,6 @@ class EWSM; // forward reference to EWSM class
  * \li \b RhoZbFromGuOverGb:&nbsp;
  * \li \b RhoZbFromGdOverGb:&nbsp;
  * \li \b TestSubleadingTwoLoopEW:&nbsp;
- * \li \b EWCHMN:&nbsp;
  *
  */
 class StandardModel: public QCD {
@@ -81,7 +80,7 @@ public:
 
     static const int NSMvars = 27;
     static const std::string SMvars[NSMvars];
-    static const int NSMflags = 8;
+    static const int NSMflags = 7;
     static const std::string SMflags[NSMflags];
 
     /**
@@ -186,12 +185,7 @@ public:
         return FlagTestSubleadingTwoLoopEW;
     }
 
-    bool IsFlagEWCHMN() const
-    {
-        return FlagEWCHMN;
-    }
-
-
+    
     ///////////////////////////////////////////////////////////////////////////
     // get and set methods for class members
 
@@ -602,7 +596,6 @@ private:
     bool FlagRhoZbFromGuOverGb;
     bool FlagRhoZbFromGdOverGb;
     bool FlagTestSubleadingTwoLoopEW;
-    bool FlagEWCHMN;
 
     bool requireCKM;
     bool requireYe;

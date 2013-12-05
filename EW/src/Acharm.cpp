@@ -11,26 +11,14 @@
 
 double Acharm::computeThValue() 
 { 
-    double A_c;
-    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+    double A_c = myEW.A_q(SM.CHARM);
 
-    if (myEWTYPE==EW::EWCHMN)  
-        A_c = myEW.getMyEW_CHMN().A_q(SM.CHARM);
-    else if (myEWTYPE==EW::EWABC || myEWTYPE==EW::EWABC2) 
-        A_c = myEW.getMyEW_ABC().A_q(SM.CHARM);
-    else {
-        A_c = myEW.A_q(SM.CHARM);
+    /* NP contribution to the Zff vertex */
+    if (myEW.checkLEP1NP())
+        A_c = myEW.getMyEW_NPZff().Acharm(A_c);
 
-        if (myEWTYPE==EW::EWBURGESS)
-            return myEW.getMyEW_BURGESS().Acharm(A_c, myEW.A_l(SM.ELECTRON));
-        
-        /* NP contribution to the Zff vertex */
-        if (myEW.checkLEP1NP())
-            A_c = myEW.getMyEW_NPZff().Acharm(A_c);
-
-        /* Debug: extract pure NP contribution */
-        //A_c -= myEW.A_q(SM.CHARM);
-    }
+    /* Debug: extract pure NP contribution */
+    //A_c -= myEW.A_q(SM.CHARM);
     
     return A_c;
 }

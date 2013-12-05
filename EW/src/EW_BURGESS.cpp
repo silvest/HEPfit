@@ -8,6 +8,13 @@
 #include <NPbase.h>
 #include "EW_BURGESS.h"
 
+EW_BURGESS::EW_BURGESS(const StandardModel& SM_i)
+: SM(SM_i)
+{
+    if (SM.ModelName().compare("NPSTU") != 0)
+        throw std::runtime_error("EW_BURGESS::EW_BURGESS() is not applicable for the model " + SM.ModelName());
+}
+
 double EW_BURGESS::Mw(const double Mw_SM) const
 {
     double obliqueS = (static_cast<const NPbase*> (&SM))->obliqueS();

@@ -30,8 +30,7 @@ const std::string StandardModel::SMvars[NSMvars] = {
 const std::string StandardModel::SMflags[NSMflags] = {
     "withoutNonUniversalVCinEpsilons",
     "ApproximateGqOverGb", "ApproximateGammaZ", "ApproximateSigmaH",
-    "RhoZbFromGuOverGb", "RhoZbFromGdOverGb", "TestSubleadingTwoLoopEW",
-    "EWCHMN"
+    "RhoZbFromGuOverGb", "RhoZbFromGdOverGb", "TestSubleadingTwoLoopEW"
 };
 
 StandardModel::StandardModel() 
@@ -43,7 +42,6 @@ StandardModel::StandardModel()
     FlagRhoZbFromGuOverGb = false;
     FlagRhoZbFromGdOverGb = false;
     FlagTestSubleadingTwoLoopEW = false;
-    FlagEWCHMN = false;
     
     leptons[NEUTRINO_1].setCharge(0.);
     leptons[NEUTRINO_2].setCharge(0.);    
@@ -284,9 +282,6 @@ bool StandardModel::setFlag(const std::string name, const bool& value)
         res = true;
     } else if (name.compare("TestSubleadingTwoLoopEW") == 0) {
         FlagTestSubleadingTwoLoopEW = value;
-        res = true;
-    } else if (name.compare("EWCHMN") == 0) {
-        FlagEWCHMN = value;
         res = true;
     } else
         res = QCD::setFlag(name,value);

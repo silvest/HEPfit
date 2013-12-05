@@ -18,30 +18,12 @@
 
 
 EW::EW(const StandardModel& SM_i) 
-: ThObsType(SM_i), SM(SM_i), myEW_NPZff(SM_i), myEW_CHMN(SM_i), myEW_ABC(SM_i), myEW_BURGESS(SM_i)
+: ThObsType(SM_i), SM(SM_i), myEW_NPZff(SM_i)
 {
 }
 
 
 ////////////////////////////////////////////////////////////////////////
-
-EW::EWTYPE EW::getEWTYPE() const 
-{
-    if (SM.ModelName().compare("StandardModel") == 0) {
-        if ( SM.IsFlagEWCHMN() ) return EWCHMN;
-        else return EWDEFAULT;
-    } else if (SM.ModelName().compare("NPSTU") == 0) {
-        if ( (static_cast<const NPSTU*> (&SM))->IsFlagEWBURGESS() ) return EWBURGESS;
-        else if ( SM.IsFlagEWCHMN() ) return EWCHMN;
-        else return EWDEFAULT;
-    } else if (SM.ModelName().compare("NPEpsilons") == 0) {
-        if ( (static_cast<const NPEpsilons*> (&SM))->IsFlagEWABC() ) return EWABC;
-        else if ( (static_cast<const NPEpsilons*> (&SM))->IsFlagEWABC2() ) return EWABC2;
-        else return EWDEFAULT;
-    } else
-        return EWDEFAULT;
-}
-
 
 bool EW::checkLEP1NP() const
 {

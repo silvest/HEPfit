@@ -11,26 +11,14 @@
 
 double Abottom::computeThValue() 
 {
-    double A_b;
-    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+    double A_b = myEW.A_q(SM.BOTTOM);
 
-    if (myEWTYPE==EW::EWCHMN)  
-        A_b = myEW.getMyEW_CHMN().A_q(SM.BOTTOM);
-    else if (myEWTYPE==EW::EWABC || myEWTYPE==EW::EWABC2) 
-        A_b = myEW.getMyEW_ABC().A_b();
-    else {
-        A_b = myEW.A_q(SM.BOTTOM);
+    /* NP contribution to the Zff vertex */
+    if (myEW.checkLEP1NP())
+        A_b = myEW.getMyEW_NPZff().Abottom(A_b);
 
-        if (myEWTYPE==EW::EWBURGESS)
-            return myEW.getMyEW_BURGESS().Abottom(A_b, myEW.A_l(SM.ELECTRON));
-
-        /* NP contribution to the Zff vertex */
-        if (myEW.checkLEP1NP())
-            A_b = myEW.getMyEW_NPZff().Abottom(A_b);
-
-        /* Debug: extract pure NP contribution */
-        //A_b -= myEW.A_q(SM.BOTTOM);
-    }
+    /* Debug: extract pure NP contribution */
+    //A_b -= myEW.A_q(SM.BOTTOM);
     
     return A_b;
 }

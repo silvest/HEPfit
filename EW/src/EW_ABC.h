@@ -28,9 +28,7 @@ using namespace gslpp;
 class EW_ABC {
 public:
 
-    EW_ABC(const StandardModel& SM_i)
-    : SM(SM_i), myEWepsilons(SM_i)
-    {};
+    EW_ABC(const StandardModel& SM_i);
 
     double Mw(const bool bAlternative) const;
     double Gamma_l(StandardModel::lepton l) const;

@@ -11,28 +11,14 @@
 
 double AFBlepton::computeThValue() 
 {   
-    double AFB_l;
-    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
+    double AFB_l = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_l(SM.ELECTRON);
 
-    if (myEWTYPE==EW::EWCHMN)  
-        AFB_l = myEW.getMyEW_CHMN().AFB_l(SM.ELECTRON);
-    else if (myEWTYPE==EW::EWABC) 
-        AFB_l = myEW.getMyEW_ABC().AFB_l(SM.ELECTRON, false);
-    else if (myEWTYPE==EW::EWABC2)
-        AFB_l = myEW.getMyEW_ABC().AFB_l(SM.ELECTRON, true);
-    else {    
-        AFB_l = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_l(SM.ELECTRON);
+    /* NP contribution to the Zff vertex */
+    if (myEW.checkLEP1NP())
+        AFB_l = myEW.getMyEW_NPZff().AFBlepton(AFB_l);
 
-        if (myEWTYPE==EW::EWBURGESS)
-            return myEW.getMyEW_BURGESS().AFBlepton(AFB_l);
-
-        /* NP contribution to the Zff vertex */
-        if (myEW.checkLEP1NP())
-            AFB_l = myEW.getMyEW_NPZff().AFBlepton(AFB_l);
-
-        /* Debug: extract pure NP contribution */
-        //AFB_l -= 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_l(SM.ELECTRON);
-    }
+    /* Debug: extract pure NP contribution */
+    //AFB_l -= 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_l(SM.ELECTRON);
 
     return AFB_l;
 }

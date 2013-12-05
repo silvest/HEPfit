@@ -10,18 +10,6 @@
 
 double Mw::computeThValue() 
 {
-    double myMw;
-    EW::EWTYPE myEWTYPE = myEW.getEWTYPE();
-    
-    if (myEWTYPE==EW::EWCHMN)  
-        myMw = myEW.getMyEW_CHMN().Mw();
-    else if (myEWTYPE==EW::EWABC)
-        myMw = myEW.getMyEW_ABC().Mw(false);
-    else if (myEWTYPE==EW::EWABC2)
-        myMw = myEW.getMyEW_ABC().Mw(true);
-    else
-        myMw = SM.Mw();
-
-    return myMw;
+    return SM.Mw();
 }
 

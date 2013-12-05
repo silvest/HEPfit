@@ -23,8 +23,6 @@ class NPSTU : public NPbase {
 public:
     static const int NSTUvars = 3;
     static const std::string STUvars[NSTUvars];
-    static const int NSTUflags = 1;
-    static const std::string STUflags[NSTUflags];
     
     /**
      * @brief NPSTU constructor.
@@ -46,13 +44,6 @@ public:
     virtual bool setFlag(const std::string, const bool&); 
     virtual bool CheckFlags() const;
     
-
-    ////////////////////////////////////////////////////////////////////////
-
-    bool IsFlagEWBURGESS() const
-    {
-        return FlagEWBURGESS;
-    }
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -109,12 +100,6 @@ protected:
     double myObliqueS, myObliqueT, myObliqueU;
     virtual void setParameter(const std::string name, const double& value);
 
-    
-    ////////////////////////////////////////////////////////////////////////    
-private:
-    bool FlagEWBURGESS;
-    const EW_BURGESS myEW_BURGESS;
-    
 };
 
 #endif	/* NPSTU_H */

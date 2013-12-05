@@ -14,7 +14,7 @@ const std::string NPEpsilons::EPSILONvars[NEPSILONvars]
 = {"epsilon_1", "epsilon_2", "epsilon_3", "epsilon_b"};
 
 const std::string NPEpsilons::EPSILONflags[NEPSILONflags] 
-= {"epsilon1SM", "epsilon2SM", "epsilon3SM", "epsilonbSM", "EWABC", "EWABC2"};
+= {"epsilon1SM", "epsilon2SM", "epsilon3SM", "epsilonbSM"};
 
 
 NPEpsilons::NPEpsilons() 
@@ -24,8 +24,6 @@ NPEpsilons::NPEpsilons()
     FlagEpsilon2SM = false;
     FlagEpsilon3SM = false;
     FlagEpsilonbSM = false;
-    FlagEWABC = false;
-    FlagEWABC2 = false;
 }
 
 
@@ -104,12 +102,6 @@ bool NPEpsilons::setFlag(const std::string name, const bool& value)
     } else if (name.compare("epsilonbSM") == 0) {
         FlagEpsilonbSM = value;
         res = true;
-    } else if (name.compare("EWABC") == 0) {
-        FlagEWABC = value;
-        res = true;
-    } else if (name.compare("EWABC2") == 0) {
-        FlagEWABC2 = value;
-        res = true;
     } else
         res = NPbase::setFlag(name,value);
 
@@ -123,9 +115,6 @@ bool NPEpsilons::CheckFlags() const
             && !IsFlagRhoZbFromGuOverGb() && !IsFlagRhoZbFromGdOverGb()
             && !IsFlagTestSubleadingTwoLoopEW())
         throw std::runtime_error("ERROR: The current flags are not compatible with NPEpsilons model.");
-
-    if ( FlagEWABC && FlagEWABC2 )
-        throw std::runtime_error("ERROR: Flags EWABC and EWABC2 are incompatible with each other.");
     
     return(NPbase::CheckFlags());
 }

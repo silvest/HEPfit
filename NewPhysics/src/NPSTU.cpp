@@ -13,13 +13,10 @@
 const std::string NPSTU::STUvars[NSTUvars]
 = {"obliqueS", "obliqueT", "obliqueU"};
 
-const std::string NPSTU::STUflags[NSTUflags]
-= {"EWBURGESS"};
 
 NPSTU::NPSTU()
-: NPbase(), myEW_BURGESS(*this)
+: NPbase()
 {
-    FlagEWBURGESS = false;
 }
 
 
@@ -81,20 +78,13 @@ bool NPSTU::CheckParameters(const std::map<std::string, double>& DPars)
 bool NPSTU::setFlag(const std::string name, const bool& value)
 {
     bool res = false;
-    if (name.compare("EWBURGESS") == 0) {
-        FlagEWBURGESS = value;
-        res = true;
-    } else
-        res = NPbase::setFlag(name,value);
+    res = NPbase::setFlag(name,value);
 
     return(res);
 }
 
 bool NPSTU::CheckFlags() const
 {
-    if ( FlagEWBURGESS && IsFlagEWCHMN() )
-        throw std::runtime_error("ERROR: Flags EWBURGESS and EWCHMN are incompatible with each other.");
-
     return(NPbase::CheckFlags());
 }
 
@@ -104,9 +94,6 @@ bool NPSTU::CheckFlags() const
 double NPSTU::Mw() const
 {
     double myMw = myEWSM->Mw_SM();
-
-    if (IsFlagEWBURGESS())
-        return myEW_BURGESS.Mw(myMw);
 
     double alpha = StandardModel::alphaMz();
     double c2 = myEWSM->cW2_SM();
@@ -138,9 +125,6 @@ double NPSTU::sW2() const
 double NPSTU::GammaW() const
 {
     double Gamma_W = myEWSM->GammaW_SM();
-
-    if (IsFlagEWBURGESS())
-        return myEW_BURGESS.GammaW(Gamma_W);
 
     double alpha = StandardModel::alphaMz();
     double c2 = myEWSM->cW2_SM();
