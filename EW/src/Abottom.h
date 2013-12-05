@@ -14,7 +14,14 @@
 
 /**
  * @addtogroup EW
- * @brief A project for electroweak observables.
+ * @brief A project for electroweak precision observables.
+ * @details This project includes the classes used for the computation of
+ * the theory predictions for the W mass and width, as well as electroweak 
+ * precision pseudo observables at the Z pole.
+ * These pseudo observables cannot be directly measured, but can be extracted from real
+ * observables upon substraction of initial-state QED radiation and final-state QED/QCD 
+ * corrections.
+ * 
  * @{
  */
 

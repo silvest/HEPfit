@@ -20,7 +20,9 @@
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the forward-backward asymmetry of 
- * the @f$Z\to b\bar{b}@f$ channel at the @f$Z@f$ pole. 
+ * the @f$Z\to b\bar{b}@f$ channel at the @f$Z@f$ pole in terms of the asymmetry
+ * parameters @f$A_f\f$, computed in the classes \b Alepton and \b Abottom:
+ * \f[A_{FB}^{0,b}=\frac 34 A_e A_b.\f] 
  */
 class AFBbottom : public ThObservable {
 public:

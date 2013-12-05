@@ -20,7 +20,7 @@
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the ratio of the @f$Z@f$-boson 
- * hadronic width to the @f$Z\to \ell\bar{\ell}@f$ width at the @f$Z@f$ pole.
+ * hadronic width to the @f$Z\to \ell\bar{\ell}@f$ width at the @f$Z@f$ pole, @f$R_\ell=\frac{\Gamma_h}{\Gamma_\ell}@f$.
  */
 class Rlepton : public ThObservable {
 public:

@@ -21,10 +21,14 @@ using namespace gslpp;
 /**
  * @class EW
  * @ingroup EW 
- * @brief The base class for the electroweak precision observables at the Z pole. 
+ * @brief The base class for the electroweak precision observables. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details  
+ * @details This class includes basic functions for the computation of the SM
+ * predictions for electroweak precision pseudo observables, such as partial
+ * decay widths of the \f$Z\f$ boson. 
+ * 
+ * 
  */
 class EW : public ThObsType {
 public:
@@ -85,34 +89,34 @@ public:
     }
 
     /**
-     * @param[in] l lepton
-     * @return electric charge of a lepton "l"
+     * @param[in] l lepton type
+     * @return the electric charge of the lepton "l"
      */
     double Ql(const StandardModel::lepton l) const;    
 
     /**
-     * @param[in] q quark
-     * @return electric charge of a quark "q"
+     * @param[in] q quark type
+     * @return the electric charge of the quark "q"
      */
     double Qq(const StandardModel::quark q) const;    
 
     /**
-     * @return alpha(Mz2) 
+     * @return \f$\alpha(M_Z^2)\f$ 
      */
     double alpha() const;
 
     /**
-     * @return the W boson mass in the SM. 
+     * @return the \f$W\f$-boson mass in the SM 
      */
     double Mw_SM() const;    
 
     /**
-     * @return sin^2 theta_W in the SM.
+     * @return the value of \f$\sin^2{\theta_W}\f$ in the SM
      */
     double sW2_SM() const;
 
     /**
-     * @return cos^2 theta_W in the SM.
+     * @return the value of \f$\cos^2{\theta_W}\f$ in the SM
      */
     double cW2_SM() const;
 
@@ -121,63 +125,63 @@ public:
     
     /**
      * @param[in] l name of a lepton
-     * @return the effective mixing angle for lepton "l"
+     * @return the effective weak mixing angle for the lepton "l"
      */
     double sin2thetaEff(const StandardModel::lepton l) const;
     
      /**
      * @param[in] q name of a quark
-     * @return the effective mixing angle for quark "q"
+     * @return the effective weak mixing angle for the quark "q"
      */
     double sin2thetaEff(const StandardModel::quark q) const;   
     
     /**
      * @param[in] l name of a lepton
-     * @return the partial width of Z decay into an l\bar{l} pair 
+     * @return the \f$Z\rightarrow \mbox{l}\bar{\mbox{l}}\f$ partial decay width 
      */
     double Gamma_l(const StandardModel::lepton l) const;
     
     /**
      * @param[in] q name of a quark
-     * @return the partial width of Z decay into a q\bar{q} pair 
+     * @return the \f$Z\rightarrow \mbox{q}\bar{\mbox{q}}\f$ partial decay width 
      */
     double Gamma_q(const StandardModel::quark q) const;
     
     /**
-     * @return the partial width of Z decay into neutrinos
+     * @return the invisible decay width of the \f$Z\f$ boson
      */
     double Gamma_inv() const;
 
     /**
-     * @return the hadronic width of the Z boson
+     * @return the hadronic decay width of the \f$Z\f$ boson
      */
     double Gamma_had() const;
 
     /**
-     * @return the total width of the Z boson
+     * @return the total decay width of the \f$Z\f$ boson
      */
     double Gamma_Z() const;
     
     /**
      * @param[in] l name of a lepton
-     * @return the cross section for e^+e^- -> Z -> l\bar{l}
+     * @return the cross section for \f$e^+e^- \rightarrow Z \rightarrow l\bar{l}\f$
      */
     double sigma0_l(const StandardModel::lepton l) const;
 
     /**
-     * @return the cross section e^+e^- -> Z -> hadrons
+     * @return the cross section for \f$e^+e^- \rightarrow Z \rightarrow \mathrm{hadrons}f$
      */
     double sigma0_had() const; 
  
     /**
      * @param[in] l name of a lepton
-     * @return asymmetry parameter for Z->l\bar{l}
+     * @return the asymmetry parameter for \f$Z\rightarrow l\bar{l}\f$, \f$A_l\f$
      */
     double A_l(const StandardModel::lepton l) const;
 
     /**
      * @param[in] q name of a quark
-     * @return asymmetry parameter for Z->q\bar{q}
+     * @return the asymmetry parameter for \f$Z\rightarrow q\bar{q}\f$, \f$A_q\f$
      */
     double A_q(const StandardModel::quark q) const;
 

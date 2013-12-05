@@ -20,7 +20,7 @@
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the longitudinal polarization of 
- * @f$Z\to \tau\bar{\tau}@f$ at the @f$Z@f$ pole.
+ * @f$Z\to \tau\bar{\tau}@f$ at the @f$Z@f$ pole, @f$P_\tau^{\mathrm{pol}}=A_\tau@f$.
  */
 class PtauPol : public ThObservable {
 public:

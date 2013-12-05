@@ -16,11 +16,13 @@
  * @class sigmaHadron 
  * @ingroup EW 
  * @brief A class for the hadronic cross section of the @f$Z@f$ boson at the 
- * @f$Z@f$ pole
+ * @f$Z@f$ pole (in units of nb)
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the hadronic cross section of the 
- * @f$Z@f$ boson at the @f$Z@f$ pole. 
+ * @details This class is used to compute the @f$e^+ e^-\rightarrow Z\rightarrow \mathrm{hadrons}@f$
+ * cross section at the @f$Z@f$ pole (in units of nb), in terms of \f$\Gamma_e\f$, \f$\Gamma_h\f$ and 
+ * \f$\Gamma_Z\f$ in the \b EW class (for the SM contribution):
+ * \f[\sigma_h^0=\frac{12\pi}{M_Z^2}\frac{\Gamma_e\Gamma_h}{\Gamma_Z^2}.\f] 
  */
 class sigmaHadron : public ThObservable {
 public:

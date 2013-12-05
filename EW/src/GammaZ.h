@@ -15,10 +15,14 @@
 /**
  * @class GammaZ
  * @ingroup EW 
- * @brief A class for the total decay width of the Z boson 
+ * @brief A class for the total decay width of the \f$Z\f$ boson 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the total decay width of the Z boson. 
+ * @details This class is used to compute the total decay width of the \f$Z\f$ boson 
+ * (in GeV),
+ * \f[\Gamma_Z=\Gamma_h+\Gamma_e+\Gamma_\mu+\Gamma_\tau+\Gamma_\mathrm{inv}\f], 
+ * with @f$\Gamma_h=\sum_{q\not =t}\Gamma_q@f$ the total hadronic width, and 
+ * @f$\Gamma_\mathrm{inv}=3\Gamma_\nu@f$ the invisible width.
  */
 class GammaZ : public ThObservable {
 public:
@@ -34,7 +38,7 @@ public:
     };
 
     /**
-     * @return The total width of the Z boson. 
+     * @return the total width of the Z boson 
      */
     double computeThValue();
 

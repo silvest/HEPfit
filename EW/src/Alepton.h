@@ -20,7 +20,7 @@
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the left-right asymmetry of a 
- * @f$Z\to \ell\bar{ell}@f$ channel at the @f$Z@f$ pole. 
+ * @f$Z\to \ell\bar{\ell}@f$ channel at the @f$Z@f$ pole. 
  */
 class Alepton : public ThObservable {
 public:

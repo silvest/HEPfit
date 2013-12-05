@@ -13,10 +13,12 @@
 /**
  * @class EW_NPZff
  * @ingroup EW
- * @brief A class for ...
+ * @brief A class for new physics contributions to \f$Z\f$-pole pseudo observables.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details 
+ * @details This class contains functions to incorporate new physics
+ * contributions to \f$Z\f$-pole pseudo observables, parameterized in terms
+ * of corrections to the \f$Z\rightarrow f\bar{f}\f$ vertices. 
  */
 class EW_NPZff {
 public:
