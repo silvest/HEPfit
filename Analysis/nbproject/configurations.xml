@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="89">
+<configurationDescriptor version="90">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -42,7 +42,6 @@
   <confs>
     <conf name="Debug" type="1">
       <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
@@ -147,6 +146,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../EventGeneration"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../EventGeneration"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../Observables"
                             CT="3"
                             CN="Debug"
@@ -278,18 +289,6 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
               </makeArtifact>
             </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../EventGeneration"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../EventGeneration"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>BAT</linkerLibLibItem>
@@ -340,7 +339,6 @@
     </conf>
     <conf name="Release" type="1">
       <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
@@ -451,6 +449,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../EventGeneration"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../EventGeneration"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../Observables"
                             CT="3"
                             CN="Release"
@@ -582,18 +592,6 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
               </makeArtifact>
             </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../EventGeneration"
-                            CT="3"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../EventGeneration"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>BAT</linkerLibLibItem>
@@ -644,7 +642,6 @@
     </conf>
     <conf name="Release_MPI" type="1">
       <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
@@ -673,7 +670,7 @@
             <pElem>../ZFitterWrapper/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
-            <pElem>../BAT/include</pElem>
+            <pElem>../BAT_parallel/include</pElem>
             <pElem>../GeneralSUSY/src</pElem>
             <pElem>../pMSSM/src</pElem>
             <pElem>../EventGeneration/src</pElem>
@@ -758,6 +755,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../EventGeneration"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../EventGeneration"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../Observables"
                             CT="3"
                             CN="Release"
@@ -889,18 +898,6 @@
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
               </makeArtifact>
             </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../EventGeneration"
-                            CT="3"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../EventGeneration"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
             <linkerLibLibItem>BATmodels</linkerLibLibItem>
             <linkerLibLibItem>BAT</linkerLibLibItem>
@@ -953,7 +950,6 @@
     </conf>
     <conf name="Cluster" type="1">
       <toolsSet>
-        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
         <compilerSet>default</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>true</rebuildPropChanged>
@@ -982,7 +978,7 @@
             <pElem>../ZFitterWrapper/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
-            <pElem>../BAT/include</pElem>
+            <pElem>../BAT_parallel/include</pElem>
             <pElem>../GeneralSUSY/src</pElem>
             <pElem>../pMSSM/src</pElem>
             <pElem>../EventGeneration/src</pElem>
@@ -1068,6 +1064,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../EventGeneration"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../EventGeneration"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../Observables"
                             CT="3"
                             CN="Cluster"
@@ -1197,18 +1205,6 @@
                             BC="${MAKE}  -f Makefile CONF=Cluster"
                             CC="${MAKE}  -f Makefile CONF=Cluster clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../EventGeneration"
-                            CT="3"
-                            CN="Cluster"
-                            AC="false"
-                            BL="true"
-                            WD="../EventGeneration"
-                            BC="${MAKE}  -f Makefile CONF=Cluster"
-                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibLibItem>boost_program_options</linkerLibLibItem>
