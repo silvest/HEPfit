@@ -179,17 +179,17 @@ double CKM::gets23()
 
 double CKM::getc12() 
 {
-    return s13;
+    return c12;
 }
 
 double CKM::getc23() 
 {
-    return s13;
+    return c23;
 }
 
 double CKM::getc13() 
 {
-    return s23;
+    return c13;
 }
 
 double CKM::getdelta() 
