@@ -11,6 +11,7 @@
             <sourceEncoding>UTF-8</sourceEncoding>
             <make-dep-projects>
                 <make-dep-project>../Flavour</make-dep-project>
+                <make-dep-project>../EventGeneration</make-dep-project>
                 <make-dep-project>../THDM</make-dep-project>
                 <make-dep-project>../MFV</make-dep-project>
                 <make-dep-project>../Utils</make-dep-project>
@@ -46,9 +47,6 @@
                     <type>1</type>
                 </confElem>
             </confList>
-            <formatting>
-                <project-formatting-style>false</project-formatting-style>
-            </formatting>
         </data>
     </configuration>
 </project>
