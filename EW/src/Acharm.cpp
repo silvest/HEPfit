@@ -14,7 +14,7 @@ double Acharm::computeThValue()
     double A_c = myEW.A_q(SM.CHARM);
 
     /* NP contribution to the Zff vertex */
-    if (myEW.checkLEP1NP())
+    if (myEW.checkNPZff())
         A_c = myEW.getMyEW_NPZff().Acharm(A_c);
 
     /* Debug: extract pure NP contribution */

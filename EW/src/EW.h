@@ -24,22 +24,20 @@ using namespace gslpp;
  * @details This class includes basic functions for the computation of the SM
  * predictions for electroweak precision pseudo observables, such as partial
  * decay widths of the \f$Z\f$ boson. 
- * 
- * 
  */
 class EW : public ThObsType {
 public:
     
     /**
      * @brief A constructor.
-     * @param[in] SM_i A reference to an object of StandardModel class
+     * @param[in] SM_i a reference to an object of StandardModel class
      */
     EW(const StandardModel& SM_i);
 
     
     //////////////////////////////////////////////////////////////////////// 
 
-    bool checkLEP1NP() const;
+    bool checkNPZff() const;
     
     /**
      * @return a reference to the StandardModel object in the current class
@@ -53,38 +51,6 @@ public:
     {
         return myEW_NPZff;
     }
-
-    /**
-     * @param[in] l lepton type
-     * @return the electric charge of the lepton "l"
-     */
-    double Ql(const StandardModel::lepton l) const;    
-
-    /**
-     * @param[in] q quark type
-     * @return the electric charge of the quark "q"
-     */
-    double Qq(const StandardModel::quark q) const;    
-
-    /**
-     * @return \f$\alpha(M_Z^2)\f$ 
-     */
-    double alpha() const;
-
-    /**
-     * @return the \f$W\f$-boson mass in the SM 
-     */
-    double Mw_SM() const;    
-
-    /**
-     * @return the value of \f$\sin^2{\theta_W}\f$ in the SM
-     */
-    double sW2_SM() const;
-
-    /**
-     * @return the value of \f$\cos^2{\theta_W}\f$ in the SM
-     */
-    double cW2_SM() const;
 
 
     ////////////////////////////////////////////////////////////////////////     

@@ -26,7 +26,7 @@ double Rcharm::computeThValue()
         R0_c = myEW.Gamma_q(SM.CHARM)/myEW.Gamma_had();
 
     /* NP contribution to the Zff vertex */
-    if (myEW.checkLEP1NP())
+    if (myEW.checkNPZff())
         R0_c = myEW.getMyEW_NPZff().Rcharm(R0_c);
 
     /* Debug: extract pure NP contribution */

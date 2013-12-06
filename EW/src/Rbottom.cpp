@@ -27,7 +27,7 @@ double Rbottom::computeThValue()
         R0_b = myEW.Gamma_q(SM.BOTTOM)/myEW.Gamma_had();
 
     /* NP contribution to the Zff vertex */
-    if (myEW.checkLEP1NP())
+    if (myEW.checkNPZff())
         R0_b = myEW.getMyEW_NPZff().Rbottom(R0_b);
 
     /* Debug: extract pure NP contribution */

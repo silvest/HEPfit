@@ -22,7 +22,7 @@ double GammaZ::computeThValue()
     Gamma_Z += SM.getDelGammaZ();
 
     /* NP contribution to the Zff vertex */
-    if (myEW.checkLEP1NP())
+    if (myEW.checkNPZff())
         Gamma_Z = myEW.getMyEW_NPZff().GammaZ(Gamma_Z);
 
     /* Debug: extract pure NP contribution */
