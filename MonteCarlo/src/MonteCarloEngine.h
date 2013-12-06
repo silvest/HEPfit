@@ -164,24 +164,6 @@ public:
      * @brief
      * @return
      */
-    Model* getMod() const
-    {
-        return Mod;
-    }
-
-    /**
-     * @brief
-     * @param[in]
-     */
-    void setMod(Model* Mod)
-    {
-        this->Mod = Mod;
-    }
-    
-    /**
-     * @brief
-     * @return
-     */
     std::string getHistoLog() const
     {
         return HistoLog.str().c_str();
