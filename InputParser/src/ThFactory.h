@@ -155,7 +155,7 @@ class ThFactory {
 public:
     
     /**
-     * @brief The default constructor.\n
+     * @brief The default constructor.
      */
     ThFactory(const StandardModel& myModel);
     
