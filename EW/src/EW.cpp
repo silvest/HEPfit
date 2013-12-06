@@ -25,7 +25,7 @@ EW::EW(const StandardModel& SM_i)
 
 ////////////////////////////////////////////////////////////////////////
 
-bool EW::checkLEP1NP() const
+bool EW::checkNPZff() const
 {
     std::string Model = SM.ModelName();
     if (Model.compare("NPZbbbar") == 0) {
@@ -43,48 +43,12 @@ bool EW::checkLEP1NP() const
 }
 
 
-double EW::Ql(const StandardModel::lepton l) const 
-{
-    return ( SM.getLeptons(l).getCharge() );
-}        
- 
-
-double EW::Qq(const StandardModel::quark q) const 
-{
-    return ( SM.getQuarks(q).getCharge() );
-}
-
-
-double EW::alpha() const 
-{
-    return ( SM.alphaMz() );    
-}
-
-
-double EW::Mw_SM() const 
-{
-    return SM.getEWSM()->Mw_SM();
-}
-
-
-double EW::sW2_SM() const 
-{
-    return SM.getEWSM()->sW2_SM();
-}
-
-
-double EW::cW2_SM() const 
-{
-    return SM.getEWSM()->cW2_SM();
-}
-
-
 ////////////////////////////////////////////////////////////////////////
 
 double EW::sin2thetaEff(const StandardModel::lepton l) const 
 {
     complex gV_over_gA = SM.getEWSM()->gVl(l)/SM.getEWSM()->gAl(l);
-    double absQf = fabs(Ql(l));
+    double absQf = fabs(SM.getLeptons(l).getCharge());
     return ( 1.0/4.0/absQf*(1.0 - gV_over_gA.real()) );
 }
 
@@ -92,7 +56,7 @@ double EW::sin2thetaEff(const StandardModel::lepton l) const
 double EW::sin2thetaEff(const StandardModel::quark q) const 
 {
     complex gV_over_gA = SM.getEWSM()->gVq(q)/SM.getEWSM()->gAq(q);
-    double absQf = fabs(Qq(q));
+    double absQf = fabs(SM.getQuarks(q).getCharge());
     return ( 1.0/4.0/absQf*(1.0 - gV_over_gA.real()) );
 }
 
@@ -102,7 +66,7 @@ double EW::Gamma_l(const StandardModel::lepton l) const
     complex rhoZ_l = SM.getEWSM()->rhoZ_l(l);
     complex gV_over_gA = SM.getEWSM()->gVl(l)/SM.getEWSM()->gAl(l);
     double alphaMz = SM.alphaMz();
-    double Q = Ql(l);
+    double Q = SM.getLeptons(l).getCharge();
     double xl = pow(SM.getLeptons(l).getMass()/SM.getMz(), 2.0);
     double G0 = SM.getGF()*pow(SM.getMz(),3.0)/24.0/sqrt(2.0)/M_PI;
     double Gamma = G0*rhoZ_l.abs()*sqrt(1.0 - 4.0*xl)

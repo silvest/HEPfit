@@ -14,7 +14,7 @@ double Abottom::computeThValue()
     double A_b = myEW.A_q(SM.BOTTOM);
 
     /* NP contribution to the Zff vertex */
-    if (myEW.checkLEP1NP())
+    if (myEW.checkNPZff())
         A_b = myEW.getMyEW_NPZff().Abottom(A_b);
 
     /* Debug: extract pure NP contribution */

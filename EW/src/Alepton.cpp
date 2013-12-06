@@ -14,7 +14,7 @@ double Alepton::computeThValue()
     double A_l = myEW.A_l(SM.ELECTRON);
 
     /* NP contribution to the Zff vertex */
-    if (myEW.checkLEP1NP())
+    if (myEW.checkNPZff())
         A_l = myEW.getMyEW_NPZff().Alepton(A_l);
 
     /* Debug: extract pure NP contribution */

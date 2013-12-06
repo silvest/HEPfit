@@ -162,16 +162,18 @@ double LEP2oblique::epsilonGammaZ(const double alpha0,
 double LEP2oblique::vl(const StandardModel::lepton l, const double alpha0) const 
 {
     double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
+    double Q = myEW.getSM().getLeptons(l).getCharge();
     return ( - (myEW.getSM().getLeptons(l).getIsospin() 
-                - 2.0*myEW.Ql(l)*s02(alpha0))/(2.0*s0*c0) );
+                - 2.0*Q*s02(alpha0))/(2.0*s0*c0) );
 }
 
 
 double LEP2oblique::vq(const StandardModel::quark q, const double alpha0) const 
 {
     double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
+    double Q = myEW.getSM().getQuarks(q).getCharge();
     return ( - (myEW.getSM().getQuarks(q).getIsospin() 
-                - 2.0*myEW.Qq(q)*s02(alpha0))/(2.0*s0*c0) );
+                - 2.0*Q*s02(alpha0))/(2.0*s0*c0) );
 }
 
 
@@ -194,7 +196,7 @@ double LEP2oblique::G1_NP(const double s, const double alpha0, const double Qf,
                           const double ObParam_i[]) const 
 {
     double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
-    double Qe = myEW.Ql(StandardModel::ELECTRON);
+    double Qe = myEW.getSM().getLeptons(StandardModel::ELECTRON).getCharge();
     double ve = vl(StandardModel::ELECTRON, alpha0);
     double ae = al(StandardModel::ELECTRON, alpha0);
     double Qe2 = Qe*Qe, Qf2 = Qf*Qf;
@@ -227,7 +229,8 @@ double LEP2oblique::G1_l_NP(const StandardModel::lepton l,
                             const double s, const double alpha0, 
                             const double ObParam_i[]) const 
 {
-    double Qf = myEW.Ql(l), vf = vl(l, alpha0), af = al(l, alpha0);    
+    double Qf = myEW.getSM().getLeptons(l).getCharge();
+    double vf = vl(l, alpha0), af = al(l, alpha0);
     return ( G1_NP(s, alpha0, Qf, vf, af, ObParam_i) );
 }
 
@@ -236,7 +239,8 @@ double LEP2oblique::G1_q_NP(const StandardModel::quark q,
                             const double s, const double alpha0, 
                             const double ObParam_i[]) const
 {
-    double Qf = myEW.Qq(q), vf = vq(q, alpha0), af = aq(q, alpha0);    
+    double Qf = myEW.getSM().getQuarks(q).getCharge();
+    double vf = vq(q, alpha0), af = aq(q, alpha0);    
     return ( G1_NP(s, alpha0, Qf, vf, af, ObParam_i) );    
 }
 
@@ -246,7 +250,7 @@ double LEP2oblique::G3_NP(const double s, const double alpha0, const double Qf,
                           const double ObParam_i[]) const
 {
     double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
-    double Qe = myEW.Ql(StandardModel::ELECTRON);
+    double Qe = myEW.getSM().getLeptons(StandardModel::ELECTRON).getCharge();
     double ve = vl(StandardModel::ELECTRON, alpha0);
     double ae = al(StandardModel::ELECTRON, alpha0);
     double Mz = myEW.getSM().getMz();
@@ -274,7 +278,8 @@ double LEP2oblique::G3_l_NP(const StandardModel::lepton l,
                             const double s, const double alpha0, 
                             const double ObParam_i[]) const
 {
-    double Qf = myEW.Ql(l), vf = vl(l, alpha0), af = al(l, alpha0);    
+    double Qf = myEW.getSM().getLeptons(l).getCharge();
+    double vf = vl(l, alpha0), af = al(l, alpha0);    
     return ( G3_NP(s, alpha0, Qf, vf, af, ObParam_i) );
 }
 
@@ -283,7 +288,8 @@ double LEP2oblique::G3_q_NP(const StandardModel::quark q,
                             const double s, const double alpha0, 
                             const double ObParam_i[]) const
 {
-    double Qf = myEW.Qq(q), vf = vq(q, alpha0), af = aq(q, alpha0);    
+    double Qf = myEW.getSM().getQuarks(q).getCharge();
+    double vf = vq(q, alpha0), af = aq(q, alpha0);    
     return ( G3_NP(s, alpha0, Qf, vf, af, ObParam_i) ); 
 }
 
@@ -291,7 +297,7 @@ double LEP2oblique::G3_q_NP(const StandardModel::quark q,
 double LEP2oblique::G1_SM0(const double s, const double alpha0, const double Qf, 
                            const double vf, const double af) const
 {
-    double Qe = myEW.Ql(StandardModel::ELECTRON);
+    double Qe = myEW.getSM().getLeptons(StandardModel::ELECTRON).getCharge();
     double ve = vl(StandardModel::ELECTRON, alpha0);
     double ae = al(StandardModel::ELECTRON, alpha0);
     double Qe2 = Qe*Qe, Qf2 = Qf*Qf;
@@ -309,7 +315,8 @@ double LEP2oblique::G1_SM0(const double s, const double alpha0, const double Qf,
 double LEP2oblique::G1_l_SM0(const StandardModel::lepton l, 
                              const double s, const double alpha0) const 
 {
-    double Qf = myEW.Ql(l), vf = vl(l, alpha0), af = al(l, alpha0);    
+    double Qf = myEW.getSM().getLeptons(l).getCharge();
+    double vf = vl(l, alpha0), af = al(l, alpha0);
     return ( G1_SM0(s, alpha0, Qf, vf, af) );
 }
 
@@ -317,7 +324,8 @@ double LEP2oblique::G1_l_SM0(const StandardModel::lepton l,
 double LEP2oblique::G1_q_SM0(const StandardModel::quark q, 
                              const double s, const double alpha0) const 
 {
-    double Qf = myEW.Qq(q), vf = vq(q, alpha0), af = aq(q, alpha0);    
+    double Qf = myEW.getSM().getQuarks(q).getCharge();
+    double vf = vq(q, alpha0), af = aq(q, alpha0);
     return ( G1_SM0(s, alpha0, Qf, vf, af) ); 
 }
 
@@ -325,7 +333,7 @@ double LEP2oblique::G1_q_SM0(const StandardModel::quark q,
 double LEP2oblique::G2_SM0(const double s, const double alpha0, const double Qf, 
                            const double vf, const double af) const 
 {
-    double Qe = myEW.Ql(StandardModel::ELECTRON);
+    double Qe = myEW.getSM().getLeptons(StandardModel::ELECTRON).getCharge();
     double ve = vl(StandardModel::ELECTRON, alpha0);
     double ae = al(StandardModel::ELECTRON, alpha0);
     double Qe2 = Qe*Qe, Qf2 = Qf*Qf;
@@ -343,7 +351,8 @@ double LEP2oblique::G2_SM0(const double s, const double alpha0, const double Qf,
 double LEP2oblique::G2_l_SM0(const StandardModel::lepton l, 
                              const double s, const double alpha0) const
 {
-    double Qf = myEW.Ql(l), vf = vl(l, alpha0), af = al(l, alpha0);    
+    double Qf = myEW.getSM().getLeptons(l).getCharge();
+    double vf = vl(l, alpha0), af = al(l, alpha0);
     return ( G2_SM0(s, alpha0, Qf, vf, af) );    
 }
 
@@ -351,7 +360,8 @@ double LEP2oblique::G2_l_SM0(const StandardModel::lepton l,
 double LEP2oblique::G2_q_SM0(const StandardModel::quark q, 
                              const double s, const double alpha0) const
 {
-    double Qf = myEW.Qq(q), vf = vq(q, alpha0), af = aq(q, alpha0);    
+    double Qf = myEW.getSM().getQuarks(q).getCharge();
+    double vf = vq(q, alpha0), af = aq(q, alpha0);
     return ( G2_SM0(s, alpha0, Qf, vf, af) ); 
     
 }
@@ -360,7 +370,7 @@ double LEP2oblique::G2_q_SM0(const StandardModel::quark q,
 double LEP2oblique::G3_SM0(const double s, const double alpha0, const double Qf, 
                            const double vf, const double af) const 
 {
-    double Qe = myEW.Ql(StandardModel::ELECTRON);
+    double Qe = myEW.getSM().getLeptons(StandardModel::ELECTRON).getCharge();
     double ve = vl(StandardModel::ELECTRON, alpha0);
     double ae = al(StandardModel::ELECTRON, alpha0);
     double Mz = myEW.getSM().getMz();
@@ -375,7 +385,8 @@ double LEP2oblique::G3_SM0(const double s, const double alpha0, const double Qf,
 double LEP2oblique::G3_l_SM0(const StandardModel::lepton l, 
                              const double s, const double alpha0) const 
 {
-    double Qf = myEW.Ql(l), vf = vl(l, alpha0), af = al(l, alpha0);    
+    double Qf = myEW.getSM().getLeptons(l).getCharge();
+    double vf = vl(l, alpha0), af = al(l, alpha0);
     return ( G3_SM0(s, alpha0, Qf, vf, af) );
 }
 
@@ -383,7 +394,8 @@ double LEP2oblique::G3_l_SM0(const StandardModel::lepton l,
 double LEP2oblique::G3_q_SM0(const StandardModel::quark q, 
                              const double s, const double alpha0) const 
 {
-    double Qf = myEW.Qq(q), vf = vq(q, alpha0), af = aq(q, alpha0);    
+    double Qf = myEW.getSM().getQuarks(q).getCharge();
+    double vf = vq(q, alpha0), af = aq(q, alpha0);
     return ( G3_SM0(s, alpha0, Qf, vf, af) );    
 }
 

@@ -14,7 +14,7 @@ double AFBcharm::computeThValue()
     double AFB_c = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.CHARM);
     
     /* NP contribution to the Zff vertex */
-    if (myEW.checkLEP1NP())
+    if (myEW.checkNPZff())
         AFB_c = myEW.getMyEW_NPZff().AFBcharm(AFB_c);
 
     /* Debug: extract pure NP contribution */

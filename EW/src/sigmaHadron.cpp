@@ -19,7 +19,7 @@ double sigmaHadron::computeThValue()
         sigma_had = myEW.sigma0_had();
 
     /* NP contribution to the Zff vertex */
-    if (myEW.checkLEP1NP())
+    if (myEW.checkNPZff())
         sigma_had = myEW.getMyEW_NPZff().sigmaHadron(sigma_had);
 
     /* Debug: extract pure NP contribution */

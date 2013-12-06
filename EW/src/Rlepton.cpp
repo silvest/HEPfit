@@ -14,7 +14,7 @@ double Rlepton::computeThValue()
     double R0_l = myEW.Gamma_had()/myEW.Gamma_l(SM.ELECTRON);
 
     /* NP contribution to the Zff vertex */
-    if (myEW.checkLEP1NP())
+    if (myEW.checkNPZff())
         R0_l = myEW.getMyEW_NPZff().Rlepton(R0_l);
 
     /* Debug: extract pure NP contribution */
