@@ -13,7 +13,7 @@
 double Rcharm::computeThValue() 
 {   
     double R0_c;
-    if (SM.IsFlagApproximateGqOverGb()
+    if (!SM.IsFlagNoApproximateGqOverGb()
             //&& !SM.IsFlagRhoZbFromGuOverGb()
             //&& !SM.IsFlagRhoZbFromGdOverGb()
             //&& !SM.IsFlagTestSubleadingTwoLoopEW()

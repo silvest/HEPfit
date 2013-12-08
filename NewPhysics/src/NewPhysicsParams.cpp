@@ -76,7 +76,7 @@ double NewPhysicsParams::computeThValue()
             return 0.0;
     else if (name.compare("deltaRhoZb") == 0) {
         if (SM.ModelName().compare("NPZbbbar") == 0) {
-            if (SM.IsFlagApproximateGqOverGb()
+            if (!SM.IsFlagNoApproximateGqOverGb()
                     && !SM.IsFlagRhoZbFromGuOverGb()
                     && !SM.IsFlagRhoZbFromGdOverGb()
                     && !SM.IsFlagTestSubleadingTwoLoopEW())

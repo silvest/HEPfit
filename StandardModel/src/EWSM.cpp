@@ -842,7 +842,7 @@ complex EWSM::kappaZ_q_SM_FlavorDep(StandardModel::quark q) const
 
 double EWSM::delRhoZ_l(const StandardModel::lepton l) const
 {
-    if (SM.IsFlagApproximateGqOverGb() && SM.IsFlagTestSubleadingTwoLoopEW()) {
+    if (!SM.IsFlagNoApproximateGqOverGb() && SM.IsFlagTestSubleadingTwoLoopEW()) {
         switch(l) {
             case StandardModel::NEUTRINO_1:
             case StandardModel::NEUTRINO_2:
@@ -863,10 +863,10 @@ double EWSM::delRhoZ_l(const StandardModel::lepton l) const
 double EWSM::delRhoZ_q(const StandardModel::quark q) const
 {
     if (q==StandardModel::TOP) return 0.0;
-    if (SM.IsFlagApproximateGqOverGb() && !SM.IsFlagTestSubleadingTwoLoopEW() 
+    if (!SM.IsFlagNoApproximateGqOverGb() && !SM.IsFlagTestSubleadingTwoLoopEW()
             && q!=StandardModel::BOTTOM) return 0.0;
     
-    if (!SM.IsFlagApproximateGqOverGb()) 
+    if (SM.IsFlagNoApproximateGqOverGb())
         return 0.0;
     else {
         if (SM.IsFlagTestSubleadingTwoLoopEW() && q==StandardModel::BOTTOM) 

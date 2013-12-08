@@ -29,7 +29,7 @@ const std::string StandardModel::SMvars[NSMvars] = {
 
 const std::string StandardModel::SMflags[NSMflags] = {
     "withoutNonUniversalVCinEpsilons",
-    "ApproximateGqOverGb", "ApproximateGammaZ", "ApproximateSigmaH",
+    "NoApproximateGqOverGb", "NoApproximateGammaZ", "NoApproximateSigmaH",
     "RhoZbFromGuOverGb", "RhoZbFromGdOverGb", "TestSubleadingTwoLoopEW"
 };
 
@@ -38,7 +38,9 @@ StandardModel::StandardModel()
         Ye(3, 3, 0.)
 {
     FlagWithoutNonUniversalVC = false;
-    FlagApproximateGqOverGb = false;
+    FlagNoApproximateGqOverGb = false;
+    FlagNoApproximateGammaZ = false;
+    FlagNoApproximateSigmaH = false;
     FlagRhoZbFromGuOverGb = false;
     FlagRhoZbFromGdOverGb = false;
     FlagTestSubleadingTwoLoopEW = false;
@@ -265,14 +267,14 @@ bool StandardModel::setFlag(const std::string name, const bool& value)
     if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
         FlagWithoutNonUniversalVC = value;
         res = true;
-    } else if (name.compare("ApproximateGqOverGb") == 0) {
-        FlagApproximateGqOverGb = value;
+    } else if (name.compare("NoApproximateGqOverGb") == 0) {
+        FlagNoApproximateGqOverGb = value;
         res = true;
-    } else if (name.compare("ApproximateGammaZ") == 0) {
-        FlagApproximateGammaZ = value;
+    } else if (name.compare("NoApproximateGammaZ") == 0) {
+        FlagNoApproximateGammaZ = value;
         res = true;
-    } else if (name.compare("ApproximateSigmaH") == 0) {
-        FlagApproximateSigmaH = value;
+    } else if (name.compare("NoApproximateSigmaH") == 0) {
+        FlagNoApproximateSigmaH = value;
         res = true;
     } else if (name.compare("RhoZbFromGuOverGb") == 0) {
         FlagRhoZbFromGuOverGb = value;
@@ -291,13 +293,13 @@ bool StandardModel::setFlag(const std::string name, const bool& value)
 
 bool StandardModel::CheckFlags() const
 {
-    if ( !FlagApproximateGqOverGb && FlagRhoZbFromGuOverGb)
+    if ( FlagNoApproximateGqOverGb && FlagRhoZbFromGuOverGb)
         throw std::runtime_error("ERROR: Flag RhoZbFromGuOverGb=true has to be used together with ApproximateGqOverGb=true.");
-    if ( !FlagApproximateGqOverGb && FlagRhoZbFromGdOverGb)
+    if ( FlagNoApproximateGqOverGb && FlagRhoZbFromGdOverGb)
         throw std::runtime_error("ERROR: Flag RhoZbFromGdOverGb=true has to be used together with ApproximateGqOverGb=true.");
     if ( FlagRhoZbFromGuOverGb && FlagRhoZbFromGdOverGb)
         throw std::runtime_error("ERROR: Flags RhoZbFromGuOverGb and RhoZbFromGdOverGb cannot be set to true simultaneously.");
-    if ( !FlagApproximateGqOverGb && FlagTestSubleadingTwoLoopEW)
+    if ( FlagNoApproximateGqOverGb && FlagTestSubleadingTwoLoopEW)
         throw std::runtime_error("ERROR: Flag TestSubleadingTwoLoopEW=true has to be used together with ApproximateGqOverGb=true.");
     if ( FlagTestSubleadingTwoLoopEW && FlagRhoZbFromGuOverGb)
         throw std::runtime_error("ERROR: Flags TestSubleadingTwoLoopEW and RhoZbFromGuOverGb cannot be set to true simultaneously.");

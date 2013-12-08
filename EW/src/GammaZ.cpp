@@ -13,10 +13,10 @@
 double GammaZ::computeThValue() 
 { 
     double Gamma_Z;
-    if (SM.IsFlagApproximateGammaZ())
-        Gamma_Z = SM.getEWSM()->GammaZ_SM();
-    else
+    if (SM.IsFlagNoApproximateGammaZ())
         Gamma_Z = myEW.Gamma_Z();
+    else
+        Gamma_Z = SM.getEWSM()->GammaZ_SM();
 
     /* Theoretical uncertainty */
     Gamma_Z += SM.getDelGammaZ();

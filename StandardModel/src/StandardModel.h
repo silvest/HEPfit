@@ -55,9 +55,9 @@ class EWSM; // forward reference to EWSM class
  *
  * Flags:
  * \li \b WithoutNonUniversalVC:&nbsp;
- * \li \b ApproximateGqOverGb:&nbsp;
- * \li \b ApproximateGammaZ:&nbsp;
- * \li \b ApproximateSigmaH:&nbsp;
+ * \li \b NoApproximateGqOverGb:&nbsp;
+ * \li \b NoApproximateGammaZ:&nbsp;
+ * \li \b NoApproximateSigmaH:&nbsp;
  * \li \b RhoZbFromGuOverGb:&nbsp;
  * \li \b RhoZbFromGdOverGb:&nbsp;
  * \li \b TestSubleadingTwoLoopEW:&nbsp;
@@ -155,19 +155,19 @@ public:
         return FlagWithoutNonUniversalVC;
     }
 
-    bool IsFlagApproximateGqOverGb() const
+    bool IsFlagNoApproximateGqOverGb() const
     {
-        return FlagApproximateGqOverGb;
+        return FlagNoApproximateGqOverGb;
     }
 
-    bool IsFlagApproximateGammaZ() const
+    bool IsFlagNoApproximateGammaZ() const
     {
-        return FlagApproximateGammaZ;
+        return FlagNoApproximateGammaZ;
     }
 
-    bool IsFlagApproximateSigmaH() const
+    bool IsFlagNoApproximateSigmaH() const
     {
-        return FlagApproximateSigmaH;
+        return FlagNoApproximateSigmaH;
     }
 
     bool IsFlagRhoZbFromGuOverGb() const
@@ -590,9 +590,9 @@ private:
     StandardModelMatching* myStandardModelMatching;
 
     bool FlagWithoutNonUniversalVC;
-    bool FlagApproximateGqOverGb;
-    bool FlagApproximateGammaZ;
-    bool FlagApproximateSigmaH;
+    bool FlagNoApproximateGqOverGb;
+    bool FlagNoApproximateGammaZ;
+    bool FlagNoApproximateSigmaH;
     bool FlagRhoZbFromGuOverGb;
     bool FlagRhoZbFromGdOverGb;
     bool FlagTestSubleadingTwoLoopEW;

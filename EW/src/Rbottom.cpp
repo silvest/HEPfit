@@ -14,7 +14,7 @@
 double Rbottom::computeThValue() 
 { 
     double R0_b;
-    if (SM.IsFlagApproximateGqOverGb()
+    if (!SM.IsFlagNoApproximateGqOverGb()
             //&& !SM.IsFlagRhoZbFromGuOverGb()
             //&& !SM.IsFlagRhoZbFromGdOverGb()
             //&& !SM.IsFlagTestSubleadingTwoLoopEW()
