@@ -220,9 +220,6 @@
             <pElem>../boost</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags`</commandLine>
-          <preprocessorList>
-            <Elem>_MPI</Elem>
-          </preprocessorList>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

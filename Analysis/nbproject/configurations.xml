@@ -1021,9 +1021,6 @@
             <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags`  -I/usr/mpi/intel/mvapich2-1.7/include/ </commandLine>
-          <preprocessorList>
-            <Elem>_MPI</Elem>
-          </preprocessorList>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
