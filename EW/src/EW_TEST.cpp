@@ -51,10 +51,10 @@ double EW_TEST::computeThValue()
             return myEW_ABC->GammaZ(true);
         else if (mode.compare("BURGESS") == 0) {
             double Gamma_Z_SM;
-            if (SM.IsFlagApproximateGammaZ())
-                Gamma_Z_SM = SM.getEWSM()->GammaZ_SM();
-            else
+            if (SM.IsFlagNoApproximateGammaZ())
                 Gamma_Z_SM = myEW.Gamma_Z();
+            else
+                Gamma_Z_SM = SM.getEWSM()->GammaZ_SM();
             Gamma_Z_SM += SM.getDelGammaZ();/* Theoretical uncertainty */
             return myEW_BURGESS->GammaZ(Gamma_Z_SM);
         } else if (mode.compare("CHMN") == 0)
@@ -68,10 +68,10 @@ double EW_TEST::computeThValue()
             return myEW_ABC->sigma0_had(true);
         else if (mode.compare("BURGESS") == 0) {
             double sigma_had_SM;
-            if (SM.IsFlagApproximateSigmaH())
-                sigma_had_SM = SM.getEWSM()->sigmaHadron_SM()/GeVminus2_to_nb;
-            else
+            if (SM.IsFlagNoApproximateSigmaH())
                 sigma_had_SM = myEW.sigma0_had();
+            else
+                sigma_had_SM = SM.getEWSM()->sigmaHadron_SM()/GeVminus2_to_nb;
             return ( myEW_BURGESS->sigmaHadron(sigma_had_SM,
                        myEW.Gamma_Z(), myEW.Gamma_had(), myEW.Gamma_l(SM.ELECTRON))
                     *GeVminus2_to_nb );
@@ -179,7 +179,7 @@ double EW_TEST::computeThValue()
             return myEW_ABC->R_c();
         else if (mode.compare("BURGESS") == 0) {
             double R0_c_SM;
-            if (SM.IsFlagApproximateGqOverGb()
+            if (!SM.IsFlagNoApproximateGqOverGb()
                     //&& !SM.IsFlagRhoZbFromGuOverGb()
                     //&& !SM.IsFlagRhoZbFromGdOverGb()
                     //&& !SM.IsFlagTestSubleadingTwoLoopEW()
@@ -201,7 +201,7 @@ double EW_TEST::computeThValue()
             return myEW_ABC->R_b(true);
         else if (mode.compare("BURGESS") == 0) {
             double R0_b_SM;
-            if (SM.IsFlagApproximateGqOverGb()
+            if (!SM.IsFlagNoApproximateGqOverGb()
                     //&& !SM.IsFlagRhoZbFromGuOverGb()
                     //&& !SM.IsFlagRhoZbFromGdOverGb()
                     //&& !SM.IsFlagTestSubleadingTwoLoopEW()

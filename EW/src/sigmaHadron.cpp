@@ -13,10 +13,10 @@
 double sigmaHadron::computeThValue() 
 { 
     double sigma_had;
-    if (SM.IsFlagApproximateSigmaH())
-        sigma_had = SM.getEWSM()->sigmaHadron_SM()/GeVminus2_to_nb;
-    else
+    if (SM.IsFlagNoApproximateSigmaH())
         sigma_had = myEW.sigma0_had();
+    else
+        sigma_had = SM.getEWSM()->sigmaHadron_SM()/GeVminus2_to_nb;
 
     /* NP contribution to the Zff vertex */
     if (myEW.checkNPZff())

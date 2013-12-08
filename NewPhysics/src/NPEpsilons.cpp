@@ -111,7 +111,7 @@ bool NPEpsilons::setFlag(const std::string name, const bool& value)
 
 bool NPEpsilons::CheckFlags() const
 {
-    if ( IsFlagApproximateGqOverGb()
+    if ( !IsFlagNoApproximateGqOverGb()
             && !IsFlagRhoZbFromGuOverGb() && !IsFlagRhoZbFromGdOverGb()
             && !IsFlagTestSubleadingTwoLoopEW())
         throw std::runtime_error("ERROR: The current flags are not compatible with NPEpsilons model.");
