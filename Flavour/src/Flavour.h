@@ -13,7 +13,6 @@
 #include "HeffDF2.h"
 #include "HeffDS1.h"
 #include "HeffDB1.h"
-#include <stdexcept>
 
 using namespace gslpp;
 

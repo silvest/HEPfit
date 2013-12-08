@@ -8,7 +8,7 @@
 #ifndef FLAVOUROBSERVABLES_H
 #define	FLAVOUROBSERVABLES_H
 
-#include <Flavour.h>
+#include "Flavour.h"
 #include <DmBd.h>
 #include <DmBs.h>
 #include <Vud.h>
