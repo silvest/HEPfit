@@ -303,7 +303,7 @@ vector<complex>** HeffDB1::ComputeCoeffdmumu() {
 
 vector<complex>** HeffDB1::ComputeCoeffsnunu() {
     
-     std::vector<WilsonCoefficient>& mcb = model.getMyMatching() -> CMbsmm();
+     std::vector<WilsonCoefficient>& mcb = model.getMyMatching() -> CMBXsnn();
     
     orders ordDF1 = coeffsnunu.getOrder();
     
@@ -319,7 +319,7 @@ vector<complex>** HeffDB1::ComputeCoeffsnunu() {
 
 vector<complex>** HeffDB1::ComputeCoeffdnunu() {
     
-     std::vector<WilsonCoefficient>& mcb = model.getMyMatching() -> CMbsmm();
+     std::vector<WilsonCoefficient>& mcb = model.getMyMatching() -> CMBXdnn();
     
     orders ordDF1 = coeffdnunu.getOrder();
     
