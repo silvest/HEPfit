@@ -5,6 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include <stdexcept>
 #include "PMNS.h"
 
 PMNS::PMNS(std::string H_i) 
