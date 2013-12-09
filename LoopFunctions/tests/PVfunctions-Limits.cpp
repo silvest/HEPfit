@@ -11,6 +11,7 @@
 #include <cmath>
 #include <gslpp_complex.h>
 #include "PVfunctions.h"
+#include "LoopToolsWrapper.h"
 using namespace gslpp;
 using namespace std;
 
@@ -29,7 +30,6 @@ int main(int argc, char** argv) {
     cout.precision(16);
 
     PVfunctions PV(true);
-
     const double mu2 = 90.0*90.0;
     const double p2  = 95.0*95.0;
     const double m02 = 88.0*88.0;
@@ -54,6 +54,10 @@ int main(int argc, char** argv) {
         //output(PV.B0(mu2, p2, m02, m02), PV.B0(mu2, p2, m02, m02*(1.0+Epsilon)));
 
     }
+
+    cout << PV.B0(m02, m02 + m12 - 0.1, m02, m12) << endl;
+    cout << PV.B0(m02, m02 + m12, m02, m12) << endl;
+    cout << PV.B0(m02, m02 + m12 + 0.1, m02, m12) << endl;
 
     return (EXIT_SUCCESS);
 }

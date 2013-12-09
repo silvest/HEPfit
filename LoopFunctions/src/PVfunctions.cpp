@@ -74,9 +74,12 @@ complex PVfunctions::B0(const double mu2, const double p2,
             double m0 = sqrt(m02), m1 = sqrt(m12);
             double Lambda = sqrt( fabs((p2-m02-m12)*(p2-m02-m12) - 4.0*m02*m12) );
             double R;
-            if ( p2 > (m0-m1)*(m0-m1) && p2 < (m0+m1)*(m0+m1) )
-                R = - Lambda/p2*atan(Lambda/(p2-m02-m12));
-            else
+            if ( p2 > (m0-m1)*(m0-m1) && p2 < (m0+m1)*(m0+m1) ) {
+                if ( p2-m02-m12 < Lambda*Tolerance )
+                    R = - Lambda/p2*( -M_PI/2.0 );
+                else
+                    R = - Lambda/p2*atan( - fabs(Lambda/(p2-m02-m12)) );
+            } else
                 R = Lambda/p2*log( fabs((p2-m02-m12+Lambda)/2.0/m0/m1) );
             B0 = - log(m0*m1/mu2) + (m02-m12)/2.0/p2*log(m12/m02) - R + 2.0;
             if ( p2 > (m0+m1)*(m0+m1) )
