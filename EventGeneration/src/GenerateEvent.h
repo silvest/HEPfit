@@ -21,7 +21,7 @@
 
 /**
  * @class GenerateEvent
- * @ingroup MonteCarlo
+ * @ingroup EventGeneration
  * @brief A class for generating events.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License

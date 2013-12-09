@@ -105,7 +105,6 @@ void GenerateEvent::generate(const int rank, int unsigned nIteration, int seed)
         }
         Mod = myInputParser.getMyModel();
         for (int unsigned i = 0; i < nIteration + 1; i++) {
-            int j = 0;
             if (i == 1) std::cout << std::endl << "Generating " << nIteration << " random events...\n" << std::endl;
             generateRandomEvent(i);
             for (std::vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
