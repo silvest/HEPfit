@@ -782,12 +782,12 @@
             <linkerLibProjectItem>
               <makeArtifact PL="../EventGeneration"
                             CT="3"
-                            CN="Release"
+                            CN="Release_MPI"
                             AC="false"
                             BL="true"
                             WD="../EventGeneration"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            BC="${MAKE}  -f Makefile CONF=Release_MPI"
+                            CC="${MAKE}  -f Makefile CONF=Release_MPI clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
               </makeArtifact>
             </linkerLibProjectItem>
