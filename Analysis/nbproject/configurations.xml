@@ -1433,12 +1433,12 @@
             <linkerLibProjectItem>
               <makeArtifact PL="../EventGeneration"
                             CT="3"
-                            CN="Cluster"
+                            CN="Cluster_MPI"
                             AC="false"
                             BL="true"
                             WD="../EventGeneration"
-                            BC="${MAKE}  -f Makefile CONF=Cluster"
-                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            BC="${MAKE}  -f Makefile CONF=Cluster_MPI"
+                            CC="${MAKE}  -f Makefile CONF=Cluster_MPI clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
               </makeArtifact>
             </linkerLibProjectItem>
@@ -1616,8 +1616,12 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
+        <ccTool>
+        </ccTool>
       </item>
       <item path="main_libmode.cpp" ex="true" tool="1" flavor2="9">
+        <ccTool>
+        </ccTool>
       </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
