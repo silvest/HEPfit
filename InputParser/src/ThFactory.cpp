@@ -191,7 +191,7 @@ ThFactory::~ThFactory()
 ThObservable * ThFactory::getThMethod(const std::string& name) 
 {
     if (thobs.find(name) == thobs.end()) {
-        std::cout << "wrong observable " << name << " in ThFactory" << std::endl;
+        std::cout << "\nERROR: Wrong observable " << name << " in ThFactory" << std::endl;
         exit(EXIT_FAILURE);
     }
     return (thobs[name]);

@@ -113,6 +113,11 @@ public:
     {
         return myModel;
     }
+    
+    ThFactory* getMyThFactory() const
+    {
+        return thf;
+    }
 
 private:
     StandardModel* myModel;/**< Pointer to an object of type StandardModel(). */
