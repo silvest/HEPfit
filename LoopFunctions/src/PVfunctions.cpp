@@ -310,10 +310,23 @@ complex PVfunctions::B0p(const double muIR2, const double p2,
             double m0 = sqrt(m02), m1 = sqrt(m12);
             double Lambda = sqrt( fabs((p2-m02-m12)*(p2-m02-m12) - 4.0*m02*m12) );
             double Rprime;
-            if ( p2 > (m0-m1)*(m0-m1) && p2 < (m0+m1)*(m0+m1) )
-                Rprime = ((p2 - m02 - m12)/Lambda + Lambda/p2)
-                          *atan(Lambda/(p2-m02-m12));
-            else
+            if ( p2 > (m0-m1)*(m0-m1) && p2 < (m0+m1)*(m0+m1) ) {
+                 if ( p2-m02-m12 > 0.0 ) {
+                    if ( p2-m02-m12 > Lambda*Tolerance )
+                        Rprime = ((p2 - m02 - m12)/Lambda + Lambda/p2)
+                                  *(atan(Lambda/(p2-m02-m12)) - M_PI);
+                    else
+                        Rprime = ((p2 - m02 - m12)/Lambda + Lambda/p2)
+                                  *(M_PI/2.0 - M_PI);
+                } else {
+                    if ( - (p2-m02-m12) > Lambda*Tolerance )
+                        Rprime = ((p2 - m02 - m12)/Lambda + Lambda/p2)
+                                  *atan(Lambda/(p2-m02-m12));
+                    else
+                        Rprime = ((p2 - m02 - m12)/Lambda + Lambda/p2)
+                                  *( -M_PI/2.0 );
+                }
+            } else
                 Rprime = ((p2 - m02 - m12)/Lambda - Lambda/p2)
                           *log( fabs((p2-m02-m12+Lambda)/2.0/m0/m1) );
             B0p = - (m02 - m12)/2.0/p2/p2*log(m12/m02) - (Rprime + 1.0)/p2;
