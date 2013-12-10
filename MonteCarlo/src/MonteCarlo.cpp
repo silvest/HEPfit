@@ -201,6 +201,7 @@ void MonteCarlo::Run(const int rank)
 
             // run the MCMC and marginalize w.r.t. to all parameters
             MCEngine.BCIntegrate::SetNbins(NBINSMODELPARS);
+            MCEngine.SetMarginalizationMethod(BCIntegrate::kMargMetropolis);
             MCEngine.MarginalizeAll();
 
             // find mode using the best fit parameters as start values
