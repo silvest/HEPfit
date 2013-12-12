@@ -13,7 +13,8 @@
 
 /**
  * @class NPSTU
- * @brief A class for new physics with the oblique parameters. 
+ * @brief A class for new physics in the form of contributions to the oblique 
+ * parameters \f$S,~T\f$ and \f$U\f$ 
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License

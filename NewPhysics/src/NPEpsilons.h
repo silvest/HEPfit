@@ -55,6 +55,10 @@ public:
     
     ////////////////////////////////////////////////////////////////////////
 
+    /**
+     * @return the SM value (FlagEpsilon1SM=True)
+     * or the SM plus new physics value (FlagEpsilon1SM=False) of \f$\varepsilon_1\f$
+     */
     virtual double epsilon1() const 
     {
         if (FlagEpsilon1SM) 
@@ -63,6 +67,10 @@ public:
             return myEpsilon_1;
     }
 
+    /**
+     * @return the SM value (FlagEpsilon2SM=True)
+     * or the SM plus new physics value (FlagEpsilon2SM=False) of \f$\varepsilon_2\f$
+     */
     virtual double epsilon2() const 
     {
         if (FlagEpsilon2SM) 
@@ -71,6 +79,10 @@ public:
             return myEpsilon_2;
     }
 
+    /**
+     * @return the SM value (FlagEpsilon3SM=True)
+     * or the SM plus new physics value (FlagEpsilon3SM=False) of \f$\varepsilon_3\f$
+     */
     virtual double epsilon3() const 
     {
         if (FlagEpsilon3SM) 
@@ -78,7 +90,11 @@ public:
         else
             return myEpsilon_3;
     }
-
+ 
+    /**
+     * @return the SM value (FlagEpsilonbSM=True)
+     * or the SM plus new physics value (FlagEpsilonbSM=False) of \f$\varepsilon_b\f$
+     */
     virtual double epsilonb() const 
     {
         if (FlagEpsilonbSM) 
@@ -91,22 +107,24 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
     /**
-     * @return the W boson mass
+     * @return the \f$W\f$-boson mass in GeV
      */
     virtual double Mw() const;
 
     /**
-     * @return Mw^2/Mz^2
+     * @return the (square of the) cosine of the weak angle in the On-mass-shell renormalization scheme,
+     *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}
      */
     virtual double cW2() const;
     
     /**
-     * @return 1-Mw^2/Mz^2
+     * @return the (square of the) sine of the weak angle in the On-mass-shell renormalization scheme,
+     *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}
      */
     virtual double sW2() const;
 
     /**
-     * @return the total width of the W boson
+     * @return the total width of the \f$W\f$ boson in GeV [NOT IMPLEMENTED YET]
      */
     virtual double GammaW() const;
 

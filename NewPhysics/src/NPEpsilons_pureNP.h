@@ -43,35 +43,49 @@ public:
 
 
     ////////////////////////////////////////////////////////////////////////
-
+    
+    /**
+     * @return the pure new physics contribution to \f$\varepsilon_1\f$
+     */
     virtual double epsilon1() const;
 
+    /**
+     * @return the pure new physics contribution to \f$\varepsilon_2\f$
+     */
     virtual double epsilon2() const;
-
+    
+    /**
+     * @return the pure new physics contribution to \f$\varepsilon_3\f$
+     */
     virtual double epsilon3() const;
-
+    
+    /**
+     * @return the pure new physics contribution to \f$\varepsilon_b\f$
+     */
     virtual double epsilonb() const;
 
 
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @return the W boson mass
+     * @return the \f$W\f$-boson mass in GeV
      */
     virtual double Mw() const;
 
     /**
-     * @return Mw^2/Mz^2
+     * @return the (square of the) cosine of the weak angle in the On-mass-shell renormalization scheme,
+     *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}
      */
     virtual double cW2() const;
 
     /**
-     * @return 1-Mw^2/Mz^2
+     * @return the (square of the) sine of the weak angle in the On-mass-shell renormalization scheme,
+     *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}
      */
     virtual double sW2() const;
 
     /**
-     * @return the total width of the W boson
+     * @return the total width of the \f$W\f$ boson in GeV [NOT IMPLEMENTED YET]
      */
     virtual double GammaW() const;
 

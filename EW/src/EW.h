@@ -69,13 +69,13 @@ public:
     
     /**
      * @param[in] l name of a lepton
-     * @return the \f$Z\rightarrow \mbox{l}\bar{\mbox{l}}\f$ partial decay width 
+     * @return the \f$Z\rightarrow l^+l^-\f$ partial decay width 
      */
     double Gamma_l(const StandardModel::lepton l) const;
     
     /**
      * @param[in] q name of a quark
-     * @return the \f$Z\rightarrow \mbox{q}\bar{\mbox{q}}\f$ partial decay width 
+     * @return the \f$Z\rightarrow q\bar{q}\f$ partial decay width 
      */
     double Gamma_q(const StandardModel::quark q) const;
     

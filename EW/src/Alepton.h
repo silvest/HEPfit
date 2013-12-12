@@ -36,8 +36,8 @@ public:
     };
 
     /**
-     * @return The left-right asymmetry of a @f$Z\to \ell\bar{\ell}@f$ channel 
-     * at the @f$Z@f$ pole, where @f$\ell@f$ denotes a charged-lepton.
+     * @return  the @f$e^+e^-\rightarrow \ell^+\ell^-@f$ left-right asymmetry at the @f$Z@f$ pole,
+     *  where @f$\ell@f$ denotes a charged lepton
      */
     double computeThValue();
 

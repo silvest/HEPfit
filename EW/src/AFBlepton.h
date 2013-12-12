@@ -38,8 +38,8 @@ public:
     };
 
     /**
-     * @return The forward-backward asymmetry of a @f$Z\to \ell\bar{\ell}@f$ 
-     * channel at the @f$Z@f$ pole, where @f$\ell@f$ denotes a charged-lepton.
+     * @return the forward-backward asymmetry of a @f$Z\to \ell\bar{\ell}@f$ 
+     * channel at the @f$Z@f$ pole, where @f$\ell@f$ denotes a charged lepton
      */
     double computeThValue();
 

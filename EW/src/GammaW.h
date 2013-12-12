@@ -18,7 +18,8 @@
  * @brief A class for the total decay width of the \f$W\f$ boson 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the total decay width of the \f$W\f$ boson. 
+ * @details This class is used to compute the total decay width of the \f$W\f$ boson
+ * (in GeV), \f$\Gamma_W\f$. 
  */
 class GammaW : public ThObservable {
 public:

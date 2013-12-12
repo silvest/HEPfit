@@ -38,8 +38,8 @@ public:
     };
     
     /**
-     * @return The forward-backward asymmetry of @f$Z\to c\bar{c}@f$ at the 
-     * @f$Z@f$ pole.
+     * @return the forward-backward asymmetry of @f$Z\to c\bar{c}@f$ at the 
+     * @f$Z@f$ pole
      */
     double computeThValue();
 

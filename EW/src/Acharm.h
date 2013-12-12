@@ -36,7 +36,7 @@ public:
     };
 
     /**
-     * @return the left-right asymmetry of the c-cbar channel
+     * @return the @f$e^+e^-\rightarrow c\bar{c}@f$ left-right asymmetry at the @f$Z@f$ pole
      */
     double computeThValue();
 

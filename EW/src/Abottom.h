@@ -48,7 +48,7 @@ public:
     };
 
     /**
-     * @return The left-right asymmetry of @f$Z\to b\bar{b}@f$ at the @f$Z@f$ pole.
+     * @return the @f$e^+e^-\rightarrow b\bar{b}@f$ left-right asymmetry at the @f$Z@f$ pole
      */
     double computeThValue();
 
