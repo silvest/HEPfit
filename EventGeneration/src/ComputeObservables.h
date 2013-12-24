@@ -30,7 +30,7 @@ class ComputeObservables {
 public:
     /**
      * @brief The default constructor.
-     * @details
+     * @details The default constructor passes the name of the SomeModel.conf file
      * @param[in] ModelConf_i the name of the input configuration file for the model name,
      * the model parameters and observables to be calculated.
      * @param[in] DObs the map of observables to be computed
