@@ -319,8 +319,7 @@ double StandardModel::v() const
 
 double StandardModel::Mw_tree() const 
 {
-    double tmp = 4.0*M_PI*ale/sqrt(2.0)/GF/Mz/Mz;
-    return ( Mz/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp)) );
+    return ( Mz/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - 4.0*M_PI*ale/sqrt(2.0)/GF/Mz/Mz)) );
 }
 
 
