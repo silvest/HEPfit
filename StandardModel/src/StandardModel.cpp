@@ -328,7 +328,7 @@ double StandardModel::Mw_tree() const
 double StandardModel::ale_OS(const double mu, orders order) const
 {
     if (mu < 50.0) 
-        throw std::runtime_error("out of range in StandardModel::Als_OS()"); 
+        throw std::runtime_error("out of range in StandardModel::ale_OS()"); 
     
     double N = 20.0/3.0;
     double beta1 = N/3.0;
@@ -342,7 +342,7 @@ double StandardModel::ale_OS(const double mu, orders order) const
         case FULLNLO:
             return ( alpha_ini/v*(1.0 - beta2/beta1*alpha_ini/M_PI*log(v)/v) );
         default:
-            throw std::runtime_error("Error in StandardModel::Als_OS()"); 
+            throw std::runtime_error("Error in StandardModel::ale_OS()"); 
     }
 }
 
