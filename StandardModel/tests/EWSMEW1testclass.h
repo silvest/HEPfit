@@ -40,7 +40,7 @@ class EWSMEW1testclass : public CPPUNIT_NS::TestFixture {
     CPPUNIT_TEST(PiGammaGamma_fer_Mw_0);    
     CPPUNIT_TEST(B0_diff_Mw2_Mz2_Mw2);
     CPPUNIT_TEST(B1_diff_Mw2_Mz2_Mw2);
-    CPPUNIT_TEST(B21_diff_Mw2_Mz2_Mw2);
+    CPPUNIT_TEST(B11_diff_Mw2_Mz2_Mw2);
     CPPUNIT_TEST(Bf_diff_Mw2_Mz2_Mw2);
     CPPUNIT_TEST(B0p_diff_Mw2_0_Mw2);
     CPPUNIT_TEST(SigmaWW_bos_diff_0_real);
@@ -182,7 +182,7 @@ private:
     
     void B0_diff_Mw2_Mz2_Mw2();
     void B1_diff_Mw2_Mz2_Mw2();
-    void B21_diff_Mw2_Mz2_Mw2();
+    void B11_diff_Mw2_Mz2_Mw2();
     void Bf_diff_Mw2_Mz2_Mw2();
     void B0p_diff_Mw2_0_Mw2();
     
