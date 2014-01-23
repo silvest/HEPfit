@@ -48,7 +48,7 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
     /**
-     * @return Oblique parameter \hat{S}
+     * @return the value of the oblique parameter \f$\hat{S}\f$
      */
     virtual double obliqueShat() const
     {
@@ -56,7 +56,7 @@ public:
     }
 
     /**
-     * @return Oblique parameter \hat{T}
+     * @return the value of the oblique parameter \f$\hat{T}\f$
      */
     virtual double obliqueThat() const 
     {
@@ -64,7 +64,7 @@ public:
     }
 
     /**
-     * @return Oblique parameter \hat{U}
+     * @return the value of the oblique parameter \f$\hat{U}\f$
      */
     virtual double obliqueUhat() const 
     {
@@ -72,7 +72,7 @@ public:
     }
 
     /**
-     * @return Oblique parameter V
+     * @return the value of the oblique parameter \f$V\f$
      */
     virtual double obliqueV() const 
     {
@@ -80,7 +80,7 @@ public:
     }
 
     /**
-     * @return Oblique parameter W
+     * @return the value of the oblique parameter \f$W\f$
      */
     virtual double obliqueW() const 
     {
@@ -88,7 +88,7 @@ public:
     }
 
     /**
-     * @return Oblique parameter X
+     * @return the value of the oblique parameter \f$X\f$
      */
     virtual double obliqueX() const 
     {
@@ -96,7 +96,7 @@ public:
     }
 
     /**
-     * @return Oblique parameter Y
+     * @return the value of the oblique parameter \f$Y\f$
      */
     virtual double obliqueY() const 
     {
@@ -106,12 +106,27 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
+    /**
+     * @return the value of the \f$\varepsilon_1\f$ parameter including new physics
+     * corrections
+     */
     virtual double epsilon1() const;
 
+    /**
+     * @return the value of the \f$\varepsilon_2\f$ parameter including new physics
+     * corrections
+     */
     virtual double epsilon2() const;
-
+    
+    /**
+      * @return the value of the \f$\varepsilon_3\f$ parameter including new physics
+     * corrections
+     */
     virtual double epsilon3() const;
-
+    
+    /**
+     * @return the SM value of the \f$\varepsilon_b\f$ parameter
+     */
     virtual double epsilonb() const;
 
     
@@ -119,17 +134,17 @@ public:
     // Combinations of the extended oblique parameters
     
     /**
-     * @return Oblique parameter S'
+     * @return the value of the oblique parameter \f$S'\f$
      */
     virtual double obliqueS() const;
 
     /**
-     * @return Oblique parameter T'
+     * @return the value of the oblique parameter \f$T'\f$
      */
     virtual double obliqueT() const;
 
     /**
-     * @return Oblique parameter U'
+     * @return the value of the oblique parameter \f$U'\f$
      */
     virtual double obliqueU() const;
 
@@ -137,22 +152,24 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @return The W boson mass.
+     * @return the \f$W\f$-boson mass in GeV
      */
     virtual double Mw() const;
 
     /**
-     * @return @f$M_W^2/M_Z^2@f$.
+     * @return the (square of the) cosine of the weak angle in the On-mass-shell renormalization scheme,
+     *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double cW2() const;
 
     /**
-     * @return @f$1-M_W^2/M_Z^2@f$.
+     * @return the (square of the) sine of the weak angle in the On-mass-shell renormalization scheme,
+     *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double sW2() const;
 
     /**
-     * @return The total width of the W boson.
+     * @return the total width of the \f$W\f$ boson in GeV
      */
     virtual double GammaW() const;
     

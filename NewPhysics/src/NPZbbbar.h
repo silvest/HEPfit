@@ -53,13 +53,32 @@ public:
     
     ////////////////////////////////////////////////////////////////////////    
 
+    /**
+     * @param[in] l name of a lepton
+     * @return the new physics correction to the neutral-current vector coupling @f$g_V^l@f$
+     */
     virtual double deltaGVl(StandardModel::lepton l) const;
+    
+    /**
+     * @param[in] q name of a quark
+     * @return the new physics correction to the neutral-current vector coupling @f$g_V^q@f$
+     */
     virtual double deltaGVq(StandardModel::quark q) const;
+    
+    /**
+     * @param[in] l name of a lepton
+     * @return the new physics correction to the neutral-current axial-vector coupling @f$g_A^l@f$
+     */
     virtual double deltaGAl(StandardModel::lepton l) const;
+    
+    /**
+     * @param[in] q name of a quark
+     * @return the new physics correction to the neutral-current axial-vector coupling @f$g_A^q@f$
+     */
     virtual double deltaGAq(StandardModel::quark q) const;
 
     /**
-     * @return epsilon_b
+     * @return the value of the @f$\varepsilon_b@f$ parameter
      */
     virtual double epsilonb() const;
         

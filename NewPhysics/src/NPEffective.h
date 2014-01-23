@@ -13,11 +13,15 @@
 
 /**
  * @class NPEffective
- * @brief A base class for new physics with the effective Lagrangian approach.
+ * @brief A base class for new physics in the form of contributions to the dimension-six effective Lagrangian.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details  
+ * @details This class contains the necesary functions to compute new physics tree-level corrections to electroweak precision
+ * observables, in the form of contributions to a general class of SM gauge-invariant dimension-six effective operators. These corrections are
+ * parameterized in terms of the operator contributions to \f$M_W\f$, and to \f$Z\f$-pole observables
+ * through the corrections to the different neutral-current effective couplings to leptons and quarks, \f$\delta g_{L,R}^f\f$
+ * or \f$\delta g_{V,A}^f\f$.
  */
 class NPEffective : public NPbase {
 public:
@@ -49,7 +53,8 @@ public:
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HL}^\prime\right)_{11}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{L^1}\sigma_a\gamma^\mu L^1\right)\f$
      */
-    double getCHL1p() const {
+    double getCHL1p() const 
+    {
         return cHL1p;
     }
 
@@ -57,7 +62,8 @@ public:
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HL}^\prime\right)_{22}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{L^2}\sigma_a\gamma^\mu L^2\right)\f$
      */
-    double getCHL2p() const {
+    double getCHL2p() const 
+    {
         return cHL2p;
     }
 
@@ -65,7 +71,8 @@ public:
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HL}^\prime\right)_{33}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{L^3}\sigma_a\gamma^\mu L^3\right) \f$
      */
-    double getCHL3p() const {
+    double getCHL3p() const 
+    {
         return cHL3p;
     }
 
@@ -73,7 +80,8 @@ public:
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HL}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{L^1}\gamma^\mu L^1\right) \f$
      */
-    double getCHL1() const {
+    double getCHL1() const 
+    {
         return cHL1;
     }
 
@@ -81,7 +89,8 @@ public:
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HL}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{L^2}\gamma^\mu L^2\right) \f$
      */
-    double getCHL2() const {
+    double getCHL2() const 
+    {
         return cHL2;
     }
 
@@ -89,7 +98,8 @@ public:
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HL}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{L^3}\gamma^\mu L^3\right) \f$
      */
-    double getCHL3() const {
+    double getCHL3() const 
+    {
         return cHL3;
     }
 
@@ -132,7 +142,8 @@ public:
     /**
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HQ}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{Q^2}\gamma^\mu Q^2\right) \f$
-     */    double getCHQ2() const
+     */    
+    double getCHQ2() const
     {
         return cHQ2;
     }
@@ -150,7 +161,8 @@ public:
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HE}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{E^1}\gamma^\mu E^1\right) \f$
      */
-    double getCHE1() const {
+    double getCHE1() const 
+    {
         return cHE1;
     }
 
@@ -158,7 +170,8 @@ public:
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HE}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{E^2}\gamma^\mu E^2\right) \f$
      */
-    double getCHE2() const {
+    double getCHE2() const 
+    {
         return cHE2;
     }
 
@@ -166,23 +179,62 @@ public:
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HE}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{E^3}\gamma^\mu E^3\right) \f$
      */
-    double getCHE3() const {
+    double getCHE3() const 
+    {
         return cHE3;
     }
   
     /**
      * @return the coefficient of the dimension-six effective operator 
+     * \f$\left({\cal O}_{HU}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{U^1}\gamma^\mu U^1\right) \f$
+     */  
+    double getCHU1() const 
+    {
+        return cHU1;
+    }
+    
+    /**
+     * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HU}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{U^2}\gamma^\mu U^2\right) \f$
      */  
-    double getCHU2() const {
+    double getCHU2() const 
+    {
         return cHU2;
+    }
+    
+    /**
+     * @return the coefficient of the dimension-six effective operator 
+     * \f$\left({\cal O}_{HU}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{U^3}\gamma^\mu U^3\right) \f$
+     */  
+    double getCHU3() const 
+    {
+        return cHU3;
     }
 
     /**
      * @return the coefficient of the dimension-six effective operator 
+     * \f$\left({\cal O}_{HD}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{D^1}\gamma^\mu D^1\right) \f$
+     */
+    double getCHD1() const 
+    {
+        return cHD1;
+    }
+    
+    /**
+     * @return the coefficient of the dimension-six effective operator 
+     * \f$\left({\cal O}_{HD}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{D^2}\gamma^\mu D^2\right) \f$
+     */
+    double getCHD2() const 
+    {
+        return cHD2;
+    }
+    
+    /**
+     * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HD}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{D^3}\gamma^\mu D^3\right) \f$
      */
-    double getCHD3() const {
+    double getCHD3() const 
+    {
         return cHD3;
     }
 
@@ -197,8 +249,15 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
+    /**
+     * @return the SM value of the Higgs vev, as extracted from the experimental value of \f$G_F\f$,
+     * \f$v=\frac{1}{\sqrt{\sqrt{2} G_F}}\f$ 
+     */
     virtual double v() const;
 
+    /**
+     * @return the SM tree-level value of the \f$W\f$ mass [GeV] 
+     */
     virtual double Mw_tree() const;
 
     virtual double DeltaGF() const;
@@ -275,12 +334,28 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
+    /**
+     *@brief Auxiliary \f$\varepsilon_1\f$ function. Needed for consistency within
+     * the structure of the code.
+     */    
     virtual double epsilon1() const;
 
+   /**
+     *@brief Auxiliary \f$\varepsilon_2\f$ function. Needed for consistency within
+     * the structure of the code.
+     */
     virtual double epsilon2() const;
 
+   /**
+     *@brief Auxiliary \f$\varepsilon_3\f$ function. Needed for consistency within
+     * the structure of the code.
+     */
     virtual double epsilon3() const;
 
+   /**
+     *@brief Auxiliary \f$\varepsilon_b\f$ function. Needed for consistency within
+     * the structure of the code.
+     */
     virtual double epsilonb() const;
 
 
@@ -293,13 +368,13 @@ public:
 
     /**
      * @return the (square of the) cosine of the weak angle in the On-mass-shell renormalization scheme,
-     *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}
+     *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double cW2() const;
 
     /**
      * @return the (square of the) sine of the weak angle in the On-mass-shell renormalization scheme,
-     *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}
+     *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double sW2() const;
 

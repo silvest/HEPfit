@@ -12,8 +12,8 @@
 
 /**
  * @class NPEpsilons_pureNP
- * @brief A class for new physics with the @f$\varepsilon@f$ parameters, where
- * only NP contributions are parameterized.
+ * @brief A class for new physics in the form of contributions to the \f$\varepsilon_{1,2,3,b}\f$ parameters.
+ * Only new physics contributions are parameterized.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -74,13 +74,13 @@ public:
 
     /**
      * @return the (square of the) cosine of the weak angle in the On-mass-shell renormalization scheme,
-     *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}
+     *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double cW2() const;
 
     /**
      * @return the (square of the) sine of the weak angle in the On-mass-shell renormalization scheme,
-     *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}
+     *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double sW2() const;
 

@@ -12,7 +12,8 @@
 
 /**
  * @class NPbase
- * @brief A base class for ...
+ * @brief A base class for general new physics corrections to electroweak precision
+ * observables
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -53,87 +54,102 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @return @f$\epsilon_1@f$.
+     * @return the value of the @f$\epsilon_1@f$ parameter
      */
     virtual double epsilon1() const;
 
     /**
-     * @return @f$\epsilon_2@f$.
+     * @return the value of the @f$\epsilon_2@f$ parameter
      */
     virtual double epsilon2() const;
 
     /**
-     * @return @f$\epsilon_3@f$.
+     * @return the value of the @f$\epsilon_3@f$ parameter
      */
     virtual double epsilon3() const;
 
     /**
-     * @return @f$\epsilon_b@f$.
+     * @return the value of the @f$\epsilon_b@f$ parameter
      */
     virtual double epsilonb() const;
 
     /**
-     * @return Oblique parameter @f$S@f$.
+     * @return the value of the oblique parameter @f$S@f$
      */
     virtual double obliqueS() const;
 
     /**
-     * @return Oblique parameter @f$T@f$.
+     * @return the value of the oblique parameter @f$T@f$
      */
     virtual double obliqueT() const;
 
     /**
-     * @return Oblique parameter @f$U@f$.
+     * @return the value of the oblique parameter @f$U@f$
      */
     virtual double obliqueU() const;
 
     /**
-     * @return Oblique parameter @f$\hat{S}@f$.
+     * @return the value of the oblique parameter @f$\hat{S}=\frac{\alpha}{4\sin^2{\theta_W}}S@f$
      */
     virtual double obliqueShat() const;
 
     /**
-     * @return Oblique parameter @f$\hat{T}@f$.
+     * @return the value of the oblique parameter @f$\hat{T}=\alpha T@f$
      */
     virtual double obliqueThat() const;
 
     /**
-     * @return Oblique parameter @f$\hat{U}@f$.
+     * @return the value of the oblique parameter @f$\hat{U}=-\frac{\alpha}{4\sin^2{\theta_W}}U@f$
      */
     virtual double obliqueUhat() const;
 
     /**
-     * @return Oblique parameter @f$V@f$.
+     * @return the value of the oblique parameter @f$V@f$
      */
     virtual double obliqueV() const;
 
     /**
-     * @return Oblique parameter @f$W@f$.
+     * @return the value of the oblique parameter @f$W@f$
      */
     virtual double obliqueW() const;
 
     /**
-     * @return Oblique parameter @f$X@f$.
+     * @return the value of the oblique parameter @f$X@f$
      */
     virtual double obliqueX() const;
 
     /**
-     * @return Oblique parameter @f$Y@f$.
+     * @return the value of the oblique parameter @f$Y@f$
      */
     virtual double obliqueY() const;
     
     /**
-     * @brief NP contribution to the Fermi constant @f$G_{\mu}=G_{\mu}^{\rm SM}(1+DeltaGF)@f$.
-     * @return
+     * @return the new physics contribution to the Fermi constant, @f$G_{\mu}=G_{\mu}^{\rm SM}(1+\Delta GF)@f$
      */
     virtual double DeltaGF() const;
 
+    /**
+     * @param[in] l name of a lepton
+     * @return the new physics contribution to neutral-current vector coupling @f$\delta g_V^l@f$
+     */
     virtual double deltaGVl(StandardModel::lepton l) const;
-
+    
+    /**
+     * @param[in] q name of a quark
+     * @return the new physics contribution to neutral-current vector coupling @f$\delta g_V^q@f$
+     */
     virtual double deltaGVq(StandardModel::quark q) const;
 
+    /**
+     * @param[in] l name of a lepton
+     * @return the new physics contribution to neutral-current axial-vector coupling @f$\delta g_A^l@f$
+     */   
     virtual double deltaGAl(StandardModel::lepton l) const;
 
+    /**
+     * @param[in] q name of a quark
+     * @return the new physics contribution to neutral-current axial-vector coupling @f$\delta g_A^q@f$
+     */ 
     virtual double deltaGAq(StandardModel::quark q) const;
 
     
