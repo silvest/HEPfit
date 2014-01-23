@@ -18,7 +18,7 @@
 EWSMApproximateFormulae::EWSMApproximateFormulae(const StandardModel& SM_i) 
 : SM(SM_i) 
 {
- }
+}
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -545,17 +545,21 @@ double EWSMApproximateFormulae::GammaZ(const double DeltaAlphaL5q_i) const
     // Mz= 91.1876+-0.0042
     // --> GammaZ is better than 0.01 MeV.
     
-    double X0 = 2494.08;
+    //double X0 = 2494.08; /* 1310.2256v1 */
+    double X0 = 2494.24;
     double c1 = -2.0;
     double c2 = 19.7;
     double c3 = 58.60;
     double c4 = -4.0;
     double c5 = 8.0;
-    double c6 = -55.8;
-    double c7 = 9266.0;
+    //double c6 = -55.8; /* 1310.2256v1 */
+    double c6 = -55.9;
+    //double c7 = 9266.0; /* 1310.2256v1 */
+    double c7 = 9267.0;
 
     double LH = log(SM.getMHl()/125.7);
-    double Dt = SM.getMtpole()/173.2 - 1.0;
+    //double Dt = SM.getMtpole()/173.2 - 1.0; /* 1310.2256v1 */
+    double Dt = pow(SM.getMtpole()/173.2, 2.0) - 1.0;
     double Das = SM.getAlsMz()/0.1184 - 1.0;
     double Dal = DeltaAlphaL5q_i/0.059 - 1.0;
     double DZ = SM.getMz()/91.1876 - 1.0;
@@ -574,17 +578,24 @@ double EWSMApproximateFormulae::sigmaHadron(const double DeltaAlphaL5q_i) const
     // Mz= 91.1876+-0.0042
     // --> sigmaHadron is better than 0.1 pb. 
 
-    double X0 = 41479.9;
-    double c1 = 3.1;
-    double c2 = 59.7;
-    double c3 = -579.1;
+    //double X0 = 41479.9; /* 1310.2256v1 */
+    double X0 = 41488.4;
+    //double c1 = 3.1; /* 1310.2256v1 */
+    double c1 = 3.0;
+    //double c2 = 59.7; /* 1310.2256v1 */
+    double c2 = 60.9;
+    //double c3 = -579.1; /* 1310.2256v1 */
+    double c3 = -579.4;
     double c4 = 38.1;
     double c5 = 7.3;
-    double c6 = 88.0;
-    double c7 = -86074.0;
+    //double c6 = 88.0; /* 1310.2256v1 */
+    double c6 = 85.4;
+    //double c7 = -86074.0; /* 1310.2256v1 */
+    double c7 = -86027.0;
 
     double LH = log(SM.getMHl()/125.7);
-    double Dt = SM.getMtpole()/173.2 - 1.0;
+    //double Dt = SM.getMtpole()/173.2 - 1.0; /* 1310.2256v1 */
+    double Dt = pow(SM.getMtpole()/173.2, 2.0) - 1.0;
     double Das = SM.getAlsMz()/0.1184 - 1.0;
     double Dal = DeltaAlphaL5q_i/0.059 - 1.0;
     double DZ = SM.getMz()/91.1876 - 1.0;

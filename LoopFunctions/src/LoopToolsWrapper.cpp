@@ -63,20 +63,20 @@ complex LoopToolsWrapper::PV_B1(const double mu2, const double p2,
     return complex( B1val.real(), B1val.imag(), false );
 }
 
-complex LoopToolsWrapper::PV_B21(const double mu2, const double p2,
+complex LoopToolsWrapper::PV_B11(const double mu2, const double p2,
                                  const double m02, const double m12) const
 {
     setmudim(mu2);
-    std::complex<double> B21val = B11(p2, m02, m12);
-    return complex( B21val.real(), B21val.imag(), false );
+    std::complex<double> B11val = B11(p2, m02, m12);
+    return complex( B11val.real(), B11val.imag(), false );
 }
 
-complex LoopToolsWrapper::PV_B22(const double mu2, const double p2,
+complex LoopToolsWrapper::PV_B00(const double mu2, const double p2,
                                  const double m02, const double m12) const
 {
     setmudim(mu2);
-    std::complex<double> B22val = B00(p2, m02, m12);
-    return complex( B22val.real(), B22val.imag(), false );
+    std::complex<double> B00val = B00(p2, m02, m12);
+    return complex( B00val.real(), B00val.imag(), false );
 }
 
 complex LoopToolsWrapper::PV_B0p(const double muIR2, const double p2,
@@ -95,20 +95,20 @@ complex LoopToolsWrapper::PV_B1p(const double mu2, const double p2,
     return complex( B1pval.real(), B1pval.imag(), false );
 }
 
-complex LoopToolsWrapper::PV_B21p(const double mu2, const double p2,
+complex LoopToolsWrapper::PV_B11p(const double mu2, const double p2,
                                   const double m02, const double m12) const
 {
     setmudim(mu2);
-    std::complex<double> B21pval = DB11(p2, m02, m12);
-    return complex( B21pval.real(), B21pval.imag(), false );
+    std::complex<double> B11pval = DB11(p2, m02, m12);
+    return complex( B11pval.real(), B11pval.imag(), false );
 }
 
-complex LoopToolsWrapper::PV_B22p(const double mu2, const double p2,
+complex LoopToolsWrapper::PV_B00p(const double mu2, const double p2,
                                   const double m02, const double m12) const
 {
     setmudim(mu2);
-    std::complex<double> B22pval = DB00(p2, m02, m12);
-    return complex( B22pval.real(), B22pval.imag(), false );
+    std::complex<double> B00pval = DB00(p2, m02, m12);
+    return complex( B00pval.real(), B00pval.imag(), false );
 }
 
 complex LoopToolsWrapper::PV_C0(const double p2,
@@ -126,14 +126,14 @@ complex LoopToolsWrapper::PV_D0(const double s, const double t, const double m02
 }
 
 
-complex LoopToolsWrapper::PV_D22(const double s, const double t, const double m02,
+complex LoopToolsWrapper::PV_D00(const double s, const double t, const double m02,
                                 const double m12, const double m22, const double m32) const
 {
 // cannot be compiled?
-//    std::complex<double> D22val = D0i(dd00, 0.0, 0.0, 0.0, 0.0, s, t, m02, m12, m22, m32);
-//    return complex( D22val.real(), D22val.imag(), false );
+//    std::complex<double> D00val = D0i(dd00, 0.0, 0.0, 0.0, 0.0, s, t, m02, m12, m22, m32);
+//    return complex( D00val.real(), D00val.imag(), false );
 
-    throw std::runtime_error("LoopToolsWrapper::PV_D22: Not implemented!");
+    throw std::runtime_error("LoopToolsWrapper::PV_D00: Not implemented!");
 }
 
 

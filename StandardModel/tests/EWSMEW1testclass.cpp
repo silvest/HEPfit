@@ -178,11 +178,11 @@ void EWSMEW1testclass::B1_diff_Mw2_Mz2_Mw2() {
     delete myPV;
 }
 
-void EWSMEW1testclass::B21_diff_Mw2_Mz2_Mw2() {
+void EWSMEW1testclass::B11_diff_Mw2_Mz2_Mw2() {
     PVfunctions* myPV;
     myPV = new PVfunctions(true);
-    double result_Mw = myPV->B21(Mw2, Mw2, Mz2, Mw2).real();
-    double result_Mz = myPV->B21(Mz2, Mw2, Mz2, Mw2).real();
+    double result_Mw = myPV->B11(Mw2, Mw2, Mz2, Mw2).real();
+    double result_Mz = myPV->B11(Mz2, Mw2, Mz2, Mw2).real();
     double MZtoMW = log(cW2)/3.0;
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);   

@@ -44,51 +44,70 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
     /**
-     * @return Oblique parameter S.
+     * @return the value of the oblique parameter \f$S\f$.
      */
     virtual double obliqueS() const;
         
     /**
-     * @return Oblique parameter T.
+     * @return the value of the oblique parameter \f$T\f$
      */
     virtual double obliqueT() const;
     
     /**
-     * @return Oblique parameter U.
+     * @return the value of the oblique parameter \f$U\f$ (0 in this class of new
+     * physics models)
      */
     virtual double obliqueU() const;
 
 
     ////////////////////////////////////////////////////////////////////////
 
+   /**
+     *@brief Auxiliary \f$\varepsilon_1\f$ function. Needed for consistency within
+     * the structure of the code.
+     */        
     virtual double epsilon1() const;
 
+   /**
+     *@brief Auxiliary \f$\varepsilon_2\f$ function. Needed for consistency within
+     * the structure of the code.
+     */    
     virtual double epsilon2() const;
 
+   /**
+     *@brief Auxiliary \f$\varepsilon_3\f$ function. Needed for consistency within
+     * the structure of the code.
+     */     
     virtual double epsilon3() const;
 
+   /**
+     *@brief Auxiliary \f$\varepsilon_b\f$ function. Needed for consistency within
+     * the structure of the code.
+     */    
     virtual double epsilonb() const;
 
 
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @return The W boson mass.
+     * @return the \f$W\f$-boson mass in GeV
      */
     virtual double Mw() const;
 
     /**
-     * @return @f$M_W^2/M_Z^2@f$.
+     * @return the (square of the) cosine of the weak angle in the On-mass-shell renormalization scheme,
+     *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double cW2() const;
 
     /**
-     * @return @f$1-M_W^2/M_Z^2@f$.
+     * @return the (square of the) sine of the weak angle in the On-mass-shell renormalization scheme,
+     *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double sW2() const;
 
     /**
-     * @return The total width of the W boson.
+     * @return the total width of the \f$W\f$ boson in GeV
      */
     virtual double GammaW() const;
     

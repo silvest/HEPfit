@@ -18,7 +18,11 @@
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details  
+ * @details This class contains the necesary functions to compute new physics tree-level corrections to electroweak precision
+ * observables, in the form of contributions to the Peskin-Takeuchi oblique parameters \cite . These corrections are
+ * parameterized in terms of the \f$S,~T\f$ and \f$U\f$ contributions to \f$M_W\f$, and to \f$Z\f$-pole observables
+ * through the corrections to the different neutral-current effective couplings to leptons and quarks. The contributions
+ * to the later are implemented in the \b NPbase class.
  */
 class NPSTU : public NPbase {
 public:
@@ -49,7 +53,7 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @return Oblique parameter S.
+     * @return the oblique parameter S
      */
     virtual double obliqueS() const 
     {
@@ -57,7 +61,7 @@ public:
     }
 
     /**
-     * @return Oblique parameter T.
+     * @return the oblique parameter T
      */
     virtual double obliqueT() const 
     {
@@ -65,7 +69,7 @@ public:
     }
 
     /**
-     * @return Oblique parameter U.
+     * @return the oblique parameter U
      */
     virtual double obliqueU() const 
     {
@@ -76,22 +80,24 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @return The W boson mass.
+     * @return the \f$W\f$-boson mass in GeV
      */
     virtual double Mw() const;
 
     /**
-     * @return @f$M_W^2/M_Z^2@f$.
+     * @return the (square of the) cosine of the weak angle in the On-mass-shell renormalization scheme,
+     *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double cW2() const;
 
     /**
-     * @return @f$1-M_W^2/M_Z^2@f$.
+     * @return the (square of the) sine of the weak angle in the On-mass-shell renormalization scheme,
+     *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double sW2() const;
 
     /**
-     * @return The total width of the W boson.
+     * @return the total width of the \f$W\f$ boson in GeV
      */
     virtual double GammaW() const;
 

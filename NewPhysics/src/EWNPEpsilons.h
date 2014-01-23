@@ -13,11 +13,14 @@
 
 /**
  * @class EWNPEpsilons
- * @brief A class for new physics in the form of contributions to the \f$\varepsilon_{1,2,3,b}\f$ parameters
+ * @brief A class for new physics in the form of contributions to the \f$\varepsilon_{1,2,3,b}\f$ parameters.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details
+ * @details This class contains the necesary functions to compute new physics tree-level corrections to electroweak precision
+ * observables, in the form of contributions to the \f$\varepsilon_{1,2,3,b}\f$ parameters. These corrections are
+ * parameterized in terms of the \f$\varepsilon_i\f$ contributions to \f$M_W\f$, and to \f$Z\f$-pole observables
+ * through the corrections to the different neutral-current effective couplings to leptons and quarks.
  */
 class EWNPEpsilons : public EWSM {
 public:

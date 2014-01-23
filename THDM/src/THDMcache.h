@@ -64,27 +64,27 @@ public:
     complex B0_Mz_Mw2_Mw_mh(const double Mz, const double Mw, const double mh) const;
     complex B0_Mz_0_Mw_mh(const double Mz, const double Mw, const double mh) const;
     
-    complex B22_Mz_Mz2_mH_mA(const double Mz, const double mH, const double mA) const;
-    complex B22_Mz_0_mH_mA(const double Mz, const double mH, const double mA) const;
-    complex B22_Mz_Mz2_mHp_mHp(const double Mz, const double mHp) const;
-    complex B22_Mz_0_mHp_mHp(const double Mz, const double mHp) const;
-    complex B22_Mz_Mz2_mh_mA(const double Mz, const double mh, const double mA) const;
-    complex B22_Mz_0_mh_mA(const double Mz, const double mh, const double mA) const;
-    complex B22_Mz_Mz2_Mz_mH(const double Mz, const double mH) const;
-    complex B22_Mz_0_Mz_mH(const double Mz, const double mH) const;
-    complex B22_Mz_Mz2_Mz_mh(const double Mz, const double mh) const;
-    complex B22_Mz_0_Mz_mh(const double Mz, const double mh) const;
-    complex B22_Mz_Mw2_mA_mHp(const double Mz, const double Mw, const double mA, const double mHp) const;
-    complex B22_Mz_0_mA_mHp(const double Mz, const double mA, const double mHp) const;
-    complex B22_Mz_Mw2_mHp_mHp(const double Mz, const double Mw, const double mHp) const;
-    complex B22_Mz_Mw2_Mw_mH(const double Mz, const double Mw, const double mH) const;
-    complex B22_Mz_0_Mw_mH(const double Mz, const double Mw, const double mH) const;
-    complex B22_Mz_Mw2_Mw_mh(const double Mz, const double Mw, const double mh) const;
-    complex B22_Mz_0_Mw_mh(const double Mz, const double Mw, const double mh) const;
-    complex B22_Mz_Mw2_mH_mHp(const double Mz, const double Mw, const double mH, const double mHp) const; 
-    complex B22_Mz_0_mH_mHp(const double Mz, const double mH, const double mHp) const;
-    complex B22_Mz_Mw2_mh_mHp(const double Mz, const double Mw, const double mh, const double mHp) const;
-    complex B22_Mz_0_mh_mHp(const double Mz, const double mh, const double mHp) const;
+    complex B00_Mz_Mz2_mH_mA(const double Mz, const double mH, const double mA) const;
+    complex B00_Mz_0_mH_mA(const double Mz, const double mH, const double mA) const;
+    complex B00_Mz_Mz2_mHp_mHp(const double Mz, const double mHp) const;
+    complex B00_Mz_0_mHp_mHp(const double Mz, const double mHp) const;
+    complex B00_Mz_Mz2_mh_mA(const double Mz, const double mh, const double mA) const;
+    complex B00_Mz_0_mh_mA(const double Mz, const double mh, const double mA) const;
+    complex B00_Mz_Mz2_Mz_mH(const double Mz, const double mH) const;
+    complex B00_Mz_0_Mz_mH(const double Mz, const double mH) const;
+    complex B00_Mz_Mz2_Mz_mh(const double Mz, const double mh) const;
+    complex B00_Mz_0_Mz_mh(const double Mz, const double mh) const;
+    complex B00_Mz_Mw2_mA_mHp(const double Mz, const double Mw, const double mA, const double mHp) const;
+    complex B00_Mz_0_mA_mHp(const double Mz, const double mA, const double mHp) const;
+    complex B00_Mz_Mw2_mHp_mHp(const double Mz, const double Mw, const double mHp) const;
+    complex B00_Mz_Mw2_Mw_mH(const double Mz, const double Mw, const double mH) const;
+    complex B00_Mz_0_Mw_mH(const double Mz, const double Mw, const double mH) const;
+    complex B00_Mz_Mw2_Mw_mh(const double Mz, const double Mw, const double mh) const;
+    complex B00_Mz_0_Mw_mh(const double Mz, const double Mw, const double mh) const;
+    complex B00_Mz_Mw2_mH_mHp(const double Mz, const double Mw, const double mH, const double mHp) const;
+    complex B00_Mz_0_mH_mHp(const double Mz, const double mH, const double mHp) const;
+    complex B00_Mz_Mw2_mh_mHp(const double Mz, const double Mw, const double mh, const double mHp) const;
+    complex B00_Mz_0_mh_mHp(const double Mz, const double mh, const double mHp) const;
     
  ///////////////////////////////////////////////////////////////////////////////   
     
@@ -107,27 +107,27 @@ private:
     mutable complex B0_Mz_Mw2_Mw_mh_cache[4][CacheSize];
     mutable complex B0_Mz_0_Mw_mh_cache[4][CacheSize];
     
-    mutable complex B22_Mz_Mz2_mH_mA_cache[4][CacheSize];
-    mutable complex B22_Mz_0_mH_mA_cache[4][CacheSize];
-    mutable complex B22_Mz_Mz2_mHp_mHp_cache[3][CacheSize];
-    mutable complex B22_Mz_0_mHp_mHp_cache[3][CacheSize];
-    mutable complex B22_Mz_Mz2_mh_mA_cache[4][CacheSize];
-    mutable complex B22_Mz_0_mh_mA_cache[4][CacheSize];
-    mutable complex B22_Mz_Mz2_Mz_mH_cache[3][CacheSize];
-    mutable complex B22_Mz_0_Mz_mH_cache[3][CacheSize];
-    mutable complex B22_Mz_Mz2_Mz_mh_cache[3][CacheSize];
-    mutable complex B22_Mz_0_Mz_mh_cache[3][CacheSize];
-    mutable complex B22_Mz_Mw2_mA_mHp_cache[5][CacheSize];
-    mutable complex B22_Mz_0_mA_mHp_cache[4][CacheSize];
-    mutable complex B22_Mz_Mw2_mHp_mHp_cache[4][CacheSize];
-    mutable complex B22_Mz_Mw2_Mw_mH_cache[4][CacheSize];
-    mutable complex B22_Mz_0_Mw_mH_cache[4][CacheSize];
-    mutable complex B22_Mz_Mw2_Mw_mh_cache[4][CacheSize];
-    mutable complex B22_Mz_0_Mw_mh_cache[4][CacheSize];
-    mutable complex B22_Mz_Mw2_mH_mHp_cache[5][CacheSize]; 
-    mutable complex B22_Mz_0_mH_mHp_cache[4][CacheSize];
-    mutable complex B22_Mz_Mw2_mh_mHp_cache[5][CacheSize];
-    mutable complex B22_Mz_0_mh_mHp_cache[4][CacheSize];
+    mutable complex B00_Mz_Mz2_mH_mA_cache[4][CacheSize];
+    mutable complex B00_Mz_0_mH_mA_cache[4][CacheSize];
+    mutable complex B00_Mz_Mz2_mHp_mHp_cache[3][CacheSize];
+    mutable complex B00_Mz_0_mHp_mHp_cache[3][CacheSize];
+    mutable complex B00_Mz_Mz2_mh_mA_cache[4][CacheSize];
+    mutable complex B00_Mz_0_mh_mA_cache[4][CacheSize];
+    mutable complex B00_Mz_Mz2_Mz_mH_cache[3][CacheSize];
+    mutable complex B00_Mz_0_Mz_mH_cache[3][CacheSize];
+    mutable complex B00_Mz_Mz2_Mz_mh_cache[3][CacheSize];
+    mutable complex B00_Mz_0_Mz_mh_cache[3][CacheSize];
+    mutable complex B00_Mz_Mw2_mA_mHp_cache[5][CacheSize];
+    mutable complex B00_Mz_0_mA_mHp_cache[4][CacheSize];
+    mutable complex B00_Mz_Mw2_mHp_mHp_cache[4][CacheSize];
+    mutable complex B00_Mz_Mw2_Mw_mH_cache[4][CacheSize];
+    mutable complex B00_Mz_0_Mw_mH_cache[4][CacheSize];
+    mutable complex B00_Mz_Mw2_Mw_mh_cache[4][CacheSize];
+    mutable complex B00_Mz_0_Mw_mh_cache[4][CacheSize];
+    mutable complex B00_Mz_Mw2_mH_mHp_cache[5][CacheSize];
+    mutable complex B00_Mz_0_mH_mHp_cache[4][CacheSize];
+    mutable complex B00_Mz_Mw2_mh_mHp_cache[5][CacheSize];
+    mutable complex B00_Mz_0_mh_mHp_cache[4][CacheSize];
 
 };
 

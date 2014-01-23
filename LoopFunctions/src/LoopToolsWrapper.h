@@ -63,9 +63,9 @@ public:
      * @param[in] mu2 The renormalization scale squared.
      * @param[in] p2 Momentum squared.
      * @param[in] m02, m12 Mass squared.
-     * @return The finite part of a tensor two-point PV function B_{21}.
+     * @return The finite part of a tensor two-point PV function B_{11}.
      */
-    complex PV_B21(const double mu2, const double p2,
+    complex PV_B11(const double mu2, const double p2,
                    const double m02, const double m12) const;
 
     /**
@@ -73,9 +73,9 @@ public:
      * @param[in] mu2 The renormalization scale squared.
      * @param[in] p2 Momentum squared.
      * @param[in] m02, m12 Mass squared.
-     * @return The finite part of a tensor two-point PV function B_{22}.
+     * @return The finite part of a tensor two-point PV function B_{00}.
      */
-    complex PV_B22(const double mu2, const double p2,
+    complex PV_B00(const double mu2, const double p2,
                    const double m02, const double m12) const;
 
     /**
@@ -99,23 +99,23 @@ public:
                    const double m02, const double m12) const;
     
     /**
-     * @brief The derivative of B_{21}.
+     * @brief The derivative of B_{11}.
      * @param[in] mu2 The renormalization scale squared.
      * @param[in] p2 Momentum squared.
      * @param[in] m02, m12 Mass squared.
-     * @return The finite part of B_{21p}.
+     * @return The finite part of B_{11p}.
      */
-    complex PV_B21p(const double mu2, const double p2,
+    complex PV_B11p(const double mu2, const double p2,
                     const double m02, const double m12) const;
 
     /**
-     * @brief The derivative of B_{22}.
+     * @brief The derivative of B_{00}.
      * @param[in] mu2 The renormalization scale squared.
      * @param[in] p2 Momentum squared.
      * @param[in] m02, m12 Mass squared.
-     * @return The finite part of B_{22p}.
+     * @return The finite part of B_{00p}.
      */
-    complex PV_B22p(const double mu2, const double p2,
+    complex PV_B00p(const double mu2, const double p2,
                     const double m02, const double m12) const;
 
     /**
@@ -137,12 +137,12 @@ public:
                   const double m22, const double m32) const;
     
     /**
-     * @brief A tensor four-point Passarino-Veltman function D_22(0,0,0,0,s,t;m02,m12,m22,m32).
+     * @brief A tensor four-point Passarino-Veltman function D_00(0,0,0,0,s,t;m02,m12,m22,m32).
      * @param[in] s, t Momentum squared.
      * @param[in] m02, m12, m22, m32 Mass squared.
-     * @return A tensor four-point PV function D_0(0,0,0,0,s,t;m02,m12,m22,m32).
+     * @return A tensor four-point PV function D_00(0,0,0,0,s,t;m02,m12,m22,m32).
      */
-    complex PV_D22(const double s, const double t, const double m02, const double m12,
+    complex PV_D00(const double s, const double t, const double m02, const double m12,
                    const double m22, const double m32) const;
 
 private:

@@ -13,17 +13,22 @@
 
 /**
  * @class NPEpsilons
- * @brief A class for new physics with the @f$\varepsilon@f$ parameters. 
+ * @brief A class for new physics in the form of contributions to the \f$\varepsilon_{1,2,3,b}\f$ parameters.
+ * Both SM and new physics contributions to \f$\varepsilon_i\f$ are parameterized. 
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details  
  *
  * Flags:
- * \li \b FlagEpsilon1SM:&nbsp;
- * \li \b FlagEpsilon2SM:&nbsp;
- * \li \b FlagEpsilon3SM:&nbsp;
- * \li \b FlagEpsilonbSM:&nbsp;
+ * \li \b FlagEpsilon1SM:&nbsp; Return the SM (True) or SM plus new physics (False)
+ * contribution to \f$\varepsilon_1\f$.
+ * \li \b FlagEpsilon2SM:&nbsp; Return the SM (True) or SM plus new physics (False)
+ * contribution to \f$\varepsilon_2\f$.
+ * \li \b FlagEpsilon3SM:&nbsp; Return the SM (True) or SM plus new physics (False)
+ * contribution to \f$\varepsilon_3\f$.
+ * \li \b FlagEpsilonbSM:&nbsp; Return the SM (True) or SM plus new physics (False)
+ * contribution to \f$\varepsilon_b\f$.
  */
 class NPEpsilons : public NPbase  {
 public:
@@ -113,13 +118,13 @@ public:
 
     /**
      * @return the (square of the) cosine of the weak angle in the On-mass-shell renormalization scheme,
-     *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}
+     *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double cW2() const;
     
     /**
      * @return the (square of the) sine of the weak angle in the On-mass-shell renormalization scheme,
-     *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}
+     *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double sW2() const;
 
