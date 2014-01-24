@@ -10,19 +10,6 @@
 <link href="$relpath^tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="$relpath^jquery.js"></script>
 <script type="text/javascript" src="$relpath^dynsections.js"></script>
-$treeview
-$search
-<!-- $mathjax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-    tex2jax: {
-      inlineMath: [ ['\\(','\\)'], ['MJ\[','\]MJ'] ]
-    }
-  });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <script type="text/javascript">
   function myFunc() {
     var filename =  document.location.href.match(/[^\/]+$/)[0];
@@ -36,10 +23,25 @@ $search
         '<a href="http://inspirehep.net/search?ln=en&p=$1%2F$2" style="color:red">$1\/$2</a>');
     }
   }
-  if(window.addEventListener) { window.addEventListener('load', myFunc, false); } 
-  else if(window.attachEvent) { window.attachEvent('onload', myFunc); }
-  else { window.onload = myFunc; }
+  //if(window.addEventListener) { window.addEventListener('load', myFunc, false); } 
+  //else if(window.attachEvent) { window.attachEvent('onload', myFunc); }
+  //else { window.onload = myFunc; }
+  //window.onload = myFunc;
+  window.addEventListener("DOMContentLoaded", myFunc, false);
 </script>
+$treeview
+$search
+<!-- $mathjax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+    tex2jax: {
+      inlineMath: [ ['\\(','\\)'], ['MJ\[','\]MJ'] ]
+    }
+  });
+</script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="$relpath^$stylesheet" rel="stylesheet" type="text/css" />
 $extrastylesheet
 </head>
