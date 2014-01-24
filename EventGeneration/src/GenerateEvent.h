@@ -20,8 +20,13 @@
 #include <boost/make_shared.hpp>
 
 /**
+ * @addtogroup EventGeneration
+ * @brief A project for
+ * @{
+ */
+
+/**
  * @class GenerateEvent
- * @ingroup EventGeneration
  * @brief A class for generating events.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -114,6 +119,10 @@ private:
     bool noMC;/**< Flag to initiate noMC mode.*/
     bool outputTerm; /**< Flag to specify output stream storage.*/
 };
+
+/**
+ * @}
+ */
 
 #endif	/* GENERATEEVENT_H */
 
