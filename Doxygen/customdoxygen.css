@@ -36,7 +36,7 @@ h1, h2, h3, h4, h5, h6 {
 	-moz-transition: text-shadow 0.5s linear;
 	-ms-transition: text-shadow 0.5s linear;
 	-o-transition: text-shadow 0.5s linear;
-	transition: text-shadow 0.5s linear;
+ 	transition: text-shadow 0.5s linear;
 	margin-right: 15px;
 }
 
