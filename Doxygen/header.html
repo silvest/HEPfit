@@ -12,8 +12,14 @@
 <script type="text/javascript" src="$relpath^dynsections.js"></script>
 <script type="text/javascript">
   function myFunc() {
-    var filename =  document.location.href.match(/[^\/]+$/)[0];
-    if(filename=="citelist.html") {
+    var filename;
+    if(document.location.href.match(/\/$/)) {
+      filename = "index.html";
+    } else {
+      filename = document.location.href.match(/[^\/]+$/)[0];
+    }
+    //document.write(filename); // Debug
+    if(filename.match(/citelist.html/)) {
       var db=document.body;
       db.innerHTML = db.innerHTML.split('[BS]').join('\\');
       //db.innerHTML = db.innerHTML.replace(/\[BS\]/g, '\\');
@@ -23,11 +29,12 @@
         '<a href="http://inspirehep.net/search?ln=en&p=$1%2F$2" style="color:red">$1\/$2</a>');
     }
   }
+  $(function() { myFunc() }); 
+  //window.addEventListener("DOMContentLoaded", myFunc, false);
+  //window.onload = myFunc;
   //if(window.addEventListener) { window.addEventListener('load', myFunc, false); } 
   //else if(window.attachEvent) { window.attachEvent('onload', myFunc); }
   //else { window.onload = myFunc; }
-  //window.onload = myFunc;
-  window.addEventListener("DOMContentLoaded", myFunc, false);
 </script>
 $treeview
 $search
