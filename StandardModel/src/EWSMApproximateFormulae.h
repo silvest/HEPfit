@@ -14,9 +14,9 @@
 /**
  * @class EWSMApproximateFormulae
  * @ingroup StandardModel
+ * @brief A class for approximate formulae of %EW precision observables.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @brief A class for approximate formulae of %EW precision observables. 
  * @details The member functions in the current class compute the %EW precision 
  * observables @f$M_W@f$, @f$\sin\theta_{\rm eff}^f@f$, @f$\Gamma_f@f$,
  * @f$\Gamma_Z@f$, @f$\sigma^0_h@f$, @f$R^0_\ell@f$ @f$R^0_c@f$ and @f$R^0_b@f$,
@@ -54,11 +54,9 @@ public:
      * @f$\Delta\alpha = 0.05907\pm 0.00036@f$,
      * @f$M_Z = 91.1876\pm 0.0021@f$ GeV, and
      * @f$m_t = 174.3\pm 5.1@f$ GeV.
-     * @param[in] DeltaAlpha_i the sum of the leptonic and hadronic corrections
-     * to @f$\alpha@f$ at @f$q^2=M_Z^2@f$: @f$\Delta\alpha^{\ell+5q}(M_Z^2)@f$
      * @return the @f$W@f$-boson mass in units of GeV
      */
-    double Mw(const double DeltaAlphaL5q_i) const;
+    double Mw() const;
     
     /**
      * @brief @f$\sin^2\theta_{\rm eff}^\ell@f$ in the on-shell scheme with the
@@ -76,11 +74,9 @@ public:
      * @f$M_Z = 91.1876\pm 0.0021@f$ GeV and
      * @f$m_t = 172.5\pm 2.3@f$ GeV.
      * @param[in] l name of lepton (see StandardModel::lepton)
-     * @param[in] DeltaAlpha_i the sum of the leptonic and hadronic corrections
-     * to @f$\alpha@f$ at @f$q^2=M_Z^2@f$: @f$\Delta\alpha^{\ell+5q}(M_Z^2)@f$
      * @return the effective weak mixing angle for @f$Z\to\ell\bar{\ell}@f$
      */
-    double sin2thetaEff_l(const StandardModel::lepton l, const double DeltaAlphaL5q_i) const;
+    double sin2thetaEff_l(const StandardModel::lepton l) const;
 
     /**
      * @brief @f$\sin^2\theta_{\rm eff}^q@f$ in the on-shell scheme with the
@@ -101,11 +97,9 @@ public:
      * @f$M_Z = 91.1876\pm 0.0021@f$ GeV and
      * @f$m_t = 172.5\pm 2.3@f$ GeV.
      * @param[in] q name of quark (see QCD::quark)
-     * @param[in] DeltaAlpha_i the sum of the leptonic and hadronic corrections
-     * to @f$\alpha@f$ at @f$q^2=M_Z^2@f$: @f$\Delta\alpha^{\ell+5q}(M_Z^2)@f$
      * @return the effective weak mixing angle for @f$Z\to q\bar{q}@f$
      */
-    double sin2thetaEff_q(const StandardModel::quark q, const double DeltaAlphaL5q_i) const;    
+    double sin2thetaEff_q(const StandardModel::quark q) const;    
     
     /**
      * @brief @f$\Delta r_{\rm rem}^{(\alpha^2)}@f$ in the on-shell scheme. 
@@ -121,12 +115,10 @@ public:
      * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.05907\pm 0.00036@f$,
      * @f$M_Z = 91.1876\pm 0.0021@f$ GeV and
      * @f$m_t = 172.5\pm 2.3@f$ GeV.
-     * @param[in] DeltaAlpha_i the sum of the leptonic and hadronic corrections
-     * to @f$\alpha@f$ at @f$q^2=M_Z^2@f$: @f$\Delta\alpha^{\ell+5q}(M_Z^2)@f$
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return irreducible two-loop %EW contribution to @f$\Delta r@f$
      */
-    double DeltaR_TwoLoopEW_rem(const double DeltaAlphaL5q_i, const double Mw_i) const;
+    double DeltaR_TwoLoopEW_rem(const double Mw_i) const;
 
     /**
      * @brief @f$\Delta\kappa_Z^{\ell, (\alpha^2)}@f$ in the on-shell scheme.
@@ -147,7 +139,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return irreducible two-loop %EW contribution to @f$\Delta\kappa_Z^\ell@f$
      */
-    double DeltaKappa_l_TwoLoopEW_rem(const double DeltaAlphaL5q_i, const double Mw_i) const;
+    double DeltaKappa_l_TwoLoopEW_rem(const double Mw_i) const;
 
     /**
      * @brief @f$\Delta\kappa_Z^{b, (\alpha^2)}@f$ in the on-shell scheme.
@@ -164,12 +156,10 @@ public:
      * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.05907\pm 0.00036@f$,
      * @f$M_Z = 91.1876\pm 0.0021@f$ GeV and
      * @f$m_t = 172.5\pm 2.3@f$ GeV.
-     * @param[in] DeltaAlpha_i the sum of the leptonic and hadronic corrections
-     * to @f$\alpha@f$ at @f$q^2=M_Z^2@f$: @f$\Delta\alpha^{\ell+5q}(M_Z^2)@f$
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return irreducible fermionic two-loop %EW contribution to @f$\Delta\kappa_Z^b@f$
      */
-    double DeltaKappa_b_TwoLoopEW_rem(const double DeltaAlphaL5q_i, const double Mw_i) const;
+    double DeltaKappa_b_TwoLoopEW_rem(const double Mw_i) const;
     
     /**
      * @brief @f$R_b^0@f$ in the on-shell scheme. 
@@ -186,11 +176,9 @@ public:
      * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.05900\pm 0.00033@f$,
      * @f$M_Z = 91.1876\pm 0.0021@f$ GeV and
      * @f$m_t = 173.2\pm 0.9@f$ GeV.
-     * @param[in] DeltaAlpha_i the sum of the leptonic and hadronic corrections
-     * to @f$\alpha@f$ at @f$q^2=M_Z^2@f$: @f$\Delta\alpha^{\ell+5q}(M_Z^2)@f$
      * @return @f$R_b^0=\Gamma_b/\Gamma_h@f$
      */
-    double R0_bottom_OLD(const double DeltaAlphaL5q_i) const;
+    double R0_bottom_OLD() const;
 
     /**
      * @brief @f$\Gamma_u/\Gamma_b@f$ in the on-shell scheme
@@ -207,11 +195,9 @@ public:
      * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.05900\pm 0.00033@f$,
      * @f$M_Z = 91.1876\pm 0.0021@f$ GeV and
      * @f$m_t = 173.2\pm 0.9@f$ GeV.
-     * @param[in] DeltaAlpha_i the sum of the leptonic and hadronic corrections
-     * to @f$\alpha@f$ at @f$q^2=M_Z^2@f$: @f$\Delta\alpha^{\ell+5q}(M_Z^2)@f$
      * @return @f$\Gamma_u/\Gamma_b@f$
      */
-    double Gu_over_Gb_OLD(const double DeltaAlphaL5q_i) const;
+    double Gu_over_Gb_OLD() const;
     
     /**
      * @brief @f$\Gamma_d/\Gamma_b@f$ in the on-shell scheme
@@ -228,11 +214,9 @@ public:
      * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.05900\pm 0.00033@f$,
      * @f$M_Z = 91.1876\pm 0.0021@f$ GeV and
      * @f$m_t = 173.2\pm 0.9@f$ GeV.
-     * @param[in] DeltaAlpha_i the sum of the leptonic and hadronic corrections
-     * to @f$\alpha@f$ at @f$q^2=M_Z^2@f$: @f$\Delta\alpha^{\ell+5q}(M_Z^2)@f$
      * @return @f$\Gamma_d/\Gamma_b@f$
      */
-    double Gd_over_Gb_OLD(const double DeltaAlphaL5q_i) const;
+    double Gd_over_Gb_OLD() const;
 
     /**
      * @brief @f$\Gamma_\nu@f$, @f$\Gamma_{e,\mu}@f$, @f$\Gamma_\tau@f$,
@@ -259,13 +243,11 @@ public:
      * @param[in] observable name of an observable to be computed:
      * "Gamma_nu", "Gamma_e_mu", "Gamma_tau", "Gamma_u", "Gamma_c", "Gamma_d_s",
      * "Gamma_b", "GammaZ", "sigmaHadron", "R0_lepton", "R0_charm", "R0_bottom"
-     * @param[in] DeltaAlphaL5q_i the sum of the leptonic and hadronic corrections
-     * to @f$\alpha@f$ at @f$q^2=M_Z^2@f$: @f$\Delta\alpha^{\ell+5q}(M_Z^2)@f$
      * @return @f$\Gamma_\nu@f$, @f$\Gamma_{e,\mu}@f$, @f$\Gamma_\tau@f$,
      * @f$\Gamma_u@f$, @f$\Gamma_c@f$, @f$\Gamma_{d,s}@f$, @f$\Gamma_b@f$,
      * @f$\Gamma_Z@f$, @f$\sigma^0_h@f$, @f$R^0_\ell@f$,  @f$R^0_c@f$, or @f$R^0_b@f$
      */
-    double X(const std::string observable, const double DeltaAlphaL5q_i) const;
+    double X(const std::string observable) const;
 
     /**
      * @brief @f$\Gamma_\nu@f$, @f$\Gamma_{e,\mu}@f$, @f$\Gamma_\tau@f$,
@@ -292,13 +274,11 @@ public:
      * @param[in] observable name of an observable to be computed:
      * "Gamma_nu", "Gamma_e_mu", "Gamma_tau", "Gamma_u", "Gamma_c", "Gamma_d_s",
      * "Gamma_b", "GammaZ", "sigmaHadron", "R0_lepton", "R0_charm", "R0_bottom"
-     * @param[in] DeltaAlphaL5q_i the sum of the leptonic and hadronic corrections
-     * to @f$\alpha@f$ at @f$q^2=M_Z^2@f$: @f$\Delta\alpha^{\ell+5q}(M_Z^2)@f$
      * @return @f$\Gamma_\nu@f$, @f$\Gamma_{e,\mu}@f$, @f$\Gamma_\tau@f$,
      * @f$\Gamma_u@f$, @f$\Gamma_c@f$, @f$\Gamma_{d,s}@f$, @f$\Gamma_b@f$,
      * @f$\Gamma_Z@f$, @f$\sigma^0_h@f$, @f$R^0_\ell@f$,  @f$R^0_c@f$, or @f$R^0_b@f$
      */
-    double X_extended(const std::string observable, const double DeltaAlphaL5q_i) const;
+    double X_extended(const std::string observable) const;
 
 
     ////////////////////////////////////////////////////////////////////////

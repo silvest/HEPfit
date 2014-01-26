@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -54,7 +54,7 @@ double EW_TEST::computeThValue()
             if (SM.IsFlagNoApproximateGammaZ() && SM.ModelName() != "NPEpsilons")
                 Gamma_Z_SM = myEW.Gamma_Z();
             else
-                Gamma_Z_SM = SM.getEWSM()->getMyApproximateFormulae()->X_extended("GammaZ", SM.DeltaAlphaL5q());
+                Gamma_Z_SM = SM.getEWSM()->getMyApproximateFormulae()->X_extended("GammaZ");
             Gamma_Z_SM += SM.getDelGammaZ();/* Theoretical uncertainty */
             return myEW_BURGESS->GammaZ(Gamma_Z_SM);
         } else if (mode.compare("CHMN") == 0)
@@ -71,7 +71,7 @@ double EW_TEST::computeThValue()
             if (SM.IsFlagNoApproximateSigmaH() && SM.ModelName() != "NPEpsilons")
                 sigma_had_SM = myEW.sigma0_had();
             else
-                sigma_had_SM = SM.getEWSM()->getMyApproximateFormulae()->X_extended("sigmaHadron", SM.DeltaAlphaL5q());
+                sigma_had_SM = SM.getEWSM()->getMyApproximateFormulae()->X_extended("sigmaHadron");
             return ( myEW_BURGESS->sigmaHadron(sigma_had_SM,
                        myEW.Gamma_Z(), myEW.Gamma_had(), myEW.Gamma_l(SM.ELECTRON))
                     *GeVminus2_to_nb );
@@ -170,7 +170,7 @@ double EW_TEST::computeThValue()
         else if (mode.compare("BURGESS") == 0) {
             double R0_l_SM;
             if (!SM.IsFlagNoApproximateRl() && SM.ModelName() != "NPEpsilons")
-                R0_l_SM = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_lepton", SM.DeltaAlphaL5q());
+                R0_l_SM = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_lepton");
             else
                 R0_l_SM = myEW.Gamma_had()/myEW.Gamma_l(SM.ELECTRON);
             return myEW_BURGESS->Rlepton(R0_l_SM, myEW.Gamma_had(), myEW.Gamma_l(SM.ELECTRON));
@@ -184,7 +184,7 @@ double EW_TEST::computeThValue()
         else if (mode.compare("BURGESS") == 0) {
             double R0_c_SM;
             if (!SM.IsFlagNoApproximateRc() && SM.ModelName() != "NPEpsilons")
-                R0_c_SM = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_charm", SM.DeltaAlphaL5q());
+                R0_c_SM = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_charm");
             else
                 R0_c_SM = myEW.Gamma_q(SM.CHARM)/myEW.Gamma_had();
             return myEW_BURGESS->Rcharm(R0_c_SM, myEW.Gamma_had());
@@ -200,7 +200,7 @@ double EW_TEST::computeThValue()
         else if (mode.compare("BURGESS") == 0) {
             double R0_b_SM;
             if (!SM.IsFlagNoApproximateRb() && SM.ModelName() != "NPEpsilons")
-                R0_b_SM = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_bottom", SM.DeltaAlphaL5q());
+                R0_b_SM = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_bottom");
             else
                 R0_b_SM = myEW.Gamma_q(SM.BOTTOM)/myEW.Gamma_had();
             return myEW_BURGESS->Rbottom(R0_b_SM, myEW.Gamma_had(), myEW.Gamma_q(SM.BOTTOM));

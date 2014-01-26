@@ -60,7 +60,7 @@ void EWSM_Output::outputEachDeltaR(const double Mw_i) const
         double DeltaR_EW1 = - cW2_TMP/sW2_TMP*DeltaRho[EWSM::EW1] + DeltaR_rem[EWSM::EW1];
 
         // Full EW two-loop contribution with reducible corrections
-        double DeltaR_EW2_rem = myEWSM.myApproximateFormulae->DeltaR_TwoLoopEW_rem(myEWSM.DeltaAlphaL5q(), Mw_i);
+        double DeltaR_EW2_rem = myEWSM.myApproximateFormulae->DeltaR_TwoLoopEW_rem(Mw_i);
 
         // EW two-loop irreducible contributions with large-mt expansion
         double DeltaR_EW2_old_red = myEWSM.DeltaAlphaL5q()*myEWSM.DeltaAlphaL5q()

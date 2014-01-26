@@ -248,7 +248,7 @@ double EWSM::Mw_SM() const
 
     double Mw;
     if (schemeMw==APPROXIMATEFORMULA)
-        Mw = myApproximateFormulae->Mw(DeltaAlphaL5q());
+        Mw = myApproximateFormulae->Mw();
     else if (schemeMw==FIXED) {
         Mw = 80.385;
         std::cout << "Mw is fixed to " << Mw << " GeV for test!" << std::endl;
@@ -496,7 +496,7 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const
     
     double ReKappaZf = 0.0, ImKappaZf = 0.0;
     if (schemeKappaZ==APPROXIMATEFORMULA) {
-        ReKappaZf = myApproximateFormulae->sin2thetaEff_l(l, DeltaAlphaL5q())/sW2_SM(); 
+        ReKappaZf = myApproximateFormulae->sin2thetaEff_l(l)/sW2_SM(); 
         ImKappaZf = myOneLoopEW->deltaKappa_rem_l(l,Mw).imag();
         #ifdef WITHIMTWOLOOPQCD
         ImKappaZf += myTwoLoopQCD->deltaKappa_rem_l(l,Mw).imag();
@@ -574,7 +574,7 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
     
     double ReKappaZf = 0.0,  ImKappaZf = 0.0;    
     if (schemeKappaZ==APPROXIMATEFORMULA) {
-        ReKappaZf = myApproximateFormulae->sin2thetaEff_q(q, DeltaAlphaL5q())/sW2_SM(); 
+        ReKappaZf = myApproximateFormulae->sin2thetaEff_q(q)/sW2_SM(); 
         ImKappaZf = myOneLoopEW->deltaKappa_rem_q(q,Mw).imag();
         #ifdef WITHIMTWOLOOPQCD
         ImKappaZf += myTwoLoopQCD->deltaKappa_rem_q(q,Mw).imag();
@@ -1127,7 +1127,7 @@ double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
             DeltaR_EW1 = - cW2_TMP/sW2_TMP*DeltaRho[EW1] + DeltaR_rem[EW1];
 
             // Full EW two-loop contribution without reducible corrections
-            DeltaR_EW2_rem = myApproximateFormulae->DeltaR_TwoLoopEW_rem(DeltaAlphaL5q(), Mw_i);
+            DeltaR_EW2_rem = myApproximateFormulae->DeltaR_TwoLoopEW_rem(Mw_i);
 
             // subtract the EW two-loop contributions from DeltaRho_sum and DeltaR_rem_sum
             DeltaRho_sum -= DeltaRho[EW2];

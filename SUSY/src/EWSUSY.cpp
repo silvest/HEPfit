@@ -1257,7 +1257,7 @@ double EWSUSY::Mw_MSSM_TMP(const double Mw_i) const
 
     /* Full EW two-loop contribution with reducible corrections */
     double DeltaR_EW2 = dAleL5q*dAleL5q + 2.0*dAleL5q*DeltaR_EW1
-    + getMyApproximateFormulae()->DeltaR_TwoLoopEW_rem(dAleL5q, Mw_i);
+    + getMyApproximateFormulae()->DeltaR_TwoLoopEW_rem(Mw_i);
 
     /* R = 1 + Delta r */
     double R = 1.0 + dAleL5q - cW2/sW2*DeltaRho_sum + DeltaR_rem_sum + DeltaR_EW2;

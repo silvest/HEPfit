@@ -15,7 +15,7 @@ double Rbottom::computeThValue()
 { 
     double R0_b;
     if (!SM.IsFlagNoApproximateRb() && SM.ModelName() != "NPEpsilons")
-        R0_b = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_bottom", SM.DeltaAlphaL5q());
+        R0_b = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_bottom");
     else
         R0_b = myEW.Gamma_q(SM.BOTTOM)/myEW.Gamma_had();
 

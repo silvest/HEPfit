@@ -14,7 +14,7 @@ double GammaZ::computeThValue()
 { 
     double Gamma_Z;
     if (!SM.IsFlagNoApproximateGammaZ() && SM.ModelName() != "NPEpsilons")
-        Gamma_Z = SM.getEWSM()->getMyApproximateFormulae()->X_extended("GammaZ", SM.DeltaAlphaL5q());
+        Gamma_Z = SM.getEWSM()->getMyApproximateFormulae()->X_extended("GammaZ");
     else
         Gamma_Z = myEW.Gamma_Z();
 

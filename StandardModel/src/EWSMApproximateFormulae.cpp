@@ -21,7 +21,7 @@ EWSMApproximateFormulae::EWSMApproximateFormulae(const StandardModel& SM_i)
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSMApproximateFormulae::Mw(const double DeltaAlphaL5q_i) const 
+double EWSMApproximateFormulae::Mw() const 
 {
     double Mw0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11;    
     if( SM.getMHl() >= 100.0 && SM.getMHl() <= UpperBoundForApproximateFormulae) {
@@ -62,7 +62,7 @@ double EWSMApproximateFormulae::Mw(const double DeltaAlphaL5q_i) const
     double dh = pow((SM.getMHl()/100.0), 2.0);
     double dt = pow((SM.getMtpole()/174.3), 2.0) - 1.0;
     double dZ = SM.getMz()/91.1875 - 1.0;
-    double dalphae = DeltaAlphaL5q_i/0.05907 - 1.0;
+    double dalphae = SM.StandardModel::DeltaAlphaL5q()/0.05907 - 1.0;
     double dalphas = SM.getAlsMz()/0.119 - 1.0;
 
     return (Mw0 - c1*dH - c2*dH*dH + c3*pow(dH, 4.0)
@@ -72,8 +72,7 @@ double EWSMApproximateFormulae::Mw(const double DeltaAlphaL5q_i) const
 }
     
  
-double EWSMApproximateFormulae::sin2thetaEff_l(const StandardModel::lepton l, 
-                                               const double DeltaAlphaL5q_i) const 
+double EWSMApproximateFormulae::sin2thetaEff_l(const StandardModel::lepton l) const 
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae ) {
@@ -120,7 +119,7 @@ double EWSMApproximateFormulae::sin2thetaEff_l(const StandardModel::lepton l,
 
     double L_H = log(SM.getMHl()/100.0);
     double Delta_H = SM.getMHl()/100.0;
-    double Delta_ale = DeltaAlphaL5q_i/0.05907 - 1.0;
+    double Delta_ale = SM.StandardModel::DeltaAlphaL5q()/0.05907 - 1.0;
     double Delta_t = pow((SM.getMtpole()/178.0), 2.0) - 1.0;
     double Delta_alphas = SM.getAlsMz()/0.117 - 1.0;
     double Delta_Z = SM.getMz()/91.1876 - 1.0;
@@ -133,8 +132,7 @@ double EWSMApproximateFormulae::sin2thetaEff_l(const StandardModel::lepton l,
 }
 
  
-double EWSMApproximateFormulae::sin2thetaEff_q(const StandardModel::quark q, 
-                                               const double DeltaAlphaL5q_i) const
+double EWSMApproximateFormulae::sin2thetaEff_q(const StandardModel::quark q) const
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae ) {
@@ -194,7 +192,7 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const StandardModel::quark q,
 
     double L_H = log(SM.getMHl()/100.0);
     double Delta_H = SM.getMHl()/100.0;
-    double Delta_ale = DeltaAlphaL5q_i/0.05907 - 1.0;
+    double Delta_ale = SM.StandardModel::DeltaAlphaL5q()/0.05907 - 1.0;
     double Delta_t = pow((SM.getMtpole()/178.0), 2.0) - 1.0;
     double Delta_alphas = SM.getAlsMz()/0.117 - 1.0;
     double Delta_Z = SM.getMz()/91.1876 - 1.0;
@@ -206,8 +204,7 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const StandardModel::quark q,
 }
 
 
-double EWSMApproximateFormulae::DeltaR_TwoLoopEW_rem(const double DeltaAlphaL5q_i,
-                                                     const double Mw_i) const
+double EWSMApproximateFormulae::DeltaR_TwoLoopEW_rem(const double Mw_i) const
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae ) {
@@ -244,8 +241,7 @@ double EWSMApproximateFormulae::DeltaR_TwoLoopEW_rem(const double DeltaAlphaL5q_
 }
 
 
-double EWSMApproximateFormulae::DeltaKappa_l_TwoLoopEW_rem(const double DeltaAlphaL5q_i,
-                                                           const double Mw_i) const
+double EWSMApproximateFormulae::DeltaKappa_l_TwoLoopEW_rem(const double Mw_i) const
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae ) {
@@ -279,8 +275,7 @@ double EWSMApproximateFormulae::DeltaKappa_l_TwoLoopEW_rem(const double DeltaAlp
 }
 
 
-double EWSMApproximateFormulae::DeltaKappa_b_TwoLoopEW_rem(const double DeltaAlphaL5q_i,
-                                                           const double Mw_i) const
+double EWSMApproximateFormulae::DeltaKappa_b_TwoLoopEW_rem(const double Mw_i) const
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae ) {
@@ -303,9 +298,7 @@ double EWSMApproximateFormulae::DeltaKappa_b_TwoLoopEW_rem(const double DeltaAlp
     
     double L_H = log(SM.getMHl()/100.0);
     double Delta_H = SM.getMHl()/100.0;
-    //double Delta_ale = DeltaAlphaL5q_i/0.05907 - 1.0;
     double Delta_t = pow((SM.getMtpole()/178.0), 2.0) - 1.0;
-    //double Delta_alphas = SM.getAlsMz()/0.117 - 1.0;
     double Delta_Z = SM.getMz()/91.1876 - 1.0;
     double Delta_W = Mw_i/80.404 - 1.0;    
    
@@ -316,7 +309,7 @@ double EWSMApproximateFormulae::DeltaKappa_b_TwoLoopEW_rem(const double DeltaAlp
 }
 
 
-double EWSMApproximateFormulae::R0_bottom_OLD(const double DeltaAlphaL5q_i) const
+double EWSMApproximateFormulae::R0_bottom_OLD() const
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae ) {
@@ -341,7 +334,7 @@ double EWSMApproximateFormulae::R0_bottom_OLD(const double DeltaAlphaL5q_i) cons
     
     double L_H = log(SM.getMHl()/100.0);
     double Delta_H = SM.getMHl()/100.0;
-    double Delta_ale = DeltaAlphaL5q_i/0.05900 - 1.0;
+    double Delta_ale = SM.StandardModel::DeltaAlphaL5q()/0.05900 - 1.0;
     double Delta_t = pow((SM.getMtpole()/173.2), 2.0) - 1.0;
     double Delta_alphas = SM.getAlsMz()/0.1184 - 1.0;
     double Delta_Z = SM.getMz()/91.1876 - 1.0;
@@ -368,7 +361,7 @@ double EWSMApproximateFormulae::R0_bottom_OLD(const double DeltaAlphaL5q_i) cons
 
     double L_H = log(SM.getMHl()/100.0);
     double Delta_H = SM.getMHl()/100.0;
-    double Delta_ale = DeltaAlphaL5q_i/0.05900 - 1.0;
+    double Delta_ale = SM.StandardModel::DeltaAlphaL5q()/0.05900 - 1.0;
     double Delta_t = pow((SM.getMtpole()/173.2), 2.0) - 1.0;
     double Delta_alphas = SM.getAlsMz()/0.1184 - 1.0;
     double Delta_Z = SM.getMz()/91.1876 - 1.0;    
@@ -396,7 +389,7 @@ double EWSMApproximateFormulae::R0_bottom_OLD(const double DeltaAlphaL5q_i) cons
 
     double L_H = log(SM.getMHl()/100.0);
     double Delta_H = SM.getMHl()/100.0;
-    double Delta_ale = DeltaAlphaL5q_i/0.05900 - 1.0;
+    double Delta_ale = SM.StandardModel::DeltaAlphaL5q()/0.05900 - 1.0;
     double Delta_t = pow((SM.getMtpole()/173.2), 2.0) - 1.0;
     double Delta_alphas = SM.getAlsMz()/0.1184 - 1.0;
     double Delta_Z = SM.getMz()/91.1876 - 1.0;
@@ -422,7 +415,7 @@ double EWSMApproximateFormulae::R0_bottom_OLD(const double DeltaAlphaL5q_i) cons
 }
 
 
-double EWSMApproximateFormulae::Gu_over_Gb_OLD(const double DeltaAlphaL5q_i) const
+double EWSMApproximateFormulae::Gu_over_Gb_OLD() const
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae ) {
@@ -465,7 +458,7 @@ double EWSMApproximateFormulae::Gu_over_Gb_OLD(const double DeltaAlphaL5q_i) con
 
     double LH = log(SM.getMHl()/100.0);
     double DH = pow((SM.getMHl()/100.0), 2.0) - 1.0;
-    double Dal = DeltaAlphaL5q_i/0.059 - 1.0;
+    double Dal = SM.StandardModel::DeltaAlphaL5q()/0.059 - 1.0;
     double Dt = pow((SM.getMtpole()/173.2), 2.0) - 1.0;
     double Das = SM.getAlsMz()/0.1184 - 1.0;
     double Dmz = SM.getMz()/91.1876 - 1.0;
@@ -475,7 +468,7 @@ double EWSMApproximateFormulae::Gu_over_Gb_OLD(const double DeltaAlphaL5q_i) con
 }
     
 
-double EWSMApproximateFormulae::Gd_over_Gb_OLD(const double DeltaAlphaL5q_i) const
+double EWSMApproximateFormulae::Gd_over_Gb_OLD() const
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae ) {
@@ -518,7 +511,7 @@ double EWSMApproximateFormulae::Gd_over_Gb_OLD(const double DeltaAlphaL5q_i) con
 
     double LH = log(SM.getMHl()/100.0);
     double DH = pow((SM.getMHl()/100.0), 2.0) - 1.0;
-    double Dal = DeltaAlphaL5q_i/0.059 - 1.0;
+    double Dal = SM.StandardModel::DeltaAlphaL5q()/0.059 - 1.0;
     double Dt = pow((SM.getMtpole()/173.2), 2.0) - 1.0;
     double Das = SM.getAlsMz()/0.1184 - 1.0;
     double Dmz = SM.getMz()/91.1876 - 1.0;
@@ -528,13 +521,12 @@ double EWSMApproximateFormulae::Gd_over_Gb_OLD(const double DeltaAlphaL5q_i) con
 }
 
 
-double EWSMApproximateFormulae::X(const std::string observable,
-                                  const double DeltaAlphaL5q_i) const
+double EWSMApproximateFormulae::X(const std::string observable) const
 {
     double LH = log(SM.getMHl()/125.7);
     double Dt = pow(SM.getMtpole()/173.2, 2.0) - 1.0;
     double Das = SM.getAlsMz()/0.1184 - 1.0;
-    double Dal = DeltaAlphaL5q_i/0.059 - 1.0;
+    double Dal = SM.StandardModel::DeltaAlphaL5q()/0.059 - 1.0;
     double DZ = SM.getMz()/91.1876 - 1.0;
 
     double X0, c1, c2, c3, c4, c5, c6, c7;
@@ -594,14 +586,13 @@ double EWSMApproximateFormulae::X(const std::string observable,
 }
 
 
-double EWSMApproximateFormulae::X_extended(const std::string observable,
-                                           const double DeltaAlphaL5q_i) const
+double EWSMApproximateFormulae::X_extended(const std::string observable) const
 {
     double LH = log(SM.getMHl()/125.7);
     double DH = SM.getMHl()/125.7 - 1.0;
     double Dt = pow(SM.getMtpole()/173.2, 2.0) - 1.0;
     double Das = SM.getAlsMz()/0.1184 - 1.0;
-    double Dal = DeltaAlphaL5q_i/0.059 - 1.0;
+    double Dal = SM.StandardModel::DeltaAlphaL5q()/0.059 - 1.0;
     double DZ = SM.getMz()/91.1876 - 1.0;
 
     double X0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15;

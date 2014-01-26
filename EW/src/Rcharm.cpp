@@ -14,7 +14,7 @@ double Rcharm::computeThValue()
 {   
     double R0_c;
     if (!SM.IsFlagNoApproximateRc() && SM.ModelName() != "NPEpsilons")
-        R0_c = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_charm", SM.DeltaAlphaL5q());
+        R0_c = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_charm");
     else
         R0_c = myEW.Gamma_q(SM.CHARM)/myEW.Gamma_had();
 

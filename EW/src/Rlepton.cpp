@@ -14,7 +14,7 @@ double Rlepton::computeThValue()
 {
     double R0_l;
     if (!SM.IsFlagNoApproximateRl() && SM.ModelName() != "NPEpsilons")
-        R0_l = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_lepton", SM.DeltaAlphaL5q());
+        R0_l = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_lepton");
     else
         R0_l = myEW.Gamma_had()/myEW.Gamma_l(SM.ELECTRON);
 
