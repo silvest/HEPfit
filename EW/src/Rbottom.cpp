@@ -14,16 +14,9 @@
 double Rbottom::computeThValue() 
 { 
     double R0_b;
-    if (!SM.IsFlagNoApproximateGqOverGb()
-            //&& !SM.IsFlagRhoZbFromGuOverGb()
-            //&& !SM.IsFlagRhoZbFromGdOverGb()
-            //&& !SM.IsFlagTestSubleadingTwoLoopEW()
-            && SM.ModelName() != "NPEpsilons"
-            ) {
-        double Gu_over_Gb = SM.getEWSM()->Gu_over_Gb_SM();
-        double Gd_over_Gb = SM.getEWSM()->Gd_over_Gb_SM();
-        R0_b = 1.0/(1.0 + 2.0*(Gd_over_Gb + Gu_over_Gb));
-    } else
+    if (!SM.IsFlagNoApproximateGqOverGb() && SM.ModelName() != "NPEpsilons")
+        R0_b = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_bottom", SM.DeltaAlphaL5q());
+    else
         R0_b = myEW.Gamma_q(SM.BOTTOM)/myEW.Gamma_had();
 
     /* NP contribution to the Zff vertex */

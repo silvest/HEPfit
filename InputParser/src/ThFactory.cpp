@@ -114,13 +114,6 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["delMw"] = new StandardModelParams(myMO, "delMw");
     thobs["delSin2th_l"] = new StandardModelParams(myMO, "delSin2th_l");
     thobs["delGammaZ"] = new StandardModelParams(myMO, "delGammaZ");
-    thobs["delRhoZ_nu"] = new StandardModelParams(myMO, "delRhoZ_nu");
-    thobs["delRhoZ_e"] = new StandardModelParams(myMO, "delRhoZ_e");
-    if (myMO.getModel().IsFlagTestSubleadingTwoLoopEW()) {
-        thobs["delRhoZ_u"] = new StandardModelParams(myMO, "delRhoZ_u");
-        thobs["delRhoZ_d"] = new StandardModelParams(myMO, "delRhoZ_d");
-    }
-    thobs["delRhoZ_b"] = new StandardModelParams(myMO, "delRhoZ_b");
 
     //-----  NP input parameters, etc.   -----
     if(myModel.ModelName().compare("NPEffective1") == 0

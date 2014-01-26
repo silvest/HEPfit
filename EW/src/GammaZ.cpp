@@ -13,12 +13,8 @@
 double GammaZ::computeThValue() 
 { 
     double Gamma_Z;
-    if (!SM.IsFlagNoApproximateGammaZ()
-            //&& !SM.IsFlagRhoZbFromGuOverGb()
-            //&& !SM.IsFlagRhoZbFromGdOverGb()
-            //&& !SM.IsFlagTestSubleadingTwoLoopEW()
-            && SM.ModelName() != "NPEpsilons")
-        Gamma_Z = SM.getEWSM()->GammaZ_SM();
+    if (!SM.IsFlagNoApproximateGammaZ() && SM.ModelName() != "NPEpsilons")
+        Gamma_Z = SM.getEWSM()->getMyApproximateFormulae()->X_extended("GammaZ", SM.DeltaAlphaL5q());
     else
         Gamma_Z = myEW.Gamma_Z();
 

@@ -13,12 +13,8 @@
 double sigmaHadron::computeThValue() 
 { 
     double sigma_had;
-    if (!SM.IsFlagNoApproximateSigmaH()
-            //&& !SM.IsFlagRhoZbFromGuOverGb()
-            //&& !SM.IsFlagRhoZbFromGdOverGb()
-            //&& !SM.IsFlagTestSubleadingTwoLoopEW()
-            && SM.ModelName() != "NPEpsilons")
-        sigma_had = SM.getEWSM()->sigmaHadron_SM()/GeVminus2_to_nb;
+    if (!SM.IsFlagNoApproximateSigmaH()  && SM.ModelName() != "NPEpsilons")
+        sigma_had = SM.getEWSM()->getMyApproximateFormulae()->X_extended("sigmaHadron", SM.DeltaAlphaL5q())/GeVminus2_to_nb;
     else
         sigma_had = myEW.sigma0_had();
 

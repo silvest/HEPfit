@@ -54,7 +54,7 @@ double EW_TEST::computeThValue()
             if (SM.IsFlagNoApproximateGammaZ())
                 Gamma_Z_SM = myEW.Gamma_Z();
             else
-                Gamma_Z_SM = SM.getEWSM()->GammaZ_SM();
+                Gamma_Z_SM = SM.getEWSM()->getMyApproximateFormulae()->X_extended("GammaZ", SM.DeltaAlphaL5q());
             Gamma_Z_SM += SM.getDelGammaZ();/* Theoretical uncertainty */
             return myEW_BURGESS->GammaZ(Gamma_Z_SM);
         } else if (mode.compare("CHMN") == 0)
@@ -71,7 +71,7 @@ double EW_TEST::computeThValue()
             if (SM.IsFlagNoApproximateSigmaH())
                 sigma_had_SM = myEW.sigma0_had();
             else
-                sigma_had_SM = SM.getEWSM()->sigmaHadron_SM()/GeVminus2_to_nb;
+                sigma_had_SM = SM.getEWSM()->getMyApproximateFormulae()->X_extended("sigmaHadron", SM.DeltaAlphaL5q());
             return ( myEW_BURGESS->sigmaHadron(sigma_had_SM,
                        myEW.Gamma_Z(), myEW.Gamma_had(), myEW.Gamma_l(SM.ELECTRON))
                     *GeVminus2_to_nb );
@@ -184,9 +184,7 @@ double EW_TEST::computeThValue()
                     //&& !SM.IsFlagRhoZbFromGdOverGb()
                     //&& !SM.IsFlagTestSubleadingTwoLoopEW()
                     && SM.ModelName() != "NPEpsilons") {
-                double Gu_over_Gb = SM.getEWSM()->Gu_over_Gb_SM();
-                double Gd_over_Gb = SM.getEWSM()->Gd_over_Gb_SM();
-                R0_c_SM = Gu_over_Gb/(1.0 + 2.0*(Gd_over_Gb + Gu_over_Gb));
+                R0_c_SM = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_charm", SM.DeltaAlphaL5q());
             } else
                 R0_c_SM = myEW.Gamma_q(SM.CHARM)/myEW.Gamma_had();
             return myEW_BURGESS->Rcharm(R0_c_SM, myEW.Gamma_had());
@@ -206,9 +204,7 @@ double EW_TEST::computeThValue()
                     //&& !SM.IsFlagRhoZbFromGdOverGb()
                     //&& !SM.IsFlagTestSubleadingTwoLoopEW()
                     && SM.ModelName() != "NPEpsilons") {
-                double Gu_over_Gb = SM.getEWSM()->Gu_over_Gb_SM();
-                double Gd_over_Gb = SM.getEWSM()->Gd_over_Gb_SM();
-                R0_b_SM = 1.0/(1.0 + 2.0*(Gd_over_Gb + Gu_over_Gb));
+                R0_b_SM = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_bottom", SM.DeltaAlphaL5q());
             } else
                 R0_b_SM = myEW.Gamma_q(SM.BOTTOM)/myEW.Gamma_had();
             return myEW_BURGESS->Rbottom(R0_b_SM, myEW.Gamma_had(), myEW.Gamma_q(SM.BOTTOM));

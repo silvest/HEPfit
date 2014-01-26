@@ -74,7 +74,7 @@ public:
     }
 
     // The number of the parameters relevant to EW observables
-    static const int NumSMParams = 27;
+    static const int NumSMParams = 24;
         
     
     //////////////////////////////////////////////////////////////////////// 
@@ -429,23 +429,6 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief Subleading two-loop EW corrections to rho_Z^l.
-     * @param[in] l lepton
-     * @return 
-     */
-    double delRhoZ_l(const StandardModel::lepton l) const;
-
-    /**
-     * @brief Subleading two-loop EW corrections to rho_Z^q.
-     * @param[in] q quark
-     * @return 
-     */
-    double delRhoZ_q(const StandardModel::quark q) const;
-
-
-    ////////////////////////////////////////////////////////////////////////
-
-    /**
      * @return SM contribution to @f$\epsilon_1@f$.
      */
     double epsilon1_SM() const;
@@ -464,45 +447,6 @@ public:
      * @return SM contribution to @f$\epsilon_b@f$.
      */
     double epsilonb_SM() const;
-
-    
-    ////////////////////////////////////////////////////////////////////////     
-    // The Z-boson total and partial widths
-
-    /* 
-     * @param[in] q name of a quark.
-     * @return non-factorizable EW-QCD corrections in GeV.
-     */
-    double Delta_EWQCD(const StandardModel::quark q) const;
-    
-    /**
-     * @param[in] q name of a quark.
-     * @return Radiator functions to the vector current due to the 
-     * final-state QED and QCD corrections. 
-     */    
-    double RVq(const StandardModel::quark q) const;
-    
-    /**
-     * @param[in] q name of a quark.
-     * @return Radiator functions to the axial-vector current due to the 
-     * final-state QED and QCD corrections. 
-     */    
-    double RAq(const StandardModel::quark q) const;
-        
-    /**
-     * @return Singlet vector corrections to the width of Z to hadrons.
-     */
-    double RVh() const;
-
-    double R0_bottom_SM() const;
-
-    double Gu_over_Gb_SM() const;    
-
-    double Gd_over_Gb_SM() const;    
-
-    double GammaZ_SM() const;
-
-    double sigmaHadron_SM() const;
     
 
     ////////////////////////////////////////////////////////////////////////     

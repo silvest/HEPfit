@@ -20,8 +20,7 @@
 
 
 const std::string StandardModel::SMvars[NSMvars] = {
-    "ale", "dAle5Mz", "GF", "mHl", "delMw", "delSin2th_l", "delGammaZ", 
-    "delRhoZ_nu", "delRhoZ_e", "delRhoZ_b", "muw",
+    "ale", "dAle5Mz", "GF", "mHl", "delMw", "delSin2th_l", "delGammaZ", "muw",
     "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", 
     "lambda", "A", "rhob", "etab", 
     "EpsK", "phiEpsK", "DeltaMK", "KbarEpsK", "Dmk", "SM_M12D"
@@ -29,8 +28,7 @@ const std::string StandardModel::SMvars[NSMvars] = {
 
 const std::string StandardModel::SMflags[NSMflags] = {
     "withoutNonUniversalVCinEpsilons",
-    "NoApproximateGqOverGb", "NoApproximateGammaZ", "NoApproximateSigmaH",
-    "RhoZbFromGuOverGb", "RhoZbFromGdOverGb", "TestSubleadingTwoLoopEW"
+    "NoApproximateGqOverGb", "NoApproximateGammaZ", "NoApproximateSigmaH"
 };
 
 StandardModel::StandardModel() 
@@ -41,9 +39,6 @@ StandardModel::StandardModel()
     FlagNoApproximateGqOverGb = false;
     FlagNoApproximateGammaZ = false;
     FlagNoApproximateSigmaH = false;
-    FlagRhoZbFromGuOverGb = false;
-    FlagRhoZbFromGdOverGb = false;
-    FlagTestSubleadingTwoLoopEW = false;
     
     leptons[NEUTRINO_1].setCharge(0.);
     leptons[NEUTRINO_2].setCharge(0.);    
@@ -154,12 +149,6 @@ void StandardModel::setParameter(const std::string name, const double& value)
         delSin2th_l = value;
     else if (name.compare("delGammaZ") == 0)
         delGammaZ = value;
-    else if (name.compare("delRhoZ_nu") == 0)
-        delRhoZ_nu = value;
-    else if (name.compare("delRhoZ_e") == 0)
-        delRhoZ_e = value;
-    else if (name.compare("delRhoZ_b") == 0)
-        delRhoZ_b = value;
     else if (name.compare("muw") == 0)
         muw = value;
     else if (name.compare("mneutrino_1") == 0) {
@@ -276,15 +265,6 @@ bool StandardModel::setFlag(const std::string name, const bool& value)
     } else if (name.compare("NoApproximateSigmaH") == 0) {
         FlagNoApproximateSigmaH = value;
         res = true;
-    } else if (name.compare("RhoZbFromGuOverGb") == 0) {
-        FlagRhoZbFromGuOverGb = value;
-        res = true;
-    } else if (name.compare("RhoZbFromGdOverGb") == 0) {
-        FlagRhoZbFromGdOverGb = value;
-        res = true;
-    } else if (name.compare("TestSubleadingTwoLoopEW") == 0) {
-        FlagTestSubleadingTwoLoopEW = value;
-        res = true;
     } else
         res = QCD::setFlag(name,value);
 
@@ -293,19 +273,6 @@ bool StandardModel::setFlag(const std::string name, const bool& value)
 
 bool StandardModel::CheckFlags() const
 {
-    if ( FlagNoApproximateGqOverGb && FlagRhoZbFromGuOverGb)
-        throw std::runtime_error("ERROR: Flag RhoZbFromGuOverGb=true has to be used together with ApproximateGqOverGb=true.");
-    if ( FlagNoApproximateGqOverGb && FlagRhoZbFromGdOverGb)
-        throw std::runtime_error("ERROR: Flag RhoZbFromGdOverGb=true has to be used together with ApproximateGqOverGb=true.");
-    if ( FlagRhoZbFromGuOverGb && FlagRhoZbFromGdOverGb)
-        throw std::runtime_error("ERROR: Flags RhoZbFromGuOverGb and RhoZbFromGdOverGb cannot be set to true simultaneously.");
-    if ( FlagNoApproximateGqOverGb && FlagTestSubleadingTwoLoopEW)
-        throw std::runtime_error("ERROR: Flag TestSubleadingTwoLoopEW=true has to be used together with ApproximateGqOverGb=true.");
-    if ( FlagTestSubleadingTwoLoopEW && FlagRhoZbFromGuOverGb)
-        throw std::runtime_error("ERROR: Flags TestSubleadingTwoLoopEW and RhoZbFromGuOverGb cannot be set to true simultaneously.");
-    if ( FlagTestSubleadingTwoLoopEW && FlagRhoZbFromGdOverGb)
-        throw std::runtime_error("ERROR: Flags TestSubleadingTwoLoopEW and RhoZbFromGdOverGb cannot be set to true simultaneously.");
-
     return(QCD::CheckFlags());
 }
 

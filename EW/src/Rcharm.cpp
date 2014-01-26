@@ -13,16 +13,9 @@
 double Rcharm::computeThValue() 
 {   
     double R0_c;
-    if (!SM.IsFlagNoApproximateGqOverGb()
-            //&& !SM.IsFlagRhoZbFromGuOverGb()
-            //&& !SM.IsFlagRhoZbFromGdOverGb()
-            //&& !SM.IsFlagTestSubleadingTwoLoopEW()
-            && SM.ModelName() != "NPEpsilons"
-            ) {
-        double Gu_over_Gb = SM.getEWSM()->Gu_over_Gb_SM();
-        double Gd_over_Gb = SM.getEWSM()->Gd_over_Gb_SM();
-        R0_c = Gu_over_Gb/(1.0 + 2.0*(Gd_over_Gb + Gu_over_Gb));
-    } else
+    if (!SM.IsFlagNoApproximateGqOverGb() && SM.ModelName() != "NPEpsilons")
+        R0_c = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_charm", SM.DeltaAlphaL5q());
+    else
         R0_c = myEW.Gamma_q(SM.CHARM)/myEW.Gamma_had();
 
     /* NP contribution to the Zff vertex */

@@ -52,6 +52,35 @@ public:
         return myEW_NPZff;
     }
 
+    
+    ////////////////////////////////////////////////////////////////////////
+    // Final-state corrections to Z-decay widths
+
+    /*
+     * @param[in] q name of a quark.
+     * @return non-factorizable EW-QCD corrections in GeV.
+     */
+    double Delta_EWQCD(const StandardModel::quark q) const;
+
+    /**
+     * @param[in] q name of a quark.
+     * @return Radiator functions to the vector current due to the
+     * final-state QED and QCD corrections.
+     */
+    double RVq(const StandardModel::quark q) const;
+
+    /**
+     * @param[in] q name of a quark.
+     * @return Radiator functions to the axial-vector current due to the
+     * final-state QED and QCD corrections.
+     */
+    double RAq(const StandardModel::quark q) const;
+
+    /**
+     * @return Singlet vector corrections to the width of Z to hadrons.
+     */
+    double RVh() const;
+
 
     ////////////////////////////////////////////////////////////////////////     
     

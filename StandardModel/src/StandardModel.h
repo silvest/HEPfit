@@ -20,7 +20,7 @@ class EWSM; // forward reference to EWSM class
 /**
  * @class StandardModel
  * @ingroup StandardModel
- * @brief A class for the Standard Model.
+ * @brief A class for the Standard %Model.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class is ....
@@ -32,9 +32,6 @@ class EWSM; // forward reference to EWSM class
  * \li \b mHl:&nbsp; the Higgs mass in GeV,
  * \li \b delMw:&nbsp; the theoretical uncertainty in @f$M_W@f$ in GeV,
  * \li \b delSin2th_l:&nbsp; the theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$,
- * \li \b delRhoZ_nu:&nbsp;
- * \li \b delRhoZ_e:&nbsp;
- * \li \b delRhoZ_b:&nbsp;
  * \li \b muw:&nbsp;
  * \li \b mneutrino_1:&nbsp;
  * \li \b mneutrino_2:&nbsp;
@@ -58,33 +55,30 @@ class EWSM; // forward reference to EWSM class
  * \li \b NoApproximateGqOverGb:&nbsp;
  * \li \b NoApproximateGammaZ:&nbsp;
  * \li \b NoApproximateSigmaH:&nbsp;
- * \li \b RhoZbFromGuOverGb:&nbsp;
- * \li \b RhoZbFromGdOverGb:&nbsp;
- * \li \b TestSubleadingTwoLoopEW:&nbsp;
  *
  */
 class StandardModel: public QCD {
 public:
 
     /**
-     * An enum type for leptons.
+     * @brief An enum type for leptons.
      */
     enum lepton {
-        NEUTRINO_1,
+        NEUTRINO_1, /**< The 1st-generation neutrino */
         ELECTRON, /**< Electron */
-        NEUTRINO_2,
+        NEUTRINO_2, /**< The 2nd-generation neutrino */
         MU, /**< Muon */
-        NEUTRINO_3,
+        NEUTRINO_3, /**< The 3rd-generation neutrino */
         TAU /**< Tau */
     };
 
-    static const int NSMvars = 27;
+    static const int NSMvars = 24;
     static const std::string SMvars[NSMvars];
-    static const int NSMflags = 7;
+    static const int NSMflags = 4;
     static const std::string SMflags[NSMflags];
 
     /**
-     * A constructor.
+     * @brief Constructor.
      */
     StandardModel();
 
@@ -168,21 +162,6 @@ public:
     bool IsFlagNoApproximateSigmaH() const
     {
         return FlagNoApproximateSigmaH;
-    }
-
-    bool IsFlagRhoZbFromGuOverGb() const
-    {
-        return FlagRhoZbFromGuOverGb;
-    }
-
-    bool IsFlagRhoZbFromGdOverGb() const
-    {
-        return FlagRhoZbFromGdOverGb;
-    }
-
-    bool IsFlagTestSubleadingTwoLoopEW() const
-    {
-        return FlagTestSubleadingTwoLoopEW;
     }
 
     
@@ -284,21 +263,6 @@ public:
     double getDelGammaZ() const
     {
         return delGammaZ;
-    }
-
-    double getDelRhoZ_nu() const
-    {
-        return delRhoZ_nu;
-    }
-
-    double getDelRhoZ_e() const
-    {
-        return delRhoZ_e;
-    }
-
-    double getDelRhoZ_b() const
-    {
-        return delRhoZ_b;
     }
 
     /**
@@ -569,9 +533,6 @@ protected:
     double delMw;
     double delSin2th_l;
     double delGammaZ;
-    double delRhoZ_nu;
-    double delRhoZ_e;
-    double delRhoZ_b;
     double muw;
     double lambda;
     double A;
@@ -593,9 +554,6 @@ private:
     bool FlagNoApproximateGqOverGb;
     bool FlagNoApproximateGammaZ;
     bool FlagNoApproximateSigmaH;
-    bool FlagRhoZbFromGuOverGb;
-    bool FlagRhoZbFromGdOverGb;
-    bool FlagTestSubleadingTwoLoopEW;
 
     bool requireCKM;
     bool requireYe;

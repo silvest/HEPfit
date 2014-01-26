@@ -29,8 +29,7 @@ complex EWepsilons::rhoZ_l(const StandardModel::lepton l, const double eps1) con
     if (SM.IsFlagWithoutNonUniversalVC())    
         return ( rhoZ_e(eps1) );
     else
-        return ( rhoZ_e(eps1) + SM.getEWSM()->rhoZ_l_SM_FlavorDep(l).real() 
-                 + SM.getEWSM()->delRhoZ_l(l) - SM.getEWSM()->delRhoZ_l(SM.ELECTRON) );
+        return ( rhoZ_e(eps1) + SM.getEWSM()->rhoZ_l_SM_FlavorDep(l).real() );
 }
 
     
@@ -41,8 +40,7 @@ complex EWepsilons::rhoZ_q(const StandardModel::quark q, const double eps1) cons
     if (SM.IsFlagWithoutNonUniversalVC()) 
         return ( rhoZ_e(eps1) );
     else
-        return ( rhoZ_e(eps1) + SM.getEWSM()->rhoZ_q_SM_FlavorDep(q).real() 
-                 + SM.getEWSM()->delRhoZ_q(q) - SM.getEWSM()->delRhoZ_l(SM.ELECTRON) );
+        return ( rhoZ_e(eps1) + SM.getEWSM()->rhoZ_q_SM_FlavorDep(q).real() );
 }
 
 
@@ -129,9 +127,7 @@ complex EWepsilons::rhoZ_b(const double eps1, const double epsb) const
         return ( rhoZe*(1.0 + epsb)*(1.0 + epsb) );
     else {            
         double DeltaRhoZb = SM.getEWSM()->rhoZ_q_SM_FlavorDep(SM.BOTTOM).real();
-        return ( (rhoZe + DeltaRhoZb)*(1.0 + epsb)*(1.0 + epsb) 
-                 + SM.getEWSM()->delRhoZ_q(SM.BOTTOM) 
-                 - SM.getEWSM()->delRhoZ_l(SM.ELECTRON) );
+        return ( (rhoZe + DeltaRhoZb)*(1.0 + epsb)*(1.0 + epsb) );
     }
 }
 
