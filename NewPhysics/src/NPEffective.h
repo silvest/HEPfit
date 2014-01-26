@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -17,7 +17,7 @@
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class contains the necesary functions to compute new physics tree-level corrections to electroweak precision
+ * @details This class contains the necessary functions to compute new physics tree-level corrections to electroweak precision
  * observables, in the form of contributions to a general class of SM gauge-invariant dimension-six effective operators. These corrections are
  * parameterized in terms of the operator contributions to \f$M_W\f$, and to \f$Z\f$-pole observables
  * through the corrections to the different neutral-current effective couplings to leptons and quarks, \f$\delta g_{L,R}^f\f$
@@ -27,7 +27,7 @@ class NPEffective : public NPbase {
 public:
 
     /**
-     * @brief NPEffective constructor. 
+     * @brief Constructor.
      */
     NPEffective();
 
@@ -330,33 +330,6 @@ public:
      * @return the new physics correction to the neutral-current axial-vector coupling @f$g_A^q@f$
      */    
     virtual double deltaGAq(StandardModel::quark q) const;
-
-
-    ////////////////////////////////////////////////////////////////////////
-
-    /**
-     *@brief Auxiliary \f$\varepsilon_1\f$ function. Needed for consistency within
-     * the structure of the code.
-     */    
-    virtual double epsilon1() const;
-
-   /**
-     *@brief Auxiliary \f$\varepsilon_2\f$ function. Needed for consistency within
-     * the structure of the code.
-     */
-    virtual double epsilon2() const;
-
-   /**
-     *@brief Auxiliary \f$\varepsilon_3\f$ function. Needed for consistency within
-     * the structure of the code.
-     */
-    virtual double epsilon3() const;
-
-   /**
-     *@brief Auxiliary \f$\varepsilon_b\f$ function. Needed for consistency within
-     * the structure of the code.
-     */
-    virtual double epsilonb() const;
 
 
     ////////////////////////////////////////////////////////////////////////

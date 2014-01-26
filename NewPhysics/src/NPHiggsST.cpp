@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -133,32 +133,6 @@ double NPHiggsST::obliqueT() const
 double NPHiggsST::obliqueU() const
 {
     return 0.0;
-}
-
-
-////////////////////////////////////////////////////////////////////////
-
-double NPHiggsST::epsilon1() const
-{
-    throw std::runtime_error("ERROR: NPHiggsST::epsilon1() is not implemented");
-}
-
-
-double NPHiggsST::epsilon2() const
-{
-    throw std::runtime_error("ERROR: NPHiggsST::epsilon2() is not implemented");
-}
-
-
-double NPHiggsST::epsilon3() const
-{
-    throw std::runtime_error("ERROR: NPHiggsST::epsilon3() is not implemented");
-}
-
-
-double NPHiggsST::epsilonb() const
-{
-    throw std::runtime_error("ERROR: NPHiggsST::epsilonb() is not implemented");
 }
 
 

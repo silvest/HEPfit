@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -107,7 +107,7 @@ complex EWNPEpsilons::gVq(const StandardModel::quark q) const
         case StandardModel::STRANGE:
             eps1 = (static_cast<const NPEpsilons*> (&SM))->epsilon1();
             eps3 = (static_cast<const NPEpsilons*> (&SM))->epsilon3();
-             return myEWepsilons->gVq(q, eps1, eps3);
+            return myEWepsilons->gVq(q, eps1, eps3);
         case StandardModel::BOTTOM:
             eps1 = (static_cast<const NPEpsilons*> (&SM))->epsilon1();
             eps3 = (static_cast<const NPEpsilons*> (&SM))->epsilon3();

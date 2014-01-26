@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -88,6 +88,31 @@ bool NPSTU::CheckFlags() const
     return(NPbase::CheckFlags());
 }
 
+
+////////////////////////////////////////////////////////////////////////
+
+double NPSTU::epsilon1() const
+{
+    return ( myEWSM->epsilon1_SM() + obliqueThat() );
+}
+
+
+double NPSTU::epsilon2() const
+{
+    return ( myEWSM->epsilon2_SM() + obliqueUhat() );
+}
+
+
+double NPSTU::epsilon3() const
+{
+    return ( myEWSM->epsilon3_SM() + obliqueShat() );
+}
+
+
+double NPSTU::epsilonb() const
+{
+    return myEWSM->epsilonb_SM();
+}
 
 ////////////////////////////////////////////////////////////////////////
 

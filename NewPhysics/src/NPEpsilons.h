@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -38,7 +38,7 @@ public:
     static const std::string EPSILONflags[NEPSILONflags];
     
     /**
-     * @brief NPEpsilons constructor
+     * @brief Constructor. 
      */
     NPEpsilons();
 
@@ -64,49 +64,25 @@ public:
      * @return the SM value (FlagEpsilon1SM=True)
      * or the SM plus new physics value (FlagEpsilon1SM=False) of \f$\varepsilon_1\f$
      */
-    virtual double epsilon1() const 
-    {
-        if (FlagEpsilon1SM) 
-            return myEWSM->epsilon1_SM();
-        else
-            return myEpsilon_1;
-    }
+    double epsilon1() const;
 
     /**
      * @return the SM value (FlagEpsilon2SM=True)
      * or the SM plus new physics value (FlagEpsilon2SM=False) of \f$\varepsilon_2\f$
      */
-    virtual double epsilon2() const 
-    {
-        if (FlagEpsilon2SM) 
-            return myEWSM->epsilon2_SM();
-        else
-            return myEpsilon_2;
-    }
+    double epsilon2() const;
 
     /**
      * @return the SM value (FlagEpsilon3SM=True)
      * or the SM plus new physics value (FlagEpsilon3SM=False) of \f$\varepsilon_3\f$
      */
-    virtual double epsilon3() const 
-    {
-        if (FlagEpsilon3SM) 
-            return myEWSM->epsilon3_SM();
-        else
-            return myEpsilon_3;
-    }
+    double epsilon3() const;
  
     /**
      * @return the SM value (FlagEpsilonbSM=True)
      * or the SM plus new physics value (FlagEpsilonbSM=False) of \f$\varepsilon_b\f$
      */
-    virtual double epsilonb() const 
-    {
-        if (FlagEpsilonbSM) 
-            return myEWSM->epsilonb_SM();
-        else
-            return myEpsilon_b;
-    }    
+    double epsilonb() const;
 
     
     ////////////////////////////////////////////////////////////////////////     

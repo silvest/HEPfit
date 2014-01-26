@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -25,7 +25,7 @@ public:
     static const std::string STUVWXYvars[NSTUVWXYvars];
     
     /**
-     * @brief NPSTUVWXY constructor
+     * @brief Constructor
      */
     NPSTUVWXY();
 
@@ -110,24 +110,24 @@ public:
      * @return the value of the \f$\varepsilon_1\f$ parameter including new physics
      * corrections
      */
-    virtual double epsilon1() const;
+    double epsilon1() const;
 
     /**
      * @return the value of the \f$\varepsilon_2\f$ parameter including new physics
      * corrections
      */
-    virtual double epsilon2() const;
+    double epsilon2() const;
     
     /**
-      * @return the value of the \f$\varepsilon_3\f$ parameter including new physics
+     * @return the value of the \f$\varepsilon_3\f$ parameter including new physics
      * corrections
      */
-    virtual double epsilon3() const;
+    double epsilon3() const;
     
     /**
      * @return the SM value of the \f$\varepsilon_b\f$ parameter
      */
-    virtual double epsilonb() const;
+    double epsilonb() const;
 
     
     ////////////////////////////////////////////////////////////////////////     

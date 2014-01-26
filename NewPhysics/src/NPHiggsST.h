@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -22,7 +22,10 @@ class NPHiggsST : public NPbase {
 public:
     static const int NNPHIGGSSTvars = 8;
     static const std::string NPHIGGSSTvars[NNPHIGGSSTvars];
-    
+
+    /**
+     * @brief Constructor. 
+     */
     NPHiggsST();
 
     virtual std::string ModelName() const 
@@ -58,33 +61,6 @@ public:
      * physics models)
      */
     virtual double obliqueU() const;
-
-
-    ////////////////////////////////////////////////////////////////////////
-
-   /**
-     *@brief Auxiliary \f$\varepsilon_1\f$ function. Needed for consistency within
-     * the structure of the code.
-     */        
-    virtual double epsilon1() const;
-
-   /**
-     *@brief Auxiliary \f$\varepsilon_2\f$ function. Needed for consistency within
-     * the structure of the code.
-     */    
-    virtual double epsilon2() const;
-
-   /**
-     *@brief Auxiliary \f$\varepsilon_3\f$ function. Needed for consistency within
-     * the structure of the code.
-     */     
-    virtual double epsilon3() const;
-
-   /**
-     *@brief Auxiliary \f$\varepsilon_b\f$ function. Needed for consistency within
-     * the structure of the code.
-     */    
-    virtual double epsilonb() const;
 
 
     ////////////////////////////////////////////////////////////////////////

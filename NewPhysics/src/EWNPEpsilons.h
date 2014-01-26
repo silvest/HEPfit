@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -12,12 +12,17 @@
 #include <EWepsilons.h>
 
 /**
+ * @addtogroup NewPhysics
+ * @brief A project for model-independent analyses of new physics.
+ * @{
+ */
+
+/**
  * @class EWNPEpsilons
  * @brief A class for new physics in the form of contributions to the \f$\varepsilon_{1,2,3,b}\f$ parameters.
- * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class contains the necesary functions to compute new physics tree-level corrections to electroweak precision
+ * @details This class contains the necessary functions to compute new physics tree-level corrections to electroweak precision
  * observables, in the form of contributions to the \f$\varepsilon_{1,2,3,b}\f$ parameters. These corrections are
  * parameterized in terms of the \f$\varepsilon_i\f$ contributions to \f$M_W\f$, and to \f$Z\f$-pole observables
  * through the corrections to the different neutral-current effective couplings to leptons and quarks.
@@ -25,11 +30,19 @@
 class EWNPEpsilons : public EWSM {
 public:
 
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
     EWNPEpsilons(const StandardModel& SM_i);
 
 
     ////////////////////////////////////////////////////////////////////////
 
+    /**
+     * @brief 
+     * @return
+     */
     double Mw_NPEpsilons() const;
 
 
@@ -90,6 +103,10 @@ private:
     EWepsilons* myEWepsilons;
     
 };
+
+/**
+ * @}
+ */
 
 #endif	/* EWNPEPSILONS_H */
 

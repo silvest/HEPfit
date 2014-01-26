@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -113,6 +113,44 @@ bool NPEpsilons::CheckFlags() const
 {
     return(NPbase::CheckFlags());
 }
+
+
+////////////////////////////////////////////////////////////////////////
+
+double NPEpsilons::epsilon1() const
+{
+    if (FlagEpsilon1SM)
+        return myEWSM->epsilon1_SM();
+    else
+        return myEpsilon_1;
+}
+
+
+double NPEpsilons::epsilon2() const
+{
+    if (FlagEpsilon2SM)
+        return myEWSM->epsilon2_SM();
+    else
+        return myEpsilon_2;
+}
+
+
+double NPEpsilons::epsilon3() const
+{
+    if (FlagEpsilon3SM)
+        return myEWSM->epsilon3_SM();
+    else
+        return myEpsilon_3;
+}
+
+
+double NPEpsilons::epsilonb() const
+{
+    if (FlagEpsilonbSM)
+        return myEWSM->epsilonb_SM();
+    else
+        return myEpsilon_b;
+}   
 
 
 ////////////////////////////////////////////////////////////////////////

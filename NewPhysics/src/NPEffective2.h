@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -24,7 +24,7 @@ public:
     static const std::string NPEffectiveVars[NNPEffectiveVars];
 
     /**
-     * @brief NPEffective2 constructor.
+     * @brief Constructor.
      */
     NPEffective2()
     : NPEffective()

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -261,32 +261,6 @@ double NPEffective::deltaGAl(StandardModel::lepton l) const
 double NPEffective::deltaGAq(StandardModel::quark q) const
 {
     return ( deltaGLq(q) - deltaGRq(q) + NPbase::deltaGAq(q) );
-}
-
-
-////////////////////////////////////////////////////////////////////////
-
-double NPEffective::epsilon1() const
-{
-    throw std::runtime_error("ERROR: NPEffective::epsilon1() is not implemented");
-}
-
-
-double NPEffective::epsilon2() const
-{
-    throw std::runtime_error("ERROR: NPEffective::epsilon2() is not implemented");
-}
-
-
-double NPEffective::epsilon3() const
-{
-    throw std::runtime_error("ERROR: NPEffective::epsilon3() is not implemented");
-}
-
-
-double NPEffective::epsilonb() const
-{
-    throw std::runtime_error("ERROR: NPEffective::epsilonb() is not implemented");
 }
 
 

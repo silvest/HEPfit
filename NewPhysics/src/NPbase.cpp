@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -81,30 +81,6 @@ bool NPbase::CheckFlags() const
 
 
 ////////////////////////////////////////////////////////////////////////
-
-double NPbase::epsilon1() const
-{
-    return ( myEWSM->epsilon1_SM() + obliqueThat() );
-}
-
-
-double NPbase::epsilon2() const
-{
-    return ( myEWSM->epsilon2_SM() + obliqueUhat() );
-}
-
-
-double NPbase::epsilon3() const
-{
-    return ( myEWSM->epsilon3_SM() + obliqueShat() );
-}
-
-
-double NPbase::epsilonb() const
-{
-    return myEWSM->epsilonb_SM();
-}
-
 
 double NPbase::obliqueS() const
 {

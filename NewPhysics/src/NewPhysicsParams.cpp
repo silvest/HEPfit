@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,6 +13,8 @@
 #include "NPEffective.h"
 #include "NPZbbbar.h"
 #include "NewPhysicsParams.h"
+#include "NPSTU.h"
+#include "NPSTUVWXY.h"
 
 double NewPhysicsParams::computeThValue()
 {
@@ -23,6 +25,10 @@ double NewPhysicsParams::computeThValue()
             return (static_cast<const NPEpsilons*> (&SM))->epsilon1();
         else if (SM.ModelName().compare("NPEpsilons_pureNP") == 0)
             return (static_cast<const NPEpsilons_pureNP*> (&SM))->epsilon1();
+        else if (SM.ModelName().compare("NPSTU") == 0)
+            return (static_cast<const NPSTU*> (&SM))->epsilon1();
+        else if (SM.ModelName().compare("NPSTUVWXY") == 0)
+            return (static_cast<const NPSTUVWXY*> (&SM))->epsilon1();
         else
             throw std::runtime_error("NewPhysicsParams::computeThValue(): epsilon1 is not defined");
     else if (name.compare("epsilon2") == 0)
@@ -32,6 +38,10 @@ double NewPhysicsParams::computeThValue()
             return (static_cast<const NPEpsilons*> (&SM))->epsilon2();
         else if (SM.ModelName().compare("NPEpsilons_pureNP") == 0)
             return (static_cast<const NPEpsilons_pureNP*> (&SM))->epsilon2();
+        else if (SM.ModelName().compare("NPSTU") == 0)
+            return (static_cast<const NPSTU*> (&SM))->epsilon2();
+        else if (SM.ModelName().compare("NPSTUVWXY") == 0)
+            return (static_cast<const NPSTUVWXY*> (&SM))->epsilon2();
         else
             throw std::runtime_error("NewPhysicsParams::computeThValue(): epsilon2 is not defined");
     else if (name.compare("epsilon3") == 0)
@@ -41,6 +51,10 @@ double NewPhysicsParams::computeThValue()
             return (static_cast<const NPEpsilons*> (&SM))->epsilon3();
         else if (SM.ModelName().compare("NPEpsilons_pureNP") == 0)
             return (static_cast<const NPEpsilons_pureNP*> (&SM))->epsilon3();
+        else if (SM.ModelName().compare("NPSTU") == 0)
+            return (static_cast<const NPSTU*> (&SM))->epsilon3();
+        else if (SM.ModelName().compare("NPSTUVWXY") == 0)
+            return (static_cast<const NPSTUVWXY*> (&SM))->epsilon3();
         else
             throw std::runtime_error("NewPhysicsParams::computeThValue(): epsilon3 is not defined");
     else if (name.compare("epsilonb") == 0)
@@ -50,6 +64,10 @@ double NewPhysicsParams::computeThValue()
             return (static_cast<const NPEpsilons*> (&SM))->epsilonb();
         else if (SM.ModelName().compare("NPEpsilons_pureNP") == 0)
             return (static_cast<const NPEpsilons_pureNP*> (&SM))->epsilonb();
+        else if (SM.ModelName().compare("NPSTU") == 0)
+            return (static_cast<const NPSTU*> (&SM))->epsilonb();
+        else if (SM.ModelName().compare("NPSTUVWXY") == 0)
+            return (static_cast<const NPSTUVWXY*> (&SM))->epsilonb();
         else
             throw std::runtime_error("NewPhysicsParams::computeThValue(): epsilonb is not defined");
     else if (name.compare("deltaGVb") == 0)

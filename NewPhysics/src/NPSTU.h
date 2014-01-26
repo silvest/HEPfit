@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -18,7 +18,7 @@
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class contains the necesary functions to compute new physics tree-level corrections to electroweak precision
+ * @details This class contains the necessary functions to compute new physics tree-level corrections to electroweak precision
  * observables, in the form of contributions to the Peskin-Takeuchi oblique parameters \cite . These corrections are
  * parameterized in terms of the \f$S,~T\f$ and \f$U\f$ contributions to \f$M_W\f$, and to \f$Z\f$-pole observables
  * through the corrections to the different neutral-current effective couplings to leptons and quarks. The contributions
@@ -30,7 +30,7 @@ public:
     static const std::string STUvars[NSTUvars];
     
     /**
-     * @brief NPSTU constructor.
+     * @brief Constructor.
      */
     NPSTU();
 
@@ -77,6 +77,29 @@ public:
     }
 
 
+    ////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @return the value of the @f$\epsilon_1@f$ parameter
+     */
+    double epsilon1() const;
+
+    /**
+     * @return the value of the @f$\epsilon_2@f$ parameter
+     */
+    double epsilon2() const;
+
+    /**
+     * @return the value of the @f$\epsilon_3@f$ parameter
+     */
+    double epsilon3() const;
+
+    /**
+     * @return the value of the @f$\epsilon_b@f$ parameter
+     */
+    double epsilonb() const;
+
+    
     ////////////////////////////////////////////////////////////////////////
 
     /**

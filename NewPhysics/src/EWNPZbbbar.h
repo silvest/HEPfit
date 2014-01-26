@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -16,13 +16,17 @@
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class contains the necesary functions to compute new physics tree-level corrections to 
+ * @details This class contains the necessary functions to compute new physics tree-level corrections to
  * the \fZ\f$-pole electroweak precision observables, in the form of contributions to the neutral-current
  * couplings of the bottom quark, \f$g_V^b\f$ and \f$g_A^b\f$.
  */
 class EWNPZbbbar : public EWSM {
 public:
 
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
+     */
     EWNPZbbbar(const StandardModel& SM_i);
 
     

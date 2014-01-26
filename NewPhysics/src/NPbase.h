@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -25,6 +25,9 @@ public:
     static const int NNPbaseflags = 1;
     static const std::string NPbaseflags[NNPbaseflags];
 
+    /**
+     * @brief Constructor. 
+     */
     NPbase();
 
     virtual std::string ModelName() const
@@ -52,26 +55,6 @@ public:
 
 
     ////////////////////////////////////////////////////////////////////////
-
-    /**
-     * @return the value of the @f$\epsilon_1@f$ parameter
-     */
-    virtual double epsilon1() const;
-
-    /**
-     * @return the value of the @f$\epsilon_2@f$ parameter
-     */
-    virtual double epsilon2() const;
-
-    /**
-     * @return the value of the @f$\epsilon_3@f$ parameter
-     */
-    virtual double epsilon3() const;
-
-    /**
-     * @return the value of the @f$\epsilon_b@f$ parameter
-     */
-    virtual double epsilonb() const;
 
     /**
      * @return the value of the oblique parameter @f$S@f$

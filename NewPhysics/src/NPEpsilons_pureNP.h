@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -24,6 +24,9 @@ public:
     static const int NEPSILONpureNPvars = 4;
     static const std::string EPSILONpureNPvars[NEPSILONpureNPvars];
 
+    /**
+     * @brief Constructor. 
+     */
     NPEpsilons_pureNP();
 
     virtual std::string ModelName() const
@@ -47,22 +50,22 @@ public:
     /**
      * @return the pure new physics contribution to \f$\varepsilon_1\f$
      */
-    virtual double epsilon1() const;
+    double epsilon1() const;
 
     /**
      * @return the pure new physics contribution to \f$\varepsilon_2\f$
      */
-    virtual double epsilon2() const;
+    double epsilon2() const;
     
     /**
      * @return the pure new physics contribution to \f$\varepsilon_3\f$
      */
-    virtual double epsilon3() const;
+    double epsilon3() const;
     
     /**
      * @return the pure new physics contribution to \f$\varepsilon_b\f$
      */
-    virtual double epsilonb() const;
+    double epsilonb() const;
 
 
     ////////////////////////////////////////////////////////////////////////

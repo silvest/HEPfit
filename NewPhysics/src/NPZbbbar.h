@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -25,6 +25,9 @@ public:
     static const int NZbbbarflags = 2;
     static const std::string Zbbbarflags[NZbbbarflags];
 
+    /**
+     * @brief Constructor.
+     */
     NPZbbbar();
 
     virtual std::string ModelName() const 
@@ -76,11 +79,6 @@ public:
      * @return the new physics correction to the neutral-current axial-vector coupling @f$g_A^q@f$
      */
     virtual double deltaGAq(StandardModel::quark q) const;
-
-    /**
-     * @return the value of the @f$\varepsilon_b@f$ parameter
-     */
-    virtual double epsilonb() const;
         
     
     ////////////////////////////////////////////////////////////////////////

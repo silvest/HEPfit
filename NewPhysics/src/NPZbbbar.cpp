@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -164,23 +164,3 @@ double NPZbbbar::deltaGAl(StandardModel::lepton l) const
  }
 
  
-double NPZbbbar::epsilonb() const
-{
-    complex kappaZe = myEWSM->kappaZ_l(ELECTRON);
-    complex kappaZb;
-    if (IsFlagNotLinearizedNP())
-        kappaZb = myEWSM->kappaZ_q(BOTTOM); /* In this case, kappaZ_q(BOTTOM) includes deltaGVb and deltaGAb. */
-    else {
-        complex gVb = myEWSM->gVq_SM(BOTTOM) + deltaGVq(BOTTOM);
-        complex gAb = myEWSM->gAq_SM(BOTTOM) + deltaGAq(BOTTOM);
-        kappaZb = (1.0 - gVb/gAb)/(4.0*fabs(getQuarks(BOTTOM).getCharge())*sW2());
-    }
-
-    if (IsFlagWithoutNonUniversalVC())
-        return ( kappaZe.real()/kappaZb.real() - 1.0 );
-    else
-        return ( (kappaZe.real() + myEWSM->kappaZ_q_SM_FlavorDep(BOTTOM).real())
-                /kappaZb.real() - 1.0 );
-}
-
-
