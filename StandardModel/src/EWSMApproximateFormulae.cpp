@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -9,10 +9,8 @@
 #include <stdexcept>
 #include <sstream>
 
-// The latter value should be used in a test for the determination of m_h 
-// from A_FB^b. 
 #define UpperBoundForApproximateFormulae 1000.0
-//#define UpperBoundForApproximateFormulae 1500.0
+//#define UpperBoundForApproximateFormulae 1500.0 // for test
 
 
 EWSMApproximateFormulae::EWSMApproximateFormulae(const StandardModel& SM_i) 
@@ -60,8 +58,6 @@ double EWSMApproximateFormulae::Mw(const double DeltaAlphaL5q_i) const
         throw std::runtime_error("ApproximateFormulae::Mw(): mh=" + out.str() + " is out of range");
     }
         
-    // Inputs have to be varied within their combined 2 sigma region around 
-    // their central values (year 2003) adopted below.
     double dH = log(SM.getMHl()/100.0);
     double dh = pow((SM.getMHl()/100.0), 2.0);
     double dt = pow((SM.getMtpole()/174.3), 2.0) - 1.0;
@@ -237,9 +233,7 @@ double EWSMApproximateFormulae::DeltaR_TwoLoopEW_rem(const double DeltaAlphaL5q_
 
     double L_H = log(SM.getMHl()/100.0);
     double Delta_H = SM.getMHl()/100.0;
-    //double Delta_ale = DeltaAlphaL5q_i/0.05907 - 1.0;
     double Delta_t = pow((SM.getMtpole()/178.0), 2.0) - 1.0;
-    //double Delta_alphas = SM.getAlsMz()/0.117 - 1.0;
     double Delta_Z = SM.getMz()/91.1876 - 1.0;
     double Delta_W = Mw/80.404 - 1.0;
     
@@ -274,9 +268,7 @@ double EWSMApproximateFormulae::DeltaKappa_l_TwoLoopEW_rem(const double DeltaAlp
     
     double L_H = log(SM.getMHl()/100.0);
     double Delta_H = SM.getMHl()/100.0;
-    //double Delta_ale = DeltaAlphaL5q_i/0.05907 - 1.0;
     double Delta_t = pow((SM.getMtpole()/178.0), 2.0) - 1.0;
-    //double Delta_alphas = SM.getAlsMz()/0.117 - 1.0;
     double Delta_Z = SM.getMz()/91.1876 - 1.0;
     double Delta_W = Mw_i/80.404 - 1.0;
    
@@ -324,7 +316,7 @@ double EWSMApproximateFormulae::DeltaKappa_b_TwoLoopEW_rem(const double DeltaAlp
 }
 
 
-double EWSMApproximateFormulae::R0_bottom(const double DeltaAlphaL5q_i) const 
+double EWSMApproximateFormulae::R0_bottom_OLD(const double DeltaAlphaL5q_i) const
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae ) {
@@ -430,7 +422,7 @@ double EWSMApproximateFormulae::R0_bottom(const double DeltaAlphaL5q_i) const
 }
 
 
-double EWSMApproximateFormulae::Gu_over_Gb(const double DeltaAlphaL5q_i) const 
+double EWSMApproximateFormulae::Gu_over_Gb_OLD(const double DeltaAlphaL5q_i) const
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae ) {
@@ -483,7 +475,7 @@ double EWSMApproximateFormulae::Gu_over_Gb(const double DeltaAlphaL5q_i) const
 }
     
 
-double EWSMApproximateFormulae::Gd_over_Gb(const double DeltaAlphaL5q_i) const 
+double EWSMApproximateFormulae::Gd_over_Gb_OLD(const double DeltaAlphaL5q_i) const
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae ) {
@@ -536,71 +528,149 @@ double EWSMApproximateFormulae::Gd_over_Gb(const double DeltaAlphaL5q_i) const
 }
 
 
-double EWSMApproximateFormulae::GammaZ(const double DeltaAlphaL5q_i) const
+double EWSMApproximateFormulae::X(const std::string observable,
+                                  const double DeltaAlphaL5q_i) const
 {
-    // mHl = 125.7+-2.5 GeV
-    // mt = 173.2+-2.0
-    // als = 0.1184+-0.0050
-    // DeltaAlpha = 0.05900+-0.00050
-    // Mz= 91.1876+-0.0042
-    // --> GammaZ is better than 0.01 MeV.
-    
-    //double X0 = 2494.08; /* 1310.2256v1 */
-    double X0 = 2494.24;
-    double c1 = -2.0;
-    double c2 = 19.7;
-    double c3 = 58.60;
-    double c4 = -4.0;
-    double c5 = 8.0;
-    //double c6 = -55.8; /* 1310.2256v1 */
-    double c6 = -55.9;
-    //double c7 = 9266.0; /* 1310.2256v1 */
-    double c7 = 9267.0;
-
     double LH = log(SM.getMHl()/125.7);
-    //double Dt = SM.getMtpole()/173.2 - 1.0; /* 1310.2256v1 */
     double Dt = pow(SM.getMtpole()/173.2, 2.0) - 1.0;
     double Das = SM.getAlsMz()/0.1184 - 1.0;
     double Dal = DeltaAlphaL5q_i/0.059 - 1.0;
     double DZ = SM.getMz()/91.1876 - 1.0;
 
-    return ( (X0 + c1*LH + c2*Dt + c3*Das + c4*Das*Das + c5*Das*Dt + c6*Dal
-              + c7*DZ) / 1000.0 );
+    double X0, c1, c2, c3, c4, c5, c6, c7;
+    if (observable.compare("Gamma_nu") == 0) {
+        X0 = 167.157;
+        c1 = -0.055; c2 = 1.26; c3 = -0.19; c4 = -0.02; c5 = 0.36;
+        c6 = -0.1; c7 = 503.0;
+    } else if (observable.compare("Gamma_e_mu") == 0) {
+        X0 = 83.966;
+        c1 = -0.047; c2 = 0.807; c3 = -0.095; c4 = -0.01; c5 = 0.25; 
+        c6 = -1.1; c7 = 285.0;
+    } else if (observable.compare("Gamma_tau") == 0) {
+        X0 = 83.776;
+        c1 = -0.047; c2 = 0.806; c3 = -0.095; c4 = -0.01; c5 = 0.25; 
+        c6 = -1.1; c7 = 285.0;
+    } else if (observable.compare("Gamma_u") == 0) {
+        X0 = 299.936;
+        c1 = -0.34; c2 = 4.07; c3 = 14.27; c4 = 1.6; c5 = 1.8; 
+        c6 = -11.1; c7 = 1253.0;
+    } else if (observable.compare("Gamma_c") == 0) {
+        X0 = 299.860;
+        c1 = -0.34; c2 = 4.07; c3 = 14.27; c4 = 1.6; c5 = 1.8; 
+        c6 = -11.1; c7 = 1253.0;
+    } else if (observable.compare("Gamma_d_s") == 0) {
+        X0 = 382.770;
+        c1 = -0.34; c2 = 3.83; c3 = 10.20; c4 = -2.4; c5 = 0.67; 
+        c6 = -10.1; c7 = 1469.0;
+    } else if (observable.compare("Gamma_b") == 0) {
+        X0 = 375.724;
+        c1 = -0.30; c2 = -2.28; c3 = 10.53; c4 = -2.4; c5 = 1.2; 
+        c6 = -10.0; c7 = 1458.0;
+    } else if (observable.compare("GammaZ") == 0) {
+        X0 = 2494.24;
+        c1 = -2.0; c2 = 19.7; c3 = 58.60; c4 = -4.0; c5 = 8.0;
+        c6 = -55.9; c7 = 9267.0;
+    } else if (observable.compare("sigmaHadron") == 0) {
+        X0 = 41488.4;
+        c1 = 3.0; c2 = 60.9; c3 = -579.4; c4 = 38.0; c5 = 7.3;
+        c6 = 85.0; c7 = -86027.0;
+    } else if (observable.compare("R0_lepton") == 0) {
+        X0 = 20750.9;
+        c1 = -8.1; c2 = -39.0; c3 = 732.1; c4 = -44.0; c5 = 5.5; 
+        c6 = -358.0; c7 = 11702.0;
+    } else if (observable.compare("R0_charm") == 0) {
+        X0 = 172.23;
+        c1 = -0.029; c2 = 1.0; c3 = 2.3; c4 = 1.3; c5 = 0.38; 
+        c6 = -1.2; c7 = 37.0;
+    } else if (observable.compare("R0_bottom") == 0) {
+        X0 = 215.80;
+        c1 = 0.031; c2 = -2.98; c3 = -1.32; c4 = -0.84; c5 = 0.035; 
+        c6 = 0.73; c7 = -18.0;
+    } else
+        throw std::runtime_error("ApproximateFormulae::X(): " + observable + " is not defined");
+
+    return ( 0.001
+            * (X0 + c1*LH + c2*Dt + c3*Das + c4*Das*Das + c5*Das*Dt + c6*Dal + c7*DZ) );
 }
 
 
-double EWSMApproximateFormulae::sigmaHadron(const double DeltaAlphaL5q_i) const
+double EWSMApproximateFormulae::X_extended(const std::string observable,
+                                           const double DeltaAlphaL5q_i) const
 {
-    // mHl = 125.7+-2.5 GeV
-    // mt = 173.2+-2.0
-    // als = 0.1184+-0.0050
-    // DeltaAlpha = 0.05900+-0.00050
-    // Mz= 91.1876+-0.0042
-    // --> sigmaHadron is better than 0.1 pb. 
-
-    //double X0 = 41479.9; /* 1310.2256v1 */
-    double X0 = 41488.4;
-    //double c1 = 3.1; /* 1310.2256v1 */
-    double c1 = 3.0;
-    //double c2 = 59.7; /* 1310.2256v1 */
-    double c2 = 60.9;
-    //double c3 = -579.1; /* 1310.2256v1 */
-    double c3 = -579.4;
-    double c4 = 38.1;
-    double c5 = 7.3;
-    //double c6 = 88.0; /* 1310.2256v1 */
-    double c6 = 85.4;
-    //double c7 = -86074.0; /* 1310.2256v1 */
-    double c7 = -86027.0;
-
     double LH = log(SM.getMHl()/125.7);
-    //double Dt = SM.getMtpole()/173.2 - 1.0; /* 1310.2256v1 */
+    double DH = SM.getMHl()/125.7 - 1.0;
     double Dt = pow(SM.getMtpole()/173.2, 2.0) - 1.0;
     double Das = SM.getAlsMz()/0.1184 - 1.0;
     double Dal = DeltaAlphaL5q_i/0.059 - 1.0;
     double DZ = SM.getMz()/91.1876 - 1.0;
 
-    return ( (X0 + c1*LH + c2*Dt + c3*Das + c4*Das*Das + c5*Das*Dt + c6*Dal
-              + c7*DZ) / 1000.0 );
+    double X0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15;
+    if (observable.compare("Gamma_nu") == 0) {
+        X0 = 167.157;
+        a1 = -0.1567; a2 = -0.1194; a3 = 0.1031; a4 = -0.00269; a5 = 1.258;
+        a6 = -0.13; a7 = -0.020; a8 = 0.0133; a9 = -0.19; a10 = -0.018;
+        a11 = -0.021; a12 = 0.34; a13 = -0.084; a14 = 0.064; a15 = 503.0;
+    } else if (observable.compare("Gamma_e_mu") == 0) {
+        X0 = 83.966;
+        a1 = -0.1017; a2 = -0.06352; a3 = 0.05500; a4 = -0.00145; a5 = 0.8051;
+        a6 = -0.027; a7 = -0.017; a8 = 0.0066; a9 = -0.095; a10 = -0.010;
+        a11 = -0.015; a12 = 0.23; a13 = -1.1; a14 = 0.064; a15 = 285.0;
+    } else if (observable.compare("Gamma_tau") == 0) {
+        X0 = 83.776;
+        a1 = -0.1016; a2 = -0.06339; a3 = 0.05488; a4 = -0.00145; a5 = 0.8036;
+        a6 = -0.026; a7 = -0.017; a8 = 0.0066; a9 = -0.095; a10 = -0.010;
+        a11 = -0.015; a12 = 0.23; a13 = -1.1; a14 = 0.064; a15 = 285.0;
+    } else if (observable.compare("Gamma_u") == 0) {
+        X0 = 299.936;
+        a1 = -0.5681; a2 = -0.2636; a3 = 0.2334; a4 = -0.00592; a5 = 4.057;
+        a6 = -0.50; a7 = -0.058; a8 = 0.0352; a9 = 14.26; a10 = 1.6;
+        a11 = -0.081; a12 = 1.7; a13 = -11.1; a14 = 0.19; a15 = 1251.0;
+    } else if (observable.compare("Gamma_c") == 0) {
+        X0 = 299.859;
+        a1 = -0.5680; a2 = -0.2635; a3 = 0.2334; a4 = -0.00592; a5 = 4.056;
+        a6 = -0.50; a7 = -0.058; a8 = 0.0352; a9 = 14.26; a10 = 1.6;
+        a11 = -0.081; a12 = 1.7; a13 = -11.1; a14 = 0.19; a15 = 1251.0;
+    } else if (observable.compare("Gamma_d_s") == 0) {
+        X0 = 382.770;
+        a1 = -0.6199; a2 = -0.3182; a3 = 0.2800; a4 = -0.00711; a5 = 3.810;
+        a6 = -0.25; a7 = -0.060; a8 = 0.0420; a9 = 10.20; a10 = -2.4;
+        a11 = -0.083; a12 = 0.65; a13 = -10.1; a14 = 0.19; a15 = 1468.0;
+    } else if (observable.compare("Gamma_b") == 0) {
+        X0 = 375.723;
+        a1 = -0.5744; a2 = -0.3074; a3 = 0.2725; a4 = -0.00703; a5 = -2.292;
+        a6 = -0.027; a7 = -0.013; a8 = 0.0428; a9 = 10.53; a10 = -2.4;
+        a11 = -0.088; a12 = 1.2; a13 = -10.1; a14 = 0.19; a15 = 1456.0;
+    } else if (observable.compare("GammaZ") == 0) {
+        X0 = 2494.24;
+        a1 = -3.725; a2 = -2.019; a3 = 1.773; a4 = -0.04554; a5 = 19.63;
+        a6 = -2.0; a7 = -0.36; a8 = 0.257; a9 = 58.60; a10 = -4.1;
+        a11 = -0.53; a12 = 7.6; a13 = -56.0; a14 = 1.3; a15 = 9256.0;
+    } else if (observable.compare("sigmaHadron") == 0) {
+        X0 = 41488.4;
+        a1 = 3.88; a2 = 0.829; a3 = -0.911; a4 = 0.0076; a5 = 61.10;
+        a6 = 16.0; a7 = -2.0; a8 = -0.59; a9 = -579.4; a10 = 38.0;
+        a11 = -0.26; a12 = 6.5; a13 = 84.0; a14 = 9.5; a15 = -86152.0;
+    } else if (observable.compare("R0_lepton") == 0) {
+        X0 = 20750.9;
+        a1 = -10.00; a2 = -1.83; a3 = 1.878; a4 = -0.0343; a5 = -38.8;
+        a6 = -11.0; a7 = 1.2; a8 = 0.72; a9 = 732.1; a10 = -44.0 ;
+        a11 = -0.64; a12 = 5.6; a13 = -357.0; a14 = -4.7; a15 = 11771.0;
+    } else if (observable.compare("R0_charm") == 0) {
+        X0 = 172.23;
+        a1 = -0.034; a2 = -0.0058; a3 = 0.0054; a4 = -0.00012; a5 = 1.00;
+        a6 = -0.15; a7 = -0.0074; a8 = 0.00091; a9 = 2.3; a10 = 1.3;
+        a11 = -0.0013; a12 = 0.35; a13 = -1.2; a14 = 0.014; a15 = 37.0;
+    } else if (observable.compare("R0_bottom") == 0) {
+        X0 = 215.80;
+        a1 = 0.036; a2 = 0.0057; a3 = -0.0044; a4 = 0.000062; a5 = -2.98;
+        a6 = 0.20; a7 = 0.020; a8 = -0.00036; a9 = -1.3; a10 = -0.84;
+        a11 = -0.0019; a12 = 0.054; a13 = 0.73; a14 = -0.011; a15 = -18.0;
+    } else
+        throw std::runtime_error("ApproximateFormulae::X_extended(): " + observable + " is not defined");
+
+    return ( 0.001
+             * (X0 + a1*LH + a2*LH*LH + a3*DH + a4*DH*DH + a5*Dt + a6*Dt*Dt
+                + a7*Dt*LH + a8*Dt*LH*LH + a9*Das + a10*Das*Das + a11*Das*LH
+                + a12*Das*Dt + a13*Dal + a14*Dal*LH + a15*DZ) );
 }
 

@@ -1338,31 +1338,31 @@ double EWSM::RVh() const
 
 double EWSM::R0_bottom_SM() const
 {
-    return myApproximateFormulae->R0_bottom(DeltaAlphaL5q());
+    return myApproximateFormulae->R0_bottom_OLD(DeltaAlphaL5q());
 }
 
 
 double EWSM::Gu_over_Gb_SM() const
 {
-    return myApproximateFormulae->Gu_over_Gb(DeltaAlphaL5q());
+    return myApproximateFormulae->Gu_over_Gb_OLD(DeltaAlphaL5q());
 }
 
 
 double EWSM::Gd_over_Gb_SM() const
 {
-    return myApproximateFormulae->Gd_over_Gb(DeltaAlphaL5q());
+    return myApproximateFormulae->Gd_over_Gb_OLD(DeltaAlphaL5q());
 }
 
 
 double EWSM::GammaZ_SM() const
 {
-    return myApproximateFormulae->GammaZ(DeltaAlphaL5q());
+    return myApproximateFormulae->X_extended("GammaZ", DeltaAlphaL5q());
 }
 
 
 double EWSM::sigmaHadron_SM() const
 {
-    return myApproximateFormulae->sigmaHadron(DeltaAlphaL5q());
+    return myApproximateFormulae->X_extended("sigmaHadron", DeltaAlphaL5q());
 }
 
 
