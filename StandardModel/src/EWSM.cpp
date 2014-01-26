@@ -139,7 +139,7 @@ bool EWSM::checkScheme(schemes_EW& scheme_cache, const schemes_EW scheme_current
 
 double EWSM::DeltaAlphaLepton(const double s) const 
 {
-    if (s==SM.getMz()*SM.getMz())
+    if (s==myCache->Mz()*myCache->Mz())
         if (bUseCacheEWSM)
             if (checkSMparams(DeltaAlphaLepton_params_cache))
                 return DeltaAlphaLepton_cache;
@@ -158,7 +158,7 @@ double EWSM::DeltaAlphaLepton(const double s) const
     if (flag_order[EW3]) 
         DeltaAlphaL += myThreeLoopEW->DeltaAlpha_l(s);
 
-    if (s==SM.getMz()*SM.getMz())
+    if (s==myCache->Mz()*myCache->Mz())
         DeltaAlphaLepton_cache = DeltaAlphaL;
     return DeltaAlphaL;
 }
@@ -166,8 +166,8 @@ double EWSM::DeltaAlphaLepton(const double s) const
 
 double EWSM::DeltaAlphaL5q() const 
 {
-    double Mz2 = SM.getMz()*SM.getMz();    
-    return (DeltaAlphaLepton(Mz2) + SM.getDAle5Mz());
+    double Mz2 = myCache->Mz()*myCache->Mz();
+    return (DeltaAlphaLepton(Mz2) + myCache->dAle5Mz());
 }
 
 
@@ -197,7 +197,7 @@ double EWSM::DeltaAlpha() const
         if (checkSMparams(DeltaAlpha_params_cache))
             return DeltaAlpha_cache;
     
-    double Mz2 = SM.getMz()*SM.getMz();
+    double Mz2 = myCache->Mz()*myCache->Mz();
     DeltaAlpha_cache = DeltaAlphaL5q() + DeltaAlphaTop(Mz2);
     return DeltaAlpha_cache; 
 }
@@ -205,7 +205,7 @@ double EWSM::DeltaAlpha() const
 
 double EWSM::alphaMz() const 
 {
-    return (SM.getAle()/(1.0 - DeltaAlpha()));
+    return (myCache->ale()/(1.0 - DeltaAlpha()));
 }
 
 
@@ -213,12 +213,12 @@ double EWSM::alphaMz() const
 
 double EWSM::Mw0() const
 {
-    return ( sqrt(c02())*SM.getMz() );
+    return ( sqrt(c02())*myCache->Mz() );
 }
 
 double EWSM::s02() const
 {
-    double tmp = 1.0 - 4.0*M_PI*alphaMz()/sqrt(2.0)/SM.getGF()/SM.getMz()/SM.getMz();
+    double tmp = 1.0 - 4.0*M_PI*alphaMz()/sqrt(2.0)/myCache->GF()/myCache->Mz()/myCache->Mz();
     if (tmp < 0.0)
         throw std::runtime_error("Error in EWSM::s02()");
 
@@ -285,8 +285,8 @@ double EWSM::DeltaR_SM() const
 {
     /* in the experimental/running-width scheme */
     double Mw = Mw_SM();
-    double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
-    double tmp = sqrt(2.0)*SM.getGF()*sW2*Mw*Mw/M_PI/SM.getAle();
+    double sW2 = 1.0 - Mw*Mw/myCache->Mz()/myCache->Mz();
+    double tmp = sqrt(2.0)*myCache->GF()*sW2*Mw*Mw/M_PI/myCache->ale();
     if (schemeMw==NORESUM || schemeMw==APPROXIMATEFORMULA) {
         return (tmp - 1.0);
     } else {
@@ -298,7 +298,7 @@ double EWSM::DeltaR_SM() const
 double EWSM::cW2_SM() const 
 {
     double Mw = Mw_SM();
-    return ( Mw*Mw/SM.getMz()/SM.getMz() );
+    return ( Mw*Mw/myCache->Mz()/myCache->Mz() );
 }
 
 
@@ -313,14 +313,14 @@ double EWSM::sW2_SM() const
 double EWSM::Mzbar() const
 {
     double Gz = 2.4952; // experimental data
-    return ( SM.getMz() - Gz*Gz/2.0/SM.getMz() );
+    return ( myCache->Mz() - Gz*Gz/2.0/myCache->Mz() );
 }
 
 
 double EWSM::MwbarFromMw(const double Mw) const
 {
     double AlsMw = SM.Als(Mw, FULLNNLO);
-    double Gw_SM = 3.0*SM.getGF()*pow(Mw, 3.0)/2.0/sqrt(2.0)/M_PI
+    double Gw_SM = 3.0*myCache->GF()*pow(Mw, 3.0)/2.0/sqrt(2.0)/M_PI
                    *(1.0 + 2.0*AlsMw/3.0/M_PI);
 
     return ( Mw - Gw_SM*Gw_SM/2.0/Mw );
@@ -330,7 +330,7 @@ double EWSM::MwbarFromMw(const double Mw) const
 double EWSM::MwFromMwbar(const double Mwbar) const
 {
     double AlsMw = SM.Als(Mwbar, FULLNNLO);
-    double Gw_SM = 3.0*SM.getGF()*pow(Mwbar, 3.0)/2.0/sqrt(2.0)/M_PI
+    double Gw_SM = 3.0*myCache->GF()*pow(Mwbar, 3.0)/2.0/sqrt(2.0)/M_PI
                    *(1.0 + 2.0*AlsMw/3.0/M_PI);
 
     return (Mwbar + Gw_SM*Gw_SM/2.0/Mwbar);
@@ -341,7 +341,7 @@ double EWSM::DeltaRbar_SM() const
 {
     double Mwbar_SM = MwbarFromMw(Mw_SM());
     double sW2bar = 1.0 - Mwbar_SM*Mwbar_SM/Mzbar()/Mzbar();
-    double tmp = sqrt(2.0)*SM.getGF()*sW2bar*Mwbar_SM*Mwbar_SM/M_PI/SM.getAle();
+    double tmp = sqrt(2.0)*myCache->GF()*sW2bar*Mwbar_SM*Mwbar_SM/M_PI/myCache->ale();
 
     return (tmp - 1.0);
 }
@@ -486,7 +486,6 @@ complex EWSM::rhoZ_q_SM(const StandardModel::quark q) const
 
 complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const 
 {
-
     if (bUseCacheEWSM)    
         if (checkSMparams(kappaZ_l_params_cache[(int)l])
                 && checkScheme(schemeKappaZ_cache,schemeKappaZ))
@@ -502,7 +501,7 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const
         ImKappaZf += myTwoLoopQCD->deltaKappa_rem_l(l,Mw).imag();
 
         /* TEST */
-        //ImKappaZf -= SM.getAle()*SM.getAlsMz()/24.0/M_PI*(cW2_SM() - sW2_SM())/sW2_SM()/sW2_SM();        
+        //ImKappaZf -= myCache->ale()*myCache->alsMz()/24.0/M_PI*(cW2_SM() - sW2_SM())/sW2_SM()/sW2_SM();
         #endif         
     } else {
         /* compute Delta rho */
@@ -580,7 +579,7 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
         ImKappaZf += myTwoLoopQCD->deltaKappa_rem_q(q,Mw).imag();
         
         /* TEST */
-        //ImKappaZf -= SM.getAle()*SM.getAlsMz()/24.0/M_PI*(cW2_SM() - sW2_SM())/sW2_SM()/sW2_SM();        
+        //ImKappaZf -= myCache->ale()*myCache->alsMz()/24.0/M_PI*(cW2_SM() - sW2_SM())/sW2_SM()/sW2_SM();
         #endif                   
     } else { 
         /* compute Delta rho */
@@ -748,10 +747,10 @@ double EWSM::taub() const
 
 complex EWSM::rhoZ_l_SM_FlavorDep(const StandardModel::lepton l) const 
 {
-    double Mz = SM.getMz(); 
+    double Mz = myCache->Mz();
     double Mw = Mw_SM();
     double cW2 = Mw*Mw/Mz/Mz, sW2 = 1.0 - cW2;
-    StandardModel::lepton ELE = SM.ELECTRON;
+    StandardModel::lepton ELE = StandardModel::ELECTRON;
     complex ul = ( 3.0*myCache->vl(ELE,Mw)*myCache->vl(ELE,Mw) 
                    + myCache->al(ELE)*myCache->al(ELE) )/4.0/cW2*myOneLoopEW->FZ(Mz*Mz,Mw) 
                  + myOneLoopEW->FW_l(Mz*Mz,ELE,Mw);
@@ -760,7 +759,7 @@ complex EWSM::rhoZ_l_SM_FlavorDep(const StandardModel::lepton l) const
                  + myOneLoopEW->FW_l(Mz*Mz,l,Mw);
     
     complex dRho = 2.0*(uf - ul);
-    dRho *= SM.getAle()/4.0/M_PI/sW2;
+    dRho *= myCache->ale()/4.0/M_PI/sW2;
     return dRho; 
 }
 
@@ -773,10 +772,10 @@ complex EWSM::rhoZ_q_SM_FlavorDep(StandardModel::quark q) const
      * The remaining contribution is the same as that for DOWN and STRANGE. */
     if (q==StandardModel::BOTTOM) q=StandardModel::DOWN;
 
-    double Mz = SM.getMz(); 
+    double Mz = myCache->Mz();
     double Mw = Mw_SM();
     double cW2 = Mw*Mw/Mz/Mz, sW2 = 1.0 - cW2;
-    StandardModel::lepton ELE = SM.ELECTRON;
+    StandardModel::lepton ELE = StandardModel::ELECTRON;
     complex ul = ( 3.0*myCache->vl(ELE,Mw)*myCache->vl(ELE,Mw) 
                    + myCache->al(ELE)*myCache->al(ELE) )/4.0/cW2*myOneLoopEW->FZ(Mz*Mz,Mw) 
                  + myOneLoopEW->FW_l(Mz*Mz,ELE,Mw);
@@ -785,17 +784,17 @@ complex EWSM::rhoZ_q_SM_FlavorDep(StandardModel::quark q) const
                  + myOneLoopEW->FW_q(Mz*Mz,q,Mw);
     
     complex dRho = 2.0*(uf - ul);
-    dRho *= SM.getAle()/4.0/M_PI/sW2;
+    dRho *= myCache->ale()/4.0/M_PI/sW2;
     return dRho; 
 }
 
 
 complex EWSM::kappaZ_l_SM_FlavorDep(const StandardModel::lepton l) const 
 {
-    double Mz = SM.getMz(); 
+    double Mz = myCache->Mz();
     double Mw = Mw_SM();
     double cW2 = Mw*Mw/Mz/Mz, sW2 = 1.0 - cW2;
-    StandardModel::lepton ELE = SM.ELECTRON;
+    StandardModel::lepton ELE = StandardModel::ELECTRON;
     complex ul = ( 3.0*myCache->vl(ELE,Mw)*myCache->vl(ELE,Mw) 
                    + myCache->al(ELE)*myCache->al(ELE) )/4.0/cW2*myOneLoopEW->FZ(Mz*Mz,Mw) 
                  + myOneLoopEW->FW_l(Mz*Mz,ELE,Mw);
@@ -807,7 +806,7 @@ complex EWSM::kappaZ_l_SM_FlavorDep(const StandardModel::lepton l) const
     
     complex dKappa = (deltaf*deltaf - deltal*deltal)/4.0/cW2*myOneLoopEW->FZ(Mz*Mz,Mw) 
                      - uf + ul;
-    dKappa *= SM.getAle()/4.0/M_PI/sW2;
+    dKappa *= myCache->ale()/4.0/M_PI/sW2;
     return dKappa;
 }
 
@@ -820,10 +819,10 @@ complex EWSM::kappaZ_q_SM_FlavorDep(StandardModel::quark q) const
      * The remaining contribution is the same as that for DOWN and STRANGE. */
     if (q==StandardModel::BOTTOM) q=StandardModel::DOWN;
     
-    double Mz = SM.getMz(); 
+    double Mz = myCache->Mz();
     double Mw = Mw_SM();
     double cW2 = Mw*Mw/Mz/Mz, sW2 = 1.0 - cW2;
-    StandardModel::lepton ELE = SM.ELECTRON;
+    StandardModel::lepton ELE = StandardModel::ELECTRON;
     complex ul = ( 3.0*myCache->vl(ELE,Mw)*myCache->vl(ELE,Mw) 
                    + myCache->al(ELE)*myCache->al(ELE) )/4.0/cW2*myOneLoopEW->FZ(Mz*Mz,Mw) 
                  + myOneLoopEW->FW_l(Mz*Mz,ELE,Mw);
@@ -835,7 +834,7 @@ complex EWSM::kappaZ_q_SM_FlavorDep(StandardModel::quark q) const
     
     complex dKappa = (deltaf*deltaf - deltal*deltal)/4.0/cW2*myOneLoopEW->FZ(Mz*Mz,Mw) 
                      - uf + ul;
-    dKappa *= SM.getAle()/4.0/M_PI/sW2;
+    dKappa *= myCache->ale()/4.0/M_PI/sW2;
     return dKappa; 
 }
     
@@ -844,7 +843,7 @@ complex EWSM::kappaZ_q_SM_FlavorDep(StandardModel::quark q) const
 
 double EWSM::epsilon1_SM() const
 {
-    double rhoZe = rhoZ_l_SM(SM.ELECTRON).real();
+    double rhoZe = rhoZ_l_SM(StandardModel::ELECTRON).real();
     double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
 
     return DeltaRhoPrime;
@@ -854,11 +853,11 @@ double EWSM::epsilon1_SM() const
 double EWSM::epsilon2_SM() const
 {
     double s_W2 = sW2_SM(), c_W2 = cW2_SM();
-    double rhoZe = rhoZ_l_SM(SM.ELECTRON).real();
-    double sin2thetaEff = kappaZ_l_SM(SM.ELECTRON).real()*s_W2;
+    double rhoZe = rhoZ_l_SM(StandardModel::ELECTRON).real();
+    double sin2thetaEff = kappaZ_l_SM(StandardModel::ELECTRON).real()*s_W2;
     double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
     double DeltaKappaPrime = sin2thetaEff/s02() - 1.0;
-    double DeltaRW = 1.0 - M_PI*alphaMz()/(sqrt(2.0)*SM.getGF()*SM.getMz()*SM.getMz()*s_W2*c_W2);
+    double DeltaRW = 1.0 - M_PI*alphaMz()/(sqrt(2.0)*myCache->GF()*myCache->Mz()*myCache->Mz()*s_W2*c_W2);
 
     return ( c02()*DeltaRhoPrime + s02()*DeltaRW/(c02() - s02())
              - 2.0*s02()*DeltaKappaPrime );
@@ -867,8 +866,8 @@ double EWSM::epsilon2_SM() const
 
 double EWSM::epsilon3_SM() const
 {
-    double rhoZe = rhoZ_l_SM(SM.ELECTRON).real();
-    double sin2thetaEff = kappaZ_l_SM(SM.ELECTRON).real()*sW2_SM();
+    double rhoZe = rhoZ_l_SM(StandardModel::ELECTRON).real();
+    double sin2thetaEff = kappaZ_l_SM(StandardModel::ELECTRON).real()*sW2_SM();
     double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
     double DeltaKappaPrime = sin2thetaEff/s02() - 1.0;
 
@@ -880,40 +879,40 @@ double EWSM::epsilonb_SM() const
 {
     /* epsilon_b from g_A^b
      * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
-    //double rhoZe = rhoZ_l_SM(SM.ELECTRON).real();
-    //double rhoZb = rhoZ_q_SM(SM.BOTTOM).real();
+    //double rhoZe = rhoZ_l_SM(StandardModel::ELECTRON).real();
+    //double rhoZb = rhoZ_q_SM(StandardModel::BOTTOM).real();
     //double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
     //double eps1 = DeltaRhoPrime;
     //return ( - 1.0 + sqrt(rhoZb)/(1.0 + eps1/2.0) );
 
     /* epsilon_b from Re(g_V^b/g_A^b), i.e. Re(kappaZ_b)
      * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
-    complex kappaZe = kappaZ_l_SM(SM.ELECTRON);
-    complex kappaZb = kappaZ_q_SM(SM.BOTTOM);
+    complex kappaZe = kappaZ_l_SM(StandardModel::ELECTRON);
+    complex kappaZb = kappaZ_q_SM(StandardModel::BOTTOM);
     if (SM.IsFlagWithoutNonUniversalVC())
         return ( kappaZe.real()/kappaZb.real() - 1.0 );
     else
-        return ( (kappaZe.real() + kappaZ_q_SM_FlavorDep(SM.BOTTOM).real())
+        return ( (kappaZe.real() + kappaZ_q_SM_FlavorDep(StandardModel::BOTTOM).real())
                  /kappaZb.real() - 1.0 );
 
     /* epsilon_b from Gamma_b via Eqs.(11), (12) and (16) of IJMP A7,
      * 1031 (1998) by Altarelli et al.
      * Note: mb has to be mb=4.7, since Eq.(16) were derived with this value.
      */
-    //double als_Mz = SM.Als(SM.getMz(), FULLNNLO);
+    //double als_Mz = SM.Als(myCache->Mz(), FULLNNLO);
     //double delta_als = (als_Mz - 0.119)/M_PI;
-    //double delta_alpha = (alphaMz() - 1.0/128.90)/SM.getAle();
+    //double delta_alpha = (alphaMz() - 1.0/128.90)/myCache->ale();
     //double Gamma_b_Born = 0.3798*( 1.0 + delta_als - 0.42*delta_alpha);
     //double a = als_Mz/M_PI;
     //double RQCD = 1.0 + 1.2*a - 1.1*a*a - 13.0*a*a*a;
-    //double mb = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), FULLNNLO);// This is wrong!
+    //double mb = SM.Mrun(myCache->Mz(), SM.getQuarks(StandardModel::BOTTOM).getMass(), FULLNNLO);// This is wrong!
     //double mb = 4.7;
     //std::cout << "mb = " << mb << std::endl;
-    //double beta = sqrt(1.0 - 4.0*mb*mb/SM.getMz()/SM.getMz());
+    //double beta = sqrt(1.0 - 4.0*mb*mb/myCache->Mz()/myCache->Mz());
     //double Nc = 3.0;
-    //double factor = SM.getGF()*SM.getMz()*SM.getMz()*SM.getMz()/6.0/M_PI/sqrt(2.0);
-    //double Gamma_b = factor*beta*((3.0 - beta*beta)/2.0*gVq_SM(SM.BOTTOM).abs2()
-    //                              + beta*beta*gAq_SM(SM.BOTTOM).abs2())
+    //double factor = myCache->GF()*myCache->Mz()*myCache->Mz()*myCache->Mz()/6.0/M_PI/sqrt(2.0);
+    //double Gamma_b = factor*beta*((3.0 - beta*beta)/2.0*gVq_SM(StandardModel::BOTTOM).abs2()
+    //                              + beta*beta*gAq_SM(StandardModel::BOTTOM).abs2())
     //                 *Nc*RQCD*(1.0 + alphaMz()/12.0/M_PI);
     //return ( (Gamma_b/Gamma_b_Born - 1.0 - 1.42*epsilon1_SM()
     //          + 0.54*epsilon3_SM() )/2.29 );
@@ -950,7 +949,7 @@ double EWSM::GammaW_l_SM(const StandardModel::lepton li,
     if ( ((int)li+2)%2 || ((int)lj+3)%2 ) 
         throw std::runtime_error("Error in EWSM::GammaW_l_SM()"); 
     
-    double G0 = SM.getGF()*pow(Mw_SM(),3.0)/6.0/sqrt(2.0)/M_PI;    
+    double G0 = myCache->GF()*pow(Mw_SM(),3.0)/6.0/sqrt(2.0)/M_PI;
     complex V(0.0, 0.0, false);
     if ( (li==StandardModel::NEUTRINO_1 && lj==StandardModel::ELECTRON) ||
          (li==StandardModel::NEUTRINO_2 && lj==StandardModel::MU) ||
@@ -966,7 +965,7 @@ double EWSM::GammaW_q_SM(const StandardModel::quark qi,
     if ( ((int)qi+2)%2 || ((int)qj+3)%2 ) 
         throw std::runtime_error("Error in EWSM::GammaW_q_SM()"); 
     
-    double G0 = SM.getGF()*pow(Mw_SM(),3.0)/6.0/sqrt(2.0)/M_PI;    
+    double G0 = myCache->GF()*pow(Mw_SM(),3.0)/6.0/sqrt(2.0)/M_PI;
     complex V(0.0, 0.0, false);
 
     if ( qi==StandardModel::UP && qj==StandardModel::DOWN )
@@ -989,7 +988,7 @@ double EWSM::GammaW_q_SM(const StandardModel::quark qi,
         V = complex(0.0, 0.0, false);
     else if ( qi==StandardModel::TOP || qj==StandardModel::TOP )
         return (0.0);
-    double AlsMw = SM.AlsWithInit(Mw_SM(), SM.getAlsMz(), SM.getMz(), FULLNLO);
+    double AlsMw = SM.AlsWithInit(Mw_SM(), myCache->alsMz(), myCache->Mz(), FULLNLO);
     //double AlsMw = SM.Als(Mw_SM(), FULLNNLO);
     return ( 3.0*V.abs2()*G0*rho_GammaW_q_SM(qi,qj)*(1.0 + AlsMw/M_PI) );
 }
@@ -1001,15 +1000,15 @@ double EWSM::GammaW_SM() const
         if (checkSMparams(GammaW_params_cache))
             return GammaW_cache;
     
-    double GammaW = GammaW_l_SM(SM.NEUTRINO_1, SM.ELECTRON) 
-                    + GammaW_l_SM(SM.NEUTRINO_2, SM.MU) 
-                    + GammaW_l_SM(SM.NEUTRINO_3, SM.TAU)             
-                    + GammaW_q_SM(SM.UP, SM.DOWN) 
-                    + GammaW_q_SM(SM.UP, SM.STRANGE) 
-                    + GammaW_q_SM(SM.UP, SM.BOTTOM) 
-                    + GammaW_q_SM(SM.CHARM, SM.DOWN)
-                    + GammaW_q_SM(SM.CHARM, SM.STRANGE) 
-                    + GammaW_q_SM(SM.CHARM, SM.BOTTOM);
+    double GammaW = GammaW_l_SM(StandardModel::NEUTRINO_1, StandardModel::ELECTRON)
+                    + GammaW_l_SM(StandardModel::NEUTRINO_2, StandardModel::MU)
+                    + GammaW_l_SM(StandardModel::NEUTRINO_3, StandardModel::TAU)
+                    + GammaW_q_SM(StandardModel::UP, StandardModel::DOWN)
+                    + GammaW_q_SM(StandardModel::UP, StandardModel::STRANGE)
+                    + GammaW_q_SM(StandardModel::UP, StandardModel::BOTTOM)
+                    + GammaW_q_SM(StandardModel::CHARM, StandardModel::DOWN)
+                    + GammaW_q_SM(StandardModel::CHARM, StandardModel::STRANGE)
+                    + GammaW_q_SM(StandardModel::CHARM, StandardModel::BOTTOM);
     GammaW_cache = GammaW;
     return GammaW;
 }
@@ -1090,13 +1089,13 @@ double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
     if (!flag_order[EW2] && schemeMw!=NORESUM)
         throw std::runtime_error("Error in EWSM::resumMw()");       
     
-    double cW2_TMP = Mw_i*Mw_i/SM.getMz()/SM.getMz();
+    double cW2_TMP = Mw_i*Mw_i/myCache->Mz()/myCache->Mz();
     double sW2_TMP = 1.0 - cW2_TMP;
     
     double f_AlphaToGF, DeltaRho_sum = 0.0, DeltaRho_G;
     if (schemeMw==NORESUM) {
         for (int j=0; j<orders_EW_size; ++j) {
-            //f_AlphaToGF = sqrt(2.0)*SM.getGF()*pow(SM.getMz(),2.0)*sW2_TMP*cW2_TMP/M_PI/SM.getAle();
+            //f_AlphaToGF = sqrt(2.0)*myCache->GF()*pow(myCache->Mz(),2.0)*sW2_TMP*cW2_TMP/M_PI/myCache->ale();
             //if (j==(int)EW1QCD2)
             //    DeltaRho_sum += f_AlphaToGF*DeltaRho[(orders_EW)j];
             //else
@@ -1105,7 +1104,7 @@ double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
         }
     } else {
         // conversion: alpha(0) --> G_F
-        f_AlphaToGF = sqrt(2.0)*SM.getGF()*pow(SM.getMz(),2.0)*sW2_TMP*cW2_TMP/M_PI/SM.getAle();
+        f_AlphaToGF = sqrt(2.0)*myCache->GF()*pow(myCache->Mz(),2.0)*sW2_TMP*cW2_TMP/M_PI/myCache->ale();
         DeltaRho_sum = f_AlphaToGF*DeltaRho[EW1]
                        + f_AlphaToGF*DeltaRho[EW1QCD1]
                        + f_AlphaToGF*DeltaRho[EW1QCD2]                
@@ -1165,16 +1164,16 @@ double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
     if (schemeMw == NORESUM) {
         /* Mzbar and Mwbar are defined in the complex-pole scheme. */
 
-        double tmp = 4.0*M_PI*SM.getAle()/sqrt(2.0)/SM.getGF()/Mzbar()/Mzbar();
+        double tmp = 4.0*M_PI*myCache->ale()/sqrt(2.0)/myCache->GF()/Mzbar()/Mzbar();
         if (tmp*R > 1.0) throw std::runtime_error("EWSM::resumMw(): Negative (1-tmp*R)");
         double Mwbar = Mzbar()/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp*R));
 
         return MwFromMwbar(Mwbar);
     } else {
-        double tmp = 4.0*M_PI*SM.getAle()/sqrt(2.0)/SM.getGF()/SM.getMz()/SM.getMz();
+        double tmp = 4.0*M_PI*myCache->ale()/sqrt(2.0)/myCache->GF()/myCache->Mz()/myCache->Mz();
         if (tmp*R > 1.0) throw std::runtime_error("EWSM::resumMw(): Negative (1-tmp*R)");
     
-        return (SM.getMz()/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp*R)));
+        return (myCache->Mz()/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp*R)));
     }
 }
 
@@ -1199,8 +1198,8 @@ double EWSM::resumRhoZ(const double DeltaRho[orders_EW_size],
     double f_AlphaToGF, DeltaRho_sum = 0.0, DeltaRho_G;
     double DeltaRbar_rem_G, deltaRho_rem_G, deltaRho_rem_G2;
     // conversion: alpha(0) --> G_F
-    f_AlphaToGF = sqrt(2.0)*SM.getGF()*pow(SM.getMz(),2.0)
-                  *sW2_TMP*cW2_TMP/M_PI/SM.getAle();
+    f_AlphaToGF = sqrt(2.0)*myCache->GF()*pow(myCache->Mz(),2.0)
+                  *sW2_TMP*cW2_TMP/M_PI/myCache->ale();
     DeltaRho_sum = f_AlphaToGF*DeltaRho[EW1]
                    + f_AlphaToGF*DeltaRho[EW1QCD1]
                    + f_AlphaToGF*DeltaRho[EW1QCD2]
@@ -1240,8 +1239,8 @@ double EWSM::resumRhoZ(const double DeltaRho[orders_EW_size],
         double OnePlusTaub = 1.0 + taub(); 
         double OnePlusTaub2 = OnePlusTaub*OnePlusTaub;
         double rhoZbL;
-        deltaRho_rem_G += f_AlphaToGF*myCache->ale()/4.0/M_PI/sW2_TMP
-                          *pow(myCache->Mt()/Mw_TMP, 2.0);        
+        deltaRho_rem_G += f_AlphaToGF* myCache->ale()/4.0/M_PI/sW2_TMP
+                          *pow(myCache->Mt()/Mw_TMP, 2.0);
         switch (schemeRhoZ) {
             case NORESUM: 
                 rhoZ = (1.0 + DeltaRho_sum - DeltaRho_G*DeltaRbar_rem_G
@@ -1289,8 +1288,8 @@ double EWSM::resumKappaZ(const double DeltaRho[orders_EW_size],
     double f_AlphaToGF, DeltaRho_sum = 0.0, DeltaRho_G;
     double DeltaRbar_rem_G, deltaKappa_rem_G, deltaKappa_rem_G2;
     // conversion: alpha(0) --> G_F
-    f_AlphaToGF = sqrt(2.0)*SM.getGF()*pow(SM.getMz(),2.0)
-                  *sW2_TMP*cW2_TMP/M_PI/SM.getAle();
+    f_AlphaToGF = sqrt(2.0)*myCache->GF()*pow(myCache->Mz(),2.0)
+                  *sW2_TMP*cW2_TMP/M_PI/myCache->ale();
     DeltaRho_sum = f_AlphaToGF*DeltaRho[EW1]
                    + f_AlphaToGF*DeltaRho[EW1QCD1]
                    + f_AlphaToGF*DeltaRho[EW1QCD2]
