@@ -1,17 +1,22 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
  */
 
+#include <EWSM.h>
 #include <NPZbbbar.h>
 #include "Rlepton.h"
 
 
 double Rlepton::computeThValue() 
 {
-    double R0_l = myEW.Gamma_had()/myEW.Gamma_l(SM.ELECTRON);
+    double R0_l;
+    if (!SM.IsFlagNoApproximateRl() && SM.ModelName() != "NPEpsilons")
+        R0_l = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_lepton", SM.DeltaAlphaL5q());
+    else
+        R0_l = myEW.Gamma_had()/myEW.Gamma_l(SM.ELECTRON);
 
     /* NP contribution to the Zff vertex */
     if (myEW.checkNPZff())

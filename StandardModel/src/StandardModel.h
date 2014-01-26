@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -26,19 +26,20 @@ class EWSM; // forward reference to EWSM class
  * @details This class is ....
  *
  * Model parameters:
- * \li \b ale:&nbsp; the fine-structure constant @f$\alpha(0)@f$,
+ * \li \b ale:&nbsp; the fine-structure constant @f$\alpha@f$,
  * \li \b dAle5Mz:&nbsp; the five-flavour hadronic contribution to the electromagnetic coupling,
  * \li \b GF:&nbsp; the Fermi constant in @f${\rm GeV}^{-2}@f$,
  * \li \b mHl:&nbsp; the Higgs mass in GeV,
  * \li \b delMw:&nbsp; the theoretical uncertainty in @f$M_W@f$ in GeV,
  * \li \b delSin2th_l:&nbsp; the theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$,
- * \li \b muw:&nbsp;
- * \li \b mneutrino_1:&nbsp;
- * \li \b mneutrino_2:&nbsp;
- * \li \b mneutrino_3:&nbsp;
+ * \li \b delGammaZ:&nbsp; the theoretical uncertainty in @f$\Gamma_Z@f$ in GeV,
+ * \li \b mneutrino_1:&nbsp; the mass of the first-generation neutrino in GeV,
+ * \li \b mneutrino_2:&nbsp; the mass of the second-generation neutrino in GeV,
+ * \li \b mneutrino_3:&nbsp; the mass of the third-generation neutrino in GeV,
  * \li \b melectron:&nbsp; the electron mass in GeV,
  * \li \b mmu:&nbsp; the muon mass in GeV,
  * \li \b mtau:&nbsp; the tau mass in GeV,
+ * \li \b muw:&nbsp;
  * \li \b lambda:&nbsp;
  * \li \b A:&nbsp;
  * \li \b rhob:&nbsp;
@@ -52,9 +53,11 @@ class EWSM; // forward reference to EWSM class
  *
  * Flags:
  * \li \b WithoutNonUniversalVC:&nbsp;
- * \li \b NoApproximateGqOverGb:&nbsp;
  * \li \b NoApproximateGammaZ:&nbsp;
  * \li \b NoApproximateSigmaH:&nbsp;
+ * \li \b NoApproximateRl:&nbsp;
+ * \li \b NoApproximateRc:&nbsp;
+ * \li \b NoApproximateRb:&nbsp;
  *
  */
 class StandardModel: public QCD {
@@ -74,7 +77,7 @@ public:
 
     static const int NSMvars = 24;
     static const std::string SMvars[NSMvars];
-    static const int NSMflags = 4;
+    static const int NSMflags = 6;
     static const std::string SMflags[NSMflags];
 
     /**
@@ -149,11 +152,6 @@ public:
         return FlagWithoutNonUniversalVC;
     }
 
-    bool IsFlagNoApproximateGqOverGb() const
-    {
-        return FlagNoApproximateGqOverGb;
-    }
-
     bool IsFlagNoApproximateGammaZ() const
     {
         return FlagNoApproximateGammaZ;
@@ -162,6 +160,21 @@ public:
     bool IsFlagNoApproximateSigmaH() const
     {
         return FlagNoApproximateSigmaH;
+    }
+
+    bool IsFlagNoApproximateRl() const
+    {
+        return FlagNoApproximateRl;
+    }
+
+    bool IsFlagNoApproximateRc() const
+    {
+        return FlagNoApproximateRc;
+    }
+
+    bool IsFlagNoApproximateRb() const
+    {
+        return FlagNoApproximateRb;
     }
 
     
@@ -551,9 +564,11 @@ private:
     StandardModelMatching* myStandardModelMatching;
 
     bool FlagWithoutNonUniversalVC;
-    bool FlagNoApproximateGqOverGb;
     bool FlagNoApproximateGammaZ;
     bool FlagNoApproximateSigmaH;
+    bool FlagNoApproximateRl;
+    bool FlagNoApproximateRc;
+    bool FlagNoApproximateRb;
 
     bool requireCKM;
     bool requireYe;

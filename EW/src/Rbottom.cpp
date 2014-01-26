@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,7 +14,7 @@
 double Rbottom::computeThValue() 
 { 
     double R0_b;
-    if (!SM.IsFlagNoApproximateGqOverGb() && SM.ModelName() != "NPEpsilons")
+    if (!SM.IsFlagNoApproximateRb() && SM.ModelName() != "NPEpsilons")
         R0_b = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_bottom", SM.DeltaAlphaL5q());
     else
         R0_b = myEW.Gamma_q(SM.BOTTOM)/myEW.Gamma_had();

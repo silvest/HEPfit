@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -27,8 +27,9 @@ const std::string StandardModel::SMvars[NSMvars] = {
 };
 
 const std::string StandardModel::SMflags[NSMflags] = {
-    "withoutNonUniversalVCinEpsilons",
-    "NoApproximateGqOverGb", "NoApproximateGammaZ", "NoApproximateSigmaH"
+    "withoutNonUniversalVCinEpsilons", 
+    "NoApproximateGammaZ", "NoApproximateSigmaH",
+    "NoApproximateRl", "NoApproximateRc", "NoApproximateRb"
 };
 
 StandardModel::StandardModel() 
@@ -36,9 +37,11 @@ StandardModel::StandardModel()
         Ye(3, 3, 0.)
 {
     FlagWithoutNonUniversalVC = false;
-    FlagNoApproximateGqOverGb = false;
     FlagNoApproximateGammaZ = false;
     FlagNoApproximateSigmaH = false;
+    FlagNoApproximateRl = false;
+    FlagNoApproximateRc = false;
+    FlagNoApproximateRb = false;
     
     leptons[NEUTRINO_1].setCharge(0.);
     leptons[NEUTRINO_2].setCharge(0.);    
@@ -256,14 +259,20 @@ bool StandardModel::setFlag(const std::string name, const bool& value)
     if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
         FlagWithoutNonUniversalVC = value;
         res = true;
-    } else if (name.compare("NoApproximateGqOverGb") == 0) {
-        FlagNoApproximateGqOverGb = value;
-        res = true;
     } else if (name.compare("NoApproximateGammaZ") == 0) {
         FlagNoApproximateGammaZ = value;
         res = true;
     } else if (name.compare("NoApproximateSigmaH") == 0) {
         FlagNoApproximateSigmaH = value;
+        res = true;
+    } else if (name.compare("NoApproximateRl") == 0) {
+        FlagNoApproximateRl = value;
+        res = true;
+    } else if (name.compare("NoApproximateRc") == 0) {
+        FlagNoApproximateRc = value;
+        res = true;
+    } else if (name.compare("NoApproximateRb") == 0) {
+        FlagNoApproximateRb = value;
         res = true;
     } else
         res = QCD::setFlag(name,value);
