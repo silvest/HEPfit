@@ -19,8 +19,8 @@ using namespace gslpp;
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class handles three-loop %QCD contributions of
- * @f$O(G_\mu\alpha_s^2M_t^2(1+M_Z^2/m_t^2+(M_Z^2/m_t^2)^2))@f$
- * to the gauge-boson vacuum-polarization amplitudes with heavy top-quark loops.
+ * @f$O(\alpha\alpha_s^2)@f$ to the electromagnetic coupling and
+ * the gauge-boson vacuum-polarization amplitudes.
  * The three-loop corrections to the following quantities are computed:
  *
  * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$,
@@ -49,7 +49,7 @@ public:
      * @brief Leptonic contribution of @f$O(\alpha\alpha_s^2)@f$
      * to the electromagnetic coupling @f$\alpha@f$.
      * @details This contribution vanishes at @f$O(\alpha\alpha_s^2)@f$. 
-     * @param[in] s invariant mass squared 
+     * @param[in] s invariant mass squared in units of GeV squared
      * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha\alpha_s^2}=0@f$
      */
     double DeltaAlpha_l(const double s) const;
@@ -60,7 +60,7 @@ public:
      * @details A simple numerical formula presented in @cite Kuhn:1998ze is
      * employed. See also @cite Chetyrkin:1995ii @cite Chetyrkin:1996cf and
      * @cite Chetyrkin:1997mb.
-     * @param[in] s invariant mass squared 
+     * @param[in] s invariant mass squared
      * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha\alpha_s^2}@f$ 
      */
     double DeltaAlpha_t(const double s) const;
