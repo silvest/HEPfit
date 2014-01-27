@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,18 +14,31 @@ using namespace gslpp;
 /**
  * @class EWSMThreeLoopQCD
  * @ingroup StandardModel
- * @brief A class for @f$O(\alpha\alpha_s^2)@f$ three-loop radiative corrections to the EW precision observables.  
+ * @brief A class for @f$O(\alpha\alpha_s^2)@f$ three-loop corrections to the
+ * %EW precision observables.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details 
+ * @details This class handles three-loop %QCD contributions of
+ * @f$O(G_\mu\alpha_s^2M_t^2(1+M_Z^2/m_t^2+(M_Z^2/m_t^2)^2))@f$
+ * to the gauge-boson vacuum-polarization amplitudes with heavy top-quark loops.
+ * The three-loop corrections to the following quantities are computed:
+ *
+ * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$,
+ * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$,
+ * @li @f$\Delta\rho@f$,
+ * @li @f$\Delta r_{\mathrm{rem}}@f$,
+ * @li @f$\delta\rho_{\mathrm{rem}}^{f}@f$.
+ * @li @f$\delta\kappa_{\mathrm{rem}}^{f}@f$.
+ *
+ * See also the description of EWSM class for details on the above quantities. 
  */
 class EWSMThreeLoopQCD {
 
 public:
 
     /**
-     * @brief EWSMThreeLoopQCD constructor
-     * @param[in] cache_i reference to an EWSMcommon object
+     * @brief Constructor. 
+     * @param[in] cache_i a reference to an object of type EWSMcache
      */
     EWSMThreeLoopQCD(const EWSMcache& cache_i);
 
@@ -33,62 +46,135 @@ public:
     ////////////////////////////////////////////////////////////////////////
     
     /**
-     * @brief leptonic contribution to alpha
+     * @brief Leptonic contribution of @f$O(\alpha\alpha_s^2)@f$
+     * to the electromagnetic coupling @f$\alpha@f$.
+     * @details This contribution vanishes at @f$O(\alpha\alpha_s^2)@f$. 
      * @param[in] s invariant mass squared 
-     * @return Delta alpha_{lept}^{alpha alpha_s^2}
+     * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha\alpha_s^2}=0@f$
      */
     double DeltaAlpha_l(const double s) const;
 
     /**
-     * @brief top-quark contribution to alpha
+     * @brief Top-quark contribution of @f$O(\alpha\alpha_s^2)@f$
+     * to the electromagnetic coupling @f$\alpha@f$.
+     * @details A simple numerical formula presented in @cite Kuhn:1998ze is
+     * employed. See also @cite Chetyrkin:1995ii @cite Chetyrkin:1996cf and
+     * @cite Chetyrkin:1997mb.
      * @param[in] s invariant mass squared 
-     * @return Delta alpha_{top}^{alpha alpha_s^2}
+     * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha\alpha_s^2}@f$ 
      */
     double DeltaAlpha_t(const double s) const;
     
     /**
-     * @brief leading contribution to Delta r
-     * @param[in] Mw_i the W-boson mass
-     * @return Delta rho^{alpha alpha_s^2}
+     * @brief Leading three-loop contribution of @f$O(\alpha\alpha_s^2)@f$
+     * to @f$\Delta\rho@f$. 
+     * @details The formula used here is given by
+     * @f[
+     * \Delta\rho^{\alpha\alpha_s^2} 
+     * = 3\,X_t^\alpha\biggl(\frac{\alpha_s(m_t^2)}{\pi}\biggr)^2 \delta^{\mathrm{QCD}}_3,
+     * @f]
+     * where @f$X_t^\alpha = \alpha\, m_t^2/(16\pi s_W^2 M_W^2)@f$, and
+     * @f$\delta^{\mathrm{QCD}}_3@f$ is computed via deltaQCD_3().
+     * See @cite Avdeev:1994db @cite Chetyrkin:1995ix and @cite Chetyrkin:1995js
+     * (also @cite Bardin:1999ak).
+     * This quantity contributes to @f$\Delta r@f$ and the @f$Zf\bar{f}@f$
+     * effective couplings @f$\rho_Z^f@f$ and @f$\kappa_Z^f@f$.
+     * See also the description of EWSM class.
+     * @param[in] Mw_i the @f$W@f$-boson mass
+     * @return @f$\Delta\rho^{\alpha\alpha_s^2}@f$
      */
     double DeltaRho(const double Mw_i) const;
 
     /**
-     * @brief remainder contribution to Delta r
-     * @param[in] Mw_i the W-boson mass
-     * @return Delta r_{rem}^{alpha alpha_s^2}
+     * @brief Remainder contribution of @f$O(\alpha\alpha_s^2)@f$ to @f$\Delta r@f$.
+     * @details The three-loop remainder contribution of @f$O(\alpha\alpha_s^2)@f$
+     * is obtained from the @f$O(\alpha)@f$ remainder contribution @cite Halzen:1990je :
+     * @f[
+     * \Delta r_{\mathrm{rem},ud}^{\alpha}
+     * \biggl[1+\frac{\alpha_s(M_Z^2)}{\pi}
+     * + 1.4097\, \biggl(\frac{\alpha_s(M_Z^2)}{\pi}\biggr)^2\biggr]
+     * = \Delta r_{\mathrm{rem},ud}^{\alpha} 
+     *   + \Delta r_{\mathrm{rem}}^{\alpha\alpha_s}
+     *   + \Delta r_{\mathrm{rem}}^{\alpha\alpha_s^2},
+     * @f]
+     * where @f$\Delta r_{\mathrm{rem},ud}^{\alpha}@f$ is the one-loop light-quark
+     * contribution to @f$\Delta r_{\mathrm{rem}}^{\alpha}@f$ and given by
+     * @f[
+     * \Delta r_{\mathrm{rem},ud}^{\alpha}
+     * = - \frac{\alpha}{\pi} \frac{c_W^2 - s_W^2}{4s_W^4}\,\ln c_W^2,
+     * @f]
+     * and the %QCD corrections are associated with the @f$R@f$ ratio
+     * (see, e.g., @cite Baikov:2008jh):
+     * @f[
+     * R = \frac{11}{3}\biggl[ 1 + \frac{\alpha_s(M_Z^2)}{\pi}
+     * + 1.4097\, \biggl(\frac{\alpha_s(M_Z^2)}{\pi}\biggr)^2 + \cdots \biggr].
+     * @f]
+     * @param[in] Mw_i the @f$W@f$-boson mass
+     * @return @f$\Delta r_{\mathrm{rem}}^{\alpha\alpha_s^2}@f$ 
      */
     double DeltaR_rem(const double Mw_i) const;
 
     /**
-     * @brief remainder contribution to rho_Z^l
-     * @param[in] l name of lepton
-     * @param[in] Mw_i the W-boson mass
-     * @return delta rho_{rem}^{l, alpha alpha_s^2}
+     * @brief Remainder contribution of @f$O(\alpha\alpha_s^2)@f$ 
+     * to the effective couplings @f$\rho_Z^l@f$.
+     * @details This contribution is not implemented, since it is not available
+     * in the literature.
+     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] Mw_i the @f$W@f$-boson mass
+     * @return @f$\delta\rho_{\mathrm{rem}}^{l, \alpha\alpha_s^2}@f$ 
      */
     complex deltaRho_rem_l(const StandardModel::lepton l, const double Mw_i) const;
 
     /**
-     * @brief remainder contribution to rho_Z^q
-     * @param[in] q name of quark
-     * @param[in] Mw_i the W-boson mass
-     * @return delta rho_{rem}^{q, alpha alpha_s^2}
+     * @brief Remainder contribution of @f$O(\alpha\alpha_s^2)@f$ 
+     * to the effective couplings @f$\rho_Z^q@f$.
+     * @details This contribution is not implemented, since it is not available
+     * in the literature.
+     * @param[in] q name of a quark (see QCD::quark)
+     * @param[in] Mw_i the @f$W@f$-boson mass
+     * @return @f$\delta\rho_{\mathrm{rem}}^{q, \alpha\alpha_s^2}@f$
      */
     complex deltaRho_rem_q(const StandardModel::quark q, const double Mw_i) const;
 
     /**
-     * @brief remainder contribution to kappa_Z^l
-     * @param[in] l name of lepton
-     * @param[in] Mw_i the W-boson mass
-     * @return delta kappa_{rem}^{l, alpha alpha_s^2}
+     * @brief Remainder contribution of @f$O(\alpha\alpha_s^2)@f$ 
+     * to the effective couplings @f$\kappa_Z^l@f$.
+     * @details The formula used here is given by
+     * @f[
+     * \delta\kappa_{\mathrm{rem}}^{l,\alpha\alpha_s^2}
+     * = - 3\,X_t^\alpha \frac{c_W^2}{s_W^2}
+     * \biggl(\frac{\alpha_s(m_t^2)}{\pi}\biggr)^2
+     * \bigl( \delta^{\mathrm{QCD}}_3
+     * + \mathrm{Re}\,[\delta^{\mathrm{QCD}}_{\kappa,\,3}]\bigr),
+     * @f]
+     * where @f$\delta^{\mathrm{QCD}}_3@f$ and @f$\delta^{\mathrm{QCD}}_3@f$ 
+     * are computed via deltaQCD_3() and deltaQCD_kappa3(), respectively.
+     * See @cite Avdeev:1994db @cite Chetyrkin:1995ix and @cite Chetyrkin:1995js
+     * (also @cite Bardin:1999ak).
+     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] Mw_i the @f$W@f$-boson mass
+     * @return @f$\delta\kappa_{\mathrm{rem}}^{l, \alpha\alpha_s^2}@f$
      */
     complex deltaKappa_rem_l(const StandardModel::lepton l, const double Mw_i) const;
                                                   
     /**
-     * @brief remainder contribution to kappa_Z^q
-     * @param[in] q name of quark
-     * @param[in] Mw_i the W-boson mass
-     * @return delta kappa_{rem}^{q, alpha alpha_s^2}
+     * @brief Remainder contribution of @f$O(\alpha\alpha_s^2)@f$ 
+     * to the effective couplings @f$\kappa_Z^q@f$.
+     * @details The formula used here is given by
+     * @f[
+     * \delta\kappa_{\mathrm{rem}}^{q,\alpha\alpha_s^2}
+     * = - 3\,X_t^\alpha \frac{c_W^2}{s_W^2}
+     * \biggl(\frac{\alpha_s(m_t^2)}{\pi}\biggr)^2
+     * \bigl( \delta^{\mathrm{QCD}}_3
+     * + \mathrm{Re}\,[\delta^{\mathrm{QCD}}_{\kappa,\,3}]\bigr),
+     * @f]
+     * where @f$\delta^{\mathrm{QCD}}_3@f$ and @f$\delta^{\mathrm{QCD}}_3@f$
+     * are computed via deltaQCD_3() and deltaQCD_kappa3(), respectively.
+     * See @cite Avdeev:1994db @cite Chetyrkin:1995ix and @cite Chetyrkin:1995js
+     * (also @cite Bardin:1999ak).
+     * @param[in] q name of a quark (see QCD::quark)
+     * @param[in] Mw_i the @f$W@f$-boson mass
+     * @return @f$\delta\kappa_{\mathrm{rem}}^{q, \alpha\alpha_s^2}@f$
      */
     complex deltaKappa_rem_q(const StandardModel::quark q, const double Mw_i) const;    
     
@@ -96,20 +182,34 @@ public:
     ////////////////////////////////////////////////////////////////////////        
     
 private:
-    const EWSMcache& cache;
+    const EWSMcache& cache;///< A reference to an object of type EWSMcache. 
 
     
     ////////////////////////////////////////////////////////////////////////        
     
     /**
-     * @param[in] Mw_i the W-boson mass
-     * @return delta^QCD_3 for the leading contribution to Delta rho
+     * @brief The function @f$\delta^{\mathrm{QCD}}_3@f$. 
+     * @details This function describes the leading three-loop %QCD contribution
+     * @f$O(G_\mu\alpha_s^2M_t^2(1+M_Z^2/m_t^2+(M_Z^2/m_t^2)^2))@f$
+     * to @f$\Delta\rho@f$, as explained in the description of DeltaRho(). 
+     * See @cite Avdeev:1994db @cite Chetyrkin:1995ix and @cite Chetyrkin:1995js
+     * (also @cite Bardin:1999ak).
+     * @param[in] Mw_i the @f$W@f$-boson mass
+     * @return @f$\delta^{\mathrm{QCD}}_3@f$
      */
     double deltaQCD_3(const double Mw_i) const;    
     
     /**
-     * @param[in] Mw_i the W-boson mass
-     * @return delta^QCD_{kappa,3} for the remainder contribution
+     * @brief The function @f$\delta^{\mathrm{QCD}}_{\kappa, 3}@f$.
+     * @details The sum
+     * @f$\delta^{\mathrm{QCD}}_3 + \delta^{\mathrm{QCD}}_{\kappa, 3}@f$
+     * corresponds to the
+     * @f$O(G_\mu\alpha_s^2M_t^2(1+M_Z^2/m_t^2+(M_Z^2/m_t^2)^2))@f$ contribution
+     * to @f$\delta\kappa_{\mathrm{rem}}^{f}@f$.
+     * See @cite Avdeev:1994db @cite Chetyrkin:1995ix and @cite Chetyrkin:1995js
+     * (also @cite Bardin:1999ak).
+     * @param[in] Mw_i the @f$W@f$-boson mass
+     * @return @f$\delta^{\mathrm{QCD}}_{\kappa,3}@f$
      */
     complex deltaQCD_kappa3(const double Mw_i) const;
     

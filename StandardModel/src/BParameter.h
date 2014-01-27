@@ -15,7 +15,7 @@ using namespace gslpp;
 
 /**
  * @addtogroup StandardModel
- * @brief A project for the Standard Model.
+ * @brief A project for the Standard %Model.
  * @{
  */
 
