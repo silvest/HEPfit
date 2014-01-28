@@ -100,7 +100,6 @@ public:
      * @param[in] Mw the W-boson mass 
      * @param[in] GammaZ the Z-boson decay width
      * @param[in] bDP with/without dressed gauge-boson propagators
-     * @param[in] bWEAK with/without weak corrections
      * @param[in] bQED with/without QED corrections
      * @return the total cross section for e^+ e^- -> l lbar in GeV^{-2}
      */
@@ -115,7 +114,6 @@ public:
      * @param[in] Mw the W-boson mass 
      * @param[in] GammaZ the Z-boson decay width
      * @param[in] bDP with/without dressed gauge-boson propagators
-     * @param[in] bWEAK with/without weak corrections
      * @param[in] bQED with/without QED corrections
      * @return the total cross section for e^+ e^- -> q qbar in GeV^{-2}
      */

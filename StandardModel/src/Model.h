@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -63,7 +63,7 @@ public:
     /**
      * @brief A method to check if all the mandatory parameters for the model have ben provided
      * in the SomeModel.conf file.
-     * @param[in]Dpar a map of parameters that are being updated in the Monte Carlo run
+     * @param[in] Dpar a map of parameters that are being updated in the Monte Carlo run
      * (including parameters that are varied and those that are held constant)
      * @return
      */

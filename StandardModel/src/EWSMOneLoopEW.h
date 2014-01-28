@@ -92,7 +92,7 @@ public:
 
     /**
      * @brief remainder contribution to rho_Z^f for a given u_f
-     * @param[in] uf a combination of the unified form factors
+     * @param[in] u_f a combination of the unified form factors
      * @param[in] Mw_i the W-boson mass
      * @return delta rho_{rem}^{f, alpha}(u_f)
      */

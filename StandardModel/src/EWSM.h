@@ -473,7 +473,7 @@ public:
     /**
      * @param[in] li name of a neutrino
      * @param[in] lj name of a charged lepton
-     * @return the partial width of W^+ decay into an l_i\bar{l_j} pair in the SM
+     * @return the partial width of W^+ decay into an @f$l_i\bar{l_j}@f$ pair in the SM
      * @attention Mixings in the lepton sector are neglected. 
      * @attention Fermion masses are neglected. 
      */
@@ -483,7 +483,7 @@ public:
     /**
      * @param[in] qi name of a up-type quark
      * @param[in] qj name of a down-type quark
-     * @return the partial width of W^+ decay into an q_i\bar{q_j} pair in the SM
+     * @return the partial width of W^+ decay into an @f$q_i\bar{q_j}@f$ pair in the SM
      * @attention Fermion masses are neglected. 
      */
     double GammaW_q_SM(const StandardModel::quark qi, 

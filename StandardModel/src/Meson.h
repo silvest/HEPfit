@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -64,7 +64,7 @@ public:
     }
     /**
      * @brief The set method for the decay constant of a meson as specified in the SomeModel.conf file.
-     * @param[in] decayconstant the decay constant of a meson in \f$ GeV \f$.
+     * @param[in] decayconst the decay constant of a meson in \f$ GeV \f$.
      */
     void setDecayconst(double decayconst)
     {

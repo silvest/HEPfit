@@ -523,7 +523,7 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 protected:
-    virtual void setParameter(const std::string, const double&);
+    virtual void setParameter(const std::string name, const double& value);
     virtual void computeCKM();
     virtual void computeYukawas();
 
