@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -16,6 +16,7 @@
 EWSMcache::EWSMcache(const StandardModel& SM_i) 
 : SM(SM_i), PV(true)
 {
+    bDebug = false;
     bUseCacheEWSMcache = true;// use caches in the current class
     //bUseCacheEWSMcache = false;// do not use caches in the current class (for test)
     
@@ -38,7 +39,7 @@ EWSMcache::EWSMcache(const StandardModel& SM_i)
 }
 
 
-//////////////////////////////////////////////////////////////////////// 
+    ////////////////////////////////////////////////////////////////////////
 
 double EWSMcache::ml(const StandardModel::lepton l) const 
 {
@@ -53,13 +54,18 @@ double EWSMcache::mq(const StandardModel::quark q, const double mu,
         case StandardModel::UP:
         case StandardModel::DOWN:
         case StandardModel::STRANGE:
-            //return SM.getQuarks(q).getMass(); // for debug
-            return SM.Mrun(mu, SM.getQuarks(q).getMass_scale(),
-                           SM.getQuarks(q).getMass(), order);
+            if (bDebug)
+                return SM.getQuarks(q).getMass();// for debug
+            else
+                return SM.Mrun(mu, SM.getQuarks(q).getMass_scale(),
+                               SM.getQuarks(q).getMass(), order);
+
         case StandardModel::CHARM:
         case StandardModel::BOTTOM:
-            //return SM.getQuarks(q).getMass(); // for debug
-            return SM.Mrun(mu, SM.getQuarks(q).getMass(), order);
+            if (bDebug)
+                return SM.getQuarks(q).getMass();// for debug
+            else
+                return SM.Mrun(mu, SM.getQuarks(q).getMass(), order);
         case StandardModel::TOP:
             return SM.getMtpole(); // the pole mass
         default:

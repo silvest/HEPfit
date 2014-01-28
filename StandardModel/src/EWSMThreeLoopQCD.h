@@ -19,15 +19,13 @@ using namespace gslpp;
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class handles three-loop %QCD contributions of
- * @f$O(\alpha\alpha_s^2)@f$ to the electromagnetic coupling and
- * the gauge-boson vacuum-polarization amplitudes.
- * The three-loop corrections to the following quantities are computed:
+ * @f$O(\alpha\alpha_s^2)@f$ to the following quantities:
  *
  * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$,
  * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$,
  * @li @f$\Delta\rho@f$,
  * @li @f$\Delta r_{\mathrm{rem}}@f$,
- * @li @f$\delta\rho_{\mathrm{rem}}^{f}@f$.
+ * @li @f$\delta\rho_{\mathrm{rem}}^{f}@f$,
  * @li @f$\delta\kappa_{\mathrm{rem}}^{f}@f$.
  *
  * See also the description of EWSM class for details on the above quantities. 
@@ -49,7 +47,7 @@ public:
      * @brief Leptonic contribution of @f$O(\alpha\alpha_s^2)@f$
      * to the electromagnetic coupling @f$\alpha@f$.
      * @details This contribution vanishes at @f$O(\alpha\alpha_s^2)@f$. 
-     * @param[in] s invariant mass squared in units of GeV squared
+     * @param[in] s invariant mass squared
      * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha\alpha_s^2}=0@f$
      */
     double DeltaAlpha_l(const double s) const;

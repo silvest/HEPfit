@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -27,7 +27,7 @@ class EWSMTwoFermionsLEP2 {
 public:
 
     /**
-     * @brief EWSMTwoFermionsLEP2 constructor
+     * @brief Constructor. 
      * @param[in] SM_i reference to a StandardModel object
      * @param[in] cache_i reference to an EWSMcommon object
      * @param[in] bKeepNonUnitary_i true if keeping non-unitary terms
@@ -36,6 +36,13 @@ public:
                         const bool bKeepNonUnitary_i=false);
 
     ////////////////////////////////////////////////////////////////////////  
+
+    void setBDebug(bool bDebug)
+    {
+        this->bDebug = bDebug;
+    }
+
+    ////////////////////////////////////////////////////////////////////////
     
     double G_1(const double s, const double t, const double Mw, 
                const double GammaZ, const double I3f, const double Qf, 
@@ -201,11 +208,12 @@ public:
     
     ////////////////////////////////////////////////////////////////////////  
 private:
+    bool bDebug;// for debug
     bool bKeepNonUnitary; // true if keeping non-unitary terms
-    
-    const StandardModel& SM;
-    const EWSMcache& cache;
-    const EWSMOneLoopEW myOneLoopEW;
+
+    const StandardModel& SM;///< A reference to an object of type StandardModel.
+    const EWSMcache& cache;///< A reference to an object of type EWSMcache.
+    const EWSMOneLoopEW myOneLoopEW;///< An object of type EWSMOneLoopEW.
     
 };
 

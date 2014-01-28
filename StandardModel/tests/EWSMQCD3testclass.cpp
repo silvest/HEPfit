@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -18,11 +18,13 @@ EWSMQCD3testclass::~EWSMQCD3testclass() {
 }
 
 void EWSMQCD3testclass::setUp() {
-    mySM = new StandardModel(true);
+    mySM = new StandardModel();
     mySM->InitializeModel();
     setSMparameters(*mySM);   
     myCache = new EWSMcache(*mySM);
     myQCD3 = new EWSMThreeLoopQCD(*myCache);
+
+    myCache->setBDebug(true);
 
     Mw = myCache->Mw(mySM->Mw_tree());/* Tests are done with the tree-level Mw */
     Mw2 = Mw*Mw;

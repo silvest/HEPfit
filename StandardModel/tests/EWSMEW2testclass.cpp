@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -18,13 +18,15 @@ EWSMEW2testclass::~EWSMEW2testclass() {
 }
 
 void EWSMEW2testclass::setUp() {
-    mySM = new StandardModel(true);
+    mySM = new StandardModel();
     mySM->InitializeModel();
     setSMparameters(*mySM);   
     myCache = new EWSMcache(*mySM);
     myEW2 = new EWSMTwoLoopEW(*myCache);
     myEWSM = new EWSM(*mySM);
-    
+
+    myCache->setBDebug(true);
+
     Mw = myCache->Mw(mySM->Mw_tree());/* Tests are done with the tree-level Mw */
     Mw2 = Mw*Mw;
     Mz = myCache->Mz();
@@ -38,7 +40,7 @@ void EWSMEW2testclass::setUp() {
 }
 
 void EWSMEW2testclass::tearDown() {
-    delete myEWSM;
+    //delete myEWSM;
     delete myEW2;        
     delete myCache;
     //delete mySM;  

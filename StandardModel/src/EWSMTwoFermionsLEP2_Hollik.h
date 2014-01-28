@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -27,8 +27,8 @@ class EWSMTwoFermionsLEP2_Hollik {
 public:
     
     /**
-     * @brief EWSMTwoFermionsLEP2_Hollik constructor
-     * @param[in] SM_i reference to a StandardModel object
+     * @brief Constructor. 
+     * @param[in] SM_i a reference to an object of type StandardModel
      */
     EWSMTwoFermionsLEP2_Hollik(const StandardModel& SM_i);
 

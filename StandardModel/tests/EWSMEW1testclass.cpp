@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -17,11 +17,13 @@ EWSMEW1testclass::~EWSMEW1testclass() {
 }
 
 void EWSMEW1testclass::setUp() {
-    mySM = new StandardModel(true);
+    mySM = new StandardModel(); 
     mySM->InitializeModel();
     setSMparameters(*mySM);   
     myCache = new EWSMcache(*mySM);
     myEW1 = new EWSMOneLoopEW(*myCache);
+
+    myCache->setBDebug(true);
 
     Mw = myCache->Mw(mySM->Mw_tree());/* Tests are done with the tree-level Mw */
     Mw2 = Mw*Mw;

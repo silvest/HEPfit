@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,7 +13,8 @@
 /**
  * @class EWepsilons
  * @ingroup StandardModel
- * @brief A class for the epsilon parameters parameterized radiative corrections to the EW precision observables.  
+ * @brief A class for the @f$W@f$-boson mass and the @f$Zf\bar{f}@f$ effective
+ * couplings with the epsilon parameters.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
@@ -22,8 +23,8 @@ class EWepsilons {
 public:
 
     /**
-     * @brief EWepsilons constructor
-     * @param[in] SM_i a StandardModel reference
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
      */
     EWepsilons(const StandardModel& SM_i) 
     : SM(SM_i) 
@@ -67,7 +68,9 @@ protected:
     
     ////////////////////////////////////////////////////////////////////////     
 private:
-    const StandardModel& SM;
+    const StandardModel& SM;///< A reference to an object of type StandardModel.
+
+    
 };
 
 #endif	/* EWEPSILONS_H */

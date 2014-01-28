@@ -70,7 +70,7 @@ double EW::RVq(const StandardModel::quark q) const
 
     double mcMz, mbMz;
     mcMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.CHARM).getMass(), FULLNNLO);
-    mbMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), FULLNNLO);
+    mbMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.BOTTOM).getMass(), FULLNNLO);  
     //mcMz = 0.56381685; /* for debug */
     //mbMz = 2.8194352; /* for debug */
 

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,18 +14,30 @@ using namespace gslpp;
 /**
  * @class EWSMThreeLoopEW2QCD
  * @ingroup StandardModel
- * @brief A class for @f$O(\alpha^2\alpha_s)@f$ three-loop radiative corrections to the EW precision observables.  
+ * @brief A class for @f$O(\alpha^2\alpha_s)@f$ three-loop corrections to the
+ * %EW precision observables.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details 
+ * @details This class handles three-loop mixed %EW-%QCD contributions of
+ * @f$O(\alpha^2\alpha_s)@f$ to the following quantities: 
+ *
+ * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$,
+ * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$,
+ * @li @f$\Delta\rho@f$,
+ * @li @f$\Delta r_{\mathrm{rem}}@f$,
+ * @li @f$\delta\rho_{\mathrm{rem}}^{f}@f$,
+ * @li @f$\delta\kappa_{\mathrm{rem}}^{f}@f$,
+ *
+ * where only @f$\Delta\rho@f$ is non-zero in the current class.
+ * See also the description of EWSM class for details on the above quantities.
  */
 class EWSMThreeLoopEW2QCD {
 
 public:
  
     /**
-     * @brief EWSMThreeLoopEW2QCD constructor
-     * @param[in] cache_i reference to an EWSMcommon object
+     * @brief Constructor.
+     * @param[in] cache_i a reference to an object of type EWSMcache
      */
     EWSMThreeLoopEW2QCD(const EWSMcache& cache_i);
 
@@ -96,7 +108,7 @@ public:
     ////////////////////////////////////////////////////////////////////////        
     
 private:
-    const EWSMcache& cache;
+    const EWSMcache& cache;///< A reference to an object of type EWSMcache.
     
 
     ////////////////////////////////////////////////////////////////////////    

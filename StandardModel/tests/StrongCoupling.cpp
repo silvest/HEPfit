@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
 
     try {
         StandardModel* mySM;
-        mySM = new StandardModel(true);
+        mySM = new StandardModel();
         mySM->InitializeModel();
         setSMparameters(*mySM);
 

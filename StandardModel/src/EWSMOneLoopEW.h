@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,18 +14,34 @@ using namespace gslpp;
 /**
  * @class EWSMOneLoopEW
  * @ingroup StandardModel
- * @brief A class for EW one-loop radiative corrections to the EW precision observables.  
+ * @brief A class for @f$O(\alpha)@f$ one-loop corrections to the %EW
+ * precision observables.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details 
+ * @details This class handles one-loop %EW contributions of
+ * @f$O(\alpha)@f$ to the following quantities:
+ *
+ * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$,
+ * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$,
+ * @li @f$\Delta\rho@f$,
+ * @li @f$\Delta r_{\mathrm{rem}}@f$,
+ * @li @f$\delta\rho_{\mathrm{rem}}^{f}@f$,
+ * @li @f$\delta\kappa_{\mathrm{rem}}^{f}@f$,
+ *
+ * Write more!
+ *
+ *
+ *
+ *
+ * See also the description of EWSM class for details on the above quantities.
  */
 class EWSMOneLoopEW {
     
 public:
 
     /**
-     * @brief EWSMOneLoopEW constructor
-     * @param[in] cache_i reference to an EWSMcache object
+     * @brief Constructor.
+     * @param[in] cache_i a reference to an object of type EWSMcache
      */
     EWSMOneLoopEW(const EWSMcache& cache_i);
 
@@ -391,7 +407,7 @@ public:
     ////////////////////////////////////////////////////////////////////////    
 
 private:
-    const EWSMcache& cache;    
+    const EWSMcache& cache;///< A reference to an object of type EWSMcache.
     
     
 };

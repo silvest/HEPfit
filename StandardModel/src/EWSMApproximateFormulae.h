@@ -14,7 +14,7 @@
 /**
  * @class EWSMApproximateFormulae
  * @ingroup StandardModel
- * @brief A class for approximate formulae of %EW precision observables.
+ * @brief A class for approximate formulae of the %EW precision observables.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details The member functions in the current class compute the %EW precision 

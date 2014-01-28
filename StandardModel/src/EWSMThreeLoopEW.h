@@ -19,19 +19,17 @@ using namespace gslpp;
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class handles three-loop %EW contributions of
- * @f$O(\alpha^3)@f$ to the electromagnetic coupling and
- * the gauge-boson vacuum-polarization amplitudes.
- * The three-loop corrections to the following quantities are computed:
+ * @f$O(\alpha^3)@f$ to the following quantities:
  *
  * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$,
  * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$,
  * @li @f$\Delta\rho@f$,
  * @li @f$\Delta r_{\mathrm{rem}}@f$,
- * @li @f$\delta\rho_{\mathrm{rem}}^{f}@f$.
+ * @li @f$\delta\rho_{\mathrm{rem}}^{f}@f$,
  * @li @f$\delta\kappa_{\mathrm{rem}}^{f}@f$,
  *
  * where only @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$ and @f$\Delta\rho@f$
- * are implemented at @f$O(\alpha^3)@f$.
+ * are non-zero in the current class.
  * See also the description of EWSM class for details on the above quantities.
  */
 class EWSMThreeLoopEW {

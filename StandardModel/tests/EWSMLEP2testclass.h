@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -94,6 +94,7 @@ public:
     
 private:
     StandardModel* SM;
+    EWSMcache* myCache;
     EWSMTwoFermionsLEP2* myLEP2;    
     EWSMTwoFermionsLEP2* myLEP2_NU;
     

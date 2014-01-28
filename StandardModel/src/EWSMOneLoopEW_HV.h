@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -12,12 +12,11 @@
 #include "StandardModel.h"
 using namespace gslpp;
 
-
-
 /**
  * @class EWSMOneLoopEW_HV
  * @ingroup StandardModel
- * @brief A class for EW one-loop radiative corrections to the EW precision observables in the 't Hooft-Feynman gauge.  
+ * @brief A class for @f$O(\alpha)@f$ one-loop corrections to the %EW
+ * precision observables in the 't Hooft-Feynman gauge.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
@@ -26,8 +25,8 @@ class EWSMOneLoopEW_HV {
 public:
     
     /**
-     * @brief EWSMOneLoopEW_HV constructor
-     * @param[in] SM_i reference to a StandardModel object
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
      */
     EWSMOneLoopEW_HV(const StandardModel& SM_i);
 
@@ -277,8 +276,8 @@ public:
     ////////////////////////////////////////////////////////////////////////      
     
 private:
-    const StandardModel& SM;
-    const PVfunctions PV;
+    const StandardModel& SM;///< A reference to an object of type StandardModel.
+    const PVfunctions PV;///< An object of type PVfunctions.
     
 };
 
