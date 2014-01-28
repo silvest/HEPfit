@@ -56,7 +56,7 @@ public:
      * @brief Top-quark contribution of @f$O(\alpha\alpha_s^2)@f$
      * to the electromagnetic coupling @f$\alpha@f$.
      * @details A simple numerical formula presented in @cite Kuhn:1998ze is
-     * employed. See also @cite Chetyrkin:1995ii @cite Chetyrkin:1996cf and
+     * employed. See also @cite Chetyrkin:1995ii, @cite Chetyrkin:1996cf and
      * @cite Chetyrkin:1997mb.
      * @param[in] s invariant mass squared
      * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha\alpha_s^2}@f$ 
@@ -64,7 +64,7 @@ public:
     double DeltaAlpha_t(const double s) const;
     
     /**
-     * @brief Leading three-loop contribution of @f$O(\alpha\alpha_s^2)@f$
+     * @brief Leading three-loop %QCD contribution of @f$O(\alpha\alpha_s^2)@f$
      * to @f$\Delta\rho@f$. 
      * @details The formula used here is given by
      * @f[
@@ -73,8 +73,8 @@ public:
      * @f]
      * where @f$X_t^\alpha = \alpha\, m_t^2/(16\pi s_W^2 M_W^2)@f$, and
      * @f$\delta^{\mathrm{QCD}}_3@f$ is computed via deltaQCD_3().
-     * See @cite Avdeev:1994db @cite Chetyrkin:1995ix and @cite Chetyrkin:1995js
-     * (also @cite Bardin:1999ak).
+     * See @cite Avdeev:1994db, @cite Chetyrkin:1995ix, @cite Chetyrkin:1995js
+     * and Chapter 8 of @cite Bardin:1999ak.
      * This quantity contributes to @f$\Delta r@f$ and the @f$Zf\bar{f}@f$
      * effective couplings @f$\rho_Z^f@f$ and @f$\kappa_Z^f@f$.
      * See also the description of EWSM class.
@@ -145,8 +145,7 @@ public:
      * @f]
      * where @f$\delta^{\mathrm{QCD}}_3@f$ and @f$\delta^{\mathrm{QCD}}_3@f$ 
      * are computed via deltaQCD_3() and deltaQCD_kappa3(), respectively.
-     * See @cite Avdeev:1994db @cite Chetyrkin:1995ix and @cite Chetyrkin:1995js
-     * (also @cite Bardin:1999ak).
+     * See @cite Avdeev:1994db, @cite Chetyrkin:1995ix and @cite Chetyrkin:1995js.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha\alpha_s^2}@f$
@@ -166,8 +165,7 @@ public:
      * @f]
      * where @f$\delta^{\mathrm{QCD}}_3@f$ and @f$\delta^{\mathrm{QCD}}_3@f$
      * are computed via deltaQCD_3() and deltaQCD_kappa3(), respectively.
-     * See @cite Avdeev:1994db @cite Chetyrkin:1995ix and @cite Chetyrkin:1995js
-     * (also @cite Bardin:1999ak).
+     * See @cite Avdeev:1994db, @cite Chetyrkin:1995ix and @cite Chetyrkin:1995js.
      * @param[in] q name of a quark (see QCD::quark)
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha\alpha_s^2}@f$
@@ -186,10 +184,10 @@ private:
     /**
      * @brief The function @f$\delta^{\mathrm{QCD}}_3@f$. 
      * @details This function describes the leading three-loop %QCD contribution
-     * @f$O(G_\mu\alpha_s^2M_t^2(1+M_Z^2/m_t^2+(M_Z^2/m_t^2)^2))@f$
+     * of @f$O(G_\mu\alpha_s^2M_t^2(1+M_Z^2/m_t^2+(M_Z^2/m_t^2)^2))@f$
      * to @f$\Delta\rho@f$, as explained in the description of DeltaRho(). 
-     * See @cite Avdeev:1994db @cite Chetyrkin:1995ix and @cite Chetyrkin:1995js
-     * (also @cite Bardin:1999ak).
+     * See @cite Avdeev:1994db, @cite Chetyrkin:1995ix, @cite Chetyrkin:1995js
+     * and Chapter 8 of @cite Bardin:1999ak.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta^{\mathrm{QCD}}_3@f$
      */
@@ -202,8 +200,9 @@ private:
      * corresponds to the
      * @f$O(G_\mu\alpha_s^2M_t^2(1+M_Z^2/m_t^2+(M_Z^2/m_t^2)^2))@f$ contribution
      * to @f$\delta\kappa_{\mathrm{rem}}^{f}@f$.
-     * See @cite Avdeev:1994db @cite Chetyrkin:1995ix and @cite Chetyrkin:1995js
-     * (also @cite Bardin:1999ak).
+     * See the arXiv version of @cite Chetyrkin:1995js 
+     * (and also @cite Avdeev:1994db, @cite Chetyrkin:1995ix
+     * and Chapter 8 of @cite Bardin:1999ak).
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta^{\mathrm{QCD}}_{\kappa,3}@f$
      */

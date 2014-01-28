@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -38,7 +38,7 @@
 
 /**
  * @addtogroup InputParser 
- * @brief A project for interfaces to model parameters and observables. 
+ * @brief A module for interfaces to model parameters and observables.
  * @details The InputParser() class parses all the input given to the executable
  * through the SomeModel.conf file and the output directives in the same. \n
  * The ThFactory() defines and initiates all available observables that can

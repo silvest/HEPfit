@@ -14,12 +14,12 @@ using namespace gslpp;
 /**
  * @class EWSMTwoLoopQCD
  * @ingroup StandardModel
- * @brief A class for @f$O(\alpha^2)@f$ two-loop corrections to the %EW
+ * @brief A class for @f$O(\alpha\alpha_s)@f$ two-loop corrections to the %EW
  * precision observables.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class handles two-loop %QCD contributions of
- * @f$O(\alpha^2)@f$ to the following quantities:
+ * @f$O(\alpha\alpha_s)@f$ to the following quantities:
  *
  * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_l()),
  * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_t()),
@@ -29,6 +29,10 @@ using namespace gslpp;
  * @li @f$\delta\kappa_{\mathrm{rem}}^{f}@f$&nbsp;&nbsp; (with deltaKappa_rem_l() and deltaKappa_rem_q()).
  *
  * See also the description of EWSM class for details on the above quantities.
+ * The @f$O(\alpha\alpha_s)@f$ two-loop %QCD contributions to the vacuum
+ * polarization amplitudes of the weak gauge bosons were calculated in
+ * @cite Djouadi:1987gn, @cite Djouadi:1987di, @cite Kniehl:1989yc, 
+ * @cite Halzen:1990je, @cite Kniehl:1991gu, @cite Kniehl:1992dx and @cite Djouadi:1993ss. 
  */
 class EWSMTwoLoopQCD {
 
@@ -44,23 +48,40 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief leptonic contribution to alpha
-     * @param[in] s invariant mass squared 
-     * @return Delta alpha_{lept}^{alpha alpha_s}
+     * @brief Leptonic contribution of @f$O(\alpha\alpha_s)@f$
+     * to the electromagnetic coupling @f$\alpha@f$.
+     * @details This contribution vanishes at @f$O(\alpha\alpha_s)@f$.
+     * @param[in] s invariant mass squared
+     * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha\alpha_s}=0@f$
      */
     double DeltaAlpha_l(const double s) const;
 
     /**
-     * @brief top-quark contribution to alpha
-     * @param[in] s invariant mass squared 
-     * @return Delta alpha_{top}^{alpha alpha_s}
+     * @brief Top-quark contribution of @f$O(\alpha\alpha_s)@f$
+     * to the electromagnetic coupling @f$\alpha@f$.
+     * @details A simple numerical formula presented in @cite Kuhn:1998ze is
+     * employed. 
+     * @param[in] s invariant mass squared
+     * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha\alpha_s}@f$
      */
     double DeltaAlpha_t(const double s) const;
     
     /**
-     * @brief leading contribution to Delta r
-     * @param[in] Mw_i the W-boson mass
-     * @return Delta rho^{alpha alpha_s}
+     * @brief Leading two-loop %QCD contribution of @f$O(\alpha\alpha_s)@f$
+     * to @f$\Delta\rho@f$.
+     * @details The formula used here is given by
+     * @f[
+     * \Delta\rho^{\alpha\alpha_s}
+     * = 3\,X_t^\alpha\frac{\alpha_s(m_t^2)}{\pi} \delta^{\mathrm{QCD}}_2,
+     * @f]
+     * where @f$X_t^\alpha = \alpha\, m_t^2/(16\pi s_W^2 M_W^2)@f$, and
+     * @f$\delta^{\mathrm{QCD}}_2@f$ is computed via deltaQCD_2().
+     * See Chapter 8 of @cite Bardin:1999ak.
+     * This quantity contributes to @f$\Delta r@f$ and the @f$Zf\bar{f}@f$
+     * effective couplings @f$\rho_Z^f@f$ and @f$\kappa_Z^f@f$.
+     * See also the description of EWSM class.
+     * @param[in] Mw_i the @f$W@f$-boson mass
+     * @return @f$\Delta\rho^{\alpha\alpha_s}@f$
      */
     double DeltaRho(const double Mw_i) const;
 

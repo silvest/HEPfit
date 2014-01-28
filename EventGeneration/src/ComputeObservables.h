@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -17,10 +17,14 @@
 #include <ModelParameter.h>
 #include <Model.h>
 
+/**
+ * @addtogroup EventGeneration
+ * @brief A module for
+ * @{
+ */
 
 /**
  * @class ComputeObservables
- * @ingroup EventGeneration
  * @brief A class for generating events.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -69,6 +73,9 @@ private:
     bool checkPara; /**< The boolean cheack for consistency in parameter names.*/
 };
 
+/**
+ * @}
+ */
 
 #endif	/* COMPUTEOBSERVABLES_H */
 

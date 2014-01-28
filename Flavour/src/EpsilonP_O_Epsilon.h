@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,13 +15,8 @@
 using namespace gslpp;
 
 /**
- * @addtogroup Flavour
- * @brief A project for Flavour observables.
- * @{
- */
-
-/**
  * @class EpsilonK
+ * @ingroup Flavour
  * @brief A class for @f$|\epsilon'_K/\epsilon_K|@f$ that parametrizes
  * direct CPV in the Kaon sector
  * @author SusyFit Collaboration
@@ -30,7 +25,6 @@ using namespace gslpp;
  * @f$|\epsilon'_K/\epsilon_K|@f$. This parameter gets contributions both
  * from the SM and many NP models.
  */
-
 class EpsilonP_O_Epsilon : public ThObservable, AmpDS1 {
 public:   
     /**

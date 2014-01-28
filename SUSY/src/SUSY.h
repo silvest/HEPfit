@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -19,13 +19,8 @@ class FeynHiggsWrapper; // forward reference to FeynHiggsWrapper class
 class SUSYSpectrum; // forward reference to Spectrum class
 
 /**
- * @addtogroup SUSY
- * @brief A project for a basis of SUSY models. 
- * @{
- */
-
-/**
  * @class SUSY
+ * @ingroup SUSY
  * @brief A base class for SUSY models. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -577,10 +572,6 @@ private:
     SUSYMatching* mySUSYMatching;
 
 };
-
-/** 
- * @}
- */
 
 #endif	/* SUSY_H */
 
