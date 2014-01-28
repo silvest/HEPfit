@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -16,12 +16,12 @@
 
 /**
  * @addtogroup gslpp
- * @brief A project for manipulating vectors and matrices using the <a href="http://www.gnu.org/software/gsl/" target=blank>gsl libraries</a>.
+ * @brief A module for manipulating vectors and matrices using the
+ * <a href="http://www.gnu.org/software/gsl/" target=blank>gsl libraries</a>.
  * @{
  */
 
 /**
- * @ingroup gslpp
  * @brief Header file for inclusion of all gslpp claases for vector
  * matrix manipulation, both real and complex.
  * @author SusyFit Collaboration
