@@ -21,12 +21,12 @@ using namespace gslpp;
  * @details This class handles two-loop %QCD contributions of
  * @f$O(\alpha^2)@f$ to the following quantities:
  *
- * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$,
- * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$,
- * @li @f$\Delta\rho@f$,
- * @li @f$\Delta r_{\mathrm{rem}}@f$,
- * @li @f$\delta\rho_{\mathrm{rem}}^{f}@f$,
- * @li @f$\delta\kappa_{\mathrm{rem}}^{f}@f$.
+ * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_l()),
+ * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_t()),
+ * @li @f$\Delta\rho@f$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (with DeltaRho()),
+ * @li @f$\Delta r_{\mathrm{rem}}@f$&nbsp;&nbsp; (with DeltaR_rem()),
+ * @li @f$\delta\rho_{\mathrm{rem}}^{f}@f$&nbsp;&nbsp; (with deltaRho_rem_l() and deltaRho_rem_q()),
+ * @li @f$\delta\kappa_{\mathrm{rem}}^{f}@f$&nbsp;&nbsp; (with deltaKappa_rem_l() and deltaKappa_rem_q()).
  *
  * See also the description of EWSM class for details on the above quantities.
  */

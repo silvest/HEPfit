@@ -21,12 +21,12 @@ using namespace gslpp;
  * @details This class handles three-loop %QCD contributions of
  * @f$O(\alpha\alpha_s^2)@f$ to the following quantities:
  *
- * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$,
- * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$,
- * @li @f$\Delta\rho@f$,
- * @li @f$\Delta r_{\mathrm{rem}}@f$,
- * @li @f$\delta\rho_{\mathrm{rem}}^{f}@f$,
- * @li @f$\delta\kappa_{\mathrm{rem}}^{f}@f$.
+ * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_l()),
+ * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_t()),
+ * @li @f$\Delta\rho@f$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (with DeltaRho()),
+ * @li @f$\Delta r_{\mathrm{rem}}@f$&nbsp;&nbsp; (with DeltaR_rem()),
+ * @li @f$\delta\rho_{\mathrm{rem}}^{f}@f$&nbsp;&nbsp; (with deltaRho_rem_l() and deltaRho_rem_q()),
+ * @li @f$\delta\kappa_{\mathrm{rem}}^{f}@f$&nbsp;&nbsp; (with deltaKappa_rem_l() and deltaKappa_rem_q()).
  *
  * See also the description of EWSM class for details on the above quantities. 
  */
@@ -115,22 +115,20 @@ public:
     /**
      * @brief Remainder contribution of @f$O(\alpha\alpha_s^2)@f$ 
      * to the effective couplings @f$\rho_Z^l@f$.
-     * @details This contribution is not implemented, since it is not available
-     * in the literature.
+     * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\rho_{\mathrm{rem}}^{l, \alpha\alpha_s^2}@f$ 
+     * @return @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha\alpha_s^2}=0@f$
      */
     complex deltaRho_rem_l(const StandardModel::lepton l, const double Mw_i) const;
 
     /**
      * @brief Remainder contribution of @f$O(\alpha\alpha_s^2)@f$ 
      * to the effective couplings @f$\rho_Z^q@f$.
-     * @details This contribution is not implemented, since it is not available
-     * in the literature.
+     * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] q name of a quark (see QCD::quark)
      * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\rho_{\mathrm{rem}}^{q, \alpha\alpha_s^2}@f$
+     * @return @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha\alpha_s^2}=0@f$
      */
     complex deltaRho_rem_q(const StandardModel::quark q, const double Mw_i) const;
 
@@ -151,7 +149,7 @@ public:
      * (also @cite Bardin:1999ak).
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\kappa_{\mathrm{rem}}^{l, \alpha\alpha_s^2}@f$
+     * @return @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha\alpha_s^2}@f$
      */
     complex deltaKappa_rem_l(const StandardModel::lepton l, const double Mw_i) const;
                                                   
@@ -172,7 +170,7 @@ public:
      * (also @cite Bardin:1999ak).
      * @param[in] q name of a quark (see QCD::quark)
      * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\kappa_{\mathrm{rem}}^{q, \alpha\alpha_s^2}@f$
+     * @return @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha\alpha_s^2}@f$
      */
     complex deltaKappa_rem_q(const StandardModel::quark q, const double Mw_i) const;    
     

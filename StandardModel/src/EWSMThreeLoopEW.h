@@ -21,12 +21,12 @@ using namespace gslpp;
  * @details This class handles three-loop %EW contributions of
  * @f$O(\alpha^3)@f$ to the following quantities:
  *
- * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$,
- * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$,
- * @li @f$\Delta\rho@f$,
- * @li @f$\Delta r_{\mathrm{rem}}@f$,
- * @li @f$\delta\rho_{\mathrm{rem}}^{f}@f$,
- * @li @f$\delta\kappa_{\mathrm{rem}}^{f}@f$,
+ * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_l()),
+ * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_t()),
+ * @li @f$\Delta\rho@f$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (with DeltaRho()),
+ * @li @f$\Delta r_{\mathrm{rem}}@f$&nbsp;&nbsp; (with DeltaR_rem()),
+ * @li @f$\delta\rho_{\mathrm{rem}}^{f}@f$&nbsp;&nbsp; (with deltaRho_rem_l() and deltaRho_rem_q()),
+ * @li @f$\delta\kappa_{\mathrm{rem}}^{f}@f$&nbsp;&nbsp; (with deltaKappa_rem_l() and deltaKappa_rem_q()),
  *
  * where only @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$ and @f$\Delta\rho@f$
  * are non-zero in the current class.
@@ -67,7 +67,7 @@ public:
      * @brief Leading three-loop contribution of @f$O(\alpha^3)@f$
      * to @f$\Delta\rho@f$.
      * @details This function handles the leading three-loop %EW contribution of
-     * @f$O(G_\mu m_t^6)@f$ to @f$\Delta\rho@f$.
+     * @f$O(G_\mu^3 m_t^6)@f$ to @f$\Delta\rho@f$.
      * Expressions are available for @f$m_h=0@f$ in @cite vanderBij:2000cg
      * and for @f$m_h\approx m_t@f$ and @f$m_h\gg m_t@f$ in @cite Faisst:2003px.
      * @param[in] Mw_i the @f$W@f$-boson mass
@@ -89,7 +89,7 @@ public:
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\rho_{\mathrm{rem}}^{l, \alpha^3}=0@f$
+     * @return @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha^3}=0@f$
      */
     complex deltaRho_rem_l(const StandardModel::lepton l, const double Mw_i) const;
 
@@ -99,7 +99,7 @@ public:
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] q name of a quark (see QCD::quark)
      * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\rho_{\mathrm{rem}}^{q, \alpha^3}=0@f$
+     * @return @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha^3}=0@f$
      */
     complex deltaRho_rem_q(const StandardModel::quark q, const double Mw_i) const;
 
@@ -109,7 +109,7 @@ public:
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\kappa_{\mathrm{rem}}^{l, \alpha^3}=0@f$
+     * @return @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha^3}=0@f$
      */
     complex deltaKappa_rem_l(const StandardModel::lepton l, const double Mw_i) const;
                                                   
@@ -119,7 +119,7 @@ public:
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] q name of a quark (see QCD::quark)
      * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\kappa_{\mathrm{rem}}^{q, \alpha^3}=0@f$
+     * @return @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha^3}=0@f$
      */
     complex deltaKappa_rem_q(const StandardModel::quark q, const double Mw_i) const;
 
