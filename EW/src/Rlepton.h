@@ -15,18 +15,18 @@
 /**
  * @class Rlepton
  * @ingroup EW 
- * @brief A class for @f$R_\ell=\Gamma(Z\to {\rm hadrons})/\Gamma(Z\to \ell\bar{\ell})@f$ 
+ * @brief A class for @f$R_\ell=\Gamma(Z\to {\rm hadrons})/\Gamma(Z\to \ell^+ \ell^-)@f$ 
  * at the @f$Z@f$ pole.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the ratio of the @f$Z@f$-boson 
- * hadronic width to the @f$Z\to \ell\bar{\ell}@f$ width at the @f$Z@f$ pole, @f$R_\ell=\frac{\Gamma_h}{\Gamma_\ell}@f$.
+ * hadronic width to the @f$Z\to \ell^+ \ell^-@f$ width at the @f$Z@f$ pole, @f$R_\ell=\frac{\Gamma_h}{\Gamma_\ell}@f$.
  */
 class Rlepton : public ThObservable {
 public:
 
     /**
-     * A constructor.
+     * Constructor.
      * @param[in] EW_i A reference to an object of EW class, which is the base 
      * class of the electroweak precision observables.
      */
@@ -37,7 +37,7 @@ public:
 
     /**
      * @return The ratio of the @f$Z@f$-boson hadronic width to the 
-     * @f$Z\to \ell\bar{\ell}@f$ width at the @f$Z@f$ pole. 
+     * @f$Z\to \ell^+ \ell^-@f$ width at the @f$Z@f$ pole. 
      */
     double computeThValue();
 

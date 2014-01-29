@@ -20,7 +20,7 @@
  * @copyright GNU General Public License
  * @details This class contains the necessary functions to compute new physics 
  * tree-level corrections to electroweak precision observables, in the form of 
- * contributions to the extended set of oblique parameters \cite . These corrections
+ * contributions to the extended set of oblique parameters \cite Barbieri:2004qk. These corrections
  * are parameterized in terms of the \f$\hat{S},~\hat{T},~\hat{U},~V,~W,~X\f$ and \f$Y\f$ 
  * contributions to \f$M_W\f$, and to \f$Z\f$-pole observables through the corrections 
  * to the different neutral-current effective couplings to leptons and quarks. The 
@@ -38,7 +38,7 @@ public:
     static const std::string STUVWXYvars[NSTUVWXYvars];
     
     /**
-     * @brief The default constructor.
+     * @brief Constructor.
      */
     NPSTUVWXY();
 

@@ -18,7 +18,7 @@
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
 * @details Base class for an effective Lagrangian extension in the basis of 
- * \cite , assuming diagonal and non-universal \f${\cal O}_{HQ,HL,HE,HU,HD}\f$
+ * \cite Barbieri:1999tm, assuming diagonal and non-universal \f${\cal O}_{HQ,HL,HE,HU,HD}\f$
  * and \f${\cal O}_{HQ,HL}^\prime\f$ interactions.
  */
 class NPEffective2 : public NPEffective {
@@ -33,7 +33,7 @@ public:
     static const std::string NPEffectiveVars[NNPEffectiveVars];
 
     /**
-     * @brief The default constructor.
+     * @brief Constructor.
      */
     NPEffective2()
     : NPEffective()

@@ -28,7 +28,7 @@ class AFBcharm : public ThObservable {
 public:
 
     /**
-     * A constructor.
+     * Constructor.
      * @param[in] EW_i A reference to an object of EW class, which is the base class of 
      * the electroweak precision observables.
      */
@@ -38,7 +38,7 @@ public:
     };
     
     /**
-     * @return the forward-backward asymmetry of @f$Z\to c\bar{c}@f$ at the 
+     * @return the forward-backward asymmetry in @f$e^+ e^-\to Z\to c\bar{c}@f$ at the 
      * @f$Z@f$ pole
      */
     double computeThValue();

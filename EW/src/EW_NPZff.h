@@ -18,13 +18,17 @@
  * @copyright GNU General Public License
  * @details This class contains functions to incorporate new physics
  * contributions to \f$Z\f$-pole pseudo observables, parameterized in terms
- * of corrections to the \f$Z\rightarrow f\bar{f}\f$ vertices.\n
+ * of corrections to the \f$Z f\bar{f}\f$ vertices.\n
  * New physics contributions are linearized in the corrections to the neutral-current
- * couplings, \f$g_V^f+\delta g_V^\f$,\f$g_A^f+\delta g_A^\f$.
+ * couplings, \f$g_V^f+\delta g_V^f\f$,\f$g_A^f+\delta g_A^f\f$.
  */
 class EW_NPZff {
 public:
 
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of StandardModel class
+     */
     EW_NPZff(const StandardModel& SM_i);
 
     ////////////////////////////////////////////////////////////////////////
@@ -84,7 +88,6 @@ public:
      * physics effects
      */
     double AFBlepton(const double AFBlepton_SM) const;
-
     
     /**
      * @param[in] AFBcharm_SM the SM prediction for \f$A_{FB}^{0,c}\f$

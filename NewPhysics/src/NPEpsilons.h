@@ -19,7 +19,7 @@
  * @copyright GNU General Public License
  * @details This class contains the necessary functions to work with new physics 
  * corrections to electroweak precision observables, in the form of contributions
- * to the \f$\varepsilon_{1,2,3,b}\f$ parameters \cite. 
+ * to the \f$\varepsilon_{1,2,3,b}\f$ parameters \cite Altarelli:1990zd, \cite Altarelli:1991fk,\cite Altarelli:1993sz. 
  * Both SM and new physics contributions to \f$\varepsilon_i\f$ are parameterized. 
  *
  * Flags:
@@ -52,7 +52,7 @@ public:
     static const std::string EPSILONflags[NEPSILONflags];
     
     /**
-     * @brief The default constructor. 
+     * @brief Constructor. 
      */
     NPEpsilons();
 

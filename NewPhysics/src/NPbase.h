@@ -37,7 +37,7 @@ public:
     static const std::string NPbaseflags[NNPbaseflags];
 
     /**
-     * @brief The default constructor. 
+     * @brief Constructor. 
      */
     NPbase();
 

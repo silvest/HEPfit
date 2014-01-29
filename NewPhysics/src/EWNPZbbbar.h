@@ -24,7 +24,7 @@ class EWNPZbbbar : public EWSM {
 public:
 
     /**
-     * @brief The default constructor.
+     * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
     EWNPZbbbar(const StandardModel& SM_i);

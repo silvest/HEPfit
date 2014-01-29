@@ -20,7 +20,7 @@
  * @copyright GNU General Public License
  * @details This class contains the necessary functions to compute new physics 
  * tree-level corrections to electroweak precision observables, in the form of 
- * contributions to the Peskin-Takeuchi oblique parameters \cite . These corrections
+ * contributions to the Peskin-Takeuchi oblique parameters \cite Peskin:1991sw. These corrections
  * are parameterized in terms of the \f$S,~T\f$ and \f$U\f$ contributions to \f$M_W\f$,
  * and to \f$Z\f$-pole observables through the corrections to the different neutral-current
  * effective couplings to leptons and quarks. The contributions to the later are 
@@ -38,7 +38,7 @@ public:
     static const std::string STUvars[NSTUvars];
     
     /**
-     * @brief The default constructor.
+     * @brief Constructor.
      */
     NPSTU();
 

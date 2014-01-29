@@ -28,7 +28,7 @@ class AFBlepton : public ThObservable {
 public:
  
     /**
-     * A constructor.
+     * Constructor.
      * @param[in] EW_i A reference to an object of EW class, which is the base class of 
      * the electroweak precision observables.
      */
@@ -38,8 +38,8 @@ public:
     };
 
     /**
-     * @return the forward-backward asymmetry of a @f$Z\to \ell\bar{\ell}@f$ 
-     * channel at the @f$Z@f$ pole, where @f$\ell@f$ denotes a charged lepton
+     * @return the forward-backward asymmetry in @f$e^+ e^-\to Z\to \ell^+\ell^-@f$ 
+     * at the @f$Z@f$ pole, where @f$\ell@f$ denotes a charged lepton
      */
     double computeThValue();
 

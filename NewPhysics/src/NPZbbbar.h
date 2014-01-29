@@ -50,7 +50,7 @@ public:
     static const std::string Zbbbarflags[NZbbbarflags];
 
     /**
-     * @brief The default constructor.
+     * @brief Constructor.
      */
     NPZbbbar();
 

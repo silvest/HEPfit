@@ -18,7 +18,7 @@
  * @copyright GNU General Public License
  * @details This class is based in new physics models described by the EW chiral
  * Lagrangian plus all interactions involving a light neutral scalar \f$H\f$. The
- * effective Lagrangian expansion is truncated at the level of two-derivatives \cite.
+ * effective Lagrangian expansion is truncated at the level of two-derivatives \cite Contino:2010mh.
  * Currently, only the dominant effects in EWPD, coming from non-standard @f$HVV@f$
  * interactions, are considered.
  */
@@ -34,7 +34,7 @@ public:
     static const std::string NPHIGGSSTvars[NNPHIGGSSTvars];
 
     /**
-     * @brief The default constructor.
+     * @brief Constructor.
      */
     NPHiggsST();
 

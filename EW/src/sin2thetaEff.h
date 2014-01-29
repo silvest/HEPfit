@@ -26,7 +26,7 @@ class sin2thetaEff : public ThObservable {
 public:
 
     /**
-     * A constructor.
+     * Constructor.
      * @param[in] EW_i A reference to an object of EW class, which is the base 
      * class of the electroweak precision observables.
      */

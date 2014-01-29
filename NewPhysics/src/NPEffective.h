@@ -30,7 +30,7 @@ class NPEffective : public NPbase {
 public:
 
     /**
-     * @brief The default constructor.
+     * @brief Constructor.
      */
     NPEffective();
 
