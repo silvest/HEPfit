@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,6 +13,12 @@
 #include <WilsonCoefficient.h>
 
 using namespace gslpp;
+
+/**
+ * @addtogroup LeptonFlavour
+ * @brief A module for lepton flavour observables.
+ * @{
+ */
 
 class HeffDL1 {
 public:
@@ -54,6 +60,10 @@ private :
     
     //gslpp::vector<complex> nlep, nlep2, nlepCC;
 };
+
+/**
+ * @}
+ */
 
 #endif	/* HEFFDL1_H */
 

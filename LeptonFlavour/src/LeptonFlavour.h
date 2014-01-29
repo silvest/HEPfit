@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -11,12 +11,6 @@
 #include <ThObsType.h>
 #include <StandardModel.h>
 //#include "HeffDF2.h"
-
-/**
- * @addtogroup LeptonFlavour
- * @brief A project for Lepton Flavour observables.
- * @{
- */
 
 using namespace gslpp;
 
@@ -41,10 +35,6 @@ public:
 private:
     //HeffDF2 HDF2; 
 };
-
-/**
- * @}
- */
 
 #endif	/* LEPTONFLAVOUR_H */
 

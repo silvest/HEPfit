@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -16,13 +16,18 @@
 using namespace gslpp;
 
 /**
+ * @addtogroup SUSY
+ * @brief A module for a basis of %SUSY models.
+ * @{
+ */
+
+/**
  * @class EWSUSY
- * @ingroup SUSY
- * @brief A class for SUSY contributions to the EW precision observables.
+ * @brief A class for %SUSY contributions to the %EW precision observables.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used for the calculations of SUSY contributions to
- * the EW precision observables, where Rosiek's notation is adopted internally.
+ * @details This class is used for the calculations of %SUSY contributions to
+ * the %EW precision observables, where Rosiek's notation is adopted internally.
  * The conversions from Rosiek's notation to SLHA one are implemented in 
  * EWSUSY::SetRosiekParameters(), which is called from SUSY::PostUpdate().
  * @par References
@@ -39,7 +44,7 @@ class EWSUSY : public EWSM {
 public:
 
     /**
-     * @brief An EWSUSY constructor.
+     * @brief Constructor.
      * @param[in] SUSY_in A reference to a SUSY object. 
      */
     EWSUSY(const SUSY& SUSY_in);
@@ -485,6 +490,10 @@ private:
     complex f(const double m1, const double m2, const double m3) const;
 
 };
+
+/**
+ * @}
+ */
 
 #endif	/* EWSUSY_H */
 

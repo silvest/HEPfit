@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -18,10 +18,10 @@ using namespace std;
 
 /**
  * @addtogroup Analysis
- * @brief A project for the main function of the SusyFit project. 
+ * @brief A module for the main function of the SusyFit project.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- *  @{
+ * @{
  */
 
 int main(int argc, char** argv) 

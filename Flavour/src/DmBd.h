@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,13 +13,8 @@
 #include "AmpDB2.h"
 
 /**
- * @addtogroup Flavour
- * @brief A project for Flavour observables.
- * @{
- */
-
-/**
  * @class DMK
+ * @ingroup Flavour
  * @brief A class for @f$\Delta M_{B_d}@f$, the difference in mass
  * of between the heavy and light mass eigenstates of the neutral
  * @f$B_d@f$ system.
@@ -31,8 +26,6 @@
  * the short distance contribution is dominated by the top loop in the
  * box diagram.
  */
-
-
 class DmBd : public ThObservable, AmpDB2 {
 public:
     
@@ -50,9 +43,5 @@ public:
     
     double computeThValue();
 };
-
-/**
- * @}
- */
 
 #endif	/* DMBD_H */

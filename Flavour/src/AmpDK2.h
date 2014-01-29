@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,13 +14,8 @@
 using namespace gslpp;
 
 /**
- * @addtogroup Flavour
- * @brief A project for Flavour observables.
- * @{
- */
-
-/**
  * @class AmpDK2
+ * @ingroup Flavour
  * @brief A class for calculating the amplitudes contributing to
  * @f$\eps_K@f$ and @f$\Delta M_K@f$.
  * @author SusyFit Collaboration
@@ -30,7 +25,6 @@ using namespace gslpp;
  * hadronic matrix elements are defined for the operators @f$ O_1, \ldots, O_5@F$
  * in the chiral limit as can be found in: 
  */
-
 class AmpDK2 {
 public:
     /**
@@ -48,10 +42,6 @@ private:
     Flavour& myFlavour;
 
 };
-
-/**
- * @}
- */
 
 #endif	/* AMPDK2_H */
 

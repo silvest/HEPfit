@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,7 +14,7 @@
 
 /**
  * @addtogroup EW
- * @brief A project for electroweak precision observables.
+ * @brief A module for electroweak precision observables.
  * @details This project includes the classes used for the computation of
  * the theory predictions for the W mass and width, as well as electroweak 
  * precision pseudo observables at the Z pole.

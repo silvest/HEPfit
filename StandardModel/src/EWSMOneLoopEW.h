@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,18 +14,34 @@ using namespace gslpp;
 /**
  * @class EWSMOneLoopEW
  * @ingroup StandardModel
- * @brief A class for EW one-loop radiative corrections to the EW precision observables.  
+ * @brief A class for @f$O(\alpha)@f$ one-loop corrections to the %EW
+ * precision observables.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details 
+ * @details This class handles one-loop %EW contributions of
+ * @f$O(\alpha)@f$ to the following quantities:
+ *
+ * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_l()),
+ * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_t()),
+ * @li @f$\Delta\rho@f$&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (with DeltaRho()),
+ * @li @f$\Delta r_{\mathrm{rem}}@f$&nbsp;&nbsp; (with DeltaR_rem()),
+ * @li @f$\delta\rho_{\mathrm{rem}}^{f}@f$&nbsp;&nbsp; (with deltaRho_rem_l() and deltaRho_rem_q()),
+ * @li @f$\delta\kappa_{\mathrm{rem}}^{f}@f$&nbsp;&nbsp; (with deltaKappa_rem_l() and deltaKappa_rem_q()),
+ *
+ * Write more!
+ *
+ *
+ *
+ *
+ * See also the description of EWSM class for their definitions. 
  */
 class EWSMOneLoopEW {
     
 public:
 
     /**
-     * @brief EWSMOneLoopEW constructor
-     * @param[in] cache_i reference to an EWSMcache object
+     * @brief Constructor.
+     * @param[in] cache_i a reference to an object of type EWSMcache
      */
     EWSMOneLoopEW(const EWSMcache& cache_i);
 
@@ -76,7 +92,7 @@ public:
 
     /**
      * @brief remainder contribution to rho_Z^f for a given u_f
-     * @param[in] uf a combination of the unified form factors
+     * @param[in] u_f a combination of the unified form factors
      * @param[in] Mw_i the W-boson mass
      * @return delta rho_{rem}^{f, alpha}(u_f)
      */
@@ -391,7 +407,7 @@ public:
     ////////////////////////////////////////////////////////////////////////    
 
 private:
-    const EWSMcache& cache;    
+    const EWSMcache& cache;///< A reference to an object of type EWSMcache.
     
     
 };

@@ -567,8 +567,7 @@ public:
      * temporary function waiting for the implementation of NNLO etact
      * @param mu
      * @return 
-     */
-    
+     */    
     double Als4(const double mu) const;
     
     /**
@@ -692,11 +691,11 @@ protected:
     
     /**
      * @brief
-     * @param[in]
-     * @param[in]
+     * @param[in] name
+     * @param[in] value
      * @return
      */
-    virtual void setParameter(const std::string, const double&);  /**< */
+    virtual void setParameter(const std::string name, const double& value);  /**< */
 
 private:
     double zeta2; /**< \f$\zeta(2)\f$ computed from the <a href="http://www.gnu.org/software/gsl/" target=blank>gsl libraries</a>*/
@@ -707,64 +706,69 @@ private:
     
     /**
      * @brief
-     * @param[in]
-     * @param[in]
+     * @param mu
+     * @param logLambda
+     * @param order
      * @return
      */
     double AlsWithLambda(const double mu, const double logLambda, const orders order) const;
 
     /**
      * @brief
-     * @param[in]
-     * @param[in]
+     * @param logLambda6
+     * @param logLambda5_in
      * @return
      */
     double ZeroNf6NLO(double *logLambda6, double *logLambda5_in) const;
     
     /**
      * @brief
-     * @param[in]
-     * @param[in]
+     * @param logLambda5
+     * @param order
      * @return
      */
     double ZeroNf5(double *logLambda5, double *order) const;
     
     /**
      * @brief
-     * @param[in]
-     * @param[in]
+     * @param logLambda4
+     * @param logLambda5_in
      * @return
      */
     double ZeroNf4NLO(double *logLambda4, double *logLambda5_in) const;
     
     /**
      * @brief
-     * @param[in]
-     * @param[in]
+     * @param logLambda3
+     * @param logLambda4_in
      * @return
      */
     double ZeroNf3NLO(double *logLambda3, double *logLambda4_in) const;
     
     /**
      * @brief
-     * @param[in]
-     * @param[in]
+     * @param order
      * @return
      */
     double logLambda5(orders order) const;
     
     /**
      * @brief
-     * @param[in]
-     * @param[in]
+     * @param nfNEW
+     * @param nfORG
+     * @param logLambdaORG
      * @return
      */
     double logLambdaNLO(const double nfNEW, const double nfORG, const double logLambdaORG) const;
     
     /**
      * @brief
-     * @param[in]
-     * @param[in]
+     * @param muMatching
+     * @param mf
+     * @param nfNEW
+     * @param nfORG
+     * @param logLambdaORG
+     * @param order
      * @return
      */
     double logLambda(const double muMatching, const double mf,
@@ -773,24 +777,26 @@ private:
     
     /**
      * @brief
-     * @param[in]
-     * @param[in]
+     * @param nf_f
+     * @param nf_i
      * @return
      */
     double threCorrForMass(const double nf_f, const double nf_i) const;
     
     /**
      * @brief
-     * @param[in]
-     * @param[in]
+     * @param mu_f
+     * @param mu_i
+     * @param m
+     * @param order
      * @return
      */
     double MrunTMP(const double mu_f, const double mu_i, const double m, const orders order) const;
     
     /**
      * @brief
-     * @param[in]
-     * @param[in]
+     * @param mu
+     * @param params
      * @return
      */
     double Mp2MbarTMP(double *mu, double *params) const;
@@ -805,11 +811,12 @@ private:
     
     /**
      * @brief
-     * @param[in]
-     * @param[in]
-     * @return
+     * @param cache
+     * @param n
      */
     void CacheShift(double cache[][5], int n) const;
+
+    
 };
 
 #endif	/* QCD_H */

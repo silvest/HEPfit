@@ -13,7 +13,7 @@
 
 /**
  * @addtogroup NewPhysics
- * @brief A project for model-independent analyses of new physics.
+ * @brief A module for model-independent analyses of new physics.
  * @{
  */
 

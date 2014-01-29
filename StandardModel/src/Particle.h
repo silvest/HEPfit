@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -89,7 +89,7 @@ public:
 
     /**
      * set the particle charge
-     * @param[in] width the particle charge
+     * @param[in] charge the particle charge
      */
     void setCharge(double charge) 
     {
@@ -106,7 +106,7 @@ public:
 
     /**
      * set the particle isospin
-     * @param[in] width the particle isospin
+     * @param[in] isospin the particle isospin
      */
     void setIsospin(double isospin) 
     {

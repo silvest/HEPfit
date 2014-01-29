@@ -1,10 +1,11 @@
 /* NOTE TO DOCUMENTERS: 
+ *
  * 1. The block @addtogroup is only necessary in one header file
- * in any project group. This has to be the first header file when they are sorted
- * alphabetically by their names.
+ *    in any project group. This has to be the first header file when they are sorted
+ *    alphabetically by their names.
  *
  * 2. Please try to stick to the conventions set in this header file. In particular 
- * please note that:
+ *    please note that:
  *      a. @brief and @detail are written in complete sentences starting with a
  *         capital letter and ending with a period
  *      b. @param[in/out] and @return are incomplete sentences not ending in a 
@@ -15,18 +16,50 @@
  *      d. All public, protected and private members should be documented including
  *         variables and objects
  *      e. If the class member has a complicated algorithm please try to explain it
- *         clearly with the use of \li:
- *       \li Step 1
- *       \li Step 2
+ *         clearly with the use of @li:
+ *       @li Step 1
+ *       @li Step 2
  *       ...
  *         etc. 
  *      f. If you make any rule that is not specified here, please add it and
  *         broadcast it.
  *
- * 3. Please put in references to the literature where deserving and also point out
- *    deviationd from normal conventions or routines. 
- *
- * 4. Make sure you use linking to other classes and members liberally:
+ * 3. Make sure you use linking to other classes and members liberally:
  *    http://www.stack.nl/~dimitri/doxygen/manual/autolink.html
+ *
+ * 4. Please put in references to the literature where deserving with @cite command, 
+ *    and also point out deviations from normal conventions or routines.  
+ *
+ *    The references have to be added to the bib file Doxygen/SusyFit.bib, where the 
+ *    following manipulations have to be made: 
+ *      (i) Copy a bibtex record from INSPIRE to the above bib file: e.g., 
+ *           @article{Franco:2012ck,
+ *              author = "Franco, Enrico and Mishima, Satoshi and Silvestrini, Luca",
+ *              title  = "{The Standard Model confronts CP violation in $D^0 \to
+ *                         \pi^+\pi^-$ and $D^0 \to K^+K^-$}",
+ *              journal        = "JHEP",
+ *              volume         = "1205",
+ *              pages          = "140",
+ *              doi            = "10.1007/JHEP05(2012)140",
+ *              year           = "2012",
+ *              eprint         = "1203.3131",
+ *              archivePrefix  = "arXiv",
+ *              primaryClass   = "hep-ph",
+ *              SLACcitation   = "%%CITATION = ARXIV:1203.3131;%%",
+ *           }
+ *      (ii) Abbreviate the first (and middle) names of the authors to initials: 
+ *              author = "Franco, E. and Mishima, S. and Silvestrini, L.”,
+ *      (iii) Modify the title: 
+ *             - Change $<math>$ to MJ[<math>]MJ,
+ *             - Change a backslash to [BS],
+ *             - Add “%” to avoid automatic link generation for class names, etc.,
+ *             - Add escape sequence to the brackets { and } used in mathematical 
+ *               symbols as \{ and \}.
+ *            Namely, the title in the above example has to be modified as 
+ *              title  = "{The Standard %Model confronts CP violation in MJ[D^0 [BS]to
+ *                         [BS]pi^+[BS]pi^-$ and $D^0 [BS]to K^+K^-]MJ}”,
+ *      (iv) Combine “year” and “eprint” in the year section: 
+ *              year           = "2012 [arXiv:1203.3131]“,
+ *           Otherwise, the eprint number will not appear in the bibliography page. 
  *
  */

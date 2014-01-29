@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,7 +15,8 @@ using namespace gslpp;
 /**
  * @class EWSM_Output
  * @ingroup StandardModel
- * @brief A class for testing SM radiative corrections to EWPO. 
+ * @brief A class for testing SM radiative corrections to the %EW precision
+ * obsrvables. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details
@@ -24,11 +25,12 @@ class EWSM_Output {
 public:
 
     /**
-     * @brief EWSM_Output constructor. 
-     * @param[in] EWSM_in reference to an EWSM object. 
+     * @brief Constructor.
+     * @param[in] EWSM_in a reference to an object of type EWSM
      */
     EWSM_Output(const EWSM& EWSM_in);
 
+    
     ////////////////////////////////////////////////////////////////////////
 
     void outputEachDeltaR(const double Mw_i) const;
@@ -57,10 +59,12 @@ public:
                                const double ZbbSubtract,
                                const double Zgamma_EW2) const;
 
+    
     ////////////////////////////////////////////////////////////////////////
 private:
-    const EWSM& myEWSM;
-    const StandardModel& SM;
+    const EWSM& myEWSM;///< A reference to an object of type EWSM.
+    const StandardModel& SM;///< A reference to an object of type StandardModel.
+
 
 };
 

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -17,6 +17,7 @@ EWSMTwoFermionsLEP2::EWSMTwoFermionsLEP2(const StandardModel& SM_i,
                                          const bool bKeepNonUnitary_i) 
 : SM(SM_i), cache(cache_i), myOneLoopEW(cache_i)
 {
+    bDebug = false;
     bKeepNonUnitary = bKeepNonUnitary_i;
 }
 
@@ -335,10 +336,13 @@ double EWSMTwoFermionsLEP2::G_3_box(const double s, const double t,
 complex EWSMTwoFermionsLEP2::V_pol(const double s) const 
 {
     complex V;
-    //V = complex(1.0715119759, -0.0186242179, false); // for debug
-    V = SM.ale_OS(sqrt(s), FULLNLO)/SM.getAle() + myOneLoopEW.DeltaAlpha_t(s);
-    //V = SM.ale_OS(sqrt(s), FULLNLO)/SM.getAle();
-    //V = complex(1.0715119759, -0.0186242179, false); //!!TEST
+    if (bDebug)
+        V = complex(1.0715119759, -0.0186242179, false); // for debug
+    else {
+        V = SM.ale_OS(sqrt(s), FULLNLO)/SM.getAle() + myOneLoopEW.DeltaAlpha_t(s);
+        //V = SM.ale_OS(sqrt(s), FULLNLO)/SM.getAle();
+        //V = complex(1.0715119759, -0.0186242179, false); //!!TEST
+    }
     return V;    
 }
 

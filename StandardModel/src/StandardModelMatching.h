@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -93,7 +93,7 @@ public:
      * @brief operator basis: 
      * @brief current-current; qcd penguins;
      * @brief hep/ph 9512380  
-     * @return Wilson coefficients Buras base for \f$ K \rightarrow \pi \pi \f decays
+     * @return Wilson coefficients Buras base for \f$ K \rightarrow \pi \pi \f$ decays
      */
     virtual  std::vector<WilsonCoefficient>& CMK();
     
@@ -102,7 +102,7 @@ public:
      * @brief operator basis: 
      * @brief current-current (open up - open charm) 
      * @brief hep/ph 9512380 
-     * @return Wilson coefficients Buras base for \f$ B \rightarrow \pi \pi \f decays
+     * @return Wilson coefficients Buras base for \f$ B \rightarrow \pi \pi \f$ decays
      */
     virtual  std::vector<WilsonCoefficient>& CMKCC();
     
@@ -295,7 +295,6 @@ public:
     /**
      *  
      * @brief hep-ph/9512380
-     * @param[in] x the square of the ratio between top mass and W mass
      * @return the loop function for the charm-charm contribution to the Delta S = 2 effective hamiltonian multiplied by the CKM element 
      */
     complex S0c() const;
@@ -303,7 +302,6 @@ public:
     /**
      *  
      * @brief hep-ph/9512380
-     * @param[in] x the square of the ratio between top mass and W mass
      * @return the loop function for the charm-top contribution to the Delta S = 2 effective hamiltonian multiplied by the CKM element 
      */
     complex S0ct() const;
@@ -311,7 +309,6 @@ public:
     /**
      *  
      * @brief hep-ph/9512380v1
-     * @param[in] x the square of the ratio between top mass and W mass
      * @return the loop function for the top-top contribution to the Delta S = 2 effective hamiltonian
      */
     complex S0tt() const;
@@ -336,6 +333,8 @@ public:
      *
      * @brief hep-ph/1009.0947v2
      * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] a
+     * @param[in] mu
      * @return two loop EW loop function for the top contribution to K -> pi nu nu decays
      * in the limit of small theta_W
      */
@@ -436,7 +435,8 @@ private:
     
     /**
      * 
-     * @param z
+     * @param x
+     * @param y
      * @return two loop EW loop functions for K-> P nu nu, hep-ph/1009.0947v2 
      */
     double phi2 (double x, double y) const;

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,6 +13,12 @@
 
 using namespace gslpp;
 
+/**
+ * @addtogroup Flavour
+ * @brief A module for flavour observables.
+ * @{
+ */
+
 class AmpDB2 {
 public:
     AmpDB2(Flavour& Flavour);
@@ -25,6 +31,10 @@ private:
     Flavour& myFlavour;
 
 };
+
+/**
+ * @}
+ */
 
 #endif	/* AMPDB2_H */
 

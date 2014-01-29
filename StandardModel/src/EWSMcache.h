@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -19,7 +19,8 @@ using namespace gslpp;
 /**
  * @class EWSMcache
  * @ingroup StandardModel
- * @brief A class for caches storing variables used in the EW precision observables.  
+ * @brief A class for cache variables used in computing radiative corrections
+ * to the %EW precision observables.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
@@ -29,10 +30,18 @@ class EWSMcache {
 public:
 
     /**
-     * @brief EWSMcache constructor
-     * @param[in] SM_i reference to a StandardModel object
+     * @brief Constructor.
+     * @param[in] SM_i a reference to an object of type StandardModel
      */
     EWSMcache(const StandardModel& SM_i);
+
+    
+    ////////////////////////////////////////////////////////////////////////
+
+    void setBDebug(bool bDebug)
+    {
+        this->bDebug = bDebug;
+    }
 
     
     ////////////////////////////////////////////////////////////////////////     
@@ -416,9 +425,10 @@ public:
      */
     double alsMt() const 
     {
-        return ( SM.Als(Mt(),FULLNNLO) );
-        // This part is used in Test programs: EWSMOneLoopEW, etc.
-        //return ( 0.1074432788 );// for debug
+        if (bDebug)
+            return ( 0.1074432788 );// for debug
+        else
+            return ( SM.Als(Mt(),FULLNNLO) );
     }
 
     /**
@@ -595,12 +605,13 @@ public:
     //////////////////////////////////////////////////////////////////////// 
 
 private:
-    bool bUseCacheEWSMcache; // true for caching
+    bool bDebug;// for debug
+    bool bUseCacheEWSMcache;// true for caching
     
-    const StandardModel& SM;
-    const PVfunctions PV;
-    const ClausenFunctions Clausen;
-    const Polylogarithms PolyLog;
+    const StandardModel& SM;///< A reference to an object of type StandardModel.
+    const PVfunctions PV;///< An object of type PVfunctions.
+    const ClausenFunctions Clausen;///< An object of type ClausenFunctions.
+    const Polylogarithms PolyLog;///< An object of type Polylogarithms.
     
     // Constants 
     double zeta2, zeta3, zeta4, zeta5;

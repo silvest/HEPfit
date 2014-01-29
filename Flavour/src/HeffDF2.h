@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,25 +14,19 @@
 #include <WilsonCoefficient.h>
 #include "EvolDF2.h"
 
-/**
- * @addtogroup Flavour
- * @brief A project for Flavour observables.
- * @{
- */
+using namespace gslpp;
 
 /**
  * @class HeffDF2
- * @brief A class for the @f$\Delta F = 2$ effective Hamiltonian.
+ * @ingroup Flavour
+ * @brief A class for the @f$\Delta F = 2@f$ effective Hamiltonian.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the contributions to the
- * @f$\Delta F = 2$ by taking the values of the Wilson coefficients 
+ * @f$\Delta F = 2@f$ by taking the values of the Wilson coefficients
  * from the model matching classes and runs them down to the relevant scale
  * for the observables.
  */
-
-using namespace gslpp;
-
 class HeffDF2 {
 public:
     /**
@@ -141,10 +135,6 @@ private:
     
     EvolDF2 evolDF2;
 };
-
-/**
- * @}
- */
 
 #endif	/* HEFFDF2_H */
 

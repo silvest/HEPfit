@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,13 +13,8 @@
 #include "AmpDK2.h"
 
 /**
- * @addtogroup Flavour
- * @brief A project for Flavour observables.
- * @{
- */
-
-/**
  * @class DMK
+ * @ingroup Flavour
  * @brief A class for @f$\Delta M_K@f$, the difference in mass
  * of between the heavy and light mass eigenstates of the neutral
  * Kaon system.
@@ -32,7 +27,6 @@
  * value of the parameter. This long distance contribution is put in as an
  * input parameter in this code through SM.getDMK().
  */
-
 class DmK : public ThObservable, AmpDK2 {
 public:
     
@@ -49,9 +43,5 @@ public:
      */
     virtual double computeThValue();
 };
-
-/**
- * @}
- */
 
 #endif	/* DMK_H */

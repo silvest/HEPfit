@@ -14,7 +14,7 @@
 /**
  * @class EWSMApproximateFormulae
  * @ingroup StandardModel
- * @brief A class for approximate formulae of %EW precision observables.
+ * @brief A class for approximate formulae of the %EW precision observables.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details The member functions in the current class compute the %EW precision 
@@ -134,8 +134,6 @@ public:
      * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.05907\pm 0.00036@f$,
      * @f$M_Z = 91.1876\pm 0.0021@f$ GeV and
      * @f$m_t = 172.5\pm 2.3@f$ GeV.
-     * @param[in] DeltaAlpha_i the sum of the leptonic and hadronic corrections
-     * to @f$\alpha@f$ at @f$q^2=M_Z^2@f$: @f$\Delta\alpha^{\ell+5q}(M_Z^2)@f$
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return irreducible two-loop %EW contribution to @f$\Delta\kappa_Z^\ell@f$
      */

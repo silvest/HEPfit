@@ -105,22 +105,22 @@ public:
     /**
      * @return the pure new physics contribution to \f$\varepsilon_1\f$
      */
-    double epsilon1() const;
+    virtual double epsilon1() const;
 
     /**
      * @return the pure new physics contribution to \f$\varepsilon_2\f$
      */
-    double epsilon2() const;
+    virtual double epsilon2() const;
     
     /**
      * @return the pure new physics contribution to \f$\varepsilon_3\f$
      */
-    double epsilon3() const;
+    virtual double epsilon3() const;
     
     /**
      * @return the pure new physics contribution to \f$\varepsilon_b\f$
      */
-    double epsilonb() const;
+    virtual double epsilonb() const;
 
 
     ////////////////////////////////////////////////////////////////////////

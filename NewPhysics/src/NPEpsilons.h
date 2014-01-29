@@ -124,25 +124,25 @@ public:
      * @return the SM value (FlagEpsilon1SM=True)
      * or the SM plus new physics value (FlagEpsilon1SM=False) of \f$\varepsilon_1\f$
      */
-    double epsilon1() const;
+    virtual double epsilon1() const;
 
     /**
      * @return the SM value (FlagEpsilon2SM=True)
      * or the SM plus new physics value (FlagEpsilon2SM=False) of \f$\varepsilon_2\f$
      */
-    double epsilon2() const;
+    virtual double epsilon2() const;
 
     /**
      * @return the SM value (FlagEpsilon3SM=True)
      * or the SM plus new physics value (FlagEpsilon3SM=False) of \f$\varepsilon_3\f$
      */
-    double epsilon3() const;
+    virtual double epsilon3() const;
  
     /**
      * @return the SM value (FlagEpsilonbSM=True)
      * or the SM plus new physics value (FlagEpsilonbSM=False) of \f$\varepsilon_b\f$
      */
-    double epsilonb() const;
+    virtual double epsilonb() const;
 
     
     ////////////////////////////////////////////////////////////////////////     

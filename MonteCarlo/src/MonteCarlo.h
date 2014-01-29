@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -13,8 +13,8 @@
 
 /**
  * @addtogroup MonteCarlo
- * @brief A project for Markov Chain Monte Carlo based on
- * the <a href="https://www.mppmu.mpg.de/bat/" target=blank>Bayesian Analysis Tool (BAT)</a>
+ * @brief A module for Markov Chain Monte Carlo based on
+ * the <a href="https://www.mppmu.mpg.de/bat/" target=blank>Bayesian Analysis Tool (BAT)</a>. 
  * @{
  */
 /**

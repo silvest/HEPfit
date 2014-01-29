@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -80,8 +80,8 @@ public:
     //////////////////////////////////////////////////////////////////////// 
     
     /**
-     * @brief EWSM constructor
-     * @param[in] SM_i reference to a StandardModel object
+     * @brief Constructor. 
+     * @param[in] SM_i a reference to an object of type StandardModel
      */
     EWSM(const StandardModel& SM_i);
 
@@ -473,7 +473,7 @@ public:
     /**
      * @param[in] li name of a neutrino
      * @param[in] lj name of a charged lepton
-     * @return the partial width of W^+ decay into an l_i\bar{l_j} pair in the SM
+     * @return the partial width of W^+ decay into an @f$l_i\bar{l_j}@f$ pair in the SM
      * @attention Mixings in the lepton sector are neglected. 
      * @attention Fermion masses are neglected. 
      */
@@ -483,7 +483,7 @@ public:
     /**
      * @param[in] qi name of a up-type quark
      * @param[in] qj name of a down-type quark
-     * @return the partial width of W^+ decay into an q_i\bar{q_j} pair in the SM
+     * @return the partial width of W^+ decay into an @f$q_i\bar{q_j}@f$ pair in the SM
      * @attention Fermion masses are neglected. 
      */
     double GammaW_q_SM(const StandardModel::quark qi, 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -304,8 +304,8 @@ bool FeynHiggsWrapper::CalcHiggsSpectrum()
 bool FeynHiggsWrapper::CalcSpectrum()
 {
     int err, nmfv;
-    double MSf[3][4][2], MASf[4][6], MCha[2], MNeu[4];
-    ComplexType USf[3][4][2][2], UASf[4][6][6];
+    double MSf[3][5][2], MASf[5][6], MCha[2], MNeu[4];
+    ComplexType USf[3][5][2][2], UASf[5][6][6];
     ComplexType UCha[2][2], VCha[2][2], ZNeu[4][4], Deltab;
 
     /*
@@ -313,10 +313,10 @@ bool FeynHiggsWrapper::CalcSpectrum()
      * Foe example, the indices in MSf(s,t,g) for the MFV sfermion masses are
      * defined as
      *   s = 1..2  sfermion index
-     *   t = 1..4  sfermion type: nu, e, u, d
+     *   t = 1..5  sfermion type: nu, e, u, d, d-resummed
      *   g = 1..3  generation index
      * according to the manual of FeynHiggs. On the other hand, it is translated
-     * from Fortran to C in CFeynHiggs.h as MSf,[3][4][2]. Namely, the order
+     * from Fortran to C in CFeynHiggs.h as MSf[3][5][2]. Namely, the order
      * of the indices is reversed.
      */
 
@@ -343,19 +343,21 @@ bool FeynHiggsWrapper::CalcSpectrum()
     }
 
     /* sfermions in MFV for debug*/
-    //vector<double> m_sn2_MFV(6,0.), m_se2_MFV(6,0.), m_su2_MFV(6,0.), m_sd2_MFV(6,0.);
-    //matrix<complex> Rn_MFV(6,6,0.), Rl_MFV(6,6,0.), Ru_MFV(6,6,0.), Rd_MFV(6,6,0.);
+    //vector<double> m_sn2_MFV(6,0.), m_se2_MFV(6,0.), m_su2_MFV(6,0.), m_sd2_MFV(6,0.), m_sdresum2_MFV(6,0.);
+    //matrix<complex> Rn_MFV(6,6,0.), Rl_MFV(6,6,0.), Ru_MFV(6,6,0.), Rd_MFV(6,6,0.), Rdresum_MFV(6,6,0.);
     //for (int g = 0; g < 3; g++) { /* generations */
     //    for (int s = 0; s < 2; s++) { /* left or right */
     //        m_sn2_MFV(g + 3*s) = MSf[g][0][s]*MSf[g][0][s];
     //        m_se2_MFV(g + 3*s) = MSf[g][1][s]*MSf[g][1][s];
     //        m_su2_MFV(g + 3*s) = MSf[g][2][s]*MSf[g][2][s];
     //        m_sd2_MFV(g + 3*s) = MSf[g][3][s]*MSf[g][3][s];
+    //        m_sdresum2_MFV(g + 3*s) = MSf[g][4][s]*MSf[g][4][s];
     //        for (int t = 0; t < 2; t++) { /* left or right */
     //            Rn_MFV.assign(s,t, complex(USf[g][0][t][s].real(), USf[g][0][t][s].imag()));
     //            Rl_MFV.assign(s,t, complex(USf[g][1][t][s].real(), USf[g][1][t][s].imag()));
     //            Ru_MFV.assign(s,t, complex(USf[g][2][t][s].real(), USf[g][2][t][s].imag()));
     //            Rd_MFV.assign(s,t, complex(USf[g][3][t][s].real(), USf[g][3][t][s].imag()));
+    //            Rdresum_MFV.assign(s,t, complex(USf[g][4][t][s].real(), USf[g][4][t][s].imag()));
     //        }
     //    }
     //}
@@ -366,6 +368,7 @@ bool FeynHiggsWrapper::CalcSpectrum()
         mySUSY.m_se2(i) = MASf[1][i]*MASf[1][i];
         mySUSY.m_su2(i) = MASf[2][i]*MASf[2][i];
         mySUSY.m_sd2(i) = MASf[3][i]*MASf[3][i];
+        mySUSY.m_sdresum2(i) = MASf[4][i]*MASf[4][i];
         for (int j = 0; j < 6; j++) {
             /* R: first (second) index for mass (gauge) eigenstates */
             /* UASf: second (third) index for gauge (mass) eigenstates */
@@ -373,6 +376,7 @@ bool FeynHiggsWrapper::CalcSpectrum()
             mySUSY.Rl.assign(i,j, complex(UASf[1][j][i].real(), UASf[1][j][i].imag()));
             mySUSY.Ru.assign(i,j, complex(UASf[2][j][i].real(), UASf[2][j][i].imag()));
             mySUSY.Rd.assign(i,j, complex(UASf[3][j][i].real(), UASf[3][j][i].imag()));
+            mySUSY.Rdresum.assign(i,j, complex(UASf[4][j][i].real(), UASf[4][j][i].imag()));
         }
     }
 
@@ -387,6 +391,7 @@ bool FeynHiggsWrapper::CalcSpectrum()
     if (NMFVe) mySUSY.Rl = mySUSY.Rl * muHphaseMatrix;
     if (NMFVu) mySUSY.Ru = mySUSY.Ru * muHphaseMatrix;
     if (NMFVd) mySUSY.Rd = mySUSY.Rd * muHphaseMatrix;
+    if (NMFVd) mySUSY.Rdresum = mySUSY.Rdresum * muHphaseMatrix;
 
     /* The SLHA2 convention requires increasing eigenvalues of the sfermion masses.
      * This is not done automatically by FeynHiggs. */
@@ -394,6 +399,7 @@ bool FeynHiggsWrapper::CalcSpectrum()
     SortSfermionMasses(mySUSY.m_se2, mySUSY.Rl);
     SortSfermionMasses(mySUSY.m_su2, mySUSY.Ru);
     SortSfermionMasses(mySUSY.m_sd2, mySUSY.Rd);
+    SortSfermionMasses(mySUSY.m_sdresum2, mySUSY.Rdresum);
 
     /* charginos */
     for (int i = 0; i < 2; i++) {

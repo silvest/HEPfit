@@ -1,11 +1,13 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
  */
 
 #include "LEP2TFtestclass.h"
+#include <EWSM.h>
+
 
 CPPUNIT_TEST_SUITE_REGISTRATION(LEP2TFtestclass);
 
@@ -16,11 +18,12 @@ LEP2TFtestclass::~LEP2TFtestclass() {
 }
 
 void LEP2TFtestclass::setUp() {
-    const bool bDebug = true;
-    SM = new StandardModel(bDebug);
-    setModelParameters(*SM);
+    SM = new StandardModel();
     SM->InitializeModel();
     myLEP2TF = new LEP2TwoFermions(*SM);
+
+    SM->getEWSM()->getMyCache()->setBDebug(true);
+    SM->getEWSM()->getMyTwoFermionsLEP2()->setBDebug(true);
 
     sqrt_s = 200.0;
     Mw = 80.360848365211552;
@@ -41,7 +44,7 @@ void LEP2TFtestclass::setUp() {
 
 void LEP2TFtestclass::tearDown() {
     delete myLEP2TF; 
-    delete SM; 
+    //delete SM;
 }
 
 /*  Parameters for StandardModel class  */
@@ -138,7 +141,8 @@ void LEP2TFtestclass::setModelParameters(StandardModel& Model_i) {
     Parameters["mtop"] = 173.18;
     
     /* mb(Mz)= 0.56381685 and mc(Mz)= 2.8194352 in ZFitter */
-    /* In case where bDebug is true, the RG running effects of the quark masses are neglected. */
+    /* In case where bDebug in EWSMcache class is set to true, the RG running
+     * effects of the quark masses are neglected. */
     Parameters["mcharm"] = 0.56381685;
     Parameters["mbottom"] = 2.8194352;
     

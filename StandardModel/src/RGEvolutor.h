@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -83,9 +83,8 @@ public:
     /**
      *
      * @brief
-     * @param[in] matrix<double>& m
-     * @param[in] order_i order of QCD coupling
-     * @param[in] order_ew order of Electroweak coupling
+     * @param[in] m
+     * @param[in] order_ew_i order of Electroweak coupling
      */
     void setEvol(const matrix<double>& m, orders_ew order_ew_i);
     

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -19,13 +19,8 @@ class FeynHiggsWrapper; // forward reference to FeynHiggsWrapper class
 class SUSYSpectrum; // forward reference to Spectrum class
 
 /**
- * @addtogroup SUSY
- * @brief A project for a basis of SUSY models. 
- * @{
- */
-
-/**
  * @class SUSY
+ * @ingroup SUSY
  * @brief A base class for SUSY models. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -381,6 +376,16 @@ public:
     }
 
     /**
+     * @brief Gets the down-type squark mass squared with the
+     * @f$\Delta_b@f$ corrections in the off-diagonal entries. 
+     * @return The down-type squark mass squared.
+     */
+    vector<double> getMsdresum2() const
+    {
+        return m_sdresum2;
+    }
+
+    /**
      * @brief Gets the rotation matrix for up-type squarks.
      * @return The rotation matrix for up-type squarks.
      */
@@ -398,6 +403,15 @@ public:
         return Rd;
     }
 
+    /**
+     * @brief Gets the rotation matrix for down-type squarks with the
+     * @f$\Delta_b@f$ corrections in the off-diagonal entries. 
+     * @return The rotation matrix for down-type squarks.
+     */
+    matrix<complex> getRdresum() const
+    {
+        return Rdresum;
+    }
 
     ///////////////////////////////////////////////////////////////////////////
     // functions for the parameters in the slepton sector.
@@ -562,10 +576,10 @@ protected:
     double mHp, mh[4];
     complex saeff;
     vector<double> mch, mneu;
-    vector<double> m_su2, m_sd2, m_sn2, m_se2;
+    vector<double> m_su2, m_sd2, m_sdresum2, m_sn2, m_se2;
 
     // rotation matrices
-    matrix<complex> U, V, N, Ru, Rd, Rn, Rl;
+    matrix<complex> U, V, N, Ru, Rd, Rdresum, Rn, Rl;
 
     // quark and lepton masses at scale Q, computed in setYukawas()
     double mu_Q[3], md_Q[3], me_Q[3], mn_Q[3];
@@ -577,10 +591,6 @@ private:
     SUSYMatching* mySUSYMatching;
 
 };
-
-/** 
- * @}
- */
 
 #endif	/* SUSY_H */
 

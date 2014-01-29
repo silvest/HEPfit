@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2013 SusyFit Collaboration
+ * Copyright (C) 2013-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -12,7 +12,7 @@
 
 /**
  * @addtogroup Observable
- * @brief A project for model parameters and observables.
+ * @brief A module for model parameters and observables.
  * @{
  */
 

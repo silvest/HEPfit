@@ -179,7 +179,6 @@
       <folder path="TestFiles">
         <ccTool>
           <incDir>
-            <pElem>../ZFitter/src</pElem>
             <pElem>src</pElem>
           </incDir>
         </ccTool>
@@ -198,18 +197,6 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../ZFitter"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../ZFitter"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libzfitter.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>

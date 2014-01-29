@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -19,12 +19,16 @@ EWSMLEP2testclass::~EWSMLEP2testclass() {
 }
 
 void EWSMLEP2testclass::setUp() {
-    const bool bDebug = true;
-    SM = new StandardModel(bDebug);
+    SM = new StandardModel();
     SM->InitializeModel();
     setModelParameters(*SM);
-    myLEP2 = new EWSMTwoFermionsLEP2(*SM, false);
-    myLEP2_NU = new EWSMTwoFermionsLEP2(*SM, true);
+    myCache = new EWSMcache(*SM);
+    myLEP2 = new EWSMTwoFermionsLEP2(*SM, *myCache);
+    myLEP2_NU = new EWSMTwoFermionsLEP2(*SM, *myCache);
+
+    myCache->setBDebug(true);
+    myLEP2->setBDebug(true);
+    myLEP2_NU->setBDebug(true);
 
     sqrt_s = 200.0;
     Mw = 80.360848365211552;
@@ -44,7 +48,8 @@ void EWSMLEP2testclass::setUp() {
 }
 
 void EWSMLEP2testclass::tearDown() {
-    delete myLEP2; 
+    delete myLEP2;
+    delete myCache;
     //delete SM; 
 }
 

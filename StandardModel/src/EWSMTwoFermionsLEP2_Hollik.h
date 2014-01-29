@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -27,8 +27,8 @@ class EWSMTwoFermionsLEP2_Hollik {
 public:
     
     /**
-     * @brief EWSMTwoFermionsLEP2_Hollik constructor
-     * @param[in] SM_i reference to a StandardModel object
+     * @brief Constructor. 
+     * @param[in] SM_i a reference to an object of type StandardModel
      */
     EWSMTwoFermionsLEP2_Hollik(const StandardModel& SM_i);
 
@@ -100,7 +100,6 @@ public:
      * @param[in] Mw the W-boson mass 
      * @param[in] GammaZ the Z-boson decay width
      * @param[in] bDP with/without dressed gauge-boson propagators
-     * @param[in] bWEAK with/without weak corrections
      * @param[in] bQED with/without QED corrections
      * @return the total cross section for e^+ e^- -> l lbar in GeV^{-2}
      */
@@ -115,7 +114,6 @@ public:
      * @param[in] Mw the W-boson mass 
      * @param[in] GammaZ the Z-boson decay width
      * @param[in] bDP with/without dressed gauge-boson propagators
-     * @param[in] bWEAK with/without weak corrections
      * @param[in] bQED with/without QED corrections
      * @return the total cross section for e^+ e^- -> q qbar in GeV^{-2}
      */
