@@ -33,7 +33,7 @@ using namespace gslpp;
  *
  *
  *
- * See also the description of EWSM class for details on the above quantities.
+ * See also the description of EWSM class for their definitions. 
  */
 class EWSMOneLoopEW {
     

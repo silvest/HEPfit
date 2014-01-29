@@ -28,7 +28,7 @@ using namespace gslpp;
  * @li @f$\delta\rho_{\mathrm{rem}}^{f}@f$&nbsp;&nbsp; (with deltaRho_rem_l() and deltaRho_rem_q()),
  * @li @f$\delta\kappa_{\mathrm{rem}}^{f}@f$&nbsp;&nbsp; (with deltaKappa_rem_l() and deltaKappa_rem_q()).
  *
- * See also the description of EWSM class for details on the above quantities. 
+ * See also the description of EWSM class for their definitions.
  */
 class EWSMThreeLoopQCD {
 
@@ -183,8 +183,8 @@ private:
     
     /**
      * @brief The function @f$\delta^{\mathrm{QCD}}_3@f$. 
-     * @details This function describes the leading three-loop %QCD contribution
-     * of @f$O(G_\mu\alpha_s^2M_t^2(1+M_Z^2/m_t^2+(M_Z^2/m_t^2)^2))@f$
+     * @details This function is associated with the leading three-loop %QCD
+     * contribution of @f$O(G_\mu\alpha_s^2M_t^2(1+M_Z^2/m_t^2+(M_Z^2/m_t^2)^2))@f$
      * to @f$\Delta\rho@f$, as explained in the description of DeltaRho(). 
      * See @cite Avdeev:1994db, @cite Chetyrkin:1995ix, @cite Chetyrkin:1995js
      * and Chapter 8 of @cite Bardin:1999ak.

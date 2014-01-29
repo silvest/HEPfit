@@ -31,7 +31,7 @@ using namespace gslpp;
  * @li @f$\rho_2@f$,
  * @li @f$\tau_2@f$.
  *
- * See also the description of EWSM class for details on the above quantities.
+ * See also the description of EWSM class for their definitions. 
  */
 class EWSMTwoLoopEW {
 

@@ -30,7 +30,7 @@ using namespace gslpp;
  *
  * where only @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$ and @f$\Delta\rho@f$
  * are non-zero in the current class.
- * See also the description of EWSM class for details on the above quantities.
+ * See also the description of EWSM class for their definitions. 
  */
 class EWSMThreeLoopEW {
 

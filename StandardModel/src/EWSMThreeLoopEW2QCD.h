@@ -29,7 +29,7 @@ using namespace gslpp;
  * @li @f$\delta\kappa_{\mathrm{rem}}^{f}@f$&nbsp;&nbsp; (with deltaKappa_rem_l() and deltaKappa_rem_q()),
  *
  * where only @f$\Delta\rho@f$ is non-zero in the current class.
- * See also the description of EWSM class for details on the above quantities.
+ * See also the description of EWSM class for their definitions. 
  */
 class EWSMThreeLoopEW2QCD {
 
