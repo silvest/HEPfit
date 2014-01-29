@@ -13,37 +13,86 @@
 
 /**
  * @class NPEffective
- * @brief A base class for new physics in the form of contributions to the dimension-six effective Lagrangian.
+ * @brief A base class for new physics in the form of contributions to the 
+ * dimension-six effective Lagrangian.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class contains the necessary functions to compute new physics tree-level corrections to electroweak precision
- * observables, in the form of contributions to a general class of SM gauge-invariant dimension-six effective operators. These corrections are
- * parameterized in terms of the operator contributions to \f$M_W\f$, and to \f$Z\f$-pole observables
- * through the corrections to the different neutral-current effective couplings to leptons and quarks, \f$\delta g_{L,R}^f\f$
- * or \f$\delta g_{V,A}^f\f$.
+ * @details This class contains the necessary functions to compute new physics 
+ * tree-level corrections to electroweak precision observables, in the form of
+ * contributions to a general class of SM gauge-invariant dimension-six effective
+ * operators. These corrections are parameterized in terms of the operator 
+ * contributions to \f$M_W\f$, and to \f$Z\f$-pole observables through the corrections
+ * to the different neutral-current effective couplings to leptons and quarks, 
+ * \f$\delta g_{L,R}^f\f$ or \f$\delta g_{V,A}^f\f$.
  */
 class NPEffective : public NPbase {
 public:
 
     /**
-     * @brief Constructor.
+     * @brief The default constructor.
      */
     NPEffective();
 
+    /**
+     * @brief The name of the model.
+     * @return the name of the model as a string
+     */
     virtual std::string ModelName() const
     {
         return "NPEffective";
     }
 
+    /**
+     * @brief A method to initialize the model.
+     * @return true is model initialization is successful
+     */
     virtual bool InitializeModel();
+    
+    /**
+     * @brief A set method to fix the flags EWSM for the model.
+     * @param[in] myEWSM flag value for the EWSM flag
+     * @return a boolean to designate the success or failure of this procedure
+     */
     virtual void setEWSMflags(EWSM& myEWSM);
 
+    /**
+     * @brief The update method for the model class.
+     * @details This method updates all the parameters of the model every time a
+     * new set of parameters is generated.
+     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
+     * (including parameters that are varied and those that are held constant)
+     * @return a boolean that is true if the execution is successful.
+     */
     virtual bool Update(const std::map<std::string, double>& DPars);
-    virtual bool Init(const std::map<std::string, double>& DPars);    
+    
+    /**
+     * @brief A method to initialize the model.
+     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
+     * @return true is model initialization is successful
+     */
+    virtual bool Init(const std::map<std::string, double>& DPars);  
+   
+    /**
+     * @brief A method to check if all the mandatory parameters for the model have been
+     * provided in the model configuration file.
+     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
+     * (including parameters that are varied and those that are held constant)
+     */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
+    /**
+     * @brief A set method to fix the flags for the model.
+     * @param[in] flagname the name of the flag
+     * @param[in] flagvalue the value of the flag that can be true or false
+     * @return a boolean to designate the success or failure of this procedure
+     */
     virtual bool setFlag(const std::string, const bool&); 
+    
+    /**
+     * @brief A method to check the sanity of the set of flags.
+     * @return true if the set of flags is sane.
+     */
     virtual bool CheckFlags() const;
     
 
@@ -260,23 +309,27 @@ public:
      */
     virtual double Mw_tree() const;
 
+    /**
+     * @return the new physics correction to the Fermi constant, 
+     * \f$ G_F\equiv G_F^\mathrm{SM}(1+\Delta G_F)\f$ 
+     */
     virtual double DeltaGF() const;
 
 
     ////////////////////////////////////////////////////////////////////////     
 
     /**
-     * @return the oblique parameter S
+     * @return the oblique parameter \f$S\f$
      */
     virtual double obliqueS() const;
 
     /**
-     * @return the oblique parameter T
+     * @return the oblique parameter \f$T\f$
      */
     virtual double obliqueT() const;
 
     /**
-     * @return the oblique parameter U
+     * @return the oblique parameter \f$U\f$
      */
     virtual double obliqueU() const;
 

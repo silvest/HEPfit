@@ -14,46 +14,100 @@
 /**
  * @class NPSTU
  * @brief A class for new physics in the form of contributions to the oblique 
- * parameters \f$S,~T\f$ and \f$U\f$ 
+ * parameters \f$S,~T\f$ and \f$U\f$. 
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class contains the necessary functions to compute new physics tree-level corrections to electroweak precision
- * observables, in the form of contributions to the Peskin-Takeuchi oblique parameters \cite . These corrections are
- * parameterized in terms of the \f$S,~T\f$ and \f$U\f$ contributions to \f$M_W\f$, and to \f$Z\f$-pole observables
- * through the corrections to the different neutral-current effective couplings to leptons and quarks. The contributions
- * to the later are implemented in the \b NPbase class.
+ * @details This class contains the necessary functions to compute new physics 
+ * tree-level corrections to electroweak precision observables, in the form of 
+ * contributions to the Peskin-Takeuchi oblique parameters \cite . These corrections
+ * are parameterized in terms of the \f$S,~T\f$ and \f$U\f$ contributions to \f$M_W\f$,
+ * and to \f$Z\f$-pole observables through the corrections to the different neutral-current
+ * effective couplings to leptons and quarks. The contributions to the later are 
+ * implemented in the \b NPbase class.
  */
 class NPSTU : public NPbase {
 public:
+    /**
+     * @brief The number of new physics parameters in the model.
+     */
     static const int NSTUvars = 3;
+    /**
+     * @brief A string array with the names of the new physics parameters in the model.
+     */
     static const std::string STUvars[NSTUvars];
     
     /**
-     * @brief Constructor.
+     * @brief The default constructor.
      */
     NPSTU();
 
+    /**
+     * @brief The name of the model.
+     * @return the name of the model as a string
+     */
     virtual std::string ModelName() const 
     {
         return "NPSTU";
     }
 
+    /**
+     * @brief A method to initialize the model.
+     * @return true is model initialization is successful
+     */
     virtual bool InitializeModel();
+    
+    /**
+     * @brief A set method to fix the flags EWSM for the model.
+     * @param[in] myEWSM flag value for the EWSM flag
+     * @return a boolean to designate the success or failure of this procedure
+     */
     virtual void setEWSMflags(EWSM& myEWSM);
 
-    virtual bool Init(const std::map<std::string, double>& DPars);    
+    /**
+     * @brief A method to initialize the model.
+     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
+     * @return true is model initialization is successful
+     */
+    virtual bool Init(const std::map<std::string, double>& DPars);   
+    
+    /**
+     * @brief The update method for the model class.
+     * @details This method updates all the parameters of the model every time a
+     * new set of parameters is generated.
+     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
+     * (including parameters that are varied and those that are held constant)
+     * @return a boolean that is true if the execution is successful.
+     */
     virtual bool Update(const std::map<std::string, double>& DPars);
+    
+    /**
+     * @brief A method to check if all the mandatory parameters for the model have been
+     * provided in the model configuration file.
+     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
+     * (including parameters that are varied and those that are held constant)
+     */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
+    /**
+     * @brief A set method to fix the flags for the model.
+     * @param[in] flagname the name of the flag
+     * @param[in] flagvalue the value of the flag that can be true or false
+     * @return a boolean to designate the success or failure of this procedure
+     */
     virtual bool setFlag(const std::string, const bool&); 
+    
+    /**
+     * @brief A method to check the sanity of the set of flags.
+     * @return true if the set of flags is sane.
+     */
     virtual bool CheckFlags() const;
     
 
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @return the oblique parameter S
+     * @return the oblique parameter \f$S\f$
      */
     virtual double obliqueS() const 
     {
@@ -61,7 +115,7 @@ public:
     }
 
     /**
-     * @return the oblique parameter T
+     * @return the oblique parameter \f$T\f$
      */
     virtual double obliqueT() const 
     {
@@ -69,7 +123,7 @@ public:
     }
 
     /**
-     * @return the oblique parameter U
+     * @return the oblique parameter \f$U\f$
      */
     virtual double obliqueU() const 
     {
@@ -80,22 +134,25 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @return the value of the @f$\epsilon_1@f$ parameter
+     * @return the value of the @f$\epsilon_1@f$ parameter (SM plus new physics
+     * corrections)
      */
     double epsilon1() const;
 
     /**
-     * @return the value of the @f$\epsilon_2@f$ parameter
+     * @return the value of the @f$\epsilon_2@f$ parameter (SM plus new physics
+     * corrections)
      */
     double epsilon2() const;
 
     /**
-     * @return the value of the @f$\epsilon_3@f$ parameter
+     * @return the value of the @f$\epsilon_3@f$ parameter (SM plus new physics
+     * corrections)
      */
     double epsilon3() const;
 
     /**
-     * @return the value of the @f$\epsilon_b@f$ parameter
+     * @return the SM value of the @f$\epsilon_b@f$ parameter
      */
     double epsilonb() const;
 
@@ -128,6 +185,11 @@ public:
     ////////////////////////////////////////////////////////////////////////
 protected:    
     double myObliqueS, myObliqueT, myObliqueU;
+     /**
+     * @brief A set method to fix the parameters of the model.
+     * @param[in] name a string with the parameter name
+     * @param[in] value the value to be asigned to the parameter specified by name
+     */
     virtual void setParameter(const std::string name, const double& value);
 
 };
