@@ -25,7 +25,7 @@
       //db.innerHTML = db.innerHTML.replace(/\[BS\]/g, '\\');
       db.innerHTML=db.innerHTML.replace(/(arXiv):([0-9]+\.[0-9]+)/g,
         '<a href="http://inspirehep.net/search?ln=en&p=$1%3A$2" style="color:red">$1:$2</a>');
-      db.innerHTML=db.innerHTML.replace(/(hep-.+)\/([0-9]+)/g,
+      db.innerHTML=db.innerHTML.replace(/(arXiv:hep-.+)\/([0-9]+)/g,
         '<a href="http://inspirehep.net/search?ln=en&p=$1%2F$2" style="color:red">$1\/$2</a>');
     }
   }
