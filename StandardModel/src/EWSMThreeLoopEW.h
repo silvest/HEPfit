@@ -67,7 +67,7 @@ public:
      * @brief Leading three-loop contribution of @f$O(\alpha^3)@f$
      * to @f$\Delta\rho@f$.
      * @details This function handles the leading three-loop %EW contribution of
-     * @f$O(G_\mu^3 m_t^6)@f$ to @f$\Delta\rho@f$.
+     * @f$O(\alpha^3 m_t^6/M_Z^6)@f$ to @f$\Delta\rho@f$.
      * Expressions are available for @f$m_h=0@f$ in @cite vanderBij:2000cg
      * and for @f$m_h\approx m_t@f$ and @f$m_h\gg m_t@f$ in @cite Faisst:2003px.
      * @param[in] Mw_i the @f$W@f$-boson mass

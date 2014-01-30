@@ -66,7 +66,7 @@ public:
      * @brief Leading three-loop contribution of @f$O(\alpha^2\alpha_s)@f$
      * to @f$\Delta\rho@f$.
      * @details This function handles the leading three-loop mixed %EW-%QCD
-     * contribution of @f$O(G_\mu^2\alpha_s m_t^4)@f$ to @f$\Delta\rho@f$.
+     * contribution of @f$O(\alpha^2\alpha_s m_t^4/M_Z^4)@f$ to @f$\Delta\rho@f$.
      * Expressions are available for @f$m_h=0@f$ in @cite vanderBij:2000cg
      * and for @f$m_h\approx m_t@f$ and @f$m_h\gg m_t@f$ in @cite Faisst:2003px.
      * @param[in] Mw_i the @f$W@f$-boson mass

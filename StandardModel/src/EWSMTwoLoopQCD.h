@@ -48,7 +48,7 @@ using namespace gslpp;
  * @li @f$A'_1(r)@f$&nbsp;&nbsp; (with A1prime()).
  *
  * The @f$O(\alpha\alpha_s)@f$ two-loop %QCD contributions to the vacuum
- * polarization amplitudes of the weak gauge bosons were calculated in
+ * polarization amplitudes of the gauge bosons were calculated in
  * @cite Djouadi:1987gn, @cite Djouadi:1987di, @cite Kniehl:1989yc, 
  * @cite Halzen:1990je, @cite Kniehl:1991gu, @cite Kniehl:1992dx and @cite Djouadi:1993ss.
  */
@@ -96,7 +96,7 @@ public:
      * @f$\delta^{\mathrm{QCD}}_2@f$ is computed via deltaQCD_2().
      * See, e.g., Chapter 8 of @cite Bardin:1999ak.
      * This quantity contributes to @f$\Delta r@f$ and the @f$Zf\bar{f}@f$
-     * effective couplings @f$\rho_Z^f@f$ and @f$\kappa_Z^f@f$.
+     * effective couplings @f$\rho_Z^f@f$ and @f$\kappa_Z^f@f$.-b
      * See also the description of EWSM class.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta\rho^{\alpha\alpha_s}@f$
@@ -113,8 +113,8 @@ public:
      *    + \frac{c_W^2}{s_W^2} \Delta\rho^{\alpha\alpha_s},
      * @f]
      * where @f$\Delta r^{ud}@f$ and @f$\Delta r^{tb}@f$ are associated with 
-     * corrections to the self-energies of the weak gauge bosons with loops of
-     * a light-quark doublet and with those of the @f$t-b@f$ doublet, respectively,
+     * corrections to the self-energies of the gauge bosons with loops of
+     * a light-quark doublet and with those of the @f$t@f$-@f$b@f$ doublet, respectively,
      * and @f$\Delta\rho^{\alpha\alpha_s}@f$ is the leading contribution.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta r_{\mathrm{rem}}^{\alpha\alpha_s^2}@f$ 
@@ -131,8 +131,8 @@ public:
      *  = 2 \Delta\rho^{ud} + \Delta\rho^{tb} - \Delta\rho^{\alpha\alpha_s},
      * @f]
      * where @f$\Delta\rho^{ud}@f$ and @f$\Delta\rho^{tb}@f$ are associated with
-     * corrections to the self-energies of the weak gauge bosons with loops of
-     * a light-quark doublet and with those of the @f$t-b@f$ doublet, respectively,
+     * corrections to the self-energies of the gauge bosons with loops of
+     * a light-quark doublet and with those of the @f$t@f$-@f$b@f$ doublet, respectively,
      * and @f$\Delta\rho^{\alpha\alpha_s}@f$ is the leading contribution
      * of @f$O(\alpha\alpha_s)@f$ to @f$\rho_{Z}^{l}@f$.
      * @param[in] l name of a lepton (see StandardModel::lepton)
@@ -151,8 +151,8 @@ public:
      *  = 2 \Delta\rho^{ud} + \Delta\rho^{tb} - \Delta\rho^{\alpha\alpha_s},
      * @f]
      * where @f$\Delta\rho^{ud}@f$ and @f$\Delta\rho^{tb}@f$ are associated with
-     * corrections to the self-energies of the weak gauge bosons with loops of
-     * a light-quark doublet and with those of the @f$t-b@f$ doublet, respectively,
+     * corrections to the self-energies of the gauge bosons with loops of
+     * a light-quark doublet and with those of the @f$t@f$-@f$b@f$ doublet, respectively,
      * and @f$\Delta\rho^{\alpha\alpha_s}@f$ is the leading contribution
      * of @f$O(\alpha\alpha_s)@f$ to @f$\rho_{Z}^{q}@f$.
      * @param[in] q name of a quark (see QCD::quark)
@@ -172,8 +172,8 @@ public:
      * - \frac{c_W^2}{s_W^2}\Delta\rho^{\alpha\alpha_s},
      * @f]
      * where @f$\Delta\kappa^{ud}@f$ and @f$\Delta\kappa^{tb}@f$ are associated with
-     * corrections to the self-energies of the weak gauge bosons with loops of
-     * a light-quark doublet and with those of the @f$t-b@f$ doublet, respectively,
+     * corrections to the self-energies of the gauge bosons with loops of
+     * a light-quark doublet and with those of the @f$t@f$-@f$b@f$ doublet, respectively,
      * and @f$(c_W^2/s_W^2)\Delta\rho^{\alpha\alpha_s}@f$ is the leading contribution
      * of @f$O(\alpha\alpha_s)@f$ to @f$\kappa_{Z}^{l}@f$.
      * @param[in] l name of a lepton (see StandardModel::lepton)
@@ -193,8 +193,8 @@ public:
      * - \frac{c_W^2}{s_W^2}\Delta\rho^{\alpha\alpha_s},
      * @f]
      * where @f$\Delta\kappa^{ud}@f$ and @f$\Delta\kappa^{tb}@f$ are associated with
-     * corrections to the self-energies of the weak gauge bosons with loops of
-     * a light-quark doublet and with those of the @f$t-b@f$ doublet, respectively,
+     * corrections to the self-energies of the gauge bosons with loops of
+     * a light-quark doublet and with those of the @f$t@f$-@f$b@f$ doublet, respectively,
      * and @f$(c_W^2/s_W^2)\Delta\rho^{\alpha\alpha_s}@f$ is the leading contribution
      * of @f$O(\alpha\alpha_s)@f$ to @f$\kappa_{Z}^{q}@f$.
      * @param[in] q name of a quark (see QCD::quark)
@@ -273,7 +273,7 @@ public:
      * @brief Light-quark contribution to @f$\Delta r@f$, not including
      * @f$\Delta\alpha^{l+5q}(M_Z^2)@f$. 
      * @details The quantity @f$\Delta r^{ud}@f$ is associated with
-     * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the weak
+     * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the 
      * gauge bosons with loops of the light-quark doublets.
      * The expression of @f$\Delta r^{ud}@f$ is given by
      * @f[
@@ -290,8 +290,8 @@ public:
     /**
      * @brief Heavy-quark contribution to @f$\Delta r@f$.
      * @details The quantity @f$\Delta r^{tb}@f$ is associated with
-     * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the weak
-     * gauge bosons with loops of the @f$t-b@f$ doublet.
+     * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the 
+     * gauge bosons with loops of the @f$t@f$-@f$b@f$ doublet.
      * The expression of @f$\Delta r^{tb}@f$ is given by
      * @f[
      * \Delta r^{tb}
@@ -315,7 +315,7 @@ public:
     /**
      * @brief Light-quark contribution to @f$\rho_Z^f@f$.
      * @details The quantity @f$\Delta\rho^{ud}@f$ is associated with
-     * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the weak
+     * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the 
      * gauge bosons with loops of the light-quark doublets.
      * The expression of @f$\Delta\rho^{ud}@f$ is given by
      * @f[
@@ -334,8 +334,8 @@ public:
     /**
      * @brief Heavy-quark contribution to @f$\rho_Z^f@f$.
      * @details The quantity @f$\Delta\rho^{tb}@f$ is associated with
-     * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the weak
-     * gauge bosons with loops of the @f$t-b@f$ doublet.
+     * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the 
+     * gauge bosons with loops of the @f$t@f$-@f$b@f$ doublet.
      * The expression of @f$\Delta\rho^{tb}@f$ is given by
      * @f[
      * \Delta\rho^{tb}
@@ -355,7 +355,7 @@ public:
     /**
      * @brief Light-quark contribution to @f$\kappa_Z^f@f$.
      * @details The quantity @f$\Delta\kappa^{ud}@f$ is associated with
-     * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the weak
+     * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the 
      * gauge bosons with loops of the light-quark doublets.
      * The expression of @f$\Delta\kappa^{ud}@f$ is given by
      * @f[
@@ -375,8 +375,8 @@ public:
     /**
      * @brief Heavy-quark contribution to @f$\kappa_Z^f@f$.
      * @details The quantity @f$\Delta\kappa^{tb}@f$ is associated with
-     * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the weak
-     * gauge bosons with loops of the @f$t-b@f$ doublet.
+     * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the 
+     * gauge bosons with loops of the @f$t@f$-@f$b@f$ doublet.
      * The expression of @f$\Delta\kappa^{tb}@f$ is given by
      * @f[
      * \Delta\kappa^{tb}

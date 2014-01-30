@@ -12,7 +12,7 @@
 
 /**
  * @class NPEffective1
- * @brief A base class for new physics in the form of contributions to the 
+ * @brief A class for new physics in the form of contributions to the 
  * dimension-six effective Lagrangian.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration

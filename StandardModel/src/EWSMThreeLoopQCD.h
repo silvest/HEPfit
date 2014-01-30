@@ -184,7 +184,7 @@ private:
     /**
      * @brief The function @f$\delta^{\mathrm{QCD}}_3@f$. 
      * @details This function is associated with the leading three-loop %QCD
-     * contribution of @f$O(G_\mu\alpha_s^2M_t^2(1+M_Z^2/m_t^2+(M_Z^2/m_t^2)^2))@f$
+     * contribution of @f$O(\alpha\alpha_s^2(m_t^2/M_Z^2+1+M_Z^2/m_t^2))@f$
      * to @f$\Delta\rho@f$, as explained in the description of DeltaRho(). 
      * See @cite Avdeev:1994db, @cite Chetyrkin:1995ix, @cite Chetyrkin:1995js
      * and Chapter 8 of @cite Bardin:1999ak.
@@ -198,7 +198,7 @@ private:
      * @details The sum
      * @f$\delta^{\mathrm{QCD}}_3 + \delta^{\mathrm{QCD}}_{\kappa, 3}@f$
      * corresponds to the
-     * @f$O(G_\mu\alpha_s^2M_t^2(1+M_Z^2/m_t^2+(M_Z^2/m_t^2)^2))@f$ contribution
+     * @f$O(\alpha\alpha_s^2(m_t^2/M_Z^2+1+M_Z^2/m_t^2))@f$ contribution
      * to @f$\delta\kappa_{\mathrm{rem}}^{f}@f$.
      * See the arXiv version of @cite Chetyrkin:1995js 
      * (and also @cite Avdeev:1994db, @cite Chetyrkin:1995ix

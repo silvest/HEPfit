@@ -250,9 +250,6 @@ double EWSMTwoLoopEW::f1(const double a) const
 }
 
 
-////////////////////////////////////////////////////////////////////////        
-// O(alpha^2 Mt^4/M_Z^4 + alpha^2 Mt^2/Mz2) contributions
-
 double EWSMTwoLoopEW::DeltaRho2(const double Mw_i) const 
 {
     double Mt = cache.Mt();
