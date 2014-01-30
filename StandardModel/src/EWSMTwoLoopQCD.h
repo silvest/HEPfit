@@ -209,11 +209,10 @@ public:
     /**
      * @brief The function @f$\delta^{\mathrm{QCD}}_2@f$.
      * @details This function is associated with the leading two-loop %QCD
-     * contribution of @f$O(G_\mu\alpha_s M_t^2)@f$ to @f$\Delta\rho@f$,
+     * contribution of @f$O(\alpha\alpha_s m_t^2/M_Z^2)@f$ to @f$\Delta\rho@f$,
      * as explained in the description of DeltaRho().
      * See @cite Kniehl:1989yc, @cite Halzen:1990je 
      * and Chapter 8 of @cite Bardin:1999ak.
-     * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta^{\mathrm{QCD}}_2@f$
      */
     double deltaQCD_2() const;

@@ -13,11 +13,17 @@
 /**
  * @class EWepsilons
  * @ingroup StandardModel
- * @brief A class for the @f$W@f$-boson mass and the @f$Zf\bar{f}@f$ effective
- * couplings with the epsilon parameters.
+ * @brief A class for the epsilon parameterizations of the @f$W@f$-boson mass
+ * and the @f$Zf\bar{f}@f$ effective couplings.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details 
+ * @details This class contains functions for the @f$W@f$-boson mass and the
+ * @f$Zf\bar{f}@f$ effective couplings given in terms of the epsilon parameters.
+ * See @cite Altarelli:1990zd, @cite Altarelli:1991fk and @cite Altarelli:1993sz.
+ * When StandardModel::FlagWithoutNonUniversalVC is true, the flavour non-universal
+ * vertex corrections which are not considered in the original version of the
+ * epsilon parameterization are also taken into account. See @cite Ciuchini:2013pca
+ * for detail. 
  */
 class EWepsilons {
 public:
@@ -33,36 +39,300 @@ public:
 
 
     ////////////////////////////////////////////////////////////////////////     
-    
+
+    /**
+     * @brief The @f$W@f$-boson mass @f$M_W@f$.
+     * @details The radiative corrections to @f$M_W@f$ is parameterized in terms
+     * of the quantity @f$\Delta r@f$:
+     * @f[
+     * M_W^2 = \frac{M_Z^2}{2} \left( 1+\sqrt{1-\frac{4\pi\alpha}{\sqrt{2}G_\mu M_Z^2(1-\Delta r)}}\ \right)\,,
+     * @f]
+     * where @f$\Delta r@f$ contains both SM and NP contributions, and is resummed
+     * here. In @cite Altarelli:1990zd and @cite Altarelli:1991fk, @f$\Delta r@f$
+     * is given in terms of @f$\Delta r_W@f$:
+     * @f[
+     * \Delta r = 1 - [1 - \Delta\alpha(M_Z^2)][1-\Delta r_W(\varepsilon_1,\varepsilon_2,\varepsilon_3)]\,,
+     * @f]
+     * where @f$\Delta r_W@f$ is a function of @f$\varepsilon_1@f$,
+     * @f$\varepsilon_2@f$ and @f$\varepsilon_3@f$. See Delta_rW().
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] eps2 the @f$\varepsilon_2@f$ parameter
+     * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
+     * @return @f$M_W@f$
+     */
     double Mw(const double eps1, const double eps2, const double eps3) const;
 
+    /**
+     * @brief The effective coupling @f$\rho_Z^l@f$. 
+     * @details The @f$Zl\bar{l}@f$ effective coupling @f$\rho_Z^l@f$ is flavour
+     * universal in the original version of the epsilon parameterization:
+     * @f[
+     *   \rho_Z^l = \rho_Z^e(\varepsilon_1).
+     * @f]
+     * See rhoZ_e() for @f$\rho_Z^e(\varepsilon_1)@f$. 
+     * When StandardModel::FlagWithoutNonUniversalVC is true, the flavour
+     * non-universal vertex corrections are taken into account:
+     * @f[
+     *   \rho_Z^l = \rho_Z^e(\varepsilon_1) + \Delta\rho_Z^l,
+     * @f]
+     * where @f$\Delta\rho_Z^l@f$ denotes the non-universal corrections
+     * given by EWSM::rhoZ_l_SM_FlavorDep().
+     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @return @f$\rho_Z^l@f$
+     */
     complex rhoZ_l(const StandardModel::lepton l, const double eps1) const;
+
+    /**
+     * @brief The effective coupling @f$\rho_Z^q@f$ for @f$q\neq b,t@f$.
+     * @details The @f$Zq\bar{q}@f$ effective coupling @f$\rho_Z^q@f$ for 
+     * @f$q\neq b,t@f$ is flavour universal in the original version of the
+     * epsilon parameterization:
+     * @f[
+     *   \rho_Z^q = \rho_Z^e(\varepsilon_1).
+     * @f]
+     * See rhoZ_e() for @f$\rho_Z^e(\varepsilon_1)@f$.
+     * When StandardModel::FlagWithoutNonUniversalVC is true, the flavour
+     * non-universal vertex corrections are taken into account:
+     * @f[
+     *   \rho_Z^q = \rho_Z^e(\varepsilon_1) + \Delta\rho_Z^q,
+     * @f]
+     * where @f$\Delta\rho_Z^q@f$ denotes the non-universal corrections
+     * given by EWSM::rhoZ_q_SM_FlavorDep().
+     * @param[in] q name of a quark (see QCD::quark); @f$q\neq b,t@f$
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @return @f$\rho_Z^q@f$
+     */
     complex rhoZ_q(const StandardModel::quark q, const double eps1) const;
+
+    /**
+     * @brief The effective coupling @f$\kappa_Z^l@f$.
+     * @details The @f$Zl\bar{l}@f$ effective coupling @f$\kappa_Z^l@f$ is flavour
+     * universal in the original version of the epsilon parameterization:
+     * @f[
+     *   \kappa_Z^l = \kappa_Z^e(\varepsilon_1,\varepsilon_3).
+     * @f]
+     * See kappaZ_e() for @f$\kappa_Z^e(\varepsilon_1,\varepsilon_3)@f$.
+     * When StandardModel::FlagWithoutNonUniversalVC is true, the flavour
+     * non-universal vertex corrections are taken into account:
+     * @f[
+     *   \kappa_Z^l = \kappa_Z^e(\varepsilon_1) + \Delta\kappa_Z^l,
+     * @f]
+     * where @f$\Delta\kappa_Z^l@f$ denotes the non-universal corrections
+     * given by EWSM::kappaZ_l_SM_FlavorDep().
+     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
+     * @return @f$\kappa_Z^l@f$
+     */
     complex kappaZ_l(const StandardModel::lepton l, 
                      const double eps1, const double eps3) const;
+
+    /**
+     * @brief The effective coupling @f$\kappa_Z^q@f$ for @f$q\neq b,t@f$.
+     * @details The @f$Zq\bar{q}@f$ effective coupling @f$\kappa_Z^q@f$ for 
+     * @f$q\neq b,t@f$ is flavour universal in the original version of the 
+     * epsilon parameterization:
+     * @f[
+     *   \kappa_Z^q = \kappa_Z^e(\varepsilon_1,\varepsilon_3).
+     * @f]
+     * See kappaZ_e() for @f$\kappa_Z^e(\varepsilon_1,\varepsilon_3)@f$.
+     * When StandardModel::FlagWithoutNonUniversalVC is true, the flavour
+     * non-universal vertex corrections are taken into account:
+     * @f[
+     *   \kappa_Z^q = \kappa_Z^e(\varepsilon_1,\varepsilon_3) + \Delta\kappa_Z^q,
+     * @f]
+     * where @f$\Delta\kappa_Z^q@f$ denotes the non-universal corrections
+     * given by EWSM::kappaZ_q_SM_FlavorDep().
+     * @param[in] q name of a quark (see QCD::quark); @f$q\neq b,t@f$
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
+     * @return @f$\kappa_Z^q@f$
+     */
     complex kappaZ_q(const StandardModel::quark q, 
-                     const double eps1, const double eps3) const;       
+                     const double eps1, const double eps3) const;
+
+    /**
+     * @brief The effective coupling @f$g_V^l@f$.
+     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
+     * @return @f$g_V^l@f$
+     */
     complex gVl(const StandardModel::lepton l, 
                 const double eps1, const double eps3) const;
+
+    /**
+     * @brief The effective coupling @f$g_V^q@f$ for @f$q\neq b,t@f$.
+     * @param[in] q name of a quark (see QCD::quark); @f$q\neq b,t@f$
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
+     * @return @f$g_V^q@f$
+     */
     complex gVq(const StandardModel::quark q, 
                 const double eps1, const double eps3) const;
+
+    /**
+     * @brief The effective coupling @f$g_A^l@f$.
+     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @return @f$g_A^l@f$
+     */
     complex gAl(const StandardModel::lepton l, const double eps1) const;
+
+    /**
+     * @brief The effective coupling @f$g_A^q@f$ for @f$q\neq b,t@f$.
+     * @param[in] q name of a quark (see QCD::quark); @f$q\neq b,t@f$
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @return @f$g_A^q@f$
+     */
     complex gAq(const StandardModel::quark q, const double eps1) const; 
 
+    /**
+     * @brief The effective coupling @f$\rho_Z^b@f$.
+     * @details In the original version of the epsilon parameterization
+     * @cite Altarelli:1993sz, the @f$Zb\bar{b}@f$ effective coupling
+     * @f$\rho_Z^b@f$ is given in terms of @f$\varepsilon_b@f$: 
+     * @f[
+     *   \rho_Z^b = \rho_Z^{e}(\varepsilon_1)(1 + \varepsilon_b)^2\,,
+     * @f]
+     * See rhoZ_e() for @f$\rho_Z^e(\varepsilon_1)@f$.
+     * When StandardModel::FlagWithoutNonUniversalVC is true, the additional
+     * flavour non-universal vertex corrections are taken into account:
+     * @f[
+     *   \rho_Z^b = \left[\rho_Z^{e}(\varepsilon_1) + \Delta\rho_Z^b \right]
+     *   (1 + \varepsilon_b)^2\,,
+     * @f]
+     * where @f$\Delta\rho_Z^b@f$ denotes the non-universal corrections which are
+     * not considered in @f$\varepsilon_b@f$.
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] epsb the @f$\varepsilon_b@f$ parameter
+     * @return @f$\rho_Z^b@f$
+     */
     complex rhoZ_b(const double eps1, const double epsb) const;
+
+    /**
+     * @brief The effective coupling @f$\kappa_Z^b@f$.
+     * @details In the original version of the epsilon parameterization
+     * @cite Altarelli:1993sz, the @f$Zb\bar{b}@f$ effective coupling
+     * @f$\kappa_Z^b@f$ is given in terms of @f$\varepsilon_b@f$:
+     * @f[
+     *   \kappa_Z^b = \frac{\kappa_Z^{e}(\varepsilon_1,\varepsilon_3)}{1+\varepsilon_b}\,,
+     * @f]
+     * See kappaZ_e() for @f$\kappa_Z^e(\varepsilon_1,\varepsilon_3)@f$.
+     * When StandardModel::FlagWithoutNonUniversalVC is true, the additional
+     * flavour non-universal vertex corrections are taken into account:
+     * @f[
+     *   \kappa_Z^b = \frac{\kappa_Z^{e}(\varepsilon_1,\varepsilon_3) + \Delta\kappa_Z^b}{1+\varepsilon_b}\,,
+     * @f]
+     * where @f$\Delta\kappa_Z^b@f$ denotes the non-universal corrections which are
+     * not considered in @f$\varepsilon_b@f$.
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
+     * @param[in] epsb the @f$\varepsilon_b@f$ parameter
+     * @return @f$\rho_Z^b@f$
+     */
     complex kappaZ_b(const double eps1, const double eps3, const double epsb) const;       
+
+    /**
+     * @brief The effective coupling @f$g_V^b@f$. 
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
+     * @param[in] epsb the @f$\varepsilon_b@f$ parameter
+     * @return @f$g_V^b@f$
+     */
     complex gVb(const double eps1, const double eps3, const double epsb) const; 
-    complex gAb(const double eps1, const double epsb) const; 
+
+    /**
+     * @brief The effective coupling @f$g_A^b@f$.
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] epsb the @f$\varepsilon_b@f$ parameter
+     * @return @f$g_A^b@f$
+     */
+    complex gAb(const double eps1, const double epsb) const;
         
     
     ////////////////////////////////////////////////////////////////////////     
 protected:
+
+    /**
+     * @brief The auxiliary function @f$\Delta r_W@f$. 
+     * @details The function @f$\Delta r_W@f$ is given in terms of the epsilon
+     * parameters: 
+     * @f[
+     * \Delta r_W(\varepsilon_1,\varepsilon_2,\varepsilon_3)
+     *   = \frac{c_0^2-s_0^2}{s_0^2}
+     *     \left[ \varepsilon_2 - c_0^2\,\varepsilon_1
+     *       + 2s_0^2\Delta\kappa'(\varepsilon_1,\varepsilon_3) \right],
+     * @f]
+     * where @f$\Delta\kappa'(\varepsilon_1,\varepsilon_3)@f$ is defined as
+     * the function Delta_kappaPrime().
+     * See @cite Altarelli:1990zd and @cite Altarelli:1991fk. 
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] eps2 the @f$\varepsilon_2@f$ parameter
+     * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
+     * @return @f$\Delta r_W@f$
+     */
     double Delta_rW(const double eps1, const double eps2, const double eps3) const;
+
+    /**
+     * @brief The auxiliary function @f$\Delta\kappa'@f$.
+     * @details The function @f$\Delta\kappa'@f$ is given in terms of the epsilon
+     * parameters:
+     * @f[
+     * \Delta\kappa'(\varepsilon_1,\varepsilon_3)
+     * = \frac{\epsilon_3-c_0^2\,\epsilon_1}{c_0^2-s_0^2}\,.
+     * @f]
+     * See @cite Altarelli:1990zd and @cite Altarelli:1991fk.
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
+     * @return @f$\Delta\kappa'@f$
+     */
     double Delta_kappaPrime(const double eps1, const double eps3) const;
  
+    /**
+     * @brief The effective coupling @f$\rho_Z^e@f$.
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @return @f$\rho_Z^e@f$
+     */
     complex rhoZ_e(const double eps1) const;
+
+    /**
+     * @brief The effective coupling @f$\kappa_Z^e@f$.
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
+     * @return @f$\kappa_Z^e@f$
+     */
     complex kappaZ_e(const double eps1, const double eps3) const;
+
+    /**
+     * @brief The effective coupling @f$g_V^e@f$.
+     * @details The coupling @f$g_V^e@f$ is given in terms of the epsilon
+     * parameters @f$\varepsilon_1@f$ and @f$\varepsilon_3@f$:
+     * @f[
+     * g_V^e(\varepsilon_1,\varepsilon_3)
+     * = \left\{ 1 - 4|Q_e|\,[1+\Delta\kappa'(\varepsilon_1,\varepsilon_3)] s_0^2 \right\}
+     *   g_A^e(\varepsilon_1)\,.
+     * @f]
+     * See @cite Altarelli:1990zd and @cite Altarelli:1991fk.
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
+     * @return @f$g_V^e@f$
+     */
     complex gVe(const double eps1, const double eps3) const;
+
+    /**
+     * @brief The effective coupling @f$g_A^e@f$.
+     * @details The coupling @f$g_A^e@f$ is given in terms of the
+     * @f$\varepsilon_1@f$ parameter: 
+     * @f[
+     * g_A^e(\varepsilon_1)
+     * = - \frac{1}{2}\left( 1 + \frac{\varepsilon_1}{2} \right).
+     * @f]
+     * See @cite Altarelli:1990zd and @cite Altarelli:1991fk.
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @return @f$g_A^e@f$
+     */
     complex gAe(const double eps1) const;    
     
     
