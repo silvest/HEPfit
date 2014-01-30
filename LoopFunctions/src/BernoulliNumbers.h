@@ -16,27 +16,24 @@
 
 /**
  * @class BernoulliNumbers
- * @brief A class for Bernoulli numbers. 
+ * @brief A class for the Bernoulli numbers.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details  
+ * @details This class handles the Bernoulli numbers, which are used to
+ * compute the trilogarithm function Polylogarithms::Li3().
+ * A list of the Bernoulli numbers can be found in @cite tHooft:1978xw.
  */
 class BernoulliNumbers {
 public:
 
     /**
-     * @brief BernoulliNumbers constructor. 
+     * @brief The default constructor.
      */
     BernoulliNumbers();
     
     ////////////////////////////////////////////////////////////////////////
-
 protected:
-    double B[19]; /* Bernoulli numbers */
-        
-    ////////////////////////////////////////////////////////////////////////
-    
-private:
+    double B[19];///< the Bernoulli numbers
 
 };
 

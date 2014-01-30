@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,7 +15,6 @@
 ClausenFunctions::ClausenFunctions() 
 {
 }
-
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -41,9 +40,5 @@ double ClausenFunctions::Cl3(const double phi) const
     }
     return ( gsl_sf_zeta_int(3) - phi*phi*(3.0/4.0 - log(phi)/2.0 - TMP) );
 }
-
-
-
-
 
 

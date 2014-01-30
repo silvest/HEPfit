@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -8,20 +8,16 @@
 #ifndef LOOPTOOLSWRAPPER_H
 #define	LOOPTOOLSWRAPPER_H
 
-/**
- * @class LoopToolsWrapper
- * @ingroup LoopFunctions 
- * @brief A wrapper class for LoopTools library.
- * @author SusyFit Collaboration
- * @copyright GNU General Public License
- * @details  
- */
 #include <gslpp.h>
 using namespace gslpp;
    
 /**
  * @class LoopToolsWrapper
- * @brief C++ interface class for LoopTools library. 
+ * @ingroup LoopFunctions
+ * @brief A wrapper class for LoopTools library.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details
  */
 class LoopToolsWrapper {
 public:
@@ -144,8 +140,6 @@ public:
      */
     complex PV_D00(const double s, const double t, const double m02, const double m12,
                    const double m22, const double m32) const;
-
-private:
 
 };
 

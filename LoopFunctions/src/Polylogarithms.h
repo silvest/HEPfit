@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,46 +15,46 @@ using namespace gslpp;
 /**
  * @class Polylogarithms
  * @ingroup LoopFunctions 
- * @brief A class for polylogarithms. 
+ * @brief A class for the polylogarithms.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details  
+ * @details This class handles the polylogarithms 
+ * @f$\mathrm{Li}_2(x)@f$, @f$\mathrm{Li}_2(z)@f$ and @f$\mathrm{Li}_3(x)@f$,
+ * where @f$x@f$ and @f$z@f$ are real and complex variables, respectively. 
  */
 class Polylogarithms : public BernoulliNumbers {
 public:
 
     /**
-     * @brief Polylogarithms constructor. 
+     * @brief The default constructor.
      */
     Polylogarithms();
 
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief Dilogarithm function. 
-     * @param[in] x Real variable. 
-     * @return Dilogarithm Li_2(x).
+     * @brief The dilogarithm with a real argument, @f$\mathrm{Li}_2(x)@f$.
+     * @details This function calls the GSL function gsl_sf_complex_dilog_xy_e(). 
+     * @param[in] x a real variable.
+     * @return @f$\mathrm{Li}_2(x)@f$
      */
     complex Li2(const double x) const;    
     
     /**
-     * @brief Dilogarithm function.
-     * @param[in] z Complex variable.
-     * @return Dilogarithm Li_2(z).
+     * @brief The dilogarithm with a complex argument, @f$\mathrm{Li}_2(z)@f$.
+     * @details This function calls the GSL function gsl_sf_complex_dilog_xy_e(). 
+     * @param[in] z a complex variable.
+     * @return @f$\mathrm{Li}_2(z)@f$
      */
     complex Li2(const complex z) const;
     
     /**
-     * @brief Trilogarithm function.
-     * @param[in] x Real variable.
-     * @return Trilogarithm Li_3(x). 
-     * @attention applicable only for real x and x <= 1. 
+     * @brief The trilogarithm @f$\mathrm{Li}_3(x)@f$
+     * @param[in] x a real variable.
+     * @attention This function is applicable for real @f$x \leq 1@f$.
+     * @return @f$\mathrm{Li}_3(x)@f$
      */
     double Li3(const double x) const;
-
-    ////////////////////////////////////////////////////////////////////////
-
-private:
     
 };
 

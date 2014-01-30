@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,40 +15,40 @@ using namespace gslpp;
 /**
  * @class ClausenFunctions
  * @ingroup LoopFunctions 
- * @brief A class for Clausen functions. 
+ * @brief A class for the Clausen functions.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details  
+ * @details This class handles the Clausen functions
+ * @f$\mathrm{Cl}_2(\phi)@f$ and @f$\mathrm{Cl}_3(\phi)@f$. 
  */
 class ClausenFunctions : public BernoulliNumbers {
 public:
     
     /**
-     * @brief  ClausenFunctions constructor. 
+     * @brief The default constructor.
      */
     ClausenFunctions();
     
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief Clausen function of index 2.
-     * @param[in] phi Real variable.
-     * @return Clausen function of index 2, Cl_2(phi).
+     * @brief The Clausen function of index 2, @f$\mathrm{Cl}_2(\phi)@f$.
+     * @details This function calls the GSL function gsl_sf_clausen().
+     * @param[in] phi a real variable
+     * @return @f$\mathrm{Cl}_2(\phi)@f$
      */
     double Cl2(const double phi) const;    
     
     /**
-     * @brief Clausen function of index 3.
-     * @param[in] phi Real variable. 
-     * @return Clausen function of index 3, Cl_3(phi). 
-     * @attention applicable for 0<=phi<=Pi. 
+     * @brief The Clausen function of index 3, @f$\mathrm{Cl}_3(\phi)@f$.
+     * @details The function @f$\mathrm{Cl}_3(\phi)@f$ is computed with the help
+     * of the GSL function gsl_sf_zeta_int(3). See @cite Kniehl:1989qu. 
+     * @param[in] phi a real variable
+     * @attention This function is applicable for @f$0\leq \phi\leq \pi@f$.
+     * @return @f$\mathrm{Cl}_3(\phi)@f$
      */
     double Cl3(const double phi) const;
-        
-    ////////////////////////////////////////////////////////////////////////    
-    
-private:
-  
+
 };
 
 #endif	/* CLAUSENFUNCTIONS_H */
