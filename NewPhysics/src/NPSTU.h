@@ -107,7 +107,8 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @return the oblique parameter \f$S\f$
+     * @brief The oblique parameter \f$S\f$.
+     * @return the value of the oblique parameter \f$S\f$
      */
     virtual double obliqueS() const 
     {
@@ -115,7 +116,8 @@ public:
     }
 
     /**
-     * @return the oblique parameter \f$T\f$
+     * @brief The oblique parameter \f$T\f$.
+     * @return the value of the oblique parameter \f$T\f$
      */
     virtual double obliqueT() const 
     {
@@ -123,7 +125,8 @@ public:
     }
 
     /**
-     * @return the oblique parameter \f$U\f$
+     * @brief The oblique parameter \f$U\f$.
+     * @return the value of the oblique parameter \f$U\f$
      */
     virtual double obliqueU() const 
     {
@@ -134,24 +137,28 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
+     * @brief The parameter \f$\varepsilon_1\f$.
      * @return the value of the @f$\epsilon_1@f$ parameter (SM plus new physics
      * corrections)
      */
     double epsilon1() const;
 
     /**
+     * @brief The parameter \f$\varepsilon_2\f$.
      * @return the value of the @f$\epsilon_2@f$ parameter (SM plus new physics
      * corrections)
      */
     double epsilon2() const;
 
     /**
+     * @brief The parameter \f$\varepsilon_3\f$.
      * @return the value of the @f$\epsilon_3@f$ parameter (SM plus new physics
      * corrections)
      */
     double epsilon3() const;
 
     /**
+     * @brief The parameter \f$\varepsilon_b\f$.
      * @return the SM value of the @f$\epsilon_b@f$ parameter
      */
     double epsilonb() const;
@@ -160,23 +167,27 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
+     * @brief The \f$W\f$ boson mass.
      * @return the \f$W\f$-boson mass in GeV
      */
     virtual double Mw() const;
 
     /**
-     * @return the (square of the) cosine of the weak angle in the On-mass-shell renormalization scheme,
+     * @brief The (square of the) cosine of the weak angle \f$\cos^2{\theta_W}\f$.
+     * @return the value of \f$\cos^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
      *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double cW2() const;
 
     /**
-     * @return the (square of the) sine of the weak angle in the On-mass-shell renormalization scheme,
+     * @brief The (square of the) sine of the weak angle \f$\sin^2{\theta_W}\f$.
+     * @return the value of \f$\sin^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
      *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double sW2() const;
 
     /**
+     * @brief The \f$W\f$ decay width \f$\Gamma_W\f$.
      * @return the total width of the \f$W\f$ boson in GeV
      */
     virtual double GammaW() const;

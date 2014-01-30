@@ -103,21 +103,25 @@ public:
     ////////////////////////////////////////////////////////////////////////
     
     /**
+     * @brief The parameter \f$\varepsilon_1\f$.
      * @return the pure new physics contribution to \f$\varepsilon_1\f$
      */
     virtual double epsilon1() const;
 
     /**
+     * @brief The parameter \f$\varepsilon_2\f$.
      * @return the pure new physics contribution to \f$\varepsilon_2\f$
      */
     virtual double epsilon2() const;
     
     /**
+     * @brief The parameter \f$\varepsilon_3\f$.
      * @return the pure new physics contribution to \f$\varepsilon_3\f$
      */
     virtual double epsilon3() const;
     
     /**
+     * @brief The parameter \f$\varepsilon_b\f$.
      * @return the pure new physics contribution to \f$\varepsilon_b\f$
      */
     virtual double epsilonb() const;
@@ -126,23 +130,27 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
+     * @brief The \f$W\f$ boson mass.
      * @return the \f$W\f$-boson mass in GeV
      */
     virtual double Mw() const;
 
     /**
-     * @return the (square of the) cosine of the weak angle in the On-mass-shell renormalization scheme,
+     * @brief The (square of the) cosine of the weak angle \f$\cos^2{\theta_W}\f$.
+     * @return the value of \f$\cos^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
      *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double cW2() const;
 
     /**
-     * @return the (square of the) sine of the weak angle in the On-mass-shell renormalization scheme,
+     * @brief The (square of the) sine of the weak angle \f$\sin^2{\theta_W}\f$.
+     * @return the value of \f$\sin^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
      *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double sW2() const;
 
     /**
+     * @brief The \f$W\f$ decay width \f$\Gamma_W\f$.
      * @return the total width of the \f$W\f$ boson in GeV [NOT IMPLEMENTED YET]
      */
     virtual double GammaW() const;
@@ -150,25 +158,29 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
-  /**
+    /**
+     * @brief The new physics correction to @f$g_V^l@f$.
      * @param[in] l name of a lepton
      * @return the new physics correction to the neutral-current vector coupling @f$g_A^l@f$
      */
     virtual double deltaGVl(StandardModel::lepton l) const;
 
-   /**
+    /**
+     * @brief The new physics correction to @f$g_V^q@f$.
      * @param[in] q name of a quark
      * @return the new physics correction to the neutral-current vector coupling @f$g_V^q@f$
      */  
     virtual double deltaGVq(StandardModel::quark q) const;
 
-   /**
+    /**
+     * @brief The new physics correction to @f$g_A^l@f$.
      * @param[in] l name of a lepton
      * @return the new physics correction to the neutral-current axial-vector coupling @f$g_A^l@f$
      */  
     virtual double deltaGAl(StandardModel::lepton l) const;
 
-   /**
+    /**
+     * @brief The new physics correction to @f$g_A^q@f$.
      * @param[in] q name of a quark
      * @return the new physics correction to the neutral-current axial-vector coupling @f$g_A^q@f$
      */

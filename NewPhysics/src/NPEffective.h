@@ -24,7 +24,8 @@
  * operators. These corrections are parameterized in terms of the operator 
  * contributions to \f$M_W\f$, and to \f$Z\f$-pole observables through the corrections
  * to the different neutral-current effective couplings to leptons and quarks, 
- * \f$\delta g_{L,R}^f\f$ or \f$\delta g_{V,A}^f\f$.
+ * \f$\delta g_{L,R}^f\f$ or \f$\delta g_{V,A}^f\f$. This class also contains get
+ * methods to retrieve the value of all the included dimension six operators.
  */
 class NPEffective : public NPbase {
 public:
@@ -99,6 +100,7 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HL}^\prime\right)_{11}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HL}^\prime\right)_{11}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{L^1}\sigma_a\gamma^\mu L^1\right)\f$
      */
@@ -108,6 +110,7 @@ public:
     }
 
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HL}^\prime\right)_{22}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HL}^\prime\right)_{22}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{L^2}\sigma_a\gamma^\mu L^2\right)\f$
      */
@@ -117,6 +120,7 @@ public:
     }
 
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HL}^\prime\right)_{33}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HL}^\prime\right)_{33}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{L^3}\sigma_a\gamma^\mu L^3\right) \f$
      */
@@ -126,6 +130,7 @@ public:
     }
 
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HL}\right)_{11}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HL}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{L^1}\gamma^\mu L^1\right) \f$
      */
@@ -135,6 +140,7 @@ public:
     }
 
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HL}\right)_{22}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HL}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{L^2}\gamma^\mu L^2\right) \f$
      */
@@ -144,6 +150,7 @@ public:
     }
 
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HL}\right)_{33}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HL}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{L^3}\gamma^\mu L^3\right) \f$
      */
@@ -153,6 +160,7 @@ public:
     }
 
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HQ}^\prime\right)_{11}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HQ}^\prime\right)_{11}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{Q^1}\sigma_a\gamma^\mu Q^1\right)\f$
      */
@@ -162,6 +170,7 @@ public:
     }
 
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HQ}^\prime\right)_{22}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HQ}^\prime\right)_{22}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{Q^2}\sigma_a\gamma^\mu Q^2\right)\f$
      */
@@ -171,6 +180,7 @@ public:
     }
 
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HQ}^\prime\right)_{33}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HQ}^\prime\right)_{33}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{Q^3}\sigma_a\gamma^\mu Q^3\right)\f$
      */
@@ -180,6 +190,7 @@ public:
     }
 
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HQ}\right)_{11}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HQ}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{Q^1}\gamma^\mu Q^1\right) \f$
      */
@@ -189,6 +200,7 @@ public:
     }
 
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HQ}\right)_{22}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HQ}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{Q^2}\gamma^\mu Q^2\right) \f$
      */    
@@ -198,6 +210,7 @@ public:
     }
 
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HQ}\right)_{33}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HQ}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{Q^3}\gamma^\mu Q^3\right) \f$
      */
@@ -207,6 +220,7 @@ public:
     }
 
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HE}\right)_{11}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HE}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{E^1}\gamma^\mu E^1\right) \f$
      */
@@ -216,6 +230,7 @@ public:
     }
 
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HE}\right)_{22}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HE}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{E^2}\gamma^\mu E^2\right) \f$
      */
@@ -225,6 +240,7 @@ public:
     }
 
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HE}\right)_{33}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HE}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{E^3}\gamma^\mu E^3\right) \f$
      */
@@ -234,6 +250,7 @@ public:
     }
   
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HU}\right)_{11}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HU}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{U^1}\gamma^\mu U^1\right) \f$
      */  
@@ -243,6 +260,7 @@ public:
     }
     
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HU}\right)_{22}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HU}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{U^2}\gamma^\mu U^2\right) \f$
      */  
@@ -252,6 +270,7 @@ public:
     }
     
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HU}\right)_{33}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HU}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{U^3}\gamma^\mu U^3\right) \f$
      */  
@@ -261,6 +280,7 @@ public:
     }
 
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HD}\right)_{11}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HD}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{D^1}\gamma^\mu D^1\right) \f$
      */
@@ -270,6 +290,7 @@ public:
     }
     
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HD}\right)_{22}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HD}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{D^2}\gamma^\mu D^2\right) \f$
      */
@@ -279,6 +300,7 @@ public:
     }
     
     /**
+     * @brief A get method to retrieve the value of the operator coefficient \f$\left(c_{HD}\right)_{33}\f$.
      * @return the coefficient of the dimension-six effective operator 
      * \f$\left({\cal O}_{HD}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{D^3}\gamma^\mu D^3\right) \f$
      */
@@ -288,6 +310,7 @@ public:
     }
 
     /**
+     * @brief A get method to retrieve the value of the new physics scale \f$\Lambda_\mathrm{NP}\f$.
      * @return the value of the new physics scale \f$\Lambda_\mathrm{NP}\f$ [GeV] 
      */
     double getLambdaNP() const
@@ -299,17 +322,20 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
+     * @brief The SM Higgs vev \f$v\f$.
      * @return the SM value of the Higgs vev, as extracted from the experimental value of \f$G_F\f$,
      * \f$v=\frac{1}{\sqrt{\sqrt{2} G_F}}\f$ 
      */
     virtual double v() const;
 
     /**
+     * @brief The SM tree-level \f$W\f$ mass.
      * @return the SM tree-level value of the \f$W\f$ mass [GeV] 
      */
     virtual double Mw_tree() const;
 
     /**
+     * @brief The new physics corrections to the Fermi constant.
      * @return the new physics correction to the Fermi constant, 
      * \f$ G_F\equiv G_F^\mathrm{SM}(1+\Delta G_F)\f$ 
      */
@@ -319,17 +345,20 @@ public:
     ////////////////////////////////////////////////////////////////////////     
 
     /**
-     * @return the oblique parameter \f$S\f$
+     * @brief The oblique parameter \f$S\f$.
+     * @return the value of the oblique parameter \f$S\f$
      */
     virtual double obliqueS() const;
 
     /**
-     * @return the oblique parameter \f$T\f$
+     * @brief The oblique parameter \f$T\f$.
+     * @return the value of the oblique parameter \f$T\f$
      */
     virtual double obliqueT() const;
 
     /**
-     * @return the oblique parameter \f$U\f$
+     * @brief The oblique parameter \f$U\f$.
+     * @return The value of the oblique parameter \f$U\f$
      */
     virtual double obliqueU() const;
 
@@ -337,48 +366,56 @@ public:
     ////////////////////////////////////////////////////////////////////////    
 
     /**
+     * @brief The new physics correction to @f$g_L^l@f$.
      * @param[in] l name of a lepton
      * @return the new physics correction to the neutral-current left-handed coupling @f$g_L^l@f$
      */
     double deltaGLl(StandardModel::lepton l) const;
 
     /**
+     * @brief The new physics correction to @f$g_L^q@f$.
      * @param[in] q name of a quark
      * @return the new physics correction to the neutral-current left-handed coupling @f$g_L^q@f$
      */
     double deltaGLq(StandardModel::quark q) const;
 
     /**
+     * @brief The new physics correction to @f$g_R^l@f$.
      * @param[in] l name of a lepton
      * @return the new physics correction to the neutral-current right-handed coupling @f$g_R^l@f$
      */    
     double deltaGRl(StandardModel::lepton l) const;
     
-   /**
+    /**
+     * @brief The new physics correction to @f$g_R^q@f$.
      * @param[in] q name of a quark
      * @return the new physics correction to the neutral-current right-handed coupling @f$g_R^q@f$
      */
     double deltaGRq(StandardModel::quark q) const;
 
-  /**
+    /**
+     * @brief The new physics correction to @f$g_V^l@f$.
      * @param[in] l name of a lepton
      * @return the new physics correction to the neutral-current vector coupling @f$g_A^l@f$
      */
     virtual double deltaGVl(StandardModel::lepton l) const;
 
-   /**
+    /**
+     * @brief The new physics correction to @f$g_V^q@f$.
      * @param[in] q name of a quark
      * @return the new physics correction to the neutral-current vector coupling @f$g_V^q@f$
      */    
     virtual double deltaGVq(StandardModel::quark q) const;
 
-   /**
+    /**
+     * @brief The new physics correction to @f$g_A^l@f$.
      * @param[in] l name of a lepton
      * @return the new physics correction to the neutral-current axial-vector coupling @f$g_A^l@f$
      */    
     virtual double deltaGAl(StandardModel::lepton l) const;
 
-   /**
+    /**
+     * @brief The new physics correction to @f$g_A^q@f$.
      * @param[in] q name of a quark
      * @return the new physics correction to the neutral-current axial-vector coupling @f$g_A^q@f$
      */    
@@ -388,23 +425,27 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
+     * @brief The \f$W\f$ boson mass.
      * @return the \f$W\f$-boson mass in GeV
      */
     virtual double Mw() const;
 
     /**
-     * @return the (square of the) cosine of the weak angle in the On-mass-shell renormalization scheme,
+     * @brief The (square of the) cosine of the weak angle \f$\cos^2{\theta_W}\f$.
+     * @return the value of \f$\cos^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
      *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double cW2() const;
 
     /**
-     * @return the (square of the) sine of the weak angle in the On-mass-shell renormalization scheme,
+     * @brief The (square of the) sine of the weak angle \f$\sin^2{\theta_W}\f$.
+     * @return the value of \f$\sin^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
      *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double sW2() const;
 
     /**
+     * @brief The \f$W\f$ decay width \f$\Gamma_W\f$.
      * @return the total width of the \f$W\f$ boson in GeV
      */
     virtual double GammaW() const;

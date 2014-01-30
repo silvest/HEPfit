@@ -107,7 +107,8 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
     /**
-     * @return the oblique parameter \f$\hat{S}=\frac{\alpha}{4\sin^2{\theta_W}}S\f$
+     * @brief The oblique paramenter \f$\hat{S}\f$.
+     * @return the value of the oblique parameter \f$\hat{S}=\frac{\alpha}{4\sin^2{\theta_W}}S\f$
      */
     virtual double obliqueShat() const
     {
@@ -115,7 +116,8 @@ public:
     }
 
     /**
-     * @return the oblique parameter \f$\hat{T}=\alpha T\f$
+     * @brief The oblique paramenter \f$\hat{T}\f$.
+     * @return the value of the oblique parameter \f$\hat{T}=\alpha T\f$
      */
     virtual double obliqueThat() const 
     {
@@ -123,7 +125,8 @@ public:
     }
 
     /**
-     * @return the oblique parameter \f$\hat{U}=-\frac{\alpha}{4\sin^2{\theta_W}}U\f$
+     * @brief The oblique paramenter \f$\hat{U}\f$.
+     * @return the value of the oblique parameter \f$\hat{U}=-\frac{\alpha}{4\sin^2{\theta_W}}U\f$
      */
     virtual double obliqueUhat() const 
     {
@@ -131,7 +134,8 @@ public:
     }
 
     /**
-     * @return the oblique parameter \f$V\f$
+     * @brief The oblique paramenter \f$V\f$.
+     * @return the value of the oblique parameter \f$V\f$
      */
     virtual double obliqueV() const 
     {
@@ -139,7 +143,8 @@ public:
     }
 
     /**
-     * @return the oblique parameter \f$W\f$
+     * @brief The oblique paramenter \f$W\f$.
+     * @return the value of the oblique parameter \f$W\f$
      */
     virtual double obliqueW() const 
     {
@@ -147,7 +152,8 @@ public:
     }
 
     /**
-     * @return the oblique parameter \f$X\f$
+     * @brief The oblique paramenter \f$X\f$.
+     * @return the value of the oblique parameter \f$X\f$
      */
     virtual double obliqueX() const 
     {
@@ -155,7 +161,8 @@ public:
     }
 
     /**
-     * @return the oblique parameter \f$Y\f$
+     * @brief The oblique paramenter \f$Y\f$.
+     * @return the value of the oblique parameter \f$Y\f$
      */
     virtual double obliqueY() const 
     {
@@ -166,24 +173,28 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
+     * @brief The parameter \f$\varepsilon_1\f$.
      * @return the value of the \f$\varepsilon_1\f$ parameter (SM plus new physics
      * corrections)
      */
     double epsilon1() const;
 
     /**
+     * @brief The parameter \f$\varepsilon_2\f$.
      * @return the value of the \f$\varepsilon_2\f$ parameter (SM plus new physics
      * corrections)
      */
     double epsilon2() const;
     
     /**
+     * @brief The parameter \f$\varepsilon_3\f$.
      * @return the value of the \f$\varepsilon_3\f$ parameter (SM plus new physics
      * corrections)
      */
     double epsilon3() const;
     
     /**
+     * @brief The parameter \f$\varepsilon_b\f$.
      * @return the SM value of the \f$\varepsilon_b\f$ parameter
      */
     double epsilonb() const;
@@ -193,16 +204,19 @@ public:
     // Combinations of the extended oblique parameters
     
     /**
+     * @brief The combination of extended oblique paramenters \f$S'\f$.
      * @return the value of the oblique parameter \f$S'=\frac{4\sin^2{\theta_W}}{\alpha}\left(\hat{S}-W+\frac{X}{\sin{\theta_W} \cos{\theta_W}}-Y\right)\f$
      */
     virtual double obliqueS() const;
 
     /**
+     * @brief The combination of extended oblique paramenters \f$T'\f$.
      * @return the value of the oblique parameter \f$T'=\frac{1}{\alpha}\left(\hat{T}-W+2X\frac{s_W}{c_W}-Y\frac{\sin^2{\theta_W}}{\cos^2{\theta_W}}\right)\f$
      */
     virtual double obliqueT() const;
 
     /**
+     * @brief The combination of extended oblique paramenters \f$U'\f$.
      * @return the value of the oblique parameter \f$U'=-\frac{4\sin^2{\theta_W}}{\alpha}\left(\hat{U}-W+2X\frac{\sin{\theta_W}}{\cos{\theta_W}}-V\right)\f$
      */
     virtual double obliqueU() const;
@@ -211,23 +225,27 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
+     * @brief The \f$W\f$ boson mass.
      * @return the \f$W\f$-boson mass in GeV
      */
     virtual double Mw() const;
 
     /**
-     * @return the (square of the) cosine of the weak angle in the On-mass-shell renormalization scheme,
+     * @brief The (square of the) cosine of the weak angle \f$\cos^2{\theta_W}\f$.
+     * @return the value of \f$\cos^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
      *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double cW2() const;
 
     /**
-     * @return the (square of the) sine of the weak angle in the On-mass-shell renormalization scheme,
+     * @brief The (square of the) sine of the weak angle \f$\sin^2{\theta_W}\f$.
+     * @return the value of \f$\sin^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
      *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double sW2() const;
 
     /**
+     * @brief The \f$W\f$ decay width \f$\Gamma_W\f$.
      * @return the total width of the \f$W\f$ boson in GeV
      */
     virtual double GammaW() const;

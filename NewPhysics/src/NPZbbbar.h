@@ -18,7 +18,7 @@
  * @copyright GNU General Public License
  * @details This class contains the necessary functions to work with new physics 
  * corrections to electroweak precision observables, in the form of contributions
- * to the neutral current couplings of the bottom quark, \f$\delta g_{V,A}^f\b$ or 
+ * to the neutral current couplings of the bottom quark, \f$\delta g_{V,A}^b\f$ or 
  * \f$\delta g_{L,R}^b\f$.
  * 
  * Flags:
@@ -131,6 +131,7 @@ public:
     ////////////////////////////////////////////////////////////////////////    
 
     /**
+     * @brief The new physics correction to @f$g_V^l@f$.
      * @param[in] l name of a lepton
      * @return the new physics correction to the neutral-current vector coupling @f$g_V^l@f$ 
      * (zero in this model) 
@@ -138,6 +139,7 @@ public:
     virtual double deltaGVl(StandardModel::lepton l) const;
     
     /**
+     * @brief The new physics correction to @f$g_V^q@f$.
      * @param[in] q name of a quark
      * @return the new physics correction to the neutral-current vector coupling @f$g_V^q@f$
      * (non-zero only for \f$q=b\f$)
@@ -145,6 +147,7 @@ public:
     virtual double deltaGVq(StandardModel::quark q) const;
     
     /**
+     * @brief The new physics correction to @f$g_A^l@f$.
      * @param[in] l name of a lepton
      * @return the new physics correction to the neutral-current axial-vector coupling @f$g_A^l@f$
      * (zero in this model)
@@ -152,6 +155,7 @@ public:
     virtual double deltaGAl(StandardModel::lepton l) const;
     
     /**
+     * @brief The new physics correction to @f$g_A^q@f$.
      * @param[in] q name of a quark
      * @return the new physics correction to the neutral-current axial-vector coupling @f$g_A^q@f$
      * (non-zero only for \f$q=b\f$)
@@ -161,7 +165,7 @@ public:
     
     ////////////////////////////////////////////////////////////////////////
 protected:
-         /**
+    /**
      * @brief A set method to fix the parameters of the model.
      * @param[in] name a string with the parameter name
      * @param[in] value the value to be asigned to the parameter specified by name

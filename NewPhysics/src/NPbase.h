@@ -118,79 +118,95 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @return the oblique parameter @f$S@f$
+     * @brief The oblique paramenter \f$S\f$.
+     * @return the value of the oblique parameter @f$S@f$
      */
     virtual double obliqueS() const;
 
     /**
-     * @return the oblique parameter @f$T@f$
+     * @brief The oblique paramenter \f$T\f$.
+     * @return the value of the oblique parameter @f$T@f$
      */
     virtual double obliqueT() const;
 
     /**
-     * @return the oblique parameter @f$U@f$
+     * @brief The oblique paramenter \f$U\f$.
+     * @return the value of the oblique parameter @f$U@f$
      */
     virtual double obliqueU() const;
 
     /**
-     * @return the oblique parameter \f$\hat{S}=\frac{\alpha}{4\sin^2{\theta_W}}S\f$
+     * @brief The oblique paramenter \f$\hat{S}\f$.
+     * @return the value of the oblique parameter \f$\hat{S}=\frac{\alpha}{4\sin^2{\theta_W}}S\f$
      */
     virtual double obliqueShat() const;
 
     /**
-     * @return the oblique parameter \f$\hat{T}=\alpha T\f$
+     * @brief The oblique paramenter \f$\hat{T}\f$.
+     * @return the value of the oblique parameter \f$\hat{T}=\alpha T\f$
      */
     virtual double obliqueThat() const;
 
     /**
-     * @return the oblique parameter \f$\hat{U}=-\frac{\alpha}{4\sin^2{\theta_W}}U\f$
+     * @brief The oblique paramenter \f$\hat{U}\f$.
+     * @return the value of the oblique parameter \f$\hat{U}=-\frac{\alpha}{4\sin^2{\theta_W}}U\f$
      */
     virtual double obliqueUhat() const;
 
     /**
-     * @return the oblique parameter \f$V\f$
+     * @brief The oblique paramenter \f$V\f$.
+     * @return the value of the oblique parameter \f$V\f$
      */
     virtual double obliqueV() const;
 
     /**
-     * @return the oblique parameter \f$W\f$
+     * @brief The oblique paramenter \f$W\f$.
+     * @return the value of the oblique parameter \f$W\f$
      */
     virtual double obliqueW() const;
 
     /**
-     * @return the oblique parameter \f$X\f$
+     * @brief The oblique paramenter \f$X\f$.
+     * @return the value of the oblique parameter \f$X\f$
      */
     virtual double obliqueX() const;
 
     /**
-     * @return the oblique parameter \f$Y\f$
+     * @brief The oblique paramenter \f$Y\f$.
+     * @return the value of the oblique parameter \f$Y\f$
      */
     virtual double obliqueY() const;
     
     /**
-     * @return the new physics contribution to the Fermi constant, @f$G_{\mu}=G_{\mu}^{\rm SM}(1+\Delta GF)@f$
+     * @brief The new physics corrections to the Fermi constant.
+     * the new physics correction to the Fermi constant, 
+     * \f$ G_F\equiv G_F^\mathrm{SM}(1+\Delta G_F)\f$
      */
     virtual double DeltaGF() const;
 
     /**
+     * @brief The new physics correction to @f$g_V^l@f$.
      * @param[in] l name of a lepton
      * @return the new physics contribution to neutral-current vector coupling @f$\delta g_V^l@f$
      */
     virtual double deltaGVl(StandardModel::lepton l) const;
     
     /**
+     * @brief The new physics correction to @f$g_V^q@f$.
      * @param[in] q name of a quark
      * @return the new physics contribution to neutral-current vector coupling @f$\delta g_V^q@f$
      */
     virtual double deltaGVq(StandardModel::quark q) const;
 
     /**
+     * @brief The new physics correction to @f$g_A^l@f$.
      * @param[in] l name of a lepton
      * @return the new physics contribution to neutral-current axial-vector coupling @f$\delta g_A^l@f$
      */   
     virtual double deltaGAl(StandardModel::lepton l) const;
 
     /**
+     * @brief The new physics correction to @f$g_A^q@f$.
      * @param[in] q name of a quark
      * @return the new physics contribution to neutral-current axial-vector coupling @f$\delta g_A^q@f$
      */ 

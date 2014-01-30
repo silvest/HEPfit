@@ -16,8 +16,8 @@
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is based in new physics models described by the EW chiral
- * Lagrangian plus all interactions involving a light neutral scalar \f$H\f$. The
+ * @details This class is used to describe new physics models based on the electroweak chiral
+ * Lagrangian plus all the interactions involving a light neutral scalar \f$H\f$. The
  * effective Lagrangian expansion is truncated at the level of two-derivatives \cite Contino:2010mh.
  * Currently, only the dominant effects in EWPD, coming from non-standard @f$HVV@f$
  * interactions, are considered.
@@ -103,16 +103,19 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
     /**
+     * @brief The oblique parameter \f$S\f$.
      * @return the contribution to the oblique parameter \f$S\f$ in this model
      */
     virtual double obliqueS() const;
         
     /**
+     * @brief The oblique parameter \f$T\f$.
      * @return the contribution to the oblique parameter \f$T\f$ in this model
      */
     virtual double obliqueT() const;
     
     /**
+     * @brief The oblique parameter \f$U\f$.
      * @return the contribution to the oblique parameter \f$U\f$ in this model 
      */
     virtual double obliqueU() const;
@@ -121,23 +124,27 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
+     * The \f$W\f$ boson mass.
      * @return the \f$W\f$-boson mass in GeV
      */
     virtual double Mw() const;
 
     /**
-     * @return the (square of the) cosine of the weak angle in the On-mass-shell renormalization scheme,
+     * @brief The (square of the) cosine of the weak angle \f$\cos^2{\theta_W}\f$.
+     * @return the value of \f$\cos^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
      *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double cW2() const;
 
     /**
-     * @return the (square of the) sine of the weak angle in the On-mass-shell renormalization scheme,
+     * @brief The (square of the) sine of the weak angle \f$\sin^2{\theta_W}\f$.
+     * @return the value of \f$\sin^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
      *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double sW2() const;
 
     /**
+     * @brief The \f$W\f$ decay width \f$\Gamma_W\f$.
      * @return the total width of the \f$W\f$ boson in GeV
      */
     virtual double GammaW() const;

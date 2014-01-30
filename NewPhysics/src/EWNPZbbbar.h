@@ -33,12 +33,14 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
+     * @brief The effective leptonic neutral-current coupling @f$\rho_Z^l@f$.
      * @param[in] l name of a lepton
      * @return the (SM) effective neutral-current coupling @f$\rho_Z^l@f$
      */
     virtual complex rhoZ_l(const StandardModel::lepton l) const;
 
     /**
+     * @brief The effective quark neutral-current coupling @f$\rho_Z^q@f$.
      * @param[in] q name of a quark
      * @return the effective neutral-current coupling @f$\rho_Z^q@f$ (Non-SM 
      * contributions only for \f$q=b\f$)
@@ -46,12 +48,14 @@ public:
     virtual complex rhoZ_q(const StandardModel::quark q) const;
 
     /**
+     * @brief The effective leptonic neutral-current coupling @f$\kappa_Z^l@f$.
      * @param[in] l name of a lepton
      * @return the (SM) effective neutral-current coupling @f$\kappa_Z^l@f$
      */
     virtual complex kappaZ_l(const StandardModel::lepton l) const;
 
     /**
+     * @brief The effective quark neutral-current coupling @f$\kappa_Z^q@f$.
      * @param[in] q name of a quark
      * @return the effective neutral-current coupling @f$\kappa_Z^q@f$ (Non-SM 
      * contributions only for \f$q=b\f$)
@@ -59,27 +63,31 @@ public:
     virtual complex kappaZ_q(const StandardModel::quark q) const;
 
     /**
+     * @brief The leptonic neutral-current vector coupling @f$g_V^l@f$.
      * @param[in] l name of a lepton
-     * @return the (SM) effective neutral-current vector coupling @f$g_V^l@f$
+     * @return the (SM) neutral-current vector coupling @f$g_V^l@f$
      */
     virtual complex gVl(const StandardModel::lepton l) const;
 
     /**
+     * @brief The quark neutral-current vector coupling @f$g_V^q@f$.
      * @param[in] q name of a quark
-     * @return the effective neutral-current vector coupling @f$g_V^q@f$ (Non-SM 
+     * @return the neutral-current vector coupling @f$g_V^q@f$ (Non-SM 
      * contributions only for \f$q=b\f$)
      */
     virtual complex gVq(const StandardModel::quark q) const;
 
     /**
+     * @brief The leptonic neutral-current axial-vector coupling @f$g_A^l@f$.
      * @param[in] l name of a lepton
-     * @return the (SM) effective neutral-current axial-vector coupling @f$g_A^l@f$
+     * @return the (SM) neutral-current axial-vector coupling @f$g_A^l@f$
      */
     virtual complex gAl(const StandardModel::lepton l) const;
 
     /**
+     * @brief The quark neutral-current axial-vector coupling @f$g_A^q@f$.
      * @param[in] q name of a quark
-     * @return the effective neutral-current axial-vector coupling @f$g_A^q@f$ (Non-SM 
+     * @return the neutral-current axial-vector coupling @f$g_A^q@f$ (Non-SM 
      * contributions only for \f$q=b\f$)
      */
     virtual complex gAq(const StandardModel::quark q) const;

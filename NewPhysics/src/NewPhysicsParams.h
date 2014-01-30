@@ -26,7 +26,7 @@ public:
     /**
      * @brief Constructor. 
      * @param[in] ObsType
-     * @param[in] name_i
+     * @param[in] name_i the name of the parameter to be retrieved
      */
     NewPhysicsParams(const ThObsType& ObsType, const std::string name_i)
     : ThObservable(ObsType), name(name_i)
@@ -34,8 +34,8 @@ public:
     };
 
     /**
-     * @brief 
-     * @return
+     * @brief A method to retrieve the value of the desired new physics parameter.
+     * @return the value of the new physics parameter
      */
     double computeThValue();
 
