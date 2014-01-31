@@ -133,7 +133,7 @@ public:
     
     /**
      * @brief @f$B_{00}(p^2; m_0^2, m_1^2)@f$.
-     * @detailsThe tensor two-point PV function @f$B_{00}(p^2; m_0^2, m_1^2)@f$
+     * @details The tensor two-point PV function @f$B_{00}(p^2; m_0^2, m_1^2)@f$
      * is defined as
      * @f[
      * g_{\mu\nu} B_{00}(p^2;m_0^2,m_1^2) + p_\mu p_\nu B_{11}(p^2;m_0^2,m_1^2)
@@ -177,6 +177,7 @@ public:
      * B_{0p}(p^2;m_0^2,m_1^2) = \frac{\partial}{\partial p^2} B_0(p^2;m_0^2,m_1^2)\,,
      * @f]
      * which is UV finite, while @f$B_{0p}(m^2; 0, m^2)@f$ is IR divergent.
+     * The IR divergence is regularized with the dimensional regularization. 
      * @param[in] muIR2 the renormalization scale squared for the IR divergence, @f$\mu_{\mathrm{IR}}^2@f$
      * @param[in] p2 momentum squared, @f$p^2@f$
      * @param[in] m02, m12 mass squared, @f$m_0^2@f$ and @f$m_1^2@f$
@@ -276,14 +277,17 @@ public:
      * @details The scalar four-point function 
      * @f$D_{0}(p_1^2,p_2^2,p_3^2,p_4^2,(p_1+p_2)^2,(p_2+p_3)^2; m_0^2, m_1^2, m_2^2, m_3^2)@f$
      * is defined as
-     * @f[
-     * D_0(p_1^2,p_2^2,p_3^2,p_4^2,(p_1+p_2)^2,(p_2+p_3)^2; m_0^2,m_1^2,m_2^2,m_3^2)
-     * = \frac{1}{i\pi^2}\int d^4k\,
+     * @f{eqnarray*}{
+     * &&D_0(p_1^2,p_2^2,p_3^2,p_4^2,(p_1+p_2)^2,(p_2+p_3)^2; m_0^2,m_1^2,m_2^2,m_3^2)
+     * \\
+     * &&\quad
+     * =
+     * \frac{1}{i\pi^2}\int d^4k\,
      * \frac{1}{(k^2-m_0^2+i\varepsilon)
      * \left[(k+p_1)^2-m_1^2+i\varepsilon\right]
      * \left[(k+p_1+p_2)^2-m_2^2+i\varepsilon\right]
      * \left[(k+p_1+p_2+p_3)^2-m_2^2+i\varepsilon\right]}\,,
-     * @f]
+     * @f}
      * where @f$p_1+p_2+p_3+p_4=0@f$. 
      * The current functions handles only the special case of 
      * @f$p_1^2=p_2^2=p_3^2=p_4^2=0@f$.
@@ -300,20 +304,22 @@ public:
     /**
      * @brief @f$D_{00}(0,0,0,0,s,t; m_0^2, m_1^2, m_2^2, m_3^2)@f$.
      * @details The tensor four-point function
-     *      * @f$D_{0}(p_1^2,p_2^2,p_3^2,p_4^2,(p_1+p_2)^2,(p_2+p_3)^2; m_0^2, m_1^2, m_2^2, m_3^2)@f$
+     * @f$D_{0}(p_1^2,p_2^2,p_3^2,p_4^2,(p_1+p_2)^2,(p_2+p_3)^2; m_0^2, m_1^2, m_2^2, m_3^2)@f$
      * is defined as
-     * @f[
-     * g_{\mu\nu}
+     * @f{eqnarray*}{
+     * &&g_{\mu\nu}
      * D_{00}(p_1^2,p_2^2,p_3^2,p_4^2,(p_1+p_2)^2,(p_2+p_3)^2; m_0^2,m_1^2,m_2^2,m_3^2)
      * + \sum_{i,j=1}^{3}q_{i\mu}q_{j\mu}
      * D_{ij}(p_1^2,p_2^2,p_3^2,p_4^2,(p_1+p_2)^2,(p_2+p_3)^2; m_0^2,m_1^2,m_2^2,m_3^2)
      * \\
-     * = \frac{1}{i\pi^2}\int d^4k\,
+     * &&\quad
+     * =
+     * \frac{1}{i\pi^2}\int d^4k\,
      * \frac{k_\mu k_\nu}{(k^2-m_0^2+i\varepsilon)
      * \left[(k+p_1)^2-m_1^2+i\varepsilon\right]
      * \left[(k+p_1+p_2)^2-m_2^2+i\varepsilon\right]
      * \left[(k+p_1+p_2+p_3)^2-m_2^2+i\varepsilon\right]}\,,
-     * @f]
+     * @f}
      * where @f$q_N=\sum_{i=1}^N p_i@f$ and @f$p_1+p_2+p_3+p_4=0@f$.
      * The current functions handles only the special case of
      * @f$p_1^2=p_2^2=p_3^2=p_4^2=0@f$.

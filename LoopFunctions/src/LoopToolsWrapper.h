@@ -17,126 +17,153 @@ using namespace gslpp;
  * @brief A wrapper class for LoopTools library.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details
+ * @details This class is responsible for the interface to 
+ * <a href="http://www.feynarts.de/looptools/" target=blank>LoopTools</a> library
+ * @cite Hahn:1998yk.
+ *
+ * See @cite Hahn:1998yk and
+ * <a href="http://www.feynarts.de/looptools/" target=blank>the webpage of LoopTools</a>.
+ *
+ * See also the documentation of PVfunctions class for the definitions of the
+ * loop functions. 
+ *
+ * @attention The preprocessor macro USE_LOOPTOOLS has to be set in order to
+ * use the current wrapper class. See also PVfunctions.h.
  */
 class LoopToolsWrapper {
 public:
 
+    /**
+     * @brief The default constructor.
+     */
     LoopToolsWrapper();
 
+    /**
+     * @brief The default destructor.
+     */
     virtual ~LoopToolsWrapper();
     
     /**
-     * @brief The scalar one-point Passarino-Veltman function.
-     * @param[in] mu2 The renormalization scale squared.
-     * @param[in] m2 Mass squared.
-     * @return The finite part of the scalar one-point PV function.
+     * @brief @f$A_0(m^2)@f$.
+     * @param[in] mu2 the renormalization scale squared, @f$\mu^2@f$
+     * @param[in] m2 mass squared, @f$m^2@f$
+     * @return the finite part of @f$A_0(m^2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
     double PV_A0(const double mu2, const double m2) const;
     
     /**
-     * @brief The scalar two-point Passarino-Veltman function.
-     * @param[in] mu2 The renormalization scale squared.
-     * @param[in] p2 Momentum squared.
-     * @param[in] m02, m12 Mass squared.
-     * @return The finite part of the scalar two-point PV function.
+     * @brief @f$B_0(p^2; m_0^2, m_1^2)@f$.
+     * @param[in] mu2 the renormalization scale squared, @f$\mu^2@f$
+     * @param[in] p2 momentum squared, @f$p^2@f$
+     * @param[in] m02, m12 mass squared, @f$m_0^2@f$ and @f$m_1^2@f$
+     * @return the finite part of @f$B_0(p^2; m_0^2, m_1^2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
     complex PV_B0(const double mu2, const double p2,
                   const double m02, const double m12) const;
     
     /**
-     * @brief The vector two-point Passarino-Veltman function,
-     * @param[in] mu2 The renormalization scale squared.
-     * @param[in] p2 Momentum squared.
-     * @param[in] m02, m12 Mass squared.
-     * @return The finite part of the vector two-point PV function.
+     * @brief @f$B_1(p^2; m_0^2, m_1^2)@f$.
+     * @param[in] mu2 the renormalization scale squared, @f$\mu^2@f$
+     * @param[in] p2 momentum squared, @f$p^2@f$
+     * @param[in] m02, m12 mass squared, @f$m_0^2@f$ and @f$m_1^2@f$
+     * @return the finite part of @f$B_1(p^2; m_0^2, m_1^2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
     complex PV_B1(const double mu2, const double p2,
                   const double m02, const double m12) const;
 
     /**
-     * @brief A tensor two-point Passarino-Veltman function.
-     * @param[in] mu2 The renormalization scale squared.
-     * @param[in] p2 Momentum squared.
-     * @param[in] m02, m12 Mass squared.
-     * @return The finite part of a tensor two-point PV function B_{11}.
+     * @brief @f$B_{11}(p^2; m_0^2, m_1^2)@f$.
+     * @param[in] mu2 the renormalization scale squared, @f$\mu^2@f$
+     * @param[in] p2 momentum squared, @f$p^2@f$
+     * @param[in] m02, m12 mass squared, @f$m_0^2@f$ and @f$m_1^2@f$
+     * @return the finite part of @f$B_{11}(p^2; m_0^2, m_1^2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
     complex PV_B11(const double mu2, const double p2,
                    const double m02, const double m12) const;
 
     /**
-     * @brief A tensor two-point Passarino-Veltman function.
-     * @param[in] mu2 The renormalization scale squared.
-     * @param[in] p2 Momentum squared.
-     * @param[in] m02, m12 Mass squared.
-     * @return The finite part of a tensor two-point PV function B_{00}.
+     * @brief @f$B_{00}(p^2; m_0^2, m_1^2)@f$.
+     * @param[in] mu2 the renormalization scale squared, @f$\mu^2@f$
+     * @param[in] p2 momentum squared, @f$p^2@f$
+     * @param[in] m02, m12 mass squared, @f$m_0^2@f$ and @f$m_1^2@f$
+     * @return the finite part of @f$B_{00}(p^2; m_0^2, m_1^2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
     complex PV_B00(const double mu2, const double p2,
                    const double m02, const double m12) const;
 
     /**
-     * @brief The derivative of B_0.
-     * @param[in] muIR2 The IR renormalization scale squared.
-     * @param[in] p2 Momentum squared.
-     * @param[in] m02, m12 Mass squared.
-     * @return The finite part of B_{0p}.
+     * @brief @f$B_{0p}(p^2; m_0^2, m_1^2)@f$.
+     * @param[in] muIR2 the renormalization scale squared for the IR divergence, @f$\mu_{\mathrm{IR}}^2@f$
+     * @param[in] p2 momentum squared, @f$p^2@f$
+     * @param[in] m02, m12 mass squared, @f$m_0^2@f$ and @f$m_1^2@f$
+     * @return the finite part of @f$B_{0p}(p^2; m_0^2, m_1^2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
     complex PV_B0p(const double muIR2, const double p2,
                    const double m02, const double m12) const;
     
     /**
-     * @brief The derivative of B_1.
-     * @param[in] mu2 The renormalization scale squared.
-     * @param[in] p2 Momentum squared.
-     * @param[in] m02, m12 Mass squared.
-     * @return The finite part of B_{1p}.
+     * @brief @f$B_{1p}(p^2; m_0^2, m_1^2)@f$.
+     * @param[in] mu2 the renormalization scale squared, @f$\mu^2@f$
+     * @param[in] p2 momentum squared, @f$p^2@f$
+     * @param[in] m02, m12 mass squared, @f$m_0^2@f$ and @f$m_1^2@f$
+     * @return the finite part of @f$B_{1p}(p^2; m_0^2, m_1^2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
     complex PV_B1p(const double mu2, const double p2,
                    const double m02, const double m12) const;
     
     /**
-     * @brief The derivative of B_{11}.
-     * @param[in] mu2 The renormalization scale squared.
-     * @param[in] p2 Momentum squared.
-     * @param[in] m02, m12 Mass squared.
-     * @return The finite part of B_{11p}.
+     * @brief @f$B_{11p}(p^2; m_0^2, m_1^2)@f$.
+     * @param[in] mu2 the renormalization scale squared, @f$\mu^2@f$
+     * @param[in] p2 momentum squared, @f$p^2@f$
+     * @param[in] m02, m12 mass squared, @f$m_0^2@f$ and @f$m_1^2@f$
+     * @return the finite part of @f$B_{11p}(p^2; m_0^2, m_1^2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
     complex PV_B11p(const double mu2, const double p2,
                     const double m02, const double m12) const;
 
     /**
-     * @brief The derivative of B_{00}.
-     * @param[in] mu2 The renormalization scale squared.
-     * @param[in] p2 Momentum squared.
-     * @param[in] m02, m12 Mass squared.
-     * @return The finite part of B_{00p}.
+     * @brief @f$B_{00p}(p^2; m_0^2, m_1^2)@f$.
+     * @param[in] mu2 the renormalization scale squared, @f$\mu^2@f$
+     * @param[in] p2 momentum squared, @f$p^2@f$
+     * @param[in] m02, m12 mass squared, @f$m_0^2@f$ and @f$m_1^2@f$
+     * @return the finite part of @f$B_{00p}(p^2; m_0^2, m_1^2)@f$
+     * in the sense of the @f$\overline{\mathrm{MS}}@f$ scheme
      */
     complex PV_B00p(const double mu2, const double p2,
                     const double m02, const double m12) const;
 
     /**
-     * @brief The scalar three-point Passarino-Veltman function C_0(0,0,p2;m02,m12,m22).
-     * @param[in] p2 Momentum squared.
-     * @param[in] m02, m12, m22 Mass squared.
-     * @return The scalar three-point PV function C_0(0,0,p2;m02,m12,m22).
+     * @brief @f$C_{0}(0,0,p^2; m_0^2, m_1^2, m_2^2)@f$.
+     * @param[in] p2 momentum squared, @f$p^2@f$
+     * @param[in] m02, m12, m22 mass squared, @f$m_0^2@f$, @f$m_1^2@f$ and @f$m_2^2@f$
+     * @return @f$C_{0}(0,0,p^2; m_0^2, m_1^2, m_2^2)@f$
      */
     complex PV_C0(const double p2, 
                   const double m02, const double m12, const double m22) const;
     
     /**
-     * @brief The scalar four-point Passarino-Veltman function D_0(0,0,0,0,s,t;m02,m12,m22,m32).
-     * @param[in] s, t Momentum squared.
-     * @param[in] m02, m12, m22, m32 Mass squared.
-     * @return The scalar four-point PV function D_0(0,0,0,0,s,t;m02,m12,m22,m32).
+     * @brief @f$D_{0}(0,0,0,0,s,t; m_0^2, m_1^2, m_2^2, m_3^2)@f$.
+     * @param[in] s,t momentum squared, @f$s@f$ and @f$t@f$
+     * @param[in] m02, m12, m22, m32 mass squared, @f$m_0^2@f$, @f$m_1^2@f$, @f$m_2^2@f$ and @f$m_3^2@f$
+     * @return @f$D_{0}(0,0,0,0,s,t; m_0^2, m_1^2, m_2^2, m_3^2)@f$
      */
     complex PV_D0(const double s, const double t, const double m02, const double m12,
                   const double m22, const double m32) const;
     
     /**
-     * @brief A tensor four-point Passarino-Veltman function D_00(0,0,0,0,s,t;m02,m12,m22,m32).
-     * @param[in] s, t Momentum squared.
-     * @param[in] m02, m12, m22, m32 Mass squared.
-     * @return A tensor four-point PV function D_00(0,0,0,0,s,t;m02,m12,m22,m32).
+     * @brief @f$D_{00}(0,0,0,0,s,t; m_0^2, m_1^2, m_2^2, m_3^2)@f$.
+     * @param[in] s,t momentum squared, @f$s@f$ and @f$t@f$
+     * @param[in] m02, m12, m22, m32 mass squared, @f$m_0^2@f$, @f$m_1^2@f$, @f$m_2^2@f$ and @f$m_3^2@f$
+     * @attention This function does not work.
+     * @return @f$D_{00}(0,0,0,0,s,t; m_0^2, m_1^2, m_2^2, m_3^2)@f$
      */
     complex PV_D00(const double s, const double t, const double m02, const double m12,
                    const double m22, const double m32) const;
