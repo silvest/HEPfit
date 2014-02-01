@@ -19,7 +19,8 @@ using namespace gslpp;
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class handles two-loop %QCD contributions of
- * @f$O(\alpha\alpha_s)@f$ to the following quantities:
+ * @f$O(\alpha\alpha_s)@f$ to the following quantities, which are relevant to
+ * the %EW precision observables:
  *
  * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_l()),
  * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_t()),
@@ -67,7 +68,8 @@ public:
 
     /**
      * @brief Leptonic contribution of @f$O(\alpha\alpha_s)@f$
-     * to the electromagnetic coupling @f$\alpha@f$.
+     * to the electromagnetic coupling @f$\alpha@f$,
+     * denoted as @f$\Delta\alpha_{\mathrm{lept}}^{\alpha\alpha_s}@f$.
      * @details This contribution vanishes at @f$O(\alpha\alpha_s)@f$.
      * @param[in] s invariant mass squared
      * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha\alpha_s}=0@f$
@@ -76,9 +78,10 @@ public:
 
     /**
      * @brief Top-quark contribution of @f$O(\alpha\alpha_s)@f$
-     * to the electromagnetic coupling @f$\alpha@f$.
-     * @details A simple numerical formula presented in @cite Kuhn:1998ze is
-     * employed. 
+     * to the electromagnetic coupling @f$\alpha@f$,
+     * denoted as @f$\Delta\alpha_{\mathrm{top}}^{\alpha\alpha_s}@f$. 
+     * @details A simple numerical formula presented in @cite Kuhn:1998ze has
+     * been employed.
      * @param[in] s invariant mass squared
      * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha\alpha_s}@f$
      */
@@ -86,7 +89,7 @@ public:
     
     /**
      * @brief Leading two-loop %QCD contribution of @f$O(\alpha\alpha_s)@f$
-     * to @f$\Delta\rho@f$.
+     * to @f$\Delta\rho@f$, denoted as @f$\Delta\rho^{\alpha\alpha_s}@f$.
      * @details The formula used here is given by
      * @f[
      * \Delta\rho^{\alpha\alpha_s}
@@ -104,7 +107,8 @@ public:
     double DeltaRho(const double Mw_i) const;
 
     /**
-     * @brief Remainder contribution of @f$O(\alpha\alpha_s)@f$ to @f$\Delta r@f$.
+     * @brief Remainder contribution of @f$O(\alpha\alpha_s)@f$ to @f$\Delta r@f$,
+     * denoted as @f$\Delta r_{\mathrm{rem}}^{\alpha\alpha_s^2}@f$. 
      * @details The @f$O(\alpha\alpha_s)@f$ remainder contribution to
      * @f$\Delta r@f$ is decomposed as
      * @f[
@@ -123,7 +127,8 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha\alpha_s)@f$
-     * to the effective couplings @f$\rho_Z^l@f$.
+     * to the effective couplings @f$\rho_Z^l@f$,
+     * denoted as @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha\alpha_s}@f$.
      * @details The @f$O(\alpha\alpha_s)@f$ remainder contribution to
      * @f$\rho_{Z}^{l}@f$ is decomposed as
      * @f[
@@ -143,7 +148,8 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha\alpha_s)@f$
-     * to the effective couplings @f$\rho_Z^q@f$.
+     * to the effective couplings @f$\rho_Z^q@f$,
+     * denoted as @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha\alpha_s}@f$.
      * @details The @f$O(\alpha\alpha_s)@f$ remainder contribution to
      * @f$\rho_{Z}^{q}@f$ is decomposed as
      * @f[
@@ -163,7 +169,8 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha\alpha_s)@f$
-     * to the effective couplings @f$\kappa_Z^l@f$.
+     * to the effective couplings @f$\kappa_Z^l@f$,
+     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha\alpha_s}@f$.
      * @details The @f$O(\alpha\alpha_s)@f$ remainder contribution to
      * @f$\kappa_{Z}^{l}@f$ is decomposed as
      * @f[
@@ -184,7 +191,8 @@ public:
                                                   
     /**
      * @brief Remainder contribution of @f$O(\alpha\alpha_s)@f$
-     * to the effective couplings @f$\kappa_Z^q@f$.
+     * to the effective couplings @f$\kappa_Z^q@f$,
+     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha\alpha_s}@f$. 
      * @details The @f$O(\alpha\alpha_s)@f$ remainder contribution to
      * @f$\kappa_{Z}^{q}@f$ is decomposed as
      * @f[
@@ -270,7 +278,7 @@ public:
     
     /**
      * @brief Light-quark contribution to @f$\Delta r@f$, not including
-     * @f$\Delta\alpha^{l+5q}(M_Z^2)@f$. 
+     * @f$\Delta\alpha^{l+5q}(M_Z^2)@f$, denoted as @f$\Delta r^{ud}@f$. 
      * @details The quantity @f$\Delta r^{ud}@f$ is associated with
      * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the 
      * gauge bosons with loops of the light-quark doublets.
@@ -287,7 +295,8 @@ public:
     double DeltaR_ud(const double Mw_i) const;
 
     /**
-     * @brief Heavy-quark contribution to @f$\Delta r@f$.
+     * @brief Heavy-quark contribution to @f$\Delta r@f$,
+     * denoted as @f$\Delta r^{tb}@f$.
      * @details The quantity @f$\Delta r^{tb}@f$ is associated with
      * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the 
      * gauge bosons with loops of the @f$t@f$-@f$b@f$ doublet.
@@ -312,7 +321,8 @@ public:
     double DeltaR_tb(const double Mw_i) const;
         
     /**
-     * @brief Light-quark contribution to @f$\rho_Z^f@f$.
+     * @brief Light-quark contribution to @f$\rho_Z^f@f$,
+     * denoted as @f$\Delta\rho^{ud}@f$. 
      * @details The quantity @f$\Delta\rho^{ud}@f$ is associated with
      * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the 
      * gauge bosons with loops of the light-quark doublets.
@@ -331,7 +341,8 @@ public:
     double DeltaRho_ud(const double Mw_i) const;
 
     /**
-     * @brief Heavy-quark contribution to @f$\rho_Z^f@f$.
+     * @brief Heavy-quark contribution to @f$\rho_Z^f@f$,
+     * denoted as @f$\Delta\rho^{tb}@f$.
      * @details The quantity @f$\Delta\rho^{tb}@f$ is associated with
      * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the 
      * gauge bosons with loops of the @f$t@f$-@f$b@f$ doublet.
@@ -352,7 +363,8 @@ public:
     double DeltaRho_tb(const double Mw_i) const;
     
     /**
-     * @brief Light-quark contribution to @f$\kappa_Z^f@f$.
+     * @brief Light-quark contribution to @f$\kappa_Z^f@f$,
+     * denoted as @f$\Delta\kappa^{ud}@f$.
      * @details The quantity @f$\Delta\kappa^{ud}@f$ is associated with
      * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the 
      * gauge bosons with loops of the light-quark doublets.
@@ -372,7 +384,8 @@ public:
     complex DeltaKappa_ud(const double Mw_i) const;
     
     /**
-     * @brief Heavy-quark contribution to @f$\kappa_Z^f@f$.
+     * @brief Heavy-quark contribution to @f$\kappa_Z^f@f$,
+     * denoted as @f$\Delta\kappa^{tb}@f$. 
      * @details The quantity @f$\Delta\kappa^{tb}@f$ is associated with
      * @f$O(\alpha\alpha_s)@f$ corrections to the self-energies of the 
      * gauge bosons with loops of the @f$t@f$-@f$b@f$ doublet.

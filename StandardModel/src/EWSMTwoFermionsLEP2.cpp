@@ -875,10 +875,10 @@ complex EWSMTwoFermionsLEP2::D_Z(const double mu, const double s,
                                  const double Mw) const 
 {
     double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
-    complex D_Z_bos = (myOneLoopEW.SigmaZZ_bos(mu,s,Mw) 
-                       - myOneLoopEW.SigmaZZ_bos(mu,Mz*Mz,Mw))/cW2/(Mz*Mz - s);
-    complex D_Z_fer = (myOneLoopEW.SigmaZZ_fer(mu,s,Mw) 
-                       - myOneLoopEW.SigmaZZ_fer(mu,Mz*Mz,Mw))/cW2/(Mz*Mz - s);
+    complex D_Z_bos = (myOneLoopEW.SigmabarZZ_bos(mu,s,Mw) 
+                       - myOneLoopEW.SigmabarZZ_bos(mu,Mz*Mz,Mw))/cW2/(Mz*Mz - s);
+    complex D_Z_fer = (myOneLoopEW.SigmabarZZ_fer(mu,s,Mw) 
+                       - myOneLoopEW.SigmabarZZ_fer(mu,Mz*Mz,Mw))/cW2/(Mz*Mz - s);
     return ( D_Z_bos + D_Z_fer );    
 }
 
@@ -886,8 +886,8 @@ complex EWSMTwoFermionsLEP2::D_Z(const double mu, const double s,
 complex EWSMTwoFermionsLEP2::Pibar_Zgamma(const double mu, const double s, 
                                           const double Mw) const 
 {
-    complex Pibar_Zgamma_bos = myOneLoopEW.PiZgamma_bos(mu,s,Mw);
-    complex Pibar_Zgamma_fer = myOneLoopEW.PiZgamma_fer(mu,s,Mw);
+    complex Pibar_Zgamma_bos = myOneLoopEW.PibarZgamma_bos(mu,s,Mw);
+    complex Pibar_Zgamma_fer = myOneLoopEW.PibarZgamma_fer(mu,s,Mw);
     return ( Pibar_Zgamma_bos + Pibar_Zgamma_fer );    
 }
 
@@ -895,7 +895,7 @@ complex EWSMTwoFermionsLEP2::Pibar_Zgamma(const double mu, const double s,
 complex EWSMTwoFermionsLEP2::Pibar_gg_bos(const double mu, const double s, 
                                           const double Mw) const
 {
-    complex Pibar_gg_bos = myOneLoopEW.PiGammaGamma_bos(mu,s,Mw);
+    complex Pibar_gg_bos = myOneLoopEW.PibarGammaGamma_bos(mu,s,Mw);
     return Pibar_gg_bos;  
 }
 

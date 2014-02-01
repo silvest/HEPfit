@@ -55,105 +55,105 @@ void EWSMEW1testclass::DeltaAlpha_l() {
 
 void EWSMEW1testclass::SigmaWW_bos_Mw_0() {
     double W0 = -1.702845692408391; /* ZFITTER result*/
-    double result = myEW1->SigmaWW_bos(Mw,0.0,Mw).real();
+    double result = myEW1->SigmabarWW_bos(Mw,0.0,Mw).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(W0*Mw2, result, delta);
 }
 
 void EWSMEW1testclass::SigmaWW_fer_Mw_0() {
     double W0F = 7.306899137576438; /* ZFITTER result*/
-    double result = myEW1->SigmaWW_fer(Mw,0.0,Mw).real();
+    double result = myEW1->SigmabarWW_fer(Mw,0.0,Mw).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(W0F*Mw2, result, delta);
 }
 
 void EWSMEW1testclass::SigmaWW_bos_Mw_Mw2_real() {
     double XMM1 = -4.212516913677337; /* ZFITTER result*/
-    double result = myEW1->SigmaWW_bos(Mw,Mw2,Mw).real();
+    double result = myEW1->SigmabarWW_bos(Mw,Mw2,Mw).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XMM1*Mw2, result, delta);
 }
 
 void EWSMEW1testclass::SigmaWW_bos_Mw_Mw2_imag() {
     double XMM1 = 0.000000000000000; /* ZFITTER result*/
-    double result = myEW1->SigmaWW_bos(Mw,Mw2,Mw).imag();
+    double result = myEW1->SigmabarWW_bos(Mw,Mw2,Mw).imag();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XMM1*Mw2, result, delta);
 }
 
 void EWSMEW1testclass::SigmaWW_fer_Mw_Mw2_real() {
     double XMM1F = 11.188122745796212; /* ZFITTER result*/
-    double result = myEW1->SigmaWW_fer(Mw,Mw2,Mw).real();
+    double result = myEW1->SigmabarWW_fer(Mw,Mw2,Mw).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XMM1F*Mw2, result, delta);   
 }
 
 void EWSMEW1testclass::SigmaWW_fer_Mw_Mw2_imag() {
     double XMM1F = 9.422358620516286; /* ZFITTER result*/
-    double result = myEW1->SigmaWW_fer(Mw,Mw2,Mw).imag();
+    double result = myEW1->SigmabarWW_fer(Mw,Mw2,Mw).imag();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XMM1F*Mw2, result, delta); 
 }
 
 void EWSMEW1testclass::SigmaZZ_bos_Mw_Mz2_real() {
     double XZM1 = -3.320247142827423; /* ZFITTER result*/
-    double result = myEW1->SigmaZZ_bos(Mw,Mz2,Mw).real();
+    double result = myEW1->SigmabarZZ_bos(Mw,Mz2,Mw).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XZM1*Mw2, result, delta);  
 }
 
 void EWSMEW1testclass::SigmaZZ_bos_Mw_Mz2_imag() {
     double XZM1 = 0.000000000000000; /* ZFITTER result*/
-    double result = myEW1->SigmaZZ_bos(Mw,Mz2,Mw).imag();
+    double result = myEW1->SigmabarZZ_bos(Mw,Mz2,Mw).imag();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XZM1*Mw2, result, delta);     
 }
 
 void EWSMEW1testclass::SigmaZZ_fer_Mw_Mz2_real() {
     double XZM1F = 14.431690239155724; /* ZFITTER result*/
-    double result = myEW1->SigmaZZ_fer(Mw,Mz2,Mw).real();
+    double result = myEW1->SigmabarZZ_fer(Mw,Mz2,Mw).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XZM1F*Mw2, result, delta);  
 }
 
 void EWSMEW1testclass::SigmaZZ_fer_Mw_Mz2_imag() {
     double XZM1F = 9.893711064659454; /* ZFITTER result*/
-    double result = myEW1->SigmaZZ_fer(Mw,Mz2,Mw).imag();
+    double result = myEW1->SigmabarZZ_fer(Mw,Mz2,Mw).imag();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(XZM1F*Mw2, result, delta); 
 }
 
 void EWSMEW1testclass::PiZgamma_bos_Mw_Mz2_real() {
     double XAMM1 = 1.999074211569152; /* ZFITTER result*/
-    double result = myEW1->PiZgamma_bos(Mw,Mz2,Mw).real();
+    double result = myEW1->PibarZgamma_bos(Mw,Mz2,Mw).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XAMM1, result, delta);    
 }
 
 void EWSMEW1testclass::PiZgamma_bos_Mw_Mz2_imag() {
     double XAMM1 = 0.000000000000000; /* ZFITTER result*/
-    double result = myEW1->PiZgamma_bos(Mw,Mz2,Mw).imag();
+    double result = myEW1->PibarZgamma_bos(Mw,Mz2,Mw).imag();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XAMM1, result, delta); 
 }
 
 void EWSMEW1testclass::PiZgamma_fer_Mw_Mz2_real() {
     double XAMM1F = - 1.641562584085382; /* ZFITTER result*/
-    double result = myEW1->PiZgamma_fer(Mw,Mz2,Mw).real();
+    double result = myEW1->PibarZgamma_fer(Mw,Mz2,Mw).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XAMM1F, result, delta);    
 }
 
 void EWSMEW1testclass::PiZgamma_fer_Mw_Mz2_imag() {
     double XAMM1F = - 4.547472366444150; /* ZFITTER result*/
-    double result = myEW1->PiZgamma_fer(Mw,Mz2,Mw).imag();
+    double result = myEW1->PibarZgamma_fer(Mw,Mz2,Mw).imag();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XAMM1F, result, delta); 
 }
 
 void EWSMEW1testclass::PiGammaGamma_fer_Mw_0() {
     double ZFITTER = 110.687763755483232; /* ZFITTER result*/
-    double result = myEW1->PiGammaGamma_fer(Mw,0.0).real();
+    double result = myEW1->PibarGammaGamma_fer(Mw,0.0).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
 }
@@ -214,16 +214,16 @@ void EWSMEW1testclass::B0p_diff_Mw2_0_Mw2() {
 }
 
 void EWSMEW1testclass::SigmaWW_bos_diff_0_real() {
-    double result_Mw = myEW1->SigmaWW_bos(Mw,0.0,Mw).real();
-    double result_Mz = myEW1->SigmaWW_bos(Mz,0.0,Mw).real();
+    double result_Mw = myEW1->SigmabarWW_bos(Mw,0.0,Mw).real();
+    double result_Mz = myEW1->SigmabarWW_bos(Mz,0.0,Mw).real();
     double MZtoMW = Mw2*(3.0/4.0/cW2 - 3.0/2.0 + 3.0/4.0*cW2 + 3.0/4.0*cW2*cW2)*log(cW2);
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);
 }
 
 void EWSMEW1testclass::SigmaWW_fer_diff_0_real() {
-    double result_Mw = myEW1->SigmaWW_fer(Mw,0.0,Mw).real();
-    double result_Mz = myEW1->SigmaWW_fer(Mz,0.0,Mw).real();
+    double result_Mw = myEW1->SigmabarWW_fer(Mw,0.0,Mw).real();
+    double result_Mz = myEW1->SigmabarWW_fer(Mz,0.0,Mw).real();
     double MZtoMW = 0.0;
     for (int i=0; i<6; i++) {
         MZtoMW += - 1.0/2.0*pow(myCache->ml((StandardModel::lepton)i),2.0)*log(cW2);
@@ -234,16 +234,16 @@ void EWSMEW1testclass::SigmaWW_fer_diff_0_real() {
 }
 
 void EWSMEW1testclass::SigmaWW_bos_diff_Mw2_real() {
-    double result_Mw = myEW1->SigmaWW_bos(Mw,Mw2,Mw).real();
-    double result_Mz = myEW1->SigmaWW_bos(Mz,Mw2,Mw).real();
+    double result_Mw = myEW1->SigmabarWW_bos(Mw,Mw2,Mw).real();
+    double result_Mz = myEW1->SigmabarWW_bos(Mz,Mw2,Mw).real();
     double MZtoMW = Mw2*(3.0/4.0/cW2 - 17.0/3.0)*log(cW2);
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);
 }
 
 void EWSMEW1testclass::SigmaWW_fer_diff_Mw2_real() {
-    double result_Mw = myEW1->SigmaWW_fer(Mw,Mw2,Mw).real();
-    double result_Mz = myEW1->SigmaWW_fer(Mz,Mw2,Mw).real();
+    double result_Mw = myEW1->SigmabarWW_fer(Mw,Mw2,Mw).real();
+    double result_Mz = myEW1->SigmabarWW_fer(Mz,Mw2,Mw).real();
     double MZtoMW = 24.0/6.0*Mw2*log(cW2);
     for (int i=0; i<6; i++) {
         MZtoMW += - 1.0/2.0*pow(myCache->ml((StandardModel::lepton)i),2.0)*log(cW2);
@@ -254,16 +254,16 @@ void EWSMEW1testclass::SigmaWW_fer_diff_Mw2_real() {
 }
 
 void EWSMEW1testclass::SigmaZZ_bos_diff_Mz2_real() {
-    double result_Mw = myEW1->SigmaZZ_bos(Mw,Mz2,Mw).real();
-    double result_Mz = myEW1->SigmaZZ_bos(Mz,Mz2,Mw).real();
+    double result_Mw = myEW1->SigmabarZZ_bos(Mw,Mz2,Mw).real();
+    double result_Mz = myEW1->SigmabarZZ_bos(Mz,Mz2,Mw).real();
     double MZtoMW = Mw2*(11.0/12.0/cW2 + 7.0/6.0 - 7.0*cW2)*log(cW2);
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);
 }
 
 void EWSMEW1testclass::SigmaZZ_fer_diff_Mz2_real() {
-    double result_Mw = myEW1->SigmaZZ_fer(Mw,Mz2,Mw).real();
-    double result_Mz = myEW1->SigmaZZ_fer(Mz,Mz2,Mw).real();
+    double result_Mw = myEW1->SigmabarZZ_fer(Mw,Mz2,Mw).real();
+    double result_Mz = myEW1->SigmabarZZ_fer(Mz,Mz2,Mw).real();
     double MZtoMW = Mw2*(24.0/6.0/cW2 - 2.0*sW2/3.0/cW2*12.0 
                          + 4.0*sW2*sW2/3.0/cW2*8.0)*log(cW2);
     for (int i=0; i<6; i++) {
@@ -275,40 +275,40 @@ void EWSMEW1testclass::SigmaZZ_fer_diff_Mz2_real() {
 }
 
 void EWSMEW1testclass::PiGammaGamma_fer_diff_0_real() {
-    double result_Mw = myEW1->PiGammaGamma_fer(Mw,0.0).real();
-    double result_Mz = myEW1->PiGammaGamma_fer(Mz,0.0).real();
+    double result_Mw = myEW1->PibarGammaGamma_fer(Mw,0.0).real();
+    double result_Mz = myEW1->PibarGammaGamma_fer(Mz,0.0).real();
     double MZtoMW = 4.0/3.0*8.0*log(cW2);
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);
 }
 
 void EWSMEW1testclass::PiGammaGamma_bos_diff_Mz2_real() {
-    double result_Mw = myEW1->PiGammaGamma_bos(Mw,Mz2,Mw).real();
-    double result_Mz = myEW1->PiGammaGamma_bos(Mz,Mz2,Mw).real();
+    double result_Mw = myEW1->PibarGammaGamma_bos(Mw,Mz2,Mw).real();
+    double result_Mz = myEW1->PibarGammaGamma_bos(Mz,Mz2,Mw).real();
     double MZtoMW = 1.0/cW2*(1.0/12.0/cW2 + 7.0/6.0 - 7.0*cW2)*log(cW2);
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);
 }
 
 void EWSMEW1testclass::PiGammaGamma_fer_diff_Mz2_real() {
-    double result_Mw = myEW1->PiGammaGamma_fer(Mw,Mz2).real();
-    double result_Mz = myEW1->PiGammaGamma_fer(Mz,Mz2).real();
+    double result_Mw = myEW1->PibarGammaGamma_fer(Mw,Mz2).real();
+    double result_Mz = myEW1->PibarGammaGamma_fer(Mz,Mz2).real();
     double MZtoMW = 4.0/3.0*8.0*log(cW2);
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);
 }
 
 void EWSMEW1testclass::PiZgamma_bos_diff_Mz2_real() {
-    double result_Mw = myEW1->PiZgamma_bos(Mw,Mz2,Mw).real();
-    double result_Mz = myEW1->PiZgamma_bos(Mz,Mz2,Mw).real();
+    double result_Mw = myEW1->PibarZgamma_bos(Mw,Mz2,Mw).real();
+    double result_Mz = myEW1->PibarZgamma_bos(Mz,Mz2,Mw).real();
     double MZtoMW = (1.0/12.0/cW2 + 7.0/6.0 - 7.0*cW2)*log(cW2);
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);
 }
 
 void EWSMEW1testclass::PiZgamma_fer_diff_Mz2_real() {
-    double result_Mw = myEW1->PiZgamma_fer(Mw,Mz2,Mw).real();
-    double result_Mz = myEW1->PiZgamma_fer(Mz,Mz2,Mw).real();
+    double result_Mw = myEW1->PibarZgamma_fer(Mw,Mz2,Mw).real();
+    double result_Mz = myEW1->PibarZgamma_fer(Mz,Mz2,Mw).real();
     double MZtoMW = (12.0/3.0 - 4.0/3.0*sW2*8.0)*log(cW2);
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);
@@ -316,64 +316,64 @@ void EWSMEW1testclass::PiZgamma_fer_diff_Mz2_real() {
 
 void EWSMEW1testclass::DeltaRhobar_bos_Mw() {
     double ZFITTER = -0.892269770849914; /* ZFITTER result*/    
-    double result = (myEW1->SigmaWW_bos(Mw,Mw2,Mw).real()
-                     - myEW1->SigmaZZ_bos(Mw,Mz2,Mw).real())/Mw2;
+    double result = (myEW1->SigmabarWW_bos(Mw,Mw2,Mw).real()
+                     - myEW1->SigmabarZZ_bos(Mw,Mz2,Mw).real())/Mw2;
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);    
 }
 
 void EWSMEW1testclass::DeltaRhobar_fer_Mw() {
     double ZFITTER = -3.243567493359512; /* ZFITTER result*/    
-    double result = (myEW1->SigmaWW_fer(Mw,Mw2,Mw).real()
-                     - myEW1->SigmaZZ_fer(Mw,Mz2,Mw).real())/Mw2;
+    double result = (myEW1->SigmabarWW_fer(Mw,Mw2,Mw).real()
+                     - myEW1->SigmabarZZ_fer(Mw,Mz2,Mw).real())/Mw2;
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
 }
 
 void EWSMEW1testclass::DeltaRhobarW_bos_Mw() {
     double ZFITTER = 2.509671221268946; /* ZFITTER result*/    
-    double result = (myEW1->SigmaWW_bos(Mw,0.0,Mw).real()
-                     - myEW1->SigmaWW_bos(Mw,Mw2,Mw).real())/Mw2;
+    double result = (myEW1->SigmabarWW_bos(Mw,0.0,Mw).real()
+                     - myEW1->SigmabarWW_bos(Mw,Mw2,Mw).real())/Mw2;
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);    
 }
 
 void EWSMEW1testclass::DeltaRhobarW_fer_Mw() {
     double ZFITTER = -3.881223608219774; /* ZFITTER result*/    
-    double result = (myEW1->SigmaWW_fer(Mw,0.0,Mw).real()
-                     - myEW1->SigmaWW_fer(Mw,Mw2,Mw).real())/Mw2;
+    double result = (myEW1->SigmabarWW_fer(Mw,0.0,Mw).real()
+                     - myEW1->SigmabarWW_fer(Mw,Mw2,Mw).real())/Mw2;
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
 }
     
 void EWSMEW1testclass::DeltaRhobar_bos_Mz() {
     double ZFITTER = -1.257094198330098; /* ZFITTER result*/    
-    double result = (myEW1->SigmaWW_bos(Mz,Mw2,Mw).real()
-                     - myEW1->SigmaZZ_bos(Mz,Mz2,Mw).real())/Mw2;
+    double result = (myEW1->SigmabarWW_bos(Mz,Mw2,Mw).real()
+                     - myEW1->SigmabarZZ_bos(Mz,Mz2,Mw).real())/Mw2;
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);    
 }
 
 void EWSMEW1testclass::DeltaRhobar_fer_Mz() {
     double ZFITTER = -3.132030503808709; /* ZFITTER result*/    
-    double result = (myEW1->SigmaWW_fer(Mz,Mw2,Mw).real()
-                     - myEW1->SigmaZZ_fer(Mz,Mz2,Mw).real())/Mw2;
+    double result = (myEW1->SigmabarWW_fer(Mz,Mw2,Mw).real()
+                     - myEW1->SigmabarZZ_fer(Mz,Mz2,Mw).real())/Mw2;
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(ZFITTER, result, delta);
 }
 
 void EWSMEW1testclass::TEST_DeltaRhobar_bos_Mw() {
     double test_result = myEW1->TEST_DeltaRhobar_bos(Mw);
-    double result = (myEW1->SigmaWW_bos(Mw,Mw2,Mw).real()
-                     - myEW1->SigmaZZ_bos(Mw,Mz2,Mw).real())/Mw2;
+    double result = (myEW1->SigmabarWW_bos(Mw,Mw2,Mw).real()
+                     - myEW1->SigmabarZZ_bos(Mw,Mz2,Mw).real())/Mw2;
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(test_result, result, delta);    
 }
 
 void EWSMEW1testclass::TEST_DeltaRhobarW_bos_Mw() {
     double test_result = myEW1->TEST_DeltaRhobarW_bos(Mw);
-    double result = (myEW1->SigmaWW_bos(Mw,0.0,Mw).real()
-                     - myEW1->SigmaWW_bos(Mw,Mw2,Mw).real())/Mw2;
+    double result = (myEW1->SigmabarWW_bos(Mw,0.0,Mw).real()
+                     - myEW1->SigmabarWW_bos(Mw,Mw2,Mw).real())/Mw2;
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(test_result, result, delta);    
 }
@@ -381,10 +381,10 @@ void EWSMEW1testclass::TEST_DeltaRhobarW_bos_Mw() {
 void EWSMEW1testclass::SCALE() {
     double SCALE = -0.002574576533187; /* ZFITTER result*/    
     double result = - mySM->getAle()/4.0/M_PI/sW2
-                      * (myEW1->SigmaWW_bos(Mw,Mw2,Mw).real()
-                         + myEW1->SigmaWW_fer(Mw,Mw2,Mw).real()
-                         - myEW1->SigmaZZ_bos(Mw,Mz2,Mw).real()
-                         - myEW1->SigmaZZ_fer(Mw,Mz2,Mw).real())/Mw2
+                      * (myEW1->SigmabarWW_bos(Mw,Mw2,Mw).real()
+                         + myEW1->SigmabarWW_fer(Mw,Mw2,Mw).real()
+                         - myEW1->SigmabarZZ_bos(Mw,Mz2,Mw).real()
+                         - myEW1->SigmabarZZ_fer(Mw,Mz2,Mw).real())/Mw2
                     - myEW1->DeltaRho(Mw);
     result *= cW2/sW2;
     double delta = fabs(epsilon*result);
@@ -407,56 +407,56 @@ void EWSMEW1testclass::DeltaR_rem() {
     
 void EWSMEW1testclass::SigmaPrimeWW_bos_Mw_Mw2_real() {
     double XWFM1 = 2.066448743517876; /* ZFITTER result*/
-    double result = myEW1->SigmaPrime_WW_bos_Mw2(Mw,Mw).real();
+    double result = myEW1->SigmabarPrime_WW_bos_Mw2(Mw,Mw).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XWFM1, result, delta);
 }
 
 void EWSMEW1testclass::SigmaPrimeWW_bos_Mw_Mw2_imag() {
     double XWFM1 = 0.000000000000000; /* ZFITTER result*/
-    double result = myEW1->SigmaPrime_WW_bos_Mw2(Mw,Mw).imag();
+    double result = myEW1->SigmabarPrime_WW_bos_Mw2(Mw,Mw).imag();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XWFM1, result, delta);
 }
 
 void EWSMEW1testclass::SigmaPrimeWW_fer_Mw_Mw2_real() {
     double XWFM1F = -0.966097280796035; /* ZFITTER result*/
-    double result = myEW1->SigmaPrime_WW_fer_Mw2(Mw,Mw).real();
+    double result = myEW1->SigmabarPrime_WW_fer_Mw2(Mw,Mw).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XWFM1F, result, delta);
 }
 
 void EWSMEW1testclass::SigmaPrimeWW_fer_Mw_Mw2_imag() {
     double XWFM1F = -9.424777230871838; /* ZFITTER result*/
-    double result = myEW1->SigmaPrime_WW_fer_Mw2(Mw,Mw).imag();
+    double result = myEW1->SigmabarPrime_WW_fer_Mw2(Mw,Mw).imag();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XWFM1F, result, delta);
 }
 
 void EWSMEW1testclass::SigmaPrimeZZ_bos_Mw_Mz2_real() {
     double XWFM1 = 3.109040605851439; /* ZFITTER result*/
-    double result = myEW1->SigmaPrime_ZZ_bos_Mz2(Mw,Mw).real();
+    double result = myEW1->SigmabarPrime_ZZ_bos_Mz2(Mw,Mw).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XWFM1*cW2, result, delta);
 }
 
 void EWSMEW1testclass::SigmaPrimeZZ_bos_Mw_Mz2_imag() {
     double XWFM1 = 0.000000000000000; /* ZFITTER result*/
-    double result = myEW1->SigmaPrime_ZZ_bos_Mz2(Mw,Mw).imag();
+    double result = myEW1->SigmabarPrime_ZZ_bos_Mz2(Mw,Mw).imag();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XWFM1*cW2, result, delta);
 }
 
 void EWSMEW1testclass::SigmaPrimeZZ_fer_Mw_Mz2_real() {
     double XWFM1F = -0.482507863333779; /* ZFITTER result*/
-    double result = myEW1->SigmaPrime_ZZ_fer_Mz2(Mw,Mw).real();
+    double result = myEW1->SigmabarPrime_ZZ_fer_Mz2(Mw,Mw).real();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XWFM1F*cW2, result, delta);
 }
 
 void EWSMEW1testclass::SigmaPrimeZZ_fer_Mw_Mz2_imag() {
     double XWFM1F = -9.911978176545077; /* ZFITTER result*/
-    double result = myEW1->SigmaPrime_ZZ_fer_Mz2(Mw,Mw).imag();
+    double result = myEW1->SigmabarPrime_ZZ_fer_Mz2(Mw,Mw).imag();
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(-XWFM1F*cW2, result, delta);
 }

@@ -21,37 +21,15 @@ double EWSMOneLoopEW::DeltaAlpha_l(const double s) const
     double Mz = cache.Mz();
 
     double oneLoop[3];
-    oneLoop[0] = - PiGammaGamma_fer_l(Mz, s, StandardModel::ELECTRON).real() 
-                 + PiGammaGamma_fer_l(Mz, 0.0, StandardModel::ELECTRON).real();
-    oneLoop[1] = - PiGammaGamma_fer_l(Mz, s, StandardModel::MU).real() 
-                 + PiGammaGamma_fer_l(Mz, 0.0, StandardModel::MU).real();
-    oneLoop[2] = - PiGammaGamma_fer_l(Mz, s, StandardModel::TAU).real() 
-                 + PiGammaGamma_fer_l(Mz, 0.0, StandardModel::TAU).real();
+    oneLoop[0] = - PibarGammaGamma_fer_l(Mz, s, StandardModel::ELECTRON).real()
+                 + PibarGammaGamma_fer_l(Mz, 0.0, StandardModel::ELECTRON).real();
+    oneLoop[1] = - PibarGammaGamma_fer_l(Mz, s, StandardModel::MU).real()
+                 + PibarGammaGamma_fer_l(Mz, 0.0, StandardModel::MU).real();
+    oneLoop[2] = - PibarGammaGamma_fer_l(Mz, s, StandardModel::TAU).real()
+                 + PibarGammaGamma_fer_l(Mz, 0.0, StandardModel::TAU).real();
     
     return( cache.ale()/4.0/M_PI
             *(oneLoop[0] + oneLoop[1] + oneLoop[2]) );
-}
-
-
-double EWSMOneLoopEW::DeltaAlpha_5q(const double s) const
-{
-    double Mz = cache.Mz();
-
-    double oneLoop[5];
-    /* Qf and Nc are included in PiGammaGamma_fer_q(). */
-    oneLoop[0] = - PiGammaGamma_fer_q(Mz, s, StandardModel::UP).real()
-                 + PiGammaGamma_fer_q(Mz, 0.0, StandardModel::UP).real();
-    oneLoop[1] = - PiGammaGamma_fer_q(Mz, s, StandardModel::DOWN).real()
-                 + PiGammaGamma_fer_q(Mz, 0.0, StandardModel::DOWN).real();
-    oneLoop[2] = - PiGammaGamma_fer_q(Mz, s, StandardModel::CHARM).real()
-                 + PiGammaGamma_fer_q(Mz, 0.0, StandardModel::CHARM).real();
-    oneLoop[3] = - PiGammaGamma_fer_q(Mz, s, StandardModel::STRANGE).real()
-                 + PiGammaGamma_fer_q(Mz, 0.0, StandardModel::STRANGE).real();
-    oneLoop[4] = - PiGammaGamma_fer_q(Mz, s, StandardModel::BOTTOM).real()
-                 + PiGammaGamma_fer_q(Mz, 0.0, StandardModel::BOTTOM).real();
-
-    return( cache.ale()/4.0/M_PI
-            *(oneLoop[0] + oneLoop[1] + oneLoop[2] + oneLoop[3] + oneLoop[4]) );
 }
 
 
@@ -82,9 +60,9 @@ double EWSMOneLoopEW::DeltaR_rem(const double Mw_i) const
     /* Logarithm */
     double log_cW2 = cache.log_cW2(Mw);
     
-    double PiGammaGamma_t_0 = PiGammaGamma_fer_q(Mz,0.0,StandardModel::TOP).real();
-    double PiGammaGamma_l5q_Mz2 = PiGammaGamma_fer(Mz,Mz2).real() 
-                                  - PiGammaGamma_fer_q(Mz,Mz2,StandardModel::TOP).real();
+    double PiGammaGamma_t_0 = PibarGammaGamma_fer_q(Mz,0.0,StandardModel::TOP).real();
+    double PiGammaGamma_l5q_Mz2 = PibarGammaGamma_fer(Mz,Mz2).real()
+                                  - PibarGammaGamma_fer_q(Mz,Mz2,StandardModel::TOP).real();
 
     double DR_rem = - 2.0/3.0*sW2 + sW2*PiGammaGamma_t_0
                     + sW2*PiGammaGamma_l5q_Mz2 + DeltaRhobarW(Mz,Mw)
@@ -127,8 +105,8 @@ complex EWSMOneLoopEW::deltaRho_rem_tmp(const complex uf,
     double log_cW2 = cache.log_cW2(Mw); 
 
     complex dRho_rem(0.0,0.0,false);
-    dRho_rem = - ( SigmaPrime_ZZ_bos_Mz2(Mz,Mw).real() 
-                   + SigmaPrime_ZZ_fer_Mz2(Mz,Mw).real() )/cW2
+    dRho_rem = - ( SigmabarPrime_ZZ_bos_Mz2(Mz,Mw).real()
+                   + SigmabarPrime_ZZ_fer_Mz2(Mz,Mw).real() )/cW2
                - DeltaRhobarW(Mz,Mw) + 2.0*uf
                - (1.0/6.0/cW2 - 1.0/3.0 + 3.0/4.0*cW2*(1.0 + cW2) + 9.0*cW2/4.0/sW2)
                  *log_cW2
@@ -172,7 +150,7 @@ complex EWSMOneLoopEW::deltaKappa_rem_tmp(const double deltaf, const complex uf,
     double log_cW2 = cache.log_cW2(Mw); 
 
     complex dKappa_rem(0.0,0.0,false);
-    dKappa_rem = ( PiZgamma_bos(Mz,Mz*Mz,Mw) + PiZgamma_fer(Mz,Mz*Mz,Mw) )
+    dKappa_rem = ( PibarZgamma_bos(Mz,Mz*Mz,Mw) + PibarZgamma_fer(Mz,Mz*Mz,Mw) )
                  + deltaf*deltaf/4.0/cW2*FZ(Mz*Mz,Mw) - uf
                  + (1.0/12.0/cW2 + 4.0/3.0)*log_cW2;
     dKappa_rem *= cache.ale()/4.0/M_PI/sW2;
@@ -224,8 +202,8 @@ double EWSMOneLoopEW::rho_GammaW_tmp(const double Qi, const double Qj,
     
     double deltafij_W, deltafij_QED;
     deltafij_W = - DeltaRhobarW(Mw,Mw) 
-                 - SigmaPrime_WW_bos_Mw2(Mw,Mw).real() 
-                 - SigmaPrime_WW_fer_Mw2(Mw,Mw).real()
+                 - SigmabarPrime_WW_bos_Mw2(Mw,Mw).real()
+                 - SigmabarPrime_WW_fer_Mw2(Mw,Mw).real()
                  + 5.0/8.0*cW2*(1.0 + cW2) - 11.0/2.0 - 9.0*cW2/4.0/sW2*log_cW2
                  + (-1.0 + 1.0/2.0/cW2 + 2.0*sW2*sW2/cW2*QiQj)*(V1 + 3.0/2.0)
                  + 2.0*cW2*(V2 + 3.0/2.0);
@@ -243,7 +221,7 @@ double EWSMOneLoopEW::rho_GammaW_l(const StandardModel::lepton li,
                                    const double Mw_i) const 
 {
     if ( ((int)li+(int)lj+3)%2 ) 
-        throw std::runtime_error("Error in EWSMOneLoopEW::rho_GammaW_l()"); 
+        throw std::runtime_error("EWSMOneLoopEW::rho_GammaW_l(): Wrong arguments");
     double Mw = cache.Mw(Mw_i);
     return ( rho_GammaW_tmp(cache.Ql(li), cache.Ql(lj), Mw) );
 }
@@ -254,7 +232,7 @@ double EWSMOneLoopEW::rho_GammaW_q(const StandardModel::quark qi,
                                    const double Mw_i) const 
 {
     if ( ((int)qi+(int)qj+3)%2 ) 
-        throw std::runtime_error("Error in EWSMOneLoopEW::rho_GammaW_q()"); 
+        throw std::runtime_error("EWSMOneLoopEW::rho_GammaW_q(): Wrong arguments");
     double Mw = cache.Mw(Mw_i);
     return ( rho_GammaW_tmp(cache.Qq(qi), cache.Qq(qj), Mw) );
 }
@@ -262,8 +240,8 @@ double EWSMOneLoopEW::rho_GammaW_q(const StandardModel::quark qi,
 
 //////////////////////////////////////////////////////////////////////// 
 
-complex EWSMOneLoopEW::SigmaWW_bos(const double mu, const double s,
-                                   const double Mw_i) const 
+complex EWSMOneLoopEW::SigmabarWW_bos(const double mu, const double s,
+                                      const double Mw_i) const
 {
     double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
@@ -348,8 +326,8 @@ complex EWSMOneLoopEW::SigmaWW_bos(const double mu, const double s,
 }
 
 
-complex EWSMOneLoopEW::SigmaWW_fer(const double mu, const double s,
-                                   const double Mw_i) const 
+complex EWSMOneLoopEW::SigmabarWW_fer(const double mu, const double s,
+                                      const double Mw_i) const
 {
     double ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
@@ -411,8 +389,8 @@ complex EWSMOneLoopEW::SigmaWW_fer(const double mu, const double s,
 }
 
 
-complex EWSMOneLoopEW::SigmaZZ_bos(const double mu, const double s,
-                                   const double Mw_i) const 
+complex EWSMOneLoopEW::SigmabarZZ_bos(const double mu, const double s,
+                                      const double Mw_i) const
 {
     double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
@@ -447,7 +425,7 @@ complex EWSMOneLoopEW::SigmaZZ_bos(const double mu, const double s,
 
     complex Sigma(0.0,0.0,false);
     if (s==0.0) {
-        throw std::runtime_error("Missing codes for EWSMOneLoopEW::SigmaZZ_bos(s=0.0)"); 
+        throw std::runtime_error("EWSMOneLoopEW::SigmabarZZ_bos(): Undefined for s=0.0");
     } else {
         Sigma = Mw2*( - cW4*(4.0 + 17.0/3.0/RW - 4.0/3.0/RW2 - 1.0/12.0/RW3 )
                         *B0_s_Mw2_Mw2
@@ -464,8 +442,8 @@ complex EWSMOneLoopEW::SigmaZZ_bos(const double mu, const double s,
 }
 
 
-complex EWSMOneLoopEW::SigmaZZ_fer(const double mu, const double s, 
-                                   const double Mw_i) const
+complex EWSMOneLoopEW::SigmabarZZ_fer(const double mu, const double s,
+                                      const double Mw_i) const
 {
     double ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
@@ -498,7 +476,7 @@ complex EWSMOneLoopEW::SigmaZZ_fer(const double mu, const double s,
     
     complex Sigma(0.0,0.0,false);
     if (s==0.0) {
-        throw std::runtime_error("Missing codes for EWSMOneLoopEW::SigmaZZ_fer(s=0.0)"); 
+        throw std::runtime_error("EWSMOneLoopEW::SigmaZZ_fer(): Undefined for s=0.0");
     } else {
         double mf2, vf2, af2;
         for (int i=0; i<6; i++) {
@@ -519,8 +497,8 @@ complex EWSMOneLoopEW::SigmaZZ_fer(const double mu, const double s,
 }
 
 
-complex EWSMOneLoopEW::PiGammaGamma_bos(const double mu, const double s,
-                                        const double Mw_i) const 
+complex EWSMOneLoopEW::PibarGammaGamma_bos(const double mu, const double s,
+                                           const double Mw_i) const
 {
     double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
@@ -554,8 +532,8 @@ complex EWSMOneLoopEW::PiGammaGamma_bos(const double mu, const double s,
 }
 
 
-complex EWSMOneLoopEW::PiGammaGamma_fer_l(const double mu, const double s, 
-                                          const StandardModel::lepton l) const 
+complex EWSMOneLoopEW::PibarGammaGamma_fer_l(const double mu, const double s,
+                                             const StandardModel::lepton l) const
 {
     // Neutrinos do not contribute, since Qf=0.
     if ( (l==StandardModel::NEUTRINO_1) || (l==StandardModel::NEUTRINO_2)
@@ -594,7 +572,7 @@ complex EWSMOneLoopEW::PiGammaGamma_fer_l(const double mu, const double s,
 }
 
 
-complex EWSMOneLoopEW::PiGammaGamma_fer_q(const double mu, const double s, 
+complex EWSMOneLoopEW::PibarGammaGamma_fer_q(const double mu, const double s, 
                                           const StandardModel::quark q) const 
 {
     double mu2 = mu*mu;
@@ -629,28 +607,28 @@ complex EWSMOneLoopEW::PiGammaGamma_fer_q(const double mu, const double s,
 }
 
 
-complex EWSMOneLoopEW::PiGammaGamma_fer(const double mu, const double s) const 
+complex EWSMOneLoopEW::PibarGammaGamma_fer(const double mu, const double s) const
 {
     complex Pi(0.0,0.0,false);
     for (int i=0; i<6; i++) {
-        Pi += PiGammaGamma_fer_l(mu, s, (StandardModel::lepton) i);
-        Pi += PiGammaGamma_fer_q(mu, s, (StandardModel::quark) i);        
+        Pi += PibarGammaGamma_fer_l(mu, s, (StandardModel::lepton) i);
+        Pi += PibarGammaGamma_fer_q(mu, s, (StandardModel::quark) i);
     }
     return Pi;
 }
 
 
-complex EWSMOneLoopEW::PiZgamma_bos(const double mu, const double s,
-                                    const double Mw_i) const
+complex EWSMOneLoopEW::PibarZgamma_bos(const double mu, const double s,
+                                       const double Mw_i) const
 {
     double Mw = cache.Mw(Mw_i);
     double cW2 = cache.cW2(Mw);
-    return ( PiGammaGamma_bos(mu,s,Mw)*cW2 );
+    return ( PibarGammaGamma_bos(mu,s,Mw)*cW2 );
 }
 
 
-complex EWSMOneLoopEW::PiZgamma_fer(const double mu, const double s,
-                                    const double Mw_i) const
+complex EWSMOneLoopEW::PibarZgamma_fer(const double mu, const double s,
+                                       const double Mw_i) const
 {
     double ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
@@ -698,8 +676,8 @@ complex EWSMOneLoopEW::PiZgamma_fer(const double mu, const double s,
 
 //////////////////////////////////////////////////////////////////////// 
 
-complex EWSMOneLoopEW::SigmaPrime_WW_bos_Mw2(const double mu, 
-                                             const double Mw_i) const 
+complex EWSMOneLoopEW::SigmabarPrime_WW_bos_Mw2(const double mu,
+                                                const double Mw_i) const
 {
     double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
@@ -753,8 +731,8 @@ complex EWSMOneLoopEW::SigmaPrime_WW_bos_Mw2(const double mu,
 }
 
 
-complex EWSMOneLoopEW::SigmaPrime_WW_fer_Mw2(const double mu,
-                                             const double Mw_i) const 
+complex EWSMOneLoopEW::SigmabarPrime_WW_fer_Mw2(const double mu,
+                                                const double Mw_i) const
 {
     double ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
@@ -811,8 +789,8 @@ complex EWSMOneLoopEW::SigmaPrime_WW_fer_Mw2(const double mu,
 }
 
 
-complex EWSMOneLoopEW::SigmaPrime_ZZ_bos_Mz2(const double mu,
-                                             const double Mw_i) const 
+complex EWSMOneLoopEW::SigmabarPrime_ZZ_bos_Mz2(const double mu,
+                                                const double Mw_i) const
 {
     double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
@@ -861,7 +839,7 @@ complex EWSMOneLoopEW::SigmaPrime_ZZ_bos_Mz2(const double mu,
 }
 
 
-complex EWSMOneLoopEW::SigmaPrime_ZZ_fer_Mz2(const double mu, const double Mw_i) const 
+complex EWSMOneLoopEW::SigmabarPrime_ZZ_fer_Mz2(const double mu, const double Mw_i) const
 {
     double ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
@@ -922,8 +900,8 @@ double EWSMOneLoopEW::DeltaRhobar(const double mu, const double Mw_i) const
 {
     double Mw = cache.Mw(Mw_i);
     double Mz = cache.Mz();    
-    return ( (SigmaWW_bos(mu,Mw*Mw,Mw).real() + SigmaWW_fer(mu,Mw*Mw,Mw).real() 
-              - SigmaZZ_bos(mu,Mz*Mz,Mw).real() - SigmaZZ_fer(mu,Mz*Mz,Mw).real())
+    return ( (SigmabarWW_bos(mu,Mw*Mw,Mw).real() + SigmabarWW_fer(mu,Mw*Mw,Mw).real()
+              - SigmabarZZ_bos(mu,Mz*Mz,Mw).real() - SigmabarZZ_fer(mu,Mz*Mz,Mw).real())
              /Mw/Mw );
 }
 
@@ -931,8 +909,8 @@ double EWSMOneLoopEW::DeltaRhobar(const double mu, const double Mw_i) const
 double EWSMOneLoopEW::DeltaRhobarW(const double mu, const double Mw_i) const 
 {
     double Mw = cache.Mw(Mw_i);
-    return ( (SigmaWW_bos(mu,0.0,Mw).real() + SigmaWW_fer(mu,0.0,Mw).real() 
-              - SigmaWW_bos(mu,Mw*Mw,Mw).real() - SigmaWW_fer(mu,Mw*Mw,Mw).real())
+    return ( (SigmabarWW_bos(mu,0.0,Mw).real() + SigmabarWW_fer(mu,0.0,Mw).real()
+              - SigmabarWW_bos(mu,Mw*Mw,Mw).real() - SigmabarWW_fer(mu,Mw*Mw,Mw).real())
              /Mw/Mw );
 }
 
@@ -1222,7 +1200,7 @@ complex EWSMOneLoopEW::FW_l(const double s, const StandardModel::lepton l,
             lprime = StandardModel::NEUTRINO_3;
             break;
         default:
-            throw std::runtime_error("Error in EWSMOneLoopEW::FW_l()");   
+            throw std::runtime_error("EWSMOneLoopEW::FW_l(): Wrong argument");
     }
     return ( cW2*FWn_0(s, Mw) - cache.sigmal(lprime, Mw)/2.0*FWa_0(s, Mw) 
             - FbarWa_0(s)/2.0 );
@@ -1250,12 +1228,12 @@ complex EWSMOneLoopEW::FW_q(const double s, const StandardModel::quark q,
             qprime = StandardModel::CHARM;
             break;
         case StandardModel::TOP:
-            throw std::runtime_error("TOP is not allowed in EWSMOneLoopEW::FW_q(s,q)"); 
+            throw std::runtime_error("EWSMOneLoopEW::FW_q(): q=TOP is not allowed");
         case StandardModel::BOTTOM:
             qprime = StandardModel::TOP;
             break;
         default:
-            throw std::runtime_error("Error in EWSMOneLoopEW::FW_q()");   
+            throw std::runtime_error("EWSMOneLoopEW::FW_q(): Wrong argument");
     }         
     complex FW(0.0,0.0,false);
     FW = cW2*FWn_0(s,Mw) - cache.sigmaq(qprime, Mw)/2.0*FWa_0(s, Mw) 

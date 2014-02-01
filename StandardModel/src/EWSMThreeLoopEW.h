@@ -19,7 +19,8 @@ using namespace gslpp;
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class handles three-loop %EW contributions of
- * @f$O(\alpha^3)@f$ to the following quantities:
+ * @f$O(\alpha^3)@f$ to the following quantities, which are relevant to the %EW
+ * precision observables: 
  *
  * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_l()),
  * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_t()),
@@ -47,16 +48,19 @@ public:
 
     /**
      * @brief Leptonic contribution of @f$O(\alpha^3)@f$
-     * to the electromagnetic coupling @f$\alpha@f$.
+     * to the electromagnetic coupling @f$\alpha@f$,
+     * denoted as @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^3}@f$.
      * @details The expressions used here can be found in @cite Steinhauser:1998rq.
      * @param[in] s invariant mass squared
+     * @attention This function is valid in the limit of @f$s\gg m_l^2@f$. 
      * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^3}@f$
      */
     double DeltaAlpha_l(const double s) const;
 
     /**
      * @brief Top-quark contribution of @f$O(\alpha^3)@f$
-     * to the electromagnetic coupling @f$\alpha@f$.
+     * to the electromagnetic coupling @f$\alpha@f$,
+     * denoted as @f$\Delta\alpha_{\mathrm{top}}^{\alpha^3}@f$.
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] s invariant mass squared
      * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha^3}=0@f$
@@ -65,7 +69,7 @@ public:
     
     /**
      * @brief Leading three-loop contribution of @f$O(\alpha^3)@f$
-     * to @f$\Delta\rho@f$.
+     * to @f$\Delta\rho@f$, denoted as @f$\Delta\rho^{\alpha^3}@f$.
      * @details This function handles the leading three-loop %EW contribution of
      * @f$O(\alpha^3 m_t^6/M_Z^6)@f$ to @f$\Delta\rho@f$.
      * Expressions are available for @f$m_h=0@f$ in @cite vanderBij:2000cg
@@ -76,7 +80,8 @@ public:
     double DeltaRho(const double Mw_i) const;
 
     /**
-     * @brief Remainder contribution of @f$O(\alpha^3)@f$ to @f$\Delta r@f$.
+     * @brief Remainder contribution of @f$O(\alpha^3)@f$ to @f$\Delta r@f$,
+     * denoted as @f$\Delta r_{\mathrm{rem}}^{\alpha^3}@f$.
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta r_{\mathrm{rem}}^{\alpha^3}=0@f$
@@ -85,7 +90,8 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^3)@f$ to the effective
-     * couplings @f$\rho_Z^l@f$.
+     * couplings @f$\rho_Z^l@f$,
+     * denoted as @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha^3}@f$
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @param[in] Mw_i the @f$W@f$-boson mass
@@ -95,7 +101,8 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^3)@f$ to the effective
-     * couplings @f$\rho_Z^q@f$.
+     * couplings @f$\rho_Z^q@f$,
+     * denoted as @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha^3}@f$.
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] q name of a quark (see QCD::quark)
      * @param[in] Mw_i the @f$W@f$-boson mass
@@ -105,7 +112,8 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^3)@f$ to the effective
-     * couplings @f$\kappa_Z^l@f$.
+     * couplings @f$\kappa_Z^l@f$,
+     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha^3}@f$.
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @param[in] Mw_i the @f$W@f$-boson mass
@@ -115,7 +123,8 @@ public:
                                                   
     /**
      * @brief Remainder contribution of @f$O(\alpha^3)@f$ to the effective
-     * couplings @f$\kappa_Z^q@f$.
+     * couplings @f$\kappa_Z^q@f$,
+     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha^3}@f$.
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] q name of a quark (see QCD::quark)
      * @param[in] Mw_i the @f$W@f$-boson mass

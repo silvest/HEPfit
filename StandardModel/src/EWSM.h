@@ -33,7 +33,14 @@ class EWSM_Output; // forward reference to EWSM_Output class
  * @brief A class for radiative corrections to the EW precision observables.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details 
+ * @details
+ *
+ *
+ * the on-shell scheme:
+ * @cite Bardin:1980fe
+ * @cite Bardin:1981sv
+ *
+ *
  */
 class EWSM {
 public:

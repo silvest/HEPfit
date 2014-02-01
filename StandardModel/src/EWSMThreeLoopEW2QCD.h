@@ -19,7 +19,8 @@ using namespace gslpp;
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class handles three-loop mixed %EW-%QCD contributions of
- * @f$O(\alpha^2\alpha_s)@f$ to the following quantities: 
+ * @f$O(\alpha^2\alpha_s)@f$ to the following quantities, which are relevant to 
+ * the %EW precision observables:
  *
  * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_l()),
  * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_t()),
@@ -46,7 +47,8 @@ public:
     
     /**
      * @brief Leptonic contribution of @f$O(\alpha^2\alpha_s)@f$
-     * to the electromagnetic coupling @f$\alpha@f$.
+     * to the electromagnetic coupling @f$\alpha@f$,
+     * denoted as  @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^2\alpha_s}@f$.
      * @details This contribution vanishes at @f$O(\alpha^2\alpha_s)@f$.
      * @param[in] s invariant mass squared
      * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^2\alpha_s}=0@f$
@@ -55,7 +57,8 @@ public:
 
     /**
      * @brief Top-quark contribution of @f$O(\alpha^2\alpha_s)@f$
-     * to the electromagnetic coupling @f$\alpha@f$.
+     * to the electromagnetic coupling @f$\alpha@f$,
+     * denoted as @f$\Delta\alpha_{\mathrm{top}}^{\alpha^2\alpha_s}@f$. 
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] s invariant mass squared
      * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha^2\alpha_s}=0@f$
@@ -64,8 +67,8 @@ public:
     
     /**
      * @brief Leading three-loop contribution of @f$O(\alpha^2\alpha_s)@f$
-     * to @f$\Delta\rho@f$.
-     * @details This function handles the leading three-loop mixed %EW-%QCD
+     * to @f$\Delta\rho@f$, denoted as @f$\Delta\rho^{\alpha^2\alpha_s}@f$. 
+     * @details This function represents the leading three-loop mixed %EW-%QCD
      * contribution of @f$O(\alpha^2\alpha_s m_t^4/M_Z^4)@f$ to @f$\Delta\rho@f$.
      * Expressions are available for @f$m_h=0@f$ in @cite vanderBij:2000cg
      * and for @f$m_h\approx m_t@f$ and @f$m_h\gg m_t@f$ in @cite Faisst:2003px.
@@ -75,7 +78,8 @@ public:
     double DeltaRho(const double Mw_i) const;
 
     /**
-     * @brief Remainder contribution of @f$O(\alpha^2\alpha_s)@f$ to @f$\Delta r@f$.
+     * @brief Remainder contribution of @f$O(\alpha^2\alpha_s)@f$ to @f$\Delta r@f$,
+     * denoted as @f$\Delta r_{\mathrm{rem}}^{\alpha^2\alpha_s}@f$.
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta r_{\mathrm{rem}}^{\alpha^2\alpha_s}=0@f$
@@ -84,7 +88,8 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^2\alpha_s)@f$
-     * to the effective couplings @f$\rho_Z^l@f$.
+     * to the effective couplings @f$\rho_Z^l@f$,
+     * denoted as @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha^2\alpha_s}@f$. 
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @param[in] Mw_i the @f$W@f$-boson mass
@@ -94,7 +99,8 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^2\alpha_s)@f$
-     * to the effective couplings @f$\rho_Z^q@f$.
+     * to the effective couplings @f$\rho_Z^q@f$,
+     * denoted as @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha^2\alpha_s}@f$.
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] q name of a quark (see QCD::quark)
      * @param[in] Mw_i the @f$W@f$-boson mass
@@ -104,7 +110,8 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^2\alpha_s)@f$
-     * to the effective couplings @f$\kappa_Z^l@f$.
+     * to the effective couplings @f$\kappa_Z^l@f$,
+     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha^2\alpha_s}@f$. 
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @param[in] Mw_i the @f$W@f$-boson mass
@@ -114,7 +121,8 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^2\alpha_s)@f$
-     * to the effective couplings @f$\kappa_Z^q@f$.
+     * to the effective couplings @f$\kappa_Z^q@f$,
+     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha^2\alpha_s}@f$.
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] q name of a quark (see QCD::quark)
      * @param[in] Mw_i the @f$W@f$-boson mass

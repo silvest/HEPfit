@@ -47,12 +47,15 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
     /**
-     * @return a reference to the StandardModel object
+     * @brief A get method to access the reference to the object of type
+     * StandardModel passed to the constructor.
+     * @return the reference to the object of type StandardModel passed to the
+     * constructor.
      */
-    const StandardModel& getSM() const 
-    {
-        return SM;
-    }
+    //const StandardModel& getSM() const
+    //{
+    //    return SM;
+    //}
     
     /**
      * @return the object of PVfunctions class
@@ -312,6 +315,24 @@ public:
 
     /**
      * @param[in] l name of lepton
+     * @return the isospin of the lepton "l"
+     */
+    double I3l(const StandardModel::lepton l) const
+    {
+        return SM.getLeptons(l).getIsospin();
+    }
+
+    /**
+     * @param[in] q name of quark
+     * @return the isospin of the quark "q"
+     */
+    double I3q(const StandardModel::quark q) const
+    {
+        return SM.getQuarks(q).getIsospin();
+    }
+
+    /**
+     * @param[in] l name of lepton
      * @param[in] Mw_i the W-boson mass
      * @return the tree-level vector coupling for Z->l lbar
      * @attention depends on sW2
@@ -419,7 +440,22 @@ public:
     {
         return ( Xt_GF()/f_AlphaToGF(Mw_i) );
     }
-    
+
+    /**
+     * @brief Computes the running strong coupling @f$\alpha_s(\mu)@f$ in the
+     * @f$\overline{\mathrm{MS}}@f$ scheme. In the cases of LO, NLO and FULLNNLO,
+     * the coupling is computed with AlsWithInit(). On the other hand, in the
+     * cases of NNLO and FULLNNLO, the coupling is computed with AlsWithLambda().
+     * @param[in] mu A scale @f$\mu@f$ in GeV.
+     * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion.
+     * @return The strong coupling constant @f$\alpha_s(\mu)@f$ in the
+     * @f$\overline{\mathrm{MS}}@f$ scheme.
+     */
+    double Als(const double mu, const orders order) const
+    {
+        return ( SM.Als(mu, order) );
+    }
+
     /**
      * @return alpha_s(M_t^2)
      */

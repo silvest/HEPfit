@@ -32,7 +32,7 @@ double EWSMThreeLoopQCD::DeltaAlpha_t(const double s) const
     } else {
         double mu = sqrt(s);
         log_t = log(s/pow(cache.mq(StandardModel::TOP, mu), 2.0));
-        als = cache.getSM().Als(sqrt(s),FULLNNLO);
+        als = cache.Als(sqrt(s),FULLNNLO);
     }
     double tmp = ( (28.220 + 9.702*log_t) 
                    + xt*(6.924 + 1.594*log_t) )

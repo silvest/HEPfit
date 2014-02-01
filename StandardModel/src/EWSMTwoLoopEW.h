@@ -20,7 +20,8 @@ using namespace gslpp;
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class handles two-loop %EW contributions of
- * @f$O(\alpha^2)@f$ to the following quantities:
+ * @f$O(\alpha^2)@f$ to the following quantities, which are relevant to the %EW
+ * precision observables: 
  *
  * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_l()),
  * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_t()),
@@ -68,16 +69,19 @@ public:
 
     /**
      * @brief Leptonic contribution of @f$O(\alpha^2)@f$
-     * to the electromagnetic coupling @f$\alpha@f$.
+     * to the electromagnetic coupling @f$\alpha@f$,
+     * denoted as @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^2}@f$. 
      * @details The expressions used here can be found in @cite Steinhauser:1998rq.
      * @param[in] s invariant mass squared
+     * @attention This function is valid in the limit of @f$s\gg m_l^2@f$.
      * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^2}@f$
      */
     double DeltaAlpha_l(const double s) const;
 
     /**
      * @brief Top-quark contribution of @f$O(\alpha^2)@f$
-     * to the electromagnetic coupling @f$\alpha@f$.
+     * to the electromagnetic coupling @f$\alpha@f$,
+     * denoted as @f$\Delta\alpha_{\mathrm{top}}^{\alpha^2}@f$.
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] s invariant mass squared
      * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha^2}=0@f$
@@ -86,7 +90,7 @@ public:
     
     /**
      * @brief Leading two-loop contribution of @f$O(\alpha^2)@f$
-     * to @f$\Delta\rho@f$.
+     * to @f$\Delta\rho@f$, denoted as @f$\Delta\rho^{\alpha^2}@f$. 
      * @details This function handles the leading irreducible two-loop %EW
      * contribution of @f$O(\alpha^2(m_t^4/m_Z^4 + m_t^2/M_Z^2))@f$ to @f$\Delta\rho@f$
      * in the on-shell scheme. 
@@ -109,7 +113,8 @@ public:
     double DeltaRho(const double Mw_i) const;
 
     /**
-     * @brief Remainder contribution of @f$O(\alpha^2)@f$ to @f$\Delta r@f$.
+     * @brief Remainder contribution of @f$O(\alpha^2)@f$ to @f$\Delta r@f$,
+     * denoted as @f$\Delta r_{\mathrm{rem}}^{\alpha^2}@f$. 
      * @details This function handles the remainder two-loop %EW
      * contribution of @f$O(\alpha^2(m_t^4/m_Z^4 + m_t^2/M_Z^2))@f$ to @f$\Delta r@f$
      * in the on-shell scheme.
@@ -131,7 +136,8 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^2)@f$ to the effective
-     * couplings @f$\rho_Z^l@f$.
+     * couplings @f$\rho_Z^l@f$,
+     * denoted as @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha^2}@f$. 
      * @details This function handles the @f$O(\alpha^2)@f$ remainder contribution
      * to @f$\rho_{Z}^{l}@f$ in the on-shell scheme, which was calculated
      * in @cite Degrassi:1999jd :
@@ -149,7 +155,8 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^2)@f$ to the effective
-     * couplings @f$\rho_Z^q@f$.
+     * couplings @f$\rho_Z^q@f$,
+     * denoted as @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha^2}@f$.
      * @details This function handles the @f$O(\alpha^2)@f$ remainder contribution
      * to @f$\rho_{Z}^{q}@f$ in the on-shell scheme, which was calculated
      * in @cite Degrassi:1999jd :
@@ -167,7 +174,8 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^2)@f$ to the effective
-     * couplings @f$\kappa_Z^l@f$.
+     * couplings @f$\kappa_Z^l@f$,
+     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha^2}@f$.
      * @details This function handles the @f$O(\alpha^2)@f$ remainder contribution
      * to @f$\kappa_{Z}^{l}@f$ in the on-shell scheme, which was calculated
      * in @cite Degrassi:1999jd :
@@ -185,7 +193,8 @@ public:
                                                   
     /**
      * @brief Remainder contribution of @f$O(\alpha^2)@f$ to the effective
-     * couplings @f$\kappa_Z^q@f$.
+     * couplings @f$\kappa_Z^q@f$,
+     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha^2}@f$. 
      * @details This function handles the @f$O(\alpha^2)@f$ remainder contribution
      * to @f$\kappa_{Z}^{q}@f$ in the on-shell scheme, which was calculated
      * in @cite Degrassi:1999jd :

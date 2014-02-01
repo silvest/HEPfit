@@ -30,7 +30,7 @@ double EWSMTwoLoopQCD::DeltaAlpha_t(const double s) const
     if (s==cache.Mz()*cache.Mz())
         als = cache.alsMz();
     else
-        als = cache.getSM().Als(sqrt(s),FULLNNLO);
+        als = cache.Als(sqrt(s),FULLNNLO);
     double tmp = (5.062 + xt*0.8315)*als/M_PI;
     tmp *= -4.0/45.0*cache.ale()/M_PI*xt;
     return tmp;

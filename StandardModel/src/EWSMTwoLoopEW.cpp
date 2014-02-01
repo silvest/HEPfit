@@ -75,7 +75,7 @@ double EWSMTwoLoopEW::DeltaRho(const double Mw_i) const
     
     /* add O(alpha^2) contribution from the Z-gamma mixing */
     DeltaRho += - pow(cache.ale()/4.0/M_PI, 2.0)*cW2/sW2
-                  *pow(myOneLoopEW.PiZgamma_fer(Mz,Mz*Mz,Mw).real(), 2.0);
+                  *pow(myOneLoopEW.PibarZgamma_fer(Mz,Mz*Mz,Mw).real(), 2.0);
 
     return DeltaRho;
 }
@@ -518,8 +518,8 @@ complex EWSMTwoLoopEW::DeltaEta2Add_tmp(const double I3f, const double Qf,
 complex EWSMTwoLoopEW::DeltaEta2Add_l(const StandardModel::lepton l, 
                                       const double Mw_i) const 
 {
-    double I3f = cache.getSM().getLeptons(l).getIsospin();
-    double Qf = cache.getSM().getLeptons(l).getCharge();
+    double I3f = cache.I3l(l);
+    double Qf = cache.Ql(l);
     return DeltaEta2Add_tmp(I3f, Qf, Mw_i);
 }
 
@@ -527,8 +527,8 @@ complex EWSMTwoLoopEW::DeltaEta2Add_l(const StandardModel::lepton l,
 complex EWSMTwoLoopEW::DeltaEta2Add_q(const StandardModel::quark q, 
                                       const double Mw_i) const 
 {
-    double I3f = cache.getSM().getQuarks(q).getIsospin();
-    double Qf = cache.getSM().getQuarks(q).getCharge();
+    double I3f = cache.I3q(q);
+    double Qf = cache.Qq(q);
     return DeltaEta2Add_tmp(I3f, Qf, Mw_i);
 }
 
@@ -599,8 +599,8 @@ complex EWSMTwoLoopEW::DeltaKappa2Add_tmp(const double I3f, const double Qf,
 complex EWSMTwoLoopEW::DeltaKappa2Add_l(const StandardModel::lepton l, 
                                         const double Mw_i) const 
 {
-    double I3f = cache.getSM().getLeptons(l).getIsospin();
-    double Qf = cache.getSM().getLeptons(l).getCharge();
+    double I3f = cache.I3l(l);
+    double Qf = cache.Ql(l);
     return DeltaKappa2Add_tmp(I3f, Qf, Mw_i);
 }
 
@@ -608,8 +608,8 @@ complex EWSMTwoLoopEW::DeltaKappa2Add_l(const StandardModel::lepton l,
 complex EWSMTwoLoopEW::DeltaKappa2Add_q(const StandardModel::quark q, 
                                         const double Mw_i) const 
 {
-    double I3f = cache.getSM().getQuarks(q).getIsospin();
-    double Qf = cache.getSM().getQuarks(q).getCharge();
+    double I3f = cache.I3q(q);
+    double Qf = cache.Qq(q);
     return DeltaKappa2Add_tmp(I3f, Qf, Mw_i);
 }
 
@@ -637,8 +637,8 @@ complex EWSMTwoLoopEW::DeltaEtaf1(const double I3f, const double Qf,
     double Mw = cache.Mw(Mw_i);
     double cW2 = cache.cW2(Mw);
 
-    complex SigmaPrime_ZZ = myOneLoopEW.SigmaPrime_ZZ_bos_Mz2(Mz,Mw)
-                            + myOneLoopEW.SigmaPrime_ZZ_fer_Mz2(Mz,Mw);
+    complex SigmaPrime_ZZ = myOneLoopEW.SigmabarPrime_ZZ_bos_Mz2(Mz,Mw)
+                            + myOneLoopEW.SigmabarPrime_ZZ_fer_Mz2(Mz,Mw);
     
     complex dEtaf1 = 1.0/16.0/M_PI/M_PI
                      *(- SigmaPrime_ZZ/cW2 - 4.0*cW2*log(cW2) + Vfi(I3f,Qf,Mz2,Mw));
@@ -649,8 +649,8 @@ complex EWSMTwoLoopEW::DeltaEtaf1(const double I3f, const double Qf,
 complex EWSMTwoLoopEW::Vfi(const double I3f, const double Qf, 
                            const double q2, const double Mw_i) const 
 {
-    double I3i = cache.getSM().getLeptons(StandardModel::ELECTRON).getIsospin();
-    double Qi = cache.getSM().getLeptons(StandardModel::ELECTRON).getCharge();
+    double I3i = cache.I3l(StandardModel::ELECTRON);
+    double Qi = cache.Ql(StandardModel::ELECTRON);
     double I3aQaQa = I3i*Qi*Qi + I3f*Qf*Qf;
     double I3aQa = I3i*Qi + I3f*Qf;
     double QaQa = Qi*Qi + Qf*Qf;

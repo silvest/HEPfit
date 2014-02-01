@@ -19,7 +19,8 @@ using namespace gslpp;
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class handles three-loop %QCD contributions of
- * @f$O(\alpha\alpha_s^2)@f$ to the following quantities:
+ * @f$O(\alpha\alpha_s^2)@f$ to the following quantities, which are relevant to
+ * the %EW precision observables:
  *
  * @li @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_l()),
  * @li @f$\Delta\alpha_{\mathrm{top}}(M_Z^2)@f$&nbsp;&nbsp; (with DeltaAlpha_t()),
@@ -45,7 +46,8 @@ public:
     
     /**
      * @brief Leptonic contribution of @f$O(\alpha\alpha_s^2)@f$
-     * to the electromagnetic coupling @f$\alpha@f$.
+     * to the electromagnetic coupling @f$\alpha@f$,
+     * denoted as @f$\Delta\alpha_{\mathrm{lept}}^{\alpha\alpha_s^2}@f$.
      * @details This contribution vanishes at @f$O(\alpha\alpha_s^2)@f$. 
      * @param[in] s invariant mass squared
      * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha\alpha_s^2}=0@f$
@@ -54,10 +56,11 @@ public:
 
     /**
      * @brief Top-quark contribution of @f$O(\alpha\alpha_s^2)@f$
-     * to the electromagnetic coupling @f$\alpha@f$.
-     * @details A simple numerical formula presented in @cite Kuhn:1998ze is
-     * employed. See also @cite Chetyrkin:1995ii, @cite Chetyrkin:1996cf and
-     * @cite Chetyrkin:1997mb.
+     * to the electromagnetic coupling @f$\alpha@f$,
+     * denoted as @f$\Delta\alpha_{\mathrm{top}}^{\alpha\alpha_s^2}@f$. 
+     * @details A simple numerical formula presented in @cite Kuhn:1998ze has
+     * been employed. See also @cite Chetyrkin:1995ii, @cite Chetyrkin:1996cf
+     * and @cite Chetyrkin:1997mb.
      * @param[in] s invariant mass squared
      * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha\alpha_s^2}@f$ 
      */
@@ -65,7 +68,7 @@ public:
     
     /**
      * @brief Leading three-loop %QCD contribution of @f$O(\alpha\alpha_s^2)@f$
-     * to @f$\Delta\rho@f$. 
+     * to @f$\Delta\rho@f$, denoted as @f$\Delta\rho^{\alpha\alpha_s^2}@f$.
      * @details The formula used here is given by
      * @f[
      * \Delta\rho^{\alpha\alpha_s^2} 
@@ -84,7 +87,8 @@ public:
     double DeltaRho(const double Mw_i) const;
 
     /**
-     * @brief Remainder contribution of @f$O(\alpha\alpha_s^2)@f$ to @f$\Delta r@f$.
+     * @brief Remainder contribution of @f$O(\alpha\alpha_s^2)@f$ to @f$\Delta r@f$,
+     * denoted as @f$\Delta r_{\mathrm{rem}}^{\alpha\alpha_s^2}@f$.
      * @details The three-loop remainder contribution of @f$O(\alpha\alpha_s^2)@f$
      * is obtained from the @f$O(\alpha)@f$ remainder contribution @cite Halzen:1990je :
      * @f[
@@ -114,7 +118,8 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha\alpha_s^2)@f$ 
-     * to the effective couplings @f$\rho_Z^l@f$.
+     * to the effective couplings @f$\rho_Z^l@f$,
+     * denoted as @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha\alpha_s^2}@f$.
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @param[in] Mw_i the @f$W@f$-boson mass
@@ -124,7 +129,8 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha\alpha_s^2)@f$ 
-     * to the effective couplings @f$\rho_Z^q@f$.
+     * to the effective couplings @f$\rho_Z^q@f$,
+     * denoted as @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha\alpha_s^2}@f$.
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] q name of a quark (see QCD::quark)
      * @param[in] Mw_i the @f$W@f$-boson mass
@@ -134,7 +140,8 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha\alpha_s^2)@f$ 
-     * to the effective couplings @f$\kappa_Z^l@f$.
+     * to the effective couplings @f$\kappa_Z^l@f$,
+     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha\alpha_s^2}@f$. 
      * @details The formula used here is given by
      * @f[
      * \delta\kappa_{\mathrm{rem}}^{l,\alpha\alpha_s^2}
@@ -154,7 +161,8 @@ public:
                                                   
     /**
      * @brief Remainder contribution of @f$O(\alpha\alpha_s^2)@f$ 
-     * to the effective couplings @f$\kappa_Z^q@f$.
+     * to the effective couplings @f$\kappa_Z^q@f$,
+     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha\alpha_s^2}@f$. 
      * @details The formula used here is given by
      * @f[
      * \delta\kappa_{\mathrm{rem}}^{q,\alpha\alpha_s^2}
