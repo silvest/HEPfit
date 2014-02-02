@@ -28,12 +28,6 @@ bool NPSTUVWXY::InitializeModel()
 }
 
 
-void NPSTUVWXY::setEWSMflags(EWSM& myEWSM)
-{
-    NPbase::setEWSMflags(myEWSM);
-}
-
-
 bool NPSTUVWXY::Init(const std::map<std::string, double>& DPars) 
 {
     Update(DPars);

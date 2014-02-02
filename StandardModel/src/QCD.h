@@ -184,6 +184,15 @@ public:
     virtual bool setFlag(const std::string name, const bool& value);
 
     /**
+     * @brief Sets flags for QCD.
+     * @param[in] name A name of a flag.
+     * @param[in] value A value of the given flag in string.
+     * @return A boolean value indicating whether the given flag name is associated
+     * with QCD.
+     */
+    virtual bool setFlag(const std::string name, const std::string& value);
+
+    /**
      * @brief
      * @return
      */

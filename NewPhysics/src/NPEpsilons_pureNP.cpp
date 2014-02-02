@@ -26,12 +26,6 @@ bool NPEpsilons_pureNP::InitializeModel()
 }
 
 
-void NPEpsilons_pureNP::setEWSMflags(EWSM& myEWSM)
-{
-    NPbase::setEWSMflags(myEWSM);
-}
-
-
 bool NPEpsilons_pureNP::Init(const std::map<std::string, double>& DPars)
 {
     Update(DPars);

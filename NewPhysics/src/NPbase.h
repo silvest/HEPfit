@@ -27,14 +27,6 @@
  */
 class NPbase : public StandardModel {
 public:
-    /**
-     * @brief The number of flags in this class.
-     */
-    static const int NNPbaseflags = 1;
-    /**
-     * @brief A string array with the names of the flags in the class.
-     */
-    static const std::string NPbaseflags[NNPbaseflags];
 
     /**
      * @brief Constructor. 
@@ -55,13 +47,6 @@ public:
      * @return true is model initialization is successful
      */
     virtual bool InitializeModel();
-    
-    /**
-     * @brief A set method to fix the flags EWSM for the model.
-     * @param[in] myEWSM flag value for the EWSM flag
-     * @return a boolean to designate the success or failure of this procedure
-     */
-    virtual void setEWSMflags(EWSM& myEWSM);
 
     /**
      * @brief A method to initialize the model.

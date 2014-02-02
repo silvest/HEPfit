@@ -9,10 +9,6 @@
 #include "NPbase.h"
 
 
-const std::string NPbase::NPbaseflags[NNPbaseflags]
-= {"FixSMcontribution"};
-
-
 NPbase::NPbase()
 : StandardModel()
 {
@@ -24,12 +20,6 @@ bool NPbase::InitializeModel()
 {
     setModelInitialized(StandardModel::InitializeModel());
     return (IsModelInitialized());
-}
-
-
-void NPbase::setEWSMflags(EWSM& myEWSM)
-{
-    StandardModel::setEWSMflags(myEWSM);
 }
 
 

@@ -27,12 +27,6 @@ bool NPSTU::InitializeModel()
 }
 
 
-void NPSTU::setEWSMflags(EWSM& myEWSM)
-{
-    NPbase::setEWSMflags(myEWSM);
-}
-
-
 bool NPSTU::Init(const std::map<std::string, double>& DPars)
 {
     Update(DPars);

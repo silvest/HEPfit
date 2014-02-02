@@ -76,6 +76,14 @@ public:
      * @return a boolean to designate the success or failure of this procedure
      */
     virtual bool setFlag(const std::string flagname, const bool& flagvalue) = 0;
+
+    /**
+     * @brief A set method to fix the flags for the model.
+     * @param[in] flagname the name of the flag
+     * @param[in] flagvalue the value of the flag in string
+     * @return a boolean to designate the success or failure of this procedure
+     */
+    virtual bool setFlag(const std::string flagname, const std::string& flagvalue) = 0;
     
     /**
      * @brief A method to check the sanity of the set of flags.

@@ -26,12 +26,6 @@ const std::string StandardModel::SMvars[NSMvars] = {
     "EpsK", "phiEpsK", "DeltaMK", "KbarEpsK", "Dmk", "SM_M12D"
 };
 
-const std::string StandardModel::SMflags[NSMflags] = {
-    "withoutNonUniversalVCinEpsilons", 
-    "NoApproximateGammaZ", "NoApproximateSigmaH",
-    "NoApproximateRl", "NoApproximateRc", "NoApproximateRb"
-};
-
 StandardModel::StandardModel() 
 : QCD(), VCKM(3, 3, 0.), UPMNS(3, 3, 0.), Yu(3, 3, 0.), Yd(3, 3, 0.), Yn(3, 3, 0.), 
         Ye(3, 3, 0.)
@@ -42,6 +36,9 @@ StandardModel::StandardModel()
     FlagNoApproximateRl = false;
     FlagNoApproximateRc = false;
     FlagNoApproximateRb = false;
+    FlagMw = "APPROXIMATEFORMULA";
+    FlagRhoZ = "NORESUM";
+    FlagKappaZ = "APPROXIMATEFORMULA";
     
     leptons[NEUTRINO_1].setCharge(0.);
     leptons[NEUTRINO_2].setCharge(0.);    
@@ -63,23 +60,11 @@ StandardModel::StandardModel()
 
 bool StandardModel::InitializeModel()
 {
+    std::cout << "Model: " << ModelName() << std::endl;
     myStandardModelMatching = new StandardModelMatching(*this);
     myEWSM = new EWSM(*this);
-    this->setEWSMflags(*myEWSM);
     setModelInitialized(true);
     return(true);
-}
-
-void StandardModel::setEWSMflags(EWSM& myEWSM)
-{
-    std::cout << "Schemes for EWPOs:" << std::endl;
-    std::cout << "  ";
-    myEWSM.setSchemeMw(EWSM::APPROXIMATEFORMULA);
-    std::cout << "  ";
-    //myEWSM.setSchemeRhoZ(EWSM::OMSI);
-    myEWSM.setSchemeRhoZ(EWSM::NORESUM);
-    std::cout << "  ";
-    myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
 }
 
 
@@ -253,7 +238,7 @@ void StandardModel::computeYukawas()
 ///////////////////////////////////////////////////////////////////////////
 // Flags
 
-bool StandardModel::setFlag(const std::string name, const bool& value) 
+bool StandardModel::setFlag(const std::string name, const bool& value)
 {  
     bool res = false;
     if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
@@ -274,6 +259,30 @@ bool StandardModel::setFlag(const std::string name, const bool& value)
     } else if (name.compare("NoApproximateRb") == 0) {
         FlagNoApproximateRb = value;
         res = true;
+    } else
+        res = QCD::setFlag(name,value);
+
+    return(res);
+}
+
+bool StandardModel::setFlag(const std::string name, const std::string& value)
+{
+    bool res = false;
+    if (name.compare("Mw") == 0) {
+        if (myEWSM->checkEWPOscheme(value)) {
+            FlagMw = value;
+            res = true;
+        }
+    } else if (name.compare("RhoZ") == 0) {
+        if (myEWSM->checkEWPOscheme(value)) {
+            FlagRhoZ = value;
+            res = true;
+        }
+    } else if (name.compare("KappaZ") == 0) {
+        if (myEWSM->checkEWPOscheme(value)) {
+            FlagKappaZ = value;
+            res = true;
+        }
     } else
         res = QCD::setFlag(name,value);
 

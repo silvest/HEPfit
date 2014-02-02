@@ -54,13 +54,6 @@ public:
     virtual bool InitializeModel();
     
     /**
-     * @brief A set method to fix the flags EWSM for the model.
-     * @param[in] myEWSM flag value for the EWSM flag
-     * @return a boolean to designate the success or failure of this procedure
-     */
-    virtual void setEWSMflags(EWSM& myEWSM);
-
-    /**
      * @brief A method to initialize the model.
      * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
      * @return true is model initialization is successful

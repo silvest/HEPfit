@@ -13,9 +13,6 @@
 const std::string NPEpsilons::EPSILONvars[NEPSILONvars] 
 = {"epsilon_1", "epsilon_2", "epsilon_3", "epsilon_b"};
 
-const std::string NPEpsilons::EPSILONflags[NEPSILONflags] 
-= {"epsilon1SM", "epsilon2SM", "epsilon3SM", "epsilonbSM"};
-
 
 NPEpsilons::NPEpsilons() 
 : NPbase()
@@ -29,17 +26,11 @@ NPEpsilons::NPEpsilons()
 
 bool NPEpsilons::InitializeModel()
 {
-    /* do not use setModelInitialized(NPbase::InitializeModel()); */
+    /* do not use setModelInitialized(NPbase::InitializeModel()) in order to
+     use EWNPEpsilons */
     myEWSM = new EWNPEpsilons(*this);
-    this->setEWSMflags(*myEWSM);
     setModelInitialized(true);
     return(IsModelInitialized());
-}
-
-
-void NPEpsilons::setEWSMflags(EWSM& myEWSM)
-{
-    NPbase::setEWSMflags(myEWSM);
 }
 
 

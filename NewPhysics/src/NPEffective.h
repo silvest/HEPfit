@@ -51,13 +51,6 @@ public:
     virtual bool InitializeModel();
     
     /**
-     * @brief A set method to fix the flags EWSM for the model.
-     * @param[in] myEWSM flag value for the EWSM flag
-     * @return a boolean to designate the success or failure of this procedure
-     */
-    virtual void setEWSMflags(EWSM& myEWSM);
-
-    /**
      * @brief The update method for the model class.
      * @details This method updates all the parameters of the model every time a
      * new set of parameters is generated.

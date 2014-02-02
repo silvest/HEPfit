@@ -42,11 +42,6 @@ EWSM::EWSM(const StandardModel& SM_i)
 
     myTwoFermionsLEP2 = new EWSMTwoFermionsLEP2(SM, *myCache);
 
-    /* Default flags (see also StandardModel::setEWSMflags(), etc.) */
-    schemeMw = APPROXIMATEFORMULA;
-    schemeRhoZ = NORESUM;
-    schemeKappaZ = APPROXIMATEFORMULA;
-    
     // Initializations of the caches
     DeltaAlphaLepton_cache = 0.0;
     DeltaAlpha_cache = 0.0;
@@ -71,9 +66,6 @@ EWSM::EWSM(const StandardModel& SM_i)
             kappaZ_q_params_cache[i][j] = 0.0;
         }
     }
-    schemeMw_cache = schemes_EW_size;
-    schemeRhoZ_cache = schemes_EW_size;
-    schemeKappaZ_cache = schemes_EW_size;
 }
 
 
@@ -118,19 +110,6 @@ bool EWSM::checkSMparams(double Params_cache[], const bool bUpdate) const
         }
     }
     
-    return bCache;
-}
-
-
-bool EWSM::checkScheme(schemes_EW& scheme_cache, const schemes_EW scheme_current,
-                       const bool bUpdate) const
-{
-    bool bCache = true;
-    if (scheme_cache != scheme_current) {
-        if (bUpdate) scheme_cache = scheme_current;
-        bCache = false;
-    }
-
     return bCache;
 }
 
@@ -242,17 +221,13 @@ double EWSM::Mw_SM() const
     //          << " current:" << schemeMw << "]" << std::endl;
 
     if (bUseCacheEWSM)
-        if (checkSMparams(Mw_params_cache)
-                && checkScheme(schemeMw_cache,schemeMw))
+        if (checkSMparams(Mw_params_cache))
             return Mw_cache;
 
     double Mw;
-    if (schemeMw==APPROXIMATEFORMULA)
+    if (SM.getFlagMw().compare("APPROXIMATEFORMULA") == 0)
         Mw = myApproximateFormulae->Mw();
-    else if (schemeMw==FIXED) {
-        Mw = 80.385;
-        std::cout << "Mw is fixed to " << Mw << " GeV for test!" << std::endl;
-    } else {
+    else {
         //std::cout << std::setprecision(12) 
         //          << "TEST: Mw_tree = " << SM.Mw_tree() << std::endl;
         
@@ -287,7 +262,8 @@ double EWSM::DeltaR_SM() const
     double Mw = Mw_SM();
     double sW2 = 1.0 - Mw*Mw/myCache->Mz()/myCache->Mz();
     double tmp = sqrt(2.0)*myCache->GF()*sW2*Mw*Mw/M_PI/myCache->ale();
-    if (schemeMw==NORESUM || schemeMw==APPROXIMATEFORMULA) {
+    if (SM.getFlagMw().compare("NORESUM") == 0
+            || SM.getFlagMw().compare("APPROXIMATEFORMULA") == 0) {
         return (tmp - 1.0);
     } else {
         return (1.0 - 1.0/tmp);
@@ -351,13 +327,12 @@ double EWSM::DeltaRbar_SM() const
 
 complex EWSM::rhoZ_l_SM(const StandardModel::lepton l) const 
 {    
-    if (schemeRhoZ==APPROXIMATEFORMULA)
+    if (SM.getFlagRhoZ().compare("APPROXIMATEFORMULA") == 0)
         throw std::runtime_error("No approximate formula is available for rhoZ^f"); 
     else {
         
         if (bUseCacheEWSM)        
-            if (checkSMparams(rhoZ_l_params_cache[(int)l])
-                     && checkScheme(schemeRhoZ_cache,schemeRhoZ))
+            if (checkSMparams(rhoZ_l_params_cache[(int)l]))
                 return rhoZ_l_cache[(int)l];
         
         double Mw = Mw_SM();
@@ -418,13 +393,12 @@ complex EWSM::rhoZ_l_SM(const StandardModel::lepton l) const
 complex EWSM::rhoZ_q_SM(const StandardModel::quark q) const 
 {    
     if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
-    if (schemeRhoZ==APPROXIMATEFORMULA)
+    if (SM.getFlagRhoZ().compare("APPROXIMATEFORMULA") == 0)
         throw std::runtime_error("No approximate formula is available for rhoZ^f"); 
     else {
 
         if (bUseCacheEWSM)        
-            if (checkSMparams(rhoZ_q_params_cache[(int)q])
-                    && checkScheme(schemeRhoZ_cache,schemeRhoZ))
+            if (checkSMparams(rhoZ_q_params_cache[(int)q]))
                 return rhoZ_q_cache[(int)q];
         
         double Mw = Mw_SM();
@@ -487,14 +461,13 @@ complex EWSM::rhoZ_q_SM(const StandardModel::quark q) const
 complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const 
 {
     if (bUseCacheEWSM)    
-        if (checkSMparams(kappaZ_l_params_cache[(int)l])
-                && checkScheme(schemeKappaZ_cache,schemeKappaZ))
+        if (checkSMparams(kappaZ_l_params_cache[(int)l]))
             return kappaZ_l_cache[(int)l];
 
     double Mw = Mw_SM();
     
     double ReKappaZf = 0.0, ImKappaZf = 0.0;
-    if (schemeKappaZ==APPROXIMATEFORMULA) {
+    if (SM.getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0) {
         ReKappaZf = myApproximateFormulae->sin2thetaEff_l(l)/sW2_SM(); 
         ImKappaZf = myOneLoopEW->deltaKappa_rem_l(l,Mw).imag();
         #ifdef WITHIMTWOLOOPQCD
@@ -565,14 +538,13 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
     if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
     
     if (bUseCacheEWSM)     
-        if (checkSMparams(kappaZ_q_params_cache[(int)q])
-                && checkScheme(schemeKappaZ_cache,schemeKappaZ))
+        if (checkSMparams(kappaZ_q_params_cache[(int)q]))
             return kappaZ_q_cache[(int)q];
 
     double Mw = Mw_SM();
     
     double ReKappaZf = 0.0,  ImKappaZf = 0.0;    
-    if (schemeKappaZ==APPROXIMATEFORMULA) {
+    if (SM.getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0) {
         ReKappaZf = myApproximateFormulae->sin2thetaEff_q(q)/sW2_SM(); 
         ImKappaZf = myOneLoopEW->deltaKappa_rem_q(q,Mw).imag();
         #ifdef WITHIMTWOLOOPQCD
@@ -1081,19 +1053,19 @@ void EWSM::ComputeDeltaR_rem(const double Mw_i,
 double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
                      const double DeltaR_rem[orders_EW_size]) const
 {
-    if ( (schemeMw==APPROXIMATEFORMULA) 
+    if ( (SM.getFlagMw().compare("APPROXIMATEFORMULA") == 0)
             || (DeltaR_rem[EW2QCD1]!=0.0) 
             || (DeltaR_rem[EW3]!=0.0) )
         throw std::runtime_error("Error in EWSM::resumMw()"); 
 
-    if (!flag_order[EW2] && schemeMw!=NORESUM)
+    if (!flag_order[EW2] && SM.getFlagMw().compare("NORESUM") != 0)
         throw std::runtime_error("Error in EWSM::resumMw()");       
     
     double cW2_TMP = Mw_i*Mw_i/myCache->Mz()/myCache->Mz();
     double sW2_TMP = 1.0 - cW2_TMP;
     
     double f_AlphaToGF, DeltaRho_sum = 0.0, DeltaRho_G;
-    if (schemeMw==NORESUM) {
+    if (SM.getFlagMw().compare("NORESUM") == 0) {
         for (int j=0; j<orders_EW_size; ++j) {
             //f_AlphaToGF = sqrt(2.0)*myCache->GF()*pow(myCache->Mz(),2.0)*sW2_TMP*cW2_TMP/M_PI/myCache->ale();
             //if (j==(int)EW1QCD2)
@@ -1117,51 +1089,44 @@ double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
     double R;
     double DeltaR_rem_sum = 0.0;
     double DeltaR_EW1 = 0.0, DeltaR_EW2_rem = 0.0;
-    switch (schemeMw) {
-        case NORESUM:
-            for (int j=0; j<orders_EW_size; ++j)
-                DeltaR_rem_sum += DeltaR_rem[(orders_EW)j];
+    if (SM.getFlagMw().compare("NORESUM") == 0) {
+        for (int j=0; j<orders_EW_size; ++j)
+            DeltaR_rem_sum += DeltaR_rem[(orders_EW)j];
 
-            // Full EW one-loop contribution (without the full DeltaAlphaL5q)
-            DeltaR_EW1 = - cW2_TMP/sW2_TMP*DeltaRho[EW1] + DeltaR_rem[EW1];
+        // Full EW one-loop contribution (without the full DeltaAlphaL5q)
+        DeltaR_EW1 = - cW2_TMP/sW2_TMP*DeltaRho[EW1] + DeltaR_rem[EW1];
 
-            // Full EW two-loop contribution without reducible corrections
-            DeltaR_EW2_rem = myApproximateFormulae->DeltaR_TwoLoopEW_rem(Mw_i);
+        // Full EW two-loop contribution without reducible corrections
+        DeltaR_EW2_rem = myApproximateFormulae->DeltaR_TwoLoopEW_rem(Mw_i);
 
-            // subtract the EW two-loop contributions from DeltaRho_sum and DeltaR_rem_sum
-            DeltaRho_sum -= DeltaRho[EW2];
-            DeltaR_rem_sum -= DeltaR_rem[EW2];
+        // subtract the EW two-loop contributions from DeltaRho_sum and DeltaR_rem_sum
+        DeltaRho_sum -= DeltaRho[EW2];
+        DeltaR_rem_sum -= DeltaR_rem[EW2];
 
-            // R = 1 + Delta r, including the full EW two-loop contribution
-            R = 1.0 + DeltaAlphaL5q() - cW2_TMP/sW2_TMP*DeltaRho_sum
-                + DeltaR_rem_sum;
-            R += DeltaAlphaL5q()*DeltaAlphaL5q() + 2.0*DeltaAlphaL5q()*DeltaR_EW1
-                 + DeltaR_EW2_rem;
+        // R = 1 + Delta r, including the full EW two-loop contribution
+        R = 1.0 + DeltaAlphaL5q() - cW2_TMP/sW2_TMP*DeltaRho_sum
+            + DeltaR_rem_sum;
+        R += DeltaAlphaL5q()*DeltaAlphaL5q() + 2.0*DeltaAlphaL5q()*DeltaR_EW1
+             + DeltaR_EW2_rem;
+    } else if (SM.getFlagMw().compare("OMSI") == 0) {
+        // R = 1/(1 - Delta r)
+        R = 1.0/(1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)
+            /(1.0 - DeltaAlphaL5q()
+              - DeltaR_rem[EW1] - DeltaR_rem[EW1QCD1] - DeltaR_rem[EW2]);
+    } else if (SM.getFlagMw().compare("INTERMEDIATE") == 0) {
+        // R = 1/(1 - Delta r)
+        R = 1.0/( (1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)
+                  *(1.0 - DeltaAlphaL5q() - DeltaR_rem[EW1]) 
+                    - DeltaR_rem[EW1QCD1] - DeltaR_rem[EW2] );
+    } else if (SM.getFlagMw().compare("OMSII") == 0) {
+        // R = 1/(1 - Delta r)
+        R = 1.0/( (1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)*(1.0 - DeltaAlphaL5q())
+                  - (1.0 + cW2_TMP/sW2_TMP*DeltaRho_G)*DeltaR_rem[EW1]
+                  - DeltaR_rem[EW1QCD1] - DeltaR_rem[EW2] );
+    } else
+        throw std::runtime_error("Error in EWSM::resumMw()");
 
-            break;
-        case OMSI:
-            // R = 1/(1 - Delta r)
-            R = 1.0/(1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)
-                /(1.0 - DeltaAlphaL5q()
-                  - DeltaR_rem[EW1] - DeltaR_rem[EW1QCD1] - DeltaR_rem[EW2]);
-            break;
-        case INTERMEDIATE:
-            // R = 1/(1 - Delta r)
-            R = 1.0/( (1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)
-                      *(1.0 - DeltaAlphaL5q() - DeltaR_rem[EW1]) 
-                        - DeltaR_rem[EW1QCD1] - DeltaR_rem[EW2] );
-            break;        
-        case OMSII:
-            // R = 1/(1 - Delta r)
-            R = 1.0/( (1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)*(1.0 - DeltaAlphaL5q())
-                      - (1.0 + cW2_TMP/sW2_TMP*DeltaRho_G)*DeltaR_rem[EW1]
-                      - DeltaR_rem[EW1QCD1] - DeltaR_rem[EW2] );
-            break;
-        default:
-            throw std::runtime_error("Error in EWSM::resumMw()");             
-    }   
-
-    if (schemeMw == NORESUM) {
+    if (SM.getFlagMw().compare("NORESUM") == 0) {
         /* Mzbar and Mwbar are defined in the complex-pole scheme. */
 
         double tmp = 4.0*M_PI*myCache->ale()/sqrt(2.0)/myCache->GF()/Mzbar()/Mzbar();
@@ -1182,13 +1147,13 @@ double EWSM::resumRhoZ(const double DeltaRho[orders_EW_size],
                        const double deltaRho_rem[orders_EW_size],
                        const double DeltaRbar_rem, const bool bool_Zbb) const 
 {
-    if ( (schemeRhoZ==APPROXIMATEFORMULA) 
+    if ( (SM.getFlagRhoZ().compare("APPROXIMATEFORMULA") == 0)
             || (deltaRho_rem[EW1QCD2]!=0.0) 
             || (deltaRho_rem[EW2QCD1]!=0.0) 
             || (deltaRho_rem[EW3]!=0.0) )
         throw std::runtime_error("Error in EWSM::resumRhoZ()");   
 
-    if (!flag_order[EW2] && schemeRhoZ!=NORESUM)
+    if (!flag_order[EW2] && SM.getFlagRhoZ().compare("NORESUM") != 0)
         throw std::runtime_error("Error in EWSM::resumRhoZ()");       
     
     double Mw_TMP = Mw_SM();
@@ -1215,25 +1180,20 @@ double EWSM::resumRhoZ(const double DeltaRho[orders_EW_size],
     /* Real parts */
     double rhoZ;
     if (!bool_Zbb) {
-        switch (schemeRhoZ) {
-            case OMSI:
-                rhoZ = (1.0 + deltaRho_rem_G + deltaRho_rem_G2)
-                        /(1.0 - DeltaRho_sum*(1.0 - DeltaRbar_rem_G));
-                break;
-            case INTERMEDIATE:
-                rhoZ = (1.0 + deltaRho_rem_G)
-                        /(1.0 - DeltaRho_sum*(1.0 - DeltaRbar_rem_G))
-                        + deltaRho_rem_G2;            
-                break;
-            case NORESUM:
-            case OMSII:
-                rhoZ = 1.0 + DeltaRho_sum - DeltaRho_G*DeltaRbar_rem_G
-                        + DeltaRho_G*DeltaRho_G
-                        + deltaRho_rem_G*(1.0 + DeltaRho_G) + deltaRho_rem_G2;
-                break;
-            default:
-                throw std::runtime_error("Error in EWSM::resumRhoZ()"); 
-        }
+        if (SM.getFlagRhoZ().compare("OMSI") == 0) {
+            rhoZ = (1.0 + deltaRho_rem_G + deltaRho_rem_G2)
+                    /(1.0 - DeltaRho_sum*(1.0 - DeltaRbar_rem_G));
+        } else if (SM.getFlagRhoZ().compare("INTERMEDIATE") == 0) {
+            rhoZ = (1.0 + deltaRho_rem_G)
+                    /(1.0 - DeltaRho_sum*(1.0 - DeltaRbar_rem_G))
+                    + deltaRho_rem_G2;
+        } else if (SM.getFlagRhoZ().compare("NORESUM") == 0
+                || SM.getFlagRhoZ().compare("OMSII") == 0) {
+            rhoZ = 1.0 + DeltaRho_sum - DeltaRho_G*DeltaRbar_rem_G
+                    + DeltaRho_G*DeltaRho_G
+                    + deltaRho_rem_G*(1.0 + DeltaRho_G) + deltaRho_rem_G2;
+        } else
+            throw std::runtime_error("Error in EWSM::resumRhoZ()");
     } else { 
         /* Z to bb */
         double OnePlusTaub = 1.0 + taub(); 
@@ -1241,28 +1201,22 @@ double EWSM::resumRhoZ(const double DeltaRho[orders_EW_size],
         double rhoZbL;
         deltaRho_rem_G += f_AlphaToGF* myCache->ale()/4.0/M_PI/sW2_TMP
                           *pow(myCache->Mt()/Mw_TMP, 2.0);
-        switch (schemeRhoZ) {
-            case NORESUM: 
-                rhoZ = (1.0 + DeltaRho_sum - DeltaRho_G*DeltaRbar_rem_G
-                        + DeltaRho_G*DeltaRho_G
-                        + deltaRho_rem_G*(1.0 + DeltaRho_G) + deltaRho_rem_G2)
-                        *OnePlusTaub2;
-                break;
-            case OMSI:
-                rhoZbL = OnePlusTaub2/(1.0 - DeltaRho_sum);
-                rhoZ = rhoZbL/(1.0 - rhoZbL*deltaRho_rem_G);
-                break;
-            case INTERMEDIATE:
-                rhoZbL = OnePlusTaub2/(1.0 - DeltaRho_sum);
-                rhoZ = rhoZbL*(1.0 + rhoZbL*deltaRho_rem_G);
-                break;
-            case OMSII:
+        if (SM.getFlagRhoZ().compare("NORESUM") == 0) {
+            rhoZ = (1.0 + DeltaRho_sum - DeltaRho_G*DeltaRbar_rem_G
+                    + DeltaRho_G*DeltaRho_G
+                    + deltaRho_rem_G*(1.0 + DeltaRho_G) + deltaRho_rem_G2)
+                    *OnePlusTaub2;
+        } else if (SM.getFlagRhoZ().compare("OMSI") == 0) {
+            rhoZbL = OnePlusTaub2/(1.0 - DeltaRho_sum);
+            rhoZ = rhoZbL/(1.0 - rhoZbL*deltaRho_rem_G);
+        } else if (SM.getFlagRhoZ().compare("INTERMEDIATE") == 0) {
+            rhoZbL = OnePlusTaub2/(1.0 - DeltaRho_sum);
+            rhoZ = rhoZbL*(1.0 + rhoZbL*deltaRho_rem_G);
+        } else if (SM.getFlagRhoZ().compare("OMSII") == 0) {
                 rhoZbL = OnePlusTaub2/(1.0 - DeltaRho_sum);
                 rhoZ = rhoZbL*(1.0 + deltaRho_rem_G);
-                break;
-            default:
-                throw std::runtime_error("Error in EWSM::resumRhoZ()");         
-        }
+        } else
+            throw std::runtime_error("Error in EWSM::resumRhoZ()");
     }
     
     return rhoZ;
@@ -1273,12 +1227,12 @@ double EWSM::resumKappaZ(const double DeltaRho[orders_EW_size],
                          const double deltaKappa_rem[orders_EW_size],
                          const double DeltaRbar_rem, const bool bool_Zbb) const 
 {
-    if ( (schemeKappaZ==APPROXIMATEFORMULA)
+    if ( (SM.getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0)
             || (deltaKappa_rem[EW2QCD1]!=0.0)
             || (deltaKappa_rem[EW3]!=0.0) )
         throw std::runtime_error("Error in EWSM::resumKappaZ()");      
 
-    if (!flag_order[EW2] && schemeKappaZ!=NORESUM)
+    if (!flag_order[EW2] && SM.getFlagKappaZ().compare("NORESUM") != 0)
         throw std::runtime_error("Error in EWSM::resumKappaZ()");       
     
     double Mw_TMP = Mw_SM();
@@ -1306,51 +1260,41 @@ double EWSM::resumKappaZ(const double DeltaRho[orders_EW_size],
     /* Real parts */
     double kappaZ;
     if (!bool_Zbb) {
-        switch (schemeKappaZ) {
-            case OMSI:
-                kappaZ = (1.0 + deltaKappa_rem_G + deltaKappa_rem_G2)
-                        *(1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum*(1.0 - DeltaRbar_rem_G));
-                break;
-            case INTERMEDIATE:
-                kappaZ = (1.0 + deltaKappa_rem_G)
-                        *(1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum*(1.0 - DeltaRbar_rem_G))
-                        + deltaKappa_rem_G2;
-                break;        
-            case NORESUM: 
-            case OMSII:
-                kappaZ = 1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum
-                         - cW2_TMP/sW2_TMP*DeltaRho_G*DeltaRbar_rem_G
-                         + deltaKappa_rem_G*(1.0 + cW2_TMP/sW2_TMP*DeltaRho_G)
-                         + deltaKappa_rem_G2;
-                break;
-            default:
-                throw std::runtime_error("Error in EWSM::resumKappaZ()"); 
-        }
+        if (SM.getFlagKappaZ().compare("OMSI") == 0) {
+            kappaZ = (1.0 + deltaKappa_rem_G + deltaKappa_rem_G2)
+                     *(1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum*(1.0 - DeltaRbar_rem_G));
+        } else if (SM.getFlagKappaZ().compare("INTERMEDIATE") == 0) {
+            kappaZ = (1.0 + deltaKappa_rem_G)
+                     *(1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum*(1.0 - DeltaRbar_rem_G))
+                     + deltaKappa_rem_G2;
+        } else if (SM.getFlagKappaZ().compare("NORESUM") == 0
+                || SM.getFlagKappaZ().compare("OMSII") == 0) {
+            kappaZ = 1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum
+                     - cW2_TMP/sW2_TMP*DeltaRho_G*DeltaRbar_rem_G
+                     + deltaKappa_rem_G*(1.0 + cW2_TMP/sW2_TMP*DeltaRho_G)
+                     + deltaKappa_rem_G2;
+        } else
+            throw std::runtime_error("Error in EWSM::resumKappaZ()");
     } else {
         /* Z to bb */
         double OnePlusTaub = 1.0 + taub(); 
         double kappaZbL;
         deltaKappa_rem_G -= f_AlphaToGF*myCache->ale()/8.0/M_PI/sW2_TMP
                             *pow(myCache->Mt()/Mw_TMP, 2.0);
-        switch (schemeKappaZ) {
-            case NORESUM: 
-                kappaZ = (1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum
-                          - cW2_TMP/sW2_TMP*DeltaRho_G*DeltaRbar_rem_G
-                          + deltaKappa_rem_G*(1.0 + cW2_TMP/sW2_TMP*DeltaRho_G)
-                          + deltaKappa_rem_G2)/OnePlusTaub;
-                break;
-            case OMSI:
-                kappaZbL = (1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)/OnePlusTaub;
-                kappaZ = kappaZbL*(1.0 + deltaKappa_rem_G);
-                break;
-            case INTERMEDIATE:
-            case OMSII:
-                kappaZbL = (1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)/OnePlusTaub;
-                kappaZ = kappaZbL + deltaKappa_rem_G;
-                break;
-            default:
-                throw std::runtime_error("Error in EWSM::resumKappaZ()"); 
-        }
+        if (SM.getFlagKappaZ().compare("NORESUM") == 0) {
+            kappaZ = (1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum
+                      - cW2_TMP/sW2_TMP*DeltaRho_G*DeltaRbar_rem_G
+                      + deltaKappa_rem_G*(1.0 + cW2_TMP/sW2_TMP*DeltaRho_G)
+                      + deltaKappa_rem_G2)/OnePlusTaub;
+        } else if (SM.getFlagKappaZ().compare("OMSI") == 0) {
+            kappaZbL = (1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)/OnePlusTaub;
+            kappaZ = kappaZbL*(1.0 + deltaKappa_rem_G);
+        } else if (SM.getFlagKappaZ().compare("INTERMEDIATE") == 0
+                || SM.getFlagKappaZ().compare("OMSII") == 0) {
+            kappaZbL = (1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)/OnePlusTaub;
+            kappaZ = kappaZbL + deltaKappa_rem_G;
+        } else
+            throw std::runtime_error("Error in EWSM::resumKappaZ()");
     }
 
     return kappaZ;

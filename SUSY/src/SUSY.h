@@ -31,9 +31,6 @@ public:
 
     static const int NSUSYvars = 10;
     static const std::string SUSYvars[NSUSYvars];
-
-    static const int NSUSYFlags = 4;
-    static const std::string SUSYFlags[NSUSYFlags];
     
     /**
      * @brief Friend classes of SUSY class.
@@ -65,8 +62,6 @@ public:
     {
         return myFH;
     }
-    
-    virtual void setEWSMflags(EWSM& myEWSM);
 
     virtual SUSYMatching* getMyMatching() const
     {

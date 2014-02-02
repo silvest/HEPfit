@@ -359,9 +359,16 @@ bool QCD::CheckParameters(const std::map<std::string, double>& DPars)
 
 ////////////////////////////////////////////////////////////////////////
 
-bool QCD::setFlag(const std::string name , const bool& value)
+bool QCD::setFlag(const std::string name, const bool& value)
 {
-    std::cout << "WARNING: unknown flag " << name
+    std::cout << "WARNING: wrong name or value for ModelFlag " << name
+              << " in the model configuration file" << std::endl;
+    return (false);
+}
+
+bool QCD::setFlag(const std::string name, const std::string& value)
+{
+    std::cout << "WARNING: wrong name or value for ModelFlag " << name
               << " in the model configuration file" << std::endl;
     return (false);
 }

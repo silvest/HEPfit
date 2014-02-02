@@ -60,26 +60,18 @@ public:
      */
     enum orders_EW {EW1=0, EW1QCD1, EW1QCD2, EW2, EW2QCD1, EW3, orders_EW_size};    
 
-    /**
-     * @brief schemes for the resummations in Mw, rho_Z^f and kappa_Z^f
-     * 
-     * APPROXIMATEFORMULA for the use of approximate formulae
-     */
-    enum schemes_EW {NORESUM=0, OMSI, INTERMEDIATE, OMSII, APPROXIMATEFORMULA,
-                     FIXED, schemes_EW_size};
-
-    std::string SchemeString(const schemes_EW scheme) const
+    bool checkEWPOscheme(const std::string scheme) const
     {
-        if (scheme == NORESUM) return "NORESUM";
-        else if (scheme == OMSI) return "OMSI";
-        else if (scheme == INTERMEDIATE) return "INTERMEDIATE";
-        else if (scheme == OMSII) return "OMSII";
-        else if (scheme == APPROXIMATEFORMULA) return "APPROXIMATEFORMULA";
-        else if (scheme == FIXED) return "FIXED";
+        if (scheme.compare("NORESUM") == 0
+                || scheme.compare("OMSI") == 0
+                || scheme.compare("INTERMEDIATE") == 0
+                || scheme.compare("OMSII") == 0
+                || scheme.compare("APPROXIMATEFORMULA") == 0)
+            return true;
         else
-            throw std::runtime_error("Undefined scheme in EWSM::SchemeString");
+            return false;
     }
-
+ 
     // The number of the parameters relevant to EW observables
     static const int NumSMParams = 24;
         
@@ -130,59 +122,10 @@ public:
         return myTwoFermionsLEP2;
     }
 
-    schemes_EW getSchemeMw() const
-    {
-        return schemeMw;
-    }
-
-    /**
-     * @brief set a flag for M_W
-     * @param[in] schemeMw NORESUM, OMSI, INTERMEDIATE, OMSII or APPROXIMATEFORMULA
-     */
-    void setSchemeMw(schemes_EW schemeMw) 
-    {
-        this->schemeMw = schemeMw;
-        std::cout << "Mw: " << SchemeString(schemeMw) << std::endl;
-    }
-
-    schemes_EW getSchemeRhoZ() const
-    {
-        return schemeRhoZ;
-    }
-
-    /**
-     * @brief set a flag for rho_Z
-     * @param[in] schemeRhoZ NORESUM, OMSI, INTERMEDIATE, OMSII or APPROXIMATEFORMULA
-     * @attention NORESUM is not available, since reducible two-loop EW corrections have not been implemented yet. 
-     */
-    void setSchemeRhoZ(schemes_EW schemeRhoZ) 
-    {
-        this->schemeRhoZ = schemeRhoZ;
-        std::cout << "rhoZf: " << SchemeString(schemeRhoZ) << std::endl;
-    }
-
-    schemes_EW getSchemeKappaZ() const
-    {
-        return schemeKappaZ;
-    }
-    
-    /**
-     * @brief set a flag for kappa_Z
-     * @param[in] schemeKappaZ NORESUM, OMSI, INTERMEDIATE, OMSII or APPROXIMATEFORMULA
-     */
-    void setSchemeKappaZ(schemes_EW schemeKappaZ)
-    {
-        this->schemeKappaZ = schemeKappaZ;
-        std::cout << "kappaZf: " << SchemeString(schemeKappaZ) << std::endl;
-    }
-
     
     //////////////////////////////////////////////////////////////////////// 
 
     bool checkSMparams(double Params_cache[], const bool bUpdate=true) const;
-
-    bool checkScheme(schemes_EW& scheme_cache, const schemes_EW scheme_current,
-                     const bool bUpdate=true) const;
 
     
     //////////////////////////////////////////////////////////////////////// 
@@ -524,7 +467,6 @@ protected:
     ////////////////////////////////////////////////////////////////////////         
 private:
     bool flag_order[orders_EW_size]; 
-    schemes_EW schemeMw, schemeRhoZ, schemeKappaZ;
     
     EWSMcache* myCache;
     EWSMOneLoopEW* myOneLoopEW;
@@ -566,8 +508,6 @@ private:
     
     mutable double GammaW_params_cache[NumSMParams];
     mutable double GammaW_cache;
-
-    mutable schemes_EW schemeMw_cache, schemeRhoZ_cache, schemeKappaZ_cache;
 
 
     ////////////////////////////////////////////////////////////////////////

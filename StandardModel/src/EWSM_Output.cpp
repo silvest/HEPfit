@@ -49,7 +49,7 @@ void EWSM_Output::outputEachDeltaR(const double Mw_i) const
                           + pow(f_AlphaToGF,3.0)*DeltaRho[EWSM::EW3];
     double DeltaRho_G = f_AlphaToGF*DeltaRho[EWSM::EW1];
 
-    if (myEWSM.schemeMw == myEWSM.NORESUM) {
+    if (SM.getFlagMw().compare("NORESUM") == 0) {
 
         f_AlphaToGF = 1.0;
         DeltaRho[EWSM::EW1QCD2] *= f_AlphaToGF;
@@ -97,7 +97,7 @@ void EWSM_Output::outputEachDeltaR(const double Mw_i) const
                      - myEWSM.DeltaAlphaL5q()*myEWSM.DeltaAlphaL5q()
                      - 2.0*myEWSM.DeltaAlphaL5q()*DeltaR_EW1 << std::endl;
 
-    } else if (myEWSM.schemeMw == myEWSM.OMSI) {
+    } else if (SM.getFlagMw().compare("OMSI") == 0) {
 
         // R = 1/(1 - Delta r)
         double R = 1.0/( 1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)
@@ -145,7 +145,7 @@ void EWSM_Output::outputEachDeltaR(const double Mw_i) const
         std::cout << "    2*EW1*(EW2-EW1^2)=" << 2.0*DeltaR_EW1*(DeltaR_EW2 - DeltaR_EW1*DeltaR_EW1) << std::endl;
         std::cout << "    others        = " << cW2_TMP/sW2_TMP*pow(f_AlphaToGF,2.0)*DeltaRho[EWSM::EW2]*(myEWSM.DeltaAlphaL5q() + DeltaR_rem[EWSM::EW1]) << std::endl;
 
-    } else if (myEWSM.schemeMw == myEWSM.OMSII) {
+    } else if (SM.getFlagMw().compare("OMSII") == 0) {
 
         // R = 1/(1 - Delta r)
         double R = 1.0/( (1.0 + cW2_TMP/sW2_TMP*DeltaRho_sum)*(1.0 - myEWSM.DeltaAlphaL5q())
@@ -196,7 +196,7 @@ void EWSM_Output::outputEachDeltaR(const double Mw_i) const
 
     } else
         std::cout << "EWSM_Output::outputEachDeltaR(): Not implemented for schemeMw="
-                  << myEWSM.schemeMw << std::endl;
+                  << SM.getFlagMw() << std::endl;
 }
 
 
@@ -335,9 +335,9 @@ void EWSM_Output::outputEachDeltaRhoZ(const double f_AlphaToGF,
                                const double taub[EWSM::orders_EW_size],
                                const double ZbbSubtract) const
 {
-    if (myEWSM.schemeRhoZ == myEWSM.APPROXIMATEFORMULA) {
+    if (SM.getFlagRhoZ().compare("APPROXIMATEFORMULA") == 0) {
 
-    } else if (myEWSM.schemeRhoZ == myEWSM.NORESUM) {
+    } else if (SM.getFlagRhoZ().compare("NORESUM") == 0) {
         std::cout << "Leading contributions: alpha or Gmu" << std::endl;
         std::cout << "  DeltaRho[EW1]=" << DeltaRho[EWSM::EW1] << " "
                    << f_AlphaToGF*DeltaRho[EWSM::EW1] << std::endl;
@@ -431,7 +431,7 @@ void EWSM_Output::outputEachDeltaRhoZ(const double f_AlphaToGF,
         }
     } else
         std::cout << "EWSM_Output::outputEachDeltaRhoZ(): Not implemented for schemeRhoZ="
-                  << myEWSM.schemeRhoZ << std::endl;
+                  << SM.getFlagRhoZ() << std::endl;
 }
 
 
@@ -592,10 +592,10 @@ void EWSM_Output::outputEachDeltaKappaZ(const double f_AlphaToGF,
     for (int j=0; j<EWSM::orders_EW_size; ++j)
         DeltaRho_new[j] = cW2overSW2*DeltaRho[j];
 
-    if (myEWSM.schemeKappaZ == myEWSM.APPROXIMATEFORMULA) {
+    if (SM.getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0) {
         std::cout << "Delta kappaZb (from the approximate formula of sin2thb) = "
                   << myEWSM.kappaZ_q_SM(StandardModel::BOTTOM)  - 1.0 << std::endl;
-    } else if (myEWSM.schemeKappaZ == myEWSM.NORESUM) {
+    } else if (SM.getFlagKappaZ().compare("NORESUM") == 0) {
         std::cout << "Leading contributions: alpha or Gmu" << std::endl;
         std::cout << "  DeltaRho[EW1]=" << DeltaRho_new[EWSM::EW1] << " "
                    << f_AlphaToGF*DeltaRho_new[EWSM::EW1] << std::endl;
@@ -708,7 +708,7 @@ void EWSM_Output::outputEachDeltaKappaZ(const double f_AlphaToGF,
         }
     } else
         std::cout << "EWSM_Output::outputEachDeltaKappaZ(): Not implemented for schemeKappaZ="
-                  << myEWSM.schemeKappaZ << std::endl;
+                  << SM.getFlagKappaZ() << std::endl;
 }
 
 

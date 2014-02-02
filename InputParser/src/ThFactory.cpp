@@ -1,11 +1,12 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
  */
 
 #include <vector>
+#include <stdexcept>
 #include <boost/lexical_cast.hpp>
 #include <EWObservables.h>
 #include <FlavourObservables.h>
@@ -183,9 +184,7 @@ ThFactory::~ThFactory()
 
 ThObservable * ThFactory::getThMethod(const std::string& name) 
 {
-    if (thobs.find(name) == thobs.end()) {
-        std::cout << "\nERROR: Wrong observable " << name << " in ThFactory" << std::endl;
-        exit(EXIT_FAILURE);
-    }
+    if (thobs.find(name) == thobs.end())
+        throw std::runtime_error("ERROR: Wrong observable " + name + " in ThFactory");
     return (thobs[name]);
 }

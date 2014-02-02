@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -51,10 +51,8 @@ Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<c
         tMCMC = true;
     else if (toMCMC.compare("noMCMC") == 0)
         tMCMC = false;
-    else {
-        std::cout << "wrong MCMC flag in " << name << std::endl;
-        exit(EXIT_FAILURE);
-    }
+    else
+        throw std::runtime_error("ERROR: wrong MCMC flag in " + name);
     Observable o(name, thname, label, tMCMC, min, max, thf->getThMethod(thname));
     ++beg;
     std::string distr = *beg;
@@ -71,10 +69,8 @@ Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<c
         ++beg;
         o.setErrf(atof((*beg).c_str()));
     } else if (distr.compare("noweight") == 0) {
-    } else {
-        std::cout << "wrong distribution flag in " << name << std::endl;
-        exit(EXIT_FAILURE);
-    }
+    } else
+        throw std::runtime_error("ERROR: wrong distribution flag in " + name);
     o.setDistr(distr);
     return (o);
 }
@@ -88,10 +84,8 @@ std::string InputParser::ReadParameters(const std::string filename,
 {
     std::string modname = "";
     std::ifstream ifile(filename.c_str());
-    if (!ifile.is_open()) {
-        std::cout << filename << " does not exist." << std::endl;
-        exit(EXIT_FAILURE);
-    }
+    if (!ifile.is_open())
+        throw std::runtime_error("ERROR: " + filename + " does not exist.");
     std::string line;
     bool IsEOF = false;
     do {
@@ -191,7 +185,7 @@ std::string InputParser::ReadParameters(const std::string filename,
         ++beg;
         if (type.compare("ModelParameter") == 0) {
             if (std::distance(tok.begin(),tok.end()) < 5)
-                throw std::runtime_error("Error: lack of information on "
+                throw std::runtime_error("ERROR: lack of information on "
                                          + *beg + " in " + filename);
             std::string name = *beg;
             ++beg;
@@ -204,19 +198,19 @@ std::string InputParser::ReadParameters(const std::string filename,
             ModelParameter m(name, mean, errg, errf);
             ModelPars.push_back(m);
             if (beg != tok.end())
-                std::cout << "warning: unread information in parameter " << name << std::endl;
+                std::cout << "WARNING: unread information in parameter " << name << std::endl;
         } else if (type.compare("Observable") == 0) {
             if (std::distance(tok.begin(),tok.end()) < 8)
-                throw std::runtime_error("Error: lack of information on "
+                throw std::runtime_error("ERROR: lack of information on "
                                          + *beg + " in " + filename);
             Observables.push_back(ParseObservable(beg));
             ++beg;
             if (beg != tok.end())
-                std::cout << "warning: unread information in observable "
+                std::cout << "WARNING: unread information in observable "
                           << Observables.back().getName() << std::endl;
         } else if (type.compare("Observable2D") == 0) {
             if (std::distance(tok.begin(),tok.end()) < 12)
-                throw std::runtime_error("Error: lack of information on "
+                throw std::runtime_error("ERROR: lack of information on "
                                          + *beg + " in " + filename);
             Observable2D o2(ParseObservable(beg));
             ++beg;
@@ -235,7 +229,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             Observables2D.push_back(o2);
             ++beg;
             if (beg != tok.end())
-                std::cout << "warning: unread information in observable2D "
+                std::cout << "WARNING: unread information in observable2D "
                           << Observables2D.back().getName() << std::endl;
         } else if (type.compare("CorrelatedGaussianObservables") == 0) {
             std::string name = *beg;
@@ -247,13 +241,13 @@ std::string InputParser::ReadParameters(const std::string filename,
             for (int i = 0; i < size; i++) {
                 getline(ifile, line);
                 if (line.empty() || line.at(0) == '#')
-                    throw std::runtime_error("no comments or empty lines in CorrelatedGaussianObservables please!");
+                    throw std::runtime_error("ERROR: no comments or empty lines in CorrelatedGaussianObservables please!");
                 boost::tokenizer<boost::char_separator<char> > mytok(line, sep);
                 beg = mytok.begin();
                 std::string type = *beg;
                 ++beg;
                 if (type.compare("Observable") != 0)
-                    throw std::runtime_error("Expecting an Observable type here...");
+                    throw std::runtime_error("ERROR: expecting an Observable type here...");
                 Observable tmp = ParseObservable(beg);
                 if (tmp.isTMCMC()) {
                     o3.AddObs(tmp);
@@ -286,7 +280,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             CGO.push_back(o3);
         } else if (type.compare("ModelParaVsObs") == 0) {
             if (std::distance(tok.begin(),tok.end()) < 10)
-                throw std::runtime_error("Error: lack of information on "
+                throw std::runtime_error("ERROR: lack of information on "
                                          + *beg + " in " + filename);
             std::string name = *beg;
             ++beg;
@@ -317,35 +311,42 @@ std::string InputParser::ReadParameters(const std::string filename,
                               thf->getThMethod(ObsName));
             ParaObs.push_back(pm);
             ++beg;
-            if (beg != tok.end()) std::cout << "warning: unread information in ModelParaVsObs "
+            if (beg != tok.end()) std::cout << "WARNING: unread information in ModelParaVsObs "
                     << ParaObs.back().getName() << std::endl;
         } else if (type.compare("ModelFlag") == 0) {
             if (std::distance(tok.begin(),tok.end()) < 3)
-                throw std::runtime_error("Error: lack of information on "
+                throw std::runtime_error("ERROR: lack of information on "
                                          + *beg + " in " + filename);
-            std::string name = *beg;
+            std::string flagname = *beg;
             ++beg;
-            bool value = boost::lexical_cast<bool>((*beg).c_str());
+            if ((*beg).compare("true") == 0 || (*beg).compare("false") == 0) {
+                /* Boolean flags */
+                bool value_bool;
+                if ((*beg).compare("true") == 0)
+                    value_bool = 1;
+                else
+                    value_bool = 0;
+                if (!myModel->setFlag(flagname, value_bool))
+                    throw std::runtime_error("ERROR: setFlag error for " + flagname);
+                else
+                    std::cout << "set flag " << flagname << "=" << value_bool << std::endl;
+            } else {
+                /* String flags */
+                std::string value_str = *beg;
+                if (!myModel->setFlag(flagname, value_str))
+                    throw std::runtime_error("ERROR: setFlag error for " + flagname);
+                else
+                    std::cout << "set flag " << flagname << "=" << value_str << std::endl;
+            }
             ++beg;
-
-            if (!myModel->setFlag(name, value)) {
-                std::stringstream ss;
-                ss << myModel->ModelName() << " setFlag error for " << name;
-                throw std::runtime_error(ss.str());
-            } else 
-                std::cout << "set flag " << name << "=" << value << std::endl;
             if (beg != tok.end())
-                std::cout << "warning: unread information in Flag " << name << std::endl;
-        } else {
-            std::cout << "wrong keyword " << type << " in config file (first word must be ModelParameter, ModelFlag or Observable)" << std::endl;
-            exit(EXIT_FAILURE);
-        }
+                std::cout << "WARNING: unread information in Flag " << flagname << std::endl;
+        } else
+            throw std::runtime_error("ERROR: wrong keyword " + type + " in config file" );
     } while (!IsEOF);
 
-    if (!myModel->CheckFlags()) {
-        std::cout << "Incompatible flag(s)" << std::endl;
-        exit(EXIT_FAILURE);
-    }
+    if (!myModel->CheckFlags())
+        throw std::runtime_error("ERROR: incompatible flag(s)");
 
     return (modname);
 }

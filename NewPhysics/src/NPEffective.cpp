@@ -46,12 +46,6 @@ bool NPEffective::CheckParameters(const std::map<std::string, double>& DPars)
 }
 
 
-void NPEffective::setEWSMflags(EWSM& myEWSM) 
-{
-    NPbase::setEWSMflags(myEWSM);
-}
-
-
 bool NPEffective::setFlag(const std::string name, const bool& value) 
 {
     bool res = false;

@@ -21,10 +21,6 @@ const std::string SUSY::SUSYvars[NSUSYvars] = {
     "m1r", "m1i", "m2r", "m2i", "m3" , "muHr", "muHi", "mHptree", "tanb", "Q"
 };
 
-const std::string SUSY::SUSYFlags[NSUSYFlags] = {
-    "Flag_H", "Flag_g", "Flag_Chi", "Flag_Chi0"
-};
-
 SUSY::SUSY()
 : StandardModel(),
         msQhat2(3,3,0.), msUhat2(3,3,0.), msDhat2(3,3,0.),msLhat2(3,3,0.), msNhat2(3,3,0.), msEhat2(3,3,0.),
@@ -44,21 +40,9 @@ bool SUSY::InitializeModel()
     mySUSYMatching = new SUSYMatching(*this);
     myFH = new FeynHiggsWrapper(*this);
     myEWSM = new EWSUSY(*this);
-    this->setEWSMflags(*myEWSM);
+    setFlag("Mw", "NORESUM");
     setModelInitialized(true);
     return(true);
-}
-
-void SUSY::setEWSMflags(EWSM& myEWSM)
-{
-    std::cout << "Schemes for EWPOs:" << std::endl;
-    std::cout << "  ";
-    myEWSM.setSchemeMw(EWSM::NORESUM);
-    std::cout << "  ";
-    //myEWSM.setSchemeRhoZ(EWSM::OMSI);
-    myEWSM.setSchemeRhoZ(EWSM::NORESUM);
-    std::cout << "  ";
-    myEWSM.setSchemeKappaZ(EWSM::APPROXIMATEFORMULA);
 }
 
 

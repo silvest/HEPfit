@@ -15,10 +15,6 @@ const std::string NPZbbbar::ZbbbarVars[NZbbbarVars]
 = {"deltaGVb", "deltaGAb"};
 
 
-const std::string NPZbbbar::Zbbbarflags[NZbbbarflags]
-= {"NPZbbbarLR",  "NotLinearizedNP"};
-
-
 NPZbbbar::NPZbbbar() 
 : NPbase()
 {
@@ -29,17 +25,11 @@ NPZbbbar::NPZbbbar()
 
 bool NPZbbbar::InitializeModel()
 {
-    /* do not use setModelInitialized(NPbase::InitializeModel()); */
+    /* do not use setModelInitialized(NPbase::InitializeModel()) in order to
+     use EWNPZbbbar */
     myEWSM = new EWNPZbbbar(*this);
-    this->setEWSMflags(*myEWSM);
     setModelInitialized(true);
     return(IsModelInitialized());
-}
-
-
-void NPZbbbar::setEWSMflags(EWSM& myEWSM)
-{
-    NPbase::setEWSMflags(myEWSM);
 }
 
 

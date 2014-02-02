@@ -58,6 +58,9 @@ class EWSM; // forward reference to EWSM class
  * \li \b NoApproximateRl:&nbsp;
  * \li \b NoApproximateRc:&nbsp;
  * \li \b NoApproximateRb:&nbsp;
+ * \li \b Mw:&nbsp;
+ * \li \b RhoZ:&nbsp;
+ * \li \b KappaZ:&nbsp;
  *
  */
 class StandardModel: public QCD {
@@ -77,8 +80,6 @@ public:
 
     static const int NSMvars = 24;
     static const std::string SMvars[NSMvars];
-    static const int NSMflags = 6;
-    static const std::string SMflags[NSMflags];
 
     /**
      * @brief Constructor.
@@ -103,8 +104,6 @@ public:
     {
         return myEWSM;
     }
-
-    virtual void setEWSMflags(EWSM& myEWSM);
 
     virtual StandardModelMatching* getMyMatching() const
     {
@@ -145,6 +144,8 @@ public:
 
     virtual bool setFlag(const std::string name, const bool& value);
 
+    virtual bool setFlag(const std::string name, const std::string& value);
+
     virtual bool CheckFlags() const;
 
     bool IsFlagWithoutNonUniversalVC() const
@@ -175,6 +176,21 @@ public:
     bool IsFlagNoApproximateRb() const
     {
         return FlagNoApproximateRb;
+    }
+
+    std::string getFlagMw() const
+    {
+        return FlagMw;
+    }
+
+    std::string getFlagRhoZ() const
+    {
+        return FlagRhoZ;
+    }
+
+    std::string getFlagKappaZ() const
+    {
+        return FlagKappaZ;
     }
 
     
@@ -569,6 +585,9 @@ private:
     bool FlagNoApproximateRl;
     bool FlagNoApproximateRc;
     bool FlagNoApproximateRb;
+    std::string FlagMw;
+    std::string FlagRhoZ;
+    std::string FlagKappaZ;
 
     bool requireCKM;
     bool requireYe;

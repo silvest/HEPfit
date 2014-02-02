@@ -1230,7 +1230,7 @@ double EWSUSY::DeltaR_SUSY_EW1(const double Mw_i) const
 
 double EWSUSY::Mw_MSSM_TMP(const double Mw_i) const
 {
-    if (getSchemeMw()!=EWSM::NORESUM)
+    if (SM.getFlagMw().compare("NORESUM") != 0)
         throw std::runtime_error("EWSUSY::Mw_SUSY(): Scheme for Mw is not applicable");
 
     double cW2 = Mw_i*Mw_i/mySUSY.getMz()/mySUSY.getMz();

@@ -27,12 +27,6 @@ bool NPHiggsST::InitializeModel()
 }
 
 
-void NPHiggsST::setEWSMflags(EWSM& myEWSM)
-{
-    NPbase::setEWSMflags(myEWSM);
-}
-
-
 bool NPHiggsST::Init(const std::map<std::string, double>& DPars)
 {
     Update(DPars);
