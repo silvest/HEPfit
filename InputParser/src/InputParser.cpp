@@ -333,7 +333,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             } else {
                 /* String flags */
                 std::string value_str = *beg;
-                if (!myModel->setFlag(flagname, value_str))
+                if (!myModel->setFlagStr(flagname, value_str))
                     throw std::runtime_error("ERROR: setFlag error for " + flagname);
                 else
                     std::cout << "set flag " << flagname << "=" << value_str << std::endl;

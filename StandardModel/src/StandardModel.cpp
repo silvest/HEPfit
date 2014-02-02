@@ -238,10 +238,16 @@ void StandardModel::computeYukawas()
 ///////////////////////////////////////////////////////////////////////////
 // Flags
 
-bool StandardModel::setFlag(const std::string name, const bool& value)
+bool StandardModel::setFlag(const std::string name, const bool value)
 {  
     bool res = false;
-    if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
+    if (name.compare("FlagCacheInEWSM") == 0) {
+        myEWSM->setFlagCacheInEWSM(value);
+        res = true;
+    } else if (name.compare("FlagCacheInEWSMcache") == 0) {
+        myEWSM->getMyCache()->setFlagCacheInEWSMcache(value);
+        res = true;
+    } else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
         FlagWithoutNonUniversalVC = value;
         res = true;
     } else if (name.compare("NoApproximateGammaZ") == 0) {
@@ -265,7 +271,7 @@ bool StandardModel::setFlag(const std::string name, const bool& value)
     return(res);
 }
 
-bool StandardModel::setFlag(const std::string name, const std::string& value)
+bool StandardModel::setFlagStr(const std::string name, const std::string value)
 {
     bool res = false;
     if (name.compare("Mw") == 0) {
@@ -284,7 +290,7 @@ bool StandardModel::setFlag(const std::string name, const std::string& value)
             res = true;
         }
     } else
-        res = QCD::setFlag(name,value);
+        res = QCD::setFlagStr(name,value);
 
     return(res);
 }

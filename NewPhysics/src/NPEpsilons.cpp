@@ -50,7 +50,7 @@ bool NPEpsilons::Update(const std::map<std::string,double>& DPars)
 }
 
     
-void NPEpsilons::setParameter(const std::string name, const double& value) 
+void NPEpsilons::setParameter(const std::string name, const double& value)
 {
     if (name.compare("epsilon_1") == 0)
         myEpsilon_1 = value;
@@ -78,7 +78,7 @@ bool NPEpsilons::CheckParameters(const std::map<std::string, double>& DPars)
 }
 
 
-bool NPEpsilons::setFlag(const std::string name, const bool& value) 
+bool NPEpsilons::setFlag(const std::string name, const bool value) 
 {
     bool res = false;
     if (name.compare("epsilon1SM") == 0) {

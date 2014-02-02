@@ -71,19 +71,19 @@ public:
     
     /**
      * @brief A set method to fix the flags for the model.
-     * @param[in] flagname the name of the flag
-     * @param[in] flagvalue the value of the flag that can be true or false
+     * @param[in] name the name of the flag
+     * @param[in] value the value of the flag that can be true or false
      * @return a boolean to designate the success or failure of this procedure
      */
-    virtual bool setFlag(const std::string flagname, const bool& flagvalue) = 0;
+    virtual bool setFlag(const std::string name, const bool value) = 0;
 
     /**
      * @brief A set method to fix the flags for the model.
-     * @param[in] flagname the name of the flag
-     * @param[in] flagvalue the value of the flag in string
+     * @param[in] name the name of the flag
+     * @param[in] value the value of the flag in string
      * @return a boolean to designate the success or failure of this procedure
      */
-    virtual bool setFlag(const std::string flagname, const std::string& flagvalue) = 0;
+    virtual bool setFlagStr(const std::string name, const std::string value) = 0;
     
     /**
      * @brief A method to check the sanity of the set of flags.

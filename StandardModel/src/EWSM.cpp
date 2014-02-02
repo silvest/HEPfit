@@ -25,12 +25,9 @@ EWSM::EWSM(const StandardModel& SM_i)
     flag_order[EW2QCD1] = true;
     flag_order[EW3] = true;
 
-    bUseCacheEWSM = true;// use caches in the current class
-    //bUseCacheEWSM = false;// do not use caches in the current class (for test)
+    FlagCacheInEWSM = true;// use caches in the current class
+    //FlagCacheInEWSM = false;// do not use caches in the current class (for test)
     
-    //std::string Model = SM.ModelName();
-    //std::cout << "Model in EWSM: " << Model << std::endl;
- 
     myCache = new EWSMcache(SM);
     myOneLoopEW = new EWSMOneLoopEW(*myCache);
     myTwoLoopQCD = new EWSMTwoLoopQCD(*myCache);
@@ -81,8 +78,8 @@ bool EWSM::checkSMparams(double Params_cache[], const bool bUpdate) const
     // "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau",
     // "delMw", "delSin2th_l", "delGammaZ"
 
-    // Note: When modifying the array below, the constant NumSMParams has also
-    // to be modified accordingly.
+    // Note: When modifying the array below, the constant NumSMParams has to
+    // be modified accordingly.
     double SMparams[NumSMParams] = { 
         SM.getAlsMz(), SM.getMz(), SM.getGF(), SM.getAle(), SM.getDAle5Mz(),
         SM.getMHl(), SM.getMtpole(), 
@@ -119,7 +116,7 @@ bool EWSM::checkSMparams(double Params_cache[], const bool bUpdate) const
 double EWSM::DeltaAlphaLepton(const double s) const 
 {
     if (s==myCache->Mz()*myCache->Mz())
-        if (bUseCacheEWSM)
+        if (FlagCacheInEWSM)
             if (checkSMparams(DeltaAlphaLepton_params_cache))
                 return DeltaAlphaLepton_cache;
     
@@ -172,7 +169,7 @@ double EWSM::DeltaAlphaTop(const double s) const
 
 double EWSM::DeltaAlpha() const 
 {
-    if (bUseCacheEWSM)
+    if (FlagCacheInEWSM)
         if (checkSMparams(DeltaAlpha_params_cache))
             return DeltaAlpha_cache;
     
@@ -220,7 +217,7 @@ double EWSM::Mw_SM() const
     //          << " [cache:" << schemeMw_cache
     //          << " current:" << schemeMw << "]" << std::endl;
 
-    if (bUseCacheEWSM)
+    if (FlagCacheInEWSM)
         if (checkSMparams(Mw_params_cache))
             return Mw_cache;
 
@@ -331,7 +328,7 @@ complex EWSM::rhoZ_l_SM(const StandardModel::lepton l) const
         throw std::runtime_error("No approximate formula is available for rhoZ^f"); 
     else {
         
-        if (bUseCacheEWSM)        
+        if (FlagCacheInEWSM)
             if (checkSMparams(rhoZ_l_params_cache[(int)l]))
                 return rhoZ_l_cache[(int)l];
         
@@ -397,7 +394,7 @@ complex EWSM::rhoZ_q_SM(const StandardModel::quark q) const
         throw std::runtime_error("No approximate formula is available for rhoZ^f"); 
     else {
 
-        if (bUseCacheEWSM)        
+        if (FlagCacheInEWSM)
             if (checkSMparams(rhoZ_q_params_cache[(int)q]))
                 return rhoZ_q_cache[(int)q];
         
@@ -460,7 +457,7 @@ complex EWSM::rhoZ_q_SM(const StandardModel::quark q) const
 
 complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const 
 {
-    if (bUseCacheEWSM)    
+    if (FlagCacheInEWSM)
         if (checkSMparams(kappaZ_l_params_cache[(int)l]))
             return kappaZ_l_cache[(int)l];
 
@@ -537,7 +534,7 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
 {
     if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
     
-    if (bUseCacheEWSM)     
+    if (FlagCacheInEWSM)
         if (checkSMparams(kappaZ_q_params_cache[(int)q]))
             return kappaZ_q_cache[(int)q];
 
@@ -968,7 +965,7 @@ double EWSM::GammaW_q_SM(const StandardModel::quark qi,
 
 double EWSM::GammaW_SM() const 
 {
-    if (bUseCacheEWSM)      
+    if (FlagCacheInEWSM)
         if (checkSMparams(GammaW_params_cache))
             return GammaW_cache;
     

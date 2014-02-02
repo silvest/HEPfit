@@ -80,11 +80,11 @@ public:
 
     /**
      * @brief A set method to fix the flags for the model.
-     * @param[in] flagname the name of the flag
-     * @param[in] flagvalue the value of the flag that can be true or false
+     * @param[in] name the name of the flag
+     * @param[in] value the value of the flag that can be true or false
      * @return a boolean to designate the success or failure of this procedure
      */
-    virtual bool setFlag(const std::string, const bool&);
+    virtual bool setFlag(const std::string name, const bool value);
     
     /**
      * @brief A method to check the sanity of the set of flags.

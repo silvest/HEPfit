@@ -51,7 +51,7 @@ bool NPbase::CheckParameters(const std::map<std::string, double>& DPars)
 }
 
 
-bool NPbase::setFlag(const std::string name, const bool& value)
+bool NPbase::setFlag(const std::string name, const bool value)
 {
     bool res = false;
     if (name.compare("FixSMcontribution") == 0) {

@@ -136,7 +136,7 @@ bool QCD::PostUpdate()
     return (true);
 }
 
-void QCD::setParameter(const std::string name, const double& value) 
+void QCD::setParameter(const std::string name, const double& value)
 {
     if(name.compare("AlsMz")==0) {
         AlsMz = value;
@@ -359,17 +359,15 @@ bool QCD::CheckParameters(const std::map<std::string, double>& DPars)
 
 ////////////////////////////////////////////////////////////////////////
 
-bool QCD::setFlag(const std::string name, const bool& value)
+bool QCD::setFlag(const std::string name, const bool value)
 {
-    std::cout << "WARNING: wrong name or value for ModelFlag " << name
-              << " in the model configuration file" << std::endl;
+    std::cout << "WARNING: wrong name or value for ModelFlag " << name << std::endl;
     return (false);
 }
 
-bool QCD::setFlag(const std::string name, const std::string& value)
+bool QCD::setFlagStr(const std::string name, const std::string value)
 {
-    std::cout << "WARNING: wrong name or value for ModelFlag " << name
-              << " in the model configuration file" << std::endl;
+    std::cout << "WARNING: wrong name or value for ModelFlag " << name << std::endl;
     return (false);
 }
 

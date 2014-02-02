@@ -23,7 +23,7 @@ void EWSMEW1testclass::setUp() {
     myCache = new EWSMcache(*mySM);
     myEW1 = new EWSMOneLoopEW(*myCache);
 
-    myCache->setBDebug(true);
+    myCache->setFlagDebug(true);
 
     Mw = myCache->Mw(mySM->Mw_tree());/* Tests are done with the tree-level Mw */
     Mw2 = Mw*Mw;

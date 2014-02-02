@@ -238,7 +238,7 @@ void SUSY::SetSoftTerms()
 ///////////////////////////////////////////////////////////////////////////
 // Flags
 
-bool SUSY::setFlag(const std::string name, const bool& value)
+bool SUSY::setFlag(const std::string name, const bool value)
 {
     bool res = false;
     if(name.compare("Flag_H") == 0) {

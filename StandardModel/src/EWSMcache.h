@@ -38,9 +38,14 @@ public:
     
     ////////////////////////////////////////////////////////////////////////
 
-    void setBDebug(bool bDebug)
+    void setFlagDebug(bool FlagDebug)
     {
-        this->bDebug = bDebug;
+        this->FlagDebug = FlagDebug;
+    }
+    
+    void setFlagCacheInEWSMcache(bool FlagCacheInEWSMcache)
+    {
+        this->FlagCacheInEWSMcache = FlagCacheInEWSMcache;
     }
 
     
@@ -461,7 +466,7 @@ public:
      */
     double alsMt() const 
     {
-        if (bDebug)
+        if (FlagDebug)
             return ( 0.1074432788 );// for debug
         else
             return ( SM.Als(Mt(),FULLNNLO) );
@@ -641,8 +646,8 @@ public:
     //////////////////////////////////////////////////////////////////////// 
 
 private:
-    bool bDebug;// for debug
-    bool bUseCacheEWSMcache;// true for caching
+    bool FlagDebug;// for debug
+    bool FlagCacheInEWSMcache;// true for caching
     
     const StandardModel& SM;///< A reference to an object of type StandardModel.
     const PVfunctions PV;///< An object of type PVfunctions.
@@ -754,7 +759,7 @@ private:
     bool CacheCheck(const double cache[], 
                     const int NumPar, const double params[]) const 
     {
-        if (!bUseCacheEWSMcache) return false;
+        if (!FlagCacheInEWSMcache) return false;
         bool bCache = true;
         for(int i=0; i<NumPar; ++i)
             bCache &= (params[i] == cache[i]);
@@ -764,7 +769,7 @@ private:
     void newCacheForDouble(double cache[], const int NumPar, 
                            const double params[], const double newResult) const 
     {
-        if (!bUseCacheEWSMcache) return;
+        if (!FlagCacheInEWSMcache) return;
         for(int i=0; i<NumPar; ++i)
             cache[i] = params[i];
         cache[NumPar] = newResult;
@@ -773,7 +778,7 @@ private:
     void newCacheForComplex(double cache[], const int NumPar, 
                             const double params[], const complex newResult) const 
     {
-        if (!bUseCacheEWSMcache) return;
+        if (!FlagCacheInEWSMcache) return;
         for(int i=0; i<NumPar; ++i)
             cache[i] = params[i];
         cache[NumPar] = newResult.real();

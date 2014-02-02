@@ -52,6 +52,8 @@ class EWSM; // forward reference to EWSM class
  * \li \b SM_M12D:&nbsp; the SM amplitude of the @f$D^{0}-\bar{D}^{0}@f$ mixing,
  *
  * Flags:
+ * \li \b CacheInEWSM:&nbsp;
+ * \li \b CacheInEWSMcache:&nbsp;
  * \li \b WithoutNonUniversalVC:&nbsp;
  * \li \b NoApproximateGammaZ:&nbsp;
  * \li \b NoApproximateSigmaH:&nbsp;
@@ -142,9 +144,9 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Flags
 
-    virtual bool setFlag(const std::string name, const bool& value);
+    virtual bool setFlag(const std::string name, const bool value);
 
-    virtual bool setFlag(const std::string name, const std::string& value);
+    virtual bool setFlagStr(const std::string name, const std::string value);
 
     virtual bool CheckFlags() const;
 

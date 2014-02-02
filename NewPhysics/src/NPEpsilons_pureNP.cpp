@@ -70,7 +70,7 @@ bool NPEpsilons_pureNP::CheckParameters(const std::map<std::string, double>& DPa
 }
 
 
-bool NPEpsilons_pureNP::setFlag(const std::string name, const bool& value)
+bool NPEpsilons_pureNP::setFlag(const std::string name, const bool value)
 {
     bool res = false;
     res = NPbase::setFlag(name,value);

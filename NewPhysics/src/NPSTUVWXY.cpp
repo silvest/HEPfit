@@ -44,7 +44,7 @@ bool NPSTUVWXY::Update(const std::map<std::string,double>& DPars)
 }
 
     
-void NPSTUVWXY::setParameter(const std::string name, const double& value) 
+void NPSTUVWXY::setParameter(const std::string name, const double& value)
 {
     if (name.compare("obliqueShat") == 0)
         myObliqueShat = value;
@@ -78,7 +78,7 @@ bool NPSTUVWXY::CheckParameters(const std::map<std::string, double>& DPars)
 }
 
 
-bool NPSTUVWXY::setFlag(const std::string name, const bool& value)
+bool NPSTUVWXY::setFlag(const std::string name, const bool value)
 {
     bool res = false;
     res = NPbase::setFlag(name,value);

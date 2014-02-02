@@ -86,7 +86,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // Flags
 
-    virtual bool setFlag(const std::string, const bool&);
+    virtual bool setFlag(const std::string, const bool);
 
     bool IsFlag_h() const
     {
@@ -548,7 +548,7 @@ public:
     ///////////////////////////////////////////////////////////////////////////
 
 protected:
-    virtual void setParameter(const std::string, const double&);
+    virtual void setParameter(const std::string name , const double& value);
     virtual void SetTanb(const double tanb);
     virtual void computeYukawas();
     virtual void SetSoftTerms();

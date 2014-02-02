@@ -79,7 +79,7 @@ bool NPHiggsST::CheckParameters(const std::map<std::string, double>& DPars)
 }
 
 
-bool NPHiggsST::setFlag(const std::string name, const bool& value)
+bool NPHiggsST::setFlag(const std::string name, const bool value)
 {
     bool res = false;
     res = NPbase::setFlag(name,value);

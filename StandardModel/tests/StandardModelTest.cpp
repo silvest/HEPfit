@@ -7,7 +7,9 @@
 
 #include <stdlib.h>
 #include <iostream>
+#include <stdexcept>
 #include "../src/StandardModel.h"
+using namespace std;
 
 //void test1() {
 //    std::cout << "StandardModelTest test 1" << std::endl;
@@ -73,12 +75,17 @@ void test3() {
 
 int main(int argc, char** argv) {
 
-    //test1();
+    try {
+        //test1();
 
-    //test2();
+        //test2();
 
-    test3();
+        test3();
 
-    return (EXIT_SUCCESS);
+        return EXIT_SUCCESS;
+    } catch (const runtime_error& e) {
+        cerr << e.what() << endl;
+        return EXIT_FAILURE;
+    }
 }
 

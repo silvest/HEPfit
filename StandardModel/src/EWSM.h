@@ -87,6 +87,11 @@ public:
     
     ////////////////////////////////////////////////////////////////////////
 
+    void setFlagCacheInEWSM(bool FlagCacheInEWSM)
+    {
+        this->FlagCacheInEWSM = FlagCacheInEWSM;
+    }
+
     /**
      * @brief
      * @return
@@ -483,7 +488,7 @@ private:
     ////////////////////////////////////////////////////////////////////////     
     //caches
     
-    bool bUseCacheEWSM; // true for caching
+    bool FlagCacheInEWSM; // true for caching
     
     mutable double DeltaAlphaLepton_params_cache[NumSMParams];
     mutable double DeltaAlphaLepton_cache;

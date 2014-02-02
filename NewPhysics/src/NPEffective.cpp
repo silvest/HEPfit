@@ -46,7 +46,7 @@ bool NPEffective::CheckParameters(const std::map<std::string, double>& DPars)
 }
 
 
-bool NPEffective::setFlag(const std::string name, const bool& value) 
+bool NPEffective::setFlag(const std::string name, const bool value) 
 {
     bool res = false;
     res = NPbase::setFlag(name,value);

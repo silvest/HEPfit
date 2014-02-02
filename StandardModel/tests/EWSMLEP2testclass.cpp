@@ -26,7 +26,7 @@ void EWSMLEP2testclass::setUp() {
     myLEP2 = new EWSMTwoFermionsLEP2(*SM, *myCache);
     myLEP2_NU = new EWSMTwoFermionsLEP2(*SM, *myCache);
 
-    myCache->setBDebug(true);
+    myCache->setFlagDebug(true);
     myLEP2->setBDebug(true);
     myLEP2_NU->setBDebug(true);
 

@@ -49,7 +49,7 @@ bool NPZbbbar::Update(const std::map<std::string,double>& DPars)
 }
 
     
-void NPZbbbar::setParameter(const std::string name, const double& value) 
+void NPZbbbar::setParameter(const std::string name, const double& value)
 {
     if (name.compare("deltaGVb") == 0)
         myDeltaGVb = value;
@@ -73,7 +73,7 @@ bool NPZbbbar::CheckParameters(const std::map<std::string, double>& DPars)
 }
 
 
-bool NPZbbbar::setFlag(const std::string name, const bool& value) 
+bool NPZbbbar::setFlag(const std::string name, const bool value) 
 {
     bool res = false;
     if (name.compare("NPZbbbarLR") == 0) {

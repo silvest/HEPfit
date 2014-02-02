@@ -181,7 +181,7 @@ public:
      * @return A boolean value indicating whether the given flag name is associated
      * with QCD.
      */
-    virtual bool setFlag(const std::string name, const bool& value);
+    virtual bool setFlag(const std::string name, const bool value);
 
     /**
      * @brief Sets flags for QCD.
@@ -190,7 +190,7 @@ public:
      * @return A boolean value indicating whether the given flag name is associated
      * with QCD.
      */
-    virtual bool setFlag(const std::string name, const std::string& value);
+    virtual bool setFlagStr(const std::string name, const std::string value);
 
     /**
      * @brief

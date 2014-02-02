@@ -22,7 +22,7 @@ void LEP2TFtestclass::setUp() {
     SM->InitializeModel();
     myLEP2TF = new LEP2TwoFermions(*SM);
 
-    SM->getEWSM()->getMyCache()->setBDebug(true);
+    SM->getEWSM()->getMyCache()->setFlagDebug(true);
     SM->getEWSM()->getMyTwoFermionsLEP2()->setBDebug(true);
 
     sqrt_s = 200.0;

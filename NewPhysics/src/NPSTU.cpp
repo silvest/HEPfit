@@ -69,7 +69,7 @@ bool NPSTU::CheckParameters(const std::map<std::string, double>& DPars)
 }
 
 
-bool NPSTU::setFlag(const std::string name, const bool& value)
+bool NPSTU::setFlag(const std::string name, const bool value)
 {
     bool res = false;
     res = NPbase::setFlag(name,value);
