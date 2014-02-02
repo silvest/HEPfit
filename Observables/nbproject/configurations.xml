@@ -5,8 +5,6 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>src/CorrelatedGaussianObservables.h</itemPath>
-      <itemPath>src/GaussianLikelihood.h</itemPath>
-      <itemPath>src/Likelihood.h</itemPath>
       <itemPath>src/ModelObservable.h</itemPath>
       <itemPath>src/ModelParaVsObs.h</itemPath>
       <itemPath>src/ModelParameter.h</itemPath>
@@ -23,8 +21,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/CorrelatedGaussianObservables.cpp</itemPath>
-      <itemPath>src/GaussianLikelihood.cpp</itemPath>
-      <itemPath>src/Likelihood.cpp</itemPath>
       <itemPath>src/ModelParaVsObs.cpp</itemPath>
       <itemPath>src/ModelParameter.cpp</itemPath>
       <itemPath>src/Observable.cpp</itemPath>
@@ -72,14 +68,6 @@
             ex="false"
             tool="3"
             flavor2="0">
-      </item>
-      <item path="src/GaussianLikelihood.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/GaussianLikelihood.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Likelihood.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Likelihood.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ModelObservable.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -144,14 +132,6 @@
             tool="3"
             flavor2="0">
       </item>
-      <item path="src/GaussianLikelihood.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/GaussianLikelihood.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Likelihood.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Likelihood.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/ModelObservable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ModelParaVsObs.cpp" ex="false" tool="1" flavor2="0">
@@ -214,14 +194,6 @@
             ex="false"
             tool="3"
             flavor2="0">
-      </item>
-      <item path="src/GaussianLikelihood.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/GaussianLikelihood.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Likelihood.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/Likelihood.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ModelObservable.h" ex="false" tool="3" flavor2="0">
       </item>
