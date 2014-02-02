@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,6 +15,7 @@
 #endif
 #include <fstream>
 #include <sstream>
+#include <stdexcept>
 
 MonteCarlo::MonteCarlo(const std::string& ModelConf_i,
                        const std::string& MonteCarloConf_i,
@@ -53,9 +54,8 @@ void MonteCarlo::Run(const int rank)
                 buffsize++;
         }
         buffsize++;
-        if (!myInputParser.getMyModel()->Init(DP)) {
-            throw std::runtime_error("parameter(s) missing in model initialization");
-        }
+        if (!myInputParser.getMyModel()->Init(DP))
+            throw std::runtime_error("ERROR: parameter(s) missing in model initialization");
 
         std::cout << std::endl << "Running in MonteCarlo mode..." << std::endl;
 
@@ -64,10 +64,8 @@ void MonteCarlo::Run(const int rank)
         if (gSystem->GetPathInfo(ObsDirName.c_str(), info) != 0) {
             if (gSystem->MakeDirectory(ObsDirName.c_str()) == 0)
                 std::cout << ObsDirName << " directory has been created." << std::endl;
-            else {
-                std::cout << ObsDirName << " director cannot be created." << std::endl;
-                exit(EXIT_FAILURE);
-            }
+            else
+                throw std::runtime_error("ERROR: " + ObsDirName + " director cannot be created.");
         }
 
         MCEngine.SetName(ModelName.c_str());
@@ -122,10 +120,8 @@ void MonteCarlo::Run(const int rank)
             std::cout << ParaObs.size() << " ModelParaVsObs defined." << std::endl;
             //MonteCarlo configuration parser
             std::ifstream ifile(MCMCConf.c_str());
-            if (!ifile.is_open()) {
-                std::cout << MCMCConf << " does not exist." << std::endl;
-                exit(EXIT_FAILURE);
-            }
+            if (!ifile.is_open())
+                throw std::runtime_error("ERROR: " + MCMCConf + " does not exist.");
             std::string line;
             bool IsEOF = false;
             do {
@@ -180,10 +176,8 @@ void MonteCarlo::Run(const int rank)
                         PrintParameterPlot = true;
                     }
 
-                } else {
-                    std::cout << "wrong keyword in MonteCarlo config file: " << *beg << std::endl;
-                    exit(EXIT_FAILURE);
-                }
+                } else
+                    throw std::runtime_error("ERROR: wrong keyword in MonteCarlo config file: " + *beg);
             } while (!IsEOF);
 
             BCModelOutput out(&MCEngine, OutFile.c_str());

@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -14,6 +14,7 @@
 #include <TROOT.h>
 #include <TH1.h>
 #include <fstream>
+#include <stdexcept>
 
 MonteCarloEngine::MonteCarloEngine(
         const std::vector<ModelParameter>& ModPars_i,
@@ -39,11 +40,10 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
         if ((it->getDistr()).compare("file") == 0) {
             TFile *lik = new TFile((it->getFilename() + ".root").c_str(), "read");
             TH1D *htmp = (TH1D*) (lik->Get(it->getHistoname().c_str()));
-            if (htmp == NULL) {
-                std::cout << "nonexistent histogram called " + it->getHistoname()
-                             + " in " + it->getFilename() + ".root\n";
-                exit(EXIT_FAILURE);
-            }
+            if (htmp == NULL)
+                throw std::runtime_error("ERROR: nonexistent histogram called "
+                                         + it->getHistoname() + " in "
+                                         + it->getFilename() + ".root");
             TH1D *inhisto = (TH1D *) htmp->Clone((it->getFilename() + "_" + it->getHistoname()).c_str());
             inhisto->SetDirectory(gROOT);
             InHisto1D[it->getFilename() + it->getHistoname()] = inhisto;
@@ -77,11 +77,10 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
         if ((it->getDistr()).compare("file") == 0) {
             TFile *lik2 = new TFile((it->getFilename() + ".root").c_str(), "read");
             TH2D *htmp2 = (TH2D*) (lik2->Get(it->getHistoname().c_str()));
-            if (htmp2 == NULL) {
-                std::cout << "nonexistent histogram called " + it->getHistoname()
-                             + " in " + it->getFilename() + ".root\n";
-                exit(EXIT_FAILURE);
-            }
+            if (htmp2 == NULL)
+                throw std::runtime_error("ERROR: nonexistent histogram called "
+                                         + it->getHistoname()
+                                         + " in " + it->getFilename() + ".root");
             TH2D *inhisto2 = (TH2D *) htmp2->Clone((it->getFilename() + "_" + it->getHistoname()).c_str());
             inhisto2->SetDirectory(gROOT);
             InHisto2D[it->getFilename() + it->getHistoname()] = inhisto2;
@@ -96,14 +95,10 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
             delete lik2;
             if (it->isTMCMC()) {
                 Obs2D_MCMC.push_back(*it);
-            } else {
-                std::cout << "cannot handle noMCMC for Observable2D file yet!\n";
-                exit(EXIT_FAILURE);
-            }
-        } else if (it->getDistr().compare("weight") == 0) {
-            std::cout << "do not use Observable2D for analytic 2D weights!\n";
-            exit(EXIT_FAILURE);
-        }
+            } else
+                throw std::runtime_error("ERROR: cannot handle noMCMC for Observable2D file yet!");
+        } else if (it->getDistr().compare("weight") == 0)
+            throw std::runtime_error("ERROR: do not use Observable2D for analytic 2D weights!");
         if (Histo2D.find(it->getThname() + "_vs_" + it->getThname2()) == Histo2D.end()) {
             TH2D * histo2 = new TH2D((it->getThname() + "_vs_" + it->getThname2()).c_str(),
                                      (it->getLabel() + " vs " + it->getLabel2()).c_str(), 
@@ -255,10 +250,9 @@ double MonteCarloEngine::Weight(const Observable& obs, const double& th)
         else
             logprob = log(h->GetBinContent(i));
         //logprob = log(h->GetBinContent(h->FindBin(th)));
-    } else {
-        std::cout << "Weight called without weight! " << obs.getName() << std::endl;
-        exit(EXIT_FAILURE);
-    }
+    } else
+        throw std::runtime_error("ERROR: MonteCarloEngine::Weight() called without weight for "
+                                 + obs.getName());
     return (logprob);
 }
 
@@ -273,10 +267,9 @@ double MonteCarloEngine::Weight(const Observable2D& obs, const double& th1, cons
         else
             logprob = log(h->GetBinContent(i));
         //logprob = log(h->GetBinContent(h->GetXaxis()->FindBin(th1),h->GetYaxis()->FindBin(th2)));
-    } else {
-        std::cout << "2D Weight called without file! " << obs.getName() << std::endl;
-        exit(EXIT_FAILURE);
-    }
+    } else
+        throw std::runtime_error("ERROR: 2D MonteCarloEngine::Weight() called without file for "
+                                 + obs.getName());
     return (logprob);
 }
 
