@@ -71,9 +71,25 @@ public:
         else
             return false;
     }
- 
+
+    double SchemeToDouble(const std::string scheme) const
+    {
+        if (scheme.compare("NORESUM") == 0) 
+            return 0.0;
+        else if (scheme.compare("OMSI") == 0)
+            return 1.0;
+        else if (scheme.compare("INTERMEDIATE") == 0)
+            return 2.0;
+        else if (scheme.compare("OMSII") == 0)
+            return 3.0;
+        else if (scheme.compare("APPROXIMATEFORMULA") == 0)
+            return 4.0;
+        else
+            throw std::runtime_error("EWSM::SchemeToDouble: bad scheme");
+    }
+
     // The number of the parameters relevant to EW observables
-    static const int NumSMParams = 24;
+    static const int NumSMParams = 27;
         
     
     //////////////////////////////////////////////////////////////////////// 
@@ -513,7 +529,7 @@ private:
     
     mutable double GammaW_params_cache[NumSMParams];
     mutable double GammaW_cache;
-
+    
 
     ////////////////////////////////////////////////////////////////////////
 

@@ -7,6 +7,7 @@
 
 #include <cmath>
 #include <iostream>
+#include <boost/lexical_cast.hpp>
 #include "EWSM.h"
 
 // include the imaginary part of O(alpha alpha_s) contribution (for a test)
@@ -71,12 +72,14 @@ EWSM::EWSM(const StandardModel& SM_i)
 bool EWSM::checkSMparams(double Params_cache[], const bool bUpdate) const
 {
     // 11 parameters in QCD:
-    // "AlsMz", "Mz", "mup", "mdown", "mcharm", "mstrange", "mtop", "mbottom",
-    // "mut", "mub", "muc"
+    // AlsMz, Mz, mup, mdown, mcharm, mstrange, mtop, mbottom,
+    // mut, mub, muc
     // 13 parameters in StandardModel
-    // "GF", "ale", "dAle5Mz", "mHl", 
-    // "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau",
-    // "delMw", "delSin2th_l", "delGammaZ"
+    // GF, ale, dAle5Mz, mHl, 
+    // mneutrino_1, mneutrino_2, mneutrino_3, melectron, mmu, mtau,
+    // delMw, delSin2th_l, delGammaZ
+    // 3 flags in StandardModel
+    // FlagMw_cache, FlagRhoZ_cache, FlagKappaZ_cache
 
     // Note: When modifying the array below, the constant NumSMParams has to
     // be modified accordingly.
@@ -95,9 +98,12 @@ bool EWSM::checkSMparams(double Params_cache[], const bool bUpdate) const
         SM.getQuarks(SM.STRANGE).getMass(),
         SM.getQuarks(SM.BOTTOM).getMass(),
         SM.getMut(), SM.getMub(), SM.getMuc(),
-        SM.getDelMw(), SM.getDelSin2th_l(), SM.getDelGammaZ() 
+        SM.getDelMw(), SM.getDelSin2th_l(), SM.getDelGammaZ() ,
+        SchemeToDouble(SM.getFlagMw()),
+        SchemeToDouble(SM.getFlagRhoZ()),
+        SchemeToDouble(SM.getFlagKappaZ())
     };
-        
+
     // check updated parameters
     bool bCache = true;
     for(int i=0; i<NumSMParams; ++i) {
@@ -106,7 +112,7 @@ bool EWSM::checkSMparams(double Params_cache[], const bool bUpdate) const
             bCache &= false;
         }
     }
-    
+
     return bCache;
 }
 
