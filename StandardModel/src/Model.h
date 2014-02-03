@@ -18,7 +18,7 @@
  * @copyright GNU General Public License
  * @details This template delineates the methods necessary for the construction
  * and updating of a particular model. An example of its use can be found in the
- * StandardModel() class.
+ * StandardModel class.
  */
 class Model {
 public:
@@ -36,7 +36,7 @@ public:
      * new set of parameter is generated.
      * @param[in] Dpar a map of parameters that are being updated in the Monte Carlo run
      * (including parameters that are varied and those that are held constant)
-     * @return a boolean that is true if the execution is successful.
+     * @return a boolean that is true if the execution is successful
      */
     virtual bool Update(const std::map<std::string, double>& Dpar) = 0;
     
@@ -46,7 +46,7 @@ public:
      * current model has been completed. Such requisites can be procedures like update
      * of other models or any other procedures that need to be done before the current 
      * model can be successfully updated.
-     * @return a boolean that is true if the execution is successful.
+     * @return a boolean that is true if the execution is successful
      */
     virtual bool PreUpdate() = 0;
     
@@ -56,56 +56,57 @@ public:
      * after the model is successfully updated. This includes updating
      * any other variable that needs to be updated at this time due to the update
      * of the model parameters
-     * @return a boolean that is true if the execution is successful.
+     * @return a boolean that is true if the execution is successful
      */
     virtual bool PostUpdate() = 0;
     
     /**
-     * @brief A method to check if all the mandatory parameters for the model have ben provided
-     * in the SomeModel.conf file.
+     * @brief A method to check if all the mandatory parameters for the model have
+     * been provided in the SomeModel.conf file.
      * @param[in] Dpar a map of parameters that are being updated in the Monte Carlo run
      * (including parameters that are varied and those that are held constant)
-     * @return
+     * @return a boolean that is true if the execution is successful
      */
     virtual bool CheckParameters(const std::map<std::string, double>& Dpar) = 0;
     
     /**
-     * @brief A set method to fix the flags for the model.
-     * @param[in] name the name of the flag
-     * @param[in] value the value of the flag that can be true or false
-     * @return a boolean to designate the success or failure of this procedure
+     * @brief A method to set a flag of the model.
+     * @param[in] name name of a flag
+     * @param[in] value the boolean to be assigned to the flag specified by name
+     * @return a boolean that is true if the execution is successful
      */
     virtual bool setFlag(const std::string name, const bool value) = 0;
 
     /**
-     * @brief A set method to fix the flags for the model.
-     * @param[in] name the name of the flag
-     * @param[in] value the value of the flag in string
-     * @return a boolean to designate the success or failure of this procedure
+     * @brief A method to set a flag of the model.
+     * @param[in] name name of a flag
+     * @param[in] value the string to be assigned to the flag specified by name
+     * @return a boolean that is true if the execution is successful
      */
     virtual bool setFlagStr(const std::string name, const std::string value) = 0;
     
     /**
      * @brief A method to check the sanity of the set of flags.
-     * @return true if the set of flags is sane.
+     * @return true if the set of flags is sane
      */
     virtual bool CheckFlags() const = 0;
     
     /**
-     * @brief A set method to fix the parameters of the model.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
+     * @brief A method to set the value of a parameter in the model.
+     * @param[in] name name of a parameter
+     * @param[in] value the value to be assigned to the parameter specified by name
      */
-    virtual void setParameter(const std::string, const double& Dpars) = 0;
+    virtual void setParameter(const std::string name, const double& value) = 0;
     
     /**
-     * @brief A method to initialize the model.
+     * @brief A method to initialize the model. 
      * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
-     * @return true is model initialization is successful
+     * @return a boolean that is true if the execution is successful
      */
     virtual bool Init(const std::map<std::string, double>& Dpars) = 0;
     
     /**
-     * @brief The name of the model.
+     * @brief A method to fetch the name of the model. 
      * @return the name of the model as a string
      */
     virtual std::string ModelName() const = 0;
@@ -121,8 +122,8 @@ public:
     
     /**
      * @brief A set method to fix the failure or success of the initialization of a model.
-     * @param[in] ModelInitialized true is the model has been successfully initialized
-     * @return true is the model has been successfully initialized
+     * @param[in] ModelInitialized true if the model has been successfully initialized
+     * @return true if the model has been successfully initialized
      */
     void setModelInitialized(bool ModelInitialized)
     {
@@ -140,7 +141,7 @@ public:
     
     /**
      * @brief A set method to fix the update status as success or failure
-     * @param[in] UpdateError gives true is update is not successful
+     * @param[in] UpdateError gives true if update is not successful
      */
     void setUpdateError(bool UpdateError)
     {
@@ -150,11 +151,11 @@ public:
     
 protected:
     
-    bool UpdateError; /**< A boolean set to false if update is successful.*/
+    bool UpdateError; ///< A boolean set to false if update is successful.
     
 private:
 
-    bool ModelInitialized; /**< A boolean set to true is the model is successfully initialized.*/
+    bool ModelInitialized; ///< A boolean set to true if the model is successfully initialized.
     
 };
 

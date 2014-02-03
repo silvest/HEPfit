@@ -20,7 +20,8 @@
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class handles the Bernoulli numbers, which are used to
- * compute the trilogarithm function Polylogarithms::Li3().
+ * compute the trilogarithm function Polylogarithms::Li3() and
+ * the Clausen function of index three ClausenFunctions::Cl3.
  * A list of the Bernoulli numbers can be found in @cite tHooft:1978xw.
  */
 class BernoulliNumbers {
