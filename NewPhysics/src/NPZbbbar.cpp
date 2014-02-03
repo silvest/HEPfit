@@ -27,6 +27,7 @@ bool NPZbbbar::InitializeModel()
 {
     /* do not use setModelInitialized(NPbase::InitializeModel()) in order to
      use EWNPZbbbar */
+    std::cout << "Model: " << ModelName() << std::endl;
     myEWSM = new EWNPZbbbar(*this);
     setModelInitialized(true);
     return(IsModelInitialized());

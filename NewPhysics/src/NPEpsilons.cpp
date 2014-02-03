@@ -28,6 +28,7 @@ bool NPEpsilons::InitializeModel()
 {
     /* do not use setModelInitialized(NPbase::InitializeModel()) in order to
      use EWNPEpsilons */
+    std::cout << "Model: " << ModelName() << std::endl;
     myEWSM = new EWNPEpsilons(*this);
     setModelInitialized(true);
     return(IsModelInitialized());
