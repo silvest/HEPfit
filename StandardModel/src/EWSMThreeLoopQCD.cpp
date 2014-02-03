@@ -112,11 +112,11 @@ double EWSMThreeLoopQCD::deltaQCD_3(const double Mw_i) const
     double lZ = 2.0*cache.logMZtoMTOP();
     double Mw = cache.Mw(Mw_i);
     double sW2 = cache.sW2(Mw);
-    double log2 = cache.GetLog2();
-    double zeta2 = cache.GetZeta2();
-    double zeta3 = cache.GetZeta3();    
-    double zeta4 = cache.GetZeta4();
-    double S2 = cache.GetS2(), D3 = cache.GetD3(), B4 = cache.GetB4();
+    double log2 = cache.getLog2();
+    double zeta2 = cache.getZeta2();
+    double zeta3 = cache.getZeta3();
+    double zeta4 = cache.getZeta4();
+    double S2 = cache.getS2(), D3 = cache.getD3(), B4 = cache.getB4();
     double MZtoMT = cache.Mz()/cache.Mt();
     double nf = 6.0;
     dQCD3 = 157.0/648.0 - 3313.0/162.0*zeta2 - 308.0/27.0*zeta3 

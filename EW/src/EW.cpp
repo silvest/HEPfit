@@ -121,10 +121,10 @@ double EW::RVq(const StandardModel::quark q) const
     double nf = 5.0;
 
     /* zeta functions */
-    double zeta2 = SM.getEWSM()->getMyCache()->GetZeta2();
-    double zeta3 = SM.getEWSM()->getMyCache()->GetZeta3();
+    double zeta2 = SM.getEWSM()->getMyCache()->getZeta2();
+    double zeta3 = SM.getEWSM()->getMyCache()->getZeta3();
     //double zeta4 = SM.getEWSM()->getMyCache()->GetZeta4();
-    double zeta5 = SM.getEWSM()->getMyCache()->GetZeta5();
+    double zeta5 = SM.getEWSM()->getMyCache()->getZeta5();
 
     /* massless non-singlet corrections */
     double C02 = 365.0/24.0 - 11.0*zeta3 + (-11.0/12.0 + 2.0/3.0*zeta3)*nf;
@@ -244,10 +244,10 @@ double EW::RAq(const StandardModel::quark q) const
     double nf = 5.0;
 
     /* zeta functions */
-    double zeta2 = SM.getEWSM()->getMyCache()->GetZeta2();
-    double zeta3 = SM.getEWSM()->getMyCache()->GetZeta3();
-    double zeta4 = SM.getEWSM()->getMyCache()->GetZeta4();
-    double zeta5 = SM.getEWSM()->getMyCache()->GetZeta5();
+    double zeta2 = SM.getEWSM()->getMyCache()->getZeta2();
+    double zeta3 = SM.getEWSM()->getMyCache()->getZeta3();
+    double zeta4 = SM.getEWSM()->getMyCache()->getZeta4();
+    double zeta5 = SM.getEWSM()->getMyCache()->getZeta5();
 
     /* massless non-singlet corrections */
     double C02 = 365.0/24.0 - 11.0*zeta3 + (-11.0/12.0 + 2.0/3.0*zeta3)*nf;

@@ -35,10 +35,10 @@ double EWSMThreeLoopEW2QCD::DeltaRho(const double Mw_i) const
     double Mt = cache.Mt();
     double DeltaRho;
     if (mh==0.0) {
-        DeltaRho = 4.0*( 185.0/3.0 + 729.0/4.0*cache.GetS2() 
-                         - 48.0*cache.GetZeta2()*cache.GetLog2()
-                         - 151.0/6.0*cache.GetZeta2() + 29.0*cache.GetZeta3()
-                         - 24.0*cache.GetZeta4() + 12.0*cache.GetB4() );
+        DeltaRho = 4.0*( 185.0/3.0 + 729.0/4.0*cache.getS2()
+                         - 48.0*cache.getZeta2()*cache.getLog2()
+                         - 151.0/6.0*cache.getZeta2() + 29.0*cache.getZeta3()
+                         - 24.0*cache.getZeta4() + 12.0*cache.getB4() );
     } else if (mh > 0.0 && mh <= 2.5*Mt) {
         double delta = mh/Mt -1.0;
         DeltaRho = 157.295 + 112.00*delta - 24.73*delta*delta
@@ -46,7 +46,7 @@ double EWSMThreeLoopEW2QCD::DeltaRho(const double Mw_i) const
                    + 2.06*pow(delta, 5.0);        
     } else if (mh > 2.5*Mt) {
         double Y = 4.0*pow(Mt/mh,2.0);
-        double logY = 2.0*(cache.GetLog2() + cache.logMTOPtoMH());
+        double logY = 2.0*(cache.getLog2() + cache.logMTOPtoMH());
         double logY2 = logY*logY;
         double logY3 = logY2*logY;
         DeltaRho = 79.73 - 47.77*logY + 42.07*logY2 + 9.00*logY3

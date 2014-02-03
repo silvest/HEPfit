@@ -7,7 +7,6 @@
 
 #include <cmath>
 #include <iostream>
-#include <boost/lexical_cast.hpp>
 #include "EWSM.h"
 
 // include the imaginary part of O(alpha alpha_s) contribution (for a test)
@@ -291,14 +290,26 @@ double EWSM::sW2_SM() const
 
 double EWSM::Mzbar() const
 {
-    double Gz = 2.4952; // experimental data
+    double G0 = myCache->GF()*pow(myCache->Mz(), 3.0)/24.0/sqrt(2.0)/M_PI;
+    double sW2tree = 1.0 - SM.Mw_tree()*SM.Mw_tree()/myCache->Mz()/myCache->Mz();
+    double AlsMz = myCache->alsMz();
+    double Gz = 6.0*G0; // neutrinos
+    Gz += 3.0*G0*( pow(1.0 - 4.0*sW2tree, 2.0) + 1.0 ); // e, mu and tau
+    Gz += 6.0*G0*( pow(1.0 - 8.0/3.0*sW2tree, 2.0) + 1.0 )
+          * (1.0 + AlsMz/M_PI); // u and c
+    Gz += 9.0*G0*( pow(1.0 - 4.0/3.0*sW2tree, 2.0) + 1.0 )
+          * (1.0 + AlsMz/M_PI); // d, s and b
+
+    //Gz = 2.4952; // experimental data
+    //std::cout << "Gz=" << Gz << std::endl; // for test
+
     return ( myCache->Mz() - Gz*Gz/2.0/myCache->Mz() );
 }
 
 
 double EWSM::MwbarFromMw(const double Mw) const
 {
-    double AlsMw = SM.Als(Mw, FULLNNLO);
+    double AlsMw = SM.Als(Mw, FULLNLO);
     double Gw_SM = 3.0*myCache->GF()*pow(Mw, 3.0)/2.0/sqrt(2.0)/M_PI
                    *(1.0 + 2.0*AlsMw/3.0/M_PI);
 

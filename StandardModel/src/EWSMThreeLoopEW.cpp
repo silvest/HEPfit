@@ -31,26 +31,26 @@ double EWSMThreeLoopEW::DeltaAlpha_l(const double s) const
 
     double threeLoop[3];
     for (int i = 0; i < 3; i++) {
-        threeLoop[i] = - 121.0/48.0 + (-5.0 + 8.0*cache.GetLog2())*cache.GetZeta2() 
-                       - 99.0/16.0*cache.GetZeta3() + 10.0*cache.GetZeta5()
+        threeLoop[i] = - 121.0/48.0 + (-5.0 + 8.0*cache.getLog2())*cache.getZeta2()
+                       - 99.0/16.0*cache.getZeta3() + 10.0*cache.getZeta5()
                        + log_l[i]/8.0;
         for (int j = 0; j < 3; j++) {
             if (i > j) { /* Pi^{(2)}_l */
-                threeLoop[i] += - 116.0/27.0 + 4.0/3.0*cache.GetZeta2() 
-                                + 38.0/9.0*cache.GetZeta3() + 14.0/9.0*log_l[i]
-                                + (5.0/18.0 - 4.0/3.0*cache.GetZeta3())*log_l[j]
+                threeLoop[i] += - 116.0/27.0 + 4.0/3.0*cache.getZeta2()
+                                + 38.0/9.0*cache.getZeta3() + 14.0/9.0*log_l[i]
+                                + (5.0/18.0 - 4.0/3.0*cache.getZeta3())*log_l[j]
                                 + log_l[i]*log_l[i]/6.0
                                 - log_l[i]*log_l[j]/3.0;
                 threeLoop[i] += M_PI*M_PI/6.0;
             } else if (i == j) { /* Pi^{(2)}_F */
-                threeLoop[i] += - 307.0/216.0 - 8.0/3.0*cache.GetZeta2() 
-                                + 545.0/144.0*cache.GetZeta3()
-                                + (11.0/6.0 - 4.0/3.0*cache.GetZeta3())*log_l[i]
+                threeLoop[i] += - 307.0/216.0 - 8.0/3.0*cache.getZeta2()
+                                + 545.0/144.0*cache.getZeta3()
+                                + (11.0/6.0 - 4.0/3.0*cache.getZeta3())*log_l[i]
                                 - log_l[i]*log_l[i]/6.0;
                 threeLoop[i] += M_PI*M_PI/6.0;
             } else { /* Pi^{(2)}_h */
-                threeLoop[i] += - 37.0/6.0 + 38.0/9.0*cache.GetZeta3()
-                                + (11.0/6.0 - 4.0/3.0*cache.GetZeta3())*log_l[j]
+                threeLoop[i] += - 37.0/6.0 + 38.0/9.0*cache.getZeta3()
+                                + (11.0/6.0 - 4.0/3.0*cache.getZeta3())*log_l[j]
                                 - log_l[j]*log_l[j]/6.0;
                 threeLoop[i] += M_PI*M_PI/6.0;
             }
@@ -76,13 +76,13 @@ double EWSMThreeLoopEW::DeltaRho(const double Mw_i) const
     double Mt = cache.Mt();
     double DeltaRho;
     if (mh==0.0) {
-        DeltaRho = 3.0*( 68.0 + 729.0*cache.GetS2() + 36.0*cache.GetD3() 
-                         + 96.0*cache.GetZeta2()*cache.GetLog2()
-                         + 6.0*cache.GetZeta2() - 612.0*cache.GetZeta3() 
-                         + 324.0*cache.GetZeta4() - 72.0*cache.GetB4() 
-                         + 3.0*( - 6572.0/15.0 - 4374.0/5.0*cache.GetS2()
-                                 + 1472.0/15.0*cache.GetZeta2() 
-                                 + 440.0*cache.GetZeta3() ) );
+        DeltaRho = 3.0*( 68.0 + 729.0*cache.getS2() + 36.0*cache.getD3()
+                         + 96.0*cache.getZeta2()*cache.getLog2()
+                         + 6.0*cache.getZeta2() - 612.0*cache.getZeta3()
+                         + 324.0*cache.getZeta4() - 72.0*cache.getB4()
+                         + 3.0*( - 6572.0/15.0 - 4374.0/5.0*cache.getS2()
+                                 + 1472.0/15.0*cache.getZeta2()
+                                 + 440.0*cache.getZeta3() ) );
     } else if (mh > 0.0 && mh <= 2.5*Mt) {
         double delta = mh/Mt -1.0;
         DeltaRho = 95.92 - 111.98*delta + 8.099*delta*delta 
@@ -90,7 +90,7 @@ double EWSMThreeLoopEW::DeltaRho(const double Mw_i) const
                    - 15.60*pow(delta, 5.0);
     } else if (mh > 2.5*Mt) {
         double Y = 4.0*pow(Mt/mh,2.0);
-        double logY = 2.0*(cache.GetLog2() + cache.logMTOPtoMH());
+        double logY = 2.0*(cache.getLog2() + cache.logMTOPtoMH());
         double logY2 = logY*logY;
         double logY3 = logY2*logY;        
         DeltaRho = 1.0/Y*( -3.17 - 83.25*logY ) 

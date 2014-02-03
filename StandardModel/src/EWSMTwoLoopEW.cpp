@@ -38,7 +38,7 @@ double EWSMTwoLoopEW::DeltaAlpha_l(const double s) const
     
     double twoLoop[3];
     for (int i = 0; i < 3; i++) {
-        twoLoop[i] = - 5.0/24.0 + cache.GetZeta3() + log_l[i]/4.0 
+        twoLoop[i] = - 5.0/24.0 + cache.getZeta3() + log_l[i]/4.0 
                      + 3.0/xl[i]*log_l[i];
     }
             

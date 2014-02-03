@@ -92,7 +92,7 @@ complex EWSMTwoLoopQCD::deltaKappa_rem_q(const StandardModel::quark q,
 
 double EWSMTwoLoopQCD::deltaQCD_2() const 
 {
-    return ( -2.0/3.0*(1.0+2.0*cache.GetZeta2()) );
+    return ( -2.0/3.0*(1.0+2.0*cache.getZeta2()) );
 }
 
 
@@ -101,8 +101,8 @@ double EWSMTwoLoopQCD::F1(const double x, const double Mw_i) const
     if (x < 0.0 || x >= 1.0) throw std::runtime_error("x is out of range in EWSMTwoLoopQCD::F1");     
        
     /* Zeta functions */
-    double zeta_2 = cache.GetZeta2();
-    double zeta_3 = cache.GetZeta3();    
+    double zeta_2 = cache.getZeta2();
+    double zeta_3 = cache.getZeta3();    
 
     if (x == 0.0) return (23.0/16.0 - zeta_2/2.0 - 3.0/2.0*zeta_3);     
     
@@ -139,7 +139,7 @@ double EWSMTwoLoopQCD::V1(const double r) const
     if (r < 0.0 || r >= 1.0) throw std::runtime_error("r is out of range in EWSMTwoLoopQCD::V1"); 
 
     /* Zeta functions */
-    double zeta_3 = cache.GetZeta3(); 
+    double zeta_3 = cache.getZeta3(); 
     
     if (r == 0.0) return (0.0); 
     
@@ -192,8 +192,8 @@ double EWSMTwoLoopQCD::A1(const double r) const
     if (r < 0.0 || r >= 1.0) throw std::runtime_error("r is out of range in EWSMTwoLoopQCD::A1"); 
  
     /* Zeta functions */
-    double zeta_2 = cache.GetZeta2();
-    double zeta_3 = cache.GetZeta3(); 
+    double zeta_2 = cache.getZeta2();
+    double zeta_3 = cache.getZeta3(); 
         
     if (r == 0.0) return (3.0*(7.0/4.0 - zeta_2 - 2.0*zeta_3));         
      
@@ -246,7 +246,7 @@ double EWSMTwoLoopQCD::V1prime(const double r) const
     if (r < 0.0 || r >= 1.0) throw std::runtime_error("r is out of range in EWSMTwoLoopQCD::V1prime"); 
 
     /* Zeta functions */
-    double zeta_3 = cache.GetZeta3();     
+    double zeta_3 = cache.getZeta3();     
     
     if (r == 0.0) return (4.0*zeta_3 - 5.0/6.0); 
     
@@ -340,8 +340,8 @@ double EWSMTwoLoopQCD::A1prime(const double r) const
     if (r < 0.0 || r >= 1.0) throw std::runtime_error("r is out of range in EWSMTwoLoopQCD::A1prime"); 
  
     /* Zeta functions */
-    double zeta_2 = cache.GetZeta2();
-    double zeta_3 = cache.GetZeta3(); 
+    double zeta_2 = cache.getZeta2();
+    double zeta_3 = cache.getZeta3(); 
         
     if (r == 0.0) return (3.0*(7.0/4.0 - zeta_2 - 2.0*zeta_3));         
      
@@ -464,7 +464,7 @@ double EWSMTwoLoopQCD::DeltaR_tb(const double Mw_i) const
     double ab = cache.aq(StandardModel::BOTTOM);
     
     /* Zeta functions */
-    double zeta_2 = cache.GetZeta2();
+    double zeta_2 = cache.getZeta2();
     
     /* Logarithm */
     double log_zt = - 2.0*cache.logMZtoMTOP();
