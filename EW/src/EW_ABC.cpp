@@ -11,7 +11,7 @@
 
 
 EW_ABC::EW_ABC(const StandardModel& SM_i)
-: SM(SM_i), myEWepsilons(SM_i)
+: SM(SM_i), myEWNPEpsilons(SM_i)
 {
     if (SM.ModelName().compare("NPEpsilons") != 0)
         throw std::runtime_error("EW_ABC::EW_ABC() is not applicable for the model " + SM.ModelName());
@@ -21,7 +21,7 @@ EW_ABC::EW_ABC(const StandardModel& SM_i)
 double EW_ABC::Mw(const bool bAlternative) const
 {
     if (!bAlternative)
-        return myEWepsilons.Mw(eps1(), eps2(), eps3());
+        return myEWNPEpsilons.Mw(eps1(), eps2(), eps3());
     else {
         double delta_alpha = (SM.alphaMz() - 1.0/128.90)/SM.getAle();
         double cW2_Born = 0.768905*(1.0 - 0.40*delta_alpha);
@@ -275,13 +275,13 @@ double EW_ABC::epsb() const
     
 complex EW_ABC::gVl(StandardModel::lepton l) const 
 {
-    return myEWepsilons.gVl(l, eps1(), eps3());
+    return myEWNPEpsilons.gVl(l, eps1(), eps3());
 }
 
 
 complex EW_ABC::gAl(StandardModel::lepton l) const 
 {
-    return myEWepsilons.gAl(l, eps1());
+    return myEWNPEpsilons.gAl(l, eps1());
 }
 
 
@@ -295,7 +295,7 @@ complex EW_ABC::gVq(StandardModel::quark q) const
 {
     if (q==StandardModel::BOTTOM || q==StandardModel::TOP)
         throw std::runtime_error("Error in EW_ABC::gVq()");    
-    return myEWepsilons.gVq(q, eps1(), eps3());
+    return myEWNPEpsilons.gVq(q, eps1(), eps3());
 }
 
 
@@ -303,7 +303,7 @@ complex EW_ABC::gAq(StandardModel::quark q) const
 {
     if (q==StandardModel::BOTTOM || q==StandardModel::TOP)
         throw std::runtime_error("Error in EW_ABC::gAq()");  
-    return myEWepsilons.gAq(q, eps1());
+    return myEWNPEpsilons.gAq(q, eps1());
 }
 
 
@@ -317,13 +317,13 @@ complex EW_ABC::gVq_over_gAq(StandardModel::quark q) const
 
 complex EW_ABC::gVb() const 
 {
-    return myEWepsilons.gVb(eps1(), eps3(), epsb());
+    return myEWNPEpsilons.gVb(eps1(), eps3(), epsb());
 }
 
 
 complex EW_ABC::gAb() const 
 {
-    return myEWepsilons.gAb(eps1(), epsb());
+    return myEWNPEpsilons.gAb(eps1(), epsb());
 }
 
 

@@ -10,7 +10,7 @@
 
 #include <gslpp.h>
 #include <StandardModel.h>
-#include <EWepsilons.h>
+#include "EWNPepsilons.h"
 using namespace gslpp;
 
 /**
@@ -79,7 +79,7 @@ public:
     ////////////////////////////////////////////////////////////////////////
 private:
     const StandardModel& SM;
-    const EWepsilons myEWepsilons;
+    const EWNPEpsilons myEWNPEpsilons;
 
 };
 
