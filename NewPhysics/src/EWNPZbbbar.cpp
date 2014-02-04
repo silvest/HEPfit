@@ -9,7 +9,7 @@
 #include "EWNPZbbbar.h"
 
 EWNPZbbbar::EWNPZbbbar(const StandardModel& SM_i)
-: SM(SM_i), EWSM(SM_i)
+: EWSM(SM_i)
 {
 }
 

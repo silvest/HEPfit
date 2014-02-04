@@ -92,10 +92,6 @@ public:
      */
     virtual complex gAq(const StandardModel::quark q) const;
 
-    
-    ////////////////////////////////////////////////////////////////////////
-private:
-    const StandardModel& SM;
 
 };
 
