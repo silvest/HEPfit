@@ -61,8 +61,8 @@ StandardModel::StandardModel()
 bool StandardModel::InitializeModel()
 {
     std::cout << "Model: " << ModelName() << std::endl;
-    myStandardModelMatching = new StandardModelMatching(*this);
     myEWSM = new EWSM(*this);
+    myStandardModelMatching = new StandardModelMatching(*this);
     setModelInitialized(true);
     return(true);
 }
