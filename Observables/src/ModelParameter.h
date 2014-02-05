@@ -29,7 +29,7 @@ class ModelParameter {
 public:
     
     /**
-     * @brief The default constructor.
+     * @brief Constructor.
      * @param[in] name_in the name for the model parameter
      * @param[in] ave_in the average value for the model parameter
      * @param[in] errg_in the gaussian error for the model parameter
@@ -43,16 +43,16 @@ public:
     virtual ~ModelParameter();
     
     
-    std::string name; /**< The name of the model parameter */
-    double ave; /**< The average value of the model parameter */
-    double errg; /**< The Gaussian error of the model parameter */
-    double errf; /**< The flat error of the model parameter */
-    double min; /**< The minimum value of the model parameter */
-    double max; /**< The maximum value of the model parameter */
+    std::string name; ///< The name of the model parameter.
+    double ave; ///< The average value of the model parameter.
+    double errg; ///< The Gaussian error of the model parameter.
+    double errf; ///< The flat error of the model parameter.
+    double min; ///< The minimum value of the model parameter.
+    double max; ///< The maximum value of the model parameter.
     
     /**
      * @brief Befriending of the std::ostream operator << to generate an
-     * output stream for printing the model parameters
+     * output stream for printing the model parameters.
      * @param[out] output the formatted output stream to print the model parameters
      * @param[in] m a reference to an object of type ModelParameter()
      */

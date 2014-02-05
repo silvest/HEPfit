@@ -20,19 +20,19 @@
  * @copyright GNU General Public License
  * @details The class for building an observable and storing its different 
  * parameters read from the SomeModel.conf file. The name (thname) of the observable has
- * to correspond to the allowed name of observables listed in the ThFactory() class.
+ * to correspond to the allowed name of observables listed in the ThFactory class.
  */
 class Observable {
 public:
     /**
-     * @brief The default constructor.
+     * @brief Constructor.
      * @param[in] name_i a given name for the observable
      * @param[in] thname_i the thname for the observable fixed in ThFactory()
      * @param[in] label_i the label assigned to the observable
      * @param[in] tMCMC_i boolean flag to indicate inclusion in MCMC
      * @param[in] min_i minimum value for the observable
      * @param[in] max_i maximum value for the observable
-     * @param[in] tho_i a pointer to an object of type ThObservable()
+     * @param[in] tho_i a pointer to an object of type ThObservable
      */
     Observable(const std::string name_i,
                const std::string thname_i,
@@ -53,12 +53,12 @@ public:
     virtual ~Observable();
     
     /**
-     * @brief A method to access the computed theory value of the observable
+     * @brief A method to access the computed theory value of the observable.
      */
     double computeTheoryValue();
 
     /**
-     * @brief A get method to access the average value of the observable
+     * @brief A get method to access the average value of the observable.
      * @return the average value of the observable
      */
     double getAve() const
@@ -67,7 +67,7 @@ public:
     }
 
     /**
-     * @brief A set method to fix the average value of the observable
+     * @brief A set method to fix the average value of the observable.
      * @param[in] ave the average value of the observable
      */
     void setAve(double ave)
@@ -76,7 +76,7 @@ public:
     }
 
     /**
-     * @brief A get method to access the name of the distribution of the observable
+     * @brief A get method to access the name of the distribution of the observable.
      * @return the name of the distribution of the observable
      */
     std::string getDistr() const
@@ -85,7 +85,7 @@ public:
     }
 
     /**
-     * @brief A set method to fix the name of the distribution of the observable
+     * @brief A set method to fix the name of the distribution of the observable.
      * @param[in] distr the name of the distribution of the observavble
      */
     void setDistr(std::string distr)
@@ -94,7 +94,7 @@ public:
     }
 
     /**
-     * @brief A get method to access the flat error of the observable
+     * @brief A get method to access the flat error of the observable.
      * @return the flat error of the observable
      */
     double getErrf() const
@@ -103,7 +103,7 @@ public:
     }
 
     /**
-     * @brief A set method to fix the flat error of the observable
+     * @brief A set method to fix the flat error of the observable.
      * @param[in] errf the flat error of the observable
      */
     void setErrf(double errf)
@@ -112,7 +112,7 @@ public:
     }
 
     /**
-     * @brief A get method to access the Gaussian error of the observble
+     * @brief A get method to access the Gaussian error of the observble.
      * @return the Gauissian error of the observable
      */
     double getErrg() const
@@ -121,7 +121,7 @@ public:
     }
 
     /**
-     * @brief A set method to fix the gaussian error of the observable
+     * @brief A set method to fix the gaussian error of the observable.
      * @param[in] errg the Gaussian error of the observable
      */
     void setErrg(double errg)
@@ -130,8 +130,8 @@ public:
     }
 
     /**
-     * @brief
-     * @return
+     * @brief A get method to access the filename of the observables experimental likelihood file.
+     * @return the name of the file
      */
     std::string getFilename() const
     {
@@ -139,8 +139,9 @@ public:
     }
     
     /**
-     * @brief
-     * @param
+     * @brief A set method to set the filename from which the experimental likelihood of the observable will
+     * be read.
+     * @param filename the name of the file
      */
     void setFilename(std::string filename)
     {
@@ -148,7 +149,7 @@ public:
     }
 
     /**
-     * @brief A get method to access the name for the histogram of the observable
+     * @brief A get method to access the name for the histogram of the observable.
      * @return the name of the histogram for the observable
      */
     std::string getHistoname() const
@@ -157,7 +158,7 @@ public:
     }
 
     /**
-     * @brief A set method to fix the name of the histogram for the observable
+     * @brief A set method to fix the name of the histogram for the observable.
      * @param[in] the histoname name of the histogram of the observable
      */
     void setHistoname(std::string histoname)
@@ -166,7 +167,7 @@ public:
     }
 
     /**
-     * @brief A get method to access the label for the observable
+     * @brief A get method to access the label for the observable.
      * @return the label for the observable
      */
     std::string getLabel() const
@@ -175,7 +176,7 @@ public:
     }
 
     /**
-     * @brief A set method to fix the label for the observable
+     * @brief A set method to fix the label for the observable.
      * @param[in] label the label for the observable
      */
     void setLabel(std::string label)
@@ -193,7 +194,7 @@ public:
     }
 
     /**
-     * @brief A set method to fix the maximum value for the observable
+     * @brief A set method to fix the maximum value for the observable.
      * @param[in] the maximum value for the observable
      */
     void setMax(double max)
@@ -202,7 +203,7 @@ public:
     }
     
     /**
-     * @brief A get method to access the minimum value of the observable
+     * @brief A get method to access the minimum value of the observable.
      * @return the minimum value of the observable
      */
     double getMin() const 
@@ -211,7 +212,7 @@ public:
     }
     
     /**
-     * @brief A set method to fix the minimum value for the observable
+     * @brief A set method to fix the minimum value for the observable.
      * @param[in] the minimum value for the observable
      */
     void setMin(double min) 
@@ -220,7 +221,7 @@ public:
     }
 
     /**
-     * @brief A get method to access the name of the observable
+     * @brief A get method to access the name of the observable.
      * @return the name of the observable
      */
     std::string getName() const
@@ -229,7 +230,7 @@ public:
     }
 
     /**
-     * @brief A set method to fix the name for the observable
+     * @brief A set method to fix the name for the observable.
      * @param name for the observable
      */
     void setName(std::string name)
@@ -238,7 +239,7 @@ public:
     }
 
     /**
-     * @brief A method to check if the observable is listed for MCMC
+     * @brief A method to check if the observable is listed for MCMC.
      * @return true or false
      */
     bool isTMCMC() const
@@ -247,7 +248,7 @@ public:
     }
 
     /**
-     * @brief A set method to fix the observable's inclusion in the MCMC listing
+     * @brief A set method to fix the observable's inclusion in the MCMC listing.
      * @param[in] tMCMC true or false
      */
     void setTMCMC(bool tMCMC)
@@ -256,8 +257,8 @@ public:
     }
 
     /**
-     * @brief A get method to access the thname of the observable as defined in ThFactory() class
-     * @return thname the name of the observable as listed in ThFactory() class
+     * @brief A get method to access the thname of the observable as defined in ThFactory class.
+     * @return thname the name of the observable as listed in ThFactory class
      */
     std::string getThname() const
     {
@@ -265,8 +266,8 @@ public:
     }
 
     /**
-     * @brief A set method to fix the name of the observable as listed in ThFactory() class
-     * @param[in] thname the name of the observable as listed in ThFactory() class
+     * @brief A set method to fix the name of the observable as listed in ThFactory class.
+     * @param[in] thname the name of the observable as listed in ThFactory class
      */
     void setThname(std::string thname)
     {
@@ -274,8 +275,8 @@ public:
     }
 
     /**
-     * @brief A get method to access the pointer to the object of the ThObservable() class
-     * @return pointer to the object of type ThObservable()
+     * @brief A get method to access the pointer to the object of the ThObservable class.
+     * @return pointer to the object of type ThObservable
      */
     ThObservable* getTho() const
     {
@@ -283,8 +284,8 @@ public:
     }
 
     /**
-     * @brief A set method to fix the pointer to object of type ThObservable()
-     * @param[in] pointer to the object of type ThObservable()
+     * @brief A set method to fix the pointer to object of type ThObservable.
+     * @param[in] pointer to the object of type ThObservable
      */
     void setTho(ThObservable* tho)
     {
@@ -293,26 +294,26 @@ public:
 
     /**
      * @brief Befriending of the std::ostream operator << to generate an
-     * output stream for printing the observables details
+     * output stream for printing the observables details.
      * @param[out] output the formatted output stream to print the model parameters
      * @param[in] o a reference to an object of type Observable()
      */
     friend std::ostream& operator<<(std::ostream& output, const Observable& o);
 
 protected:
-    ThObservable * tho; /**< A pointer of to the object of the type ThObservables() class. */
-    std::string name; /**< A name for the observable. */
-    std::string thname; /**< The name for the oservable as fixed in the ThObservable() class.*/
-    std::string label; /**< A label for the observable. */
-    std::string distr; /**< The name of the distribution of the the observable. */
-    std::string filename; /**< */
-    std::string histoname; /**< The name of the histogram for the observable. */
-    double ave; /**< The average value of the observable. */
-    double errg; /**< The gaussian error of the observable. */
-    double errf; /**< the flat error of the observable. */
-    double min; /**< The minimum value of the observable. */
-    double max; /**< The maximum valus of the observable. */
-    bool tMCMC; /**< The flag to include or exclude the observable from the MCMC run. */
+    ThObservable * tho; ///< A pointer of to the object of the ThObservables class.
+    std::string name; ///< A name for the observable.
+    std::string thname; ///< The name for the oservable as fixed in the ThObservable class.
+    std::string label; ///< A label for the observable.
+    std::string distr; ///< The name of the distribution of the the observable.
+    std::string filename; ///< The name of the file containing the experimental likelihood for the observable.
+    std::string histoname; ///< The name of the histogram for the observable.
+    double ave; ///< The average value of the observable.
+    double errg; ///< The gaussian error of the observable.
+    double errf; ///< the flat error of the observable.
+    double min; ///< The minimum value of the observable.
+    double max; ///< The maximum valus of the observable.
+    bool tMCMC; ///< The flag to include or exclude the observable from the MCMC run.
 };
 
 

@@ -155,10 +155,10 @@ class ThFactory {
 public:
     
     /**
-     * @brief The default constructor.
+     * @brief Constructor.
      * @details All the theory observables are built by the constructor. These
-     * are implemented as a map between the names of the observables and a 
-     * pointer to an object of type ThObservable().
+     * are implemented as a map between the names of the observables and a
+     * pointer to an object of type ThObservable.
      * @param[in] myModel a reference to an object of the type StandardModel
      */
     ThFactory(const StandardModel& myModel);
@@ -171,17 +171,17 @@ public:
     
     /**
      * @brief This method checks for the existence of an observable of a specific name in the map
-     * thobs and returns a pointer to the particular ThObservable().
+     * thobs and returns a pointer to the particular ThObservable.
      * @param[in] name the name of the observable
      * @return a pointer to an object of the type ThObservable
      */
     ThObservable* getThMethod(const std::string& name);
 
 private:
-    std::map<std::string, ThObservable *> thobs; /**< A map between a pointer of type ThObservable() and the name of the observable.*/
-    EW myEW; /**< An object of type EW().*/
-    Flavour myFlavour; /**< An object of type Flavour().*/
-    ModelObservable myMO; /**< An object of type ModelObservable()*/
+    std::map<std::string, ThObservable *> thobs; ///< A map between a pointer of type ThObservable and the name of the observable.
+    EW myEW; ///< An object of type EW().
+    Flavour myFlavour; ///< An object of type Flavour.
+    ModelObservable myMO; ///< An object of type ModelObservable
 };
 
 #endif	/* THFACTORY_H */
