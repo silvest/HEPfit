@@ -36,19 +36,21 @@
  * @brief An engine class for Monte Carlo.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details
+ * @details The MonteCarlo engine is has overloaded from BCEngineMCMC class in the
+ * <a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a> libraries 
+ * and user defined fumctions to facilitate the Monte Carlo run.
  */
 class MonteCarloEngine : public BCModel {
 public:
     
     /**
-     * @brief The default constructor.
+     * @brief Constructor.
      * @param[in] ModPars_i the vector of model parameters as defined in SomeModel.conf
      * @param[in] Obs_i the vector of observables as defined in SomeModel.conf
      * @param[in] Obs2D_i the vector of observables2D as defined in SomeModel.conf
      * @param[in] CGO_i the vector of correlated Gaussian observables as defined in SomeModel.conf
      * @param[in] ParaObs_i the vector of parameter vs. observables as defined in SomeModel.conf
-     * @param[in] checkHistRange_i
+     * @param[in] checkHistRange_i flag to set whether histogram ranges will be checked or not
      */
     MonteCarloEngine(const std::vector<ModelParameter>& ModPars_i,
                      std::vector<Observable>& Obs_i,
@@ -72,7 +74,7 @@ public:
      * \li The correlated Gaussian observables are sorted for inclusion in the MCMC and the corresponding output 
      * histograms are initiated.
      * \li The histograms for the model paramaters vs. observables are initiated.\n
-     * The output specifications are passed from the SomeModel.conf file parsed by the InputParser(). The number of 
+     * The output specifications are passed from the SomeModel.conf file parsed by the InputParser. The number of
      * bins for the 1D and 2D histograms are defined through the NBINS1D and NBINS2D parameters fixed in 
      * MonteCarloEngine.h.
      * @param[in] Mod_i the pointer to the model defined in SomeModel.conf
@@ -113,7 +115,7 @@ public:
     double LogLikelihood(const std::vector <double>& parameters);
     
     /**
-     * @brief This member checks if there is overflow of the 1D histogram
+     * @brief This member checks if there is overflow of the 1D histogram.
      * @param[in] hist a reference to a object of type <a href="http://root.cern.ch/root/html/TH1D.html"
      * target=blank>TH1D</a> as defined in the ROOT libraries
      * @param[in] name the name for the histogram
@@ -121,7 +123,7 @@ public:
     void CheckHistogram(const TH1D& hist, const std::string name);
     
     /**
-     * @brief This member checks if there is overflow of the 2D histogram
+     * @brief This member checks if there is overflow of the 2D histogram.
      * @param[in] hist a reference to a object of type <a href="http://root.cern.ch/root/html/TH2D.html"
      * target=blank>TH2D</a> as defined in the ROOT libraries
      * @param[in] name the name for the histogram
@@ -133,7 +135,7 @@ public:
      * histogram for observables.
      * @param[in] out a reference to an object of type BCModelOutput as defined in the
      * <a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT libraries</a>
-     * @param[in] it a iterator of the vector of objects of type Observable()
+     * @param[in] it a iterator of the vector of objects of type Observable
      * @param[in] OutputDir the name of the output directory
      */
     void PrintHistogram(BCModelOutput & out,
@@ -235,29 +237,29 @@ public:
     }
     
 private:
-    const std::vector<ModelParameter>& ModPars; /**< A vector of model parameters. */
-    std::vector<Observable> Obs_MCMC; /**< A vector of observables to be used in the MCMC. */
-    std::vector<Observable>& Obs_ALL;  /**< A vector of all observables. */
-    std::vector<Observable2D> Obs2D_MCMC; /**< A vector of pairs of observables for Observable2D() that are used in the MCMC.*/
-    std::vector<Observable2D>& Obs2D_ALL; /**< A vector of all pairs of observable for Observable2D().*/
-    std::vector<CorrelatedGaussianObservables>& CGO; /**< A vector of correlated Gaussian observables.*/
-    std::vector<ModelParaVsObs>& ParaObs; /**< A vector of pairs of model parameters and observables.*/
-    Model* Mod; /**< A pointer to an abject of type Model(). */
-    std::map<std::string, double> DPars; /**< A map between parameter names and their values.*/
-    std::map<std::string, BCH1D * > Histo1D; /**< A map between pointers to objects of type BCH1D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names. */
-    std::map<std::string, TH1D * > InHisto1D; /**< A map between pointers to objects of type TH1D (<a href="http://root.cern.ch/root/html/TH1D.html" target=blank>TH1D</a>) and their given names.*/
-    std::map<std::string, BCH2D * > Histo2D; /**< A map between pointers to objects of type BCH2D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names. */
-    std::map<std::string, TH2D * > InHisto2D; /**< A map between pointers to objects of type TH2D (<a href="http://root.cern.ch/root/html/TH2D.html" target=blank>TH1D</a>) and their given names*/
-    std::map<std::string, double> thMin; /**< A map between the name of a theory observable and its minimum value.*/
-    std::map<std::string, double> thMax; /**< A map between the name of a theory observable and its maximum value.*/
-    double *obval; /**< A pointer to the vector of observable values.*/
-    double *obweight; /**< A pointer to the vector of observable weights.*/
-    unsigned int kwmax; /**< The number of observables whose weights are used for the MCMC. */
-    unsigned int kmax; /**< The number of observables.*/
-    std::ostringstream HistoLog; /**< A stream to store the output messages from printing and checking histograms.*/
-    int NumOfUsedEvents; /**< The number of events for which the model is successfully updated and hence used for the MCMC run*/
-    int NumOfDiscardedEvents; /**< The number of events for which the update of the model fails and these events are not used for the MCMC run.*/
-    bool checkTheoryRange; /**< The flag that specifies if the theory range should be checked.*/
+    const std::vector<ModelParameter>& ModPars; ///< A vector of model parameters.
+    std::vector<Observable> Obs_MCMC; ///< A vector of observables to be used in the MCMC.
+    std::vector<Observable>& Obs_ALL;  ///< A vector of all observables.
+    std::vector<Observable2D> Obs2D_MCMC; ///< A vector of pairs of observables for Observable2D that are used in the MCMC.
+    std::vector<Observable2D>& Obs2D_ALL; ///< A vector of all pairs of observable for Observable2D.
+    std::vector<CorrelatedGaussianObservables>& CGO; ///< A vector of correlated Gaussian observables.
+    std::vector<ModelParaVsObs>& ParaObs; ///< A vector of pairs of model parameters and observables.
+    Model* Mod; ///< A pointer to an abject of type Model.
+    std::map<std::string, double> DPars; ///< A map between parameter names and their values.
+    std::map<std::string, BCH1D * > Histo1D; ///< A map between pointers to objects of type BCH1D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
+    std::map<std::string, TH1D * > InHisto1D; ///< A map between pointers to objects of type TH1D (<a href="http://root.cern.ch/root/html/TH1D.html" target=blank>TH1D</a>) and their given names.
+    std::map<std::string, BCH2D * > Histo2D; ///< A map between pointers to objects of type BCH2D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
+    std::map<std::string, TH2D * > InHisto2D; ///< A map between pointers to objects of type TH2D (<a href="http://root.cern.ch/root/html/TH2D.html" target=blank>TH1D</a>) and their given names.
+    std::map<std::string, double> thMin; ///< A map between the name of a theory observable and its minimum value.
+    std::map<std::string, double> thMax; ///< A map between the name of a theory observable and its maximum value.
+    double *obval; ///< A pointer to the vector of observable values.
+    double *obweight; ///< A pointer to the vector of observable weights.
+    unsigned int kwmax; ///< The number of observables whose weights are used for the MCMC.
+    unsigned int kmax; ///< The number of observables.
+    std::ostringstream HistoLog; ///< A stream to store the output messages from printing and checking histograms.
+    int NumOfUsedEvents; ///< The number of events for which the model is successfully updated and hence used for the MCMC run.
+    int NumOfDiscardedEvents; ///< The number of events for which the update of the model fails and these events are not used for the MCMC run.
+    bool checkTheoryRange; ///< The flag that specifies if the theory range should be checked.
     
 };
 
