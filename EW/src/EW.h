@@ -130,7 +130,7 @@ public:
     double sigma0_l(const StandardModel::lepton l) const;
 
     /**
-     * @return the cross section for \f$e^+e^- \rightarrow Z \rightarrow \mathrm{hadrons}f$ at the \f$Z\f$ pole
+     * @return the cross section for \f$e^+e^- \rightarrow Z \rightarrow \mathrm{hadrons}\f$ at the \f$Z\f$ pole
      */
     double sigma0_had() const; 
  
