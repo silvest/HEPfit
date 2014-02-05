@@ -418,17 +418,19 @@ complex CKM::V_tb()
 }
 
 // Sides
+/*
 double CKM::getRt()
 {
     return (Vtd*Vtb.conjugate()/(Vcd*Vcb.conjugate())).abs();
 }
-
-double CKM::getRb() 
-{
-    return (Vud*Vub.conjugate()/(Vcd*Vcb.conjugate())).abs();
-}
-
 double CKM::getRts() 
 {
     return (Vts*Vtb.conjugate()/(Vcs*Vcb.conjugate())).abs();
 }
+
+double CKM::getRb()
+{
+    return (Vud*Vub.conjugate()/(Vcd*Vcb.conjugate())).abs();
+}
+
+*/

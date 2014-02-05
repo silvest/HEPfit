@@ -84,9 +84,10 @@ public:
     complex V_td();
     complex V_ts();
     complex V_tb();
-    
+
+    /*
     // Angles
-    /*double computeBeta();
+    double computeBeta();
     double computeGamma();
     double computeAlpha();
     double computeBetas();
@@ -102,12 +103,13 @@ public:
     
     complex computelamt_s();
     complex computelamc_s();
-    complex computelamu_s();*/
+    complex computelamu_s();
     
     // Sides
     double getRt();
     double getRts();
     double getRb();
+    */
     
 private:
     double Rho, Eta, Lambda, A;

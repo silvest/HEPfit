@@ -23,186 +23,278 @@ class EWSM; // forward reference to EWSM class
  * @brief A class for the Standard %Model.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is ....
+ * @details This is a model class "StandardModel", which contains parameters
+ * and functions associated with the Standard %Model. This class is inherited
+ * from the QCD class, which defines parameters related to %QCD.
  *
+ *
+ * @anchor StandardModelInitialization
+ * <h3>Initialization</h3>
+ *
+ * The constructor StandardModel() initializes some of the model flags to their
+ * default values. After creating an instance of the current class,
+ * it is required to call the initialization method InitializeModel(), which
+ * allocates memory to the pointers #myEWSM and #myStandardModelMatching. 
+ * These pointers are then used in computing %EW precision and flavour observables,
+ * respectively. In a Monte Carlo run, the constructor as well as the initialization
+ * method are called in InputParser::ReadParameters().
+ *
+ * The initializations and updates of the model parameters and flags are explained
+ * below. 
+ *
+ * 
+ * @anchor StandardModelParameters
+ * <h3>%Model parameters</h3>
  *
  * The model parameters of StandardModel are summarized below: 
- * @anchor StandardModelParameters
  * <table class="model">
  * <tr>
- *   <th>Parameter</th>
+ *   <th>Label</th>
  *   <th>LaTeX symbol</th>
  *   <th>Description</th>
  * </tr>
  * <tr>
- *   <td class="mod_name">#GF</td>
+ *   <td class="mod_name">%GF</td>
  *   <td class="mod_symb">@f$G_\mu@f$</td>
  *   <td class="mod_desc">The Fermi constant in @f${\rm GeV}^{-2}@f$, measured through muon decays.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">#ale</td>
+ *   <td class="mod_name">%ale</td>
  *   <td class="mod_symb">@f$\alpha@f$</td>
  *   <td class="mod_desc">The fine-structure constant.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">#dAle5Mz</td>
+ *   <td class="mod_name">%dAle5Mz</td>
  *   <td class="mod_symb">@f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$</td>
  *   <td class="mod_desc">The five-flavour hadronic contribution to the electromagnetic coupling.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">#mHl</td>
+ *   <td class="mod_name">%mHl</td>
  *   <td class="mod_symb">@f$m_h@f$</td>
  *   <td class="mod_desc">The Higgs mass in GeV.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">#delMw</td>
+ *   <td class="mod_name">%delMw</td>
  *   <td class="mod_symb">@f$\delta\,M_W@f$</td>
  *   <td class="mod_desc">The theoretical uncertainty in @f$M_W@f$ in GeV.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">#delSin2th_l</td>
+ *   <td class="mod_name">%delSin2th_l</td>
  *   <td class="mod_symb">@f$\delta\sin^2\theta_{\rm eff}^{\rm lept}@f$</td>
  *   <td class="mod_desc">The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">#delGammaZ</td>
+ *   <td class="mod_name">%delGammaZ</td>
  *   <td class="mod_symb">@f$\delta\,\Gamma_Z@f$</td>
  *   <td class="mod_desc">The theoretical uncertainty in @f$\Gamma_Z@f$ in GeV.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">mneutrino_1</td>
+ *   <td class="mod_name">%mneutrino_1</td>
  *   <td class="mod_symb">@f$m_{\nu_1}@f$</td>
  *   <td class="mod_desc">The mass of the first-generation neutrino in GeV.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">mneutrino_2</td>
+ *   <td class="mod_name">%mneutrino_2</td>
  *   <td class="mod_symb">@f$m_{\nu_2}@f$</td>
  *   <td class="mod_desc">The mass of the second-generation neutrino in GeV.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">mneutrino_3</td>
+ *   <td class="mod_name">%mneutrino_3</td>
  *   <td class="mod_symb">@f$m_{\nu_3}@f$</td>
  *   <td class="mod_desc">The mass of the third-generation neutrino in GeV.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">melectron</td>
+ *   <td class="mod_name">%melectron</td>
  *   <td class="mod_symb">@f$m_e@f$</td>
  *   <td class="mod_desc">The electron mass in GeV.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">mmu</td>
+ *   <td class="mod_name">%mmu</td>
  *   <td class="mod_symb">@f$m_\mu@f$</td>
  *   <td class="mod_desc">The muon mass in GeV.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">mtau</td>
+ *   <td class="mod_name">%mtau</td>
  *   <td class="mod_symb">@f$m_\tau@f$</td>
  *   <td class="mod_desc">The tau mass in GeV.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">#lambda</td>
+ *   <td class="mod_name">%lambda</td>
  *   <td class="mod_symb">@f$\lambda@f$</td>
  *   <td class="mod_desc">The %CKM parameter @f$\lambda@f$ in the Wolfenstein parameterization.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">#A</td>
+ *   <td class="mod_name">%A</td>
  *   <td class="mod_symb">@f$A@f$</td>
  *   <td class="mod_desc">The %CKM parameter @f$A@f$ in the Wolfenstein parameterization.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">#rhob</td>
+ *   <td class="mod_name">%rhob</td>
  *   <td class="mod_symb">@f$\bar{\rho}@f$</td>
  *   <td class="mod_desc">The %CKM parameter @f$\bar{\rho}@f$ in the Wolfenstein parameterization.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">#etab</td>
+ *   <td class="mod_name">%etab</td>
  *   <td class="mod_symb">@f$\bar{\eta}@f$</td>
  *   <td class="mod_desc">The %CKM parameter @f$\bar{\eta}@f$ in the Wolfenstein parameterization.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">#muw</td>
+ *   <td class="mod_name">%muw</td>
  *   <td class="mod_symb">@f$\mu_W@f$</td>
- *   <td class="mod_desc">A matching scale around the @f$W@f$-boson mass scale.</td>
+ *   <td class="mod_desc">A matching scale around the weak scale in GeV.</td>
+ * </tr>
+ * </table>
+ * 
+ * The parameters below, associated with flavour observables, may be removed
+ * from the current class later:
+ * <table class="model">
+ * <tr>
+ *   <td class="mod_name">%EpsK</td>
+ *   <td class="mod_symb">@f$\varepsilon_{K}@f$</td>
+ *   <td class="mod_desc">The experimental value of @f$\varepsilon_{K}@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%phiEpsK</td>
+ *   <td class="mod_symb"></td>
+ *   <td class="mod_desc"></td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%KbarEpsK</td>
+ *   <td class="mod_symb"></td>
+ *   <td class="mod_desc"></td>
+ * </tr>
+  * <tr>
+ *   <td class="mod_name">%DeltaMK</td>
+ *   <td class="mod_symb">@f$\Delta m_{K}@f$</td>
+ *   <td class="mod_desc">The experimental value of @f$\Delta m_{K}@f$ in GeV.</td>
+ * </tr>
+  * <tr>
+ *   <td class="mod_name">%Dmk</td>
+ *   <td class="mod_symb">@f$\Delta m_{K}@f$</td>
+ *   <td class="mod_desc">The SM contribution to @f$\Delta m_{K}@f$ in GeV.</td>
+ * </tr>
+  * <tr>
+ *   <td class="mod_name">%SM_M12D</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">The SM amplitude of the @f$D^{0}-\bar{D}^{0}@f$ mixing.</td>
  * </tr>
  * </table>
  *
- * 
- * Other model parameters (to be removed?):
- * \li \b EpsK:&nbsp; the experimental value of @f$\varepsilon_{K}@f$,
- * \li \b phiEpsK:&nbsp; the experimental value of @f$\Delta M_{K}/(\Delta\Gamma_{K}/2)@f$,
- * \li \b DeltaMK:&nbsp; the experimental value of @f$\Delta M_{K}@f$ in GeV,
- * \li \b KbarEpsK:&nbsp;
- * \li \b Dmk:&nbsp; the SM contribution to @f$\Delta m_{K}@f$ in GeV,
- * \li \b SM_M12D:&nbsp; the SM amplitude of the @f$D^{0}-\bar{D}^{0}@f$ mixing,
+ * The set of the model parameters are initialized and updated with the methods
+ * Init() and Update(), respectively, where the former calls the latter actually.
+ * In Update(), the methods PreUpdate() and PostUpdate() are called to run all
+ * the procedures that are need to be executed before and after the model parameters
+ * are updated. The %CKM and %PMNS matrices and the Yukawa matrices are recomputed
+ * in PostUpdate() with the updated parameters. Inside the Update() method, the
+ * individual model parameter is assigned with the protected member function
+ * setParameter(). 
  *
  *
- *
- * The flags of StandardModel: 
  * @anchor StandardModelFlags
+ * <h3>%Model flags</h3>
+ *
+ * The flags of StandardModel, which can be specified in the model configuration
+ * file, are summarized below, where the values of the boolean flags (TRUE or
+ * FALSE) are case insensitive, while those of the other flags are case sensitive.
+ * The default values of the flags are indicated in bold: 
+ * 
  * <table class="model">
  * <tr>
- *   <th>Flag</th>
+ *   <th>Label</th>
  *   <th>Value</th>
  *   <th>Description</th>
  * </tr>
  * <tr>
- *   <td class="mod_name">CacheInEWSM</td>
- *   <td class="mod_valu">true / false</td>
+ *   <td class="mod_name">%CacheInEWSM</td>
+ *   <td class="mod_valu"><b>TRUE</b> / FALSE</td>
  *   <td class="mod_desc">This flag controls the use of the cashing method
- *   implemented in EWSM class. </td>
+ *   implemented in EWSM class. The default value is TRUE.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">CacheInEWSMcache</td>
- *   <td class="mod_valu">true / false</td>
- *   <td class="mod_desc"></td>
+ *   <td class="mod_name">%CacheInEWSMcache</td>
+ *   <td class="mod_valu"><b>TRUE</b> / FALSE</td>
+ *   <td class="mod_desc">This flag controls the use of the cashing method
+ *   implemented in EWSMcache class. The default value is TRUE.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">WithoutNonUniversalVC</td>
- *   <td class="mod_valu">true / false</td>
- *   <td class="mod_desc"></td>
+ *   <td class="mod_name">%WithoutNonUniversalVC</td>
+ *   <td class="mod_valu">TRUE / <b>FALSE</b></td>
+ *   <td class="mod_desc">This flag controls if flavour non-universal vertex
+ *    corrections are not added to the epsilon parameterization for the %EW
+ *    precision observables. The default value is FALSE; the non-universal
+ *    corrections are taken into account.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">NoApproximateGammaZ</td>
- *   <td class="mod_valu">true / false</td>
- *   <td class="mod_desc"></td>
+ *   <td class="mod_name">%NoApproximateGammaZ</td>
+ *   <td class="mod_valu">TRUE / <b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to true if the two-loop approximate
+ *   formula of @f$\Gamma_Z@f$ defined with the function
+ *   EWSMApproximateFormulae::X_extended() is NOT employed.
+ *   The default value is FALSE.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">NoApproximateSigmaH</td>
- *   <td class="mod_valu">true / false</td>
- *   <td class="mod_desc"></td>
+ *   <td class="mod_name">%NoApproximateSigmaH</td>
+ *   <td class="mod_valu">TRUE / <b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to true if the two-loop approximate
+ *   formula of @f$\sigma_h^0@f$ defined with the function
+ *   EWSMApproximateFormulae::X_extended() is NOT employed.
+ *   The default value is FALSE.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">NoApproximateRl</td>
- *   <td class="mod_valu">true / false</td>
- *   <td class="mod_desc"></td>
+ *   <td class="mod_name">%NoApproximateRl</td>
+ *   <td class="mod_valu">TRUE / <b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to true if the two-loop approximate
+ *   formula of @f$R_\ell^0@f$ defined with the function
+ *   EWSMApproximateFormulae::X_extended() is NOT employed.
+ *   The default value is FALSE.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">NoApproximateRc</td>
- *   <td class="mod_valu">true / false</td>
- *   <td class="mod_desc"></td>
+ *   <td class="mod_name">%NoApproximateRc</td>
+ *   <td class="mod_valu">TRUE / <b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to true if the two-loop approximate
+ *   formula of @f$R_c^0@f$ defined with the function
+ *   EWSMApproximateFormulae::X_extended() is NOT employed.
+ *   The default value is FALSE.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">NoApproximateRb</td>
- *   <td class="mod_valu">true / false</td>
- *   <td class="mod_desc"></td>
+ *   <td class="mod_name">%NoApproximateRb</td>
+ *   <td class="mod_valu">TRUE / <b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to true if the two-loop approximate
+ *   formula of @f$R_b^0@f$ defined with the function
+ *   EWSMApproximateFormulae::X_extended() is NOT employed.
+ *   The default value is FALSE.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">Mw</td>
- *   <td class="mod_valu">NORESUM / OMSI / INTERMEDIATE / OMSII / APPROXIMATEFORMULA</td>
- *   <td class="mod_desc"></td>
+ *   <td class="mod_name">%Mw</td>
+ *   <td class="mod_valu">NORESUM / OMSI / INTERMEDIATE / OMSII / <b>APPROXIMATEFORMULA</b></td>
+ *   <td class="mod_desc">This flag controls the formula used in computing the
+ *   @f$W@f$-boson mass. The default flag is APPROXIMATEFORMULA.
+ *   See EWSM::Mw_SM(), EWSM::resumMw() and EWSMApproximateFormulae::Mw() for detail.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">RhoZ</td>
- *   <td class="mod_valu">NORESUM / OMSI / INTERMEDIATE / OMSII</td>
- *   <td class="mod_desc"></td>
+ *   <td class="mod_name">%RhoZ</td>
+ *   <td class="mod_valu"><b>NORESUM</b> / OMSI / INTERMEDIATE / OMSII</td>
+ *   <td class="mod_desc">This flag controls the formula used in computing the
+ *   @f$Zf\bar{f}@f$ couplings @f$\rho_Z^f@f$. The default flag is NORESUM.
+ *   See EWSM::rhoZ_l_SM(), EWSM::rhoZ_q_SM() and EWSM::resumRhoZ() for detail.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">KappaZ</td>
- *   <td class="mod_valu">NORESUM / OMSI / INTERMEDIATE / OMSII / APPROXIMATEFORMULA</td>
- *   <td class="mod_desc"></td>
+ *   <td class="mod_name">%KappaZ</td>
+ *   <td class="mod_valu">NORESUM / OMSI / INTERMEDIATE / OMSII / <b>APPROXIMATEFORMULA</b></td>
+ *   <td class="mod_desc">This flag controls the formula used in computing the
+ *   @f$Zf\bar{f}@f$ couplings @f$\kappa_Z^f@f$. The default flag is APPROXIMATEFORMULA.
+ *   See EWSM::kappaZ_l_SM(), EWSM::kappaZ_q_SM() and EWSM::resumKappaZ() for detail.</td>
  * </tr>
  * </table>
  *
+ * These flags can be set via the method setFlag() or setFlagStr(), where the
+ * former is applicable for the boolean flags, while the latter is for the other
+ * flags. The method CheckFlags() is responsible for checking whether the flags
+ * are sane. The public member functions
+ * IsFlagWithoutNonUniversalVC(), IsFlagNoApproximateGammaZ()
+ * IsFlagNoApproximateRl(), IsFlagNoApproximateRc(), IsFlagNoApproximateRb(),
+ * getFlagMw(), getFlagRhoZ() and getFlagKappaZ()
+ * are used to retrieve the values of each flag.
  *
  */
 class StandardModel: public QCD {
@@ -211,7 +303,8 @@ public:
     /**
      * @brief An enum type for leptons.
      */
-    enum lepton {
+    enum lepton
+    {
         NEUTRINO_1, /**< The 1st-generation neutrino */
         ELECTRON, /**< Electron */
         NEUTRINO_2, /**< The 2nd-generation neutrino */
@@ -220,10 +313,10 @@ public:
         TAU /**< Tau */
     };
 
-    static const int NSMvars = 24;///< The number of model parameters in the current model.
+    static const int NSMvars = 24;///< The number of model parameters in %StandardModel.
 
     /**
-     * @brief An array containing the labels under which all StandardModel
+     * @brief An array containing the labels under which all %StandardModel
      * parameters are stored in a vector of ModelParameter via
      * InputParser::ReadParameters().
      */
@@ -248,7 +341,7 @@ public:
     // Initialization
 
     /**
-     * @brief A method to initialize the current model.
+     * @brief A method to initialize %StandardModel.
      * @details This method, called via InputParser::ReadParameters(), allocates
      * memory to the pointers #myEWSM and #myStandardModelMatching, which are used
      * for %EW precision and flavour observables, respectively. 
@@ -286,7 +379,7 @@ public:
     virtual bool Init(const std::map<std::string, double>& DPars);
 
     /**
-     * @brief The pre-update method for the current model. 
+     * @brief The pre-update method for %StandardModel.
      * @details This method initializes the internal flags #requireCKM, #requireYe
      * and #requireYn, and calls QCD::PreUpdate(), before updating the model
      * parameters with the method Update().
@@ -295,7 +388,7 @@ public:
     virtual bool PreUpdate();
 
     /**
-     * @brief The update method for the current model.
+     * @brief The update method for %StandardModel.
      * @details This method updates all the model parameters with giving Dpars.
      * @param[in] Dpar a map of parameters that are being updated in the Monte Carlo run
      * (including parameters that are varied and those that are held constant)
@@ -304,7 +397,7 @@ public:
     virtual bool Update(const std::map<std::string, double>& DPars);
 
     /**
-     * @brief The post-update method for the current model.
+     * @brief The post-update method for %StandardModel.
      * @details This method runs all the procedures that are need to be executed
      * after the model is successfully updated. This includes updating
      * any other variable that needs to be updated at this time due to the update
@@ -314,7 +407,7 @@ public:
     virtual bool PostUpdate();
 
     /**
-     * @brief A method to check if all the mandatory parameters for the model 
+     * @brief A method to check if all the mandatory model parameters 
      * have been provided in the model configuration file.
      * @param[in] Dpar a map of parameters that are being updated in the Monte Carlo run
      * (including parameters that are varied and those that are held constant)
@@ -327,33 +420,34 @@ public:
     // Flags
 
     /**
-     * @brief A method to set a flag of the current model.
-     * @param[in] name name of a flag
+     * @brief A method to set a model flag of %StandardModel.
+     * @param[in] name name of a model flag
      * @param[in] value the boolean to be assigned to the flag specified by name
      * @return a boolean that is true if the execution is successful
      */
     virtual bool setFlag(const std::string name, const bool value);
 
     /**
-     * @brief A method to set a flag of the current model.
-     * @param[in] name name of a flag
+     * @brief A method to set a model flag of %StandardModel.
+     * @param[in] name name of a model flag
      * @param[in] value the string to be assigned to the flag specified by name
      * @return a boolean that is true if the execution is successful
      */
     virtual bool setFlagStr(const std::string name, const std::string value);
 
     /**
-     * @brief A method to check the sanity of the set of flags.
-     * @return true if the set of flags is sane
+     * @brief A method to check the sanity of the set of model flags.
+     * @return true if the set of model flags is sane
      */
     virtual bool CheckFlags() const;
 
     /**
-     * @brief A method to control
-     * @attention The flag FlagWithoutNonUniversalVC is applicable for the model
-     * NPEpsilons. 
+     * @brief A method to retrieve the model flag WithoutNonUniversalVC.
+     * @details See @ref StandardModelFlags for detail. 
+     * @attention The flag FlagWithoutNonUniversalVC is applicable only for
+     * the models StandardModel and NPEpsilons. 
      * @return a boolean that is true if flavour non-universal vertex corrections
-     * are NOT added to the epsilon parameters describing new physics contribution.
+     * are NOT added to the epsilon parameters describing new physics contribution
      */
     bool IsFlagWithoutNonUniversalVC() const
     {
@@ -361,8 +455,11 @@ public:
     }
 
     /**
-     * @brief A method to access the boolean value of the flag #FlagNoApproximateGammaZ.
-     * @return a boolean that is true if
+     * @brief A method to retrieve the model flag NoApproximateGammaZ.
+     * @details See @ref StandardModelFlags for detail.
+     * @return a boolean that is true if the two-loop approximate
+     * formula of @f$\Gamma_Z@f$ defined with the function
+     * EWSMApproximateFormulae::X_extended() is NOT employed
      */
     bool IsFlagNoApproximateGammaZ() const
     {
@@ -370,8 +467,11 @@ public:
     }
 
     /**
-     * @brief A method to access the boolean value of the flag #FlagNoApproximateSigmaH.
-     * @return #FlagNoApproximateSigmaH
+     * @brief A method to retrieve the model flag NoApproximateSigmaH.
+     * @details See @ref StandardModelFlags for detail.
+     * @return a boolean that is true if the two-loop approximate
+     * formula of @f$\sigma_h^0@f$ defined with the function
+     * EWSMApproximateFormulae::X_extended() is NOT employed
      */
     bool IsFlagNoApproximateSigmaH() const
     {
@@ -379,8 +479,11 @@ public:
     }
 
     /**
-     * @brief A method to access the boolean value of the flag #FlagNoApproximateRl.
-     * @return #FlagNoApproximateRl
+     * @brief A method to retrieve the model flag NoApproximateRl.
+     * @details See @ref StandardModelFlags for detail.
+     * @return a boolean that is true if the two-loop approximate
+     * formula of @f$R_\ell^0@f$ defined with the function
+     * EWSMApproximateFormulae::X_extended() is NOT employed
      */
     bool IsFlagNoApproximateRl() const
     {
@@ -388,8 +491,11 @@ public:
     }
 
     /**
-     * @brief A method to access the boolean value of the flag #FlagNoApproximateRc.
-     * @return #FlagNoApproximateRc
+     * @brief A method to retrieve the model flag NoApproximateRc.
+     * @details See @ref StandardModelFlags for detail.
+     * @return a boolean that is true if the two-loop approximate
+     * formula of @f$R_c^0@f$ defined with the function
+     * EWSMApproximateFormulae::X_extended() is NOT employed
      */
     bool IsFlagNoApproximateRc() const
     {
@@ -397,24 +503,42 @@ public:
     }
 
     /**
-     * @brief A method to access the boolean value of the flag #FlagNoApproximateRb.
-     * @return #FlagNoApproximateRb
+     * @brief A method to retrieve the model flag NoApproximateRb.
+     * @details See @ref StandardModelFlags for detail.
+     * @return a boolean that is true if the two-loop approximate
+     * formula of @f$R_b^0@f$ defined with the function
+     * EWSMApproximateFormulae::X_extended() is NOT employed
      */
     bool IsFlagNoApproximateRb() const
     {
         return FlagNoApproximateRb;
     }
 
+    /**
+     * @brief A method to retrieve the model flag %Mw.
+     * @details See @ref StandardModelFlags for detail.
+     * @return
+     */
     std::string getFlagMw() const
     {
         return FlagMw;
     }
 
+    /**
+     * @brief A method to retrieve the model flag %RhoZ.
+     * @details See @ref StandardModelFlags for detail.
+     * @return
+     */
     std::string getFlagRhoZ() const
     {
         return FlagRhoZ;
     }
 
+    /**
+     * @brief A method to retrieve the model flag %KappaZ.
+     * @details See @ref StandardModelFlags for detail.
+     * @return
+     */
     std::string getFlagKappaZ() const
     {
         return FlagKappaZ;
@@ -424,13 +548,28 @@ public:
     ///////////////////////////////////////////////////////////////////////////
     // get and set methods for class members
 
+    /**
+     * @brief A get method to retrieve the object of a lepton.
+     * @param[in] p name of a lepton
+     * @return an object of the lepton specified by name
+     */
     Particle getLeptons(const StandardModel::lepton p) const
     {
         return leptons[p];
     }
 
     /**
-     * @return the electromagnetic coupling
+     * @brief A get method to retrieve the Fermi constant @f$G_\mu@f$.
+     * @return @f$G_\mu@f$ in @f${\rm GeV}^{-2}@f$
+     */
+    double getGF() const
+    {
+        return GF;
+    }
+    
+    /**
+     * @brief A get method to retrieve the fine-structure constant @f$\alpha@f$.
+     * @return @f$\alpha@f$
      */
     double getAle() const
     {
@@ -438,7 +577,10 @@ public:
     }
 
     /**
-     * @return @f$\Delta\alpha_\mathrm{had}^5(M_Z)@f$.
+     * @brief A get method to retrieve the five-flavour hadronic contribution
+     * to the electromagnetic coupling,
+     * @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$.
+     * @return @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$
      */
     double getDAle5Mz() const
     {
@@ -446,15 +588,8 @@ public:
     }
 
     /**
-     * @return The Fermi constant.
-     */
-    double getGF() const
-    {
-        return GF;
-    }
-
-    /**
-     * @return The Higgs mass.
+     * @brief A get method to retrieve the Higgs mass @f$m_h@f$.
+     * @return @f$m_h@f$ in GeV
      */
     double getMHl() const
     {
@@ -462,7 +597,9 @@ public:
     }
 
     /**
-     * @return Theoretical uncertainty in the approximate formula for @f$M_W@f$.
+     * @brief A get method to retrieve the theoretical uncertainty in @f$M_W@f$,
+     * denoted as @f$\delta\,M_W@f$.
+     * @return @f$\delta\,M_W@f$ in GeV
      */
     double getDelMw() const
     {
@@ -470,7 +607,10 @@ public:
     }
 
     /**
-     * @return Theoretical uncertainty in the approximate formula for the leptonic weak mixing angle.
+     * @brief A get method to retrieve the theoretical uncertainty in
+     * @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$, denoted as
+     * @f$\delta\sin^2\theta_{\rm eff}^{\rm lept}@f$.
+     * @return @f$\delta\sin^2\theta_{\rm eff}^{\rm lept}@f$
      */
     double getDelSin2th_l() const
     {
@@ -478,7 +618,9 @@ public:
     }
 
     /**
-     * @return Theoretical uncertainty in the total width of Z boson.
+     * @brief A get method to retrieve the theoretical uncertainty in
+     * @f$\Gamma_Z@f$, denoted as @f$\delta\,\Gamma_Z@f$.
+     * @return @f$\delta\,\Gamma_Z@f$ in GeV 
      */
     double getDelGammaZ() const
     {
@@ -486,39 +628,62 @@ public:
     }
 
     /**
-     * @return The CKM matrix.
+     * @brief A get method to retrieve the object of the %CKM matrix.
+     * @return the %CKM matrix
      */
     matrix<complex> getVCKM() const
     {
         return VCKM;
     }
 
+    /**
+     * @brief A get method to retrieve the object of type CKM.
+     * @return the object of type CKM
+     */
     CKM getCKM() const
     {
         return myCKM;
     }
 
+    /**
+     * @brief A get method to retrieve the %CKM element @f$\lambda@f$.
+     * @return @f$\lambda@f$
+     */
     double getLambda() const 
     {
         return lambda;
     }
 
+    /**
+     * @brief A get method to retrieve the %CKM element @f$A@f$.
+     * @return @f$A@f$
+     */
     double getA() const
     {
         return A;
     }
 
-    double getEtab() const
-    {
-        return etab;
-    }
+    /**
+     * @brief A get method to retrieve the %CKM element @f$\bar{\rho}@f$.
+     * @return @f$\bar{\rho}@f$
+     */
     double getRhob() const
     {
         return rhob;
     }
 
     /**
-     * @return The PMNS matrix.
+     * @brief A get method to retrieve the %CKM element @f$\bar{\eta}@f$.
+     * @return @f$\bar{\eta}@f$
+     */
+    double getEtab() const
+    {
+        return etab;
+    }
+
+    /**
+     * @brief A get method to retrieve the object of the %PMNS matrix.
+     * @return the %PMNS matrix
      */
     matrix<complex> getUPMNS() const
     {
@@ -526,15 +691,20 @@ public:
     }
 
     /**
-     * @return The up Yukawa matrix.
+     * @brief A get method to retrieve the Yukawa matrix of the up-type quarks, 
+     * @f$Y_u@f$.
+     * @return @f$Y_u@f$
      */
     matrix<complex> getYu() const
     {
         return Yu;
     }
 
+
     /**
-     * @return The down Yukawa matrix.
+     * @brief A get method to retrieve the Yukawa matrix of the down-type quarks,
+     * @f$Y_d@f$.
+     * @return @f$Y_d@f$
      */
     matrix<complex> getYd() const
     {
@@ -542,7 +712,9 @@ public:
     }
 
     /**
-     * @return The neutrino Yukawa matrix.
+     * @brief A get method to retrieve the Yukawa matrix of the neutrinos,
+     * @f$Y_\nu@f$.
+     * @return @f$Y_\nu@f$
      */
     matrix<complex> getYn() const
     {
@@ -550,7 +722,9 @@ public:
     }
 
     /**
-     * @return The charged lepton Yukawa matrix.
+     * @brief A get method to retrieve the Yukawa matrix of the charged leptons,
+     * @f$Y_e@f$.
+     * @return @f$Y_e@f$
      */
     matrix<complex> getYe() const
     {
@@ -558,24 +732,22 @@ public:
     }
 
     /**
-     * @return The Standard Model contribution to @f$ \Delta m_{K} @f$.
+     * @brief A get method to retrieve the matching scale @f$\mu_W@f$ around
+     * the weak scale.
+     * @return @f$\mu_W@f$ in GeV
      */
-    double getDmk() const
-    {
-        return Dmk;
-    }
-
-    /**
-     * @return The Standard Model amplitude of the @f$ D^{0} - \bar{D}^{0} @f$ mixing.
-     */
-    double getSM_M12D() const
-    {
-        return SM_M12D;
-    }
-
     double getMuw() const
     {
         return muw;
+    }
+
+    double getEpsK() const {
+        return EpsK;
+    }
+    
+    double getphiEpsK() const
+    {
+        return phiEpsK;
     }
 
     double getKbarEpsK() const
@@ -583,48 +755,45 @@ public:
         return KbarEpsK;
     }
 
-    /**
-     * @return The experimental value of @f$ \Delta M_{K}/(\Delta\Gamma_{K}/2) @f$.
-     */
-    double getphiEpsK() const
-    {
-        return phiEpsK;
-    }
-
-    /**
-     * @return The experimental value of @f$ \Delta M_{K} @f$.
-     */
     double getDeltaMK() const
     {
         return DeltaMK;
     }
 
-    /**
-     * @return The experimental value of @f$ \varepsilon_{K} @f$.
-     */
-    double getEpsK() const {
-        return EpsK;
+    double getDmk() const
+    {
+        return Dmk;
+    }
+
+    double getSM_M12D() const
+    {
+        return SM_M12D;
     }
 
 
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * @return The VEV.
+     * @brief The vacuum expectation value @f$v=1/(\sqrt{2}G_\mu)^{1/2}@f$.
+     * @return @f$v@f$ in GeV
      */
     virtual double v() const;
 
     /**
-     * @return The W boson mass at tree level.
+     * @brief The tree-level mass of the @f$W@f$ boson, @f$M_W^{\mathrm{tree}}@f$.
+     * @return @f$M_W^{\mathrm{tree}}@f$ in GeV.
      */
     virtual double Mw_tree() const;
 
     /**
-     * Computes the running electromagnetic coupling alpha(mu) in the on-shell
-     * scheme, where the top-quark contribution is not included.
-     * @param[in] mu A scale @f$\mu@f$ in GeV.
-     * @param[in] order (=LO, FULLNLO)
-     * @return @f$\alpha(\mu)@f$ in the on-shell scheme.
+     * @brief The running electromagnetic coupling @f$\alpha(\mu)@f$ in the
+     * on-shell schem.
+     * @details See @cite Baikov:2012rr.
+     * @attention This function is applicable to the scale where the three charged
+     * leptons and the five quarks, not the top quark, run in the loops.
+     * @param[in] mu renormalization scale @f$\mu@f$ in GeV.
+     * @param[in] order LO/FULLNLO
+     * @return @f$\alpha(\mu)@f$ in the on-shell scheme
      */
     double ale_OS(const double mu, orders order=FULLNLO) const;
 
@@ -632,43 +801,77 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @param[in] s An invariant mass squared.
-     * @return The leptonic corrections to alpha at @f$M_Z@f$.
+     * @brief Leptonic corrections to the electromagnetic coupling @f$\alpha@f$,
+     * denoted as @f$\Delta\alpha_{\mathrm{lept}}(s)@f$.
+     * @param[in] s invariant mass squared in @f$\mathrm{GeV}^2@f$
+     * @return @f$\Delta\alpha_{\mathrm{lept}}(s)@f$
      */
     double DeltaAlphaLepton(const double s) const;
 
     /**
-     * @return The sum of the leptonic and hadronic corrections to alpha at @f$M_Z@f$.
+     * @brief The sum of the leptonic and the five-flavour hadronic corrections
+     * to the electromagnetic coupling @f$\alpha@f$ at the @f$Z@f$-mass scale,
+     * denoted as @f$\Delta\alpha^{\ell+5q}(M_Z^2)@f$.
+     * @details
+     * @f[
+     * \Delta\alpha^{\ell+5q}(M_Z^2)
+     * = \Delta\alpha_{\rm lept}(M_Z^2)
+     * + \Delta\alpha_{\rm had}^{(5)}(M_Z^2)\,.
+     * @f]
+     * @return @f$\Delta\alpha^{\ell+5q}(M_Z^2)@f$
      */
     double DeltaAlphaL5q() const;
 
     /**
-     * @return The total (leptonic+hadronic+top) corrections to alpha at @f$M_Z@f$.
+     * @brief The total corrections to the electromagnetic coupling @f$\alpha@f$
+     * at the @f$Z@f$-mass scale, denoted as @f$\Delta\alpha(M_Z^2)@f$.
+     * @details The top-quark contribution is included:
+     * @f[
+     * \Delta\alpha(M_Z^2) =
+     * \Delta\alpha_{\rm lept}(M_Z^2)
+     * + \Delta\alpha_{\rm had}^{(5)}(M_Z^2)
+     * + \Delta\alpha_{\rm top}(M_Z^2)\,.
+     * @f]
+     * @return @f$\Delta\alpha(M_Z^2)@f$
      */
     double DeltaAlpha() const;
 
     /**
-     * @return The electromagnetic coupling at @f$M_Z@f$, @f$\alpha(M_Z)@f$ in the on-shell scheme.
+     * @brief The electromagnetic coupling at the @f$Z@f$-mass scale, denoted as
+     * @f$\alpha(M_Z^2)@f$.
+     * @details
+     * @f[
+     * \alpha(M_Z^2) = \frac{\alpha}{1 - \Delta\alpha(M_Z^2)}.
+     * @f]
+     * @return @f$\alpha(M_Z^2)@f$
      */
     double alphaMz() const;
 
     /**
-     * @return The W boson mass in the on-shell scheme.
+     * @brief The SM prediction for the pole mass of the @f$W@f$ boson,
+     * @f$M_W@f$. 
+     * @return @f$M_W@f$ in GeV.
      */
     virtual double Mw() const;
 
     /**
-     * @return @f$M_W^2/M_Z^2@f$ in the on-shell scheme.
+     * @brief The SM prediction for the cosine of the weak mixing angle
+     * in the on-shell scheme, denoted as @f$c_W^2@f$.
+     * @return @f$c_W^2=M_W^2/M_Z^2@f$
      */
     virtual double cW2() const;
 
     /**
-     * @return @f$1-M_W^2/M_Z^2@f$ in the on-shell scheme.
+     * @brief The SM prediction for the sine of the weak mixing angle
+     * in the on-shell scheme, denoted as @f$s_W^2@f$.
+     * @return @f$s_W^2=1-M_W^2/M_Z^2@f$
      */
     virtual double sW2() const;
 
     /**
-     * @return The total width of the W boson.
+     * @brief The SM prediction for the total width of the W boson,
+     * @f$\Gamma_W@f$. 
+     * @return @f$\Gamma_W@f$ in GeV
      */
     virtual double GammaW() const;
 
@@ -676,94 +879,174 @@ public:
     ////////////////////////////////////////////////////////////////////////
     // CKM parameters
 
-    // Angles
+    /**
+     * @brief The %CKM angle @f$\beta@f$.
+     * @return @f$\beta@f$ in radians
+     */
     double computeBeta() const;
+
+    /**
+     * @brief The %CKM angle @f$\gamma@f$.
+     * @return @f$\gamma@f$ in radians
+     */
     double computeGamma() const;
+
+    /**
+     * @brief The %CKM angle @f$\alpha@f$.
+     * @return @f$\alpha@f$ in radians
+     */
     double computeAlpha() const;
+
+    /**
+     * @brief The %CKM angle @f$\beta_s@f$.
+     * @return @f$\beta_s@f$ in radians
+     */
     double computeBetas() const;
 
-    // Lambda_q
+    /**
+     * @brief The product of the %CKM elements @f$V_{td} V_{ts}^*@f$.
+     * @return @f$V_{td} V_{ts}^*@f$
+     */
     complex computelamt() const;
+
+    /**
+     * @brief The product of the %CKM elements @f$V_{cd} V_{cs}^*@f$.
+     * @return @f$V_{cd} V_{cs}^*@f$
+     */
     complex computelamc() const;
+
+    /**
+     * @brief The product of the %CKM elements @f$V_{ud} V_{us}^*@f$.
+     * @return @f$V_{ud} V_{us}^*@f$
+     */
     complex computelamu() const;
 
+    /**
+     * @brief The product of the %CKM elements @f$V_{td} V_{tb}^*@f$.
+     * @return @f$V_{td} V_{tb}^*@f$
+     */
     complex computelamt_d() const;
+
+    /**
+     * @brief The product of the %CKM elements @f$V_{cd} V_{cb}^*@f$.
+     * @return @f$V_{cd} V_{cb}^*@f$
+     */
     complex computelamc_d() const;
+
+    /**
+     * @brief The product of the %CKM elements @f$V_{ud} V_{ub}^*@f$.
+     * @return @f$V_{ud} V_{ub}^*@f$
+     */
     complex computelamu_d() const;
 
+    /**
+     * @brief The product of the %CKM elements @f$V_{ts} V_{tb}^*@f$.
+     * @return @f$V_{ts} V_{tb}^*@f$
+     */
     complex computelamt_s() const;
+
+    /**
+     * @brief The product of the %CKM elements @f$V_{cs} V_{cb}^*@f$.
+     * @return @f$V_{cs} V_{cb}^*@f$
+     */
     complex computelamc_s() const;
+
+    /**
+     * @brief The product of the %CKM elements @f$V_{us} V_{ub}^*@f$.
+     * @return @f$V_{us} V_{ub}^*@f$
+     */
     complex computelamu_s() const;
 
-    // Sides
-    double getRt() const;
-    double getRts() const;
-    double getRb() const;
+    /**
+     * @brief @f$R_t=|(V_{td} V_{tb}^*)/(V_{cd}V_{cb}^*)|@f$.
+     * @return @f$R_t@f$
+     */
+    double computeRt() const;
+
+    /**
+     * @brief @f$R_{ts}=|(V_{ts}V_{tb}^*)/(V_{cs}V_{cb}^*)|@f$.
+     * @return @f$R_{ts}@f$
+     */
+    double computeRts() const;
+
+    /**
+     * @brief @f$R_b=|(V_{ud}V_{ub}^*)/(V_{ud}V_{ub}^*)|@f$.
+     * @return @f$R_b@f$
+     */
+    double computeRb() const;
 
 
     ////////////////////////////////////////////////////////////////////////
 protected:
 
     /**
-     * @brief A set method to change the value of a parameter in the current model.
+     * @brief A set method to change the value of a parameter in %StandardModel.
      * @param[in] name name of a parameter
      * @param[in] value the value to be assigned to the parameter specified by name
      */
     virtual void setParameter(const std::string name, const double& value);
-    
+
+    /**
+     * @brief The method to compute the %CKM matrix.
+     */
     virtual void computeCKM();
-    
+
+    /**
+     * @brief The method to compute the Yukawa matrices. 
+     * @attention This function has not been correctly implemented yet. 
+     */
     virtual void computeYukawas();
 
     EWSM* myEWSM;///< A pointer to an object of type EWSM.
 
-    Particle leptons[6];///<
-    CKM myCKM;///<
-    matrix<complex> VCKM;///<
-    matrix<complex> UPMNS;///< 
-    matrix<complex> Yu;///<
-    matrix<complex> Yd;///<
-    matrix<complex> Yn;///<
-    matrix<complex> Ye;///<
+    Particle leptons[6];///< An array of Particle objects for the leptons. 
+    CKM myCKM;///< An object of type CKM. 
+    matrix<complex> VCKM;///< The %CKM matrix.
+    matrix<complex> UPMNS;///<  The %PMNS matrix.
+    matrix<complex> Yu;///< The Yukawa matrix of the up-type quarks.
+    matrix<complex> Yd;///< The Yukawa matrix of the down-type quarks.
+    matrix<complex> Yn;///< The Yukawa matrix of the neutrinos.
+    matrix<complex> Ye;///< The Yukawa matrix of the charged leptons.
 
     // model parameters
-    double ale;///<
-    double dAle5Mz;///<
-    double GF;///<
-    double mHl;///<
-    double delMw;///<
-    double delSin2th_l;///<
-    double delGammaZ;///<
-    double muw;///<
-    double lambda;///<
-    double A;///<
-    double rhob;///<
-    double etab;///<
-    double EpsK;///<
-    double phiEpsK;///<
-    double DeltaMK;///<
-    double KbarEpsK;///<
-    double Dmk;///<
-    double SM_M12D;///< 
+    double GF;///< The Fermi constant @f$G_\mu@f$ in @f${\rm GeV}^{-2}@f$.
+    double ale;///< The fine-structure constant @f$\alpha@f$.
+    double dAle5Mz;///< The five-flavour hadronic contribution to the electromagnetic coupling, @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$.
+    double mHl;///< The Higgs mass @f$m_h@f$ in GeV. 
+    double delMw;///< The theoretical uncertainty in @f$M_W@f$, denoted as @f$\delta\,M_W@f$, in GeV.
+    double delSin2th_l;///< The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$, denoted as @f$\delta\sin^2\theta_{\rm eff}^{\rm lept}@f$.
+    double delGammaZ;///< The theoretical uncertainty in @f$\Gamma_Z@f$, denoted as @f$\delta\,\Gamma_Z@f$, in GeV.
+    double lambda;///< The %CKM parameter @f$\lambda@f$ in the Wolfenstein parameterization.
+    double A;///< The %CKM parameter @f$A@f$ in the Wolfenstein parameterization.
+    double rhob;///< The %CKM parameter @f$\bar{\rho}@f$ in the Wolfenstein parameterization.
+    double etab;///< The %CKM parameter @f$\bar{\eta}@f$ in the Wolfenstein parameterization.
+    double muw;///< A matching scale @f$\mu_W@f$ around the weak scale in GeV.
+
+    double EpsK;
+    double phiEpsK;
+    double DeltaMK;
+    double KbarEpsK;
+    double Dmk;
+    double SM_M12D;
     
     
     ////////////////////////////////////////////////////////////////////////    
 private:
     StandardModelMatching* myStandardModelMatching;///< A pointer to an object of type StandardModelMatching.
 
-    bool FlagWithoutNonUniversalVC;///<
-    bool FlagNoApproximateGammaZ;///<
-    bool FlagNoApproximateSigmaH;///<
-    bool FlagNoApproximateRl;///<
-    bool FlagNoApproximateRc;///<
-    bool FlagNoApproximateRb;///<
-    std::string FlagMw;///<
-    std::string FlagRhoZ;///<
-    std::string FlagKappaZ;///<
+    bool FlagWithoutNonUniversalVC;///< A boolean for the model flag %WithoutNonUniversalVC.
+    bool FlagNoApproximateGammaZ;///< A boolean for the model flag %NoApproximateGammaZ.
+    bool FlagNoApproximateSigmaH;///< A boolean for the model flag %NoApproximateSigmaH.
+    bool FlagNoApproximateRl;///< A boolean for the model flag %NoApproximateRl.
+    bool FlagNoApproximateRc;///< A boolean for the model flag %NoApproximateRc.
+    bool FlagNoApproximateRb;///< A boolean for the model flag %NoApproximateRb.
+    std::string FlagMw;///< A string for the model flag %Mw.
+    std::string FlagRhoZ;///< A string for the model flag %RhoZ.
+    std::string FlagKappaZ;///< A string for the model flag %KappaZ. 
 
-    bool requireCKM;///<
-    bool requireYe;///<
-    bool requireYn;///< 
+    bool requireCKM;///< An internal flag to control whether the %CKM matrix has to be recomputed.
+    bool requireYe;///< An internal flag to control whether the charged-lepton Yukawa matrix has to be recomputed.
+    bool requireYn;///<  An internal flag to control whether the neutrino Yukawa matrix has to be recomputed.
 
 };
 

@@ -20,9 +20,9 @@
 
 
 const std::string StandardModel::SMvars[NSMvars] = {
-    "ale", "dAle5Mz", "GF", "mHl", "delMw", "delSin2th_l", "delGammaZ", "muw",
+    "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ",
     "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", 
-    "lambda", "A", "rhob", "etab", 
+    "lambda", "A", "rhob", "etab", "muw",
     "EpsK", "phiEpsK", "DeltaMK", "KbarEpsK", "Dmk", "SM_M12D"
 };
 
@@ -123,12 +123,12 @@ bool StandardModel::PostUpdate()
 
 void StandardModel::setParameter(const std::string name, const double& value)
 {
-    if (name.compare("ale") == 0)
+    if (name.compare("GF") == 0)
+        GF = value;
+    else if (name.compare("ale") == 0)
         ale = value;
     else if (name.compare("dAle5Mz") == 0)
         dAle5Mz = value;    
-    else if (name.compare("GF") == 0)
-        GF = value;
     else if (name.compare("mHl") == 0)
         mHl = value;
     else if (name.compare("delMw") == 0)
@@ -137,8 +137,6 @@ void StandardModel::setParameter(const std::string name, const double& value)
         delSin2th_l = value;
     else if (name.compare("delGammaZ") == 0)
         delGammaZ = value;
-    else if (name.compare("muw") == 0)
-        muw = value;
     else if (name.compare("mneutrino_1") == 0) {
         leptons[NEUTRINO_1].setMass(value);
         requireYn = true;
@@ -169,7 +167,9 @@ void StandardModel::setParameter(const std::string name, const double& value)
     } else if (name.compare("etab") == 0) {
         etab = value;
         requireCKM = true;
-    } else if (name.compare("EpsK") == 0)
+    } else if (name.compare("muw") == 0)
+        muw = value;
+    else if (name.compare("EpsK") == 0)
         EpsK = value;
     else if (name.compare("phiEpsK") == 0)
         phiEpsK = value;
@@ -452,4 +452,23 @@ complex StandardModel::computelamu_s() const
 {
     return VCKM(0, 1) * VCKM(0, 2).conjugate();
 }
+
+double StandardModel::computeRt() const
+{
+    return (VCKM(2, 0) * VCKM(2, 2).conjugate()
+            /(VCKM(1, 0) * VCKM(1, 2).conjugate())).abs();
+}
+
+double StandardModel::computeRts() const
+{
+    return (VCKM(2, 1) * VCKM(2, 2).conjugate()
+            /(VCKM(1, 1) * VCKM(1, 2).conjugate())).abs();
+}
+
+double StandardModel::computeRb() const
+{
+    return (VCKM(0, 0) * VCKM(0, 2).conjugate()
+            /(VCKM(1, 0) * VCKM(1, 2).conjugate())).abs();
+}
+
 
