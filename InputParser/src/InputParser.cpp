@@ -240,9 +240,12 @@ std::string InputParser::ReadParameters(const std::string filename,
             int nlines = 0;
             std::vector<bool> lines;
             for (int i = 0; i < size; i++) {
-                getline(ifile, line);
-                if (line.empty() || line.at(0) == '#')
-                    throw std::runtime_error("ERROR: no comments or empty lines in CorrelatedGaussianObservables please!");
+                IsEOF = getline(ifile, line).eof();
+                if (line.empty() || line.at(0) == '#') {
+                    std::cout << "ERROR: no comments or empty lines in CorrelatedGaussianObservables please!"
+                              << std::endl;
+                    exit(EXIT_FAILURE);
+                }
                 boost::tokenizer<boost::char_separator<char> > mytok(line, sep);
                 beg = mytok.begin();
                 std::string type = *beg;
@@ -262,19 +265,32 @@ std::string InputParser::ReadParameters(const std::string filename,
             gslpp::matrix<double> myCorr(gslpp::matrix<double>::Id(nlines));
             int ni = 0;
             for (int i = 0; i < size; i++) {
-                getline(ifile, line);
+                IsEOF = getline(ifile, line).eof();
+                if (line.empty() || line.at(0) == '#') {
+                    std::cout << "ERROR: no comments or empty lines in CorrelatedGaussianObservables please!"
+                              << std::endl;
+                    exit(EXIT_FAILURE);
+                }
                 if (lines.at(i)) {
                     boost::tokenizer<boost::char_separator<char> > mytok(line, sep);
                     beg = mytok.begin();
                     int nj = 0;
                     for (int j = 0; j < size; j++) {
-                        if (lines.at(j)){
-                            myCorr(ni, nj) = atof((*beg).c_str());
-                            nj++;
+                        if ((*beg).compare(0,1,"0") == 0
+                                || (*beg).compare(0,1,"1") == 0
+                                || (*beg).compare(0,1,"-") == 0 ) {
+                            if (lines.at(j)) {
+                                myCorr(ni, nj) = atof((*beg).c_str());
+                                nj++;
+                            }
+                            beg++;
+                        } else {
+                            std::cout << "ERROR: invalid correlation matrix for "
+                                      << name << std::endl;
+                            exit(EXIT_FAILURE);
                         }
-                        beg++;
                     }
-                    ni++;   
+                    ni++;
                 }
             }
             o3.ComputeCov(myCorr);
