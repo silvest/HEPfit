@@ -21,16 +21,16 @@
  * parameter has to correspond to the list of names in the SomeModel.cpp file in the
  * Model src directories.\n
  * e.g. GF, which can be found in StandardModel.cpp file in the
- * StandardModel project source folder StandardModel/src.
+ * StandardModel project source folder %StandardModel/src.
  * The name (ObsName) of the observable has
- * to correspond to the allowed name of observables listed in the ThFactory() class.
+ * to correspond to the allowed name of observables listed in the ThFactory class.
  * A list of both can also be found on the main page of the documentation website.
  */
 class ModelParaVsObs : public Observable {
 public:
 
     /**
-     * @brief The default constructor.
+     * @brief Constructor.
      * @param[in] name_i a given name for model parameter vs. observable comparison
      * @param[in] ParaName_i the name of the parameter to be compared
      * @param[in] ParaLabel_i the label for the parameter to be compared
@@ -59,7 +59,7 @@ public:
     virtual ~ModelParaVsObs();
 
     /**
-     * @brief A get method to access the parameter name
+     * @brief A get method to access the parameter name.
      * @return the parameter name
      */
     std::string getParaName() const
@@ -68,7 +68,7 @@ public:
     }
 
     /**
-     * @brief A set method to fix the parameter name
+     * @brief A set method to fix the parameter name.
      * @param[in] ParaName the parameter name
      */
     void setParaName(std::string ParaName)
@@ -77,7 +77,7 @@ public:
     }
 
     /**
-     * @brief A get method to access the parameter label
+     * @brief A get method to access the parameter label.
      * @return the parameter label
      */
     std::string getParaLabel() const
@@ -86,7 +86,7 @@ public:
     }
 
     /**
-     * @brief A set method to fix the parameter label
+     * @brief A set method to fix the parameter label.
      * @param[in] ParaLabel the parameter label
      */
     void setParaLabel(std::string ParaLabel)
@@ -95,7 +95,7 @@ public:
     }
 
     /**
-     * @brief A get methos to access the minimum value of the parameter
+     * @brief A get methos to access the minimum value of the parameter.
      * @return the minimum value of the parameter
      */
     double getParaMin() const
@@ -104,7 +104,7 @@ public:
     }
 
     /**
-     * @brief A set method to fix the minimum value of the parameter
+     * @brief A set method to fix the minimum value of the parameter.
      * @param[in] ParaMin the minimum value of the parameter
      */
     void setParaMin(double ParaMin)
@@ -113,7 +113,7 @@ public:
     }
 
     /**
-     * @brief A get methos to access the maximum value of the parameter
+     * @brief A get methos to access the maximum value of the parameter.
      * @return the maximum value of the parameter
      */
     double getParaMax() const
@@ -122,7 +122,7 @@ public:
     }
 
     /**
-     * @brief A set methos to fix the maximum value of the parameter
+     * @brief A set methos to fix the maximum value of the parameter.
      * @param[in] ParaMax the maximum value of the parameter
      */
     void setParaMax(double ParaMax)
@@ -131,10 +131,10 @@ public:
     }
 
 private:
-    std::string ParaName; /**< The name of the parameter */
-    std::string ParaLabel; /**< the label for the parameter*/
-    double ParaMin; /**< The minimum value for the parameter */
-    double ParaMax; /**< The maximum value for the parameter*/
+    std::string ParaName; /< The name of the parameter.
+    std::string ParaLabel; ///< The label for the parameter.
+    double ParaMin; ///< The minimum value for the parameter.
+    double ParaMax; ///< The maximum value for the parameter.
 };
 
 #endif	/* MODELPARAVSOBS_H */

@@ -39,9 +39,9 @@
 /**
  * @addtogroup InputParser 
  * @brief A module for interfaces to model parameters and observables.
- * @details The InputParser() class parses all the input given to the executable
+ * @details The InputParser class parses all the input given to the executable
  * through the SomeModel.conf file and the output directives in the same. \n
- * The ThFactory() defines and initiates all available observables that can
+ * The ThFactory defines and initiates all available observables that can
  * be computed.
  * @{
  */
@@ -51,13 +51,15 @@
  * @brief A class for reading input parameters and output directives
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details  
+ * @details The InputParser parses the SomeModel.conf file for the name of the model, ModelParameters, 
+ * %Observables, * %Observables2D, %ModelParaVsObs and %CorrelatedGaussianObservables. The observables 
+ * (or set of observables) are parsed for their inclusion in the Monte Carlo run.
  */
 class InputParser {
 public:
     
     /**
-     * @brief The default constructor.
+     * @brief Constructor.
      */
     InputParser();
     
@@ -83,12 +85,12 @@ public:
      * @details This method parses the SomeModel.conf file for all input instructions. The algorithm
      * is as folows:
      * \li Search for the predefined names of the available models, initialize the necessary model
-     * class and build a ThFactory() for that model to define the observables.
-     * \li Seach and read the ModelParameter() list.
-     * \li Search and read the Observable() list using the ParseObservable() method.
-     * \li Search and read the Observable2D() list using the ParseObservable() method.
-     * \li Search and read the CorrelatedGaussianObservables().
-     * \li Search and read the ModelParaVsObs().
+     * class and build a ThFactory for that model to define the observables.
+     * \li Seach and read the ModelParameter list.
+     * \li Search and read the Observable list using the ParseObservable() method.
+     * \li Search and read the Observable2D list using the ParseObservable() method.
+     * \li Search and read the CorrelatedGaussianObservables.
+     * \li Search and read the ModelParaVsObs.
      * \li Return the name of the model initialized.
      * @param[in] filename name of the SomeModel.conf file passed as an argument to the executable
      * @param[out] ModelPars the vector of model parameters
@@ -106,8 +108,8 @@ public:
             std::vector<ModelParaVsObs>& ParaObs);
 
     /**
-     * @brief A get method to access the pointer to the object of the StandardModel() class.
-     * @return myModel apointer to the object of the StandardModel() class
+     * @brief A get method to access the pointer to the object of the StandardModel class.
+     * @return myModel apointer to the object of the StandardModel class
      */
     StandardModel* getMyModel() const
     {
@@ -120,9 +122,9 @@ public:
     }
 
 private:
-    StandardModel* myModel;/**< Pointer to an object of type StandardModel(). */
-    ThFactory* thf;/**< Pointer to an object of type ThFactory(). */
-    std::string modname;/**< A string to store the model name in.*/
+    StandardModel* myModel;///< Pointer to an object of type StandardModel.
+    ThFactory* thf;///< Pointer to an object of type ThFactory.
+    std::string modname;///< A string to store the model name in.
 };
 
 /** 

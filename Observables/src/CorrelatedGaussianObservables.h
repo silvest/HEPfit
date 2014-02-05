@@ -29,7 +29,7 @@ class CorrelatedGaussianObservables {
 public:
     
     /**
-     * @brief The default constructor.
+     * @brief Constructor.
      * @param[in] name_i a given name for the set of correlated Gaussian observables
      */
     CorrelatedGaussianObservables(std::string name_i);
@@ -45,14 +45,14 @@ public:
     virtual ~CorrelatedGaussianObservables();
 
     /**
-     * @brief Computes the covariance matrix for the correlated Gaussian observables set
+     * @brief Computes the covariance matrix for the correlated Gaussian observables set.
      * @param Corr the correlation matrix for the correlated Gassian observables set
      */
     void ComputeCov(gslpp::matrix<double> Corr);
 
     /**
-     * @brief A method to add observables to the list of correlated Gaussian observables
-     * @param obs_i reference to an object of type Observable()
+     * @brief A method to add observables to the list of correlated Gaussian observables.
+     * @param obs_i reference to an object of type Observable
      */
     void AddObs(Observable& Obs_i);
 
@@ -76,7 +76,7 @@ public:
     }
 
     /**
-     * @brief A set method to fix the name of the set of correlated Gaussian observables
+     * @brief A set method to fix the name of the set of correlated Gaussian observables.
      * @param name the name
      */
     void setName(std::string name)
@@ -94,9 +94,9 @@ public:
     }
     
 private:
-    std::vector<Observable> Obs;/**< A vector of observables whose correlation will be calculated. */
-    gslpp::matrix<double>* Cov;/**< The covariance matrix. */
-    std::string name;/**< The name of the correlated Gaussian Observables set. */
+    std::vector<Observable> Obs;///< A vector of observables whose correlation will be calculated.
+    gslpp::matrix<double>* Cov;///< The covariance matrix.
+    std::string name;///< The name of the correlated Gaussian Observables set.
 };
 
 /** 
