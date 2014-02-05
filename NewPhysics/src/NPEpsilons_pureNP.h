@@ -21,6 +21,39 @@
  * corrections to electroweak precision observables, in the form of contributions
  * to the \f$\varepsilon_{1,2,3,b}\f$ parameters \cite Altarelli:1990zd, \cite Altarelli:1991fk,\cite Altarelli:1993sz. 
  * Only new physics contributions to \f$\varepsilon_i\f$ are parameterized.
+ *
+ * @anchor NPEpsilons_pureNPParameters
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of NPEpsilons_pureNP are summarized below: 
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%deltaEps_1 </td>
+ *   <td class="mod_symb">\f$\delta_{NP}\varepsilon_1\f$</td>
+ *   <td class="mod_desc">The new physics contribution to \f$\varepsilon_1\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%deltaEps_2 </td>
+ *   <td class="mod_symb">\f$\delta_{NP}\varepsilon_2\f$</td>
+ *   <td class="mod_desc">The new physics contribution to \f$\varepsilon_2\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%deltaEps_3 </td>
+ *   <td class="mod_symb">\f$\delta_{NP}\varepsilon_3\f$</td>
+ *   <td class="mod_desc">The new physics contribution to \f$\varepsilon_3\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%deltaEps_b </td>
+ *   <td class="mod_symb">\f$\delta_{NP}\varepsilon_b\f$</td>
+ *   <td class="mod_desc">The new physics contribution to \f$\varepsilon_b\f$.</td>
+ * </tr>
+ * </table>
+ * 
  */
 class NPEpsilons_pureNP : public NPbase {
 public:
@@ -182,7 +215,10 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 protected:
-    double deltaEps_1, deltaEps_2, deltaEps_3, deltaEps_b;
+    double deltaEps_1;///< The new physics contribution to \f$\varepsilon_1\f$.
+    double deltaEps_2;///< The new physics contribution to \f$\varepsilon_2\f$.
+    double deltaEps_3;///< The new physics contribution to \f$\varepsilon_3\f$.
+    double deltaEps_b;///< The new physics contribution to \f$\varepsilon_b\f$.
     /**
      * @brief A set method to fix the parameters of the model.
      * @param[in] name a string with the parameter name

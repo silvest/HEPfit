@@ -21,6 +21,59 @@
  * effective Lagrangian expansion is truncated at the level of two-derivatives \cite Contino:2010mh.
  * Currently, only the dominant effects in EWPD, coming from non-standard @f$HVV@f$
  * interactions, are considered.
+ * 
+ * @anchor NPHiggsSTParameters
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of NPHiggsST are summarized below: 
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%a </td>
+ *   <td class="mod_symb">\f$a \f$</td>
+ *   <td class="mod_desc">The \f$hVV\f$ coupling \f$a\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%b </td>
+ *   <td class="mod_symb">\f$b \f$</td>
+ *   <td class="mod_desc">The \f$hhVV\f$ coupling \f$b\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cu </td>
+ *   <td class="mod_symb">\f$c_u \f$</td>
+ *   <td class="mod_desc">The \f$h\overline{u}u\f$ coupling \f$c_u\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cd</td>
+ *   <td class="mod_symb">\f$c_d \f$</td>
+ *   <td class="mod_desc">The \f$h\overline{d}d\f$ coupling \f$c_d\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%ce </td>
+ *   <td class="mod_symb">\f$c_e \f$</td>
+ *   <td class="mod_desc">The \f$h\overline{\ell}\ell\f$ coupling \f$c_e\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%d3 </td>
+ *   <td class="mod_symb">\f$d_3\f$</td>
+ *   <td class="mod_desc">The \f$hhh\f$ coupling \f$d_3\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%d4 </td>
+ *   <td class="mod_symb">\f$d_4\f$</td>
+ *   <td class="mod_desc">The \f$hhhh\f$ coupling \f$d_4\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%LambdaNP_in</td>
+ *   <td class="mod_symb">\f$\Lambda_{NP}\f$</td>
+ *   <td class="mod_desc">The new physics scale. </td>
+ * </tr>
+ * </table>
+ * 
  */
 class NPHiggsST : public NPbase {
 public:
@@ -145,7 +198,14 @@ public:
 
     ////////////////////////////////////////////////////////////////////////    
 protected:    
-    double a, b, c_u, c_d, c_e, d_3, d_4, LambdaNP_in;
+    double a;///< The \f$hVV\f$ coupling \f$a\f$.
+    double b;///< The \f$hhVV\f$ coupling \f$b\f$.
+    double c_u;///< The \f$h\overline{u}u\f$ coupling \f$c_u\f$.
+    double c_d;///< The \f$h\overline{d}d\f$ coupling \f$c_d\f$. 
+    double c_e;///< The \f$h\overline{\ell}\ell\f$ coupling \f$c_e\f$. 
+    double d_3;///< The \f$hhh\f$ coupling \f$d_3\f$. 
+    double d_4;///< The \f$hhhh\f$ coupling \f$d_4\f$. 
+    double LambdaNP_in;///< The new physics scale \f$\Lambda_{NP}\f$
      /**
      * @brief A set method to fix the parameters of the model.
      * @param[in] name a string with the parameter name

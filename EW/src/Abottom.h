@@ -38,7 +38,7 @@ class Abottom : public ThObservable {
 public:
 
     /**
-     * Constructor.
+     * @brief Constructor.
      * @param[in] EW_i A reference to an object of EW class, which is the base class of 
      * the electroweak precision observables.
      */
@@ -48,6 +48,7 @@ public:
     };
 
     /**
+     * @brief The theory prediction for \f$A_b\f$ at the \f$Z\f$ pole.
      * @return the @f$e^+e^-\rightarrow b\bar{b}@f$ left-right asymmetry at the @f$Z@f$ pole
      */
     double computeThValue();
@@ -59,7 +60,7 @@ private:
      * A reference to an object of EW class, which is the base class of the electroweak 
      * precision observables.
      */
-    const EW& myEW;
+    const EW& myEW;///< A reference to an object of the EW class.
 };
 
 /** 

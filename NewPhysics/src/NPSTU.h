@@ -25,6 +25,34 @@
  * and to \f$Z\f$-pole observables through the corrections to the different neutral-current
  * effective couplings to leptons and quarks. The contributions to the later are 
  * implemented in the \b NPbase class.
+ * 
+ * @anchor NPSTUParameters
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of NPSTU are summarized below: 
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%myObliqueS </td>
+ *   <td class="mod_symb">\f$S \f$</td>
+ *   <td class="mod_desc">The oblique parameter \f$S\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%myObliqueT </td>
+ *   <td class="mod_symb">\f$T \f$</td>
+ *   <td class="mod_desc">The oblique parameter \f$T\f$.</td>
+ * </tr>
+  * <tr>
+ *   <td class="mod_name">%myObliqueU </td>
+ *   <td class="mod_symb">\f$U \f$</td>
+ *   <td class="mod_desc">The oblique parameter \f$U\f$.</td>
+ * </tr>
+ * </table>
+ * 
  */
 class NPSTU : public NPbase {
 public:
@@ -188,7 +216,9 @@ public:
     
     ////////////////////////////////////////////////////////////////////////
 protected:    
-    double myObliqueS, myObliqueT, myObliqueU;
+    double myObliqueS;///< The oblique parameter \f$S\f$.
+    double myObliqueT;///< The oblique parameter \f$T\f$.
+    double myObliqueU;///< The oblique parameter \f$U\f$.
      /**
      * @brief A set method to fix the parameters of the model.
      * @param[in] name a string with the parameter name

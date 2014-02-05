@@ -22,8 +22,27 @@
  * \b NewPhysics classes. In several of these classes some of these methods are reimplemented
  * to account for the details of more specific scenarios. 
  * 
- * Flags:
- * \li \b FlagFixSMcontribution:&nbsp; (True) (False).
+ * @anchor NPbaseFlags
+ * <h3>%Flags</h3>
+ *
+ * The flags of NPbase are summarized below: 
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>Value</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FlagFixSMcontribution</td>
+ *   <td class="mod_desc">True</td>
+ *   <td class="mod_desc"> </td>
+ * <tr>
+ *   <td class="mod_name"> </td>
+ *   <td class="mod_desc">False</td>
+ *   <td class="mod_desc"> </td>
+ * </tr>
+ * </table>
+ * 
  */
 class NPbase : public StandardModel {
 public:
@@ -210,7 +229,7 @@ protected:
 
     ////////////////////////////////////////////////////////////////////////
 private:
-    bool FlagFixSMcontribution;
+    bool FlagFixSMcontribution;///< Flag: if true ...
     
 };
 

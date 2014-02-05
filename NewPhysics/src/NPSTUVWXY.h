@@ -24,7 +24,55 @@
  * are parameterized in terms of the \f$\hat{S},~\hat{T},~\hat{U},~V,~W,~X\f$ and \f$Y\f$ 
  * contributions to \f$M_W\f$, and to \f$Z\f$-pole observables through the corrections 
  * to the different neutral-current effective couplings to leptons and quarks. The 
- * contributions to the later are implemented in the \b NPbase class.  
+ * contributions to the later are implemented in the \b NPbase class. 
+ * 
+ * @anchor NPSTUVWXYParameters
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of NPSTUVWXY are summarized below: 
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%myObliqueShat </td>
+ *   <td class="mod_symb">\f$\hat{S}\f$</td>
+ *   <td class="mod_desc">The oblique paramenter \f$\hat{S}\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%myObliqueThat </td>
+ *   <td class="mod_symb">\f$\hat{T} \f$</td>
+ *   <td class="mod_desc">The oblique paramenter \f$\hat{T}\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%myObliqueUhat </td>
+ *   <td class="mod_symb">\f$\hat{U}\f$</td>
+ *   <td class="mod_desc">The oblique paramenter \f$\hat{U}\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%myObliqueV </td>
+ *   <td class="mod_symb">\f$V\f$</td>
+ *   <td class="mod_desc">The oblique paramenter \f$V\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%myObliqueW </td>
+ *   <td class="mod_symb">\f$W\f$</td>
+ *   <td class="mod_desc">The oblique paramenter \f$W\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%myObliqueX </td>
+ *   <td class="mod_symb">\f$X\f$</td>
+ *   <td class="mod_desc">The oblique paramenter \f$X\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%myObliqueY </td>
+ *   <td class="mod_symb">\f$Y\f$</td>
+ *   <td class="mod_desc">The oblique paramenter \f$Y\f$.</td>
+ * </tr>
+ * </table>
+ *  
  */
 class NPSTUVWXY : public NPbase {
 public:
@@ -252,8 +300,13 @@ protected:
      * @param[in] value the value to be asigned to the parameter specified by name
      */
     virtual void setParameter(const std::string name, const double& value);
-    double myObliqueShat, myObliqueThat, myObliqueUhat;
-    double myObliqueV, myObliqueW, myObliqueX, myObliqueY;
+    double myObliqueShat;///< The oblique paramenter \f$\hat{S}\f$.
+    double myObliqueThat;///< The oblique paramenter \f$\hat{T}\f$.
+    double myObliqueUhat;///< The oblique paramenter \f$\hat{U}\f$.
+    double myObliqueV;///< The oblique paramenter \f$V\f$.
+    double myObliqueW;///< The oblique paramenter \f$W\f$.
+    double myObliqueX;///< The oblique paramenter \f$X\f$.
+    double myObliqueY;///< The oblique paramenter \f$Y\f$.
 
 };
 

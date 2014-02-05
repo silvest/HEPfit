@@ -15,7 +15,7 @@
 /**
  * @class Rlepton
  * @ingroup EW 
- * @brief A class for @f$R_\ell=\Gamma(Z\to {\rm hadrons})/\Gamma(Z\to \ell^+ \ell^-)@f$ 
+ * @brief A class for @f$R_\ell^0=\Gamma(Z\to {\rm hadrons})/\Gamma(Z\to \ell^+ \ell^-)@f$ 
  * at the @f$Z@f$ pole.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -26,7 +26,7 @@ class Rlepton : public ThObservable {
 public:
 
     /**
-     * Constructor.
+     * @brief Constructor.
      * @param[in] EW_i A reference to an object of EW class, which is the base 
      * class of the electroweak precision observables.
      */
@@ -36,6 +36,7 @@ public:
     };
 
     /**
+     * @brief The theory prediction for \f$R_\ell\f$ at the \f$Z\f$ pole.
      * @return The ratio of the @f$Z@f$-boson hadronic width to the 
      * @f$Z\to \ell^+ \ell^-@f$ width at the @f$Z@f$ pole. 
      */
@@ -48,7 +49,7 @@ private:
      * A reference to an object of EW class, which is the base class of the 
      * electroweak precision observables.
      */
-    const EW& myEW;
+    const EW& myEW;///< A reference to an object of the EW class.
 };
 
 #endif	/* RLEPTON_H */

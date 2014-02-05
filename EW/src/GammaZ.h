@@ -28,7 +28,7 @@ class GammaZ : public ThObservable {
 public:
 
     /**
-     * Constructor.
+     * @brief Constructor.
      * @param[in] EW_i A reference to an object of EW class, which is the base class of 
      * the electroweak precision observables.
      */
@@ -38,7 +38,8 @@ public:
     };
 
     /**
-     * @return the total width of the \f$Z\f$ boson 
+     * @brief The theory prediction for \f$\Gamma_Z\f$.
+     * @return the total width of the \f$Z\f$ boson in GeV
      */
     double computeThValue();
 
@@ -49,7 +50,7 @@ private:
      * A reference to an object of EW class, which is the base class of the electroweak 
      * precision observables.
      */
-    const EW& myEW;
+    const EW& myEW;///< A reference to an object of the EW class.
 };
 
 #endif	/* GAMMAZ_H */

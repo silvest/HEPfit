@@ -21,13 +21,13 @@
  * @details This class is used to compute the \f$W\f$-boson mass. The computation
  * includes the EW 2-loop corrections of \f${\cal O}(\alpha^2)\f$ as well as
  * the leading \f${\cal O}(G_\mu^2\alpha_s m_t^4)\f$ and \f${\cal O}(G_\mu^3m_t^6)\f$
- * contributions. We use the approximate formula in Ref. \cite  .
+ * contributions.
  */
 class Mw : public ThObservable {
 public:
 
     /**
-     * Constructor.
+     * @brief Constructor.
      * @param[in] EW_i A reference to an object of EW class, which is the base class of 
      * the electroweak precision observables.
      */
@@ -37,6 +37,7 @@ public:
     };
 
     /**
+     * @brief The theory prediction for \f$W\f$ mass.
      * @return the \f$W\f$-boson mass
      */
     double computeThValue();

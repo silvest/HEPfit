@@ -25,7 +25,7 @@ class GammaW : public ThObservable {
 public:
     
     /**
-     * Constructor.
+     * @brief Constructor.
      * @param[in] EW_i A reference to an object of EW class, which is the base class of 
      * the electroweak precision observables.
      */
@@ -35,7 +35,8 @@ public:
     };
 
     /**
-     * @return The total width of the \f$W\f$ boson. 
+     * @brief The theory prediction for \f$\Gamma_W\f$.
+     * @return the total width of the \f$W\f$ boson in GeV 
      */
     double computeThValue();
 

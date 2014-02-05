@@ -26,7 +26,7 @@ class PtauPol : public ThObservable {
 public:
 
     /**
-     * Constructor.
+     * @brief Constructor.
      * @param[in] EW_i A reference to an object of EW class, which is the base 
      * class of the electroweak precision observables.
      */
@@ -36,6 +36,7 @@ public:
     };
 
     /**
+     * @brief The theory prediction for the \f$\tau\f$ polarization at the \f$Z\f$ pole.
      * @return The longitudinal polarization of the final state in @f$e^+ e^-\to \tau^+ \tau^-@f$ at the 
      * @f$Z@f$ pole.
      */
@@ -48,7 +49,7 @@ private:
      * A reference to an object of EW class, which is the base class of the 
      * electroweak precision observables.
      */
-    const EW& myEW;
+    const EW& myEW;///< A reference to an object of the EW class.
 };
 
 #endif	/* PTAUPOL_H */

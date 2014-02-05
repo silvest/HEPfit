@@ -21,14 +21,14 @@
  * @copyright GNU General Public License
  * @details This class is used to compute the forward-backward asymmetry of 
  * the @f$Z\to b\bar{b}@f$ channel at the @f$Z@f$ pole in terms of the asymmetry
- * parameters @f$A_f\f$, computed in the classes \b Alepton and \b Abottom:
+ * parameters @f$A_f\f$, computed in the \b EW class:
  * \f[A_{FB}^{0,b}=\frac 34 A_e A_b.\f] 
  */
 class AFBbottom : public ThObservable {
 public:
 
     /**
-     * Constructor.
+     * @brief Constructor.
      * @param[in] EW_i A reference to an object of EW class, which is the base 
      * class of the electroweak precision observables.
      */
@@ -38,6 +38,7 @@ public:
     };
 
     /**
+     * @brief The theory prediction for \f$A^{0,b}_{FB}\f$ at the \f$Z\f$ pole.
      * @return the forward-backward asymmetry in @f$e^+ e^-\to Z \to b\bar{b}@f$ at the 
      * @f$Z@f$ pole
      */
@@ -50,7 +51,7 @@ private:
      * A reference to an object of EW class, which is the base class of the 
      * electroweak precision observables.
      */
-    const EW& myEW;
+    const EW& myEW;///< A reference to an object of the EW class.
 };
 
 #endif	/* AFBBOTTOM_H */

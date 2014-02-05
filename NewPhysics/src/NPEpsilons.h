@@ -22,15 +22,87 @@
  * to the \f$\varepsilon_{1,2,3,b}\f$ parameters \cite Altarelli:1990zd, \cite Altarelli:1991fk,\cite Altarelli:1993sz. 
  * Both SM and new physics contributions to \f$\varepsilon_i\f$ are parameterized. 
  *
- * Flags:
- * \li \b FlagEpsilon1SM:&nbsp; Return the SM (True) or SM plus new physics (False)
- * contribution to \f$\varepsilon_1\f$.
- * \li \b FlagEpsilon2SM:&nbsp; Return the SM (True) or SM plus new physics (False)
- * contribution to \f$\varepsilon_2\f$.
- * \li \b FlagEpsilon3SM:&nbsp; Return the SM (True) or SM plus new physics (False)
- * contribution to \f$\varepsilon_3\f$.
- * \li \b FlagEpsilonbSM:&nbsp; Return the SM (True) or SM plus new physics (False)
- * contribution to \f$\varepsilon_b\f$.
+ * @anchor NPEpsilonsParameters
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of NPEpsilons are summarized below: 
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%myEpsilon_1 </td>
+ *   <td class="mod_symb">\f$\varepsilon_1\f$</td>
+ *   <td class="mod_desc">The parameter \f$\varepsilon_1\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%myEpsilon_2 </td>
+ *   <td class="mod_symb">\f$\varepsilon_2\f$</td>
+ *   <td class="mod_desc">The parameter \f$\varepsilon_2\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%myEpsilon_3 </td>
+ *   <td class="mod_symb">\f$\varepsilon_3\f$</td>
+ *   <td class="mod_desc">The parameter \f$\varepsilon_3\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%myEpsilon_b </td>
+ *   <td class="mod_symb">\f$\varepsilon_b\f$</td>
+ *   <td class="mod_desc">The parameter \f$\varepsilon_b\f$.</td>
+ * </tr>
+ * </table>
+ * 
+ * @anchor NPEpsilonsFlags
+ * <h3>%Model Flags</h3>
+ *
+ * The flags of NPEpsilons are summarized below: 
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>Value</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FlagEpsilon1SM</td>
+ *   <td class="mod_desc">True</td>
+ *   <td class="mod_desc">Only the SM value of \f$\varepsilon_1\f$ is considered.</td>
+ * <tr>
+ *   <td class="mod_name"> </td>
+ *   <td class="mod_desc">False</td>
+ *   <td class="mod_desc">Includes both, the SM and new physics, contribution to \f$\varepsilon_1\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FlagEpsilon2SM</td>
+ *   <td class="mod_desc">True</td>
+ *   <td class="mod_desc">Only the SM value of \f$\varepsilon_2\f$ is considered.</td>
+ * <tr>
+ *   <td class="mod_name"> </td>
+ *   <td class="mod_desc">False</td>
+ *   <td class="mod_desc">Includes both, the SM and new physics, contribution to \f$\varepsilon_2\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FlagEpsilon3SM</td>
+ *   <td class="mod_desc">True</td>
+ *   <td class="mod_desc">Only the SM value of \f$\varepsilon_3\f$ is considered.</td>
+ * <tr>
+ *   <td class="mod_name"> </td>
+ *   <td class="mod_desc">False</td>
+ *   <td class="mod_desc">Includes both, the SM and new physics, contribution to \f$\varepsilon_3\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FlagEpsilonbSM</td>
+ *   <td class="mod_desc">True</td>
+ *   <td class="mod_desc">Only the SM value of \f$\varepsilon_b\f$ is considered.</td>
+ * <tr>
+ *   <td class="mod_name"> </td>
+ *   <td class="mod_desc">False</td>
+ *   <td class="mod_desc">Includes both, the SM and new physics, contribution to \f$\varepsilon_b\f$.</td>
+ * </tr>
+ * </table>
+ *
+ * 
  */
 class NPEpsilons : public NPbase  {
 public:
@@ -165,7 +237,10 @@ public:
     
     ////////////////////////////////////////////////////////////////////////   
 protected:    
-    double myEpsilon_1, myEpsilon_2, myEpsilon_3, myEpsilon_b;
+    double myEpsilon_1;///< The parameter \f$\varepsilon_1\f$.
+    double myEpsilon_2;///< The parameter \f$\varepsilon_2\f$.
+    double myEpsilon_3;///< The parameter \f$\varepsilon_3\f$.
+    double myEpsilon_b;///< The parameter \f$\varepsilon_b\f$.
      /**
      * @brief A set method to fix the parameters of the model.
      * @param[in] name a string with the parameter name
@@ -176,7 +251,10 @@ protected:
     
     ////////////////////////////////////////////////////////////////////////         
 private:
-    bool FlagEpsilon1SM, FlagEpsilon2SM, FlagEpsilon3SM, FlagEpsilonbSM;
+    bool FlagEpsilon1SM;///< Flag: if true only the SM value of \f$\varepsilon_1\f$ is considered.
+    bool FlagEpsilon2SM;///< Flag: if true only the SM value of \f$\varepsilon_2\f$ is considered.
+    bool FlagEpsilon3SM;///< Flag: if true only the SM value of \f$\varepsilon_3\f$ is considered. 
+    bool FlagEpsilonbSM;///< Flag: if true only the SM value of \f$\varepsilon_b\f$ is considered. 
     
 };
 

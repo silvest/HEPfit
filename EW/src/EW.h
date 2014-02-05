@@ -85,62 +85,75 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
     /**
+     * @brief The effective leptonic weak mixing angle, \f$\sin^2{\theta_{Eff}^\ell}\f$.
      * @param[in] l name of a lepton
      * @return the effective weak mixing angle for the lepton "l"
      */
     double sin2thetaEff(const StandardModel::lepton l) const;
     
      /**
+     * @brief The effective quark weak mixing angle, \f$\sin^2{\theta_{Eff}^q}\f$.
      * @param[in] q name of a quark
      * @return the effective weak mixing angle for the quark "q"
      */
     double sin2thetaEff(const StandardModel::quark q) const;   
     
     /**
+     * @brief The \f$Z\to\ell^+\ell^-\f$ partial decay width, \f$\Gamma_\ell\f$.
      * @param[in] l name of a lepton
-     * @return the \f$Z\rightarrow l^+l^-\f$ partial decay width 
+     * @return the \f$Z\rightarrow \ell^+\ell^-\f$ partial decay width in GeV 
      */
     double Gamma_l(const StandardModel::lepton l) const;
     
     /**
+     * @brief The \f$Z\to q\bar{q}\f$ partial decay width, \f$\Gamma_q\f$.
      * @param[in] q name of a quark
-     * @return the \f$Z\rightarrow q\bar{q}\f$ partial decay width 
+     * @return the \f$Z\rightarrow q\bar{q}\f$ partial decay width in GeV
      */
     double Gamma_q(const StandardModel::quark q) const;
     
     /**
-     * @return the invisible decay width of the \f$Z\f$ boson
+     * @brief The \f$Z\f$-boson invisible partial decay width, \f$\Gamma_{inv}\f$.
+     * @return the invisible decay width of the \f$Z\f$ boson in GeV
      */
     double Gamma_inv() const;
 
     /**
-     * @return the hadronic decay width of the \f$Z\f$ boson
+     * @brief The \f$Z\to\mbox{hadrons}\f$ partial decay width, \f$\Gamma_{had}\f$.
+     * @return the hadronic decay width of the \f$Z\f$ boson in GeV
      */
     double Gamma_had() const;
 
     /**
-     * @return the total decay width of the \f$Z\f$ boson
+     * @brief The total decay width of the \f$Z\f$ boson, \f$\Gamma_Z\f$.
+     * @return the total decay width of the \f$Z\f$ boson in GeV
      */
     double Gamma_Z() const;
     
     /**
+     * @brief The \f$Z\f$-pole leptonic cross section, \f$\sigma_{lept}^0\f$.
      * @param[in] l name of a lepton
-     * @return the cross section for \f$e^+e^- \rightarrow Z \rightarrow l\bar{l}\f$ at the \f$Z\f$ pole
+     * @return the cross section for \f$e^+e^- \rightarrow Z \rightarrow l\bar{l}\f$ 
+     * at the \f$Z\f$ pole in GeV\f$^{-2}\f$
      */
     double sigma0_l(const StandardModel::lepton l) const;
 
     /**
-     * @return the cross section for \f$e^+e^- \rightarrow Z \rightarrow \mathrm{hadrons}f$ at the \f$Z\f$ pole
+     * @brief The \f$Z\f$-pole hadronic cross section, \f$\sigma_h^0\f$.
+     * @return the cross section for \f$e^+e^- \rightarrow Z \rightarrow \mathrm{hadrons}\f$
+     * at the \f$Z\f$ pole in GeV\f$^{-2}\f$
      */
     double sigma0_had() const; 
  
     /**
+     * @brief The \f$Z\f$-pole leptonic left-right asymmetry, \f$A_l\f$.
      * @param[in] l name of a lepton
      * @return the asymmetry parameter for \f$Z\rightarrow l\bar{l}\f$, \f$A_l\f$
      */
     double A_l(const StandardModel::lepton l) const;
 
     /**
+     * @brief The \f$Z\f$-pole quark left-right asymmetry, \f$A_q\f$.
      * @param[in] q name of a quark
      * @return the asymmetry parameter for \f$Z\rightarrow q\bar{q}\f$, \f$A_q\f$
      */

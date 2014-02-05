@@ -28,7 +28,7 @@ class sigmaHadron : public ThObservable {
 public:
 
     /**
-     * Constructor.
+     * @brief Constructor.
      * @param[in] EW_i A reference to an object of EW class, which is the base 
      * class of the electroweak precision observables.
      */
@@ -38,8 +38,9 @@ public:
     };
 
     /**
+     * @brief The theory prediction for the hadronic cross section at the \f$Z\f$ pole.
      * @return The cross section for the process \f$e^+ e^-\to Z\to \mathrm{hadrons}\f$
-     * at the @f$Z@f$ pole in nb. 
+     * at the @f$Z@f$ pole in GeV\f$^{-2}\f$. 
      */
     double computeThValue();
 
@@ -50,7 +51,7 @@ private:
      * A reference to an object of EW class, which is the base class of the 
      * electroweak precision observables.
      */
-    const EW& myEW;
+    const EW& myEW;///< A reference to an object of the EW class.
 };
 
 #endif	/* SIGMAHADRON_H */

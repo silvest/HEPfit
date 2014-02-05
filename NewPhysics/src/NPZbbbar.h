@@ -20,15 +20,61 @@
  * corrections to electroweak precision observables, in the form of contributions
  * to the neutral current couplings of the bottom quark, \f$\delta g_{V,A}^b\f$ or 
  * \f$\delta g_{L,R}^b\f$.
+ *
+ * @anchor NPZbbbarParameters
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of NPZbbbar are summarized below: 
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%myDeltaGVb</td>
+ *   <td class="mod_symb">\f$\delta g_{V}^b\f$</td>
+ *   <td class="mod_desc">New physics correction to \f$g_{V}^b\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%myDeltaGAb</td>
+ *   <td class="mod_symb">\f$\delta g_{A}^b\f$</td>
+ *   <td class="mod_desc">New physics correction to \f$g_{A}^b\f$.</td>
+ * </tr>
+ * </table>
  * 
- * Flags:
- * \li \b FlagNPZbbbarLR:&nbsp; (True) New physics parameterized in terms of non-standard
- * left and right-handed bottom couplings to the \f$Z\f$, \f$\delta g_{L,R}^b\f$. (False)
- * New physics parameterized in terms of non-standard
- * vector and axial-vector bottom couplings to the \f$Z\f$, \f$\delta g_{V,A}^b\f$.
- * \li \b FlagNotLinearizedNP:&nbsp; (True) New physics contributions to electroweak
- * observables not linearized in the corrections to the bottom couplings \f$\delta g^b\f$.
- * (False) New physics contributions to electroweak observables linear in \f$\delta g^b\f$.
+ * @anchor NPZbbbarFlags
+ * <h3>%Model Flags</h3>
+ *
+ * The flags of NPZbbbar are summarized below: 
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>Value</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FlagNPZbbbarLR</td>
+ *   <td class="mod_desc">True</td>
+ *   <td class="mod_desc">New physics parameterized in terms of \f$\delta g_{L,R}^b\f$. </td>
+ * <tr>
+ *   <td class="mod_name"> </td>
+ *   <td class="mod_desc">False</td>
+ *   <td class="mod_desc">New physics parameterized in terms of \f$\delta g_{V,A}^b\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FlagNotLinearizedNP</td>
+  *   <td class="mod_desc">True</td>
+ *   <td class="mod_desc">New physics contributions to electroweak
+ * observables not linearized in \f$\delta g^b\f$.</td>
+ * <tr>
+ *   <td class="mod_name"> </td>
+ *   <td class="mod_desc">False</td>
+ *   <td class="mod_desc">New physics contributions to electroweak
+ * observables linear in \f$\delta g^b\f$.</td>
+ * </tr>
+ * </table>
+ *
  */
 class NPZbbbar : public NPbase  {
 public:
@@ -164,16 +210,17 @@ private:
      * and right-handed couplings if the flag "NPZbbbarLR" is set to true.
      * Therefore, they should not be used directly. Instead, the functions
      * deltaGVq() and deltaGAq() have to be called. */
-    double myDeltaGVb, myDeltaGAb;
+    double myDeltaGVb;///< New physics correction to \f$g_{V}^b\f$.
+    double myDeltaGAb;///< New physics correction to \f$g_{A}^b\f$.
 
     /*
      * If true,
      *    myDeltaGVb --> delta g_L^b
      *    myDeltaGAb --> delta g_R^b
      */
-    bool FlagNPZbbbarLR;
+    bool FlagNPZbbbarLR;///< Flag: if true uses \f$\delta g_{L,R}^b\f$ instead of \f$\delta g_{V,A}^b\f$. 
 
-    bool FlagNotLinearizedNP;
+    bool FlagNotLinearizedNP;///< Flag: if false uses only correction linear in \f$\delta g^b\f$.
 
 };
 

@@ -26,6 +26,169 @@
  * to the different neutral-current effective couplings to leptons and quarks, 
  * \f$\delta g_{L,R}^f\f$ or \f$\delta g_{V,A}^f\f$. This class also contains get
  * methods to retrieve the value of all the included dimension six operators.
+ *
+ * @anchor NPEffectiveParameters
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of NPEffective are summarized below: 
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cWB </td>
+ *   <td class="mod_symb">\f$c_{WB} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f${\cal O}_{WB}=\left(H^\dagger\sigma_aH\right)W_{\mu\nu}^a B^{\mu\nu}\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cH </td>
+ *   <td class="mod_symb">\f$c_H\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f${\cal O}_{H}=\left|H^\dagger D_\mu H\right|^2\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cL1L1 </td>
+ *   <td class="mod_symb">\f$\left(c_{LL}\right)_{1111}  \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{LL}\right)_{1111}=\frac 12\left(\overline{L^1}\gamma^\mu\sigma_a L^1\right)\left(\overline{L^1}\gamma_\mu\sigma_a L^1\right)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cL1L2 </td>
+ *   <td class="mod_symb">\f$\left(c_{LL}\right)_{1122}  \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{LL}\right)_{1122}=\frac 12\left(\overline{L^1}\gamma^\mu\sigma_a L^1\right)\left(\overline{L^2}\gamma_\mu\sigma_a L^2\right)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cL1L3 </td>
+ *   <td class="mod_symb">\f$\left(c_{LL}\right)_{1133}  \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{LL}\right)_{1133}=\frac 12\left(\overline{L^1}\gamma^\mu\sigma_a L^1\right)\left(\overline{L^3}\gamma_\mu\sigma_a L^3\right)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cL2L2 </td>
+ *   <td class="mod_symb">\f$\left(c_{LL}\right)_{2222}  \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{LL}\right)_{2222}=\frac 12\left(\overline{L^2}\gamma^\mu\sigma_a L^2\right)\left(\overline{L^2}\gamma_\mu\sigma_a L^2\right)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cL2L3 </td>
+ *   <td class="mod_symb">\f$\left(c_{LL}\right)_{2233}  \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{LL}\right)_{2233}=\frac 12\left(\overline{L^2}\gamma^\mu\sigma_a L^2\right)\left(\overline{L^3}\gamma_\mu\sigma_a L^3\right)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cL3L3 </td>
+ *   <td class="mod_symb">\f$\left(c_{LL}\right)_{3333} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{LL}\right)_{1122}=\frac 12\left(\overline{L^3}\gamma^\mu\sigma_a L^3\right)\left(\overline{L^3}\gamma_\mu\sigma_a L^3\right)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHL1p </td>
+ *   <td class="mod_symb">\f$\left(c_{HL}^\prime\right)_{11} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HL}^\prime\right)_{11}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{L^1}\sigma_a\gamma^\mu L^1\right)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHL2p </td>
+ *   <td class="mod_symb">\f$\left(c_{HL}^\prime\right)_{22} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HL}^\prime\right)_{22}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{L^2}\sigma_a\gamma^\mu L^2\right)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHL3p </td>
+ *   <td class="mod_symb">\f$\left(c_{HL}^\prime\right)_{33} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HL}^\prime\right)_{33}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{L^3}\sigma_a\gamma^\mu L^3\right)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHQ1p </td>
+ *   <td class="mod_symb">\f$\left(c_{HQ}^\prime\right)_{11} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HQ}^\prime\right)_{11}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{Q^1}\sigma_a\gamma^\mu Q^1\right)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHQ2p </td>
+ *   <td class="mod_symb">\f$\left(c_{HQ}^\prime\right)_{22} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HQ}^\prime\right)_{22}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{Q^2}\sigma_a\gamma^\mu Q^2\right)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHQ3p </td>
+ *   <td class="mod_symb">\f$\left(c_{HQ}^\prime\right)_{33} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HQ}^\prime\right)_{33}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{Q^3}\sigma_a\gamma^\mu Q^3\right)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHL1 </td>
+ *   <td class="mod_symb">\f$\left(c_{HL}\right)_{11} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HL}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{L^1}\gamma^\mu L^1\right) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHL2 </td>
+ *   <td class="mod_symb">\f$\left(c_{HL}\right)_{22} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HL}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{L^2}\gamma^\mu L^2\right) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHL3 </td>
+ *   <td class="mod_symb">\f$\left(c_{HL}\right)_{33} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HL}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{L^3}\gamma^\mu L^3\right) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHQ1 </td>
+ *   <td class="mod_symb">\f$\left(c_{HQ}\right)_{11} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HQ}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{Q^1}\gamma^\mu Q^1\right) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHQ2 </td>
+ *   <td class="mod_symb">\f$\left(c_{HQ}\right)_{22} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HQ}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{Q^2}\gamma^\mu Q^2\right) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHQ3 </td>
+ *   <td class="mod_symb">\f$\left(c_{HQ}\right)_{33} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HQ}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{Q^3}\gamma^\mu Q^3\right) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHE1 </td>
+ *   <td class="mod_symb">\f$\left(c_{HE}\right)_{11} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HE}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{E^1}\gamma^\mu E^1\right) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHE2 </td>
+ *   <td class="mod_symb">\f$\left(c_{HE}\right)_{22} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HE}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{E^2}\gamma^\mu E^2\right) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHE3 </td>
+ *   <td class="mod_symb">\f$\left(c_{HQ}\right)_{33} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HE}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{E^3}\gamma^\mu E^3\right) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHU1 </td>
+ *   <td class="mod_symb">\f$\left(c_{HU}\right)_{11} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HU}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{U^1}\gamma^\mu U^1\right) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHU2 </td>
+ *   <td class="mod_symb">\f$\left(c_{HU}\right)_{22} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HU}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{U^2}\gamma^\mu U^2\right) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHU3 </td>
+ *   <td class="mod_symb">\f$\left(c_{HU}\right)_{33} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HU}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{U^3}\gamma^\mu U^3\right) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHD1 </td>
+ *   <td class="mod_symb">\f$\left(c_{HD}\right)_{11} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HD}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{D^1}\gamma^\mu D^1\right) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHD2 </td>
+ *   <td class="mod_symb">\f$\left(c_{HQ}\right)_{22} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HD}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{D^2}\gamma^\mu D^2\right) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHD3</td>
+ *   <td class="mod_symb">\f$\left(c_{HQ}\right)_{33} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HD}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{D^3}\gamma^\mu D^3\right) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%LambdaNP </td>
+ *   <td class="mod_symb">\f$\Lambda_{NP} \f$</td>
+ *   <td class="mod_desc">The new physics scale. </td>
+ * </tr>
+ * </table>
+ * 
  */
 class NPEffective : public NPbase {
 public:
@@ -446,16 +609,36 @@ public:
     
     ////////////////////////////////////////////////////////////////////////    
 protected:
-    double cWB, cH;
-    double cL1L1, cL1L2, cL1L3, cL2L2, cL2L3, cL3L3;
-    double cHL1p, cHL2p, cHL3p;
-    double cHQ1p, cHQ2p, cHQ3p;
-    double cHL1, cHL2, cHL3;
-    double cHQ1, cHQ2, cHQ3;
-    double cHE1, cHE2, cHE3;
-    double cHU1, cHU2, cHU3;
-    double cHD1, cHD2, cHD3;
-    double LambdaNP;
+    double cWB;///< The dimension-6 operator coefficient \f$c_{WB}\f$.
+    double cH;///< The dimension-6 operator coefficient \f$c_{H}\f$.
+    double cL1L1;///< The dimension-6 operator coefficient \f$(c_{LL})_{1111}\f$.
+    double cL1L2;///< The dimension-6 operator coefficient \f$(c_{LL})_{1122}\f$.
+    double cL1L3;///< The dimension-6 operator coefficient \f$(c_{LL})_{1133}\f$.
+    double cL2L2;///< The dimension-6 operator coefficient \f$(c_{LL})_{2222}\f$.
+    double cL2L3;///< The dimension-6 operator coefficient \f$(c_{LL})_{2233}\f$.
+    double cL3L3;///< The dimension-6 operator coefficient \f$(c_{LL})_{3333}\f$.
+    double cHL1p;///< The dimension-6 operator coefficient \f$(c_{HL}^\prime)_{11}\f$.
+    double cHL2p;///< The dimension-6 operator coefficient \f$(c_{HL}^\prime)_{22}\f$.
+    double cHL3p;///< The dimension-6 operator coefficient \f$(c_{HL}^\prime)_{33}\f$.
+    double cHQ1p;///< The dimension-6 operator coefficient \f$(c_{HQ}^\prime)_{11}\f$.
+    double cHQ2p;///< The dimension-6 operator coefficient \f$(c_{HQ}^\prime)_{22}\f$.
+    double cHQ3p;///< The dimension-6 operator coefficient \f$(c_{HQ}^\prime)_{33}\f$.
+    double cHL1;///< The dimension-6 operator coefficient \f$(c_{HL})_{11}\f$.
+    double cHL2;///< The dimension-6 operator coefficient \f$(c_{HL})_{22}\f$.
+    double cHL3;///< The dimension-6 operator coefficient \f$(c_{HL})_{33}\f$.
+    double cHQ1;///< The dimension-6 operator coefficient \f$(c_{HQ})_{11}\f$.
+    double cHQ2;///< The dimension-6 operator coefficient \f$(c_{HQ})_{22}\f$.
+    double cHQ3;///< The dimension-6 operator coefficient \f$(c_{HQ})_{33}\f$.
+    double cHE1;///< The dimension-6 operator coefficient \f$(c_{HE})_{11}\f$.
+    double cHE2;///< The dimension-6 operator coefficient \f$(c_{HE})_{22}\f$.
+    double cHE3;///< The dimension-6 operator coefficient \f$(c_{HE})_{33}\f$.
+    double cHU1;///< The dimension-6 operator coefficient \f$(c_{HU})_{11}\f$.
+    double cHU2;///< The dimension-6 operator coefficient \f$(c_{HU})_{22}\f$.
+    double cHU3;///< The dimension-6 operator coefficient \f$(c_{HU})_{33}\f$.
+    double cHD1;///< The dimension-6 operator coefficient \f$(c_{HD})_{11}\f$.
+    double cHD2;///< The dimension-6 operator coefficient \f$(c_{HD})_{22}\f$.
+    double cHD3;///< The dimension-6 operator coefficient \f$(c_{HD})_{33}\f$.
+    double LambdaNP;///< The new physics scale \f$\Lambda_{NP}\f$.
     
 
     ////////////////////////////////////////////////////////////////////////   
