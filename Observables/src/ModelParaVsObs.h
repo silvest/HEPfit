@@ -131,7 +131,7 @@ public:
     }
 
 private:
-    std::string ParaName; /< The name of the parameter.
+    std::string ParaName; ///< The name of the parameter.
     std::string ParaLabel; ///< The label for the parameter.
     double ParaMin; ///< The minimum value for the parameter.
     double ParaMax; ///< The maximum value for the parameter.
