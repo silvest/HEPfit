@@ -15,8 +15,8 @@
 
 ComputeObservables::ComputeObservables(const std::string& ModelConf_i,
                                        std::map<std::string, double> DObs_i)
-: DObs(DObs_i), 
-  myInputParser(), 
+: myInputParser(),
+  DObs(DObs_i),
   ModelConf(ModelConf_i)
 {
     std::string ModelName = myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs);

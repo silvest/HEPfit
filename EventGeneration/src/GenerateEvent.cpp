@@ -27,6 +27,7 @@ GenerateEvent::GenerateEvent(const std::string& ModelConf_i,
         OldOutDirName = ("GeneratedEvents/OLD/" + OutDirName_i + JobTag);
         ObsDirName = OutDirName + "/Observables";
         ParsDirName = OutDirName + "/Parameters";
+        CGODirName = OutDirName + "/CGO";
         outputTerm = 1;
     }
     noMC = noMC_i;
@@ -60,12 +61,13 @@ void GenerateEvent::generate(const int rank, int unsigned nIteration, int seed)
         }
         gSystem->MakeDirectory(OutDirName.c_str());
         gSystem->MakeDirectory(ObsDirName.c_str());
+        gSystem->MakeDirectory(CGODirName.c_str());
         gSystem->MakeDirectory(ParsDirName.c_str());
     }
     try {
         /* set model parameters */
         std::string ModelName = myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs);
-        if (Obs.size() == 0) throw std::runtime_error("\nGenerateEvent::generate(): No observables defined in SomeModel.conf file\n");
+        if (Obs.size() == 0 && CGO.size() == 0) throw std::runtime_error("\nGenerateEvent::generate(): No observables or correlated Gaussian observables defined in SomeModel.conf file\n");
         std::ofstream summary;
         if (outputTerm == 1){
             summary.open((OutDirName + "/Summary.txt").c_str(), std::ios::out);
@@ -84,11 +86,10 @@ void GenerateEvent::generate(const int rank, int unsigned nIteration, int seed)
                 }
             }
         }
-        int buffsize = ModParsVar.size() + 1;
+        //int buffsize = ModParsVar.size() + 1;
         if (!myInputParser.getMyModel()->Init(DP)) {
             throw std::runtime_error("parameter(s) missing in model initialization");
         }
-        if (outputTerm == 0) std::cout << "\nModel: " << ModelName << std::endl;
         defineParameterDistributions();
         if (nIteration == 0) {
             outputTerm = 0;
@@ -103,19 +104,43 @@ void GenerateEvent::generate(const int rank, int unsigned nIteration, int seed)
                 summary << "Observable\t" << it->getName() << "\n";
             }
         }
+        for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++){
+            if (outputTerm == 1) {
+                CGOOut[it->getName()] = boost::make_shared<std::ofstream>((CGODirName + "/" + it->getName() + ".txt").c_str(), std::ios::out);
+                summary << "CorrelatedGaussianObservables\t" << it->getName() << "\n";
+            }
+        }
         Mod = myInputParser.getMyModel();
         for (int unsigned i = 0; i < nIteration + 1; i++) {
             if (i == 1) std::cout << std::endl << "Generating " << nIteration << " random events...\n" << std::endl;
             generateRandomEvent(i);
+            if (outputTerm == 0) std::cout << "\nOservables: \n" << std::endl;
             for (std::vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
                 double th = it->computeTheoryValue();
                 if (outputTerm == 0) {
                     std::cout << it->getName() << " = " << th << std::endl;
                 } else {
                     (*ObsOut[it->getName()]) << th << std::endl;
-                    if (i == nIteration) {
-                        ObsOut[it->getName()]->close();
+                    if (i == nIteration) ObsOut[it->getName()]->close();
                 }
+            }
+            if (outputTerm == 0) std::cout << "\nCorrelated Gaussian Oservables: \n" << std::endl;
+            for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
+                if (outputTerm == 0) std::cout << it1->getName() << ":" << std::endl;
+                std::vector<Observable> ObsInCGO = it1->getObs();
+                for (std::vector<Observable>::iterator it2 = ObsInCGO.begin(); it2 < ObsInCGO.end(); it2++) {
+                    double th = it2->computeTheoryValue();
+                    if (outputTerm == 0) {
+                        std::cout << it2->getName() << " = " << th << std::endl;
+                    } else {
+                        (*CGOOut[it1->getName()]) << th << "\t";
+                    }
+                }
+                if (outputTerm == 0) {
+                    std::cout << std::endl;
+                } else {
+                    (*CGOOut[it1->getName()]) << std::endl;
+                    if (i == nIteration) CGOOut[it1->getName()]->close();
                 }
             }
             if (outputTerm == 0) std::cout << std::endl;
@@ -137,7 +162,7 @@ void GenerateEvent::generate(const int rank, int unsigned nIteration, int seed)
 
 void GenerateEvent::defineParameterDistributions()
 {
-    if (outputTerm == 0) std::cout << "Parameters varied in Event Generation:" << std::endl;
+    if (outputTerm == 0) std::cout << "\nParameters varied in Event Generation:" << std::endl;
     for (std::vector<ModelParameter>::const_iterator it = ModParsVar.begin();
             it < ModParsVar.end(); it++) {
         //if (it->errf == 0. && it->errg == 0.)
@@ -178,6 +203,7 @@ void GenerateEvent::generateRandomEvent(int iterationNo)
             if (outputTerm == 1) (*ParsOut[it->name]) << DPars[it->name] << std::endl;
         }
     } else {
+        if (outputTerm == 0) std::cout << "\nEvent no.: " << iterationNo <<std::endl;
         for (std::vector<ModelParameter>::iterator it = ModParsVar.begin(); it < ModParsVar.end(); it++) {
             DPars[it->name] = DDist[it->name]->GetRandom();
             if (outputTerm == 1) (*ParsOut[it->name]) << DPars[it->name] << std::endl;
