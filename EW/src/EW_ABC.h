@@ -10,7 +10,7 @@
 
 #include <gslpp.h>
 #include <StandardModel.h>
-#include "EWNPepsilons.h"
+#include "EWNPEpsilons.h"
 using namespace gslpp;
 
 /**
