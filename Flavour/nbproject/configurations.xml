@@ -134,6 +134,7 @@
             <pElem>../Utils/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
             <Elem>SUSYFIT_DEBUG=0</Elem>
           </preprocessorList>
@@ -335,6 +336,7 @@
             <pElem>../Utils/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -523,6 +525,7 @@
             <pElem>../Utils/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>

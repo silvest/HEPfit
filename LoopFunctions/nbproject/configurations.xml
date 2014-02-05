@@ -77,6 +77,7 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../LoopTools/include</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>
@@ -231,6 +232,7 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../LoopTools/include</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
             <Elem>USE_LOOPTOOLS</Elem>
           </preprocessorList>
@@ -404,6 +406,7 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../LoopTools/include</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -555,7 +558,7 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../LoopTools/include</pElem>
           </incDir>
-          <commandLine>-I${HOME}/LoopTools/include</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

@@ -49,6 +49,7 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopFunctions/src</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>
@@ -108,6 +109,7 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopFunctions/src</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -173,7 +175,7 @@
             <pElem>~/FeynHiggs/include</pElem>
             <pElem>../LoopFunctions/src</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` -I${HOME}/BAT/include -I${HOME}/Cuba/include -I${HOME}/FeynHiggs/include</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

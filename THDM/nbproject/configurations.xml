@@ -45,6 +45,7 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Utils/src</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>
@@ -118,6 +119,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../Utils/src</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -155,6 +157,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../Utils/src</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>

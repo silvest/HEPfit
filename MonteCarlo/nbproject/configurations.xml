@@ -59,7 +59,7 @@
             <pElem>../pMSSM/src</pElem>
             <pElem>../boost</pElem>
           </incDir>
-          <commandLine>`root-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
             <Elem>_MCDEBUG</Elem>
           </preprocessorList>
@@ -108,7 +108,7 @@
             <pElem>../pMSSM/src</pElem>
             <pElem>../boost</pElem>
           </incDir>
-          <commandLine>`root-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -160,7 +160,7 @@
             <pElem>../pMSSM/src</pElem>
             <pElem>../boost</pElem>
           </incDir>
-          <commandLine>`root-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
             <Elem>_MPI</Elem>
           </preprocessorList>
@@ -219,7 +219,7 @@
             <pElem>../pMSSM/src</pElem>
             <pElem>../boost</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags`</commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -271,7 +271,7 @@
             <pElem>../pMSSM/src</pElem>
             <pElem>../boost</pElem>
           </incDir>
-          <commandLine>`root-config --cflags` `${HOME}/gsl/bin/gsl-config --cflags` </commandLine>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
             <Elem>_MPI</Elem>
           </preprocessorList>

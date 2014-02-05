@@ -111,6 +111,7 @@
             <pElem>../Observables/src</pElem>
           </incDir>
           <inheritIncValues>false</inheritIncValues>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
         </ccTool>
         <archiverTool>
@@ -509,6 +510,7 @@
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
@@ -681,6 +683,7 @@
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
           </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <fortranCompilerTool>
           <developmentMode>5</developmentMode>
