@@ -8,6 +8,7 @@
 #include "InputParser.h"
 #include <stdexcept>
 #include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string/predicate.hpp>
 #include <iostream>
 
 InputParser::InputParser() 
@@ -319,17 +320,17 @@ std::string InputParser::ReadParameters(const std::string filename,
                                          + *beg + " in " + filename);
             std::string flagname = *beg;
             ++beg;
-            if ((*beg).compare("true") == 0 || (*beg).compare("false") == 0) {
+            if ( boost::iequals(*beg, "true") || boost::iequals(*beg, "false") ) {
                 /* Boolean flags */
                 bool value_bool;
-                if ((*beg).compare("true") == 0)
+                if ( boost::iequals(*beg, "true") )
                     value_bool = 1;
                 else
                     value_bool = 0;
                 if (!myModel->setFlag(flagname, value_bool))
                     throw std::runtime_error("ERROR: setFlag error for " + flagname);
                 else
-                    std::cout << "set flag " << flagname << "=" << value_bool << std::endl;
+                    std::cout << "set flag " << flagname << "=" << *beg << std::endl;
             } else {
                 /* String flags */
                 std::string value_str = *beg;

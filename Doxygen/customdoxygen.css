@@ -1189,6 +1189,7 @@ tr.heading h2 {
 table.model {
     margin: auto;
     border: 2px solid #000;
+    max-width: 85%;
 }
 
 table.model th {

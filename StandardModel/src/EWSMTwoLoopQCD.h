@@ -99,7 +99,7 @@ public:
      * @f$\delta^{\mathrm{QCD}}_2@f$ is computed via deltaQCD_2().
      * See, e.g., Chapter 8 of @cite Bardin:1999ak.
      * This quantity contributes to @f$\Delta r@f$ and the @f$Zf\bar{f}@f$
-     * effective couplings @f$\rho_Z^f@f$ and @f$\kappa_Z^f@f$.-b
+     * effective couplings @f$\rho_Z^f@f$ and @f$\kappa_Z^f@f$.
      * See also the description of EWSM class.
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta\rho^{\alpha\alpha_s}@f$
