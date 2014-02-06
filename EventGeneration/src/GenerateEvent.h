@@ -30,7 +30,7 @@
 class GenerateEvent {
 public:
     /**
-     * @brief The default constructor.
+     * @brief Constructor.
      * @details The default constructor sets the names of the configuration file
      * and the names of the specific output directory along with a job ID if it is
      * specified as an argument to the executable. Possible arguments to the executable are:
@@ -42,7 +42,7 @@ public:
      * the model parameters and observables to be calculated.
      * @param[in] OutDirName_i the name of the root output directory to be given
      * @param[in] JobTag_i optional job tag that might be specified
-     * @param[in] noMC_i the noMC specification given to the executable
+     * @param[in] noMC_i the noMC specification given to the executable=
      */
     GenerateEvent(const std::string& ModelConf_i,
                   const std::string& OutDirName_i,
@@ -93,26 +93,28 @@ private:
      */
     void generateRandomEvent(int iterationNo);
     
-    InputParser myInputParser; /**< An oject of the InputParser() class. */
-    std::map<std::string, double> DPars; /**< Map of parameters to be passed to Model(). */
-    std::map<std::string, TF1*> DDist; /**< Map of parameter distributions. */
-    std::map<std::string, boost::shared_ptr<std::ofstream> > ObsOut;/**< Map of output stream for observables. */
-    std::map<std::string, boost::shared_ptr<std::ofstream> > ParsOut;/**< Map of output stream for parameters. */
-    Model* Mod; /**< Name of the model as defined in SomeModel.conf*/
-    std::vector<ModelParameter> ModPars; /**< Vector for the model parameters defined in SomeModel.conf. */
-    std::vector<ModelParameter> ModParsVar; /**< Vector for the model parameters varied in SomeModel.conf. */
-    std::vector<Observable> Obs; /**< Vector for the observables defined in SomeModel.conf. */
-    std::vector<Observable2D> Obs2D; /**< Vector for the Observables2D defined in SomeModel.conf. */
-    std::vector<CorrelatedGaussianObservables> CGO; /**< vector for the Correlated Gaussian Observables defined in SomeModel.conf. */
-    std::vector<ModelParaVsObs> ParaObs; /**< Vector for the ModelParaVsObs defined in SomeModel.conf. */
-    std::string ModelConf; /**< String for the name of the SomeModel.conf file. */
-    std::string OutDirName; /**< String for the name of the output root file without the .root extension. */
-    std::string OldOutDirName; /**< String for the name of the output root file without the .root extension. */
-    std::string ObsDirName; /**< String for the name of the output root file without the .root extension. */
-    std::string ParsDirName; /**< String for the name of the output root file without the .root extension. */
-    std::string JobTag; /**< String for the optional JobTag argument to be passes to the executable. */
-    bool noMC;/**< Flag to initiate noMC mode.*/
-    bool outputTerm; /**< Flag to specify output stream storage.*/
+    InputParser myInputParser; ///< An oject of the InputParser() class.
+    std::map<std::string, double> DPars; ///< Map of parameters to be passed to Model().
+    std::map<std::string, TF1*> DDist; ///< Map of parameter distributions.
+    std::map<std::string, boost::shared_ptr<std::ofstream> > ObsOut;///< Map of output stream for observables.
+    std::map<std::string, boost::shared_ptr<std::ofstream> > CGOOut;///< Map of output stream for corellated Gaussian observables.
+    std::map<std::string, boost::shared_ptr<std::ofstream> > ParsOut;///< Map of output stream for parameters.
+    Model* Mod; ///< Name of the model as defined in SomeModel.conf
+    std::vector<ModelParameter> ModPars; ///< Vector for the model parameters defined in SomeModel.conf.
+    std::vector<ModelParameter> ModParsVar; ///< Vector for the model parameters varied in SomeModel.conf.
+    std::vector<Observable> Obs; ///< Vector for the observables defined in SomeModel.conf.
+    std::vector<Observable2D> Obs2D; ///< Vector for the Observables2D defined in SomeModel.conf.
+    std::vector<CorrelatedGaussianObservables> CGO; ///< vector for the Correlated Gaussian Observables defined in SomeModel.conf.
+    std::vector<ModelParaVsObs> ParaObs; ///< Vector for the ModelParaVsObs defined in SomeModel.conf.
+    std::string ModelConf; ///< String for the name of the SomeModel.conf file.
+    std::string OutDirName; ///< String for the name of the output directory.
+    std::string OldOutDirName; ///< String for the name of the backup output directory.
+    std::string ObsDirName; ///< String for the name of the observables output directory.
+    std::string CGODirName; ///< String for the name of the Correlated Gaussian Observables output directory.
+    std::string ParsDirName; ///< String for the name of the parameters output directory.
+    std::string JobTag; ///< String for the optional JobTag argument to be passes to the executable.
+    bool noMC;///< Flag to initiate noMC mode.
+    bool outputTerm; ///< Flag to specify output stream storage.
 };
 
 #endif	/* GENERATEEVENT_H */

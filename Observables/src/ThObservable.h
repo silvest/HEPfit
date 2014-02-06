@@ -25,7 +25,7 @@ class ThObservable {
 public:
     
     /**
-     * @brief The default constructor.
+     * @brief Constructor.
      * @param[in] ObsType_i a reference to an object of ThObsType() class
      */
     ThObservable(const ThObsType& ObsType_i);
@@ -41,7 +41,7 @@ public:
     virtual ~ThObservable();
     
     /**
-     * @brief A memeber to be overloaded by the respective theory observable 
+     * @brief A memeber to be overloaded by the respective theory observable.
      * class that calculates the value of the observable
      */
     virtual double computeThValue() = 0;
@@ -53,8 +53,8 @@ public:
 
 protected:
     
-    const ThObsType& ObsType; /**< A reference to an object of ThObsType() class. */
-    const StandardModel& SM; /**< A reference to an object of StandardModel() class.  */
+    const ThObsType& ObsType; ///< A reference to an object of ThObsType class.
+    const StandardModel& SM; ///< A reference to an object of StandardMode class.
 };
 
 #endif	/* THOBSERVABLE_H */
