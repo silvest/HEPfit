@@ -637,6 +637,7 @@ void BCEngineMCMC::MCMCGetNewPointMetropolis(int parameter) {
     bool last = false;
 
     while (mychain < fMCMCNChains) {
+//        std::cout << "begin of while: chain " << mychain << std::endl;
         // calculate index
 
         fMCMCCurrentChain = mychain;
@@ -652,7 +653,9 @@ void BCEngineMCMC::MCMCGetNewPointMetropolis(int parameter) {
             // execute user code for every point
             MCMCCurrentPointInterface(fMCMCxLocal, mychain, false);
 
+//            std::cout << "failed point: chain " << mychain << ", proc " << iproc << std::endl;
             mychain++;
+//            std::cout << "incremented in failed point; mychain now " << mychain << std::endl;
             if (mychain < fMCMCNChains)
                 continue;
             else {
@@ -667,8 +670,10 @@ void BCEngineMCMC::MCMCGetNewPointMetropolis(int parameter) {
             p0[iproc] = fMCMCprob[mychain];
             fMCMCxvect.push_back(fMCMCxLocal);
             indchain[iproc] = mychain;
+//            std::cout << "accepted point: chain " << mychain << ", proc " << iproc << std::endl;          
             iproc++;
             mychain++;
+//            std::cout << "incremented in successful point; mychain now " << mychain << ", proc now " << iproc << std::endl;            
             if (iproc < procnum && mychain < fMCMCNChains)
                 continue;
                 //                else
@@ -678,6 +683,7 @@ void BCEngineMCMC::MCMCGetNewPointMetropolis(int parameter) {
             break;
 
 
+//        std::cout << "starting likelihood calculation for " << fMCMCxvect.size() << " chains" << std::endl;
         double ** sendbuff = new double *[procnum];
         sendbuff[0] = new double[procnum * buffsize];
         for (int il = 1; il < procnum; il++)
@@ -721,6 +727,7 @@ void BCEngineMCMC::MCMCGetNewPointMetropolis(int parameter) {
                 
         for (int j = 0; j < fMCMCxvect.size(); j++) {
                     // flag for accept
+//            std::cout << "filling chain " << indchain[j] << std::endl;
                     bool accept = false;
 
                     // if the new point is more probable, keep it ...
@@ -754,11 +761,17 @@ void BCEngineMCMC::MCMCGetNewPointMetropolis(int parameter) {
             // execute user code for every point
             MCMCCurrentPointInterface(fMCMCxvect[j], indchain[j], accept);
             }
+//            std::cout << "finished likelihood calculation: before resetting, chain is " << mychain << ", proc is " << iproc << std::endl;          
             iproc = 0;
-        fMCMCxvect.clear();
-            mychain++;
+            fMCMCxvect.clear();
+//            std::cout << "finished likelihood calculation: after resetting, chain is " << mychain << ", proc is " << iproc << std::endl;                      
+            delete sendbuff[0];
+            delete [] sendbuff;
+
         }
-        //            std::cout << "finito" << std::endl;
+    delete [] recvbuff;
+    
+//            std::cout << "finito" << std::endl;
 
     }
 
