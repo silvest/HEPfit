@@ -163,8 +163,8 @@ public:
     
     ////////////////////////////////////////////////////////////////////////
 protected:
-    const StandardModel& SM;///> A reference to an object of the StandardModel class.
-    const EW_NPZff myEW_NPZff;
+    const StandardModel& SM;///< A reference to an object of the StandardModel class.
+    const EW_NPZff myEW_NPZff;///<
 
 };
 

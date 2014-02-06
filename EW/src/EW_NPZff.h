@@ -138,7 +138,7 @@ public:
     double Rbottom(const double Rbottom_SM) const;
     
 private:
-    const StandardModel& SM;///> A reference to an object of the StandardModel class.
+    const StandardModel& SM;///< A reference to an object of the StandardModel class.
     
 };
 

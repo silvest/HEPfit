@@ -21,7 +21,7 @@
  * to the neutral current couplings of the bottom quark, \f$\delta g_{V,A}^b\f$ or 
  * \f$\delta g_{L,R}^b\f$,
  * 
- * \f${\cal L}={\cal L}_{SM}+\delta g_V^b Z_\mu \bar{b}\gamma^\mu b+\delta g_A^b Z_\mu \bar{b}\gamma^\mu \gamma_5 b.\f$
+ * \f[{\cal L}={\cal L}_{SM}+\delta g_V^b Z_\mu \bar{b}\gamma^\mu b+\delta g_A^b Z_\mu \bar{b}\gamma^\mu \gamma_5 b.\f]
  *
  * @anchor NPZbbbarParameters
  * <h3>%Model parameters</h3>

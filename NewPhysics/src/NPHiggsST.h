@@ -20,14 +20,14 @@
  * Lagrangian plus all the interactions involving a light neutral scalar \f$H\f$. The
  * effective Lagrangian expansion is truncated at the level of two-derivatives \cite Contino:2010mh,
  * 
- * \f${\cal L}=\frac {1}{2} (\partial_\mu h)^2 -V(h)+\frac{v^2}{4}\mathrm{Tr}(D_\mu \Sigma^\dagger D^mu \Sigma)
+ * \f[{\cal L}=\frac {1}{2} (\partial_\mu h)^2 -V(h)+\frac{v^2}{4}\mathrm{Tr}(D_\mu \Sigma^\dagger D^mu \Sigma)
  * \left(1+2a\frac{h}{v}+b\frac{h^2}{v^2}+\cdots\right)-\left[
  * m_{u,i}\overline{Q}_{L,i}\Sigma \left(\begin{array}{c}u_{R,i}\\0\end{array}\right)\left(1+c_u \frac{h}{v}+\cdots\right)
  * +m_{d,i}\overline{Q}_{L,i}\Sigma \left(\begin{array}{c}0\\d_{R,i}\end{array}\right)\left(1+c_d \frac{h}{v}+\cdots\right)
  * +m_{\ell,i}\overline{L}_{L,i}\Sigma \left(\begin{array}{c}0\\\ell_{R,i}\end{array}\right)\left(1+c_e \frac{h}{v}+\cdots\right)+h.c.
- * \right],\f$
+ * \right],\f]
  * 
- * \f$ V(h)=\frac{m_h}{2}h^2+\frac{d_3}{6}\left(\frac{3m_h^2}{v}\right)h^3+\frac{d_4}{24}\left(\frac{3m_h^2}{v^2}\right)h^4+\cdots\f$
+ * \f[ V(h)=\frac{m_h}{2}h^2+\frac{d_3}{6}\left(\frac{3m_h^2}{v}\right)h^3+\frac{d_4}{24}\left(\frac{3m_h^2}{v^2}\right)h^4+\cdots\f]
  * 
  * Currently, only the dominant effects in EWPD, coming from non-standard @f$HVV@f$
  * interactions, are considered.

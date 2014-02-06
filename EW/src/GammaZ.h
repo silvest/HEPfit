@@ -20,7 +20,7 @@
  * @copyright GNU General Public License
  * @details This class is used to compute the total decay width of the \f$Z\f$ boson 
  * (in GeV),
- * \f[\Gamma_Z=\Gamma_h+\Gamma_e+\Gamma_\mu+\Gamma_\tau+\Gamma_\mathrm{inv}\f], 
+ * \f[\Gamma_Z=\Gamma_h+\Gamma_e+\Gamma_\mu+\Gamma_\tau+\Gamma_\mathrm{inv},\f] 
  * with @f$\Gamma_h=\sum_{q\not =t}\Gamma_q@f$ the total hadronic width, and 
  * @f$\Gamma_\mathrm{inv}=3\Gamma_\nu@f$ the invisible width.
  */
