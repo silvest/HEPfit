@@ -2,13 +2,58 @@
 <br>
 Here you will find the complete explanation of how the code works and its anatomy....
 
-<br>
-<h3>For a list of available observable go to ThFactory</h3>
-<br>
-<h3>For a list of Standard Model parameters go to StandardModel</h3>
-<br>
-For reporting bugs and customer support please contact: <a href="mailto:Luca.Silvestrini@rima1.infn.it?subject=Support%20for%20SusyFit&body=You%20fantastic%20code%20is%20not%20working...!!">Luca Silvestrini</a>
-<br>
- * Copyright (C) 2012-2013 SusyFit Collaboration
- * All rights reserved.
- * For the licensing terms see doc/COPYING.
+
+<h3>Model paramters:</h3>
+<div style="text-indent: 2em;">
+Lists of model parameters are available for each model at
+</div>
+<ul>
+  <li>@ref QCDParameters "QCD"</li>
+  <li>@ref StandardModelParameters "StandardModel"</li>
+</ul>
+
+
+<h3>Model flags:</h3>
+<div style="text-indent: 2em;">
+Lists of model flags are available for each model at
+</div>
+<ul>
+  <li>@ref StandardModelFlags "StandardModel"</li>
+</ul>
+
+
+<h3>Observables:</h3>
+<div style="text-indent: 2em;">
+A complete list of observables are available at 
+the documentation of @ref ListOfObservables "ThFactory". 
+</div>
+
+
+<h3>Publications:</h3>
+<ul>
+  <li>M. Ciuchini, E. Franco, S. Mishima and L. Silvestrini,<br>
+  ``Electroweak theory and global fit,''<br>
+  EPJ Web Conf. 60 (2013) 08004.
+  </li><br> 
+</ul>
+<ul>
+  <li>M. Ciuchini, E. Franco, S. Mishima and L. Silvestrini,<br>
+  ``Electroweak Precision Observables, New Physics and the Nature of a 126 GeV Higgs Boson,''<br>
+  JHEP 1308 (2013) 106 [arXiv:1306.4644 [hep-ph]].
+  </li><br> 
+</ul>
+
+
+<h3>Bibliography:</h3>
+<div style="text-indent: 2em;">
+See <a href="d0/de3/citelist.html">the list of references</a>. 
+</div>
+
+
+<h3>Support:</h3>
+<div style="text-indent: 2em;">
+For any questions, bugs or suggestions about the SusyFit codes, please
+send an email to  
+<a href="mailto:susyfit@roma1.infn.it?subject=Support%20for%20SusyFit">SusyFit Support</a>.
+</div>
+<br><br>

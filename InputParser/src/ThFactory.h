@@ -20,7 +20,14 @@
  * @brief A class for an interface to theoretical predictions for observables. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details The list of available observables are as follows:
+ * @details
+ *
+ *
+ *
+ * @anchor ListOfObservables
+ * <h3>%Observables</h3>
+ *
+ * The list of available observables are as follows:
  * \li \b Mw: The mass of the \f$ W \f$ boson, \f$ M_W \f$.
  * \li \b GammaW: The total decay width of the \f$W\f$ boson, \f$ \Gamma_W \f$.
  * \li \b GammaZ: The total decay width of the \f$Z\f$ boson, \f$ \Gamma_Z \f$.
