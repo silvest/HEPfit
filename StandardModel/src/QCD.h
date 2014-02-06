@@ -27,56 +27,281 @@
  * parameters like the bag parameters for the mesons and their decay constants are 
  * assigned and updated by this class.
  * 
- * Model parameters: 
- * \li \b AlsMz:&nbsp; the strong coupling constant at the Z-boson mass, \f$\alpha_s(M_Z)\f$,
- * \li \b Mz:&nbsp; the mass of the \f$Z\f$ boson in \f$ GeV \f$,
- * \li \b mup:&nbsp; the \f$\overline{\mathrm{MS}}\f$ mass of the up quark at 2 \f$ GeV \f$, \f$m_u(2\,\mathrm{GeV})\f$, in \f$ GeV \f$,
- * \li \b mdown:&nbsp; the \f$\overline{\mathrm{MS}}\f$ mass of the down quark at 2 GeV, \f$m_d(2\,GeV)\f$, in GeV,
- * \li \b mcharm:&nbsp; the \f$\overline{\mathrm{MS}}\f$ scale-invariant mass of the charm quark, \f$m_c(m_c)\f$, in \f$ GeV \f$,
- * \li \b mstrange:&nbsp; the \f$\overline{\mathrm{MS}}\f$ mass of the strange quark at 2 \f$ GeV \f$, \f$m_s(2\,GeV)\f$, in \f$ GeV \f$,
- * \li \b mtop:&nbsp; the pole mass of the top quark in \f$ GeV \f$,
- * \li \b mbottom:&nbsp; the \f$\overline{\mathrm{MS}}\f$ scale-invariant mass of the bottom quark, \f$m_b(m_b)\f$, in \f$ GeV \f$,
- * \li \b mut:&nbsp; the threshold between six- and five-flavour theory in \f$ GeV \f$,
- * \li \b mub:&nbsp; the threshold between five- and four-flavour theory in \f$ GeV \f$,
- * \li \b muc:&nbsp; the threshold between four- and three-flavour theory in \f$ GeV \f$,
- * \li \b MBd:&nbsp; the mass of the \f$ B_d \f$ meson in \f$ GeV \f$,
- * \li \b tBd:&nbsp; the lifetime of the \f$ B_d \f$ meson in \f$ ps^{-1} \f$,
- * \li \b MBs:&nbsp; the mass of the \f$ B_s \f$ meson in \f$ GeV \f$,
- * \li \b tBs:&nbsp; the lifetime of the \f$ B_s \f$ meson in \f$ ps^{-1} \f$,
- * \li \b MBp:&nbsp; the mass of the \f$ B^\pm \f$ meson in \f$ GeV \f$,
- * \li \b MK0:&nbsp; the mass of the \f$ K^0 \f$ meson in \f$ GeV \f$,
- * \li \b MKp:&nbsp; the mass of the \f$ K^\pm \f$ meson in \f$ GeV \f$,
- * \li \b MD:&nbsp; the mass of the \f$ D^0 \f$ meson in \f$ GeV \f$,
- * \li \b tKl:&nbsp; the lifetime of the \f$ K_L \f$ meson in \f$ ps^{-1} \f$,
- * \li \b tKp:&nbsp; the lifetime of the \f$ K^\pm \f$ meson in \f$ ps^{-1} \f$,
- * \li \b FBs:&nbsp; the decay constant of the \f$ B_s \f$ meson in \f$ GeV \f$,
- * \li \b FBsoFBd:&nbsp; the ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$,
- * \li \b FD:&nbsp; the decay constant of the \f$ D^0 \f$ meson in \f$ GeV \f$,
- * \li \b BBsoBBd:&nbsp; the ratio \f$ B_{B_s}/B_{B_d} \f$ necessary to compute \f$ B_{B_s} \f$,
- * \li \b BBs1 - BBs5:&nbsp; the bag parameter for \f$ O_1 - O_5 \f$ in \f$ \Delta b = 2 \f$ processes in \f$ B_s \f$,
- * \li \b BBsscale:&nbsp; the scale at which the bag parameters are specified for the \f$ B_s \f$ system,
- * \li \b BBsscheme:&nbsp; the scheme in which the bag parameters are specified for the \f$ B_s \f$ system,
- * \li \b BD1 - BD5:&nbsp; the bag parameter for \f$ O_1 - O_5\f$ in \f$ \Delta c = 2 \f$ processes in \f$ D^0 \f$,
- * \li \b BDscale:&nbsp; the scale at which the bag parameters are specified for the \f$ D_0 \f$ system,
- * \li \b BDscheme:&nbsp; the scheme in which the bag parameters are specified for the \f$ D_0 \f$ system,
- * \li \b BK1 - BK5:&nbsp; the bag parameter for \f$ O_1 - O_5\f$ in \f$ \Delta s = 2 \f$ processes in \f$ K^0 \f$,
- * \li \b BKscale:&nbsp; the scale at which the bag parameters are specified for the \f$ K^0 \f$ system,
- * \li \b BKscheme:&nbsp; the scheme in which the bag parameters are specified for the \f$ K^0 \f$ system,
- * \li \b BK(1/2)1 - BK(1/2)10:&nbsp;
- * \li \b BKd_scale:&nbsp;
- * \li \b BKd_scheme:&nbsp;
- * \li \b BK(3/2)1 - BK(3/2)10:&nbsp;
- * \li \b ReA0_Kd:&nbsp; the experimental value of the real part of the amplitude for \f$K^0\to\pi\pi\f$ with \f$\Delta I=0\f$,
- * \li \b ReA2_Kd:&nbsp; the experimental value of the real part of the amplitude for \f$K^0\to\pi\pi\f$ with \f$\Delta I=2\f$,
- * \li \b Omega_eta_etap:&nbsp; the isospin breaking contribution in \f$K^0\to\pi\pi\f$,
- * \li \b Br_Kp_P0enu:&nbsp; the experimental value for the branching ratio of \f$K^+\to\pi^0e^+\nu\f$,
- * \li \b Br_Kp_munu:&nbsp; the experimental value for the branching ratio of \f$K^+\to\mu^+\nu\f$,
- * \li \b Br_B_Xcenu:&nbsp; the experimental value for the branching ratio of \f$B\to X_c e\nu\f$,
- * \li \b DeltaP_cu:&nbsp; the long-distance correction to the charm contribution of \f$K^+\to\pi^+\nu\bar{\nu}\f$,
- * \li \b IB_Kl:&nbsp; the isospin breaking corrections between @f$K_L\to\pi^0\nu\bar{\nu}@f$ and \f$K^+\to\pi^0 e^+\nu\f$,
- * \li \b IB_Kp:&nbsp; the isospin breaking corrections between @f$K^+\to\pi^+ \nu\bar{\nu}@f$ and \f$K^+\to\pi^0 e^+\nu\f$.
- * 
+ * Model parameters:
+ *
+ * @anchor QCDInitialization
+ * <h3>Initialization</h3>
+ *
+ * The constructor QCD() sets the charge and isospin of the quarks. It also sets the
+ * mass scale of the light quarks UP, DOWN and STRANGE to 2 \f$GeV\f$. The cache is initialized
+ * too along with the computation of \f$\zeta(2)\f$ and \f$\zeta(3)\f$.
+ *
+ * The initializations and updates of the model parameters and flags are explained
+ * below.
+ *
+ *
+ * @anchor QCDParameters
+ * <h3>%Model parameters</h3>
+ *
+ * The model parameters of QCD are summarized below:
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%AlsMz</td>
+ *   <td class="mod_symb">@f$\alpha_s(M_Z)@f$</td>
+ *   <td class="mod_desc">The strong coupling constant at the Z-boson mass.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Mz</td>
+ *   <td class="mod_symb">@f$M_Z@f$</td>
+ *   <td class="mod_desc">The mass of the \f$Z\f$ boson in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%mup</td>
+ *   <td class="mod_symb">@f$m_{u}@f$</td>
+ *   <td class="mod_desc">The \f$\overline{\mathrm{MS}}\f$ mass of the up quark at 2 GeV, \f$m_u(2\,\mathrm{GeV})\f$, in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%mdown</td>
+ *   <td class="mod_symb">@f$m_{d}@f$</td>
+ *   <td class="mod_desc">The \f$\overline{\mathrm{MS}}\f$ mass of the down quark at 2 GeV, \f$m_d(2\,\mathrm{GeV})\f$, in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%mcharm</td>
+ *   <td class="mod_symb">@f$m_{c}@f$</td>
+ *   <td class="mod_desc">The \f$\overline{\mathrm{MS}}\f$ scale-invariant mass of the charm quark, \f$m_c(m_c)\f$, in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%mstrange</td>
+ *   <td class="mod_symb">@f$m_{s}@f$</td>
+ *   <td class="mod_desc">The \f$\overline{\mathrm{MS}}\f$ mass of the strange quark at 2 GeV , \f$m_s(2\,\mathrm{GeV})\f$, in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%mtop</td>
+ *   <td class="mod_symb">@f$m_{t}@f$</td>
+ *   <td class="mod_desc">The pole mass of the top quark in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%mbottom</td>
+ *   <td class="mod_symb">@f$m_{b}@f$</td>
+ *   <td class="mod_desc">the \f$\overline{\mathrm{MS}}\f$ scale-invariant mass of the bottom quark, \f$m_b(m_b)\f$, in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%mut</td>
+ *   <td class="mod_symb">@f$\mu_t@f$</td>
+ *   <td class="mod_desc">the threshold between six- and five-flavour theory in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%mub</td>
+ *   <td class="mod_symb">@f$\mu_b@f$</td>
+ *   <td class="mod_desc">the threshold between five- and four-flavour theory in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%muc</td>
+ *   <td class="mod_symb">@f$\mu_c@f$</td>
+ *   <td class="mod_desc">the threshold between four- and three-flavour theory in GeV.</td>
+ * </tr>
+ * </table>
+ *
+ * The parameters below are associated with flavour observables
+ * <table class="model">
+ * <tr>
+ *   <td class="mod_name">%MBd</td>
+ *   <td class="mod_symb">@f$M_{B_d}@f$</td>
+ *   <td class="mod_desc">The mass of the \f$ B_d \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%tBd</td>
+ *   <td class="mod_symb">@f$\tau_{B_d}@f$</td>
+ *   <td class="mod_desc">The lifetime of the \f$ B_d \f$ meson in \f$ ps^{-1} \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%MBs</td>
+ *   <td class="mod_symb">@f$M_{B_s}@f$</td>
+ *   <td class="mod_desc">The mass of the \f$ B_s \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%tBs</td>
+ *   <td class="mod_symb">@f$\tau_{B_s}@f$</td>
+ *   <td class="mod_desc">The lifetime of the \f$ B_d \f$ meson in \f$ ps^{-1} \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%MBp</td>
+ *   <td class="mod_symb">@f$M_{B^\pm}@f$</td>
+ *   <td class="mod_desc">The mass of the \f$ B^\pm \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%MK0</td>
+ *   <td class="mod_symb">@f$M_{K^0}@f$</td>
+ *   <td class="mod_desc">The mass of the \f$ K^0 \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%MKp</td>
+ *   <td class="mod_symb">@f$M_{K^\pm}@f$</td>
+ *   <td class="mod_desc">The mass of the \f$ K^\pm \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%MD</td>
+ *   <td class="mod_symb">@f$M_{D^0}@f$</td>
+ *   <td class="mod_desc">The mass of the \f$ D^0 \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%tKl</td>
+ *   <td class="mod_symb">@f$\tau_{K_L}@f$</td>
+ *   <td class="mod_desc">The lifetime of the \f$ K_L \f$ meson in \f$ ps^{-1} \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%tKp</td>
+ *   <td class="mod_symb">@f$\tau{K^\pm}@f$</td>
+ *   <td class="mod_desc">The lifetime of the \f$ K^\pm \f$ meson in \f$ ps^{-1} \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FBs</td>
+ *   <td class="mod_symb">@f$F_{B_s}@f$</td>
+ *   <td class="mod_desc">The decay constant of the \f$ B_s \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FBsoFBd</td>
+ *   <td class="mod_symb">@f$F_{B_d}/F_{B_d}@f$</td>
+ *   <td class="mod_desc">The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FD</td>
+ *   <td class="mod_symb">@f$F_{D^0}@f$</td>
+ *   <td class="mod_desc">The decay constant of the \f$ D^0 \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BBsoBBd</td>
+ *   <td class="mod_symb">@f$B_{B_s}/B_{B_d}@f$</td>
+ *   <td class="mod_desc">The ratio \f$ B_{B_s}/B_{B_d} \f$ necessary to compute \f$ B_{B_s} \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BBs1 - %BBs5</td>
+ *   <td class="mod_symb">@f$B^1_{B_s} - B^5_{B_s}@f$</td>
+ *   <td class="mod_desc">The bag parameter for \f$ O_1 - O_5 \f$ in \f$ \Delta b = 2 \f$ processes in \f$ B_s \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BBsscale</td>
+ *   <td class="mod_symb">@f$\mu_{B_{s}}@f$</td>
+ *   <td class="mod_desc">The scale at which the bag parameters are specified for the \f$ B_s \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BBsscheme</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">The scheme in which the bag parameters are specified for the \f$ B_s \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BD1 - %BD5</td>
+ *   <td class="mod_symb">@f$B^1_{D} - B^5_{D}@f$</td>
+ *   <td class="mod_desc">The bag parameter for \f$ O_1 - O_5\f$ in \f$ \Delta c = 2 \f$ processes in \f$ D^0 \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BDscale</td>
+ *   <td class="mod_symb">@f$\mu_D@f$</td>
+ *   <td class="mod_desc">The scale at which the bag parameters are specified for the \f$ D_0 \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BDscheme</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">The scheme in which the bag parameters are specified for the \f$ D_0 \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BK1 - %BK5</td>
+ *   <td class="mod_symb">@f$B^1_{K} - B^5_{K}@f$</td>
+ *   <td class="mod_desc">The bag parameter for \f$ O_1 - O_5\f$ in \f$ \Delta s = 2 \f$ processes in \f$ K^0 \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BKscale</td>
+ *   <td class="mod_symb">@f$\mu_K@f$</td>
+ *   <td class="mod_desc">The scale at which the bag parameters are specified for the \f$ K^0 \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BKscheme</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">The scheme in which the bag parameters are specified for the \f$ K^0 \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BK(1/2)1 - %BK(1/2)10</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc"></td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BKd_scale</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc"></td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BKd_scheme</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc"></td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BK(3/2)1 - %BK(3/2)10</td>
+ *   <td class="mod_symb"></td>
+ *   <td class="mod_desc"></td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%ReA0_Kd</td>
+ *   <td class="mod_symb">@f${\cal Re}(A_0(K\to\pi\pi))@f$</td>
+ *   <td class="mod_desc">The experimental value of the real part of the amplitude for \f$K^0\to\pi\pi\f$ with \f$\Delta I=0\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%ReA2_Kd</td>
+ *   <td class="mod_symb">@f${\cal Re}(A_2(K\to\pi\pi))@f$</td>
+ *   <td class="mod_desc">the experimental value of the real part of the amplitude for \f$K^0\to\pi\pi\f$ with \f$\Delta I=2\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Omega_eta_etap</td>
+ *   <td class="mod_symb">@f$\Omega_{\eta/\eta'}@f$</td>
+ *   <td class="mod_desc">The isospin breaking contribution in \f$K^0\to\pi\pi\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Br_Kp_P0enu</td>
+ *   <td class="mod_symb">@f$\mathrm{BR}{K^+\to\pi^0e^+\nu}@f$</td>
+ *   <td class="mod_desc">The experimental value for the branching ratio of \f$K^+\to\pi^0e^+\nu\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Br_Kp_munu</td>
+ *   <td class="mod_symb">@f$\mathrm{BR}(K^+\to\mu^+\nu)@f$</td>
+ *   <td class="mod_desc">The experimental value for the branching ratio of \f$K^+\to\mu^+\nu\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Br_B_Xcenu</td>
+ *   <td class="mod_symb">@f$\mathrm{BR}(B\to X_ce\nu)@f$</td>
+ *   <td class="mod_desc">The experimental value for the branching ratio of \f$B\to X_c e\nu\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%DeltaP_cu</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">The long-distance correction to the charm contribution of \f$K^+\to\pi^+\nu\bar{\nu}\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%IB_Kl</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">the isospin breaking corrections between @f$K_L\to\pi^0\nu\bar{\nu}@f$ and \f$K^+\to\pi^0 e^+\nu\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%IB_Kp</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">The isospin breaking corrections between @f$K^+\to\pi^+ \nu\bar{\nu}@f$ and \f$K^+\to\pi^0 e^+\nu\f$.</td>
+ * </tr>
+ * </table>
+ *
+ * The set of the model parameters are initialized and updated with the methods
+ * Init() and Update(), respectively, where the former calls the latter.
+ * In Update(), the methods PreUpdate() and PostUpdate() are called to run all
+ * the procedures that are need to be executed before and after the model parameters
+ * are updated. The \f$\overline{\mathrm{MS}}\f$ mass for the top quark is computed and the scale set
+ * in PostUpdate() with the updated parameters. Inside the Update() method, the
+ * individual model parameter is assigned with the protected member function
+ * setParameter().
+ *
  */
+
 class QCD: public Model {
 public:
 
@@ -118,7 +343,7 @@ public:
     static const std::string QCDvars[NQCDvars];
 
     /**
-     * @brief The default constructor.
+     * @brief Constructor.
      */
     QCD();
 
@@ -148,7 +373,6 @@ public:
     
     /**
      * @brief Pre update.
-     * @return 
      */
     virtual bool PreUpdate();
 
@@ -160,13 +384,12 @@ public:
 
     /**
      * @brief Post update.
-     * @return 
      */
     virtual bool PostUpdate();      
     
     /**
      * @brief Checks that all required parameters are present in a given map.
-     * @param[in] DPars A map containing the parameters (all as double) to be used in Monte Carlo. 
+     * @param[in] DPars a map containing the parameters (all as double) to be used in Monte Carlo.
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
@@ -176,25 +399,24 @@ public:
 
     /**
      * @brief Sets flags for QCD.
-     * @param[in] name A name of a flag.
-     * @param[in] value A value of the given flag.
-     * @return A boolean value indicating whether the given flag name is associated
-     * with QCD.
+     * @param[in] name a name of a flag.
+     * @param[in] value a value of the given flag.
+     * @return a boolean value indicating whether the given flag name is associated
+     * with QCD
      */
     virtual bool setFlag(const std::string name, const bool value);
 
     /**
      * @brief Sets flags for QCD.
-     * @param[in] name A name of a flag.
-     * @param[in] value A value of the given flag in string.
-     * @return A boolean value indicating whether the given flag name is associated
-     * with QCD.
+     * @param[in] name a name of a flag.
+     * @param[in] value a value of the given flag in string.
+     * @return a boolean value indicating whether the given flag name is associated
+     * with QCD
      */
     virtual bool setFlagStr(const std::string name, const std::string value);
 
     /**
-     * @brief
-     * @return
+     * @brief Check flags for QCD
      */
     virtual bool CheckFlags() const;
 
@@ -212,8 +434,9 @@ public:
     }
 
     /**
+     * @brief A get method to access a quark as an object of the type Particle.
      * @param[in] q The name of a quark. 
-     * @return The object of the quark found in the argument. 
+     * @return the object of the quark found in the argument
      */
     Particle getQuarks(const quark q) const 
     {
@@ -221,7 +444,8 @@ public:
     }
     
     /**
-     * @return The strong coupling constant at @f$M_Z@f$, @f$\alpha_s(M_Z)@f$. 
+     * @brief A get method to access the value of \f$\alpha_s(M_Z)\f$
+     * @return the strong coupling constant at @f$M_Z@f$, @f$\alpha_s(M_Z)@f$
      */
     double getAlsMz() const 
     {
@@ -229,8 +453,8 @@ public:
     }
 
     /**
-     * Sets the strong coupling constant at @f$M_Z@f$, @f$\alpha_s(M_Z)@f$. 
-     * @param[in] AlsMz @f$\alpha_s(M_Z)@f$. 
+     * @brief Sets the strong coupling constant at @f$M_Z@f$, @f$\alpha_s(M_Z)@f$.
+     * @param[in] AlsMz @f$\alpha_s(M_Z)@f$
      */
     void setAlsMz(double AlsMz) 
     {
@@ -238,7 +462,8 @@ public:
     }
 
     /**
-     * @return The @f$Z@f$-boson mass @f$M_Z@f$. 
+     * @brief A get method to access the mass of the \f$Z\f$ boson \f$M_Z\f$
+     * @return the @f$Z@f$-boson mass @f$M_Z@f$
      */
     double getMz() const 
     {
@@ -246,8 +471,8 @@ public:
     }
 
     /**
-     * @brief Sets the @f$Z@f$-boson mass @f$M_Z@f$.
-     * @param[in] Mz @f$M_Z@f$ in GeV. 
+     * @brief Sets the @f$Z@f$ boson mass @f$M_Z@f$.
+     * @param[in] Mz @f$M_Z@f$ in GeV
      */
     void setMz(double Mz) 
     {
@@ -255,7 +480,8 @@ public:
     }
 
     /**
-     * @return The number of colours. 
+     * @brief A get method to access the number of colours \f$N_c\f$
+     * @return the number of colours
      */
     double getNc() const
     {
@@ -264,7 +490,7 @@ public:
 
     /**
      * @brief Sets the number of colours.
-     * @param[in] Nc The number of colours. 
+     * @param[in] Nc the number of colours
      */
     void setNc(double Nc)
     {
@@ -272,7 +498,8 @@ public:
     }
 
     /**
-     * @return The threshold between six- and five-flavour theory in GeV. 
+     * @brief A get method to access he threshold between six- and five-flavour theory in GeV
+     * @return the threshold \f$\mu_t\f$
      */
     double getMut() const 
     {
@@ -289,7 +516,8 @@ public:
     }
 
     /**
-     * @return The threshold between five- and four-flavour theory in GeV. 
+     * @brief A get method to access he threshold between five- and four-flavour theory in GeV
+     * @return the threshold \f$\mu_b\f$
      */
     double getMub() const 
     {
@@ -306,7 +534,8 @@ public:
     }
 
     /**
-     * @return The threshold between four- and three-flavour theory in GeV. 
+     * @brief A get method to access he threshold between four- and three-flavour theory in GeV
+     * @return the threshold \f$\mu_c\f$
      */
     double getMuc() const 
     {
@@ -323,7 +552,8 @@ public:
     }
 
     /**
-     * @return The pole mass of the top quark. 
+     * @brief A get method to access the pole mass of the top quark
+     * @return The pole mass of the top quark \f$m_t^{pole}\f$
      */
     double getMtpole() const 
     {
@@ -331,7 +561,8 @@ public:
     }
 
     /**
-     * @return The Casimir factor of QCD. 
+     * @brief A get method to access the Casimir Fator of QCD
+     * @return the Casimir factor
      */
     double getCF() const 
     {
@@ -483,48 +714,54 @@ public:
     /**
      * @brief For accessing the active flavour threshold scales.
      * @param[in] i the index referring to active flavour thresholds.
-     * @return The threshold scale: 1.0E10 (i = 0), \f$\mu_t\f$ (i = 1),
+     * @return the threshold scale: 1.0E10 (i = 0), \f$\mu_t\f$ (i = 1),
      * \f$\mu_b\f$ (i = 2), \f$\mu_c\f$ (i = 3) and 0. (default).
      */
     double Thresholds(const int i) const;
 
     /**
-     * @param[in] mu A scale \f$\mu\f$ in \f$GeV\f$
-     * @return The active flavour threshold above the scale \f$\mu\f$
+     * @brief The active flavour threshold above the scale \f$\mu\f$
      * as defined in QCD::Thresholds().
+     * @param[in] mu a scale \f$\mu\f$ in GeV
+     * @return the higher active flavour threshold
      */
     double AboveTh(const double mu) const;
 
     /**
-     * @param[in] mu A scale \f$\mu\f$ in \f$GeV\f$
-     * @return The active flavour threshold below the scale \f$\mu\f$
+     * @brief The active flavour threshold below the scale \f$\mu\f$
      * as defined in QCD::Thresholds().
+     * @param[in] mu a scale \f$\mu\f$ in GeV
+     * @return the lower active flavour threshold
      */
     double BelowTh(const double mu) const;
 
     /**
-     * @param[in] mu A scale @f$\mu@f$ in \f$GeV\f$.
-     * @return The number of active flavour at scale @f$\mu@f$. 
+     * @brief The number of active flavour at scale @f$\mu@f$.
+     * @param[in] mu a scale @f$\mu@f$ in GeV
+     * @return active N_f
      */
     double Nf(const double mu) const;
     
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @param[in] nf The number of active flavours. 
-     * @return The @f$\beta_0@f$ coefficient. 
+     * @brief The \f$\beta_0(n_f)\f$ coefficient for a certain number of flavours \f$n_f\f$
+     * @param[in] nf the number of active flavours
+     * @return @f$\beta_0(n_f)@f$
      */
     double Beta0(const double nf) const;
 
     /**
-     * @param[in] nf The number of active flavours. 
-     * @return The @f$\beta_1@f$ coefficient. 
+     * @brief The \f$\beta_1(n_f)\f$ coefficient for a certain number of flavours \f$n_f\f$
+     * @param[in] nf the number of active flavours
+     * @return @f$\beta_1(n_f)@f$
      */
     double Beta1(const double nf) const;
 
     /**
-     * @param[in] nf The number of active flavours. 
-     * @return The @f$\beta_2@f$ coefficient. 
+     * @brief The \f$\beta_2(n_f)\f$ coefficient for a certain number of flavours \f$n_f\f$
+     * @param[in] nf the number of active flavours
+     * @return @f$\beta_2(n_f)@f$
      */
     double Beta2(const double nf) const;
 
@@ -665,17 +902,26 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
 protected:
-    double Nc; /**< The number of colours. */
-    double CF; /**< The Casimir factor in the \f$SU(N_c)\f$ gauge theory. */
-    double mtpole;  /**< The pole mass of the top quark. */
-    Particle quarks[6]; /**< The vector of all SM quarks. */
-    Meson mesons[MESON_END]; /**< The vector of defined mesons. */
-    bool requireYu; /**< Switch for generating the Yukawa couplings to the up-type quarks. */
-    bool requireYd; /**< Switch for generating the Yukawa couplings to the down-type quarks. */
-    BParameter BBs; /**< The bag parameters for \f$\Delta b=2\f$ processes for the \f$B_s\f$ meson system. */
-    BParameter BBd; /**< The bag parameters for \f$\Delta b=2\f$ processes for the \f$B_d\f$ meson system. */
-    BParameter BD; /**< The bag parameters for \f$\Delta c=2\f$ processes for the \f$D^0\f$ meson system. */
-    BParameter BK; /**< The bag parameters for \f$\Delta s=2\f$ processes for the \f$K^0\f$ meson system. */
+    
+    /**
+     * @brief
+     * @param[in] name
+     * @param[in] value
+     * @return
+     */
+    virtual void setParameter(const std::string name, const double& value);
+    
+    double Nc; ///< The number of colours.
+    double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.
+    double mtpole;  ///< The pole mass of the top quark.
+    Particle quarks[6]; ///< The vector of all SM quarks.
+    Meson mesons[MESON_END]; ///< The vector of defined mesons.
+    bool requireYu; ///< Switch for generating the Yukawa couplings to the up-type quarks.
+    bool requireYd; ///< Switch for generating the Yukawa couplings to the down-type quarks.
+    BParameter BBs; ///< The bag parameters for \f$\Delta b=2\f$ processes for the \f$B_s\f$ meson system.
+    BParameter BBd; ///< The bag parameters for \f$\Delta b=2\f$ processes for the \f$B_d\f$ meson system.
+    BParameter BD; ///< The bag parameters for \f$\Delta c=2\f$ processes for the \f$D^0\f$ meson system.
+    BParameter BK; ///< The bag parameters for \f$\Delta s=2\f$ processes for the \f$K^0\f$ meson system.
     BParameter BKd1;
     BParameter BKd3;
 
@@ -697,21 +943,8 @@ protected:
     double Br_B_Xcenu; /**< */
     double BBsoBBd; /**< The ratio \f$ B_{B_s}/B_{B_d} \f$ necessary to compute \f$ B_{B_s} \f$. */
     double FBsoFBd; /**< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$. */
-    
-    /**
-     * @brief
-     * @param[in] name
-     * @param[in] value
-     * @return
-     */
-    virtual void setParameter(const std::string name, const double& value);  /**< */
 
 private:
-    double zeta2; /**< \f$\zeta(2)\f$ computed from the <a href="http://www.gnu.org/software/gsl/" target=blank>gsl libraries</a>*/
-    double zeta3; /**< \f$\zeta(2)\f$ computed from the <a href="http://www.gnu.org/software/gsl/" target=blank>gsl libraries</a>*/
-    bool computeFBd; /**< Swith for computing \f$F_{B_d}\f$ from \f$F_{B_s}\f$. */
-    bool computeBd; /**< Swith for computing \f$B_{B_d}\f$ from \f$B_{B_s}\f$. */
-    bool computemt; /**< */
     
     /**
      * @brief
@@ -811,12 +1044,17 @@ private:
     double Mp2MbarTMP(double *mu, double *params) const;
 
     
-    static const int CacheSize = 5; /**< Defines the depth of the cache. */
-    mutable double als_cache[8][CacheSize]; /**< Cache for \f$\alpha_s\f$. */
-    mutable double logLambda5_cache[4][CacheSize]; /**< */
-    mutable double logLambdaNLO_cache[9][CacheSize]; /**< */
-    mutable double mrun_cache[10][CacheSize]; /**< Cache for running quark mass. */
-    mutable double mp2mbar_cache[5][CacheSize]; /**< Cache for pole mass to msbar mass conversion. */
+    double zeta2; ///< \f$\zeta(2)\f$ computed from the <a href="http://www.gnu.org/software/gsl/" target=blank>gsl libraries</a>.
+    double zeta3; ///< \f$\zeta(3)\f$ computed from the <a href="http://www.gnu.org/software/gsl/" target=blank>gsl libraries</a>.
+    bool computeFBd; ///< Swith for computing \f$F_{B_d}\f$ from \f$F_{B_s}\f$.
+    bool computeBd; ///< Swith for computing \f$B_{B_d}\f$ from \f$B_{B_s}\f$.
+    bool computemt; ///< Switch for computing the \f$\overline{\mathrm{MS}}\f$ mass of the top quark.
+    static const int CacheSize = 5; ///< Defines the depth of the cache.
+    mutable double als_cache[8][CacheSize]; ///< Cache for \f$\alpha_s\f$.
+    mutable double logLambda5_cache[4][CacheSize]; ///<
+    mutable double logLambdaNLO_cache[9][CacheSize]; ///<
+    mutable double mrun_cache[10][CacheSize]; ///< Cache for running quark mass.
+    mutable double mp2mbar_cache[5][CacheSize]; ///< Cache for pole mass to msbar mass conversion.
     
     /**
      * @brief
