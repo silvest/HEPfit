@@ -33,22 +33,22 @@
  *   <th>Description</th>
  * </tr>
  * <tr>
- *   <td class="mod_name">%myEpsilon_1 </td>
+ *   <td class="mod_name">%epsilon_1 </td>
  *   <td class="mod_symb">\f$\varepsilon_1\f$</td>
  *   <td class="mod_desc">The parameter \f$\varepsilon_1\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%myEpsilon_2 </td>
+ *   <td class="mod_name">%epsilon_2 </td>
  *   <td class="mod_symb">\f$\varepsilon_2\f$</td>
  *   <td class="mod_desc">The parameter \f$\varepsilon_2\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%myEpsilon_3 </td>
+ *   <td class="mod_name">%epsilon_3 </td>
  *   <td class="mod_symb">\f$\varepsilon_3\f$</td>
  *   <td class="mod_desc">The parameter \f$\varepsilon_3\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%myEpsilon_b </td>
+ *   <td class="mod_name">%epsilon_b </td>
  *   <td class="mod_symb">\f$\varepsilon_b\f$</td>
  *   <td class="mod_desc">The parameter \f$\varepsilon_b\f$.</td>
  * </tr>
@@ -65,40 +65,40 @@
  *   <th>Description</th>
  * </tr>
  * <tr>
- *   <td class="mod_name">%FlagEpsilon1SM</td>
+ *   <td class="mod_name">%epsilon1SM</td>
  *   <td class="mod_desc">True</td>
  *   <td class="mod_desc">Only the SM value of \f$\varepsilon_1\f$ is considered.</td>
  * <tr>
  *   <td class="mod_name"> </td>
  *   <td class="mod_desc">False</td>
- *   <td class="mod_desc">Includes both, the SM and new physics, contribution to \f$\varepsilon_1\f$.</td>
+ *   <td class="mod_desc">Includes both, the SM and new physics, contributions to \f$\varepsilon_1\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%FlagEpsilon2SM</td>
+ *   <td class="mod_name">%epsilon2SM</td>
  *   <td class="mod_desc">True</td>
  *   <td class="mod_desc">Only the SM value of \f$\varepsilon_2\f$ is considered.</td>
  * <tr>
  *   <td class="mod_name"> </td>
  *   <td class="mod_desc">False</td>
- *   <td class="mod_desc">Includes both, the SM and new physics, contribution to \f$\varepsilon_2\f$.</td>
+ *   <td class="mod_desc">Includes both, the SM and new physics, contributions to \f$\varepsilon_2\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%FlagEpsilon3SM</td>
+ *   <td class="mod_name">%epsilon3SM</td>
  *   <td class="mod_desc">True</td>
  *   <td class="mod_desc">Only the SM value of \f$\varepsilon_3\f$ is considered.</td>
  * <tr>
  *   <td class="mod_name"> </td>
  *   <td class="mod_desc">False</td>
- *   <td class="mod_desc">Includes both, the SM and new physics, contribution to \f$\varepsilon_3\f$.</td>
+ *   <td class="mod_desc">Includes both, the SM and new physics, contributions to \f$\varepsilon_3\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%FlagEpsilonbSM</td>
+ *   <td class="mod_name">%epsilonbSM</td>
  *   <td class="mod_desc">True</td>
  *   <td class="mod_desc">Only the SM value of \f$\varepsilon_b\f$ is considered.</td>
  * <tr>
  *   <td class="mod_name"> </td>
  *   <td class="mod_desc">False</td>
- *   <td class="mod_desc">Includes both, the SM and new physics, contribution to \f$\varepsilon_b\f$.</td>
+ *   <td class="mod_desc">Includes both, the SM and new physics, contributions to \f$\varepsilon_b\f$.</td>
  * </tr>
  * </table>
  *

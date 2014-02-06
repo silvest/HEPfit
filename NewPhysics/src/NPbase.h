@@ -33,13 +33,13 @@
  *   <th>Description</th>
  * </tr>
  * <tr>
- *   <td class="mod_name">%FlagFixSMcontribution</td>
+ *   <td class="mod_name">%FixSMcontribution</td>
  *   <td class="mod_desc">True</td>
- *   <td class="mod_desc"> </td>
+ *   <td class="mod_desc">Only SM contributions are considered. </td>
  * <tr>
  *   <td class="mod_name"> </td>
  *   <td class="mod_desc">False</td>
- *   <td class="mod_desc"> </td>
+ *   <td class="mod_desc">Include both SM and new physics contributions.</td>
  * </tr>
  * </table>
  * 
@@ -229,7 +229,7 @@ protected:
 
     ////////////////////////////////////////////////////////////////////////
 private:
-    bool FlagFixSMcontribution;///< Flag: if true ...
+    bool FlagFixSMcontribution;///< Flag: if true only SM contributions are considered.
     
 };
 

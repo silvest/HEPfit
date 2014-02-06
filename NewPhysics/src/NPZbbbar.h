@@ -19,7 +19,9 @@
  * @details This class contains the necessary functions to work with new physics 
  * corrections to electroweak precision observables, in the form of contributions
  * to the neutral current couplings of the bottom quark, \f$\delta g_{V,A}^b\f$ or 
- * \f$\delta g_{L,R}^b\f$.
+ * \f$\delta g_{L,R}^b\f$,
+ * 
+ * \f${\cal L}={\cal L}_{SM}+\delta g_V^b Z_\mu \bar{b}\gamma^\mu b+\delta g_A^b Z_\mu \bar{b}\gamma^\mu \gamma_5 b.\f$
  *
  * @anchor NPZbbbarParameters
  * <h3>%Model parameters</h3>
@@ -32,12 +34,12 @@
  *   <th>Description</th>
  * </tr>
  * <tr>
- *   <td class="mod_name">%myDeltaGVb</td>
+ *   <td class="mod_name">%deltaGVb</td>
  *   <td class="mod_symb">\f$\delta g_{V}^b\f$</td>
  *   <td class="mod_desc">New physics correction to \f$g_{V}^b\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%myDeltaGAb</td>
+ *   <td class="mod_name">%deltaGAb</td>
  *   <td class="mod_symb">\f$\delta g_{A}^b\f$</td>
  *   <td class="mod_desc">New physics correction to \f$g_{A}^b\f$.</td>
  * </tr>
@@ -54,7 +56,7 @@
  *   <th>Description</th>
  * </tr>
  * <tr>
- *   <td class="mod_name">%FlagNPZbbbarLR</td>
+ *   <td class="mod_name">%NPZbbbarLR</td>
  *   <td class="mod_desc">True</td>
  *   <td class="mod_desc">New physics parameterized in terms of \f$\delta g_{L,R}^b\f$. </td>
  * <tr>
@@ -63,7 +65,7 @@
  *   <td class="mod_desc">New physics parameterized in terms of \f$\delta g_{V,A}^b\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%FlagNotLinearizedNP</td>
+ *   <td class="mod_name">%NotLinearizedNP</td>
   *   <td class="mod_desc">True</td>
  *   <td class="mod_desc">New physics contributions to electroweak
  * observables not linearized in \f$\delta g^b\f$.</td>

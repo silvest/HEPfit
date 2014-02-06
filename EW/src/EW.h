@@ -23,7 +23,8 @@ using namespace gslpp;
  * @copyright GNU General Public License
  * @details This class includes basic functions for the computation of the SM
  * predictions for electroweak precision pseudo observables, such as partial
- * decay widths of the \f$Z\f$ boson. 
+ * decay widths of the \f$Z\f$ boson, left-right asymmetries and cross sections
+ * at the \f$Z\f$ pole. 
  */
 class EW : public ThObsType {
 public:
@@ -162,7 +163,7 @@ public:
     
     ////////////////////////////////////////////////////////////////////////
 protected:
-    const StandardModel& SM;
+    const StandardModel& SM;///> A reference to an object of the StandardModel class.
     const EW_NPZff myEW_NPZff;
 
 };

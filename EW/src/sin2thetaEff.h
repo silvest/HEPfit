@@ -36,6 +36,7 @@ public:
     };
 
     /**
+     * @brief The theory prediction for @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$.
      * @return The effective weak mixing angle @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$ 
      * for a leptonic channel at the @f$Z@f$ pole.
      */

@@ -40,7 +40,7 @@ public:
     /**
      * @brief The theory prediction for the hadronic cross section at the \f$Z\f$ pole.
      * @return The cross section for the process \f$e^+ e^-\to Z\to \mathrm{hadrons}\f$
-     * at the @f$Z@f$ pole in GeV\f$^{-2}\f$. 
+     * at the @f$Z@f$ pole in nb. 
      */
     double computeThValue();
 

@@ -37,37 +37,37 @@
  *   <th>Description</th>
  * </tr>
  * <tr>
- *   <td class="mod_name">%myObliqueShat </td>
+ *   <td class="mod_name">%obliqueShat </td>
  *   <td class="mod_symb">\f$\hat{S}\f$</td>
  *   <td class="mod_desc">The oblique paramenter \f$\hat{S}\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%myObliqueThat </td>
+ *   <td class="mod_name">%obliqueThat </td>
  *   <td class="mod_symb">\f$\hat{T} \f$</td>
  *   <td class="mod_desc">The oblique paramenter \f$\hat{T}\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%myObliqueUhat </td>
+ *   <td class="mod_name">%obliqueUhat </td>
  *   <td class="mod_symb">\f$\hat{U}\f$</td>
  *   <td class="mod_desc">The oblique paramenter \f$\hat{U}\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%myObliqueV </td>
+ *   <td class="mod_name">%obliqueV </td>
  *   <td class="mod_symb">\f$V\f$</td>
  *   <td class="mod_desc">The oblique paramenter \f$V\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%myObliqueW </td>
+ *   <td class="mod_name">%obliqueW </td>
  *   <td class="mod_symb">\f$W\f$</td>
  *   <td class="mod_desc">The oblique paramenter \f$W\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%myObliqueX </td>
+ *   <td class="mod_name">%obliqueX </td>
  *   <td class="mod_symb">\f$X\f$</td>
  *   <td class="mod_desc">The oblique paramenter \f$X\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%myObliqueY </td>
+ *   <td class="mod_name">%obliqueY </td>
  *   <td class="mod_symb">\f$Y\f$</td>
  *   <td class="mod_desc">The oblique paramenter \f$Y\f$.</td>
  * </tr>

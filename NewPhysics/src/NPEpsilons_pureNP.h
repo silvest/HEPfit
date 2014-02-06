@@ -33,22 +33,22 @@
  *   <th>Description</th>
  * </tr>
  * <tr>
- *   <td class="mod_name">%deltaEps_1 </td>
+ *   <td class="mod_name">%delEps_1 </td>
  *   <td class="mod_symb">\f$\delta_{NP}\varepsilon_1\f$</td>
  *   <td class="mod_desc">The new physics contribution to \f$\varepsilon_1\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%deltaEps_2 </td>
+ *   <td class="mod_name">%delEps_2 </td>
  *   <td class="mod_symb">\f$\delta_{NP}\varepsilon_2\f$</td>
  *   <td class="mod_desc">The new physics contribution to \f$\varepsilon_2\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%deltaEps_3 </td>
+ *   <td class="mod_name">%delEps_3 </td>
  *   <td class="mod_symb">\f$\delta_{NP}\varepsilon_3\f$</td>
  *   <td class="mod_desc">The new physics contribution to \f$\varepsilon_3\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%deltaEps_b </td>
+ *   <td class="mod_name">%delEps_b </td>
  *   <td class="mod_symb">\f$\delta_{NP}\varepsilon_b\f$</td>
  *   <td class="mod_desc">The new physics contribution to \f$\varepsilon_b\f$.</td>
  * </tr>

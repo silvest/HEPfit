@@ -37,17 +37,17 @@
  *   <th>Description</th>
  * </tr>
  * <tr>
- *   <td class="mod_name">%myObliqueS </td>
+ *   <td class="mod_name">%obliqueS </td>
  *   <td class="mod_symb">\f$S \f$</td>
  *   <td class="mod_desc">The oblique parameter \f$S\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%myObliqueT </td>
+ *   <td class="mod_name">%obliqueT </td>
  *   <td class="mod_symb">\f$T \f$</td>
  *   <td class="mod_desc">The oblique parameter \f$T\f$.</td>
  * </tr>
   * <tr>
- *   <td class="mod_name">%myObliqueU </td>
+ *   <td class="mod_name">%obliqueU </td>
  *   <td class="mod_symb">\f$U \f$</td>
  *   <td class="mod_desc">The oblique parameter \f$U\f$.</td>
  * </tr>
