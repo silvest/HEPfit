@@ -53,27 +53,27 @@
  *   <td class="mod_desc">The \f$hhVV\f$ coupling \f$b\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%cu </td>
+ *   <td class="mod_name">%c_u </td>
  *   <td class="mod_symb">\f$c_u \f$</td>
  *   <td class="mod_desc">The \f$h\overline{u}u\f$ coupling \f$c_u\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%cd</td>
+ *   <td class="mod_name">%c_d</td>
  *   <td class="mod_symb">\f$c_d \f$</td>
  *   <td class="mod_desc">The \f$h\overline{d}d\f$ coupling \f$c_d\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%ce </td>
+ *   <td class="mod_name">%c_e </td>
  *   <td class="mod_symb">\f$c_e \f$</td>
  *   <td class="mod_desc">The \f$h\overline{\ell}\ell\f$ coupling \f$c_e\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%d3 </td>
+ *   <td class="mod_name">%d_3 </td>
  *   <td class="mod_symb">\f$d_3\f$</td>
  *   <td class="mod_desc">The \f$hhh\f$ coupling \f$d_3\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%d4 </td>
+ *   <td class="mod_name">%d_4 </td>
  *   <td class="mod_symb">\f$d_4\f$</td>
  *   <td class="mod_desc">The \f$hhhh\f$ coupling \f$d_4\f$. </td>
  * </tr>
@@ -186,14 +186,14 @@ public:
     virtual double Mw() const;
 
     /**
-     * @brief The (square of the) cosine of the weak angle \f$\cos^2{\theta_W}\f$.
+     * @brief The square of the cosine of the weak angle \f$\cos^2{\theta_W}\f$.
      * @return the value of \f$\cos^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
      *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double cW2() const;
 
     /**
-     * @brief The (square of the) sine of the weak angle \f$\sin^2{\theta_W}\f$.
+     * @brief The square of the sine of the weak angle \f$\sin^2{\theta_W}\f$.
      * @return the value of \f$\sin^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
      *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}\f$
      */

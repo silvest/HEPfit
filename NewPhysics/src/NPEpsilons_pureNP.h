@@ -162,14 +162,14 @@ public:
     virtual double Mw() const;
 
     /**
-     * @brief The (square of the) cosine of the weak angle \f$\cos^2{\theta_W}\f$.
+     * @brief The square of the cosine of the weak angle \f$\cos^2{\theta_W}\f$.
      * @return the value of \f$\cos^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
      *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}\f$
      */
     virtual double cW2() const;
 
     /**
-     * @brief The (square of the) sine of the weak angle \f$\sin^2{\theta_W}\f$.
+     * @brief The square of the sine of the weak angle \f$\sin^2{\theta_W}\f$.
      * @return the value of \f$\sin^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
      *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}\f$
      */
