@@ -23,9 +23,22 @@
  * contributions to a general class of SM gauge-invariant dimension-six operators
  * in the effective Lagrangian,
  * 
- * \f${\cal L}_{Eff}={\cal L}_{SM}+\sum_i \frac{c_i}{\Lambda_{NP}^2}{\cal O}_i.\f$
+ * \f${\cal L}_{Eff}={\cal L}_{SM}+\frac{1}{\Lambda_{NP}^2}{\cal L}_6,\f$
  * 
- * These corrections are parameterized in terms of the operator 
+ * with
+ * 
+ * \f${\cal L}_6=c_{WB} \left(H^\dagger\sigma_aH\right)W_{\mu\nu}^a B^{\mu\nu}+ c_H \left|H^\dagger D_\mu H\right|^2+
+ * c_{LL} \frac 12\left(\overline{L}\gamma^\mu\sigma_a L\right)\left(\overline{L}\gamma_\mu\sigma_a L\right)+
+ * c_{HL}^\prime i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{L}\sigma_a\gamma^\mu L\right)+
+ * c_{HQ}^\prime i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{Q}\sigma_a\gamma^\mu Q\right)\f$
+ * 
+ *\f$\phantom{{\cal L}_6=} +c_{HL} i\left(H^\dagger D_\mu H\right)\left(\overline{L}\gamma^\mu L\right)+
+ * c_{HQ} i\left(H^\dagger D_\mu H\right)\left(\overline{Q}\gamma^\mu Q\right)+
+ * c_{HE} i\left(H^\dagger D_\mu H\right)\left(\overline{E}\gamma^\mu E\right)+
+ * c_{HU} i\left(H^\dagger D_\mu H\right)\left(\overline{U}\gamma^\mu U\right)+
+ * c_{HD} i\left(H^\dagger D_\mu H\right)\left(\overline{D}\gamma^\mu D\right)+h.c..\f$
+ * 
+ * The new physics corrections are parameterized in terms of the operator 
  * contributions to \f$M_W\f$, and to \f$Z\f$-pole observables through the corrections
  * to the different neutral-current effective couplings to leptons and quarks, 
  * \f$\delta g_{L,R}^f\f$ or \f$\delta g_{V,A}^f\f$. This class also contains get
