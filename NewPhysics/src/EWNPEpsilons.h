@@ -18,22 +18,32 @@
 
 /**
  * @class EWNPEpsilons
- * @brief A class for new physics in the form of contributions to the 
+ * @brief A class for the \f$W\f$-boson mass and the fermionic neutral-current
+ * couplings with new physics in the form of contributions to the
  * \f$\varepsilon_{1,2,3,b}\f$ parameters.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class contains the necessary functions to compute new physics 
- * tree-level corrections to electroweak precision observables, in the form of 
- * contributions to the \f$\varepsilon_{1,2,3,b}\f$ parameters \cite Altarelli:1990zd,
- * \cite Altarelli:1991fk,\cite Altarelli:1993sz. These corrections are parameterized
- * in terms of the \f$\varepsilon_i\f$ contributions to \f$M_W\f$, and to \f$Z\f$-pole
- * observables through the corrections to the different neutral-current effective
- * couplings to leptons and quarks.
+ * contributions to electroweak precision observables with the
+ * \f$\varepsilon\f$ parameterization \cite Altarelli:1990zd,
+ * \cite Altarelli:1991fk, \cite Altarelli:1993sz :
  *
- * When StandardModel::FlagWithoutNonUniversalVC is set to true, the flavour
- * non-universal vertex corrections which are not considered in the original
- * version of the epsilon parameterization are also taken into account.
- * See @cite Ciuchini:2013pca for detail.
+ * @li @f$M_W@f$&nbsp;&nbsp; (with Mw_NPEpsilons()),
+ * @li @f$\rho_Z^f@f$&nbsp;&nbsp; (with rhoZ_l() and rhoZ_q()),
+ * @li @f$\kappa_Z^f@f$&nbsp;&nbsp; (with kappaZ_l() and kappaZ_q()),
+ * @li @f$g_V^f@f$&nbsp;&nbsp; (with gVl() and gVq()),
+ * @li @f$g_A^f@f$&nbsp;&nbsp; (with gAl() and gAq()). 
+ *
+ * These functions call the other member functions in the current class which
+ * are parameterized in terms of the \f$\varepsilon_i\f$ parameters.
+ * The definitions of the effective fermionic neutral-current couplings 
+ * @f$\rho_Z^f@f$, @f$\kappa_Z^f@f$, @f$g_V^f@f$ and @f$g_A^f@f$ can be found 
+ * in the description of EWSM class.
+ *
+ * When the model flag @ref StandardModelFlags "WithoutNonUniversalVC" defined 
+ * in StandardModel is set to true, the flavour non-universal vertex corrections 
+ * which are not considered in the original version of the epsilon parameterization
+ * are also taken into account. See @cite Ciuchini:2013pca for detail.
  */
 class EWNPEpsilons : public EWSM {
 public:
@@ -58,57 +68,57 @@ public:
 
     /**
      * @brief The effective leptonic neutral-current coupling @f$\rho_Z^l@f$.
-     * @param[in] l name of a lepton
-     * @return @f$\rho_Z^l@f$ including NP contribuiton via the \f$\varepsilon_i\f$ parameters
+     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @return @f$\rho_Z^l@f$ including NP contribution via the \f$\varepsilon_i\f$ parameters
      */
     virtual complex rhoZ_l(const StandardModel::lepton l) const;
 
     /**
      * @brief The effective quark neutral-current coupling @f$\rho_Z^q@f$.
-     * @param[in] q name of a quark
-     * @return @f$\rho_Z^q@f$ including NP contribuiton via the \f$\varepsilon_i\f$ parameters
+     * @param[in] q name of a quark (see QCD::quark)
+     * @return @f$\rho_Z^q@f$ including NP contribution via the \f$\varepsilon_i\f$ parameters
      */
     virtual complex rhoZ_q(const StandardModel::quark q) const;
 
     /**
      * @brief The effective leptonic neutral-current coupling @f$\kappa_Z^l@f$.
-     * @param[in] l name of a lepton
-     * @return @f$\kappa_Z^l@f$ including NP contribuiton via the \f$\varepsilon_i\f$ parameters
+     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @return @f$\kappa_Z^l@f$ including NP contribution via the \f$\varepsilon_i\f$ parameters
      */
     virtual complex kappaZ_l(const StandardModel::lepton l) const;
 
     /**
      * @brief The effective quark neutral-current coupling @f$\kappa_Z^q@f$.
-     * @param[in] q name of a quark
-     * @return @f$\kappa_Z^q@f$ including NP contribuiton via the \f$\varepsilon_i\f$ parameters
+     * @param[in] q name of a quark (see QCD::quark)
+     * @return @f$\kappa_Z^q@f$ including NP contribution via the \f$\varepsilon_i\f$ parameters
      */
     virtual complex kappaZ_q(const StandardModel::quark q) const;
 
     /**
-     * @brief The leptonic neutral-current vector coupling @f$g_V^l@f$.
-     * @param[in] l name of a lepton
-     * @return @f$g_V^l@f$ including NP contribuiton via the \f$\varepsilon_i\f$ parameters
+     * @brief The effective leptonic neutral-current vector coupling @f$g_V^l@f$.
+     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @return @f$g_V^l@f$ including NP contribution via the \f$\varepsilon_i\f$ parameters
      */
     virtual complex gVl(const StandardModel::lepton l) const;
 
     /**
-     * @brief The quark neutral-current vector coupling @f$g_V^q@f$.
-     * @param[in] q name of a quark
-     * @return @f$g_V^q@f$ including NP contribuiton via the \f$\varepsilon_i\f$ parameters
+     * @brief The effective quark neutral-current vector coupling @f$g_V^q@f$.
+     * @param[in] q name of a quark (see QCD::quark)
+     * @return @f$g_V^q@f$ including NP contribution via the \f$\varepsilon_i\f$ parameters
      */
     virtual complex gVq(const StandardModel::quark q) const;
 
     /**
-     * @brief The leptonic neutral-current axial-vector coupling @f$g_A^l@f$.
-     * @param[in] l name of a leptonn
-     * @return @f$g_A^l@f$ including NP contribuiton via the \f$\varepsilon_i\f$ parameters
+     * @brief The effective leptonic neutral-current axial-vector coupling @f$g_A^l@f$.
+     * @param[in] l name of a leptonn (see StandardModel::lepton)
+     * @return @f$g_A^l@f$ including NP contribution via the \f$\varepsilon_i\f$ parameters
      */
     virtual complex gAl(const StandardModel::lepton l) const;
 
     /**
-     * @brief The quark neutral-current axial-vector coupling @f$g_A^q@f$.
-     * @param[in] q name of a quark
-     * @return @f$g_A^q@f$ including NP contribuiton via the \f$\varepsilon_i\f$ parameters
+     * @brief The effective quark neutral-current axial-vector coupling @f$g_A^q@f$.
+     * @param[in] q name of a quark (see QCD::quark)
+     * @return @f$g_A^q@f$ including NP contribution via the \f$\varepsilon_i\f$ parameters
      */
     virtual complex gAq(const StandardModel::quark q) const;
 
@@ -122,8 +132,8 @@ public:
      * @f[
      * M_W^2 = \frac{M_Z^2}{2} \left( 1+\sqrt{1-\frac{4\pi\alpha}{\sqrt{2}G_\mu M_Z^2(1-\Delta r)}}\ \right)\,,
      * @f]
-     * where @f$\Delta r@f$ contains both SM and NP contributions, and is resummed
-     * here. In @cite Altarelli:1990zd and @cite Altarelli:1991fk, @f$\Delta r@f$
+     * where @f$\Delta r@f$ contains both SM and NP contributions, and is resummed. 
+     * In @cite Altarelli:1990zd and @cite Altarelli:1991fk, @f$\Delta r@f$
      * is given in terms of @f$\Delta r_W@f$:
      * @f[
      * \Delta r = 1 - [1 - \Delta\alpha(M_Z^2)][1-\Delta r_W(\varepsilon_1,\varepsilon_2,\varepsilon_3)]\,,
@@ -133,12 +143,12 @@ public:
      * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
      * @param[in] eps2 the @f$\varepsilon_2@f$ parameter
      * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
-     * @return @f$M_W@f$
+     * @return @f$M_W@f$ in GeV
      */
     double Mw(const double eps1, const double eps2, const double eps3) const;
 
     /**
-     * @brief The effective coupling @f$\rho_Z^l@f$.
+     * @brief The effective leptonic neutral-current coupling @f$\rho_Z^l@f$.
      * @details The @f$Zl\bar{l}@f$ effective coupling @f$\rho_Z^l@f$ is flavour
      * universal in the original version of the epsilon parameterization:
      * @f[
@@ -146,7 +156,7 @@ public:
      * @f]
      * See rhoZ_e() for @f$\rho_Z^e(\varepsilon_1)@f$.
      * When StandardModel::FlagWithoutNonUniversalVC is true, the flavour
-     * non-universal vertex corrections are taken into account:
+     * non-universal vertex corrections are also taken into account:
      * @f[
      *   \rho_Z^l = \rho_Z^e(\varepsilon_1) + \Delta\rho_Z^l,
      * @f]
@@ -159,7 +169,7 @@ public:
     complex rhoZ_l(const StandardModel::lepton l, const double eps1) const;
 
     /**
-     * @brief The effective coupling @f$\rho_Z^q@f$ for @f$q\neq b,t@f$.
+     * @brief The effective quark neutral-current coupling @f$\rho_Z^q@f$ for @f$q\neq b,t@f$.
      * @details The @f$Zq\bar{q}@f$ effective coupling @f$\rho_Z^q@f$ for
      * @f$q\neq b,t@f$ is flavour universal in the original version of the
      * epsilon parameterization:
@@ -168,7 +178,7 @@ public:
      * @f]
      * See rhoZ_e() for @f$\rho_Z^e(\varepsilon_1)@f$.
      * When StandardModel::FlagWithoutNonUniversalVC is true, the flavour
-     * non-universal vertex corrections are taken into account:
+     * non-universal vertex corrections are also taken into account:
      * @f[
      *   \rho_Z^q = \rho_Z^e(\varepsilon_1) + \Delta\rho_Z^q,
      * @f]
@@ -181,7 +191,7 @@ public:
     complex rhoZ_q(const StandardModel::quark q, const double eps1) const;
 
     /**
-     * @brief The effective coupling @f$\kappa_Z^l@f$.
+     * @brief The effective leptonic neutral-current coupling @f$\kappa_Z^l@f$.
      * @details The @f$Zl\bar{l}@f$ effective coupling @f$\kappa_Z^l@f$ is flavour
      * universal in the original version of the epsilon parameterization:
      * @f[
@@ -189,9 +199,9 @@ public:
      * @f]
      * See kappaZ_e() for @f$\kappa_Z^e(\varepsilon_1,\varepsilon_3)@f$.
      * When StandardModel::FlagWithoutNonUniversalVC is true, the flavour
-     * non-universal vertex corrections are taken into account:
+     * non-universal vertex corrections are also taken into account:
      * @f[
-     *   \kappa_Z^l = \kappa_Z^e(\varepsilon_1) + \Delta\kappa_Z^l,
+     *   \kappa_Z^l = \kappa_Z^e(\varepsilon_1,\varepsilon_3) + \Delta\kappa_Z^l,
      * @f]
      * where @f$\Delta\kappa_Z^l@f$ denotes the non-universal corrections
      * given by EWSM::kappaZ_l_SM_FlavorDep().
@@ -204,7 +214,7 @@ public:
                      const double eps1, const double eps3) const;
 
     /**
-     * @brief The effective coupling @f$\kappa_Z^q@f$ for @f$q\neq b,t@f$.
+     * @brief The effective quark neutral-current coupling @f$\kappa_Z^q@f$ for @f$q\neq b,t@f$.
      * @details The @f$Zq\bar{q}@f$ effective coupling @f$\kappa_Z^q@f$ for
      * @f$q\neq b,t@f$ is flavour universal in the original version of the
      * epsilon parameterization:
@@ -213,7 +223,7 @@ public:
      * @f]
      * See kappaZ_e() for @f$\kappa_Z^e(\varepsilon_1,\varepsilon_3)@f$.
      * When StandardModel::FlagWithoutNonUniversalVC is true, the flavour
-     * non-universal vertex corrections are taken into account:
+     * non-universal vertex corrections are also taken into account:
      * @f[
      *   \kappa_Z^q = \kappa_Z^e(\varepsilon_1,\varepsilon_3) + \Delta\kappa_Z^q,
      * @f]
@@ -228,7 +238,7 @@ public:
                      const double eps1, const double eps3) const;
 
     /**
-     * @brief The effective coupling @f$g_V^l@f$.
+     * @brief The effective leptonic neutral-current vector coupling @f$g_V^l@f$.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
      * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
@@ -238,7 +248,7 @@ public:
                 const double eps1, const double eps3) const;
 
     /**
-     * @brief The effective coupling @f$g_V^q@f$ for @f$q\neq b,t@f$.
+     * @brief The effective quark neutral-current vector coupling @f$g_V^q@f$ for @f$q\neq b,t@f$.
      * @param[in] q name of a quark (see QCD::quark); @f$q\neq b,t@f$
      * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
      * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
@@ -248,7 +258,7 @@ public:
                 const double eps1, const double eps3) const;
 
     /**
-     * @brief The effective coupling @f$g_A^l@f$.
+     * @brief The effective leptonic neutral-current axial-vector coupling @f$g_A^l@f$.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
      * @return @f$g_A^l@f$
@@ -256,7 +266,7 @@ public:
     complex gAl(const StandardModel::lepton l, const double eps1) const;
 
     /**
-     * @brief The effective coupling @f$g_A^q@f$ for @f$q\neq b,t@f$.
+     * @brief The effective quark neutral-current axial-vector coupling @f$g_A^q@f$ for @f$q\neq b,t@f$.
      * @param[in] q name of a quark (see QCD::quark); @f$q\neq b,t@f$
      * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
      * @return @f$g_A^q@f$
@@ -264,7 +274,7 @@ public:
     complex gAq(const StandardModel::quark q, const double eps1) const;
 
     /**
-     * @brief The effective coupling @f$\rho_Z^b@f$.
+     * @brief The effective neutral-current coupling @f$\rho_Z^b@f$.
      * @details In the original version of the epsilon parameterization
      * @cite Altarelli:1993sz, the @f$Zb\bar{b}@f$ effective coupling
      * @f$\rho_Z^b@f$ is given in terms of @f$\varepsilon_b@f$:
@@ -287,7 +297,7 @@ public:
     complex rhoZ_b(const double eps1, const double epsb) const;
 
     /**
-     * @brief The effective coupling @f$\kappa_Z^b@f$.
+     * @brief The effective neutral-current coupling @f$\kappa_Z^b@f$.
      * @details In the original version of the epsilon parameterization
      * @cite Altarelli:1993sz, the @f$Zb\bar{b}@f$ effective coupling
      * @f$\kappa_Z^b@f$ is given in terms of @f$\varepsilon_b@f$:
@@ -310,7 +320,7 @@ public:
     complex kappaZ_b(const double eps1, const double eps3, const double epsb) const;
 
     /**
-     * @brief The effective coupling @f$g_V^b@f$.
+     * @brief The effective neutral-current vector coupling @f$g_V^b@f$.
      * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
      * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
      * @param[in] epsb the @f$\varepsilon_b@f$ parameter
@@ -319,7 +329,7 @@ public:
     complex gVb(const double eps1, const double eps3, const double epsb) const;
 
     /**
-     * @brief The effective coupling @f$g_A^b@f$.
+     * @brief The effective neutral-current axial-vector coupling @f$g_A^b@f$.
      * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
      * @param[in] epsb the @f$\varepsilon_b@f$ parameter
      * @return @f$g_A^b@f$
@@ -366,7 +376,7 @@ private:
     double Delta_kappaPrime(const double eps1, const double eps3) const;
 
     /**
-     * @brief The effective coupling @f$\rho_Z^e@f$.
+     * @brief The effective neutral-current coupling @f$\rho_Z^e@f$.
      * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
      * @return @f$\rho_Z^e@f$
      */
@@ -381,7 +391,7 @@ private:
     complex kappaZ_e(const double eps1, const double eps3) const;
 
     /**
-     * @brief The effective coupling @f$g_V^e@f$.
+     * @brief The effective neutral-current vector coupling @f$g_V^e@f$.
      * @details The coupling @f$g_V^e@f$ is given in terms of the epsilon
      * parameters @f$\varepsilon_1@f$ and @f$\varepsilon_3@f$:
      * @f[
@@ -397,7 +407,7 @@ private:
     complex gVe(const double eps1, const double eps3) const;
 
     /**
-     * @brief The effective coupling @f$g_A^e@f$.
+     * @brief The effective neutral-current axial-vector coupling @f$g_A^e@f$.
      * @details The coupling @f$g_A^e@f$ is given in terms of the
      * @f$\varepsilon_1@f$ parameter:
      * @f[
