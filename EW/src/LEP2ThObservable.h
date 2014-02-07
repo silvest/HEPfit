@@ -164,7 +164,6 @@ protected:
     mutable double SMresult_cache; 
     mutable bool flag_cache[NUMofLEP2RCs];
     mutable double ml_cache, mq_cache, mqForHad_cache[6];
-    mutable double Coeff_cache[7];
     
     
     void SetObParam(LEP2oblique::Oblique ob, double ObParam_i[]) const 
