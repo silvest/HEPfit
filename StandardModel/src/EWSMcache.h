@@ -55,7 +55,7 @@ public:
      * @details The flag #FlagDebug=true is used for testing and debugging the
      * codes associated with the current class. The flag #FlagDebug
      * is set to false in the constructor EWSMcache() by default.
-     * @param[in] FlagDebug flag for debugging
+     * @param[in] FlagDebug a boolean flag for debugging
      */
     void setFlagDebug(bool FlagDebug)
     {
@@ -63,12 +63,14 @@ public:
     }
 
     /**
-     * @brief A set method to change the internal boolean flag #FlagCacheInEWSMcache.
-     * @details Setting #FlagCacheInEWSMcache to false, the caching methods
+     * @brief A set method to change the model flag CacheInEWSMcache in
+     * StandardModel.
+     * @details Setting CacheInEWSMcache to false, the caching methods
      * defined in the current class are not employed in numerical computations.
-     * The flag #FlagCacheInEWSMcache is set to true in the constructor EWSMcache()
-     * by default.
-     * @param[in] FlagCacheInEWSMcache flag for caching
+     * The flag is set to true in the constructor EWSMcache() by default.
+     * 
+     * See also @ref StandardModelFlags "the description of the StandardModel flags".
+     * @param[in] FlagCacheInEWSMcache a boolean flag for caching
      */
     void setFlagCacheInEWSMcache(bool FlagCacheInEWSMcache)
     {
@@ -79,7 +81,7 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
     /**
-     * @brief A get method to access the reference to the object of type
+     * @brief A get method to access the member reference to the object of type
      * StandardModel passed to the constructor.
      * @return the reference to the object of type StandardModel passed to the
      * constructor.
@@ -90,7 +92,7 @@ public:
     //}
     
     /**
-     * @brief A get method to access the object of type PVfunctions in the current class.
+     * @brief A get method to access the member object of type PVfunctions.
      * @return the object of type PVfunctions in the current class
      */
     const PVfunctions getPV() const 
@@ -99,7 +101,7 @@ public:
     }
 
     /**
-     * @brief A get method to access the object of type Polylogarithms in the current class.
+     * @brief A get method to access the member object of type Polylogarithms. 
      * @return the object of type Polylogarithms in the current class
      */
     const Polylogarithms getPolyLog() const 
@@ -108,7 +110,7 @@ public:
     }
 
     /**
-     * @brief A get method to access the object of type ClausenFunctions in the current class.
+     * @brief A get method to access the member object of type ClausenFunctions. 
      * @return the object of type ClausenFunctions in the current class
      */
     const ClausenFunctions getClausen() const 
