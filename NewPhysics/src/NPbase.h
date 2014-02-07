@@ -123,7 +123,7 @@ public:
     /**
      * @brief The oblique parameter \f$\hat{S}\f$.
      * @return the value of the oblique parameter 
-     * \f$\displaystyle\hat{S}=\frac{\alpha}{4\sin^2{\theta_W}}S\f$
+     * \f$\displaystyle\hat{S}=\frac{\alpha}{4s^2_W}S\f$
      */
     virtual double obliqueShat() const;
 
@@ -136,7 +136,7 @@ public:
     /**
      * @brief The oblique parameter \f$\hat{U}\f$.
      * @return the value of the oblique parameter 
-     * \f$\displaystyle\hat{U}=-\frac{\alpha}{4\sin^2{\theta_W}}U\f$
+     * \f$\displaystyle\hat{U}=-\frac{\alpha}{4s^2_W}U\f$
      */
     virtual double obliqueUhat() const;
 
@@ -178,6 +178,16 @@ public:
 
     /**
      * @brief New physics contribution to @f$g_V^l@f$.
+     * @details
+     * @f[
+     * \delta g_V^l
+     * = g_{V,\mathrm{SM}}^l\,\frac{\alpha(M_Z^2)\, T'}{2}
+     * + \big( g_{V,\mathrm{SM}}^l - g_{A,\mathrm{SM}}^l \big)\,
+     * \frac{\alpha(M_Z^2)}{4s_W^2\,(c_W^2-s_W^2)}
+     * \left( S' - 4\,c_W^2s_W^2\, T' \right).
+     * @f]
+     *
+     * See, e.g., @cite Ciuchini:2013pca.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$\delta g_V^l@f$
      */
@@ -185,6 +195,16 @@ public:
     
     /**
      * @brief New physics contribution to @f$g_V^q@f$.
+     * @details
+     * @f[
+     * \delta g_V^q
+     * = g_{V,\mathrm{SM}}^q\,\frac{\alpha(M_Z^2)\, T'}{2}
+     * + \big( g_{V,\mathrm{SM}}^q - g_{A,\mathrm{SM}}^q \big)\,
+     * \frac{\alpha(M_Z^2)}{4s_W^2\,(c_W^2-s_W^2)}
+     * \left( S' - 4\,c_W^2s_W^2\, T' \right).
+     * @f]
+     *
+     * See, e.g., @cite Ciuchini:2013pca.
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$\delta g_V^q@f$
      */
@@ -192,6 +212,12 @@ public:
 
     /**
      * @brief New physics contribution to @f$g_A^l@f$.
+     * @details
+     * @f[
+     * \delta g_A^l = g_{A,\mathrm{SM}}^l \frac{\alpha(M_Z^2)\, T'}{2}\,.
+     * @f]
+     *
+     * See, e.g., @cite Ciuchini:2013pca.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$\delta g_A^l@f$
      */   
@@ -199,6 +225,12 @@ public:
 
     /**
      * @brief New physics contribution to @f$g_A^q@f$.
+     * @details
+     * @f[
+     * \delta g_A^q = g_{A,\mathrm{SM}}^q \frac{\alpha(M_Z^2)\, T'}{2}\,.
+     * @f]
+     *
+     * See, e.g., @cite Ciuchini:2013pca.
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$\delta g_A^q@f$
      */ 
