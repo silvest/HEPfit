@@ -61,21 +61,21 @@ public:
      * @param[in] q name of a quark.
      * @return non-factorizable EW-QCD corrections in GeV.
      */
-    double Delta_EWQCD(const StandardModel::quark q) const;
+    double Delta_EWQCD(const QCD::quark q) const;
 
     /**
      * @param[in] q name of a quark.
      * @return Radiator functions to the vector current due to the
      * final-state QED and QCD corrections.
      */
-    double RVq(const StandardModel::quark q) const;
+    double RVq(const QCD::quark q) const;
 
     /**
      * @param[in] q name of a quark.
      * @return Radiator functions to the axial-vector current due to the
      * final-state QED and QCD corrections.
      */
-    double RAq(const StandardModel::quark q) const;
+    double RAq(const QCD::quark q) const;
 
     /**
      * @return Singlet vector corrections to the width of Z to hadrons.
@@ -97,7 +97,7 @@ public:
      * @param[in] q name of a quark
      * @return the effective weak mixing angle for the quark "q"
      */
-    double sin2thetaEff(const StandardModel::quark q) const;   
+    double sin2thetaEff(const QCD::quark q) const;   
     
     /**
      * @brief The \f$Z\to\ell^+\ell^-\f$ partial decay width, \f$\Gamma_\ell\f$.
@@ -111,7 +111,7 @@ public:
      * @param[in] q name of a quark
      * @return the \f$Z\rightarrow q\bar{q}\f$ partial decay width in GeV
      */
-    double Gamma_q(const StandardModel::quark q) const;
+    double Gamma_q(const QCD::quark q) const;
     
     /**
      * @brief The \f$Z\f$-boson invisible partial decay width, \f$\Gamma_{inv}\f$.
@@ -158,7 +158,7 @@ public:
      * @param[in] q name of a quark
      * @return the asymmetry parameter for \f$Z\rightarrow q\bar{q}\f$, \f$A_q\f$
      */
-    double A_q(const StandardModel::quark q) const;
+    double A_q(const QCD::quark q) const;
 
     
     ////////////////////////////////////////////////////////////////////////

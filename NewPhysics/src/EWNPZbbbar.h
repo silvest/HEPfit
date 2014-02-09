@@ -62,7 +62,7 @@ public:
      * @details Non-SM contribution only for \f$q=b\f$.
      * @copydetails EWSM::rhoZ_q()
      */
-    virtual complex rhoZ_q(const StandardModel::quark q) const;
+    virtual complex rhoZ_q(const QCD::quark q) const;
 
     /**
      * @brief @copybrief EWSM::kappaZ_l()
@@ -76,7 +76,7 @@ public:
      * @details Non-SM contribution only for \f$q=b\f$.
      * @copydetails EWSM::kappaZ_q()
      */
-    virtual complex kappaZ_q(const StandardModel::quark q) const;
+    virtual complex kappaZ_q(const QCD::quark q) const;
 
     /**
      * @brief @copybrief EWSM::gVl()
@@ -90,7 +90,7 @@ public:
      * @details Non-SM contribution only for \f$q=b\f$.
      * @copydetails EWSM::gVq()
      */
-    virtual complex gVq(const StandardModel::quark q) const;
+    virtual complex gVq(const QCD::quark q) const;
 
     /**
      * @brief @copybrief EWSM::gAl()
@@ -104,7 +104,7 @@ public:
      * @details Non-SM contribution only for \f$q=b\f$.
      * @copydetails EWSM::gAq()
      */
-    virtual complex gAq(const StandardModel::quark q) const;
+    virtual complex gAq(const QCD::quark q) const;
 
 
 };

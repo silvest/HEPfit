@@ -210,7 +210,7 @@ double NPEffective::deltaGVl(StandardModel::lepton l) const
 }
 
 
-double NPEffective::deltaGVq(StandardModel::quark q) const
+double NPEffective::deltaGVq(QCD::quark q) const
 {
     return ( deltaGLq_tmp(q) + deltaGRq_tmp(q) + NPbase::deltaGVq(q) );
 }
@@ -222,7 +222,7 @@ double NPEffective::deltaGAl(StandardModel::lepton l) const
 }
 
 
-double NPEffective::deltaGAq(StandardModel::quark q) const
+double NPEffective::deltaGAq(QCD::quark q) const
 {
     return ( deltaGLq_tmp(q) - deltaGRq_tmp(q) + NPbase::deltaGAq(q) );
 }
@@ -256,7 +256,7 @@ double NPEffective::deltaGLl_tmp(StandardModel::lepton l) const
 }
 
 
-double NPEffective::deltaGLq_tmp(StandardModel::quark q) const
+double NPEffective::deltaGLq_tmp(QCD::quark q) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
     double sW2_SM = myEWSM->sW2_SM(); /* This has to be the SM value. */
@@ -306,7 +306,7 @@ double NPEffective::deltaGRl_tmp(StandardModel::lepton l) const
 }
 
 
-double NPEffective::deltaGRq_tmp(StandardModel::quark q) const
+double NPEffective::deltaGRq_tmp(QCD::quark q) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
     double sW2_SM = myEWSM->sW2_SM(); /* This has to be the SM value. */

@@ -37,15 +37,15 @@ public:
     
     double sigma_l_LEP2_NP(const StandardModel::lepton l, const double s,
                            const double ml, const double ObParam_i[]) const;
-    double sigma_q_LEP2_NP(const StandardModel::quark q, const double s,
+    double sigma_q_LEP2_NP(const QCD::quark q, const double s,
                            const double mq, const double ObParam_i[]) const;
 
     double AFB_l_LEP2_NP(const StandardModel::lepton l, const double s, 
                          const double ml, const double ObParam_i[]) const;
-    double AFB_q_LEP2_NP(const StandardModel::quark q, const double s, 
+    double AFB_q_LEP2_NP(const QCD::quark q, const double s, 
                          const double mq, const double ObParam_i[]) const;
     
-    double R_q_LEP2_NP(const StandardModel::quark q, const double s, 
+    double R_q_LEP2_NP(const QCD::quark q, const double s, 
                        const double mq, const double ObParam_i[]) const;
         
     
@@ -89,48 +89,48 @@ private:
     }
     
     double vl(const StandardModel::lepton l, const double alpha0) const;
-    double vq(const StandardModel::quark q, const double alpha0) const;
+    double vq(const QCD::quark q, const double alpha0) const;
     double al(const StandardModel::lepton l, const double alpha0) const;
-    double aq(const StandardModel::quark q, const double alpha0) const;
+    double aq(const QCD::quark q, const double alpha0) const;
 
     double G1_l_NP(const StandardModel::lepton l, const double s, 
                    const double alpha0, const double ObParam_i[]) const;
-    double G1_q_NP(const StandardModel::quark q, const double s, 
+    double G1_q_NP(const QCD::quark q, const double s, 
                    const double alpha0, const double ObParam_i[]) const;
     double G1_NP(const double s, const double alpha0, const double Qf, 
                  const double vf, const double af, const double ObParam_i[]) const;
 
     double G3_l_NP(const StandardModel::lepton l, const double s, 
                    const double alpha0, const double ObParam_i[]) const;
-    double G3_q_NP(const StandardModel::quark q, const double s, 
+    double G3_q_NP(const QCD::quark q, const double s, 
                    const double alpha0, const double ObParam_i[]) const;
     double G3_NP(const double s, const double alpha0, const double Qf, 
                  const double vf, const double af, const double ObParam_i[]) const;
     
     double G1_l_SM0(const StandardModel::lepton l, const double s, 
                     const double alpha0) const;
-    double G1_q_SM0(const StandardModel::quark q, const double s, 
+    double G1_q_SM0(const QCD::quark q, const double s, 
                     const double alpha0) const;
     double G1_SM0(const double s, const double alpha0, const double Qf, 
                   const double vf, const double af) const;
 
     double G2_l_SM0(const StandardModel::lepton l, const double s, 
                     const double alpha0) const;
-    double G2_q_SM0(const StandardModel::quark q, const double s, 
+    double G2_q_SM0(const QCD::quark q, const double s, 
                     const double alpha0) const;
     double G2_SM0(const double s, const double alpha0, const double Qf, 
                   const double vf, const double af) const;
 
     double G3_l_SM0(const StandardModel::lepton l, const double s, 
                     const double alpha0) const;
-    double G3_q_SM0(const StandardModel::quark q, const double s, 
+    double G3_q_SM0(const QCD::quark q, const double s, 
                     const double alpha0) const;    
     double G3_SM0(const double s, const double alpha0, const double Qf, 
                   const double vf, const double af) const;
     
     double sigma_l_LEP2_SM0(const StandardModel::lepton l, const double s, 
                             const double alpha0, const double ml) const;
-    double sigma_q_LEP2_SM0(const StandardModel::quark q, const double s, 
+    double sigma_q_LEP2_SM0(const QCD::quark q, const double s, 
                             const double alpha0, const double mq) const;
     
 };

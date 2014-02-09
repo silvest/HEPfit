@@ -256,10 +256,10 @@ void EWSM_Output::outputEachDeltaRhoZ_l(const StandardModel::lepton l, const dou
 }
 
 
-void EWSM_Output::outputEachDeltaRhoZ_q(const StandardModel::quark q, const double Mw_i) const
+void EWSM_Output::outputEachDeltaRhoZ_q(const QCD::quark q, const double Mw_i) const
 {
     std::cout << "================================================" << std::endl;
-    std::cout << "rhoZ_q[(StandardModel::quark)" << q << "]" << std::endl;
+    std::cout << "rhoZ_q[(QCD::quark)" << q << "]" << std::endl;
     std::cout << "Mw(input)   = " << Mw_i << std::endl;
 
     double cW2_TMP = Mw_i*Mw_i/SM.getMz()/SM.getMz();
@@ -499,10 +499,10 @@ void EWSM_Output::outputEachDeltaKappaZ_l(const StandardModel::lepton l, const d
 }
 
 
-void EWSM_Output::outputEachDeltaKappaZ_q(const StandardModel::quark q, const double Mw_i) const
+void EWSM_Output::outputEachDeltaKappaZ_q(const QCD::quark q, const double Mw_i) const
 {
     std::cout << "================================================" << std::endl;
-    std::cout << "kappaZ_q[(StandardModel::quark)" << q << "]" << std::endl;
+    std::cout << "kappaZ_q[(QCD::quark)" << q << "]" << std::endl;
     std::cout << "Mw(input)   = " << Mw_i << std::endl;
 
     double cW2_TMP = Mw_i*Mw_i/SM.getMz()/SM.getMz();

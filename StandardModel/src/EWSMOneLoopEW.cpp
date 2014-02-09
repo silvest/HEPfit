@@ -126,7 +126,7 @@ complex EWSMOneLoopEW::deltaRho_rem_l(const StandardModel::lepton l, const doubl
 }
 
 
-complex EWSMOneLoopEW::deltaRho_rem_q(const StandardModel::quark q, const double Mw_i) const 
+complex EWSMOneLoopEW::deltaRho_rem_q(const QCD::quark q, const double Mw_i) const 
 {
     if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     
@@ -168,7 +168,7 @@ complex EWSMOneLoopEW::deltaKappa_rem_l(const StandardModel::lepton l, const dou
 }
 
 
-complex EWSMOneLoopEW::deltaKappa_rem_q(const StandardModel::quark q, const double Mw_i) const 
+complex EWSMOneLoopEW::deltaKappa_rem_q(const QCD::quark q, const double Mw_i) const 
 {
     if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
     
@@ -227,8 +227,8 @@ double EWSMOneLoopEW::rho_GammaW_l(const StandardModel::lepton li,
 }
 
 
-double EWSMOneLoopEW::rho_GammaW_q(const StandardModel::quark qi, 
-                                   const StandardModel::quark qj, 
+double EWSMOneLoopEW::rho_GammaW_q(const QCD::quark qi, 
+                                   const QCD::quark qj, 
                                    const double Mw_i) const 
 {
     if ( ((int)qi+(int)qj+3)%2 ) 
@@ -332,7 +332,7 @@ complex EWSMOneLoopEW::SigmabarWW_fer(const double mu, const double s,
     double ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
         ml2[i] = cache.ml2((StandardModel::lepton) i);
-        mq2[i] = cache.mq2((StandardModel::quark) i, mu);
+        mq2[i] = cache.mq2((QCD::quark) i, mu);
     }
     double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
@@ -448,7 +448,7 @@ complex EWSMOneLoopEW::SigmabarZZ_fer(const double mu, const double s,
     double ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
         ml2[i] = cache.ml2((StandardModel::lepton) i);
-        mq2[i] = cache.mq2((StandardModel::quark) i, mu);
+        mq2[i] = cache.mq2((QCD::quark) i, mu);
     }
     double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
@@ -461,9 +461,9 @@ complex EWSMOneLoopEW::SigmabarZZ_fer(const double mu, const double s,
     if (mu==Mz && s==Mz2) {
         for (int i=0; i<6; i++) {
             Bf_s_ml2_ml2[i] = cache.Bf_Mz2_Mz2_ml2_ml2((StandardModel::lepton) i);
-            Bf_s_mq2_mq2[i] = cache.Bf_Mz2_Mz2_mq2_mq2((StandardModel::quark) i);
+            Bf_s_mq2_mq2[i] = cache.Bf_Mz2_Mz2_mq2_mq2((QCD::quark) i);
             B0_s_ml2_ml2[i] = cache.B0_Mz2_Mz2_ml2_ml2((StandardModel::lepton) i);
-            B0_s_mq2_mq2[i] = cache.B0_Mz2_Mz2_mq2_mq2((StandardModel::quark) i);
+            B0_s_mq2_mq2[i] = cache.B0_Mz2_Mz2_mq2_mq2((QCD::quark) i);
         }
     } else {
         for (int i=0; i<6; i++) {
@@ -487,8 +487,8 @@ complex EWSMOneLoopEW::SigmabarZZ_fer(const double mu, const double s,
             Sigma += - 2.0*af2*mf2*B0_s_ml2_ml2[i];
             //
             mf2 = mq2[i];
-            vf2 = pow(cache.vq((StandardModel::quark) i, Mw), 2.0);
-            af2 = pow(cache.aq((StandardModel::quark) i), 2.0);
+            vf2 = pow(cache.vq((QCD::quark) i, Mw), 2.0);
+            af2 = pow(cache.aq((QCD::quark) i), 2.0);
             if(s!=0.0) Sigma += - 3.0*(vf2 + af2)*s*Bf_s_mq2_mq2[i];
             Sigma += - 3.0*2.0*af2*mf2*B0_s_mq2_mq2[i];
         }
@@ -573,7 +573,7 @@ complex EWSMOneLoopEW::PibarGammaGamma_fer_l(const double mu, const double s,
 
 
 complex EWSMOneLoopEW::PibarGammaGamma_fer_q(const double mu, const double s, 
-                                          const StandardModel::quark q) const 
+                                          const QCD::quark q) const 
 {
     double mu2 = mu*mu;
     double mf2 = cache.mq2(q, mu);
@@ -612,7 +612,7 @@ complex EWSMOneLoopEW::PibarGammaGamma_fer(const double mu, const double s) cons
     complex Pi(0.0,0.0,false);
     for (int i=0; i<6; i++) {
         Pi += PibarGammaGamma_fer_l(mu, s, (StandardModel::lepton) i);
-        Pi += PibarGammaGamma_fer_q(mu, s, (StandardModel::quark) i);
+        Pi += PibarGammaGamma_fer_q(mu, s, (QCD::quark) i);
     }
     return Pi;
 }
@@ -633,7 +633,7 @@ complex EWSMOneLoopEW::PibarZgamma_fer(const double mu, const double s,
     double ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
         ml2[i] = cache.ml2((StandardModel::lepton) i);
-        mq2[i] = cache.mq2((StandardModel::quark) i, mu);
+        mq2[i] = cache.mq2((QCD::quark) i, mu);
     }
     double mu2 = mu*mu;
     double Mz = cache.Mz();    
@@ -649,7 +649,7 @@ complex EWSMOneLoopEW::PibarZgamma_fer(const double mu, const double s,
                 Bf_s_ml2_ml2[i] = 0.0; // Neutrinos do not contribute, since Ql=0.
             else
                 Bf_s_ml2_ml2[i] = cache.Bf_Mz2_Mz2_ml2_ml2((StandardModel::lepton) i);
-            Bf_s_mq2_mq2[i] = cache.Bf_Mz2_Mz2_mq2_mq2((StandardModel::quark) i);
+            Bf_s_mq2_mq2[i] = cache.Bf_Mz2_Mz2_mq2_mq2((QCD::quark) i);
         }
     } else {
         for (int i=0; i<6; i++) {
@@ -667,7 +667,7 @@ complex EWSMOneLoopEW::PibarZgamma_fer(const double mu, const double s,
         Ql = cache.Ql((StandardModel::lepton) i);
         Pi += - (fabs(Ql) - 4.0*sW2*Ql*Ql)*Bf_s_ml2_ml2[i];
         //
-        Qq = cache.Qq((StandardModel::quark) i);
+        Qq = cache.Qq((QCD::quark) i);
         Pi += - 3.0*(fabs(Qq) - 4.0*sW2*Qq*Qq)*Bf_s_mq2_mq2[i];
     }   
     return Pi;
@@ -737,7 +737,7 @@ complex EWSMOneLoopEW::SigmabarPrime_WW_fer_Mw2(const double mu,
     double ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
         ml2[i] = cache.ml2((StandardModel::lepton) i);
-        mq2[i] = cache.mq2((StandardModel::quark) i, mu);
+        mq2[i] = cache.mq2((QCD::quark) i, mu);
     }
     double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
@@ -844,7 +844,7 @@ complex EWSMOneLoopEW::SigmabarPrime_ZZ_fer_Mz2(const double mu, const double Mw
     double ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
         ml2[i] = cache.ml2((StandardModel::lepton) i);
-        mq2[i] = cache.mq2((StandardModel::quark) i, mu);
+        mq2[i] = cache.mq2((QCD::quark) i, mu);
     }
     double mu2 = mu*mu;
     double Mw = cache.Mw(Mw_i);
@@ -858,11 +858,11 @@ complex EWSMOneLoopEW::SigmabarPrime_ZZ_fer_Mz2(const double mu, const double Mw
     if (mu==Mz) {
          for (int i=0; i<6; i++) {
              Bf_Mz2_ml2_ml2[i] = cache.Bf_Mz2_Mz2_ml2_ml2((StandardModel::lepton) i);
-             Bf_Mz2_mq2_mq2[i] = cache.Bf_Mz2_Mz2_mq2_mq2((StandardModel::quark) i);
+             Bf_Mz2_mq2_mq2[i] = cache.Bf_Mz2_Mz2_mq2_mq2((QCD::quark) i);
              Bfp_Mz2_ml2_ml2[i] = cache.Bfp_Mz2_Mz2_ml2_ml2((StandardModel::lepton) i);
-             Bfp_Mz2_mq2_mq2[i] = cache.Bfp_Mz2_Mz2_mq2_mq2((StandardModel::quark) i);
+             Bfp_Mz2_mq2_mq2[i] = cache.Bfp_Mz2_Mz2_mq2_mq2((QCD::quark) i);
              B0p_Mz2_ml2_ml2[i] = cache.B0p_Mz2_Mz2_ml2_ml2((StandardModel::lepton) i);
-             B0p_Mz2_mq2_mq2[i] = cache.B0p_Mz2_Mz2_mq2_mq2((StandardModel::quark) i);
+             B0p_Mz2_mq2_mq2[i] = cache.B0p_Mz2_Mz2_mq2_mq2((QCD::quark) i);
          }        
     } else {
         for (int i=0; i<6; i++) {
@@ -885,8 +885,8 @@ complex EWSMOneLoopEW::SigmabarPrime_ZZ_fer_Mz2(const double mu, const double Mw
                  - 2.0*af2*mf2*B0p_Mz2_ml2_ml2[i];
         //
         mf2 = mq2[i];
-        vf2 = pow(cache.vq((StandardModel::quark) i, Mw), 2.0);
-        af2 = pow(cache.aq((StandardModel::quark) i), 2.0);
+        vf2 = pow(cache.vq((QCD::quark) i, Mw), 2.0);
+        af2 = pow(cache.aq((QCD::quark) i), 2.0);
         Sigma += - 3.0*(vf2 + af2)*(Bf_Mz2_mq2_mq2[i] + Mz2*Bfp_Mz2_mq2_mq2[i])
                  - 6.0*af2*mf2*B0p_Mz2_mq2_mq2[i];
     }
@@ -1207,13 +1207,13 @@ complex EWSMOneLoopEW::FW_l(const double s, const StandardModel::lepton l,
 }
    
 
-complex EWSMOneLoopEW::FW_q(const double s, const StandardModel::quark q, 
+complex EWSMOneLoopEW::FW_q(const double s, const QCD::quark q, 
                             const double Mw_i) const 
 {
     double Mw = cache.Mw(Mw_i);
     double cW2 = cache.cW2(Mw);
 
-    StandardModel::quark qprime;
+    QCD::quark qprime;
     switch(q) {
         case StandardModel::UP:
             qprime = StandardModel::DOWN;

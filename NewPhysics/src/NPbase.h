@@ -252,7 +252,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$\delta g_V^q@f$
      */
-    virtual double deltaGVq(StandardModel::quark q) const;
+    virtual double deltaGVq(QCD::quark q) const;
 
     /**
      * @brief New physics contribution to @f$g_A^l@f$.
@@ -286,7 +286,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$\delta g_A^q@f$
      */ 
-    virtual double deltaGAq(StandardModel::quark q) const;
+    virtual double deltaGAq(QCD::quark q) const;
 
     
     ////////////////////////////////////////////////////////////////////////

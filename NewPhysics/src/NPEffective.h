@@ -294,7 +294,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$\delta g_V^q@f$
      */    
-    virtual double deltaGVq(StandardModel::quark q) const;
+    virtual double deltaGVq(QCD::quark q) const;
 
     /**
      * @brief @copybrief NPbase::deltaGAl()
@@ -318,7 +318,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$\delta g_A^q@f$
      */    
-    virtual double deltaGAq(StandardModel::quark q) const;
+    virtual double deltaGAq(QCD::quark q) const;
     
     
     ////////////////////////////////////////////////////////////////////////    
@@ -399,7 +399,7 @@ private:
      * @f$\Delta G@f$ are not included in this function.
      * @return @f$\delta g_L^q@f$
      */
-    double deltaGLq_tmp(StandardModel::quark q) const;
+    double deltaGLq_tmp(QCD::quark q) const;
 
     /**
      * @brief New physics contribution to @f$g_R^l@f$.
@@ -437,7 +437,7 @@ private:
      * @f$\Delta G@f$ are not included in thisfunction.
      * @return @f$\delta g_R^q@f$
      */
-    double deltaGRq_tmp(StandardModel::quark q) const;
+    double deltaGRq_tmp(QCD::quark q) const;
 
     
 };

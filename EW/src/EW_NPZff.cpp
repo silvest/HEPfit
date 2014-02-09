@@ -28,8 +28,8 @@ double EW_NPZff::GammaZ(const double GammaZ_SM) const
     for (int p=0; p<6; ++p) {
         delGVl[p] = (static_cast<const NPbase*> (&SM))->deltaGVl((StandardModel::lepton)p);
         delGAl[p] = (static_cast<const NPbase*> (&SM))->deltaGAl((StandardModel::lepton)p);
-        delGVq[p] = (static_cast<const NPbase*> (&SM))->deltaGVq((StandardModel::quark)p);
-        delGAq[p] = (static_cast<const NPbase*> (&SM))->deltaGAq((StandardModel::quark)p);
+        delGVq[p] = (static_cast<const NPbase*> (&SM))->deltaGVq((QCD::quark)p);
+        delGAq[p] = (static_cast<const NPbase*> (&SM))->deltaGAq((QCD::quark)p);
         if (delGVl[p]!=0.0 || delGAl[p]!=0.0
                 || delGVq[p]!=0.0 || delGAq[p]!=0.0)
             nonZeroNP = true;
@@ -44,8 +44,8 @@ double EW_NPZff::GammaZ(const double GammaZ_SM) const
             gAf = SM.getEWSM()->gAl_SM((StandardModel::lepton)p).real();
             deltaGl[p] = 2.0*(gVf*delGVl[p] + gAf*delGAl[p]);
 
-            gVf = SM.getEWSM()->gVq_SM((StandardModel::quark)p).real();
-            gAf = SM.getEWSM()->gAq_SM((StandardModel::quark)p).real();
+            gVf = SM.getEWSM()->gVq_SM((QCD::quark)p).real();
+            gAf = SM.getEWSM()->gAq_SM((QCD::quark)p).real();
             deltaGq[p] = 2.0*(gVf*delGVq[p] + gAf*delGAq[p]);
 
             delGammaZ += deltaGl[p] + 3.0*deltaGq[p];
@@ -71,8 +71,8 @@ double EW_NPZff::sigmaHadron(const double sigmaHadron_SM) const
     for (int p=0; p<6; ++p) {
         delGVl[p] = (static_cast<const NPbase*> (&SM))->deltaGVl((StandardModel::lepton)p);
         delGAl[p] = (static_cast<const NPbase*> (&SM))->deltaGAl((StandardModel::lepton)p);
-        delGVq[p] = (static_cast<const NPbase*> (&SM))->deltaGVq((StandardModel::quark)p);
-        delGAq[p] = (static_cast<const NPbase*> (&SM))->deltaGAq((StandardModel::quark)p);
+        delGVq[p] = (static_cast<const NPbase*> (&SM))->deltaGVq((QCD::quark)p);
+        delGAq[p] = (static_cast<const NPbase*> (&SM))->deltaGAq((QCD::quark)p);
         if (delGVl[p]!=0.0 || delGAl[p]!=0.0
                 || delGVq[p]!=0.0 || delGAq[p]!=0.0)
             nonZeroNP = true;
@@ -89,8 +89,8 @@ double EW_NPZff::sigmaHadron(const double sigmaHadron_SM) const
             Gl[p] = gVf*gVf + gAf*gAf;
             deltaGl[p] = 2.0*(gVf*delGVl[p] + gAf*delGAl[p]);
 
-            gVf = SM.getEWSM()->gVq_SM((StandardModel::quark)p).real();
-            gAf = SM.getEWSM()->gAq_SM((StandardModel::quark)p).real();
+            gVf = SM.getEWSM()->gVq_SM((QCD::quark)p).real();
+            gAf = SM.getEWSM()->gAq_SM((QCD::quark)p).real();
             Gq[p] = gVf*gVf + gAf*gAf;
             deltaGq[p] = 2.0*(gVf*delGVq[p] + gAf*delGAq[p]);
 
@@ -289,8 +289,8 @@ double EW_NPZff::Rlepton(const double Rlepton_SM) const
 
     double delGVq[6], delGAq[6];
     for (int p=0; p<6; ++p) {
-        delGVq[p] = (static_cast<const NPbase*> (&SM))->deltaGVq((StandardModel::quark)p);
-        delGAq[p] = (static_cast<const NPbase*> (&SM))->deltaGAq((StandardModel::quark)p);
+        delGVq[p] = (static_cast<const NPbase*> (&SM))->deltaGVq((QCD::quark)p);
+        delGAq[p] = (static_cast<const NPbase*> (&SM))->deltaGAq((QCD::quark)p);
         if (delGVq[p]!=0.0 || delGAq[p]!=0.0) nonZeroNP = true;
     }
 
@@ -304,8 +304,8 @@ double EW_NPZff::Rlepton(const double Rlepton_SM) const
         double gVq, gAq;
         double Gq_sum = 0.0, delGq_sum = 0.0;
         for (int p=0; p<6; ++p) {
-            gVq = SM.getEWSM()->gVq_SM((StandardModel::quark)p).real();
-            gAq = SM.getEWSM()->gAq_SM((StandardModel::quark)p).real();
+            gVq = SM.getEWSM()->gVq_SM((QCD::quark)p).real();
+            gAq = SM.getEWSM()->gAq_SM((QCD::quark)p).real();
             Gq[p] = gVq*gVq + gAq*gAq;
             deltaGq[p] = 2.0*(gVq*delGVq[p] + gAq*delGAq[p]);
 
@@ -327,8 +327,8 @@ double EW_NPZff::Rcharm(const double Rcharm_SM) const
     bool nonZeroNP = false;
     double delGVq[6], delGAq[6];
     for (int p=0; p<6; ++p) {
-        delGVq[p] = (static_cast<const NPbase*> (&SM))->deltaGVq((StandardModel::quark)p);
-        delGAq[p] = (static_cast<const NPbase*> (&SM))->deltaGAq((StandardModel::quark)p);
+        delGVq[p] = (static_cast<const NPbase*> (&SM))->deltaGVq((QCD::quark)p);
+        delGAq[p] = (static_cast<const NPbase*> (&SM))->deltaGAq((QCD::quark)p);
         if (delGVq[p]!=0.0 || delGAq[p]!=0.0) nonZeroNP = true;
     }
 
@@ -337,8 +337,8 @@ double EW_NPZff::Rcharm(const double Rcharm_SM) const
         double Gq[6], deltaGq[6];
         double Gq_sum = 0.0, delGq_sum = 0.0;
         for (int p=0; p<6; ++p) {
-            gVf = SM.getEWSM()->gVq_SM((StandardModel::quark)p).real();
-            gAf = SM.getEWSM()->gAq_SM((StandardModel::quark)p).real();
+            gVf = SM.getEWSM()->gVq_SM((QCD::quark)p).real();
+            gAf = SM.getEWSM()->gAq_SM((QCD::quark)p).real();
             Gq[p] = gVf*gVf + gAf*gAf;
             deltaGq[p] = 2.0*(gVf*delGVq[p] + gAf*delGAq[p]);
 
@@ -361,8 +361,8 @@ double EW_NPZff::Rbottom(const double Rbottom_SM) const
     bool nonZeroNP = false;
     double delGVq[6], delGAq[6];
     for (int p=0; p<6; ++p) {
-        delGVq[p] = (static_cast<const NPbase*> (&SM))->deltaGVq((StandardModel::quark)p);
-        delGAq[p] = (static_cast<const NPbase*> (&SM))->deltaGAq((StandardModel::quark)p);
+        delGVq[p] = (static_cast<const NPbase*> (&SM))->deltaGVq((QCD::quark)p);
+        delGAq[p] = (static_cast<const NPbase*> (&SM))->deltaGAq((QCD::quark)p);
         if (delGVq[p]!=0.0 || delGAq[p]!=0.0) nonZeroNP = true;
     }
 
@@ -371,8 +371,8 @@ double EW_NPZff::Rbottom(const double Rbottom_SM) const
         double Gq[6], deltaGq[6];
         double Gq_sum = 0.0, delGq_sum = 0.0;
         for (int p=0; p<6; ++p) {
-            gVf = SM.getEWSM()->gVq_SM((StandardModel::quark)p).real();
-            gAf = SM.getEWSM()->gAq_SM((StandardModel::quark)p).real();
+            gVf = SM.getEWSM()->gVq_SM((QCD::quark)p).real();
+            gAf = SM.getEWSM()->gAq_SM((QCD::quark)p).real();
             Gq[p] = gVf*gVf + gAf*gAf;
             deltaGq[p] = 2.0*(gVf*delGVq[p] + gAf*delGAq[p]);
 

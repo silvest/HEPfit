@@ -145,7 +145,7 @@ public:
 protected:
     // These variables have to be initialized in child classes. 
     StandardModel::lepton l_flavor;
-    StandardModel::quark q_flavor;
+    QCD::quark q_flavor;
     
     const EW& myEW;
     const LEP2TwoFermions myTwoFermions;
@@ -179,7 +179,7 @@ protected:
         return myEW.getSM().getLeptons(l).getMass();
     }
 
-    double m_q(const StandardModel::quark q, const double mu, const orders order=FULLNLO) const 
+    double m_q(const QCD::quark q, const double mu, const orders order=FULLNLO) const 
     {
         switch(q) {
             case StandardModel::UP:

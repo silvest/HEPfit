@@ -63,7 +63,7 @@ complex EWSMOneLoopEW_HV::SigmaWW_fer(const double mu, const double muForMq,
     double ml[6], mq[6], ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
         ml[i] = this->ml((StandardModel::lepton) i);
-        mq[i] = this->mq((StandardModel::quark) i, muForMq);
+        mq[i] = this->mq((QCD::quark) i, muForMq);
         ml2[i] = ml[i]*ml[i];
         mq2[i] = mq[i]*mq[i];
     }
@@ -142,7 +142,7 @@ complex EWSMOneLoopEW_HV::SigmaZZ_fer(const double mu, const double muForMq,
     double ml[6], mq[6], ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
         ml[i] = this->ml((StandardModel::lepton) i);
-        mq[i] = this->mq((StandardModel::quark) i, muForMq); 
+        mq[i] = this->mq((QCD::quark) i, muForMq); 
         ml2[i] = ml[i]*ml[i];
         mq2[i] = mq[i]*mq[i];
     }
@@ -170,8 +170,8 @@ complex EWSMOneLoopEW_HV::SigmaZZ_fer(const double mu, const double muForMq,
             Sigma += - 2.0*af2*mf2*B0_s_ml2_ml2[i];
             //
             mf2 = mq2[i];
-            vf2 = pow(vq((StandardModel::quark) i, Mw), 2.0);
-            af2 = pow(aq((StandardModel::quark) i), 2.0);
+            vf2 = pow(vq((QCD::quark) i, Mw), 2.0);
+            af2 = pow(aq((QCD::quark) i), 2.0);
             Sigma += - 3.0*(vf2 + af2)*s*Bf_s_mq2_mq2[i];
             Sigma += - 3.0*2.0*af2*mf2*B0_s_mq2_mq2[i];
         }
@@ -237,9 +237,9 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_fer_l(const double mu, const double s,
 
 
 complex EWSMOneLoopEW_HV::PiGammaGamma_fer_q(const double mu, const double muForMq,
-                                             const double s, const StandardModel::quark q) const 
+                                             const double s, const QCD::quark q) const 
 {
-    double mf = this->mq((StandardModel::quark) q, muForMq);
+    double mf = this->mq((QCD::quark) q, muForMq);
     double Qf = SM.getQuarks(q).getCharge();
  
     /* Loop functions */
@@ -259,7 +259,7 @@ complex EWSMOneLoopEW_HV::PiGammaGamma_fer(const double mu, const double muForMq
     complex Pi(0.0,0.0,false);
     for (int i=0; i<6; i++) {
         Pi += PiGammaGamma_fer_l(mu, s, (StandardModel::lepton) i);
-        Pi += PiGammaGamma_fer_q(mu, muForMq, s, (StandardModel::quark) i);        
+        Pi += PiGammaGamma_fer_q(mu, muForMq, s, (QCD::quark) i);        
     }
     return Pi;
 }
@@ -294,7 +294,7 @@ complex EWSMOneLoopEW_HV::SigmaZgamma_fer(const double mu, const double muForMq,
     double ml[6], mq[6], ml2[6], mq2[6];
     for (int i=0; i<6; i++) { 
         ml[i] = this->ml((StandardModel::lepton) i);
-        mq[i] = this->mq((StandardModel::quark) i, muForMq); 
+        mq[i] = this->mq((QCD::quark) i, muForMq); 
         ml2[i] = ml[i]*ml[i];
         mq2[i] = mq[i]*mq[i];
     }
@@ -318,7 +318,7 @@ complex EWSMOneLoopEW_HV::SigmaZgamma_fer(const double mu, const double muForMq,
         Ql = SM.getLeptons((StandardModel::lepton) i).getCharge();
         Pi += - (fabs(Ql) - 4.0*sW2*Ql*Ql)*Bf_s_ml2_ml2[i];
         //
-        Qq = SM.getQuarks((StandardModel::quark) i).getCharge();
+        Qq = SM.getQuarks((QCD::quark) i).getCharge();
         Pi += - 3.0*(fabs(Qq) - 4.0*sW2*Qq*Qq)*Bf_s_mq2_mq2[i];
     }   
     return ( s*Pi );

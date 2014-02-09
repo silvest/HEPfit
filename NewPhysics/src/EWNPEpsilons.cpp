@@ -34,7 +34,7 @@ complex EWNPEpsilons::rhoZ_l(const StandardModel::lepton l) const
 }
 
 
-complex EWNPEpsilons::rhoZ_q(const StandardModel::quark q) const
+complex EWNPEpsilons::rhoZ_q(const QCD::quark q) const
 {
     double eps1, epsb;
     switch (q) {
@@ -64,7 +64,7 @@ complex EWNPEpsilons::kappaZ_l(const StandardModel::lepton l) const
 }
 
 
-complex EWNPEpsilons::kappaZ_q(const StandardModel::quark q) const
+complex EWNPEpsilons::kappaZ_q(const QCD::quark q) const
 {
     double eps1, eps3, epsb;
     switch (q) {
@@ -96,7 +96,7 @@ complex EWNPEpsilons::gVl(const StandardModel::lepton l) const
 }
 
 
-complex EWNPEpsilons::gVq(const StandardModel::quark q) const
+complex EWNPEpsilons::gVq(const QCD::quark q) const
 {
     double eps1, eps3, epsb;
     switch (q) {
@@ -127,7 +127,7 @@ complex EWNPEpsilons::gAl(const StandardModel::lepton l) const
 }
 
 
-complex EWNPEpsilons::gAq(const StandardModel::quark q) const
+complex EWNPEpsilons::gAq(const QCD::quark q) const
 {
     double eps1, epsb;
     switch (q) {
@@ -172,7 +172,7 @@ complex EWNPEpsilons::rhoZ_l(const StandardModel::lepton l, const double eps1) c
 }
 
 
-complex EWNPEpsilons::rhoZ_q(const StandardModel::quark q, const double eps1) const
+complex EWNPEpsilons::rhoZ_q(const QCD::quark q, const double eps1) const
 {
     if(q==SM.BOTTOM || q==SM.TOP)
         throw std::runtime_error("Error in EWNPEpsilons::rhoZ_q()");
@@ -193,7 +193,7 @@ complex EWNPEpsilons::kappaZ_l(const StandardModel::lepton l,
 }
 
 
-complex EWNPEpsilons::kappaZ_q(const StandardModel::quark q,
+complex EWNPEpsilons::kappaZ_q(const QCD::quark q,
                              const double eps1, const double eps3) const
 {
     if(q==SM.BOTTOM || q==SM.TOP)
@@ -215,7 +215,7 @@ complex EWNPEpsilons::gVl(const StandardModel::lepton l, const double eps1,
 }
 
 
-complex EWNPEpsilons::gVq(const StandardModel::quark q, const double eps1,
+complex EWNPEpsilons::gVq(const QCD::quark q, const double eps1,
                         const double eps3) const
 {
     double I3f = SM.getQuarks(q).getIsospin();
@@ -242,7 +242,7 @@ complex EWNPEpsilons::gAl(const StandardModel::lepton l, const double eps1) cons
 }
 
 
-complex EWNPEpsilons::gAq(const StandardModel::quark q, const double eps1) const
+complex EWNPEpsilons::gAq(const QCD::quark q, const double eps1) const
 {
     double I3f = SM.getQuarks(q).getIsospin();
     switch (q) {

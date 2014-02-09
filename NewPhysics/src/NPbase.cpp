@@ -160,7 +160,7 @@ double NPbase::deltaGVl(StandardModel::lepton l) const
 }
 
 
-double NPbase::deltaGVq(StandardModel::quark q) const
+double NPbase::deltaGVq(QCD::quark q) const
 {
     if (q==TOP) return 0.0;
 
@@ -189,7 +189,7 @@ double NPbase::deltaGAl(StandardModel::lepton l) const
 }
 
 
-double NPbase::deltaGAq(StandardModel::quark q) const
+double NPbase::deltaGAq(QCD::quark q) const
 {
     if (q==TOP) return 0.0;
 

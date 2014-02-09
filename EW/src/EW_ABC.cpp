@@ -43,7 +43,7 @@ double EW_ABC::Gamma_l(StandardModel::lepton l) const
 }
 
 
-double EW_ABC::Gamma_q(StandardModel::quark q) const 
+double EW_ABC::Gamma_q(QCD::quark q) const 
 {
     if (q==StandardModel::BOTTOM || q==StandardModel::TOP)
         throw std::runtime_error("Error in EW_ABC::Gamma_q()");  
@@ -167,7 +167,7 @@ double EW_ABC::A_l(StandardModel::lepton l, const bool bAlternative) const
 }
 
 
-double EW_ABC::A_q(StandardModel::quark q) const 
+double EW_ABC::A_q(QCD::quark q) const 
 {
     if (q==StandardModel::BOTTOM || q==StandardModel::TOP)
         throw std::runtime_error("Error in EW_ABC::A_q()");  
@@ -291,7 +291,7 @@ complex EW_ABC::gVl_over_gAl(StandardModel::lepton l) const
 }
 
 
-complex EW_ABC::gVq(StandardModel::quark q) const 
+complex EW_ABC::gVq(QCD::quark q) const 
 {
     if (q==StandardModel::BOTTOM || q==StandardModel::TOP)
         throw std::runtime_error("Error in EW_ABC::gVq()");    
@@ -299,7 +299,7 @@ complex EW_ABC::gVq(StandardModel::quark q) const
 }
 
 
-complex EW_ABC::gAq(StandardModel::quark q) const 
+complex EW_ABC::gAq(QCD::quark q) const 
 {
     if (q==StandardModel::BOTTOM || q==StandardModel::TOP)
         throw std::runtime_error("Error in EW_ABC::gAq()");  
@@ -307,7 +307,7 @@ complex EW_ABC::gAq(StandardModel::quark q) const
 }
 
 
-complex EW_ABC::gVq_over_gAq(StandardModel::quark q) const
+complex EW_ABC::gVq_over_gAq(QCD::quark q) const
 {
     if (q==StandardModel::BOTTOM || q==StandardModel::TOP)
         throw std::runtime_error("Error in EW_ABC::gVq_over_gAq()");  

@@ -116,7 +116,7 @@ complex EWSMTwoLoopEW::deltaRho_rem_l(const StandardModel::lepton l,
 }
 
 
-complex EWSMTwoLoopEW::deltaRho_rem_q(const StandardModel::quark q, 
+complex EWSMTwoLoopEW::deltaRho_rem_q(const QCD::quark q, 
                                       const double Mw_i) const 
 {
     if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
@@ -156,7 +156,7 @@ complex EWSMTwoLoopEW::deltaKappa_rem_l(const StandardModel::lepton l,
 }
 
 
-complex EWSMTwoLoopEW::deltaKappa_rem_q(const StandardModel::quark q, 
+complex EWSMTwoLoopEW::deltaKappa_rem_q(const QCD::quark q, 
                                         const double Mw_i) const 
 {
     if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
@@ -524,7 +524,7 @@ complex EWSMTwoLoopEW::DeltaEta2Add_l(const StandardModel::lepton l,
 }
 
 
-complex EWSMTwoLoopEW::DeltaEta2Add_q(const StandardModel::quark q, 
+complex EWSMTwoLoopEW::DeltaEta2Add_q(const QCD::quark q, 
                                       const double Mw_i) const 
 {
     double I3f = cache.I3q(q);
@@ -605,7 +605,7 @@ complex EWSMTwoLoopEW::DeltaKappa2Add_l(const StandardModel::lepton l,
 }
 
 
-complex EWSMTwoLoopEW::DeltaKappa2Add_q(const StandardModel::quark q, 
+complex EWSMTwoLoopEW::DeltaKappa2Add_q(const QCD::quark q, 
                                         const double Mw_i) const 
 {
     double I3f = cache.I3q(q);

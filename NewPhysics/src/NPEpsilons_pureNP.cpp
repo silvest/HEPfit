@@ -143,7 +143,7 @@ double NPEpsilons_pureNP::deltaGVl(StandardModel::lepton l) const
 }
 
 
-double NPEpsilons_pureNP::deltaGVq(StandardModel::quark q) const
+double NPEpsilons_pureNP::deltaGVq(QCD::quark q) const
 {
     if (q==TOP) return 0.0;
 
@@ -169,7 +169,7 @@ double NPEpsilons_pureNP::deltaGAl(StandardModel::lepton l) const
 }
 
 
-double NPEpsilons_pureNP::deltaGAq(StandardModel::quark q) const
+double NPEpsilons_pureNP::deltaGAq(QCD::quark q) const
 {
     if (q==TOP)
         return 0.0;

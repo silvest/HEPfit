@@ -470,7 +470,7 @@ public:
      */
     double DeltaRbar_SM() const;
 
-    
+
     ////////////////////////////////////////////////////////////////////////
     // SM contribution to the effective couplings
 
@@ -486,7 +486,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$\rho_Z^q@f$ in the SM
      */
-    complex rhoZ_q_SM(const StandardModel::quark q) const;    
+    complex rhoZ_q_SM(const QCD::quark q) const;    
     
     /**
      * @brief The effective leptonic neutral-current coupling @f$\kappa_Z^l@f$ in the SM.
@@ -500,7 +500,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$\kappa_Z^q@f$ in the SM
      */
-    complex kappaZ_q_SM(const StandardModel::quark q) const;    
+    complex kappaZ_q_SM(const QCD::quark q) const;
 
     /**
      * @brief The effective leptonic neutral-current vector coupling @f$g_V^l@f$ in the SM.
@@ -514,7 +514,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$g_V^q@f$ in the SM
      */
-    complex gVq_SM(const StandardModel::quark q) const;
+    complex gVq_SM(const QCD::quark q) const;
 
     /**
      * @brief The effective leptonic neutral-current axial-vector coupling @f$g_A^l@f$ in the SM.
@@ -528,7 +528,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$g_A^q@f$ in the SM
      */
-    complex gAq_SM(const StandardModel::quark q) const;
+    complex gAq_SM(const QCD::quark q) const;
     
 
     ////////////////////////////////////////////////////////////////////////
@@ -545,7 +545,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$\rho_Z^q@f$ 
      */
-    virtual complex rhoZ_q(const StandardModel::quark q) const;
+    virtual complex rhoZ_q(const QCD::quark q) const;
 
     /**
      * @brief The effective leptonic neutral-current coupling @f$\kappa_Z^l@f$.
@@ -559,7 +559,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$\kappa_Z^q@f$ 
      */
-    virtual complex kappaZ_q(const StandardModel::quark q) const;
+    virtual complex kappaZ_q(const QCD::quark q) const;
 
     /**
      * @brief The effective leptonic neutral-current vector coupling @f$g_V^l@f$.
@@ -573,7 +573,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$g_V^q@f$ 
      */
-    virtual complex gVq(const StandardModel::quark q) const;
+    virtual complex gVq(const QCD::quark q) const;
 
     /**
      * @brief The effective leptonic neutral-current axial-vector coupling @f$g_A^l@f$.
@@ -587,7 +587,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$g_A^q@f$ 
      */
-    virtual complex gAq(const StandardModel::quark q) const;
+    virtual complex gAq(const QCD::quark q) const;
 
     
     ////////////////////////////////////////////////////////////////////////     
@@ -610,7 +610,7 @@ public:
      * @param[in] q quark
      * @return flavor-dependent correction to rho_Z^q with respect to that for the charged leptons
      */
-    complex rhoZ_q_SM_FlavorDep(StandardModel::quark q) const;
+    complex rhoZ_q_SM_FlavorDep(QCD::quark q) const;
 
     /**
      * @param[in] l lepton
@@ -622,7 +622,7 @@ public:
      * @param[in] q quark
      * @return flavor-dependent correction to kappa_Z^q with respect to that for the charged leptons
      */
-    complex kappaZ_q_SM_FlavorDep(StandardModel::quark q) const;
+    complex kappaZ_q_SM_FlavorDep(QCD::quark q) const;
     
     
     ////////////////////////////////////////////////////////////////////////
@@ -719,8 +719,8 @@ public:
      * @return rho_ij^W for Gamma_W in the SM
      * @attention Fermion masses are neglected. 
      */    
-    double rho_GammaW_q_SM(const StandardModel::quark qi, 
-                           const StandardModel::quark qj) const;
+    double rho_GammaW_q_SM(const QCD::quark qi, 
+                           const QCD::quark qj) const;
     
     /**
      * @param[in] li name of a neutrino
@@ -738,8 +738,8 @@ public:
      * @return the partial width of W^+ decay into an @f$q_i\bar{q_j}@f$ pair in the SM
      * @attention Fermion masses are neglected. 
      */
-    double GammaW_q_SM(const StandardModel::quark qi, 
-                       const StandardModel::quark qj) const;    
+    double GammaW_q_SM(const QCD::quark qi, 
+                       const QCD::quark qj) const;    
     
     /**
      * @return the total width of the W boson in the SM

@@ -99,7 +99,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return the effective weak mixing angle for @f$Z\to q\bar{q}@f$
      */
-    double sin2thetaEff_q(const StandardModel::quark q) const;    
+    double sin2thetaEff_q(const QCD::quark q) const;    
     
     /**
      * @brief @f$\Delta r_{\rm rem}^{(\alpha^2)}@f$ in the on-shell scheme. 

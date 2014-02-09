@@ -248,7 +248,7 @@ public:
      * @return the MSbar mass of u, d, s, c, b at the scale mu
      * or the pole mass of t
      */
-    double mq(const StandardModel::quark q, const double mu, 
+    double mq(const QCD::quark q, const double mu, 
               const orders order=FULLNNLO) const;
 
     /**
@@ -262,7 +262,7 @@ public:
      * @return the MSbar mass squared of u, d, s, c, b at the scale mu
      * or the pole mass squared of t
      */
-    double mq2(const StandardModel::quark q, const double mu,
+    double mq2(const QCD::quark q, const double mu,
                const orders order=FULLNNLO) const
     {
         return ( mq(q, mu, order)*mq(q, mu, order) );
@@ -414,7 +414,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$Q_q@f$
      */
-    double Qq(const StandardModel::quark q) const
+    double Qq(const QCD::quark q) const
     {
         return SM.getQuarks(q).getCharge();
     }
@@ -434,7 +434,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$I_3^q@f$
      */
-    double I3q(const StandardModel::quark q) const
+    double I3q(const QCD::quark q) const
     {
         return SM.getQuarks(q).getIsospin();
     }
@@ -458,7 +458,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$v_q@f$
      */
-    double vq(const StandardModel::quark q, const double Mw_i) const
+    double vq(const QCD::quark q, const double Mw_i) const
     {
         return ( aq(q) - 2.0*Qq(q)*sW2(Mw_i) );
     }
@@ -480,7 +480,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$a_q@f$
      */
-    double aq(const StandardModel::quark q) const
+    double aq(const QCD::quark q) const
     {
         return ( SM.getQuarks(q).getIsospin() );
     }
@@ -502,7 +502,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\sigma_q@f$
      */
-    double sigmaq(const StandardModel::quark q, const double Mw_i) const 
+    double sigmaq(const QCD::quark q, const double Mw_i) const 
     {
         return ( 1.0 - 2.0*fabs(Qq(q))*sW2(Mw_i) );
     }  
@@ -524,7 +524,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta_q@f$
      */    
-    double deltaq(const StandardModel::quark q, const double Mw_i) const 
+    double deltaq(const QCD::quark q, const double Mw_i) const 
     {
         return ( - 2.0*Qq(q)*sW2(Mw_i) );   
     }  
@@ -883,7 +883,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$B_0(M_Z^2;m_q^2,m_q^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0_Mz2_Mz2_mq2_mq2(const StandardModel::quark q) const;    
+    complex B0_Mz2_Mz2_mq2_mq2(const QCD::quark q) const;    
 
     /**
      * @brief A cache method.
@@ -945,7 +945,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$B_{0p}(M_Z^2;m_q^2,m_q^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0p_Mz2_Mz2_mq2_mq2(const StandardModel::quark q) const;
+    complex B0p_Mz2_Mz2_mq2_mq2(const QCD::quark q) const;
     
     /**
      * @brief A cache method.
@@ -1051,7 +1051,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$B_f(M_Z^2;m_q^2,m_q^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bf_Mz2_Mz2_mq2_mq2(const StandardModel::quark q) const;
+    complex Bf_Mz2_Mz2_mq2_mq2(const QCD::quark q) const;
 
     /**
      * @brief A cache method.
@@ -1065,7 +1065,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$B_f(0;m_q^2,m_q^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bf_Mz2_0_mq2_mq2(const StandardModel::quark q) const;
+    complex Bf_Mz2_0_mq2_mq2(const QCD::quark q) const;
 
     /**
      * @brief A cache method.
@@ -1125,7 +1125,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$B_{fp}(M_Z^2;m_q^2,m_q^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bfp_Mz2_Mz2_mq2_mq2(const StandardModel::quark q) const;
+    complex Bfp_Mz2_Mz2_mq2_mq2(const QCD::quark q) const;
 
     /**
      * @brief A cache method.

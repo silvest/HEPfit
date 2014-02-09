@@ -105,7 +105,7 @@ double NPZbbbar::deltaGVl(StandardModel::lepton l) const
 }
 
 
-double NPZbbbar::deltaGVq(StandardModel::quark q) const
+double NPZbbbar::deltaGVq(QCD::quark q) const
 {
     switch (q) {
         case StandardModel::UP:
@@ -133,7 +133,7 @@ double NPZbbbar::deltaGAl(StandardModel::lepton l) const
 }
 
 
- double NPZbbbar::deltaGAq(StandardModel::quark q) const
+ double NPZbbbar::deltaGAq(QCD::quark q) const
  {
      switch (q) {
          case StandardModel::UP:

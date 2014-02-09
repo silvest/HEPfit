@@ -77,7 +77,7 @@ public:
      * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
      * @copydetails EWSM::rhoZ_q()
      */
-    virtual complex rhoZ_q(const StandardModel::quark q) const;
+    virtual complex rhoZ_q(const QCD::quark q) const;
 
     /**
      * @brief @copybrief EWSM::kappaZ_l()
@@ -91,7 +91,7 @@ public:
      * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
      * @copydetails EWSM::kappaZ_q()
      */
-    virtual complex kappaZ_q(const StandardModel::quark q) const;
+    virtual complex kappaZ_q(const QCD::quark q) const;
 
     /**
      * @brief @copybrief EWSM::gVl()
@@ -105,7 +105,7 @@ public:
      * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
      * @copydetails EWSM::gVq()
      */
-    virtual complex gVq(const StandardModel::quark q) const;
+    virtual complex gVq(const QCD::quark q) const;
 
     /**
      * @brief @copybrief EWSM::gAl()
@@ -119,7 +119,7 @@ public:
      * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
      * @copydetails EWSM::gAq()
      */
-    virtual complex gAq(const StandardModel::quark q) const;
+    virtual complex gAq(const QCD::quark q) const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -187,7 +187,7 @@ public:
      * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
      * @return @f$\rho_Z^q@f$
      */
-    complex rhoZ_q(const StandardModel::quark q, const double eps1) const;
+    complex rhoZ_q(const QCD::quark q, const double eps1) const;
 
     /**
      * @brief The effective leptonic neutral-current coupling @f$\kappa_Z^l@f$.
@@ -233,7 +233,7 @@ public:
      * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
      * @return @f$\kappa_Z^q@f$
      */
-    complex kappaZ_q(const StandardModel::quark q,
+    complex kappaZ_q(const QCD::quark q,
                      const double eps1, const double eps3) const;
 
     /**
@@ -253,7 +253,7 @@ public:
      * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
      * @return @f$g_V^q@f$
      */
-    complex gVq(const StandardModel::quark q,
+    complex gVq(const QCD::quark q,
                 const double eps1, const double eps3) const;
 
     /**
@@ -270,7 +270,7 @@ public:
      * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
      * @return @f$g_A^q@f$
      */
-    complex gAq(const StandardModel::quark q, const double eps1) const;
+    complex gAq(const QCD::quark q, const double eps1) const;
 
     /**
      * @brief The effective neutral-current coupling @f$\rho_Z^b@f$.
