@@ -13,7 +13,7 @@
 
 /**
  * @class NPSTU
- * @brief A class for new physics in the form of contributions to the oblique 
+ * @brief A model class for new physics in the form of contributions to the oblique
  * parameters \f$S,~T\f$ and \f$U\f$. 
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
@@ -21,11 +21,6 @@
  * @details This is a Model class containing the necessary functions to compute
  * new physics contributions to the electroweak precision observables with the
  * Peskin-Takeuchi oblique parameters \cite Peskin:1990zt, \cite Peskin:1991sw.
- *
- * The current class provides @f$M_W@f$ and @f$\Gamma_W@f$ 
- * as well as the new physics contributions to the effective neutral-current
- * couplings, denoted as @f$\delta g_V^f@f$ and @f$\delta g_A^f@f$. 
- * See @ref NPSTUFunctions "Functions" below.
  *
  *
  * @anchor NPSTUInitialization
@@ -75,7 +70,7 @@
  * @anchor NPSTUFunctions
  * <h3>Important member functions</h3>
  *
- * Compared to the base classes NPbase and StandardModel, the functions for the
+ * Compared to the base class NPbase, the functions for the
  * following quantities are reimplemented in the current class:
  *
  * @li @f$S@f$, @f$T@f$ and @f$U@f$&nbsp;&nbsp;
@@ -186,28 +181,28 @@ public:
 
     /**
      * @brief The parameter \f$\varepsilon_1\f$.
-     * @return the value of the @f$\epsilon_1@f$ parameter
+     * @return the value of the @f$\varepsilon_1@f$ parameter
      * (SM plus new physics contributions)
      */
     double epsilon1() const;
 
     /**
      * @brief The parameter \f$\varepsilon_2\f$.
-     * @return the value of the @f$\epsilon_2@f$ parameter
+     * @return the value of the @f$\varepsilon_2@f$ parameter
      * (SM plus new physics contributions)
      */
     double epsilon2() const;
 
     /**
      * @brief The parameter \f$\varepsilon_3\f$.
-     * @return the value of the @f$\epsilon_3@f$ parameter
+     * @return the value of the @f$\varepsilon_3@f$ parameter
      *  (SM plus new physics contributions)
      */
     double epsilon3() const;
 
     /**
      * @brief The parameter \f$\varepsilon_b\f$.
-     * @return the SM value of the @f$\epsilon_b@f$ parameter
+     * @return the SM value of the @f$\varepsilon_b@f$ parameter
      */
     double epsilonb() const;
 

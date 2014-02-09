@@ -13,15 +13,32 @@
 
 /**
  * @class NPEpsilons
- * @brief A class for new physics in the form of contributions to the
+ * @brief A model class for new physics in the form of contributions to the
  * \f$\varepsilon_{1,2,3,b}\f$ parameters.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class contains the necessary functions to work with new physics 
- * corrections to electroweak precision observables, in the form of contributions
- * to the \f$\varepsilon_{1,2,3,b}\f$ parameters \cite Altarelli:1990zd, \cite Altarelli:1991fk,\cite Altarelli:1993sz. 
- * Both SM and new physics contributions to \f$\varepsilon_i\f$ are parameterized. 
+ * @details This is a Model class containing parameters and functions to work
+ * with the epsilon paramterization 
+ * \cite Altarelli:1990zd, \cite Altarelli:1991fk,\cite Altarelli:1993sz
+ * for new physics contributions to the electroweak precision observables.
+ * It is noted that the \f$\varepsilon_{1,2,3,b}\f$ parameters include both the
+ * SM and new physics contributions.
+ *
+ *
+ * @anchor NPEpsilonsInitialization
+ * <h3>Initialization</h3>
+ *
+ * The constructor NPEpsilons() initializes the model flags explained below to
+ * their default values. After creating an instance of the current class,
+ * it is required to call the initialization method InitializeModel(), which
+ * allocates memory to the pointer #myEWSM, inherited from StndardModel, with
+ * type EWNPEpsilons.
+ * This pointer is then used in computing the \f$W\f$-boson mass and the
+ * fermionic neutral-current couplings with the epsilon parameters.
+ * In the Monte Carlo run, the constructor as well as the initialization
+ * method are called in InputParser::ReadParameters().
+ *
  *
  * @anchor NPEpsilonsParameters
  * <h3>%Model parameters</h3>
@@ -67,43 +84,44 @@
  * </tr>
  * <tr>
  *   <td class="mod_name">%epsilon1SM</td>
- *   <td class="mod_desc">True</td>
- *   <td class="mod_desc">Only the SM value of \f$\varepsilon_1\f$ is considered.</td>
- * <tr>
- *   <td class="mod_name"> </td>
- *   <td class="mod_desc">False</td>
- *   <td class="mod_desc">Includes both, the SM and new physics, contributions to \f$\varepsilon_1\f$.</td>
- * </tr>
+ *   <td class="mod_desc">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if only the SM contribution
+ *   is considered for \f$\varepsilon_1\f$. The default value is FALSE.</td>
  * <tr>
  *   <td class="mod_name">%epsilon2SM</td>
- *   <td class="mod_desc">True</td>
- *   <td class="mod_desc">Only the SM value of \f$\varepsilon_2\f$ is considered.</td>
- * <tr>
- *   <td class="mod_name"> </td>
- *   <td class="mod_desc">False</td>
- *   <td class="mod_desc">Includes both, the SM and new physics, contributions to \f$\varepsilon_2\f$.</td>
- * </tr>
+ *   <td class="mod_desc">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if only the SM contribution
+ *   is considered for \f$\varepsilon_2\f$. The default value is FALSE.</td>
  * <tr>
  *   <td class="mod_name">%epsilon3SM</td>
- *   <td class="mod_desc">True</td>
- *   <td class="mod_desc">Only the SM value of \f$\varepsilon_3\f$ is considered.</td>
- * <tr>
- *   <td class="mod_name"> </td>
- *   <td class="mod_desc">False</td>
- *   <td class="mod_desc">Includes both, the SM and new physics, contributions to \f$\varepsilon_3\f$.</td>
- * </tr>
+ *   <td class="mod_desc">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if only the SM contribution
+ *   is considered for \f$\varepsilon_3\f$. The default value is FALSE.</td>
  * <tr>
  *   <td class="mod_name">%epsilonbSM</td>
- *   <td class="mod_desc">True</td>
- *   <td class="mod_desc">Only the SM value of \f$\varepsilon_b\f$ is considered.</td>
- * <tr>
- *   <td class="mod_name"> </td>
- *   <td class="mod_desc">False</td>
- *   <td class="mod_desc">Includes both, the SM and new physics, contributions to \f$\varepsilon_b\f$.</td>
- * </tr>
+ *   <td class="mod_desc">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
+ *   <td class="mod_desc">This flag is set to TRUE if only the SM contribution
+ *   is considered for \f$\varepsilon_b\f$. The default value is FALSE.</td>
  * </table>
  *
+ *
+ * @anchor NPEpsilonsFunctions
+ * <h3>Important member functions</h3>
+ *
+ * Compared to the base class NPbase, the functions for the following quantities
+ * are reimplemented in the current class:
+ *
+ * @li @f$M_W@f$&nbsp;&nbsp; (with Mw()),
+ * @li @f$\Gamma_W@f$&nbsp;&nbsp; (with GammaW()),
+ *
+ * where the latter is not available, since it cannot be simply parameterized
+ * by the epsilon parameters.
+ * In addition, the functions for the epsilon parameters are also provided:
  * 
+ * @li @f$\varepsilon_1@f$, @f$\varepsilon_2@f$, @f$\varepsilon_3@f$ and
+ * @f$\varepsilon_b@f$&nbsp;&nbsp;
+ * (with epsilon1(), epsilon2(), epsilon3() and epsilonb()).
+ *
  */
 class NPEpsilons : public NPbase  {
 public:
@@ -175,44 +193,46 @@ public:
 
     /**
      * @brief The parameter \f$\varepsilon_1\f$.
-     * @return the SM value (FlagEpsilon1SM=True)
-     * or the SM plus new physics value (FlagEpsilon1SM=False) of \f$\varepsilon_1\f$
+     * @return the SM value (FlagEpsilon1SM=true) or the SM plus new physics
+     * value (FlagEpsilon1SM=false) of \f$\varepsilon_1\f$
      */
-    virtual double epsilon1() const;
+    double epsilon1() const;
 
     /**
      * @brief The parameter \f$\varepsilon_2\f$.
-     * @return the SM value (FlagEpsilon2SM=True)
-     * or the SM plus new physics value (FlagEpsilon2SM=False) of \f$\varepsilon_2\f$
+     * @return the SM value (FlagEpsilon2SM=true) or the SM plus new physics
+     * value (FlagEpsilon2SM=false) of \f$\varepsilon_2\f$
      */
-    virtual double epsilon2() const;
+    double epsilon2() const;
 
     /**
      * @brief The parameter \f$\varepsilon_3\f$.
-     * @return the SM value (FlagEpsilon3SM=True)
-     * or the SM plus new physics value (FlagEpsilon3SM=False) of \f$\varepsilon_3\f$
+     * @return the SM value (FlagEpsilon3SM=true) or the SM plus new physics
+     * value (FlagEpsilon3SM=false) of \f$\varepsilon_3\f$
      */
-    virtual double epsilon3() const;
+    double epsilon3() const;
  
     /**
      * @brief The parameter \f$\varepsilon_b\f$.
-     * @return the SM value (FlagEpsilonbSM=True)
-     * or the SM plus new physics value (FlagEpsilonbSM=False) of \f$\varepsilon_b\f$
+     * @return the SM value (FlagEpsilonbSM=true) or the SM plus new physics
+     * value (FlagEpsilonbSM=false) of \f$\varepsilon_b\f$
      */
-    virtual double epsilonb() const;
+    double epsilonb() const;
 
     
     ////////////////////////////////////////////////////////////////////////     
     
     /**
-     * @brief The \f$W\f$ boson mass.
-     * @return the \f$W\f$-boson mass in GeV
+     * @brief @copybrief StandardModel::Mw()
+     * @details This function calls EWNPEpsilons::Mw() via
+     * EWNPEpsilons::Mw_NPEpsilons().
+     * @return @f$M_W@f$ in GeV
      */
     virtual double Mw() const;
 
     /** 
-     * @brief The \f$W\f$ decay width \f$\Gamma_W\f$.
-     * @return the total width of the \f$W\f$ boson in GeV [NOT IMPLEMENTED YET]
+     * @brief @copybrief StandardModel::GammaW()
+     * @warning This function is not available.
      */
     virtual double GammaW() const;
 
@@ -235,10 +255,10 @@ protected:
     ////////////////////////////////////////////////////////////////////////         
 private:
 
-    bool FlagEpsilon1SM;///< Flag: if true only the SM value of \f$\varepsilon_1\f$ is considered.
-    bool FlagEpsilon2SM;///< Flag: if true only the SM value of \f$\varepsilon_2\f$ is considered.
-    bool FlagEpsilon3SM;///< Flag: if true only the SM value of \f$\varepsilon_3\f$ is considered. 
-    bool FlagEpsilonbSM;///< Flag: if true only the SM value of \f$\varepsilon_b\f$ is considered. 
+    bool FlagEpsilon1SM;///< A boolean flag that is true if only the SM contribution is considered for \f$\varepsilon_1\f$.
+    bool FlagEpsilon2SM;///< A boolean flag that is true if only the SM contribution is considered for \f$\varepsilon_2\f$.
+    bool FlagEpsilon3SM;///< A boolean flag that is true if only the SM contribution is considered for \f$\varepsilon_3\f$.
+    bool FlagEpsilonbSM;///< A boolean flag that is true if only the SM contribution is considered for \f$\varepsilon_b\f$.
 
     
 };

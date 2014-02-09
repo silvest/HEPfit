@@ -115,10 +115,10 @@
  * <tr>
  *   <td class="mod_name">%LambdaNP</td>
  *   <td class="mod_symb">\f$\Lambda\f$</td>
- *   <td class="mod_desc">The cutoff scale of the model. When this parameter is 
- *   set to 0 in the model configuration file, the cutoff scale is taken to be
- *   @f$\Lambda = 4\pi v/\sqrt{|1-a^2|}@f$, where the @f$W_LW_L@f$ scattering
- *   becomes non-perturbative. </td>
+ *   <td class="mod_desc">The cutoff scale of the effective Lagrangian. When
+ *   the value of this parameter is set to 0 in the model configuration file,
+ *   the cutoff scale is taken to be @f$\Lambda = 4\pi v/\sqrt{|1-a^2|}@f$,
+ *   where the @f$W_LW_L@f$ scattering becomes non-perturbative. </td>
  * </tr>
  * </table>
  *
@@ -132,7 +132,7 @@
  * @anchor NPHiggsSTFunctions
  * <h3>Important member functions</h3>
  *
- * Compared to the base classes NPbase and StandardModel, the functions for the
+ * Compared to the base class NPbase, the functions for the
  * following quantities are reimplemented in the current class:
  *
  * @li @f$S@f$, @f$T@f$ and @f$U@f$&nbsp;&nbsp;

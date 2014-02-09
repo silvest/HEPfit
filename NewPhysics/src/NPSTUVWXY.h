@@ -13,7 +13,7 @@
 
 /**
  * @class NPSTUVWXY
- * @brief A class for new physics in the form of contributions to the extended
+ * @brief A model class for new physics in the form of contributions to the extended
  * oblique parameters \f$\hat{S},~\hat{T},~\hat{U},~V,~W,~X\f$ and \f$Y\f$.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
@@ -22,6 +22,28 @@
  * new physics contributions to the electroweak precision observables and so forth,
  * with the extended set of oblique parameters \f$\hat{S},~\hat{T},~\hat{U},~V,~W,~X\f$
  * and \f$Y\f$ \cite Barbieri:2004qk.
+ *
+ * The hatted parameters are related to the original Peskin-Takeuchi parameters
+ * \cite Peskin:1990zt, \cite Peskin:1991sw through the relations:
+ * @f[
+ * \widehat{S} = \frac{\alpha}{4s_W^2}\,S\,,\qquad
+ * \widehat{T} = \alpha\,T\,,\qquad
+ * \widehat{U} = -\frac{\alpha}{4s_W^2}\,U\,.
+ * @f]
+ * Moreover, the following combinations of the parameters are relevant to the 
+ * electroweak precision observables: 
+ * @f{eqnarray}{
+ * \frac{\alpha}{4s_W^2}\, S'
+ * &=&
+ * \widehat{S} - W + \frac{X}{s_Wc_W} - Y\,,
+ * \\
+ * \alpha\,T'
+ * &=&
+ * \widehat{T} - W + \frac{2s_W}{c_W}\,X - \frac{s_W^2}{c_W^2}\,Y\,,
+ * \\
+ * \frac{\alpha}{4s_W^2}\, U'
+ * &=& - \widehat{U} + V + W - \frac{2s_W}{c_W}\,X\,.
+ * @f}
  *
  *
  * @anchor NPSTUVWXYInitialization
@@ -91,12 +113,14 @@
  * @anchor NPSTUVWXYFunctions
  * <h3>Important member functions</h3>
  *
- * Compared to the base classes NPbase and StandardModel, the functions for the
+ * Compared to the base class NPbase, the functions for the
  * following quantities are reimplemented in the current class:
  *
- * @li @f$S@f$, @f$T@f$ and @f$U@f$&nbsp;&nbsp;
- * (with obliqueS(), obliqueT() and obliqueU()),
+ * @li @f$S'@f$, @f$T'@f$ and @f$U'@f$&nbsp;&nbsp;
+ * (with obliqueS(), obliqueT() and obliqueU()).
  *
+ * It is noted that these functions do not represent the original Peskin-Takeuchi
+ * parameters @f$S@f$, @f$T@f$ and @f$U@f$.
  * In addition, the functions for the extended oblique parameters as well as
  * the epsilon parameters are also provided:
  *
@@ -177,8 +201,7 @@ public:
     
     /**
      * @brief The oblique parameter \f$\hat{S}\f$.
-     * @return the value of the oblique parameter
-     * \f$\displaystyle\hat{S}=\frac{\alpha}{4s^2_W}S\f$
+     * @return the value of \f$\displaystyle\hat{S}\f$
      */
     virtual double obliqueShat() const
     {
@@ -187,7 +210,7 @@ public:
 
     /**
      * @brief The oblique parameter \f$\hat{T}\f$.
-     * @return the value of the oblique parameter \f$\hat{T}=\alpha T\f$
+     * @return the value of \f$\displaystyle\hat{T}\f$
      */
     virtual double obliqueThat() const 
     {
@@ -196,8 +219,7 @@ public:
 
     /**
      * @brief The oblique parameter \f$\hat{U}\f$.
-     * @return the value of the oblique parameter
-     * \f$\displaystyle\hat{U}=-\frac{\alpha}{4s^2_W}U\f$
+     * @return the value of \f$\displaystyle\hat{U}\f$
      */
     virtual double obliqueUhat() const 
     {
@@ -206,7 +228,7 @@ public:
 
     /**
      * @brief The oblique parameter \f$V\f$.
-     * @return the value of the oblique parameter \f$V\f$
+     * @return the value of \f$V\f$
      */
     virtual double obliqueV() const 
     {
@@ -215,7 +237,7 @@ public:
 
     /**
      * @brief The oblique parameter \f$W\f$.
-     * @return the value of the oblique parameter \f$W\f$
+     * @return the value of \f$W\f$
      */
     virtual double obliqueW() const 
     {
@@ -224,7 +246,7 @@ public:
 
     /**
      * @brief The oblique parameter \f$X\f$.
-     * @return the value of the oblique parameter \f$X\f$
+     * @return the value of \f$X\f$
      */
     virtual double obliqueX() const 
     {
@@ -233,7 +255,7 @@ public:
 
     /**
      * @brief The oblique parameter \f$Y\f$.
-     * @return the value of the oblique parameter \f$Y\f$
+     * @return the value of \f$Y\f$
      */
     virtual double obliqueY() const 
     {
@@ -244,29 +266,28 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief The parameter \f$\varepsilon_1\f$.
-     * @return the value of the \f$\varepsilon_1\f$ parameter (SM plus new physics
-     * corrections)
+     * @brief @copybrief NPSTU::epsilon1()
+     * @copydetails NPSTU::epsilon1()
      */
     double epsilon1() const;
 
     /**
-     * @brief The parameter \f$\varepsilon_2\f$.
-     * @return the value of the \f$\varepsilon_2\f$ parameter (SM plus new physics
-     * corrections)
+     * @brief @copybrief NPSTU::epsilon2()
+     * @copydetails NPSTU::epsilon2()
+
      */
     double epsilon2() const;
     
     /**
-     * @brief The parameter \f$\varepsilon_3\f$.
-     * @return the value of the \f$\varepsilon_3\f$ parameter (SM plus new physics
-     * corrections)
+     * @brief @copybrief NPSTU::epsilon3()
+     * @copydetails NPSTU::epsilon3()
+
      */
     double epsilon3() const;
     
     /**
-     * @brief The parameter \f$\varepsilon_b\f$.
-     * @return the SM value of the \f$\varepsilon_b\f$ parameter
+     * @brief @copybrief NPSTU::epsilonb()
+     * @copydetails NPSTU::epsilonb()
      */
     double epsilonb() const;
 
@@ -275,20 +296,20 @@ public:
     // Combinations of the extended oblique parameters
     
     /**
-     * @brief The combination of extended oblique parameters \f$S'\f$.
-     * @return the value of the oblique parameter \f$S'=\frac{4\sin^2{\theta_W}}{\alpha}\left(\hat{S}-W+\frac{X}{\sin{\theta_W} \cos{\theta_W}}-Y\right)\f$
+     * @brief The combination of extended oblique parameters, \f$S'\f$.
+     * @return the value of \f$S'\f$
      */
     virtual double obliqueS() const;
 
     /**
-     * @brief The combination of extended oblique parameters \f$T'\f$.
-     * @return the value of the oblique parameter \f$T'=\frac{1}{\alpha}\left(\hat{T}-W+2X\frac{s_W}{c_W}-Y\frac{\sin^2{\theta_W}}{\cos^2{\theta_W}}\right)\f$
+     * @brief The combination of extended oblique parameters, \f$T'\f$.
+     * @return the value of \f$T'\f$
      */
     virtual double obliqueT() const;
 
     /**
-     * @brief The combination of extended oblique parameters \f$U'\f$.
-     * @return the value of the oblique parameter \f$U'=-\frac{4\sin^2{\theta_W}}{\alpha}\left(\hat{U}-W+2X\frac{\sin{\theta_W}}{\cos{\theta_W}}-V\right)\f$
+     * @brief The combination of extended oblique parameters, \f$U'\f$.
+     * @return the value of \f$U'\f$
      */
     virtual double obliqueU() const;
 
@@ -296,20 +317,20 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief The total width of the W boson, @f$\Gamma_W@f$.
+     * @brief @copybrief NPbase::GammaW()
      * @details
      * @f[
      * \Gamma_W = \Gamma_{W,\mathrm{SM}}
      * \left[ 1
      * - \frac{3\alpha(M_Z^2)}{4(c_W^2-s_W^2)}
-     *  \left( S - 2c_W^2\,T - \frac{c_W^2-s_W^2}{2s_W^2}\,U
+     *  \left( S' - 2c_W^2\,T' - \frac{c_W^2-s_W^2}{2s_W^2}\,U'
      *         - 2 (c_W^2 - s_W^2)\, \overline{W} \right)
      * - \frac{1+c_W^2}{2(c_W^2-s_W^2)}\, \Delta G
      * \right],
      * @f]
      * where @f$\alpha(M_Z^2)\,\overline{W} = V - W@f$.
      *
-     * See, e.g., @cite Ciuchini:2013pca.
+     * See @cite Ciuchini:2013pca and references therein.
      * @return @f$\Gamma_W@f$ in GeV
      */
     virtual double GammaW() const;

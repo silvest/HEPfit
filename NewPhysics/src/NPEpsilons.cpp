@@ -155,7 +155,7 @@ double NPEpsilons::Mw() const
 
 double NPEpsilons::GammaW() const
 {
-    throw std::runtime_error("NPEpsilons::GammaW() is not implemented.");
+    throw std::runtime_error("NPEpsilons::GammaW() is not available.");
 }
 
 

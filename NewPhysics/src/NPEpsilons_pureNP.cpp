@@ -125,7 +125,7 @@ double NPEpsilons_pureNP::Mw() const
 
 double NPEpsilons_pureNP::GammaW() const
 {
-    throw std::runtime_error("NPEpsilons_pureNP::GammaW() is not implemented.");
+    throw std::runtime_error("NPEpsilons_pureNP::GammaW() is not available.");
 }
 
 

@@ -19,8 +19,7 @@
 /**
  * @class EWNPEpsilons
  * @brief A class for the \f$W\f$-boson mass and the fermionic neutral-current
- * couplings with new physics in the form of contributions to the
- * \f$\varepsilon_{1,2,3,b}\f$ parameters.
+ * couplings, used together with NPEpsilons class. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class contains the necessary functions to compute new physics 

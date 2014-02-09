@@ -21,24 +21,18 @@
  * work with new physics contributions to electroweak precision observables,
  * in the form of contributions to the neutral current couplings of the bottom
  * quark:
- * @f{eqnarray}{
+ * @f[
  * \mathcal{L}
- * &=&
+ * =
  * \frac{e}{2 s_W c_W}\,
  * Z_\mu\, \bar{b}
  * \left[
  *   \big(g_{V,\mathrm{SM}}^b + \delta g_V^b\big) \gamma_\mu
  *    - \big(g_{A,\mathrm{SM}}^b + \delta g_A^b\big) \gamma_\mu\gamma_5
- * \right] b\,,
- * \\
- * &=&
- * \frac{e}{2 s_W c_W}\sqrt{\rho_{Z,\mathrm{SM}}^b + \delta \rho_Z^b}\,
- * Z_\mu\, \bar{b}
- * \Big\{ \big[ I_3^b - 2Q_b\big(\kappa_{Z,\mathrm{SM}}^b + \delta \kappa_Z^b\big) s_W^2\big]\gamma^\mu
- *   - I_3^b\gamma^\mu\gamma_5 \Big\} b\,.
- * @f}
+ * \right] b\,.
+ * @f]
  * Equivalently, the shifts to the left-handed and right-handed couplings are
- * given by
+ * defined as 
  * @f[
  * \mathcal{L} =
  * \frac{e}{2s_W c_W}\,

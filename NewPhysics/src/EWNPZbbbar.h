@@ -12,8 +12,8 @@
 
 /**
  * @class EWNPZbbbar
- * @brief A class for the fermionic neutral-current couplings with new physics 
- * in the form of contributions to the \f$Zb\bar{b}\f$ couplings.
+ * @brief A class for the fermionic neutral-current couplings,
+ * used together with NPZbbbar class.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License

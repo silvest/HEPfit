@@ -14,8 +14,7 @@
 
 /**
  * @class NPEffective
- * @brief An auxiliary model class for new physics in the form of contributions
- * to the dimension-six effective Lagrangian.
+ * @brief The auxiliary base model class for NPEffective1 and NPEffective2 classes.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -75,6 +74,9 @@
  * @anchor NPEffectiveFunctions
  * <h3>Important member functions</h3>
  *
+ * Compared to the base class NPbase, the functions for the following quantities
+ * are reimplemented in the current class:
+ *
  * @li @f$v@f$&nbsp;&nbsp;(with v()),
  * @li @f$M_{W}^{\mathrm{tree}}@f$&nbsp;&nbsp;(with Mw_tree()),
  * @li @f$\Delta G@f$&nbsp;&nbsp;(with DeltaGF()),
@@ -82,10 +84,9 @@
  * (with obliqueS(), obliqueT() and obliqueU()),
  * @li @f$\Gamma_W@f$&nbsp;&nbsp; (with GammaW()),
  * @li @f$\delta g_V^f@f$&nbsp;&nbsp;(with deltaGVl() and deltaGVq()),
- * @li @f$\delta g_A^f@f$&nbsp;&nbsp;(with deltaGAl() and deltaGAq()).
+ * @li @f$\delta g_A^f@f$&nbsp;&nbsp;(with deltaGAl() and deltaGAq()),
  *
- * and this class also contains the get methods getCoeff() to retrieve the value
- * of each coefficient.
+ * and also the get methods getCoeff() to retrieve the value of each coefficient.
  * 
  */
 class NPEffective : public NPbase {

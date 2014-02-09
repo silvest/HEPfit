@@ -12,8 +12,7 @@
 
 /**
  * @class NPbase
- * @brief An auxiliary model class for general new physics contributions to
- * electroweak precision observables.
+ * @brief The auxiliary base model class for other model classes.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License

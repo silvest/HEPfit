@@ -12,7 +12,7 @@
 
 /**
  * @class NPEffective1
- * @brief A class for new physics in the form of contributions to the 
+ * @brief A model class for new physics in the form the
  * dimension-six effective Lagrangian, with lepton-flavour and quark-flavour
  * universalities. 
  * @ingroup NewPhysics
