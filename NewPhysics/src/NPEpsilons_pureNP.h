@@ -12,8 +12,8 @@
 
 /**
  * @class NPEpsilons_pureNP
- * @brief A class for new physics in the form of contributions to the \f$\varepsilon_{1,2,3,b}\f$ parameters.
- * 
+ * @brief A class for new physics in the form of contributions to the
+ * \f$\delta\varepsilon_{1,2,3,b}\f$ parameters.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -25,7 +25,7 @@
  * @anchor NPEpsilons_pureNPParameters
  * <h3>%Model parameters</h3>
  *
- * The model parameters of NPEpsilons_pureNP are summarized below: 
+ * The model parameters of %NPEpsilons_pureNP are summarized below:
  * <table class="model">
  * <tr>
  *   <th>Label</th>
@@ -57,23 +57,25 @@
  */
 class NPEpsilons_pureNP : public NPbase {
 public:
+    
     /**
-     * @brief The number of new physics parameters in the model.
+     * @brief The number of the model parameters in %NPEpsilons_pureNP.
      */
     static const int NEPSILONpureNPvars = 4;
+    
     /**
-     * @brief A string array with the names of the new physics parameters in the model.
+     * @brief A string array containing the labels of the model parameters in %NPEpsilons_pureNP.
      */
     static const std::string EPSILONpureNPvars[NEPSILONpureNPvars];
 
     /**
-     * @brief Constructor. 
+     * @brief The default constructor.
      */
     NPEpsilons_pureNP();
 
     /**
-     * @brief The name of the model.
-     * @return the name of the model as a string
+     * @brief @copybrief Model::ModelName()
+     * @copydetails Model::ModelName()
      */
     virtual std::string ModelName() const
     {
@@ -81,47 +83,38 @@ public:
     }
 
     /**
-     * @brief A method to initialize the model.
-     * @return true is model initialization is successful
+     * @brief @copybrief StandardModel::InitializeModel()
+     * @copydetails NPbase::InitializeModel()
      */
     virtual bool InitializeModel();
 
     /**
-     * @brief A method to initialize the model.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
-     * @return true is model initialization is successful
+     * @brief @copybrief Model::Init()
+     * @copydetails Model::Init()
      */
     virtual bool Init(const std::map<std::string, double>& DPars);
     
     /**
-     * @brief The update method for the model class.
-     * @details This method updates all the parameters of the model every time a
-     * new set of parameters is generated.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
-     * (including parameters that are varied and those that are held constant)
-     * @return a boolean that is true if the execution is successful.
+     * @brief @copybrief Model::Update()
+     * @copydetails Model::Update()
      */
     virtual bool Update(const std::map<std::string, double>& DPars);
     
     /**
-     * @brief A method to check if all the mandatory parameters for the model have been
-     * provided in the model configuration file.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
-     * (including parameters that are varied and those that are held constant)
+     * @brief @copybrief Model::CheckParameters()
+     * @copydetails Model::CheckParameters()
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     /**
-     * @brief A set method to fix the flags for the model.
-     * @param[in] name the name of the flag
-     * @param[in] value the value of the flag that can be true or false
-     * @return a boolean to designate the success or failure of this procedure
+     * @brief @copybrief Model::setFlag()
+     * @copydetails Model::setFlag()
      */
     virtual bool setFlag(const std::string name, const bool value);
     
     /**
-     * @brief A method to check the sanity of the set of flags.
-     * @return true if the set of flags is sane.
+     * @brief @copybrief Model::CheckFlags()
+     * @copydetails Model::CheckFlags()
      */
     virtual bool CheckFlags() const;
 
@@ -160,20 +153,6 @@ public:
      * @return the \f$W\f$-boson mass in GeV
      */
     virtual double Mw() const;
-
-    /**
-     * @brief The square of the cosine of the weak angle \f$\cos^2{\theta_W}\f$.
-     * @return the value of \f$\cos^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
-     *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}\f$
-     */
-    virtual double cW2() const;
-
-    /**
-     * @brief The square of the sine of the weak angle \f$\sin^2{\theta_W}\f$.
-     * @return the value of \f$\sin^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
-     *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}\f$
-     */
-    virtual double sW2() const;
 
     /**
      * @brief The \f$W\f$ decay width \f$\Gamma_W\f$.
@@ -215,17 +194,19 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 protected:
+
     double deltaEps_1;///< The new physics contribution to \f$\varepsilon_1\f$.
     double deltaEps_2;///< The new physics contribution to \f$\varepsilon_2\f$.
     double deltaEps_3;///< The new physics contribution to \f$\varepsilon_3\f$.
     double deltaEps_b;///< The new physics contribution to \f$\varepsilon_b\f$.
+
     /**
-     * @brief A set method to fix the parameters of the model.
-     * @param[in] name a string with the parameter name
-     * @param[in] value the value to be asigned to the parameter specified by name
+     * @brief @copybrief Model::setParameter()
+     * @copydetails Model::setParameter()
      */
     virtual void setParameter(const std::string name, const double& value);
 
+    
 };
 
 #endif	/* NPEPSILONS_PURENP_H */

@@ -13,7 +13,8 @@
 
 /**
  * @class NPEpsilons
- * @brief A class for new physics in the form of contributions to the \f$\varepsilon_{1,2,3,b}\f$ parameters.
+ * @brief A class for new physics in the form of contributions to the
+ * \f$\varepsilon_{1,2,3,b}\f$ parameters.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -25,7 +26,7 @@
  * @anchor NPEpsilonsParameters
  * <h3>%Model parameters</h3>
  *
- * The model parameters of NPEpsilons are summarized below: 
+ * The model parameters of %NPEpsilons are summarized below:
  * <table class="model">
  * <tr>
  *   <th>Label</th>
@@ -57,7 +58,7 @@
  * @anchor NPEpsilonsFlags
  * <h3>%Model Flags</h3>
  *
- * The flags of NPEpsilons are summarized below: 
+ * The flags of %NPEpsilons are summarized below:
  * <table class="model">
  * <tr>
  *   <th>Label</th>
@@ -106,23 +107,25 @@
  */
 class NPEpsilons : public NPbase  {
 public:
+
     /**
-     * @brief The number of new physics parameters in the model.
+     * @brief The number of the model parameters in %NPEpsilons.
      */
     static const int NEPSILONvars = 4;
+
     /**
-     * @brief A string array with the names of the new physics parameters in the model.
+     * @brief A string array containing the labels of the model parameters in %NPEpsilons.
      */
     static const std::string EPSILONvars[NEPSILONvars];
     
     /**
-     * @brief Constructor. 
+     * @brief The default constructor.
      */
     NPEpsilons();
 
     /**
-     * @brief The name of the model.
-     * @return the name of the model as a string
+     * @brief @copybrief Model::ModelName()
+     * @copydetails Model::ModelName()
      */
     virtual std::string ModelName() const 
     {
@@ -130,47 +133,40 @@ public:
     }
 
     /**
-     * @brief A method to initialize the model.
-     * @return true is model initialization is successful
+     * @brief @copybrief StandardModel::InitializeModel()
+     * @details This method allocates memory to the pointer #myEWSM, inherited
+     * from StndardModel, with type EWNPEpsilons.
+     * @return a boolean that is true if model initialization is successful
      */
     virtual bool InitializeModel();
 
     /**
-     * @brief A method to initialize the model.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
-     * @return true is model initialization is successful
+     * @brief @copybrief Model::Init()
+     * @copydetails Model::Init()
      */
     virtual bool Init(const std::map<std::string, double>& DPars);
     
     /**
-     * @brief The update method for the model class.
-     * @details This method updates all the parameters of the model every time a
-     * new set of parameters is generated.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
-     * (including parameters that are varied and those that are held constant)
-     * @return a boolean that is true if the execution is successful.
+     * @brief @copybrief Model::Update()
+     * @copydetails Model::Update()
      */
     virtual bool Update(const std::map<std::string, double>& DPars);
     
     /**
-     * @brief A method to check if all the mandatory parameters for the model have been
-     * provided in the model configuration file.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
-     * (including parameters that are varied and those that are held constant)
+     * @brief @copybrief Model::CheckParameters()
+     * @copydetails Model::CheckParameters()
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     /**
-     * @brief A set method to fix the flags for the model.
-     * @param[in] name the name of the flag
-     * @param[in] value the value of the flag that can be true or false
-     * @return a boolean to designate the success or failure of this procedure
+     * @brief @copybrief Model::setFlag()
+     * @copydetails Model::setFlag()
      */
     virtual bool setFlag(const std::string name, const bool value);
     
     /**
-     * @brief A method to check the sanity of the set of flags.
-     * @return true if the set of flags is sane.
+     * @brief @copybrief Model::CheckFlags()
+     * @copydetails Model::CheckFlags()
      */
     virtual bool CheckFlags() const;
 
@@ -214,20 +210,6 @@ public:
      */
     virtual double Mw() const;
 
-    /**
-     * @brief The square of the cosine of the weak angle \f$\cos^2{\theta_W}\f$.
-     * @return the value of \f$\cos^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
-     *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}\f$
-     */
-    virtual double cW2() const;
-    
-    /**
-     * @brief The square of the sine of the weak angle \f$\sin^2{\theta_W}\f$.
-     * @return the value of \f$\sin^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
-     *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}\f$
-     */
-    virtual double sW2() const;
-
     /** 
      * @brief The \f$W\f$ decay width \f$\Gamma_W\f$.
      * @return the total width of the \f$W\f$ boson in GeV [NOT IMPLEMENTED YET]
@@ -237,24 +219,27 @@ public:
     
     ////////////////////////////////////////////////////////////////////////   
 protected:    
+
     double myEpsilon_1;///< The parameter \f$\varepsilon_1\f$.
     double myEpsilon_2;///< The parameter \f$\varepsilon_2\f$.
     double myEpsilon_3;///< The parameter \f$\varepsilon_3\f$.
     double myEpsilon_b;///< The parameter \f$\varepsilon_b\f$.
-     /**
-     * @brief A set method to fix the parameters of the model.
-     * @param[in] name a string with the parameter name
-     * @param[in] value the value to be asigned to the parameter specified by name
+
+    /**
+     * @brief @copybrief Model::setParameter()
+     * @copydetails Model::setParameter()
      */
     virtual void setParameter(const std::string name, const double& value);
     
     
     ////////////////////////////////////////////////////////////////////////         
 private:
+
     bool FlagEpsilon1SM;///< Flag: if true only the SM value of \f$\varepsilon_1\f$ is considered.
     bool FlagEpsilon2SM;///< Flag: if true only the SM value of \f$\varepsilon_2\f$ is considered.
     bool FlagEpsilon3SM;///< Flag: if true only the SM value of \f$\varepsilon_3\f$ is considered. 
     bool FlagEpsilonbSM;///< Flag: if true only the SM value of \f$\varepsilon_b\f$ is considered. 
+
     
 };
 

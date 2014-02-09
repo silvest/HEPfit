@@ -12,19 +12,32 @@
 
 /**
  * @class NPEffective2
- * @brief A class for new physics in the form of contributions to the 
- * dimension-six effective Lagrangian.
+ * @brief A class for new physics in the form of contributions to the
+ * dimension-six effective Lagrangian, with lepton-flavour universality and
+ * without quark-flavour universality.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details Base class for an effective Lagrangian extension in the basis of 
- * \cite Barbieri:1999tm, assuming diagonal and non-universal \f${\cal O}_{HQ,HL,HE,HU,HD}\f$
- * and \f${\cal O}_{HQ,HL}^\prime\f$ interactions.
- * 
+ * @details This is a Model class containing parameters and functions
+ * associated with the dimension-six effective Lagrangian introduced in NPEffective
+ * class, where lepton-flavour universality is assumed, but quark-flavour universality
+ * is not. 
+ *
+*
+ * @anchor NPEffective2Initialization
+ * <h3>Initialization</h3>
+ *
+ * After creating an instance of the current class with the constructor
+ * NPEffective2(), it is required to call the initialization method
+ * InitializeModel(), inherited from NPEffective class.
+ * In the Monte Carlo run, the constructor as well as the initialization
+ * method are called in InputParser::ReadParameters().
+ *
+ *
  * @anchor NPEffective2Parameters
  * <h3>%Model parameters</h3>
  *
- * The model parameters of NPEffective2 are summarized below: 
+ * The model parameters of %NPEffective2 are summarized below:
  * <table class="model">
  * <tr>
  *   <th>Label</th>
@@ -33,145 +46,107 @@
  * </tr>
  * <tr>
  *   <td class="mod_name">%cWB_NP </td>
- *   <td class="mod_symb">\f$c_{WB} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f${\cal O}_{WB}=\left(H^\dagger\sigma_aH\right)W_{\mu\nu}^a B^{\mu\nu}\f$. </td>
+ *   <td class="mod_symb">\f$C_{WB} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{WB}=\big(H^\dagger\tau^a H\big)W_{\mu\nu}^a B^{\mu\nu}\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%cH_NP </td>
- *   <td class="mod_symb">\f$c_H\f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f${\cal O}_{H}=\left|H^\dagger D_\mu H\right|^2\f$. </td>
+ *   <td class="mod_symb">\f$C_H\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{H}=\big|H^\dagger D_\mu H\big|^2\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%cLL_NP </td>
- *   <td class="mod_symb">\f$c_{LL}  \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f${\cal O}_{LL}=\frac 12\left(\overline{L}\gamma^\mu\sigma_a L\right)\left(\overline{L}\gamma_\mu\sigma_a L\right)\f$. </td>
+ *   <td class="mod_symb">\f$C_{LL}  \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{LL}=\frac 12\big(\overline{L}\,\gamma^\mu\tau^a L\big)
+ *   \big(\overline{L}\,\gamma_\mu\tau^a L\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%cHL1p_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HL}^\prime\right)_{11} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HL}^\prime\right)_{11}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{L^1}\sigma_a\gamma^\mu L^1\right)\f$. </td>
+ *   <td class="mod_name">%cHLp_NP </td>
+ *   <td class="mod_symb">\f$ C_{HL}^\prime \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator 
+ *   \f${\cal O}_{HL}^\prime =i\big(H^\dagger D_\mu\tau^a H\big)
+ *   \big(\overline{L}\,\gamma^\mu\tau^a L\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%cHL2p_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HL}^\prime\right)_{22} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HL}^\prime\right)_{22}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{L^2}\sigma_a\gamma^\mu L^2\right)\f$. </td>
+ *   <td class="mod_name">%cHQ1p_NP, %cHQ2p_NP, %cHQ3p_NP </td>
+ *   <td class="mod_symb">\f$ C_{HQ_i}^\prime \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator 
+ *   \f${\cal O}_{HQ_i}^\prime =i\big(H^\dagger D_\mu\tau^a H\big)
+ *   \big(\overline{Q_i}\,\gamma^\mu\tau^a Q_i\big)\f$ for @f$i=1,2,3@f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%cHL3p_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HL}^\prime\right)_{33} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HL}^\prime\right)_{33}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{L^3}\sigma_a\gamma^\mu L^3\right)\f$. </td>
+ *   <td class="mod_name">%cHL_NP </td>
+ *   <td class="mod_symb">\f$ C_{HL} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator 
+ *   \f${\cal O}_{HL} =i\big(H^\dagger D_\mu H\big)
+ *   \big(\overline{L}\,\gamma^\mu L\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%cHQ1p_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HQ}^\prime\right)_{11} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HQ}^\prime\right)_{11}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{Q^1}\sigma_a\gamma^\mu Q^1\right)\f$. </td>
+ *   <td class="mod_name">%cHQ1_NP, %cHQ2_NP, %cHQ3_NP </td>
+ *   <td class="mod_symb">\f$ C_{HQ_i} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator 
+ *   \f${\cal O}_{HQ_i} =i\big(H^\dagger D_\mu H\big)
+ *   \big(\overline{Q_i}\,\gamma^\mu Q_i\big)\f$ for @f$i=1,2,3@f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%cHQ2p_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HQ}^\prime\right)_{22} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HQ}^\prime\right)_{22}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{Q^2}\sigma_a\gamma^\mu Q^2\right)\f$. </td>
+ *   <td class="mod_name">%cHE_NP </td>
+ *   <td class="mod_symb">\f$ C_{HE} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator 
+ *   \f${\cal O}_{HE} =i\big(H^\dagger D_\mu H\big)
+ *   \big(\overline{E}\,\gamma^\mu E\big)\f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%cHQ3p_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HQ}^\prime\right)_{33} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HQ}^\prime\right)_{33}=i\left(H^\dagger\sigma_a D_\mu H\right)\left(\overline{Q^3}\sigma_a\gamma^\mu Q^3\right)\f$. </td>
+ *   <td class="mod_name">%cHU1_NP, %cHU2_NP, %cHU3_NP </td>
+ *   <td class="mod_symb">\f$ C_{HU_i}  \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator 
+ *   \f${\cal O}_{HU_i} =i\big(H^\dagger D_\mu H\big)
+ *   \big(\overline{U_i}\,\gamma^\mu U_i\big)\f$ for @f$i=1,2,3@f$. </td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%cHL1_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HL}\right)_{11} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HL}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{L^1}\gamma^\mu L^1\right) \f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%cHL2_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HL}\right)_{22} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HL}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{L^2}\gamma^\mu L^2\right) \f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%cHL3_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HL}\right)_{33} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HL}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{L^3}\gamma^\mu L^3\right) \f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%cHQ1_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HQ}\right)_{11} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HQ}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{Q^1}\gamma^\mu Q^1\right) \f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%cHQ2_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HQ}\right)_{22} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HQ}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{Q^2}\gamma^\mu Q^2\right) \f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%cHQ3_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HQ}\right)_{33} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HQ}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{Q^3}\gamma^\mu Q^3\right) \f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%cHE1_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HE}\right)_{11} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HE}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{E^1}\gamma^\mu E^1\right) \f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%cHE2_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HE}\right)_{22} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HE}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{E^2}\gamma^\mu E^2\right) \f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%cHE3_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HQ}\right)_{33} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HE}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{E^3}\gamma^\mu E^3\right) \f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%cHU1_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HU}\right)_{11} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HU}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{U^1}\gamma^\mu U^1\right) \f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%cHU2_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HU}\right)_{22} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HU}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{U^2}\gamma^\mu U^2\right) \f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%cHU3_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HU}\right)_{33} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HU}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{U^3}\gamma^\mu U^3\right) \f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%cHD1_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HD}\right)_{11} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HD}\right)_{11}=i\left(H^\dagger D_\mu H\right)\left(\overline{D^1}\gamma^\mu D^1\right) \f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%cHD2_NP </td>
- *   <td class="mod_symb">\f$\left(c_{HQ}\right)_{22} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HD}\right)_{22}=i\left(H^\dagger D_\mu H\right)\left(\overline{D^2}\gamma^\mu D^2\right) \f$. </td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%cHD3_NP</td>
- *   <td class="mod_symb">\f$\left(c_{HQ}\right)_{33} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator \f$\left({\cal O}_{HD}\right)_{33}=i\left(H^\dagger D_\mu H\right)\left(\overline{D^3}\gamma^\mu D^3\right) \f$. </td>
+ *   <td class="mod_name">%cHD1_NP, %cHD2_NP, %cHD3_NP </td>
+ *   <td class="mod_symb">\f$ C_{HD_i} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator 
+ *   \f${\cal O}_{HD_i} =i\big(H^\dagger D_\mu H\big)
+ *   \big(\overline{D_i}\,\gamma^\mu D_i\big)\f$ for @f$i=1,2,3@f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%Lambda_NP </td>
- *   <td class="mod_symb">\f$\Lambda_{NP} \f$</td>
+ *   <td class="mod_symb">\f$\Lambda \f$</td>
  *   <td class="mod_desc">The new physics scale. </td>
  * </tr>
  * </table>
- * 
+ *
+ *
+ * @anchor NPEffective2Flags
+ * <h3>%Model flags</h3>
+ *
+ * There is no model flag in the current class.
+ *
+ *
+ * @anchor NPEffective2Functions
+ * <h3>Important member functions</h3>
+ *
+ * See the base classes of the current class.
+ *
  */
 class NPEffective2 : public NPEffective {
 public:
+
     /**
-     * @brief The number of new physics parameters in the model.
+     * @brief The number of the model parameters in %NPEffective2.
      */
     static const int NNPEffectiveVars = 19;
+
     /**
-     * @brief A string array with the names of the new physics parameters in the model.
+     * @brief A string array containing the labels of the model parameters in %NPEffective2.
      */
     static const std::string NPEffectiveVars[NNPEffectiveVars];
 
     /**
-     * @brief Constructor.
+     * @brief The default constructor.
      */
     NPEffective2()
     : NPEffective()
@@ -179,8 +154,8 @@ public:
     }
 
     /**
-     * @brief The name of the model.
-     * @return the name of the model as a string
+     * @brief @copybrief Model::ModelName()
+     * @copydetails Model::ModelName()
      */
     virtual std::string ModelName() const
     {
@@ -188,23 +163,22 @@ public:
     }
 
     /**
-     * @brief A method to check if all the mandatory parameters for the model have been
-     * provided in the model configuration file.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
-     * (including parameters that are varied and those that are held constant)
-     * @return
+     * @brief @copybrief Model::CheckParameters()
+     * @copydetails Model::CheckParameters()
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
 
+    ////////////////////////////////////////////////////////////////////////
 protected:
-     /**
-     * @brief A set method to fix the parameters of the model.
-     * @param[in] name a string with the parameter name
-     * @param[in] value the value to be asigned to the parameter specified by name
+
+    /**
+     * @brief @copybrief Model::setParameter()
+     * @copydetails Model::setParameter()
      */
     virtual void setParameter(const std::string name, const double& value);
 
+    
 };
 
 #endif	/* NPEFFECTIVE2_H */

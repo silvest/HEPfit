@@ -12,12 +12,12 @@
 
 /**
  * @class NPZbbbar
- * @brief A model class for new physics with non-standard @f$Zb\bar{b}@f$
- * couplings.
+ * @brief A model class for new physics in the form of contributions to the
+ * @f$Zb\bar{b}@f$ couplings.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is a Model class containing the necessary functions to 
+ * @details This class is a Model class containing the necessary functions to
  * work with new physics contributions to electroweak precision observables,
  * in the form of contributions to the neutral current couplings of the bottom
  * quark:
@@ -60,11 +60,11 @@
  * The constructor NPZbbbar() initializes the model flags explained below to their
  * default values. After creating an instance of the current class,
  * it is required to call the initialization method InitializeModel(), which
- * allocates memory to the pointer #myEWSM inherited from StndardModel, by using
+ * allocates memory to the pointer #myEWSM, inherited from StndardModel, with
  * type EWNPZbbbar. 
  * This pointer is then used in computing the fermionic neutral-current
  * couplings in the presence of new physics contribution to @f$Zb\bar{b}@f$.
- * In a Monte Carlo run, the constructor as well as the initialization
+ * In the Monte Carlo run, the constructor as well as the initialization
  * method are called in InputParser::ReadParameters().
  *
  *
@@ -119,10 +119,10 @@
  * </table>
  *
  *
- * @anchor NPZbbbarReimplemented
- * <h3>Reimplemented quantities</h3>
+ * @anchor NPZbbbarFunctions
+ * <h3>Important member functions</h3>
  * 
- * Compared to the base class NPbase, the methods for the following quantities
+ * Compared to the base class NPbase, the functions for the following quantities
  * are reimplemented in the current class:
  *
  * @li @f$\delta g_V^f@f$&nbsp;&nbsp;(with deltaGVl() and deltaGVq()),
@@ -143,13 +143,13 @@ public:
     static const std::string ZbbbarVars[NZbbbarVars];
 
     /**
-     * @brief Constructor.
+     * @brief The default constructor.
      */
     NPZbbbar();
 
     /**
-     * @brief A method to fetch the name of %NPZbbbar.
-     * @return the name of the model as a string
+     * @brief @copybrief Model::ModelName()
+     * @copydetails Model::ModelName()
      */
     virtual std::string ModelName() const 
     {
@@ -157,51 +157,40 @@ public:
     }
 
     /**
-     * @brief A method to initialize %NPZbbbar.
-     * @details This method, called via InputParser::ReadParameters(), allocates
-     * memory to the pointers #myEWSM and #myStandardModelMatching, which are used
-     * for %EW precision and flavour observables, respectively.
+     * @brief @copybrief StandardModel::InitializeModel()
+     * @details This method allocates memory to the pointer #myEWSM, inherited
+     * from StndardModel, with type EWNPZbbbar.
      * @return a boolean that is true if model initialization is successful
      */
     virtual bool InitializeModel();
 
     /**
-     * @brief A method to initialize the model parameters.
-     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
-     * (including parameters that are varied and those that are held constant)
-     * @return a boolean that is true if the execution is successful
+     * @brief @copybrief Model::Init()
+     * @copydetails Model::Init()
      */
     virtual bool Init(const std::map<std::string, double>& DPars);  
     
     /**
-     * @brief The update method for %NPZbbbar.
-     * @details This method updates all the model parameters with giving DPars.
-     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
-     * (including parameters that are varied and those that are held constant)
-     * @return a boolean that is true if the execution is successful
+     * @brief @copybrief Model::Update()
+     * @copydetails Model::Update()
      */
     virtual bool Update(const std::map<std::string, double>& DPars);
     
     /**
-     * @brief A method to check if all the mandatory parameters for %NPZbbbar
-     * have been provided in the model configuration file.
-     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
-     * (including parameters that are varied and those that are held constant)
-     * @return a boolean that is true if the execution is successful
+     * @brief @copybrief Model::CheckParameters()
+     * @copydetails Model::CheckParameters()
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     /**
-     * @brief A method to set a flag of %NPZbbbar.
-     * @param[in] name name of a model flag
-     * @param[in] value the boolean to be assigned to the flag specified by name
-     * @return a boolean that is true if the execution is successful
+     * @brief @copybrief Model::setFlag()
+     * @copydetails Model::setFlag()
      */
     virtual bool setFlag(const std::string name, const bool value);
     
     /**
-     * @brief A method to check the sanity of the set of model flags.
-     * @return a boolean that is true if the set of model flags is sane
+     * @brief @copybrief Model::CheckFlags()
+     * @copydetails Model::CheckFlags()
      */
     virtual bool CheckFlags() const;
 
@@ -255,9 +244,8 @@ public:
 protected:
 
     /**
-     * @brief A method to set the value of a parameter of %NPZbbbar.
-     * @param[in] name name of a model parameter
-     * @param[in] value the value to be assigned to the parameter specified by name
+     * @brief @copybrief Model::setParameter()
+     * @copydetails Model::setParameter()
      */
     virtual void setParameter(const std::string name, const double& value);
     
@@ -287,6 +275,7 @@ private:
      */
     bool FlagNotLinearizedNP;
 
+    
 };
 
 #endif	/* NPZBBBAR_H */

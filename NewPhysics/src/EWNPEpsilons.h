@@ -67,58 +67,58 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief The effective leptonic neutral-current coupling @f$\rho_Z^l@f$.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$\rho_Z^l@f$ including NP contribution via the \f$\varepsilon_i\f$ parameters
+     * @brief @copybrief EWSM::rhoZ_l()
+     * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
+     * @copydetails EWSM::rhoZ_l()
      */
     virtual complex rhoZ_l(const StandardModel::lepton l) const;
 
     /**
-     * @brief The effective quark neutral-current coupling @f$\rho_Z^q@f$.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$\rho_Z^q@f$ including NP contribution via the \f$\varepsilon_i\f$ parameters
+     * @brief @copybrief EWSM::rhoZ_q()
+     * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
+     * @copydetails EWSM::rhoZ_q()
      */
     virtual complex rhoZ_q(const StandardModel::quark q) const;
 
     /**
-     * @brief The effective leptonic neutral-current coupling @f$\kappa_Z^l@f$.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$\kappa_Z^l@f$ including NP contribution via the \f$\varepsilon_i\f$ parameters
+     * @brief @copybrief EWSM::kappaZ_l()
+     * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
+     * @copydetails EWSM::kappaZ_l()
      */
     virtual complex kappaZ_l(const StandardModel::lepton l) const;
 
     /**
-     * @brief The effective quark neutral-current coupling @f$\kappa_Z^q@f$.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$\kappa_Z^q@f$ including NP contribution via the \f$\varepsilon_i\f$ parameters
+     * @brief @copybrief EWSM::kappaZ_q()
+     * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
+     * @copydetails EWSM::kappaZ_q()
      */
     virtual complex kappaZ_q(const StandardModel::quark q) const;
 
     /**
-     * @brief The effective leptonic neutral-current vector coupling @f$g_V^l@f$.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$g_V^l@f$ including NP contribution via the \f$\varepsilon_i\f$ parameters
+     * @brief @copybrief EWSM::gVl()
+     * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
+     * @copydetails EWSM::gVl()
      */
     virtual complex gVl(const StandardModel::lepton l) const;
 
     /**
-     * @brief The effective quark neutral-current vector coupling @f$g_V^q@f$.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$g_V^q@f$ including NP contribution via the \f$\varepsilon_i\f$ parameters
+     * @brief @copybrief EWSM::gVq()
+     * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
+     * @copydetails EWSM::gVq()
      */
     virtual complex gVq(const StandardModel::quark q) const;
 
     /**
-     * @brief The effective leptonic neutral-current axial-vector coupling @f$g_A^l@f$.
-     * @param[in] l name of a leptonn (see StandardModel::lepton)
-     * @return @f$g_A^l@f$ including NP contribution via the \f$\varepsilon_i\f$ parameters
+     * @brief @copybrief EWSM::gAl()
+     * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
+     * @copydetails EWSM::gAl()
      */
     virtual complex gAl(const StandardModel::lepton l) const;
 
     /**
-     * @brief The effective quark neutral-current axial-vector coupling @f$g_A^q@f$.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$g_A^q@f$ including NP contribution via the \f$\varepsilon_i\f$ parameters
+     * @brief @copybrief EWSM::gAq()
+     * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
+     * @copydetails EWSM::gAq()
      */
     virtual complex gAq(const StandardModel::quark q) const;
 

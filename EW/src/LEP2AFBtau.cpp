@@ -74,13 +74,13 @@ double LEP2AFBtau::computeThValue()
     #endif
             
     if ( checkLEP2NP() ) {
-        double obliqueShat = (static_cast<const NPbase*> (&SM))->obliqueShat();
-        double obliqueThat = (static_cast<const NPbase*> (&SM))->obliqueThat();
-        double obliqueUhat = (static_cast<const NPbase*> (&SM))->obliqueUhat();
-        double obliqueV = (static_cast<const NPbase*> (&SM))->obliqueV();
-        double obliqueW = (static_cast<const NPbase*> (&SM))->obliqueW();
-        double obliqueX = (static_cast<const NPbase*> (&SM))->obliqueX();
-        double obliqueY = (static_cast<const NPbase*> (&SM))->obliqueY();
+        double obliqueShat = (static_cast<const NPSTUVWXY*> (&SM))->obliqueShat();
+        double obliqueThat = (static_cast<const NPSTUVWXY*> (&SM))->obliqueThat();
+        double obliqueUhat = (static_cast<const NPSTUVWXY*> (&SM))->obliqueUhat();
+        double obliqueV = (static_cast<const NPSTUVWXY*> (&SM))->obliqueV();
+        double obliqueW = (static_cast<const NPSTUVWXY*> (&SM))->obliqueW();
+        double obliqueX = (static_cast<const NPSTUVWXY*> (&SM))->obliqueX();
+        double obliqueY = (static_cast<const NPSTUVWXY*> (&SM))->obliqueY();
         double ObParam[7] = {obliqueShat, obliqueThat, obliqueUhat,
                              obliqueV, obliqueW, obliqueX, obliqueY};
         AFB_tau += myLEP2oblique.AFB_l_LEP2_NP(SM.TAU, s, ml_cache, ObParam);

@@ -20,7 +20,7 @@ class EWSM; // forward reference to EWSM class
 /**
  * @class StandardModel
  * @ingroup StandardModel
- * @brief A class for the Standard %Model.
+ * @brief A model class for the Standard %Model.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions associated
@@ -36,7 +36,7 @@ class EWSM; // forward reference to EWSM class
  * it is required to call the initialization method InitializeModel(), which
  * allocates memory to the pointers #myEWSM and #myStandardModelMatching. 
  * These pointers are then used in computing %EW precision and flavour observables,
- * respectively. In a Monte Carlo run, the constructor as well as the initialization
+ * respectively. In the Monte Carlo run, the constructor as well as the initialization
  * method are called in InputParser::ReadParameters().
  *
  * The initializations and updates of the model parameters and flags are explained
@@ -313,12 +313,10 @@ public:
         TAU /**< Tau */
     };
 
-    static const int NSMvars = 24;///< The number of model parameters in %StandardModel.
+    static const int NSMvars = 24;///< The number of the model parameters in %StandardModel.
 
     /**
-     * @brief An array containing the labels under which all %StandardModel
-     * parameters are stored in a vector of ModelParameter via
-     * InputParser::ReadParameters().
+     * @brief  A string array containing the labels of the model parameters in %StandardModel.
      */
     static const std::string SMvars[NSMvars];
 
@@ -341,7 +339,7 @@ public:
     // Initialization
 
     /**
-     * @brief A method to initialize %StandardModel.
+     * @brief A method to initialize the model.
      * @details This method, called via InputParser::ReadParameters(), allocates
      * memory to the pointers #myEWSM and #myStandardModelMatching, which are used
      * for %EW precision and flavour observables, respectively. 
@@ -775,7 +773,10 @@ public:
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief The vacuum expectation value @f$v=1/(\sqrt{2}G_\mu)^{1/2}@f$.
+     * @brief The Higgs vacuum expectation value.
+     * @f[
+     *    v = \left(\frac{1}{\sqrt{2} G_F}\right)^{1/2}.
+     * @f]
      * @return @f$v@f$ in GeV
      */
     virtual double v() const;
@@ -849,29 +850,35 @@ public:
     double alphaMz() const;
 
     /**
-     * @brief The SM prediction for the pole mass of the @f$W@f$ boson,
-     * @f$M_W@f$. 
-     * @return @f$M_W@f$ in GeV.
+     * @brief The @f$W@f$-boson mass in the on-shell scheme, @f$M_W@f$.
+     * @return @f$M_W@f$ in GeV
      */
     virtual double Mw() const;
 
     /**
-     * @brief The SM prediction for the cosine of the weak mixing angle
+     * @brief The square of the cosine of the weak mixing angle
      * in the on-shell scheme, denoted as @f$c_W^2@f$.
-     * @return @f$c_W^2=M_W^2/M_Z^2@f$
+     * @details
+     * @f[
+     *   @f$c_W^2=\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}@f$
+     * @f]
+     * @return @f$c_W^2@f$
      */
     virtual double cW2() const;
 
     /**
-     * @brief The SM prediction for the sine of the weak mixing angle
+     * @brief The square of the sine of the weak mixing angle
      * in the on-shell scheme, denoted as @f$s_W^2@f$.
-     * @return @f$s_W^2=1-M_W^2/M_Z^2@f$
+     * @details
+     * @f[
+     *   @f$s_W^2=\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}@f$
+     * @f]
+     * @return @f$s_W^2@f$
      */
     virtual double sW2() const;
 
     /**
-     * @brief The SM prediction for the total width of the W boson,
-     * @f$\Gamma_W@f$. 
+     * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
      * @return @f$\Gamma_W@f$ in GeV
      */
     virtual double GammaW() const;
@@ -981,7 +988,7 @@ public:
 protected:
 
     /**
-     * @brief A method to set the value the value of a parameter of %StandardModel.
+     * @brief A method to set the value of a parameter of %StandardModel.
      * @param[in] name name of a model parameter
      * @param[in] value the value to be assigned to the parameter specified by name
      */
@@ -1033,6 +1040,7 @@ protected:
     
     ////////////////////////////////////////////////////////////////////////    
 private:
+
     StandardModelMatching* myStandardModelMatching;///< A pointer to an object of type StandardModelMatching.
 
     bool FlagWithoutNonUniversalVC;///< A boolean for the model flag %WithoutNonUniversalVC.

@@ -192,11 +192,6 @@ double EWSM::alphaMz() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSM::Mw0() const
-{
-    return ( sqrt(c02())*myCache->Mz() );
-}
-
 double EWSM::s02() const
 {
     double tmp = 1.0 - 4.0*M_PI*alphaMz()/sqrt(2.0)/myCache->GF()/myCache->Mz()/myCache->Mz();

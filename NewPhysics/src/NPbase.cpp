@@ -64,6 +64,14 @@ bool NPbase::CheckFlags() const
 
 ////////////////////////////////////////////////////////////////////////
 
+double NPbase::DeltaGF() const
+{
+    return 0.0;
+}
+
+
+////////////////////////////////////////////////////////////////////////
+
 double NPbase::obliqueS() const
 {
     return 0.0;
@@ -82,53 +90,57 @@ double NPbase::obliqueU() const
 }
 
 
-double NPbase::obliqueShat() const
+////////////////////////////////////////////////////////////////////////
+
+double NPbase::Mw() const
 {
-    double sW2_SM = myEWSM->sW2_SM(); /* This has to be the SM value. */
-    return ( alphaMz()/(4.0*sW2_SM)*obliqueS() );
+    double myMw = myEWSM->Mw_SM();
+
+    double alpha = StandardModel::alphaMz();
+    double c2 = myEWSM->cW2_SM();
+    double s2 = myEWSM->sW2_SM();
+
+    myMw *= 1.0 - alpha/4.0/(c2-s2)
+                  *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 )
+            - s2/2.0/(c2-s2)*DeltaGF();
+
+    //std::cout << "Mw: c_S=" << - alpha/4.0/(c2-s2) << std::endl;
+    //std::cout << "Mw: c_T=" << - alpha/4.0/(c2-s2)*(- 2.0*c2) << std::endl;
+    //std::cout << "Mw: c_U=" << - alpha/4.0/(c2-s2)*(- (c2-s2)/2.0/s2) << std::endl;
+
+    return myMw;
 }
 
 
-double NPbase::obliqueThat() const
+double NPbase::cW2() const
 {
-    return ( alphaMz()*obliqueT() );
+    return ( Mw()*Mw()/Mz/Mz );
 }
 
 
-double NPbase::obliqueUhat() const
+double NPbase::sW2() const
 {
-    double sW2_SM = myEWSM->sW2_SM(); /* This has to be the SM value. */
-    return ( - alphaMz()/(4.0*sW2_SM)*obliqueU() );
+    return ( 1.0 - cW2() );
 }
 
 
-double NPbase::obliqueV() const
+double NPbase::GammaW() const
 {
-    return 0.0;
-}
+    double Gamma_W = myEWSM->GammaW_SM();
 
+    double alpha = StandardModel::alphaMz();
+    double c2 = myEWSM->cW2_SM();
+    double s2 = myEWSM->sW2_SM();
 
-double NPbase::obliqueW() const
-{
-    return 0.0;
-}
+    Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
+                     *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 )
+               - (1.0 + c2)/2.0/(c2-s2)*DeltaGF();
 
+    //std::cout << "Gw: c_S=" << - 3.0*alpha/4.0/(c2-s2) << std::endl;
+    //std::cout << "Gw: c_T=" << - 3.0*alpha/4.0/(c2-s2)*(- 2.0*c2) << std::endl;
+    //std::cout << "Gw: c_U=" << - 3.0*alpha/4.0/(c2-s2)*(- (c2-s2)/2.0/s2) << std::endl;
 
-double NPbase::obliqueX() const
-{
-    return 0.0;
-}
-
-
-double NPbase::obliqueY() const
-{
-    return 0.0;
-}
-
-
-double NPbase::DeltaGF() const
-{
-    return 0.0;
+    return Gamma_W;
 }
 
 
@@ -141,10 +153,12 @@ double NPbase::deltaGVl(StandardModel::lepton l) const
     double gVSM = myEWSM->gVl_SM(l).real();
     double gASM = myEWSM->gAl_SM(l).real();
 
-    return ( gVSM*alpha*obliqueT()/2.0
-            + (gVSM - gASM)*alpha/4.0/sW2SM/(cW2SM - sW2SM)
-              *(obliqueS() - 4.0*cW2SM*sW2SM*obliqueT()) );
+    return ( gVSM*(alpha*obliqueT() - DeltaGF())/2.0
+             + (gVSM - gASM)/4.0/sW2SM/(cW2SM - sW2SM)
+               *( alpha*(obliqueS() - 4.0*cW2SM*sW2SM*obliqueT())
+                  + 4.0*cW2SM*sW2SM*DeltaGF() ) );
 }
+
 
 double NPbase::deltaGVq(StandardModel::quark q) const
 {
@@ -157,10 +171,12 @@ double NPbase::deltaGVq(StandardModel::quark q) const
     double gVSM = myEWSM->gVq_SM(q).real();
     double gASM = myEWSM->gAq_SM(q).real();
 
-    return ( gVSM*alpha*obliqueT()/2.0
-             + (gVSM - gASM)*alpha/4.0/sW2SM/(cW2SM - sW2SM)
-               *(obliqueS() - 4.0*cW2SM*sW2SM*obliqueT()) );
+    return ( gVSM*(alpha*obliqueT() - DeltaGF())/2.0
+             + (gVSM - gASM)/4.0/sW2SM/(cW2SM - sW2SM)
+               *( alpha*(obliqueS() - 4.0*cW2SM*sW2SM*obliqueT())
+                  + 4.0*cW2SM*sW2SM*DeltaGF() ) );
 }
+
 
 double NPbase::deltaGAl(StandardModel::lepton l) const
 {
@@ -168,9 +184,10 @@ double NPbase::deltaGAl(StandardModel::lepton l) const
     double alpha = StandardModel::alphaMz();
     double gASM = myEWSM->gAl_SM(l).real();
 
-    return ( gASM*alpha*obliqueT()/2.0 );
+    return ( gASM*(alpha*obliqueT() - DeltaGF())/2.0 );
 
 }
+
 
 double NPbase::deltaGAq(StandardModel::quark q) const
 {
@@ -180,6 +197,7 @@ double NPbase::deltaGAq(StandardModel::quark q) const
     double alpha = StandardModel::alphaMz();
     double gASM = myEWSM->gAq_SM(q).real();
 
-    return ( gASM*alpha*obliqueT()/2.0 );
+    return ( gASM*(alpha*obliqueT() - DeltaGF())/2.0 );
 }
+
 

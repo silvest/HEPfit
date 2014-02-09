@@ -13,23 +13,31 @@
 
 /**
  * @class NPSTUVWXY
- * @brief A class for new physics in the form of contributions to the extended oblique 
- * parameters \f$\hat{S},~\hat{T},~\hat{U},~V,~W,~X\f$ and \f$Y\f$. 
+ * @brief A class for new physics in the form of contributions to the extended
+ * oblique parameters \f$\hat{S},~\hat{T},~\hat{U},~V,~W,~X\f$ and \f$Y\f$.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class contains the necessary functions to compute new physics 
- * tree-level corrections to electroweak precision observables, in the form of 
- * contributions to the extended set of oblique parameters \cite Barbieri:2004qk. These corrections
- * are parameterized in terms of the \f$\hat{S},~\hat{T},~\hat{U},~V,~W,~X\f$ and \f$Y\f$ 
- * contributions to \f$M_W\f$, and to \f$Z\f$-pole observables through the corrections 
- * to the different neutral-current effective couplings to leptons and quarks. The 
- * contributions to the later are implemented in the \b NPbase class. 
- * 
+ * @details This is a Model class containing the necessary functions to compute
+ * new physics contributions to the electroweak precision observables and so forth,
+ * with the extended set of oblique parameters \f$\hat{S},~\hat{T},~\hat{U},~V,~W,~X\f$
+ * and \f$Y\f$ \cite Barbieri:2004qk.
+ *
+ *
+ * @anchor NPSTUVWXYInitialization
+ * <h3>Initialization</h3>
+ *
+ * After creating an instance of the current class with the constructor
+ * NPSTUVWXY(), it is required to call the initialization method
+ * InitializeModel().
+ * In the Monte Carlo run, the constructor as well as the initialization
+ * method are called in InputParser::ReadParameters().
+ *
+ *
  * @anchor NPSTUVWXYParameters
  * <h3>%Model parameters</h3>
  *
- * The model parameters of NPSTUVWXY are summarized below: 
+ * The model parameters of %NPSTUVWXY are summarized below:
  * <table class="model">
  * <tr>
  *   <th>Label</th>
@@ -39,60 +47,89 @@
  * <tr>
  *   <td class="mod_name">%obliqueShat </td>
  *   <td class="mod_symb">\f$\hat{S}\f$</td>
- *   <td class="mod_desc">The oblique paramenter \f$\hat{S}\f$.</td>
+ *   <td class="mod_desc">The oblique parameter \f$\hat{S}\f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%obliqueThat </td>
  *   <td class="mod_symb">\f$\hat{T} \f$</td>
- *   <td class="mod_desc">The oblique paramenter \f$\hat{T}\f$.</td>
+ *   <td class="mod_desc">The oblique parameter \f$\hat{T}\f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%obliqueUhat </td>
  *   <td class="mod_symb">\f$\hat{U}\f$</td>
- *   <td class="mod_desc">The oblique paramenter \f$\hat{U}\f$.</td>
+ *   <td class="mod_desc">The oblique parameter \f$\hat{U}\f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%obliqueV </td>
  *   <td class="mod_symb">\f$V\f$</td>
- *   <td class="mod_desc">The oblique paramenter \f$V\f$.</td>
+ *   <td class="mod_desc">The oblique parameter \f$V\f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%obliqueW </td>
  *   <td class="mod_symb">\f$W\f$</td>
- *   <td class="mod_desc">The oblique paramenter \f$W\f$.</td>
+ *   <td class="mod_desc">The oblique parameter \f$W\f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%obliqueX </td>
  *   <td class="mod_symb">\f$X\f$</td>
- *   <td class="mod_desc">The oblique paramenter \f$X\f$.</td>
+ *   <td class="mod_desc">The oblique parameter \f$X\f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%obliqueY </td>
  *   <td class="mod_symb">\f$Y\f$</td>
- *   <td class="mod_desc">The oblique paramenter \f$Y\f$.</td>
+ *   <td class="mod_desc">The oblique parameter \f$Y\f$.</td>
  * </tr>
  * </table>
- *  
+ *
+ *
+ * @anchor NPSTUVWXYFlags
+ * <h3>%Model flags</h3>
+ *
+ * There is no model flag in the current class.
+ *
+ *
+ * @anchor NPSTUVWXYFunctions
+ * <h3>Important member functions</h3>
+ *
+ * Compared to the base classes NPbase and StandardModel, the functions for the
+ * following quantities are reimplemented in the current class:
+ *
+ * @li @f$S@f$, @f$T@f$ and @f$U@f$&nbsp;&nbsp;
+ * (with obliqueS(), obliqueT() and obliqueU()),
+ *
+ * In addition, the functions for the extended oblique parameters as well as
+ * the epsilon parameters are also provided:
+ *
+ * @li @f$\hat{S}@f$, @f$\hat{T}@f$, @f$\hat{U}@f$,
+ * @f$V@f$, @f$W@f$, @f$X@f$ and @f$Y@f$&nbsp;&nbsp;
+ * (with obliqueShat(), obliqueThat(), obliqueUhat(),
+ * obliqueV(), obliqueW(), obliqueX() and obliqueY()),
+ * @li @f$\varepsilon_1@f$, @f$\varepsilon_2@f$, @f$\varepsilon_3@f$ and
+ * @f$\varepsilon_b@f$&nbsp;&nbsp;
+ * (with epsilon1(), epsilon2(), epsilon3() and epsilonb()).
+ *
  */
 class NPSTUVWXY : public NPbase {
 public:
+
     /**
-     * @brief The number of new physics parameters in the model.
+     * @brief The number of the model parameters in %NPSTUVWXY.
      */
     static const int NSTUVWXYvars = 7;
+
     /**
-     * @brief A string array with the names of the new physics parameters in the model.
+     * @brief A string array containing the labels of the model parameters in %NPSTUVWXY.
      */
     static const std::string STUVWXYvars[NSTUVWXYvars];
     
     /**
-     * @brief Constructor.
+     * @brief The default constructor.
      */
     NPSTUVWXY();
 
     /**
-     * @brief The name of the model.
-     * @return the name of the model as a string
+     * @brief @copybrief Model::ModelName()
+     * @copydetails Model::ModelName()
      */
     virtual std::string ModelName() const 
     {
@@ -100,47 +137,38 @@ public:
     }
 
     /**
-     * @brief A method to initialize the model.
-     * @return true is model initialization is successful
+     * @brief @copybrief StandardModel::InitializeModel()
+     * @return a boolean that is true if model initialization is successful
      */
     virtual bool InitializeModel();
 
     /**
-     * @brief A method to initialize the model.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
-     * @return true is model initialization is successful
+     * @brief @copybrief Model::Init()
+     * @copydetails Model::Init()
      */
     virtual bool Init(const std::map<std::string, double>& DPars); 
     
     /**
-     * @brief The update method for the model class.
-     * @details This method updates all the parameters of the model every time a
-     * new set of parameters is generated.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
-     * (including parameters that are varied and those that are held constant)
-     * @return a boolean that is true if the execution is successful.
+     * @brief @copybrief Model::Update()
+     * @copydetails Model::Update()
      */
     virtual bool Update(const std::map<std::string, double>& DPars);
     
     /**
-     * @brief A method to check if all the mandatory parameters for the model have been
-     * provided in the model configuration file.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
-     * (including parameters that are varied and those that are held constant)
+     * @brief @copybrief Model::CheckParameters()
+     * @copydetails Model::CheckParameters()
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     /**
-     * @brief A set method to fix the flags for the model.
-     * @param[in] name the name of the flag
-     * @param[in] value the value of the flag that can be true or false
-     * @return a boolean to designate the success or failure of this procedure
+     * @brief @copybrief Model::setFlag()
+     * @copydetails Model::setFlag()
      */
     virtual bool setFlag(const std::string name, const bool value);
     
     /**
-     * @brief A method to check the sanity of the set of flags.
-     * @return true if the set of flags is sane.
+     * @brief @copybrief Model::CheckFlags()
+     * @copydetails Model::CheckFlags()
      */
     virtual bool CheckFlags() const;
     
@@ -148,8 +176,9 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
     /**
-     * @brief The oblique paramenter \f$\hat{S}\f$.
-     * @return the value of the oblique parameter \f$\hat{S}=\frac{\alpha}{4\sin^2{\theta_W}}S\f$
+     * @brief The oblique parameter \f$\hat{S}\f$.
+     * @return the value of the oblique parameter
+     * \f$\displaystyle\hat{S}=\frac{\alpha}{4s^2_W}S\f$
      */
     virtual double obliqueShat() const
     {
@@ -157,7 +186,7 @@ public:
     }
 
     /**
-     * @brief The oblique paramenter \f$\hat{T}\f$.
+     * @brief The oblique parameter \f$\hat{T}\f$.
      * @return the value of the oblique parameter \f$\hat{T}=\alpha T\f$
      */
     virtual double obliqueThat() const 
@@ -166,8 +195,9 @@ public:
     }
 
     /**
-     * @brief The oblique paramenter \f$\hat{U}\f$.
-     * @return the value of the oblique parameter \f$\hat{U}=-\frac{\alpha}{4\sin^2{\theta_W}}U\f$
+     * @brief The oblique parameter \f$\hat{U}\f$.
+     * @return the value of the oblique parameter
+     * \f$\displaystyle\hat{U}=-\frac{\alpha}{4s^2_W}U\f$
      */
     virtual double obliqueUhat() const 
     {
@@ -175,7 +205,7 @@ public:
     }
 
     /**
-     * @brief The oblique paramenter \f$V\f$.
+     * @brief The oblique parameter \f$V\f$.
      * @return the value of the oblique parameter \f$V\f$
      */
     virtual double obliqueV() const 
@@ -184,7 +214,7 @@ public:
     }
 
     /**
-     * @brief The oblique paramenter \f$W\f$.
+     * @brief The oblique parameter \f$W\f$.
      * @return the value of the oblique parameter \f$W\f$
      */
     virtual double obliqueW() const 
@@ -193,7 +223,7 @@ public:
     }
 
     /**
-     * @brief The oblique paramenter \f$X\f$.
+     * @brief The oblique parameter \f$X\f$.
      * @return the value of the oblique parameter \f$X\f$
      */
     virtual double obliqueX() const 
@@ -202,7 +232,7 @@ public:
     }
 
     /**
-     * @brief The oblique paramenter \f$Y\f$.
+     * @brief The oblique parameter \f$Y\f$.
      * @return the value of the oblique parameter \f$Y\f$
      */
     virtual double obliqueY() const 
@@ -245,19 +275,19 @@ public:
     // Combinations of the extended oblique parameters
     
     /**
-     * @brief The combination of extended oblique paramenters \f$S'\f$.
+     * @brief The combination of extended oblique parameters \f$S'\f$.
      * @return the value of the oblique parameter \f$S'=\frac{4\sin^2{\theta_W}}{\alpha}\left(\hat{S}-W+\frac{X}{\sin{\theta_W} \cos{\theta_W}}-Y\right)\f$
      */
     virtual double obliqueS() const;
 
     /**
-     * @brief The combination of extended oblique paramenters \f$T'\f$.
+     * @brief The combination of extended oblique parameters \f$T'\f$.
      * @return the value of the oblique parameter \f$T'=\frac{1}{\alpha}\left(\hat{T}-W+2X\frac{s_W}{c_W}-Y\frac{\sin^2{\theta_W}}{\cos^2{\theta_W}}\right)\f$
      */
     virtual double obliqueT() const;
 
     /**
-     * @brief The combination of extended oblique paramenters \f$U'\f$.
+     * @brief The combination of extended oblique parameters \f$U'\f$.
      * @return the value of the oblique parameter \f$U'=-\frac{4\sin^2{\theta_W}}{\alpha}\left(\hat{U}-W+2X\frac{\sin{\theta_W}}{\cos{\theta_W}}-V\right)\f$
      */
     virtual double obliqueU() const;
@@ -266,47 +296,42 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief The \f$W\f$ boson mass.
-     * @return the \f$W\f$-boson mass in GeV
-     */
-    virtual double Mw() const;
-
-    /**
-     * @brief The square of the cosine of the weak angle \f$\cos^2{\theta_W}\f$.
-     * @return the value of \f$\cos^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
-     *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}\f$
-     */
-    virtual double cW2() const;
-
-    /**
-     * @brief The square of the sine of the weak angle \f$\sin^2{\theta_W}\f$.
-     * @return the value of \f$\sin^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
-     *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}\f$
-     */
-    virtual double sW2() const;
-
-    /**
-     * @brief The \f$W\f$ decay width \f$\Gamma_W\f$.
-     * @return the total width of the \f$W\f$ boson in GeV
+     * @brief The total width of the W boson, @f$\Gamma_W@f$.
+     * @details
+     * @f[
+     * \Gamma_W = \Gamma_{W,\mathrm{SM}}
+     * \left[ 1
+     * - \frac{3\alpha(M_Z^2)}{4(c_W^2-s_W^2)}
+     *  \left( S - 2c_W^2\,T - \frac{c_W^2-s_W^2}{2s_W^2}\,U
+     *         - 2 (c_W^2 - s_W^2)\, \overline{W} \right)
+     * - \frac{1+c_W^2}{2(c_W^2-s_W^2)}\, \Delta G
+     * \right],
+     * @f]
+     * where @f$\alpha(M_Z^2)\,\overline{W} = V - W@f$.
+     *
+     * See, e.g., @cite Ciuchini:2013pca.
+     * @return @f$\Gamma_W@f$ in GeV
      */
     virtual double GammaW() const;
-    
+
     
     ////////////////////////////////////////////////////////////////////////
 protected:    
-     /**
-     * @brief A set method to fix the parameters of the model.
-     * @param[in] name a string with the parameter name
-     * @param[in] value the value to be asigned to the parameter specified by name
+
+    double myObliqueShat;///< The oblique parameter \f$\hat{S}\f$.
+    double myObliqueThat;///< The oblique parameter \f$\hat{T}\f$.
+    double myObliqueUhat;///< The oblique parameter \f$\hat{U}\f$.
+    double myObliqueV;///< The oblique parameter \f$V\f$.
+    double myObliqueW;///< The oblique parameter \f$W\f$.
+    double myObliqueX;///< The oblique parameter \f$X\f$.
+    double myObliqueY;///< The oblique parameter \f$Y\f$.
+
+    /**
+     * @brief @copybrief Model::setParameter()
+     * @copydetails Model::setParameter()
      */
     virtual void setParameter(const std::string name, const double& value);
-    double myObliqueShat;///< The oblique paramenter \f$\hat{S}\f$.
-    double myObliqueThat;///< The oblique paramenter \f$\hat{T}\f$.
-    double myObliqueUhat;///< The oblique paramenter \f$\hat{U}\f$.
-    double myObliqueV;///< The oblique paramenter \f$V\f$.
-    double myObliqueW;///< The oblique paramenter \f$W\f$.
-    double myObliqueX;///< The oblique paramenter \f$X\f$.
-    double myObliqueY;///< The oblique paramenter \f$Y\f$.
+
 
 };
 

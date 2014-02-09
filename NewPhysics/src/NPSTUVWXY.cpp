@@ -167,33 +167,6 @@ double NPSTUVWXY::obliqueU() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPSTUVWXY::Mw() const
-{
-    double myMw = myEWSM->Mw_SM();
-
-    double alpha = StandardModel::alphaMz();
-    double c2 = myEWSM->cW2_SM();
-    double s2 = myEWSM->sW2_SM();
-
-    myMw *= 1.0 - alpha/4.0/(c2-s2)
-            *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 );
-
-    return myMw;
-}
-
-
-double NPSTUVWXY::cW2() const
-{
-    return ( Mw()*Mw()/Mz/Mz );
-}
-
-
-double NPSTUVWXY::sW2() const
-{
-    return ( 1.0 - cW2() );
-}
-
-
 double NPSTUVWXY::GammaW() const
 {
     double Gamma_W = myEWSM->GammaW_SM();
@@ -206,13 +179,10 @@ double NPSTUVWXY::GammaW() const
 
     Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
                *( obliqueS() - 2.0*c2*obliqueT()
-                  - (c2-s2)*obliqueU()/2.0/s2 - 2.0*(c2 - s2)*Wbar );
+                  - (c2-s2)*obliqueU()/2.0/s2 - 2.0*(c2 - s2)*Wbar )
+               - (1.0 + c2)/2.0/(c2-s2)*DeltaGF();
 
     return Gamma_W;
 }
-
-
-
-
 
 

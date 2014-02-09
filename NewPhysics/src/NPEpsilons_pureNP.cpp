@@ -123,18 +123,6 @@ double NPEpsilons_pureNP::Mw() const
 }
 
 
-double NPEpsilons_pureNP::cW2() const
-{
-    return ( Mw()*Mw()/Mz/Mz );
-}
-
-
-double NPEpsilons_pureNP::sW2() const
-{
-    return ( 1.0 - cW2() );
-}
-
-
 double NPEpsilons_pureNP::GammaW() const
 {
     throw std::runtime_error("NPEpsilons_pureNP::GammaW() is not implemented.");

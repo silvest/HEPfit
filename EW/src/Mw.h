@@ -18,10 +18,7 @@
  * @brief A class for the \f$W\f$-boson mass.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the \f$W\f$-boson mass. The computation
- * includes the electroweak 2-loop corrections of \f${\cal O}(\alpha^2)\f$ as well as
- * the leading \f${\cal O}(G_\mu^2\alpha_s m_t^4)\f$ and \f${\cal O}(G_\mu^3m_t^6)\f$
- * contributions.
+ * @details This class is used to compute the \f$W\f$-boson mass. 
  */
 class Mw : public ThObservable {
 public:
