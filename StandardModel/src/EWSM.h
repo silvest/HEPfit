@@ -167,6 +167,11 @@ public:
      */
     EWSM(const StandardModel& SM_i);
 
+    /**
+     * @brief The default destructor.
+     */
+    virtual ~EWSM();
+
     
     ////////////////////////////////////////////////////////////////////////
 

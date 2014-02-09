@@ -19,7 +19,7 @@ double LEP2AFBcharm::computeThValue()
     if (!checkSMparams(s, Mw, GammaZ)) {        
         mq_cache = m_q(SM.CHARM, sqrt_s);
 
-        double AFB_noBox, sigma;
+        double AFB_noBox, sigma = 0.0;
         if (!flag[ISR])
             AFB_noBox = AFB_NoISR_q();
         else {

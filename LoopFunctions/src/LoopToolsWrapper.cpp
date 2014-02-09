@@ -12,7 +12,9 @@
 #include "PVfunctions.h" // needed for USE_LOOPTOOLS macro
 #include "LoopToolsWrapper.h"
 
+#ifdef USE_LOOPTOOLS
 static bool LoopToolsInit = false;
+#endif
 
 LoopToolsWrapper::LoopToolsWrapper()
 {

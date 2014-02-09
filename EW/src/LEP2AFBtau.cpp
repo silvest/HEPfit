@@ -19,7 +19,7 @@ double LEP2AFBtau::computeThValue()
     if (!checkSMparams(s, Mw, GammaZ)) {
         ml_cache = m_l(SM.TAU);
 
-        double AFB_noBox, sigma;
+        double AFB_noBox, sigma = 0.0;
         if (!flag[ISR])
             AFB_noBox = AFB_NoISR_l();
         else {

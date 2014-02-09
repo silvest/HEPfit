@@ -32,12 +32,12 @@ void CorrelatedGaussianObservables::AddObs(Observable& Obs_i)
 
 void CorrelatedGaussianObservables::ComputeCov(gslpp::matrix<double> Corr) 
 {
-    int size = Obs.size();
+    unsigned int size = Obs.size();
     if (Corr.size_i() != size || Corr.size_j() != size)
-        throw std::runtime_error("The size of the correlated observables in "+name+" does not match the size of the correlation matrix!");
+        throw std::runtime_error("The size of the correlated observables in " +name+ " does not match the size of the correlation matrix!");
     Cov = new gslpp::matrix<double>(size,size,0.);
-    for(int i = 0; i < size; i++)
-        for(int j = 0; j < size; j++)
+    for(unsigned int i = 0; i < size; i++)
+        for(unsigned int j = 0; j < size; j++)
             (*Cov)(i,j) = Obs.at(i).getErrg()*Corr(i,j)*Obs.at(j).getErrg();
     *Cov = Cov->inverse();
 }

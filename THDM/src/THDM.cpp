@@ -224,6 +224,7 @@ double THDM::F(const double m0, const double m1) const {
         F=0.;
     } else if (m0 != 0 && m1 != 0){
         F=0.5 * (m02 + m12) - (m02 * m12) / (m02 - m12) * log(m02 / m12);
-    }
+    } else
+        throw std::runtime_error("Error in THDM::F()");
     return (F);
 }

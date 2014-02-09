@@ -66,6 +66,20 @@ EWSM::EWSM(const StandardModel& SM_i)
 }
 
 
+EWSM::~EWSM()
+{
+    if (myTwoFermionsLEP2 != NULL) delete myTwoFermionsLEP2;
+    if (myApproximateFormulae != NULL) delete myApproximateFormulae;
+    if (myThreeLoopEW != NULL) delete myThreeLoopEW;
+    if (myThreeLoopEW2QCD != NULL) delete myThreeLoopEW2QCD;
+    if (myTwoLoopEW != NULL) delete myTwoLoopEW;
+    if (myThreeLoopQCD != NULL) delete myThreeLoopQCD;
+    if (myTwoLoopQCD != NULL) delete myTwoLoopQCD;
+    if (myOneLoopEW != NULL) delete myOneLoopEW;
+    if (myCache != NULL) delete myCache;
+}
+
+
 ////////////////////////////////////////////////////////////////////////
 
 bool EWSM::checkSMparams(double Params_cache[], const bool bUpdate) const
@@ -1073,7 +1087,7 @@ double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
     double cW2_TMP = Mw_i*Mw_i/myCache->Mz()/myCache->Mz();
     double sW2_TMP = 1.0 - cW2_TMP;
     
-    double f_AlphaToGF, DeltaRho_sum = 0.0, DeltaRho_G;
+    double f_AlphaToGF, DeltaRho_sum = 0.0, DeltaRho_G = 0.0;
     if (SM.getFlagMw().compare("NORESUM") == 0) {
         for (int j=0; j<orders_EW_size; ++j) {
             //f_AlphaToGF = sqrt(2.0)*myCache->GF()*pow(myCache->Mz(),2.0)*sW2_TMP*cW2_TMP/M_PI/myCache->ale();

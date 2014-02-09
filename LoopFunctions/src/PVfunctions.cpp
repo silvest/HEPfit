@@ -94,7 +94,7 @@ complex PVfunctions::B0(const double mu2, const double p2,
         } else if ( (m02zero && !m12zero) || (!m02zero && m12zero) ) {
             double M2;
             if (!m02zero) M2 = m02;
-            if (!m12zero) M2 = m12;
+            else M2 = m12;
             B0 = - log(M2/mu2) + 2.0;
             if ( p2 < M2 )
                 B0 += - (1.0 - M2/p2)*log(1.0 - p2/M2);
@@ -232,7 +232,7 @@ complex PVfunctions::B00(const double mu2, const double p2,
         } else if ( (!m02zero && m12zero) || (m02zero && !m12zero) ) {
             double M2;
             if ( !m02zero ) M2 = m02;
-            if ( !m12zero ) M2 = m12;
+            else M2 = m12;
             B00 = M2/4.0*(- log(M2/mu2) + 3.0/2.0);
         } else
             B00 = 0.0;
@@ -252,7 +252,7 @@ complex PVfunctions::B00(const double mu2, const double p2,
         } else if ( (!m02zero && m12zero) || (m02zero && !m12zero) ) {
             double M2;
             if ( !m02zero ) M2 = m02;
-            if ( !m12zero ) M2 = m12;
+            else M2 = m12;
             B00 = (3.0*M2 - p2)/18.0 - (M2 + p2)/12.0/p2*(-ExtraMinusSign)*A0(mu2,M2)
                   - (M2 - p2)*(M2 - p2)/12.0/p2*B0(mu2,p2,M2,0.0);
         } else
@@ -336,7 +336,7 @@ complex PVfunctions::B0p(const double muIR2, const double p2,
         } else if ( (m02zero && !m12zero) || (!m02zero && m12zero) ) {
             double M2;
             if ( !m02zero ) M2 = m02;
-            if ( !m12zero ) M2 = m12;
+            else M2 = m12;
             if ( p2 < M2 )
                 B0p = - M2/p2/p2*log(1.0 - p2/M2) - 1.0/p2;
             else if ( p2 > M2 ) {
@@ -653,6 +653,8 @@ complex PVfunctions::D0(const double s, const double t, const double m02,
     if ( s>0.0 && t<0.0 && !m02zero && m12zero && !diff02 && !m32zero
             && m02!=m32 && t-m32+m02!=0.0 && t-m32!=0.0 ) {
         //D0(s,t; m02, 0.0, m02, m32)
+
+        /*
         double x1, x2;
         if ( s >= 4.0*m02 ) {
             x1 = (1.0 - sqrt(1.0 - 4.0*m02/s))/2.0;
@@ -670,6 +672,7 @@ complex PVfunctions::D0(const double s, const double t, const double m02,
         } else {
             throw std::runtime_error("PVfunctions::D0(): Undefined!");
         }
+         */
 
         /* Write codes! */
 

@@ -31,6 +31,13 @@ public:
     };
 
     /**
+     * @brief The default destructor.
+     */
+    virtual ~Model()
+    {
+    };
+
+    /**
      * @brief A method to fetch the name of the model.
      * @return the name of the model as a string
      */

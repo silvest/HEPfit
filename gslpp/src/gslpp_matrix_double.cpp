@@ -265,7 +265,7 @@ namespace gslpp
   /** Multiplication operator (matrix) */
   matrix<double> matrix<double>::operator*(const matrix<double>& m)
   {
-    int i,j,k;
+    unsigned int i,j,k;
     matrix<double> m1(size_i(),m.size_i(),0.);
 
     if (size_j() != m.size_i())

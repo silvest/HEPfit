@@ -119,7 +119,6 @@ private:
     std::string OutFile; ///< String for the name of the output root file without the .root extension.
     std::string JobTag; ///< String for the optional JobTag argument to be passes to the executable.
     std::string ObsDirName; ///< String for the output directory name.
-    bool noMC; ///< flag to Specify the non Monte Carlo runs passed as an optional argument to the executable.
     bool FindModeWithMinuit; ///< Flag for using Minuit libraries.
     bool PrintAllMarginalized; ///< Flag for printing all Marginalized distributions to be passed on to the <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> routines.
     bool PrintCorrelationMatrix; ///< Flag for printing the correlation matrix.

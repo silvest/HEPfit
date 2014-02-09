@@ -37,7 +37,7 @@ int main(int argc, char** argv)
 
     string ModelConf, MCMCConf, FileOut, JobTag;
     string FolderOut;
-    int nIterations;
+    int nIterations = 0;
     bool noMC;
     bool checkTheoryRange = false;
 
@@ -56,7 +56,8 @@ int main(int argc, char** argv)
                 ("job_tag", value<string > ()->default_value(""),
                 "job tag")
                 ("noMC", "run in generate event mode with --noMC")
-                ("nI", value<int > ()->default_value(0), "no. of iterations in generate event mode, specify with --nI=#")
+                ("nI", value<int > ()->default_value(0),
+                "no. of iterations in generate event mode, specify with --nI=#")
                 ("thRange", "output the min and max of theory values to HistoLog.txt")
                 ("help", "help message")
                 ;

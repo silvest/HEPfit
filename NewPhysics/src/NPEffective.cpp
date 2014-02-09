@@ -233,10 +233,6 @@ double NPEffective::deltaGAq(QCD::quark q) const
 double NPEffective::deltaGLl_tmp(StandardModel::lepton l) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
-    double sW2_SM = myEWSM->sW2_SM(); /* This has to be the SM value. */
-    double cW2_SM = myEWSM->cW2_SM(); /* This has to be the SM value. */
-    double gVf_SM = myEWSM->gVl_SM(l).real(); /* This has to be the SM value. */
-    double gAf_SM = myEWSM->gAl_SM(l).real(); /* This has to be the SM value. */
     switch (l) {
         case StandardModel::NEUTRINO_1:
             return ( (cHL1p - cHL1)/2.0*ratio );
@@ -259,10 +255,6 @@ double NPEffective::deltaGLl_tmp(StandardModel::lepton l) const
 double NPEffective::deltaGLq_tmp(QCD::quark q) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
-    double sW2_SM = myEWSM->sW2_SM(); /* This has to be the SM value. */
-    double cW2_SM = myEWSM->cW2_SM(); /* This has to be the SM value. */
-    double gVf_SM = myEWSM->gVq_SM(q).real(); /* This has to be the SM value. */
-    double gAf_SM = myEWSM->gAq_SM(q).real(); /* This has to be the SM value. */
     switch (q) {
         case StandardModel::UP:
            return ( (cHQ1p - cHQ1)/2.0*ratio );
@@ -285,10 +277,6 @@ double NPEffective::deltaGLq_tmp(QCD::quark q) const
 double NPEffective::deltaGRl_tmp(StandardModel::lepton l) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
-    double sW2_SM = myEWSM->sW2_SM(); /* This has to be the SM value. */
-    double cW2_SM = myEWSM->cW2_SM(); /* This has to be the SM value. */
-    double gVf_SM = myEWSM->gVl_SM(l).real(); /* This has to be the SM value. */
-    double gAf_SM = myEWSM->gAl_SM(l).real(); /* This has to be the SM value. */
     switch (l) {
         case StandardModel::NEUTRINO_1:
         case StandardModel::NEUTRINO_2:
@@ -309,10 +297,6 @@ double NPEffective::deltaGRl_tmp(StandardModel::lepton l) const
 double NPEffective::deltaGRq_tmp(QCD::quark q) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
-    double sW2_SM = myEWSM->sW2_SM(); /* This has to be the SM value. */
-    double cW2_SM = myEWSM->cW2_SM(); /* This has to be the SM value. */
-    double gVf_SM = myEWSM->gVq_SM(q).real(); /* This has to be the SM value. */
-    double gAf_SM = myEWSM->gAq_SM(q).real(); /* This has to be the SM value. */
     switch (q) {
         case StandardModel::UP:
             return ( - cHU1/2.0*ratio );

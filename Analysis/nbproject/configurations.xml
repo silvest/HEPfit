@@ -87,6 +87,18 @@
           </linkerDynSerch>
           <linkerLibItems>
             <linkerLibProjectItem>
+              <makeArtifact PL="../EventGeneration"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../EventGeneration"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"
                             CT="3"
                             CN="Debug"
@@ -156,18 +168,6 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../EventGeneration"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../EventGeneration"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -390,6 +390,18 @@
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibProjectItem>
+              <makeArtifact PL="../EventGeneration"
+                            CT="3"
+                            CN="Release"
+                            AC="false"
+                            BL="true"
+                            WD="../EventGeneration"
+                            BC="${MAKE}  -f Makefile CONF=Release"
+                            CC="${MAKE}  -f Makefile CONF=Release clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"
                             CT="3"
                             CN="Release"
@@ -459,18 +471,6 @@
                             BC="${MAKE}  -f Makefile CONF=Release"
                             CC="${MAKE}  -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../EventGeneration"
-                            CT="3"
-                            CN="Release"
-                            AC="false"
-                            BL="true"
-                            WD="../EventGeneration"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -696,6 +696,18 @@
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibProjectItem>
+              <makeArtifact PL="../EventGeneration"
+                            CT="3"
+                            CN="Release_MPI"
+                            AC="false"
+                            BL="true"
+                            WD="../EventGeneration"
+                            BC="${MAKE}  -f Makefile CONF=Release_MPI"
+                            CC="${MAKE}  -f Makefile CONF=Release_MPI clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"
                             CT="3"
                             CN="Release_MPI"
@@ -765,18 +777,6 @@
                             BC="${MAKE}  -f Makefile CONF=Release"
                             CC="${MAKE}  -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../EventGeneration"
-                            CT="3"
-                            CN="Release_MPI"
-                            AC="false"
-                            BL="true"
-                            WD="../EventGeneration"
-                            BC="${MAKE}  -f Makefile CONF=Release_MPI"
-                            CC="${MAKE}  -f Makefile CONF=Release_MPI clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -1003,6 +1003,18 @@
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibProjectItem>
+              <makeArtifact PL="../EventGeneration"
+                            CT="3"
+                            CN="Cluster"
+                            AC="false"
+                            BL="true"
+                            WD="../EventGeneration"
+                            BC="${MAKE}  -f Makefile CONF=Cluster"
+                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"
                             CT="3"
                             CN="Cluster"
@@ -1072,18 +1084,6 @@
                             BC="${MAKE}  -f Makefile CONF=Cluster"
                             CC="${MAKE}  -f Makefile CONF=Cluster clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../EventGeneration"
-                            CT="3"
-                            CN="Cluster"
-                            AC="false"
-                            BL="true"
-                            WD="../EventGeneration"
-                            BC="${MAKE}  -f Makefile CONF=Cluster"
-                            CC="${MAKE}  -f Makefile CONF=Cluster clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
@@ -1311,6 +1311,18 @@
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibProjectItem>
+              <makeArtifact PL="../EventGeneration"
+                            CT="3"
+                            CN="Cluster_MPI"
+                            AC="false"
+                            BL="true"
+                            WD="../EventGeneration"
+                            BC="${MAKE}  -f Makefile CONF=Cluster_MPI"
+                            CC="${MAKE}  -f Makefile CONF=Cluster_MPI clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"
                             CT="3"
                             CN="Cluster_MPI"
@@ -1380,18 +1392,6 @@
                             BC="${MAKE}  -f Makefile CONF=Cluster"
                             CC="${MAKE}  -f Makefile CONF=Cluster clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../EventGeneration"
-                            CT="3"
-                            CN="Cluster_MPI"
-                            AC="false"
-                            BL="true"
-                            WD="../EventGeneration"
-                            BC="${MAKE}  -f Makefile CONF=Cluster_MPI"
-                            CC="${MAKE}  -f Makefile CONF=Cluster_MPI clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>

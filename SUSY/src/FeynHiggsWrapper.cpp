@@ -94,8 +94,8 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
 
     /* Check if non-minimal flavor-violating (NMFV) entries exist in the
      * sfermion mass matrices. See also IniFV() in SetFV.F of FeynHiggs. */
-    NMFVu = true; NMFVd = true; NMFVnu = true; NMFVe = true;
-    double TMPu = 0.0, TMPd = 0.0, TMPnu = 0.0, TMPe = 0.0;
+    NMFVu = true; NMFVd = true; NMFVe = true;// NMFVnu = true; 
+    double TMPu = 0.0, TMPd = 0.0, TMPe = 0.0; //TMPnu = 0.0
     for (int i=0; i<3; i++) {
         for (int j=0; j<3; j++) {
            if (i < j) {
