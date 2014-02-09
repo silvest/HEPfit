@@ -31,7 +31,7 @@
  *    - \big(g_{A,\mathrm{SM}}^b + \delta g_A^b\big) \gamma_\mu\gamma_5
  * \right] b\,.
  * @f]
- * Equivalently, the shifts to the left-handed and right-handed couplings are
+ * Equivalently, the shifts in the left-handed and right-handed couplings are
  * defined as 
  * @f[
  * \mathcal{L} =
@@ -75,12 +75,12 @@
  * <tr>
  *   <td class="mod_name">%deltaGVb</td>
  *   <td class="mod_symb">\f$\delta g_{V}^b\f$</td>
- *   <td class="mod_desc">New physics New physics contribution to \f$g_{V}^b\f$.</td>
+ *   <td class="mod_desc">New physics contribution to \f$g_{V}^b\f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%deltaGAb</td>
  *   <td class="mod_symb">\f$\delta g_{A}^b\f$</td>
- *   <td class="mod_desc">New physics New physics contribution to \f$g_{A}^b\f$.</td>
+ *   <td class="mod_desc">New physics contribution to \f$g_{A}^b\f$.</td>
  * </tr>
  * </table>
  * 
