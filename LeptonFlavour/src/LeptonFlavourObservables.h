@@ -8,7 +8,7 @@
 #ifndef LEPTONFLAVOUROBSERVABLES_H
 #define	LEPTONFLAVOUROBSERVABLES_H
 
-#include <LeptonFlavour.h>
+#include "LeptonFlavour.h"
 #include "li_lj_gamma.h"
 
 #endif	/* LEPTONFLAVOUROBSERVABLES_H */
