@@ -51,8 +51,9 @@ public:
     /**
      * @brief The trilogarithm @f$\mathrm{Li}_3(x)@f$
      * @param[in] x a real variable.
-     * @attention This function is applicable for real @f$x \leq 1@f$.
      * @return @f$\mathrm{Li}_3(x)@f$
+     *
+     * @attention This function is applicable for real @f$x \leq 1@f$.
      */
     double Li3(const double x) const;
     

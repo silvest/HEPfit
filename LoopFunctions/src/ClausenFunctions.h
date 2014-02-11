@@ -44,8 +44,9 @@ public:
      * @details The function @f$\mathrm{Cl}_3(\phi)@f$ is computed with the help
      * of the GSL function gsl_sf_zeta_int(3). See @cite Kniehl:1989qu. 
      * @param[in] phi a real variable
-     * @attention This function is applicable for @f$0\leq \phi\leq \pi@f$.
      * @return @f$\mathrm{Cl}_3(\phi)@f$
+     *
+     * @attention This function is applicable for @f$0\leq \phi\leq \pi@f$.
      */
     double Cl3(const double phi) const;
 

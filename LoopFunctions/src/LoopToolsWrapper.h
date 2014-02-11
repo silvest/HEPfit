@@ -162,8 +162,9 @@ public:
      * @brief @f$D_{00}(0,0,0,0,s,t; m_0^2, m_1^2, m_2^2, m_3^2)@f$.
      * @param[in] s,t momentum squared, @f$s@f$ and @f$t@f$
      * @param[in] m02, m12, m22, m32 mass squared, @f$m_0^2@f$, @f$m_1^2@f$, @f$m_2^2@f$ and @f$m_3^2@f$
-     * @attention This function does not work.
      * @return @f$D_{00}(0,0,0,0,s,t; m_0^2, m_1^2, m_2^2, m_3^2)@f$
+     *
+     * @warning This function does not work.
      */
     complex PV_D00(const double s, const double t, const double m02, const double m12,
                    const double m22, const double m32) const;

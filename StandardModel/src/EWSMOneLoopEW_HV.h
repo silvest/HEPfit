@@ -69,6 +69,7 @@ public:
      * @param[in] l name of lepton
      * @param[in] Mw the W-boson mass
      * @return the tree-level vector coupling for Z->l lbar
+     *
      * @attention depends on sW2
      */
     double vl(const StandardModel::lepton l, const double Mw) const 
@@ -81,6 +82,7 @@ public:
      * @param[in] q name of quark
      * @param[in] Mw the W-boson mass
      * @return the tree-level vector coupling for Z->q qbar
+     * 
      * @attention depends on sW2
      */
     double vq(const QCD::quark q, const double Mw) const 

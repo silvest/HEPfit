@@ -70,21 +70,22 @@ public:
     /**
      * @brief Leptonic contribution of @f$O(\alpha^2)@f$
      * to the electromagnetic coupling @f$\alpha@f$,
-     * denoted as @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^2}@f$. 
+     * denoted as @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^2}(s)@f$.
      * @details The expressions used here can be found in @cite Steinhauser:1998rq.
      * @param[in] s invariant mass squared
+     * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^2}(s)@f$
+     *
      * @attention This function is valid in the limit of @f$s\gg m_l^2@f$.
-     * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^2}@f$
      */
     double DeltaAlpha_l(const double s) const;
 
     /**
      * @brief Top-quark contribution of @f$O(\alpha^2)@f$
      * to the electromagnetic coupling @f$\alpha@f$,
-     * denoted as @f$\Delta\alpha_{\mathrm{top}}^{\alpha^2}@f$.
+     * denoted as @f$\Delta\alpha_{\mathrm{top}}^{\alpha^2}(s)@f$.
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] s invariant mass squared
-     * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha^2}=0@f$
+     * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha^2}(s)=0@f$
      */
     double DeltaAlpha_t(const double s) const;    
     
@@ -425,8 +426,9 @@ private:
      * @details This functions is used in DeltaRho2(), DeltaRw2() and DeltaEta2().
      * See @cite Degrassi:1996mg and @cite Degrassi:1999jd.
      * @param[in] x a real variable
-     * @attention This function is valid for @f$x\geq 0@f$.
      * @return @f$\Lambda(x)@f$
+     *
+     * @attention This function is valid for @f$x\geq 0@f$.
      */
     double Lambda(const double x) const;
 
@@ -436,8 +438,9 @@ private:
      * DeltaEta2() and DeltaKappa2().
      * See @cite Degrassi:1996mg and @cite Degrassi:1999jd.
      * @param[in] x a real variable
-     * @attention This function is valid for @f$x\geq 0@f$.
      * @return @f$\phi(x)@f$
+     *
+     * @attention This function is valid for @f$x\geq 0@f$.
      */
     double phi(const double x) const;
 
@@ -446,8 +449,9 @@ private:
      * @details This function is used in Vadd() and Vfi().
      * See @cite Degrassi:1990ec.
      * @param[in] x a real variable 
-     * @attention This function is valid for @f$x>0@f$. 
      * @return @f$f(x)@f$
+     *
+     * @attention This function is valid for @f$x>0@f$.
      */
     complex FV(const double x) const;
 
@@ -456,8 +460,9 @@ private:
      * @details This function is used in Vadd() and Vfi().
      * See @cite Degrassi:1990ec.
      * @param[in] x a real variable
-     * @attention This function is valid for @f$0<x<4@f$.
      * @return @f$g(x)@f$
+     *
+     * @attention This function is valid for @f$0<x<4@f$.
      */
     complex GV(const double x) const;    
     

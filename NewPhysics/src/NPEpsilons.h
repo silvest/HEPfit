@@ -232,6 +232,7 @@ public:
 
     /** 
      * @brief @copybrief StandardModel::GammaW()
+     * 
      * @warning This function is not available.
      */
     virtual double GammaW() const;

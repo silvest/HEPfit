@@ -374,9 +374,10 @@ private:
      *
      * See @cite Ciuchini:2013pca and references therein.
      * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @return @f$\delta g_L^l@f$
+     *
      * @attention The new physics contribution via @f$S@f$, @f$T@f$, @f$U@f$ and
      * @f$\Delta G@f$ are not included in this function.
-     * @return @f$\delta g_L^l@f$
      */
     double deltaGLl_tmp(StandardModel::lepton l) const;
 
@@ -395,9 +396,10 @@ private:
      *
      * See @cite Ciuchini:2013pca and references therein.
      * @param[in] q name of a quark (see QCD::quark)
+     * @return @f$\delta g_L^q@f$
+     *
      * @attention The new physics contribution via @f$S@f$, @f$T@f$, @f$U@f$ and
      * @f$\Delta G@f$ are not included in this function.
-     * @return @f$\delta g_L^q@f$
      */
     double deltaGLq_tmp(QCD::quark q) const;
 
@@ -412,9 +414,10 @@ private:
      *
      * See @cite Ciuchini:2013pca and references therein.
      * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @return @f$\delta g_R^l@f$
+     *
      * @attention The new physics contribution via @f$S@f$, @f$T@f$, @f$U@f$ and
      * @f$\Delta G@f$ are not included in this function.
-     * @return @f$\delta g_R^l@f$
      */
     double deltaGRl_tmp(StandardModel::lepton l) const;
 
@@ -433,9 +436,10 @@ private:
      *
      * See @cite Ciuchini:2013pca and references therein.
      * @param[in] q name of a quark (see QCD::quark)
-     * @attention The new physics contribution via @f$S@f$, @f$T@f$, @f$U@f$ and
-     * @f$\Delta G@f$ are not included in thisfunction.
      * @return @f$\delta g_R^q@f$
+     *
+     * @attention The new physics contribution via @f$S@f$, @f$T@f$, @f$U@f$ and
+     * @f$\Delta G@f$ are not included in this function.
      */
     double deltaGRq_tmp(QCD::quark q) const;
 

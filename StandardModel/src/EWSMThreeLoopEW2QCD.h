@@ -48,20 +48,20 @@ public:
     /**
      * @brief Leptonic contribution of @f$O(\alpha^2\alpha_s)@f$
      * to the electromagnetic coupling @f$\alpha@f$,
-     * denoted as  @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^2\alpha_s}@f$.
+     * denoted as @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^2\alpha_s}(s)@f$.
      * @details This contribution vanishes at @f$O(\alpha^2\alpha_s)@f$.
      * @param[in] s invariant mass squared
-     * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^2\alpha_s}=0@f$
+     * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^2\alpha_s}(s)=0@f$
      */
     double DeltaAlpha_l(const double s) const;
 
     /**
      * @brief Top-quark contribution of @f$O(\alpha^2\alpha_s)@f$
      * to the electromagnetic coupling @f$\alpha@f$,
-     * denoted as @f$\Delta\alpha_{\mathrm{top}}^{\alpha^2\alpha_s}@f$. 
+     * denoted as @f$\Delta\alpha_{\mathrm{top}}^{\alpha^2\alpha_s}(s)@f$.
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] s invariant mass squared
-     * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha^2\alpha_s}=0@f$
+     * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha^2\alpha_s}(s)=0@f$
      */
     double DeltaAlpha_t(const double s) const;
     

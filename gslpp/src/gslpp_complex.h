@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -213,10 +213,10 @@ namespace gslpp
       /**
         * @ingroup complex
         * @param[in] output output stream
-        * @param[in] z1 Complex number
+        * @param[in] z Complex number
         * @return formatted output for complex
         */
-      friend std::ostream& operator<<(std::ostream& output, const complex& z1);
+      friend std::ostream& operator<<(std::ostream& output, const complex& z);
       /** @{
        * @name Operations on complex numbers
        */

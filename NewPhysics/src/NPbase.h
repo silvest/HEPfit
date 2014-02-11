@@ -181,7 +181,7 @@ public:
     virtual double cW2() const;
 
     /**
-     * @brief @copybrief StandardModel::cW2()
+     * @brief @copybrief StandardModel::sW2()
      * @return @f$s_W^2=\sin^2{\theta_W}=1-M_W^2/M_Z^2@f$
      */
     virtual double sW2() const;

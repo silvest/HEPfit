@@ -69,21 +69,21 @@ public:
     /**
      * @brief Leptonic contribution of @f$O(\alpha\alpha_s)@f$
      * to the electromagnetic coupling @f$\alpha@f$,
-     * denoted as @f$\Delta\alpha_{\mathrm{lept}}^{\alpha\alpha_s}@f$.
+     * denoted as @f$\Delta\alpha_{\mathrm{lept}}^{\alpha\alpha_s}(s)@f$.
      * @details This contribution vanishes at @f$O(\alpha\alpha_s)@f$.
      * @param[in] s invariant mass squared
-     * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha\alpha_s}=0@f$
+     * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha\alpha_s}(s)=0@f$
      */
     double DeltaAlpha_l(const double s) const;
 
     /**
      * @brief Top-quark contribution of @f$O(\alpha\alpha_s)@f$
      * to the electromagnetic coupling @f$\alpha@f$,
-     * denoted as @f$\Delta\alpha_{\mathrm{top}}^{\alpha\alpha_s}@f$. 
+     * denoted as @f$\Delta\alpha_{\mathrm{top}}^{\alpha\alpha_s}(s)@f$.
      * @details A simple numerical formula presented in @cite Kuhn:1998ze has
      * been employed.
      * @param[in] s invariant mass squared
-     * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha\alpha_s}@f$
+     * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha\alpha_s}(s)@f$
      */
     double DeltaAlpha_t(const double s) const;
     
@@ -232,6 +232,7 @@ public:
      * @param[in] x the ratio @f$x=s/m_t^2@f$
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$F_1(x)@f$
+     *
      * @attention This function is valid for @f$0 \leq x < 1@f$.
      */
     double F1(const double x, const double Mw_i) const;
@@ -242,6 +243,7 @@ public:
      * and @cite Halzen:1990je. See also Chapter 8 of @cite Bardin:1999ak.
      * @param[in] r the ratio @f$r=s/(4m_t^2)@f$
      * @return @f$V_1(r)@f$
+     *
      * @attention This function is valid for @f$0 \leq r < 1@f$. 
      */
     double V1(const double r) const;
@@ -252,6 +254,7 @@ public:
      * and @cite Halzen:1990je. See also Chapter 8 of @cite Bardin:1999ak.
      * @param[in] r the ratio @f$r=s/(4m_t^2)@f$
      * @return @f$A_1(r)@f$
+     *
      * @attention This function is valid for @f$0 \leq r < 1@f$.
      */
     double A1(const double r) const;
@@ -262,6 +265,7 @@ public:
      * in @cite Kniehl:1989yc and @cite Halzen:1990je.
      * @param[in] r the ratio @f$r=s/(4m_t^2)@f$
      * @return @f$V'_1(r)@f$
+     *
      * @attention This function is valid for @f$0 \leq r < 1@f$.
      */
     double V1prime(const double r) const;
@@ -272,6 +276,7 @@ public:
      * in @cite Kniehl:1989yc and @cite Halzen:1990je.
      * @param[in] r the ratio @f$r=s/(4m_t^2)@f$
      * @return @f$A'_1(r)@f$
+     * 
      * @attention This function is valid for @f$0 \leq r < 1@f$. 
      */
     double A1prime(const double r) const;

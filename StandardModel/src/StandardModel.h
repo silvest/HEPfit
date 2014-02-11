@@ -349,7 +349,7 @@ public:
 
     /**
      * @brief A get method to access the member pointer of type EWSM.
-     * @return #myEWSM
+     * @return the pointer #myEWSM
      */
     EWSM* getEWSM() const
     {
@@ -358,7 +358,7 @@ public:
 
     /**
      * @brief A get method to access the member pointer of type StandardModelMatching.
-     * @return #myStandardModelMatching
+     * @return the pointer #myStandardModelMatching
      */
     virtual StandardModelMatching* getMyMatching() const
     {
@@ -443,10 +443,11 @@ public:
     /**
      * @brief A method to retrieve the model flag WithoutNonUniversalVC.
      * @details See @ref StandardModelFlags for detail. 
-     * @attention The flag FlagWithoutNonUniversalVC is applicable only for
-     * the models StandardModel and NPEpsilons. 
      * @return a boolean that is true if flavour non-universal vertex corrections
      * are NOT added to the epsilon parameters describing new physics contribution
+     *
+     * @attention The flag FlagWithoutNonUniversalVC is applicable only for
+     * the models StandardModel and NPEpsilons.
      */
     bool IsFlagWithoutNonUniversalVC() const
     {
@@ -775,8 +776,9 @@ public:
     /**
      * @brief The Higgs vacuum expectation value.
      * @f[
-     *    v = \left(\frac{1}{\sqrt{2} G_F}\right)^{1/2}.
+     *    v = \left(\frac{1}{\sqrt{2} G_\mu}\right)^{1/2},
      * @f]
+     * where @f$G_\mu@f$ is the Fermi constant, measured through muon decays. 
      * @return @f$v@f$ in GeV
      */
     virtual double v() const;
@@ -791,11 +793,12 @@ public:
      * @brief The running electromagnetic coupling @f$\alpha(\mu)@f$ in the
      * on-shell schem.
      * @details See @cite Baikov:2012rr.
-     * @attention This function is applicable to the scale where the three charged
-     * leptons and the five quarks, not the top quark, run in the loops.
      * @param[in] mu renormalization scale @f$\mu@f$ in GeV.
      * @param[in] order LO/FULLNLO
      * @return @f$\alpha(\mu)@f$ in the on-shell scheme
+     *
+     * @attention This function is applicable to the scale where the three charged
+     * leptons and the five quarks, not the top quark, run in the loops.
      */
     double ale_OS(const double mu, orders order=FULLNLO) const;
 
@@ -803,9 +806,9 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief Leptonic corrections to the electromagnetic coupling @f$\alpha@f$,
+     * @brief Leptonic contribution to the electromagnetic coupling @f$\alpha@f$,
      * denoted as @f$\Delta\alpha_{\mathrm{lept}}(s)@f$.
-     * @param[in] s invariant mass squared in @f$\mathrm{GeV}^2@f$
+     * @param[in] s invariant mass squared
      * @return @f$\Delta\alpha_{\mathrm{lept}}(s)@f$
      */
     double DeltaAlphaLepton(const double s) const;
@@ -827,7 +830,7 @@ public:
     /**
      * @brief The total corrections to the electromagnetic coupling @f$\alpha@f$
      * at the @f$Z@f$-mass scale, denoted as @f$\Delta\alpha(M_Z^2)@f$.
-     * @details The top-quark contribution is included:
+     * @details
      * @f[
      * \Delta\alpha(M_Z^2) =
      * \Delta\alpha_{\rm lept}(M_Z^2)
@@ -839,9 +842,9 @@ public:
     double DeltaAlpha() const;
 
     /**
-     * @brief The electromagnetic coupling at the @f$Z@f$-mass scale, denoted as
-     * @f$\alpha(M_Z^2)@f$.
-     * @details
+     * @brief The electromagnetic coupling at the @f$Z@f$-mass scale, 
+     * @f$\alpha(M_Z^2)=\alpha/(1-\Delta\alpha(M_Z^2))@f$.
+     * @details The radiative corrections are included with Dyson resummation:
      * @f[
      * \alpha(M_Z^2) = \frac{\alpha}{1 - \Delta\alpha(M_Z^2)}.
      * @f]
@@ -860,7 +863,7 @@ public:
      * in the on-shell scheme, denoted as @f$c_W^2@f$.
      * @details
      * @f[
-     *   @f$c_W^2=\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}@f$
+     *   c_W^2=\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}.
      * @f]
      * @return @f$c_W^2@f$
      */
@@ -871,7 +874,7 @@ public:
      * in the on-shell scheme, denoted as @f$s_W^2@f$.
      * @details
      * @f[
-     *   @f$s_W^2=\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}@f$
+     *   s_W^2=\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}.
      * @f]
      * @return @f$s_W^2@f$
      */
@@ -1000,7 +1003,8 @@ protected:
     virtual void computeCKM();
 
     /**
-     * @brief The method to compute the Yukawa matrices. 
+     * @brief The method to compute the Yukawa matrices.
+     * 
      * @attention This function has not been correctly implemented yet. 
      */
     virtual void computeYukawas();

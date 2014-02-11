@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -275,74 +275,33 @@ namespace gslpp
     return output;
   }
 
-  /** @{
-   * @name Operations on vector<double>
-   */
-  /** Add a real number to a real vector
-   * @ingroup vector
-   * @param a Real number
-   * @param v Real vector
-   * @return @f$ a + v @f$
-   */
   vector<double> operator+(const double& a, vector<double> v)
   {
     return v+a;
   }
 
-  /** Subtract a real number from a real vector
-   * @ingroup vector
-   * @param a Real number
-   * @param v Real vector
-   * @return @f$ a - v @f$
-   */
   vector<double> operator-(const double& a, vector<double> v)
   {
     return -v+a;
   }
 
-  /** Multiply a real number by a real vector
-   * @ingroup vector
-   * @param a Real number
-   * @param v Real vector
-   * @return @f$ a*v @f$
-   */
   vector<double> operator*(const double& a, vector<double> v)
   {
     return v*a;
   }
 
-  /** Add a complex number to a real vector
-   * @ingroup vector
-   * @param z Complex number
-   * @param v Real vector
-   * @return @f$ z + v @f$
-   */
   vector<complex> operator+(const complex& z, vector<double> v)
   {
     return v+z;
   }
 
-  /** Subtract a complex number from a real vector
-   * @ingroup vector
-   * @param z Complex number
-   * @param v Real vector
-   * @return @f$ z - v @f$
-   */
   vector<complex> operator-(const complex& z, vector<double> v)
   {
     return -v+z;
   }
 
-  /** Multiply a complex number by a real vector
-   * @ingroup vector
-   * @param z Complex number
-   * @param v Real vector
-   * @return @f$ a*v @f$
-   */
   vector<complex> operator*(const complex& z, vector<double> v)
   {
     return v*z;
   }
-  /** @}
-   */
 }

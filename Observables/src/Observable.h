@@ -159,7 +159,7 @@ public:
 
     /**
      * @brief A set method to fix the name of the histogram for the observable.
-     * @param[in] the histoname name of the histogram of the observable
+     * @param[in] histoname name of the histogram of the observable
      */
     void setHistoname(std::string histoname)
     {
@@ -195,7 +195,7 @@ public:
 
     /**
      * @brief A set method to fix the maximum value for the observable.
-     * @param[in] the maximum value for the observable
+     * @param[in] max the maximum value for the observable
      */
     void setMax(double max)
     {
@@ -213,7 +213,7 @@ public:
     
     /**
      * @brief A set method to fix the minimum value for the observable.
-     * @param[in] the minimum value for the observable
+     * @param[in] min the minimum value for the observable
      */
     void setMin(double min) 
     {
@@ -285,7 +285,7 @@ public:
 
     /**
      * @brief A set method to fix the pointer to object of type ThObservable.
-     * @param[in] pointer to the object of type ThObservable
+     * @param[in] tho pointer to the object of type ThObservable
      */
     void setTho(ThObservable* tho)
     {

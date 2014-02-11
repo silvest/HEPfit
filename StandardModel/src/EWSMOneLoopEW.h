@@ -118,23 +118,23 @@ public:
 
     /**
      * @brief Leptonic contribution of @f$O(\alpha)@f$
-     * to the electromagnetic coupling @f$\alpha@f$,
+     * to the electromagnetic coupling @f$\alpha(s)@f$,
      * denoted as @f$\Delta\alpha_{\mathrm{lept}}^{\alpha}@f$.
      * @details This function uses the function PiGammaGamma_fer_l() for the
      * fermionic contribution to the photon self-energy.
      * @param[in] s invariant mass squared
-     * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha}@f$
+     * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha}(s)@f$
      */
     double DeltaAlpha_l(const double s) const;
 
     /**
      * @brief Top-quark contribution of @f$O(\alpha)@f$
-     * to the electromagnetic coupling @f$\alpha@f$,
+     * to the electromagnetic coupling @f$\alpha(s)@f$,
      * denoted as @f$\Delta\alpha_{\mathrm{top}}^{\alpha}@f$.
      * @details A simple numerical formula presented in @cite Kuhn:1998ze has
      * been employed.
      * @param[in] s invariant mass squared
-     * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha}@f$
+     * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha}(s)@f$
      */
     double DeltaAlpha_t(const double s) const;
 
@@ -219,11 +219,12 @@ public:
      * @f]
      * with the so-called unified form factors @f${\cal F}_Z(M_Z^2)@f$ and
      * @f${\cal F}_W(M_Z^2)@f$. 
-     * See also deltaRho_rem_l() and deltaRho_rem_q() as well as
-     * FZ(), FW_l() and FW_q().
      * @param[in] u_f the quantity @f$u_f@f$
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\rho_{\rm rem}^{f,\alpha}@f$
+     *
+     * @sa deltaRho_rem_l() and deltaRho_rem_q() as well as
+     * FZ(), FW_l() and FW_q()
      */
     complex deltaRho_rem_tmp(const complex u_f, const double Mw_i) const;
     
@@ -233,11 +234,11 @@ public:
      * denoted as @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha}@f$.
      * @details This function handles the remainder contribution
      * @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha}@f$ for @f$Z\to l\bar{l}@f$.
-     *
-     * See also the function deltaRho_rem_tmp().
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha}@f$
+     *
+     * @sa deltaRho_rem_tmp()
      */
     complex deltaRho_rem_l(const StandardModel::lepton l, const double Mw_i) const;
 
@@ -247,11 +248,11 @@ public:
      * denoted as @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha}@f$.
      * @details This function handles the remainder contribution
      * @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha}@f$ for @f$Z\to q\bar{q}@f$.
-     *
-     * See also the function deltaRho_rem_tmp().
      * @param[in] q name of a quark (see QCD::quark)
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha}@f$
+     *
+     * @sa deltaRho_rem_tmp()
      */
     complex deltaRho_rem_q(const QCD::quark q, const double Mw_i) const;
 
@@ -277,12 +278,14 @@ public:
      * @f}
      * with the so-called unified form factors @f${\cal F}_Z(M_Z^2)@f$ and
      * @f${\cal F}_W(M_Z^2)@f$.
-     * See also deltaKappa_rem_l() and deltaKappa_rem_q() as well as
-     * FZ(), FW_l() and FW_q().
      * @param[in] deltaf the quantity @f$\delta_f@f$
      * @param[in] uf the quantity @f$u_f@f$
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\kappa_{\rm rem}^{f,\,\alpha}@f$
+     *
+     * @sa deltaKappa_rem_l() and deltaKappa_rem_q() as well as
+     * FZ(), FW_l() and FW_q()
+
      */
     complex deltaKappa_rem_tmp(const double deltaf, const complex uf,
                                const double Mw_i) const;    
@@ -293,11 +296,11 @@ public:
      * denoted as @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha}@f$.
      * @details This function handles the remainder contribution
      * @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha}@f$ for @f$Z\to l\bar{l}@f$.
-     *
-     * See also the function deltaKappa_rem_tmp().
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha}@f$
+     *
+     * @sa deltaKappa_rem_tmp()
      */
     complex deltaKappa_rem_l(const StandardModel::lepton l, const double Mw_i) const;
                                                   
@@ -307,11 +310,11 @@ public:
      * denoted as @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha}@f$.
      * @details This function handles the remainder contribution
      * @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha}@f$ for @f$Z\to q\bar{q}@f$.
-     *
-     * See also the function deltaKappa_rem_tmp().
      * @param[in] q name of a quark (see QCD::quark)
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha}@f$
+     *
+     * @sa deltaKappa_rem_tmp()
      */
     complex deltaKappa_rem_q(const QCD::quark q, const double Mw_i) const;
     
@@ -369,35 +372,36 @@ public:
      * @param[in] Qi the electric charge of f_i
      * @param[in] Qj the electric charge of f_j
      * @param[in] Mw_i the @f$W@f$-boson mass
-     * @attention The masses of virtual fermions are neglected.
      * @return @f$\rho^W_{ij}@f$
+     *
+     * @attention The masses of virtual fermions are neglected.
      */
     double rho_GammaW_tmp(const double Qi, const double Qj, 
                           const double Mw_i) const;    
     
     /**
-     * @brief %EW radiative corrections to the widths of @f$W \to l_i \bar{l}_j@f$,
+     * @brief %EW radiative corrections to the width of @f$W \to l_i \bar{l}_j@f$,
      * denoted as @f$\rho^W_{ij}@f$.
-     * @details 
-     * See also rho_GammaW_tmp().
      * @param[in] li name of a neutrino (see StandardModel::lepton)
      * @param[in] lj name of a charged lepton (see StandardModel::lepton)
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\rho^W_{ij}@f$
+     *
+     * @sa rho_GammaW_tmp()
      */
     double rho_GammaW_l(const StandardModel::lepton li, 
                         const StandardModel::lepton lj, 
                         const double Mw_i) const;
 
     /**
-     * @brief %EW radiative corrections to the widths of @f$W \to q_i \bar{q}_j@f$,
+     * @brief %EW radiative corrections to the width of @f$W \to q_i \bar{q}_j@f$,
      * denoted as @f$\rho^W_{ij}@f$.
-     * @details
-     * See also rho_GammaW_tmp().
      * @param[in] qi name of an up-type quark (see QCD::quark)
      * @param[in] qj name of a down-type quark (see QCD::quark)
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\rho^W_{ij}@f$
+     *
+     * @sa rho_GammaW_tmp()
      */
     double rho_GammaW_q(const QCD::quark qi, 
                         const QCD::quark qj, 
@@ -643,8 +647,9 @@ public:
      * @details @f$\Delta\overline{\rho}^{\mathrm{bos}}@f$ is given without
      * the use of the self-energies of the gauge bosons.
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
-     * @attention The renormalization scale is fixed to be @f$\mu=M_W@f$.
      * @return @f$\Delta\overline{\rho}^{\mathrm{bos}}@f$
+     *
+     * @attention The renormalization scale is fixed to be @f$\mu=M_W@f$.
      */
     double TEST_DeltaRhobar_bos(const double Mw_i) const;
 
@@ -653,8 +658,9 @@ public:
      * @details @f$\Delta\overline{\rho}_W^{\mathrm{bos}}@f$ is given without
      * the use of the self-energies of the gauge bosons.
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
-     * @attention The renormalization scale is fixed to be @f$\mu=M_W@f$.
      * @return @f$\Delta\overline{\rho}_W^{\mathrm{bos}}@f$
+     *
+     * @attention The renormalization scale is fixed to be @f$\mu=M_W@f$.
      */
     double TEST_DeltaRhobarW_bos(const double Mw_i) const;    
 

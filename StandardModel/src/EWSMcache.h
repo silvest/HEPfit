@@ -68,9 +68,9 @@ public:
      * @details Setting CacheInEWSMcache to false, the caching methods
      * defined in the current class are not employed in numerical computations.
      * The flag is set to true in the constructor EWSMcache() by default.
-     * 
-     * See also @ref StandardModelFlags "the description of the StandardModel flags".
      * @param[in] FlagCacheInEWSMcache a boolean flag for caching
+     *
+     * @sa @ref StandardModelFlags "the description of the StandardModel flags"
      */
     void setFlagCacheInEWSMcache(bool FlagCacheInEWSMcache)
     {
@@ -242,11 +242,12 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @param[in] mu renormalization scale
      * @param[in] order order in QCD (= LO, FULLNLO, FULLNNLO[defalut])
-     * @attention If the flag #FlagDebug is set to true,
-     * @f$m_{u,d,s}(2\,\mathrm{GeV})@f$, @f$m_c(m_c)@f$, @f$m_b(m_b)@f$ or
-     * @f$m_t^{\mathrm{pole}}@f$ is returned. 
      * @return the MSbar mass of u, d, s, c, b at the scale mu
      * or the pole mass of t
+     *
+     * @attention If the flag #FlagDebug is set to true,
+     * @f$m_{u,d,s}(2\,\mathrm{GeV})@f$, @f$m_c(m_c)@f$, @f$m_b(m_b)@f$ or
+     * @f$m_t^{\mathrm{pole}}@f$ is returned.
      */
     double mq(const QCD::quark q, const double mu, 
               const orders order=FULLNNLO) const;
@@ -256,11 +257,12 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @param[in] mu renormalization scale
      * @param[in] order order in QCD (= LO, FULLNLO, FULLNNLO[defalut])
+     * @return the MSbar mass squared of u, d, s, c, b at the scale mu
+     * or the pole mass squared of t
+     *
      * @attention If the flag #FlagDebug is set to true,
      * @f$(m_{u,d,s}(2\,\mathrm{GeV}))^2@f$, @f$(m_c(m_c))^2@f$, @f$(m_b(m_b))^2@f$ or
      * @f$(m_t^{\mathrm{pole}})^2@f$ is returned.
-     * @return the MSbar mass squared of u, d, s, c, b at the scale mu
-     * or the pole mass squared of t
      */
     double mq2(const QCD::quark q, const double mu,
                const orders order=FULLNNLO) const
@@ -551,9 +553,10 @@ public:
     
     /**
      * @brief The quantity @f$X_t@f$ with the coupling @f$\alpha@f$.
-     * @details See also Xt_GF() and f_AlphaToGF(). 
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$X_t^{\alpha}@f$
+     * 
+     * @sa Xt_GF() and f_AlphaToGF()
      */
     double Xt_alpha(const double Mw_i) const 
     {
@@ -573,9 +576,10 @@ public:
 
     /**
      * @brief The strong coupling @f$\alpha_s(m_t^2)@f$ at NNLO.
-     * @attention The constant value @f$\alpha_s(m_t^2)=0.1074432788@f$ is
-     * returned when the flag #FlagDebug is set to true. 
      * @return @f$\alpha_s(m_t^2)@f$ at NNLO
+     *
+     * @attention The constant value @f$\alpha_s(m_t^2)=0.1074432788@f$ is
+     * returned when the flag #FlagDebug is set to true.
      */
     double alsMt() const 
     {
@@ -1323,10 +1327,11 @@ private:
      * @param[in] cache a cache of the parameters to be checked
      * @param[in] NumPar the number of the parameters to be checked
      * @param[in] params the parameters to be checked
-     * @attention If the flag #FlagCacheInEWSMcache is set to false, the current
-     * function always returns false.
      * @return true (false) if the parameters in params[] are (not) identical to
      * those in cache[].
+     *
+     * @attention If the flag #FlagCacheInEWSMcache is set to false, the current
+     * function always returns false.
      */
     bool CacheCheck(const double cache[], 
                     const int NumPar, const double params[]) const 
@@ -1349,6 +1354,7 @@ private:
      * @param[in] NumPar the number of the parameters
      * @param[in] params an array of the parameters
      * @param[in] newResult the new result of the quantity
+     *
      * @attention If the flag #FlagCacheInEWSMcache is set to false, the current
      * function does not modify cache[].
      */
@@ -1373,6 +1379,7 @@ private:
      * @param[in] NumPar the number of the parameters
      * @param[in] params an array of the parameters
      * @param[in] newResult the new result of the quantity
+     *
      * @attention If the flag #FlagCacheInEWSMcache is set to false, the current
      * function does not modify cache[].
      */

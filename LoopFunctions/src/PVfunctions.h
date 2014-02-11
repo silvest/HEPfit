@@ -292,12 +292,13 @@ public:
      * where @f$p_1+p_2+p_3+p_4=0@f$. 
      * The current functions handles only the special case of 
      * @f$p_1^2=p_2^2=p_3^2=p_4^2=0@f$.
-     * @attention Only the case of @f$s=t=0@f$ has been implemented. Other cases
-     * can be computed with the help of LoopTools library, by setting the
-     * preprocessor macro USE_LOOPTOOLS.
      * @param[in] s,t momentum squared, @f$s@f$ and @f$t@f$
      * @param[in] m02, m12, m22, m32 mass squared, @f$m_0^2@f$, @f$m_1^2@f$, @f$m_2^2@f$ and @f$m_3^2@f$
      * @return @f$D_{0}(0,0,0,0,s,t; m_0^2, m_1^2, m_2^2, m_3^2)@f$
+     *
+     * @warning Only the case of @f$s=t=0@f$ has been implemented. Other cases
+     * can be computed with the help of LoopTools library, by setting the
+     * preprocessor macro USE_LOOPTOOLS.
      */
     complex D0(const double s, const double t, const double m02, const double m12,
                const double m22, const double m32) const;
@@ -324,12 +325,13 @@ public:
      * where @f$q_N=\sum_{i=1}^N p_i@f$ and @f$p_1+p_2+p_3+p_4=0@f$.
      * The current functions handles only the special case of
      * @f$p_1^2=p_2^2=p_3^2=p_4^2=0@f$.
-     * @attention Only the case of @f$s=t=0@f$ has been implemented. Other cases
-     * can be computed with the help of LoopTools library, by setting the
-     * preprocessor macro USE_LOOPTOOLS.
      * @param[in] s,t momentum squared, @f$s@f$ and @f$t@f$
      * @param[in] m02, m12, m22, m32 mass squared, @f$m_0^2@f$, @f$m_1^2@f$, @f$m_2^2@f$ and @f$m_3^2@f$
      * @return @f$D_{00}(0,0,0,0,s,t; m_0^2, m_1^2, m_2^2, m_3^2)@f$
+     *
+     * @warning Only the case of @f$s=t=0@f$ has been implemented. Other cases
+     * can be computed with the help of LoopTools library, by setting the
+     * preprocessor macro USE_LOOPTOOLS.
      */
     complex D00(const double s, const double t, const double m02, const double m12,
                 const double m22, const double m32) const;

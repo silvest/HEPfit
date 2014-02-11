@@ -96,9 +96,10 @@ public:
     
     /**
      * @brief modifies the default values of flags which control various options
-     * @attention must be called before ZUWEAK
      * @param[in] CHFLAG the string identifer of a ZFITTER flag
      * @param[in] IVALUE the value to assign to the flag
+     *
+     * @attention must be called before ZUWEAK
      */
     void setFlag(const std::string CHFLAG, const int IVALUE) const;
 
@@ -327,7 +328,6 @@ public:
 
     /**
      * @brief calculates a cross section and a forward-backward asymmetry as functions of s, Mz, Gamma_Z and the weak couplings, assuming lepton universality
-     * @attention The couplings are squared.
      * @param[in] INDF fermion index [1-3, 11]
      * @param[in] SQRS sqrt(s)
      * @param[in] GAMZ0 the total width of Z
@@ -336,6 +336,8 @@ public:
      * @param[in] X2 eff. axial vector coupling or rho, squared
      * @param[out] XS cross section in nb
      * @param[out] AFB forward-backward asymmetry
+     *
+     * @attention The couplings are squared.
      */
     void calcXS_AFB_3(const int INDF, const double SQRS, const double GAMZ0,
                       const int MODE, const double GV2, const double X2,
@@ -423,8 +425,9 @@ private:
     
     /**
      * @brief initializes flag and cut variables with their default values. called by the constructors
-     * @attention must be called before any other ZFITTER routine.
      * @param[in] IPRINT 0 for no output
+     *
+     * @attention This method must be called before any other ZFITTER routine.
      */
     void init(const int IPRINT) const;
 

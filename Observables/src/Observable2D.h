@@ -83,7 +83,7 @@ public:
 
     /**
      * @brief A set method to fix the label for the second observable.
-     * @param[in] label the label for the second observable
+     * @param[in] label2 the label for the second observable
      */
     void setLabel2(std::string label2)
     {
@@ -101,7 +101,7 @@ public:
 
     /**
      * @brief A set method to fix the maximum value for the second observable.
-     * @param[in] the maximum value for the second observable
+     * @param[in] max2 the maximum value for the second observable
      */
     void setMax2(double max2)
     {
@@ -119,7 +119,7 @@ public:
 
     /**
      * @brief A set method to fix the minimum value for the second observable.
-     * @param[in] the minimum value for the second observable
+     * @param[in] min2 the minimum value for the second observable
      */
     void setMin2(double min2)
     {
@@ -137,7 +137,7 @@ public:
 
     /**
      * @brief A set method to fix the name of the second observable as listed in ThFactory class.
-     * @param[in] thname the name of the second observable as listed in ThFactory class
+     * @param[in] thname2 the name of the second observable as listed in ThFactory class
      */
     void setThname2(std::string thname2)
     {
@@ -157,7 +157,7 @@ public:
     /**
      * @brief A set method to fix the pointer to object of type ThObservable class for
      * the second observable.
-     * @param[in] pointer to the object of type ThObservable() for the second observable
+     * @param[in] tho2 pointer to the object of type ThObservable() for the second observable
      */
     void setTho2(ThObservable* tho2)
     {

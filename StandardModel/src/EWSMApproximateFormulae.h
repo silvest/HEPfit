@@ -236,14 +236,15 @@ public:
      * @f$M_Z = 91.1876\pm 0.0042@f$ GeV,
      * @f$m_t = 173.2\pm 2.0@f$ GeV and
      * @f$m_h = 125.7\pm 2.5@f$ GeV.
-     * @attention The function EWSMApproximateFormulae::X_extended is applicable to
-     * larger ranges of @f$M_Z@f$, @f$m_t@f$ and @f$m_h@f$.
      * @param[in] observable name of an observable to be computed:
      * "Gamma_nu", "Gamma_e_mu", "Gamma_tau", "Gamma_u", "Gamma_c", "Gamma_d_s",
      * "Gamma_b", "GammaZ", "sigmaHadron", "R0_lepton", "R0_charm", "R0_bottom"
      * @return @f$\Gamma_\nu@f$, @f$\Gamma_{e,\mu}@f$, @f$\Gamma_\tau@f$,
      * @f$\Gamma_u@f$, @f$\Gamma_c@f$, @f$\Gamma_{d,s}@f$, @f$\Gamma_b@f$,
      * @f$\Gamma_Z@f$, @f$\sigma^0_h@f$, @f$R^0_\ell@f$,  @f$R^0_c@f$, or @f$R^0_b@f$
+     *
+     * @attention The function EWSMApproximateFormulae::X_extended is applicable to
+     * larger ranges of @f$M_Z@f$, @f$m_t@f$ and @f$m_h@f$.
      */
     double X(const std::string observable) const;
 
@@ -267,14 +268,15 @@ public:
      * @f$M_Z = 91.1876\pm 0.0084@f$ GeV,
      * @f$165 < m_t < 190@f$ GeV and
      * @f$70 < m_h < 1000@f$ GeV.
-     * @attention The function EWSMApproximateFormulae::X is applicable to
-     * smaller ranges of @f$M_Z@f$, @f$m_t@f$ and @f$m_h@f$.
      * @param[in] observable name of an observable to be computed:
      * "Gamma_nu", "Gamma_e_mu", "Gamma_tau", "Gamma_u", "Gamma_c", "Gamma_d_s",
      * "Gamma_b", "GammaZ", "sigmaHadron", "R0_lepton", "R0_charm", "R0_bottom"
      * @return @f$\Gamma_\nu@f$, @f$\Gamma_{e,\mu}@f$, @f$\Gamma_\tau@f$,
      * @f$\Gamma_u@f$, @f$\Gamma_c@f$, @f$\Gamma_{d,s}@f$, @f$\Gamma_b@f$,
      * @f$\Gamma_Z@f$, @f$\sigma^0_h@f$, @f$R^0_\ell@f$,  @f$R^0_c@f$, or @f$R^0_b@f$
+     *
+     * @attention The function EWSMApproximateFormulae::X is applicable to
+     * smaller ranges of @f$M_Z@f$, @f$m_t@f$ and @f$m_h@f$.
      */
     double X_extended(const std::string observable) const;
 

@@ -49,21 +49,22 @@ public:
     /**
      * @brief Leptonic contribution of @f$O(\alpha^3)@f$
      * to the electromagnetic coupling @f$\alpha@f$,
-     * denoted as @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^3}@f$.
+     * denoted as @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^3}(s)@f$.
      * @details The expressions used here can be found in @cite Steinhauser:1998rq.
      * @param[in] s invariant mass squared
-     * @attention This function is valid in the limit of @f$s\gg m_l^2@f$. 
-     * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^3}@f$
+     * @return @f$\Delta\alpha_{\mathrm{lept}}^{\alpha^3}(s)@f$
+     *
+     * @attention This function is valid in the limit of @f$s\gg m_l^2@f$.
      */
     double DeltaAlpha_l(const double s) const;
 
     /**
      * @brief Top-quark contribution of @f$O(\alpha^3)@f$
      * to the electromagnetic coupling @f$\alpha@f$,
-     * denoted as @f$\Delta\alpha_{\mathrm{top}}^{\alpha^3}@f$.
+     * denoted as @f$\Delta\alpha_{\mathrm{top}}^{\alpha^3}(s)@f$.
      * @details This contribution is not implemented, since it is tiny and negligible.
      * @param[in] s invariant mass squared
-     * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha^3}=0@f$
+     * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha^3}(s)=0@f$
      */
     double DeltaAlpha_t(const double s) const;
     

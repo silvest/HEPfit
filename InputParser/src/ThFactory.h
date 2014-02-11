@@ -22,7 +22,9 @@
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details The list of available observables are as follows:
- *  
+ *
+ * @anchor ListOfObservables
+ *
  * Electroweak Precision Observables
  * <table class="observables">
  * <tr>

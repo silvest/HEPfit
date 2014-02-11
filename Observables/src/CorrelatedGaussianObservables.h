@@ -52,7 +52,7 @@ public:
 
     /**
      * @brief A method to add observables to the list of correlated Gaussian observables.
-     * @param obs_i reference to an object of type Observable
+     * @param Obs_i reference to an object of type Observable
      */
     void AddObs(Observable& Obs_i);
 
@@ -86,7 +86,6 @@ public:
 
     /**
      * @brief A get method to access the covariance matrix of the correlated Gaussian observables.
-     * @param the covariance matrix
      */
     gslpp::matrix<double> getCov() const
     {

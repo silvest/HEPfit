@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -442,96 +442,44 @@ namespace gslpp
       }
     return output;
   }
-  /** @{
-   * @name Operations on matrix<double>
-   */
-  /** Add a real number to a real matrix
-   * @ingroup matrix
-   * @param a Real number
-   * @param m Real matrix
-   * @return @f$ a + m @f$
-   */
+
   matrix<double> operator+(const double& a, matrix<double> m)
   {
     return m+a;
   }
 
-  /** Subtract a real number from a real matrix
-   * @ingroup matrix
-   * @param a Real number
-   * @param m Real matrix
-   * @return @f$ a - m @f$
-   */
   matrix<double> operator-(const double& a, matrix<double> m)
   {
     return -m+a;
   }
 
-  /** Multiply a real number by a real matrix
-   * @ingroup matrix
-   * @param a Real number
-   * @param m Real matrix
-   * @return @f$ a*m @f$
-   */
   matrix<double> operator*(const double& a, matrix<double> m)
   {
     return m*a;
   }
 
-  /** Multiply a real vector by a real matrix
-   * @ingroup matrix
-   * @param v Real vector
-   * @param m Real matrix
-   * @return @f$ v*m @f$
-   */
   vector<double> operator*(const vector<double>& v, matrix<double> m)
   {
     return m.transpose() * v;
   }
 
-  /** Multiply a complex vector by a real matrix
-   * @ingroup matrix
-   * @param v Complex vector
-   * @param m Real matrix
-   * @return @f$ v*m @f$
-   */
   vector<complex> operator*(const vector<complex>& v, matrix<double> m)
   {
     return m.transpose() * v;
   }
 
-  /** Add a complex number to a real matrix
-   * @ingroup matrix
-   * @param z Complex number
-   * @param m Real matrix
-   * @return @f$ z + v @f$
-   */
   matrix<complex> operator+(const complex& z, matrix<double> m)
   {
     return m+z;
   }
 
-  /** Subtract a complex number from a real matrix
-   * @ingroup matrix
-   * @param z Complex number
-   * @param m Real matrix
-   * @return @f$ z - m @f$
-   */
   matrix<complex> operator-(const complex& z, matrix<double> m)
   {
     return -m+z;
   }
 
-  /** Multiply a complex number by a real matrix
-   * @ingroup matrix
-   * @param z Complex number
-   * @param m Real matrix
-   * @return @f$ z*m @f$
-   */
   matrix<complex> operator*(const complex& z, matrix<double> m)
   {
     return m*z;
   }
-  /** @}
-   */
 }
