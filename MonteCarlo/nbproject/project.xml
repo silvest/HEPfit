@@ -32,6 +32,10 @@
                     <name>Cluster_MPI</name>
                     <type>3</type>
                 </confElem>
+                <confElem>
+                    <name>Debug_MPI</name>
+                    <type>3</type>
+                </confElem>
             </confList>
             <formatting>
                 <project-formatting-style>false</project-formatting-style>

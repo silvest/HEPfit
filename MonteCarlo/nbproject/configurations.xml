@@ -294,5 +294,52 @@
       <item path="src/MonteCarloEngine.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
+    <conf name="Debug_MPI" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>true</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <commandlineTool>mpic++</commandlineTool>
+          <incDir>
+            <pElem>../BAT_parallel/include</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../gslpp/src</pElem>
+            <pElem>../InputParser/src</pElem>
+            <pElem>../Flavour/src</pElem>
+            <pElem>../EW/src</pElem>
+            <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../ZFitterWrapper/src</pElem>
+            <pElem>../MFV/src</pElem>
+            <pElem>../SUSY/src</pElem>
+            <pElem>../FeynHiggs/include</pElem>
+            <pElem>../THDM/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
+            <pElem>../GeneralSUSY/src</pElem>
+            <pElem>../pMSSM/src</pElem>
+            <pElem>../boost</pElem>
+          </incDir>
+          <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
+          <preprocessorList>
+            <Elem>_MCDEBUG</Elem>
+            <Elem>_MPI</Elem>
+          </preprocessorList>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <item path="src/MonteCarlo.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="src/MonteCarlo.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/MonteCarloEngine.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="src/MonteCarloEngine.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
   </confs>
 </configurationDescriptor>

@@ -659,7 +659,6 @@ class BCEngineMCMC
       virtual void MCMCCurrentPointInterface(std::vector<double> & /*point*/, int /*ichain*/, bool /*accepted*/)
          {}
 /* Begin MPI MOD */
-    int rank;
     int procnum;
 /* End MPI MOD */
 
