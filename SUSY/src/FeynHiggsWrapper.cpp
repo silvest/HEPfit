@@ -364,7 +364,7 @@ bool FeynHiggsWrapper::CalcSpectrum()
 
     /* sfermions in NMFV */
     for (int i = 0; i < 6; i++) {
-        mySUSY.m_sn2(i) = MASf[0][i]*MASf[0][i];
+        mySUSY.m_sn2(i) = MASf[0][i]*MASf[0][i];// heavy decoupled masses for i=3-5
         mySUSY.m_se2(i) = MASf[1][i]*MASf[1][i];
         mySUSY.m_su2(i) = MASf[2][i]*MASf[2][i];
         mySUSY.m_sd2(i) = MASf[3][i]*MASf[3][i];
