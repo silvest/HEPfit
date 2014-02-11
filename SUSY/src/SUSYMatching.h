@@ -82,6 +82,13 @@ public:
      * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
      */
     virtual  std::vector<WilsonCoefficient>& CMbsg();
+        /**
+     *
+     * @brief li -> lj gamma
+     * @return
+     */
+    virtual std::vector<WilsonCoefficient>& CMDL1();
+    
     
 //    /**
 //     * 
@@ -163,6 +170,7 @@ private:
                       mcdk2HpT, mcdk2ggT, mcdk2ChiChiT, mcdk2Chi0Chi0T, mcdk2Chi0gT;
     WilsonCoefficient mcdd2, mcdd2Hp, mcdd2gg, mcdd2ChiChi, mcdd2Chi0Chi0, mcdd2Chi0g,
                       mcdd2HpT, mcdd2ggT, mcdd2ChiChiT, mcdd2Chi0Chi0T, mcdd2Chi0gT;
+    WilsonCoefficient mcDL1;
     
     WilsonCoefficient mcbsg, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     
@@ -171,10 +179,14 @@ private:
     std::vector<WilsonCoefficient> vmdk2;
     std::vector<WilsonCoefficient> vmdd2;
     std::vector<WilsonCoefficient> vmcbsg;
+    std::vector<WilsonCoefficient> vmDL1;
     
     gslpp::matrix<complex> myCKM;
     gslpp::matrix<complex> myRu;
     gslpp::matrix<complex> myRd;
+    gslpp::matrix<complex> myRl;
+    gslpp::matrix<double> mym_sn_sq;
+    gslpp::matrix<double> mym_se_sq;
     gslpp::vector<double> MChi0;
     gslpp::vector<double> MChi;
     gslpp::matrix<complex> myN;
@@ -220,6 +232,9 @@ private:
     
     /** Calcolous Neutralino contribution to Wilson Coefficents **/
     gslpp::vector<complex> CdF2dChi0Chi0(int b, int q, int Dmixingflag);
+        
+    gslpp::vector<complex> C7_Lepton();
+    
     
     /** Feynmann rule for the Chargino - down quark - up squarks vertex with tan beta correction  **/
     

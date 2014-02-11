@@ -33,7 +33,7 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcbdnn(1, NDR, NLO),
         mcbsmm(6, NDR, NLO),
         mcbdmm(6, NDR, NLO),
-        mcDL1(12, NDR, NLO),
+        mcDL1(2, NDR, LO),
         Vckm(3, 3, 0)
 {
     swa = 0.;
@@ -1456,16 +1456,16 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMDL1() {
     mcDL1.setMu(Muw);
     
     switch (mcDL1.getOrder()) {
+        case LO:
+            mcDL1.setCoeff(0, 0., LO);
+            mcDL1.setCoeff(1, 0., LO);
+            break;
         case NNLO:
         case NLO:
-            mcbdmm.setCoeff(0, 0., NLO);
-        case LO:
-            mcbdmm.setCoeff(0, 0., LO);
-            break;
         default:
             std::stringstream out;
             out << mcDL1.getOrder();
-            throw std::runtime_error("StandardModelMatching::CMDL1(): order " + out.str() + "not implemented");
+            throw std::runtime_error("StandardModelMatching::CMDL1(): order " + out.str() + " not implemented.\nFor lepton flavour violating observables only Leading Order (LO) necessary.");
     }
     
     vmcDL1.push_back(mcDL1);

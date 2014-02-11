@@ -64,10 +64,15 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     mcbnlepCC(10, NDR, NLO),
     mcd1(10, NDR, NLO),
     mcd1Buras(10, NDR, NLO),
+        
+    mcDL1(2, NDR, LO),
+    mym_sn_sq(6, 0.),
+    mym_se_sq(6, 0.),
 
     myCKM(3, 3, 0.),
     myRu(6, 6, 0.),
     myRd(6, 6, 0.),
+    myRl(6, 6, 0.),
     MChi0(4, 0.),
     MChi(2, 0.),
     myN(4, 4, 0.),
@@ -92,6 +97,9 @@ void SUSYMatching::updateSUSYParameters()
     mySUSY.getCKM().getCKM(myCKM);
     myRu = mySUSY.getRu();
     myRd = mySUSY.getRd();
+    myRl = mySUSY.getRl();
+    mym_sn_sq = mySUSY.getMsn2();
+    mym_se_sq = mySUSY.getMse2();
     Q = mySUSY.getQ();
     mu2R = Q * Q;
     tanb = mySUSY.getTanb();
@@ -3311,4 +3319,38 @@ gslpp::vector <complex> SUSYMatching::CalcC7(int b, int q) {
 
     vmcbsg.push_back(mcbsg);
     return (vmcbsg);
+}
+ 
+/* LEPTON FLAVOUR */
+
+gslpp::vector<complex> SUSYMatching::C7_Lepton() {
+    
+    gslpp::vector<complex> C7(2, 0.);
+    
+    C7.assign(0, 5.);
+    C7.assign(1, 6.);
+    
+    return(C7);
+}
+
+std::vector<WilsonCoefficient>& SUSYMatching::CMDL1() {
+    
+    vmcDL1 = StandardModelMatching::CMDL1();
+    
+    switch (mcDL1.getOrder()) {
+        case LO:
+            mcDL1.setCoeff(0, C7_Lepton()(0), LO);
+            mcDL1.setCoeff(1, C7_Lepton()(1), LO);
+            break;
+        case NNLO:
+        case NLO:
+        default:
+            std::stringstream out;
+            out << mcDL1.getOrder();
+            throw std::runtime_error("SSUSYlMatching::CMDL1(): order " + out.str() + " not implemented.\nFor lepton flavour violating observables only Leading Order (LO) necessary.");
+    }
+    
+    vmcDL1.push_back(mcDL1);
+    return(vmcDL1);
+    
 }
