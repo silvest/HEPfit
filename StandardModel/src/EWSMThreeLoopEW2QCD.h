@@ -106,7 +106,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha^2\alpha_s}=0@f$
      */
-    complex deltaRho_rem_q(const StandardModel::quark q, const double Mw_i) const;
+    complex deltaRho_rem_q(const QCD::quark q, const double Mw_i) const;
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^2\alpha_s)@f$
@@ -128,7 +128,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha^2\alpha_s}=0@f$
      */
-    complex deltaKappa_rem_q(const StandardModel::quark q, const double Mw_i) const;    
+    complex deltaKappa_rem_q(const QCD::quark q, const double Mw_i) const;    
     
     
     ////////////////////////////////////////////////////////////////////////        

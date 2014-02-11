@@ -30,7 +30,7 @@ double LEP2TwoFermions::dsigma_l(const StandardModel::lepton l, const double mf,
 }
 
 
-double LEP2TwoFermions::dsigma_q(const StandardModel::quark q, const double mf, 
+double LEP2TwoFermions::dsigma_q(const QCD::quark q, const double mf, 
                                  const double s, const double cosTheta,
                                  const double Mw, const double GammaZ, 
                                  const bool bWeak) const 
@@ -60,7 +60,7 @@ double LEP2TwoFermions::dsigma_l_box(const StandardModel::lepton l, const double
 }
 
 
-double LEP2TwoFermions::dsigma_q_box(const StandardModel::quark q, const double mf,
+double LEP2TwoFermions::dsigma_q_box(const QCD::quark q, const double mf,
                                      const double s, const double cosTheta,
                                      const double Mw, const double GammaZ) const 
 {
@@ -89,7 +89,7 @@ double LEP2TwoFermions::sigma_l(const StandardModel::lepton l, const double mf,
 }
 
 
-double LEP2TwoFermions::sigma_q(const StandardModel::quark q, const double mf, 
+double LEP2TwoFermions::sigma_q(const QCD::quark q, const double mf, 
                                 const double s, const double Mw, 
                                 const double GammaZ, const bool bWeak) const 
 {
@@ -118,7 +118,7 @@ double LEP2TwoFermions::AFB_l(const StandardModel::lepton l, const double mf,
 }
 
 
-double LEP2TwoFermions::AFB_q(const StandardModel::quark q, const double mf, 
+double LEP2TwoFermions::AFB_q(const QCD::quark q, const double mf, 
                               const double s, const double Mw, 
                               const double GammaZ, const bool bWeak) const 
 {
@@ -142,7 +142,7 @@ double LEP2TwoFermions::QCD_FSR_forSigma(const double s) const
 }
     
 
-double LEP2TwoFermions::QCD_FSR_forAFB(const StandardModel::quark q, 
+double LEP2TwoFermions::QCD_FSR_forAFB(const QCD::quark q, 
                                        const double mf, const double s) const 
 {
     return ( 1.0 - SM.Als(sqrt(s), FULLNLO)/M_PI*(1.0 - 16.0/3.0*mf/sqrt(s)) );
@@ -202,7 +202,7 @@ double LEP2TwoFermions::G_3prime_l(const StandardModel::lepton l,
 }
 
 
-double LEP2TwoFermions::G_3prime_q(const StandardModel::quark q, 
+double LEP2TwoFermions::G_3prime_q(const QCD::quark q, 
                                    const double mf, const double s,
                                    const double Mw, const double GammaZ, 
                                    const bool bWeak) const 

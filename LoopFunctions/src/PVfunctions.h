@@ -8,15 +8,16 @@
 #ifndef PVFUNCTIONS_H
 #define	PVFUNCTIONS_H
 
-#include <gslpp_complex.h>
-#include "Polylogarithms.h"
-#include "LoopToolsWrapper.h"
-
-using namespace gslpp;
-
-// set in case where LoopTools library is employed. 
+// set in case where LoopTools library is employed.
 //#define USE_LOOPTOOLS
 
+#include <gslpp_complex.h>
+#include "Polylogarithms.h"
+#ifdef USE_LOOPTOOLS
+#include "LoopToolsWrapper.h"
+#endif
+
+using namespace gslpp;
 
 /**
  * @class PVfunctions
@@ -336,8 +337,9 @@ public:
 private:
     double ExtraMinusSign;///< An overall factor for the one-point and three-point functions, initialized in PVfunctions().
     Polylogarithms myPolylog;///< An object of type Polylogarithms.
+#ifdef USE_LOOPTOOLS
     LoopToolsWrapper myLT;///< An object of type LoopToolsWrapper.
-
+#endif
 };
 
 #endif	/* PVFUNCTIONS_H */

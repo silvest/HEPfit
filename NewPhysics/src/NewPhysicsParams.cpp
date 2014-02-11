@@ -129,58 +129,58 @@ double NewPhysicsParams::computeThValue()
         } else
             return 0.0;
     } else if (name.compare("cHLp_NP") == 0) {
-        double cHL1p = (static_cast<const NPEffective*> (&SM))->getCHL1p();
-        double cHL2p = (static_cast<const NPEffective*> (&SM))->getCHL2p();
-        double cHL3p = (static_cast<const NPEffective*> (&SM))->getCHL3p();
+        double cHL1p = (static_cast<const NPEffective*> (&SM))->getCoeff("cHL1p");
+        double cHL2p = (static_cast<const NPEffective*> (&SM))->getCoeff("cHL2p");
+        double cHL3p = (static_cast<const NPEffective*> (&SM))->getCoeff("cHL3p");
         if ( (cHL1p == cHL2p) && (cHL2p == cHL3p) )
             return cHL1p;
         else
             throw std::runtime_error("NewPhysicsParams::computeThValue(): No lepton-flavor universality!");
     } else if (name.compare("cHQp_NP") == 0) {
-        double cHQ1p = (static_cast<const NPEffective*> (&SM))->getCHQ1p();
-        double cHQ2p = (static_cast<const NPEffective*> (&SM))->getCHQ2p();
-        double cHQ3p = (static_cast<const NPEffective*> (&SM))->getCHQ3p();
+        double cHQ1p = (static_cast<const NPEffective*> (&SM))->getCoeff("cHQ1p");
+        double cHQ2p = (static_cast<const NPEffective*> (&SM))->getCoeff("cHQ2p");
+        double cHQ3p = (static_cast<const NPEffective*> (&SM))->getCoeff("cHQ3p");
         if ( (cHQ1p == cHQ2p) && (cHQ2p == cHQ3p) )
             return cHQ1p;
         else
             throw std::runtime_error("NewPhysicsParams::computeThValue(): No quark-flavor universality!");
     } else if (name.compare("cHL_NP") == 0) {
-        double cHL1 = (static_cast<const NPEffective*> (&SM))->getCHL1();
-        double cHL2 = (static_cast<const NPEffective*> (&SM))->getCHL2();
-        double cHL3 = (static_cast<const NPEffective*> (&SM))->getCHL3();
+        double cHL1 = (static_cast<const NPEffective*> (&SM))->getCoeff("cHL1");
+        double cHL2 = (static_cast<const NPEffective*> (&SM))->getCoeff("cHL2");
+        double cHL3 = (static_cast<const NPEffective*> (&SM))->getCoeff("cHL3");
         if ( (cHL1 == cHL2) && (cHL2 == cHL3) )
             return cHL1;
         else
             throw std::runtime_error("NewPhysicsParams::computeThValue(): No lepton-flavor universality!");
     } else if (name.compare("cHQ_NP") == 0) {
-        double cHQ1 = (static_cast<const NPEffective*> (&SM))->getCHQ1();
-        double cHQ2 = (static_cast<const NPEffective*> (&SM))->getCHQ2();
-        double cHQ3 = (static_cast<const NPEffective*> (&SM))->getCHQ3();
+        double cHQ1 = (static_cast<const NPEffective*> (&SM))->getCoeff("cHQ1");
+        double cHQ2 = (static_cast<const NPEffective*> (&SM))->getCoeff("cHQ2");
+        double cHQ3 = (static_cast<const NPEffective*> (&SM))->getCoeff("cHQ3");
         if ( (cHQ1 == cHQ2) && (cHQ2 == cHQ3) )
             return cHQ1;
         else
             throw std::runtime_error("NewPhysicsParams::computeThValue(): No quark-flavor universality!");
     } else if (name.compare("cHE_NP") == 0) {
-        double cHE1 = (static_cast<const NPEffective*> (&SM))->getCHE1();
-        double cHE2 = (static_cast<const NPEffective*> (&SM))->getCHE2();
-        double cHE3 = (static_cast<const NPEffective*> (&SM))->getCHE3();
+        double cHE1 = (static_cast<const NPEffective*> (&SM))->getCoeff("cHE1");
+        double cHE2 = (static_cast<const NPEffective*> (&SM))->getCoeff("cHE2");
+        double cHE3 = (static_cast<const NPEffective*> (&SM))->getCoeff("cHE3");
         if ( (cHE1 == cHE2) && (cHE2 == cHE3) )
             return cHE1;
         else
             throw std::runtime_error("NewPhysicsParams::computeThValue(): No lepton-flavor universality!");
     } else if (name.compare("cHU2_NP") == 0)
-        return (static_cast<const NPEffective*> (&SM))->getCHU2();
+        return (static_cast<const NPEffective*> (&SM))->getCoeff("cHU2");
     else if (name.compare("cHD3_NP") == 0)
-        return (static_cast<const NPEffective*> (&SM))->getCHD3();
+        return (static_cast<const NPEffective*> (&SM))->getCoeff("cHD3");
     else if (name.compare("cHQ1pPLUScHQ2p_NP") == 0)
-        return ( (static_cast<const NPEffective*> (&SM))->getCHQ1p()
-                  + (static_cast<const NPEffective*> (&SM))->getCHQ2p() );
+        return ( (static_cast<const NPEffective*> (&SM))->getCoeff("cHQ1p")
+                  + (static_cast<const NPEffective*> (&SM))->getCoeff("cHQ2p") );
     else if (name.compare("cHQ2pMINUScHQ2_NP") == 0)
-        return ( (static_cast<const NPEffective*> (&SM))->getCHQ2p()
-                  - (static_cast<const NPEffective*> (&SM))->getCHQ2() );
+        return ( (static_cast<const NPEffective*> (&SM))->getCoeff("cHQ2p")
+                  - (static_cast<const NPEffective*> (&SM))->getCoeff("cHQ2") );
     else if (name.compare("cHQ3pPLUScHQ3_NP") == 0)
-        return ( (static_cast<const NPEffective*> (&SM))->getCHQ3p()
-                  + (static_cast<const NPEffective*> (&SM))->getCHQ3() );
+        return ( (static_cast<const NPEffective*> (&SM))->getCoeff("cHQ3p")
+                  + (static_cast<const NPEffective*> (&SM))->getCoeff("cHQ3") );
     else if (name.compare("c_Ae_NP") == 0) {
         double delGVe = (static_cast<const NPEffective*> (&SM))->deltaGVl(SM.ELECTRON);
         double delGAe = (static_cast<const NPEffective*> (&SM))->deltaGAl(SM.ELECTRON);

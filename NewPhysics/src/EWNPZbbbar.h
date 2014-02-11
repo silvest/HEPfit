@@ -12,13 +12,31 @@
 
 /**
  * @class EWNPZbbbar
- * @brief A class for new physics in the form of corrections to the \f$Zb\bar{b}\f$ vertices
+ * @brief A class for the fermionic neutral-current couplings,
+ * used together with NPZbbbar class.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class contains the functions to compute the fermionic neutral-current
- * couplings in presence of new physics contributing only to the bottom quark sector,
+ * couplings:
+ *
+ * @li @f$\rho_Z^f@f$&nbsp;&nbsp; (with rhoZ_l() and rhoZ_q()),
+ * @li @f$\kappa_Z^f@f$&nbsp;&nbsp; (with kappaZ_l() and kappaZ_q()),
+ * @li @f$g_V^f@f$&nbsp;&nbsp; (with gVl() and gVq()),
+ * @li @f$g_A^f@f$&nbsp;&nbsp; (with gAl() and gAq()),
+ *
+ * in presence of new physics (NP) contributing only to the bottom quark sector,
  * i.e. to \f$g_V^b\f$ and \f$g_A^b\f$ (or, equivalently, \f$\rho_Z^b\f$ and \f$\kappa_Z^b\f$).
+ * The definitions of the above couplings are given in the description of EWSM
+ * class.
+ *
+ * When the model flag @ref NPZbbbarFlags "NotLinearizedNP" defined in the model 
+ * class NPZbbbar is set to TRUE (equivalently, NPZbbbar::FlagNotLinearizedNP=false),
+ * the effective couplings for @f$f=b@f$ contain both SM and NP contributions.
+ * On the other hand, when the flag is FALSE, all the couplings are identical
+ * to the SM ones, and the NP contributions are included via NPZbbbar::deltaGVl(),
+ * NPZbbbar::deltaGVq(), NPZbbbar::deltaGAl() and NPZbbbar::deltaGAq().
+ *
  */
 class EWNPZbbbar : public EWSM {
 public:
@@ -33,64 +51,60 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief The effective leptonic neutral-current coupling @f$\rho_Z^l@f$.
-     * @param[in] l name of a lepton
-     * @return the (SM) effective neutral-current coupling @f$\rho_Z^l@f$
+     * @brief @copybrief EWSM::rhoZ_l()
+     * @details SM contribution only. 
+     * @copydetails EWSM::rhoZ_l()
      */
     virtual complex rhoZ_l(const StandardModel::lepton l) const;
 
     /**
-     * @brief The effective quark neutral-current coupling @f$\rho_Z^q@f$.
-     * @param[in] q name of a quark
-     * @return the effective neutral-current coupling @f$\rho_Z^q@f$ (Non-SM 
-     * contributions only for \f$q=b\f$)
+     * @brief @copybrief EWSM::rhoZ_q()
+     * @details Non-SM contribution only for \f$q=b\f$.
+     * @copydetails EWSM::rhoZ_q()
      */
-    virtual complex rhoZ_q(const StandardModel::quark q) const;
+    virtual complex rhoZ_q(const QCD::quark q) const;
 
     /**
-     * @brief The effective leptonic neutral-current coupling @f$\kappa_Z^l@f$.
-     * @param[in] l name of a lepton
-     * @return the (SM) effective neutral-current coupling @f$\kappa_Z^l@f$
+     * @brief @copybrief EWSM::kappaZ_l()
+     * @details SM contribution only.
+     * @copydetails EWSM::kappaZ_l()
      */
     virtual complex kappaZ_l(const StandardModel::lepton l) const;
 
     /**
-     * @brief The effective quark neutral-current coupling @f$\kappa_Z^q@f$.
-     * @param[in] q name of a quark
-     * @return the effective neutral-current coupling @f$\kappa_Z^q@f$ (Non-SM 
-     * contributions only for \f$q=b\f$)
+     * @brief @copybrief EWSM::kappaZ_q()
+     * @details Non-SM contribution only for \f$q=b\f$.
+     * @copydetails EWSM::kappaZ_q()
      */
-    virtual complex kappaZ_q(const StandardModel::quark q) const;
+    virtual complex kappaZ_q(const QCD::quark q) const;
 
     /**
-     * @brief The leptonic neutral-current vector coupling @f$g_V^l@f$.
-     * @param[in] l name of a lepton
-     * @return the (SM) neutral-current vector coupling @f$g_V^l@f$
+     * @brief @copybrief EWSM::gVl()
+     * @details SM contribution only.
+     * @copydetails EWSM::gVl()
      */
     virtual complex gVl(const StandardModel::lepton l) const;
 
     /**
-     * @brief The quark neutral-current vector coupling @f$g_V^q@f$.
-     * @param[in] q name of a quark
-     * @return the neutral-current vector coupling @f$g_V^q@f$ (Non-SM 
-     * contributions only for \f$q=b\f$)
+     * @brief @copybrief EWSM::gVq()
+     * @details Non-SM contribution only for \f$q=b\f$.
+     * @copydetails EWSM::gVq()
      */
-    virtual complex gVq(const StandardModel::quark q) const;
+    virtual complex gVq(const QCD::quark q) const;
 
     /**
-     * @brief The leptonic neutral-current axial-vector coupling @f$g_A^l@f$.
-     * @param[in] l name of a lepton
-     * @return the (SM) neutral-current axial-vector coupling @f$g_A^l@f$
+     * @brief @copybrief EWSM::gAl()
+     * @details SM contribution only.
+     * @copydetails EWSM::gAl()
      */
     virtual complex gAl(const StandardModel::lepton l) const;
 
     /**
-     * @brief The quark neutral-current axial-vector coupling @f$g_A^q@f$.
-     * @param[in] q name of a quark
-     * @return the neutral-current axial-vector coupling @f$g_A^q@f$ (Non-SM 
-     * contributions only for \f$q=b\f$)
+     * @brief @copybrief EWSM::gAq()
+     * @details Non-SM contribution only for \f$q=b\f$.
+     * @copydetails EWSM::gAq()
      */
-    virtual complex gAq(const StandardModel::quark q) const;
+    virtual complex gAq(const QCD::quark q) const;
 
 
 };

@@ -23,7 +23,7 @@ NPSTU::NPSTU()
 bool NPSTU::InitializeModel()
 {
     setModelInitialized(NPbase::InitializeModel());
-    return (IsModelInitialized());
+    return(IsModelInitialized());
 }
 
 
@@ -87,19 +87,27 @@ bool NPSTU::CheckFlags() const
 
 double NPSTU::epsilon1() const
 {
-    return ( myEWSM->epsilon1_SM() + obliqueThat() );
+    double That = alphaMz()*obliqueT();
+
+    return ( myEWSM->epsilon1_SM() + That );
 }
 
 
 double NPSTU::epsilon2() const
 {
-    return ( myEWSM->epsilon2_SM() + obliqueUhat() );
+    double sW2_SM = myEWSM->sW2_SM(); /* This has to be the SM value. */
+    double Uhat = - alphaMz()/(4.0*sW2_SM)*obliqueU();
+
+    return ( myEWSM->epsilon2_SM() + Uhat );
 }
 
 
 double NPSTU::epsilon3() const
 {
-    return ( myEWSM->epsilon3_SM() + obliqueShat() );
+    double sW2_SM = myEWSM->sW2_SM(); /* This has to be the SM value. */
+    double Shat = alphaMz()/(4.0*sW2_SM)*obliqueS();
+
+    return ( myEWSM->epsilon3_SM() + Shat );
 }
 
 
@@ -107,58 +115,5 @@ double NPSTU::epsilonb() const
 {
     return myEWSM->epsilonb_SM();
 }
-
-////////////////////////////////////////////////////////////////////////
-
-double NPSTU::Mw() const
-{
-    double myMw = myEWSM->Mw_SM();
-
-    double alpha = StandardModel::alphaMz();
-    double c2 = myEWSM->cW2_SM();
-    double s2 = myEWSM->sW2_SM();
-
-    myMw *= 1.0 - alpha/4.0/(c2-s2)
-            *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 );
-
-    //std::cout << "Mw: c_S=" << - alpha/4.0/(c2-s2) << std::endl;
-    //std::cout << "Mw: c_T=" << - alpha/4.0/(c2-s2)*(- 2.0*c2) << std::endl;
-    //std::cout << "Mw: c_U=" << - alpha/4.0/(c2-s2)*(- (c2-s2)/2.0/s2) << std::endl;
-
-    return myMw;
-}
-
-
-double NPSTU::cW2() const
-{
-    return ( Mw()*Mw()/Mz/Mz );
-}
-
-
-double NPSTU::sW2() const
-{
-    return ( 1.0 - cW2() );
-}
-
-
-double NPSTU::GammaW() const
-{
-    double Gamma_W = myEWSM->GammaW_SM();
-
-    double alpha = StandardModel::alphaMz();
-    double c2 = myEWSM->cW2_SM();
-    double s2 = myEWSM->sW2_SM();
-
-    Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
-               *( obliqueS() - 2.0*c2*obliqueT()
-                  - (c2-s2)*obliqueU()/2.0/s2 );
-
-    //std::cout << "Gw: c_S=" << - 3.0*alpha/4.0/(c2-s2) << std::endl;
-    //std::cout << "Gw: c_T=" << - 3.0*alpha/4.0/(c2-s2)*(- 2.0*c2) << std::endl;
-    //std::cout << "Gw: c_U=" << - 3.0*alpha/4.0/(c2-s2)*(- (c2-s2)/2.0/s2) << std::endl;
-
-    return Gamma_W;
-}
-
 
 

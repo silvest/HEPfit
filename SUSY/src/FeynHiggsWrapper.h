@@ -317,8 +317,8 @@ private:
 
     /**
      * Sort sfermion masses in increasing order.
-     * @param[in/out] m_sf2 A vector of sfermion mass squared.
-     * @param[in/out] Rf The corresponding rotation matrix.
+     * @param[in,out] m_sf2 A vector of sfermion mass squared.
+     * @param[in,out] Rf The corresponding rotation matrix.
      */
     void SortSfermionMasses(vector<double>& m_sf2, matrix<complex>& Rf) const;
 

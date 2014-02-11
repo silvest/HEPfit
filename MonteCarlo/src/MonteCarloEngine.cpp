@@ -288,7 +288,7 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
 
     double logprob = 0.;
 
-    for (int k = 0; k < parameters.size(); k++) {
+    for (unsigned int k = 0; k < parameters.size(); k++) {
         //        std::string pippo = GetParameter(k)->GetName();
         //        double pluto = parameters[k];
         //        DPars[pippo]=pluto;
@@ -611,7 +611,7 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out,
 
 void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string OutputDir) {
     std::vector<double> mode(GetBestFitParameters());
-    for (int k = 0; k < GetNParameters(); k++)
+    for (unsigned int k = 0; k < GetNParameters(); k++)
         DPars[GetParameter(k)->GetName()] = mode[k];
     Mod->Update(DPars);
 
@@ -669,12 +669,12 @@ void MonteCarloEngine::AddChains() {
     for (std::vector<Observable>::iterator it = Obs_ALL.begin();
             it < Obs_ALL.end(); it++) {
         if (!it->isTMCMC()) {
-            for (int i = 0; i < fMCMCNChains; ++i)
+            for (unsigned int i = 0; i < fMCMCNChains; ++i)
                 fMCMCTrees[i]->Branch(it->getName().c_str(), &obval[i * kmax + k],
                     (it->getName() + "/D").c_str());
             k++;
             if (it->getDistr().compare("noweight") != 0) {
-                for (int i = 0; i < fMCMCNChains; ++i)
+                for (unsigned int i = 0; i < fMCMCNChains; ++i)
                     fMCMCTrees[i]->Branch((it->getName() + "_weight").c_str(),
                         &obweight[i * kwmax + kweight],
                         (it->getName() + "_weight/D").c_str());

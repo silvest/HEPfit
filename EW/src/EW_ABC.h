@@ -32,7 +32,7 @@ public:
 
     double Mw(const bool bAlternative) const;
     double Gamma_l(StandardModel::lepton l) const;
-    double Gamma_q(StandardModel::quark q) const;
+    double Gamma_q(QCD::quark q) const;
     double Gamma_b() const;
     
     double Gamma_had() const;
@@ -45,7 +45,7 @@ public:
     double sigma0_had(const bool bAlternative) const;
     
     double A_l(StandardModel::lepton l, const bool bAlternative) const;
-    double A_q(StandardModel::quark q) const;
+    double A_q(QCD::quark q) const;
     double A_b() const;
     
     double AFB_l(StandardModel::lepton l, const bool bAlternative) const;
@@ -68,9 +68,9 @@ public:
     complex gVl(StandardModel::lepton l) const;
     complex gAl(StandardModel::lepton l) const;
     complex gVl_over_gAl(StandardModel::lepton l) const;
-    complex gVq(StandardModel::quark q) const;
-    complex gAq(StandardModel::quark q) const;
-    complex gVq_over_gAq(StandardModel::quark q) const;
+    complex gVq(QCD::quark q) const;
+    complex gAq(QCD::quark q) const;
+    complex gVq_over_gAq(QCD::quark q) const;
     complex gVb() const;
     complex gAb() const;
     complex gVb_over_gAb() const;

@@ -29,7 +29,7 @@ double LEP2oblique::sigma_l_LEP2_NP(const StandardModel::lepton l,
 }
 
 
-double LEP2oblique::sigma_q_LEP2_NP(const StandardModel::quark q, 
+double LEP2oblique::sigma_q_LEP2_NP(const QCD::quark q, 
                                     const double s, const double mq,
                                     const double ObParam_i[]) const
 {
@@ -61,7 +61,7 @@ double LEP2oblique::AFB_l_LEP2_NP(const StandardModel::lepton l,
 }
 
 
-double LEP2oblique::AFB_q_LEP2_NP(const StandardModel::quark q, 
+double LEP2oblique::AFB_q_LEP2_NP(const QCD::quark q, 
                                   const double s, const double mq,
                                   const double ObParam_i[]) const
 {
@@ -80,7 +80,7 @@ double LEP2oblique::AFB_q_LEP2_NP(const StandardModel::quark q,
 }
 
 
-double LEP2oblique::R_q_LEP2_NP(const StandardModel::quark q, 
+double LEP2oblique::R_q_LEP2_NP(const QCD::quark q, 
                                 const double s, const double mq,
                                 const double ObParam_i[]) const
 {
@@ -168,7 +168,7 @@ double LEP2oblique::vl(const StandardModel::lepton l, const double alpha0) const
 }
 
 
-double LEP2oblique::vq(const StandardModel::quark q, const double alpha0) const 
+double LEP2oblique::vq(const QCD::quark q, const double alpha0) const 
 {
     double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
     double Q = myEW.getSM().getQuarks(q).getCharge();
@@ -184,7 +184,7 @@ double LEP2oblique::al(const StandardModel::lepton l, const double alpha0) const
 }
 
 
-double LEP2oblique::aq(const StandardModel::quark q, const double alpha0) const 
+double LEP2oblique::aq(const QCD::quark q, const double alpha0) const 
 {
     double c0 = sqrt(c02(alpha0)), s0 = sqrt(s02(alpha0));
     return ( - myEW.getSM().getQuarks(q).getIsospin()/(2.0*s0*c0) );     
@@ -235,7 +235,7 @@ double LEP2oblique::G1_l_NP(const StandardModel::lepton l,
 }
 
 
-double LEP2oblique::G1_q_NP(const StandardModel::quark q, 
+double LEP2oblique::G1_q_NP(const QCD::quark q, 
                             const double s, const double alpha0, 
                             const double ObParam_i[]) const
 {
@@ -284,7 +284,7 @@ double LEP2oblique::G3_l_NP(const StandardModel::lepton l,
 }
 
 
-double LEP2oblique::G3_q_NP(const StandardModel::quark q, 
+double LEP2oblique::G3_q_NP(const QCD::quark q, 
                             const double s, const double alpha0, 
                             const double ObParam_i[]) const
 {
@@ -321,7 +321,7 @@ double LEP2oblique::G1_l_SM0(const StandardModel::lepton l,
 }
 
 
-double LEP2oblique::G1_q_SM0(const StandardModel::quark q, 
+double LEP2oblique::G1_q_SM0(const QCD::quark q, 
                              const double s, const double alpha0) const 
 {
     double Qf = myEW.getSM().getQuarks(q).getCharge();
@@ -357,7 +357,7 @@ double LEP2oblique::G2_l_SM0(const StandardModel::lepton l,
 }
 
 
-double LEP2oblique::G2_q_SM0(const StandardModel::quark q, 
+double LEP2oblique::G2_q_SM0(const QCD::quark q, 
                              const double s, const double alpha0) const
 {
     double Qf = myEW.getSM().getQuarks(q).getCharge();
@@ -391,7 +391,7 @@ double LEP2oblique::G3_l_SM0(const StandardModel::lepton l,
 }
 
 
-double LEP2oblique::G3_q_SM0(const StandardModel::quark q, 
+double LEP2oblique::G3_q_SM0(const QCD::quark q, 
                              const double s, const double alpha0) const 
 {
     double Qf = myEW.getSM().getQuarks(q).getCharge();
@@ -414,7 +414,7 @@ double LEP2oblique::sigma_l_LEP2_SM0(const StandardModel::lepton l,
 }
 
 
-double LEP2oblique::sigma_q_LEP2_SM0(const StandardModel::quark q, 
+double LEP2oblique::sigma_q_LEP2_SM0(const QCD::quark q, 
                                      const double s, const double alpha0, 
                                      const double mq) const 
 {

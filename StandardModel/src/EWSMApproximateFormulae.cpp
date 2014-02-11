@@ -132,7 +132,7 @@ double EWSMApproximateFormulae::sin2thetaEff_l(const StandardModel::lepton l) co
 }
 
  
-double EWSMApproximateFormulae::sin2thetaEff_q(const StandardModel::quark q) const
+double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
 {
     // applicable for 10 GeV <= mHl <= 1 TeV
     if( SM.getMHl() < 10.0 || SM.getMHl() > UpperBoundForApproximateFormulae ) {

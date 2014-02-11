@@ -66,6 +66,20 @@ EWSM::EWSM(const StandardModel& SM_i)
 }
 
 
+EWSM::~EWSM()
+{
+    if (myTwoFermionsLEP2 != NULL) delete myTwoFermionsLEP2;
+    if (myApproximateFormulae != NULL) delete myApproximateFormulae;
+    if (myThreeLoopEW != NULL) delete myThreeLoopEW;
+    if (myThreeLoopEW2QCD != NULL) delete myThreeLoopEW2QCD;
+    if (myTwoLoopEW != NULL) delete myTwoLoopEW;
+    if (myThreeLoopQCD != NULL) delete myThreeLoopQCD;
+    if (myTwoLoopQCD != NULL) delete myTwoLoopQCD;
+    if (myOneLoopEW != NULL) delete myOneLoopEW;
+    if (myCache != NULL) delete myCache;
+}
+
+
 ////////////////////////////////////////////////////////////////////////
 
 bool EWSM::checkSMparams(double Params_cache[], const bool bUpdate) const
@@ -191,11 +205,6 @@ double EWSM::alphaMz() const
 
 
 ////////////////////////////////////////////////////////////////////////
-
-double EWSM::Mw0() const
-{
-    return ( sqrt(c02())*myCache->Mz() );
-}
 
 double EWSM::s02() const
 {
@@ -404,7 +413,7 @@ complex EWSM::rhoZ_l_SM(const StandardModel::lepton l) const
 }
 
 
-complex EWSM::rhoZ_q_SM(const StandardModel::quark q) const 
+complex EWSM::rhoZ_q_SM(const QCD::quark q) const 
 {    
     if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
     if (SM.getFlagRhoZ().compare("APPROXIMATEFORMULA") == 0)
@@ -472,7 +481,7 @@ complex EWSM::rhoZ_q_SM(const StandardModel::quark q) const
 }
 
 
-complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const 
+complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const
 {
     if (FlagCacheInEWSM)
         if (checkSMparams(kappaZ_l_params_cache[(int)l]))
@@ -482,14 +491,14 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const
     
     double ReKappaZf = 0.0, ImKappaZf = 0.0;
     if (SM.getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0) {
-        ReKappaZf = myApproximateFormulae->sin2thetaEff_l(l)/sW2_SM(); 
+        ReKappaZf = myApproximateFormulae->sin2thetaEff_l(l)/sW2_SM();
         ImKappaZf = myOneLoopEW->deltaKappa_rem_l(l,Mw).imag();
         #ifdef WITHIMTWOLOOPQCD
         ImKappaZf += myTwoLoopQCD->deltaKappa_rem_l(l,Mw).imag();
 
         /* TEST */
         //ImKappaZf -= myCache->ale()*myCache->alsMz()/24.0/M_PI*(cW2_SM() - sW2_SM())/sW2_SM()/sW2_SM();
-        #endif         
+        #endif
     } else {
         /* compute Delta rho */
         double DeltaRho[orders_EW_size];
@@ -547,7 +556,7 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const
 }
 
 
-complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const 
+complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
 {
     if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
     
@@ -559,14 +568,14 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
     
     double ReKappaZf = 0.0,  ImKappaZf = 0.0;    
     if (SM.getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0) {
-        ReKappaZf = myApproximateFormulae->sin2thetaEff_q(q)/sW2_SM(); 
+        ReKappaZf = myApproximateFormulae->sin2thetaEff_q(q)/sW2_SM();
         ImKappaZf = myOneLoopEW->deltaKappa_rem_q(q,Mw).imag();
         #ifdef WITHIMTWOLOOPQCD
         ImKappaZf += myTwoLoopQCD->deltaKappa_rem_q(q,Mw).imag();
         
         /* TEST */
         //ImKappaZf -= myCache->ale()*myCache->alsMz()/24.0/M_PI*(cW2_SM() - sW2_SM())/sW2_SM()/sW2_SM();
-        #endif                   
+        #endif
     } else { 
         /* compute Delta rho */
         double DeltaRho[orders_EW_size];
@@ -634,7 +643,7 @@ complex EWSM::gVl_SM(const StandardModel::lepton l) const
 }
 
 
-complex EWSM::gVq_SM(const StandardModel::quark q) const
+complex EWSM::gVq_SM(const QCD::quark q) const
 {
     double Qq = SM.getQuarks(q).getCharge();
     return ( gAq_SM(q)
@@ -649,7 +658,7 @@ complex EWSM::gAl_SM(const StandardModel::lepton l) const
 }
 
 
-complex EWSM::gAq_SM(const StandardModel::quark q) const
+complex EWSM::gAq_SM(const QCD::quark q) const
 {
     double I3q = SM.getQuarks(q).getIsospin();
     return ( sqrt(rhoZ_q_SM(q))*I3q );
@@ -664,7 +673,7 @@ complex EWSM::rhoZ_l(const StandardModel::lepton l) const
 }
 
 
-complex EWSM::rhoZ_q(const StandardModel::quark q) const
+complex EWSM::rhoZ_q(const QCD::quark q) const
 {
     return rhoZ_q_SM(q);
 }
@@ -676,7 +685,7 @@ complex EWSM::kappaZ_l(const StandardModel::lepton l) const
 }
 
 
-complex EWSM::kappaZ_q(const StandardModel::quark q) const
+complex EWSM::kappaZ_q(const QCD::quark q) const
 {
     return kappaZ_q_SM(q);
 }
@@ -688,7 +697,7 @@ complex EWSM::gVl(const StandardModel::lepton l) const
 }
 
 
-complex EWSM::gVq(const StandardModel::quark q) const
+complex EWSM::gVq(const QCD::quark q) const
 {
     return gVq_SM(q);
 }
@@ -700,7 +709,7 @@ complex EWSM::gAl(const StandardModel::lepton l) const
 }
 
 
-complex EWSM::gAq(const StandardModel::quark q) const
+complex EWSM::gAq(const QCD::quark q) const
 {
     return gAq_SM(q);
 }
@@ -750,7 +759,7 @@ complex EWSM::rhoZ_l_SM_FlavorDep(const StandardModel::lepton l) const
 }
 
 
-complex EWSM::rhoZ_q_SM_FlavorDep(StandardModel::quark q) const 
+complex EWSM::rhoZ_q_SM_FlavorDep(QCD::quark q) const 
 {
     if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
 
@@ -797,7 +806,7 @@ complex EWSM::kappaZ_l_SM_FlavorDep(const StandardModel::lepton l) const
 }
 
 
-complex EWSM::kappaZ_q_SM_FlavorDep(StandardModel::quark q) const 
+complex EWSM::kappaZ_q_SM_FlavorDep(QCD::quark q) const 
 {
     if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
 
@@ -918,8 +927,8 @@ double EWSM::rho_GammaW_l_SM(const StandardModel::lepton li,
 }
 
 
-double EWSM::rho_GammaW_q_SM(const StandardModel::quark qi, 
-                             const StandardModel::quark qj) const 
+double EWSM::rho_GammaW_q_SM(const QCD::quark qi, 
+                             const QCD::quark qj) const 
 {
     double Mw = Mw_SM();
     double rhoW = 0.0;
@@ -945,8 +954,8 @@ double EWSM::GammaW_l_SM(const StandardModel::lepton li,
 }
     
     
-double EWSM::GammaW_q_SM(const StandardModel::quark qi, 
-                         const StandardModel::quark qj) const 
+double EWSM::GammaW_q_SM(const QCD::quark qi, 
+                         const QCD::quark qj) const 
 {
     if ( ((int)qi+2)%2 || ((int)qj+3)%2 ) 
         throw std::runtime_error("Error in EWSM::GammaW_q_SM()"); 
@@ -1078,7 +1087,7 @@ double EWSM::resumMw(const double Mw_i, const double DeltaRho[orders_EW_size],
     double cW2_TMP = Mw_i*Mw_i/myCache->Mz()/myCache->Mz();
     double sW2_TMP = 1.0 - cW2_TMP;
     
-    double f_AlphaToGF, DeltaRho_sum = 0.0, DeltaRho_G;
+    double f_AlphaToGF, DeltaRho_sum = 0.0, DeltaRho_G = 0.0;
     if (SM.getFlagMw().compare("NORESUM") == 0) {
         for (int j=0; j<orders_EW_size; ++j) {
             //f_AlphaToGF = sqrt(2.0)*myCache->GF()*pow(myCache->Mz(),2.0)*sW2_TMP*cW2_TMP/M_PI/myCache->ale();

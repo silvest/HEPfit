@@ -291,7 +291,7 @@ double SUSY::Mw() const
 
 double SUSY::Mw_dRho() const
 {
-    double delRho = myFH->getFHdeltarho();
+    //double delRho = myFH->getFHdeltarho();
     //std::cout << "DeltaRho = " << delRho << std::endl;
 
     /* Delta rho approximation */

@@ -113,7 +113,7 @@ double EW_CHMN::gR_l(const StandardModel::lepton l) const
 }
 
 
-double EW_CHMN::gL_q(const StandardModel::quark q) const
+double EW_CHMN::gL_q(const QCD::quark q) const
 {
     double c1, c2, c3;
     switch (q) {
@@ -151,7 +151,7 @@ double EW_CHMN::gL_q(const StandardModel::quark q) const
 }
 
 
-double EW_CHMN::gR_q(const StandardModel::quark q) const
+double EW_CHMN::gR_q(const QCD::quark q) const
 {
     double c1, c2, c3;
     switch (q) {
@@ -203,7 +203,7 @@ double EW_CHMN::GammaZ_l(StandardModel::lepton l) const
 }
 
 
-double EW_CHMN::GammaZ_q(StandardModel::quark q) const
+double EW_CHMN::GammaZ_q(QCD::quark q) const
 {
     double Qf = SM.getQuarks(q).getCharge();
     double gL = gL_q(q);
@@ -270,7 +270,7 @@ double EW_CHMN::A_l(const StandardModel::lepton l) const
 }
 
 
-double EW_CHMN::A_q(const StandardModel::quark q) const
+double EW_CHMN::A_q(const QCD::quark q) const
 {
     double gL = gL_q(q);
     double gR = gR_q(q);
@@ -285,7 +285,7 @@ double EW_CHMN::AFB_l(const StandardModel::lepton l) const
 }
 
 
-double EW_CHMN::AFB_q(const StandardModel::quark q) const
+double EW_CHMN::AFB_q(const QCD::quark q) const
 {
     return ( 3.0/4.0*A_l(StandardModel::ELECTRON)
              *A_q(q) );    
@@ -436,7 +436,7 @@ double EW_CHMN::CV_l(StandardModel::lepton l) const
 }
 
 
-double EW_CHMN::CV_q(StandardModel::quark q) const 
+double EW_CHMN::CV_q(QCD::quark q) const 
 {
     switch (q) {
         case StandardModel::UP:
@@ -471,7 +471,7 @@ double EW_CHMN::CA_l(StandardModel::lepton l) const
 }
 
 
-double EW_CHMN::CA_q(StandardModel::quark q) const 
+double EW_CHMN::CA_q(QCD::quark q) const 
 {
     switch (q) {
         case StandardModel::UP:
@@ -507,7 +507,7 @@ double EW_CHMN::deltaImKappa_l(StandardModel::lepton l) const
 }
     
     
-double EW_CHMN::deltaImKappa_q(StandardModel::quark q) const 
+double EW_CHMN::deltaImKappa_q(QCD::quark q) const 
 {
     switch (q) {
         case StandardModel::UP:
@@ -541,7 +541,7 @@ double EW_CHMN::DeltaEWQCD_l(StandardModel::lepton l) const
 }
     
 
-double EW_CHMN::DeltaEWQCD_q(StandardModel::quark q) const 
+double EW_CHMN::DeltaEWQCD_q(QCD::quark q) const 
 {
     switch (q) {
         case StandardModel::UP:

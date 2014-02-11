@@ -110,7 +110,7 @@ namespace gslpp {
   vector<complex> vector<complex>::conjugate() const
   {
     vector<complex> v1(*this);
-    for(int i=0 ; i < v1.size(); i++)
+    for(unsigned int i=0 ; i < v1.size(); i++)
         v1.assign(i, v1(i).conjugate());
 
     return v1;

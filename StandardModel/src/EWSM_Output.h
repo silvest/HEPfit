@@ -37,7 +37,7 @@ public:
 
     void outputEachDeltaRhoZ_l(const StandardModel::lepton l, const double Mw_i) const;
 
-    void outputEachDeltaRhoZ_q(const StandardModel::quark q, const double Mw_i) const;
+    void outputEachDeltaRhoZ_q(const QCD::quark q, const double Mw_i) const;
 
     void outputEachDeltaRhoZ(const double f_AlphaToGF,
                              const double DeltaRho[EWSM::orders_EW_size],
@@ -48,7 +48,7 @@ public:
 
     void outputEachDeltaKappaZ_l(const StandardModel::lepton l, const double Mw_i) const;
 
-    void outputEachDeltaKappaZ_q(const StandardModel::quark q, const double Mw_i) const;
+    void outputEachDeltaKappaZ_q(const QCD::quark q, const double Mw_i) const;
 
     void outputEachDeltaKappaZ(const double f_AlphaToGF,
                                const double cW2overSW2,

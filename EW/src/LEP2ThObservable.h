@@ -11,7 +11,7 @@
 #include <stdexcept>
 #include <cstring>
 #include <ThObservable.h>
-#include <NPbase.h>
+#include <NPSTUVWXY.h>
 #include "EWSM.h"
 #include "EW.h"
 #include "LEP2TwoFermions.h"
@@ -71,13 +71,13 @@ public:
                 || Model.compare("NPSTUVWXY") == 0
                 || Model.compare("NPHiggsST") == 0
                 || Model.compare("THDM") == 0)
-                && ((static_cast<const NPbase*> (&SM))->obliqueShat()!=0.0
-                || (static_cast<const NPbase*> (&SM))->obliqueThat()!=0.0
-                || (static_cast<const NPbase*> (&SM))->obliqueUhat()!=0.0
-                || (static_cast<const NPbase*> (&SM))->obliqueV()!=0.0
-                || (static_cast<const NPbase*> (&SM))->obliqueW()!=0.0
-                || (static_cast<const NPbase*> (&SM))->obliqueX()!=0.0
-                || (static_cast<const NPbase*> (&SM))->obliqueY()!=0.0) )
+                && ((static_cast<const NPSTUVWXY*> (&SM))->obliqueShat()!=0.0
+                || (static_cast<const NPSTUVWXY*> (&SM))->obliqueThat()!=0.0
+                || (static_cast<const NPSTUVWXY*> (&SM))->obliqueUhat()!=0.0
+                || (static_cast<const NPSTUVWXY*> (&SM))->obliqueV()!=0.0
+                || (static_cast<const NPSTUVWXY*> (&SM))->obliqueW()!=0.0
+                || (static_cast<const NPSTUVWXY*> (&SM))->obliqueX()!=0.0
+                || (static_cast<const NPSTUVWXY*> (&SM))->obliqueY()!=0.0) )
             return true;
         else
             return false;
@@ -145,7 +145,7 @@ public:
 protected:
     // These variables have to be initialized in child classes. 
     StandardModel::lepton l_flavor;
-    StandardModel::quark q_flavor;
+    QCD::quark q_flavor;
     
     const EW& myEW;
     const LEP2TwoFermions myTwoFermions;
@@ -164,7 +164,6 @@ protected:
     mutable double SMresult_cache; 
     mutable bool flag_cache[NUMofLEP2RCs];
     mutable double ml_cache, mq_cache, mqForHad_cache[6];
-    mutable double Coeff_cache[7];
     
     
     void SetObParam(LEP2oblique::Oblique ob, double ObParam_i[]) const 
@@ -180,7 +179,7 @@ protected:
         return myEW.getSM().getLeptons(l).getMass();
     }
 
-    double m_q(const StandardModel::quark q, const double mu, const orders order=FULLNLO) const 
+    double m_q(const QCD::quark q, const double mu, const orders order=FULLNLO) const 
     {
         switch(q) {
             case StandardModel::UP:

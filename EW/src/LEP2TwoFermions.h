@@ -56,7 +56,7 @@ public:
      * @param[in] bWeak flag to control weak corrections (not including box diagrams)
      * @return the differential cross section d sigma(e^+ e^- -> q qbar)/d cosTheta in GeV^{-2}
      */
-    double dsigma_q(const StandardModel::quark q, const double mf, 
+    double dsigma_q(const QCD::quark q, const double mf, 
                     const double s, const double cosTheta,
                     const double Mw, const double GammaZ, const bool bWeak) const;
 
@@ -82,7 +82,7 @@ public:
      * @param[in] GammaZ the Z-boson decay width
      * @return the box contribution to the differential cross section d sigma(e^+ e^- -> q qbar)/d cosTheta in GeV^{-2}
      */
-    double dsigma_q_box(const StandardModel::quark q, const double mf, 
+    double dsigma_q_box(const QCD::quark q, const double mf, 
                         const double s, const double cosTheta,
                         const double Mw, const double GammaZ) const;
     
@@ -107,7 +107,7 @@ public:
      * @param[in] bWeak flag to control weak corrections (not including box diagrams)
      * @return the total cross section for e^+ e^- -> q qbar in GeV^{-2}
      */
-    double sigma_q(const StandardModel::quark q, const double mf, const double s, 
+    double sigma_q(const QCD::quark q, const double mf, const double s, 
                    const double Mw, const double GammaZ, const bool bWeak) const;
 
     /**
@@ -131,7 +131,7 @@ public:
      * @param[in] bWeak flag to control weak corrections (not including box diagrams)
      * @return the forward-backward asymmetry for e^+ e^- -> q qbar
      */
-    double AFB_q(const StandardModel::quark q, const double mf, const double s, 
+    double AFB_q(const QCD::quark q, const double mf, const double s, 
                  const double Mw, const double GammaZ, const bool bWeak) const;
 
     /**
@@ -146,7 +146,7 @@ public:
      * @param[in] s the invariant mass squared of the initial-state e^+ e^- pair
      * @return the final-state QCD corrections to forward-backward asymmetries
      */
-    double QCD_FSR_forAFB(const StandardModel::quark q, const double mf, 
+    double QCD_FSR_forAFB(const QCD::quark q, const double mf, 
                           const double s) const;
 
     /**
@@ -192,7 +192,7 @@ public:
      * @param[in] bWeak flag to control weak corrections (not including box diagrams)
      * @return the form factor beta_f^2*G_3(s) for e^+ e^- -> q qbar
      */
-    double G_3prime_q(const StandardModel::quark q, const double mf, 
+    double G_3prime_q(const QCD::quark q, const double mf, 
                       const double s, const double Mw, const double GammaZ, 
                       const bool bWeak) const;   
 

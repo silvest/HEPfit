@@ -22,7 +22,7 @@ complex EWNPZbbbar::rhoZ_l(const StandardModel::lepton l) const
 }
 
 
-complex EWNPZbbbar::rhoZ_q(const StandardModel::quark q) const
+complex EWNPZbbbar::rhoZ_q(const QCD::quark q) const
 {
     switch (q) {
         case StandardModel::UP:
@@ -46,7 +46,7 @@ complex EWNPZbbbar::kappaZ_l(const StandardModel::lepton l) const
 }
 
 
-complex EWNPZbbbar::kappaZ_q(const StandardModel::quark q) const
+complex EWNPZbbbar::kappaZ_q(const QCD::quark q) const
 {
     switch (q) {
         case StandardModel::UP:
@@ -70,7 +70,7 @@ complex EWNPZbbbar::gVl(const StandardModel::lepton l) const
 }
 
 
-complex EWNPZbbbar::gVq(const StandardModel::quark q) const
+complex EWNPZbbbar::gVq(const QCD::quark q) const
 {
     switch (q) {
         case StandardModel::UP:
@@ -99,7 +99,7 @@ complex EWNPZbbbar::gAl(const StandardModel::lepton l) const
 }
 
 
-complex EWNPZbbbar::gAq(const StandardModel::quark q) const
+complex EWNPZbbbar::gAq(const QCD::quark q) const
 {
     switch (q) {
         case StandardModel::UP:

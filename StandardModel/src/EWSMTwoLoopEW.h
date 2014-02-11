@@ -170,7 +170,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha^2}@f$
      */
-    complex deltaRho_rem_q(const StandardModel::quark q, const double Mw_i) const;
+    complex deltaRho_rem_q(const QCD::quark q, const double Mw_i) const;
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^2)@f$ to the effective
@@ -208,7 +208,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha^2}@f$
      */
-    complex deltaKappa_rem_q(const StandardModel::quark q, const double Mw_i) const;
+    complex deltaKappa_rem_q(const QCD::quark q, const double Mw_i) const;
 
     
     ////////////////////////////////////////////////////////////////////////        
@@ -347,7 +347,7 @@ private:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta\bar{\eta}_{\rm add}^{(2)}@f$
      */
-    complex DeltaEta2Add_q(const StandardModel::quark q, const double Mw_i) const;
+    complex DeltaEta2Add_q(const QCD::quark q, const double Mw_i) const;
 
     /**
      * @brief The auxiliary function @f$\Delta\hat{\kappa}^{(2)}@f$.
@@ -384,7 +384,7 @@ private:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta\bar{\kappa}_{\rm add}^{(2)}@f$
      */
-    complex DeltaKappa2Add_q(const StandardModel::quark q, const double Mw_i) const;
+    complex DeltaKappa2Add_q(const QCD::quark q, const double Mw_i) const;
 
     /**
      * @brief The auxiliary function @f$V_{\rm add}@f$.

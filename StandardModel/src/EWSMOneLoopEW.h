@@ -253,7 +253,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha}@f$
      */
-    complex deltaRho_rem_q(const StandardModel::quark q, const double Mw_i) const;
+    complex deltaRho_rem_q(const QCD::quark q, const double Mw_i) const;
 
     /**
      * @brief Remainder contribution of @f$O(\alpha)@f$ to the effective
@@ -313,7 +313,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha}@f$
      */
-    complex deltaKappa_rem_q(const StandardModel::quark q, const double Mw_i) const;
+    complex deltaKappa_rem_q(const QCD::quark q, const double Mw_i) const;
     
     /**
      * @brief %EW radiative corrections to the widths of @f$W \to f_i \bar{f}_j@f$, 
@@ -399,8 +399,8 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\rho^W_{ij}@f$
      */
-    double rho_GammaW_q(const StandardModel::quark qi, 
-                        const StandardModel::quark qj, 
+    double rho_GammaW_q(const QCD::quark qi, 
+                        const QCD::quark qj, 
                         const double Mw_i) const;
 
     
@@ -504,7 +504,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$\overline{\Pi}^{\mathrm{fer},q}_{\gamma\gamma}(s)@f$
      */
-    complex PibarGammaGamma_fer_q(const double mu, const double s, const StandardModel::quark q) const;
+    complex PibarGammaGamma_fer_q(const double mu, const double s, const QCD::quark q) const;
     
     /**
      * @brief The fermionic contribution to the self-energy of the photon
@@ -920,7 +920,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\mathcal{F}_W@f$
      */  
-    complex FW_q(const double s, const StandardModel::quark q, const double Mw_i) const;    
+    complex FW_q(const double s, const QCD::quark q, const double Mw_i) const;    
     
     ////////////////////////////////////////////////////////////////////////        
     

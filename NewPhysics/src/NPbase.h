@@ -12,49 +12,68 @@
 
 /**
  * @class NPbase
- * @brief A base class for general new physics corrections to electroweak precision
- * observables
+ * @brief The auxiliary base model class for other model classes.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details The methods in this class contain the basic structure to compute
- * new physics corrections to the neutral-current couplings to fermions in the other
- * \b NewPhysics classes. In several of these classes some of these methods are reimplemented
- * to account for the details of more specific scenarios. 
+ *  
+ * @details This is an auxiliary Model class containing the basic structure 
+ * to compute new physics (NP) contributions to the electroweak precision
+ * observables. The NP contributions are described by the following quantities:
+ *
+ * @li @f$\Delta G@f$&nbsp;&nbsp; (with DeltaGF()),
+ * @li @f$S@f$, @f$T@f$ and @f$U@f$&nbsp;&nbsp;
+ * (with obliqueS(), obliqueT() and obliqueU()),
+ *
+ * Using these quantities, the mass and width of the @f$W@f$ boson and the NP
+ * contributions to the effective vector and axial-vector couplings of the
+ * @f$Z@f$-boson to leptons and quarks are computed:
+ *
+ * @li @f$M_W@f$, @f$c_W^2@f$ and @f$s_W^2@f$&nbsp;&nbsp; (with Mw(), cW2() and sW2()),
+ * @li @f$\Gamma_W@f$&nbsp;&nbsp; (with GammaW()),
+ * @li @f$\delta g_V^f@f$&nbsp;&nbsp;(with deltaGVl() and deltaGVq()),
+ * @li @f$\delta g_A^f@f$&nbsp;&nbsp;(with deltaGAl() and deltaGAq()). 
+ *
+ * In the model classes that are inherited from the current class (see the
+ * inheritance diagram above), some of these methods are reimplemented to
+ * account for the details of more specific scenarios.
+ *
+ * 
+ * @anchor NPbaseInitialization
+ * <h3>Initialization</h3>
+ *
+ * This class is intended to be used with an inherited model class.
+ *
+ *
+ * @anchor NPbaseParameters
+ * <h3>%Model parameters</h3>
+ *
+ * There is no model parameter in the current class.
+ *
  * 
  * @anchor NPbaseFlags
- * <h3>%Flags</h3>
+ * <h3>%Model flags</h3>
  *
- * The flags of NPbase are summarized below: 
- * <table class="model">
- * <tr>
- *   <th>Label</th>
- *   <th>Value</th>
- *   <th>Description</th>
- * </tr>
- * <tr>
- *   <td class="mod_name">%FixSMcontribution</td>
- *   <td class="mod_desc">True</td>
- *   <td class="mod_desc">Only SM contributions are considered. </td>
- * <tr>
- *   <td class="mod_name"> </td>
- *   <td class="mod_desc">False</td>
- *   <td class="mod_desc">Include both SM and new physics contributions.</td>
- * </tr>
- * </table>
- * 
+ * There is no model flag in the current class.
+ *
+ *
+ * @anchor NPbaseFunctions
+ * <h3>Important member functions</h3>
+ *
+ * The functions are explained above. 
+ *
  */
 class NPbase : public StandardModel {
 public:
 
     /**
-     * @brief Constructor. 
+     * @brief Th default constructor.
      */
     NPbase();
 
     /**
-     * @brief The name of the model.
-     * @return the name of the model as a string
+     * @brief @copybrief Model::ModelName()
+     * @copydetails Model::ModelName()
      */
     virtual std::string ModelName() const
     {
@@ -62,174 +81,223 @@ public:
     }
 
     /**
-     * @brief A method to initialize the model.
-     * @return true is model initialization is successful
+     * @brief @copybrief StandardModel::InitializeModel()
+     * @return a boolean that is true if model initialization is successful
      */
     virtual bool InitializeModel();
 
     /**
-     * @brief A method to initialize the model.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
-     * @return true is model initialization is successful
+     * @brief @copybrief Model::Init()
+     * @copydetails Model::Init()
      */
     virtual bool Init(const std::map<std::string, double>& DPars);
     
     /**
-     * @brief The update method for the model class.
-     * @details This method updates all the parameters of the model every time a
-     * new set of parameters is generated.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
-     * (including parameters that are varied and those that are held constant)
-     * @return a boolean that is true if the execution is successful.
+     * @brief @copybrief Model::Update()
+     * @copydetails Model::Update()
      */
     virtual bool Update(const std::map<std::string, double>& DPars);
     
     /**
-     * @brief A method to check if all the mandatory parameters for the model have been
-     * provided in the model configuration file.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
-     * (including parameters that are varied and those that are held constant)
+     * @brief @copybrief Model::CheckParameters()
+     * @copydetails Model::CheckParameters()
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     /**
-     * @brief A set method to fix the flags for the model.
-     * @param[in] name the name of the flag
-     * @param[in] value the value of the flag that can be true or false
-     * @return a boolean to designate the success or failure of this procedure
+     * @brief @copybrief Model::setFlag()
+     * @copydetails Model::setFlag()
      */
     virtual bool setFlag(const std::string name , const bool value);
     
     /**
-     * @brief A method to check the sanity of the set of flags.
-     * @return true if the set of flags is sane.
+     * @brief @copybrief Model::CheckFlags()
+     * @copydetails Model::CheckFlags()
      */
     virtual bool CheckFlags() const;
 
     
     ////////////////////////////////////////////////////////////////////////
-
+    
     /**
-     * @brief A method to check the value of the flag \b FlagFixSMcontribution
-     * @return the value of \b FlagFixSMcontribution
+     * @brief New physics contribution to the Fermi constant.
+     * @details The new physics contribution @f$\Delta G@f$ is defined as
+     * @f[
+     * G_\mu = G_{\mu,\mathrm{SM}}(1+\Delta G)\,,
+     * @f]
+     * where @f$G_\mu@f$ is the experimentl value measured through muon decays, 
+     * and @f$G_{\mu,\mathrm{SM}}@f$ is the Fermi constant in the SM.
+     * @return @f$\Delta G@f$
      */
-    bool IsFlagFixSMcontribution() const
-    {
-        return FlagFixSMcontribution;
-    }
-
+    virtual double DeltaGF() const;
 
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief The oblique paramenter \f$S\f$.
-     * @return the value of the oblique parameter @f$S@f$
+     * @brief The oblique parameter \f$S\f$.
+     * @return the value of @f$S@f$
      */
     virtual double obliqueS() const;
 
     /**
-     * @brief The oblique paramenter \f$T\f$.
-     * @return the value of the oblique parameter @f$T@f$
+     * @brief The oblique parameter \f$T\f$.
+     * @return the value of @f$T@f$
      */
     virtual double obliqueT() const;
 
     /**
-     * @brief The oblique paramenter \f$U\f$.
-     * @return the value of the oblique parameter @f$U@f$
+     * @brief The oblique parameter \f$U\f$.
+     * @return the value of @f$U@f$
      */
     virtual double obliqueU() const;
 
-    /**
-     * @brief The oblique paramenter \f$\hat{S}\f$.
-     * @return the value of the oblique parameter \f$\hat{S}=\frac{\alpha}{4\sin^2{\theta_W}}S\f$
-     */
-    virtual double obliqueShat() const;
+
+    ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief The oblique paramenter \f$\hat{T}\f$.
-     * @return the value of the oblique parameter \f$\hat{T}=\alpha T\f$
+     * @brief @copybrief StandardModel::Mw()
+     * @details
+     * The @f$W@f$-boson mass receives the new physics
+     * contribution via the oblique parameters @f$S@f$, @f$T@f$ and @f$U@f$ and
+     * the shift in the Fermi constant, @f$\Delta G@f$:
+     * @f[
+     * M_W = M_{W,\mathrm{SM}}
+     * \left[
+     * 1 - \frac{\alpha(M_Z^2)}{4(c_W^2-s_W^2)}
+     * \left( S - 2c_W^2\,T - \frac{c_W^2-s_W^2}{2s_W^2}\,U \right)
+     * - \frac{s_W^2}{2(c_W^2-s_W^2)}\,\Delta G
+     * \right].
+     * @f]
+     *
+     * See @cite Ciuchini:2013pca and references therein.
+     * @return @f$M_W@f$ in GeV
      */
-    virtual double obliqueThat() const;
+    virtual double Mw() const;
 
     /**
-     * @brief The oblique paramenter \f$\hat{U}\f$.
-     * @return the value of the oblique parameter \f$\hat{U}=-\frac{\alpha}{4\sin^2{\theta_W}}U\f$
+     * @brief @copybrief StandardModel::cW2()
+     * @return @f$c_W^2=\cos^2{\theta_W}=M_W^2/M_Z^2@f$
      */
-    virtual double obliqueUhat() const;
+    virtual double cW2() const;
 
     /**
-     * @brief The oblique paramenter \f$V\f$.
-     * @return the value of the oblique parameter \f$V\f$
+     * @brief @copybrief StandardModel::cW2()
+     * @return @f$s_W^2=\sin^2{\theta_W}=1-M_W^2/M_Z^2@f$
      */
-    virtual double obliqueV() const;
+    virtual double sW2() const;
 
     /**
-     * @brief The oblique paramenter \f$W\f$.
-     * @return the value of the oblique parameter \f$W\f$
+     * @brief @copybrief StandardModel::GammaW()
+     * @details
+     * The @f$W@f$-boson width receives the new physics
+     * contribution via the oblique parameters @f$S@f$, @f$T@f$ and @f$U@f$ and
+     * the shift in the Fermi constant, @f$\Delta G@f$:
+     * @f[
+     * \Gamma_W = \Gamma_{W,\mathrm{SM}}
+     * \left[ 1
+     * - \frac{3\alpha(M_Z^2)}{4(c_W^2-s_W^2)}
+     *  \left( S - 2c_W^2\,T - \frac{c_W^2-s_W^2}{2s_W^2}\,U \right)
+     * - \frac{1+c_W^2}{2(c_W^2-s_W^2)}\, \Delta G
+     * \right].
+     * @f]
+     *
+     * See @cite Ciuchini:2013pca and references therein.
+     * @return @f$\Gamma_W@f$ in GeV
      */
-    virtual double obliqueW() const;
+    virtual double GammaW() const;
 
     /**
-     * @brief The oblique paramenter \f$X\f$.
-     * @return the value of the oblique parameter \f$X\f$
-     */
-    virtual double obliqueX() const;
-
-    /**
-     * @brief The oblique paramenter \f$Y\f$.
-     * @return the value of the oblique parameter \f$Y\f$
-     */
-    virtual double obliqueY() const;
-    
-    /**
-     * @brief The new physics corrections to the Fermi constant.
-     * the new physics correction to the Fermi constant, 
-     * \f$ G_F\equiv G_F^\mathrm{SM}(1+\Delta G_F)\f$
-     */
-    virtual double DeltaGF() const;
-
-    /**
-     * @brief The new physics correction to @f$g_V^l@f$.
-     * @param[in] l name of a lepton
-     * @return the new physics contribution to neutral-current vector coupling @f$\delta g_V^l@f$
+     * @brief New physics contribution to @f$g_V^l@f$.
+     * @details
+     * The neutral-current vector coupling @f$g_V^l@f$ receives the new physics
+     * contribution via the oblique parameters @f$S@f$ and @f$T@f$ and the shift
+     * in the Fermi constant, @f$\Delta G@f$:
+     * @f[
+     * \delta g_V^l =
+     * \frac{g_{V,\mathrm{SM}}^l}{2}
+     * \left[ \alpha(M_Z^2)\, T - \Delta G \right]
+     * +
+     * \frac{\big( g_{V,\mathrm{SM}}^l - g_{A,\mathrm{SM}}^l \big)
+     * \left[
+     * \alpha(M_Z^2)\left( S - 4\,c_W^2s_W^2\, T \right)
+     * + 4\,c_W^2s_W^2\, \Delta G
+     * \right]}{4s_W^2\,(c_W^2-s_W^2)}\,.
+     * @f]
+     *
+     * See @cite Ciuchini:2013pca and references therein.
+     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @return @f$\delta g_V^l@f$
      */
     virtual double deltaGVl(StandardModel::lepton l) const;
     
     /**
-     * @brief The new physics correction to @f$g_V^q@f$.
-     * @param[in] q name of a quark
-     * @return the new physics contribution to neutral-current vector coupling @f$\delta g_V^q@f$
+     * @brief New physics contribution to @f$g_V^q@f$.
+     * @details
+     * The neutral-current vector coupling @f$g_V^q@f$ receives the new physics
+     * contribution via the oblique parameters @f$S@f$ and @f$T@f$ and the shift
+     * in the Fermi constant, @f$\Delta G@f$:
+     * @f[
+     * \delta g_V^q =
+     * \frac{g_{V,\mathrm{SM}}^q}{2}
+     * \left[ \alpha(M_Z^2)\, T - \Delta G \right]
+     * +
+     * \frac{\big( g_{V,\mathrm{SM}}^q - g_{A,\mathrm{SM}}^q \big)
+     * \left[
+     * \alpha(M_Z^2)\left( S - 4\,c_W^2s_W^2\, T \right)
+     * + 4\,c_W^2s_W^2\, \Delta G
+     * \right]}{4s_W^2\,(c_W^2-s_W^2)}\,.
+     * @f]
+     *
+     * See @cite Ciuchini:2013pca and references therein.
+     * @param[in] q name of a quark (see QCD::quark)
+     * @return @f$\delta g_V^q@f$
      */
-    virtual double deltaGVq(StandardModel::quark q) const;
+    virtual double deltaGVq(QCD::quark q) const;
 
     /**
-     * @brief The new physics correction to @f$g_A^l@f$.
-     * @param[in] l name of a lepton
-     * @return the new physics contribution to neutral-current axial-vector coupling @f$\delta g_A^l@f$
+     * @brief New physics contribution to @f$g_A^l@f$.
+     * @details
+     * The neutral-current axial-vector coupling @f$g_A^l@f$ receives the new
+     * physics contribution via the oblique parameter @f$T@f$ and the shift in
+     * the Fermi constant, @f$\Delta G@f$:
+     * @f[
+     * \delta g_A^l
+     * = \frac{g_{A,\mathrm{SM}}^l}{2} \left[ \alpha(M_Z^2)\, T - \Delta G \right].
+     * @f]
+     *
+     * See @cite Ciuchini:2013pca and references therein.
+     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @return @f$\delta g_A^l@f$
      */   
     virtual double deltaGAl(StandardModel::lepton l) const;
 
     /**
-     * @brief The new physics correction to @f$g_A^q@f$.
-     * @param[in] q name of a quark
-     * @return the new physics contribution to neutral-current axial-vector coupling @f$\delta g_A^q@f$
+     * @brief New physics contribution to @f$g_A^q@f$.
+     * @details
+     * The neutral-current axial-vector coupling @f$g_A^q@f$ receives the new
+     * physics contribution via the oblique parameter @f$T@f$ and the shift in
+     * the Fermi constant, @f$\Delta G@f$:
+     * @f[
+     * \delta g_A^q
+     * = \frac{g_{A,\mathrm{SM}}^q}{2} \left[ \alpha(M_Z^2)\, T - \Delta G \right].
+     * @f]
+     *
+     * See @cite Ciuchini:2013pca and references therein.
+     * @param[in] q name of a quark (see QCD::quark)
+     * @return @f$\delta g_A^q@f$
      */ 
-    virtual double deltaGAq(StandardModel::quark q) const;
+    virtual double deltaGAq(QCD::quark q) const;
 
     
     ////////////////////////////////////////////////////////////////////////
 protected:
-     /**
-     * @brief A set method to fix the parameters of the model.
-     * @param[in] name a string with the parameter name
-     * @param[in] value the value to be asigned to the parameter specified by name
+
+    /**
+     * @brief @copybrief Model::setParameter()
+     * @copydetails Model::setParameter()
      */
     virtual void setParameter(const std::string name, const double& value);
 
-
-    ////////////////////////////////////////////////////////////////////////
-private:
-    bool FlagFixSMcontribution;///< Flag: if true only SM contributions are considered.
     
 };
 

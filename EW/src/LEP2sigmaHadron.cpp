@@ -152,21 +152,6 @@ double LEP2sigmaHadron::computeThValue()
             SMresult_cache += sigma_box_UP + sigma_box_DOWN + sigma_box_CHARM 
                               + sigma_box_STRANGE + sigma_box_BOTTOM;
         }        
-
-        if ( checkLEP2NP() && !bSigmaForR ) {
-            if ( (static_cast<const NPbase*> (&SM))->IsFlagFixSMcontribution() ) {
-                double ObParam[7];
-                for (int i=0; i<7; i++) {
-                    SetObParam((LEP2oblique::Oblique)i, ObParam);
-                    Coeff_cache[i]
-                            = myLEP2oblique.sigma_q_LEP2_NP(StandardModel::UP, s, mqForHad_cache[SM.UP], ObParam)
-                            + myLEP2oblique.sigma_q_LEP2_NP(StandardModel::DOWN, s, mqForHad_cache[SM.DOWN], ObParam)
-                            + myLEP2oblique.sigma_q_LEP2_NP(StandardModel::CHARM, s, mqForHad_cache[SM.CHARM], ObParam)
-                            + myLEP2oblique.sigma_q_LEP2_NP(StandardModel::STRANGE, s, mqForHad_cache[SM.STRANGE], ObParam)
-                            + myLEP2oblique.sigma_q_LEP2_NP(StandardModel::BOTTOM, s, mqForHad_cache[SM.BOTTOM], ObParam);
-                }
-            }
-        }
     }
     double sigmaH = SMresult_cache;
     
@@ -175,30 +160,20 @@ double LEP2sigmaHadron::computeThValue()
     #endif
     
     if ( checkLEP2NP() && !bSigmaForR) {
-        double obliqueShat = (static_cast<const NPbase*> (&SM))->obliqueShat();
-        double obliqueThat = (static_cast<const NPbase*> (&SM))->obliqueThat();
-        double obliqueUhat = (static_cast<const NPbase*> (&SM))->obliqueUhat();
-        double obliqueV = (static_cast<const NPbase*> (&SM))->obliqueV();
-        double obliqueW = (static_cast<const NPbase*> (&SM))->obliqueW();
-        double obliqueX = (static_cast<const NPbase*> (&SM))->obliqueX();
-        double obliqueY = (static_cast<const NPbase*> (&SM))->obliqueY();
-        if ( (static_cast<const NPbase*> (&SM))->IsFlagFixSMcontribution() ) {
-            sigmaH += Coeff_cache[myLEP2oblique.Shat]*obliqueShat
-                    + Coeff_cache[myLEP2oblique.That]*obliqueThat
-                    + Coeff_cache[myLEP2oblique.Uhat]*obliqueUhat
-                    + Coeff_cache[myLEP2oblique.V]*obliqueV
-                    + Coeff_cache[myLEP2oblique.W]*obliqueW
-                    + Coeff_cache[myLEP2oblique.X]*obliqueX
-                    + Coeff_cache[myLEP2oblique.Y]*obliqueY;
-        } else {
-            double ObParam[7] = {obliqueShat, obliqueThat, obliqueUhat,
-                                 obliqueV, obliqueW, obliqueX, obliqueY};
-            sigmaH += myLEP2oblique.sigma_q_LEP2_NP(StandardModel::UP, s, mqForHad_cache[SM.UP], ObParam)
-                    + myLEP2oblique.sigma_q_LEP2_NP(StandardModel::DOWN, s, mqForHad_cache[SM.DOWN], ObParam) 
-                    + myLEP2oblique.sigma_q_LEP2_NP(StandardModel::CHARM, s, mqForHad_cache[SM.CHARM], ObParam) 
-                    + myLEP2oblique.sigma_q_LEP2_NP(StandardModel::STRANGE, s, mqForHad_cache[SM.STRANGE], ObParam) 
-                    + myLEP2oblique.sigma_q_LEP2_NP(StandardModel::BOTTOM, s, mqForHad_cache[SM.BOTTOM], ObParam);
-        }
+        double obliqueShat = (static_cast<const NPSTUVWXY*> (&SM))->obliqueShat();
+        double obliqueThat = (static_cast<const NPSTUVWXY*> (&SM))->obliqueThat();
+        double obliqueUhat = (static_cast<const NPSTUVWXY*> (&SM))->obliqueUhat();
+        double obliqueV = (static_cast<const NPSTUVWXY*> (&SM))->obliqueV();
+        double obliqueW = (static_cast<const NPSTUVWXY*> (&SM))->obliqueW();
+        double obliqueX = (static_cast<const NPSTUVWXY*> (&SM))->obliqueX();
+        double obliqueY = (static_cast<const NPSTUVWXY*> (&SM))->obliqueY();
+        double ObParam[7] = {obliqueShat, obliqueThat, obliqueUhat,
+                             obliqueV, obliqueW, obliqueX, obliqueY};
+        sigmaH += myLEP2oblique.sigma_q_LEP2_NP(StandardModel::UP, s, mqForHad_cache[SM.UP], ObParam)
+                  + myLEP2oblique.sigma_q_LEP2_NP(StandardModel::DOWN, s, mqForHad_cache[SM.DOWN], ObParam)
+                  + myLEP2oblique.sigma_q_LEP2_NP(StandardModel::CHARM, s, mqForHad_cache[SM.CHARM], ObParam) 
+                  + myLEP2oblique.sigma_q_LEP2_NP(StandardModel::STRANGE, s, mqForHad_cache[SM.STRANGE], ObParam) 
+                  + myLEP2oblique.sigma_q_LEP2_NP(StandardModel::BOTTOM, s, mqForHad_cache[SM.BOTTOM], ObParam);
     }
     
     return ( sigmaH*GeVminus2_to_nb*1000.0 );

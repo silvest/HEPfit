@@ -227,7 +227,7 @@ void EWSMEW1testclass::SigmaWW_fer_diff_0_real() {
     double MZtoMW = 0.0;
     for (int i=0; i<6; i++) {
         MZtoMW += - 1.0/2.0*pow(myCache->ml((StandardModel::lepton)i),2.0)*log(cW2);
-        MZtoMW += - 3.0/2.0*pow(myCache->mq((StandardModel::quark)i,Mz),2.0)*log(cW2);
+        MZtoMW += - 3.0/2.0*pow(myCache->mq((QCD::quark)i,Mz),2.0)*log(cW2);
     }
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);
@@ -247,7 +247,7 @@ void EWSMEW1testclass::SigmaWW_fer_diff_Mw2_real() {
     double MZtoMW = 24.0/6.0*Mw2*log(cW2);
     for (int i=0; i<6; i++) {
         MZtoMW += - 1.0/2.0*pow(myCache->ml((StandardModel::lepton)i),2.0)*log(cW2);
-        MZtoMW += - 3.0/2.0*pow(myCache->mq((StandardModel::quark)i,Mz),2.0)*log(cW2);
+        MZtoMW += - 3.0/2.0*pow(myCache->mq((QCD::quark)i,Mz),2.0)*log(cW2);
     }
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);
@@ -268,7 +268,7 @@ void EWSMEW1testclass::SigmaZZ_fer_diff_Mz2_real() {
                          + 4.0*sW2*sW2/3.0/cW2*8.0)*log(cW2);
     for (int i=0; i<6; i++) {
         MZtoMW += - 1.0/2.0*pow(myCache->ml((StandardModel::lepton)i),2.0)*log(cW2);
-        MZtoMW += - 3.0/2.0*pow(myCache->mq((StandardModel::quark)i,Mz),2.0)*log(cW2);
+        MZtoMW += - 3.0/2.0*pow(myCache->mq((QCD::quark)i,Mz),2.0)*log(cW2);
     }
     double delta = fabs(epsilon*result_Mw);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(result_Mw, result_Mz + MZtoMW, delta);

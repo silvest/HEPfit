@@ -12,20 +12,33 @@
 
 /**
  * @class NPEpsilons_pureNP
- * @brief A class for new physics in the form of contributions to the \f$\varepsilon_{1,2,3,b}\f$ parameters.
- * 
+ * @brief A model class for new physics in the form of contributions to the
+ * \f$\delta\,\varepsilon_{1,2,3,b}\f$ parameters.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class contains the necessary functions to work with new physics 
- * corrections to electroweak precision observables, in the form of contributions
- * to the \f$\varepsilon_{1,2,3,b}\f$ parameters \cite Altarelli:1990zd, \cite Altarelli:1991fk,\cite Altarelli:1993sz. 
- * Only new physics contributions to \f$\varepsilon_i\f$ are parameterized.
+ * @details This is a Model class containing parameters and functions to work 
+ * with the modified epsilon parameters \f$\delta\,\varepsilon_{1,2,3,b}\f$
+ * which parameterize only new physics contributions to the electroweak
+ * precision observables. 
+ * See \cite Altarelli:1990zd, \cite Altarelli:1991fk,\cite Altarelli:1993sz
+ * for the original epsilon parameterization.
+ *
+*
+ * @anchor NPEpsilons_pureNPInitialization
+ * <h3>Initialization</h3>
+ *
+ * After creating an instance of the current class with the constructor
+ * NPEpsilons_pureNP(), it is required to call the initialization method
+ * InitializeModel(), inherited from NPEffective class.
+ * In the Monte Carlo run, the constructor as well as the initialization
+ * method are called in InputParser::ReadParameters().
+ *
  *
  * @anchor NPEpsilons_pureNPParameters
  * <h3>%Model parameters</h3>
  *
- * The model parameters of NPEpsilons_pureNP are summarized below: 
+ * The model parameters of %NPEpsilons_pureNP are summarized below:
  * <table class="model">
  * <tr>
  *   <th>Label</th>
@@ -34,46 +47,74 @@
  * </tr>
  * <tr>
  *   <td class="mod_name">%delEps_1 </td>
- *   <td class="mod_symb">\f$\delta_{NP}\varepsilon_1\f$</td>
+ *   <td class="mod_symb">\f$\delta\,\varepsilon_1\f$</td>
  *   <td class="mod_desc">The new physics contribution to \f$\varepsilon_1\f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%delEps_2 </td>
- *   <td class="mod_symb">\f$\delta_{NP}\varepsilon_2\f$</td>
+ *   <td class="mod_symb">\f$\delta\,\varepsilon_2\f$</td>
  *   <td class="mod_desc">The new physics contribution to \f$\varepsilon_2\f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%delEps_3 </td>
- *   <td class="mod_symb">\f$\delta_{NP}\varepsilon_3\f$</td>
+ *   <td class="mod_symb">\f$\delta\,\varepsilon_3\f$</td>
  *   <td class="mod_desc">The new physics contribution to \f$\varepsilon_3\f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%delEps_b </td>
- *   <td class="mod_symb">\f$\delta_{NP}\varepsilon_b\f$</td>
+ *   <td class="mod_symb">\f$\delta\,\varepsilon_b\f$</td>
  *   <td class="mod_desc">The new physics contribution to \f$\varepsilon_b\f$.</td>
  * </tr>
  * </table>
+ *
+ *
+ * @anchor NPEpsilons_pureNPFlags
+ * <h3>%Model flags</h3>
+ *
+ * There is no model flag in the current class.
+ *
+ *
+ * @anchor NPEpsilons_pureNPFunctions
+ * <h3>Important member functions</h3>
+ *
+ * Compared to the base class NPbase, the functions for the following quantities
+ * are reimplemented in the current class:
+ *
+ * @li @f$M_W@f$&nbsp;&nbsp; (with Mw()),
+ * @li @f$\Gamma_W@f$&nbsp;&nbsp; (with GammaW()),
+ * @li @f$\delta g_V^f@f$&nbsp;&nbsp;(with deltaGVl() and deltaGVq()),
+ * @li @f$\delta g_A^f@f$&nbsp;&nbsp;(with deltaGAl() and deltaGAq()),
+ *
+ * where @f$\Gamma_W@f$ is not available, since it cannot be simply parameterized
+ * by the epsilon parameters.
+ * In addition, the functions for the epsilon parameters are also provided:
+ *
+ * @li @f$\varepsilon_1@f$, @f$\varepsilon_2@f$, @f$\varepsilon_3@f$ and
+ * @f$\varepsilon_b@f$&nbsp;&nbsp;
+ * (with epsilon1(), epsilon2(), epsilon3() and epsilonb()).
  * 
  */
 class NPEpsilons_pureNP : public NPbase {
 public:
+    
     /**
-     * @brief The number of new physics parameters in the model.
+     * @brief The number of the model parameters in %NPEpsilons_pureNP.
      */
     static const int NEPSILONpureNPvars = 4;
+    
     /**
-     * @brief A string array with the names of the new physics parameters in the model.
+     * @brief A string array containing the labels of the model parameters in %NPEpsilons_pureNP.
      */
     static const std::string EPSILONpureNPvars[NEPSILONpureNPvars];
 
     /**
-     * @brief Constructor. 
+     * @brief The default constructor.
      */
     NPEpsilons_pureNP();
 
     /**
-     * @brief The name of the model.
-     * @return the name of the model as a string
+     * @brief @copybrief Model::ModelName()
+     * @copydetails Model::ModelName()
      */
     virtual std::string ModelName() const
     {
@@ -81,47 +122,38 @@ public:
     }
 
     /**
-     * @brief A method to initialize the model.
-     * @return true is model initialization is successful
+     * @brief @copybrief StandardModel::InitializeModel()
+     * @copydetails NPbase::InitializeModel()
      */
     virtual bool InitializeModel();
 
     /**
-     * @brief A method to initialize the model.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
-     * @return true is model initialization is successful
+     * @brief @copybrief Model::Init()
+     * @copydetails Model::Init()
      */
     virtual bool Init(const std::map<std::string, double>& DPars);
     
     /**
-     * @brief The update method for the model class.
-     * @details This method updates all the parameters of the model every time a
-     * new set of parameters is generated.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
-     * (including parameters that are varied and those that are held constant)
-     * @return a boolean that is true if the execution is successful.
+     * @brief @copybrief Model::Update()
+     * @copydetails Model::Update()
      */
     virtual bool Update(const std::map<std::string, double>& DPars);
     
     /**
-     * @brief A method to check if all the mandatory parameters for the model have been
-     * provided in the model configuration file.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
-     * (including parameters that are varied and those that are held constant)
+     * @brief @copybrief Model::CheckParameters()
+     * @copydetails Model::CheckParameters()
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     /**
-     * @brief A set method to fix the flags for the model.
-     * @param[in] name the name of the flag
-     * @param[in] value the value of the flag that can be true or false
-     * @return a boolean to designate the success or failure of this procedure
+     * @brief @copybrief Model::setFlag()
+     * @copydetails Model::setFlag()
      */
     virtual bool setFlag(const std::string name, const bool value);
     
     /**
-     * @brief A method to check the sanity of the set of flags.
-     * @return true if the set of flags is sane.
+     * @brief @copybrief Model::CheckFlags()
+     * @copydetails Model::CheckFlags()
      */
     virtual bool CheckFlags() const;
 
@@ -130,54 +162,57 @@ public:
     
     /**
      * @brief The parameter \f$\varepsilon_1\f$.
-     * @return the pure new physics contribution to \f$\varepsilon_1\f$
+     * @return the sum of the SM prediction for \f$\varepsilon_1\f$
+     * and the new physics contribution \f$\delta\,\varepsilon_1\f$
      */
-    virtual double epsilon1() const;
+    double epsilon1() const;
 
     /**
      * @brief The parameter \f$\varepsilon_2\f$.
-     * @return the pure new physics contribution to \f$\varepsilon_2\f$
+     * @return the sum of the SM prediction for \f$\varepsilon_2\f$
+     * and the new physics contribution \f$\delta\,\varepsilon_2\f$
+
      */
-    virtual double epsilon2() const;
+    double epsilon2() const;
     
     /**
      * @brief The parameter \f$\varepsilon_3\f$.
-     * @return the pure new physics contribution to \f$\varepsilon_3\f$
+     * @return the sum of the SM prediction for \f$\varepsilon_3\f$
+     * and the new physics contribution \f$\delta\,\varepsilon_3\f$
      */
-    virtual double epsilon3() const;
+    double epsilon3() const;
     
     /**
      * @brief The parameter \f$\varepsilon_b\f$.
-     * @return the pure new physics contribution to \f$\varepsilon_b\f$
+     * @return the sum of the SM prediction for \f$\varepsilon_b\f$
+     * and the new physics contribution \f$\delta\,\varepsilon_b\f$
      */
-    virtual double epsilonb() const;
+    double epsilonb() const;
 
 
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief The \f$W\f$ boson mass.
-     * @return the \f$W\f$-boson mass in GeV
+     * @brief @copybrief StandardModel::Mw()
+     * @details
+     * @f[
+     * M_W =
+     * M_{W,\mathrm{SM}}
+     * \left\{
+     * 1 - \frac{1}{2(c_{W,\mathrm{SM}}^2 - s_{W,\mathrm{SM}}^2)}
+     * \big[
+     * - c_0^2\, \delta\varepsilon_1 + (c_0^2-s_0^2)\, \delta\varepsilon_2
+     * + 2s_0^2\, \delta\varepsilon_3
+     * \big]
+     * \right\}.
+     * @f]
+     * @return @f$M_W@f$ in GeV
      */
     virtual double Mw() const;
 
     /**
-     * @brief The square of the cosine of the weak angle \f$\cos^2{\theta_W}\f$.
-     * @return the value of \f$\cos^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
-     *  \f$\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}\f$
-     */
-    virtual double cW2() const;
-
-    /**
-     * @brief The square of the sine of the weak angle \f$\sin^2{\theta_W}\f$.
-     * @return the value of \f$\sin^2{\theta_W}\f$ in the On-mass-shell renormalization scheme,
-     *  \f$\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}\f$
-     */
-    virtual double sW2() const;
-
-    /**
-     * @brief The \f$W\f$ decay width \f$\Gamma_W\f$.
-     * @return the total width of the \f$W\f$ boson in GeV [NOT IMPLEMENTED YET]
+     * @brief @copybrief StandardModel::GammaW()
+     * @warning This function is not available.
      */
     virtual double GammaW() const;
 
@@ -185,47 +220,88 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief The new physics correction to @f$g_V^l@f$.
-     * @param[in] l name of a lepton
-     * @return the new physics correction to the neutral-current vector coupling @f$g_A^l@f$
+     * @brief @copybrief NPbase::deltaGVl()
+     * @details
+     * @f[
+     * \delta g_V^l
+     * = \Big( g_{V,\mathrm{SM}}^l - g_{A,\mathrm{SM}}^l \Big)
+     *   \frac{\delta\,\varepsilon_3-c_0^2\,\delta\,\varepsilon_1}{c_0^2 - s_0^2}
+     * + \frac{g_{V,\mathrm{SM}}^l}{2} \delta\,\varepsilon_1\,.
+     * @f]
+     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @return @f$\delta g_V^l@f$
      */
     virtual double deltaGVl(StandardModel::lepton l) const;
 
     /**
-     * @brief The new physics correction to @f$g_V^q@f$.
-     * @param[in] q name of a quark
-     * @return the new physics correction to the neutral-current vector coupling @f$g_V^q@f$
+     * @brief @copybrief NPbase::deltaGVq()
+     * @details
+     * @f[
+     * \delta g_V^q
+     * = \Big( g_{V,\mathrm{SM}}^q - g_{A,\mathrm{SM}}^q \Big)
+     *   \frac{\delta\,\varepsilon_3-c_0^2\,\delta\,\varepsilon_1}{c_0^2 - s_0^2}
+     * + \frac{g_{V,\mathrm{SM}}^q}{2} \delta\,\varepsilon_1
+     * @f]
+     * for @f$q\neq b@f$, and
+     * @f[
+     * \delta g_V^q
+     * = \Big(g_{V,\mathrm{SM}}^q - g_{A,\mathrm{SM}}^q \Big)
+     * \bigg( \frac{\delta\,\varepsilon_3-c_0^2\,\delta\,\varepsilon_1}{c_0^2 - s_0^2}
+     * - \delta\,\varepsilon_b \bigg)
+     * +
+     * \frac{g_{V,\mathrm{SM}}^f}{2}
+     * \big(\delta\,\varepsilon_1 + 2\delta\,\varepsilon_b\big)
+     * @f]
+     * for @f$q=b@f$.
+     * @param[in] q name of a quark (see QCD::quark)
+     * @return @f$\delta g_V^q@f$
      */  
-    virtual double deltaGVq(StandardModel::quark q) const;
+    virtual double deltaGVq(QCD::quark q) const;
 
     /**
-     * @brief The new physics correction to @f$g_A^l@f$.
-     * @param[in] l name of a lepton
-     * @return the new physics correction to the neutral-current axial-vector coupling @f$g_A^l@f$
+     * @brief @copybrief NPbase::deltaGAl()
+     * @details
+     * @f[
+     * \delta g_A^l = \frac{I_3^l}{2}\delta\,\varepsilon_1\,.
+     * @f]
+     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @return @f$\delta g_A^l@f$
      */  
     virtual double deltaGAl(StandardModel::lepton l) const;
 
     /**
-     * @brief The new physics correction to @f$g_A^q@f$.
-     * @param[in] q name of a quark
-     * @return the new physics correction to the neutral-current axial-vector coupling @f$g_A^q@f$
+     * @brief @copybrief NPbase::deltaGAq()
+     * @details
+     * @f[
+     * \delta g_A^q = \frac{I_3^q}{2}\delta\,\varepsilon_1
+     * @f]
+     * for @f$q\neq b@f$, and
+     * @f[
+     * \delta g_A^q 
+     * = \frac{I_3^q}{2}\big( \delta\,\varepsilon_1 + 2\,\delta\,\varepsilon_b \big)
+     * @f]
+     * for @f$q=b@f$.
+     * @param[in] q name of a quark (see QCD::quark)
+     * @return @f$\delta g_A^q@f$
      */
-    virtual double deltaGAq(StandardModel::quark q) const;
+    virtual double deltaGAq(QCD::quark q) const;
 
 
     ////////////////////////////////////////////////////////////////////////
 protected:
+
     double deltaEps_1;///< The new physics contribution to \f$\varepsilon_1\f$.
     double deltaEps_2;///< The new physics contribution to \f$\varepsilon_2\f$.
     double deltaEps_3;///< The new physics contribution to \f$\varepsilon_3\f$.
     double deltaEps_b;///< The new physics contribution to \f$\varepsilon_b\f$.
+
     /**
-     * @brief A set method to fix the parameters of the model.
-     * @param[in] name a string with the parameter name
-     * @param[in] value the value to be asigned to the parameter specified by name
+     * @brief @copybrief Model::setParameter()
+     * @copydetails Model::setParameter()
      */
     virtual void setParameter(const std::string name, const double& value);
 
+    
 };
 
 #endif	/* NPEPSILONS_PURENP_H */

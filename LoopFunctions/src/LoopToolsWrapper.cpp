@@ -5,6 +5,8 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#ifdef USE_LOOPTOOLS
+
 #include <iostream>
 #include <stdexcept>
 #include <complex>
@@ -16,7 +18,6 @@ static bool LoopToolsInit = false;
 
 LoopToolsWrapper::LoopToolsWrapper()
 {
-#ifdef USE_LOOPTOOLS
     if (!LoopToolsInit) {
         //std::cout << std::endl;
         ltini();
@@ -28,7 +29,6 @@ LoopToolsWrapper::LoopToolsWrapper()
      * dimensional regularization is employed for IR divergences and that 
      * the finite piece is returned from an IR-divergent loop function. */
     setlambda(0.0);
-#endif
 }
 
 LoopToolsWrapper::~LoopToolsWrapper()
@@ -125,7 +125,6 @@ complex LoopToolsWrapper::PV_D0(const double s, const double t, const double m02
     return complex( D0val.real(), D0val.imag(), false );
 }
 
-
 complex LoopToolsWrapper::PV_D00(const double s, const double t, const double m02,
                                 const double m12, const double m22, const double m32) const
 {
@@ -135,5 +134,8 @@ complex LoopToolsWrapper::PV_D00(const double s, const double t, const double m0
 
     throw std::runtime_error("LoopToolsWrapper::PV_D00: Not implemented!");
 }
+
+
+#endif // #ifdef USE_LOOPTOOLS
 
 

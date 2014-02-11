@@ -75,7 +75,6 @@
         <ccTool>
           <incDir>
             <pElem>../gslpp/src</pElem>
-            <pElem>../LoopTools/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -404,7 +403,6 @@
           <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../gslpp/src</pElem>
-            <pElem>../LoopTools/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -556,7 +554,6 @@
           <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../gslpp/src</pElem>
-            <pElem>../LoopTools/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>

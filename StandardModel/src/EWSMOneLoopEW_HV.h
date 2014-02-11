@@ -48,7 +48,7 @@ public:
      * @param[in] order (=LO, NLO, NNLO, FULLNLO, FULLNNLO)
      * @return the MSbar mass of u, d, s, c, b or the pole mass of t
      */
-    double mq(const StandardModel::quark q, const double mu, const orders order=FULLNLO) const 
+    double mq(const QCD::quark q, const double mu, const orders order=FULLNLO) const 
     {
         switch(q) {
             case StandardModel::UP:
@@ -83,7 +83,7 @@ public:
      * @return the tree-level vector coupling for Z->q qbar
      * @attention depends on sW2
      */
-    double vq(const StandardModel::quark q, const double Mw) const 
+    double vq(const QCD::quark q, const double Mw) const 
     {
         double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
         return ( aq(q) - 2.0*SM.getQuarks(q).getCharge()*sW2 );
@@ -102,7 +102,7 @@ public:
      * @param[in] q name of quark
      * @return the tree-level axial-vector coupling for Z->q qbar
      */
-    double aq(const StandardModel::quark q) const 
+    double aq(const QCD::quark q) const 
     {
         return ( SM.getQuarks(q).getIsospin() );
     }
@@ -184,7 +184,7 @@ public:
      * @return contribution to the self-energy function of photon from quark q
      */
     complex PiGammaGamma_fer_q(const double mu, const double muForMq, 
-                               const double s, const StandardModel::quark q) const;    
+                               const double s, const QCD::quark q) const;    
     
     /**
      * @param[in] mu renormalization scale

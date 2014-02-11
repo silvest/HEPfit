@@ -123,21 +123,9 @@ double NPEpsilons_pureNP::Mw() const
 }
 
 
-double NPEpsilons_pureNP::cW2() const
-{
-    return ( Mw()*Mw()/Mz/Mz );
-}
-
-
-double NPEpsilons_pureNP::sW2() const
-{
-    return ( 1.0 - cW2() );
-}
-
-
 double NPEpsilons_pureNP::GammaW() const
 {
-    throw std::runtime_error("NPEpsilons_pureNP::GammaW() is not implemented.");
+    throw std::runtime_error("NPEpsilons_pureNP::GammaW() is not available.");
 }
 
 
@@ -155,7 +143,7 @@ double NPEpsilons_pureNP::deltaGVl(StandardModel::lepton l) const
 }
 
 
-double NPEpsilons_pureNP::deltaGVq(StandardModel::quark q) const
+double NPEpsilons_pureNP::deltaGVq(QCD::quark q) const
 {
     if (q==TOP) return 0.0;
 
@@ -181,7 +169,7 @@ double NPEpsilons_pureNP::deltaGAl(StandardModel::lepton l) const
 }
 
 
-double NPEpsilons_pureNP::deltaGAq(StandardModel::quark q) const
+double NPEpsilons_pureNP::deltaGAq(QCD::quark q) const
 {
     if (q==TOP)
         return 0.0;

@@ -20,12 +20,12 @@ class EWSM; // forward reference to EWSM class
 /**
  * @class StandardModel
  * @ingroup StandardModel
- * @brief A class for the Standard %Model.
+ * @brief A model class for the Standard %Model.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This is a model class "StandardModel", which contains parameters
- * and functions associated with the Standard %Model. This class is inherited
- * from the QCD class, which defines parameters related to %QCD.
+ * @details This is a Model class containing parameters and functions associated
+ * with the Standard %Model. This class is inherited from the QCD class, which
+ * defines parameters related to %QCD.
  *
  *
  * @anchor StandardModelInitialization
@@ -36,7 +36,7 @@ class EWSM; // forward reference to EWSM class
  * it is required to call the initialization method InitializeModel(), which
  * allocates memory to the pointers #myEWSM and #myStandardModelMatching. 
  * These pointers are then used in computing %EW precision and flavour observables,
- * respectively. In a Monte Carlo run, the constructor as well as the initialization
+ * respectively. In the Monte Carlo run, the constructor as well as the initialization
  * method are called in InputParser::ReadParameters().
  *
  * The initializations and updates of the model parameters and flags are explained
@@ -46,7 +46,7 @@ class EWSM; // forward reference to EWSM class
  * @anchor StandardModelParameters
  * <h3>%Model parameters</h3>
  *
- * The model parameters of StandardModel are summarized below: 
+ * The model parameters of %StandardModel are summarized below:
  * <table class="model">
  * <tr>
  *   <th>Label</th>
@@ -193,7 +193,7 @@ class EWSM; // forward reference to EWSM class
  * @anchor StandardModelFlags
  * <h3>%Model flags</h3>
  *
- * The flags of StandardModel, which can be specified in the model configuration
+ * The flags of %StandardModel, which can be specified in the model configuration
  * file, are summarized below, where the values of the boolean flags (TRUE or
  * FALSE) are case insensitive, while those of the other flags are case sensitive.
  * The default values of the flags are indicated in bold: 
@@ -206,19 +206,19 @@ class EWSM; // forward reference to EWSM class
  * </tr>
  * <tr>
  *   <td class="mod_name">%CacheInEWSM</td>
- *   <td class="mod_valu"><b>TRUE</b> / FALSE</td>
+ *   <td class="mod_valu"><b>TRUE</b>&nbsp;/&nbsp;FALSE</td>
  *   <td class="mod_desc">This flag controls the use of the cashing method
  *   implemented in EWSM class. The default value is TRUE.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%CacheInEWSMcache</td>
- *   <td class="mod_valu"><b>TRUE</b> / FALSE</td>
+ *   <td class="mod_valu"><b>TRUE</b>&nbsp;/&nbsp;FALSE</td>
  *   <td class="mod_desc">This flag controls the use of the cashing method
  *   implemented in EWSMcache class. The default value is TRUE.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%WithoutNonUniversalVC</td>
- *   <td class="mod_valu">TRUE / <b>FALSE</b></td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This flag controls if flavour non-universal vertex
  *    corrections are not added to the epsilon parameterization for the %EW
  *    precision observables. The default value is FALSE; the non-universal
@@ -226,7 +226,7 @@ class EWSM; // forward reference to EWSM class
  * </tr>
  * <tr>
  *   <td class="mod_name">%NoApproximateGammaZ</td>
- *   <td class="mod_valu">TRUE / <b>FALSE</b></td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This flag is set to true if the two-loop approximate
  *   formula of @f$\Gamma_Z@f$ defined with the function
  *   EWSMApproximateFormulae::X_extended() is NOT employed.
@@ -234,7 +234,7 @@ class EWSM; // forward reference to EWSM class
  * </tr>
  * <tr>
  *   <td class="mod_name">%NoApproximateSigmaH</td>
- *   <td class="mod_valu">TRUE / <b>FALSE</b></td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This flag is set to true if the two-loop approximate
  *   formula of @f$\sigma_h^0@f$ defined with the function
  *   EWSMApproximateFormulae::X_extended() is NOT employed.
@@ -242,7 +242,7 @@ class EWSM; // forward reference to EWSM class
  * </tr>
  * <tr>
  *   <td class="mod_name">%NoApproximateRl</td>
- *   <td class="mod_valu">TRUE / <b>FALSE</b></td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This flag is set to true if the two-loop approximate
  *   formula of @f$R_\ell^0@f$ defined with the function
  *   EWSMApproximateFormulae::X_extended() is NOT employed.
@@ -250,7 +250,7 @@ class EWSM; // forward reference to EWSM class
  * </tr>
  * <tr>
  *   <td class="mod_name">%NoApproximateRc</td>
- *   <td class="mod_valu">TRUE / <b>FALSE</b></td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This flag is set to true if the two-loop approximate
  *   formula of @f$R_c^0@f$ defined with the function
  *   EWSMApproximateFormulae::X_extended() is NOT employed.
@@ -258,7 +258,7 @@ class EWSM; // forward reference to EWSM class
  * </tr>
  * <tr>
  *   <td class="mod_name">%NoApproximateRb</td>
- *   <td class="mod_valu">TRUE / <b>FALSE</b></td>
+ *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This flag is set to true if the two-loop approximate
  *   formula of @f$R_b^0@f$ defined with the function
  *   EWSMApproximateFormulae::X_extended() is NOT employed.
@@ -313,12 +313,10 @@ public:
         TAU /**< Tau */
     };
 
-    static const int NSMvars = 24;///< The number of model parameters in %StandardModel.
+    static const int NSMvars = 24;///< The number of the model parameters in %StandardModel.
 
     /**
-     * @brief An array containing the labels under which all %StandardModel
-     * parameters are stored in a vector of ModelParameter via
-     * InputParser::ReadParameters().
+     * @brief  A string array containing the labels of the model parameters in %StandardModel.
      */
     static const std::string SMvars[NSMvars];
 
@@ -328,7 +326,7 @@ public:
     StandardModel();
 
     /**
-     * @brief A method to fetch the name of the current model.
+     * @brief A method to fetch the name of %StandardModel.
      * @return the name of the model as a string 
      */
     virtual std::string ModelName() const
@@ -341,7 +339,7 @@ public:
     // Initialization
 
     /**
-     * @brief A method to initialize %StandardModel.
+     * @brief A method to initialize the model.
      * @details This method, called via InputParser::ReadParameters(), allocates
      * memory to the pointers #myEWSM and #myStandardModelMatching, which are used
      * for %EW precision and flavour observables, respectively. 
@@ -350,7 +348,7 @@ public:
     virtual bool InitializeModel();
 
     /**
-     * @brief A get method to access the pointer #myEWSM.
+     * @brief A get method to access the member pointer of type EWSM.
      * @return #myEWSM
      */
     EWSM* getEWSM() const
@@ -359,7 +357,7 @@ public:
     }
 
     /**
-     * @brief A get method to access the pointer #myStandardModelMatching.
+     * @brief A get method to access the member pointer of type StandardModelMatching.
      * @return #myStandardModelMatching
      */
     virtual StandardModelMatching* getMyMatching() const
@@ -373,7 +371,8 @@ public:
 
     /**
      * @brief A method to initialize the model parameters.
-     * @param[in] Dpars a map of parameters that are being updated in the Monte Carlo run
+     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
+     * (including parameters that are varied and those that are held constant)
      * @return a boolean that is true if the execution is successful
      */
     virtual bool Init(const std::map<std::string, double>& DPars);
@@ -389,8 +388,8 @@ public:
 
     /**
      * @brief The update method for %StandardModel.
-     * @details This method updates all the model parameters with giving Dpars.
-     * @param[in] Dpar a map of parameters that are being updated in the Monte Carlo run
+     * @details This method updates all the model parameters with giving DPars.
+     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
      * (including parameters that are varied and those that are held constant)
      * @return a boolean that is true if the execution is successful
      */
@@ -407,9 +406,9 @@ public:
     virtual bool PostUpdate();
 
     /**
-     * @brief A method to check if all the mandatory model parameters 
+     * @brief A method to check if all the mandatory parameters for %StandardModel
      * have been provided in the model configuration file.
-     * @param[in] Dpar a map of parameters that are being updated in the Monte Carlo run
+     * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
      * (including parameters that are varied and those that are held constant)
      * @return a boolean that is true if the execution is successful
      */
@@ -420,7 +419,7 @@ public:
     // Flags
 
     /**
-     * @brief A method to set a model flag of %StandardModel.
+     * @brief A method to set a flag of %StandardModel.
      * @param[in] name name of a model flag
      * @param[in] value the boolean to be assigned to the flag specified by name
      * @return a boolean that is true if the execution is successful
@@ -428,7 +427,7 @@ public:
     virtual bool setFlag(const std::string name, const bool value);
 
     /**
-     * @brief A method to set a model flag of %StandardModel.
+     * @brief A method to set a flag of %StandardModel.
      * @param[in] name name of a model flag
      * @param[in] value the string to be assigned to the flag specified by name
      * @return a boolean that is true if the execution is successful
@@ -437,7 +436,7 @@ public:
 
     /**
      * @brief A method to check the sanity of the set of model flags.
-     * @return true if the set of model flags is sane
+     * @return a boolean that is true if the set of model flags is sane
      */
     virtual bool CheckFlags() const;
 
@@ -549,7 +548,7 @@ public:
     // get and set methods for class members
 
     /**
-     * @brief A get method to retrieve the object of a lepton.
+     * @brief A get method to retrieve the member object of a lepton.
      * @param[in] p name of a lepton
      * @return an object of the lepton specified by name
      */
@@ -628,7 +627,7 @@ public:
     }
 
     /**
-     * @brief A get method to retrieve the object of the %CKM matrix.
+     * @brief A get method to retrieve the %CKM matrix. 
      * @return the %CKM matrix
      */
     matrix<complex> getVCKM() const
@@ -637,7 +636,7 @@ public:
     }
 
     /**
-     * @brief A get method to retrieve the object of type CKM.
+     * @brief A get method to retrieve the member object of type CKM.
      * @return the object of type CKM
      */
     CKM getCKM() const
@@ -774,7 +773,10 @@ public:
     ///////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief The vacuum expectation value @f$v=1/(\sqrt{2}G_\mu)^{1/2}@f$.
+     * @brief The Higgs vacuum expectation value.
+     * @f[
+     *    v = \left(\frac{1}{\sqrt{2} G_F}\right)^{1/2}.
+     * @f]
      * @return @f$v@f$ in GeV
      */
     virtual double v() const;
@@ -848,29 +850,35 @@ public:
     double alphaMz() const;
 
     /**
-     * @brief The SM prediction for the pole mass of the @f$W@f$ boson,
-     * @f$M_W@f$. 
-     * @return @f$M_W@f$ in GeV.
+     * @brief The @f$W@f$-boson mass in the on-shell scheme, @f$M_W@f$.
+     * @return @f$M_W@f$ in GeV
      */
     virtual double Mw() const;
 
     /**
-     * @brief The SM prediction for the cosine of the weak mixing angle
+     * @brief The square of the cosine of the weak mixing angle
      * in the on-shell scheme, denoted as @f$c_W^2@f$.
-     * @return @f$c_W^2=M_W^2/M_Z^2@f$
+     * @details
+     * @f[
+     *   @f$c_W^2=\cos^2{\theta_W}=\frac{M_W^2}{M_Z^2}@f$
+     * @f]
+     * @return @f$c_W^2@f$
      */
     virtual double cW2() const;
 
     /**
-     * @brief The SM prediction for the sine of the weak mixing angle
+     * @brief The square of the sine of the weak mixing angle
      * in the on-shell scheme, denoted as @f$s_W^2@f$.
-     * @return @f$s_W^2=1-M_W^2/M_Z^2@f$
+     * @details
+     * @f[
+     *   @f$s_W^2=\sin^2{\theta_W}=1-\frac{M_W^2}{M_Z^2}@f$
+     * @f]
+     * @return @f$s_W^2@f$
      */
     virtual double sW2() const;
 
     /**
-     * @brief The SM prediction for the total width of the W boson,
-     * @f$\Gamma_W@f$. 
+     * @brief The total width of the @f$W@f$ boson, @f$\Gamma_W@f$.
      * @return @f$\Gamma_W@f$ in GeV
      */
     virtual double GammaW() const;
@@ -980,8 +988,8 @@ public:
 protected:
 
     /**
-     * @brief A set method to change the value of a parameter in %StandardModel.
-     * @param[in] name name of a parameter
+     * @brief A method to set the value of a parameter of %StandardModel.
+     * @param[in] name name of a model parameter
      * @param[in] value the value to be assigned to the parameter specified by name
      */
     virtual void setParameter(const std::string name, const double& value);
@@ -1032,6 +1040,7 @@ protected:
     
     ////////////////////////////////////////////////////////////////////////    
 private:
+
     StandardModelMatching* myStandardModelMatching;///< A pointer to an object of type StandardModelMatching.
 
     bool FlagWithoutNonUniversalVC;///< A boolean for the model flag %WithoutNonUniversalVC.

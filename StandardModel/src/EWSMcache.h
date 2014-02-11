@@ -55,7 +55,7 @@ public:
      * @details The flag #FlagDebug=true is used for testing and debugging the
      * codes associated with the current class. The flag #FlagDebug
      * is set to false in the constructor EWSMcache() by default.
-     * @param[in] FlagDebug flag for debugging
+     * @param[in] FlagDebug a boolean flag for debugging
      */
     void setFlagDebug(bool FlagDebug)
     {
@@ -63,12 +63,14 @@ public:
     }
 
     /**
-     * @brief A set method to change the internal boolean flag #FlagCacheInEWSMcache.
-     * @details Setting #FlagCacheInEWSMcache to false, the caching methods
+     * @brief A set method to change the model flag CacheInEWSMcache in
+     * StandardModel.
+     * @details Setting CacheInEWSMcache to false, the caching methods
      * defined in the current class are not employed in numerical computations.
-     * The flag #FlagCacheInEWSMcache is set to true in the constructor EWSMcache()
-     * by default.
-     * @param[in] FlagCacheInEWSMcache flag for caching
+     * The flag is set to true in the constructor EWSMcache() by default.
+     * 
+     * See also @ref StandardModelFlags "the description of the StandardModel flags".
+     * @param[in] FlagCacheInEWSMcache a boolean flag for caching
      */
     void setFlagCacheInEWSMcache(bool FlagCacheInEWSMcache)
     {
@@ -79,7 +81,7 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
     /**
-     * @brief A get method to access the reference to the object of type
+     * @brief A get method to access the member reference to the object of type
      * StandardModel passed to the constructor.
      * @return the reference to the object of type StandardModel passed to the
      * constructor.
@@ -90,7 +92,7 @@ public:
     //}
     
     /**
-     * @brief A get method to access the object of type PVfunctions in the current class.
+     * @brief A get method to access the member object of type PVfunctions.
      * @return the object of type PVfunctions in the current class
      */
     const PVfunctions getPV() const 
@@ -99,7 +101,7 @@ public:
     }
 
     /**
-     * @brief A get method to access the object of type Polylogarithms in the current class.
+     * @brief A get method to access the member object of type Polylogarithms. 
      * @return the object of type Polylogarithms in the current class
      */
     const Polylogarithms getPolyLog() const 
@@ -108,7 +110,7 @@ public:
     }
 
     /**
-     * @brief A get method to access the object of type ClausenFunctions in the current class.
+     * @brief A get method to access the member object of type ClausenFunctions. 
      * @return the object of type ClausenFunctions in the current class
      */
     const ClausenFunctions getClausen() const 
@@ -246,7 +248,7 @@ public:
      * @return the MSbar mass of u, d, s, c, b at the scale mu
      * or the pole mass of t
      */
-    double mq(const StandardModel::quark q, const double mu, 
+    double mq(const QCD::quark q, const double mu, 
               const orders order=FULLNNLO) const;
 
     /**
@@ -260,7 +262,7 @@ public:
      * @return the MSbar mass squared of u, d, s, c, b at the scale mu
      * or the pole mass squared of t
      */
-    double mq2(const StandardModel::quark q, const double mu,
+    double mq2(const QCD::quark q, const double mu,
                const orders order=FULLNNLO) const
     {
         return ( mq(q, mu, order)*mq(q, mu, order) );
@@ -412,7 +414,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$Q_q@f$
      */
-    double Qq(const StandardModel::quark q) const
+    double Qq(const QCD::quark q) const
     {
         return SM.getQuarks(q).getCharge();
     }
@@ -432,7 +434,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$I_3^q@f$
      */
-    double I3q(const StandardModel::quark q) const
+    double I3q(const QCD::quark q) const
     {
         return SM.getQuarks(q).getIsospin();
     }
@@ -456,7 +458,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$v_q@f$
      */
-    double vq(const StandardModel::quark q, const double Mw_i) const
+    double vq(const QCD::quark q, const double Mw_i) const
     {
         return ( aq(q) - 2.0*Qq(q)*sW2(Mw_i) );
     }
@@ -478,7 +480,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$a_q@f$
      */
-    double aq(const StandardModel::quark q) const
+    double aq(const QCD::quark q) const
     {
         return ( SM.getQuarks(q).getIsospin() );
     }
@@ -500,7 +502,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\sigma_q@f$
      */
-    double sigmaq(const StandardModel::quark q, const double Mw_i) const 
+    double sigmaq(const QCD::quark q, const double Mw_i) const 
     {
         return ( 1.0 - 2.0*fabs(Qq(q))*sW2(Mw_i) );
     }  
@@ -522,7 +524,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta_q@f$
      */    
-    double deltaq(const StandardModel::quark q, const double Mw_i) const 
+    double deltaq(const QCD::quark q, const double Mw_i) const 
     {
         return ( - 2.0*Qq(q)*sW2(Mw_i) );   
     }  
@@ -881,7 +883,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$B_0(M_Z^2;m_q^2,m_q^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0_Mz2_Mz2_mq2_mq2(const StandardModel::quark q) const;    
+    complex B0_Mz2_Mz2_mq2_mq2(const QCD::quark q) const;    
 
     /**
      * @brief A cache method.
@@ -943,7 +945,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$B_{0p}(M_Z^2;m_q^2,m_q^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0p_Mz2_Mz2_mq2_mq2(const StandardModel::quark q) const;
+    complex B0p_Mz2_Mz2_mq2_mq2(const QCD::quark q) const;
     
     /**
      * @brief A cache method.
@@ -1049,7 +1051,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$B_f(M_Z^2;m_q^2,m_q^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bf_Mz2_Mz2_mq2_mq2(const StandardModel::quark q) const;
+    complex Bf_Mz2_Mz2_mq2_mq2(const QCD::quark q) const;
 
     /**
      * @brief A cache method.
@@ -1063,7 +1065,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$B_f(0;m_q^2,m_q^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bf_Mz2_0_mq2_mq2(const StandardModel::quark q) const;
+    complex Bf_Mz2_0_mq2_mq2(const QCD::quark q) const;
 
     /**
      * @brief A cache method.
@@ -1123,7 +1125,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$B_{fp}(M_Z^2;m_q^2,m_q^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bfp_Mz2_Mz2_mq2_mq2(const StandardModel::quark q) const;
+    complex Bfp_Mz2_Mz2_mq2_mq2(const QCD::quark q) const;
 
     /**
      * @brief A cache method.

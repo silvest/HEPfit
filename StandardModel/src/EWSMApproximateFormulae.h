@@ -73,7 +73,7 @@ public:
      * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.05907\pm 0.00036@f$,
      * @f$M_Z = 91.1876\pm 0.0021@f$ GeV and
      * @f$m_t = 172.5\pm 2.3@f$ GeV.
-     * @param[in] l name of lepton (see StandardModel::lepton)
+     * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return the effective weak mixing angle for @f$Z\to\ell\bar{\ell}@f$
      */
     double sin2thetaEff_l(const StandardModel::lepton l) const;
@@ -96,10 +96,10 @@ public:
      * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.05907\pm 0.00036@f$,
      * @f$M_Z = 91.1876\pm 0.0021@f$ GeV and
      * @f$m_t = 172.5\pm 2.3@f$ GeV.
-     * @param[in] q name of quark (see QCD::quark)
+     * @param[in] q name of a quark (see QCD::quark)
      * @return the effective weak mixing angle for @f$Z\to q\bar{q}@f$
      */
-    double sin2thetaEff_q(const StandardModel::quark q) const;    
+    double sin2thetaEff_q(const QCD::quark q) const;    
     
     /**
      * @brief @f$\Delta r_{\rm rem}^{(\alpha^2)}@f$ in the on-shell scheme. 
