@@ -10,7 +10,7 @@
 
 #include <ThObsType.h>
 #include <StandardModel.h>
-//#include "HeffDF2.h"
+#include "HeffDL1.h"
 
 using namespace gslpp;
 
@@ -18,22 +18,22 @@ class LeptonFlavour : public ThObsType {
 public:
 
     LeptonFlavour(const StandardModel& SM_i) : ThObsType(SM_i) 
-            //, HDF2(SM_i), HDS1(SM_i), HDB1(SM_i) 
+            , HDL1(SM_i)//, HDS1(SM_i), HDB1(SM_i)
     {   
         if(!SM_i.IsModelInitialized())
             throw std::runtime_error("Model not initialized "); 
     };
 
-    /*const HeffDF2& getHDF2() const {
-        return HDF2;
-    }*/
+    const HeffDL1& getHDL1() const {
+        return HDL1;
+    }
     
-    /*vector<complex>** ComputeCoeffBd(double mu, schemes scheme = NDR) {
-        return HDF2.ComputeCoeffBd(mu, scheme);
-    }*/
+    vector<complex>** ComputeCoeffli_lj_gamma() {
+        return HDL1.ComputeCoeffDL1();
+    }
     
 private:
-    //HeffDF2 HDF2; 
+    HeffDL1 HDL1;
 };
 
 #endif	/* LEPTONFLAVOUR_H */

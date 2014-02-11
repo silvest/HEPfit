@@ -12,7 +12,7 @@ using namespace gslpp;
 
 HeffDL1::HeffDL1(const StandardModel & SM_i) :
         model(SM_i),
-        coeffDL1(12, NDR , NLO){
+        coeffDL1(2, NDR , LO){
 }
 
 HeffDL1::~HeffDL1() {

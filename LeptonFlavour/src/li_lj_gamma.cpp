@@ -11,7 +11,8 @@ li_lj_gamma::li_lj_gamma(LeptonFlavour& LeptonFlavour_i): ThObservable(LeptonFla
 };
 
 double li_lj_gamma::computeThValue(){
-
-    throw std::runtime_error("li_lj_gamma::computeThValue(): Observable not implemented");
-    return (EXIT_FAILURE);
+    
+    gslpp::vector<complex> ** allcoeff = myLeptonFlavour.ComputeCoeffli_lj_gamma();
+    
+    return (1/10. * ((*(allcoeff[LO])) * (*(allcoeff[LO])).conjugate()).abs());
 }
