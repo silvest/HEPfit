@@ -55,6 +55,7 @@
             <pElem>../pMSSM/src</pElem>
             <pElem>../MFV/src</pElem>
             <pElem>../THDM/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -98,6 +99,7 @@
             <pElem>../pMSSM/src</pElem>
             <pElem>../MFV/src</pElem>
             <pElem>../THDM/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -147,6 +149,7 @@
             <pElem>../pMSSM/src</pElem>
             <pElem>../MFV/src</pElem>
             <pElem>../THDM/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
@@ -195,6 +198,7 @@
             <pElem>../pMSSM/src</pElem>
             <pElem>../MFV/src</pElem>
             <pElem>../THDM/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -238,6 +242,7 @@
             <pElem>../pMSSM/src</pElem>
             <pElem>../MFV/src</pElem>
             <pElem>../THDM/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>

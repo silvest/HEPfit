@@ -58,6 +58,7 @@
             <pElem>../GeneralSUSY/src</pElem>
             <pElem>../pMSSM/src</pElem>
             <pElem>../boost</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
@@ -107,6 +108,7 @@
             <pElem>../GeneralSUSY/src</pElem>
             <pElem>../pMSSM/src</pElem>
             <pElem>../boost</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -159,6 +161,7 @@
             <pElem>../GeneralSUSY/src</pElem>
             <pElem>../pMSSM/src</pElem>
             <pElem>../boost</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
@@ -218,6 +221,7 @@
             <pElem>../GeneralSUSY/src</pElem>
             <pElem>../pMSSM/src</pElem>
             <pElem>../boost</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -270,6 +274,7 @@
             <pElem>../GeneralSUSY/src</pElem>
             <pElem>../pMSSM/src</pElem>
             <pElem>../boost</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>

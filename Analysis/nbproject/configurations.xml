@@ -71,6 +71,7 @@
             <pElem>../GeneralSUSY/src</pElem>
             <pElem>../pMSSM/src</pElem>
             <pElem>../EventGeneration/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
@@ -372,6 +373,7 @@
             <pElem>../GeneralSUSY/src</pElem>
             <pElem>../pMSSM/src</pElem>
             <pElem>../EventGeneration/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -675,6 +677,7 @@
             <pElem>../GeneralSUSY/src</pElem>
             <pElem>../pMSSM/src</pElem>
             <pElem>../EventGeneration/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
@@ -984,6 +987,7 @@
             <pElem>../pMSSM/src</pElem>
             <pElem>../EventGeneration/src</pElem>
             <pElem>../LeptonFlavour/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -1288,6 +1292,7 @@
             <pElem>../GeneralSUSY/src</pElem>
             <pElem>../pMSSM/src</pElem>
             <pElem>../EventGeneration/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
             <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>

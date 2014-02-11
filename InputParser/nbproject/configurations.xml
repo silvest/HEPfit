@@ -63,6 +63,7 @@
             <pElem>../boost/</pElem>
             <pElem>../GeneralSUSY/src</pElem>
             <pElem>../pMSSM/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -279,9 +280,10 @@
             <pElem>../THDM/src</pElem>
             <pElem>../EW/src</pElem>
             <pElem>../ZFitterWrapper/src</pElem>
+            <pElem>../boost/</pElem>
             <pElem>../GeneralSUSY/src</pElem>
             <pElem>../pMSSM/src</pElem>
-            <pElem>../boost</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -378,12 +380,14 @@
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../MFV/src</pElem>
             <pElem>../SUSY/src</pElem>
+            <pElem>../FeynHiggs/include</pElem>
             <pElem>../THDM/src</pElem>
             <pElem>../EW/src</pElem>
             <pElem>../ZFitterWrapper/src</pElem>
-            <pElem>../FeynHiggs/include</pElem>
+            <pElem>../boost/</pElem>
             <pElem>../GeneralSUSY/src</pElem>
             <pElem>../pMSSM/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
