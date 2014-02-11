@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -324,69 +324,28 @@ namespace gslpp {
         output << v(i) << ")";
         return output;
     }
-    /** @{
-     * @name Operations on vector<complex>
-     */
 
-    /** Add a complex number to a complex vector
-     * @ingroup vector
-     * @param z Complex number
-     * @param v Complex vector
-     * @return @f$ z + v @f$
-     */
     vector<complex> operator+(const complex& z, vector<complex> v) {
         return v + z;
     }
 
-    /** Subtract a complex number from a complex vector
-     * @ingroup vector
-     * @param z Complex number
-     * @param v Complex vector
-     * @return @f$ z - v @f$
-     */
     vector<complex> operator-(const complex& z, vector<complex> v) {
         return -v + z;
     }
 
-    /** Multiply a complex number by a complex vector
-     * @ingroup vector
-     * @param z Complex number
-     * @param v Complex vector
-     * @return @f$ z*v @f$
-     */
     vector<complex> operator*(const complex& z, vector<complex> v) {
         return v*z;
     }
 
-    /** Add a real number to a complex vector
-     * @ingroup vector
-     * @param a Real number
-     * @param v Complex vector
-     * @return @f$ a + v @f$
-     */
     vector<complex> operator+(const double& a, vector<complex> v) {
         return v + a;
     }
 
-    /** Subtract a complex vector from a real number
-     * @ingroup vector
-     * @param a Real number
-     * @param v Complex vector
-     * @return @f$ a - v @f$
-     */
     vector<complex> operator-(const double& a, vector<complex> v) {
         return -v + a;
     }
 
-    /** Multiply a real number by a complex vector
-     * @ingroup vector
-     * @param a Real number
-     * @param v Complex vector
-     * @return @f$ z*v @f$
-     */
     vector<complex> operator*(const double& a, vector<complex> v) {
         return v*a;
     }
-    /** @}
-     */
 }

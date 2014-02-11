@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -75,13 +75,9 @@ namespace gslpp
       gsl_matrix* as_gsl_type_ptr() const;
       gsl_matrix& as_gsl_type();
       const gsl_matrix& as_gsl_type() const;
-      /**
-       * check whether two matrices are equal
-       * @param m1 the first matrix
-       * @param m2 the second matrix
-       * @return true if equal, false otherwise
-       */
-//      bool is_equal(const matrix<double>& m1, const matrix<double>& m2);
+      /** check whether two matrices are equal */
+      //bool is_equal(const matrix<double>& m1, const matrix<double>& m2);
+
       /** Unary minus (matrix) */
       matrix<double> operator-() const;
       /** Addition operator (matrix) */
@@ -172,26 +168,26 @@ namespace gslpp
       /** Add a complex number to a real matrix
        * @ingroup matrix
        * @param z Complex number
-       * @param v Real matrix
-       * @return @f$ z + v @f$
+       * @param m Real matrix
+       * @return @f$ z + m @f$
        */
-      friend matrix<complex> operator+(const complex& z, matrix<double> v);
+      friend matrix<complex> operator+(const complex& z, matrix<double> m);
 
       /** Subtract a complex number from a real matrix
        * @ingroup matrix
        * @param z Complex number
-       * @param v Real matrix
-       * @return @f$ z - v @f$
+       * @param m Real matrix
+       * @return @f$ z - m @f$
        */
-      friend matrix<complex> operator-(const complex& z, matrix<double> v);
+      friend matrix<complex> operator-(const complex& z, matrix<double> m);
 
       /** Multiply a complex number by a real matrix
        * @ingroup matrix
        * @param z Complex number
-       * @param v Real matrix
-       * @return @f$ a*v @f$
+       * @param m Real matrix
+       * @return @f$ a*m @f$
        */
-      friend matrix<complex> operator*(const complex& z, matrix<double> v);
+      friend matrix<complex> operator*(const complex& z, matrix<double> m);
       /** @}
        */
   };

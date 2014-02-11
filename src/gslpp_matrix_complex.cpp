@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -611,119 +611,51 @@ namespace gslpp
     return output;
   }
 
-  /** @{
-   * @name Operations on matrix<complex>
-   */
-   /** Add a double matrix to a complex matrix
-   * @ingroup matrix
-   * @param m1 Double matrix
-   * @param m2 Complex matrix
-   * @return @f$ m2 + m1 @f$
-   */
   matrix<complex> operator+(const matrix<double> m1, const matrix<complex> m2) {
       return m2 + m1;
   }
 
-  /** @{
-    * @name Operations on matrix<complex>
-    */
-  /** Subtract a double matrix to a complex matrix
-   * @ingroup matrix
-   * @param m1 Double matrix
-   * @param m2 Complex matrix
-   * @return @f$ -m2 + m1 @f$
-   */
   matrix<complex> operator-(const matrix<double> m1, const matrix<complex> m2) {
       return -m2 + m1;
   }
 
-  /** Add a complex number to a complex matrix
-   * @ingroup matrix
-   * @param z Complex number
-   * @param m Complex matrix
-   * @return @f$ z + m @f$
-   */
   matrix<complex> operator+(const complex& z, const matrix<complex> m)
   {
     return m + z;
   }
 
-  /** Subtract a complex number from a complex matrix
-   * @ingroup matrix
-   * @param z Complex number
-   * @param m Complex matrix
-   * @return @f$ z - m @f$
-   */
   matrix<complex> operator-(const complex& z, const matrix<complex> m)
   {
     return -m + z;
   }
 
-  /** Multiply a complex number by a complex matrix
-   * @ingroup matrix
-   * @param z Complex number
-   * @param m Complex matrix
-   * @return @f$ z*m @f$
-   */
   matrix<complex> operator*(const complex& z, const matrix<complex> m)
   {
     return m * z;
   }
 
-  /** Multiply a complex vector by a complex matrix
-   * @ingroup matrix
-   * @param v Complex vector
-   * @param m Complex matrix
-   * @return @f$ v*m @f$
-   */
   vector<complex> operator*(const vector<complex>& v, const matrix<complex> m) 
   {
     return m.transpose() * v;
   }
 
-  /** Multiply a real vector by a complex matrix
-   * @ingroup matrix
-   * @param v Real vector
-   * @param m Complex matrix
-   * @return @f$ v*m @f$
-   */
   vector<complex> operator*(const vector<double>& v, const matrix<complex> m)
   {
     return m.transpose() * v;
   }
 
-  /** Add a real number to a complex matrix
-   * @ingroup matrix
-   * @param a Real number
-   * @param v Complex matrix
-   * @return @f$ a + m @f$
-   */
   matrix<complex> operator+(const double& a, const matrix<complex> m)
   {
     return m + a;
   }
 
-  /** Subtract a complex matrix from a real number
-   * @ingroup matrix
-   * @param a Real number
-   * @param m Complex matrix
-   * @return @f$ a - m @f$
-   */
   matrix<complex> operator-(const double& a, const matrix<complex> m)
   {
     return -m + a;
   }
 
-  /** Multiply a real number by a complex matrix
-   * @ingroup matrix
-   * @param a Real number
-   * @param m Complex matrix
-   * @return @f$ a*m @f$
-   */
   matrix<complex> operator*(const double& a, const matrix<complex> m)
   {
     return m * a;
   }
-  /** @}
-   */
 }

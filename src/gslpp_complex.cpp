@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -9,8 +9,6 @@
 #ifndef GSLPP_COMPLEX_H
 #include "gslpp_complex.h"
 #endif
-/** \include gslpp_complex.h
-*/
 
 #define GSLEPS 1.e-15
 
@@ -299,53 +297,30 @@ namespace gslpp
   }
 
   //==================================================================
-  /** @{
-  \name Operations on complex numbers  */
-  /** Add a real and complex numbers
-  \ingroup complex
-  \param[in] x1 Real number
-  \param[in] z2 Complex number
-  \return \f$ x_1 + z_2 \f$ */
+
   complex operator+(const double& x1, const complex& z2)
   {
     complex z1(x1, 0.);
     return z1 + z2;
   }
 
-  /** Subtract a real and complex numbers
-  \ingroup complex
-  \param[in] x1 Real number
-  \param[in] z2 Complex number
-  \return \f$ x_1 - z_2 \f$ */
   complex operator-(const double& x1, const complex& z2)
   {
     complex z1(x1, 0.);
     return z1 - z2;
   }
 
-  /** Multiply a real and complex numbers
-  \ingroup complex
-  \param[in] x1 Real number
-  \param[in] z2 Complex number
-  \return \f$ x_1 z_2 \f$ */
   complex operator*(const double& x1, const complex& z2)
   {
     complex z1(x1, 0.);
     return z1 * z2;
   }
 
-  /** Divide a real and complex numbers
-  \ingroup complex
-  \param[in] x1 Real number
-  \param[in] z2 Complex number
-  \return \f$ x_1 / z_2 \f$ */
   complex operator/(const double& x1, const complex& z2)
   {
     complex z1(x1, 0);
     return z1 / z2;
   }
-
-  /** @} */
 
   //==================================================================
   /** @{
