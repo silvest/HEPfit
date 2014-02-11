@@ -75,8 +75,9 @@ void EWSUSY::SetRosiekParameters()
         Msu2[k] = mySUSY.getMsu2()(k);
         Msd2[k] = mySUSY.getMsd2()(k);
         Mse2[k] = mySUSY.getMse2()(k);
-        Msn2[k] = mySUSY.getMsn2()(k);
     }
+    for (int k=0; k<3; ++k)
+        Msn2[k] = mySUSY.getMsn2()(k);
     for (int i=0; i<2; ++i)
         mC[i] = mySUSY.getMch()(i);
     for (int j=0; j<4; ++j)

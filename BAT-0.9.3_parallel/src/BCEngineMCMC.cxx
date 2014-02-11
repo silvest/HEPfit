@@ -32,7 +32,6 @@ BCEngineMCMC::BCEngineMCMC()
    // set default parameters for the mcmc
    MCMCSetValuesDefault();
    procnum = MPI::COMM_WORLD.Get_size();
-   rank = MPI::COMM_WORLD.Get_rank();
 
    // initialize random number generator
    fRandom = new TRandom3();
@@ -635,7 +634,7 @@ void BCEngineMCMC::MCMCGetNewPointMetropolis(unsigned parameter)
 {
     unsigned mychain = 0;
     int iproc = 0;
-    int npars = fParameters.Size();
+    unsigned npars = fParameters.Size();
     int buffsize = npars + 1;
     double p0[procnum];
     int index_chain[procnum];
@@ -645,17 +644,17 @@ void BCEngineMCMC::MCMCGetNewPointMetropolis(unsigned parameter)
     
     
     //------------------
-    if( rank == 0 ){
-        buff = new double*[procnum];
-        buff[0]=new double[procnum];
-        for(int i=1;i<procnum;i++)buff[i]=buff[i-1]+1;
-    }
-    else{
-        buff = new double*[1];
-        buff[0] = new double[1];
-    }
+    buff = new double*[procnum];
+    buff[0]=new double[procnum];
+    for(int i=1;i<procnum;i++)
+        buff[i]=buff[i-1]+1;
     //------------------
     
+    double ** sendbuff = new double *[procnum];
+    sendbuff[0] = new double[procnum * buffsize];
+    for (int il = 1; il < procnum; il++)
+        sendbuff[il] = sendbuff[il - 1] + buffsize;
+       
     
     double ll;
     std::vector<std::vector<double> > fMCMCxvect;
@@ -702,11 +701,6 @@ void BCEngineMCMC::MCMCGetNewPointMetropolis(unsigned parameter)
        } else if (iproc == 0)
            break;
        
-       
-       double ** sendbuff = new double *[procnum];
-       sendbuff[0] = new double[procnum * buffsize];
-       for (int il = 1; il < procnum; il++)
-           sendbuff[il] = sendbuff[il - 1] + buffsize;
        
        for(int unsigned il = 0; il < fMCMCxvect.size() ; il++) {
            //The first entry of the array specifies the task to be executed.
@@ -776,9 +770,9 @@ void BCEngineMCMC::MCMCGetNewPointMetropolis(unsigned parameter)
        }
        iproc = 0;
        fMCMCxvect.clear();
-       delete sendbuff[0];
-       delete [] sendbuff;
     }
+    delete sendbuff[0];
+    delete [] sendbuff;
     delete [] recvbuff;
     delete buff[0];
     delete [] buff;
@@ -790,7 +784,7 @@ void BCEngineMCMC::MCMCGetNewPointMetropolis()
 {
     unsigned mychain = 0;
     int iproc = 0;
-    int npars = fParameters.Size();
+    unsigned npars = fParameters.Size();
     int buffsize = npars + 1;
     double p0[procnum];
     int index_chain[procnum];
@@ -799,18 +793,9 @@ void BCEngineMCMC::MCMCGetNewPointMetropolis()
     double **buff;
     
     
-    //------------------
-    if( rank == 0 ){
-        buff = new double*[procnum];
-        buff[0]=new double[procnum];
-        for(int i=1;i<procnum;i++)buff[i]=buff[i-1]+1;
-    }
-    else{
-        buff = new double*[1];
-        buff[0] = new double[1];
-    }
-    //------------------
-    
+    buff = new double*[procnum];
+    buff[0]=new double[procnum];
+    for(int i=1;i<procnum;i++)buff[i]=buff[i-1]+1;    
     
     double ll;
     std::vector<std::vector<double> > fMCMCxvect;

@@ -6,6 +6,7 @@
  */
 
 #include "MonteCarlo.h"
+#include <BAT/BCParameter.h>
 #include <TSystem.h>
 #include <BAT/BCAux.h>
 #include <BAT/BCLog.h>
@@ -81,27 +82,65 @@ void MonteCarlo::Run(const int rank)
             sendbuff[0] = new double[1];
 
             std::vector<double> pars;
-            double * buff = new double[1024];
-            double ll;
-
+            int obsbuffsize = Obs.size() + 2 * Obs2D.size() + 2 * ParaObs.size();
+            for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++)
+                obsbuffsize += it1->getObs().size();
+            
             while (true) {
                 MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE,
                                         recvbuff, buffsize, MPI::DOUBLE, 0);
-
-                if (recvbuff[0] == 0.)
-                    ll = log(0.);
-                else if (recvbuff[0] == 1.) {
+                
+                if (recvbuff[0] == 0.){ // do nothing and return ll
+                    double ll = log(0.);
+                    MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, sendbuff[0], 1, MPI::DOUBLE, 0);
+                }
+                else if (recvbuff[0] == 1.) { //compute log likelihood
                     pars.assign(recvbuff + 1, recvbuff + buffsize);
-                    ll = MCEngine.LogEval(pars);
-                } else if (recvbuff[0] == -1.)
+                    double ll = MCEngine.LogEval(pars);
+                    MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, sendbuff[0], 1, MPI::DOUBLE, 0);
+                } 
+                else if (recvbuff[0] == 2.) { // compute observables
+                    double sbuff[obsbuffsize];
+                    std::map<std::string, double> DPars;
+                    pars.assign(recvbuff + 1, recvbuff + buffsize);
+                    for (int k = 0; k < pars.size(); k++) {
+                        DPars[MCEngine.GetParameter(k)->GetName()] = pars[k];
+                    }
+                    myInputParser.getMyModel()->Update(DPars);
+
+                    int k = 0;
+                    for (std::vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++){
+                        sbuff[k++] = it->computeTheoryValue();
+                    }
+                    for (std::vector<Observable2D>::iterator it = Obs2D.begin(); it < Obs2D.end(); it++) {
+                        sbuff[k++] = it->computeTheoryValue();
+                        sbuff[k++] = it->computeTheoryValue2();
+                    }
+
+                    for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++){
+                        std::vector<Observable> pino(it1->getObs());
+                        for (std::vector<Observable>::iterator it = pino.begin(); it != pino.end(); ++it)
+                            sbuff[k++] = it->computeTheoryValue();
+                    }
+                    for (std::vector<ModelParaVsObs>::iterator it = ParaObs.begin(); it < ParaObs.end(); it++) {
+                        sbuff[k++] = DPars[it->getParaName()];
+                        sbuff[k++] = it->computeTheoryValue();
+                    }
+                    MPI::COMM_WORLD.Gather(sbuff, obsbuffsize, MPI::DOUBLE, sendbuff[0], obsbuffsize, MPI::DOUBLE, 0);
+                }
+                else if (recvbuff[0] == 3.) { // do not compute observables, but gather the buffer
+                    double sbuff[obsbuffsize];
+                    MPI::COMM_WORLD.Gather(sbuff, obsbuffsize, MPI::DOUBLE, sendbuff[0], obsbuffsize, MPI::DOUBLE, 0);
+                }
+                else if (recvbuff[0] == -1.)
                     break;
                 else {
                     std::cout << "recvbuff = " << recvbuff[0] << " rank " << rank << std::endl;
                     throw "error in MPI message!";
                 }
-
-                MPI::COMM_WORLD.Gather(&ll, 1, MPI::DOUBLE, buff, 1, MPI::DOUBLE, 0);
             }
+            delete sendbuff[0];
+            delete [] sendbuff;
 #endif
         } else {
 
@@ -264,9 +303,13 @@ void MonteCarlo::Run(const int rank)
             }
             MPI::COMM_WORLD.Scatter(sendbuff[0], buffsize, MPI::DOUBLE,
                                     recvbuff, buffsize, MPI::DOUBLE, 0);
+            delete sendbuff[0];
+            delete [] sendbuff;
 #endif
         }
-        
+#ifdef _MPI
+        delete [] recvbuff;
+#endif
     } catch (std::string message) {
         std::cerr << message << std::endl;
         exit(EXIT_FAILURE);
