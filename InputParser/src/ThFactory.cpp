@@ -10,13 +10,14 @@
 #include <boost/lexical_cast.hpp>
 #include <EWObservables.h>
 #include <FlavourObservables.h>
+#include <LeptonFlavourObservables.h>
 #include <StandardModelParams.h>
 #include <NewPhysicsParams.h>
 #include <SUSYObservables.h>
 #include "ThFactory.h"
 
 ThFactory::ThFactory(const StandardModel& myModel) 
-: myEW(myModel), myFlavour(myModel), myMO(myModel)
+: myEW(myModel), myFlavour(myModel), myLeptonFlavour(myModel), myMO(myModel)
 {    
     //-----  EW precision observables  -----
     thobs["Mw"] = new Mw(myEW);
@@ -105,6 +106,9 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["BRbar_Bsmumu"] = new Bsmumu(myFlavour, 2);
     thobs["Amumu_Bs"] = new Bsmumu(myFlavour, 3);
     thobs["Smumu_Bs"] = new Bsmumu(myFlavour, 4);
+        
+    //-----  Lepton Flavour observables  -----
+    thobs["li_lj_gamma"] = new li_lj_gamma(myLeptonFlavour);
 
     //-----  SM input parameters, etc.  -----
     thobs["AlsMz"] = new StandardModelParams(myMO, "AlsMz");

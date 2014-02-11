@@ -13,6 +13,7 @@
 #include <StandardModel.h>
 #include <EW.h>
 #include <Flavour.h>
+#include <LeptonFlavour.h>
 
 /**
  * @class ThFactory
@@ -636,6 +637,7 @@ private:
     std::map<std::string, ThObservable *> thobs; ///< A map between a pointer of type ThObservable and the name of the observable.
     EW myEW; ///< An object of type EW().
     Flavour myFlavour; ///< An object of type Flavour.
+    LeptonFlavour myLeptonFlavour;///< An object of type LeptonFlavour.
     ModelObservable myMO; ///< An object of type ModelObservable
 };
 
