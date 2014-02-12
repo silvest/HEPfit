@@ -160,7 +160,7 @@ void MonteCarlo::Run(const int rank)
             //MonteCarlo configuration parser
             std::ifstream ifile(MCMCConf.c_str());
             if (!ifile.is_open())
-                throw std::runtime_error("ERROR: " + MCMCConf + " does not exist.");
+                throw std::runtime_error("\nERROR: " + MCMCConf + " does not exist. Make sure to specify a valid Monte Carlo configuration file.\n");
             std::string line;
             bool IsEOF = false;
             do {
@@ -216,7 +216,7 @@ void MonteCarlo::Run(const int rank)
                     }
 
                 } else
-                    throw std::runtime_error("ERROR: wrong keyword in MonteCarlo config file: " + *beg);
+                    throw std::runtime_error("\nERROR: wrong keyword in MonteCarlo config file: " + *beg + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
             } while (!IsEOF);
 
             BCModelOutput out(&MCEngine, OutFile.c_str());

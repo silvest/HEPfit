@@ -86,7 +86,7 @@ std::string InputParser::ReadParameters(const std::string filename,
     std::string modname = "";
     std::ifstream ifile(filename.c_str());
     if (!ifile.is_open())
-        throw std::runtime_error("ERROR: " + filename + " does not exist.");
+        throw std::runtime_error("\nERROR: " + filename + " does not exist. Make sure to specify a valid model configuration file.\n");
     std::string line;
     bool IsEOF = false;
     do {
@@ -359,7 +359,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             if (beg != tok.end())
                 std::cout << "WARNING: unread information in Flag " << flagname << std::endl;
         } else
-            throw std::runtime_error("ERROR: wrong keyword " + type + " in config file" );
+            throw std::runtime_error("\nERROR: wrong keyword " + type + " in config file. Make sure to specify a valid model configuration file.\n" );
     } while (!IsEOF);
 
     if (!myModel->CheckFlags())
