@@ -24,71 +24,77 @@ using namespace gslpp;
  * @brief A class for the bag paramters.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details The bag parameters are input values read from the configuration files
- * SomeModel.conf. They depend on a specified scale and scheme. Both the scale and the
- * scheme have to be specified in the same SomeModel.conf file. These parameters 
- * are set by the QCD class
+ * @details This is the class for defining bag parameters, which depend on
+ * a specified scale and scheme. 
  */
 class BParameter {
 public:
+    
     /**
-     * @brief BParameter constructor
+     * @brief Constructor.
      * @param[in] n dimension of the vector of bag parameters
      */
-    BParameter(int n) : bpars(n,0.)
+    BParameter(int n)
+    : bpars(n,0.)
     {};
+
     /**
-     * @brief The get method for the vector of bag parameters.
-     * @return The vector of bag parameters
+     * @brief A get method for the vector of the bag parameters.
+     * @return the vector of the bag parameters
      */
     vector<double> getBpars() const
     {
         return bpars;
     }
+
     /**
-     * @brief The set method for a vector of bag parameters
-     * @param[in] bpars a vector of bag parameters read as input from SomeModel.conf
+     * @brief A set method for a vector of the bag parameters.
+     * @param[in] bpars a vector of the bag parameters
      */
     void setBpars(vector<double> bpars) 
     {
         this->bpars = bpars;
     }
+
     /**
-     * @brief The set method for a component of the vector of bag parameters.
+     * @brief A set method for a component of the vector of bag parameters.
      * @param[in] i the index for the component of the vector of bag parameters
-     * @param[in] value the value of the bag parameter
+     * @param[in] value the value of the bag parameters
      */
     void setBpars(int i, double value) 
     {
         this->bpars(i) = value;
     }
+
     /**
-     * @brief The get method for the scale of the bag parameter is specified in the SomeModel.conf file.
-     * @return the scale at which the bag parameter is defined.
+     * @brief A get method for the scale of the bag parameters.
+     * @return the scale at which the bag parameters are defined
      */
     double getMu() const
     {
         return mu;
     }
+
     /**
-     * @brief The set method for the scale of the bag parameter is specified in the SomeModel.conf file.
-     * @param[in] mu the scale mu at which the bag parameter is defined.
+     * @brief A set method for the scale of the bag parameters.
+     * @param[in] mu the scale at which the bag parameters are defined
      */
     void setMu(double mu) 
     {
         this->mu = mu;
     }
     /**
-     * @brief The get method for the scheme in whcih the bag parameter is specified in the SomeModel.conf file.
-     * @return the scheme in which the bag parameter is defined.
+     * @brief A get method for the scheme of the bag parameters.
+     * @return the scheme in which the bag parameters are defined
      */
     schemes getScheme() const
     {
         return scheme;
     }
+    
     /**
-     * @brief The set method for the scheme in which the bag parameter is specified in the SomeModel.conf file.
-     * @param[in] scheme the scheme in which the bag parameter is defined.
+     * @brief A set method for the scheme of the bag parameters.
+     * @param[in] scheme the scheme in which the bag parameters are defined
      */
     void setScheme(schemes scheme) 
     {
@@ -96,9 +102,10 @@ public:
     }
 
 private:
-    vector<double> bpars;
-    double mu;
-    schemes scheme;
+    vector<double> bpars;///< A vector of bag parameters.
+    double mu;///< The scale at which the bag parameters are defined. 
+    schemes scheme;///< The scheme in which the bag parameters are defined.
+    
 };
 
 /**

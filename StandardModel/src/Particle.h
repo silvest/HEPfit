@@ -19,9 +19,8 @@
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This is the class for defining particles and their properties
- * like mass (GeV), width (GeV), charge, isospin. One can also define the scale, 
- * in GeV, at which the mass of a particle is specified. This class can be used
- * for both fundamental particles and composite ones like mesons.
+ * like mass (GeV), width (GeV), charge, isospin. One can also specify the scale,
+ * in GeV, at which the mass of a particle is defined. 
  */
 class Particle {
 public:

@@ -16,10 +16,11 @@ using namespace gslpp;
 /**
  * @class CKM
  * @ingroup StandardModel
- * @brief A class for the CKM matrix elements.
+ * @brief A class for the %CKM matrix elements.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details 
+ * @details This is the class for defining the %CKM matrix and its elements with
+ * the Wolfenstein and Gilman parameterizations. 
  */
 class CKM {
 public:

@@ -25,7 +25,7 @@ using namespace gslpp;
  * @copyright GNU General Public License
  * @details This class provides caching methods for a bunch of the functions
  * appearing in EWSMOneLoopEW, EWSMTwoLoopQCD, EWSMTwoLoopEW, EWSMThreeLoopQCD,
- * EWSMThreeLoopEW2QCD and EWSMThreeLoopEW classes. Each cache method calls the
+ * EWSMThreeLoopEW2QCD and EWSMThreeLoopEW classes. Each caching method calls the
  * private member function CacheCheck() and newCacheForDouble()
  * (or newCacheForComplex()).
  * 
@@ -35,7 +35,9 @@ using namespace gslpp;
  *
  * The internal flags #FlagDebug and #FlagCacheInEWSMcache, which can be changed
  * with setFlagDebug() and setFlagCacheInEWSMcache(), respectively, are designed 
- * for debugging.
+ * for debugging. The latter flag can be controlled with the model flag
+ * @ref StandardModelFlags "CacheInEWSMcache" of StandardModel.
+ * 
  */
 class EWSMcache {
 

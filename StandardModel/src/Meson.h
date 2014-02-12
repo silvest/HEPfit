@@ -19,66 +19,76 @@ using namespace gslpp;
  * @brief A class for mesons. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details The Meson class is used to define a meson and three of its 
+ * @details This class is used to define a meson and three of its
  * characteristics: mass, lifetime and decay constant. All three of these
  * are read by the QCD class from the SomeModel.conf file. The suggested 
- * name for the  Model Parameters in the SomeModel.conf file for a meson 
+ * name for the model parameters in the SomeModel.conf file for a meson
  * \f$ M_a \f$ is mMa (mass), tMa (lifetime) and FMa (decay constant).
- * Please note that these names have to match the ones defind in the QCD class.
- * The Meson class inherits the public access members of the Particle class.
+ * Please note that these names have to match the ones defined in the QCD class.
+ * This class inherits the public access members of the Particle class.
  */
 class Meson : public Particle {
 public:
     /**
-     * @brief Meson constructor
+     * @brief The default constructor.
      */
     Meson() 
     {};
-    
+
+    /**
+     * @brief Constructor.
+     * @param[in] mass the mass of the meson in GeV
+     * @param[in] lifetime the lifetime of the meson in \f$ \mathrm{ps}^{-1} \f$
+     * @param[in] decayconst the decay constant of the meson in GeV
+     */
     Meson(double mass, double lifetime, double decayconst);
+
+    /**
+     * @brief The default destructor.
+     */
     virtual ~Meson();
     
     /**
-     * @brief The get method for the lifetime of a meson as specified in the SomeModel.conf file.
-     * @return the lifetime of a meson in \f$ ps^{-1} \f$.
+     * @brief A get method for the lifetime of the meson.
+     * @return the lifetime of the meson in \f$ \mathrm{ps}^{-1} \f$
      */
     double getLifetime() const
     {
         return lifetime;
     }
     /**
-     * @brief The set method for the decay constant of a meson as specified in the SomeModel.conf file.
-     * @param[in] lifetime the lifetime of a meson in \f$ ps^{-1} \f$.
+     * @brief A set method for the decay constant of the meson.
+     * @param[in] lifetime the lifetime of the meson in \f$ \mathrm{ps}^{-1} \f$
      */
     void setLifetime(double lifetime)
     {
         this->lifetime = lifetime;
     }
     /**
-     * @brief The get method for the decay constant of a meson as specified in the SomeModel.conf file.
-     * @return the decay constant of a meson in \f$ GeV \f$.
+     * @brief A get method for the decay constant of the meson.
+     * @return the decay constant of the meson in GeV
      */
     double getDecayconst() const
     {
         return decayconst;
     }
     /**
-     * @brief The set method for the decay constant of a meson as specified in the SomeModel.conf file.
-     * @param[in] decayconst the decay constant of a meson in \f$ GeV \f$.
+     * @brief A set method for the decay constant of the meson.
+     * @param[in] decayconst the decay constant of the meson in GeV
      */
     void setDecayconst(double decayconst)
     {
         this->decayconst = decayconst;
     }
     /**
-     * @brief Computes the width of the meson from its lifetime \f$ (ps^{-1}) \f$.
-     * @return the width of the meson in \f$ GeV \f$.
+     * @brief Computes the width of the meson from its lifetime.
+     * @return the width of the meson in GeV
      */
     double computeWidth() const;
 
 private:
-    double decayconst;
-    double lifetime;
+    double decayconst;///< The decay constant of the meson.
+    double lifetime;///< The lifetime of the meson. 
 
 };
 

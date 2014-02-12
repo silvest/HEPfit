@@ -853,7 +853,7 @@ public:
     double alphaMz() const;
 
     /**
-     * @brief The @f$W@f$-boson mass in the on-shell scheme, @f$M_W@f$.
+     * @brief The @f$W@f$-boson mass, @f$M_W@f$.
      * @return @f$M_W@f$ in GeV
      */
     virtual double Mw() const;

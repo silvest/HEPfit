@@ -18,6 +18,7 @@ const double EWSM::Mw_error = 0.00001; /* 0.01 MeV */
 EWSM::EWSM(const StandardModel& SM_i) 
 : SM(SM_i) 
 {
+    /* Internal flags (for debugging) */
     flag_order[EW1] = true;
     flag_order[EW1QCD1] = true;
     flag_order[EW1QCD2] = true;
@@ -82,7 +83,7 @@ EWSM::~EWSM()
 
 ////////////////////////////////////////////////////////////////////////
 
-bool EWSM::checkSMparams(double Params_cache[], const bool bUpdate) const
+bool EWSM::checkSMparams(double Params_cache[]) const
 {
     // 11 parameters in QCD:
     // AlsMz, Mz, mup, mdown, mcharm, mstrange, mtop, mbottom,
@@ -121,7 +122,7 @@ bool EWSM::checkSMparams(double Params_cache[], const bool bUpdate) const
     bool bCache = true;
     for(int i=0; i<NumSMParams; ++i) {
         if (Params_cache[i] != SMparams[i]) { 
-            if (bUpdate) Params_cache[i] = SMparams[i];
+            Params_cache[i] = SMparams[i];
             bCache &= false;
         }
     }
@@ -945,12 +946,12 @@ double EWSM::GammaW_l_SM(const StandardModel::lepton li,
         throw std::runtime_error("Error in EWSM::GammaW_l_SM()"); 
     
     double G0 = myCache->GF()*pow(Mw_SM(),3.0)/6.0/sqrt(2.0)/M_PI;
-    complex V(0.0, 0.0, false);
+    complex U(0.0, 0.0, false);
     if ( (li==StandardModel::NEUTRINO_1 && lj==StandardModel::ELECTRON) ||
          (li==StandardModel::NEUTRINO_2 && lj==StandardModel::MU) ||
          (li==StandardModel::NEUTRINO_3 && lj==StandardModel::TAU) )        
-        V.real() = 1.0;
-    return ( V.abs2()*G0*rho_GammaW_l_SM(li,lj) ); 
+        U.real() = 1.0;
+    return ( U.abs2()*G0*rho_GammaW_l_SM(li,lj) );
 }
     
     
