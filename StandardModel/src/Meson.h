@@ -20,15 +20,12 @@ using namespace gslpp;
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to define a meson and three of its
- * characteristics: mass, lifetime and decay constant. All three of these
- * are read by the QCD class from the SomeModel.conf file. The suggested 
- * name for the model parameters in the SomeModel.conf file for a meson
- * \f$ M_a \f$ is mMa (mass), tMa (lifetime) and FMa (decay constant).
- * Please note that these names have to match the ones defined in the QCD class.
+ * characteristics: mass, lifetime and decay constant. 
  * This class inherits the public access members of the Particle class.
  */
 class Meson : public Particle {
 public:
+    
     /**
      * @brief The default constructor.
      */
@@ -56,6 +53,7 @@ public:
     {
         return lifetime;
     }
+
     /**
      * @brief A set method for the decay constant of the meson.
      * @param[in] lifetime the lifetime of the meson in \f$ \mathrm{ps}^{-1} \f$
@@ -64,6 +62,7 @@ public:
     {
         this->lifetime = lifetime;
     }
+
     /**
      * @brief A get method for the decay constant of the meson.
      * @return the decay constant of the meson in GeV
@@ -72,6 +71,7 @@ public:
     {
         return decayconst;
     }
+
     /**
      * @brief A set method for the decay constant of the meson.
      * @param[in] decayconst the decay constant of the meson in GeV
@@ -80,8 +80,9 @@ public:
     {
         this->decayconst = decayconst;
     }
+    
     /**
-     * @brief Computes the width of the meson from its lifetime.
+     * @brief A method to compute the width of the meson from its lifetime.
      * @return the width of the meson in GeV
      */
     double computeWidth() const;
