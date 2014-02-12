@@ -35,8 +35,8 @@ public:
      * and the names of the specific output directory along with a job ID if it is
      * specified as an argument to the executable. Possible arguments to the executable are:
      * \li SomeModel.conf --noMC : For single event (central event) printed to terminal only.
-     * \li SomeModel.conf --noMC --nI=10 : For the central event and 10 events printed to terminal only.
-     * \li SomeModel.conf --noMC --nI=10 --output_folder FOLDER: For the central event and 10 
+     * \li SomeModel.conf --noMC --it=10 : For the central event and 10 events printed to terminal only.
+     * \li SomeModel.conf --noMC --it=10 --output_folder FOLDER: For the central event and 10 
      * events printed to GenerateEvents/FOLDER only.
      * @param[in] ModelConf_i the name of the input configuration file for the model name,
      * the model parameters and observables to be calculated.
