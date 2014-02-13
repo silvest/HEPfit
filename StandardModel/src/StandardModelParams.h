@@ -32,7 +32,7 @@ public:
      * @li "AlsMz":&nbsp; the fine-structure constant @f$\alpha@f$,
      * @li "dAle5Mz":&nbsp; the five-flavour hadronic contribution to the electromagnetic coupling,
      * @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$, 
-     * @li "Mz":&nbsp; the Fermi constant @f$G_\mu@f$ in @f$\mathrm{GeV}^{-2}@f$,
+     * @li "Mz":&nbsp; the mass of the @f$Z@f$ boson in GeV,
      * @li "mtop":&nbsp; the top-quark mass @f$m_t@f$ in GeV,
      * @li "mHl":&nbsp; the Higgs mass @f$m_h@f$ in GeV,
      * @li "delMw":&nbsp; the theoretical uncertainty in @f$M_W@f$ in GeV,
