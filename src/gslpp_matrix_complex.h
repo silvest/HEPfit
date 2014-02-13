@@ -32,15 +32,16 @@
 
 namespace gslpp
 {
+    /**
+     * @class matrix<complex>
+     * @ingroup gslpp
+     * @brief
+     * @author SusyFit Collaboration
+     * @copyright GNU General Public License
+     * @details
+     */
   template <>
-	/**
-	 * \class matrix<complex>
-	 * \author M.C.
-	 * \date 09/22/2010
-	 * \file gslpp_matrix_complex.h
-	 * \brief Complex matrices
-	 */
-      class matrix<complex>
+  class matrix<complex>
   {
     gsl_matrix_complex *_matrix;
 

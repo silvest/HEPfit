@@ -16,14 +16,15 @@
 
 /**
  * @addtogroup gslpp
- * @brief A module for manipulating vectors and matrices using the
- * <a href="http://www.gnu.org/software/gsl/" target=blank>gsl libraries</a>.
+ * @brief A module for manipulating complex numbers, vectors and matrices
+ * using the
+ * <a href="http://www.gnu.org/software/gsl/" target=blank>GSL libraries</a>.
  * @{
  */
 
 /**
- * @brief Header file for inclusion of all gslpp claases for vector
- * matrix manipulation, both real and complex.
+ * @brief Header file for inclusion of all gslpp claases for manipulating
+ * complex variables, vectors and matrices. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  */

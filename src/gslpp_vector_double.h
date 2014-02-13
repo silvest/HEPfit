@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -20,6 +20,14 @@
 
 namespace gslpp
 {
+    /**
+     * @class vector<double>
+     * @ingroup gslpp
+     * @brief
+     * @author SusyFit Collaboration
+     * @copyright GNU General Public License
+     * @details
+     */
   template <>
   class vector<double>
   {
