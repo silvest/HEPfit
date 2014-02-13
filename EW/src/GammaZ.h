@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,22 +15,23 @@
 /**
  * @class GammaZ
  * @ingroup EW 
- * @brief A class for the total decay width of the \f$Z\f$ boson 
+ * @brief An observable class for the total decay width of the @f$Z@f$ boson. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the total decay width of the \f$Z\f$ boson 
- * (in GeV),
- * \f[\Gamma_Z=\Gamma_h+\Gamma_e+\Gamma_\mu+\Gamma_\tau+\Gamma_\mathrm{inv},\f] 
- * with @f$\Gamma_h=\sum_{q\not =t}\Gamma_q@f$ the total hadronic width, and 
- * @f$\Gamma_\mathrm{inv}=3\Gamma_\nu@f$ the invisible width.
+ * @details This class is used to compute the total decay width of the @f$Z@f$
+ * boson,
+ * @f[
+ * \Gamma_Z
+ * = 3\,\Gamma_\nu + \Gamma_{e} + \Gamma_{\mu} + \Gamma_{\tau} + \Gamma_h\,,
+ * @f]
+ * where @f$\Gamma_h=\sum_{q\neq t}\Gamma_q@f$ is the total hadronic width.
  */
 class GammaZ : public ThObservable {
 public:
 
     /**
      * @brief Constructor.
-     * @param[in] EW_i A reference to an object of EW class, which is the base class of 
-     * the electroweak precision observables.
+     * @param[in] EW_i a reference to an object of type EW
      */
     GammaZ(const EW& EW_i) 
     : ThObservable(EW_i), myEW(EW_i)
@@ -38,19 +39,16 @@ public:
     };
 
     /**
-     * @brief The theory prediction for \f$\Gamma_Z\f$.
-     * @return the total width of the \f$Z\f$ boson in GeV
+     * @brief The total decay width of the @f$Z@f$ boson, @f$\Gamma_Z@f$,
+     * in units of GeV.
+     * @return @f$\Gamma_Z@f$ in units of GeV
      */
     double computeThValue();
 
     
 private:
+    const EW& myEW;///< A reference to an object of type EW.
 
-    /**
-     * A reference to an object of EW class, which is the base class of the electroweak 
-     * precision observables.
-     */
-    const EW& myEW;///< A reference to an object of the EW class.
 };
 
 #endif	/* GAMMAZ_H */

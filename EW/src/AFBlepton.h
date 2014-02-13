@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,22 +15,25 @@
 /**
  * @class AFBlepton
  * @ingroup EW 
- * @brief A class for the forward-backward asymmetry of @f$Z\to \ell\bar{\ell}@f$ 
- * at the @f$Z@f$ pole.
+ * @brief An observable class for the forward-backward asymmetry in
+ * @f$e^+ e^-\to Z\to \ell\bar{\ell}@f$ at the @f$Z@f$ pole.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the forward-backward asymmetry of 
- * a @f$Z\to \ell\bar{\ell}@f$ channel at the @f$Z@f$ pole in terms of the asymmetry
- * parameters @f$A_f\f$, computed in the \b EW class:
- * \f[A_{FB}^{0,\ell}=\frac 34 A_e A_\ell\f].  
+ * @details This class is used to compute the forward-backward asymmetry for 
+ * an @f$e^+ e^-\to Z\to \ell\bar{\ell}@f$ process at the @f$Z@f$ pole in terms
+ * of the asymmetry parameters @f$\mathcal{A}_f@f$, computed in the EW class:
+ * @f[
+ * A_{\mathrm{FB}}^{0,\ell}=\frac 34 \mathcal{A}_e \mathcal{A}_\ell\,,
+ * @f]
+ * where @f$\ell@f$ denotes a charged lepton, and lepton-flavour universality
+ * is assumed. 
  */
 class AFBlepton : public ThObservable {
 public:
  
     /**
      * @brief Constructor.
-     * @param[in] EW_i A reference to an object of EW class, which is the base class of 
-     * the electroweak precision observables.
+     * @param[in] EW_i a reference to an object of type EW
      */
     AFBlepton(const EW& EW_i) 
     : ThObservable(EW_i), myEW(EW_i)
@@ -38,20 +41,16 @@ public:
     };
 
     /**
-     * @brief The theory prediction for \f$A^{0,\ell}_{FB}\f$ at the \f$Z\f$ pole.
-     * @return the forward-backward asymmetry in @f$e^+ e^-\to Z\to \ell^+\ell^-@f$ 
-     * at the @f$Z@f$ pole, where @f$\ell@f$ denotes a charged lepton
+     * @brief The forward-backward asymmetry for @f$e^+ e^-\to Z \to \ell\bar{\ell}@f$
+     * at the @f$Z@f$ pole, @f$A^{0,\ell}_{\mathrm{FB}}@f$
+     * @return @f$A^{0,\ell}_{\mathrm{FB}}@f$
      */
     double computeThValue();
 
     
 private:
+    const EW& myEW;///< A reference to an object of type EW.
 
-    /**
-     * A reference to an object of EW class, which is the base class of the electroweak 
-     * precision observables.
-     */
-    const EW& myEW;///< A reference to an object of the EW class.
 };
 
 #endif	/* AFBLEPTON_H */

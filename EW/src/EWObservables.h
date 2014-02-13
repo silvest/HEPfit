@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -11,7 +11,7 @@
 /**
  * @file EWobservables.h
  * @ingroup EW 
- * @brief A header file for the electroweak precision and LEP-II observables. 
+ * @brief A header file for the observables defined in %EW module. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details  

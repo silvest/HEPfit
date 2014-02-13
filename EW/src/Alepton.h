@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,20 +15,21 @@
 /**
  * @class Alepton
  * @ingroup EW 
- * @brief A class for the left-right asymmetry of @f$Z\to \ell\bar{\ell}@f$ at 
- * the @f$Z@f$ pole.
+ * @brief An observable class for the left-right asymmetry in
+ * @f$e^+e^-\to Z\to \ell\bar{\ell}@f$ at the @f$Z@f$ pole.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the left-right asymmetry of a 
- * @f$Z\to \ell\bar{\ell}@f$ channel at the @f$Z@f$ pole. 
+ * @details This class is used to compute the left-right asymmetry for an 
+ * @f$e^+e^-\to Z\to \ell\bar{\ell}@f$ process at the @f$Z@f$ pole, where
+ * @f$\ell@f$ denotes a charged lepton, and lepton-flavour universality
+ * is assumed.
  */
 class Alepton : public ThObservable {
 public:
 
     /**
      * @brief Constructor.
-     * @param[in] EW_i A reference to an object of EW class, which is the base class of 
-     * the electroweak precision observables.
+     * @param[in] EW_i a reference to an object of type EW
      */
     Alepton(const EW& EW_i) 
     : ThObservable(EW_i), myEW(EW_i)
@@ -36,20 +37,16 @@ public:
     };
 
     /**
-     * @brief The theory prediction for \f$A_\ell\f$ at the \f$Z\f$ pole.
-     * @return  the @f$e^+e^-\rightarrow \ell^+\ell^-@f$ left-right asymmetry at the @f$Z@f$ pole,
-     *  where @f$\ell@f$ denotes a charged lepton
+     * @brief The left-right asymmetry for @f$e^+e^-\to Z\to \ell\bar{\ell}@f$
+     * at the @f$Z@f$ pole, @f$\mathcal{A}_\ell@f$.
+     * @return @f$\mathcal{A}_\ell@f$
      */
     double computeThValue();
 
     
 private:
+    const EW& myEW;///< A reference to an object of type EW.
 
-    /**
-     * A reference to an object of EW class, which is the base class of the electroweak 
-     * precision observables.
-     */
-    const EW& myEW;///< A reference to an object of the EW class.
 };
 
 

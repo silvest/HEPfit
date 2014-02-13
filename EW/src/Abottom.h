@@ -15,32 +15,25 @@
 /**
  * @addtogroup EW
  * @brief A module for electroweak precision observables.
- * @details This project includes the classes used for the computation of
- * the theory predictions for the W mass and width, as well as electroweak 
- * precision pseudo observables at the Z pole.
- * These pseudo observables cannot be directly measured, but can be extracted from real
- * observables upon substraction of initial-state QED radiation and final-state QED/QCD 
- * corrections.
- * 
+ * @details 
  * @{
  */
 
 /**
  * @class Abottom 
- * @brief A class for the left-right asymmetry of @f$Z\to b\bar{b}@f$ at the 
- * @f$Z@f$ pole.
+ * @brief An observable class for the left-right asymmetry in
+ * @f$e^+e^-\to Z\to b\bar{b}@f$ at the @f$Z@f$ pole.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the left-right asymmetry of the 
- * @f$Z\to b\bar{b}@f$ channel at the @f$Z@f$ pole. 
+ * @details This class is used to compute the left-right asymmetry for the
+ * @f$e^+e^-\to Z\to b\bar{b}@f$ process at the @f$Z@f$ pole.
  */
 class Abottom : public ThObservable {
 public:
 
     /**
      * @brief Constructor.
-     * @param[in] EW_i A reference to an object of EW class, which is the base class of 
-     * the electroweak precision observables.
+     * @param[in] EW_i a reference to an object of type EW
      */
     Abottom(const EW& EW_i) 
     : ThObservable(EW_i), myEW(EW_i)
@@ -48,19 +41,16 @@ public:
     };
 
     /**
-     * @brief The theory prediction for \f$A_b\f$ at the \f$Z\f$ pole.
-     * @return the @f$e^+e^-\rightarrow b\bar{b}@f$ left-right asymmetry at the @f$Z@f$ pole
+     * @brief The left-right asymmetry for @f$e^+e^-\to Z\to b\bar{b}@f$
+     * at the @f$Z@f$ pole, @f$\mathcal{A}_b@f$.
+     * @return @f$\mathcal{A}_b@f$
      */
     double computeThValue();
 
     
 private:
+    const EW& myEW;///< A reference to an object of type EW.
 
-    /**
-     * A reference to an object of EW class, which is the base class of the electroweak 
-     * precision observables.
-     */
-    const EW& myEW;///< A reference to an object of the EW class.
 };
 
 /** 

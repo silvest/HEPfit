@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -15,19 +15,18 @@
 /**
  * @class GammaW 
  * @ingroup EW 
- * @brief A class for the total decay width of the \f$W\f$ boson 
+ * @brief An observable class for the total decay width of the @f$W@f$ boson.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class is used to compute the total decay width of the \f$W\f$ boson
- * (in GeV), \f$\Gamma_W\f$. 
+ * @details This class is used to compute the total decay width of the @f$W@f$
+ * boson, @f$\Gamma_W@f$.
  */
 class GammaW : public ThObservable {
 public:
     
     /**
      * @brief Constructor.
-     * @param[in] EW_i A reference to an object of EW class, which is the base class of 
-     * the electroweak precision observables.
+     * @param[in] EW_i a reference to an object of type EW
      */
     GammaW(const EW& EW_i) 
     : ThObservable(EW_i)
@@ -35,8 +34,9 @@ public:
     };
 
     /**
-     * @brief The theory prediction for \f$\Gamma_W\f$.
-     * @return the total width of the \f$W\f$ boson in GeV 
+     * @brief The total decay width of the @f$W@f$ boson, @f$\Gamma_W@f$,
+     * in units of GeV.
+     * @return @f$\Gamma_W@f$ in units of GeV
      */
     double computeThValue();
 
