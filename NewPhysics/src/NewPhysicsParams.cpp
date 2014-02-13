@@ -96,7 +96,7 @@ double NewPhysicsParams::computeThValue()
         if (SM.ModelName().compare("NPZbbbar") == 0) {
             if (!SM.IsFlagNoApproximateRb())
                 // SM prediction for rho_Z^b is needed!
-                throw std::runtime_error("NewPhysicsParams::computeThValue(): deltaRhoZb cannot be calculated");
+                throw std::runtime_error("NewPhysicsParams::computeThValue(): deltaRhoZb is not available");
             else
                 if ((static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
                     return ( SM.getEWSM()->rhoZ_q(SM.BOTTOM).real()

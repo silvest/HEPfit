@@ -1229,5 +1229,40 @@ td.mod_desc {
     border: 1px solid #000; 
 }
 
+table.observables {
+    margin: auto;
+    border: 2px solid #000;
+    max-width: 85%;
+}
+
+table.observables th {
+    padding: 2px 5px;
+    background: #E6E6FA;
+    vertical-align: middle; 
+    text-align: center;
+    border: 1px solid #000; 
+}
+
+td.obs_name {
+    padding: 2px 5px;
+    vertical-align: middle; 
+    text-align: center;
+    border: 1px solid #000; 
+    font-weight: bold;
+}
+
+td.obs_symb {
+    padding: 2px 5px;
+    vertical-align: middle; 
+    text-align: center;
+    border: 1px solid #000; 
+}
+
+td.obs_desc {
+    padding: 2px 5px;
+    vertical-align: middle; 
+    text-align: left;
+    border: 1px solid #000; 
+}
 
 

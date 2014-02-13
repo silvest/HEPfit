@@ -25,7 +25,8 @@
  *
  * @anchor ListOfObservables
  *
- * Electroweak Precision Observables
+ * @li Electroweak Precision Observables:
+ * 
  * <table class="observables">
  * <tr>
  *   <th>Label</th>
@@ -34,82 +35,83 @@
  * </tr>
  * <tr>
  *   <td class="obs_name">%Mw</td>
- *   <td class="obs_symb">\f$ M_W \f$</td>
- *   <td class="obs_desc">The mass of the \f$ W \f$ boson.</td>
+ *   <td class="obs_symb">@f$ M_W @f$</td>
+ *   <td class="obs_desc">@copybrief Mw::computeThValue()</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%GammaW</td>
- *   <td class="obs_symb">\f$ \Gamma_W \f$</td>
- *   <td class="obs_desc">The total decay width of the \f$W\f$ boson.</td>
+ *   <td class="obs_symb">@f$ \Gamma_W @f$</td>
+ *   <td class="obs_desc">@copybrief GammaW::computeThValue()</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%GammaZ</td>
- *   <td class="obs_symb">\f$ \Gamma_Z \f$</td>
- *   <td class="obs_desc">The total decay width of the \f$Z\f$ boson.</td>
+ *   <td class="obs_symb">@f$ \Gamma_Z @f$</td>
+ *   <td class="obs_desc">@copybrief GammaZ::computeThValue()</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%sigmaHadron</td>
  *   <td class="obs_symb"> @f$\sigma_h^0@f$</td>
- *   <td class="obs_desc">The \f$e^+ e^- \rightarrow Z \rightarrow \mathrm{hadrons}\f$ cross section at the \f$Z\f$ pole.</td>
+ *   <td class="obs_desc">@copybrief sigmaHadron::computeThValue()</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%sin2thetaEff</td>
- *   <td class="obs_symb">\f$\sin^2{\theta_\mathrm{Eff}^\ell}\f$</td>
- *   <td class="obs_desc">The leptonic effective weak mixing angle.</td>
+ *   <td class="obs_symb">@f$\sin^2\theta_{\rm eff}^{\rm lept}@f$</td>
+ *   <td class="obs_desc">@copybrief sin2thetaEff::computeThValue()</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%PtauPol</td>
- *   <td class="obs_symb">\f$P_\tau^\mathrm{pol}\f$</td>
- *   <td class="obs_desc">The longitudinal polarization of the final state in \f$e^+ e^- \rightarrow Z \rightarrow \tau^+ \tau^-\f$</td>
+ *   <td class="obs_symb">@f$P_\tau^\mathrm{pol}@f$</td>
+ *   <td class="obs_desc">@copybrief PtauPol::computeThValue()</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%Alepton</td>
- *   <td class="obs_symb">\f$A_\ell\f$</td>
- *   <td class="obs_desc">The leptonic left-right asymmetry parameter at the \f$Z\f$ pole (asummes lepton universality).</td>
+ *   <td class="obs_symb">@f$\mathcal{A}_\ell@f$</td>
+ *   <td class="obs_desc">@copybrief Alepton::computeThValue()</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%Acharm</td>
- *   <td class="obs_symb">\f$A_c\f$</td>
- *   <td class="obs_desc">The charm quark left-right asymmetry parameter.</td>
+ *   <td class="obs_symb">@f$\mathcal{A}_c@f$</td>
+ *   <td class="obs_desc">@copybrief Acharm::computeThValue()</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%Abottom</td>
- *   <td class="obs_symb">\f$A_b\f$</td>
- *   <td class="obs_desc">The bottom quark left-right asymmetry parameter.</td>
+ *   <td class="obs_symb">@f$\mathcal{A}_b@f$</td>
+ *   <td class="obs_desc">@copybrief Abottom::computeThValue()</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%AFBlepton</td>
- *   <td class="obs_symb">\f$A_{FB}^{0,\ell}\f$</td>
- *   <td class="obs_desc">The leptonic forward-backward asymmetry at the \f$Z\f$ pole (asummes lepton universality).</td>
+ *   <td class="obs_symb">@f$A_{\mathrm{FB}}^{0,\ell}@f$</td>
+ *   <td class="obs_desc">@copybrief AFBlepton::computeThValue()</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%AFBcharm</td>
- *   <td class="obs_symb">\f$A_{FB}^{0,c}\f$</td>
- *   <td class="obs_desc">The charm quark forward-backward asymmetry at the \f$Z\f$ pole.</td>
+ *   <td class="obs_symb">@f$A_{\mathrm{FB}}^{0,c}@f$</td>
+ *   <td class="obs_desc">@copybrief AFBcharm::computeThValue()</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%AFBbottom</td>
- *   <td class="obs_symb">\f$A_{FB}^{0,b}\f$</td>
- *   <td class="obs_desc">The bottom quark forward-backward asymmetry at the \f$Z\f$ pole.</td>
+ *   <td class="obs_symb">@f$A_{\mathrm{FB}}^{0,b}@f$</td>
+ *   <td class="obs_desc">@copybrief AFBbottom::computeThValue()</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%Rlepton</td>
- *   <td class="obs_symb">\f$R_\ell^0\f$</td>
- *   <td class="obs_desc">The ratio between the \f$Z\rightarrow \mathrm{hadrons}\f$ and \f$Z\rightarrow \ell^+ \ell^-\f$ decay widths (one lepton flavour, asummes lepton universality).</td>
+ *   <td class="obs_symb">@f$R_\ell^0@f$</td>
+ *   <td class="obs_desc">@copybrief Rlepton::computeThValue()</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%Rcharm</td>
- *   <td class="obs_symb">\f$R_c^0\f$</td>
- *   <td class="obs_desc">The ratio between the \f$Z\rightarrow c\bar{c}\f$ and \f$Z\rightarrow \mathrm{hadrons}\f$ decay widths.</td>
+ *   <td class="obs_symb">@f$R_c^0@f$</td>
+ *   <td class="obs_desc">@copybrief Rcharm::computeThValue()</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%Rbottom</td>
- *   <td class="obs_symb">\f$R_b^0\f$</td>
- *   <td class="obs_desc">he ratio between the \f$Z\rightarrow b\bar{b}\f$ and \f$Z\rightarrow \mathrm{hadrons}\f$ decay widths</td>
+ *   <td class="obs_symb">@f$R_b^0@f$</td>
+ *   <td class="obs_desc">@copybrief Rbottom::computeThValue()</td>
  * </tr>
  * </table>
  *
- * Epsilon Parameters
+ * @li Epsilon Parameters:
+ * 
  * <table class="observables">
  * <tr>
  *   <th>Label</th>
@@ -118,27 +120,29 @@
  * </tr>
  * <tr>
  *   <td class="obs_name">%epsilon1</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$\varepsilon_1@f$</td>
+ *   <td class="obs_desc">The epsilon parameter @f$\varepsilon_1@f$.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%epsilon2</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$\varepsilon_2@f$</td>
+ *   <td class="obs_desc">The epsilon parameter @f$\varepsilon_2@f$.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%epsilon3</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$\varepsilon_3@f$</td>
+ *   <td class="obs_desc">The epsilon parameter @f$\varepsilon_3@f$.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%epsilonb</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$\varepsilon_b@f$</td>
+ *   <td class="obs_desc">The epsilon parameter @f$\varepsilon_b@f$.</td>
  * </tr>
  * </table>
  *
- * LEP-II Two-Fermion Processes
+ * @li  LEP-II Two-Fermion Processes, where [sqrt_s] denotes the center of mass
+ * energy:
+ * 
  * <table class="observables">
  * <tr>
  *   <th>Label</th>
@@ -146,53 +150,54 @@
  *   <th>Description</th>
  * </tr>
  * <tr>
- *   <td class="obs_name">%sigmaqLEP2_</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc">The \f$e^+ e^-\rightarrow\mathrm{hadrons}\f$ cross section measured at LEP2.</td>
+ *   <td class="obs_name">%sigmaqLEP2_[sqrt s]</td>
+ *   <td class="obs_symb">@f$\sigma(e^+e^-\to q\bar{q})@f$</td>
+ *   <td class="obs_desc">The @f$e^+ e^-\rightarrow\mathrm{hadrons}@f$ cross section in pb measured at LEP2.</td>
  * </tr>
  * <tr>
- *   <td class="obs_name">%sigmamuLEP2_</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc">The \f$e^+ e^-\rightarrow \mu^+ \mu^-\f$ cross section measured at LEP2.</td>
+ *   <td class="obs_name">%sigmamuLEP2_[sqrt s]</td>
+ *   <td class="obs_symb">@f$\sigma(e^+e^-\to \mu^+\mu^-)@f$</td>
+ *   <td class="obs_desc">The @f$e^+ e^-\rightarrow \mu^+ \mu^-@f$ cross section in pb measured at LEP2.</td>
  * </tr>
  * <tr>
- *   <td class="obs_name">%sigmatauLEP2_</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc">The \f$e^+ e^-\rightarrow \tau^+ \tau^-\f$ cross section measured at LEP2.</td>
+ *   <td class="obs_name">%sigmatauLEP2_[sqrt s]</td>
+ *   <td class="obs_symb">@f$\sigma(e^+e^-\to \tau^+\tau^-)@f$</td>
+ *   <td class="obs_desc">The @f$e^+ e^-\rightarrow \tau^+ \tau^-@f$ cross section in pb measured at LEP2.</td>
  * </tr>
  * <tr>
- *   <td class="obs_name">%AFBmuLEP2_</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc">The forward-backward asymmetry in \f$e^+ e^-\rightarrow \mu^+ \mu^-\f$ measured at LEP2.</td>
+ *   <td class="obs_name">%AFBmuLEP2_[sqrt s]</td>
+ *   <td class="obs_symb">@f$A_{\mathrm{FB}}^\mu@f$</td>
+ *   <td class="obs_desc">The forward-backward asymmetry in @f$e^+ e^-\rightarrow \mu^+ \mu^-@f$ measured at LEP2.</td>
  * </tr>
  * <tr>
- *   <td class="obs_name">%AFBtauLEP2_</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc">The forward-backward asymmetry in \f$e^+ e^-\rightarrow \tau^+ \tau^-\f$ measured at LEP2.</td>
+ *   <td class="obs_name">%AFBtauLEP2_[sqrt s]</td>
+ *   <td class="obs_symb">@f$A_{\mathrm{FB}}^\tau@f$</td>
+ *   <td class="obs_desc">The forward-backward asymmetry in @f$e^+ e^-\rightarrow \tau^+ \tau^-@f$ measured at LEP2.</td>
  * </tr>
  * <tr>
- *   <td class="obs_name">%AFBbottomLEP2_</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc">The forward-backward asymmetry in \f$e^+ e^-\rightarrow b \bar{b}\f$ measured at LEP2.</td>
+ *   <td class="obs_name">%AFBbottomLEP2_[sqrt s]</td>
+ *   <td class="obs_symb">@f$A_{\mathrm{FB}}^b@f$</td>
+ *   <td class="obs_desc">The forward-backward asymmetry in @f$e^+ e^-\rightarrow b \bar{b}@f$ measured at LEP2.</td>
  * </tr>
  * <tr>
- *   <td class="obs_name">%AFBcharmLEP2_</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc">The forward-backward asymmetry in \f$e^+ e^-\rightarrow c \bar{c}\f$ measured at LEP2.</td>
+ *   <td class="obs_name">%AFBcharmLEP2_[sqrt s]</td>
+ *   <td class="obs_symb">@f$A_{\mathrm{FB}}^c@f$</td>
+ *   <td class="obs_desc">The forward-backward asymmetry in @f$e^+ e^-\rightarrow c \bar{c}@f$ measured at LEP2.</td>
  * </tr>
  * <tr>
- *   <td class="obs_name">%RbottomLEP2_</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc">The ratio of the \f$e^+ e^-\rightarrow b \bar{b}\f$ and \f$e^+ e^-\rightarrow\mathrm{hadrons}\f$ cross sections measured at LEP2.</td>
+ *   <td class="obs_name">%RbottomLEP2_[sqrt s]</td>
+ *   <td class="obs_symb">@f$R_b@f$</td>
+ *   <td class="obs_desc">The ratio of the @f$e^+ e^-\rightarrow b \bar{b}@f$ and @f$e^+ e^-\rightarrow\mathrm{hadrons}@f$ cross sections measured at LEP2.</td>
  * </tr>
  * <tr>
- *   <td class="obs_name">%RcharmLEP2_</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc">The ratio of the \f$e^+ e^-\rightarrow c \bar{c}\f$ and \f$e^+ e^-\rightarrow\mathrm{hadrons}\f$ cross sections measured at LEP2.</td>
+ *   <td class="obs_name">%RcharmLEP2_[sqrt s]</td>
+ *   <td class="obs_symb">@f$R_c@f$</td>
+ *   <td class="obs_desc">The ratio of the @f$e^+ e^-\rightarrow c \bar{c}@f$ and @f$e^+ e^-\rightarrow\mathrm{hadrons}@f$ cross sections measured at LEP2.</td>
  * </tr>
  * </table>
  *
- * Flavour Observables
+ * @li Flavour Observables:
+ * 
  * <table class="observables">
  * <tr>
  *   <th>Label</th>
@@ -321,7 +326,8 @@
  * </tr>
  * </table>
  *
- * Standard %Model Input Parameters
+ * @li %Model Parameters of StandardModel class:
+ * 
  * <table class="observables">
  * <tr>
  *   <th>Label</th>
@@ -330,47 +336,48 @@
  * </tr>
  * <tr>
  *   <td class="obs_name">%AlsMz</td>
- *   <td class="obs_symb">\f$\alpha_s(M_Z) \f$</td>
- *   <td class="obs_desc">The strong coupling constat at the \f$ Z \f$ pole.</td>
+ *   <td class="obs_symb">@f$\alpha_s(M_Z^2)@f$</td>
+ *   <td class="obs_desc">The strong coupling constant at the @f$Z@f$-mass scale.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%dAle5Mz</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$</td>
+ *   <td class="obs_desc">The five-flavour hadronic contribution to the electromagnetic coupling.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%Mz</td>
- *   <td class="obs_symb">\f$ M_Z \f$</td>
- *   <td class="obs_desc">The mass of the \f$ Z \f$ boson.</td>
+ *   <td class="obs_symb">@f$M_Z@f$</td>
+ *   <td class="obs_desc">The mass of the @f$Z@f$ boson in GeV.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%mtop</td>
- *   <td class="obs_symb">The mass of the top quark</td>
- *   <td class="obs_desc">\f$ M_{top} \f$</td>
+ *   <td class="obs_symb">@f$m_t@f$</td>
+ *   <td class="obs_desc">The pole mass of the top quark in GeV.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%mHl</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$m_h@f$</td>
+ *   <td class="obs_desc">The Higgs mass in GeV.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%delMw</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$\delta\,M_W@f$</td>
+ *   <td class="obs_desc">The theoretical uncertainty in @f$M_W@f$ in GeV.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%delSin2th_l</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$\delta\sin^2\theta_{\rm eff}^{\rm lept}@f$</td>
+ *   <td class="obs_desc">The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%delGammaZ</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$\delta\,\Gamma_Z@f$</td>
+ *   <td class="obs_desc">The theoretical uncertainty in @f$\Gamma_Z@f$ in GeV.</td>
  * </tr>
  * </table>
  *
- * NP Input Parameters for NPEffective1 and NPeffective2
+ * @li %Model Parameters, etc. of NPEffective1 and NPEffective2 classes:
+ * 
  * <table class="observables">
  * <tr>
  *   <th>Label</th>
@@ -379,67 +386,89 @@
  * </tr>
  * <tr>
  *   <td class="obs_name">%cHLp_NP</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$C'_{HL}@f$</td>
+ *   <td class="obs_desc">The coefficient of the operator
+ *   @f$\mathcal{O}_{HL}^\prime=i \big(H^\dagger D_\mu\tau^a H\big)
+ *    \big(\overline{L}\,\gamma^\mu\tau^a L\big)@f$ with lepton-flavour universality.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%cHQp_NP</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%cHQ_NP</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$C'_{HQ}@f$</td>
+ *   <td class="obs_desc">The coefficient of the operator
+ *   @f$\mathcal{O}_{HQ}^\prime=i \big(H^\dagger D_\mu\tau^a H\big)
+ *    \big(\overline{Q}\,\gamma^\mu\tau^a Q\big)@f$ with quark-flavour universality.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%cHL_NP</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$C_{HL}@f$</td>
+ *   <td class="obs_desc">The coefficient of the operator
+ *   @f$\mathcal{O}_{HL}=i \big(H^\dagger D_\mu H\big)
+ *    \big(\overline{L}\,\gamma^\mu L\big) @f$ with lepton-flavour universality.</td>
+ * </tr>
+ * <tr>
+ *   <td class="obs_name">%cHQ_NP</td>
+ *   <td class="obs_symb">@f$C_{HQ}@f$</td>
+ *   <td class="obs_desc">The coefficient of the operator
+ *   @f$\mathcal{O}_{HQ}=i \big(H^\dagger D_\mu H\big)
+ *    \big(\overline{Q}\,\gamma^\mu Q\big) @f$ with quark-flavour universality.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%cHE_NP</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%c_Ae_NP</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%c_GammaZ_uds_NP</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$C_{HE}@f$</td>
+ *   <td class="obs_desc">The coefficient of the operator
+ *   @f${\cal O}_{HE} =i\big(H^\dagger D_\mu H\big)
+ *   \big(\overline{E}\,\gamma^\mu E\big)@f$ with lepton-flavour universality.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%cHU2_NP</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$C_{HU_2}@f$</td>
+ *   <td class="obs_desc">The coefficient of the operator
+ *   @f${\cal O}_{HU_2} =i\big(H^\dagger D_\mu H\big)
+ *   \big(\overline{U_2}\,\gamma^\mu U_2\big)@f$</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%cHD3_NP</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$C_{HD_3}@f$</td>
+ *   <td class="obs_desc">The coefficient of the operator
+ *   @f${\cal O}_{HD_3} =i\big(H^\dagger D_\mu H\big)
+ *   \big(\overline{D_3}\,\gamma^\mu D_3\big)@f$.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%cHQ1pPLUScHQ2p_NP</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$C'_{HQ_1} + C'_{HQ_2}@f$</td>
+ *   <td class="obs_desc">The sum of the coefficients of the operators
+ *   @f${\cal O}'_{HQ_1}@f$ and @f${\cal O}'_{HQ_2}@f$.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%cHQ2pMINUScHQ2_NP</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$C'_{HQ_2} - C_{HQ_2}@f$</td>
+ *   <td class="obs_desc">The difference of the coefficients of the operators
+ *   @f${\cal O}'_{HQ_2}@f$ and @f${\cal O}_{HQ_2}@f$.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%cHQ3pPLUScHQ3_NP</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$C'_{HQ_3} + C_{HQ_3}@f$</td>
+ *   <td class="obs_desc">The sum of the coefficients of the operators
+ *   @f${\cal O}'_{HQ_3}@f$ and @f${\cal O}_{HQ_3}@f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="obs_name">%c_Ae_NP</td>
+ *   <td class="obs_symb">@f$C[\mathcal{A}_\ell]@f$</td>
+ *   <td class="obs_desc">A combination of the coefficients of the dim. 6
+ *   operators, associated with @f$\mathcal{A}_\ell@f$.
+ *   See @cite Ciuchini:2013pca.</td>
+ * </tr>
+ * <tr>
+ *   <td class="obs_name">%c_GammaZ_uds_NP</td>
+ *   <td class="obs_symb">@f$C[\Gamma_{uds}]@f$</td>
+ *   <td class="obs_desc">A combination of the coefficients of the dim. 6
+ *   operators, associated with the light-quark contribution to @f$\Gamma_Z@f$. 
+ *   See @cite Ciuchini:2013pca.</td>
  * </tr>
  * </table>
  *
- * NP Input Parameters for NPZbbbar
+ * @li %Model Parameters, etc. of NPZbbbar class:
+ * 
  * <table class="observables">
  * <tr>
  *   <th>Label</th>
@@ -448,47 +477,43 @@
  * </tr>
  * <tr>
  *   <td class="obs_name">%deltaGVb</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$\delta g_V^b@f$</td>
+ *   <td class="obs_desc">New physics contribution to the vector coupling @f$g_V^b@f$ for @f$Zb\bar{b}@f$.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%deltaGAb</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$\delta g_A^b@f$</td>
+ *   <td class="obs_desc">New physics contribution to the axial-vector coupling @f$g_A^b@f$ for @f$Zb\bar{b}@f$.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%deltaGLb</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$\delta g_L^b@f$</td>
+ *   <td class="obs_desc">New physics contribution to the left-handed coupling @f$g_L^b@f$ for @f$Zb\bar{b}@f$.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%deltaGRb</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$\delta g_R^b@f$</td>
+ *   <td class="obs_desc">New physics contribution to the right-handed coupling @f$g_R^b@f$ for @f$Zb\bar{b}@f$.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%deltaRhoZb</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$\delta \rho_Z^b@f$</td>
+ *   <td class="obs_desc">New physics contribution to the coupling @f$\rho_Z^b@f$ for @f$Zb\bar{b}@f$.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%deltaKappaZb</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
+ *   <td class="obs_symb">@f$\delta \kappa_Z^b@f$</td>
+ *   <td class="obs_desc">New physics contribution to the coupling @f$\kappa_Z^b@f$ for @f$Zb\bar{b}@f$.</td>
  * </tr>
  * </table>
  *
- * SUSY Spectra and Observables
+ * @li SUSY Spectra and Observables:
+ *
  * <table class="observables">
  * <tr>
  *   <th>Label</th>
  *   <th>LaTeX symbol</th>
  *   <th>Description</th>
- * </tr>
- * <tr>
- *   <td class="obs_name">%OutputSLHAfromFH</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%MHl</td>
@@ -511,92 +536,22 @@
  *   <td class="obs_desc"></td>
  * </tr>
  * <tr>
- *   <td class="obs_name">%Msu1</td>
+ *   <td class="obs_name">%Msu1, %Msu2, %Msu3, %Msu4, %Msu5, %Msu6</td>
  *   <td class="obs_symb"></td>
  *   <td class="obs_desc"></td>
  * </tr>
  * <tr>
- *   <td class="obs_name">%Msu2</td>
+ *   <td class="obs_name">%Msd1, %Msd2, %Msd3, %Msd4, %Msd5, %Msd6</td>
  *   <td class="obs_symb"></td>
  *   <td class="obs_desc"></td>
  * </tr>
  * <tr>
- *   <td class="obs_name">%Msu3</td>
+ *   <td class="obs_name">%Mch1, %Mch2</td>
  *   <td class="obs_symb"></td>
  *   <td class="obs_desc"></td>
  * </tr>
  * <tr>
- *   <td class="obs_name">%Msu4</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%Msu5</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%Msu6</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%Msd1</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%Msd2</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%Msd3</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%Msd4</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%Msd5</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%Msd6</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%Mch1</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%Mch2</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%Mneu1</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%Mneu2</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%Mneu3</td>
- *   <td class="obs_symb"></td>
- *   <td class="obs_desc"></td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%Mneu4</td>
+ *   <td class="obs_name">%Mneu1, %Mneu2, %Mneu3, %Mneu4</td>
  *   <td class="obs_symb"></td>
  *   <td class="obs_desc"></td>
  * </tr>
@@ -605,8 +560,13 @@
  *   <td class="obs_symb"></td>
  *   <td class="obs_desc"></td>
  * </tr>
+ * <tr>
+ *   <td class="obs_name">%OutputSLHAfromFH</td>
+ *   <td class="obs_symb"></td>
+ *   <td class="obs_desc"></td>
+ * </tr>
  * </table>
- * Masses and widhts are computed in GeV. Cross sections are given in nb.
+ *
  * 
  */
 class ThFactory {
@@ -637,7 +597,7 @@ public:
 
 private:
     std::map<std::string, ThObservable *> thobs; ///< A map between a pointer of type ThObservable and the name of the observable.
-    EW myEW; ///< An object of type EW().
+    EW myEW; ///< An object of type EW.
     Flavour myFlavour; ///< An object of type Flavour.
     LeptonFlavour myLeptonFlavour;///< An object of type LeptonFlavour.
     ModelObservable myMO; ///< An object of type ModelObservable

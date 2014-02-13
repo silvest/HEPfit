@@ -110,7 +110,7 @@ ThFactory::ThFactory(const StandardModel& myModel)
     //-----  Lepton Flavour observables  -----
     thobs["li_lj_gamma"] = new li_lj_gamma(myLeptonFlavour);
 
-    //-----  SM input parameters, etc.  -----
+    //-----  SM input parameters  -----
     thobs["AlsMz"] = new StandardModelParams(myMO, "AlsMz");
     thobs["dAle5Mz"] = new StandardModelParams(myMO, "dAle5Mz");
     thobs["Mz"] = new StandardModelParams(myMO, "Mz");
@@ -125,16 +125,16 @@ ThFactory::ThFactory(const StandardModel& myModel)
             || myModel.ModelName().compare("NPEffective2") == 0 ) {
         thobs["cHLp_NP"] = new NewPhysicsParams(myMO, "cHLp_NP");
         thobs["cHQp_NP"] = new NewPhysicsParams(myMO, "cHQp_NP");
-        thobs["cHQ_NP"] = new NewPhysicsParams(myMO, "cHQ_NP");
         thobs["cHL_NP"] = new NewPhysicsParams(myMO, "cHL_NP");
+        thobs["cHQ_NP"] = new NewPhysicsParams(myMO, "cHQ_NP");
         thobs["cHE_NP"] = new NewPhysicsParams(myMO, "cHE_NP");
-        thobs["c_Ae_NP"] = new NewPhysicsParams(myMO, "c_Ae_NP");
-        thobs["c_GammaZ_uds_NP"] = new NewPhysicsParams(myMO, "c_GammaZ_uds_NP");
         thobs["cHU2_NP"] = new NewPhysicsParams(myMO, "cHU2_NP");
         thobs["cHD3_NP"] = new NewPhysicsParams(myMO, "cHD3_NP");
         thobs["cHQ1pPLUScHQ2p_NP"] = new NewPhysicsParams(myMO, "cHQ1pPLUScHQ2p_NP");
         thobs["cHQ2pMINUScHQ2_NP"] = new NewPhysicsParams(myMO, "cHQ2pMINUScHQ2_NP");
         thobs["cHQ3pPLUScHQ3_NP"] = new NewPhysicsParams(myMO, "cHQ3pPLUScHQ3_NP");
+        thobs["c_Ae_NP"] = new NewPhysicsParams(myMO, "c_Ae_NP");
+        thobs["c_GammaZ_uds_NP"] = new NewPhysicsParams(myMO, "c_GammaZ_uds_NP");
     }
     if(myModel.ModelName().compare("NPZbbbar") == 0) {
         thobs["deltaGVb"] = new NewPhysicsParams(myMO, "deltaGVb");
