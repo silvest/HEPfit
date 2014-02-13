@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -10,12 +10,16 @@
 
 namespace gslpp
 {
-  /** @class gslpp::vector gslpp_vector_base.h <gslpp_vector_base.h>
-      Vector base class
-      @ingroup gslpp
-   */
-  template <class T>
-  class vector;
+    /**
+     * @class gslpp::vector
+     * @ingroup gslpp
+     * @brief
+     * @author SusyFit Collaboration
+     * @copyright GNU General Public License
+     * @details
+     */
+    template <class T>
+    class vector;
 }
 
 #endif

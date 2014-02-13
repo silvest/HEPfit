@@ -18,20 +18,19 @@
 /**
  * @namespace gslpp 
  * @brief Complex number, vector and matrix manipulation
- * using <a href="http://www.gnu.org/software/gsl/" target=blank>gsl libraries</a>.
+ * using <a href="http://www.gnu.org/software/gsl/" target=blank>GSL libraries</a>.
  * @{
  */
-
 namespace gslpp
 {
     /**
      * @class complex
      * @ingroup gslpp
-     * @brief Class for defining operations on and functions of complex numbers.
+     * @brief A class for defining operations on and functions of complex numbers.
      * @author SusyFit Collaboration
      * @copyright GNU General Public License
      * @details  This class defines some common operations on complex variables
-     * using the <a href="http://www.gnu.org/software/gsl/">gsl libraries</a>.
+     * using the <a href="http://www.gnu.org/software/gsl/">GSL libraries</a>.
      */
   class complex
   {

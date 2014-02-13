@@ -10,8 +10,16 @@
 
 namespace gslpp
 {
-  template <typename T>
-  class matrix;
+    /**
+     * @class gslpp::matrix
+     * @ingroup gslpp
+     * @brief
+     * @author SusyFit Collaboration
+     * @copyright GNU General Public License
+     * @details
+     */
+    template <typename T>
+    class matrix;
 }
 
 #endif
