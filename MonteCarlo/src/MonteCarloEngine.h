@@ -116,7 +116,7 @@ public:
     
     /**
      * @brief This member checks if there is overflow of the 1D histogram.
-     * @param[in] hist a reference to a object of type <a href="http://root.cern.ch/root/html/TH1D.html"
+     * @param[in] hist a reference to an object of type <a href="http://root.cern.ch/root/html/TH1D.html"
      * target=blank>TH1D</a> as defined in the ROOT libraries
      * @param[in] name the name for the histogram
      */
@@ -124,7 +124,7 @@ public:
     
     /**
      * @brief This member checks if there is overflow of the 2D histogram.
-     * @param[in] hist a reference to a object of type <a href="http://root.cern.ch/root/html/TH2D.html"
+     * @param[in] hist a reference to an object of type <a href="http://root.cern.ch/root/html/TH2D.html"
      * target=blank>TH2D</a> as defined in the ROOT libraries
      * @param[in] name the name for the histogram
      */
@@ -180,7 +180,7 @@ public:
     /**
      * @brief This is used to calculate the weight associated with the value of the observable
      * @param[in] obs a reference to an object of type Observable
-     * @param[in] th a reference to a object containing the value of the first theory observable
+     * @param[in] th a reference to an object containing the value of the first theory observable
      * @return the value of the weight
      */
     double Weight(const Observable& obs, const double& th);
@@ -188,8 +188,8 @@ public:
     /**
      * @brief This is used to calculate the weight associated with the value of the pair of observables
      * @param[in] obs a reference to an object of type Observable2D
-     * @param[in] th1 a reference to a object containing the value of the first theory observable
-     * @param[in] th2 a reference to a object containing the value of the second theory observable
+     * @param[in] th1 a reference to an object containing the value of the first theory observable
+     * @param[in] th2 a reference to an object containing the value of the second theory observable
      * @return the value of the weight
      */
     double Weight(const Observable2D& obs, const double& th1, const double& th2);
