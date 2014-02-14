@@ -16,14 +16,6 @@
 using namespace boost::program_options;
 using namespace std;
 
-/**
- * @addtogroup Analysis
- * @brief A module for the main function of the SusyFit project.
- * @author SusyFit Collaboration
- * @copyright GNU General Public License
- * @{
- */
-
 int main(int argc, char** argv) 
 {
 
@@ -150,7 +142,3 @@ int main(int argc, char** argv)
         return EXIT_FAILURE;
     }
 }
-
-/** 
- * @}
- */
