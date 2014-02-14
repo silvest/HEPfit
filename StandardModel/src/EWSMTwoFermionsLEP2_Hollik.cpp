@@ -470,13 +470,13 @@ complex EWSMTwoFermionsLEP2_Hollik::FL_q(const QCD::quark q,
                                   const double s, const double Mw) const 
 {
     switch(q) {
-        case StandardModel::UP:
-        case StandardModel::CHARM:
+        case QCD::UP:
+        case QCD::CHARM:
             return FL_u(s, Mw);
-        case StandardModel::DOWN:
-        case StandardModel::STRANGE:
+        case QCD::DOWN:
+        case QCD::STRANGE:
             return FL_d(s, Mw);            
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
         {
             double cW = Mw/SM.getMz();
             double sW2 = 1.0 - cW*cW, sW = sqrt(sW2);
@@ -484,7 +484,7 @@ complex EWSMTwoFermionsLEP2_Hollik::FL_q(const QCD::quark q,
                      + Fe(s, Mw) + Ff(s, Mw) + Fg(s, Mw) 
                      - (2.0/3.0*sW2 - 1.0)/(4.0*sW*cW)*deltaZL_fin(s, Mw) );
         }
-        case StandardModel::TOP:
+        case QCD::TOP:
         default:
             throw std::runtime_error("Error in EWSMTwoFermionsLEP2_Hollik::FL_q()"); 
     }  
@@ -552,8 +552,8 @@ complex EWSMTwoFermionsLEP2_Hollik::Lambda3(const double s, const double M) cons
 complex EWSMTwoFermionsLEP2_Hollik::deltaZL_fin(const double s, const double Mw) const 
 {
     double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
-    double mb = myOneLoopEW_HV.mq(StandardModel::BOTTOM, sqrt(s));
-    double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
+    double mb = myOneLoopEW_HV.mq(QCD::BOTTOM, sqrt(s));
+    double mt = myOneLoopEW_HV.mq(QCD::TOP, sqrt(s));
 
     return ( (2.0 + mt*mt/Mw/Mw)/(2.0*sW2)
               * (B1bar_Hollik(mb*mb, mt, Mw) 
@@ -564,9 +564,9 @@ complex EWSMTwoFermionsLEP2_Hollik::deltaZL_fin(const double s, const double Mw)
 complex EWSMTwoFermionsLEP2_Hollik::Fb(const double s, const double Mw) const 
 {
     double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
-    double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
-    double vt = vq(StandardModel::TOP, Mw);
-    double at = aq(StandardModel::TOP, Mw);
+    double mt = myOneLoopEW_HV.mq(QCD::TOP, sqrt(s));
+    double vt = vq(QCD::TOP, Mw);
+    double at = aq(QCD::TOP, Mw);
     
     return ( (vt + at)/(4.0*sW2)   
              * ( - 3.0/2.0 + 2.0*log(Mw/mt) + 4.0*C2zero_Hollik(s, mt, Mw)
@@ -580,7 +580,7 @@ complex EWSMTwoFermionsLEP2_Hollik::Fc(const double s, const double Mw) const
 {
     double cW = Mw/SM.getMz();
     double sW2 = 1.0 - cW*cW, sW = sqrt(sW2), sW3 = sW2*sW;
-    double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
+    double mt = myOneLoopEW_HV.mq(QCD::TOP, sqrt(s));
     
     return ( cW/(4.0*sW3)   
              * ( - 3.0/2.0 + 12.0*C2zero_Hollik(s, Mw, mt)
@@ -592,9 +592,9 @@ complex EWSMTwoFermionsLEP2_Hollik::Fc(const double s, const double Mw) const
 complex EWSMTwoFermionsLEP2_Hollik::Fd(const double s, const double Mw) const 
 {
     double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
-    double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
-    double vt = vq(StandardModel::TOP, Mw);
-    double at = aq(StandardModel::TOP, Mw);
+    double mt = myOneLoopEW_HV.mq(QCD::TOP, sqrt(s));
+    double vt = vq(QCD::TOP, Mw);
+    double at = aq(QCD::TOP, Mw);
    
     return ( (vt - at)/(4.0*sW2)*mt*mt/Mw/Mw
              * ( - 3.0/4.0 + log(Mw/mt) + 2.0*C2zero_Hollik(s, mt, Mw)
@@ -607,7 +607,7 @@ complex EWSMTwoFermionsLEP2_Hollik::Fe(const double s, const double Mw) const
 {
     double cW2 = Mw*Mw/SM.getMz()/SM.getMz(), cW = sqrt(cW2);
     double sW2 = 1.0 - cW2, sW = sqrt(sW2), sW3 = sW2*sW;
-    double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
+    double mt = myOneLoopEW_HV.mq(QCD::TOP, sqrt(s));
     
     return ( - (sW2 - sW2)/(8.0*sW3*cW)*mt*mt/Mw/Mw   
              * ( - 1.0/4.0 - 2.0*C2zero_Hollik(s, Mw, mt) ) );
@@ -618,7 +618,7 @@ complex EWSMTwoFermionsLEP2_Hollik::Ff(const double s, const double Mw) const
 {
     double cW = Mw/SM.getMz();
     double sW2 = 1.0 - cW*cW, sW = sqrt(sW2);
-    double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
+    double mt = myOneLoopEW_HV.mq(QCD::TOP, sqrt(s));
     
     return ( mt*mt/(4.0*sW*cW)*C0_Hollik(s, Mw, mt) );
 }
@@ -695,17 +695,17 @@ complex EWSMTwoFermionsLEP2_Hollik::GL_q(const QCD::quark q,
                                   const double s, const double Mw) const 
 {
     switch(q) {
-        case StandardModel::UP:
-        case StandardModel::CHARM:
+        case QCD::UP:
+        case QCD::CHARM:
             return GL_u(s, Mw);
-        case StandardModel::DOWN:
-        case StandardModel::STRANGE:
+        case QCD::DOWN:
+        case QCD::STRANGE:
             return GL_d(s, Mw);            
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             return ( Gb(s, Mw) + Gc(s, Mw) + Gd(s, Mw) 
                      + Ge(s, Mw) + Gf(s, Mw) + Gg(s, Mw) 
                      - 1.0/6.0*deltaZL_fin(s, Mw) );
-        case StandardModel::TOP:
+        case QCD::TOP:
         default:
             throw std::runtime_error("Error in EWSMTwoFermionsLEP2_Hollik::GL_q()"); 
     }  
@@ -733,7 +733,7 @@ complex EWSMTwoFermionsLEP2_Hollik::GL_d(const double s, const double Mw) const
 complex EWSMTwoFermionsLEP2_Hollik::Gb(const double s, const double Mw) const 
 {
     double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
-    double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
+    double mt = myOneLoopEW_HV.mq(QCD::TOP, sqrt(s));
     
     return ( 1/(6.0*sW2)   
              * ( - 3.0/2.0 + 2.0*log(Mw/mt) + 4.0*C2zero_Hollik(s, mt, Mw)
@@ -746,7 +746,7 @@ complex EWSMTwoFermionsLEP2_Hollik::Gb(const double s, const double Mw) const
 complex EWSMTwoFermionsLEP2_Hollik::Gc(const double s, const double Mw) const 
 {
     double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
-    double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
+    double mt = myOneLoopEW_HV.mq(QCD::TOP, sqrt(s));
     
     return ( - 1.0/(4.0*sW2)   
              * ( - 3.0/2.0 + 12.0*C2zero_Hollik(s, Mw, mt)
@@ -758,7 +758,7 @@ complex EWSMTwoFermionsLEP2_Hollik::Gc(const double s, const double Mw) const
 complex EWSMTwoFermionsLEP2_Hollik::Gd(const double s, const double Mw) const 
 {
     double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
-    double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
+    double mt = myOneLoopEW_HV.mq(QCD::TOP, sqrt(s));
    
     return ( 1.0/(6.0*sW2)*mt*mt/Mw/Mw
              * ( - 3.0/4.0 + log(Mw/mt) + 2.0*C2zero_Hollik(s, mt, Mw)
@@ -770,7 +770,7 @@ complex EWSMTwoFermionsLEP2_Hollik::Gd(const double s, const double Mw) const
 complex EWSMTwoFermionsLEP2_Hollik::Ge(const double s, const double Mw) const 
 {
     double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
-    double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
+    double mt = myOneLoopEW_HV.mq(QCD::TOP, sqrt(s));
     
     return ( - 1.0/(4.0*sW2)*mt*mt/Mw/Mw   
              * ( - 1.0/4.0 + 2.0*C2zero_Hollik(s, Mw, mt) ) );    
@@ -780,7 +780,7 @@ complex EWSMTwoFermionsLEP2_Hollik::Ge(const double s, const double Mw) const
 complex EWSMTwoFermionsLEP2_Hollik::Gf(const double s, const double Mw) const 
 {
     double sW2 = 1.0 - Mw*Mw/SM.getMz()/SM.getMz();
-    double mt = myOneLoopEW_HV.mq(StandardModel::TOP, sqrt(s));
+    double mt = myOneLoopEW_HV.mq(QCD::TOP, sqrt(s));
     
     return ( mt*mt/(4.0*sW2)*C0_Hollik(s, Mw, mt) );
 }
@@ -1359,7 +1359,7 @@ complex EWSMTwoFermionsLEP2_Hollik::C0_Hollik(const double s, const double M,
 complex EWSMTwoFermionsLEP2_Hollik::C1plus_Hollik(const double s, const double M, 
                                                   const double Mprime) const
 {
-    double mb = myOneLoopEW_HV.mq(StandardModel::BOTTOM, sqrt(s));
+    double mb = myOneLoopEW_HV.mq(QCD::BOTTOM, sqrt(s));
     if(s==4.0*mb*mb)
         throw std::runtime_error("Error in EWSMTwoFermionsLEP2_Hollik::C1plus()"); 
 
@@ -1373,7 +1373,7 @@ complex EWSMTwoFermionsLEP2_Hollik::C1plus_Hollik(const double s, const double M
 complex EWSMTwoFermionsLEP2_Hollik::C2zero_Hollik(const double s, const double M, 
                                                   const double Mprime) const
 {
-    double mb = myOneLoopEW_HV.mq(StandardModel::BOTTOM, sqrt(s));
+    double mb = myOneLoopEW_HV.mq(QCD::BOTTOM, sqrt(s));
     return ( (B0bar_Hollik(s, M, M) + 1.0)/4.0 
               + (M*M - Mprime*Mprime - mb*mb)/2.0*C1plus_Hollik(s, M, Mprime)
               + Mprime*Mprime/2.0*C0_Hollik(s, M, Mprime) );
@@ -1383,7 +1383,7 @@ complex EWSMTwoFermionsLEP2_Hollik::C2zero_Hollik(const double s, const double M
 complex EWSMTwoFermionsLEP2_Hollik::C2plus_Hollik(const double s, const double M, 
                                                   const double Mprime) const
 {
-    double mb = myOneLoopEW_HV.mq(StandardModel::BOTTOM, sqrt(s));
+    double mb = myOneLoopEW_HV.mq(QCD::BOTTOM, sqrt(s));
     if(s==4.0*mb*mb)
         throw std::runtime_error("Error in EWSMTwoFermionsLEP2_Hollik::C2plus()"); 
 
@@ -1400,7 +1400,7 @@ complex EWSMTwoFermionsLEP2_Hollik::C2minus_Hollik(const double s, const double 
     if(s==0.0)
         throw std::runtime_error("Error in EWSMTwoFermionsLEP2_Hollik::C1plus()"); 
 
-    double mb = myOneLoopEW_HV.mq(StandardModel::BOTTOM, sqrt(s));
+    double mb = myOneLoopEW_HV.mq(QCD::BOTTOM, sqrt(s));
     return ( ( - (B1bar_Hollik(mb*mb, Mprime, M) - 1.0/4.0)/2.0 
                - C2zero_Hollik(s, M, Mprime) )/s );
 }

@@ -31,7 +31,7 @@ double EWSMThreeLoopQCD::DeltaAlpha_t(const double s) const
         als = cache.alsMz();
     } else {
         double mu = sqrt(s);
-        log_t = log(s/pow(cache.mq(StandardModel::TOP, mu), 2.0));
+        log_t = log(s/pow(cache.mq(QCD::TOP, mu), 2.0));
         als = cache.Als(sqrt(s),FULLNNLO);
     }
     double tmp = ( (28.220 + 9.702*log_t) 
@@ -78,7 +78,7 @@ complex EWSMThreeLoopQCD::deltaRho_rem_l(const StandardModel::lepton l,
 complex EWSMThreeLoopQCD::deltaRho_rem_q(const QCD::quark q, 
                                          const double Mw_i) const 
 {
-    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+    if(q==QCD::TOP) return ( complex(0.0,0.0,false) );
     return ( complex(0.0,0.0,false) );
 }
 
@@ -96,7 +96,7 @@ complex EWSMThreeLoopQCD::deltaKappa_rem_l(const StandardModel::lepton l,
 complex EWSMThreeLoopQCD::deltaKappa_rem_q(const QCD::quark q, 
                                            const double Mw_i) const 
 {
-    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+    if(q==QCD::TOP) return ( complex(0.0,0.0,false) );
     double Mw = cache.Mw(Mw_i);
     return ( - 3.0*cache.Xt_alpha(Mw)*cache.cW2(Mw)/cache.sW2(Mw)
                *pow(cache.alsMt()/M_PI,2.0)

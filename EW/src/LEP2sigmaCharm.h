@@ -31,7 +31,7 @@ public:
                    const bool bSigmaForAFB_i=false) 
     : LEP2ThObservable(EW_i, sqrt_s_i, bSigmaForAFB_i) 
     {
-        q_flavor = StandardModel::CHARM;
+        q_flavor = QCD::CHARM;
     }
 
     /**

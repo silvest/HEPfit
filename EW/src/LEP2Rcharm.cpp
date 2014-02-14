@@ -42,7 +42,7 @@ double LEP2Rcharm::computeThValue()
         double obliqueY = (static_cast<const NPSTUVWXY*> (&SM))->obliqueY();
         double ObParam[7] = {obliqueShat, obliqueThat, obliqueUhat,
                              obliqueV, obliqueW, obliqueX, obliqueY};
-        R_c += myLEP2oblique.R_q_LEP2_NP(StandardModel::CHARM, s, mq_cache, ObParam);
+        R_c += myLEP2oblique.R_q_LEP2_NP(QCD::CHARM, s, mq_cache, ObParam);
     }
     
     return R_c;

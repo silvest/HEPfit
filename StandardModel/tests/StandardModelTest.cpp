@@ -20,7 +20,7 @@ using namespace std;
 //            UPMNS_i, 0.0005, 0.1, 1.7, 0., 0., 0.,
 //            1.16639E-5, 0.119, 1.0/137.0360, 91.18760, 0.05907, 130.,
 //            160.,4.5,1.5);
-//    std::cout << SM.getMass(StandardModel::TOP) << std::endl;
+//    std::cout << SM.getMass(QCD::TOP) << std::endl;
 //    std::cout << SM.getMass(StandardModel::ELECTRON) << std::endl;
 //    std::cout << SM.getAlsM() << std::endl;
 //

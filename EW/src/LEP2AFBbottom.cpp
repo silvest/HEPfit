@@ -82,7 +82,7 @@ double LEP2AFBbottom::computeThValue()
         double obliqueY = (static_cast<const NPSTUVWXY*> (&SM))->obliqueY();
         double ObParam[7] = {obliqueShat, obliqueThat, obliqueUhat,
                              obliqueV, obliqueW, obliqueX, obliqueY};
-        AFB_b += myLEP2oblique.AFB_q_LEP2_NP(StandardModel::BOTTOM, s, mq_cache, ObParam);
+        AFB_b += myLEP2oblique.AFB_q_LEP2_NP(QCD::BOTTOM, s, mq_cache, ObParam);
     }
     
     return AFB_b;

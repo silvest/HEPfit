@@ -108,13 +108,13 @@ double NPZbbbar::deltaGVl(StandardModel::lepton l) const
 double NPZbbbar::deltaGVq(QCD::quark q) const
 {
     switch (q) {
-        case StandardModel::UP:
-        case StandardModel::CHARM:
-        case StandardModel::TOP:
-        case StandardModel::DOWN:
-        case StandardModel::STRANGE:
+        case QCD::UP:
+        case QCD::CHARM:
+        case QCD::TOP:
+        case QCD::DOWN:
+        case QCD::STRANGE:
             return NPbase::deltaGVq(q);
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             if (FlagNPZbbbarLR)
                 // delta g_L^b + delta g_R^b
                 return ( myDeltaGVb + NPbase::deltaGVq(q)
@@ -136,13 +136,13 @@ double NPZbbbar::deltaGAl(StandardModel::lepton l) const
  double NPZbbbar::deltaGAq(QCD::quark q) const
  {
      switch (q) {
-         case StandardModel::UP:
-         case StandardModel::CHARM:
-         case StandardModel::TOP:
-         case StandardModel::DOWN:
-         case StandardModel::STRANGE:
+         case QCD::UP:
+         case QCD::CHARM:
+         case QCD::TOP:
+         case QCD::DOWN:
+         case QCD::STRANGE:
              return NPbase::deltaGAq(q);
-         case StandardModel::BOTTOM:
+         case QCD::BOTTOM:
              if (FlagNPZbbbarLR)
                 // delta g_L^b - delta g_R^b
                 return ( myDeltaGVb + NPbase::deltaGVq(q)

@@ -60,9 +60,9 @@ double EWSMOneLoopEW::DeltaR_rem(const double Mw_i) const
     /* Logarithm */
     double log_cW2 = cache.log_cW2(Mw);
     
-    double PiGammaGamma_t_0 = PibarGammaGamma_fer_q(Mz,0.0,StandardModel::TOP).real();
+    double PiGammaGamma_t_0 = PibarGammaGamma_fer_q(Mz,0.0,QCD::TOP).real();
     double PiGammaGamma_l5q_Mz2 = PibarGammaGamma_fer(Mz,Mz2).real()
-                                  - PibarGammaGamma_fer_q(Mz,Mz2,StandardModel::TOP).real();
+                                  - PibarGammaGamma_fer_q(Mz,Mz2,QCD::TOP).real();
 
     double DR_rem = - 2.0/3.0*sW2 + sW2*PiGammaGamma_t_0
                     + sW2*PiGammaGamma_l5q_Mz2 + DeltaRhobarW(Mz,Mw)
@@ -128,7 +128,7 @@ complex EWSMOneLoopEW::deltaRho_rem_l(const StandardModel::lepton l, const doubl
 
 complex EWSMOneLoopEW::deltaRho_rem_q(const QCD::quark q, const double Mw_i) const 
 {
-    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+    if(q==QCD::TOP) return ( complex(0.0,0.0,false) );
     
     double Mz = cache.Mz(); 
     double Mw = cache.Mw(Mw_i);
@@ -170,7 +170,7 @@ complex EWSMOneLoopEW::deltaKappa_rem_l(const StandardModel::lepton l, const dou
 
 complex EWSMOneLoopEW::deltaKappa_rem_q(const QCD::quark q, const double Mw_i) const 
 {
-    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+    if(q==QCD::TOP) return ( complex(0.0,0.0,false) );
     
     double Mz = cache.Mz(); 
     double Mw = cache.Mw(Mw_i);
@@ -1215,22 +1215,22 @@ complex EWSMOneLoopEW::FW_q(const double s, const QCD::quark q,
 
     QCD::quark qprime;
     switch(q) {
-        case StandardModel::UP:
-            qprime = StandardModel::DOWN;
+        case QCD::UP:
+            qprime = QCD::DOWN;
             break;
-        case StandardModel::DOWN:
-            qprime = StandardModel::UP;
+        case QCD::DOWN:
+            qprime = QCD::UP;
             break;
-        case StandardModel::CHARM:
-            qprime = StandardModel::STRANGE;
+        case QCD::CHARM:
+            qprime = QCD::STRANGE;
             break;
-        case StandardModel::STRANGE:
-            qprime = StandardModel::CHARM;
+        case QCD::STRANGE:
+            qprime = QCD::CHARM;
             break;
-        case StandardModel::TOP:
+        case QCD::TOP:
             throw std::runtime_error("EWSMOneLoopEW::FW_q(): q=TOP is not allowed");
-        case StandardModel::BOTTOM:
-            qprime = StandardModel::TOP;
+        case QCD::BOTTOM:
+            qprime = QCD::TOP;
             break;
         default:
             throw std::runtime_error("EWSMOneLoopEW::FW_q(): Wrong argument");
@@ -1238,7 +1238,7 @@ complex EWSMOneLoopEW::FW_q(const double s, const QCD::quark q,
     complex FW(0.0,0.0,false);
     FW = cW2*FWn_0(s,Mw) - cache.sigmaq(qprime, Mw)/2.0*FWa_0(s, Mw) 
             - FbarWa_0(s)/2.0;
-    if (q==StandardModel::BOTTOM) {
+    if (q==QCD::BOTTOM) {
         FW += cW2*FWn_t(s,Mw) - cache.sigmaq(qprime, Mw)/2.0*FWa_t(s, Mw) 
                 - FbarWa_t(s, Mw)/2.0;
     }

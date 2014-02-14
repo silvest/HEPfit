@@ -256,17 +256,17 @@ double NPEffective::deltaGLq_tmp(QCD::quark q) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
     switch (q) {
-        case StandardModel::UP:
+        case QCD::UP:
            return ( (cHQ1p - cHQ1)/2.0*ratio );
-        case StandardModel::CHARM:
+        case QCD::CHARM:
            return ( (cHQ2p - cHQ2)/2.0*ratio );
-        case StandardModel::TOP:
+        case QCD::TOP:
             return 0.0;
-        case StandardModel::DOWN:
+        case QCD::DOWN:
             return ( - (cHQ1p + cHQ1)/2.0*ratio );
-        case StandardModel::STRANGE:
+        case QCD::STRANGE:
             return ( - (cHQ2p + cHQ2)/2.0*ratio );
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             return ( - (cHQ3p + cHQ3)/2.0*ratio );
         default:
             throw std::runtime_error("Error in NPEffective::deltaGLq()");
@@ -298,17 +298,17 @@ double NPEffective::deltaGRq_tmp(QCD::quark q) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
     switch (q) {
-        case StandardModel::UP:
+        case QCD::UP:
             return ( - cHU1/2.0*ratio );
-        case StandardModel::CHARM:
+        case QCD::CHARM:
             return ( - cHU2/2.0*ratio );
-        case StandardModel::TOP:
+        case QCD::TOP:
             return 0.0;
-        case StandardModel::DOWN:
+        case QCD::DOWN:
             return ( - cHD1/2.0*ratio );
-        case StandardModel::STRANGE:
+        case QCD::STRANGE:
             return ( - cHD2/2.0*ratio );
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             return ( - cHD3/2.0*ratio );
         default:
             throw std::runtime_error("Error in NPEffective::deltaGRq()");

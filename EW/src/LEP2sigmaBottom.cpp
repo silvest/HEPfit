@@ -52,7 +52,7 @@ double LEP2sigmaBottom::computeThValue()
         double obliqueY = (static_cast<const NPSTUVWXY*> (&SM))->obliqueY();
         double ObParam[7] = {obliqueShat, obliqueThat, obliqueUhat,
                              obliqueV, obliqueW, obliqueX, obliqueY};
-        sigma_bottom += myLEP2oblique.sigma_q_LEP2_NP(StandardModel::BOTTOM, s, mq_cache, ObParam);
+        sigma_bottom += myLEP2oblique.sigma_q_LEP2_NP(QCD::BOTTOM, s, mq_cache, ObParam);
     }
     
     return ( sigma_bottom*GeVminus2_to_nb*1000.0 );

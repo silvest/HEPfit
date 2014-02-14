@@ -182,15 +182,15 @@ protected:
     double m_q(const QCD::quark q, const double mu, const orders order=FULLNLO) const 
     {
         switch(q) {
-            case StandardModel::UP:
-            case StandardModel::DOWN:
-            case StandardModel::STRANGE:
+            case QCD::UP:
+            case QCD::DOWN:
+            case QCD::STRANGE:
                 return myEW.getSM().Mrun(mu, myEW.getSM().getQuarks(q).getMass_scale(), 
                                          myEW.getSM().getQuarks(q).getMass(), order);
-            case StandardModel::CHARM:
-            case StandardModel::BOTTOM:
+            case QCD::CHARM:
+            case QCD::BOTTOM:
                 return myEW.getSM().Mrun(mu, myEW.getSM().getQuarks(q).getMass(), order);
-            case StandardModel::TOP:
+            case QCD::TOP:
                 return myEW.getSM().getMtpole(); // the pole mass
             default:
                 throw std::runtime_error("Error in LEP2ThObservable::mq()"); 

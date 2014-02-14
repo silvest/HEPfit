@@ -228,41 +228,9 @@ class EWSM; // forward reference to EWSM class
  *   <td class="mod_name">%NoApproximateGammaZ</td>
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
  *   <td class="mod_desc">This flag is set to true if the two-loop approximate
- *   formula of @f$\Gamma_Z@f$ defined with the function
- *   EWSMApproximateFormulae::X_extended() is NOT employed.
- *   The default value is FALSE.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%NoApproximateSigmaH</td>
- *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This flag is set to true if the two-loop approximate
- *   formula of @f$\sigma_h^0@f$ defined with the function
- *   EWSMApproximateFormulae::X_extended() is NOT employed.
- *   The default value is FALSE.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%NoApproximateRl</td>
- *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This flag is set to true if the two-loop approximate
- *   formula of @f$R_\ell^0@f$ defined with the function
- *   EWSMApproximateFormulae::X_extended() is NOT employed.
- *   The default value is FALSE.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%NoApproximateRc</td>
- *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This flag is set to true if the two-loop approximate
- *   formula of @f$R_c^0@f$ defined with the function
- *   EWSMApproximateFormulae::X_extended() is NOT employed.
- *   The default value is FALSE.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%NoApproximateRb</td>
- *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This flag is set to true if the two-loop approximate
- *   formula of @f$R_b^0@f$ defined with the function
- *   EWSMApproximateFormulae::X_extended() is NOT employed.
- *   The default value is FALSE.</td>
+ *   formulae of the partial and total decay widths of the @f$Z@f$ boson 
+ *   defined with the function EWSMApproximateFormulae::X_extended() are NOT
+ *   employed. The default value is FALSE.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%Mw</td>
@@ -292,7 +260,6 @@ class EWSM; // forward reference to EWSM class
  * flags. The method CheckFlags() is responsible for checking whether the flags
  * are sane. The public member functions
  * IsFlagWithoutNonUniversalVC(), IsFlagNoApproximateGammaZ()
- * IsFlagNoApproximateRl(), IsFlagNoApproximateRc(), IsFlagNoApproximateRb(),
  * getFlagMw(), getFlagRhoZ() and getFlagKappaZ()
  * are used to retrieve the values of each flag.
  *
@@ -458,60 +425,13 @@ public:
      * @brief A method to retrieve the model flag NoApproximateGammaZ.
      * @details See @ref StandardModelFlags for detail.
      * @return a boolean that is true if the two-loop approximate
-     * formula of @f$\Gamma_Z@f$ defined with the function
-     * EWSMApproximateFormulae::X_extended() is NOT employed
+     * formulae of the partial and total decay widths of the @f$Z@f$ boson
+     * defined with the function EWSMApproximateFormulae::X_extended() is NOT
+     * employed
      */
     bool IsFlagNoApproximateGammaZ() const
     {
         return FlagNoApproximateGammaZ;
-    }
-
-    /**
-     * @brief A method to retrieve the model flag NoApproximateSigmaH.
-     * @details See @ref StandardModelFlags for detail.
-     * @return a boolean that is true if the two-loop approximate
-     * formula of @f$\sigma_h^0@f$ defined with the function
-     * EWSMApproximateFormulae::X_extended() is NOT employed
-     */
-    bool IsFlagNoApproximateSigmaH() const
-    {
-        return FlagNoApproximateSigmaH;
-    }
-
-    /**
-     * @brief A method to retrieve the model flag NoApproximateRl.
-     * @details See @ref StandardModelFlags for detail.
-     * @return a boolean that is true if the two-loop approximate
-     * formula of @f$R_\ell^0@f$ defined with the function
-     * EWSMApproximateFormulae::X_extended() is NOT employed
-     */
-    bool IsFlagNoApproximateRl() const
-    {
-        return FlagNoApproximateRl;
-    }
-
-    /**
-     * @brief A method to retrieve the model flag NoApproximateRc.
-     * @details See @ref StandardModelFlags for detail.
-     * @return a boolean that is true if the two-loop approximate
-     * formula of @f$R_c^0@f$ defined with the function
-     * EWSMApproximateFormulae::X_extended() is NOT employed
-     */
-    bool IsFlagNoApproximateRc() const
-    {
-        return FlagNoApproximateRc;
-    }
-
-    /**
-     * @brief A method to retrieve the model flag NoApproximateRb.
-     * @details See @ref StandardModelFlags for detail.
-     * @return a boolean that is true if the two-loop approximate
-     * formula of @f$R_b^0@f$ defined with the function
-     * EWSMApproximateFormulae::X_extended() is NOT employed
-     */
-    bool IsFlagNoApproximateRb() const
-    {
-        return FlagNoApproximateRb;
     }
 
     /**
@@ -1049,10 +969,6 @@ private:
 
     bool FlagWithoutNonUniversalVC;///< A boolean for the model flag %WithoutNonUniversalVC.
     bool FlagNoApproximateGammaZ;///< A boolean for the model flag %NoApproximateGammaZ.
-    bool FlagNoApproximateSigmaH;///< A boolean for the model flag %NoApproximateSigmaH.
-    bool FlagNoApproximateRl;///< A boolean for the model flag %NoApproximateRl.
-    bool FlagNoApproximateRc;///< A boolean for the model flag %NoApproximateRc.
-    bool FlagNoApproximateRb;///< A boolean for the model flag %NoApproximateRb.
     std::string FlagMw;///< A string for the model flag %Mw.
     std::string FlagRhoZ;///< A string for the model flag %RhoZ.
     std::string FlagKappaZ;///< A string for the model flag %KappaZ. 

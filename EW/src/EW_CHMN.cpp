@@ -117,25 +117,25 @@ double EW_CHMN::gL_q(const QCD::quark q) const
 {
     double c1, c2, c3;
     switch (q) {
-        case StandardModel::UP:
-        case StandardModel::CHARM:
+        case QCD::UP:
+        case QCD::CHARM:
             c1 = 0.34675;
             c2 = 0.31309;
             c3 = -0.66793;
             break;
-        case StandardModel::DOWN:
-        case StandardModel::STRANGE:
+        case QCD::DOWN:
+        case QCD::STRANGE:
             c1 = -0.42434;
             c2 = -0.38279;
             c3 = 0.33166;
             break;
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             c1 = -0.42116;
             c2 = -0.38279;
             c3 = 0.33166;
             c1 += -0.000058*x_h() + 0.000128*x_t();
             break;
-        case StandardModel::TOP:
+        case QCD::TOP:
         default: 
             throw std::runtime_error("Error in EW_CHMN::gL_q()");  
     }
@@ -155,25 +155,25 @@ double EW_CHMN::gR_q(const QCD::quark q) const
 {
     double c1, c2, c3;
     switch (q) {
-        case StandardModel::UP:
-        case StandardModel::CHARM:
+        case QCD::UP:
+        case QCD::CHARM:
             c1 = -0.15470;
             c2 = -0.13942;
             c3 = -0.67184;
             break;
-        case StandardModel::DOWN:
-        case StandardModel::STRANGE:
+        case QCD::DOWN:
+        case QCD::STRANGE:
             c1 = 0.07734;
             c2 = 0.06971;
             c3 = 0.33590;
             break;
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             c1 = 0.07742;
             c2 = 0.06971;
             c3 = 0.33590;
             c1 += -0.000042*x_h() - 0.000025*pow(x_h(), 4.0);
             break;
-        case StandardModel::TOP:
+        case QCD::TOP:
         default: 
             throw std::runtime_error("Error in EW_CHMN::gR_q()");  
     }
@@ -219,11 +219,11 @@ double EW_CHMN::GammaZ_q(QCD::quark q) const
 
 double EW_CHMN::GammaZ_had() const
 {
-    return ( GammaZ_q(StandardModel::UP) 
-             + GammaZ_q(StandardModel::DOWN) 
-             + GammaZ_q(StandardModel::CHARM) 
-             + GammaZ_q(StandardModel::STRANGE) 
-             + GammaZ_q(StandardModel::BOTTOM) );
+    return ( GammaZ_q(QCD::UP) 
+             + GammaZ_q(QCD::DOWN) 
+             + GammaZ_q(QCD::CHARM) 
+             + GammaZ_q(QCD::STRANGE) 
+             + GammaZ_q(QCD::BOTTOM) );
 }
 
 
@@ -245,13 +245,13 @@ double EW_CHMN::R_l(const StandardModel::lepton l) const
 
 double EW_CHMN::R_c() const 
 {
-    return ( GammaZ_q(StandardModel::CHARM)/GammaZ_had() );
+    return ( GammaZ_q(QCD::CHARM)/GammaZ_had() );
 }
 
 
 double EW_CHMN::R_b() const 
 {
-    return ( GammaZ_q(StandardModel::BOTTOM)/GammaZ_had() );    
+    return ( GammaZ_q(QCD::BOTTOM)/GammaZ_had() );    
 }
 
 
@@ -439,15 +439,15 @@ double EW_CHMN::CV_l(StandardModel::lepton l) const
 double EW_CHMN::CV_q(QCD::quark q) const 
 {
     switch (q) {
-        case StandardModel::UP:
+        case QCD::UP:
             return ( 3.1166 + 0.0030*x_s() );
-        case StandardModel::DOWN:
-        case StandardModel::STRANGE:
-        case StandardModel::CHARM:
+        case QCD::DOWN:
+        case QCD::STRANGE:
+        case QCD::CHARM:
             return ( 3.1167 + 0.0030*x_s() );
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             return ( 3.1185 + 0.0030*x_s() );
-        case StandardModel::TOP:
+        case QCD::TOP:
         default: 
             throw std::runtime_error("Error in EW_CHMN::CV_q()");  
     }
@@ -474,16 +474,16 @@ double EW_CHMN::CA_l(StandardModel::lepton l) const
 double EW_CHMN::CA_q(QCD::quark q) const 
 {
     switch (q) {
-        case StandardModel::UP:
+        case QCD::UP:
             return ( 3.1377 + 0.00014*x_t() + 0.0041*x_s() );
-        case StandardModel::DOWN:
-        case StandardModel::STRANGE:
+        case QCD::DOWN:
+        case QCD::STRANGE:
             return ( 3.0956 - 0.00015*x_t() + 0.0019*x_s() );
-        case StandardModel::CHARM:
+        case QCD::CHARM:
             return ( 3.1369 + 0.00014*x_t() + 0.0043*x_s() );
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             return ( 3.0758 - 0.00015*x_t() + 0.0028*x_s() );
-        case StandardModel::TOP:
+        case QCD::TOP:
         default: 
             throw std::runtime_error("Error in EW_CHMN::CA_q()");  
     }
@@ -510,15 +510,15 @@ double EW_CHMN::deltaImKappa_l(StandardModel::lepton l) const
 double EW_CHMN::deltaImKappa_q(QCD::quark q) const 
 {
     switch (q) {
-        case StandardModel::UP:
-        case StandardModel::CHARM:
+        case QCD::UP:
+        case QCD::CHARM:
             return 0.0000146; 
-        case StandardModel::DOWN:
-        case StandardModel::STRANGE:
+        case QCD::DOWN:
+        case QCD::STRANGE:
             return 0.0000032;
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             return 0.0000026;
-        case StandardModel::TOP:
+        case QCD::TOP:
         default: 
             throw std::runtime_error("Error in EW_CHMN::deltaImKappa_q()");  
     }
@@ -544,15 +544,15 @@ double EW_CHMN::DeltaEWQCD_l(StandardModel::lepton l) const
 double EW_CHMN::DeltaEWQCD_q(QCD::quark q) const 
 {
     switch (q) {
-        case StandardModel::UP:
-        case StandardModel::CHARM:
+        case QCD::UP:
+        case QCD::CHARM:
             return ( - 0.000113 ); 
-        case StandardModel::DOWN:
-        case StandardModel::STRANGE:
+        case QCD::DOWN:
+        case QCD::STRANGE:
             return ( - 0.000160 ); 
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             return ( - 0.000040 ); 
-        case StandardModel::TOP:
+        case QCD::TOP:
         default: 
             throw std::runtime_error("Error in EW_CHMN::DeltaEWQCD_q()");  
     }

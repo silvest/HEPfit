@@ -51,22 +51,22 @@ double EWSMcache::mq(const QCD::quark q, const double mu,
                      const orders order) const 
 {
     switch(q) {
-        case StandardModel::UP:
-        case StandardModel::DOWN:
-        case StandardModel::STRANGE:
+        case QCD::UP:
+        case QCD::DOWN:
+        case QCD::STRANGE:
             if (FlagDebug)
                 return SM.getQuarks(q).getMass();// for debug
             else
                 return SM.Mrun(mu, SM.getQuarks(q).getMass_scale(),
                                SM.getQuarks(q).getMass(), order);
 
-        case StandardModel::CHARM:
-        case StandardModel::BOTTOM:
+        case QCD::CHARM:
+        case QCD::BOTTOM:
             if (FlagDebug)
                 return SM.getQuarks(q).getMass();// for debug
             else
                 return SM.Mrun(mu, SM.getQuarks(q).getMass(), order);
-        case StandardModel::TOP:
+        case QCD::TOP:
             return SM.getMtpole(); // the pole mass
         default:
             throw std::runtime_error("Error in EWSMcache::mq()"); 

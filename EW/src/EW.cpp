@@ -14,6 +14,7 @@
 #include <NPEpsilons.h>
 #include <NPSTU.h>
 #include <NPZbbbar.h>
+#include <ThObservable.h> // for ThObservable::GeVminus2_to_nb
 #include "EW.h"
 
 
@@ -25,21 +26,27 @@ EW::EW(const StandardModel& SM_i)
 
 ////////////////////////////////////////////////////////////////////////
 
-bool EW::checkNPZff() const
+bool EW::checkNPZff_linearized() const
 {
     std::string Model = SM.ModelName();
     if (Model.compare("NPZbbbar") == 0) {
-        if (!(static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
+        if ((static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
+            return false;
+        else
             return true;
-    } else if (Model.compare("NPHiggsST") == 0
+    } else if (Model.compare("StandardModel") == 0
+            || Model.compare("NPHiggsST") == 0
             || Model.compare("NPSTU") == 0
             || Model.compare("NPSTUVWXY") == 0
             || Model.compare("NPEpsilons_pureNP") == 0
             || Model.compare("NPEffective1") == 0
             || Model.compare("NPEffective2") == 0)
         return true;
-
-    return false;
+    else if (Model.compare("NPEpsilons") == 0)
+        return false;
+    else 
+        throw std::runtime_error("EW::checkNPZff_linearized(): " + Model
+                                 + " cannot be dealt with this function");
 }
 
 
@@ -48,15 +55,15 @@ bool EW::checkNPZff() const
 double EW::Delta_EWQCD(const QCD::quark q) const
 {
     switch(q) {
-        case StandardModel::UP:
-        case StandardModel::CHARM:
+        case QCD::UP:
+        case QCD::CHARM:
             return ( -0.000113 );
-        case StandardModel::TOP:
+        case QCD::TOP:
             return ( 0.0 );
-        case StandardModel::DOWN:
-        case StandardModel::STRANGE:
+        case QCD::DOWN:
+        case QCD::STRANGE:
             return ( -0.000160 );
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             return ( -0.000040 );
         default:
             throw std::runtime_error("Error in EWSM::Delta_EWQCD");
@@ -66,7 +73,7 @@ double EW::Delta_EWQCD(const QCD::quark q) const
 
 double EW::RVq(const QCD::quark q) const
 {
-    if (q==StandardModel::TOP) return 0.0;
+    if (q==QCD::TOP) return 0.0;
 
     double mcMz, mbMz;
     mcMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.CHARM).getMass(), FULLNNLO);
@@ -87,11 +94,11 @@ double EW::RVq(const QCD::quark q) const
     double mbMz2 = mbMz*mbMz;
     double mqMz2, mqdash4;
     switch(q) {
-        case StandardModel::CHARM:
+        case QCD::CHARM:
             mqMz2 = mcMz*mcMz;
             mqdash4 = mbMz2*mbMz2;
             break;
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             mqMz2 = mbMz*mbMz;
             mqdash4 = mcMz2*mcMz2;
             break;
@@ -108,8 +115,8 @@ double EW::RVq(const QCD::quark q) const
     double log_b = log(mbMz2/s);
     double log_q;
     switch(q) {
-        case StandardModel::CHARM:
-        case StandardModel::BOTTOM:
+        case QCD::CHARM:
+        case QCD::BOTTOM:
             log_q = log(mqMz2/s);
             break;
         default:
@@ -187,7 +194,7 @@ double EW::RVq(const QCD::quark q) const
 
 double EW::RAq(const QCD::quark q) const
 {
-    if (q==StandardModel::TOP) return 0.0;
+    if (q==QCD::TOP) return 0.0;
 
     double mcMz, mbMz;
     mcMz = SM.Mrun(SM.getMz(), SM.getQuarks(SM.CHARM).getMass(), FULLNNLO);
@@ -210,11 +217,11 @@ double EW::RAq(const QCD::quark q) const
     double mbMz2 = mbMz*mbMz;
     double mqMz2, mqdash4;
     switch(q) {
-        case StandardModel::CHARM:
+        case QCD::CHARM:
             mqMz2 = mcMz*mcMz;
             mqdash4 = mbMz2*mbMz2;
             break;
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             mqMz2 = mbMz*mbMz;
             mqdash4 = mcMz2*mcMz2;
             break;
@@ -231,8 +238,8 @@ double EW::RAq(const QCD::quark q) const
     double log_b = log(mbMz2/s);
     double log_q;
     switch(q) {
-        case StandardModel::CHARM:
-        case StandardModel::BOTTOM:
+        case QCD::CHARM:
+        case QCD::BOTTOM:
             log_q = log(mqMz2/s);
             break;
         default:
@@ -335,7 +342,7 @@ double EW::RVh() const
     complex gV_q;
     for (int q=0; q<6; q++) {
         gV_q = SM.getEWSM()->gVq_SM((QCD::quark)q);
-        if (q==(int)(StandardModel::TOP))
+        if (q==(int)(QCD::TOP))
             gV_q = 0.0;
         gV_sum += gV_q;
     }
@@ -347,10 +354,36 @@ double EW::RVh() const
 
 ////////////////////////////////////////////////////////////////////////
 
+double EW::A_l(const StandardModel::lepton l) const
+{
+    double Re_gV_over_gA;
+    if (checkNPZff_linearized() && SM.getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0) {
+        /* SM contribution with the approximate formula */
+        double sin2thEff = SM.getEWSM()->getMyApproximateFormulae()->sin2thetaEff_l(l);
+        Re_gV_over_gA = 1.0 - 4.0*fabs(SM.getLeptons(l).getCharge())*sin2thEff;
+    } else
+        Re_gV_over_gA = (SM.getEWSM()->gVl(l)/SM.getEWSM()->gAl(l)).real();
+    return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
+}
+
+
+double EW::A_q(const QCD::quark q) const
+{
+    double Re_gV_over_gA;
+    if (checkNPZff_linearized() && SM.getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0) {
+        /* SM contribution with the approximate formula */
+        double sin2thEff = SM.getEWSM()->getMyApproximateFormulae()->sin2thetaEff_q(q);
+        Re_gV_over_gA = 1.0 - 4.0*fabs(SM.getQuarks(q).getCharge())*sin2thEff;
+    } else
+        Re_gV_over_gA = (SM.getEWSM()->gVq(q)/SM.getEWSM()->gAq(q)).real();
+    return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
+}
+
+
 double EW::sin2thetaEff(const StandardModel::lepton l) const 
 {
-    if (checkNPZff() && SM.getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0)
-        /* SM value */
+    if (checkNPZff_linearized() && SM.getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0)
+        /* SM contribution with the approximate formula */
         return SM.getEWSM()->getMyApproximateFormulae()->sin2thetaEff_l(l);
     else {
         double Re_kappa = SM.getEWSM()->kappaZ_l(l).real();
@@ -361,8 +394,8 @@ double EW::sin2thetaEff(const StandardModel::lepton l) const
 
 double EW::sin2thetaEff(const QCD::quark q) const
 {
-    if (checkNPZff() && SM.getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0)
-        /* SM value */
+    if (checkNPZff_linearized() && SM.getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0)
+        /* SM contribution with the approximate formula */
         return SM.getEWSM()->getMyApproximateFormulae()->sin2thetaEff_q(q);
     else {
         double Re_kappa = SM.getEWSM()->kappaZ_q(q).real();
@@ -373,32 +406,74 @@ double EW::sin2thetaEff(const QCD::quark q) const
 
 double EW::Gamma_l(const StandardModel::lepton l) const 
 {
-    complex rhoZ_l = SM.getEWSM()->rhoZ_l(l);
-    complex gV_over_gA = SM.getEWSM()->gVl(l)/SM.getEWSM()->gAl(l);
-    double alphaMz = SM.alphaMz();
-    double Q = SM.getLeptons(l).getCharge();
-    double xl = pow(SM.getLeptons(l).getMass()/SM.getMz(), 2.0);
-    double G0 = SM.getGF()*pow(SM.getMz(),3.0)/24.0/sqrt(2.0)/M_PI;
-    double Gamma = G0*rhoZ_l.abs()*sqrt(1.0 - 4.0*xl)
-                   * ( (1.0 + 2.0*xl)*(gV_over_gA.abs2() + 1.0) - 6.0*xl )
-                   * ( 1.0 + 3.0/4.0*alphaMz/M_PI*pow(Q,2.0) );
+    double Gamma;
+    if (checkNPZff_linearized() && !SM.IsFlagNoApproximateGammaZ()) {
+        /* SM contribution with the approximate formula */
+        switch (l) {
+            case StandardModel::NEUTRINO_1:
+            case StandardModel::NEUTRINO_2:
+            case StandardModel::NEUTRINO_3:
+                Gamma = SM.getEWSM()->getMyApproximateFormulae()->X_extended("Gamma_nu");
+                break;
+            case StandardModel::ELECTRON:
+            case StandardModel::MU:
+                Gamma = SM.getEWSM()->getMyApproximateFormulae()->X_extended("Gamma_e_mu");
+                break;
+            case StandardModel::TAU:
+                Gamma = SM.getEWSM()->getMyApproximateFormulae()->X_extended("Gamma_tau");
+                break;
+            default:
+                throw std::runtime_error("Error in EWSM::Gamma_l()");
+        }
+    } else {
+        complex rhoZ_l = SM.getEWSM()->rhoZ_l(l);
+        complex gV_over_gA = SM.getEWSM()->gVl(l)/SM.getEWSM()->gAl(l);
+        double alphaMz = SM.alphaMz();
+        double Q = SM.getLeptons(l).getCharge();
+        double xl = pow(SM.getLeptons(l).getMass()/SM.getMz(), 2.0);
+        double G0 = SM.getGF()*pow(SM.getMz(),3.0)/24.0/sqrt(2.0)/M_PI;
+        Gamma = G0*rhoZ_l.abs()*sqrt(1.0 - 4.0*xl)
+                       * ( (1.0 + 2.0*xl)*(gV_over_gA.abs2() + 1.0) - 6.0*xl )
+                       * ( 1.0 + 3.0/4.0*alphaMz/M_PI*pow(Q,2.0) );
+    }
+
     return Gamma;
 }
 
 
 double EW::Gamma_q(const QCD::quark q) const 
 {
-    if (q==StandardModel::TOP) return 0.0;
+    if (q==QCD::TOP) return 0.0;
 
-    complex rhoZ_q = SM.getEWSM()->rhoZ_q(q);
-    complex gV_over_gA = SM.getEWSM()->gVq(q)/SM.getEWSM()->gAq(q);
-    
-    double G0 = SM.getGF()*pow(SM.getMz(),3.0)/24.0/sqrt(2.0)/M_PI;    
-    double Gamma = 3.0*G0*rhoZ_q.abs()
-                   * ( gV_over_gA.abs2()*RVq(q) + RAq(q) );
+    double Gamma;
+    if (checkNPZff_linearized() && !SM.IsFlagNoApproximateGammaZ()) {
+        /* SM contribution with the approximate formula */
+        switch (q) {
+            case QCD::UP:
+                Gamma = SM.getEWSM()->getMyApproximateFormulae()->X_extended("Gamma_u");
+                break;
+            case QCD::CHARM:
+                Gamma = SM.getEWSM()->getMyApproximateFormulae()->X_extended("Gamma_c");
+                break;
+            case QCD::DOWN:
+            case QCD::STRANGE:
+                Gamma = SM.getEWSM()->getMyApproximateFormulae()->X_extended("Gamma_d_s");
+                break;
+            case QCD::BOTTOM:
+                Gamma = SM.getEWSM()->getMyApproximateFormulae()->X_extended("Gamma_b");
+                break;
+            default:
+                throw std::runtime_error("Error in EWSM::Gamma_q()");
+        }
+    } else {
+        complex rhoZ_q = SM.getEWSM()->rhoZ_q(q);
+        complex gV_over_gA = SM.getEWSM()->gVq(q)/SM.getEWSM()->gAq(q);
+        double G0 = SM.getGF()*pow(SM.getMz(),3.0)/24.0/sqrt(2.0)/M_PI;
+        Gamma = 3.0*G0*rhoZ_q.abs()*( gV_over_gA.abs2()*RVq(q) + RAq(q) );
 
-    /* Nonfactorizable EW-QCD corrections */
-    Gamma += Delta_EWQCD(q);
+        /* Nonfactorizable EW-QCD corrections */
+        Gamma += Delta_EWQCD(q);
+    }
 
     return Gamma;
 }
@@ -416,7 +491,7 @@ double EW::Gamma_had() const
     double Gamma_had_tmp = Gamma_q(SM.UP) + Gamma_q(SM.DOWN) + Gamma_q(SM.CHARM)
                            + Gamma_q(SM.STRANGE) + Gamma_q(SM.BOTTOM);
 
-    /* Singlet vector contribution */
+    /* Singlet vector contribution (not included in the approximate formula) */
     double G0 = SM.getGF()*pow(SM.getMz(),3.0)/24.0/sqrt(2.0)/M_PI; 
     Gamma_had_tmp += 4.0*3.0*G0*RVh();
 
@@ -426,48 +501,54 @@ double EW::Gamma_had() const
 
 double EW::Gamma_Z() const 
 {
-    return ( Gamma_l(SM.ELECTRON) + Gamma_l(SM.MU) + Gamma_l(SM.TAU) 
-             + Gamma_inv() + Gamma_had() );
-}
-
-
-double EW::sigma0_l(const StandardModel::lepton l) const 
-{
-    return ( 12.0*M_PI*Gamma_l(SM.ELECTRON)*Gamma_l(l)
-             /SM.getMz()/SM.getMz()/Gamma_Z()/Gamma_Z() );
+    if (checkNPZff_linearized() && !SM.IsFlagNoApproximateGammaZ())
+        /* SM contribution with the approximate formula */
+        return SM.getEWSM()->getMyApproximateFormulae()->X_extended("GammaZ");
+    else
+        return ( Gamma_l(SM.ELECTRON) + Gamma_l(SM.MU) + Gamma_l(SM.TAU)
+                 + Gamma_inv() + Gamma_had() );
 }
 
 
 double EW::sigma0_had() const 
 {
-     return (12.0*M_PI*Gamma_l(SM.ELECTRON)*Gamma_had()
-            /SM.getMz()/SM.getMz()/Gamma_Z()/Gamma_Z());
+    if (checkNPZff_linearized() && !SM.IsFlagNoApproximateGammaZ())
+        /* SM contribution with the approximate formula */
+        return (SM.getEWSM()->getMyApproximateFormulae()->X_extended("sigmaHadron")
+                /ThObservable::GeVminus2_to_nb);
+    else
+        return (12.0*M_PI*Gamma_l(SM.ELECTRON)*Gamma_had()
+                /SM.getMz()/SM.getMz()/Gamma_Z()/Gamma_Z());
 }
 
 
-double EW::A_l(const StandardModel::lepton l) const 
+double EW::R0_l() const
 {
-    double Re_gV_over_gA;
-    if (checkNPZff() && SM.getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0) {
-        /* SM value */
-        double sin2thEff = SM.getEWSM()->getMyApproximateFormulae()->sin2thetaEff_l(l);
-        Re_gV_over_gA = 1.0 - 4.0*fabs(SM.getLeptons(l).getCharge())*sin2thEff;
-    } else
-        Re_gV_over_gA = (SM.getEWSM()->gVl(l)/SM.getEWSM()->gAl(l)).real();
-    return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
+    if (checkNPZff_linearized() && !SM.IsFlagNoApproximateGammaZ())
+        /* SM contribution with the approximate formula */
+        return (SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_lepton"));
+    else
+        return (Gamma_had()/Gamma_l(SM.ELECTRON));
 }
 
 
-double EW::A_q(const QCD::quark q) const 
+double EW::R0_c() const
 {
-    double Re_gV_over_gA;
-    if (checkNPZff() && SM.getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0) {
-        /* SM value */
-        double sin2thEff = SM.getEWSM()->getMyApproximateFormulae()->sin2thetaEff_q(q);
-        Re_gV_over_gA = 1.0 - 4.0*fabs(SM.getQuarks(q).getCharge())*sin2thEff;
-    } else
-        Re_gV_over_gA = (SM.getEWSM()->gVq(q)/SM.getEWSM()->gAq(q)).real();
-    return ( 2.0*Re_gV_over_gA/(1.0+pow(Re_gV_over_gA,2.0)) );
+    if (checkNPZff_linearized() && !SM.IsFlagNoApproximateGammaZ())
+        /* SM contribution with the approximate formula */
+        return (SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_charm"));
+    else
+        return (Gamma_q(SM.CHARM)/Gamma_had());
+}
+
+
+double EW::R0_b() const
+{
+    if (checkNPZff_linearized() && !SM.IsFlagNoApproximateGammaZ())
+        /* SM contribution with the approximate formula */
+        return (SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_bottom"));
+    else
+        return (Gamma_q(SM.BOTTOM)/Gamma_had());
 }
 
 

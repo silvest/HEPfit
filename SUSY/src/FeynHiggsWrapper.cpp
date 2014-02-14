@@ -149,7 +149,7 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
 
     /* Set the FeynHiggs parameters, where the GUT relation is used for M1=0. */
     FHSetPara(&err,
-              mySUSY.mut/mySUSY.quarks[StandardModel::TOP].getMass(),
+              mySUSY.mut/mySUSY.quarks[QCD::TOP].getMass(),
               mySUSY.mtpole, mySUSY.tanb,
               -1, // using mHptree instead of mA
               mySUSY.mHptree,

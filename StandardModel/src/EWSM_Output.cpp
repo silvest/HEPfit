@@ -296,7 +296,7 @@ void EWSM_Output::outputEachDeltaRhoZ_q(const QCD::quark q, const double Mw_i) c
 
     /* Zbb */
     bool bool_Zbb = false;
-    if (q==StandardModel::BOTTOM) bool_Zbb = true;
+    if (q==QCD::BOTTOM) bool_Zbb = true;
     double ZbbSubtract = 0.0;
     if (bool_Zbb)
         ZbbSubtract = - myEWSM.myCache->ale()/4.0/M_PI/sW2_TMP
@@ -539,7 +539,7 @@ void EWSM_Output::outputEachDeltaKappaZ_q(const QCD::quark q, const double Mw_i)
 
     /* Zbb */
     bool bool_Zbb = false;
-    if (q==StandardModel::BOTTOM) bool_Zbb = true;
+    if (q==QCD::BOTTOM) bool_Zbb = true;
     double ZbbSubtract = 0.0;
     if (bool_Zbb)
         ZbbSubtract = myEWSM.myCache->ale()/8.0/M_PI/sW2_TMP
@@ -594,7 +594,7 @@ void EWSM_Output::outputEachDeltaKappaZ(const double f_AlphaToGF,
 
     if (SM.getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0) {
         std::cout << "Delta kappaZb (from the approximate formula of sin2thb) = "
-                  << myEWSM.kappaZ_q_SM(StandardModel::BOTTOM)  - 1.0 << std::endl;
+                  << myEWSM.kappaZ_q_SM(QCD::BOTTOM)  - 1.0 << std::endl;
     } else if (SM.getFlagKappaZ().compare("NORESUM") == 0) {
         std::cout << "Leading contributions: alpha or Gmu" << std::endl;
         std::cout << "  DeltaRho[EW1]=" << DeltaRho_new[EWSM::EW1] << " "

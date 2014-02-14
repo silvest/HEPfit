@@ -1,11 +1,10 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
  */
 
-#include <NPZbbbar.h>
 #include "Alepton.h"
 
 
@@ -14,11 +13,8 @@ double Alepton::computeThValue()
     double A_l = myEW.A_l(SM.ELECTRON);
 
     /* NP contribution to the Zff vertex */
-    if (myEW.checkNPZff())
+    if (myEW.checkNPZff_linearized() && SM.ModelName().compare("StandardModel") != 0)
         A_l = myEW.getMyEW_NPZff().Alepton(A_l);
-
-    /* Debug: extract pure NP contribution */
-    //A_l -= myEW.A_l(SM.ELECTRON);
 
     return A_l;
 }

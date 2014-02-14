@@ -31,7 +31,7 @@ public:
     LEP2AFBcharm(const EW& EW_i, const double sqrt_s_i) 
     : LEP2ThObservable(EW_i, sqrt_s_i), myLEP2sigmaCharm(EW_i, sqrt_s_i, true) 
     {
-        q_flavor = StandardModel::CHARM;
+        q_flavor = QCD::CHARM;
     }
 
     /**

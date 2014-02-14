@@ -86,17 +86,17 @@ double LEP2oblique::R_q_LEP2_NP(const QCD::quark q,
 {
     double alpha0 = alpha_at_s(s);
     double sigma_q_SM0 = sigma_q_LEP2_SM0(q, s, alpha0, mq);
-    double sigma_had_SM0 = sigma_q_LEP2_SM0(StandardModel::UP, s, alpha0, mq)
-                         + sigma_q_LEP2_SM0(StandardModel::DOWN, s, alpha0, mq)
-                         + sigma_q_LEP2_SM0(StandardModel::CHARM, s, alpha0, mq)
-                         + sigma_q_LEP2_SM0(StandardModel::STRANGE, s, alpha0, mq)
-                         + sigma_q_LEP2_SM0(StandardModel::BOTTOM, s, alpha0, mq);
+    double sigma_had_SM0 = sigma_q_LEP2_SM0(QCD::UP, s, alpha0, mq)
+                         + sigma_q_LEP2_SM0(QCD::DOWN, s, alpha0, mq)
+                         + sigma_q_LEP2_SM0(QCD::CHARM, s, alpha0, mq)
+                         + sigma_q_LEP2_SM0(QCD::STRANGE, s, alpha0, mq)
+                         + sigma_q_LEP2_SM0(QCD::BOTTOM, s, alpha0, mq);
     double sigma_q_NP = sigma_q_LEP2_NP(q, s, mq, ObParam_i);
-    double sigma_had_NP = sigma_q_LEP2_NP(StandardModel::UP, s, mq, ObParam_i)
-                        + sigma_q_LEP2_NP(StandardModel::DOWN, s, mq, ObParam_i)
-                        + sigma_q_LEP2_NP(StandardModel::CHARM, s, mq, ObParam_i)
-                        + sigma_q_LEP2_NP(StandardModel::STRANGE, s, mq, ObParam_i)
-                        + sigma_q_LEP2_NP(StandardModel::BOTTOM, s, mq, ObParam_i);
+    double sigma_had_NP = sigma_q_LEP2_NP(QCD::UP, s, mq, ObParam_i)
+                        + sigma_q_LEP2_NP(QCD::DOWN, s, mq, ObParam_i)
+                        + sigma_q_LEP2_NP(QCD::CHARM, s, mq, ObParam_i)
+                        + sigma_q_LEP2_NP(QCD::STRANGE, s, mq, ObParam_i)
+                        + sigma_q_LEP2_NP(QCD::BOTTOM, s, mq, ObParam_i);
     
     return ( - sigma_q_SM0/(sigma_had_SM0*sigma_had_SM0)*sigma_had_NP
              + sigma_q_NP/sigma_had_SM0 );

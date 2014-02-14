@@ -45,14 +45,14 @@ double EW_ABC::Gamma_l(StandardModel::lepton l) const
 
 double EW_ABC::Gamma_q(QCD::quark q) const 
 {
-    if (q==StandardModel::BOTTOM || q==StandardModel::TOP)
+    if (q==QCD::BOTTOM || q==QCD::TOP)
         throw std::runtime_error("Error in EW_ABC::Gamma_q()");  
     double Qf = SM.getQuarks(q).getCharge();
     double RQED = 1.0 + 3.0*SM.alphaMz()/4.0/M_PI*Qf*Qf;
     double a = SM.Als(SM.getMz(), FULLNNLO)/M_PI;
     double RQCD = 1.0 + 1.2*a - 1.1*a*a - 13.0*a*a*a;
     double mf = 0.0;
-    if (q==StandardModel::CHARM)
+    if (q==QCD::CHARM)
         mf = 1.67; // pole mass (PDG2012)
     else
         mf = 0.0;
@@ -169,7 +169,7 @@ double EW_ABC::A_l(StandardModel::lepton l, const bool bAlternative) const
 
 double EW_ABC::A_q(QCD::quark q) const 
 {
-    if (q==StandardModel::BOTTOM || q==StandardModel::TOP)
+    if (q==QCD::BOTTOM || q==QCD::TOP)
         throw std::runtime_error("Error in EW_ABC::A_q()");  
     double x = gVq_over_gAq(q).real();
     return ( 2.0*x/(1.0 + x*x) );    
@@ -293,7 +293,7 @@ complex EW_ABC::gVl_over_gAl(StandardModel::lepton l) const
 
 complex EW_ABC::gVq(QCD::quark q) const 
 {
-    if (q==StandardModel::BOTTOM || q==StandardModel::TOP)
+    if (q==QCD::BOTTOM || q==QCD::TOP)
         throw std::runtime_error("Error in EW_ABC::gVq()");    
     return myEWNPEpsilons.gVq(q, eps1(), eps3());
 }
@@ -301,7 +301,7 @@ complex EW_ABC::gVq(QCD::quark q) const
 
 complex EW_ABC::gAq(QCD::quark q) const 
 {
-    if (q==StandardModel::BOTTOM || q==StandardModel::TOP)
+    if (q==QCD::BOTTOM || q==QCD::TOP)
         throw std::runtime_error("Error in EW_ABC::gAq()");  
     return myEWNPEpsilons.gAq(q, eps1());
 }
@@ -309,7 +309,7 @@ complex EW_ABC::gAq(QCD::quark q) const
 
 complex EW_ABC::gVq_over_gAq(QCD::quark q) const
 {
-    if (q==StandardModel::BOTTOM || q==StandardModel::TOP)
+    if (q==QCD::BOTTOM || q==QCD::TOP)
         throw std::runtime_error("Error in EW_ABC::gVq_over_gAq()");  
     return ( gVq(q)/gAq(q) );
 }

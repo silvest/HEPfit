@@ -38,17 +38,17 @@ complex EWNPEpsilons::rhoZ_q(const QCD::quark q) const
 {
     double eps1, epsb;
     switch (q) {
-        case StandardModel::UP:
-        case StandardModel::DOWN:
-        case StandardModel::CHARM:
-        case StandardModel::STRANGE:
+        case QCD::UP:
+        case QCD::DOWN:
+        case QCD::CHARM:
+        case QCD::STRANGE:
             eps1 = (static_cast<const NPEpsilons*> (&SM))->epsilon1();
             return rhoZ_q(q, eps1);
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             eps1 = (static_cast<const NPEpsilons*> (&SM))->epsilon1();
             epsb = (static_cast<const NPEpsilons*> (&SM))->epsilonb();
             return rhoZ_b(eps1, epsb);
-        case StandardModel::TOP:
+        case QCD::TOP:
             return complex(0.0, 0.0, false);
         default:
             throw std::runtime_error("Error in EWNPEpsilons::rhoZ_q()");
@@ -68,19 +68,19 @@ complex EWNPEpsilons::kappaZ_q(const QCD::quark q) const
 {
     double eps1, eps3, epsb;
     switch (q) {
-        case StandardModel::UP:
-        case StandardModel::DOWN:
-        case StandardModel::CHARM:
-        case StandardModel::STRANGE:
+        case QCD::UP:
+        case QCD::DOWN:
+        case QCD::CHARM:
+        case QCD::STRANGE:
             eps1 = (static_cast<const NPEpsilons*> (&SM))->epsilon1();
             eps3 = (static_cast<const NPEpsilons*> (&SM))->epsilon3();
             return kappaZ_q(q, eps1, eps3);
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             eps1 = (static_cast<const NPEpsilons*> (&SM))->epsilon1();
             eps3 = (static_cast<const NPEpsilons*> (&SM))->epsilon3();
             epsb = (static_cast<const NPEpsilons*> (&SM))->epsilonb();
             return kappaZ_b(eps1, eps3, epsb);
-        case StandardModel::TOP:
+        case QCD::TOP:
             return complex(0.0, 0.0, false);
         default:
             throw std::runtime_error("Error in EWNPEpsilons::kappaZ_q()");
@@ -100,19 +100,19 @@ complex EWNPEpsilons::gVq(const QCD::quark q) const
 {
     double eps1, eps3, epsb;
     switch (q) {
-        case StandardModel::UP:
-        case StandardModel::DOWN:
-        case StandardModel::CHARM:
-        case StandardModel::STRANGE:
+        case QCD::UP:
+        case QCD::DOWN:
+        case QCD::CHARM:
+        case QCD::STRANGE:
             eps1 = (static_cast<const NPEpsilons*> (&SM))->epsilon1();
             eps3 = (static_cast<const NPEpsilons*> (&SM))->epsilon3();
             return gVq(q, eps1, eps3);
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             eps1 = (static_cast<const NPEpsilons*> (&SM))->epsilon1();
             eps3 = (static_cast<const NPEpsilons*> (&SM))->epsilon3();
             epsb = (static_cast<const NPEpsilons*> (&SM))->epsilonb();
             return gVb(eps1, eps3, epsb);
-        case StandardModel::TOP:
+        case QCD::TOP:
             return complex(0.0, 0.0, false);
         default:
             throw std::runtime_error("Error in EWNPEpsilons::gVq()");
@@ -131,17 +131,17 @@ complex EWNPEpsilons::gAq(const QCD::quark q) const
 {
     double eps1, epsb;
     switch (q) {
-        case StandardModel::UP:
-        case StandardModel::DOWN:
-        case StandardModel::CHARM:
-        case StandardModel::STRANGE:
+        case QCD::UP:
+        case QCD::DOWN:
+        case QCD::CHARM:
+        case QCD::STRANGE:
             eps1 = (static_cast<const NPEpsilons*> (&SM))->epsilon1();
             return gAq(q, eps1);
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             eps1 = (static_cast<const NPEpsilons*> (&SM))->epsilon1();
             epsb = (static_cast<const NPEpsilons*> (&SM))->epsilonb();
             return gAb(eps1, epsb);
-        case StandardModel::TOP:
+        case QCD::TOP:
             return complex(0.0, 0.0, false);
         default:
             throw std::runtime_error("Error in EWNPEpsilons::gAq()");
@@ -221,14 +221,14 @@ complex EWNPEpsilons::gVq(const QCD::quark q, const double eps1,
     double I3f = SM.getQuarks(q).getIsospin();
     double Qf = SM.getQuarks(q).getCharge();
     switch (q) {
-        case StandardModel::UP:
-        case StandardModel::DOWN:
-        case StandardModel::CHARM:
-        case StandardModel::STRANGE:
+        case QCD::UP:
+        case QCD::DOWN:
+        case QCD::CHARM:
+        case QCD::STRANGE:
             return ( sqrt(rhoZ_q(q,eps1).real())*I3f
                      *(1.0 - 4.0*fabs(Qf)*kappaZ_q(q,eps1,eps3)*SM.sW2()) );
-        case StandardModel::BOTTOM:
-        case StandardModel::TOP:
+        case QCD::BOTTOM:
+        case QCD::TOP:
         default:
             throw std::runtime_error("Error in EWNPEpsilons::gVq()");
     }
@@ -246,13 +246,13 @@ complex EWNPEpsilons::gAq(const QCD::quark q, const double eps1) const
 {
     double I3f = SM.getQuarks(q).getIsospin();
     switch (q) {
-        case StandardModel::UP:
-        case StandardModel::DOWN:
-        case StandardModel::CHARM:
-        case StandardModel::STRANGE:
+        case QCD::UP:
+        case QCD::DOWN:
+        case QCD::CHARM:
+        case QCD::STRANGE:
             return ( sqrt(rhoZ_q(q,eps1).real())*I3f );
-        case StandardModel::BOTTOM:
-        case StandardModel::TOP:
+        case QCD::BOTTOM:
+        case QCD::TOP:
         default:
             throw std::runtime_error("Error in EWNPEpsilons::gAq()");
     }

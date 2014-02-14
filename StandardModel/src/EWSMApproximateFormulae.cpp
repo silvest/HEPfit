@@ -143,8 +143,8 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
     
     double s0, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10;
     switch (q) {
-        case StandardModel::UP: 
-        case StandardModel::CHARM:
+        case QCD::UP: 
+        case QCD::CHARM:
             s0 = 0.2311395;
             d1 = 4.726*0.0001;
             d2 = 2.07*0.00001;
@@ -157,8 +157,8 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
             d9 = 3.98*0.0001;
             d10 = -6.55*0.1;
             break;
-        case StandardModel::DOWN: 
-        case StandardModel::STRANGE:        
+        case QCD::DOWN: 
+        case QCD::STRANGE:        
             s0 = 0.2310286;
             d1 = 4.720*0.0001;
             d2 = 2.06*0.00001;
@@ -171,7 +171,7 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
             d9 = 3.97*0.0001;
             d10 = -6.55*0.1;        
             break;
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             s0 = 0.2327580;
             d1 = 4.749*0.0001;
             d2 = 2.03*0.00001;
@@ -184,7 +184,7 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
             d9 = 4.03*0.0001;
             d10 = 6.61*0.1;
             break;
-        case StandardModel::TOP:
+        case QCD::TOP:
             return 0.0;
         default:
             throw std::runtime_error("Error in ApproximateFormulae::sin2thetaEff_q()"); 

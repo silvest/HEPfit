@@ -416,7 +416,7 @@ complex EWSM::rhoZ_l_SM(const StandardModel::lepton l) const
 
 complex EWSM::rhoZ_q_SM(const QCD::quark q) const 
 {    
-    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
+    if (q==QCD::TOP) return (complex(0.0, 0.0, false));
     if (SM.getFlagRhoZ().compare("APPROXIMATEFORMULA") == 0)
         throw std::runtime_error("No approximate formula is available for rhoZ^f"); 
     else {
@@ -467,7 +467,7 @@ complex EWSM::rhoZ_q_SM(const QCD::quark q) const
         for (int j=0; j<orders_EW_size; ++j)
             deltaRho_rem_f_real[j] = deltaRho_rem_f[j].real();
         bool bool_Zbb = false;
-        if (q==StandardModel::BOTTOM) bool_Zbb = true;
+        if (q==QCD::BOTTOM) bool_Zbb = true;
         double ReRhoZf = resumRhoZ(DeltaRho, deltaRho_rem_f_real, 
                                    DeltaRbar_rem, bool_Zbb);
         
@@ -557,9 +557,9 @@ complex EWSM::kappaZ_l_SM(const StandardModel::lepton l) const
 }
 
 
-complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
+complex EWSM::kappaZ_q_SM(const QCD::quark q) const
 {
-    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
+    if (q==QCD::TOP) return (complex(0.0, 0.0, false));
     
     if (FlagCacheInEWSM)
         if (checkSMparams(kappaZ_q_params_cache[(int)q]))
@@ -618,7 +618,7 @@ complex EWSM::kappaZ_q_SM(const StandardModel::quark q) const
         for (int j=0; j<orders_EW_size; ++j)
             deltaKappa_rem_f_real[j] = deltaKappa_rem_f[j].real();
         bool bool_Zbb = false;
-        if (q==StandardModel::BOTTOM) bool_Zbb = true;
+        if (q==QCD::BOTTOM) bool_Zbb = true;
         ReKappaZf = resumKappaZ(DeltaRho, deltaKappa_rem_f_real, 
                                 DeltaRbar_rem, bool_Zbb);
         
@@ -762,11 +762,11 @@ complex EWSM::rhoZ_l_SM_FlavorDep(const StandardModel::lepton l) const
 
 complex EWSM::rhoZ_q_SM_FlavorDep(QCD::quark q) const 
 {
-    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
+    if (q==QCD::TOP) return (complex(0.0, 0.0, false));
 
     /* In the case of BOTTOM, the top contribution has to be subtracted.
      * The remaining contribution is the same as that for DOWN and STRANGE. */
-    if (q==StandardModel::BOTTOM) q=StandardModel::DOWN;
+    if (q==QCD::BOTTOM) q=QCD::DOWN;
 
     double Mz = myCache->Mz();
     double Mw = Mw_SM();
@@ -809,11 +809,11 @@ complex EWSM::kappaZ_l_SM_FlavorDep(const StandardModel::lepton l) const
 
 complex EWSM::kappaZ_q_SM_FlavorDep(QCD::quark q) const 
 {
-    if (q==StandardModel::TOP) return (complex(0.0, 0.0, false));
+    if (q==QCD::TOP) return (complex(0.0, 0.0, false));
 
     /* In the case of BOTTOM, the top contribution has to be subtracted.
      * The remaining contribution is the same as that for DOWN and STRANGE. */
-    if (q==StandardModel::BOTTOM) q=StandardModel::DOWN;
+    if (q==QCD::BOTTOM) q=QCD::DOWN;
     
     double Mz = myCache->Mz();
     double Mw = Mw_SM();
@@ -876,7 +876,7 @@ double EWSM::epsilonb_SM() const
     /* epsilon_b from g_A^b
      * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
     //double rhoZe = rhoZ_l_SM(StandardModel::ELECTRON).real();
-    //double rhoZb = rhoZ_q_SM(StandardModel::BOTTOM).real();
+    //double rhoZb = rhoZ_q_SM(QCD::BOTTOM).real();
     //double DeltaRhoPrime = 2.0*( sqrt(rhoZe) - 1.0 );
     //double eps1 = DeltaRhoPrime;
     //return ( - 1.0 + sqrt(rhoZb)/(1.0 + eps1/2.0) );
@@ -884,11 +884,11 @@ double EWSM::epsilonb_SM() const
     /* epsilon_b from Re(g_V^b/g_A^b), i.e. Re(kappaZ_b)
      * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
     complex kappaZe = kappaZ_l_SM(StandardModel::ELECTRON);
-    complex kappaZb = kappaZ_q_SM(StandardModel::BOTTOM);
+    complex kappaZb = kappaZ_q_SM(QCD::BOTTOM);
     if (SM.IsFlagWithoutNonUniversalVC())
         return ( kappaZe.real()/kappaZb.real() - 1.0 );
     else
-        return ( (kappaZe.real() + kappaZ_q_SM_FlavorDep(StandardModel::BOTTOM).real())
+        return ( (kappaZe.real() + kappaZ_q_SM_FlavorDep(QCD::BOTTOM).real())
                  /kappaZb.real() - 1.0 );
 
     /* epsilon_b from Gamma_b via Eqs.(11), (12) and (16) of IJMP A7,
@@ -901,14 +901,14 @@ double EWSM::epsilonb_SM() const
     //double Gamma_b_Born = 0.3798*( 1.0 + delta_als - 0.42*delta_alpha);
     //double a = als_Mz/M_PI;
     //double RQCD = 1.0 + 1.2*a - 1.1*a*a - 13.0*a*a*a;
-    //double mb = SM.Mrun(myCache->Mz(), SM.getQuarks(StandardModel::BOTTOM).getMass(), FULLNNLO);// This is wrong!
+    //double mb = SM.Mrun(myCache->Mz(), SM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);// This is wrong!
     //double mb = 4.7;
     //std::cout << "mb = " << mb << std::endl;
     //double beta = sqrt(1.0 - 4.0*mb*mb/myCache->Mz()/myCache->Mz());
     //double Nc = 3.0;
     //double factor = myCache->GF()*myCache->Mz()*myCache->Mz()*myCache->Mz()/6.0/M_PI/sqrt(2.0);
-    //double Gamma_b = factor*beta*((3.0 - beta*beta)/2.0*gVq_SM(StandardModel::BOTTOM).abs2()
-    //                              + beta*beta*gAq_SM(StandardModel::BOTTOM).abs2())
+    //double Gamma_b = factor*beta*((3.0 - beta*beta)/2.0*gVq_SM(QCD::BOTTOM).abs2()
+    //                              + beta*beta*gAq_SM(QCD::BOTTOM).abs2())
     //                 *Nc*RQCD*(1.0 + alphaMz()/12.0/M_PI);
     //return ( (Gamma_b/Gamma_b_Born - 1.0 - 1.42*epsilon1_SM()
     //          + 0.54*epsilon3_SM() )/2.29 );
@@ -964,25 +964,25 @@ double EWSM::GammaW_q_SM(const QCD::quark qi,
     double G0 = myCache->GF()*pow(Mw_SM(),3.0)/6.0/sqrt(2.0)/M_PI;
     complex V(0.0, 0.0, false);
 
-    if ( qi==StandardModel::UP && qj==StandardModel::DOWN )
+    if ( qi==QCD::UP && qj==QCD::DOWN )
         //V = SM.getCKM().V_ud();
         V = complex(1.0, 0.0, false);
-    else if ( qi==StandardModel::UP && qj==StandardModel::STRANGE )
+    else if ( qi==QCD::UP && qj==QCD::STRANGE )
         //V = SM.getCKM().V_us();
         V = complex(0.0, 0.0, false);
-    else if ( qi==StandardModel::UP && qj==StandardModel::BOTTOM )
+    else if ( qi==QCD::UP && qj==QCD::BOTTOM )
         //V = SM.getCKM().V_ub();
         V = complex(0.0, 0.0, false);
-    else if ( qi==StandardModel::CHARM && qj==StandardModel::DOWN )
+    else if ( qi==QCD::CHARM && qj==QCD::DOWN )
         //V = SM.getCKM().V_cd();
         V = complex(0.0, 0.0, false);
-    else if ( qi==StandardModel::CHARM && qj==StandardModel::STRANGE )
+    else if ( qi==QCD::CHARM && qj==QCD::STRANGE )
         //V = SM.getCKM().V_cs();
         V = complex(1.0, 0.0, false);
-    else if ( qi==StandardModel::CHARM && qj==StandardModel::BOTTOM )
+    else if ( qi==QCD::CHARM && qj==QCD::BOTTOM )
         //V = SM.getCKM().V_cb();
         V = complex(0.0, 0.0, false);
-    else if ( qi==StandardModel::TOP || qj==StandardModel::TOP )
+    else if ( qi==QCD::TOP || qj==QCD::TOP )
         return (0.0);
     double AlsMw = SM.AlsWithInit(Mw_SM(), myCache->alsMz(), myCache->Mz(), FULLNLO);
     //double AlsMw = SM.Als(Mw_SM(), FULLNNLO);
@@ -999,12 +999,12 @@ double EWSM::GammaW_SM() const
     double GammaW = GammaW_l_SM(StandardModel::NEUTRINO_1, StandardModel::ELECTRON)
                     + GammaW_l_SM(StandardModel::NEUTRINO_2, StandardModel::MU)
                     + GammaW_l_SM(StandardModel::NEUTRINO_3, StandardModel::TAU)
-                    + GammaW_q_SM(StandardModel::UP, StandardModel::DOWN)
-                    + GammaW_q_SM(StandardModel::UP, StandardModel::STRANGE)
-                    + GammaW_q_SM(StandardModel::UP, StandardModel::BOTTOM)
-                    + GammaW_q_SM(StandardModel::CHARM, StandardModel::DOWN)
-                    + GammaW_q_SM(StandardModel::CHARM, StandardModel::STRANGE)
-                    + GammaW_q_SM(StandardModel::CHARM, StandardModel::BOTTOM);
+                    + GammaW_q_SM(QCD::UP, QCD::DOWN)
+                    + GammaW_q_SM(QCD::UP, QCD::STRANGE)
+                    + GammaW_q_SM(QCD::UP, QCD::BOTTOM)
+                    + GammaW_q_SM(QCD::CHARM, QCD::DOWN)
+                    + GammaW_q_SM(QCD::CHARM, QCD::STRANGE)
+                    + GammaW_q_SM(QCD::CHARM, QCD::BOTTOM);
     GammaW_cache = GammaW;
     return GammaW;
 }

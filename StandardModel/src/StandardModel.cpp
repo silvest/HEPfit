@@ -32,10 +32,6 @@ StandardModel::StandardModel()
 {
     FlagWithoutNonUniversalVC = false;
     FlagNoApproximateGammaZ = false;
-    FlagNoApproximateSigmaH = false;
-    FlagNoApproximateRl = false;
-    FlagNoApproximateRc = false;
-    FlagNoApproximateRb = false;
     FlagMw = "APPROXIMATEFORMULA";
     FlagRhoZ = "NORESUM";
     FlagKappaZ = "APPROXIMATEFORMULA";
@@ -252,18 +248,6 @@ bool StandardModel::setFlag(const std::string name, const bool value)
         res = true;
     } else if (name.compare("NoApproximateGammaZ") == 0) {
         FlagNoApproximateGammaZ = value;
-        res = true;
-    } else if (name.compare("NoApproximateSigmaH") == 0) {
-        FlagNoApproximateSigmaH = value;
-        res = true;
-    } else if (name.compare("NoApproximateRl") == 0) {
-        FlagNoApproximateRl = value;
-        res = true;
-    } else if (name.compare("NoApproximateRc") == 0) {
-        FlagNoApproximateRc = value;
-        res = true;
-    } else if (name.compare("NoApproximateRb") == 0) {
-        FlagNoApproximateRb = value;
         res = true;
     } else
         res = QCD::setFlag(name,value);

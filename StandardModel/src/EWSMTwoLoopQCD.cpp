@@ -63,7 +63,7 @@ complex EWSMTwoLoopQCD::deltaRho_rem_l(const StandardModel::lepton l,
 complex EWSMTwoLoopQCD::deltaRho_rem_q(const QCD::quark q, 
                                        const double Mw_i) const 
 {
-    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+    if(q==QCD::TOP) return ( complex(0.0,0.0,false) );
     double Mw = cache.Mw(Mw_i);
     return ( (2.0*DeltaRho_ud(Mw) + DeltaRho_tb(Mw)) - DeltaRho(Mw) );    
 }
@@ -81,7 +81,7 @@ complex EWSMTwoLoopQCD::deltaKappa_rem_l(const StandardModel::lepton l,
 complex EWSMTwoLoopQCD::deltaKappa_rem_q(const QCD::quark q, 
                                          const double Mw_i) const 
 {
-    if(q==StandardModel::TOP) return ( complex(0.0,0.0,false) );
+    if(q==QCD::TOP) return ( complex(0.0,0.0,false) );
     double Mw = cache.Mw(Mw_i);
     return ( (2.0*DeltaKappa_ud(Mw) + DeltaKappa_tb(Mw))
               - cache.cW2(Mw)/cache.sW2(Mw)*DeltaRho(Mw) );    
@@ -458,10 +458,10 @@ double EWSMTwoLoopQCD::DeltaR_tb(const double Mw_i) const
     double rZ4t = Mz*Mz/4.0/Mt/Mt;
     double xWt = Mw*Mw/Mt/Mt;
     
-    double vt = cache.vq(StandardModel::TOP, Mw);
-    double at = cache.aq(StandardModel::TOP);
-    double vb = cache.vq(StandardModel::BOTTOM, Mw);
-    double ab = cache.aq(StandardModel::BOTTOM);
+    double vt = cache.vq(QCD::TOP, Mw);
+    double at = cache.aq(QCD::TOP);
+    double vb = cache.vq(QCD::BOTTOM, Mw);
+    double ab = cache.aq(QCD::BOTTOM);
     
     /* Zeta functions */
     double zeta_2 = cache.getZeta2();
@@ -470,7 +470,7 @@ double EWSMTwoLoopQCD::DeltaR_tb(const double Mw_i) const
     double log_zt = - 2.0*cache.logMZtoMTOP();
     
     double DeltaR;
-    DeltaR = pow(cache.Qq(StandardModel::TOP), 2.0)*V1prime(0.0)
+    DeltaR = pow(cache.Qq(QCD::TOP), 2.0)*V1prime(0.0)
              + cW2/sW2/sW2*wt/4.0*(zeta_2 + 1.0/2.0)
              - zt/sW2/sW2*( vt*vt*V1(rZ4t) + at*at*(A1(rZ4t) - A1(0.0)) )
              + (cW2 - sW2)/sW2/sW2*wt*(F1(xWt,Mw) - F1(0.0,Mw))
@@ -487,10 +487,10 @@ double EWSMTwoLoopQCD::DeltaRho_ud(const double Mw_i) const
     double cW2 = cache.cW2(Mw);
     
     double DeltaRho;
-    DeltaRho = pow(cache.vq(StandardModel::UP, Mw), 2.0) 
-               + pow(cache.vq(StandardModel::DOWN, Mw), 2.0)
-               + pow(cache.aq(StandardModel::UP), 2.0) 
-               + pow(cache.aq(StandardModel::DOWN), 2.0); 
+    DeltaRho = pow(cache.vq(QCD::UP, Mw), 2.0) 
+               + pow(cache.vq(QCD::DOWN, Mw), 2.0)
+               + pow(cache.aq(QCD::UP), 2.0) 
+               + pow(cache.aq(QCD::DOWN), 2.0); 
     DeltaRho /= 4.0*sW2*cW2;    
     DeltaRho *= cache.ale()*cache.alsMz()/M_PI/M_PI;
     return DeltaRho;      
@@ -507,10 +507,10 @@ double EWSMTwoLoopQCD::DeltaRho_tb(const double Mw_i) const
     double zt = Mt*Mt/Mz/Mz;
     double rZ4t = Mz*Mz/4.0/Mt/Mt;
     
-    double vt = cache.vq(StandardModel::TOP, Mw);
-    double at = cache.aq(StandardModel::TOP);
-    double vb = cache.vq(StandardModel::BOTTOM, Mw);
-    double ab = cache.aq(StandardModel::BOTTOM);
+    double vt = cache.vq(QCD::TOP, Mw);
+    double at = cache.aq(QCD::TOP);
+    double vb = cache.vq(QCD::BOTTOM, Mw);
+    double ab = cache.aq(QCD::BOTTOM);
     
     double DeltaRho;
     DeltaRho = - (vt*vt*V1prime(rZ4t) + at*at*A1prime(rZ4t))
@@ -551,12 +551,12 @@ complex EWSMTwoLoopQCD::DeltaKappa_tb(const double Mw_i) const
     double rZ4t = Mz*Mz/4.0/Mt/Mt;
     double xWt = Mw*Mw/Mt/Mt;
     
-    double vt = cache.vq(StandardModel::TOP, Mw);
-    double at = cache.aq(StandardModel::TOP);
-    double Qt = cache.Qq(StandardModel::TOP);
-    double vb = cache.vq(StandardModel::BOTTOM, Mw);
-    double ab = cache.aq(StandardModel::BOTTOM);
-    double Qb = cache.Qq(StandardModel::BOTTOM);
+    double vt = cache.vq(QCD::TOP, Mw);
+    double at = cache.aq(QCD::TOP);
+    double Qt = cache.Qq(QCD::TOP);
+    double vb = cache.vq(QCD::BOTTOM, Mw);
+    double ab = cache.aq(QCD::BOTTOM);
+    double Qb = cache.Qq(QCD::BOTTOM);
     
     /* Logarithm */
     double log_zt = - 2.0*cache.logMZtoMTOP();    

@@ -32,7 +32,7 @@ public:
     : LEP2ThObservable(EW_i, sqrt_s_i), myLEP2sigmaCharm(EW_i, sqrt_s_i), 
             myLEP2sigmaHadron(EW_i, sqrt_s_i, false, true)  
     {
-        q_flavor = StandardModel::CHARM;
+        q_flavor = QCD::CHARM;
     }
 
     /**

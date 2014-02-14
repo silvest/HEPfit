@@ -5,25 +5,16 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include <EWSM.h>
-#include <NPZbbbar.h>
 #include "Rcharm.h"
 
 
 double Rcharm::computeThValue() 
 {   
-    double R0_c;
-    if (!SM.IsFlagNoApproximateRc() && SM.ModelName() != "NPEpsilons")
-        R0_c = SM.getEWSM()->getMyApproximateFormulae()->X_extended("R0_charm");
-    else
-        R0_c = myEW.Gamma_q(SM.CHARM)/myEW.Gamma_had();
+    double R0_c = myEW.R0_c();
 
     /* NP contribution to the Zff vertex */
-    if (myEW.checkNPZff())
+    if (myEW.checkNPZff_linearized() && SM.ModelName().compare("StandardModel") != 0)
         R0_c = myEW.getMyEW_NPZff().Rcharm(R0_c);
-
-    /* Debug: extract pure NP contribution */
-    //R0_c -= myEW.Gamma_q(SM.CHARM)/myEW.Gamma_had();
 
     return R0_c;
 }

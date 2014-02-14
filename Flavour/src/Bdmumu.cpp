@@ -41,8 +41,8 @@ double Bdmumu::computeThValue(){
 void Bdmumu::computeObs(orders order){
     mmu = myFlavour.getModel().getLeptons(StandardModel::MU).getMass();
     mBd = myFlavour.getModel().getMesons(QCD::B_D).getMass();
-    mb = myFlavour.getModel().getQuarks(StandardModel::BOTTOM).getMass();
-    md = myFlavour.getModel().getQuarks(StandardModel::DOWN).getMass();
+    mb = myFlavour.getModel().getQuarks(QCD::BOTTOM).getMass();
+    md = myFlavour.getModel().getQuarks(QCD::DOWN).getMass();
     chiral = pow(mBd, 2.) / 2. / mmu * mb / (mb + md);
     beta = sqrt(1. - pow(2. * mmu / mBd, 2.));
     computeAmpSq(order);

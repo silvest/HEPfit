@@ -25,13 +25,13 @@ complex EWNPZbbbar::rhoZ_l(const StandardModel::lepton l) const
 complex EWNPZbbbar::rhoZ_q(const QCD::quark q) const
 {
     switch (q) {
-        case StandardModel::UP:
-        case StandardModel::DOWN:
-        case StandardModel::CHARM:
-        case StandardModel::STRANGE:
-        case StandardModel::TOP:
+        case QCD::UP:
+        case QCD::DOWN:
+        case QCD::CHARM:
+        case QCD::STRANGE:
+        case QCD::TOP:
             return rhoZ_q_SM(q);
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             return ( gAq(q)*gAq(q)
                      /SM.getQuarks(q).getIsospin()/SM.getQuarks(q).getIsospin() );
         default:
@@ -49,13 +49,13 @@ complex EWNPZbbbar::kappaZ_l(const StandardModel::lepton l) const
 complex EWNPZbbbar::kappaZ_q(const QCD::quark q) const
 {
     switch (q) {
-        case StandardModel::UP:
-        case StandardModel::DOWN:
-        case StandardModel::CHARM:
-        case StandardModel::STRANGE:
-        case StandardModel::TOP:
+        case QCD::UP:
+        case QCD::DOWN:
+        case QCD::CHARM:
+        case QCD::STRANGE:
+        case QCD::TOP:
             return kappaZ_q_SM(q);
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             return ( (1.0 - gVq(q)/gAq(q))
                      /(4.0*fabs(SM.getQuarks(q).getCharge())*SM.sW2()) );
         default:
@@ -73,13 +73,13 @@ complex EWNPZbbbar::gVl(const StandardModel::lepton l) const
 complex EWNPZbbbar::gVq(const QCD::quark q) const
 {
     switch (q) {
-        case StandardModel::UP:
-        case StandardModel::DOWN:
-        case StandardModel::CHARM:
-        case StandardModel::STRANGE:
-        case StandardModel::TOP:
+        case QCD::UP:
+        case QCD::DOWN:
+        case QCD::CHARM:
+        case QCD::STRANGE:
+        case QCD::TOP:
             return gVq_SM(q);
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             if ((static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
                 return ( gVq_SM(q)
                          + (static_cast<const NPZbbbar*> (&SM))->deltaGVq(q) );
@@ -102,13 +102,13 @@ complex EWNPZbbbar::gAl(const StandardModel::lepton l) const
 complex EWNPZbbbar::gAq(const QCD::quark q) const
 {
     switch (q) {
-        case StandardModel::UP:
-        case StandardModel::DOWN:
-        case StandardModel::CHARM:
-        case StandardModel::STRANGE:
-        case StandardModel::TOP:
+        case QCD::UP:
+        case QCD::DOWN:
+        case QCD::CHARM:
+        case QCD::STRANGE:
+        case QCD::TOP:
             return gAq_SM(q);
-        case StandardModel::BOTTOM:
+        case QCD::BOTTOM:
             if ((static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
                 return ( gAq_SM(q)
                          + (static_cast<const NPZbbbar*> (&SM))->deltaGAq(q) );

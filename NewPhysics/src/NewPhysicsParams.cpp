@@ -94,7 +94,7 @@ double NewPhysicsParams::computeThValue()
             return 0.0;
     else if (name.compare("deltaRhoZb") == 0) {
         if (SM.ModelName().compare("NPZbbbar") == 0) {
-            if (!SM.IsFlagNoApproximateRb())
+            if (!SM.IsFlagNoApproximateGammaZ())
                 // SM prediction for rho_Z^b is needed!
                 throw std::runtime_error("NewPhysicsParams::computeThValue(): deltaRhoZb is not available");
             else
