@@ -83,15 +83,15 @@ int main(int argc, char** argv)
                 ModelConf = vm["modconf"].as<string > ();
             else
                 if (rank == 0){
-                cout << coderun << endl;
-                cout << desc << endl;
-                throw runtime_error("\nERROR: Please specify mandatory model config filename.\n");
+                    cout << coderun << endl;
+                    cout << desc << endl;
+                    throw runtime_error("\nERROR: Please specify mandatory model config filename.\n");
                 }
 
             if (vm.count("noMC") && vm["output_folder"].as<string > () == "" && !(vm["job_tag"].as<string > () == "")){
                 if (rank == 0) cout << "\nWARNING: --job_tag not being used as --output_folder is not specified.\nOutput being sent to terminal only.\n";
             } else {
-            JobTag = vm["job_tag"].as<string > ();
+                JobTag = vm["job_tag"].as<string > ();
             }
             
             if (vm.count("noMC") && vm.count("mcconf"))
@@ -119,9 +119,9 @@ int main(int argc, char** argv)
                 noMC = false;
                 string MCMCConf = vm["mcconf"].as<string > ();
                 string FileOut = vm["rootfile"].as<string > ();
+                if (vm.count("thRange")) checkTheoryRange = true;
                 MonteCarlo MC(ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);
                 MC.Run(rank);
-                if (vm.count("thRange")) checkTheoryRange = true;
                 
             } else {
                 if (rank == 0){
