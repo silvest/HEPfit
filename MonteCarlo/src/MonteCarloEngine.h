@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -73,7 +73,7 @@ public:
      * file and the corresponding output histograms are initiated.
      * \li The correlated Gaussian observables are sorted for inclusion in the MCMC and the corresponding output 
      * histograms are initiated.
-     * \li The histograms for the model paramaters vs. observables are initiated.\n
+     * \li The histograms for the model parameters vs. observables are initiated.\n
      * The output specifications are passed from the SomeModel.conf file parsed by the InputParser. The number of
      * bins for the 1D and 2D histograms are defined through the NBINS1D and NBINS2D parameters fixed in 
      * MonteCarloEngine.h.

@@ -14,7 +14,7 @@
 /**
  * @addtogroup MonteCarlo
  * @brief A module for Markov Chain Monte Carlo based on
- * the <a href="https://www.mppmu.mpg.de/bat/" target=blank>Bayesian Analysis Tool (BAT)</a>. 
+ * the <a href="https://www.mppmu.mpg.de/bat/" target=blank>Bayesian Analysis Toolkit (BAT)</a>.
  * @{
  */
 /**
@@ -44,7 +44,7 @@ public:
      * the model parameters and observables to be calculated (Observables, Observables2D,
      * Model Parameters vs. Observables and Correlated Gaussian Observables)
      * @param[in] MonteCarloConf_i the name of the Monte Carlo configuration file that
-     * specifies the parameters of the monte carlo run like no. of chains, no. of pre run 
+     * specifies the parameters of the Monte Carlo run like no. of chains, no. of pre run
      * iterations etc.
      * @param[in] OutFile_i the name of the root output file to be given without the .root
      * extention
@@ -56,18 +56,19 @@ public:
                const std::string& OutFile_i,
                const std::string& JobTag_i,
                const bool checkTheoryRange_i=false);
+
     /**
      * @brief The default destructor.
      */
     virtual ~MonteCarlo();
     
     /**
-     * @brief This member reponsible for setting the Monte Carlo run parameters and conducting
+     * @brief This member responsible for setting the Monte Carlo run parameters and conducting
      * the Monte Carlo run including initiating all output generation
      * @details The algorithm implemented by this member is as follows:
      *
      * \li Initiate InputParser::ReadParameters() which read the SomeModel.conf file for setting the
-     * model parameters and the observables to be generated. This call also passes ont he name of the
+     * model parameters and the observables to be generated. This call also passes on the name of the
      * model to the private member ModelName.
      *
      * \li Map the model parameter mean values with the map DP and calculate buffsize which can be used
@@ -85,7 +86,7 @@ public:
      * \li The master in an MPI run or the process in a serial run then parses the MonterCarlo.conf file
      * to read the parameters for the Monte Carlo run.
      * 
-     * \li The root ouput file is handed over to the object out of type BCModelOutput and some
+     * \li The root output file is handed over to the object out of type BCModelOutput and some
      * <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> options are set for the log and 
      * output histograms.
      *
@@ -98,14 +99,15 @@ public:
      * <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT website</a>. These are used mainly
      * to generate logs and output.
      *
-     * The detials of the object MCEngine of type MonteCarloEngine which overloads the BCEngineMCMC
+     * The details of the object MCEngine of type MonteCarloEngine which overloads the BCEngineMCMC
      * class can be found in our documentation of the former class.
      *
      * @param[in] rank = MPI::COMM_WORLD.Get_rank(), specifies the rank of the process. This
-     * carries a non zero value only when the executable is compiled with the parallelalized version
-     * of <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> and run as parallel processes with mpi.
+     * carries a non zero value only when the executable is compiled with the parallelized version
+     * of <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> and run as parallel processes with MPI.
      */
     void Run(const int rank);
+    
 private:
     InputParser myInputParser; ///< An oject of the InputParser class.
     MonteCarloEngine MCEngine; ///< An object of the MonteCarloEngine class.
