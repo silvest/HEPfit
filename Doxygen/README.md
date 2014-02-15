@@ -10,6 +10,13 @@ Lists of model parameters are available for each model at
 <ul>
   <li>@ref QCDParameters "QCD"</li>
   <li>@ref StandardModelParameters "StandardModel"</li>
+  <li>@ref NPEpsilonsParameters "NPEpsilons"</li>
+  <li>@ref NPEpsilons_pureNPParameters "NPEpsilons_pureNP"</li>
+  <li>@ref NPSTUParameters "NPSTU"</li>
+  <li>@ref NPHiggsSTParameters "NPHiggsST"</li>
+  <li>@ref NPZbbbarParameters "NPZbbbar"</li>
+  <li>@ref NPEffective1Parameters "NPEffective1"</li>
+  <li>@ref NPEffective2Parameters "NPEffective2"</li>
 </ul>
 
 
@@ -19,6 +26,8 @@ Lists of model flags are available for each model at
 </div>
 <ul>
   <li>@ref StandardModelFlags "StandardModel"</li>
+  <li>@ref NPEpsilonsFlags "NPEpsilons"</li>
+  <li>@ref NPZbbbarFlags "NPZbbbar"</li>
 </ul>
 
 
@@ -54,6 +63,6 @@ See <a href="d0/de3/citelist.html">the list of references</a>.
 <div style="text-indent: 2em;">
 For any questions, bugs or suggestions about the SusyFit codes, please
 send an email to  
-<a href="mailto:susyfit@roma1.infn.it?subject=Support%20for%20SusyFit">SusyFit Support</a>.
+<a href="mailto:susyfit_support_at_roma1.infn.it?subject=Support%20for%20SusyFit">SusyFit Support</a>.
 </div>
 <br><br>
