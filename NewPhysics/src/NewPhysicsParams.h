@@ -44,10 +44,6 @@ public:
      * @li "deltaRhoZb", "deltaKappaZb":&nbsp;
      * the new physics corrections to the @f$Zb\bar{b}@f$ couplings, 
      * denoted by @f$\delta\rho_Z^b@f$ and @f$\delta\kappa_Z^b@f$,
-     * @li "cHLp_NP", "cHQp_NP", "cHL_NP", "cHQ_NP", "cHU2_NP", "cHD3_NP":&nbsp;
-     * the coefficients of the dimension six operators, 
-     * @f$C'_{HL}@f$, @f$C'_{HQ}@f$, @f$C_{HL}@f$, @f$C_{HQ}@f$, @f$C_{HU_2}@f$
-     * and @f$C_{HD_3}@f$,
      * @li "cHQ1pPLUScHQ2p_NP", "cHQ2pMINUScHQ2_NP", "cHQ3pPLUScHQ3_NP":&nbsp;
      * @f$C'_{HQ_1} + C'_{HQ_2}@f$, @f$C'_{HQ_2} - C_{HQ_2}@f$ and 
      * @f$C'_{HQ_3} + C_{HQ_3}@f$

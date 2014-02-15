@@ -76,17 +76,25 @@ class EWSM; // forward reference to EWSM class
  * <tr>
  *   <td class="mod_name">%delMw</td>
  *   <td class="mod_symb">@f$\delta\,M_W@f$</td>
- *   <td class="mod_desc">The theoretical uncertainty in @f$M_W@f$ in GeV.</td>
+ *   <td class="mod_desc">The theoretical uncertainty in @f$M_W@f$ in GeV,
+ *   which is applicable only when EWSMApproximateFormulae::Mw() is employed
+ *   for @f$M_W@f$. See also the model flag @ref StandardModelFlags "Mw".</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%delSin2th_l</td>
  *   <td class="mod_symb">@f$\delta\sin^2\theta_{\rm eff}^{\rm lept}@f$</td>
- *   <td class="mod_desc">The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$.</td>
+ *   <td class="mod_desc">The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$,
+ *   which is applicable only when EWSMApproximateFormulae::sin2thetaEff_l()
+ *   is employed for @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$.
+ *   See also the model flag @ref StandardModelFlags "KappaZ".</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%delGammaZ</td>
  *   <td class="mod_symb">@f$\delta\,\Gamma_Z@f$</td>
- *   <td class="mod_desc">The theoretical uncertainty in @f$\Gamma_Z@f$ in GeV.</td>
+ *   <td class="mod_desc">The theoretical uncertainty in @f$\Gamma_Z@f$ in GeV,
+ *   which is applicable only when EWSMApproximateFormulae::X_extended() is 
+ *   employed for @f$\Gamma_Z@f$. See also the model flag 
+ *   @ref StandardModelFlags "NoApproximateGammaZ".</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%mneutrino_1</td>

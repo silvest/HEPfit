@@ -12,9 +12,6 @@ double GammaZ::computeThValue()
 { 
     double Gamma_Z = myEW.Gamma_Z();
 
-    /* Theoretical uncertainty */
-    Gamma_Z += SM.getDelGammaZ();
-
     /* NP contribution to the Zff vertex */
     if (myEW.checkNPZff_linearized() && SM.ModelName().compare("StandardModel") != 0)
         Gamma_Z = myEW.getMyEW_NPZff().GammaZ(Gamma_Z);

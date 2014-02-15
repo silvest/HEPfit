@@ -335,44 +335,14 @@
  *   <th>Description</th>
  * </tr>
  * <tr>
- *   <td class="obs_name">%AlsMz</td>
- *   <td class="obs_symb">@f$\alpha_s(M_Z^2)@f$</td>
- *   <td class="obs_desc">The strong coupling constant at the @f$Z@f$-mass scale.</td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%dAle5Mz</td>
- *   <td class="obs_symb">@f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$</td>
- *   <td class="obs_desc">The five-flavour hadronic contribution to the electromagnetic coupling.</td>
- * </tr>
- * <tr>
  *   <td class="obs_name">%Mz</td>
  *   <td class="obs_symb">@f$M_Z@f$</td>
  *   <td class="obs_desc">The mass of the @f$Z@f$ boson in GeV.</td>
  * </tr>
  * <tr>
- *   <td class="obs_name">%mtop</td>
- *   <td class="obs_symb">@f$m_t@f$</td>
- *   <td class="obs_desc">The pole mass of the top quark in GeV.</td>
- * </tr>
- * <tr>
  *   <td class="obs_name">%mHl</td>
  *   <td class="obs_symb">@f$m_h@f$</td>
  *   <td class="obs_desc">The Higgs mass in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%delMw</td>
- *   <td class="obs_symb">@f$\delta\,M_W@f$</td>
- *   <td class="obs_desc">The theoretical uncertainty in @f$M_W@f$ in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%delSin2th_l</td>
- *   <td class="obs_symb">@f$\delta\sin^2\theta_{\rm eff}^{\rm lept}@f$</td>
- *   <td class="obs_desc">The theoretical uncertainty in @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$.</td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%delGammaZ</td>
- *   <td class="obs_symb">@f$\delta\,\Gamma_Z@f$</td>
- *   <td class="obs_desc">The theoretical uncertainty in @f$\Gamma_Z@f$ in GeV.</td>
  * </tr>
  * </table>
  *
@@ -383,55 +353,6 @@
  *   <th>Label</th>
  *   <th>LaTeX symbol</th>
  *   <th>Description</th>
- * </tr>
- * <tr>
- *   <td class="obs_name">%cHLp_NP</td>
- *   <td class="obs_symb">@f$C'_{HL}@f$</td>
- *   <td class="obs_desc">The coefficient of the operator
- *   @f$\mathcal{O}_{HL}^\prime=i \big(H^\dagger D_\mu\tau^a H\big)
- *    \big(\overline{L}\,\gamma^\mu\tau^a L\big)@f$ with lepton-flavour universality.</td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%cHQp_NP</td>
- *   <td class="obs_symb">@f$C'_{HQ}@f$</td>
- *   <td class="obs_desc">The coefficient of the operator
- *   @f$\mathcal{O}_{HQ}^\prime=i \big(H^\dagger D_\mu\tau^a H\big)
- *    \big(\overline{Q}\,\gamma^\mu\tau^a Q\big)@f$ with quark-flavour universality.</td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%cHL_NP</td>
- *   <td class="obs_symb">@f$C_{HL}@f$</td>
- *   <td class="obs_desc">The coefficient of the operator
- *   @f$\mathcal{O}_{HL}=i \big(H^\dagger D_\mu H\big)
- *    \big(\overline{L}\,\gamma^\mu L\big) @f$ with lepton-flavour universality.</td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%cHQ_NP</td>
- *   <td class="obs_symb">@f$C_{HQ}@f$</td>
- *   <td class="obs_desc">The coefficient of the operator
- *   @f$\mathcal{O}_{HQ}=i \big(H^\dagger D_\mu H\big)
- *    \big(\overline{Q}\,\gamma^\mu Q\big) @f$ with quark-flavour universality.</td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%cHE_NP</td>
- *   <td class="obs_symb">@f$C_{HE}@f$</td>
- *   <td class="obs_desc">The coefficient of the operator
- *   @f${\cal O}_{HE} =i\big(H^\dagger D_\mu H\big)
- *   \big(\overline{E}\,\gamma^\mu E\big)@f$ with lepton-flavour universality.</td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%cHU2_NP</td>
- *   <td class="obs_symb">@f$C_{HU_2}@f$</td>
- *   <td class="obs_desc">The coefficient of the operator
- *   @f${\cal O}_{HU_2} =i\big(H^\dagger D_\mu H\big)
- *   \big(\overline{U_2}\,\gamma^\mu U_2\big)@f$</td>
- * </tr>
- * <tr>
- *   <td class="obs_name">%cHD3_NP</td>
- *   <td class="obs_symb">@f$C_{HD_3}@f$</td>
- *   <td class="obs_desc">The coefficient of the operator
- *   @f${\cal O}_{HD_3} =i\big(H^\dagger D_\mu H\big)
- *   \big(\overline{D_3}\,\gamma^\mu D_3\big)@f$.</td>
  * </tr>
  * <tr>
  *   <td class="obs_name">%cHQ1pPLUScHQ2p_NP</td>

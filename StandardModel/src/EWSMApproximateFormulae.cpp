@@ -596,6 +596,7 @@ double EWSMApproximateFormulae::X_extended(const std::string observable) const
     double DZ = SM.getMz()/91.1876 - 1.0;
 
     double X0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15;
+    double ThError = 0.0; // Theoretical uncertainty
     if (observable.compare("Gamma_nu") == 0) {
         X0 = 167.157;
         a1 = -0.1567; a2 = -0.1194; a3 = 0.1031; a4 = -0.00269; a5 = 1.258;
@@ -636,6 +637,7 @@ double EWSMApproximateFormulae::X_extended(const std::string observable) const
         a1 = -3.725; a2 = -2.019; a3 = 1.773; a4 = -0.04554; a5 = 19.63;
         a6 = -2.0; a7 = -0.36; a8 = 0.257; a9 = 58.60; a10 = -4.1;
         a11 = -0.53; a12 = 7.6; a13 = -56.0; a14 = 1.3; a15 = 9256.0;
+        ThError  = SM.getDelGammaZ();
     } else if (observable.compare("sigmaHadron") == 0) {
         X0 = 41488.4;
         a1 = 3.88; a2 = 0.829; a3 = -0.911; a4 = 0.0076; a5 = 61.10;
@@ -662,6 +664,6 @@ double EWSMApproximateFormulae::X_extended(const std::string observable) const
     return ( 0.001
              * (X0 + a1*LH + a2*LH*LH + a3*DH + a4*DH*DH + a5*Dt + a6*Dt*Dt
                 + a7*Dt*LH + a8*Dt*LH*LH + a9*Das + a10*Das*Das + a11*Das*LH
-                + a12*Das*Dt + a13*Dal + a14*Dal*LH + a15*DZ) );
+                + a12*Das*Dt + a13*Dal + a14*Dal*LH + a15*DZ) + ThError );
 }
 
