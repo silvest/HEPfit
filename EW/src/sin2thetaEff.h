@@ -16,11 +16,15 @@
  * @class sin2thetaEff 
  * @ingroup EW 
  * @brief An observable class for the leptonic effective weak mixing angle
- * @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$ at the @f$Z@f$-mass scale.
+ * @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$ at the @f$Z@f$ pole.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the leptonic effective weak mixing
- * angle @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$ at the @f$Z@f$-mass scale.
+ * angle @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$ at the @f$Z@f$ pole.
+ *
+ * @sa EW_NPZff::sin2thetaEff() and the detailed description of EW class
+ * for the inclusion of new physics contribution
+ *
  */
 class sin2thetaEff : public ThObservable {
 public:
@@ -36,7 +40,7 @@ public:
 
     /**
      * @brief The leptonic effective weak mixing angle 
-     * @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$ at the the @f$Z@f$-mass scale.
+     * @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$ at the the @f$Z@f$ pole.
      * @return @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$
      */
     double computeThValue();

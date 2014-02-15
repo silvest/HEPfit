@@ -16,13 +16,17 @@
  * @class Alepton
  * @ingroup EW 
  * @brief An observable class for the left-right asymmetry in
- * @f$e^+e^-\to Z\to \ell\bar{\ell}@f$ at the @f$Z@f$ pole.
+ * @f$e^+e^-\to Z\to \ell^+ \ell^-@f$ at the @f$Z@f$ pole.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class is used to compute the left-right asymmetry for an 
- * @f$e^+e^-\to Z\to \ell\bar{\ell}@f$ process at the @f$Z@f$ pole, where
+ * @f$e^+e^-\to Z\to \ell^+ \ell^-@f$ process at the @f$Z@f$ pole, where
  * @f$\ell@f$ denotes a charged lepton, and lepton-flavour universality
  * is assumed.
+ *
+ * @sa EW_NPZff::Alepton() and the detailed description of EW class
+ * for the inclusion of new physics contribution
+ *
  */
 class Alepton : public ThObservable {
 public:
@@ -37,7 +41,7 @@ public:
     };
 
     /**
-     * @brief The left-right asymmetry for @f$e^+e^-\to Z\to \ell\bar{\ell}@f$
+     * @brief The left-right asymmetry for @f$e^+e^-\to Z\to \ell^+ \ell^-@f$
      * at the @f$Z@f$ pole, @f$\mathcal{A}_\ell@f$.
      * @return @f$\mathcal{A}_\ell@f$
      */

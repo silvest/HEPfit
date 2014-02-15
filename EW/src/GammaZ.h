@@ -25,6 +25,10 @@
  * = 3\,\Gamma_\nu + \Gamma_{e} + \Gamma_{\mu} + \Gamma_{\tau} + \Gamma_h\,,
  * @f]
  * where @f$\Gamma_h=\sum_{q\neq t}\Gamma_q@f$ is the total hadronic width.
+ *
+ * @sa EW_NPZff::GammaZ() and the detailed description of EW class
+ * for the inclusion of new physics contribution
+ * 
  */
 class GammaZ : public ThObservable {
 public:

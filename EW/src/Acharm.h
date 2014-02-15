@@ -21,6 +21,10 @@
  * @copyright GNU General Public License
  * @details This class is used to compute the left-right asymmetry for the
  * @f$e^+e^-\to Z\to c\bar{c}@f$ process at the @f$Z@f$ pole.
+ *
+ * @sa EW_NPZff::Acharm() and the detailed description of EW class
+ * for the inclusion of new physics contribution
+ *
  */
 class Acharm : public ThObservable {
 public:

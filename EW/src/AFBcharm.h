@@ -25,6 +25,10 @@
  * @f[
  * A_{\mathrm{FB}}^{0,c}=\frac 34 \mathcal{A}_e \mathcal{A}_c\,.
  * @f]
+ * 
+ * @sa EW_NPZff::AFBcharm() and the detailed description of EW class
+ * for the inclusion of new physics contribution
+ *
  */
 class AFBcharm : public ThObservable {
 public:

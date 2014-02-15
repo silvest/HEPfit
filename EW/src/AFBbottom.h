@@ -25,6 +25,10 @@
  * @f[
  * A_{\mathrm{FB}}^{0,b}=\frac 34 \mathcal{A}_e \mathcal{A}_b\,.
  * @f]
+ *
+ * @sa EW_NPZff::AFBbottom() and the detailed description of EW class
+ * for the inclusion of new physics contribution
+ *
  */
 class AFBbottom : public ThObservable {
 public:

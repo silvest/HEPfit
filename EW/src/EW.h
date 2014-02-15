@@ -158,27 +158,27 @@ public:
     ////////////////////////////////////////////////////////////////////////     
     
     /**
-     * @brief The left-right asymmetry in @f$e^+e^-\to Z\to l^+ l^-@f$ at the
-     * @f$Z@f$-pole, @f$\mathcal{A}_l@f$.
-     * @details The asymmetry  @f$\mathcal{A}_l@f$ is given by
+     * @brief The left-right asymmetry in @f$e^+e^-\to Z\to \ell \bar{\ell}@f$ at the
+     * @f$Z@f$-pole, @f$\mathcal{A}_\ell@f$.
+     * @details The asymmetry  @f$\mathcal{A}_\ell@f$ is given by
      * @f[
-     * \mathcal{A}_l =
-     * \frac{2\, {\rm Re}\left(g_{V}^l/g_{A}^l\right)}
-     * {1+\left[{\rm Re}\left(g_{V}^l/g_{A}^l\right)\right]^2}\,,
+     * \mathcal{A}_\ell =
+     * \frac{2\, {\rm Re}\left(g_{V}^\ell/g_{A}^\ell\right)}
+     * {1+\left[{\rm Re}\left(g_{V}^\ell/g_{A}^\ell\right)\right]^2}\,,
      * @f]
-     * where the ratio of the effective couplings @f$g_{V}^l/g_{A}^l@f$ is
+     * where the ratio of the effective couplings @f$g_{V}^\ell/g_{A}^\ell@f$ is
      * computed via the two-loop approximate formula of 
-     * @f$\sin^2\theta_{\rm eff}^{\,l}@f$, EWSMApproximateFormulae::sin2thetaEff_l(),
+     * @f$\sin^2\theta_{\rm eff}^{\,\ell}@f$, EWSMApproximateFormulae::sin2thetaEff_l(),
      * when checkNPZff_linearized() returns true and
      * the model flag @ref StandardModelFlags "KappaZ" of StandardModel
      * is set to APPROXIMATEFORMULA.
      * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$\mathcal{A}_l@f$
+     * @return @f$\mathcal{A}_\ell@f$
      */
     double A_l(const StandardModel::lepton l) const;
 
     /**
-     * @brief The left-right asymmetry in @f$e^+e^-\to Z\to q^+ q^-@f$ at the
+     * @brief The left-right asymmetry in @f$e^+e^-\to Z\to q \bar{q}@f$ at the
      * @f$Z@f$-pole, @f$\mathcal{A}_q@f$.
      * @details The asymmetry @f$\mathcal{A}_q@f$ is given by
      * @f[
@@ -198,21 +198,23 @@ public:
     double A_q(const QCD::quark q) const;
 
     /**
-     * @brief The effective weak mixing angle @f$\sin^2\theta_{\rm eff}^{\,l}@f$
-     * for @f$Zl\bar{l}@f$ at the the @f$Z@f$-mass scale.
+     * @brief The effective weak mixing angle @f$\sin^2\theta_{\rm eff}^{\,\ell}@f$
+     * for @f$Z\ell\bar{\ell}@f$ at the the @f$Z@f$-mass scale.
      * @details
      * When checkNPZff_linearized() returns true and
      * the model flag @ref StandardModelFlags "KappaZ" of StandardModel 
      * is set to APPROXIMATEFORMULA, this function uses the two-loop approximate
-     * formula of @f$\sin^2\theta_{\rm eff}^{\,l}@f$ via
+     * formula of @f$\sin^2\theta_{\rm eff}^{\,\ell}@f$ via
      * EWSMApproximateFormulae::sin2thetaEff_l().
      * Otherwise, the effective weak mixing angle is calculated from the coupling
-     * @f$\kappa_Z^l@f$:
+     * @f$\kappa_Z^\ell@f$:
      * @f[
-     * \sin^2\theta_{\rm eff}^{\,l} = {\rm Re}(\kappa_Z^l)\,s_W^2\,.
+     * \sin^2\theta_{\rm eff}^{\,\ell} = {\rm Re}(\kappa_Z^\ell)\,s_W^2\,.
      * @f]
      * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$\sin^2\theta_{\rm eff}^{\,l}@f$
+     * @return @f$\sin^2\theta_{\rm eff}^{\,\ell}@f$
+     *
+     * @attention @f$\ell@f$ stands for both a neutrino and a charged lepton. 
      */
     double sin2thetaEff(const StandardModel::lepton l) const;
     
@@ -236,27 +238,29 @@ public:
     double sin2thetaEff(const QCD::quark q) const;   
     
     /**
-     * @brief The @f$Z\to l^+ l^-@f$ partial decay width, @f$\Gamma_l@f$.
+     * @brief The @f$Z\to \ell\bar{\ell}@f$ partial decay width, @f$\Gamma_\ell@f$.
      * @details
      * When checkNPZff_linearized() returns true and the model flag
      * @ref StandardModelFlags "NoApproximateGammaZ" of StandardModel is set
      * to false, this function uses the two-loop approximate formula of
-     * @f$\Gamma_l@f$ via EWSMApproximateFormulae::X_extended().
+     * @f$\Gamma_\ell@f$ via EWSMApproximateFormulae::X_extended().
      * Otherwise, the partial width is calculated with
-     * @f$\rho_Z^l@f$ and @f$g_{V}^l/g_{A}^l@f$ @cite Bardin:1999ak :
+     * @f$\rho_Z^\ell@f$ and @f$g_{V}^\ell/g_{A}^\ell@f$ @cite Bardin:1999ak :
      * @f[
-     * \Gamma_l =
+     * \Gamma_\ell =
      * \Gamma_0 \big|\rho_Z^f\big|
-     * \sqrt{1-\frac{4m_l^2}{M_Z^2}}
-     * \left[ \left(1+\frac{2m_l^2}{M_Z^2}\right)
-     *   \left(\left|\frac{g_{V}^l}{g_{A}^l}\right|^2 + 1 \right)
-     *   - \frac{6m_l^2}{M_Z^2}
+     * \sqrt{1-\frac{4m_\ell^2}{M_Z^2}}
+     * \left[ \left(1+\frac{2m_\ell^2}{M_Z^2}\right)
+     *   \left(\left|\frac{g_{V}^\ell}{g_{A}^\ell}\right|^2 + 1 \right)
+     *   - \frac{6m_\ell^2}{M_Z^2}
      * \right]
-     * \left( 1 + \frac{3}{4}\frac{\alpha(M_Z^2)}{\pi}\, Q_l^2 \right)
+     * \left( 1 + \frac{3}{4}\frac{\alpha(M_Z^2)}{\pi}\, Q_\ell^2 \right)
      * @f]
      * with @f$\Gamma_0=G_\mu M_Z^3/(24\sqrt{2}\pi)@f$. 
      * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$\Gamma_l@f$ in GeV
+     * @return @f$\Gamma_\ell@f$ in GeV
+     *
+     * @attention @f$\ell@f$ stands for both a neutrino and a charged lepton. 
      */
     double Gamma_l(const StandardModel::lepton l) const;
     
@@ -348,7 +352,8 @@ public:
      * Otherwise, @f$R_\ell^0@f$ is calculated with
      * @f[
      * R_\ell^0 = \frac{\Gamma_h}{\Gamma_\ell}\,.
-     * @f]
+     * @f],
+     * where @f$\ell@f$ denotes a charged lepton.
      * @return @f$R_\ell^0 @f$
      */
     double R0_l() const;

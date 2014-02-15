@@ -24,6 +24,10 @@
  * @f[
  * P_\tau^{\mathrm{pol}}=\mathrm{A}_\tau\,.
  * @f]
+ * 
+ * @sa EW_NPZff::PtauPol() and the detailed description of EW class
+ * for the inclusion of new physics contribution
+ *
  */
 class PtauPol : public ThObservable {
 public:

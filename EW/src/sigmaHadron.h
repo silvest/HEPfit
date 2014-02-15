@@ -25,6 +25,10 @@
  * @f[
  * \sigma_h^0 = \frac{12\pi}{M_Z^2}\frac{\Gamma_e\Gamma_h}{\Gamma_Z^2}\,.
  * @f]
+ *
+ * @sa EW_NPZff::sigmaHadron() and the detailed description of EW class
+ * for the inclusion of new physics contribution
+ *
  */
 class sigmaHadron : public ThObservable {
 public:
@@ -40,7 +44,7 @@ public:
 
     /**
      * @brief The cross section for the process @f$e^+ e^-\to Z\to \mathrm{hadrons}@f$
-     * at the @f$Z@f$ pole in units of nb.
+     * at the @f$Z@f$ pole, @f$\sigma_h^0@f$, in units of nb.
      * @return @f$\sigma_h^0@f$ in units of nb. 
      */
     double computeThValue();

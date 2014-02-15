@@ -27,6 +27,10 @@
  * @copyright GNU General Public License
  * @details This class is used to compute the left-right asymmetry for the
  * @f$e^+e^-\to Z\to b\bar{b}@f$ process at the @f$Z@f$ pole.
+ * 
+ * @sa EW_NPZff::Abottom() and the detailed description of EW class
+ * for the inclusion of new physics contribution
+ *
  */
 class Abottom : public ThObservable {
 public:

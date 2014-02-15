@@ -16,18 +16,20 @@
  * @brief A class for new physics contributions to @f$Z@f$-pole pseudo observables.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class contains functions to incorporate new physics
- * contributions to @f$Z@f$-pole pseudo observables, parameterized in terms
- * of corrections to the @f$Z f\bar{f}@f$ vertices.\n
- * New physics contributions are linearized in the corrections to the neutral-current
- * couplings, @f$g_V^f+\delta g_V^f@f$,@f$g_A^f+\delta g_A^f@f$.
+ * @details This class contains functions to incorporate new physics (NP)
+ * contributions to the @f$Z@f$-pole pseudo observables, parameterized in terms
+ * of the @f$Z f\bar{f}@f$ effective couplings, @f$g_V^f@f$ and @f$g_A^f@f$. 
+ *
+ * NP contributions are linearized in the corrections @f$\delta g_V^f@f$ and 
+ * @f$\delta g_A^f@f$, as explained in the detailed description of EW class.
+ * 
  */
 class EW_NPZff {
 public:
 
     /**
      * @brief Constructor.
-     * @param[in] SM_i a reference to an object of StandardModel class
+     * @param[in] SM_i a reference to an object of type StandardModel
      */
     EW_NPZff(const StandardModel& SM_i);
 
@@ -35,110 +37,139 @@ public:
 
     /**
      * @brief The total decay width of the @f$Z@f$ boson, @f$\Gamma_Z@f$.
-     * @param[in] GammaZ_SM the SM prediction for @f$\Gamma_Z@f$ [GeV] 
-     * @return the prediction for @f$\Gamma_Z@f$ [GeV] including SM plus new 
-     * physics effects
+     * @param[in] GammaZ_SM the SM prediction for @f$\Gamma_Z@f$ in GeV
+     * @return @f$\Gamma_Z@f$ in GeV, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
      */
     double GammaZ(const double GammaZ_SM) const;
 
     /**
-     * @brief The @f$Z@f$-pole hadronic cross section, @f$\sigma_h^0@f$.
-     * @param[in] sigmaHadron_SM the SM prediction for @f$\sigma_h^0@f$ [GeV@f$^{-2}@f$]
-     * @return the prediction for @f$\sigma_h^0@f$ [GeV@f$^{-2}@f$] including SM plus new 
-     * physics effects
+     * @brief The cross section for the process @f$e^+ e^-\to Z\to \mathrm{hadrons}@f$
+     * at the @f$Z@f$ pole, @f$\sigma_h^0@f$.
+     * @param[in] sigmaHadron_SM the SM prediction for @f$\sigma_h^0@f$ in GeV@f$^{-2}@f$
+     * @return @f$\sigma_h^0@f$ in GeV@f$^{-2}@f$, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
      */
     double sigmaHadron(const double sigmaHadron_SM) const;
  
     /**
-     * @brief The effective weak mixing angle, @f$\sin^2{\theta_{Eff}^\ell}@f$.
-     * @param[in] sin2thetaEff_SM the SM prediction for @f$\sin^2{\theta_{\mathrm{Eff}}^\ell}@f$
-     * @return the prediction for @f$\sin^2{\theta_{\mathrm{Eff}}^\ell}@f$ including SM plus new 
-     * physics effects
+     * @brief @copybrief sin2thetaEff::computeThValue()
+     * @param[in] sin2thetaEff_SM the SM prediction for @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$
+     * @return @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
      */
     double sin2thetaEff(const double sin2thetaEff_SM) const;
 
     /**
-     * @brief The longitudinal polarization in @f$Z\to \tau^+ \tau^-@f$, @f$P_{\tau}^{\mathrm{pol}}@f$.
-     * @param[in] PtauPol_SM the SM prediction for @f$P_{\tau}^{\mathrm{pol}}=A_\tau@f$
-     * @return the prediction for @f$P_{\tau}^\mathrm{pol}=A_\tau@f$ including SM plus new 
-     * physics effects
+     * @brief @copybrief PtauPol::computeThValue()
+     * @param[in] PtauPol_SM the SM prediction for @f$P_\tau^{\mathrm{pol}}@f$
+     * @return @f$P_\tau^{\mathrm{pol}}@f$, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
      */
     double PtauPol(const double PtauPol_SM) const;
 
     /**
-     * @brief The @f$Z@f$-pole leptonic left-right asymmetry, @f$A_l@f$.
-     * @param[in] Alepton_SM the SM prediction for @f$A_\ell@f$
-     * @return the prediction for @f$A_\ell@f$ including SM plus new 
-     * physics effects
+     * @brief @copybrief Alepton::computeThValue()
+     * @param[in] Alepton_SM the SM prediction for @f$\mathcal{A}_\ell@f$
+     * @return @f$\mathcal{A}_\ell@f$, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
      */
     double Alepton(const double Alepton_SM) const;
 
     /**
-     * @brief The @f$Z@f$-pole charm left-right asymmetry, @f$A_c@f$.
-     * @param[in] Acharm_SM the SM prediction for @f$A_c@f$
-     * @return the prediction for @f$A_c@f$ including SM plus new 
-     * physics effects
+     * @brief @copybrief Acharm::computeThValue()
+     * @param[in] Acharm_SM the SM prediction for @f$\mathcal{A}_c@f$
+     * @return @f$\mathcal{A}_c@f$, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
      */
     double Acharm(const double Acharm_SM) const;
 
     /**
-     * @brief The @f$Z@f$-pole bottom left-right asymmetry, @f$A_b@f$.
-     * @param[in] Abottom_SM the SM prediction for @f$A_b@f$
-     * @return the prediction for @f$A_b@f$ including SM plus new 
-     * physics effects
+     * @brief @copybrief Abottom::computeThValue()
+     * @param[in] Abottom_SM the SM prediction for @f$\mathcal{A}_b@f$
+     * @return @f$\mathcal{A}_b@f$, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
      */
     double Abottom(const double Abottom_SM) const;
 
     /**
-     * @brief The @f$Z@f$-pole leptonic forward-backward asymmetry, @f$A_{FB}^{0,\ell}@f$.
-     * @param[in] AFBlepton_SM the SM prediction for @f$A_{FB}^{0,\ell}@f$
-     * @return the prediction for @f$A_{FB}^{0,\ell}@f$ including SM plus new 
-     * physics effects
+     * @brief @copybrief AFBlepton::computeThValue()
+     * @param[in] AFBlepton_SM the SM prediction for @f$A^{0,\ell}_{\mathrm{FB}}@f$
+     * @return @f$A^{0,\ell}_{\mathrm{FB}}@f$, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
      */
     double AFBlepton(const double AFBlepton_SM) const;
     
     /**
-     * @brief The @f$Z@f$-pole charm forward-backward asymmetry, @f$A_{FB}^{0,c}@f$.
-     * @param[in] AFBcharm_SM the SM prediction for @f$A_{FB}^{0,c}@f$
-     * @return the prediction for @f$A_{FB}^{0,c}@f$ including SM plus new 
-     * physics effects
+     * @brief @copybrief AFBcharm::computeThValue()
+     * @param[in] AFBcharm_SM the SM prediction for @f$A^{0,c}_{\mathrm{FB}}@f$
+     * @return @f$A^{0,c}_{\mathrm{FB}}@f$, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
      */
     double AFBcharm(const double AFBcharm_SM) const;
 
     /**
-     * @brief The @f$Z@f$-pole bottom forward-backward asymmetry, @f$A_{FB}^{0,b}@f$.
-     * @param[in] AFBbottom_SM the SM prediction for @f$A_{FB}^{0,b}@f$
-     * @return the prediction for @f$A_{FB}^{0,b}@f$ including SM plus new 
-     * physics effects
+     * @brief @copybrief AFBbottom::computeThValue()
+     * @param[in] AFBbottom_SM the SM prediction for @f$A^{0,b}_{\mathrm{FB}}@f$
+     * @return @f$A^{0,b}_{\mathrm{FB}}@f$, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
      */
     double AFBbottom(const double AFBbottom_SM) const;
 
     /**
-     * @brief The ratio @f$R_\ell^0=\Gamma(Z\to {\rm hadrons})/\Gamma(Z\to \ell^+ \ell^-)@f$.
+     * @brief @copybrief Rlepton::computeThValue()
      * @param[in] Rlepton_SM the SM prediction for @f$R_\ell^0@f$
-     * @return the prediction for @f$R_\ell^0@f$ including SM plus new 
-     * physics effects
+     * @return @f$R_\ell^0@f$, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
      */
     double Rlepton(const double Rlepton_SM) const;
 
     /**
-     * @brief The ratio @f$R_c^0=\Gamma(Z\to c\bar{c})/\Gamma(Z\to {\rm hadrons})@f$.
+     * @brief @copybrief Rcharm::computeThValue()
      * @param[in] Rcharm_SM the SM prediction for @f$R_c^0@f$
-     * @return the prediction for @f$R_c^0@f$ including SM plus new 
-     * physics effects
+     * @return @f$R_c^0@f$, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
      */
     double Rcharm(const double Rcharm_SM) const;
 
     /**
-     * @brief The ratio @f$R_b^0=\Gamma(Z\to b\bar{b})/\Gamma(Z\to {\rm hadrons})@f$.
+     * @brief @copybrief Rbottom::computeThValue()
      * @param[in] Rbottom_SM the SM prediction for @f$R_b^0@f$
-     * @return the prediction for @f$R_b^0@f$ including SM plus new 
-     * physics effects
+     * @return @f$R_b^0@f$, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
      */
     double Rbottom(const double Rbottom_SM) const;
+
     
+    ////////////////////////////////////////////////////////////////////////
 private:
-    const StandardModel& SM;///< A reference to an object of the StandardModel class.
+    const StandardModel& SM;///< A reference to an object of type StandardModel.
     
 };
 
