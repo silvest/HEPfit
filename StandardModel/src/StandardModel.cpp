@@ -237,10 +237,10 @@ void StandardModel::computeYukawas()
 bool StandardModel::setFlag(const std::string name, const bool value)
 {  
     bool res = false;
-    if (name.compare("FlagCacheInEWSM") == 0) {
+    if (name.compare("CacheInEWSM") == 0) {
         myEWSM->setFlagCacheInEWSM(value);
         res = true;
-    } else if (name.compare("FlagCacheInEWSMcache") == 0) {
+    } else if (name.compare("CacheInEWSMcache") == 0) {
         myEWSM->getMyCache()->setFlagCacheInEWSMcache(value);
         res = true;
     } else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
