@@ -27,13 +27,15 @@ MonteCarloEngine::MonteCarloEngine(
         std::vector<ModelParaVsObs>& ParaObs_i, const bool checkHistRange_i)
 : BCModel(""), ModPars(ModPars_i), Obs_ALL(Obs_i), Obs2D_ALL(Obs2D_i),
 CGO(CGO_i), ParaObs(ParaObs_i), NumOfUsedEvents(0), NumOfDiscardedEvents(0),
-checkTheoryRange(checkHistRange_i) {
+checkTheoryRange(checkHistRange_i)
+{
     obval = NULL;
     obweight = NULL;
     Mod = NULL;
 };
 
-void MonteCarloEngine::Initialize(Model* Mod_i) {
+void MonteCarloEngine::Initialize(Model* Mod_i)
+{
     Mod = Mod_i;
     int k = 0, kweight = 0;
     for (std::vector<Observable>::iterator it = Obs_ALL.begin();
@@ -146,7 +148,7 @@ void MonteCarloEngine::Initialize(Model* Mod_i) {
 
         /* check if the parameter in ModelParaVsObs exists in MCMCparameters */
         bool checkParam = false;
-        for (int k = 0; k < GetNParameters(); k++)
+        for (unsigned int k = 0; k < GetNParameters(); k++)
             if (it->getParaName().compare(GetParameter(k)->GetName()) == 0)
                 checkParam = true;
         if (!checkParam)
@@ -165,7 +167,8 @@ void MonteCarloEngine::Initialize(Model* Mod_i) {
     }
 };
 
-void MonteCarloEngine::setNChains(unsigned int i) {
+void MonteCarloEngine::setNChains(unsigned int i)
+{
     MCMCSetNChains(i);
     obval = new double[fMCMCNChains * kmax];
     obweight = new double[fMCMCNChains * kwmax];
@@ -194,7 +197,8 @@ MonteCarloEngine::~MonteCarloEngine()
 
 // ---------------------------------------------------------
 
-void MonteCarloEngine::DefineParameters() {
+void MonteCarloEngine::DefineParameters()
+{
     // Add parameters to your model here.
     // You can then use them in the methods below by calling the
     // parameters.at(i) or parameters[i], where i is the index
@@ -227,7 +231,8 @@ void MonteCarloEngine::DefineParameters() {
 
 // ---------------------------------------------------------
 
-double MonteCarloEngine::Weight(const Observable& obs, const double& th) {
+double MonteCarloEngine::Weight(const Observable& obs, const double& th)
+{
     double logprob;
     if (obs.getDistr().compare("weight") == 0) {
         if (obs.getErrf() == 0.)
@@ -254,7 +259,8 @@ double MonteCarloEngine::Weight(const Observable& obs, const double& th) {
     return (logprob);
 }
 
-double MonteCarloEngine::Weight(const Observable2D& obs, const double& th1, const double& th2) {
+double MonteCarloEngine::Weight(const Observable2D& obs, const double& th1, const double& th2)
+{
     double logprob;
     if (obs.getDistr().compare("file") == 0) {
         TH2D * h = InHisto2D[obs.getFilename() + obs.getHistoname()];
@@ -270,7 +276,8 @@ double MonteCarloEngine::Weight(const Observable2D& obs, const double& th1, cons
     return (logprob);
 }
 
-double MonteCarloEngine::Weight(const CorrelatedGaussianObservables& obs) {
+double MonteCarloEngine::Weight(const CorrelatedGaussianObservables& obs)
+{
 
     int size = obs.getObs().size();
     gslpp::vector<double> x(size);
@@ -282,7 +289,8 @@ double MonteCarloEngine::Weight(const CorrelatedGaussianObservables& obs) {
     return (-0.5 * x * (obs.getCov() * x));
 }
 
-double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
+double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters)
+{
     // This methods returns the logarithm of the conditional probability
     // p(data|parameters). This is where you have to define your model.
 
@@ -331,7 +339,8 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters) {
     return logprob;
 }
 
-void MonteCarloEngine::MCMCIterationInterface() {
+void MonteCarloEngine::MCMCIterationInterface()
+{
 #ifdef _MPI
     unsigned mychain = 0;
     int iproc = 0;
@@ -487,8 +496,8 @@ void MonteCarloEngine::MCMCIterationInterface() {
     delete buff[0];
     delete [] buff;
 #else
-    for (int i = 0; i < fMCMCNChains; ++i) {
-        for (int k = 0; k < GetNParameters(); k++) {
+    for (unsigned int i = 0; i < fMCMCNChains; ++i) {
+        for (unsigned int k = 0; k < GetNParameters(); k++) {
             //        std::string pippo = GetParameter(k)->GetName();
             //        double pluto = parameters[k];
             //        DPars[pippo]=pluto;
@@ -557,7 +566,8 @@ void MonteCarloEngine::MCMCIterationInterface() {
 #endif
 }
 
-void MonteCarloEngine::CheckHistogram(const TH1D& hist, const std::string name) {
+void MonteCarloEngine::CheckHistogram(const TH1D& hist, const std::string name)
+{
     // output the portions of underflow and overflow bins
     double UnderFlowContent = hist.GetBinContent(0);
     double OverFlowContent = hist.GetBinContent(NBINS1D + 1);
@@ -572,7 +582,8 @@ void MonteCarloEngine::CheckHistogram(const TH1D& hist, const std::string name) 
             << std::endl;
 }
 
-void MonteCarloEngine::CheckHistogram(const TH2D& hist, const std::string name) {
+void MonteCarloEngine::CheckHistogram(const TH2D& hist, const std::string name)
+{
     double Integral = hist.Integral();
     double TotalContent = 0.0;
     for (int m = 0; m <= NBINS2D + 1; m++)
@@ -585,7 +596,8 @@ void MonteCarloEngine::CheckHistogram(const TH2D& hist, const std::string name) 
 
 void MonteCarloEngine::PrintHistogram(BCModelOutput & out,
         std::vector<Observable>::iterator it,
-        const std::string OutputDir) {
+        const std::string OutputDir)
+{
     if (Histo1D[it->getThname()]->GetHistogram()->Integral() > 0.0) {
         std::string fname = OutputDir + "/" + it->getThname() + ".pdf";
         //        BCH1D* pippo =  Histo1D[it->getThname()];
@@ -611,7 +623,8 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out,
     }
 }
 
-void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string OutputDir) {
+void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string OutputDir)
+{
     std::vector<double> mode(GetBestFitParameters());
     for (unsigned int k = 0; k < GetNParameters(); k++)
         DPars[GetParameter(k)->GetName()] = mode[k];
@@ -665,7 +678,8 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string Out
     }
 }
 
-void MonteCarloEngine::AddChains() {
+void MonteCarloEngine::AddChains()
+{
     fMCMCFlagWritePreRunToFile = false;
     int k = 0, kweight = 0;
     for (std::vector<Observable>::iterator it = Obs_ALL.begin();
@@ -686,7 +700,8 @@ void MonteCarloEngine::AddChains() {
     }
 }
 
-void MonteCarloEngine::PrintCorrelationMatrix(const std::string filename) {
+void MonteCarloEngine::PrintCorrelationMatrix(const std::string filename)
+{
     std::ofstream out;
     out.open(filename.c_str(), std::ios::out);
 
