@@ -63,7 +63,7 @@ public:
     
     /**
      * @brief The update method for the model.
-     * @details This method updates all the model parameters with giving DPars.
+     * @details This method updates all the model parameters with given DPars.
      * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
      * (including parameters that are varied and those that are held constant)
      * @return a boolean that is true if the execution is successful

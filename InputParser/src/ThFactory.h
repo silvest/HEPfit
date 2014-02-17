@@ -110,7 +110,7 @@
  * </tr>
  * </table>
  *
- * @li Epsilon Parameters:
+ * @li Epsilon %Parameters:
  * 
  * <table class="observables">
  * <tr>
@@ -326,7 +326,7 @@
  * </tr>
  * </table>
  *
- * @li %Model Parameters of StandardModel class:
+ * @li %Model %Parameters of StandardModel class:
  * 
  * <table class="observables">
  * <tr>
@@ -346,7 +346,7 @@
  * </tr>
  * </table>
  *
- * @li %Model Parameters, etc. of NPEffective1 and NPEffective2 classes:
+ * @li %Model %Parameters, etc. of NPEffective1 and NPEffective2 classes:
  * 
  * <table class="observables">
  * <tr>
@@ -388,7 +388,7 @@
  * </tr>
  * </table>
  *
- * @li %Model Parameters, etc. of NPZbbbar class:
+ * @li %Model %Parameters, etc. of NPZbbbar class:
  * 
  * <table class="observables">
  * <tr>
@@ -503,7 +503,7 @@ public:
     ThFactory(const StandardModel& myModel);
     
     /**
-     * @brief The default destructor. It destroys all the non-NULL pointers
+     * @brief Destructor for deleting all the non-NULL pointers
      * in the thobs map.
      */
     virtual ~ThFactory();

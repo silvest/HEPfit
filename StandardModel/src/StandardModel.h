@@ -363,7 +363,7 @@ public:
 
     /**
      * @brief The update method for %StandardModel.
-     * @details This method updates all the model parameters with giving DPars.
+     * @details This method updates all the model parameters with given DPars.
      * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
      * (including parameters that are varied and those that are held constant)
      * @return a boolean that is true if the execution is successful
@@ -373,9 +373,10 @@ public:
     /**
      * @brief The post-update method for %StandardModel.
      * @details This method runs all the procedures that are need to be executed
-     * after the model is successfully updated. This includes updating
-     * any other variable that needs to be updated at this time due to the update
-     * of the model parameters
+     * after the model is successfully updated. This includes 
+     * \li computing the updated CKM and PMNS matrices
+     * \li computing the Yukawa matrices
+     * \li updating the Standard %Model parameters in the StandardModelMatching class.
      * @return a boolean that is true if the execution is successful
      */
     virtual bool PostUpdate();
