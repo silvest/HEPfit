@@ -197,6 +197,16 @@ class EWSM; // forward reference to EWSM class
  * individual model parameter is assigned with the protected member function
  * setParameter(). 
  *
+ * The parameters delMw, delSin2th_l, delGammaZ represent theoretical uncertainties 
+ * in the @f$W@f$-boson mass, the leptonic effective weak mixing angle at the 
+ * @f$Z@f$-boson mass scale and the total decay width of the @f$Z@f$ boson, 
+ * respectively, originating from missing higher-order corrections. The contributions
+ * from these parameters are incorporated into their two-loop approximate formulae:
+ * EWSMApproximateFormulae::Mw(), EWSMApproximateFormulae::sin2thetaEff_l() and
+ * EWSMApproximateFormulae::X_extended("GammaZ"). Therefore, the parameters are
+ * applicable only when the corresponding approximate formulae are employed.
+ * See also the model flags below. 
+ *
  *
  * @anchor StandardModelFlags
  * <h3>%Model flags</h3>
@@ -270,6 +280,13 @@ class EWSM; // forward reference to EWSM class
  * IsFlagWithoutNonUniversalVC(), IsFlagNoApproximateGammaZ()
  * getFlagMw(), getFlagRhoZ() and getFlagKappaZ()
  * are used to retrieve the values of each flag.
+ *
+ * The first two flags CacheInEWSM and CacheInEWSMcache for the cashing methods
+ * in EWSM and EWSMcache classes are relevant to the computations of the electroweak 
+ * precision observables. Those caches are effective when the @f$W@f$-boson mass,
+ * the decay widths of the @f$Z@f$ boson and the @f$Zf\bar{f}@f$ effective couplings
+ * @f$\kappa_Z^f@f$ are calculated without using their two-loop approximate formulae.
+ *
  *
  */
 class StandardModel: public QCD {

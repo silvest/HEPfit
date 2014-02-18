@@ -243,7 +243,7 @@ bool StandardModel::setFlag(const std::string name, const bool value)
     } else if (name.compare("CacheInEWSMcache") == 0) {
         myEWSM->getMyCache()->setFlagCacheInEWSMcache(value);
         res = true;
-    } else if (name.compare("withoutNonUniversalVCinEpsilons") == 0) {
+    } else if (name.compare("WithoutNonUniversalVC") == 0) {
         FlagWithoutNonUniversalVC = value;
         res = true;
     } else if (name.compare("NoApproximateGammaZ") == 0) {
