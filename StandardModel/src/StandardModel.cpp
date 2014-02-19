@@ -262,17 +262,24 @@ bool StandardModel::setFlagStr(const std::string name, const std::string value)
         if (myEWSM->checkEWPOscheme(value)) {
             FlagMw = value;
             res = true;
-        }
+        } else
+            throw std::runtime_error("StandardModel::setFlagStr(): Invalid flag "
+                                     + name + "=" + value);
+
     } else if (name.compare("RhoZ") == 0) {
         if (myEWSM->checkEWPOscheme(value)) {
             FlagRhoZ = value;
             res = true;
-        }
+        } else
+            throw std::runtime_error("StandardModel::setFlagStr(): Invalid flag "
+                                     + name + "=" + value);
     } else if (name.compare("KappaZ") == 0) {
         if (myEWSM->checkEWPOscheme(value)) {
             FlagKappaZ = value;
             res = true;
-        }
+        } else
+            throw std::runtime_error("StandardModel::setFlagStr(): Invalid flag "
+                                     + name + "=" + value);
     } else
         res = QCD::setFlagStr(name,value);
 
