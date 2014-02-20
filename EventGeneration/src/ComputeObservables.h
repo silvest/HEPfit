@@ -19,7 +19,12 @@
 
 /**
  * @addtogroup EventGeneration
- * @brief A module for
+ * @brief A module for accessing the observables without a MCMC run.
+ * @details This module is for using the implementations of the observables without
+ * running a Markov Chain Monte Carlo. It contains code that allows for generations
+ * of events using the random number generator from ROOT. It also allows for accessing
+ * the observables in a library mode where the user can specify the parameters and 
+ * compute the observables.
  * @{
  */
 
