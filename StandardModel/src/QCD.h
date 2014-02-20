@@ -829,7 +829,7 @@ public:
     /**
      * @brief The value of \f$\alpha_s^{FULLNLO}\f$ at any scale \f$\mu\f$ with the number of flavours
      * \f$n_f = 4\f$.
-     * @attention tTemporary function waiting for the implementation of NNLO etact.
+     * @attention Temporary function waiting for the implementation of NNLO etact.
      * @param[in] mu the scale at which \f$\alpha_s\f$ has to be computed
      * @return \f$\alpha_s^{FULLNLO}(\mu)\f$ with \f$n_f = 4\f$
      */
@@ -837,7 +837,7 @@ public:
     
     /**
      * @brief the running of a mass with the number of flavours \f$n_f = 4\f$.
-     * @attention tTemporary function waiting for the implementation of NNLO etact.
+     * @attention Temporary function waiting for the implementation of NNLO etact.
      * @param[in] mu_f the final scale \f$\mu_f\f$ to which the mass is run
      * @param[in] mu_i the initial scale \f$\mu_i\f$ from which the mass is run
      * @param[in] m the mass at the scale \f$\mu_i\f$
@@ -983,7 +983,7 @@ private:
      * @brief A member for calculating the difference in \f$\alpha_s^{FULLNLO}\f$ across the six-five 
      * flavour threshold using AlsWithLambda()
      * @param[in] logLambda6 \f$\log(\Lambda_{\rm QCD}^{(6)})\f$
-     * @param[in] logLambda5_in \f$\log(\Lambda_{\rm QCD}_{(5)})\f$
+     * @param[in] logLambda5_in \f$\log(\Lambda_{\rm QCD}^{(5)})\f$
      * @return the difference \f$\alpha_s^{FULLNLO}(\mu_t+\epsilon)\f$ - \f$\alpha_s^{FULLNLO}(\mu_t-\epsilon)\f$
      * with \f$\epsilon = 10^{-10}\f$
      */
@@ -992,7 +992,7 @@ private:
     /**
      * @brief A member for calculating the difference in \f$\alpha_s^{FULLNLO}\f$ using
      * AlsWithLambda() and the input vaue of \f$\alpha_s^(M_Z)\f$ given in the SomeModel.conf file
-     * @param[in] logLambda5 \f$\log(\Lambda_{\rm QCD}_{(5)})\f$
+     * @param[in] logLambda5 \f$\log(\Lambda_{\rm QCD}^{(5)})\f$
      * @param[in] order the QCD order of the calculation
      * @return \f$\alpha_s^{FULLNLO}(M_z)\f$ - \f$\alpha_s^(M_Z)\f$
      */
@@ -1001,8 +1001,8 @@ private:
     /**
      * @brief A member for calculating the difference in \f$\alpha_s^{FULLNLO}\f$ across the four-five
      * flavour threshold using AlsWithLambda()
-     * @param[in] logLambda4 \f$\log(\Lambda_{\rm QCD}_{(4)})\f$
-     * @param[in] logLambda5_in \f$\log(\Lambda_{\rm QCD}_{(5)})\f$
+     * @param[in] logLambda4 \f$\log(\Lambda_{\rm QCD}^{(4)})\f$
+     * @param[in] logLambda5_in \f$\log(\Lambda_{\rm QCD}^{(5)})\f$
      * @return the difference \f$\alpha_s^{FULLNLO}(\mu_b-\epsilon)\f$ - \f$\alpha_s^{FULLNLO}(\mu_b+\epsilon)\f$
      * with \f$\epsilon = 10^{-10}\f$
      */
@@ -1011,8 +1011,8 @@ private:
     /**
      * @brief A member for calculating the difference in \f$\alpha_s^{FULLNLO}\f$ across the six-five
      * flavour threshold using AlsWithLambda()
-     * @param[in] logLambda3 \f$\log(\Lambda_{\rm QCD}_{(3)})\f$
-     * @param[in] logLambda4_in \f$\log(\Lambda_{\rm QCD}_{(4)})\f$
+     * @param[in] logLambda3 \f$\log(\Lambda_{\rm QCD}^{(3)})\f$
+     * @param[in] logLambda4_in \f$\log(\Lambda_{\rm QCD}^{(4)})\f$
      * @return the difference \f$\alpha_s^{FULLNLO}(\mu_c-\epsilon)\f$ - \f$\alpha_s^{FULLNLO}(\mu_c+\epsilon)\f$
      * with \f$\epsilon = 10^{-10}\f$
      */
@@ -1021,12 +1021,12 @@ private:
     /**
      * @brief \f$\log(\Lambda_{\rm QCD})\f$ for \f$n_f = 5\f$.
      * @param[in] order the QCD order of the computation
-     * @return \f$\log(\Lambda_{\rm QCD}_5)\f$
+     * @return \f$\log(\Lambda_{\rm QCD}^{(5)})\f$
      */
     double logLambda5(orders order) const;
     
     /**
-     * @brief \f$\log(\Lambda_{\rmQCD})\f$ used for computation of \f$\alpha_s\f$ at FULLNLO
+     * @brief \f$\log(\Lambda_{\rm QCD})\f$ used for computation of \f$\alpha_s\f$ at FULLNLO
      * @param[in] nfNEW the number of flavours after crossing the flavour threshold
      * @param[in] nfORG the number of flavours before crossing the flavour threshold
      * @param[in] logLambdaORG the value of \f$\log(\Lambda_{\rm QCD})\f$ with \f$n_f = nfORG\f$
