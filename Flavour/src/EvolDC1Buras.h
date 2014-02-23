@@ -90,7 +90,7 @@ class EvolDC1Buras : public RGEvolutor {
      * @param order an enum "orders" for the order of perturbation theory of the threshold (LO is trivial)
      */
     void DC1PenguinThresholds(double M, orders order);
-    gslpp::matrix<complex> v, vi, gg, js, h, jv, vij, s_s, jss, jssv;
+    gslpp::matrix<complex> v, vi, js, h, gg, s_s, jssv, jss, jv, vij;
     gslpp::vector<complex> e;
     
  };

@@ -59,7 +59,7 @@ private:
     double phiNP;
     double timeInt;
     double yd;
-    double tF;
+    //double tF;
     int obs;
     
 };

@@ -19,7 +19,8 @@ public:
      * constructor
      * @param Flavour
      */
-    BR_Bdnunu(Flavour& Flavour): ThObservable(Flavour), myFlavour(Flavour){};
+    BR_Bdnunu(Flavour& Flavour): ThObservable(Flavour)//, myFlavour(Flavour)
+    {};
     
     /**
      * 
@@ -40,7 +41,7 @@ protected:
     complex BRBdnunu(orders order);
     
 private:
-    Flavour& myFlavour;
+    //Flavour& myFlavour;
 };
 
 #endif	/* BR_BDNUNU_H */

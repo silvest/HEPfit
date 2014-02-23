@@ -9,10 +9,10 @@
 
 Charm_Kpnunu::Charm_Kpnunu(const StandardModel& model_i) 
 : model(model_i), modelmatching(*(model_i.getMyMatching())),
-cp(3,0.), dcp(3,0.), c_p(3,0.), dc_p(3,0.), cpmuW0(3,0.), cpmuW1(3,0.), cpmuW2(3,0.),  
-U4p(3,0.), U5p(3,0.), J5p1(3,0.), J4p1(3,0.), J5p2(3,0.), J4p2(3,0.),
-cb(2,0.), dcb(2,0.), c_b(2,0.), dc_b(2,0.), cbmuW0(2,0.), cbmuW1(2,0.), cbmuW2(2,0.),
-U4b(2,0.), U5b(2,0.), J5b1(2,0.), J4b1(2,0.), J5b2(2,0.), J4b2(2,0.){
+cp(3,0.), dcp(3,0.), c_p(3,0.), cpmuW0(3,0.), cpmuW1(3,0.), cpmuW2(3,0.),  
+cb(2,0.), dcb(2,0.), c_b(2,0.), cbmuW0(2,0.), cbmuW1(2,0.), cbmuW2(2,0.),
+U4p(3,0.), U5p(3,0.), J5p1(3,0.), J4p1(3,0.), J5p2(3,0.), J4p2(3,0.), dc_p(3,0.),
+U4b(2,0.), U5b(2,0.), J5b1(2,0.), J4b1(2,0.), J5b2(2,0.), J4b2(2,0.), dc_b(2,0.) {
 
 CP = 0.;    
 CBe = 0.;

@@ -9,8 +9,8 @@
 #include "EvolDF2.h"
 
 EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardModel& model) :
-        model(model),
-        RGEvolutor(dim, scheme, order)
+        RGEvolutor(dim, scheme, order),
+        model(model)
 {
     double Nc = model.getNc();
     matrix<double> v(5, 5, 0.);
@@ -268,10 +268,10 @@ void EvolDF2::Df2Evol(double mu, double M, double nf, schemes scheme) {
 double EvolDF2::etacc(double  mu) const{
     double N = model.getNc();
     double N2 = N * N;
-    double gamma0[2] = {0.}, gamma1[2][4] = {0.}, d[2][4] = {0.}, 
-           J[2][4] = {0.}, dd[2][2][4] = {0.}, JJ[2][2][4] = {0.}, 
+    double gamma0[2] = {0.}, gamma1[2][4] = {{0.}}, d[2][4] = {{0.}},
+           J[2][4] = {{0.}}, dd[2][2][4] = {{{0.}}}, JJ[2][2][4] = {{{0.}}},
            B[2] = {0.}; // 0 = + ; 1 = - ;
-    double tau[2][2] = {0.}, K[2][2] = {0.}, beta[2][2] = {0.};
+    double tau[2][2] = {{0.}}, K[2][2] = {{0.}}, beta[2][2] = {{0.}};
     
     gamma0[0] = 6.*(N-1.)/N;
     gamma0[1] = -6.*(N+1.)/N;
@@ -384,9 +384,9 @@ double EvolDF2::etatt(double m) const {
     double x4 = x3 * x;
     double xm2 = (1 - x) * (1 - x);
     double xm3 = xm2 * (1 - x);
-    double xm4 = xm3 * (1 - x);
+    //double xm4 = xm3 * (1 - x);
     double logx = log(x);
-    double Li2 = gsl_sf_dilog(1-x);
+    //double Li2 = gsl_sf_dilog(1-x);
     
     double S0tt = (4. * x - 11. * x2 + x3) / 4. / xm2 -
     3. * x3 / (2. * xm3) * logx;
@@ -405,9 +405,9 @@ double EvolDF2::etatt(double m) const {
     
     double b = (4. - 22. * x + 15. * x2 + 2. * x3 + x4 - 18. * x2 * logx)
     / ((-1. + x) * (-4. + 15. * x - 12. * x2 + x3 + 6. * x2 * logx));
-    double AlsT = model.Als(model.getMut());
-    double AlsB = model.Als(model.getMub());
-    double AlsC = model.Als(model.getMuc());
+    //double AlsT = model.Als(model.getMut());
+    //double AlsB = model.Als(model.getMub());
+    //double AlsC = model.Als(model.getMuc());
     
     double eta =  pow(model.Als(model.getMuc()), 6./27.) *
                   pow(model.Als(model.getMub())/model.Als(model.getMuc()), 6./25.) *

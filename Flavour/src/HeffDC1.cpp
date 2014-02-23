@@ -11,7 +11,7 @@ using namespace gslpp;
 
 HeffDC1::HeffDC1(const StandardModel & SM, StandardModelMatching & SM_Matching) :
         model(SM), modelmatching(SM_Matching), coeffdc1(10, NDR, NLO), 
-        coeffdc1g(10, NDR, NLO), u(10, NDR, NLO, SM), ug(10, NDR, NLO, SM), 
+        coeffdc1g(10, NDR, NLO), ug(10, NDR, NLO, SM), u(10, NDR, NLO, SM), 
         ckm(3,0.), COEFF_pi(10,0.), COEFF_K(10,0.){
   
     double co = - 4. * model.getGF() / sqrt(2);
@@ -44,7 +44,7 @@ vector<complex>** HeffDC1::ComputeCoeffDC1_pi(double mu, schemes scheme) {
     const std::vector<WilsonCoefficient>& mc = modelmatching.CMd1();
     coeffdc1.setMu(mu); 
     orders ordDF1 = coeffdc1.getOrder();
-    for (int i = 0; i < mc.size(); i++){
+    for (unsigned int i = 0; i < mc.size(); i++){
         if(i != 1){
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
@@ -67,7 +67,7 @@ vector<complex>** HeffDC1::ComputeCoeffDC1_K(double mu, schemes scheme) {
     coeffdc1.setMu(mu); 
     
     orders ordDF1 = coeffdc1.getOrder();
-    for (int i = 0; i < mc.size(); i++){
+    for (unsigned int i = 0; i < mc.size(); i++){
         std::cout << " SIZE i " << i << std::endl << std::endl;
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){

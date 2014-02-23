@@ -8,10 +8,10 @@
 #include "HeffDS1.h"
 
 HeffDS1::HeffDS1(const StandardModel & SM) :
-        model(SM), u(10, NDR, NLO, NLO_ew, SM), uM(10, NDR, NLO, SM),
-        coeffds1 (10, NDR, NLO, NLO_ew), 
-        coeffds1pnunu(1, NDR, NLO, NLO_ew),
-        coeffds1mumu(1, NDR, NLO), coeffds1cc(10, NDR, NLO), 
+        model(SM), 
+        coeffds1 (10, NDR, NLO, NLO_ew), coeffds1cc(10, NDR, NLO),
+        coeffds1pnunu(1, NDR, NLO, NLO_ew), coeffds1mumu(1, NDR, NLO),
+        u(10, NDR, NLO, NLO_ew, SM), uM(10, NDR, NLO, SM),
         DS1cce(10, 0.), DS1cc(10, 0.){
 }
 
@@ -31,7 +31,7 @@ vector<complex>** HeffDS1::ComputeCoeffDS1PP(double mu, schemes scheme) {
     switch(scheme) {
     
         case NDR:
-            for (int i = 0; i < mcb.size(); i++){
+            for (unsigned int i = 0; i < mcb.size(); i++){
                                    
                 //evolves until the chram trheshold
                 if (i == 0){
@@ -136,7 +136,7 @@ vector<complex>** HeffDS1::ComputeCoeffDS1pnunu() {
     orders ordDF1 = coeffds1pnunu.getOrder();
     orders_ew ordDF1_ew = coeffds1pnunu.getOrder_ew();
     
-    for (int i = 0; i < mcb.size(); i++){
+    for (unsigned int i = 0; i < mcb.size(); i++){
         for (int j = LO; j <= ordDF1; j++){
             coeffds1pnunu.setCoeff(*coeffds1pnunu.getCoeff(orders(j))
                                     + *mcb[i].getCoeff(orders(j)), orders(j));
@@ -156,7 +156,7 @@ vector<complex>** HeffDS1::ComputeCoeffDS1mumu() {
     
     orders ordDF1 = coeffds1mumu.getOrder();
     
-    for (int i = 0; i < mcb.size(); i++){
+    for (unsigned int i = 0; i < mcb.size(); i++){
         for (int j = LO; j <= ordDF1; j++){
             coeffds1mumu.setCoeff(*coeffds1mumu.getCoeff(orders(j))
                                     + *mcb[i].getCoeff(orders(j)), orders(j));

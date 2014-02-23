@@ -93,7 +93,7 @@ class EvolDF1bsg : public RGEvolutor {
      * @param scheme an enum "schemes" for the regularization scheme of the evolutor
      */
     void Df1Evolbsg(double mu, double M, double nf, schemes scheme);
-    gslpp::matrix<complex> v, vi, gg, js, h, jv, vij, s_s, jss, jssv;
+    gslpp::matrix<complex> v, vi, js, h, gg, s_s, jssv, jss, jv, vij;
     gslpp::vector<complex> e;
     
  };
