@@ -43,6 +43,8 @@ public:
      */
     virtual ~LoopToolsWrapper();
     
+#ifdef USE_LOOPTOOLS
+
     /**
      * @brief @f$A_0(m^2)@f$.
      * @param[in] mu2 the renormalization scale squared, @f$\mu^2@f$
@@ -168,6 +170,8 @@ public:
      */
     complex PV_D00(const double s, const double t, const double m02, const double m12,
                    const double m22, const double m32) const;
+
+#endif
 
 };
 

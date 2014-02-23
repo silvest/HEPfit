@@ -244,11 +244,11 @@ double CPenguinBox::Cmatch(orders order){
     double l=log(Muc*Muc/mc/mc);
     double A = model.Als(Muc, FULLNNLO);
     
-    double etac = model.Als(Muc)/model.Als(mc);
+    //double etac = model.Als(Muc)/model.Als(mc);
     double etab = model.Als(Muw)/model.Als(model.getMub());
     double etacb = model.Als(model.getMub())/model.Als(Muc);
     double xtau = pow(1.7769/Muw,2.);
-    double kc = pow(etac, 24./25.);
+    //double kc = pow(etac, 24./25.);
     
     r1(0) = 4.*(1.-l);
     r1(1) = -2.*(1.-l);

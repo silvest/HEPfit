@@ -110,7 +110,8 @@ private:
     vector<double> CBM0, CBM1, CBM2;
     
     double r1tau, r2tau, r1e, r2e;
-    double tbp, tbb, eta;
+    //double tbp, tbb;
+    double eta;
     
     double cpm, cbmt, cbme;
 

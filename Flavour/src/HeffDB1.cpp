@@ -11,13 +11,14 @@
 using namespace gslpp;
 
 HeffDB1::HeffDB1(const StandardModel & SM) :
-        model(SM), u(10, NDR, NLO, NLO_ew, SM), 
-        coeffnlep00 (12, NDR, NLO, NLO_ew), coeffnlep00qcd (10, NDR, NLO, NLO_ew), coeffnlep00CC(10, NDR, NLO),
-        coeffnlep10 (12, NDR, NLO, NLO_ew), coeffnlep10qcd (10, NDR, NLO, NLO_ew), coeffnlep10CC(10, NDR, NLO),
-        coeffnlep01 (10, NDR, NLO), coeffnlep01A(10, NDR, NLO), coeffnlep01B(4, NDR, NLO),
-        coeffnlep11 (10, NDR, NLO), coeffnlep11A(10, NDR, NLO), coeffnlep11B(4, NDR, NLO),
+        model(SM), 
+        coeffnlep00qcd (10, NDR, NLO, NLO_ew), coeffnlep00 (12, NDR, NLO, NLO_ew),
+        coeffnlep10qcd (10, NDR, NLO, NLO_ew), coeffnlep10 (12, NDR, NLO, NLO_ew),
+        coeffnlep01 (10, NDR, NLO), coeffnlep01A(10, NDR, NLO), coeffnlep01B(4, NDR, NLO), coeffnlep00CC(10, NDR, NLO),
+        coeffnlep11 (10, NDR, NLO), coeffnlep11A(10, NDR, NLO), coeffnlep11B(4, NDR, NLO), coeffnlep10CC(10, NDR, NLO),
         coeffsmumu (6, NDR, NLO), coeffdmumu (6, NDR, NLO),
         coeffsnunu (1, NDR, NLO), coeffdnunu (1, NDR, NLO),
+        u(10, NDR, NLO, NLO_ew, SM), 
         nlep (12, 0.), nlep2(10, 0.), nlepCC(4, 0.){
 }
 
@@ -41,7 +42,7 @@ vector<complex>** HeffDB1::ComputeCoeffBnlep00(double mu, schemes scheme) {
     orders_ew ordDF1ew = coeffnlep00.getOrder_ew();
     orders ordDF1 =  coeffnlep00.getOrder();
     
-    for (int i = 0; i < mcb.size(); i++){
+    for (unsigned int i = 0; i < mcb.size(); i++){
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++) {        
                 
@@ -116,7 +117,7 @@ vector<complex>** HeffDB1::ComputeCoeffBnlep10(double mu, schemes scheme) {
     orders_ew ordDF1ew = coeffnlep10.getOrder_ew();
     orders ordDF1 =  coeffnlep10.getOrder();
     
-    for (int i = 0; i < mcb.size(); i++){
+    for (unsigned int i = 0; i < mcb.size(); i++){
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++)   {
                 
@@ -189,7 +190,7 @@ vector<complex>** HeffDB1::ComputeCoeffBnlep01(double mu, schemes scheme) {
     orders ordDF1 = coeffnlep01A.getOrder();
     
     //evolution of the current*current terms
-    for (int i = 0; i < mcbCC1.size(); i++)
+    for (unsigned int i = 0; i < mcbCC1.size(); i++)
         for (int j = LO; j <= ordDF1; j++)
             for (int k = LO; k <= j; k++){
                 
@@ -238,7 +239,7 @@ vector<complex>** HeffDB1::ComputeCoeffBnlep11(double mu, schemes scheme) {
     
     orders ordDF1 = coeffnlep11A.getOrder();
     
-    for (int i = 0; i < mcbCC1.size(); i++)
+    for (unsigned int i = 0; i < mcbCC1.size(); i++)
         for (int j = LO; j <= ordDF1; j++)
             for (int k = LO; k <= j; k++){
                 
@@ -276,7 +277,7 @@ vector<complex>** HeffDB1::ComputeCoeffsmumu() {
     coeffsmumu.resetCoefficient();
     orders ordDF1 = coeffsmumu.getOrder();
     
-    for (int i = 0; i < mcb.size(); i++){
+    for (unsigned int i = 0; i < mcb.size(); i++){
         for (int j = LO; j <= ordDF1; j++){
             coeffsmumu.setCoeff(*coeffsmumu.getCoeff(orders(j))
                                     + *mcb[i].getCoeff(orders(j)), orders(j));
@@ -292,7 +293,7 @@ vector<complex>** HeffDB1::ComputeCoeffdmumu() {
     coeffdmumu.resetCoefficient();
     orders ordDF1 = coeffdmumu.getOrder();
     
-    for (int i = 0; i < mcb.size(); i++){
+    for (unsigned int i = 0; i < mcb.size(); i++){
         for (int j = LO; j <= ordDF1; j++){
             coeffdmumu.setCoeff(*coeffdmumu.getCoeff(orders(j))
                                     + *mcb[i].getCoeff(orders(j)), orders(j));
@@ -307,7 +308,7 @@ vector<complex>** HeffDB1::ComputeCoeffsnunu() {
     
     orders ordDF1 = coeffsnunu.getOrder();
     
-    for (int i = 0; i < mcb.size(); i++){
+    for (unsigned int i = 0; i < mcb.size(); i++){
         for (int j = LO; j <= ordDF1; j++){
             coeffsnunu.setCoeff(*coeffsnunu.getCoeff(orders(j))
                                     + *mcb[i].getCoeff(orders(j)), orders(j));
@@ -323,7 +324,7 @@ vector<complex>** HeffDB1::ComputeCoeffdnunu() {
     
     orders ordDF1 = coeffdnunu.getOrder();
     
-    for (int i = 0; i < mcb.size(); i++){
+    for (unsigned int i = 0; i < mcb.size(); i++){
         for (int j = LO; j <= ordDF1; j++){
             coeffdnunu.setCoeff(*coeffdnunu.getCoeff(orders(j))
                                     + *mcb[i].getCoeff(orders(j)), orders(j));

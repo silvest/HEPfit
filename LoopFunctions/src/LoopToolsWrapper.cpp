@@ -5,19 +5,20 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifdef USE_LOOPTOOLS
-
 #include <iostream>
 #include <stdexcept>
 #include <complex>
-#include <clooptools.h>
 #include "PVfunctions.h" // needed for USE_LOOPTOOLS macro
 #include "LoopToolsWrapper.h"
-
+#ifdef USE_LOOPTOOLS
+#include <clooptools.h>
 static bool LoopToolsInit = false;
+#endif
+
 
 LoopToolsWrapper::LoopToolsWrapper()
 {
+#ifdef USE_LOOPTOOLS
     if (!LoopToolsInit) {
         //std::cout << std::endl;
         ltini();
@@ -29,16 +30,21 @@ LoopToolsWrapper::LoopToolsWrapper()
      * dimensional regularization is employed for IR divergences and that 
      * the finite piece is returned from an IR-divergent loop function. */
     setlambda(0.0);
+#endif
 }
 
 LoopToolsWrapper::~LoopToolsWrapper()
 {
+    //#ifdef USE_LOOPTOOLS
     // for debug
     //std::cout << std::endl
     //          << "************* LoopTools ****************" << std::endl;
     //ltexi();
     //std::cout << "****************************************" << std::endl;
+    //#endif
 }
+
+#ifdef USE_LOOPTOOLS
 
 double LoopToolsWrapper::PV_A0(const double mu2, const double m2) const
 {
@@ -134,7 +140,6 @@ complex LoopToolsWrapper::PV_D00(const double s, const double t, const double m0
 
     throw std::runtime_error("LoopToolsWrapper::PV_D00: Not implemented!");
 }
-
 
 #endif // #ifdef USE_LOOPTOOLS
 

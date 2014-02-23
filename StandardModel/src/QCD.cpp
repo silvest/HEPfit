@@ -1,5 +1,5 @@
 /* 
- * Copyright (C) 2012-2013 SusyFit Collaboration
+ * Copyright (C) 2012-2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -716,8 +716,8 @@ double QCD::logLambda(const double muMatching, const double mf,
     
     double logMuMatching = log(muMatching);    
     double L = 2.*(logMuMatching - logLambdaORG);
-    double rNEW, rORG, log_mu2_mf2, log_L;
-    double C1, C2; // threshold corrections        
+    double rNEW = 0.0, rORG = 0.0, log_mu2_mf2 = 0.0, log_L = 0.0;
+    double C1 = 0.0, C2 = 0.0; // threshold corrections
     double logLambdaNEW; 
     
     // LO contribution

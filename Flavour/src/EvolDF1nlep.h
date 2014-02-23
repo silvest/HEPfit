@@ -85,7 +85,7 @@ class EvolDF1nlep : public RGEvolutor {
      * @param nu an unsigned integer for the up-type number of d.o.f.
      * @param nu an unsigned integer for the down-type number of d.o.f.
      */
-    int nu,nd;
+    //int nu,nd;
     /**
      * @param a array of double for the magic numbers of the evolutor ( LO evolution )
      * @param b array of double for the magic numbers of the evolutor ( LO evolution ) 

@@ -15,6 +15,7 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     StandardModelMatching(SUSY_i),
     mySUSY(SUSY_i),
 
+    mcdbd2(5, NDR, NLO),
     mcdbd2Hp(5, NDR, NLO),
     mcdbd2gg(5, NDR, NLO),
     mcdbd2ChiChi(5, NDR, NLO),
@@ -25,6 +26,7 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     mcdbd2ChiChiT(5, NDR, NLO),
     mcdbd2Chi0Chi0T(5, NDR, NLO),
     mcdbd2Chi0gT(5, NDR, NLO),
+    mcdbs2(5, NDR, NLO),
     mcdbs2Hp(5, NDR, NLO),
     mcdbs2gg(5, NDR, NLO),
     mcdbs2ChiChi(5, NDR, NLO),
@@ -35,6 +37,7 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     mcdbs2ChiChiT(5, NDR, NLO),
     mcdbs2Chi0Chi0T(5, NDR, NLO),
     mcdbs2Chi0gT(5, NDR, NLO),
+    mcdk2(5, NDR, NLO),
     mcdk2Hp(5, NDR, NLO),
     mcdk2gg(5, NDR, NLO),
     mcdk2ChiChi(5, NDR, NLO),
@@ -45,6 +48,7 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     mcdk2ChiChiT(5, NDR, NLO),
     mcdk2Chi0Chi0T(5, NDR, NLO),
     mcdk2Chi0gT(5, NDR, NLO),
+    mcdd2(5, NDR, NLO),
     mcdd2Hp(5, NDR, NLO),
     mcdd2gg(5, NDR, NLO),
     mcdd2ChiChi(5, NDR, NLO),
@@ -55,40 +59,35 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
     mcdd2ChiChiT(5, NDR, NLO),
     mcdd2Chi0Chi0T(5, NDR, NLO),
     mcdd2Chi0gT(5, NDR, NLO),
-    mcdbd2(5, NDR, NLO),
-    mcdbs2(5, NDR, NLO),
-    mcdd2(5, NDR, NLO),
-    mcdk2(5, NDR, NLO),
+    mcDL1(2, NDR, LO),
     mcbsg(10, NDR, NLO),
     mcbnlep(10, NDR, NLO, NLO_ew),
     mcbnlepCC(10, NDR, NLO),
     mcd1(10, NDR, NLO),
     mcd1Buras(10, NDR, NLO),
         
-    mcDL1(2, NDR, LO),
-    mym_sn_sq(6, 0.),
-    mym_se_sq(6, 0.),
-
     myCKM(3, 3, 0.),
     myRu(6, 6, 0.),
     myRd(6, 6, 0.),
     myRl(6, 6, 0.),
+    mym_sn_sq(6, 0.),
+    mym_se_sq(6, 0.),
     MChi0(4, 0.),
     MChi(2, 0.),
     myN(4, 4, 0.),
     myV(2, 2, 0.),
     myU(2, 2, 0.),
 
-    myCKM_cache(3, 3, 0.),
-    DeltaMd_cache(3, 3, 0.),
-    mySUSYMQ(6, 0.),
-    VUDHH_cache(6, 6, 0.),
     Eps_JCache(3,0.),
     Lambda0EpsYCache(3,3,0.),
+    DeltaDL_Cache(3,3,0.),
     PHLRCache(3,3,0.),
     PHRLCache(3,3,0.),
-    DeltaDL_Cache(3,3,0.) {
-
+    myCKM_cache(3, 3, 0.),
+    VUDHH_cache(6, 6, 0.),
+    DeltaMd_cache(3, 3, 0.),
+    mySUSYMQ(6, 0.)
+{
 }
 
 
@@ -560,7 +559,7 @@ void SUSYMatching::Comp_DeltaMd() {
     myMU2Squarks = mySUSY.getMsu2();
     myMD2Squarks = mySUSY.getMsd2();
 
-    int k, l, I, J, i, j;
+    int k, l, I, J;//, i, j;
     
     for (J = 0; J < 3; J++) {
         for (I = 0; I < 3; I++) {
@@ -1213,7 +1212,7 @@ void SUSYMatching::Comp_VUDHH(){
     ZH.assign(0, 1, -mySUSY.getCosb());
     ZH.assign(1, 0, mySUSY.getCosb());
     ZH.assign(1, 1, mySUSY.getSinb());
-    int I, J, l, i, j;
+    int I, J, i, j;// ,l;
 
     for (i = 0; i < 6; i++) {
         for (j = 0; j < 6; j++) {

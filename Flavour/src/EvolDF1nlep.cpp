@@ -8,12 +8,13 @@
 #include "EvolDF1nlep.h"
 
 EvolDF1nlep::EvolDF1nlep(unsigned int dim, schemes scheme, orders order, orders_ew 
-    order_ew, const StandardModel& model) : model(model), V(10,0.), Vi(10,0.),
+    order_ew, const StandardModel& model)
+: RGEvolutor(dim, scheme, order, order_ew), model(model), V(10,0.), Vi(10,0.),
     gs(10,0.), Js(10,0.), ge0(10,0.), K0(10,0.), ge11(10,0.), K11(10,0.),
     JsK0V(10,0.), ViK0Js(10,0.), Gamma_s0T(10,0.), Gamma_s1T(10,0.), 
     Gamma_eT(10,0.), Gamma_seT(10,0.), JsV(10,0.), ViJs(10,0.), K0V(10,0.), 
     ViK0(10,0.), K11V(10,0.), ViK11(10,0.), ge11sing(10,0.), K11sing(10,0.), 
-    K11singV(10,0.), e(10,0.), RGEvolutor(dim, scheme, order, order_ew){
+    K11singV(10,0.), e(10,0.) {
     
     int nu = 0, nd = 0;
     double  b0 = 0., b1 = 0.;

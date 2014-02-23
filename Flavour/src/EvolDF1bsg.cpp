@@ -10,10 +10,9 @@
 #include <stdexcept>
 
 EvolDF1bsg::EvolDF1bsg(unsigned int dim, schemes scheme, orders order,
-             const StandardModel& model) : model(model),
-             v(10,0.), vi(10,0.), js(10,0.), h(10,0.), gg(10,0.),s_s(10,0.),
-             jssv(10,0.), jss(10,0.), jv(10,0.), vij(10,0.), e(10,0.),
-             RGEvolutor(dim, scheme, order) {
+             const StandardModel& model) : RGEvolutor(dim, scheme, order), model(model),
+             v(10,0.), vi(10,0.), js(10,0.), h(10,0.), gg(10,0.), s_s(10,0.),
+             jssv(10,0.), jss(10,0.), jv(10,0.), vij(10,0.), e(10,0.)  {
     
     /* magic numbers a & b */ 
     
