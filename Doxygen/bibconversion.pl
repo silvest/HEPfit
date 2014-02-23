@@ -57,7 +57,7 @@ _EOF_
 &usage if ($#ARGV < 0);
 &header;
 
-unlink ($ARGV[-1]);
+#unlink ($ARGV[-1]);
 
 foreach (@ARGV) {
     if (/\.bib$/ && \$_ != \$ARGV[-1]) {
