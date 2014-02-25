@@ -43,7 +43,6 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
-            <pElem>../Utils/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -59,16 +58,6 @@
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libstandardmodel.a">
-          </makeArtifact>
-          <makeArtifact PL="../Utils"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="false"
-                        WD="../Utils"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.a">
           </makeArtifact>
           <makeArtifact PL="../gslpp"
                         CT="3"
@@ -117,7 +106,6 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
-            <pElem>../Utils/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -155,7 +143,6 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
-            <pElem>../Utils/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>

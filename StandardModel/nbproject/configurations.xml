@@ -225,7 +225,6 @@
           <incDir>
             <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
-            <pElem>../Utils/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>
           </incDir>
@@ -247,16 +246,6 @@
                         BC="${MAKE}  -f Makefile CONF=Debug"
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libgslpp.a">
-          </makeArtifact>
-          <makeArtifact PL="../Utils"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="false"
-                        WD="../Utils"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.a">
           </makeArtifact>
           <makeArtifact PL="../LoopFunctions"
                         CT="3"
@@ -676,7 +665,6 @@
           <incDir>
             <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
-            <pElem>../Utils/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>
           </incDir>
@@ -721,18 +709,6 @@
                             BC="${MAKE}  -f Makefile CONF=Release"
                             CC="${MAKE}  -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../Utils"
-                            CT="3"
-                            CN="Release"
-                            AC="true"
-                            BL="true"
-                            WD="../Utils"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.a">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>
@@ -965,7 +941,6 @@
           <incDir>
             <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
-            <pElem>../Utils/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>
           </incDir>
@@ -1010,18 +985,6 @@
                             BC="${MAKE}  -f Makefile CONF=Release"
                             CC="${MAKE}  -f Makefile CONF=Release clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libloopfunctions.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../Utils"
-                            CT="3"
-                            CN="Release"
-                            AC="true"
-                            BL="true"
-                            WD="../Utils"
-                            BC="${MAKE}  -f Makefile CONF=Release"
-                            CC="${MAKE}  -f Makefile CONF=Release clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.a">
               </makeArtifact>
             </linkerLibProjectItem>
           </linkerLibItems>

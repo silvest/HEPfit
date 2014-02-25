@@ -54,7 +54,6 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../gslpp/src</pElem>
-            <pElem>../Utils/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../Observables/src</pElem>
           </incDir>
@@ -112,7 +111,6 @@
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../StandardModel/src</pElem>
-            <pElem>../Utils/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>
@@ -174,7 +172,6 @@
           <incDir>
             <pElem>../gslpp/src</pElem>
             <pElem>../StandardModel/src</pElem>
-            <pElem>../Utils/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>

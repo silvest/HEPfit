@@ -47,7 +47,6 @@
         <ccTool>
           <incDir>
             <pElem>../gslpp/src</pElem>
-            <pElem>../Utils/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
@@ -160,16 +159,6 @@
                         CC="${MAKE}  -f Makefile CONF=Debug clean"
                         OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libsusymassinsertion.a">
           </makeArtifact>
-          <makeArtifact PL="../Utils"
-                        CT="3"
-                        CN="Debug"
-                        AC="true"
-                        BL="false"
-                        WD="../Utils"
-                        BC="${MAKE}  -f Makefile CONF=Debug"
-                        CC="${MAKE}  -f Makefile CONF=Debug clean"
-                        OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libutils.a">
-          </makeArtifact>
           <makeArtifact PL="../THDM"
                         CT="3"
                         CN="Debug"
@@ -267,7 +256,6 @@
           <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../gslpp/src</pElem>
-            <pElem>../Utils/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
@@ -371,7 +359,6 @@
           <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../gslpp/src</pElem>
-            <pElem>../Utils/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>

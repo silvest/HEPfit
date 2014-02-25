@@ -131,7 +131,6 @@
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../gslpp/src</pElem>
-            <pElem>../Utils/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
@@ -333,7 +332,6 @@
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../gslpp/src</pElem>
-            <pElem>../Utils/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
@@ -522,7 +520,6 @@
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../gslpp/src</pElem>
-            <pElem>../Utils/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
