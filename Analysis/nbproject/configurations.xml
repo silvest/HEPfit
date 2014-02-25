@@ -79,8 +79,10 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
             <pElem>../FeynHiggs/lib64</pElem>
+            <pElem>../FeynHiggs/lib</pElem>
             <pElem>../BAT/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
+            <pElem>../boost/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>../BAT/lib</pElem>
@@ -384,9 +386,11 @@
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
+            <pElem>../FeynHiggs/lib64</pElem>
             <pElem>../FeynHiggs/lib</pElem>
             <pElem>../BAT/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
+            <pElem>../boost/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibProjectItem>
@@ -690,9 +694,11 @@
         <linkerTool>
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
+            <pElem>../FeynHiggs/lib64</pElem>
             <pElem>../FeynHiggs/lib</pElem>
             <pElem>../BAT_parallel/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
+            <pElem>../boost/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibProjectItem>
@@ -1000,6 +1006,7 @@
             <pElem>../FeynHiggs/lib</pElem>
             <pElem>../BAT/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
+            <pElem>../boost/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibProjectItem>
@@ -1308,6 +1315,7 @@
             <pElem>../FeynHiggs/lib</pElem>
             <pElem>../BAT_parallel/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
+            <pElem>../boost/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
             <linkerLibProjectItem>
@@ -1609,8 +1617,10 @@
           <output>${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/analysis</output>
           <linkerAddLib>
             <pElem>../FeynHiggs/lib64</pElem>
+            <pElem>../FeynHiggs/lib</pElem>
             <pElem>../BAT_parallel/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
+            <pElem>../boost/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>../BAT_parallel/lib</pElem>
