@@ -52,7 +52,7 @@ int main(int argc, char** argv)
                 ;
         string coderun = "\n *** SusyFit Routines ***\n"
                          "\nMonte Carlo mode: analysis Model.conf MonteCarlo.conf [--rootfile <name>] [--job_tag <tag>] [--thRange]"
-                         "\nGenerate Event mode: analysis Model.conf --noMC [--nI #] [--output_folder <name> [--job_tag <tag>]]\n";
+                         "\nGenerate Event mode: analysis Model.conf --noMC [--it #] [--output_folder <name> [--job_tag <tag>]]\n";
         positional_options_description pd;
         variables_map vm;
         pd.add("modconf", 1);
