@@ -29,12 +29,10 @@ ComputeObservables::ComputeObservables(const std::string& ModelConf_i,
 
 ComputeObservables::ComputeObservables(const std::string& ModelName_i,
                                        std::map<std::string, double> DPars_i,
-                                       std::map<std::string, double> DObs_i,
-                                       std::map<std::string, std::string> DFlags_i)
+                                       std::map<std::string, double> DObs_i)
 :ModelName(ModelName_i),
 DPars(DPars_i),
-DObs(DObs_i),
-DFlags(DFlags_i)
+DObs(DObs_i)
 {
     for (std::map<std::string, double>::iterator it = DPars.begin(); it != DPars.end(); it++) {
         paraNames.push_back(it->first);
@@ -46,7 +44,14 @@ DFlags(DFlags_i)
         throw std::runtime_error("parameter(s) missing in model initialization");
     }
     checkPara = 0;
-    
+}
+
+ComputeObservables::~ComputeObservables()
+{
+}
+
+void ComputeObservables::setFlags(std::map<std::string, std::string> DFlags_i){
+    DFlags = DFlags_i;
     for (std::map<std::string, std::string>::iterator it = DFlags.begin(); it != DFlags.end(); it++) {
             if (it->second.compare("true") == 0 && !Mod->setFlag(it->first, 1))
                     throw std::runtime_error("ERROR: setFlag error for " + it->first);
@@ -57,10 +62,6 @@ DFlags(DFlags_i)
             else
                 std::cout << "set flag " << it->first << "=" << it->second << std::endl;
         }
-}
-
-ComputeObservables::~ComputeObservables()
-{
 }
 
 std::map<std::string, double> ComputeObservables::compute(std::map<std::string, double> DP)

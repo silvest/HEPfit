@@ -34,7 +34,7 @@
 
 /**
  * @addtogroup EventGeneration
- * @brief A module for acessing the observables without a MCMC run.
+ * @brief A module for accessing the observables without a MCMC run.
  * @details This module is for using the implementations of the observables without
  * running a Markov Chain Monte Carlo. It contains code that allows for generations
  * of events using the random number generator from ROOT. It also allows for acessing
@@ -62,23 +62,28 @@ public:
      */
     ComputeObservables(const std::string& ModelConf_i,
                        std::map<std::string, double> DObs_i);
-        /**
+    /**
      * @brief Constructor.
      * @details This constructor passes the model parameters, model name and model flags.
      * @param[in] ModelName_i the name of the model being used
      * @param[in] DParas_i the mandatory parameters of the model being used
      * @param[in] DObs_i the map of observables to be computed
-     * @param[in] DFlags_ithe flags for the model being used
      */
+
     ComputeObservables(const std::string& ModelName_i,
                        std::map<std::string, double> DPars_i,
-                       std::map<std::string, double> DObs_i,
-                       std::map<std::string, std::string> DFlags_i);
+                       std::map<std::string, double> DObs_i);
     
     /**
      * @brief The default destructor.
      */
     virtual ~ComputeObservables();
+    
+    /**
+     * @brief This method sets the necessary flag for the requested mode.
+     * @param[in] DFlags_i the flags for the model being used
+     */    
+void setFlags(std::map<std::string, std::string> DFlags_i);
     
     /**
      * @brief The method used to compute observables

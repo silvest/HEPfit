@@ -125,7 +125,8 @@ int main(int argc, char** argv)
         DObs["GammaW"] = 0.;
         DObs["GammaZ"] = 0.;
         DObs["Mz"] = 0.;
-        ComputeObservables CO("StandardModel", DPars_IN, DObs, DFlags);
+        ComputeObservables CO("StandardModel", DPars_IN, DObs);
+        CO.setFlags(DFlags);
         
         for (int i = 0; i < 1000; i++) {
         /* Pass values to the parameters being varied */
