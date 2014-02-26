@@ -53,7 +53,7 @@ DFlags(DFlags_i)
             if (it->second.compare("false") == 0 && !Mod->setFlag(it->first, 0))
                     throw std::runtime_error("ERROR: setFlag error for " + it->first);
             if (it->second.compare("true") != 0 && it->second.compare("false") != 0 && !Mod->setFlagStr(it->first, it->second))
-                throw std::runtime_error("ERROR: setFlag error for " + it->first);
+                throw std::runtime_error("ERROR: setFlagStr error for " + it->first);
             else
                 std::cout << "set flag " << it->first << "=" << it->second << std::endl;
         }
