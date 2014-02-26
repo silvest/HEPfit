@@ -9,9 +9,24 @@
 #define	COMPUTEOBSERVABLES_H
 
 #include <InputParser.h>
-#include <TF1.h>
+#include <ThFactory.h>
 #include <Observable.h>
 #include <Observable2D.h>
+#include <StandardModel.h>
+#include <NPSTU.h>
+#include <NPSTUVWXY.h>
+#include <NPEpsilons.h>
+#include <NPEpsilons_pureNP.h>
+#include <NPHiggsST.h>
+#include <NPZbbbar.h>
+#include <NPEffective1.h>
+#include <NPEffective2.h>
+#include <GeneralSUSY.h>
+#include <pMSSM.h>
+#include <SUSYMassInsertion.h>
+#include <MFV.h>
+#include <SUSY.h>
+#include <THDM.h>
 #include <CorrelatedGaussianObservables.h>
 #include <ModelParaVsObs.h>
 #include <ModelParameter.h>
@@ -19,10 +34,10 @@
 
 /**
  * @addtogroup EventGeneration
- * @brief A module for accessing the observables without a MCMC run.
+ * @brief A module for acessing the observables without a MCMC run.
  * @details This module is for using the implementations of the observables without
  * running a Markov Chain Monte Carlo. It contains code that allows for generations
- * of events using the random number generator from ROOT. It also allows for accessing
+ * of events using the random number generator from ROOT. It also allows for acessing
  * the observables in a library mode where the user can specify the parameters and 
  * compute the observables.
  * @{
@@ -40,13 +55,25 @@ class ComputeObservables {
 public:
     /**
      * @brief Constructor.
-     * @details The default constructor passes the name of the SomeModel.conf file
+     * @details This constructor passes the name of the SomeModel.conf file.
      * @param[in] ModelConf_i the name of the input configuration file for the model name,
      * the model parameters and observables to be calculated.
      * @param[in] DObs the map of observables to be computed
      */
     ComputeObservables(const std::string& ModelConf_i,
-                       std::map<std::string, double> DObs);
+                       std::map<std::string, double> DObs_i);
+        /**
+     * @brief Constructor.
+     * @details This constructor passes the model parameters, model name and model flags.
+     * @param[in] ModelName_i the name of the model being used
+     * @param[in] DParas_i the mandatory parameters of the model being used
+     * @param[in] DObs_i the map of observables to be computed
+     * @param[in] DFlags_ithe flags for the model being used
+     */
+    ComputeObservables(const std::string& ModelName_i,
+                       std::map<std::string, double> DPars_i,
+                       std::map<std::string, double> DObs_i,
+                       std::map<std::string, std::string> DFlags_i);
     
     /**
      * @brief The default destructor.
@@ -55,18 +82,23 @@ public:
     
     /**
      * @brief The method used to compute observables
-     * @param[in] DPars the map of parameters being varied
+     * @param[in] DP the map of parameters being varied
      */
-std::map<std::string, double> compute(std::map<std::string, double> DPars);
+std::map<std::string, double> compute(std::map<std::string, double> DP);
     
 
     
 private:
     
-    InputParser myInputParser; ///< An oject of the InputParser() class.
-    std::map<std::string, double> DPars; ///< Map of parameters to be passed to Model().
-    std::map<std::string, double> DObs; ///< Map of parameters to be passed to Model().
-    Model* Mod; ///< Name of the model as defined in SomeModel.conf
+    StandardModel* ModelDictionary();
+    
+    ThFactory* thf;///< Pointer to an object of type ThFactory.
+    std::string ModelName;///< Name of the Model to be used.
+    InputParser myInputParser; ///< An oject of the InputParser class.
+    std::map<std::string, double> DPars; ///< Map of parameters to be passed to Model.
+    std::map<std::string, double> DObs; ///< Map of parameters to be passed to Model.
+    std::map<std::string, std::string> DFlags; ///< Map of model flags to be passed to Model.
+    StandardModel* Mod; ///< Name of the model as defined in SomeModel.conf
     std::vector<ModelParameter> ModPars; ///< Vector for the model parameters defined in SomeModel.conf.
     std::vector<ModelParameter> ModParsVar; ///< Vector for the model parameters varied in SomeModel.conf.
     std::vector<Observable> Obs; ///< Vector for the observables defined in SomeModel.conf. */
