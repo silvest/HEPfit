@@ -40,8 +40,7 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief The @f$W@f$-boson mass in the on-shell scheme with the full
-     * two-loop %EW corrections.
+     * @brief The @f$W@f$-boson mass with the full two-loop %EW corrections.
      * @details This function is based on the approximate formula for @f$M_W@f$
      * presented in @cite Awramik:2003rn, which includes the complete two-loop
      * %EW corrections as well as leading three-loop corrections.
@@ -59,8 +58,7 @@ public:
     double Mw() const;
     
     /**
-     * @brief @f$\sin^2\theta_{\rm eff}^\ell@f$ in the on-shell scheme with the
-     * full two-loop %EW corrections.
+     * @brief @f$\sin^2\theta_{\rm eff}^\ell@f$ with the full two-loop %EW corrections.
      * @details This function is based on the approximate formulae for the
      * leptonic weak mixing angles presented in @cite Awramik:2006uz
      * (see also @cite Awramik:2004ge), which include the complete two-loop
@@ -79,9 +77,8 @@ public:
     double sin2thetaEff_l(const StandardModel::lepton l) const;
 
     /**
-     * @brief @f$\sin^2\theta_{\rm eff}^q@f$ in the on-shell scheme with the
-     * full two-loop %EW corrections (bosonic two-loop %EW corrections are
-     * missing for @f$q=b@f$). 
+     * @brief @f$\sin^2\theta_{\rm eff}^q@f$ with the full two-loop %EW
+     * corrections (bosonic two-loop %EW corrections are missing for @f$q=b@f$).
      * @details This function is based on the approximate formulae for the
      * weak mixing angles presented in @cite Awramik:2006uz and @cite Awramik:2008gi,
      * which include the complete two-loop %EW corrections as well as leading
@@ -102,7 +99,7 @@ public:
     double sin2thetaEff_q(const QCD::quark q) const;    
     
     /**
-     * @brief @f$\Delta r_{\rm rem}^{(\alpha^2)}@f$ in the on-shell scheme. 
+     * @brief @f$\Delta r_{\rm rem}^{(\alpha^2)}@f$. 
      * @details This function is based on the approximate formula for the irreducible 
      * %EW two-loop contribution to @f$\Delta r@f$ presented in @cite Awramik:2006uz,
      * which includes the complete two-loop %EW corrections as well as leading
@@ -121,7 +118,7 @@ public:
     double DeltaR_TwoLoopEW_rem(const double Mw_i) const;
 
     /**
-     * @brief @f$\Delta\kappa_Z^{\ell, (\alpha^2)}@f$ in the on-shell scheme.
+     * @brief @f$\Delta\kappa_Z^{\ell, (\alpha^2)}@f$. 
      * @details This function is based on the approximate formula for the irreducible
      * %EW two-loop contribution to @f$\Delta\kappa_Z^\ell = \kappa_Z^\ell - 1@f$ 
      * presented in @cite Awramik:2006uz, which includes the complete two-loop
@@ -140,7 +137,7 @@ public:
     double DeltaKappa_l_TwoLoopEW_rem(const double Mw_i) const;
 
     /**
-     * @brief @f$\Delta\kappa_Z^{b, (\alpha^2)}@f$ in the on-shell scheme.
+     * @brief @f$\Delta\kappa_Z^{b, (\alpha^2)}@f$. 
      * @details This function is based on the approximate formula for the irreducible
      * %EW two-loop contribution to @f$\Delta\kappa_Z^b = \kappa_Z^b - 1@f$
      * presented in @cite Awramik:2008gi, which includes the complete fermionic
@@ -160,7 +157,7 @@ public:
     double DeltaKappa_b_TwoLoopEW_rem(const double Mw_i) const;
     
     /**
-     * @brief @f$R_b^0@f$ in the on-shell scheme. 
+     * @brief @f$R_b^0@f$. 
      * @details This function is based on the approximate formula for 
      * @f$R_b^0=\Gamma_b/\Gamma_h@f$ presented in @cite Freitas:2012sy, which
      * includes the complete fermionic two-loop %EW corrections as well as
@@ -179,7 +176,7 @@ public:
     double R0_bottom_OLD() const;
 
     /**
-     * @brief @f$\Gamma_u/\Gamma_b@f$ in the on-shell scheme
+     * @brief @f$\Gamma_u/\Gamma_b@f$. 
      * @details This function is based on the approximate formula for
      * the ratio @f$\Gamma_u/\Gamma_b@f$ obtained from A. Freitas in private
      * communication on Sep. 21, 2013, which includes the complete fermionic
@@ -198,7 +195,7 @@ public:
     double Gu_over_Gb_OLD() const;
     
     /**
-     * @brief @f$\Gamma_d/\Gamma_b@f$ in the on-shell scheme
+     * @brief @f$\Gamma_d/\Gamma_b@f$.
      * @details This function is based on the approximate formula for
      * the ratio @f$\Gamma_d/\Gamma_b@f$ obtained from A. Freitas in private
      * communication on Sep. 21, 2013, which includes the complete fermionic
@@ -219,8 +216,7 @@ public:
     /**
      * @brief @f$\Gamma_\nu@f$, @f$\Gamma_{e,\mu}@f$, @f$\Gamma_\tau@f$,
      * @f$\Gamma_u@f$, @f$\Gamma_c@f$, @f$\Gamma_{d,s}@f$, @f$\Gamma_b@f$,
-     * @f$\Gamma_Z@f$, @f$R^0_\ell@f$, @f$R^0_c@f$, @f$R^0_b@f$, or @f$\sigma^0_h@f$
-     * in the on-shell scheme. 
+     * @f$\Gamma_Z@f$, @f$R^0_\ell@f$, @f$R^0_c@f$, @f$R^0_b@f$, or @f$\sigma^0_h@f$.
      * @details This function is based on the approximate formulae for partial
      * and total widths of the @f$Z@f$ boson and hadronic @f$Z@f$-pole cross
      * section presented in @cite Freitas:2014hra, which include the complete
@@ -236,7 +232,7 @@ public:
      * @f$M_Z = 91.1876\pm 0.0042@f$ GeV,
      * @f$m_t = 173.2\pm 2.0@f$ GeV and
      * @f$m_h = 125.7\pm 2.5@f$ GeV.
-     * @param[in] observable name of an observable to be computed:
+     * @param[in] observable name of the observable to be computed:
      * "Gamma_nu", "Gamma_e_mu", "Gamma_tau", "Gamma_u", "Gamma_c", "Gamma_d_s",
      * "Gamma_b", "GammaZ", "sigmaHadron", "R0_lepton", "R0_charm", "R0_bottom"
      * @return @f$\Gamma_\nu@f$, @f$\Gamma_{e,\mu}@f$, @f$\Gamma_\tau@f$,
@@ -251,8 +247,7 @@ public:
     /**
      * @brief @f$\Gamma_\nu@f$, @f$\Gamma_{e,\mu}@f$, @f$\Gamma_\tau@f$,
      * @f$\Gamma_u@f$, @f$\Gamma_c@f$, @f$\Gamma_{d,s}@f$, @f$\Gamma_b@f$,
-     * @f$\Gamma_Z@f$, @f$R^0_\ell@f$, @f$R^0_c@f$, @f$R^0_b@f$, or @f$\sigma^0_h@f$
-     * in the on-shell scheme.
+     * @f$\Gamma_Z@f$, @f$R^0_\ell@f$, @f$R^0_c@f$, @f$R^0_b@f$, or @f$\sigma^0_h@f$.
      * @details This function is based on the approximate formulae for partial
      * and total widths of the @f$Z@f$ boson and hadronic @f$Z@f$-pole cross
      * section presented in @cite Freitas:2014hra, which include the complete
@@ -268,7 +263,7 @@ public:
      * @f$M_Z = 91.1876\pm 0.0084@f$ GeV,
      * @f$165 < m_t < 190@f$ GeV and
      * @f$70 < m_h < 1000@f$ GeV.
-     * @param[in] observable name of an observable to be computed:
+     * @param[in] observable name of the observable to be computed:
      * "Gamma_nu", "Gamma_e_mu", "Gamma_tau", "Gamma_u", "Gamma_c", "Gamma_d_s",
      * "Gamma_b", "GammaZ", "sigmaHadron", "R0_lepton", "R0_charm", "R0_bottom"
      * @return @f$\Gamma_\nu@f$, @f$\Gamma_{e,\mu}@f$, @f$\Gamma_\tau@f$,
