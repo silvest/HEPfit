@@ -1,4 +1,4 @@
-/* 
+ /*
  * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
@@ -100,88 +100,65 @@ std::string InputParser::ReadParameters(const std::string filename,
         if (beg->compare("StandardModel") == 0) {
             modname = *beg;
             myModel = new StandardModel();
-            myModel->InitializeModel();
-            thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("NPSTU") == 0) {
             modname = *beg;
             myModel = new NPSTU();
-            myModel->InitializeModel();
-            thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("NPSTUVWXY") == 0) {
             modname = *beg;
             myModel = new NPSTUVWXY();
-            myModel->InitializeModel();
-            thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("NPEpsilons") == 0) {
             modname = *beg;
             myModel = new NPEpsilons();
-            myModel->InitializeModel();
-            thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("NPEpsilons_pureNP") == 0) {
             modname = *beg;
             myModel = new NPEpsilons_pureNP();
-            myModel->InitializeModel();
-            thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("NPHiggsST") == 0) {
             modname = *beg;
             myModel = new NPHiggsST();
-            myModel->InitializeModel();
-            thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("NPZbbbar") == 0) {
             modname = *beg;
             myModel = new NPZbbbar();
-            myModel->InitializeModel();
-            thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("NPEffective1") == 0) {
             modname = *beg;
             myModel = new NPEffective1();
-            myModel->InitializeModel();
-            thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("NPEffective2") == 0) {
             modname = *beg;
             myModel = new NPEffective2();
-            myModel->InitializeModel();
-            thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("MFV") == 0) {
             modname = *beg;
             myModel = new MFV();
-            myModel->InitializeModel();
-            thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("GeneralSUSY") == 0) {
             modname = *beg;
             myModel = new GeneralSUSY();
-            myModel->InitializeModel();
-            thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("pMSSM") == 0) {
             modname = *beg;
             myModel = new pMSSM();
-            myModel->InitializeModel();
-            thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("SusyMI") == 0) {
             modname = *beg;
-            SUSYMassInsertion* LocalPointer = new SUSYMassInsertion();
-            myModel = LocalPointer;
-            thf = new ThFactory(*myModel);
+            myModel = new SUSYMassInsertion();
             continue;
         } else if (beg->compare("THDM") == 0) {
             modname = *beg;
             myModel = new THDM();
-            thf = new ThFactory(*myModel);
             continue;
         }
-
+        if (!myModel->IsModelInitialized()) {
+            myModel->InitializeModel();
+            thf = new ThFactory(*myModel);
+        }
+        
         std::string type = *beg;
         ++beg;
         if (type.compare("ModelParameter") == 0) {
