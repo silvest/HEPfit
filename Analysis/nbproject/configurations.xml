@@ -657,8 +657,6 @@
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="main_libmode_alt.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
@@ -969,8 +967,6 @@
         <ccTool>
         </ccTool>
       </item>
-      <item path="main_libmode_alt.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
@@ -1276,8 +1272,6 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="main_libmode_alt.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -1594,8 +1588,6 @@
         <ccTool>
         </ccTool>
       </item>
-      <item path="main_libmode_alt.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/RunningMass.cpp" ex="false" tool="1" flavor2="0">
@@ -1904,8 +1896,6 @@
       <item path="main_libmode.cpp" ex="true" tool="1" flavor2="9">
         <ccTool>
         </ccTool>
-      </item>
-      <item path="main_libmode_alt.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
