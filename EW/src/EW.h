@@ -34,15 +34,15 @@ using namespace gslpp;
  * @f[
  * \mathcal{O}
  * = \mathcal{O}(g_{V,\mathrm{SM}}^f,\, g_{A,\mathrm{SM}}^f)
- *   + \mathcal{O}(\delta g_{V,\mathrm{NP}}^f,\, \delta g_{A,\mathrm{NP}}^f)\,,
+ *   + c_V \delta g_{V,\mathrm{NP}}^f + c_A \delta g_{A,\mathrm{NP}}^f\,,
  * @f]
  * where the observable depends on the effective @f$Zf\bar{f}@f$ couplings
- * @f$g_{V}^f@f$ and @f$g_{A}^f@f$, and the second term is a linear function
- * in terms of @f$\delta g_{V,\mathrm{NP}}^f@f$ and @f$\delta g_{A,\mathrm{NP}}^f@f$.
+ * @f$g_{V}^f@f$ and @f$g_{A}^f@f$.
  * In this case, the NP contributions are not taken into account in the current
  * class, and the outputs for the observables correspond purely to their SM
- * predictions. The NP conributions are then added in each ThObservable class,
- * such as Alepton, GammaZ, Rlepton, etc., via the functions in EW_NPZff class.
+ * predictions, i.e., the first term in the above formula. The NP conributions
+ * are then added in each ThObservable class, such as Alepton, GammaZ, Rlepton,
+ * etc., via the functions in EW_NPZff class.
  *
  * In the other models, the NP contribution is not linearized:
  * @f[
