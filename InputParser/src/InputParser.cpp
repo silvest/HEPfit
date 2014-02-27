@@ -1,4 +1,4 @@
- /*
+/*
  * Copyright (C) 2012 SusyFit Collaboration
  * All rights reserved.
  *
