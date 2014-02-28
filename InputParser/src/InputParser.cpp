@@ -100,63 +100,50 @@ std::string InputParser::ReadParameters(const std::string filename,
         if (beg->compare("StandardModel") == 0) {
             modname = *beg;
             myModel = new StandardModel();
-            continue;
         } else if (beg->compare("NPSTU") == 0) {
             modname = *beg;
             myModel = new NPSTU();
-            continue;
         } else if (beg->compare("NPSTUVWXY") == 0) {
             modname = *beg;
             myModel = new NPSTUVWXY();
-            continue;
         } else if (beg->compare("NPEpsilons") == 0) {
             modname = *beg;
             myModel = new NPEpsilons();
-            continue;
         } else if (beg->compare("NPEpsilons_pureNP") == 0) {
             modname = *beg;
             myModel = new NPEpsilons_pureNP();
-            continue;
         } else if (beg->compare("NPHiggsST") == 0) {
             modname = *beg;
             myModel = new NPHiggsST();
-            continue;
         } else if (beg->compare("NPZbbbar") == 0) {
             modname = *beg;
             myModel = new NPZbbbar();
-            continue;
         } else if (beg->compare("NPEffective1") == 0) {
             modname = *beg;
             myModel = new NPEffective1();
-            continue;
         } else if (beg->compare("NPEffective2") == 0) {
             modname = *beg;
             myModel = new NPEffective2();
-            continue;
         } else if (beg->compare("MFV") == 0) {
             modname = *beg;
             myModel = new MFV();
-            continue;
         } else if (beg->compare("GeneralSUSY") == 0) {
             modname = *beg;
             myModel = new GeneralSUSY();
-            continue;
         } else if (beg->compare("pMSSM") == 0) {
             modname = *beg;
             myModel = new pMSSM();
-            continue;
         } else if (beg->compare("SusyMI") == 0) {
             modname = *beg;
             myModel = new SUSYMassInsertion();
-            continue;
         } else if (beg->compare("THDM") == 0) {
             modname = *beg;
             myModel = new THDM();
-            continue;
         }
         if (!myModel->IsModelInitialized()) {
             myModel->InitializeModel();
             thf = new ThFactory(*myModel);
+            continue;
         }
         
         std::string type = *beg;
