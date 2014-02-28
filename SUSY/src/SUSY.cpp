@@ -40,7 +40,7 @@ bool SUSY::InitializeModel()
     mySUSYMatching = new SUSYMatching(*this);
     myFH = new FeynHiggsWrapper(*this);
     myEWSM = new EWSUSY(*this);
-    setFlag("Mw", "NORESUM");
+    setFlagStr("Mw", "NORESUM");
     setModelInitialized(true);
     return(true);
 }
