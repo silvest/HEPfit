@@ -172,14 +172,14 @@ std::string InputParser::ReadParameters(const std::string filename,
         } else if (beg->compare("SUSYMassInsertion") == 0) {
             modname = *beg;
             myModel = new SUSYMassInsertion();
-            thf = new ThFactory(*myModel);
             myModel->InitializeModel();
+            thf = new ThFactory(*myModel);
             continue;
         } else if (beg->compare("THDM") == 0) {
             modname = *beg;
             myModel = new THDM();
-            thf = new ThFactory(*myModel);
             myModel->InitializeModel();
+            thf = new ThFactory(*myModel);
             continue;
         }
 
