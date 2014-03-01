@@ -57,11 +57,12 @@ public:
      * @brief Constructor.
      * @details This constructor passes the name of the SomeModel.conf file.
      * @param[in] ModelConf_i the name of the input configuration file for the model name,
-     * the model parameters and observables to be calculated.
+     * the model parameters and observables to be calculated
      * @param[in] DObs the map of observables to be computed
      */
     ComputeObservables(const std::string& ModelConf_i,
                        std::map<std::string, double> DObs_i);
+
     /**
      * @brief Constructor.
      * @details This constructor passes the model parameters, model name and model flags.
@@ -69,7 +70,6 @@ public:
      * @param[in] DParas_i the mandatory parameters of the model being used
      * @param[in] DObs_i the map of observables to be computed
      */
-
     ComputeObservables(const std::string& ModelName_i,
                        std::map<std::string, double> DPars_i,
                        std::map<std::string, double> DObs_i);
@@ -83,15 +83,14 @@ public:
      * @brief This method sets the necessary flag for the requested mode.
      * @param[in] DFlags_i the flags for the model being used
      */    
-void setFlags(std::map<std::string, std::string> DFlags_i);
+    void setFlags(std::map<std::string, std::string> DFlags_i);
     
     /**
-     * @brief The method used to compute observables
+     * @brief The method used to compute observables. 
      * @param[in] DP the map of parameters being varied
      */
-std::map<std::string, double> compute(std::map<std::string, double> DP);
+    std::map<std::string, double> compute(std::map<std::string, double> DP);
     
-
     
 private:
     
