@@ -5,13 +5,13 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef NPHIGGSST_H
-#define	NPHIGGSST_H
+#ifndef NPHIGGS_H
+#define	NPHIGGS_H
 
 #include "NPbase.h"
 
 /**
- * @class NPHiggsST
+ * @class NPHiggs
  * @brief A model class for new physics in the form of an electroweak chiral
  * Lagrangian with a light Higgs-like scalar.
  * @ingroup NewPhysics
@@ -57,20 +57,20 @@
  * where @f$\Lambda@f$ is the cutoff scale of the model.
  *
  *
- * @anchor NPHiggsSTInitialization
+ * @anchor NPHiggsInitialization
  * <h3>Initialization</h3>
  *
  * After creating an instance of the current class with the constructor 
- * NPHiggsST(), it is required to call the initialization method 
+ * NPHiggs(), it is required to call the initialization method
  * InitializeModel(). 
  * In the Monte Carlo run, the constructor as well as the initialization
  * method are called in InputParser::ReadParameters().
  *
  * 
- * @anchor NPHiggsSTParameters
+ * @anchor NPHiggsParameters
  * <h3>%Model parameters</h3>
  *
- * The model parameters of %NPHiggsST are summarized below:
+ * The model parameters of %NPHiggs are summarized below:
  * <table class="model">
  * <tr>
  *   <th>Label</th>
@@ -123,13 +123,13 @@
  * </table>
  *
  *
- * @anchor NPHiggsSTFlags
+ * @anchor NPHiggsFlags
  * <h3>%Model flags</h3>
  *
  * There is no model flag in the current class.
  *
  *
- * @anchor NPHiggsSTFunctions
+ * @anchor NPHiggsFunctions
  * <h3>Important member functions</h3>
  *
  * Compared to the base class NPbase, the functions for the
@@ -139,23 +139,23 @@
  * (with obliqueS(), obliqueT() and obliqueU()),
  *
  */
-class NPHiggsST : public NPbase {
+class NPHiggs : public NPbase {
 public:
 
     /**
-     * @brief The number of the model parameters in %NPHiggsST.
+     * @brief The number of the model parameters in %NPHiggs.
      */
-    static const int NNPHIGGSSTvars = 8;
+    static const int NNPHIGGSvars = 8;
 
     /**
-     * @brief A string array containing the labels of the model parameters in %NPHiggsST.
+     * @brief A string array containing the labels of the model parameters in %NPHiggs.
      */
-    static const std::string NPHIGGSSTvars[NNPHIGGSSTvars];
+    static const std::string NPHIGGSvars[NNPHIGGSvars];
 
     /**
      * @brief The default constructor.
      */
-    NPHiggsST();
+    NPHiggs();
 
     /**
      * @brief @copybrief Model::ModelName()
@@ -163,7 +163,7 @@ public:
      */
     virtual std::string ModelName() const 
     {
-        return "NPHiggsST";
+        return "NPHiggs";
     }
 
     /**
@@ -258,5 +258,5 @@ protected:
     
 };
 
-#endif	/* NPHIGGSST_H */
+#endif	/* NPHIGGS_H */
 

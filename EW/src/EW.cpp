@@ -35,7 +35,7 @@ bool EW::checkNPZff_linearized() const
         else
             return true;
     } else if (Model.compare("StandardModel") == 0
-            || Model.compare("NPHiggsST") == 0
+            || Model.compare("NPHiggs") == 0
             || Model.compare("NPSTU") == 0
             || Model.compare("NPSTUVWXY") == 0
             || Model.compare("NPEpsilons_pureNP") == 0

@@ -93,14 +93,14 @@ StandardModel* ComputeObservables::ModelDictionary(){
     DModel["NPSTUVWXY"] = new NPSTUVWXY();
     DModel["NPEpsilons"] =  new NPEpsilons();
     DModel["NPEpsilons_pureNP"] = new NPEpsilons_pureNP();
-    DModel["NPHiggsST"] = new NPHiggsST();
+    DModel["NPHiggs"] = new NPHiggs();
     DModel["NPZbbbar"] = new NPZbbbar();
     DModel["NPEffective1"] = new NPEffective1();
     DModel["NPEffective2"] = new NPEffective2();
     DModel["MFV"] = new MFV();
     DModel["GeneralSUSY"] =  new GeneralSUSY();
     DModel["pMSSM"] = new pMSSM();
-    DModel["SusyMI"] = new SUSYMassInsertion();
+    DModel["SUSYMassInsertion"] = new SUSYMassInsertion();
     DModel["THDM"] = new THDM();
     
     return DModel[ModelName];

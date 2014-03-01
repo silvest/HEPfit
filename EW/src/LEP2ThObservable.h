@@ -69,7 +69,7 @@ public:
         std::string Model = SM.ModelName();
         if ( (Model.compare("NPSTU") == 0
                 || Model.compare("NPSTUVWXY") == 0
-                || Model.compare("NPHiggsST") == 0
+                || Model.compare("NPHiggs") == 0
                 || Model.compare("THDM") == 0)
                 && ((static_cast<const NPSTUVWXY*> (&SM))->obliqueShat()!=0.0
                 || (static_cast<const NPSTUVWXY*> (&SM))->obliqueThat()!=0.0
