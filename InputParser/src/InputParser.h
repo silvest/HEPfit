@@ -20,7 +20,7 @@
 #include <NPSTUVWXY.h>
 #include <NPEpsilons.h>
 #include <NPEpsilons_pureNP.h>
-#include <NPHiggsST.h>
+#include <NPHiggs.h>
 #include <NPZbbbar.h>
 #include <NPEffective1.h>
 #include <NPEffective2.h>

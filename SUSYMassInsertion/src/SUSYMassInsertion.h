@@ -34,6 +34,12 @@ public:
      */
     virtual ~SUSYMassInsertion();
 
+
+    virtual std::string ModelName() const
+    {
+        return "SUSYMassInsertion";
+    }
+
     /**
      * @brief a method to update SM and SUSY parameters found in the argument
      * @param a map containing the parameters (all as double) to be updated

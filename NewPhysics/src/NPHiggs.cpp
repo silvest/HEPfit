@@ -7,34 +7,34 @@
 
 #include <stdexcept>
 #include <EWSM.h>
-#include "NPHiggsST.h"
+#include "NPHiggs.h"
 
 
-const std::string NPHiggsST::NPHIGGSSTvars[NNPHIGGSSTvars]
+const std::string NPHiggs::NPHIGGSvars[NNPHIGGSvars]
 = {"a", "b", "c_u", "c_d", "c_e", "d_3", "d_4", "LambdaNP"};
 
 
-NPHiggsST::NPHiggsST()
+NPHiggs::NPHiggs()
 : NPbase(), LambdaNP_in(0.0)
 {
 }
 
 
-bool NPHiggsST::InitializeModel()
+bool NPHiggs::InitializeModel()
 {
     setModelInitialized(NPbase::InitializeModel());
     return (IsModelInitialized());
 }
 
 
-bool NPHiggsST::Init(const std::map<std::string, double>& DPars)
+bool NPHiggs::Init(const std::map<std::string, double>& DPars)
 {
     Update(DPars);
     return(CheckParameters(DPars));
 }
 
 
-bool NPHiggsST::Update(const std::map<std::string,double>& DPars)
+bool NPHiggs::Update(const std::map<std::string,double>& DPars)
 {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameter(it->first, it->second);
@@ -43,7 +43,7 @@ bool NPHiggsST::Update(const std::map<std::string,double>& DPars)
 }
 
 
-void NPHiggsST::setParameter(const std::string name, const double& value)
+void NPHiggs::setParameter(const std::string name, const double& value)
 {
     if (name.compare("a") == 0)
         a = value;
@@ -66,12 +66,12 @@ void NPHiggsST::setParameter(const std::string name, const double& value)
 }
 
 
-bool NPHiggsST::CheckParameters(const std::map<std::string, double>& DPars)
+bool NPHiggs::CheckParameters(const std::map<std::string, double>& DPars)
 {
-    for (int i = 0; i < NNPHIGGSSTvars; i++) {
-        if (DPars.find(NPHIGGSSTvars[i]) == DPars.end()) {
-            std::cout << "ERROR: Missing mandatory NPHiggsST parameter "
-                      << NPHIGGSSTvars[i] << std::endl;
+    for (int i = 0; i < NNPHIGGSvars; i++) {
+        if (DPars.find(NPHIGGSvars[i]) == DPars.end()) {
+            std::cout << "ERROR: Missing mandatory NPHiggs parameter "
+                      << NPHIGGSvars[i] << std::endl;
             return false;
         }
     }
@@ -79,7 +79,7 @@ bool NPHiggsST::CheckParameters(const std::map<std::string, double>& DPars)
 }
 
 
-bool NPHiggsST::setFlag(const std::string name, const bool value)
+bool NPHiggs::setFlag(const std::string name, const bool value)
 {
     bool res = false;
     res = NPbase::setFlag(name,value);
@@ -87,7 +87,7 @@ bool NPHiggsST::setFlag(const std::string name, const bool value)
 }
 
 
-bool NPHiggsST::CheckFlags() const
+bool NPHiggs::CheckFlags() const
 {
     return(NPbase::CheckFlags());
 }
@@ -95,7 +95,7 @@ bool NPHiggsST::CheckFlags() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPHiggsST::obliqueS() const
+double NPHiggs::obliqueS() const
 {
     double Lambda;
     if (LambdaNP_in != 0.0)
@@ -109,7 +109,7 @@ double NPHiggsST::obliqueS() const
 }
 
 
-double NPHiggsST::obliqueT() const
+double NPHiggs::obliqueT() const
 {
     double Lambda;
     double cW2_SM = myEWSM->cW2_SM(); /* This has to be the SM value. */
@@ -124,7 +124,7 @@ double NPHiggsST::obliqueT() const
 }
 
 
-double NPHiggsST::obliqueU() const
+double NPHiggs::obliqueU() const
 {
     return 0.0;
 }

@@ -11,20 +11,20 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <iostream>
 
-InputParser::InputParser() 
+InputParser::InputParser()
 {
     myModel = NULL;
     thf = NULL;
     modelnotset = 0;
 }
 
-InputParser::InputParser(const InputParser& orig) 
+InputParser::InputParser(const InputParser& orig)
 {
     myModel = new StandardModel(*orig.myModel);
     thf = new ThFactory(*orig.thf);
 }
 
-InputParser::~InputParser() 
+InputParser::~InputParser()
 {
     if (myModel != NULL)
         delete myModel;
@@ -32,7 +32,7 @@ InputParser::~InputParser()
         delete thf;
 }
 
-Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<char> >::iterator & beg) 
+Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<char> >::iterator & beg)
 {
     std::string name = *beg;
     ++beg;
@@ -131,7 +131,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             modelnotset = 1;
             continue;
         }
-        
+
         std::string type = *beg;
         ++beg;
         if (type.compare("ModelParameter") == 0) {
