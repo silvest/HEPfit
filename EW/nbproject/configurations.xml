@@ -123,10 +123,10 @@
           <incDir>
             <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
-            <pElem>../Observables/src</pElem>
-            <pElem>../StandardModel/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../NewPhysics/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../StandardModel/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <warningLevel>2</warningLevel>
@@ -430,10 +430,10 @@
           <incDir>
             <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
-            <pElem>../Observables/src</pElem>
-            <pElem>../StandardModel/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../NewPhysics/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../StandardModel/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -615,10 +615,10 @@
           <incDir>
             <pElem>src</pElem>
             <pElem>../gslpp/src</pElem>
-            <pElem>../Observables/src</pElem>
-            <pElem>../StandardModel/src</pElem>
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../NewPhysics/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../StandardModel/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>

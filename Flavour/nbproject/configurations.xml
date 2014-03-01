@@ -128,9 +128,9 @@
       <compileType>
         <ccTool>
           <incDir>
+            <pElem>../gslpp/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
-            <pElem>../gslpp/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
@@ -329,9 +329,9 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <incDir>
+            <pElem>../gslpp/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
-            <pElem>../gslpp/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
@@ -517,9 +517,9 @@
       <compileType>
         <ccTool>
           <incDir>
+            <pElem>../gslpp/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../StandardModel/src</pElem>
-            <pElem>../gslpp/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>

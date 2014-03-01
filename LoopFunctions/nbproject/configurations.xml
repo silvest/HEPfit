@@ -67,9 +67,6 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
@@ -141,20 +138,10 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -220,9 +207,6 @@
       <compileType>
         <cTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </cTool>
@@ -299,20 +283,10 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -324,14 +298,10 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -393,9 +363,6 @@
         <cTool>
           <developmentMode>5</developmentMode>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </cTool>
@@ -463,20 +430,10 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -488,14 +445,10 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -544,9 +497,6 @@
         <cTool>
           <developmentMode>5</developmentMode>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </cTool>
@@ -608,20 +558,10 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>
@@ -633,14 +573,10 @@
         <cTool>
           <incDir>
             <pElem>.</pElem>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
           </incDir>
         </cTool>
         <ccTool>
           <incDir>
-            <pElem>.</pElem>
-            <pElem>.</pElem>
             <pElem>.</pElem>
           </incDir>
         </ccTool>

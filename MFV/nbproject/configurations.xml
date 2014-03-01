@@ -44,10 +44,10 @@
         <ccTool>
           <incDir>
             <pElem>../gslpp/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSY/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
-            <pElem>../LoopFunctions/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -104,10 +104,10 @@
           <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../gslpp/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSY/src</pElem>
             <pElem>../FeynHiggs/include</pElem>
-            <pElem>../LoopFunctions/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -170,10 +170,10 @@
           <developmentMode>5</developmentMode>
           <incDir>
             <pElem>../gslpp/src</pElem>
+            <pElem>../LoopFunctions/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSY/src</pElem>
-            <pElem>~/FeynHiggs/include</pElem>
-            <pElem>../LoopFunctions/src</pElem>
+            <pElem>../FeynHiggs/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
