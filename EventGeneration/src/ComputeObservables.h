@@ -95,8 +95,6 @@ std::map<std::string, double> compute(std::map<std::string, double> DP);
     
 private:
     
-    StandardModel* ModelDictionary();
-    
     ThFactory* thf;///< Pointer to an object of type ThFactory.
     std::string ModelName;///< Name of the Model to be used.
     InputParser myInputParser; ///< An oject of the InputParser class.

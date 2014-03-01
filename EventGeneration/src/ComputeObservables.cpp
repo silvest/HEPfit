@@ -6,6 +6,7 @@
  */
 
 #include "ComputeObservables.h"
+#include <boost/algorithm/string/predicate.hpp>
 
 ComputeObservables::ComputeObservables(const std::string& ModelConf_i,
                                        std::map<std::string, double> DObs_i)
@@ -30,14 +31,15 @@ ComputeObservables::ComputeObservables(const std::string& ModelConf_i,
 ComputeObservables::ComputeObservables(const std::string& ModelName_i,
                                        std::map<std::string, double> DPars_i,
                                        std::map<std::string, double> DObs_i)
-:ModelName(ModelName_i),
+:myInputParser(),
+ModelName(ModelName_i),
 DPars(DPars_i),
 DObs(DObs_i)
 {
     for (std::map<std::string, double>::iterator it = DPars.begin(); it != DPars.end(); it++) {
         paraNames.push_back(it->first);
     }
-    Mod = ModelDictionary();
+    Mod = myInputParser.ModelFactory(ModelName);
     Mod->InitializeModel();
     thf = new ThFactory(*Mod);
     if (!Mod->Init(DPars)) {
@@ -53,11 +55,11 @@ ComputeObservables::~ComputeObservables()
 void ComputeObservables::setFlags(std::map<std::string, std::string> DFlags_i){
     DFlags = DFlags_i;
     for (std::map<std::string, std::string>::iterator it = DFlags.begin(); it != DFlags.end(); it++) {
-            if (it->second.compare("true") == 0 && !Mod->setFlag(it->first, 1))
+            if (boost::iequals(it->second, "true") == 0 && !Mod->setFlag(it->first, 1))
                     throw std::runtime_error("ERROR: setFlag error for " + it->first);
-            if (it->second.compare("false") == 0 && !Mod->setFlag(it->first, 0))
+            if (boost::iequals(it->second, "false") == 0 && !Mod->setFlag(it->first, 0))
                     throw std::runtime_error("ERROR: setFlag error for " + it->first);
-            if (it->second.compare("true") != 0 && it->second.compare("false") != 0 && !Mod->setFlagStr(it->first, it->second))
+            if (boost::iequals(it->second, "true") != 0 && boost::iequals(it->second, "false") != 0 && !Mod->setFlagStr(it->first, it->second))
                 throw std::runtime_error("ERROR: setFlagStr error for " + it->first);
             else
                 std::cout << "set flag " << it->first << "=" << it->second << std::endl;
@@ -83,25 +85,4 @@ std::map<std::string, double> ComputeObservables::compute(std::map<std::string, 
         std::cerr << message << std::endl;
         exit(EXIT_FAILURE);
         }
-}
-
-StandardModel* ComputeObservables::ModelDictionary(){
-    std::map<std::string, StandardModel* > DModel;
-    
-    DModel["StandardModel"] = new StandardModel();
-    DModel["NPSTU"] = new NPSTU();
-    DModel["NPSTUVWXY"] = new NPSTUVWXY();
-    DModel["NPEpsilons"] =  new NPEpsilons();
-    DModel["NPEpsilons_pureNP"] = new NPEpsilons_pureNP();
-    DModel["NPHiggsST"] = new NPHiggsST();
-    DModel["NPZbbbar"] = new NPZbbbar();
-    DModel["NPEffective1"] = new NPEffective1();
-    DModel["NPEffective2"] = new NPEffective2();
-    DModel["MFV"] = new MFV();
-    DModel["GeneralSUSY"] =  new GeneralSUSY();
-    DModel["pMSSM"] = new pMSSM();
-    DModel["SusyMI"] = new SUSYMassInsertion();
-    DModel["THDM"] = new THDM();
-    
-    return DModel[ModelName];
 }
