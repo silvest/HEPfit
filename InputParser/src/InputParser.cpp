@@ -15,6 +15,7 @@ InputParser::InputParser()
 {
     myModel = NULL;
     thf = NULL;
+    modelnotset = 0;
 }
 
 InputParser::InputParser(const InputParser& orig) 
@@ -76,6 +77,29 @@ Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<c
     return (o);
 }
 
+StandardModel* InputParser::ModelFactory(std::string& ModelName){
+    
+    std::map<std::string, StandardModel* > DModel;
+    
+    if (ModelName.compare("StandardModel") == 0) DModel["StandardModel"] = new StandardModel();
+    else if (ModelName.compare("NPSTU") == 0) DModel["NPSTU"] = new NPSTU();
+    else if (ModelName.compare("NPSTUVWXY") == 0) DModel["NPSTUVWXY"] = new NPSTUVWXY();
+    else if (ModelName.compare("NPEpsilons") == 0) DModel["NPEpsilons"] =  new NPEpsilons();
+    else if (ModelName.compare("NPEpsilons_pureNP") == 0) DModel["NPEpsilons_pureNP"] = new NPEpsilons_pureNP();
+    else if (ModelName.compare("NPHiggsST") == 0) DModel["NPHiggsST"] = new NPHiggsST();
+    else if (ModelName.compare("NPZbbbar") == 0) DModel["NPZbbbar"] = new NPZbbbar();
+    else if (ModelName.compare("NPEffective1") == 0) DModel["NPEffective1"] = new NPEffective1();
+    else if (ModelName.compare("NPEffective2") == 0) DModel["NPEffective2"] = new NPEffective2();
+    else if (ModelName.compare("MFV") == 0) DModel["MFV"] = new MFV();
+    else if (ModelName.compare("GeneralSUSY") == 0) DModel["GeneralSUSY"] =  new GeneralSUSY();
+    else if (ModelName.compare("pMSSM") == 0) DModel["pMSSM"] = new pMSSM();
+    else if (ModelName.compare("SusyMI") == 0) DModel["SusyMI"] = new SUSYMassInsertion();
+    else if (ModelName.compare("THDM") == 0) DModel["THDM"] = new THDM();
+    else return NULL;
+    
+    return DModel[ModelName];
+}
+
 std::string InputParser::ReadParameters(const std::string filename,
                                         std::vector<ModelParameter>& ModelPars,
                                         std::vector<Observable>& Observables,
@@ -83,7 +107,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                                         std::vector<CorrelatedGaussianObservables>& CGO,
                                         std::vector<ModelParaVsObs>& ParaObs)
 {
-    std::string modname = "";
+    modname = "";
     std::ifstream ifile(filename.c_str());
     if (!ifile.is_open())
         throw std::runtime_error("\nERROR: " + filename + " does not exist. Make sure to specify a valid model configuration file.\n");
@@ -97,66 +121,15 @@ std::string InputParser::ReadParameters(const std::string filename,
         boost::char_separator<char> sep(" ");
         boost::tokenizer<boost::char_separator<char> > tok(line, sep);
         boost::tokenizer<boost::char_separator<char> >::iterator beg = tok.begin();
-        if (beg->compare("StandardModel") == 0) {
+        
+        if (modelnotset == 0) {
             modname = *beg;
-            myModel = new StandardModel();
-            continue;
-        } else if (beg->compare("NPSTU") == 0) {
-            modname = *beg;
-            myModel = new NPSTU();
-            continue;
-        } else if (beg->compare("NPSTUVWXY") == 0) {
-            modname = *beg;
-            myModel = new NPSTUVWXY();
-            continue;
-        } else if (beg->compare("NPEpsilons") == 0) {
-            modname = *beg;
-            myModel = new NPEpsilons();
-            continue;
-        } else if (beg->compare("NPEpsilons_pureNP") == 0) {
-            modname = *beg;
-            myModel = new NPEpsilons_pureNP();
-            continue;
-        } else if (beg->compare("NPHiggsST") == 0) {
-            modname = *beg;
-            myModel = new NPHiggsST();
-            continue;
-        } else if (beg->compare("NPZbbbar") == 0) {
-            modname = *beg;
-            myModel = new NPZbbbar();
-            continue;
-        } else if (beg->compare("NPEffective1") == 0) {
-            modname = *beg;
-            myModel = new NPEffective1();
-            continue;
-        } else if (beg->compare("NPEffective2") == 0) {
-            modname = *beg;
-            myModel = new NPEffective2();
-            continue;
-        } else if (beg->compare("MFV") == 0) {
-            modname = *beg;
-            myModel = new MFV();
-            continue;
-        } else if (beg->compare("GeneralSUSY") == 0) {
-            modname = *beg;
-            myModel = new GeneralSUSY();
-            continue;
-        } else if (beg->compare("pMSSM") == 0) {
-            modname = *beg;
-            myModel = new pMSSM();
-            continue;
-        } else if (beg->compare("SusyMI") == 0) {
-            modname = *beg;
-            myModel = new SUSYMassInsertion();
-            continue;
-        } else if (beg->compare("THDM") == 0) {
-            modname = *beg;
-            myModel = new THDM();
-            continue;
-        }
-        if (!myModel->IsModelInitialized()) {
+            myModel = ModelFactory(modname);
+            if (myModel == NULL) continue;
             myModel->InitializeModel();
             thf = new ThFactory(*myModel);
+            modelnotset = 1;
+            continue;
         }
         
         std::string type = *beg;
@@ -339,8 +312,10 @@ std::string InputParser::ReadParameters(const std::string filename,
             throw std::runtime_error("\nERROR: wrong keyword " + type + " in config file. Make sure to specify a valid model configuration file.\n" );
     } while (!IsEOF);
 
+    if (modelnotset == 0)
+        throw std::runtime_error("ERROR: Incorrect or missing model name in model configuration file.\n");
     if (!myModel->CheckFlags())
-        throw std::runtime_error("ERROR: incompatible flag(s)");
+        throw std::runtime_error("ERROR: incompatible flag(s)\n");
 
     return (modname);
 }

@@ -80,6 +80,11 @@ public:
      */
     Observable ParseObservable(boost::tokenizer<boost::char_separator<char> >::iterator & beg);
     
+     /**
+     * @brief The method used to create and object of the model being used.
+     */
+    StandardModel* ModelFactory(std::string& ModelName);
+    
     /**
      * @brief Responsible for parsing the SomeModel.conf file.
      * @details This method parses the SomeModel.conf file for all input instructions. The algorithm
@@ -125,6 +130,7 @@ private:
     StandardModel* myModel;///< Pointer to an object of type StandardModel.
     ThFactory* thf;///< Pointer to an object of type ThFactory.
     std::string modname;///< A string to store the model name in.
+    bool modelnotset;
 };
 
 /** 
