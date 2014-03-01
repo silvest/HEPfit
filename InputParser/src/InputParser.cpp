@@ -86,14 +86,14 @@ StandardModel* InputParser::ModelFactory(std::string& ModelName){
     else if (ModelName.compare("NPSTUVWXY") == 0) DModel["NPSTUVWXY"] = new NPSTUVWXY();
     else if (ModelName.compare("NPEpsilons") == 0) DModel["NPEpsilons"] =  new NPEpsilons();
     else if (ModelName.compare("NPEpsilons_pureNP") == 0) DModel["NPEpsilons_pureNP"] = new NPEpsilons_pureNP();
-    else if (ModelName.compare("NPHiggsST") == 0) DModel["NPHiggsST"] = new NPHiggsST();
+    else if (ModelName.compare("NPHiggs") == 0) DModel["NPHiggs"] = new NPHiggs();
     else if (ModelName.compare("NPZbbbar") == 0) DModel["NPZbbbar"] = new NPZbbbar();
     else if (ModelName.compare("NPEffective1") == 0) DModel["NPEffective1"] = new NPEffective1();
     else if (ModelName.compare("NPEffective2") == 0) DModel["NPEffective2"] = new NPEffective2();
     else if (ModelName.compare("MFV") == 0) DModel["MFV"] = new MFV();
     else if (ModelName.compare("GeneralSUSY") == 0) DModel["GeneralSUSY"] =  new GeneralSUSY();
     else if (ModelName.compare("pMSSM") == 0) DModel["pMSSM"] = new pMSSM();
-    else if (ModelName.compare("SusyMI") == 0) DModel["SusyMI"] = new SUSYMassInsertion();
+    else if (ModelName.compare("SusyMassInsertion") == 0) DModel["SusyMassInsertion"] = new SUSYMassInsertion();
     else if (ModelName.compare("THDM") == 0) DModel["THDM"] = new THDM();
     else return NULL;
     
