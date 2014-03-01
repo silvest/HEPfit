@@ -31,8 +31,8 @@ ComputeObservables::ComputeObservables(const std::string& ModelConf_i,
 ComputeObservables::ComputeObservables(const std::string& ModelName_i,
                                        std::map<std::string, double> DPars_i,
                                        std::map<std::string, double> DObs_i)
-:myInputParser(),
-ModelName(ModelName_i),
+:ModelName(ModelName_i),
+myInputParser(),
 DPars(DPars_i),
 DObs(DObs_i)
 {
@@ -55,12 +55,12 @@ ComputeObservables::~ComputeObservables()
 void ComputeObservables::setFlags(std::map<std::string, std::string> DFlags_i){
     DFlags = DFlags_i;
     for (std::map<std::string, std::string>::iterator it = DFlags.begin(); it != DFlags.end(); it++) {
-            if (boost::iequals(it->second, "true") == 0 && !Mod->setFlag(it->first, 1))
+            if (!(boost::iequals(it->second, "true")) && !(boost::iequals(it->second, "false")) && !Mod->setFlagStr(it->first, it->second))
+                    throw std::runtime_error("ERROR: setFlagStr error for " + it->first);
+            else if (boost::iequals(it->second, "true") && !Mod->setFlag(it->first, 1))
                     throw std::runtime_error("ERROR: setFlag error for " + it->first);
-            if (boost::iequals(it->second, "false") == 0 && !Mod->setFlag(it->first, 0))
+            else if (boost::iequals(it->second, "false") && !Mod->setFlag(it->first, 0))
                     throw std::runtime_error("ERROR: setFlag error for " + it->first);
-            if (boost::iequals(it->second, "true") != 0 && boost::iequals(it->second, "false") != 0 && !Mod->setFlagStr(it->first, it->second))
-                throw std::runtime_error("ERROR: setFlagStr error for " + it->first);
             else
                 std::cout << "set flag " << it->first << "=" << it->second << std::endl;
         }
