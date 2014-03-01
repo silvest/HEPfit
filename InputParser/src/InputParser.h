@@ -81,7 +81,7 @@ public:
     Observable ParseObservable(boost::tokenizer<boost::char_separator<char> >::iterator & beg);
     
      /**
-     * @brief The method used to create and object of the model being used.
+     * @brief The method used to create an object of the model being used.
      */
     StandardModel* ModelFactory(std::string& ModelName);
     
