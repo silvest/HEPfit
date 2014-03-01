@@ -130,7 +130,7 @@ private:
     StandardModel* myModel;///< Pointer to an object of type StandardModel.
     ThFactory* thf;///< Pointer to an object of type ThFactory.
     std::string modname;///< A string to store the model name in.
-    bool modelnotset;
+    bool modelset;
 };
 
 /** 

@@ -15,7 +15,7 @@ InputParser::InputParser()
 {
     myModel = NULL;
     thf = NULL;
-    modelnotset = 0;
+    modelset = 0;
 }
 
 InputParser::InputParser(const InputParser& orig)
@@ -122,13 +122,13 @@ std::string InputParser::ReadParameters(const std::string filename,
         boost::tokenizer<boost::char_separator<char> > tok(line, sep);
         boost::tokenizer<boost::char_separator<char> >::iterator beg = tok.begin();
         
-        if (modelnotset == 0) {
+        if (modelset == 0) {
             modname = *beg;
             myModel = ModelFactory(modname);
             if (myModel == NULL) continue;
             myModel->InitializeModel();
             thf = new ThFactory(*myModel);
-            modelnotset = 1;
+            modelset = 1;
             continue;
         }
 
@@ -312,7 +312,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             throw std::runtime_error("\nERROR: wrong keyword " + type + " in config file. Make sure to specify a valid model configuration file.\n" );
     } while (!IsEOF);
 
-    if (modelnotset == 0)
+    if (modelset == 0)
         throw std::runtime_error("ERROR: Incorrect or missing model name in model configuration file.\n");
     if (!myModel->CheckFlags())
         throw std::runtime_error("ERROR: incompatible flag(s)\n");
