@@ -84,8 +84,8 @@
             <pElem>../SUSY/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../THDM/src</pElem>
-            <pElem>../FeynHiggs/include</pElem>
             <pElem>../BAT/include</pElem>
+            <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
@@ -380,8 +380,8 @@
             <pElem>../SUSY/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../THDM/src</pElem>
-            <pElem>../FeynHiggs/include</pElem>
             <pElem>../BAT/include</pElem>
+            <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
@@ -678,8 +678,8 @@
             <pElem>../SUSY/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../THDM/src</pElem>
-            <pElem>../FeynHiggs/include</pElem>
             <pElem>../BAT_parallel/include</pElem>
+            <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
@@ -981,8 +981,8 @@
             <pElem>../SUSY/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../THDM/src</pElem>
-            <pElem>../FeynHiggs/include</pElem>
             <pElem>../BAT/include</pElem>
+            <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
@@ -1279,8 +1279,8 @@
             <pElem>../SUSY/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../THDM/src</pElem>
-            <pElem>../FeynHiggs/include</pElem>
             <pElem>../BAT_parallel/include</pElem>
+            <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
@@ -1583,8 +1583,8 @@
             <pElem>../SUSY/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../THDM/src</pElem>
-            <pElem>../FeynHiggs/include</pElem>
             <pElem>../BAT_parallel/include</pElem>
+            <pElem>../FeynHiggs/include</pElem>
             <pElem>../boost</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
