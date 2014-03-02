@@ -753,7 +753,14 @@ WARN_LOGFILE           =
 # spaces.
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  = ../../SusyFit
+INPUT                  =  Install.md \
+                          Usage.md \
+                          Parameters.md \
+                          Flags.md \
+                          Observables.md \
+                          Publications.md \
+                          Support.md \
+                          ../../SusyFit
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -830,9 +837,7 @@ RECURSIVE              = YES
 # run.
 
 EXCLUDE                = ../ZFitterWrapper/ \
-                         ../BHWIDEWrapper/ \
-                         ../LoopTools/ \
-                         ../FeynHiggs/
+                         ../BHWIDEWrapper/ 
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or
 # directories that are symbolic links (a Unix file system feature) are excluded
@@ -850,9 +855,11 @@ EXCLUDE_SYMLINKS       = YES
 
 EXCLUDE_PATTERNS       = */.dep.inc \
                          */boost/* \
-                         */BAT* \
                          */build/* \
-                         */tests/*
+                         */tests/* \
+                         */BAT* \
+                         */FeynHiggs* \
+                         */LoopTools*
 
 # The EXCLUDE_SYMBOLS tag can be used to specify one or more symbol names
 # (namespaces, classes, functions, etc.) that should be excluded from the
@@ -937,7 +944,7 @@ FILTER_SOURCE_PATTERNS =
 # (index.html). This can be useful if you have a project on for instance GitHub
 # and want to reuse the introduction page also for the doxygen output.
 
-USE_MDFILE_AS_MAINPAGE = README.md
+USE_MDFILE_AS_MAINPAGE = MainPage.md
 
 #---------------------------------------------------------------------------
 # Configuration options related to source browsing

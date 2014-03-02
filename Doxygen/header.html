@@ -10,45 +10,9 @@
 <link href="$relpath^tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="$relpath^jquery.js"></script>
 <script type="text/javascript" src="$relpath^dynsections.js"></script>
-<script type="text/javascript">
-  function myFunc() {
-    var filename;
-    if(document.location.href.match(/\/$/)) {
-      filename = "index.html";
-    } else {
-      filename = document.location.href.match(/[^\/]+$/)[0];
-    }
-    //document.write(filename); // Debug
-    if(filename.match(/citelist.html/)) {
-      var db=document.body;
-      db.innerHTML = db.innerHTML.split('[BS]').join('\\');
-      //db.innerHTML = db.innerHTML.replace(/\[BS\]/g, '\\');
-      db.innerHTML=db.innerHTML.replace(/(arXiv):([0-9]+\.[0-9]+)/g,
-        '<a href="http://inspirehep.net/search?ln=en&p=$1%3A$2" style="color:red">$1:$2</a>');
-      db.innerHTML=db.innerHTML.replace(/(arXiv:)(hep-.+)\/([0-9]+)/g,
-        '<a href="http://inspirehep.net/search?ln=en&p=$2%2F$3" style="color:red">$1$2\/$3</a>');
-    }
-  }
-  $(function() { myFunc() }); 
-  //window.addEventListener("DOMContentLoaded", myFunc, false);
-  //window.onload = myFunc;
-  //if(window.addEventListener) { window.addEventListener('load', myFunc, false); } 
-  //else if(window.attachEvent) { window.attachEvent('onload', myFunc); }
-  //else { window.onload = myFunc; }
-</script>
 $treeview
 $search
-<!-- $mathjax -->
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js"],
-    jax: ["input/TeX","output/HTML-CSS"],
-    tex2jax: {
-      inlineMath: [ ['\\(','\\)'], ['MJ\[','\]MJ'] ]
-    }
-  });
-</script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+$mathjax
 <link href="$relpath^$stylesheet" rel="stylesheet" type="text/css" />
 $extrastylesheet
 </head>

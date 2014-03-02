@@ -3,7 +3,9 @@
   <!-- Navigation index tabs for HTML output -->
   <navindex>
     <tab type="mainpage" visible="yes" title=""/>
-    <tab type="pages" visible="no" title="" intro=""/>
+    <tab type="pages" visible="no" title="Documentation" intro=""/>
+    <tab type="user" visible="yes" url="@ref PageInstallation" title="Installation"/>
+    <tab type="user" visible="yes" url="@ref PageUsage" title="Usage" intro=""/>
     <tab type="modules" visible="yes" title="Modules" intro=""/>
     <tab type="namespaces" visible="no" title="">
       <tab type="namespacelist" visible="no" title="" intro=""/>
@@ -19,7 +21,10 @@
       <tab type="filelist" visible="yes" title="" intro=""/>
       <tab type="globals" visible="yes" title="" intro=""/>
     </tab>
-    <tab type="examples" visible="yes" title="" intro=""/>  
+    <tab type="user" visible="yes" url="@ref PagePublications" title="Publications"/>
+    <tab type="user" visible="yes" url="@ref citelist" title="Bibliography"/>
+    <tab type="user" visible="yes" url="@ref Support" title="Support"/>
+    <tab type="examples" visible="no" title="" intro=""/>  
   </navindex>
 
   <!-- Layout definition for a class page -->
