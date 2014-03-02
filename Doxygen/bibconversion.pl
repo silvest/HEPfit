@@ -31,7 +31,7 @@ sub usage {
     $program =~ s+^.*/++;
     print STDERR <<_EOF_;
     
-        USAGE: perl $program <list of bibtex files>
+        USAGE: perl $program <list of input bibtex files (*.bib)> <output bibtex file (<output>.bib)>
     
 _EOF_
 
