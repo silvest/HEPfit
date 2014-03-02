@@ -55,7 +55,7 @@ the documentation of @ref ListOfObservables "ThFactory".
 
 <h3>Bibliography:</h3>
 <div style="text-indent: 2em;">
-See <a href="d0/de3/citelist.html">the list of references</a>. 
+See <a href="citelist.html">the list of references</a>. 
 </div>
 
 
