@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 SusyFit Collaboration
+ * Copyright (C) 2012-2013 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
@@ -300,6 +300,198 @@
  * individual model parameter is assigned with the protected member function
  * setParameter().
  *
+ * <H3><b>Computation of the strong coupling constant \boldmath \f$\alpha_s\f$: \unboldmath </b></H3>
+ *
+ * The one loop, two loop and three loop \f$\beta\f$ functions are respectively given by:
+ * @f[
+    \beta_0 = \frac{11N_c-2N_f}{3},\\
+    \beta_1 = \frac{34}{3}N_c^2-\frac{10}{3}N_cN_f-2C_FN_f,\\
+    \beta_2 = \frac{2857}{54}N_c^3+C_F^2N_f-\frac{205}{18}C_FN_cN_f-\frac{1415}{54}N_c^2N_f+\frac{11}{9}C_FN_f^2 
+    + \frac{79}{54}N_cN_f^2.
+ * @f]
+ * The four loop contribution can be found in @cite vanRitbergen:1997va. At a flavour threshold the matching 
+ * condition and the necessary threshold corrections are given by
+ * @f[
+    \alpha_s^{(N_f+1)}(\mu) = \alpha_s^{(N_f)}(\mu)\left(1 + \sum_{n=1}^{\infty}\sum_{l=0}^{n}
+    c_{nl}\left[\alpha_s^{(N_f)}(\mu)\right]^n \ln^l\frac{\mu^2}{\mu_f^2}\right),
+ * @f]
+ * where \f$\mu_f=m_f(\mu_f)\f$ denotes the \f$\overline{\mathrm{MS}}\f$ invariant mass of the \f$N_f\f$-th
+ * flavour at the scale \f$\mu_f\f$. The coefficients are given by
+ * @f[
+    c_{11} = \frac{1}{6\pi},\;\; c_{10}=0,\;\;c_{22}=c_{11}^2,\;\;c_{21}=\frac{19}{24\pi^2}\; \mathrm{and} \;c_{20}
+    =-\frac{11}{72\pi^2}.
+ * @f]
+ * This can be rewritten as @cite Chetyrkin:1997sg @cite Chetyrkin:2000yt
+ * @f[
+    \alpha_s^{(N_f-1)}(\mu) = (\zeta_g^f)^2\alpha_s^{(N_f)}(\mu),
+ * @f]
+ * where
+ * @f[
+    (\zeta_g^f)^2 = 1+\frac{\alpha_s^{(N_f)}(\mu)}{\pi}\left(-\frac{1}{6}\ln\frac{\mu^2}{\mu_f^2}\right)+
+    \left(\frac{\alpha_s^{(N_f)}(\mu)}{\pi}\right)^2\left(\frac{1}{36}\ln^2\frac{\mu^2}{\mu_f^2} -
+    \frac{19}{24}\ln\frac{\mu^2}{\mu_f^2} + \frac{11}{72}\right) + O\left(\left(\frac{\alpha_s}{\pi}
+    \right)^3\right),
+ * @f]
+ * and its inverse is given by
+ @f[
+    \frac{1}{(\zeta_g^f)^2} = 1+\frac{\alpha_s^{(N_f-1)}(\mu)}{\pi}\left(\frac{1}{6}\ln\frac{\mu^2}{\mu_f^2}\right)+
+    \left(\frac{\alpha_s^{(N_f-1)}(\mu)}{\pi}\right)^2\left(\frac{1}{36}\ln^2\frac{\mu^2}{\mu_f^2} +
+    \frac{19}{24}\ln\frac{\mu^2}{\mu_f^2} - \frac{11}{72}\right) + O\left(\left(\frac{\alpha_s}{\pi}
+    \right)^3\right).
+ @f]
+ * Setting \f$\mu=\mu_f\f$ simplifies these relationships to
+ * @f[
+    \alpha_s^{(N_f-1)}(\mu_f) =  \alpha_s^{(N_f)}(\mu_f)\left(1-c_{20}\left[ \alpha_s^{(N_f)}(\mu_f)
+    \right]^2\right),\\
+    \alpha_s^{(N_f)}(\mu_f) =  \alpha_s^{(N_f-1)}(\mu_f)\left(1+c_{20}\left[ \alpha_s^{(N_f-1)}(\mu_f)
+    \right]^2\right).
+ * @f]
+ * <b> Note: </b> For the top quark mass we input the pole mass instead of the \f$\overline{\mathrm{MS}}\f$ 
+ * invariant mass. Then the \f$\overline{\mathrm{MS}}\f$ invariant mass is computed from the pole mass with the 
+ * computed value of \f$\alpha_s^{(6)}(M_t)\f$, which in turn is computed from \f$\alpha_s^{(5)}(M_Z)\f$. Hence, the 
+ * matching condition from \f$N_f = 6\f$ to \f$N_f = 5\f$ has to be free from the \f$\overline{\mathrm{MS}}\f$ 
+ * invariant mass of the top quark. In this case we use the following matching condition
+ * @f[
+     \alpha_s^{(6)}(\mu_t) = \frac{1}{(\zeta_g^{OS,t})^2}\alpha_s^{(5)}(\mu_t),
+ * @f]
+ * where 
+ * @f[
+    \frac{1}{(\zeta_g^{OS,t})^2} = 1+\frac{\alpha_s^{(5)}(\mu)}{\pi}\left(\frac{1}{6}\ln\frac{\mu^2}{M_t^2}\right)+
+    \left(\frac{\alpha_s^{(5)}(\mu)}{\pi}\right)^2\left(\frac{1}{36}\ln^2\frac{\mu^2}{M_t^2} +
+    \frac{19}{24}\ln\frac{\mu^2}{M_t^2} + \frac{7}{24}\right) + O\left(\left(\frac{\alpha_s}{\pi}\right)^3\right).
+ * @f]
+ * The expression for \f$\alpha_s(\mu)\f$ for \f$N_f = 5\f$ at NLO is given by
+ * @f[
+    \alpha_s(\mu)=\frac{\alpha_s(M_z)}{v(\mu)}\left[1-\frac{\beta_1}{\beta_0}\frac{\alpha_s(M_z)}{4\pi}
+    \frac{\ln v(\mu)}{v(\mu)}\right],\\
+    v(\mu) = 1- \beta_0\frac{\alpha_s(M_z)}{2\pi}\ln\frac{M_Z}{\mu}.
+ * @f]
+ * Since the corresponding expression or NNLO is rather complex, we derive \f$\alpha_s(\mu)\f$ at NNLO by computing
+ * the value of \f$\Lambda_{\rm QCD}\f$ for \f$N_f=5\f$ using the measured value of \f$\alpha_s(M_Z)\f$ and solving 
+ * the equation @cite Chetyrkin:1997sg (following the convention in @cite Buras:1977qg for 
+ * \f$\ln(\mu^2/\Lambda^2)\f$)
+ * @f[
+    \frac{\alpha_s(\mu)}{4\pi}=\frac{1}{\beta_0L}-\frac{\beta_1\ln L}{\beta_0^3L^2}+
+    \frac{1}{\left(\beta_0L\right)^3}\left[\frac{\beta_1^2}{\beta_0^2}\left(\ln^2L-\ln L-1\right)+
+    \frac{\beta_2}{\beta_0}\right]+O\left(\frac{\ln^3L}{L^4}\right).\\
+    \ln L\equiv\ln\frac{\mu^2}{\Lambda^2}.
+ * @f]
+ * For \f$N_f < 5\f$, \f$\Lambda_{QCD}\f$ can be obtained by solving the following matching condition at \f$\mu\f$
+ * @f[
+    \beta_0^{'}\ln\frac{\Lambda^{'2}}{\Lambda^2} = (\beta_0^{'}-\beta_0)L+\left(\frac{\beta_1^{'}}{\beta_0^{'}}-
+    \frac{\beta_1}{\beta_0}\right)\ln L-\frac{\beta_1^{'}}{\beta_0^{'}}\ln\frac{\beta_0^{'}}{\beta_0}-C_1+
+    \frac{1}{\beta_0L}\left[\frac{\beta_1}{\beta_0}\left(\frac{\beta_1^{'}}{\beta_0^{'}}-\frac{\beta_1}{\beta_0}
+    \right)\ln L + \frac{\beta_1^{'2}}{\beta_0^{'2}}-\frac{\beta_1^2}{\beta_0^2}-\frac{\beta_2^{'2}}{\beta_0^{'2}}
+    +\frac{\beta_2^2}{\beta_0^2}+\frac{\beta_1^{'}}{\beta_0^{'}}C_1-C_1^2-C_2\right]+
+    O\left(\frac{\ln^2L}{L^2}\right),
+ * @f]
+ * where the primed (unprimed) quantities refer to those pertaining to \f$N_f-1\f$ \f$(N_f)\f$. The terms \f$C_1\f$ 
+ * and \f$C_2\f$ are associated with the threshold corrections of \f$O(\alpha_s)\f$ and \f$O(\alpha_s^2)\f$ 
+ * respectively and are given by
+ * @f[
+    C_1 = 4c_{11}\ln\frac{\mu^2}{\mu_f^2}=\frac{2}{3}\ln\frac{\mu^2}{\mu_f^2},\\
+    C_2 = 16\pi^2\left((c_{22}-2c_{11}^2)\ln^2\frac{\mu^2}{\mu_f^2}+c_{21}\ln\frac{\mu^2}{\mu_f^2}+c_{20}\right)
+    = -16\left(\frac{1}{36}\ln^2\frac{\mu^2}{\mu_f^2}-\frac{19}{24}\ln\frac{\mu^2}{\mu_f^2}+\frac{11}{72}\right),
+ * @f]
+ * for \f$c_{10}=0\f$. The inverted relation for matching from \f$N_f-1\f$ to \f$N_f\f$ flavours is given by
+ * @f[
+    \beta_0\ln\frac{\Lambda^{2}}{\Lambda^{'2}} = (\beta_0-\beta_0^{'})L^{'}+\left(\frac{\beta_1}{\beta_0}-
+    \frac{\beta_1^{'}}{\beta_0^{'}}\right)\ln L^{'}-\frac{\beta_1}{\beta_0}\ln\frac{\beta_0}{\beta_0^{'}}-C_1^{'}+
+    \frac{1}{\beta_0^{'}L^{'}}\left[\frac{\beta_1^{'}}{\beta_0^{'}}\left(\frac{\beta_1}{\beta_0}-\frac{\beta_1^{'}}
+    {\beta_0^{'}}\right)\ln L^{'}+\frac{\beta_1^{2}}{\beta_0^{2}}-\frac{\beta_1^{'2}}{\beta_0^{'2}}-
+    \frac{\beta_2^{2}}{\beta_0^{2}}+\frac{\beta_2^{'2}}{\beta_0^{'2}}+\frac{\beta_1}{\beta_0}C_1^{'}-C_1^{'2}-
+    C_2^{'}\right]+O\left(\frac{\ln^2L}{L^2}\right),
+ * @f]
+ * where
+ * @f[
+    C_1^{'} = -C_1 = -\frac{2}{3}\ln\frac{\mu^2}{\mu_f^2},\\
+    C_2^{'} = -16\left(\frac{1}{36}\ln^2\frac{\mu^2}{\mu_f^2}+\frac{19}{24}\ln\frac{\mu^2}{\mu_f^2}-\frac{11}
+    {72}\right).
+ * @f]
+ * Note that \f$C_2^{'}\neq C_2\f$. Setting \f$\mu=\mu_f\f$ the threshold corrections are given by 
+ * \f$C_1=C_1^{'}=0\f$ and \f$C_2=-C_2^{'}=-16\times11/72\f$. For the matching between \f$\alpha^{(5)}_s(\mu_t)\f$ 
+ * to \f$\alpha^{(6)}_s(\mu_t)\f$, \f$C_1^{'}\f$ and \f$C_2^{'}\f$ are given by
+ * @f[
+    C_1^{'} = -\frac{2}{3}\ln\frac{\mu^2}{M_t^2},\\
+    C_2^{'} = -16\left(\frac{1}{36}\ln^2\frac{\mu^2}{M_t^2}+\frac{19}{24}\ln\frac{\mu^2}{M_t^2}+\frac{7}{24}\right).
+ * @f]
+ *
+ * <H3><b>Computation of the running of the quark masses: </b></H3>
+ *
+ * In the \f$\overline{\mathrm{MS}}\f$ scheme the quark mass at a scale \f$\mu\f$ is given by @cite Chetyrkin:1997dh
+ * @f[
+    m_q(\mu) = m_q(\mu_0)\left[\frac{\alpha_s(\mu)}{\alpha_s(\mu_0)}\right]^{\frac{\gamma^{(0)}_m}{2\beta_0}}
+    \left\{1+A_1\frac{\alpha_s(\mu)-\alpha_s(\mu_0)}{4\pi}+A_2\left(\frac{\alpha_s(\mu)-\alpha_s(\mu_0)}{4\pi}
+    \right)^2+\frac{A_2}{2}\left[\left(\frac{\alpha_s(\mu)}{4\pi}\right)^2-\left(\frac{\alpha_s(\mu_0)}{4\pi}
+    \right)^2\right]\right\},
+ * @f]
+ * where
+ * @f[
+    A_1 = \frac{\gamma^{(1)}_m}{2\beta_0} - \frac{\beta_1\gamma^{(0)}_m}{2\beta_0^2},\\
+    A_2 = \frac{\beta_1^2\gamma^{(0)}_m}{2\beta_0^3}-\frac{\beta_2\gamma^{(0)}_m}{2\beta_0^2}-
+    \frac{\beta_1\gamma^{(1)}_m}{2\beta_0^2}+\frac{\gamma^{(2)}_m}{2\beta_0},
+ * @f]
+ * and 
+ * @f[
+    \gamma_m^{(0)} = 6C_F\\
+    \gamma_m^{(1)} = C_F\left(3C_F+\frac{97}{3}N_c-\frac{10}{3}N_f\right)\\
+    \gamma_m^{(2)} = 129C_F^3-\frac{129}{2}C_F^2N_c+\frac{11413}{54}C_FN_c^2+C_F^2N_f(-46+48\zeta(3))+
+    C_FN_CN_f\left(-\frac{556}{27}-48\zeta(3)\right)-\frac{70}{27}C_FN_f^2=2498+\left(-\frac{4432}{27}-
+    \frac{320}{3}\zeta(3)\right)N_f-\frac{280}{81}N_f^2,
+ * @f]
+ * in the \f$\overline{\mathrm{MS}}\f$ scheme. The four loop functions can be found in @cite Vermaseren:1997fq. The
+ * threshold condition is given by @cite Chetyrkin:2000yt
+ * @f[
+    m_q^{(N_f-1)}(\mu)=\zeta_m^fm_q^{(N_f)}(\mu),
+ * @f]
+ * where
+ * @f[
+    \zeta^f_m=1+\left(\frac{\alpha_s^{(N_f)}(\mu)}{\pi}\right)^2\left(\frac{1}{12}\ln^2\frac{\mu^2}{\mu_f^2}
+    -\frac{5}{36}\ln\frac{\mu^2}{\mu_f^2}+\frac{89}{432}\right),\\
+    \frac{1}{\zeta^f_m}=1+\left(\frac{\alpha_s^{(N_f-1)}(\mu)}{\pi}\right)^2\left(-\frac{1}{12}\ln^2\frac{\mu^2}
+    {\mu_f^2}+\frac{5}{36}\ln\frac{\mu^2}{\mu_f^2}-\frac{89}{432}\right),
+ * @f]
+ * where \f$\mu_f=m_f(\mu_f)\f$ denotes the \f$\overline{\mathrm{MS}}\f$ invariant mass of the \f$N_f\f$-th flavour
+ * at the scale \f$\mu_f\f$.
+ *
+ * <H3><b>Pole mass vs. \boldmath \f$ \overline{\mathrm{MS}} \f$ \unboldmath scale invariant mass:</b></H3>
+ *
+ * The pole mass \f$M_q\f$ of a heavy quark is related to the \f$\overline{\mathrm{MS}}\f$ scale invariant mass
+ * \f$m_q(m_q)\f$ as
+ * @f[
+    m_q(m_q)=M_q\left\{1-\frac{4}{3}\frac{\alpha_s(M_q)}{\pi}+\left[-\frac{2251}{268}-2\zeta(2)
+    -\frac{2}{3}\zeta(2)\ln2+\frac{\zeta(3)}{6}+\frac{n_l}{3}\left(\zeta(2)+\frac{71}{48}\right)
+    -\frac{4}{3}\sum_{1\le i \le n_l}\Delta\left(\frac{M_i}{M_q}\right)\right]\left(\frac{\alpha_s(M_q)}{\pi}
+    \right)^2\right\}
+ * @f]
+ * where \f$n_l\f$ is the number of the light quarks, and \f$\Delta(x)\f$ is given by
+ * @f[
+    \Delta(x)=\frac{\pi^2}{8}x-0.597x^2+0.230x^3+O\left(x^4\right)
+ * @f]
+ * It should be noted that the above formula requires the light quark pole masses which are not well defined.
+ * The pole mass in terms of the \f$\overline{\mathrm{MS}}\f$ is given by
+ * @f[
+    M_q=m_q(m_q)\left\{1+\frac{4}{3}\frac{\alpha_s(m_q)}{\pi}+\left[\frac{307}{32}+2\zeta(2)
+    +\frac{2}{3}\zeta(2)\ln2-\frac{\zeta(3)}{6}-\frac{n_l}{3}\left(\zeta(2)+\frac{71}{48}\right)
+    +\frac{4}{3}\sum_{1\le i \le n_l}\Delta\left(\frac{m_i}{m_q}\right)\right]\left(\frac{\alpha_s(m_q)}{\pi}
+    \right)^2\right\}
+ * @f]
+ * To get the pole mass of the light quarks we solve the above equation numerically and derive it from the 
+ * corresponding \f$\overline{\mathrm{MS}}\f$ mass. Further, one can numerically neglect the light quark masses
+ * which simplifies the above equations to @cite Chetyrkin:1999qi @cite Melnikov:2000qh
+ * @f[
+    m_q(m_q)=M_q\left\{1-\frac{4}{3}\frac{\alpha_s(M_q)}{\pi}+(-11.67+1.0414n_l)\left(\frac{\alpha_s(M_q)}{\pi}
+    \right)^2\right\},\\
+    M_q=m_q(m_q)\left\{1+\frac{4}{3}\frac{\alpha_s(m_q)}{\pi}+(13.4434-1.0414n_l)\left(\frac{\alpha_s(M_q)}{\pi}
+    \right)^2\right\}
+ * @f]
+ * where now \f$n_l\f$ is the number of massless quarks. The effects of the light quark masses can be estimated 
+ * using the substitutions
+ * @f[
+    1.0414n_l\to 1.0414n_l-\frac{4}{3}\sum_{1\le i \le n_l}\Delta\left(\frac{M_i}{M_q}\right),\\
+    -1.0414n_l\to -1.0414n_l+\frac{4}{3}\sum_{1\le i \le n_l}\Delta\left(\frac{M_i}{M_q}\right),
+ * @f]
+ *for the calculation of the \f$\overline{\mathrm{MS}}\f$ mass and pole mass respectively.
  */
 
 class QCD: public Model {
@@ -1089,9 +1281,9 @@ private:
     mutable double mp2mbar_cache[5][CacheSize]; ///< Cache for pole mass to msbar mass conversion.
     
     /**
-     * @brief
-     * @param[in] cache
-     * @param n
+     * @brief A member used to manage the caching for this class
+     * @param[in] cache the cache to be moved
+     * @param[in] n the dimension of the cache to be shifted
      */
     void CacheShift(double cache[][5], int n) const;
     
