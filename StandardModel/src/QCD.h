@@ -27,13 +27,12 @@
  * parameters like the bag parameters for the mesons and their decay constants are
  * assigned and updated by this class.
  *
- * Model parameters:
  *
  * @anchor QCDInitialization
  * <h3>Initialization</h3>
  *
  * The constructor QCD() sets the charge and isospin of the quarks. It also sets the
- * mass scale of the light quarks UP, DOWN and STRANGE to 2 \f$GeV\f$. The cache is initialized
+ * mass scale of the light quarks UP, DOWN and STRANGE to 2 GeV. The cache is initialized
  * too along with the computation of \f$\zeta(2)\f$ and \f$\zeta(3)\f$.
  *
  * The initializations and updates of the model parameters and flags are explained
@@ -62,22 +61,22 @@
  * </tr>
  * <tr>
  *   <td class="mod_name">%mup</td>
- *   <td class="mod_symb">@f$m_{u}@f$</td>
+ *   <td class="mod_symb">@f$m_{u}(2\,\mathrm{GeV})@f$</td>
  *   <td class="mod_desc">The \f$\overline{\mathrm{MS}}\f$ mass of the up quark at 2 GeV, \f$m_u(2\,\mathrm{GeV})\f$, in GeV.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%mdown</td>
- *   <td class="mod_symb">@f$m_{d}@f$</td>
+ *   <td class="mod_symb">@f$m_{d}(2\,\mathrm{GeV})@f$</td>
  *   <td class="mod_desc">The \f$\overline{\mathrm{MS}}\f$ mass of the down quark at 2 GeV, \f$m_d(2\,\mathrm{GeV})\f$, in GeV.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%mcharm</td>
- *   <td class="mod_symb">@f$m_{c}@f$</td>
+ *   <td class="mod_symb">@f$m_{c}(m_c)@f$</td>
  *   <td class="mod_desc">The \f$\overline{\mathrm{MS}}\f$ scale-invariant mass of the charm quark, \f$m_c(m_c)\f$, in GeV.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%mstrange</td>
- *   <td class="mod_symb">@f$m_{s}@f$</td>
+ *   <td class="mod_symb">@f$m_{s}(2\,\mathrm{GeV})@f$</td>
  *   <td class="mod_desc">The \f$\overline{\mathrm{MS}}\f$ mass of the strange quark at 2 GeV , \f$m_s(2\,\mathrm{GeV})\f$, in GeV.</td>
  * </tr>
  * <tr>
@@ -87,7 +86,7 @@
  * </tr>
  * <tr>
  *   <td class="mod_name">%mbottom</td>
- *   <td class="mod_symb">@f$m_{b}@f$</td>
+ *   <td class="mod_symb">@f$m_{b}(m_b)@f$</td>
  *   <td class="mod_desc">the \f$\overline{\mathrm{MS}}\f$ scale-invariant mass of the bottom quark, \f$m_b(m_b)\f$, in GeV.</td>
  * </tr>
  * <tr>
@@ -117,7 +116,7 @@
  * <tr>
  *   <td class="mod_name">%tBd</td>
  *   <td class="mod_symb">@f$\tau_{B_d}@f$</td>
- *   <td class="mod_desc">The lifetime of the \f$ B_d \f$ meson in \f$ ps^{-1} \f$.</td>
+ *   <td class="mod_desc">The lifetime of the \f$ B_d \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%MBs</td>
@@ -127,7 +126,7 @@
  * <tr>
  *   <td class="mod_name">%tBs</td>
  *   <td class="mod_symb">@f$\tau_{B_s}@f$</td>
- *   <td class="mod_desc">The lifetime of the \f$ B_d \f$ meson in \f$ ps^{-1} \f$.</td>
+ *   <td class="mod_desc">The lifetime of the \f$ B_d \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%MBp</td>
@@ -152,12 +151,12 @@
  * <tr>
  *   <td class="mod_name">%tKl</td>
  *   <td class="mod_symb">@f$\tau_{K_L}@f$</td>
- *   <td class="mod_desc">The lifetime of the \f$ K_L \f$ meson in \f$ ps^{-1} \f$.</td>
+ *   <td class="mod_desc">The lifetime of the \f$ K_L \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%tKp</td>
- *   <td class="mod_symb">@f$\tau{K^\pm}@f$</td>
- *   <td class="mod_desc">The lifetime of the \f$ K^\pm \f$ meson in \f$ ps^{-1} \f$.</td>
+ *   <td class="mod_symb">@f$\tau_{K^\pm}@f$</td>
+ *   <td class="mod_desc">The lifetime of the \f$ K^\pm \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%FBs</td>
@@ -261,7 +260,7 @@
  * </tr>
  * <tr>
  *   <td class="mod_name">%Br_Kp_P0enu</td>
- *   <td class="mod_symb">@f$\mathrm{BR}{K^+\to\pi^0e^+\nu}@f$</td>
+ *   <td class="mod_symb">@f$\mathrm{BR}(K^+\to\pi^0e^+\nu)@f$</td>
  *   <td class="mod_desc">The experimental value for the branching ratio of \f$K^+\to\pi^0e^+\nu\f$.</td>
  * </tr>
  * <tr>
@@ -300,7 +299,7 @@
  * individual model parameter is assigned with the protected member function
  * setParameter().
  *
- * <H3><b>Computation of the strong coupling constant \boldmath \f$\alpha_s\f$: \unboldmath </b></H3>
+ * <H3>Computation of the strong coupling constant \f$\alpha_s\f$:  </H3>
  *
  * The one loop, two loop and three loop \f$\beta\f$ functions are respectively given by:
  * @f[
@@ -374,7 +373,7 @@
     \frac{\alpha_s(\mu)}{4\pi}=\frac{1}{\beta_0L}-\frac{\beta_1\ln L}{\beta_0^3L^2}+
     \frac{1}{\left(\beta_0L\right)^3}\left[\frac{\beta_1^2}{\beta_0^2}\left(\ln^2L-\ln L-1\right)+
     \frac{\beta_2}{\beta_0}\right]+O\left(\frac{\ln^3L}{L^4}\right).\\
-    \ln L\equiv\ln\frac{\mu^2}{\Lambda^2}.
+    L\equiv\ln\frac{\mu^2}{\Lambda^2}.
  * @f]
  * For \f$N_f < 5\f$, \f$\Lambda_{QCD}\f$ can be obtained by solving the following matching condition at \f$\mu\f$
  * @f[
@@ -416,12 +415,12 @@
     C_2^{'} = -16\left(\frac{1}{36}\ln^2\frac{\mu^2}{M_t^2}+\frac{19}{24}\ln\frac{\mu^2}{M_t^2}+\frac{7}{24}\right).
  * @f]
  *
- * <H3><b>Computation of the running of the quark masses: </b></H3>
+ * <H3>Computation of the running of the quark masses: </H3>
  *
  * In the \f$\overline{\mathrm{MS}}\f$ scheme the quark mass at a scale \f$\mu\f$ is given by @cite Chetyrkin:1997dh
  * @f[
     m_q(\mu) = m_q(\mu_0)\left[\frac{\alpha_s(\mu)}{\alpha_s(\mu_0)}\right]^{\frac{\gamma^{(0)}_m}{2\beta_0}}
-    \left\{1+A_1\frac{\alpha_s(\mu)-\alpha_s(\mu_0)}{4\pi}+A_2\left(\frac{\alpha_s(\mu)-\alpha_s(\mu_0)}{4\pi}
+    \left\{1+A_1\frac{\alpha_s(\mu)-\alpha_s(\mu_0)}{4\pi}+\frac{A_1^2}{2}\left(\frac{\alpha_s(\mu)-\alpha_s(\mu_0)}{4\pi}
     \right)^2+\frac{A_2}{2}\left[\left(\frac{\alpha_s(\mu)}{4\pi}\right)^2-\left(\frac{\alpha_s(\mu_0)}{4\pi}
     \right)^2\right]\right\},
  * @f]
@@ -454,10 +453,10 @@
  * where \f$\mu_f=m_f(\mu_f)\f$ denotes the \f$\overline{\mathrm{MS}}\f$ invariant mass of the \f$N_f\f$-th flavour
  * at the scale \f$\mu_f\f$.
  *
- * <H3><b>Pole mass vs. \boldmath \f$ \overline{\mathrm{MS}} \f$ \unboldmath scale invariant mass:</b></H3>
+ * <H3>Pole mass vs. \f$ \overline{\mathrm{MS}} \f$ scale invariant mass:</H3>
  *
  * The pole mass \f$M_q\f$ of a heavy quark is related to the \f$\overline{\mathrm{MS}}\f$ scale invariant mass
- * \f$m_q(m_q)\f$ as
+ * \f$m_q(m_q)\f$ as @cite Chetyrkin:2000yt
  * @f[
     m_q(m_q)=M_q\left\{1-\frac{4}{3}\frac{\alpha_s(M_q)}{\pi}+\left[-\frac{2251}{268}-2\zeta(2)
     -\frac{2}{3}\zeta(2)\ln2+\frac{\zeta(3)}{6}+\frac{n_l}{3}\left(\zeta(2)+\frac{71}{48}\right)
@@ -644,7 +643,7 @@ public:
     
     /**
      * @brief A get method to access a quark as an object of the type Particle.
-     * @param[in] q The name of a quark.
+     * @param[in] q the name of a quark
      * @return the object of the quark found in the argument
      */
     Particle getQuarks(const quark q) const
@@ -653,7 +652,7 @@ public:
     }
     
     /**
-     * @brief A get method to access the value of \f$\alpha_s(M_Z)\f$
+     * @brief A get method to access the value of \f$\alpha_s(M_Z)\f$.
      * @return the strong coupling constant at @f$M_Z@f$, @f$\alpha_s(M_Z)@f$
      */
     double getAlsMz() const
@@ -671,7 +670,7 @@ public:
     }
     
     /**
-     * @brief A get method to access the mass of the \f$Z\f$ boson \f$M_Z\f$
+     * @brief A get method to access the mass of the \f$Z\f$ boson \f$M_Z\f$.
      * @return the @f$Z@f$-boson mass @f$M_Z@f$
      */
     double getMz() const
@@ -689,7 +688,7 @@ public:
     }
     
     /**
-     * @brief A get method to access the number of colours \f$N_c\f$
+     * @brief A get method to access the number of colours \f$N_c\f$.
      * @return the number of colours
      */
     double getNc() const
@@ -707,7 +706,7 @@ public:
     }
     
     /**
-     * @brief A get method to access he threshold between six- and five-flavour theory in GeV
+     * @brief A get method to access he threshold between six- and five-flavour theory in GeV.
      * @return the threshold \f$\mu_t\f$
      */
     double getMut() const
@@ -725,7 +724,7 @@ public:
     }
     
     /**
-     * @brief A get method to access he threshold between five- and four-flavour theory in GeV
+     * @brief A get method to access he threshold between five- and four-flavour theory in GeV.
      * @return the threshold \f$\mu_b\f$
      */
     double getMub() const
@@ -743,7 +742,7 @@ public:
     }
     
     /**
-     * @brief A get method to access he threshold between four- and three-flavour theory in GeV
+     * @brief A get method to access he threshold between four- and three-flavour theory in GeV.
      * @return the threshold \f$\mu_c\f$
      */
     double getMuc() const
@@ -761,7 +760,7 @@ public:
     }
     
     /**
-     * @brief A get method to access the pole mass of the top quark
+     * @brief A get method to access the pole mass of the top quark.
      * @return the pole mass of the top quark \f$m_t^{pole}\f$
      */
     double getMtpole() const
@@ -770,7 +769,7 @@ public:
     }
     
     /**
-     * @brief A get method to access the Casimir factor of %QCD
+     * @brief A get method to access the Casimir factor of %QCD.
      * @return the Casimir factor
      */
     double getCF() const
@@ -782,7 +781,7 @@ public:
      * @brief For getting the bag parameters corresponding
      * to the operator basis \f$O_1 -O_5\f$ in \f$\Delta b = 2\f$
      * process in the \f$B_d\f$ meson system.
-     * @return The vector of bag parameters
+     * @return the vector of bag parameters
      */
     BParameter getBBd() const
     {
@@ -793,7 +792,7 @@ public:
      * @brief For getting the bag parameters corresponding
      * to the operator basis \f$O_1 -O_5\f$ in \f$\Delta b = 2\f$
      * process in the \f$B_s\f$ meson system.
-     * @return The vector of bag parameters
+     * @return the vector of bag parameters
      */
     BParameter getBBs() const
     {
@@ -803,8 +802,8 @@ public:
     /**
      * @brief For getting the bag parameters corresponding
      * to the operator basis \f$O_1 -O_5\f$ in \f$\Delta c = 2\f$
-     * process in the \f$D^0\f$ meson system
-     * @return The vector of bag parameters
+     * process in the \f$D^0\f$ meson system.
+     * @return the vector of bag parameters
      */
     BParameter getBD() const
     {
@@ -814,8 +813,8 @@ public:
     /**
      * @brief For getting the bag parameters corresponding
      * to the operator basis \f$O_1 -O_5\f$ in \f$\Delta s = 2\f$
-     * process in the \f$K^0\f$ meson system
-     * @return The vector of bag parameters
+     * process in the \f$K^0\f$ meson system.
+     * @return the vector of bag parameters
      */
     BParameter getBK() const
     {
@@ -839,8 +838,8 @@ public:
     }
     
     /**
-     * @return The experimental value of the real part of the amplitude for
-     * @f$K^0\to\pi\pi@f$ with @f$\Delta I=0@f$.
+     * @return the experimental value of the real part of the amplitude for
+     * @f$K^0\to\pi\pi@f$ with @f$\Delta I=0@f$
      */
     double getReA0_Kd() const
     {
@@ -848,8 +847,8 @@ public:
     }
     
     /**
-     * @return The experimental value of the real part of the amplitude for
-     * @f$K^0\to\pi\pi@f$ with @f$\Delta I=2@f$.
+     * @return the experimental value of the real part of the amplitude for
+     * @f$K^0\to\pi\pi@f$ with @f$\Delta I=2@f$
      */
     double getReA2_Kd() const
     {
@@ -857,7 +856,7 @@ public:
     }
     
     /**
-     * @return The isospin breaking contribution in @f$K^0\to\pi\pi@f$.
+     * @return the isospin breaking contribution in @f$K^0\to\pi\pi@f$
      */
     double getOmega_eta_etap() const
     {
@@ -865,7 +864,7 @@ public:
     }
     
     /**
-     * @return The experimental value for the branching ratio of @f$K^+\to\pi^0e^+\nu@f$.
+     * @return the experimental value for the branching ratio of @f$K^+\to\pi^0e^+\nu@f$
      */
     double getBr_Kp_P0enu() const
     {
@@ -873,7 +872,7 @@ public:
     }
     
     /**
-     * @return The experimental value for the branching ratio of @f$K^+\to\mu^+\nu@f$.
+     * @return the experimental value for the branching ratio of @f$K^+\to\mu^+\nu@f$
      */
     double getBr_Kp_munu() const
     {
@@ -881,7 +880,7 @@ public:
     }
     
     /**
-     * @return The experimental value for the branching ratio of @f$B\to X_c e\nu@f$.
+     * @return the experimental value for the branching ratio of @f$B\to X_c e\nu@f$
      */
     double getBr_B_Xcenu() const
     {
@@ -889,7 +888,7 @@ public:
     }
     
     /**
-     * @return The long-distance correction to the charm contribution of @f$K^+\to\pi^+\nu\bar{\nu}@f$.
+     * @return the long-distance correction to the charm contribution of @f$K^+\to\pi^+\nu\bar{\nu}@f$
      *
      * References:
      * [<A HREF="http://inspirehep.net/record/678222?ln=en" target="blank">Isidori et al.(2005)</A>],
@@ -901,8 +900,8 @@ public:
     }
     
     /**
-     * @return The isospin breaking corrections between
-     * @f$K_L\to\pi^0\nu\bar{\nu}@f$ and @f$K^+\to\pi^0 e^+\nu@f$.
+     * @return the isospin breaking corrections between
+     * @f$K_L\to\pi^0\nu\bar{\nu}@f$ and @f$K^+\to\pi^0 e^+\nu@f$
      */
     double getIB_Kl() const
     {
@@ -910,8 +909,8 @@ public:
     }
     
     /**
-     * @return The isospin breaking corrections between
-     * @f$K^+\to\pi^+ \nu\bar{\nu}@f$ and @f$K^+\to\pi^0 e^+\nu@f$.
+     * @return the isospin breaking corrections between
+     * @f$K^+\to\pi^+ \nu\bar{\nu}@f$ and @f$K^+\to\pi^0 e^+\nu@f$
      */
     double getIB_Kp() const
     {
@@ -924,7 +923,7 @@ public:
      * @brief For accessing the active flavour threshold scales.
      * @param[in] i the index referring to active flavour thresholds.
      * @return the threshold scale: 1.0E10 (i = 0), \f$\mu_t\f$ (i = 1),
-     * \f$\mu_b\f$ (i = 2), \f$\mu_c\f$ (i = 3) and 0. (default).
+     * \f$\mu_b\f$ (i = 2), \f$\mu_c\f$ (i = 3) and 0. (default)
      */
     double Thresholds(const int i) const;
     
@@ -954,21 +953,21 @@ public:
     ////////////////////////////////////////////////////////////////////////
     
     /**
-     * @brief The \f$\beta_0(n_f)\f$ coefficient for a certain number of flavours \f$n_f\f$
+     * @brief The \f$\beta_0(n_f)\f$ coefficient for a certain number of flavours \f$n_f\f$.
      * @param[in] nf the number of active flavours \f$n_f\f$
      * @return @f$\beta_0(n_f)@f$
      */
     double Beta0(const double nf) const;
     
     /**
-     * @brief The \f$\beta_1(n_f)\f$ coefficient for a certain number of flavours \f$n_f\f$
+     * @brief The \f$\beta_1(n_f)\f$ coefficient for a certain number of flavours \f$n_f\f$.
      * @param[in] nf the number of active flavours \f$n_f\f$
      * @return @f$\beta_1(n_f)@f$
      */
     double Beta1(const double nf) const;
     
     /**
-     * @brief The \f$\beta_2(n_f)\f$ coefficient for a certain number of flavours \f$n_f\f$
+     * @brief The \f$\beta_2(n_f)\f$ coefficient for a certain number of flavours \f$n_f\f$.
      * @param[in] nf the number of active flavours \f$n_f\f$
      * @return @f$\beta_2(n_f)@f$
      */
@@ -978,12 +977,12 @@ public:
      * @brief Computes the running strong coupling @f$\alpha_s(\mu)@f$ from @f$\alpha_s(\mu_i)@f$
      * in the @f$\overline{\mathrm{MS}}@f$ scheme, where it is forbidden to across
      * a flavour threshold in the RG running from @f$\mu_i@f$ to @f$\mu@f$.
-     * @param[in] mu a scale @f$\mu@f$ in GeV.
-     * @param[in] alsi the initial value for the coupling at the scale given below.
-     * @param[in] mu_i the initial scale @f$\mu_i@f$ in GeV.
+     * @param[in] mu a scale @f$\mu@f$ in GeV
+     * @param[in] alsi the initial value for the coupling at the scale given below
+     * @param[in] mu_i the initial scale @f$\mu_i@f$ in GeV
      * @param[in] order LO, NLO or FULLNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
      * @return the strong coupling constant @f$\alpha_s(\mu)@f$ in the
-     * @f$\overline{\mathrm{MS}}@f$ scheme.
+     * @f$\overline{\mathrm{MS}}@f$ scheme
      */
     double AlsWithInit(const double mu, const double alsi, const double mu_i,
                        const orders order) const;
@@ -1003,7 +1002,7 @@ public:
      * @f$\overline{\mathrm{MS}}@f$ scheme. In the cases of LO, NLO and FULLNNLO,
      * the coupling is computed with AlsWithInit(). On the other hand, in the
      * cases of NNLO and FULLNNLO, the coupling is computed with AlsWithLambda().
-     * @param[in] mu a scale @f$\mu@f$ in GeV.
+     * @param[in] mu a scale @f$\mu@f$ in GeV
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
      * @return the strong coupling constant @f$\alpha_s(\mu)@f$ in the
      * @f$\overline{\mathrm{MS}}@f$ scheme
@@ -1019,42 +1018,44 @@ public:
     double logLambda(const double nf, orders order) const;
     
     /**
-     * @brief The value of \f$\alpha_s^{FULLNLO}\f$ at any scale \f$\mu\f$ with the number of flavours
+     * @brief The value of \f$\alpha_s^{\mathrm{FULLNLO}}\f$ at any scale \f$\mu\f$ with the number of flavours
      * \f$n_f = 4\f$.
-     * @attention Temporary function waiting for the implementation of NNLO etact.
      * @param[in] mu the scale at which \f$\alpha_s\f$ has to be computed
-     * @return \f$\alpha_s^{FULLNLO}(\mu)\f$ with \f$n_f = 4\f$
+     * @return \f$\alpha_s^{\mathrm{FULLNLO}}(\mu)\f$ with \f$n_f = 4\f$
+     *
+     * @attention Temporary function waiting for the implementation of NNLO etact.
      */
     double Als4(const double mu) const;
     
     /**
-     * @brief the running of a mass with the number of flavours \f$n_f = 4\f$.
-     * @attention Temporary function waiting for the implementation of NNLO etact.
+     * @brief The running of a mass with the number of flavours \f$n_f = 4\f$.
      * @param[in] mu_f the final scale \f$\mu_f\f$ to which the mass is run
      * @param[in] mu_i the initial scale \f$\mu_i\f$ from which the mass is run
      * @param[in] m the mass at the scale \f$\mu_i\f$
      * @return the mass at the scale \f$\mu_f\f$ with \f$n_f = 4\f$
+     *
+     * @attention Temporary function waiting for the implementation of NNLO etact.
      */
     double Mrun4(const double mu_f, const double mu_i, const double m) const;
     
     ////////////////////////////////////////////////////////////////////////
     
     /**
-     * @brief The @f$\gamma_0@f$ coefficient used to compute the running of a mass
+     * @brief The @f$\gamma_0@f$ coefficient used to compute the running of a mass.
      * @param[in] nf the number of active flavours \f$n_f\f$
      * @return the @f$\gamma_0@f$ coefficient.
      */
     double Gamma0(const double nf) const;
     
     /**
-     * @brief The @f$\gamma_1@f$ coefficient used to compute the running of a mass
+     * @brief The @f$\gamma_1@f$ coefficient used to compute the running of a mass.
      * @param[in] nf the number of active flavours \f$n_f\f$
      * @return the @f$\gamma_1@f$ coefficient
      */
     double Gamma1(const double nf) const;
     
     /**
-     * @brief The @f$\gamma_2@f$ coefficient used to compute the running of a mass
+     * @brief The @f$\gamma_2@f$ coefficient used to compute the running of a mass.
      * @param[in] nf The number of active flavours \f$n_f\f$
      * @return the @f$\gamma_2@f$ coefficient
      */
@@ -1083,11 +1084,12 @@ public:
     ////////////////////////////////////////////////////////////////////////
     
     /**
-     * @brief Converts the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ to the pole mass
-     * @attention Can only be used for conversion of mass of the top and bottom quarks.
+     * @brief Converts the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ to the pole mass.
      * @param[in] mbar the @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
      * @param[in] order LO, NLO, FULLNLO, NNLO or FULLNNLO in the @f$\alpha_s@f$ expansion defined in OrderScheme
      * @return the pole mass in GeV
+     *
+     * @attention Can only be used for conversion of mass of the top and bottom quarks.
      */
     double Mbar2Mp(const double mbar, const orders order = FULLNLO) const;
     
@@ -1111,8 +1113,8 @@ public:
     /**
      * @brief Converts a quark mass from the @f$\overline{\mathrm{MS}}@f$ scheme to
      * the @f$\overline{\mathrm{DR}}@f$ scheme.
-     * @param[in] MSbar The @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV.
-     * @return The @f$\overline{\mathrm{DR}}@f$ mass @f$m(m)@f$ in GeV.
+     * @param[in] MSbar The @f$\overline{\mathrm{MS}}@f$ mass @f$m(m)@f$ in GeV
+     * @return The @f$\overline{\mathrm{DR}}@f$ mass @f$m(m)@f$ in GeV
      */
     double MS2DRqmass(const double MSbar) const;
     
@@ -1165,15 +1167,15 @@ private:
     /**
      * @brief The strong coupling constant computed with using \f$\Lambda_{\rm QCD}\f$.
      * @param[in] mu the scale of the strong coupling constant
-     * @param[in] logLambda \f$log(\Lambda_{\rm QCD})\f$
-     * @param[in] order the QCD order at which \f$\alpha_s\f$ is required
+     * @param[in] logLambda \f$\log(\Lambda_{\rm QCD})\f$
+     * @param[in] order the %QCD order at which \f$\alpha_s\f$ is required
      * @return \f$\alpha_s(\mu)\f$ for the specified order
      */
     double AlsWithLambda(const double mu, const double logLambda, const orders order) const;
     
     /**
      * @brief A member for calculating the difference in \f$\alpha_s^{FULLNLO}\f$ across the six-five 
-     * flavour threshold using AlsWithLambda()
+     * flavour threshold using AlsWithLambda().
      * @param[in] logLambda6 \f$\log(\Lambda_{\rm QCD}^{(6)})\f$
      * @param[in] logLambda5_in \f$\log(\Lambda_{\rm QCD}^{(5)})\f$
      * @return the difference \f$\alpha_s^{FULLNLO}(\mu_t+\epsilon)\f$ - \f$\alpha_s^{FULLNLO}(\mu_t-\epsilon)\f$
@@ -1183,16 +1185,16 @@ private:
     
     /**
      * @brief A member for calculating the difference in \f$\alpha_s^{FULLNLO}\f$ using
-     * AlsWithLambda() and the input vaue of \f$\alpha_s^(M_Z)\f$ given in the SomeModel.conf file
+     * AlsWithLambda() and the input vaue of \f$\alpha_s^(M_Z)\f$ given in the SomeModel.conf file.
      * @param[in] logLambda5 \f$\log(\Lambda_{\rm QCD}^{(5)})\f$
-     * @param[in] order the QCD order of the calculation
+     * @param[in] order the %QCD order of the calculation
      * @return \f$\alpha_s^{FULLNLO}(M_z)\f$ - \f$\alpha_s^(M_Z)\f$
      */
     double ZeroNf5(double *logLambda5, double *order) const;
     
     /**
      * @brief A member for calculating the difference in \f$\alpha_s^{FULLNLO}\f$ across the four-five
-     * flavour threshold using AlsWithLambda()
+     * flavour threshold using AlsWithLambda().
      * @param[in] logLambda4 \f$\log(\Lambda_{\rm QCD}^{(4)})\f$
      * @param[in] logLambda5_in \f$\log(\Lambda_{\rm QCD}^{(5)})\f$
      * @return the difference \f$\alpha_s^{FULLNLO}(\mu_b-\epsilon)\f$ - \f$\alpha_s^{FULLNLO}(\mu_b+\epsilon)\f$
@@ -1202,7 +1204,7 @@ private:
     
     /**
      * @brief A member for calculating the difference in \f$\alpha_s^{FULLNLO}\f$ across the six-five
-     * flavour threshold using AlsWithLambda()
+     * flavour threshold using AlsWithLambda().
      * @param[in] logLambda3 \f$\log(\Lambda_{\rm QCD}^{(3)})\f$
      * @param[in] logLambda4_in \f$\log(\Lambda_{\rm QCD}^{(4)})\f$
      * @return the difference \f$\alpha_s^{FULLNLO}(\mu_c-\epsilon)\f$ - \f$\alpha_s^{FULLNLO}(\mu_c+\epsilon)\f$
@@ -1212,13 +1214,13 @@ private:
     
     /**
      * @brief \f$\log(\Lambda_{\rm QCD})\f$ for \f$n_f = 5\f$.
-     * @param[in] order the QCD order of the computation
+     * @param[in] order the %QCD order of the computation
      * @return \f$\log(\Lambda_{\rm QCD}^{(5)})\f$
      */
     double logLambda5(orders order) const;
     
     /**
-     * @brief \f$\log(\Lambda_{\rm QCD})\f$ used for computation of \f$\alpha_s\f$ at FULLNLO
+     * @brief \f$\log(\Lambda_{\rm QCD})\f$ used for computation of \f$\alpha_s\f$ at FULLNLO.
      * @param[in] nfNEW the number of flavours after crossing the flavour threshold
      * @param[in] nfORG the number of flavours before crossing the flavour threshold
      * @param[in] logLambdaORG the value of \f$\log(\Lambda_{\rm QCD})\f$ with \f$n_f = nfORG\f$
@@ -1227,13 +1229,13 @@ private:
     double logLambdaNLO(const double nfNEW, const double nfORG, const double logLambdaORG) const;
     
     /**
-     * @brief \f$\log(\Lambda_{\rm QCD})\f$ used for computation of \f$\alpha_s\f$ at FULLNNLO
+     * @brief \f$\log(\Lambda_{\rm QCD})\f$ used for computation of \f$\alpha_s\f$ at FULLNNLO.
      * @param[in] muMatching the scale at which the matching is done during crossing a flavour threshold
      * @param[in] mf the mass of the quark sitting at the flavour threshold being crossed
      * @param[in] nfNEW the number of flavours after crossing the flavour threshold
      * @param[in] nfORG the number of flavours before crossing the flavour threshold
      * @param[in] logLambdaORG the value of \f$\log(\Lambda_{\rm QCD})\f$ with \f$n_f = nfORG\f$
-     * @param[in] order the QCD order of the calculation
+     * @param[in] order the %QCD order of the calculation
      * @return \f$\log(\Lambda_{\rm QCD})\f$ for \f$n_f = nfNEW\f$
      */
     double logLambda(const double muMatching, const double mf,
@@ -1241,7 +1243,7 @@ private:
                      const double logLambdaORG, orders order) const;
     
     /**
-     * @brief The threshold correction for running of a mass when crossing a flavour threshold
+     * @brief The threshold correction for running of a mass when crossing a flavour threshold.
      * @param[in] nf_f the number of flavours \f$n_f\f$ after crossing the threshold
      * @param[in] nf_i the number of flavours \f$n_i\f$ before crossing the threshold
      * @return the threshold correction factoe
@@ -1249,7 +1251,7 @@ private:
     double threCorrForMass(const double nf_f, const double nf_i) const;
     
     /**
-     * @brief A function to calculate the running of the mass between flavour thresholds
+     * @brief A function to calculate the running of the mass between flavour thresholds.
      * @param[in] mu_f the final scale \f$\mu_f\f$ to which the mass if run
      * @param[in] mu_i the initial scale \f$\mu_i\f$ from which the mass if run
      * @param[in] m the mass at the scale \f$\mu_i\f$
@@ -1262,7 +1264,7 @@ private:
      * @brief The member used for finding the numerical solution to the pole mass from the \f$\overline{\rm MS}\f$
      * mass.
      * @param[in] mu a pointer to the \f$\overline{\rm MS}\f$ mass
-     * @param[in] params a pointer to a vector containing the pole mass and the QCD order of the computation
+     * @param[in] params a pointer to a vector containing the pole mass and the %QCD order of the computation
      * @return the difference in the pole mass and the pole mass as computed from the \f$\overline{\rm MS}\f$ mass
      */
     double Mp2MbarTMP(double *mu, double *params) const;
@@ -1281,7 +1283,7 @@ private:
     mutable double mp2mbar_cache[5][CacheSize]; ///< Cache for pole mass to msbar mass conversion.
     
     /**
-     * @brief A member used to manage the caching for this class
+     * @brief A member used to manage the caching for this class.
      * @param[in] cache the cache to be moved
      * @param[in] n the dimension of the cache to be shifted
      */
