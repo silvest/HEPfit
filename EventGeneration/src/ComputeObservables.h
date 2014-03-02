@@ -58,7 +58,7 @@ public:
      * @details This constructor passes the name of the SomeModel.conf file.
      * @param[in] ModelConf_i the name of the input configuration file for the model name,
      * the model parameters and observables to be calculated
-     * @param[in] DObs the map of observables to be computed
+     * @param[in] DObs_i the map of observables to be computed
      */
     ComputeObservables(const std::string& ModelConf_i,
                        std::map<std::string, double> DObs_i);
@@ -67,7 +67,7 @@ public:
      * @brief Constructor.
      * @details This constructor passes the model parameters, model name and model flags.
      * @param[in] ModelName_i the name of the model being used
-     * @param[in] DParas_i the mandatory parameters of the model being used
+     * @param[in] DPars_i the mandatory parameters of the model being used
      * @param[in] DObs_i the map of observables to be computed
      */
     ComputeObservables(const std::string& ModelName_i,
