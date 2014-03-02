@@ -19,6 +19,7 @@ use Term::ANSIColor;
 use Config;
 use strict;
 use warnings;
+use File::Copy;
 
 my @tmpfiles = ();
 my @bibfiles = ();
@@ -136,6 +137,7 @@ if ($OS eq 'darwin'){
 if (@doxygen_list == 0){
     print colored ['Red'], "\n\tERROR:";
     print " No Doxygen installation found.\n\n";
+    unlink(@tmpfiles);
     exit(1)
 }
 my $doxygen_asked = 1;
@@ -179,17 +181,18 @@ if ($doxygen_asked != 0){
             print "\n\tDeleted the html directory.\n";
         } else {
             print "\n\tFailed to delete the html directory.\n";
+            unlink(@tmpfiles);
             exit(1)
         }
     }
     print colored ['Green'], "\n\tRunning Doxygen...\n";
     system($doxygen_used);
 } else {
-    print "\tNO DOXYGEN RUN.\n\n";
+    print "\tNO DOXYGEN RUN.\n";
 }
 
-#print colored ['Green'], "\n\tPatching index.html...\n";
-#
+print colored ['Green'], "\n\tPatching citelist.html...\n";
+
 #chomp(my $index_path = `find ./html -name "index.html"`);
 #if (!(-e $index_path)){
 #    print colored ['Red'], "\n\tERROR:";
@@ -201,14 +204,44 @@ if ($doxygen_asked != 0){
 #    open INDEXOUT, ">index.html";
 #}
 #
-#chomp(my $citelist_path = `find ./html -name "citelist.html"`);
-#if (!(-e $citelist_path)){
-#    print colored ['Red'], "\n\tERROR:";
-#    print " citelist.html file not found recursively in the html directory.\n";
-#    exit(1)
-#} else {
-#print "\tcitelist.html found at: $citelist_path\n";
-#}
+chomp(my $citelist_path = `find ./html -name "citelist.html"`);
+if (!(-e $citelist_path)){
+    print colored ['Red'], "\n\tERROR:";
+    print " citelist.html file not found recursively in the html directory.\n";
+    unlink(@tmpfiles);
+    exit(1)
+} else {
+print "\tcitelist.html found at: $citelist_path\n";
+}
+
+if(!(copy($citelist_path,"citelist_temp.html"))){
+    print colored ['Red'], "\n\tERROR:";
+    print " citelist.html file not copied to the current directory.\n";
+    unlink(@tmpfiles);
+    exit(1)
+}
+open CITELISTIN, "<citelist_temp.html";
+open CITELISTOUT, ">citelist.html";
+push(@tmpfiles,"citelist_temp.html");
+while (<CITELISTIN>){
+    if (/target\=blank/){
+        print colored ['Red'], "\n\tERROR:";
+        print " patched version of citelist.html exists. Please rerun Doxygen.\n";
+        unlink(@tmpfiles);
+        exit(1)
+    }
+    $_ =~ s/MJ\[/\\\(/g;
+    $_ =~ s/\]MJ/\\\)/g;
+    $_ =~ s/\[BS\]/\\/g;
+    $_ =~ s/(arXiv)\:([0-9]+\.[0-9]+)/\<a href=\"http\:\/\/inspirehep\.net\/search\?ln\=en\&p\=$1\%3A$2\" style\=\"color\:red\" target\=blank\>$1\:$2<\/a>/;
+    $_ =~ s/(arXiv:)(hep-.+)\/([0-9]+)/\<a href=\"http\:\/\/inspirehep\.net\/search\?ln\=en\&p\=$2\%2F$3\" style\=\"color\:red\" target\=blank>$1$2\/$3<\/a>/;
+    print CITELISTOUT $_;
+}
+
+close CITELISTIN;
+close CITELISTOUT;
+
+move("citelist.html", $citelist_path);
 #$citelist_path =~ s/\.\/html\///;
 
 #while (<INDEX>){
