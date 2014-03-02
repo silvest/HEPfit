@@ -19,9 +19,7 @@ use Term::ANSIColor;
 use Config;
 use strict;
 use warnings;
-#$label_styles{'numbered'} = 	$LABEL_NUMBERED = 	2;
-#$list_start[$LABEL_NUMBERED] = 'dl class="citelist"';
-#$list_end[$LABEL_NUMBERED] = "/dl";
+
 my @tmpfiles = ();
 my @bibfiles = ();
 my @doxygen_list = ();
@@ -57,7 +55,7 @@ _EOF_
 &usage if ($#ARGV < 0);
 &header;
 
-#unlink ($ARGV[-1]);
+unlink ($ARGV[-1]);
 
 foreach (@ARGV) {
     if (/\.bib$/ && \$_ != \$ARGV[-1]) {
@@ -74,7 +72,6 @@ foreach (@ARGV) {
     } else {
         open BIBOUT, "+>", pop @ARGV;
         open BIBOUT_TEMP, ">", "temp.bib";
-        push(@tmpfiles,"temp.bib");
     }
 }
 
@@ -86,9 +83,9 @@ foreach (@bibfiles) {
         $_ =~ s/\"\{/\"\[/;
         $_ =~ s/\}\"/\]\"/;
         $_ =~ s/\\/\[BS\]/g;
-        $_ =~ s/\$/(++$z % 2) == 0 ? "\]MJ" : "\$"/ge;
-        $_ =~ s/\$/(++$z % 2) == 1 ? "MJ\[" : "\$"/ge;
-        if ((/MJ\[/ && /\]MJ/) || /\[BS\]href/){
+        $_ =~ s/\$/(++$z % 2) != 0 ? "MJ\[" : "\$"/eg;
+        $_ =~ s/\$/(++$z % 2) == 0 ? "\]MJ" : "\$"/eg;
+        if (/MJ\[/ || /\]MJ/){
             $_ =~ s/\{/\\\{/g;
             $_ =~ s/\}/\\\}/g;
         }
@@ -101,7 +98,8 @@ foreach (@bibfiles) {
 }
 close BIBOUT_TEMP;
 open BIBOUT_TEMP, "<temp.bib";
-    
+push(@tmpfiles,"temp.bib");
+
 while (<BIBOUT_TEMP>){
     if (/year/){
         $_ =~ s/\s+eprint\s+/\[arXiv\:/g;
@@ -113,15 +111,8 @@ while (<BIBOUT_TEMP>){
     }
     $_ =~ s/(arXiv.*)(\",)/$1\]$2/ if (!(/archivePrefix/));
     $_ =~ s/\:= \"/\:/g;
-    if (/note/ && /href/){
-        $_ =~ s/\"\{.*\\\}\\\{/\"[/;
-            $_ =~ s/\[BS\]bf//g;
-            $_ =~ s/\[BS\]//g;
-            $_ =~ s/[\\\{\\\}]//g;
-            $_ =~ s/\",$/\]\",/;
-    }
     foreach my $key(@keyword_list){
-        $_ =~ s/$key/\%$key/g;
+        $_ =~ s/\b$key\b/\%$key/g;
     }
     print BIBOUT $_;
 }
@@ -129,7 +120,7 @@ while (<BIBOUT_TEMP>){
 close BIBOUT;
 close BIBOUT_TEMP;
 system("cp SusyFit.bib temp.bib");
-system("sed -e \'s\/\\\$\/MJ\\\[/g\' temp.bib > SusyFit.bib"); # A Fistful of dollars get left over no matter what!!
+system("sed -e \'s\/\\\$\/\\\]MJ/g\' temp.bib > SusyFit.bib"); # A Fistful of dollars get left over no matter what!!
             
 print "\n";
 print colored ['Green'], "\n\tStarting bibtex conversion...\n\n";
@@ -194,40 +185,47 @@ if ($doxygen_asked != 0){
     print colored ['Green'], "\n\tRunning Doxygen...\n";
     system($doxygen_used);
 } else {
-    print "\tNO DOXYGEN RUN.\n";
-}
-print colored ['Green'], "\n\tPatching README.md...\n";
-if (!(-e "README.md.in")){
-    print colored ['Red'], "\n\tERROR:";
-    print " README.md.in not found in current directory\n";
-    exit(1)
-} else {
-    open READMEIN, "<README.md.in";
-    open README, ">README.md";
+    print "\tNO DOXYGEN RUN.\n\n";
 }
 
-chomp(my $citelist_path = `find ./html -name "citelist.html"`);
-if (!(-e $citelist_path)){
-    print colored ['Red'], "\n\tERROR:";
-    print " citelist.html file not found recursively in the html directory.\n";
-    exit(1)
-} else {
-print "\tcitelist.html found at: $citelist_path\n";
-}
-$citelist_path =~ s/\.\/html\///;
+#print colored ['Green'], "\n\tPatching index.html...\n";
+#
+#chomp(my $index_path = `find ./html -name "index.html"`);
+#if (!(-e $index_path)){
+#    print colored ['Red'], "\n\tERROR:";
+#    print " index.html file not found recursively in the html directory.\n";
+#    exit(1)
+#} else {
+#    print "\tindex.html found at: $index_path\n";
+#    open INDEX, "<", $index_path;
+#    open INDEXOUT, ">index.html";
+#}
+#
+#chomp(my $citelist_path = `find ./html -name "citelist.html"`);
+#if (!(-e $citelist_path)){
+#    print colored ['Red'], "\n\tERROR:";
+#    print " citelist.html file not found recursively in the html directory.\n";
+#    exit(1)
+#} else {
+#print "\tcitelist.html found at: $citelist_path\n";
+#}
+#$citelist_path =~ s/\.\/html\///;
 
-while (<READMEIN>){
-    $_ =~ s/\"(.*)citelist.html/\"$citelist_path/g;
-    print README $_;
-}
-close README;
+#while (<INDEX>){
+#    #$_ =~ s/citelist.html/$citelist_path/g;
+#    print INDEXOUT $_;
+#}
+#close INDEX;
+#close INDEXOUT;
+#
+#system("mv index.html html/index.html");
 
-if ($doxygen_asked != 0){
-    print colored ['Green'], "\n\tRe-Running Doxygen to generate main page...\n";
-    system($doxygen_used);
-}
+#if ($doxygen_asked != 0){
+#    print colored ['Green'], "\n\tRe-Running Doxygen to generate main page...\n";
+#    system($doxygen_used);
+#}
 
-exec("open html\/index.html") if ($OS eq 'darwin');
+#exec("open html\/index.html") if ($OS eq 'darwin');
 
 unlink(@tmpfiles);
 
