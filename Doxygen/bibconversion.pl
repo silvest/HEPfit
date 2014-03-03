@@ -317,8 +317,8 @@ while (<CITELISTIN>){
     $_ =~ s/MJ\[/\\\(/g;
     $_ =~ s/\]MJ/\\\)/g;
     $_ =~ s/\[BS\]/\\/g;
-    $_ =~ s/(arXiv)\:([0-9]+\.[0-9]+)/\<a href=\"http\:\/\/inspirehep\.net\/search\?ln\=en\&p\=$1\%3A$2\" style\=\"color\:blue\" target\=blank\>$1\:$2<\/a>/;
-    $_ =~ s/(arXiv:)(hep-.+)\/([0-9]+)/\<a href=\"http\:\/\/inspirehep\.net\/search\?ln\=en\&p\=$2\%2F$3\" style\=\"color\:blue\" target\=blank>$1$2\/$3<\/a>/;
+    $_ =~ s/(arXiv)\:([0-9]+\.[0-9]+)/\<a href=\"http\:\/\/inspirehep\.net\/search\?ln\=en\&p\=$1\%3A$2\" style\=\"color\:#00009C\" target\=blank\>$1\:$2<\/a>/;
+    $_ =~ s/(arXiv:)(hep-.+)\/([0-9]+)/\<a href=\"http\:\/\/inspirehep\.net\/search\?ln\=en\&p\=$2\%2F$3\" style\=\"color\:#00009C\" target\=blank>$1$2\/$3<\/a>/;
     print CITELISTOUT $_;
 }
 
@@ -332,5 +332,22 @@ move("citelist.html", $citelist_path);
 
 unlink(@tmpfiles);
 print colored ['Green'], "\n\tDONE!\n\n";
+
+# Modify html/index.html
+open(INFILE,"<MainPage.md") || die "cannot open the input file!";
+my $MainPageHeading = <INFILE>; 
+close(INFILE);
+open(INFILE,"<html/index.html") || die "cannot open the output file!";
+open(OUTFILE,">index_new.html") || die "cannot open the output file!";
+my $MainPageHeadingORG = "SusyFit Documentation";
+while(<INFILE>) {
+    $_ =~ s/$MainPageHeadingORG/$MainPageHeading/;
+    print OUTFILE $_;
+}
+print "\thtml/index.html has been modified\n";
+move("index_new.html", "html/index.html");
+close(INFILE);
+close(OUTFILE);
+	
 
 exit(0);
