@@ -35,10 +35,11 @@ namespace gslpp
     /**
      * @class matrix<complex>
      * @ingroup gslpp
-     * @brief
+     * @brief A class for constructing and defining operations on complex matrices.
      * @author SusyFit Collaboration
      * @copyright GNU General Public License
-     * @details
+     * @details This class defines some common operations on complex matrices
+     * using the <a href="http://www.gnu.org/software/gsl/">GSL libraries</a>.
      */
   template <>
   class matrix<complex>

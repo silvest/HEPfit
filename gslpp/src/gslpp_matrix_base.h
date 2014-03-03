@@ -13,10 +13,9 @@ namespace gslpp
     /**
      * @class gslpp::matrix
      * @ingroup gslpp
-     * @brief
+     * @brief A base class for defining operations on matrices, both real and complex.
      * @author SusyFit Collaboration
      * @copyright GNU General Public License
-     * @details
      */
     template <typename T>
     class matrix;

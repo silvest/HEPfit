@@ -23,10 +23,11 @@ namespace gslpp
     /**
      * @class vector<double>
      * @ingroup gslpp
-     * @brief
+     * @brief A class for constructing and defining operations on real vectors.
      * @author SusyFit Collaboration
      * @copyright GNU General Public License
-     * @details
+     * @details This class defines some common operations on real vectors
+     * using the <a href="http://www.gnu.org/software/gsl/">GSL libraries</a>.
      */
   template <>
   class vector<double>

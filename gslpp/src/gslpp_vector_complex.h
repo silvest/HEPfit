@@ -23,10 +23,11 @@ namespace gslpp
     /**
      * @class vector<complex>
      * @ingroup gslpp
-     * @brief
+     * @brief A class for constructing and defining operations on complex vectors.
      * @author SusyFit Collaboration
      * @copyright GNU General Public License
-     * @details
+     * @details This class defines some common operations on complex vectors
+     * using the <a href="http://www.gnu.org/software/gsl/">GSL libraries</a>.
      */
   template <>
   class vector<complex>
