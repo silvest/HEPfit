@@ -753,7 +753,9 @@ WARN_LOGFILE           =
 # spaces.
 # Note: If this tag is empty the current directory is searched.
 
-INPUT                  =  Install.md \
+# In order to ensure that Installation, etc. appear in the navigation tree in 
+# a desired order, individual md files are listed in addition to ../../SusyFit.
+INPUT                  =  Installation.md \
                           Usage.md \
                           Parameters.md \
                           Flags.md \

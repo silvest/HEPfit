@@ -105,13 +105,16 @@ div.navtab {
 /* @group Link Styling */
 
 a {
-	color: #1D2E51;
+	/* color: #1D2E51; */
+	color: #00009C;
+        /* color: blue; */
 	font-weight: normal;
 	text-decoration: none;
 }
-
 .contents a:visited {
-	color: #253B67;
+	/* color: #253B67; */
+	color: #00009C;
+        /* color: blue; */
 }
 
 a:hover {
@@ -1263,6 +1266,10 @@ td.obs_desc {
     vertical-align: middle; 
     text-align: left;
     border: 1px solid #000; 
+}
+
+#nav-tree {
+    background-color: #F5F7FB;
 }
 
 

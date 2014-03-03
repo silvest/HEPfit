@@ -22,6 +22,6 @@ SusyFit can be used:
     in the parameter space of the model, allowing our computational tool to
     be used in any statistical framework
 
-The Monte Carlo mode is based on the BAT (Bayesian Analysis Toolkit) library.
+The Monte Carlo mode is based on the [BAT (Bayesian Analysis Toolkit)](https://www.mppmu.mpg.de/bat/) library.
 
 

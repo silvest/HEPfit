@@ -4,6 +4,16 @@ Installation   {#PageInstallation}
 You can find here a short description of what to do to be able to compile 
 and use SusyFit on your computer.
 
+Downloads 
+------------
+
+The SusyFit source codes are available for download: 
+
+* Latest test release (version 0.1, released on Mar. 2, 2014): 
+[<b>SusyFit-0.1.tar.gz</b>] (http://susyfit.roma1.infn.it/SusyFit-0.1.tar.gz) (381 KB)
+
+
+
 Dependencies
 ------------
 
