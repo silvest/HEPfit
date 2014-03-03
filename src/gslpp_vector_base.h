@@ -13,10 +13,9 @@ namespace gslpp
     /**
      * @class gslpp::vector
      * @ingroup gslpp
-     * @brief
+     * @brief A base class for defining operations on vectors, both real and complex.
      * @author SusyFit Collaboration
      * @copyright GNU General Public License
-     * @details
      */
     template <class T>
     class vector;
