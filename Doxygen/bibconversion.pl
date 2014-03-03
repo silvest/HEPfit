@@ -91,7 +91,6 @@ if ($ARGV[-2] ne "-o" && $ARGV[-2] ne "-of"){
         print " Output bib file being set to SusyFit.bib.\n\n";
         $bibfile_out = "SusyFit.bib";
         open BIBOUT, "+>", $bibfile_out;
-        
         $end_index = 0;
     }
 } elsif ($ARGV[-2] eq "-o" && (-e $ARGV[-1])){
@@ -102,7 +101,7 @@ if ($ARGV[-2] ne "-o" && $ARGV[-2] ne "-of"){
     $bibfile_out = pop @ARGV;
     if (index($bibfile_out, ".bib") != -1){
         open BIBOUT, "+>", $bibfile_out;
-        $end_index = 3;
+        $end_index = 1;
     } else {
         print colored ['Red'], "\n\n\tERROR:";
         print " Please list only .bib files in the correct BibTex format.\n";
