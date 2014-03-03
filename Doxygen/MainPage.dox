@@ -1,9 +1,6 @@
-SusyFit - a Fitting Tool for the Standard %Model and Beyond
-===================================================================
+/**
 
-A Fitting Tool for the Standard %Model and Beyond
-------------------------------------------------
-
+@mainpage SusyFit - a fitting tool for the Standard %Model and beyond
 
 SusyFit is a flexible tool which, given the Standard %Model or any extension,
 allows to:
@@ -23,5 +20,7 @@ SusyFit can be used:
     be used in any statistical framework
 
 The Monte Carlo mode is based on the [BAT (Bayesian Analysis Toolkit)](https://www.mppmu.mpg.de/bat/) library.
+
+*/
 
 

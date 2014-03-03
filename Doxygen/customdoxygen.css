@@ -285,6 +285,7 @@ td.indexvalue {
 
 td.doxinfo {
         padding: 0px 10px;
+	text-align: right;
 }
 
 tr.memlist {
@@ -325,7 +326,8 @@ img.footer {
 }
 
 img.doxinfo {
-        width: 15%;
+        /* width: 15%; */
+        /* height: 50%; */
 	border: 0px;
 	vertical-align: bottom;
 }

@@ -755,7 +755,8 @@ WARN_LOGFILE           =
 
 # In order to ensure that Installation, etc. appear in the navigation tree in 
 # a desired order, individual md files are listed in addition to ../../SusyFit.
-INPUT                  =  Installation.md \
+INPUT                  =  MainPage.dox \
+                          Installation.md \
                           Usage.md \
                           Parameters.md \
                           Flags.md \
@@ -946,7 +947,7 @@ FILTER_SOURCE_PATTERNS =
 # (index.html). This can be useful if you have a project on for instance GitHub
 # and want to reuse the introduction page also for the doxygen output.
 
-USE_MDFILE_AS_MAINPAGE = MainPage.md
+USE_MDFILE_AS_MAINPAGE = 
 
 #---------------------------------------------------------------------------
 # Configuration options related to source browsing
