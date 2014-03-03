@@ -30,7 +30,7 @@ namespace gslpp
      * @author SusyFit Collaboration
      * @copyright GNU General Public License
      * @details  This class defines some common operations on complex variables
-     * using the <a href="http://www.gnu.org/software/gsl/">GSL libraries</a>.
+     * using the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL libraries</a>.
      */
   class complex
   {
