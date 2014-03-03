@@ -29,6 +29,7 @@ my @keyword_list = ("QCD", "Model");
 my $end_index = 0;
 my $bibfile_out = "";
 my $doxyfile_path = "";
+my $doxyfile_specified = "";
 
 sub usage {
     my $program = $0;
@@ -36,10 +37,14 @@ sub usage {
     print STDERR <<_EOF_;
     
         USAGE:
-        perl $program <list of input bibtex files (*.bib)> [-o[-of]] [<output bibtex file (<output>.bib)>]
+        perl $program <list of input bibtex files (*.bib)> [-o[-of]] [<output bibtex file (<output>.bib)>] [-dox Doxyfile]
+    
+        The option specifications are positional.
+        The above format must be followed if the options are used.
     
         -o      Specifies the output file name. (MUST end in .bib)
         -of     Deletes the output file if it exists.
+        -dox    Specifies the Doxygen configuration file from the commandline
     
         Default Output File SusyFit.bib can be specified with:
         perl $program <list of input bibtex files (*.bib)> [-of]
@@ -65,6 +70,18 @@ _EOF_
 
 &usage if ($#ARGV < 0);
 &header;
+
+if ($ARGV[-1] eq "-dox"){
+    print colored ['Red'], "\n\n\tERROR:";
+    print " Please choose a name for the Doxygen configuration file.\n\n";
+    &usage;
+    exit(1)
+}
+
+if ($ARGV[-2] eq "-dox"){
+    $doxyfile_path = pop @ARGV;
+    $doxyfile_specified = pop @ARGV;
+}
 
 if (($ARGV[-1] eq "-of") || ($ARGV[-2] eq "-of")){
     unlink ("SusyFit.bib");
@@ -216,24 +233,26 @@ if ($doxygen_asked != 0){
     chomp($doxygen_used = $doxygen_list[$doxygen_asked - 1]);
     print "\tUsing doxygen executable at $doxygen_used.\n";
     
-    print colored ['Green'], "\n\tDo you want to use the default Doxyfile (DEFAULT: yes)\n\t";
-    chomp(my $doxyfile_asked = <STDIN>);
-    $doxyfile_asked = "yes" if ($doxyfile_asked eq "");
-    while (($doxyfile_asked ne "yes") && ($doxyfile_asked ne "no")){
-        print colored ['Red'], "\n\tERROR:";
-        print " illegal option: $doxyfile_asked";
-        print "\tPlease enter yes or no.\n\t";
-        $doxyfile_asked = <STDIN>;
-    }
-    my $doxyfile_path = "Doxyfile";
-    if ($doxyfile_asked eq "no"){
-        print colored ['Green'], "\n\tPath to the configuration file to be used by Doxygen?\n\t";
-        chomp($doxyfile_path = <STDIN>);
-        while (!(-e $doxyfile_path)){
+    if ($doxyfile_specified ne "-dox"){
+        print colored ['Green'], "\n\tDo you want to use the default Doxyfile (DEFAULT: yes)\n\t";
+        chomp(my $doxyfile_asked = <STDIN>);
+        $doxyfile_asked = "yes" if ($doxyfile_asked eq "");
+        while (($doxyfile_asked ne "yes") && ($doxyfile_asked ne "no")){
             print colored ['Red'], "\n\tERROR:";
-            print " Specified Doxygen configuration file does not exist.\n";
-            print "\tPlease enter the correct path.\n\t";
+            print " illegal option: $doxyfile_asked";
+            print "\tPlease enter yes or no.\n\t";
+            $doxyfile_asked = <STDIN>;
+        }
+        $doxyfile_path = "Doxyfile";
+        if ($doxyfile_asked eq "no"){
+            print colored ['Green'], "\n\tPath to the configuration file to be used by Doxygen?\n\t";
             chomp($doxyfile_path = <STDIN>);
+            while (!(-e $doxyfile_path)){
+                print colored ['Red'], "\n\tERROR:";
+                print " Specified Doxygen configuration file does not exist.\n";
+                print "\tPlease enter the correct path.\n\t";
+                chomp($doxyfile_path = <STDIN>);
+            }
         }
     }
     print "\tUsing doxygen configuration file $doxyfile_path.\n";
