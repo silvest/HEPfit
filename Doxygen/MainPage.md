@@ -1,4 +1,4 @@
-SusyFit - a fitting tool for the Standard %Model and beyond
+SusyFit - a fitting tool for the Standard Model and beyond
 ===========================================================
 
 SusyFit is a flexible tool which, given the Standard %Model or any extension,

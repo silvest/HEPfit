@@ -6,6 +6,7 @@
     <tab type="pages" visible="no" title="Documentation" intro=""/>
     <tab type="user" visible="yes" url="@ref PageInstallation" title="Installation"/>
     <tab type="user" visible="yes" url="@ref PageUsage" title="Usage" intro=""/>
+    <tab type="user" visible="yes" url="@ref PageModels" title="Models" intro=""/>
     <tab type="modules" visible="yes" title="Modules" intro=""/>
     <tab type="namespaces" visible="no" title="">
       <tab type="namespacelist" visible="no" title="" intro=""/>
@@ -17,13 +18,14 @@
       <tab type="hierarchy" visible="yes" title="" intro=""/>
       <tab type="classmembers" visible="yes" title="" intro=""/>
     </tab>
-    <tab type="files" visible="yes" title="">
-      <tab type="filelist" visible="yes" title="" intro=""/>
-      <tab type="globals" visible="yes" title="" intro=""/>
+    <tab type="files" visible="no" title="">
+      <tab type="filelist" visible="no" title="" intro=""/>
+      <tab type="globals" visible="no" title="" intro=""/>
     </tab>
+    <tab type="user" visible="yes" url="@ref PageResults" title="Results"/>
     <tab type="user" visible="yes" url="@ref PagePublications" title="Publications"/>
     <tab type="user" visible="yes" url="@ref citelist" title="Bibliography"/>
-    <tab type="user" visible="yes" url="@ref Support" title="Support"/>
+    <tab type="user" visible="yes" url="@ref PageSupport" title="Support"/>
     <tab type="examples" visible="no" title="" intro=""/>  
   </navindex>
 

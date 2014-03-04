@@ -2,7 +2,7 @@ Installation   {#PageInstallation}
 =============================================
 
 You can find here a short description of what to do to be able to compile 
-and use SusyFit on your computer.
+and install SusyFit on your computer.
 
 Downloads 
 ------------
@@ -131,10 +131,10 @@ After installation, a susyfit-config script can be found in the
 `SUSYFIT_INSTALL_DIR/bin/` directory, which can be invoked with the 
 following options:
 
-* <b>--cflags</b>
+* <b>-\-cflags</b>
   to obtain the include path needed for compilation against the SusyFit library
 
-* <b>--libs</b>
+* <b>-\-libs</b>
   to obtain the flags needed for linking against the SusyFit library
 
 The example program in the `examples/LibraryMode/` directory demonstrates 

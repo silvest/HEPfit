@@ -334,11 +334,11 @@ unlink(@tmpfiles);
 print colored ['Green'], "\n\tDONE!\n\n";
 
 # Modify html/index.html
-open(INFILE,"<MainPage.md") || die "cannot open the input file!";
+open(INFILE,"<MainPage.md") || die "cannot open MainPage.md!";
 my $MainPageHeading = <INFILE>; 
 close(INFILE);
-open(INFILE,"<html/index.html") || die "cannot open the output file!";
-open(OUTFILE,">index_new.html") || die "cannot open the output file!";
+open(INFILE,"<html/index.html") || die "cannot open html/index.html!";
+open(OUTFILE,">index_new.html") || die "cannot open index_new.html!";
 my $MainPageHeadingORG = "SusyFit Documentation";
 while(<INFILE>) {
     $_ =~ s/$MainPageHeadingORG/$MainPageHeading/;
