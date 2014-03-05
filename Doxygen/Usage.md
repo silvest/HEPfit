@@ -197,6 +197,105 @@ where the results are printed on the standard output.
 Library mode 
 ------------- 
 
-Write instructions for the library mode!
+The library mode allows for access to all the observables implemented in SusyFit
+without a Monte Carlo run. The users can use one of our defined @ref PageModels and vary ModelParameters
+according to their own algorithm and get the corresponding predictions for the observables. 
+
+The Susyfit library allows for two different implementaions of the access algorithm.
+
+### Non-Minimal Mode:
+
+In the non-minimal mode the user can use the SomeModel.conf file to pass the default value of
+the model parameters. The following elements must be present in the user code to define
+the parameters and access the observable. (For details of model paramters, observables etc. please lookup @ref PageModels)
+
+~~~~~~~~~~~~~~~
+/* Include the necessary header file. */
+#include <ComputeObservables.h>
+
+/* Define the model configuration file. */
+std::string ModelConf = "SomeModel.conf";
+
+/* Define a map for the observables. */
+std::map<std::string, double> DObs;
+
+/* Define a map for the parameters to be varied */
+std::map<std::string, double> DPars;
+
+/* Initialize the observables to be returned. */
+DObs["Mw"] = 0;
+DObs["GammaW"] = 0.;
+DObs["GammaZ"] = 0.;
+DObs["Mz"] = 0.;
+
+/* Create and object of the class ComputeObservables. */
+ComputeObservables CO(ModelConf, DObs);
+
+/* Vary the parameters that you wish to vary in your analysis. */
+DPars["Mz"] = 91.1875;
+DPars["AlsMz"] = 0.1184;
+
+/* Get the map of observables with the parameter values defined above. */
+DObs = CO.compute(DPars);
+
+~~~~~~~~~~~~~~~
 
 
+### Minimal Mode:
+
+In the minimal mode the user can use the InputParameters.h header file to define the
+default values of the model parameters therefore not requiring any additional input files to be
+parsed. (For details of model name, flags, paramters, observables etc. please lookup @ref PageModels)
+
+~~~~~~~~~~~~~~~
+#include <ComputeObservables.h>
+#include <InputParameters.h>
+
+/* Define a map for the observables. */
+std::map<std::string, double> DObs;
+
+/* Define a map for the mandatory model parameters used during initializing a model. */
+std::map<std::string, double> DPars_IN;
+
+/* Define a map for the parameters to be varied */
+std::map<std::string, double> DPars;
+
+/* Define a map for the model flags. */
+std::map<std::string, std::string> DFlags;
+
+/* Define the name of the model to be used. */
+std::string ModelName = "StandardModel";
+
+/* Create and object of the class InputParameters. */
+InputParameters IP;
+
+/* Read a map for the mandatory model parameters. (Default values in InputParameters.h)*/
+DPars_IN = IP.getInputParameters(ModelName);
+
+/* Initialize the observables to be returned. */
+DObs["Mw"] = 0;
+DObs["GammaW"] = 0.;
+DObs["GammaZ"] = 0.;
+DObs["Mz"] = 0.;
+
+/* Initialize the model flags to be set. */
+DFlags["Mw"] = "NORESUM";
+DFlags["NoApproximateGammaZ"] = "TRUE";
+
+/* Create and object of the class ComputeObservables. */
+ComputeObservables CO(ModelName, DPars_IN, DObs);
+
+/* Set the flags for the model being used, if necessary. */
+CO.setFlags(DFlags);
+
+/* Vary the parameters that you wish to vary in your analysis. */
+DPars["Mz"] = 91.1875;
+DPars["AlsMz"] = 0.1184;
+
+/* Get the map of observables with the parameter values defined above. */
+DObs = CO.compute(DPars);
+~~~~~~~~~~~~~~~
+
+
+
+###
