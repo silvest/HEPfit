@@ -7,7 +7,7 @@
 
 #include <iostream>
 #include <ComputeObservables.h>
-#include "InputParameters.h"
+#include <InputParameters.h>
 
 int main(int argc, char** argv) 
 {
