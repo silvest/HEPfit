@@ -8,15 +8,35 @@
 #ifndef INPUTPARAMETERS_H
 #define	INPUTPARAMETERS_H
 
+/**
+ * @class InputParameters
+ * @ingroup EventGeneration
+ * @brief A header file for defining the default values of the mandatory parameters of 
+ * the model being used on the library mode.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ */
+
 class InputParameters {
 public:
     
+    /**
+     * @brief The default constructor.
+     */
     InputParameters()
     {};
     
+    /**
+     * @brief The default destructor.
+     */
     virtual ~InputParameters()
     {};
     
+    /**
+     * @brief A method that returns the map of the mandatory model parameters given the model name
+     * @param[in] ModelName the name of the model being used
+     * @return the map of the mandatory parameters 
+     */
     std::map<std::string, double> getInputParameters(std::string& ModelName)
     {
         if (ModelName.compare("StandardModel") == 0) return(StandardModel());
@@ -32,6 +52,10 @@ public:
     
 private:
     
+    /**
+     * @brief A method that generates the map of the mandatory model parameters for StandardModel.
+     * @return the map of the mandatory parameters 
+     */
     std::map<std::string, double> StandardModel()
     {
         DPars_IN["GF"] = 1.1663787e-5;
@@ -140,6 +164,10 @@ private:
         return (DPars_IN);
     };
     
+    /**
+     * @brief A method that generates the map of the mandatory model parameters for NPEpsilons.
+     * @return the map of the mandatory parameters 
+     */
     std::map<std::string, double> NPEpsilons()
     {
         DPars_IN = StandardModel();
@@ -152,6 +180,10 @@ private:
         return (DPars_IN);
     };
     
+    /**
+     * @brief A method that generates the map of the mandatory model parameters for NPEpsilons_pureNP.
+     * @return the map of the mandatory parameters 
+     */
     std::map<std::string, double> NPEpsilons_pureNP()
     {
         DPars_IN = StandardModel();
@@ -164,6 +196,10 @@ private:
         return (DPars_IN);
     };
     
+    /**
+     * @brief A method that generates the map of the mandatory model parameters for NPSTU.
+     * @return the map of the mandatory parameters 
+     */
     std::map<std::string, double> NPSTU()
     {
         DPars_IN = StandardModel();
@@ -175,6 +211,10 @@ private:
         return (DPars_IN);
     };
     
+    /**
+     * @brief A method that generates the map of the mandatory model parameters for NPHiggs.
+     * @return the map of the mandatory parameters 
+     */
     std::map<std::string, double> NPHiggs()
     {
         DPars_IN = StandardModel();
@@ -191,6 +231,10 @@ private:
         return (DPars_IN);
     };
     
+    /**
+     * @brief A method that generates the map of the mandatory model parameters for NPZbbbar.
+     * @return the map of the mandatory parameters 
+     */
     std::map<std::string, double> NPZbbbar()
     {
         DPars_IN = StandardModel();
@@ -201,6 +245,10 @@ private:
         return (DPars_IN);
     };
     
+    /**
+     * @brief A method that generates the map of the mandatory model parameters for NPEffective1.
+     * @return the map of the mandatory parameters 
+     */
     std::map<std::string, double> NPEffective1()
     {
         DPars_IN = StandardModel();
@@ -220,6 +268,10 @@ private:
         return (DPars_IN);
     };
     
+    /**
+     * @brief A method that generates the map of the mandatory model parameters for NPEffective2.
+     * @return the map of the mandatory parameters 
+     */
     std::map<std::string, double> NPEffective2()
     {
         DPars_IN = StandardModel();
@@ -247,7 +299,7 @@ private:
         return (DPars_IN);
     };
     
-    std::map<std::string, double> DPars_IN;
+    std::map<std::string, double> DPars_IN;///< A map for the list of mandatory parameters in the model being used.
 };
 
 #endif	/* INPUTPARAMETERS_H */
