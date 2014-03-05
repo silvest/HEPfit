@@ -1,8 +1,14 @@
 Models   {#PageModels}
 ==========================================================
 
-Here is a list of all available models with links to the tables of
-model parameters and flags. 
+Here is a list of all available models with links to the summary
+tables of model parameters and flags. The parameters and flags in a
+given model are inherited from a parent model class to a child model
+class: 
+
+MODEL_GRAPH_INHERITE_SVG
+
+where Model is a template class of models. 
 A complete list of observables are available at the documentation of
 @ref ListOfObservables "ThFactory", where not all the observables can
 be used in each model. Below we also list the available observables for
