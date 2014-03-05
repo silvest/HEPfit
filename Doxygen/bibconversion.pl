@@ -346,7 +346,7 @@ print colored ['Green'], "\n\tPatching _page_models.html...\n";
 chomp(my $page_model_path = `find ./html -name "_page_models.html"`);
 if (!(-e $page_model_path)){
     print colored ['Red'], "\n\tERROR:";
-    print " citelist.html file not found recursively in the html directory.\n";
+    print " _page_models.html file not found recursively in the html directory.\n";
     unlink(@tmpfiles);
     exit(1)
 } else {
