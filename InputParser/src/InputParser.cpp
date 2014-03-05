@@ -95,7 +95,7 @@ StandardModel* InputParser::ModelFactory(std::string& ModelName){
     else if (ModelName.compare("pMSSM") == 0) DModel["pMSSM"] = new pMSSM();
     else if (ModelName.compare("SusyMassInsertion") == 0) DModel["SusyMassInsertion"] = new SUSYMassInsertion();
     else if (ModelName.compare("THDM") == 0) DModel["THDM"] = new THDM();
-    else return NULL;
+    else throw std::runtime_error("\nERROR: Incorrect model name passed to InputParser():  " + ModelName + "\n       Please put a legitimate model name at the TOP of the model configuration file.\n");
     
     return DModel[ModelName];
 }
@@ -125,7 +125,6 @@ std::string InputParser::ReadParameters(const std::string filename,
         if (modelset == 0) {
             modname = *beg;
             myModel = ModelFactory(modname);
-            if (myModel == NULL) continue;
             myModel->InitializeModel();
             thf = new ThFactory(*myModel);
             modelset = 1;
