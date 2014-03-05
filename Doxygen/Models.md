@@ -2,13 +2,13 @@ Models   {#PageModels}
 ==========================================================
 
 Here is a list of all available models with links to the summary
-tables of model parameters and flags. The parameters and flags in a
-given model are inherited from a parent model class to a child model
-class: 
+tables of model parameters and flags. The parameters and flags 
+are inherited from a parent model class to a child model class: 
 
 MODEL_GRAPH_INHERITE_SVG
 
-where Model is a template class of models. 
+where Model is a template class of models, and NPbase and NPEffective
+are auxiliary classes. 
 A complete list of observables are available at the documentation of
 @ref ListOfObservables "ThFactory", where not all the observables can
 be used in each model. Below we also list the available observables for
@@ -16,14 +16,14 @@ each model.
 
 ## QCD:
 
-  - %Model parameters: [@ref QCDParameters "Table"]
+  - %Model parameters: [@ref QCDParameters "Summary table"]
   - %Model flags: None
   - %Observables: None
 
 ## StandardModel:
 
-  - %Model parameters: [@ref StandardModelParameters "Table"]
-  - %Model flags: [@ref StandardModelFlags "Table"]
+  - %Model parameters: [@ref StandardModelParameters "Summary table"]
+  - %Model flags: [@ref StandardModelFlags "Summary table"]
   - %Observables: Mw, GammaW, GammaZ, sigmaHadron, sin2thetaEff,
     PtauPol, Alepton, Acharm, Abottom, AFBlepton, AFBcharm, AFBbottom,
     Rlepton, Rcharm, Rbottom, 
@@ -36,8 +36,8 @@ each model.
 
 ## NPEpsilons:
 
-  - %Model parameters: [@ref NPEpsilonsParameters "Table"]
-  - %Model flags: [@ref NPEpsilonsFlags "Table"]
+  - %Model parameters: [@ref NPEpsilonsParameters "Summary table"]
+  - %Model flags: [@ref NPEpsilonsFlags "Summary table"]
   - %Observables: Mw, GammaZ, sigmaHadron, sin2thetaEff,
     PtauPol, Alepton, Acharm, Abottom, AFBlepton, AFBcharm, AFBbottom,
     Rlepton, Rcharm, Rbottom,
@@ -50,7 +50,7 @@ each model.
 
 ## NPEpsilons_pureNP:
 
-  - %Model parameters: [@ref NPEpsilons_pureNPParameters "Table"]
+  - %Model parameters: [@ref NPEpsilons_pureNPParameters "Summary table"]
   - %Model flags: None
   - %Observables: Mw, GammaZ, sigmaHadron, sin2thetaEff,
     PtauPol, Alepton, Acharm, Abottom, AFBlepton, AFBcharm, AFBbottom,
@@ -64,7 +64,7 @@ each model.
 
 ## NPSTU:
 
-  - %Model parameters: [@ref NPSTUParameters "Table"]
+  - %Model parameters: [@ref NPSTUParameters "Summary table"]
   - %Model flags: None
   - %Observables: Mw, GammaW, GammaZ, sigmaHadron, sin2thetaEff,
     PtauPol, Alepton, Acharm, Abottom, AFBlepton, AFBcharm, AFBbottom,
@@ -78,7 +78,7 @@ each model.
 
 ## NPHiggs:
 
-  - %Model parameters: [@ref NPHiggsParameters "Table"]
+  - %Model parameters: [@ref NPHiggsParameters "Summary table"]
   - %Model flags: None
   - %Observables: Mw, GammaW, GammaZ, sigmaHadron, sin2thetaEff,
     PtauPol, Alepton, Acharm, Abottom, AFBlepton, AFBcharm, AFBbottom,
@@ -88,8 +88,8 @@ each model.
 
 ## NPZbbbar:
 
-  - %Model parameters: [@ref NPZbbbarParameters "Table"]
-  - %Model flags: [@ref NPZbbbarFlags "Table"]
+  - %Model parameters: [@ref NPZbbbarParameters "Summary table"]
+  - %Model flags: [@ref NPZbbbarFlags "Summary table"]
   - %Observables: Mw, GammaW, GammaZ, sigmaHadron, sin2thetaEff,
     PtauPol, Alepton, Acharm, Abottom, AFBlepton, AFBcharm, AFBbottom,
     Rlepton, Rcharm, Rbottom,
@@ -104,7 +104,7 @@ each model.
 
 ## NPEffective1:
 
-  - %Model parameters: [@ref NPEffective1Parameters "Table"]
+  - %Model parameters: [@ref NPEffective1Parameters "Summary table"]
   - %Model flags: None
   - %Observables: Mw, GammaW, GammaZ, sigmaHadron, sin2thetaEff,
     PtauPol, Alepton, Acharm, Abottom, AFBlepton, AFBcharm, AFBbottom,
@@ -119,7 +119,7 @@ each model.
 
 ## NPEffective2:
 
-  - %Model parameters: [@ref NPEffective2Parameters "Table"]
+  - %Model parameters: [@ref NPEffective2Parameters "Summary table"]
   - %Model flags: None
   - %Observables: Mw, GammaW, GammaZ, sigmaHadron, sin2thetaEff,
     PtauPol, Alepton, Acharm, Abottom, AFBlepton, AFBcharm, AFBbottom,
