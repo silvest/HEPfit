@@ -1,30 +1,31 @@
 Usage   {#PageUsage}
 =============================================
 
-The SusyFit installer generates an executable `"analysis"` and a
-library `"libSufyFit.a"` accompanied with header files. You can use
+The SusyFit installer generates the executable `"analysis"` and the
+library `"libSufyFit.a"` along with header files including a combined
+header file, SusyFit.h. One can use
 the executable to perform a Bayesian statistical analysis with the
 Markov Chain Monte Carlo [__Monte Carlo mode__],
 or to obtain predictions of observabes for a give point in the
 parameter space of the model [__Single event mdoe__].
-Alternatively, you can use the library to obtain predictions
+Alternatively, one can use the library to obtain predictions
 of obsrvables for a given point in the parameter space of the model, 
-allowing our computational tool to be called from your own program
+allowing our computational tool to be called from the user's own program
 [__Library mode__].
 
 
 Monte Carlo mode 
 -----------------
 
-The Monte Carlo analysis is performed with the BAT library. You first
-have to prepare a text configuration file containing a list of model parameters,
-model flags and observables to be analysed, and another confifuration
-file for the Monte Carlo run. 
+The Monte Carlo analysis is performed with the [BAT library](https://www.mppmu.mpg.de/bat/). First,
+ a text configuration file containing a list of model parameters,
+model flags and observables to be analysed has to be prepared. Another configuration
+file for the Monte Carlo run has to be prepared too.
 
-### %Model configuration file:
+### Step 1: %Model configuration file:
 
 A configuration file for model parameters, model flags and
-obaservables are written as follwos: 
+obaservables are written as follows: 
 
 ~~~~~~~~~~~~~~~~
 StandardModel
@@ -32,7 +33,7 @@ StandardModel
 ModelParameter  mtop        173.2       0.9         0.  
 ModelParameter  mHl         125.6       0.3         0.  
 
-<You have to list all the model parameters here>
+<All the model parameters have to be listed here here>
 
 # Observables:
 Observable  Mw        Mw        M_{W}      80.3290 80.4064 MCMC weight 80.385 0.015 0.  
@@ -72,7 +73,7 @@ Each line has to be written as follows:
   where all the parameters in a given model (see @ref PageModels) have
   to be listed in the configuration file. 
 
-3. Optionally, you can set __a model flag__ in the format: 
+3. Optionally, one can set __a model flag__ in the format:
 
   `ModelFlag <name> <value>`
 
@@ -99,7 +100,7 @@ Each line has to be written as follows:
    which initializes a set of Nobs correlated observables. It must be
    followed by exactly Nobs %Observable lines and then by Nobs lines of
    Nobs numbers for the correlation matrix. See the above example.
-   You can use the keyword noMCMC and noweight, instead of MCMC and weight. 
+   One can use the keyword noMCMC and noweight, instead of MCMC and weight.
    <br><br>
 
 6. __A correlation between two observables__ can be obtained with: 
@@ -113,10 +114,10 @@ Each line has to be written as follows:
   `%ModelParaVsObs <name> <par name> <par histolabel> <par min> <par max> <obs label> <obs histolabel> <obs min> <obs max>`
 
 
-### %Monte Carlo configuration file:
+### Step 2: %Monte Carlo configuration file:
 
 The parameters and options of the Monte Carlo run are specified in
-a configuration file, separated from the one for model parameters,
+a configuration file, separate from the one for model parameters,
 etc. Each line in the file has a pair of a label
 and its value, separated by space(s) or tab(s). The available
 parameters and options are: 
@@ -154,13 +155,13 @@ PrintKnowledgeUpdatePlots  false
 PrintParameterPlot         false
 ~~~~~~~~~~~~~~~~
 
-where you can place '#' at the beginnig of each line to comment it
+where a '#' can be placed at the beginnig of each line to comment it
 out.
 
 
-### Run:
+### Step 3: Run:
 
-After making the configuration files, run the command: 
+After making the configuration files, run with the command:
 
 ~~~~~~~~~~~~~~~
   $ analysis <model conf> <Monte Carlo conf> <options>
@@ -168,22 +169,38 @@ After making the configuration files, run the command:
 
 where the available options are:
 
-* <b>-\-rootfile=\<filename\></b> output root filename without extension (default: MCout)
+* <b>`--rootfile=\<filename\>`</b> output root filename without extension (default: MCout)
 
-* <b>-\-job_tag=\<arg\></b> job tag, appended to output files (default: none)
+* <b>`--job_tag=\<arg\>`</b> job tag, appended to output files (default: none)
 
-* <b>-\-thRange</b> output the minimun and maximum of theory values of observables to the file `Observables/HistoLog.txt`
+* <b>`--thRange`</b> output the minimun and maximum of theory values of observables to the file `Observables/HistoLog.txt`
+
+### Alternative: Run with MPI.
+
+SusyFit allows for parallel processing of the MCMC run and the observable computations.
+To allow for this SusyFit and BAT has to be compiled with MPI support as explained in the
+@ref PageInstallation page. The command
+
+~~~~~~~~~~~~~~~
+  $ mpiexec -n N analysis <model conf> <Monte Carlo conf> <options>
+~~~~~~~~~~~~~~~
+
+will launch analysis on `N` thread/cores/processors depending on the smallest
+processing unit of the hardware used. Our MPI implementation allows for runs on multi-threaded single processors as
+well as clusters with MPI support.
+
+__NOTE:__ Our MPI implementation of SusyFit cannot be used with
+BAT compiled with the `--enable-parallelization` option. It is
+mandatory to use the MPI patched version of BAT as explained in the @ref PageInstallation page
 
 
-MPI support.
-
-Explain output files.
+### Output Files:
 
 
 Single event mode
 ------------------
 
-Using the model configuration file used in the Monte Carlo mode, you
+Using the model configuration file used in the Monte Carlo mode, one
 can obtain predictions of observabes for the central values of the
 model parameters with the command: 
 
@@ -201,7 +218,13 @@ The library mode allows for access to all the observables implemented in SusyFit
 without a Monte Carlo run. The users can use one of our defined @ref PageModels and vary ModelParameters
 according to their own algorithm and get the corresponding predictions for the observables. 
 
-The Susyfit library allows for two different implementaions of the access algorithm.
+This is made possible through:
+
+* a combined library: libSusyFit.a (installed in `SUSYFIT_INSTALL_DIR/lib/`
+* a combined header file: SusyFit.h (installed in `SUSYFIT_INSTALL_DIR/include/SusyFit/`)
+
+
+The Susyfit library allows for two different implementations of the access algorithm.
 
 ### Non-Minimal Mode:
 
@@ -211,7 +234,7 @@ the parameters and access the observable. (For details of model paramters, obser
 
 ~~~~~~~~~~~~~~~
 /* Include the necessary header file. */
-#include <ComputeObservables.h>
+#include <SusyFit.h>
 
 /* Define the model configuration file. */
 std::string ModelConf = "SomeModel.conf";
@@ -226,12 +249,11 @@ std::map<std::string, double> DPars;
 DObs["Mw"] = 0;
 DObs["GammaW"] = 0.;
 DObs["GammaZ"] = 0.;
-DObs["Mz"] = 0.;
 
 /* Create and object of the class ComputeObservables. */
 ComputeObservables CO(ModelConf, DObs);
 
-/* Vary the parameters that you wish to vary in your analysis. */
+/* Vary the parameters that needs to be varied in the analysis. */
 DPars["Mz"] = 91.1875;
 DPars["AlsMz"] = 0.1184;
 
@@ -243,13 +265,13 @@ DObs = CO.compute(DPars);
 
 ### Minimal Mode:
 
-In the minimal mode the user can use the InputParameters.h header file to define the
+In the minimal mode the user can use the default values in InputParameters header file to define the
 default values of the model parameters therefore not requiring any additional input files to be
 parsed. (For details of model name, flags, paramters, observables etc. please lookup @ref PageModels)
 
 ~~~~~~~~~~~~~~~
-#include <ComputeObservables.h>
-#include <InputParameters.h>
+/* Include the necessary header files. */
+#include <SusyFit.h>
 
 /* Define a map for the observables. */
 std::map<std::string, double> DObs;
@@ -264,23 +286,27 @@ std::map<std::string, double> DPars;
 std::map<std::string, std::string> DFlags;
 
 /* Define the name of the model to be used. */
-std::string ModelName = "StandardModel";
+std::string ModelName = "NPZbbbar";
 
 /* Create and object of the class InputParameters. */
 InputParameters IP;
 
-/* Read a map for the mandatory model parameters. (Default values in InputParameters.h)*/
+/* Read a map for the mandatory model parameters. (Default values in InputParameters.h) */
 DPars_IN = IP.getInputParameters(ModelName);
+
+/* Change the default values of the mandatory model parameters if necessary. */
+/* This can also be done with Dpars after creating an object of ComputeObservables */
+DPars_IN["mcharm"] = 1.3;
+DPars_IN["mub"] = 4.2;
 
 /* Initialize the observables to be returned. */
 DObs["Mw"] = 0;
 DObs["GammaW"] = 0.;
 DObs["GammaZ"] = 0.;
-DObs["Mz"] = 0.;
+DObs["AFBbottom"] = 0.;
 
 /* Initialize the model flags to be set. */
-DFlags["Mw"] = "NORESUM";
-DFlags["NoApproximateGammaZ"] = "TRUE";
+DFlags["NPZbbbarLR"] = "TRUE";
 
 /* Create and object of the class ComputeObservables. */
 ComputeObservables CO(ModelName, DPars_IN, DObs);
@@ -288,14 +314,28 @@ ComputeObservables CO(ModelName, DPars_IN, DObs);
 /* Set the flags for the model being used, if necessary. */
 CO.setFlags(DFlags);
 
-/* Vary the parameters that you wish to vary in your analysis. */
-DPars["Mz"] = 91.1875;
-DPars["AlsMz"] = 0.1184;
+/* Vary the parameters that needs to be varied in the analysis.. */
+DPars["mtop"] = 170.0;
+DPars["mHl"] = 126.0;
 
 /* Get the map of observables with the parameter values defined above. */
 DObs = CO.compute(DPars);
 ~~~~~~~~~~~~~~~
 
 
+### Use of susyfit-config:
 
-###
+If `'make install'` has been done, a susyfit-config script can be found in the
+`SUSYFIT_INSTALL_DIR/bin/` directory, which can be invoked with the 
+following options:
+
+~~~~~~~~~~~~~~~
+Library and Library Path: susyfit-config --libs
+
+Include Path: susyfit-config --cflags
+
+Parameters List: susyfit-config --variable=parameters | sh
+~~~~~~~~~~~~~~~
+
+The last command lists all the mandatory parameters in all the models sorted alphabetically and their
+default values as set in the class InputParameters
