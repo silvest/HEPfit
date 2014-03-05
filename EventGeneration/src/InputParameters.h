@@ -11,7 +11,7 @@
 /**
  * @class InputParameters
  * @ingroup EventGeneration
- * @brief A header file for defining the default values of the mandatory parameters of 
+ * @brief A class for defining the default values of the mandatory parameters of
  * the model being used on the library mode.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -33,7 +33,7 @@ public:
     {};
     
     /**
-     * @brief A method that returns the map of the mandatory model parameters given the model name
+     * @brief A method that returns the map of the mandatory model parameters given the model name. 
      * @param[in] ModelName the name of the model being used
      * @return the map of the mandatory parameters 
      */
@@ -54,7 +54,10 @@ private:
     
     /**
      * @brief A method that generates the map of the mandatory model parameters for StandardModel.
-     * @return the map of the mandatory parameters 
+     * @return the map of the mandatory parameters
+     *
+     * @attention The parameters are initialized to the central values of the 
+     * experimental data used in @cite Ciuchini:2013pca. 
      */
     std::map<std::string, double> StandardModel()
     {
@@ -82,6 +85,7 @@ private:
         DPars_IN["melectron"] = 5.109989e-4;
         DPars_IN["mmu"] = 0.10565837;
         DPars_IN["mtau"] = 1.77682;
+        
         DPars_IN["MBd"] = 0.;
         DPars_IN["tBd"] = 0.;
         DPars_IN["MBs"] = 0.;
@@ -166,16 +170,19 @@ private:
     
     /**
      * @brief A method that generates the map of the mandatory model parameters for NPEpsilons.
-     * @return the map of the mandatory parameters 
+     * @return the map of the mandatory parameters
+     *
+     * @attention The values of the epsilon parameters are initialized to their 
+     * SM values @cite Ciuchini:2013pca.
      */
     std::map<std::string, double> NPEpsilons()
     {
         DPars_IN = StandardModel();
         
-        DPars_IN["epsilon_1"] = 0.;
-        DPars_IN["epsilon_2"] = 0.;
-        DPars_IN["epsilon_3"] = 0.;
-        DPars_IN["epsilon_b"] = 0.;
+        DPars_IN["epsilon_1"] = 0.00521;
+        DPars_IN["epsilon_2"] = -0.00737;
+        DPars_IN["epsilon_3"] = 0.00528;
+        DPars_IN["epsilon_b"] = -0.00694;
         
         return (DPars_IN);
     };
@@ -214,18 +221,22 @@ private:
     /**
      * @brief A method that generates the map of the mandatory model parameters for NPHiggs.
      * @return the map of the mandatory parameters 
+     *
+     * @attention The cutoff scale LambdaNP is initialize to 0, i.e., it is taken
+     * to be @f$\Lambda = 4\pi v/\sqrt{|1-a^2|}@f$ as explained in the description
+     * of @ref NPHiggsParameters "NPHiggs" class.
      */
     std::map<std::string, double> NPHiggs()
     {
         DPars_IN = StandardModel();
                 
-        DPars_IN["a"] = 0.;
-        DPars_IN["b"] = 0.;
-        DPars_IN["c_u"] = 0.;
-        DPars_IN["c_d"] = 0.;
-        DPars_IN["c_e"] = 0.;
-        DPars_IN["d_3"] = 0.;
-        DPars_IN["d_4"] = 0.;
+        DPars_IN["a"] = 1.;
+        DPars_IN["b"] = 1.;
+        DPars_IN["c_u"] = 1.;
+        DPars_IN["c_d"] = 1.;
+        DPars_IN["c_e"] = 1.;
+        DPars_IN["d_3"] = 1.;
+        DPars_IN["d_4"] = 1.;
         DPars_IN["LambdaNP"] = 0.;
         
         return (DPars_IN);
@@ -248,6 +259,8 @@ private:
     /**
      * @brief A method that generates the map of the mandatory model parameters for NPEffective1.
      * @return the map of the mandatory parameters 
+     *
+     * @attention The NP scale Lambda_NP is initialize to 1 TeV.
      */
     std::map<std::string, double> NPEffective1()
     {
@@ -263,14 +276,16 @@ private:
         DPars_IN["cHE_NP"] = 0.;
         DPars_IN["cHU_NP"] = 0.;
         DPars_IN["cHD_NP"] = 0.;
-        DPars_IN["Lambda_NP"] = 0.;
+        DPars_IN["Lambda_NP"] = 1000.;
         
         return (DPars_IN);
     };
     
     /**
      * @brief A method that generates the map of the mandatory model parameters for NPEffective2.
-     * @return the map of the mandatory parameters 
+     * @return the map of the mandatory parameters
+     *
+     * @attention The NP scale Lambda_NP is initialize to 1 TeV.
      */
     std::map<std::string, double> NPEffective2()
     {
@@ -294,7 +309,7 @@ private:
         DPars_IN["cHD1_NP"] = 0.;
         DPars_IN["cHD2_NP"] = 0.;
         DPars_IN["cHD3_NP"] = 0.;
-        DPars_IN["Lambda_NP"] = 0.;
+        DPars_IN["Lambda_NP"] = 1000.;
         
         return (DPars_IN);
     };
