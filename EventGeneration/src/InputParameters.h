@@ -30,6 +30,8 @@ public:
         else throw std::runtime_error("\nERROR: Incorrect model name passed to InputParameters():  " + ModelName + "\n");
     };
     
+private:
+    
     std::map<std::string, double> StandardModel()
     {
         DPars_IN["GF"] = 1.1663787e-5;
@@ -244,9 +246,6 @@ public:
         
         return (DPars_IN);
     };
-    
-    
-private:
     
     std::map<std::string, double> DPars_IN;
 };
