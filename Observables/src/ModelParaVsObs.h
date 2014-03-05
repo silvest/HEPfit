@@ -24,7 +24,6 @@
  * StandardModel project source folder %StandardModel/src.
  * The name (ObsName) of the observable has
  * to correspond to the allowed name of observables listed in the ThFactory class.
- * A list of both can also be found on the main page of the documentation website.
  */
 class ModelParaVsObs : public Observable {
 public:
