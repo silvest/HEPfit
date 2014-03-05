@@ -41,24 +41,24 @@ sub usage {
     
         The option specifications are positional.
         The above format must be followed if the options are used.
-    
+        
         -o      Specifies the output file name. (MUST end in .bib)
         -of     Deletes the output file if it exists.
         -dox    Specifies the Doxygen configuration file from the commandline
-    
+            
         Default Output File SusyFit.bib can be specified with:
         perl $program <list of input bibtex files (*.bib)> [-of]
-    
+            
 _EOF_
-
+            
     exit(1);
 }
 
 sub header {
     print color 'bold blue on_white';
     print STDOUT <<_EOF_;
-
-
+    
+    
     Copyright (C) 2014 SusyFit Collaboration
     All rights reserved.
     
@@ -149,16 +149,16 @@ foreach (@bibfiles) {
         s/\%\n//g;
         my $z = 0;
         $_ =~ s/\"\{/\"\[/;
-        $_ =~ s/\}\"/\]\"/;
+            $_ =~ s/\}\"/\]\"/;
         $_ =~ s/\\/\[BS\]/g;
         $_ =~ s/\$/(++$z % 2) != 0 ? "MJ\[" : "\$"/eg;
         $_ =~ s/\$/(++$z % 2) == 0 ? "\]MJ" : "\$"/eg;
         if (/MJ\[/ || /\]MJ/){
             $_ =~ s/\{/\\\{/g;
-            $_ =~ s/\}/\\\}/g;
+                $_ =~ s/\}/\\\}/g;
         }
         $_ =~ s/\"\[/\"\{/ if (!(/note/));
-        $_ =~ s/\]\"/\}\"/ if (!(/note/));
+            $_ =~ s/\]\"/\}\"/ if (!(/note/));
         $_ =~ s/\n//g if (/year/ && /\=/);
         print BIBOUT_TEMP $_;
     }
@@ -184,12 +184,12 @@ while (<BIBOUT_TEMP>){
     }
     print BIBOUT $_;
 }
-    
+
 close BIBOUT;
 close BIBOUT_TEMP;
 system("cp $bibfile_out temp.bib");
 system("sed -e \'s\/\\\$\/\\\]MJ/g\' temp.bib > $bibfile_out"); # A Fistful of dollars get left over no matter what!!
-            
+
 print "\n";
 print colored ['Green'], "\n\tStarting bibtex conversion...\n\n";
 
@@ -211,7 +211,7 @@ my $doxygen_asked = 1;
 my $doxygen_used = "";
 if ($#doxygen_list > 0){
     my $doxygen_size = @doxygen_list;
-#   @doxygen_index = (1..$doxygen_size);
+    #   @doxygen_index = (1..$doxygen_size);
     my $doxygen_index = 0;
     print colored ['Green'], "\tFound more than 1 doxygen installation: \n";
     print "\t[0] NO Doxygen run.\n";
@@ -293,7 +293,7 @@ if (!(-e $citelist_path)){
     unlink(@tmpfiles);
     exit(1)
 } else {
-print "\tcitelist.html found at: $citelist_path\n";
+    print "\tcitelist.html found at: $citelist_path\n";
 }
 
 if(!(copy($citelist_path,"citelist_temp.html"))){
@@ -324,18 +324,11 @@ while (<CITELISTIN>){
 
 close CITELISTIN;
 close CITELISTOUT;
-
 move("citelist.html", $citelist_path);
-#$citelist_path =~ s/\.\/html\///;
 
-#exec("open html\/index.html") if ($OS eq 'darwin');
-
-unlink(@tmpfiles);
-print colored ['Green'], "\n\tDONE!\n\n";
-
-# Modify html/index.html
+print colored ['Green'], "\n\tPatching html/index.html...\n";
 open(INFILE,"<MainPage.md") || die "cannot open MainPage.md!";
-my $MainPageHeading = <INFILE>; 
+my $MainPageHeading = <INFILE>;
 close(INFILE);
 open(INFILE,"<html/index.html") || die "cannot open html/index.html!";
 open(OUTFILE,">index_new.html") || die "cannot open index_new.html!";
@@ -348,6 +341,45 @@ print "\thtml/index.html has been modified\n";
 move("index_new.html", "html/index.html");
 close(INFILE);
 close(OUTFILE);
-	
+
+print colored ['Green'], "\n\tPatching _page_models.html...\n";
+chomp(my $page_model_path = `find ./html -name "_page_models.html"`);
+if (!(-e $page_model_path)){
+    print colored ['Red'], "\n\tERROR:";
+    print " citelist.html file not found recursively in the html directory.\n";
+    unlink(@tmpfiles);
+    exit(1)
+} else {
+    print "\t_page_models.html found at: $page_model_path\n";
+}
+if(!(copy($page_model_path,"_page_models_temp.html"))){
+    print colored ['Red'], "\n\tERROR:";
+    print " _page_models.html file not copied to the current directory.\n";
+    unlink(@tmpfiles);
+    exit(1)
+}
+open PAGEMODELIN, "<_page_models_temp.html";
+open PAGEMODELOUT, ">_page_models.html";
+push(@tmpfiles,"_page_models_temp.html");
+while (<PAGEMODELIN>){
+    if (/Model\_inherit\_graph\.svg/){
+        print colored ['Red'], "\n\tERROR:";
+        print " patched version of _page_models_temp.html exists. Please rerun Doxygen.\n";
+        unlink(@tmpfiles);
+        exit(1)
+    }
+    $_ =~ s/\<p\>MODEL\_GRAPH\_INHERITE\_SVG\<\/p\>/\<div class\=\"center\"\>\<iframe scrolling\=\"no\" frameborder\=\"0\" src\=\"\.\.\/\.\.\/Model\_inherit\_graph\.svg\" width\=\"702\" height\=\"306\"\>This browser is not able to show SVG\: try Firefox, Chrome, Safari, or Opera instead\.\<\/iframe\>\<\/div\>/;
+    print PAGEMODELOUT $_;
+}
+
+close PAGEMODELIN;
+close PAGEMODELOUT;
+move("_page_models.html", $page_model_path);
+
+unlink(@tmpfiles);
+print colored ['Green'], "\n\tDONE!\n\n";
+
+
+
 
 exit(0);
