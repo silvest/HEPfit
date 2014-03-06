@@ -79,26 +79,22 @@ Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<c
 
 StandardModel* InputParser::ModelFactory(std::string& ModelName){
 
-    std::map<std::string, StandardModel* > DModel;
-
-    if (ModelName.compare("StandardModel") == 0) DModel["StandardModel"] = new StandardModel();
-    else if (ModelName.compare("NPSTU") == 0) DModel["NPSTU"] = new NPSTU();
-    else if (ModelName.compare("NPSTUVWXY") == 0) DModel["NPSTUVWXY"] = new NPSTUVWXY();
-    else if (ModelName.compare("NPEpsilons") == 0) DModel["NPEpsilons"] =  new NPEpsilons();
-    else if (ModelName.compare("NPEpsilons_pureNP") == 0) DModel["NPEpsilons_pureNP"] = new NPEpsilons_pureNP();
-    else if (ModelName.compare("NPHiggs") == 0) DModel["NPHiggs"] = new NPHiggs();
-    else if (ModelName.compare("NPZbbbar") == 0) DModel["NPZbbbar"] = new NPZbbbar(false);
-    else if (ModelName.compare("NPZbbbarLR") == 0) DModel["NPZbbbar"] = new NPZbbbar(true);
-    else if (ModelName.compare("NPEffective1") == 0) DModel["NPEffective1"] = new NPEffective1();
-    else if (ModelName.compare("NPEffective2") == 0) DModel["NPEffective2"] = new NPEffective2();
-    else if (ModelName.compare("MFV") == 0) DModel["MFV"] = new MFV();
-    else if (ModelName.compare("GeneralSUSY") == 0) DModel["GeneralSUSY"] =  new GeneralSUSY();
-    else if (ModelName.compare("pMSSM") == 0) DModel["pMSSM"] = new pMSSM();
-    else if (ModelName.compare("SusyMassInsertion") == 0) DModel["SusyMassInsertion"] = new SUSYMassInsertion();
-    else if (ModelName.compare("THDM") == 0) DModel["THDM"] = new THDM();
+    if (ModelName.compare("StandardModel") == 0) return (new StandardModel());
+    else if (ModelName.compare("NPSTU") == 0) return (new NPSTU());
+    else if (ModelName.compare("NPSTUVWXY") == 0) return (new NPSTUVWXY());
+    else if (ModelName.compare("NPEpsilons") == 0) return (new NPEpsilons());
+    else if (ModelName.compare("NPEpsilons_pureNP") == 0) return (new NPEpsilons_pureNP());
+    else if (ModelName.compare("NPHiggs") == 0) return (new NPHiggs());
+    else if (ModelName.compare("NPZbbbar") == 0) return (new NPZbbbar(false));
+    else if (ModelName.compare("NPZbbbarLR") == 0) return (new NPZbbbar(true));
+    else if (ModelName.compare("NPEffective1") == 0) return (new NPEffective1());
+    else if (ModelName.compare("NPEffective2") == 0) return (new NPEffective2());
+    else if (ModelName.compare("MFV") == 0) return (new MFV());
+    else if (ModelName.compare("GeneralSUSY") == 0) return (new GeneralSUSY());
+    else if (ModelName.compare("pMSSM") == 0) return (new pMSSM());
+    else if (ModelName.compare("SusyMassInsertion") == 0) return (new SUSYMassInsertion());
+    else if (ModelName.compare("THDM") == 0) return (new THDM());
     else throw std::runtime_error("\nERROR: Incorrect model name passed to InputParser():  " + ModelName + "\n       Please put a legitimate model name at the TOP of the model configuration file.\n");
-
-    return DModel[ModelName];
 }
 
 std::string InputParser::ReadParameters(const std::string filename,

@@ -40,6 +40,7 @@ ComputeObservables::ComputeObservables(const std::string& ModelName_i,
         paraNames.push_back(it->first);
     }
     Mod = myInputParser.ModelFactory(ModelName);
+    Mod->setModelName(ModelName);
     Mod->InitializeModel();
     thf = new ThFactory(*Mod);
     if (!Mod->Init(DPars)) {

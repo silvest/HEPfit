@@ -40,14 +40,14 @@ public:
     std::map<std::string, double> getInputParameters(std::string& ModelName)
     {
         if (ModelName.compare("StandardModel") == 0) return(StandardModel());
-        if (ModelName.compare("NPEpsilons") == 0) return(NPEpsilons());
-        if (ModelName.compare("NPEpsilons_pureNP") == 0) return(NPEpsilons_pureNP());
-        if (ModelName.compare("NPSTU") == 0) return(NPSTU());
-        if (ModelName.compare("NPHiggs") == 0) return(NPHiggs());
-        if (ModelName.compare("NPZbbbar") == 0) return(NPZbbbar());
-        if (ModelName.compare("NPZbbbarLR") == 0) return(NPZbbbarLR());
-        if (ModelName.compare("NPEffective1") == 0) return(NPEffective1());
-        if (ModelName.compare("NPEffective2") == 0) return(NPEffective2());
+        else if (ModelName.compare("NPEpsilons") == 0) return(NPEpsilons());
+        else if (ModelName.compare("NPEpsilons_pureNP") == 0) return(NPEpsilons_pureNP());
+        else if (ModelName.compare("NPSTU") == 0) return(NPSTU());
+        else if (ModelName.compare("NPHiggs") == 0) return(NPHiggs());
+        else if (ModelName.compare("NPZbbbar") == 0) return(NPZbbbar());
+        else if (ModelName.compare("NPZbbbarLR") == 0) return(NPZbbbarLR());
+        else if (ModelName.compare("NPEffective1") == 0) return(NPEffective1());
+        else if (ModelName.compare("NPEffective2") == 0) return(NPEffective2());
         else throw std::runtime_error("\nERROR: Incorrect model name passed to InputParameters():  " + ModelName + "\n");
     };
     
