@@ -16,6 +16,12 @@ The SusyFit source codes are available for download:
 Dependencies
 ------------
 
+* **GSL**:
+
+
+
+
+
 * **ROOT**:
 
     ROOT is an object oriented data analysis framework. It can be obtained
@@ -25,11 +31,13 @@ Dependencies
 
     BOOST is a c++ library. It can be obtained from from http://www.boost.org.
 
-* **BAT v0.9.3**:
+* **BAT v0.9.3** (not required for the Library mode):
 
-    BAT (Bayesian Analysis Toolkit) can be obtained from https://www.mppmu.mpg.de/bat/. 
+    Optionally, BAT (Bayesian Analysis Toolkit) can be obtained from
+    https://www.mppmu.mpg.de/bat/ for a Monte Carlo run. 
     With the compilation option -DBAT_INSTALL=ON explained below, the SusyFit
     installation package will download and install BAT. Notice that at present 
+
     __NOTE:__ SusyFit is not compatible with BAT compiled with the `--enable-parallelization`
     option.
 
