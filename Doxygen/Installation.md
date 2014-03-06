@@ -61,29 +61,29 @@ source directory can be made for building SusyFit (recommended, as it allows for
 
 where the available options are:
 
-* <b>-DSUSYFIT_INSTALL_DIR=\<SusyFit installation directory\></b>  
+* <b>`-DSUSYFIT_INSTALL_DIR=<SusyFit installation directory>`</b>  
   (default: `/usr/local`)
 
-* <b>-DBAT_INSTALL_DIR=\<BAT installation directory\></b>  
+* <b>`-DBAT_INSTALL_DIR=<BAT installation directory>`</b>  
   (default: `/usr/local`)
 
-* <b>-DBAT_INSTALL=ON</b>  
+* <b>`-DBAT_INSTALL=ON`</b>  
   to download and install BAT (default: OFF)
 
-* <b>-DMPIBAT=ON</b>  
+* <b>`-DMPIBAT=ON`</b>  
   to enable support for MPI
   (requires an implementation of MPI, default: OFF)
 
-* <b>-DROOT_CONFIG_PATH=\<path to root-config\></b>  
+* <b>`-DROOT_CONFIG_PATH=<path to root-config>`</b>  
 
-* <b>-DBOOST_INC=\<boost custom include path\>/boost/</b>  
+* <b>`-DBOOST_INC=<boost custom include path>/boost/`</b>  
 
-* <b>-DBOOST_LIB=\<boost custom library path\></b>  
+* <b>`-DBOOST_LIB=<boost custom library path>`</b>  
 
-* <b>-DONLY_LIB=ON</b>  
+* <b>`-DONLY_LIB=ON`</b>  
   not to compile the SusyFit executable (default: OFF)
 
-Setting the option -DBAT_INSTALL=ON, the SusyFit installer will download, 
+Setting the option `-DBAT_INSTALL=ON`, the SusyFit installer will download, 
 compile and install the BAT libraries.
 
 __NOTE:__ Please make sure that the BAT libraries are
@@ -91,7 +91,7 @@ __NOTE:__ Please make sure that the BAT libraries are
 the installer does not build BAT, and uses the pre-installed one. 
 
 __MPI Support:__ If you want to use SusyFit with MPI support, you can specify the option
--DMPIBAT=ON. This option must be accompanied with -DBAT_INSTALL=ON in order 
+`-DMPIBAT=ON`. This option must be accompanied with `-DBAT_INSTALL=ON` in order 
 to enable the SusyFit installer to download, patch and compile BAT with MPI 
 support:
 
@@ -101,15 +101,15 @@ support:
 
 __ROOT:__ CMake checks for ROOT availability in the system and fails if ROOT is
 not installed. You can specify the path to root-config using the option 
--DROOT_CONFIG_PATH=\<path to root-config\>. 
+`-DROOT_CONFIG_PATH=<path to root-config>`. 
 
 __BOOST:__ CMake also checks for BOOST availability in the system and fails if BOOST
 is not installed. You can specify the path to the BOOST include files with 
--DBOOST_INC=\<boost custom include path\>/boost/ and the path to the BOOST 
-library with -DBOOST_LIB=\<boost custom library path\>.
+`-DBOOST_INC=<boost custom include path>/boost/` and the path to the BOOST 
+library with `-DBOOST_LIB=<boost custom library path>`.
 
 The generated Makefiles are used for building an executable and a library. 
-If you need only the library, you can use the option -DONLY_LIB=ON. For 
+If you need only the library, you can use the option `-DONLY_LIB=ON`. For 
 building only the library, BAT is not required. 
 
 After successful CMake run, execute the build commands:

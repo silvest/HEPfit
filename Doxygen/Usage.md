@@ -7,7 +7,7 @@ header file, SusyFit.h. One can use
 the executable to perform a Bayesian statistical analysis with the
 Markov Chain Monte Carlo [__Monte Carlo mode__],
 or to obtain predictions of observabes for a give point in the
-parameter space of the model [__Single event mdoe__].
+parameter space of the model [__Single event mode__].
 Alternatively, one can use the library to obtain predictions
 of obsrvables for a given point in the parameter space of the model, 
 allowing our computational tool to be called from the user's own program
@@ -18,7 +18,7 @@ Monte Carlo mode
 -----------------
 
 The Monte Carlo analysis is performed with the [BAT library](https://www.mppmu.mpg.de/bat/). First,
- a text configuration file containing a list of model parameters,
+a text configuration file containing a list of model parameters,
 model flags and observables to be analysed has to be prepared. Another configuration
 file for the Monte Carlo run has to be prepared too.
 
@@ -33,7 +33,7 @@ StandardModel
 ModelParameter  mtop        173.2       0.9         0.  
 ModelParameter  mHl         125.6       0.3         0.  
 
-<All the model parameters have to be listed here here>
+<All the model parameters have to be listed here>
 
 # Observables:
 Observable  Mw        Mw        M_{W}      80.3290 80.4064 MCMC weight 80.385 0.015 0.  
@@ -169,9 +169,9 @@ After making the configuration files, run with the command:
 
 where the available options are:
 
-* <b>`--rootfile=\<filename\>`</b> output root filename without extension (default: MCout)
+* <b>`--rootfile=<filename>`</b> output root filename without extension (default: MCout)
 
-* <b>`--job_tag=\<arg\>`</b> job tag, appended to output files (default: none)
+* <b>`--job_tag=<arg>`</b> job tag, appended to output files (default: none)
 
 * <b>`--thRange`</b> output the minimun and maximum of theory values of observables to the file `Observables/HistoLog.txt`
 
@@ -191,7 +191,7 @@ well as clusters with MPI support.
 
 __NOTE:__ Our MPI implementation of SusyFit cannot be used with
 BAT compiled with the `--enable-parallelization` option. It is
-mandatory to use the MPI patched version of BAT as explained in the @ref PageInstallation page
+mandatory to use the MPI patched version of BAT as explained in the @ref PageInstallation page.
 
 
 ### Output Files:
@@ -230,34 +230,34 @@ The Susyfit library allows for two different implementations of the access algor
 
 In the non-minimal mode the user can use the SomeModel.conf file to pass the default value of
 the model parameters. The following elements must be present in the user code to define
-the parameters and access the observable. (For details of model paramters, observables etc. please lookup @ref PageModels)
+the parameters and access the observable. (For details of model paramters, observables etc. please lookup @ref PageModels.)
 
-~~~~~~~~~~~~~~~
-/* Include the necessary header file. */
+~~~~~~~~~~~~~~~{.c}
+// Include the necessary header file. 
 #include <SusyFit.h>
 
-/* Define the model configuration file. */
+// Define the model configuration file. 
 std::string ModelConf = "SomeModel.conf";
 
-/* Define a map for the observables. */
+// Define a map for the observables. 
 std::map<std::string, double> DObs;
 
-/* Define a map for the parameters to be varied */
+// Define a map for the parameters to be varied.
 std::map<std::string, double> DPars;
 
-/* Initialize the observables to be returned. */
+// Initialize the observables to be returned. 
 DObs["Mw"] = 0;
-DObs["GammaW"] = 0.;
 DObs["GammaZ"] = 0.;
+DObs["AFBbottom"] = 0.;
 
-/* Create and object of the class ComputeObservables. */
+// Create and object of the class ComputeObservables. 
 ComputeObservables CO(ModelConf, DObs);
 
-/* Vary the parameters that needs to be varied in the analysis. */
+// Vary the parameters that needs to be varied in the analysis. 
 DPars["Mz"] = 91.1875;
 DPars["AlsMz"] = 0.1184;
 
-/* Get the map of observables with the parameter values defined above. */
+// Get the map of observables with the parameter values defined above. 
 DObs = CO.compute(DPars);
 
 ~~~~~~~~~~~~~~~
@@ -267,58 +267,57 @@ DObs = CO.compute(DPars);
 
 In the minimal mode the user can use the default values in InputParameters header file to define the
 default values of the model parameters therefore not requiring any additional input files to be
-parsed. (For details of model name, flags, paramters, observables etc. please lookup @ref PageModels)
+parsed. (For details of model name, flags, paramters, observables etc. please lookup @ref PageModels.)
 
-~~~~~~~~~~~~~~~
-/* Include the necessary header files. */
+~~~~~~~~~~~~~~~{.c}
+// Include the necessary header file. 
 #include <SusyFit.h>
 
-/* Define a map for the observables. */
+// Define a map for the observables. 
 std::map<std::string, double> DObs;
 
-/* Define a map for the mandatory model parameters used during initializing a model. */
+// Define a map for the mandatory model parameters used during initializing a model. 
 std::map<std::string, double> DPars_IN;
 
-/* Define a map for the parameters to be varied */
+// Define a map for the parameters to be varied. 
 std::map<std::string, double> DPars;
 
-/* Define a map for the model flags. */
+// Define a map for the model flags. 
 std::map<std::string, std::string> DFlags;
 
-/* Define the name of the model to be used. */
+// Define the name of the model to be used. 
 std::string ModelName = "NPZbbbar";
 
-/* Create and object of the class InputParameters. */
+// Create and object of the class InputParameters. 
 InputParameters IP;
 
-/* Read a map for the mandatory model parameters. (Default values in InputParameters.h) */
+// Read a map for the mandatory model parameters. (Default values in InputParameters.h) 
 DPars_IN = IP.getInputParameters(ModelName);
 
-/* Change the default values of the mandatory model parameters if necessary. */
-/* This can also be done with Dpars after creating an object of ComputeObservables */
+// Change the default values of the mandatory model parameters if necessary. 
+// This can also be done with Dpars after creating an object of ComputeObservables 
 DPars_IN["mcharm"] = 1.3;
 DPars_IN["mub"] = 4.2;
 
-/* Initialize the observables to be returned. */
+// Initialize the observables to be returned. 
 DObs["Mw"] = 0;
-DObs["GammaW"] = 0.;
 DObs["GammaZ"] = 0.;
 DObs["AFBbottom"] = 0.;
 
-/* Initialize the model flags to be set. */
+// Initialize the model flags to be set. 
 DFlags["NPZbbbarLR"] = "TRUE";
 
-/* Create and object of the class ComputeObservables. */
+// Create and object of the class ComputeObservables. 
 ComputeObservables CO(ModelName, DPars_IN, DObs);
 
-/* Set the flags for the model being used, if necessary. */
+// Set the flags for the model being used, if necessary. 
 CO.setFlags(DFlags);
 
-/* Vary the parameters that needs to be varied in the analysis.. */
+// Vary the parameters that needs to be varied in the analysis. 
 DPars["mtop"] = 170.0;
 DPars["mHl"] = 126.0;
 
-/* Get the map of observables with the parameter values defined above. */
+// Get the map of observables with the parameter values defined above. 
 DObs = CO.compute(DPars);
 ~~~~~~~~~~~~~~~
 
@@ -338,4 +337,4 @@ Parameters List: susyfit-config --variable=parameters | sh
 ~~~~~~~~~~~~~~~
 
 The last command lists all the mandatory parameters in all the models sorted alphabetically and their
-default values as set in the class InputParameters
+default values as set in the class InputParameters.
