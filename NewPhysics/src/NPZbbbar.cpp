@@ -77,7 +77,7 @@ bool NPZbbbar::CheckParameters(const std::map<std::string, double>& DPars)
     for (int i = 0; i < NZbbbarVars; i++) {
         if (FlagNPZbbbarLR) {
             if (DPars.find(ZbbbarLRVars[i]) == DPars.end()) {
-                std::cout << "ERROR: Missing mandatory NPZbbbar parameter "
+                std::cout << "ERROR: Missing mandatory NPZbbbarLR parameter "
                         << ZbbbarLRVars[i] << std::endl;
                 return false;
             }
