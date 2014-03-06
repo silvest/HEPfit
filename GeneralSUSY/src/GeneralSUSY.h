@@ -30,11 +30,6 @@ public:
 
     GeneralSUSY();
 
-    virtual std::string ModelName() const
-    {
-        return "GeneralSUSY";
-    }
-
     virtual bool InitializeModel();
     virtual bool Init(const std::map<std::string, double>& DPars);
     virtual bool PreUpdate();

@@ -154,15 +154,6 @@ public:
     }
 
     /**
-     * @brief @copybrief Model::ModelName()
-     * @copydetails Model::ModelName()
-     */
-    virtual std::string ModelName() const
-    {
-        return "NPEffective2";
-    }
-
-    /**
      * @brief @copybrief Model::CheckParameters()
      * @copydetails Model::CheckParameters()
      */

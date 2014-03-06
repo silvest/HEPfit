@@ -38,10 +38,6 @@ public:
     
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
     
-    virtual std::string ModelName() const {
-        return "THDM";
-    }
-    
     ///////////////////////////////////////////////////////////////////////////
     
     /**

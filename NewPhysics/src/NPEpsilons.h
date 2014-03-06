@@ -142,15 +142,6 @@ public:
     NPEpsilons();
 
     /**
-     * @brief @copybrief Model::ModelName()
-     * @copydetails Model::ModelName()
-     */
-    virtual std::string ModelName() const 
-    {
-        return "NPEpsilons";
-    }
-
-    /**
      * @brief @copybrief StandardModel::InitializeModel()
      * @details This method allocates memory to the pointer #myEWSM, inherited
      * from StndardModel, with type EWNPEpsilons.

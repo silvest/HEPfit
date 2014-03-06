@@ -71,29 +71,34 @@ double NewPhysicsParams::computeThValue()
         else
             throw std::runtime_error("NewPhysicsParams::computeThValue(): epsilonb is not defined");
     else if (name.compare("deltaGVb") == 0)
-        if (SM.ModelName().compare("NPZbbbar") == 0)
+        if ( (SM.ModelName().compare("NPZbbbar") == 0)
+                || (SM.ModelName().compare("NPZbbbarLR") == 0) )
             return (static_cast<const NPZbbbar*> (&SM))->deltaGVq(SM.BOTTOM);
         else
             return 0.0;
     else if (name.compare("deltaGAb") == 0)
-        if (SM.ModelName().compare("NPZbbbar") == 0)
+        if ( (SM.ModelName().compare("NPZbbbar") == 0)
+                || (SM.ModelName().compare("NPZbbbarLR") == 0) )
             return (static_cast<const NPZbbbar*> (&SM))->deltaGAq(SM.BOTTOM);
         else
             return 0.0;
     else if (name.compare("deltaGRb") == 0)
-        if (SM.ModelName().compare("NPZbbbar") == 0)
+        if ( (SM.ModelName().compare("NPZbbbar") == 0)
+                || (SM.ModelName().compare("NPZbbbarLR") == 0) )
             return ( ((static_cast<const NPZbbbar*> (&SM))->deltaGVq(SM.BOTTOM)
                      - (static_cast<const NPZbbbar*> (&SM))->deltaGAq(SM.BOTTOM))/2.0 );
         else
             return 0.0;
     else if (name.compare("deltaGLb") == 0)
-        if (SM.ModelName().compare("NPZbbbar") == 0)
+        if ( (SM.ModelName().compare("NPZbbbar") == 0)
+                || (SM.ModelName().compare("NPZbbbarLR") == 0) )
             return ( ((static_cast<const NPZbbbar*> (&SM))->deltaGVq(SM.BOTTOM)
                      + (static_cast<const NPZbbbar*> (&SM))->deltaGAq(SM.BOTTOM))/2.0 );
         else
             return 0.0;
     else if (name.compare("deltaRhoZb") == 0) {
-        if (SM.ModelName().compare("NPZbbbar") == 0) {
+        if ( (SM.ModelName().compare("NPZbbbar") == 0)
+                || (SM.ModelName().compare("NPZbbbarLR") == 0) ) {
             if (!SM.IsFlagNoApproximateGammaZ())
                 // SM prediction for rho_Z^b is needed!
                 throw std::runtime_error("NewPhysicsParams::computeThValue(): deltaRhoZb is not available");
@@ -112,7 +117,8 @@ double NewPhysicsParams::computeThValue()
         } else
             return 0.0;
     } else if (name.compare("deltaKappaZb") == 0) {
-        if (SM.ModelName().compare("NPZbbbar") == 0) {
+        if ( (SM.ModelName().compare("NPZbbbar") == 0)
+                || (SM.ModelName().compare("NPZbbbarLR") == 0) ) {
             if ((static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
                 return ( SM.getEWSM()->kappaZ_q(SM.BOTTOM).real()
                         - SM.getEWSM()->kappaZ_q_SM(SM.BOTTOM).real() );

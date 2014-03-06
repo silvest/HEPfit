@@ -42,11 +42,6 @@ public:
      * @brief A SUSY constructor. 
      */
     SUSY();
-    
-    virtual std::string ModelName() const
-    {
-        return "SUSY";
-    }
 
     
     ///////////////////////////////////////////////////////////////////////////

@@ -152,15 +152,6 @@ public:
     NPSTUVWXY();
 
     /**
-     * @brief @copybrief Model::ModelName()
-     * @copydetails Model::ModelName()
-     */
-    virtual std::string ModelName() const 
-    {
-        return "NPSTUVWXY";
-    }
-
-    /**
      * @brief @copybrief StandardModel::InitializeModel()
      * @return a boolean that is true if model initialization is successful
      */

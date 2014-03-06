@@ -30,11 +30,6 @@ public:
 
     pMSSM();
 
-    virtual std::string ModelName() const
-    {
-        return "pMSSM";
-    }
-
     virtual bool InitializeModel();
     virtual bool Init(const std::map<std::string, double>& DPars);
     virtual bool PreUpdate();

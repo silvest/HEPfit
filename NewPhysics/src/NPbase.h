@@ -72,15 +72,6 @@ public:
     NPbase();
 
     /**
-     * @brief @copybrief Model::ModelName()
-     * @copydetails Model::ModelName()
-     */
-    virtual std::string ModelName() const
-    {
-        return "NPbase";
-    }
-
-    /**
      * @brief @copybrief StandardModel::InitializeModel()
      * @return a boolean that is true if model initialization is successful
      */

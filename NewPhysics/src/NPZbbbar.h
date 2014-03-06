@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2013 SusyFit Collaboration
  * All rights reserved.
  *
@@ -32,7 +32,7 @@
  * \right] b\,.
  * @f]
  * Equivalently, the shifts in the left-handed and right-handed couplings are
- * defined as 
+ * defined as
  * @f[
  * \mathcal{L} =
  * \frac{e}{2s_W c_W}\,
@@ -47,7 +47,7 @@
  *  \delta g_L^b = \frac{\delta g_V^b + \delta g_A^b}{2}\,.
  * @f]
  *
- * 
+ *
  * @anchor NPZbbbarInitialization
  * <h3>Initialization</h3>
  *
@@ -55,7 +55,7 @@
  * default values. After creating an instance of the current class,
  * it is required to call the initialization method InitializeModel(), which
  * allocates memory to the pointer #myEWSM, inherited from StndardModel, with
- * type EWNPZbbbar. 
+ * type EWNPZbbbar.
  * This pointer is then used in computing the fermionic neutral-current
  * couplings in the presence of new physics contribution to @f$Zb\bar{b}@f$.
  * In the Monte Carlo run, the constructor as well as the initialization
@@ -66,6 +66,7 @@
  * <h3>%Model parameters</h3>
  *
  * The model parameters of %NPZbbbar are summarized below:
+ *
  * <table class="model">
  * <tr>
  *   <th>Label</th>
@@ -83,26 +84,41 @@
  *   <td class="mod_desc">New physics contribution to \f$g_{A}^b\f$.</td>
  * </tr>
  * </table>
- * 
+ *
+ * which are applicable when the instance of the current class is created with
+ * the constructor NPZbbbar() or NPZbbbar(false). 
+ * Alternatively, when using NPZbbbar(true), which corresponds to the use of the 
+ * model name "NPZbbbarLR" instead of "NPZbbbar" in InputParser::ModelFactory(),
+ * the following parameters have to be used as inputs:
+ *
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%deltaGLb</td>
+ *   <td class="mod_symb">\f$\delta g_{L}^b\f$</td>
+ *   <td class="mod_desc">New physics contribution to \f$g_{L}^b\f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%deltaGRb</td>
+ *   <td class="mod_symb">\f$\delta g_{R}^b\f$</td>
+ *   <td class="mod_desc">New physics contribution to \f$g_{R}^b\f$.</td>
+ * </tr>
+ * </table>
+ *
  * @anchor NPZbbbarFlags
  * <h3>%Model Flags</h3>
  *
- * The flags of %NPZbbbar are summarized below:
+ * The flag of %NPZbbbar is summarized below:
  * <table class="model">
  * <tr>
  *   <th>Label</th>
  *   <th>Value</th>
  *   <th>Description</th>
  * </tr>
- * <tr>
- *   <td class="mod_name">%NPZbbbarLR</td>
- *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
- *   <td class="mod_desc">This flag is set to TRUE if \f$\delta g_{L}^b\f$ and
- *   \f$\delta g_{R}^b\f$ are used for the model parameters, instead of
- *   \f$\delta g_{V}^b\f$ and \f$\delta g_{A}^b\f$, respectively. Note that
- *   the label %deltaGVb (%deltaGAb) represents \f$\delta g_{L}^b\f$
- *   (\f$\delta g_{R}^b\f$) in a model configuration file when the flag is TRUE.
- *   The default value is FALSE.</td>
  * <tr>
  *   <td class="mod_name">%NotLinearizedNP</td>
  *   <td class="mod_valu">TRUE&nbsp;/&nbsp;<b>FALSE</b></td>
@@ -115,7 +131,7 @@
  *
  * @anchor NPZbbbarFunctions
  * <h3>Important member functions</h3>
- * 
+ *
  * Compared to the base class NPbase, the functions for the following quantities
  * are reimplemented in the current class:
  *
@@ -132,23 +148,26 @@ public:
     static const int NZbbbarVars = 2;
 
     /**
-     * @brief A string array containing the labels of the model parameters in %NPZbbbar.
+     * @brief A string array containing the labels of the model parameters in %NPZbbbar,
+     * used for NPZbbbarLR=FALSE.
      */
-    static const std::string ZbbbarVars[NZbbbarVars];
+    static const std::string ZbbbarVAVars[NZbbbarVars];
 
     /**
-     * @brief The default constructor.
+     * @brief A string array containing the labels of the model parameters in %NPZbbbar,
+     * used for NPZbbbarLR=TRUE.
      */
-    NPZbbbar();
+    static const std::string ZbbbarLRVars[NZbbbarVars];
 
     /**
-     * @brief @copybrief Model::ModelName()
-     * @copydetails Model::ModelName()
+     * @brief Constructor.
+     * @param[in] FlagNPZbbbarLR_in a flag that is true if \f$\delta g_{L}^b\f$
+     * and  \f$\delta g_{R}^b\f$ are used for the model parameters, instead of
+     * \f$\delta g_{V}^b\f$ and \f$\delta g_{A}^b\f$. For the model parameters, 
+     * the labels %deltaGVb and %deltaGAb are applicable for FlagNPZbbbarLR_in=fALSE,
+     * while %deltaGLb and %deltaGRb are applicable for FlagNPZbbbarLR_in=TRUE.
      */
-    virtual std::string ModelName() const 
-    {
-        return "NPZbbbar";
-    }
+    NPZbbbar(const bool FlagNPZbbbarLR_in = false);
 
     /**
      * @brief @copybrief StandardModel::InitializeModel()
@@ -162,14 +181,14 @@ public:
      * @brief @copybrief Model::Init()
      * @copydetails Model::Init()
      */
-    virtual bool Init(const std::map<std::string, double>& DPars);  
-    
+    virtual bool Init(const std::map<std::string, double>& DPars);
+
     /**
      * @brief @copybrief Model::Update()
      * @copydetails Model::Update()
      */
     virtual bool Update(const std::map<std::string, double>& DPars);
-    
+
     /**
      * @brief @copybrief Model::CheckParameters()
      * @copydetails Model::CheckParameters()
@@ -181,14 +200,14 @@ public:
      * @copydetails Model::setFlag()
      */
     virtual bool setFlag(const std::string name, const bool value);
-    
+
     /**
      * @brief @copybrief Model::CheckFlags()
      * @copydetails Model::CheckFlags()
      */
     virtual bool CheckFlags() const;
 
-    
+
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -202,8 +221,8 @@ public:
         return FlagNotLinearizedNP;
     }
 
-    
-    ////////////////////////////////////////////////////////////////////////    
+
+    ////////////////////////////////////////////////////////////////////////
 
     /**
      * @brief New physics contribution to @f$g_V^l@f$.
@@ -211,29 +230,29 @@ public:
      * @return @f$\delta g_V^l@f$ (zero in the current model)
      */
     virtual double deltaGVl(StandardModel::lepton l) const;
-    
+
     /**
      * @brief New physics contribution to @f$g_V^q@f$.
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$\delta g_V^q@f$ (non-zero only for \f$q=b\f$)
      */
     virtual double deltaGVq(QCD::quark q) const;
-    
+
     /**
      * @brief New physics contribution to @f$g_A^l@f$.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$\delta g_A^l@f$ (zero in the current model)
      */
     virtual double deltaGAl(StandardModel::lepton l) const;
-    
+
     /**
      * @brief New physics contribution to @f$g_A^q@f$.
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$\delta g_A^q@f$ (non-zero only for \f$q=b\f$)
      */
     virtual double deltaGAq(QCD::quark q) const;
-        
-    
+
+
     ////////////////////////////////////////////////////////////////////////
 protected:
 
@@ -242,24 +261,22 @@ protected:
      * @copydetails Model::setParameter()
      */
     virtual void setParameter(const std::string name, const double& value);
-    
+
 
     ////////////////////////////////////////////////////////////////////////
 private:
 
-    /* These variables may be used as the deviations in the left-handed 
-     * and right-handed couplings if the flag "NPZbbbarLR" is set to true.
+    /* These variables are used internally as the deviations in the left-handed
+     * and right-handed couplings if FlagNPZbbbarLR is set to true.
      * Therefore, they should not be used directly. Instead, the functions
      * deltaGVq() and deltaGAq() have to be called. */
     double myDeltaGVb;///< New physics contribution to \f$g_{V}^b\f$.
     double myDeltaGAb;///< New physics contribution to \f$g_{A}^b\f$.
 
     /**
-     * @brief A boolean flag that is true if \f$\delta g_{L,R}^b\f$ are used
-     * instead of \f$\delta g_{V,A}^b\f$.
-     * @details If this flag is set to true,
-     *    @li the label myDeltaGVb denotes @f$\delta g_L^b@f$;
-     *    @li the label myDeltaGAb denotes @f$\delta g_R^b@f$.
+     * @brief An internal boolean flag that is true if \f$\delta g_{L,R}^b\f$ are
+     * used instead of \f$\delta g_{V,A}^b\f$. This flag is initialized in the
+     * constructor. 
      */
     bool FlagNPZbbbarLR;
 
@@ -269,7 +286,7 @@ private:
      */
     bool FlagNotLinearizedNP;
 
-    
+
 };
 
 #endif	/* NPZBBBAR_H */

@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2013 SusyFit Collaboration
  * All rights reserved.
  *
@@ -11,14 +11,16 @@
 #include "EWNPZbbbar.h"
 
 
-const std::string NPZbbbar::ZbbbarVars[NZbbbarVars] 
+const std::string NPZbbbar::ZbbbarVAVars[NZbbbarVars]
 = {"deltaGVb", "deltaGAb"};
 
+const std::string NPZbbbar::ZbbbarLRVars[NZbbbarVars]
+= {"deltaGLb", "deltaGRb"};
 
-NPZbbbar::NPZbbbar() 
-: NPbase()
+
+NPZbbbar::NPZbbbar(const bool FlagNPZbbbarLR_in)
+: NPbase(), FlagNPZbbbarLR(FlagNPZbbbarLR_in)
 {
-    FlagNPZbbbarLR = false;
     FlagNotLinearizedNP = false;
 }
 
@@ -34,10 +36,10 @@ bool NPZbbbar::InitializeModel()
 }
 
 
-bool NPZbbbar::Init(const std::map<std::string, double>& DPars) 
+bool NPZbbbar::Init(const std::map<std::string, double>& DPars)
 {
     Update(DPars);
-    return(CheckParameters(DPars)); 
+    return(CheckParameters(DPars));
 }
 
 
@@ -49,38 +51,52 @@ bool NPZbbbar::Update(const std::map<std::string,double>& DPars)
     return (true);
 }
 
-    
+
 void NPZbbbar::setParameter(const std::string name, const double& value)
 {
-    if (name.compare("deltaGVb") == 0)
-        myDeltaGVb = value;
-    else if (name.compare("deltaGAb") == 0)
-        myDeltaGAb = value;
-    else
-        NPbase::setParameter(name, value);
+    if (FlagNPZbbbarLR) {
+        if (name.compare("deltaGLb") == 0)
+            myDeltaGVb = value;
+        else if (name.compare("deltaGRb") == 0)
+            myDeltaGAb = value;
+        else
+            NPbase::setParameter(name, value);
+    } else {
+        if (name.compare("deltaGVb") == 0)
+            myDeltaGVb = value;
+        else if (name.compare("deltaGAb") == 0)
+            myDeltaGAb = value;
+        else
+            NPbase::setParameter(name, value);
+    }
 }
 
 
 bool NPZbbbar::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for (int i = 0; i < NZbbbarVars; i++) {
-        if (DPars.find(ZbbbarVars[i]) == DPars.end()) {
-            std::cout << "ERROR: Missing mandatory NPZbbbar parameter "
-                      << ZbbbarVars[i] << std::endl;
-            return false;
+        if (FlagNPZbbbarLR) {
+            if (DPars.find(ZbbbarLRVars[i]) == DPars.end()) {
+                std::cout << "ERROR: Missing mandatory NPZbbbar parameter "
+                        << ZbbbarLRVars[i] << std::endl;
+                return false;
+            }
+        } else {
+            if (DPars.find(ZbbbarVAVars[i]) == DPars.end()) {
+                std::cout << "ERROR: Missing mandatory NPZbbbar parameter "
+                        << ZbbbarVAVars[i] << std::endl;
+                return false;
+            }
         }
     }
     return(NPbase::CheckParameters(DPars));
 }
 
 
-bool NPZbbbar::setFlag(const std::string name, const bool value) 
+bool NPZbbbar::setFlag(const std::string name, const bool value)
 {
     bool res = false;
-    if (name.compare("NPZbbbarLR") == 0) {
-        FlagNPZbbbarLR = value;
-        res = true;
-    } else if (name.compare("NotLinearizedNP") == 0) {
+    if (name.compare("NotLinearizedNP") == 0) {
         FlagNotLinearizedNP = value;
         res = true;
     } else
@@ -96,7 +112,7 @@ bool NPZbbbar::CheckFlags() const
 }
 
 
-////////////////////////////////////////////////////////////////////////     
+////////////////////////////////////////////////////////////////////////
 
 
 double NPZbbbar::deltaGVl(StandardModel::lepton l) const
@@ -154,4 +170,4 @@ double NPZbbbar::deltaGAl(StandardModel::lepton l) const
      }
  }
 
- 
+

@@ -102,6 +102,14 @@ each model.
     @ref NewPhysicsParams::NewPhysicsParams() "deltaRhoZb",
     @ref NewPhysicsParams::NewPhysicsParams() "deltaKappaZb"
 
+## NPZbbbarLR (a variant of NPZbbbar): 
+
+  - %Model parameters: [@ref NPZbbbarParameters "Summary table"],
+    where deltaGLb and deltaGRb must be used, instead of deltaGVb and
+    deltaGAb in %NPZbbbar above.
+  - %Model flags: Same as %NPZbbbar above. 
+  - %Observables: Same as %NPZbbbar above. 
+
 ## NPEffective1:
 
   - %Model parameters: [@ref NPEffective1Parameters "Summary table"]

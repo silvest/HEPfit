@@ -539,15 +539,6 @@ public:
     QCD();
     
     /**
-     * @brief A method to fetch the name of %QCD.
-     * @return the name of the model as a string
-     */
-    virtual std::string ModelName() const
-    {
-        return "QCD";
-    }
-    
-    /**
      * @brief Converts an object of the enum type "orders" to the corresponding string.
      * @param[in] order an object of the enum type "orders"
      * @return the string of the given "order"

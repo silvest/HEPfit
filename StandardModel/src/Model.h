@@ -38,10 +38,21 @@ public:
     };
 
     /**
+     * @brief A method to set the name of the model.
+     * @param[in] name the name of the model
+     */
+    void setModelName(const std::string name)
+    {
+        this->name = name;
+    }
+
+    /**
      * @brief A method to fetch the name of the model.
      * @return the name of the model as a string
      */
-    virtual std::string ModelName() const = 0;
+    std::string ModelName() const {
+        return name;
+    }
 
     /**
      * @brief A method to initialize the model parameters.
@@ -162,6 +173,7 @@ protected:
     
 private:
 
+    std::string name; ///< The name of the model.
     bool ModelInitialized; ///< A boolean set to true if the model is successfully initialized.
     
 };

@@ -45,6 +45,7 @@ public:
         if (ModelName.compare("NPSTU") == 0) return(NPSTU());
         if (ModelName.compare("NPHiggs") == 0) return(NPHiggs());
         if (ModelName.compare("NPZbbbar") == 0) return(NPZbbbar());
+        if (ModelName.compare("NPZbbbarLR") == 0) return(NPZbbbarLR());
         if (ModelName.compare("NPEffective1") == 0) return(NPEffective1());
         if (ModelName.compare("NPEffective2") == 0) return(NPEffective2());
         else throw std::runtime_error("\nERROR: Incorrect model name passed to InputParameters():  " + ModelName + "\n");
@@ -244,7 +245,9 @@ private:
     
     /**
      * @brief A method that generates the map of the mandatory model parameters for NPZbbbar.
-     * @return the map of the mandatory parameters 
+     * @return the map of the mandatory parameters
+     *
+     * @attention This method is applicable for the model "NPZbbbar", but not for "NPZbbbarLR".
      */
     std::map<std::string, double> NPZbbbar()
     {
@@ -256,6 +259,22 @@ private:
         return (DPars_IN);
     };
     
+    /**
+     * @brief A method that generates the map of the mandatory model parameters for NPZbbbar.
+     * @return the map of the mandatory parameters
+     * 
+     * @attention This method is applicable for the model "NPZbbbarLR", but not for "NPZbbbar".
+     */
+    std::map<std::string, double> NPZbbbarLR()
+    {
+        DPars_IN = StandardModel();
+
+        DPars_IN["deltaGLb"] = 0.;
+        DPars_IN["deltaGRb"] = 0.;
+
+        return (DPars_IN);
+    };
+
     /**
      * @brief A method that generates the map of the mandatory model parameters for NPEffective1.
      * @return the map of the mandatory parameters 

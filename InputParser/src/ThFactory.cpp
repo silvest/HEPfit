@@ -115,7 +115,7 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["mHl"] = new StandardModelParams(myMO, "mHl");
 
     //-----  NP input parameters, etc.   -----
-    if(myModel.ModelName().compare("NPEffective1") == 0
+    if (myModel.ModelName().compare("NPEffective1") == 0
             || myModel.ModelName().compare("NPEffective2") == 0 ) {
         thobs["cHQ1pPLUScHQ2p_NP"] = new NewPhysicsParams(myMO, "cHQ1pPLUScHQ2p_NP");
         thobs["cHQ2pMINUScHQ2_NP"] = new NewPhysicsParams(myMO, "cHQ2pMINUScHQ2_NP");
@@ -123,7 +123,8 @@ ThFactory::ThFactory(const StandardModel& myModel)
         thobs["c_Ae_NP"] = new NewPhysicsParams(myMO, "c_Ae_NP");
         thobs["c_GammaZ_uds_NP"] = new NewPhysicsParams(myMO, "c_GammaZ_uds_NP");
     }
-    if(myModel.ModelName().compare("NPZbbbar") == 0) {
+    if ( (myModel.ModelName().compare("NPZbbbar") == 0)
+            || (myModel.ModelName().compare("NPZbbbarLR") == 0) ) {
         thobs["deltaGVb"] = new NewPhysicsParams(myMO, "deltaGVb");
         thobs["deltaGAb"] = new NewPhysicsParams(myMO, "deltaGAb");
         thobs["deltaGLb"] = new NewPhysicsParams(myMO, "deltaGLb");

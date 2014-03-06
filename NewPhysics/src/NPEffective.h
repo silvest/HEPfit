@@ -98,15 +98,6 @@ public:
     NPEffective();
 
     /**
-     * @brief @copybrief Model::ModelName()
-     * @copydetails Model::ModelName()
-     */
-    virtual std::string ModelName() const
-    {
-        return "NPEffective";
-    }
-
-    /**
      * @brief @copybrief StandardModel::InitializeModel()
      * @copydetails NPbase::InitializeModel()
      */

@@ -29,7 +29,7 @@ EW::EW(const StandardModel& SM_i)
 bool EW::checkNPZff_linearized() const
 {
     std::string Model = SM.ModelName();
-    if (Model.compare("NPZbbbar") == 0) {
+    if (Model.compare("NPZbbbar") == 0 || Model.compare("NPZbbbarLR") == 0) {
         if ((static_cast<const NPZbbbar*> (&SM))->IsFlagNotLinearizedNP())
             return false;
         else

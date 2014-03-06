@@ -158,15 +158,6 @@ public:
     NPHiggs();
 
     /**
-     * @brief @copybrief Model::ModelName()
-     * @copydetails Model::ModelName()
-     */
-    virtual std::string ModelName() const 
-    {
-        return "NPHiggs";
-    }
-
-    /**
      * @brief @copybrief StandardModel::InitializeModel()
      * @copydetails NPbase::InitializeModel()
      */

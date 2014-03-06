@@ -102,15 +102,6 @@ public:
     NPSTU();
 
     /**
-     * @brief @copybrief Model::ModelName()
-     * @copydetails Model::ModelName()
-     */
-    virtual std::string ModelName() const 
-    {
-        return "NPSTU";
-    }
-
-    /**
      * @brief @copybrief StandardModel::InitializeModel()
      * @copydetails NPbase::InitializeModel()
      */

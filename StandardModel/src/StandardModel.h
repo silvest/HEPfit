@@ -317,15 +317,6 @@ public:
      */
     StandardModel();
 
-    /**
-     * @brief A method to fetch the name of %StandardModel.
-     * @return the name of the model as a string 
-     */
-    virtual std::string ModelName() const
-    {
-        return "StandardModel";
-    }
-
 
     ///////////////////////////////////////////////////////////////////////////
     // Initialization

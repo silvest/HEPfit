@@ -113,15 +113,6 @@ public:
     NPEpsilons_pureNP();
 
     /**
-     * @brief @copybrief Model::ModelName()
-     * @copydetails Model::ModelName()
-     */
-    virtual std::string ModelName() const
-    {
-        return "NPEpsilons_pureNP";
-    }
-
-    /**
      * @brief @copybrief StandardModel::InitializeModel()
      * @copydetails NPbase::InitializeModel()
      */
