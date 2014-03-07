@@ -6,10 +6,10 @@ library `"libSufyFit.a"` along with header files including a combined
 header file, SusyFit.h. One can use
 the executable to perform a Bayesian statistical analysis with the
 Markov Chain Monte Carlo [__Monte Carlo mode__],
-or to obtain predictions of observabes for a give point in the
+or to obtain predictions of observables for a given point in the
 parameter space of the model [__Single event mode__].
 Alternatively, one can use the library to obtain predictions
-of obsrvables for a given point in the parameter space of the model, 
+of observables for a given point in the parameter space of the model, 
 allowing our computational tool to be called from the user's own program
 [__Library mode__].
 
@@ -19,13 +19,13 @@ Monte Carlo mode
 
 The Monte Carlo analysis is performed with the [BAT library](https://www.mppmu.mpg.de/bat/). First,
 a text configuration file containing a list of model parameters,
-model flags and observables to be analysed has to be prepared. Another configuration
-file for the Monte Carlo run has to be prepared too.
+model flags and observables to be analyzed has to be prepared. Another configuration
+file for the Monte Carlo run has to be prepared, too.
 
 ### Step 1: %Model configuration file:
 
 A configuration file for model parameters, model flags and
-obaservables are written as follows: 
+observables are written as follows: 
 
 ~~~~~~~~~~~~~~~~
 StandardModel
@@ -86,12 +86,12 @@ Each line has to be written as follows:
   `%Observable <name> <obs label> <histolabel> <min> <max> (no)MCMC file <filename> <histoname>`<br>
   `%Observable <name> <obs label> <histolabel> <min> <max> noMCMC noweight`
 
-  - `<name>` can be given arbitrarily and used only internally in the codes.
+  - `<name>` is ...
   - `<obs label>` is the label of the observable (see @ref PageModels).
   - `<histolabel>` is used for the label of the output ROOT histogram,
   while `<min>` and `<max>` represent the range of the histogram.
   - noMCMC is ... 
-  - Experimenta data is ... 
+  - Experimental data is ... 
   - A histogram in a ROOT file is ...
   <br><br>
 
@@ -127,7 +127,7 @@ parameters and options are:
 * __Iterations__ --- the number of iterations in the MCMC run (default: 100000)
 * __Seed__ --- a particular seed number for the random number generator (default: use a random seed)
 * __WriteChain__ --- write Markov Chain in `MCout.root` (default: false)
-* __FindModeWithMinuit__  --- find global mode with MINUIT starging
+* __FindModeWithMinuit__  --- find global mode with MINUIT starting
   from the best fit parameters in the MCMC run (default: false) 
 * __PrintAllMarginalized__ --- print all marginalized distributions of
   the input parameters into `MonteCarlo_plots.ps` (default: false) 
@@ -155,7 +155,7 @@ PrintKnowledgeUpdatePlots  false
 PrintParameterPlot         false
 ~~~~~~~~~~~~~~~~
 
-where a '#' can be placed at the beginnig of each line to comment it
+where a '#' can be placed at the beginning of each line to comment it
 out.
 
 
@@ -173,7 +173,7 @@ where the available options are:
 
 * <b>`--job_tag=<arg>`</b> job tag, appended to output files (default: none)
 
-* <b>`--thRange`</b> output the minimun and maximum of theory values of observables to the file `Observables/HistoLog.txt`
+* <b>`--thRange`</b> output the minimum and maximum of theory values of observables to the file `Observables/HistoLog.txt`
 
 ### Alternative: Run with MPI.
 
@@ -224,13 +224,13 @@ This is made possible through:
 * a combined header file: SusyFit.h (installed in `SUSYFIT_INSTALL_DIR/include/SusyFit/`)
 
 
-The Susyfit library allows for two different implementations of the access algorithm.
+The SusyFit library allows for two different implementations of the access algorithm.
 
 ### Non-Minimal Mode:
 
 In the non-minimal mode the user can use the SomeModel.conf file to pass the default value of
 the model parameters. The following elements must be present in the user code to define
-the parameters and access the observable. (For details of model paramters, observables etc. please lookup @ref PageModels.)
+the parameters and access the observable. (For details of model parameters, observables etc. please lookup @ref PageModels.)
 
 ~~~~~~~~~~~~~~~{.c}
 // Include the necessary header file. 
@@ -253,7 +253,7 @@ DObs["AFBbottom"] = 0.;
 // Create and object of the class ComputeObservables. 
 ComputeObservables CO(ModelConf, DObs);
 
-// Vary the parameters that needs to be varied in the analysis. 
+// Vary the parameters that need to be varied in the analysis. 
 DPars["Mz"] = 91.1875;
 DPars["AlsMz"] = 0.1184;
 
@@ -267,7 +267,7 @@ DObs = CO.compute(DPars);
 
 In the minimal mode the user can use the default values in InputParameters header file to define the
 default values of the model parameters therefore not requiring any additional input files to be
-parsed. (For details of model name, flags, paramters, observables etc. please lookup @ref PageModels.)
+parsed. (For details of model name, flags, parameters, observables etc. please lookup @ref PageModels.)
 
 ~~~~~~~~~~~~~~~{.c}
 // Include the necessary header file. 
@@ -313,7 +313,7 @@ ComputeObservables CO(ModelName, DPars_IN, DObs);
 // Set the flags for the model being used, if necessary. 
 CO.setFlags(DFlags);
 
-// Vary the parameters that needs to be varied in the analysis. 
+// Vary the parameters that need to be varied in the analysis. 
 DPars["mtop"] = 170.0;
 DPars["mHl"] = 126.0;
 
