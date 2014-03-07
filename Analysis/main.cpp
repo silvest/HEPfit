@@ -38,6 +38,7 @@ int main(int argc, char** argv)
         desc.add_options()
                 ("modconf", value<string > (), "MANDATORY model config filename (1st)")
                 ("mcconf", value<string > (), "MANDATORY Monte Carlo config filename (2nd) for MCMC run")
+                ("test", "run in test mode to generate a single event with --test (no MCMC run but requires the Monte Carlo config file)")
                 ("noMC", "run in generate event mode with --noMC (no MCMC run)")
                 ("it", value<int > ()->default_value(0),
                  "no. of iterations in generate event mode, specify with --it=# or --it #")
@@ -52,6 +53,7 @@ int main(int argc, char** argv)
                 ;
         string coderun = "\n *** SusyFit Routines ***\n"
                          "\nMonte Carlo mode: analysis Model.conf MonteCarlo.conf [--rootfile <name>] [--job_tag <tag>] [--thRange]"
+                         "\nSingle Event mode: analysis Model.conf MonteCarlo.conf --test"
                          "\nGenerate Event mode: analysis Model.conf --noMC [--it #] [--output_folder <name> [--job_tag <tag>]]\n";
         positional_options_description pd;
         variables_map vm;
@@ -113,13 +115,17 @@ int main(int argc, char** argv)
                 string FileOut = vm["rootfile"].as<string > ();
                 if (vm.count("thRange")) checkTheoryRange = true;
                 MonteCarlo MC(ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);
-                MC.Run(rank);
+                if (vm.count("test")){
+                    MC.TestRun(rank);
+                } else {
+                    MC.Run(rank);
+                }
                 
             } else {
                 if (rank == 0){
                     cout << coderun << endl;
                     cout << desc << endl;
-                throw runtime_error("\nERROR: Please specify mandatory Monte Carlo config filename\nOR specify --noMC for Generate Event Mode (no Monte Carlo run)\n");
+                throw runtime_error("\nERROR:  Please specify mandatory Monte Carlo config filename (required even with --test)\n\tOR specify --noMC for Generate Event Mode (no Monte Carlo run)\n");
                 }
             }
             
