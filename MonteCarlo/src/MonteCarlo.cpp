@@ -41,7 +41,40 @@ MonteCarlo::~MonteCarlo()
 {
 }
 
-void MonteCarlo::Run(const int rank) 
+void MonteCarlo::TestRun(int rank) {
+    if (rank == 0){
+        std::string ModelName = myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs);
+        std::map<std::string, double> DP;
+        if (Obs.size() == 0 && CGO.size() == 0) throw std::runtime_error("\nMonteCarlo::TestRun(): No observables or correlated Gaussian observables defined in SomeModel.conf file\n");
+
+        for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
+            DP[it->name] = it->ave;
+        }
+
+        if (!myInputParser.getMyModel()->Init(DP)) {
+            throw std::runtime_error("parameter(s) missing in model initialization");
+        }
+
+        if (Obs.size() > 0) std::cout << "\nOservables: \n" << std::endl;
+        for (std::vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
+            double th = it->computeTheoryValue();
+            std::cout << it->getName() << " = " << th << std::endl;
+        }
+
+        if (CGO.size() > 0) std::cout << "\nCorrelated Gaussian Oservables: \n" << std::endl;
+        for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
+            std::cout << it1->getName() << ":" << std::endl;
+            std::vector<Observable> ObsInCGO = it1->getObs();
+            for (std::vector<Observable>::iterator it2 = ObsInCGO.begin(); it2 < ObsInCGO.end(); it2++) {
+                double th = it2->computeTheoryValue();
+                std::cout << it2->getName() << " = " << th << std::endl;
+            }
+        }
+        std::cout << std::endl;
+    }
+}
+
+void MonteCarlo::Run(const int rank)
 {
     try {
 

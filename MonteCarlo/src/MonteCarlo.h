@@ -63,7 +63,34 @@ public:
     virtual ~MonteCarlo();
     
     /**
-     * @brief This member responsible for setting the Monte Carlo run parameters and conducting
+     * @brief This member is used for test runa to generate a single event
+     * @details The values of the parameters that are used to generate the single event
+     * is the average value passed from the SOmeModel.conf file.
+     *
+     * The algorithm implemented by this member is as follows:
+     *
+     * \li Initiate InputParser::ReadParameters() which read the SomeModel.conf file for setting the
+     * model parameters and the observables to be generated. This call also passes on the name of the
+     * model to the private member ModelName.
+     *
+     * \li Map the model parameter mean values with the map DP and calculate buffsize which can be used
+     * for implementing MPI runs. The variable buffsize is incremented only for those model parameters
+     * that are varied in the Monte Carlo run.
+     *
+     * \li Initiate the model using the map DP checking for consistency between required model parameters
+     * and the ones supplied in the SomeModel.conf file
+     *
+     * \li Generate a single set of observables and correlated Gaussian observables as listed in the 
+     * SomeModel.conf file. The output is passes to the standard output. 
+     * 
+     * @param[in] rank = MPI::COMM_WORLD.Get_rank(), specifies the rank of the process. This
+     * carries a non zero value only when the executable is compiled with the parallelized version
+     * of <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> and run as parallel processes with MPI.
+     */
+    void TestRun(int rank);
+    
+    /**
+     * @brief This member is responsible for setting the Monte Carlo run parameters and conducting
      * the Monte Carlo run including initiating all output generation
      * @details The algorithm implemented by this member is as follows:
      *
