@@ -27,6 +27,7 @@
                 <make-dep-project>../SUSYMassInsertion</make-dep-project>
                 <make-dep-project>../Observables</make-dep-project>
                 <make-dep-project>../StandardModel</make-dep-project>
+                <make-dep-project>../ComputeObservables</make-dep-project>
             </make-dep-projects>
             <sourceRootList/>
             <confList>

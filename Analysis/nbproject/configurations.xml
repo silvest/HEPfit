@@ -67,6 +67,7 @@
       <compileType>
         <ccTool>
           <incDir>
+            <pElem>../ComputeObservables/src</pElem>
             <pElem>../EventGeneration/src</pElem>
             <pElem>../EW/src</pElem>
             <pElem>../Flavour/src</pElem>
@@ -105,6 +106,18 @@
             <pElem>../BAT/lib</pElem>
           </linkerDynSerch>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ComputeObservables"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../ComputeObservables"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomputeobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../EventGeneration"
                             CT="3"
@@ -364,6 +377,7 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <incDir>
+            <pElem>../ComputeObservables/src</pElem>
             <pElem>../EventGeneration/src</pElem>
             <pElem>../EW/src</pElem>
             <pElem>../Flavour/src</pElem>
@@ -404,6 +418,18 @@
             <pElem>../boost/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ComputeObservables"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../ComputeObservables"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomputeobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../EventGeneration"
                             CT="3"
@@ -663,6 +689,7 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <incDir>
+            <pElem>../ComputeObservables/src</pElem>
             <pElem>../EventGeneration/src</pElem>
             <pElem>../EW/src</pElem>
             <pElem>../Flavour/src</pElem>
@@ -706,6 +733,18 @@
             <pElem>../boost/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ComputeObservables"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../ComputeObservables"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomputeobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../EventGeneration"
                             CT="3"
@@ -967,6 +1006,7 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <incDir>
+            <pElem>../ComputeObservables/src</pElem>
             <pElem>../EventGeneration/src</pElem>
             <pElem>../EW/src</pElem>
             <pElem>../Flavour/src</pElem>
@@ -1007,6 +1047,18 @@
             <pElem>../boost/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ComputeObservables"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../ComputeObservables"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomputeobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../EventGeneration"
                             CT="3"
@@ -1266,6 +1318,7 @@
         <ccTool>
           <developmentMode>5</developmentMode>
           <incDir>
+            <pElem>../ComputeObservables/src</pElem>
             <pElem>../EventGeneration/src</pElem>
             <pElem>../EW/src</pElem>
             <pElem>../Flavour/src</pElem>
@@ -1309,6 +1362,18 @@
             <pElem>../boost/lib</pElem>
           </linkerAddLib>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ComputeObservables"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../ComputeObservables"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomputeobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../EventGeneration"
                             CT="3"
@@ -1571,6 +1636,7 @@
         <ccTool>
           <commandlineTool>mpic++</commandlineTool>
           <incDir>
+            <pElem>../ComputeObservables/src</pElem>
             <pElem>../EventGeneration/src</pElem>
             <pElem>../EW/src</pElem>
             <pElem>../Flavour/src</pElem>
@@ -1606,13 +1672,36 @@
             <pElem>../FeynHiggs/lib64</pElem>
             <pElem>../FeynHiggs/lib</pElem>
             <pElem>../LoopTools/lib</pElem>
-            <pElem>../boost/lib</pElem>
           </linkerAddLib>
           <linkerDynSerch>
             <pElem>../BAT_parallel/lib</pElem>
           </linkerDynSerch>
           <commandlineTool>mpic++</commandlineTool>
           <linkerLibItems>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../ComputeObservables"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../ComputeObservables"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libcomputeobservables.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
+              <makeArtifact PL="../EventGeneration"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../EventGeneration"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
             <linkerLibProjectItem>
               <makeArtifact PL="../MonteCarlo"
                             CT="3"
@@ -1683,18 +1772,6 @@
                             BC="${MAKE}  -f Makefile CONF=Debug"
                             CC="${MAKE}  -f Makefile CONF=Debug clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libnewphysics.a">
-              </makeArtifact>
-            </linkerLibProjectItem>
-            <linkerLibProjectItem>
-              <makeArtifact PL="../EventGeneration"
-                            CT="3"
-                            CN="Debug"
-                            AC="true"
-                            BL="true"
-                            WD="../EventGeneration"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
-                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
