@@ -15,6 +15,7 @@
       <itemPath>main.cpp</itemPath>
       <itemPath>main_libmode.cpp</itemPath>
       <itemPath>main_libmode_alt.cpp</itemPath>
+      <itemPath>main_libmode_alt_example.cpp</itemPath>
       <itemPath>main_libmode_example.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
