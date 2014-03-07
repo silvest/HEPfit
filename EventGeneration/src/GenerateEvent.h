@@ -20,6 +20,15 @@
 #include <boost/make_shared.hpp>
 
 /**
+ * @addtogroup EventGeneration
+ * @brief A module for generating events based on the ROOT random number generator.
+ * @details This module is for using the implementations of the observables without
+ * running a Markov Chain Monte Carlo. It allows generation of events based on the
+ * ROOT random number generator.
+ * @{
+ */
+
+/**
  * @class GenerateEvent
  * @ingroup EventGeneration
  * @brief A class for generating events.
