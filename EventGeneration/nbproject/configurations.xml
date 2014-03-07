@@ -4,9 +4,7 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>src/ComputeObservables.h</itemPath>
       <itemPath>src/GenerateEvent.h</itemPath>
-      <itemPath>src/InputParameters.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -15,7 +13,6 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>src/ComputeObservables.cpp</itemPath>
       <itemPath>src/GenerateEvent.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -63,15 +60,9 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/ComputeObservables.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/ComputeObservables.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/GenerateEvent.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GenerateEvent.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/InputParameters.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="3">
@@ -115,15 +106,9 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/ComputeObservables.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/ComputeObservables.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/GenerateEvent.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GenerateEvent.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/InputParameters.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release_MPI" type="3">
@@ -170,15 +155,9 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/ComputeObservables.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/ComputeObservables.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/GenerateEvent.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GenerateEvent.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/InputParameters.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Cluster" type="3">
@@ -212,15 +191,9 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/ComputeObservables.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/ComputeObservables.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/GenerateEvent.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GenerateEvent.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/InputParameters.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Cluster_MPI" type="3">
@@ -267,15 +240,9 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/ComputeObservables.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/ComputeObservables.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/GenerateEvent.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/GenerateEvent.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/InputParameters.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
