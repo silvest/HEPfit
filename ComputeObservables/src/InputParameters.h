@@ -10,7 +10,7 @@
 
 /**
  * @class InputParameters
- * @ingroup EventGeneration
+ * @ingroup ComputeObservables
  * @brief A class for defining the default values of the mandatory parameters of
  * the model being used on the library mode.
  * @author SusyFit Collaboration
