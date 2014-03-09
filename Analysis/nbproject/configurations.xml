@@ -14,6 +14,7 @@
                    projectFiles="true">
       <itemPath>main.cpp</itemPath>
       <itemPath>main_libmode.cpp</itemPath>
+      <itemPath>main_libmode_CGO_example.cpp</itemPath>
       <itemPath>main_libmode_alt.cpp</itemPath>
       <itemPath>main_libmode_alt_example.cpp</itemPath>
       <itemPath>main_libmode_example.cpp</itemPath>
@@ -1623,6 +1624,10 @@
         <ccTool>
         </ccTool>
       </item>
+      <item path="main_libmode_CGO_example.cpp" ex="true" tool="1" flavor2="9">
+        <ccTool>
+        </ccTool>
+      </item>
       <item path="main_libmode_example.cpp" ex="true" tool="1" flavor2="9">
         <ccTool>
         </ccTool>
@@ -1940,6 +1945,10 @@
         </ccTool>
       </item>
       <item path="main_libmode.cpp" ex="true" tool="1" flavor2="9">
+        <ccTool>
+        </ccTool>
+      </item>
+      <item path="main_libmode_CGO_example.cpp" ex="true" tool="1" flavor2="9">
         <ccTool>
         </ccTool>
       </item>
