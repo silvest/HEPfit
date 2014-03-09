@@ -114,7 +114,7 @@ void GenerateEvent::generate(const int rank, int unsigned nIteration, int seed)
         for (int unsigned i = 0; i < nIteration + 1; i++) {
             if (i == 1) std::cout << std::endl << "Generating " << nIteration << " random events...\n" << std::endl;
             generateRandomEvent(i);
-            if (outputTerm == 0 && Obs.size() > 0) std::cout << "\nOservables: \n" << std::endl;
+            if (outputTerm == 0 && Obs.size() > 0) std::cout << "\nObservables: \n" << std::endl;
             for (std::vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
                 double th = it->computeTheoryValue();
                 if (outputTerm == 0) {
@@ -124,7 +124,7 @@ void GenerateEvent::generate(const int rank, int unsigned nIteration, int seed)
                     if (i == nIteration) ObsOut[it->getName()]->close();
                 }
             }
-            if (outputTerm == 0 && CGO.size() > 0) std::cout << "\nCorrelated Gaussian Oservables: \n" << std::endl;
+            if (outputTerm == 0 && CGO.size() > 0) std::cout << "\nCorrelated Gaussian Observables: \n" << std::endl;
             for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
                 if (outputTerm == 0) std::cout << it1->getName() << ":" << std::endl;
                 std::vector<Observable> ObsInCGO = it1->getObs();
