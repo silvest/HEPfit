@@ -52,9 +52,22 @@
  */
 class ComputeObservables {
 public:
+    
+    /**
+     * @brief Constructor.
+     * @details This constructor passes the name of the SomeModel.conf file. Its is to be used
+     * for generating a sigle (central) event for the observables and correlated Gaussian observables
+     * listed in the SomeModel.conf file.
+     * @param[in] ModelConf_i the name of the input configuration file for the model name,
+     * the model parameters and observables to be calculated
+     */
+    ComputeObservables(const std::string& ModelConf_i);
+    
     /**
      * @brief Constructor.
      * @details This constructor passes the name of the SomeModel.conf file.
+     * It is to be used to compute observables useing of a SomeModel.conf file to initialize
+     * the mandatory parameters.
      * @param[in] ModelConf_i the name of the input configuration file for the model name,
      * the model parameters and observables to be calculated
      * @param[in] DObs_i the map of observables to be computed
@@ -64,7 +77,8 @@ public:
 
     /**
      * @brief Constructor.
-     * @details This constructor passes the model parameters, model name and model flags.
+     * @details This constructor passes the  model name, model parameters and model flags.
+     * It is to be used to compute observables without the use of a SomeModel.conf file.
      * @param[in] ModelName_i the name of the model being used
      * @param[in] DPars_i the mandatory parameters of the model being used
      * @param[in] DObs_i the map of observables to be computed
@@ -79,16 +93,26 @@ public:
     virtual ~ComputeObservables();
     
     /**
-     * @brief This method sets the necessary flag for the requested mode.
+     * @brief This method sets the necessary flag for the requested model
+     * when SomeModel.conf is not used to pass the input values (c.f. 
+     * ComputeObservables(ModelName_i, DPars_i, DObs_i)).
      * @param[in] DFlags_i the flags for the model being used
      */    
     void setFlags(std::map<std::string, std::string> DFlags_i);
     
     /**
-     * @brief The method used to compute observables. 
+     * @brief The method used to compute observables using an object built with either
+     * ComputeObservables(ModelName_i, DPars_i) or ComputeObservables(ModelName_i, DPars_i, DObs_i).
      * @param[in] DP the map of parameters being varied
      */
     std::map<std::string, double> compute(std::map<std::string, double> DP);
+    
+    /**
+     * @brief The method used to generate observables and correlated Gaussian observables
+     * using an object built with ComputeObservables(ModelConf_i).
+     * @param[in] DP the map of parameters being varied
+     */
+    std::pair<std::map<std::string, double>, std::map<std::string, std::map<std::string, double> > >  compute_Obs_CGO(std::map<std::string, double> DP);
     
     
 private:
@@ -109,6 +133,7 @@ private:
     std::string ModelConf; ///< String for the name of the SomeModel.conf file.
     std::vector<std::string> paraNames;///< The vector of allowed parameter names.
     bool checkPara; ///< The boolean cheack for consistency in parameter names.
+    int constructorIdx; ///< Stores an index corresponding the the construcor used to build an object of this class.
 };
 
 /**
