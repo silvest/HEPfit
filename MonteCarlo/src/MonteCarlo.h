@@ -153,6 +153,7 @@ private:
     bool PrintCorrelationMatrix; ///< Flag for printing the correlation matrix.
     bool PrintKnowledgeUpdatePlots; ///< Flag for printing plots to compare prior vs. posterior knowledge of parameters.
     bool PrintParameterPlot; ///< Flag for printing the overview parameter plots.
+    bool checkrun; ///< A check to make sure TestRun()and Run() are not called consecutively. 
 };
 
 /** 

@@ -28,13 +28,15 @@ MonteCarlo::MonteCarlo(const std::string& ModelConf_i,
     ModelConf = ModelConf_i;
     MCMCConf = MonteCarloConf_i;
     JobTag = JobTag_i;
-    OutFile = OutFile_i + JobTag + ".root";
+    if (OutFile_i.compare("") == 0) OutFile = "MCout" + JobTag + ".root";
+    else OutFile = OutFile_i + JobTag + ".root";
     ObsDirName = "Observables" + JobTag;
     FindModeWithMinuit = false;
     PrintAllMarginalized = false;
     PrintCorrelationMatrix = false;
     PrintKnowledgeUpdatePlots = false;
     PrintParameterPlot = false;
+    checkrun = false;
 }
 
 MonteCarlo::~MonteCarlo() 
@@ -42,6 +44,12 @@ MonteCarlo::~MonteCarlo()
 }
 
 void MonteCarlo::TestRun(int rank) {
+    if (checkrun == true){
+        if (rank == 0) throw std::runtime_error("ERROR: MonteCarlo::TestRun() cannot be called after calling MonteCarlo::Run().\n");
+    } else {
+        checkrun = true;
+    }
+    
     if (rank == 0){
         std::string ModelName = myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs);
         std::map<std::string, double> DP;
@@ -52,7 +60,7 @@ void MonteCarlo::TestRun(int rank) {
         }
 
         if (!myInputParser.getMyModel()->Init(DP)) {
-            throw std::runtime_error("parameter(s) missing in model initialization");
+            throw std::runtime_error("ERROR: Parameter(s) missing in model initialization. \n");
         }
 
         if (Obs.size() > 0) std::cout << "\nOservables: \n" << std::endl;
@@ -69,13 +77,19 @@ void MonteCarlo::TestRun(int rank) {
                 double th = it2->computeTheoryValue();
                 std::cout << it2->getName() << " = " << th << std::endl;
             }
+            std::cout << std::endl;
         }
-        std::cout << std::endl;
     }
 }
 
 void MonteCarlo::Run(const int rank)
 {
+    if (checkrun == true){
+        if (rank == 0) throw std::runtime_error("ERROR: MonteCarlo::Run() cannot be called after calling MonteCarlo::TestRun().\n");
+    } else {
+        checkrun = true;
+    }
+    
     try {
 
         /* set model parameters */
@@ -89,7 +103,7 @@ void MonteCarlo::Run(const int rank)
         }
         buffsize++;
         if (!myInputParser.getMyModel()->Init(DP))
-            throw std::runtime_error("ERROR: parameter(s) missing in model initialization");
+            throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
 
         std::cout << std::endl << "Running in MonteCarlo mode..." << std::endl;
 
@@ -99,7 +113,7 @@ void MonteCarlo::Run(const int rank)
             if (gSystem->MakeDirectory(ObsDirName.c_str()) == 0)
                 std::cout << ObsDirName << " directory has been created." << std::endl;
             else
-                throw std::runtime_error("ERROR: " + ObsDirName + " director cannot be created.");
+                throw std::runtime_error("ERROR: " + ObsDirName + " director cannot be created.\n");
         }
 
         MCEngine.SetName(ModelName.c_str());
@@ -169,7 +183,7 @@ void MonteCarlo::Run(const int rank)
                     break;
                 else {
                     std::cout << "recvbuff = " << recvbuff[0] << " rank " << rank << std::endl;
-                    throw "error in MPI message!";
+                    throw "MonteCarlo::Run(): error in MPI message!\n";
                 }
             }
             delete sendbuff[0];
@@ -249,7 +263,7 @@ void MonteCarlo::Run(const int rank)
                     }
 
                 } else
-                    throw std::runtime_error("\nERROR: wrong keyword in MonteCarlo config file: " + *beg + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
+                    throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + *beg + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
             } while (!IsEOF);
 
             BCModelOutput out(&MCEngine, OutFile.c_str());
