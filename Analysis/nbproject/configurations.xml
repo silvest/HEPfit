@@ -14,7 +14,6 @@
                    projectFiles="true">
       <itemPath>main.cpp</itemPath>
       <itemPath>main_MCMC_example.cpp</itemPath>
-      <itemPath>main_libmode_CGO_example.cpp</itemPath>
       <itemPath>main_libmode_config_example.cpp</itemPath>
       <itemPath>main_libmode_header_example.cpp</itemPath>
     </logicalFolder>
@@ -1627,10 +1626,6 @@
         <ccTool>
         </ccTool>
       </item>
-      <item path="main_libmode_CGO_example.cpp" ex="true" tool="1" flavor2="9">
-        <ccTool>
-        </ccTool>
-      </item>
       <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
         <ccTool>
         </ccTool>
@@ -1948,10 +1943,6 @@
         </ccTool>
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
-        <ccTool>
-        </ccTool>
-      </item>
-      <item path="main_libmode_CGO_example.cpp" ex="true" tool="1" flavor2="9">
         <ccTool>
         </ccTool>
       </item>
