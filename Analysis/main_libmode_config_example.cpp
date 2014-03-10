@@ -18,9 +18,18 @@ int main(int argc, char** argv)
         ComputeObservables CO(ModelConf);
         
         /* Add the Observables to be returned */
-        CO.AddObservables("Mw");
-        CO.AddObservables("GammaZ");
-        CO.AddObservables("AFBbottom");
+        CO.AddObservable("Mw");
+        CO.AddObservable("GammaZ");
+        CO.AddObservable("AFBbottom");
+        
+        /* Remove a previously added Observables if necessary. */
+        //CO.RemoveObservable("AFBbottom");
+        
+        /* Set the flags for the model being used, if necessary.                         */
+        /* The flags have to correspond to the model specified in the model config file. */
+        std::map<std::string, std::string> DFlags;
+        // DFlags["FLAG"] = "TRUE";
+        CO.setFlags(DFlags);
         
         /* Get the map of observables if necessary. */
         std::map<std::string, double> DObs = CO.getObservables();
