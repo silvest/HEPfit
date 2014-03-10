@@ -15,8 +15,8 @@
       <itemPath>main.cpp</itemPath>
       <itemPath>main_MCMC_example.cpp</itemPath>
       <itemPath>main_libmode_CGO_example.cpp</itemPath>
-      <itemPath>main_libmode_alt_example.cpp</itemPath>
-      <itemPath>main_libmode_example.cpp</itemPath>
+      <itemPath>main_libmode_config_example.cpp</itemPath>
+      <itemPath>main_libmode_header_example.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -1631,7 +1631,7 @@
         <ccTool>
         </ccTool>
       </item>
-      <item path="main_libmode_example.cpp" ex="true" tool="1" flavor2="9">
+      <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
         <ccTool>
         </ccTool>
       </item>
@@ -1955,7 +1955,7 @@
         <ccTool>
         </ccTool>
       </item>
-      <item path="main_libmode_example.cpp" ex="true" tool="1" flavor2="9">
+      <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
         <ccTool>
         </ccTool>
       </item>
