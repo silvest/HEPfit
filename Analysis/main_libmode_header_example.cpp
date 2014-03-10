@@ -26,7 +26,7 @@ int main(int argc, char** argv)
         std::map<std::string, std::string> DFlags;
         
         /* Define the name of the model to be used. */
-        std::string ModelName = "NPZbbbar";
+        std::string ModelName = "NPEpsilons";
         
         /* Create and object of the class InputParameters. */
         InputParameters IP;
@@ -39,25 +39,26 @@ int main(int argc, char** argv)
         DPars_IN["mcharm"] = 1.3;
         DPars_IN["mub"] = 4.2;
         
-        /* Initialize the observables to be returned. */
-        DObs["Mw"] = 0;
-        DObs["GammaZ"] = 0.;
-        DObs["AFBbottom"] = 0.;
-        
         /* Initialize the model flags to be set. */
-        /*DFlags["NPZbbbarLR"] = "TRUE";*/
+        DFlags["epsilon2SM"] = "TRUE";
+        DFlags["epsilonbSM"] = "TRUE";
         
         /* Create and object of the class ComputeObservables. */
-        ComputeObservables CO(ModelName, DPars_IN, DObs);
+        ComputeObservables CO(ModelName, DPars_IN);
+        
+        /* Add the Observables to be returned */
+        CO.AddObservables("Mw");
+        CO.AddObservables("GammaZ");
+        CO.AddObservables("AFBbottom");
         
         /* Set the flags for the model being used, if necessary. */
         CO.setFlags(DFlags);
         
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 2; i++) {
             
             /* Vary the parameters that need to be varied in the analysis. */ 
             DPars["mtop"] = 170.0 + i * 0.1;
-            DPars["mHl"] = 126.0 - i * 0.1;
+            DPars["dAle5Mz"] = 0.02750 - i * 0.0001;
             
             /* Get the map of observables with the parameter values defined above. */
             DObs = CO.compute(DPars);

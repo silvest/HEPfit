@@ -11,23 +11,23 @@ int main(int argc, char** argv)
         /* the mandatory model parameters.                             */
         std::string ModelConf = argv[1];
         
-        /* Define a map for the observables. */
-        std::map<std::string, double> DObs;
-        
         /* Define a map for the parameters to be varied. */
         std::map<std::string, double> DPars;
         
-        /* Initialize the Observables to be returned */
-        DObs["Mw"] = 0;
-        DObs["GammaZ"] = 0.;
-        DObs["AFBbottom"] = 0.;
-        
         /* Create and object of the class ComputeObservables. */
-        ComputeObservables CO(ModelConf, DObs);
+        ComputeObservables CO(ModelConf);
         
-        for (int i = 0; i < 10; i++) {
+        /* Add the Observables to be returned */
+        CO.AddObservables("Mw");
+        CO.AddObservables("GammaZ");
+        CO.AddObservables("AFBbottom");
+        
+        /* Get the map of observables if necessary. */
+        std::map<std::string, double> DObs = CO.getObservables();
+        
+        for (int i = 0; i < 2; i++) {
             
-        /* Vary the parameters that need to be varied in the analysis. */
+            /* Vary the parameters that need to be varied in the analysis. */
             DPars["Mz"] = 91.1875 + 0.0001 * i;
             DPars["AlsMz"] = 0.1184 + 0.000001 * i;
             
