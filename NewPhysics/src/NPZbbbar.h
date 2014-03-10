@@ -278,7 +278,7 @@ private:
      * used instead of \f$\delta g_{V,A}^b\f$. This flag is initialized in the
      * constructor. 
      */
-    bool FlagNPZbbbarLR;
+    const bool FlagNPZbbbarLR;
 
     /**
      * @brief A boolean flag that is true if new physics contributions
