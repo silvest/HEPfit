@@ -85,12 +85,14 @@ std::map<std::string, double> ComputeObservables::compute(std::map<std::string, 
     return(DObs);
 }
 
-void ComputeObservables::RemoveObservables(std::string ObsName)
+void ComputeObservables::RemoveObservable(std::string ObsName)
 {
+    if(DObs.find(ObsName) == DObs.end())
+        throw  std::runtime_error("\nERROR: Observable cannot be removed since it has not been added.\n");
     DObs.erase(ObsName);
 }
 
-void ComputeObservables::AddObservables(std::string ObsName)
+void ComputeObservables::AddObservable(std::string ObsName)
 {
     DObs.insert(std::pair<std::string, double> (ObsName , 0.));
 }

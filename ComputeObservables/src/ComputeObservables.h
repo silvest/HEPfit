@@ -97,13 +97,13 @@ public:
      * @brief A method to add observables to the list of observables.
      * @param[in] ObsName the name of the observable to be added
      */
-    void RemoveObservables(std::string ObsName);
+    void RemoveObservable(std::string ObsName);
     
     /**
      * @brief A method to remove observables to the list of observables.
      * @param[in] ObsName the name of the observable to be removed
      */
-    void AddObservables(std::string ObsName);
+    void AddObservable(std::string ObsName);
     
     /**
      * @brief A method to get the map of observables.
