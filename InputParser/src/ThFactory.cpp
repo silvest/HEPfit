@@ -177,6 +177,6 @@ ThFactory::~ThFactory()
 ThObservable * ThFactory::getThMethod(const std::string& name) 
 {
     if (thobs.find(name) == thobs.end())
-        throw std::runtime_error("ERROR: Wrong observable " + name + " in ThFactory");
+        throw std::runtime_error("ERROR: Wrong observable " + name + " passed to ThFactory");
     return (thobs[name]);
 }
