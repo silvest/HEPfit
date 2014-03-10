@@ -9,7 +9,7 @@ int main(int argc, char** argv)
         /* Here it is passed as the first argument to the executable.  */
         /* The model configuration file provides the default values of */
         /* the mandatory model parameters, the list of observables and */
-        /* corrlated Gaussian observables to be computed.              */
+        /* correlated Gaussian observables to be computed.              */
         std::string ModelConf = argv[1];
         
         /* Define a map for the observables and corellated Gaussian observables. */
