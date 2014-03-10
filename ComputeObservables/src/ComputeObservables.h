@@ -37,7 +37,7 @@
  * @brief A module for accessing the observables without a MCMC run.
  * @details This module is for using the implementations of the observables without
  * running a Markov Chain Monte Carlo. It allows for accessing
- * the observables in a library mode where the user can specify the parameters and 
+ * the observables in a library mode where the user can specify the parameters and
  * compute the observables.
  * @{
  */
@@ -47,21 +47,11 @@
  * @brief A class for providing access to the computation of observables without a Monte Carlo run.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This class can be used to create an object that takes a map of model parameters that need to be varied 
+ * @details This class can be used to create an object that takes a map of model parameters that need to be varied
  * in the analysis and passes out a map of the observables that it is told to compute.
  */
 class ComputeObservables {
 public:
-    
-    /**
-     * @brief Constructor.
-     * @details This constructor passes the name of the SomeModel.conf file. Its is to be used
-     * for generating a sigle (central) event for the observables and correlated Gaussian observables
-     * listed in the SomeModel.conf file.
-     * @param[in] ModelConf_i the name of the input configuration file for the model name,
-     * the model parameters and observables to be calculated
-     */
-    ComputeObservables(const std::string& ModelConf_i);
     
     /**
      * @brief Constructor.
@@ -70,11 +60,9 @@ public:
      * the mandatory parameters.
      * @param[in] ModelConf_i the name of the input configuration file for the model name,
      * the model parameters and observables to be calculated
-     * @param[in] DObs_i the map of observables to be computed
      */
-    ComputeObservables(const std::string& ModelConf_i,
-                       std::map<std::string, double> DObs_i);
-
+    ComputeObservables(const std::string& ModelConf_i);
+    
     /**
      * @brief Constructor.
      * @details This constructor passes the  model name, model parameters and model flags.
@@ -83,9 +71,7 @@ public:
      * @param[in] DPars_i the mandatory parameters of the model being used
      * @param[in] DObs_i the map of observables to be computed
      */
-    ComputeObservables(const std::string& ModelName_i,
-                       std::map<std::string, double> DPars_i,
-                       std::map<std::string, double> DObs_i);
+    ComputeObservables(const std::string& ModelName_i, std::map<std::string, double> DPars_i);
     
     /**
      * @brief The default destructor.
@@ -94,10 +80,10 @@ public:
     
     /**
      * @brief This method sets the necessary flag for the requested model
-     * when SomeModel.conf is not used to pass the input values (c.f. 
+     * when SomeModel.conf is not used to pass the input values (c.f.
      * ComputeObservables(ModelName_i, DPars_i, DObs_i)).
      * @param[in] DFlags_i the flags for the model being used
-     */    
+     */
     void setFlags(std::map<std::string, std::string> DFlags_i);
     
     /**
@@ -108,11 +94,24 @@ public:
     std::map<std::string, double> compute(std::map<std::string, double> DP);
     
     /**
-     * @brief The method used to generate observables and correlated Gaussian observables
-     * using an object built with ComputeObservables(ModelConf_i).
-     * @param[in] DP the map of parameters being varied
+     * @brief A method to add observables to the list of observables.
+     * @param[in] ObsName the name of the observable to be added
      */
-    std::pair<std::map<std::string, double>, std::map<std::string, std::map<std::string, double> > >  compute_Obs_CGO(std::map<std::string, double> DP);
+    void RemoveObservables(std::string ObsName);
+    
+    /**
+     * @brief A method to remove observables to the list of observables.
+     * @param[in] ObsName the name of the observable to be removed
+     */
+    void AddObservables(std::string ObsName);
+    
+    /**
+     * @brief A method to get the map of observables.
+     */
+    std::map<std::string, double> getObservables()
+    {
+        return(DObs);
+    };
     
     
 private:
@@ -132,8 +131,6 @@ private:
     std::vector<ModelParaVsObs> ParaObs; ///< Vector for the ModelParaVsObs defined in SomeModel.conf.
     std::string ModelConf; ///< String for the name of the SomeModel.conf file.
     std::vector<std::string> paraNames;///< The vector of allowed parameter names.
-    bool checkPara; ///< The boolean cheack for consistency in parameter names.
-    int constructorIdx; ///< Stores an index corresponding the the construcor used to build an object of this class.
 };
 
 /**
