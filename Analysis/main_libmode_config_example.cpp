@@ -14,7 +14,7 @@ int main(int argc, char** argv)
         /* Define a map for the parameters to be varied. */
         std::map<std::string, double> DPars;
         
-        /* Create and object of the class ComputeObservables. */
+        /* Create an object of the class ComputeObservables. */
         ComputeObservables CO(ModelConf);
         
         /* Add the observables to be returned */
@@ -22,7 +22,7 @@ int main(int argc, char** argv)
         CO.AddObservable("GammaZ");
         CO.AddObservable("AFBbottom");
         
-        /* Remove a previously added observables if necessary. */
+        /* Remove a previously added observable if necessary. */
         //CO.RemoveObservable("AFBbottom");
         
         /* Set the flags for the model being used, if necessary.                         */

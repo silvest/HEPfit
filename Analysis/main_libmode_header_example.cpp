@@ -16,7 +16,7 @@ int main(int argc, char** argv)
         /* Define the name of the model to be used. */
         std::string ModelName = "NPEpsilons";
         
-        /* Create and object of the class InputParameters. */
+        /* Create an object of the class InputParameters. */
         InputParameters IP;
         
         /* Read a map for the mandatory model parameters. (Default values in InputParameters.h) */ 
@@ -27,7 +27,7 @@ int main(int argc, char** argv)
         DPars_IN["mcharm"] = 1.3;
         DPars_IN["mub"] = 4.2;
         
-        /* Create and object of the class ComputeObservables. */
+        /* Create an object of the class ComputeObservables. */
         ComputeObservables CO(ModelName, DPars_IN);
         
         /* Add the observables to be returned. */

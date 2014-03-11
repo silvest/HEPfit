@@ -24,20 +24,26 @@ int main(int argc, char** argv)
 #endif
     
     try {
+        if(argc != 3){
+            //print usage and exit
+            std::cout << "usage: " << argv[0] << " ModelConf MCMCConf" << std::endl;
+            return EXIT_SUCCESS;
+        }
         /* Define the model configuration file.                                */
         /* Here it is passed as the first argument to the executable. The      */
-        /* model configuration file provides the default values of the         */
-        /* mandatory model parameters, the list of observables, observables2D, */
-        /* correlated Gaussian observables, model parameters vs. observables.  */
+        /* model configuration file provides the values with errors for the    */
+        /* mandatory model parameters, as well as the list of observables,     */
+        /* observables2D, correlated Gaussian observables, model parameters vs.*/ 
+        /* observables. See documentation for details                          */
         std::string ModelConf = argv[1];
         
         /* Define the Monte Carlo configuration file.                         */
         /* Here it is passed as the second argument to the executable. The    */
         /* Monte Carlo configuration file provides the parameters used in the */
-        /* Monte Carlo run.                                                   */
+        /* Monte Carlo run. See documentation for details                     */
         std::string MCMCConf = argv[2];
         
-        /* Define the ROOT output file. (Empty string will set it to MCout) */
+        /* Define the ROOT output file (w/o extension, empty string will set it to MCout) */
         std::string FileOut = "";        
         
         /* Define the optional job tag. */
@@ -46,10 +52,10 @@ int main(int argc, char** argv)
         /* Define the check theory range flag. */
         bool checkTheoryRange = false;
 
-        /* Create and object of the class MonteCarlo. */        
+        /* Create an object of the class MonteCarlo. */        
         MonteCarlo MC(ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);
         
-        /* Do a test run if you wish to see a the values of the observables    */
+        /* Do a test run if you wish to see the values of the observables    */
         /* and the correlated Gaussian observables defined in the model        */
         /* configuration file computed with the central value of the mandatory */
         /* parameters defined in the same file.                                */
