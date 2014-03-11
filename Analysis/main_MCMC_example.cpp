@@ -50,12 +50,12 @@ int main(int argc, char** argv)
         MonteCarlo MC(ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);
         
         /* Do a test run if you wish to see a the values of the observables    */
-        /* and the corellated Gaussian observables defined in the model        */
+        /* and the correlated Gaussian observables defined in the model        */
         /* configuration file computed with the central value of the mandatory */
         /* parameters defined in the same file.                                */
         // MC.TestRun(rank);
         
-        /* Initialte the Mote Carlo run. */
+        /* Initiate the Mote Carlo run. */
         MC.Run(rank);
         
 #ifdef _MPI

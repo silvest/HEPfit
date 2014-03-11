@@ -17,12 +17,12 @@ int main(int argc, char** argv)
         /* Create and object of the class ComputeObservables. */
         ComputeObservables CO(ModelConf);
         
-        /* Add the Observables to be returned */
+        /* Add the observables to be returned */
         CO.AddObservable("Mw");
         CO.AddObservable("GammaZ");
         CO.AddObservable("AFBbottom");
         
-        /* Remove a previously added Observables if necessary. */
+        /* Remove a previously added observables if necessary. */
         //CO.RemoveObservable("AFBbottom");
         
         /* Set the flags for the model being used, if necessary.                         */

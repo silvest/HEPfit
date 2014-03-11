@@ -10,7 +10,7 @@
 
 ComputeObservables::ComputeObservables(const std::string& ModelConf_i)
 : myInputParser(),
-ModelConf(ModelConf_i)
+  ModelConf(ModelConf_i)
 {
     std::string ModelName = myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs);
     std::map<std::string, double> DP;
@@ -31,14 +31,13 @@ ModelConf(ModelConf_i)
     
     thf = myInputParser.getMyThFactory();
     Mod = myInputParser.getMyModel();
-    if (!Mod->Init(DP)) {
+    if (!Mod->Init(DP)) 
         throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
-    }
 }
 
 ComputeObservables::ComputeObservables(const std::string& ModelName_i, std::map<std::string, double> DPars_i)
 : ModelName(ModelName_i),
-myInputParser()
+  myInputParser()
 {
     for (std::map<std::string, double>::iterator it = DPars_i.begin(); it != DPars_i.end(); it++) {
         paraNames.push_back(it->first);
@@ -47,9 +46,8 @@ myInputParser()
     Mod->setModelName(ModelName);
     Mod->InitializeModel();
     thf = new ThFactory(*Mod);
-    if (!Mod->Init(DPars_i)) {
+    if (!Mod->Init(DPars_i)) 
         throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
-    }
 }
 
 ComputeObservables::~ComputeObservables()
@@ -59,14 +57,15 @@ ComputeObservables::~ComputeObservables()
 void ComputeObservables::setFlags(std::map<std::string, std::string> DFlags_i)
 {
     for (std::map<std::string, std::string>::iterator it = DFlags_i.begin(); it != DFlags_i.end(); it++) {
-        if (!(boost::iequals(it->second, "true")) && !(boost::iequals(it->second, "false")) && !Mod->setFlagStr(it->first, it->second))
+        if (!(boost::iequals(it->second, "true")) && !(boost::iequals(it->second, "false")) && !Mod->setFlagStr(it->first, it->second)) {
             throw std::runtime_error("ERROR: setFlagStr error for " + it->first);
-        else if (boost::iequals(it->second, "true") && !Mod->setFlag(it->first, 1))
+        } else if (boost::iequals(it->second, "true") && !Mod->setFlag(it->first, 1)) {
             throw std::runtime_error("ERROR: setFlag error for " + it->first);
-        else if (boost::iequals(it->second, "false") && !Mod->setFlag(it->first, 0))
+        } else if (boost::iequals(it->second, "false") && !Mod->setFlag(it->first, 0)) {
             throw std::runtime_error("ERROR: setFlag error for " + it->first);
-        else
-            std::cout << "set flag " << it->first << "=" << it->second << std::endl;
+        } else {
+            std::cout << "set flag " << it->first << " = " << it->second << std::endl;
+        }
     }
 }
 
@@ -87,7 +86,7 @@ std::map<std::string, double> ComputeObservables::compute(std::map<std::string, 
 
 void ComputeObservables::RemoveObservable(std::string ObsName)
 {
-    if(DObs.find(ObsName) == DObs.end())
+    if(DObs.find(ObsName) == DObs.end()) 
         throw  std::runtime_error("\nERROR: Observable cannot be removed since it has not been added.\n");
     DObs.erase(ObsName);
 }

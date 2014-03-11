@@ -15,9 +15,6 @@ int main(int argc, char** argv)
 
         /* Define the name of the model to be used. */
         std::string ModelName = "NPEpsilons";
-                
-        /* Define a map for the parameters to be varied. */
-        std::map<std::string, double> DPars;
         
         /* Create and object of the class InputParameters. */
         InputParameters IP;
@@ -33,12 +30,12 @@ int main(int argc, char** argv)
         /* Create and object of the class ComputeObservables. */
         ComputeObservables CO(ModelName, DPars_IN);
         
-        /* Add the Observables to be returned. */
+        /* Add the observables to be returned. */
         CO.AddObservable("Mw");
         CO.AddObservable("GammaZ");
         CO.AddObservable("AFBbottom");
         
-        /* Remove a previously added Observables if necessary. */
+        /* Remove a previously added observables if necessary. */
         //CO.RemoveObservable("AFBbottom");
         
         /* Set the flags for the model being used, if necessary. */
@@ -49,6 +46,9 @@ int main(int argc, char** argv)
         
         /* Get the map of observables if necessary. */
         std::map<std::string, double> DObs = CO.getObservables();
+        
+        /* Define a map for the parameters to be varied. */
+        std::map<std::string, double> DPars;
         
         for (int i = 0; i < 2; i++) {
             
