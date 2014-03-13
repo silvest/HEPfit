@@ -21,7 +21,7 @@
 #include "QCD.h"
 
 const std::string QCD::QCDvars[NQCDvars] = {
-    "AlsMz","Mz","mup","mdown","mcharm","mstrange",
+    "AlsM","MAls","mup","mdown","mcharm","mstrange",
     "mtop","mbottom","mut","mub","muc","MBd","tBd",
     "MBs","tBs","MBp","MK0","MKp","MD", "tKl", "tKp", "FBs", "FBsoFBd", "FD",
     "BBsoBBd","BBs1","BBs2","BBs3","BBs4","BBs5", "BBsscale", "BBsscheme",
@@ -138,12 +138,14 @@ bool QCD::PostUpdate()
 
 void QCD::setParameter(const std::string name, const double& value)
 {
-    if(name.compare("AlsMz")==0) {
-        AlsMz = value;
+    if(name.compare("AlsM")==0) {
+        AlsM = value;
         computemt = true;
     }
-    else if(name.compare("Mz")==0)
-        Mz = value;
+    else if(name.compare("MAls")==0) {
+        MAls = value;
+        computemt = true;
+    }
     else if(name.compare("mup")==0) {
         if(value < MEPS) UpdateError = true; 
         quarks[UP].setMass(value);
@@ -468,8 +470,8 @@ double QCD::AlsWithInit(const double mu, const double alsi, const double mu_i,
 
 double QCD::Als4(const double mu) const
 {
-    double v = 1. - Beta0(4.)*AlsMz/2./M_PI*log(Mz/mu);
-    return (AlsMz/v*(1. - Beta1(4.)/Beta0(4.)*AlsMz/4./M_PI*log(v)/v));
+    double v = 1. - Beta0(4.)*AlsM/2./M_PI*log(MAls/mu);
+    return (AlsM/v*(1. - Beta1(4.)/Beta0(4.)*AlsM/4./M_PI*log(v)/v));
 }
     
 double QCD::AlsWithLambda(const double mu, const double logLambda, 
@@ -511,12 +513,12 @@ double QCD::Als(const double mu, const orders order) const
     int i;
     for(i=0; i<CacheSize; ++i)
         if((mu ==  als_cache[0][i]) && ((double)order == als_cache[1][i]) &&
-                (AlsMz == als_cache[2][i]) && (Mz == als_cache[3][i]) &&
+                (AlsM == als_cache[2][i]) && (MAls == als_cache[3][i]) &&
                 (mut == als_cache[4][i]) && (mub == als_cache[5][i]) &&
                 (muc == als_cache[6][i]))
             return als_cache[7][i];    
     
-    double nfmu = Nf(mu), nfz = Nf(Mz), mu_thre1, mu_thre2, Als_tmp, mf;
+    double nfmu = Nf(mu), nfz = Nf(MAls), mu_thre1, mu_thre2, Als_tmp, mf;
     double als;
     
     switch (order) {
@@ -524,13 +526,13 @@ double QCD::Als(const double mu, const orders order) const
         case FULLNLO:
         case NLO:
             if(nfmu==nfz) 
-                als = AlsWithInit(mu, AlsMz, Mz, order);
+                als = AlsWithInit(mu, AlsM, MAls, order);
             else if(nfmu > nfz) {
                 if (order==NLO)
                     throw std::runtime_error("NLO is not implemented in QCD::Als(mu,order).");     
                 if (nfmu==nfz+1.) {
-                    mu_thre1 = AboveTh(Mz); // mut
-                    Als_tmp = AlsWithInit(mu_thre1-MEPS, AlsMz, Mz, order);
+                    mu_thre1 = AboveTh(MAls); // mut
+                    Als_tmp = AlsWithInit(mu_thre1-MEPS, AlsM, MAls, order);
                     if (order==FULLNLO) {
                         mf = mtpole;
                         Als_tmp = (1. + Als_tmp/M_PI*log(mu_thre1/mf)/3.)*Als_tmp;
@@ -542,15 +544,15 @@ double QCD::Als(const double mu, const orders order) const
                 if (order==NLO)
                     throw std::runtime_error("NLO is not implemented in QCD::Als(mu,order).");     
                 if (nfmu==nfz-1.) {
-                    mu_thre1 = BelowTh(Mz); // mub
-                    Als_tmp = AlsWithInit(mu_thre1+MEPS, AlsMz, Mz, order);
+                    mu_thre1 = BelowTh(MAls); // mub
+                    Als_tmp = AlsWithInit(mu_thre1+MEPS, AlsM, MAls, order);
                     if (order==FULLNLO) {
                         mf = getQuarks(BOTTOM).getMass();
                         Als_tmp = (1. - Als_tmp/M_PI*log(mu_thre1/mf)/3.)*Als_tmp;
                     }
                     als = AlsWithInit(mu, Als_tmp, mu_thre1-MEPS, order);
                 } else if (nfmu==nfz-2.) {
-                    mu_thre1 = BelowTh(Mz); // mub
+                    mu_thre1 = BelowTh(MAls); // mub
                     mu_thre2 = AboveTh(mu); // muc
                     Als_tmp = Als(mu_thre1+MEPS, order); 
                     if (order==FULLNLO) {
@@ -579,8 +581,8 @@ double QCD::Als(const double mu, const orders order) const
     CacheShift(als_cache,8);
     als_cache[0][0] = mu;
     als_cache[1][0] = (double)order;
-    als_cache[2][0] = AlsMz;
-    als_cache[3][0] = Mz;
+    als_cache[2][0] = AlsM;
+    als_cache[3][0] = MAls;
     als_cache[4][0] = mut;
     als_cache[5][0] = mub;
     als_cache[6][0] = muc;
@@ -597,7 +599,7 @@ double QCD::ZeroNf6NLO(double *logLambda6, double *logLambda5_in) const
 
 double QCD::ZeroNf5(double *logLambda5, double *order) const
 {
-    return ( AlsWithLambda(Mz, *logLambda5, (orders) *order) - AlsMz );
+    return ( AlsWithLambda(MAls, *logLambda5, (orders) *order) - AlsM );
 }
 
 double QCD::ZeroNf4NLO(double *logLambda4, double *logLambda5_in) const
@@ -618,18 +620,18 @@ double QCD::logLambda5(orders order) const
     if (order==NNLO) order = FULLNNLO;
     
     for (int i=0; i<CacheSize; ++i)
-        if ( (AlsMz == logLambda5_cache[0][i]) 
-              && (Mz == logLambda5_cache[1][i]) 
+        if ( (AlsM == logLambda5_cache[0][i]) 
+              && (MAls == logLambda5_cache[1][i]) 
               && ((double)order == logLambda5_cache[2][i]) )
             return logLambda5_cache[3][i];
 
     CacheShift(logLambda5_cache,4);
-    logLambda5_cache[0][0] = AlsMz;
-    logLambda5_cache[1][0] = Mz;
+    logLambda5_cache[0][0] = AlsM;
+    logLambda5_cache[1][0] = MAls;
     logLambda5_cache[2][0] = (double)order;
     
     if (order==LO)
-        logLambda5_cache[3][0] = log(Mz) - 2.*M_PI/Beta0(5.)/AlsMz;
+        logLambda5_cache[3][0] = log(MAls) - 2.*M_PI/Beta0(5.)/AlsM;
     else {
         double xmin = -4., xmax = -0.2;
         TF1 f = TF1("f",this,&QCD::ZeroNf5,xmin,xmax,1,"QCD","zeroNf5");
@@ -652,8 +654,8 @@ double QCD::logLambdaNLO(const double nfNEW, const double nfORG,
                          const double logLambdaORG) const
 {
     for (int i=0; i<CacheSize; ++i)
-        if ( (AlsMz == logLambdaNLO_cache[0][i])
-                && (Mz == logLambdaNLO_cache[1][i])
+        if ( (AlsM == logLambdaNLO_cache[0][i])
+                && (MAls == logLambdaNLO_cache[1][i])
                 && (mut == logLambdaNLO_cache[2][i])
                 && (mub == logLambdaNLO_cache[3][i])
                 && (muc == logLambdaNLO_cache[4][i])
@@ -663,8 +665,8 @@ double QCD::logLambdaNLO(const double nfNEW, const double nfORG,
             return logLambdaNLO_cache[8][i];
 
     CacheShift(logLambdaNLO_cache, 9);
-    logLambdaNLO_cache[0][0] = AlsMz;
-    logLambdaNLO_cache[1][0] = Mz;
+    logLambdaNLO_cache[0][0] = AlsM;
+    logLambdaNLO_cache[1][0] = MAls;
     logLambdaNLO_cache[2][0] = mut;
     logLambdaNLO_cache[3][0] = mub;
     logLambdaNLO_cache[4][0] = muc;
@@ -862,7 +864,7 @@ double QCD::Mrun(const double mu_f, const double mu_i, const double m,
     for (i=0; i<CacheSize; ++i) {
         if ((mu_f == mrun_cache[0][i]) && (mu_i == mrun_cache[1][i]) &&
                 (m == mrun_cache[2][i]) && ((double)order == mrun_cache[3][i]) &&
-                (AlsMz == mrun_cache[4][i]) && (Mz == mrun_cache[5][i]) && 
+                (AlsM == mrun_cache[4][i]) && (MAls == mrun_cache[5][i]) && 
                 (mut == mrun_cache[6][i]) && (mub == mrun_cache[7][i]) && 
                 (muc == mrun_cache[8][i]))
             return mrun_cache[9][i];
@@ -935,8 +937,8 @@ double QCD::Mrun(const double mu_f, const double mu_i, const double m,
     mrun_cache[1][0] = mu_i;
     mrun_cache[2][0] = m;
     mrun_cache[3][0] = (double)order;
-    mrun_cache[4][0] = AlsMz;
-    mrun_cache[5][0] = Mz;
+    mrun_cache[4][0] = AlsM;
+    mrun_cache[5][0] = MAls;
     mrun_cache[6][0] = mut;
     mrun_cache[7][0] = mub;
     mrun_cache[8][0] = muc;

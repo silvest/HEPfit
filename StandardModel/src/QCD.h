@@ -50,14 +50,14 @@
  *   <th>Description</th>
  * </tr>
  * <tr>
- *   <td class="mod_name">%AlsMz</td>
- *   <td class="mod_symb">@f$\alpha_s(M_Z)@f$</td>
- *   <td class="mod_desc">The strong coupling constant at the Z-boson mass.</td>
+ *   <td class="mod_name">%AlsM</td>
+ *   <td class="mod_symb">@f$\alpha_s(M_{\alpha_s})@f$</td>
+ *   <td class="mod_desc">The strong coupling constant at the scale \f$M_{\alpha_s}\f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%Mz</td>
- *   <td class="mod_symb">@f$M_Z@f$</td>
- *   <td class="mod_desc">The mass of the \f$Z\f$ boson in GeV.</td>
+ *   <td class="mod_name">%MAls</td>
+ *   <td class="mod_symb">@f$M_{\alpha_s}@f$</td>
+ *   <td class="mod_desc">The mass scale in GeV at which the strong coupling constant measurement is provided. Must be in the 5 flavour energy range.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%mup</td>
@@ -643,39 +643,39 @@ public:
     }
     
     /**
-     * @brief A get method to access the value of \f$\alpha_s(M_Z)\f$.
-     * @return the strong coupling constant at @f$M_Z@f$, @f$\alpha_s(M_Z)@f$
+     * @brief A get method to access the value of \f$\alpha_s(M_{\alpha_s})\f$.
+     * @return the strong coupling constant at @f$M_{\alpha_s}@f$, @f$\alpha_s(M_{\alpha_s})@f$
      */
-    double getAlsMz() const
+    double getAlsM() const
     {
-        return AlsMz;
+        return AlsM;
     }
     
     /**
-     * @brief Sets the strong coupling constant at @f$M_Z@f$, @f$\alpha_s(M_Z)@f$.
-     * @param[in] AlsMz @f$\alpha_s(M_Z)@f$
+     * @brief Sets the strong coupling constant at @f$M@_{\alpha_s}f$, @f$\alpha_s(M_{\alpha_s})@f$.
+     * @param[in] AlsM @f$\alpha_s(M_{\alpha_s})@f$
      */
-    void setAlsMz(double AlsMz)
+    void setAlsM(double AlsM)
     {
-        this->AlsMz = AlsMz;
+        this->AlsM = AlsM;
     }
     
     /**
-     * @brief A get method to access the mass of the \f$Z\f$ boson \f$M_Z\f$.
-     * @return the @f$Z@f$-boson mass @f$M_Z@f$
+     * @brief A get method to access the mass scale \f$M_{\alpha_s}\f$ at which the strong coupling constant measurement is provided.
+     * @return the mass scale in GeV @f$M_{\alpha_s}@f$ at which the strong coupling constant measurement is provided
      */
-    double getMz() const
+    double getMAls() const
     {
-        return Mz;
+        return MAls;
     }
     
     /**
-     * @brief Sets the @f$Z@f$ boson mass @f$M_Z@f$.
-     * @param[in] Mz @f$M_Z@f$ in GeV
+     * @brief Sets the mass scale \f$M_{\alpha_s}\f$ at which the strong coupling constant measurement is provided.
+     * @param[in] MAls @f$M_{\alpha_s}@f$ in GeV
      */
-    void setMz(double Mz)
+    void setMAls(double MAls)
     {
-        this->Mz = Mz;
+        this->MAls = MAls;
     }
     
     /**
@@ -1136,10 +1136,10 @@ protected:
     
     
     // model parameters
-    double AlsMz; /**< The strong coupling constant at the Z-boson mass, \f$\alpha_s(M_Z)\f$. */
-    double Mz; /**< The mass of the \f$Z\f$ boson in \f$GeV\f$ */
-    double mut; /**< The threshold between six- and five-flavour theory in \f$GeV\f$. */
-    double mub; /**< The threshold between five- and four-flavour theory in \f$GeV\f$. */
+    double AlsM; /**< The strong coupling constant at the mass scale MAls, \f$\alpha_s(M_{\alpha_s})\f$. */
+    double MAls; /**< The mass scale in GeV at which the strong coupling measurement is provided*/
+    double mut; /**< The threshold between six- and five-flavour theory in GeV. */
+    double mub; /**< The threshold between five- and four-flavour theory in GeV. */
     double muc; /**< The threshold between four- and three-flavour theory in GeV. */
     double ReA0_Kd; /**< */
     double ReA2_Kd; /**< */
@@ -1176,10 +1176,10 @@ private:
     
     /**
      * @brief A member for calculating the difference in \f$\alpha_s^{FULLNLO}\f$ using
-     * AlsWithLambda() and the input vaue of \f$\alpha_s^(M_Z)\f$ given in the SomeModel.conf file.
+     * AlsWithLambda() and the input vaue of \f$\alpha_s^(M_{\alpha_s})\f$ given in the SomeModel.conf file.
      * @param[in] logLambda5 \f$\log(\Lambda_{\rm QCD}^{(5)})\f$
      * @param[in] order the %QCD order of the calculation
-     * @return \f$\alpha_s^{FULLNLO}(M_z)\f$ - \f$\alpha_s^(M_Z)\f$
+     * @return \f$\alpha_s^{FULLNLO}(M_{\alpha_s})\f$ - \f$\alpha_s^(M_{\alpha_s})\f$
      */
     double ZeroNf5(double *logLambda5, double *order) const;
     

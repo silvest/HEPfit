@@ -54,6 +54,16 @@ class EWSM; // forward reference to EWSM class
  *   <th>Description</th>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%Mz</td>
+ *   <td class="mod_symb">@f$M_Z@f$</td>
+ *   <td class="mod_desc">The mass of the \f$Z\f$ boson in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%AlsMz</td>
+ *   <td class="mod_symb">@f$\alpha_s(M_Z)@f$</td>
+ *   <td class="mod_desc">The strong coupling constant at the Z-boson mass.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%GF</td>
  *   <td class="mod_symb">@f$G_\mu@f$</td>
  *   <td class="mod_desc">The Fermi constant in @f${\rm GeV}^{-2}@f$, measured through muon decays.</td>
@@ -305,7 +315,7 @@ public:
         TAU /**< Tau */
     };
 
-    static const int NSMvars = 24;///< The number of the model parameters in %StandardModel.
+    static const int NSMvars = 26;///< The number of the model parameters in %StandardModel.
 
     /**
      * @brief  A string array containing the labels of the model parameters in %StandardModel.
@@ -495,6 +505,42 @@ public:
         return leptons[p];
     }
 
+    /**
+     * @brief A get method to access the mass of the \f$Z\f$ boson \f$M_Z\f$.
+     * @return the @f$Z@f$-boson mass @f$M_Z@f$
+     */
+    double getMz() const
+    {
+        return Mz;
+    }
+    
+    /**
+     * @brief Sets the @f$Z@f$ boson mass @f$M_Z@f$.
+     * @param[in] Mz @f$M_Z@f$ in GeV
+     */
+    void setMz(double Mz)
+    {
+        this->Mz = Mz;
+    }
+    
+    /**
+     * @brief A get method to access the value of \f$\alpha_s(M_Z)\f$.
+     * @return the strong coupling constant at @f$M_Z@f$, @f$\alpha_s(M_Z)@f$
+     */
+    double getAlsMz() const
+    {
+        return AlsMz;
+    }
+    
+    /**
+     * @brief Sets the strong coupling constant at @f$M_Z@f$, @f$\alpha_s(M_Z)@f$.
+     * @param[in] AlsMz @f$\alpha_s(M_Z)@f$
+     */
+    void setAlsMz(double AlsMz)
+    {
+        this->AlsMz = AlsMz;
+    }
+    
     /**
      * @brief A get method to retrieve the Fermi constant @f$G_\mu@f$.
      * @return @f$G_\mu@f$ in @f${\rm GeV}^{-2}@f$
@@ -958,6 +1004,8 @@ protected:
     matrix<complex> Ye;///< The Yukawa matrix of the charged leptons.
 
     // model parameters
+    double AlsMz; /**< The strong coupling constant at the Z-boson mass, \f$\alpha_s(M_Z)\f$. */
+    double Mz; /**< The mass of the \f$Z\f$ boson in GeV */
     double GF;///< The Fermi constant @f$G_\mu@f$ in @f${\rm GeV}^{-2}@f$.
     double ale;///< The fine-structure constant @f$\alpha@f$.
     double dAle5Mz;///< The five-flavour hadronic contribution to the electromagnetic coupling, @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$.

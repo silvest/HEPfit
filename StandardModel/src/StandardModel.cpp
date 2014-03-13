@@ -20,7 +20,7 @@
 
 
 const std::string StandardModel::SMvars[NSMvars] = {
-    "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ",
+    "Mz", "AlsMz", "GF", "ale", "dAle5Mz", "mHl", "delMw", "delSin2th_l", "delGammaZ",
     "mneutrino_1", "mneutrino_2", "mneutrino_3", "melectron", "mmu", "mtau", 
     "lambda", "A", "rhob", "etab", "muw",
     "EpsK", "phiEpsK", "DeltaMK", "KbarEpsK", "Dmk", "SM_M12D"
@@ -69,8 +69,11 @@ bool StandardModel::InitializeModel()
 
 bool StandardModel::Init(const std::map<std::string, double>& DPars)
 {
-    Update(DPars);
-    return(CheckParameters(DPars));
+    std::map<std::string, double> myDPars(DPars);
+    myDPars["AlsM"] = myDPars.at("AlsMz");
+    myDPars["MAls"] = myDPars.at("Mz");
+    Update(myDPars);
+    return(CheckParameters(myDPars));
 }
 
 bool StandardModel::PreUpdate()
@@ -121,6 +124,12 @@ void StandardModel::setParameter(const std::string name, const double& value)
 {
     if (name.compare("GF") == 0)
         GF = value;
+    else if(name.compare("Mz")==0)
+        Mz = value;
+    else if(name.compare("AlsMz")==0) {
+        AlsMz = value;
+        AlsM = value;
+    }
     else if (name.compare("ale") == 0)
         ale = value;
     else if (name.compare("dAle5Mz") == 0)
