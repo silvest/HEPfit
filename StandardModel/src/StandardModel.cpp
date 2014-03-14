@@ -69,6 +69,11 @@ bool StandardModel::InitializeModel()
 
 bool StandardModel::Init(const std::map<std::string, double>& DPars)
 {
+    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
+        if(it->first.compare("AlsM")==0 || it->first.compare("MAls")==0)
+            throw std::runtime_error("ERROR: inappropriate parameter " + it->first
+                                     + " in model initialization");
+
     std::map<std::string, double> myDPars(DPars);
     myDPars["AlsM"] = myDPars.at("AlsMz");
     myDPars["MAls"] = myDPars.at("Mz");
@@ -94,7 +99,7 @@ bool StandardModel::Update(const std::map<std::string, double>& DPars)
     
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameter(it->first, it->second);
-    
+
     if (UpdateError) return (false);
     
     if(!PostUpdate())  return (false);

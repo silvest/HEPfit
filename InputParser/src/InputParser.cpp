@@ -94,7 +94,7 @@ StandardModel* InputParser::ModelFactory(std::string& ModelName){
     else if (ModelName.compare("pMSSM") == 0) return (new pMSSM());
     else if (ModelName.compare("SusyMassInsertion") == 0) return (new SUSYMassInsertion());
     else if (ModelName.compare("THDM") == 0) return (new THDM());
-    else throw std::runtime_error("\nERROR: Incorrect model name passed to InputParser():  " + ModelName + "\n       Please put a legitimate model name at the TOP of the model configuration file.\n");
+    else throw std::runtime_error("\nERROR: Incorrect model name passed to InputParser::ModelFactory(): " + ModelName + "\n");
 }
 
 std::string InputParser::ReadParameters(const std::string filename,
@@ -310,7 +310,7 @@ std::string InputParser::ReadParameters(const std::string filename,
     } while (!IsEOF);
 
     if (modelset == 0)
-        throw std::runtime_error("ERROR: Incorrect or missing model name in model configuration file.\n");
+        throw std::runtime_error("ERROR: Incorrect or missing model name in the model configuration file.\n");
     if (!myModel->CheckFlags())
         throw std::runtime_error("ERROR: incompatible flag(s)\n");
 

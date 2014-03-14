@@ -356,7 +356,7 @@ void QCD::setParameter(const std::string name, const double& value)
         IB_Kp = value;
     else 
         std::cout << "WARNING: unknown parameter " << name 
-                  << " in the model configuration file" << std::endl;
+                  << " in model initialization" << std::endl;
 }
 
 bool QCD::CheckParameters(const std::map<std::string, double>& DPars) 

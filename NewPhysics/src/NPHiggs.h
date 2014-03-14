@@ -116,7 +116,7 @@
  *   <td class="mod_name">%LambdaNP</td>
  *   <td class="mod_symb">\f$\Lambda\f$</td>
  *   <td class="mod_desc">The cutoff scale of the effective Lagrangian. When
- *   the value of this parameter is set to 0 in the model configuration file,
+ *   the value of this parameter is set to 0 in model initialization,
  *   the cutoff scale is taken to be @f$\Lambda = 4\pi v/\sqrt{|1-a^2|}@f$,
  *   where the @f$W_LW_L@f$ scattering becomes non-perturbative. </td>
  * </tr>

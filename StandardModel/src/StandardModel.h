@@ -401,7 +401,7 @@ public:
 
     /**
      * @brief A method to check if all the mandatory parameters for %StandardModel
-     * have been provided in the model configuration file.
+     * have been provided in model initialization.
      * @param[in] DPars a map of the parameters that are being updated in the Monte Carlo run
      * (including parameters that are varied and those that are held constant)
      * @return a boolean that is true if the execution is successful
