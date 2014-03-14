@@ -38,8 +38,7 @@ bool NPZbbbar::InitializeModel()
 
 bool NPZbbbar::Init(const std::map<std::string, double>& DPars)
 {
-    Update(DPars);
-    return(CheckParameters(DPars));
+    return(NPbase::Init(DPars));
 }
 
 

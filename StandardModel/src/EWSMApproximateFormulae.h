@@ -49,9 +49,9 @@ public:
      * (100 GeV @f$\leq m_h \leq@f$ 1 TeV), if other inputs vary within
      * their @f$2\sigma@f$ ranges of the 2003 data, where their @f$1\sigma@f$
      * ranges are given by
-     * @f$\alpha_s = 0.119\pm 0.004@f$,
-     * @f$\Delta\alpha = 0.05907\pm 0.00036@f$,
-     * @f$M_Z = 91.1876\pm 0.0021@f$ GeV, and
+     * @f$\alpha_s = 0.1190\pm 0.0027@f$,
+     * @f$\Delta\alpha^{\ell+5q} = 0.05907\pm 0.00036@f$,
+     * @f$M_Z = 91.1875\pm 0.0021@f$ GeV, and
      * @f$m_t = 174.3\pm 5.1@f$ GeV.
      * @return the @f$W@f$-boson mass in units of GeV
      */

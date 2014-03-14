@@ -30,8 +30,7 @@ bool NPSTUVWXY::InitializeModel()
 
 bool NPSTUVWXY::Init(const std::map<std::string, double>& DPars) 
 {
-    Update(DPars);
-    return(CheckParameters(DPars)); 
+    return(NPbase::Init(DPars));
 }
 
 

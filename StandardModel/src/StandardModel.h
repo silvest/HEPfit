@@ -515,30 +515,12 @@ public:
     }
     
     /**
-     * @brief Sets the @f$Z@f$ boson mass @f$M_Z@f$.
-     * @param[in] Mz @f$M_Z@f$ in GeV
-     */
-    void setMz(double Mz)
-    {
-        this->Mz = Mz;
-    }
-    
-    /**
      * @brief A get method to access the value of \f$\alpha_s(M_Z)\f$.
      * @return the strong coupling constant at @f$M_Z@f$, @f$\alpha_s(M_Z)@f$
      */
     double getAlsMz() const
     {
         return AlsMz;
-    }
-    
-    /**
-     * @brief Sets the strong coupling constant at @f$M_Z@f$, @f$\alpha_s(M_Z)@f$.
-     * @param[in] AlsMz @f$\alpha_s(M_Z)@f$
-     */
-    void setAlsMz(double AlsMz)
-    {
-        this->AlsMz = AlsMz;
     }
     
     /**
@@ -1004,8 +986,8 @@ protected:
     matrix<complex> Ye;///< The Yukawa matrix of the charged leptons.
 
     // model parameters
-    double AlsMz; /**< The strong coupling constant at the Z-boson mass, \f$\alpha_s(M_Z)\f$. */
-    double Mz; /**< The mass of the \f$Z\f$ boson in GeV */
+    double AlsMz;///< The strong coupling constant at the Z-boson mass, \f$\alpha_s(M_Z)\f$.
+    double Mz;///< The mass of the \f$Z\f$ boson in GeV. 
     double GF;///< The Fermi constant @f$G_\mu@f$ in @f${\rm GeV}^{-2}@f$.
     double ale;///< The fine-structure constant @f$\alpha@f$.
     double dAle5Mz;///< The five-flavour hadronic contribution to the electromagnetic coupling, @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$.

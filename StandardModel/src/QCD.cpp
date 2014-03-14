@@ -21,16 +21,22 @@
 #include "QCD.h"
 
 const std::string QCD::QCDvars[NQCDvars] = {
-    "AlsM","MAls","mup","mdown","mcharm","mstrange",
-    "mtop","mbottom","mut","mub","muc","MBd","tBd",
-    "MBs","tBs","MBp","MK0","MKp","MD", "tKl", "tKp", "FBs", "FBsoFBd", "FD",
-    "BBsoBBd","BBs1","BBs2","BBs3","BBs4","BBs5", "BBsscale", "BBsscheme",
-    "BD1","BD2","BD3","BD4","BD5", "BDscale", "BDscheme",
-    "BK1","BK2","BK3","BK4","BK5", "BKscale", "BKscheme", "FK",
-    "BK(1/2)1", "BK(1/2)2", "BK(1/2)3", "BK(1/2)4", "BK(1/2)5", 
-    "BK(1/2)6","BK(1/2)7","BK(1/2)8","BK(1/2)9","BK(1/2)10", "BKd_scale", "BKd_scheme",
-    "BK(3/2)1", "BK(3/2)2", "BK(3/2)3", "BK(3/2)4", "BK(3/2)5", "BK(3/2)6", 
-    "BK(3/2)7", "BK(3/2)8", "BK(3/2)9", "BK(3/2)10", "ReA2_Kd", "ReA0_Kd", "Omega_eta_etap",
+    "AlsM", "MAls",
+    "mup", "mdown", "mcharm", "mstrange", "mtop", "mbottom",    
+    "muc", "mub", "mut", 
+    "MK0", "MKp", "MD", "MBd", "MBp", "MBs",
+    "tKl", "tKp", "tBd", "tBs",
+    "FK", "FD", "FBs", "FBsoFBd",
+    "BK1", "BK2", "BK3", "BK4", "BK5", "BKscale", "BKscheme",
+    "BD1", "BD2", "BD3", "BD4", "BD5", "BDscale", "BDscheme",
+    "BBsoBBd",
+    "BBs1", "BBs2", "BBs3", "BBs4", "BBs5", "BBsscale", "BBsscheme",
+    "BK(1/2)1", "BK(1/2)2", "BK(1/2)3", "BK(1/2)4", "BK(1/2)5",
+    "BK(1/2)6", "BK(1/2)7", "BK(1/2)8", "BK(1/2)9", "BK(1/2)10", 
+    "BK(3/2)1", "BK(3/2)2", "BK(3/2)3", "BK(3/2)4", "BK(3/2)5",
+    "BK(3/2)6", "BK(3/2)7", "BK(3/2)8", "BK(3/2)9", "BK(3/2)10",
+    "BKd_scale", "BKd_scheme",
+    "ReA2_Kd", "ReA0_Kd", "Omega_eta_etap",
     "Br_Kp_P0enu", "Br_Kp_munu", "Br_B_Xcenu", "DeltaP_cu", "IB_Kl", "IB_Kp"
 };
 
@@ -102,7 +108,7 @@ bool QCD::PreUpdate()
     computeBd = false;
     computeFBd = false;
     computemt = false;
-    
+
     return (true);
 }
 
@@ -141,10 +147,14 @@ void QCD::setParameter(const std::string name, const double& value)
     if(name.compare("AlsM")==0) {
         AlsM = value;
         computemt = true;
+        requireYu = true;
+        requireYd = true;
     }
     else if(name.compare("MAls")==0) {
         MAls = value;
         computemt = true;
+        requireYu = true;
+        requireYd = true;
     }
     else if(name.compare("mup")==0) {
         if(value < MEPS) UpdateError = true; 
@@ -176,32 +186,40 @@ void QCD::setParameter(const std::string name, const double& value)
         quarks[BOTTOM].setMass_scale(value);        
         requireYd = true;
     }
-    else if(name.compare("mut")==0)
-        mut = value;
-    else if(name.compare("mub")==0)
-        mub = value;
     else if(name.compare("muc")==0)
         muc = value;
-    else if(name.compare("MBd")==0)
-        mesons[B_D].setMass(value);
-    else if(name.compare("tBd")==0)
-        mesons[B_D].setLifetime(value);
-    else if(name.compare("MBs")==0)
-        mesons[B_S].setMass(value);
-    else if(name.compare("tBs")==0)
-        mesons[B_S].setLifetime(value);
-    else if(name.compare("MBp")==0)
-        mesons[B_P].setMass(value);
+    else if(name.compare("mub")==0)
+        mub = value;
+    else if(name.compare("mut")==0)
+        mut = value;
     else if(name.compare("MK0")==0)
         mesons[K_0].setMass(value);
     else if(name.compare("MKp")==0)
         mesons[K_P].setMass(value);
     else if(name.compare("MD")==0)
         mesons[D_0].setMass(value);
+    else if(name.compare("MBd")==0)
+        mesons[B_D].setMass(value);
+    else if(name.compare("MBp")==0)
+        mesons[B_P].setMass(value);
+    else if(name.compare("MBs")==0)
+        mesons[B_S].setMass(value);
     else if (name.compare("tKl")==0)
         mesons[K_0].setLifetime(value);
     else if (name.compare("tKp")==0)
         mesons[K_P].setLifetime(value);
+    else if(name.compare("tBd")==0)
+        mesons[B_D].setLifetime(value);
+    else if(name.compare("tBs")==0)
+        mesons[B_S].setLifetime(value);
+    //else if(name.compare("FP")==0) {
+    //    mesons[P_0].setDecayconst(value);
+    //    mesons[P_P].setDecayconst(value);
+    //}
+    else if(name.compare("FK")==0)
+        mesons[K_0].setDecayconst(value);
+    else if(name.compare("FD")==0)
+        mesons[D_0].setDecayconst(value);
     else if(name.compare("FBs")==0) {
         mesons[B_S].setDecayconst(value);
         computeFBd = true;
@@ -210,14 +228,34 @@ void QCD::setParameter(const std::string name, const double& value)
         FBsoFBd = value;
         computeFBd = true;
     }
-    else if(name.compare("FD")==0)
-        mesons[D_0].setDecayconst(value);
-    else if(name.compare("FK")==0)
-        mesons[K_0].setDecayconst(value);
-    else if(name.compare("FP")==0) {
-        mesons[P_0].setDecayconst(value);
-        mesons[P_P].setDecayconst(value);
-    }
+    else if(name.compare("BK1")==0)
+        BK.setBpars(0,value);
+    else if(name.compare("BK2")==0)
+        BK.setBpars(1,value);
+    else if(name.compare("BK3")==0)
+        BK.setBpars(2,value);
+    else if(name.compare("BK4")==0)
+        BK.setBpars(3,value);
+    else if(name.compare("BK5")==0)
+        BK.setBpars(4,value);
+    else if(name.compare("BKscale")==0)
+        BK.setMu(value);
+    else if(name.compare("BKscheme")==0)
+        BK.setScheme((schemes) value);
+    else if(name.compare("BD1")==0)
+        BD.setBpars(0,value);
+    else if(name.compare("BD2")==0)
+        BD.setBpars(1,value);
+    else if(name.compare("BD3")==0)
+        BD.setBpars(2,value);
+    else if(name.compare("BD4")==0)
+        BD.setBpars(3,value);
+    else if(name.compare("BD5")==0)
+        BD.setBpars(4,value);
+    else if(name.compare("BDscale")==0)
+        BD.setMu(value);
+    else if(name.compare("BDscheme")==0)
+        BD.setScheme((schemes) value);
     else if(name.compare("BBsoBBd")==0) {
         BBsoBBd = value;
         computeBd = true;
@@ -250,34 +288,6 @@ void QCD::setParameter(const std::string name, const double& value)
         BBd.setScheme((schemes) value);
         BBs.setScheme((schemes) value);
     }
-    else if(name.compare("BD1")==0)
-        BD.setBpars(0,value);
-    else if(name.compare("BD2")==0)
-        BD.setBpars(1,value);
-    else if(name.compare("BD3")==0)
-        BD.setBpars(2,value);
-    else if(name.compare("BD4")==0)
-        BD.setBpars(3,value);
-    else if(name.compare("BD5")==0)
-        BD.setBpars(4,value);
-    else if(name.compare("BDscale")==0)
-        BD.setMu(value);
-    else if(name.compare("BDscheme")==0)
-        BD.setScheme((schemes) value);
-    else if(name.compare("BK1")==0)
-        BK.setBpars(0,value);
-    else if(name.compare("BK2")==0)
-        BK.setBpars(1,value);
-    else if(name.compare("BK3")==0)
-        BK.setBpars(2,value);
-    else if(name.compare("BK4")==0)
-        BK.setBpars(3,value);
-    else if(name.compare("BK5")==0)
-        BK.setBpars(4,value);
-    else if(name.compare("BKscale")==0)
-        BK.setMu(value);
-    else if(name.compare("BKscheme")==0)
-        BK.setScheme((schemes) value);
     else if(name.compare("BK(1/2)1")==0)
         BKd1.setBpars(0,value);
     else if(name.compare("BK(1/2)2")==0)
@@ -332,14 +342,14 @@ void QCD::setParameter(const std::string name, const double& value)
         ReA2_Kd = value;
     else if (name.compare("Omega_eta_etap")==0)
         Omega_eta_etap = value;
-    else if (name.compare("DeltaP_cu")==0)
-        DeltaP_cu = value;
     else if (name.compare("Br_Kp_P0enu")==0)
         Br_Kp_P0enu = value;
     else if (name.compare("Br_Kp_munu")==0)
         Br_Kp_munu = value;
     else if (name.compare("Br_B_Xcenu")==0)
         Br_B_Xcenu = value;
+    else if (name.compare("DeltaP_cu")==0)
+        DeltaP_cu = value;
     else if (name.compare("IB_Kl")==0)
         IB_Kl = value;
     else if (name.compare("IB_Kp")==0)

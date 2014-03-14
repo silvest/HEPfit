@@ -24,8 +24,7 @@ bool NPbase::InitializeModel()
 
 bool NPbase::Init(const std::map<std::string, double>& DPars)
 {
-    Update(DPars);
-    return(CheckParameters(DPars));
+    return(StandardModel::Init(DPars));
 }
 
 

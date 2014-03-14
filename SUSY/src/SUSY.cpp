@@ -51,8 +51,7 @@ bool SUSY::InitializeModel()
 
 bool SUSY::Init(const std::map<std::string, double>& DPars)
 {
-    Update(DPars);
-    return(CheckParameters(DPars));
+    return(StandardModel::Init(DPars));
 }
 
 bool SUSY::PreUpdate()

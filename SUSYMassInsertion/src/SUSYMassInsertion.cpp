@@ -553,14 +553,7 @@ bool SUSYMassInsertion::Init(const std::map<std::string, double>& DPars) {
                      "and the matching scale must be initialized " << std::endl;
         return false;
     }
-    
-    for (int i = 0; i < NSMvars; i++) {
-        if (DPars.find(SMvars[i]) == DPars.end()) {
-            std::cout << "missing mandatory SM parameter " << SMvars[i] << std::endl;
-            return false;
-        }
-    }
-    Update(DPars);
-    return true;
+
+    return(StandardModel::Init(DPars));
 }
 

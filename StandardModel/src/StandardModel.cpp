@@ -72,8 +72,7 @@ bool StandardModel::Init(const std::map<std::string, double>& DPars)
     std::map<std::string, double> myDPars(DPars);
     myDPars["AlsM"] = myDPars.at("AlsMz");
     myDPars["MAls"] = myDPars.at("Mz");
-    Update(myDPars);
-    return(CheckParameters(myDPars));
+    return(QCD::Init(myDPars));
 }
 
 bool StandardModel::PreUpdate()
@@ -116,20 +115,20 @@ bool StandardModel::PostUpdate()
     /* Necessary for updating StandardModel parameters in StandardModelMatching */
     if (ModelName()=="StandardModel")
         myStandardModelMatching->updateSMParameters();
-    
+
     return (true);
 }
 
 void StandardModel::setParameter(const std::string name, const double& value)
 {
-    if (name.compare("GF") == 0)
-        GF = value;
-    else if(name.compare("Mz")==0)
+    if(name.compare("Mz")==0) {
         Mz = value;
-    else if(name.compare("AlsMz")==0) {
+        QCD::setParameter("MAls", value);
+    } else if(name.compare("AlsMz")==0) {
         AlsMz = value;
-        AlsM = value;
-    }
+        QCD::setParameter("AlsM", value);
+    } else if (name.compare("GF") == 0)
+        GF = value;
     else if (name.compare("ale") == 0)
         ale = value;
     else if (name.compare("dAle5Mz") == 0)

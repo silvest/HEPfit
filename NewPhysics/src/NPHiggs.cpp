@@ -29,8 +29,7 @@ bool NPHiggs::InitializeModel()
 
 bool NPHiggs::Init(const std::map<std::string, double>& DPars)
 {
-    Update(DPars);
-    return(CheckParameters(DPars));
+    return(NPbase::Init(DPars));
 }
 
 

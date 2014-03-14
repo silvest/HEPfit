@@ -38,8 +38,7 @@ bool GeneralSUSY::InitializeModel()
 
 bool GeneralSUSY::Init(const std::map<std::string, double>& DPars)
 {
-    Update(DPars);
-    return (CheckParameters(DPars));
+    return(SUSY::Init(DPars));
 }
 
 bool GeneralSUSY::PreUpdate()

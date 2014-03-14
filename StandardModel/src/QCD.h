@@ -87,52 +87,31 @@
  * <tr>
  *   <td class="mod_name">%mbottom</td>
  *   <td class="mod_symb">@f$m_{b}(m_b)@f$</td>
- *   <td class="mod_desc">the \f$\overline{\mathrm{MS}}\f$ scale-invariant mass of the bottom quark, \f$m_b(m_b)\f$, in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%mut</td>
- *   <td class="mod_symb">@f$\mu_t@f$</td>
- *   <td class="mod_desc">the threshold between six- and five-flavour theory in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%mub</td>
- *   <td class="mod_symb">@f$\mu_b@f$</td>
- *   <td class="mod_desc">the threshold between five- and four-flavour theory in GeV.</td>
+ *   <td class="mod_desc">The \f$\overline{\mathrm{MS}}\f$ scale-invariant mass of the bottom quark, \f$m_b(m_b)\f$, in GeV.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%muc</td>
  *   <td class="mod_symb">@f$\mu_c@f$</td>
- *   <td class="mod_desc">the threshold between four- and three-flavour theory in GeV.</td>
+ *   <td class="mod_desc">The threshold between three- and four-flavour theory in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%mub</td>
+ *   <td class="mod_symb">@f$\mu_b@f$</td>
+ *   <td class="mod_desc">The threshold between four- and five-flavour theory in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%mut</td>
+ *   <td class="mod_symb">@f$\mu_t@f$</td>
+ *   <td class="mod_desc">The threshold between five- and six-flavour theory in GeV.</td>
  * </tr>
  * </table>
  *
+ * @attention The parameters %AlsM and %MAls are not used in StandardModel
+ * and the model classes inherited from it.
+ *
+ * 
  * The parameters below are associated with flavour observables
  * <table class="model">
- * <tr>
- *   <td class="mod_name">%MBd</td>
- *   <td class="mod_symb">@f$M_{B_d}@f$</td>
- *   <td class="mod_desc">The mass of the \f$ B_d \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%tBd</td>
- *   <td class="mod_symb">@f$\tau_{B_d}@f$</td>
- *   <td class="mod_desc">The lifetime of the \f$ B_d \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%MBs</td>
- *   <td class="mod_symb">@f$M_{B_s}@f$</td>
- *   <td class="mod_desc">The mass of the \f$ B_s \f$ meson in GeV.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%tBs</td>
- *   <td class="mod_symb">@f$\tau_{B_s}@f$</td>
- *   <td class="mod_desc">The lifetime of the \f$ B_d \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%MBp</td>
- *   <td class="mod_symb">@f$M_{B^\pm}@f$</td>
- *   <td class="mod_desc">The mass of the \f$ B^\pm \f$ meson in GeV.</td>
- * </tr>
  * <tr>
  *   <td class="mod_name">%MK0</td>
  *   <td class="mod_symb">@f$M_{K^0}@f$</td>
@@ -149,6 +128,21 @@
  *   <td class="mod_desc">The mass of the \f$ D^0 \f$ meson in GeV.</td>
  * </tr>
  * <tr>
+ *   <td class="mod_name">%MBd</td>
+ *   <td class="mod_symb">@f$M_{B_d}@f$</td>
+ *   <td class="mod_desc">The mass of the \f$ B_d \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%MBp</td>
+ *   <td class="mod_symb">@f$M_{B^\pm}@f$</td>
+ *   <td class="mod_desc">The mass of the \f$ B^\pm \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%MBs</td>
+ *   <td class="mod_symb">@f$M_{B_s}@f$</td>
+ *   <td class="mod_desc">The mass of the \f$ B_s \f$ meson in GeV.</td>
+ * </tr>
+ * <tr>
  *   <td class="mod_name">%tKl</td>
  *   <td class="mod_symb">@f$\tau_{K_L}@f$</td>
  *   <td class="mod_desc">The lifetime of the \f$ K_L \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
@@ -157,6 +151,26 @@
  *   <td class="mod_name">%tKp</td>
  *   <td class="mod_symb">@f$\tau_{K^\pm}@f$</td>
  *   <td class="mod_desc">The lifetime of the \f$ K^\pm \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%tBd</td>
+ *   <td class="mod_symb">@f$\tau_{B_d}@f$</td>
+ *   <td class="mod_desc">The lifetime of the \f$ B_d \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%tBs</td>
+ *   <td class="mod_symb">@f$\tau_{B_s}@f$</td>
+ *   <td class="mod_desc">The lifetime of the \f$ B_d \f$ meson in \f$\mathrm{ps}^{-1} \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FK</td>
+ *   <td class="mod_symb"></td>
+ *   <td class="mod_desc"></td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%FD</td>
+ *   <td class="mod_symb">@f$F_{D^0}@f$</td>
+ *   <td class="mod_desc">The decay constant of the \f$ D^0 \f$ meson in GeV.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%FBs</td>
@@ -169,9 +183,34 @@
  *   <td class="mod_desc">The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%FD</td>
- *   <td class="mod_symb">@f$F_{D^0}@f$</td>
- *   <td class="mod_desc">The decay constant of the \f$ D^0 \f$ meson in GeV.</td>
+ *   <td class="mod_name">%BK1 - %BK5</td>
+ *   <td class="mod_symb">@f$B^1_{K} - B^5_{K}@f$</td>
+ *   <td class="mod_desc">The bag parameter for \f$ O_1 - O_5\f$ in \f$ \Delta s = 2 \f$ processes in \f$ K^0 \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BKscale</td>
+ *   <td class="mod_symb">@f$\mu_K@f$</td>
+ *   <td class="mod_desc">The scale at which the bag parameters are specified for the \f$ K^0 \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BKscheme</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">The scheme in which the bag parameters are specified for the \f$ K^0 \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BD1 - %BD5</td>
+ *   <td class="mod_symb">@f$B^1_{D} - B^5_{D}@f$</td>
+ *   <td class="mod_desc">The bag parameter for \f$ O_1 - O_5\f$ in \f$ \Delta c = 2 \f$ processes in \f$ D^0 \f$.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BDscale</td>
+ *   <td class="mod_symb">@f$\mu_D@f$</td>
+ *   <td class="mod_desc">The scale at which the bag parameters are specified for the \f$ D_0 \f$ system.</td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BDscheme</td>
+ *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc">The scheme in which the bag parameters are specified for the \f$ D_0 \f$ system.</td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%BBsoBBd</td>
@@ -194,38 +233,13 @@
  *   <td class="mod_desc">The scheme in which the bag parameters are specified for the \f$ B_s \f$ system.</td>
  * </tr>
  * <tr>
- *   <td class="mod_name">%BD1 - %BD5</td>
- *   <td class="mod_symb">@f$B^1_{D} - B^5_{D}@f$</td>
- *   <td class="mod_desc">The bag parameter for \f$ O_1 - O_5\f$ in \f$ \Delta c = 2 \f$ processes in \f$ D^0 \f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BDscale</td>
- *   <td class="mod_symb">@f$\mu_D@f$</td>
- *   <td class="mod_desc">The scale at which the bag parameters are specified for the \f$ D_0 \f$ system.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BDscheme</td>
- *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc">The scheme in which the bag parameters are specified for the \f$ D_0 \f$ system.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BK1 - %BK5</td>
- *   <td class="mod_symb">@f$B^1_{K} - B^5_{K}@f$</td>
- *   <td class="mod_desc">The bag parameter for \f$ O_1 - O_5\f$ in \f$ \Delta s = 2 \f$ processes in \f$ K^0 \f$.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BKscale</td>
- *   <td class="mod_symb">@f$\mu_K@f$</td>
- *   <td class="mod_desc">The scale at which the bag parameters are specified for the \f$ K^0 \f$ system.</td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BKscheme</td>
- *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc">The scheme in which the bag parameters are specified for the \f$ K^0 \f$ system.</td>
- * </tr>
- * <tr>
  *   <td class="mod_name">%BK(1/2)1 - %BK(1/2)10</td>
  *   <td class="mod_symb">@f$@f$</td>
+ *   <td class="mod_desc"></td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%BK(3/2)1 - %BK(3/2)10</td>
+ *   <td class="mod_symb"></td>
  *   <td class="mod_desc"></td>
  * </tr>
  * <tr>
@@ -236,11 +250,6 @@
  * <tr>
  *   <td class="mod_name">%BKd_scheme</td>
  *   <td class="mod_symb">@f$@f$</td>
- *   <td class="mod_desc"></td>
- * </tr>
- * <tr>
- *   <td class="mod_name">%BK(3/2)1 - %BK(3/2)10</td>
- *   <td class="mod_symb"></td>
  *   <td class="mod_desc"></td>
  * </tr>
  * <tr>
@@ -301,198 +310,185 @@
  *
  * <H3>Computation of the strong coupling constant \f$\alpha_s\f$:  </H3>
  *
- * The one loop, two loop and three loop \f$\beta\f$ functions are respectively given by:
+ * The strong coupling constant @f$\alpha_s@f$ at an arbitrary scale can be
+ * computed with the member functions: 
+ *
+ * @li AlsWithInit(const double mu, const double alsi, const double mu_i, const orders order),
+ * @li AlsWithLambda(const double mu, const orders order), 
+ *
+ * where another function
+ * 
+ * @li Als(const double mu, const orders order = FULLNLO)
+ *
+ * calls %AlsWithInit() for order=LO/FULLNLO(NLO),
+ * and %AlsWithLambda() for order=FULLNNLO(NNLO).
+ *
+ * The function %AlsWithInit() computes @f$\alpha_s(\mu)@f$ with a given initial
+ * value @f$\alpha_s(\mu_i)@f$: 
  * @f[
-    \beta_0 = \frac{11N_c-2N_f}{3},\\
-    \beta_1 = \frac{34}{3}N_c^2-\frac{10}{3}N_cN_f-2C_FN_f,\\
-    \beta_2 = \frac{2857}{54}N_c^3+C_F^2N_f-\frac{205}{18}C_FN_cN_f-\frac{1415}{54}N_c^2N_f+\frac{11}{9}C_FN_f^2 
-    + \frac{79}{54}N_cN_f^2.
+ *   \alpha_s(\mu)=\frac{\alpha_s(\mu_i)}{v(\mu)},\qquad
+ *   \alpha_s(\mu)=\frac{\alpha_s(\mu_i)}{v(\mu)}
+ *   \left[1-\frac{\beta_1}{\beta_0}\frac{\alpha_s(\mu_i)}{4\pi}
+ *   \frac{\ln v(\mu)}{v(\mu)}\right],
  * @f]
- * The four loop contribution can be found in @cite vanRitbergen:1997va. At a flavour threshold the matching 
- * condition and the necessary threshold corrections are given by
+ * at LO and FULLNLO (NLO) respectively, where
  * @f[
-    \alpha_s^{(N_f+1)}(\mu) = \alpha_s^{(N_f)}(\mu)\left(1 + \sum_{n=1}^{\infty}\sum_{l=0}^{n}
-    c_{nl}\left[\alpha_s^{(N_f)}(\mu)\right]^n \ln^l\frac{\mu^2}{\mu_f^2}\right),
+ *   v(\mu) = 1- \beta_0\frac{\alpha_s(\mu_i)}{2\pi}\ln\frac{\mu_i}{\mu},
  * @f]
- * where \f$\mu_f=m_f(\mu_f)\f$ denotes the \f$\overline{\mathrm{MS}}\f$ invariant mass of the \f$N_f\f$-th
- * flavour at the scale \f$\mu_f\f$. The coefficients are given by
+ * and the one-loop and two-loop beta functions are given by 
  * @f[
-    c_{11} = \frac{1}{6\pi},\;\; c_{10}=0,\;\;c_{22}=c_{11}^2,\;\;c_{21}=\frac{19}{24\pi^2}\; \mathrm{and} \;c_{20}
-    =-\frac{11}{72\pi^2}.
+ *  \beta_0 = \frac{11N_c-2N_f}{3},\qquad
+ *  \beta_1 = \frac{34}{3}N_c^2-\frac{10}{3}N_cN_f-2C_FN_f.
  * @f]
- * This can be rewritten as @cite Chetyrkin:1997sg @cite Chetyrkin:2000yt
+ *
+ * The function %AlsWithLambda() computes @f$\alpha_s(\mu)@f$ with the use of
+ * \f$\Lambda_{\rm QCD}\f$, where the value of \f$\Lambda_{\rm QCD}\f$ for \f$N_f=5\f$
+ * is derived from @f$\alpha_s(M_{\alpha_s})@f$ by solving
+ * the equation (see e.g., @cite Chetyrkin:1997sg, which follows the convention
+ * in @cite Buras:1977qg for \f$\ln(\mu^2/\Lambda^2)\f$): 
  * @f[
-    \alpha_s^{(N_f-1)}(\mu) = (\zeta_g^f)^2\alpha_s^{(N_f)}(\mu),
+ *  \frac{\alpha_s(\mu)}{4\pi}=\frac{1}{\beta_0L}-\frac{\beta_1\ln L}{\beta_0^3L^2}+
+ *  \frac{1}{\left(\beta_0L\right)^3}\left[\frac{\beta_1^2}{\beta_0^2}\left(\ln^2L-\ln L-1\right)+
+ *  \frac{\beta_2}{\beta_0}\right]+O\left(\frac{\ln^3L}{L^4}\right),
+ * @f]
+ * where @f$L\equiv\ln(\mu^2/\Lambda^2)@f$, and the three-loop beta function
+ * is given by
+ * @f[
+ *  \beta_2 = \frac{2857}{54}N_c^3+C_F^2N_f-\frac{205}{18}C_FN_cN_f
+ *  -\frac{1415}{54}N_c^2N_f+\frac{11}{9}C_FN_f^2 + \frac{79}{54}N_cN_f^2.
+ * @f]
+ * For \f$N_f < 5\f$, \f$\Lambda_{QCD}\f$ can be obtained by solving the following 
+ * matching condition at \f$\mu\f$ @cite Chetyrkin:1997sg @cite Chetyrkin:2000yt :
+ * @f{eqnarray}
+ *  \beta_0^{'}\ln\frac{\Lambda^{'2}}{\Lambda^2}
+ *  &=& (\beta_0^{'}-\beta_0)L+\left(\frac{\beta_1^{'}}{\beta_0^{'}}-
+ *  \frac{\beta_1}{\beta_0}\right)\ln L-\frac{\beta_1^{'}}{\beta_0^{'}}\ln\frac{\beta_0^{'}}{\beta_0} - C_1
+ *  \\
+ *  &&+
+ *  \frac{1}{\beta_0L}\left[\frac{\beta_1}{\beta_0}\left(\frac{\beta_1^{'}}{\beta_0^{'}}-\frac{\beta_1}{\beta_0}
+ *  \right)\ln L + \frac{\beta_1^{'2}}{\beta_0^{'2}}-\frac{\beta_1^2}{\beta_0^2}-\frac{\beta_2^{'2}}{\beta_0^{'2}}
+ *  +\frac{\beta_2^2}{\beta_0^2}+\frac{\beta_1^{'}}{\beta_0^{'}}C_1-C_1^2-C_2\right]+
+ *  O\left(\frac{\ln^2L}{L^2}\right),
+ * @f}
+ * where the primed (unprimed) quantities refer to those pertaining to \f$N_f-1\f$ \f$(N_f)\f$. 
+ * The terms \f$C_1\f$ and \f$C_2\f$ are given by
+ * @f[
+ *  C_1 = \frac{2}{3}\ln\frac{\mu^2}{\mu_f^2},\qquad
+ *  C_2 = -16\left(\frac{1}{36}\ln^2\frac{\mu^2}{\mu_f^2}-\frac{19}{24}\ln\frac{\mu^2}{\mu_f^2}+\frac{11}{72}\right).
+ * @f]
+ * where \f$\mu_f=m_f(\mu_f)\f$ denotes the \f$\overline{\mathrm{MS}}\f$ invariant
+ * mass of the \f$N_f\f$-th flavour.
+ * Moreover, the matching condition at a flavour threshold is given by
+ * @f[
+ *   \alpha_s^{(N_f-1)}(\mu) = (\zeta_g^f)^2\alpha_s^{(N_f)}(\mu),
  * @f]
  * where
  * @f[
-    (\zeta_g^f)^2 = 1+\frac{\alpha_s^{(N_f)}(\mu)}{\pi}\left(-\frac{1}{6}\ln\frac{\mu^2}{\mu_f^2}\right)+
-    \left(\frac{\alpha_s^{(N_f)}(\mu)}{\pi}\right)^2\left(\frac{1}{36}\ln^2\frac{\mu^2}{\mu_f^2} -
-    \frac{19}{24}\ln\frac{\mu^2}{\mu_f^2} + \frac{11}{72}\right) + O\left(\left(\frac{\alpha_s}{\pi}
-    \right)^3\right),
+ *   (\zeta_g^f)^2 = 1+\frac{\alpha_s^{(N_f)}(\mu)}{\pi}\left(-\frac{1}{6}\ln\frac{\mu^2}{\mu_f^2}\right)+
+ *   \left(\frac{\alpha_s^{(N_f)}(\mu)}{\pi}\right)^2\left(\frac{1}{36}\ln^2\frac{\mu^2}{\mu_f^2} -
+ *   \frac{19}{24}\ln\frac{\mu^2}{\mu_f^2} + \frac{11}{72}\right) + O\left(\left(\frac{\alpha_s}{\pi}
+ *   \right)^3\right).
  * @f]
- * and its inverse is given by
- @f[
-    \frac{1}{(\zeta_g^f)^2} = 1+\frac{\alpha_s^{(N_f-1)}(\mu)}{\pi}\left(\frac{1}{6}\ln\frac{\mu^2}{\mu_f^2}\right)+
-    \left(\frac{\alpha_s^{(N_f-1)}(\mu)}{\pi}\right)^2\left(\frac{1}{36}\ln^2\frac{\mu^2}{\mu_f^2} +
-    \frac{19}{24}\ln\frac{\mu^2}{\mu_f^2} - \frac{11}{72}\right) + O\left(\left(\frac{\alpha_s}{\pi}
-    \right)^3\right).
- @f]
- * Setting \f$\mu=\mu_f\f$ simplifies these relationships to
- * @f[
-    \alpha_s^{(N_f-1)}(\mu_f) =  \alpha_s^{(N_f)}(\mu_f)\left(1-c_{20}\left[ \alpha_s^{(N_f)}(\mu_f)
-    \right]^2\right),\\
-    \alpha_s^{(N_f)}(\mu_f) =  \alpha_s^{(N_f-1)}(\mu_f)\left(1+c_{20}\left[ \alpha_s^{(N_f-1)}(\mu_f)
-    \right]^2\right).
- * @f]
- * <b> Note: </b> For the top quark mass we input the pole mass instead of the \f$\overline{\mathrm{MS}}\f$ 
- * invariant mass. Then the \f$\overline{\mathrm{MS}}\f$ invariant mass is computed from the pole mass with the 
- * computed value of \f$\alpha_s^{(6)}(M_t)\f$, which in turn is computed from \f$\alpha_s^{(5)}(M_Z)\f$. Hence, the 
- * matching condition from \f$N_f = 6\f$ to \f$N_f = 5\f$ has to be free from the \f$\overline{\mathrm{MS}}\f$ 
+ * 
+ * For the top quark mass, the pole mass @f$m_t@f$ is used as an input instead of the \f$\overline{\mathrm{MS}}\f$
+ * invariant mass. Then the \f$\overline{\mathrm{MS}}\f$ invariant mass is computed from the pole mass with the
+ * computed value of \f$\alpha_s^{(6)}(m_t)\f$, which in turn is computed from \f$\alpha_s^{(5)}(M_Z)\f$. Hence, the
+ * matching condition from \f$N_f = 6\f$ to \f$N_f = 5\f$ has to be free from the \f$\overline{\mathrm{MS}}\f$
  * invariant mass of the top quark. In this case we use the following matching condition
  * @f[
-     \alpha_s^{(6)}(\mu_t) = \frac{1}{(\zeta_g^{OS,t})^2}\alpha_s^{(5)}(\mu_t),
- * @f]
- * where 
- * @f[
-    \frac{1}{(\zeta_g^{OS,t})^2} = 1+\frac{\alpha_s^{(5)}(\mu)}{\pi}\left(\frac{1}{6}\ln\frac{\mu^2}{M_t^2}\right)+
-    \left(\frac{\alpha_s^{(5)}(\mu)}{\pi}\right)^2\left(\frac{1}{36}\ln^2\frac{\mu^2}{M_t^2} +
-    \frac{19}{24}\ln\frac{\mu^2}{M_t^2} + \frac{7}{24}\right) + O\left(\left(\frac{\alpha_s}{\pi}\right)^3\right).
- * @f]
- * The expression for \f$\alpha_s(\mu)\f$ for \f$N_f = 5\f$ at NLO is given by
- * @f[
-    \alpha_s(\mu)=\frac{\alpha_s(M_z)}{v(\mu)}\left[1-\frac{\beta_1}{\beta_0}\frac{\alpha_s(M_z)}{4\pi}
-    \frac{\ln v(\mu)}{v(\mu)}\right],\\
-    v(\mu) = 1- \beta_0\frac{\alpha_s(M_z)}{2\pi}\ln\frac{M_Z}{\mu}.
- * @f]
- * Since the corresponding expression or NNLO is rather complex, we derive \f$\alpha_s(\mu)\f$ at NNLO by computing
- * the value of \f$\Lambda_{\rm QCD}\f$ for \f$N_f=5\f$ using the measured value of \f$\alpha_s(M_Z)\f$ and solving 
- * the equation @cite Chetyrkin:1997sg (following the convention in @cite Buras:1977qg for 
- * \f$\ln(\mu^2/\Lambda^2)\f$)
- * @f[
-    \frac{\alpha_s(\mu)}{4\pi}=\frac{1}{\beta_0L}-\frac{\beta_1\ln L}{\beta_0^3L^2}+
-    \frac{1}{\left(\beta_0L\right)^3}\left[\frac{\beta_1^2}{\beta_0^2}\left(\ln^2L-\ln L-1\right)+
-    \frac{\beta_2}{\beta_0}\right]+O\left(\frac{\ln^3L}{L^4}\right).\\
-    L\equiv\ln\frac{\mu^2}{\Lambda^2}.
- * @f]
- * For \f$N_f < 5\f$, \f$\Lambda_{QCD}\f$ can be obtained by solving the following matching condition at \f$\mu\f$
- * @f[
-    \beta_0^{'}\ln\frac{\Lambda^{'2}}{\Lambda^2} = (\beta_0^{'}-\beta_0)L+\left(\frac{\beta_1^{'}}{\beta_0^{'}}-
-    \frac{\beta_1}{\beta_0}\right)\ln L-\frac{\beta_1^{'}}{\beta_0^{'}}\ln\frac{\beta_0^{'}}{\beta_0}-C_1+
-    \frac{1}{\beta_0L}\left[\frac{\beta_1}{\beta_0}\left(\frac{\beta_1^{'}}{\beta_0^{'}}-\frac{\beta_1}{\beta_0}
-    \right)\ln L + \frac{\beta_1^{'2}}{\beta_0^{'2}}-\frac{\beta_1^2}{\beta_0^2}-\frac{\beta_2^{'2}}{\beta_0^{'2}}
-    +\frac{\beta_2^2}{\beta_0^2}+\frac{\beta_1^{'}}{\beta_0^{'}}C_1-C_1^2-C_2\right]+
-    O\left(\frac{\ln^2L}{L^2}\right),
- * @f]
- * where the primed (unprimed) quantities refer to those pertaining to \f$N_f-1\f$ \f$(N_f)\f$. The terms \f$C_1\f$ 
- * and \f$C_2\f$ are associated with the threshold corrections of \f$O(\alpha_s)\f$ and \f$O(\alpha_s^2)\f$ 
- * respectively and are given by
- * @f[
-    C_1 = 4c_{11}\ln\frac{\mu^2}{\mu_f^2}=\frac{2}{3}\ln\frac{\mu^2}{\mu_f^2},\\
-    C_2 = 16\pi^2\left((c_{22}-2c_{11}^2)\ln^2\frac{\mu^2}{\mu_f^2}+c_{21}\ln\frac{\mu^2}{\mu_f^2}+c_{20}\right)
-    = -16\left(\frac{1}{36}\ln^2\frac{\mu^2}{\mu_f^2}-\frac{19}{24}\ln\frac{\mu^2}{\mu_f^2}+\frac{11}{72}\right),
- * @f]
- * for \f$c_{10}=0\f$. The inverted relation for matching from \f$N_f-1\f$ to \f$N_f\f$ flavours is given by
- * @f[
-    \beta_0\ln\frac{\Lambda^{2}}{\Lambda^{'2}} = (\beta_0-\beta_0^{'})L^{'}+\left(\frac{\beta_1}{\beta_0}-
-    \frac{\beta_1^{'}}{\beta_0^{'}}\right)\ln L^{'}-\frac{\beta_1}{\beta_0}\ln\frac{\beta_0}{\beta_0^{'}}-C_1^{'}+
-    \frac{1}{\beta_0^{'}L^{'}}\left[\frac{\beta_1^{'}}{\beta_0^{'}}\left(\frac{\beta_1}{\beta_0}-\frac{\beta_1^{'}}
-    {\beta_0^{'}}\right)\ln L^{'}+\frac{\beta_1^{2}}{\beta_0^{2}}-\frac{\beta_1^{'2}}{\beta_0^{'2}}-
-    \frac{\beta_2^{2}}{\beta_0^{2}}+\frac{\beta_2^{'2}}{\beta_0^{'2}}+\frac{\beta_1}{\beta_0}C_1^{'}-C_1^{'2}-
-    C_2^{'}\right]+O\left(\frac{\ln^2L}{L^2}\right),
+ *   \alpha_s^{(6)}(\mu_t) = \frac{1}{(\zeta_g^{OS,t})^2}\alpha_s^{(5)}(\mu_t),
  * @f]
  * where
  * @f[
-    C_1^{'} = -C_1 = -\frac{2}{3}\ln\frac{\mu^2}{\mu_f^2},\\
-    C_2^{'} = -16\left(\frac{1}{36}\ln^2\frac{\mu^2}{\mu_f^2}+\frac{19}{24}\ln\frac{\mu^2}{\mu_f^2}-\frac{11}
-    {72}\right).
+ *  \frac{1}{(\zeta_g^{OS,t})^2} = 1+\frac{\alpha_s^{(5)}(\mu)}{\pi}\left(\frac{1}{6}\ln\frac{\mu^2}{m_t^2}\right)+
+ *  \left(\frac{\alpha_s^{(5)}(\mu)}{\pi}\right)^2\left(\frac{1}{36}\ln^2\frac{\mu^2}{m_t^2} +
+ *  \frac{19}{24}\ln\frac{\mu^2}{m_t^2} + \frac{7}{24}\right) + O\left(\left(\frac{\alpha_s}{\pi}\right)^3\right).
  * @f]
- * Note that \f$C_2^{'}\neq C_2\f$. Setting \f$\mu=\mu_f\f$ the threshold corrections are given by 
- * \f$C_1=C_1^{'}=0\f$ and \f$C_2=-C_2^{'}=-16\times11/72\f$. For the matching between \f$\alpha^{(5)}_s(\mu_t)\f$ 
- * to \f$\alpha^{(6)}_s(\mu_t)\f$, \f$C_1^{'}\f$ and \f$C_2^{'}\f$ are given by
+ * Besides, \f$\Lambda_{QCD}\f$ for \f$N_f=6\f$ is derived from that for
+ * \f$N_f=5\f$ with the relation:
+ * @f{eqnarray}
+ *  \beta_0\ln\frac{\Lambda^{2}}{\Lambda^{'2}} 
+ *  &=& (\beta_0-\beta_0^{'})L^{'}+\left(\frac{\beta_1}{\beta_0}-
+ *  \frac{\beta_1^{'}}{\beta_0^{'}}\right)\ln L^{'}-\frac{\beta_1}{\beta_0}\ln\frac{\beta_0}{\beta_0^{'}}-C_1^{'}
+ *  \\
+ *  && +
+ *  \frac{1}{\beta_0^{'}L^{'}}\left[\frac{\beta_1^{'}}{\beta_0^{'}}\left(\frac{\beta_1}{\beta_0}-\frac{\beta_1^{'}}
+ *  {\beta_0^{'}}\right)\ln L^{'}+\frac{\beta_1^{2}}{\beta_0^{2}}-\frac{\beta_1^{'2}}{\beta_0^{'2}}-
+ *  \frac{\beta_2^{2}}{\beta_0^{2}}+\frac{\beta_2^{'2}}{\beta_0^{'2}}+\frac{\beta_1}{\beta_0}C_1^{'}-C_1^{'2}-
+ *  C_2^{'}\right]+O\left(\frac{\ln^2L}{L^2}\right),
+ * @f}
+ * where
  * @f[
-    C_1^{'} = -\frac{2}{3}\ln\frac{\mu^2}{M_t^2},\\
-    C_2^{'} = -16\left(\frac{1}{36}\ln^2\frac{\mu^2}{M_t^2}+\frac{19}{24}\ln\frac{\mu^2}{M_t^2}+\frac{7}{24}\right).
+ *  C_1^{'} = -\frac{2}{3}\ln\frac{\mu^2}{m_t^2},\qquad
+ *  C_2^{'} = -16\left(\frac{1}{36}\ln^2\frac{\mu^2}{m_t^2}+\frac{19}{24}\ln\frac{\mu^2}{m_t^2}+\frac{7}{24}\right).
  * @f]
  *
+ * 
  * <H3>Computation of the running of the quark masses: </H3>
  *
- * In the \f$\overline{\mathrm{MS}}\f$ scheme the quark mass at a scale \f$\mu\f$ is given by @cite Chetyrkin:1997dh
+ * In the \f$\overline{\mathrm{MS}}\f$ scheme the quark mass at a scale \f$\mu\f$ is given by 
+ * (see e.g., @cite Chetyrkin:1997dh)
  * @f[
-    m_q(\mu) = m_q(\mu_0)\left[\frac{\alpha_s(\mu)}{\alpha_s(\mu_0)}\right]^{\frac{\gamma^{(0)}_m}{2\beta_0}}
-    \left\{1+A_1\frac{\alpha_s(\mu)-\alpha_s(\mu_0)}{4\pi}+\frac{A_1^2}{2}\left(\frac{\alpha_s(\mu)-\alpha_s(\mu_0)}{4\pi}
-    \right)^2+\frac{A_2}{2}\left[\left(\frac{\alpha_s(\mu)}{4\pi}\right)^2-\left(\frac{\alpha_s(\mu_0)}{4\pi}
-    \right)^2\right]\right\},
+ *  m_q(\mu) = m_q(\mu_0)\left[\frac{\alpha_s(\mu)}{\alpha_s(\mu_0)}\right]^{\frac{\gamma^{(0)}_m}{2\beta_0}}
+ *  \left\{1+A_1\frac{\alpha_s(\mu)-\alpha_s(\mu_0)}{4\pi}+\frac{A_1^2}{2}\left(\frac{\alpha_s(\mu)-\alpha_s(\mu_0)}{4\pi}
+ *  \right)^2+\frac{A_2}{2}\left[\left(\frac{\alpha_s(\mu)}{4\pi}\right)^2-\left(\frac{\alpha_s(\mu_0)}{4\pi}
+ *  \right)^2\right]\right\},
  * @f]
  * where
  * @f[
-    A_1 = \frac{\gamma^{(1)}_m}{2\beta_0} - \frac{\beta_1\gamma^{(0)}_m}{2\beta_0^2},\\
-    A_2 = \frac{\beta_1^2\gamma^{(0)}_m}{2\beta_0^3}-\frac{\beta_2\gamma^{(0)}_m}{2\beta_0^2}-
-    \frac{\beta_1\gamma^{(1)}_m}{2\beta_0^2}+\frac{\gamma^{(2)}_m}{2\beta_0},
+ *  A_1 = \frac{\gamma^{(1)}_m}{2\beta_0} - \frac{\beta_1\gamma^{(0)}_m}{2\beta_0^2},\qquad
+ *  A_2 = \frac{\beta_1^2\gamma^{(0)}_m}{2\beta_0^3}-\frac{\beta_2\gamma^{(0)}_m}{2\beta_0^2}-
+ *  \frac{\beta_1\gamma^{(1)}_m}{2\beta_0^2}+\frac{\gamma^{(2)}_m}{2\beta_0},
  * @f]
  * and 
  * @f[
-    \gamma_m^{(0)} = 6C_F\\
-    \gamma_m^{(1)} = C_F\left(3C_F+\frac{97}{3}N_c-\frac{10}{3}N_f\right)\\
-    \gamma_m^{(2)} = 129C_F^3-\frac{129}{2}C_F^2N_c+\frac{11413}{54}C_FN_c^2+C_F^2N_f(-46+48\zeta(3))+
-    C_FN_CN_f\left(-\frac{556}{27}-48\zeta(3)\right)-\frac{70}{27}C_FN_f^2=2498+\left(-\frac{4432}{27}-
-    \frac{320}{3}\zeta(3)\right)N_f-\frac{280}{81}N_f^2,
+ *  \gamma_m^{(0)} = 6C_F,\qquad
+ *  \gamma_m^{(1)} = C_F\left(3C_F+\frac{97}{3}N_c-\frac{10}{3}N_f\right),\\
+ *  \gamma_m^{(2)} = 129C_F^3-\frac{129}{2}C_F^2N_c+\frac{11413}{54}C_FN_c^2+C_F^2N_f(-46+48\zeta(3))+
+ *  C_FN_CN_f\left(-\frac{556}{27}-48\zeta(3)\right)-\frac{70}{27}C_FN_f^2,
  * @f]
- * in the \f$\overline{\mathrm{MS}}\f$ scheme. The four loop functions can be found in @cite Vermaseren:1997fq. The
- * threshold condition is given by @cite Chetyrkin:2000yt
+ * in the \f$\overline{\mathrm{MS}}\f$ scheme.
+ * The threshold conditions are given by @cite Chetyrkin:2000yt
  * @f[
-    m_q^{(N_f-1)}(\mu)=\zeta_m^fm_q^{(N_f)}(\mu),
+ *   m_q^{(N_f-1)}(\mu)=\zeta_m^f\, m_q^{(N_f)}(\mu),\qquad
+ *   m_q^{(N_f)}(\mu)=\frac{1}{\zeta_m^f}\, m_q^{(N_f-1)}(\mu),
  * @f]
  * where
  * @f[
-    \zeta^f_m=1+\left(\frac{\alpha_s^{(N_f)}(\mu)}{\pi}\right)^2\left(\frac{1}{12}\ln^2\frac{\mu^2}{\mu_f^2}
-    -\frac{5}{36}\ln\frac{\mu^2}{\mu_f^2}+\frac{89}{432}\right),\\
-    \frac{1}{\zeta^f_m}=1+\left(\frac{\alpha_s^{(N_f-1)}(\mu)}{\pi}\right)^2\left(-\frac{1}{12}\ln^2\frac{\mu^2}
-    {\mu_f^2}+\frac{5}{36}\ln\frac{\mu^2}{\mu_f^2}-\frac{89}{432}\right),
+ *  \zeta^f_m=1+\left(\frac{\alpha_s^{(N_f)}(\mu)}{\pi}\right)^2\left(\frac{1}{12}\ln^2\frac{\mu^2}{\mu_f^2}
+ *   -\frac{5}{36}\ln\frac{\mu^2}{\mu_f^2}+\frac{89}{432}\right),\\
+ *   \frac{1}{\zeta^f_m}=1+\left(\frac{\alpha_s^{(N_f-1)}(\mu)}{\pi}\right)^2\left(-\frac{1}{12}\ln^2\frac{\mu^2}
+ *   {\mu_f^2}+\frac{5}{36}\ln\frac{\mu^2}{\mu_f^2}-\frac{89}{432}\right), 
  * @f]
- * where \f$\mu_f=m_f(\mu_f)\f$ denotes the \f$\overline{\mathrm{MS}}\f$ invariant mass of the \f$N_f\f$-th flavour
- * at the scale \f$\mu_f\f$.
+ * with \f$\mu_f=m_f(\mu_f)\f$.
+ * .
  *
  * <H3>Pole mass vs. \f$ \overline{\mathrm{MS}} \f$ scale invariant mass:</H3>
  *
  * The pole mass \f$M_q\f$ of a heavy quark is related to the \f$\overline{\mathrm{MS}}\f$ scale invariant mass
  * \f$m_q(m_q)\f$ as @cite Chetyrkin:2000yt
  * @f[
-    m_q(m_q)=M_q\left\{1-\frac{4}{3}\frac{\alpha_s(M_q)}{\pi}+\left[-\frac{2251}{268}-2\zeta(2)
-    -\frac{2}{3}\zeta(2)\ln2+\frac{\zeta(3)}{6}+\frac{n_l}{3}\left(\zeta(2)+\frac{71}{48}\right)
-    -\frac{4}{3}\sum_{1\le i \le n_l}\Delta\left(\frac{M_i}{M_q}\right)\right]\left(\frac{\alpha_s(M_q)}{\pi}
-    \right)^2\right\}
+ *  m_q(m_q)=M_q\left\{1-\frac{4}{3}\frac{\alpha_s(M_q)}{\pi}+\left[-\frac{2251}{268}-2\zeta(2)
+ *  -\frac{2}{3}\zeta(2)\ln2+\frac{\zeta(3)}{6}+\frac{n_l}{3}\left(\zeta(2)+\frac{71}{48}\right)
+ *  -\frac{4}{3}\sum_{1\le i \le n_l}\Delta\left(\frac{M_i}{M_q}\right)\right]\left(\frac{\alpha_s(M_q)}{\pi}
+ *  \right)^2\right\},
  * @f]
  * where \f$n_l\f$ is the number of the light quarks, and \f$\Delta(x)\f$ is given by
  * @f[
-    \Delta(x)=\frac{\pi^2}{8}x-0.597x^2+0.230x^3+O\left(x^4\right)
+ *  \Delta(x)=\frac{\pi^2}{8}x-0.597x^2+0.230x^3+O\left(x^4\right).
  * @f]
  * It should be noted that the above formula requires the light quark pole masses which are not well defined.
- * The pole mass in terms of the \f$\overline{\mathrm{MS}}\f$ is given by
+ * The pole mass in terms of the \f$\overline{\mathrm{MS}}\f$ mass is given by
  * @f[
-    M_q=m_q(m_q)\left\{1+\frac{4}{3}\frac{\alpha_s(m_q)}{\pi}+\left[\frac{307}{32}+2\zeta(2)
-    +\frac{2}{3}\zeta(2)\ln2-\frac{\zeta(3)}{6}-\frac{n_l}{3}\left(\zeta(2)+\frac{71}{48}\right)
-    +\frac{4}{3}\sum_{1\le i \le n_l}\Delta\left(\frac{m_i}{m_q}\right)\right]\left(\frac{\alpha_s(m_q)}{\pi}
-    \right)^2\right\}
+ *  M_q=m_q(m_q)\left\{1+\frac{4}{3}\frac{\alpha_s(m_q)}{\pi}+\left[\frac{307}{32}+2\zeta(2)
+ *  +\frac{2}{3}\zeta(2)\ln2-\frac{\zeta(3)}{6}-\frac{n_l}{3}\left(\zeta(2)+\frac{71}{48}\right)
+ *  +\frac{4}{3}\sum_{1\le i \le n_l}\Delta\left(\frac{m_i}{m_q}\right)\right]\left(\frac{\alpha_s(m_q)}{\pi}
+ *  \right)^2\right\}
  * @f]
  * To get the pole mass of the light quarks we solve the above equation numerically and derive it from the 
- * corresponding \f$\overline{\mathrm{MS}}\f$ mass. Further, one can numerically neglect the light quark masses
- * which simplifies the above equations to @cite Chetyrkin:1999qi @cite Melnikov:2000qh
- * @f[
-    m_q(m_q)=M_q\left\{1-\frac{4}{3}\frac{\alpha_s(M_q)}{\pi}+(-11.67+1.0414n_l)\left(\frac{\alpha_s(M_q)}{\pi}
-    \right)^2\right\},\\
-    M_q=m_q(m_q)\left\{1+\frac{4}{3}\frac{\alpha_s(m_q)}{\pi}+(13.4434-1.0414n_l)\left(\frac{\alpha_s(M_q)}{\pi}
-    \right)^2\right\}
- * @f]
- * where now \f$n_l\f$ is the number of massless quarks. The effects of the light quark masses can be estimated 
- * using the substitutions
- * @f[
-    1.0414n_l\to 1.0414n_l-\frac{4}{3}\sum_{1\le i \le n_l}\Delta\left(\frac{M_i}{M_q}\right),\\
-    -1.0414n_l\to -1.0414n_l+\frac{4}{3}\sum_{1\le i \le n_l}\Delta\left(\frac{M_i}{M_q}\right),
- * @f]
- *for the calculation of the \f$\overline{\mathrm{MS}}\f$ mass and pole mass respectively.
+ * corresponding \f$\overline{\mathrm{MS}}\f$ mass. 
+ * 
  */
-
 class QCD: public Model {
 public:
     
@@ -501,14 +497,14 @@ public:
      */
     enum meson
     {
-        B_D, /**< @f$B_d@f$ meson */
-        B_S, /**< @f$B_s@f$ meson */
-        B_P, /**< @f$B^\pm@f$ meson */
+        P_0, /**< @f$\pi^0@f$ meson */
+        P_P, /**< @f$\pi^\pm@f$ meson */
         K_0, /**< @f$K^0@f$ meson */
         K_P, /**< @f$K^\pm@f$ meson */
         D_0, /**< @f$D^0@f$ meson */
-        P_0, /**< @f$\pi^0@f$ meson */
-        P_P, /**< @f$\pi^\pm@f$ meson */
+        B_D, /**< @f$B_d@f$ meson */
+        B_P, /**< @f$B^\pm@f$ meson */
+        B_S, /**< @f$B_s@f$ meson */
         MESON_END /**< The size of this enum. */
     };
     
@@ -525,7 +521,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
     
-    static const int NQCDvars = 78; /**< The number of model parameters in %QCD. */
+    static const int NQCDvars = 78; ///< The number of model parameters in %QCD. 
     
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -557,7 +553,7 @@ public:
     /**
      * @brief The pre-update method for %QCD
      * @details This method resets the internal flags #requireYu, #requireYd,
-     * #computeBd #computeFBd and #computemt before updating the model parameters with the method Update().
+     * #computeBd, #computeFBd and #computemt before updating the model parameters with the method Update().
      * @return a boolean that is true if the execution is successful
      */
     virtual bool PreUpdate();
@@ -621,6 +617,24 @@ public:
     
     ////////////////////////////////////////////////////////////////////////
     // get and set methods for class members
+
+    /**
+     * @brief A get method to access the number of colours \f$N_c\f$.
+     * @return the number of colours
+     */
+    double getNc() const
+    {
+        return Nc;
+    }
+
+    /**
+     * @brief A set method to change the number of colours \f$N_c\f$.
+     * @param[in] Nc the number of colours
+     */
+    void setNc(double Nc)
+    {
+        this->Nc = Nc;
+    }
     
     /**
      * @brief A get method to access a meson as an object of the type Meson.
@@ -652,48 +666,12 @@ public:
     }
     
     /**
-     * @brief Sets the strong coupling constant at @f$M@_{\alpha_s}f$, @f$\alpha_s(M_{\alpha_s})@f$.
-     * @param[in] AlsM @f$\alpha_s(M_{\alpha_s})@f$
-     */
-    void setAlsM(double AlsM)
-    {
-        this->AlsM = AlsM;
-    }
-    
-    /**
      * @brief A get method to access the mass scale \f$M_{\alpha_s}\f$ at which the strong coupling constant measurement is provided.
      * @return the mass scale in GeV @f$M_{\alpha_s}@f$ at which the strong coupling constant measurement is provided
      */
     double getMAls() const
     {
         return MAls;
-    }
-    
-    /**
-     * @brief Sets the mass scale \f$M_{\alpha_s}\f$ at which the strong coupling constant measurement is provided.
-     * @param[in] MAls @f$M_{\alpha_s}@f$ in GeV
-     */
-    void setMAls(double MAls)
-    {
-        this->MAls = MAls;
-    }
-    
-    /**
-     * @brief A get method to access the number of colours \f$N_c\f$.
-     * @return the number of colours
-     */
-    double getNc() const
-    {
-        return Nc;
-    }
-    
-    /**
-     * @brief Sets the number of colours.
-     * @param[in] Nc the number of colours
-     */
-    void setNc(double Nc)
-    {
-        this->Nc = Nc;
     }
     
     /**
@@ -706,15 +684,6 @@ public:
     }
     
     /**
-     * @brief Sets the threshold between six- and five-flavour theory.
-     * @param[in] mut the threshold between six- and five-flavour theory in GeV \f$\mu_t\f$
-     */
-    void setMut(double mut)
-    {
-        this->mut = mut;
-    }
-    
-    /**
      * @brief A get method to access he threshold between five- and four-flavour theory in GeV.
      * @return the threshold \f$\mu_b\f$
      */
@@ -724,30 +693,12 @@ public:
     }
     
     /**
-     * @brief Sets the threshold between five- and four-flavour theory.
-     * @param[in] mub the threshold between five- and four-flavour theory in GeV \f$\mu_b\f$
-     */
-    void setMub(double mub)
-    {
-        this->mub = mub;
-    }
-    
-    /**
      * @brief A get method to access he threshold between four- and three-flavour theory in GeV.
      * @return the threshold \f$\mu_c\f$
      */
     double getMuc() const
     {
         return muc;
-    }
-    
-    /**
-     * @brief Set the threshold between four- and three-flavour theory.
-     * @param[in] muc the threshold between four- and three-flavour theory in GeV \f$\mu_c\f$
-     */
-    void setMuc(double muc)
-    {
-        this->muc = muc;
     }
     
     /**
@@ -1120,13 +1071,33 @@ protected:
      */
     virtual void setParameter(const std::string name, const double& value);
     
-    double Nc; ///< The number of colours.
-    double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.
-    double mtpole;  ///< The pole mass of the top quark.
-    Particle quarks[6]; ///< The vector of all SM quarks.
-    Meson mesons[MESON_END]; ///< The vector of defined mesons.
+    bool computemt; ///< Switch for computing the \f$\overline{\mathrm{MS}}\f$ mass of the top quark.
     bool requireYu; ///< Switch for generating the Yukawa couplings to the up-type quarks.
     bool requireYd; ///< Switch for generating the Yukawa couplings to the down-type quarks.
+    
+    // model parameters
+    double AlsM; ///< The strong coupling constant at the mass scale MAls, \f$\alpha_s(M_{\alpha_s})\f$. 
+    double MAls; ///< The mass scale in GeV at which the strong coupling measurement is provided. 
+    double mtpole; ///< The pole mass of the top quark.
+    double mut; ///< The threshold between six- and five-flavour theory in GeV. 
+    double mub; ///< The threshold between five- and four-flavour theory in GeV. 
+    double muc; ///< The threshold between four- and three-flavour theory in GeV. 
+    double ReA0_Kd; 
+    double ReA2_Kd; 
+    double Omega_eta_etap; 
+    double Br_Kp_P0enu;
+    double IB_Kl;
+    double IB_Kp;
+    double DeltaP_cu;
+    double Br_Kp_munu;
+    double Br_B_Xcenu;
+    double BBsoBBd; ///< The ratio \f$ B_{B_s}/B_{B_d} \f$ necessary to compute \f$ B_{B_s} \f$. 
+    double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$. 
+
+    double Nc; ///< The number of colours.
+    double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.
+    Particle quarks[6]; ///< The vector of all SM quarks.
+    Meson mesons[MESON_END]; ///< The vector of defined mesons.
     BParameter BBs; ///< The bag parameters for \f$\Delta b=2\f$ processes for the \f$B_s\f$ meson system.
     BParameter BBd; ///< The bag parameters for \f$\Delta b=2\f$ processes for the \f$B_d\f$ meson system.
     BParameter BD; ///< The bag parameters for \f$\Delta c=2\f$ processes for the \f$D^0\f$ meson system.
@@ -1134,26 +1105,18 @@ protected:
     BParameter BKd1;
     BParameter BKd3;
     
-    
-    // model parameters
-    double AlsM; /**< The strong coupling constant at the mass scale MAls, \f$\alpha_s(M_{\alpha_s})\f$. */
-    double MAls; /**< The mass scale in GeV at which the strong coupling measurement is provided*/
-    double mut; /**< The threshold between six- and five-flavour theory in GeV. */
-    double mub; /**< The threshold between five- and four-flavour theory in GeV. */
-    double muc; /**< The threshold between four- and three-flavour theory in GeV. */
-    double ReA0_Kd; /**< */
-    double ReA2_Kd; /**< */
-    double Omega_eta_etap; /**< */
-    double Br_Kp_P0enu; /**< */
-    double IB_Kl; /**< */
-    double IB_Kp; /**< */
-    double DeltaP_cu; /**< */
-    double Br_Kp_munu; /**< */
-    double Br_B_Xcenu; /**< */
-    double BBsoBBd; /**< The ratio \f$ B_{B_s}/B_{B_d} \f$ necessary to compute \f$ B_{B_s} \f$. */
-    double FBsoFBd; /**< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$. */
-    
 private:
+
+    double zeta2; ///< \f$\zeta(2)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
+    double zeta3; ///< \f$\zeta(3)\f$ computed with the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
+    bool computeFBd; ///< Swith for computing \f$F_{B_d}\f$ from \f$F_{B_s}\f$.
+    bool computeBd; ///< Swith for computing \f$B_{B_d}\f$ from \f$B_{B_s}\f$.
+    static const int CacheSize = 5; ///< Defines the depth of the cache.
+    mutable double als_cache[8][CacheSize]; ///< Cache for \f$\alpha_s\f$.
+    mutable double logLambda5_cache[4][CacheSize]; 
+    mutable double logLambdaNLO_cache[9][CacheSize]; 
+    mutable double mrun_cache[10][CacheSize]; ///< Cache for running quark mass.
+    mutable double mp2mbar_cache[5][CacheSize]; ///< Cache for pole mass to msbar mass conversion.
     
     /**
      * @brief The strong coupling constant computed with using \f$\Lambda_{\rm QCD}\f$.
@@ -1165,40 +1128,40 @@ private:
     double AlsWithLambda(const double mu, const double logLambda, const orders order) const;
     
     /**
-     * @brief A member for calculating the difference in \f$\alpha_s^{FULLNLO}\f$ across the six-five 
+     * @brief A member for calculating the difference in \f$\alpha_s^{\mathrm{FULLNLO}}\f$ across the six-five
      * flavour threshold using AlsWithLambda().
      * @param[in] logLambda6 \f$\log(\Lambda_{\rm QCD}^{(6)})\f$
      * @param[in] logLambda5_in \f$\log(\Lambda_{\rm QCD}^{(5)})\f$
-     * @return the difference \f$\alpha_s^{FULLNLO}(\mu_t+\epsilon)\f$ - \f$\alpha_s^{FULLNLO}(\mu_t-\epsilon)\f$
+     * @return the difference \f$\alpha_s^{\mathrm{FULLNLO}}(\mu_t+\epsilon)\f$ - \f$\alpha_s^{\mathrm{FULLNLO}}(\mu_t-\epsilon)\f$
      * with \f$\epsilon = 10^{-10}\f$
      */
     double ZeroNf6NLO(double *logLambda6, double *logLambda5_in) const;
     
     /**
-     * @brief A member for calculating the difference in \f$\alpha_s^{FULLNLO}\f$ using
-     * AlsWithLambda() and the input vaue of \f$\alpha_s^(M_{\alpha_s})\f$ given in the SomeModel.conf file.
+     * @brief A member for calculating the difference in \f$\alpha_s\f$ using
+     * AlsWithLambda() and the input value of \f$\alpha_s(M_{\alpha_s})\f$ given in the SomeModel.conf file.
      * @param[in] logLambda5 \f$\log(\Lambda_{\rm QCD}^{(5)})\f$
      * @param[in] order the %QCD order of the calculation
-     * @return \f$\alpha_s^{FULLNLO}(M_{\alpha_s})\f$ - \f$\alpha_s^(M_{\alpha_s})\f$
+     * @return AlsWithLambda(M_{\alpha_s}, *logLambda5, *order) - \f$\alpha_s^(M_{\alpha_s})\f$
      */
     double ZeroNf5(double *logLambda5, double *order) const;
     
     /**
-     * @brief A member for calculating the difference in \f$\alpha_s^{FULLNLO}\f$ across the four-five
+     * @brief A member for calculating the difference in \f$\alpha_s^{\mathrm{FULLNLO}}\f$ across the four-five
      * flavour threshold using AlsWithLambda().
      * @param[in] logLambda4 \f$\log(\Lambda_{\rm QCD}^{(4)})\f$
      * @param[in] logLambda5_in \f$\log(\Lambda_{\rm QCD}^{(5)})\f$
-     * @return the difference \f$\alpha_s^{FULLNLO}(\mu_b-\epsilon)\f$ - \f$\alpha_s^{FULLNLO}(\mu_b+\epsilon)\f$
+     * @return the difference \f$\alpha_s^{\mathrm{FULLNLO}}(\mu_b-\epsilon)\f$ - \f$\alpha_s^{\mathrm{FULLNLO}}(\mu_b+\epsilon)\f$
      * with \f$\epsilon = 10^{-10}\f$
      */
     double ZeroNf4NLO(double *logLambda4, double *logLambda5_in) const;
     
     /**
-     * @brief A member for calculating the difference in \f$\alpha_s^{FULLNLO}\f$ across the six-five
+     * @brief A member for calculating the difference in \f$\alpha_s^{\mathrm{FULLNLO}}\f$ across the three-four
      * flavour threshold using AlsWithLambda().
      * @param[in] logLambda3 \f$\log(\Lambda_{\rm QCD}^{(3)})\f$
      * @param[in] logLambda4_in \f$\log(\Lambda_{\rm QCD}^{(4)})\f$
-     * @return the difference \f$\alpha_s^{FULLNLO}(\mu_c-\epsilon)\f$ - \f$\alpha_s^{FULLNLO}(\mu_c+\epsilon)\f$
+     * @return the difference \f$\alpha_s^{\mathrm{FULLNLO}}(\mu_c-\epsilon)\f$ - \f$\alpha_s^{\mathrm{FULLNLO}}(\mu_c+\epsilon)\f$
      * with \f$\epsilon = 10^{-10}\f$
      */
     double ZeroNf3NLO(double *logLambda3, double *logLambda4_in) const;
@@ -1259,19 +1222,6 @@ private:
      * @return the difference in the pole mass and the pole mass as computed from the \f$\overline{\rm MS}\f$ mass
      */
     double Mp2MbarTMP(double *mu, double *params) const;
-    
-    
-    double zeta2; ///< \f$\zeta(2)\f$ computed from the <a href="http://www.gnu.org/software/gsl/" target=blank>gsl libraries</a>.
-    double zeta3; ///< \f$\zeta(3)\f$ computed from the <a href="http://www.gnu.org/software/gsl/" target=blank>gsl libraries</a>.
-    bool computeFBd; ///< Swith for computing \f$F_{B_d}\f$ from \f$F_{B_s}\f$.
-    bool computeBd; ///< Swith for computing \f$B_{B_d}\f$ from \f$B_{B_s}\f$.
-    bool computemt; ///< Switch for computing the \f$\overline{\mathrm{MS}}\f$ mass of the top quark.
-    static const int CacheSize = 5; ///< Defines the depth of the cache.
-    mutable double als_cache[8][CacheSize]; ///< Cache for \f$\alpha_s\f$.
-    mutable double logLambda5_cache[4][CacheSize]; ///<
-    mutable double logLambdaNLO_cache[9][CacheSize]; ///<
-    mutable double mrun_cache[10][CacheSize]; ///< Cache for running quark mass.
-    mutable double mp2mbar_cache[5][CacheSize]; ///< Cache for pole mass to msbar mass conversion.
     
     /**
      * @brief A member used to manage the caching for this class.

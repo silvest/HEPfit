@@ -69,7 +69,6 @@ public:
      * It is to be used to compute observables without the use of a SomeModel.conf file.
      * @param[in] ModelName_i the name of the model being used
      * @param[in] DPars_i the mandatory parameters of the model being used
-     * @param[in] DObs_i the map of observables to be computed
      */
     ComputeObservables(const std::string& ModelName_i, std::map<std::string, double> DPars_i);
     

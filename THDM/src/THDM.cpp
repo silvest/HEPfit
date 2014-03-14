@@ -79,8 +79,7 @@ void THDM::setParameter(const std::string name, const double& value){
 }
 
 bool THDM::Init(const std::map<std::string, double>& DPars) {
-    Update(DPars);
-    return(CheckParameters(DPars));
+    return(StandardModel::Init(DPars));
 }
 
 bool THDM::CheckParameters(const std::map<std::string, double>& DPars) {

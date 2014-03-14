@@ -18,7 +18,7 @@
  * @addtogroup gslpp
  * @brief A module for manipulating complex numbers, vectors and matrices
  * using the
- * <a href="http://www.gnu.org/software/gsl/" target=blank>GSL libraries</a>.
+ * <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
  * @{
  */
 
