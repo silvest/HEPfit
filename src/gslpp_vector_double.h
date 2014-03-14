@@ -27,7 +27,7 @@ namespace gslpp
      * @author SusyFit Collaboration
      * @copyright GNU General Public License
      * @details This class defines some common operations on real vectors
-     * using the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL libraries</a>.
+     * using the <a href="http://www.gnu.org/software/gsl/" target=blank>GSL</a>.
      */
   template <>
   class vector<double>
