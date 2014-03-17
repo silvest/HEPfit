@@ -1139,7 +1139,7 @@ private:
     
     /**
      * @brief A member for calculating the difference in \f$\alpha_s\f$ using
-     * AlsWithLambda() and the input value of \f$\alpha_s(M_{\alpha_s})\f$ given in the SomeModel.conf file.
+     * AlsWithLambda() and the input value of \f$\alpha_s(M_{\alpha_s})\f$ given as a model parameter.
      * @param[in] logLambda5 \f$\log(\Lambda_{\rm QCD}^{(5)})\f$
      * @param[in] order the %QCD order of the calculation
      * @return AlsWithLambda(M_{\alpha_s}, *logLambda5, *order) - \f$\alpha_s^(M_{\alpha_s})\f$

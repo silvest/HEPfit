@@ -221,10 +221,9 @@ class EWSM; // forward reference to EWSM class
  * @anchor StandardModelFlags
  * <h3>%Model flags</h3>
  *
- * The flags of %StandardModel, which can be specified in the model configuration
- * file, are summarized below, where the values of the boolean flags (TRUE or
- * FALSE) are case insensitive, while those of the other flags are case sensitive.
- * The default values of the flags are indicated in bold: 
+ * The flags of %StandardModel are summarized below, where the values of the boolean 
+ * flags (TRUE or FALSE) are case insensitive, while those of the other flags are
+ * case sensitive. The default values of the flags are indicated in bold:
  * 
  * <table class="model">
  * <tr>
