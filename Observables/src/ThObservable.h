@@ -41,7 +41,7 @@ public:
     virtual ~ThObservable();
     
     /**
-     * @brief A memeber to be overloaded by the respective theory observable.
+     * @brief A member to be overloaded by the respective theory observable.
      * class that calculates the value of the observable
      */
     virtual double computeThValue() = 0;
