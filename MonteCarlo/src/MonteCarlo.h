@@ -65,7 +65,7 @@ public:
     /**
      * @brief This member is used for test runa to generate a single event
      * @details The values of the parameters that are used to generate the single event
-     * is the average value passed from the SOmeModel.conf file.
+     * is the average value passed from the SomeModel.conf file.
      *
      * The algorithm implemented by this member is as follows:
      *
