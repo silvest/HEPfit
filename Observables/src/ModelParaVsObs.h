@@ -17,7 +17,7 @@
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class builds the model parameter vs. observable comparisons 
- * that are specified as output in the SomeModel.conf file. The name (ParaName) of the 
+ * that are specified as output in the SomeModel.conf file or specified by the user. The name (ParaName) of the 
  * parameter has to correspond to the list of names in the SomeModel.cpp file in the
  * Model src directories.\n
  * e.g. GF, which can be found in StandardModel.cpp file in the

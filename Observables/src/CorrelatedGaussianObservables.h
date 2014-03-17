@@ -23,7 +23,7 @@
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class builds the correlated Gaussian observables that
- * are specified in the SomeModel.conf file.
+ * are specified in the SomeModel.conf file or specified by the user.
  */
 class CorrelatedGaussianObservables {
 public:

@@ -19,7 +19,7 @@
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details The class for building an observable and storing its different 
- * parameters read from the SomeModel.conf file. The name (thname) of the observable has
+ * parameters read from the SomeModel.conf file or specified by the user. The name (thname) of the observable has
  * to correspond to the allowed name of observables listed in the ThFactory class.
  */
 class Observable {

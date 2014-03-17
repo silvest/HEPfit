@@ -18,7 +18,7 @@
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This class stores the details of the model parameters defined in the
- * SomeModel.conf file. The name of the model parameter has to
+ * SomeModel.conf file or specified by the user. The name of the model parameter has to
  * correspond to the list of names in the SomeModel.cpp file in the
  * Model src directories.\n
  * e.g. GF, which can be found in StandardModel.cpp file in the

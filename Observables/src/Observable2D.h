@@ -13,11 +13,11 @@
 /**
  * @class Observable2D
  * @ingroup Observable
- * @brief A class for analysing observables pairwise
+ * @brief A class for analyzing observables pairwise
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details The class for building a pair of observables and storing their different
- * parameters read from the SomeModel.conf file. The names (thname) of the observables have
+ * parameters read from the SomeModel.conf file or specified by the user. The names (thname) of the observables have
  * to correspond to the allowed names of observables listed in the ThFactory class.
  */
 class Observable2D : public Observable {

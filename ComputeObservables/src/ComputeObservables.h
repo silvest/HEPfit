@@ -121,14 +121,13 @@ private:
     std::map<std::string, double> DPars; ///< Map of parameters to be passed to Model.
     std::map<std::string, double> DObs; ///< Map of parameters to be passed to Model.
     std::map<std::string, std::string> DFlags; ///< Map of model flags to be passed to Model.
-    StandardModel* Mod; ///< Name of the model as defined in SomeModel.conf
-    std::vector<ModelParameter> ModPars; ///< Vector for the model parameters defined in SomeModel.conf.
-    std::vector<ModelParameter> ModParsVar; ///< Vector for the model parameters varied in SomeModel.conf.
-    std::vector<Observable> Obs; ///< Vector for the observables defined in SomeModel.conf. */
-    std::vector<Observable2D> Obs2D; ///< Vector for the Observables2D defined in SomeModel.conf.
-    std::vector<CorrelatedGaussianObservables> CGO; ///< vector for the Correlated Gaussian Observables defined in SomeModel.conf.
-    std::vector<ModelParaVsObs> ParaObs; ///< Vector for the ModelParaVsObs defined in SomeModel.conf.
-    std::string ModelConf; ///< String for the name of the SomeModel.conf file.
+    StandardModel* Mod; ///< Pointer to the object of the class StandardModel.
+    std::vector<ModelParameter> ModPars; ///< Vector for the model parameters defined in SomeModel.conf or specified by the user.
+    std::vector<Observable> Obs; ///< Vector for the observables defined in SomeModel.conf or specified by the user. */
+    std::vector<Observable2D> Obs2D; ///< Vector for the Observables2D defined in SomeModel.conf or specified by the user.
+    std::vector<CorrelatedGaussianObservables> CGO; ///< vector for the Correlated Gaussian Observables defined in SomeModel.conf or specified by the user.
+    std::vector<ModelParaVsObs> ParaObs; ///< Vector for the ModelParaVsObs defined in SomeModel.conf or specified by the user.
+    std::string ModelConf; ///< String for the name of the SomeModel.conf file or specified by the user.
     std::vector<std::string> paraNames;///< The vector of allowed parameter names.
 };
 
