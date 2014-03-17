@@ -17,7 +17,7 @@ int main(int argc, char** argv)
         /* Create an object of the class ComputeObservables. */
         ComputeObservables CO(ModelConf);
         
-        /* Add the observables to be returned */
+        /* Add the observables to be returned. */
         CO.AddObservable("Mw");
         CO.AddObservable("GammaZ");
         CO.AddObservable("AFBbottom");
@@ -44,11 +44,11 @@ int main(int argc, char** argv)
             DObs = CO.compute(DPars);
         
             std::cout << "\nParameters[" << i + 1 << "]:"<< std::endl;
-            for (std::map<std::string, double>::iterator it = DPars.begin(); it != DPars.end(); it++){
+            for (std::map<std::string, double>::iterator it = DPars.begin(); it != DPars.end(); it++) {
                 std::cout << it->first << " = " << it->second << std::endl;
             }
-            std::cout << "\nObservables:[" << i + 1 << "]:" << std::endl;
-            for (std::map<std::string, double>::iterator it = DObs.begin(); it != DObs.end(); it++){
+            std::cout << "\nObservables[" << i + 1 << "]:" << std::endl;
+            for (std::map<std::string, double>::iterator it = DObs.begin(); it != DObs.end(); it++) {
                 std::cout << it->first << " = " << it->second << std::endl;
             }
         }      

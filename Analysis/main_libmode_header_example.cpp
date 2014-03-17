@@ -60,11 +60,11 @@ int main(int argc, char** argv)
             DObs = CO.compute(DPars);
         
             std::cout << "\nParameters[" << i + 1 << "]:"<< std::endl;
-            for (std::map<std::string, double>::iterator it = DPars.begin(); it != DPars.end(); it++){
+            for (std::map<std::string, double>::iterator it = DPars.begin(); it != DPars.end(); it++) {
                 std::cout << it->first << " = " << it->second << std::endl;
             }
-            std::cout << "\nObservables:[" << i + 1 << "]:" << std::endl;
-            for (std::map<std::string, double>::iterator it = DObs.begin(); it != DObs.end(); it++){
+            std::cout << "\nObservables[" << i + 1 << "]:" << std::endl;
+            for (std::map<std::string, double>::iterator it = DObs.begin(); it != DObs.end(); it++) {
                 std::cout << it->first << " = " << it->second << std::endl;
             }
         }
