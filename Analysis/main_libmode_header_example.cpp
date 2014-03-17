@@ -68,6 +68,7 @@ int main(int argc, char** argv)
                 std::cout << it->first << " = " << it->second << std::endl;
             }
         }
+        
         return EXIT_SUCCESS;
     } catch (const std::runtime_error& e) {
         std::cerr << e.what() << std::endl;

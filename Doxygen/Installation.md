@@ -8,7 +8,7 @@ Downloads
 
 The SusyFit source codes are available for download: 
 
-* Latest test release (version 0.1, released on Mar. 2, 2014): 
+* Latest test release (version 0.1, released on Mar. 17, 2014): 
 [<b>SusyFit-0.1.tar.gz</b>] (http://susyfit.roma1.infn.it/SusyFit-0.1.tar.gz) (381 KB)
 
 

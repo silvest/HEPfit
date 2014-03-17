@@ -56,7 +56,7 @@ public:
     /**
      * @brief Constructor.
      * @details This constructor passes the name of the SomeModel.conf file.
-     * It is to be used to compute observables useing of a SomeModel.conf file to initialize
+     * It is to be used to compute observables using of a SomeModel.conf file to initialize
      * the mandatory parameters.
      * @param[in] ModelConf_i the name of the input configuration file for the model name,
      * the model parameters and observables to be calculated
@@ -65,7 +65,7 @@ public:
     
     /**
      * @brief Constructor.
-     * @details This constructor passes the  model name, model parameters and model flags.
+     * @details This constructor passes the model name and model parameters.
      * It is to be used to compute observables without the use of a SomeModel.conf file.
      * @param[in] ModelName_i the name of the model being used
      * @param[in] DPars_i the mandatory parameters of the model being used
@@ -78,34 +78,32 @@ public:
     virtual ~ComputeObservables();
     
     /**
-     * @brief This method sets the necessary flag for the requested model
-     * when SomeModel.conf is not used to pass the input values (c.f.
-     * ComputeObservables(ModelName_i, DPars_i, DObs_i)).
+     * @brief This method sets the necessary flag for the requested model. 
      * @param[in] DFlags_i the flags for the model being used
      */
     void setFlags(std::map<std::string, std::string> DFlags_i);
     
     /**
-     * @brief The method used to compute observables using an object built with either
-     * ComputeObservables(ModelName_i, DPars_i) or ComputeObservables(ModelName_i, DPars_i, DObs_i).
+     * @brief The method used to compute observables.
      * @param[in] DP the map of parameters being varied
      */
     std::map<std::string, double> compute(std::map<std::string, double> DP);
     
     /**
-     * @brief A method to add observables to the list of observables.
+     * @brief A method to add an observable to the list of observables.
      * @param[in] ObsName the name of the observable to be added
      */
     void RemoveObservable(std::string ObsName);
     
     /**
-     * @brief A method to remove observables to the list of observables.
+     * @brief A method to remove an observable from the list of observables.
      * @param[in] ObsName the name of the observable to be removed
      */
     void AddObservable(std::string ObsName);
     
     /**
      * @brief A method to get the map of observables.
+     * @return the map of observables
      */
     std::map<std::string, double> getObservables()
     {
@@ -115,20 +113,15 @@ public:
     
 private:
     
-    ThFactory* thf;///< Pointer to an object of type ThFactory.
-    std::string ModelName;///< Name of the Model to be used.
-    InputParser myInputParser; ///< An oject of the InputParser class.
-    std::map<std::string, double> DPars; ///< Map of parameters to be passed to Model.
-    std::map<std::string, double> DObs; ///< Map of parameters to be passed to Model.
-    std::map<std::string, std::string> DFlags; ///< Map of model flags to be passed to Model.
-    StandardModel* Mod; ///< Pointer to the object of the class StandardModel.
-    std::vector<ModelParameter> ModPars; ///< Vector for the model parameters defined in SomeModel.conf or specified by the user.
-    std::vector<Observable> Obs; ///< Vector for the observables defined in SomeModel.conf or specified by the user. */
-    std::vector<Observable2D> Obs2D; ///< Vector for the Observables2D defined in SomeModel.conf or specified by the user.
-    std::vector<CorrelatedGaussianObservables> CGO; ///< vector for the Correlated Gaussian Observables defined in SomeModel.conf or specified by the user.
-    std::vector<ModelParaVsObs> ParaObs; ///< Vector for the ModelParaVsObs defined in SomeModel.conf or specified by the user.
-    std::string ModelConf; ///< String for the name of the SomeModel.conf file or specified by the user.
+    std::string ModelName; ///< Name of the Model to be used.
+    StandardModel* Mod; ///< Pointer to an object of the class StandardModel.
+    InputParser myInputParser; ///< An object of the InputParser class.
+    ThFactory* thf; ///< Pointer to an object of type ThFactory.
+    std::map<std::string, double> DPars; ///< Map of the parameters to be passed to Model.
+    std::map<std::string, double> DObs; ///< Map of the observables to be computed. 
+    std::map<std::string, std::string> DFlags; ///< Map of the model flags to be passed to Model.
     std::vector<std::string> paraNames;///< The vector of allowed parameter names.
+
 };
 
 /**

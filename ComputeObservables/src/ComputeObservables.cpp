@@ -9,10 +9,15 @@
 #include <boost/algorithm/string/predicate.hpp>
 
 ComputeObservables::ComputeObservables(const std::string& ModelConf_i)
-: myInputParser(),
-  ModelConf(ModelConf_i)
+: myInputParser()
 {
-    std::string ModelName = myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs);
+    std::vector<ModelParameter> ModPars;
+    std::vector<Observable> Obs;
+    std::vector<Observable2D> Obs2D;
+    std::vector<CorrelatedGaussianObservables> CGO;
+    std::vector<ModelParaVsObs> ParaObs;
+
+    std::string ModelName = myInputParser.ReadParameters(ModelConf_i, ModPars, Obs, Obs2D, CGO, ParaObs);
     std::map<std::string, double> DP;
     for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
         DP[it->name] = it->ave;
@@ -29,8 +34,8 @@ ComputeObservables::ComputeObservables(const std::string& ModelConf_i)
         }
     }
     
-    thf = myInputParser.getMyThFactory();
     Mod = myInputParser.getMyModel();
+    thf = myInputParser.getMyThFactory();
     if (!Mod->Init(DP)) 
         throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
 }
@@ -74,7 +79,7 @@ std::map<std::string, double> ComputeObservables::compute(std::map<std::string, 
     if (DP != DPars)
         for (std::map<std::string, double>::iterator it = DP.begin(); it != DP.end(); it++) {
             if(!(std::find(paraNames.begin(), paraNames.end(), it->first) != paraNames.end()))
-                throw  std::runtime_error("\nERROR: Incorrect parameter name passed to ComputeObservable");
+                throw std::runtime_error("\nERROR: Incorrect parameter name passed to ComputeObservable");
         }
     DPars = DP;
     Mod->Update(DPars);
@@ -87,7 +92,7 @@ std::map<std::string, double> ComputeObservables::compute(std::map<std::string, 
 void ComputeObservables::RemoveObservable(std::string ObsName)
 {
     if(DObs.find(ObsName) == DObs.end()) 
-        throw  std::runtime_error("\nERROR: Observable cannot be removed since it has not been added.\n");
+        throw std::runtime_error("\nERROR: Observable cannot be removed since it has not been added.\n");
     DObs.erase(ObsName);
 }
 

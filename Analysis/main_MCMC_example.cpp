@@ -24,6 +24,7 @@ int main(int argc, char** argv)
 #endif
     
     try {
+        
         if(argc != 3){
             /* Print usage and exit. */
             std::cout << "\nusage: " << argv[0] << " ModelConf.conf MonteCarlo.conf\n" << std::endl;

@@ -136,7 +136,7 @@ public:
     void Run(const int rank);
     
 private:
-    InputParser myInputParser; ///< An oject of the InputParser class.
+    InputParser myInputParser; ///< An object of the InputParser class.
     MonteCarloEngine MCEngine; ///< An object of the MonteCarloEngine class.
     std::vector<ModelParameter> ModPars; ///< Vector for the model parameters defined in SomeModel.conf.
     std::vector<Observable> Obs; ///< Vector for the observables defined in SomeModel.conf.
