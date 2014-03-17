@@ -5,6 +5,12 @@ int main(int argc, char** argv)
 {
     try {
         
+        if(argc != 2){
+            /* Print usage and exit. */
+            std::cout << "\nusage: " << argv[0] << " ModelConf.conf\n" << std::endl;
+            return EXIT_SUCCESS;
+        }
+        
         /* Define the model configuration file.                        */
         /* Here it is passed as the first argument to the executable.  */
         /* The model configuration file provides the default values of */

@@ -25,8 +25,8 @@ int main(int argc, char** argv)
     
     try {
         if(argc != 3){
-            //print usage and exit
-            std::cout << "usage: " << argv[0] << " ModelConf MCMCConf" << std::endl;
+            /* Print usage and exit. */
+            std::cout << "\nusage: " << argv[0] << " ModelConf.conf MonteCarlo.conf\n" << std::endl;
             return EXIT_SUCCESS;
         }
 
