@@ -9,20 +9,7 @@
             <cpp-extensions>cpp</cpp-extensions>
             <header-extensions>h</header-extensions>
             <sourceEncoding>UTF-8</sourceEncoding>
-            <make-dep-projects>
-                <make-dep-project>../LoopFunctions</make-dep-project>
-                <make-dep-project>../Flavour</make-dep-project>
-                <make-dep-project>../ZFitter</make-dep-project>
-                <make-dep-project>../THDM</make-dep-project>
-                <make-dep-project>../EW</make-dep-project>
-                <make-dep-project>../MFV</make-dep-project>
-                <make-dep-project>../Utils</make-dep-project>
-                <make-dep-project>../gslpp</make-dep-project>
-                <make-dep-project>../SUSYMassInsertion</make-dep-project>
-                <make-dep-project>../SUSY</make-dep-project>
-                <make-dep-project>../Observables</make-dep-project>
-                <make-dep-project>../StandardModel</make-dep-project>
-            </make-dep-projects>
+            <make-dep-projects/>
             <sourceRootList/>
             <confList>
                 <confElem>
