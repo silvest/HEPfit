@@ -243,7 +243,7 @@ public:
      * @brief The mass of a quark. 
      * @param[in] q name of a quark (see QCD::quark)
      * @param[in] mu renormalization scale
-     * @param[in] order order in QCD (= LO, FULLNLO, FULLNNLO[defalut])
+     * @param[in] order order in %QCD (= LO, FULLNLO, FULLNNLO[defalut])
      * @return the MSbar mass of u, d, s, c, b at the scale mu
      * or the pole mass of t
      *
@@ -258,7 +258,7 @@ public:
      * @brief The mass squared of a quark. 
      * @param[in] q name of a quark (see QCD::quark)
      * @param[in] mu renormalization scale
-     * @param[in] order order in QCD (= LO, FULLNLO, FULLNNLO[defalut])
+     * @param[in] order order in %QCD (= LO, FULLNLO, FULLNNLO[defalut])
      * @return the MSbar mass squared of u, d, s, c, b at the scale mu
      * or the pole mass squared of t
      *
@@ -568,7 +568,7 @@ public:
     /**
      * @brief The strong coupling @f$\alpha_s(\mu)@f$. 
      * @param[in] mu renormalization scale @f$\mu@f$ in GeV
-     * @param[in] order order in QCD (see #orders)
+     * @param[in] order order in %QCD (see orders)
      * @return @f$\alpha_s(\mu)@f$ at the given order
      */
     double Als(const double mu, const orders order) const

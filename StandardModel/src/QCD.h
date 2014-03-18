@@ -461,7 +461,7 @@
  *   {\mu_f^2}+\frac{5}{36}\ln\frac{\mu^2}{\mu_f^2}-\frac{89}{432}\right), 
  * @f]
  * with \f$\mu_f=m_f(\mu_f)\f$.
- * .
+ * 
  *
  * <H3>Pole mass vs. \f$ \overline{\mathrm{MS}} \f$ scale invariant mass:</H3>
  *
@@ -1142,7 +1142,7 @@ private:
      * AlsWithLambda() and the input value of \f$\alpha_s(M_{\alpha_s})\f$ given as a model parameter.
      * @param[in] logLambda5 \f$\log(\Lambda_{\rm QCD}^{(5)})\f$
      * @param[in] order the %QCD order of the calculation
-     * @return AlsWithLambda(M_{\alpha_s}, *logLambda5, *order) - \f$\alpha_s^(M_{\alpha_s})\f$
+     * @return AlsWithLambda(\f$M_{\alpha_s}\f$, *logLambda5, *order) - \f$\alpha_s(M_{\alpha_s})\f$
      */
     double ZeroNf5(double *logLambda5, double *order) const;
     

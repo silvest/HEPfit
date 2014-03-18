@@ -342,6 +342,13 @@ move("index_new.html", "html/index.html");
 close(INFILE);
 close(OUTFILE);
 
+if(!(copy("images/Model_inherit_graph.svg", "html/"))){
+    print colored ['Red'], "\n\tERROR:";
+    print " images/Model_inherit_graph.svg file not found.\n";
+    unlink(@tmpfiles);
+    exit(1)
+}
+
 print colored ['Green'], "\n\tPatching _page_models.html...\n";
 chomp(my $page_model_path = `find ./html -name "_page_models.html"`);
 if (!(-e $page_model_path)){
