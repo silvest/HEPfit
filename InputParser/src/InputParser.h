@@ -114,7 +114,7 @@ public:
 
     /**
      * @brief A get method to access the pointer to the object of the StandardModel class.
-     * @return myModel apointer to the object of the StandardModel class
+     * @return myModel a pointer to the object of the StandardModel class
      */
     StandardModel* getMyModel() const
     {
