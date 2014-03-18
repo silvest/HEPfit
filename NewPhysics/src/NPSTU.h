@@ -8,7 +8,6 @@
 #ifndef NPSTU_H
 #define	NPSTU_H
 
-#include <EW_BURGESS.h>
 #include "NPbase.h"
 
 /**

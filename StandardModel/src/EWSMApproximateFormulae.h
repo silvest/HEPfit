@@ -9,6 +9,7 @@
 #define	EWSMAPPROXIMATEFORMULAE_H
 
 #include <string>
+#include <math.h>
 #include "StandardModel.h"
 
 /**

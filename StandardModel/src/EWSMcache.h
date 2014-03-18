@@ -568,7 +568,7 @@ public:
     /**
      * @brief The strong coupling @f$\alpha_s(\mu)@f$. 
      * @param[in] mu renormalization scale @f$\mu@f$ in GeV
-     * @param[in] order order in %QCD (see orders)
+     * @param[in] order order in %QCD (see #orders)
      * @return @f$\alpha_s(\mu)@f$ at the given order
      */
     double Als(const double mu, const orders order) const
