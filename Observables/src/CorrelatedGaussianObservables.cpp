@@ -5,6 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include <stdexcept>
 #include "CorrelatedGaussianObservables.h"
 
 CorrelatedGaussianObservables::CorrelatedGaussianObservables(std::string name_i) 

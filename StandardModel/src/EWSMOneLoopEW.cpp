@@ -5,6 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include <stdexcept>
 #include "EWSMOneLoopEW.h"
 
 
