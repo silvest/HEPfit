@@ -150,7 +150,7 @@ void MonteCarlo::Run(const int rank)
                     double sbuff[obsbuffsize];
                     std::map<std::string, double> DPars;
                     pars.assign(recvbuff + 1, recvbuff + buffsize);
-                    for (int k = 0; k < pars.size(); k++) {
+                    for (unsigned int k = 0; k < pars.size(); k++) {
                         DPars[MCEngine.GetParameter(k)->GetName()] = pars[k];
                     }
                     myInputParser.getMyModel()->Update(DPars);

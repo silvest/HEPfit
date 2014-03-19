@@ -370,7 +370,7 @@ void MonteCarloEngine::MCMCIterationInterface()
 
     while (mychain < fMCMCNChains) {
         pars.clear();
-        for (int k = 0; k < npars; k++)
+        for (unsigned int k = 0; k < npars; k++)
             pars.push_back(fMCMCx.at(mychain * npars + k));
 
         fMCMCxvect.push_back(pars);
@@ -400,7 +400,7 @@ void MonteCarloEngine::MCMCIterationInterface()
             double sbuff[obsbuffsize];
             std::map<std::string, double> DPars;
             pars.assign(recvbuff + 1, recvbuff + buffsize);
-            for (int k = 0; k < pars.size(); k++) {
+            for (unsigned int k = 0; k < pars.size(); k++) {
                 DPars[GetParameter(k)->GetName()] = pars[k];
             }
             Mod->Update(DPars);
