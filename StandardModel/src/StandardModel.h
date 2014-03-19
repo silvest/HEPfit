@@ -1022,6 +1022,7 @@ private:
     bool requireCKM;///< An internal flag to control whether the %CKM matrix has to be recomputed.
     bool requireYe;///< An internal flag to control whether the charged-lepton Yukawa matrix has to be recomputed.
     bool requireYn;///<  An internal flag to control whether the neutrino Yukawa matrix has to be recomputed.
+    int rank; ///< Rank of the process for a MPI run. Value is 0 for a serial run.
 
 };
 

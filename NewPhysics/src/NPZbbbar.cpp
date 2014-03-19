@@ -9,6 +9,9 @@
 #include <EWSM.h>
 #include "NPZbbbar.h"
 #include "EWNPZbbbar.h"
+#ifdef _MPI
+#include <mpi.h>
+#endif
 
 
 const std::string NPZbbbar::ZbbbarVAVars[NZbbbarVars]
@@ -22,6 +25,11 @@ NPZbbbar::NPZbbbar(const bool FlagNPZbbbarLR_in)
 : NPbase(), FlagNPZbbbarLR(FlagNPZbbbarLR_in)
 {
     FlagNotLinearizedNP = false;
+#ifdef _MPI
+    rank = MPI::COMM_WORLD.Get_rank();
+#else
+    rank = 0;
+#endif
 }
 
 
@@ -29,7 +37,7 @@ bool NPZbbbar::InitializeModel()
 {
     /* do not use setModelInitialized(NPbase::InitializeModel()) in order to
      use EWNPZbbbar */
-    std::cout << "Model: " << ModelName() << std::endl;
+    if (rank == 0) std::cout << "\nModel: " << ModelName() << std::endl;
     myEWSM = new EWNPZbbbar(*this);
     setModelInitialized(true);
     return(IsModelInitialized());

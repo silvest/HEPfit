@@ -32,6 +32,11 @@ checkTheoryRange(checkHistRange_i)
     obval = NULL;
     obweight = NULL;
     Mod = NULL;
+#ifdef _MPI
+    rank = MPI::COMM_WORLD.Get_rank();
+#else
+    rank = 0;
+#endif
 };
 
 void MonteCarloEngine::Initialize(Model* Mod_i)
@@ -204,14 +209,14 @@ void MonteCarloEngine::DefineParameters()
     // parameters.at(i) or parameters[i], where i is the index
     // of the parameter. The indices increase from 0 according to the
     // order of adding the parameters.
-    std::cout << "Parameters varied in Monte Carlo:" << std::endl;
+    if (rank == 0) std::cout << "Parameters varied in Monte Carlo:" << std::endl;
     int k = 0;
     for (std::vector<ModelParameter>::const_iterator it = ModPars.begin();
             it < ModPars.end(); it++) {
         if (it->errf == 0. && it->errg == 0.)
             continue;
         AddParameter(it->name.c_str(), it->min, it->max);
-        std::cout << "  " << it->name << " " << k << std::endl;
+        if (rank == 0) std::cout << "  " << it->name << " " << k << std::endl;
         DPars[it->name] = 0.;
         if (it->errf == 0.) SetPriorGauss(k, it->ave, it->errg);
         else if (it->errg == 0.) SetPriorConstant(k);

@@ -105,15 +105,17 @@ void MonteCarlo::Run(const int rank)
         if (!myInputParser.getMyModel()->Init(DP))
             throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
 
-        std::cout << std::endl << "Running in MonteCarlo mode..." << std::endl;
+        if (rank == 0) std::cout << std::endl << "Running in MonteCarlo mode...\n" << std::endl;
 
         /* create a directory for outputs */
+        if (rank == 0){
         FileStat_t info;
-        if (gSystem->GetPathInfo(ObsDirName.c_str(), info) != 0) {
-            if (gSystem->MakeDirectory(ObsDirName.c_str()) == 0)
-                std::cout << ObsDirName << " directory has been created." << std::endl;
-            else
-                throw std::runtime_error("ERROR: " + ObsDirName + " director cannot be created.\n");
+            if (gSystem->GetPathInfo(ObsDirName.c_str(), info) != 0) {
+                if (gSystem->MakeDirectory(ObsDirName.c_str()) == 0)
+                    std::cout << ObsDirName << " directory has been created." << std::endl;
+                else
+                    throw std::runtime_error("ERROR: " + ObsDirName + " director cannot be created.\n");
+            }
         }
 
         MCEngine.SetName(ModelName.c_str());

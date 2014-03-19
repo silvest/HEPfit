@@ -285,6 +285,7 @@ private:
      * to electroweak observables are not linearized in \f$\delta g^b\f$.
      */
     bool FlagNotLinearizedNP;
+    int rank; ///< Rank of the process for a MPI run. Value is 0 for a serial run.
 
 
 };

@@ -251,6 +251,7 @@ private:
     bool FlagEpsilon2SM;///< A boolean flag that is true if only the SM contribution is considered for \f$\varepsilon_2\f$.
     bool FlagEpsilon3SM;///< A boolean flag that is true if only the SM contribution is considered for \f$\varepsilon_3\f$.
     bool FlagEpsilonbSM;///< A boolean flag that is true if only the SM contribution is considered for \f$\varepsilon_b\f$.
+    int rank; ///< Rank of the process for a MPI run. Value is 0 for a serial run.
 
     
 };
