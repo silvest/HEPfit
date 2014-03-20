@@ -9,6 +9,7 @@
 #define	OBSERVABLE2D_H
 
 #include "Observable.h"
+#include <TH2D.h>
 
 /**
  * @class Observable2D
@@ -66,6 +67,14 @@ public:
      * @brief The default destructor.
      */
     virtual ~Observable2D();
+
+    /**
+     * @brief A set method to set the likelihood from which the experimental likelihood of the observable will
+     * be read.
+     * @param filename the name of the file
+     * @param histoname the name of the histogram
+     */
+    virtual void setLikelihood(std::string filename, std::string histoname);
 
     /**
      * @brief A method to access the computed theory value of the second observable.
@@ -164,12 +173,28 @@ public:
         this->tho2 = tho2;
     }
 
+    /**
+     * @brief A method to compute the weight associated with the observable.
+     * @param[in] th1 the theoretical value of the first observable
+     * @param[in] th2 the theoretical value of the second observable
+     */
+    virtual double computeWeight(double th1, double th2);
+
+    /**
+     * @brief A method to compute the weight associated with the observable.
+     */
+    virtual double computeWeight()
+    {
+        return computeWeight(computeTheoryValue(),computeTheoryValue2());
+    }
+    
 private:
     std::string thname2; ///< The name for the second oservable as fixed in the ThObservable() class.
     std::string label2; ///< A label for the second observable.
     double min2; ///< The minimum value of the second observable.
     double max2; ///< The maximum valus of the second observable.
     ThObservable * tho2; ///< A pointer to an object of the ThObservable class.
+    TH2D * inhisto2d;  ///< 2D Histogram containing the experimental likelihood for the observable
 };
 
 #endif	/* OBSERVABLE2D_H */

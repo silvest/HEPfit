@@ -176,24 +176,7 @@ public:
      * to the chain information.
      */
     void AddChains();
-    
-    /**
-     * @brief This is used to calculate the weight associated with the value of the observable
-     * @param[in] obs a reference to an object of type Observable
-     * @param[in] th a reference to an object containing the value of the first theory observable
-     * @return the value of the weight
-     */
-    double Weight(const Observable& obs, const double& th);
-    
-    /**
-     * @brief This is used to calculate the weight associated with the value of the pair of observables
-     * @param[in] obs a reference to an object of type Observable2D
-     * @param[in] th1 a reference to an object containing the value of the first theory observable
-     * @param[in] th2 a reference to an object containing the value of the second theory observable
-     * @return the value of the weight
-     */
-    double Weight(const Observable2D& obs, const double& th1, const double& th2);
-    
+           
     /**
      * @brief This is used to calculate the weight associated with the value of correlated Gaussian observables
      * @param[in] obs a reference to an object of type CorrelatedGaussianObservables
@@ -247,7 +230,6 @@ private:
     Model* Mod; ///< A pointer to an abject of type Model.
     std::map<std::string, double> DPars; ///< A map between parameter names and their values.
     std::map<std::string, BCH1D * > Histo1D; ///< A map between pointers to objects of type BCH1D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
-    std::map<std::string, TH1D * > InHisto1D; ///< A map between pointers to objects of type TH1D (<a href="http://root.cern.ch/root/html/TH1D.html" target=blank>TH1D</a>) and their given names.
     std::map<std::string, BCH2D * > Histo2D; ///< A map between pointers to objects of type BCH2D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
     std::map<std::string, TH2D * > InHisto2D; ///< A map between pointers to objects of type TH2D (<a href="http://root.cern.ch/root/html/TH2D.html" target=blank>TH1D</a>) and their given names.
     std::map<std::string, double> thMin; ///< A map between the name of a theory observable and its minimum value.

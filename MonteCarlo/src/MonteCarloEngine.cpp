@@ -45,24 +45,6 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
     int k = 0, kweight = 0;
     for (std::vector<Observable>::iterator it = Obs_ALL.begin();
             it < Obs_ALL.end(); it++) {
-        if ((it->getDistr()).compare("file") == 0) {
-            TFile *lik = new TFile((it->getFilename() + ".root").c_str(), "read");
-            TH1D *htmp = (TH1D*) (lik->Get(it->getHistoname().c_str()));
-            if (htmp == NULL)
-                throw std::runtime_error("ERROR: nonexistent histogram called "
-                    + it->getHistoname() + " in "
-                    + it->getFilename() + ".root");
-            TH1D *inhisto = (TH1D *) htmp->Clone((it->getFilename() + "_" + it->getHistoname()).c_str());
-            inhisto->SetDirectory(gROOT);
-            InHisto1D[it->getFilename() + it->getHistoname()] = inhisto;
-            std::cout << "added input histogram "
-                    << InHisto1D[it->getFilename() + it->getHistoname()]->GetName()
-                    << std::endl;
-            it->setMin(inhisto->GetXaxis()->GetXmin());
-            it->setMax(inhisto->GetXaxis()->GetXmax());
-            lik->Close();
-            delete lik;
-        }
         if (it->isTMCMC()) {
             Obs_MCMC.push_back(*it);
         } else {
@@ -83,24 +65,6 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin();
             it < Obs2D_ALL.end(); it++) {
         if ((it->getDistr()).compare("file") == 0) {
-            TFile *lik2 = new TFile((it->getFilename() + ".root").c_str(), "read");
-            TH2D *htmp2 = (TH2D*) (lik2->Get(it->getHistoname().c_str()));
-            if (htmp2 == NULL)
-                throw std::runtime_error("ERROR: nonexistent histogram called "
-                    + it->getHistoname()
-                    + " in " + it->getFilename() + ".root");
-            TH2D *inhisto2 = (TH2D *) htmp2->Clone((it->getFilename() + "_" + it->getHistoname()).c_str());
-            inhisto2->SetDirectory(gROOT);
-            InHisto2D[it->getFilename() + it->getHistoname()] = inhisto2;
-            std::cout << "added 2D input histogram "
-                    << InHisto2D[it->getFilename() + it->getHistoname()]->GetName()
-                    << std::endl;
-            it->setMin(inhisto2->GetXaxis()->GetXmin());
-            it->setMax(inhisto2->GetXaxis()->GetXmax());
-            it->setMin2(inhisto2->GetYaxis()->GetXmin());
-            it->setMax2(inhisto2->GetYaxis()->GetXmax());
-            lik2->Close();
-            delete lik2;
             if (it->isTMCMC()) {
                 Obs2D_MCMC.push_back(*it);
             } else
@@ -192,9 +156,6 @@ MonteCarloEngine::~MonteCarloEngine()
     for (std::map<std::string, BCH2D *>::iterator it = Histo2D.begin();
             it != Histo2D.end(); it++)
         delete it->second;
-    for (std::map<std::string, TH1D *>::iterator it = InHisto1D.begin();
-            it != InHisto1D.end(); it++)
-        delete it->second;
     for (std::map<std::string, TH2D *>::iterator it = InHisto2D.begin();
             it != InHisto2D.end(); it++)
         delete it->second;
@@ -235,51 +196,6 @@ void MonteCarloEngine::DefineParameters()
 }
 
 // ---------------------------------------------------------
-
-double MonteCarloEngine::Weight(const Observable& obs, const double& th)
-{
-    double logprob;
-    if (obs.getDistr().compare("weight") == 0) {
-        if (obs.getErrf() == 0.)
-            logprob = BCMath::LogGaus(th, obs.getAve(), obs.getErrg());
-        else if (obs.getErrg() == 0.) {
-            if (th < obs.getAve() + obs.getErrf() && th > obs.getAve() - obs.getErrf())
-                logprob = 1.;
-            else
-                logprob = log(0.);
-        } else
-            logprob = log(TMath::Erf((th - obs.getAve() + obs.getErrf()) / sqrt(2.) / obs.getErrg())
-                - TMath::Erf((th - obs.getAve() - obs.getErrf()) / sqrt(2.) / obs.getErrg()));
-    } else if (obs.getDistr().compare("file") == 0) {
-        TH1D * h = InHisto1D[obs.getFilename() + obs.getHistoname()];
-        int i = h->FindBin(th);
-        if (h->IsBinOverflow(i) || h->IsBinUnderflow(i))
-            logprob = log(0.);
-        else
-            logprob = log(h->GetBinContent(i));
-        //logprob = log(h->GetBinContent(h->FindBin(th)));
-    } else
-        throw std::runtime_error("ERROR: MonteCarloEngine::Weight() called without weight for "
-            + obs.getName());
-    return (logprob);
-}
-
-double MonteCarloEngine::Weight(const Observable2D& obs, const double& th1, const double& th2)
-{
-    double logprob;
-    if (obs.getDistr().compare("file") == 0) {
-        TH2D * h = InHisto2D[obs.getFilename() + obs.getHistoname()];
-        int i = h->FindBin(th1, th2);
-        if (h->IsBinOverflow(i) || h->IsBinUnderflow(i))
-            logprob = log(0.);
-        else
-            logprob = log(h->GetBinContent(i));
-        //logprob = log(h->GetBinContent(h->GetXaxis()->FindBin(th1),h->GetYaxis()->FindBin(th2)));
-    } else
-        throw std::runtime_error("ERROR: 2D MonteCarloEngine::Weight() called without file for "
-            + obs.getName());
-    return (logprob);
-}
 
 double MonteCarloEngine::Weight(const CorrelatedGaussianObservables& obs)
 {
@@ -327,14 +243,11 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters)
 #endif
 
     for (std::vector<Observable>::iterator it = Obs_MCMC.begin(); it < Obs_MCMC.end(); it++) {
-        double th = it->computeTheoryValue();
-        logprob += Weight(*it, th);
+        logprob += it->computeWeight();
     }
 
     for (std::vector<Observable2D>::iterator it = Obs2D_MCMC.begin(); it < Obs2D_MCMC.end(); it++) {
-        double th1 = it->computeTheoryValue();
-        double th2 = it->computeTheoryValue2();
-        logprob += Weight(*it, th1, th2);
+        logprob += it->computeWeight();
     }
 
     for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++) {
@@ -452,7 +365,7 @@ void MonteCarloEngine::MCMCIterationInterface()
                     if (!it->isTMCMC()) {
                         obval[index_chain[il] * kmax + ko++] = th;
                         if (it->getDistr().compare("noweight") != 0) {
-                            obweight[index_chain[il] * kwmax + kweight++] = Weight(*it, th);
+                            obweight[index_chain[il] * kwmax + kweight++] = it->computeWeight(th);
                         }
                     }
                 }

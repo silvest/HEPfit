@@ -11,6 +11,7 @@
 #include <string>
 #include <iostream>
 #include "ThObservable.h"
+#include <TH1D.h>
 
 /**
  * @class Observable
@@ -56,6 +57,20 @@ public:
      * @brief A method to access the computed theory value of the observable.
      */
     double computeTheoryValue();
+
+    /**
+     * @brief A method to compute the weight associated with the observable.
+     * @param[in] th the theoretical value of the observable
+     */
+    virtual double computeWeight(double th);
+
+    /**
+     * @brief A method to compute the weight associated with the observable.
+     */
+    virtual double computeWeight()
+    {
+        return computeWeight(computeTheoryValue());
+    }
 
     /**
      * @brief A get method to access the average value of the observable.
@@ -139,14 +154,12 @@ public:
     }
     
     /**
-     * @brief A set method to set the filename from which the experimental likelihood of the observable will
+     * @brief A set method to set the likelihood from which the experimental likelihood of the observable will
      * be read.
      * @param filename the name of the file
+     * @param histoname the name of the histogram
      */
-    void setFilename(std::string filename)
-    {
-        this->filename = filename;
-    }
+    virtual void setLikelihood(std::string filename, std::string histoname);
 
     /**
      * @brief A get method to access the name for the histogram of the observable.
@@ -155,15 +168,6 @@ public:
     std::string getHistoname() const
     {
         return histoname;
-    }
-
-    /**
-     * @brief A set method to fix the name of the histogram for the observable.
-     * @param[in] histoname name of the histogram of the observable
-     */
-    void setHistoname(std::string histoname)
-    {
-        this->histoname = histoname;
     }
 
     /**
@@ -314,6 +318,7 @@ protected:
     double min; ///< The minimum value of the observable.
     double max; ///< The maximum valus of the observable.
     bool tMCMC; ///< The flag to include or exclude the observable from the MCMC run.
+    TH1D * inhisto; ///< 1D Histogram containing the experimental likelihood for the observable
 };
 
 

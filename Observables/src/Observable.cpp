@@ -6,6 +6,12 @@
  */
 
 #include "Observable.h"
+#include <BAT/BCMath.h>
+#include <TNamed.h>
+#include <TFile.h>
+#include <TROOT.h>
+#include <TMath.h>
+
 
 Observable::Observable (const std::string name_i,
                         const std::string thname_i,
@@ -60,8 +66,55 @@ std::ostream& operator<<(std::ostream& output, const Observable& o)
     return output;
 }
 
+void Observable::setLikelihood(std::string filename, std::string histoname)
+    {
+        this->filename = filename;
+        this->histoname = histoname;
+        TFile *lik = new TFile((filename + ".root").c_str(), "read");
+        TH1D *htmp = (TH1D*) (lik->Get(histoname.c_str()));
+        if (htmp == NULL)
+            throw std::runtime_error("ERROR: nonexistent histogram called "
+                    + histoname + " in "
+                    + filename + ".root");
+        inhisto = (TH1D *) htmp->Clone((filename + "_" + histoname).c_str());
+        inhisto->SetDirectory(gROOT);
+        std::cout << "added input histogram " << inhisto->GetName() << std::endl;
+        setMin(inhisto->GetXaxis()->GetXmin());
+        setMax(inhisto->GetXaxis()->GetXmax());
+        lik->Close();
+        delete lik;
+    }
+
+
 double Observable::computeTheoryValue()
 {
     return tho->computeThValue();
+}
+
+double Observable::computeWeight(double th)
+{
+    double logprob;
+    if (distr.compare("weight") == 0) {
+        if (errf == 0.)
+            logprob = BCMath::LogGaus(th, ave, errg);
+        else if (errg == 0.) {
+            if (th < ave + errf && th > ave - errf)
+                logprob = 1.;
+            else
+                logprob = log(0.);
+        } else
+            logprob = log(TMath::Erf((th - ave + errf) / sqrt(2.) / errg)
+                - TMath::Erf((th - ave - errf) / sqrt(2.) / errg));
+    } else if (distr.compare("file") == 0) {
+        int i = inhisto->FindBin(th);
+        if (inhisto->IsBinOverflow(i) || inhisto->IsBinUnderflow(i))
+            logprob = log(0.);
+        else
+            logprob = log(inhisto->GetBinContent(i));
+        //logprob = log(h->GetBinContent(h->FindBin(th)));
+    } else
+        throw std::runtime_error("ERROR: MonteCarloEngine::Weight() called without weight for "
+            + name);
+    return (logprob);
 }
 

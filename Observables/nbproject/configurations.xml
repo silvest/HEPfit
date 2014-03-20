@@ -5,6 +5,7 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>src/CorrelatedGaussianObservables.h</itemPath>
+      <itemPath>src/HiggsObservable.h</itemPath>
       <itemPath>src/ModelObservable.h</itemPath>
       <itemPath>src/ModelParaVsObs.h</itemPath>
       <itemPath>src/ModelParameter.h</itemPath>
@@ -21,6 +22,7 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/CorrelatedGaussianObservables.cpp</itemPath>
+      <itemPath>src/HiggsObservable.cpp</itemPath>
       <itemPath>src/ModelParaVsObs.cpp</itemPath>
       <itemPath>src/ModelParameter.cpp</itemPath>
       <itemPath>src/Observable.cpp</itemPath>
@@ -53,6 +55,7 @@
             <pElem>../gslpp/src</pElem>
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
+            <pElem>../BAT/include</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -68,6 +71,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="src/HiggsObservable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsObservable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ModelObservable.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -132,6 +139,10 @@
             tool="3"
             flavor2="0">
       </item>
+      <item path="src/HiggsObservable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsObservable.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/ModelObservable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ModelParaVsObs.cpp" ex="false" tool="1" flavor2="0">
@@ -194,6 +205,10 @@
             ex="false"
             tool="3"
             flavor2="0">
+      </item>
+      <item path="src/HiggsObservable.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsObservable.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ModelObservable.h" ex="false" tool="3" flavor2="0">
       </item>
