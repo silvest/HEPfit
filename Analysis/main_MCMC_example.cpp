@@ -6,7 +6,9 @@
  */
 
 #include <iostream>
-#include <MonteCarlo.h>
+#include <SusyFit.h>
+
+/* Necessary if MPI support is enabled during compilation. */
 #ifdef _MPI
 #include <mpi.h>
 #endif
@@ -14,6 +16,7 @@
 int main(int argc, char** argv) 
 {
 
+/* Necessary if MPI support is enabled during compilation. */
 #ifdef _MPI
     MPI::Init();
     int rank = MPI::COMM_WORLD.Get_rank();
@@ -27,7 +30,7 @@ int main(int argc, char** argv)
         
         if(argc != 3){
             /* Print usage and exit. */
-            std::cout << "\nusage: " << argv[0] << " ModelConf.conf MonteCarlo.conf\n" << std::endl;
+            if (rank == 0) std::cout << "\nusage: " << argv[0] << " ModelConf.conf MonteCarlo.conf\n" << std::endl;
             return EXIT_SUCCESS;
         }
 
@@ -65,7 +68,8 @@ int main(int argc, char** argv)
         
         /* Initiate the Mote Carlo run. */
         MC.Run(rank);
-        
+
+/* Necessary if MPI support is enabled during compilation. */
 #ifdef _MPI
         MPI::Finalize();
 #endif
