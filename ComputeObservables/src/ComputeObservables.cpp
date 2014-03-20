@@ -8,8 +8,9 @@
 #include "ComputeObservables.h"
 #include <boost/algorithm/string/predicate.hpp>
 
-ComputeObservables::ComputeObservables(const std::string& ModelConf_i)
-: myInputParser()
+ComputeObservables::ComputeObservables(const std::string& ModelConf_i, const int rank_i)
+: myInputParser(),
+  rank(rank_i)
 {
     std::vector<ModelParameter> ModPars;
     std::vector<Observable> Obs;
@@ -17,7 +18,7 @@ ComputeObservables::ComputeObservables(const std::string& ModelConf_i)
     std::vector<CorrelatedGaussianObservables> CGO;
     std::vector<ModelParaVsObs> ParaObs;
 
-    std::string ModelName = myInputParser.ReadParameters(ModelConf_i, ModPars, Obs, Obs2D, CGO, ParaObs);
+    std::string ModelName = myInputParser.ReadParameters(ModelConf_i, rank, ModPars, Obs, Obs2D, CGO, ParaObs);
     std::map<std::string, double> DP;
     for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
         DP[it->name] = it->ave;
@@ -40,9 +41,12 @@ ComputeObservables::ComputeObservables(const std::string& ModelConf_i)
         throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
 }
 
-ComputeObservables::ComputeObservables(const std::string& ModelName_i, std::map<std::string, double> DPars_i)
+ComputeObservables::ComputeObservables(const std::string& ModelName_i,
+                                       std::map<std::string, double> DPars_i,
+                                       const int rank_i)
 : ModelName(ModelName_i),
-  myInputParser()
+  myInputParser(),
+  rank(rank_i)
 {
     for (std::map<std::string, double>::iterator it = DPars_i.begin(); it != DPars_i.end(); it++) {
         paraNames.push_back(it->first);
@@ -50,8 +54,13 @@ ComputeObservables::ComputeObservables(const std::string& ModelName_i, std::map<
     Mod = myInputParser.ModelFactory(ModelName);
     Mod->setModelName(ModelName);
     Mod->InitializeModel();
+    if (Mod->IsModelInitialized()) {
+        if (rank == 0) std::cout << "\nModel Initialized: " << ModelName << std::endl;
+    } else {
+        throw std::runtime_error("\nERROR: " + ModelName + " not initialized successfully.\n");
+    }
     thf = new ThFactory(*Mod);
-    if (!Mod->Init(DPars_i)) 
+    if (!Mod->Init(DPars_i))
         throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
 }
 
@@ -69,7 +78,7 @@ void ComputeObservables::setFlags(std::map<std::string, std::string> DFlags_i)
         } else if (boost::iequals(it->second, "false") && !Mod->setFlag(it->first, 0)) {
             throw std::runtime_error("ERROR: setFlag error for " + it->first);
         } else {
-            std::cout << "set flag " << it->first << " = " << it->second << std::endl;
+            if (rank == 0) std::cout << "set flag " << it->first << " = " << it->second << std::endl;
         }
     }
 }

@@ -9,9 +9,6 @@
 #include <EWSM.h>
 #include "NPEpsilons.h"
 #include "EWNPEpsilons.h"
-#ifdef _MPI
-#include <mpi.h>
-#endif
 
 const std::string NPEpsilons::EPSILONvars[NEPSILONvars] 
 = {"epsilon_1", "epsilon_2", "epsilon_3", "epsilon_b"};
@@ -24,11 +21,6 @@ NPEpsilons::NPEpsilons()
     FlagEpsilon2SM = false;
     FlagEpsilon3SM = false;
     FlagEpsilonbSM = false;
-#ifdef _MPI
-    rank = MPI::COMM_WORLD.Get_rank();
-#else
-    rank = 0;
-#endif
 }
 
 
@@ -36,7 +28,6 @@ bool NPEpsilons::InitializeModel()
 {
     /* do not use setModelInitialized(NPbase::InitializeModel()) in order to
      use EWNPEpsilons */
-    if (rank == 0) std::cout << "\nModel: " << ModelName() << std::endl;
     myEWSM = new EWNPEpsilons(*this);
     setModelInitialized(true);
     return(IsModelInitialized());

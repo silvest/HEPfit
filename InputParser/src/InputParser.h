@@ -82,22 +82,24 @@ public:
     
      /**
      * @brief The method used to create an object of the model being used.
+     * @param[in] ModelName name of the model 
      */
     StandardModel* ModelFactory(std::string& ModelName);
     
     /**
      * @brief Responsible for parsing the SomeModel.conf file.
      * @details This method parses the SomeModel.conf file for all input instructions. The algorithm
-     * is as folows:
+     * is as follows:
      * \li Search for the predefined names of the available models, initialize the necessary model
      * class and build a ThFactory for that model to define the observables.
-     * \li Seach and read the ModelParameter list.
+     * \li Search and read the ModelParameter list.
      * \li Search and read the Observable list using the ParseObservable() method.
      * \li Search and read the Observable2D list using the ParseObservable() method.
      * \li Search and read the CorrelatedGaussianObservables.
      * \li Search and read the ModelParaVsObs.
      * \li Return the name of the model initialized.
      * @param[in] filename name of the SomeModel.conf file passed as an argument to the executable
+     * @param[in] rank the rank of the process in an MPI run (set to 0 for a serial run)
      * @param[out] ModelPars the vector of model parameters
      * @param[out] Observables the vector of observables
      * @param[out] Observables2D the vector of observable pairs
@@ -106,11 +108,12 @@ public:
      * @return modname the name of the model initialized
      */
     std::string ReadParameters(const std::string filename,
-            std::vector<ModelParameter>& ModelPars,
-            std::vector<Observable>& Observables,
-            std::vector<Observable2D>& Observables2D,
-            std::vector<CorrelatedGaussianObservables>& CGO,
-            std::vector<ModelParaVsObs>& ParaObs);
+                               const int rank,
+                               std::vector<ModelParameter>& ModelPars,
+                               std::vector<Observable>& Observables,
+                               std::vector<Observable2D>& Observables2D,
+                               std::vector<CorrelatedGaussianObservables>& CGO,
+                               std::vector<ModelParaVsObs>& ParaObs);
 
     /**
      * @brief A get method to access the pointer to the object of the StandardModel class.

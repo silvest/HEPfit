@@ -14,19 +14,12 @@
 #include <Observable2D.h>
 #include <StandardModel.h>
 #include <NPSTU.h>
-#include <NPSTUVWXY.h>
 #include <NPEpsilons.h>
 #include <NPEpsilons_pureNP.h>
 #include <NPHiggs.h>
 #include <NPZbbbar.h>
 #include <NPEffective1.h>
 #include <NPEffective2.h>
-#include <GeneralSUSY.h>
-#include <pMSSM.h>
-#include <SUSYMassInsertion.h>
-#include <MFV.h>
-#include <SUSY.h>
-#include <THDM.h>
 #include <CorrelatedGaussianObservables.h>
 #include <ModelParaVsObs.h>
 #include <ModelParameter.h>
@@ -59,9 +52,10 @@ public:
      * It is to be used to compute observables using of a SomeModel.conf file to initialize
      * the mandatory parameters.
      * @param[in] ModelConf_i the name of the input configuration file for the model name,
+     * @param[in] rank_i the rank of the process in a MPI run (set to 0 for serial run)
      * the model parameters and observables to be calculated
      */
-    ComputeObservables(const std::string& ModelConf_i);
+    ComputeObservables(const std::string& ModelConf_i, const int rank_i = 0);
     
     /**
      * @brief Constructor.
@@ -69,8 +63,11 @@ public:
      * It is to be used to compute observables without the use of a SomeModel.conf file.
      * @param[in] ModelName_i the name of the model being used
      * @param[in] DPars_i the mandatory parameters of the model being used
+     * @param[in] rank_i the rank of the process in a MPI run (set to 0 for serial run)
      */
-    ComputeObservables(const std::string& ModelName_i, std::map<std::string, double> DPars_i);
+    ComputeObservables(const std::string& ModelName_i,
+                       std::map<std::string, double> DPars_i,
+                       const int rank_i = 0);
     
     /**
      * @brief The default destructor.
@@ -121,6 +118,7 @@ private:
     std::map<std::string, double> DObs; ///< Map of the observables to be computed. 
     std::map<std::string, std::string> DFlags; ///< Map of the model flags to be passed to Model.
     std::vector<std::string> paraNames;///< The vector of allowed parameter names.
+    const int rank; ///<< Rank of the MPI process. Set to 0 for serial run. 
 
 };
 

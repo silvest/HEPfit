@@ -66,7 +66,7 @@ void GenerateEvent::generate(const int rank, int unsigned nIteration, int seed)
     }
     try {
         /* set model parameters */
-        std::string ModelName = myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs);
+        std::string ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, ParaObs);
         if (Obs.size() == 0 && CGO.size() == 0) throw std::runtime_error("\nGenerateEvent::generate(): No observables or correlated Gaussian observables defined in SomeModel.conf file\n");
         std::ofstream summary;
         if (outputTerm == 1){

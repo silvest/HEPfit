@@ -51,7 +51,7 @@ void MonteCarlo::TestRun(int rank) {
     }
     
     if (rank == 0){
-        std::string ModelName = myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs);
+        std::string ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, ParaObs);
         std::map<std::string, double> DP;
         if (Obs.size() == 0 && CGO.size() == 0) throw std::runtime_error("\nMonteCarlo::TestRun(): No observables or correlated Gaussian observables defined in SomeModel.conf file\n");
 
@@ -93,7 +93,7 @@ void MonteCarlo::Run(const int rank)
     try {
 
         /* set model parameters */
-        std::string ModelName = myInputParser.ReadParameters(ModelConf, ModPars, Obs, Obs2D, CGO, ParaObs);
+        std::string ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, ParaObs);
         int buffsize = 0;
         std::map<std::string, double> DP;
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {

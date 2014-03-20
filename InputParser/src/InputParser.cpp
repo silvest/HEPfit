@@ -98,6 +98,7 @@ StandardModel* InputParser::ModelFactory(std::string& ModelName){
 }
 
 std::string InputParser::ReadParameters(const std::string filename,
+                                        const int rank,
                                         std::vector<ModelParameter>& ModelPars,
                                         std::vector<Observable>& Observables,
                                         std::vector<Observable2D>& Observables2D,
@@ -124,6 +125,11 @@ std::string InputParser::ReadParameters(const std::string filename,
             myModel = ModelFactory(modname);
             myModel->setModelName(modname);
             myModel->InitializeModel();
+            if (myModel->IsModelInitialized()) {
+                if (rank == 0) std::cout << "\nModel Initialized: " << modname << std::endl;
+            } else {
+                throw std::runtime_error("\nERROR: " + modname + " not initialized successfully.\n");
+            }
             thf = new ThFactory(*myModel);
             modelset = 1;
             continue;
@@ -293,14 +299,14 @@ std::string InputParser::ReadParameters(const std::string filename,
                 if (!myModel->setFlag(flagname, value_bool))
                     throw std::runtime_error("ERROR: setFlag error for " + flagname);
                 else
-                    std::cout << "set flag " << flagname << "=" << *beg << std::endl;
+                    if (rank == 0) std::cout << "set flag " << flagname << "=" << *beg << std::endl;
             } else {
                 /* String flags */
                 std::string value_str = *beg;
                 if (!myModel->setFlagStr(flagname, value_str))
                     throw std::runtime_error("ERROR: setFlag error for " + flagname);
                 else
-                    std::cout << "set flag " << flagname << "=" << value_str << std::endl;
+                    if (rank == 0) std::cout << "set flag " << flagname << "=" << value_str << std::endl;
             }
             ++beg;
             if (beg != tok.end())
