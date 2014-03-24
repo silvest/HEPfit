@@ -6,20 +6,24 @@
  */
 
 #include "SUSYMassInsertionMatching.h"
-#include "gslpp.h"
-#include "gsl/gsl_sf_dilog.h"
-#include <stdexcept>
+#include "SUSYMassInsertion.h" 
 
 using namespace gslpp;
 
 SUSYMassInsertionMatching::SUSYMassInsertionMatching(const SUSYMassInsertion & SUSYMassInsertion_i):
-        StandardModelMatching(SUSYMassInsertion_i), SusyMI(SUSYMassInsertion_i), 
-        drNDRLRI(5, 5, 0.), mcd2(5, NDR, NLO), mcd1(10, NDR, NLO), 
-        mcbd(5, NDR, NLO), mcbs(5, NDR, NLO), mck2(5, NDR, NLO) {
+        
+    StandardModelMatching(SUSYMassInsertion_i), 
+    SusyMI(SUSYMassInsertion_i), 
+        
+    drNDRLRI(5, 5, 0.), 
+    mcd2(5, NDR, NLO), 
+    mcd1(10, NDR, NLO), 
+    mcbd(5, NDR, NLO), mcbs(5, NDR, NLO), mck2(5, NDR, NLO) {
     
     Nf = 6;
     
     double Nc = SusyMI.getNc();
+    
     drNDRLRI(0,0) = -(((-1. + Nc)*(-7. + log(4096.))) / Nc);                   
     drNDRLRI(1,1) = (-2.*(-1. + 6.*Nc*Nc - 8.*log(2.) + Nc*(-13. + log(1024.))))/(3.*Nc);
     drNDRLRI(1,2) = (-2.*(13. - 10.*log(2.) + Nc*(-5. + log(256.))))/(3.*Nc);   
@@ -29,6 +33,7 @@ SUSYMassInsertionMatching::SUSYMassInsertionMatching(const SUSYMassInsertion & S
     drNDRLRI(3,4) = 2. - log(4.);
     drNDRLRI(4,3) = -2.*(1. + log(2.));
     drNDRLRI(4,4) = (2. + log(4.))/Nc;
+
 }
 
 // delta F = 1 loop functions
@@ -1369,4 +1374,3 @@ void SUSYMassInsertionMatching::LRItoNDR(int i){
             throw std::runtime_error("SUSYMassInsertionMatching::LRItoNDR : change of scheme not implemented"); 
     }
 }
-
