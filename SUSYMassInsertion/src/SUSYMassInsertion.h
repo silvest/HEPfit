@@ -10,6 +10,7 @@
 
 #include <gslpp.h>
 #include <StandardModel.h>
+#include "SUSYMassInsertionMatching.h" 
 
 using namespace gslpp;
 
@@ -33,21 +34,39 @@ public:
      * @brief SUSYMassInsertion destructor
      */
     virtual ~SUSYMassInsertion();
-
-    /**
-     * @brief a method to update SM and SUSY parameters found in the argument
-     * @param a map containing the parameters (all as double) to be updated
-     */
-    virtual bool Update(const std::map<std::string, double>&);
-
+    
+    virtual bool InitializeModel();
+    
+    virtual SUSYMassInsertionMatching* getMyMatching() const
+    {
+        return mySUSYMIA;
+    }
+ 
+     ///////////////////////////////////////////////////////////////////////////
+    // Parameters 
+    
     /**
      * @brief a method to check the correct assignment forthe value of
      *  all the SM and SUSY parameters in respect to the one in Model.conf
      * @param a map containing the parameters (all as double) to be updated
      * @return a boolean true or false value
      */
-    virtual bool Init(const std::map<std::string, double>&);
+    virtual bool Init(const std::map<std::string, double>& DPars);
 
+    virtual bool PreUpdate();
+    /**
+     * @brief a method to update SM and SUSY parameters found in the argument
+     * @param a map containing the parameters (all as double) to be updated
+     */
+    virtual bool Update(const std::map<std::string, double>& DPars);
+
+    virtual bool PostUpdate();
+    
+    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
+    
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // functions for the input parameters of SUSY MIA model
     /**
      * 
      * @return the gluino mass
@@ -257,10 +276,13 @@ protected:
     
     double rDDRR11, rDDRR12, rDDRR13, rDDRR21, rDDRR22, rDDRR23, rDDRR31, rDDRR32, rDDRR33;
     double iDDRR11, iDDRR12, iDDRR13, iDDRR21, iDDRR22, iDDRR23, iDDRR31, iDDRR32, iDDRR33;
+
+private:    
+    SUSYMassInsertionMatching* mySUSYMIA;
+
 };        
 
 #endif	/* SUSYMASSINSERTION_H */
-
 
 
 

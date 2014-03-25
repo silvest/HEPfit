@@ -8,15 +8,19 @@
 #ifndef SUSYMASSINSERTIONMATCHING_H
 #define	SUSYMASSINSERTIONMATCHING_H
 
-#include "SUSYMassInsertion.h" 
-#include "StandardModelMatching.h"
+#include <gslpp.h>
+#include <gsl/gsl_sf_dilog.h>
+#include <stdexcept>
+#include <StandardModelMatching.h>
 
-using namespace gslpp;
+class SUSYMassInsertion;
 
-class SUSYMassInsertionMatching: public StandardModelMatching{
     /**
      * @class SUSYMassInsertionMatching class
-     * @brief contains the SUSY matching conditions
+     * @ingroup SUSYMassInsertion
+     * @brief A class for the matching of SUSY MIA.
+     * @author SusyFit Collaboration
+     * @copyright GNU General Public License
      * @details this class contains the Wilson Coefficients at the SUSY matching scale
      * for \f$ \Delta F = 1 \f$ and \f$ \Delta F = 2 \f$ processes in the mass insertion approximation;
      * references: 
@@ -24,6 +28,7 @@ class SUSYMassInsertionMatching: public StandardModelMatching{
      * \Delta F = 1 \f$ Wilson coefficients: F.Gabbiani et al, hep-ph/9604387
      * @param SUSYMassInsertion_i object of type SUSYMassInsertion
      */
+class SUSYMassInsertionMatching: public StandardModelMatching{
 public :
     /**
      * @brief constructor
@@ -277,5 +282,4 @@ private:
 };
 
 #endif	/* SUSYMASSINSERTIONMATCHING_H */
-
 

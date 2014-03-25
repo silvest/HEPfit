@@ -7,72 +7,161 @@
 
 #include "SUSYMassInsertion.h"
 
-SUSYMassInsertion::SUSYMassInsertion():StandardModel(),
-    Du_LL(3,0.), Du_LR(3,0.), Du_RL(3,0.), Du_RR(3,0.),
-    Dd_LL(3,0.), Dd_LR(3,0.), Dd_RL(3,0.), Dd_RR(3,0.){
-    
-    rDULL11=0.; rDULL12=0.; rDULL13=0.; rDULL21=0.; rDULL22=0.; rDULL23=0.; rDULL31=0.; rDULL32=0.; rDULL33=0.;
-    iDULL11=0.; iDULL12=0.; iDULL13=0.; iDULL21=0.; iDULL22=0.; iDULL23=0.; iDULL31=0.; iDULL32=0.; iDULL33=0.;
-    
-    rDURL11=0.; rDURL12=0.; rDURL13=0.; rDURL21=0.; rDURL22=0.; rDURL23=0.; rDURL31=0.; rDURL32=0.; rDURL33=0.;
-    iDURL11=0.; iDURL12=0.; iDURL13=0.; iDURL21=0.; iDURL22=0.; iDURL23=0.; iDURL31=0.; iDURL32=0.; iDURL33=0.;
-    
-    rDULR11=0.; rDULR12=0.; rDULR13=0.; rDULR21=0.; rDULR22=0.; rDULR23=0.; rDULR31=0.; rDULR32=0.; rDULR33=0.;
-    iDULR11=0.; iDULR12=0.; iDULR13=0.; iDULR21=0.; iDULR22=0.; iDULR23=0.; iDULR31=0.; iDULR32=0.; iDULR33=0.;
-    
-    rDURR11=0.; rDURR12=0.; rDURR13=0.; rDURR21=0.; rDURR22=0.; rDURR23=0.; rDURR31=0.; rDURR32=0.; rDURR33=0.;
-    iDURR11=0.; iDURR12=0.; iDURR13=0.; iDURR21=0.; iDURR22=0.; iDURR23=0.; iDURR31=0.; iDURR32=0.; iDURR33=0.;
-    
-    rDDLL11=0.; rDDLL12=0.; rDDLL13=0.; rDDLL21=0.; rDDLL22=0.; rDDLL23=0.; rDDLL31=0.; rDDLL32=0.; rDDLL33=0.;
-    iDDLL11=0.; iDDLL12=0.; iDDLL13=0.; iDDLL21=0.; iDDLL22=0.; iDDLL23=0.; iDDLL31=0.; iDDLL32=0.; iDDLL33=0.;
-    
-    rDDRL11=0.; rDDRL12=0.; rDDRL13=0.; rDDRL21=0.; rDDRL22=0.; rDDRL23=0.; rDDRL31=0.; rDDRL32=0.; rDDRL33=0.;
-    iDDRL11=0.; iDDRL12=0.; iDDRL13=0.; iDDRL21=0.; iDDRL22=0.; iDDRL23=0.; iDDRL31=0.; iDDRL32=0.; iDDRL33=0.;
-    
-    rDDLR11=0.; rDDLR12=0.; rDDLR13=0.; rDDLR21=0.; rDDLR22=0.; rDDLR23=0.; rDDLR31=0.; rDDLR32=0.; rDDLR33=0.;
-    iDDLR11=0.; iDDLR12=0.; iDDLR13=0.; iDDLR21=0.; iDDLR22=0.; iDDLR23=0.; iDDLR31=0.; iDDLR32=0.; iDDLR33=0.;
-    
-    rDDRR11=0.; rDDRR12=0.; rDDRR13=0.; rDDRR21=0.; rDDRR22=0.; rDDRR23=0.; rDDRR31=0.; rDDRR32=0.; rDDRR33=0.;
-    iDDRR11=0.; iDDRR12=0.; iDDRR13=0.; iDDRR21=0.; iDDRR22=0.; iDDRR23=0.; iDDRR31=0.; iDDRR32=0.; iDDRR33=0.;
-    
-}
-
 const std::string SUSYMassInsertion::SusyMIvars[NSusyMIvars] = {"Msq", "m3", "MuM",
       
-    "rDULL11", "rDULL12", "rDULL13", "rDULL21", "rDULL22", "rDULL23", "rDULL31", "rDULL32", "rDULL33",
-    "iDULL11", "iDULL12", "iDULL13", "iDULL21", "iDULL22", "iDULL23", "iDULL31", "iDULL32", "iDULL33",
+        "rDULL11", "rDULL12", "rDULL13", "rDULL21", "rDULL22", "rDULL23", 
+        "rDULL31", "rDULL32", "rDULL33", "iDULL11", "iDULL12", "iDULL13", 
+        "iDULL21", "iDULL22", "iDULL23", "iDULL31", "iDULL32", "iDULL33",
     
-    "rDURL11", "rDURL12", "rDURL13", "rDURL21", "rDURL22", "rDURL23", "rDURL31", "rDURL32", "rDURL33",
-    "iDURL11", "iDURL12", "iDURL13", "iDURL21", "iDURL22", "iDURL23", "iDURL31", "iDURL32", "iDURL33",
+        "rDURL11", "rDURL12", "rDURL13", "rDURL21", "rDURL22", "rDURL23", 
+        "rDURL31", "rDURL32", "rDURL33", "iDURL11", "iDURL12", "iDURL13", 
+        "iDURL21", "iDURL22", "iDURL23", "iDURL31", "iDURL32", "iDURL33",
     
-    "rDULR11", "rDULR12", "rDULR13", "rDULR21", "rDULR22", "rDULR23", "rDULR31", "rDULR32", "rDULR33",
-    "iDULR11", "iDULR12", "iDULR13", "iDULR21", "iDULR22", "iDULR23", "iDULR31", "iDULR32", "iDULR33",
+        "rDULR11", "rDULR12", "rDULR13", "rDULR21", "rDULR22", "rDULR23", 
+        "rDULR31", "rDULR32", "rDULR33", "iDULR11", "iDULR12", "iDULR13", 
+        "iDULR21", "iDULR22", "iDULR23", "iDULR31", "iDULR32", "iDULR33",
     
-    "rDURR11", "rDURR12", "rDURR13", "rDURR21", "rDURR22", "rDURR23", "rDURR31", "rDURR32", "rDURR33",
-    "iDURR11", "iDURR12", "iDURR13", "iDURR21", "iDURR22", "iDURR23", "iDURR31", "iDURR32", "iDURR33",
+        "rDURR11", "rDURR12", "rDURR13", "rDURR21", "rDURR22", "rDURR23", 
+        "rDURR31", "rDURR32", "rDURR33", "iDURR11", "iDURR12", "iDURR13", 
+        "iDURR21", "iDURR22", "iDURR23", "iDURR31", "iDURR32", "iDURR33",
     
-    "rDDLL11", "rDDLL12", "rDDLL13", "rDDLL21", "rDDLL22", "rDDLL23", "rDDLL31", "rDDLL32", "rDDLL33",
-    "iDDLL11", "iDDLL12", "iDDLL13", "iDDLL21", "iDDLL22", "iDDLL23", "iDDLL31", "iDDLL32", "iDDLL33",
+        "rDDLL11", "rDDLL12", "rDDLL13", "rDDLL21", "rDDLL22", "rDDLL23", 
+        "rDDLL31", "rDDLL32", "rDDLL33", "iDDLL11", "iDDLL12", "iDDLL13", 
+        "iDDLL21", "iDDLL22", "iDDLL23", "iDDLL31", "iDDLL32", "iDDLL33",
     
-    "rDDRL11", "rDDRL12", "rDDRL13", "rDDRL21", "rDDRL22", "rDDRL23", "rDDRL31", "rDDRL32", "rDDRL33",
-    "iDDRL11", "iDDRL12", "iDDRL13", "iDDRL21", "iDDRL22", "iDDRL23", "iDDRL31", "iDDRL32", "iDDRL33",
+        "rDDRL11", "rDDRL12", "rDDRL13", "rDDRL21", "rDDRL22", "rDDRL23", 
+        "rDDRL31", "rDDRL32", "rDDRL33", "iDDRL11", "iDDRL12", "iDDRL13", 
+        "iDDRL21", "iDDRL22", "iDDRL23", "iDDRL31", "iDDRL32", "iDDRL33",
     
-    "rDDLR11", "rDDLR12", "rDDLR13", "rDDLR21", "rDDLR22", "rDDLR23", "rDDLR31", "rDDLR32", "rDDLR33",
-    "iDDLR11", "iDDLR12", "iDDLR13", "iDDLR21", "iDDLR22", "iDDLR23", "iDDLR31", "iDDLR32", "iDDLR33",
+        "rDDLR11", "rDDLR12", "rDDLR13", "rDDLR21", "rDDLR22", "rDDLR23", 
+        "rDDLR31", "rDDLR32", "rDDLR33", "iDDLR11", "iDDLR12", "iDDLR13", 
+        "iDDLR21", "iDDLR22", "iDDLR23", "iDDLR31", "iDDLR32", "iDDLR33",
     
-    "rDDRR11", "rDDRR12", "rDDRR13", "rDDRR21", "rDDRR22", "rDDRR23", "rDDRR31", "rDDRR32", "rDDRR33",
-    "iDDRR11", "iDDRR12", "iDDRR13", "iDDRR21", "iDDRR22", "iDDRR23", "iDDRR31", "iDDRR32", "iDDRR33",
+        "rDDRR11", "rDDRR12", "rDDRR13", "rDDRR21", "rDDRR22", "rDDRR23", 
+        "rDDRR31", "rDDRR32", "rDDRR33", "iDDRR11", "iDDRR12", "iDDRR13", 
+        "iDDRR21", "iDDRR22", "iDDRR23", "iDDRR31", "iDDRR32", "iDDRR33"
     
 };
+
+SUSYMassInsertion::SUSYMassInsertion()
+:  StandardModel(),
+        Du_LL(3,0.), Du_LR(3,0.), Du_RL(3,0.), Du_RR(3,0.),
+        Dd_LL(3,0.), Dd_LR(3,0.), Dd_RL(3,0.), Dd_RR(3,0.){
+    
+        rDULL11=0.; rDULL12=0.; rDULL13=0.; 
+        rDULL21=0.; rDULL22=0.; rDULL23=0.; 
+        rDULL31=0.; rDULL32=0.; rDULL33=0.;
+        iDULL11=0.; iDULL12=0.; iDULL13=0.; 
+        iDULL21=0.; iDULL22=0.; iDULL23=0.; 
+        iDULL31=0.; iDULL32=0.; iDULL33=0.;
+    
+        rDURL11=0.; rDURL12=0.; rDURL13=0.; 
+        rDURL21=0.; rDURL22=0.; rDURL23=0.; 
+        rDURL31=0.; rDURL32=0.; rDURL33=0.;
+        iDURL11=0.; iDURL12=0.; iDURL13=0.; 
+        iDURL21=0.; iDURL22=0.; iDURL23=0.; 
+        iDURL31=0.; iDURL32=0.; iDURL33=0.;
+    
+        rDULR11=0.; rDULR12=0.; rDULR13=0.; 
+        rDULR21=0.; rDULR22=0.; rDULR23=0.; 
+        rDULR31=0.; rDULR32=0.; rDULR33=0.;
+        iDULR11=0.; iDULR12=0.; iDULR13=0.; 
+        iDULR21=0.; iDULR22=0.; iDULR23=0.; 
+        iDULR31=0.; iDULR32=0.; iDULR33=0.;
+    
+        rDURR11=0.; rDURR12=0.; rDURR13=0.; 
+        rDURR21=0.; rDURR22=0.; rDURR23=0.; 
+        rDURR31=0.; rDURR32=0.; rDURR33=0.;
+        iDURR11=0.; iDURR12=0.; iDURR13=0.; 
+        iDURR21=0.; iDURR22=0.; iDURR23=0.; 
+        iDURR31=0.; iDURR32=0.; iDURR33=0.;
+    
+        rDDLL11=0.; rDDLL12=0.; rDDLL13=0.; 
+        rDDLL21=0.; rDDLL22=0.; rDDLL23=0.; 
+        rDDLL31=0.; rDDLL32=0.; rDDLL33=0.;
+        iDDLL11=0.; iDDLL12=0.; iDDLL13=0.; 
+        iDDLL21=0.; iDDLL22=0.; iDDLL23=0.; 
+        iDDLL31=0.; iDDLL32=0.; iDDLL33=0.;
+    
+        rDDRL11=0.; rDDRL12=0.; rDDRL13=0.; 
+        rDDRL21=0.; rDDRL22=0.; rDDRL23=0.; 
+        rDDRL31=0.; rDDRL32=0.; rDDRL33=0.;
+        iDDRL11=0.; iDDRL12=0.; iDDRL13=0.; 
+        iDDRL21=0.; iDDRL22=0.; iDDRL23=0.; 
+        iDDRL31=0.; iDDRL32=0.; iDDRL33=0.;
+    
+        rDDLR11=0.; rDDLR12=0.; rDDLR13=0.; 
+        rDDLR21=0.; rDDLR22=0.; rDDLR23=0.; 
+        rDDLR31=0.; rDDLR32=0.; rDDLR33=0.;
+        iDDLR11=0.; iDDLR12=0.; iDDLR13=0.; 
+        iDDLR21=0.; iDDLR22=0.; iDDLR23=0.; 
+        iDDLR31=0.; iDDLR32=0.; iDDLR33=0.;
+    
+        rDDRR11=0.; rDDRR12=0.; rDDRR13=0.; 
+        rDDRR21=0.; rDDRR22=0.; rDDRR23=0.; 
+        rDDRR31=0.; rDDRR32=0.; rDDRR33=0.;
+        iDDRR11=0.; iDDRR12=0.; iDDRR13=0.; 
+        iDDRR21=0.; iDDRR22=0.; iDDRR23=0.; 
+        iDDRR31=0.; iDDRR32=0.; iDDRR33=0.;
+    
+}
 
 SUSYMassInsertion::~SUSYMassInsertion(){    
 }
 
-bool SUSYMassInsertion::Update(const std::map<std::string, double>& DPars) {
+///////////////////////////////////////////////////////////////////////////
+// Initialization
+
+bool SUSYMassInsertion::InitializeModel()
+{
+    mySUSYMIA = new SUSYMassInsertionMatching(*this);
+    setModelInitialized(true);
+    return(true);
+}
+
+///////////////////////////////////////////////////////////////////////////
+// Parameters 
+
+bool SUSYMassInsertion::Init(const std::map<std::string, double>& DPars) {
+    
+    if ((DPars.find("Msq") == DPars.end()) || (DPars.find("m3") == DPars.end()) ||
+        (DPars.find("MuM") == DPars.end())) {
+        std::cout << "missing mandatory Susy MIA parameter " << std::endl;
+        std::cout << "the gluino mass, the mean value of the squark masses "
+                     "and the matching scale must be initialized " << std::endl;
+        return false;
+    }
+
+    return(StandardModel::Init(DPars));
+}
+
+
+bool SUSYMassInsertion::PreUpdate()
+{    
+    if(!StandardModel::PreUpdate()) return (false);
+    return (true);
+}
+
+bool SUSYMassInsertion::Update(const std::map<std::string, double>& DPars)
+{    
+    if(!PreUpdate()) return (false);
+    
+    UpdateError = false;
+    
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameter(it->first, it->second);
-    StandardModel::Update(DPars);
     
+    if (UpdateError) return (false);
+    
+    if(!PostUpdate()) return (false);
+    
+    return (true);
+}
+
+bool SUSYMassInsertion::PostUpdate()
+{
+    if (!StandardModel::PostUpdate()) return (false);
+    mySUSYMIA->StandardModelMatching::updateSMParameters();
     return (true);
 }
 
@@ -542,18 +631,5 @@ void SUSYMassInsertion::setParameter(const std::string name, const double& value
     
     else 
         StandardModel::setParameter(name, value);
-}
-
-bool SUSYMassInsertion::Init(const std::map<std::string, double>& DPars) {
-    
-    if ((DPars.find("Msq") == DPars.end()) || (DPars.find("m3") == DPars.end()) || 
-        (DPars.find("MuM") == DPars.end())) {
-        std::cout << "missing mandatory Susy parameter " << std::endl;
-        std::cout << "the gluino mass, the mean value of the squark masses "
-                     "and the matching scale must be initialized " << std::endl;
-        return false;
-    }
-
-    return(StandardModel::Init(DPars));
 }
 
