@@ -74,7 +74,7 @@ public:
      * @param filename the name of the file
      * @param histoname the name of the histogram
      */
-    virtual void setLikelihood(std::string filename, std::string histoname);
+    virtual void setLikelihoodFromHisto(std::string filename, std::string histoname);
 
     /**
      * @brief A method to access the computed theory value of the second observable.

@@ -101,7 +101,7 @@ public:
 
     /**
      * @brief A set method to fix the name of the distribution of the observable.
-     * @param[in] distr the name of the distribution of the observavble
+     * @param[in] distr the name of the distribution of the observable
      */
     void setDistr(std::string distr)
     {
@@ -159,7 +159,16 @@ public:
      * @param filename the name of the file
      * @param histoname the name of the histogram
      */
-    virtual void setLikelihood(std::string filename, std::string histoname);
+    virtual void setLikelihoodFromHisto(std::string filename, std::string histoname);
+
+    /**
+     * @brief A set method to set a parametric likelihood reading parameters from a file
+     * @param filename the name of the file
+     */
+    virtual void setParametricLikelihood(std::string filename)
+    {
+        this->filename=filename; //real implementation will be done in extension
+    }
 
     /**
      * @brief A get method to access the name for the histogram of the observable.
@@ -295,6 +304,16 @@ public:
     {
         this->tho = tho;
     }
+    
+    /**
+     * A method to compute the log of a split Gaussian likelihood
+     * @param x the value of the split-Gaussian distributed variable
+     * @param ave the average value
+     * @param errl the left-side error
+     * @param errr the right-side error
+     * @return the log likelihood at point x
+     */
+    double LogSplitGaussian(double x, double ave, double errl, double errr);
 
     /**
      * @brief Befriending of the std::ostream operator << to generate an

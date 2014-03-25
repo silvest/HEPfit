@@ -42,3 +42,15 @@ void CorrelatedGaussianObservables::ComputeCov(gslpp::matrix<double> Corr)
             (*Cov)(i,j) = Obs.at(i).getErrg()*Corr(i,j)*Obs.at(j).getErrg();
     *Cov = Cov->inverse();
 }
+
+double CorrelatedGaussianObservables::computeWeight()
+{
+    gslpp::vector<double> x(Obs.size());
+
+    for (int i = 0; i < Obs.size(); i++) {
+        x(i) = Obs.at(i).computeTheoryValue() - Obs.at(i).getAve();
+    }
+
+    return (-0.5 * x * ((*Cov) * x));
+
+}

@@ -64,7 +64,7 @@ void MonteCarlo::TestRun(int rank) {
         }
 
         if (Obs.size() > 0) std::cout << "\nOservables: \n" << std::endl;
-        for (std::vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
+        for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
             double th = it->computeTheoryValue();
             std::cout << it->getName() << " = " << th << std::endl;
         }
@@ -158,7 +158,7 @@ void MonteCarlo::Run(const int rank)
                     myInputParser.getMyModel()->Update(DPars);
 
                     int k = 0;
-                    for (std::vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++){
+                    for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++){
                         sbuff[k++] = it->computeTheoryValue();
                     }
                     for (std::vector<Observable2D>::iterator it = Obs2D.begin(); it < Obs2D.end(); it++) {

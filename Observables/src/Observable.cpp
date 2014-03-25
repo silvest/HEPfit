@@ -66,7 +66,7 @@ std::ostream& operator<<(std::ostream& output, const Observable& o)
     return output;
 }
 
-void Observable::setLikelihood(std::string filename, std::string histoname)
+void Observable::setLikelihoodFromHisto(std::string filename, std::string histoname)
     {
         this->filename = filename;
         this->histoname = histoname;
@@ -89,6 +89,12 @@ void Observable::setLikelihood(std::string filename, std::string histoname)
 double Observable::computeTheoryValue()
 {
     return tho->computeThValue();
+}
+
+double Observable::LogSplitGaussian(double x, double ave, double errl, double errr)
+{
+    double sigma = (x > ave ? errr : errl);
+    return -0.5 * (x-ave) * (x-ave) / sigma / sigma;
 }
 
 double Observable::computeWeight(double th)

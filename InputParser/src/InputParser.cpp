@@ -83,7 +83,7 @@ StandardModel* InputParser::ModelFactory(std::string& ModelName)
 std::string InputParser::ReadParameters(const std::string filename,
         const int rank,
         std::vector<ModelParameter>& ModelPars,
-        std::vector<Observable>& Observables,
+        boost::ptr_vector<Observable>& Observables,
         std::vector<Observable2D>& Observables2D,
         std::vector<CorrelatedGaussianObservables>& CGO,
         std::vector<ModelParaVsObs>& ParaObs)
@@ -144,7 +144,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             ++beg;
             std::string distr = *beg;
             if (distr.compare("file") == 0) {
-                o.setLikelihood(*(++beg), *(++beg));
+                o.setLikelihoodFromHisto(*(++beg), *(++beg));
             } else if (distr.compare("weight") == 0) {
                 ++beg;
                 o.setAve(atof((*beg).c_str()));
@@ -156,7 +156,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             } else
                 throw std::runtime_error("ERROR: wrong distribution flag in " + o.getName());
             o.setDistr(distr);
-            Observables.push_back(o);
+            Observables.push_back(&o);
             ++beg;
             if (beg != tok.end())
                 std::cout << "WARNING: unread information in observable "
@@ -169,7 +169,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             ++beg;
             std::string distr = *beg;
             if (distr.compare("file") == 0) {
-                o2.setLikelihood(*(++beg), *(++beg));
+                o2.setLikelihoodFromHisto(*(++beg), *(++beg));
             } else if (distr.compare("noweight") == 0) {
             } else
                 throw std::runtime_error("ERROR: wrong distribution flag in " + o2.getName());
@@ -192,6 +192,26 @@ std::string InputParser::ReadParameters(const std::string filename,
             if (beg != tok.end())
                 std::cout << "WARNING: unread information in observable2D "
                     << Observables2D.back().getName() << std::endl;
+        } else if (type.compare("HiggsObservable") == 0) {
+            if (std::distance(tok.begin(), tok.end()) < 8)
+                throw std::runtime_error("ERROR: lack of information on "
+                    + *beg + " in " + filename);
+            HiggsObservable ho(ParseObservable(beg));
+            ++beg;
+            std::string distr = *beg;
+            if (distr.compare("parametric") == 0) {
+                std::vector<ThObservable*> hthobs;
+                hthobs.push_back(thf->getThMethod("ggH"));
+                hthobs.push_back(thf->getThMethod("VBF"));
+                hthobs.push_back(thf->getThMethod("VH"));
+                hthobs.push_back(thf->getThMethod("ttH"));
+                ho.setParametricLikelihood(*(++beg), hthobs);
+            } else
+                throw std::runtime_error("ERROR: wrong distribution flag in " + ho.getName());
+            Observables.push_back(&ho);
+            if (beg != tok.end())
+                std::cout << "WARNING: unread information in HiggsObservable "
+                    << Observables.back().getName() << std::endl;
         } else if (type.compare("CorrelatedGaussianObservables") == 0) {
             std::string name = *beg;
             ++beg;
@@ -218,7 +238,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                     lines.push_back(true);
                     nlines++;
                 } else {
-                    Observables.push_back(tmp);
+                    Observables.push_back(&tmp);
                     lines.push_back(false);
                 }
             }

@@ -51,6 +51,11 @@ public:
     void ComputeCov(gslpp::matrix<double> Corr);
 
     /**
+     * @brief A method to compute the weight associated with the observable.
+     */
+    virtual double computeWeight();
+
+    /**
      * @brief A method to add observables to the list of correlated Gaussian observables.
      * @param Obs_i reference to an object of type Observable
      */

@@ -13,7 +13,7 @@ ComputeObservables::ComputeObservables(const std::string& ModelConf_i, const int
   rank(rank_i)
 {
     std::vector<ModelParameter> ModPars;
-    std::vector<Observable> Obs;
+    boost::ptr_vector<Observable> Obs;
     std::vector<Observable2D> Obs2D;
     std::vector<CorrelatedGaussianObservables> CGO;
     std::vector<ModelParaVsObs> ParaObs;
@@ -25,7 +25,7 @@ ComputeObservables::ComputeObservables(const std::string& ModelConf_i, const int
         paraNames.push_back(it->name);
     }
     
-    for (std::vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
+    for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
         DObs.insert(std::pair<std::string, double> (it->getThname() , 0.));
     }
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {

@@ -67,7 +67,7 @@ double Observable2D::computeTheoryValue2()
     return tho2->computeThValue();
 }
 
-void Observable2D::setLikelihood(std::string filename, std::string histoname)
+void Observable2D::setLikelihoodFromHisto(std::string filename, std::string histoname)
 {
     this->filename = filename;
     this->histoname = histoname;

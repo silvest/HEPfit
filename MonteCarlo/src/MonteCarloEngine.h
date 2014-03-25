@@ -25,6 +25,7 @@
 #include <map>
 #include <string>
 #include <sstream>
+#include <boost/ptr_container/ptr_vector.hpp>
 
 #define NBINSMODELPARS 100
 #define NBINS1D 100
@@ -53,7 +54,7 @@ public:
      * @param[in] checkHistRange_i flag to set whether histogram ranges will be checked or not
      */
     MonteCarloEngine(const std::vector<ModelParameter>& ModPars_i,
-                     std::vector<Observable>& Obs_i,
+                     boost::ptr_vector<Observable>& Obs_i,
                      std::vector<Observable2D>& Obs2D_i,
                      std::vector<CorrelatedGaussianObservables>& CGO_i,
                      std::vector<ModelParaVsObs>& ParaObs_i,
@@ -135,11 +136,11 @@ public:
      * histogram for observables.
      * @param[in] out a reference to an object of type BCModelOutput as defined in the
      * <a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT libraries</a>
-     * @param[in] it a iterator of the vector of objects of type Observable
+     * @param[in] a reference to an object of type Observable
      * @param[in] OutputDir the name of the output directory
      */
     void PrintHistogram(BCModelOutput & out,
-                        std::vector<Observable>::iterator it,
+                        Observable & it,
                         const std::string OutputDir);
     
     /**
@@ -178,13 +179,6 @@ public:
     void AddChains();
            
     /**
-     * @brief This is used to calculate the weight associated with the value of correlated Gaussian observables
-     * @param[in] obs a reference to an object of type CorrelatedGaussianObservables
-     * @return the value of the weight
-     */
-    double Weight(const CorrelatedGaussianObservables& obs);
-    
-    /**
      * @brief A get method to access the stream that stores the log messages coming from histogram printing and checking.
      * @return a string containing the log messages
      */
@@ -221,8 +215,8 @@ public:
     
 private:
     const std::vector<ModelParameter>& ModPars; ///< A vector of model parameters.
-    std::vector<Observable> Obs_MCMC; ///< A vector of observables to be used in the MCMC.
-    std::vector<Observable>& Obs_ALL;  ///< A vector of all observables.
+    boost::ptr_vector<Observable> Obs_MCMC; ///< A vector of observables to be used in the MCMC.
+    boost::ptr_vector<Observable>& Obs_ALL;  ///< A vector of all observables.
     std::vector<Observable2D> Obs2D_MCMC; ///< A vector of pairs of observables for Observable2D that are used in the MCMC.
     std::vector<Observable2D>& Obs2D_ALL; ///< A vector of all pairs of observable for Observable2D.
     std::vector<CorrelatedGaussianObservables>& CGO; ///< A vector of correlated Gaussian observables.
@@ -231,7 +225,6 @@ private:
     std::map<std::string, double> DPars; ///< A map between parameter names and their values.
     std::map<std::string, BCH1D * > Histo1D; ///< A map between pointers to objects of type BCH1D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
     std::map<std::string, BCH2D * > Histo2D; ///< A map between pointers to objects of type BCH2D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
-    std::map<std::string, TH2D * > InHisto2D; ///< A map between pointers to objects of type TH2D (<a href="http://root.cern.ch/root/html/TH2D.html" target=blank>TH1D</a>) and their given names.
     std::map<std::string, double> thMin; ///< A map between the name of a theory observable and its minimum value.
     std::map<std::string, double> thMax; ///< A map between the name of a theory observable and its maximum value.
     double *obval; ///< A pointer to the vector of observable values.

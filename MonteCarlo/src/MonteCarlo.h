@@ -139,7 +139,7 @@ private:
     InputParser myInputParser; ///< An object of the InputParser class.
     MonteCarloEngine MCEngine; ///< An object of the MonteCarloEngine class.
     std::vector<ModelParameter> ModPars; ///< Vector for the model parameters defined in SomeModel.conf.
-    std::vector<Observable> Obs; ///< Vector for the observables defined in SomeModel.conf.
+    boost::ptr_vector<Observable> Obs; ///< Vector for the observables defined in SomeModel.conf.
     std::vector<Observable2D> Obs2D; ///< Vector for the Observables2D defined in SomeModel.conf.
     std::vector<CorrelatedGaussianObservables> CGO; ///< Vector for the Correlated Gaussian Observables defined in SomeModel.conf.
     std::vector<ModelParaVsObs> ParaObs; ///< Vector for the ModelParaVsObs defined in SomeModel.conf.

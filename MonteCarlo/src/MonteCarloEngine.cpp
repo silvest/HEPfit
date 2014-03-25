@@ -21,7 +21,7 @@
 
 MonteCarloEngine::MonteCarloEngine(
         const std::vector<ModelParameter>& ModPars_i,
-        std::vector<Observable>& Obs_i,
+        boost::ptr_vector<Observable>& Obs_i,
         std::vector<Observable2D>& Obs2D_i,
         std::vector<CorrelatedGaussianObservables>& CGO_i,
         std::vector<ModelParaVsObs>& ParaObs_i, const bool checkHistRange_i)
@@ -43,10 +43,10 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
 {
     Mod = Mod_i;
     int k = 0, kweight = 0;
-    for (std::vector<Observable>::iterator it = Obs_ALL.begin();
+    for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
             it < Obs_ALL.end(); it++) {
         if (it->isTMCMC()) {
-            Obs_MCMC.push_back(*it);
+            Obs_MCMC.push_back((Observable*) *(it.base()));
         } else {
             k++;
             if (it->getDistr().compare("noweight") != 0)
@@ -156,9 +156,6 @@ MonteCarloEngine::~MonteCarloEngine()
     for (std::map<std::string, BCH2D *>::iterator it = Histo2D.begin();
             it != Histo2D.end(); it++)
         delete it->second;
-    for (std::map<std::string, TH2D *>::iterator it = InHisto2D.begin();
-            it != InHisto2D.end(); it++)
-        delete it->second;
 };
 
 // ---------------------------------------------------------
@@ -197,19 +194,6 @@ void MonteCarloEngine::DefineParameters()
 
 // ---------------------------------------------------------
 
-double MonteCarloEngine::Weight(const CorrelatedGaussianObservables& obs)
-{
-
-    int size = obs.getObs().size();
-    gslpp::vector<double> x(size);
-
-    for (int i = 0; i < size; i++) {
-        x(i) = obs.getObs().at(i).computeTheoryValue() - obs.getObs().at(i).getAve();
-    }
-
-    return (-0.5 * x * (obs.getCov() * x));
-}
-
 double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters)
 {
     // This methods returns the logarithm of the conditional probability
@@ -242,7 +226,7 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters)
     //std::cout << "event used in MC" << std::endl;
 #endif
 
-    for (std::vector<Observable>::iterator it = Obs_MCMC.begin(); it < Obs_MCMC.end(); it++) {
+    for (boost::ptr_vector<Observable>::iterator it = Obs_MCMC.begin(); it < Obs_MCMC.end(); it++) {
         logprob += it->computeWeight();
     }
 
@@ -251,7 +235,7 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters)
     }
 
     for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++) {
-        logprob += Weight(*it);
+        logprob += it->computeWeight();
     }
     //std::cout << "logprob " << logprob <<std::endl;    
     return logprob;
@@ -324,7 +308,7 @@ void MonteCarloEngine::MCMCIterationInterface()
             Mod->Update(DPars);
 
             int k = 0;
-            for (std::vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
+            for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end(); it++) {
                 sbuff[k++] = it->computeTheoryValue();
             }
             for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it < Obs2D_ALL.end(); it++) {
@@ -352,7 +336,7 @@ void MonteCarloEngine::MCMCIterationInterface()
                 int k = 0;
                 // fill the histograms for observables
                 int ko = 0, kweight = 0;
-                for (std::vector<Observable>::iterator it = Obs_ALL.begin();
+                for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
                         it < Obs_ALL.end(); it++) {
                     double th = buff[il][k++];
 
@@ -426,7 +410,7 @@ void MonteCarloEngine::MCMCIterationInterface()
 
         // fill the histograms for observables
         int k = 0, kweight = 0;
-        for (std::vector<Observable>::iterator it = Obs_ALL.begin();
+        for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
                 it < Obs_ALL.end(); it++) {
             double th = it->computeTheoryValue();
 
@@ -441,7 +425,7 @@ void MonteCarloEngine::MCMCIterationInterface()
                 obval[i * kmax + k] = th;
                 k++;
                 if (it->getDistr().compare("noweight") != 0) {
-                    obweight[i * kwmax + kweight] = Weight(*it, th);
+                    obweight[i * kwmax + kweight] = it->computeWeight();
                     kweight++;
                 }
             }
@@ -512,27 +496,26 @@ void MonteCarloEngine::CheckHistogram(const TH2D& hist, const std::string name)
             << std::endl;
 }
 
-void MonteCarloEngine::PrintHistogram(BCModelOutput & out,
-        std::vector<Observable>::iterator it,
+void MonteCarloEngine::PrintHistogram(BCModelOutput & out, Observable& it,
         const std::string OutputDir)
 {
-    if (Histo1D[it->getThname()]->GetHistogram()->Integral() > 0.0) {
-        std::string fname = OutputDir + "/" + it->getThname() + ".pdf";
-        //        BCH1D* pippo =  Histo1D[it->getThname()];
+    if (Histo1D[it.getThname()]->GetHistogram()->Integral() > 0.0) {
+        std::string fname = OutputDir + "/" + it.getThname() + ".pdf";
+        //        BCH1D* pippo =  Histo1D[it.getThname()];
         //        double x = pippo->GetMean();
         //        pippo->Print("Dmd1.pdf");
-        Histo1D[it->getThname()]->SetGlobalMode(it->computeTheoryValue());
-        Histo1D[it->getThname()]->Print(fname.c_str());
+        Histo1D[it.getThname()]->SetGlobalMode(it.computeTheoryValue());
+        Histo1D[it.getThname()]->Print(fname.c_str());
         std::cout << fname << " has been created." << std::endl;
-        out.Write(Histo1D[it->getThname()]->GetHistogram());
-        CheckHistogram(*Histo1D[it->getThname()]->GetHistogram(), it->getThname());
+        out.Write(Histo1D[it.getThname()]->GetHistogram());
+        CheckHistogram(*Histo1D[it.getThname()]->GetHistogram(), it.getThname());
     } else
         HistoLog << "WARNING: The histogram of "
-            << it->getThname() << " is empty!" << std::endl;
+            << it.getThname() << " is empty!" << std::endl;
 
     if (checkTheoryRange) {
-        double min = thMin[it->getThname()];
-        double max = thMax[it->getThname()];
+        double min = thMin[it.getThname()];
+        double max = thMax[it.getThname()];
         double range = max - min;
         HistoLog.precision(10);
         HistoLog << "  [" << min << ", " << max << "] --> suggested range: "
@@ -549,16 +532,16 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string Out
     Mod->Update(DPars);
 
     // print the histograms to pdf files
-    for (std::vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end();
+    for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it < Obs_ALL.end();
             it++) {
-        PrintHistogram(out, it, OutputDir);
+        PrintHistogram(out, *it, OutputDir);
     }
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
             it1 < CGO.end(); it1++) {
         std::vector<Observable> pino(it1->getObs());
         for (std::vector<Observable>::iterator it = pino.begin();
                 it != pino.end(); ++it)
-            PrintHistogram(out, it, OutputDir);
+            PrintHistogram(out, *it, OutputDir);
     }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin();
             it < Obs2D_ALL.end(); it++) {
@@ -600,7 +583,7 @@ void MonteCarloEngine::AddChains()
 {
     fMCMCFlagWritePreRunToFile = false;
     int k = 0, kweight = 0;
-    for (std::vector<Observable>::iterator it = Obs_ALL.begin();
+    for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
             it < Obs_ALL.end(); it++) {
         if (!it->isTMCMC()) {
             for (unsigned int i = 0; i < fMCMCNChains; ++i)

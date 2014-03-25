@@ -98,7 +98,7 @@ void GenerateEvent::generate(const int rank, int unsigned nIteration, int seed)
         } else {
             std::cout << "\nRunning in Event Generation mode... \nWARNING: The output should not be used for any statistical analysis. \n         Neither randomness or completness of the sample is gauranteed!!\n" << std::endl;
         }
-        for (std::vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++){
+        for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++){
             if (outputTerm == 1) {
                 ObsOut[it->getName()] = boost::make_shared<std::ofstream>((ObsDirName + "/" + it->getName() + ".txt").c_str(), std::ios::out);
                 summary << "Observable\t" << it->getName() << "\n";
@@ -115,7 +115,7 @@ void GenerateEvent::generate(const int rank, int unsigned nIteration, int seed)
             if (i == 1) std::cout << std::endl << "Generating " << nIteration << " random events...\n" << std::endl;
             generateRandomEvent(i);
             if (outputTerm == 0 && Obs.size() > 0) std::cout << "\nObservables: \n" << std::endl;
-            for (std::vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
+            for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
                 double th = it->computeTheoryValue();
                 if (outputTerm == 0) {
                     std::cout << it->getName() << " = " << th << std::endl;
