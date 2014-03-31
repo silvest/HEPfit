@@ -13,7 +13,7 @@
 #include "AmpDB2.h"
 
 /**
- * @class DMK
+ * @class DmBd
  * @ingroup Flavour
  * @brief A class for @f$\Delta M_{B_d}@f$, the difference in mass
  * of between the heavy and light mass eigenstates of the neutral

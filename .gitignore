@@ -1,0 +1,40 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+#netbeans specific
+*/core
+*/nbproject/*
+!*/nbproject/project.properties
+!*/nbproject/project.xml
+*/dist
+*/build
+*/Makefile
+
+*/*.dep.inc
+*.tar.gz
+*.tgz
+*/src/*~
+Analysis/*.ps
+Analysis/*.root
+Analysis/*.txt
+Analysis/*~
+Analysis/*.eps
