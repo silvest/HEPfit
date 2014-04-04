@@ -29,16 +29,16 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
     if (!ifile.is_open())
         throw std::runtime_error("\nERROR: " + filename + " does not exist. Make sure to specify a valid Higgs parameters configuration file.\n");
     std::string line;
-    bool IsEOF;
+    istream& buf;
     int i = 0, nrows = 0;
     do {
-        IsEOF = getline(ifile, line).eof();
-        if (line->compare(0, 11, "MEASUREMENT") == 0)
-            nrows++
-    } while (!IsEOF);
+        buf = getline(ifile, line);
+        if (line.compare(0, 11, "MEASUREMENT") == 0) nrows++;
+    } while (!buf.eof());
     channels = TMatrixD(nrows, thObsV.size() + 2);
+    ifile.seekg(0, ifile.beg);
     do {
-        IsEOF = getline(ifile, line).eof();
+        buf = getline(ifile, line);
         if (*line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
         if (line.empty() || line.at(0) == '#')
             continue;
@@ -60,7 +60,7 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
 
         i++;
 
-    } while (!IsEOF);
+    } while (!buf.eof());
     if (i != nrows)
     {
         std::stringstream ss;
