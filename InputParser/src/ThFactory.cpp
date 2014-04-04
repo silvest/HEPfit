@@ -16,9 +16,9 @@
 #include <SUSYObservables.h>
 #include "ThFactory.h"
 
-ThFactory::ThFactory(const StandardModel& myModel) 
+ThFactory::ThFactory(const StandardModel& myModel)
 : myEW(myModel), myFlavour(myModel), myLeptonFlavour(myModel), myMO(myModel)
-{    
+{
     //-----  EW precision observables  -----
     thobs["Mw"] = new Mw(myEW);
     thobs["GammaW"] = new GammaW(myEW);
@@ -36,6 +36,19 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["Rcharm"] = new Rcharm(myEW);
     thobs["Rbottom"] = new Rbottom(myEW);
 
+    //----- Higgs Extension observables ----------
+
+    if (myModel.ModelName().compare(0, 5, "Higgs") == 0) {
+        thobs["ggH"] = new muggH(myModel);
+        thobs["VBF"] = new muVBF(myModel);
+        thobs["VH"] = new muWH(myModel);
+        thobs["ttH"] = new muttH(myModel);
+        thobs["BrHWW"] = new BrWW(myModel);
+        thobs["BrHZZ"] = new BrZZ(myModel);
+        thobs["BrHgaga"] = new Brgaga(myModel);
+        thobs["BrHtautau"] = new Brtautau(myModel);
+    }
+
     //-----  Epsilon parameters  -----
     thobs["epsilon1"] = new NewPhysicsParams(myMO, "epsilon1");
     thobs["epsilon2"] = new NewPhysicsParams(myMO, "epsilon2");
@@ -44,19 +57,19 @@ ThFactory::ThFactory(const StandardModel& myModel)
 
     //-----  LEP-II two-fermion processes  -----
     const double sqrt_s[12] = {130., 136., 161., 172., 183., 189.,
-                               192., 196., 200., 202., 205., 207.};
+        192., 196., 200., 202., 205., 207.};
     const double sqrt_s_HF[10] = {133., 167., 183., 189., 192.,
-                                  196., 200., 202., 205., 207.};
-    LEP2sigmaHadron* myLEP2sigmaHadron[12];
-    LEP2sigmaMu* myLEP2sigmaMu[12];
-    LEP2sigmaTau* myLEP2sigmaTau[12];
-    LEP2AFBmu* myLEP2AFBmu[12];
-    LEP2AFBtau* myLEP2AFBtau[12];
-    LEP2AFBbottom* myLEP2AFBbottom[10];
-    LEP2AFBcharm* myLEP2AFBcharm[10];
-    LEP2Rbottom* myLEP2Rbottom[10];
-    LEP2Rcharm* myLEP2Rcharm[10];
-    for (int i=0; i<12; i++) { 
+        196., 200., 202., 205., 207.};
+    LEP2sigmaHadron * myLEP2sigmaHadron[12];
+    LEP2sigmaMu * myLEP2sigmaMu[12];
+    LEP2sigmaTau * myLEP2sigmaTau[12];
+    LEP2AFBmu * myLEP2AFBmu[12];
+    LEP2AFBtau * myLEP2AFBtau[12];
+    LEP2AFBbottom * myLEP2AFBbottom[10];
+    LEP2AFBcharm * myLEP2AFBcharm[10];
+    LEP2Rbottom * myLEP2Rbottom[10];
+    LEP2Rcharm * myLEP2Rcharm[10];
+    for (int i = 0; i < 12; i++) {
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_s[i]);
         myLEP2sigmaHadron[i] = new LEP2sigmaHadron(myEW, sqrt_s[i]);
         thobs["sigmaqLEP2_" + sqrt_s_str] = myLEP2sigmaHadron[i];
@@ -69,17 +82,17 @@ ThFactory::ThFactory(const StandardModel& myModel)
         myLEP2AFBtau[i] = new LEP2AFBtau(myEW, sqrt_s[i]);
         thobs["AFBtauLEP2_" + sqrt_s_str] = myLEP2AFBtau[i];
     }
-    for (int i=0; i<10; i++) { 
+    for (int i = 0; i < 10; i++) {
         std::string sqrt_s_str = boost::lexical_cast<std::string, double>(sqrt_s_HF[i]);
         myLEP2AFBbottom[i] = new LEP2AFBbottom(myEW, sqrt_s_HF[i]);
         thobs["AFBbottomLEP2_" + sqrt_s_str] = myLEP2AFBbottom[i];
         myLEP2AFBcharm[i] = new LEP2AFBcharm(myEW, sqrt_s_HF[i]);
         thobs["AFBcharmLEP2_" + sqrt_s_str] = myLEP2AFBcharm[i];
-        myLEP2Rbottom[i] = new LEP2Rbottom(myEW, sqrt_s_HF[i]);  
+        myLEP2Rbottom[i] = new LEP2Rbottom(myEW, sqrt_s_HF[i]);
         thobs["RbottomLEP2_" + sqrt_s_str] = myLEP2Rbottom[i];
         myLEP2Rcharm[i] = new LEP2Rcharm(myEW, sqrt_s_HF[i]);
         thobs["RcharmLEP2_" + sqrt_s_str] = myLEP2Rcharm[i];
-    }    
+    }
 
     //-----  Flavour observables  -----
     thobs["Dmd1"] = new DmBd(myFlavour);
@@ -106,7 +119,7 @@ ThFactory::ThFactory(const StandardModel& myModel)
     thobs["BRbar_Bsmumu"] = new Bsmumu(myFlavour, 2);
     thobs["Amumu_Bs"] = new Bsmumu(myFlavour, 3);
     thobs["Smumu_Bs"] = new Bsmumu(myFlavour, 4);
-        
+
     //-----  Lepton Flavour observables  -----
     thobs["li_lj_gamma"] = new li_lj_gamma(myLeptonFlavour);
 
@@ -116,15 +129,15 @@ ThFactory::ThFactory(const StandardModel& myModel)
 
     //-----  NP input parameters, etc.   -----
     if (myModel.ModelName().compare("NPEffective1") == 0
-            || myModel.ModelName().compare("NPEffective2") == 0 ) {
+            || myModel.ModelName().compare("NPEffective2") == 0) {
         thobs["cHQ1pPLUScHQ2p_NP"] = new NewPhysicsParams(myMO, "cHQ1pPLUScHQ2p_NP");
         thobs["cHQ2pMINUScHQ2_NP"] = new NewPhysicsParams(myMO, "cHQ2pMINUScHQ2_NP");
         thobs["cHQ3pPLUScHQ3_NP"] = new NewPhysicsParams(myMO, "cHQ3pPLUScHQ3_NP");
         thobs["c_Ae_NP"] = new NewPhysicsParams(myMO, "c_Ae_NP");
         thobs["c_GammaZ_uds_NP"] = new NewPhysicsParams(myMO, "c_GammaZ_uds_NP");
     }
-    if ( (myModel.ModelName().compare("NPZbbbar") == 0)
-            || (myModel.ModelName().compare("NPZbbbarLR") == 0) ) {
+    if ((myModel.ModelName().compare("NPZbbbar") == 0)
+            || (myModel.ModelName().compare("NPZbbbarLR") == 0)) {
         thobs["deltaGVb"] = new NewPhysicsParams(myMO, "deltaGVb");
         thobs["deltaGAb"] = new NewPhysicsParams(myMO, "deltaGAb");
         thobs["deltaGLb"] = new NewPhysicsParams(myMO, "deltaGLb");
@@ -134,7 +147,7 @@ ThFactory::ThFactory(const StandardModel& myModel)
     }
 
     //-----  SUSY spectra and observables  -----
-    if(myModel.ModelName().compare("SUSY") == 0
+    if (myModel.ModelName().compare("SUSY") == 0
             || myModel.ModelName().compare("SUSYMassInsertion") == 0
             || myModel.ModelName().compare("GeneralSUSY") == 0
             || myModel.ModelName().compare("pMSSM") == 0
@@ -166,7 +179,7 @@ ThFactory::ThFactory(const StandardModel& myModel)
     }
 }
 
-ThFactory::~ThFactory() 
+ThFactory::~ThFactory()
 {
     for (std::map<std::string, ThObservable *>::iterator it = thobs.begin();
             it != thobs.end(); it++)
@@ -174,7 +187,7 @@ ThFactory::~ThFactory()
             delete it->second;
 }
 
-ThObservable * ThFactory::getThMethod(const std::string& name) 
+ThObservable * ThFactory::getThMethod(const std::string& name)
 {
     if (thobs.find(name) == thobs.end())
         throw std::runtime_error("ERROR: Wrong observable " + name + " passed to ThFactory");

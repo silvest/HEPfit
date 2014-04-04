@@ -12,7 +12,7 @@
 
 /**
  * @class muggH
- * @ingroup HiggsCouplings
+ * @ingroup HiggsExtensions
  * @brief A class for computing the ratio @f[\mu_{ggH}@f]
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
@@ -25,11 +25,16 @@ public:
 
     /**
      * @brief constructor
-     * @param SM_i a reference to a StandardModel object or to any extension of it
+     * @param HESM_i a reference to a HiggsExtensionModel object or to any extension of it
      */
-    muggH(const StandardModel& SM_i) : SM(SM_i) 
+    muggH(const HiggsExtensionModel& HESM_i)
     {
-        
+        if(HESM_i.ModelName().compare(0,5,"Higgs")==0) 
+        HESM=static_cast<HiggsExtensionModel&>(HESM_i);
+        else 
+            throw std::runtime_error("ERROR: the muggH constructor can only be used with a HiggsExtensionModel reference, "
+                   + "while I got " + HESM_i.ModelName() + " as argument");
+
     };
     muggH(const muggH& orig);
     virtual ~muggH();
@@ -38,10 +43,12 @@ public:
      * method to compute the value of  @f[\mu_{ggH}@f] in the current model
      * @return 
      */
-    double computeThValue();
+    double computeThValue() {
+        return HESM.computeKglgl()*HESM.computeKglgl();
+    }
     
 private:
-    StandardModel& SM;
+    HiggsExtensionModel& HESM;
 };
 
 #endif	/* MUGGH_H */

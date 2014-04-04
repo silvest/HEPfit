@@ -43,7 +43,7 @@ public:
     
     /**
      * @brief A get method to access the reference to the model.
-     * @return the average value of the observable
+     * @return the reference to the model
      */
     const StandardModel& getModel() const
     {

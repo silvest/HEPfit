@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="90">
+<configurationDescriptor version="94">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -986,12 +986,8 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
-        <ccTool>
-        </ccTool>
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
-        <ccTool>
-        </ccTool>
       </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -1619,16 +1615,10 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
-        <ccTool>
-        </ccTool>
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
-        <ccTool>
-        </ccTool>
       </item>
       <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
-        <ccTool>
-        </ccTool>
       </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -1667,6 +1657,7 @@
             <pElem>../FeynHiggs/include</pElem>
             <pElem>../LoopTools/include</pElem>
             <pElem>../boost</pElem>
+            <pElem>../HiggsExtensions/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
@@ -1856,6 +1847,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../HiggsExtensions"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../HiggsExtensions"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhiggsextensions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../StandardModel"
                             CT="3"
                             CN="Debug"
@@ -1939,16 +1942,10 @@
         </linkerTool>
       </folder>
       <item path="main.cpp" ex="false" tool="1" flavor2="9">
-        <ccTool>
-        </ccTool>
       </item>
       <item path="main_MCMC_example.cpp" ex="true" tool="1" flavor2="9">
-        <ccTool>
-        </ccTool>
       </item>
       <item path="main_libmode_config_example.cpp" ex="true" tool="1" flavor2="9">
-        <ccTool>
-        </ccTool>
       </item>
       <item path="pMSSM.conf" ex="false" tool="3" flavor2="0">
       </item>
