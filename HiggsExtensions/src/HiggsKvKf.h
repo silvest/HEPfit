@@ -87,11 +87,11 @@ public:
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
 
-   virtual double computeKW()
+   virtual double computeKW() const
     {
         return Kv;
     }
-    virtual double computeKZ()
+    virtual double computeKZ() const
     {
         return Kv;
     }
@@ -100,7 +100,7 @@ public:
      * @brief A method to compute the ratio of the @f[HZ\gamma@f] coupling in the current model and in the SM.
      * @return the ratio of the @f[HZ\gamma@f] coupling in the current model and in the SM
      */
-    virtual double computeKZga() 
+    virtual double computeKZga() const
     {
         double gtt = computeGammaZgatt();
         double gWW = computeGammaZgaWW();
@@ -112,7 +112,7 @@ public:
      * @brief A method to compute the ratio of the @f[H\gamma\gamma@f] coupling in the current model and in the SM.
      * @return the ratio of the @f[H\gamma\gamma@f] coupling in the current model and in the SM
      */
-    virtual double computeKgaga() 
+    virtual double computeKgaga() const
     {
         double gtt = computeGammagagatt();
         double gWW = computeGammagagaWW();
@@ -120,27 +120,27 @@ public:
         return sqrt((gtt*Kf*Kf + gWW*Kv*Kv + gtW*Kf*Kv)/(gtt + gWW + gtW));
     }
 
-   virtual double computeKb() 
+   virtual double computeKb() const
     {
         return Kf;
     }
 
-   virtual double computeKc() 
+   virtual double computeKc() const
     {
         return Kf;
     }
 
-    virtual double computeKglgl() 
+    virtual double computeKglgl() const
     {
         return Kf;
     }
 
-    virtual double computeKt() 
+    virtual double computeKt() const
     {
         return Kf;
     }
 
-    virtual double computeKtau() 
+    virtual double computeKtau() const
     {
         return Kf;
     }
@@ -148,7 +148,7 @@ public:
      * @brief This method computes the ratio of the total Higgs width w.r.t SM.
      * @return The he ratio of the total Higgs width w.r.t SM
      */
-    double computeGTotalRatio()
+    double computeGTotalRatio() const
     {
         return computeKW()*computeKW()*computeBRWW()+
                computeKZ()*computeKZ()*computeBRZZ()+

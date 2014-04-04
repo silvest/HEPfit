@@ -29,21 +29,23 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
     if (!ifile.is_open())
         throw std::runtime_error("\nERROR: " + filename + " does not exist. Make sure to specify a valid Higgs parameters configuration file.\n");
     std::string line;
-    bool IsEOF = false;
+    bool IsEOF;
     int i = 0, nrows = 0;
+    do {
+        IsEOF = getline(ifile, line).eof();
+        if (line->compare(0, 11, "MEASUREMENT") == 0)
+            nrows++
+    } while (!IsEOF);
+    channels = TMatrixD(nrows, thObsV.size() + 2);
     do {
         IsEOF = getline(ifile, line).eof();
         if (*line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
         if (line.empty() || line.at(0) == '#')
             continue;
-        boost::char_separator<char> sep(" ");
+        boost::char_separator<char> sep(" |");
         boost::tokenizer<boost::char_separator<char> > tok(line, sep);
         boost::tokenizer<boost::char_separator<char> >::iterator beg = tok.begin();
-        if (beg->compare("size") == 0) {
-            nrows = atoi((*(++beg)).c_str());
-            channels = TMatrixD(nrows, thObsV.size() + 2);
-            continue;
-        }
+        if (beg->compare("MEASUREMENT") == 0) {
         // Read the necessary information from the config file. Each row contains:
         // ggH fraction
         // VBF fraction
@@ -51,8 +53,10 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
         // average value of mu
         // left-side error
         // right-side error
-        for(int j = 0; j < thObsV.size() +  2; j++)
-            channels(i, j) = atof((*(++beg)).c_str());
+            beg++; // skip label
+            for(int j = 0; j < thObsV.size() +  2; j++)
+                channels(i, j) = atof((*(++beg)).c_str());
+        } else throw std::runtime_error("Error parsing " + filename + ": unrecognized keyword " + *beg);
 
         i++;
 

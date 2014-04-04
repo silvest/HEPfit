@@ -9,6 +9,7 @@
 #ifndef Brgaga_H
 #define	Brgaga_H
 #include <ThObservable.h>
+#include <HiggsExtensionModel.h>
 
 /**
  * @class Brgaga
@@ -27,13 +28,11 @@ public:
      * @brief constructor
      * @param HESM_i a reference to a HiggsExtensionModel object or to any extension of it
      */
-    Brgaga(const HiggsExtensionModel& HESM_i)
+    Brgaga(const StandardModel& HESM_i) : ThObservable(HESM_i), HESM(static_cast<const HiggsExtensionModel&> (HESM_i))
     {
-        if(HESM_i.ModelName().compare(0,5,"Higgs")==0) 
-        HESM=static_cast<HiggsExtensionModel&>(HESM_i);
-        else 
-            throw std::runtime_error("ERROR: the Brgaga constructor can only be used with a HiggsExtensionModel reference, "
-                   + "while I got " + HESM_i.ModelName() + " as argument");
+        if(HESM_i.ModelName().compare(0,5,"Higgs")!=0)
+            throw std::runtime_error("ERROR: the Brgaga constructor can only be used with a HiggsExtensionModel reference, while I got " +
+                    HESM_i.ModelName() + " as argument");
     };
     Brgaga(const Brgaga& orig);
     virtual ~Brgaga();
@@ -46,7 +45,7 @@ public:
         return HESM.computeKgaga()*HESM.computeKgaga()/HESM.computeGTotalRatio();
     }
 private:
-    HiggsExtensionModel& HESM;
+    const HiggsExtensionModel& HESM;
 };
 
 #endif	/* Brgaga_H */

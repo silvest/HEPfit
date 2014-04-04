@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="90">
+<configurationDescriptor version="94">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -46,6 +46,7 @@
       <compileType>
         <ccTool>
           <incDir>
+            <pElem>../HiggsExtensions/src</pElem>
             <pElem>../gslpp/src</pElem>
             <pElem>../EW/src</pElem>
             <pElem>../Flavour/src</pElem>

@@ -27,21 +27,21 @@ public:
     };
     HiggsExtensionModel(const HiggsExtensionModel& orig);
     virtual ~HiggsExtensionModel();
-    virtual double computeKW()=0;
-    virtual double computeKZ()=0;
-    virtual double computeKZga()=0;
-    virtual double computeKgaga()=0;
-    virtual double computeKglgl()=0;
-    virtual double computeKb()=0;
-    virtual double computeKc()=0; 
-    virtual double computeKt()=0;
-    virtual double computeKtau()=0;
+    virtual double computeKW() const =0;
+    virtual double computeKZ() const =0;
+    virtual double computeKZga() const =0;
+    virtual double computeKgaga() const =0;
+    virtual double computeKglgl() const =0;
+    virtual double computeKb() const =0;
+    virtual double computeKc() const =0; 
+    virtual double computeKt() const =0;
+    virtual double computeKtau() const =0;
     /**
      * @brief This method computes the top loop contribution to @f[H\to\gamma\gamma@f] in the Standard Model.
      * Currently it returns the value of tab 40 in ref. @cite Heinemeyer:2013tqa
      * @return Width of H->gamma gamma (top loop contribution squared)
      */
-    double computeGammagagatt()
+    double computeGammagagatt() const
     {
         return 662.84;
     }
@@ -51,7 +51,7 @@ public:
      * Currently it returns the value of tab 40 in ref. @cite Heinemeyer:2013tqa
      * @return Width of H->gamma gamma (W loop contribution squared)
      */
-    double computeGammagagaWW()
+    double computeGammagagaWW() const
     {
         return 14731.86;
     }
@@ -61,7 +61,7 @@ public:
      * Currently it returns the value of tab 40 in ref. @cite Heinemeyer:2013tqa
      * @return Width of H->gamma gamma (top W loop interference)
      */
-    double computeGammagagatW()
+    double computeGammagagatW() const
     {
         return -6249.93;
     }
@@ -71,7 +71,7 @@ public:
      * Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa
      * @return Width of H->Z gamma (top loop contribution squared)
      */
-    double computeGammaZgatt()
+    double computeGammaZgatt() const
     {
         return 21.74;
     }
@@ -81,7 +81,7 @@ public:
      * Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa
      * @return Width of H->Z gamma (W loop contribution squared)
      */
-    double computeGammaZgaWW()
+    double computeGammaZgaWW() const
     {
         return 7005.6;
     }
@@ -91,7 +91,7 @@ public:
      * Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa
      * @return Width of H->Z gamma (top W loop interference)
      */
-    double computeGammaZgatW()
+    double computeGammaZgatW() const
     {
         return -780.4;
     }
@@ -101,7 +101,7 @@ public:
      * Currently it returns the value of tab 37  in ref. @cite Heinemeyer:2013tqa
      * @return W fusion contribution @f[\sigma_{WF}f] to cross section.
      */
-    double computeSigmaWF()
+    double computeSigmaWF() const
     {
         return 1.21;
     }
@@ -111,7 +111,7 @@ public:
      * Currently it returns the value of tab 37  in ref. @cite Heinemeyer:2013tqa
      * @return W fusion contribution @f[\sigma_{ZF}f] to cross section.
      */
-    double computeSigmaZF()
+    double computeSigmaZF() const
     {
         return 0.417;
     }
@@ -121,7 +121,7 @@ public:
      * Negligible (0.1%) in the Standard  model.
      * @return Z W interference fusion contribution @f[\sigma_{ZWF}f] to cross section.
      */
-    double computeSigmaZWF()
+    double computeSigmaZWF() const
     {
         return 0.;
     }
@@ -130,7 +130,7 @@ public:
      * Currently it returns the value of tables in appendix A (Mh=125.5 GeV)  in ref. @cite Heinemeyer:2013tqa
      * @return The @f[BR(H\to WW)@f] in the Standard Model
      */
-    double computeBRWW()
+    double computeBRWW() const
     {
         return 2.23e-1;
     }
@@ -139,7 +139,7 @@ public:
      * Currently it returns the value of tables in appendix A (Mh=125.5 GeV)  in ref. @cite Heinemeyer:2013tqa
      * @return The @f[BR(H\to ZZ)@f] in the Standard Model
      */
-    double computeBRZZ()
+    double computeBRZZ() const
     {
         return 2.76e-2;
     }
@@ -148,7 +148,7 @@ public:
      * Currently it returns the value of tables in appendix A (Mh=125.5 GeV)  in ref. @cite Heinemeyer:2013tqa
      * @return The @f[BR(H\to\gamma\gamma)@f] in the Standard Model
      */
-    double computeBRgaga()
+    double computeBRgaga() const
     {
         return 2.28e-3;
     }
@@ -157,7 +157,7 @@ public:
      * Currently it returns the value of tables in appendix A (Mh=125.5 GeV)  in ref. @cite Heinemeyer:2013tqa
      * @return The @f[BR(H\to Z\gamma)@f] in the Standard Model
      */
-    double computeBRZga()
+    double computeBRZga() const
     {
         return 1.58e-3;
     }
@@ -166,7 +166,7 @@ public:
      * Currently it returns the value of tables in appendix A (Mh=125.5 GeV)  in ref. @cite Heinemeyer:2013tqa
      * @return The @f[BR(H\to gg)@f] in the Standard Model
      */
-    double computeBRglgl()
+    double computeBRglgl() const
     {
         return 8.52e-2;
     }
@@ -175,7 +175,7 @@ public:
      * Currently it returns the value of tables in appendix A (Mh=125.5 GeV)  in ref. @cite Heinemeyer:2013tqa
      * @return The @f[BR(H\to bb)@f] in the Standard Model
      */
-    double computeBRbb()
+    double computeBRbb() const
     {
         return 5.69e-1;
     }
@@ -184,7 +184,7 @@ public:
      * Currently it returns the value of tables in appendix A (Mh=125.5 GeV)  in ref. @cite Heinemeyer:2013tqa
      * @return The @f[BR(H\to \tau\tau)@f] in the Standard Model
      */
-    double computeBRtautau()
+    double computeBRtautau() const
     {
         return 6.24e-2;
     }
@@ -193,7 +193,7 @@ public:
      * Currently it returns the value of tables in appendix A (Mh=125.5 GeV)  in ref. @cite Heinemeyer:2013tqa
      * @return The @f[BR(H\to cc)@f] in the Standard Model
      */
-    double computeBRcc()
+    double computeBRcc() const
     {
         return 2.87e-2;
     }
@@ -201,7 +201,7 @@ public:
      * @brief This method computes the ratio of the total Higgs width w.r.t SM.
      * @return The he ratio of the total Higgs width w.r.t SM
      */
-    virtual double computeGTotalRatio()=0;
+    virtual double computeGTotalRatio() const =0;
 
     private:
 

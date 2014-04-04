@@ -14,6 +14,7 @@
 #include <StandardModelParams.h>
 #include <NewPhysicsParams.h>
 #include <SUSYObservables.h>
+#include <HiggsThObservables.h>
 #include "ThFactory.h"
 
 ThFactory::ThFactory(const StandardModel& myModel)

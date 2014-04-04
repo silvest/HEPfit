@@ -10,6 +10,7 @@
       <itemPath>src/Brtautau.h</itemPath>
       <itemPath>src/HiggsExtensionModel.h</itemPath>
       <itemPath>src/HiggsKvKf.h</itemPath>
+      <itemPath>src/HiggsThObservables.h</itemPath>
       <itemPath>src/muVBF.h</itemPath>
       <itemPath>src/muWH.h</itemPath>
       <itemPath>src/muZH.h</itemPath>
@@ -70,6 +71,8 @@
       </item>
       <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/muVBF.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/muWH.h" ex="false" tool="3" flavor2="0">
@@ -116,6 +119,8 @@
       <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/muVBF.h" ex="false" tool="3" flavor2="0">
       </item>
