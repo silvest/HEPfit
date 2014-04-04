@@ -4,18 +4,9 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>src/BrWW.h</itemPath>
-      <itemPath>src/BrZZ.h</itemPath>
-      <itemPath>src/Brgaga.h</itemPath>
-      <itemPath>src/Brtautau.h</itemPath>
       <itemPath>src/HiggsExtensionModel.h</itemPath>
       <itemPath>src/HiggsKvKf.h</itemPath>
       <itemPath>src/HiggsThObservables.h</itemPath>
-      <itemPath>src/muVBF.h</itemPath>
-      <itemPath>src/muWH.h</itemPath>
-      <itemPath>src/muZH.h</itemPath>
-      <itemPath>src/muggH.h</itemPath>
-      <itemPath>src/muttH.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -57,14 +48,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/BrWW.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BrZZ.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Brgaga.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Brtautau.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/HiggsExtensionModel.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="0">
@@ -72,16 +55,6 @@
       <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/muVBF.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/muWH.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/muZH.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/muggH.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/muttH.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="3">
@@ -106,14 +79,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/BrWW.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/BrZZ.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Brgaga.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/Brtautau.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/HiggsExtensionModel.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="0">
@@ -121,16 +86,6 @@
       <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/muVBF.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/muWH.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/muZH.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/muggH.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/muttH.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
