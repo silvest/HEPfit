@@ -23,7 +23,7 @@
 #netbeans specific
 */core
 */nbproject/*
-!*/nbproject/project.properties
+!*/nbproject/configurations.xml
 !*/nbproject/project.xml
 */dist
 */build

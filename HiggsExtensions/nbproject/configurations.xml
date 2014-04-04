@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="94">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>src/BrWW.h</itemPath>
+      <itemPath>src/BrZZ.h</itemPath>
+      <itemPath>src/Brgaga.h</itemPath>
+      <itemPath>src/Brtautau.h</itemPath>
+      <itemPath>src/HiggsExtensionModel.h</itemPath>
+      <itemPath>src/HiggsKvKf.h</itemPath>
+      <itemPath>src/muVBF.h</itemPath>
+      <itemPath>src/muWH.h</itemPath>
+      <itemPath>src/muZH.h</itemPath>
+      <itemPath>src/muggH.h</itemPath>
+      <itemPath>src/muttH.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <itemPath>src/HiggsKvKf.cpp</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <ccTool>
+          <incDir>
+            <pElem>../StandardModel/src</pElem>
+            <pElem>../Observables/src</pElem>
+            <pElem>../gslpp/src</pElem>
+          </incDir>
+        </ccTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <item path="src/BrWW.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/BrZZ.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Brgaga.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Brtautau.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsExtensionModel.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/muVBF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/muWH.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/muZH.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/muggH.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/muttH.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="3">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+        <archiverTool>
+        </archiverTool>
+      </compileType>
+      <item path="src/BrWW.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/BrZZ.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Brgaga.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Brtautau.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsExtensionModel.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/muVBF.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/muWH.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/muZH.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/muggH.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/muttH.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
