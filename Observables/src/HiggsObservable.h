@@ -31,7 +31,7 @@ public:
                
     HiggsObservable(const HiggsObservable& orig);
 
-    virtual ~HiggsObservable();
+//    virtual ~HiggsObservable();
         // Read the necessary information from the config file. Each row contains:
         // ggH fraction
         // VBF fraction

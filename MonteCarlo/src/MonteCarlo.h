@@ -60,7 +60,7 @@ public:
     /**
      * @brief The default destructor.
      */
-    virtual ~MonteCarlo();
+    //virtual ~MonteCarlo();
     
     /**
      * @brief This member is used for test runa to generate a single event

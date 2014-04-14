@@ -53,9 +53,7 @@ Observable::Observable(const Observable& orig)
     errf = orig.errf;
 }
 
-Observable::~Observable() 
-{
-}
+//Observable::~Observable() {}
 
 std::ostream& operator<<(std::ostream& output, const Observable& o)
 {

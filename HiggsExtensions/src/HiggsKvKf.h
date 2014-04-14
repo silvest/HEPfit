@@ -70,7 +70,7 @@ public:
     {
     };
     HiggsKvKf(const HiggsKvKf& orig);
-    virtual ~HiggsKvKf();
+    virtual ~HiggsKvKf() {};
     
     virtual bool InitializeModel();
     

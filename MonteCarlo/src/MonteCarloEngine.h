@@ -215,9 +215,7 @@ public:
     
 private:
     const std::vector<ModelParameter>& ModPars; ///< A vector of model parameters.
-    boost::ptr_vector<Observable> Obs_MCMC; ///< A vector of observables to be used in the MCMC.
     boost::ptr_vector<Observable>& Obs_ALL;  ///< A vector of all observables.
-    std::vector<Observable2D> Obs2D_MCMC; ///< A vector of pairs of observables for Observable2D that are used in the MCMC.
     std::vector<Observable2D>& Obs2D_ALL; ///< A vector of all pairs of observable for Observable2D.
     std::vector<CorrelatedGaussianObservables>& CGO; ///< A vector of correlated Gaussian observables.
     std::vector<ModelParaVsObs>& ParaObs; ///< A vector of pairs of model parameters and observables.

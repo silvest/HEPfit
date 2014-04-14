@@ -51,7 +51,7 @@ public:
     /**
      * @brief The default destructor.
      */
-    virtual ~Observable();
+    //virtual ~Observable();
     
     /**
      * @brief A method to access the computed theory value of the observable.

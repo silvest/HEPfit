@@ -39,9 +39,7 @@ MonteCarlo::MonteCarlo(const std::string& ModelConf_i,
     checkrun = false;
 }
 
-MonteCarlo::~MonteCarlo() 
-{
-}
+//MonteCarlo::~MonteCarlo() {}
 
 void MonteCarlo::TestRun(int rank) {
     if (checkrun == true){

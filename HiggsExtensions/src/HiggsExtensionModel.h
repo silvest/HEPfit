@@ -26,7 +26,7 @@ public:
     HiggsExtensionModel() : StandardModel() {
     };
     HiggsExtensionModel(const HiggsExtensionModel& orig);
-    virtual ~HiggsExtensionModel();
+    virtual ~HiggsExtensionModel(){};
     virtual double computeKW() const =0;
     virtual double computeKZ() const =0;
     virtual double computeKZga() const =0;

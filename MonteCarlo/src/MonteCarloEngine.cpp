@@ -45,9 +45,7 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
     int k = 0, kweight = 0;
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
             it < Obs_ALL.end(); it++) {
-        if (it->isTMCMC()) {
-            Obs_MCMC.push_back((Observable*) *(it.base()));
-        } else {
+        if (!it->isTMCMC()) {
             k++;
             if (it->getDistr().compare("noweight") != 0)
                 kweight++;
@@ -65,9 +63,7 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin();
             it < Obs2D_ALL.end(); it++) {
         if ((it->getDistr()).compare("file") == 0) {
-            if (it->isTMCMC()) {
-                Obs2D_MCMC.push_back(*it);
-            } else
+            if (!it->isTMCMC())
                 throw std::runtime_error("ERROR: cannot handle noMCMC for Observable2D file yet!");
         } else if (it->getDistr().compare("weight") == 0)
             throw std::runtime_error("ERROR: do not use Observable2D for analytic 2D weights!");
@@ -226,12 +222,14 @@ double MonteCarloEngine::LogLikelihood(const std::vector<double>& parameters)
     //std::cout << "event used in MC" << std::endl;
 #endif
 
-    for (boost::ptr_vector<Observable>::iterator it = Obs_MCMC.begin(); it < Obs_MCMC.end(); it++) {
-        logprob += it->computeWeight();
+    for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin(); it != Obs_ALL.end(); it++) {
+        if (it->isTMCMC())
+            logprob += it->computeWeight();
     }
 
-    for (std::vector<Observable2D>::iterator it = Obs2D_MCMC.begin(); it < Obs2D_MCMC.end(); it++) {
-        logprob += it->computeWeight();
+    for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin(); it != Obs2D_ALL.end(); it++) {
+        if (it->isTMCMC())
+            logprob += it->computeWeight();
     }
 
     for (std::vector<CorrelatedGaussianObservables>::iterator it = CGO.begin(); it < CGO.end(); it++) {
@@ -519,7 +517,7 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, Observable& it,
         double range = max - min;
         HistoLog.precision(10);
         HistoLog << "  [" << min << ", " << max << "] --> suggested range: "
-                 << min - range / 7.0 << " " << max + range / 7.0 << std::endl;
+                << min - range / 7.0 << " " << max + range / 7.0 << std::endl;
         HistoLog.precision(6);
     }
 }

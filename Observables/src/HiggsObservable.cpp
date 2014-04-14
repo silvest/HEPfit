@@ -17,9 +17,7 @@
 #include <string>
 #include <sstream>
 
-HiggsObservable::~HiggsObservable()
-{
-}
+//HiggsObservable::~HiggsObservable() {}
 
 void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<ThObservable*> thObsV)
 {
@@ -35,7 +33,8 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
         IsEOF = getline(ifile, line).eof();
         if (line.compare(0, 11, "MEASUREMENT") == 0) nrows++;
     } while (!IsEOF);
-    channels = TMatrixD(nrows, thObsV.size() + 2);
+    channels.ResizeTo(nrows, thObsV.size() + 2);
+    ifile.clear();
     ifile.seekg(0, ifile.beg);
     do {
         IsEOF = getline(ifile, line).eof();
@@ -54,7 +53,7 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
         // left-side error
         // right-side error
             beg++; // skip label
-            for(int j = 0; j < thObsV.size() +  2; j++)
+            for(int j = 0; j < thObsV.size() +  2; j++) 
                 channels(i, j) = atof((*(++beg)).c_str());
         } else throw std::runtime_error("Error parsing " + filename + ": unrecognized keyword " + *beg);
 

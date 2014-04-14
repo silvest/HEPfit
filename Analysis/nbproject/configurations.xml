@@ -276,6 +276,18 @@
               </makeArtifact>
             </linkerLibProjectItem>
             <linkerLibProjectItem>
+              <makeArtifact PL="../HiggsExtensions"
+                            CT="3"
+                            CN="Debug"
+                            AC="true"
+                            BL="true"
+                            WD="../HiggsExtensions"
+                            BC="${MAKE}  -f Makefile CONF=Debug"
+                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libhiggsextensions.a">
+              </makeArtifact>
+            </linkerLibProjectItem>
+            <linkerLibProjectItem>
               <makeArtifact PL="../StandardModel"
                             CT="3"
                             CN="Debug"

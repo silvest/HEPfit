@@ -10,6 +10,22 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <iostream>
+#include <NPSTU.h>
+#include <NPSTUVWXY.h>
+#include <NPEpsilons.h>
+#include <NPEpsilons_pureNP.h>
+#include <NPHiggs.h>
+#include <NPZbbbar.h>
+#include <NPEffective1.h>
+#include <NPEffective2.h>
+#include <GeneralSUSY.h>
+#include <pMSSM.h>
+#include <SUSYMassInsertion.h>
+#include <MFV.h>
+#include <SUSY.h>
+#include <THDM.h>
+#include <HiggsKvKf.h>
+
 
 InputParser::InputParser()
 {
@@ -77,6 +93,7 @@ StandardModel* InputParser::ModelFactory(std::string& ModelName)
     else if (ModelName.compare("pMSSM") == 0) return (new pMSSM());
     else if (ModelName.compare("SUSYMassInsertion") == 0) return (new SUSYMassInsertion());
     else if (ModelName.compare("THDM") == 0) return (new THDM());
+    else if (ModelName.compare("HiggsKvKf") == 0) return (new HiggsKvKf());
     else throw std::runtime_error("\nERROR: Incorrect model name passed to InputParser::ModelFactory(): " + ModelName + "\n");
 }
 
@@ -140,23 +157,23 @@ std::string InputParser::ReadParameters(const std::string filename,
             if (std::distance(tok.begin(), tok.end()) < 8)
                 throw std::runtime_error("ERROR: lack of information on "
                     + *beg + " in " + filename);
-            Observable o(ParseObservable(beg));
+            Observable * o = new Observable(ParseObservable(beg));
             ++beg;
             std::string distr = *beg;
             if (distr.compare("file") == 0) {
-                o.setLikelihoodFromHisto(*(++beg), *(++beg));
+                o->setLikelihoodFromHisto(*(++beg), *(++beg));
             } else if (distr.compare("weight") == 0) {
                 ++beg;
-                o.setAve(atof((*beg).c_str()));
+                o->setAve(atof((*beg).c_str()));
                 ++beg;
-                o.setErrg(atof((*beg).c_str()));
+                o->setErrg(atof((*beg).c_str()));
                 ++beg;
-                o.setErrf(atof((*beg).c_str()));
+                o->setErrf(atof((*beg).c_str()));
             } else if (distr.compare("noweight") == 0) {
             } else
-                throw std::runtime_error("ERROR: wrong distribution flag in " + o.getName());
-            o.setDistr(distr);
-            Observables.push_back(&o);
+                throw std::runtime_error("ERROR: wrong distribution flag in " + o->getName());
+            o->setDistr(distr);
+            Observables.push_back(o);
             ++beg;
             if (beg != tok.end())
                 std::cout << "WARNING: unread information in observable "
@@ -196,7 +213,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             if (std::distance(tok.begin(), tok.end()) < 8)
                 throw std::runtime_error("ERROR: lack of information on "
                     + *beg + " in " + filename);
-            HiggsObservable ho(ParseObservable(beg));
+            HiggsObservable * ho = new HiggsObservable(ParseObservable(beg));
             ++beg;
             std::string distr = *beg;
             if (distr.compare("parametric") == 0) {
@@ -205,10 +222,10 @@ std::string InputParser::ReadParameters(const std::string filename,
                 hthobs.push_back(thf->getThMethod("VBF"));
                 hthobs.push_back(thf->getThMethod("VH"));
                 hthobs.push_back(thf->getThMethod("ttH"));
-                ho.setParametricLikelihood(*(++beg), hthobs);
+                ho->setParametricLikelihood(*(++beg), hthobs);
             } else
-                throw std::runtime_error("ERROR: wrong distribution flag in " + ho.getName());
-            Observables.push_back(&ho);
+                throw std::runtime_error("ERROR: wrong distribution flag in " + ho->getName());
+            Observables.push_back(ho);
             if (beg != tok.end())
                 std::cout << "WARNING: unread information in HiggsObservable "
                     << Observables.back().getName() << std::endl;
