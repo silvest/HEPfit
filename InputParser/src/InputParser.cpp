@@ -250,6 +250,19 @@ std::string InputParser::ReadParameters(const std::string filename,
                 if (type.compare("Observable") != 0)
                     throw std::runtime_error("ERROR: expecting an Observable type here...");
                 Observable tmp = ParseObservable(beg);
+                ++beg;
+                std::string distr = *beg;
+                if (distr.compare("weight") == 0) {
+                    ++beg;
+                    tmp.setAve(atof((*beg).c_str()));
+                    ++beg;
+                    tmp.setErrg(atof((*beg).c_str()));
+                    ++beg;
+                    tmp.setErrf(atof((*beg).c_str()));
+                } else if (distr.compare("noweight") == 0) {
+                } else
+                    throw std::runtime_error("ERROR: wrong distribution flag in " + tmp.getName());
+                tmp.setDistr(distr);
                 if (tmp.isTMCMC()) {
                     o3.AddObs(tmp);
                     lines.push_back(true);
