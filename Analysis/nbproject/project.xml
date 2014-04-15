@@ -37,6 +37,10 @@
                     <type>1</type>
                 </confElem>
                 <confElem>
+                    <name>Debug_MPI</name>
+                    <type>1</type>
+                </confElem>
+                <confElem>
                     <name>Release</name>
                     <type>1</type>
                 </confElem>
@@ -50,10 +54,6 @@
                 </confElem>
                 <confElem>
                     <name>Cluster_MPI</name>
-                    <type>1</type>
-                </confElem>
-                <confElem>
-                    <name>Debug_MPI</name>
                     <type>1</type>
                 </confElem>
             </confList>
