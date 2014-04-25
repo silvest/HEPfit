@@ -776,7 +776,7 @@ double EWSUSY::DeltaR_boxLL_SUSY(const double Mw_i) const
         for (int K=0; K<3; ++K)  /* K=0-2 for left-handed sneutrinos */
             for (int i=0; i<2; ++i)
                 for (int j=0; j<4; ++j) {
-                    complex FF = F(sqrt(Mse2[k]), sqrt(Msn2[k]), mC[i], mN[j]);
+                    complex FF = F(sqrt(Mse2[k]), sqrt(Msn2[K]), mC[i], mN[j]);
                     a11 += 0.5
                            *L_esnC(M, K, i, Mw_i)
                            *L_nLC(I, k, i, Mw_i)
