@@ -104,7 +104,7 @@ int main(int argc, char** argv)
                 FolderOut = vm["output_folder"].as<string > ();
                 nIterations = vm["it"].as<int > ();
                 GenerateEvent GE(ModelConf, FolderOut, JobTag, noMC);
-                GE.generate(rank, nIterations);
+                GE.generate(nIterations);
             }
             else if (!vm.count("noMC") && vm.count("mcconf"))
             {

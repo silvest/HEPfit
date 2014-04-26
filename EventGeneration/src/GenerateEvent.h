@@ -18,6 +18,9 @@
 #include <Model.h>
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
+#ifdef _MPI
+#include <mpi.h>
+#endif
 
 /**
  * @addtogroup EventGeneration
@@ -81,7 +84,7 @@ public:
      * @param[in] nIteration number of events generated
      * @param[in] seed seed for the random number generator (default = 0)
      */
-    void generate(const int rank, int unsigned nIteration, int seed = 0);
+    void generate(int unsigned nIteration_i, int seed = 0);
     
 
     
@@ -102,6 +105,10 @@ private:
      */
     void generateRandomEvent(int iterationNo);
     
+    void createDirectories();
+    
+    void initModel();
+    
     InputParser myInputParser; ///< An oject of the InputParser() class.
     std::map<std::string, double> DPars; ///< Map of parameters to be passed to Model().
     std::map<std::string, TF1*> DDist; ///< Map of parameter distributions.
@@ -120,10 +127,27 @@ private:
     std::string OldOutDirName; ///< String for the name of the backup output directory.
     std::string ObsDirName; ///< String for the name of the observables output directory.
     std::string CGODirName; ///< String for the name of the Correlated Gaussian Observables output directory.
+    std::string SMDebugDirName; ///< String for the name of the observables output directory.
+    std::string SUSYDebugDirName; ///< String for the name of the Correlated Gaussian Observables output directory.
     std::string ParsDirName; ///< String for the name of the parameters output directory.
     std::string JobTag; ///< String for the optional JobTag argument to be passes to the executable.
     bool noMC;///< Flag to initiate noMC mode.
     bool outputTerm; ///< Flag to specify output stream storage.
+    int rank;
+    int procnum;
+#ifdef _MPI
+    int nameLen;
+    char processorName[MPI_MAX_PROCESSOR_NAME];
+#endif
+    std::ofstream summary;
+    int nIteration;
+    int positionID;
+    int buffersize;
+    double *sendbuff;
+    double **buff;
+    int *sendbuff_int;
+    int **buff_int;
+    std::string ModelName;
 };
 
 #endif	/* GENERATEEVENT_H */
