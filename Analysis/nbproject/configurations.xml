@@ -445,12 +445,12 @@
             <linkerLibProjectItem>
               <makeArtifact PL="../EventGeneration"
                             CT="3"
-                            CN="Debug"
-                            AC="true"
+                            CN="Debug_MPI"
+                            AC="false"
                             BL="true"
                             WD="../EventGeneration"
-                            BC="${MAKE}  -f Makefile CONF=Debug"
-                            CC="${MAKE}  -f Makefile CONF=Debug clean"
+                            BC="${MAKE}  -f Makefile CONF=Debug_MPI"
+                            CC="${MAKE}  -f Makefile CONF=Debug_MPI clean"
                             OP="${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/libeventgeneration.a">
               </makeArtifact>
             </linkerLibProjectItem>
@@ -1084,6 +1084,7 @@
             <pElem>../LoopTools/lib</pElem>
             <pElem>../boost/lib</pElem>
           </linkerAddLib>
+          <commandlineTool>mpic++</commandlineTool>
           <linkerLibItems>
             <linkerLibProjectItem>
               <makeArtifact PL="../ComputeObservables"
