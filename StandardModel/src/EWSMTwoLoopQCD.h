@@ -127,27 +127,6 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha\alpha_s)@f$
-     * to the effective couplings @f$\rho_Z^l@f$,
-     * denoted as @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha\alpha_s}@f$.
-     * @details The @f$O(\alpha\alpha_s)@f$ remainder contribution to
-     * @f$\rho_{Z}^{l}@f$ is decomposed as
-     * @f[
-     * \delta\rho_{\mathrm{rem}}^{l,\,\alpha\alpha_s}
-     *  = 2 \Delta\rho^{ud} + \Delta\rho^{tb} - \Delta\rho^{\alpha\alpha_s},
-     * @f]
-     * where @f$\Delta\rho^{ud}@f$ and @f$\Delta\rho^{tb}@f$ are associated with
-     * corrections to the self-energies of the gauge bosons with loops of
-     * a light-quark doublet and with those of the @f$t@f$-@f$b@f$ doublet, respectively,
-     * and @f$\Delta\rho^{\alpha\alpha_s}@f$ is the leading contribution
-     * of @f$O(\alpha\alpha_s)@f$ to @f$\rho_{Z}^{l}@f$.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha\alpha_s}@f$
-     */
-    complex deltaRho_rem_l(const StandardModel::lepton l, const double Mw_i) const;
-
-    /**
-     * @brief Remainder contribution of @f$O(\alpha\alpha_s)@f$
      * to the effective couplings @f$\rho_Z^q@f$,
      * denoted as @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha\alpha_s}@f$.
      * @details The @f$O(\alpha\alpha_s)@f$ remainder contribution to
@@ -165,30 +144,8 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha\alpha_s}@f$
      */
-    complex deltaRho_rem_q(const QCD::quark q, const double Mw_i) const;
-
-    /**
-     * @brief Remainder contribution of @f$O(\alpha\alpha_s)@f$
-     * to the effective couplings @f$\kappa_Z^l@f$,
-     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha\alpha_s}@f$.
-     * @details The @f$O(\alpha\alpha_s)@f$ remainder contribution to
-     * @f$\kappa_{Z}^{l}@f$ is decomposed as
-     * @f[
-     * \delta\kappa_{\mathrm{rem}}^{l,\,\alpha\alpha_s}
-     *  = 2 \Delta\kappa^{ud} + \Delta\kappa^{tb}
-     * - \frac{c_W^2}{s_W^2}\Delta\rho^{\alpha\alpha_s},
-     * @f]
-     * where @f$\Delta\kappa^{ud}@f$ and @f$\Delta\kappa^{tb}@f$ are associated with
-     * corrections to the self-energies of the gauge bosons with loops of
-     * a light-quark doublet and with those of the @f$t@f$-@f$b@f$ doublet, respectively,
-     * and @f$(c_W^2/s_W^2)\Delta\rho^{\alpha\alpha_s}@f$ is the leading contribution
-     * of @f$O(\alpha\alpha_s)@f$ to @f$\kappa_{Z}^{l}@f$.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha\alpha_s}@f$
-     */
-    complex deltaKappa_rem_l(const StandardModel::lepton l, const double Mw_i) const;
-                                                  
+    complex deltaRho_rem_f(const Particle p, const double Mw_i) const;
+                                           
     /**
      * @brief Remainder contribution of @f$O(\alpha\alpha_s)@f$
      * to the effective couplings @f$\kappa_Z^q@f$,
@@ -209,7 +166,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha\alpha_s}@f$
      */
-    complex deltaKappa_rem_q(const QCD::quark q, const double Mw_i) const;  
+    complex deltaKappa_rem_f(const Particle p, const double Mw_i) const;  
     
 
     ////////////////////////////////////////////////////////////////////////        

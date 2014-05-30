@@ -8,17 +8,16 @@
 #ifndef LEPTONFLAVOUR_H
 #define	LEPTONFLAVOUR_H
 
-#include <ThObsType.h>
 #include <StandardModel.h>
 #include "HeffDL1.h"
 
 using namespace gslpp;
 
-class LeptonFlavour : public ThObsType {
+class LeptonFlavour {
 public:
 
-    LeptonFlavour(const StandardModel& SM_i) : ThObsType(SM_i) 
-            , HDL1(SM_i)//, HDS1(SM_i), HDB1(SM_i)
+    LeptonFlavour(const StandardModel& SM_i) : SM(SM_i),
+            HDL1(SM_i)//, HDS1(SM_i), HDB1(SM_i)
     {   
         if(!SM_i.IsModelInitialized())
             throw std::runtime_error("Model not initialized "); 
@@ -34,6 +33,7 @@ public:
     
 private:
     HeffDL1 HDL1;
+    const StandardModel& SM;
 };
 
 #endif	/* LEPTONFLAVOUR_H */

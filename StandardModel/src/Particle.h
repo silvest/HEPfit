@@ -9,6 +9,7 @@
 #define	PARTICLE_H
 
 #include <vector>
+#include <string>
 
 #define HCUT 6.58211899E-13 // GeV psec
 
@@ -39,19 +40,20 @@ public:
      * @brief Constructor. 
      * @details The properties of the particle can be initialized by passing
      * arguments. 
+     * @param[in] the name of the particle
      * @param[in] mass the mass of the particle in GeV
      * @param[in] mass_scale the scale in GeV at which the mass is defined, set to 0 by default
      * @param[in] width the decay width of the particle in GeV, set to 0 by default
      * @param[in] charge the charge of the particle, set to 0 by default
      * @param[in] isospin the isospin of the particle, set to 0 by default
      */
-    Particle(double mass, double mass_scale = 0., double width = 0., double charge = 0.,double isospin = 0.);
+    Particle(std::string name, double mass, double mass_scale = 0., double width = 0., double charge = 0.,double isospin = 0.);
 
     /**
      * @brief A get method to access the particle mass. 
      * @return the particle mass in GeV
      */
-    double getMass() const 
+    const double& getMass() const 
     {
         return mass;
     }
@@ -69,7 +71,7 @@ public:
      * @brief A get method to access the particle width
      * @return the particle width in GeV
      */
-    double getWidth() const 
+    const double& getWidth() const 
     {
         return width;
     }
@@ -137,13 +139,25 @@ public:
         this->mass_scale = mass_scale;
     }
 
+    std::string getName() const {
+        return name;
+    }
+
+    void setName(std::string name) {
+        this->name = name;
+    }
     
+    bool is(std::string name_i) const;
+    
+    int index() const;
+
 protected:
     double mass;///< The particle mass in GeV.
     double width;///< The particle width in GeV.
     double charge;///< The particle charge.
     double mass_scale;///< The scale in GeV at which the particle mass is defined. 
     double isospin;///< The particle isospin.
+    std::string name; ///< The particle name.
     
 };
 

@@ -11,7 +11,6 @@
 #include <string>
 #include <ThObservable.h>
 #include <StandardModel.h>
-#include "EW.h"
 #include "EW_ABC.h"
 #include "EW_BURGESS.h"
 #include "EW_CHMN.h"
@@ -27,14 +26,13 @@
 class EW_TEST : public ThObservable {
 public:
 
-    EW_TEST(const std::string mode_i, const std::string obsname_i, const EW& EW_i);
+    EW_TEST(const std::string mode_i, const std::string obsname_i, const StandardModel& SM_i);
 
     double computeThValue();
 
 private:
     const std::string mode;
     const std::string obsname;
-    const EW& myEW;
     const StandardModel& SM;
     const EW_ABC *myEW_ABC;
     const EW_BURGESS *myEW_BURGESS;

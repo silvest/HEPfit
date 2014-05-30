@@ -11,10 +11,10 @@ const std::string HiggsKvKf::HKvKfvars[NHKvKfvars] = {
     "Kv", "Kf"
 };
 
-// For the moment we just call the SM initializer, but this must be changed once we implement the EW class with Kv and Kf
-bool HiggsKvKf::InitializeModel()
+HiggsKvKf::HiggsKvKf() : HiggsExtensionModel()
 {
-    return(StandardModel::InitializeModel());
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kv", boost::cref(Kv)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kf", boost::cref(Kf)));
 }
 
 void HiggsKvKf::setParameter(const std::string name, const double& value)

@@ -1230,7 +1230,7 @@ private:
      */
     void CacheShift(double cache[][5], int n) const;
     
-    
+
 };
 
 #endif	/* QCD_H */

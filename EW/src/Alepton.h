@@ -10,7 +10,6 @@
 
 #include <stdexcept>
 #include <ThObservable.h>
-#include "EW.h"
 
 /**
  * @class Alepton
@@ -35,8 +34,8 @@ public:
      * @brief Constructor.
      * @param[in] EW_i a reference to an object of type EW
      */
-    Alepton(const EW& EW_i) 
-    : ThObservable(EW_i), myEW(EW_i)
+    Alepton(const StandardModel& SM_i) 
+    : ThObservable(SM_i) 
     {
     };
 
@@ -49,7 +48,7 @@ public:
 
     
 private:
-    const EW& myEW;///< A reference to an object of type EW.
+
 
 };
 

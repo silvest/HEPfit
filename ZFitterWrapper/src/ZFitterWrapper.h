@@ -71,7 +71,8 @@
 #include <iostream>
 #include <cstring>
 #include <gslpp.h>
-#include <ThObsType.h>
+
+
 #include <StandardModel.h>
 
 using namespace gslpp;

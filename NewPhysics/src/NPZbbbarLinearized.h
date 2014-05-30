@@ -5,13 +5,13 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef NPZBBBAR_H
-#define	NPZBBBAR_H
+#ifndef NPZBBBARLINEARIZED_H
+#define	NPZBBBARLINEARIZED_H
 
 #include "NPbase.h"
 
 /**
- * @class NPZbbbar
+ * @class NPZbbbarLinearized
  * @brief A model class for new physics in the form of contributions to the
  * @f$Zb\bar{b}@f$ couplings.
  * @ingroup NewPhysics
@@ -48,24 +48,24 @@
  * @f]
  *
  *
- * @anchor NPZbbbarInitialization
+ * @anchor NPZbbbarLinearizedInitialization
  * <h3>Initialization</h3>
  *
- * The constructor NPZbbbar() initializes the model flags explained below to their
+ * The constructor NPZbbbarLinearized() initializes the model flags explained below to their
  * default values. After creating an instance of the current class,
  * it is required to call the initialization method InitializeModel(), which
  * allocates memory to the pointer #myEWSM, inherited from StndardModel, with
- * type EWNPZbbbar.
+ * type EWNPZbbbarLinearized.
  * This pointer is then used in computing the fermionic neutral-current
  * couplings in the presence of new physics contribution to @f$Zb\bar{b}@f$.
  * In the Monte Carlo run, the constructor as well as the initialization
  * method are called in InputParser::ReadParameters().
  *
  *
- * @anchor NPZbbbarParameters
+ * @anchor NPZbbbarLinearizedParameters
  * <h3>%Model parameters</h3>
  *
- * The model parameters of %NPZbbbar are summarized below:
+ * The model parameters of %NPZbbbarLinearized are summarized below:
  *
  * <table class="model">
  * <tr>
@@ -86,9 +86,9 @@
  * </table>
  *
  * which are applicable when the instance of the current class is created with
- * the constructor NPZbbbar() or NPZbbbar(false). 
- * Alternatively, when using NPZbbbar(true), which corresponds to the use of the 
- * model name "NPZbbbarLR" instead of "NPZbbbar" in InputParser::ModelFactory(),
+ * the constructor NPZbbbarLinearized() or NPZbbbarLinearized(false). 
+ * Alternatively, when using NPZbbbarLinearized(true), which corresponds to the use of the 
+ * model name "NPZbbbarLinearizedLR" instead of "NPZbbbarLinearized" in InputParser::ModelFactory(),
  * the following parameters have to be used as inputs:
  *
  * <table class="model">
@@ -109,10 +109,10 @@
  * </tr>
  * </table>
  *
- * @anchor NPZbbbarFlags
+ * @anchor NPZbbbarLinearizedFlags
  * <h3>%Model Flags</h3>
  *
- * The flag of %NPZbbbar is summarized below:
+ * The flag of %NPZbbbarLinearized is summarized below:
  * <table class="model">
  * <tr>
  *   <th>Label</th>
@@ -129,7 +129,7 @@
  * </table>
  *
  *
- * @anchor NPZbbbarFunctions
+ * @anchor NPZbbbarLinearizedFunctions
  * <h3>Important member functions</h3>
  *
  * Compared to the base class NPbase, the functions for the following quantities
@@ -139,23 +139,23 @@
  * @li @f$\delta g_A^f@f$&nbsp;&nbsp;(with deltaGAl() and deltaGAq()).
  *
  */
-class NPZbbbar : public NPbase {
+class NPZbbbarLinearized : public NPbase  {
 public:
 
     /**
-     * @brief The number of the model parameters in %NPZbbbar.
+     * @brief The number of the model parameters in %NPZbbbarLinearized.
      */
     static const int NZbbbarVars = 2;
 
     /**
-     * @brief A string array containing the labels of the model parameters in %NPZbbbar,
-     * used for NPZbbbarLR=FALSE.
+     * @brief A string array containing the labels of the model parameters in %NPZbbbarLinearized,
+     * used for NPZbbbarLinearizedLR=FALSE.
      */
     static const std::string ZbbbarVAVars[NZbbbarVars];
 
     /**
-     * @brief A string array containing the labels of the model parameters in %NPZbbbar,
-     * used for NPZbbbarLR=TRUE.
+     * @brief A string array containing the labels of the model parameters in %NPZbbbarLinearized,
+     * used for NPZbbbarLinearizedLR=TRUE.
      */
     static const std::string ZbbbarLRVars[NZbbbarVars];
 
@@ -167,7 +167,7 @@ public:
      * the labels %deltaGVb and %deltaGAb are applicable for FlagNPZbbbarLR_in=fALSE,
      * while %deltaGLb and %deltaGRb are applicable for FlagNPZbbbarLR_in=TRUE.
      */
-    NPZbbbar(const bool FlagNPZbbbarLR_in = false);
+    NPZbbbarLinearized(const bool FlagNPZbbbarLR_in = false);
 
     /**
      * @brief @copybrief Model::Update()
@@ -182,7 +182,7 @@ public:
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
     /**
-     * @brief The post-update method for %NPZbbbar.
+     * @brief The post-update method for %NPZbbbarLinearized.
      * @details This method runs all the procedures that need to be executed
      * after the model is successfully updated. This includes 
      * \li assigning the value of the NPbase object trueNP
@@ -190,7 +190,7 @@ public:
      */
     virtual bool PostUpdate();
 
-
+    
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -237,21 +237,6 @@ public:
      */
     virtual double deltaGA_f(const Particle p) const;
 
-    virtual double Mw() const;
-
-    virtual double GammaW() const;
-
-    virtual double Gamma_Z() const;
-
-    virtual double sigma0_had() const;
-
-    virtual double sin2thetaEff(const Particle p) const;
-
-    virtual double A_f(const Particle p) const;
-    virtual double AFB(const Particle p) const;
-
-    virtual double R0_f(const Particle p) const;
-
     ////////////////////////////////////////////////////////////////////////
 protected:
 
@@ -266,13 +251,13 @@ protected:
 private:
 
     NPbase trueNPbase;
-
+    
     /* These variables are used internally as the deviations in the left-handed
      * and right-handed couplings if FlagNPZbbbarLR is set to true.
      * Therefore, they should not be used directly. Instead, the functions
      * deltaGVq() and deltaGAq() have to be called. */
-    double myDeltaGVb; ///< New physics contribution to \f$g_{V}^b\f$.
-    double myDeltaGAb; ///< New physics contribution to \f$g_{A}^b\f$.
+    double myDeltaGVb;///< New physics contribution to \f$g_{V}^b\f$.
+    double myDeltaGAb;///< New physics contribution to \f$g_{A}^b\f$.
 
     /**
      * @brief An internal boolean flag that is true if \f$\delta g_{L,R}^b\f$ are
@@ -280,7 +265,8 @@ private:
      * constructor. 
      */
     const bool FlagNPZbbbarLR;
+
 };
 
-#endif	/* NPZBBBAR_H */
+#endif	/* NPZBBBARLINEARIZED_H */
 

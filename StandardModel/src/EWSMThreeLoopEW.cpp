@@ -20,14 +20,14 @@ EWSMThreeLoopEW::EWSMThreeLoopEW(const EWSMcache& cache_i)
 double EWSMThreeLoopEW::DeltaAlpha_l(const double s) const 
 {
     double log_l[3];
-    if (s==cache.Mz()*cache.Mz()) {
+    if (s==cache.getSM().getMz()*cache.getSM().getMz()) {
         log_l[0] = 2.0*cache.logMZtoME();
         log_l[1] = 2.0*cache.logMZtoMMU();
         log_l[2] = 2.0*cache.logMZtoMTAU();
     } else {
-        log_l[0] = log(s/cache.ml(StandardModel::ELECTRON)/cache.ml(StandardModel::ELECTRON));
-        log_l[1] = log(s/cache.ml(StandardModel::MU)/cache.ml(StandardModel::MU));
-        log_l[2] = log(s/cache.ml(StandardModel::TAU)/cache.ml(StandardModel::TAU));
+        log_l[0] = log(s/cache.mf(cache.getSM().getLeptons(StandardModel::ELECTRON))/cache.mf(cache.getSM().getLeptons(StandardModel::ELECTRON)));
+        log_l[1] = log(s/cache.mf(cache.getSM().getLeptons(StandardModel::MU))/cache.mf(cache.getSM().getLeptons(StandardModel::MU)));
+        log_l[2] = log(s/cache.mf(cache.getSM().getLeptons(StandardModel::TAU))/cache.mf(cache.getSM().getLeptons(StandardModel::TAU)));
     }
 
     double threeLoop[3];
@@ -59,7 +59,7 @@ double EWSMThreeLoopEW::DeltaAlpha_l(const double s) const
         threeLoop[i] /= -4.0;
     }
             
-    return ( pow(cache.ale()/M_PI, 3.0)
+    return ( pow(cache.getSM().getAle()/M_PI, 3.0)
              *(threeLoop[0] + threeLoop[1] + threeLoop[2]) );    
 }    
 
@@ -72,9 +72,9 @@ double EWSMThreeLoopEW::DeltaAlpha_t(const double s) const
 
 double EWSMThreeLoopEW::DeltaRho(const double Mw_i) const 
 {
-    double Mw = cache.Mw(Mw_i);
-    double mh = cache.mh();
-    double Mt = cache.Mt();
+    double Mw = Mw_i;
+    double mh = cache.getSM().getMHl();
+    double Mt = cache.getSM().getMtpole();
     double DeltaRho;
     if (mh==0.0) {
         DeltaRho = 3.0*( 68.0 + 729.0*cache.getS2() + 36.0*cache.getD3()
@@ -116,32 +116,18 @@ double EWSMThreeLoopEW::DeltaR_rem(const double Mw_i) const
 }
 
 
-complex EWSMThreeLoopEW::deltaRho_rem_l(const StandardModel::lepton l, 
-                                        const double Mw_i) const
-{
-    return ( complex(0.0,0.0,false) );
-}
-
-
-complex EWSMThreeLoopEW::deltaRho_rem_q(const QCD::quark q, 
+complex EWSMThreeLoopEW::deltaRho_rem_f(const Particle p, 
                                         const double Mw_i) const 
 {
-    if(q==QCD::TOP) return ( complex(0.0,0.0,false) );
+    if(p.is("TOP")) return ( complex(0.0,0.0,false) );
     return ( complex(0.0,0.0,false) );
 }
 
 
-complex EWSMThreeLoopEW::deltaKappa_rem_l(const StandardModel::lepton l, 
+complex EWSMThreeLoopEW::deltaKappa_rem_f(const Particle p, 
                                           const double Mw_i) const 
 {
-    return ( complex(0.0,0.0,false) );
-}
-
-
-complex EWSMThreeLoopEW::deltaKappa_rem_q(const QCD::quark q, 
-                                          const double Mw_i) const 
-{
-    if(q==QCD::TOP) return ( complex(0.0,0.0,false) );
+    if(p.is("TOP")) return ( complex(0.0,0.0,false) );
     return ( complex(0.0,0.0,false) );
 }
 

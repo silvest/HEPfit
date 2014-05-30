@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="90">
+<configurationDescriptor version="94">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
-      <itemPath>src/EWNPEpsilons.h</itemPath>
-      <itemPath>src/EWNPZbbbar.h</itemPath>
+      <itemPath>src/EW_ABC.h</itemPath>
+      <itemPath>src/EW_BURGESS.h</itemPath>
+      <itemPath>src/EW_CHMN.h</itemPath>
+      <itemPath>src/EW_TEST.h</itemPath>
       <itemPath>src/NPEffective.h</itemPath>
       <itemPath>src/NPEffective1.h</itemPath>
       <itemPath>src/NPEffective2.h</itemPath>
@@ -15,8 +17,8 @@
       <itemPath>src/NPSTU.h</itemPath>
       <itemPath>src/NPSTUVWXY.h</itemPath>
       <itemPath>src/NPZbbbar.h</itemPath>
+      <itemPath>src/NPZbbbarLinearized.h</itemPath>
       <itemPath>src/NPbase.h</itemPath>
-      <itemPath>src/NewPhysicsParams.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -25,8 +27,10 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>src/EWNPEpsilons.cpp</itemPath>
-      <itemPath>src/EWNPZbbbar.cpp</itemPath>
+      <itemPath>src/EW_ABC.cpp</itemPath>
+      <itemPath>src/EW_BURGESS.cpp</itemPath>
+      <itemPath>src/EW_CHMN.cpp</itemPath>
+      <itemPath>src/EW_TEST.cpp</itemPath>
       <itemPath>src/NPEffective.cpp</itemPath>
       <itemPath>src/NPEffective1.cpp</itemPath>
       <itemPath>src/NPEffective2.cpp</itemPath>
@@ -36,8 +40,8 @@
       <itemPath>src/NPSTU.cpp</itemPath>
       <itemPath>src/NPSTUVWXY.cpp</itemPath>
       <itemPath>src/NPZbbbar.cpp</itemPath>
+      <itemPath>src/NPZbbbarLinearized.cpp</itemPath>
       <itemPath>src/NPbase.cpp</itemPath>
-      <itemPath>src/NewPhysicsParams.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -73,13 +77,21 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/EWNPEpsilons.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/EW_ABC.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EWNPEpsilons.h" ex="false" tool="3" flavor2="0">
+      <item path="src/EW_ABC.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EWNPZbbbar.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/EW_BURGESS.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EWNPZbbbar.h" ex="false" tool="3" flavor2="0">
+      <item path="src/EW_BURGESS.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EW_CHMN.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EW_CHMN.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EW_TEST.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EW_TEST.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPEffective.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -117,13 +129,13 @@
       </item>
       <item path="src/NPZbbbar.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPZbbbarLinearized.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPZbbbarLinearized.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPbase.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPbase.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/NewPhysicsParams.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NewPhysicsParams.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="3">
@@ -156,13 +168,21 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/EWNPEpsilons.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/EW_ABC.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EWNPEpsilons.h" ex="false" tool="3" flavor2="0">
+      <item path="src/EW_ABC.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EWNPZbbbar.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/EW_BURGESS.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EWNPZbbbar.h" ex="false" tool="3" flavor2="0">
+      <item path="src/EW_BURGESS.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EW_CHMN.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EW_CHMN.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EW_TEST.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EW_TEST.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPEffective.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -200,13 +220,13 @@
       </item>
       <item path="src/NPZbbbar.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPZbbbarLinearized.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPZbbbarLinearized.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPbase.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPbase.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/NewPhysicsParams.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NewPhysicsParams.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Cluster" type="3">
@@ -239,13 +259,21 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/EWNPEpsilons.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/EW_ABC.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EWNPEpsilons.h" ex="false" tool="3" flavor2="0">
+      <item path="src/EW_ABC.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EWNPZbbbar.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/EW_BURGESS.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/EWNPZbbbar.h" ex="false" tool="3" flavor2="0">
+      <item path="src/EW_BURGESS.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EW_CHMN.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EW_CHMN.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/EW_TEST.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/EW_TEST.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPEffective.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -283,13 +311,13 @@
       </item>
       <item path="src/NPZbbbar.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/NPZbbbarLinearized.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/NPZbbbarLinearized.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/NPbase.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/NPbase.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/NewPhysicsParams.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NewPhysicsParams.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

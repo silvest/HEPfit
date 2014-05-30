@@ -10,7 +10,6 @@
 
 #include <stdexcept>
 #include <ThObservable.h>
-#include "EW.h"
 
 /**
  * @class Mw 
@@ -27,8 +26,8 @@ public:
      * @brief Constructor.
      * @param[in] EW_i a reference to an object of type EW
      */
-    Mw(const EW& EW_i) 
-    : ThObservable(EW_i)
+    Mw(const StandardModel& SM_i) 
+    : ThObservable(SM_i)
     {
     };
 

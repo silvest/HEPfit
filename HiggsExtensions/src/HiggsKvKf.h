@@ -66,13 +66,9 @@ public:
      */
     static const std::string HKvKfvars[NHKvKfvars];
 
-    HiggsKvKf() : HiggsExtensionModel() 
-    {
-    };
-    HiggsKvKf(const HiggsKvKf& orig);
+    HiggsKvKf();
+
     virtual ~HiggsKvKf() {};
-    
-    virtual bool InitializeModel();
     
      ///////////////////////////////////////////////////////////////////////////
     // Model parameters

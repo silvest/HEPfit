@@ -9,7 +9,6 @@
 #include <sstream>
 #include <stdexcept>
 #include <StandardModelMatching.h>
-#include <EWSM.h>
 #include "SUSY.h"
 #include "SUSYMatching.h"
 #include "SUSYSpectrum.h"
@@ -39,7 +38,7 @@ bool SUSY::InitializeModel()
 {
     mySUSYMatching = new SUSYMatching(*this);
     myFH = new FeynHiggsWrapper(*this);
-    myEWSM = new EWSUSY(*this);
+    myEWSUSY = new EWSUSY(*this);
     setFlagStr("Mw", "NORESUM");
     setModelInitialized(true);
     return(true);
@@ -104,7 +103,7 @@ bool SUSY::PostUpdate()
     }
 
     /* For EWSUSY class */
-    (static_cast<EWSUSY*> (myEWSM))->SetRosiekParameters();
+    myEWSUSY->SetRosiekParameters();
 
     /* Necessary for updating StandardModel parameters in StandardModelMatching,
      * and SUSY and SUSY-derived parameters in SUSYMatching */
@@ -285,7 +284,7 @@ double SUSY::getMGl() const
 
 double SUSY::Mw() const
 {
-    return (static_cast<EWSUSY*> (myEWSM))->Mw_MSSM();
+    return myEWSUSY->Mw_MSSM();
 }
 
 double SUSY::Mw_dRho() const

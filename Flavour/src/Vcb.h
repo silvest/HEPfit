@@ -9,11 +9,10 @@
 #define	VCB_H
 
 #include <ThObservable.h>
-#include <ThObsType.h>
 
 class Vcb : public ThObservable {
 public:
-    Vcb(const ThObsType& ObsType) : ThObservable(ObsType) {};
+    Vcb(const StandardModel& SM_i) : ThObservable(SM_i) {};
 
     double computeThValue();
 };

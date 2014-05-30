@@ -14,7 +14,7 @@
 double LEP2sigmaCharm::computeThValue() 
 { 
     Mw = SM.Mw(); 
-    GammaZ = myEW.Gamma_Z();
+    GammaZ = SM.Gamma_Z();
 
     if (!checkSMparams(s, Mw, GammaZ)) {
         mq_cache = m_q(SM.CHARM, sqrt_s);
@@ -43,18 +43,18 @@ double LEP2sigmaCharm::computeThValue()
     double sigma_charm = SMresult_cache;
     
     if ( checkLEP2NP() && !bSigmaForAFB) {
-        double obliqueShat = (static_cast<const NPSTUVWXY*> (&SM))->obliqueShat();
-        double obliqueThat = (static_cast<const NPSTUVWXY*> (&SM))->obliqueThat();
-        double obliqueUhat = (static_cast<const NPSTUVWXY*> (&SM))->obliqueUhat();
-        double obliqueV = (static_cast<const NPSTUVWXY*> (&SM))->obliqueV();
-        double obliqueW = (static_cast<const NPSTUVWXY*> (&SM))->obliqueW();
-        double obliqueX = (static_cast<const NPSTUVWXY*> (&SM))->obliqueX();
-        double obliqueY = (static_cast<const NPSTUVWXY*> (&SM))->obliqueY();
+        double obliqueShat = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueShat();
+        double obliqueThat = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueThat();
+        double obliqueUhat = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueUhat();
+        double obliqueV = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueV();
+        double obliqueW = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueW();
+        double obliqueX = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueX();
+        double obliqueY = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueY();
         double ObParam[7] = {obliqueShat, obliqueThat, obliqueUhat,
                              obliqueV, obliqueW, obliqueX, obliqueY};
         sigma_charm += myLEP2oblique.sigma_q_LEP2_NP(QCD::CHARM, s, mq_cache, ObParam);
     }
     
-    return ( sigma_charm*GeVminus2_to_nb*1000.0 );
+    return ( sigma_charm*SM.GeVminus2_to_nb*1000.0 );
 }
         

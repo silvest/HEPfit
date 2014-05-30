@@ -24,36 +24,36 @@ double EWSMThreeLoopQCD::DeltaAlpha_l(const double s) const
 
 double EWSMThreeLoopQCD::DeltaAlpha_t(const double s) const 
 {   
-    double xt = s/cache.Mt()/cache.Mt();
+    double xt = s/cache.getSM().getMtpole()/cache.getSM().getMtpole();
     double log_t, als;
-    if (s==cache.Mz()*cache.Mz()) {
+    if (s==cache.getSM().getMz()*cache.getSM().getMz()) {
         log_t = 2.0*cache.logMZtoMTOP();
-        als = cache.alsMz();
+        als = cache.getSM().getAlsMz();
     } else {
         double mu = sqrt(s);
-        log_t = log(s/pow(cache.mq(QCD::TOP, mu), 2.0));
+        log_t = log(s/pow(cache.mf(cache.getSM().getQuarks(QCD::TOP), mu), 2.0));
         als = cache.Als(sqrt(s),FULLNNLO);
     }
     double tmp = ( (28.220 + 9.702*log_t) 
                    + xt*(6.924 + 1.594*log_t) )
                  *pow(als/M_PI, 2.0);
-    tmp *= -4.0/45.0*cache.ale()/M_PI*xt;
+    tmp *= -4.0/45.0*cache.getSM().getAle()/M_PI*xt;
     return tmp;
 }
 
 
 double EWSMThreeLoopQCD::DeltaRho(const double Mw_i) const 
 {
-    double Mw = cache.Mw(Mw_i);
+    double Mw = Mw_i;
     return ( 3.0*cache.Xt_alpha(Mw)*pow(cache.alsMt()/M_PI,2.0)*deltaQCD_3(Mw));     
 }
 
 
 double EWSMThreeLoopQCD::DeltaR_rem(const double Mw_i) const 
 {
-    double Mw = cache.Mw(Mw_i);
-    double sW2 = cache.sW2(Mw);
-    double cW2 = cache.cW2(Mw);
+    double Mw = Mw_i;
+    double sW2 = cache.getSM().sW2(Mw);
+    double cW2 = cache.getSM().cW2(Mw);
     
     /* Logarithm */
     double log_cW2 = cache.log_cW2(Mw);     
@@ -62,45 +62,32 @@ double EWSMThreeLoopQCD::DeltaR_rem(const double Mw_i) const
     double DeltaR;
     DeltaR = - log_cW2;
     DeltaR *= (cW2 - sW2)/4.0/sW2/sW2;
-    DeltaR *= cache.ale()*cache.alsMz()/M_PI/M_PI;
-    DeltaR *= 1.4097*cache.alsMz()/M_PI;
+    DeltaR *= cache.getSM().getAle()*cache.getSM().getAlsMz()/M_PI/M_PI;
+    DeltaR *= 1.4097*cache.getSM().getAlsMz()/M_PI;
     return DeltaR;     
 }
 
 
-complex EWSMThreeLoopQCD::deltaRho_rem_l(const StandardModel::lepton l, 
-                                         const double Mw_i) const
-{
-    return ( complex(0.0,0.0,false) );
-}
-
-
-complex EWSMThreeLoopQCD::deltaRho_rem_q(const QCD::quark q, 
+complex EWSMThreeLoopQCD::deltaRho_rem_f(const Particle p, 
                                          const double Mw_i) const 
 {
-    if(q==QCD::TOP) return ( complex(0.0,0.0,false) );
+    if(p.is("TOP")) return ( complex(0.0,0.0,false) );
     return ( complex(0.0,0.0,false) );
 }
 
 
-complex EWSMThreeLoopQCD::deltaKappa_rem_l(const StandardModel::lepton l, 
+complex EWSMThreeLoopQCD::deltaKappa_rem_f(const Particle p, 
                                            const double Mw_i) const 
 {
-    double Mw = cache.Mw(Mw_i);
-    return ( - 3.0*cache.Xt_alpha(Mw)*cache.cW2(Mw)/cache.sW2(Mw)
+    if(p.is("TOP"))
+        return ( complex(0.0,0.0,false) );
+    else
+    {
+    double Mw = Mw_i;
+    return ( - 3.0*cache.Xt_alpha(Mw)*cache.getSM().cW2(Mw)/cache.getSM().sW2(Mw)
                *pow(cache.alsMt()/M_PI,2.0)
-               *(deltaQCD_3(Mw)+deltaQCD_kappa3(Mw).real()) ); 
-}
-
-
-complex EWSMThreeLoopQCD::deltaKappa_rem_q(const QCD::quark q, 
-                                           const double Mw_i) const 
-{
-    if(q==QCD::TOP) return ( complex(0.0,0.0,false) );
-    double Mw = cache.Mw(Mw_i);
-    return ( - 3.0*cache.Xt_alpha(Mw)*cache.cW2(Mw)/cache.sW2(Mw)
-               *pow(cache.alsMt()/M_PI,2.0)
-               *(deltaQCD_3(Mw)+deltaQCD_kappa3(Mw).real()) ); 
+               *(deltaQCD_3(Mw)+deltaQCD_kappa3(Mw).real()) );
+    }
 }
 
 
@@ -110,14 +97,14 @@ double EWSMThreeLoopQCD::deltaQCD_3(const double Mw_i) const
 {
     double dQCD3;
     double lZ = 2.0*cache.logMZtoMTOP();
-    double Mw = cache.Mw(Mw_i);
-    double sW2 = cache.sW2(Mw);
+    double Mw = Mw_i;
+    double sW2 = cache.getSM().sW2(Mw);
     double log2 = cache.getLog2();
     double zeta2 = cache.getZeta2();
     double zeta3 = cache.getZeta3();
     double zeta4 = cache.getZeta4();
     double S2 = cache.getS2(), D3 = cache.getD3(), B4 = cache.getB4();
-    double MZtoMT = cache.Mz()/cache.Mt();
+    double MZtoMT = cache.getSM().getMz()/cache.getSM().getMtpole();
     double nf = 6.0;
     dQCD3 = 157.0/648.0 - 3313.0/162.0*zeta2 - 308.0/27.0*zeta3 
             + 143.0/18.0*zeta4 - 4.0/3.0*zeta2*log2 
@@ -138,9 +125,9 @@ complex EWSMThreeLoopQCD::deltaQCD_kappa3(const double Mw_i) const
 {
     complex dQCDk3;
     double lZ = 2.0*cache.logMZtoMTOP();
-    double Mw = cache.Mw(Mw_i);
-    double sW2 = cache.sW2(Mw);
-    double MZtoMT = cache.Mz()/cache.Mt();
+    double Mw = Mw_i;
+    double sW2 = cache.getSM().sW2(Mw);
+    double MZtoMT = cache.getSM().getMz()/cache.getSM().getMtpole();
     dQCDk3.real() = - deltaQCD_3(Mw)
                     + pow(MZtoMT, 2.0)
                       *( ( 22.6367 + 1.2527*lZ - 0.8519*lZ*lZ )*sW2

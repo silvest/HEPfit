@@ -9,13 +9,9 @@
 
 
 double PtauPol::computeThValue() 
-{  
-    double P_tau_pol = myEW.A_l(SM.TAU);
+{
+    double P_tau_pol = SM.A_f(SM.getLeptons(SM.TAU));
 
-    /* NP contribution to the Zff vertex */
-    if (myEW.checkNPZff_linearized() && SM.ModelName().compare("StandardModel") != 0)
-        P_tau_pol = myEW.getMyEW_NPZff().PtauPol(P_tau_pol);
- 
     return P_tau_pol;
 }
         

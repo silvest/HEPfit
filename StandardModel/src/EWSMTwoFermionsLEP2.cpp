@@ -12,10 +12,9 @@
 #include "EWSMThreeLoopEW.h"
 
 
-EWSMTwoFermionsLEP2::EWSMTwoFermionsLEP2(const StandardModel& SM_i,
-                                         const EWSMcache& cache_i,
+EWSMTwoFermionsLEP2::EWSMTwoFermionsLEP2(const EWSMcache& cache_i,
                                          const bool bKeepNonUnitary_i) 
-: SM(SM_i), cache(cache_i), myOneLoopEW(cache_i)
+: cache(cache_i), myOneLoopEW(cache_i)
 {
     bDebug = false;
     bKeepNonUnitary = bKeepNonUnitary_i;
@@ -127,7 +126,7 @@ double EWSMTwoFermionsLEP2::G_1_box(const double s, const double t,
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
         
-    double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz); 
+    double Mz = cache.getSM().getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz); 
     double mu = Mw; // renormalization scale
     complex Vpol = V_pol(s);
     complex D_rho_ef = complex(0.0, 0.0, false);
@@ -152,8 +151,8 @@ double EWSMTwoFermionsLEP2::G_1_box(const double s, const double t,
     }
      
     // Top quark contribution in e^+ e^- -> b bbar
-    if (I3f==SM.getQuarks(SM.BOTTOM).getIsospin() 
-            && Qf==SM.getQuarks(SM.BOTTOM).getCharge() 
+    if (I3f==cache.getSM().getQuarks(cache.getSM().BOTTOM).getIsospin() 
+            && Qf==cache.getSM().getQuarks(cache.getSM().BOTTOM).getCharge() 
             && mfp!=0.0) {
         D_rho_ef += Delta_rho_ef_WW_TOP_hat(s, t, u, Mw);
         D_kappa_e += Delta_kappa_e_WW_TOP_hat(s, t, u, Mw);
@@ -199,7 +198,7 @@ double EWSMTwoFermionsLEP2::G_2_box(const double s, const double t,
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
         
-    double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz); 
+    double Mz = cache.getSM().getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz); 
     double mu = Mw; // renormalization scale
     complex Vpol = V_pol(s);
     complex D_rho_ef = complex(0.0, 0.0, false);
@@ -224,8 +223,8 @@ double EWSMTwoFermionsLEP2::G_2_box(const double s, const double t,
     }
 
     // Top quark contribution in e^+ e^- -> b bbar
-    if (I3f==SM.getQuarks(SM.BOTTOM).getIsospin() 
-            && Qf==SM.getQuarks(SM.BOTTOM).getCharge() 
+    if (I3f==cache.getSM().getQuarks(cache.getSM().BOTTOM).getIsospin() 
+            && Qf==cache.getSM().getQuarks(cache.getSM().BOTTOM).getCharge() 
             && mfp!=0.0) {
         D_rho_ef += Delta_rho_ef_WW_TOP_hat(s, t, u, Mw);
         D_kappa_e += Delta_kappa_e_WW_TOP_hat(s, t, u, Mw);
@@ -271,7 +270,7 @@ double EWSMTwoFermionsLEP2::G_3_box(const double s, const double t,
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
 
-    double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz); 
+    double Mz = cache.getSM().getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz); 
     double mu = Mw; // renormalization scale
     complex Vpol = V_pol(s);
     complex D_rho_ef = complex(0.0, 0.0, false);
@@ -296,8 +295,8 @@ double EWSMTwoFermionsLEP2::G_3_box(const double s, const double t,
     }
 
     // Top quark contribution in e^+ e^- -> b bbar
-    if (I3f==SM.getQuarks(SM.BOTTOM).getIsospin() 
-            && Qf==SM.getQuarks(SM.BOTTOM).getCharge() 
+    if (I3f==cache.getSM().getQuarks(cache.getSM().BOTTOM).getIsospin() 
+            && Qf==cache.getSM().getQuarks(cache.getSM().BOTTOM).getCharge() 
             && mfp!=0.0) {
         D_rho_ef += Delta_rho_ef_WW_TOP_hat(s, t, u, Mw);
         D_kappa_e += Delta_kappa_e_WW_TOP_hat(s, t, u, Mw);
@@ -339,8 +338,8 @@ complex EWSMTwoFermionsLEP2::V_pol(const double s) const
     if (bDebug)
         V = complex(1.0715119759, -0.0186242179, false); // for debug
     else {
-        V = SM.ale_OS(sqrt(s), FULLNLO)/SM.getAle() + myOneLoopEW.DeltaAlpha_t(s);
-        //V = SM.ale_OS(sqrt(s), FULLNLO)/SM.getAle();
+        V = cache.getSM().ale_OS(sqrt(s), FULLNLO)/cache.getSM().getAle() + myOneLoopEW.DeltaAlpha_t(s);
+        //V = cache.getSM().ale_OS(sqrt(s), FULLNLO)/cache.getSM().getAle();
         //V = complex(1.0715119759, -0.0186242179, false); //!!TEST
     }
     return V;    
@@ -350,9 +349,9 @@ complex EWSMTwoFermionsLEP2::V_pol(const double s) const
 complex EWSMTwoFermionsLEP2::chi_Z(const double s, const double Mw, 
                                    const double GammaZ) const 
 {
-    double Mz = SM.getMz();
+    double Mz = cache.getSM().getMz();
     complex denom = complex(s - Mz*Mz, GammaZ/Mz*s, false);
-    double prefactor = SM.getGF()*Mz*Mz/(sqrt(2.0)*8.0*M_PI*SM.getAle());
+    double prefactor = cache.getSM().getGF()*Mz*Mz/(sqrt(2.0)*8.0*M_PI*cache.getSM().getAle());
     
     return ( prefactor*s/denom );
 }
@@ -364,7 +363,7 @@ complex EWSMTwoFermionsLEP2::G_e(const double s, const double t,
                                  const double mfp, const bool bWeak,
                                  const bool bWWbox, const bool bZZbox) const 
 {
-    double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
+    double Mz = cache.getSM().getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
     return ( 1.0 
              - 4.0*( kappa_e(s,t,Mw,I3f,Qf,mf,mfp,bWeak,bWWbox,bZZbox)*sW2 
                      //+ I2e(s,Mw,bWeak)
@@ -378,7 +377,7 @@ complex EWSMTwoFermionsLEP2::G_f(const double s, const double t,
                                  const double mfp, const bool bWeak,
                                  const bool bWWbox, const bool bZZbox) const 
 {
-    double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
+    double Mz = cache.getSM().getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
     return ( 1.0 
              - 4.0*fabs(Qf)*( kappa_f(s,t,Mw,I3f,Qf,mf,mfp,bWeak,bWWbox,bZZbox)*sW2 
                               //+ I2f(s,Mw,bWeak)
@@ -392,7 +391,7 @@ complex EWSMTwoFermionsLEP2::G_ef(const double s, const double t,
                                   const double mfp, const bool bWeak,
                                   const bool bWWbox, const bool bZZbox) const 
 {
-    double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
+    double Mz = cache.getSM().getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
     return ( - 1.0 + G_e(s,t,Mw,I3f,Qf,mf,mfp,bWeak,bWWbox,bZZbox) 
              + G_f(s,t,Mw,I3f,Qf,mf,mfp,bWeak,bWWbox,bZZbox) 
              + 16.0*fabs(Qf)
@@ -411,7 +410,7 @@ complex EWSMTwoFermionsLEP2::rho_ef(const double s, const double t,
 {
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
     double ve = - 0.5 + 2.0*sW2, ae = -0.5;
     double vf = I3f - 2.0*Qf*sW2, af = I3f;
     double mu = Mw; // renormalization scale
@@ -420,7 +419,7 @@ complex EWSMTwoFermionsLEP2::rho_ef(const double s, const double t,
 
     // Weak corrections    
     if (bWeak)
-        rhoef += SM.getAle()/4.0/M_PI/sW2
+        rhoef += cache.getSM().getAle()/4.0/M_PI/sW2
                  *( - DeltaRhobarZ(mu, Mw) + D_Z_hat(s, Mw) 
                     + 5.0/3.0*cache.getPV().B0(mu*mu, s, Mw2, Mw2) - 9.0*cW2/4.0/sW2*log(cW2)
                     - 6.0 + 5.0*cW2/8.0*(1.0 + cW2) 
@@ -436,8 +435,8 @@ complex EWSMTwoFermionsLEP2::rho_ef(const double s, const double t,
         rhoef += Delta_rho_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
     
     // Top quark contribution in e^+ e^- -> b bbar
-    if (I3f==SM.getQuarks(SM.BOTTOM).getIsospin() 
-            && Qf==SM.getQuarks(SM.BOTTOM).getCharge() 
+    if (I3f==cache.getSM().getQuarks(cache.getSM().BOTTOM).getIsospin() 
+            && Qf==cache.getSM().getQuarks(cache.getSM().BOTTOM).getCharge() 
             && mfp!=0.0)
         rhoef += Delta_rho_ef_TOP(s, t, u, Mw, bWWbox);
     
@@ -452,7 +451,7 @@ complex EWSMTwoFermionsLEP2::kappa_e(const double s, const double t,
 {
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
     double ve = - 0.5 + 2.0*sW2, ae = -0.5, sigmae = ve + ae;
     double vfa = 0.5 - 2.0*fabs(Qf)*sW2;
     double mu = Mw; // renormalization scale
@@ -473,7 +472,7 @@ complex EWSMTwoFermionsLEP2::kappa_e(const double s, const double t,
 
     // Weak corrections    
     if (bWeak)
-        kappae += SM.getAle()/4.0/M_PI/sW2    
+        kappae += cache.getSM().getAle()/4.0/M_PI/sW2    
                   *( - cW2/sW2*DeltaRhobar(mu, Mw) + Pibar_Zgamma_hat(s, Mw)
                      - cache.getPV().B0(mu*mu, s, Mw2, Mw2)/6.0 - 1.0/9.0
                      - ve*sigmae/2.0/cW2*F_za_0(s, Mw) - F_W_0_hat(s, Mw)
@@ -490,8 +489,8 @@ complex EWSMTwoFermionsLEP2::kappa_e(const double s, const double t,
         kappae += Delta_kappa_e_ZZ(mu, s, t, u, Mw, I3f, Qf);
     
     // Top quark contribution in e^+ e^- -> b bbar
-    if (I3f==SM.getQuarks(SM.BOTTOM).getIsospin() 
-            && Qf==SM.getQuarks(SM.BOTTOM).getCharge() 
+    if (I3f==cache.getSM().getQuarks(cache.getSM().BOTTOM).getIsospin() 
+            && Qf==cache.getSM().getQuarks(cache.getSM().BOTTOM).getCharge() 
             && mfp!=0.0)
         kappae += Delta_kappa_e_TOP(s, t, u, Mw, bWWbox);
 
@@ -507,7 +506,7 @@ complex EWSMTwoFermionsLEP2::kappa_f(const double s, const double t,
 {
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
     double vea = 0.5 - 2.0*sW2;
     double vf = I3f - 2.0*Qf*sW2, af = I3f, sigmaf = vf + af;
     double mu = Mw; // renormalization scale
@@ -516,7 +515,7 @@ complex EWSMTwoFermionsLEP2::kappa_f(const double s, const double t,
 
     // Weak corrections    
     if (bWeak)
-        kappaf += SM.getAle()/4.0/M_PI/sW2    
+        kappaf += cache.getSM().getAle()/4.0/M_PI/sW2    
                   *( - cW2/sW2*DeltaRhobar(mu, Mw) + Pibar_Zgamma_hat(s, Mw)
                      - cache.getPV().B0(mu*mu, s, Mw2, Mw2)/6.0 - 1.0/9.0
                      - vf*sigmaf/2.0/cW2*F_za_0(s, Mw) - F_W_0_hat(s, Mw)
@@ -532,8 +531,8 @@ complex EWSMTwoFermionsLEP2::kappa_f(const double s, const double t,
         kappaf += Delta_kappa_f_ZZ(mu, s, t, u, Mw, I3f, Qf);
     
     // Top quark contribution in e^+ e^- -> b bbar
-    if (I3f==SM.getQuarks(SM.BOTTOM).getIsospin() 
-            && Qf==SM.getQuarks(SM.BOTTOM).getCharge() 
+    if (I3f==cache.getSM().getQuarks(cache.getSM().BOTTOM).getIsospin() 
+            && Qf==cache.getSM().getQuarks(cache.getSM().BOTTOM).getCharge() 
             && mfp!=0.0)
         kappaf += Delta_kappa_f_TOP(s, t, u, Mw, bWWbox);
     
@@ -549,7 +548,7 @@ complex EWSMTwoFermionsLEP2::kappa_ef(const double s, const double t,
 {
     //double u = 2.0*mf*mf - s - t;
     double u = - s - t;
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
     double ve = - 0.5 + 2.0*sW2, ae = -0.5, deltae = ve - ae;
     double vf = I3f - 2.0*Qf*sW2, af = I3f, deltaf = vf - af;
     double mu = Mw; // renormalization scale
@@ -558,7 +557,7 @@ complex EWSMTwoFermionsLEP2::kappa_ef(const double s, const double t,
  
     // Weak corrections    
     if (bWeak)
-        kappaef += SM.getAle()/4.0/M_PI/sW2    
+        kappaef += cache.getSM().getAle()/4.0/M_PI/sW2    
                    *( - 2.0*cW2/sW2*DeltaRhobar(mu, Mw) + 2.0*Pibar_Zgamma_hat(s, Mw)
                       - cache.getPV().B0(mu*mu, s, Mw2, Mw2)/3.0 - 2.0/9.0
                       - ((deltae*deltae + deltaf*deltaf)/sW2*(Mw*Mw/s - 1.0)
@@ -575,8 +574,8 @@ complex EWSMTwoFermionsLEP2::kappa_ef(const double s, const double t,
         kappaef += Delta_kappa_ef_ZZ(mu, s, t, u, Mw, I3f, Qf);
     
     // Top quark contribution in e^+ e^- -> b bbar
-    if (I3f==SM.getQuarks(SM.BOTTOM).getIsospin() 
-            && Qf==SM.getQuarks(SM.BOTTOM).getCharge() 
+    if (I3f==cache.getSM().getQuarks(cache.getSM().BOTTOM).getIsospin() 
+            && Qf==cache.getSM().getQuarks(cache.getSM().BOTTOM).getCharge() 
             && mfp!=0.0)
         kappaef += Delta_kappa_ef_TOP(s, t, u, Mw, bWWbox);
     
@@ -588,15 +587,15 @@ complex EWSMTwoFermionsLEP2::Delta_rho_ef_TOP(const double s, const double t,
                                               const double u, const double Mw, 
                                               const bool bWWbox) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
-    double Mt = SM.getMtpole();
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
+    double Mt = cache.getSM().getMtpole();
     double mu = Mw; // renormalization scale
     
     complex Bww = complex(0.0, 0.0, false);
     if (bWWbox)
         Bww = Delta_rho_ef_WW_TOP_hat(s, t, u, Mw);
         
-    return ( SM.getAle()/4.0/M_PI/sW2
+    return ( cache.getSM().getAle()/4.0/M_PI/sW2
              *( F_W_t_hat(s, Mw) 
                 - Mt*Mt/4.0/Mw/Mw*(cache.getPV().B0(mu*mu, s, Mw2, Mw2) + 1.0) ) + Bww );
 }
@@ -606,14 +605,14 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_e_TOP(const double s, const double t,
                                                const double u, const double Mw, 
                                                const bool bWWbox) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
-    double Qfp = SM.getQuarks(SM.TOP).getCharge();
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    double Qfp = cache.getSM().getQuarks(cache.getSM().TOP).getCharge();
     
     complex Bww = complex(0.0, 0.0, false);
     if (bWWbox)
         Bww = Delta_kappa_e_WW_TOP_hat(s, t, u, Mw);
 
-    return ( SM.getAle()/4.0/M_PI/sW2    
+    return ( cache.getSM().getAle()/4.0/M_PI/sW2    
              *( Mz*Mz/s - 1.0 )*cW2
              *( F_Wn_t_hat(s, Mw) - fabs(Qfp)*F_Wa_t(s, Mw) ) + Bww );
 }
@@ -623,15 +622,15 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_f_TOP(const double s, const double t,
                                                const double u, const double Mw, 
                                                const bool bWWbox) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
-    double Mt = SM.getMtpole();
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
+    double Mt = cache.getSM().getMtpole();
     double mu = Mw; // renormalization scale
 
     complex Bww = complex(0.0, 0.0, false);
     if (bWWbox)
         Bww = Delta_kappa_f_WW_TOP_hat(s, t, u, Mw);
     
-    return ( SM.getAle()/4.0/M_PI/sW2    
+    return ( cache.getSM().getAle()/4.0/M_PI/sW2    
              *( - F_W_t_hat(s, Mw) 
                 + Mt*Mt/4.0/Mw/Mw*( cache.getPV().B0(mu*mu, s, Mw2, Mw2) + 1.0) ) + Bww );
 }
@@ -641,15 +640,15 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_ef_TOP(const double s, const double t,
                                                 const double u, const double Mw, 
                                                 const bool bWWbox) const
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
-    double Mt = SM.getMtpole();
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2, Mw2 = Mw*Mw;
+    double Mt = cache.getSM().getMtpole();
     double mu = Mw; // renormalization scale
 
     complex Bww = complex(0.0, 0.0, false);
     if (bWWbox)
         Bww = Delta_kappa_ef_WW_TOP_hat(s, t, u, Mw);
     
-    return ( SM.getAle()/4.0/M_PI/sW2    
+    return ( cache.getSM().getAle()/4.0/M_PI/sW2    
              *( - F_W_t_hat(s, Mw) 
                 + Mt*Mt/4.0/Mw/Mw*( cache.getPV().B0(mu*mu, s, Mw2, Mw2) + 1.0) ) + Bww );
 }
@@ -659,15 +658,15 @@ complex EWSMTwoFermionsLEP2::Delta_rho_ef_WW_hat(const double s, const double t,
                                                  const double u, const double Mw,
                                                  const double I3f) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
 
-    if (I3f==SM.getLeptons(SM.ELECTRON).getIsospin() 
-            || I3f==SM.getQuarks(SM.DOWN).getIsospin()) 
-        return ( SM.getAle()/4.0/M_PI/sW2
+    if (I3f==cache.getSM().getLeptons(cache.getSM().ELECTRON).getIsospin() 
+            || I3f==cache.getSM().getQuarks(cache.getSM().DOWN).getIsospin()) 
+        return ( cache.getSM().getAle()/4.0/M_PI/sW2
                  *( - cW2*(Mz*Mz - s)*B_WW_d_0_hat(s, t, u, Mw) ) );
-    else if (I3f==SM.getLeptons(SM.NEUTRINO_1).getIsospin() 
-                || I3f==SM.getQuarks(SM.UP).getIsospin()) 
-        return ( SM.getAle()/4.0/M_PI/sW2
+    else if (I3f==cache.getSM().getLeptons(cache.getSM().NEUTRINO_1).getIsospin() 
+                || I3f==cache.getSM().getQuarks(cache.getSM().UP).getIsospin()) 
+        return ( cache.getSM().getAle()/4.0/M_PI/sW2
                  *( cW2*(Mz*Mz - s)*B_WW_c_0_hat(s, t, u, Mw) ) );
     else 
         throw std::runtime_error("Error in EWSMTwoFermionsLEP2::Delta_rho_ef_WW_hat()");
@@ -678,15 +677,15 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_e_WW_hat(const double s, const double t
                                                   const double u, const double Mw,
                                                   const double I3f) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
 
-    if (I3f==SM.getLeptons(SM.ELECTRON).getIsospin() 
-            || I3f==SM.getQuarks(SM.DOWN).getIsospin()) 
-        return ( SM.getAle()/4.0/M_PI/sW2
+    if (I3f==cache.getSM().getLeptons(cache.getSM().ELECTRON).getIsospin() 
+            || I3f==cache.getSM().getQuarks(cache.getSM().DOWN).getIsospin()) 
+        return ( cache.getSM().getAle()/4.0/M_PI/sW2
                  *( cW2*(Mz*Mz - s)*B_WW_d_0_hat(s, t, u, Mw) ) );
-    else if (I3f==SM.getLeptons(SM.NEUTRINO_1).getIsospin() 
-                || I3f==SM.getQuarks(SM.UP).getIsospin()) 
-        return ( SM.getAle()/4.0/M_PI/sW2
+    else if (I3f==cache.getSM().getLeptons(cache.getSM().NEUTRINO_1).getIsospin() 
+                || I3f==cache.getSM().getQuarks(cache.getSM().UP).getIsospin()) 
+        return ( cache.getSM().getAle()/4.0/M_PI/sW2
                  *( - cW2*(Mz*Mz - s)*B_WW_c_0_hat(s, t, u, Mw) ) );
     else 
         throw std::runtime_error("Error in EWSMTwoFermionsLEP2::Delta_kappa_e_WW_hat()");    
@@ -697,15 +696,15 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_f_WW_hat(const double s, const double t
                                                   const double u, const double Mw,
                                                   const double I3f) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
        
-    if (I3f==SM.getLeptons(SM.ELECTRON).getIsospin() 
-            || I3f==SM.getQuarks(SM.DOWN).getIsospin()) 
-        return ( SM.getAle()/4.0/M_PI/sW2
+    if (I3f==cache.getSM().getLeptons(cache.getSM().ELECTRON).getIsospin() 
+            || I3f==cache.getSM().getQuarks(cache.getSM().DOWN).getIsospin()) 
+        return ( cache.getSM().getAle()/4.0/M_PI/sW2
                  *( cW2*(Mz*Mz - s)*B_WW_d_0_hat(s, t, u, Mw) ) );
-    else if (I3f==SM.getLeptons(SM.NEUTRINO_1).getIsospin() 
-                || I3f==SM.getQuarks(SM.UP).getIsospin())  
-        return ( SM.getAle()/4.0/M_PI/sW2
+    else if (I3f==cache.getSM().getLeptons(cache.getSM().NEUTRINO_1).getIsospin() 
+                || I3f==cache.getSM().getQuarks(cache.getSM().UP).getIsospin())  
+        return ( cache.getSM().getAle()/4.0/M_PI/sW2
                  *( - cW2*(Mz*Mz - s)*B_WW_c_0_hat(s, t, u, Mw) ) );
     else 
         throw std::runtime_error("Error in EWSMTwoFermionsLEP2::Delta_kappa_f_WW_hat()");
@@ -716,15 +715,15 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_ef_WW_hat(const double s, const double 
                                                    const double u, const double Mw,
                                                    const double I3f) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
 
-    if (I3f==SM.getLeptons(SM.ELECTRON).getIsospin() 
-            || I3f==SM.getQuarks(SM.DOWN).getIsospin()) 
-        return ( SM.getAle()/4.0/M_PI/sW2
+    if (I3f==cache.getSM().getLeptons(cache.getSM().ELECTRON).getIsospin() 
+            || I3f==cache.getSM().getQuarks(cache.getSM().DOWN).getIsospin()) 
+        return ( cache.getSM().getAle()/4.0/M_PI/sW2
                  *( cW2*(Mz*Mz - s)*B_WW_d_0_hat(s, t, u, Mw) ) );
-    else if (I3f==SM.getLeptons(SM.NEUTRINO_1).getIsospin() 
-                || I3f==SM.getQuarks(SM.UP).getIsospin()) 
-        return ( SM.getAle()/4.0/M_PI/sW2
+    else if (I3f==cache.getSM().getLeptons(cache.getSM().NEUTRINO_1).getIsospin() 
+                || I3f==cache.getSM().getQuarks(cache.getSM().UP).getIsospin()) 
+        return ( cache.getSM().getAle()/4.0/M_PI/sW2
                  *( - cW2*(Mz*Mz - s)*B_WW_c_0_hat(s, t, u, Mw) ) );
     else 
         throw std::runtime_error("Error in EWSMTwoFermionsLEP2::Delta_kappa_ef_WW_hat()");
@@ -734,8 +733,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_ef_WW_hat(const double s, const double 
 complex EWSMTwoFermionsLEP2::Delta_rho_ef_WW_TOP_hat(const double s, const double t, 
                                                      const double u, const double Mw) const
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
-    return ( SM.getAle()/4.0/M_PI/sW2
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    return ( cache.getSM().getAle()/4.0/M_PI/sW2
              *( - cW2*(Mz*Mz - s)*Delta_B_WW_d_hat(s, t, u, Mw) ) );    
 }
 
@@ -743,8 +742,8 @@ complex EWSMTwoFermionsLEP2::Delta_rho_ef_WW_TOP_hat(const double s, const doubl
 complex EWSMTwoFermionsLEP2::Delta_kappa_e_WW_TOP_hat(const double s, const double t, 
                                                       const double u, const double Mw) const
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
-    return ( SM.getAle()/4.0/M_PI/sW2
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    return ( cache.getSM().getAle()/4.0/M_PI/sW2
              *( cW2*(Mz*Mz - s)*Delta_B_WW_d_hat(s, t, u, Mw) ) );
 }
 
@@ -752,8 +751,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_e_WW_TOP_hat(const double s, const doub
 complex EWSMTwoFermionsLEP2::Delta_kappa_f_WW_TOP_hat(const double s, const double t, 
                                                       const double u, const double Mw) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
-    return ( SM.getAle()/4.0/M_PI/sW2
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    return ( cache.getSM().getAle()/4.0/M_PI/sW2
              *( cW2*(Mz*Mz - s)*Delta_B_WW_d_hat(s, t, u, Mw) ) );    
 }
 
@@ -761,8 +760,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_f_WW_TOP_hat(const double s, const doub
 complex EWSMTwoFermionsLEP2::Delta_kappa_ef_WW_TOP_hat(const double s, const double t, 
                                                        const double u, const double Mw) const
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
-    return ( SM.getAle()/4.0/M_PI/sW2
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    return ( cache.getSM().getAle()/4.0/M_PI/sW2
              *( cW2*(Mz*Mz - s)*Delta_B_WW_d_hat(s, t, u, Mw) ) );    
 }
 
@@ -772,12 +771,12 @@ complex EWSMTwoFermionsLEP2::Delta_rho_ef_ZZ(const double mu, const double s,
                                              const double Mw, const double I3f, 
                                              const double Qf) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     double I3e = -0.5;
     double ve = - 0.5 + 2.0*sW2, ae = -0.5;
     double vf = I3f - 2.0*Qf*sW2, af = I3f;
 
-    return ( SM.getAle()/4.0/M_PI/sW2*(s - Mz*Mz)/2.0/cW2
+    return ( cache.getSM().getAle()/4.0/M_PI/sW2*(s - Mz*Mz)/2.0/cW2
              *( (4.0*I3e*I3f*(ve*ve + ae*ae)*(vf*vf + af*af) + ve*vf)
                   *B_ZZ_0(mu, s, t, u)
                 + (4.0*I3e*I3f*(ve*ve + ae*ae)*(vf*vf + af*af) - ve*vf)
@@ -790,11 +789,11 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_e_ZZ(const double mu, const double s,
                                               const double Mw, const double I3f,
                                               const double Qf) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     double ve = - 0.5 + 2.0*sW2, ae = -0.5, deltae = ve - ae;
     double vf = I3f - 2.0*Qf*sW2, af = I3f, sigmaf = vf + af, deltaf = vf - af;
     
-    return ( - SM.getAle()/4.0/M_PI/sW2*(s - Mz*Mz)/2.0/cW2*deltae*I3f
+    return ( - cache.getSM().getAle()/4.0/M_PI/sW2*(s - Mz*Mz)/2.0/cW2*deltae*I3f
              *( deltaf*deltaf*B_ZZ_0(mu, s, t, u)
                 + sigmaf*sigmaf*B_ZZ_0(mu, s, u, t) ) 
              - Delta_rho_ef_ZZ(mu,s,t,u,Mw,I3f,Qf) );    
@@ -806,12 +805,12 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_f_ZZ(const double mu, const double s,
                                               const double Mw, const double I3f,
                                               const double Qf) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     double I3e = -0.5;
     double ve = - 0.5 + 2.0*sW2, ae = -0.5, sigmae = ve + ae, deltae = ve - ae;
     double vf = I3f - 2.0*Qf*sW2, af = I3f, deltaf = vf - af;
     
-    return ( - SM.getAle()/4.0/M_PI/sW2*(s - Mz*Mz)/2.0/cW2*deltaf*I3e
+    return ( - cache.getSM().getAle()/4.0/M_PI/sW2*(s - Mz*Mz)/2.0/cW2*deltaf*I3e
              *( deltae*deltae*B_ZZ_0(mu, s, t, u)
                 + sigmae*sigmae*B_ZZ_0(mu, s, u, t) ) 
              - Delta_rho_ef_ZZ(mu,s,t,u,Mw,I3f,Qf) );  
@@ -823,11 +822,11 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_ef_ZZ(const double mu, const double s,
                                                const double Mw, const double I3f,
                                                const double Qf) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), sW2 = 1.0 - cW2;
     double ve = - 0.5 + 2.0*sW2, ae = -0.5, deltae = ve - ae;
     double vf = I3f - 2.0*Qf*sW2, af = I3f, deltaf = vf - af;
     
-    return ( SM.getAle()/4.0/M_PI/sW2*(s - Mz*Mz)/2.0/cW2*deltae*deltaf
+    return ( cache.getSM().getAle()/4.0/M_PI/sW2*(s - Mz*Mz)/2.0/cW2*deltae*deltaf
              *B_ZZ_0(mu, s, t, u)
              - Delta_rho_ef_ZZ(mu,s,t,u,Mw,I3f,Qf) );      
 }
@@ -838,8 +837,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_ef_ZZ(const double mu, const double s,
 //complex EWSMTwoFermionsLEP2::I2e(const double s, const double Mw, const bool bWeak) const
 //{
 //    if (bWeak) {
-//        double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
-//        double alpha = SM.getAle()*V_pol(s).real();
+//        double Mz = cache.getSM().getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
+//        double alpha = cache.getSM().getAle()*V_pol(s).real();
 //        double ReKappa_e = 1.0;
 //        return ( 35.0*alpha*alpha/18.0*( 1.0 - 8.0/3.0*ReKappa_e*sW2 ) );
 //    } else 
@@ -850,8 +849,8 @@ complex EWSMTwoFermionsLEP2::Delta_kappa_ef_ZZ(const double mu, const double s,
 //complex EWSMTwoFermionsLEP2::I2f(const double s, const double Mw, const bool bWeak) const 
 //{
 //    if (bWeak) {
-//        double Mz = SM.getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
-//        double alpha = SM.getAle()*V_pol(s).real();
+//        double Mz = cache.getSM().getMz(), sW2 = 1.0 - Mw*Mw/(Mz*Mz);
+//        double alpha = cache.getSM().getAle()*V_pol(s).real();
 //        double ReKappa_f = 1.0;
 //        return ( 35.0*alpha*alpha/18.0*( 1.0 - 8.0/3.0*ReKappa_f*sW2 ) );
 //    } else 
@@ -874,7 +873,7 @@ complex EWSMTwoFermionsLEP2::DeltaRhobarZ(const double mu, const double Mw) cons
 complex EWSMTwoFermionsLEP2::D_Z(const double mu, const double s, 
                                  const double Mw) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz);
     complex D_Z_bos = (myOneLoopEW.SigmabarZZ_bos(mu,s,Mw) 
                        - myOneLoopEW.SigmabarZZ_bos(mu,Mz*Mz,Mw))/cW2/(Mz*Mz - s);
     complex D_Z_fer = (myOneLoopEW.SigmabarZZ_fer(mu,s,Mw) 
@@ -932,14 +931,14 @@ complex EWSMTwoFermionsLEP2::F_Wn_t(const double s, const double Mw) const
     
 complex EWSMTwoFermionsLEP2::F_W_0(const double s, const double Mw) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz);
     return ( cW2*F_Wn_0(s, Mw) - F_Wa_0(s, Mw)/2.0 );
 }
 
 
 complex EWSMTwoFermionsLEP2::F_W_t(const double s, const double Mw) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz);
     return ( cW2*F_Wn_t(s, Mw) - F_Wa_t(s, Mw)/2.0 
              - myOneLoopEW.FbarWa_t(s, Mw)/2.0 );        
 }
@@ -964,7 +963,7 @@ complex EWSMTwoFermionsLEP2::B_WW_d(const double mu, const double s,
                                     const double t, const double u, 
                                     const double Mw) const 
 {
-    double Mt = SM.getMtpole(), Mt2 = Mt*Mt;
+    double Mt = cache.getSM().getMtpole(), Mt2 = Mt*Mt;
     double s2 = s*s, t2 = t*t, u2 = u*u, Mw2 = Mw*Mw;
     return ( ( - t*(1.0 + t2/u2) - 4.0*Mw2*t2/u2 + 2.0*Mw2*Mw2/u*(1.0 + 2.0*s/u) 
                + Mt2*(2.0 + 3.0*s/u + 2.0*s2/u2 - 2.0*Mw2/u*(1.0 + 2.0*s/u) ) 
@@ -1008,7 +1007,7 @@ complex EWSMTwoFermionsLEP2::B_WW_c_0(const double mu, const double s,
 complex EWSMTwoFermionsLEP2::B_ZZ_0(const double mu, const double s,
                                     const double t, const double u) const 
 {
-    double Mz = SM.getMz(), Mz2 = Mz*Mz;
+    double Mz = cache.getSM().getMz(), Mz2 = Mz*Mz;
     double t2 = t*t, u2 = u*u;
     return ( 2.0*u*cache.getPV().D0(s, u, Mz2, 0.0, Mz2, 0.0)
              + ( - 2.0*u - t*(3.0 + t/u)*(3.0 + t/u) 
@@ -1029,7 +1028,7 @@ complex EWSMTwoFermionsLEP2::Pibar_Zgamma_hat(const double s, const double Mw) c
 
     complex add = complex(0.0, 0.0, false);
     if (!bKeepNonUnitary) {
-        double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
+        double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz);
         double Rw = Mw*Mw/s;
         add = - cW2*( (4.0/3.0/Rw + 1.0/12.0/Rw/Rw)*cache.getPV().B0(mu*mu,s,Mw*Mw,Mw*Mw)
                       + 1.0/18.0/Rw/Rw - 13.0/18.0/Rw );
@@ -1045,7 +1044,7 @@ complex EWSMTwoFermionsLEP2::Pibar_gg_bos_hat(const double s, const double Mw) c
     
     complex add = complex(0.0, 0.0, false);
     if (!bKeepNonUnitary) {
-        double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
+        double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz);
         double Rw = Mw*Mw/s;
         add = s/(s - Mz*Mz)
                 *( 1.0/12.0/Rw/cW2*cache.getPV().B0(mu*mu,s,Mw*Mw,Mw*Mw) + 1.0/18.0/Rw/cW2 )
@@ -1064,7 +1063,7 @@ complex EWSMTwoFermionsLEP2::D_Z_hat(const double s, const double Mw) const
     
     complex add = complex(0.0, 0.0, false);
     if (!bKeepNonUnitary) {
-        double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
+        double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz);
         double Rz = Mz*Mz/s;
         add = ( (1.0/12.0/cW2 + 4.0/3.0)/Rz + 1.0/12.0/cW2/Rz/Rz )*cache.getPV().B0(mu*mu,s,Mw*Mw,Mw*Mw)
               + ( (1.0/cW2 - 13.0)/Rz + 1.0/cW2/Rz/Rz )/18.0;
@@ -1078,7 +1077,7 @@ complex EWSMTwoFermionsLEP2::F_Wn_0_hat(const double s, const double Mw) const
 {
     complex add = complex(0.0, 0.0, false);
     if (!bKeepNonUnitary) {
-        double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
+        double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz);
         double Rw = Mw*Mw/s;
         double mu = Mw;
         add = - s/(s-Mz*Mz)*( - 1.0/12.0/Rw/cW2 + 3.0/2.0/Rw + 1.0/12.0/Rw/Rw )
@@ -1094,7 +1093,7 @@ complex EWSMTwoFermionsLEP2::F_Wn_t_hat(const double s, const double Mw) const
 {
     complex add = complex(0.0, 0.0, false);
     if (!bKeepNonUnitary) {
-        double Mz = SM.getMz(), Rw = Mw*Mw/s, Mt = SM.getMtpole();
+        double Mz = cache.getSM().getMz(), Rw = Mw*Mw/s, Mt = cache.getSM().getMtpole();
         double mu = Mw;
         add = Mt*Mt*s/4.0/Rw/Mw/Mw/(s-Mz*Mz)*(cache.getPV().B0(mu*mu,s,Mw*Mw,Mw*Mw) + 1.0);
     }
@@ -1105,7 +1104,7 @@ complex EWSMTwoFermionsLEP2::F_Wn_t_hat(const double s, const double Mw) const
 
 complex EWSMTwoFermionsLEP2::F_W_0_hat(const double s, const double Mw) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz);
     complex F_W_0 = cW2*F_Wn_0(s, Mw) - F_Wa_0(s, Mw)/2.0;
 
     complex add = complex(0.0, 0.0, false);
@@ -1122,13 +1121,13 @@ complex EWSMTwoFermionsLEP2::F_W_0_hat(const double s, const double Mw) const
 
 complex EWSMTwoFermionsLEP2::F_W_t_hat(const double s, const double Mw) const 
 {
-    double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz);
+    double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz);
     complex F_W_t = cW2*F_Wn_t(s, Mw) - F_Wa_t(s, Mw)/2.0 
                     - myOneLoopEW.FbarWa_t(s, Mw)/2.0;
 
     complex add = complex(0.0, 0.0, false);
     if (!bKeepNonUnitary) {
-        double Mt = SM.getMtpole();
+        double Mt = cache.getSM().getMtpole();
         double Rw = Mw*Mw/s;
         double mu = Mw;
         add = Mt*Mt/4.0/Rw/Mz/Mz*(cache.getPV().B0(mu*mu,s,Mw*Mw,Mw*Mw) + 1.0);
@@ -1144,7 +1143,7 @@ complex EWSMTwoFermionsLEP2::B_WW_d_0_hat(const double s, const double t,
     
     complex add = complex(0.0, 0.0, false);
     if (!bKeepNonUnitary) {
-        double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), Rw = Mw*Mw/s;
+        double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), Rw = Mw*Mw/s;
         add = (5.0/3.0 - 1.0/12.0/cW2 + 1.0/12.0/Rw)/Rw/(s - Mz*Mz)*cache.getPV().B0(mu*mu,s,Mw*Mw,Mw*Mw)
                - (1.0/2.0 + 1.0/18.0/cW2 - 1.0/18.0/Rw)/Rw/(s - Mz*Mz);
     }
@@ -1177,7 +1176,7 @@ complex EWSMTwoFermionsLEP2::Delta_B_WW_d_hat(const double s, const double t,
     
     complex add = complex(0.0, 0.0, false);
     if (!bKeepNonUnitary) {
-        double Mz = SM.getMz(), Rw = Mw*Mw/s, Mt = SM.getMtpole();
+        double Mz = cache.getSM().getMz(), Rw = Mw*Mw/s, Mt = cache.getSM().getMtpole();
         add = - Mt*Mt/4.0/Rw/Mw/Mw/(s - Mz*Mz)*( cache.getPV().B0(mu*mu, s, Mw*Mw, Mw*Mw) + 1.0 );
     }
   
@@ -1192,7 +1191,7 @@ complex EWSMTwoFermionsLEP2::B_WW_c_0_hat(const double s, const double t,
     
     complex add = complex(0.0, 0.0, false);
     if (!bKeepNonUnitary) {
-        double Mz = SM.getMz(), cW2 = Mw*Mw/(Mz*Mz), Rw = Mw*Mw/s;
+        double Mz = cache.getSM().getMz(), cW2 = Mw*Mw/(Mz*Mz), Rw = Mw*Mw/s;
         add = - (5.0/3.0 - 1.0/12.0/cW2 + 1.0/12.0/Rw)/Rw/(s - Mz*Mz)*cache.getPV().B0(mu*mu,s,Mw*Mw,Mw*Mw)
               + (1.0/2.0 + 1.0/18.0/cW2 - 1.0/18.0/Rw)/Rw/(s - Mz*Mz);
     }

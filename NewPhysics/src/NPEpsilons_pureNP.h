@@ -111,18 +111,6 @@ public:
      * @brief The default constructor.
      */
     NPEpsilons_pureNP();
-
-    /**
-     * @brief @copybrief StandardModel::InitializeModel()
-     * @copydetails NPbase::InitializeModel()
-     */
-    virtual bool InitializeModel();
-
-    /**
-     * @brief @copybrief Model::Init()
-     * @copydetails Model::Init()
-     */
-    virtual bool Init(const std::map<std::string, double>& DPars);
     
     /**
      * @brief @copybrief Model::Update()
@@ -135,19 +123,6 @@ public:
      * @copydetails Model::CheckParameters()
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
-
-    /**
-     * @brief @copybrief Model::setFlag()
-     * @copydetails Model::setFlag()
-     */
-    virtual bool setFlag(const std::string name, const bool value);
-    
-    /**
-     * @brief @copybrief Model::CheckFlags()
-     * @copydetails Model::CheckFlags()
-     */
-    virtual bool CheckFlags() const;
-
 
     ////////////////////////////////////////////////////////////////////////
     
@@ -212,20 +187,6 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief @copybrief NPbase::deltaGVl()
-     * @details
-     * @f[
-     * \delta g_V^l
-     * = \Big( g_{V,\mathrm{SM}}^l - g_{A,\mathrm{SM}}^l \Big)
-     *   \frac{\delta\,\varepsilon_3-c_0^2\,\delta\,\varepsilon_1}{c_0^2 - s_0^2}
-     * + \frac{g_{V,\mathrm{SM}}^l}{2} \delta\,\varepsilon_1\,.
-     * @f]
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$\delta g_V^l@f$
-     */
-    virtual double deltaGVl(StandardModel::lepton l) const;
-
-    /**
      * @brief @copybrief NPbase::deltaGVq()
      * @details
      * @f[
@@ -248,18 +209,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$\delta g_V^q@f$
      */  
-    virtual double deltaGVq(QCD::quark q) const;
-
-    /**
-     * @brief @copybrief NPbase::deltaGAl()
-     * @details
-     * @f[
-     * \delta g_A^l = \frac{I_3^l}{2}\delta\,\varepsilon_1\,.
-     * @f]
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$\delta g_A^l@f$
-     */  
-    virtual double deltaGAl(StandardModel::lepton l) const;
+    virtual double deltaGV_f(const Particle p) const;
 
     /**
      * @brief @copybrief NPbase::deltaGAq()
@@ -276,7 +226,7 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$\delta g_A^q@f$
      */
-    virtual double deltaGAq(QCD::quark q) const;
+    virtual double deltaGA_f(const Particle p) const;
 
 
     ////////////////////////////////////////////////////////////////////////

@@ -9,8 +9,8 @@
 #define	EW_ABC_H
 
 #include <gslpp.h>
-#include <StandardModel.h>
-#include "EWNPEpsilons.h"
+#include "NPEpsilons.h"
+
 using namespace gslpp;
 
 /**
@@ -28,7 +28,7 @@ using namespace gslpp;
 class EW_ABC {
 public:
 
-    EW_ABC(const StandardModel& SM_i);
+    EW_ABC(const NPEpsilons& NPE_i);
 
     double Mw(const bool bAlternative) const;
     double Gamma_l(StandardModel::lepton l) const;
@@ -78,8 +78,7 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 private:
-    const StandardModel& SM;
-    const EWNPEpsilons myEWNPEpsilons;
+    const NPEpsilons& NPE;
 
 };
 

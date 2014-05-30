@@ -152,18 +152,6 @@ public:
     NPSTUVWXY();
 
     /**
-     * @brief @copybrief StandardModel::InitializeModel()
-     * @return a boolean that is true if model initialization is successful
-     */
-    virtual bool InitializeModel();
-
-    /**
-     * @brief @copybrief Model::Init()
-     * @copydetails Model::Init()
-     */
-    virtual bool Init(const std::map<std::string, double>& DPars); 
-    
-    /**
      * @brief @copybrief Model::Update()
      * @copydetails Model::Update()
      */
@@ -174,19 +162,6 @@ public:
      * @copydetails Model::CheckParameters()
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
-
-    /**
-     * @brief @copybrief Model::setFlag()
-     * @copydetails Model::setFlag()
-     */
-    virtual bool setFlag(const std::string name, const bool value);
-    
-    /**
-     * @brief @copybrief Model::CheckFlags()
-     * @copydetails Model::CheckFlags()
-     */
-    virtual bool CheckFlags() const;
-    
     
     ////////////////////////////////////////////////////////////////////////     
     

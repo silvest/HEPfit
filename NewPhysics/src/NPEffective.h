@@ -98,41 +98,14 @@ public:
     NPEffective();
 
     /**
-     * @brief @copybrief StandardModel::InitializeModel()
-     * @copydetails NPbase::InitializeModel()
+     * @brief The post-update method for %NPEffective.
+     * @details This method runs all the procedures that need to be executed
+     * after the model is successfully updated. This includes 
+     * \li assigning the value of the NPbase object trueNP
+     * @return a boolean that is true if the execution is successful
      */
-    virtual bool InitializeModel();
+    virtual bool PostUpdate();
 
-    /**
-     * @brief @copybrief Model::Init()
-     * @copydetails Model::Init()
-     */
-    virtual bool Init(const std::map<std::string, double>& DPars);
-   
-    /**
-     * @brief @copybrief Model::Update()
-     * @copydetails Model::Update()
-     */
-    virtual bool Update(const std::map<std::string, double>& DPars);
-   
-    /**
-     * @brief @copybrief Model::CheckParameters()
-     * @copydetails Model::CheckParameters()
-     */
-    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
-
-    /**
-     * @brief @copybrief Model::setFlag()
-     * @copydetails Model::setFlag()
-     */
-    virtual bool setFlag(const std::string name, const bool value);
-    
-    /**
-     * @brief @copybrief Model::CheckFlags()
-     * @copydetails Model::CheckFlags()
-     */
-    virtual bool CheckFlags() const;
-    
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -273,19 +246,7 @@ public:
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$\delta g_V^l@f$
      */
-    virtual double deltaGVl(StandardModel::lepton l) const;
-
-    /**
-     * @brief @copybrief NPbase::deltaGVq()
-     * @details New physics contribution to the neutral-current vector
-     * coupling @f$g_V^q@f$ is given by
-     * @f[
-     * \delta g_V^q = \delta g_L^q + \delta g_R^q.
-     * @f]
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$\delta g_V^q@f$
-     */    
-    virtual double deltaGVq(QCD::quark q) const;
+    virtual double deltaGV_f(const Particle p) const;
 
     /**
      * @brief @copybrief NPbase::deltaGAl()
@@ -297,20 +258,7 @@ public:
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$\delta g_A^l@f$
      */    
-    virtual double deltaGAl(StandardModel::lepton l) const;
-
-    /**
-     * @brief @copybrief NPbase::deltaGAq()
-     * @details New physics contribution to the neutral-current axial-vector
-     * coupling @f$g_A^q@f$ is given by
-     * @f[
-     * \delta g_A^q = \delta g_L^q - \delta g_R^q.
-     * @f]
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$\delta g_A^q@f$
-     */    
-    virtual double deltaGAq(QCD::quark q) const;
-    
+    virtual double deltaGA_f(const Particle p) const;
     
     ////////////////////////////////////////////////////////////////////////    
 protected:
@@ -346,7 +294,8 @@ protected:
     double cHD3;///< The dimension-6 operator coefficient \f$C_{HD_3}\f$.
     double LambdaNP;///< The new physics scale \f$\Lambda\f$.
 
-
+    NPbase trueNPbase;
+    
     ////////////////////////////////////////////////////////////////////////
 private:
 
@@ -370,29 +319,7 @@ private:
      * @attention The new physics contribution via @f$S@f$, @f$T@f$, @f$U@f$ and
      * @f$\Delta G@f$ are not included in this function.
      */
-    double deltaGLl_tmp(StandardModel::lepton l) const;
-
-    /**
-     * @brief New physics contribution to @f$g_L^q@f$.
-     * @details New physics contributions to the neutral-current left-handed
-     * coupling @f$g_L^q@f$ from the operators @f$\mathcal{O}_{HQ_i}^\prime@f$
-     * and @f$\mathcal{O}_{HQ_i}@f$ are given by
-     * @f[
-     * \delta g_L^{u_i}
-     * = \frac{C_{HQ_i}^\prime-C_{HQ_i}}{2} \left(\frac{v}{\Lambda}\right)^2,
-     * \qquad
-     * \delta g_L^{d_i}
-     * = -\frac{C_{HQ_i}^\prime+C_{HQ_i}}{2} \left(\frac{v}{\Lambda}\right)^2.
-     * @f]
-     *
-     * See @cite Ciuchini:2013pca and references therein.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$\delta g_L^q@f$
-     *
-     * @attention The new physics contribution via @f$S@f$, @f$T@f$, @f$U@f$ and
-     * @f$\Delta G@f$ are not included in this function.
-     */
-    double deltaGLq_tmp(QCD::quark q) const;
+    double deltaGL_f_tmp(const Particle p) const;
 
     /**
      * @brief New physics contribution to @f$g_R^l@f$.
@@ -410,30 +337,7 @@ private:
      * @attention The new physics contribution via @f$S@f$, @f$T@f$, @f$U@f$ and
      * @f$\Delta G@f$ are not included in this function.
      */
-    double deltaGRl_tmp(StandardModel::lepton l) const;
-
-    /**
-     * @brief New physics contribution to @f$g_R^q@f$.
-     * @details New physics contributions to the neutral-current right-handed
-     * coupling @f$g_R^q@f$ from the operators @f$\mathcal{O}_{HU_i}@f$ and
-     * @f$\mathcal{O}_{HD_i}@f$ are given by
-     * @f[
-     * \delta g_R^{u_i}
-     * = -\frac{C_{HU_i}}{2} \left(\frac{v}{\Lambda}\right)^2,
-     * \qquad
-     * \delta g_R^{d_i}
-     * = -\frac{C_{HD_i}}{2}\left(\frac{v}{\Lambda}\right)^2.
-     * @f]
-     *
-     * See @cite Ciuchini:2013pca and references therein.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$\delta g_R^q@f$
-     *
-     * @attention The new physics contribution via @f$S@f$, @f$T@f$, @f$U@f$ and
-     * @f$\Delta G@f$ are not included in this function.
-     */
-    double deltaGRq_tmp(QCD::quark q) const;
-
+    double deltaGR_f_tmp(const Particle p) const;
     
 };
 

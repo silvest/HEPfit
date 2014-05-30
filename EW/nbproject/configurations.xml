@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configurationDescriptor version="90">
+<configurationDescriptor version="94">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
@@ -10,13 +10,12 @@
       <itemPath>src/Abottom.h</itemPath>
       <itemPath>src/Acharm.h</itemPath>
       <itemPath>src/Alepton.h</itemPath>
-      <itemPath>src/EW.h</itemPath>
       <itemPath>src/EWObservables.h</itemPath>
-      <itemPath>src/EW_ABC.h</itemPath>
-      <itemPath>src/EW_BURGESS.h</itemPath>
-      <itemPath>src/EW_CHMN.h</itemPath>
       <itemPath>src/EW_NPZff.h</itemPath>
-      <itemPath>src/EW_TEST.h</itemPath>
+      <itemPath>src/Epsilon1.h</itemPath>
+      <itemPath>src/Epsilon2.h</itemPath>
+      <itemPath>src/Epsilon3.h</itemPath>
+      <itemPath>src/Epsilonb.h</itemPath>
       <itemPath>src/GammaW.h</itemPath>
       <itemPath>src/GammaZ.h</itemPath>
       <itemPath>src/LEP2AFBbottom.h</itemPath>
@@ -55,12 +54,7 @@
       <itemPath>src/Abottom.cpp</itemPath>
       <itemPath>src/Acharm.cpp</itemPath>
       <itemPath>src/Alepton.cpp</itemPath>
-      <itemPath>src/EW.cpp</itemPath>
-      <itemPath>src/EW_ABC.cpp</itemPath>
-      <itemPath>src/EW_BURGESS.cpp</itemPath>
-      <itemPath>src/EW_CHMN.cpp</itemPath>
       <itemPath>src/EW_NPZff.cpp</itemPath>
-      <itemPath>src/EW_TEST.cpp</itemPath>
       <itemPath>src/GammaW.cpp</itemPath>
       <itemPath>src/GammaZ.cpp</itemPath>
       <itemPath>src/LEP2AFBbottom.cpp</itemPath>
@@ -243,31 +237,17 @@
       </item>
       <item path="src/Alepton.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EW.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/EWObservables.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EW_ABC.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW_ABC.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EW_BURGESS.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW_BURGESS.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EW_CHMN.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW_CHMN.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EW_NPZff.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EW_NPZff.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EW_TEST.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/Epsilon1.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EW_TEST.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Epsilon2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Epsilon3.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Epsilonb.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GammaW.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -428,31 +408,19 @@
       </item>
       <item path="src/Alepton.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EW.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/EWObservables.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EW_ABC.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW_ABC.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EW_BURGESS.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW_BURGESS.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EW_CHMN.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW_CHMN.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/EW_NPZff.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EW_NPZff.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EW_TEST.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/Epsilon1.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EW_TEST.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Epsilon2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Epsilon3.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Epsilonb.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GammaW.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -613,31 +581,19 @@
       </item>
       <item path="src/Alepton.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EW.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/EWObservables.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EW_ABC.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW_ABC.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EW_BURGESS.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW_BURGESS.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EW_CHMN.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW_CHMN.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/EW_NPZff.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EW_NPZff.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EW_TEST.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/Epsilon1.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EW_TEST.h" ex="false" tool="3" flavor2="0">
+      <item path="src/Epsilon2.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Epsilon3.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Epsilonb.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/GammaW.cpp" ex="false" tool="1" flavor2="0">
       </item>

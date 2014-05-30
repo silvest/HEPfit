@@ -10,7 +10,7 @@
 
 #include <gslpp.h>
 #include <StandardModel.h>
-#include <EWSM.h>
+#include "EWSUSY.h"
 #include "SUSYMatching.h"
 
 using namespace gslpp;
@@ -579,6 +579,7 @@ protected:
 private:    
     bool flag_h, flag_g, flag_ch, flag_ne;
     SUSYMatching* mySUSYMatching;
+    EWSUSY* myEWSUSY;
 
 };
 

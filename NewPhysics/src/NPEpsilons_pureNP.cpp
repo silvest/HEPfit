@@ -6,7 +6,6 @@
  */
 
 #include <stdexcept>
-#include <EWSM.h>
 #include "NPEpsilons_pureNP.h"
 
 const std::string NPEpsilons_pureNP::EPSILONpureNPvars[NEPSILONpureNPvars]
@@ -16,21 +15,11 @@ const std::string NPEpsilons_pureNP::EPSILONpureNPvars[NEPSILONpureNPvars]
 NPEpsilons_pureNP::NPEpsilons_pureNP()
 : NPbase()
 {
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delEps_1", boost::cref(deltaEps_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delEps_2", boost::cref(deltaEps_2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delEps_3", boost::cref(deltaEps_3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delEps_b", boost::cref(deltaEps_b)));
 }
-
-
-bool NPEpsilons_pureNP::InitializeModel()
-{
-    setModelInitialized(NPbase::InitializeModel());
-    return (IsModelInitialized());
-}
-
-
-bool NPEpsilons_pureNP::Init(const std::map<std::string, double>& DPars)
-{
-    return(NPbase::Init(DPars));
-}
-
 
 bool NPEpsilons_pureNP::Update(const std::map<std::string,double>& DPars)
 {
@@ -68,44 +57,29 @@ bool NPEpsilons_pureNP::CheckParameters(const std::map<std::string, double>& DPa
     return(NPbase::CheckParameters(DPars));
 }
 
-
-bool NPEpsilons_pureNP::setFlag(const std::string name, const bool value)
-{
-    bool res = false;
-    res = NPbase::setFlag(name,value);
-    return(res);
-}
-
-
-bool NPEpsilons_pureNP::CheckFlags() const
-{
-    return(NPbase::CheckFlags());
-}
-
-
 ////////////////////////////////////////////////////////////////////////
 
 double NPEpsilons_pureNP::epsilon1() const
 {
-    return (myEWSM->epsilon1_SM() + deltaEps_1);
+    return (trueSM.epsilon1() + deltaEps_1);
 }
 
 
 double NPEpsilons_pureNP::epsilon2() const
 {
-    return (myEWSM->epsilon2_SM() + deltaEps_2);
+    return (trueSM.epsilon2() + deltaEps_2);
 }
 
 
 double NPEpsilons_pureNP::epsilon3() const
 {
-    return (myEWSM->epsilon3_SM() + deltaEps_3);
+    return (trueSM.epsilon3() + deltaEps_3);
 }
 
 
 double NPEpsilons_pureNP::epsilonb() const
 {
-    return (myEWSM->epsilonb_SM() + deltaEps_b);
+    return (trueSM.epsilonb() + deltaEps_b);
 }
 
 
@@ -113,12 +87,12 @@ double NPEpsilons_pureNP::epsilonb() const
 
 double NPEpsilons_pureNP::Mw() const
 {
-    double Mw_SM = myEWSM->Mw_SM();
-    double sW2_SM = myEWSM->sW2_SM();
-    double cW2_SM = myEWSM->cW2_SM();
-    return ( Mw_SM*(1.0 - (- myEWSM->c02()*deltaEps_1
-                           + (myEWSM->c02() - myEWSM->s02())*deltaEps_2
-                           + 2.0*myEWSM->s02()*deltaEps_3)/(cW2_SM - sW2_SM)/2.0) );
+    double Mw_SM = trueSM.Mw();
+    double sW2_SM = trueSM.sW2();
+    double cW2_SM = trueSM.cW2();
+    return ( Mw_SM*(1.0 - (- c02()*deltaEps_1
+                           + (c02() - s02())*deltaEps_2
+                           + 2.0*s02()*deltaEps_3)/(cW2_SM - sW2_SM)/2.0) );
 }
 
 
@@ -130,52 +104,33 @@ double NPEpsilons_pureNP::GammaW() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPEpsilons_pureNP::deltaGVl(StandardModel::lepton l) const
+double NPEpsilons_pureNP::deltaGV_f(const Particle p) const
 {
-    /* SM values */
-    double gV_SM = myEWSM->gVl_SM(l).real();
-    double gA_SM = myEWSM->gAl_SM(l).real();
-
-    return ( gV_SM*deltaEps_1/2.0
-            + (gV_SM - gA_SM)*(deltaEps_3 - myEWSM->c02()*deltaEps_1)
-              /(myEWSM->c02() - myEWSM->s02()) );
-}
-
-
-double NPEpsilons_pureNP::deltaGVq(QCD::quark q) const
-{
-    if (q==TOP) return 0.0;
+    if (p.is("TOP")) return 0.0;
 
     /* SM values */
-    double gV_SM = myEWSM->gVq_SM(q).real();
-    double gA_SM = myEWSM->gAq_SM(q).real();
+    double gV_SM = trueSM.gV_f(p).real();
+    double gA_SM = trueSM.gA_f(p).real();
 
-    if (q==BOTTOM)
+    if (p.is("BOTTOM"))
         return ( gV_SM*deltaEps_1/2.0 + gV_SM*deltaEps_b
-                + (gV_SM - gA_SM)*(deltaEps_3 - myEWSM->c02()*deltaEps_1)
-                  /(myEWSM->c02() - myEWSM->s02())
+                + (gV_SM - gA_SM)*(deltaEps_3 - c02()*deltaEps_1)
+                  /(c02() - s02())
                 - (gV_SM - gA_SM)*deltaEps_b );
     else
         return ( gV_SM*deltaEps_1/2.0
-                + (gV_SM - gA_SM)*(deltaEps_3 - myEWSM->c02()*deltaEps_1)
-                  /(myEWSM->c02() - myEWSM->s02()) );
+                + (gV_SM - gA_SM)*(deltaEps_3 - c02()*deltaEps_1)
+                  /(c02() - s02()) );
 }
 
-
-double NPEpsilons_pureNP::deltaGAl(StandardModel::lepton l) const
+double NPEpsilons_pureNP::deltaGA_f(const Particle p) const
 {
-    return ( getLeptons(l).getIsospin()*deltaEps_1/2.0 );
-}
+    if (p.is("TOP")) return 0.0;
 
+    if (p.is("BOTTOM"))
+        return ( p.getIsospin()*(deltaEps_1/2.0 + deltaEps_b) );
 
-double NPEpsilons_pureNP::deltaGAq(QCD::quark q) const
-{
-    if (q==TOP)
-        return 0.0;
-    else if (q==BOTTOM)
-        return ( getQuarks(q).getIsospin()*(deltaEps_1/2.0 + deltaEps_b) );
-    else
-        return ( getQuarks(q).getIsospin()*deltaEps_1/2.0 );
+    return ( p.getIsospin()*deltaEps_1/2.0 );
 }
 
 

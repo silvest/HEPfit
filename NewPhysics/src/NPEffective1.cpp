@@ -13,6 +13,21 @@ const std::string NPEffective1::NPEffectiveVars[NNPEffectiveVars]
 = {"cWB_NP", "cH_NP", "cLL_NP", "cHLp_NP", "cHQp_NP",
    "cHL_NP", "cHQ_NP", "cHE_NP", "cHU_NP", "cHD_NP", "Lambda_NP"};
 
+NPEffective1::NPEffective1()
+    : NPEffective()
+{
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cWB_NP", boost::cref(cWB)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cH_NP", boost::cref(cH)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cLL_NP", boost::cref(cL1L1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHLp_NP", boost::cref(cHL1p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHQp_NP", boost::cref(cHQ1p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHL_NP", boost::cref(cHL1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHQ_NP", boost::cref(cHQ1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHE_NP", boost::cref(cHE1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHU_NP", boost::cref(cHU1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHD_NP", boost::cref(cHD1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Lambda_NP", boost::cref(LambdaNP)));
+    }
 
 void NPEffective1::setParameter(const std::string name, const double& value)
 {

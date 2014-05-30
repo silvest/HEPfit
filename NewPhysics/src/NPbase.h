@@ -9,6 +9,7 @@
 #define	NPBASE_H
 
 #include <StandardModel.h>
+#include <EW_NPZff.h>
 
 /**
  * @class NPbase
@@ -63,7 +64,7 @@
  * The functions are explained above. 
  *
  */
-class NPbase : public StandardModel {
+class NPbase : virtual public StandardModel {
 public:
 
     /**
@@ -71,43 +72,8 @@ public:
      */
     NPbase();
 
-    /**
-     * @brief @copybrief StandardModel::InitializeModel()
-     * @return a boolean that is true if model initialization is successful
-     */
-    virtual bool InitializeModel();
+    virtual bool PostUpdate();
 
-    /**
-     * @brief @copybrief Model::Init()
-     * @copydetails Model::Init()
-     */
-    virtual bool Init(const std::map<std::string, double>& DPars);
-    
-    /**
-     * @brief @copybrief Model::Update()
-     * @copydetails Model::Update()
-     */
-    virtual bool Update(const std::map<std::string, double>& DPars);
-    
-    /**
-     * @brief @copybrief Model::CheckParameters()
-     * @copydetails Model::CheckParameters()
-     */
-    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
-
-    /**
-     * @brief @copybrief Model::setFlag()
-     * @copydetails Model::setFlag()
-     */
-    virtual bool setFlag(const std::string name , const bool value);
-    
-    /**
-     * @brief @copybrief Model::CheckFlags()
-     * @copydetails Model::CheckFlags()
-     */
-    virtual bool CheckFlags() const;
-
-    
     ////////////////////////////////////////////////////////////////////////
     
     /**
@@ -116,11 +82,13 @@ public:
      * @f[
      * G_\mu = G_{\mu,\mathrm{SM}}(1+\Delta G)\,,
      * @f]
-     * where @f$G_\mu@f$ is the experimentl value measured through muon decays, 
+     * where @f$G_\mu@f$ is the experimental value measured through muon decays, 
      * and @f$G_{\mu,\mathrm{SM}}@f$ is the Fermi constant in the SM.
      * @return @f$\Delta G@f$
      */
-    virtual double DeltaGF() const;
+    virtual double DeltaGF() const {
+        throw std::runtime_error("DeltaGF() not implemented in the current model"); 
+    }
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -128,20 +96,25 @@ public:
      * @brief The oblique parameter \f$S\f$.
      * @return the value of @f$S@f$
      */
-    virtual double obliqueS() const;
+    virtual double obliqueS() const {
+        throw std::runtime_error("obliqueS() not implemented in the current model"); 
+    }
 
     /**
      * @brief The oblique parameter \f$T\f$.
      * @return the value of @f$T@f$
      */
-    virtual double obliqueT() const;
+    virtual double obliqueT() const {
+        throw std::runtime_error("obliqueT() not implemented in the current model"); 
+    }
 
     /**
      * @brief The oblique parameter \f$U\f$.
      * @return the value of @f$U@f$
      */
-    virtual double obliqueU() const;
-
+    virtual double obliqueU() const {
+        throw std::runtime_error("obliqueU() not implemented in the current model"); 
+    }
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -164,18 +137,6 @@ public:
      * @return @f$M_W@f$ in GeV
      */
     virtual double Mw() const;
-
-    /**
-     * @brief @copybrief StandardModel::cW2()
-     * @return @f$c_W^2=\cos^2{\theta_W}=M_W^2/M_Z^2@f$
-     */
-    virtual double cW2() const;
-
-    /**
-     * @brief @copybrief StandardModel::sW2()
-     * @return @f$s_W^2=\sin^2{\theta_W}=1-M_W^2/M_Z^2@f$
-     */
-    virtual double sW2() const;
 
     /**
      * @brief @copybrief StandardModel::GammaW()
@@ -219,31 +180,9 @@ public:
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$\delta g_V^l@f$
      */
-    virtual double deltaGVl(StandardModel::lepton l) const;
+    virtual double deltaGV_f(const Particle p) const;
     
-    /**
-     * @brief New physics contribution to @f$g_V^q@f$.
-     * @details
-     * The neutral-current vector coupling @f$g_V^q@f$ receives the new physics
-     * contribution via the oblique parameters @f$S@f$ and @f$T@f$ and the shift
-     * in the Fermi constant, @f$\Delta G@f$:
-     * @f[
-     * \delta g_V^q =
-     * \frac{g_{V,\mathrm{SM}}^q}{2}
-     * \left[ \alpha(M_Z^2)\, T - \Delta G \right]
-     * +
-     * \frac{\big( g_{V,\mathrm{SM}}^q - g_{A,\mathrm{SM}}^q \big)
-     * \left[
-     * \alpha(M_Z^2)\left( S - 4\,c_W^2s_W^2\, T \right)
-     * + 4\,c_W^2s_W^2\, \Delta G
-     * \right]}{4s_W^2\,(c_W^2-s_W^2)}\,.
-     * @f]
-     *
-     * See @cite Ciuchini:2013pca and references therein.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$\delta g_V^q@f$
-     */
-    virtual double deltaGVq(QCD::quark q) const;
+    virtual complex gV_f(const Particle p) const;
 
     /**
      * @brief New physics contribution to @f$g_A^l@f$.
@@ -260,36 +199,80 @@ public:
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$\delta g_A^l@f$
      */   
-    virtual double deltaGAl(StandardModel::lepton l) const;
+    virtual double deltaGA_f(const Particle p) const;
+    
+    virtual complex gA_f(const Particle p) const;
+    
+       ////////////////////////////////////////////////////////////////////////
+
+    virtual double deltaGamma_Z() const;
+    
+    /**
+     * @brief The total decay width of the @f$Z@f$ boson, @f$\Gamma_Z@f$.
+     * @param[in] GammaZ_SM the SM prediction for @f$\Gamma_Z@f$ in GeV
+     * @return @f$\Gamma_Z@f$ in GeV, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
+     */
+    
+    virtual double Gamma_Z() const;
 
     /**
-     * @brief New physics contribution to @f$g_A^q@f$.
-     * @details
-     * The neutral-current axial-vector coupling @f$g_A^q@f$ receives the new
-     * physics contribution via the oblique parameter @f$T@f$ and the shift in
-     * the Fermi constant, @f$\Delta G@f$:
-     * @f[
-     * \delta g_A^q
-     * = \frac{g_{A,\mathrm{SM}}^q}{2} \left[ \alpha(M_Z^2)\, T - \Delta G \right].
-     * @f]
+     * @brief The cross section for the process @f$e^+ e^-\to Z\to \mathrm{hadrons}@f$
+     * at the @f$Z@f$ pole, @f$\sigma_h^0@f$.
+     * @param[in] sigmaHadron_SM the SM prediction for @f$\sigma_h^0@f$ in GeV@f$^{-2}@f$
+     * @return @f$\sigma_h^0@f$ in GeV@f$^{-2}@f$, including SM plus NP contributions
      *
-     * See @cite Ciuchini:2013pca and references therein.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$\delta g_A^q@f$
-     */ 
-    virtual double deltaGAq(QCD::quark q) const;
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
+     */
+    virtual double deltaSigmaHadron() const;
 
+    virtual double sigma0_had() const;
     
+    /**
+     * @brief @copybrief sin2thetaEff::computeThValue()
+     * @param[in] sin2thetaEff_SM the SM prediction for @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$
+     * @return @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
+     */
+    virtual double deltaSin2thetaEff_e() const;
+    
+    virtual double sin2thetaEff(const Particle p) const;
+
+    /**
+     * @brief @copybrief PtauPol::computeThValue()
+     * @param[in] PtauPol_SM the SM prediction for @f$P_\tau^{\mathrm{pol}}@f$
+     * @return @f$P_\tau^{\mathrm{pol}}@f$, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
+     */
+    virtual double deltaA_f(const Particle p) const;
+    
+    virtual double A_f(const Particle p) const;
+
+    virtual double deltaAFB(const Particle p) const;
+    virtual double AFB(const Particle p) const;
+
+
+    /**
+     * @brief @copybrief Rlepton::computeThValue()
+     * @param[in] Rlepton_SM the SM prediction for @f$R_\ell^0@f$
+     * @return @f$R_\ell^0@f$, including SM plus NP contributions
+     *
+     * @attention This function is applicable only to the NP model classes that
+     * are inherited from NPbase.
+     */
+    virtual double deltaR0_f(const Particle p) const;
+    virtual double R0_f(const Particle p) const;
+
     ////////////////////////////////////////////////////////////////////////
 protected:
-
-    /**
-     * @brief @copybrief Model::setParameter()
-     * @copydetails Model::setParameter()
-     */
-    virtual void setParameter(const std::string name, const double& value);
-
-    
+        StandardModel trueSM;
 };
 
 #endif	/* NPBASE_H */

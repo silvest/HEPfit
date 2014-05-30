@@ -67,7 +67,7 @@ public:
      * @brief A get method for the decay constant of the meson.
      * @return the decay constant of the meson in GeV
      */
-    double getDecayconst() const
+    const double& getDecayconst() const
     {
         return decayconst;
     }

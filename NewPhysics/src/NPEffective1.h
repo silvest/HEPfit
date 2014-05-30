@@ -147,10 +147,7 @@ public:
     /**
      * @brief The default constructor.
      */
-    NPEffective1()
-    : NPEffective()
-    {
-    }
+    NPEffective1();
 
     /**
      * @brief @copybrief Model::CheckParameters()

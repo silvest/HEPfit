@@ -170,7 +170,6 @@ public:
     ////////////////////////////////////////////////////////////////////////
 private:
     const StandardModel& SM;///< A reference to an object of type StandardModel.
-    
 };
 
 #endif	/* EW_NPZFF_H */

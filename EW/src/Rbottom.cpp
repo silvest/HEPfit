@@ -10,11 +10,7 @@
 
 double Rbottom::computeThValue() 
 { 
-    double R0_b = myEW.R0_b();
-
-    /* NP contribution to the Zff vertex */
-    if (myEW.checkNPZff_linearized() && SM.ModelName().compare("StandardModel") != 0)
-        R0_b = myEW.getMyEW_NPZff().Rbottom(R0_b);
+    double R0_b = SM.R0_f(SM.getQuarks(SM.BOTTOM));
 
     return R0_b;
 }

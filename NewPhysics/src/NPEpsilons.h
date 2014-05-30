@@ -8,7 +8,6 @@
 #ifndef NPEPSILONS_H
 #define	NPEPSILONS_H
 
-#include <EWSM.h>
 #include "NPbase.h"
 
 /**
@@ -142,20 +141,6 @@ public:
     NPEpsilons();
 
     /**
-     * @brief @copybrief StandardModel::InitializeModel()
-     * @details This method allocates memory to the pointer #myEWSM, inherited
-     * from StndardModel, with type EWNPEpsilons.
-     * @return a boolean that is true if model initialization is successful
-     */
-    virtual bool InitializeModel();
-
-    /**
-     * @brief @copybrief Model::Init()
-     * @copydetails Model::Init()
-     */
-    virtual bool Init(const std::map<std::string, double>& DPars);
-    
-    /**
      * @brief @copybrief Model::Update()
      * @copydetails Model::Update()
      */
@@ -172,13 +157,6 @@ public:
      * @copydetails Model::setFlag()
      */
     virtual bool setFlag(const std::string name, const bool value);
-    
-    /**
-     * @brief @copybrief Model::CheckFlags()
-     * @copydetails Model::CheckFlags()
-     */
-    virtual bool CheckFlags() const;
-
     
     ////////////////////////////////////////////////////////////////////////
 
@@ -228,6 +206,175 @@ public:
      */
     virtual double GammaW() const;
 
+    virtual double Gamma_Z() const;
+
+    virtual double sigma0_had() const;
+    
+    virtual double sin2thetaEff(const Particle p) const;
+    
+    virtual double A_f(const Particle p) const;
+
+    virtual double AFB(const Particle p) const;
+    
+    virtual double R0_f(const Particle p) const;
+
+    /**
+     * @brief The \f$W\f$ boson mass @f$M_W@f$. 
+     * @return @f$M_W@f$ in GeV
+     */
+    double Mw_NPEpsilons() const;
+
+
+    /**
+     * @brief The @f$W@f$-boson mass @f$M_W@f$.
+     * @details The radiative corrections to @f$M_W@f$ is parameterized in terms
+     * of the quantity @f$\Delta r@f$:
+     * @f[
+     * M_W^2 = \frac{M_Z^2}{2} \left( 1+\sqrt{1-\frac{4\pi\alpha}{\sqrt{2}G_\mu M_Z^2(1-\Delta r)}}\ \right)\,,
+     * @f]
+     * where @f$\Delta r@f$ contains both SM and NP contributions, and is resummed. 
+     * In @cite Altarelli:1990zd and @cite Altarelli:1991fk, @f$\Delta r@f$
+     * is given in terms of @f$\Delta r_W@f$:
+     * @f[
+     * \Delta r = 1 - [1 - \Delta\alpha(M_Z^2)][1-\Delta r_W(\varepsilon_1,\varepsilon_2,\varepsilon_3)]\,,
+     * @f]
+     * where @f$\Delta r_W@f$ is a function of @f$\varepsilon_1@f$,
+     * @f$\varepsilon_2@f$ and @f$\varepsilon_3@f$. See Delta_rW().
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] eps2 the @f$\varepsilon_2@f$ parameter
+     * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
+     * @return @f$M_W@f$ in GeV
+     */
+    double Mw_eps(const double eps1, const double eps2, const double eps3) const;
+
+    /**
+     * @brief The effective leptonic neutral-current coupling @f$\rho_Z^l@f$.
+     * @details The @f$Zl\bar{l}@f$ effective coupling @f$\rho_Z^l@f$ is flavour
+     * universal in the original version of the epsilon parameterization:
+     * @f[
+     *   \rho_Z^l = \rho_Z^e(\varepsilon_1).
+     * @f]
+     * See rhoZ_e() for @f$\rho_Z^e(\varepsilon_1)@f$.
+     * When StandardModel::FlagWithoutNonUniversalVC is true, the flavour
+     * non-universal vertex corrections are also taken into account:
+     * @f[
+     *   \rho_Z^l = \rho_Z^e(\varepsilon_1) + \Delta\rho_Z^l,
+     * @f]
+     * where @f$\Delta\rho_Z^l@f$ denotes the non-universal corrections
+     * given by EWSM::rhoZ_l_SM_FlavorDep().
+     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @return @f$\rho_Z^l@f$
+     */
+    complex rhoZ_f_eps(const Particle p, const double eps1, const double epsb=0. ) const;
+
+    /**
+     * @brief @copybrief EWSM::rhoZ_l()
+     * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
+     * @copydetails EWSM::rhoZ_l()
+     */
+    virtual complex rhoZ_f(const Particle p) const;
+
+    /**
+     * @brief The effective quark neutral-current coupling @f$\kappa_Z^q@f$ for @f$q\neq b,t@f$.
+     * @details The @f$Zq\bar{q}@f$ effective coupling @f$\kappa_Z^q@f$ for
+     * @f$q\neq b,t@f$ is flavour universal in the original version of the
+     * epsilon parameterization:
+     * @f[
+     *   \kappa_Z^q = \kappa_Z^e(\varepsilon_1,\varepsilon_3).
+     * @f]
+     * See kappaZ_e() for @f$\kappa_Z^e(\varepsilon_1,\varepsilon_3)@f$.
+     * When StandardModel::FlagWithoutNonUniversalVC is true, the flavour
+     * non-universal vertex corrections are also taken into account:
+     * @f[
+     *   \kappa_Z^q = \kappa_Z^e(\varepsilon_1,\varepsilon_3) + \Delta\kappa_Z^q,
+     * @f]
+     * where @f$\Delta\kappa_Z^q@f$ denotes the non-universal corrections
+     * given by EWSM::kappaZ_q_SM_FlavorDep().
+     * @param[in] q name of a quark (see QCD::quark); @f$q\neq b,t@f$
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
+     * @return @f$\kappa_Z^q@f$
+     */
+    complex kappaZ_f_eps(const Particle p,
+                     const double eps1, const double eps3, const double epsb = 0.) const;
+
+    /**
+     * @brief @copybrief EWSM::kappaZ_l()
+     * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
+     * @copydetails EWSM::kappaZ_l()
+     */
+    virtual complex kappaZ_f(const Particle p) const;
+    
+    /**
+     * @brief The effective quark neutral-current vector coupling @f$g_V^q@f$ for @f$q\neq b,t@f$.
+     * @param[in] q name of a quark (see QCD::quark); @f$q\neq b,t@f$
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
+     * @return @f$g_V^q@f$
+     */
+    complex gV_f_eps(const Particle p,
+                const double eps1, const double eps3, const double epsb = 0.) const;
+
+    /**
+     * @brief @copybrief EWSM::gVl()
+     * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
+     * @copydetails EWSM::gVl()
+     */
+    virtual complex gV_f(const Particle p) const;
+    
+    /**
+     * @brief The effective quark neutral-current axial-vector coupling @f$g_A^q@f$ for @f$q\neq b,t@f$.
+     * @param[in] q name of a quark (see QCD::quark); @f$q\neq b,t@f$
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @return @f$g_A^q@f$
+     */
+    complex gA_f_eps(const Particle p, const double eps1, const double epsb = 0.) const;
+
+    /**
+     * @brief @copybrief EWSM::gAl()
+     * @details NP contribution is included via the \f$\varepsilon_i\f$ parameter
+     * @copydetails EWSM::gAl()
+     */
+    virtual complex gA_f(const Particle p) const;
+
+    ////////////////////////////////////////////////////////////////////////
+private:
+
+    /**
+     * @brief The auxiliary function @f$\Delta r_W@f$.
+     * @details The function @f$\Delta r_W@f$ is given in terms of the epsilon
+     * parameters:
+     * @f[
+     * \Delta r_W(\varepsilon_1,\varepsilon_2,\varepsilon_3)
+     *   = \frac{c_0^2-s_0^2}{s_0^2}
+     *     \left[ \varepsilon_2 - c_0^2\,\varepsilon_1
+     *       + 2s_0^2\Delta\kappa'(\varepsilon_1,\varepsilon_3) \right],
+     * @f]
+     * where @f$\Delta\kappa'(\varepsilon_1,\varepsilon_3)@f$ is defined as
+     * the function Delta_kappaPrime().
+     * See @cite Altarelli:1990zd and @cite Altarelli:1991fk.
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] eps2 the @f$\varepsilon_2@f$ parameter
+     * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
+     * @return @f$\Delta r_W@f$
+     */
+    double Delta_rW(const double eps1, const double eps2, const double eps3) const;
+
+    /**
+     * @brief The auxiliary function @f$\Delta\kappa'@f$.
+     * @details The function @f$\Delta\kappa'@f$ is given in terms of the epsilon
+     * parameters:
+     * @f[
+     * \Delta\kappa'(\varepsilon_1,\varepsilon_3)
+     * = \frac{\epsilon_3-c_0^2\,\epsilon_1}{c_0^2-s_0^2}\,.
+     * @f]
+     * See @cite Altarelli:1990zd and @cite Altarelli:1991fk.
+     * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
+     * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
+     * @return @f$\Delta\kappa'@f$
+     */
+    double Delta_kappaPrime(const double eps1, const double eps3) const;    
     
     ////////////////////////////////////////////////////////////////////////   
 protected:    

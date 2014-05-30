@@ -8,7 +8,7 @@
 #ifndef EW_BURGESS_H
 #define	EW_BURGESS_H
 
-#include <StandardModel.h>
+#include "NPSTU.h"
 
 /**
  * @class EW_BURGESS
@@ -26,7 +26,7 @@ public:
      * @brief EW_BURGESS constructor.
      * @param SM_i An object of StandardModel class.
      */
-    EW_BURGESS(const StandardModel& SM_i);
+    EW_BURGESS(const NPSTU& NP_i);
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -50,7 +50,7 @@ public:
                    const double Gamma_b_SM) const;
 
 private:
-    const StandardModel& SM;
+    const NPSTU& NP;
 
 };
 

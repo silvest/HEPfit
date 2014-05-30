@@ -6,7 +6,6 @@
  */
 
 #include <stdexcept>
-#include <EWSM.h>
 #include "NPEffective.h"
 
 
@@ -15,49 +14,11 @@ NPEffective::NPEffective()
 {
 }
 
-
-bool NPEffective::InitializeModel()
-{
-    setModelInitialized(NPbase::InitializeModel());
-    return (IsModelInitialized());
+bool NPEffective::PostUpdate() {
+    bool NPbaseup = NPbase::PostUpdate();
+    trueNPbase = *this;
+    return (NPbaseup);
 }
-
-
-bool NPEffective::Init(const std::map<std::string, double>& DPars) 
-{
-    return(NPbase::Init(DPars));
-}
-
-
-bool NPEffective::Update(const std::map<std::string,double>& DPars)
-{
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameter(it->first, it->second);
-    if(!StandardModel::Update(DPars)) return (false);
-
-    return (true);
-}
-
-
-bool NPEffective::CheckParameters(const std::map<std::string, double>& DPars)
-{
-    return(NPbase::CheckParameters(DPars));
-}
-
-
-bool NPEffective::setFlag(const std::string name, const bool value) 
-{
-    bool res = false;
-    res = NPbase::setFlag(name,value);
-    return(res);
-}
-
-
-bool NPEffective::CheckFlags() const
-{
-    return(NPbase::CheckFlags());
-}
-
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -134,7 +95,7 @@ double NPEffective::v() const
     //               /sqrt(2.0)/GF ) );
 
     /* use the tree-level relation */
-    return StandardModel::v();
+    return trueSM.v();
 }
 
 
@@ -158,11 +119,11 @@ double NPEffective::DeltaGF() const
 
 double NPEffective::GammaW() const
 {
-    double Gamma_W = myEWSM->GammaW_SM();
+    double Gamma_W = trueSM.GammaW();
 
-    double alpha = StandardModel::alphaMz();
-    double c2 = myEWSM->cW2_SM();
-    double s2 = myEWSM->sW2_SM();
+    double alpha = alphaMz();
+    double c2 = trueSM.cW2();
+    double s2 = trueSM.sW2();
     double ratio = v()*v()/LambdaNP/LambdaNP;
 
     Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
@@ -180,8 +141,8 @@ double NPEffective::GammaW() const
 double NPEffective::obliqueS() const 
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
-    double sW_SM = sqrt(StandardModel::sW2()); /* This has to be the SM value. */
-    double cW_SM = sqrt(StandardModel::cW2()); /* This has to be the SM value. */
+    double sW_SM = sqrt(trueSM.sW2()); /* This has to be the SM value. */
+    double cW_SM = sqrt(trueSM.cW2()); /* This has to be the SM value. */
 
     return ( 4.0*sW_SM*cW_SM*cWB/alphaMz()*ratio );
 }
@@ -203,115 +164,77 @@ double NPEffective::obliqueU() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPEffective::deltaGVl(StandardModel::lepton l) const
+double NPEffective::deltaGV_f(const Particle p) const
 {
-    return ( deltaGLl_tmp(l) + deltaGRl_tmp(l) + NPbase::deltaGVl(l) );
+    return ( deltaGL_f_tmp(p) + deltaGR_f_tmp(p) + trueNPbase.deltaGV_f(p) );
 }
 
 
-double NPEffective::deltaGVq(QCD::quark q) const
+double NPEffective::deltaGA_f(const Particle p) const
 {
-    return ( deltaGLq_tmp(q) + deltaGRq_tmp(q) + NPbase::deltaGVq(q) );
+    return ( deltaGL_f_tmp(p) - deltaGR_f_tmp(p) + trueNPbase.deltaGA_f(p) );
 }
-
-
-double NPEffective::deltaGAl(StandardModel::lepton l) const
-{
-    return ( deltaGLl_tmp(l) - deltaGRl_tmp(l) + NPbase::deltaGAl(l) );
-}
-
-
-double NPEffective::deltaGAq(QCD::quark q) const
-{
-    return ( deltaGLq_tmp(q) - deltaGRq_tmp(q) + NPbase::deltaGAq(q) );
-}
-
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPEffective::deltaGLl_tmp(StandardModel::lepton l) const
+double NPEffective::deltaGL_f_tmp(const Particle p) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
-    switch (l) {
-        case StandardModel::NEUTRINO_1:
+    if(p.is("NEUTRINO_1"))
             return ( (cHL1p - cHL1)/2.0*ratio );
-        case StandardModel::NEUTRINO_2:
+    if(p.is("NEUTRINO_2"))
             return ( (cHL2p - cHL2)/2.0*ratio );
-        case StandardModel::NEUTRINO_3:
+    if(p.is("NEUTRINO_3"))
             return ( (cHL3p - cHL3)/2.0*ratio );
-        case StandardModel::ELECTRON:
+    if(p.is("ELECTRON"))
             return ( - (cHL1p + cHL1)/2.0*ratio );
-        case StandardModel::MU:
+    if(p.is("MU"))
             return ( - (cHL2p + cHL2)/2.0*ratio );
-        case StandardModel::TAU:
+    if(p.is("TAU"))
             return ( - (cHL3p + cHL3)/2.0*ratio );
-        default:
-            throw std::runtime_error("Error in NPEffective::deltaGLl()");
-    }
-}
-
-
-double NPEffective::deltaGLq_tmp(QCD::quark q) const
-{
-    double ratio = v()*v()/LambdaNP/LambdaNP;
-    switch (q) {
-        case QCD::UP:
+    if(p.is("UP"))
            return ( (cHQ1p - cHQ1)/2.0*ratio );
-        case QCD::CHARM:
+    if(p.is("CHARM"))
            return ( (cHQ2p - cHQ2)/2.0*ratio );
-        case QCD::TOP:
+    if(p.is("TOP"))
             return 0.0;
-        case QCD::DOWN:
+    if(p.is("DOWN"))
             return ( - (cHQ1p + cHQ1)/2.0*ratio );
-        case QCD::STRANGE:
+    if(p.is("STRANGE"))
             return ( - (cHQ2p + cHQ2)/2.0*ratio );
-        case QCD::BOTTOM:
+    if(p.is("BOTTOM"))
             return ( - (cHQ3p + cHQ3)/2.0*ratio );
-        default:
-            throw std::runtime_error("Error in NPEffective::deltaGLq()");
-    }
+    throw std::runtime_error("Error in NPEffective::deltaGL_f()");
 }
 
-
-double NPEffective::deltaGRl_tmp(StandardModel::lepton l) const
+double NPEffective::deltaGR_f_tmp(const Particle p) const
 {
     double ratio = v()*v()/LambdaNP/LambdaNP;
-    switch (l) {
-        case StandardModel::NEUTRINO_1:
-        case StandardModel::NEUTRINO_2:
-        case StandardModel::NEUTRINO_3:
-            return 0.0;
-        case StandardModel::ELECTRON:
+    if(p.is("NEUTRINO_1"))
+            return ( 0. );
+    if(p.is("NEUTRINO_2"))
+            return ( 0. );
+    if(p.is("NEUTRINO_3"))
+            return ( 0. );
+    if(p.is("ELECTRON"))
             return ( - cHE1/2.0*ratio );
-        case StandardModel::MU:
+    if(p.is("MU"))
             return ( - cHE2/2.0*ratio );
-        case StandardModel::TAU:
+    if(p.is("TAU"))
             return ( - cHE3/2.0*ratio );
-        default:
-            throw std::runtime_error("Error in NPEffective::deltaGRl()");
-    }
-}
-
-
-double NPEffective::deltaGRq_tmp(QCD::quark q) const
-{
-    double ratio = v()*v()/LambdaNP/LambdaNP;
-    switch (q) {
-        case QCD::UP:
-            return ( - cHU1/2.0*ratio );
-        case QCD::CHARM:
-            return ( - cHU2/2.0*ratio );
-        case QCD::TOP:
+    if(p.is("UP"))
+           return ( - cHU1/2.0*ratio );
+    if(p.is("CHARM"))
+           return ( - cHU2/2.0*ratio );
+    if(p.is("TOP"))
             return 0.0;
-        case QCD::DOWN:
+    if(p.is("DOWN"))
             return ( - cHD1/2.0*ratio );
-        case QCD::STRANGE:
+    if(p.is("STRANGE"))
             return ( - cHD2/2.0*ratio );
-        case QCD::BOTTOM:
+    if(p.is("BOTTOM"))
             return ( - cHD3/2.0*ratio );
-        default:
-            throw std::runtime_error("Error in NPEffective::deltaGRq()");
-    }
+    throw std::runtime_error("Error in NPEffective::deltaGL_f()");
 }
 
 

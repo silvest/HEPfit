@@ -6,16 +6,16 @@
  */
 
 #include <stdexcept>
-#include "NPZbbbar.h"
+#include "NPZbbbarLinearized.h"
 
 
-const std::string NPZbbbar::ZbbbarVAVars[NZbbbarVars]
+const std::string NPZbbbarLinearized::ZbbbarVAVars[NZbbbarVars]
         = {"deltaGVb", "deltaGAb"};
 
-const std::string NPZbbbar::ZbbbarLRVars[NZbbbarVars]
+const std::string NPZbbbarLinearized::ZbbbarLRVars[NZbbbarVars]
         = {"deltaGLb", "deltaGRb"};
 
-NPZbbbar::NPZbbbar(const bool FlagNPZbbbarLR_in)
+NPZbbbarLinearized::NPZbbbarLinearized(const bool FlagNPZbbbarLR_in)
 : NPbase(), FlagNPZbbbarLR(FlagNPZbbbarLR_in) {
     if (FlagNPZbbbarLR) {
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGLb", boost::cref(myDeltaGVb)));
@@ -24,16 +24,17 @@ NPZbbbar::NPZbbbar(const bool FlagNPZbbbarLR_in)
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGVb", boost::cref(myDeltaGVb)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGAb", boost::cref(myDeltaGAb)));
     }
+
 }
 
-bool NPZbbbar::Update(const std::map<std::string, double>& DPars) {
+bool NPZbbbarLinearized::Update(const std::map<std::string, double>& DPars) {
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameter(it->first, it->second);
     if (!NPbase::Update(DPars)) return (false);
     return (true);
 }
 
-void NPZbbbar::setParameter(const std::string name, const double& value) {
+void NPZbbbarLinearized::setParameter(const std::string name, const double& value) {
     if (FlagNPZbbbarLR) {
         if (name.compare("deltaGLb") == 0)
             myDeltaGVb = value;
@@ -51,17 +52,17 @@ void NPZbbbar::setParameter(const std::string name, const double& value) {
     }
 }
 
-bool NPZbbbar::CheckParameters(const std::map<std::string, double>& DPars) {
+bool NPZbbbarLinearized::CheckParameters(const std::map<std::string, double>& DPars) {
     for (int i = 0; i < NZbbbarVars; i++) {
         if (FlagNPZbbbarLR) {
             if (DPars.find(ZbbbarLRVars[i]) == DPars.end()) {
-                std::cout << "ERROR: Missing mandatory NPZbbbarLR parameter "
+                std::cout << "ERROR: Missing mandatory NPZbbbarLinearizedLR parameter "
                         << ZbbbarLRVars[i] << std::endl;
                 return false;
             }
         } else {
             if (DPars.find(ZbbbarVAVars[i]) == DPars.end()) {
-                std::cout << "ERROR: Missing mandatory NPZbbbar parameter "
+                std::cout << "ERROR: Missing mandatory NPZbbbarLinearized parameter "
                         << ZbbbarVAVars[i] << std::endl;
                 return false;
             }
@@ -70,15 +71,16 @@ bool NPZbbbar::CheckParameters(const std::map<std::string, double>& DPars) {
     return (NPbase::CheckParameters(DPars));
 }
 
-bool NPZbbbar::PostUpdate() {
+bool NPZbbbarLinearized::PostUpdate() {
     bool NPbaseup = NPbase::PostUpdate();
     trueNPbase = *this;
     return (NPbaseup);
 }
 
+
 ////////////////////////////////////////////////////////////////////////
 
-complex NPZbbbar::rhoZ_f(const Particle p) const {
+complex NPZbbbarLinearized::rhoZ_f(const Particle p) const {
     if (p.is("BOTTOM"))
         return ( gA_f(p) * gA_f(p)
             / p.getIsospin() / p.getIsospin());
@@ -86,7 +88,7 @@ complex NPZbbbar::rhoZ_f(const Particle p) const {
         return trueSM.rhoZ_f(p);
 }
 
-complex NPZbbbar::kappaZ_f(const Particle p) const {
+complex NPZbbbarLinearized::kappaZ_f(const Particle p) const {
     if (p.is("BOTTOM"))
         return ( (1.0 - gV_f(p) / gA_f(p))
             / (4.0 * fabs(p.getCharge()) * sW2()));
@@ -94,23 +96,24 @@ complex NPZbbbar::kappaZ_f(const Particle p) const {
         return trueSM.kappaZ_f(p);
 }
 
-complex NPZbbbar::gV_f(const Particle p) const {
+complex NPZbbbarLinearized::gV_f(const Particle p) const {
     if (p.is("BOTTOM"))
-        return ( trueSM.gV_f(p) + deltaGV_f(p));
+        return ( trueSM.gA_f(p)*(1.0 - 4.0 * fabs(p.getCharge())*
+            (trueSM.kappaZ_f(p)) * sW2()));
     else
         return trueSM.gV_f(p);
 }
 
-complex NPZbbbar::gA_f(const Particle p) const {
+complex NPZbbbarLinearized::gA_f(const Particle p) const {
     if (p.is("BOTTOM"))
-        return ( trueSM.gA_f(p) + deltaGA_f(p));
+        return ( sqrt(trueSM.rhoZ_f(p)) * p.getIsospin());
     else
         return trueSM.gA_f(p);
 }
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPZbbbar::deltaGV_f(const Particle p) const {
+double NPZbbbarLinearized::deltaGV_f(const Particle p) const {
     if (p.is("BOTTOM"))
         if (FlagNPZbbbarLR)
             // delta g_L^b + delta g_R^b
@@ -122,7 +125,7 @@ double NPZbbbar::deltaGV_f(const Particle p) const {
         return trueNPbase.deltaGV_f(p);
 }
 
-double NPZbbbar::deltaGA_f(const Particle p) const {
+double NPZbbbarLinearized::deltaGA_f(const Particle p) const {
     if (p.is("BOTTOM"))
         if (FlagNPZbbbarLR)
             // delta g_L^b + delta g_R^b
@@ -133,36 +136,3 @@ double NPZbbbar::deltaGA_f(const Particle p) const {
     else
         return trueNPbase.deltaGA_f(p);
 }
-
-double NPZbbbar::Mw() const {
-    return (StandardModel::Mw());
-}
-
-double NPZbbbar::GammaW() const {
-    return (StandardModel::GammaW());
-}
-
-double NPZbbbar::Gamma_Z() const {
-    return (StandardModel::Gamma_Z());
-}
-
-double NPZbbbar::sigma0_had() const {
-    return (StandardModel::sigma0_had());
-}
-
-double NPZbbbar::sin2thetaEff(const Particle p) const {
-    return (StandardModel::sin2thetaEff(p));
-}
-
-double NPZbbbar::A_f(const Particle p) const {
-    return (StandardModel::A_f(p));
-}
-
-double NPZbbbar::AFB(const Particle p) const {
-    return (StandardModel::AFB(p));
-}
-
-double NPZbbbar::R0_f(const Particle p) const {
-    return (StandardModel::R0_f(p));
-}
-

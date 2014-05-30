@@ -174,7 +174,7 @@ void LEP2TFtestclass::sigma_mu() {
     double mf = SM->getLeptons(SM->MU).getMass();
     double expected = 0.00301302181439508*1000.0;
     double result = myLEP2TF->sigma_l(StandardModel::MU, mf, s, Mw, GammaZ, false)
-                    *GeVminus2_to_nb*1000.0; 
+                    *SM.GeVminus2_to_nb*1000.0; 
     double delta = fabs(epsilon*result);
     CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, result, delta);  
 }

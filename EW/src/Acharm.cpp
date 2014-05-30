@@ -10,13 +10,13 @@
 
 double Acharm::computeThValue() 
 { 
-    double A_c = myEW.A_q(SM.CHARM);
-
-    /* NP contribution to the Zff vertex */
-    if (myEW.checkNPZff_linearized() && SM.ModelName().compare("StandardModel") != 0)
-        A_c = myEW.getMyEW_NPZff().Acharm(A_c);
+//    double A_c = SM.A_q(SM.CHARM);
+//
+//    /* NP contribution to the Zff vertex */
+//    if (SM.checkNPZff_linearized() && SM.ModelName().compare("StandardModel") != 0)
+//        A_c = SM.getMyEW_NPZff().Acharm(A_c);
     
-    return A_c;
+    return SM.A_f(SM.getQuarks(SM.CHARM));
 }
         
 

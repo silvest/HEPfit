@@ -52,6 +52,10 @@ public:
     
     ////////////////////////////////////////////////////////////////////////
 
+    const StandardModel& getSM() const {
+        return SM;
+    }
+
     /**
      * @brief A set method to change the internal boolean flag #FlagDebug.
      * @details The flag #FlagDebug=true is used for testing and debugging the
@@ -223,23 +227,6 @@ public:
     //////////////////////////////////////////////////////////////////////// 
 
     /**
-     * @brief The mass of a lepton. 
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$m_l@f$
-     */
-    double ml(const StandardModel::lepton l) const;
-
-    /**
-     * @brief The mass squared of a lepton. 
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$m_l^2@f$
-     */
-    double ml2(const StandardModel::lepton l) const
-    {
-        return ( ml(l)*ml(l) );
-    }
-
-    /**
      * @brief The mass of a quark. 
      * @param[in] q name of a quark (see QCD::quark)
      * @param[in] mu renormalization scale
@@ -251,7 +238,7 @@ public:
      * @f$m_{u,d,s}(2\,\mathrm{GeV})@f$, @f$m_c(m_c)@f$, @f$m_b(m_b)@f$ or
      * @f$m_t^{\mathrm{pole}}@f$ is returned.
      */
-    double mq(const QCD::quark q, const double mu, 
+    double mf(const Particle p, const double mu = 0., 
               const orders order=FULLNNLO) const;
 
     /**
@@ -266,181 +253,162 @@ public:
      * @f$(m_{u,d,s}(2\,\mathrm{GeV}))^2@f$, @f$(m_c(m_c))^2@f$, @f$(m_b(m_b))^2@f$ or
      * @f$(m_t^{\mathrm{pole}})^2@f$ is returned.
      */
-    double mq2(const QCD::quark q, const double mu,
+    double mf2(const Particle p, const double mu = 0.,
                const orders order=FULLNNLO) const
     {
-        return ( mq(q, mu, order)*mq(q, mu, order) );
+        double mf1 = mf(p, mu, order);
+        return ( mf1*mf1 );
     }
     
-    /**
-     * @brief The pole mass of the top quark.
-     * @return @f$m_t^{\mathrm{pole}}@f$
-     */
-    double Mt() const 
-    {
-        return SM.getMtpole();
-    }
-    
-    /**
-     * @brief The pole mass squared of the top quark.
-     * @return @f$(m_t^{\mathrm{pole}})^2@f$
-     */
-    double Mt2() const 
-    {
-        return ( SM.getMtpole()*SM.getMtpole() ); 
-    }
-
-    /**
-     * @brief The strong coupling @f$\alpha_s(M_Z^2)@f$. 
-     * @return @f$\alpha_s(M_Z^2)@f$
-     */
-    double alsMz() const 
-    {
-        return SM.getAlsMz();
-    }
-    
-    /**
-     * @brief The Fermi constant @f$G_\mu@f$.
-     * @return @f$G_\mu@f$
-     */
-    double GF() const
-    {
-        return SM.getGF();
-    }
-    
-    /**
-     * @brief The fine structure constant @f$\alpha@f$.
-     * @return @f$\alpha@f$
-     */
-    double ale() const
-    {
-        return SM.getAle();
-    }
-
-    /**
-     * @brief The five-flavour hadronic correction to @f$\alpha@f$ at @f$M_Z^2@f$,
-     * @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$
-     * @return @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$
-     */
-    double dAle5Mz() const 
-    {
-        return SM.getDAle5Mz();
-    }
-
-    /**
-     * @brief The @f$Z@f$-boson mass @f$M_Z@f$.
-     * @return @f$M_Z@f$
-     */
-    double Mz() const 
-    {
-        return SM.getMz();
-    }
-
-    /**
-     * @brief The @f$Z@f$-boson mass squared @f$M_Z^2@f$.
-     * @return @f$M_Z^2@f$
-     */
-    double Mz2() const
-    {
-        return ( SM.getMz()*SM.getMz() );
-    }
-
-    /**
-     * @brief The Higgs mass @f$m_h@f$.
-     * @return @f$m_h@f$
-     */
-    double mh() const 
-    {
-        return SM.getMHl();
-    }
-    
-    /**
-     * @brief The Higgs mass squared @f$m_h^2@f$.
-     * @return @f$m_h^2@f$
-     */
-    double mh2() const
-    {
-        return ( SM.getMHl()*SM.getMHl() );
-    }
-
-    /**
-     * @brief The @f$W@f$-boson mass @f$M_W@f$.
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$M_W@f$
-     */
-    double Mw(const double Mw_i) const
-    {
-        return Mw_i;
-    }
-    
-    /**
-     * @brief The @f$W@f$-boson mass squared @f$M_W^2@f$.
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$M_W^2@f$
-     */
-    double Mw2(const double Mw_i) const
-    {
-        return ( Mw_i*Mw_i );
-    }
-
-    /**
-     * @brief @f$c_W^2@f$.
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$c_W^2@f$
-     */
-    double cW2(const double Mw_i) const 
-    {
-        return ( Mw(Mw_i)*Mw(Mw_i)/Mz()/Mz() );
-    }   
-    
-    /**
-     * @brief @f$s_W^2@f$.
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$s_W^2@f$
-     */
-    double sW2(const double Mw_i) const 
-    {
-        return ( 1.0 - cW2(Mw_i) );
-    } 
-    
+//    /**
+//     * @brief The pole mass of the top quark.
+//     * @return @f$m_t^{\mathrm{pole}}@f$
+//     */
+//    double Mt() const 
+//    {
+//        return SM.getMtpole();
+//    }
+//    
+//    /**
+//     * @brief The pole mass squared of the top quark.
+//     * @return @f$(m_t^{\mathrm{pole}})^2@f$
+//     */
+//    double Mt2() const 
+//    {
+//        return ( SM.getMtpole()*SM.getMtpole() ); 
+//    }
+//
+//    /**
+//     * @brief The strong coupling @f$\alpha_s(M_Z^2)@f$. 
+//     * @return @f$\alpha_s(M_Z^2)@f$
+//     */
+//    double alsMz() const 
+//    {
+//        return SM.getAlsMz();
+//    }
+//    
+//    /**
+//     * @brief The Fermi constant @f$G_\mu@f$.
+//     * @return @f$G_\mu@f$
+//     */
+//    double GF() const
+//    {
+//        return SM.getGF();
+//    }
+//    
+//    /**
+//     * @brief The fine structure constant @f$\alpha@f$.
+//     * @return @f$\alpha@f$
+//     */
+//    double ale() const
+//    {
+//        return SM.getAle();
+//    }
+//
+//    /**
+//     * @brief The five-flavour hadronic correction to @f$\alpha@f$ at @f$M_Z^2@f$,
+//     * @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$
+//     * @return @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$
+//     */
+//    double dAle5Mz() const 
+//    {
+//        return SM.getDAle5Mz();
+//    }
+//
+//    /**
+//     * @brief The @f$Z@f$-boson mass @f$M_Z@f$.
+//     * @return @f$M_Z@f$
+//     */
+//    double Mz() const 
+//    {
+//        return SM.getMz();
+//    }
+//
+//    /**
+//     * @brief The @f$Z@f$-boson mass squared @f$M_Z^2@f$.
+//     * @return @f$M_Z^2@f$
+//     */
+//    double Mz2() const
+//    {
+//        return ( SM.getMz()*SM.getMz() );
+//    }
+//
+//    /**
+//     * @brief The Higgs mass @f$m_h@f$.
+//     * @return @f$m_h@f$
+//     */
+//    double mh() const 
+//    {
+//        return SM.getMHl();
+//    }
+//    
+//    /**
+//     * @brief The Higgs mass squared @f$m_h^2@f$.
+//     * @return @f$m_h^2@f$
+//     */
+//    double mh2() const
+//    {
+//        return ( SM.getMHl()*SM.getMHl() );
+//    }
+//
+//    /**
+//     * @brief The @f$W@f$-boson mass @f$M_W@f$.
+//     * @param[in] Mw_i the @f$W@f$-boson mass
+//     * @return @f$M_W@f$
+//     */
+//    double Mw(const double Mw_i) const
+//    {
+//        return Mw_i;
+//    }
+//    
+//    /**
+//     * @brief The @f$W@f$-boson mass squared @f$M_W^2@f$.
+//     * @param[in] Mw_i the @f$W@f$-boson mass
+//     * @return @f$M_W^2@f$
+//     */
+//    double Mw2(const double Mw_i) const
+//    {
+//        return ( Mw_i*Mw_i );
+//    }
+//
+//    /**
+//     * @brief @f$c_W^2@f$.
+//     * @param[in] Mw_i the @f$W@f$-boson mass
+//     * @return @f$c_W^2@f$
+//     */
+//    double cW2(const double Mw_i) const 
+//    {
+//        return ( Mw(Mw_i)*Mw(Mw_i)/Mz()/Mz() );
+//    }   
+//    
+//    /**
+//     * @brief @f$s_W^2@f$.
+//     * @param[in] Mw_i the @f$W@f$-boson mass
+//     * @return @f$s_W^2@f$
+//     */
+//    double sW2(const double Mw_i) const 
+//    {
+//        return ( 1.0 - cW2(Mw_i) );
+//    } 
+//    
     /**
      * @brief The charge of a lepton, @f$Q_l@f$.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$Q_l@f$
      */
-    double Ql(const StandardModel::lepton l) const
+    double Q_f(const Particle p) const
     {
-        return SM.getLeptons(l).getCharge();
+        return p.getCharge();
     }    
-
-    /**
-     * @brief The charge of a quark, @f$Q_q@f$.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$Q_q@f$
-     */
-    double Qq(const QCD::quark q) const
-    {
-        return SM.getQuarks(q).getCharge();
-    }
 
     /**
      * @brief The isospin of a lepton, @f$I_3^l@f$.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$I_3^l@f$
      */
-    double I3l(const StandardModel::lepton l) const
+    double I3_f(const Particle p) const
     {
-        return SM.getLeptons(l).getIsospin();
-    }
-
-    /**
-     * @brief The isospin of a quark, @f$I_3^q@f$.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$I_3^q@f$
-     */
-    double I3q(const QCD::quark q) const
-    {
-        return SM.getQuarks(q).getIsospin();
+        return p.getIsospin();
     }
 
     /**
@@ -450,22 +418,12 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$v_l@f$
      */
-    double vl(const StandardModel::lepton l, const double Mw_i) const 
+    double v_f(const Particle p, const double Mw_i) const 
     {
-        return ( al(l) - 2.0*Ql(l)*sW2(Mw_i) );
+        return ( a_f(p) - 2.0*Q_f(p)*SM.sW2(Mw_i) );
     }
 
-    /**
-     * @brief The tree-level vector coupling for @f$Z\to q\bar{q}@f$,
-     * denoted as @f$v_q@f$.
-     * @param[in] q nname of a quark (see QCD::quark)
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$v_q@f$
-     */
-    double vq(const QCD::quark q, const double Mw_i) const
-    {
-        return ( aq(q) - 2.0*Qq(q)*sW2(Mw_i) );
-    }
+
     
     /**
      * @brief The tree-level axial-vector coupling for @f$Z\to l\bar{l}@f$,
@@ -473,21 +431,11 @@ public:
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$a_l@f$
      */
-    double al(const StandardModel::lepton l) const
+    double a_f(const Particle p) const
     {
-        return ( SM.getLeptons(l).getIsospin() );
+        return ( p.getIsospin() );
     }
 
-    /**
-     * @brief The tree-level axial-vector coupling for @f$Z\to q\bar{q}@f$,
-     * denoted as @f$a_q@f$.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$a_q@f$
-     */
-    double aq(const QCD::quark q) const
-    {
-        return ( SM.getQuarks(q).getIsospin() );
-    }
     
     /**
      * @brief @f$\sigma_l = |v_l+a_l|@f$.
@@ -495,21 +443,10 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\sigma_l@f$
      */
-    double sigmal(const StandardModel::lepton l, const double Mw_i) const
+    double sigma_f(const Particle p, const double Mw_i) const
     {
-        return ( 1.0 - 2.0*fabs(Ql(l))*sW2(Mw_i) );
+        return ( 1.0 - 2.0*fabs(Q_f(p))*SM.sW2(Mw_i) );
     }
-
-    /**
-     * @brief @f$\sigma_q = |v_q+a_q|@f$.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\sigma_q@f$
-     */
-    double sigmaq(const QCD::quark q, const double Mw_i) const 
-    {
-        return ( 1.0 - 2.0*fabs(Qq(q))*sW2(Mw_i) );
-    }  
     
     /**
      * @brief @f$\delta_l = v_l-a_l@f$.
@@ -517,21 +454,10 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta_l@f$
      */    
-    double deltal(const StandardModel::lepton l, const double Mw_i) const 
+    double delta_f(const Particle p, const double Mw_i) const
     {
-        return ( - 2.0*Ql(l)*sW2(Mw_i) );   
+        return ( - 2.0*Q_f(p)*SM.sW2(Mw_i) );   
     } 
-
-    /**
-     * @brief @f$\delta_q = v_q-a_q@f$.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta_q@f$
-     */    
-    double deltaq(const QCD::quark q, const double Mw_i) const 
-    {
-        return ( - 2.0*Qq(q)*sW2(Mw_i) );   
-    }  
     
     /**
      * @brief The conversion factor from @f$\alpha@f$ to @f$G_\mu@f$, denoted
@@ -541,7 +467,7 @@ public:
      */
     double f_AlphaToGF(const double Mw_i) const 
     {
-        return ( sqrt(2.0)*GF()*pow(Mz(),2.0)*sW2(Mw_i)*cW2(Mw_i)/M_PI/ale() );
+        return ( sqrt(2.0)*SM.getGF()*pow(SM.getMz(),2.0)*SM.sW2(Mw_i)*SM.cW2(Mw_i)/M_PI/SM.getAle() );
     }
    
     /**
@@ -550,7 +476,7 @@ public:
      */
     double Xt_GF() const 
     {
-        return ( GF()*Mt()*Mt()/8.0/sqrt(2.0)/M_PI/M_PI );
+        return ( SM.getGF()*SM.getMtpole()*SM.getMtpole()/8.0/sqrt(2.0)/M_PI/M_PI );
     }
     
     /**
@@ -588,7 +514,7 @@ public:
         if (FlagDebug)
             return ( 0.1074432788 );// for debug
         else
-            return ( SM.Als(Mt(),FULLNNLO) );
+            return ( SM.Als(SM.getMtpole(),FULLNNLO) );
     }
 
     /**
@@ -597,7 +523,7 @@ public:
      */
     double Phi_QCD2() const 
     {
-        double r_QCD2 = Mz()*Mz()/4.0/Mt()/Mt();
+        double r_QCD2 = SM.getMz()*SM.getMz()/4.0/SM.getMtpole()/SM.getMtpole();
         return ( asin(sqrt(r_QCD2)) );
     }
 
@@ -607,7 +533,7 @@ public:
      */
     double gamma_QCD2() const 
     {
-        double r_QCD2 = Mz()*Mz()/4.0/Mt()/Mt();
+        double r_QCD2 = SM.getMz()*SM.getMz()/4.0/SM.getMtpole()/SM.getMtpole();
         return ( log(2.0*sqrt(r_QCD2)) );
     }
 
@@ -617,7 +543,7 @@ public:
      */
     double h_QCD2() const 
     {
-        double r_QCD2 = Mz()*Mz()/4.0/Mt()/Mt();
+        double r_QCD2 = SM.getMz()*SM.getMz()/4.0/SM.getMtpole()/SM.getMtpole();
         return ( log(2.0*sqrt(1.0-r_QCD2)) );
     }
     
@@ -645,7 +571,7 @@ public:
      */
     double Cl2_2Phi() const 
     {
-        double Phi= asin(Mz()/2.0/Mt());
+        double Phi= asin(SM.getMz()/2.0/SM.getMtpole());
         return ( Clausen.Cl2(2.0*Phi) );
     }
 
@@ -657,7 +583,7 @@ public:
      */
     double Cl2_4Phi() const 
     {
-        double Phi= asin(Mz()/2.0/Mt());
+        double Phi= asin(SM.getMz()/2.0/SM.getMtpole());
         return ( Clausen.Cl2(4.0*Phi) );
     }
 
@@ -669,7 +595,7 @@ public:
      */
     double Cl3_2Phi() const 
     {
-        double Phi= asin(Mz()/2.0/Mt());
+        double Phi= asin(SM.getMz()/2.0/SM.getMtpole());
         return ( Clausen.Cl3(2.0*Phi) );
     }
 
@@ -681,7 +607,7 @@ public:
      */
     double Cl3_4Phi() const 
     {
-        double Phi= asin(Mz()/2.0/Mt());
+        double Phi= asin(SM.getMz()/2.0/SM.getMtpole());
         return ( Clausen.Cl3(4.0*Phi) );
     }
 
@@ -882,14 +808,7 @@ public:
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$B_0(M_Z^2;m_l^2,m_l^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0_Mz2_Mz2_ml2_ml2(const StandardModel::lepton l) const;
-
-    /**
-     * @brief A cache method.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$B_0(M_Z^2;m_q^2,m_q^2)@f$ with @f$\mu=M_Z@f$
-     */
-    complex B0_Mz2_Mz2_mq2_mq2(const QCD::quark q) const;    
+    complex B0_Mz2_Mz2_mf2_mf2(const Particle p) const;
 
     /**
      * @brief A cache method.
@@ -944,42 +863,21 @@ public:
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$B_{0p}(M_Z^2;m_l^2,m_l^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B0p_Mz2_Mz2_ml2_ml2(const StandardModel::lepton l) const;
-
-    /**
-     * @brief A cache method.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$B_{0p}(M_Z^2;m_q^2,m_q^2)@f$ with @f$\mu=M_Z@f$
-     */
-    complex B0p_Mz2_Mz2_mq2_mq2(const QCD::quark q) const;
+    complex B0p_Mz2_Mz2_mf2_mf2(const Particle p) const;
     
     /**
      * @brief A cache method.
      * @param[in] gen the generation index of a lepton doublet
      * @return @f$B_1(0;m_l^2,m_{l'}^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B1_Mz2_0_ml2_mlprime2(const int gen) const;
-
-    /**
-     * @brief A cache method.
-     * @param[in] gen the generation index of a quark doublet
-     * @return @f$B_1(0;m_q^2,m_{q'}^2)@f$ with @f$\mu=M_Z@f$
-     */
-    complex B1_Mz2_0_mq2_mqprime2(const int gen) const;
+    complex B1_Mz2_0_mf2_mfprime2(const int gen) const;
 
     /**
      * @brief A cache method.
      * @param[in] gen the generation index of a lepton doublet
      * @return @f$B_1(0;m_{l'}^2,m_l^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B1_Mz2_0_mlprime2_ml2(const int gen) const;
-
-    /**
-     * @brief A cache method.
-     * @param[in] gen the generation index of a quark doublet
-     * @return @f$B_1(0;m_{q'}^2,m_q^2)@f$ with @f$\mu=M_Z@f$
-     */
-    complex B1_Mz2_0_mqprime2_mq2(const int gen) const;
+    complex B1_Mz2_0_mfprime2_mf2(const int gen) const;
 
     /**
      * @brief A cache method.
@@ -987,15 +885,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_1(M_W^2;m_l^2,m_{l'}^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B1_Mz2_Mw2_ml2_mlprime2(const int gen, const double Mw_i) const;
-
-    /**
-     * @brief A cache method.
-     * @param[in] gen the generation index of a quark doublet
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$B_1(M_W^2;m_q^2,m_{q'}^2)@f$ with @f$\mu=M_Z@f$
-     */
-    complex B1_Mz2_Mw2_mq2_mqprime2(const int gen, const double Mw_i) const;
+    complex B1_Mz2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) const;
 
     /**
      * @brief A cache method.
@@ -1003,15 +893,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_1(M_W^2;m_{l'}^2,m_l^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex B1_Mz2_Mw2_mlprime2_ml2(const int gen, const double Mw_i) const;
-
-    /**
-     * @brief A cache method.
-     * @param[in] gen the generation index of a quark doublet
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$B_1(M_W^2;m_{q'}^2,m_q^2)@f$ with @f$\mu=M_Z@f$
-     */
-    complex B1_Mz2_Mw2_mqprime2_mq2(const int gen, const double Mw_i) const;
+    complex B1_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const;
 
     /**
      * @brief A cache method.
@@ -1019,15 +901,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_{1p}(M_W^2;m_l^2,m_{l'}^2)@f$ with @f$\mu=M_W@f$
      */
-    complex B1p_Mw2_Mw2_ml2_mlprime2(const int gen, const double Mw_i) const;
-
-    /**
-     * @brief A cache method.
-     * @param[in] gen the generation index of a quark doublet
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$B_{1p}(M_W^2;m_q^2,m_{q'}^2)@f$ with @f$\mu=M_W@f$
-     */
-    complex B1p_Mw2_Mw2_mq2_mqprime2(const int gen, const double Mw_i) const;
+    complex B1p_Mw2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) const;
 
     /**
      * @brief A cache method.
@@ -1035,43 +909,21 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_{1p}(M_W^2;m_{l'}^2,m_l^2)@f$ with @f$\mu=M_W@f$
      */
-    complex B1p_Mw2_Mw2_mlprime2_ml2(const int gen, const double Mw_i) const;
-
-    /**
-     * @brief A cache method.
-     * @param[in] gen the generation index of a quark doublet
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$B_{1p}(M_W^2;m_{q'}^2,m_q^2)@f$ with @f$\mu=M_W@f$
-     */
-    complex B1p_Mw2_Mw2_mqprime2_mq2(const int gen, const double Mw_i) const;
+    complex B1p_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$B_f(M_Z^2;m_l^2,m_l^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bf_Mz2_Mz2_ml2_ml2(const StandardModel::lepton l) const;
-
-    /**
-     * @brief A cache method.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$B_f(M_Z^2;m_q^2,m_q^2)@f$ with @f$\mu=M_Z@f$
-     */
-    complex Bf_Mz2_Mz2_mq2_mq2(const QCD::quark q) const;
+    complex Bf_Mz2_Mz2_mf2_mf2(const Particle p) const;
 
     /**
      * @brief A cache method.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$B_f(0;m_l^2,m_l^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bf_Mz2_0_ml2_ml2(const StandardModel::lepton l) const;
-
-    /**
-     * @brief A cache method.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$B_f(0;m_q^2,m_q^2)@f$ with @f$\mu=M_Z@f$
-     */
-    complex Bf_Mz2_0_mq2_mq2(const QCD::quark q) const;
+    complex Bf_Mz2_0_mf2_mf2(const Particle p) const;
 
     /**
      * @brief A cache method.
@@ -1079,29 +931,14 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_f(M_W^2;m_{l'}^2,m_l^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bf_Mz2_Mw2_mlprime2_ml2(const int gen, const double Mw_i) const;
-
-    /**
-     * @brief A cache method.
-     * @param[in] gen the generation index of a quark doublet
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$B_f(M_W^2;m_{q'}^2,m_q^2)@f$ with @f$\mu=M_Z@f$
-     */
-    complex Bf_Mz2_Mw2_mqprime2_mq2(const int gen, const double Mw_i) const;
+    complex Bf_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const;
 
     /**
      * @brief A cache method.
      * @param[in] gen the generation index of a lepton doublet
      * @return @f$B_f(0;m_{l'}^2,m_l^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bf_Mz2_0_mlprime2_ml2(const int gen) const;
-
-    /**
-     * @brief A cache method.
-     * @param[in] gen the generation index of a quark doublet
-     * @return @f$B_f(0;m_{q'}^2,m_q^2)@f$ with @f$\mu=M_Z@f$
-     */
-    complex Bf_Mz2_0_mqprime2_mq2(const int gen) const;
+    complex Bf_Mz2_0_mfprime2_mf2(const int gen) const;
 
     /**
      * @brief A cache method.
@@ -1109,29 +946,14 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_f(M_W^2;m_{l'}^2,m_l^2)@f$ with @f$\mu=M_W@f$
      */
-    complex Bf_Mw2_Mw2_mlprime2_ml2(const int gen, const double Mw_i) const;
+    complex Bf_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const;
 
-    /**
-     * @brief A cache method.
-     * @param[in] gen the generation index of a quark doublet
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$B_f(M_W^2;m_{q'}^2,m_q^2)@f$ with @f$\mu=M_W@f$
-     */
-    complex Bf_Mw2_Mw2_mqprime2_mq2(const int gen, const double Mw_i) const;
-    
     /**
      * @brief A cache method.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$B_{fp}(M_Z^2;m_l^2,m_l^2)@f$ with @f$\mu=M_Z@f$
      */
-    complex Bfp_Mz2_Mz2_ml2_ml2(const StandardModel::lepton l) const;
-
-    /**
-     * @brief A cache method.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$B_{fp}(M_Z^2;m_q^2,m_q^2)@f$ with @f$\mu=M_Z@f$
-     */
-    complex Bfp_Mz2_Mz2_mq2_mq2(const QCD::quark q) const;
+    complex Bfp_Mz2_Mz2_mf2_mf2(const Particle p) const;
 
     /**
      * @brief A cache method.
@@ -1139,15 +961,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$B_{fp}(M_W^2;m_{l'}^2,m_l^2)@f$ with @f$\mu=M_W@f$
      */
-    complex Bfp_Mw2_Mw2_mlprime2_ml2(const int gen, const double Mw_i) const;
-
-    /**
-     * @brief A cache method.
-     * @param[in] gen the generation index of a quark doublet
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$B_{fp}(M_W^2;m_{q'}^2,m_q^2)@f$ with @f$\mu=M_W@f$
-     */
-    complex Bfp_Mw2_Mw2_mqprime2_mq2(const int gen, const double Mw_i) const;
+    complex Bfp_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const;
 
     /**
      * @brief A cache method.
@@ -1265,8 +1079,7 @@ private:
     mutable double B0_Mw2_Mw2_Mz2_Mw2_cache[4];///< A cache of a PV function.
     mutable double B0_Mw2_Mw2_mh2_Mw2_cache[4];///< A cache of a PV function.
     mutable double B0_Mw2_Mw2_0_Mw2_cache[3];///< A cache of a PV function.
-    mutable double B0_Mz2_Mz2_ml2_ml2_cache[6][4];///< A cache of a PV function.
-    mutable double B0_Mz2_Mz2_mq2_mq2_cache[6][4];///< A cache of a PV function.
+    mutable double B0_Mz2_Mz2_mf2_mf2_cache[12][4];///< A cache of a PV function.
     
     mutable double B0p_Mz2_0_mh2_Mw2_cache[5];///< A cache of a PV function.
     mutable double B0p_Mz2_Mz2_mh2_Mz2_cache[4];///< A cache of a PV function.
@@ -1275,38 +1088,24 @@ private:
     mutable double B0p_Mw2_Mw2_Mz2_Mw2_cache[4];///< A cache of a PV function.
     mutable double B0p_Mw2_Mw2_mh2_Mw2_cache[4];///< A cache of a PV function.
     mutable double B0p_Mw2_Mw2_0_Mw2_cache[3];///< A cache of a PV function.
-    mutable double B0p_Mz2_Mz2_ml2_ml2_cache[6][4];///< A cache of a PV function.
-    mutable double B0p_Mz2_Mz2_mq2_mq2_cache[6][4];///< A cache of a PV function.
+    mutable double B0p_Mz2_Mz2_mf2_mf2_cache[12][4];///< A cache of a PV function.
     
-    mutable double B1_Mz2_0_ml2_mlprime2_cache[3][5];///< A cache of a PV function.
-    mutable double B1_Mz2_0_mq2_mqprime2_cache[3][5];///< A cache of a PV function.
-    mutable double B1_Mz2_0_mlprime2_ml2_cache[3][5];///< A cache of a PV function.
-    mutable double B1_Mz2_0_mqprime2_mq2_cache[3][5];///< A cache of a PV function.
-    mutable double B1_Mz2_Mw2_ml2_mlprime2_cache[3][6];///< A cache of a PV function.
-    mutable double B1_Mz2_Mw2_mq2_mqprime2_cache[3][6];///< A cache of a PV function.
-    mutable double B1_Mz2_Mw2_mlprime2_ml2_cache[3][6];///< A cache of a PV function.
-    mutable double B1_Mz2_Mw2_mqprime2_mq2_cache[3][6];///< A cache of a PV function.
+    mutable double B1_Mz2_0_mf2_mfprime2_cache[6][5];///< A cache of a PV function.
+    mutable double B1_Mz2_0_mfprime2_mf2_cache[6][5];///< A cache of a PV function.
+    mutable double B1_Mz2_Mw2_mf2_mfprime2_cache[6][6];///< A cache of a PV function.
+    mutable double B1_Mz2_Mw2_mfprime2_mf2_cache[6][6];///< A cache of a PV function.
     
-    mutable double B1p_Mw2_Mw2_ml2_mlprime2_cache[3][5];///< A cache of a PV function.
-    mutable double B1p_Mw2_Mw2_mq2_mqprime2_cache[3][5];///< A cache of a PV function.
-    mutable double B1p_Mw2_Mw2_mlprime2_ml2_cache[3][5];///< A cache of a PV function.
-    mutable double B1p_Mw2_Mw2_mqprime2_mq2_cache[3][5];///< A cache of a PV function.
+    mutable double B1p_Mw2_Mw2_mf2_mfprime2_cache[6][5];///< A cache of a PV function.
+    mutable double B1p_Mw2_Mw2_mfprime2_mf2_cache[6][5];///< A cache of a PV function.
         
-    mutable double Bf_Mz2_Mz2_ml2_ml2_cache[6][4];///< A cache of a PV function.
-    mutable double Bf_Mz2_Mz2_mq2_mq2_cache[6][4];///< A cache of a PV function.
-    mutable double Bf_Mz2_0_ml2_ml2_cache[6][4];///< A cache of a PV function.
-    mutable double Bf_Mz2_0_mq2_mq2_cache[6][4];///< A cache of a PV function.
-    mutable double Bf_Mz2_Mw2_mlprime2_ml2_cache[3][6];///< A cache of a PV function.
-    mutable double Bf_Mz2_Mw2_mqprime2_mq2_cache[3][6];///< A cache of a PV function.
-    mutable double Bf_Mz2_0_mlprime2_ml2_cache[3][5];///< A cache of a PV function.
-    mutable double Bf_Mz2_0_mqprime2_mq2_cache[3][5];///< A cache of a PV function.
-    mutable double Bf_Mw2_Mw2_mlprime2_ml2_cache[3][5];///< A cache of a PV function.
-    mutable double Bf_Mw2_Mw2_mqprime2_mq2_cache[3][5];///< A cache of a PV function.
+    mutable double Bf_Mz2_Mz2_mf2_mf2_cache[12][4];///< A cache of a PV function.
+    mutable double Bf_Mz2_0_mf2_mf2_cache[12][4];///< A cache of a PV function.
+    mutable double Bf_Mz2_Mw2_mfprime2_mf2_cache[6][6];///< A cache of a PV function.
+    mutable double Bf_Mz2_0_mfprime2_mf2_cache[6][5];///< A cache of a PV function.
+    mutable double Bf_Mw2_Mw2_mfprime2_mf2_cache[6][5];///< A cache of a PV function.
 
-    mutable double Bfp_Mz2_Mz2_ml2_ml2_cache[6][4];///< A cache of a PV function.
-    mutable double Bfp_Mz2_Mz2_mq2_mq2_cache[6][4];///< A cache of a PV function.
-    mutable double Bfp_Mw2_Mw2_mlprime2_ml2_cache[3][5];///< A cache of a PV function.
-    mutable double Bfp_Mw2_Mw2_mqprime2_mq2_cache[3][5];///< A cache of a PV function.
+    mutable double Bfp_Mz2_Mz2_mf2_mf2_cache[12][4];///< A cache of a PV function.
+    mutable double Bfp_Mw2_Mw2_mfprime2_mf2_cache[6][5];///< A cache of a PV function.
     
     mutable double C0_Mz2_Mw2_Mt2_Mw2_cache[5];///< A cache of a PV function.
     mutable double C0_Mz2_Mt2_Mw2_Mt2_cache[5];///< A cache of a PV function.

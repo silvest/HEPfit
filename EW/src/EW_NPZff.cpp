@@ -6,7 +6,6 @@
  */
 
 #include <stdexcept>
-#include <EWSM.h>
 #include <NPbase.h>
 #include "EW_NPZff.h"
 #include "Rbottom.h"

@@ -9,11 +9,10 @@
 #define	VUD_H
 
 #include <ThObservable.h>
-#include <ThObsType.h>
 
 class Vud : public ThObservable {
 public:
-    Vud(const ThObsType& ObsType) : ThObservable(ObsType) {};
+    Vud(const StandardModel& SM_i) : ThObservable(SM_i) {};
 
     double computeThValue();
 };

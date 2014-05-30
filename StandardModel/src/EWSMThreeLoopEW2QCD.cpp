@@ -31,9 +31,9 @@ double EWSMThreeLoopEW2QCD::DeltaAlpha_t(const double s) const
 
 double EWSMThreeLoopEW2QCD::DeltaRho(const double Mw_i) const 
 {
-    double Mw = cache.Mw(Mw_i);
-    double mh = cache.mh();
-    double Mt = cache.Mt();
+    double Mw = Mw_i;
+    double mh = cache.getSM().getMHl();
+    double Mt = cache.getSM().getMtpole();
     double DeltaRho;
     if (mh==0.0) {
         DeltaRho = 4.0*( 185.0/3.0 + 729.0/4.0*cache.getS2()
@@ -70,32 +70,18 @@ double EWSMThreeLoopEW2QCD::DeltaR_rem(const double Mw_i) const
 }
 
 
-complex EWSMThreeLoopEW2QCD::deltaRho_rem_l(const StandardModel::lepton l, 
+complex EWSMThreeLoopEW2QCD::deltaRho_rem_f(const Particle p, 
                                         const double Mw_i) const 
 {
+    if(p.is("TOP")) return ( complex(0.0,0.0,false) );
     return ( complex(0.0,0.0,false) );
 }
 
 
-complex EWSMThreeLoopEW2QCD::deltaRho_rem_q(const QCD::quark q, 
-                                        const double Mw_i) const 
-{
-    if(q==QCD::TOP) return ( complex(0.0,0.0,false) );
-    return ( complex(0.0,0.0,false) );
-}
-
-
-complex EWSMThreeLoopEW2QCD::deltaKappa_rem_l(const StandardModel::lepton l, 
+complex EWSMThreeLoopEW2QCD::deltaKappa_rem_f(const Particle p, 
                                           const double Mw_i) const
 {
-    return ( complex(0.0,0.0,false) );
-}
-
-
-complex EWSMThreeLoopEW2QCD::deltaKappa_rem_q(const QCD::quark q, 
-                                          const double Mw_i) const
-{
-    if(q==QCD::TOP) return ( complex(0.0,0.0,false) );
+    if(p.is("TOP")) return ( complex(0.0,0.0,false) );
     return ( complex(0.0,0.0,false) );
 }
 

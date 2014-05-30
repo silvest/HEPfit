@@ -10,12 +10,8 @@
 
 double Rlepton::computeThValue() 
 {
-    double R0_l = myEW.R0_l();
+    double R0_l = SM.R0_f(SM.getLeptons(SM.ELECTRON));
 
-    /* NP contribution to the Zff vertex */
-    if (myEW.checkNPZff_linearized() && SM.ModelName().compare("StandardModel") != 0)
-        R0_l = myEW.getMyEW_NPZff().Rlepton(R0_l);
- 
     return R0_l;
 }
         

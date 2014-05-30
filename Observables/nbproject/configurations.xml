@@ -6,12 +6,11 @@
                    projectFiles="true">
       <itemPath>src/CorrelatedGaussianObservables.h</itemPath>
       <itemPath>src/HiggsObservable.h</itemPath>
-      <itemPath>src/ModelObservable.h</itemPath>
       <itemPath>src/ModelParaVsObs.h</itemPath>
       <itemPath>src/ModelParameter.h</itemPath>
       <itemPath>src/Observable.h</itemPath>
       <itemPath>src/Observable2D.h</itemPath>
-      <itemPath>src/ThObsType.h</itemPath>
+      <itemPath>src/ParamObs.h</itemPath>
       <itemPath>src/ThObservable.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -27,7 +26,7 @@
       <itemPath>src/ModelParameter.cpp</itemPath>
       <itemPath>src/Observable.cpp</itemPath>
       <itemPath>src/Observable2D.cpp</itemPath>
-      <itemPath>src/ThObservable.cpp</itemPath>
+      <itemPath>src/ParamObs.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -76,8 +75,6 @@
       </item>
       <item path="src/HiggsObservable.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/ModelObservable.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/ModelParaVsObs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ModelParaVsObs.h" ex="false" tool="3" flavor2="0">
@@ -94,9 +91,9 @@
       </item>
       <item path="src/Observable2D.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/ThObsType.h" ex="false" tool="3" flavor2="0">
+      <item path="src/ParamObs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/ThObservable.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/ParamObs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ThObservable.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -144,8 +141,6 @@
       </item>
       <item path="src/HiggsObservable.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/ModelObservable.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/ModelParaVsObs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ModelParaVsObs.h" ex="false" tool="3" flavor2="0">
@@ -162,9 +157,9 @@
       </item>
       <item path="src/Observable2D.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/ThObsType.h" ex="false" tool="3" flavor2="0">
+      <item path="src/ParamObs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/ThObservable.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/ParamObs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ThObservable.h" ex="false" tool="3" flavor2="0">
       </item>
@@ -211,8 +206,6 @@
       </item>
       <item path="src/HiggsObservable.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/ModelObservable.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/ModelParaVsObs.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ModelParaVsObs.h" ex="false" tool="3" flavor2="0">
@@ -229,9 +222,9 @@
       </item>
       <item path="src/Observable2D.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/ThObsType.h" ex="false" tool="3" flavor2="0">
+      <item path="src/ParamObs.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/ThObservable.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/ParamObs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ThObservable.h" ex="false" tool="3" flavor2="0">
       </item>
