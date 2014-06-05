@@ -163,6 +163,10 @@ public:
         return ModelParamMap.at(name);
     }
 
+    const bool isModelParam(std::string name) const {
+        return (ModelParamMap.find(name) != ModelParamMap.end());
+    }
+    
 protected:
     
     bool UpdateError; ///< A boolean set to false if update is successful.

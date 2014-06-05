@@ -103,7 +103,9 @@ int main(int argc, char** argv)
                 noMC = true;
                 FolderOut = vm["output_folder"].as<string > ();
                 nIterations = vm["it"].as<int > ();
-                GenerateEvent GE(ModelConf, FolderOut, JobTag, noMC);
+                ThObsFactory ThObsF;
+                ModelFactory ModelF;
+                GenerateEvent GE(ModelF, ThObsF, ModelConf, FolderOut, JobTag, noMC);
                 GE.generate(nIterations);
             }
             else if (!vm.count("noMC") && vm.count("mcconf"))
@@ -114,7 +116,11 @@ int main(int argc, char** argv)
                 string MCMCConf = vm["mcconf"].as<string > ();
                 string FileOut = vm["rootfile"].as<string > ();
                 if (vm.count("thRange")) checkTheoryRange = true;
-                MonteCarlo MC(ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);
+                
+                ThObsFactory ThObsF;
+                ModelFactory ModelF;
+                
+                MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);
                 if (vm.count("test")){
                     MC.TestRun(rank);
                 } else {

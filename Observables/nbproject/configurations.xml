@@ -6,7 +6,6 @@
                    projectFiles="true">
       <itemPath>src/CorrelatedGaussianObservables.h</itemPath>
       <itemPath>src/HiggsObservable.h</itemPath>
-      <itemPath>src/ModelParaVsObs.h</itemPath>
       <itemPath>src/ModelParameter.h</itemPath>
       <itemPath>src/Observable.h</itemPath>
       <itemPath>src/Observable2D.h</itemPath>
@@ -22,7 +21,6 @@
                    projectFiles="true">
       <itemPath>src/CorrelatedGaussianObservables.cpp</itemPath>
       <itemPath>src/HiggsObservable.cpp</itemPath>
-      <itemPath>src/ModelParaVsObs.cpp</itemPath>
       <itemPath>src/ModelParameter.cpp</itemPath>
       <itemPath>src/Observable.cpp</itemPath>
       <itemPath>src/Observable2D.cpp</itemPath>
@@ -55,6 +53,8 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../SUSYMassInsertion/src</pElem>
             <pElem>../BAT/include</pElem>
+            <pElem>../EW/src</pElem>
+            <pElem>../HiggsExtensions/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -74,10 +74,6 @@
       <item path="src/HiggsObservable.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsObservable.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/ModelParaVsObs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/ModelParaVsObs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ModelParameter.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -141,10 +137,6 @@
       </item>
       <item path="src/HiggsObservable.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/ModelParaVsObs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/ModelParaVsObs.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/ModelParameter.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/ModelParameter.h" ex="false" tool="3" flavor2="0">
@@ -205,10 +197,6 @@
       <item path="src/HiggsObservable.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsObservable.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/ModelParaVsObs.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/ModelParaVsObs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/ModelParameter.cpp" ex="false" tool="1" flavor2="0">
       </item>

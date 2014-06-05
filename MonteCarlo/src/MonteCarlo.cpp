@@ -11,6 +11,8 @@
 #include <BAT/BCAux.h>
 #include <BAT/BCLog.h>
 #include <BAT/BCSummaryTool.h>
+#include <ModelFactory.h>
+#include <ThObsFactory.h>
 #ifdef _MPI
 #include <mpi.h>
 #endif
@@ -18,12 +20,14 @@
 #include <sstream>
 #include <stdexcept>
 
-MonteCarlo::MonteCarlo(const std::string& ModelConf_i,
+MonteCarlo::MonteCarlo(
+ModelFactory& ModelF, ThObsFactory& ThObsF,
+                       const std::string& ModelConf_i,
                        const std::string& MonteCarloConf_i,
                        const std::string& OutFile_i,
                        const std::string& JobTag_i,
                        const bool checkTheoryRange_i)
-: myInputParser(), MCEngine(ModPars, Obs, Obs2D, CGO, ParaObs, checkTheoryRange_i)
+: myInputParser(ModelF, ThObsF), MCEngine(ModPars, Obs, Obs2D, CGO, checkTheoryRange_i)
 {
     ModelConf = ModelConf_i;
     MCMCConf = MonteCarloConf_i;
@@ -49,7 +53,7 @@ void MonteCarlo::TestRun(int rank) {
     }
     
     if (rank == 0){
-        std::string ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, ParaObs);
+        std::string ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO);
         std::map<std::string, double> DP;
         if (Obs.size() == 0 && CGO.size() == 0) throw std::runtime_error("\nMonteCarlo::TestRun(): No observables or correlated Gaussian observables defined in SomeModel.conf file\n");
 
@@ -91,7 +95,7 @@ void MonteCarlo::Run(const int rank)
     try {
 
         /* set model parameters */
-        std::string ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, ParaObs);
+        std::string ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO);
         int buffsize = 0;
         std::map<std::string, double> DP;
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
@@ -203,7 +207,6 @@ void MonteCarlo::Run(const int rank)
                     it1 != CGO.end(); ++it1)
                 std::cout << "  " << it1->getName() << " containing "
                           << it1->getObs().size() << " observables." << std::endl;
-            std::cout << ParaObs.size() << " ModelParaVsObs defined." << std::endl;
             //MonteCarlo configuration parser
             std::ifstream ifile(MCMCConf.c_str());
             if (!ifile.is_open())

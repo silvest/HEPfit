@@ -24,9 +24,9 @@ MonteCarloEngine::MonteCarloEngine(
         boost::ptr_vector<Observable>& Obs_i,
         std::vector<Observable2D>& Obs2D_i,
         std::vector<CorrelatedGaussianObservables>& CGO_i,
-        std::vector<ModelParaVsObs>& ParaObs_i, const bool checkHistRange_i)
+        const bool checkHistRange_i)
 : BCModel(""), ModPars(ModPars_i), Obs_ALL(Obs_i), Obs2D_ALL(Obs2D_i),
-CGO(CGO_i), ParaObs(ParaObs_i), NumOfUsedEvents(0), NumOfDiscardedEvents(0),
+CGO(CGO_i), NumOfUsedEvents(0), NumOfDiscardedEvents(0),
 checkTheoryRange(checkHistRange_i)
 {
     obval = NULL;
@@ -108,28 +108,6 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
 
     DefineParameters();
 
-    for (std::vector<ModelParaVsObs>::iterator it = ParaObs.begin();
-            it < ParaObs.end(); it++) {
-
-        /* check if the parameter in ModelParaVsObs exists in MCMCparameters */
-        bool checkParam = false;
-        for (unsigned int k = 0; k < GetNParameters(); k++)
-            if (it->getParaName().compare(GetParameter(k)->GetName()) == 0)
-                checkParam = true;
-        if (!checkParam)
-            throw std::runtime_error(it->getParaName() + " cannot be used in ModelParaVsObs!");
-
-        if (Histo2D.find(it->getParaName() + "_vs_" + it->getThname()) == Histo2D.end()) {
-            TH2D * histo2 = new TH2D((it->getParaName() + "_vs_" + it->getThname()).c_str(),
-                    (it->getParaLabel() + " vs " + it->getLabel()).c_str(),
-                    NBINS2D, it->getParaMin(), it->getParaMax(),
-                    NBINS2D, it->getMin(), it->getMax());
-            histo2->GetXaxis()->SetTitle(it->getParaLabel().c_str());
-            histo2->GetYaxis()->SetTitle(it->getLabel().c_str());
-            BCH2D * bchisto2 = new BCH2D(histo2);
-            Histo2D[it->getParaName() + "_vs_" + it->getThname()] = bchisto2;
-        }
-    }
 };
 
 void MonteCarloEngine::setNChains(unsigned int i)
@@ -254,7 +232,7 @@ void MonteCarloEngine::MCMCIterationInterface()
 
 
     buff = new double*[procnum];
-    int obsbuffsize = Obs_ALL.size() + 2 * Obs2D_ALL.size() + 2 * ParaObs.size();
+    int obsbuffsize = Obs_ALL.size() + 2 * Obs2D_ALL.size();
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++)
         obsbuffsize += it1->getObs().size();
     buff[0] = new double[procnum * obsbuffsize];
@@ -319,10 +297,6 @@ void MonteCarloEngine::MCMCIterationInterface()
                 for (std::vector<Observable>::iterator it = pino.begin(); it != pino.end(); ++it)
                     sbuff[k++] = it->computeTheoryValue();
             }
-            for (std::vector<ModelParaVsObs>::iterator it = ParaObs.begin(); it < ParaObs.end(); it++) {
-                sbuff[k++] = DPars[it->getParaName()];
-                sbuff[k++] = it->computeTheoryValue();
-            }
             MPI::COMM_WORLD.Gather(sbuff, obsbuffsize, MPI::DOUBLE, buff[0], obsbuffsize, MPI::DOUBLE, 0);
         } else if (recvbuff[0] == 3.) { // do not compute observables, but gather the buffer
             double sbuff[obsbuffsize];
@@ -378,13 +352,6 @@ void MonteCarloEngine::MCMCIterationInterface()
                     }
                 }
 
-                // fill the 2D histograms for ModelParaVsObs
-                for (std::vector<ModelParaVsObs>::iterator it = ParaObs.begin();
-                        it < ParaObs.end(); it++) {
-                    double par = buff[il][k++];
-                    double th = buff[il][k++];
-                    Histo2D[it->getParaName() + "_vs_" + it->getThname()]->GetHistogram()->Fill(par, th);
-                }
             }
         }
         iproc = 0;
@@ -453,14 +420,6 @@ void MonteCarloEngine::MCMCIterationInterface()
 
                 Histo1D[it->getThname()]->GetHistogram()->Fill(th);
             }
-        }
-
-        // fill the 2D histograms for ModelParaVsObs
-        for (std::vector<ModelParaVsObs>::iterator it = ParaObs.begin();
-                it < ParaObs.end(); it++) {
-            double par = DPars[it->getParaName()];
-            double th = it->computeTheoryValue();
-            Histo2D[it->getParaName() + "_vs_" + it->getThname()]->GetHistogram()->Fill(par, th);
         }
     }
 #endif
@@ -549,23 +508,6 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string Out
             double th[2];
             th[0] = it->computeTheoryValue();
             th[1] = it->computeTheoryValue2();
-            Histo2D[HistName]->SetGlobalMode(th);
-            Histo2D[HistName]->Print(fname.c_str());
-            std::cout << fname << " has been created." << std::endl;
-            out.Write(Histo2D[HistName]->GetHistogram());
-            CheckHistogram(*Histo2D[HistName]->GetHistogram(), HistName);
-        } else
-            HistoLog << "WARNING: The histogram of "
-                << HistName << " is empty!" << std::endl;
-    }
-    for (std::vector<ModelParaVsObs>::iterator it = ParaObs.begin();
-            it < ParaObs.end(); it++) {
-        std::string HistName = it->getParaName() + "_vs_" + it->getThname();
-        if (Histo2D[HistName]->GetHistogram()->Integral() > 0.0) {
-            std::string fname = OutputDir + "/" + HistName + ".pdf";
-            double th[2];
-            th[0] = DPars[it->getParaName()];
-            th[1] = it->computeTheoryValue();
             Histo2D[HistName]->SetGlobalMode(th);
             Histo2D[HistName]->Print(fname.c_str());
             std::cout << fname << " has been created." << std::endl;

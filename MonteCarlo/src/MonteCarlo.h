@@ -51,7 +51,8 @@ public:
      * @param[in] JobTag_i optional job tag that might be specified
      * @param[in] checkTheoryRange_i (default = false)
      */
-    MonteCarlo(const std::string& ModelConf_i,
+    MonteCarlo(ModelFactory& ModelF, ThObsFactory& ThObsF,
+            const std::string& ModelConf_i,
                const std::string& MonteCarloConf_i,
                const std::string& OutFile_i,
                const std::string& JobTag_i,
@@ -142,7 +143,6 @@ private:
     boost::ptr_vector<Observable> Obs; ///< Vector for the observables defined in SomeModel.conf.
     std::vector<Observable2D> Obs2D; ///< Vector for the Observables2D defined in SomeModel.conf.
     std::vector<CorrelatedGaussianObservables> CGO; ///< Vector for the Correlated Gaussian Observables defined in SomeModel.conf.
-    std::vector<ModelParaVsObs> ParaObs; ///< Vector for the ModelParaVsObs defined in SomeModel.conf.
     std::string ModelConf; ///< String for the name of the SomeModel.conf file.
     std::string MCMCConf; ///< String for the name of the MonteCarlo.conf file.
     std::string OutFile; ///< String for the name of the output root file without the .root extension.
