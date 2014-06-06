@@ -28,7 +28,7 @@ public:
      * @param[in] name the name of the observable
      * @return a pointer to an object of the type ThObservable
      */
-    ThObservable* getThMethod(const std::string& name, const StandardModel& model);
+    ThObservable* CreateThMethod(const std::string& name, const StandardModel& model) const;
 
     
 private:

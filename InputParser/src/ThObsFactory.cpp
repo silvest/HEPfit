@@ -152,11 +152,11 @@ void ThObsFactory::addObsToFactory (const std::string name, boost::function<ThOb
     obsThFactory[name] = funct;
 }
 
-ThObservable * ThObsFactory::getThMethod(const std::string& name, const StandardModel& model)
+ThObservable * ThObsFactory::CreateThMethod(const std::string& name, const StandardModel& model) const
 {
     if(model.isModelParam(name))
         return new ParamObs(model, name);
     if (obsThFactory.find(name) == obsThFactory.end())
         throw std::runtime_error("ERROR: Wrong observable " + name + " passed to ThObsFactory");
-    return (obsThFactory[name](model));
+    return (obsThFactory.at(name)(model));
 }

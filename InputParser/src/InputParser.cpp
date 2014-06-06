@@ -50,7 +50,7 @@ Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<c
         tMCMC = false;
     else
         throw std::runtime_error("ERROR: wrong MCMC flag in " + name);
-    Observable o(name, thname, label, tMCMC, min, max, myObsFactory.getThMethod(thname,*myModel));
+    Observable o(name, thname, label, tMCMC, min, max, myObsFactory.CreateThMethod(thname,*myModel));
     return (o);
 }
 
@@ -78,7 +78,7 @@ std::string InputParser::ReadParameters(const std::string filename,
 
         if (modelset == 0) {
             modname = *beg;
-            myModel = myModelFactory.getModel(modname);
+            myModel = myModelFactory.CreateModel(modname);
             myModel->setModelName(modname);
             myModel->InitializeModel();
             if (myModel->IsModelInitialized()) {
@@ -148,7 +148,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             o2.setDistr(distr);
             ++beg;
             o2.setThname2(*beg);
-            o2.setTho2(myObsFactory.getThMethod(*beg,*myModel));
+            o2.setTho2(myObsFactory.CreateThMethod(*beg,*myModel));
             ++beg;
             std::string label = *beg;
             size_t pos = 0;
@@ -173,10 +173,10 @@ std::string InputParser::ReadParameters(const std::string filename,
             std::string distr = *beg;
             if (distr.compare("parametric") == 0) {
                 std::vector<ThObservable*> hthobs;
-                hthobs.push_back(myObsFactory.getThMethod("ggH",*myModel));
-                hthobs.push_back(myObsFactory.getThMethod("VBF",*myModel));
-                hthobs.push_back(myObsFactory.getThMethod("VH",*myModel));
-                hthobs.push_back(myObsFactory.getThMethod("ttH",*myModel));
+                hthobs.push_back(myObsFactory.CreateThMethod("ggH",*myModel));
+                hthobs.push_back(myObsFactory.CreateThMethod("VBF",*myModel));
+                hthobs.push_back(myObsFactory.CreateThMethod("VH",*myModel));
+                hthobs.push_back(myObsFactory.CreateThMethod("ttH",*myModel));
                 ho->setParametricLikelihood(*(++beg), hthobs);
             } else
                 throw std::runtime_error("ERROR: wrong distribution flag in " + ho->getName());

@@ -61,7 +61,7 @@ void MonteCarlo::TestRun(int rank) {
             DP[it->name] = it->ave;
         }
 
-        if (!myInputParser.getMyModel()->Init(DP)) {
+        if (!myInputParser.getModel()->Init(DP)) {
             throw std::runtime_error("ERROR: Parameter(s) missing in model initialization. \n");
         }
 
@@ -104,7 +104,7 @@ void MonteCarlo::Run(const int rank)
                 buffsize++;
         }
         buffsize++;
-        if (!myInputParser.getMyModel()->Init(DP))
+        if (!myInputParser.getModel()->Init(DP))
             throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
 
         if (rank == 0) std::cout << std::endl << "Running in MonteCarlo mode...\n" << std::endl;
@@ -121,7 +121,7 @@ void MonteCarlo::Run(const int rank)
         }
 
         MCEngine.SetName(ModelName.c_str());
-        MCEngine.Initialize(myInputParser.getMyModel());
+        MCEngine.Initialize(myInputParser.getModel());
 
 #ifdef _MPI
         double *recvbuff = new double[buffsize];
@@ -157,7 +157,7 @@ void MonteCarlo::Run(const int rank)
                     for (unsigned int k = 0; k < pars.size(); k++) {
                         DPars[MCEngine.GetParameter(k)->GetName()] = pars[k];
                     }
-                    myInputParser.getMyModel()->Update(DPars);
+                    myInputParser.getModel()->Update(DPars);
 
                     int k = 0;
                     for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++){

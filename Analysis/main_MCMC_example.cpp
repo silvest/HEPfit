@@ -63,10 +63,10 @@ int main(int argc, char** argv)
         ModelFactory ModelF;
 
         /* register user-defined model named ModelName defined in class ModelClass using the following syntax: */
-        /* ModelF.addModelToFactory(ModelName, boost::factory<ModelClass*()>) */
+        /* ModelF.addModelToFactory(ModelName, boost::factory<ModelClass*>() ) */
         
         /* register user-defined ThObservable named ThObsName defined in class ThObsClass using the following syntax: */
-        /* ThObsF.addObsToFactory(ThObsName, boost::factory<ThObsClass*() >)*/
+        /* ThObsF.addObsToFactory(ThObsName, boost::factory<ThObsClass*>() )*/
         
         /* Create an object of the class MonteCarlo. */        
         MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);

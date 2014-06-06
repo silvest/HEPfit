@@ -119,6 +119,7 @@ int main(int argc, char** argv)
                 
                 ThObsFactory ThObsF;
                 ModelFactory ModelF;
+//                ThObsF.addObsToFactory("MZ2", boost::factory<MZ2*>());
                 
                 MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);
                 if (vm.count("test")){

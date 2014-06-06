@@ -41,7 +41,7 @@ void ModelFactory::addModelToFactory (const std::string name, boost::function<St
     modelFactory[name] = funct;
 }
 
-StandardModel* ModelFactory::getModel(const std::string& name)
+StandardModel* ModelFactory::CreateModel(const std::string& name)
 {
     if (modelFactory.find(name) == modelFactory.end())
         throw std::runtime_error("ERROR: Wrong model " + name + " passed to ModelFactory");

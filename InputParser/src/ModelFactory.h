@@ -23,7 +23,7 @@ public:
     
     void addModelToFactory (const std::string name, boost::function<StandardModel*() >);
     
-    StandardModel* getModel(const std::string& ModelName);
+    StandardModel* CreateModel(const std::string& ModelName);
 private:
     std::map<std::string, boost::function<StandardModel* ()> > modelFactory;
 

@@ -100,14 +100,19 @@ public:
      * @brief A get method to access the pointer to the object of the StandardModel class.
      * @return myModel a pointer to the object of the StandardModel class
      */
-    StandardModel* getMyModel() const
+    
+    StandardModel* getModel() const
     {
         return myModel;
     }
     
-    const ThObsFactory& getMyObsFactory() const
+    const ThObsFactory& getObsFactory() const
     {
         return myObsFactory;
+    }
+
+    ModelFactory& getModelFactory() const {
+        return myModelFactory;
     }
 
 private:
