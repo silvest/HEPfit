@@ -1,8 +1,8 @@
-/* 
- * File:   ParamObs.cpp
- * Author: marco
- * 
- * Created on May 16, 2014, 5:48 PM
+/*
+ * Copyright (C) 2014 SusyFit Collaboration
+ * All rights reserved.
+ *
+ * For the licensing terms see doc/COPYING.
  */
 
 #include "ParamObs.h"

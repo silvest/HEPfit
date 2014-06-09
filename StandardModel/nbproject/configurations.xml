@@ -28,7 +28,6 @@
       <itemPath>src/RGEvolutor.h</itemPath>
       <itemPath>src/StandardModel.h</itemPath>
       <itemPath>src/StandardModelMatching.h</itemPath>
-      <itemPath>src/StandardModelParams.h</itemPath>
       <itemPath>src/WilsonCoefficient.h</itemPath>
       <itemPath>src/WilsonTemplate.h</itemPath>
     </logicalFolder>
@@ -60,7 +59,6 @@
       <itemPath>src/RGEvolutor.cpp</itemPath>
       <itemPath>src/StandardModel.cpp</itemPath>
       <itemPath>src/StandardModelMatching.cpp</itemPath>
-      <itemPath>src/StandardModelParams.cpp</itemPath>
       <itemPath>src/WilsonCoefficient.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"

@@ -117,7 +117,7 @@ public:
     }
 
 private:
-    double *bpars = NULL;///< A vector of bag parameters.
+    double *bpars;///< A vector of bag parameters.
     double mu;///< The scale at which the bag parameters are defined. 
     schemes scheme;///< The scheme in which the bag parameters are defined.
     

@@ -1,8 +1,8 @@
-/* 
- * File:   ParamObs.h
- * Author: marco
+/*
+ * Copyright (C) 2014 SusyFit Collaboration
+ * All rights reserved.
  *
- * Created on May 16, 2014, 5:48 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef PARAMOBS_H

@@ -2218,15 +2218,15 @@ private:
      */
     bool flag_order[orders_EW_size];
 
-    EWSMcache* myCache = NULL; ///< A pointer to an object of type EWSMcache.
-    EWSMOneLoopEW* myOneLoopEW = NULL; ///< A pointer to an object of type EWSMOneLoopEW.
-    EWSMTwoLoopQCD* myTwoLoopQCD = NULL; ///< A pointer to an object of type EWSMTwoLoopQCD.
-    EWSMThreeLoopQCD* myThreeLoopQCD = NULL; ///< A pointer to an object of type EWSMThreeLoopQCD.
-    EWSMTwoLoopEW* myTwoLoopEW = NULL; ///< A pointer to an object of type EWSMTwoLoopEW.
-    EWSMThreeLoopEW2QCD* myThreeLoopEW2QCD = NULL; ///< A pointer to an object of type EWSMThreeLoopEW2QCD.
-    EWSMThreeLoopEW* myThreeLoopEW = NULL; ///< A pointer to an object of type EWSMThreeLoopEW.
-    EWSMApproximateFormulae* myApproximateFormulae = NULL; ///< A pointer to an object of type EWSMApproximateFormulae.
-    EWSMTwoFermionsLEP2* myTwoFermionsLEP2 = NULL; ///< A pointer to an object of type EWSMTwoFermionsLEP2.
+    EWSMcache* myCache; ///< A pointer to an object of type EWSMcache.
+    EWSMOneLoopEW* myOneLoopEW; ///< A pointer to an object of type EWSMOneLoopEW.
+    EWSMTwoLoopQCD* myTwoLoopQCD; ///< A pointer to an object of type EWSMTwoLoopQCD.
+    EWSMThreeLoopQCD* myThreeLoopQCD; ///< A pointer to an object of type EWSMThreeLoopQCD.
+    EWSMTwoLoopEW* myTwoLoopEW; ///< A pointer to an object of type EWSMTwoLoopEW.
+    EWSMThreeLoopEW2QCD* myThreeLoopEW2QCD; ///< A pointer to an object of type EWSMThreeLoopEW2QCD.
+    EWSMThreeLoopEW* myThreeLoopEW; ///< A pointer to an object of type EWSMThreeLoopEW.
+    EWSMApproximateFormulae* myApproximateFormulae; ///< A pointer to an object of type EWSMApproximateFormulae.
+    EWSMTwoFermionsLEP2* myTwoFermionsLEP2; ///< A pointer to an object of type EWSMTwoFermionsLEP2.
 
 
     ////////////////////////////////////////////////////////////////////////     
@@ -2273,7 +2273,7 @@ private:
     ////////////////////////////////////////////////////////////////////////
 
 
-    StandardModelMatching* myStandardModelMatching = NULL; ///< A pointer to an object of type StandardModelMatching.
+    StandardModelMatching* myStandardModelMatching; ///< A pointer to an object of type StandardModelMatching.
 
     bool FlagWithoutNonUniversalVC; ///< A boolean for the model flag %WithoutNonUniversalVC.
     bool FlagNoApproximateGammaZ; ///< A boolean for the model flag %NoApproximateGammaZ.

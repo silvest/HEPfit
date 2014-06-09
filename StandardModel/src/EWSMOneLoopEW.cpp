@@ -1100,6 +1100,8 @@ complex EWSMOneLoopEW::FW(const double s, const Particle p,
             lprime = StandardModel::NEUTRINO_2;
         else if (p.is("TAU"))
             lprime = StandardModel::NEUTRINO_3;
+        else
+            throw std::runtime_error("EWSMOneLoopEW::FW(): " + p.getName() + " is not allowed");
         return ( cW2 * FWn_0(s, Mw) - cache.sigma_f(cache.getSM().getLeptons(lprime), Mw) / 2.0 * FWa_0(s, Mw)
                 - FbarWa_0(s) / 2.0);
     } else if (p.is("QUARK")) {

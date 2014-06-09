@@ -23,16 +23,14 @@ ThObsFactory::ThObsFactory() {
     obsThFactory["Rbottom"] = boost::factory<Rbottom*>();
 
     //----- Higgs Extension observables ----------
-
-        obsThFactory["ggH"] = boost::factory<muggH*>();
-        obsThFactory["VBF"] = boost::factory<muVBF*>();
-        obsThFactory["VH"] = boost::factory<muWH*>();
-        obsThFactory["ttH"] = boost::factory<muttH*>();
-        obsThFactory["BrHWW"] = boost::factory<BrWW*>();
-        obsThFactory["BrHZZ"] = boost::factory<BrZZ*>();
-        obsThFactory["BrHgaga"] = boost::factory<Brgaga*>();
-        obsThFactory["BrHtautau"] = boost::factory<Brtautau*>();
-
+    obsThFactory["ggH"] = boost::factory<muggH*>();
+    obsThFactory["VBF"] = boost::factory<muVBF*>();
+    obsThFactory["VH"] = boost::factory<muWH*>();
+    obsThFactory["ttH"] = boost::factory<muttH*>();
+    obsThFactory["BrHWW"] = boost::factory<BrWW*>();
+    obsThFactory["BrHZZ"] = boost::factory<BrZZ*>();
+    obsThFactory["BrHgaga"] = boost::factory<Brgaga*>();
+    obsThFactory["BrHtautau"] = boost::factory<Brtautau*>();
 
     //-----  Epsilon parameters  -----
     obsThFactory["epsilon1"] = boost::factory<Epsilon1*>();

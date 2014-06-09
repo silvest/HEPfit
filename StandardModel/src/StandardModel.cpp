@@ -78,6 +78,16 @@ Ye(3, 3, 0.) {
         }
     }
 
+    myCache = NULL;
+    myOneLoopEW = NULL;
+    myTwoLoopQCD = NULL;
+    myThreeLoopQCD = NULL;
+    myTwoLoopEW = NULL;
+    myThreeLoopEW2QCD = NULL;
+    myThreeLoopEW = NULL;
+    myApproximateFormulae = NULL;
+    myTwoFermionsLEP2 = NULL;
+    myStandardModelMatching = NULL;
 
     //    Particle(std::string name, double mass, double mass_scale = 0., double width = 0., double charge = 0.,double isospin = 0.);
     leptons[NEUTRINO_1] = Particle("NEUTRINO_1", 0., 0., 0., 0., .5);
@@ -371,14 +381,16 @@ bool StandardModel::setFlagStr(const std::string name, const std::string value) 
     return (res);
 }
 
-bool StandardModel::CheckFlags() const {
+bool StandardModel::CheckFlags() const
+{
     return (QCD::CheckFlags());
 }
 
 ///////////////////////////////////////////////////////////////////////////
 // Definitions for EW cache
 
-bool StandardModel::checkSMparams(double Params_cache[]) const {
+bool StandardModel::checkSMparams(double Params_cache[]) const
+{
     // 11 parameters in QCD:
     // AlsMz, Mz, mup, mdown, mcharm, mstrange, mtop, mbottom,
     // mut, mub, muc
@@ -428,15 +440,18 @@ bool StandardModel::checkSMparams(double Params_cache[]) const {
 
 ///////////////////////////////////////////////////////////////////////////
 
-double StandardModel::v() const {
+double StandardModel::v() const
+{
     return ( 1. / sqrt(sqrt(2.) * GF));
 }
 
-double StandardModel::Mw_tree() const {
+double StandardModel::Mw_tree() const
+{
     return ( Mz / sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - 4.0 * M_PI * ale / sqrt(2.0) / GF / Mz / Mz)));
 }
 
-double StandardModel::s02() const {
+double StandardModel::s02() const
+{
     double tmp = 1.0 - 4.0 * M_PI * alphaMz() / sqrt(2.0) / GF / Mz / Mz;
     if (tmp < 0.0)
         throw std::runtime_error("Error in s02()");
@@ -444,7 +459,8 @@ double StandardModel::s02() const {
     return ( (1.0 - sqrt(tmp)) / 2.0);
 }
 
-double StandardModel::c02() const {
+double StandardModel::c02() const
+{
     return ( 1.0 - s02());
 }
 
@@ -515,13 +531,15 @@ double StandardModel::DeltaAlpha() const
 
 
 
-double StandardModel::alphaMz() const {
+double StandardModel::alphaMz() const
+{
     return (ale / (1.0 - DeltaAlpha()));
 }
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::ale_OS(const double mu, orders order) const {
+double StandardModel::ale_OS(const double mu, orders order) const
+{
     if (mu < 50.0)
         throw std::runtime_error("out of range in StandardModel::ale_OS()");
 
@@ -543,7 +561,8 @@ double StandardModel::ale_OS(const double mu, orders order) const {
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::Delta_EWQCD(const QCD::quark q) const {
+double StandardModel::Delta_EWQCD(const QCD::quark q) const
+{
     switch (q) {
         case QCD::UP:
         case QCD::CHARM:
@@ -560,7 +579,8 @@ double StandardModel::Delta_EWQCD(const QCD::quark q) const {
     }
 }
 
-double StandardModel::RVq(const QCD::quark q) const {
+double StandardModel::RVq(const QCD::quark q) const
+{
     if (q == QCD::TOP) return 0.0;
 
     double mcMz, mbMz;
@@ -679,7 +699,8 @@ double StandardModel::RVq(const QCD::quark q) const {
     return RVf;
 }
 
-double StandardModel::RAq(const QCD::quark q) const {
+double StandardModel::RAq(const QCD::quark q) const
+{
     if (q == QCD::TOP) return 0.0;
 
     double mcMz, mbMz;
@@ -815,7 +836,8 @@ double StandardModel::RAq(const QCD::quark q) const {
     return RAf;
 }
 
-double StandardModel::RVh() const {
+double StandardModel::RVh() const
+{
     /* rescaled strong coupling constant */
     double AlsMzPi = getAlsMz() / M_PI;
     double AlsMzPi2 = AlsMzPi*AlsMzPi;
@@ -838,7 +860,8 @@ double StandardModel::RVh() const {
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::A_f(const Particle p) const {
+double StandardModel::A_f(const Particle p) const
+{
     double Re_gV_over_gA;
     if (getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0) {
         /* SM contribution with the approximate formula */
@@ -849,11 +872,13 @@ double StandardModel::A_f(const Particle p) const {
     return ( 2.0 * Re_gV_over_gA / (1.0 + pow(Re_gV_over_gA, 2.0)));
 }
 
-double StandardModel::AFB(const Particle p) const {
+double StandardModel::AFB(const Particle p) const
+{
     return (3.0 / 4.0 * A_f(getLeptons(ELECTRON)) * A_f(p));
 }
 
-double StandardModel::sin2thetaEff(const Particle p) const {
+double StandardModel::sin2thetaEff(const Particle p) const
+{
     if (getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0)
         /* SM contribution with the approximate formula */
         return myApproximateFormulae->sin2thetaEff(p);
@@ -863,7 +888,8 @@ double StandardModel::sin2thetaEff(const Particle p) const {
     }
 }
 
-double StandardModel::GammaZ(const Particle p) const {
+double StandardModel::GammaZ(const Particle p) const
+{
     if (p.is("TOP"))
         return 0.0;
     double Gamma;
@@ -908,12 +934,14 @@ double StandardModel::GammaZ(const Particle p) const {
     return Gamma;
 }
 
-double StandardModel::Gamma_inv() const {
+double StandardModel::Gamma_inv() const
+{
     return ( GammaZ(leptons[NEUTRINO_1]) + GammaZ(leptons[NEUTRINO_2])
             + GammaZ(leptons[NEUTRINO_3]));
 }
 
-double StandardModel::Gamma_had() const {
+double StandardModel::Gamma_had() const
+{
     double Gamma_had_tmp = GammaZ(quarks[UP]) + GammaZ(quarks[DOWN]) + GammaZ(quarks[CHARM])
             + GammaZ(quarks[STRANGE]) + GammaZ(quarks[BOTTOM]);
 
@@ -924,7 +952,8 @@ double StandardModel::Gamma_had() const {
     return Gamma_had_tmp;
 }
 
-double StandardModel::Gamma_Z() const {
+double StandardModel::Gamma_Z() const
+{
     if (!IsFlagNoApproximateGammaZ())
         /* SM contribution with the approximate formula */
         return myApproximateFormulae->X_extended("GammaZ");
@@ -1049,7 +1078,8 @@ void StandardModel::ComputeDeltaR_rem(const double Mw_i,
 
 
 
-double StandardModel::sigma0_had() const {
+double StandardModel::sigma0_had() const
+{
     if (!IsFlagNoApproximateGammaZ())
         /* SM contribution with the approximate formula */
         return (myApproximateFormulae->X_extended("sigmaHadron")
@@ -1059,7 +1089,8 @@ double StandardModel::sigma0_had() const {
             / getMz() / getMz() / Gamma_Z() / Gamma_Z());
 }
 
-double StandardModel::R0_f(const Particle p) const {
+double StandardModel::R0_f(const Particle p) const
+{
     if (p.is("LEPTON")) {
         if (!IsFlagNoApproximateGammaZ())
             /* SM contribution with the approximate formula */
@@ -1086,7 +1117,8 @@ double StandardModel::R0_f(const Particle p) const {
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::Mw() const {
+double StandardModel::Mw() const
+{
     /* Debug */
     //std::cout << std::boolalpha
     //          << checkScheme(schemeMw_cache,schemeMw,false)
@@ -1128,7 +1160,8 @@ double StandardModel::Mw() const {
     return Mw;
 }
 
-double StandardModel::DeltaR() const {
+double StandardModel::DeltaR() const
+{
     /* in the experimental/running-width scheme */
     double myMw = Mw();
     double sW2 = 1.0 - myMw * myMw / Mz / Mz;
@@ -1141,23 +1174,28 @@ double StandardModel::DeltaR() const {
     }
 }
 
-double StandardModel::cW2(double Mw_i) const {
+double StandardModel::cW2(double Mw_i) const
+{
     return ( Mw_i * Mw_i / Mz / Mz);
 }
 
-double StandardModel::cW2() const {
+double StandardModel::cW2() const
+{
     return ( cW2(Mw()));
 }
 
-double StandardModel::sW2(double Mw_i) const {
+double StandardModel::sW2(double Mw_i) const
+{
     return ( 1.0 - cW2(Mw_i));
 }
 
-double StandardModel::sW2() const {
+double StandardModel::sW2() const
+{
     return ( 1.0 - cW2());
 }
 
-double StandardModel::Mzbar() const {
+double StandardModel::Mzbar() const
+{
     double G0 = GF * pow(Mz, 3.0) / 24.0 / sqrt(2.0) / M_PI;
     double sW2tree = 1.0 - Mw_tree() * Mw_tree() / Mz / Mz;
     double Gz = 6.0 * G0; // neutrinos
@@ -1173,7 +1211,8 @@ double StandardModel::Mzbar() const {
     return ( Mz - Gz * Gz / 2.0 / Mz);
 }
 
-double StandardModel::MwbarFromMw(const double Mw) const {
+double StandardModel::MwbarFromMw(const double Mw) const
+{
     double AlsMw = Als(Mw, FULLNLO);
     double Gw_SM = 3.0 * GF * pow(Mw, 3.0) / 2.0 / sqrt(2.0) / M_PI
             * (1.0 + 2.0 * AlsMw / 3.0 / M_PI);
@@ -1181,7 +1220,8 @@ double StandardModel::MwbarFromMw(const double Mw) const {
     return ( Mw - Gw_SM * Gw_SM / 2.0 / Mw);
 }
 
-double StandardModel::MwFromMwbar(const double Mwbar) const {
+double StandardModel::MwFromMwbar(const double Mwbar) const
+{
     double AlsMw = Als(Mwbar, FULLNNLO);
     double Gw_SM = 3.0 * GF * pow(Mwbar, 3.0) / 2.0 / sqrt(2.0) / M_PI
             * (1.0 + 2.0 * AlsMw / 3.0 / M_PI);
@@ -1189,7 +1229,8 @@ double StandardModel::MwFromMwbar(const double Mwbar) const {
     return (Mwbar + Gw_SM * Gw_SM / 2.0 / Mwbar);
 }
 
-double StandardModel::DeltaRbar() const {
+double StandardModel::DeltaRbar() const
+{
     double Mwbar_SM = MwbarFromMw(Mw());
     double sW2bar = 1.0 - Mwbar_SM * Mwbar_SM / Mzbar() / Mzbar();
     double tmp = sqrt(2.0) * GF * sW2bar * Mwbar_SM * Mwbar_SM / M_PI / ale;
@@ -1210,7 +1251,8 @@ complex StandardModel::gA_f(const Particle p) const
 
 ////////////////////////////////////////////////////////////////////////
 
-complex StandardModel::rhoZ_f(const Particle p) const {
+complex StandardModel::rhoZ_f(const Particle p) const
+{
     if (p.getName().compare("TOP") == 0) return (complex(0.0, 0.0, false));
     if (getFlagRhoZ().compare("APPROXIMATEFORMULA") == 0)
         throw std::runtime_error("No approximate formula is available for rhoZ^f");
@@ -1274,7 +1316,8 @@ complex StandardModel::rhoZ_f(const Particle p) const {
     }
 }
 
-complex StandardModel::deltaRhoZ_f(const Particle p) const {
+complex StandardModel::deltaRhoZ_f(const Particle p) const
+{
     Particle p1 = p;
     Particle pe = leptons[ELECTRON];
 
@@ -1335,7 +1378,7 @@ complex StandardModel::kappaZ_f(const Particle p) const
         if (flag_order[EW1])
             deltaKappa_remf[EW1] = myOneLoopEW->deltaKappa_rem_f(p,myMw);
         if (flag_order[EW1QCD1])
-        #ifdef WITHIMTWOLOOPQCD
+#ifdef WITHIMTWOLOOPQCD
             deltaKappa_remf[EW1QCD1] = complex(myTwoLoopQCD->deltaKappa_rem_f(p,myMw).real(),
                                                 myTwoLoopQCD->deltaKappa_rem_f(p,myMw).imag(), false);
 #else
@@ -1376,7 +1419,8 @@ complex StandardModel::kappaZ_f(const Particle p) const
     return (complex(ReKappaZf, ImKappaZf, false));
 }
 
-complex StandardModel::deltaKappaZ_f(const Particle p) const {
+complex StandardModel::deltaKappaZ_f(const Particle p) const
+{
     Particle p1 = p, pe = leptons[ELECTRON];
 
     if (p.is("TOP") || p.is("ELECTRON")) return (complex(0.0, 0.0, false));
@@ -1405,14 +1449,16 @@ complex StandardModel::deltaKappaZ_f(const Particle p) const {
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::epsilon1() const {
+double StandardModel::epsilon1() const
+{
     double rhoZe = rhoZ_f(leptons[ELECTRON]).real();
     double DeltaRhoPrime = 2.0 * (sqrt(rhoZe) - 1.0);
 
     return DeltaRhoPrime;
 }
 
-double StandardModel::epsilon2() const {
+double StandardModel::epsilon2() const
+{
     double s_W2 = StandardModel::sW2(), c_W2 = StandardModel::cW2();
     double rhoZe = rhoZ_f(leptons[ELECTRON]).real();
     double sin2thetaEff = kappaZ_f(leptons[ELECTRON]).real() * s_W2;
@@ -1424,7 +1470,8 @@ double StandardModel::epsilon2() const {
             - 2.0 * s02() * DeltaKappaPrime);
 }
 
-double StandardModel::epsilon3() const {
+double StandardModel::epsilon3() const
+{
     double rhoZe = rhoZ_f(leptons[ELECTRON]).real();
     double sin2thetaEff = kappaZ_f(leptons[ELECTRON]).real() * StandardModel::sW2();
     double DeltaRhoPrime = 2.0 * (sqrt(rhoZe) - 1.0);
@@ -1433,7 +1480,8 @@ double StandardModel::epsilon3() const {
     return ( c02() * DeltaRhoPrime + (c02() - s02()) * DeltaKappaPrime);
 }
 
-double StandardModel::epsilonb() const {
+double StandardModel::epsilonb() const
+{
     /* epsilon_b from g_A^b
      * see Eq.(13) of IJMP A7, 1031 (1998) by Altarelli et al. */
     //double rhoZe = rhoZ_l_SM(StandardModel::ELECTRON).real();
@@ -1749,71 +1797,87 @@ double StandardModel::resumKappaZ(const double DeltaRho[orders_EW_size],
 
 // Angles
 
-double StandardModel::computeBeta() const {
+double StandardModel::computeBeta() const
+{
     return (-VCKM(1, 0) * VCKM(1, 2).conjugate() / (VCKM(2, 0) * VCKM(2, 2).conjugate())).arg();
 }
 
-double StandardModel::computeGamma() const {
+double StandardModel::computeGamma() const
+{
     return (-VCKM(0, 0) * VCKM(0, 2).conjugate() / (VCKM(1, 0) * VCKM(1, 2).conjugate())).arg();
 }
 
-double StandardModel::computeAlpha() const {
+double StandardModel::computeAlpha() const
+{
     return (-VCKM(2, 0) * VCKM(2, 2).conjugate() / (VCKM(0, 0) * VCKM(0, 2).conjugate())).arg();
 }
 
-double StandardModel::computeBetas() const {
+double StandardModel::computeBetas() const
+{
     return (-VCKM(2, 1) * VCKM(2, 2).conjugate() / (VCKM(1, 1) * VCKM(1, 2).conjugate())).arg();
 }
 
 // Lambda_q
 
-complex StandardModel::computelamt() const {
+complex StandardModel::computelamt() const
+{
     return VCKM(2, 0) * VCKM(2, 1).conjugate();
 }
 
-complex StandardModel::computelamc() const {
+complex StandardModel::computelamc() const
+{
     return VCKM(1, 0) * VCKM(1, 1).conjugate();
 }
 
-complex StandardModel::computelamu() const {
+complex StandardModel::computelamu() const
+{
     return VCKM(0, 0) * VCKM(0, 1).conjugate();
 }
 
-complex StandardModel::computelamt_d() const {
+complex StandardModel::computelamt_d() const
+{
     return VCKM(2, 0) * VCKM(2, 2).conjugate();
 }
 
-complex StandardModel::computelamc_d() const {
+complex StandardModel::computelamc_d() const
+{
     return VCKM(1, 0) * VCKM(1, 2).conjugate();
 }
 
-complex StandardModel::computelamu_d() const {
+complex StandardModel::computelamu_d() const
+{
     return VCKM(0, 0) * VCKM(0, 2).conjugate();
 }
 
-complex StandardModel::computelamt_s() const {
+complex StandardModel::computelamt_s() const
+{
     return VCKM(2, 1) * VCKM(2, 2).conjugate();
 }
 
-complex StandardModel::computelamc_s() const {
+complex StandardModel::computelamc_s() const
+{
     return VCKM(1, 1) * VCKM(1, 2).conjugate();
 }
 
-complex StandardModel::computelamu_s() const {
+complex StandardModel::computelamu_s() const
+{
     return VCKM(0, 1) * VCKM(0, 2).conjugate();
 }
 
-double StandardModel::computeRt() const {
+double StandardModel::computeRt() const
+{
     return (VCKM(2, 0) * VCKM(2, 2).conjugate()
             / (VCKM(1, 0) * VCKM(1, 2).conjugate())).abs();
 }
 
-double StandardModel::computeRts() const {
+double StandardModel::computeRts() const
+{
     return (VCKM(2, 1) * VCKM(2, 2).conjugate()
             / (VCKM(1, 1) * VCKM(1, 2).conjugate())).abs();
 }
 
-double StandardModel::computeRb() const {
+double StandardModel::computeRb() const
+{ 
     return (VCKM(0, 0) * VCKM(0, 2).conjugate()
             / (VCKM(1, 0) * VCKM(1, 2).conjugate())).abs();
 }
