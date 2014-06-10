@@ -87,7 +87,7 @@ public:
      * @return @f$\Delta G@f$
      */
     virtual double DeltaGF() const {
-        throw std::runtime_error("DeltaGF() not implemented in the current model"); 
+        return 0.; 
     }
 
     ////////////////////////////////////////////////////////////////////////
@@ -97,7 +97,7 @@ public:
      * @return the value of @f$S@f$
      */
     virtual double obliqueS() const {
-        throw std::runtime_error("obliqueS() not implemented in the current model"); 
+        return 0.; 
     }
 
     /**
@@ -105,7 +105,7 @@ public:
      * @return the value of @f$T@f$
      */
     virtual double obliqueT() const {
-        throw std::runtime_error("obliqueT() not implemented in the current model"); 
+        return 0.; 
     }
 
     /**
@@ -113,7 +113,7 @@ public:
      * @return the value of @f$U@f$
      */
     virtual double obliqueU() const {
-        throw std::runtime_error("obliqueU() not implemented in the current model"); 
+        return 0.; 
     }
 
     ////////////////////////////////////////////////////////////////////////
