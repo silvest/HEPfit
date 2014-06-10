@@ -13,7 +13,8 @@
 #include "EWSMcache.h"
 
 EWSMcache::EWSMcache(const StandardModel& SM_i)
-: SM(SM_i), PV(true) {
+: SM(SM_i), PV(true)
+{
     FlagDebug = false;
     FlagCacheInEWSMcache = true; // use caches in the current class
     //FlagCacheInEWSMcache = false;// do not use caches in the current class (for test)
@@ -40,7 +41,8 @@ EWSMcache::EWSMcache(const StandardModel& SM_i)
 ////////////////////////////////////////////////////////////////////////
 
 double EWSMcache::mf(const Particle p, const double mu,
-        const orders order) const {
+        const orders order) const
+{
     if (p.is("LEPTON"))
         return p.getMass();
     else if (p.is("UP") || p.is("DOWN") || p.is("STRANGE"))
@@ -63,7 +65,8 @@ double EWSMcache::mf(const Particle p, const double mu,
 
 //////////////////////////////////////////////////////////////////////// 
 
-double EWSMcache::logMZtoME() const {
+double EWSMcache::logMZtoME() const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), mf(SM.getLeptons(SM.ELECTRON))};
 
@@ -76,7 +79,8 @@ double EWSMcache::logMZtoME() const {
     }
 }
 
-double EWSMcache::logMZtoMMU() const {
+double EWSMcache::logMZtoMMU() const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), mf(SM.getLeptons(SM.MU))};
 
@@ -89,7 +93,8 @@ double EWSMcache::logMZtoMMU() const {
     }
 }
 
-double EWSMcache::logMZtoMTAU() const {
+double EWSMcache::logMZtoMTAU() const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), mf(SM.getLeptons(SM.TAU))};
 
@@ -102,7 +107,8 @@ double EWSMcache::logMZtoMTAU() const {
     }
 }
 
-double EWSMcache::logMZtoMTOP() const {
+double EWSMcache::logMZtoMTOP() const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), SM.getMtpole()};
 
@@ -115,7 +121,8 @@ double EWSMcache::logMZtoMTOP() const {
     }
 }
 
-double EWSMcache::logMTOPtoMH() const {
+double EWSMcache::logMTOPtoMH() const
+{
     int NumPar = 2;
     double params[] = {SM.getMtpole(), SM.getMHl()};
 
@@ -128,7 +135,8 @@ double EWSMcache::logMTOPtoMH() const {
     }
 }
 
-double EWSMcache::log_cW2(const double Mw_i) const {
+double EWSMcache::log_cW2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
@@ -141,125 +149,135 @@ double EWSMcache::log_cW2(const double Mw_i) const {
     }
 }
 
-double EWSMcache::Li2_MW2toMTOP2(const double Mw_i) const {
+double EWSMcache::Li2_MW2toMTOP2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMtpole()};
 
     if (CacheCheck(Li2_MW2toMTOP2_cache, NumPar, params))
         return Li2_MW2toMTOP2_cache[NumPar];
     else {
-        double newResult = PolyLog.Li2(Mw_i*Mw_i / SM.getMtpole() / SM.getMtpole()).real();
+        double newResult = PolyLog.Li2(Mw_i * Mw_i / SM.getMtpole() / SM.getMtpole()).real();
         newCacheForDouble(Li2_MW2toMTOP2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-double EWSMcache::Li3_MW2toMTOP2(const double Mw_i) const {
+double EWSMcache::Li3_MW2toMTOP2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMtpole()};
 
     if (CacheCheck(Li3_MW2toMTOP2_cache, NumPar, params))
         return Li3_MW2toMTOP2_cache[NumPar];
     else {
-        double newResult = PolyLog.Li3(Mw_i*Mw_i / SM.getMtpole() / SM.getMtpole());
+        double newResult = PolyLog.Li3(Mw_i * Mw_i / SM.getMtpole() / SM.getMtpole());
         newCacheForDouble(Li3_MW2toMTOP2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-double EWSMcache::Li3_for_F1(const double Mw_i) const {
+double EWSMcache::Li3_for_F1(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMtpole()};
 
     if (CacheCheck(Li3_for_F1_cache, NumPar, params))
         return Li3_for_F1_cache[NumPar];
     else {
-        double tmp = Mw_i*Mw_i / SM.getMtpole() / SM.getMtpole();
+        double tmp = Mw_i * Mw_i / SM.getMtpole() / SM.getMtpole();
         double newResult = PolyLog.Li3(-tmp / (1.0 - tmp));
         newCacheForDouble(Li3_for_F1_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-double EWSMcache::A0_Mz2_Mw2(const double Mw_i) const {
+double EWSMcache::A0_Mz2_Mw2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
     if (CacheCheck(A0_Mz2_Mw2_cache, NumPar, params))
         return A0_Mz2_Mw2_cache[NumPar];
     else {
-        double newResult = PV.A0(SM.getMz()*SM.getMz(), Mw_i*Mw_i);
+        double newResult = PV.A0(SM.getMz() * SM.getMz(), Mw_i * Mw_i);
         newCacheForDouble(A0_Mz2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-double EWSMcache::A0_Mz2_mh2() const {
+double EWSMcache::A0_Mz2_mh2() const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), SM.getMHl()};
 
     if (CacheCheck(A0_Mz2_mh2_cache, NumPar, params))
         return A0_Mz2_mh2_cache[NumPar];
     else {
-        double newResult = PV.A0(SM.getMz()*SM.getMz(), SM.getMHl()*SM.getMHl() );
+        double newResult = PV.A0(SM.getMz() * SM.getMz(), SM.getMHl() * SM.getMHl());
         newCacheForDouble(A0_Mz2_mh2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-double EWSMcache::A0_Mw2_Mz2(const double Mw_i) const {
+double EWSMcache::A0_Mw2_Mz2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMz()};
 
     if (CacheCheck(A0_Mw2_Mz2_cache, NumPar, params))
         return A0_Mw2_Mz2_cache[NumPar];
     else {
-        double newResult = PV.A0(Mw_i*Mw_i, SM.getMz()*SM.getMz());
+        double newResult = PV.A0(Mw_i*Mw_i, SM.getMz() * SM.getMz());
         newCacheForDouble(A0_Mw2_Mz2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-double EWSMcache::A0_Mw2_mh2(const double Mw_i) const {
+double EWSMcache::A0_Mw2_mh2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMHl()};
 
     if (CacheCheck(A0_Mw2_mh2_cache, NumPar, params))
         return A0_Mw2_mh2_cache[NumPar];
     else {
-        double newResult = PV.A0(Mw_i*Mw_i, SM.getMHl()*SM.getMHl());
+        double newResult = PV.A0(Mw_i*Mw_i, SM.getMHl() * SM.getMHl());
         newCacheForDouble(A0_Mw2_mh2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-double EWSMcache::A0_Mz2_Mz2() const {
+double EWSMcache::A0_Mz2_Mz2() const
+{
     int NumPar = 1;
     double params[] = {SM.getMz()};
 
     if (CacheCheck(A0_Mz2_Mz2_cache, NumPar, params))
         return A0_Mz2_Mz2_cache[NumPar];
     else {
-        double newResult = PV.A0(SM.getMz()*SM.getMz(), SM.getMz()*SM.getMz());
+        double newResult = PV.A0(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz());
         newCacheForDouble(A0_Mz2_Mz2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-double EWSMcache::A0_Mw2_Mw2(const double Mw_i) const {
+double EWSMcache::A0_Mw2_Mw2(const double Mw_i) const
+{
     int NumPar = 1;
     double params[] = {Mw_i};
 
     if (CacheCheck(A0_Mw2_Mw2_cache, NumPar, params))
         return A0_Mw2_Mw2_cache[NumPar];
     else {
-        double newResult = PV.A0(Mw_i*Mw_i, Mw_i*Mw_i);
+        double newResult = PV.A0(Mw_i*Mw_i, Mw_i * Mw_i);
         newCacheForDouble(A0_Mw2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mz2_Mw2_mh2_Mw2(const double Mw_i) const {
+complex EWSMcache::B0_Mz2_Mw2_mh2_Mw2(const double Mw_i) const
+{
     int NumPar = 3;
     double params[] = {SM.getMz(), Mw_i, SM.getMHl()};
 
@@ -267,13 +285,14 @@ complex EWSMcache::B0_Mz2_Mw2_mh2_Mw2(const double Mw_i) const {
         return complex(B0_Mz2_Mw2_mh2_Mw2_cache[NumPar],
             B0_Mz2_Mw2_mh2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz()*SM.getMz(), Mw_i*Mw_i, SM.getMHl()*SM.getMHl(), Mw_i*Mw_i);
+        complex newResult = PV.B0(SM.getMz() * SM.getMz(), Mw_i*Mw_i, SM.getMHl() * SM.getMHl(), Mw_i * Mw_i);
         newCacheForComplex(B0_Mz2_Mw2_mh2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mz2_0_mh2_Mw2(const double Mw_i) const {
+complex EWSMcache::B0_Mz2_0_mh2_Mw2(const double Mw_i) const
+{
     int NumPar = 3;
     double params[] = {SM.getMz(), SM.getMHl(), Mw_i};
 
@@ -281,13 +300,14 @@ complex EWSMcache::B0_Mz2_0_mh2_Mw2(const double Mw_i) const {
         return complex(B0_Mz2_0_mh2_Mw2_cache[NumPar],
             B0_Mz2_0_mh2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz()*SM.getMz(), 0.0, SM.getMHl()*SM.getMHl(), Mw_i*Mw_i);
+        complex newResult = PV.B0(SM.getMz() * SM.getMz(), 0.0, SM.getMHl() * SM.getMHl(), Mw_i * Mw_i);
         newCacheForComplex(B0_Mz2_0_mh2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mw2_Mz2_Mt2_Mt2(const double Mw_i) const {
+complex EWSMcache::B0_Mw2_Mz2_Mt2_Mt2(const double Mw_i) const
+{
     int NumPar = 3;
     double params[] = {Mw_i, SM.getMz(), SM.getMtpole()};
 
@@ -295,13 +315,14 @@ complex EWSMcache::B0_Mw2_Mz2_Mt2_Mt2(const double Mw_i) const {
         return complex(B0_Mw2_Mz2_Mt2_Mt2_cache[NumPar],
             B0_Mw2_Mz2_Mt2_Mt2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(Mw_i*Mw_i, SM.getMz()*SM.getMz(), SM.getMtpole()*SM.getMtpole(), SM.getMtpole()*SM.getMtpole());
+        complex newResult = PV.B0(Mw_i*Mw_i, SM.getMz() * SM.getMz(), SM.getMtpole() * SM.getMtpole(), SM.getMtpole() * SM.getMtpole());
         newCacheForComplex(B0_Mw2_Mz2_Mt2_Mt2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const {
+complex EWSMcache::B0_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
@@ -309,13 +330,14 @@ complex EWSMcache::B0_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const {
         return complex(B0_Mz2_Mz2_Mw2_Mw2_cache[NumPar],
             B0_Mz2_Mz2_Mw2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz()*SM.getMz(), SM.getMz()*SM.getMz(), Mw_i*Mw_i, Mw_i*Mw_i);
+        complex newResult = PV.B0(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), Mw_i*Mw_i, Mw_i * Mw_i);
         newCacheForComplex(B0_Mz2_Mz2_Mw2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mz2_Mz2_mh2_Mz2() const {
+complex EWSMcache::B0_Mz2_Mz2_mh2_Mz2() const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), SM.getMHl()};
 
@@ -323,13 +345,14 @@ complex EWSMcache::B0_Mz2_Mz2_mh2_Mz2() const {
         return complex(B0_Mz2_Mz2_mh2_Mz2_cache[NumPar],
             B0_Mz2_Mz2_mh2_Mz2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz()*SM.getMz(), SM.getMz()*SM.getMz(), SM.getMHl()*SM.getMHl(), SM.getMz()*SM.getMz());
+        complex newResult = PV.B0(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), SM.getMHl() * SM.getMHl(), SM.getMz() * SM.getMz());
         newCacheForComplex(B0_Mz2_Mz2_mh2_Mz2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mz2_Mw2_Mz2_Mw2(const double Mw_i) const {
+complex EWSMcache::B0_Mz2_Mw2_Mz2_Mw2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
@@ -337,13 +360,14 @@ complex EWSMcache::B0_Mz2_Mw2_Mz2_Mw2(const double Mw_i) const {
         return complex(B0_Mz2_Mw2_Mz2_Mw2_cache[NumPar],
             B0_Mz2_Mw2_Mz2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz()*SM.getMz(), Mw_i*Mw_i, SM.getMz()*SM.getMz(), Mw_i*Mw_i);
+        complex newResult = PV.B0(SM.getMz() * SM.getMz(), Mw_i*Mw_i, SM.getMz() * SM.getMz(), Mw_i * Mw_i);
         newCacheForComplex(B0_Mz2_Mw2_Mz2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mz2_Mw2_0_Mw2(const double Mw_i) const {
+complex EWSMcache::B0_Mz2_Mw2_0_Mw2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
@@ -351,13 +375,14 @@ complex EWSMcache::B0_Mz2_Mw2_0_Mw2(const double Mw_i) const {
         return complex(B0_Mz2_Mw2_0_Mw2_cache[NumPar],
             B0_Mz2_Mw2_0_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz()*SM.getMz(), Mw_i*Mw_i, 0.0, Mw_i*Mw_i);
+        complex newResult = PV.B0(SM.getMz() * SM.getMz(), Mw_i*Mw_i, 0.0, Mw_i * Mw_i);
         newCacheForComplex(B0_Mz2_Mw2_0_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mz2_0_Mz2_Mw2(const double Mw_i) const {
+complex EWSMcache::B0_Mz2_0_Mz2_Mw2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
@@ -365,13 +390,14 @@ complex EWSMcache::B0_Mz2_0_Mz2_Mw2(const double Mw_i) const {
         return complex(B0_Mz2_0_Mz2_Mw2_cache[NumPar],
             B0_Mz2_0_Mz2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz()*SM.getMz(), 0.0, SM.getMz()*SM.getMz(), Mw_i*Mw_i);
+        complex newResult = PV.B0(SM.getMz() * SM.getMz(), 0.0, SM.getMz() * SM.getMz(), Mw_i * Mw_i);
         newCacheForComplex(B0_Mz2_0_Mz2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mz2_0_0_Mw2(const double Mw_i) const {
+complex EWSMcache::B0_Mz2_0_0_Mw2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
@@ -379,13 +405,14 @@ complex EWSMcache::B0_Mz2_0_0_Mw2(const double Mw_i) const {
         return complex(B0_Mz2_0_0_Mw2_cache[NumPar],
             B0_Mz2_0_0_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz()*SM.getMz(), 0.0, 0.0, Mw_i*Mw_i);
+        complex newResult = PV.B0(SM.getMz() * SM.getMz(), 0.0, 0.0, Mw_i * Mw_i);
         newCacheForComplex(B0_Mz2_0_0_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mw2_Mz2_Mw2_Mw2(const double Mw_i) const {
+complex EWSMcache::B0_Mw2_Mz2_Mw2_Mw2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMz()};
 
@@ -393,13 +420,14 @@ complex EWSMcache::B0_Mw2_Mz2_Mw2_Mw2(const double Mw_i) const {
         return complex(B0_Mw2_Mz2_Mw2_Mw2_cache[NumPar],
             B0_Mw2_Mz2_Mw2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(Mw_i*Mw_i, SM.getMz()*SM.getMz(), Mw_i*Mw_i, Mw_i*Mw_i);
+        complex newResult = PV.B0(Mw_i*Mw_i, SM.getMz() * SM.getMz(), Mw_i*Mw_i, Mw_i * Mw_i);
         newCacheForComplex(B0_Mw2_Mz2_Mw2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const {
+complex EWSMcache::B0_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMz()};
 
@@ -407,13 +435,14 @@ complex EWSMcache::B0_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const {
         return complex(B0_Mw2_Mw2_Mz2_Mw2_cache[NumPar],
             B0_Mw2_Mw2_Mz2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(Mw_i*Mw_i, Mw_i*Mw_i, SM.getMz()*SM.getMz(), Mw_i*Mw_i);
+        complex newResult = PV.B0(Mw_i*Mw_i, Mw_i*Mw_i, SM.getMz() * SM.getMz(), Mw_i * Mw_i);
         newCacheForComplex(B0_Mw2_Mw2_Mz2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mw2_Mw2_mh2_Mw2(const double Mw_i) const {
+complex EWSMcache::B0_Mw2_Mw2_mh2_Mw2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMHl()};
 
@@ -421,13 +450,14 @@ complex EWSMcache::B0_Mw2_Mw2_mh2_Mw2(const double Mw_i) const {
         return complex(B0_Mw2_Mw2_mh2_Mw2_cache[NumPar],
             B0_Mw2_Mw2_mh2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(Mw_i*Mw_i, Mw_i*Mw_i, SM.getMHl()*SM.getMHl(), Mw_i*Mw_i);
+        complex newResult = PV.B0(Mw_i*Mw_i, Mw_i*Mw_i, SM.getMHl() * SM.getMHl(), Mw_i * Mw_i);
         newCacheForComplex(B0_Mw2_Mw2_mh2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mw2_Mw2_0_Mw2(const double Mw_i) const {
+complex EWSMcache::B0_Mw2_Mw2_0_Mw2(const double Mw_i) const
+{
     int NumPar = 1;
     double params[] = {Mw_i};
 
@@ -435,13 +465,14 @@ complex EWSMcache::B0_Mw2_Mw2_0_Mw2(const double Mw_i) const {
         return complex(B0_Mw2_Mw2_0_Mw2_cache[NumPar],
             B0_Mw2_Mw2_0_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0(Mw_i*Mw_i, Mw_i*Mw_i, 0.0, Mw_i*Mw_i);
+        complex newResult = PV.B0(Mw_i*Mw_i, Mw_i*Mw_i, 0.0, Mw_i * Mw_i);
         newCacheForComplex(B0_Mw2_Mw2_0_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0_Mz2_Mz2_mf2_mf2(const Particle p) const {
+complex EWSMcache::B0_Mz2_Mz2_mf2_mf2(const Particle p) const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), mf(p, SM.getMz())};
     int f = p.index();
@@ -449,13 +480,14 @@ complex EWSMcache::B0_Mz2_Mz2_mf2_mf2(const Particle p) const {
         return complex(B0_Mz2_Mz2_mf2_mf2_cache[f][NumPar],
             B0_Mz2_Mz2_mf2_mf2_cache[f][NumPar + 1], false);
     else {
-        complex newResult = PV.B0(SM.getMz()*SM.getMz(), SM.getMz()*SM.getMz(), mf2(p, SM.getMz()), mf2(p, SM.getMz()));
+        complex newResult = PV.B0(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(p, SM.getMz()), mf2(p, SM.getMz()));
         newCacheForComplex(B0_Mz2_Mz2_mf2_mf2_cache[f], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0p_Mz2_0_mh2_Mw2(const double Mw_i) const {
+complex EWSMcache::B0p_Mz2_0_mh2_Mw2(const double Mw_i) const
+{
     int NumPar = 3;
     double params[] = {SM.getMz(), SM.getMHl(), Mw_i};
 
@@ -463,13 +495,14 @@ complex EWSMcache::B0p_Mz2_0_mh2_Mw2(const double Mw_i) const {
         return complex(B0p_Mz2_0_mh2_Mw2_cache[NumPar],
             B0p_Mz2_0_mh2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0p(SM.getMz()*SM.getMz(), 0.0, SM.getMHl()*SM.getMHl(), Mw_i*Mw_i);
+        complex newResult = PV.B0p(SM.getMz() * SM.getMz(), 0.0, SM.getMHl() * SM.getMHl(), Mw_i * Mw_i);
         newCacheForComplex(B0p_Mz2_0_mh2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0p_Mz2_Mz2_mh2_Mz2() const {
+complex EWSMcache::B0p_Mz2_Mz2_mh2_Mz2() const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), SM.getMHl()};
 
@@ -477,13 +510,14 @@ complex EWSMcache::B0p_Mz2_Mz2_mh2_Mz2() const {
         return complex(B0p_Mz2_Mz2_mh2_Mz2_cache[NumPar],
             B0p_Mz2_Mz2_mh2_Mz2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0p(SM.getMz()*SM.getMz(), SM.getMz()*SM.getMz(), SM.getMHl()*SM.getMHl(), SM.getMz()*SM.getMz());
+        complex newResult = PV.B0p(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), SM.getMHl() * SM.getMHl(), SM.getMz() * SM.getMz());
         newCacheForComplex(B0p_Mz2_Mz2_mh2_Mz2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0p_Mz2_0_Mz2_Mw2(const double Mw_i) const {
+complex EWSMcache::B0p_Mz2_0_Mz2_Mw2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
@@ -491,13 +525,14 @@ complex EWSMcache::B0p_Mz2_0_Mz2_Mw2(const double Mw_i) const {
         return complex(B0p_Mz2_0_Mz2_Mw2_cache[NumPar],
             B0p_Mz2_0_Mz2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0p(SM.getMz()*SM.getMz(), 0.0, SM.getMz()*SM.getMz(), Mw_i*Mw_i);
+        complex newResult = PV.B0p(SM.getMz() * SM.getMz(), 0.0, SM.getMz() * SM.getMz(), Mw_i * Mw_i);
         newCacheForComplex(B0p_Mz2_0_Mz2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0p_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const {
+complex EWSMcache::B0p_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
@@ -505,13 +540,14 @@ complex EWSMcache::B0p_Mz2_Mz2_Mw2_Mw2(const double Mw_i) const {
         return complex(B0p_Mz2_Mz2_Mw2_Mw2_cache[NumPar],
             B0p_Mz2_Mz2_Mw2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0p(SM.getMz()*SM.getMz(), SM.getMz()*SM.getMz(), Mw_i*Mw_i, Mw_i*Mw_i);
+        complex newResult = PV.B0p(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), Mw_i*Mw_i, Mw_i * Mw_i);
         newCacheForComplex(B0p_Mz2_Mz2_Mw2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0p_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const {
+complex EWSMcache::B0p_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMz()};
 
@@ -519,13 +555,14 @@ complex EWSMcache::B0p_Mw2_Mw2_Mz2_Mw2(const double Mw_i) const {
         return complex(B0p_Mw2_Mw2_Mz2_Mw2_cache[NumPar],
             B0p_Mw2_Mw2_Mz2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0p(Mw_i*Mw_i, Mw_i*Mw_i, SM.getMz()*SM.getMz(), Mw_i*Mw_i);
+        complex newResult = PV.B0p(Mw_i*Mw_i, Mw_i*Mw_i, SM.getMz() * SM.getMz(), Mw_i * Mw_i);
         newCacheForComplex(B0p_Mw2_Mw2_Mz2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0p_Mw2_Mw2_mh2_Mw2(const double Mw_i) const {
+complex EWSMcache::B0p_Mw2_Mw2_mh2_Mw2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMHl()};
 
@@ -533,13 +570,14 @@ complex EWSMcache::B0p_Mw2_Mw2_mh2_Mw2(const double Mw_i) const {
         return complex(B0p_Mw2_Mw2_mh2_Mw2_cache[NumPar],
             B0p_Mw2_Mw2_mh2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0p(Mw_i*Mw_i, Mw_i*Mw_i, SM.getMHl()*SM.getMHl(), Mw_i*Mw_i);
+        complex newResult = PV.B0p(Mw_i*Mw_i, Mw_i*Mw_i, SM.getMHl() * SM.getMHl(), Mw_i * Mw_i);
         newCacheForComplex(B0p_Mw2_Mw2_mh2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0p_Mw2_Mw2_0_Mw2(const double Mw_i) const {
+complex EWSMcache::B0p_Mw2_Mw2_0_Mw2(const double Mw_i) const
+{
     int NumPar = 1;
     double params[] = {Mw_i};
 
@@ -547,13 +585,14 @@ complex EWSMcache::B0p_Mw2_Mw2_0_Mw2(const double Mw_i) const {
         return complex(B0p_Mw2_Mw2_0_Mw2_cache[NumPar],
             B0p_Mw2_Mw2_0_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.B0p(Mw_i*Mw_i, Mw_i*Mw_i, 0.0, Mw_i*Mw_i);
+        complex newResult = PV.B0p(Mw_i*Mw_i, Mw_i*Mw_i, 0.0, Mw_i * Mw_i);
         newCacheForComplex(B0p_Mw2_Mw2_0_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B0p_Mz2_Mz2_mf2_mf2(const Particle p) const {
+complex EWSMcache::B0p_Mz2_Mz2_mf2_mf2(const Particle p) const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), mf(p, SM.getMz())};
     int f = p.index();
@@ -561,24 +600,26 @@ complex EWSMcache::B0p_Mz2_Mz2_mf2_mf2(const Particle p) const {
         return complex(B0p_Mz2_Mz2_mf2_mf2_cache[f][NumPar],
             B0p_Mz2_Mz2_mf2_mf2_cache[f][NumPar + 1], false);
     else {
-        complex newResult = PV.B0p(SM.getMz()*SM.getMz(), SM.getMz()*SM.getMz(), mf2(p, SM.getMz()), mf2(p, SM.getMz()));
+        complex newResult = PV.B0p(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(p, SM.getMz()), mf2(p, SM.getMz()));
         newCacheForComplex(B0p_Mz2_Mz2_mf2_mf2_cache[f], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B1_Mz2_0_mf2_mfprime2(const int gen) const {
+complex EWSMcache::B1_Mz2_0_mf2_mfprime2(const int gen) const
+{
     int NumPar = 3;
     double mymf, mymfprime;
+    double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)));
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)));
+        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
-        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)));
-        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)));
+        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
+        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)), Mz);
     }
-    double params[] = {SM.getMz(), mymf, mymfprime};
+    double params[] = {Mz, mymf, mymfprime};
 
     if (CacheCheck(B1_Mz2_0_mf2_mfprime2_cache[gen], NumPar, params))
         return complex(B1_Mz2_0_mf2_mfprime2_cache[gen][NumPar],
@@ -586,24 +627,26 @@ complex EWSMcache::B1_Mz2_0_mf2_mfprime2(const int gen) const {
     else {
         double mf2 = mymf*mymf;
         double mfprime2 = mymfprime*mymfprime;
-        complex newResult = PV.B1(SM.getMz()*SM.getMz(), 0.0, mf2, mfprime2);
+        complex newResult = PV.B1(Mz * Mz, 0.0, mf2, mfprime2);
         newCacheForComplex(B1_Mz2_0_mf2_mfprime2_cache[gen], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B1_Mz2_0_mfprime2_mf2(const int gen) const {
+complex EWSMcache::B1_Mz2_0_mfprime2_mf2(const int gen) const
+{
     int NumPar = 3;
     double mymf, mymfprime;
+    double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)));
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)));
+        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
-        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)));
-        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)));
+        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
+        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)), Mz);
     }
-    double params[] = {SM.getMz(), mymf, mymfprime};
+    double params[] = {Mz, mymf, mymfprime};
 
     if (CacheCheck(B1_Mz2_0_mfprime2_mf2_cache[gen], NumPar, params))
         return complex(B1_Mz2_0_mfprime2_mf2_cache[gen][NumPar],
@@ -611,24 +654,26 @@ complex EWSMcache::B1_Mz2_0_mfprime2_mf2(const int gen) const {
     else {
         double mf2 = mymf*mymf;
         double mfprime2 = mymfprime*mymfprime;
-        complex newResult = PV.B1(SM.getMz()*SM.getMz(), 0.0, mfprime2, mf2);
+        complex newResult = PV.B1(Mz * Mz, 0.0, mfprime2, mf2);
         newCacheForComplex(B1_Mz2_0_mfprime2_mf2_cache[gen], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B1_Mz2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) const {
+complex EWSMcache::B1_Mz2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) const
+{
     int NumPar = 4;
     double mymf, mymfprime;
+    double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)));
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)));
+        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
-        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)));
-        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)));
+        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
+        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)), Mz);
     }
-    double params[] = {SM.getMz(), Mw_i, mymf, mymfprime};
+    double params[] = {Mz, Mw_i, mymf, mymfprime};
 
     if (CacheCheck(B1_Mz2_Mw2_mf2_mfprime2_cache[gen], NumPar, params))
         return complex(B1_Mz2_Mw2_mf2_mfprime2_cache[gen][NumPar],
@@ -636,24 +681,26 @@ complex EWSMcache::B1_Mz2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) con
     else {
         double mf2 = mymf*mymf;
         double mfprime2 = mymfprime*mymfprime;
-        complex newResult = PV.B1(SM.getMz()*SM.getMz(), Mw_i*Mw_i, mf2, mfprime2);
+        complex newResult = PV.B1(Mz * Mz, Mw_i*Mw_i, mf2, mfprime2);
         newCacheForComplex(B1_Mz2_Mw2_mf2_mfprime2_cache[gen], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B1_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const {
+complex EWSMcache::B1_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const
+{
     int NumPar = 4;
     double mymf, mymfprime;
+    double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)));
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)));
+        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
-        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)));
-        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)));
+        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
+        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)), Mz);
     }
-    double params[] = {SM.getMz(), Mw_i, mymf, mymfprime};
+    double params[] = {Mz, Mw_i, mymf, mymfprime};
 
     if (CacheCheck(B1_Mz2_Mw2_mfprime2_mf2_cache[gen], NumPar, params))
         return complex(B1_Mz2_Mw2_mfprime2_mf2_cache[gen][NumPar],
@@ -661,22 +708,24 @@ complex EWSMcache::B1_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) con
     else {
         double mf2 = mymf*mymf;
         double mfprime2 = mymfprime*mymfprime;
-        complex newResult = PV.B1(SM.getMz()*SM.getMz(), Mw_i*Mw_i, mfprime2, mf2);
+        complex newResult = PV.B1(Mz * Mz, Mw_i*Mw_i, mfprime2, mf2);
         newCacheForComplex(B1_Mz2_Mw2_mfprime2_mf2_cache[gen], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::B1p_Mw2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) const {
+complex EWSMcache::B1p_Mw2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) const
+{
     int NumPar = 3;
     double mymf, mymfprime;
+    double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)));
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)));
+        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
-        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)));
-        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)));
+        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
+        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)), Mz);
     }
     double params[] = {Mw_i, mymf, mymfprime};
 
@@ -692,16 +741,18 @@ complex EWSMcache::B1p_Mw2_Mw2_mf2_mfprime2(const int gen, const double Mw_i) co
     }
 }
 
-complex EWSMcache::B1p_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const {
+complex EWSMcache::B1p_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const
+{
     int NumPar = 3;
     double mymf, mymfprime;
+    double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)));
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)));
+        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
-        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)));
-        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)));
+        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
+        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)), Mz);
     }
     double params[] = {Mw_i, mymf, mymfprime};
 
@@ -717,7 +768,8 @@ complex EWSMcache::B1p_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) co
     }
 }
 
-complex EWSMcache::Bf_Mz2_Mz2_mf2_mf2(const Particle p) const {
+complex EWSMcache::Bf_Mz2_Mz2_mf2_mf2(const Particle p) const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), mf(p, SM.getMz())};
     int f = p.index();
@@ -725,13 +777,14 @@ complex EWSMcache::Bf_Mz2_Mz2_mf2_mf2(const Particle p) const {
         return complex(Bf_Mz2_Mz2_mf2_mf2_cache[f][NumPar],
             Bf_Mz2_Mz2_mf2_mf2_cache[f][NumPar + 1], false);
     else {
-        complex newResult = PV.Bf(SM.getMz()*SM.getMz(), SM.getMz()*SM.getMz(), mf2(p, SM.getMz()), mf2(p, SM.getMz()));
+        complex newResult = PV.Bf(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(p, SM.getMz()), mf2(p, SM.getMz()));
         newCacheForComplex(Bf_Mz2_Mz2_mf2_mf2_cache[f], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::Bf_Mz2_0_mf2_mf2(const Particle p) const {
+complex EWSMcache::Bf_Mz2_0_mf2_mf2(const Particle p) const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), mf(p, SM.getMz())};
     if (params[1] == 0.0)
@@ -741,49 +794,52 @@ complex EWSMcache::Bf_Mz2_0_mf2_mf2(const Particle p) const {
         return complex(Bf_Mz2_0_mf2_mf2_cache[f][NumPar],
             Bf_Mz2_0_mf2_mf2_cache[f][NumPar + 1], false);
     else {
-        complex newResult = PV.Bf(SM.getMz()*SM.getMz(), 0.0, mf2(p, SM.getMz()), mf2(p, SM.getMz()));
+        complex newResult = PV.Bf(SM.getMz() * SM.getMz(), 0.0, mf2(p, SM.getMz()), mf2(p, SM.getMz()));
         newCacheForComplex(Bf_Mz2_0_mf2_mf2_cache[f], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::Bf_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const {
+complex EWSMcache::Bf_Mz2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const
+{
     int NumPar = 4;
     double mymf, mymfprime;
+    double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)));
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)));
+        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
-        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)));
-        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)));
+        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
+        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)), Mz);
     }
-    double params[] = {SM.getMz(), Mw_i, mymf, mymfprime};
-
+    double params[] = {Mz, Mw_i, mymf, mymfprime};
     if (CacheCheck(Bf_Mz2_Mw2_mfprime2_mf2_cache[gen], NumPar, params))
         return complex(Bf_Mz2_Mw2_mfprime2_mf2_cache[gen][NumPar],
             Bf_Mz2_Mw2_mfprime2_mf2_cache[gen][NumPar + 1], false);
     else {
         double mf2 = mymf*mymf;
         double mfprime2 = mymfprime*mymfprime;
-        complex newResult = PV.Bf(SM.getMz()*SM.getMz(), Mw_i*Mw_i, mfprime2, mf2);
+        complex newResult = PV.Bf(Mz * Mz, Mw_i*Mw_i, mfprime2, mf2);
         newCacheForComplex(Bf_Mz2_Mw2_mfprime2_mf2_cache[gen], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::Bf_Mz2_0_mfprime2_mf2(const int gen) const {
+complex EWSMcache::Bf_Mz2_0_mfprime2_mf2(const int gen) const
+{
     int NumPar = 3;
     double mymf, mymfprime;
+    double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)));
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)));
+        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
-        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)));
-        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)));
+        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
+        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)), Mz);
     }
-    double params[] = {SM.getMz(), mymf, mymfprime};
+    double params[] = {Mz, mymf, mymfprime};
 
     if (CacheCheck(Bf_Mz2_0_mfprime2_mf2_cache[gen], NumPar, params))
         return complex(Bf_Mz2_0_mfprime2_mf2_cache[gen][NumPar],
@@ -791,22 +847,24 @@ complex EWSMcache::Bf_Mz2_0_mfprime2_mf2(const int gen) const {
     else {
         double mf2 = mymf*mymf;
         double mfprime2 = mymfprime*mymfprime;
-        complex newResult = PV.Bf(SM.getMz()*SM.getMz(), 0.0, mfprime2, mf2);
+        complex newResult = PV.Bf(Mz * Mz, 0.0, mfprime2, mf2);
         newCacheForComplex(Bf_Mz2_0_mfprime2_mf2_cache[gen], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::Bf_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const {
+complex EWSMcache::Bf_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const
+{
     int NumPar = 3;
     double mymf, mymfprime;
+    double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)));
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)));
+        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
-        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)));
-        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)));
+        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
+        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)), Mz);
     }
     double params[] = {Mw_i, mymf, mymfprime};
 
@@ -822,7 +880,8 @@ complex EWSMcache::Bf_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) con
     }
 }
 
-complex EWSMcache::Bfp_Mz2_Mz2_mf2_mf2(const Particle p) const {
+complex EWSMcache::Bfp_Mz2_Mz2_mf2_mf2(const Particle p) const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), mf(p, SM.getMz())};
     int f = p.index();
@@ -830,22 +889,24 @@ complex EWSMcache::Bfp_Mz2_Mz2_mf2_mf2(const Particle p) const {
         return complex(Bfp_Mz2_Mz2_mf2_mf2_cache[f][NumPar],
             Bfp_Mz2_Mz2_mf2_mf2_cache[f][NumPar + 1], false);
     else {
-        complex newResult = PV.Bfp(SM.getMz()*SM.getMz(), SM.getMz()*SM.getMz(), mf2(p, SM.getMz()), mf2(p, SM.getMz()));
+        complex newResult = PV.Bfp(SM.getMz() * SM.getMz(), SM.getMz() * SM.getMz(), mf2(p, SM.getMz()), mf2(p, SM.getMz()));
         newCacheForComplex(Bfp_Mz2_Mz2_mf2_mf2_cache[f], NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::Bfp_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const {
+complex EWSMcache::Bfp_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) const
+{
     int NumPar = 3;
     double mymf, mymfprime;
+    double Mz = SM.getMz();
     if (gen < 3) {
-        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)));
-        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)));
+        mymf = mf(SM.getLeptons((StandardModel::lepton) (2 * gen)), Mz);
+        mymfprime = mf(SM.getLeptons((StandardModel::lepton) (2 * gen + 1)), Mz);
     } else {
         int genq = gen - 3;
-        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)));
-        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)));
+        mymf = mf(SM.getQuarks((QCD::quark) (2 * genq)), Mz);
+        mymfprime = mf(SM.getQuarks((QCD::quark) (2 * genq + 1)), Mz);
     }
     double params[] = {Mw_i, mymf, mymfprime};
 
@@ -861,7 +922,8 @@ complex EWSMcache::Bfp_Mw2_Mw2_mfprime2_mf2(const int gen, const double Mw_i) co
     }
 }
 
-complex EWSMcache::C0_Mz2_Mw2_Mt2_Mw2(const double Mw_i) const {
+complex EWSMcache::C0_Mz2_Mw2_Mt2_Mw2(const double Mw_i) const
+{
     int NumPar = 3;
     double params[] = {SM.getMz(), Mw_i, SM.getMtpole()};
 
@@ -869,13 +931,14 @@ complex EWSMcache::C0_Mz2_Mw2_Mt2_Mw2(const double Mw_i) const {
         return complex(C0_Mz2_Mw2_Mt2_Mw2_cache[NumPar],
             C0_Mz2_Mw2_Mt2_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.C0(SM.getMz()*SM.getMz(), Mw_i*Mw_i, SM.getMtpole()*SM.getMtpole(), Mw_i*Mw_i);
+        complex newResult = PV.C0(SM.getMz() * SM.getMz(), Mw_i*Mw_i, SM.getMtpole() * SM.getMtpole(), Mw_i * Mw_i);
         newCacheForComplex(C0_Mz2_Mw2_Mt2_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::C0_Mz2_Mt2_Mw2_Mt2(const double Mw_i) const {
+complex EWSMcache::C0_Mz2_Mt2_Mw2_Mt2(const double Mw_i) const
+{
     int NumPar = 3;
     double params[] = {SM.getMz(), SM.getMtpole(), Mw_i};
 
@@ -883,13 +946,14 @@ complex EWSMcache::C0_Mz2_Mt2_Mw2_Mt2(const double Mw_i) const {
         return complex(C0_Mz2_Mt2_Mw2_Mt2_cache[NumPar],
             C0_Mz2_Mt2_Mw2_Mt2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.C0(SM.getMz()*SM.getMz(), SM.getMtpole()*SM.getMtpole(), Mw_i*Mw_i, SM.getMtpole()*SM.getMtpole());
+        complex newResult = PV.C0(SM.getMz() * SM.getMz(), SM.getMtpole() * SM.getMtpole(), Mw_i*Mw_i, SM.getMtpole() * SM.getMtpole());
         newCacheForComplex(C0_Mz2_Mt2_Mw2_Mt2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::C0_Mz2_0_Mw2_0(const double Mw_i) const {
+complex EWSMcache::C0_Mz2_0_Mw2_0(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
@@ -897,13 +961,14 @@ complex EWSMcache::C0_Mz2_0_Mw2_0(const double Mw_i) const {
         return complex(C0_Mz2_0_Mw2_0_cache[NumPar],
             C0_Mz2_0_Mw2_0_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.C0(SM.getMz()*SM.getMz(), 0.0, Mw_i*Mw_i, 0.0);
+        complex newResult = PV.C0(SM.getMz() * SM.getMz(), 0.0, Mw_i*Mw_i, 0.0);
         newCacheForComplex(C0_Mz2_0_Mw2_0_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::C0_Mz2_Mw2_0_Mw2(const double Mw_i) const {
+complex EWSMcache::C0_Mz2_Mw2_0_Mw2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {SM.getMz(), Mw_i};
 
@@ -911,13 +976,14 @@ complex EWSMcache::C0_Mz2_Mw2_0_Mw2(const double Mw_i) const {
         return complex(C0_Mz2_Mw2_0_Mw2_cache[NumPar],
             C0_Mz2_Mw2_0_Mw2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.C0(SM.getMz()*SM.getMz(), Mw_i*Mw_i, 0.0, Mw_i*Mw_i);
+        complex newResult = PV.C0(SM.getMz() * SM.getMz(), Mw_i*Mw_i, 0.0, Mw_i * Mw_i);
         newCacheForComplex(C0_Mz2_Mw2_0_Mw2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::C0_Mw2_Mw2_0_Mz2(const double Mw_i) const {
+complex EWSMcache::C0_Mw2_Mw2_0_Mz2(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMz()};
 
@@ -925,13 +991,14 @@ complex EWSMcache::C0_Mw2_Mw2_0_Mz2(const double Mw_i) const {
         return complex(C0_Mw2_Mw2_0_Mz2_cache[NumPar],
             C0_Mw2_Mw2_0_Mz2_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.C0(Mw_i*Mw_i, Mw_i*Mw_i, 0.0, SM.getMz()*SM.getMz());
+        complex newResult = PV.C0(Mw_i*Mw_i, Mw_i*Mw_i, 0.0, SM.getMz() * SM.getMz());
         newCacheForComplex(C0_Mw2_Mw2_0_Mz2_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::C0_Mw2_0_Mz2_0(const double Mw_i) const {
+complex EWSMcache::C0_Mw2_0_Mz2_0(const double Mw_i) const
+{
     int NumPar = 2;
     double params[] = {Mw_i, SM.getMz()};
 
@@ -939,13 +1006,14 @@ complex EWSMcache::C0_Mw2_0_Mz2_0(const double Mw_i) const {
         return complex(C0_Mw2_0_Mz2_0_cache[NumPar],
             C0_Mw2_0_Mz2_0_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.C0(Mw_i*Mw_i, 0.0, SM.getMz()*SM.getMz(), 0.0);
+        complex newResult = PV.C0(Mw_i*Mw_i, 0.0, SM.getMz() * SM.getMz(), 0.0);
         newCacheForComplex(C0_Mw2_0_Mz2_0_cache, NumPar, params, newResult);
         return newResult;
     }
 }
 
-complex EWSMcache::C0_Mz2_0_Mz2_0() const {
+complex EWSMcache::C0_Mz2_0_Mz2_0() const
+{
     int NumPar = 1;
     double params[] = {SM.getMz()};
 
@@ -953,7 +1021,7 @@ complex EWSMcache::C0_Mz2_0_Mz2_0() const {
         return complex(C0_Mz2_0_Mz2_0_cache[NumPar],
             C0_Mz2_0_Mz2_0_cache[NumPar + 1], false);
     else {
-        complex newResult = PV.C0(SM.getMz()*SM.getMz(), 0.0, SM.getMz()*SM.getMz(), 0.0);
+        complex newResult = PV.C0(SM.getMz() * SM.getMz(), 0.0, SM.getMz() * SM.getMz(), 0.0);
         newCacheForComplex(C0_Mz2_0_Mz2_0_cache, NumPar, params, newResult);
         return newResult;
     }

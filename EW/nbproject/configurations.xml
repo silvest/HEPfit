@@ -11,7 +11,6 @@
       <itemPath>src/Acharm.h</itemPath>
       <itemPath>src/Alepton.h</itemPath>
       <itemPath>src/EWObservables.h</itemPath>
-      <itemPath>src/EW_NPZff.h</itemPath>
       <itemPath>src/Epsilon1.h</itemPath>
       <itemPath>src/Epsilon2.h</itemPath>
       <itemPath>src/Epsilon3.h</itemPath>
@@ -54,7 +53,6 @@
       <itemPath>src/Abottom.cpp</itemPath>
       <itemPath>src/Acharm.cpp</itemPath>
       <itemPath>src/Alepton.cpp</itemPath>
-      <itemPath>src/EW_NPZff.cpp</itemPath>
       <itemPath>src/GammaW.cpp</itemPath>
       <itemPath>src/GammaZ.cpp</itemPath>
       <itemPath>src/LEP2AFBbottom.cpp</itemPath>
@@ -239,8 +237,6 @@
       </item>
       <item path="src/EWObservables.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EW_NPZff.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/Epsilon1.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Epsilon2.h" ex="false" tool="3" flavor2="0">
@@ -410,10 +406,6 @@
       </item>
       <item path="src/EWObservables.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EW_NPZff.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW_NPZff.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/Epsilon1.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Epsilon2.h" ex="false" tool="3" flavor2="0">
@@ -582,10 +574,6 @@
       <item path="src/Alepton.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/EWObservables.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EW_NPZff.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/EW_NPZff.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Epsilon1.h" ex="false" tool="3" flavor2="0">
       </item>
