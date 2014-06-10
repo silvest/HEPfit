@@ -9,6 +9,7 @@
 #include <MonteCarlo.h>
 #include <GenerateEvent.h>
 #include <boost/program_options.hpp>
+//#include <mtbar.h>
 #ifdef _MPI
 #include <mpi.h>
 #endif
@@ -119,7 +120,7 @@ int main(int argc, char** argv)
                 
                 ThObsFactory ThObsF;
                 ModelFactory ModelF;
-//                ThObsF.addObsToFactory("MZ2", boost::factory<MZ2*>());
+//                ThObsF.addObsToFactory("mtbar", boost::factory<mtbar*>());
                 
                 MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);
                 if (vm.count("test")){

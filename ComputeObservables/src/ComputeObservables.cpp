@@ -27,11 +27,13 @@ ComputeObservables::ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObs
     
     for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++) {
         DObs.insert(std::pair<std::string, double> (it->getThname() , 0.));
+        DThObs.insert(std::pair<std::string, ThObservable*> (it->getThname() , it->getTho()));
     }
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++) {
         std::vector<Observable> ObsInCGO = it1->getObs();
         for (std::vector<Observable>::iterator it2 = ObsInCGO.begin(); it2 < ObsInCGO.end(); it2++) {
             DObs.insert(std::pair<std::string, double> (it2->getThname() , 0.));
+            DThObs.insert(std::pair<std::string, ThObservable*> (it2->getThname() , it2->getTho()));
         }
     }
     

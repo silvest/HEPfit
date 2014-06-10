@@ -97,16 +97,6 @@ public:
      */
     NPEffective();
 
-    /**
-     * @brief The post-update method for %NPEffective.
-     * @details This method runs all the procedures that need to be executed
-     * after the model is successfully updated. This includes 
-     * \li assigning the value of the NPbase object trueNP
-     * @return a boolean that is true if the execution is successful
-     */
-    virtual bool PostUpdate();
-
-
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -293,8 +283,6 @@ protected:
     double cHD2;///< The dimension-6 operator coefficient \f$C_{HD_2}\f$.
     double cHD3;///< The dimension-6 operator coefficient \f$C_{HD_3}\f$.
     double LambdaNP;///< The new physics scale \f$\Lambda\f$.
-
-    NPbase trueNPbase;
     
     ////////////////////////////////////////////////////////////////////////
 private:

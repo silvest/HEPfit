@@ -181,15 +181,6 @@ public:
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
-    /**
-     * @brief The post-update method for %NPZbbbarLinearized.
-     * @details This method runs all the procedures that need to be executed
-     * after the model is successfully updated. This includes 
-     * \li assigning the value of the NPbase object trueNP
-     * @return a boolean that is true if the execution is successful
-     */
-    virtual bool PostUpdate();
-
     
     ////////////////////////////////////////////////////////////////////////
 
@@ -249,8 +240,6 @@ protected:
 
     ////////////////////////////////////////////////////////////////////////
 private:
-
-    NPbase trueNPbase;
     
     /* These variables are used internally as the deviations in the left-handed
      * and right-handed couplings if FlagNPZbbbarLR is set to true.

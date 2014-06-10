@@ -14,12 +14,6 @@ NPEffective::NPEffective()
 {
 }
 
-bool NPEffective::PostUpdate() {
-    bool NPbaseup = NPbase::PostUpdate();
-    trueNPbase = *this;
-    return (NPbaseup);
-}
-
 ////////////////////////////////////////////////////////////////////////
 
 double NPEffective::getCoeff(const std::string name) const
@@ -166,13 +160,13 @@ double NPEffective::obliqueU() const
 
 double NPEffective::deltaGV_f(const Particle p) const
 {
-    return ( deltaGL_f_tmp(p) + deltaGR_f_tmp(p) + trueNPbase.deltaGV_f(p) );
+    return ( deltaGL_f_tmp(p) + deltaGR_f_tmp(p) + NPbase::deltaGV_f(p) );
 }
 
 
 double NPEffective::deltaGA_f(const Particle p) const
 {
-    return ( deltaGL_f_tmp(p) - deltaGR_f_tmp(p) + trueNPbase.deltaGA_f(p) );
+    return ( deltaGL_f_tmp(p) - deltaGR_f_tmp(p) + NPbase::deltaGA_f(p) );
 }
 
 ////////////////////////////////////////////////////////////////////////

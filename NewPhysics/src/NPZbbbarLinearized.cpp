@@ -71,13 +71,6 @@ bool NPZbbbarLinearized::CheckParameters(const std::map<std::string, double>& DP
     return (NPbase::CheckParameters(DPars));
 }
 
-bool NPZbbbarLinearized::PostUpdate() {
-    bool NPbaseup = NPbase::PostUpdate();
-    trueNPbase = *this;
-    return (NPbaseup);
-}
-
-
 ////////////////////////////////////////////////////////////////////////
 
 complex NPZbbbarLinearized::rhoZ_f(const Particle p) const {
@@ -122,7 +115,7 @@ double NPZbbbarLinearized::deltaGV_f(const Particle p) const {
         else
             return ( myDeltaGVb + NPbase::deltaGV_f(p));
     else
-        return trueNPbase.deltaGV_f(p);
+        return NPbase::deltaGV_f(p);
 }
 
 double NPZbbbarLinearized::deltaGA_f(const Particle p) const {
@@ -134,5 +127,5 @@ double NPZbbbarLinearized::deltaGA_f(const Particle p) const {
         else
             return ( myDeltaGAb + NPbase::deltaGA_f(p));
     else
-        return trueNPbase.deltaGA_f(p);
+        return NPbase::deltaGA_f(p);
 }
