@@ -1304,7 +1304,7 @@ complex StandardModel::rhoZ_f(const Particle p) const
         for (int j = 0; j < orders_EW_size; ++j)
             deltaRho_rem_f_real[j] = deltaRho_remf[j].real();
         double ReRhoZf = resumRhoZ(DeltaRho, deltaRho_rem_f_real,
-                DeltaRbar_rem, false);
+                DeltaRbar_rem, p.is("BOTTOM"));
 
         /* Im[rho_Z^f] without resummation */
         double ImRhoZf = 0.0;
@@ -1405,7 +1405,7 @@ complex StandardModel::kappaZ_f(const Particle p) const
 
         ReKappaZf = resumKappaZ(DeltaRho, deltaKappa_rem_f_real,
                                 DeltaRbar_rem, p.is("BOTTOM"));
-        
+
         /* O(alpha^2) correction to Re[kappa_Z^f] from the Z-gamma mixing */
         ReKappaZf += 35.0*alphaMz()*alphaMz()/18.0/sW2()
                      *(1.0 - 8.0/3.0*ReKappaZf*sW2());
