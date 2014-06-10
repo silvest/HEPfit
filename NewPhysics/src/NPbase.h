@@ -9,7 +9,6 @@
 #define	NPBASE_H
 
 #include <StandardModel.h>
-#include <EW_NPZff.h>
 
 /**
  * @class NPbase

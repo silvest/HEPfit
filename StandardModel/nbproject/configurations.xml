@@ -39,7 +39,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/CKM.cpp</itemPath>
-      <itemPath>src/EWSM.cpp</itemPath>
       <itemPath>src/EWSMApproximateFormulae.cpp</itemPath>
       <itemPath>src/EWSMOneLoopEW.cpp</itemPath>
       <itemPath>src/EWSMOneLoopEW_HV.cpp</itemPath>
@@ -744,8 +743,6 @@
       </item>
       <item path="src/CKM.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/EWSM.cpp" ex="false" tool="1" flavor2="0">
-      </item>
       <item path="src/EWSMApproximateFormulae.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EWSMApproximateFormulae.h" ex="false" tool="3" flavor2="0">
@@ -1003,8 +1000,6 @@
       <item path="src/CKM.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/CKM.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/EWSM.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/EWSMApproximateFormulae.cpp" ex="false" tool="1" flavor2="0">
       </item>
