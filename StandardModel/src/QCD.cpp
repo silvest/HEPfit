@@ -70,7 +70,7 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mdown", boost::cref(quarks[DOWN].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mcharm", boost::cref(quarks[CHARM].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mstrange", boost::cref(quarks[STRANGE].getMass())));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mtop", boost::cref(quarks[TOP].getMass())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mtop", boost::cref(mtpole)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mbottom", boost::cref(quarks[BOTTOM].getMass())));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("muc", boost::cref(muc)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mub", boost::cref(mub)));
