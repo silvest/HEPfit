@@ -243,7 +243,7 @@ complex NPEpsilons::kappaZ_f_eps(const Particle p,
         return ( kappaZ_e / bfact);
     else
         //return ( (kappaZ_e + trueSM.deltaKappaZ_f(p).real()) / bfact); // for test
-        return ( (kappaZ_e + deltaKappaZ_f(p).real()) / bfact); // for test
+        return ( (kappaZ_e + deltaKappaZ_f(p).real()) / bfact);
 }
 
 complex NPEpsilons::kappaZ_f(const Particle p) const
