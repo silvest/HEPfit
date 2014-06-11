@@ -185,7 +185,8 @@ complex NPEpsilons::rhoZ_f_eps(const Particle p, const double eps1, const double
     if (IsFlagWithoutNonUniversalVC())
         return ( rhoZ_e * bfact);
     else
-        return ( (rhoZ_e + trueSM.deltaRhoZ_f(p).real()) * bfact);
+        //return ( (rhoZ_e + trueSM.deltaRhoZ_f(p).real()) * bfact); // for test
+        return ( (rhoZ_e + deltaRhoZ_f(p).real()) * bfact);
 }
 
 complex NPEpsilons::rhoZ_f(const Particle p) const
@@ -241,7 +242,8 @@ complex NPEpsilons::kappaZ_f_eps(const Particle p,
     if (IsFlagWithoutNonUniversalVC())
         return ( kappaZ_e / bfact);
     else
-        return ( (kappaZ_e + trueSM.deltaKappaZ_f(p).real()) / bfact);
+        //return ( (kappaZ_e + trueSM.deltaKappaZ_f(p).real()) / bfact); // for test
+        return ( (kappaZ_e + deltaKappaZ_f(p).real()) / bfact); // for test
 }
 
 complex NPEpsilons::kappaZ_f(const Particle p) const

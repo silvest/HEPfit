@@ -887,14 +887,8 @@ double StandardModel::AFB(const Particle p) const
 
 double StandardModel::sin2thetaEff(const Particle p) const
 {
-    if (getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0) {
-        return ( kappaZ_f(leptons[ELECTRON]).real() * sW2());
-        /* problematic when computing SM predictions for epsilons in NPEpsilons model. */
-        //return myApproximateFormulae->sin2thetaEff(p); 
-    } else {
-        double Re_kappa = kappaZ_f(p).real();
-        return ( Re_kappa * sW2());
-    }
+    double Re_kappa = kappaZ_f(p).real();
+    return ( Re_kappa * sW2());
 }
 
 double StandardModel::GammaZ(const Particle p) const
