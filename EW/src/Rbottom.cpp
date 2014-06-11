@@ -7,12 +7,9 @@
 
 #include "Rbottom.h"
 
-
-double Rbottom::computeThValue() 
-{ 
-    double R0_b = SM.R0_f(SM.getQuarks(SM.BOTTOM));
-
-    return R0_b;
+double Rbottom::computeThValue()
+{
+    return SM.R0_f(SM.getQuarks(SM.BOTTOM));
 }
-        
+
 

@@ -8,11 +8,11 @@
 #include <stdexcept>
 #include "NPEffective.h"
 
-
-NPEffective::NPEffective() 
+NPEffective::NPEffective()
 : NPbase()
 {
 }
+
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -92,20 +92,18 @@ double NPEffective::v() const
     return trueSM.v();
 }
 
-
 double NPEffective::Mw_tree() const
 {
-    double GF0 = GF*(1.0 - DeltaGF());
-    double tmp = 4.0*M_PI*ale/sqrt(2.0)/GF0/Mz/Mz;
-    return ( Mz/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp)) );
+    double GF0 = GF * (1.0 - DeltaGF());
+    double tmp = 4.0 * M_PI * ale / sqrt(2.0) / GF0 / Mz / Mz;
+    return ( Mz / sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp)));
 }
-
 
 double NPEffective::DeltaGF() const
 {
-    double ratio = v()*v()/LambdaNP/LambdaNP;
+    double ratio = v() * v() / LambdaNP / LambdaNP;
 
-    return ( - (cL1L2 - cHL1p - cHL2p)*ratio );
+    return ( -(cL1L2 - cHL1p - cHL2p) * ratio);
 }
 
 
@@ -118,13 +116,13 @@ double NPEffective::GammaW() const
     double alpha = alphaMz();
     double c2 = trueSM.cW2();
     double s2 = trueSM.sW2();
-    double ratio = v()*v()/LambdaNP/LambdaNP;
+    double ratio = v() * v() / LambdaNP / LambdaNP;
 
-    Gamma_W *= 1.0 - 3.0*alpha/4.0/(c2-s2)
-                     *( obliqueS() - 2.0*c2*obliqueT() - (c2-s2)*obliqueU()/2.0/s2 )
-               //- 3.0*s2/2.0/(c2-s2)*DeltaGF()
-               - (1.0 + c2)/2.0/(c2-s2)*DeltaGF()
-               + (cHL1p + cHL2p + cHL3p + cHQ1p + cHQ2p)*ratio;
+    Gamma_W *= 1.0 - 3.0 * alpha / 4.0 / (c2 - s2)
+            *(obliqueS() - 2.0 * c2 * obliqueT() - (c2 - s2) * obliqueU() / 2.0 / s2)
+            //- 3.0*s2/2.0/(c2-s2)*DeltaGF()
+            - (1.0 + c2) / 2.0 / (c2 - s2) * DeltaGF()
+            + (cHL1p + cHL2p + cHL3p + cHQ1p + cHQ2p) * ratio;
 
     return Gamma_W;
 }
@@ -132,23 +130,21 @@ double NPEffective::GammaW() const
 
 ////////////////////////////////////////////////////////////////////////     
 
-double NPEffective::obliqueS() const 
+double NPEffective::obliqueS() const
 {
-    double ratio = v()*v()/LambdaNP/LambdaNP;
+    double ratio = v() * v() / LambdaNP / LambdaNP;
     double sW_SM = sqrt(trueSM.sW2()); /* This has to be the SM value. */
     double cW_SM = sqrt(trueSM.cW2()); /* This has to be the SM value. */
 
-    return ( 4.0*sW_SM*cW_SM*cWB/alphaMz()*ratio );
+    return ( 4.0 * sW_SM * cW_SM * cWB / alphaMz() * ratio);
 }
-
 
 double NPEffective::obliqueT() const
 {
-    double ratio = v()*v()/LambdaNP/LambdaNP;
+    double ratio = v() * v() / LambdaNP / LambdaNP;
 
-    return ( - cH/2.0/alphaMz()*ratio );    
+    return ( -cH / 2.0 / alphaMz() * ratio);
 }
-
 
 double NPEffective::obliqueU() const
 {
@@ -160,74 +156,74 @@ double NPEffective::obliqueU() const
 
 double NPEffective::deltaGV_f(const Particle p) const
 {
-    return ( deltaGL_f_tmp(p) + deltaGR_f_tmp(p) + NPbase::deltaGV_f(p) );
+    return ( deltaGL_f_tmp(p) + deltaGR_f_tmp(p) + NPbase::deltaGV_f(p));
 }
-
 
 double NPEffective::deltaGA_f(const Particle p) const
 {
-    return ( deltaGL_f_tmp(p) - deltaGR_f_tmp(p) + NPbase::deltaGA_f(p) );
+    return ( deltaGL_f_tmp(p) - deltaGR_f_tmp(p) + NPbase::deltaGA_f(p));
 }
+
 
 ////////////////////////////////////////////////////////////////////////
 
 double NPEffective::deltaGL_f_tmp(const Particle p) const
 {
-    double ratio = v()*v()/LambdaNP/LambdaNP;
-    if(p.is("NEUTRINO_1"))
-            return ( (cHL1p - cHL1)/2.0*ratio );
-    if(p.is("NEUTRINO_2"))
-            return ( (cHL2p - cHL2)/2.0*ratio );
-    if(p.is("NEUTRINO_3"))
-            return ( (cHL3p - cHL3)/2.0*ratio );
-    if(p.is("ELECTRON"))
-            return ( - (cHL1p + cHL1)/2.0*ratio );
-    if(p.is("MU"))
-            return ( - (cHL2p + cHL2)/2.0*ratio );
-    if(p.is("TAU"))
-            return ( - (cHL3p + cHL3)/2.0*ratio );
-    if(p.is("UP"))
-           return ( (cHQ1p - cHQ1)/2.0*ratio );
-    if(p.is("CHARM"))
-           return ( (cHQ2p - cHQ2)/2.0*ratio );
-    if(p.is("TOP"))
-            return 0.0;
-    if(p.is("DOWN"))
-            return ( - (cHQ1p + cHQ1)/2.0*ratio );
-    if(p.is("STRANGE"))
-            return ( - (cHQ2p + cHQ2)/2.0*ratio );
-    if(p.is("BOTTOM"))
-            return ( - (cHQ3p + cHQ3)/2.0*ratio );
+    double ratio = v() * v() / LambdaNP / LambdaNP;
+    if (p.is("NEUTRINO_1"))
+        return ( (cHL1p - cHL1) / 2.0 * ratio);
+    if (p.is("NEUTRINO_2"))
+        return ( (cHL2p - cHL2) / 2.0 * ratio);
+    if (p.is("NEUTRINO_3"))
+        return ( (cHL3p - cHL3) / 2.0 * ratio);
+    if (p.is("ELECTRON"))
+        return ( -(cHL1p + cHL1) / 2.0 * ratio);
+    if (p.is("MU"))
+        return ( -(cHL2p + cHL2) / 2.0 * ratio);
+    if (p.is("TAU"))
+        return ( -(cHL3p + cHL3) / 2.0 * ratio);
+    if (p.is("UP"))
+        return ( (cHQ1p - cHQ1) / 2.0 * ratio);
+    if (p.is("CHARM"))
+        return ( (cHQ2p - cHQ2) / 2.0 * ratio);
+    if (p.is("TOP"))
+        return 0.0;
+    if (p.is("DOWN"))
+        return ( -(cHQ1p + cHQ1) / 2.0 * ratio);
+    if (p.is("STRANGE"))
+        return ( -(cHQ2p + cHQ2) / 2.0 * ratio);
+    if (p.is("BOTTOM"))
+        return ( -(cHQ3p + cHQ3) / 2.0 * ratio);
     throw std::runtime_error("Error in NPEffective::deltaGL_f()");
 }
 
 double NPEffective::deltaGR_f_tmp(const Particle p) const
 {
-    double ratio = v()*v()/LambdaNP/LambdaNP;
-    if(p.is("NEUTRINO_1"))
-            return ( 0. );
-    if(p.is("NEUTRINO_2"))
-            return ( 0. );
-    if(p.is("NEUTRINO_3"))
-            return ( 0. );
-    if(p.is("ELECTRON"))
-            return ( - cHE1/2.0*ratio );
-    if(p.is("MU"))
-            return ( - cHE2/2.0*ratio );
-    if(p.is("TAU"))
-            return ( - cHE3/2.0*ratio );
-    if(p.is("UP"))
-           return ( - cHU1/2.0*ratio );
-    if(p.is("CHARM"))
-           return ( - cHU2/2.0*ratio );
-    if(p.is("TOP"))
-            return 0.0;
-    if(p.is("DOWN"))
-            return ( - cHD1/2.0*ratio );
-    if(p.is("STRANGE"))
-            return ( - cHD2/2.0*ratio );
-    if(p.is("BOTTOM"))
-            return ( - cHD3/2.0*ratio );
+    double ratio = v() * v() / LambdaNP / LambdaNP;
+    if (p.is("NEUTRINO_1"))
+        return ( 0.);
+    if (p.is("NEUTRINO_2"))
+        return ( 0.);
+    if (p.is("NEUTRINO_3"))
+        return ( 0.);
+    if (p.is("ELECTRON"))
+        return ( -cHE1 / 2.0 * ratio);
+    if (p.is("MU"))
+        return ( -cHE2 / 2.0 * ratio);
+    if (p.is("TAU"))
+        return ( -cHE3 / 2.0 * ratio);
+    if (p.is("UP"))
+        return ( -cHU1 / 2.0 * ratio);
+    if (p.is("CHARM"))
+        return ( -cHU2 / 2.0 * ratio);
+    if (p.is("TOP"))
+        return 0.0;
+    if (p.is("DOWN"))
+        return ( -cHD1 / 2.0 * ratio);
+    if (p.is("STRANGE"))
+        return ( -cHD2 / 2.0 * ratio);
+    if (p.is("BOTTOM"))
+        return ( -cHD3 / 2.0 * ratio);
     throw std::runtime_error("Error in NPEffective::deltaGL_f()");
 }
 

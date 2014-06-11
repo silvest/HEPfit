@@ -52,7 +52,7 @@
  *   <td class="mod_symb">\f$T \f$</td>
  *   <td class="mod_desc">The oblique parameter \f$T\f$.</td>
  * </tr>
-  * <tr>
+ * <tr>
  *   <td class="mod_name">%obliqueU </td>
  *   <td class="mod_symb">\f$U \f$</td>
  *   <td class="mod_desc">The oblique parameter \f$U\f$.</td>
@@ -94,7 +94,7 @@ public:
      * @brief A string array containing the labels of the model parameters in %NPSTU.
      */
     static const std::string STUvars[NSTUvars];
-    
+
     /**
      * @brief The default constructor.
      */
@@ -105,7 +105,7 @@ public:
      * @copydetails Model::Update()
      */
     virtual bool Update(const std::map<std::string, double>& DPars);
-    
+
     /**
      * @brief @copybrief Model::CheckParameters()
      * @copydetails Model::CheckParameters()
@@ -118,8 +118,7 @@ public:
      * @brief @copybrief NPbase::obliqueS()
      * @copydetails NPbase::obliqueS()
      */
-    virtual double obliqueS() const 
-    {
+    virtual double obliqueS() const {
         return myObliqueS;
     }
 
@@ -127,8 +126,7 @@ public:
      * @brief @copybrief NPbase::obliqueT()
      * @copydetails NPbase::obliqueT()
      */
-    virtual double obliqueT() const 
-    {
+    virtual double obliqueT() const {
         return myObliqueT;
     }
 
@@ -136,8 +134,7 @@ public:
      * @brief @copybrief NPbase::obliqueU()
      * @copydetails NPbase::obliqueU()
      */
-    virtual double obliqueU() const 
-    {
+    virtual double obliqueU() const {
         return myObliqueU;
     }
 
@@ -171,13 +168,13 @@ public:
      */
     double epsilonb() const;
 
-    
+
     ////////////////////////////////////////////////////////////////////////
 protected:
-    
-    double myObliqueS;///< The oblique parameter \f$S\f$.
-    double myObliqueT;///< The oblique parameter \f$T\f$.
-    double myObliqueU;///< The oblique parameter \f$U\f$.
+
+    double myObliqueS; ///< The oblique parameter \f$S\f$.
+    double myObliqueT; ///< The oblique parameter \f$T\f$.
+    double myObliqueU; ///< The oblique parameter \f$U\f$.
 
     /**
      * @brief @copybrief Model::setParameter()
@@ -185,7 +182,7 @@ protected:
      */
     virtual void setParameter(const std::string name, const double& value);
 
-    
+
 };
 
 #endif	/* NPSTU_H */

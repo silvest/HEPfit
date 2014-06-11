@@ -22,7 +22,7 @@
  * associated with the dimension-six effective Lagrangian introduced in NPEffective
  * class, where both lepton-flavour and quark-flavour universalities are assumed. 
  * 
-*
+ *
  * @anchor NPEffective1Initialization
  * <h3>Initialization</h3>
  *
@@ -165,7 +165,7 @@ protected:
      */
     virtual void setParameter(const std::string name, const double& value);
 
-    
+
 };
 
 #endif	/* NPEFFECTIVE1_H */

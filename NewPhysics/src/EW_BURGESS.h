@@ -34,7 +34,7 @@ public:
     double GammaW(const double GammaW_SM) const;
     double GammaZ(const double GammaZ_SM) const;
     double sigmaHadron(const double sigmaHadron_SM, const double GammaZ_SM,
-                       const double GammaHad_SM, const double Gamma_l_SM) const;
+            const double GammaHad_SM, const double Gamma_l_SM) const;
     double sin2thetaEff(const double sin2thetaEff_SM) const;
     double PtauPol(const double PtauPol_SM) const;
     double Alepton(const double Alepton_SM) const;
@@ -44,10 +44,10 @@ public:
     double AFBcharm(const double AFBcharm_SM) const;
     double AFBbottom(const double AFBbottom_SM) const;
     double Rlepton(const double Rlepton_SM, const double GammaHad_SM,
-                   const double Gamma_l_SM) const;
+            const double Gamma_l_SM) const;
     double Rcharm(const double Rcharm_SM, const double GammaHad_SM) const;
     double Rbottom(const double Rbottom_SM, const double GammaHad_SM,
-                   const double Gamma_b_SM) const;
+            const double Gamma_b_SM) const;
 
 private:
     const NPSTU& NP;

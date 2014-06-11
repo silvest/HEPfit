@@ -11,16 +11,15 @@
 #include "NPSTU.h"
 #include <EWSMApproximateFormulae.h>
 
-
 EW_TEST::EW_TEST(const std::string mode_i, const std::string obsname_i, const StandardModel& SM_i)
-: ThObservable(SM_i), mode(mode_i), obsname(obsname_i) , SM(SM_i)
+: ThObservable(SM_i), mode(mode_i), obsname(obsname_i), SM(SM_i)
 {
     if (mode.compare("ABC") == 0 || mode.compare("ABC2") == 0)
-       myEW_ABC = new EW_ABC(dynamic_cast<const NPEpsilons &>(SM));
+        myEW_ABC = new EW_ABC(dynamic_cast<const NPEpsilons &> (SM));
     else if (mode.compare("BURGESS") == 0)
-       myEW_BURGESS = new EW_BURGESS(dynamic_cast<const NPSTU &>(SM));
-    else if (mode.compare("CHMN") == 0 )
-       myEW_CHMN = new EW_CHMN(SM);
+        myEW_BURGESS = new EW_BURGESS(dynamic_cast<const NPSTU &> (SM));
+    else if (mode.compare("CHMN") == 0)
+        myEW_CHMN = new EW_CHMN(SM);
     else
         throw std::runtime_error("EW_TEST::EW_TEST(): Wrong mode " + mode);
 }
@@ -36,7 +35,7 @@ double EW_TEST::computeThValue()
             return myEW_BURGESS->Mw(SM.getTrueSM().Mw());
         else if (mode.compare("CHMN") == 0)
             return myEW_CHMN->Mw();
-        else 
+        else
             throw std::runtime_error("EW_TEST::computeThValue(): Undefined");
     } else if (obsname.compare("GammaW") == 0) {
         if (mode.compare("BURGESS") == 0)
@@ -56,7 +55,7 @@ double EW_TEST::computeThValue()
                 Gamma_Z_SM = SM.getTrueSM().Gamma_Z();
             else
                 Gamma_Z_SM = SM.getTrueSM().getMyApproximateFormulae()->X_extended("GammaZ");
-            Gamma_Z_SM += SM.getDelGammaZ();/* Theoretical uncertainty */
+            Gamma_Z_SM += SM.getDelGammaZ(); /* Theoretical uncertainty */
             return myEW_BURGESS->GammaZ(Gamma_Z_SM);
         } else if (mode.compare("CHMN") == 0)
             return myEW_CHMN->GammaZ();
@@ -64,7 +63,7 @@ double EW_TEST::computeThValue()
             throw std::runtime_error("EW_TEST::computeThValue(): Undefined");
     } else if (obsname.compare("sigmaHadron") == 0) {
         if (mode.compare("ABC") == 0)
-            return ( myEW_ABC->sigma0_had(false)*SM.GeVminus2_to_nb );
+            return ( myEW_ABC->sigma0_had(false) * SM.GeVminus2_to_nb);
         else if (mode.compare("ABC2") == 0)
             return myEW_ABC->sigma0_had(true);
         else if (mode.compare("BURGESS") == 0) {
@@ -74,10 +73,10 @@ double EW_TEST::computeThValue()
             else
                 sigma_had_SM = SM.getTrueSM().getMyApproximateFormulae()->X_extended("sigmaHadron");
             return ( myEW_BURGESS->sigmaHadron(sigma_had_SM,
-                       SM.Gamma_Z(), SM.Gamma_had(), SM.GammaZ(SM.getLeptons(StandardModel::ELECTRON)))
-                    *SM.GeVminus2_to_nb );
+                    SM.Gamma_Z(), SM.Gamma_had(), SM.GammaZ(SM.getLeptons(StandardModel::ELECTRON)))
+                    * SM.GeVminus2_to_nb);
         } else if (mode.compare("CHMN") == 0)
-            return ( myEW_CHMN->sigma0_had()*SM.GeVminus2_to_nb );
+            return ( myEW_CHMN->sigma0_had() * SM.GeVminus2_to_nb);
         else
             throw std::runtime_error("EW_TEST::computeThValue(): Undefined");
     } else if (obsname.compare("sin2thetaEff") == 0) {
@@ -103,9 +102,9 @@ double EW_TEST::computeThValue()
         else
             throw std::runtime_error("EW_TEST::computeThValue(): Undefined");
     } else if (obsname.compare("Alepton") == 0) {
-        if (mode.compare("ABC") == 0) 
+        if (mode.compare("ABC") == 0)
             return myEW_ABC->A_l(SM.ELECTRON, false);
-        else if (mode.compare("ABC2") == 0) 
+        else if (mode.compare("ABC2") == 0)
             return myEW_ABC->A_l(SM.ELECTRON, true);
         else if (mode.compare("BURGESS") == 0)
             return myEW_BURGESS->Alepton(SM.A_f(SM.getLeptons(SM.ELECTRON)));
@@ -114,9 +113,9 @@ double EW_TEST::computeThValue()
         else
             throw std::runtime_error("EW_TEST::computeThValue(): Undefined");
     } else if (obsname.compare("Acharm") == 0) {
-        if (mode.compare("ABC") == 0 || mode.compare("ABC2") == 0) 
+        if (mode.compare("ABC") == 0 || mode.compare("ABC2") == 0)
             return myEW_ABC->A_q(SM.CHARM);
-        else if (mode.compare("BURGESS") == 0) 
+        else if (mode.compare("BURGESS") == 0)
             return myEW_BURGESS->Acharm(SM.A_f(SM.getQuarks(SM.CHARM)), SM.A_f(SM.getLeptons(SM.ELECTRON)));
         else if (mode.compare("CHMN") == 0)
             return myEW_CHMN->A_q(SM.CHARM);
@@ -125,19 +124,19 @@ double EW_TEST::computeThValue()
     } else if (obsname.compare("Abottom") == 0) {
         if (mode.compare("ABC") == 0 || mode.compare("ABC2") == 0)
             return myEW_ABC->A_b();
-        else if (mode.compare("BURGESS") == 0) 
+        else if (mode.compare("BURGESS") == 0)
             return myEW_BURGESS->Abottom(SM.A_f(SM.getQuarks(SM.BOTTOM)), SM.A_f(SM.getLeptons(SM.ELECTRON)));
         else if (mode.compare("CHMN") == 0)
             return myEW_CHMN->A_q(SM.BOTTOM);
         else
             throw std::runtime_error("EW_TEST::computeThValue(): Undefined");
     } else if (obsname.compare("AFBlepton") == 0) {
-        if (mode.compare("ABC") == 0) 
+        if (mode.compare("ABC") == 0)
             return myEW_ABC->AFB_l(SM.ELECTRON, false);
-        else if (mode.compare("ABC2") == 0) 
+        else if (mode.compare("ABC2") == 0)
             return myEW_ABC->AFB_l(SM.ELECTRON, true);
         else if (mode.compare("BURGESS") == 0) {
-            double AFB_l_SM = 3.0/4.0*SM.A_f(SM.getLeptons(SM.ELECTRON))*SM.A_f(SM.getLeptons(SM.ELECTRON));
+            double AFB_l_SM = 3.0 / 4.0 * SM.A_f(SM.getLeptons(SM.ELECTRON)) * SM.A_f(SM.getLeptons(SM.ELECTRON));
             return myEW_BURGESS->AFBlepton(AFB_l_SM);
         } else if (mode.compare("CHMN") == 0)
             return myEW_CHMN->AFB_l(SM.ELECTRON);
@@ -146,8 +145,8 @@ double EW_TEST::computeThValue()
     } else if (obsname.compare("AFBcharm") == 0) {
         if (mode.compare("ABC") == 0 || mode.compare("ABC2") == 0)
             return myEW_ABC->AFB_c();
-        else if (mode.compare("BURGESS") == 0)  {
-            double AFB_c_SM = 3.0/4.0*SM.A_f(SM.getLeptons(SM.ELECTRON))*SM.A_f(SM.getQuarks(SM.CHARM));
+        else if (mode.compare("BURGESS") == 0) {
+            double AFB_c_SM = 3.0 / 4.0 * SM.A_f(SM.getLeptons(SM.ELECTRON)) * SM.A_f(SM.getQuarks(SM.CHARM));
             return myEW_BURGESS->AFBcharm(AFB_c_SM);
         } else if (mode.compare("CHMN") == 0)
             return myEW_CHMN->AFB_q(SM.CHARM);
@@ -157,23 +156,23 @@ double EW_TEST::computeThValue()
         if (mode.compare("ABC") == 0 || mode.compare("ABC2") == 0)
             return myEW_ABC->AFB_b();
         else if (mode.compare("BURGESS") == 0) {
-            double AFB_b_SM = 3.0/4.0*SM.A_f(SM.getLeptons(SM.ELECTRON))*SM.A_f(SM.getQuarks(SM.BOTTOM));
+            double AFB_b_SM = 3.0 / 4.0 * SM.A_f(SM.getLeptons(SM.ELECTRON)) * SM.A_f(SM.getQuarks(SM.BOTTOM));
             return myEW_BURGESS->AFBbottom(AFB_b_SM);
         } else if (mode.compare("CHMN") == 0)
             return myEW_CHMN->AFB_q(SM.BOTTOM);
         else
             throw std::runtime_error("EW_TEST::computeThValue(): Undefined");
     } else if (obsname.compare("Rlepton") == 0) {
-        if (mode.compare("ABC") == 0) 
+        if (mode.compare("ABC") == 0)
             return myEW_ABC->R_l(false);
-        else if (mode.compare("ABC2") == 0) 
+        else if (mode.compare("ABC2") == 0)
             return myEW_ABC->R_l(true);
         else if (mode.compare("BURGESS") == 0) {
             double R0_l_SM;
             if (SM.IsFlagNoApproximateGammaZ())
                 R0_l_SM = SM.getMyApproximateFormulae()->X_extended("R0_lepton");
             else
-                R0_l_SM = SM.Gamma_had()/SM.GammaZ(SM.getLeptons(SM.ELECTRON));
+                R0_l_SM = SM.Gamma_had() / SM.GammaZ(SM.getLeptons(SM.ELECTRON));
             return myEW_BURGESS->Rlepton(R0_l_SM, SM.Gamma_had(), SM.GammaZ(SM.getLeptons(SM.ELECTRON)));
         } else if (mode.compare("CHMN") == 0)
             return myEW_CHMN->R_l(SM.ELECTRON);
@@ -187,23 +186,23 @@ double EW_TEST::computeThValue()
             if (SM.IsFlagNoApproximateGammaZ())
                 R0_c_SM = SM.getMyApproximateFormulae()->X_extended("R0_charm");
             else
-                R0_c_SM = SM.GammaZ(SM.getQuarks(SM.CHARM))/SM.Gamma_had();
+                R0_c_SM = SM.GammaZ(SM.getQuarks(SM.CHARM)) / SM.Gamma_had();
             return myEW_BURGESS->Rcharm(R0_c_SM, SM.Gamma_had());
         } else if (mode.compare("CHMN") == 0)
             return myEW_CHMN->R_c();
         else
             throw std::runtime_error("EW_TEST::computeThValue(): Undefined");
     } else if (obsname.compare("Rbottom") == 0) {
-        if (mode.compare("ABC") == 0) 
+        if (mode.compare("ABC") == 0)
             return myEW_ABC->R_b(false);
-        else if (mode.compare("ABC2") == 0) 
+        else if (mode.compare("ABC2") == 0)
             return myEW_ABC->R_b(true);
         else if (mode.compare("BURGESS") == 0) {
             double R0_b_SM;
             if (SM.IsFlagNoApproximateGammaZ())
                 R0_b_SM = SM.getMyApproximateFormulae()->X_extended("R0_bottom");
             else
-                R0_b_SM = SM.GammaZ(SM.getQuarks(SM.BOTTOM))/SM.Gamma_had();
+                R0_b_SM = SM.GammaZ(SM.getQuarks(SM.BOTTOM)) / SM.Gamma_had();
             return myEW_BURGESS->Rbottom(R0_b_SM, SM.Gamma_had(), SM.GammaZ(SM.getQuarks(SM.BOTTOM)));
         } else if (mode.compare("CHMN") == 0)
             return myEW_CHMN->R_b();

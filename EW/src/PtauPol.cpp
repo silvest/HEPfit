@@ -7,11 +7,8 @@
 
 #include "PtauPol.h"
 
-
-double PtauPol::computeThValue() 
+double PtauPol::computeThValue()
 {
-    double P_tau_pol = SM.A_f(SM.getLeptons(SM.TAU));
-
-    return P_tau_pol;
+    return SM.A_f(SM.getLeptons(SM.TAU));
 }
-        
+

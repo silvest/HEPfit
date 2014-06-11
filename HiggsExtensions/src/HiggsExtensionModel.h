@@ -1,8 +1,8 @@
-/* 
- * File:   HiggExtensionModel.h
- * Author: enrico
+/*
+ * Copyright (C) 2014 SusyFit Collaboration
+ * All rights reserved.
  *
- * Created on 2 aprile 2014, 14.30
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef HIGGSEXTENSIONMODEL_H

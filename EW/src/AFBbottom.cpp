@@ -7,12 +7,7 @@
 
 #include "AFBbottom.h"
 
-
-double AFBbottom::computeThValue() 
-{   
-    /* NP contribution to the Zff vertex */
-//    if (SM.checkNPZff_linearized() && SM.ModelName().compare("StandardModel") != 0)
-//        AFB_b = SM.getMyEW_NPZff().AFBbottom(AFB_b);
-
+double AFBbottom::computeThValue()
+{
     return SM.AFB(SM.getQuarks(SM.BOTTOM));
 }

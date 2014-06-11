@@ -459,6 +459,10 @@ public:
         return FlagNoApproximateGammaZ;
     }
 
+    void setFlagNoApproximateGammaZ(bool FlagNoApproximateGammaZ) {
+        this->FlagNoApproximateGammaZ = FlagNoApproximateGammaZ;
+    }
+
     /**
      * @brief A method to retrieve the model flag %Mw.
      * @details See @ref StandardModelFlags for detail.

@@ -10,11 +10,11 @@
 
 
 const std::string NPEffective1::NPEffectiveVars[NNPEffectiveVars]
-= {"cWB_NP", "cH_NP", "cLL_NP", "cHLp_NP", "cHQp_NP",
-   "cHL_NP", "cHQ_NP", "cHE_NP", "cHU_NP", "cHD_NP", "Lambda_NP"};
+        = {"cWB_NP", "cH_NP", "cLL_NP", "cHLp_NP", "cHQp_NP",
+    "cHL_NP", "cHQ_NP", "cHE_NP", "cHU_NP", "cHD_NP", "Lambda_NP"};
 
 NPEffective1::NPEffective1()
-    : NPEffective()
+: NPEffective()
 {
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cWB_NP", boost::cref(cWB)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cH_NP", boost::cref(cH)));
@@ -27,7 +27,7 @@ NPEffective1::NPEffective1()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHU_NP", boost::cref(cHU1)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHD_NP", boost::cref(cHD1)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Lambda_NP", boost::cref(LambdaNP)));
-    }
+}
 
 void NPEffective1::setParameter(const std::string name, const double& value)
 {
@@ -76,17 +76,16 @@ void NPEffective1::setParameter(const std::string name, const double& value)
         NPEffective::setParameter(name, value);
 }
 
-
 bool NPEffective1::CheckParameters(const std::map<std::string, double>& DPars)
 {
     for (int i = 0; i < NNPEffectiveVars; i++) {
         if (DPars.find(NPEffectiveVars[i]) == DPars.end()) {
             std::cout << "ERROR: Missing mandatory NPEffective1 parameter "
-                      << NPEffectiveVars[i] << std::endl;
+                    << NPEffectiveVars[i] << std::endl;
             return false;
         }
     }
-    return(NPEffective::CheckParameters(DPars));
+    return (NPEffective::CheckParameters(DPars));
 }
 
 

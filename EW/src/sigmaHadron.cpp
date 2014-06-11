@@ -7,13 +7,10 @@
 
 #include "sigmaHadron.h"
 
-
-double sigmaHadron::computeThValue() 
-{ 
-    double sigma_had = SM.sigma0_had();
-
-    return ( sigma_had*SM.GeVminus2_to_nb );
+double sigmaHadron::computeThValue()
+{
+    return ( SM.sigma0_had() * SM.GeVminus2_to_nb);
 }
-        
+
 
 

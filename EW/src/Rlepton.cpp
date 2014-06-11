@@ -7,12 +7,9 @@
 
 #include "Rlepton.h"
 
-
-double Rlepton::computeThValue() 
+double Rlepton::computeThValue()
 {
-    double R0_l = SM.R0_f(SM.getLeptons(SM.ELECTRON));
-
-    return R0_l;
+    return SM.R0_f(SM.getLeptons(SM.ELECTRON));
 }
-        
+
 

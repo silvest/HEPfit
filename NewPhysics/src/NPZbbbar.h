@@ -175,42 +175,14 @@ public:
      */
     virtual bool Update(const std::map<std::string, double>& DPars);
 
+    virtual bool PostUpdate();
+
     /**
      * @brief @copybrief Model::CheckParameters()
      * @copydetails Model::CheckParameters()
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
-
-    ////////////////////////////////////////////////////////////////////////
-
-    /**
-     * @brief @copybrief EWSM::rhoZ_l()
-     * @details SM contribution only. 
-     * @copydetails EWSM::rhoZ_l()
-     */
-    virtual complex rhoZ_f(const Particle p) const;
-
-    /**
-     * @brief @copybrief EWSM::kappaZ_l()
-     * @details SM contribution only.
-     * @copydetails EWSM::kappaZ_l()
-     */
-    virtual complex kappaZ_f(const Particle p) const;
-
-    /**
-     * @brief @copybrief EWSM::gVl()
-     * @details SM contribution only.
-     * @copydetails EWSM::gVl()
-     */
-    virtual complex gV_f(const Particle p) const;
-
-    /**
-     * @brief @copybrief EWSM::gAl()
-     * @details SM contribution only.
-     * @copydetails EWSM::gAl()
-     */
-    virtual complex gA_f(const Particle p) const;
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -228,6 +200,8 @@ public:
      */
     virtual double deltaGA_f(const Particle p) const;
 
+    ////////////////////////////////////////////////////////////////////////
+
     virtual double Mw() const;
 
     virtual double GammaW() const;
@@ -239,6 +213,7 @@ public:
     virtual double sin2thetaEff(const Particle p) const;
 
     virtual double A_f(const Particle p) const;
+
     virtual double AFB(const Particle p) const;
 
     virtual double R0_f(const Particle p) const;
@@ -252,20 +227,16 @@ protected:
      */
     virtual void setParameter(const std::string name, const double& value);
 
-
     ////////////////////////////////////////////////////////////////////////
 private:
 
-    /* These variables are used internally as the deviations in the left-handed
-     * and right-handed couplings if FlagNPZbbbarLR is set to true.
-     * Therefore, they should not be used directly. Instead, the functions
-     * deltaGVq() and deltaGAq() have to be called. */
     double myDeltaGVb; ///< New physics contribution to \f$g_{V}^b\f$.
     double myDeltaGAb; ///< New physics contribution to \f$g_{A}^b\f$.
+    double myDeltaGLb; ///< New physics contribution to \f$g_{L}^b\f$.
+    double myDeltaGRb; ///< New physics contribution to \f$g_{R}^b\f$.
 
     /**
-     * @brief An internal boolean flag that is true if \f$\delta g_{L,R}^b\f$ are
-     * used instead of \f$\delta g_{V,A}^b\f$. This flag is initialized in the
+     * @brief An internal boolean flag. This flag is initialized in the
      * constructor. 
      */
     const bool FlagNPZbbbarLR;

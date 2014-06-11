@@ -10,24 +10,27 @@
 
 
 const std::string NPSTU::STUvars[NSTUvars]
-= {"obliqueS", "obliqueT", "obliqueU"};
+        = {"obliqueS", "obliqueT", "obliqueU"};
 
 NPSTU::NPSTU()
-: NPbase() {
+: NPbase()
+{
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueS", boost::cref(myObliqueS)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueT", boost::cref(myObliqueT)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueU", boost::cref(myObliqueU)));
 
 }
 
-bool NPSTU::Update(const std::map<std::string, double>& DPars) {
+bool NPSTU::Update(const std::map<std::string, double>& DPars)
+{
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameter(it->first, it->second);
     if (!NPbase::Update(DPars)) return (false);
     return (true);
 }
 
-void NPSTU::setParameter(const std::string name, const double& value) {
+void NPSTU::setParameter(const std::string name, const double& value)
+{
     if (name.compare("obliqueS") == 0)
         myObliqueS = value;
     else if (name.compare("obliqueT") == 0)
@@ -38,7 +41,8 @@ void NPSTU::setParameter(const std::string name, const double& value) {
         NPbase::setParameter(name, value);
 }
 
-bool NPSTU::CheckParameters(const std::map<std::string, double>& DPars) {
+bool NPSTU::CheckParameters(const std::map<std::string, double>& DPars)
+{
     for (int i = 0; i < NSTUvars; i++) {
         if (DPars.find(STUvars[i]) == DPars.end()) {
             std::cout << "ERROR: Missing mandatory NPSTU parameter "
@@ -52,27 +56,31 @@ bool NPSTU::CheckParameters(const std::map<std::string, double>& DPars) {
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPSTU::epsilon1() const {
+double NPSTU::epsilon1() const
+{
     double That = alphaMz() * obliqueT();
 
     return ( trueSM.epsilon1() + That);
 }
 
-double NPSTU::epsilon2() const {
+double NPSTU::epsilon2() const
+{
     double sW2_SM = trueSM.sW2(); /* This has to be the SM value. */
     double Uhat = -alphaMz() / (4.0 * sW2_SM) * obliqueU();
 
     return ( trueSM.epsilon2() + Uhat);
 }
 
-double NPSTU::epsilon3() const {
+double NPSTU::epsilon3() const
+{
     double sW2_SM = trueSM.sW2(); /* This has to be the SM value. */
     double Shat = alphaMz() / (4.0 * sW2_SM) * obliqueS();
 
     return ( trueSM.epsilon3() + Shat);
 }
 
-double NPSTU::epsilonb() const {
+double NPSTU::epsilonb() const
+{
     return trueSM.epsilonb();
 }
 

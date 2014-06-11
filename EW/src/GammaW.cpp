@@ -7,8 +7,7 @@
 
 #include "GammaW.h"
 
-
-double GammaW::computeThValue() 
-{  
+double GammaW::computeThValue()
+{
     return SM.GammaW();
 }

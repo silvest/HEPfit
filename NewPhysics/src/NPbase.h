@@ -74,7 +74,7 @@ public:
     virtual bool PostUpdate();
 
     ////////////////////////////////////////////////////////////////////////
-    
+
     /**
      * @brief New physics contribution to the Fermi constant.
      * @details The new physics contribution @f$\Delta G@f$ is defined as
@@ -86,7 +86,7 @@ public:
      * @return @f$\Delta G@f$
      */
     virtual double DeltaGF() const {
-        return 0.; 
+        return 0.;
     }
 
     ////////////////////////////////////////////////////////////////////////
@@ -96,7 +96,7 @@ public:
      * @return the value of @f$S@f$
      */
     virtual double obliqueS() const {
-        return 0.; 
+        return 0.;
     }
 
     /**
@@ -104,7 +104,7 @@ public:
      * @return the value of @f$T@f$
      */
     virtual double obliqueT() const {
-        return 0.; 
+        return 0.;
     }
 
     /**
@@ -112,7 +112,7 @@ public:
      * @return the value of @f$U@f$
      */
     virtual double obliqueU() const {
-        return 0.; 
+        return 0.;
     }
 
     ////////////////////////////////////////////////////////////////////////
@@ -180,7 +180,7 @@ public:
      * @return @f$\delta g_V^l@f$
      */
     virtual double deltaGV_f(const Particle p) const;
-    
+
     virtual complex gV_f(const Particle p) const;
 
     /**
@@ -197,15 +197,17 @@ public:
      * See @cite Ciuchini:2013pca and references therein.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$\delta g_A^l@f$
-     */   
+     */
     virtual double deltaGA_f(const Particle p) const;
-    
+
     virtual complex gA_f(const Particle p) const;
-    
-       ////////////////////////////////////////////////////////////////////////
+
+    virtual complex rhoZ_f(const Particle p) const;
+
+    virtual complex kappaZ_f(const Particle p) const;
 
     virtual double deltaGamma_Z() const;
-    
+
     /**
      * @brief The total decay width of the @f$Z@f$ boson, @f$\Gamma_Z@f$.
      * @param[in] GammaZ_SM the SM prediction for @f$\Gamma_Z@f$ in GeV
@@ -214,7 +216,7 @@ public:
      * @attention This function is applicable only to the NP model classes that
      * are inherited from NPbase.
      */
-    
+
     virtual double Gamma_Z() const;
 
     /**
@@ -229,7 +231,7 @@ public:
     virtual double deltaSigmaHadron() const;
 
     virtual double sigma0_had() const;
-    
+
     /**
      * @brief @copybrief sin2thetaEff::computeThValue()
      * @param[in] sin2thetaEff_SM the SM prediction for @f$\sin^2\theta_{\rm eff}^{\rm lept}@f$
@@ -239,7 +241,7 @@ public:
      * are inherited from NPbase.
      */
     virtual double deltaSin2thetaEff_e() const;
-    
+
     virtual double sin2thetaEff(const Particle p) const;
 
     /**
@@ -251,7 +253,7 @@ public:
      * are inherited from NPbase.
      */
     virtual double deltaA_f(const Particle p) const;
-    
+
     virtual double A_f(const Particle p) const;
 
     virtual double deltaAFB(const Particle p) const;
@@ -271,7 +273,7 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 protected:
-        StandardModel trueSM;
+    StandardModel trueSM;
 };
 
 #endif	/* NPBASE_H */

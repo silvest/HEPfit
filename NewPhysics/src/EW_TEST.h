@@ -37,7 +37,7 @@ private:
     const EW_ABC *myEW_ABC;
     const EW_BURGESS *myEW_BURGESS;
     const EW_CHMN *myEW_CHMN;
-    
+
 };
 
 #endif	/* EW_TEST_H */

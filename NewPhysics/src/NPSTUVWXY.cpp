@@ -10,11 +10,12 @@
 
 
 const std::string NPSTUVWXY::STUVWXYvars[NSTUVWXYvars]
-= {"obliqueShat", "obliqueThat", "obliqueUhat", 
-   "obliqueV", "obliqueW", "obliqueX", "obliqueY"};
+        = {"obliqueShat", "obliqueThat", "obliqueUhat",
+    "obliqueV", "obliqueW", "obliqueX", "obliqueY"};
 
 NPSTUVWXY::NPSTUVWXY()
-: NPbase() {
+: NPbase()
+{
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueShat", boost::cref(myObliqueShat)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueThat", boost::cref(myObliqueThat)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("obliqueUhat", boost::cref(myObliqueUhat)));
@@ -25,14 +26,16 @@ NPSTUVWXY::NPSTUVWXY()
 
 }
 
-bool NPSTUVWXY::Update(const std::map<std::string, double>& DPars) {
+bool NPSTUVWXY::Update(const std::map<std::string, double>& DPars)
+{
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameter(it->first, it->second);
     if (!NPbase::Update(DPars)) return (false);
     return (true);
 }
 
-void NPSTUVWXY::setParameter(const std::string name, const double& value) {
+void NPSTUVWXY::setParameter(const std::string name, const double& value)
+{
     if (name.compare("obliqueShat") == 0)
         myObliqueShat = value;
     else if (name.compare("obliqueThat") == 0)
@@ -51,7 +54,8 @@ void NPSTUVWXY::setParameter(const std::string name, const double& value) {
         NPbase::setParameter(name, value);
 }
 
-bool NPSTUVWXY::CheckParameters(const std::map<std::string, double>& DPars) {
+bool NPSTUVWXY::CheckParameters(const std::map<std::string, double>& DPars)
+{
     for (int i = 0; i < NSTUVWXYvars; i++) {
         if (DPars.find(STUVWXYvars[i]) == DPars.end()) {
             std::cout << "ERROR: Missing mandatory NPSTUVWXY parameter "
@@ -65,7 +69,8 @@ bool NPSTUVWXY::CheckParameters(const std::map<std::string, double>& DPars) {
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPSTUVWXY::epsilon1() const {
+double NPSTUVWXY::epsilon1() const
+{
     double c2 = trueSM.cW2();
     double s2 = trueSM.sW2();
     double eps1 = trueSM.epsilon1();
@@ -74,7 +79,8 @@ double NPSTUVWXY::epsilon1() const {
     return eps1;
 }
 
-double NPSTUVWXY::epsilon2() const {
+double NPSTUVWXY::epsilon2() const
+{
     double c2 = trueSM.cW2();
     double s2 = trueSM.sW2();
     double eps2 = trueSM.epsilon2();
@@ -82,7 +88,8 @@ double NPSTUVWXY::epsilon2() const {
     return eps2;
 }
 
-double NPSTUVWXY::epsilon3() const {
+double NPSTUVWXY::epsilon3() const
+{
     double c2 = trueSM.cW2();
     double s2 = trueSM.sW2();
     double eps3 = trueSM.epsilon3();
@@ -90,7 +97,8 @@ double NPSTUVWXY::epsilon3() const {
     return eps3;
 }
 
-double NPSTUVWXY::epsilonb() const {
+double NPSTUVWXY::epsilonb() const
+{
     double epsb = trueSM.epsilonb();
     return epsb;
 }
@@ -98,7 +106,8 @@ double NPSTUVWXY::epsilonb() const {
 
 ////////////////////////////////////////////////////////////////////////     
 
-double NPSTUVWXY::obliqueS() const {
+double NPSTUVWXY::obliqueS() const
+{
     double sW2_SM = trueSM.sW2();
     double sW_SM = sqrt(sW2_SM);
     double cW_SM = trueSM.cW2();
@@ -106,7 +115,8 @@ double NPSTUVWXY::obliqueS() const {
             * 4.0 * sW2_SM / alphaMz());
 }
 
-double NPSTUVWXY::obliqueT() const {
+double NPSTUVWXY::obliqueT() const
+{
     double sW2_SM = trueSM.sW2();
     double sW_SM = sqrt(sW2_SM);
     double cW2_SM = trueSM.cW2();
@@ -115,7 +125,8 @@ double NPSTUVWXY::obliqueT() const {
             - sW2_SM / cW2_SM * myObliqueY) / alphaMz());
 }
 
-double NPSTUVWXY::obliqueU() const {
+double NPSTUVWXY::obliqueU() const
+{
     double sW2_SM = trueSM.sW2();
     double sW_SM = sqrt(sW2_SM);
     double cW_SM = sqrt(trueSM.cW2());
@@ -126,7 +137,8 @@ double NPSTUVWXY::obliqueU() const {
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPSTUVWXY::GammaW() const {
+double NPSTUVWXY::GammaW() const
+{
     double Gamma_W = trueSM.GammaW();
 
     double Wbar = (obliqueV() - obliqueW()) / alphaMz();

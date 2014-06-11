@@ -35,15 +35,15 @@ public:
      */
     EW_CHMN(const StandardModel& SM_i);
 
-    
+
     //////////////////////////////////////////////////////////////////////// 
-    
+
     double Mw() const;
     double GammaW() const;
-    
+
     double DeltaSz() const;
     double DeltaTz() const;
-    
+
     // Effective couplings
     double gL_l(const StandardModel::lepton l) const;
     double gR_l(const StandardModel::lepton l) const;
@@ -53,87 +53,87 @@ public:
     // Z-boson partial width
     double GammaZ_l(StandardModel::lepton l) const;
     double GammaZ_q(QCD::quark q) const;
-    
+
     // Z-boson hadronic width
     double GammaZ_had() const;
-    
+
     // Z-boson total width
-    double GammaZ() const;    
-    
+    double GammaZ() const;
+
     double R_l(const StandardModel::lepton l) const;
-    double R_c() const;    
-    double R_b() const;    
+    double R_c() const;
+    double R_b() const;
 
     // hadronic peak cross section
     double sigma0_had() const;
-    
+
     // left-right asymmetry parameter
     double A_l(const StandardModel::lepton l) const;
     double A_q(const QCD::quark q) const;
-    
+
     // forward-backward asymmetry
     double AFB_l(const StandardModel::lepton l) const;
     double AFB_q(const QCD::quark q) const;
-    
+
     // effective weak mixing angle
     double sin2thetaEff() const;
-    
+
     /**
      * @return the oblique parameters S
      */
     double S() const;
-    
+
     /**
      * @return the oblique parameters T
-     */    
+     */
     double T() const;
-    
+
     /**
      * @return the oblique parameters U
-     */    
+     */
     double U() const;
-    
-    
+
+
     ////////////////////////////////////////////////////////////////////////     
 
 private:
     const StandardModel& SM;
-    
+
     double x_alpha() const;
     double x_t() const;
     double x_h() const;
     double x_s() const;
-    
+
     double DeltaRz() const;
-    double DeltaRw() const;    
-    
+    double DeltaRw() const;
+
     double DeltaMw() const;
 
     double Delta_gbarZ2() const;
     double Delta_sbar2() const;
-    
+
     // SM contributions to S_Z, T_Z, M_W, R_Z and R_W
     double DeltaSz_SM() const;
     double DeltaTz_SM() const;
     double DeltaMw_SM() const;
     double DeltaRz_SM() const;
     double DeltaRw_SM() const;
-    
+
     // the color factors, including mass and QCD corrections
     double CV_l(StandardModel::lepton l) const;
     double CV_q(QCD::quark q) const;
     double CA_l(StandardModel::lepton l) const;
     double CA_q(QCD::quark q) const;
-    
+
     // corrections from the imaginary part of loop-induced mixing between the photon and the Z boson
     double deltaImKappa_l(StandardModel::lepton l) const;
     double deltaImKappa_q(QCD::quark q) const;
-    
+
     // non-factorizable mixed EW/QCD corrections
     double DeltaEWQCD_l(StandardModel::lepton l) const;
     double DeltaEWQCD_q(QCD::quark q) const;
-    
-    
+
+
 };
 
 #endif	/* EW_CHMN_H */

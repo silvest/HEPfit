@@ -112,8 +112,7 @@ public:
      * @brief A get method to retrieve the value of the new physics scale \f$\Lambda\f$.
      * @return the value of the new physics scale \f$\Lambda\f$ in GeV
      */
-    double getLambdaNP() const
-    {
+    double getLambdaNP() const {
         return LambdaNP;
     }
 
@@ -247,43 +246,43 @@ public:
      * @f]
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$\delta g_A^l@f$
-     */    
+     */
     virtual double deltaGA_f(const Particle p) const;
-    
+
     ////////////////////////////////////////////////////////////////////////    
 protected:
 
-    double cWB;///< The dimension-6 operator coefficient \f$C_{WB}\f$.
-    double cH;///< The dimension-6 operator coefficient \f$C_{H}\f$.
-    double cL1L1;///< The dimension-6 operator coefficient \f$C_{L_1L_1}\f$.
-    double cL1L2;///< The dimension-6 operator coefficient \f$C_{L_1L_2}\f$.
-    double cL1L3;///< The dimension-6 operator coefficient \f$C_{L_1L_3}\f$.
-    double cL2L2;///< The dimension-6 operator coefficient \f$C_{L_2L_2}\f$.
-    double cL2L3;///< The dimension-6 operator coefficient \f$C_{L_2L_3}\f$.
-    double cL3L3;///< The dimension-6 operator coefficient \f$C_{L_3L_3}\f$.
-    double cHL1p;///< The dimension-6 operator coefficient \f$C_{HL_1}^\prime\f$.
-    double cHL2p;///< The dimension-6 operator coefficient \f$C_{HL_2}^\prime\f$.
-    double cHL3p;///< The dimension-6 operator coefficient \f$C_{HL_3}^\prime\f$.
-    double cHQ1p;///< The dimension-6 operator coefficient \f$C_{HQ_1}^\prime\f$.
-    double cHQ2p;///< The dimension-6 operator coefficient \f$C_{HQ_2}^\prime\f$.
-    double cHQ3p;///< The dimension-6 operator coefficient \f$C_{HQ_3}^\prime\f$.
-    double cHL1;///< The dimension-6 operator coefficient \f$C_{HL_1}\f$.
-    double cHL2;///< The dimension-6 operator coefficient \f$C_{HL_2}\f$.
-    double cHL3;///< The dimension-6 operator coefficient \f$C_{HL_3}\f$.
-    double cHQ1;///< The dimension-6 operator coefficient \f$C_{HQ_1}\f$.
-    double cHQ2;///< The dimension-6 operator coefficient \f$C_{HQ_2}\f$.
-    double cHQ3;///< The dimension-6 operator coefficient \f$C_{HQ_3}\f$.
-    double cHE1;///< The dimension-6 operator coefficient \f$C_{HE_1}\f$.
-    double cHE2;///< The dimension-6 operator coefficient \f$C_{HE_2}\f$.
-    double cHE3;///< The dimension-6 operator coefficient \f$C_{HE_3}\f$.
-    double cHU1;///< The dimension-6 operator coefficient \f$C_{HU_1}\f$.
-    double cHU2;///< The dimension-6 operator coefficient \f$C_{HU_2}\f$.
-    double cHU3;///< The dimension-6 operator coefficient \f$C_{HU_3}\f$.
-    double cHD1;///< The dimension-6 operator coefficient \f$C_{HD_1}\f$.
-    double cHD2;///< The dimension-6 operator coefficient \f$C_{HD_2}\f$.
-    double cHD3;///< The dimension-6 operator coefficient \f$C_{HD_3}\f$.
-    double LambdaNP;///< The new physics scale \f$\Lambda\f$.
-    
+    double cWB; ///< The dimension-6 operator coefficient \f$C_{WB}\f$.
+    double cH; ///< The dimension-6 operator coefficient \f$C_{H}\f$.
+    double cL1L1; ///< The dimension-6 operator coefficient \f$C_{L_1L_1}\f$.
+    double cL1L2; ///< The dimension-6 operator coefficient \f$C_{L_1L_2}\f$.
+    double cL1L3; ///< The dimension-6 operator coefficient \f$C_{L_1L_3}\f$.
+    double cL2L2; ///< The dimension-6 operator coefficient \f$C_{L_2L_2}\f$.
+    double cL2L3; ///< The dimension-6 operator coefficient \f$C_{L_2L_3}\f$.
+    double cL3L3; ///< The dimension-6 operator coefficient \f$C_{L_3L_3}\f$.
+    double cHL1p; ///< The dimension-6 operator coefficient \f$C_{HL_1}^\prime\f$.
+    double cHL2p; ///< The dimension-6 operator coefficient \f$C_{HL_2}^\prime\f$.
+    double cHL3p; ///< The dimension-6 operator coefficient \f$C_{HL_3}^\prime\f$.
+    double cHQ1p; ///< The dimension-6 operator coefficient \f$C_{HQ_1}^\prime\f$.
+    double cHQ2p; ///< The dimension-6 operator coefficient \f$C_{HQ_2}^\prime\f$.
+    double cHQ3p; ///< The dimension-6 operator coefficient \f$C_{HQ_3}^\prime\f$.
+    double cHL1; ///< The dimension-6 operator coefficient \f$C_{HL_1}\f$.
+    double cHL2; ///< The dimension-6 operator coefficient \f$C_{HL_2}\f$.
+    double cHL3; ///< The dimension-6 operator coefficient \f$C_{HL_3}\f$.
+    double cHQ1; ///< The dimension-6 operator coefficient \f$C_{HQ_1}\f$.
+    double cHQ2; ///< The dimension-6 operator coefficient \f$C_{HQ_2}\f$.
+    double cHQ3; ///< The dimension-6 operator coefficient \f$C_{HQ_3}\f$.
+    double cHE1; ///< The dimension-6 operator coefficient \f$C_{HE_1}\f$.
+    double cHE2; ///< The dimension-6 operator coefficient \f$C_{HE_2}\f$.
+    double cHE3; ///< The dimension-6 operator coefficient \f$C_{HE_3}\f$.
+    double cHU1; ///< The dimension-6 operator coefficient \f$C_{HU_1}\f$.
+    double cHU2; ///< The dimension-6 operator coefficient \f$C_{HU_2}\f$.
+    double cHU3; ///< The dimension-6 operator coefficient \f$C_{HU_3}\f$.
+    double cHD1; ///< The dimension-6 operator coefficient \f$C_{HD_1}\f$.
+    double cHD2; ///< The dimension-6 operator coefficient \f$C_{HD_2}\f$.
+    double cHD3; ///< The dimension-6 operator coefficient \f$C_{HD_3}\f$.
+    double LambdaNP; ///< The new physics scale \f$\Lambda\f$.
+
     ////////////////////////////////////////////////////////////////////////
 private:
 
@@ -326,7 +325,7 @@ private:
      * @f$\Delta G@f$ are not included in this function.
      */
     double deltaGR_f_tmp(const Particle p) const;
-    
+
 };
 
 #endif	/* NPEFFECTIVE_H */

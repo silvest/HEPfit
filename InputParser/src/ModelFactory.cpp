@@ -6,6 +6,7 @@
 #include <NPEpsilons_pureNP.h>
 #include <NPHiggs.h>
 #include <NPZbbbar.h>
+#include <NPZbbbarLinearized.h>
 #include <NPEffective1.h>
 #include <NPEffective2.h>
 #include <GeneralSUSY.h>
@@ -24,8 +25,10 @@ ModelFactory::ModelFactory()
     modelFactory["NPEpsilons"] = boost::factory<NPEpsilons*>();
     modelFactory["NPEpsilons_pureNP"] = boost::factory<NPEpsilons_pureNP*>();
     modelFactory["NPHiggs"] = boost::factory<NPHiggs*>();
-    modelFactory["NPZbbbar"] = boost::bind(boost::factory<NPZbbbar*>(),false);
-    modelFactory["NPZbbbarLR"] = boost::bind(boost::factory<NPZbbbar*>(),true);
+    modelFactory["NPZbbbar"] = boost::bind(boost::factory<NPZbbbar*>(), false);
+    modelFactory["NPZbbbarLR"] = boost::bind(boost::factory<NPZbbbar*>(), true);
+    modelFactory["NPZbbbarLinearized"] = boost::bind(boost::factory<NPZbbbarLinearized*>(), false);
+    modelFactory["NPZbbbarLinearizedLR"] = boost::bind(boost::factory<NPZbbbarLinearized*>(), true);
     modelFactory["NPEffective1"] = boost::factory<NPEffective1*>();
     modelFactory["NPEffective2"] = boost::factory<NPEffective2*>();
     modelFactory["MFV"] = boost::factory<MFV*>();
@@ -36,7 +39,7 @@ ModelFactory::ModelFactory()
     modelFactory["HiggsKvKf"] = boost::factory<HiggsKvKf*>();
 }
 
-void ModelFactory::addModelToFactory (const std::string name, boost::function<StandardModel*() > funct)
+void ModelFactory::addModelToFactory(const std::string name, boost::function<StandardModel*() > funct)
 {
     modelFactory[name] = funct;
 }

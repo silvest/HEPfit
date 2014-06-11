@@ -10,10 +10,11 @@
 
 
 const std::string NPHiggs::NPHIGGSvars[NNPHIGGSvars]
-= {"a", "b", "c_u", "c_d", "c_e", "d_3", "d_4", "LambdaNP"};
+        = {"a", "b", "c_u", "c_d", "c_e", "d_3", "d_4", "LambdaNP"};
 
 NPHiggs::NPHiggs()
-: NPbase(), LambdaNP_in(0.0) {
+: NPbase(), LambdaNP_in(0.0)
+{
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a", boost::cref(a)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("b", boost::cref(b)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("c_u", boost::cref(c_u)));
@@ -25,14 +26,16 @@ NPHiggs::NPHiggs()
 
 }
 
-bool NPHiggs::Update(const std::map<std::string, double>& DPars) {
+bool NPHiggs::Update(const std::map<std::string, double>& DPars)
+{
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameter(it->first, it->second);
     if (!NPbase::Update(DPars)) return (false);
     return (true);
 }
 
-void NPHiggs::setParameter(const std::string name, const double& value) {
+void NPHiggs::setParameter(const std::string name, const double& value)
+{
     if (name.compare("a") == 0)
         a = value;
     else if (name.compare("b") == 0)
@@ -53,7 +56,8 @@ void NPHiggs::setParameter(const std::string name, const double& value) {
         NPbase::setParameter(name, value);
 }
 
-bool NPHiggs::CheckParameters(const std::map<std::string, double>& DPars) {
+bool NPHiggs::CheckParameters(const std::map<std::string, double>& DPars)
+{
     for (int i = 0; i < NNPHIGGSvars; i++) {
         if (DPars.find(NPHIGGSvars[i]) == DPars.end()) {
             std::cout << "ERROR: Missing mandatory NPHiggs parameter "
@@ -66,7 +70,8 @@ bool NPHiggs::CheckParameters(const std::map<std::string, double>& DPars) {
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPHiggs::obliqueS() const {
+double NPHiggs::obliqueS() const
+{
     double Lambda;
     if (LambdaNP_in != 0.0)
         Lambda = LambdaNP_in;
@@ -78,7 +83,8 @@ double NPHiggs::obliqueS() const {
     return ( 1.0 / 12.0 / M_PI * (1.0 - a * a) * log(Lambda * Lambda / mHl / mHl));
 }
 
-double NPHiggs::obliqueT() const {
+double NPHiggs::obliqueT() const
+{
     double Lambda;
     double cW2_SM = trueSM.cW2(); /* This has to be the SM value. */
     if (LambdaNP_in != 0.0)
@@ -91,7 +97,8 @@ double NPHiggs::obliqueT() const {
     return ( -3.0 / 16.0 / M_PI / cW2_SM * (1.0 - a * a) * log(Lambda * Lambda / mHl / mHl));
 }
 
-double NPHiggs::obliqueU() const {
+double NPHiggs::obliqueU() const
+{
     return 0.0;
 }
 

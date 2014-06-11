@@ -122,7 +122,7 @@
  * (with epsilon1(), epsilon2(), epsilon3() and epsilonb()).
  *
  */
-class NPEpsilons : public NPbase  {
+class NPEpsilons : public NPbase {
 public:
 
     /**
@@ -134,7 +134,7 @@ public:
      * @brief A string array containing the labels of the model parameters in %NPEpsilons.
      */
     static const std::string EPSILONvars[NEPSILONvars];
-    
+
     /**
      * @brief The default constructor.
      */
@@ -145,7 +145,9 @@ public:
      * @copydetails Model::Update()
      */
     virtual bool Update(const std::map<std::string, double>& DPars);
-    
+
+    virtual bool PostUpdate();
+
     /**
      * @brief @copybrief Model::CheckParameters()
      * @copydetails Model::CheckParameters()
@@ -157,7 +159,7 @@ public:
      * @copydetails Model::setFlag()
      */
     virtual bool setFlag(const std::string name, const bool value);
-    
+
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -165,32 +167,32 @@ public:
      * @return the SM value (FlagEpsilon1SM=true) or the SM plus new physics
      * value (FlagEpsilon1SM=false) of \f$\varepsilon_1\f$
      */
-    double epsilon1() const;
+    virtual double epsilon1() const;
 
     /**
      * @brief The parameter \f$\varepsilon_2\f$.
      * @return the SM value (FlagEpsilon2SM=true) or the SM plus new physics
      * value (FlagEpsilon2SM=false) of \f$\varepsilon_2\f$
      */
-    double epsilon2() const;
+    virtual double epsilon2() const;
 
     /**
      * @brief The parameter \f$\varepsilon_3\f$.
      * @return the SM value (FlagEpsilon3SM=true) or the SM plus new physics
      * value (FlagEpsilon3SM=false) of \f$\varepsilon_3\f$
      */
-    double epsilon3() const;
- 
+    virtual double epsilon3() const;
+
     /**
      * @brief The parameter \f$\varepsilon_b\f$.
      * @return the SM value (FlagEpsilonbSM=true) or the SM plus new physics
      * value (FlagEpsilonbSM=false) of \f$\varepsilon_b\f$
      */
-    double epsilonb() const;
+    virtual double epsilonb() const;
 
-    
+
     ////////////////////////////////////////////////////////////////////////     
-    
+
     /**
      * @brief @copybrief StandardModel::Mw()
      * @details This function calls EWNPEpsilons::Mw() via
@@ -209,13 +211,13 @@ public:
     virtual double Gamma_Z() const;
 
     virtual double sigma0_had() const;
-    
+
     virtual double sin2thetaEff(const Particle p) const;
-    
+
     virtual double A_f(const Particle p) const;
 
     virtual double AFB(const Particle p) const;
-    
+
     virtual double R0_f(const Particle p) const;
 
     /**
@@ -266,7 +268,7 @@ public:
      * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
      * @return @f$\rho_Z^l@f$
      */
-    complex rhoZ_f_eps(const Particle p, const double eps1, const double epsb=0. ) const;
+    complex rhoZ_f_eps(const Particle p, const double eps1, const double epsb = 0.) const;
 
     /**
      * @brief @copybrief EWSM::rhoZ_l()
@@ -297,7 +299,7 @@ public:
      * @return @f$\kappa_Z^q@f$
      */
     complex kappaZ_f_eps(const Particle p,
-                     const double eps1, const double eps3, const double epsb = 0.) const;
+            const double eps1, const double eps3, const double epsb = 0.) const;
 
     /**
      * @brief @copybrief EWSM::kappaZ_l()
@@ -305,16 +307,24 @@ public:
      * @copydetails EWSM::kappaZ_l()
      */
     virtual complex kappaZ_f(const Particle p) const;
-    
+
     /**
      * @brief The effective quark neutral-current vector coupling @f$g_V^q@f$ for @f$q\neq b,t@f$.
+     * @details The coupling @f$g_V^e@f$ is given in terms of the epsilon
+     * parameters @f$\varepsilon_1@f$ and @f$\varepsilon_3@f$:
+     * @f[
+     * g_V^e(\varepsilon_1,\varepsilon_3)
+     * = \left\{ 1 - 4|Q_e|\,[1+\Delta\kappa'(\varepsilon_1,\varepsilon_3)] s_0^2 \right\}
+     *   g_A^e(\varepsilon_1)\,.
+     * @f]
+     * See @cite Altarelli:1990zd and @cite Altarelli:1991fk.
      * @param[in] q name of a quark (see QCD::quark); @f$q\neq b,t@f$
      * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
      * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
      * @return @f$g_V^q@f$
      */
     complex gV_f_eps(const Particle p,
-                const double eps1, const double eps3, const double epsb = 0.) const;
+            const double eps1, const double eps3, const double epsb = 0.) const;
 
     /**
      * @brief @copybrief EWSM::gVl()
@@ -322,9 +332,16 @@ public:
      * @copydetails EWSM::gVl()
      */
     virtual complex gV_f(const Particle p) const;
-    
+
     /**
      * @brief The effective quark neutral-current axial-vector coupling @f$g_A^q@f$ for @f$q\neq b,t@f$.
+     * @details The coupling @f$g_A^e@f$ is given in terms of the
+     * @f$\varepsilon_1@f$ parameter:
+     * @f[
+     * g_A^e(\varepsilon_1)
+     * = - \frac{1}{2}\left( 1 + \frac{\varepsilon_1}{2} \right).
+     * @f]
+     * See @cite Altarelli:1990zd and @cite Altarelli:1991fk.
      * @param[in] q name of a quark (see QCD::quark); @f$q\neq b,t@f$
      * @param[in] eps1 the @f$\varepsilon_1@f$ parameter
      * @return @f$g_A^q@f$
@@ -338,8 +355,29 @@ public:
      */
     virtual complex gA_f(const Particle p) const;
 
-    ////////////////////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////////////////////////   
+protected:
+
+    double myEpsilon_1; ///< The parameter \f$\varepsilon_1\f$.
+    double myEpsilon_2; ///< The parameter \f$\varepsilon_2\f$.
+    double myEpsilon_3; ///< The parameter \f$\varepsilon_3\f$.
+    double myEpsilon_b; ///< The parameter \f$\varepsilon_b\f$.
+
+    /**
+     * @brief @copybrief Model::setParameter()
+     * @copydetails Model::setParameter()
+     */
+    virtual void setParameter(const std::string name, const double& value);
+
+
+    ////////////////////////////////////////////////////////////////////////         
 private:
+
+    bool FlagEpsilon1SM; ///< A boolean flag that is true if only the SM contribution is considered for \f$\varepsilon_1\f$.
+    bool FlagEpsilon2SM; ///< A boolean flag that is true if only the SM contribution is considered for \f$\varepsilon_2\f$.
+    bool FlagEpsilon3SM; ///< A boolean flag that is true if only the SM contribution is considered for \f$\varepsilon_3\f$.
+    bool FlagEpsilonbSM; ///< A boolean flag that is true if only the SM contribution is considered for \f$\varepsilon_b\f$.
 
     /**
      * @brief The auxiliary function @f$\Delta r_W@f$.
@@ -374,30 +412,7 @@ private:
      * @param[in] eps3 the @f$\varepsilon_3@f$ parameter
      * @return @f$\Delta\kappa'@f$
      */
-    double Delta_kappaPrime(const double eps1, const double eps3) const;    
-    
-    ////////////////////////////////////////////////////////////////////////   
-protected:    
-
-    double myEpsilon_1;///< The parameter \f$\varepsilon_1\f$.
-    double myEpsilon_2;///< The parameter \f$\varepsilon_2\f$.
-    double myEpsilon_3;///< The parameter \f$\varepsilon_3\f$.
-    double myEpsilon_b;///< The parameter \f$\varepsilon_b\f$.
-
-    /**
-     * @brief @copybrief Model::setParameter()
-     * @copydetails Model::setParameter()
-     */
-    virtual void setParameter(const std::string name, const double& value);
-    
-    
-    ////////////////////////////////////////////////////////////////////////         
-private:
-
-    bool FlagEpsilon1SM;///< A boolean flag that is true if only the SM contribution is considered for \f$\varepsilon_1\f$.
-    bool FlagEpsilon2SM;///< A boolean flag that is true if only the SM contribution is considered for \f$\varepsilon_2\f$.
-    bool FlagEpsilon3SM;///< A boolean flag that is true if only the SM contribution is considered for \f$\varepsilon_3\f$.
-    bool FlagEpsilonbSM;///< A boolean flag that is true if only the SM contribution is considered for \f$\varepsilon_b\f$.
+    double Delta_kappaPrime(const double eps1, const double eps3) const;
 
     
 };

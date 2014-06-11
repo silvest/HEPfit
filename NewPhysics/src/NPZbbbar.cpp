@@ -16,29 +16,44 @@ const std::string NPZbbbar::ZbbbarLRVars[NZbbbarVars]
         = {"deltaGLb", "deltaGRb"};
 
 NPZbbbar::NPZbbbar(const bool FlagNPZbbbarLR_in)
-: NPbase(), FlagNPZbbbarLR(FlagNPZbbbarLR_in) {
-    if (FlagNPZbbbarLR) {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGLb", boost::cref(myDeltaGVb)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGRb", boost::cref(myDeltaGAb)));
-    } else {
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGVb", boost::cref(myDeltaGVb)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGAb", boost::cref(myDeltaGAb)));
-    }
+: NPbase(), FlagNPZbbbarLR(FlagNPZbbbarLR_in)
+{
+    setFlagNoApproximateGammaZ(true);
+
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGVb", boost::cref(myDeltaGVb)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGAb", boost::cref(myDeltaGAb)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGLb", boost::cref(myDeltaGLb)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGRb", boost::cref(myDeltaGRb)));
 }
 
-bool NPZbbbar::Update(const std::map<std::string, double>& DPars) {
+bool NPZbbbar::Update(const std::map<std::string, double>& DPars)
+{
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameter(it->first, it->second);
     if (!NPbase::Update(DPars)) return (false);
     return (true);
 }
 
-void NPZbbbar::setParameter(const std::string name, const double& value) {
+bool NPZbbbar::PostUpdate()
+{
+    if (!NPbase::PostUpdate()) return (false);
+    if (FlagNPZbbbarLR) {
+        myDeltaGVb = myDeltaGLb + myDeltaGRb;
+        myDeltaGAb = myDeltaGLb - myDeltaGRb;
+    } else {
+        myDeltaGLb = (myDeltaGVb + myDeltaGAb) / 2.0;
+        myDeltaGRb = (myDeltaGVb - myDeltaGAb) / 2.0;
+    }
+    return (true);
+}
+
+void NPZbbbar::setParameter(const std::string name, const double& value)
+{
     if (FlagNPZbbbarLR) {
         if (name.compare("deltaGLb") == 0)
-            myDeltaGVb = value;
+            myDeltaGLb = value;
         else if (name.compare("deltaGRb") == 0)
-            myDeltaGAb = value;
+            myDeltaGRb = value;
         else
             NPbase::setParameter(name, value);
     } else {
@@ -51,7 +66,8 @@ void NPZbbbar::setParameter(const std::string name, const double& value) {
     }
 }
 
-bool NPZbbbar::CheckParameters(const std::map<std::string, double>& DPars) {
+bool NPZbbbar::CheckParameters(const std::map<std::string, double>& DPars)
+{
     for (int i = 0; i < NZbbbarVars; i++) {
         if (FlagNPZbbbarLR) {
             if (DPars.find(ZbbbarLRVars[i]) == DPars.end()) {
@@ -72,91 +88,61 @@ bool NPZbbbar::CheckParameters(const std::map<std::string, double>& DPars) {
 
 ////////////////////////////////////////////////////////////////////////
 
-complex NPZbbbar::rhoZ_f(const Particle p) const {
+double NPZbbbar::deltaGV_f(const Particle p) const
+{
     if (p.is("BOTTOM"))
-        return ( gA_f(p) * gA_f(p)
-            / p.getIsospin() / p.getIsospin());
+        return myDeltaGVb;
     else
-        return trueSM.rhoZ_f(p);
+        return 0.0;
 }
 
-complex NPZbbbar::kappaZ_f(const Particle p) const {
+double NPZbbbar::deltaGA_f(const Particle p) const
+{
     if (p.is("BOTTOM"))
-        return ( (1.0 - gV_f(p) / gA_f(p))
-            / (4.0 * fabs(p.getCharge()) * sW2()));
+        return myDeltaGAb;
     else
-        return trueSM.kappaZ_f(p);
-}
-
-complex NPZbbbar::gV_f(const Particle p) const {
-    if (p.is("BOTTOM"))
-        return ( trueSM.gV_f(p) + deltaGV_f(p));
-    else
-        return trueSM.gV_f(p);
-}
-
-complex NPZbbbar::gA_f(const Particle p) const {
-    if (p.is("BOTTOM"))
-        return ( trueSM.gA_f(p) + deltaGA_f(p));
-    else
-        return trueSM.gA_f(p);
+        return 0.0;
 }
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPZbbbar::deltaGV_f(const Particle p) const {
-    if (p.is("BOTTOM"))
-        if (FlagNPZbbbarLR)
-            // delta g_L^b + delta g_R^b
-            return ( myDeltaGVb + NPbase::deltaGV_f(p)
-                + myDeltaGAb + NPbase::deltaGA_f(p));
-        else
-            return ( myDeltaGVb + NPbase::deltaGV_f(p));
-    else
-        return NPbase::deltaGV_f(p);
-}
-
-double NPZbbbar::deltaGA_f(const Particle p) const {
-    if (p.is("BOTTOM"))
-        if (FlagNPZbbbarLR)
-            // delta g_L^b + delta g_R^b
-            return ( myDeltaGVb + NPbase::deltaGV_f(p)
-                - myDeltaGAb - NPbase::deltaGA_f(p));
-        else
-            return ( myDeltaGAb + NPbase::deltaGA_f(p));
-    else
-        return NPbase::deltaGA_f(p);
-}
-
-double NPZbbbar::Mw() const {
+double NPZbbbar::Mw() const
+{
     return (StandardModel::Mw());
 }
 
-double NPZbbbar::GammaW() const {
+double NPZbbbar::GammaW() const
+{
     return (StandardModel::GammaW());
 }
 
-double NPZbbbar::Gamma_Z() const {
+double NPZbbbar::Gamma_Z() const
+{
     return (StandardModel::Gamma_Z());
 }
 
-double NPZbbbar::sigma0_had() const {
+double NPZbbbar::sigma0_had() const
+{
     return (StandardModel::sigma0_had());
 }
 
-double NPZbbbar::sin2thetaEff(const Particle p) const {
+double NPZbbbar::sin2thetaEff(const Particle p) const
+{
     return (StandardModel::sin2thetaEff(p));
 }
 
-double NPZbbbar::A_f(const Particle p) const {
+double NPZbbbar::A_f(const Particle p) const
+{
     return (StandardModel::A_f(p));
 }
 
-double NPZbbbar::AFB(const Particle p) const {
+double NPZbbbar::AFB(const Particle p) const
+{
     return (StandardModel::AFB(p));
 }
 
-double NPZbbbar::R0_f(const Particle p) const {
+double NPZbbbar::R0_f(const Particle p) const
+{
     return (StandardModel::R0_f(p));
 }
 

@@ -21,9 +21,9 @@
  * @details This is a Model class containing parameters and functions
  * associated with the dimension-six effective Lagrangian introduced in NPEffective
  * class, where lepton-flavour universality is assumed, but quark-flavour universality
- * is not. 
+ * is not.
  *
-*
+ *
  * @anchor NPEffective2Initialization
  * <h3>Initialization</h3>
  *
@@ -66,49 +66,49 @@
  * <tr>
  *   <td class="mod_name">%cHLp_NP </td>
  *   <td class="mod_symb">\f$ C_{HL}^\prime \f$</td>
- *   <td class="mod_desc">The coefficient of the operator 
+ *   <td class="mod_desc">The coefficient of the operator
  *   \f${\cal O}_{HL}^\prime =i\big(H^\dagger D_\mu\tau^a H\big)
  *   \big(\overline{L}\,\gamma^\mu\tau^a L\big)\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%cHQ1p_NP, %cHQ2p_NP, %cHQ3p_NP </td>
  *   <td class="mod_symb">\f$ C_{HQ_i}^\prime \f$</td>
- *   <td class="mod_desc">The coefficient of the operator 
+ *   <td class="mod_desc">The coefficient of the operator
  *   \f${\cal O}_{HQ_i}^\prime =i\big(H^\dagger D_\mu\tau^a H\big)
  *   \big(\overline{Q_i}\,\gamma^\mu\tau^a Q_i\big)\f$ for @f$i=1,2,3@f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%cHL_NP </td>
  *   <td class="mod_symb">\f$ C_{HL} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator 
+ *   <td class="mod_desc">The coefficient of the operator
  *   \f${\cal O}_{HL} =i\big(H^\dagger D_\mu H\big)
  *   \big(\overline{L}\,\gamma^\mu L\big)\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%cHQ1_NP, %cHQ2_NP, %cHQ3_NP </td>
  *   <td class="mod_symb">\f$ C_{HQ_i} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator 
+ *   <td class="mod_desc">The coefficient of the operator
  *   \f${\cal O}_{HQ_i} =i\big(H^\dagger D_\mu H\big)
  *   \big(\overline{Q_i}\,\gamma^\mu Q_i\big)\f$ for @f$i=1,2,3@f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%cHE_NP </td>
  *   <td class="mod_symb">\f$ C_{HE} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator 
+ *   <td class="mod_desc">The coefficient of the operator
  *   \f${\cal O}_{HE} =i\big(H^\dagger D_\mu H\big)
  *   \big(\overline{E}\,\gamma^\mu E\big)\f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%cHU1_NP, %cHU2_NP, %cHU3_NP </td>
  *   <td class="mod_symb">\f$ C_{HU_i}  \f$</td>
- *   <td class="mod_desc">The coefficient of the operator 
+ *   <td class="mod_desc">The coefficient of the operator
  *   \f${\cal O}_{HU_i} =i\big(H^\dagger D_\mu H\big)
  *   \big(\overline{U_i}\,\gamma^\mu U_i\big)\f$ for @f$i=1,2,3@f$. </td>
  * </tr>
  * <tr>
  *   <td class="mod_name">%cHD1_NP, %cHD2_NP, %cHD3_NP </td>
  *   <td class="mod_symb">\f$ C_{HD_i} \f$</td>
- *   <td class="mod_desc">The coefficient of the operator 
+ *   <td class="mod_desc">The coefficient of the operator
  *   \f${\cal O}_{HD_i} =i\big(H^\dagger D_\mu H\big)
  *   \big(\overline{D_i}\,\gamma^\mu D_i\big)\f$ for @f$i=1,2,3@f$. </td>
  * </tr>
@@ -166,7 +166,7 @@ protected:
      */
     virtual void setParameter(const std::string name, const double& value);
 
-    
+
 };
 
 #endif	/* NPEFFECTIVE2_H */
