@@ -6,29 +6,33 @@
  */
 
 #include <stdexcept>
-#include "NPEffective.h"
+#include "NPEffectiveBS.h"
 
-const std::string NPEffective::NPEffectiveVars[NNPEffectiveVars]
+const std::string NPEffectiveBS::NPEffectiveBSVars[NNPEffectiveBSVars]
         = {"cWB", "cH", "cL1L1", "cL1L2", "cL1L3", "cL2L2", "cL2L3", "cL3L3",
     "cHL1p", "cHL2p", "cHL3p", "cHQ1p", "cHQ2p", "cHQ3p",
     "cHL1", "cHL2", "cHL3", "cHQ1", "cHQ2", "cHQ3", "cHE1", "cHE2", "cHE3",
     "cHU1", "cHU2", "cHU3", "cHD1", "cHD2", "cHD3", "Lambda_NP"};
 
-const std::string NPEffective::NPEffectiveVars_LFU[NNPEffectiveVars_LFU]
+const std::string NPEffectiveBS::NPEffectiveBSVars_LFU[NNPEffectiveBSVars_LFU]
         = {"cWB_NP", "cH_NP", "cLL_NP", "cHLp_NP", "cHL_NP",
     "cHQ1p_NP", "cHQ2p_NP", "cHQ3p_NP", "cHQ1_NP", "cHQ2_NP", "cHQ3_NP",
     "cHU1_NP", "cHU2_NP", "cHU3_NP", "cHD1_NP", "cHD2_NP", "cHD3_NP", "cHE_NP", "Lambda_NP"};
 
-const std::string NPEffective::NPEffectiveVars_LFU_QFU[NNPEffectiveVars_LFU_QFU]
+const std::string NPEffectiveBS::NPEffectiveBSVars_QFU[NNPEffectiveBSVars_QFU]
+        = {"cWB_NP", "cH_NP", "cL1L1", "cL1L2", "cL1L3", "cL2L2", "cL2L3", "cL3L3",
+    "cHL1p", "cHL2p", "cHL3p", "cHQp_NP", "cHL1", "cHL2", "cHL3",
+    "cHQ_NP", "cHE1", "cHE2", "cHE3", "cHU_NP", "cHD_NP", "Lambda_NP"};
+
+const std::string NPEffectiveBS::NPEffectiveBSVars_LFU_QFU[NNPEffectiveBSVars_LFU_QFU]
         = {"cWB_NP", "cH_NP", "cLL_NP", "cHLp_NP", "cHQp_NP",
     "cHL_NP", "cHQ_NP", "cHE_NP", "cHU_NP", "cHD_NP", "Lambda_NP"};
 
-
-NPEffective::NPEffective(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniversal_in)
+NPEffectiveBS::NPEffectiveBS(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniversal_in)
 : NPbase(), FlagLeptonUniversal(FlagLeptonUniversal_in), FlagQuarkUniversal(FlagQuarkUniversal_in)
 {
     if (!FlagLeptonUniversal && FlagQuarkUniversal)
-        throw std::runtime_error("Invalid arguments for NPEffective::NPEffective()");
+        throw std::runtime_error("Invalid arguments for NPEffectiveBS::NPEffectiveBS()");
 
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cWB_NP", boost::cref(cWB)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cH_NP", boost::cref(cH)));
@@ -79,7 +83,7 @@ NPEffective::NPEffective(const bool FlagLeptonUniversal_in, const bool FlagQuark
 
 ////////////////////////////////////////////////////////////////////////
 
-void NPEffective::setParameter(const std::string name, const double& value)
+void NPEffectiveBS::setParameter(const std::string name, const double& value)
 {
     if (name.compare("cWB_NP") == 0)
         cWB = value;
@@ -180,35 +184,43 @@ void NPEffective::setParameter(const std::string name, const double& value)
         NPbase::setParameter(name, value);
 }
 
-bool NPEffective::CheckParameters(const std::map<std::string, double>& DPars)
+bool NPEffectiveBS::CheckParameters(const std::map<std::string, double>& DPars)
 {
     if (FlagLeptonUniversal && FlagQuarkUniversal) {
-        for (int i = 0; i < NNPEffectiveVars_LFU_QFU; i++) {
-            if (DPars.find(NPEffectiveVars_LFU_QFU[i]) == DPars.end()) {
-                std::cout << "ERROR: Missing mandatory NPEffective_LFU_QFU parameter "
-                        << NPEffectiveVars_LFU_QFU[i] << std::endl;
+        for (int i = 0; i < NNPEffectiveBSVars_LFU_QFU; i++) {
+            if (DPars.find(NPEffectiveBSVars_LFU_QFU[i]) == DPars.end()) {
+                std::cout << "ERROR: Missing mandatory NPEffectiveBS_LFU_QFU parameter "
+                        << NPEffectiveBSVars_LFU_QFU[i] << std::endl;
                 return false;
             }
         }
     } else if (FlagLeptonUniversal && !FlagQuarkUniversal) {
-        for (int i = 0; i < NNPEffectiveVars_LFU; i++) {
-            if (DPars.find(NPEffectiveVars_LFU[i]) == DPars.end()) {
-                std::cout << "ERROR: Missing mandatory NPEffective_LFU parameter "
-                        << NPEffectiveVars_LFU[i] << std::endl;
+        for (int i = 0; i < NNPEffectiveBSVars_LFU; i++) {
+            if (DPars.find(NPEffectiveBSVars_LFU[i]) == DPars.end()) {
+                std::cout << "ERROR: Missing mandatory NPEffectiveBS_LFU parameter "
+                        << NPEffectiveBSVars_LFU[i] << std::endl;
+                return false;
+            }
+        }
+    } else if (!FlagLeptonUniversal && FlagQuarkUniversal) {
+        for (int i = 0; i < NNPEffectiveBSVars_QFU; i++) {
+            if (DPars.find(NPEffectiveBSVars_QFU[i]) == DPars.end()) {
+                std::cout << "ERROR: Missing mandatory NPEffectiveBS_QFU parameter "
+                        << NPEffectiveBSVars_QFU[i] << std::endl;
                 return false;
             }
         }
     } else if (!FlagLeptonUniversal && !FlagQuarkUniversal) {
-        for (int i = 0; i < NNPEffectiveVars; i++) {
-            if (DPars.find(NPEffectiveVars[i]) == DPars.end()) {
-                std::cout << "ERROR: Missing mandatory NPEffective parameter "
-                        << NPEffectiveVars[i] << std::endl;
+        for (int i = 0; i < NNPEffectiveBSVars; i++) {
+            if (DPars.find(NPEffectiveBSVars[i]) == DPars.end()) {
+                std::cout << "ERROR: Missing mandatory NPEffectiveBS parameter "
+                        << NPEffectiveBSVars[i] << std::endl;
                 return false;
             }
         }
     } else
-        throw std::runtime_error("Error in NPEffective::CheckParameters()");
-    
+        throw std::runtime_error("Error in NPEffectiveBS::CheckParameters()");
+
     return (NPbase::CheckParameters(DPars));
 }
 
@@ -216,7 +228,7 @@ bool NPEffective::CheckParameters(const std::map<std::string, double>& DPars)
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPEffective::v() const
+double NPEffectiveBS::v() const
 {
     //return ( sqrt( (1.0 - (cL1L2 - cHL1p - cHL2p)/sqrt(2.0)/GF/LambdaNP/LambdaNP)
     //               /sqrt(2.0)/GF ) );
@@ -225,14 +237,14 @@ double NPEffective::v() const
     return trueSM.v();
 }
 
-double NPEffective::Mw_tree() const
+double NPEffectiveBS::Mw_tree() const
 {
     double GF0 = GF * (1.0 - DeltaGF());
     double tmp = 4.0 * M_PI * ale / sqrt(2.0) / GF0 / Mz / Mz;
     return ( Mz / sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp)));
 }
 
-double NPEffective::DeltaGF() const
+double NPEffectiveBS::DeltaGF() const
 {
     double ratio = v() * v() / LambdaNP / LambdaNP;
 
@@ -242,7 +254,7 @@ double NPEffective::DeltaGF() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPEffective::GammaW() const
+double NPEffectiveBS::GammaW() const
 {
     double Gamma_W = trueSM.GammaW();
 
@@ -263,7 +275,7 @@ double NPEffective::GammaW() const
 
 ////////////////////////////////////////////////////////////////////////     
 
-double NPEffective::obliqueS() const
+double NPEffectiveBS::obliqueS() const
 {
     double ratio = v() * v() / LambdaNP / LambdaNP;
     double sW_SM = sqrt(trueSM.sW2()); /* This has to be the SM value. */
@@ -272,14 +284,14 @@ double NPEffective::obliqueS() const
     return ( 4.0 * sW_SM * cW_SM * cWB / alphaMz() * ratio);
 }
 
-double NPEffective::obliqueT() const
+double NPEffectiveBS::obliqueT() const
 {
     double ratio = v() * v() / LambdaNP / LambdaNP;
 
     return ( -cH / 2.0 / alphaMz() * ratio);
 }
 
-double NPEffective::obliqueU() const
+double NPEffectiveBS::obliqueU() const
 {
     return 0.0;
 }
@@ -287,12 +299,12 @@ double NPEffective::obliqueU() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPEffective::deltaGV_f(const Particle p) const
+double NPEffectiveBS::deltaGV_f(const Particle p) const
 {
     return ( deltaGL_f_tmp(p) + deltaGR_f_tmp(p) + NPbase::deltaGV_f(p));
 }
 
-double NPEffective::deltaGA_f(const Particle p) const
+double NPEffectiveBS::deltaGA_f(const Particle p) const
 {
     return ( deltaGL_f_tmp(p) - deltaGR_f_tmp(p) + NPbase::deltaGA_f(p));
 }
@@ -300,7 +312,7 @@ double NPEffective::deltaGA_f(const Particle p) const
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPEffective::deltaGL_f_tmp(const Particle p) const
+double NPEffectiveBS::deltaGL_f_tmp(const Particle p) const
 {
     double ratio = v() * v() / LambdaNP / LambdaNP;
     if (p.is("NEUTRINO_1"))
@@ -327,10 +339,10 @@ double NPEffective::deltaGL_f_tmp(const Particle p) const
         return ( -(cHQ2p + cHQ2) / 2.0 * ratio);
     if (p.is("BOTTOM"))
         return ( -(cHQ3p + cHQ3) / 2.0 * ratio);
-    throw std::runtime_error("Error in NPEffective::deltaGL_f()");
+    throw std::runtime_error("Error in NPEffectiveBS::deltaGL_f()");
 }
 
-double NPEffective::deltaGR_f_tmp(const Particle p) const
+double NPEffectiveBS::deltaGR_f_tmp(const Particle p) const
 {
     double ratio = v() * v() / LambdaNP / LambdaNP;
     if (p.is("NEUTRINO_1"))
@@ -357,7 +369,7 @@ double NPEffective::deltaGR_f_tmp(const Particle p) const
         return ( -cHD2 / 2.0 * ratio);
     if (p.is("BOTTOM"))
         return ( -cHD3 / 2.0 * ratio);
-    throw std::runtime_error("Error in NPEffective::deltaGL_f()");
+    throw std::runtime_error("Error in NPEffectiveBS::deltaGL_f()");
 }
 
 

@@ -5,22 +5,22 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef NPEFFECTIVE_H
-#define	NPEFFECTIVE_H
+#ifndef NPEFFECTIVEBS_H
+#define	NPEFFECTIVEBS_H
 
 #include <string.h>
 #include <stdexcept>
 #include "NPbase.h"
 
 /**
- * @class NPEffective
+ * @class NPEffectiveBS
  * @brief A model class for new physics in the form the
  * dimension-six effective Lagrangian in the basis of Barbieri and Strumia \cite Barbieri:1999tm.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions
- * associated with the dimension-six effective Lagrangian introduced in NPEffective
+ * associated with the dimension-six effective Lagrangian introduced in NPEffectiveBS
  * class.
  * 
  * @f[
@@ -55,23 +55,23 @@
  * to @f$\mathcal{O}_{HD}@f$. 
  *
  * 
- * * @anchor NPEffective2Initialization
+ * * @anchor NPEffectiveBSInitialization
  * <h3>Initialization</h3>
  *
  * After creating an instance of the current class with the constructor
- * NPEffective2(), it is required to call the initialization method
- * InitializeModel(), inherited from NPEffective class.
+ * NPEffectiveBS(), it is required to call the initialization method
+ * InitializeModel(), inherited from NPEffectiveBS class.
  * In the Monte Carlo run, the constructor as well as the initialization
  * method are called in InputParser::ReadParameters().
  *
  *
- * @anchor NPEffectiveParameters
+ * @anchor NPEffectiveBSParameters
  * <h3>%Model parameters</h3>
  *
- * The model parameters of %NPEffective are summarized below:
+ * The model parameters of %NPEffectiveBS are summarized below:
  *
  *
- *  * <table class="model">
+ * <table class="model">
  * <tr>
  *   <th>Label</th>
  *   <th>LaTeX symbol</th>
@@ -235,13 +235,13 @@
  * </table>
  *
  *
- * @anchor NPEffectiveFlags
+ * @anchor NPEffectiveBSFlags
  * <h3>%Model flags</h3>
  *
  * There is no model flag in the current class.
  *
  *
- * @anchor NPEffectiveFunctions
+ * @anchor NPEffectiveBSFunctions
  * <h3>Important member functions</h3>
  *
  * Compared to the base class NPbase, the functions for the following quantities
@@ -259,50 +259,62 @@
  * and also the get methods getCoeff() to retrieve the value of each coefficient.
  * 
  */
-class NPEffective : public NPbase {
+class NPEffectiveBS : public NPbase {
 public:
 
     /**
-     *　@brief The number of the model parameters in %NPEffective.
+     *　@brief The number of the model parameters in %NPEffectiveBS.
      */
-    static const int NNPEffectiveVars = 30;
+    static const int NNPEffectiveBSVars = 30;
 
     /**
-     *　@brief The number of the model parameters in %NPEffective with lepton
+     *　@brief The number of the model parameters in %NPEffectiveBS with lepton
      * flavour universality.
      */
-    static const int NNPEffectiveVars_LFU = 19;
-    
+    static const int NNPEffectiveBSVars_LFU = 19;
+
     /**
-     *　@brief The number of the model parameters in %NPEffective with lepton
+     *　@brief The number of the model parameters in %NPEffectiveBS with quark
+     * flavour universality.
+     */
+    static const int NNPEffectiveBSVars_QFU = 22;
+
+    /**
+     *　@brief The number of the model parameters in %NPEffectiveBS with lepton
      * and quark flavour universalities.
      */
-    static const int NNPEffectiveVars_LFU_QFU = 11;
+    static const int NNPEffectiveBSVars_LFU_QFU = 11;
 
     /**
      * @brief A string array containing the labels of the model parameters in
-     * %NPEffective.
+     * %NPEffectiveBS.
      */
-    static const std::string NPEffectiveVars[NNPEffectiveVars];
+    static const std::string NPEffectiveBSVars[NNPEffectiveBSVars];
 
     /**
      * @brief A string array containing the labels of the model parameters in
-     * %NPEffective with lepton flavour universality.
+     * %NPEffectiveBS with lepton flavour universality.
      */
-    static const std::string NPEffectiveVars_LFU[NNPEffectiveVars_LFU];
-    
+    static const std::string NPEffectiveBSVars_LFU[NNPEffectiveBSVars_LFU];
+
     /**
      * @brief A string array containing the labels of the model parameters in
-     * %NPEffective with lepton and quark flavour universalities.
+     * %NPEffectiveBS with quark flavour universality.
      */
-    static const std::string NPEffectiveVars_LFU_QFU[NNPEffectiveVars_LFU_QFU];
+    static const std::string NPEffectiveBSVars_QFU[NNPEffectiveBSVars_QFU];
+
+    /**
+     * @brief A string array containing the labels of the model parameters in
+     * %NPEffectiveBS with lepton and quark flavour universalities.
+     */
+    static const std::string NPEffectiveBSVars_LFU_QFU[NNPEffectiveBSVars_LFU_QFU];
 
     /**
      * @brief Constructor.
      * @param[in] FlagLeptonUniversal_in
      * @param[in] FlagQuarkUniversal_in
      */
-    NPEffective(const bool FlagLeptonUniversal_in = false, const bool FlagQuarkUniversal_in = false);
+    NPEffectiveBS(const bool FlagLeptonUniversal_in = false, const bool FlagQuarkUniversal_in = false);
 
     /**
      * @brief @copybrief Model::CheckParameters()
@@ -540,5 +552,5 @@ private:
 
 };
 
-#endif	/* NPEFFECTIVE_H */
+#endif	/* NPEFFECTIVEBS_H */
 
