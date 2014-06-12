@@ -8,6 +8,7 @@
 #include <NPZbbbar.h>
 #include <NPZbbbarLinearized.h>
 #include <NPEffectiveBS.h>
+#include <NPEffectiveGIMR.h>
 #include <GeneralSUSY.h>
 #include <pMSSM.h>
 #include <SUSYMassInsertion.h>
@@ -32,6 +33,7 @@ ModelFactory::ModelFactory()
     modelFactory["NPEffectiveBS_LFU"] = boost::bind(boost::factory<NPEffectiveBS*>(), true, false);
     modelFactory["NPEffectiveBS_QFU"] = boost::bind(boost::factory<NPEffectiveBS*>(), false, true);
     modelFactory["NPEffectiveBS_LFU_QFU"] = boost::bind(boost::factory<NPEffectiveBS*>(), true, true);
+    modelFactory["NPEffectiveGIMR"] = boost::factory<NPEffectiveGIMR*>();
     modelFactory["MFV"] = boost::factory<MFV*>();
     modelFactory["GeneralSUSY"] = boost::factory<GeneralSUSY*>();
     modelFactory["pMSSM"] = boost::factory<pMSSM*>();

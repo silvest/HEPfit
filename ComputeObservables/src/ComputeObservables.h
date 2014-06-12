@@ -19,6 +19,7 @@
 #include <NPZbbbar.h>
 #include <NPZbbbarLinearized.h>
 #include <NPEffectiveBS.h>
+#include <NPEffectiveGIMR.h>
 #include <CorrelatedGaussianObservables.h>
 #include <ModelParameter.h>
 #include <Model.h>
