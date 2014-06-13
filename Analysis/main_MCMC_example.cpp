@@ -39,7 +39,7 @@ int main(int argc, char** argv)
         /* model configuration file provides the values with errors for the    */
         /* mandatory model parameters, as well as the list of observables,     */
         /* observables2D, correlated Gaussian observables.                     */
-        / * See documentation for details.                         */
+        /* See documentation for details.                                      */
         std::string ModelConf = argv[1];
         
         /* Define the Monte Carlo configuration file.                         */
