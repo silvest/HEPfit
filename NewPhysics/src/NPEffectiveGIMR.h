@@ -16,16 +16,32 @@
 class NPEffectiveGIMR : public NPbase {
 public:
 
-    static const int NNPEffectiveGIMRVars = 88;
+    static const int NNPEffectiveGIMRVars = 89;  /* Only a subset of the coefficients! */
     static const std::string NPEffectiveGIMRVars[NNPEffectiveGIMRVars];
 
     NPEffectiveGIMR();
+
+    virtual bool PostUpdate();
 
     /**
      * @brief @copybrief Model::CheckParameters()
      * @copydetails Model::CheckParameters()
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
+
+    
+    ////////////////////////////////////////////////////////////////////////
+
+    virtual double DeltaGF() const;
+    virtual double obliqueS() const;
+    virtual double obliqueT() const;
+    virtual double obliqueU() const;
+    virtual double Mw() const;
+    virtual double GammaW() const;
+    virtual double deltaGV_f(const Particle p) const;
+    virtual double deltaGA_f(const Particle p) const;
+    double deltaGL_f(const Particle p) const;
+    double deltaGR_f(const Particle p) const;
 
     ////////////////////////////////////////////////////////////////////////
 protected:
@@ -58,6 +74,12 @@ protected:
     double CdH_11r, CdH_12r, CdH_13r, CdH_22r, CdH_23r, CdH_33r;
     double CdH_11i, CdH_12i, CdH_13i, CdH_22i, CdH_23i, CdH_33i;
     double CLL_1221, CLL_2112;
+    double LambdaNP;
+
+    double v2_over_LambdaNP2;
+    double cW_tree, sW_tree;
+    double cW2_tree, sW2_tree;
+
 
     ////////////////////////////////////////////////////////////////////////
 private:
