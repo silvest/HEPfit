@@ -25,12 +25,13 @@ using namespace gslpp;
  */
 class Meson : public Particle {
 public:
-    
+
     /**
      * @brief The default constructor.
      */
-    Meson() 
-    {};
+    Meson()
+    {
+    };
 
     /**
      * @brief Constructor.
@@ -44,7 +45,7 @@ public:
      * @brief The default destructor.
      */
     virtual ~Meson();
-    
+
     /**
      * @brief A get method for the lifetime of the meson.
      * @return the lifetime of the meson in \f$ \mathrm{ps}^{-1} \f$
@@ -80,7 +81,7 @@ public:
     {
         this->decayconst = decayconst;
     }
-    
+
     /**
      * @brief A method to compute the width of the meson from its lifetime.
      * @return the width of the meson in GeV
@@ -88,8 +89,8 @@ public:
     double computeWidth() const;
 
 private:
-    double decayconst;///< The decay constant of the meson.
-    double lifetime;///< The lifetime of the meson. 
+    double decayconst; ///< The decay constant of the meson.
+    double lifetime; ///< The lifetime of the meson.
 
 };
 

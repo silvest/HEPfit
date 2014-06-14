@@ -414,7 +414,7 @@ private:
      */
     double Delta_kappaPrime(const double eps1, const double eps3) const;
 
-    
+
 };
 
 #endif	/* NPEPSILONS_H */

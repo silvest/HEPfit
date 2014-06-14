@@ -51,7 +51,8 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
-    const StandardModel& getSM() const {
+    const StandardModel& getSM() const
+    {
         return SM;
     }
 
@@ -62,7 +63,8 @@ public:
      * is set to false in the constructor EWSMcache() by default.
      * @param[in] FlagDebug a boolean flag for debugging
      */
-    void setFlagDebug(bool FlagDebug) {
+    void setFlagDebug(bool FlagDebug)
+    {
         this->FlagDebug = FlagDebug;
     }
 
@@ -76,7 +78,8 @@ public:
      *
      * @sa @ref StandardModelFlags "the description of the StandardModel flags"
      */
-    void setFlagCacheInEWSMcache(bool FlagCacheInEWSMcache) {
+    void setFlagCacheInEWSMcache(bool FlagCacheInEWSMcache)
+    {
         this->FlagCacheInEWSMcache = FlagCacheInEWSMcache;
     }
 
@@ -98,7 +101,8 @@ public:
      * @brief A get method to access the member object of type PVfunctions.
      * @return the object of type PVfunctions in the current class
      */
-    const PVfunctions getPV() const {
+    const PVfunctions getPV() const
+    {
         return PV;
     }
 
@@ -106,7 +110,8 @@ public:
      * @brief A get method to access the member object of type Polylogarithms. 
      * @return the object of type Polylogarithms in the current class
      */
-    const Polylogarithms getPolyLog() const {
+    const Polylogarithms getPolyLog() const
+    {
         return PolyLog;
     }
 
@@ -114,7 +119,8 @@ public:
      * @brief A get method to access the member object of type ClausenFunctions. 
      * @return the object of type ClausenFunctions in the current class
      */
-    const ClausenFunctions getClausen() const {
+    const ClausenFunctions getClausen() const
+    {
         return Clausen;
     }
 
@@ -126,7 +132,8 @@ public:
      * @brief A get method to access the value of the zeta function @f$\zeta(2)@f$.
      * @return @f$\zeta(2)@f$
      */
-    double getZeta2() const {
+    double getZeta2() const
+    {
         return zeta2;
     }
 
@@ -134,7 +141,8 @@ public:
      * @brief A get method to access the value of the zeta function @f$\zeta(3)@f$.
      * @return @f$\zeta(3)@f$
      */
-    double getZeta3() const {
+    double getZeta3() const
+    {
         return zeta3;
     }
 
@@ -142,7 +150,8 @@ public:
      * @brief A get method to access the value of the zeta function @f$\zeta(4)@f$.
      * @return @f$\zeta(4)@f$
      */
-    double getZeta4() const {
+    double getZeta4() const
+    {
         return zeta4;
     }
 
@@ -150,7 +159,8 @@ public:
      * @brief A get method to access the value of the zeta function @f$\zeta(5)@f$.
      * @return @f$\zeta(5)@f$
      */
-    double getZeta5() const {
+    double getZeta5() const
+    {
         return zeta5;
     }
 
@@ -165,7 +175,8 @@ public:
      * which appears in three-loop amplitudes. 
      * @return @f$S_2@f$
      */
-    double getS2() const {
+    double getS2() const
+    {
         return S2;
     }
 
@@ -181,7 +192,8 @@ public:
      * which appears in three-loop amplitudes.
      * @return @f$D_3@f$
      */
-    double getD3() const {
+    double getD3() const
+    {
         return D3;
     }
 
@@ -197,7 +209,8 @@ public:
      * which appears in three-loop amplitudes. 
      * @return @f$B_4@f$
      */
-    double getB4() const {
+    double getB4() const
+    {
         return B4;
     }
 
@@ -205,7 +218,8 @@ public:
      * @brief A get method to access the constant @f$\ln 2@f$.
      * @return @f$\ln 2@f$
      */
-    double getLog2() const {
+    double getLog2() const
+    {
         return log2;
     }
 
@@ -240,7 +254,8 @@ public:
      * @f$(m_t^{\mathrm{pole}})^2@f$ is returned.
      */
     double mf2(const Particle p, const double mu = 0.,
-            const orders order = FULLNNLO) const {
+            const orders order = FULLNNLO) const
+    {
         double mf1 = mf(p, mu, order);
         return ( mf1 * mf1);
     }
@@ -382,7 +397,8 @@ public:
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$Q_l@f$
      */
-    double Q_f(const Particle p) const {
+    double Q_f(const Particle p) const
+    {
         return p.getCharge();
     }
 
@@ -391,7 +407,8 @@ public:
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$I_3^l@f$
      */
-    double I3_f(const Particle p) const {
+    double I3_f(const Particle p) const
+    {
         return p.getIsospin();
     }
 
@@ -402,7 +419,8 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$v_l@f$
      */
-    double v_f(const Particle p, const double Mw_i) const {
+    double v_f(const Particle p, const double Mw_i) const
+    {
         return ( a_f(p) - 2.0 * Q_f(p) * SM.sW2(Mw_i));
     }
 
@@ -412,7 +430,8 @@ public:
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$a_l@f$
      */
-    double a_f(const Particle p) const {
+    double a_f(const Particle p) const
+    {
         return ( p.getIsospin());
     }
 
@@ -422,7 +441,8 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\sigma_l@f$
      */
-    double sigma_f(const Particle p, const double Mw_i) const {
+    double sigma_f(const Particle p, const double Mw_i) const
+    {
         return ( 1.0 - 2.0 * fabs(Q_f(p)) * SM.sW2(Mw_i));
     }
 
@@ -432,7 +452,8 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta_l@f$
      */
-    double delta_f(const Particle p, const double Mw_i) const {
+    double delta_f(const Particle p, const double Mw_i) const
+    {
         return ( -2.0 * Q_f(p) * SM.sW2(Mw_i));
     }
 
@@ -442,7 +463,8 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$ f = \sqrt{2}G_\mu M_Z^2 s_W^2 c_W^2/(\pi\alpha)@f$.
      */
-    double f_AlphaToGF(const double Mw_i) const {
+    double f_AlphaToGF(const double Mw_i) const
+    {
         return ( sqrt(2.0) * SM.getGF() * pow(SM.getMz(), 2.0) * SM.sW2(Mw_i) * SM.cW2(Mw_i) / M_PI / SM.getAle());
     }
 
@@ -450,7 +472,8 @@ public:
      * @brief The quantity @f$X_t@f$ with the coupling @f$G_\mu@f$.
      * @return @f$X_t^{G_\mu}=G_\mu m_t^2/(8\sqrt{2}\pi^2)@f$
      */
-    double Xt_GF() const {
+    double Xt_GF() const
+    {
         return ( SM.getGF() * SM.getMtpole() * SM.getMtpole() / 8.0 / sqrt(2.0) / M_PI / M_PI);
     }
 
@@ -461,7 +484,8 @@ public:
      * 
      * @sa Xt_GF() and f_AlphaToGF()
      */
-    double Xt_alpha(const double Mw_i) const {
+    double Xt_alpha(const double Mw_i) const
+    {
         return ( Xt_GF() / f_AlphaToGF(Mw_i));
     }
 
@@ -471,7 +495,8 @@ public:
      * @param[in] order order in %QCD (see #orders)
      * @return @f$\alpha_s(\mu)@f$ at the given order
      */
-    double Als(const double mu, const orders order) const {
+    double Als(const double mu, const orders order) const
+    {
         return ( SM.Als(mu, order));
     }
 
@@ -482,7 +507,8 @@ public:
      * @attention The constant value @f$\alpha_s(m_t^2)=0.1074432788@f$ is
      * returned when the flag #FlagDebug is set to true.
      */
-    double alsMt() const {
+    double alsMt() const
+    {
         if (FlagDebug)
             return ( 0.1074432788); // for debug
         else
@@ -493,7 +519,8 @@ public:
      * @brief The constant @f$\Phi@f$ for two-loop %QCD contribution.
      * @return @f$\Phi = {\rm arcsin}(\sqrt{r})@f$ with @f$r = M_Z^2/(4m_t^2)@f$
      */
-    double Phi_QCD2() const {
+    double Phi_QCD2() const
+    {
         double r_QCD2 = SM.getMz() * SM.getMz() / 4.0 / SM.getMtpole() / SM.getMtpole();
         return ( asin(sqrt(r_QCD2)));
     }
@@ -502,7 +529,8 @@ public:
      * @brief The constant @f$\gamma@f$ for two-loop %QCD contribution. 
      * @return @f$\gamma = \ln (2\sqrt{r})@f$ with @f$r = M_Z^2/(4m_t^2)@f$
      */
-    double gamma_QCD2() const {
+    double gamma_QCD2() const
+    {
         double r_QCD2 = SM.getMz() * SM.getMz() / 4.0 / SM.getMtpole() / SM.getMtpole();
         return ( log(2.0 * sqrt(r_QCD2)));
     }
@@ -511,7 +539,8 @@ public:
      * @brief The constant @f$h@f$ for two-loop %QCD contribution.
      * @return @f$h= \ln(2\sqrt{1-r})@f$ with @f$r = M_Z^2/(4m_t^2)@f$
      */
-    double h_QCD2() const {
+    double h_QCD2() const
+    {
         double r_QCD2 = SM.getMz() * SM.getMz() / 4.0 / SM.getMtpole() / SM.getMtpole();
         return ( log(2.0 * sqrt(1.0 - r_QCD2)));
     }
@@ -522,7 +551,8 @@ public:
      * @return @f$\mathrm{Re}[\ln (1-e^{2i\Phi}) - 2\ln (1-e^{4i\Phi})]@f$ with
      * @f$\Phi=@f$Phi_QCD2()
      */
-    double logV1primeAndA1prime() const {
+    double logV1primeAndA1prime() const
+    {
         gsl_complex OneMinusE2Iphi = gsl_complex_rect(1.0 - cos(2.0 * Phi_QCD2()),
                 -sin(2.0 * Phi_QCD2()));
         gsl_complex OneMinusE4Iphi = gsl_complex_rect(1.0 - cos(4.0 * Phi_QCD2()),
@@ -537,7 +567,8 @@ public:
      * @f$\Phi=\mathrm{arcsin}\big(M_Z/(2m_t)\big)@f$.
      * @return @f${\rm Cl}_2(2 \Phi)@f$
      */
-    double Cl2_2Phi() const {
+    double Cl2_2Phi() const
+    {
         double Phi = asin(SM.getMz() / 2.0 / SM.getMtpole());
         return ( Clausen.Cl2(2.0 * Phi));
     }
@@ -548,7 +579,8 @@ public:
      * @f$\Phi=\mathrm{arcsin}\big(M_Z/(2m_t)\big)@f$.
      * @return @f${\rm Cl}_2(4 \Phi)@f$
      */
-    double Cl2_4Phi() const {
+    double Cl2_4Phi() const
+    {
         double Phi = asin(SM.getMz() / 2.0 / SM.getMtpole());
         return ( Clausen.Cl2(4.0 * Phi));
     }
@@ -559,7 +591,8 @@ public:
      * @f$\Phi=\mathrm{arcsin}\big(M_Z/(2m_t)\big)@f$.
      * @return @f${\rm Cl}_3(2 \Phi)@f$
      */
-    double Cl3_2Phi() const {
+    double Cl3_2Phi() const
+    {
         double Phi = asin(SM.getMz() / 2.0 / SM.getMtpole());
         return ( Clausen.Cl3(2.0 * Phi));
     }
@@ -570,7 +603,8 @@ public:
      * @f$\Phi=\mathrm{arcsin}\big(\sqrt{M_Z/(2m_t)}\big)@f$.
      * @return @f${\rm Cl}_3(4 \Phi)@f$
      */
-    double Cl3_4Phi() const {
+    double Cl3_4Phi() const
+    {
         double Phi = asin(SM.getMz() / 2.0 / SM.getMtpole());
         return ( Clausen.Cl3(4.0 * Phi));
     }
@@ -1099,7 +1133,8 @@ private:
      * function always returns false.
      */
     bool CacheCheck(const double cache[],
-            const int NumPar, const double params[]) const {
+            const int NumPar, const double params[]) const
+    {
         if (!FlagCacheInEWSMcache) return false;
         bool bCache = true;
         for (int i = 0; i < NumPar; ++i)
@@ -1123,7 +1158,8 @@ private:
      * function does not modify cache[].
      */
     void newCacheForDouble(double cache[], const int NumPar,
-            const double params[], const double newResult) const {
+            const double params[], const double newResult) const
+    {
         if (!FlagCacheInEWSMcache) return;
         for (int i = 0; i < NumPar; ++i)
             cache[i] = params[i];
@@ -1147,7 +1183,8 @@ private:
      * function does not modify cache[].
      */
     void newCacheForComplex(double cache[], const int NumPar,
-            const double params[], const complex newResult) const {
+            const double params[], const complex newResult) const
+    {
         if (!FlagCacheInEWSMcache) return;
         for (int i = 0; i < NumPar; ++i)
             cache[i] = params[i];

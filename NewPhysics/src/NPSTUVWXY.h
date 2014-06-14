@@ -169,7 +169,8 @@ public:
      * @brief The oblique parameter \f$\hat{S}\f$.
      * @return the value of \f$\displaystyle\hat{S}\f$
      */
-    virtual double obliqueShat() const {
+    virtual double obliqueShat() const
+    {
         return myObliqueShat;
     }
 
@@ -177,7 +178,8 @@ public:
      * @brief The oblique parameter \f$\hat{T}\f$.
      * @return the value of \f$\displaystyle\hat{T}\f$
      */
-    virtual double obliqueThat() const {
+    virtual double obliqueThat() const
+    {
         return myObliqueThat;
     }
 
@@ -185,7 +187,8 @@ public:
      * @brief The oblique parameter \f$\hat{U}\f$.
      * @return the value of \f$\displaystyle\hat{U}\f$
      */
-    virtual double obliqueUhat() const {
+    virtual double obliqueUhat() const
+    {
         return myObliqueUhat;
     }
 
@@ -193,7 +196,8 @@ public:
      * @brief The oblique parameter \f$V\f$.
      * @return the value of \f$V\f$
      */
-    virtual double obliqueV() const {
+    virtual double obliqueV() const
+    {
         return myObliqueV;
     }
 
@@ -201,7 +205,8 @@ public:
      * @brief The oblique parameter \f$W\f$.
      * @return the value of \f$W\f$
      */
-    virtual double obliqueW() const {
+    virtual double obliqueW() const
+    {
         return myObliqueW;
     }
 
@@ -209,7 +214,8 @@ public:
      * @brief The oblique parameter \f$X\f$.
      * @return the value of \f$X\f$
      */
-    virtual double obliqueX() const {
+    virtual double obliqueX() const
+    {
         return myObliqueX;
     }
 
@@ -217,7 +223,8 @@ public:
      * @brief The oblique parameter \f$Y\f$.
      * @return the value of \f$Y\f$
      */
-    virtual double obliqueY() const {
+    virtual double obliqueY() const
+    {
         return myObliqueY;
     }
 

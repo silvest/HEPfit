@@ -85,7 +85,8 @@ public:
      * and @f$G_{\mu,\mathrm{SM}}@f$ is the Fermi constant in the SM.
      * @return @f$\Delta G@f$
      */
-    virtual double DeltaGF() const {
+    virtual double DeltaGF() const
+    {
         return 0.;
     }
 
@@ -95,7 +96,8 @@ public:
      * @brief The oblique parameter \f$S\f$.
      * @return the value of @f$S@f$
      */
-    virtual double obliqueS() const {
+    virtual double obliqueS() const
+    {
         return 0.;
     }
 
@@ -103,7 +105,8 @@ public:
      * @brief The oblique parameter \f$T\f$.
      * @return the value of @f$T@f$
      */
-    virtual double obliqueT() const {
+    virtual double obliqueT() const
+    {
         return 0.;
     }
 
@@ -111,7 +114,8 @@ public:
      * @brief The oblique parameter \f$U\f$.
      * @return the value of @f$U@f$
      */
-    virtual double obliqueU() const {
+    virtual double obliqueU() const
+    {
         return 0.;
     }
 

@@ -13,13 +13,15 @@
 #define EW_SUBLEADING_ALPHA2
 
 EWSMTwoLoopEW::EWSMTwoLoopEW(const EWSMcache& cache_i)
-: cache(cache_i), myOneLoopEW(cache_i) {
+: cache(cache_i), myOneLoopEW(cache_i)
+{
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSMTwoLoopEW::DeltaAlpha_l(const double s) const {
+double EWSMTwoLoopEW::DeltaAlpha_l(const double s) const
+{
     double xl[3] = {s / cache.mf(cache.getSM().getLeptons(StandardModel::ELECTRON)) / cache.mf(cache.getSM().getLeptons(StandardModel::ELECTRON)),
         s / cache.mf(cache.getSM().getLeptons(StandardModel::MU)) / cache.mf(cache.getSM().getLeptons(StandardModel::MU)),
         s / cache.mf(cache.getSM().getLeptons(StandardModel::TAU)) / cache.mf(cache.getSM().getLeptons(StandardModel::TAU))};
@@ -44,11 +46,13 @@ double EWSMTwoLoopEW::DeltaAlpha_l(const double s) const {
             *(twoLoop[0] + twoLoop[1] + twoLoop[2]));
 }
 
-double EWSMTwoLoopEW::DeltaAlpha_t(const double s) const {
+double EWSMTwoLoopEW::DeltaAlpha_t(const double s) const
+{
     return (0.0);
 }
 
-double EWSMTwoLoopEW::DeltaRho(const double Mw_i) const {
+double EWSMTwoLoopEW::DeltaRho(const double Mw_i) const
+{
     double Mz = cache.getSM().getMz();
     double Mw = Mw_i;
     double sW2 = cache.getSM().sW2(Mw);
@@ -74,7 +78,8 @@ double EWSMTwoLoopEW::DeltaRho(const double Mw_i) const {
     return DeltaRho;
 }
 
-double EWSMTwoLoopEW::DeltaR_rem(const double Mw_i) const {
+double EWSMTwoLoopEW::DeltaR_rem(const double Mw_i) const
+{
     double DeltaRrem = 0.0;
 
 #ifdef EW_SUBLEADING_ALPHA2
@@ -89,7 +94,8 @@ double EWSMTwoLoopEW::DeltaR_rem(const double Mw_i) const {
 }
 
 complex EWSMTwoLoopEW::deltaRho_rem_f(const Particle p,
-        const double Mw_i) const {
+        const double Mw_i) const
+{
     if (p.is("TOP")) return ( complex(0.0, 0.0, false));
 
     complex dRho = complex(0.0, 0.0, false);
@@ -108,7 +114,8 @@ complex EWSMTwoLoopEW::deltaRho_rem_f(const Particle p,
 }
 
 complex EWSMTwoLoopEW::deltaKappa_rem_f(const Particle p,
-        const double Mw_i) const {
+        const double Mw_i) const
+{
     if (p.is("TOP")) return ( complex(0.0, 0.0, false));
 
     complex dKappa = complex(0.0, 0.0, false);
@@ -129,7 +136,8 @@ complex EWSMTwoLoopEW::deltaKappa_rem_f(const Particle p,
 
 ////////////////////////////////////////////////////////////////////////   `
 
-double EWSMTwoLoopEW::rho_2() const {
+double EWSMTwoLoopEW::rho_2() const
+{
     double a = cache.getSM().getMHl() * cache.getSM().getMHl() / cache.getSM().getMtpole() / cache.getSM().getMtpole();
     if (a <= 0.0) throw std::runtime_error("a is out of range in EWSMTwoLoopEW::rho_2");
     double g_a = g(a);
@@ -142,7 +150,8 @@ double EWSMTwoLoopEW::rho_2() const {
             + 3.0 * (a * a - 6.0 * a + 10.0) * f_a_1);
 }
 
-double EWSMTwoLoopEW::tau_2() const {
+double EWSMTwoLoopEW::tau_2() const
+{
     double a = cache.getSM().getMHl() * cache.getSM().getMHl() / cache.getSM().getMtpole() / cache.getSM().getMtpole();
     if (a <= 0.0) throw std::runtime_error("a is out of range in EWSMTwoLoopEW::tau_2");
     double g_a = g(a);
@@ -157,7 +166,8 @@ double EWSMTwoLoopEW::tau_2() const {
             - (a * a * a - 33.0 / 4.0 * a * a + 18.0 * a - 7.0) * f_a_1);
 }
 
-double EWSMTwoLoopEW::g(const double a) const {
+double EWSMTwoLoopEW::g(const double a) const
+{
     if (a >= 0.0 && a <= 4.0) {
         double phi = 2.0 * asin(sqrt(a / 4.0));
         return ( sqrt(4.0 - a)*(M_PI - phi));
@@ -169,14 +179,16 @@ double EWSMTwoLoopEW::g(const double a) const {
         throw std::runtime_error("Out of range in EWSMTwoLoopEW::g()");
 }
 
-double EWSMTwoLoopEW::f0(const double a) const {
+double EWSMTwoLoopEW::f0(const double a) const
+{
     if (a >= 0.0)
         return ( cache.getPolyLog().Li2(1.0 - a).real()); // 1-a<1
     else
         throw std::runtime_error("Out of range in EWSMTwoLoopEW::f0()");
 }
 
-double EWSMTwoLoopEW::f1(const double a) const {
+double EWSMTwoLoopEW::f1(const double a) const
+{
     if (a >= 0.0 && a <= 4.0) {
         double y = 4.0 / a;
         double phi = 2.0 * asin(sqrt(a / 4.0));
@@ -190,7 +202,8 @@ double EWSMTwoLoopEW::f1(const double a) const {
         throw std::runtime_error("Out of range in EWSMTwoLoopEW::f1()");
 }
 
-double EWSMTwoLoopEW::DeltaRho2(const double Mw_i) const {
+double EWSMTwoLoopEW::DeltaRho2(const double Mw_i) const
+{
     double Mt = cache.getSM().getMtpole();
     double mh = cache.getSM().getMHl();
     double ht = mh * mh / Mt / Mt;
@@ -253,7 +266,8 @@ double EWSMTwoLoopEW::DeltaRho2(const double Mw_i) const {
     return rho2;
 }
 
-double EWSMTwoLoopEW::DeltaRho2Add(const double Mw_i) const {
+double EWSMTwoLoopEW::DeltaRho2Add(const double Mw_i) const
+{
     double Mz = cache.getSM().getMz(), Mz2 = Mz*Mz;
     double Mw = Mw_i, Mw2 = Mw*Mw;
     double cW2 = cache.getSM().cW2(Mw);
@@ -276,7 +290,8 @@ double EWSMTwoLoopEW::DeltaRho2Add(const double Mw_i) const {
     return dRho2add;
 }
 
-double EWSMTwoLoopEW::DeltaRw2(const double Mw_i) const {
+double EWSMTwoLoopEW::DeltaRw2(const double Mw_i) const
+{
     double Mz = cache.getSM().getMz(), Mz2 = Mz*Mz;
     double Mw = Mw_i, Mw2 = Mw*Mw;
     double cW2 = cache.getSM().cW2(Mw), sW2 = cache.getSM().sW2(Mw);
@@ -329,7 +344,8 @@ double EWSMTwoLoopEW::DeltaRw2(const double Mw_i) const {
     return dRw2;
 }
 
-double EWSMTwoLoopEW::deltaEoverE2() const {
+double EWSMTwoLoopEW::deltaEoverE2() const
+{
     double Mt = cache.getSM().getMtpole(), Mt2 = Mt*Mt;
     double mh = cache.getSM().getMHl(), mh2 = mh*mh;
     double ht = mh2 / Mt2;
@@ -348,7 +364,8 @@ double EWSMTwoLoopEW::deltaEoverE2() const {
     return dEoE2;
 }
 
-double EWSMTwoLoopEW::f2Add(const double Mw_i) const {
+double EWSMTwoLoopEW::f2Add(const double Mw_i) const
+{
     double Mz = cache.getSM().getMz(), Mz2 = Mz*Mz;
     double Mw = Mw_i, Mw2 = Mw*Mw;
     double cW2 = cache.getSM().cW2(Mw), sW2 = cache.getSM().sW2(Mw);
@@ -365,7 +382,8 @@ double EWSMTwoLoopEW::f2Add(const double Mw_i) const {
     return f2a;
 }
 
-double EWSMTwoLoopEW::DeltaEta2(const double Mw_i) const {
+double EWSMTwoLoopEW::DeltaEta2(const double Mw_i) const
+{
     double Mz = cache.getSM().getMz(), Mz2 = Mz*Mz;
     double Mw = Mw_i, Mw2 = Mw*Mw;
     double cW2 = cache.getSM().cW2(Mw);
@@ -418,7 +436,8 @@ double EWSMTwoLoopEW::DeltaEta2(const double Mw_i) const {
 }
 
 complex EWSMTwoLoopEW::DeltaEta2Add_tmp(const double I3f, const double Qf,
-        const double Mw_i) const {
+        const double Mw_i) const
+{
     double Mz = cache.getSM().getMz(), Mz2 = Mz*Mz;
     double Mw = Mw_i, Mw2 = Mw*Mw;
     double cW2 = cache.getSM().cW2(Mw);
@@ -442,13 +461,15 @@ complex EWSMTwoLoopEW::DeltaEta2Add_tmp(const double I3f, const double Qf,
 }
 
 complex EWSMTwoLoopEW::DeltaEta2Add_f(const Particle p,
-        const double Mw_i) const {
+        const double Mw_i) const
+{
     double I3f = cache.I3_f(p);
     double Qf = cache.Q_f(p);
     return DeltaEta2Add_tmp(I3f, Qf, Mw_i);
 }
 
-double EWSMTwoLoopEW::DeltaKappa2(const double Mw_i) const {
+double EWSMTwoLoopEW::DeltaKappa2(const double Mw_i) const
+{
     double Mz = cache.getSM().getMz(), Mz2 = Mz*Mz;
     double Mw = Mw_i, Mw2 = Mw*Mw;
     double cW2 = cache.getSM().cW2(Mw), sW2 = cache.getSM().sW2(Mw);
@@ -483,7 +504,8 @@ double EWSMTwoLoopEW::DeltaKappa2(const double Mw_i) const {
 }
 
 complex EWSMTwoLoopEW::DeltaKappa2Add_tmp(const double I3f, const double Qf,
-        const double Mw_i) const {
+        const double Mw_i) const
+{
     double Mz = cache.getSM().getMz(), Mz2 = Mz*Mz;
     double Mw = Mw_i;
     double cW2 = cache.getSM().cW2(Mw);
@@ -508,14 +530,16 @@ complex EWSMTwoLoopEW::DeltaKappa2Add_tmp(const double I3f, const double Qf,
 }
 
 complex EWSMTwoLoopEW::DeltaKappa2Add_f(const Particle p,
-        const double Mw_i) const {
+        const double Mw_i) const
+{
     double I3f = cache.I3_f(p);
     double Qf = cache.Q_f(p);
     return DeltaKappa2Add_tmp(I3f, Qf, Mw_i);
 }
 
 complex EWSMTwoLoopEW::Vadd(const double I3f, const double Qf,
-        const double Mw_i) const {
+        const double Mw_i) const
+{
     double Mw = Mw_i, Mw2 = Mw*Mw;
     double cW2 = cache.getSM().cW2(Mw), sW2 = cache.getSM().sW2(Mw);
     double Mt = cache.getSM().getMtpole();
@@ -529,7 +553,8 @@ complex EWSMTwoLoopEW::Vadd(const double I3f, const double Qf,
 }
 
 complex EWSMTwoLoopEW::DeltaEtaf1(const double I3f, const double Qf,
-        const double Mw_i) const {
+        const double Mw_i) const
+{
     double Mz = cache.getSM().getMz(), Mz2 = Mz*Mz;
     double Mw = Mw_i;
     double cW2 = cache.getSM().cW2(Mw);
@@ -543,7 +568,8 @@ complex EWSMTwoLoopEW::DeltaEtaf1(const double I3f, const double Qf,
 }
 
 complex EWSMTwoLoopEW::Vfi(const double I3f, const double Qf,
-        const double q2, const double Mw_i) const {
+        const double q2, const double Mw_i) const
+{
     double I3i = cache.I3_f(cache.getSM().getLeptons(StandardModel::ELECTRON));
     double Qi = cache.Q_f(cache.getSM().getLeptons(StandardModel::ELECTRON));
     double I3aQaQa = I3i * Qi * Qi + I3f * Qf*Qf;
@@ -559,7 +585,8 @@ complex EWSMTwoLoopEW::Vfi(const double I3f, const double Qf,
     return V;
 }
 
-double EWSMTwoLoopEW::Lambda(const double x) const {
+double EWSMTwoLoopEW::Lambda(const double x) const
+{
     if (x >= 0.0 && x <= 4.0) {
         return ( -1.0 / 2.0 / sqrt(x) * g(x) + M_PI / 2.0 * sqrt(4.0 / x - 1.0));
     } else if (x > 4.0) {
@@ -568,7 +595,8 @@ double EWSMTwoLoopEW::Lambda(const double x) const {
         throw std::runtime_error("Out of range in EWSMTwoLoopEW::Lambda()");
 }
 
-double EWSMTwoLoopEW::phi(const double x) const {
+double EWSMTwoLoopEW::phi(const double x) const
+{
     if (x >= 0.0 && x <= 1.0) {
         return ( 4.0 * sqrt(x / (1.0 - x)) * cache.getClausen().Cl2(2.0 * asin(sqrt(x))));
     } else if (x > 1.0) {
@@ -580,7 +608,8 @@ double EWSMTwoLoopEW::phi(const double x) const {
         throw std::runtime_error("Out of range in EWSMTwoLoopEW::phi()");
 }
 
-complex EWSMTwoLoopEW::FV(const double x) const {
+complex EWSMTwoLoopEW::FV(const double x) const
+{
     if (x <= 0.0)
         throw std::runtime_error("Out of range in EWSMTwoLoopEW::FV()");
 
@@ -593,7 +622,8 @@ complex EWSMTwoLoopEW::FV(const double x) const {
             - M_PI * M_PI / 3.0 + pow(log(1.0 + x), 2.0)));
 }
 
-complex EWSMTwoLoopEW::GV(const double x) const {
+complex EWSMTwoLoopEW::GV(const double x) const
+{
     if (x <= 0.0 || x >= 4.0)
         throw std::runtime_error("Out of range in EWSMTwoLoopEW::GV()");
 

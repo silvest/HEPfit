@@ -104,7 +104,6 @@ using namespace gslpp;
  * @cite Akhundov:1985fc, @cite Bardin:1986fi and @cite Bardin:1989di.
  */
 class EWSMOneLoopEW {
-    
 public:
 
     /**
@@ -227,7 +226,7 @@ public:
      * FZ(), FW_l() and FW_q()
      */
     complex deltaRho_rem_tmp(const complex u_f, const double Mw_i) const;
-    
+
     /**
      * @brief Remainder contribution of @f$O(\alpha)@f$ to the effective
      * couplings @f$\rho_Z^l@f$,
@@ -274,8 +273,8 @@ public:
 
      */
     complex deltaKappa_rem_tmp(const double deltaf, const complex uf,
-                               const double Mw_i) const;    
-    
+            const double Mw_i) const;
+
     /**
      * @brief Remainder contribution of @f$O(\alpha)@f$ to the effective
      * couplings @f$\kappa_Z^l@f$,
@@ -289,7 +288,7 @@ public:
      * @sa deltaKappa_rem_tmp()
      */
     complex deltaKappa_rem_f(const Particle p, const double Mw_i) const;
-                                                  
+
     /**
      * @brief %EW radiative corrections to the widths of @f$W \to f_i \bar{f}_j@f$, 
      * denoted as @f$\rho^W_{ij}@f$. 
@@ -348,9 +347,9 @@ public:
      *
      * @attention The masses of virtual fermions are neglected.
      */
-    double rho_GammaW_tmp(const double Qi, const double Qj, 
-                          const double Mw_i) const;    
-    
+    double rho_GammaW_tmp(const double Qi, const double Qj,
+            const double Mw_i) const;
+
     /**
      * @brief %EW radiative corrections to the width of @f$W \to l_i \bar{l}_j@f$,
      * denoted as @f$\rho^W_{ij}@f$.
@@ -361,13 +360,13 @@ public:
      *
      * @sa rho_GammaW_tmp()
      */
-    double rho_GammaW(const Particle pi, 
-                        const Particle pj, 
-                        const double Mw_i) const;
+    double rho_GammaW(const Particle pi,
+            const Particle pj,
+            const double Mw_i) const;
 
-    
+
     ////////////////////////////////////////////////////////////////////////    
-       
+
     /**
      * @brief The bosonic contribution to the self-energy of the @f$W@f$ boson
      * in the Unitary gauge, @f$\overline{\Sigma}^{\mathrm{bos}}_{WW}(s)@f$.
@@ -381,7 +380,7 @@ public:
      * @return @f$\overline{\Sigma}^{\mathrm{bos}}_{WW}(s)@f$
      */
     complex SigmabarWW_bos(const double mu, const double s, const double Mw_i) const;
- 
+
     /**
      * @brief The fermionic contribution to the self-energy of the @f$W@f$ boson
      * in the Unitary gauge, @f$\overline{\Sigma}^{\mathrm{fer}}_{WW}(s)@f$.
@@ -395,7 +394,7 @@ public:
      * @return @f$\overline{\Sigma}^{\mathrm{fer}}_{WW}(s)@f$
      */
     complex SigmabarWW_fer(const double mu, const double s, const double Mw_i) const;
-    
+
     /**
      * @brief The bosonic contribution to the self-energy of the @f$Z@f$ boson
      * in the Unitary gauge, @f$\overline{\Sigma}^{\mathrm{bos}}_{ZZ}(s)@f$.
@@ -409,7 +408,7 @@ public:
      * @return @f$\overline{\Sigma}^{\mathrm{bos}}_{ZZ}(s)@f$
      */
     complex SigmabarZZ_bos(const double mu, const double s, const double Mw_i) const;
-    
+
     /**
      * @brief The fermionic contribution to the self-energy of the @f$Z@f$ boson
      * in the Unitary gauge, @f$\overline{\Sigma}^{\mathrm{fer}}_{ZZ}(s)@f$.
@@ -423,7 +422,7 @@ public:
      * @return @f$\overline{\Sigma}^{\mathrm{fer}}_{ZZ}(s)@f$
      */
     complex SigmabarZZ_fer(const double mu, const double s, const double Mw_i) const;
-    
+
     /**
      * @brief The bosonic contribution to the self-energy of the photon
      * in the Unitary gauge, @f$\overline{\Pi}^{\mathrm{bos}}_{\gamma\gamma}(s)@f$.
@@ -495,9 +494,9 @@ public:
      */
     complex PibarZgamma_fer(const double mu, const double s, const double Mw_i) const;
 
-    
+
     ////////////////////////////////////////////////////////////////////////   
-    
+
     /**
      * @brief The derivative of the bosonic contribution to the self-energy of
      * the @f$W@f$ boson for @f$s=M_W^2@f$ in the Unitary gauge, 
@@ -509,7 +508,7 @@ public:
      * @return @f$\overline{\Sigma}^{\prime,\mathrm{bos}}_{WW}(M_W^2)@f$
      */
     complex SigmabarPrime_WW_bos_Mw2(const double mu, const double Mw_i) const;
-    
+
     /**
      * @brief The derivative of the fermionic contribution to the self-energy of
      * the @f$W@f$ boson for @f$s=M_W^2@f$ in the Unitary gauge,
@@ -521,7 +520,7 @@ public:
      * @return @f$\overline{\Sigma}^{\prime,\mathrm{fer}}_{WW}(M_W^2)@f$
      */
     complex SigmabarPrime_WW_fer_Mw2(const double mu, const double Mw_i) const;
-    
+
     /**
      * @brief The derivative of the bosonic contribution to the self-energy of
      * the @f$Z@f$ boson for @f$s=M_Z^2@f$ in the Unitary gauge,
@@ -533,7 +532,7 @@ public:
      * @return @f$\overline{\Sigma}^{\prime,\mathrm{bos}}_{ZZ}(M_Z^2)@f$
      */
     complex SigmabarPrime_ZZ_bos_Mz2(const double mu, const double Mw_i) const;
-    
+
     /**
      * @brief The derivative of the fermionic contribution to the self-energy of
      * the @f$Z@f$ boson for @f$s=M_Z^2@f$ in the Unitary gauge,
@@ -545,9 +544,9 @@ public:
      * @return @f$\overline{\Sigma}^{\prime,\mathrm{fer}}_{ZZ}(M_Z^2)@f$
      */
     complex SigmabarPrime_ZZ_fer_Mz2(const double mu, const double Mw_i) const;
-    
+
     ////////////////////////////////////////////////////////////////////////       
-    
+
     /**
      * @brief @f$\Delta\overline{\rho}@f$.
      * @details The quantity @f$\Delta\overline{\rho}@f$, which is associated with
@@ -565,7 +564,7 @@ public:
      * @return @f$\Delta\overline{\rho}\big|_{\mu}@f$
      */
     double DeltaRhobar(const double mu, const double Mw_i) const;
-    
+
     /**
      * @brief @f$\Delta\overline{\rho}_W@f$.
      * @details The quantity @f$\Delta\overline{\rho}_W@f$ is defined as
@@ -581,10 +580,10 @@ public:
      * @return @f$\Delta\overline{\rho}_W\big|_{\mu}@f$
      */
     double DeltaRhobarW(const double mu, const double Mw_i) const;
-    
-    
+
+
     ////////////////////////////////////////////////////////////////////////   
-    
+
     /**
      * @brief A test function.
      * @details @f$\Delta\overline{\rho}^{\mathrm{bos}}@f$ is given without
@@ -605,7 +604,7 @@ public:
      *
      * @attention The renormalization scale is fixed to be @f$\mu=M_W@f$.
      */
-    double TEST_DeltaRhobarW_bos(const double Mw_i) const;    
+    double TEST_DeltaRhobarW_bos(const double Mw_i) const;
 
 
     ////////////////////////////////////////////////////////////////////////    
@@ -687,7 +686,7 @@ public:
      * @return @f$\mathcal{F}_{Wn}^0@f$
      */
     complex FWn_0(const double s, const double Mw_i) const;
-    
+
     /**
      * @brief The form factor @f$\mathcal{F}_{Wa}^t@f$.
      * @details The form factor @f$\mathcal{F}_{Wa}^t@f$,
@@ -803,9 +802,9 @@ public:
      * @param[in] s momentum squared @f$s@f$
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\mathcal{F}_Z@f$
-     */      
+     */
     complex FZ(const double s, const double Mw_i) const;
-    
+
     /**
      * @brief The unified form factor @f$\mathcal{F}_W@f$ for @f$Z\to l\bar{l}@f$.
      * @details The so-called unified form factor @f$\mathcal{F}_W@f$, associated
@@ -829,11 +828,11 @@ public:
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\mathcal{F}_W@f$
-     */  
+     */
     complex FW(const double s, const Particle p, const double Mw_i) const;
-    
+
     ////////////////////////////////////////////////////////////////////////        
-    
+
     /**
      * @brief A test function for @f$\mathcal{F}_{Wn}@f$ with a finite fermion mass.
      * @param[in] s momentum squared @f$s@f$
@@ -842,13 +841,13 @@ public:
      * @return @f$\mathcal{F}_{Wn}@f$
      */
     complex TEST_FWn(const double s, const double mf, const double Mw_i) const;
-    
-    
+
+
     ////////////////////////////////////////////////////////////////////////    
 
 private:
-    const EWSMcache& cache;///< A reference to an object of type EWSMcache.
-    
+    const EWSMcache& cache; ///< A reference to an object of type EWSMcache.
+
 };
 
 #endif	/* EWSMONELOOPEW_H */

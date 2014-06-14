@@ -465,7 +465,7 @@ public:
         EW3, ///< Three-loop of @f$\mathcal{O}(\alpha^3)@f$.
         orders_EW_size ///< The size of this enum.
     };
-    
+
     static const int NSMvars = 26; ///< The number of the model parameters in %StandardModel.
     /**
      * @brief  A string array containing the labels of the model parameters in %StandardModel.
@@ -1297,7 +1297,7 @@ public:
      * @param[out] DeltaR_rem Array of @f$\Delta r_{\mathrm{rem}}@f$
      */
     void ComputeDeltaR_rem(const double Mw_i, double DeltaR_rem[orders_EW_size]) const;
-    
+
 
     ////////////////////////////////////////////////////////////////////////
     // The W and Z masses in the complex-pole/fixed-width scheme
@@ -2059,7 +2059,7 @@ protected:
      * The flags are initialized in the constructor EWSM().
      */
     bool flag_order[orders_EW_size];
-    
+
     /**
      * @brief A method to convert a given scheme name in string form into a
      * floating-point number with double precision.
@@ -2102,7 +2102,7 @@ protected:
         else
             return false;
     }
-    
+
     /**
      * @brief A method to compute the @f$W@f$-boson mass from
      * @f$\Delta\rho@f$ and @f$\Delta r_{\mathrm{rem}}@f$.
@@ -2269,7 +2269,7 @@ protected:
      */
     double RVh() const;
 
-    
+
     ////////////////////////////////////////////////////////////////////////    
 private:
 

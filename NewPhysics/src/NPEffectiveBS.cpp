@@ -267,7 +267,7 @@ double NPEffectiveBS::GammaW() const
             *(obliqueS() - 2.0 * c2 * obliqueT() - (c2 - s2) * obliqueU() / 2.0 / s2)
             - (1.0 + c2) / 2.0 / (c2 - s2) * DeltaGF()
             //+ (cHL1p + cHL2p + cHL3p + cHQ1p + cHQ2p) * ratio; // incorrect
-            + 2.0/9.0*(cHL1p + cHL2p + cHL3p + 3.0*cHQ1p + 3.0*cHQ2p) * ratio;
+            + 2.0 / 9.0 * (cHL1p + cHL2p + cHL3p + 3.0 * cHQ1p + 3.0 * cHQ2p) * ratio;
 
     return Gamma_W;
 }

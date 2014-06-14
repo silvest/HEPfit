@@ -422,7 +422,7 @@ bool StandardModel::checkSMparams(double Params_cache[]) const
     // be modified accordingly.
     double SMparams[NumSMParams] = {
         AlsMz, Mz, GF, ale, dAle5Mz,
-        mHl, mtpole, 
+        mHl, mtpole,
         leptons[NEUTRINO_1].getMass(),
         leptons[NEUTRINO_2].getMass(),
         leptons[NEUTRINO_3].getMass(),

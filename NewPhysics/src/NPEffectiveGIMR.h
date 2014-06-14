@@ -16,7 +16,7 @@
 class NPEffectiveGIMR : public NPbase {
 public:
 
-    static const int NNPEffectiveGIMRVars = 89;  /* Only a subset of the coefficients! */
+    static const int NNPEffectiveGIMRVars = 89; /* Only a subset of the coefficients! */
     static const std::string NPEffectiveGIMRVars[NNPEffectiveGIMRVars];
 
     NPEffectiveGIMR();
@@ -29,7 +29,7 @@ public:
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
-    
+
     ////////////////////////////////////////////////////////////////////////
 
     virtual double DeltaGF() const;
