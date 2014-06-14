@@ -421,24 +421,24 @@ bool StandardModel::checkSMparams(double Params_cache[]) const
     // Note: When modifying the array below, the constant NumSMParams has to
     // be modified accordingly.
     double SMparams[NumSMParams] = {
-        getAlsMz(), getMz(), getGF(), getAle(), getDAle5Mz(),
-        getMHl(), getMtpole(),
-        getLeptons(NEUTRINO_1).getMass(),
-        getLeptons(NEUTRINO_2).getMass(),
-        getLeptons(NEUTRINO_3).getMass(),
-        getLeptons(ELECTRON).getMass(),
-        getLeptons(MU).getMass(),
-        getLeptons(TAU).getMass(),
-        getQuarks(UP).getMass(),
-        getQuarks(DOWN).getMass(),
-        getQuarks(CHARM).getMass(),
-        getQuarks(STRANGE).getMass(),
-        getQuarks(BOTTOM).getMass(),
-        getMut(), getMub(), getMuc(),
-        getDelMw(), getDelSin2th_l(), getDelGammaZ(),
-        SchemeToDouble(getFlagMw()),
-        SchemeToDouble(getFlagRhoZ()),
-        SchemeToDouble(getFlagKappaZ())
+        AlsMz, Mz, GF, ale, dAle5Mz,
+        mHl, mtpole, 
+        leptons[NEUTRINO_1].getMass(),
+        leptons[NEUTRINO_2].getMass(),
+        leptons[NEUTRINO_3].getMass(),
+        leptons[ELECTRON].getMass(),
+        leptons[MU].getMass(),
+        leptons[TAU].getMass(),
+        quarks[UP].getMass(),
+        quarks[DOWN].getMass(),
+        quarks[CHARM].getMass(),
+        quarks[STRANGE].getMass(),
+        quarks[BOTTOM].getMass(),
+        mut, mub, muc,
+        delMw, delSin2th_l, delGammaZ,
+        SchemeToDouble(FlagMw),
+        SchemeToDouble(FlagRhoZ),
+        SchemeToDouble(FlagKappaZ)
     };
 
     // check updated parameters
@@ -678,7 +678,7 @@ double StandardModel::Mw() const
             return Mw_cache;
 
     double Mw;
-    if (getFlagMw().compare("APPROXIMATEFORMULA") == 0)
+    if (FlagMw.compare("APPROXIMATEFORMULA") == 0)
         Mw = myApproximateFormulae->Mw();
     else {
         //std::cout << std::setprecision(12)
@@ -734,8 +734,8 @@ double StandardModel::DeltaR() const
     double myMw = Mw();
     double sW2 = 1.0 - myMw * myMw / Mz / Mz;
     double tmp = sqrt(2.0) * GF * sW2 * myMw * myMw / M_PI / ale;
-    if (getFlagMw().compare("NORESUM") == 0
-            || getFlagMw().compare("APPROXIMATEFORMULA") == 0) {
+    if (FlagMw.compare("NORESUM") == 0
+            || FlagMw.compare("APPROXIMATEFORMULA") == 0) {
         return (tmp - 1.0);
     } else {
         return (1.0 - 1.0 / tmp);
@@ -861,7 +861,7 @@ double StandardModel::rho_GammaW(const Particle pi, const Particle pj) const
 double StandardModel::GammaW(const Particle pi,
         const Particle pj) const
 {
-    if ((pi.index()) % 2 || (pj.index() + 1) % 2)
+    if ((pi.getIndex()) % 2 || (pj.getIndex() + 1) % 2)
         throw std::runtime_error("Error in StandardModel::GammaW()");
 
     double G0 = GF * pow(Mw(), 3.0) / 6.0 / sqrt(2.0) / M_PI;
@@ -870,7 +870,7 @@ double StandardModel::GammaW(const Particle pi,
     if (pi.is("TOP"))
         return (0.0);
 
-    if (pj.index() - pi.index() == 1)
+    if (pj.getIndex() - pi.getIndex() == 1)
         V = complex(1.0, 0.0, false);
     else
         V = complex(0.0, 0.0, false);
@@ -910,7 +910,7 @@ double StandardModel::A_f(const Particle p) const
 
 double StandardModel::AFB(const Particle p) const
 {
-    return (3.0 / 4.0 * A_f(getLeptons(ELECTRON)) * A_f(p));
+    return (3.0 / 4.0 * A_f(leptons[ELECTRON]) * A_f(p));
 }
 
 double StandardModel::sin2thetaEff(const Particle p) const
@@ -945,19 +945,19 @@ double StandardModel::GammaZ(const Particle p) const
     } else {
         complex myrhoZ_f = rhoZ_f(p);
         complex gV_over_gA = gV_f(p) / gA_f(p);
-        double G0 = getGF() * pow(getMz(), 3.0) / 24.0 / sqrt(2.0) / M_PI;
+        double G0 = GF * pow(Mz, 3.0) / 24.0 / sqrt(2.0) / M_PI;
         if (p.is("LEPTON")) {
             double myalphaMz = alphaMz();
             double Q = p.getCharge();
-            double xl = pow(p.getMass() / getMz(), 2.0);
+            double xl = pow(p.getMass() / Mz, 2.0);
             Gamma = G0 * myrhoZ_f.abs() * sqrt(1.0 - 4.0 * xl)
                     * ((1.0 + 2.0 * xl)*(gV_over_gA.abs2() + 1.0) - 6.0 * xl)
                     * (1.0 + 3.0 / 4.0 * myalphaMz / M_PI * pow(Q, 2.0));
         } else if (p.is("QUARK")) {
-            Gamma = 3.0 * G0 * myrhoZ_f.abs()*(gV_over_gA.abs2() * RVq((QCD::quark) (p.index() - 6)) + RAq((QCD::quark) (p.index() - 6)));
+            Gamma = 3.0 * G0 * myrhoZ_f.abs()*(gV_over_gA.abs2() * RVq((QCD::quark) (p.getIndex() - 6)) + RAq((QCD::quark) (p.getIndex() - 6)));
 
             /* Nonfactorizable EW-QCD corrections */
-            Gamma += Delta_EWQCD((QCD::quark) (p.index() - 6));
+            Gamma += Delta_EWQCD((QCD::quark) (p.getIndex() - 6));
         } else
             throw std::runtime_error("Error in StandardModel::GammaZ()");
     }
@@ -977,7 +977,7 @@ double StandardModel::Gamma_had() const
             + GammaZ(quarks[STRANGE]) + GammaZ(quarks[BOTTOM]);
 
     /* Singlet vector contribution (not included in the approximate formula) */
-    double G0 = getGF() * pow(getMz(), 3.0) / 24.0 / sqrt(2.0) / M_PI;
+    double G0 = GF * pow(Mz, 3.0) / 24.0 / sqrt(2.0) / M_PI;
     Gamma_had_tmp += 4.0 * 3.0 * G0 * RVh();
 
     return Gamma_had_tmp;
@@ -1001,7 +1001,7 @@ double StandardModel::sigma0_had() const
             / GeVminus2_to_nb);
     else
         return (12.0 * M_PI * GammaZ(leptons[ELECTRON]) * Gamma_had()
-            / getMz() / getMz() / Gamma_Z() / Gamma_Z());
+            / Mz / Mz / Gamma_Z() / Gamma_Z());
 }
 
 double StandardModel::R0_f(const Particle p) const
@@ -1046,13 +1046,13 @@ complex StandardModel::gA_f(const Particle p) const
 complex StandardModel::rhoZ_f(const Particle p) const
 {
     if (p.getName().compare("TOP") == 0) return (complex(0.0, 0.0, false));
-    if (getFlagRhoZ().compare("APPROXIMATEFORMULA") == 0)
+    if (FlagRhoZ.compare("APPROXIMATEFORMULA") == 0)
         throw std::runtime_error("No approximate formula is available for rhoZ^f");
     else {
 
         if (FlagCacheInStandardModel)
-            if (checkSMparams(rhoZ_f_params_cache[p.index()]))
-                return rhoZ_f_cache[p.index()];
+            if (checkSMparams(rhoZ_f_params_cache[p.getIndex()]))
+                return rhoZ_f_cache[p.getIndex()];
 
         double myMw = Mw();
 
@@ -1095,15 +1095,14 @@ complex StandardModel::rhoZ_f(const Particle p) const
         double deltaRho_rem_f_real[orders_EW_size];
         for (int j = 0; j < orders_EW_size; ++j)
             deltaRho_rem_f_real[j] = deltaRho_remf[j].real();
-        double ReRhoZf = resumRhoZ(DeltaRho, deltaRho_rem_f_real,
-                DeltaRbar_rem, p.is("BOTTOM"));
+        double ReRhoZf = resumRhoZ(DeltaRho, deltaRho_rem_f_real, DeltaRbar_rem, p.is("BOTTOM"));
 
         /* Im[rho_Z^f] without resummation */
         double ImRhoZf = 0.0;
         for (int j = 0; j < orders_EW_size; ++j)
             ImRhoZf += deltaRho_remf[j].imag();
 
-        rhoZ_f_cache[p.index()] = complex(ReRhoZf, ImRhoZf, false);
+        rhoZ_f_cache[p.getIndex()] = complex(ReRhoZf, ImRhoZf, false);
         return (complex(ReRhoZf, ImRhoZf, false));
     }
 }
@@ -1113,8 +1112,8 @@ complex StandardModel::kappaZ_f(const Particle p) const
     if (p.is("TOP")) return (complex(0.0, 0.0, false));
 
     if (FlagCacheInStandardModel)
-        if (checkSMparams(kappaZ_f_params_cache[p.index()]))
-            return kappaZ_f_cache[p.index()];
+        if (checkSMparams(kappaZ_f_params_cache[p.getIndex()]))
+            return kappaZ_f_cache[p.getIndex()];
 
     double myMw = Mw();
 
@@ -1169,8 +1168,7 @@ complex StandardModel::kappaZ_f(const Particle p) const
         for (int j = 0; j < orders_EW_size; ++j)
             deltaKappa_rem_f_real[j] = deltaKappa_remf[j].real();
 
-        ReKappaZf = resumKappaZ(DeltaRho, deltaKappa_rem_f_real,
-                DeltaRbar_rem, p.is("BOTTOM"));
+        ReKappaZf = resumKappaZ(DeltaRho, deltaKappa_rem_f_real, DeltaRbar_rem, p.is("BOTTOM"));
 
         /* O(alpha^2) correction to Re[kappa_Z^f] from the Z-gamma mixing */
         ReKappaZf += 35.0 * alphaMz() * alphaMz() / 18.0 / sW2()
@@ -1181,7 +1179,7 @@ complex StandardModel::kappaZ_f(const Particle p) const
             ImKappaZf += deltaKappa_remf[j].imag();
     }
 
-    kappaZ_f_cache[p.index()] = complex(ReKappaZf, ImKappaZf, false);
+    kappaZ_f_cache[p.getIndex()] = complex(ReKappaZf, ImKappaZf, false);
     return (complex(ReKappaZf, ImKappaZf, false));
 }
 
@@ -1301,7 +1299,7 @@ double StandardModel::epsilonb() const
     //double Gamma_b_Born = 0.3798*( 1.0 + delta_als - 0.42*delta_alpha);
     //double a = als_Mz/M_PI;
     //double RQCD = 1.0 + 1.2*a - 1.1*a*a - 13.0*a*a*a;
-    //double mb = Mrun(myCache->Mz(), getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);// This is wrong!
+    //double mb = Mrun(myCache->Mz(), quarks[QCD::BOTTOM].getMass(), FULLNNLO);// This is wrong!
     //double mb = 4.7;
     //std::cout << "mb = " << mb << std::endl;
     //double beta = sqrt(1.0 - 4.0*mb*mb/myCache->Mz()/myCache->Mz());
@@ -1603,18 +1601,18 @@ double StandardModel::RVq(const QCD::quark q) const
     if (q == QCD::TOP) return 0.0;
 
     double mcMz, mbMz;
-    mcMz = Mrun(getMz(), getQuarks(CHARM).getMass(), FULLNNLO);
-    mbMz = Mrun(getMz(), getQuarks(BOTTOM).getMass(), FULLNNLO);
+    mcMz = Mrun(Mz, quarks[CHARM].getMass(), FULLNNLO);
+    mbMz = Mrun(Mz, quarks[BOTTOM].getMass(), FULLNNLO);
     //mcMz = 0.56381685; /* for debug */
     //mbMz = 2.8194352; /* for debug */
 
-    double MtPole = getMtpole();
+    double MtPole = mtpole;
 
     /* electric charge squared */
-    double Qf2 = pow(getQuarks(q).getCharge(), 2.0);
+    double Qf2 = pow(quarks[q].getCharge(), 2.0);
 
     /* s = Mz^2 */
-    double s = getMz() * getMz();
+    double s = Mz * Mz;
 
     /* products of the charm and bottom masses at Mz */
     double mcMz2 = mcMz*mcMz;
@@ -1636,7 +1634,7 @@ double StandardModel::RVq(const QCD::quark q) const
     }
 
     /* Logarithms */
-    //double log_t = log(pow(getQuarks(TOP).getMass(),2.0)/s);
+    //double log_t = log(pow(quarks[TOP].getMass(),2.0)/s);
     double log_t = log(MtPole * MtPole / s); // the pole mass
     double log_c = log(mcMz2 / s);
     double log_b = log(mbMz2 / s);
@@ -1690,12 +1688,12 @@ double StandardModel::RVq(const QCD::quark q) const
     double C42VL = -11.0 / 2.0 + nf / 3.0;
 
     /* power suppressed top-mass correction */
-    //double xt = s/pow(getQuarks(TOP).getMass(),2.0);
+    //double xt = s/pow(quarks[TOP].getMass(),2.0);
     double xt = s / MtPole / MtPole; // the pole mass
     double C2t = xt * (44.0 / 675.0 - 2.0 / 135.0 * (-log_t));
 
     /* rescaled strong coupling constant */
-    double AlsMzPi = getAlsMz() / M_PI;
+    double AlsMzPi = AlsMz / M_PI;
     double AlsMzPi2 = AlsMzPi*AlsMzPi;
     double AlsMzPi3 = AlsMzPi2*AlsMzPi;
     double AlsMzPi4 = AlsMzPi3*AlsMzPi;
@@ -1723,20 +1721,20 @@ double StandardModel::RAq(const QCD::quark q) const
     if (q == QCD::TOP) return 0.0;
 
     double mcMz, mbMz;
-    mcMz = Mrun(getMz(), getQuarks(CHARM).getMass(), FULLNNLO);
-    mbMz = Mrun(getMz(), getQuarks(BOTTOM).getMass(), FULLNNLO);
+    mcMz = Mrun(Mz, quarks[CHARM].getMass(), FULLNNLO);
+    mbMz = Mrun(Mz, quarks[BOTTOM].getMass(), FULLNNLO);
     //mcMz = 0.56381685; /* for debug */
     //mbMz = 2.8194352; /* for debug */
 
-    double MtPole = getMtpole();
+    double MtPole = mtpole;
 
     /* z-component of isospin */
-    double I3q = getQuarks(q).getIsospin();
+    double I3q = quarks[q].getIsospin();
     /* electric charge squared */
-    double Qf2 = pow(getQuarks(q).getCharge(), 2.0);
+    double Qf2 = pow(quarks[q].getCharge(), 2.0);
 
     /* s = Mz^2 */
-    double s = getMz() * getMz();
+    double s = Mz * Mz;
 
     /* products of the charm and bottom masses at Mz */
     double mcMz2 = mcMz*mcMz;
@@ -1758,7 +1756,7 @@ double StandardModel::RAq(const QCD::quark q) const
     }
 
     /* Logarithms */
-    //double log_t = log(pow(getQuarks(TOP).getMass(),2.0)/s);
+    //double log_t = log(pow(quarks[TOP].getMass(),2.0)/s);
     double log_t = log(MtPole * MtPole / s); // the pole mass
     double log_c = log(mcMz2 / s);
     double log_b = log(mbMz2 / s);
@@ -1815,7 +1813,7 @@ double StandardModel::RAq(const QCD::quark q) const
     double C42AL = 77.0 / 2.0 - 7.0 / 3.0 * nf;
 
     /* power suppressed top-mass correction */
-    //double xt = s/pow(getQuarks(TOP).getMass(),2.0);
+    //double xt = s/pow(quarks[TOP].getMass(),2.0);
     double xt = s / MtPole / MtPole; // the pole mass
     double C2t = xt * (44.0 / 675.0 - 2.0 / 135.0 * (-log_t));
 
@@ -1827,7 +1825,7 @@ double StandardModel::RAq(const QCD::quark q) const
             + 3.6736 * (-log_t * log_t * log_t);
 
     /* rescaled strong coupling constant */
-    double AlsMzPi = getAlsMz() / M_PI;
+    double AlsMzPi = AlsMz / M_PI;
     double AlsMzPi2 = AlsMzPi*AlsMzPi;
     double AlsMzPi3 = AlsMzPi2*AlsMzPi;
     double AlsMzPi4 = AlsMzPi3*AlsMzPi;
@@ -1844,7 +1842,7 @@ double StandardModel::RAq(const QCD::quark q) const
             + (mcMz2 + mbMz2) / s * C23 * AlsMzPi3
             + mqMz2 / s * (C20A + C21A * AlsMzPi + C22A * AlsMzPi2
             + 6.0 * (3.0 + log_t) * AlsMzPi2 + C23A * AlsMzPi3)
-            //- 10.0*mqMz2/pow(getQuarks(TOP).getMass(),2.0)
+            //- 10.0*mqMz2/pow(quarks[TOP].getMass(),2.0)
             - 10.0 * mqMz2 / MtPole / MtPole // the pole mass
             * (8.0 / 81.0 + log_t / 54.0) * AlsMzPi2
             + mcMz2 * mcMz2 / s / s * (C42 - log_c) * AlsMzPi2
@@ -1858,7 +1856,7 @@ double StandardModel::RAq(const QCD::quark q) const
 double StandardModel::RVh() const
 {
     /* rescaled strong coupling constant */
-    double AlsMzPi = getAlsMz() / M_PI;
+    double AlsMzPi = AlsMz / M_PI;
     double AlsMzPi2 = AlsMzPi*AlsMzPi;
     double AlsMzPi3 = AlsMzPi2*AlsMzPi;
     double AlsMzPi4 = AlsMzPi3*AlsMzPi;

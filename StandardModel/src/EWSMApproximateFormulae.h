@@ -61,9 +61,9 @@ public:
     double sin2thetaEff(const Particle p) const
     {
         if(p.is("QUARK"))
-            return sin2thetaEff_q((QCD::quark) (p.index()-6));
+            return sin2thetaEff_q((QCD::quark) (p.getIndex()-6));
         else if (p.is("LEPTON"))
-            return sin2thetaEff_l((StandardModel::lepton) p.index());
+            return sin2thetaEff_l((StandardModel::lepton) p.getIndex());
         else
             throw std::runtime_error("EWSMApproximateFormulae::sin2thetaEff() called with wrong argument");
     }

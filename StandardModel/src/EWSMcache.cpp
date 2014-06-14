@@ -40,8 +40,7 @@ EWSMcache::EWSMcache(const StandardModel& SM_i)
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSMcache::mf(const Particle p, const double mu,
-        const orders order) const
+double EWSMcache::mf(const Particle p, const double mu, const orders order) const
 {
     if (p.is("LEPTON"))
         return p.getMass();
@@ -475,7 +474,7 @@ complex EWSMcache::B0_Mz2_Mz2_mf2_mf2(const Particle p) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), mf(p, SM.getMz())};
-    int f = p.index();
+    int f = p.getIndex();
     if (CacheCheck(B0_Mz2_Mz2_mf2_mf2_cache[f], NumPar, params))
         return complex(B0_Mz2_Mz2_mf2_mf2_cache[f][NumPar],
             B0_Mz2_Mz2_mf2_mf2_cache[f][NumPar + 1], false);
@@ -595,7 +594,7 @@ complex EWSMcache::B0p_Mz2_Mz2_mf2_mf2(const Particle p) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), mf(p, SM.getMz())};
-    int f = p.index();
+    int f = p.getIndex();
     if (CacheCheck(B0p_Mz2_Mz2_mf2_mf2_cache[f], NumPar, params))
         return complex(B0p_Mz2_Mz2_mf2_mf2_cache[f][NumPar],
             B0p_Mz2_Mz2_mf2_mf2_cache[f][NumPar + 1], false);
@@ -772,7 +771,7 @@ complex EWSMcache::Bf_Mz2_Mz2_mf2_mf2(const Particle p) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), mf(p, SM.getMz())};
-    int f = p.index();
+    int f = p.getIndex();
     if (CacheCheck(Bf_Mz2_Mz2_mf2_mf2_cache[f], NumPar, params))
         return complex(Bf_Mz2_Mz2_mf2_mf2_cache[f][NumPar],
             Bf_Mz2_Mz2_mf2_mf2_cache[f][NumPar + 1], false);
@@ -789,7 +788,7 @@ complex EWSMcache::Bf_Mz2_0_mf2_mf2(const Particle p) const
     double params[] = {SM.getMz(), mf(p, SM.getMz())};
     if (params[1] == 0.0)
         throw std::runtime_error("Error in EWSMcache::Bf_Mz_0_mf_mf()");
-    int f = p.index();
+    int f = p.getIndex();
     if (CacheCheck(Bf_Mz2_0_mf2_mf2_cache[f], NumPar, params))
         return complex(Bf_Mz2_0_mf2_mf2_cache[f][NumPar],
             Bf_Mz2_0_mf2_mf2_cache[f][NumPar + 1], false);
@@ -884,7 +883,7 @@ complex EWSMcache::Bfp_Mz2_Mz2_mf2_mf2(const Particle p) const
 {
     int NumPar = 2;
     double params[] = {SM.getMz(), mf(p, SM.getMz())};
-    int f = p.index();
+    int f = p.getIndex();
     if (CacheCheck(Bfp_Mz2_Mz2_mf2_mf2_cache[f], NumPar, params))
         return complex(Bfp_Mz2_Mz2_mf2_mf2_cache[f][NumPar],
             Bfp_Mz2_Mz2_mf2_mf2_cache[f][NumPar + 1], false);
