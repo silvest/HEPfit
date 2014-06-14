@@ -21,7 +21,7 @@ using namespace gslpp;
  * @copyright GNU General Public License
  * @details
  */
-class EWSM_Output {
+class EWSM_Output : public StandardModel {
 public:
 
     /**
@@ -62,8 +62,6 @@ public:
     
     ////////////////////////////////////////////////////////////////////////
 private:
-    const StandardModel& SM;///< A reference to an object of type StandardModel.
-
 
 };
 

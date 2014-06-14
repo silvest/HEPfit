@@ -58,7 +58,6 @@ int main(int argc, char** argv)
         bool checkTheoryRange = false;
 
         /* Create objects of the classes ModelFactory and ThObsFactory */
-        
         ThObsFactory ThObsF;
         ModelFactory ModelF;
 
