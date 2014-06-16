@@ -83,6 +83,7 @@
       <itemPath>Makefile</itemPath>
     </logicalFolder>
     <itemPath>GeneralSUSY.conf</itemPath>
+    <itemPath>HiggsKvKf.conf</itemPath>
     <itemPath>MFV.conf</itemPath>
     <itemPath>Model.conf</itemPath>
     <itemPath>MonteCarlo.conf</itemPath>
@@ -354,6 +355,8 @@
         </linkerTool>
       </compileType>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -678,6 +681,8 @@
       </compileType>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Model.conf" ex="false" tool="3" flavor2="0">
@@ -981,6 +986,8 @@
         </linkerTool>
       </compileType>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -1310,6 +1317,8 @@
       </compileType>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Model.conf" ex="false" tool="3" flavor2="0">
@@ -1635,6 +1644,8 @@
         </linkerTool>
       </compileType>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -1962,6 +1973,8 @@
         </linkerTool>
       </compileType>
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
       </item>

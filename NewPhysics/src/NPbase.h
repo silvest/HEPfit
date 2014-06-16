@@ -63,7 +63,7 @@
  * The functions are explained above. 
  *
  */
-class NPbase : virtual public StandardModel {
+class NPbase : public StandardModel {
 public:
 
     /**
@@ -270,7 +270,57 @@ public:
      */
     virtual double deltaR0_f(const Particle p) const;
     virtual double R0_f(const Particle p) const;
+        
+    virtual double computeKW() const
+    {
+        return 1.;
+    }
 
+    virtual double computeKZ() const
+    {
+        return 1.;
+    }
+
+    virtual double computeKZga() const
+    {
+        return 1.;
+    }
+
+    virtual double computeKgaga() const
+    {
+        return 1.;
+    }
+
+    virtual double computeKglgl() const
+    {
+        return 1.;
+    }
+
+    virtual double computeKb() const
+    {
+        return 1.;
+    }
+
+    virtual double computeKc() const
+    {
+        return 1.;
+    }
+
+    virtual double computeKt() const
+    {
+        return 1.;
+    }
+
+    virtual double computeKtau() const
+    {
+        return 1.;
+    }
+
+    virtual double computeGTotalRatio() const
+    {
+        return 1.;
+    }
+    
     ////////////////////////////////////////////////////////////////////////
 protected:
     StandardModel trueSM;

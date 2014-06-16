@@ -354,7 +354,8 @@ public:
      * @brief A get method to access the member pointer of type StandardModelMatching.
      * @return the pointer #myStandardModelMatching
      */
-    virtual StandardModelMatching* getMyMatching() const {
+    virtual StandardModelMatching* getMyMatching() const
+    {
         return myStandardModelMatching;
     }
 
@@ -443,7 +444,8 @@ public:
      * @attention The flag FlagWithoutNonUniversalVC is applicable only for
      * the models StandardModel and NPEpsilons.
      */
-    bool IsFlagWithoutNonUniversalVC() const {
+    bool IsFlagWithoutNonUniversalVC() const
+    {
         return FlagWithoutNonUniversalVC;
     }
 
@@ -455,11 +457,13 @@ public:
      * defined with the function EWSMApproximateFormulae::X_extended() is NOT
      * employed
      */
-    bool IsFlagNoApproximateGammaZ() const {
+    bool IsFlagNoApproximateGammaZ() const
+    {
         return FlagNoApproximateGammaZ;
     }
 
-    void setFlagNoApproximateGammaZ(bool FlagNoApproximateGammaZ) {
+    void setFlagNoApproximateGammaZ(bool FlagNoApproximateGammaZ)
+    {
         this->FlagNoApproximateGammaZ = FlagNoApproximateGammaZ;
     }
 
@@ -468,7 +472,8 @@ public:
      * @details See @ref StandardModelFlags for detail.
      * @return
      */
-    std::string getFlagMw() const {
+    std::string getFlagMw() const
+    {
         return FlagMw;
     }
 
@@ -477,7 +482,8 @@ public:
      * @details See @ref StandardModelFlags for detail.
      * @return
      */
-    std::string getFlagRhoZ() const {
+    std::string getFlagRhoZ() const
+    {
         return FlagRhoZ;
     }
 
@@ -486,7 +492,8 @@ public:
      * @details See @ref StandardModelFlags for detail.
      * @return
      */
-    std::string getFlagKappaZ() const {
+    std::string getFlagKappaZ() const
+    {
         return FlagKappaZ;
     }
 
@@ -499,7 +506,8 @@ public:
      * @param[in] p name of a lepton
      * @return an object of the lepton specified by name
      */
-    Particle getLeptons(const StandardModel::lepton p) const {
+    Particle getLeptons(const StandardModel::lepton p) const
+    {
         return leptons[p];
     }
 
@@ -507,7 +515,8 @@ public:
      * @brief A get method to access the mass of the \f$Z\f$ boson \f$M_Z\f$.
      * @return the @f$Z@f$-boson mass @f$M_Z@f$
      */
-    double getMz() const {
+    double getMz() const
+    {
         return Mz;
     }
 
@@ -515,7 +524,8 @@ public:
      * @brief A get method to access the value of \f$\alpha_s(M_Z)\f$.
      * @return the strong coupling constant at @f$M_Z@f$, @f$\alpha_s(M_Z)@f$
      */
-    double getAlsMz() const {
+    double getAlsMz() const
+    {
         return AlsMz;
     }
 
@@ -523,7 +533,8 @@ public:
      * @brief A get method to retrieve the Fermi constant @f$G_\mu@f$.
      * @return @f$G_\mu@f$ in @f${\rm GeV}^{-2}@f$
      */
-    double getGF() const {
+    double getGF() const
+    {
         return GF;
     }
 
@@ -531,7 +542,8 @@ public:
      * @brief A get method to retrieve the fine-structure constant @f$\alpha@f$.
      * @return @f$\alpha@f$
      */
-    double getAle() const {
+    double getAle() const
+    {
         return ale;
     }
 
@@ -541,7 +553,8 @@ public:
      * @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$.
      * @return @f$\Delta\alpha_{\mathrm{had}}^{(5)}(M_Z^2)@f$
      */
-    double getDAle5Mz() const {
+    double getDAle5Mz() const
+    {
         return dAle5Mz;
     }
 
@@ -549,7 +562,8 @@ public:
      * @brief A get method to retrieve the Higgs mass @f$m_h@f$.
      * @return @f$m_h@f$ in GeV
      */
-    double getMHl() const {
+    double getMHl() const
+    {
         return mHl;
     }
 
@@ -558,7 +572,8 @@ public:
      * denoted as @f$\delta\,M_W@f$.
      * @return @f$\delta\,M_W@f$ in GeV
      */
-    double getDelMw() const {
+    double getDelMw() const
+    {
         return delMw;
     }
 
@@ -568,7 +583,8 @@ public:
      * @f$\delta\sin^2\theta_{\rm eff}^{\rm lept}@f$.
      * @return @f$\delta\sin^2\theta_{\rm eff}^{\rm lept}@f$
      */
-    double getDelSin2th_l() const {
+    double getDelSin2th_l() const
+    {
         return delSin2th_l;
     }
 
@@ -577,7 +593,8 @@ public:
      * @f$\Gamma_Z@f$, denoted as @f$\delta\,\Gamma_Z@f$.
      * @return @f$\delta\,\Gamma_Z@f$ in GeV 
      */
-    double getDelGammaZ() const {
+    double getDelGammaZ() const
+    {
         return delGammaZ;
     }
 
@@ -585,7 +602,8 @@ public:
      * @brief A get method to retrieve the %CKM matrix. 
      * @return the %CKM matrix
      */
-    matrix<complex> getVCKM() const {
+    matrix<complex> getVCKM() const
+    {
         return VCKM;
     }
 
@@ -593,7 +611,8 @@ public:
      * @brief A get method to retrieve the member object of type CKM.
      * @return the object of type CKM
      */
-    CKM getCKM() const {
+    CKM getCKM() const
+    {
         return myCKM;
     }
 
@@ -601,7 +620,8 @@ public:
      * @brief A get method to retrieve the %CKM element @f$\lambda@f$.
      * @return @f$\lambda@f$
      */
-    double getLambda() const {
+    double getLambda() const
+    {
         return lambda;
     }
 
@@ -609,7 +629,8 @@ public:
      * @brief A get method to retrieve the %CKM element @f$A@f$.
      * @return @f$A@f$
      */
-    double getA() const {
+    double getA() const
+    {
         return A;
     }
 
@@ -617,7 +638,8 @@ public:
      * @brief A get method to retrieve the %CKM element @f$\bar{\rho}@f$.
      * @return @f$\bar{\rho}@f$
      */
-    double getRhob() const {
+    double getRhob() const
+    {
         return rhob;
     }
 
@@ -625,7 +647,8 @@ public:
      * @brief A get method to retrieve the %CKM element @f$\bar{\eta}@f$.
      * @return @f$\bar{\eta}@f$
      */
-    double getEtab() const {
+    double getEtab() const
+    {
         return etab;
     }
 
@@ -633,7 +656,8 @@ public:
      * @brief A get method to retrieve the object of the %PMNS matrix.
      * @return the %PMNS matrix
      */
-    matrix<complex> getUPMNS() const {
+    matrix<complex> getUPMNS() const
+    {
         return UPMNS;
     }
 
@@ -642,7 +666,8 @@ public:
      * @f$Y_u@f$.
      * @return @f$Y_u@f$
      */
-    matrix<complex> getYu() const {
+    matrix<complex> getYu() const
+    {
         return Yu;
     }
 
@@ -651,7 +676,8 @@ public:
      * @f$Y_d@f$.
      * @return @f$Y_d@f$
      */
-    matrix<complex> getYd() const {
+    matrix<complex> getYd() const
+    {
         return Yd;
     }
 
@@ -660,7 +686,8 @@ public:
      * @f$Y_\nu@f$.
      * @return @f$Y_\nu@f$
      */
-    matrix<complex> getYn() const {
+    matrix<complex> getYn() const
+    {
         return Yn;
     }
 
@@ -669,7 +696,8 @@ public:
      * @f$Y_e@f$.
      * @return @f$Y_e@f$
      */
-    matrix<complex> getYe() const {
+    matrix<complex> getYe() const
+    {
         return Ye;
     }
 
@@ -678,35 +706,43 @@ public:
      * the weak scale.
      * @return @f$\mu_W@f$ in GeV
      */
-    double getMuw() const {
+    double getMuw() const
+    {
         return muw;
     }
 
-    double getEpsK() const {
+    double getEpsK() const
+    {
         return EpsK;
     }
 
-    double getphiEpsK() const {
+    double getphiEpsK() const
+    {
         return phiEpsK;
     }
 
-    double getKbarEpsK() const {
+    double getKbarEpsK() const
+    {
         return KbarEpsK;
     }
 
-    double getDeltaMK() const {
+    double getDeltaMK() const
+    {
         return DeltaMK;
     }
 
-    double getDmk() const {
+    double getDmk() const
+    {
         return Dmk;
     }
 
-    double getSM_M12D() const {
+    double getSM_M12D() const
+    {
         return SM_M12D;
     }
 
-    virtual StandardModel getTrueSM() const {
+    virtual StandardModel getTrueSM() const
+    {
         throw std::runtime_error("StandardModel::getTrueSM() must be overridden by the NP extension.");
     }
 
@@ -1302,7 +1338,8 @@ public:
      * @param[in] scheme scheme name for @f$M_W@f$, @f$\rho_Z^f@f$ or @f$\kappa_Z^f@f$
      * @return a boolean that is true if the scheme name is valid
      */
-    bool checkEWPOscheme(const std::string scheme) const {
+    bool checkEWPOscheme(const std::string scheme) const
+    {
         if (scheme.compare("NORESUM") == 0
                 || scheme.compare("OMSI") == 0
                 || scheme.compare("INTERMEDIATE") == 0
@@ -1323,7 +1360,8 @@ public:
      * @return a floating-point number with double precision corresponding to
      * the given scheme name 
      */
-    double SchemeToDouble(const std::string scheme) const {
+    double SchemeToDouble(const std::string scheme) const
+    {
         if (scheme.compare("NORESUM") == 0)
             return 0.0;
         else if (scheme.compare("OMSI") == 0)
@@ -1351,7 +1389,8 @@ public:
      *
      * @sa @ref StandardModelFlags "the description of the StandardModel flags"
      */
-    void setFlagCacheInEWSM(bool FlagCacheInEWSM) {
+    void setFlagCacheInEWSM(bool FlagCacheInEWSM)
+    {
         this->FlagCacheInEWSM = FlagCacheInEWSM;
     }
 
@@ -1359,7 +1398,8 @@ public:
      * @brief A get method to retrieve the member pointer of type EWSMcache.
      * @return the pointer #myCache
      */
-    EWSMcache* getMyCache() const {
+    EWSMcache* getMyCache() const
+    {
         return myCache;
     }
 
@@ -1367,7 +1407,8 @@ public:
      * @brief A get method to retrieve the member pointer of type EWSMOneLoopEW,
      * @return the pointer #myOneLoopEW
      */
-    EWSMOneLoopEW* getMyOneLoopEW() const {
+    EWSMOneLoopEW* getMyOneLoopEW() const
+    {
         return myOneLoopEW;
     }
 
@@ -1375,7 +1416,8 @@ public:
      * @brief A get method to retrieve the member pointer of type EWSMApproximateFormulae.
      * @return the pointer #myApproximateFormulae
      */
-    EWSMApproximateFormulae* getMyApproximateFormulae() const {
+    EWSMApproximateFormulae* getMyApproximateFormulae() const
+    {
         return myApproximateFormulae;
     }
 
@@ -1383,27 +1425,33 @@ public:
      * @brief A get method to retrieve the member pointer of type EWSMTwoFermionsLEP2.
      * @return the pointer #myTwoFermionsLEP2
      */
-    EWSMTwoFermionsLEP2* getMyTwoFermionsLEP2() const {
+    EWSMTwoFermionsLEP2* getMyTwoFermionsLEP2() const
+    {
         return myTwoFermionsLEP2;
     }
 
-    EWSMThreeLoopEW* getMyThreeLoopEW() const {
+    EWSMThreeLoopEW* getMyThreeLoopEW() const
+    {
         return myThreeLoopEW;
     }
 
-    EWSMThreeLoopEW2QCD* getMyThreeLoopEW2QCD() const {
+    EWSMThreeLoopEW2QCD* getMyThreeLoopEW2QCD() const
+    {
         return myThreeLoopEW2QCD;
     }
 
-    EWSMThreeLoopQCD* getMyThreeLoopQCD() const {
+    EWSMThreeLoopQCD* getMyThreeLoopQCD() const
+    {
         return myThreeLoopQCD;
     }
 
-    EWSMTwoLoopEW* getMyTwoLoopEW() const {
+    EWSMTwoLoopEW* getMyTwoLoopEW() const
+    {
         return myTwoLoopEW;
     }
 
-    EWSMTwoLoopQCD* getMyTwoLoopQCD() const {
+    EWSMTwoLoopQCD* getMyTwoLoopQCD() const
+    {
         return myTwoLoopQCD;
     }
 
@@ -1886,7 +1934,8 @@ public:
      * Currently it returns the value of tab 40 in ref. @cite Heinemeyer:2013tqa
      * @return Width of H->gamma gamma (top loop contribution squared)
      */
-    double computeGammagagatt() const {
+    double computeGammagagatt() const
+    {
         return 662.84;
     }
 
@@ -1895,7 +1944,8 @@ public:
      * Currently it returns the value of tab 40 in ref. @cite Heinemeyer:2013tqa
      * @return Width of H->gamma gamma (W loop contribution squared)
      */
-    double computeGammagagaWW() const {
+    double computeGammagagaWW() const
+    {
         return 14731.86;
     }
 
@@ -1904,7 +1954,8 @@ public:
      * Currently it returns the value of tab 40 in ref. @cite Heinemeyer:2013tqa
      * @return Width of H->gamma gamma (top W loop interference)
      */
-    double computeGammagagatW() const {
+    double computeGammagagatW() const
+    {
         return -6249.93;
     }
 
@@ -1913,7 +1964,8 @@ public:
      * Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa
      * @return Width of H->Z gamma (top loop contribution squared)
      */
-    double computeGammaZgatt() const {
+    double computeGammaZgatt() const
+    {
         return 21.74;
     }
 
@@ -1922,7 +1974,8 @@ public:
      * Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa
      * @return Width of H->Z gamma (W loop contribution squared)
      */
-    double computeGammaZgaWW() const {
+    double computeGammaZgaWW() const
+    {
         return 7005.6;
     }
 
@@ -1931,7 +1984,8 @@ public:
      * Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa
      * @return Width of H->Z gamma (top W loop interference)
      */
-    double computeGammaZgatW() const {
+    double computeGammaZgatW() const
+    {
         return -780.4;
     }
 
@@ -1941,7 +1995,8 @@ public:
      * Currently it returns the value of tab 37  in ref. @cite Heinemeyer:2013tqa
      * @return W fusion contribution @f[\sigma_{WF}f] to cross section.
      */
-    double computeSigmaWF() const {
+    double computeSigmaWF() const
+    {
         return 1.21;
     }
 
@@ -1951,7 +2006,8 @@ public:
      * Currently it returns the value of tab 37  in ref. @cite Heinemeyer:2013tqa
      * @return W fusion contribution @f[\sigma_{ZF}f] to cross section.
      */
-    double computeSigmaZF() const {
+    double computeSigmaZF() const
+    {
         return 0.417;
     }
 
@@ -1961,7 +2017,8 @@ public:
      * Negligible (0.1%) in the Standard  model.
      * @return Z W interference fusion contribution @f[\sigma_{ZWF}f] to cross section.
      */
-    double computeSigmaZWF() const {
+    double computeSigmaZWF() const
+    {
         return 0.;
     }
 
@@ -1970,7 +2027,8 @@ public:
      * Currently it returns the value of tables in appendix A (Mh=125.5 GeV)  in ref. @cite Heinemeyer:2013tqa
      * @return The @f[BR(H\to WW)@f] in the Standard Model
      */
-    double computeBRWW() const {
+    double computeBRWW() const
+    {
         return 2.23e-1;
     }
 
@@ -1979,7 +2037,8 @@ public:
      * Currently it returns the value of tables in appendix A (Mh=125.5 GeV)  in ref. @cite Heinemeyer:2013tqa
      * @return The @f[BR(H\to ZZ)@f] in the Standard Model
      */
-    double computeBRZZ() const {
+    double computeBRZZ() const
+    {
         return 2.76e-2;
     }
 
@@ -1988,7 +2047,8 @@ public:
      * Currently it returns the value of tables in appendix A (Mh=125.5 GeV)  in ref. @cite Heinemeyer:2013tqa
      * @return The @f[BR(H\to\gamma\gamma)@f] in the Standard Model
      */
-    double computeBRgaga() const {
+    double computeBRgaga() const
+    {
         return 2.28e-3;
     }
 
@@ -1997,7 +2057,8 @@ public:
      * Currently it returns the value of tables in appendix A (Mh=125.5 GeV)  in ref. @cite Heinemeyer:2013tqa
      * @return The @f[BR(H\to Z\gamma)@f] in the Standard Model
      */
-    double computeBRZga() const {
+    double computeBRZga() const
+    {
         return 1.58e-3;
     }
 
@@ -2006,7 +2067,8 @@ public:
      * Currently it returns the value of tables in appendix A (Mh=125.5 GeV)  in ref. @cite Heinemeyer:2013tqa
      * @return The @f[BR(H\to gg)@f] in the Standard Model
      */
-    double computeBRglgl() const {
+    double computeBRglgl() const
+    {
         return 8.52e-2;
     }
 
@@ -2015,7 +2077,8 @@ public:
      * Currently it returns the value of tables in appendix A (Mh=125.5 GeV)  in ref. @cite Heinemeyer:2013tqa
      * @return The @f[BR(H\to bb)@f] in the Standard Model
      */
-    double computeBRbb() const {
+    double computeBRbb() const
+    {
         return 5.69e-1;
     }
 
@@ -2024,7 +2087,8 @@ public:
      * Currently it returns the value of tables in appendix A (Mh=125.5 GeV)  in ref. @cite Heinemeyer:2013tqa
      * @return The @f[BR(H\to \tau\tau)@f] in the Standard Model
      */
-    double computeBRtautau() const {
+    double computeBRtautau() const
+    {
         return 6.24e-2;
     }
 
@@ -2033,7 +2097,8 @@ public:
      * Currently it returns the value of tables in appendix A (Mh=125.5 GeV)  in ref. @cite Heinemeyer:2013tqa
      * @return The @f[BR(H\to cc)@f] in the Standard Model
      */
-    double computeBRcc() const {
+    double computeBRcc() const
+    {
         return 2.87e-2;
     }
 

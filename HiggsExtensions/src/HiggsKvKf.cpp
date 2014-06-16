@@ -11,7 +11,7 @@ const std::string HiggsKvKf::HKvKfvars[NHKvKfvars] = {
     "Kv", "Kf"
 };
 
-HiggsKvKf::HiggsKvKf() : HiggsExtensionModel()
+HiggsKvKf::HiggsKvKf() : NPbase()
 {
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kv", boost::cref(Kv)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kf", boost::cref(Kf)));
@@ -38,4 +38,64 @@ bool HiggsKvKf::CheckParameters(const std::map<std::string, double>& DPars)
     return(StandardModel::CheckParameters(DPars));
 }
 
+   double HiggsKvKf::computeKW() const
+    {
+        return Kv;
+    }
+   
+    double HiggsKvKf::computeKZ() const
+    {
+        return Kv;
+    }
 
+    double HiggsKvKf::computeKZga() const
+    {
+        double gtt = computeGammaZgatt();
+        double gWW = computeGammaZgaWW();
+        double gtW = computeGammaZgatW();
+        return sqrt((gtt*Kf*Kf + gWW*Kv*Kv + gtW*Kf*Kv)/(gtt + gWW + gtW));
+    }
+
+    double HiggsKvKf::computeKgaga() const
+    {
+        double gtt = computeGammagagatt();
+        double gWW = computeGammagagaWW();
+        double gtW = computeGammagagatW();
+        return sqrt((gtt*Kf*Kf + gWW*Kv*Kv + gtW*Kf*Kv)/(gtt + gWW + gtW));
+    }
+
+   double HiggsKvKf::computeKb() const
+    {
+        return Kf;
+    }
+
+   double HiggsKvKf::computeKc() const
+    {
+        return Kf;
+    }
+
+    double HiggsKvKf::computeKglgl() const
+    {
+        return Kf;
+    }
+
+    double HiggsKvKf::computeKt() const
+    {
+        return Kf;
+    }
+
+    double HiggsKvKf::computeKtau() const
+    {
+        return Kf;
+    }
+ 
+    double HiggsKvKf::computeGTotalRatio() const
+    {
+        return computeKW()*computeKW()*computeBRWW()+
+               computeKZ()*computeKZ()*computeBRZZ()+
+               computeKgaga()*computeKgaga()*computeBRgaga()+
+               computeKglgl()*computeKglgl()*computeBRglgl()+
+               computeKb()*computeKb()*computeBRbb()+
+               computeKc()*computeKc()*computeBRcc()+
+               computeKtau()*computeKtau()*computeBRtautau();
+    }

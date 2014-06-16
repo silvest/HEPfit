@@ -43,14 +43,13 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../gslpp/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/HiggsExtensionModel.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
@@ -85,8 +84,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/HiggsExtensionModel.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">
@@ -121,8 +118,6 @@
         <archiverTool>
         </archiverTool>
       </compileType>
-      <item path="src/HiggsExtensionModel.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="src/HiggsKvKf.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="src/HiggsKvKf.h" ex="false" tool="3" flavor2="0">

@@ -27,10 +27,10 @@ ThObsFactory::ThObsFactory() {
     obsThFactory["VBF"] = boost::factory<muVBF*>();
     obsThFactory["VH"] = boost::factory<muWH*>();
     obsThFactory["ttH"] = boost::factory<muttH*>();
-    obsThFactory["BrHWW"] = boost::factory<BrWW*>();
-    obsThFactory["BrHZZ"] = boost::factory<BrZZ*>();
-    obsThFactory["BrHgaga"] = boost::factory<Brgaga*>();
-    obsThFactory["BrHtautau"] = boost::factory<Brtautau*>();
+    obsThFactory["BrHWWRatio"] = boost::factory<BrWWRatio*>();
+    obsThFactory["BrHZZRatio"] = boost::factory<BrZZRatio*>();
+    obsThFactory["BrHgagaRatio"] = boost::factory<BrgagaRatio*>();
+    obsThFactory["BrHtautauRatio"] = boost::factory<BrtautauRatio*>();
 
     //-----  Epsilon parameters  -----
     obsThFactory["epsilon1"] = boost::factory<Epsilon1*>();
