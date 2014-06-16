@@ -100,3 +100,32 @@ double HiggsKvKf::computeGTotalRatio() const
             computeKc() * computeKc() * computeBRcc() +
             computeKtau() * computeKtau() * computeBRtautau();
 }
+
+double HiggsKvKf::obliqueS() const
+{
+    double Lambda;
+    if (fabs(1.0 - Kv * Kv) < pow(10.0, -32.0))
+        Lambda = pow(10.0, 19.0);
+    else
+        Lambda = 4.0 * M_PI * v() / sqrt(fabs(1.0 - Kv * Kv));
+
+    return ( 1.0 / 12.0 / M_PI * (1.0 - Kv * Kv) * log(Lambda * Lambda / mHl / mHl));
+}
+
+double HiggsKvKf::obliqueT() const
+{
+    double Lambda;
+    double cW2_SM = trueSM.cW2();
+    if (fabs(1.0 - Kv * Kv) < pow(10.0, -32.0))
+        Lambda = pow(10.0, 19.0);
+    else
+        Lambda = 4.0 * M_PI * v() / sqrt(fabs(1.0 - Kv * Kv));
+
+    return ( -3.0 / 16.0 / M_PI / cW2_SM * (1.0 - Kv * Kv) * log(Lambda * Lambda / mHl / mHl));
+}
+
+double HiggsKvKf::obliqueU() const
+{
+    return 0.0;
+}
+
