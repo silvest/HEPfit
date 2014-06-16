@@ -26,14 +26,6 @@ NPSTUVWXY::NPSTUVWXY()
 
 }
 
-bool NPSTUVWXY::Update(const std::map<std::string, double>& DPars)
-{
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameter(it->first, it->second);
-    if (!NPbase::Update(DPars)) return (false);
-    return (true);
-}
-
 void NPSTUVWXY::setParameter(const std::string name, const double& value)
 {
     if (name.compare("obliqueShat") == 0)

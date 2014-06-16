@@ -26,14 +26,6 @@ NPEpsilons::NPEpsilons()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("epsilon_b", boost::cref(myEpsilon_b)));
 }
 
-bool NPEpsilons::Update(const std::map<std::string, double>& DPars)
-{
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameter(it->first, it->second);
-    if (!NPbase::Update(DPars)) return (false);
-    return (true);
-}
-
 bool NPEpsilons::PostUpdate()
 {
     if (!NPbase::PostUpdate()) return (false);

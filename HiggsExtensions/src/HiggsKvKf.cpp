@@ -24,7 +24,7 @@ void HiggsKvKf::setParameter(const std::string name, const double& value)
     else if (name.compare("Kf") == 0)
         Kf = value;
     else
-        StandardModel::setParameter(name, value);
+        NPbase::setParameter(name, value);
 }
 
 bool HiggsKvKf::CheckParameters(const std::map<std::string, double>& DPars)
@@ -35,7 +35,7 @@ bool HiggsKvKf::CheckParameters(const std::map<std::string, double>& DPars)
             return false;
         }
     }
-    return (StandardModel::CheckParameters(DPars));
+    return (NPbase::CheckParameters(DPars));
 }
 
 double HiggsKvKf::computeKW() const

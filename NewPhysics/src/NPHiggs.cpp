@@ -26,14 +26,6 @@ NPHiggs::NPHiggs()
 
 }
 
-bool NPHiggs::Update(const std::map<std::string, double>& DPars)
-{
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameter(it->first, it->second);
-    if (!NPbase::Update(DPars)) return (false);
-    return (true);
-}
-
 void NPHiggs::setParameter(const std::string name, const double& value)
 {
     if (name.compare("a") == 0)

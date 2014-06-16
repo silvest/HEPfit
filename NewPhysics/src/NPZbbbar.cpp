@@ -26,14 +26,6 @@ NPZbbbar::NPZbbbar(const bool FlagNPZbbbarLR_in)
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGRb", boost::cref(myDeltaGRb)));
 }
 
-bool NPZbbbar::Update(const std::map<std::string, double>& DPars)
-{
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameter(it->first, it->second);
-    if (!NPbase::Update(DPars)) return (false);
-    return (true);
-}
-
 bool NPZbbbar::PostUpdate()
 {
     if (!NPbase::PostUpdate()) return (false);
