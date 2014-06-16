@@ -148,6 +148,7 @@ public:
     {
         return computeKW()*computeKW()*computeBRWW()+
                computeKZ()*computeKZ()*computeBRZZ()+
+               computeKZga()*computeKZga()*computeBRZga()+
                computeKgaga()*computeKgaga()*computeBRgaga()+
                computeKglgl()*computeKglgl()*computeBRglgl()+
                computeKb()*computeKb()*computeBRbb()+
