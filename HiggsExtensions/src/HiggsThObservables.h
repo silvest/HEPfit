@@ -171,9 +171,10 @@ public:
      * @return 
      */
     double computeThValue() {
-        return (HESM.computeKW()*HESM.computeKW()*HESM.computeSigmaWF()+HESM.computeKZ()*HESM.computeKZ()*HESM.computeSigmaZF()+
-                HESM.computeKW()*HESM.computeKZ()*HESM.computeSigmaZWF())/
-                (HESM.computeSigmaWF()+HESM.computeSigmaZF()+HESM.computeSigmaZF());
+        return (HESM.computeKW()*HESM.computeKW()*HESM.computeSigmaWF()
+                + HESM.computeKZ()*HESM.computeKZ()*HESM.computeSigmaZF()
+                + HESM.computeKW()*HESM.computeKZ()*HESM.computeSigmaZWF())/
+                (HESM.computeSigmaWF()+HESM.computeSigmaZF()+HESM.computeSigmaZWF());
     }
 };
 
