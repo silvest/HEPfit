@@ -6,7 +6,6 @@
  */
 
 #include "HiggsObservable.h"
-#include <BAT/BCMath.h>
 #include <TNamed.h>
 #include <TFile.h>
 #include <TROOT.h>
