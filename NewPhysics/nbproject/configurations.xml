@@ -8,9 +8,8 @@
       <itemPath>src/EW_BURGESS.h</itemPath>
       <itemPath>src/EW_CHMN.h</itemPath>
       <itemPath>src/EW_TEST.h</itemPath>
-      <itemPath>src/NPEffective.h</itemPath>
-      <itemPath>src/NPEffective1.h</itemPath>
-      <itemPath>src/NPEffective2.h</itemPath>
+      <itemPath>src/NPEffectiveBS.h</itemPath>
+      <itemPath>src/NPEffectiveGIMR.h</itemPath>
       <itemPath>src/NPEpsilons.h</itemPath>
       <itemPath>src/NPEpsilons_pureNP.h</itemPath>
       <itemPath>src/NPHiggs.h</itemPath>
@@ -31,9 +30,8 @@
       <itemPath>src/EW_BURGESS.cpp</itemPath>
       <itemPath>src/EW_CHMN.cpp</itemPath>
       <itemPath>src/EW_TEST.cpp</itemPath>
-      <itemPath>src/NPEffective.cpp</itemPath>
-      <itemPath>src/NPEffective1.cpp</itemPath>
-      <itemPath>src/NPEffective2.cpp</itemPath>
+      <itemPath>src/NPEffectiveBS.cpp</itemPath>
+      <itemPath>src/NPEffectiveGIMR.cpp</itemPath>
       <itemPath>src/NPEpsilons.cpp</itemPath>
       <itemPath>src/NPEpsilons_pureNP.cpp</itemPath>
       <itemPath>src/NPHiggs.cpp</itemPath>
@@ -93,17 +91,13 @@
       </item>
       <item path="src/EW_TEST.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/NPEffective.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/NPEffectiveBS.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/NPEffective.h" ex="false" tool="3" flavor2="0">
+      <item path="src/NPEffectiveBS.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/NPEffective1.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/NPEffectiveGIMR.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/NPEffective1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/NPEffective2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NPEffective2.h" ex="false" tool="3" flavor2="0">
+      <item path="src/NPEffectiveGIMR.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -184,17 +178,13 @@
       </item>
       <item path="src/EW_TEST.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/NPEffective.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/NPEffectiveBS.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/NPEffective.h" ex="false" tool="3" flavor2="0">
+      <item path="src/NPEffectiveBS.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/NPEffective1.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/NPEffectiveGIMR.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/NPEffective1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/NPEffective2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NPEffective2.h" ex="false" tool="3" flavor2="0">
+      <item path="src/NPEffectiveGIMR.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -275,17 +265,13 @@
       </item>
       <item path="src/EW_TEST.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/NPEffective.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/NPEffectiveBS.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/NPEffective.h" ex="false" tool="3" flavor2="0">
+      <item path="src/NPEffectiveBS.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/NPEffective1.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/NPEffectiveGIMR.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/NPEffective1.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="src/NPEffective2.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="src/NPEffective2.h" ex="false" tool="3" flavor2="0">
+      <item path="src/NPEffectiveGIMR.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/NPEpsilons.cpp" ex="false" tool="1" flavor2="0">
       </item>

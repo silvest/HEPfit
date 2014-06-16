@@ -352,7 +352,7 @@ bool StandardModel::setFlag(const std::string name, const bool value)
         setFlagCacheInStandardModel(value);
         res = true;
     } else if (name.compare("CacheInEWSMcache") == 0) {
-        myEWSMcache->setFlagCacheInEWSMcache(value);
+        getMyEWSMcache()->setFlagCacheInEWSMcache(value);
         res = true;
     } else if (name.compare("WithoutNonUniversalVC") == 0) {
         FlagWithoutNonUniversalVC = value;
@@ -1653,10 +1653,10 @@ double StandardModel::RVq(const QCD::quark q) const
     double nf = 5.0;
 
     /* zeta functions */
-    double zeta2 = myEWSMcache->getZeta2();
-    double zeta3 = myEWSMcache->getZeta3();
+    double zeta2 = getMyEWSMcache()->getZeta2();
+    double zeta3 = getMyEWSMcache()->getZeta3();
     //double zeta4 = getMyCache()->GetZeta4();
-    double zeta5 = myEWSMcache->getZeta5();
+    double zeta5 = getMyEWSMcache()->getZeta5();
 
     /* massless non-singlet corrections */
     double C02 = 365.0 / 24.0 - 11.0 * zeta3 + (-11.0 / 12.0 + 2.0 / 3.0 * zeta3) * nf;
@@ -1775,10 +1775,10 @@ double StandardModel::RAq(const QCD::quark q) const
     double nf = 5.0;
 
     /* zeta functions */
-    double zeta2 = myEWSMcache->getZeta2();
-    double zeta3 = myEWSMcache->getZeta3();
-    double zeta4 = myEWSMcache->getZeta4();
-    double zeta5 = myEWSMcache->getZeta5();
+    double zeta2 = getMyEWSMcache()->getZeta2();
+    double zeta3 = getMyEWSMcache()->getZeta3();
+    double zeta4 = getMyEWSMcache()->getZeta4();
+    double zeta5 = getMyEWSMcache()->getZeta5();
 
     /* massless non-singlet corrections */
     double C02 = 365.0 / 24.0 - 11.0 * zeta3 + (-11.0 / 12.0 + 2.0 / 3.0 * zeta3) * nf;
