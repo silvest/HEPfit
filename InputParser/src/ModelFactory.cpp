@@ -7,8 +7,8 @@
 #include <NPHiggs.h>
 #include <NPZbbbar.h>
 #include <NPZbbbarLinearized.h>
-#include <NPEffective1.h>
-#include <NPEffective2.h>
+#include <NPEffectiveBS.h>
+#include <NPEffectiveGIMR.h>
 #include <GeneralSUSY.h>
 #include <pMSSM.h>
 #include <SUSYMassInsertion.h>
@@ -29,8 +29,11 @@ ModelFactory::ModelFactory()
     modelFactory["NPZbbbarLR"] = boost::bind(boost::factory<NPZbbbar*>(), true);
     modelFactory["NPZbbbarLinearized"] = boost::bind(boost::factory<NPZbbbarLinearized*>(), false);
     modelFactory["NPZbbbarLinearizedLR"] = boost::bind(boost::factory<NPZbbbarLinearized*>(), true);
-    modelFactory["NPEffective1"] = boost::factory<NPEffective1*>();
-    modelFactory["NPEffective2"] = boost::factory<NPEffective2*>();
+    modelFactory["NPEffectiveBS"] = boost::bind(boost::factory<NPEffectiveBS*>(), false, false);
+    modelFactory["NPEffectiveBS_LFU"] = boost::bind(boost::factory<NPEffectiveBS*>(), true, false);
+    modelFactory["NPEffectiveBS_QFU"] = boost::bind(boost::factory<NPEffectiveBS*>(), false, true);
+    modelFactory["NPEffectiveBS_LFU_QFU"] = boost::bind(boost::factory<NPEffectiveBS*>(), true, true);
+    modelFactory["NPEffectiveGIMR"] = boost::factory<NPEffectiveGIMR*>();
     modelFactory["MFV"] = boost::factory<MFV*>();
     modelFactory["GeneralSUSY"] = boost::factory<GeneralSUSY*>();
     modelFactory["pMSSM"] = boost::factory<pMSSM*>();

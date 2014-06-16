@@ -118,7 +118,8 @@ public:
      * @brief @copybrief NPbase::obliqueS()
      * @copydetails NPbase::obliqueS()
      */
-    virtual double obliqueS() const {
+    virtual double obliqueS() const
+    {
         return myObliqueS;
     }
 
@@ -126,7 +127,8 @@ public:
      * @brief @copybrief NPbase::obliqueT()
      * @copydetails NPbase::obliqueT()
      */
-    virtual double obliqueT() const {
+    virtual double obliqueT() const
+    {
         return myObliqueT;
     }
 
@@ -134,7 +136,8 @@ public:
      * @brief @copybrief NPbase::obliqueU()
      * @copydetails NPbase::obliqueU()
      */
-    virtual double obliqueU() const {
+    virtual double obliqueU() const
+    {
         return myObliqueU;
     }
 

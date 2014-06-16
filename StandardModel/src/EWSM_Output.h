@@ -21,7 +21,7 @@ using namespace gslpp;
  * @copyright GNU General Public License
  * @details
  */
-class EWSM_Output {
+class EWSM_Output : public StandardModel {
 public:
 
     /**
@@ -30,7 +30,7 @@ public:
      */
     EWSM_Output(const StandardModel& SM_in);
 
-    
+
     ////////////////////////////////////////////////////////////////////////
 
     void outputEachDeltaR(const double Mw_i) const;
@@ -40,30 +40,28 @@ public:
     void outputEachDeltaRhoZ_q(const QCD::quark q, const double Mw_i) const;
 
     void outputEachDeltaRhoZ(const double f_AlphaToGF,
-                             const double DeltaRho[StandardModel::orders_EW_size],
-                             const double deltaRho_rem[StandardModel::orders_EW_size],
-                             const double DeltaRbar_rem, const bool bool_Zbb,
-                             const double taub[StandardModel::orders_EW_size],
-                             const double ZbbSubtract) const;
+            const double DeltaRho[StandardModel::orders_EW_size],
+            const double deltaRho_rem[StandardModel::orders_EW_size],
+            const double DeltaRbar_rem, const bool bool_Zbb,
+            const double taub[StandardModel::orders_EW_size],
+            const double ZbbSubtract) const;
 
     void outputEachDeltaKappaZ_l(const StandardModel::lepton l, const double Mw_i) const;
 
     void outputEachDeltaKappaZ_q(const QCD::quark q, const double Mw_i) const;
 
     void outputEachDeltaKappaZ(const double f_AlphaToGF,
-                               const double cW2overSW2,
-                               const double DeltaRho[StandardModel::orders_EW_size],
-                               const double deltaKappa_rem[StandardModel::orders_EW_size],
-                               const double DeltaRbar_rem, const bool bool_Zbb,
-                               const double taub[StandardModel::orders_EW_size],
-                               const double ZbbSubtract,
-                               const double Zgamma_EW2) const;
+            const double cW2overSW2,
+            const double DeltaRho[StandardModel::orders_EW_size],
+            const double deltaKappa_rem[StandardModel::orders_EW_size],
+            const double DeltaRbar_rem, const bool bool_Zbb,
+            const double taub[StandardModel::orders_EW_size],
+            const double ZbbSubtract,
+            const double Zgamma_EW2) const;
 
-    
+
     ////////////////////////////////////////////////////////////////////////
 private:
-    const StandardModel& SM;///< A reference to an object of type StandardModel.
-
 
 };
 

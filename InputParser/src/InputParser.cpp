@@ -181,6 +181,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             } else
                 throw std::runtime_error("ERROR: wrong distribution flag in " + ho->getName());
             Observables.push_back(ho);
+            ++beg;
             if (beg != tok.end())
                 std::cout << "WARNING: unread information in HiggsObservable "
                     << Observables.back().getName() << std::endl;
@@ -204,26 +205,26 @@ std::string InputParser::ReadParameters(const std::string filename,
                 ++beg;
                 if (type.compare("Observable") != 0)
                     throw std::runtime_error("ERROR: expecting an Observable type here...");
-                Observable tmp = ParseObservable(beg);
+                Observable * tmp = new Observable(ParseObservable(beg));
                 ++beg;
                 std::string distr = *beg;
                 if (distr.compare("weight") == 0) {
                     ++beg;
-                    tmp.setAve(atof((*beg).c_str()));
+                    tmp->setAve(atof((*beg).c_str()));
                     ++beg;
-                    tmp.setErrg(atof((*beg).c_str()));
+                    tmp->setErrg(atof((*beg).c_str()));
                     ++beg;
-                    tmp.setErrf(atof((*beg).c_str()));
+                    tmp->setErrf(atof((*beg).c_str()));
                 } else if (distr.compare("noweight") == 0) {
                 } else
-                    throw std::runtime_error("ERROR: wrong distribution flag in " + tmp.getName());
-                tmp.setDistr(distr);
-                if (tmp.isTMCMC()) {
-                    o3.AddObs(tmp);
+                    throw std::runtime_error("ERROR: wrong distribution flag in " + tmp->getName());
+                tmp->setDistr(distr);
+                if (tmp->isTMCMC()) {
+                    o3.AddObs(*tmp);
                     lines.push_back(true);
                     nlines++;
                 } else {
-                    Observables.push_back(&tmp);
+                    Observables.push_back(tmp);
                     lines.push_back(false);
                 }
             }

@@ -72,9 +72,9 @@ void EWSUSY::SetRosiekParameters()
     /* particle masses */
     for (int I=0; I<3; ++I) {
         /* up-type quarks */
-        m_u[I] = mySUSY.getMyCache()->mf(mySUSY.getQuarks((QCD::quark)(2*I)), mySUSY.getMz(), FULLNNLO);
+        m_u[I] = mySUSY.getMyEWSMcache()->mf(mySUSY.getQuarks((QCD::quark)(2*I)), mySUSY.getMz(), FULLNNLO);
         /* down-type quarks */
-        m_d[I] = mySUSY.getMyCache()->mf(mySUSY.getQuarks((QCD::quark)(2*I + 1)), mySUSY.getMz(), FULLNNLO);
+        m_d[I] = mySUSY.getMyEWSMcache()->mf(mySUSY.getQuarks((QCD::quark)(2*I + 1)), mySUSY.getMz(), FULLNNLO);
         /* charged leptons */
         m_l[I] = mySUSY.getLeptons((StandardModel::lepton)(2*I + 1)).getMass();
     }

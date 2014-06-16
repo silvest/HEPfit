@@ -12,16 +12,16 @@
 #define UpperBoundForApproximateFormulae 1000.0
 //#define UpperBoundForApproximateFormulae 1500.0 // for test
 
-
-EWSMApproximateFormulae::EWSMApproximateFormulae(const EWSMcache& cache_i) 
-: mycache(cache_i) 
+EWSMApproximateFormulae::EWSMApproximateFormulae(const EWSMcache& cache_i)
+: mycache(cache_i)
 {
 }
 
 
 ////////////////////////////////////////////////////////////////////////
 
-double EWSMApproximateFormulae::Mw() const {
+double EWSMApproximateFormulae::Mw() const
+{
     double Mw0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11;
     if (mycache.getSM().getMHl() >= 100.0 && mycache.getSM().getMHl() <= UpperBoundForApproximateFormulae) {
         // applicable for 100 GeV <= mHl <= 1 TeV
@@ -70,7 +70,8 @@ double EWSMApproximateFormulae::Mw() const {
             + mycache.getSM().getDelMw());
 }
 
-double EWSMApproximateFormulae::sin2thetaEff_l(const StandardModel::lepton l) const {
+double EWSMApproximateFormulae::sin2thetaEff_l(const StandardModel::lepton l) const
+{
     // applicable for 10 GeV <= mHl <= 1 TeV
     if (mycache.getSM().getMHl() < 10.0 || mycache.getSM().getMHl() > UpperBoundForApproximateFormulae) {
         std::stringstream out;
@@ -128,7 +129,8 @@ double EWSMApproximateFormulae::sin2thetaEff_l(const StandardModel::lepton l) co
             + mycache.getSM().getDelSin2th_l());
 }
 
-double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const {
+double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const
+{
     // applicable for 10 GeV <= mHl <= 1 TeV
     if (mycache.getSM().getMHl() < 10.0 || mycache.getSM().getMHl() > UpperBoundForApproximateFormulae) {
         std::stringstream out;
@@ -198,7 +200,8 @@ double EWSMApproximateFormulae::sin2thetaEff_q(const QCD::quark q) const {
             + d9 * Delta_alphas + d10 * Delta_Z);
 }
 
-double EWSMApproximateFormulae::DeltaR_TwoLoopEW_rem(const double Mw_i) const {
+double EWSMApproximateFormulae::DeltaR_TwoLoopEW_rem(const double Mw_i) const
+{
     // applicable for 10 GeV <= mHl <= 1 TeV
     if (mycache.getSM().getMHl() < 10.0 || mycache.getSM().getMHl() > UpperBoundForApproximateFormulae) {
         std::stringstream out;
@@ -233,7 +236,8 @@ double EWSMApproximateFormulae::DeltaR_TwoLoopEW_rem(const double Mw_i) const {
             + r9 * Delta_W * Delta_t + r10 * Delta_Z);
 }
 
-double EWSMApproximateFormulae::DeltaKappa_l_TwoLoopEW_rem(const double Mw_i) const {
+double EWSMApproximateFormulae::DeltaKappa_l_TwoLoopEW_rem(const double Mw_i) const
+{
     // applicable for 10 GeV <= mHl <= 1 TeV
     if (mycache.getSM().getMHl() < 10.0 || mycache.getSM().getMHl() > UpperBoundForApproximateFormulae) {
         std::stringstream out;
@@ -265,7 +269,8 @@ double EWSMApproximateFormulae::DeltaKappa_l_TwoLoopEW_rem(const double Mw_i) co
             + k8 * Delta_W + k9 * Delta_W * Delta_t + k10 * Delta_Z);
 }
 
-double EWSMApproximateFormulae::DeltaKappa_b_TwoLoopEW_rem(const double Mw_i) const {
+double EWSMApproximateFormulae::DeltaKappa_b_TwoLoopEW_rem(const double Mw_i) const
+{
     // applicable for 10 GeV <= mHl <= 1 TeV
     if (mycache.getSM().getMHl() < 10.0 || mycache.getSM().getMHl() > UpperBoundForApproximateFormulae) {
         std::stringstream out;
@@ -297,7 +302,8 @@ double EWSMApproximateFormulae::DeltaKappa_b_TwoLoopEW_rem(const double Mw_i) co
             + k8 * Delta_W + k9 * Delta_W * Delta_t + k10 * Delta_Z);
 }
 
-double EWSMApproximateFormulae::R0_bottom_OLD() const {
+double EWSMApproximateFormulae::R0_bottom_OLD() const
+{
     // applicable for 10 GeV <= mHl <= 1 TeV
     if (mycache.getSM().getMHl() < 10.0 || mycache.getSM().getMHl() > UpperBoundForApproximateFormulae) {
         std::stringstream out;
@@ -401,7 +407,8 @@ double EWSMApproximateFormulae::R0_bottom_OLD() const {
 
 }
 
-double EWSMApproximateFormulae::Gu_over_Gb_OLD() const {
+double EWSMApproximateFormulae::Gu_over_Gb_OLD() const
+{
     // applicable for 10 GeV <= mHl <= 1 TeV
     if (mycache.getSM().getMHl() < 10.0 || mycache.getSM().getMHl() > UpperBoundForApproximateFormulae) {
         std::stringstream out;
@@ -452,7 +459,8 @@ double EWSMApproximateFormulae::Gu_over_Gb_OLD() const {
             + c7 * Dt + c8 * Dt * Dt + c9 * LH * Dt + c10 * Das + c11 * Das * Das + c12 * Dmz);
 }
 
-double EWSMApproximateFormulae::Gd_over_Gb_OLD() const {
+double EWSMApproximateFormulae::Gd_over_Gb_OLD() const
+{
     // applicable for 10 GeV <= mHl <= 1 TeV
     if (mycache.getSM().getMHl() < 10.0 || mycache.getSM().getMHl() > UpperBoundForApproximateFormulae) {
         std::stringstream out;
@@ -503,7 +511,8 @@ double EWSMApproximateFormulae::Gd_over_Gb_OLD() const {
             + c7 * Dt + c8 * Dt * Dt + c9 * LH * Dt + c10 * Das + c11 * Das * Das + c12 * Dmz);
 }
 
-double EWSMApproximateFormulae::X(const std::string observable) const {
+double EWSMApproximateFormulae::X(const std::string observable) const
+{
     double LH = log(mycache.getSM().getMHl() / 125.7);
     double Dt = pow(mycache.getSM().getMtpole() / 173.2, 2.0) - 1.0;
     double Das = mycache.getSM().getAlsMz() / 0.1184 - 1.0;
@@ -626,7 +635,8 @@ double EWSMApproximateFormulae::X(const std::string observable) const {
             * (X0 + c1 * LH + c2 * Dt + c3 * Das + c4 * Das * Das + c5 * Das * Dt + c6 * Dal + c7 * DZ));
 }
 
-double EWSMApproximateFormulae::X_extended(const std::string observable) const {
+double EWSMApproximateFormulae::X_extended(const std::string observable) const
+{
     double LH = log(mycache.getSM().getMHl() / 125.7);
     double DH = mycache.getSM().getMHl() / 125.7 - 1.0;
     double Dt = pow(mycache.getSM().getMtpole() / 173.2, 2.0) - 1.0;

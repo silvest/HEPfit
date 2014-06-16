@@ -55,7 +55,6 @@ using namespace gslpp;
  * which correspond to the member functions with the word "Add".
  */
 class EWSMTwoLoopEW {
-
 public:
 
     /**
@@ -64,7 +63,7 @@ public:
      */
     EWSMTwoLoopEW(const EWSMcache& cache_i);
 
-    
+
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -87,8 +86,8 @@ public:
      * @param[in] s invariant mass squared
      * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha^2}(s)=0@f$
      */
-    double DeltaAlpha_t(const double s) const;    
-    
+    double DeltaAlpha_t(const double s) const;
+
     /**
      * @brief Leading two-loop contribution of @f$O(\alpha^2)@f$
      * to @f$\Delta\rho@f$, denoted as @f$\Delta\rho^{\alpha^2}@f$. 
@@ -172,10 +171,10 @@ public:
      * @return @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha^2}@f$
      */
     complex deltaKappa_rem_f(const Particle p, const double Mw_i) const;
-    
+
     ////////////////////////////////////////////////////////////////////////        
     // O(GF^2 Mt^2) contributions
-    
+
     /**
      * @brief The function @f$\rho^{(2)}@f$. 
      * @details This function parameterize the @f$O(\alpha^2 m_t^4/M_Z^4)@f$
@@ -188,8 +187,8 @@ public:
      * (see also @cite Barbieri:1992nz and @cite Barbieri:1992dq). 
      * @return @f$\rho^{(2)}@f$
      */
-    double rho_2() const;    
-    
+    double rho_2() const;
+
     /**
      * @brief The function @f$\tau^{(2)}@f$.
      * @details This function parmeterize the @f$O(\alpha^2 m_t^4/M_Z^4)@f$
@@ -200,14 +199,14 @@ public:
      * @return @f$\tau^{(2)}@f$
      */
     double tau_2() const;
-    
-        
+
+
     ////////////////////////////////////////////////////////////////////////        
-    
+
 private:
-    const EWSMcache& cache;///< A reference to an object of type EWSMcache.
-    const EWSMOneLoopEW myOneLoopEW;///< An object of type EWSMOneLoopEW.
-    
+    const EWSMcache& cache; ///< A reference to an object of type EWSMcache.
+    const EWSMOneLoopEW myOneLoopEW; ///< An object of type EWSMOneLoopEW.
+
     /**
      * @brief The auxiliary function @f$g(a)@f$.
      * @details See @cite Fleischer:1993ub and @cite Fleischer:1994cb.
@@ -230,9 +229,9 @@ private:
      * @param[in] a the ratio @f$a=(m_h/m_t)^2@f$
      * @return @f$f(a,1)@f$
      */
-    double f1(const double a) const;    
+    double f1(const double a) const;
 
-    
+
     ////////////////////////////////////////////////////////////////////////        
 
     /**
@@ -407,8 +406,8 @@ private:
      *
      * @attention This function is valid for @f$0<x<4@f$.
      */
-    complex GV(const double x) const;    
-    
+    complex GV(const double x) const;
+
 };
 
 #endif	/* EWSMTWOLOOPEW_H */

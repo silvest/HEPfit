@@ -5,22 +5,24 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef NPEFFECTIVE_H
-#define	NPEFFECTIVE_H
+#ifndef NPEFFECTIVEBS_H
+#define	NPEFFECTIVEBS_H
 
 #include <string.h>
 #include <stdexcept>
 #include "NPbase.h"
 
 /**
- * @class NPEffective
- * @brief The auxiliary base model class for NPEffective1 and NPEffective2 classes.
+ * @class NPEffectiveBS
+ * @brief A model class for new physics in the form the
+ * dimension-six effective Lagrangian in the basis of Barbieri and Strumia \cite Barbieri:1999tm.
  * @ingroup NewPhysics
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details This is an auxiliary Model class containing parameters and functions 
- * associated with the dimension-six effective Lagrangian in the basis of
- * \cite Barbieri:1999tm,
+ * @details This is a Model class containing parameters and functions
+ * associated with the dimension-six effective Lagrangian introduced in NPEffectiveBS
+ * class.
+ * 
  * @f[
  * \mathcal{L}_\mathrm{eff}
  * = \mathcal{L}_\mathrm{SM}
@@ -53,25 +55,193 @@
  * to @f$\mathcal{O}_{HD}@f$. 
  *
  * 
- * @anchor NPEffectiveInitialization
+ * * @anchor NPEffectiveBSInitialization
  * <h3>Initialization</h3>
  *
- * This class is intended to be used with an inherited model class.
+ * After creating an instance of the current class with the constructor
+ * NPEffectiveBS(), it is required to call the initialization method
+ * InitializeModel(), inherited from NPEffectiveBS class.
+ * In the Monte Carlo run, the constructor as well as the initialization
+ * method are called in InputParser::ReadParameters().
  *
  *
- * @anchor NPEffectiveParameters
+ * @anchor NPEffectiveBSParameters
  * <h3>%Model parameters</h3>
  *
- * There is no model parameter in the current class.
+ * The model parameters of %NPEffectiveBS are summarized below:
  *
  *
- * @anchor NPEffectiveFlags
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cWB_NP </td>
+ *   <td class="mod_symb">\f$C_{WB} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$\mathcal{O}_{WB}= \big(H^\dagger\tau^aH\big)W_{\mu\nu}^a B^{\mu\nu}\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cH_NP </td>
+ *   <td class="mod_symb">\f$C_H\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$\mathcal{O}_{H}= \big|H^\dagger D_\mu H\big|^2\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cLL_NP </td>
+ *   <td class="mod_symb">\f$C_{LL}  \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$\mathcal{O}_{LL}=\frac 12 \big(\overline{L}\,\gamma^\mu\tau^a L\big)
+ *    \big(\overline{L}\,\gamma_\mu\tau^a L\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHLp_NP </td>
+ *   <td class="mod_symb">\f$C_{HL}^\prime \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$\mathcal{O}_{HL}^\prime=i \big(H^\dagger D_\mu\tau^a H\big)
+ *    \big(\overline{L}\,\gamma^\mu\tau^a L\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHQp_NP </td>
+ *   <td class="mod_symb">\f$C_{HQ}^\prime \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$\mathcal{O}_{HQ}^\prime=i \big(H^\dagger D_\mu\tau^a H\big)
+ *    \big(\overline{Q}\,\gamma^\mu\tau^a Q\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHL_NP </td>
+ *   <td class="mod_symb">\f$C_{HL} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$\mathcal{O}_{HL}=i \big(H^\dagger D_\mu H\big)
+ *    \big(\overline{L}\,\gamma^\mu L\big) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHQ_NP </td>
+ *   <td class="mod_symb">\f$C_{HQ} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$\mathcal{O}_{HQ}=i \big(H^\dagger D_\mu H\big)
+ *    \big(\overline{Q}\,\gamma^\mu Q\big) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHE_NP </td>
+ *   <td class="mod_symb">\f$C_{HE} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$\mathcal{O}_{HE}=i \big(H^\dagger D_\mu H\big)
+ *    \big(\overline{E}\,\gamma^\mu E\big) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHU_NP </td>
+ *   <td class="mod_symb">\f$C_{HU} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$\mathcal{O}_{HU}=i \big(H^\dagger D_\mu H\big)
+ *    \big(\overline{U}\,\gamma^\mu U\big) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHD_NP </td>
+ *   <td class="mod_symb">\f$C_{HD} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f$\mathcal{O}_{HD}=i \big(H^\dagger D_\mu H\big)
+ *    \big(\overline{D}\,\gamma^\mu D\big) \f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Lambda_NP </td>
+ *   <td class="mod_symb">\f$\Lambda \f$</td>
+ *   <td class="mod_desc">The new physics scale. </td>
+ * </tr>
+ * </table>
+ *
+ *
+ * <table class="model">
+ * <tr>
+ *   <th>Label</th>
+ *   <th>LaTeX symbol</th>
+ *   <th>Description</th>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cWB_NP </td>
+ *   <td class="mod_symb">\f$C_{WB} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{WB}=\big(H^\dagger\tau^a H\big)W_{\mu\nu}^a B^{\mu\nu}\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cH_NP </td>
+ *   <td class="mod_symb">\f$C_H\f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{H}=\big|H^\dagger D_\mu H\big|^2\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cLL_NP </td>
+ *   <td class="mod_symb">\f$C_{LL}  \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{LL}=\frac 12\big(\overline{L}\,\gamma^\mu\tau^a L\big)
+ *   \big(\overline{L}\,\gamma_\mu\tau^a L\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHLp_NP </td>
+ *   <td class="mod_symb">\f$ C_{HL}^\prime \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{HL}^\prime =i\big(H^\dagger D_\mu\tau^a H\big)
+ *   \big(\overline{L}\,\gamma^\mu\tau^a L\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHQ1p_NP, %cHQ2p_NP, %cHQ3p_NP </td>
+ *   <td class="mod_symb">\f$ C_{HQ_i}^\prime \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{HQ_i}^\prime =i\big(H^\dagger D_\mu\tau^a H\big)
+ *   \big(\overline{Q_i}\,\gamma^\mu\tau^a Q_i\big)\f$ for @f$i=1,2,3@f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHL_NP </td>
+ *   <td class="mod_symb">\f$ C_{HL} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{HL} =i\big(H^\dagger D_\mu H\big)
+ *   \big(\overline{L}\,\gamma^\mu L\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHQ1_NP, %cHQ2_NP, %cHQ3_NP </td>
+ *   <td class="mod_symb">\f$ C_{HQ_i} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{HQ_i} =i\big(H^\dagger D_\mu H\big)
+ *   \big(\overline{Q_i}\,\gamma^\mu Q_i\big)\f$ for @f$i=1,2,3@f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHE_NP </td>
+ *   <td class="mod_symb">\f$ C_{HE} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{HE} =i\big(H^\dagger D_\mu H\big)
+ *   \big(\overline{E}\,\gamma^\mu E\big)\f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHU1_NP, %cHU2_NP, %cHU3_NP </td>
+ *   <td class="mod_symb">\f$ C_{HU_i}  \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{HU_i} =i\big(H^\dagger D_\mu H\big)
+ *   \big(\overline{U_i}\,\gamma^\mu U_i\big)\f$ for @f$i=1,2,3@f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%cHD1_NP, %cHD2_NP, %cHD3_NP </td>
+ *   <td class="mod_symb">\f$ C_{HD_i} \f$</td>
+ *   <td class="mod_desc">The coefficient of the operator
+ *   \f${\cal O}_{HD_i} =i\big(H^\dagger D_\mu H\big)
+ *   \big(\overline{D_i}\,\gamma^\mu D_i\big)\f$ for @f$i=1,2,3@f$. </td>
+ * </tr>
+ * <tr>
+ *   <td class="mod_name">%Lambda_NP </td>
+ *   <td class="mod_symb">\f$\Lambda \f$</td>
+ *   <td class="mod_desc">The new physics scale. </td>
+ * </tr>
+ * </table>
+ *
+ *
+ * @anchor NPEffectiveBSFlags
  * <h3>%Model flags</h3>
  *
  * There is no model flag in the current class.
  *
  *
- * @anchor NPEffectiveFunctions
+ * @anchor NPEffectiveBSFunctions
  * <h3>Important member functions</h3>
  *
  * Compared to the base class NPbase, the functions for the following quantities
@@ -89,32 +259,68 @@
  * and also the get methods getCoeff() to retrieve the value of each coefficient.
  * 
  */
-class NPEffective : public NPbase {
+class NPEffectiveBS : public NPbase {
 public:
 
     /**
-     * @brief The default constructor.
+     *　@brief The number of the model parameters in %NPEffectiveBS.
      */
-    NPEffective();
-
-    ////////////////////////////////////////////////////////////////////////
+    static const int NNPEffectiveBSVars = 30;
 
     /**
-     * @brief A get method to retrieve the value of the coefficient for a
-     * dimension-six operator.
-     * @param[in] name name of the coefficient to be retrieved:
-     * cWB, cH, cL1L1, cL1L2, etc.
-     * @return the coefficient of the dimension-six operator 
+     *　@brief The number of the model parameters in %NPEffectiveBS with lepton
+     * flavour universality.
      */
-    double getCoeff(const std::string name) const;
+    static const int NNPEffectiveBSVars_LFU = 19;
 
     /**
-     * @brief A get method to retrieve the value of the new physics scale \f$\Lambda\f$.
-     * @return the value of the new physics scale \f$\Lambda\f$ in GeV
+     *　@brief The number of the model parameters in %NPEffectiveBS with quark
+     * flavour universality.
      */
-    double getLambdaNP() const {
-        return LambdaNP;
-    }
+    static const int NNPEffectiveBSVars_QFU = 22;
+
+    /**
+     *　@brief The number of the model parameters in %NPEffectiveBS with lepton
+     * and quark flavour universalities.
+     */
+    static const int NNPEffectiveBSVars_LFU_QFU = 11;
+
+    /**
+     * @brief A string array containing the labels of the model parameters in
+     * %NPEffectiveBS.
+     */
+    static const std::string NPEffectiveBSVars[NNPEffectiveBSVars];
+
+    /**
+     * @brief A string array containing the labels of the model parameters in
+     * %NPEffectiveBS with lepton flavour universality.
+     */
+    static const std::string NPEffectiveBSVars_LFU[NNPEffectiveBSVars_LFU];
+
+    /**
+     * @brief A string array containing the labels of the model parameters in
+     * %NPEffectiveBS with quark flavour universality.
+     */
+    static const std::string NPEffectiveBSVars_QFU[NNPEffectiveBSVars_QFU];
+
+    /**
+     * @brief A string array containing the labels of the model parameters in
+     * %NPEffectiveBS with lepton and quark flavour universalities.
+     */
+    static const std::string NPEffectiveBSVars_LFU_QFU[NNPEffectiveBSVars_LFU_QFU];
+
+    /**
+     * @brief Constructor.
+     * @param[in] FlagLeptonUniversal_in
+     * @param[in] FlagQuarkUniversal_in
+     */
+    NPEffectiveBS(const bool FlagLeptonUniversal_in = false, const bool FlagQuarkUniversal_in = false);
+
+    /**
+     * @brief @copybrief Model::CheckParameters()
+     * @copydetails Model::CheckParameters()
+     */
+    virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -252,6 +458,12 @@ public:
     ////////////////////////////////////////////////////////////////////////    
 protected:
 
+    /**
+     * @brief @copybrief Model::setParameter()
+     * @copydetails Model::setParameter()
+     */
+    virtual void setParameter(const std::string name, const double& value);
+
     double cWB; ///< The dimension-6 operator coefficient \f$C_{WB}\f$.
     double cH; ///< The dimension-6 operator coefficient \f$C_{H}\f$.
     double cL1L1; ///< The dimension-6 operator coefficient \f$C_{L_1L_1}\f$.
@@ -285,6 +497,18 @@ protected:
 
     ////////////////////////////////////////////////////////////////////////
 private:
+
+    /**
+     * @brief An internal boolean flag. This flag is initialized in the
+     * constructor.
+     */
+    const bool FlagLeptonUniversal;
+
+    /**
+     * @brief An internal boolean flag. This flag is initialized in the
+     * constructor.
+     */
+    const bool FlagQuarkUniversal;
 
     /**
      * @brief New physics contribution to @f$g_L^l@f$.
@@ -328,5 +552,5 @@ private:
 
 };
 
-#endif	/* NPEFFECTIVE_H */
+#endif	/* NPEFFECTIVEBS_H */
 

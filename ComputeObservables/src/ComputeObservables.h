@@ -17,8 +17,9 @@
 #include <NPEpsilons_pureNP.h>
 #include <NPHiggs.h>
 #include <NPZbbbar.h>
-#include <NPEffective1.h>
-#include <NPEffective2.h>
+#include <NPZbbbarLinearized.h>
+#include <NPEffectiveBS.h>
+#include <NPEffectiveGIMR.h>
 #include <CorrelatedGaussianObservables.h>
 #include <ModelParameter.h>
 #include <Model.h>

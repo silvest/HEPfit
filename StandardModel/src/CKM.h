@@ -27,20 +27,20 @@ public:
     CKM();
     CKM(const CKM&);
     ~CKM();
-    
+
     void setWolfenstein(double, double, double, double);
     void setCKM(double, double, double, double);
-  
+
     void getCKM(matrix<complex> &) const;
-  
+
     // Wolfenstein parameters
     double getRho() const;
-    double getEta() const ;
+    double getEta() const;
     double getLambda() const;
-    double getA() const ;
+    double getA() const;
     double getRhoNB();
     double getEtaNB();
-    
+
     // Gilman parameterization
     double gets12();
     double gets13();
@@ -49,10 +49,10 @@ public:
     double getc13();
     double getc23();
     double getdelta();
-    
+
     // J_CP
     double getJcp();
-    
+
     //Absolute values of CKM elements
     double getVud();
     double getVus();
@@ -63,7 +63,7 @@ public:
     double getVtd();
     double getVts();
     double getVtb();
-    
+
     //Phases of CKM elements
     double getArgVud();
     double getArgVus();
@@ -74,7 +74,7 @@ public:
     double getArgVtd();
     double getArgVts();
     double getArgVtb();
-    
+
     //Complex values of CKM elements
     complex V_ud();
     complex V_us();
@@ -110,13 +110,13 @@ public:
     double getRt();
     double getRts();
     double getRb();
-    */
-    
+     */
+
 private:
     double Rho, Eta, Lambda, A;
     double s12, s13, s23, delta;
     double c12, c23, c13;
-    
+
     complex Vud, Vcd, Vtd;
     complex Vus, Vcs, Vts;
     complex Vub, Vcb, Vtb;

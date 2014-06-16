@@ -42,7 +42,7 @@ double EWSMOneLoopEW::DeltaAlpha_t(const double s) const
 
 double EWSMOneLoopEW::DeltaRho(const double Mw_i) const
 {
- 
+
     return ( -cache.getSM().getAle() / 4.0 / M_PI / cache.getSM().sW2(Mw_i) * DeltaRhobar(cache.getSM().getMz(), Mw_i));
 }
 
@@ -148,7 +148,7 @@ complex EWSMOneLoopEW::deltaKappa_rem_f(const Particle p, const double Mw_i) con
     double Mw = Mw_i;
     complex uf = (3.0 * cache.v_f(p, Mw) * cache.v_f(p, Mw) + cache.a_f(p) * cache.a_f(p))
             / 4.0 / cache.getSM().cW2(Mw) * FZ(Mz*Mz, Mw) + FW(Mz*Mz, p, Mw);
-    
+
     return ( deltaKappa_rem_tmp(cache.delta_f(p, Mw), uf, Mw));
 }
 
@@ -307,20 +307,20 @@ complex EWSMOneLoopEW::SigmabarWW_fer(const double mu, const double s,
     if (mu == Mz && s == 0.0) {
         for (int gen = 0; gen < 3; gen++) {
             B1_s_ml2_mlprime2[gen] = cache.B1_Mz2_0_mf2_mfprime2(gen);
-            B1_s_mq2_mqprime2[gen] = cache.B1_Mz2_0_mf2_mfprime2(gen+3);
+            B1_s_mq2_mqprime2[gen] = cache.B1_Mz2_0_mf2_mfprime2(gen + 3);
             B1_s_mlprime2_ml2[gen] = cache.B1_Mz2_0_mfprime2_mf2(gen);
-            B1_s_mqprime2_mq2[gen] = cache.B1_Mz2_0_mfprime2_mf2(gen+3);
+            B1_s_mqprime2_mq2[gen] = cache.B1_Mz2_0_mfprime2_mf2(gen + 3);
             Bf_s_mlprime2_ml2[gen] = cache.Bf_Mz2_0_mfprime2_mf2(gen);
-            Bf_s_mqprime2_mq2[gen] = cache.Bf_Mz2_0_mfprime2_mf2(gen+3);
+            Bf_s_mqprime2_mq2[gen] = cache.Bf_Mz2_0_mfprime2_mf2(gen + 3);
         }
     } else if (mu == Mz && s == Mw2) {
         for (int gen = 0; gen < 3; gen++) {
             B1_s_ml2_mlprime2[gen] = cache.B1_Mz2_Mw2_mf2_mfprime2(gen, Mw);
-            B1_s_mq2_mqprime2[gen] = cache.B1_Mz2_Mw2_mf2_mfprime2(gen+3, Mw);
+            B1_s_mq2_mqprime2[gen] = cache.B1_Mz2_Mw2_mf2_mfprime2(gen + 3, Mw);
             B1_s_mlprime2_ml2[gen] = cache.B1_Mz2_Mw2_mfprime2_mf2(gen, Mw);
-            B1_s_mqprime2_mq2[gen] = cache.B1_Mz2_Mw2_mfprime2_mf2(gen+3, Mw);
+            B1_s_mqprime2_mq2[gen] = cache.B1_Mz2_Mw2_mfprime2_mf2(gen + 3, Mw);
             Bf_s_mlprime2_ml2[gen] = cache.Bf_Mz2_Mw2_mfprime2_mf2(gen, Mw);
-            Bf_s_mqprime2_mq2[gen] = cache.Bf_Mz2_Mw2_mfprime2_mf2(gen+3, Mw);
+            Bf_s_mqprime2_mq2[gen] = cache.Bf_Mz2_Mw2_mfprime2_mf2(gen + 3, Mw);
         }
     } else {
         for (int gen = 0; gen < 3; gen++) {
@@ -670,13 +670,13 @@ complex EWSMOneLoopEW::SigmabarPrime_WW_fer_Mw2(const double mu,
     if (mu == Mw) {
         for (int gen = 0; gen < 3; gen++) {
             Bf_Mw2_mlprime2_ml2[gen] = cache.Bf_Mw2_Mw2_mfprime2_mf2(gen, Mw);
-            Bf_Mw2_mqprime2_mq2[gen] = cache.Bf_Mw2_Mw2_mfprime2_mf2(gen+3, Mw);
+            Bf_Mw2_mqprime2_mq2[gen] = cache.Bf_Mw2_Mw2_mfprime2_mf2(gen + 3, Mw);
             Bfp_Mw2_mlprime2_ml2[gen] = cache.Bfp_Mw2_Mw2_mfprime2_mf2(gen, Mw);
-            Bfp_Mw2_mqprime2_mq2[gen] = cache.Bfp_Mw2_Mw2_mfprime2_mf2(gen+3, Mw);
+            Bfp_Mw2_mqprime2_mq2[gen] = cache.Bfp_Mw2_Mw2_mfprime2_mf2(gen + 3, Mw);
             B1p_Mw2_ml2_mlprime2[gen] = cache.B1p_Mw2_Mw2_mf2_mfprime2(gen, Mw);
-            B1p_Mw2_mq2_mqprime2[gen] = cache.B1p_Mw2_Mw2_mf2_mfprime2(gen+3, Mw);
+            B1p_Mw2_mq2_mqprime2[gen] = cache.B1p_Mw2_Mw2_mf2_mfprime2(gen + 3, Mw);
             B1p_Mw2_mlprime2_ml2[gen] = cache.B1p_Mw2_Mw2_mfprime2_mf2(gen, Mw);
-            B1p_Mw2_mqprime2_mq2[gen] = cache.B1p_Mw2_Mw2_mfprime2_mf2(gen+3, Mw);
+            B1p_Mw2_mqprime2_mq2[gen] = cache.B1p_Mw2_Mw2_mfprime2_mf2(gen + 3, Mw);
         }
     } else {
         for (int gen = 0; gen < 3; gen++) {
@@ -1125,8 +1125,7 @@ complex EWSMOneLoopEW::FW(const double s, const Particle p,
             FW += cW2 * FWn_t(s, Mw) - cache.sigma_f(cache.getSM().getQuarks(qprime), Mw) / 2.0 * FWa_t(s, Mw)
             - FbarWa_t(s, Mw) / 2.0;
         return FW;
-    }
-    else
+    } else
         throw std::runtime_error("EWSMOneLoopEW::FW_q(): Wrong argument");
 }
 

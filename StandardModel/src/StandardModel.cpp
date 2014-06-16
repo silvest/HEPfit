@@ -56,7 +56,7 @@ Ye(3, 3, 0.)
     flag_order[EW2QCD1] = true;
     flag_order[EW3] = true;
 
-    FlagCacheInEWSM = true; // use caches in the current class
+    FlagCacheInStandardModel = true; // use caches in the current class
 
     // Initializations of the caches
     DeltaAlphaLepton_cache = 0.0;
@@ -79,7 +79,7 @@ Ye(3, 3, 0.)
         }
     }
 
-    myCache = NULL;
+    myEWSMcache = NULL;
     myOneLoopEW = NULL;
     myTwoLoopQCD = NULL;
     myThreeLoopQCD = NULL;
@@ -129,7 +129,7 @@ Ye(3, 3, 0.)
 StandardModel::~StandardModel()
 {
     if (IsModelInitialized()) {
-        if (myCache != NULL) delete(myCache);
+        if (myEWSMcache != NULL) delete(myEWSMcache);
         if (myOneLoopEW != NULL) delete(myOneLoopEW);
         if (myTwoLoopQCD != NULL) delete(myTwoLoopQCD);
         if (myThreeLoopQCD != NULL) delete(myThreeLoopQCD);
@@ -140,24 +140,27 @@ StandardModel::~StandardModel()
         if (myStandardModelMatching != NULL) delete(myStandardModelMatching);
     }
 }
+
+
 ///////////////////////////////////////////////////////////////////////////
 // Initialization
 
 bool StandardModel::InitializeModel()
 {
-    myCache = new EWSMcache(*this); ///< A pointer to an object of type EWSMcache.
-    myOneLoopEW = new EWSMOneLoopEW(*myCache); ///< A pointer to an object of type EWSMOneLoopEW.
-    myTwoLoopQCD = new EWSMTwoLoopQCD(*myCache); ///< A pointer to an object of type EWSMTwoLoopQCD.
-    myThreeLoopQCD = new EWSMThreeLoopQCD(*myCache); ///< A pointer to an object of type EWSMThreeLoopQCD.
-    myTwoLoopEW = new EWSMTwoLoopEW(*myCache); ///< A pointer to an object of type EWSMTwoLoopEW.
-    myThreeLoopEW2QCD = new EWSMThreeLoopEW2QCD(*myCache); ///< A pointer to an object of type EWSMThreeLoopEW2QCD.
-    myThreeLoopEW = new EWSMThreeLoopEW(*myCache); ///< A pointer to an object of type EWSMThreeLoopEW.
-    myApproximateFormulae = new EWSMApproximateFormulae(*myCache); ///< A pointer to an object of type EWSMApproximateFormulae.
-    myTwoFermionsLEP2 = new EWSMTwoFermionsLEP2(*myCache); ///< A pointer to an object of type EWSMTwoFermionsLEP2.
+    myEWSMcache = new EWSMcache(*this); ///< A pointer to an object of type EWSMcache.
+    myOneLoopEW = new EWSMOneLoopEW(*myEWSMcache); ///< A pointer to an object of type EWSMOneLoopEW.
+    myTwoLoopQCD = new EWSMTwoLoopQCD(*myEWSMcache); ///< A pointer to an object of type EWSMTwoLoopQCD.
+    myThreeLoopQCD = new EWSMThreeLoopQCD(*myEWSMcache); ///< A pointer to an object of type EWSMThreeLoopQCD.
+    myTwoLoopEW = new EWSMTwoLoopEW(*myEWSMcache); ///< A pointer to an object of type EWSMTwoLoopEW.
+    myThreeLoopEW2QCD = new EWSMThreeLoopEW2QCD(*myEWSMcache); ///< A pointer to an object of type EWSMThreeLoopEW2QCD.
+    myThreeLoopEW = new EWSMThreeLoopEW(*myEWSMcache); ///< A pointer to an object of type EWSMThreeLoopEW.
+    myApproximateFormulae = new EWSMApproximateFormulae(*myEWSMcache); ///< A pointer to an object of type EWSMApproximateFormulae.
+    myTwoFermionsLEP2 = new EWSMTwoFermionsLEP2(*myEWSMcache); ///< A pointer to an object of type EWSMTwoFermionsLEP2.
     myStandardModelMatching = new StandardModelMatching(*this);
     setModelInitialized(true);
     return (true);
 }
+
 
 ///////////////////////////////////////////////////////////////////////////
 // Parameters
@@ -345,11 +348,11 @@ void StandardModel::computeYukawas()
 bool StandardModel::setFlag(const std::string name, const bool value)
 {
     bool res = false;
-    if (name.compare("CacheInEWSM") == 0) {
-        setFlagCacheInEWSM(value);
+    if (name.compare("CacheInStandardModel") == 0) {
+        setFlagCacheInStandardModel(value);
         res = true;
     } else if (name.compare("CacheInEWSMcache") == 0) {
-        getMyCache()->setFlagCacheInEWSMcache(value);
+        myEWSMcache->setFlagCacheInEWSMcache(value);
         res = true;
     } else if (name.compare("WithoutNonUniversalVC") == 0) {
         FlagWithoutNonUniversalVC = value;
@@ -399,6 +402,7 @@ bool StandardModel::CheckFlags() const
     return (QCD::CheckFlags());
 }
 
+
 ///////////////////////////////////////////////////////////////////////////
 // Definitions for EW cache
 
@@ -417,24 +421,24 @@ bool StandardModel::checkSMparams(double Params_cache[]) const
     // Note: When modifying the array below, the constant NumSMParams has to
     // be modified accordingly.
     double SMparams[NumSMParams] = {
-        getAlsMz(), getMz(), getGF(), getAle(), getDAle5Mz(),
-        getMHl(), getMtpole(),
-        getLeptons(NEUTRINO_1).getMass(),
-        getLeptons(NEUTRINO_2).getMass(),
-        getLeptons(NEUTRINO_3).getMass(),
-        getLeptons(ELECTRON).getMass(),
-        getLeptons(MU).getMass(),
-        getLeptons(TAU).getMass(),
-        getQuarks(UP).getMass(),
-        getQuarks(DOWN).getMass(),
-        getQuarks(CHARM).getMass(),
-        getQuarks(STRANGE).getMass(),
-        getQuarks(BOTTOM).getMass(),
-        getMut(), getMub(), getMuc(),
-        getDelMw(), getDelSin2th_l(), getDelGammaZ(),
-        SchemeToDouble(getFlagMw()),
-        SchemeToDouble(getFlagRhoZ()),
-        SchemeToDouble(getFlagKappaZ())
+        AlsMz, Mz, GF, ale, dAle5Mz,
+        mHl, mtpole,
+        leptons[NEUTRINO_1].getMass(),
+        leptons[NEUTRINO_2].getMass(),
+        leptons[NEUTRINO_3].getMass(),
+        leptons[ELECTRON].getMass(),
+        leptons[MU].getMass(),
+        leptons[TAU].getMass(),
+        quarks[UP].getMass(),
+        quarks[DOWN].getMass(),
+        quarks[CHARM].getMass(),
+        quarks[STRANGE].getMass(),
+        quarks[BOTTOM].getMass(),
+        mut, mub, muc,
+        delMw, delSin2th_l, delGammaZ,
+        SchemeToDouble(FlagMw),
+        SchemeToDouble(FlagRhoZ),
+        SchemeToDouble(FlagKappaZ)
     };
 
     // check updated parameters
@@ -450,37 +454,124 @@ bool StandardModel::checkSMparams(double Params_cache[]) const
 }
 
 
+////////////////////////////////////////////////////////////////////////
+// CKM parameters
 
-///////////////////////////////////////////////////////////////////////////
+// Angles
 
-double StandardModel::v() const
+double StandardModel::computeBeta() const
 {
-    return ( 1. / sqrt(sqrt(2.) * GF));
+    return (-VCKM(1, 0) * VCKM(1, 2).conjugate() / (VCKM(2, 0) * VCKM(2, 2).conjugate())).arg();
 }
 
-double StandardModel::Mw_tree() const
+double StandardModel::computeGamma() const
 {
-    return ( Mz / sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - 4.0 * M_PI * ale / sqrt(2.0) / GF / Mz / Mz)));
+    return (-VCKM(0, 0) * VCKM(0, 2).conjugate() / (VCKM(1, 0) * VCKM(1, 2).conjugate())).arg();
 }
 
-double StandardModel::s02() const
+double StandardModel::computeAlpha() const
 {
-    double tmp = 1.0 - 4.0 * M_PI * alphaMz() / sqrt(2.0) / GF / Mz / Mz;
-    if (tmp < 0.0)
-        throw std::runtime_error("Error in s02()");
-
-    return ( (1.0 - sqrt(tmp)) / 2.0);
+    return (-VCKM(2, 0) * VCKM(2, 2).conjugate() / (VCKM(0, 0) * VCKM(0, 2).conjugate())).arg();
 }
 
-double StandardModel::c02() const
+double StandardModel::computeBetas() const
 {
-    return ( 1.0 - s02());
+    return (-VCKM(2, 1) * VCKM(2, 2).conjugate() / (VCKM(1, 1) * VCKM(1, 2).conjugate())).arg();
+}
+
+// Lambda_q
+
+complex StandardModel::computelamt() const
+{
+    return VCKM(2, 0) * VCKM(2, 1).conjugate();
+}
+
+complex StandardModel::computelamc() const
+{
+    return VCKM(1, 0) * VCKM(1, 1).conjugate();
+}
+
+complex StandardModel::computelamu() const
+{
+    return VCKM(0, 0) * VCKM(0, 1).conjugate();
+}
+
+complex StandardModel::computelamt_d() const
+{
+    return VCKM(2, 0) * VCKM(2, 2).conjugate();
+}
+
+complex StandardModel::computelamc_d() const
+{
+    return VCKM(1, 0) * VCKM(1, 2).conjugate();
+}
+
+complex StandardModel::computelamu_d() const
+{
+    return VCKM(0, 0) * VCKM(0, 2).conjugate();
+}
+
+complex StandardModel::computelamt_s() const
+{
+    return VCKM(2, 1) * VCKM(2, 2).conjugate();
+}
+
+complex StandardModel::computelamc_s() const
+{
+    return VCKM(1, 1) * VCKM(1, 2).conjugate();
+}
+
+complex StandardModel::computelamu_s() const
+{
+    return VCKM(0, 1) * VCKM(0, 2).conjugate();
+}
+
+double StandardModel::computeRt() const
+{
+    return (VCKM(2, 0) * VCKM(2, 2).conjugate()
+            / (VCKM(1, 0) * VCKM(1, 2).conjugate())).abs();
+}
+
+double StandardModel::computeRts() const
+{
+    return (VCKM(2, 1) * VCKM(2, 2).conjugate()
+            / (VCKM(1, 1) * VCKM(1, 2).conjugate())).abs();
+}
+
+double StandardModel::computeRb() const
+{
+    return (VCKM(0, 0) * VCKM(0, 2).conjugate()
+            / (VCKM(1, 0) * VCKM(1, 2).conjugate())).abs();
+}
+
+
+////////////////////////////////////////////////////////////////////////
+
+double StandardModel::ale_OS(const double mu, orders order) const
+{
+    if (mu < 50.0)
+        throw std::runtime_error("out of range in StandardModel::ale_OS()");
+
+    double N = 20.0 / 3.0;
+    double beta1 = N / 3.0;
+    double beta2 = N / 4.0;
+    double alpha_ini = alphaMz();
+    double v = 1.0 + 2.0 * beta1 * alpha_ini / M_PI * log(Mz / mu);
+
+    switch (order) {
+        case LO:
+            return ( alpha_ini / v);
+        case FULLNLO:
+            return ( alpha_ini / v * (1.0 - beta2 / beta1 * alpha_ini / M_PI * log(v) / v));
+        default:
+            throw std::runtime_error("Error in StandardModel::ale_OS()");
+    }
 }
 
 double StandardModel::DeltaAlphaLepton(const double s) const
 {
     if (s == Mz * Mz)
-        if (FlagCacheInEWSM)
+        if (FlagCacheInStandardModel)
             if (checkSMparams(DeltaAlphaLepton_params_cache))
                 return DeltaAlphaLepton_cache;
 
@@ -530,7 +621,7 @@ double StandardModel::DeltaAlphaTop(const double s) const
 
 double StandardModel::DeltaAlpha() const
 {
-    if (FlagCacheInEWSM)
+    if (FlagCacheInStandardModel)
         if (checkSMparams(DeltaAlpha_params_cache))
             return DeltaAlpha_cache;
 
@@ -544,482 +635,112 @@ double StandardModel::alphaMz() const
     return (ale / (1.0 - DeltaAlpha()));
 }
 
-////////////////////////////////////////////////////////////////////////
 
-double StandardModel::ale_OS(const double mu, orders order) const
+///////////////////////////////////////////////////////////////////////////
+
+double StandardModel::v() const
 {
-    if (mu < 50.0)
-        throw std::runtime_error("out of range in StandardModel::ale_OS()");
-
-    double N = 20.0 / 3.0;
-    double beta1 = N / 3.0;
-    double beta2 = N / 4.0;
-    double alpha_ini = alphaMz();
-    double v = 1.0 + 2.0 * beta1 * alpha_ini / M_PI * log(Mz / mu);
-
-    switch (order) {
-        case LO:
-            return ( alpha_ini / v);
-        case FULLNLO:
-            return ( alpha_ini / v * (1.0 - beta2 / beta1 * alpha_ini / M_PI * log(v) / v));
-        default:
-            throw std::runtime_error("Error in StandardModel::ale_OS()");
-    }
-}
-
-////////////////////////////////////////////////////////////////////////
-
-double StandardModel::Delta_EWQCD(const QCD::quark q) const
-{
-    switch (q) {
-        case QCD::UP:
-        case QCD::CHARM:
-            return ( -0.000113);
-        case QCD::TOP:
-            return ( 0.0);
-        case QCD::DOWN:
-        case QCD::STRANGE:
-            return ( -0.000160);
-        case QCD::BOTTOM:
-            return ( -0.000040);
-        default:
-            throw std::runtime_error("Error in StandardModel::Delta_EWQCD");
-    }
-}
-
-double StandardModel::RVq(const QCD::quark q) const
-{
-    if (q == QCD::TOP) return 0.0;
-
-    double mcMz, mbMz;
-    mcMz = Mrun(getMz(), getQuarks(CHARM).getMass(), FULLNNLO);
-    mbMz = Mrun(getMz(), getQuarks(BOTTOM).getMass(), FULLNNLO);
-    //mcMz = 0.56381685; /* for debug */
-    //mbMz = 2.8194352; /* for debug */
-
-    double MtPole = getMtpole();
-
-    /* electric charge squared */
-    double Qf2 = pow(getQuarks(q).getCharge(), 2.0);
-
-    /* s = Mz^2 */
-    double s = getMz() * getMz();
-
-    /* products of the charm and bottom masses at Mz */
-    double mcMz2 = mcMz*mcMz;
-    double mbMz2 = mbMz*mbMz;
-    double mqMz2, mqdash4;
-    switch (q) {
-        case QCD::CHARM:
-            mqMz2 = mcMz*mcMz;
-            mqdash4 = mbMz2*mbMz2;
-            break;
-        case QCD::BOTTOM:
-            mqMz2 = mbMz*mbMz;
-            mqdash4 = mcMz2*mcMz2;
-            break;
-        default:
-            mqMz2 = 0.0;
-            mqdash4 = 0.0;
-            break;
-    }
-
-    /* Logarithms */
-    //double log_t = log(pow(getQuarks(TOP).getMass(),2.0)/s);
-    double log_t = log(MtPole * MtPole / s); // the pole mass
-    double log_c = log(mcMz2 / s);
-    double log_b = log(mbMz2 / s);
-    double log_q;
-    switch (q) {
-        case QCD::CHARM:
-        case QCD::BOTTOM:
-            log_q = log(mqMz2 / s);
-            break;
-        default:
-            log_q = 0.0;
-            break;
-    }
-
-    /* the active number of flavour */
-    double nf = 5.0;
-
-    /* zeta functions */
-    double zeta2 = getMyCache()->getZeta2();
-    double zeta3 = getMyCache()->getZeta3();
-    //double zeta4 = getMyCache()->GetZeta4();
-    double zeta5 = getMyCache()->getZeta5();
-
-    /* massless non-singlet corrections */
-    double C02 = 365.0 / 24.0 - 11.0 * zeta3 + (-11.0 / 12.0 + 2.0 / 3.0 * zeta3) * nf;
-    double C03 = 87029.0 / 288.0 - 121.0 / 8.0 * zeta2 - 1103.0 / 4.0 * zeta3
-            + 275.0 / 6.0 * zeta5
-            + (-7847.0 / 216.0 + 11.0 / 6.0 * zeta2 + 262.0 / 9.0 * zeta3
-            - 25.0 / 9.0 * zeta5) * nf
-            + (151.0 / 162.0 - zeta2 / 18.0 - 19.0 / 27.0 * zeta3) * nf*nf;
-    double C04 = -156.61 + 18.77 * nf - 0.7974 * nf * nf + 0.0215 * nf * nf*nf;
-    //std::cout << "TEST: C02 = " << C02 << std::endl;// TEST (should be 1.40923)
-    //std::cout << "TEST: C03 = " << C03 << std::endl;// TEST (should be -12.7671)
-    //std::cout << "TEST: C04 = " << C04 << std::endl;// TEST (should be -80.0075)
-
-    /* quadratic massive corrections */
-    double C23 = -80.0 + 60.0 * zeta3 + (32.0 / 9.0 - 8.0 / 3.0 * zeta3) * nf;
-    double C21V = 12.0;
-    double C22V = 253.0 / 2.0 - 13.0 / 3.0 * nf;
-    double C23V = 2522.0 - 855.0 / 2.0 * zeta2 + 310.0 / 3.0 * zeta3 - 5225.0 / 6.0 * zeta5
-            + (-4942.0 / 27.0 + 34.0 * zeta2 - 394.0 / 27.0 * zeta3
-            + 1045.0 / 27.0 * zeta5) * nf
-            + (125.0 / 54.0 - 2.0 / 3.0 * zeta2) * nf*nf;
-
-    /* quartic massive corrections */
-    double C42 = 13.0 / 3.0 - 4.0 * zeta3;
-    double C40V = -6.0;
-    double C41V = -22.0;
-    double C42V = -3029.0 / 12.0 + 162.0 * zeta2 + 112.0 * zeta3
-            + (143.0 / 18.0 - 4.0 * zeta2 - 8.0 / 3.0 * zeta3) * nf;
-    double C42VL = -11.0 / 2.0 + nf / 3.0;
-
-    /* power suppressed top-mass correction */
-    //double xt = s/pow(getQuarks(TOP).getMass(),2.0);
-    double xt = s / MtPole / MtPole; // the pole mass
-    double C2t = xt * (44.0 / 675.0 - 2.0 / 135.0 * (-log_t));
-
-    /* rescaled strong coupling constant */
-    double AlsMzPi = getAlsMz() / M_PI;
-    double AlsMzPi2 = AlsMzPi*AlsMzPi;
-    double AlsMzPi3 = AlsMzPi2*AlsMzPi;
-    double AlsMzPi4 = AlsMzPi3*AlsMzPi;
-
-    /* electromagnetic coupling at Mz */
-    double alpMz = alphaMz();
-
-    /* radiator function to the vector current */
-    double RVf;
-    RVf = 1.0 + 3.0 / 4.0 * Qf2 * alpMz / M_PI + AlsMzPi - Qf2 / 4.0 * alpMz / M_PI * AlsMzPi
-            + (C02 + C2t) * AlsMzPi2 + C03 * AlsMzPi3 + C04 * AlsMzPi4
-            + (mcMz2 + mbMz2) / s * C23 * AlsMzPi3
-            + mqMz2 / s * (C21V * AlsMzPi + C22V * AlsMzPi2 + C23V * AlsMzPi3)
-            + mcMz2 * mcMz2 / s / s * (C42 - log_c) * AlsMzPi2
-            + mbMz2 * mbMz2 / s / s * (C42 - log_b) * AlsMzPi2
-            + mqMz2 * mqMz2 / s / s * (C40V + C41V * AlsMzPi + (C42V + C42VL * log_q) * AlsMzPi2)
-            + 12.0 * mqdash4 / s / s * AlsMzPi2
-            - mqMz2 * mqMz2 * mqMz2 / s / s / s
-            * (8.0 + 16.0 / 27.0 * (155.0 + 6.0 * log_q) * AlsMzPi);
-    return RVf;
-}
-
-double StandardModel::RAq(const QCD::quark q) const
-{
-    if (q == QCD::TOP) return 0.0;
-
-    double mcMz, mbMz;
-    mcMz = Mrun(getMz(), getQuarks(CHARM).getMass(), FULLNNLO);
-    mbMz = Mrun(getMz(), getQuarks(BOTTOM).getMass(), FULLNNLO);
-    //mcMz = 0.56381685; /* for debug */
-    //mbMz = 2.8194352; /* for debug */
-
-    double MtPole = getMtpole();
-
-    /* z-component of isospin */
-    double I3q = getQuarks(q).getIsospin();
-    /* electric charge squared */
-    double Qf2 = pow(getQuarks(q).getCharge(), 2.0);
-
-    /* s = Mz^2 */
-    double s = getMz() * getMz();
-
-    /* products of the charm and bottom masses at Mz */
-    double mcMz2 = mcMz*mcMz;
-    double mbMz2 = mbMz*mbMz;
-    double mqMz2, mqdash4;
-    switch (q) {
-        case QCD::CHARM:
-            mqMz2 = mcMz*mcMz;
-            mqdash4 = mbMz2*mbMz2;
-            break;
-        case QCD::BOTTOM:
-            mqMz2 = mbMz*mbMz;
-            mqdash4 = mcMz2*mcMz2;
-            break;
-        default:
-            mqMz2 = 0.0;
-            mqdash4 = 0.0;
-            break;
-    }
-
-    /* Logarithms */
-    //double log_t = log(pow(getQuarks(TOP).getMass(),2.0)/s);
-    double log_t = log(MtPole * MtPole / s); // the pole mass
-    double log_c = log(mcMz2 / s);
-    double log_b = log(mbMz2 / s);
-    double log_q;
-    switch (q) {
-        case QCD::CHARM:
-        case QCD::BOTTOM:
-            log_q = log(mqMz2 / s);
-            break;
-        default:
-            log_q = 0.0;
-            break;
-    }
-
-    /* the active number of flavour */
-    double nf = 5.0;
-
-    /* zeta functions */
-    double zeta2 = getMyCache()->getZeta2();
-    double zeta3 = getMyCache()->getZeta3();
-    double zeta4 = getMyCache()->getZeta4();
-    double zeta5 = getMyCache()->getZeta5();
-
-    /* massless non-singlet corrections */
-    double C02 = 365.0 / 24.0 - 11.0 * zeta3 + (-11.0 / 12.0 + 2.0 / 3.0 * zeta3) * nf;
-    double C03 = 87029.0 / 288.0 - 121.0 / 8.0 * zeta2 - 1103.0 / 4.0 * zeta3
-            + 275.0 / 6.0 * zeta5
-            + (-7847.0 / 216.0 + 11.0 / 6.0 * zeta2 + 262.0 / 9.0 * zeta3
-            - 25.0 / 9.0 * zeta5) * nf
-            + (151.0 / 162.0 - zeta2 / 18.0 - 19.0 / 27.0 * zeta3) * nf*nf;
-    double C04 = -156.61 + 18.77 * nf - 0.7974 * nf * nf + 0.0215 * nf * nf*nf;
-    //std::cout << "TEST: C02 = " << C02 << std::endl;// TEST (should be 1.40923)
-    //std::cout << "TEST: C03 = " << C03 << std::endl;// TEST (should be -12.7671)
-    //std::cout << "TEST: C04 = " << C04 << std::endl;// TEST (should be -80.0075)
-
-    /* quadratic massive corrections */
-    double C23 = -80.0 + 60.0 * zeta3 + (32.0 / 9.0 - 8.0 / 3.0 * zeta3) * nf;
-    double C20A = -6.0;
-    double C21A = -22.0;
-    double C22A = -8221.0 / 24.0 + 57.0 * zeta2 + 117.0 * zeta3
-            + (151.0 / 12.0 - 2.0 * zeta2 - 4.0 * zeta3) * nf;
-    double C23A = -4544045.0 / 864.0 + 1340.0 * zeta2 + 118915.0 / 36.0 * zeta3
-            - 127.0 * zeta5
-            + (71621.0 / 162.0 - 209.0 / 2.0 * zeta2 - 216.0 * zeta3
-            + 5.0 * zeta4 + 55.0 * zeta5) * nf
-            + (-13171.0 / 1944.0 + 16.0 / 9.0 * zeta2 + 26.0 / 9.0 * zeta3) * nf*nf;
-
-    /* quartic massive corrections */
-    double C42 = 13.0 / 3.0 - 4.0 * zeta3;
-    double C40A = 6.0;
-    double C41A = 10.0;
-    double C42A = 3389.0 / 12.0 - 162.0 * zeta2 - 220.0 * zeta3
-            + (-41.0 / 6.0 + 4.0 * zeta2 + 16.0 / 3.0 * zeta3) * nf;
-    double C42AL = 77.0 / 2.0 - 7.0 / 3.0 * nf;
-
-    /* power suppressed top-mass correction */
-    //double xt = s/pow(getQuarks(TOP).getMass(),2.0);
-    double xt = s / MtPole / MtPole; // the pole mass
-    double C2t = xt * (44.0 / 675.0 - 2.0 / 135.0 * (-log_t));
-
-    /* singlet axial-vector corrections */
-    double I2 = -37.0 / 12.0 + (-log_t) + 7.0 / 81.0 * xt + 0.0132 * xt*xt;
-    double I3 = -5075.0 / 216.0 + 23.0 / 6.0 * zeta2 + zeta3 + 67.0 / 18.0 * (-log_t)
-            + 23.0 / 12.0 * log_t*log_t;
-    double I4 = 49.0309 - 17.6637 * (-log_t) + 14.6597 * log_t * log_t
-            + 3.6736 * (-log_t * log_t * log_t);
-
-    /* rescaled strong coupling constant */
-    double AlsMzPi = getAlsMz() / M_PI;
-    double AlsMzPi2 = AlsMzPi*AlsMzPi;
-    double AlsMzPi3 = AlsMzPi2*AlsMzPi;
-    double AlsMzPi4 = AlsMzPi3*AlsMzPi;
-
-    /* electromagnetic coupling at Mz */
-    double alpMz = alphaMz();
-
-    /* radiator function to the axial-vector current */
-    double RAf;
-    RAf = 1.0 + 3.0 / 4.0 * Qf2 * alpMz / M_PI + AlsMzPi - Qf2 / 4.0 * alpMz / M_PI * AlsMzPi
-            + (C02 + C2t - 2.0 * I3q * I2) * AlsMzPi2
-            + (C03 - 2.0 * I3q * I3) * AlsMzPi3
-            + (C04 - 2.0 * I3q * I4) * AlsMzPi4
-            + (mcMz2 + mbMz2) / s * C23 * AlsMzPi3
-            + mqMz2 / s * (C20A + C21A * AlsMzPi + C22A * AlsMzPi2
-            + 6.0 * (3.0 + log_t) * AlsMzPi2 + C23A * AlsMzPi3)
-            //- 10.0*mqMz2/pow(getQuarks(TOP).getMass(),2.0)
-            - 10.0 * mqMz2 / MtPole / MtPole // the pole mass
-            * (8.0 / 81.0 + log_t / 54.0) * AlsMzPi2
-            + mcMz2 * mcMz2 / s / s * (C42 - log_c) * AlsMzPi2
-            + mbMz2 * mbMz2 / s / s * (C42 - log_b) * AlsMzPi2
-            + mqMz2 * mqMz2 / s / s * (C40A + C41A * AlsMzPi
-            + (C42A + C42AL * log_q) * AlsMzPi2)
-            - 12.0 * mqdash4 / s / s*AlsMzPi2;
-    return RAf;
-}
-
-double StandardModel::RVh() const
-{
-    /* rescaled strong coupling constant */
-    double AlsMzPi = getAlsMz() / M_PI;
-    double AlsMzPi2 = AlsMzPi*AlsMzPi;
-    double AlsMzPi3 = AlsMzPi2*AlsMzPi;
-    double AlsMzPi4 = AlsMzPi3*AlsMzPi;
-
-    complex gV_sum(0.0, 0.0);
-    complex gV_q;
-    for (int q = 0; q < 6; q++) {
-        gV_q = gV_f(QCD::quarks[(QCD::quark)q]);
-        if (q == (int) (QCD::TOP))
-            gV_q = 0.0;
-        gV_sum += gV_q;
-    }
-
-    // singlet vector corrections
-    return ( gV_sum.abs2()*(-0.4132 * AlsMzPi3 - 4.9841 * AlsMzPi4));
+    return ( 1. / sqrt(sqrt(2.) * GF));
 }
 
 
-////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
-double StandardModel::A_f(const Particle p) const
+double StandardModel::Mw_tree() const
 {
-    double Re_gV_over_gA;
-    //    if (getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0) {
-    //        /* SM contribution with the approximate formula */
-    //        double sin2thEff = myApproximateFormulae->sin2thetaEff(p);
-    //        Re_gV_over_gA = 1.0 - 4.0 * fabs(p.getCharge()) * sin2thEff;
-    //    } else
-    Re_gV_over_gA = (gV_f(p) / gA_f(p)).real();
-    return ( 2.0 * Re_gV_over_gA / (1.0 + pow(Re_gV_over_gA, 2.0)));
+    return ( Mz / sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - 4.0 * M_PI * ale / sqrt(2.0) / GF / Mz / Mz)));
 }
 
-double StandardModel::AFB(const Particle p) const
+double StandardModel::s02() const
 {
-    return (3.0 / 4.0 * A_f(getLeptons(ELECTRON)) * A_f(p));
+    double tmp = 1.0 - 4.0 * M_PI * alphaMz() / sqrt(2.0) / GF / Mz / Mz;
+    if (tmp < 0.0)
+        throw std::runtime_error("Error in s02()");
+
+    return ( (1.0 - sqrt(tmp)) / 2.0);
 }
 
-double StandardModel::sin2thetaEff(const Particle p) const
+double StandardModel::c02() const
 {
-    if (getFlagKappaZ().compare("APPROXIMATEFORMULA") == 0) {
-        return ( kappaZ_f(leptons[ELECTRON]).real() * sW2());
-        /* problematic when computing SM predictions for epsilons in NPEpsilons model. */
-        //return myApproximateFormulae->sin2thetaEff(p); 
-    } else {
-        double Re_kappa = kappaZ_f(p).real();
-        return ( Re_kappa * sW2());
-    }
+    return ( 1.0 - s02());
 }
 
-double StandardModel::GammaZ(const Particle p) const
+double StandardModel::Mw() const
 {
-    if (p.is("TOP"))
-        return 0.0;
-    double Gamma;
-    if (!IsFlagNoApproximateGammaZ()) {
-        /* SM contribution with the approximate formula */
-        if (p.is("NEUTRINO_1") || p.is("NEUTRINO_2") || p.is("NEUTRINO_3"))
-            Gamma = myApproximateFormulae->X_extended("Gamma_nu");
-        else if (p.is("ELECTRON") || p.is("MU"))
-            Gamma = myApproximateFormulae->X_extended("Gamma_e_mu");
-        else if (p.is("TAU"))
-            Gamma = myApproximateFormulae->X_extended("Gamma_tau");
-        else if (p.is("UP"))
-            Gamma = myApproximateFormulae->X_extended("Gamma_u");
-        else if (p.is("CHARM"))
-            Gamma = myApproximateFormulae->X_extended("Gamma_c");
-        else if (p.is("DOWN") || p.is("STRANGE"))
-            Gamma = myApproximateFormulae->X_extended("Gamma_d_s");
-        else if (p.is("BOTTOM"))
-            Gamma = myApproximateFormulae->X_extended("Gamma_b");
-        else
-            throw std::runtime_error("Error in StandardModel::GammaZ()");
-    } else {
-        complex myrhoZ_f = rhoZ_f(p);
-        complex gV_over_gA = gV_f(p) / gA_f(p);
-        double G0 = getGF() * pow(getMz(), 3.0) / 24.0 / sqrt(2.0) / M_PI;
-        if (p.is("LEPTON")) {
-            double myalphaMz = alphaMz();
-            double Q = p.getCharge();
-            double xl = pow(p.getMass() / getMz(), 2.0);
-            Gamma = G0 * myrhoZ_f.abs() * sqrt(1.0 - 4.0 * xl)
-                    * ((1.0 + 2.0 * xl)*(gV_over_gA.abs2() + 1.0) - 6.0 * xl)
-                    * (1.0 + 3.0 / 4.0 * myalphaMz / M_PI * pow(Q, 2.0));
-        } else if (p.is("QUARK")) {
-            Gamma = 3.0 * G0 * myrhoZ_f.abs()*(gV_over_gA.abs2() * RVq((QCD::quark) (p.index() - 6)) + RAq((QCD::quark) (p.index() - 6)));
+    /* Debug */
+    //std::cout << std::boolalpha
+    //          << checkScheme(schemeMw_cache,schemeMw,false)
+    //          << " [cache:" << schemeMw_cache
+    //          << " current:" << schemeMw << "]" << std::endl;
 
-            /* Nonfactorizable EW-QCD corrections */
-            Gamma += Delta_EWQCD((QCD::quark) (p.index() - 6));
-        } else
-            throw std::runtime_error("Error in StandardModel::GammaZ()");
-    }
+    if (FlagCacheInStandardModel)
+        if (checkSMparams(Mw_params_cache))
+            return Mw_cache;
 
-    return Gamma;
-}
-
-double StandardModel::Gamma_inv() const
-{
-    return ( GammaZ(leptons[NEUTRINO_1]) + GammaZ(leptons[NEUTRINO_2])
-            + GammaZ(leptons[NEUTRINO_3]));
-}
-
-double StandardModel::Gamma_had() const
-{
-    double Gamma_had_tmp = GammaZ(quarks[UP]) + GammaZ(quarks[DOWN]) + GammaZ(quarks[CHARM])
-            + GammaZ(quarks[STRANGE]) + GammaZ(quarks[BOTTOM]);
-
-    /* Singlet vector contribution (not included in the approximate formula) */
-    double G0 = getGF() * pow(getMz(), 3.0) / 24.0 / sqrt(2.0) / M_PI;
-    Gamma_had_tmp += 4.0 * 3.0 * G0 * RVh();
-
-    return Gamma_had_tmp;
-}
-
-double StandardModel::Gamma_Z() const
-{
-    if (!IsFlagNoApproximateGammaZ())
-        /* SM contribution with the approximate formula */
-        return myApproximateFormulae->X_extended("GammaZ");
-    else
-        return ( GammaZ(leptons[ELECTRON]) + GammaZ(leptons[MU]) + GammaZ(leptons[TAU])
-            + Gamma_inv() + Gamma_had());
-}
-
-double StandardModel::rho_GammaW(const Particle pi, const Particle pj) const
-{
-    double rhoW = 0.0;
-    if (flag_order[EW1])
-        rhoW = myOneLoopEW->rho_GammaW(pi, pj, Mw());
-    return rhoW;
-}
-
-double StandardModel::GammaW(const Particle pi,
-        const Particle pj) const
-{
-    if ((pi.index()) % 2 || (pj.index() + 1) % 2)
-        throw std::runtime_error("Error in StandardModel::GammaW()");
-
-    double G0 = GF * pow(Mw(), 3.0) / 6.0 / sqrt(2.0) / M_PI;
-    complex V(0.0, 0.0, false);
-
-    if (pi.is("TOP"))
-        return (0.0);
-
-    if (pj.index() - pi.index() == 1)
-        V = complex(1.0, 0.0, false);
-    else
-        V = complex(0.0, 0.0, false);
-
-    if (pi.is("LEPTON"))
-        return ( V.abs2() * G0 * rho_GammaW(pi, pj));
+    double Mw;
+    if (FlagMw.compare("APPROXIMATEFORMULA") == 0)
+        Mw = myApproximateFormulae->Mw();
     else {
-        double AlsMw = AlsWithInit(Mw(), AlsMz, Mz, FULLNLO);
-        return ( 3.0 * V.abs2() * G0 * rho_GammaW(pi, pj)*(1.0 + AlsMw / M_PI));
+        //std::cout << std::setprecision(12)
+        //          << "TEST: Mw_tree = " << Mw_tree() << std::endl;
+
+        double DeltaRho[orders_EW_size], DeltaR_rem[orders_EW_size];
+        ComputeDeltaRho(Mw_tree(), DeltaRho);
+        ComputeDeltaR_rem(Mw_tree(), DeltaR_rem);
+        Mw = resumMw(Mw_tree(), DeltaRho, DeltaR_rem);
+
+        /* Mw from iterations */
+        double Mw_org = Mw_tree();
+        while (fabs(Mw - Mw_org) > Mw_error) {
+            Mw_org = Mw;
+            ComputeDeltaRho(Mw, DeltaRho);
+            ComputeDeltaR_rem(Mw, DeltaR_rem);
+            Mw = resumMw(Mw, DeltaRho, DeltaR_rem);
+            /* TEST */
+            //int prec_def = std::cout.precision();
+            //std::cout << std::setprecision(12) << "TEST: Mw_org = " << Mw_org
+            //        << "  Mw_new = " << Mw << std::endl;
+            //std::cout.precision(prec_def);
+        }
+    }
+
+    Mw_cache = Mw;
+    return Mw;
+}
+
+double StandardModel::cW2(double Mw_i) const
+{
+    return ( Mw_i * Mw_i / Mz / Mz);
+}
+
+double StandardModel::cW2() const
+{
+    return ( cW2(Mw()));
+}
+
+double StandardModel::sW2(double Mw_i) const
+{
+    return ( 1.0 - cW2(Mw_i));
+}
+
+double StandardModel::sW2() const
+{
+    return ( 1.0 - cW2());
+}
+
+double StandardModel::DeltaR() const
+{
+    /* in the experimental/running-width scheme */
+    double myMw = Mw();
+    double sW2 = 1.0 - myMw * myMw / Mz / Mz;
+    double tmp = sqrt(2.0) * GF * sW2 * myMw * myMw / M_PI / ale;
+    if (FlagMw.compare("NORESUM") == 0
+            || FlagMw.compare("APPROXIMATEFORMULA") == 0) {
+        return (tmp - 1.0);
+    } else {
+        return (1.0 - 1.0 / tmp);
     }
 }
-
-double StandardModel::GammaW() const
-{
-    if (FlagCacheInEWSM)
-        if (checkSMparams(GammaW_params_cache))
-            return GammaW_cache;
-
-    double GammaWtmp = 0.;
-
-    for (int i = 0; i < 6; i += 2)
-        GammaWtmp += GammaW(leptons[i], leptons[i + 1]) + GammaW(quarks[i], quarks[i + 1]);
-
-    GammaW_cache = GammaWtmp;
-    return GammaWtmp;
-}
-
-////////////////////////////////////////////////////////////////////////
 
 void StandardModel::ComputeDeltaRho(const double Mw_i,
         double DeltaRho[orders_EW_size]) const
@@ -1082,122 +803,6 @@ void StandardModel::ComputeDeltaR_rem(const double Mw_i,
 
 ////////////////////////////////////////////////////////////////////////
 
-double StandardModel::sigma0_had() const
-{
-    if (!IsFlagNoApproximateGammaZ())
-        /* SM contribution with the approximate formula */
-        return (myApproximateFormulae->X_extended("sigmaHadron")
-            / GeVminus2_to_nb);
-    else
-        return (12.0 * M_PI * GammaZ(leptons[ELECTRON]) * Gamma_had()
-            / getMz() / getMz() / Gamma_Z() / Gamma_Z());
-}
-
-double StandardModel::R0_f(const Particle p) const
-{
-    if (p.is("LEPTON")) {
-        if (!IsFlagNoApproximateGammaZ())
-            /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_extended("R0_lepton"));
-        else
-            return (Gamma_had() / GammaZ(leptons[ELECTRON]));
-    } else if (p.is("CHARM")) {
-        if (!IsFlagNoApproximateGammaZ())
-            /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_extended("R0_charm"));
-        else
-            return (GammaZ(quarks[CHARM]) / Gamma_had());
-
-    } else if (p.is("BOTTOM")) {
-        if (!IsFlagNoApproximateGammaZ())
-            /* SM contribution with the approximate formula */
-            return (myApproximateFormulae->X_extended("R0_bottom"));
-        else
-            return (GammaZ(quarks[BOTTOM]) / Gamma_had());
-
-    } else throw std::runtime_error("StandardModel::R0_f called with wrong argument");
-}
-
-
-////////////////////////////////////////////////////////////////////////
-
-double StandardModel::Mw() const
-{
-    /* Debug */
-    //std::cout << std::boolalpha
-    //          << checkScheme(schemeMw_cache,schemeMw,false)
-    //          << " [cache:" << schemeMw_cache
-    //          << " current:" << schemeMw << "]" << std::endl;
-
-    if (FlagCacheInEWSM)
-        if (checkSMparams(Mw_params_cache))
-            return Mw_cache;
-
-    double Mw;
-    if (getFlagMw().compare("APPROXIMATEFORMULA") == 0)
-        Mw = myApproximateFormulae->Mw();
-    else {
-        //std::cout << std::setprecision(12) 
-        //          << "TEST: Mw_tree = " << Mw_tree() << std::endl;
-
-        double DeltaRho[orders_EW_size], DeltaR_rem[orders_EW_size];
-        ComputeDeltaRho(Mw_tree(), DeltaRho);
-        ComputeDeltaR_rem(Mw_tree(), DeltaR_rem);
-        Mw = resumMw(Mw_tree(), DeltaRho, DeltaR_rem);
-
-        /* Mw from iterations */
-        double Mw_org = Mw_tree();
-        while (fabs(Mw - Mw_org) > Mw_error) {
-            Mw_org = Mw;
-            ComputeDeltaRho(Mw, DeltaRho);
-            ComputeDeltaR_rem(Mw, DeltaR_rem);
-            Mw = resumMw(Mw, DeltaRho, DeltaR_rem);
-            /* TEST */
-            //int prec_def = std::cout.precision();
-            //std::cout << std::setprecision(12) << "TEST: Mw_org = " << Mw_org 
-            //        << "  Mw_new = " << Mw << std::endl;
-            //std::cout.precision(prec_def);
-        }
-    }
-
-    Mw_cache = Mw;
-    return Mw;
-}
-
-double StandardModel::DeltaR() const
-{
-    /* in the experimental/running-width scheme */
-    double myMw = Mw();
-    double sW2 = 1.0 - myMw * myMw / Mz / Mz;
-    double tmp = sqrt(2.0) * GF * sW2 * myMw * myMw / M_PI / ale;
-    if (getFlagMw().compare("NORESUM") == 0
-            || getFlagMw().compare("APPROXIMATEFORMULA") == 0) {
-        return (tmp - 1.0);
-    } else {
-        return (1.0 - 1.0 / tmp);
-    }
-}
-
-double StandardModel::cW2(double Mw_i) const
-{
-    return ( Mw_i * Mw_i / Mz / Mz);
-}
-
-double StandardModel::cW2() const
-{
-    return ( cW2(Mw()));
-}
-
-double StandardModel::sW2(double Mw_i) const
-{
-    return ( 1.0 - cW2(Mw_i));
-}
-
-double StandardModel::sW2() const
-{
-    return ( 1.0 - cW2());
-}
-
 double StandardModel::Mzbar() const
 {
     double G0 = GF * pow(Mz, 3.0) / 24.0 / sqrt(2.0) / M_PI;
@@ -1242,6 +847,191 @@ double StandardModel::DeltaRbar() const
     return (tmp - 1.0);
 }
 
+
+////////////////////////////////////////////////////////////////////////
+
+double StandardModel::rho_GammaW(const Particle pi, const Particle pj) const
+{
+    double rhoW = 0.0;
+    if (flag_order[EW1])
+        rhoW = myOneLoopEW->rho_GammaW(pi, pj, Mw());
+    return rhoW;
+}
+
+double StandardModel::GammaW(const Particle pi,
+        const Particle pj) const
+{
+    if ((pi.getIndex()) % 2 || (pj.getIndex() + 1) % 2)
+        throw std::runtime_error("Error in StandardModel::GammaW()");
+
+    double G0 = GF * pow(Mw(), 3.0) / 6.0 / sqrt(2.0) / M_PI;
+    complex V(0.0, 0.0, false);
+
+    if (pi.is("TOP"))
+        return (0.0);
+
+    if (pj.getIndex() - pi.getIndex() == 1)
+        V = complex(1.0, 0.0, false);
+    else
+        V = complex(0.0, 0.0, false);
+
+    if (pi.is("LEPTON"))
+        return ( V.abs2() * G0 * rho_GammaW(pi, pj));
+    else {
+        double AlsMw = AlsWithInit(Mw(), AlsMz, Mz, FULLNLO);
+        return ( 3.0 * V.abs2() * G0 * rho_GammaW(pi, pj)*(1.0 + AlsMw / M_PI));
+    }
+}
+
+double StandardModel::GammaW() const
+{
+    if (FlagCacheInStandardModel)
+        if (checkSMparams(GammaW_params_cache))
+            return GammaW_cache;
+
+    double GammaWtmp = 0.;
+
+    for (int i = 0; i < 6; i += 2)
+        GammaWtmp += GammaW(leptons[i], leptons[i + 1]) + GammaW(quarks[i], quarks[i + 1]);
+
+    GammaW_cache = GammaWtmp;
+    return GammaWtmp;
+}
+
+
+////////////////////////////////////////////////////////////////////////
+
+double StandardModel::A_f(const Particle p) const
+{
+    double Re_kappa = kappaZ_f(p).real();
+    double Re_gV_over_gA = 1.0 - 4.0 * fabs(p.getCharge()) * Re_kappa * sW2();
+    return ( 2.0 * Re_gV_over_gA / (1.0 + pow(Re_gV_over_gA, 2.0)));
+}
+
+double StandardModel::AFB(const Particle p) const
+{
+    return (3.0 / 4.0 * A_f(leptons[ELECTRON]) * A_f(p));
+}
+
+double StandardModel::sin2thetaEff(const Particle p) const
+{
+    double Re_kappa = kappaZ_f(p).real();
+    return ( Re_kappa * sW2());
+}
+
+double StandardModel::GammaZ(const Particle p) const
+{
+    if (p.is("TOP"))
+        return 0.0;
+    double Gamma;
+    if (!IsFlagNoApproximateGammaZ()) {
+        /* SM contribution with the approximate formula */
+        if (p.is("NEUTRINO_1") || p.is("NEUTRINO_2") || p.is("NEUTRINO_3"))
+            Gamma = myApproximateFormulae->X_extended("Gamma_nu");
+        else if (p.is("ELECTRON") || p.is("MU"))
+            Gamma = myApproximateFormulae->X_extended("Gamma_e_mu");
+        else if (p.is("TAU"))
+            Gamma = myApproximateFormulae->X_extended("Gamma_tau");
+        else if (p.is("UP"))
+            Gamma = myApproximateFormulae->X_extended("Gamma_u");
+        else if (p.is("CHARM"))
+            Gamma = myApproximateFormulae->X_extended("Gamma_c");
+        else if (p.is("DOWN") || p.is("STRANGE"))
+            Gamma = myApproximateFormulae->X_extended("Gamma_d_s");
+        else if (p.is("BOTTOM"))
+            Gamma = myApproximateFormulae->X_extended("Gamma_b");
+        else
+            throw std::runtime_error("Error in StandardModel::GammaZ()");
+    } else {
+        complex myrhoZ_f = rhoZ_f(p);
+        complex gV_over_gA = gV_f(p) / gA_f(p);
+        double G0 = GF * pow(Mz, 3.0) / 24.0 / sqrt(2.0) / M_PI;
+        if (p.is("LEPTON")) {
+            double myalphaMz = alphaMz();
+            double Q = p.getCharge();
+            double xl = pow(p.getMass() / Mz, 2.0);
+            Gamma = G0 * myrhoZ_f.abs() * sqrt(1.0 - 4.0 * xl)
+                    * ((1.0 + 2.0 * xl)*(gV_over_gA.abs2() + 1.0) - 6.0 * xl)
+                    * (1.0 + 3.0 / 4.0 * myalphaMz / M_PI * pow(Q, 2.0));
+        } else if (p.is("QUARK")) {
+            Gamma = 3.0 * G0 * myrhoZ_f.abs()*(gV_over_gA.abs2() * RVq((QCD::quark) (p.getIndex() - 6)) + RAq((QCD::quark) (p.getIndex() - 6)));
+
+            /* Nonfactorizable EW-QCD corrections */
+            Gamma += Delta_EWQCD((QCD::quark) (p.getIndex() - 6));
+        } else
+            throw std::runtime_error("Error in StandardModel::GammaZ()");
+    }
+
+    return Gamma;
+}
+
+double StandardModel::Gamma_inv() const
+{
+    return ( GammaZ(leptons[NEUTRINO_1]) + GammaZ(leptons[NEUTRINO_2])
+            + GammaZ(leptons[NEUTRINO_3]));
+}
+
+double StandardModel::Gamma_had() const
+{
+    double Gamma_had_tmp = GammaZ(quarks[UP]) + GammaZ(quarks[DOWN]) + GammaZ(quarks[CHARM])
+            + GammaZ(quarks[STRANGE]) + GammaZ(quarks[BOTTOM]);
+
+    /* Singlet vector contribution (not included in the approximate formula) */
+    double G0 = GF * pow(Mz, 3.0) / 24.0 / sqrt(2.0) / M_PI;
+    Gamma_had_tmp += 4.0 * 3.0 * G0 * RVh();
+
+    return Gamma_had_tmp;
+}
+
+double StandardModel::Gamma_Z() const
+{
+    if (!IsFlagNoApproximateGammaZ())
+        /* SM contribution with the approximate formula */
+        return myApproximateFormulae->X_extended("GammaZ");
+    else
+        return ( GammaZ(leptons[ELECTRON]) + GammaZ(leptons[MU]) + GammaZ(leptons[TAU])
+            + Gamma_inv() + Gamma_had());
+}
+
+double StandardModel::sigma0_had() const
+{
+    if (!IsFlagNoApproximateGammaZ())
+        /* SM contribution with the approximate formula */
+        return (myApproximateFormulae->X_extended("sigmaHadron")
+            / GeVminus2_to_nb);
+    else
+        return (12.0 * M_PI * GammaZ(leptons[ELECTRON]) * Gamma_had()
+            / Mz / Mz / Gamma_Z() / Gamma_Z());
+}
+
+double StandardModel::R0_f(const Particle p) const
+{
+    if (p.is("LEPTON")) {
+        if (!IsFlagNoApproximateGammaZ())
+            /* SM contribution with the approximate formula */
+            return (myApproximateFormulae->X_extended("R0_lepton"));
+        else
+            return (Gamma_had() / GammaZ(leptons[ELECTRON]));
+    } else if (p.is("CHARM")) {
+        if (!IsFlagNoApproximateGammaZ())
+            /* SM contribution with the approximate formula */
+            return (myApproximateFormulae->X_extended("R0_charm"));
+        else
+            return (GammaZ(quarks[CHARM]) / Gamma_had());
+
+    } else if (p.is("BOTTOM")) {
+        if (!IsFlagNoApproximateGammaZ())
+            /* SM contribution with the approximate formula */
+            return (myApproximateFormulae->X_extended("R0_bottom"));
+        else
+            return (GammaZ(quarks[BOTTOM]) / Gamma_had());
+
+    } else throw std::runtime_error("StandardModel::R0_f called with wrong argument");
+}
+
+
+////////////////////////////////////////////////////////////////////////
+
 complex StandardModel::gV_f(const Particle p) const
 {
     return ( gA_f(p)
@@ -1253,18 +1043,16 @@ complex StandardModel::gA_f(const Particle p) const
     return ( sqrt(rhoZ_f(p)) * p.getIsospin());
 }
 
-////////////////////////////////////////////////////////////////////////
-
 complex StandardModel::rhoZ_f(const Particle p) const
 {
     if (p.getName().compare("TOP") == 0) return (complex(0.0, 0.0, false));
-    if (getFlagRhoZ().compare("APPROXIMATEFORMULA") == 0)
+    if (FlagRhoZ.compare("APPROXIMATEFORMULA") == 0)
         throw std::runtime_error("No approximate formula is available for rhoZ^f");
     else {
 
-        if (FlagCacheInEWSM)
-            if (checkSMparams(rhoZ_f_params_cache[p.index()]))
-                return rhoZ_f_cache[p.index()];
+        if (FlagCacheInStandardModel)
+            if (checkSMparams(rhoZ_f_params_cache[p.getIndex()]))
+                return rhoZ_f_cache[p.getIndex()];
 
         double myMw = Mw();
 
@@ -1307,52 +1095,25 @@ complex StandardModel::rhoZ_f(const Particle p) const
         double deltaRho_rem_f_real[orders_EW_size];
         for (int j = 0; j < orders_EW_size; ++j)
             deltaRho_rem_f_real[j] = deltaRho_remf[j].real();
-        double ReRhoZf = resumRhoZ(DeltaRho, deltaRho_rem_f_real,
-                DeltaRbar_rem, p.is("BOTTOM"));
+        double ReRhoZf = resumRhoZ(DeltaRho, deltaRho_rem_f_real, DeltaRbar_rem, p.is("BOTTOM"));
 
         /* Im[rho_Z^f] without resummation */
         double ImRhoZf = 0.0;
         for (int j = 0; j < orders_EW_size; ++j)
             ImRhoZf += deltaRho_remf[j].imag();
 
-        rhoZ_f_cache[p.index()] = complex(ReRhoZf, ImRhoZf, false);
+        rhoZ_f_cache[p.getIndex()] = complex(ReRhoZf, ImRhoZf, false);
         return (complex(ReRhoZf, ImRhoZf, false));
     }
-}
-
-complex StandardModel::deltaRhoZ_f(const Particle p) const
-{
-    Particle p1 = p;
-    Particle pe = leptons[ELECTRON];
-
-    if (p.is("TOP") || p.is("ELECTRON")) return (complex(0.0, 0.0, false));
-
-    /* In the case of BOTTOM, the top contribution has to be subtracted.
-     * The remaining contribution is the same as that for DOWN and STRANGE. */
-    if (p.is("BOTTOM")) p1 = quarks[DOWN];
-
-    double myMw = Mw();
-    double cW2 = myMw * myMw / Mz / Mz, sW2 = 1.0 - cW2;
-
-    complex ul = (3.0 * myCache->v_f(pe, myMw) * myCache->v_f(pe, myMw)
-            + myCache->a_f(pe) * myCache->a_f(pe)) / 4.0 / cW2 * myOneLoopEW->FZ(Mz*Mz, myMw)
-            + myOneLoopEW->FW(Mz*Mz, pe, myMw);
-    complex uf = (3.0 * myCache->v_f(p1, myMw) * myCache->v_f(p1, myMw)
-            + myCache->a_f(p1) * myCache->a_f(p1)) / 4.0 / cW2 * myOneLoopEW->FZ(Mz*Mz, myMw)
-            + myOneLoopEW->FW(Mz*Mz, p1, myMw);
-
-    complex dRho = 2.0 * (uf - ul);
-    dRho *= ale / 4.0 / M_PI / sW2;
-    return dRho;
 }
 
 complex StandardModel::kappaZ_f(const Particle p) const
 {
     if (p.is("TOP")) return (complex(0.0, 0.0, false));
 
-    if (FlagCacheInEWSM)
-        if (checkSMparams(kappaZ_f_params_cache[p.index()]))
-            return kappaZ_f_cache[p.index()];
+    if (FlagCacheInStandardModel)
+        if (checkSMparams(kappaZ_f_params_cache[p.getIndex()]))
+            return kappaZ_f_cache[p.getIndex()];
 
     double myMw = Mw();
 
@@ -1407,8 +1168,7 @@ complex StandardModel::kappaZ_f(const Particle p) const
         for (int j = 0; j < orders_EW_size; ++j)
             deltaKappa_rem_f_real[j] = deltaKappa_remf[j].real();
 
-        ReKappaZf = resumKappaZ(DeltaRho, deltaKappa_rem_f_real,
-                DeltaRbar_rem, p.is("BOTTOM"));
+        ReKappaZf = resumKappaZ(DeltaRho, deltaKappa_rem_f_real, DeltaRbar_rem, p.is("BOTTOM"));
 
         /* O(alpha^2) correction to Re[kappa_Z^f] from the Z-gamma mixing */
         ReKappaZf += 35.0 * alphaMz() * alphaMz() / 18.0 / sW2()
@@ -1419,8 +1179,34 @@ complex StandardModel::kappaZ_f(const Particle p) const
             ImKappaZf += deltaKappa_remf[j].imag();
     }
 
-    kappaZ_f_cache[p.index()] = complex(ReKappaZf, ImKappaZf, false);
+    kappaZ_f_cache[p.getIndex()] = complex(ReKappaZf, ImKappaZf, false);
     return (complex(ReKappaZf, ImKappaZf, false));
+}
+
+complex StandardModel::deltaRhoZ_f(const Particle p) const
+{
+    Particle p1 = p;
+    Particle pe = leptons[ELECTRON];
+
+    if (p.is("TOP") || p.is("ELECTRON")) return (complex(0.0, 0.0, false));
+
+    /* In the case of BOTTOM, the top contribution has to be subtracted.
+     * The remaining contribution is the same as that for DOWN and STRANGE. */
+    if (p.is("BOTTOM")) p1 = quarks[DOWN];
+
+    double myMw = Mw();
+    double cW2 = myMw * myMw / Mz / Mz, sW2 = 1.0 - cW2;
+
+    complex ul = (3.0 * myEWSMcache->v_f(pe, myMw) * myEWSMcache->v_f(pe, myMw)
+            + myEWSMcache->a_f(pe) * myEWSMcache->a_f(pe)) / 4.0 / cW2 * myOneLoopEW->FZ(Mz*Mz, myMw)
+            + myOneLoopEW->FW(Mz*Mz, pe, myMw);
+    complex uf = (3.0 * myEWSMcache->v_f(p1, myMw) * myEWSMcache->v_f(p1, myMw)
+            + myEWSMcache->a_f(p1) * myEWSMcache->a_f(p1)) / 4.0 / cW2 * myOneLoopEW->FZ(Mz*Mz, myMw)
+            + myOneLoopEW->FW(Mz*Mz, p1, myMw);
+
+    complex dRho = 2.0 * (uf - ul);
+    dRho *= ale / 4.0 / M_PI / sW2;
+    return dRho;
 }
 
 complex StandardModel::deltaKappaZ_f(const Particle p) const
@@ -1435,14 +1221,14 @@ complex StandardModel::deltaKappaZ_f(const Particle p) const
 
     double myMw = Mw();
     double cW2 = myMw * myMw / Mz / Mz, sW2 = 1.0 - cW2;
-    complex ul = (3.0 * myCache->v_f(pe, myMw) * myCache->v_f(pe, myMw)
-            + myCache->a_f(pe) * myCache->a_f(pe)) / 4.0 / cW2 * myOneLoopEW->FZ(Mz*Mz, myMw)
+    complex ul = (3.0 * myEWSMcache->v_f(pe, myMw) * myEWSMcache->v_f(pe, myMw)
+            + myEWSMcache->a_f(pe) * myEWSMcache->a_f(pe)) / 4.0 / cW2 * myOneLoopEW->FZ(Mz*Mz, myMw)
             + myOneLoopEW->FW(Mz*Mz, pe, myMw);
-    double deltal = myCache->delta_f(pe, myMw);
-    complex uf = (3.0 * myCache->v_f(p1, myMw) * myCache->v_f(p1, myMw)
-            + myCache->a_f(p1) * myCache->a_f(p1)) / 4.0 / cW2 * myOneLoopEW->FZ(Mz*Mz, myMw)
+    double deltal = myEWSMcache->delta_f(pe, myMw);
+    complex uf = (3.0 * myEWSMcache->v_f(p1, myMw) * myEWSMcache->v_f(p1, myMw)
+            + myEWSMcache->a_f(p1) * myEWSMcache->a_f(p1)) / 4.0 / cW2 * myOneLoopEW->FZ(Mz*Mz, myMw)
             + myOneLoopEW->FW(Mz*Mz, p1, myMw);
-    double deltaf = myCache->delta_f(p1, myMw);
+    double deltaf = myEWSMcache->delta_f(p1, myMw);
 
     complex dKappa = (deltaf * deltaf - deltal * deltal) / 4.0 / cW2 * myOneLoopEW->FZ(Mz*Mz, myMw)
             - uf + ul;
@@ -1513,7 +1299,7 @@ double StandardModel::epsilonb() const
     //double Gamma_b_Born = 0.3798*( 1.0 + delta_als - 0.42*delta_alpha);
     //double a = als_Mz/M_PI;
     //double RQCD = 1.0 + 1.2*a - 1.1*a*a - 13.0*a*a*a;
-    //double mb = Mrun(myCache->Mz(), getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);// This is wrong!
+    //double mb = Mrun(myCache->Mz(), quarks[QCD::BOTTOM].getMass(), FULLNNLO);// This is wrong!
     //double mb = 4.7;
     //std::cout << "mb = " << mb << std::endl;
     //double beta = sqrt(1.0 - 4.0*mb*mb/myCache->Mz()/myCache->Mz());
@@ -1526,25 +1312,6 @@ double StandardModel::epsilonb() const
     //          + 0.54*epsilon3_SM() )/2.29 );
 }
 
-double StandardModel::taub() const
-{
-    double taub_tmp = 0.0;
-    double Xt = myCache->Xt_GF();
-    if (flag_order[EW1])
-        taub_tmp += -2.0 * Xt;
-    if (flag_order[EW1QCD1])
-        taub_tmp += 2.0 / 3.0 * M_PI * Xt * myCache->alsMt();
-    if (flag_order[EW1QCD2])
-        taub_tmp += 0.0;
-    if (flag_order[EW2])
-        taub_tmp += -2.0 * Xt * Xt * myTwoLoopEW->tau_2();
-    if (flag_order[EW2QCD1])
-        taub_tmp += 0.0;
-    if (flag_order[EW3])
-        taub_tmp += 0.0;
-
-    return taub_tmp;
-}
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -1791,96 +1558,318 @@ double StandardModel::resumKappaZ(const double DeltaRho[orders_EW_size],
     return kappaZ;
 }
 
-
-
-////////////////////////////////////////////////////////////////////////
-// CKM parameters
-
-// Angles
-
-double StandardModel::computeBeta() const
+double StandardModel::taub() const
 {
-    return (-VCKM(1, 0) * VCKM(1, 2).conjugate() / (VCKM(2, 0) * VCKM(2, 2).conjugate())).arg();
+    double taub_tmp = 0.0;
+    double Xt = myEWSMcache->Xt_GF();
+    if (flag_order[EW1])
+        taub_tmp += -2.0 * Xt;
+    if (flag_order[EW1QCD1])
+        taub_tmp += 2.0 / 3.0 * M_PI * Xt * myEWSMcache->alsMt();
+    if (flag_order[EW1QCD2])
+        taub_tmp += 0.0;
+    if (flag_order[EW2])
+        taub_tmp += -2.0 * Xt * Xt * myTwoLoopEW->tau_2();
+    if (flag_order[EW2QCD1])
+        taub_tmp += 0.0;
+    if (flag_order[EW3])
+        taub_tmp += 0.0;
+
+    return taub_tmp;
 }
 
-double StandardModel::computeGamma() const
+double StandardModel::Delta_EWQCD(const QCD::quark q) const
 {
-    return (-VCKM(0, 0) * VCKM(0, 2).conjugate() / (VCKM(1, 0) * VCKM(1, 2).conjugate())).arg();
+    switch (q) {
+        case QCD::UP:
+        case QCD::CHARM:
+            return ( -0.000113);
+        case QCD::TOP:
+            return ( 0.0);
+        case QCD::DOWN:
+        case QCD::STRANGE:
+            return ( -0.000160);
+        case QCD::BOTTOM:
+            return ( -0.000040);
+        default:
+            throw std::runtime_error("Error in StandardModel::Delta_EWQCD");
+    }
 }
 
-double StandardModel::computeAlpha() const
+double StandardModel::RVq(const QCD::quark q) const
 {
-    return (-VCKM(2, 0) * VCKM(2, 2).conjugate() / (VCKM(0, 0) * VCKM(0, 2).conjugate())).arg();
+    if (q == QCD::TOP) return 0.0;
+
+    double mcMz, mbMz;
+    mcMz = Mrun(Mz, quarks[CHARM].getMass(), FULLNNLO);
+    mbMz = Mrun(Mz, quarks[BOTTOM].getMass(), FULLNNLO);
+    //mcMz = 0.56381685; /* for debug */
+    //mbMz = 2.8194352; /* for debug */
+
+    double MtPole = mtpole;
+
+    /* electric charge squared */
+    double Qf2 = pow(quarks[q].getCharge(), 2.0);
+
+    /* s = Mz^2 */
+    double s = Mz * Mz;
+
+    /* products of the charm and bottom masses at Mz */
+    double mcMz2 = mcMz*mcMz;
+    double mbMz2 = mbMz*mbMz;
+    double mqMz2, mqdash4;
+    switch (q) {
+        case QCD::CHARM:
+            mqMz2 = mcMz*mcMz;
+            mqdash4 = mbMz2*mbMz2;
+            break;
+        case QCD::BOTTOM:
+            mqMz2 = mbMz*mbMz;
+            mqdash4 = mcMz2*mcMz2;
+            break;
+        default:
+            mqMz2 = 0.0;
+            mqdash4 = 0.0;
+            break;
+    }
+
+    /* Logarithms */
+    //double log_t = log(pow(quarks[TOP].getMass(),2.0)/s);
+    double log_t = log(MtPole * MtPole / s); // the pole mass
+    double log_c = log(mcMz2 / s);
+    double log_b = log(mbMz2 / s);
+    double log_q;
+    switch (q) {
+        case QCD::CHARM:
+        case QCD::BOTTOM:
+            log_q = log(mqMz2 / s);
+            break;
+        default:
+            log_q = 0.0;
+            break;
+    }
+
+    /* the active number of flavour */
+    double nf = 5.0;
+
+    /* zeta functions */
+    double zeta2 = myEWSMcache->getZeta2();
+    double zeta3 = myEWSMcache->getZeta3();
+    //double zeta4 = getMyCache()->GetZeta4();
+    double zeta5 = myEWSMcache->getZeta5();
+
+    /* massless non-singlet corrections */
+    double C02 = 365.0 / 24.0 - 11.0 * zeta3 + (-11.0 / 12.0 + 2.0 / 3.0 * zeta3) * nf;
+    double C03 = 87029.0 / 288.0 - 121.0 / 8.0 * zeta2 - 1103.0 / 4.0 * zeta3
+            + 275.0 / 6.0 * zeta5
+            + (-7847.0 / 216.0 + 11.0 / 6.0 * zeta2 + 262.0 / 9.0 * zeta3
+            - 25.0 / 9.0 * zeta5) * nf
+            + (151.0 / 162.0 - zeta2 / 18.0 - 19.0 / 27.0 * zeta3) * nf*nf;
+    double C04 = -156.61 + 18.77 * nf - 0.7974 * nf * nf + 0.0215 * nf * nf*nf;
+    //std::cout << "TEST: C02 = " << C02 << std::endl;// TEST (should be 1.40923)
+    //std::cout << "TEST: C03 = " << C03 << std::endl;// TEST (should be -12.7671)
+    //std::cout << "TEST: C04 = " << C04 << std::endl;// TEST (should be -80.0075)
+
+    /* quadratic massive corrections */
+    double C23 = -80.0 + 60.0 * zeta3 + (32.0 / 9.0 - 8.0 / 3.0 * zeta3) * nf;
+    double C21V = 12.0;
+    double C22V = 253.0 / 2.0 - 13.0 / 3.0 * nf;
+    double C23V = 2522.0 - 855.0 / 2.0 * zeta2 + 310.0 / 3.0 * zeta3 - 5225.0 / 6.0 * zeta5
+            + (-4942.0 / 27.0 + 34.0 * zeta2 - 394.0 / 27.0 * zeta3
+            + 1045.0 / 27.0 * zeta5) * nf
+            + (125.0 / 54.0 - 2.0 / 3.0 * zeta2) * nf*nf;
+
+    /* quartic massive corrections */
+    double C42 = 13.0 / 3.0 - 4.0 * zeta3;
+    double C40V = -6.0;
+    double C41V = -22.0;
+    double C42V = -3029.0 / 12.0 + 162.0 * zeta2 + 112.0 * zeta3
+            + (143.0 / 18.0 - 4.0 * zeta2 - 8.0 / 3.0 * zeta3) * nf;
+    double C42VL = -11.0 / 2.0 + nf / 3.0;
+
+    /* power suppressed top-mass correction */
+    //double xt = s/pow(quarks[TOP].getMass(),2.0);
+    double xt = s / MtPole / MtPole; // the pole mass
+    double C2t = xt * (44.0 / 675.0 - 2.0 / 135.0 * (-log_t));
+
+    /* rescaled strong coupling constant */
+    double AlsMzPi = AlsMz / M_PI;
+    double AlsMzPi2 = AlsMzPi*AlsMzPi;
+    double AlsMzPi3 = AlsMzPi2*AlsMzPi;
+    double AlsMzPi4 = AlsMzPi3*AlsMzPi;
+
+    /* electromagnetic coupling at Mz */
+    double alpMz = alphaMz();
+
+    /* radiator function to the vector current */
+    double RVf;
+    RVf = 1.0 + 3.0 / 4.0 * Qf2 * alpMz / M_PI + AlsMzPi - Qf2 / 4.0 * alpMz / M_PI * AlsMzPi
+            + (C02 + C2t) * AlsMzPi2 + C03 * AlsMzPi3 + C04 * AlsMzPi4
+            + (mcMz2 + mbMz2) / s * C23 * AlsMzPi3
+            + mqMz2 / s * (C21V * AlsMzPi + C22V * AlsMzPi2 + C23V * AlsMzPi3)
+            + mcMz2 * mcMz2 / s / s * (C42 - log_c) * AlsMzPi2
+            + mbMz2 * mbMz2 / s / s * (C42 - log_b) * AlsMzPi2
+            + mqMz2 * mqMz2 / s / s * (C40V + C41V * AlsMzPi + (C42V + C42VL * log_q) * AlsMzPi2)
+            + 12.0 * mqdash4 / s / s * AlsMzPi2
+            - mqMz2 * mqMz2 * mqMz2 / s / s / s
+            * (8.0 + 16.0 / 27.0 * (155.0 + 6.0 * log_q) * AlsMzPi);
+    return RVf;
 }
 
-double StandardModel::computeBetas() const
+double StandardModel::RAq(const QCD::quark q) const
 {
-    return (-VCKM(2, 1) * VCKM(2, 2).conjugate() / (VCKM(1, 1) * VCKM(1, 2).conjugate())).arg();
+    if (q == QCD::TOP) return 0.0;
+
+    double mcMz, mbMz;
+    mcMz = Mrun(Mz, quarks[CHARM].getMass(), FULLNNLO);
+    mbMz = Mrun(Mz, quarks[BOTTOM].getMass(), FULLNNLO);
+    //mcMz = 0.56381685; /* for debug */
+    //mbMz = 2.8194352; /* for debug */
+
+    double MtPole = mtpole;
+
+    /* z-component of isospin */
+    double I3q = quarks[q].getIsospin();
+    /* electric charge squared */
+    double Qf2 = pow(quarks[q].getCharge(), 2.0);
+
+    /* s = Mz^2 */
+    double s = Mz * Mz;
+
+    /* products of the charm and bottom masses at Mz */
+    double mcMz2 = mcMz*mcMz;
+    double mbMz2 = mbMz*mbMz;
+    double mqMz2, mqdash4;
+    switch (q) {
+        case QCD::CHARM:
+            mqMz2 = mcMz*mcMz;
+            mqdash4 = mbMz2*mbMz2;
+            break;
+        case QCD::BOTTOM:
+            mqMz2 = mbMz*mbMz;
+            mqdash4 = mcMz2*mcMz2;
+            break;
+        default:
+            mqMz2 = 0.0;
+            mqdash4 = 0.0;
+            break;
+    }
+
+    /* Logarithms */
+    //double log_t = log(pow(quarks[TOP].getMass(),2.0)/s);
+    double log_t = log(MtPole * MtPole / s); // the pole mass
+    double log_c = log(mcMz2 / s);
+    double log_b = log(mbMz2 / s);
+    double log_q;
+    switch (q) {
+        case QCD::CHARM:
+        case QCD::BOTTOM:
+            log_q = log(mqMz2 / s);
+            break;
+        default:
+            log_q = 0.0;
+            break;
+    }
+
+    /* the active number of flavour */
+    double nf = 5.0;
+
+    /* zeta functions */
+    double zeta2 = myEWSMcache->getZeta2();
+    double zeta3 = myEWSMcache->getZeta3();
+    double zeta4 = myEWSMcache->getZeta4();
+    double zeta5 = myEWSMcache->getZeta5();
+
+    /* massless non-singlet corrections */
+    double C02 = 365.0 / 24.0 - 11.0 * zeta3 + (-11.0 / 12.0 + 2.0 / 3.0 * zeta3) * nf;
+    double C03 = 87029.0 / 288.0 - 121.0 / 8.0 * zeta2 - 1103.0 / 4.0 * zeta3
+            + 275.0 / 6.0 * zeta5
+            + (-7847.0 / 216.0 + 11.0 / 6.0 * zeta2 + 262.0 / 9.0 * zeta3
+            - 25.0 / 9.0 * zeta5) * nf
+            + (151.0 / 162.0 - zeta2 / 18.0 - 19.0 / 27.0 * zeta3) * nf*nf;
+    double C04 = -156.61 + 18.77 * nf - 0.7974 * nf * nf + 0.0215 * nf * nf*nf;
+    //std::cout << "TEST: C02 = " << C02 << std::endl;// TEST (should be 1.40923)
+    //std::cout << "TEST: C03 = " << C03 << std::endl;// TEST (should be -12.7671)
+    //std::cout << "TEST: C04 = " << C04 << std::endl;// TEST (should be -80.0075)
+
+    /* quadratic massive corrections */
+    double C23 = -80.0 + 60.0 * zeta3 + (32.0 / 9.0 - 8.0 / 3.0 * zeta3) * nf;
+    double C20A = -6.0;
+    double C21A = -22.0;
+    double C22A = -8221.0 / 24.0 + 57.0 * zeta2 + 117.0 * zeta3
+            + (151.0 / 12.0 - 2.0 * zeta2 - 4.0 * zeta3) * nf;
+    double C23A = -4544045.0 / 864.0 + 1340.0 * zeta2 + 118915.0 / 36.0 * zeta3
+            - 127.0 * zeta5
+            + (71621.0 / 162.0 - 209.0 / 2.0 * zeta2 - 216.0 * zeta3
+            + 5.0 * zeta4 + 55.0 * zeta5) * nf
+            + (-13171.0 / 1944.0 + 16.0 / 9.0 * zeta2 + 26.0 / 9.0 * zeta3) * nf*nf;
+
+    /* quartic massive corrections */
+    double C42 = 13.0 / 3.0 - 4.0 * zeta3;
+    double C40A = 6.0;
+    double C41A = 10.0;
+    double C42A = 3389.0 / 12.0 - 162.0 * zeta2 - 220.0 * zeta3
+            + (-41.0 / 6.0 + 4.0 * zeta2 + 16.0 / 3.0 * zeta3) * nf;
+    double C42AL = 77.0 / 2.0 - 7.0 / 3.0 * nf;
+
+    /* power suppressed top-mass correction */
+    //double xt = s/pow(quarks[TOP].getMass(),2.0);
+    double xt = s / MtPole / MtPole; // the pole mass
+    double C2t = xt * (44.0 / 675.0 - 2.0 / 135.0 * (-log_t));
+
+    /* singlet axial-vector corrections */
+    double I2 = -37.0 / 12.0 + (-log_t) + 7.0 / 81.0 * xt + 0.0132 * xt*xt;
+    double I3 = -5075.0 / 216.0 + 23.0 / 6.0 * zeta2 + zeta3 + 67.0 / 18.0 * (-log_t)
+            + 23.0 / 12.0 * log_t*log_t;
+    double I4 = 49.0309 - 17.6637 * (-log_t) + 14.6597 * log_t * log_t
+            + 3.6736 * (-log_t * log_t * log_t);
+
+    /* rescaled strong coupling constant */
+    double AlsMzPi = AlsMz / M_PI;
+    double AlsMzPi2 = AlsMzPi*AlsMzPi;
+    double AlsMzPi3 = AlsMzPi2*AlsMzPi;
+    double AlsMzPi4 = AlsMzPi3*AlsMzPi;
+
+    /* electromagnetic coupling at Mz */
+    double alpMz = alphaMz();
+
+    /* radiator function to the axial-vector current */
+    double RAf;
+    RAf = 1.0 + 3.0 / 4.0 * Qf2 * alpMz / M_PI + AlsMzPi - Qf2 / 4.0 * alpMz / M_PI * AlsMzPi
+            + (C02 + C2t - 2.0 * I3q * I2) * AlsMzPi2
+            + (C03 - 2.0 * I3q * I3) * AlsMzPi3
+            + (C04 - 2.0 * I3q * I4) * AlsMzPi4
+            + (mcMz2 + mbMz2) / s * C23 * AlsMzPi3
+            + mqMz2 / s * (C20A + C21A * AlsMzPi + C22A * AlsMzPi2
+            + 6.0 * (3.0 + log_t) * AlsMzPi2 + C23A * AlsMzPi3)
+            //- 10.0*mqMz2/pow(quarks[TOP].getMass(),2.0)
+            - 10.0 * mqMz2 / MtPole / MtPole // the pole mass
+            * (8.0 / 81.0 + log_t / 54.0) * AlsMzPi2
+            + mcMz2 * mcMz2 / s / s * (C42 - log_c) * AlsMzPi2
+            + mbMz2 * mbMz2 / s / s * (C42 - log_b) * AlsMzPi2
+            + mqMz2 * mqMz2 / s / s * (C40A + C41A * AlsMzPi
+            + (C42A + C42AL * log_q) * AlsMzPi2)
+            - 12.0 * mqdash4 / s / s*AlsMzPi2;
+    return RAf;
 }
 
-// Lambda_q
-
-complex StandardModel::computelamt() const
+double StandardModel::RVh() const
 {
-    return VCKM(2, 0) * VCKM(2, 1).conjugate();
+    /* rescaled strong coupling constant */
+    double AlsMzPi = AlsMz / M_PI;
+    double AlsMzPi2 = AlsMzPi*AlsMzPi;
+    double AlsMzPi3 = AlsMzPi2*AlsMzPi;
+    double AlsMzPi4 = AlsMzPi3*AlsMzPi;
+
+    complex gV_sum(0.0, 0.0);
+    complex gV_q;
+    for (int q = 0; q < 6; q++) {
+        gV_q = gV_f(QCD::quarks[(QCD::quark)q]);
+        if (q == (int) (QCD::TOP))
+            gV_q = 0.0;
+        gV_sum += gV_q;
+    }
+
+    // singlet vector corrections
+    return ( gV_sum.abs2()*(-0.4132 * AlsMzPi3 - 4.9841 * AlsMzPi4));
 }
-
-complex StandardModel::computelamc() const
-{
-    return VCKM(1, 0) * VCKM(1, 1).conjugate();
-}
-
-complex StandardModel::computelamu() const
-{
-    return VCKM(0, 0) * VCKM(0, 1).conjugate();
-}
-
-complex StandardModel::computelamt_d() const
-{
-    return VCKM(2, 0) * VCKM(2, 2).conjugate();
-}
-
-complex StandardModel::computelamc_d() const
-{
-    return VCKM(1, 0) * VCKM(1, 2).conjugate();
-}
-
-complex StandardModel::computelamu_d() const
-{
-    return VCKM(0, 0) * VCKM(0, 2).conjugate();
-}
-
-complex StandardModel::computelamt_s() const
-{
-    return VCKM(2, 1) * VCKM(2, 2).conjugate();
-}
-
-complex StandardModel::computelamc_s() const
-{
-    return VCKM(1, 1) * VCKM(1, 2).conjugate();
-}
-
-complex StandardModel::computelamu_s() const
-{
-    return VCKM(0, 1) * VCKM(0, 2).conjugate();
-}
-
-double StandardModel::computeRt() const
-{
-    return (VCKM(2, 0) * VCKM(2, 2).conjugate()
-            / (VCKM(1, 0) * VCKM(1, 2).conjugate())).abs();
-}
-
-double StandardModel::computeRts() const
-{
-    return (VCKM(2, 1) * VCKM(2, 2).conjugate()
-            / (VCKM(1, 1) * VCKM(1, 2).conjugate())).abs();
-}
-
-double StandardModel::computeRb() const
-{
-    return (VCKM(0, 0) * VCKM(0, 2).conjugate()
-            / (VCKM(1, 0) * VCKM(1, 2).conjugate())).abs();
-}
-
-

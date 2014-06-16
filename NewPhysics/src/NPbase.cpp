@@ -331,8 +331,8 @@ double NPbase::deltaR0_f(const Particle p) const
         if (p.is("LEPTON"))
             dR0_f = delGq_sum / Ge - Gq_sum * deltaGe / Ge / Ge;
         else
-            dR0_f = deltaGq[p.index() - 6] / Gq_sum
-                - Gq[p.index() - 6] * delGq_sum / Gq_sum / Gq_sum;
+            dR0_f = deltaGq[p.getIndex() - 6] / Gq_sum
+                - Gq[p.getIndex() - 6] * delGq_sum / Gq_sum / Gq_sum;
     }
     return dR0_f;
 }

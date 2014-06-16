@@ -32,7 +32,6 @@ using namespace gslpp;
  * See also the description of EWSM class for their definitions.
  */
 class EWSMThreeLoopQCD {
-
 public:
 
     /**
@@ -43,7 +42,7 @@ public:
 
 
     ////////////////////////////////////////////////////////////////////////
-    
+
     /**
      * @brief Leptonic contribution of @f$O(\alpha\alpha_s^2)@f$
      * to the electromagnetic coupling @f$\alpha@f$,
@@ -65,7 +64,7 @@ public:
      * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha\alpha_s^2}(s)@f$
      */
     double DeltaAlpha_t(const double s) const;
-    
+
     /**
      * @brief Leading three-loop %QCD contribution of @f$O(\alpha\alpha_s^2)@f$
      * to @f$\Delta\rho@f$, denoted as @f$\Delta\rho^{\alpha\alpha_s^2}@f$.
@@ -146,17 +145,17 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha\alpha_s^2}@f$
      */
-    complex deltaKappa_rem_f(const Particle p, const double Mw_i) const;    
-    
-    
-    ////////////////////////////////////////////////////////////////////////        
-    
-private:
-    const EWSMcache& cache;///< A reference to an object of type EWSMcache. 
+    complex deltaKappa_rem_f(const Particle p, const double Mw_i) const;
 
-    
+
     ////////////////////////////////////////////////////////////////////////        
-    
+
+private:
+    const EWSMcache& cache; ///< A reference to an object of type EWSMcache.
+
+
+    ////////////////////////////////////////////////////////////////////////        
+
     /**
      * @brief The function @f$\delta^{\mathrm{QCD}}_3@f$. 
      * @details This function is associated with the leading three-loop %QCD
@@ -167,8 +166,8 @@ private:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta^{\mathrm{QCD}}_3@f$
      */
-    double deltaQCD_3(const double Mw_i) const;    
-    
+    double deltaQCD_3(const double Mw_i) const;
+
     /**
      * @brief The function @f$\delta^{\mathrm{QCD}}_{\kappa, 3}@f$.
      * @details The sum
@@ -183,8 +182,8 @@ private:
      * @return @f$\delta^{\mathrm{QCD}}_{\kappa,3}@f$
      */
     complex deltaQCD_kappa3(const double Mw_i) const;
-    
-    
+
+
 };
 
 #endif	/* EWSMTHREELOOPQCD_H */
