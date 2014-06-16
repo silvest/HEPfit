@@ -178,7 +178,7 @@ public:
     {
         return (myNPbase->computeKW() * myNPbase->computeKW() * myNPbase->computeSigmaWF() + myNPbase->computeKZ() * myNPbase->computeKZ() * myNPbase->computeSigmaZF() +
                 myNPbase->computeKW() * myNPbase->computeKZ() * myNPbase->computeSigmaZWF()) /
-                (myNPbase->computeSigmaWF() + myNPbase->computeSigmaZF() + myNPbase->computeSigmaZF());
+                (myNPbase->computeSigmaWF() + myNPbase->computeSigmaZF() + myNPbase->computeSigmaZWF());
     }
 private:
     const NPbase* myNPbase;
