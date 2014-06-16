@@ -181,6 +181,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             } else
                 throw std::runtime_error("ERROR: wrong distribution flag in " + ho->getName());
             Observables.push_back(ho);
+            ++beg;
             if (beg != tok.end())
                 std::cout << "WARNING: unread information in HiggsObservable "
                     << Observables.back().getName() << std::endl;
