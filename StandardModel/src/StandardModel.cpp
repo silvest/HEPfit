@@ -14,8 +14,6 @@
 #include <Math/BrentRootFinder.h>
 #include <gsl/gsl_sf_zeta.h>
 #include "StandardModel.h"
-#include "CKM.h"
-#include "StandardModelMatching.h"
 #include "EWSMcache.h"
 #include "EWSMOneLoopEW.h"
 #include "EWSMTwoLoopQCD.h"
@@ -26,6 +24,7 @@
 #include "EWSMApproximateFormulae.h"
 #include "EWSMOneLoopEW_HV.h"
 #include "EWSMTwoFermionsLEP2.h"
+#include <Flavour.h>
 
 
 const std::string StandardModel::SMvars[NSMvars] = {
@@ -138,6 +137,7 @@ StandardModel::~StandardModel()
         if (myApproximateFormulae != NULL) delete(myApproximateFormulae);
         if (myTwoFermionsLEP2 != NULL) delete(myTwoFermionsLEP2);
         if (myStandardModelMatching != NULL) delete(myStandardModelMatching);
+        if (myFlavour != NULL) delete(myFlavour);
     }
 }
 
@@ -157,6 +157,7 @@ bool StandardModel::InitializeModel()
     myApproximateFormulae = new EWSMApproximateFormulae(*myEWSMcache); ///< A pointer to an object of type EWSMApproximateFormulae.
     myTwoFermionsLEP2 = new EWSMTwoFermionsLEP2(*myEWSMcache); ///< A pointer to an object of type EWSMTwoFermionsLEP2.
     myStandardModelMatching = new StandardModelMatching(*this);
+    myFlavour = new Flavour(*this);
     setModelInitialized(true);
     return (true);
 }

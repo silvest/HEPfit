@@ -36,15 +36,13 @@ EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardM
         v(4, 0) = 1.;
         
         matrix<double> vi = v.inverse();
-        for (int k = 0; k < 5; k++){
-          a[k] = e(k);
-          printf("a[%d]=%e\n",k,a[k]);
-          for (int i = 0; i < 5; i++){
+        for (int i = 0; i < 5; i++){
             for (int j = 0; j < 5; j++){
-              b[i][j][k] = v(i, k) * vi(k, j);
-              printf("b[%d][%d][%d]=%e\n",i,j,k,b[i][j][k]);
+                for (int k = 0; k < 5; k++){
+                    a[k] = e(k);
+                    b[i][j][k] = v(i, k) * vi(k, j);
+                }
             }
-          }
         }
         
         matrix<double> h(5, 5, 0.);
@@ -63,8 +61,6 @@ EvolDF2::EvolDF2(unsigned int dim, schemes scheme, orders order, const StandardM
                     for (int k = 0; k < 5; k++) {
                         c[l][i][j][k] = jv(i, k) * vi(k, j);
                         d[l][i][j][k] = -v(i, k) * vij(k, j);
-                        printf("c[%d][%d][%d][%d]=%e\n",l,i,j,k,c[l][i][j][k]);
-                        printf("d[%d][%d][%d][%d]=%e\n",l,i,j,k,d[l][i][j][k]);
                     }
         }
     }

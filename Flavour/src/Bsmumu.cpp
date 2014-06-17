@@ -7,24 +7,24 @@
 
 #include "Bsmumu.h"
 
-Bsmumu::Bsmumu(Flavour& Flavour, int obsFlag): ThObservable(Flavour), myFlavour(Flavour){
+Bsmumu::Bsmumu(const StandardModel& SM_i, int obsFlag): ThObservable(SM_i), mySM(SM_i){
     if (obsFlag > 0 and obsFlag < 5) obs = obsFlag;
     else throw std::runtime_error("obsFlag in Bsmumu(myFlavour, obsFlag) called from ThFactory::ThFactory() can only be 1 (BR) or 2 (BRbar) or 3 (Amumu) or 4 (Smumu)");
 };
 
 double Bsmumu::computeThValue(){
     computeObs(FULLNLO);
-    double FBs = myFlavour.getModel().getMesons(QCD::B_S).getDecayconst();
-    double coupling = myFlavour.getModel().getGF() * myFlavour.getModel().alphaMz() / 4. / M_PI;
-    double PRF = pow(coupling, 2.) / M_PI / myFlavour.getModel().getMesons(QCD::B_S).computeWidth() * pow(FBs, 2.) * pow(mmu, 2.) * mBs * beta;
+    double FBs = mySM.getMesons(QCD::B_S).getDecayconst();
+    double coupling = mySM.getGF() * mySM.alphaMz() / 4. / M_PI;
+    double PRF = pow(coupling, 2.) / M_PI / mySM.getMesons(QCD::B_S).computeWidth() * pow(FBs, 2.) * pow(mmu, 2.) * mBs * beta;
     ys = 0.087; // For now. To be explicitly calculated.
     timeInt = (1. + Amumu * ys) / (1. - ys * ys); // Note modification in form due to algorithm
-    /*    double theta = asin(sqrt( (M_PI * myFlavour.getModel().getAle() )/( sqrt(2) * myFlavour.getModel().getGF() *
-     myFlavour.getModel().Mw_tree() * myFlavour.getModel().Mw_tree()) ));
+    /*    double theta = asin(sqrt( (M_PI * mySM.getAle() )/( sqrt(2) * mySM.getGF() *
+     mySM.Mw_tree() * mySM.Mw_tree()) ));
      
-     return( myFlavour.getModel().getMesons(QCD::B_S).getLifetime() / HCUT * myFlavour.getModel().getGF()*myFlavour.getModel().getGF()/M_PI
-     * myFlavour.getModel().getAle()*myFlavour.getModel().getAle()/(16.*M_PI*M_PI*pow(sin(theta),4.))
-     * mBs * myFlavour.getModel().getMesons(QCD::B_S).getDecayconst()
+     return( mySM.getMesons(QCD::B_S).getLifetime() / HCUT * mySM.getGF()*mySM.getGF()/M_PI
+     * mySM.getAle()*mySM.getAle()/(16.*M_PI*M_PI*pow(sin(theta),4.))
+     * mBs * mySM.getMesons(QCD::B_S).getDecayconst()
      * mmu * mmu * sqrt(1.-4.*mmu*mmu/mBs/mBs) * BRBsmumu(NLO).real());*/
     
     //std::cout << getAmumu(FULLNLO) << "  " << getSmumu(FULLNLO) << argP << std::endl;
@@ -39,10 +39,10 @@ double Bsmumu::computeThValue(){
 }
 
 void Bsmumu::computeObs(orders order){
-    mmu = myFlavour.getModel().getLeptons(StandardModel::MU).getMass();
-    mBs = myFlavour.getModel().getMesons(QCD::B_S).getMass();
-    mb = myFlavour.getModel().getQuarks(QCD::BOTTOM).getMass();
-    ms = myFlavour.getModel().getQuarks(QCD::STRANGE).getMass();
+    mmu = mySM.getLeptons(StandardModel::MU).getMass();
+    mBs = mySM.getMesons(QCD::B_S).getMass();
+    mb = mySM.getQuarks(QCD::BOTTOM).getMass();
+    ms = mySM.getQuarks(QCD::STRANGE).getMass();
     chiral = pow(mBs, 2.) / 2. / mmu * mb / (mb + ms);
     beta = sqrt(1. - pow(2. * mmu / mBs, 2.));
     computeAmpSq(order);
@@ -61,13 +61,13 @@ double Bsmumu::computeSmumu(orders order){
 }
 
 void Bsmumu::computeAmpSq(orders order){
-    if (myFlavour.getHDB1().getCoeffsmumu().getOrder() < order % 3){
+    if (mySM.getMyFlavour()->getHDB1().getCoeffsmumu().getOrder() < order % 3){
         std::stringstream out;
         out << order;
         throw std::runtime_error("Bsmumu::computeAmpSq(): required cofficient of "
                                  "order " + out.str() + " not computed");
     }
-    vector<complex> ** allcoeff = myFlavour.ComputeCoeffsmumu();
+    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffsmumu();
     
     switch(order) {
         case FULLNLO:

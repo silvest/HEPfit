@@ -3,6 +3,7 @@
 #include <boost/bind.hpp>
 #include <EWObservables.h>
 #include <HiggsThObservables.h>
+#include <FlavourObservables.h>
 #include <ParamObs.h>
 
 ThObsFactory::ThObsFactory() {
@@ -60,30 +61,30 @@ ThObsFactory::ThObsFactory() {
     }
 
 //    //-----  Flavour observables  -----
-//    obsThFactory["Dmd1"] = boost::factory<DmBd*>(myFlavour);
-//    obsThFactory["Dms1"] = boost::factory<DmBs*>(myFlavour);
-//    obsThFactory["M12D"] = boost::factory<M12D*>(myFlavour);
-//    obsThFactory["ArgD"] = boost::factory<ArgD*>(myFlavour);
-//    obsThFactory["EpsilonK"] = boost::factory<EpsilonK*>(myFlavour);
-//    obsThFactory["EpsiloP_o_Epsilon"] = boost::factory<EpsilonP_O_Epsilon*>(myFlavour);
-//    obsThFactory["DmK"] = boost::factory<DmK*>(myFlavour);
-//    obsThFactory["Vud"] = boost::factory<Vud*>(myFlavour);
-//    obsThFactory["Vus"] = boost::factory<Vus*>(myFlavour);
-//    obsThFactory["Vub"] = boost::factory<Vub*>(myFlavour);
-//    obsThFactory["Vcb"] = boost::factory<Vcb*>(myFlavour);
-//    obsThFactory["alpha"] = boost::factory<Alpha*>(myFlavour);
-//    obsThFactory["alpha_2a"] = boost::factory<Alpha_2a*>(myFlavour);
-//    obsThFactory["gamma"] = boost::factory<CKMGamma*>(myFlavour);
-//    obsThFactory["SJPsiK"] = boost::factory<SJPsiK*>(myFlavour);
-//    obsThFactory["SJPsiPhi"] = boost::factory<SJPsiPhi*>(myFlavour);
-//    obsThFactory["BR_Bdmumu"] = boost::factory<Bdmumu*>(myFlavour, 1);
-//    obsThFactory["BRbar_Bdmumu"] = boost::factory<Bdmumu*>(myFlavour, 2);
-//    obsThFactory["Amumu_Bd"] = boost::factory<Bdmumu*>(myFlavour, 3);
-//    obsThFactory["Smumu_Bd"] = boost::factory<Bdmumu*>(myFlavour, 4);
-//    obsThFactory["BR_Bsmumu"] = boost::factory<Bsmumu*>(myFlavour, 1);
-//    obsThFactory["BRbar_Bsmumu"] = boost::factory<Bsmumu*>(myFlavour, 2);
-//    obsThFactory["Amumu_Bs"] = boost::factory<Bsmumu*>(myFlavour, 3);
-//    obsThFactory["Smumu_Bs"] = boost::factory<Bsmumu*>(myFlavour, 4);
+    obsThFactory["Dmd1"] = boost::factory<DmBd*>();
+    obsThFactory["Dms1"] = boost::factory<DmBs*>();
+    obsThFactory["M12D"] = boost::factory<M12D*>();
+    obsThFactory["ArgD"] = boost::factory<ArgD*>();
+    obsThFactory["EpsilonK"] = boost::factory<EpsilonK*>();
+    obsThFactory["EpsiloP_o_Epsilon"] = boost::factory<EpsilonP_O_Epsilon*>();
+    obsThFactory["DmK"] = boost::factory<DmK*>();
+    obsThFactory["Vud"] = boost::factory<Vud*>();
+    obsThFactory["Vus"] = boost::factory<Vus*>();
+    obsThFactory["Vub"] = boost::factory<Vub*>();
+    obsThFactory["Vcb"] = boost::factory<Vcb*>();
+    obsThFactory["alpha"] = boost::factory<Alpha*>();
+    obsThFactory["alpha_2a"] = boost::factory<Alpha_2a*>();
+    obsThFactory["gamma"] = boost::factory<CKMGamma*>();
+    obsThFactory["SJPsiK"] = boost::factory<SJPsiK*>();
+    obsThFactory["SJPsiPhi"] = boost::factory<SJPsiPhi*>();
+    obsThFactory["BR_Bdmumu"] = boost::bind(boost::factory<Bdmumu*>(), _1, 1);
+    obsThFactory["BRbar_Bdmumu"] = boost::bind(boost::factory<Bdmumu*>(), _1, 2);
+    obsThFactory["Amumu_Bd"] = boost::bind(boost::factory<Bdmumu*>(), _1, 3);
+    obsThFactory["Smumu_Bd"] = boost::bind(boost::factory<Bdmumu*>(), _1, 4);
+    obsThFactory["BR_Bsmumu"] = boost::bind(boost::factory<Bsmumu*>(), _1, 1);
+    obsThFactory["BRbar_Bsmumu"] = boost::bind(boost::factory<Bsmumu*>(), _1, 2);
+    obsThFactory["Amumu_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 3);
+    obsThFactory["Smumu_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 4);
 //
 //    //-----  Lepton Flavour observables  -----
 //    obsThFactory["li_lj_gamma"] = boost::factory<li_lj_gamma*>(myLeptonFlavour);

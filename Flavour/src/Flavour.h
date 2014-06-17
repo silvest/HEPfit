@@ -18,11 +18,10 @@ using namespace gslpp;
 class Flavour {
 public:
 
-    Flavour(const StandardModel& SM_i) : SM(SM_i),
-            HDF2(SM_i), HDS1(SM_i), HDB1(SM_i) {
+    Flavour(const StandardModel& SM_i) : HDF2(SM_i), HDS1(SM_i), HDB1(SM_i) {
         
-        if(!SM_i.IsModelInitialized())
-            throw std::runtime_error("Model not initialized "); 
+        //if(!SM.IsModelInitialized())
+            //throw std::runtime_error("Model not initialized ");
     };
 
     const HeffDF2& getHDF2() const {
@@ -88,7 +87,10 @@ public:
     
     
 private:
-    const StandardModel& SM;
+    //const StandardModel& SM;
+    HeffDF2 HDF2;
+    HeffDS1 HDS1;
+    HeffDB1 HDB1;
 };
 
 #endif	/* FLAVOUR_H */

@@ -10,6 +10,7 @@
 
 #include <gslpp.h>
 #include "Flavour.h"
+#include <StandardModel.h>
 
 using namespace gslpp;
 
@@ -32,14 +33,15 @@ public:
      * @brief comupte the amplitude for kaon oscillations
      * @param Flavour
      */
-    AmpDK2(Flavour& Flavour);
+    AmpDK2(const StandardModel& SM_i);
 
 protected:
     complex AmpDK(orders order);
     complex AmpMK(orders order);
     
 private:
-    Flavour& myFlavour;
+    //Flavour& myFlavour;
+    const StandardModel& mySM;
 
 };
 

@@ -11,6 +11,7 @@
 #include <ThObservable.h>
 #include "Flavour.h"
 #include "CPenguinBoxMu.h"
+#include <StandardModel.h>
 
 using namespace gslpp;
 
@@ -20,7 +21,7 @@ public:
      * constructor
      * @param Flavour
      */
-    BR_Kmumu(Flavour& Flavour): ThObservable(Flavour), myFlavour(Flavour), CPB(SM){};
+    BR_Kmumu(StandardModel& SM_i): ThObservable(SM_i), mySM(SM_i), CPB(SM){};
     
     /**
      * 
@@ -42,7 +43,8 @@ protected:
     complex BRKmumu(orders order);
     
 private:
-    Flavour& myFlavour;
+    //Flavour& myFlavour;
+    StandardModel& mySM;
     CPenguinBoxMu CPB;
 };
 

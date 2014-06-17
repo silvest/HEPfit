@@ -25,6 +25,7 @@ class EWSMThreeLoopEW;
 class EWSMApproximateFormulae;
 class EWSMOneLoopEW_HV;
 class EWSMTwoFermionsLEP2;
+class Flavour;
 
 /**
  * @class StandardModel
@@ -974,6 +975,11 @@ public:
     EWSMTwoLoopQCD* getMyTwoLoopQCD() const
     {
         return myTwoLoopQCD;
+    }
+    
+    Flavour* getMyFlavour() const 
+    {
+        return myFlavour;
     }
 
 
@@ -2364,6 +2370,7 @@ private:
     EWSMThreeLoopEW* myThreeLoopEW; ///< A pointer to an object of type EWSMThreeLoopEW.
     EWSMApproximateFormulae* myApproximateFormulae; ///< A pointer to an object of type EWSMApproximateFormulae.
     EWSMTwoFermionsLEP2* myTwoFermionsLEP2; ///< A pointer to an object of type EWSMTwoFermionsLEP2.
+    Flavour* myFlavour; ///< A pointer to an object of the type Flavour.
 
     StandardModelMatching* myStandardModelMatching; ///< A pointer to an object of type StandardModelMatching.
 

@@ -10,6 +10,7 @@
 
 #include <ThObservable.h>
 #include "Flavour.h"
+#include <StandardModel.h>
 
 class Bdmumu : public ThObservable {
 public:
@@ -17,7 +18,7 @@ public:
      * constructor
      * @param Flavour
      */
-    Bdmumu(Flavour& Flavour, int obsFlag);
+    Bdmumu(const StandardModel& SM_i, int obsFlag);
     
     /**
      *
@@ -42,7 +43,8 @@ protected:
     void computeObs(orders order);
     
 private:
-    Flavour& myFlavour;
+    //Flavour& myFlavour;
+    const StandardModel& mySM;
     double beta;
     double mBd;
     double mmu;

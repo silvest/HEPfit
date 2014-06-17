@@ -22,7 +22,7 @@ public:
      * @brief ArgD constructor
      * @param Flavour an object of Flavour class
      */
-    ArgD(Flavour& Flavour) : ThObservable(Flavour), AmpDD2(Flavour) {};
+    ArgD(const StandardModel& SM_i) : ThObservable(SM_i), AmpDD2(SM_i) {};
     /**
      * @brief a method returning the argument of the complex amplitude for 
      * the absorptive part of the \f$ | \Delta C = 2 | \f$ mixing
