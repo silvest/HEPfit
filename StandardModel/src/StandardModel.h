@@ -1928,8 +1928,10 @@ public:
      */
     double computeSigmaggH() const
     {
+        //return 15.01; // in pb for Mh=125.5 GeV and sqrt_s=7 TeV
+        return 19.12; // in pb for Mh=125.5 GeV and sqrt_s=8 TeV
         //return 14.99; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
-        return 19.09; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
+        //return 19.09; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
     }
     
     /**
@@ -1939,8 +1941,10 @@ public:
      */
     double computeSigmaVBF() const
     {
+        //return 1.219; // in pb for Mh=125.5 GeV and sqrt_s=7 TeV
+        return 1.573; // in pb for Mh=125.5 GeV and sqrt_s=8 TeV
         //return 1.214; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
-        return 1.572; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
+        //return 1.572; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
     }
 
     /**
@@ -1951,8 +1955,10 @@ public:
      */
     double computeSigmaWH() const
     {
+        //return 0.5703; // in pb for Mh=125.5 GeV and sqrt_s=7 TeV
+        return 0.6951; // in pb for Mh=125.5 GeV and sqrt_s=8 TeV
         //return 0.5688; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
-        return 0.6931; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
+        //return 0.6931; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
     }
 
     /**
@@ -1963,8 +1969,10 @@ public:
      */
     double computeSigmaZH() const
     {
+        //return 0.3309; // in pb for Mh=125.5 GeV and sqrt_s=7 TeV
+        return 0.4102; // in pb for Mh=125.5 GeV and sqrt_s=8 TeV
         //return 0.3299; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
-        return 0.4091; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
+        //return 0.4091; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
     }
 
     /**
@@ -1975,8 +1983,10 @@ public:
      */
     double computeSigmattH() const
     {
+        //return 0.0853; // in pb for Mh=125.5 GeV and sqrt_s=7 TeV
+        return 0.1277; // in pb for Mh=125.5 GeV and sqrt_s=8 TeV
         //return 0.0851; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
-        return 0.1274; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
+        //return 0.1274; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
     }
 
     /**
@@ -1997,8 +2007,8 @@ public:
      */
     double computeBRZZ() const
     {
-        //return 2.76e-2; // Mh=125.5 GeV
-        return 2.79e-2; // Mh=125.6 GeV
+        return 2.76e-2; // Mh=125.5 GeV
+        //return 2.79e-2; // Mh=125.6 GeV
     }
 
     /**
@@ -2018,8 +2028,8 @@ public:
      */
     double computeBRZga() const
     {
-        //return 1.58e-3; // Mh=125.5 GeV
-        return 1.59e-3; // Mh=125.6 GeV
+        return 1.58e-3; // Mh=125.5 GeV
+        //return 1.59e-3; // Mh=125.6 GeV
     }
 
     /**
@@ -2039,8 +2049,8 @@ public:
      */
     double computeBRbb() const
     {
-        //return 5.69e-1; // Mh=125.5 GeV
-        return 5.67e-1; // Mh=125.6 GeV
+        return 5.69e-1; // Mh=125.5 GeV
+        //return 5.67e-1; // Mh=125.6 GeV
     }
 
     /**
@@ -2050,8 +2060,8 @@ public:
      */
     double computeBRtautau() const
     {
-        //return 6.24e-2; // Mh=125.5 GeV
-        return 6.22e-2; // Mh=125.6 GeV
+        return 6.24e-2; // Mh=125.5 GeV
+        //return 6.22e-2; // Mh=125.6 GeV
     }
 
     /**
@@ -2061,8 +2071,8 @@ public:
      */
     double computeBRcc() const
     {
-        //return 2.87e-2; // Mh=125.5 GeV
-        return 2.86e-2; // Mh=125.6 GeV
+        return 2.87e-2; // Mh=125.5 GeV
+        //return 2.86e-2; // Mh=125.6 GeV
     }
 
 
