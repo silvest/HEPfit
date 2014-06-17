@@ -102,7 +102,6 @@ public:
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
-
     virtual double computeKW() const;
 
     virtual double computeKZ() const;
@@ -129,7 +128,25 @@ public:
 
     virtual double computeKtau() const;
 
-    double computeGTotalRatio() const;
+    virtual double computeGTotalRatio() const;
+
+    /**
+     * @brief The oblique parameter \f$S\f$.
+     * @return \f$S\f$
+     */
+    virtual double obliqueS() const;
+
+    /**
+     * @brief The oblique parameter \f$T\f$.
+     * @return \f$T\f$
+     */
+    virtual double obliqueT() const;
+
+    /**
+     * @brief The oblique parameter \f$U\f$.
+     * @return \f$U=0\f$
+     */
+    virtual double obliqueU() const;
 
 protected:
 

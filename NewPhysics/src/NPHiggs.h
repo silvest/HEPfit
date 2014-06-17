@@ -158,12 +158,6 @@ public:
     NPHiggs();
 
     /**
-     * @brief @copybrief Model::Update()
-     * @copydetails Model::Update()
-     */
-    virtual bool Update(const std::map<std::string, double>& DPars);
-
-    /**
      * @brief @copybrief Model::CheckParameters()
      * @copydetails Model::CheckParameters()
      */

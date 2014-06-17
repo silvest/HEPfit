@@ -140,12 +140,6 @@ public:
      */
     NPEpsilons();
 
-    /**
-     * @brief @copybrief Model::Update()
-     * @copydetails Model::Update()
-     */
-    virtual bool Update(const std::map<std::string, double>& DPars);
-
     virtual bool PostUpdate();
 
     /**

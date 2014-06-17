@@ -20,14 +20,6 @@ NPEpsilons_pureNP::NPEpsilons_pureNP()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("delEps_b", boost::cref(deltaEps_b)));
 }
 
-bool NPEpsilons_pureNP::Update(const std::map<std::string, double>& DPars)
-{
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameter(it->first, it->second);
-    if (!NPbase::Update(DPars)) return (false);
-    return (true);
-}
-
 void NPEpsilons_pureNP::setParameter(const std::string name, const double& value)
 {
     if (name.compare("delEps_1") == 0)

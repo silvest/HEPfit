@@ -72,6 +72,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../Observables/dist</pElem>
             <pElem>../gslpp/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>
@@ -106,6 +107,7 @@
             <pElem>../StandardModel/src</pElem>
             <pElem>../Observables/dist</pElem>
             <pElem>../gslpp/src</pElem>
+            <pElem>../NewPhysics/src</pElem>
           </incDir>
         </ccTool>
         <fortranCompilerTool>
