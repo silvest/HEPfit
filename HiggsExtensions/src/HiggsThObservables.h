@@ -13,10 +13,10 @@
 /**
  * @class BrWWRatio
  * @ingroup HiggsExtensions
- * @brief A class for computing the ratio of the @f[BR(H\to WW@f]
+ * @brief A class for computing the ratio of the @f$BR(H\to WW@f$
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the @f[BR(H\to WW@f]
+ * @details A class for computing the ratio of the @f$BR(H\to WW@f$
  * in the current model and in the Standard Model
  */
 class BrWWRatio : public ThObservable {
@@ -33,7 +33,7 @@ public:
     }
 
     /**
-     * method to compute the the ratio of the @f[BR(H\to WW@f] in the current model and SM
+     * method to compute the the ratio of the @f$BR(H\to WW@f$ in the current model and SM
      * @return
      */
     double computeThValue()
@@ -48,10 +48,10 @@ private:
 /**
  * @class BrZZRatio
  * @ingroup HiggsExtensions
- * @brief A class for computing the ratio of the @f[BR(H\to ZZ@f]
+ * @brief A class for computing the ratio of the @f$BR(H\to ZZ@f$
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the @f[BR(H\to ZZ@f]
+ * @details A class for computing the ratio of the @f$BR(H\to ZZ@f$
  * in the current model and in the Standard Model
  */
 class BrZZRatio : public ThObservable {
@@ -68,7 +68,7 @@ public:
     }
 
     /**
-     * method to compute the the ratio of the @f[BR(H\to ZZ@f] in the current model and SM
+     * method to compute the the ratio of the @f$BR(H\to ZZ@f$ in the current model and SM
      * @return
      */
     double computeThValue()
@@ -82,10 +82,10 @@ private:
 /**
  * @class BrgagaRatio
  * @ingroup HiggsExtensions
- * @brief A class for computing the ratio of the @f[BR(H\to\gamma\gamma@f]
+ * @brief A class for computing the ratio of the @f$BR(H\to\gamma\gamma@f$
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the @f[BR(H\to\gamma\gamma@f]
+ * @details A class for computing the ratio of the @f$BR(H\to\gamma\gamma@f$
  * in the current model and in the Standard Model
  */
 class BrgagaRatio : public ThObservable {
@@ -102,7 +102,7 @@ public:
     }
 
     /**
-     * method to compute the the ratio of the @f[BR(H\to\gamma\gamma@f] in the current model and SM
+     * method to compute the the ratio of the @f$BR(H\to\gamma\gamma@f$ in the current model and SM
      * @return
      */
     double computeThValue()
@@ -116,10 +116,10 @@ private:
 /**
  * @class BrtautauRatio
  * @ingroup HiggsExtensions
- * @brief A class for computing the ratio of the @f[BR(H\to\tau\tau@f]
+ * @brief A class for computing the ratio of the @f$BR(H\to\tau\tau@f$
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the @f[BR(H\to\tau\tau@f]
+ * @details A class for computing the ratio of the @f$BR(H\to\tau\tau@f$
  * in the current model and in the Standard Model
  */
 class BrtautauRatio : public ThObservable {
@@ -136,7 +136,7 @@ public:
     }
 
     /**
-     * method to compute the the ratio of the @f[BR(H\to\tau\tau@f] in the current model and SM
+     * method to compute the the ratio of the @f$BR(H\to\tau\tau@f$ in the current model and SM
      * @return
      */
     double computeThValue()
@@ -150,10 +150,10 @@ private:
 /**
  * @class muVBF
  * @ingroup HiggsExtensions
- * @brief A class for computing the ratio @f[\mu_{VBF}@f]
+ * @brief A class for computing the ratio @f$\mu_{VBF}@f$
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio @f[\mu_{VBF}@f] between the vector-boson fusion Higgs production cross-section
+ * @details A class for computing the ratio @f$\mu_{VBF}@f$ between the vector-boson fusion Higgs production cross-section
  * in the current model and in the Standard Model
  */
 class muVBF : public ThObservable {
@@ -171,7 +171,7 @@ public:
     }
 
     /**
-     * method to compute the value of  @f[\mu_{VBF}@f] in the current model
+     * method to compute the value of @f$\mu_{VBF}@f$ in the current model
      * @return 
      */
     double computeThValue()
@@ -187,10 +187,10 @@ private:
 /**
  * @class muWH
  * @ingroup HiggsExtensions
- * @brief A class for computing the ratio @f[\mu_{WH}@f]
+ * @brief A class for computing the ratio @f$\mu_{WH}@f$
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio @f[\mu_{WH}@f] between the W Higgs associated production cross-section
+ * @details A class for computing the ratio @f$\mu_{WH}@f$ between the W Higgs associated production cross-section
  * in the current model and in the Standard Model
  */
 class muWH : public ThObservable {
@@ -203,11 +203,11 @@ public:
     muWH(const StandardModel& SM_i) : ThObservable(SM_i)
     {
         if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrWWRatio called with a class whose parent is not NPbase");
+            throw std::runtime_error("muWH called with a class whose parent is not NPbase");
     }
 
     /**
-     * method to compute the value of  @f[\mu_{WH}@f] in the current model
+     * method to compute the value of @f$\mu_{WH}@f$ in the current model
      * @return 
      */
     double computeThValue()
@@ -221,10 +221,10 @@ private:
 /**
  * @class muZH
  * @ingroup HiggsExtensions
- * @brief A class for computing the ratio @f[\mu_{ZH}@f]
+ * @brief A class for computing the ratio @f$\mu_{ZH}@f$
  * @author SusyFit CollaborationH
  * @copyright GNU General Public License
- * @details A class for computing the ratio @f[\mu_{ZH}@f] between the Z Higgs associated production cross-section
+ * @details A class for computing the ratio @f$\mu_{ZH}@f$ between the Z Higgs associated production cross-section
  * in the current model and in the Standard Model
  */
 class muZH : public ThObservable {
@@ -237,11 +237,11 @@ public:
     muZH(const StandardModel& SM_i) : ThObservable(SM_i)
     {
         if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrWWRatio called with a class whose parent is not NPbase");
+            throw std::runtime_error("muZH called with a class whose parent is not NPbase");
     }
 
     /**
-     * method to compute the value of  @f[\mu_{ZH}@f] in the current model
+     * method to compute the value of @f$\mu_{ZH}@f$ in the current model
      * @return 
      */
     double computeThValue()
@@ -253,12 +253,54 @@ private:
 };
 
 /**
- * @class muggH
+ * @class muVH
  * @ingroup HiggsExtensions
- * @brief A class for computing the ratio @f[\mu_{ggH}@f]
+ * @brief A class for computing the ratio @f$\mu_{VH}@f$
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio @f[\mu_{ggH}@f] between the gluon-gluon fusion Higgs production cross-section
+ * @details A class for computing the ratio @f$\mu_{VH}@f$ between the WH+ZH associated production cross-section
+ * in the current model and in the Standard Model
+ */
+class muVH : public ThObservable {
+public:
+
+    /**
+     * @brief constructor
+     * @param SM_i a reference to a StandardModel object or to any extension of it
+     */
+    muVH(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("muVH called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * method to compute the value of @f$\mu_{VH}@f$ in the current model
+     * @return
+     */
+    double computeThValue()
+    {
+        if (myNPbase->computeKW() == myNPbase->computeKZ())
+            return (myNPbase->computeKW() * myNPbase->computeKW());
+        else {
+            double sigmaWH_SM = myNPbase->getTrueSM().computeSigmaWH();
+            double sigmaZH_SM = myNPbase->getTrueSM().computeSigmaZH();
+            return ((myNPbase->computeKW() * myNPbase->computeKW() * sigmaWH_SM
+                    + myNPbase->computeKZ() * myNPbase->computeKZ() * sigmaZH_SM)
+                    / (sigmaWH_SM + sigmaZH_SM));
+        }
+    }
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class muggH
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio @f$\mu_{ggH}@f$
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio @f$\mu_{ggH}@f$ between the gluon-gluon fusion Higgs production cross-section
  * in the current model and in the Standard Model
  */
 class muggH : public ThObservable {
@@ -271,11 +313,11 @@ public:
     muggH(const StandardModel& SM_i) : ThObservable(SM_i)
     {
         if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrWWRatio called with a class whose parent is not NPbase");
+            throw std::runtime_error("muggH called with a class whose parent is not NPbase");
     }
 
     /**
-     * method to compute the value of  @f[\mu_{ggH}@f] in the current model
+     * method to compute the value of @f$\mu_{ggH}@f$ in the current model
      * @return 
      */
     double computeThValue()
@@ -289,10 +331,10 @@ private:
 /**
  * @class muttH
  * @ingroup HiggsExtensions
- * @brief A class for computing the ratio @f[\mu_{ttH}@f]
+ * @brief A class for computing the ratio @f$\mu_{ttH}@f$
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio @f[\mu_{ttH}@f] between the t-tbar-Higgs associated production cross-section
+ * @details A class for computing the ratio @f$\mu_{ttH}@f$ between the t-tbar-Higgs associated production cross-section
  * in the current model and in the Standard Model
  */
 class muttH : public ThObservable {
@@ -305,11 +347,11 @@ public:
     muttH(const StandardModel& SM_i) : ThObservable(SM_i)
     {
         if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrWWRatio called with a class whose parent is not NPbase");
+            throw std::runtime_error("muttH called with a class whose parent is not NPbase");
     }
 
     /**
-     * method to compute the value of  @f[\mu_{ttH}@f] in the current model
+     * method to compute the value of @f$\mu_{ttH}@f$ in the current model
      * @return 
      */
     double computeThValue()

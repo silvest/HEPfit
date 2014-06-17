@@ -1922,6 +1922,64 @@ public:
     }
 
     /**
+     * @brief This method computes the ggH cross section in the Standard Model.
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa.
+     * @return ggH cross section in pb
+     */
+    double computeSigmaggH() const
+    {
+        //return 14.99; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
+        return 19.09; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
+    }
+    
+    /**
+     * @brief This method computes the VBF cross section in the Standard Model.
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa.
+     * @return VBF cross section in pb
+     */
+    double computeSigmaVBF() const
+    {
+        //return 1.214; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
+        return 1.572; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
+    }
+
+    /**
+     * @brief This method computes the WH production cross section
+     * in the Standard Model.
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa.
+     * @return WH production cross section in pb
+     */
+    double computeSigmaWH() const
+    {
+        //return 0.5688; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
+        return 0.6931; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
+    }
+
+    /**
+     * @brief This method computes the ZH production cross section
+     * in the Standard Model.
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa.
+     * @return ZH production cross section in pb
+     */
+    double computeSigmaZH() const
+    {
+        //return 0.3299; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
+        return 0.4091; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
+    }
+
+    /**
+     * @brief This method computes the ttH production cross section
+     * in the Standard Model.
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa.
+     * @return ttH production cross section in pb
+     */
+    double computeSigmattH() const
+    {
+        //return 0.0851; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
+        return 0.1274; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
+    }
+
+    /**
      * @brief This method computes the @f$BR(H\to WW)@f$ in the Standard Model.
      * Currently it returns the value of tables in appendix A (Mh=125.6 GeV) in ref. @cite Heinemeyer:2013tqa
      * @return The @f$BR(H\to WW)@f$ in the Standard Model

@@ -25,7 +25,7 @@ ThObsFactory::ThObsFactory() {
     //----- Higgs Extension observables ----------
     obsThFactory["ggH"] = boost::factory<muggH*>();
     obsThFactory["VBF"] = boost::factory<muVBF*>();
-    obsThFactory["VH"] = boost::factory<muWH*>();
+    obsThFactory["VH"] = boost::factory<muVH*>();
     obsThFactory["ttH"] = boost::factory<muttH*>();
     obsThFactory["BrHWWRatio"] = boost::factory<BrWWRatio*>();
     obsThFactory["BrHZZRatio"] = boost::factory<BrZZRatio*>();
