@@ -133,6 +133,7 @@ protected:
     double CLL_1221, CLL_2112;
     double Lambda_NP;
 
+    double LambdaNP2;
     double v2_over_LambdaNP2;
     double cW_tree, sW_tree;
     double cW2_tree, sW2_tree;
