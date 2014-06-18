@@ -16,11 +16,40 @@
 class NPEffectiveGIMR : public NPbase {
 public:
 
-    static const int NNPEffectiveGIMRVars = 89; /* Only a subset of the coefficients! */
+    /**
+     *　@brief The number of the model parameters in %NPEffectiveGIMR. 
+     */
+    static const int NNPEffectiveGIMRVars = 88;
+
+      /**
+     * @brief A string array containing the labels of the model parameters in
+     * %NPEffectiveGIMR.
+     */
     static const std::string NPEffectiveGIMRVars[NNPEffectiveGIMRVars];
 
-    NPEffectiveGIMR();
+    /**
+     *　@brief The number of the model parameters in %NPEffectiveGIMR
+     * with lepton and quark flavour universalities.
+     */
+    static const int NNPEffectiveGIMRVars_LFU_QFU = 23;
 
+    /**
+     * @brief A string array containing the labels of the model parameters in
+     * %NPEffectiveGIMR with lepton and quark flavour universalities.
+     */
+    static const std::string NPEffectiveGIMRVars_LFU_QFU[NNPEffectiveGIMRVars_LFU_QFU];
+
+    /**
+     * @brief Constructor.
+     * @param[in] FlagLeptonUniversal_in
+     * @param[in] FlagQuarkUniversal_in
+     */
+    NPEffectiveGIMR(const bool FlagLeptonUniversal_in = false, const bool FlagQuarkUniversal_in = false);
+
+    /**
+     * @brief 
+     * @return
+     */
     virtual bool PostUpdate();
 
     /**
@@ -102,7 +131,7 @@ protected:
     double CdH_11r, CdH_12r, CdH_13r, CdH_22r, CdH_23r, CdH_33r;
     double CdH_11i, CdH_12i, CdH_13i, CdH_22i, CdH_23i, CdH_33i;
     double CLL_1221, CLL_2112;
-    double LambdaNP;
+    double Lambda_NP;
 
     double v2_over_LambdaNP2;
     double cW_tree, sW_tree;
@@ -112,6 +141,18 @@ protected:
     ////////////////////////////////////////////////////////////////////////
 private:
 
+    /**
+     * @brief An internal boolean flag that is true if assuming lepton flavour
+     * universality.
+     */
+    const bool FlagLeptonUniversal;
+
+    /**
+     * @brief An internal boolean flag that is true if assuming quark flavour
+     * universality.
+     */
+    const bool FlagQuarkUniversal;
+    
 };
 
 #endif	/* NPEFFECTIVEGIMR_H */

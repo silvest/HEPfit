@@ -493,23 +493,23 @@ protected:
     double cHD1; ///< The dimension-6 operator coefficient \f$C_{HD_1}\f$.
     double cHD2; ///< The dimension-6 operator coefficient \f$C_{HD_2}\f$.
     double cHD3; ///< The dimension-6 operator coefficient \f$C_{HD_3}\f$.
-    double LambdaNP; ///< The new physics scale \f$\Lambda\f$.
+    double Lambda_NP; ///< The new physics scale \f$\Lambda\f$.
 
     ////////////////////////////////////////////////////////////////////////
 private:
 
     /**
-     * @brief An internal boolean flag. This flag is initialized in the
-     * constructor.
+     * @brief An internal boolean flag that is true if assuming lepton flavour
+     * universality.
      */
     const bool FlagLeptonUniversal;
 
     /**
-     * @brief An internal boolean flag. This flag is initialized in the
-     * constructor.
+     * @brief An internal boolean flag that is true if assuming quark flavour
+     * universality.
      */
     const bool FlagQuarkUniversal;
-
+    
     /**
      * @brief New physics contribution to @f$g_L^l@f$.
      * @details New physics contributions to the neutral-current left-handed
