@@ -2049,6 +2049,17 @@ public:
     }
 
     /**
+     * @brief The Higgs total width in the Standard Model.
+     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @return @f$\Gamma_h@f$ in GeV in the Standard Model
+     */
+    double computeGammaHTotal() const
+    {
+        return 4.14e-3; // Mh=125.5 GeV
+        //return 4.15e-3; // Mh=125.6 GeV
+    }
+
+    /**
      * @brief The top loop contribution to @f$H\to Z\gamma@f$ in the Standard Model.
      * @details Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa
      * @return Width of @f$H\to Z\gamma@f$ (top loop contribution squared) in eV

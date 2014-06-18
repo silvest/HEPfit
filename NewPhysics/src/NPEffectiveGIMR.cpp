@@ -622,6 +622,58 @@ double NPEffectiveGIMR::muttH(const double sqrt_s) const
 
 double NPEffectiveGIMR::BrHggRatio() const
 {
+    return (GammaHggRatio() / computeGammaTotalRatio());
+}
+
+double NPEffectiveGIMR::BrHWWRatio() const
+{
+    return (GammaHWWRatio() / computeGammaTotalRatio());
+}
+
+double NPEffectiveGIMR::BrHZZRatio() const
+{
+    return (GammaHZZRatio() / computeGammaTotalRatio());
+}
+
+double NPEffectiveGIMR::BrHZgaRatio() const
+{
+    return (GammaHZgaRatio() / computeGammaTotalRatio());
+}
+
+double NPEffectiveGIMR::BrHgagaRatio() const
+{
+    return (GammaHgagaRatio() / computeGammaTotalRatio());
+}
+
+double NPEffectiveGIMR::BrHtautauRatio() const
+{
+    return (GammaHtautauRatio() / computeGammaTotalRatio());
+}
+
+double NPEffectiveGIMR::BrHccRatio() const
+{
+    return (GammaHccRatio() / computeGammaTotalRatio());
+}
+
+double NPEffectiveGIMR::BrHbbRatio() const
+{
+    return (GammaHbbRatio() / computeGammaTotalRatio());
+}
+
+double NPEffectiveGIMR::computeGammaTotalRatio() const
+{
+    return (trueSM.computeBrHtogg() * GammaHggRatio()
+            + trueSM.computeBrHtoWW() * GammaHWWRatio()
+            + trueSM.computeBrHtoZZ() * GammaHZZRatio()
+            + trueSM.computeBrHtoZga() * GammaHZgaRatio()
+            + trueSM.computeBrHtogaga() * GammaHgagaRatio()
+            + trueSM.computeBrHtotautau() * GammaHtautauRatio()
+            + trueSM.computeBrHtocc() * GammaHccRatio()
+            + trueSM.computeBrHtobb() * GammaHbbRatio());
+}
+
+double NPEffectiveGIMR::GammaHggRatio() const
+{
     return (1.0
             + 252512.0 * CdH_33r / LambdaNP2
             + 198682.0 * CuH_22r / LambdaNP2
@@ -630,14 +682,14 @@ double NPEffectiveGIMR::BrHggRatio() const
             + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
 }
 
-double NPEffectiveGIMR::BrHWWRatio() const
+double NPEffectiveGIMR::GammaHWWRatio() const
 {
-    return (1.0 
+    return (1.0
             - 89706.0 * CHW / LambdaNP2
             + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
 }
 
-double NPEffectiveGIMR::BrHZZRatio() const
+double NPEffectiveGIMR::GammaHZZRatio() const
 {
     return (1.0
             - 14429.0 * CHB / LambdaNP2
@@ -646,7 +698,7 @@ double NPEffectiveGIMR::BrHZZRatio() const
             + 30312.0 * (4.0 * CHbox / LambdaNP2 + CHD / LambdaNP2));
 }
 
-double NPEffectiveGIMR::BrHZgaRatio() const
+double NPEffectiveGIMR::GammaHZgaRatio() const
 {
     return (1.0
             - 7575.0 * CdH_33r / LambdaNP2
@@ -659,7 +711,7 @@ double NPEffectiveGIMR::BrHZgaRatio() const
             + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
 }
 
-double NPEffectiveGIMR::BrHgagaRatio() const
+double NPEffectiveGIMR::GammaHgagaRatio() const
 {
     return (1.0
             - 17676.0 * CdH_33r / LambdaNP2
@@ -672,14 +724,14 @@ double NPEffectiveGIMR::BrHgagaRatio() const
             + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
 }
 
-double NPEffectiveGIMR::BrHtautauRatio() const
+double NPEffectiveGIMR::GammaHtautauRatio() const
 {
     return (1.0
             - 1.19e7 * CeH_33r / LambdaNP2
             + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
 }
 
-double NPEffectiveGIMR::BrHccRatio() const
+double NPEffectiveGIMR::GammaHccRatio() const
 {
     return (1.0
             - 1.64e7 * CuH_22r / LambdaNP2
@@ -687,7 +739,7 @@ double NPEffectiveGIMR::BrHccRatio() const
             + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
 }
 
-double NPEffectiveGIMR::BrHbbRatio() const
+double NPEffectiveGIMR::GammaHbbRatio() const
 {
     return (1.0
             - 5.03e6 * CdH_33r / LambdaNP2

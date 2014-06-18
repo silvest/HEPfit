@@ -430,6 +430,11 @@ public:
         return 1.;
     }
 
+    virtual double computeGammaTotalRatio() const
+    {
+        return 1.;
+    }
+
     ////////////////////////////////////////////////////////////////////////
 protected:
     StandardModel trueSM;

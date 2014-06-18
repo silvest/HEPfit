@@ -98,6 +98,16 @@ public:
     virtual double BrHtautauRatio() const;
     virtual double BrHccRatio() const;
     virtual double BrHbbRatio() const;
+    virtual double computeGammaTotalRatio() const;
+
+    double GammaHggRatio() const;
+    double GammaHWWRatio() const;
+    double GammaHZZRatio() const;
+    double GammaHZgaRatio() const;
+    double GammaHgagaRatio() const;
+    double GammaHtautauRatio() const;
+    double GammaHccRatio() const;
+    double GammaHbbRatio() const;    
 
     
     ////////////////////////////////////////////////////////////////////////
@@ -137,7 +147,6 @@ protected:
     double v2_over_LambdaNP2;
     double cW_tree, sW_tree;
     double cW2_tree, sW2_tree;
-
 
     ////////////////////////////////////////////////////////////////////////
 private:

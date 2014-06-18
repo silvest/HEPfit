@@ -136,6 +136,7 @@ public:
     virtual double BrHtautauRatio() const;
     virtual double BrHccRatio() const;
     virtual double BrHbbRatio() const;
+    virtual double computeGammaTotalRatio() const;
 
     ////////////////////////////////////////////////////////////////////////
 protected:
@@ -172,8 +173,6 @@ protected:
     virtual double computeKt() const;
 
     virtual double computeKb() const;
-
-    virtual double computeGTotalRatio() const;
 
     ////////////////////////////////////////////////////////////////////////
 private:
