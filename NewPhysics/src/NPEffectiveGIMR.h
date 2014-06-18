@@ -33,16 +33,44 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     virtual double DeltaGF() const;
+
     virtual double obliqueS() const;
+
     virtual double obliqueT() const;
+
     virtual double obliqueU() const;
+
     virtual double Mw() const;
+
     virtual double GammaW() const;
+
     virtual double deltaGV_f(const Particle p) const;
+
     virtual double deltaGA_f(const Particle p) const;
+
     double deltaGL_f(const Particle p) const;
+
     double deltaGR_f(const Particle p) const;
 
+
+    ////////////////////////////////////////////////////////////////////////
+
+    virtual double muggH(const double sqrt_s) const;
+    virtual double muVBF(const double sqrt_s) const;
+    virtual double muWH(const double sqrt_s) const;
+    virtual double muZH(const double sqrt_s) const;
+    virtual double muVH(const double sqrt_s) const;
+    virtual double muttH(const double sqrt_s) const;
+    virtual double BrHggRatio() const;
+    virtual double BrHWWRatio() const;
+    virtual double BrHZZRatio() const;
+    virtual double BrHZgaRatio() const;
+    virtual double BrHgagaRatio() const;
+    virtual double BrHtautauRatio() const;
+    virtual double BrHccRatio() const;
+    virtual double BrHbbRatio() const;
+
+    
     ////////////////////////////////////////////////////////////////////////
 protected:
 

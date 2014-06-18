@@ -11,7 +11,8 @@ const std::string HiggsKvKf::HKvKfvars[NHKvKfvars] = {
     "Kv", "Kf"
 };
 
-HiggsKvKf::HiggsKvKf() : NPbase()
+HiggsKvKf::HiggsKvKf()
+: NPbase()
 {
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kv", boost::cref(Kv)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kf", boost::cref(Kf)));
@@ -38,68 +39,7 @@ bool HiggsKvKf::CheckParameters(const std::map<std::string, double>& DPars)
     return (NPbase::CheckParameters(DPars));
 }
 
-double HiggsKvKf::computeKW() const
-{
-    return Kv;
-}
-
-double HiggsKvKf::computeKZ() const
-{
-    return Kv;
-}
-
-double HiggsKvKf::computeKZga() const
-{
-    double gtt = computeGammaZgatt();
-    double gWW = computeGammaZgaWW();
-    double gtW = computeGammaZgatW();
-    return sqrt((gtt * Kf * Kf + gWW * Kv * Kv + gtW * Kf * Kv) / (gtt + gWW + gtW));
-}
-
-double HiggsKvKf::computeKgaga() const
-{
-    double gtt = computeGammagagatt();
-    double gWW = computeGammagagaWW();
-    double gtW = computeGammagagatW();
-    return sqrt((gtt * Kf * Kf + gWW * Kv * Kv + gtW * Kf * Kv) / (gtt + gWW + gtW));
-}
-
-double HiggsKvKf::computeKb() const
-{
-    return Kf;
-}
-
-double HiggsKvKf::computeKc() const
-{
-    return Kf;
-}
-
-double HiggsKvKf::computeKglgl() const
-{
-    return Kf;
-}
-
-double HiggsKvKf::computeKt() const
-{
-    return Kf;
-}
-
-double HiggsKvKf::computeKtau() const
-{
-    return Kf;
-}
-
-double HiggsKvKf::computeGTotalRatio() const
-{
-    return computeKW() * computeKW() * computeBRWW() +
-            computeKZ() * computeKZ() * computeBRZZ() +
-            computeKZga() * computeKZga() * computeBRZga() +
-            computeKgaga() * computeKgaga() * computeBRgaga() +
-            computeKglgl() * computeKglgl() * computeBRglgl() +
-            computeKb() * computeKb() * computeBRbb() +
-            computeKc() * computeKc() * computeBRcc() +
-            computeKtau() * computeKtau() * computeBRtautau();
-}
+////////////////////////////////////////////////////////////////////////
 
 double HiggsKvKf::obliqueS() const
 {
@@ -127,5 +67,156 @@ double HiggsKvKf::obliqueT() const
 double HiggsKvKf::obliqueU() const
 {
     return 0.0;
+}
+
+////////////////////////////////////////////////////////////////////////
+
+double HiggsKvKf::muggH(const double sqrt_s) const
+{
+    return (computeKg() * computeKg());
+}
+
+double HiggsKvKf::muVBF(const double sqrt_s) const
+{
+    double sigmaWF_SM = trueSM.computeSigmaWF(sqrt_s);
+    double sigmaZF_SM = trueSM.computeSigmaZF(sqrt_s);
+    double sigmaZWF_SM = trueSM.computeSigmaZWF(sqrt_s);
+    return (computeKW() * computeKW() * sigmaWF_SM
+            + computeKZ() * computeKZ() * sigmaZF_SM
+            + computeKW() * computeKZ() * sigmaZWF_SM)
+            / (sigmaWF_SM + sigmaZF_SM + sigmaZWF_SM);
+}
+
+double HiggsKvKf::muWH(const double sqrt_s) const
+{
+    return (computeKW() * computeKW());
+}
+
+double HiggsKvKf::muZH(const double sqrt_s) const
+{
+    return (computeKZ() * computeKZ());
+}
+
+double HiggsKvKf::muVH(const double sqrt_s) const
+{
+    double sigmaWH_SM = trueSM.computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = trueSM.computeSigmaZH(sqrt_s);
+    return ((computeKW() * computeKW() * sigmaWH_SM
+            + computeKZ() * computeKZ() * sigmaZH_SM)
+            / (sigmaWH_SM + sigmaZH_SM));
+}
+
+double HiggsKvKf::muttH(const double sqrt_s) const
+{
+    return (computeKt() * computeKt());
+}
+
+double HiggsKvKf::BrHggRatio() const
+{
+    return (computeKg() * computeKg() / computeGTotalRatio());
+}
+
+double HiggsKvKf::BrHWWRatio() const
+{
+    return (computeKW() * computeKW() / computeGTotalRatio());
+}
+
+double HiggsKvKf::BrHZZRatio() const
+{
+    return (computeKZ() * computeKZ() / computeGTotalRatio());
+}
+
+double HiggsKvKf::BrHZgaRatio() const
+{
+    return (computeKZga() * computeKZga() / computeGTotalRatio());
+}
+
+double HiggsKvKf::BrHgagaRatio() const
+{
+    return (computeKgaga() * computeKgaga() / computeGTotalRatio());
+}
+
+double HiggsKvKf::BrHtautauRatio() const
+{
+    return (computeKtau() * computeKtau() / computeGTotalRatio());
+}
+
+double HiggsKvKf::BrHccRatio() const
+{
+    return (computeKc() * computeKc() / computeGTotalRatio());
+}
+
+double HiggsKvKf::BrHbbRatio() const
+{
+    return (computeKb() * computeKb() / computeGTotalRatio());
+}
+
+////////////////////////////////////////////////////////////////////////
+
+double HiggsKvKf::computeKg() const
+{
+    return Kf;
+}
+
+double HiggsKvKf::computeKW() const
+{
+    return Kv;
+}
+
+double HiggsKvKf::computeKZ() const
+{
+    return Kv;
+}
+
+double HiggsKvKf::computeKZga() const
+{
+    double gtt_SM = trueSM.computeGammaHZga_tt();
+    double gWW_SM = trueSM.computeGammaHZga_WW();
+    double gtW_SM = trueSM.computeGammaHZga_tW();
+    return (sqrt((computeKt() * computeKt() * gtt_SM
+            + computeKW() * computeKW() * gWW_SM
+            + computeKt() * computeKW() * gtW_SM) / (gtt_SM + gWW_SM + gtW_SM)));
+}
+
+double HiggsKvKf::computeKgaga() const
+{
+    double gtt_SM = trueSM.computeGammaHgaga_tt();
+    double gWW_SM = trueSM.computeGammaHgaga_WW();
+    double gtW_SM = trueSM.computeGammaHgaga_tW();
+    return (sqrt((computeKt() * computeKt() * gtt_SM
+            + computeKW() * computeKW() * gWW_SM
+            + computeKt() * computeKW() * gtW_SM) / (gtt_SM + gWW_SM + gtW_SM)));
+}
+
+double HiggsKvKf::computeKtau() const
+{
+    return Kf;
+}
+
+double HiggsKvKf::computeKc() const
+{
+    return Kf;
+}
+
+double HiggsKvKf::computeKt() const
+{
+    return Kf;
+}
+
+double HiggsKvKf::computeKb() const
+{
+    return Kf;
+}
+
+double HiggsKvKf::computeGTotalRatio() const
+{
+    return (computeKg() * computeKg() * trueSM.computeBrHtogg()
+            + computeKW() * computeKW() * trueSM.computeBrHtoWW()
+            + computeKZ() * computeKZ() * trueSM.computeBrHtoZZ()
+            + computeKZga() * computeKZga() * trueSM.computeBrHtoZga()
+            + computeKgaga() * computeKgaga() * trueSM.computeBrHtogaga()
+            + computeKtau() * computeKtau() * trueSM.computeBrHtotautau()
+            + computeKc() * computeKc() * trueSM.computeBrHtocc()
+            + computeKb() * computeKb() * trueSM.computeBrHtobb());
 }
 

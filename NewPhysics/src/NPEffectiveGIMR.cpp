@@ -238,6 +238,9 @@ bool NPEffectiveGIMR::CheckParameters(const std::map<std::string, double>& DPars
     return (NPbase::CheckParameters(DPars));
 }
 
+
+////////////////////////////////////////////////////////////////////////
+
 double NPEffectiveGIMR::DeltaGF() const
 {
     return ((CHL3_11 + CHL3_22 - 0.5 * (CLL_1221 + CLL_2112)) * v2_over_LambdaNP2);
@@ -356,3 +359,77 @@ double NPEffectiveGIMR::deltaGR_f(const Particle p) const
     return (NPdirect + NPindirect);
 }
 
+
+////////////////////////////////////////////////////////////////////////
+
+double NPEffectiveGIMR::muggH(const double sqrt_s) const
+{
+    return 0.0;
+}
+
+double NPEffectiveGIMR::muVBF(const double sqrt_s) const
+{
+    return 0.0;
+}
+
+double NPEffectiveGIMR::muWH(const double sqrt_s) const
+{
+    return 0.0;
+}
+
+double NPEffectiveGIMR::muZH(const double sqrt_s) const
+{
+    return 0.0;
+}
+
+double NPEffectiveGIMR::muVH(const double sqrt_s) const
+{
+    return 0.0;
+}
+
+double NPEffectiveGIMR::muttH(const double sqrt_s) const
+{
+    return 0.0;
+}
+
+double NPEffectiveGIMR::BrHggRatio() const
+{
+    return 0.0;
+}
+
+double NPEffectiveGIMR::BrHWWRatio() const
+{
+    return 0.0;
+}
+
+double NPEffectiveGIMR::BrHZZRatio() const
+{
+    return 0.0;
+}
+
+double NPEffectiveGIMR::BrHZgaRatio() const
+{
+    return 0.0;
+}
+
+double NPEffectiveGIMR::BrHgagaRatio() const
+{
+    return 0.0;
+}
+
+double NPEffectiveGIMR::BrHtautauRatio() const
+{
+    return 0.0;
+}
+
+double NPEffectiveGIMR::BrHccRatio() const
+{
+    return 0.0;
+}
+
+double NPEffectiveGIMR::BrHbbRatio() const
+{
+    return 0.0;
+}
+
+    
