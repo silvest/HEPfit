@@ -77,7 +77,7 @@ Ye(3, 3, 0.)
             kappaZ_f_params_cache[i][j] = 0.0;
         }
     }
-
+   
     myEWSMcache = NULL;
     myOneLoopEW = NULL;
     myTwoLoopQCD = NULL;
@@ -405,7 +405,7 @@ bool StandardModel::CheckFlags() const
 
 
 ///////////////////////////////////////////////////////////////////////////
-// Definitions for EW cache
+// For EWPO caches
 
 bool StandardModel::checkSMparams(double Params_cache[]) const
 {
@@ -1602,8 +1602,8 @@ double StandardModel::RVq(const QCD::quark q) const
     if (q == QCD::TOP) return 0.0;
 
     double mcMz, mbMz;
-    mcMz = Mrun(Mz, quarks[CHARM].getMass(), FULLNNLO);
-    mbMz = Mrun(Mz, quarks[BOTTOM].getMass(), FULLNNLO);
+    mcMz = myEWSMcache->mf(getQuarks(CHARM), Mz, FULLNNLO);
+    mbMz = myEWSMcache->mf(getQuarks(BOTTOM), Mz, FULLNNLO);
     //mcMz = 0.56381685; /* for debug */
     //mbMz = 2.8194352; /* for debug */
 
@@ -1722,8 +1722,8 @@ double StandardModel::RAq(const QCD::quark q) const
     if (q == QCD::TOP) return 0.0;
 
     double mcMz, mbMz;
-    mcMz = Mrun(Mz, quarks[CHARM].getMass(), FULLNNLO);
-    mbMz = Mrun(Mz, quarks[BOTTOM].getMass(), FULLNNLO);
+    mcMz = myEWSMcache->mf(getQuarks(CHARM), Mz, FULLNNLO);
+    mbMz = myEWSMcache->mf(getQuarks(BOTTOM), Mz, FULLNNLO);
     //mcMz = 0.56381685; /* for debug */
     //mbMz = 2.8194352; /* for debug */
 

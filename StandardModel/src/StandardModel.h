@@ -1791,7 +1791,7 @@ public:
 
 
     ////////////////////////////////////////////////////////////////////////
-    // Caches for EWPO
+    // For EWPO caches
 
     /**
      * @brief The number of the SM parameters that are relevant to the %EW
