@@ -25,9 +25,8 @@ ModelFactory& ModelF, ThObsFactory& ThObsF,
                        const std::string& ModelConf_i,
                        const std::string& MonteCarloConf_i,
                        const std::string& OutFile_i,
-                       const std::string& JobTag_i,
-                       const bool checkTheoryRange_i)
-: myInputParser(ModelF, ThObsF), MCEngine(ModPars, Obs, Obs2D, CGO, checkTheoryRange_i)
+                       const std::string& JobTag_i)
+: myInputParser(ModelF, ThObsF), MCEngine(ModPars, Obs, Obs2D, CGO)
 {
     ModelConf = ModelConf_i;
     MCMCConf = MonteCarloConf_i;

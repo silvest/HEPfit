@@ -17,6 +17,7 @@
  * the <a href="https://www.mppmu.mpg.de/bat/" target=blank>Bayesian Analysis Toolkit (BAT)</a>.
  * @{
  */
+
 /**
  * @class MonteCarlo
  * @brief A class for Monte Carlo. 
@@ -49,20 +50,18 @@ public:
      * @param[in] OutFile_i the name of the root output file to be given without the .root
      * extention
      * @param[in] JobTag_i optional job tag that might be specified
-     * @param[in] checkTheoryRange_i (default = false)
      */
     MonteCarlo(ModelFactory& ModelF, ThObsFactory& ThObsF,
             const std::string& ModelConf_i,
-               const std::string& MonteCarloConf_i,
-               const std::string& OutFile_i,
-               const std::string& JobTag_i,
-               const bool checkTheoryRange_i=false);
+            const std::string& MonteCarloConf_i,
+            const std::string& OutFile_i,
+            const std::string& JobTag_i);
 
     /**
      * @brief The default destructor.
      */
     //virtual ~MonteCarlo();
-    
+
     /**
      * @brief This member is used for test runa to generate a single event
      * @details The values of the parameters that are used to generate the single event
@@ -89,7 +88,7 @@ public:
      * of <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> and run as parallel processes with MPI.
      */
     void TestRun(int rank);
-    
+
     /**
      * @brief This member is responsible for setting the Monte Carlo run parameters and conducting
      * the Monte Carlo run including initiating all output generation
@@ -135,7 +134,7 @@ public:
      * of <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> and run as parallel processes with MPI.
      */
     void Run(const int rank);
-    
+
 private:
     InputParser myInputParser; ///< An object of the InputParser class.
     MonteCarloEngine MCEngine; ///< An object of the MonteCarloEngine class.

@@ -23,11 +23,9 @@ MonteCarloEngine::MonteCarloEngine(
         const std::vector<ModelParameter>& ModPars_i,
         boost::ptr_vector<Observable>& Obs_i,
         std::vector<Observable2D>& Obs2D_i,
-        std::vector<CorrelatedGaussianObservables>& CGO_i,
-        const bool checkHistRange_i)
+        std::vector<CorrelatedGaussianObservables>& CGO_i)
 : BCModel(""), ModPars(ModPars_i), Obs_ALL(Obs_i), Obs2D_ALL(Obs2D_i),
-CGO(CGO_i), NumOfUsedEvents(0), NumOfDiscardedEvents(0),
-checkTheoryRange(checkHistRange_i)
+CGO(CGO_i), NumOfUsedEvents(0), NumOfDiscardedEvents(0)
 {
     obval = NULL;
     obweight = NULL;
@@ -313,10 +311,8 @@ void MonteCarloEngine::MCMCIterationInterface()
                     double th = buff[il][k++];
 
                     /* set the min and max of theory values */
-                    if (checkTheoryRange) {
-                        if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
-                        if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
-                    }
+                    if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
+                    if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
                     Histo1D[it->getThname()]->GetHistogram()->Fill(th);
                     if (!it->isTMCMC()) {
                         obval[index_chain[il] * kmax + ko++] = th;
@@ -343,10 +339,8 @@ void MonteCarloEngine::MCMCIterationInterface()
                         double th = buff[il][k++];
 
                         /* set the min and max of theory values */
-                        if (checkTheoryRange) {
-                            if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
-                            if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
-                        }
+                        if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
+                        if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
 
                         Histo1D[it->getThname()]->GetHistogram()->Fill(th);
                     }
@@ -380,10 +374,8 @@ void MonteCarloEngine::MCMCIterationInterface()
             double th = it->computeTheoryValue();
 
             /* set the min and max of theory values */
-            if (checkTheoryRange) {
-                if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
-                if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
-            }
+            if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
+            if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
 
             Histo1D[it->getThname()]->GetHistogram()->Fill(th);
             if (!it->isTMCMC()) {
@@ -413,10 +405,8 @@ void MonteCarloEngine::MCMCIterationInterface()
                 double th = it->computeTheoryValue();
 
                 /* set the min and max of theory values */
-                if (checkTheoryRange) {
-                    if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
-                    if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
-                }
+                if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
+                if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
 
                 Histo1D[it->getThname()]->GetHistogram()->Fill(th);
             }
@@ -470,15 +460,12 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, Observable& it,
         HistoLog << "WARNING: The histogram of "
             << it.getThname() << " is empty!" << std::endl;
 
-    if (checkTheoryRange) {
-        double min = thMin[it.getThname()];
-        double max = thMax[it.getThname()];
-        double range = max - min;
-        HistoLog.precision(10);
-        HistoLog << "  [" << min << ", " << max << "] --> suggested range: "
-                << min - range / 7.0 << " " << max + range / 7.0 << std::endl;
-        HistoLog.precision(6);
-    }
+    double min = thMin[it.getThname()];
+    double max = thMax[it.getThname()];
+    double range = max - min;
+    HistoLog.precision(10);
+    HistoLog << "  [min, max]=[" << min << ", " << max << "]" << std::endl;
+    HistoLog.precision(6);
 }
 
 void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string OutputDir)
