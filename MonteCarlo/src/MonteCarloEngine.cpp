@@ -459,7 +459,6 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, Observable& it,
 
     double min = thMin[it.getThname()];
     double max = thMax[it.getThname()];
-    double range = max - min;
     HistoLog.precision(10);
     HistoLog << "  [min, max]=[" << min << ", " << max << "]" << std::endl;
     HistoLog.precision(6);
