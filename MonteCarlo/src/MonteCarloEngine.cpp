@@ -48,12 +48,13 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
             if (it->getDistr().compare("noweight") != 0)
                 kweight++;
         }
-        if (Histo1D.find(it->getThname()) == Histo1D.end()) {
-            TH1D * histo = new TH1D(it->getThname().c_str(), it->getLabel().c_str(), NBINS1D,
-                    it->getMin(), it->getMax());
+        std::string HistName = it->getName();
+        if (Histo1D.find(HistName) == Histo1D.end()) {
+            TH1D * histo = new TH1D(HistName.c_str(), it->getLabel().c_str(),
+                    NBINS1D, it->getMin(), it->getMax());
             histo->GetXaxis()->SetTitle(it->getLabel().c_str());
             BCH1D * bchisto = new BCH1D(histo);
-            Histo1D[it->getThname()] = bchisto;
+            Histo1D[HistName] = bchisto;
             thMin[it->getThname()] = std::numeric_limits<double>::max();
             thMax[it->getThname()] = -std::numeric_limits<double>::max();
         }
@@ -65,15 +66,16 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
                 throw std::runtime_error("ERROR: cannot handle noMCMC for Observable2D file yet!");
         } else if (it->getDistr().compare("weight") == 0)
             throw std::runtime_error("ERROR: do not use Observable2D for analytic 2D weights!");
-        if (Histo2D.find(it->getThname() + "_vs_" + it->getThname2()) == Histo2D.end()) {
-            TH2D * histo2 = new TH2D((it->getThname() + "_vs_" + it->getThname2()).c_str(),
+        std::string HistName = it->getName();
+        if (Histo2D.find(HistName) == Histo2D.end()) {
+            TH2D * histo2 = new TH2D(HistName.c_str(),
                     (it->getLabel() + " vs " + it->getLabel2()).c_str(),
                     NBINS2D, it->getMin(), it->getMax(),
                     NBINS2D, it->getMin2(), it->getMax2());
             histo2->GetXaxis()->SetTitle(it->getLabel().c_str());
             histo2->GetYaxis()->SetTitle(it->getLabel2().c_str());
             BCH2D * bchisto2 = new BCH2D(histo2);
-            Histo2D[it->getThname() + "_vs_" + it->getThname2()] = bchisto2;
+            Histo2D[HistName] = bchisto2;
         }
     }
     for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin();
@@ -90,12 +92,13 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
                 if (it->getDistr().compare("noweight") != 0)
                     throw std::runtime_error("Cannot use weight in CorrelatedGaussianObservables!");
             }
-            if (Histo1D.find(it->getThname()) == Histo1D.end()) {
-                TH1D * histo = new TH1D(it->getThname().c_str(), it->getLabel().c_str(),
+            std::string HistName = it->getName();
+            if (Histo1D.find(HistName) == Histo1D.end()) {
+                TH1D * histo = new TH1D(HistName.c_str(), it->getLabel().c_str(),
                         NBINS1D, it->getMin(), it->getMax());
                 histo->GetXaxis()->SetTitle(it->getLabel().c_str());
                 BCH1D * bchisto = new BCH1D(histo);
-                Histo1D[it->getThname()] = bchisto;
+                Histo1D[HistName] = bchisto;
                 thMin[it->getThname()] = std::numeric_limits<double>::max();
                 thMax[it->getThname()] = -std::numeric_limits<double>::max();
             }
@@ -309,11 +312,10 @@ void MonteCarloEngine::MCMCIterationInterface()
                 for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
                         it < Obs_ALL.end(); it++) {
                     double th = buff[il][k++];
-
                     /* set the min and max of theory values */
                     if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
                     if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
-                    Histo1D[it->getThname()]->GetHistogram()->Fill(th);
+                    Histo1D[it->getName()]->GetHistogram()->Fill(th);
                     if (!it->isTMCMC()) {
                         obval[index_chain[il] * kmax + ko++] = th;
                         if (it->getDistr().compare("noweight") != 0) {
@@ -327,7 +329,7 @@ void MonteCarloEngine::MCMCIterationInterface()
                         it < Obs2D_ALL.end(); it++) {
                     double th1 = buff[il][k++];
                     double th2 = buff[il][k++];
-                    Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram()->Fill(th1, th2);
+                    Histo2D[it->getName()]->GetHistogram()->Fill(th1, th2);
                 }
 
                 // fill the histograms for correlated observables
@@ -337,12 +339,10 @@ void MonteCarloEngine::MCMCIterationInterface()
                     for (std::vector<Observable>::iterator it = pino.begin();
                             it != pino.end(); ++it) {
                         double th = buff[il][k++];
-
                         /* set the min and max of theory values */
                         if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
                         if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
-
-                        Histo1D[it->getThname()]->GetHistogram()->Fill(th);
+                        Histo1D[it->getName()]->GetHistogram()->Fill(th);
                     }
                 }
 
@@ -372,12 +372,10 @@ void MonteCarloEngine::MCMCIterationInterface()
         for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
                 it < Obs_ALL.end(); it++) {
             double th = it->computeTheoryValue();
-
             /* set the min and max of theory values */
             if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
             if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
-
-            Histo1D[it->getThname()]->GetHistogram()->Fill(th);
+            Histo1D[it->getName()]->GetHistogram()->Fill(th);
             if (!it->isTMCMC()) {
                 obval[i * kmax + k] = th;
                 k++;
@@ -393,7 +391,7 @@ void MonteCarloEngine::MCMCIterationInterface()
                 it < Obs2D_ALL.end(); it++) {
             double th1 = it->computeTheoryValue();
             double th2 = it->computeTheoryValue2();
-            Histo2D[it->getThname() + "_vs_" + it->getThname2()]->GetHistogram()->Fill(th1, th2);
+            Histo2D[it->getName()]->GetHistogram()->Fill(th1, th2);
         }
 
         // fill the histograms for correlated observables
@@ -403,12 +401,10 @@ void MonteCarloEngine::MCMCIterationInterface()
             for (std::vector<Observable>::iterator it = pino.begin();
                     it != pino.end(); ++it) {
                 double th = it->computeTheoryValue();
-
                 /* set the min and max of theory values */
                 if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
                 if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
-
-                Histo1D[it->getThname()]->GetHistogram()->Fill(th);
+                Histo1D[it->getName()]->GetHistogram()->Fill(th);
             }
         }
     }
@@ -446,16 +442,17 @@ void MonteCarloEngine::CheckHistogram(const TH2D& hist, const std::string name)
 void MonteCarloEngine::PrintHistogram(BCModelOutput & out, Observable& it,
         const std::string OutputDir)
 {
-    if (Histo1D[it.getThname()]->GetHistogram()->Integral() > 0.0) {
-        std::string fname = OutputDir + "/" + it.getThname() + ".pdf";
-        //        BCH1D* pippo =  Histo1D[it.getThname()];
+    std::string HistName = it.getName();
+    if (Histo1D[HistName]->GetHistogram()->Integral() > 0.0) {
+        std::string fname = OutputDir + "/" + HistName + ".pdf";
+        //        BCH1D* pippo =  Histo1D[HistName];
         //        double x = pippo->GetMean();
         //        pippo->Print("Dmd1.pdf");
-        Histo1D[it.getThname()]->SetGlobalMode(it.computeTheoryValue());
-        Histo1D[it.getThname()]->Print(fname.c_str());
+        Histo1D[HistName]->SetGlobalMode(it.computeTheoryValue());
+        Histo1D[HistName]->Print(fname.c_str());
         std::cout << fname << " has been created." << std::endl;
-        out.Write(Histo1D[it.getThname()]->GetHistogram());
-        CheckHistogram(*Histo1D[it.getThname()]->GetHistogram(), it.getThname());
+        out.Write(Histo1D[HistName]->GetHistogram());
+        CheckHistogram(*Histo1D[HistName]->GetHistogram(), it.getThname());
     } else
         HistoLog << "WARNING: The histogram of "
             << it.getThname() << " is empty!" << std::endl;
@@ -489,7 +486,7 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, const std::string Out
     }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin();
             it < Obs2D_ALL.end(); it++) {
-        std::string HistName = it->getThname() + "_vs_" + it->getThname2();
+        std::string HistName = it->getName();
         if (Histo2D[HistName]->GetHistogram()->Integral() > 0.0) {
             std::string fname = OutputDir + "/" + HistName + ".pdf";
             double th[2];
