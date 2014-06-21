@@ -298,10 +298,13 @@ void MonteCarlo::Run(const int rank)
 
             // calculate the evidence
             if (CalculateEvidence) {
-                //MCEngine.SetIntegrationMethod(BCIntegrate::kIntCuba);
-                //MCEngine.SetIntegrationMethod(BCIntegrate::kIntMonteCarlo);
+                // BAT default: 
+                //   kIntGrid for the number of free parameters <= 2;
+                //   otherwise, kIntMonteCarlo (or kIntCuba if available)
+                MCEngine.SetIntegrationMethod(BCIntegrate::kIntCuba);
                 //MCEngine.SetRelativePrecision(1.e-3);
-                //MCEngine.SetAbsolutePrecision(1.e-8);
+                //MCEngine.SetAbsolutePrecision(1.e-10);
+                MCEngine.SetNIterationsMin(10000);
                 MCEngine.Integrate();
                 BCLog::OutSummary(Form(" Evidence = %.6e", MCEngine.GetIntegral()));
             }
