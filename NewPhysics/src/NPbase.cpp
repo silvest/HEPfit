@@ -16,6 +16,13 @@ bool NPbase::PostUpdate()
 {
     bool SMup = trueSM.PostUpdate();
     trueSM = *this;
+
+
+    /* DEBUG */
+    //std::cout << "TEST: " << trueSM.getQuarks(TOP).getMass() << " " << getQuarks(TOP).getMass() << std::endl;
+
+
+
     return (SMup);
 }
 

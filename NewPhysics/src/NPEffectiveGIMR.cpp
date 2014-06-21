@@ -715,7 +715,7 @@ double NPEffectiveGIMR::deltaGL_Wff(const Particle pbar, const Particle p) const
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
         throw std::runtime_error("NPEffectiveGIMR::deltaGL_Wff(): Not implemented");
 
-    double CHF3 = CHF3_diag(p);
+    double CHF3 = CHF3_diag(pbar);
     double NPdirect = -cW2_tree / 4.0 / (cW2_tree - sW2_tree)
             * ((4.0 * sW_tree / cW_tree * CHWB + CHD) * v2_over_LambdaNP2 + 2.0 * DeltaGF());
     double NPindirect = CHF3 * v2_over_LambdaNP2;
@@ -786,9 +786,10 @@ double NPEffectiveGIMR::deltaG_hAA() const
 double NPEffectiveGIMR::deltaG_hff(const Particle p) const
 {
     double mf = 0.0;
-    double CfH = CfH_diag(p);
     if (p.is("TOP"))
-        mf = p.getMass(); // m_t(m_t)
+        //mf = p.getMass(); // m_t(m_t)
+        mf = mtpole; // pole mass
+    double CfH = CfH_diag(p);
     return (-mf / v() * (delta_h - 0.5 * DeltaGF())
             + CfH * v2_over_LambdaNP2 / sqrt(2.0));
 }
@@ -939,7 +940,8 @@ double NPEffectiveGIMR::muVH(const double sqrt_s) const
 
 double NPEffectiveGIMR::muttH(const double sqrt_s) const
 {
-    double kt = 1.0 + 2.0 * deltaG_hff(quarks[TOP]) / (-quarks[TOP].getMass() / v());
+    //double kt = 1.0 + 2.0 * deltaG_hff(quarks[TOP]) / (-quarks[TOP].getMass() / v());
+    double kt = 1.0 + 2.0 * deltaG_hff(quarks[TOP]) / (-mtpole / v());
     return (kt * kt);
 }
 
