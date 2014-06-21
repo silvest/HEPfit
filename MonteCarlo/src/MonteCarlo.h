@@ -148,6 +148,7 @@ private:
     std::string JobTag; ///< String for the optional JobTag argument to be passes to the executable.
     std::string ObsDirName; ///< String for the output directory name.
     bool FindModeWithMinuit; ///< Flag for using Minuit libraries.
+    bool CalculateEvidence; ///<< Flag for calculating the evidence.
     bool PrintAllMarginalized; ///< Flag for printing all Marginalized distributions to be passed on to the <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> routines.
     bool PrintCorrelationMatrix; ///< Flag for printing the correlation matrix.
     bool PrintKnowledgeUpdatePlots; ///< Flag for printing plots to compare prior vs. posterior knowledge of parameters.

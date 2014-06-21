@@ -35,6 +35,7 @@ ModelFactory& ModelF, ThObsFactory& ThObsF,
     else OutFile = OutFile_i + JobTag + ".root";
     ObsDirName = "Observables" + JobTag;
     FindModeWithMinuit = false;
+    CalculateEvidence = false;
     PrintAllMarginalized = false;
     PrintCorrelationMatrix = false;
     PrintKnowledgeUpdatePlots = false;
@@ -243,6 +244,11 @@ void MonteCarlo::Run(const int rank)
                     if (beg->compare("true") == 0) {
                         FindModeWithMinuit = true;
                     }
+                } else if (beg->compare("CalculateEvidence") == 0) {
+                    ++beg;
+                    if (beg->compare("true") == 0) {
+                        CalculateEvidence = true;
+                    }
                 } else if (beg->compare("PrintAllMarginalized") == 0) {
                     ++beg;
                     if (beg->compare("true") == 0) {
@@ -290,6 +296,16 @@ void MonteCarlo::Run(const int rank)
             if (FindModeWithMinuit)
                 MCEngine.FindMode(MCEngine.GetBestFitParameters());
 
+            // calculate the evidence
+            if (CalculateEvidence) {
+                //MCEngine.SetIntegrationMethod(BCIntegrate::kIntCuba);
+                //MCEngine.SetIntegrationMethod(BCIntegrate::kIntMonteCarlo);
+                //MCEngine.SetRelativePrecision(1.e-3);
+                //MCEngine.SetAbsolutePrecision(1.e-8);
+                MCEngine.Integrate();
+                BCLog::OutSummary(Form(" Evidence = %.6e", MCEngine.GetIntegral()));
+            }
+
             // draw all marginalized distributions into a PostScript file
             if (PrintAllMarginalized)
                 MCEngine.PrintAllMarginalized(("MonteCarlo_plots" + JobTag + ".ps").c_str());
@@ -299,7 +315,7 @@ void MonteCarlo::Run(const int rank)
 
             // print histograms
             MCEngine.PrintHistogram(out, ObsDirName);
-            
+
             BCSummaryTool myBCSummaryTool(&MCEngine);
 
             // draw the correlation matrix into an eps file
@@ -318,7 +334,7 @@ void MonteCarlo::Run(const int rank)
             // draw an overview plot of the parameters into an eps file
             if (PrintParameterPlot)
                 myBCSummaryTool.PrintParameterPlot(("ParamSummary" + JobTag + ".eps").c_str());
-            
+
             // print a LaTeX table of the parameters into a tex file
             //myBCSummaryTool.PrintParameterLatex(("ParamSummary" + JobTag + ".tex").c_str());
         
