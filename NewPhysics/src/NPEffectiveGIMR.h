@@ -185,6 +185,12 @@ protected:
     double delta_ZZ, delta_AZ, delta_AA;
     double delta_h;
 
+    double CHF1_diag(const Particle F) const;
+    double CHF3_diag(const Particle F) const;
+    double CHf_diag(const Particle f) const;
+    double CHud_diag(const Particle u) const;
+    double CfH_diag(const Particle f) const;
+
     
     ////////////////////////////////////////////////////////////////////////
 private:

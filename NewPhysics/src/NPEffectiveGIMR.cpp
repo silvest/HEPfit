@@ -528,6 +528,112 @@ bool NPEffectiveGIMR::CheckParameters(const std::map<std::string, double>& DPars
 
 ////////////////////////////////////////////////////////////////////////
 
+double NPEffectiveGIMR::CHF1_diag(const Particle F) const
+{
+    if (F.is("NEUTRINO_1") || F.is("ELECTRON"))
+        return CHL1_11;
+    else if (F.is("NEUTRINO_2") || F.is("MU"))
+        return CHL1_22;
+    else if (F.is("NEUTRINO_3") || F.is("TAU"))
+        return CHL1_33;
+    else if (F.is("UP") || F.is("DOWN"))
+        return CHQ1_11;
+    else if (F.is("CHARM") || F.is("STRANGE"))
+        return CHQ1_22;
+    else if (F.is("TOP") || F.is("BOTTOM"))
+        return CHQ1_33;
+    else
+        throw std::runtime_error("NPEffectiveGIMR::CHF1_diag(): wrong argument");
+}
+
+double NPEffectiveGIMR::CHF3_diag(const Particle F) const
+{
+    if (F.is("NEUTRINO_1") || F.is("ELECTRON"))
+        return CHL3_11;
+    else if (F.is("NEUTRINO_2") || F.is("MU"))
+        return CHL3_22;
+    else if (F.is("NEUTRINO_3") || F.is("TAU"))
+        return CHL3_33;
+    else if (F.is("UP") || F.is("DOWN"))
+        return CHQ3_11;
+    else if (F.is("CHARM") || F.is("STRANGE"))
+        return CHQ3_22;
+    else if (F.is("TOP") || F.is("BOTTOM"))
+        return CHQ3_33;
+    else
+        throw std::runtime_error("NPEffectiveGIMR::CHF3_diag(): wrong argument");
+}
+
+double NPEffectiveGIMR::CHf_diag(const Particle f) const
+{
+    if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
+        return 0.0;
+    else if (f.is("ELECTRON"))
+        return CHe_11;
+    else if (f.is("MU"))
+        return CHe_22;
+    else if (f.is("TAU"))
+        return CHe_33;
+    else if (f.is("UP"))
+        return CHu_11;
+    else if (f.is("CHARM"))
+        return CHu_22;
+    else if (f.is("TOP"))
+        return CHu_33;
+    else if (f.is("DOWN"))
+        return CHd_11;
+    else if (f.is("STRANGE"))
+        return CHd_22;
+    else if (f.is("BOTTOM"))
+        return CHd_33;
+    else
+        throw std::runtime_error("NPEffectiveGIMR::CHf_diag(): wrong argument");
+}
+
+double NPEffectiveGIMR::CHud_diag(const Particle u) const
+{
+    if (!u.is("QUARK") || u.getIndex() % 2 != 0)
+        throw std::runtime_error("NPEffectiveGIMR::CHud_diag(): wrong argument");
+
+    if (u.is("UP"))
+        return CHud_11r;
+    else if (u.is("CHARM"))
+        return CHud_22r;
+    else if (u.is("TOP"))
+        return CHud_33r;
+    else
+        throw std::runtime_error("NPEffectiveGIMR::CHud_diag(): wrong argument");
+}
+
+double NPEffectiveGIMR::CfH_diag(const Particle f) const
+{
+    if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
+        return 0.0;
+    else if (f.is("ELECTRON"))
+        return CeH_11r;
+    else if (f.is("MU"))
+        return CeH_22r;
+    else if (f.is("TAU"))
+        return CeH_33r;
+    else if (f.is("UP"))
+        return CuH_11r;
+    else if (f.is("CHARM"))
+        return CuH_22r;
+    else if (f.is("TOP"))
+        return CuH_33r;
+    else if (f.is("DOWN"))
+        return CdH_11r;
+    else if (f.is("STRANGE"))
+        return CdH_22r;
+    else if (f.is("BOTTOM"))
+        return CdH_33r;
+    else
+        throw std::runtime_error("NPEffectiveGIMR::CfH_diag(): wrong argument");
+}
+
+
+////////////////////////////////////////////////////////////////////////
+    
 double NPEffectiveGIMR::DeltaGF() const
 {
     return ((CHL3_11 + CHL3_22 - 0.5 * (CLL_1221 + CLL_2112)) * v2_over_LambdaNP2);
@@ -582,28 +688,8 @@ double NPEffectiveGIMR::deltaGA_f(const Particle p) const
 double NPEffectiveGIMR::deltaGL_f(const Particle p) const
 {
     double I3p = p.getIsospin(), Qp = p.getCharge();
-    double CHF1, CHF3;
-    if (p.is("NEUTRINO_1") || p.is("ELECTRON")) {
-        CHF1 = CHL1_11;
-        CHF3 = CHL3_11;
-    } else if (p.is("NEUTRINO_2") || p.is("MU")) {
-        CHF1 = CHL1_22;
-        CHF3 = CHL3_22;
-    } else if (p.is("NEUTRINO_3") || p.is("TAU")) {
-        CHF1 = CHL1_33;
-        CHF3 = CHL3_33;
-    } else if (p.is("UP") || p.is("DOWN")) {
-        CHF1 = CHQ1_11;
-        CHF3 = CHQ3_11;
-    } else if (p.is("CHARM") || p.is("STRANGE")) {
-        CHF1 = CHQ1_22;
-        CHF3 = CHQ3_22;
-    } else if (p.is("TOP") || p.is("BOTTOM")) {
-        CHF1 = CHQ1_33;
-        CHF3 = CHQ3_33;
-    } else
-        throw std::runtime_error("Error in NPEffectiveGIMR::deltaGL_f()");
-
+    double CHF1 = CHF1_diag(p);
+    double CHF3 = CHF3_diag(p);
     double NPdirect = -I3p / 4.0 * (CHD * v2_over_LambdaNP2 + 2.0 * DeltaGF())
             - Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
             *((4.0 * cW_tree / sW_tree * CHWB + CHD) * v2_over_LambdaNP2 + 2.0 * DeltaGF());
@@ -614,30 +700,7 @@ double NPEffectiveGIMR::deltaGL_f(const Particle p) const
 double NPEffectiveGIMR::deltaGR_f(const Particle p) const
 {
     double Qp = p.getCharge();
-    double CHf;
-    if (p.is("NEUTRINO_1") || p.is("NEUTRINO_2") || p.is("NEUTRINO_3"))
-        return 0.0;
-    else if (p.is("ELECTRON"))
-        CHf = CHe_11;
-    else if (p.is("MU"))
-        CHf = CHe_22;
-    else if (p.is("TAU"))
-        CHf = CHe_33;
-    else if (p.is("UP"))
-        CHf = CHu_11;
-    else if (p.is("CHARM"))
-        CHf = CHu_22;
-    else if (p.is("TOP"))
-        CHf = CHu_33;
-    else if (p.is("DOWN"))
-        CHf = CHd_11;
-    else if (p.is("STRANGE"))
-        CHf = CHd_22;
-    else if (p.is("BOTTOM"))
-        CHf = CHd_33;
-    else
-        throw std::runtime_error("Error in NPEffectiveGIMR::deltaGR_f()");
-
+    double CHf = CHf_diag(p);
     double NPdirect = -Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
             *((4.0 * cW_tree / sW_tree * CHWB + CHD) * v2_over_LambdaNP2 + 2.0 * DeltaGF());
     double NPindirect = -0.5 * CHf*v2_over_LambdaNP2;
@@ -652,22 +715,7 @@ double NPEffectiveGIMR::deltaGL_Wff(const Particle pbar, const Particle p) const
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
         throw std::runtime_error("NPEffectiveGIMR::deltaGL_Wff(): Not implemented");
 
-    double CHF3;
-    if (p.is("NEUTRINO_1"))
-        CHF3 = CHL3_11;
-    else if (p.is("NEUTRINO_2"))
-        CHF3 = CHL3_22;
-    else if (p.is("NEUTRINO_3"))
-        CHF3 = CHL3_33;
-    else if (p.is("UP"))
-        CHF3 = CHQ3_11;
-    else if (p.is("CHARM"))
-        CHF3 = CHQ3_22;
-    else if (p.is("TOP"))
-        CHF3 = CHQ3_33;
-    else
-        throw std::runtime_error("Error in NPEffectiveGIMR::deltaGL_Wff()");
-
+    double CHF3 = CHF3_diag(p);
     double NPdirect = -cW2_tree / 4.0 / (cW2_tree - sW2_tree)
             * ((4.0 * sW_tree / cW_tree * CHWB + CHD) * v2_over_LambdaNP2 + 2.0 * DeltaGF());
     double NPindirect = CHF3 * v2_over_LambdaNP2;
@@ -679,18 +727,7 @@ double NPEffectiveGIMR::deltaGR_Wff(const Particle pbar, const Particle p) const
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
         throw std::runtime_error("NPEffectiveGIMR::deltaGR_Wff(): Not implemented");
 
-    double CHud;
-    if (pbar.is("UP"))
-        CHud = CHud_11r;
-    else if (pbar.is("CHARM"))
-        CHud = CHud_22r;
-    else if (pbar.is("TOP"))
-        CHud = CHud_33r;
-    else if (p.is("LEPTON"))
-        return 0.0;
-    else
-        throw std::runtime_error("Error in NPEffectiveGIMR::deltaGR_Wff()");
-
+    double CHud = CHud_diag(pbar);
     return (0.5 * CHud * v2_over_LambdaNP2);
 }
 
@@ -748,31 +785,10 @@ double NPEffectiveGIMR::deltaG_hAA() const
 
 double NPEffectiveGIMR::deltaG_hff(const Particle p) const
 {
-    double CfH = 0.0, mf = 0.0;
-    if (p.is("NEUTRINO_1") || p.is("NEUTRINO_2") || p.is("NEUTRINO_3"))
-        return 0.0;
-    else if (p.is("ELECTRON"))
-        CfH = CeH_11r;
-    else if (p.is("MU"))
-        CfH = CeH_22r;
-    else if (p.is("TAU"))
-        CfH = CeH_33r;
-    else if (p.is("UP"))
-        CfH = CuH_11r;
-    else if (p.is("CHARM"))
-        CfH = CuH_22r;
-    else if (p.is("TOP")) {
-        CfH = CuH_33r;
+    double mf = 0.0;
+    double CfH = CfH_diag(p);
+    if (p.is("TOP"))
         mf = p.getMass(); // m_t(m_t)
-    } else if (p.is("DOWN"))
-        CfH = CdH_11r;
-    else if (p.is("STRANGE"))
-        CfH = CdH_22r;
-    else if (p.is("BOTTOM"))
-        CfH = CdH_33r;
-    else
-        throw std::runtime_error("Error in NPEffectiveGIMR::deltaG_hff()");
-
     return (-mf / v() * (delta_h - 0.5 * DeltaGF())
             + CfH * v2_over_LambdaNP2 / sqrt(2.0));
 }
@@ -782,22 +798,7 @@ double NPEffectiveGIMR::deltaGL_Wffh(const Particle pbar, const Particle p) cons
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
         throw std::runtime_error("NPEffectiveGIMR::deltaGL_Wffh(): Not implemented");
 
-    double CHF3;
-    if (p.is("NEUTRINO_1"))
-        CHF3 = CHL3_11;
-    else if (p.is("NEUTRINO_2"))
-        CHF3 = CHL3_22;
-    else if (p.is("NEUTRINO_3"))
-        CHF3 = CHL3_33;
-    else if (p.is("UP"))
-        CHF3 = CHQ3_11;
-    else if (p.is("CHARM"))
-        CHF3 = CHQ3_22;
-    else if (p.is("TOP"))
-        CHF3 = CHQ3_33;
-    else
-        throw std::runtime_error("Error in NPEffectiveGIMR::deltaGL_Wffh()");
-
+    double CHF3 = CHF3_diag(pbar);
     return (2.0 * sqrt(2.0) * Mz * cW_tree / v() / v() * CHF3 * v2_over_LambdaNP2);
 }
 
@@ -806,75 +807,21 @@ double NPEffectiveGIMR::deltaGR_Wffh(const Particle pbar, const Particle p) cons
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
         throw std::runtime_error("NPEffectiveGIMR::deltaGR_Wffh(): Not implemented");
 
-    double CHud;
-    if (pbar.is("UP"))
-        CHud = CHud_11r;
-    else if (pbar.is("CHARM"))
-        CHud = CHud_22r;
-    else if (pbar.is("TOP"))
-        CHud = CHud_33r;
-    else if (p.is("LEPTON"))
-        return 0.0;
-    else
-        throw std::runtime_error("Error in NPEffectiveGIMR::deltaGR_Wffh()");
-
+    double CHud = CHud_diag(pbar);
     return (sqrt(2.0) * Mz * cW_tree / v() / v() * CHud * v2_over_LambdaNP2);
 }
 
 double NPEffectiveGIMR::deltaGL_Zffh(const Particle p) const
 {
     double I3p = p.getIsospin();
-    double CHF1, CHF3;
-    if (p.is("NEUTRINO_1") || p.is("ELECTRON")) {
-        CHF1 = CHL1_11;
-        CHF3 = CHL3_11;
-    } else if (p.is("NEUTRINO_2") || p.is("MU")) {
-        CHF1 = CHL1_22;
-        CHF3 = CHL3_22;
-    } else if (p.is("NEUTRINO_3") || p.is("TAU")) {
-        CHF1 = CHL1_33;
-        CHF3 = CHL3_33;
-    } else if (p.is("UP") || p.is("DOWN")) {
-        CHF1 = CHQ1_11;
-        CHF3 = CHQ3_11;
-    } else if (p.is("CHARM") || p.is("STRANGE")) {
-        CHF1 = CHQ1_22;
-        CHF3 = CHQ3_22;
-    } else if (p.is("TOP") || p.is("BOTTOM")) {
-        CHF1 = CHQ1_33;
-        CHF3 = CHQ3_33;
-    } else
-        throw std::runtime_error("Error in NPEffectiveGIMR::deltaGL_f()");
-
+    double CHF1 = CHF1_diag(p);
+    double CHF3 = CHF3_diag(p);
     return (-2.0 * Mz / v() / v() * (CHF1 - 2.0 * I3p * CHF3) * v2_over_LambdaNP2);
 }
 
 double NPEffectiveGIMR::deltaGR_Zffh(const Particle p) const
 {
-    double CHf;
-    if (p.is("NEUTRINO_1") || p.is("NEUTRINO_2") || p.is("NEUTRINO_3"))
-        return 0.0;
-    else if (p.is("ELECTRON"))
-        CHf = CHe_11;
-    else if (p.is("MU"))
-        CHf = CHe_22;
-    else if (p.is("TAU"))
-        CHf = CHe_33;
-    else if (p.is("UP"))
-        CHf = CHu_11;
-    else if (p.is("CHARM"))
-        CHf = CHu_22;
-    else if (p.is("TOP"))
-        CHf = CHu_33;
-    else if (p.is("DOWN"))
-        CHf = CHd_11;
-    else if (p.is("STRANGE"))
-        CHf = CHd_22;
-    else if (p.is("BOTTOM"))
-        CHf = CHd_33;
-    else
-        throw std::runtime_error("Error in NPEffectiveGIMR::deltaGR_f()");
-
+    double CHf = CHf_diag(p);
     return (-2.0 * Mz / v() / v() * CHf * v2_over_LambdaNP2);
 }
 
