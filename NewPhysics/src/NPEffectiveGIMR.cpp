@@ -16,6 +16,8 @@ const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
     "CHQ3_11", "CHQ3_12", "CHQ3_13", "CHQ3_22", "CHQ3_23", "CHQ3_33",
     "CHu_11", "CHu_12", "CHu_13", "CHu_22", "CHu_23", "CHu_33",
     "CHd_11", "CHd_12", "CHd_13", "CHd_22", "CHd_23", "CHd_33",
+    "CHud_11r", "CHud_12r", "CHud_13r", "CHud_22r", "CHud_23r", "CHud_33r",
+    "CHud_11i", "CHud_12i", "CHud_13i", "CHud_22i", "CHud_23i", "CHud_33i",
     "CeH_11r", "CeH_12r", "CeH_13r", "CeH_22r", "CeH_23r", "CeH_33r",
     "CeH_11i", "CeH_12i", "CeH_13i", "CeH_22i", "CeH_23i", "CeH_33i",
     "CuH_11r", "CuH_12r", "CuH_13r", "CuH_22r", "CuH_23r", "CuH_33r",
@@ -26,7 +28,7 @@ const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
 
 const std::string NPEffectiveGIMR::NPEffectiveGIMRVars_LFU_QFU[NNPEffectiveGIMRVars_LFU_QFU]
         = {"CW", "CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox", "CH",
-    "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd",
+    "CHL1", "CHL3", "CHe", "CHQ1", "CHQ3", "CHu", "CHd", "CHud_r", "CHud_i",
     "CeH_r", "CeH_i", "CuH_r", "CuH_i", "CdH_r", "CdH_i", "CLL",
     "Lambda_NP"};
 
@@ -91,6 +93,8 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ3", boost::cref(CHQ3_11)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHu", boost::cref(CHu_11)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHd", boost::cref(CHd_11)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_r", boost::cref(CHud_11r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_i", boost::cref(CHud_11i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuH_r", boost::cref(CuH_11r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuH_i", boost::cref(CuH_11i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_r", boost::cref(CdH_11r)));
@@ -120,7 +124,18 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHd_22", boost::cref(CHd_22)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHd_23", boost::cref(CHd_23)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHd_33", boost::cref(CHd_33)));
-
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_11r", boost::cref(CHud_11r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_12r", boost::cref(CHud_12r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_13r", boost::cref(CHud_13r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_22r", boost::cref(CHud_22r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_23r", boost::cref(CHud_23r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_33r", boost::cref(CHud_33r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_11i", boost::cref(CHud_11i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_12i", boost::cref(CHud_12i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_13i", boost::cref(CHud_13i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_22i", boost::cref(CHud_22i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_23i", boost::cref(CHud_23i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_33i", boost::cref(CHud_33i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuH_11r", boost::cref(CuH_11r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuH_12r", boost::cref(CuH_12r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CuH_13r", boost::cref(CuH_13r)));
@@ -159,6 +174,12 @@ bool NPEffectiveGIMR::PostUpdate()
     cW2_tree = cW_tree * cW_tree;
     sW2_tree = 1.0 - cW2_tree;
     sW_tree = sqrt(sW2_tree);
+
+    delta_ZZ = (cW2_tree * CHW + sW2_tree * CHB + sW_tree * cW_tree * CHWB) * v2_over_LambdaNP2;
+    delta_AA = (sW2_tree * CHW + cW2_tree * CHB - sW_tree * cW_tree * CHWB) * v2_over_LambdaNP2;
+    delta_AZ = 2.0 * sW_tree * cW_tree * (CHW - CHB) * v2_over_LambdaNP2
+            - (cW2_tree - sW2_tree) * CHWB * v2_over_LambdaNP2;
+    delta_h = (-CHD / 4.0 + CHbox) * v2_over_LambdaNP2;
 
     return (true);
 }
@@ -314,6 +335,44 @@ void NPEffectiveGIMR::setParameter(const std::string name, const double& value)
         CHd_22 = value;
         CHd_23 = 0.0;
         CHd_33 = value;
+    } else if (name.compare("CHud_11r") == 0)
+        CHud_11r = value;
+    else if (name.compare("CHud_12r") == 0)
+        CHud_12r = value;
+    else if (name.compare("CHud_13r") == 0)
+        CHud_13r = value;
+    else if (name.compare("CHud_22r") == 0)
+        CHud_22r = value;
+    else if (name.compare("CHud_23r") == 0)
+        CHud_23r = value;
+    else if (name.compare("CHud_33r") == 0)
+        CHud_33r = value;
+    else if (name.compare("CHud_r") == 0) {
+        CHud_11r = value;
+        CHud_12r = 0.0;
+        CHud_13r = 0.0;
+        CHud_22r = value;
+        CHud_23r = 0.0;
+        CHud_33r = value;
+    } else if (name.compare("CHud_11i") == 0)
+        CHud_11i = value;
+    else if (name.compare("CHud_12i") == 0)
+        CHud_12i = value;
+    else if (name.compare("CHud_13i") == 0)
+        CHud_13i = value;
+    else if (name.compare("CHud_22i") == 0)
+        CHud_22i = value;
+    else if (name.compare("CHud_23i") == 0)
+        CHud_23i = value;
+    else if (name.compare("CHud_33i") == 0)
+        CHud_33i = value;
+    else if (name.compare("CHud_i") == 0) {
+        CHud_11i = value;
+        CHud_12i = 0.0;
+        CHud_13i = 0.0;
+        CHud_22i = value;
+        CHud_23i = 0.0;
+        CHud_33i = value;
     } else if (name.compare("CeH_11r") == 0)
         CeH_11r = value;
     else if (name.compare("CeH_12r") == 0)
@@ -539,9 +598,7 @@ double NPEffectiveGIMR::deltaGL_f(const Particle p) const
     } else if (p.is("CHARM") || p.is("STRANGE")) {
         CHF1 = CHQ1_22;
         CHF3 = CHQ3_22;
-    } else if (p.is("TOP")) {
-        return 0.0;
-    } else if (p.is("BOTTOM")) {
+    } else if (p.is("TOP") || p.is("BOTTOM")) {
         CHF1 = CHQ1_33;
         CHF3 = CHQ3_33;
     } else
@@ -571,7 +628,7 @@ double NPEffectiveGIMR::deltaGR_f(const Particle p) const
     else if (p.is("CHARM"))
         CHf = CHu_22;
     else if (p.is("TOP"))
-        return 0.0;
+        CHf = CHu_33;
     else if (p.is("DOWN"))
         CHf = CHd_11;
     else if (p.is("STRANGE"))
@@ -590,34 +647,353 @@ double NPEffectiveGIMR::deltaGR_f(const Particle p) const
 
 ////////////////////////////////////////////////////////////////////////
 
+double NPEffectiveGIMR::deltaGL_Wff(const Particle pbar, const Particle p) const
+{
+    if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
+        throw std::runtime_error("NPEffectiveGIMR::deltaGL_Wff(): Not implemented");
+
+    double CHF3;
+    if (p.is("NEUTRINO_1"))
+        CHF3 = CHL3_11;
+    else if (p.is("NEUTRINO_2"))
+        CHF3 = CHL3_22;
+    else if (p.is("NEUTRINO_3"))
+        CHF3 = CHL3_33;
+    else if (p.is("UP"))
+        CHF3 = CHQ3_11;
+    else if (p.is("CHARM"))
+        CHF3 = CHQ3_22;
+    else if (p.is("TOP"))
+        CHF3 = CHQ3_33;
+    else
+        throw std::runtime_error("Error in NPEffectiveGIMR::deltaGL_Wff()");
+
+    double NPdirect = -cW2_tree / 4.0 / (cW2_tree - sW2_tree)
+            * ((4.0 * sW_tree / cW_tree * CHWB + CHD) * v2_over_LambdaNP2 + 2.0 * DeltaGF());
+    double NPindirect = CHF3 * v2_over_LambdaNP2;
+    return (NPdirect + NPindirect);
+}
+
+double NPEffectiveGIMR::deltaGR_Wff(const Particle pbar, const Particle p) const
+{
+    if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
+        throw std::runtime_error("NPEffectiveGIMR::deltaGR_Wff(): Not implemented");
+
+    double CHud;
+    if (pbar.is("UP"))
+        CHud = CHud_11r;
+    else if (pbar.is("CHARM"))
+        CHud = CHud_22r;
+    else if (pbar.is("TOP"))
+        CHud = CHud_33r;
+    else if (p.is("LEPTON"))
+        return 0.0;
+    else
+        throw std::runtime_error("Error in NPEffectiveGIMR::deltaGR_Wff()");
+
+    return (0.5 * CHud * v2_over_LambdaNP2);
+}
+
+double NPEffectiveGIMR::deltaG_hgg() const
+{
+    return (CHG * v2_over_LambdaNP2 / v());
+}
+
+double NPEffectiveGIMR::deltaG1_hWW() const
+{
+    return (2.0 * CHW * v2_over_LambdaNP2 / v());
+}
+
+double NPEffectiveGIMR::deltaG2_hWW() const
+{
+    return 0.0;
+}
+
+double NPEffectiveGIMR::deltaG3_hWW() const
+{
+    return (2.0 * cW2_tree * Mz * Mz / v()
+            * (delta_h - 1.0 / 2.0 / (cW2_tree - sW2_tree)
+            * ((4.0 * sW_tree * cW_tree * CHWB + cW2_tree * CHD) * v2_over_LambdaNP2 + DeltaGF())));
+}
+
+double NPEffectiveGIMR::deltaG1_hZZ() const
+{
+    return (delta_ZZ / v());
+}
+
+double NPEffectiveGIMR::deltaG2_hZZ() const
+{
+    return 0.0;
+}
+
+double NPEffectiveGIMR::deltaG3_hZZ() const
+{
+    return (Mz * Mz / v() * (0.5 * CHD * v2_over_LambdaNP2 + delta_h - 0.5 * DeltaGF()));
+}
+
+double NPEffectiveGIMR::deltaG1_hZA() const
+{
+    return (delta_AZ / v());
+}
+
+double NPEffectiveGIMR::deltaG2_hZA() const
+{
+    return 0.0;
+}
+
+double NPEffectiveGIMR::deltaG_hAA() const
+{
+    return (delta_AA / v());
+}
+
+double NPEffectiveGIMR::deltaG_hff(const Particle p) const
+{
+    double CfH = 0.0, mf = 0.0;
+    if (p.is("NEUTRINO_1") || p.is("NEUTRINO_2") || p.is("NEUTRINO_3"))
+        return 0.0;
+    else if (p.is("ELECTRON"))
+        CfH = CeH_11r;
+    else if (p.is("MU"))
+        CfH = CeH_22r;
+    else if (p.is("TAU"))
+        CfH = CeH_33r;
+    else if (p.is("UP"))
+        CfH = CuH_11r;
+    else if (p.is("CHARM"))
+        CfH = CuH_22r;
+    else if (p.is("TOP")) {
+        CfH = CuH_33r;
+        mf = p.getMass(); // m_t(m_t)
+    } else if (p.is("DOWN"))
+        CfH = CdH_11r;
+    else if (p.is("STRANGE"))
+        CfH = CdH_22r;
+    else if (p.is("BOTTOM"))
+        CfH = CdH_33r;
+    else
+        throw std::runtime_error("Error in NPEffectiveGIMR::deltaG_hff()");
+
+    return (-mf / v() * (delta_h - 0.5 * DeltaGF())
+            + CfH * v2_over_LambdaNP2 / sqrt(2.0));
+}
+
+double NPEffectiveGIMR::deltaGL_Wffh(const Particle pbar, const Particle p) const
+{
+    if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
+        throw std::runtime_error("NPEffectiveGIMR::deltaGL_Wffh(): Not implemented");
+
+    double CHF3;
+    if (p.is("NEUTRINO_1"))
+        CHF3 = CHL3_11;
+    else if (p.is("NEUTRINO_2"))
+        CHF3 = CHL3_22;
+    else if (p.is("NEUTRINO_3"))
+        CHF3 = CHL3_33;
+    else if (p.is("UP"))
+        CHF3 = CHQ3_11;
+    else if (p.is("CHARM"))
+        CHF3 = CHQ3_22;
+    else if (p.is("TOP"))
+        CHF3 = CHQ3_33;
+    else
+        throw std::runtime_error("Error in NPEffectiveGIMR::deltaGL_Wffh()");
+
+    return (2.0 * sqrt(2.0) * Mz * cW_tree / v() / v() * CHF3 * v2_over_LambdaNP2);
+}
+
+double NPEffectiveGIMR::deltaGR_Wffh(const Particle pbar, const Particle p) const
+{
+    if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
+        throw std::runtime_error("NPEffectiveGIMR::deltaGR_Wffh(): Not implemented");
+
+    double CHud;
+    if (pbar.is("UP"))
+        CHud = CHud_11r;
+    else if (pbar.is("CHARM"))
+        CHud = CHud_22r;
+    else if (pbar.is("TOP"))
+        CHud = CHud_33r;
+    else if (p.is("LEPTON"))
+        return 0.0;
+    else
+        throw std::runtime_error("Error in NPEffectiveGIMR::deltaGR_Wffh()");
+
+    return (sqrt(2.0) * Mz * cW_tree / v() / v() * CHud * v2_over_LambdaNP2);
+}
+
+double NPEffectiveGIMR::deltaGL_Zffh(const Particle p) const
+{
+    double I3p = p.getIsospin();
+    double CHF1, CHF3;
+    if (p.is("NEUTRINO_1") || p.is("ELECTRON")) {
+        CHF1 = CHL1_11;
+        CHF3 = CHL3_11;
+    } else if (p.is("NEUTRINO_2") || p.is("MU")) {
+        CHF1 = CHL1_22;
+        CHF3 = CHL3_22;
+    } else if (p.is("NEUTRINO_3") || p.is("TAU")) {
+        CHF1 = CHL1_33;
+        CHF3 = CHL3_33;
+    } else if (p.is("UP") || p.is("DOWN")) {
+        CHF1 = CHQ1_11;
+        CHF3 = CHQ3_11;
+    } else if (p.is("CHARM") || p.is("STRANGE")) {
+        CHF1 = CHQ1_22;
+        CHF3 = CHQ3_22;
+    } else if (p.is("TOP") || p.is("BOTTOM")) {
+        CHF1 = CHQ1_33;
+        CHF3 = CHQ3_33;
+    } else
+        throw std::runtime_error("Error in NPEffectiveGIMR::deltaGL_f()");
+
+    return (-2.0 * Mz / v() / v() * (CHF1 - 2.0 * I3p * CHF3) * v2_over_LambdaNP2);
+}
+
+double NPEffectiveGIMR::deltaGR_Zffh(const Particle p) const
+{
+    double CHf;
+    if (p.is("NEUTRINO_1") || p.is("NEUTRINO_2") || p.is("NEUTRINO_3"))
+        return 0.0;
+    else if (p.is("ELECTRON"))
+        CHf = CHe_11;
+    else if (p.is("MU"))
+        CHf = CHe_22;
+    else if (p.is("TAU"))
+        CHf = CHe_33;
+    else if (p.is("UP"))
+        CHf = CHu_11;
+    else if (p.is("CHARM"))
+        CHf = CHu_22;
+    else if (p.is("TOP"))
+        CHf = CHu_33;
+    else if (p.is("DOWN"))
+        CHf = CHd_11;
+    else if (p.is("STRANGE"))
+        CHf = CHd_22;
+    else if (p.is("BOTTOM"))
+        CHf = CHd_33;
+    else
+        throw std::runtime_error("Error in NPEffectiveGIMR::deltaGR_f()");
+
+    return (-2.0 * Mz / v() / v() * CHf * v2_over_LambdaNP2);
+}
+
+
+////////////////////////////////////////////////////////////////////////
+
 double NPEffectiveGIMR::muggH(const double sqrt_s) const
 {
+
+    /* Not implemented yet!! */
+
+
     return 1.0;
 }
 
 double NPEffectiveGIMR::muVBF(const double sqrt_s) const
 {
-    return 1.0;
+    double sigmaSM_LO, mu = 1.0;
+    if (sqrt_s == 7.0) {
+        sigmaSM_LO = 0.8616;
+        mu += (1.088 * deltaGL_f(quarks[UP])
+                - 0.535 * deltaGR_f(quarks[UP])
+                - 0.976 * deltaGL_f(quarks[DOWN])
+                + 0.147 * deltaGR_f(quarks[DOWN])
+                + 2.493 * deltaGL_Wff(quarks[UP], quarks[DOWN])
+                //-  0.060  * deltaGL_Wff(quarks[UP], quarks[DOWN]).imag()
+                - 0.058 * deltaGR_Wff(quarks[UP], quarks[DOWN])
+                //-  0.017   * deltaGR_Wff(quarks[UP], quarks[DOWN]).imag()
+                - 0.105 * deltaG1_hWW() * 1000.0
+                + 2.415 * deltaG3_hWW() / 100.0
+                - 0.091 * deltaG1_hZZ() * 1000.0
+                + 1.280 * deltaG3_hZZ() / 100.0) / sigmaSM_LO;
+    } else if (sqrt_s == 8.0) {
+        sigmaSM_LO = 1.110;
+        mu += (1.424 * deltaGL_f(quarks[UP])
+                - 0.615 * deltaGR_f(quarks[UP])
+                - 1.273 * deltaGL_f(quarks[DOWN])
+                + 0.253 * deltaGR_f(quarks[DOWN])
+                + 3.2465 * deltaGL_Wff(quarks[UP], quarks[DOWN])
+                //+  0.0295   * deltaGL_Wff(quarks[UP], quarks[DOWN]).imag()
+                + 0.034 * deltaGR_Wff(quarks[UP], quarks[DOWN])
+                //+  0.0075   * deltaGR_Wff(quarks[UP], quarks[DOWN]).imag()
+                - 0.1125 * deltaG1_hWW() * 1000.0
+                + 3.1905 * deltaG3_hWW() / 100.0
+                - 0.081 * deltaG1_hZZ() * 1000.0
+                + 1.711 * deltaG3_hZZ() / 100.0) / sigmaSM_LO;
+    } else
+        throw std::runtime_error("Bad argument in NPEffectiveGIMR::muVBF()");
+
+    return mu;
 }
 
 double NPEffectiveGIMR::muWH(const double sqrt_s) const
 {
-    return 1.0;
+    double sigmaSM_LO, mu = 1.0;
+    if (sqrt_s == 7.0) {
+        sigmaSM_LO = 0.4297;
+        mu += (0.846 * deltaGL_Wff(quarks[UP], quarks[DOWN])
+                + 0.770 * deltaG1_hWW() * 1000.0
+                + 1.660 * deltaG3_hWW() / 100.0
+                + 3.190 * deltaGL_Wffh(quarks[UP], quarks[DOWN])) / sigmaSM_LO;
+    } else if (sqrt_s == 8.0) {
+        sigmaSM_LO = 0.5227;
+        mu += (1.029 * deltaGL_Wff(quarks[UP], quarks[DOWN])
+                + 0.938 * deltaG1_hWW() * 1000.0
+                + 2.019 * deltaG3_hWW() / 100.0
+                + 3.977 * deltaGL_Wffh(quarks[UP], quarks[DOWN])) / sigmaSM_LO;
+    } else
+        throw std::runtime_error("Bad argument in NPEffectiveGIMR::muWH()");
+
+    return mu;
 }
 
 double NPEffectiveGIMR::muZH(const double sqrt_s) const
 {
-    return 1.0;
+    double sigmaSM_LO, mu = 1.0;
+    if (sqrt_s == 7.0) {
+        sigmaSM_LO = 0.2276;
+        mu += (0.585 * deltaGL_f(quarks[UP])
+                - 0.264 * deltaGR_f(quarks[UP])
+                - 0.488 * deltaGL_f(quarks[DOWN])
+                + 0.089 * deltaGR_f(quarks[DOWN])
+                + 0.749 * deltaG1_hZZ() * 1000.0
+                + 1.348 * deltaG3_hZZ() / 100.0
+                + 1.098 * deltaGL_Zffh(quarks[UP])* 1000.0
+                - 0.498 * deltaGR_Zffh(quarks[UP])* 1000.0
+                - 0.891 * deltaGL_Zffh(quarks[DOWN])* 1000.0
+                + 0.164 * deltaGR_Zffh(quarks[DOWN])* 1000.0) / sigmaSM_LO;
+    } else if (sqrt_s == 8.0) {
+        sigmaSM_LO = 0.2782;
+        mu += (0.708 * deltaGL_f(quarks[UP])
+                - 0.321 * deltaGR_f(quarks[UP])
+                - 0.602 * deltaGL_f(quarks[DOWN])
+                + 0.112 * deltaGR_f(quarks[DOWN])
+                + 0.920 * deltaG1_hZZ() * 1000.0
+                + 1.646 * deltaG3_hZZ() / 100.0
+                + 1.366 * deltaGL_Zffh(quarks[UP]) * 1000.0
+                - 0.617 * deltaGR_Zffh(quarks[UP])* 1000.0
+                - 1.122 * deltaGL_Zffh(quarks[DOWN])* 1000.0
+                + 0.206 * deltaGR_Zffh(quarks[DOWN])* 1000.0) / sigmaSM_LO;
+    } else
+        throw std::runtime_error("Bad argument in NPEffectiveGIMR::muZH()");
+
+    return mu;
 }
 
 double NPEffectiveGIMR::muVH(const double sqrt_s) const
 {
-    return 1.0;
+    double sigmaWH_SM = computeSigmaWH(sqrt_s);
+    double sigmaZH_SM = computeSigmaZH(sqrt_s);
+    double sigmaWH = muWH(sqrt_s) * sigmaWH_SM;
+    double sigmaZH = muZH(sqrt_s) * sigmaZH_SM;
+    return ((sigmaWH + sigmaZH) / (sigmaWH_SM + sigmaZH_SM));
 }
 
 double NPEffectiveGIMR::muttH(const double sqrt_s) const
 {
-    return 1.0;
+    double kt = 1.0 + 2.0 * deltaG_hff(quarks[TOP]) / (-quarks[TOP].getMass() / v());
+    return (kt * kt);
 }
 
 double NPEffectiveGIMR::BrHggRatio() const

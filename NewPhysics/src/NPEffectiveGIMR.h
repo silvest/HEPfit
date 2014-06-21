@@ -19,7 +19,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPEffectiveGIMR. 
      */
-    static const int NNPEffectiveGIMRVars = 88;
+    static const int NNPEffectiveGIMRVars = 100;
 
       /**
      * @brief A string array containing the labels of the model parameters in
@@ -31,7 +31,7 @@ public:
      *　@brief The number of the model parameters in %NPEffectiveGIMR
      * with lepton and quark flavour universalities.
      */
-    static const int NNPEffectiveGIMRVars_LFU_QFU = 23;
+    static const int NNPEffectiveGIMRVars_LFU_QFU = 25;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -77,9 +77,42 @@ public:
 
     virtual double deltaGA_f(const Particle p) const;
 
+    // no generation mixing
     double deltaGL_f(const Particle p) const;
 
+    // no generation mixing
     double deltaGR_f(const Particle p) const;
+
+
+    ////////////////////////////////////////////////////////////////////////
+
+    // no generation mixing
+    double deltaGL_Wff(const Particle pbar, const Particle p) const;
+    // no generation mixing
+    double deltaGR_Wff(const Particle pbar, const Particle p) const;
+
+    double deltaG_hgg() const;
+    double deltaG1_hWW() const;
+    double deltaG2_hWW() const;
+    double deltaG3_hWW() const;
+    double deltaG1_hZZ() const;
+    double deltaG2_hZZ() const;
+    double deltaG3_hZZ() const;
+    double deltaG1_hZA() const;
+    double deltaG2_hZA() const;
+    double deltaG_hAA() const;
+
+    // no generation mixing
+    double deltaG_hff(const Particle p) const;
+
+    // no generation mixing
+    double deltaGL_Wffh(const Particle pbar, const Particle p) const;
+    // no generation mixing
+    double deltaGR_Wffh(const Particle pbar, const Particle p) const;
+    // no generation mixing
+    double deltaGL_Zffh(const Particle p) const;
+    // no generation mixing 
+    double deltaGR_Zffh(const Particle p) const;
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -134,6 +167,8 @@ protected:
     double CHQ3_11, CHQ3_12, CHQ3_13, CHQ3_22, CHQ3_23, CHQ3_33;
     double CHu_11, CHu_12, CHu_13, CHu_22, CHu_23, CHu_33;
     double CHd_11, CHd_12, CHd_13, CHd_22, CHd_23, CHd_33;
+    double CHud_11r, CHud_12r, CHud_13r, CHud_22r, CHud_23r, CHud_33r;
+    double CHud_11i, CHud_12i, CHud_13i, CHud_22i, CHud_23i, CHud_33i;
     double CeH_11r, CeH_12r, CeH_13r, CeH_22r, CeH_23r, CeH_33r;
     double CeH_11i, CeH_12i, CeH_13i, CeH_22i, CeH_23i, CeH_33i;
     double CuH_11r, CuH_12r, CuH_13r, CuH_22r, CuH_23r, CuH_33r;
@@ -147,7 +182,10 @@ protected:
     double v2_over_LambdaNP2;
     double cW_tree, sW_tree;
     double cW2_tree, sW2_tree;
+    double delta_ZZ, delta_AZ, delta_AA;
+    double delta_h;
 
+    
     ////////////////////////////////////////////////////////////////////////
 private:
 

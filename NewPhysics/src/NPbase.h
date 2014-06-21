@@ -329,7 +329,7 @@ public:
     }
 
     /**
-     * @brief The ratio @f$\mu_{ZH}@f$ between the WH+ZH associated production
+     * @brief The ratio @f$\mu_{VH}@f$ between the WH+ZH associated production
      * cross-section in the current model and in the Standard Model.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\mu_{VH}@f$
