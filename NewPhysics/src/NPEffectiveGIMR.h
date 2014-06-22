@@ -13,6 +13,8 @@
 #include <gslpp.h>
 #include "NPbase.h"
 
+using namespace gslpp;
+
 class NPEffectiveGIMR : public NPbase {
 public:
 
@@ -21,7 +23,7 @@ public:
      */
     static const int NNPEffectiveGIMRVars = 100;
 
-      /**
+    /**
      * @brief A string array containing the labels of the model parameters in
      * %NPEffectiveGIMR.
      */
@@ -117,6 +119,9 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
+    complex f_triangle(const double tau) const;
+    complex AH_f(const double tau) const;
+
     virtual double muggH(const double sqrt_s) const;
     virtual double muVBF(const double sqrt_s) const;
     virtual double muWH(const double sqrt_s) const;
@@ -140,9 +145,9 @@ public:
     double GammaHgagaRatio() const;
     double GammaHtautauRatio() const;
     double GammaHccRatio() const;
-    double GammaHbbRatio() const;    
+    double GammaHbbRatio() const;
 
-    
+
     ////////////////////////////////////////////////////////////////////////
 protected:
 
@@ -191,7 +196,7 @@ protected:
     double CHud_diag(const Particle u) const;
     double CfH_diag(const Particle f) const;
 
-    
+
     ////////////////////////////////////////////////////////////////////////
 private:
 
@@ -206,7 +211,7 @@ private:
      * universality.
      */
     const bool FlagQuarkUniversal;
-    
+
 };
 
 #endif	/* NPEFFECTIVEGIMR_H */

@@ -1835,15 +1835,64 @@ public:
     double computeSigmaggH(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            return 15.01; // in pb for Mh=125.5 GeV and sqrt_s=7 TeV
-            //return 14.99; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
+            return 15.01; // in pb for Mh=125.5 GeV
+            //return 14.99; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 8.0) {
-            return 19.12; // in pb for Mh=125.5 GeV and sqrt_s=8 TeV
-            //return 19.09; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
+            return 19.12; // in pb for Mh=125.5 GeV
+            //return 19.09; // in pb for Mh=125.6 GeV
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH()");
     }
 
+    /**
+     * @brief The square of the top-quark contribution to the ggH cross section in the Standard Model.
+     * @details See Table 38 in ref. @cite Heinemeyer:2013tqa
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\sigma_{ggH}^{tt}@f$ in pb
+     */
+    double computeSigmaggH_tt(const double sqrt_s) const
+    {
+        if (sqrt_s == 7.0) {
+            std::cout << "Why is computeSigmaggH_tt(7TeV) much smaller than computeSigmaggH(7TeV)?" << std::endl;
+            return 4.355; // in pb for Mh=125 GeV
+        } else if (sqrt_s == 8.0)
+            return 18.31; // in pb for Mh=125 GeV
+        else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tt()");
+    }
+
+   /**
+     * @brief The square of the bottom-quark contribution to the ggH cross section in the Standard Model.
+     * @details See Table 38 in ref. @cite Heinemeyer:2013tqa
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\sigma_{ggH}^{bb}@f$ in pb
+     */
+    double computeSigmaggH_bb(const double sqrt_s) const
+    {
+        if (sqrt_s == 7.0)
+            return 0.09528; // in pb for Mh=125 GeV
+        else if (sqrt_s == 8.0)
+            return 0.1206; // in pb for Mh=125 GeV
+        else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_bb()");
+    }
+
+   /**
+     * @brief The top-bottom interference contribution to the ggH cross section in the Standard Model.
+     * @details See Table 38 in ref. @cite Heinemeyer:2013tqa
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\sigma_{ggH}^{tb}@f$ in pb
+     */
+    double computeSigmaggH_tb(const double sqrt_s) const
+    {
+        if (sqrt_s == 7.0)
+            return -0.8970; // in pb for Mh=125 GeV
+        else if (sqrt_s == 8.0)
+            return -1.125; // in pb for Mh=125 GeV
+        else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tb()");
+    }
+    
     /**
      * @brief The VBF cross section in the Standard Model.
      * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
@@ -1853,67 +1902,13 @@ public:
     double computeSigmaVBF(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            return 1.219; // in pb for Mh=125.5 GeV and sqrt_s=7 TeV
-            //return 1.214; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
+            return 1.219; // in pb for Mh=125.5 GeV
+            //return 1.214; // in pb for Mh=125.6 GeV
         } else if (sqrt_s == 8.0) {
-            return 1.573; // in pb for Mh=125.5 GeV and sqrt_s=8 TeV
-            //return 1.572; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
+            return 1.573; // in pb for Mh=125.5 GeV
+            //return 1.572; // in pb for Mh=125.6 GeV
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaVBF()");
-    }
-
-    /**
-     * @brief The WH production cross section in the Standard Model.
-     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     * @return WH production cross section in pb
-     */
-    double computeSigmaWH(const double sqrt_s) const
-    {
-        if (sqrt_s == 7.0) {
-            return 0.5703; // in pb for Mh=125.5 GeV and sqrt_s=7 TeV
-            //return 0.5688; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
-        } else if (sqrt_s == 8.0) {
-            return 0.6951; // in pb for Mh=125.5 GeV and sqrt_s=8 TeV
-            //return 0.6931; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
-        } else
-            throw std::runtime_error("Bad argument in StandardModel::computeSigmaWH()");
-    }
-
-    /**
-     * @brief The ZH production cross section in the Standard Model.
-     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     * @return ZH production cross section in pb
-     */
-    double computeSigmaZH(const double sqrt_s) const
-    {
-        if (sqrt_s == 7.0) {
-            return 0.3309; // in pb for Mh=125.5 GeV and sqrt_s=7 TeV
-            //return 0.3299; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
-        } else if (sqrt_s == 8.0) {
-            return 0.4102; // in pb for Mh=125.5 GeV and sqrt_s=8 TeV
-            //return 0.4091; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
-        } else
-            throw std::runtime_error("Bad argument in StandardModel::computeSigmaZH()");
-    }
-
-    /**
-     * @brief The ttH production cross section in the Standard Model.
-     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
-     * @param[in] sqrt_s the center-of-mass energy in TeV
-     * @return ttH production cross section in pb
-     */
-    double computeSigmattH(const double sqrt_s) const
-    {
-        if (sqrt_s == 7.0) {
-            return 0.0853; // in pb for Mh=125.5 GeV and sqrt_s=7 TeV
-            //return 0.0851; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
-        } else if (sqrt_s == 8.0) {
-            return 0.1277; // in pb for Mh=125.5 GeV and sqrt_s=8 TeV
-            //return 0.1274; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
-        } else
-            throw std::runtime_error("Bad argument in StandardModel::computeSigmattH()");
     }
 
     /**
@@ -1926,9 +1921,9 @@ public:
     double computeSigmaWF(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            return 0.938; // in pb for Mh=125 GeV and sqrt_s=7 TeV
+            return 0.938; // in pb for Mh=125 GeV
         } else if (sqrt_s == 8.0) {
-            return 1.210; // in pb for Mh=125 GeV and sqrt_s=8 TeV
+            return 1.210; // in pb for Mh=125 GeV
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaWF()");
     }
@@ -1943,9 +1938,9 @@ public:
     double computeSigmaZF(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            return 0.321; // in pb for Mh=125 GeV and sqrt_s=7 TeV
+            return 0.321; // in pb for Mh=125 GeV
         } else if (sqrt_s == 8.0) {
-            return 0.417; // in pb for Mh=125 GeV and sqrt_s=8 TeV
+            return 0.417; // in pb for Mh=125 GeV
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaZF()");
     }
@@ -1962,6 +1957,60 @@ public:
         return 0.;
     }
 
+    /**
+     * @brief The WH production cross section in the Standard Model.
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return WH production cross section in pb
+     */
+    double computeSigmaWH(const double sqrt_s) const
+    {
+        if (sqrt_s == 7.0) {
+            return 0.5703; // in pb for Mh=125.5 GeV
+            //return 0.5688; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 8.0) {
+            return 0.6951; // in pb for Mh=125.5 GeV
+            //return 0.6931; // in pb for Mh=125.6 GeV
+        } else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaWH()");
+    }
+
+    /**
+     * @brief The ZH production cross section in the Standard Model.
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return ZH production cross section in pb
+     */
+    double computeSigmaZH(const double sqrt_s) const
+    {
+        if (sqrt_s == 7.0) {
+            return 0.3309; // in pb for Mh=125.5 GeV
+            //return 0.3299; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 8.0) {
+            return 0.4102; // in pb for Mh=125.5 GeV
+            //return 0.4091; // in pb for Mh=125.6 GeV
+        } else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaZH()");
+    }
+
+    /**
+     * @brief The ttH production cross section in the Standard Model.
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return ttH production cross section in pb
+     */
+    double computeSigmattH(const double sqrt_s) const
+    {
+        if (sqrt_s == 7.0) {
+            return 0.0853; // in pb for Mh=125.5 GeV
+            //return 0.0851; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 8.0) {
+            return 0.1277; // in pb for Mh=125.5 GeV
+            //return 0.1274; // in pb for Mh=125.6 GeV
+        } else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmattH()");
+    }
+    
     /**
      * @brief The Br@f$(H\to gg)@f$ in the Standard Model.
      * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
@@ -2059,6 +2108,39 @@ public:
         //return 4.15e-3; // Mh=125.6 GeV
     }
 
+    /**
+     * @brief The top loop contribution to @f$H\to gg@f$ in the Standard Model.
+     * @details Currently it returns the value of tab 39 in ref. @cite Heinemeyer:2013tqa
+     * @return Width of @f$H\to gg@f$ (top loop contribution squared) in keV
+     */
+    double computeGammaHgg_tt() const
+    {
+        return 380.8; // in keV for Mh=125 GeV
+        //return 389.6; // in keV for Mh=126 GeV
+    }
+
+    /**
+     * @brief The bottom loop contribution to @f$H\to gg@f$ in the Standard Model.
+     * @details Currently it returns the value of tab 39 in ref. @cite Heinemeyer:2013tqa
+     * @return Width of @f$H\to gg@f$ (bottom loop contribution squared) in keV
+     */
+    double computeGammaHgg_bb() const
+    {
+        return 3.96; // in keV for Mh=125 GeV
+        //return 3.95; // in keV for Mh=126 GeV
+    }
+
+    /**
+     * @brief The top-bottom interference contribution to @f$H\to gg@f$ in the Standard Model.
+     * @details Currently it returns the value of tab 39 in ref. @cite Heinemeyer:2013tqa
+     * @return Width of @f$H\to gg@f$ (top-bottom interference contribution) in keV
+     */
+    double computeGammaHgg_tb() const
+    {
+        return -42.1; // in keV for Mh=125 GeV
+        //return -42.7; // in keV for Mh=126 GeV
+    }
+    
     /**
      * @brief The top loop contribution to @f$H\to Z\gamma@f$ in the Standard Model.
      * @details Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa

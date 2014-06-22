@@ -633,7 +633,7 @@ double NPEffectiveGIMR::CfH_diag(const Particle f) const
 
 
 ////////////////////////////////////////////////////////////////////////
-    
+
 double NPEffectiveGIMR::DeltaGF() const
 {
     return ((CHL3_11 + CHL3_22 - 0.5 * (CLL_1221 + CLL_2112)) * v2_over_LambdaNP2);
@@ -785,10 +785,13 @@ double NPEffectiveGIMR::deltaG_hAA() const
 
 double NPEffectiveGIMR::deltaG_hff(const Particle p) const
 {
-    double mf = 0.0;
+    /* The effects of the RG running are neglected. */
+    double mf;
     if (p.is("TOP"))
         //mf = p.getMass(); // m_t(m_t)
         mf = mtpole; // pole mass
+    else
+        p.getMass();
     double CfH = CfH_diag(p);
     return (-mf / v() * (delta_h - 0.5 * DeltaGF())
             + CfH * v2_over_LambdaNP2 / sqrt(2.0));
@@ -829,13 +832,40 @@ double NPEffectiveGIMR::deltaGR_Zffh(const Particle p) const
 
 ////////////////////////////////////////////////////////////////////////
 
+complex NPEffectiveGIMR::f_triangle(const double tau) const
+{
+    complex tmp;
+    if (tau >= 1.0) {
+        tmp = asin(1.0 / sqrt(tau));
+        return (tmp * tmp);
+    } else {
+        tmp = log((1.0 + sqrt(1.0 - tau)) / (1.0 - sqrt(1.0 - tau))) - M_PI * complex::i();
+        return (-0.25 * tmp * tmp);
+    }
+}
+
+complex NPEffectiveGIMR::AH_f(const double tau) const
+{
+    return (2.0 * tau * (1.0 + (1.0 - tau * f_triangle(tau))));
+}
+
 double NPEffectiveGIMR::muggH(const double sqrt_s) const
 {
+    double m_t = mtpole;
+    //doulbe m_t = quarks[TOP].getMass();
+    double m_b = quarks[BOTTOM].getMass();
 
-    /* Not implemented yet!! */
+    double dKappa_t = deltaG_hff(quarks[TOP]) / (-m_t / v());
+    double dKappa_b = deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
 
+    /* Check the normalization, the sign, etc.! */
+    /* L_eff = (G_eff_t_SM + G_eff_b_SM)*hGG */
+    complex G_eff_t_SM = AlsMz / 16.0 / M_PI / v() * AH_f(4.0 * m_t * m_t / mHl / mHl);
+    complex G_eff_b_SM = AlsMz / 16.0 / M_PI / v() * AH_f(4.0 * m_b * m_b / mHl / mHl);
 
-    return 1.0;
+    complex tmp = (G_eff_t_SM * dKappa_t + G_eff_b_SM * dKappa_b + CHG / v() * v2_over_LambdaNP2)
+            / (G_eff_t_SM + G_eff_b_SM);
+    return (1.0 + 2.0 * delta_h + 2.0 * tmp.real());
 }
 
 double NPEffectiveGIMR::muVBF(const double sqrt_s) const
@@ -940,9 +970,11 @@ double NPEffectiveGIMR::muVH(const double sqrt_s) const
 
 double NPEffectiveGIMR::muttH(const double sqrt_s) const
 {
-    //double kt = 1.0 + 2.0 * deltaG_hff(quarks[TOP]) / (-quarks[TOP].getMass() / v());
-    double kt = 1.0 + 2.0 * deltaG_hff(quarks[TOP]) / (-mtpole / v());
-    return (kt * kt);
+    double m_t = mtpole;
+    //doulbe m_t = quarks[TOP].getMass();
+
+    double kt2 = 1.0 + 2.0 * deltaG_hff(quarks[TOP]) / (-m_t / v());
+    return kt2;
 }
 
 double NPEffectiveGIMR::BrHggRatio() const
