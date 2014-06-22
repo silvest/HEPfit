@@ -846,7 +846,7 @@ complex NPEffectiveGIMR::f_triangle(const double tau) const
 
 complex NPEffectiveGIMR::AH_f(const double tau) const
 {
-    return (2.0 * tau * (1.0 + (1.0 - tau * f_triangle(tau))));
+    return (2.0 * tau * (1.0 + (1.0 - tau) * f_triangle(tau)));
 }
 
 double NPEffectiveGIMR::muggH(const double sqrt_s) const
