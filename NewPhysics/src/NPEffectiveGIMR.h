@@ -89,9 +89,9 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     // no generation mixing
-    double deltaGL_Wff(const Particle pbar, const Particle p) const;
+    complex deltaGL_Wff(const Particle pbar, const Particle p) const;
     // no generation mixing
-    double deltaGR_Wff(const Particle pbar, const Particle p) const;
+    complex deltaGR_Wff(const Particle pbar, const Particle p) const;
 
     double deltaG_hgg() const;
     double deltaG1_hWW() const;
@@ -105,12 +105,12 @@ public:
     double deltaG_hAA() const;
 
     // no generation mixing
-    double deltaG_hff(const Particle p) const;
+    complex deltaG_hff(const Particle p) const;
 
     // no generation mixing
-    double deltaGL_Wffh(const Particle pbar, const Particle p) const;
+    complex deltaGL_Wffh(const Particle pbar, const Particle p) const;
     // no generation mixing
-    double deltaGR_Wffh(const Particle pbar, const Particle p) const;
+    complex deltaGR_Wffh(const Particle pbar, const Particle p) const;
     // no generation mixing
     double deltaGL_Zffh(const Particle p) const;
     // no generation mixing 
@@ -193,8 +193,8 @@ protected:
     double CHF1_diag(const Particle F) const;
     double CHF3_diag(const Particle F) const;
     double CHf_diag(const Particle f) const;
-    double CHud_diag(const Particle u) const;
-    double CfH_diag(const Particle f) const;
+    complex CHud_diag(const Particle u) const;
+    complex CfH_diag(const Particle f) const;
 
 
     ////////////////////////////////////////////////////////////////////////

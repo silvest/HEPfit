@@ -590,43 +590,43 @@ double NPEffectiveGIMR::CHf_diag(const Particle f) const
         throw std::runtime_error("NPEffectiveGIMR::CHf_diag(): wrong argument");
 }
 
-double NPEffectiveGIMR::CHud_diag(const Particle u) const
+complex NPEffectiveGIMR::CHud_diag(const Particle u) const
 {
     if (!u.is("QUARK") || u.getIndex() % 2 != 0)
         throw std::runtime_error("NPEffectiveGIMR::CHud_diag(): wrong argument");
 
     if (u.is("UP"))
-        return CHud_11r;
+        return complex(CHud_11r, CHud_11i, false);
     else if (u.is("CHARM"))
-        return CHud_22r;
+        return complex(CHud_22r, CHud_33i, false);
     else if (u.is("TOP"))
-        return CHud_33r;
+        return complex(CHud_22r, CHud_33i, false);
     else
         throw std::runtime_error("NPEffectiveGIMR::CHud_diag(): wrong argument");
 }
 
-double NPEffectiveGIMR::CfH_diag(const Particle f) const
+complex NPEffectiveGIMR::CfH_diag(const Particle f) const
 {
     if (f.is("NEUTRINO_1") || f.is("NEUTRINO_2") || f.is("NEUTRINO_3"))
         return 0.0;
     else if (f.is("ELECTRON"))
-        return CeH_11r;
+        return complex(CeH_11r, CeH_11i, false);
     else if (f.is("MU"))
-        return CeH_22r;
+        return complex(CeH_22r, CeH_22i, false);
     else if (f.is("TAU"))
-        return CeH_33r;
+        return complex(CeH_33r, CeH_33i, false);
     else if (f.is("UP"))
-        return CuH_11r;
+        return complex(CuH_11r, CuH_11i, false);
     else if (f.is("CHARM"))
-        return CuH_22r;
+        return complex(CuH_22r, CuH_22i, false);
     else if (f.is("TOP"))
-        return CuH_33r;
+        return complex(CuH_33r, CuH_33i, false);
     else if (f.is("DOWN"))
-        return CdH_11r;
+        return complex(CdH_11r, CdH_11i, false);
     else if (f.is("STRANGE"))
-        return CdH_22r;
+        return complex(CdH_22r, CdH_22i, false);
     else if (f.is("BOTTOM"))
-        return CdH_33r;
+        return complex(CdH_33r, CdH_33i, false);
     else
         throw std::runtime_error("NPEffectiveGIMR::CfH_diag(): wrong argument");
 }
@@ -710,7 +710,7 @@ double NPEffectiveGIMR::deltaGR_f(const Particle p) const
 
 ////////////////////////////////////////////////////////////////////////
 
-double NPEffectiveGIMR::deltaGL_Wff(const Particle pbar, const Particle p) const
+complex NPEffectiveGIMR::deltaGL_Wff(const Particle pbar, const Particle p) const
 {
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
         throw std::runtime_error("NPEffectiveGIMR::deltaGL_Wff(): Not implemented");
@@ -722,12 +722,12 @@ double NPEffectiveGIMR::deltaGL_Wff(const Particle pbar, const Particle p) const
     return (NPdirect + NPindirect);
 }
 
-double NPEffectiveGIMR::deltaGR_Wff(const Particle pbar, const Particle p) const
+complex NPEffectiveGIMR::deltaGR_Wff(const Particle pbar, const Particle p) const
 {
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
         throw std::runtime_error("NPEffectiveGIMR::deltaGR_Wff(): Not implemented");
 
-    double CHud = CHud_diag(pbar);
+    complex CHud = CHud_diag(pbar);
     return (0.5 * CHud * v2_over_LambdaNP2);
 }
 
@@ -783,7 +783,7 @@ double NPEffectiveGIMR::deltaG_hAA() const
     return (delta_AA / v());
 }
 
-double NPEffectiveGIMR::deltaG_hff(const Particle p) const
+complex NPEffectiveGIMR::deltaG_hff(const Particle p) const
 {
     /* The effects of the RG running are neglected. */
     double mf;
@@ -792,12 +792,12 @@ double NPEffectiveGIMR::deltaG_hff(const Particle p) const
         mf = mtpole; // pole mass
     else
         p.getMass();
-    double CfH = CfH_diag(p);
+    complex CfH = CfH_diag(p);
     return (-mf / v() * (delta_h - 0.5 * DeltaGF())
             + CfH * v2_over_LambdaNP2 / sqrt(2.0));
 }
 
-double NPEffectiveGIMR::deltaGL_Wffh(const Particle pbar, const Particle p) const
+complex NPEffectiveGIMR::deltaGL_Wffh(const Particle pbar, const Particle p) const
 {
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
         throw std::runtime_error("NPEffectiveGIMR::deltaGL_Wffh(): Not implemented");
@@ -806,12 +806,12 @@ double NPEffectiveGIMR::deltaGL_Wffh(const Particle pbar, const Particle p) cons
     return (2.0 * sqrt(2.0) * Mz * cW_tree / v() / v() * CHF3 * v2_over_LambdaNP2);
 }
 
-double NPEffectiveGIMR::deltaGR_Wffh(const Particle pbar, const Particle p) const
+complex NPEffectiveGIMR::deltaGR_Wffh(const Particle pbar, const Particle p) const
 {
     if (pbar.getIndex() + 1 != p.getIndex() || pbar.getIndex() % 2 != 0)
         throw std::runtime_error("NPEffectiveGIMR::deltaGR_Wffh(): Not implemented");
 
-    double CHud = CHud_diag(pbar);
+    complex CHud = CHud_diag(pbar);
     return (sqrt(2.0) * Mz * cW_tree / v() / v() * CHud * v2_over_LambdaNP2);
 }
 
@@ -855,8 +855,8 @@ double NPEffectiveGIMR::muggH(const double sqrt_s) const
     //doulbe m_t = quarks[TOP].getMass();
     double m_b = quarks[BOTTOM].getMass();
 
-    double dKappa_t = deltaG_hff(quarks[TOP]) / (-m_t / v());
-    double dKappa_b = deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
+    complex dKappa_t = deltaG_hff(quarks[TOP]) / (-m_t / v());
+    complex dKappa_b = deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
 
     /* Check the normalization, the sign, etc.! */
     /* L_eff = (G_eff_t_SM + G_eff_b_SM)*hGG */
@@ -877,10 +877,10 @@ double NPEffectiveGIMR::muVBF(const double sqrt_s) const
                 - 0.535 * deltaGR_f(quarks[UP])
                 - 0.976 * deltaGL_f(quarks[DOWN])
                 + 0.147 * deltaGR_f(quarks[DOWN])
-                + 2.493 * deltaGL_Wff(quarks[UP], quarks[DOWN])
-                //-  0.060  * deltaGL_Wff(quarks[UP], quarks[DOWN]).imag()
-                - 0.058 * deltaGR_Wff(quarks[UP], quarks[DOWN])
-                //-  0.017   * deltaGR_Wff(quarks[UP], quarks[DOWN]).imag()
+                + 2.493 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
+                - 0.060 * deltaGL_Wff(quarks[UP], quarks[DOWN]).imag()
+                - 0.058 * deltaGR_Wff(quarks[UP], quarks[DOWN]).real()
+                - 0.017 * deltaGR_Wff(quarks[UP], quarks[DOWN]).imag()
                 - 0.105 * deltaG1_hWW() * 1000.0
                 + 2.415 * deltaG3_hWW() / 100.0
                 - 0.091 * deltaG1_hZZ() * 1000.0
@@ -891,10 +891,10 @@ double NPEffectiveGIMR::muVBF(const double sqrt_s) const
                 - 0.615 * deltaGR_f(quarks[UP])
                 - 1.273 * deltaGL_f(quarks[DOWN])
                 + 0.253 * deltaGR_f(quarks[DOWN])
-                + 3.2465 * deltaGL_Wff(quarks[UP], quarks[DOWN])
-                //+  0.0295   * deltaGL_Wff(quarks[UP], quarks[DOWN]).imag()
-                + 0.034 * deltaGR_Wff(quarks[UP], quarks[DOWN])
-                //+  0.0075   * deltaGR_Wff(quarks[UP], quarks[DOWN]).imag()
+                + 3.2465 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
+                + 0.0295 * deltaGL_Wff(quarks[UP], quarks[DOWN]).imag()
+                + 0.034 * deltaGR_Wff(quarks[UP], quarks[DOWN]).real()
+                + 0.0075 * deltaGR_Wff(quarks[UP], quarks[DOWN]).imag()
                 - 0.1125 * deltaG1_hWW() * 1000.0
                 + 3.1905 * deltaG3_hWW() / 100.0
                 - 0.081 * deltaG1_hZZ() * 1000.0
@@ -910,16 +910,16 @@ double NPEffectiveGIMR::muWH(const double sqrt_s) const
     double sigmaSM_LO, mu = 1.0;
     if (sqrt_s == 7.0) {
         sigmaSM_LO = 0.4297;
-        mu += (0.846 * deltaGL_Wff(quarks[UP], quarks[DOWN])
+        mu += (0.846 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
                 + 0.770 * deltaG1_hWW() * 1000.0
                 + 1.660 * deltaG3_hWW() / 100.0
-                + 3.190 * deltaGL_Wffh(quarks[UP], quarks[DOWN])) / sigmaSM_LO;
+                + 3.190 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()) / sigmaSM_LO;
     } else if (sqrt_s == 8.0) {
         sigmaSM_LO = 0.5227;
-        mu += (1.029 * deltaGL_Wff(quarks[UP], quarks[DOWN])
+        mu += (1.029 * deltaGL_Wff(quarks[UP], quarks[DOWN]).real()
                 + 0.938 * deltaG1_hWW() * 1000.0
                 + 2.019 * deltaG3_hWW() / 100.0
-                + 3.977 * deltaGL_Wffh(quarks[UP], quarks[DOWN])) / sigmaSM_LO;
+                + 3.977 * deltaGL_Wffh(quarks[UP], quarks[DOWN]).real()) / sigmaSM_LO;
     } else
         throw std::runtime_error("Bad argument in NPEffectiveGIMR::muWH()");
 
@@ -973,7 +973,7 @@ double NPEffectiveGIMR::muttH(const double sqrt_s) const
     double m_t = mtpole;
     //doulbe m_t = quarks[TOP].getMass();
 
-    double kt2 = 1.0 + 2.0 * deltaG_hff(quarks[TOP]) / (-m_t / v());
+    double kt2 = 1.0 + 2.0 * deltaG_hff(quarks[TOP]).real() / (-m_t / v());
     return kt2;
 }
 
