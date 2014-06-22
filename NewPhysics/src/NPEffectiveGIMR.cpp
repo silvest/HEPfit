@@ -791,7 +791,7 @@ complex NPEffectiveGIMR::deltaG_hff(const Particle p) const
         //mf = p.getMass(); // m_t(m_t)
         mf = mtpole; // pole mass
     else
-        p.getMass();
+        mf = p.getMass();
     complex CfH = CfH_diag(p);
     return (-mf / v() * (delta_h - 0.5 * DeltaGF())
             + CfH * v2_over_LambdaNP2 / sqrt(2.0));
