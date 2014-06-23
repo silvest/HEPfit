@@ -9,6 +9,7 @@
       <itemPath>src/AmpDK2.h</itemPath>
       <itemPath>src/AmpDS1.h</itemPath>
       <itemPath>src/ArgD.h</itemPath>
+      <itemPath>src/BKstarll.h</itemPath>
       <itemPath>src/BR_Bdnunu.h</itemPath>
       <itemPath>src/BR_Bsnunu.h</itemPath>
       <itemPath>src/BR_Kmumu.h</itemPath>
@@ -59,6 +60,7 @@
       <itemPath>src/AmpDD2.cpp</itemPath>
       <itemPath>src/AmpDK2.cpp</itemPath>
       <itemPath>src/AmpDS1.cpp</itemPath>
+      <itemPath>src/BKstarll.cpp</itemPath>
       <itemPath>src/BR_Bdnunu.cpp</itemPath>
       <itemPath>src/BR_Bsnunu.cpp</itemPath>
       <itemPath>src/BR_Kmumu.cpp</itemPath>
