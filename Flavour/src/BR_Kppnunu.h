@@ -51,7 +51,7 @@ protected:
     complex P_C(orders order);
     
 private:
-    //Flavour& myFlavour;
+    
     StandardModel& mySM;
     Charm_Kpnunu CKpnunu;
 };

@@ -41,7 +41,7 @@ protected:
     complex BRBsnunu(orders order);
     
 private:
-    //Flavour& myFlavour;
+    
     StandardModel& mySM;
 };
 

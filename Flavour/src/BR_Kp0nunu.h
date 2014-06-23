@@ -43,7 +43,7 @@ protected:
     complex BRKp0nunu(orders order, orders_ew order_ew);
     
 private:
-    //Flavour& myFlavour;
+    
     StandardModel& mySM;
 };
 

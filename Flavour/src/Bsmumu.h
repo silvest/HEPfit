@@ -43,7 +43,7 @@ protected:
     void computeObs(orders order);
     
 private:
-    //Flavour& myFlavour;
+    
     const StandardModel& mySM;
     double beta;
     double mBs;

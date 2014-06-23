@@ -43,7 +43,7 @@ protected:
     complex BRKmumu(orders order);
     
 private:
-    //Flavour& myFlavour;
+    
     StandardModel& mySM;
     CPenguinBoxMu CPB;
 };

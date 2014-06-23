@@ -42,7 +42,7 @@ protected:
     complex BRBdnunu(orders order);
     
 private:
-    //Flavour& myFlavour;
+    
 };
 
 #endif	/* BR_BDNUNU_H */

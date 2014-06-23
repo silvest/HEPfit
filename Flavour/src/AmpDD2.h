@@ -38,7 +38,7 @@ protected:
     complex AmpDD(orders order);
     
 private:
-    //Flavour& myFlavour;
+    
     const StandardModel& mySM;
 };
 

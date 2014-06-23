@@ -39,7 +39,7 @@ protected:
     complex AmpDS1pp2(orders order);
     
 private:
-    //Flavour& myFlavour;
+    
     const StandardModel& mySM;
 
 };

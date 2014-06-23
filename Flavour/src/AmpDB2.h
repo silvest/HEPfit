@@ -29,7 +29,7 @@ protected:
     complex AmpBs(orders order);
 
 private:
-    //Flavour& myFlavour;
+    
     const StandardModel& mySM;
 
 };
