@@ -25,6 +25,7 @@
 #include "EWSMOneLoopEW_HV.h"
 #include "EWSMTwoFermionsLEP2.h"
 #include <Flavour.h>
+#include <LeptonFlavour.h>
 
 
 const std::string StandardModel::SMvars[NSMvars] = {
@@ -132,6 +133,7 @@ StandardModel::~StandardModel()
         if (myTwoFermionsLEP2 != NULL) delete(myTwoFermionsLEP2);
         if (myStandardModelMatching != NULL) delete(myStandardModelMatching);
         if (myFlavour != NULL) delete(myFlavour);
+        if (myLeptonFlavour != NULL) delete(myLeptonFlavour);
     }
 }
 
@@ -152,6 +154,7 @@ bool StandardModel::InitializeModel()
     myTwoFermionsLEP2 = new EWSMTwoFermionsLEP2(*myEWSMcache); ///< A pointer to an object of type EWSMTwoFermionsLEP2.
     myStandardModelMatching = new StandardModelMatching(*this);
     myFlavour = new Flavour(*this);
+    myLeptonFlavour = new LeptonFlavour(*this);
     setModelInitialized(true);
     return (true);
 }

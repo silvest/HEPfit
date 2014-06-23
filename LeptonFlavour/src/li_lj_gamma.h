@@ -17,7 +17,7 @@ public:
      * constructor
      * @param LeptonFlavour
      */
-    li_lj_gamma(LeptonFlavour& LeptonFlavour_i);
+    li_lj_gamma(const StandardModel& SM_i);
     
     /**
      *
@@ -30,7 +30,7 @@ public:
 protected:
     
 private:
-    LeptonFlavour& myLeptonFlavour;
+    const StandardModel& mySM;
     
 };
 

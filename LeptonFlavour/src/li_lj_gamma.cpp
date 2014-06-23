@@ -7,12 +7,12 @@
 
 #include "li_lj_gamma.h"
 
-li_lj_gamma::li_lj_gamma(LeptonFlavour& LeptonFlavour_i): ThObservable(LeptonFlavour_i), myLeptonFlavour(LeptonFlavour_i){
+li_lj_gamma::li_lj_gamma(const StandardModel& SM_i): ThObservable(SM_i), mySM(SM_i){
 };
 
 double li_lj_gamma::computeThValue(){
     
-    gslpp::vector<complex> ** allcoeff = myLeptonFlavour.ComputeCoeffli_lj_gamma();
+    gslpp::vector<complex> ** allcoeff = mySM.getMyLeptonFlavour()->ComputeCoeffli_lj_gamma();
     
     return (1/10. * ((*(allcoeff[LO])) * (*(allcoeff[LO])).conjugate()).abs());
 }

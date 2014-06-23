@@ -224,6 +224,7 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../Flavour/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
           <preprocessorList>
@@ -635,6 +636,7 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../Flavour/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
@@ -904,6 +906,7 @@
             <pElem>../LoopFunctions/src</pElem>
             <pElem>../Observables/src</pElem>
             <pElem>../Flavour/src</pElem>
+            <pElem>../LeptonFlavour/src</pElem>
           </incDir>
           <commandLine>`root-config --cflags` `gsl-config --cflags`</commandLine>
         </ccTool>
