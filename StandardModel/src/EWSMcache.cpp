@@ -48,26 +48,20 @@ EWSMcache::EWSMcache(const StandardModel& SM_i)
 
 double EWSMcache::mf(const Particle p, const double mu, const orders order) const
 {
-    if (p.is("LEPTON"))
-        return p.getMass();
-    else if (p.is("TOP"))
+    if (p.is("TOP"))
         return SM.getMtpole(); // the pole mass
-    else if (p.is("QUARK")) {
-        if (FlagDebug)
-            return p.getMass(); // for debug
-        else {
-            /* These codes are slow and not effective. */
-            //if (mu == SM.getMz()) {
-            //    if (FlagCacheInEWSMcache && order == FULLNNLO)
-            //        if (SM.checkSMparams(mf_atMz_params_cache[p.getIndex()]))
-            //            return mf_atMz_cache[p.getIndex()];
-            //    mf_atMz_cache[p.getIndex()] = SM.Mrun(mu, p.getMass_scale(), p.getMass(), order);
-            //    return mf_atMz_cache[p.getIndex()];
-            //} else
-            return SM.Mrun(mu, p.getMass_scale(), p.getMass(), order);
-        }
+    else if (p.is("QUARK") && !FlagDebug) {
+        /* These codes are slow and not effective. */
+        //if (mu == SM.getMz()) {
+        //    if (FlagCacheInEWSMcache && order == FULLNNLO)
+        //        if (SM.checkSMparams(mf_atMz_params_cache[p.getIndex()]))
+        //            return mf_atMz_cache[p.getIndex()];
+        //    mf_atMz_cache[p.getIndex()] = SM.Mrun(mu, p.getMass_scale(), p.getMass(), order);
+        //    return mf_atMz_cache[p.getIndex()];
+        //}
+        return SM.Mrun(mu, p.getMass_scale(), p.getMass(), order);
     } else
-        throw std::runtime_error("Error in EWSMcache::mf()");
+        return p.getMass();
 }
 
 
