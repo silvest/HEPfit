@@ -1800,12 +1800,11 @@ public:
      *
      * @sa checkSMparams()
      */
-    static const int NumSMParams = 27;
+    static const int NumSMParamsForEWPO = 27;
 
     /**
-     * @brief A method to check whether the values of the parameters stored
-     * in the given cache are all identical to those of the corresponding
-     * model parameters in StandardModel.
+     * @brief A method to check whether the parameters relevant to the EWPO
+     * are updated. 
      * @details This function is used for the cashing methods implemented in
      * the current class:
      * DeltaAlphaLepton(), DeltaAlpha(), Mw_SM(), rhoZ_l_SM(), rhoZ_q_SM(),
@@ -1814,14 +1813,11 @@ public:
      * Carlo run and differ from those stored in the given cache, Params_cache,
      * this function updates the cache, and returns false.
      * @param[in,out] Params_cache the cache of the parameters to be checked
-     * @return a boolean that is true if the values of the parameters stored in
-     * the given cache differ from those of the corresponding model parameters
-     * in StandardModel
+     * @return a boolean that is true if the parameters are not updated. 
      *
      * @sa NumSMParams
      */
-    bool checkSMparams(double Params_cache[]) const;
-
+    bool checkSMparamsForEWPO();
 
     ////////////////////////////////////////////////////////////////////////        
     // Several Higgs-related quantities used in Higgs coupling analysis
@@ -2514,42 +2510,19 @@ private:
     // Caches for EWPO
 
     bool FlagCacheInStandardModel; ///< A flag for caching (true by default).
-
-    /**
-     * @brief A cache array of a set of SM parameters, used together with #DeltaAlphaLepton_cache.
-     */
-    mutable double DeltaAlphaLepton_params_cache[NumSMParams];
+    mutable double SMparamsForEWPO_cache[NumSMParamsForEWPO];
     mutable double DeltaAlphaLepton_cache; ///< A cache of the value of @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$.
-
-    /**
-     * @brief A cache array of a set of SM parameters, used together with #DeltaAlpha_cache.
-     */
-    mutable double DeltaAlpha_params_cache[NumSMParams];
     mutable double DeltaAlpha_cache; ///< A cache of the value of @f$\Delta\alpha(M_Z^2)@f$.
-
-    /**
-     * @brief A cache array of a set of SM parameters, used together with #Mw_cache.
-     */
-    mutable double Mw_params_cache[NumSMParams];
     mutable double Mw_cache; ///< A cache of the value of @f$M_W@f$.
-
-    /**
-     * @brief A cache array of a set of SM parameters, used together with #rhoZ_f_cache.
-     */
-    mutable double rhoZ_f_params_cache[12][NumSMParams];
-    mutable complex rhoZ_f_cache[12]; ///< A cache of the value of @f$\rho_Z^l@f$.
-
-    /**
-     * @brief A cache array of a set of SM parameters, used together with #kappaZ_f_cache.
-     */
-    mutable double kappaZ_f_params_cache[12][NumSMParams];
-    mutable complex kappaZ_f_cache[12]; ///< A cache of the value of @f$\kappa_Z^l@f$.
-
-    /**
-     * @brief A cache array of a set of SM parameters, used together with #GammaW_cache.
-     */
-    mutable double GammaW_params_cache[NumSMParams];
     mutable double GammaW_cache; ///< A cache of the value of @f$\Gamma_W@f$.
+    mutable complex rhoZ_f_cache[12]; ///< A cache of the value of @f$\rho_Z^l@f$.
+    mutable complex kappaZ_f_cache[12]; ///< A cache of the value of @f$\kappa_Z^l@f$.
+    mutable bool useDeltaAlphaLepton_cache;
+    mutable bool useDeltaAlpha_cache;
+    mutable bool useMw_cache;
+    mutable bool useGammaW_cache;
+    mutable bool useRhoZ_f_cache[12];
+    mutable bool useKappaZ_f_cache[12];
 
 };
 

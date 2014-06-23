@@ -115,29 +115,31 @@ public:
     bool checkSMparams(const double s, const double Mw, const double GammaZ) const 
     {
         // 23 SM parameters in checkSMparams() + s, Mw, GammaZ + 5 booleans
-        bool bCache = true;
-        bCache &= SM.checkSMparams(SMparams_cache);
-        
-        if (SMparams_cache[StandardModel::NumSMParams] != s) { 
-            SMparams_cache[StandardModel::NumSMParams] = s;
-            bCache &= false;
-        }    
-        if (SMparams_cache[StandardModel::NumSMParams+1] != Mw) { 
-            SMparams_cache[StandardModel::NumSMParams+1] = Mw;
-            bCache &= false;
-        }    
-        if (SMparams_cache[StandardModel::NumSMParams+2] != GammaZ) { 
-            SMparams_cache[StandardModel::NumSMParams+2] = GammaZ;
-            bCache &= false;
-        }    
-        for (int i=0; i<NUMofLEP2RCs; i++) {
-            if (flag_cache[i] != flag[i]) { 
-                flag_cache[i] = flag[i];
-                bCache &= false;
-            }    
-        }
+        //bool bCache = true;
+        //bCache &= SM.checkSMparams(SMparams_cache);
+        //
+        //if (SMparams_cache[StandardModel::NumSMParamsForEWPO] != s) {
+        //    SMparams_cache[StandardModel::NumSMParamsForEWPO] = s;
+        //    bCache &= false;
+        //}
+        //if (SMparams_cache[StandardModel::NumSMParamsForEWPO+1] != Mw) {
+        //    SMparams_cache[StandardModel::NumSMParamsForEWPO+1] = Mw;
+        //    bCache &= false;
+        //}
+        //if (SMparams_cache[StandardModel::NumSMParamsForEWPO+2] != GammaZ) {
+        //    SMparams_cache[StandardModel::NumSMParamsForEWPO+2] = GammaZ;
+        //    bCache &= false;
+        //}
+        //for (int i=0; i<NUMofLEP2RCs; i++) {
+        //    if (flag_cache[i] != flag[i]) {
+        //        flag_cache[i] = flag[i];
+        //        bCache &= false;
+        //    }
+        //}
+        //
+        //return bCache;
 
-        return bCache;
+        return false;
     }
     
     
@@ -158,7 +160,7 @@ protected:
     double Mw, GammaZ;
     
     // caches for the SM prediction
-    mutable double SMparams_cache[StandardModel::NumSMParams+3];
+    mutable double SMparams_cache[StandardModel::NumSMParamsForEWPO+3];
     mutable double SMresult_cache; 
     mutable bool flag_cache[NUMofLEP2RCs];
     mutable double ml_cache, mq_cache, mqForHad_cache[6];

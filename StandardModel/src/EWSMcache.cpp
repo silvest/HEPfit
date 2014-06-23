@@ -38,7 +38,7 @@ EWSMcache::EWSMcache(const StandardModel& SM_i)
     // Initializations of the cache
     for (int i = 0; i < 12; ++i) {
         mf_atMz_cache[i] = 0.0;
-        for (int j = 0; j < StandardModel::NumSMParams; ++j)
+        for (int j = 0; j < StandardModel::NumSMParamsForEWPO; ++j)
             mf_atMz_params_cache[i][j] = 0.0;
     }
 }

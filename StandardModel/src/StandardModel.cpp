@@ -47,7 +47,7 @@ Ye(3, 3, 0.)
     FlagRhoZ = "NORESUM";
     FlagKappaZ = "APPROXIMATEFORMULA";
 
-    /* Internal flags (for debugging) */
+    /* Internal flags for EWPO (for debugging) */
     flag_order[EW1] = true;
     flag_order[EW1QCD1] = true;
     flag_order[EW1QCD2] = true;
@@ -55,29 +55,23 @@ Ye(3, 3, 0.)
     flag_order[EW2QCD1] = true;
     flag_order[EW3] = true;
 
+    // Caches for EWPO
     FlagCacheInStandardModel = true; // use caches in the current class
-
-    // Initializations of the caches
+    useDeltaAlphaLepton_cache = false;
+    useDeltaAlpha_cache = false;
+    useMw_cache = false;
+    useGammaW_cache = false;
     DeltaAlphaLepton_cache = 0.0;
     DeltaAlpha_cache = 0.0;
     Mw_cache = 0.0;
     GammaW_cache = 0.0;
-    int i, j;
-    for (j = 0; j < NumSMParams; ++j) {
-        DeltaAlphaLepton_params_cache[j] = 0.0;
-        DeltaAlpha_params_cache[j] = 0.0;
-        Mw_params_cache[j] = 0.0;
-        GammaW_params_cache[j] = 0.0;
-    }
-    for (i = 0; i < 12; ++i) {
+    for (int i = 0; i < 12; ++i) {
+        useRhoZ_f_cache[i] = false;
+        useKappaZ_f_cache[i] = false;
         rhoZ_f_cache[i] = complex(0.0, 0.0, false);
         kappaZ_f_cache[i] = complex(0.0, 0.0, false);
-        for (j = 0; j < NumSMParams; ++j) {
-            rhoZ_f_params_cache[i][j] = 0.0;
-            kappaZ_f_params_cache[i][j] = 0.0;
-        }
     }
-   
+
     myEWSMcache = NULL;
     myOneLoopEW = NULL;
     myTwoLoopQCD = NULL;
@@ -89,7 +83,7 @@ Ye(3, 3, 0.)
     myTwoFermionsLEP2 = NULL;
     myStandardModelMatching = NULL;
 
-    //    Particle(std::string name, double mass, double mass_scale = 0., double width = 0., double charge = 0.,double isospin = 0.);
+    // Particle(std::string name, double mass, double mass_scale = 0., double width = 0., double charge = 0.,double isospin = 0.);
     leptons[NEUTRINO_1] = Particle("NEUTRINO_1", 0., 0., 0., 0., .5);
     leptons[NEUTRINO_2] = Particle("NEUTRINO_2", 0., 0., 0., 0., .5);
     leptons[NEUTRINO_3] = Particle("NEUTRINO_3", 0., 0., 0., 0., .5);
@@ -215,6 +209,18 @@ bool StandardModel::PostUpdate()
 
     /* Set the Yukawa matrices */
     computeYukawas();
+
+    /* Check whether the parameters for the EWPO are updated or not */
+    if (!checkSMparamsForEWPO()) {
+        useDeltaAlphaLepton_cache = false;
+        useDeltaAlpha_cache = false;
+        useMw_cache = false;
+        useGammaW_cache = false;
+        for (int i = 0; i < 12; ++i) {
+            useRhoZ_f_cache[i] = false;
+            useKappaZ_f_cache[i] = false;
+        }
+    }
 
     /* Necessary for updating StandardModel parameters in StandardModelMatching */
     if (ModelName() == "StandardModel")
@@ -407,13 +413,13 @@ bool StandardModel::CheckFlags() const
 ///////////////////////////////////////////////////////////////////////////
 // For EWPO caches
 
-bool StandardModel::checkSMparams(double Params_cache[]) const
+bool StandardModel::checkSMparamsForEWPO() 
 {
     // 11 parameters in QCD:
     // AlsMz, Mz, mup, mdown, mcharm, mstrange, mtop, mbottom,
     // mut, mub, muc
     // 13 parameters in StandardModel
-    // GF, ale, dAle5Mz, mHl, 
+    // GF, ale, dAle5Mz, mHl,
     // mneutrino_1, mneutrino_2, mneutrino_3, melectron, mmu, mtau,
     // delMw, delSin2th_l, delGammaZ
     // 3 flags in StandardModel
@@ -421,7 +427,7 @@ bool StandardModel::checkSMparams(double Params_cache[]) const
 
     // Note: When modifying the array below, the constant NumSMParams has to
     // be modified accordingly.
-    double SMparams[NumSMParams] = {
+    double SMparams[NumSMParamsForEWPO] = {
         AlsMz, Mz, GF, ale, dAle5Mz,
         mHl, mtpole,
         leptons[NEUTRINO_1].getMass(),
@@ -443,15 +449,15 @@ bool StandardModel::checkSMparams(double Params_cache[]) const
     };
 
     // check updated parameters
-    bool bCache = true;
-    for (int i = 0; i < NumSMParams; ++i) {
-        if (Params_cache[i] != SMparams[i]) {
-            Params_cache[i] = SMparams[i];
-            bCache &= false;
+    bool bNotUpdated = true;
+    for (int i = 0; i < NumSMParamsForEWPO; ++i) {
+        if (SMparamsForEWPO_cache[i] != SMparams[i]) {
+            SMparamsForEWPO_cache[i] = SMparams[i];
+            bNotUpdated &= false;
         }
     }
 
-    return bCache;
+    return bNotUpdated;
 }
 
 
@@ -573,7 +579,7 @@ double StandardModel::DeltaAlphaLepton(const double s) const
 {
     if (s == Mz * Mz)
         if (FlagCacheInStandardModel)
-            if (checkSMparams(DeltaAlphaLepton_params_cache))
+            if (useDeltaAlphaLepton_cache)
                 return DeltaAlphaLepton_cache;
 
     double DeltaAlphaL = 0.0;
@@ -590,8 +596,10 @@ double StandardModel::DeltaAlphaLepton(const double s) const
     if (flag_order[EW3])
         DeltaAlphaL += myThreeLoopEW->DeltaAlpha_l(s);
 
-    if (s == Mz * Mz)
+    if (s == Mz * Mz) {
         DeltaAlphaLepton_cache = DeltaAlphaL;
+        useDeltaAlphaLepton_cache = true;
+    }
     return DeltaAlphaL;
 }
 
@@ -623,11 +631,12 @@ double StandardModel::DeltaAlphaTop(const double s) const
 double StandardModel::DeltaAlpha() const
 {
     if (FlagCacheInStandardModel)
-        if (checkSMparams(DeltaAlpha_params_cache))
+        if (useDeltaAlpha_cache)
             return DeltaAlpha_cache;
 
     double Mz2 = Mz*Mz;
     DeltaAlpha_cache = DeltaAlphaL5q() + DeltaAlphaTop(Mz2);
+    useDeltaAlpha_cache = true;
     return DeltaAlpha_cache;
 }
 
@@ -675,7 +684,7 @@ double StandardModel::Mw() const
     //          << " current:" << schemeMw << "]" << std::endl;
 
     if (FlagCacheInStandardModel)
-        if (checkSMparams(Mw_params_cache))
+        if (useMw_cache)
             return Mw_cache;
 
     double Mw;
@@ -706,6 +715,7 @@ double StandardModel::Mw() const
     }
 
     Mw_cache = Mw;
+    useMw_cache = true;
     return Mw;
 }
 
@@ -887,7 +897,7 @@ double StandardModel::GammaW(const Particle pi,
 double StandardModel::GammaW() const
 {
     if (FlagCacheInStandardModel)
-        if (checkSMparams(GammaW_params_cache))
+        if (useGammaW_cache)
             return GammaW_cache;
 
     double GammaWtmp = 0.;
@@ -896,6 +906,7 @@ double StandardModel::GammaW() const
         GammaWtmp += GammaW(leptons[i], leptons[i + 1]) + GammaW(quarks[i], quarks[i + 1]);
 
     GammaW_cache = GammaWtmp;
+    useGammaW_cache = true;
     return GammaWtmp;
 }
 
@@ -1052,7 +1063,7 @@ complex StandardModel::rhoZ_f(const Particle p) const
     else {
 
         if (FlagCacheInStandardModel)
-            if (checkSMparams(rhoZ_f_params_cache[p.getIndex()]))
+            if (useRhoZ_f_cache[p.getIndex()])
                 return rhoZ_f_cache[p.getIndex()];
 
         double myMw = Mw();
@@ -1104,6 +1115,7 @@ complex StandardModel::rhoZ_f(const Particle p) const
             ImRhoZf += deltaRho_remf[j].imag();
 
         rhoZ_f_cache[p.getIndex()] = complex(ReRhoZf, ImRhoZf, false);
+        useRhoZ_f_cache[p.getIndex()] = true;
         return (complex(ReRhoZf, ImRhoZf, false));
     }
 }
@@ -1113,7 +1125,7 @@ complex StandardModel::kappaZ_f(const Particle p) const
     if (p.is("TOP")) return (complex(0.0, 0.0, false));
 
     if (FlagCacheInStandardModel)
-        if (checkSMparams(kappaZ_f_params_cache[p.getIndex()]))
+        if (useKappaZ_f_cache[p.getIndex()])
             return kappaZ_f_cache[p.getIndex()];
 
     double myMw = Mw();
@@ -1181,6 +1193,7 @@ complex StandardModel::kappaZ_f(const Particle p) const
     }
 
     kappaZ_f_cache[p.getIndex()] = complex(ReKappaZf, ImKappaZf, false);
+    useKappaZ_f_cache[p.getIndex()] = true;
     return (complex(ReKappaZf, ImKappaZf, false));
 }
 

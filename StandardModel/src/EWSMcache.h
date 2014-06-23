@@ -1061,7 +1061,7 @@ private:
     /**
      * @brief A cache array of a set of SM parameters, used together with #mf_atMz_cache
      */
-    mutable double mf_atMz_params_cache[12][StandardModel::NumSMParams];
+    mutable double mf_atMz_params_cache[12][StandardModel::NumSMParamsForEWPO];
     mutable double mf_atMz_cache[12]; ///< A cache of the fermion masses at @f$\mu=M_Z@f$.
 
     ////////////////////////////////////////////////////////////////////////     
