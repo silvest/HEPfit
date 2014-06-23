@@ -12,7 +12,6 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <iostream>
 
-
 InputParser::InputParser(ModelFactory& ModF, ThObsFactory& ObsF) : myModelFactory(ModF), myObsFactory(ObsF)
 {
     modelset = 0;
@@ -50,7 +49,7 @@ Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<c
         tMCMC = false;
     else
         throw std::runtime_error("ERROR: wrong MCMC flag in " + name);
-    Observable o(name, thname, label, tMCMC, min, max, myObsFactory.CreateThMethod(thname,*myModel));
+    Observable o(name, thname, label, tMCMC, min, max, myObsFactory.CreateThMethod(thname, *myModel));
     return (o);
 }
 
@@ -148,7 +147,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             o2.setDistr(distr);
             ++beg;
             o2.setThname2(*beg);
-            o2.setTho2(myObsFactory.CreateThMethod(*beg,*myModel));
+            o2.setTho2(myObsFactory.CreateThMethod(*beg, *myModel));
             ++beg;
             std::string label = *beg;
             size_t pos = 0;
@@ -173,13 +172,23 @@ std::string InputParser::ReadParameters(const std::string filename,
             std::string distr = *beg;
             if (distr.compare("parametric") == 0) {
                 std::vector<ThObservable*> hthobs;
-                hthobs.push_back(myObsFactory.CreateThMethod("ggH",*myModel));
-                hthobs.push_back(myObsFactory.CreateThMethod("VBF",*myModel));
-                hthobs.push_back(myObsFactory.CreateThMethod("VH",*myModel));
-                hthobs.push_back(myObsFactory.CreateThMethod("ttH",*myModel));
+                ++beg;
+                distr = *beg;
+                if (distr.compare("LHC7") == 0) {
+                    hthobs.push_back(myObsFactory.CreateThMethod("ggH7", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("VBF7", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("VH7", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("ttH7", *myModel));
+                } else if (distr.compare("LHC8") == 0) {
+                    hthobs.push_back(myObsFactory.CreateThMethod("ggH8", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("VBF8", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("VH8", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("ttH8", *myModel));
+                } else
+                    throw std::runtime_error("ERROR: wrong keyword " + distr + " in " + ho->getName());
                 ho->setParametricLikelihood(*(++beg), hthobs);
             } else
-                throw std::runtime_error("ERROR: wrong distribution flag in " + ho->getName());
+                throw std::runtime_error("ERROR: wrong distribution flag " + distr + " in " + ho->getName());
             Observables.push_back(ho);
             ++beg;
             if (beg != tok.end())

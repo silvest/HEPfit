@@ -17,7 +17,7 @@
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions associated
  * with an extension of the %StandardModel where Higgs couplings to all vector bosons
- * are rescaled by @f[K_v@f] and Higgs couplings to all fermions are rescaled by @f[K_f@f]. 
+ * are rescaled by @f$K_v@f$ and Higgs couplings to all fermions are rescaled by @f$K_f@f$.
  * This class inherits from the %HiggsExtensionModel class, which defines parameters related to generic
  * extensions of the %StandardModel Higgs sector.
  *
@@ -63,7 +63,7 @@ public:
     static const int NHKvKfvars = 2; ///< The number of the model parameters in %HiggsKvKf.
 
     /**
-     * @brief  A string array containing the labels of the model parameters in %HiggsKvKf.
+     * @brief A string array containing the labels of the model parameters in %HiggsKvKf.
      */
     static const std::string HKvKfvars[NHKvKfvars];
 
@@ -102,52 +102,43 @@ public:
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
-    virtual double computeKW() const;
-
-    virtual double computeKZ() const;
+    ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief A method to compute the ratio of the @f[HZ\gamma@f] coupling in the current model and in the SM.
-     * @return the ratio of the @f[HZ\gamma@f] coupling in the current model and in the SM
-     */
-    virtual double computeKZga() const;
-
-    /**
-     * @brief A method to compute the ratio of the @f[H\gamma\gamma@f] coupling in the current model and in the SM.
-     * @return the ratio of the @f[H\gamma\gamma@f] coupling in the current model and in the SM
-     */
-    virtual double computeKgaga() const;
-
-    virtual double computeKb() const;
-
-    virtual double computeKc() const;
-
-    virtual double computeKglgl() const;
-
-    virtual double computeKt() const;
-
-    virtual double computeKtau() const;
-
-    virtual double computeGTotalRatio() const;
-
-    /**
-     * @brief The oblique parameter \f$S\f$.
-     * @return \f$S\f$
+     * @brief The oblique parameter @f$S@f$.
+     * @return @f$S@f$
      */
     virtual double obliqueS() const;
 
     /**
-     * @brief The oblique parameter \f$T\f$.
-     * @return \f$T\f$
+     * @brief The oblique parameter @f$T@f$.
+     * @return @f$T@f$
      */
     virtual double obliqueT() const;
 
     /**
-     * @brief The oblique parameter \f$U\f$.
-     * @return \f$U=0\f$
+     * @brief The oblique parameter @f$U@f$.
+     * @return @f$U=0@f$
      */
     virtual double obliqueU() const;
 
+    virtual double muggH(const double sqrt_s) const;
+    virtual double muVBF(const double sqrt_s) const;
+    virtual double muWH(const double sqrt_s) const;
+    virtual double muZH(const double sqrt_s) const;
+    virtual double muVH(const double sqrt_s) const;
+    virtual double muttH(const double sqrt_s) const;
+    virtual double BrHggRatio() const;
+    virtual double BrHWWRatio() const;
+    virtual double BrHZZRatio() const;
+    virtual double BrHZgaRatio() const;
+    virtual double BrHgagaRatio() const;
+    virtual double BrHtautauRatio() const;
+    virtual double BrHccRatio() const;
+    virtual double BrHbbRatio() const;
+    virtual double computeGammaTotalRatio() const;
+
+    ////////////////////////////////////////////////////////////////////////
 protected:
 
     /**
@@ -157,6 +148,33 @@ protected:
      */
     virtual void setParameter(const std::string name, const double& value);
 
+    virtual double computeKg() const;
+
+    virtual double computeKW() const;
+
+    virtual double computeKZ() const;
+
+    /**
+     * @brief A method to compute the ratio of the @f$HZ\gamma@f$ coupling in the current model and in the SM.
+     * @return the ratio of the @f$HZ\gamma@f$ coupling in the current model and in the SM
+     */
+    virtual double computeKZga() const;
+
+    /**
+     * @brief A method to compute the ratio of the @f$H\gamma\gamma@f$ coupling in the current model and in the SM.
+     * @return the ratio of the @f$H\gamma\gamma@f$ coupling in the current model and in the SM
+     */
+    virtual double computeKgaga() const;
+
+    virtual double computeKtau() const;
+
+    virtual double computeKc() const;
+
+    virtual double computeKt() const;
+
+    virtual double computeKb() const;
+
+    ////////////////////////////////////////////////////////////////////////
 private:
     double Kv, Kf;
 };

@@ -75,6 +75,13 @@ public:
 
     ////////////////////////////////////////////////////////////////////////
 
+    virtual StandardModel getTrueSM() const
+    {
+        return trueSM;
+    }
+
+    ////////////////////////////////////////////////////////////////////////
+
     /**
      * @brief New physics contribution to the Fermi constant.
      * @details The new physics contribution @f$\Delta G@f$ is defined as
@@ -274,57 +281,160 @@ public:
      */
     virtual double deltaR0_f(const Particle p) const;
     virtual double R0_f(const Particle p) const;
-        
-    virtual double computeKW() const
+
+    ////////////////////////////////////////////////////////////////////////
+
+    /**
+     * @brief The ratio @f$\mu_{ggH}@f$ between the gluon-gluon fusion Higgs
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ggH}@f$
+     */
+    virtual double muggH(const double sqrt_s) const
     {
         return 1.;
     }
 
-    virtual double computeKZ() const
+    /**
+     * @brief The ratio @f$\mu_{VBF}@f$ between the vector-boson fusion Higgs
+     * production cross-section in the current model and in the Standard Model. 
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{VBF}@f$
+     */
+    virtual double muVBF(const double sqrt_s) const
     {
         return 1.;
     }
 
-    virtual double computeKZga() const
+    /**
+     * @brief The ratio @f$\mu_{WH}@f$ between the W-Higgs associated production
+     * cross-section in the current model and in the Standard Model. 
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{WH}@f$
+     */
+    virtual double muWH(const double sqrt_s) const
     {
         return 1.;
     }
 
-    virtual double computeKgaga() const
+    /**
+     * @brief The ratio @f$\mu_{ZH}@f$ between the Z-Higgs associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ZH}@f$
+     */
+    virtual double muZH(const double sqrt_s) const
     {
         return 1.;
     }
 
-    virtual double computeKglgl() const
+    /**
+     * @brief The ratio @f$\mu_{VH}@f$ between the WH+ZH associated production
+     * cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{VH}@f$
+     */
+    virtual double muVH(const double sqrt_s) const
     {
         return 1.;
     }
 
-    virtual double computeKb() const
+    /**
+     * @brief The ratio @f$\mu_{ttH}@f$ between the t-tbar-Higgs associated 
+     * production cross-section in the current model and in the Standard Model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\mu_{ttH}@f$
+     */
+    virtual double muttH(const double sqrt_s) const
     {
         return 1.;
     }
 
-    virtual double computeKc() const
+    /**
+     * @brief The ratio of the Br@f$(H\to gg)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to gg)@f$/Br@f$(H\to gg)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHggRatio() const
     {
         return 1.;
     }
 
-    virtual double computeKt() const
+    /**
+     * @brief The ratio of the Br@f$(H\to WW)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to WW)@f$/Br@f$(H\to WW)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHWWRatio() const
     {
         return 1.;
     }
 
-    virtual double computeKtau() const
+    /**
+     * @brief The ratio of the Br@f$(H\to ZZ)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to ZZ)@f$/Br@f$(H\to ZZ)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHZZRatio() const
     {
         return 1.;
     }
 
-    virtual double computeGTotalRatio() const
+    /**
+     * @brief The ratio of the Br@f$(H\to Z\gamma)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to Z\gamma)@f$/Br@f$(H\to Z\gamma)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHZgaRatio() const
     {
         return 1.;
     }
-    
+
+    /**
+     * @brief The ratio of the Br@f$(H\to \gamma\gamma)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to \gamma\gamma)@f$/Br@f$(H\to \gamma\gamma)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHgagaRatio() const
+    {
+        return 1.;
+    }
+
+    /**
+     * @brief The ratio of the Br@f$(H\to \tau^+\tau^-)@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to \tau^+\tau^-)@f$/Br@f$(H\to \tau^+\tau^-)_{\mathrm{SM}}@f$
+     */
+    virtual double BrHtautauRatio() const
+    {
+        return 1.;
+    }
+
+    /**
+     * @brief The ratio of the Br@f$(H\to c\bar{c})@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to c\bar{c})@f$/Br@f$(H\to c\bar{c})_{\mathrm{SM}}@f$
+     */
+    virtual double BrHccRatio() const
+    {
+        return 1.;
+    }
+
+    /**
+     * @brief The ratio of the Br@f$(H\to b\bar{b})@f$ in the current model
+     * and in the Standard Model.
+     * @return Br@f$(H\to b\bar{b})@f$/Br@f$(H\to b\bar{b})_{\mathrm{SM}}@f$
+     */
+    virtual double BrHbbRatio() const
+    {
+        return 1.;
+    }
+
+    virtual double computeGammaTotalRatio() const
+    {
+        return 1.;
+    }
+
     ////////////////////////////////////////////////////////////////////////
 protected:
     StandardModel trueSM;

@@ -25,9 +25,8 @@ ModelFactory& ModelF, ThObsFactory& ThObsF,
                        const std::string& ModelConf_i,
                        const std::string& MonteCarloConf_i,
                        const std::string& OutFile_i,
-                       const std::string& JobTag_i,
-                       const bool checkTheoryRange_i)
-: myInputParser(ModelF, ThObsF), MCEngine(ModPars, Obs, Obs2D, CGO, checkTheoryRange_i)
+                       const std::string& JobTag_i)
+: myInputParser(ModelF, ThObsF), MCEngine(ModPars, Obs, Obs2D, CGO)
 {
     ModelConf = ModelConf_i;
     MCMCConf = MonteCarloConf_i;
@@ -36,6 +35,7 @@ ModelFactory& ModelF, ThObsFactory& ThObsF,
     else OutFile = OutFile_i + JobTag + ".root";
     ObsDirName = "Observables" + JobTag;
     FindModeWithMinuit = false;
+    CalculateEvidence = false;
     PrintAllMarginalized = false;
     PrintCorrelationMatrix = false;
     PrintKnowledgeUpdatePlots = false;
@@ -244,6 +244,11 @@ void MonteCarlo::Run(const int rank)
                     if (beg->compare("true") == 0) {
                         FindModeWithMinuit = true;
                     }
+                } else if (beg->compare("CalculateEvidence") == 0) {
+                    ++beg;
+                    if (beg->compare("true") == 0) {
+                        CalculateEvidence = true;
+                    }
                 } else if (beg->compare("PrintAllMarginalized") == 0) {
                     ++beg;
                     if (beg->compare("true") == 0) {
@@ -291,6 +296,19 @@ void MonteCarlo::Run(const int rank)
             if (FindModeWithMinuit)
                 MCEngine.FindMode(MCEngine.GetBestFitParameters());
 
+            // calculate the evidence
+            if (CalculateEvidence) {
+                // BAT default: 
+                //   kIntGrid for the number of free parameters <= 2;
+                //   otherwise, kIntMonteCarlo (or kIntCuba if available)
+                MCEngine.SetIntegrationMethod(BCIntegrate::kIntCuba);
+                //MCEngine.SetRelativePrecision(1.e-3);
+                //MCEngine.SetAbsolutePrecision(1.e-10);
+                MCEngine.SetNIterationsMin(10000);
+                MCEngine.Integrate();
+                BCLog::OutSummary(Form(" Evidence = %.6e", MCEngine.GetIntegral()));
+            }
+
             // draw all marginalized distributions into a PostScript file
             if (PrintAllMarginalized)
                 MCEngine.PrintAllMarginalized(("MonteCarlo_plots" + JobTag + ".ps").c_str());
@@ -300,7 +318,7 @@ void MonteCarlo::Run(const int rank)
 
             // print histograms
             MCEngine.PrintHistogram(out, ObsDirName);
-            
+
             BCSummaryTool myBCSummaryTool(&MCEngine);
 
             // draw the correlation matrix into an eps file
@@ -319,7 +337,7 @@ void MonteCarlo::Run(const int rank)
             // draw an overview plot of the parameters into an eps file
             if (PrintParameterPlot)
                 myBCSummaryTool.PrintParameterPlot(("ParamSummary" + JobTag + ".eps").c_str());
-            
+
             // print a LaTeX table of the parameters into a tex file
             //myBCSummaryTool.PrintParameterLatex(("ParamSummary" + JobTag + ".tex").c_str());
         

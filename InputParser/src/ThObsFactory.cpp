@@ -7,6 +7,8 @@
 #include <ParamObs.h>
 
 ThObsFactory::ThObsFactory() {
+
+    //-----  Electroweak precision observables  -----
     obsThFactory["Mw"] = boost::factory<Mw*>();
     obsThFactory["GammaW"] = boost::factory<GammaW*>();
     obsThFactory["GammaZ"] = boost::factory<GammaZ*>();
@@ -23,15 +25,25 @@ ThObsFactory::ThObsFactory() {
     obsThFactory["Rcharm"] = boost::factory<Rcharm*>();
     obsThFactory["Rbottom"] = boost::factory<Rbottom*>();
 
-    //----- Higgs Extension observables ----------
-    obsThFactory["ggH"] = boost::factory<muggH*>();
-    obsThFactory["VBF"] = boost::factory<muVBF*>();
-    obsThFactory["VH"] = boost::factory<muVH*>();
-    obsThFactory["ttH"] = boost::factory<muttH*>();
-    obsThFactory["BrHWWRatio"] = boost::factory<BrWWRatio*>();
-    obsThFactory["BrHZZRatio"] = boost::factory<BrZZRatio*>();
-    obsThFactory["BrHgagaRatio"] = boost::factory<BrgagaRatio*>();
-    obsThFactory["BrHtautauRatio"] = boost::factory<BrtautauRatio*>();
+    //-----  Higgs Extension observables  ----------
+    const double sqrt_s_LHC7 = 7.0; ///< the center-of-mass energy in TeV
+    const double sqrt_s_LHC8 = 8.0; ///< the center-of-mass energy in TeV
+    obsThFactory["ggH7"] = boost::bind(boost::factory<muggH*>(),  _1, sqrt_s_LHC7);
+    obsThFactory["VBF7"] = boost::bind(boost::factory<muVBF*>(), _1, sqrt_s_LHC7);
+    obsThFactory["VH7"] = boost::bind(boost::factory<muVH*>(), _1, sqrt_s_LHC7);
+    obsThFactory["ttH7"] = boost::bind(boost::factory<muttH*>(), _1, sqrt_s_LHC7);
+    obsThFactory["ggH8"] = boost::bind(boost::factory<muggH*>(),  _1, sqrt_s_LHC8);
+    obsThFactory["VBF8"] = boost::bind(boost::factory<muVBF*>(), _1, sqrt_s_LHC8);
+    obsThFactory["VH8"] = boost::bind(boost::factory<muVH*>(), _1, sqrt_s_LHC8);
+    obsThFactory["ttH8"] = boost::bind(boost::factory<muttH*>(), _1, sqrt_s_LHC8);
+    obsThFactory["BrHggRatio"] = boost::factory<BrHtoggRatio*>();
+    obsThFactory["BrHWWRatio"] = boost::factory<BrHtoWWRatio*>();
+    obsThFactory["BrHZZRatio"] = boost::factory<BrHtoZZRatio*>();
+    obsThFactory["BrHZgaRatio"] = boost::factory<BrHtoZgaRatio*>();
+    obsThFactory["BrHgagaRatio"] = boost::factory<BrHtogagaRatio*>();
+    obsThFactory["BrHtautauRatio"] = boost::factory<BrHtotautauRatio*>();
+    obsThFactory["BrHccRatio"] = boost::factory<BrHtoccRatio*>();
+    obsThFactory["BrHbbRatio"] = boost::factory<BrHtobbRatio*>();
 
     //-----  Epsilon parameters  -----
     obsThFactory["epsilon1"] = boost::factory<Epsilon1*>();
@@ -60,7 +72,7 @@ ThObsFactory::ThObsFactory() {
         obsThFactory["RcharmLEP2_" + sqrt_s_str] = boost::bind(boost::factory<LEP2Rcharm*>(), _1, sqrt_s_HF[i]);
     }
 
-//    //-----  Flavour observables  -----
+    //-----  Flavour observables  -----
     obsThFactory["Dmd1"] = boost::factory<DmBd*>();
     obsThFactory["Dms1"] = boost::factory<DmBs*>();
     obsThFactory["M12D"] = boost::factory<M12D*>();

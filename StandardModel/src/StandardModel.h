@@ -976,8 +976,8 @@ public:
     {
         return myTwoLoopQCD;
     }
-    
-    Flavour* getMyFlavour() const 
+
+    Flavour* getMyFlavour() const
     {
         return myFlavour;
     }
@@ -1791,7 +1791,7 @@ public:
 
 
     ////////////////////////////////////////////////////////////////////////
-    // Caches for EWPO
+    // For EWPO caches
 
     /**
      * @brief The number of the SM parameters that are relevant to the %EW
@@ -1800,12 +1800,11 @@ public:
      *
      * @sa checkSMparams()
      */
-    static const int NumSMParams = 27;
+    static const int NumSMParamsForEWPO = 27;
 
     /**
-     * @brief A method to check whether the values of the parameters stored
-     * in the given cache are all identical to those of the corresponding
-     * model parameters in StandardModel.
+     * @brief A method to check whether the parameters relevant to the EWPO
+     * are updated. 
      * @details This function is used for the cashing methods implemented in
      * the current class:
      * DeltaAlphaLepton(), DeltaAlpha(), Mw_SM(), rhoZ_l_SM(), rhoZ_q_SM(),
@@ -1814,273 +1813,395 @@ public:
      * Carlo run and differ from those stored in the given cache, Params_cache,
      * this function updates the cache, and returns false.
      * @param[in,out] Params_cache the cache of the parameters to be checked
-     * @return a boolean that is true if the values of the parameters stored in
-     * the given cache differ from those of the corresponding model parameters
-     * in StandardModel
+     * @return a boolean that is true if the parameters are not updated. 
      *
      * @sa NumSMParams
      */
-    bool checkSMparams(double Params_cache[]) const;
-
+    bool checkSMparamsForEWPO();
 
     ////////////////////////////////////////////////////////////////////////        
     // Several Higgs-related quantities used in Higgs coupling analysis
 
     /**
-     * @brief This method computes the top loop contribution to @f$H\to\gamma\gamma@f$ in the Standard Model.
-     * Currently it returns the value of tab 40 in ref. @cite Heinemeyer:2013tqa
-     * @return Width of H->gamma gamma (top loop contribution squared) in eV
+     * @brief The ggH cross section in the Standard Model.
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return ggH cross section in pb
      */
-    double computeGammagagatt() const
+    double computeSigmaggH(const double sqrt_s) const
     {
-        return 662.84; // in eV for Mh=125 GeV
-        //return 680.39; // in eV for Mh=126 GeV
+        if (sqrt_s == 7.0) {
+            return 15.01; // in pb for Mh=125.5 GeV
+            //return 14.99; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 8.0) {
+            return 19.12; // in pb for Mh=125.5 GeV
+            //return 19.09; // in pb for Mh=125.6 GeV
+        } else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH()");
     }
 
     /**
-     * @brief This method computes the @f$W@f$ loop contribution to @f$H\to\gamma\gamma@f$ in the Standard Model.
-     * Currently it returns the value of tab 40 in ref. @cite Heinemeyer:2013tqa
-     * @return Width of H->gamma gamma (W loop contribution squared) in eV
+     * @brief The square of the top-quark contribution to the ggH cross section in the Standard Model.
+     * @details See Table 38 in ref. @cite Heinemeyer:2013tqa
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\sigma_{ggH}^{tt}@f$ in pb
      */
-    double computeGammagagaWW() const
+    double computeSigmaggH_tt(const double sqrt_s) const
     {
-        return 14731.86; // in eV for Mh=125 GeV
-        //return 15221.98; // in eV for Mh=126 GeV
+        if (sqrt_s == 7.0) {
+            std::cout << "Why is computeSigmaggH_tt(7TeV) much smaller than computeSigmaggH(7TeV)?" << std::endl;
+            return 4.355; // in pb for Mh=125 GeV
+        } else if (sqrt_s == 8.0)
+            return 18.31; // in pb for Mh=125 GeV
+        else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tt()");
+    }
+
+   /**
+     * @brief The square of the bottom-quark contribution to the ggH cross section in the Standard Model.
+     * @details See Table 38 in ref. @cite Heinemeyer:2013tqa
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\sigma_{ggH}^{bb}@f$ in pb
+     */
+    double computeSigmaggH_bb(const double sqrt_s) const
+    {
+        if (sqrt_s == 7.0)
+            return 0.09528; // in pb for Mh=125 GeV
+        else if (sqrt_s == 8.0)
+            return 0.1206; // in pb for Mh=125 GeV
+        else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_bb()");
+    }
+
+   /**
+     * @brief The top-bottom interference contribution to the ggH cross section in the Standard Model.
+     * @details See Table 38 in ref. @cite Heinemeyer:2013tqa
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return @f$\sigma_{ggH}^{tb}@f$ in pb
+     */
+    double computeSigmaggH_tb(const double sqrt_s) const
+    {
+        if (sqrt_s == 7.0)
+            return -0.8970; // in pb for Mh=125 GeV
+        else if (sqrt_s == 8.0)
+            return -1.125; // in pb for Mh=125 GeV
+        else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tb()");
+    }
+    
+    /**
+     * @brief The VBF cross section in the Standard Model.
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return VBF cross section in pb
+     */
+    double computeSigmaVBF(const double sqrt_s) const
+    {
+        if (sqrt_s == 7.0) {
+            return 1.219; // in pb for Mh=125.5 GeV
+            //return 1.214; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 8.0) {
+            return 1.573; // in pb for Mh=125.5 GeV
+            //return 1.572; // in pb for Mh=125.6 GeV
+        } else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaVBF()");
     }
 
     /**
-     * @brief This method computes the mixed @f$t-W@f$ loop contribution to @f$H\to\gamma\gamma@f$ in the Standard Model.
-     * Currently it returns the value of tab 40 in ref. @cite Heinemeyer:2013tqa
-     * @return Width of H->gamma gamma (top W loop interference) in eV
-     */
-    double computeGammagagatW() const
-    {
-        return -6249.93; // in eV for Mh=125 GeV
-        //return -6436.35; // in eV for Mh=126 GeV
-    }
-
-    /**
-     * @brief This method computes the top loop contribution to @f$H\to Z\gamma@f$ in the Standard Model.
-     * Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa
-     * @return Width of H->Z gamma (top loop contribution squared) in eV
-     */
-    double computeGammaZgatt() const
-    {
-        return 21.74; // in eV for Mh=125 GeV
-        //return 23.51; // in eV for Mh=126 GeV
-    }
-
-    /**
-     * @brief This method computes the @f$W@f$ loop contribution to @f$H\to Z\gamma@f$ in the Standard Model.
-     * Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa
-     * @return Width of H->Z gamma (W loop contribution squared) in eV
-     */
-    double computeGammaZgaWW() const
-    {
-        return 7005.6; // in eV for Mh=125 GeV
-        //return 7648.4; // in eV for Mh=126 GeV
-    }
-
-    /**
-     * @brief This method computes the mixed @f$t-W@f$ loop contribution to @f$H\to Z\gamma@f$ in the Standard Model.
-     * Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa
-     * @return Width of H->Z gamma (top W loop interference) in eV
-     */
-    double computeGammaZgatW() const
-    {
-        return -780.4; // in eV for Mh=125 GeV
-        //return -848.1; // in eV for Mh=126 GeV
-    }
-
-    /**
-     * @brief This method computes the W fusion contribution @f$\sigma_{WF}f] to higgs-production
+     * @brief The W fusion contribution @f$\sigma_{WF}@f$ to higgs-production
      * cross section in the Standard Model.
-     * Currently it returns the value of tab 37 in ref. @cite Heinemeyer:2013tqa
-     * @return W fusion contribution @f$\sigma_{WF}f] to cross section in pb
+     * @details Currently it returns the value of tab 37 in ref. @cite Heinemeyer:2013tqa
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return W fusion contribution @f$\sigma_{WF}@f$ to cross section in pb
      */
-    double computeSigmaWF() const
+    double computeSigmaWF(const double sqrt_s) const
     {
-        //return 0.938; // in pb for Mh=125 GeV and sqrt_s=7 TeV
-        return 1.210; // in pb for Mh=125 GeV and sqrt_s=8 TeV
+        if (sqrt_s == 7.0) {
+            return 0.938; // in pb for Mh=125 GeV
+        } else if (sqrt_s == 8.0) {
+            return 1.210; // in pb for Mh=125 GeV
+        } else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaWF()");
     }
 
     /**
-     * @brief This method computes the Z fusion contribution @f$\sigma_{ZF}f] to higgs-production
+     * @brief The Z fusion contribution @f$\sigma_{ZF}@f$ to higgs-production
      * cross section in the Standard Model.
-     * Currently it returns the value of tab 37 in ref. @cite Heinemeyer:2013tqa
-     * @return W fusion contribution @f$\sigma_{ZF}f] to cross section in pb
+     * @details Currently it returns the value of tab 37 in ref. @cite Heinemeyer:2013tqa
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return W fusion contribution @f$\sigma_{ZF}@f$ to cross section in pb
      */
-    double computeSigmaZF() const
+    double computeSigmaZF(const double sqrt_s) const
     {
-        //return 0.321; // in pb for Mh=125 GeV and sqrt_s=7 TeV
-        return 0.417; // in pb for Mh=125 GeV and sqrt_s=8 TeV
+        if (sqrt_s == 7.0) {
+            return 0.321; // in pb for Mh=125 GeV
+        } else if (sqrt_s == 8.0) {
+            return 0.417; // in pb for Mh=125 GeV
+        } else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaZF()");
     }
 
     /**
-     * @brief This method computes the Z W interference fusion contribution @f$\sigma_{ZWF}f] to higgs-production
-     * cross section in the Standard Model.
-     * Negligible (0.1%) in the Standard model.
-     * @return Z W interference fusion contribution @f$\sigma_{ZWF}f] to cross section in pb
+     * @brief The Z W interference fusion contribution @f$\sigma_{ZWF}@f$ to
+     * higgs-production cross section in the Standard Model.
+     * @details Negligible (0.1%) in the Standard model.
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return Z W interference fusion contribution @f$\sigma_{ZWF}@f$ to cross section in pb
      */
-    double computeSigmaZWF() const
+    double computeSigmaZWF(const double sqrt_s) const
     {
         return 0.;
     }
 
     /**
-     * @brief This method computes the ggH cross section in the Standard Model.
-     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa.
-     * @return ggH cross section in pb
+     * @brief The WH production cross section in the Standard Model.
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return WH production cross section in pb
      */
-    double computeSigmaggH() const
+    double computeSigmaWH(const double sqrt_s) const
     {
-        //return 15.01; // in pb for Mh=125.5 GeV and sqrt_s=7 TeV
-        return 19.12; // in pb for Mh=125.5 GeV and sqrt_s=8 TeV
-        //return 14.99; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
-        //return 19.09; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
+        if (sqrt_s == 7.0) {
+            return 0.5703; // in pb for Mh=125.5 GeV
+            //return 0.5688; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 8.0) {
+            return 0.6951; // in pb for Mh=125.5 GeV
+            //return 0.6931; // in pb for Mh=125.6 GeV
+        } else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaWH()");
+    }
+
+    /**
+     * @brief The ZH production cross section in the Standard Model.
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return ZH production cross section in pb
+     */
+    double computeSigmaZH(const double sqrt_s) const
+    {
+        if (sqrt_s == 7.0) {
+            return 0.3309; // in pb for Mh=125.5 GeV
+            //return 0.3299; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 8.0) {
+            return 0.4102; // in pb for Mh=125.5 GeV
+            //return 0.4091; // in pb for Mh=125.6 GeV
+        } else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmaZH()");
+    }
+
+    /**
+     * @brief The ttH production cross section in the Standard Model.
+     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa
+     * @param[in] sqrt_s the center-of-mass energy in TeV
+     * @return ttH production cross section in pb
+     */
+    double computeSigmattH(const double sqrt_s) const
+    {
+        if (sqrt_s == 7.0) {
+            return 0.0853; // in pb for Mh=125.5 GeV
+            //return 0.0851; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 8.0) {
+            return 0.1277; // in pb for Mh=125.5 GeV
+            //return 0.1274; // in pb for Mh=125.6 GeV
+        } else
+            throw std::runtime_error("Bad argument in StandardModel::computeSigmattH()");
     }
     
     /**
-     * @brief This method computes the VBF cross section in the Standard Model.
-     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa.
-     * @return VBF cross section in pb
+     * @brief The Br@f$(H\to gg)@f$ in the Standard Model.
+     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @return Br@f$(H\to gg)@f$
      */
-    double computeSigmaVBF() const
+    double computeBrHtogg() const
     {
-        //return 1.219; // in pb for Mh=125.5 GeV and sqrt_s=7 TeV
-        return 1.573; // in pb for Mh=125.5 GeV and sqrt_s=8 TeV
-        //return 1.214; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
-        //return 1.572; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
+        return 8.52e-2; // Mh=125.5 GeV and 125.6 GeV
     }
 
     /**
-     * @brief This method computes the WH production cross section
-     * in the Standard Model.
-     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa.
-     * @return WH production cross section in pb
+     * @brief The Br@f$(H\to WW)@f$ in the Standard Model.
+     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @return Br@f$(H\to WW)@f$ in the Standard Model
      */
-    double computeSigmaWH() const
-    {
-        //return 0.5703; // in pb for Mh=125.5 GeV and sqrt_s=7 TeV
-        return 0.6951; // in pb for Mh=125.5 GeV and sqrt_s=8 TeV
-        //return 0.5688; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
-        //return 0.6931; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
-    }
-
-    /**
-     * @brief This method computes the ZH production cross section
-     * in the Standard Model.
-     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa.
-     * @return ZH production cross section in pb
-     */
-    double computeSigmaZH() const
-    {
-        //return 0.3309; // in pb for Mh=125.5 GeV and sqrt_s=7 TeV
-        return 0.4102; // in pb for Mh=125.5 GeV and sqrt_s=8 TeV
-        //return 0.3299; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
-        //return 0.4091; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
-    }
-
-    /**
-     * @brief This method computes the ttH production cross section
-     * in the Standard Model.
-     * @details See Tables B.67 and B.74 in ref. @cite Heinemeyer:2013tqa.
-     * @return ttH production cross section in pb
-     */
-    double computeSigmattH() const
-    {
-        //return 0.0853; // in pb for Mh=125.5 GeV and sqrt_s=7 TeV
-        return 0.1277; // in pb for Mh=125.5 GeV and sqrt_s=8 TeV
-        //return 0.0851; // in pb for Mh=125.6 GeV and sqrt_s=7 TeV
-        //return 0.1274; // in pb for Mh=125.6 GeV and sqrt_s=8 TeV
-    }
-
-    /**
-     * @brief This method computes the @f$BR(H\to WW)@f$ in the Standard Model.
-     * Currently it returns the value of tables in appendix A (Mh=125.6 GeV) in ref. @cite Heinemeyer:2013tqa
-     * @return The @f$BR(H\to WW)@f$ in the Standard Model
-     */
-    double computeBRWW() const
+    double computeBrHtoWW() const
     {
         //return 2.23e-1; // Mh=125.5 GeV
         return 2.24e-1; // Mh=125.6 GeV
     }
 
     /**
-     * @brief This method computes the @f$BR(H\to ZZ)@f$ in the Standard Model.
-     * Currently it returns the value of tables in appendix A (Mh=125.6 GeV) in ref. @cite Heinemeyer:2013tqa
-     * @return The @f$BR(H\to ZZ)@f$ in the Standard Model
+     * @brief The Br@f$(H\to ZZ)@f$ in the Standard Model.
+     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @return Br@f$(H\to ZZ)@f$ in the Standard Model
      */
-    double computeBRZZ() const
+    double computeBrHtoZZ() const
     {
         return 2.76e-2; // Mh=125.5 GeV
         //return 2.79e-2; // Mh=125.6 GeV
     }
 
     /**
-     * @brief This method computes the @f$BR(H\to\gamma\gamma)@f$ in the Standard Model.
-     * Currently it returns the value of tables in appendix A (Mh=125.6 GeV) in ref. @cite Heinemeyer:2013tqa
-     * @return The @f$BR(H\to\gamma\gamma)@f$ in the Standard Model
+     * @brief The Br@f$(H\to Z\gamma)@f$ in the Standard Model.
+     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @return Br@f$(H\to Z\gamma)@f$ in the Standard Model
      */
-    double computeBRgaga() const
-    {
-        return 2.28e-3; // Mh=125.5 GeV and 125.6 GeV
-    }
-
-    /**
-     * @brief This method computes the @f$BR(H\to Z\gamma)@f$ in the Standard Model.
-     * Currently it returns the value of tables in appendix A (Mh=125.6 GeV) in ref. @cite Heinemeyer:2013tqa
-     * @return The @f$BR(H\to Z\gamma)@f$ in the Standard Model
-     */
-    double computeBRZga() const
+    double computeBrHtoZga() const
     {
         return 1.58e-3; // Mh=125.5 GeV
         //return 1.59e-3; // Mh=125.6 GeV
     }
 
     /**
-     * @brief This method computes the @f$BR(H\to gg)@f$ in the Standard Model.
-     * Currently it returns the value of tables in appendix A (Mh=125.6 GeV) in ref. @cite Heinemeyer:2013tqa
-     * @return The @f$BR(H\to gg)@f$ in the Standard Model
+     * @brief The Br@f$(H\to\gamma\gamma)@f$ in the Standard Model.
+     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @return Br@f$(H\to\gamma\gamma)@f$ in the Standard Model
      */
-    double computeBRglgl() const
+    double computeBrHtogaga() const
     {
-        return 8.52e-2; // Mh=125.5 GeV and 125.6 GeV
+        return 2.28e-3; // Mh=125.5 GeV and 125.6 GeV
     }
 
     /**
-     * @brief This method computes the @f$BR(H\to bb)@f$ in the Standard Model.
-     * Currently it returns the value of tables in appendix A (Mh=125.6 GeV) in ref. @cite Heinemeyer:2013tqa
-     * @return The @f$BR(H\to bb)@f$ in the Standard Model
+     * @brief The Br@f$(H\to \tau\tau)@f$ in the Standard Model.
+     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @return Br@f$(H\to \tau\tau)@f$ in the Standard Model
      */
-    double computeBRbb() const
-    {
-        return 5.69e-1; // Mh=125.5 GeV
-        //return 5.67e-1; // Mh=125.6 GeV
-    }
-
-    /**
-     * @brief This method computes the @f$BR(H\to \tau\tau)@f$ in the Standard Model.
-     * Currently it returns the value of tables in appendix A (Mh=125.6 GeV) in ref. @cite Heinemeyer:2013tqa
-     * @return The @f$BR(H\to \tau\tau)@f$ in the Standard Model
-     */
-    double computeBRtautau() const
+    double computeBrHtotautau() const
     {
         return 6.24e-2; // Mh=125.5 GeV
         //return 6.22e-2; // Mh=125.6 GeV
     }
 
     /**
-     * @brief This method computes the @f$BR(H\to cc)@f$ in the Standard Model.
-     * Currently it returns the value of tables in appendix A (Mh=125.6 GeV) in ref. @cite Heinemeyer:2013tqa
-     * @return The @f$BR(H\to cc)@f$ in the Standard Model
+     * @brief The Br@f$(H\to cc)@f$ in the Standard Model.
+     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @return Br@f$(H\to cc)@f$ in the Standard Model
      */
-    double computeBRcc() const
+    double computeBrHtocc() const
     {
         return 2.87e-2; // Mh=125.5 GeV
         //return 2.86e-2; // Mh=125.6 GeV
     }
 
+    /**
+     * @brief The Br@f$(H\to bb)@f$ in the Standard Model.
+     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @return Br@f$(H\to bb)@f$ in the Standard Model
+     */
+    double computeBrHtobb() const
+    {
+        return 5.69e-1; // Mh=125.5 GeV
+        //return 5.67e-1; // Mh=125.6 GeV
+    }
+
+    /**
+     * @brief The Higgs total width in the Standard Model.
+     * @details Currently it returns the value of tables in appendix A (Mh=125.5 GeV) in ref. @cite Heinemeyer:2013tqa
+     * @return @f$\Gamma_h@f$ in GeV in the Standard Model
+     */
+    double computeGammaHTotal() const
+    {
+        return 4.14e-3; // Mh=125.5 GeV
+        //return 4.15e-3; // Mh=125.6 GeV
+    }
+
+    /**
+     * @brief The top loop contribution to @f$H\to gg@f$ in the Standard Model.
+     * @details Currently it returns the value of tab 39 in ref. @cite Heinemeyer:2013tqa
+     * @return Width of @f$H\to gg@f$ (top loop contribution squared) in keV
+     */
+    double computeGammaHgg_tt() const
+    {
+        return 380.8; // in keV for Mh=125 GeV
+        //return 389.6; // in keV for Mh=126 GeV
+    }
+
+    /**
+     * @brief The bottom loop contribution to @f$H\to gg@f$ in the Standard Model.
+     * @details Currently it returns the value of tab 39 in ref. @cite Heinemeyer:2013tqa
+     * @return Width of @f$H\to gg@f$ (bottom loop contribution squared) in keV
+     */
+    double computeGammaHgg_bb() const
+    {
+        return 3.96; // in keV for Mh=125 GeV
+        //return 3.95; // in keV for Mh=126 GeV
+    }
+
+    /**
+     * @brief The top-bottom interference contribution to @f$H\to gg@f$ in the Standard Model.
+     * @details Currently it returns the value of tab 39 in ref. @cite Heinemeyer:2013tqa
+     * @return Width of @f$H\to gg@f$ (top-bottom interference contribution) in keV
+     */
+    double computeGammaHgg_tb() const
+    {
+        return -42.1; // in keV for Mh=125 GeV
+        //return -42.7; // in keV for Mh=126 GeV
+    }
+    
+    /**
+     * @brief The top loop contribution to @f$H\to Z\gamma@f$ in the Standard Model.
+     * @details Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa
+     * @return Width of @f$H\to Z\gamma@f$ (top loop contribution squared) in eV
+     */
+    double computeGammaHZga_tt() const
+    {
+        return 21.74; // in eV for Mh=125 GeV
+        //return 23.51; // in eV for Mh=126 GeV
+    }
+
+    /**
+     * @brief The @f$W@f$ loop contribution to @f$H\to Z\gamma@f$ in the Standard Model.
+     * Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa
+     * @return Width of @f$H\to Z\gamma@f$ (W loop contribution squared) in eV
+     */
+    double computeGammaHZga_WW() const
+    {
+        return 7005.6; // in eV for Mh=125 GeV
+        //return 7648.4; // in eV for Mh=126 GeV
+    }
+
+    /**
+     * @brief The mixed @f$t-W@f$ loop contribution to @f$H\to Z\gamma@f$ in the Standard Model.
+     * @details Currently it returns the value of tab 41 in ref. @cite Heinemeyer:2013tqa
+     * @return Width of @f$H\to Z\gamma@f$ (top W loop interference) in eV
+     */
+    double computeGammaHZga_tW() const
+    {
+        return -780.4; // in eV for Mh=125 GeV
+        //return -848.1; // in eV for Mh=126 GeV
+    }
+
+    /**
+     * @brief The top loop contribution to @f$H\to\gamma\gamma@f$ in the Standard Model.
+     * @details Currently it returns the value of tab 40 in ref. @cite Heinemeyer:2013tqa
+     * @return Width of @f$H\to\gamma\gamma@f$ (top loop contribution squared) in eV
+     */
+    double computeGammaHgaga_tt() const
+    {
+        return 662.84; // in eV for Mh=125 GeV
+        //return 680.39; // in eV for Mh=126 GeV
+    }
+
+    /**
+     * @brief The @f$W@f$ loop contribution to @f$H\to\gamma\gamma@f$ in the Standard Model.
+     * @details Currently it returns the value of tab 40 in ref. @cite Heinemeyer:2013tqa
+     * @return Width of @f$H\to\gamma\gamma@f$ (W loop contribution squared) in eV
+     */
+    double computeGammaHgaga_WW() const
+    {
+        return 14731.86; // in eV for Mh=125 GeV
+        //return 15221.98; // in eV for Mh=126 GeV
+    }
+
+    /**
+     * @brief The mixed @f$t-W@f$ loop contribution to @f$H\to\gamma\gamma@f$ in the Standard Model.
+     * @details Currently it returns the value of tab 40 in ref. @cite Heinemeyer:2013tqa
+     * @return Width of @f$H\to\gamma\gamma@f$ (top W loop interference) in eV
+     */
+    double computeGammaHgaga_tW() const
+    {
+        return -6249.93; // in eV for Mh=125 GeV
+        //return -6436.35; // in eV for Mh=126 GeV
+    }
 
     ////////////////////////////////////////////////////////////////////////
 protected:
@@ -2389,42 +2510,19 @@ private:
     // Caches for EWPO
 
     bool FlagCacheInStandardModel; ///< A flag for caching (true by default).
-
-    /**
-     * @brief A cache array of a set of SM parameters, used together with #DeltaAlphaLepton_cache.
-     */
-    mutable double DeltaAlphaLepton_params_cache[NumSMParams];
+    mutable double SMparamsForEWPO_cache[NumSMParamsForEWPO];
     mutable double DeltaAlphaLepton_cache; ///< A cache of the value of @f$\Delta\alpha_{\mathrm{lept}}(M_Z^2)@f$.
-
-    /**
-     * @brief A cache array of a set of SM parameters, used together with #DeltaAlpha_cache.
-     */
-    mutable double DeltaAlpha_params_cache[NumSMParams];
     mutable double DeltaAlpha_cache; ///< A cache of the value of @f$\Delta\alpha(M_Z^2)@f$.
-
-    /**
-     * @brief A cache array of a set of SM parameters, used together with #Mw_cache.
-     */
-    mutable double Mw_params_cache[NumSMParams];
     mutable double Mw_cache; ///< A cache of the value of @f$M_W@f$.
-
-    /**
-     * @brief A cache array of a set of SM parameters, used together with #rhoZ_f_cache.
-     */
-    mutable double rhoZ_f_params_cache[12][NumSMParams];
-    mutable complex rhoZ_f_cache[12]; ///< A cache of the value of @f$\rho_Z^l@f$.
-
-    /**
-     * @brief A cache array of a set of SM parameters, used together with #kappaZ_f_cache.
-     */
-    mutable double kappaZ_f_params_cache[12][NumSMParams];
-    mutable complex kappaZ_f_cache[12]; ///< A cache of the value of @f$\kappa_Z^l@f$.
-
-    /**
-     * @brief A cache array of a set of SM parameters, used together with #GammaW_cache.
-     */
-    mutable double GammaW_params_cache[NumSMParams];
     mutable double GammaW_cache; ///< A cache of the value of @f$\Gamma_W@f$.
+    mutable complex rhoZ_f_cache[12]; ///< A cache of the value of @f$\rho_Z^l@f$.
+    mutable complex kappaZ_f_cache[12]; ///< A cache of the value of @f$\kappa_Z^l@f$.
+    mutable bool useDeltaAlphaLepton_cache;
+    mutable bool useDeltaAlpha_cache;
+    mutable bool useMw_cache;
+    mutable bool useGammaW_cache;
+    mutable bool useRhoZ_f_cache[12];
+    mutable bool useKappaZ_f_cache[12];
 
 };
 

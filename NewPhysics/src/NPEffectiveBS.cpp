@@ -31,9 +31,6 @@ const std::string NPEffectiveBS::NPEffectiveBSVars_LFU_QFU[NNPEffectiveBSVars_LF
 NPEffectiveBS::NPEffectiveBS(const bool FlagLeptonUniversal_in, const bool FlagQuarkUniversal_in)
 : NPbase(), FlagLeptonUniversal(FlagLeptonUniversal_in), FlagQuarkUniversal(FlagQuarkUniversal_in)
 {
-    if (!FlagLeptonUniversal && FlagQuarkUniversal)
-        throw std::runtime_error("Invalid arguments for NPEffectiveBS::NPEffectiveBS()");
-
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cWB_NP", boost::cref(cWB)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cH_NP", boost::cref(cH)));
     if (FlagLeptonUniversal) {
@@ -77,7 +74,7 @@ NPEffectiveBS::NPEffectiveBS(const bool FlagLeptonUniversal_in, const bool FlagQ
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHD2_NP", boost::cref(cHD2)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("cHD3_NP", boost::cref(cHD3)));
     }
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Lambda_NP", boost::cref(LambdaNP)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Lambda_NP", boost::cref(Lambda_NP)));
 }
 
 
@@ -179,7 +176,7 @@ void NPEffectiveBS::setParameter(const std::string name, const double& value)
         cHD2 = value;
         cHD3 = value;
     } else if (name.compare("Lambda_NP") == 0)
-        LambdaNP = value;
+        Lambda_NP = value;
     else
         NPbase::setParameter(name, value);
 }
@@ -246,7 +243,7 @@ double NPEffectiveBS::Mw_tree() const
 
 double NPEffectiveBS::DeltaGF() const
 {
-    double ratio = v() * v() / LambdaNP / LambdaNP;
+    double ratio = v() * v() / Lambda_NP / Lambda_NP;
 
     return ( -(cL1L2 - cHL1p - cHL2p) * ratio);
 }
@@ -261,7 +258,7 @@ double NPEffectiveBS::GammaW() const
     double alpha = alphaMz();
     double c2 = trueSM.cW2();
     double s2 = trueSM.sW2();
-    double ratio = v() * v() / LambdaNP / LambdaNP;
+    double ratio = v() * v() / Lambda_NP / Lambda_NP;
 
     Gamma_W *= 1.0 - 3.0 * alpha / 4.0 / (c2 - s2)
             *(obliqueS() - 2.0 * c2 * obliqueT() - (c2 - s2) * obliqueU() / 2.0 / s2)
@@ -277,7 +274,7 @@ double NPEffectiveBS::GammaW() const
 
 double NPEffectiveBS::obliqueS() const
 {
-    double ratio = v() * v() / LambdaNP / LambdaNP;
+    double ratio = v() * v() / Lambda_NP / Lambda_NP;
     double sW_SM = sqrt(trueSM.sW2()); /* This has to be the SM value. */
     double cW_SM = sqrt(trueSM.cW2()); /* This has to be the SM value. */
 
@@ -286,7 +283,7 @@ double NPEffectiveBS::obliqueS() const
 
 double NPEffectiveBS::obliqueT() const
 {
-    double ratio = v() * v() / LambdaNP / LambdaNP;
+    double ratio = v() * v() / Lambda_NP / Lambda_NP;
 
     return ( -cH / 2.0 / alphaMz() * ratio);
 }
@@ -314,7 +311,7 @@ double NPEffectiveBS::deltaGA_f(const Particle p) const
 
 double NPEffectiveBS::deltaGL_f_tmp(const Particle p) const
 {
-    double ratio = v() * v() / LambdaNP / LambdaNP;
+    double ratio = v() * v() / Lambda_NP / Lambda_NP;
     if (p.is("NEUTRINO_1"))
         return ( (cHL1p - cHL1) / 2.0 * ratio);
     if (p.is("NEUTRINO_2"))
@@ -344,7 +341,7 @@ double NPEffectiveBS::deltaGL_f_tmp(const Particle p) const
 
 double NPEffectiveBS::deltaGR_f_tmp(const Particle p) const
 {
-    double ratio = v() * v() / LambdaNP / LambdaNP;
+    double ratio = v() * v() / Lambda_NP / Lambda_NP;
     if (p.is("NEUTRINO_1"))
         return ( 0.);
     if (p.is("NEUTRINO_2"))

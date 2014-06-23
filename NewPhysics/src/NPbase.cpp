@@ -14,7 +14,7 @@ NPbase::NPbase()
 
 bool NPbase::PostUpdate()
 {
-    bool SMup = trueSM.PostUpdate();
+    bool SMup = StandardModel::PostUpdate();
     trueSM = *this;
     return (SMup);
 }

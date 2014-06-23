@@ -54,9 +54,6 @@ int main(int argc, char** argv)
         /* Define the optional job tag. */
         std::string JobTag = "";
         
-        /* Define the check theory range flag. */
-        bool checkTheoryRange = false;
-
         /* Create objects of the classes ModelFactory and ThObsFactory */
         ThObsFactory ThObsF;
         ModelFactory ModelF;
@@ -68,7 +65,7 @@ int main(int argc, char** argv)
         /* ThObsF.addObsToFactory(ThObsName, boost::factory<ThObsClass*>() )*/
         
         /* Create an object of the class MonteCarlo. */        
-        MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);
+        MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag);
         
         /* Do a test run if you wish to see the values of the observables      */
         /* and the correlated Gaussian observables defined in the model        */

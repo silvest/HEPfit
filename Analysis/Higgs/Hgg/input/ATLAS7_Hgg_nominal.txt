@@ -1,0 +1,19 @@
+##################
+# ATLAS-CONF-2013-012
+# http://cds.cern.ch/record/1523698/files/ATLAS-CONF-2013-012.pdf
+##################
+# Name Definition weights mu -err_mu +err_mu
+# weights are given as |ggH fraction, VBF fraction, VH fraction|
+# ttH is computed as 1-ggH-VBF-VH
+################### 
+MEASUREMENT UCL_7TeV |0.929 0.038 0.031| 0.53 -1.48 1.41
+MEASUREMENT UCH_7TeV |0.655 0.148 0.170| 0.22 -1.95 1.94
+MEASUREMENT URL_7TeV |0.926 0.037 0.034| 2.52 -1.68 1.68
+MEASUREMENT URH_7TeV |0.644 0.152 0.184| 10.44 -3.70 3.67
+MEASUREMENT CCL_7TeV |0.927 0.038 0.032| 6.10 -2.62 2.63
+MEASUREMENT CCH_7TeV |0.657 0.144 0.172| -4.36 -1.81 1.80
+MEASUREMENT CRL_7TeV |0.927 0.036 0.034| 2.74 -2.01 1.98
+MEASUREMENT CRH_7TeV |0.644 0.151 0.185| -1.59 -2.90 2.89
+MEASUREMENT CTr_7TeV |0.892 0.050 0.056| 0.37 -3.79 3.58
+MEASUREMENT DiJet_7TeV |0.233 0.759 0.007| 2.72 -1.85 1.87
+################## 

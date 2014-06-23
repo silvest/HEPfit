@@ -9,161 +9,65 @@
 #define	HIGGSTHOBSERVABLES_H
 
 #include <ThObservable.h>
+#include "NPbase.h"
 
 /**
- * @class BrWWRatio
+ * @class muggH
  * @ingroup HiggsExtensions
- * @brief A class for computing the ratio of the @f$BR(H\to WW@f$
+ * @brief A class for computing the ratio @f$\mu_{ggH}@f$.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio of the @f$BR(H\to WW@f$
- * in the current model and in the Standard Model
+ * @details A class for computing the ratio @f$\mu_{ggH}@f$ between the gluon-gluon
+ * fusion Higgs production cross-section in the current model and in the Standard Model.
  */
-class BrWWRatio : public ThObservable {
+class muggH : public ThObservable {
 public:
 
     /**
-     * @brief constructor
-     * @param SM_i a reference to a StandardModel object or to any extension of it
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    BrWWRatio(const StandardModel& SM_i) : ThObservable(SM_i)
+    muggH(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
     {
         if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrWWRatio called with a class whose parent is not NPbase");
+            throw std::runtime_error("muggH called with a class whose parent is not NPbase");
     }
 
     /**
-     * method to compute the the ratio of the @f$BR(H\to WW@f$ in the current model and SM
-     * @return
+     * @brieef A method to compute the value of @f$\mu_{ggH}@f$ in the current model.
+     * @return @f$\mu_{ggH}@f$
      */
     double computeThValue()
     {
-        return myNPbase->computeKW() * myNPbase->computeKW() / myNPbase->computeGTotalRatio();
+        return myNPbase->muggH(sqrt_s);
     }
 
 private:
     const NPbase* myNPbase;
-}; // either this or put back computeKW() and friends in the StandardModel class!!!
-
-/**
- * @class BrZZRatio
- * @ingroup HiggsExtensions
- * @brief A class for computing the ratio of the @f$BR(H\to ZZ@f$
- * @author SusyFit Collaboration
- * @copyright GNU General Public License
- * @details A class for computing the ratio of the @f$BR(H\to ZZ@f$
- * in the current model and in the Standard Model
- */
-class BrZZRatio : public ThObservable {
-public:
-
-    /**
-     * @brief constructor
-     * @param SM_i a reference to a HiggsExtensionModel object or to any extension of it
-     */
-    BrZZRatio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrZZRatio called with a class whose parent is not NPbase");
-    }
-
-    /**
-     * method to compute the the ratio of the @f$BR(H\to ZZ@f$ in the current model and SM
-     * @return
-     */
-    double computeThValue()
-    {
-        return myNPbase->computeKZ() * myNPbase->computeKZ() / myNPbase->computeGTotalRatio();
-    }
-private:
-    const NPbase* myNPbase;
-};
-
-/**
- * @class BrgagaRatio
- * @ingroup HiggsExtensions
- * @brief A class for computing the ratio of the @f$BR(H\to\gamma\gamma@f$
- * @author SusyFit Collaboration
- * @copyright GNU General Public License
- * @details A class for computing the ratio of the @f$BR(H\to\gamma\gamma@f$
- * in the current model and in the Standard Model
- */
-class BrgagaRatio : public ThObservable {
-public:
-
-    /**
-     * @brief constructor
-     * @param SM_i a reference to a StandardModel object or to any extension of it
-     */
-    BrgagaRatio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrgagaRatio called with a class whose parent is not NPbase");
-    }
-
-    /**
-     * method to compute the the ratio of the @f$BR(H\to\gamma\gamma@f$ in the current model and SM
-     * @return
-     */
-    double computeThValue()
-    {
-        return myNPbase->computeKgaga() * myNPbase->computeKgaga() / myNPbase->computeGTotalRatio();
-    }
-private:
-    const NPbase* myNPbase;
-};
-
-/**
- * @class BrtautauRatio
- * @ingroup HiggsExtensions
- * @brief A class for computing the ratio of the @f$BR(H\to\tau\tau@f$
- * @author SusyFit Collaboration
- * @copyright GNU General Public License
- * @details A class for computing the ratio of the @f$BR(H\to\tau\tau@f$
- * in the current model and in the Standard Model
- */
-class BrtautauRatio : public ThObservable {
-public:
-
-    /**
-     * @brief constructor
-     * @param SM_i a reference to a StandardModel object or to any extension of it
-     */
-    BrtautauRatio(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("BrtautauRatio called with a class whose parent is not NPbase");
-    }
-
-    /**
-     * method to compute the the ratio of the @f$BR(H\to\tau\tau@f$ in the current model and SM
-     * @return
-     */
-    double computeThValue()
-    {
-        return myNPbase->computeKtau() * myNPbase->computeKtau() / myNPbase->computeGTotalRatio();
-    }
-private:
-    const NPbase* myNPbase;
+    const double sqrt_s;
 };
 
 /**
  * @class muVBF
  * @ingroup HiggsExtensions
- * @brief A class for computing the ratio @f$\mu_{VBF}@f$
+ * @brief A class for computing the ratio @f$\mu_{VBF}@f$.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{VBF}@f$ between the vector-boson fusion Higgs production cross-section
- * in the current model and in the Standard Model
+ * @details A class for computing the ratio @f$\mu_{VBF}@f$ between the vector-boson
+ * fusion Higgs production cross-section in the current model and in the Standard Model.
  */
 class muVBF : public ThObservable {
 public:
 
     /**
-     * @brief constructor
-     * @param SM_i a reference to a StandardModel object or to any extension of it
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muVBF(const StandardModel& SM_i) : ThObservable(SM_i)
+    muVBF(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
     {
         if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
             throw std::runtime_error("muVBF called with a class whose parent is not NPbase");
@@ -171,17 +75,17 @@ public:
     }
 
     /**
-     * method to compute the value of @f$\mu_{VBF}@f$ in the current model
-     * @return 
+     * @brief A method to compute the value of @f$\mu_{VBF}@f$ in the current model.
+     * @return @f$\mu_{VBF}@f$
      */
     double computeThValue()
     {
-        return (myNPbase->computeKW() * myNPbase->computeKW() * myNPbase->computeSigmaWF() + myNPbase->computeKZ() * myNPbase->computeKZ() * myNPbase->computeSigmaZF() +
-                myNPbase->computeKW() * myNPbase->computeKZ() * myNPbase->computeSigmaZWF()) /
-                (myNPbase->computeSigmaWF() + myNPbase->computeSigmaZF() + myNPbase->computeSigmaZWF());
+        return myNPbase->muVBF(sqrt_s);
     }
+
 private:
     const NPbase* myNPbase;
+    const double sqrt_s;
 };
 
 /**
@@ -190,174 +94,439 @@ private:
  * @brief A class for computing the ratio @f$\mu_{WH}@f$
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{WH}@f$ between the W Higgs associated production cross-section
- * in the current model and in the Standard Model
+ * @details A class for computing the ratio @f$\mu_{WH}@f$ between the W Higgs 
+ * associated production cross-section in the current model and in the Standard Model. 
  */
 class muWH : public ThObservable {
 public:
 
     /**
-     * @brief constructor
-     * @param SM_i a reference to a StandardModel object or to any extension of it
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muWH(const StandardModel& SM_i) : ThObservable(SM_i)
+    muWH(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
     {
         if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
             throw std::runtime_error("muWH called with a class whose parent is not NPbase");
     }
 
     /**
-     * method to compute the value of @f$\mu_{WH}@f$ in the current model
-     * @return 
+     * @brief A method to compute the value of @f$\mu_{WH}@f$ in the current model.
+     * @return @f$\mu_{WH}@f$
      */
     double computeThValue()
     {
-        return (myNPbase->computeKW() * myNPbase->computeKW());
+        return myNPbase->muWH(sqrt_s);
     }
+
 private:
     const NPbase* myNPbase;
+    const double sqrt_s;
 };
 
 /**
  * @class muZH
  * @ingroup HiggsExtensions
- * @brief A class for computing the ratio @f$\mu_{ZH}@f$
+ * @brief A class for computing the ratio @f$\mu_{ZH}@f$.
  * @author SusyFit CollaborationH
  * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{ZH}@f$ between the Z Higgs associated production cross-section
- * in the current model and in the Standard Model
+ * @details A class for computing the ratio @f$\mu_{ZH}@f$ between the Z Higgs 
+ * associated production cross-section in the current model and in the Standard Model.
  */
 class muZH : public ThObservable {
 public:
 
     /**
-     * @brief constructor
-     * @param SM_i a reference to a StandardModel object or to any extension of it
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muZH(const StandardModel& SM_i) : ThObservable(SM_i)
+    muZH(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
     {
         if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
             throw std::runtime_error("muZH called with a class whose parent is not NPbase");
     }
 
     /**
-     * method to compute the value of @f$\mu_{ZH}@f$ in the current model
-     * @return 
+     * @brief A method to compute the value of @f$\mu_{ZH}@f$ in the current model.
+     * @return @f$\mu_{ZH}@f$
      */
     double computeThValue()
     {
-        return (myNPbase->computeKZ() * myNPbase->computeKZ());
+        return myNPbase->muZH(sqrt_s);
     }
+
 private:
     const NPbase* myNPbase;
+    const double sqrt_s;
 };
 
 /**
  * @class muVH
  * @ingroup HiggsExtensions
- * @brief A class for computing the ratio @f$\mu_{VH}@f$
+ * @brief A class for computing the ratio @f$\mu_{VH}@f$.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{VH}@f$ between the WH+ZH associated production cross-section
- * in the current model and in the Standard Model
+ * @details A class for computing the ratio @f$\mu_{VH}@f$ between the WH+ZH 
+ * associated production cross-section in the current model and in the Standard Model.
  */
 class muVH : public ThObservable {
 public:
 
     /**
-     * @brief constructor
-     * @param SM_i a reference to a StandardModel object or to any extension of it
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muVH(const StandardModel& SM_i) : ThObservable(SM_i)
+    muVH(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
     {
         if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
             throw std::runtime_error("muVH called with a class whose parent is not NPbase");
     }
 
     /**
-     * method to compute the value of @f$\mu_{VH}@f$ in the current model
-     * @return
+     * @brief A method to compute the value of @f$\mu_{VH}@f$ in the current model.
+     * @return @f$\mu_{VH}@f$
      */
     double computeThValue()
     {
-        if (myNPbase->computeKW() == myNPbase->computeKZ())
-            return (myNPbase->computeKW() * myNPbase->computeKW());
-        else {
-            double sigmaWH_SM = myNPbase->getTrueSM().computeSigmaWH();
-            double sigmaZH_SM = myNPbase->getTrueSM().computeSigmaZH();
-            return ((myNPbase->computeKW() * myNPbase->computeKW() * sigmaWH_SM
-                    + myNPbase->computeKZ() * myNPbase->computeKZ() * sigmaZH_SM)
-                    / (sigmaWH_SM + sigmaZH_SM));
-        }
+        return myNPbase->muVH(sqrt_s);
     }
+
 private:
     const NPbase* myNPbase;
-};
-
-/**
- * @class muggH
- * @ingroup HiggsExtensions
- * @brief A class for computing the ratio @f$\mu_{ggH}@f$
- * @author SusyFit Collaboration
- * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{ggH}@f$ between the gluon-gluon fusion Higgs production cross-section
- * in the current model and in the Standard Model
- */
-class muggH : public ThObservable {
-public:
-
-    /**
-     * @brief constructor
-     * @param SM_i a reference to a StandardModel object or to any extension of it
-     */
-    muggH(const StandardModel& SM_i) : ThObservable(SM_i)
-    {
-        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
-            throw std::runtime_error("muggH called with a class whose parent is not NPbase");
-    }
-
-    /**
-     * method to compute the value of @f$\mu_{ggH}@f$ in the current model
-     * @return 
-     */
-    double computeThValue()
-    {
-        return myNPbase->computeKglgl() * myNPbase->computeKglgl();
-    }
-private:
-    const NPbase* myNPbase;
+    const double sqrt_s;
 };
 
 /**
  * @class muttH
  * @ingroup HiggsExtensions
- * @brief A class for computing the ratio @f$\mu_{ttH}@f$
+ * @brief A class for computing the ratio @f$\mu_{ttH}@f$.
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
- * @details A class for computing the ratio @f$\mu_{ttH}@f$ between the t-tbar-Higgs associated production cross-section
- * in the current model and in the Standard Model
+ * @details A class for computing the ratio @f$\mu_{ttH}@f$ between the t-tbar-Higgs 
+ * associated production cross-section in the current model and in the Standard Model.
  */
 class muttH : public ThObservable {
 public:
 
     /**
-     * @brief constructor
-     * @param SM_i a reference to a StandardModel object or to any extension of it
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     * @param[in] sqrt_s_i the center-of-mass energy in TeV
      */
-    muttH(const StandardModel& SM_i) : ThObservable(SM_i)
+    muttH(const StandardModel& SM_i, const double sqrt_s_i)
+    : ThObservable(SM_i), sqrt_s(sqrt_s_i)
     {
         if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
             throw std::runtime_error("muttH called with a class whose parent is not NPbase");
     }
 
     /**
-     * method to compute the value of @f$\mu_{ttH}@f$ in the current model
-     * @return 
+     * @brief A method to compute the value of @f$\mu_{ttH}@f$ in the current model. 
+     * @return @f$\mu_{ttH}@f$
      */
     double computeThValue()
     {
-        return (myNPbase->computeKt() * myNPbase->computeKt());
+        return myNPbase->muttH(sqrt_s);
     }
+
+private:
+    const NPbase* myNPbase;
+    const double sqrt_s;
+};
+
+/**
+ * @class BrHtoggRatio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to gg)@f$.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to gg)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtoggRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtoggRatio(const StandardModel& SM_i)
+    : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtoggRatio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to gg)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to gg)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->BrHggRatio();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class BrHtoWWRatio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to WW)@f$.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to WW)@f$.
+ * in the current model and in the Standard Model
+ */
+class BrHtoWWRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtoWWRatio(const StandardModel& SM_i)
+    : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtoWWRatio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to WW)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to WW)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->BrHWWRatio();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class BrHtoZZRatio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to ZZ)@f$.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to ZZ)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtoZZRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a HiggsExtensionModel object or to any extension of it
+     */
+    BrHtoZZRatio(const StandardModel& SM_i)
+    : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtoZZRatio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to ZZ)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to ZZ)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->BrHZZRatio();
+    }
+    
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class BrHtoZgaRatio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to Z\gamma)@f$.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to Z\gamma)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtoZgaRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtoZgaRatio(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtoZgaRatio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to Z\gamma)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to Z\gamma)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->BrHZgaRatio();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class BrHtogagaRatio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to\gamma\gamma)@f$.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to\gamma\gamma)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtogagaRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtogagaRatio(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtogagaRatio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to \gamma\gamma)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to \gamma\gamma)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->BrHgagaRatio();
+    }
+    
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class BrHtotautauRatio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to \tau^+\tau^-)@f$.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to \tau^+\tau^-)@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtotautauRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtotautauRatio(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtotautauRatio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to \tau^+\tau^-)@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to \tau^+\tau^-)@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->BrHtautauRatio();
+    }
+    
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class BrHtoccRatio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to c\bar{c})@f$.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to c\bar{c})@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtoccRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtoccRatio(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtoccRatio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to c\bar{c})@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to c\bar{c})@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->BrHccRatio();
+    }
+
+private:
+    const NPbase* myNPbase;
+};
+
+/**
+ * @class BrHtobbRatio
+ * @ingroup HiggsExtensions
+ * @brief A class for computing the ratio of the Br@f$(H\to b\bar{b})@f$.
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details A class for computing the ratio of the Br@f$(H\to b\bar{b})@f$
+ * in the current model and in the Standard Model.
+ */
+class BrHtobbRatio : public ThObservable {
+public:
+
+    /**
+     * @brief Constructor.
+     * @param[in] SM_i a reference to a StandardModel object or to any extension of it
+     */
+    BrHtobbRatio(const StandardModel& SM_i) : ThObservable(SM_i)
+    {
+        if ((myNPbase = dynamic_cast<const NPbase*> (&SM)) == NULL)
+            throw std::runtime_error("BrHtobbRatio called with a class whose parent is not NPbase");
+    }
+
+    /**
+     * @brief A method to compute the the ratio of the Br@f$(H\to b\bar{b})@f$
+     * in the current model and in the Standard Model.
+     * @return Br@f$(H\to b\bar{b})@f$
+     */
+    double computeThValue()
+    {
+        return myNPbase->BrHbbRatio();
+    }
+
 private:
     const NPbase* myNPbase;
 };

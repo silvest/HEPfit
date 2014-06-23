@@ -32,7 +32,6 @@ int main(int argc, char** argv)
     string FolderOut;
     int nIterations = 0;
     bool noMC;
-    bool checkTheoryRange = false;
 
     try {
         options_description desc("\nAllowed (positional) options");
@@ -49,7 +48,6 @@ int main(int argc, char** argv)
                 "output folder for Generate Event mode to be specified for printing to file, please specify with --output_folder <name>")
                 ("job_tag", value<string > ()->default_value(""),
                 "job tag, please specify with --job_tag <tag>")
-                ("thRange", "output the min and max of theory values to HistoLog.txt, please turn on with --thRange")
                 ("help", "help message")
                 ;
         string coderun = "\n *** SusyFit Routines ***\n"
@@ -116,13 +114,12 @@ int main(int argc, char** argv)
                 noMC = false;
                 string MCMCConf = vm["mcconf"].as<string > ();
                 string FileOut = vm["rootfile"].as<string > ();
-                if (vm.count("thRange")) checkTheoryRange = true;
                 
                 ThObsFactory ThObsF;
                 ModelFactory ModelF;
 //                ThObsF.addObsToFactory("mtbar", boost::factory<mtbar*>());
                 
-                MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);
+                MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag);
                 if (vm.count("test")){
                     MC.TestRun(rank);
                 } else {
