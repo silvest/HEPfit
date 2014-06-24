@@ -16,6 +16,7 @@
 #include <SUSY.h>
 #include <THDM.h>
 #include <HiggsKvKf.h>
+#include <HiggsKvKfgen.h>
 
 ModelFactory::ModelFactory()
 {
@@ -43,6 +44,7 @@ ModelFactory::ModelFactory()
     modelFactory["SUSYMassInsertion"] = boost::factory<SUSYMassInsertion*>();
     modelFactory["THDM"] = boost::factory<THDM*>();
     modelFactory["HiggsKvKf"] = boost::factory<HiggsKvKf*>();
+    modelFactory["HiggsKvKfgen"] = boost::factory<HiggsKvKfgen*>();
 }
 
 void ModelFactory::addModelToFactory(const std::string name, boost::function<StandardModel*() > funct)
