@@ -61,6 +61,10 @@ namespace gslpp
       double mod() const;
       /** Get complex conjugate vector */
       vector<complex> conjugate() const;
+      /** Get vector of real parts */
+      vector<double> real() const;
+      /** Get vector of imaginary parts */
+      vector<double> imag() const;
       /** Conversion */
       gsl_vector_complex* as_gsl_type_ptr() const;
       gsl_vector_complex& as_gsl_type();
