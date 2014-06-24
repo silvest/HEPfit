@@ -266,6 +266,30 @@ namespace gslpp
     return m2;
   }
   
+      /** Get matrix of real parts */
+    matrix<double> matrix<complex>::real() const 
+    {
+        matrix<double> res(size_i(), size_j());
+        for(size_t i = 0; i < size_i(); i++)  {
+            gsl_vector_complex_view tmp = gsl_matrix_complex_row(_matrix, i);
+            gsl_vector_view tmpd = gsl_vector_complex_real(&tmp.vector);
+            gsl_matrix_set_row(res.as_gsl_type_ptr(),i,&tmpd.vector);
+        }
+       return res;
+    }
+
+      /** Get matrix of imaginary parts */
+    matrix<double> matrix<complex>::imag() const 
+    {
+        matrix<double> res(size_i(), size_j());
+        for(size_t i = 0; i < size_i(); i++)  {
+            gsl_vector_complex_view tmp = gsl_matrix_complex_row(_matrix, i);
+            gsl_vector_view tmpd = gsl_vector_complex_imag(&tmp.vector);
+            gsl_matrix_set_row(res.as_gsl_type_ptr(),i,&tmpd.vector);
+        }
+       return res;
+    }
+  
   void matrix<complex>::eigensystem(matrix<complex> &U, vector<double> &S) const
   {
       matrix<complex> m(*this);
