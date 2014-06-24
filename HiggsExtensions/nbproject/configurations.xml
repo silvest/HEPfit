@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>src/HiggsKvKf.h</itemPath>
       <itemPath>src/HiggsKvKfgen.h</itemPath>
+      <itemPath>src/HiggsKvgenKf.h</itemPath>
       <itemPath>src/HiggsThObservables.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
@@ -17,6 +18,7 @@
                    projectFiles="true">
       <itemPath>src/HiggsKvKf.cpp</itemPath>
       <itemPath>src/HiggsKvKfgen.cpp</itemPath>
+      <itemPath>src/HiggsKvgenKf.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -59,6 +61,10 @@
       </item>
       <item path="src/HiggsKvKfgen.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/HiggsKvgenKf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKvgenKf.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
@@ -98,6 +104,10 @@
       </item>
       <item path="src/HiggsKvKfgen.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/HiggsKvgenKf.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/HiggsKvgenKf.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
@@ -136,6 +146,10 @@
       <item path="src/HiggsKvKfgen.cpp" ex="false" tool="1" flavor2="9">
       </item>
       <item path="src/HiggsKvKfgen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/HiggsKvgenKf.cpp" ex="false" tool="1" flavor2="9">
+      </item>
+      <item path="src/HiggsKvgenKf.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/HiggsThObservables.h" ex="false" tool="3" flavor2="0">
       </item>

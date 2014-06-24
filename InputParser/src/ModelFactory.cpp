@@ -17,6 +17,7 @@
 #include <THDM.h>
 #include <HiggsKvKf.h>
 #include <HiggsKvKfgen.h>
+#include <HiggsKvgenKf.h>
 
 ModelFactory::ModelFactory()
 {
@@ -45,6 +46,7 @@ ModelFactory::ModelFactory()
     modelFactory["THDM"] = boost::factory<THDM*>();
     modelFactory["HiggsKvKf"] = boost::factory<HiggsKvKf*>();
     modelFactory["HiggsKvKfgen"] = boost::factory<HiggsKvKfgen*>();
+    modelFactory["HiggsKvgenKf"] = boost::factory<HiggsKvgenKf*>();
 }
 
 void ModelFactory::addModelToFactory(const std::string name, boost::function<StandardModel*() > funct)
