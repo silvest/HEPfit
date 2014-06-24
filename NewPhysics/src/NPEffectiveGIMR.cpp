@@ -9,13 +9,20 @@
 
 const std::string NPEffectiveGIMR::NPEffectiveGIMRVars[NNPEffectiveGIMRVars]
         = {"CW", "CHG", "CHW", "CHB", "CHWB", "CHD", "CHbox", "CH",
-    "CHL1_11", "CHL1_12", "CHL1_13", "CHL1_22", "CHL1_23", "CHL1_33",
-    "CHL3_11", "CHL3_12", "CHL3_13", "CHL3_22", "CHL3_23", "CHL3_33",
-    "CHe_11", "CHe_12", "CHe_13", "CHe_22", "CHe_23", "CHe_33",
-    "CHQ1_11", "CHQ1_12", "CHQ1_13", "CHQ1_22", "CHQ1_23", "CHQ1_33",
-    "CHQ3_11", "CHQ3_12", "CHQ3_13", "CHQ3_22", "CHQ3_23", "CHQ3_33",
-    "CHu_11", "CHu_12", "CHu_13", "CHu_22", "CHu_23", "CHu_33",
-    "CHd_11", "CHd_12", "CHd_13", "CHd_22", "CHd_23", "CHd_33",
+    "CHL1_11", "CHL1_12r", "CHL1_13r", "CHL1_22", "CHL1_23r", "CHL1_33",
+    "CHL1_12i", "CHL1_13i", "CHL1_23i",
+    "CHL3_11", "CHL3_12r", "CHL3_13r", "CHL3_22", "CHL3_23r", "CHL3_33",
+    "CHL3_12i", "CHL3_13i", "CHL3_23i",
+    "CHe_11", "CHe_12r", "CHe_13r", "CHe_22", "CHe_23r", "CHe_33",
+    "CHe_12i", "CHe_13i", "CHe_23i",
+    "CHQ1_11", "CHQ1_12r", "CHQ1_13r", "CHQ1_22", "CHQ1_23r", "CHQ1_33",
+    "CHQ1_12i", "CHQ1_13i", "CHQ1_23i",
+    "CHQ3_11", "CHQ3_12r", "CHQ3_13r", "CHQ3_22", "CHQ3_23r", "CHQ3_33",
+    "CHQ3_12i", "CHQ3_13i", "CHQ3_23i",
+    "CHu_11", "CHu_12r", "CHu_13r", "CHu_22", "CHu_23r", "CHu_33",
+    "CHu_12i", "CHu_13i", "CHu_23i",
+    "CHd_11", "CHd_12r", "CHd_13r", "CHd_22", "CHd_23r", "CHd_33",
+    "CHd_12i", "CHd_13i", "CHd_23i",
     "CHud_11r", "CHud_12r", "CHud_13r", "CHud_22r", "CHud_23r", "CHud_33r",
     "CHud_11i", "CHud_12i", "CHud_13i", "CHud_22i", "CHud_23i", "CHud_33i",
     "CeH_11r", "CeH_12r", "CeH_13r", "CeH_22r", "CeH_23r", "CeH_33r",
@@ -57,23 +64,32 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CLL", boost::cref(CLL_1221)));
     } else {
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_11", boost::cref(CHL1_11)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_12", boost::cref(CHL1_12)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_13", boost::cref(CHL1_13)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_12r", boost::cref(CHL1_12r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_13r", boost::cref(CHL1_13r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_22", boost::cref(CHL1_22)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_23", boost::cref(CHL1_23)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_23r", boost::cref(CHL1_23r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_33", boost::cref(CHL1_33)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_12i", boost::cref(CHL1_12i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_13i", boost::cref(CHL1_13i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL1_23i", boost::cref(CHL1_23i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL3_11", boost::cref(CHL3_11)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL3_12", boost::cref(CHL3_12)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL3_13", boost::cref(CHL3_13)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL3_12r", boost::cref(CHL3_12r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL3_13r", boost::cref(CHL3_13r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL3_22", boost::cref(CHL3_22)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL3_23", boost::cref(CHL3_23)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL3_23r", boost::cref(CHL3_23r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL3_33", boost::cref(CHL3_33)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL3_12i", boost::cref(CHL3_12i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL3_13i", boost::cref(CHL3_13i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHL3_23i", boost::cref(CHL3_23i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHe_11", boost::cref(CHe_11)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHe_12", boost::cref(CHe_12)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHe_13", boost::cref(CHe_13)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHe_12r", boost::cref(CHe_12r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHe_13r", boost::cref(CHe_13r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHe_22", boost::cref(CHe_22)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHe_23", boost::cref(CHe_23)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHe_23r", boost::cref(CHe_23r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHe_33", boost::cref(CHe_33)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHe_12i", boost::cref(CHe_12i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHe_13i", boost::cref(CHe_13i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHe_23i", boost::cref(CHe_23i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_11r", boost::cref(CeH_11r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_12r", boost::cref(CeH_12r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CeH_13r", boost::cref(CeH_13r)));
@@ -101,29 +117,41 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_i", boost::cref(CdH_11i)));
     } else {
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ1_11", boost::cref(CHQ1_11)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ1_12", boost::cref(CHQ1_12)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ1_13", boost::cref(CHQ1_13)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ1_12r", boost::cref(CHQ1_12r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ1_13r", boost::cref(CHQ1_13r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ1_22", boost::cref(CHQ1_22)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ1_23", boost::cref(CHQ1_23)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ1_23r", boost::cref(CHQ1_23r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ1_33", boost::cref(CHQ1_33)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ1_12i", boost::cref(CHQ1_12i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ1_13i", boost::cref(CHQ1_13i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ1_23i", boost::cref(CHQ1_23i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ3_11", boost::cref(CHQ3_11)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ3_12", boost::cref(CHQ3_12)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ3_13", boost::cref(CHQ3_13)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ3_12r", boost::cref(CHQ3_12r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ3_13r", boost::cref(CHQ3_13r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ3_22", boost::cref(CHQ3_22)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ3_23", boost::cref(CHQ3_23)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ3_23r", boost::cref(CHQ3_23r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ3_33", boost::cref(CHQ3_33)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ3_12i", boost::cref(CHQ3_12i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ3_13i", boost::cref(CHQ3_13i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHQ3_23i", boost::cref(CHQ3_23i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHu_11", boost::cref(CHu_11)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHu_12", boost::cref(CHu_12)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHu_13", boost::cref(CHu_13)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHu_12r", boost::cref(CHu_12r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHu_13r", boost::cref(CHu_13r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHu_22", boost::cref(CHu_22)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHu_23", boost::cref(CHu_23)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHu_23r", boost::cref(CHu_23r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHu_33", boost::cref(CHu_33)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHu_12i", boost::cref(CHu_12i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHu_13i", boost::cref(CHu_13i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHu_23i", boost::cref(CHu_23i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHd_11", boost::cref(CHd_11)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHd_12", boost::cref(CHd_12)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHd_13", boost::cref(CHd_13)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHd_12r", boost::cref(CHd_12r)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHd_13r", boost::cref(CHd_13r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHd_22", boost::cref(CHd_22)));
-        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHd_23", boost::cref(CHd_23)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHd_23r", boost::cref(CHd_23r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHd_33", boost::cref(CHd_33)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHd_12i", boost::cref(CHd_12i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHd_13i", boost::cref(CHd_13i)));
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHd_23i", boost::cref(CHd_23i)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_11r", boost::cref(CHud_11r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_12r", boost::cref(CHud_12r)));
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHud_13r", boost::cref(CHud_13r)));
@@ -204,137 +232,200 @@ void NPEffectiveGIMR::setParameter(const std::string name, const double& value)
         CH = value;
     else if (name.compare("CHL1_11") == 0)
         CHL1_11 = value;
-    else if (name.compare("CHL1_12") == 0)
-        CHL1_12 = value;
-    else if (name.compare("CHL1_13") == 0)
-        CHL1_13 = value;
+    else if (name.compare("CHL1_12r") == 0)
+        CHL1_12r = value;
+    else if (name.compare("CHL1_13r") == 0)
+        CHL1_13r = value;
     else if (name.compare("CHL1_22") == 0)
         CHL1_22 = value;
-    else if (name.compare("CHL1_23") == 0)
-        CHL1_23 = value;
+    else if (name.compare("CHL1_23r") == 0)
+        CHL1_23r = value;
     else if (name.compare("CHL1_33") == 0)
         CHL1_33 = value;
+    else if (name.compare("CHL1_12i") == 0)
+        CHL1_12i = value;
+    else if (name.compare("CHL1_13i") == 0)
+        CHL1_13i = value;
+    else if (name.compare("CHL1_23i") == 0)
+        CHL1_23i = value;
     else if (name.compare("CHL1") == 0) {
         CHL1_11 = value;
-        CHL1_12 = 0.0;
-        CHL1_13 = 0.0;
+        CHL1_12r = 0.0;
+        CHL1_13r = 0.0;
         CHL1_22 = value;
-        CHL1_23 = 0.0;
+        CHL1_23r = 0.0;
         CHL1_33 = value;
+        CHL1_12i = 0.0;
+        CHL1_13i = 0.0;
+        CHL1_23i = 0.0;
     } else if (name.compare("CHL3_11") == 0)
         CHL3_11 = value;
-    else if (name.compare("CHL3_12") == 0)
-        CHL3_12 = value;
-    else if (name.compare("CHL3_13") == 0)
-        CHL3_13 = value;
+    else if (name.compare("CHL3_12r") == 0)
+        CHL3_12r = value;
+    else if (name.compare("CHL3_13r") == 0)
+        CHL3_13r = value;
     else if (name.compare("CHL3_22") == 0)
         CHL3_22 = value;
-    else if (name.compare("CHL3_23") == 0)
-        CHL3_23 = value;
+    else if (name.compare("CHL3_23r") == 0)
+        CHL3_23r = value;
     else if (name.compare("CHL3_33") == 0)
         CHL3_33 = value;
+    else if (name.compare("CHL3_12i") == 0)
+        CHL3_12i = value;
+    else if (name.compare("CHL3_13i") == 0)
+        CHL3_13i = value;
+    else if (name.compare("CHL3_23i") == 0)
+        CHL3_23i = value;
     else if (name.compare("CHL3") == 0) {
         CHL3_11 = value;
-        CHL3_12 = 0.0;
-        CHL3_13 = 0.0;
+        CHL3_12r = 0.0;
+        CHL3_13r = 0.0;
         CHL3_22 = value;
-        CHL3_23 = 0.0;
+        CHL3_23r = 0.0;
         CHL3_33 = value;
+        CHL3_12i = 0.0;
+        CHL3_13i = 0.0;
+        CHL3_23i = 0.0;
     } else if (name.compare("CHe_11") == 0)
         CHe_11 = value;
-    else if (name.compare("CHe_12") == 0)
-        CHe_12 = value;
-    else if (name.compare("CHe_13") == 0)
-        CHe_13 = value;
+    else if (name.compare("CHe_12r") == 0)
+        CHe_12r = value;
+    else if (name.compare("CHe_13r") == 0)
+        CHe_13r = value;
     else if (name.compare("CHe_22") == 0)
         CHe_22 = value;
-    else if (name.compare("CHe_23") == 0)
-        CHe_23 = value;
+    else if (name.compare("CHe_23r") == 0)
+        CHe_23r = value;
     else if (name.compare("CHe_33") == 0)
         CHe_33 = value;
+    else if (name.compare("CHe_12i") == 0)
+        CHe_12i = value;
+    else if (name.compare("CHe_13i") == 0)
+        CHe_13i = value;
+    else if (name.compare("CHe_23i") == 0)
+        CHe_23i = value;
     else if (name.compare("CHe") == 0) {
         CHe_11 = value;
-        CHe_12 = 0.0;
-        CHe_13 = 0.0;
+        CHe_12r = 0.0;
+        CHe_13r = 0.0;
         CHe_22 = value;
-        CHe_23 = 0.0;
+        CHe_23r = 0.0;
         CHe_33 = value;
+        CHe_12i = 0.0;
+        CHe_13i = 0.0;
+        CHe_23i = 0.0;
     } else if (name.compare("CHQ1_11") == 0)
         CHQ1_11 = value;
-    else if (name.compare("CHQ1_12") == 0)
-        CHQ1_12 = value;
-    else if (name.compare("CHQ1_13") == 0)
-        CHQ1_13 = value;
+    else if (name.compare("CHQ1_12r") == 0)
+        CHQ1_12r = value;
+    else if (name.compare("CHQ1_13r") == 0)
+        CHQ1_13r = value;
     else if (name.compare("CHQ1_22") == 0)
         CHQ1_22 = value;
-    else if (name.compare("CHQ1_23") == 0)
-        CHQ1_23 = value;
+    else if (name.compare("CHQ1_23r") == 0)
+        CHQ1_23r = value;
     else if (name.compare("CHQ1_33") == 0)
         CHQ1_33 = value;
+    else if (name.compare("CHQ1_12i") == 0)
+        CHQ1_12i = value;
+    else if (name.compare("CHQ1_13i") == 0)
+        CHQ1_13i = value;
+    else if (name.compare("CHQ1_23i") == 0)
+        CHQ1_23i = value;
     else if (name.compare("CHQ1") == 0) {
         CHQ1_11 = value;
-        CHQ1_12 = 0.0;
-        CHQ1_13 = 0.0;
+        CHQ1_12r = 0.0;
+        CHQ1_13r = 0.0;
         CHQ1_22 = value;
-        CHQ1_23 = 0.0;
+        CHQ1_23r = 0.0;
         CHQ1_33 = value;
+        CHQ1_12i = 0.0;
+        CHQ1_13i = 0.0;
+        CHQ1_23i = 0.0;
     } else if (name.compare("CHQ3_11") == 0)
         CHQ3_11 = value;
-    else if (name.compare("CHQ3_12") == 0)
-        CHQ3_12 = value;
-    else if (name.compare("CHQ3_13") == 0)
-        CHQ3_13 = value;
+    else if (name.compare("CHQ3_12r") == 0)
+        CHQ3_12r = value;
+    else if (name.compare("CHQ3_13r") == 0)
+        CHQ3_13r = value;
     else if (name.compare("CHQ3_22") == 0)
         CHQ3_22 = value;
-    else if (name.compare("CHQ3_23") == 0)
-        CHQ3_23 = value;
+    else if (name.compare("CHQ3_23r") == 0)
+        CHQ3_23r = value;
     else if (name.compare("CHQ3_33") == 0)
         CHQ3_33 = value;
+    else if (name.compare("CHQ3_12i") == 0)
+        CHQ3_12i = value;
+    else if (name.compare("CHQ3_13i") == 0)
+        CHQ3_13i = value;
+    else if (name.compare("CHQ3_23i") == 0)
+        CHQ3_23i = value;
     else if (name.compare("CHQ3") == 0) {
         CHQ3_11 = value;
-        CHQ3_12 = 0.0;
-        CHQ3_13 = 0.0;
+        CHQ3_12r = 0.0;
+        CHQ3_13r = 0.0;
         CHQ3_22 = value;
-        CHQ3_23 = 0.0;
+        CHQ3_23r = 0.0;
         CHQ3_33 = value;
+        CHQ3_12i = 0.0;
+        CHQ3_13i = 0.0;
+        CHQ3_23i = 0.0;
     } else if (name.compare("CHu_11") == 0)
         CHu_11 = value;
-    else if (name.compare("CHu_12") == 0)
-        CHu_12 = value;
-    else if (name.compare("CHu_13") == 0)
-        CHu_13 = value;
+    else if (name.compare("CHu_12r") == 0)
+        CHu_12r = value;
+    else if (name.compare("CHu_13r") == 0)
+        CHu_13r = value;
     else if (name.compare("CHu_22") == 0)
         CHu_22 = value;
-    else if (name.compare("CHu_23") == 0)
-        CHu_23 = value;
+    else if (name.compare("CHu_23r") == 0)
+        CHu_23r = value;
     else if (name.compare("CHu_33") == 0)
         CHu_33 = value;
+    else if (name.compare("CHu_12i") == 0)
+        CHu_12i = value;
+    else if (name.compare("CHu_13i") == 0)
+        CHu_13i = value;
+    else if (name.compare("CHu_23i") == 0)
+        CHu_23i = value;
     else if (name.compare("CHu") == 0) {
         CHu_11 = value;
-        CHu_12 = 0.0;
-        CHu_13 = 0.0;
+        CHu_12r = 0.0;
+        CHu_13r = 0.0;
         CHu_22 = value;
-        CHu_23 = 0.0;
+        CHu_23r = 0.0;
         CHu_33 = value;
+        CHu_12i = 0.0;
+        CHu_13i = 0.0;
+        CHu_23i = 0.0;
     } else if (name.compare("CHd_11") == 0)
         CHd_11 = value;
-    else if (name.compare("CHd_12") == 0)
-        CHd_12 = value;
-    else if (name.compare("CHd_13") == 0)
-        CHd_13 = value;
+    else if (name.compare("CHd_12r") == 0)
+        CHd_12r = value;
+    else if (name.compare("CHd_13r") == 0)
+        CHd_13r = value;
     else if (name.compare("CHd_22") == 0)
         CHd_22 = value;
-    else if (name.compare("CHd_23") == 0)
-        CHd_23 = value;
+    else if (name.compare("CHd_23r") == 0)
+        CHd_23r = value;
     else if (name.compare("CHd_33") == 0)
         CHd_33 = value;
+    else if (name.compare("CHd_12i") == 0)
+        CHd_12i = value;
+    else if (name.compare("CHd_13i") == 0)
+        CHd_13i = value;
+    else if (name.compare("CHd_23i") == 0)
+        CHd_23i = value;
     else if (name.compare("CHd") == 0) {
         CHd_11 = value;
-        CHd_12 = 0.0;
-        CHd_13 = 0.0;
+        CHd_12r = 0.0;
+        CHd_13r = 0.0;
         CHd_22 = value;
-        CHd_23 = 0.0;
+        CHd_23r = 0.0;
         CHd_33 = value;
+        CHd_12i = 0.0;
+        CHd_13i = 0.0;
+        CHd_23i = 0.0;
     } else if (name.compare("CHud_11r") == 0)
         CHud_11r = value;
     else if (name.compare("CHud_12r") == 0)

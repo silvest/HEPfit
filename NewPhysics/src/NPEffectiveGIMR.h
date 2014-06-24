@@ -21,7 +21,7 @@ public:
     /**
      *　@brief The number of the model parameters in %NPEffectiveGIMR. 
      */
-    static const int NNPEffectiveGIMRVars = 100;
+    static const int NNPEffectiveGIMRVars = 121;
 
     /**
      * @brief A string array containing the labels of the model parameters in
@@ -165,13 +165,20 @@ protected:
     double CHD;
     double CHbox;
     double CH;
-    double CHL1_11, CHL1_12, CHL1_13, CHL1_22, CHL1_23, CHL1_33;
-    double CHL3_11, CHL3_12, CHL3_13, CHL3_22, CHL3_23, CHL3_33;
-    double CHe_11, CHe_12, CHe_13, CHe_22, CHe_23, CHe_33;
-    double CHQ1_11, CHQ1_12, CHQ1_13, CHQ1_22, CHQ1_23, CHQ1_33;
-    double CHQ3_11, CHQ3_12, CHQ3_13, CHQ3_22, CHQ3_23, CHQ3_33;
-    double CHu_11, CHu_12, CHu_13, CHu_22, CHu_23, CHu_33;
-    double CHd_11, CHd_12, CHd_13, CHd_22, CHd_23, CHd_33;
+    double CHL1_11, CHL1_12r, CHL1_13r, CHL1_22, CHL1_23r, CHL1_33;
+    double CHL1_12i, CHL1_13i, CHL1_23i;
+    double CHL3_11, CHL3_12r, CHL3_13r, CHL3_22, CHL3_23r, CHL3_33;
+    double CHL3_12i, CHL3_13i, CHL3_23i;
+    double CHe_11, CHe_12r, CHe_13r, CHe_22, CHe_23r, CHe_33;
+    double CHe_12i, CHe_13i, CHe_23i;
+    double CHQ1_11, CHQ1_12r, CHQ1_13r, CHQ1_22, CHQ1_23r, CHQ1_33;
+    double CHQ1_12i, CHQ1_13i, CHQ1_23i;
+    double CHQ3_11, CHQ3_12r, CHQ3_13r, CHQ3_22, CHQ3_23r, CHQ3_33;
+    double CHQ3_12i, CHQ3_13i, CHQ3_23i;
+    double CHu_11, CHu_12r, CHu_13r, CHu_22, CHu_23r, CHu_33;
+    double CHu_12i, CHu_13i, CHu_23i;
+    double CHd_11, CHd_12r, CHd_13r, CHd_22, CHd_23r, CHd_33;
+    double CHd_12i, CHd_13i, CHd_23i;
     double CHud_11r, CHud_12r, CHud_13r, CHud_22r, CHud_23r, CHud_33r;
     double CHud_11i, CHud_12i, CHud_13i, CHud_22i, CHud_23i, CHud_33i;
     double CeH_11r, CeH_12r, CeH_13r, CeH_22r, CeH_23r, CeH_33r;
