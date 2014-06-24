@@ -115,7 +115,9 @@ std::string InputParser::ReadParameters(const std::string filename,
             ++beg;
             std::string distr = *beg;
             if (distr.compare("file") == 0) {
-                o->setLikelihoodFromHisto(*(++beg), *(++beg));
+                std::string fname = *(++beg);
+                std::string histoname = *(++beg);
+                o->setLikelihoodFromHisto(fname, histoname);
             } else if (distr.compare("weight") == 0) {
                 ++beg;
                 o->setAve(atof((*beg).c_str()));
@@ -140,7 +142,9 @@ std::string InputParser::ReadParameters(const std::string filename,
             ++beg;
             std::string distr = *beg;
             if (distr.compare("file") == 0) {
-                o2.setLikelihoodFromHisto(*(++beg), *(++beg));
+                std::string fname = *(++beg);
+                std::string histoname = *(++beg);
+                o2.setLikelihoodFromHisto(fname, histoname);
             } else if (distr.compare("noweight") == 0) {
             } else
                 throw std::runtime_error("ERROR: wrong distribution flag in " + o2.getName());
