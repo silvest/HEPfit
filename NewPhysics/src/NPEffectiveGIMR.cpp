@@ -1129,9 +1129,9 @@ double NPEffectiveGIMR::computeGammaTotalRatio() const
 double NPEffectiveGIMR::GammaHggRatio() const
 {
     return (1.0
-            + 252512.0 * CdH_33r / LambdaNP2
-            + 198682.0 * CuH_22r / LambdaNP2
-            - 129195.0 * CuH_33r / LambdaNP2
+            + 222210.0 * CdH_33r / LambdaNP2
+            + 178394.0 * CuH_22r / LambdaNP2
+            - 129719.0 * CuH_33r / LambdaNP2
             + 3.57e7 * CHG / LambdaNP2
             + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
 }
@@ -1139,42 +1139,42 @@ double NPEffectiveGIMR::GammaHggRatio() const
 double NPEffectiveGIMR::GammaHWWRatio() const
 {
     return (1.0
-            - 89706.0 * CHW / LambdaNP2
+            - 94239.0 * CHW / LambdaNP2
             + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
 }
 
 double NPEffectiveGIMR::GammaHZZRatio() const
 {
     return (1.0
-            - 14429.0 * CHB / LambdaNP2
-            - 45453.0 * CHW / LambdaNP2
-            - 27649.0 * CHWB / LambdaNP2
+            - 14237.0 * CHB / LambdaNP2
+            - 48889.0 * CHW / LambdaNP2
+            - 26023.0 * CHWB / LambdaNP2
             + 30312.0 * (4.0 * CHbox / LambdaNP2 + CHD / LambdaNP2));
 }
 
 double NPEffectiveGIMR::GammaHZgaRatio() const
 {
     return (1.0
-            - 7575.0 * CdH_33r / LambdaNP2
-            - 4139.0 * CuH_22r / LambdaNP2
-            + 7313.0 * CuH_33r / LambdaNP2
+            - 6666.0 * CdH_33r / LambdaNP2
+            - 3717.0 * CuH_22r / LambdaNP2
+            + 7343.0 * CuH_33r / LambdaNP2
             - 535.0 * CeH_33r / LambdaNP2
-            + 1.52e7 * CHB / LambdaNP2
-            - 1.32e7 * CHW / LambdaNP2
-            + 9.0e6 * CHWB / LambdaNP2
+            + 1.48e7 * CHB / LambdaNP2
+            - 1.46e7 * CHW / LambdaNP2
+            + 9.87e6 * CHWB / LambdaNP2
             + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
 }
 
 double NPEffectiveGIMR::GammaHgagaRatio() const
 {
     return (1.0
-            - 17676.0 * CdH_33r / LambdaNP2
-            - 24835.0 * CuH_22r / LambdaNP2
-            + 32908.0 * CuH_33r / LambdaNP2
+            - 15555.0 * CdH_33r / LambdaNP2
+            - 22299.0 * CuH_22r / LambdaNP2
+            + 33042.0 * CuH_33r / LambdaNP2
             - 41583.0 * CeH_33r / LambdaNP2
-            + 4.82e7 * CHB / LambdaNP2
-            - 1.27e7 * CHW / LambdaNP2
-            + 2.5e7 * CHWB / LambdaNP2
+            + 5.09e7 * CHB / LambdaNP2
+            - 1.43e7 * CHW / LambdaNP2
+            + 2.73e7 * CHWB / LambdaNP2
             + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
 }
 
@@ -1188,16 +1188,16 @@ double NPEffectiveGIMR::GammaHtautauRatio() const
 double NPEffectiveGIMR::GammaHccRatio() const
 {
     return (1.0
-            - 1.64e7 * CuH_22r / LambdaNP2
-            - 914.0 * CuH_33r / LambdaNP2
+            - 1.48e7 * CuH_22r / LambdaNP2
+            - 918.0 * CuH_33r / LambdaNP2
             + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
 }
 
 double NPEffectiveGIMR::GammaHbbRatio() const
 {
     return (1.0
-            - 5.03e6 * CdH_33r / LambdaNP2
-            - 518.0 * CuH_33r / LambdaNP2
+            - 4.43e6 * CdH_33r / LambdaNP2
+            - 520.0 * CuH_33r / LambdaNP2
             + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
 }
 
