@@ -101,6 +101,8 @@ public:
     * @return return the helicity amplitude normalization factor N
     */
     
+    complex N();
+    
     
     /**
     * @brief \f$ H_V \f$ 
@@ -197,7 +199,6 @@ public:
     */
     double Sigma(int i);
 
-    
 
 private:
     const StandardModel& mySM;
@@ -219,7 +220,8 @@ public:
     /**
     * @brief \f$ P_{1} \f$ 
     */
-    complex N();
+    P_1(const StandardModel& SM_i, int lep_i);
+    
     
     /**
     * @return return the clean observable P_1
@@ -242,7 +244,7 @@ public:
     /**
     * @brief \f$ P_{2} \f$ 
     */
-    P_1(const StandardModel& SM_i, int lep_i);
+    P_2(const StandardModel& SM_i, int lep_i);
     
     /**
     * @return return the clean observable P_2
@@ -265,7 +267,7 @@ public:
     /**
     * @brief \f$ P_{3} \f$ 
     */
-    P_2(const StandardModel& SM_i, int lep_i);
+    P_3(const StandardModel& SM_i, int lep_i);
     
     /**
     * @return return the clean observable P_3
@@ -288,7 +290,7 @@ public:
     /**
     * @brief \f$ P'_{4} \f$ 
     */
-    P_3(const StandardModel& SM_i, int lep_i);
+    P_4Prime(const StandardModel& SM_i, int lep_i);
     
     /**
     * @return return the clean observable P'_4
@@ -311,7 +313,8 @@ public:
     /**
     * @brief \f$ P'_{5} \f$ 
     */
-    P_4Prime(const StandardModel& SM_i, int lep_i);
+
+    P_5Prime(const StandardModel& SM_i, int lep_i);
     
     /**
     * @return return the clean observable P'_5
@@ -334,8 +337,8 @@ public:
     /**
     * @brief \f$ P'_{6} \f$ 
     */
-    P_5Prime(const StandardModel& SM_i, int lep_i);
-    
+    P_6Prime(const StandardModel& SM_i, int lep_i);
+
     /**
     * @return return the clean observable P'_6
     */
@@ -357,7 +360,7 @@ public:
     /**
     * @brief \f$ Gamma' \f$ 
     */
-    P_6Prime(const StandardModel& SM_i, int lep_i);
+    GammaPrime(const StandardModel& SM_i, int lep_i);
     
     /**
     * @return return the clean observable Gamma'
@@ -380,7 +383,8 @@ public:
     /**
     * @brief \f$ F_L \f$ 
     */
-    GammaPrime(const StandardModel& SM_i, int lep_i);
+    F_L(const StandardModel& SM_i, int lep_i);
+
     
     /**
     * @return return the clean observable F_L
@@ -388,7 +392,7 @@ public:
     double computeThValue ();
     
     const StandardModel& mySM;
-    F_L(const StandardModel& SM_i, int lep_i);
+    int lep;
 };
 
 
@@ -406,7 +410,7 @@ public:
     /**
     * @brief \f$ M'_1 \f$ 
     */
-    int lep;
+    M_1Prime(const StandardModel& SM_i, int lep_i);
     
     /**
     * @return return the clean observable M'_1
@@ -429,7 +433,7 @@ public:
     /**
     * @brief \f$ M'_2 \f$ 
     */
-    M_1Prime(const StandardModel& SM_i, int lep_i);
+    M_2Prime(const StandardModel& SM_i, int lep_i);
     
     /**
     * @return return the clean observable M'_2
@@ -440,4 +444,4 @@ public:
 
 #endif	/* BKSTARLL_H */
 
-    M_2Prime(const StandardModel& SM_i, int lep_i);
+    
