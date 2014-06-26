@@ -1855,8 +1855,9 @@ public:
     double computeSigmaggH_tt(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            std::cout << "Why is computeSigmaggH_tt(7TeV) much smaller than computeSigmaggH(7TeV)?" << std::endl;
-            return 4.355; // in pb for Mh=125 GeV
+            // Corrected the value in Table 38 of 1307.1347v2 [M. Spira, private communication]
+            // 4.355 --> 14.355
+            return 14.355; // in pb for Mh=125 GeV
         } else if (sqrt_s == 8.0)
             return 18.31; // in pb for Mh=125 GeV
         else
