@@ -32,22 +32,14 @@ public:
     
     /**
      * 
-     * @brief ADM in the basis used in Ciuchini et.al. hep-ph/9711402
+     * @brief ADM in the basis used in Ciuchini et.al. hep-ph/9711402 (basis = 0, default) or in the basis (QVLL, QLR, QSLL) used in Buras et.al. hep-ph/0005183 (basis = 1)
      * @param order
      * @param nf number of active flavours
+     * @param basis basis identifier (0: ciuchini, 1: buras)
      * @return Anomalous dimension for DeltaF=2 processes
      */
-    matrix<double> AnomalousDimension(orders order, unsigned int nf) const;
+    matrix<double> AnomalousDimension(orders order, unsigned int nf, int basis = 0) const;
 
-    /**
-     *
-     * @brief ADM in the basis (QVLL, QLR, QSLL) used in Buras et.al. hep-ph/0005183     
-     * @param order
-     * @param nf number of active flavours
-     * @return Anomalous dimension for DeltaF=2 processes
-     */
-    matrix<double> AnomalousDimensionBuras(orders order, unsigned int nf) const;
-    
     /**
      * 
      * @param mu low energy scale

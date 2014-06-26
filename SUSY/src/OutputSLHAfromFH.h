@@ -9,7 +9,8 @@
 #define	OUTPUTSLHAFROMFH_H
 
 #include <ThObservable.h>
-#include <ThObsType.h>
+
+
 #include "FeynHiggsWrapper.h"
 
 /**

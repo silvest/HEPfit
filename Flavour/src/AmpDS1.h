@@ -10,6 +10,7 @@
 
 #include <gslpp_complex.h>
 #include "Flavour.h"
+#include <StandardModel.h>
 
 using namespace gslpp;
 
@@ -20,7 +21,7 @@ public:
      * @brief comupte the amplitude for K_L decay in 2 pion
      * @param Flavour
      */
-    AmpDS1(Flavour& Flavour);
+    AmpDS1(const StandardModel& SM_i);
 
 protected:
     /**
@@ -38,7 +39,8 @@ protected:
     complex AmpDS1pp2(orders order);
     
 private:
-    Flavour& myFlavour;
+    
+    const StandardModel& mySM;
 
 };
 

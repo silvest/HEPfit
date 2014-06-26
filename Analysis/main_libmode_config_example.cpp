@@ -20,8 +20,19 @@ int main(int argc, char** argv)
         /* Define a map for the parameters to be varied. */
         std::map<std::string, double> DPars;
         
+        /* Create objects of the classes ModelFactory and ThObsFactory */
+        
+        ThObsFactory ThObsF;
+        ModelFactory ModelF;
+
+        /* register user-defined model named ModelName defined in class ModelClass using the following syntax: */
+        /* ModelF.addModelToFactory(ModelName, boost::factory<ModelClass*>() ) */
+        
+        /* register user-defined ThObservable named ThObsName defined in class ThObsClass using the following syntax: */
+        /* ThObsF.addObsToFactory(ThObsName, boost::factory<ThObsClass*>() )*/
+        
         /* Create an object of the class ComputeObservables. */
-        ComputeObservables CO(ModelConf);
+        ComputeObservables CO(ModelF, ThObsF, ModelConf);
         
         /* Add the observables to be returned. */
         CO.AddObservable("Mw");

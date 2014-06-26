@@ -14,7 +14,7 @@
 double LEP2AFBbottom::computeThValue()
 { 
     Mw = SM.Mw(); 
-    GammaZ = myEW.Gamma_Z();
+    GammaZ = SM.Gamma_Z();
 
     if (!checkSMparams(s, Mw, GammaZ)) {
         mq_cache = m_q(SM.BOTTOM, sqrt_s);
@@ -33,7 +33,7 @@ double LEP2AFBbottom::computeThValue()
             
             // denominator
             myLEP2sigmaBottom.setFlags(flag);
-            sigma = myLEP2sigmaBottom.computeThValue()/GeVminus2_to_nb/1000.0;
+            sigma = myLEP2sigmaBottom.computeThValue()/SM.GeVminus2_to_nb/1000.0;
             
             AFB_noBox = numerator/sigma;
         }
@@ -60,7 +60,7 @@ double LEP2AFBbottom::computeThValue()
             // denominator
             if (!flag[ISR]) {
                 myLEP2sigmaBottom.setFlags(flag);
-                sigma = myLEP2sigmaBottom.computeThValue()/GeVminus2_to_nb/1000.0;
+                sigma = myLEP2sigmaBottom.computeThValue()/SM.GeVminus2_to_nb/1000.0;
             }
             
             SMresult_cache += (sigma_box_F - sigma_box_B)/sigma;
@@ -73,13 +73,13 @@ double LEP2AFBbottom::computeThValue()
     #endif
     
     if ( checkLEP2NP() ) {
-        double obliqueShat = (static_cast<const NPSTUVWXY*> (&SM))->obliqueShat();
-        double obliqueThat = (static_cast<const NPSTUVWXY*> (&SM))->obliqueThat();
-        double obliqueUhat = (static_cast<const NPSTUVWXY*> (&SM))->obliqueUhat();
-        double obliqueV = (static_cast<const NPSTUVWXY*> (&SM))->obliqueV();
-        double obliqueW = (static_cast<const NPSTUVWXY*> (&SM))->obliqueW();
-        double obliqueX = (static_cast<const NPSTUVWXY*> (&SM))->obliqueX();
-        double obliqueY = (static_cast<const NPSTUVWXY*> (&SM))->obliqueY();
+        double obliqueShat = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueShat();
+        double obliqueThat = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueThat();
+        double obliqueUhat = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueUhat();
+        double obliqueV = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueV();
+        double obliqueW = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueW();
+        double obliqueX = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueX();
+        double obliqueY = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueY();
         double ObParam[7] = {obliqueShat, obliqueThat, obliqueUhat,
                              obliqueV, obliqueW, obliqueX, obliqueY};
         AFB_b += myLEP2oblique.AFB_q_LEP2_NP(QCD::BOTTOM, s, mq_cache, ObParam);

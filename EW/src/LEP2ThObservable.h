@@ -12,8 +12,7 @@
 #include <cstring>
 #include <ThObservable.h>
 #include <NPSTUVWXY.h>
-#include "EWSM.h"
-#include "EW.h"
+#include <StandardModel.h>
 #include "LEP2TwoFermions.h"
 #include "LEP2oblique.h"
 #include "LEP2test.h"
@@ -42,11 +41,11 @@ public:
      * @param[in] bSigmaForAFB_i true for the denominator of A_FB
      * @param[in] bSigmaForR_i true for the denominator of R_b or R_c
      */
-    LEP2ThObservable(const EW& EW_i, const double sqrt_s_i, 
+    LEP2ThObservable(const StandardModel& SM_i, const double sqrt_s_i, 
                      const bool bSigmaForAFB_i=false,
                      const bool bSigmaForR_i=false) 
-            : ThObservable(EW_i), 
-            myEW(EW_i), myTwoFermions(EW_i.getSM()), myLEP2oblique(EW_i), 
+            : ThObservable(SM_i),
+            myTwoFermions(SM_i), myLEP2oblique(SM_i), 
             sqrt_s(sqrt_s_i), s(sqrt_s_i*sqrt_s_i), bSigmaForAFB(bSigmaForAFB_i),
             bSigmaForR(bSigmaForR_i)
     {
@@ -71,13 +70,13 @@ public:
                 || Model.compare("NPSTUVWXY") == 0
                 || Model.compare("NPHiggs") == 0
                 || Model.compare("THDM") == 0)
-                && ((static_cast<const NPSTUVWXY*> (&SM))->obliqueShat()!=0.0
-                || (static_cast<const NPSTUVWXY*> (&SM))->obliqueThat()!=0.0
-                || (static_cast<const NPSTUVWXY*> (&SM))->obliqueUhat()!=0.0
-                || (static_cast<const NPSTUVWXY*> (&SM))->obliqueV()!=0.0
-                || (static_cast<const NPSTUVWXY*> (&SM))->obliqueW()!=0.0
-                || (static_cast<const NPSTUVWXY*> (&SM))->obliqueX()!=0.0
-                || (static_cast<const NPSTUVWXY*> (&SM))->obliqueY()!=0.0) )
+                && ((dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueShat()!=0.0
+                || (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueThat()!=0.0
+                || (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueUhat()!=0.0
+                || (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueV()!=0.0
+                || (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueW()!=0.0
+                || (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueX()!=0.0
+                || (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueY()!=0.0) )
             return true;
         else
             return false;
@@ -116,29 +115,31 @@ public:
     bool checkSMparams(const double s, const double Mw, const double GammaZ) const 
     {
         // 23 SM parameters in checkSMparams() + s, Mw, GammaZ + 5 booleans
-        bool bCache = true;
-        bCache &= myEW.getSM().getEWSM()->checkSMparams(SMparams_cache);
-        
-        if (SMparams_cache[EWSM::NumSMParams] != s) { 
-            SMparams_cache[EWSM::NumSMParams] = s;
-            bCache &= false;
-        }    
-        if (SMparams_cache[EWSM::NumSMParams+1] != Mw) { 
-            SMparams_cache[EWSM::NumSMParams+1] = Mw;
-            bCache &= false;
-        }    
-        if (SMparams_cache[EWSM::NumSMParams+2] != GammaZ) { 
-            SMparams_cache[EWSM::NumSMParams+2] = GammaZ;
-            bCache &= false;
-        }    
-        for (int i=0; i<NUMofLEP2RCs; i++) {
-            if (flag_cache[i] != flag[i]) { 
-                flag_cache[i] = flag[i];
-                bCache &= false;
-            }    
-        }
+        //bool bCache = true;
+        //bCache &= SM.checkSMparams(SMparams_cache);
+        //
+        //if (SMparams_cache[StandardModel::NumSMParamsForEWPO] != s) {
+        //    SMparams_cache[StandardModel::NumSMParamsForEWPO] = s;
+        //    bCache &= false;
+        //}
+        //if (SMparams_cache[StandardModel::NumSMParamsForEWPO+1] != Mw) {
+        //    SMparams_cache[StandardModel::NumSMParamsForEWPO+1] = Mw;
+        //    bCache &= false;
+        //}
+        //if (SMparams_cache[StandardModel::NumSMParamsForEWPO+2] != GammaZ) {
+        //    SMparams_cache[StandardModel::NumSMParamsForEWPO+2] = GammaZ;
+        //    bCache &= false;
+        //}
+        //for (int i=0; i<NUMofLEP2RCs; i++) {
+        //    if (flag_cache[i] != flag[i]) {
+        //        flag_cache[i] = flag[i];
+        //        bCache &= false;
+        //    }
+        //}
+        //
+        //return bCache;
 
-        return bCache;
+        return false;
     }
     
     
@@ -147,7 +148,6 @@ protected:
     StandardModel::lepton l_flavor;
     QCD::quark q_flavor;
     
-    const EW& myEW;
     const LEP2TwoFermions myTwoFermions;
     const LEP2oblique myLEP2oblique;
     const LEP2test myTEST;
@@ -160,7 +160,7 @@ protected:
     double Mw, GammaZ;
     
     // caches for the SM prediction
-    mutable double SMparams_cache[EWSM::NumSMParams+3];
+    mutable double SMparams_cache[StandardModel::NumSMParamsForEWPO+3];
     mutable double SMresult_cache; 
     mutable bool flag_cache[NUMofLEP2RCs];
     mutable double ml_cache, mq_cache, mqForHad_cache[6];
@@ -176,7 +176,7 @@ protected:
     
     double m_l(const StandardModel::lepton l) const 
     {
-        return myEW.getSM().getLeptons(l).getMass();
+        return SM.getLeptons(l).getMass();
     }
 
     double m_q(const QCD::quark q, const double mu, const orders order=FULLNLO) const 
@@ -185,13 +185,13 @@ protected:
             case QCD::UP:
             case QCD::DOWN:
             case QCD::STRANGE:
-                return myEW.getSM().Mrun(mu, myEW.getSM().getQuarks(q).getMass_scale(), 
-                                         myEW.getSM().getQuarks(q).getMass(), order);
+                return SM.Mrun(mu, SM.getQuarks(q).getMass_scale(), 
+                                         SM.getQuarks(q).getMass(), order);
             case QCD::CHARM:
             case QCD::BOTTOM:
-                return myEW.getSM().Mrun(mu, myEW.getSM().getQuarks(q).getMass(), order);
+                return SM.Mrun(mu, SM.getQuarks(q).getMass(), order);
             case QCD::TOP:
-                return myEW.getSM().getMtpole(); // the pole mass
+                return SM.getMtpole(); // the pole mass
             default:
                 throw std::runtime_error("Error in LEP2ThObservable::mq()"); 
         }

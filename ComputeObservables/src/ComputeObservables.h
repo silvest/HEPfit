@@ -9,7 +9,6 @@
 #define	COMPUTEOBSERVABLES_H
 
 #include <InputParser.h>
-#include <ThFactory.h>
 #include <Observable.h>
 #include <Observable2D.h>
 #include <StandardModel.h>
@@ -18,12 +17,14 @@
 #include <NPEpsilons_pureNP.h>
 #include <NPHiggs.h>
 #include <NPZbbbar.h>
-#include <NPEffective1.h>
-#include <NPEffective2.h>
+#include <NPZbbbarLinearized.h>
+#include <NPEffectiveBS.h>
+#include <NPEffectiveGIMR.h>
 #include <CorrelatedGaussianObservables.h>
-#include <ModelParaVsObs.h>
 #include <ModelParameter.h>
 #include <Model.h>
+#include <ModelFactory.h>
+#include <ThObsFactory.h>
 
 /**
  * @addtogroup ComputeObservables
@@ -55,7 +56,8 @@ public:
      * @param[in] rank_i the rank of the process in a MPI run (set to 0 for serial run)
      * the model parameters and observables to be calculated
      */
-    ComputeObservables(const std::string& ModelConf_i, const int rank_i = 0);
+    ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObsF, 
+            const std::string& ModelConf_i, const int rank_i = 0);
     
     /**
      * @brief Constructor.
@@ -65,9 +67,9 @@ public:
      * @param[in] DPars_i the mandatory parameters of the model being used
      * @param[in] rank_i the rank of the process in a MPI run (set to 0 for serial run)
      */
-    ComputeObservables(const std::string& ModelName_i,
-                       std::map<std::string, double> DPars_i,
-                       const int rank_i = 0);
+    ComputeObservables(ModelFactory& ModelF, ThObsFactory& ThObsF, 
+       const std::string& ModelName_i, std::map<std::string, double> DPars_i,
+       const int rank_i = 0);
     
     /**
      * @brief The default destructor.
@@ -113,11 +115,11 @@ private:
     std::string ModelName; ///< Name of the Model to be used.
     StandardModel* Mod; ///< Pointer to an object of the class StandardModel.
     InputParser myInputParser; ///< An object of the InputParser class.
-    ThFactory* thf; ///< Pointer to an object of type ThFactory.
     std::map<std::string, double> DPars; ///< Map of the parameters to be passed to Model.
     std::map<std::string, double> DObs; ///< Map of the observables to be computed. 
     std::map<std::string, std::string> DFlags; ///< Map of the model flags to be passed to Model.
     std::vector<std::string> paraNames;///< The vector of allowed parameter names.
+    std::map<std::string,ThObservable*> DThObs;
     const int rank; ///<< Rank of the MPI process. Set to 0 for serial run. 
 
 };

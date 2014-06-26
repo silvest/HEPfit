@@ -9,6 +9,7 @@
 #define	MODEL_H
 
 #include <map>
+#include <boost/ref.hpp>
 
 /**
  * @class Model
@@ -22,12 +23,13 @@
  */
 class Model {
 public:
-    
+
     /**
      * @brief The default constructor.
      */
-    Model(){
-        ModelInitialized = false; 
+    Model()
+    {
+        ModelInitialized = false;
     };
 
     /**
@@ -50,7 +52,8 @@ public:
      * @brief A method to fetch the name of the model.
      * @return the name of the model as a string
      */
-    std::string ModelName() const {
+    std::string ModelName() const
+    {
         return name;
     }
 
@@ -71,7 +74,7 @@ public:
      * @return a boolean that is true if the execution is successful
      */
     virtual bool PreUpdate() = 0;
-    
+
     /**
      * @brief The update method for the model.
      * @details This method updates all the model parameters with given DPars.
@@ -80,7 +83,7 @@ public:
      * @return a boolean that is true if the execution is successful
      */
     virtual bool Update(const std::map<std::string, double>& DPars) = 0;
-    
+
     /**
      * @brief The post-update method for the model.
      * @details This method runs all the procedures that are need to be executed
@@ -121,7 +124,7 @@ public:
      * @return a boolean that is true if the set of model flags is sane
      */
     virtual bool CheckFlags() const = 0;
-    
+
     /**
      * @brief A method to check if the model is initialized.
      * @return a boolean that is true if the model has been initialized
@@ -130,7 +133,7 @@ public:
     {
         return ModelInitialized;
     }
-    
+
     /**
      * @brief A set method to fix the failure or success of the initialization of the model.
      * @param[in] ModelInitialized true if the model has been successfully initialized
@@ -139,7 +142,7 @@ public:
     {
         this->ModelInitialized = ModelInitialized;
     }
-    
+
     /**
      * @brief A method to check if there was any error in the model update process.
      * @return a boolean that is true if the update was not successful
@@ -148,7 +151,7 @@ public:
     {
         return UpdateError;
     }
-    
+
     /**
      * @brief A set method to fix the update status as success or failure. 
      * @param[in] UpdateError true if update is not successful
@@ -157,10 +160,19 @@ public:
     {
         this->UpdateError = UpdateError;
     }
-    
-    
+
+    const double& getModelParam(std::string name) const
+    {
+        return ModelParamMap.at(name);
+    }
+
+    const bool isModelParam(std::string name) const
+    {
+        return (ModelParamMap.find(name) != ModelParamMap.end());
+    }
+
 protected:
-    
+
     bool UpdateError; ///< A boolean set to false if update is successful.
 
     /**
@@ -169,13 +181,12 @@ protected:
      * @param[in] value the value to be assigned to the parameter specified by name
      */
     virtual void setParameter(const std::string name, const double& value) = 0;
+    std::map< std::string, boost::reference_wrapper<const double> > ModelParamMap;
 
-    
 private:
-
     std::string name; ///< The name of the model.
     bool ModelInitialized; ///< A boolean set to true if the model is successfully initialized.
-    
+
 };
 
 #endif	/* MODEL_H */

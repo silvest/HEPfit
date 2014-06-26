@@ -9,11 +9,12 @@
 #define	GAMMA_H
 
 #include <ThObservable.h>
-#include <ThObsType.h>
+
+
 
 class CKMGamma : public ThObservable {
 public:
-    CKMGamma(const ThObsType& ObsType) : ThObservable(ObsType) {};
+    CKMGamma(const StandardModel& SM_i) : ThObservable(SM_i) {};
 
     double computeThValue() { 
         return(SM.computeGamma()/M_PI*180.);

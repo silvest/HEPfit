@@ -8,23 +8,23 @@
 #include "BR_Kmumu.h"
 
 double BR_Kmumu::computeThValue(){
-    double theta= asin(sqrt( (M_PI * myFlavour.getModel().getAle() )/( sqrt(2) * myFlavour.getModel().getGF() * 
-                   myFlavour.getModel().Mw_tree() * myFlavour.getModel().Mw_tree()) ));
+    double theta= asin(sqrt( (M_PI * mySM.getAle() )/( sqrt(2) * mySM.getGF() * 
+                   mySM.Mw_tree() * mySM.Mw_tree()) ));
     
-    return((myFlavour.getModel().getMesons(QCD::K_0).getLifetime() / HCUT / myFlavour.getModel().getMesons(QCD::K_P).getLifetime() / HCUT)
-           * myFlavour.getModel().getAle()*myFlavour.getModel().getAle()/(2.*M_PI*M_PI*pow(sin(theta),4.)) 
-           * myFlavour.getModel().getBr_Kp_munu() * BRKmumu(NLO).real());
+    return((mySM.getMesons(QCD::K_0).getLifetime() / HCUT / mySM.getMesons(QCD::K_P).getLifetime() / HCUT)
+           * mySM.getAle()*mySM.getAle()/(2.*M_PI*M_PI*pow(sin(theta),4.)) 
+           * mySM.getBr_Kp_munu() * BRKmumu(NLO).real());
 }
 
 complex BR_Kmumu::BRKmumu(orders order){
-    if (myFlavour.getHDS1().getCoeffDS1mumu().getOrder() < order){
+    if (mySM.getMyFlavour()->getHDS1().getCoeffDS1mumu().getOrder() < order){
         std::stringstream out;
         out << order;
         throw std::runtime_error("BRKmumu::computeThValue(): requires cofficient of "
                                  "order" + out.str() + "not computed");
     }
     
-    vector<complex> ** allcoeff = myFlavour.ComputeCoeffDS1mumu();
+    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1mumu();
     
     switch(order) {
         case NLO:

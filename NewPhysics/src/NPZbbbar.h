@@ -139,7 +139,7 @@
  * @li @f$\delta g_A^f@f$&nbsp;&nbsp;(with deltaGAl() and deltaGAq()).
  *
  */
-class NPZbbbar : public NPbase  {
+class NPZbbbar : public NPbase {
 public:
 
     /**
@@ -169,57 +169,13 @@ public:
      */
     NPZbbbar(const bool FlagNPZbbbarLR_in = false);
 
-    /**
-     * @brief @copybrief StandardModel::InitializeModel()
-     * @details This method allocates memory to the pointer #myEWSM, inherited
-     * from StndardModel, with type EWNPZbbbar.
-     * @return a boolean that is true if model initialization is successful
-     */
-    virtual bool InitializeModel();
-
-    /**
-     * @brief @copybrief Model::Init()
-     * @copydetails Model::Init()
-     */
-    virtual bool Init(const std::map<std::string, double>& DPars);
-
-    /**
-     * @brief @copybrief Model::Update()
-     * @copydetails Model::Update()
-     */
-    virtual bool Update(const std::map<std::string, double>& DPars);
+    virtual bool PostUpdate();
 
     /**
      * @brief @copybrief Model::CheckParameters()
      * @copydetails Model::CheckParameters()
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
-
-    /**
-     * @brief @copybrief Model::setFlag()
-     * @copydetails Model::setFlag()
-     */
-    virtual bool setFlag(const std::string name, const bool value);
-
-    /**
-     * @brief @copybrief Model::CheckFlags()
-     * @copydetails Model::CheckFlags()
-     */
-    virtual bool CheckFlags() const;
-
-
-    ////////////////////////////////////////////////////////////////////////
-
-    /**
-     * @brief A method to retrieve the model flag NotLinearizedNP.
-     * @details See @ref NPZbbbarFlags for detail.
-     * @return a boolean that is true if new physics contributions
-     * to electroweak observables are not linearized in \f$\delta g^b\f$.
-     */
-    bool IsFlagNotLinearizedNP() const
-    {
-        return FlagNotLinearizedNP;
-    }
 
 
     ////////////////////////////////////////////////////////////////////////
@@ -229,29 +185,32 @@ public:
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$\delta g_V^l@f$ (zero in the current model)
      */
-    virtual double deltaGVl(StandardModel::lepton l) const;
-
-    /**
-     * @brief New physics contribution to @f$g_V^q@f$.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$\delta g_V^q@f$ (non-zero only for \f$q=b\f$)
-     */
-    virtual double deltaGVq(QCD::quark q) const;
+    virtual double deltaGV_f(const Particle p) const;
 
     /**
      * @brief New physics contribution to @f$g_A^l@f$.
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$\delta g_A^l@f$ (zero in the current model)
      */
-    virtual double deltaGAl(StandardModel::lepton l) const;
+    virtual double deltaGA_f(const Particle p) const;
 
-    /**
-     * @brief New physics contribution to @f$g_A^q@f$.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$\delta g_A^q@f$ (non-zero only for \f$q=b\f$)
-     */
-    virtual double deltaGAq(QCD::quark q) const;
+    ////////////////////////////////////////////////////////////////////////
 
+    virtual double Mw() const;
+
+    virtual double GammaW() const;
+
+    virtual double Gamma_Z() const;
+
+    virtual double sigma0_had() const;
+
+    virtual double sin2thetaEff(const Particle p) const;
+
+    virtual double A_f(const Particle p) const;
+
+    virtual double AFB(const Particle p) const;
+
+    virtual double R0_f(const Particle p) const;
 
     ////////////////////////////////////////////////////////////////////////
 protected:
@@ -262,31 +221,19 @@ protected:
      */
     virtual void setParameter(const std::string name, const double& value);
 
-
     ////////////////////////////////////////////////////////////////////////
 private:
 
-    /* These variables are used internally as the deviations in the left-handed
-     * and right-handed couplings if FlagNPZbbbarLR is set to true.
-     * Therefore, they should not be used directly. Instead, the functions
-     * deltaGVq() and deltaGAq() have to be called. */
-    double myDeltaGVb;///< New physics contribution to \f$g_{V}^b\f$.
-    double myDeltaGAb;///< New physics contribution to \f$g_{A}^b\f$.
+    double myDeltaGVb; ///< New physics contribution to \f$g_{V}^b\f$.
+    double myDeltaGAb; ///< New physics contribution to \f$g_{A}^b\f$.
+    double myDeltaGLb; ///< New physics contribution to \f$g_{L}^b\f$.
+    double myDeltaGRb; ///< New physics contribution to \f$g_{R}^b\f$.
 
     /**
-     * @brief An internal boolean flag that is true if \f$\delta g_{L,R}^b\f$ are
-     * used instead of \f$\delta g_{V,A}^b\f$. This flag is initialized in the
+     * @brief An internal boolean flag. This flag is initialized in the
      * constructor. 
      */
     const bool FlagNPZbbbarLR;
-
-    /**
-     * @brief A boolean flag that is true if new physics contributions
-     * to electroweak observables are not linearized in \f$\delta g^b\f$.
-     */
-    bool FlagNotLinearizedNP;
-
-
 };
 
 #endif	/* NPZBBBAR_H */

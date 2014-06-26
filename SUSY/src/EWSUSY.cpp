@@ -11,13 +11,25 @@
 #include <cmath>
 #include "FeynHiggsWrapper.h"
 #include "EWSUSY.h"
+#include "SUSY.h"
+#include <EWSMcache.h>
+#include "EWSMOneLoopEW.h"
+#include "EWSMTwoLoopQCD.h"
+#include "EWSMThreeLoopQCD.h"
+#include "EWSMTwoLoopEW.h"
+#include "EWSMThreeLoopEW2QCD.h"
+#include "EWSMThreeLoopEW.h"
+#include "EWSMApproximateFormulae.h"
+#include "EWSMOneLoopEW_HV.h"
+#include "EWSMTwoFermionsLEP2.h"
+
 
 const double EWSUSY::Mw_unphysical = 2.0;
 const double EWSUSY::RenormalizationScaleFactor = 1.0;
 //const double EWSUSY::RenormalizationScaleFactor = 2.0; // for debug
 
 EWSUSY::EWSUSY(const SUSY& SUSY_in)
-: EWSM(SUSY_in), PV(true), mySUSY(SUSY_in),
+: PV(true), mySUSY(SUSY_in),
         Yu(3,3,0.0), Yd(3,3,0.0), Yl(3,3,0.0),
         Au(3,3,0.0), Ad(3,3,0.0), Al(3,3,0.0),
         Zm(2,2,0.), Zp(2,2,0.), ZN(4,4,0.),
@@ -57,12 +69,12 @@ void EWSUSY::SetRosiekParameters()
     ZH.assign(1,0, mySUSY.getCosb());
     ZH.assign(1,1, mySUSY.getSinb());
 
-    /* particle massses */
+    /* particle masses */
     for (int I=0; I<3; ++I) {
         /* up-type quarks */
-        m_u[I] = getMyCache()->mq((QCD::quark)(2*I), mySUSY.getMz(), FULLNNLO);
+        m_u[I] = mySUSY.getMyEWSMcache()->mf(mySUSY.getQuarks((QCD::quark)(2*I)), mySUSY.getMz(), FULLNNLO);
         /* down-type quarks */
-        m_d[I] = getMyCache()->mq((QCD::quark)(2*I + 1), mySUSY.getMz(), FULLNNLO);
+        m_d[I] = mySUSY.getMyEWSMcache()->mf(mySUSY.getQuarks((QCD::quark)(2*I + 1)), mySUSY.getMz(), FULLNNLO);
         /* charged leptons */
         m_l[I] = mySUSY.getLeptons((StandardModel::lepton)(2*I + 1)).getMass();
     }
@@ -1215,8 +1227,8 @@ double EWSUSY::DeltaR_SUSY_EW1(const double Mw_i) const
 
     /* SM one-loop contributions */
     double DeltaAlphaL5q_EW1 = DeltaAlphaL5q_SM_EW1();
-    double DeltaRho_EW1 = getMyOneLoopEW()->DeltaRho(Mw_i);
-    double DeltaR_rem_EW1 = getMyOneLoopEW()->DeltaR_rem(Mw_i);
+    double DeltaRho_EW1 = mySUSY.getMyOneLoopEW()->DeltaRho(Mw_i);
+    double DeltaR_rem_EW1 = mySUSY.getMyOneLoopEW()->DeltaR_rem(Mw_i);
     double DeltaR_SM_EW1 = DeltaAlphaL5q_EW1 - cW2/sW2*DeltaRho_EW1 + DeltaR_rem_EW1;
 
     /* Debug */
@@ -1231,7 +1243,7 @@ double EWSUSY::DeltaR_SUSY_EW1(const double Mw_i) const
 
 double EWSUSY::Mw_MSSM_TMP(const double Mw_i) const
 {
-    if (SM.getFlagMw().compare("NORESUM") != 0)
+    if (mySUSY.getFlagMw().compare("NORESUM") != 0)
         throw std::runtime_error("EWSUSY::Mw_SUSY(): Scheme for Mw is not applicable");
 
     double cW2 = Mw_i*Mw_i/mySUSY.getMz()/mySUSY.getMz();
@@ -1240,25 +1252,25 @@ double EWSUSY::Mw_MSSM_TMP(const double Mw_i) const
         throw std::runtime_error("EWSUSY::Mw_SUSY(): negative sW2");
 
     /* SM contributions to Delta r */
-    double dAleL5q = DeltaAlphaL5q();
-    double DeltaRho[EWSM::orders_EW_size], DeltaRho_sum = 0.0;
-    double DeltaR_rem[EWSM::orders_EW_size], DeltaR_rem_sum = 0.0;
-    ComputeDeltaRho(Mw_i, DeltaRho);
-    ComputeDeltaR_rem(Mw_i, DeltaR_rem);
-    for (int j=0; j<EWSM::orders_EW_size; ++j) {
+    double dAleL5q = mySUSY.DeltaAlphaL5q();
+    double DeltaRho[StandardModel::orders_EW_size], DeltaRho_sum = 0.0;
+    double DeltaR_rem[StandardModel::orders_EW_size], DeltaR_rem_sum = 0.0;
+    mySUSY.ComputeDeltaRho(Mw_i, DeltaRho);
+    mySUSY.ComputeDeltaR_rem(Mw_i, DeltaR_rem);
+    for (int j=0; j<StandardModel::orders_EW_size; ++j) {
         /* excluding EW two-loop contributions, which will be added below */
-        if (j!=(int)EWSM::EW2) {
-            DeltaRho_sum += DeltaRho[(EWSM::orders_EW)j];
-            DeltaR_rem_sum += DeltaR_rem[(EWSM::orders_EW)j];
+        if (j!=(int)StandardModel::EW2) {
+            DeltaRho_sum += DeltaRho[(StandardModel::orders_EW)j];
+            DeltaR_rem_sum += DeltaR_rem[(StandardModel::orders_EW)j];
         }
     }
 
     /* Full EW one-loop contribution (without the full DeltaAlphaL5q) */
-    double DeltaR_EW1 = - cW2/sW2*DeltaRho[EWSM::EW1] + DeltaR_rem[EWSM::EW1];
+    double DeltaR_EW1 = - cW2/sW2*DeltaRho[StandardModel::EW1] + DeltaR_rem[StandardModel::EW1];
 
     /* Full EW two-loop contribution with reducible corrections */
     double DeltaR_EW2 = dAleL5q*dAleL5q + 2.0*dAleL5q*DeltaR_EW1
-    + getMyApproximateFormulae()->DeltaR_TwoLoopEW_rem(Mw_i);
+    + mySUSY.getMyApproximateFormulae()->DeltaR_TwoLoopEW_rem(Mw_i);
 
     /* R = 1 + Delta r */
     double R = 1.0 + dAleL5q - cW2/sW2*DeltaRho_sum + DeltaR_rem_sum + DeltaR_EW2;
@@ -1267,12 +1279,12 @@ double EWSUSY::Mw_MSSM_TMP(const double Mw_i) const
     R += DeltaR_SUSY_EW1(Mw_i);
 
     /* the W-boson mass in the complex pole scheme */
-    double tmp = 4.0*M_PI*mySUSY.getAle()/sqrt(2.0)/mySUSY.getGF()/Mzbar()/Mzbar();
+    double tmp = 4.0*M_PI*mySUSY.getAle()/sqrt(2.0)/mySUSY.getGF()/mySUSY.Mzbar()/mySUSY.Mzbar();
     if (tmp*R > 1.0) throw std::runtime_error("EWSUSY::Mw(): Negative (1-tmp*R)");
-    double Mwbar = Mzbar()/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp*R));
+    double Mwbar = mySUSY.Mzbar()/sqrt(2.0) * sqrt(1.0 + sqrt(1.0 - tmp*R));
 
     /* complex-pole/fixed-width scheme --> experimental/running-width scheme */
-    double Mw_exp = MwFromMwbar(Mwbar);
+    double Mw_exp = mySUSY.MwFromMwbar(Mwbar);
 
     if (Mw_exp >= mySUSY.getMz()) {
         std::cout << "WARNING: Mw > Mz in EWSUSY::Mw_MSSM_TMP" << std::endl;
@@ -1311,7 +1323,7 @@ double EWSUSY::Mw_MSSM() const
     if (Mw == Mw_unphysical) return Mw_unphysical;
 
     /* iterations */
-    while (fabs(Mw - Mw_org) > EWSM::Mw_error) {
+    while (fabs(Mw - Mw_org) > StandardModel::Mw_error) {
         Mw_org = Mw;
         Mw = Mw_MSSM_TMP(Mw);
         //std::cout << std::setprecision(12)

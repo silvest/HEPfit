@@ -95,6 +95,10 @@ namespace gslpp
       /** Hermitean conjugate matrix */
       matrix<complex> hconjugate() const;
       matrix<complex> inverse() const;
+      /** Get matrix of real parts */
+      matrix<double> real() const;
+      /** Get matrix of imaginary parts */
+      matrix<double> imag() const;
       /**
        * Eigenvalues and eigenvectors
        * @param U matrix<complex>& eigenvectors 

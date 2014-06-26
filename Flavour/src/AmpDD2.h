@@ -10,6 +10,7 @@
 
 #include <gslpp_complex.h>
 #include "Flavour.h"
+#include <StandardModel.h>
 
 using namespace gslpp;
 
@@ -27,7 +28,7 @@ public:
  * @brief AmpDD2 constructor  
  * @param Flavour an object of Flavour class
  */
-    AmpDD2(Flavour& Flavour);
+    AmpDD2(const StandardModel& SM_i);
 protected:
 /**
  * @brief a method returning the complex amplitude for the \f$ D^{0}-\bar{D}^{0}\f$ mixing
@@ -37,7 +38,8 @@ protected:
     complex AmpDD(orders order);
     
 private:
-    Flavour& myFlavour;
+    
+    const StandardModel& mySM;
 };
 
 #endif	/* AMPDD2_H */

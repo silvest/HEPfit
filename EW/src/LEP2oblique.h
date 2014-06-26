@@ -10,7 +10,8 @@
 
 #include <stdexcept>
 #include <gslpp.h>
-#include "EW.h"
+#include <StandardModel.h>
+
 using namespace gslpp;
 
 /**
@@ -30,7 +31,7 @@ public:
      * @brief LEP2oblique constructor
      * @param[in] EW_i an object of EW class
      */
-    LEP2oblique(const EW& EW_i);
+    LEP2oblique(const StandardModel& SM_i);
 
     
     ////////////////////////////////////////////////////////////////////////
@@ -51,7 +52,7 @@ public:
     
     ////////////////////////////////////////////////////////////////////////    
 private:
-    const EW& myEW;
+    const StandardModel& SM;
    
     double DeltaEpsilon_1(const double alpha0, const double ObParam_i[]) const;
     double DeltaEpsilon_2(const double alpha0, const double ObParam_i[]) const;    
@@ -63,13 +64,13 @@ private:
     
     double alpha_at_s(const double s) const 
     {
-        //return ( myEW.getSM().alphaMz() ); // TEST
-        return ( myEW.getSM().ale_OS(sqrt(s), FULLNLO) );
+        //return ( SM.alphaMz() ); // TEST
+        return ( SM.ale_OS(sqrt(s), FULLNLO) );
     }
     
     double Mw0(const double alpha0) const
     {
-        double Mz = myEW.getSM().getMz();
+        double Mz = SM.getMz();
         return ( sqrt(c02(alpha0))*Mz );
     }
     
@@ -78,8 +79,8 @@ private:
         
         throw std::runtime_error("Error in LEP2oblique::s02() needs to be modified with sW2 in the SM!");
         
-        double GF = myEW.getSM().getGF();
-        double Mz = myEW.getSM().getMz();
+        double GF = SM.getGF();
+        double Mz = SM.getMz();
         return ( ( 1.0 - sqrt(1.0 - 4.0*M_PI*alpha0/sqrt(2.0)/GF/Mz/Mz) )/2.0 );
     }
     

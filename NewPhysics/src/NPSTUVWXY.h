@@ -145,51 +145,20 @@ public:
      * @brief A string array containing the labels of the model parameters in %NPSTUVWXY.
      */
     static const std::string STUVWXYvars[NSTUVWXYvars];
-    
+
     /**
      * @brief The default constructor.
      */
     NPSTUVWXY();
 
     /**
-     * @brief @copybrief StandardModel::InitializeModel()
-     * @return a boolean that is true if model initialization is successful
-     */
-    virtual bool InitializeModel();
-
-    /**
-     * @brief @copybrief Model::Init()
-     * @copydetails Model::Init()
-     */
-    virtual bool Init(const std::map<std::string, double>& DPars); 
-    
-    /**
-     * @brief @copybrief Model::Update()
-     * @copydetails Model::Update()
-     */
-    virtual bool Update(const std::map<std::string, double>& DPars);
-    
-    /**
      * @brief @copybrief Model::CheckParameters()
      * @copydetails Model::CheckParameters()
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
-    /**
-     * @brief @copybrief Model::setFlag()
-     * @copydetails Model::setFlag()
-     */
-    virtual bool setFlag(const std::string name, const bool value);
-    
-    /**
-     * @brief @copybrief Model::CheckFlags()
-     * @copydetails Model::CheckFlags()
-     */
-    virtual bool CheckFlags() const;
-    
-    
-    ////////////////////////////////////////////////////////////////////////     
-    
+    ////////////////////////////////////////////////////////////////////////
+
     /**
      * @brief The oblique parameter \f$\hat{S}\f$.
      * @return the value of \f$\displaystyle\hat{S}\f$
@@ -203,7 +172,7 @@ public:
      * @brief The oblique parameter \f$\hat{T}\f$.
      * @return the value of \f$\displaystyle\hat{T}\f$
      */
-    virtual double obliqueThat() const 
+    virtual double obliqueThat() const
     {
         return myObliqueThat;
     }
@@ -212,7 +181,7 @@ public:
      * @brief The oblique parameter \f$\hat{U}\f$.
      * @return the value of \f$\displaystyle\hat{U}\f$
      */
-    virtual double obliqueUhat() const 
+    virtual double obliqueUhat() const
     {
         return myObliqueUhat;
     }
@@ -221,7 +190,7 @@ public:
      * @brief The oblique parameter \f$V\f$.
      * @return the value of \f$V\f$
      */
-    virtual double obliqueV() const 
+    virtual double obliqueV() const
     {
         return myObliqueV;
     }
@@ -230,7 +199,7 @@ public:
      * @brief The oblique parameter \f$W\f$.
      * @return the value of \f$W\f$
      */
-    virtual double obliqueW() const 
+    virtual double obliqueW() const
     {
         return myObliqueW;
     }
@@ -239,7 +208,7 @@ public:
      * @brief The oblique parameter \f$X\f$.
      * @return the value of \f$X\f$
      */
-    virtual double obliqueX() const 
+    virtual double obliqueX() const
     {
         return myObliqueX;
     }
@@ -248,7 +217,7 @@ public:
      * @brief The oblique parameter \f$Y\f$.
      * @return the value of \f$Y\f$
      */
-    virtual double obliqueY() const 
+    virtual double obliqueY() const
     {
         return myObliqueY;
     }
@@ -268,24 +237,24 @@ public:
 
      */
     double epsilon2() const;
-    
+
     /**
      * @brief @copybrief NPSTU::epsilon3()
      * @copydetails NPSTU::epsilon3()
 
      */
     double epsilon3() const;
-    
+
     /**
      * @brief @copybrief NPSTU::epsilonb()
      * @copydetails NPSTU::epsilonb()
      */
     double epsilonb() const;
 
-    
+
     ////////////////////////////////////////////////////////////////////////     
     // Combinations of the extended oblique parameters
-    
+
     /**
      * @brief The combination of extended oblique parameters, \f$S'\f$.
      * @return the value of \f$S'\f$
@@ -326,17 +295,17 @@ public:
      */
     virtual double GammaW() const;
 
-    
-    ////////////////////////////////////////////////////////////////////////
-protected:    
 
-    double myObliqueShat;///< The oblique parameter \f$\hat{S}\f$.
-    double myObliqueThat;///< The oblique parameter \f$\hat{T}\f$.
-    double myObliqueUhat;///< The oblique parameter \f$\hat{U}\f$.
-    double myObliqueV;///< The oblique parameter \f$V\f$.
-    double myObliqueW;///< The oblique parameter \f$W\f$.
-    double myObliqueX;///< The oblique parameter \f$X\f$.
-    double myObliqueY;///< The oblique parameter \f$Y\f$.
+    ////////////////////////////////////////////////////////////////////////
+protected:
+
+    double myObliqueShat; ///< The oblique parameter \f$\hat{S}\f$.
+    double myObliqueThat; ///< The oblique parameter \f$\hat{T}\f$.
+    double myObliqueUhat; ///< The oblique parameter \f$\hat{U}\f$.
+    double myObliqueV; ///< The oblique parameter \f$V\f$.
+    double myObliqueW; ///< The oblique parameter \f$W\f$.
+    double myObliqueX; ///< The oblique parameter \f$X\f$.
+    double myObliqueY; ///< The oblique parameter \f$Y\f$.
 
     /**
      * @brief @copybrief Model::setParameter()

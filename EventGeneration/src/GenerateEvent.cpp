@@ -10,11 +10,12 @@
 #include <TMath.h>
 #include <TRandom3.h>
 
-GenerateEvent::GenerateEvent(const std::string& ModelConf_i,
+GenerateEvent::GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF,
+        const std::string& ModelConf_i,
                              const std::string& OutDirName_i,
                              const std::string& JobTag_i,
                              const bool noMC_i)
-: myInputParser()
+: myInputParser(ModelF, ThObsF)
 {
     outputTerm = 0;
     ModelConf = ModelConf_i;
@@ -244,8 +245,8 @@ void GenerateEvent::createDirectories()
 }
 
 void GenerateEvent::initModel(){
-    ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, ParaObs);
-    Mod = myInputParser.getMyModel();
+    ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO);
+    Mod = myInputParser.getModel();
     if (Obs.size() == 0 && CGO.size() == 0 && rank == 0) std::cout << "\nGenerateEvent::generate(): No observables or correlated Gaussian observables defined in " + ModelConf +" file\n" << std::endl;
     std::map<std::string, double> DP;
     for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
@@ -254,7 +255,7 @@ void GenerateEvent::initModel(){
             ModParsVar.push_back(*it);
         }
     }
-    if (!myInputParser.getMyModel()->Init(DP)) {
+    if (!myInputParser.getModel()->Init(DP)) {
         throw std::runtime_error("parameter(s) missing in model initialization");
     }
     

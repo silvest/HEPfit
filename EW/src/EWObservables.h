@@ -16,7 +16,6 @@
  * @copyright GNU General Public License
  * @details  
  */
-#include "EW.h"
 
 #include "Mw.h"
 #include "GammaW.h"
@@ -33,6 +32,10 @@
 #include "Rlepton.h"
 #include "Rcharm.h"
 #include "Rbottom.h"
+#include "Epsilon1.h"
+#include "Epsilon2.h"
+#include "Epsilon3.h"
+#include "Epsilonb.h"
 
 #include "LEP2sigmaHadron.h"
 #include "LEP2sigmaMu.h"

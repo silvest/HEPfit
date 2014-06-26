@@ -55,7 +55,6 @@ using namespace gslpp;
  * which correspond to the member functions with the word "Add".
  */
 class EWSMTwoLoopEW {
-
 public:
 
     /**
@@ -64,7 +63,7 @@ public:
      */
     EWSMTwoLoopEW(const EWSMcache& cache_i);
 
-    
+
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -87,8 +86,8 @@ public:
      * @param[in] s invariant mass squared
      * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha^2}(s)=0@f$
      */
-    double DeltaAlpha_t(const double s) const;    
-    
+    double DeltaAlpha_t(const double s) const;
+
     /**
      * @brief Leading two-loop contribution of @f$O(\alpha^2)@f$
      * to @f$\Delta\rho@f$, denoted as @f$\Delta\rho^{\alpha^2}@f$. 
@@ -152,26 +151,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha^2}@f$
      */
-    complex deltaRho_rem_l(const StandardModel::lepton l, const double Mw_i) const;
-
-    /**
-     * @brief Remainder contribution of @f$O(\alpha^2)@f$ to the effective
-     * couplings @f$\rho_Z^q@f$,
-     * denoted as @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha^2}@f$.
-     * @details This function handles the @f$O(\alpha^2)@f$ remainder contribution
-     * to @f$\rho_{Z}^{q}@f$ in the on-shell scheme, which was calculated
-     * in @cite Degrassi:1999jd :
-     * @f[
-     * \delta\rho_{\rm rem}^{q,\, \alpha^2} = 3 (X_t^{\alpha})^2
-     * \left[ 16\, {\it zt}\,c_W^2\, \Delta\hat{\eta}^{(2)}
-     * +  4\, {\it zt}\,c_W^2\, \Delta\bar{\eta}_{\rm add}^{(2)} \right],
-     * @f]
-     * where the definitions of the symbols can be read from the codes below.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha^2}@f$
-     */
-    complex deltaRho_rem_q(const QCD::quark q, const double Mw_i) const;
+    complex deltaRho_rem_f(const Particle p, const double Mw_i) const;
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^2)@f$ to the effective
@@ -190,31 +170,11 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha^2}@f$
      */
-    complex deltaKappa_rem_l(const StandardModel::lepton l, const double Mw_i) const;
-                                                  
-    /**
-     * @brief Remainder contribution of @f$O(\alpha^2)@f$ to the effective
-     * couplings @f$\kappa_Z^q@f$,
-     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha^2}@f$. 
-     * @details This function handles the @f$O(\alpha^2)@f$ remainder contribution
-     * to @f$\kappa_{Z}^{q}@f$ in the on-shell scheme, which was calculated
-     * in @cite Degrassi:1999jd :
-     * @f[
-     * \delta\kappa_{\rm rem}^{q,\, \alpha^2} = 3 (X_t^{\alpha})^2
-     * \left[ 16\, {\it zt}\,c_W^2\, \Delta\hat{k}^{(2)}
-     * + 4\, {\it zt}\,c_W^2\, \Delta\bar{k}_{\rm add}^{(2)} \right],
-     * @f]
-     * where the definitions of the symbols can be read from the codes below.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha^2}@f$
-     */
-    complex deltaKappa_rem_q(const QCD::quark q, const double Mw_i) const;
+    complex deltaKappa_rem_f(const Particle p, const double Mw_i) const;
 
-    
     ////////////////////////////////////////////////////////////////////////        
     // O(GF^2 Mt^2) contributions
-    
+
     /**
      * @brief The function @f$\rho^{(2)}@f$. 
      * @details This function parameterize the @f$O(\alpha^2 m_t^4/M_Z^4)@f$
@@ -227,8 +187,8 @@ public:
      * (see also @cite Barbieri:1992nz and @cite Barbieri:1992dq). 
      * @return @f$\rho^{(2)}@f$
      */
-    double rho_2() const;    
-    
+    double rho_2() const;
+
     /**
      * @brief The function @f$\tau^{(2)}@f$.
      * @details This function parmeterize the @f$O(\alpha^2 m_t^4/M_Z^4)@f$
@@ -239,14 +199,14 @@ public:
      * @return @f$\tau^{(2)}@f$
      */
     double tau_2() const;
-    
-        
+
+
     ////////////////////////////////////////////////////////////////////////        
-    
+
 private:
-    const EWSMcache& cache;///< A reference to an object of type EWSMcache.
-    const EWSMOneLoopEW myOneLoopEW;///< An object of type EWSMOneLoopEW.
-    
+    const EWSMcache& cache; ///< A reference to an object of type EWSMcache.
+    const EWSMOneLoopEW myOneLoopEW; ///< An object of type EWSMOneLoopEW.
+
     /**
      * @brief The auxiliary function @f$g(a)@f$.
      * @details See @cite Fleischer:1993ub and @cite Fleischer:1994cb.
@@ -269,9 +229,9 @@ private:
      * @param[in] a the ratio @f$a=(m_h/m_t)^2@f$
      * @return @f$f(a,1)@f$
      */
-    double f1(const double a) const;    
+    double f1(const double a) const;
 
-    
+
     ////////////////////////////////////////////////////////////////////////        
 
     /**
@@ -339,16 +299,7 @@ private:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta\bar{\eta}_{\rm add}^{(2)}@f$
      */
-    complex DeltaEta2Add_l(const StandardModel::lepton l, const double Mw_i) const;
-
-    /**
-     * @brief The auxiliary function @f$\Delta\bar{\eta}_{\rm add}^{(2)}@f$ for @f$Z\to q\bar{q}@f$.
-     * @details See @cite Degrassi:1999jd.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\Delta\bar{\eta}_{\rm add}^{(2)}@f$
-     */
-    complex DeltaEta2Add_q(const QCD::quark q, const double Mw_i) const;
+    complex DeltaEta2Add_f(const Particle p, const double Mw_i) const;
 
     /**
      * @brief The auxiliary function @f$\Delta\hat{\kappa}^{(2)}@f$.
@@ -376,16 +327,7 @@ private:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\Delta\bar{\kappa}_{\rm add}^{(2)}@f$
      */
-    complex DeltaKappa2Add_l(const StandardModel::lepton l, const double Mw_i) const;
-
-    /**
-     * @brief The auxiliary function @f$\Delta\bar{\kappa}_{\rm add}^{(2)}@f$ for @f$Z\to q\bar{q}@f$.
-     * @details See @cite Degrassi:1999jd.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\Delta\bar{\kappa}_{\rm add}^{(2)}@f$
-     */
-    complex DeltaKappa2Add_q(const QCD::quark q, const double Mw_i) const;
+    complex DeltaKappa2Add_f(const Particle p, const double Mw_i) const;
 
     /**
      * @brief The auxiliary function @f$V_{\rm add}@f$.
@@ -464,8 +406,8 @@ private:
      *
      * @attention This function is valid for @f$0<x<4@f$.
      */
-    complex GV(const double x) const;    
-    
+    complex GV(const double x) const;
+
 };
 
 #endif	/* EWSMTWOLOOPEW_H */

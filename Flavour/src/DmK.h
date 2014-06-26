@@ -35,7 +35,7 @@ public:
      * @param Flavour
      */
     
-    DmK(Flavour& Flavour) : ThObservable(Flavour), AmpDK2(Flavour) {};
+    DmK(const StandardModel& SM_i) : ThObservable(SM_i), AmpDK2(SM_i) {};
     
     /**
      * 

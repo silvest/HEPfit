@@ -29,7 +29,7 @@ public:
      * @param Flavour
      */
     
-    SJPsiK(Flavour& Flavour) : ThObservable(Flavour), AmpDB2(Flavour) {};
+    SJPsiK(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};
     
     /**
      *

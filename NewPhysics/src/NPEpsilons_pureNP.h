@@ -24,7 +24,7 @@
  * See \cite Altarelli:1990zd, \cite Altarelli:1991fk,\cite Altarelli:1993sz
  * for the original epsilon parameterization.
  *
-*
+ *
  * @anchor NPEpsilons_pureNPInitialization
  * <h3>Initialization</h3>
  *
@@ -96,12 +96,12 @@
  */
 class NPEpsilons_pureNP : public NPbase {
 public:
-    
+
     /**
      * @brief The number of the model parameters in %NPEpsilons_pureNP.
      */
     static const int NEPSILONpureNPvars = 4;
-    
+
     /**
      * @brief A string array containing the labels of the model parameters in %NPEpsilons_pureNP.
      */
@@ -113,44 +113,13 @@ public:
     NPEpsilons_pureNP();
 
     /**
-     * @brief @copybrief StandardModel::InitializeModel()
-     * @copydetails NPbase::InitializeModel()
-     */
-    virtual bool InitializeModel();
-
-    /**
-     * @brief @copybrief Model::Init()
-     * @copydetails Model::Init()
-     */
-    virtual bool Init(const std::map<std::string, double>& DPars);
-    
-    /**
-     * @brief @copybrief Model::Update()
-     * @copydetails Model::Update()
-     */
-    virtual bool Update(const std::map<std::string, double>& DPars);
-    
-    /**
      * @brief @copybrief Model::CheckParameters()
      * @copydetails Model::CheckParameters()
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
-    /**
-     * @brief @copybrief Model::setFlag()
-     * @copydetails Model::setFlag()
-     */
-    virtual bool setFlag(const std::string name, const bool value);
-    
-    /**
-     * @brief @copybrief Model::CheckFlags()
-     * @copydetails Model::CheckFlags()
-     */
-    virtual bool CheckFlags() const;
-
-
     ////////////////////////////////////////////////////////////////////////
-    
+
     /**
      * @brief The parameter \f$\varepsilon_1\f$.
      * @return the sum of the SM prediction for \f$\varepsilon_1\f$
@@ -165,14 +134,14 @@ public:
 
      */
     double epsilon2() const;
-    
+
     /**
      * @brief The parameter \f$\varepsilon_3\f$.
      * @return the sum of the SM prediction for \f$\varepsilon_3\f$
      * and the new physics contribution \f$\delta\,\varepsilon_3\f$
      */
     double epsilon3() const;
-    
+
     /**
      * @brief The parameter \f$\varepsilon_b\f$.
      * @return the sum of the SM prediction for \f$\varepsilon_b\f$
@@ -212,20 +181,6 @@ public:
     ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief @copybrief NPbase::deltaGVl()
-     * @details
-     * @f[
-     * \delta g_V^l
-     * = \Big( g_{V,\mathrm{SM}}^l - g_{A,\mathrm{SM}}^l \Big)
-     *   \frac{\delta\,\varepsilon_3-c_0^2\,\delta\,\varepsilon_1}{c_0^2 - s_0^2}
-     * + \frac{g_{V,\mathrm{SM}}^l}{2} \delta\,\varepsilon_1\,.
-     * @f]
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$\delta g_V^l@f$
-     */
-    virtual double deltaGVl(StandardModel::lepton l) const;
-
-    /**
      * @brief @copybrief NPbase::deltaGVq()
      * @details
      * @f[
@@ -247,19 +202,8 @@ public:
      * for @f$q=b@f$.
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$\delta g_V^q@f$
-     */  
-    virtual double deltaGVq(QCD::quark q) const;
-
-    /**
-     * @brief @copybrief NPbase::deltaGAl()
-     * @details
-     * @f[
-     * \delta g_A^l = \frac{I_3^l}{2}\delta\,\varepsilon_1\,.
-     * @f]
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return @f$\delta g_A^l@f$
-     */  
-    virtual double deltaGAl(StandardModel::lepton l) const;
+     */
+    virtual double deltaGV_f(const Particle p) const;
 
     /**
      * @brief @copybrief NPbase::deltaGAq()
@@ -276,16 +220,16 @@ public:
      * @param[in] q name of a quark (see QCD::quark)
      * @return @f$\delta g_A^q@f$
      */
-    virtual double deltaGAq(QCD::quark q) const;
+    virtual double deltaGA_f(const Particle p) const;
 
 
     ////////////////////////////////////////////////////////////////////////
 protected:
 
-    double deltaEps_1;///< The new physics contribution to \f$\varepsilon_1\f$.
-    double deltaEps_2;///< The new physics contribution to \f$\varepsilon_2\f$.
-    double deltaEps_3;///< The new physics contribution to \f$\varepsilon_3\f$.
-    double deltaEps_b;///< The new physics contribution to \f$\varepsilon_b\f$.
+    double deltaEps_1; ///< The new physics contribution to \f$\varepsilon_1\f$.
+    double deltaEps_2; ///< The new physics contribution to \f$\varepsilon_2\f$.
+    double deltaEps_3; ///< The new physics contribution to \f$\varepsilon_3\f$.
+    double deltaEps_b; ///< The new physics contribution to \f$\varepsilon_b\f$.
 
     /**
      * @brief @copybrief Model::setParameter()
@@ -293,7 +237,7 @@ protected:
      */
     virtual void setParameter(const std::string name, const double& value);
 
-    
+
 };
 
 #endif	/* NPEPSILONS_PURENP_H */

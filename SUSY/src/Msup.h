@@ -9,7 +9,8 @@
 #define	MSUP_H
 
 #include <ThObservable.h>
-#include <ThObsType.h>
+
+
 #include "SUSY.h"
 
 /**

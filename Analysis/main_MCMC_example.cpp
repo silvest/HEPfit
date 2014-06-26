@@ -38,8 +38,8 @@ int main(int argc, char** argv)
         /* Here it is passed as the first argument to the executable. The      */
         /* model configuration file provides the values with errors for the    */
         /* mandatory model parameters, as well as the list of observables,     */
-        /* observables2D, correlated Gaussian observables, model parameters vs.*/ 
-        /* observables. See documentation for details.                         */
+        /* observables2D, correlated Gaussian observables.                     */
+        /* See documentation for details.                                      */
         std::string ModelConf = argv[1];
         
         /* Define the Monte Carlo configuration file.                         */
@@ -54,11 +54,18 @@ int main(int argc, char** argv)
         /* Define the optional job tag. */
         std::string JobTag = "";
         
-        /* Define the check theory range flag. */
-        bool checkTheoryRange = false;
+        /* Create objects of the classes ModelFactory and ThObsFactory */
+        ThObsFactory ThObsF;
+        ModelFactory ModelF;
 
+        /* register user-defined model named ModelName defined in class ModelClass using the following syntax: */
+        /* ModelF.addModelToFactory(ModelName, boost::factory<ModelClass*>() ) */
+        
+        /* register user-defined ThObservable named ThObsName defined in class ThObsClass using the following syntax: */
+        /* ThObsF.addObsToFactory(ThObsName, boost::factory<ThObsClass*>() )*/
+        
         /* Create an object of the class MonteCarlo. */        
-        MonteCarlo MC(ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);
+        MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag);
         
         /* Do a test run if you wish to see the values of the observables      */
         /* and the correlated Gaussian observables defined in the model        */

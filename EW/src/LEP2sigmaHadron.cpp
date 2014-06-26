@@ -14,7 +14,7 @@
 double LEP2sigmaHadron::computeThValue()
 { 
     Mw = SM.Mw(); 
-    GammaZ = myEW.Gamma_Z();
+    GammaZ = SM.Gamma_Z();
 
     if (!checkSMparams(s, Mw, GammaZ)) {
         mqForHad_cache[SM.UP] = m_q(SM.UP, sqrt_s);
@@ -156,17 +156,17 @@ double LEP2sigmaHadron::computeThValue()
     double sigmaH = SMresult_cache;
     
     #ifdef LEP2TEST
-    sigmaH = myTEST.sigmaHadronTEST(sqrt_s)/GeVminus2_to_nb/1000.0;
+    sigmaH = myTEST.sigmaHadronTEST(sqrt_s)/SM.GeVminus2_to_nb/1000.0;
     #endif
     
     if ( checkLEP2NP() && !bSigmaForR) {
-        double obliqueShat = (static_cast<const NPSTUVWXY*> (&SM))->obliqueShat();
-        double obliqueThat = (static_cast<const NPSTUVWXY*> (&SM))->obliqueThat();
-        double obliqueUhat = (static_cast<const NPSTUVWXY*> (&SM))->obliqueUhat();
-        double obliqueV = (static_cast<const NPSTUVWXY*> (&SM))->obliqueV();
-        double obliqueW = (static_cast<const NPSTUVWXY*> (&SM))->obliqueW();
-        double obliqueX = (static_cast<const NPSTUVWXY*> (&SM))->obliqueX();
-        double obliqueY = (static_cast<const NPSTUVWXY*> (&SM))->obliqueY();
+        double obliqueShat = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueShat();
+        double obliqueThat = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueThat();
+        double obliqueUhat = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueUhat();
+        double obliqueV = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueV();
+        double obliqueW = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueW();
+        double obliqueX = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueX();
+        double obliqueY = (dynamic_cast<const NPSTUVWXY*> (&SM))->obliqueY();
         double ObParam[7] = {obliqueShat, obliqueThat, obliqueUhat,
                              obliqueV, obliqueW, obliqueX, obliqueY};
         sigmaH += myLEP2oblique.sigma_q_LEP2_NP(QCD::UP, s, mqForHad_cache[SM.UP], ObParam)
@@ -176,7 +176,7 @@ double LEP2sigmaHadron::computeThValue()
                   + myLEP2oblique.sigma_q_LEP2_NP(QCD::BOTTOM, s, mqForHad_cache[SM.BOTTOM], ObParam);
     }
     
-    return ( sigmaH*GeVminus2_to_nb*1000.0 );
+    return ( sigmaH*SM.GeVminus2_to_nb*1000.0 );
 }
         
 

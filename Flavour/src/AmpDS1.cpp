@@ -8,33 +8,33 @@
 #include "AmpDS1.h"
 #include <sstream>
 
-AmpDS1::AmpDS1(Flavour& Flavour) : myFlavour(Flavour) {
+AmpDS1::AmpDS1(const StandardModel& SM_i) : mySM(SM_i) {
 }
 
 complex AmpDS1::AmpDS1pp0(orders order) {
-    if (myFlavour.getHDS1().getCoeffDS1PP().getOrder() < order){
+    if (mySM.getMyFlavour()->getHDS1().getCoeffDS1PP().getOrder() < order){
         std::stringstream out;
         out << order;
         throw std::runtime_error("AmpDK1::computeThValue(): requires cofficient of order" 
                                  + out.str() + "not computed");
     }
 
-    vector<complex> ** allcoeff = myFlavour.ComputeCoeffDS1PP( 
-            myFlavour.getModel().getBKd1().getMu(),
-            myFlavour.getModel().getBKd1().getScheme());
+    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1PP(
+            mySM.getBKd1().getMu(),
+            mySM.getBKd1().getScheme());
 
-    vector<double> me1(myFlavour.getModel().getBKd1().getBpars());
+    vector<double> me1(mySM.getBKd1().getBpars());
     
-    double MK = myFlavour.getModel().getMesons(QCD::K_0).getMass();
-    double MP = myFlavour.getModel().getMesons(QCD::P_0).getMass();
-    double FK = myFlavour.getModel().getMesons(QCD::K_0).getDecayconst();
-    double FP = myFlavour.getModel().getMesons(QCD::P_0).getDecayconst();
-    double Ms = myFlavour.getModel().Mrun(myFlavour.getModel().getBKd1().getMu(),
-                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass_scale(),
-                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
-    double Md = myFlavour.getModel().Mrun(myFlavour.getModel().getBKd1().getMu(),
-                myFlavour.getModel().getQuarks(QCD::DOWN).getMass_scale(),
-                myFlavour.getModel().getQuarks(QCD::DOWN).getMass(), FULLNNLO);
+    double MK = mySM.getMesons(QCD::K_0).getMass();
+    double MP = mySM.getMesons(QCD::P_0).getMass();
+    double FK = mySM.getMesons(QCD::K_0).getDecayconst();
+    double FP = mySM.getMesons(QCD::P_0).getDecayconst();
+    double Ms = mySM.Mrun(mySM.getBKd1().getMu(),
+                mySM.getQuarks(QCD::STRANGE).getMass_scale(),
+                mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
+    double Md = mySM.Mrun(mySM.getBKd1().getMu(),
+                mySM.getQuarks(QCD::DOWN).getMass_scale(),
+                mySM.getQuarks(QCD::DOWN).getMass(), FULLNNLO);
     
     double X = sqrt(1.5)*FP*(MK*MK-MP*MP);
     double KK = FP/(FK-FP);
@@ -66,29 +66,29 @@ complex AmpDS1::AmpDS1pp0(orders order) {
 }
 
 complex AmpDS1::AmpDS1pp2(orders order) {
-    if (myFlavour.getHDS1().getCoeffDS1PP().getOrder() < order){
+    if (mySM.getMyFlavour()->getHDS1().getCoeffDS1PP().getOrder() < order){
         std::stringstream out;
         out << order;
         throw std::runtime_error("AmpDK1::computeThValue(): requires cofficient of "
                                  "order" + out.str() + "not computed");
     }
     
-    vector<complex> ** allcoeff = myFlavour.ComputeCoeffDS1PP( 
-            myFlavour.getModel().getBKd3().getMu(),
-            myFlavour.getModel().getBKd3().getScheme());
+    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1PP(
+            mySM.getBKd3().getMu(),
+            mySM.getBKd3().getScheme());
     
-    vector<double> me2(myFlavour.getModel().getBKd3().getBpars());
+    vector<double> me2(mySM.getBKd3().getBpars());
     
-    double MK = myFlavour.getModel().getMesons(QCD::K_0).getMass();
-    double MP = myFlavour.getModel().getMesons(QCD::P_0).getMass();
-    double FK = myFlavour.getModel().getMesons(QCD::K_0).getDecayconst();
-    double FP = myFlavour.getModel().getMesons(QCD::P_0).getDecayconst();
-    double Ms = myFlavour.getModel().Mrun(myFlavour.getModel().getBKd3().getMu(),
-                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass_scale(),
-                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
-    double Md = myFlavour.getModel().Mrun(myFlavour.getModel().getBKd3().getMu(),
-                myFlavour.getModel().getQuarks(QCD::DOWN).getMass_scale(),
-                myFlavour.getModel().getQuarks(QCD::DOWN).getMass(), FULLNNLO);
+    double MK = mySM.getMesons(QCD::K_0).getMass();
+    double MP = mySM.getMesons(QCD::P_0).getMass();
+    double FK = mySM.getMesons(QCD::K_0).getDecayconst();
+    double FP = mySM.getMesons(QCD::P_0).getDecayconst();
+    double Ms = mySM.Mrun(mySM.getBKd3().getMu(),
+                mySM.getQuarks(QCD::STRANGE).getMass_scale(),
+                mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
+    double Md = mySM.Mrun(mySM.getBKd3().getMu(),
+                mySM.getQuarks(QCD::DOWN).getMass_scale(),
+                mySM.getQuarks(QCD::DOWN).getMass(), FULLNNLO);
     
     double X = sqrt(1.5)*FP*(MK*MK-MP*MP);
     double KK = FP/(FK-FP);

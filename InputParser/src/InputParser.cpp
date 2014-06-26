@@ -6,46 +6,24 @@
  */
 
 #include "InputParser.h"
+#include "ModelFactory.h"
 #include <stdexcept>
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <iostream>
-#include <NPSTU.h>
-#include <NPSTUVWXY.h>
-#include <NPEpsilons.h>
-#include <NPEpsilons_pureNP.h>
-#include <NPHiggs.h>
-#include <NPZbbbar.h>
-#include <NPEffective1.h>
-#include <NPEffective2.h>
-#include <GeneralSUSY.h>
-#include <pMSSM.h>
-#include <SUSYMassInsertion.h>
-#include <MFV.h>
-#include <SUSY.h>
-#include <THDM.h>
-#include <HiggsKvKf.h>
 
-
-InputParser::InputParser()
+InputParser::InputParser(ModelFactory& ModF, ThObsFactory& ObsF) : myModelFactory(ModF), myObsFactory(ObsF)
 {
-    myModel = NULL;
-    thf = NULL;
     modelset = 0;
 }
 
-InputParser::InputParser(const InputParser& orig)
+InputParser::InputParser(const InputParser& orig) : myModelFactory(orig.myModelFactory), myObsFactory(orig.myObsFactory)
 {
     myModel = new StandardModel(*orig.myModel);
-    thf = new ThFactory(*orig.thf);
 }
 
 InputParser::~InputParser()
 {
-    if (myModel != NULL)
-        delete myModel;
-    if (thf != NULL)
-        delete thf;
 }
 
 Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<char> >::iterator & beg)
@@ -71,30 +49,8 @@ Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<c
         tMCMC = false;
     else
         throw std::runtime_error("ERROR: wrong MCMC flag in " + name);
-    Observable o(name, thname, label, tMCMC, min, max, thf->getThMethod(thname));
+    Observable o(name, thname, label, tMCMC, min, max, myObsFactory.CreateThMethod(thname, *myModel));
     return (o);
-}
-
-StandardModel* InputParser::ModelFactory(std::string& ModelName)
-{
-
-    if (ModelName.compare("StandardModel") == 0) return (new StandardModel());
-    else if (ModelName.compare("NPSTU") == 0) return (new NPSTU());
-    else if (ModelName.compare("NPSTUVWXY") == 0) return (new NPSTUVWXY());
-    else if (ModelName.compare("NPEpsilons") == 0) return (new NPEpsilons());
-    else if (ModelName.compare("NPEpsilons_pureNP") == 0) return (new NPEpsilons_pureNP());
-    else if (ModelName.compare("NPHiggs") == 0) return (new NPHiggs());
-    else if (ModelName.compare("NPZbbbar") == 0) return (new NPZbbbar(false));
-    else if (ModelName.compare("NPZbbbarLR") == 0) return (new NPZbbbar(true));
-    else if (ModelName.compare("NPEffective1") == 0) return (new NPEffective1());
-    else if (ModelName.compare("NPEffective2") == 0) return (new NPEffective2());
-    else if (ModelName.compare("MFV") == 0) return (new MFV());
-    else if (ModelName.compare("GeneralSUSY") == 0) return (new GeneralSUSY());
-    else if (ModelName.compare("pMSSM") == 0) return (new pMSSM());
-    else if (ModelName.compare("SUSYMassInsertion") == 0) return (new SUSYMassInsertion());
-    else if (ModelName.compare("THDM") == 0) return (new THDM());
-    else if (ModelName.compare("HiggsKvKf") == 0) return (new HiggsKvKf());
-    else throw std::runtime_error("\nERROR: Incorrect model name passed to InputParser::ModelFactory(): " + ModelName + "\n");
 }
 
 std::string InputParser::ReadParameters(const std::string filename,
@@ -102,8 +58,7 @@ std::string InputParser::ReadParameters(const std::string filename,
         std::vector<ModelParameter>& ModelPars,
         boost::ptr_vector<Observable>& Observables,
         std::vector<Observable2D>& Observables2D,
-        std::vector<CorrelatedGaussianObservables>& CGO,
-        std::vector<ModelParaVsObs>& ParaObs)
+        std::vector<CorrelatedGaussianObservables>& CGO)
 {
     modname = "";
     std::ifstream ifile(filename.c_str());
@@ -122,7 +77,7 @@ std::string InputParser::ReadParameters(const std::string filename,
 
         if (modelset == 0) {
             modname = *beg;
-            myModel = ModelFactory(modname);
+            myModel = myModelFactory.CreateModel(modname);
             myModel->setModelName(modname);
             myModel->InitializeModel();
             if (myModel->IsModelInitialized()) {
@@ -130,7 +85,6 @@ std::string InputParser::ReadParameters(const std::string filename,
             } else {
                 throw std::runtime_error("\nERROR: " + modname + " not initialized successfully.\n");
             }
-            thf = new ThFactory(*myModel);
             modelset = 1;
             continue;
         }
@@ -161,7 +115,9 @@ std::string InputParser::ReadParameters(const std::string filename,
             ++beg;
             std::string distr = *beg;
             if (distr.compare("file") == 0) {
-                o->setLikelihoodFromHisto(*(++beg), *(++beg));
+                std::string fname = *(++beg);
+                std::string histoname = *(++beg);
+                o->setLikelihoodFromHisto(fname, histoname);
             } else if (distr.compare("weight") == 0) {
                 ++beg;
                 o->setAve(atof((*beg).c_str()));
@@ -186,14 +142,16 @@ std::string InputParser::ReadParameters(const std::string filename,
             ++beg;
             std::string distr = *beg;
             if (distr.compare("file") == 0) {
-                o2.setLikelihoodFromHisto(*(++beg), *(++beg));
+                std::string fname = *(++beg);
+                std::string histoname = *(++beg);
+                o2.setLikelihoodFromHisto(fname, histoname);
             } else if (distr.compare("noweight") == 0) {
             } else
                 throw std::runtime_error("ERROR: wrong distribution flag in " + o2.getName());
             o2.setDistr(distr);
             ++beg;
             o2.setThname2(*beg);
-            o2.setTho2(thf->getThMethod(*beg));
+            o2.setTho2(myObsFactory.CreateThMethod(*beg, *myModel));
             ++beg;
             std::string label = *beg;
             size_t pos = 0;
@@ -218,14 +176,30 @@ std::string InputParser::ReadParameters(const std::string filename,
             std::string distr = *beg;
             if (distr.compare("parametric") == 0) {
                 std::vector<ThObservable*> hthobs;
-                hthobs.push_back(thf->getThMethod("ggH"));
-                hthobs.push_back(thf->getThMethod("VBF"));
-                hthobs.push_back(thf->getThMethod("VH"));
-                hthobs.push_back(thf->getThMethod("ttH"));
+                ++beg;
+                distr = *beg;
+                if (distr.compare("LHC7") == 0) {
+                    hthobs.push_back(myObsFactory.CreateThMethod("ggH7", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("VBF7", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("VH7", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("ttH7", *myModel));
+                } else if (distr.compare("LHC8") == 0) {
+                    hthobs.push_back(myObsFactory.CreateThMethod("ggH8", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("VBF8", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("VH8", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("ttH8", *myModel));
+                } else if (distr.compare("TeV196") == 0) {
+                    hthobs.push_back(myObsFactory.CreateThMethod("ggH196", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("VBF196", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("VH196", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("ttH196", *myModel));
+                } else
+                    throw std::runtime_error("ERROR: wrong keyword " + distr + " in " + ho->getName());
                 ho->setParametricLikelihood(*(++beg), hthobs);
             } else
-                throw std::runtime_error("ERROR: wrong distribution flag in " + ho->getName());
+                throw std::runtime_error("ERROR: wrong distribution flag " + distr + " in " + ho->getName());
             Observables.push_back(ho);
+            ++beg;
             if (beg != tok.end())
                 std::cout << "WARNING: unread information in HiggsObservable "
                     << Observables.back().getName() << std::endl;
@@ -249,26 +223,26 @@ std::string InputParser::ReadParameters(const std::string filename,
                 ++beg;
                 if (type.compare("Observable") != 0)
                     throw std::runtime_error("ERROR: expecting an Observable type here...");
-                Observable tmp = ParseObservable(beg);
+                Observable * tmp = new Observable(ParseObservable(beg));
                 ++beg;
                 std::string distr = *beg;
                 if (distr.compare("weight") == 0) {
                     ++beg;
-                    tmp.setAve(atof((*beg).c_str()));
+                    tmp->setAve(atof((*beg).c_str()));
                     ++beg;
-                    tmp.setErrg(atof((*beg).c_str()));
+                    tmp->setErrg(atof((*beg).c_str()));
                     ++beg;
-                    tmp.setErrf(atof((*beg).c_str()));
+                    tmp->setErrf(atof((*beg).c_str()));
                 } else if (distr.compare("noweight") == 0) {
                 } else
-                    throw std::runtime_error("ERROR: wrong distribution flag in " + tmp.getName());
-                tmp.setDistr(distr);
-                if (tmp.isTMCMC()) {
-                    o3.AddObs(tmp);
+                    throw std::runtime_error("ERROR: wrong distribution flag in " + tmp->getName());
+                tmp->setDistr(distr);
+                if (tmp->isTMCMC()) {
+                    o3.AddObs(*tmp);
                     lines.push_back(true);
                     nlines++;
                 } else {
-                    Observables.push_back(&tmp);
+                    Observables.push_back(tmp);
                     lines.push_back(false);
                 }
             }
@@ -305,41 +279,6 @@ std::string InputParser::ReadParameters(const std::string filename,
             }
             o3.ComputeCov(myCorr);
             CGO.push_back(o3);
-        } else if (type.compare("ModelParaVsObs") == 0) {
-            if (std::distance(tok.begin(), tok.end()) < 10)
-                throw std::runtime_error("ERROR: lack of information on "
-                    + *beg + " in " + filename);
-            std::string name = *beg;
-            ++beg;
-            std::string ParaName = *beg;
-            ++beg;
-            std::string ParaLabel = *beg;
-            size_t pos = -1;
-            while ((pos = ParaLabel.find("~", pos + 1)) != std::string::npos)
-                ParaLabel.replace(pos, 1, " ");
-            ++beg;
-            double ParaMin = atof((*beg).c_str());
-            ++beg;
-            double ParaMax = atof((*beg).c_str());
-            ++beg;
-            std::string ObsName = *beg;
-            ++beg;
-            std::string ObsLabel = *beg;
-            pos = -1;
-            while ((pos = ObsLabel.find("~", pos + 1)) != std::string::npos)
-                ObsLabel.replace(pos, 1, " ");
-            ++beg;
-            double ObsMin = atof((*beg).c_str());
-            ++beg;
-            double ObsMax = atof((*beg).c_str());
-
-            ModelParaVsObs pm(name, ParaName, ParaLabel, ParaMin, ParaMax,
-                    ObsName, ObsLabel, ObsMin, ObsMax,
-                    thf->getThMethod(ObsName));
-            ParaObs.push_back(pm);
-            ++beg;
-            if (beg != tok.end()) std::cout << "WARNING: unread information in ModelParaVsObs "
-                    << ParaObs.back().getName() << std::endl;
         } else if (type.compare("ModelFlag") == 0) {
             if (std::distance(tok.begin(), tok.end()) < 3)
                 throw std::runtime_error("ERROR: lack of information on "

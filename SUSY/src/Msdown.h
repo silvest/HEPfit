@@ -9,7 +9,8 @@
 #define	MSDOWN_H
 
 #include <ThObservable.h>
-#include <ThObsType.h>
+
+
 #include "SUSY.h"
 
 /**

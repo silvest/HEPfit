@@ -13,7 +13,6 @@
 #include <Observable.h>
 #include <Observable2D.h>
 #include <CorrelatedGaussianObservables.h>
-#include <ModelParaVsObs.h>
 #include <ModelParameter.h>
 #include <Model.h>
 #include <boost/shared_ptr.hpp>
@@ -56,7 +55,7 @@ public:
      * @param[in] JobTag_i optional job tag that might be specified
      * @param[in] noMC_i the noMC specification given to the executable=
      */
-    GenerateEvent(const std::string& ModelConf_i,
+    GenerateEvent(ModelFactory& ModelF, ThObsFactory& ThObsF, const std::string& ModelConf_i,
                   const std::string& OutDirName_i,
                   const std::string& JobTag_i,
                   const bool noMC_i);
@@ -121,7 +120,6 @@ private:
     boost::ptr_vector<Observable> Obs; ///< Vector for the observables defined in SomeModel.conf.
     std::vector<Observable2D> Obs2D; ///< Vector for the Observables2D defined in SomeModel.conf.
     std::vector<CorrelatedGaussianObservables> CGO; ///< vector for the Correlated Gaussian Observables defined in SomeModel.conf.
-    std::vector<ModelParaVsObs> ParaObs; ///< Vector for the ModelParaVsObs defined in SomeModel.conf.
     std::string ModelConf; ///< String for the name of the SomeModel.conf file.
     std::string OutDirName; ///< String for the name of the output directory.
     std::string OldOutDirName; ///< String for the name of the backup output directory.

@@ -1,8 +1,15 @@
 /* 
+<<<<<<< HEAD
  * Copyright (C) 2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
+=======
+ * File:   BKstarll.h
+ * Author: marco
+ *
+ * Created on 16 giugno 2014, 15.30
+>>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
  */
 
 #ifndef BKSTARLL_H
@@ -24,11 +31,16 @@
  */
 class BKstarll : public ThObservable {
 public:
+<<<<<<< HEAD
     BKstarll(const StandardModel& SM_i, int lep_i);
+=======
+    BKstarll(const StandardModel& SM_i);
+>>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
     virtual ~BKstarll();
     virtual double computeThValue()=0;
         /*dummy variables*/
     double GF;            //Fermi constant
+<<<<<<< HEAD
     double ale;           //alpha electromagnetic
     double Mm;            //muon mass
     double MB;            //B meson mass
@@ -36,6 +48,16 @@ public:
     double Ms;            //s quark mass
     double MW;            //W boson mass
     complex lambda_t;      //Vckm factor
+=======
+    double e;             //electron charge
+    double Mm;            //muon mass
+    double MB;            //B meson mass
+    double Mb_MSB;        //b quark mass defined in the MSbar scheme
+    double Mb;            //b quark mass
+    double Ms;            //s quark mass
+    double MW;            //W boson mass
+    double lambda_t;      //Vckm factor
+>>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
     double h_lambda;      //parameter that contains the contribution from the hadronic hamiltonian  
     double q2;            //q^2 of the decay
     double k2;            //square of the 3-momentum k
@@ -100,7 +122,11 @@ public:
     * @brief \f$ N \f$ 
     * @return return the helicity amplitude normalization factor N
     */
+<<<<<<< HEAD
     complex N();
+=======
+    double N();
+>>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
     
     
     /**
@@ -220,7 +246,11 @@ public:
     /**
     * @brief \f$ P_{1} \f$ 
     */
+<<<<<<< HEAD
     P_1(const StandardModel& SM_i, int lep_i);
+=======
+    P_1(const StandardModel& SM_i);
+>>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
     
     /**
     * @return return the clean observable P_1
@@ -243,7 +273,11 @@ public:
     /**
     * @brief \f$ P_{2} \f$ 
     */
+<<<<<<< HEAD
     P_2(const StandardModel& SM_i, int lep_i);
+=======
+    P_2(const StandardModel& SM_i);
+>>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
     
     /**
     * @return return the clean observable P_2
@@ -266,7 +300,11 @@ public:
     /**
     * @brief \f$ P_{3} \f$ 
     */
+<<<<<<< HEAD
     P_3(const StandardModel& SM_i, int lep_i);
+=======
+    P_3(const StandardModel& SM_i);
+>>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
     
     /**
     * @return return the clean observable P_3
@@ -289,7 +327,11 @@ public:
     /**
     * @brief \f$ P'_{4} \f$ 
     */
+<<<<<<< HEAD
     P_4Prime(const StandardModel& SM_i, int lep_i);
+=======
+    P_4Prime(const StandardModel& SM_i);
+>>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
     
     /**
     * @return return the clean observable P'_4
@@ -312,7 +354,11 @@ public:
     /**
     * @brief \f$ P'_{5} \f$ 
     */
+<<<<<<< HEAD
     P_5Prime(const StandardModel& SM_i, int lep_i);
+=======
+    P_5Prime(const StandardModel& SM_i);
+>>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
     
     /**
     * @return return the clean observable P'_5
@@ -335,7 +381,11 @@ public:
     /**
     * @brief \f$ P'_{6} \f$ 
     */
+<<<<<<< HEAD
     P_6Prime(const StandardModel& SM_i, int lep_i);
+=======
+    P_6Prime(const StandardModel& SM_i);
+>>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
     
     /**
     * @return return the clean observable P'_6
@@ -358,7 +408,11 @@ public:
     /**
     * @brief \f$ Gamma' \f$ 
     */
+<<<<<<< HEAD
     GammaPrime(const StandardModel& SM_i, int lep_i);
+=======
+    GammaPrime(const StandardModel& SM_i);
+>>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
     
     /**
     * @return return the clean observable Gamma'
@@ -381,7 +435,11 @@ public:
     /**
     * @brief \f$ F_L \f$ 
     */
+<<<<<<< HEAD
     F_L(const StandardModel& SM_i, int lep_i);
+=======
+    F_L(const StandardModel& SM_i);
+>>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
     
     /**
     * @return return the clean observable F_L
@@ -389,7 +447,11 @@ public:
     double computeThValue ();
     
     const StandardModel& mySM;
+<<<<<<< HEAD
     int lep;
+=======
+
+>>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
 };
 
 
@@ -407,7 +469,11 @@ public:
     /**
     * @brief \f$ M'_1 \f$ 
     */
+<<<<<<< HEAD
     M_1Prime(const StandardModel& SM_i, int lep_i);
+=======
+    M_1Prime(const StandardModel& SM_i);
+>>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
     
     /**
     * @return return the clean observable M'_1
@@ -430,7 +496,11 @@ public:
     /**
     * @brief \f$ M'_2 \f$ 
     */
+<<<<<<< HEAD
     M_2Prime(const StandardModel& SM_i, int lep_i);
+=======
+    M_2Prime(const StandardModel& SM_i);
+>>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
     
     /**
     * @return return the clean observable M'_2

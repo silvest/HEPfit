@@ -54,7 +54,6 @@ using namespace gslpp;
  * @cite Halzen:1990je, @cite Kniehl:1991gu, @cite Kniehl:1992dx and @cite Djouadi:1993ss.
  */
 class EWSMTwoLoopQCD {
-
 public:
 
     /**
@@ -86,7 +85,7 @@ public:
      * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha\alpha_s}(s)@f$
      */
     double DeltaAlpha_t(const double s) const;
-    
+
     /**
      * @brief Leading two-loop %QCD contribution of @f$O(\alpha\alpha_s)@f$
      * to @f$\Delta\rho@f$, denoted as @f$\Delta\rho^{\alpha\alpha_s}@f$.
@@ -127,27 +126,6 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha\alpha_s)@f$
-     * to the effective couplings @f$\rho_Z^l@f$,
-     * denoted as @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha\alpha_s}@f$.
-     * @details The @f$O(\alpha\alpha_s)@f$ remainder contribution to
-     * @f$\rho_{Z}^{l}@f$ is decomposed as
-     * @f[
-     * \delta\rho_{\mathrm{rem}}^{l,\,\alpha\alpha_s}
-     *  = 2 \Delta\rho^{ud} + \Delta\rho^{tb} - \Delta\rho^{\alpha\alpha_s},
-     * @f]
-     * where @f$\Delta\rho^{ud}@f$ and @f$\Delta\rho^{tb}@f$ are associated with
-     * corrections to the self-energies of the gauge bosons with loops of
-     * a light-quark doublet and with those of the @f$t@f$-@f$b@f$ doublet, respectively,
-     * and @f$\Delta\rho^{\alpha\alpha_s}@f$ is the leading contribution
-     * of @f$O(\alpha\alpha_s)@f$ to @f$\rho_{Z}^{l}@f$.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha\alpha_s}@f$
-     */
-    complex deltaRho_rem_l(const StandardModel::lepton l, const double Mw_i) const;
-
-    /**
-     * @brief Remainder contribution of @f$O(\alpha\alpha_s)@f$
      * to the effective couplings @f$\rho_Z^q@f$,
      * denoted as @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha\alpha_s}@f$.
      * @details The @f$O(\alpha\alpha_s)@f$ remainder contribution to
@@ -165,30 +143,8 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha\alpha_s}@f$
      */
-    complex deltaRho_rem_q(const QCD::quark q, const double Mw_i) const;
+    complex deltaRho_rem_f(const Particle p, const double Mw_i) const;
 
-    /**
-     * @brief Remainder contribution of @f$O(\alpha\alpha_s)@f$
-     * to the effective couplings @f$\kappa_Z^l@f$,
-     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha\alpha_s}@f$.
-     * @details The @f$O(\alpha\alpha_s)@f$ remainder contribution to
-     * @f$\kappa_{Z}^{l}@f$ is decomposed as
-     * @f[
-     * \delta\kappa_{\mathrm{rem}}^{l,\,\alpha\alpha_s}
-     *  = 2 \Delta\kappa^{ud} + \Delta\kappa^{tb}
-     * - \frac{c_W^2}{s_W^2}\Delta\rho^{\alpha\alpha_s},
-     * @f]
-     * where @f$\Delta\kappa^{ud}@f$ and @f$\Delta\kappa^{tb}@f$ are associated with
-     * corrections to the self-energies of the gauge bosons with loops of
-     * a light-quark doublet and with those of the @f$t@f$-@f$b@f$ doublet, respectively,
-     * and @f$(c_W^2/s_W^2)\Delta\rho^{\alpha\alpha_s}@f$ is the leading contribution
-     * of @f$O(\alpha\alpha_s)@f$ to @f$\kappa_{Z}^{l}@f$.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha\alpha_s}@f$
-     */
-    complex deltaKappa_rem_l(const StandardModel::lepton l, const double Mw_i) const;
-                                                  
     /**
      * @brief Remainder contribution of @f$O(\alpha\alpha_s)@f$
      * to the effective couplings @f$\kappa_Z^q@f$,
@@ -209,11 +165,11 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha\alpha_s}@f$
      */
-    complex deltaKappa_rem_q(const QCD::quark q, const double Mw_i) const;  
-    
+    complex deltaKappa_rem_f(const Particle p, const double Mw_i) const;
+
 
     ////////////////////////////////////////////////////////////////////////        
-    
+
     /**
      * @brief The function @f$\delta^{\mathrm{QCD}}_2@f$.
      * @details This function is associated with the leading two-loop %QCD
@@ -236,7 +192,7 @@ public:
      * @attention This function is valid for @f$0 \leq x < 1@f$.
      */
     double F1(const double x, const double Mw_i) const;
-    
+
     /**
      * @brief The function @f$V_1(r)@f$. 
      * @details The expression for @f$V_1(r)@f$ can be found in @cite Kniehl:1989yc
@@ -247,7 +203,7 @@ public:
      * @attention This function is valid for @f$0 \leq r < 1@f$. 
      */
     double V1(const double r) const;
-        
+
     /**
      * @brief The function @f$A_1(r)@f$.
      * @details The expression for @f$A_1(r)@f$ can be found in @cite Kniehl:1989yc
@@ -269,7 +225,7 @@ public:
      * @attention This function is valid for @f$0 \leq r < 1@f$.
      */
     double V1prime(const double r) const;
-    
+
     /**
      * @brief The derivative of the function @f$A_1(r)@f$.
      * @details The expression for @f$A'_1(r)@f$ has been derived from @f$A_1(r)@f$
@@ -280,7 +236,7 @@ public:
      * @attention This function is valid for @f$0 \leq r < 1@f$. 
      */
     double A1prime(const double r) const;
-    
+
     /**
      * @brief Light-quark contribution to @f$\Delta r@f$, not including
      * @f$\Delta\alpha^{l+5q}(M_Z^2)@f$, denoted as @f$\Delta r^{ud}@f$. 
@@ -324,7 +280,7 @@ public:
      * @return @f$\Delta r^{tb}@f$
      */
     double DeltaR_tb(const double Mw_i) const;
-        
+
     /**
      * @brief Light-quark contribution to @f$\rho_Z^f@f$,
      * denoted as @f$\Delta\rho^{ud}@f$. 
@@ -366,7 +322,7 @@ public:
      * @return @f$\Delta\rho^{tb}@f$
      */
     double DeltaRho_tb(const double Mw_i) const;
-    
+
     /**
      * @brief Light-quark contribution to @f$\kappa_Z^f@f$,
      * denoted as @f$\Delta\kappa^{ud}@f$.
@@ -387,7 +343,7 @@ public:
      * @return @f$\Delta\kappa^{ud}@f$
      */
     complex DeltaKappa_ud(const double Mw_i) const;
-    
+
     /**
      * @brief Heavy-quark contribution to @f$\kappa_Z^f@f$,
      * denoted as @f$\Delta\kappa^{tb}@f$. 
@@ -413,14 +369,14 @@ public:
      * @return @f$\Delta\kappa^{tb}@f$
      */
     complex DeltaKappa_tb(const double Mw_i) const;
-     
-    
+
+
     ////////////////////////////////////////////////////////////////////////        
-    
+
 private:
-    const EWSMcache& cache;///< A reference to an object of type EWSMcache.
-    
-    
+    const EWSMcache& cache; ///< A reference to an object of type EWSMcache.
+
+
 };
 
 #endif	/* EWSMTWOLOOPQCD_H */

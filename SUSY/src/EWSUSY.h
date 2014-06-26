@@ -10,8 +10,8 @@
 
 #include <gslpp.h>
 #include <PVfunctions.h>
-#include <EWSM.h>
-#include "SUSY.h"
+
+class SUSY;
 
 using namespace gslpp;
 
@@ -40,7 +40,7 @@ using namespace gslpp;
  * <A HREF="http://inspirehep.net/record/401937?ln=en">Rosiek, hep-ph/9511250</A>,
  * where an updated version is available at author's webpage. 
  */
-class EWSUSY : public EWSM {
+class EWSUSY {
 public:
 
     /**

@@ -9,7 +9,7 @@
 #define	LEP2TWOFERMIONS_H
 
 #include <StandardModel.h>
-#include "EW.h"
+
 using namespace gslpp;
 
 /**
@@ -20,7 +20,7 @@ using namespace gslpp;
  * @copyright GNU General Public License
  * @details 
  */
-class LEP2TwoFermions : public EW {
+class LEP2TwoFermions {
 public:
 
     /**
@@ -223,6 +223,8 @@ private:
     double AFB(const double s, const double Mw, const double GammaZ, 
                const double I3f, const double Qf, const double mf,
                const double mfp, const bool bWeak) const;
+    
+    const StandardModel& SM;
     
 };
 

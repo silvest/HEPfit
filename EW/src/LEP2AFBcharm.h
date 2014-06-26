@@ -28,8 +28,8 @@ public:
      * @param[in] EW_i an object of EW class
      * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
      */
-    LEP2AFBcharm(const EW& EW_i, const double sqrt_s_i) 
-    : LEP2ThObservable(EW_i, sqrt_s_i), myLEP2sigmaCharm(EW_i, sqrt_s_i, true) 
+    LEP2AFBcharm(const StandardModel& SM_i, const double sqrt_s_i) 
+    : LEP2ThObservable(SM_i, sqrt_s_i), myLEP2sigmaCharm(SM_i, sqrt_s_i, true) 
     {
         q_flavor = QCD::CHARM;
     }

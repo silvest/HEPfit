@@ -10,6 +10,7 @@
 
 #include <gslpp_complex.h>
 #include "Flavour.h"
+#include <StandardModel.h>
 
 using namespace gslpp;
 
@@ -21,14 +22,15 @@ using namespace gslpp;
 
 class AmpDB2 {
 public:
-    AmpDB2(Flavour& Flavour);
+    AmpDB2(const StandardModel& SM_i);
 
 protected:
     complex AmpBd(orders order);
     complex AmpBs(orders order);
 
 private:
-    Flavour& myFlavour;
+    
+    const StandardModel& mySM;
 
 };
 

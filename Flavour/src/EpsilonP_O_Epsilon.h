@@ -31,7 +31,7 @@ public:
      * constructor
      * @param Flavour
      */
-    EpsilonP_O_Epsilon(Flavour& Flavour): ThObservable(Flavour), AmpDS1(Flavour) {};
+    EpsilonP_O_Epsilon(const StandardModel& SM_i): ThObservable(SM_i), AmpDS1(SM_i) {};
     
     /**
      * 

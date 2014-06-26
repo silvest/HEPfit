@@ -17,6 +17,7 @@
  * the <a href="https://www.mppmu.mpg.de/bat/" target=blank>Bayesian Analysis Toolkit (BAT)</a>.
  * @{
  */
+
 /**
  * @class MonteCarlo
  * @brief A class for Monte Carlo. 
@@ -49,19 +50,18 @@ public:
      * @param[in] OutFile_i the name of the root output file to be given without the .root
      * extention
      * @param[in] JobTag_i optional job tag that might be specified
-     * @param[in] checkTheoryRange_i (default = false)
      */
-    MonteCarlo(const std::string& ModelConf_i,
-               const std::string& MonteCarloConf_i,
-               const std::string& OutFile_i,
-               const std::string& JobTag_i,
-               const bool checkTheoryRange_i=false);
+    MonteCarlo(ModelFactory& ModelF, ThObsFactory& ThObsF,
+            const std::string& ModelConf_i,
+            const std::string& MonteCarloConf_i,
+            const std::string& OutFile_i,
+            const std::string& JobTag_i);
 
     /**
      * @brief The default destructor.
      */
     //virtual ~MonteCarlo();
-    
+
     /**
      * @brief This member is used for test runa to generate a single event
      * @details The values of the parameters that are used to generate the single event
@@ -88,7 +88,7 @@ public:
      * of <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> and run as parallel processes with MPI.
      */
     void TestRun(int rank);
-    
+
     /**
      * @brief This member is responsible for setting the Monte Carlo run parameters and conducting
      * the Monte Carlo run including initiating all output generation
@@ -134,7 +134,7 @@ public:
      * of <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> and run as parallel processes with MPI.
      */
     void Run(const int rank);
-    
+
 private:
     InputParser myInputParser; ///< An object of the InputParser class.
     MonteCarloEngine MCEngine; ///< An object of the MonteCarloEngine class.
@@ -142,13 +142,13 @@ private:
     boost::ptr_vector<Observable> Obs; ///< Vector for the observables defined in SomeModel.conf.
     std::vector<Observable2D> Obs2D; ///< Vector for the Observables2D defined in SomeModel.conf.
     std::vector<CorrelatedGaussianObservables> CGO; ///< Vector for the Correlated Gaussian Observables defined in SomeModel.conf.
-    std::vector<ModelParaVsObs> ParaObs; ///< Vector for the ModelParaVsObs defined in SomeModel.conf.
     std::string ModelConf; ///< String for the name of the SomeModel.conf file.
     std::string MCMCConf; ///< String for the name of the MonteCarlo.conf file.
     std::string OutFile; ///< String for the name of the output root file without the .root extension.
     std::string JobTag; ///< String for the optional JobTag argument to be passes to the executable.
     std::string ObsDirName; ///< String for the output directory name.
     bool FindModeWithMinuit; ///< Flag for using Minuit libraries.
+    bool CalculateEvidence; ///<< Flag for calculating the evidence.
     bool PrintAllMarginalized; ///< Flag for printing all Marginalized distributions to be passed on to the <a href="https://www.mppmu.mpg.de/bat/" target=blank>BAT</a> routines.
     bool PrintCorrelationMatrix; ///< Flag for printing the correlation matrix.
     bool PrintKnowledgeUpdatePlots; ///< Flag for printing plots to compare prior vs. posterior knowledge of parameters.

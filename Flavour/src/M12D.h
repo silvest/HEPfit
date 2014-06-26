@@ -22,7 +22,7 @@ public:
      * @brief M12D constructor
      * @param Flavour an object of Flavour class
      */
-    M12D(Flavour& Flavour) : ThObservable(Flavour), AmpDD2(Flavour) {};
+    M12D(const StandardModel& SM_i) : ThObservable(SM_i), AmpDD2(SM_i) {};
     /**
      * @brief a method returning the absolute value of the complex amplitude for 
      * the absorptive part of the\f$ | \Delta C = 2 | \f$ mixing

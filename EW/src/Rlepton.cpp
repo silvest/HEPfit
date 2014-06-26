@@ -7,16 +7,9 @@
 
 #include "Rlepton.h"
 
-
-double Rlepton::computeThValue() 
+double Rlepton::computeThValue()
 {
-    double R0_l = myEW.R0_l();
-
-    /* NP contribution to the Zff vertex */
-    if (myEW.checkNPZff_linearized() && SM.ModelName().compare("StandardModel") != 0)
-        R0_l = myEW.getMyEW_NPZff().Rlepton(R0_l);
- 
-    return R0_l;
+    return SM.R0_f(SM.getLeptons(SM.ELECTRON));
 }
-        
+
 

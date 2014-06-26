@@ -90,6 +90,14 @@ public:
     
     /** 
      * 
+     * @brief operator basis: current current; qcd penguins; 
+     * magnetic and chromomagnetic penguins; semileptonic 
+     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l{-} \f$
+     */
+    virtual  std::vector<WilsonCoefficient>& CMBKstarll();
+    
+    /** 
+     * 
      * @brief operator basis: 
      * @brief current-current; qcd penguins;
      * @brief hep/ph 9512380  
@@ -366,7 +374,7 @@ public:
     
 protected:
     std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2, vmck, vmckcc;
-    std::vector<WilsonCoefficient> vmcbsg, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
+    std::vector<WilsonCoefficient> vmcbsg, vmcBKstarll, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
     std::vector<WilsonCoefficient> vmckpnn, vmckmm, vmcbsnn, vmcbdnn, vmcbsmm, vmcbdmm;
     std::vector<WilsonCoefficient> vmcDL1;
     
@@ -380,7 +388,7 @@ private:
     double S18(double x) const;
     double ZDP(const double x, const double y) const;
     WilsonCoefficient mcdbd2, mcdbs2, mcdd2, mcdk2, mck, mckcc;
-    WilsonCoefficient mcbsg, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
+    WilsonCoefficient mcbsg, mcBKstarll, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     WilsonCoefficient mckpnn, mckmm, mcbsnn, mcbdnn, mcbsmm, mcbdmm;
     WilsonCoefficient mcDL1;
     
@@ -408,6 +416,15 @@ private:
      * @return return the value of the wilson coefficients for \f$ B \rightarrow X_{s} \gamma, l^{+} l{-} \f$
      */
     double setWCbsg (int i, double x, orders order);
+    
+    /**
+     * 
+     * @param i int, flag for the caching
+     * @param x the square ratio between top mass and W mass
+     * @param order
+     * @return return the value of the wilson coefficients for \f$ B \rightarrow k^* l^{+} l{-} \f$
+     */
+    double setWCBKstarll (int i, double x, orders order);
     
     /**
      * 
@@ -442,12 +459,15 @@ private:
     double phi2 (double x, double y) const;
     
     double CWbsgArrayLO[10], CWbsgArrayNLO[10];
+    double CWBKstarllArrayLO[19], CWBKstarllArrayNLO[19];
     double CWD1ArrayLO[10], CWD1ArrayNLO[10];
     double CWbnlepArrayLOqcd[10], CWbnlepArrayNLOqcd[10];
     double CWbnlepArrayLOew[10], CWbnlepArrayNLOew[10];
     
     double sw, swa, swb, swc; //sen(theta_W) tree level
     double xcachea, xcacheb, xcachec; // caching
+    
+    
 };
 
 #endif	/* STANDARDMODELMATCHING_H */

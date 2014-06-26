@@ -23,6 +23,7 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mck(10, NDR, NLO),
         mckcc(10, NDR, NLO),
         mcbsg(10, NDR, NLO),
+        mcBKstarll(19, NDR, NLO),
         mcbnlep(10, NDR, NLO, NLO_ew),
         mcbnlepCC(10, NDR, NLO),
         mcd1(10, NDR, NLO),
@@ -54,6 +55,12 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         CWbnlepArrayLOew[j] = 0.;
         CWbnlepArrayNLOew[j] = 0.;
     };
+    
+    
+    for(int j=0; j<19; j++){
+        CWBKstarllArrayLO[j] = 0.;
+        CWBKstarllArrayNLO[j] = 0.;
+    }
     
     Nc = SM.getNc();
     CF = SM.getCF();
@@ -982,6 +989,123 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
             throw std::runtime_error("order" + out.str() + "not implemeted"); 
         }
 }
+
+
+
+
+/*******************************************************************************
+ * Wilson coefficients misiak base for B -> K^*ll                              * 
+ * operator basis: - current current                                           *         
+ *                 - qcd penguins                                              * 
+ *                 - magnetic and chromomagnetic penguins                      *         
+ *                 - semileptonic                                              * 
+ * ****************************************************************************/
+    std::vector<WilsonCoefficient>& StandardModelMatching::CMBKstarll() 
+    {    
+    double xt = x_t(Muw);
+    complex co = (- 4. * GF / sqrt(2)) * SM.computelamt_s();
+    
+    vmcBKstarll.clear();
+    
+    switch (mcBKstarll.getScheme()) {
+        case NDR:
+        //case HV:
+        //case LRI:
+        break;
+        default:
+            std::stringstream out;
+            out << mcBKstarll.getScheme();
+            throw std::runtime_error("StandardModel::CMBKstrall(): scheme " + out.str() + "not implemented"); 
+    }
+
+    mcBKstarll.setMu(Muw);
+    
+    switch (mcBKstarll.getOrder()) {
+        case NNLO:
+        case NLO:
+            for (int j=0; j<19; j++){
+            mcBKstarll.setCoeff(j, co * SM.Als(Muw, FULLNLO) / 4. / M_PI * setWCBKstarll(j, xt,  NLO) , NLO);
+            }
+            std::cout<<std::endl;
+        case LO:
+            for (int j=0; j<19; j++){
+            mcBKstarll.setCoeff(j, co * setWCBKstarll(j, xt,  LO), LO);
+            }
+            break;
+        default:
+            std::stringstream out;
+            out << mcBKstarll.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMBKstrall(): order " + out.str() + "not implemented"); 
+    }
+    
+    vmcBKstarll.push_back(mcBKstarll);
+    return(vmcBKstarll);
+}
+        
+
+
+ /*******************************************************************************
+ * Wilson coefficients calcoulus, misiak base for B -> K^*ll                    *  
+ * *****************************************************************************/
+
+double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
+{    
+    sw =  sqrt( (M_PI * Ale )/( sqrt(2) * GF * Mw * Mw) ) ;
+
+    if ( swa == sw && xcachea == x){
+        switch (order){
+        case NNLO:
+        case NLO:
+            return ( CWBKstarllArrayNLO[i] );
+            break;
+        case LO:
+            return ( CWBKstarllArrayLO[i] );
+            break;
+        default:
+            std::stringstream out;
+            out << order;
+            throw std::runtime_error("order" + out.str() + "not implemeted"); 
+        }
+    }
+    
+    swa = sw; xcachea = x;
+
+    switch (order){
+        case NNLO:
+        case NLO:
+            CWBKstarllArrayNLO[0] = 15.;
+            CWBKstarllArrayNLO[3] = E0t(x)-(2./3.);
+            CWBKstarllArrayNLO[6] = C7NLOeff(x);//-0.5 * A0t(x)- 23./36.;
+            CWBKstarllArrayNLO[7] = C8NLOeff(x);//-0.5 * F0t(x)- 1./3.;
+            CWBKstarllArrayNLO[8] = (1-4.*sw*sw) / sw *C0t(x) - 1./(sw*sw) *
+                                B0t(x) - D0t(x) + 38./27. + 1./(4.*sw*sw);
+            CWBKstarllArrayNLO[9] = 1./(sw*sw) * (B0t(x) - C0t(x)) -1./(4.*sw*sw);
+        case LO:
+            CWBKstarllArrayLO[1] = 1.;
+            CWBKstarllArrayLO[6] = C7LOeff(x);//0.;
+            CWBKstarllArrayLO[7] = C8LOeff(x);//0.;
+            break;
+        default:
+            std::stringstream out;
+            out << order;
+            throw std::runtime_error("order" + out.str() + "not implemeted"); 
+            }
+    
+    switch (order){
+        case NNLO:
+        case NLO:
+            return ( CWBKstarllArrayNLO[i] );
+            break;
+        case LO:
+            return ( CWBKstarllArrayLO[i] );
+            break;
+        default:
+            std::stringstream out;
+            out << order;
+            throw std::runtime_error("order" + out.str() + "not implemeted"); 
+        }
+}
+    
 
 /******************************************************************************/
 

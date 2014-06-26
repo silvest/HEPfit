@@ -158,44 +158,13 @@ public:
     NPHiggs();
 
     /**
-     * @brief @copybrief StandardModel::InitializeModel()
-     * @copydetails NPbase::InitializeModel()
-     */
-    virtual bool InitializeModel();
-    
-    /**
-     * @brief @copybrief Model::Init()
-     * @copydetails Model::Init()
-     */
-    virtual bool Init(const std::map<std::string, double>& DPars);
-
-    /**
-     * @brief @copybrief Model::Update()
-     * @copydetails Model::Update()
-     */
-    virtual bool Update(const std::map<std::string, double>& DPars);
-    
-    /**
      * @brief @copybrief Model::CheckParameters()
      * @copydetails Model::CheckParameters()
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
-    /**
-     * @brief @copybrief Model::setFlag()
-     * @copydetails Model::setFlag()
-     */
-    virtual bool setFlag(const std::string name, const bool value);
-    
-    /**
-     * @brief @copybrief Model::CheckFlags()
-     * @copydetails Model::CheckFlags()
-     */
-    virtual bool CheckFlags() const;
-
-    
     ////////////////////////////////////////////////////////////////////////     
-    
+
     /**
      * @brief The oblique parameter \f$S\f$.
      * @details
@@ -207,7 +176,7 @@ public:
      * @return \f$S\f$
      */
     virtual double obliqueS() const;
-        
+
     /**
      * @brief The oblique parameter \f$T\f$.
      * @details
@@ -220,7 +189,7 @@ public:
      * @return \f$T\f$
      */
     virtual double obliqueT() const;
-    
+
     /**
      * @brief The oblique parameter \f$U\f$.
      * @return \f$U=0\f$
@@ -229,16 +198,16 @@ public:
 
 
     ////////////////////////////////////////////////////////////////////////    
-protected:    
+protected:
 
-    double a;///< The \f$hVV\f$ coupling \f$a\f$.
-    double b;///< The \f$hhVV\f$ coupling \f$b\f$.
-    double c_u;///< The \f$h\overline{u}u\f$ coupling \f$c_u\f$.
-    double c_d;///< The \f$h\overline{d}d\f$ coupling \f$c_d\f$. 
-    double c_e;///< The \f$h\overline{e}e\f$ coupling \f$c_e\f$.
-    double d_3;///< The \f$hhh\f$ coupling \f$d_3\f$. 
-    double d_4;///< The \f$hhhh\f$ coupling \f$d_4\f$. 
-    double LambdaNP_in;///< The new physics scale \f$\Lambda\f$
+    double a; ///< The \f$hVV\f$ coupling \f$a\f$.
+    double b; ///< The \f$hhVV\f$ coupling \f$b\f$.
+    double c_u; ///< The \f$h\overline{u}u\f$ coupling \f$c_u\f$.
+    double c_d; ///< The \f$h\overline{d}d\f$ coupling \f$c_d\f$.
+    double c_e; ///< The \f$h\overline{e}e\f$ coupling \f$c_e\f$.
+    double d_3; ///< The \f$hhh\f$ coupling \f$d_3\f$.
+    double d_4; ///< The \f$hhhh\f$ coupling \f$d_4\f$.
+    double LambdaNP_in; ///< The new physics scale \f$\Lambda\f$
 
     /**
      * @brief @copybrief Model::setParameter()
@@ -246,7 +215,7 @@ protected:
      */
     virtual void setParameter(const std::string name, const double& value);
 
-    
+
 };
 
 #endif	/* NPHIGGS_H */

@@ -9,11 +9,10 @@
 #define	VUS_H
 
 #include <ThObservable.h>
-#include <ThObsType.h>
 
 class Vus : public ThObservable {
 public:
-    Vus(const ThObsType& ObsType) : ThObservable(ObsType) {};
+    Vus(const StandardModel& SM_i) : ThObservable(SM_i) {};
 
     double computeThValue();
 };

@@ -10,7 +10,6 @@
 
 #include <stdexcept>
 #include <ThObservable.h>
-#include "EW.h"
 
 /**
  * @class GammaW 
@@ -28,8 +27,8 @@ public:
      * @brief Constructor.
      * @param[in] EW_i a reference to an object of type EW
      */
-    GammaW(const EW& EW_i) 
-    : ThObservable(EW_i)
+    GammaW(const StandardModel& SM_i) 
+    : ThObservable(SM_i)
     {
     };
 

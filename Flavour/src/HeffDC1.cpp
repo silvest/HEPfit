@@ -136,9 +136,9 @@ vector<complex>** HeffDC1::ComputeCoeffDC1g(double mu, schemes scheme) {
   delta5(4) = 1.; delta6(5) = 1.; delta7(6) = 1.; delta8(7) = 1.;
   delta9(8) = 1.; delta10(9) = 1.;
   
-  vector<complex> ** allcoeff = myFlavour.ComputeCoeffDC1_K(
-            myFlavour.getModel().getBD().getMu(), 
-            myFlavour.getModel().getBD().getScheme());
+  vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDC1_K(
+            mySM.getBD().getMu(), 
+            mySM.getBD().getScheme());
   
   std::cout << " Wilson coefficients SM+SUSY " << *allcoeff[LO] << std::endl; 
   std::cout << " Wilson coefficients SM+SUSY " << *allcoeff[NLO] << std::endl;
