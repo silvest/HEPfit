@@ -78,8 +78,8 @@ double HiggsKvKf::muggH(const double sqrt_s) const
 
 double HiggsKvKf::muVBF(const double sqrt_s) const
 {
-    double sigmaWF_SM = trueSM.computeSigmaWF(sqrt_s);
-    double sigmaZF_SM = trueSM.computeSigmaZF(sqrt_s);
+    double sigmaWF_SM = trueSM.computeSigmaWH(sqrt_s);
+    double sigmaZF_SM = trueSM.computeSigmaZH(sqrt_s);
     double sigmaZWF_SM = trueSM.computeSigmaZWF(sqrt_s);
     return (computeKW() * computeKW() * sigmaWF_SM
             + computeKZ() * computeKZ() * sigmaZF_SM

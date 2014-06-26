@@ -1842,6 +1842,8 @@ public:
         } else if (sqrt_s == 8.0) {
             return 19.12; // in pb for Mh=125.5 GeV
             //return 19.09; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 1.96) {
+            return 0.9493; // in pb for Mh=125 GeV
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH()");
     }
@@ -1909,6 +1911,8 @@ public:
         } else if (sqrt_s == 8.0) {
             return 1.573; // in pb for Mh=125.5 GeV
             //return 1.572; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 1.96) {
+            return 0.0653; // in pb for Mh=125 GeV
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaVBF()");
     }
@@ -1973,6 +1977,8 @@ public:
         } else if (sqrt_s == 8.0) {
             return 0.6951; // in pb for Mh=125.5 GeV
             //return 0.6931; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 1.96) {
+            return 0.1295; // in pb for Mh=125 GeV
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaWH()");
     }
@@ -1991,6 +1997,8 @@ public:
         } else if (sqrt_s == 8.0) {
             return 0.4102; // in pb for Mh=125.5 GeV
             //return 0.4091; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 1.96) {
+            return 0.0785; // in pb for Mh=125 GeV
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaZH()");
     }
@@ -2009,6 +2017,8 @@ public:
         } else if (sqrt_s == 8.0) {
             return 0.1277; // in pb for Mh=125.5 GeV
             //return 0.1274; // in pb for Mh=125.6 GeV
+        } else if (sqrt_s == 1.96) {
+            return 0.0043; // in pb for Mh=125 GeV
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmattH()");
     }

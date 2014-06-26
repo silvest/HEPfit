@@ -28,6 +28,7 @@ ThObsFactory::ThObsFactory() {
     //-----  Higgs Extension observables  ----------
     const double sqrt_s_LHC7 = 7.0; ///< the center-of-mass energy in TeV
     const double sqrt_s_LHC8 = 8.0; ///< the center-of-mass energy in TeV
+    const double sqrt_s_TeV = 1.96;
     obsThFactory["ggH7"] = boost::bind(boost::factory<muggH*>(),  _1, sqrt_s_LHC7);
     obsThFactory["VBF7"] = boost::bind(boost::factory<muVBF*>(), _1, sqrt_s_LHC7);
     obsThFactory["VH7"] = boost::bind(boost::factory<muVH*>(), _1, sqrt_s_LHC7);
@@ -36,6 +37,10 @@ ThObsFactory::ThObsFactory() {
     obsThFactory["VBF8"] = boost::bind(boost::factory<muVBF*>(), _1, sqrt_s_LHC8);
     obsThFactory["VH8"] = boost::bind(boost::factory<muVH*>(), _1, sqrt_s_LHC8);
     obsThFactory["ttH8"] = boost::bind(boost::factory<muttH*>(), _1, sqrt_s_LHC8);
+    obsThFactory["ggH196"] = boost::bind(boost::factory<muggH*>(),  _1, sqrt_s_TeV);
+    obsThFactory["VBF196"] = boost::bind(boost::factory<muVBF*>(), _1, sqrt_s_TeV);
+    obsThFactory["VH196"] = boost::bind(boost::factory<muVH*>(), _1, sqrt_s_TeV);
+    obsThFactory["ttH196"] = boost::bind(boost::factory<muttH*>(), _1, sqrt_s_TeV);
     obsThFactory["BrHggRatio"] = boost::factory<BrHtoggRatio*>();
     obsThFactory["BrHWWRatio"] = boost::factory<BrHtoWWRatio*>();
     obsThFactory["BrHZZRatio"] = boost::factory<BrHtoZZRatio*>();

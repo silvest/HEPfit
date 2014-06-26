@@ -188,6 +188,11 @@ std::string InputParser::ReadParameters(const std::string filename,
                     hthobs.push_back(myObsFactory.CreateThMethod("VBF8", *myModel));
                     hthobs.push_back(myObsFactory.CreateThMethod("VH8", *myModel));
                     hthobs.push_back(myObsFactory.CreateThMethod("ttH8", *myModel));
+                } else if (distr.compare("TeV196") == 0) {
+                    hthobs.push_back(myObsFactory.CreateThMethod("ggH196", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("VBF196", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("VH196", *myModel));
+                    hthobs.push_back(myObsFactory.CreateThMethod("ttH196", *myModel));
                 } else
                     throw std::runtime_error("ERROR: wrong keyword " + distr + " in " + ho->getName());
                 ho->setParametricLikelihood(*(++beg), hthobs);
