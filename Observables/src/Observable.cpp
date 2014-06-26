@@ -6,7 +6,6 @@
  */
 
 #include "Observable.h"
-#include <BAT/BCMath.h>
 #include <TNamed.h>
 #include <TFile.h>
 #include <TROOT.h>
@@ -95,12 +94,17 @@ double Observable::LogSplitGaussian(double x, double ave, double errl, double er
     return -0.5 * (x-ave) * (x-ave) / sigma / sigma;
 }
 
+double Observable::LogGaussian(double x, double ave, double sigma)
+{
+    return -0.5 * (x-ave) * (x-ave) / sigma / sigma;
+}
+
 double Observable::computeWeight(double th)
 {
     double logprob;
     if (distr.compare("weight") == 0) {
         if (errf == 0.)
-            logprob = BCMath::LogGaus(th, ave, errg);
+            logprob = LogGaussian(th, ave, errg);
         else if (errg == 0.) {
             if (th < ave + errf && th > ave - errf)
                 logprob = 1.;

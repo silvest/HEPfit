@@ -6,57 +6,46 @@
  */
 
 #include <stdexcept>
-#include <EWSM.h>
 #include "NPZbbbar.h"
-#include "EWNPZbbbar.h"
 
 
 const std::string NPZbbbar::ZbbbarVAVars[NZbbbarVars]
-= {"deltaGVb", "deltaGAb"};
+        = {"deltaGVb", "deltaGAb"};
 
 const std::string NPZbbbar::ZbbbarLRVars[NZbbbarVars]
-= {"deltaGLb", "deltaGRb"};
-
+        = {"deltaGLb", "deltaGRb"};
 
 NPZbbbar::NPZbbbar(const bool FlagNPZbbbarLR_in)
 : NPbase(), FlagNPZbbbarLR(FlagNPZbbbarLR_in)
 {
-    FlagNotLinearizedNP = false;
+    setFlagNoApproximateGammaZ(true);
+
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGVb", boost::cref(myDeltaGVb)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGAb", boost::cref(myDeltaGAb)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGLb", boost::cref(myDeltaGLb)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("deltaGRb", boost::cref(myDeltaGRb)));
 }
 
-
-bool NPZbbbar::InitializeModel()
+bool NPZbbbar::PostUpdate()
 {
-    /* do not use setModelInitialized(NPbase::InitializeModel()) in order to
-     use EWNPZbbbar */
-    myEWSM = new EWNPZbbbar(*this);
-    setModelInitialized(true);
-    return(IsModelInitialized());
-}
-
-
-bool NPZbbbar::Init(const std::map<std::string, double>& DPars)
-{
-    return(NPbase::Init(DPars));
-}
-
-
-bool NPZbbbar::Update(const std::map<std::string,double>& DPars)
-{
-    for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
-        setParameter(it->first, it->second);
-    if(!NPbase::Update(DPars)) return (false);
+    if (!NPbase::PostUpdate()) return (false);
+    if (FlagNPZbbbarLR) {
+        myDeltaGVb = myDeltaGLb + myDeltaGRb;
+        myDeltaGAb = myDeltaGLb - myDeltaGRb;
+    } else {
+        myDeltaGLb = (myDeltaGVb + myDeltaGAb) / 2.0;
+        myDeltaGRb = (myDeltaGVb - myDeltaGAb) / 2.0;
+    }
     return (true);
 }
-
 
 void NPZbbbar::setParameter(const std::string name, const double& value)
 {
     if (FlagNPZbbbarLR) {
         if (name.compare("deltaGLb") == 0)
-            myDeltaGVb = value;
+            myDeltaGLb = value;
         else if (name.compare("deltaGRb") == 0)
-            myDeltaGAb = value;
+            myDeltaGRb = value;
         else
             NPbase::setParameter(name, value);
     } else {
@@ -68,7 +57,6 @@ void NPZbbbar::setParameter(const std::string name, const double& value)
             NPbase::setParameter(name, value);
     }
 }
-
 
 bool NPZbbbar::CheckParameters(const std::map<std::string, double>& DPars)
 {
@@ -87,85 +75,66 @@ bool NPZbbbar::CheckParameters(const std::map<std::string, double>& DPars)
             }
         }
     }
-    return(NPbase::CheckParameters(DPars));
+    return (NPbase::CheckParameters(DPars));
 }
-
-
-bool NPZbbbar::setFlag(const std::string name, const bool value)
-{
-    bool res = false;
-    if (name.compare("NotLinearizedNP") == 0) {
-        FlagNotLinearizedNP = value;
-        res = true;
-    } else
-        res = NPbase::setFlag(name,value);
-
-    return(res);
-}
-
-
-bool NPZbbbar::CheckFlags() const
-{
-    return(NPbase::CheckFlags());
-}
-
 
 ////////////////////////////////////////////////////////////////////////
 
-
-double NPZbbbar::deltaGVl(StandardModel::lepton l) const
+double NPZbbbar::deltaGV_f(const Particle p) const
 {
-    return NPbase::deltaGVl(l);
+    if (p.is("BOTTOM"))
+        return myDeltaGVb;
+    else
+        return 0.0;
 }
 
-
-double NPZbbbar::deltaGVq(QCD::quark q) const
+double NPZbbbar::deltaGA_f(const Particle p) const
 {
-    switch (q) {
-        case QCD::UP:
-        case QCD::CHARM:
-        case QCD::TOP:
-        case QCD::DOWN:
-        case QCD::STRANGE:
-            return NPbase::deltaGVq(q);
-        case QCD::BOTTOM:
-            if (FlagNPZbbbarLR)
-                // delta g_L^b + delta g_R^b
-                return ( myDeltaGVb + NPbase::deltaGVq(q)
-                         + myDeltaGAb + NPbase::deltaGAq(q));
-            else
-                return ( myDeltaGVb + NPbase::deltaGVq(q) );
-        default:
-            throw std::runtime_error("Error in NPZbbbar::deltaGVq()");
-    }
+    if (p.is("BOTTOM"))
+        return myDeltaGAb;
+    else
+        return 0.0;
 }
 
+////////////////////////////////////////////////////////////////////////
 
-double NPZbbbar::deltaGAl(StandardModel::lepton l) const
+double NPZbbbar::Mw() const
 {
-    return NPbase::deltaGAl(l);
+    return (StandardModel::Mw());
 }
 
+double NPZbbbar::GammaW() const
+{
+    return (StandardModel::GammaW());
+}
 
- double NPZbbbar::deltaGAq(QCD::quark q) const
- {
-     switch (q) {
-         case QCD::UP:
-         case QCD::CHARM:
-         case QCD::TOP:
-         case QCD::DOWN:
-         case QCD::STRANGE:
-             return NPbase::deltaGAq(q);
-         case QCD::BOTTOM:
-             if (FlagNPZbbbarLR)
-                // delta g_L^b - delta g_R^b
-                return ( myDeltaGVb + NPbase::deltaGVq(q)
-                         - myDeltaGAb - NPbase::deltaGAq(q));
-             else
-                 return ( myDeltaGAb + NPbase::deltaGAq(q) );
-         default:
-             throw std::runtime_error("Error in NPZbbbar::deltaGAq()");
-     }
- }
+double NPZbbbar::Gamma_Z() const
+{
+    return (StandardModel::Gamma_Z());
+}
 
+double NPZbbbar::sigma0_had() const
+{
+    return (StandardModel::sigma0_had());
+}
+
+double NPZbbbar::sin2thetaEff(const Particle p) const
+{
+    return (StandardModel::sin2thetaEff(p));
+}
+
+double NPZbbbar::A_f(const Particle p) const
+{
+    return (StandardModel::A_f(p));
+}
+
+double NPZbbbar::AFB(const Particle p) const
+{
+    return (StandardModel::AFB(p));
+}
+
+double NPZbbbar::R0_f(const Particle p) const
+{
+    return (StandardModel::R0_f(p));
+}
 

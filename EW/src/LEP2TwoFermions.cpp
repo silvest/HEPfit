@@ -5,13 +5,12 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#include <EWSM.h>
 #include <EWSMTwoFermionsLEP2.h>
 #include "LEP2TwoFermions.h"
 
 
 LEP2TwoFermions::LEP2TwoFermions(const StandardModel& SM_i) 
-: EW(SM_i) 
+: SM(SM_i) 
 {
 }
 
@@ -196,7 +195,7 @@ double LEP2TwoFermions::G_3prime_l(const StandardModel::lepton l,
     double betaf = sqrt(1.0 - 4.0*mf*mf/s);
     double I3f = SM.getLeptons(l).getIsospin();
     double Qf = SM.getLeptons(l).getCharge();
-    double G3 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, 0.0, bWeak);    
+    double G3 = SM.getMyTwoFermionsLEP2()->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, 0.0, bWeak);    
     
     return ( betaf*betaf*G3 );    
 }
@@ -217,7 +216,7 @@ double LEP2TwoFermions::G_3prime_q(const QCD::quark q,
         mfp = SM.getMtpole();
     else
         mfp = 0.0;
-    double G3 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
+    double G3 = SM.getMyTwoFermionsLEP2()->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
     
     return ( betaf*betaf*G3 );    
 }
@@ -242,9 +241,9 @@ double LEP2TwoFermions::dsigma(const double s, const double cosTheta,
                                const double Ncf, const bool bWeak) const 
 {
     double betaf = sqrt(1.0 - 4.0*mf*mf/s);
-    double G1 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_1_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
-    double G2 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_2_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
-    double G3 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
+    double G1 = SM.getMyTwoFermionsLEP2()->G_1_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
+    double G2 = SM.getMyTwoFermionsLEP2()->G_2_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
+    double G3 = SM.getMyTwoFermionsLEP2()->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
 
     return ( M_PI*SM.getAle()*SM.getAle()/s*Ncf*betaf
              *( G1*(1.0 + cosTheta*cosTheta)/2.0 
@@ -264,9 +263,9 @@ double LEP2TwoFermions::dsigma_box(const double s, const double cosTheta,
     //double t = mf*mf - s/2.0*(1.0 - betaf*cosTheta);
     double t = - s/2.0*(1.0 - betaf*cosTheta);
     
-    double G1 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_1_box(s, t, Mw, GammaZ, I3f, Qf, mf, mfp);
-    double G2 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_2_box(s, t, Mw, GammaZ, I3f, Qf, mf, mfp);
-    double G3 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_3_box(s, t, Mw, GammaZ, I3f, Qf, mf, mfp);
+    double G1 = SM.getMyTwoFermionsLEP2()->G_1_box(s, t, Mw, GammaZ, I3f, Qf, mf, mfp);
+    double G2 = SM.getMyTwoFermionsLEP2()->G_2_box(s, t, Mw, GammaZ, I3f, Qf, mf, mfp);
+    double G3 = SM.getMyTwoFermionsLEP2()->G_3_box(s, t, Mw, GammaZ, I3f, Qf, mf, mfp);
 
     return ( M_PI*SM.getAle()*SM.getAle()/s*Ncf*betaf
              *( G1*(1.0 + cosTheta*cosTheta)/2.0 
@@ -282,8 +281,8 @@ double LEP2TwoFermions::sigma(const double s, const double Mw,
                               const bool bWeak) const 
 {
     double betaf = sqrt(1.0 - 4.0*mf*mf/s);
-    double G1 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_1_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
-    double G2 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_2_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
+    double G1 = SM.getMyTwoFermionsLEP2()->G_1_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
+    double G2 = SM.getMyTwoFermionsLEP2()->G_2_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
 
     return ( 4.0*M_PI*SM.getAle()*SM.getAle()/(3.0*s)*Ncf*betaf
              *(G1 + 2.0*mf*mf/s*G2) );
@@ -296,9 +295,9 @@ double LEP2TwoFermions::AFB(const double s, const double Mw,
                             const double mfp, const bool bWeak) const 
 {
     double betaf = sqrt(1.0 - 4.0*mf*mf/s);
-    double G1 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_1_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
-    double G2 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_2_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
-    double G3 = SM.getEWSM()->getMyTwoFermionsLEP2()->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
+    double G1 = SM.getMyTwoFermionsLEP2()->G_1_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
+    double G2 = SM.getMyTwoFermionsLEP2()->G_2_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
+    double G3 = SM.getMyTwoFermionsLEP2()->G_3_noBox(s, Mw, GammaZ, I3f, Qf, mf, mfp, bWeak);
 
     return ( 3.0/4.0*betaf*G3/(G1 + 2.0*mf*mf/s*G2) );
 }

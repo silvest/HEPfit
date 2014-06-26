@@ -34,7 +34,7 @@ public:
      * @param Flavour
      */
     
-    DmBd(Flavour& Flavour) : ThObservable(Flavour), AmpDB2(Flavour) {};
+    DmBd(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};
     
     /**
      *

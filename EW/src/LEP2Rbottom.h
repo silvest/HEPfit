@@ -28,9 +28,9 @@ public:
      * @param[in] EW_i an object of EW class
      * @param[in] sqrt_s_i the CM energy of the e^+ e^- pair
      */
-    LEP2Rbottom(const EW& EW_i, const double sqrt_s_i) 
-    : LEP2ThObservable(EW_i, sqrt_s_i), myLEP2sigmaBottom(EW_i, sqrt_s_i), 
-            myLEP2sigmaHadron(EW_i, sqrt_s_i, false, true) 
+    LEP2Rbottom(const StandardModel& SM_i, const double sqrt_s_i) 
+    : LEP2ThObservable(SM_i, sqrt_s_i), myLEP2sigmaBottom(SM_i, sqrt_s_i), 
+            myLEP2sigmaHadron(SM_i, sqrt_s_i, false, true) 
     {
         q_flavor = QCD::BOTTOM;
     }

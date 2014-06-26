@@ -9,7 +9,8 @@
 #define	MW_DRHO_H
 
 #include <ThObservable.h>
-#include <ThObsType.h>
+
+
 #include "SUSY.h"
 
 /**

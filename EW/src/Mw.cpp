@@ -7,8 +7,7 @@
 
 #include "Mw.h"
 
-
-double Mw::computeThValue() 
+double Mw::computeThValue()
 {
     return SM.Mw();
 }

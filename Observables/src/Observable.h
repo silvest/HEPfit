@@ -314,6 +314,17 @@ public:
      * @return the log likelihood at point x
      */
     double LogSplitGaussian(double x, double ave, double errl, double errr);
+    
+    /**
+     * A method to compute the log of a Gaussian likelihood
+     * @param x the value of the Gaussian distributed variable
+     * @param ave the average value
+     * @param sigma the error
+     * @return the log likelihood at point x
+     */
+    double LogGaussian(double x, double ave, double sigma);
+    
+    
 
     /**
      * @brief Befriending of the std::ostream operator << to generate an

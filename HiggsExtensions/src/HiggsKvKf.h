@@ -7,7 +7,8 @@
 
 #ifndef HIGGSKVKF_H
 #define	HIGGSKVKF_H
-#include "HiggsExtensionModel.h"
+#include <NPbase.h>
+
 /**
  * @class HiggsKvKf
  * @ingroup HiggsExtensions
@@ -16,7 +17,7 @@
  * @copyright GNU General Public License
  * @details This is a Model class containing parameters and functions associated
  * with an extension of the %StandardModel where Higgs couplings to all vector bosons
- * are rescaled by @f[K_v@f] and Higgs couplings to all fermions are rescaled by @f[K_f@f]. 
+ * are rescaled by @f$K_v@f$ and Higgs couplings to all fermions are rescaled by @f$K_f@f$.
  * This class inherits from the %HiggsExtensionModel class, which defines parameters related to generic
  * extensions of the %StandardModel Higgs sector.
  *
@@ -55,27 +56,42 @@
  * </table>
  * 
  * Please read information about parameter initialization and update in the documentation of the %StandardModel class.
- */ 
-class HiggsKvKf : public HiggsExtensionModel {
+ */
+class HiggsKvKf : public NPbase {
 public:
 
-    static const int NHKvKfvars = 2;///< The number of the model parameters in %HiggsKvKf.
+    static const int NHKvKfvars = 2; ///< The number of the model parameters in %HiggsKvKf.
 
     /**
-     * @brief  A string array containing the labels of the model parameters in %HiggsKvKf.
+     * @brief A string array containing the labels of the model parameters in %HiggsKvKf.
      */
     static const std::string HKvKfvars[NHKvKfvars];
 
-    HiggsKvKf() : HiggsExtensionModel() 
+    HiggsKvKf();
+
+    virtual ~HiggsKvKf()
     {
     };
-    HiggsKvKf(const HiggsKvKf& orig);
-    virtual ~HiggsKvKf() {};
-    
-    virtual bool InitializeModel();
-    
-     ///////////////////////////////////////////////////////////////////////////
-    // Model parameters
+
+    double getKf() const
+    {
+        return Kf;
+    }
+
+    void setKf(double Kf)
+    {
+        this->Kf = Kf;
+    }
+
+    double getKv() const
+    {
+        return Kv;
+    }
+
+    void setKv(double Kv)
+    {
+        this->Kv = Kv;
+    }
 
     /**
      * @brief A method to check if all the mandatory parameters for %HiggsKvKf
@@ -86,106 +102,81 @@ public:
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
-
-   virtual double computeKW() const
-    {
-        return Kv;
-    }
-    virtual double computeKZ() const
-    {
-        return Kv;
-    }
+    ////////////////////////////////////////////////////////////////////////
 
     /**
-     * @brief A method to compute the ratio of the @f[HZ\gamma@f] coupling in the current model and in the SM.
-     * @return the ratio of the @f[HZ\gamma@f] coupling in the current model and in the SM
+     * @brief The oblique parameter @f$S@f$.
+     * @return @f$S@f$
      */
-    virtual double computeKZga() const
-    {
-        double gtt = computeGammaZgatt();
-        double gWW = computeGammaZgaWW();
-        double gtW = computeGammaZgatW();
-        return sqrt((gtt*Kf*Kf + gWW*Kv*Kv + gtW*Kf*Kv)/(gtt + gWW + gtW));
-    }
+    virtual double obliqueS() const;
 
-     /**
-     * @brief A method to compute the ratio of the @f[H\gamma\gamma@f] coupling in the current model and in the SM.
-     * @return the ratio of the @f[H\gamma\gamma@f] coupling in the current model and in the SM
-     */
-    virtual double computeKgaga() const
-    {
-        double gtt = computeGammagagatt();
-        double gWW = computeGammagagaWW();
-        double gtW = computeGammagagatW();
-        return sqrt((gtt*Kf*Kf + gWW*Kv*Kv + gtW*Kf*Kv)/(gtt + gWW + gtW));
-    }
-
-   virtual double computeKb() const
-    {
-        return Kf;
-    }
-
-   virtual double computeKc() const
-    {
-        return Kf;
-    }
-
-    virtual double computeKglgl() const
-    {
-        return Kf;
-    }
-
-    virtual double computeKt() const
-    {
-        return Kf;
-    }
-
-    virtual double computeKtau() const
-    {
-        return Kf;
-    }
     /**
-     * @brief This method computes the ratio of the total Higgs width w.r.t SM.
-     * @return The he ratio of the total Higgs width w.r.t SM
+     * @brief The oblique parameter @f$T@f$.
+     * @return @f$T@f$
      */
-    double computeGTotalRatio() const
-    {
-        return computeKW()*computeKW()*computeBRWW()+
-               computeKZ()*computeKZ()*computeBRZZ()+
-               computeKgaga()*computeKgaga()*computeBRgaga()+
-               computeKglgl()*computeKglgl()*computeBRglgl()+
-               computeKb()*computeKb()*computeBRbb()+
-               computeKc()*computeKc()*computeBRcc()+
-               computeKtau()*computeKtau()*computeBRtautau();
-    }
-    
-    double getKf() const {
-        return Kf;
-    }
+    virtual double obliqueT() const;
 
-    void setKf(double Kf) {
-        this->Kf = Kf;
-    }
+    /**
+     * @brief The oblique parameter @f$U@f$.
+     * @return @f$U=0@f$
+     */
+    virtual double obliqueU() const;
 
-    double getKv() const {
-        return Kv;
-    }
+    virtual double muggH(const double sqrt_s) const;
+    virtual double muVBF(const double sqrt_s) const;
+    virtual double muWH(const double sqrt_s) const;
+    virtual double muZH(const double sqrt_s) const;
+    virtual double muVH(const double sqrt_s) const;
+    virtual double muttH(const double sqrt_s) const;
+    virtual double BrHggRatio() const;
+    virtual double BrHWWRatio() const;
+    virtual double BrHZZRatio() const;
+    virtual double BrHZgaRatio() const;
+    virtual double BrHgagaRatio() const;
+    virtual double BrHtautauRatio() const;
+    virtual double BrHccRatio() const;
+    virtual double BrHbbRatio() const;
+    virtual double computeGammaTotalRatio() const;
 
-    void setKv(double Kv) {
-        this->Kv = Kv;
-    }
+    ////////////////////////////////////////////////////////////////////////
+protected:
 
-    protected:
-        
-     /**
+    /**
      * @brief A method to set the value of a parameter of %HiggsKvKf.
      * @param[in] name name of a model parameter
      * @param[in] value the value to be assigned to the parameter specified by name
      */
     virtual void setParameter(const std::string name, const double& value);
 
-    private:
-        double Kv, Kf;
+    virtual double computeKg() const;
+
+    virtual double computeKW() const;
+
+    virtual double computeKZ() const;
+
+    /**
+     * @brief A method to compute the ratio of the @f$HZ\gamma@f$ coupling in the current model and in the SM.
+     * @return the ratio of the @f$HZ\gamma@f$ coupling in the current model and in the SM
+     */
+    virtual double computeKZga() const;
+
+    /**
+     * @brief A method to compute the ratio of the @f$H\gamma\gamma@f$ coupling in the current model and in the SM.
+     * @return the ratio of the @f$H\gamma\gamma@f$ coupling in the current model and in the SM
+     */
+    virtual double computeKgaga() const;
+
+    virtual double computeKtau() const;
+
+    virtual double computeKc() const;
+
+    virtual double computeKt() const;
+
+    virtual double computeKb() const;
+
+    ////////////////////////////////////////////////////////////////////////
+private:
+    double Kv, Kf;
 };
 
 #endif	/* HIGGSKVKF_H */

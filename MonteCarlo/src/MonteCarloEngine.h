@@ -19,7 +19,6 @@
 #include <Observable.h>
 #include <Observable2D.h>
 #include <CorrelatedGaussianObservables.h>
-#include <ModelParaVsObs.h>
 #include <ModelParameter.h>
 #include <Model.h>
 #include <map>
@@ -51,14 +50,11 @@ public:
      * @param[in] Obs2D_i the vector of observables2D as defined in SomeModel.conf
      * @param[in] CGO_i the vector of correlated Gaussian observables as defined in SomeModel.conf
      * @param[in] ParaObs_i the vector of parameter vs. observables as defined in SomeModel.conf
-     * @param[in] checkHistRange_i flag to set whether histogram ranges will be checked or not
      */
     MonteCarloEngine(const std::vector<ModelParameter>& ModPars_i,
                      boost::ptr_vector<Observable>& Obs_i,
                      std::vector<Observable2D>& Obs2D_i,
-                     std::vector<CorrelatedGaussianObservables>& CGO_i,
-                     std::vector<ModelParaVsObs>& ParaObs_i,
-                     const bool checkHistRange_i=false);
+                     std::vector<CorrelatedGaussianObservables>& CGO_i);
     
     /**
      * @brief The default destructor. Some pointers defined in this class are explicitly freed.
@@ -218,7 +214,6 @@ private:
     boost::ptr_vector<Observable>& Obs_ALL;  ///< A vector of all observables.
     std::vector<Observable2D>& Obs2D_ALL; ///< A vector of all pairs of observable for Observable2D.
     std::vector<CorrelatedGaussianObservables>& CGO; ///< A vector of correlated Gaussian observables.
-    std::vector<ModelParaVsObs>& ParaObs; ///< A vector of pairs of model parameters and observables.
     Model* Mod; ///< A pointer to an abject of type Model.
     std::map<std::string, double> DPars; ///< A map between parameter names and their values.
     std::map<std::string, BCH1D * > Histo1D; ///< A map between pointers to objects of type BCH1D (<a href="https://www.mppmu.mpg.de/bat/?page=home" target=blank>BAT</a>) and their given names.
@@ -232,7 +227,6 @@ private:
     std::ostringstream HistoLog; ///< A stream to store the output messages from printing and checking histograms.
     int NumOfUsedEvents; ///< The number of events for which the model is successfully updated and hence used for the MCMC run.
     int NumOfDiscardedEvents; ///< The number of events for which the update of the model fails and these events are not used for the MCMC run.
-    bool checkTheoryRange; ///< The flag that specifies if the theory range should be checked.
     int rank; ///< Rank of the process for a MPI run. Value is 0 for a serial run.
     
 };

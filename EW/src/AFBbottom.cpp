@@ -7,14 +7,7 @@
 
 #include "AFBbottom.h"
 
-
-double AFBbottom::computeThValue() 
-{   
-    double AFB_b = 3.0/4.0*myEW.A_l(SM.ELECTRON)*myEW.A_q(SM.BOTTOM);
-              
-    /* NP contribution to the Zff vertex */
-    if (myEW.checkNPZff_linearized() && SM.ModelName().compare("StandardModel") != 0)
-        AFB_b = myEW.getMyEW_NPZff().AFBbottom(AFB_b);
-
-    return AFB_b;
+double AFBbottom::computeThValue()
+{
+    return SM.AFB(SM.getQuarks(SM.BOTTOM));
 }

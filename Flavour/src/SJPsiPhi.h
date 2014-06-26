@@ -29,7 +29,7 @@ public:
      * @param Flavour
      */
     
-    SJPsiPhi(Flavour& Flavour) : ThObservable(Flavour), AmpDB2(Flavour) {};
+    SJPsiPhi(const StandardModel& SM_i) : ThObservable(SM_i), AmpDB2(SM_i) {};
     
     /**
      *

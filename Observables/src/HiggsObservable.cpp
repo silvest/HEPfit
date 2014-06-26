@@ -6,7 +6,6 @@
  */
 
 #include "HiggsObservable.h"
-#include <BAT/BCMath.h>
 #include <TNamed.h>
 #include <TFile.h>
 #include <TROOT.h>
@@ -53,7 +52,7 @@ void HiggsObservable::setParametricLikelihood(std::string filename, std::vector<
         // left-side error
         // right-side error
             beg++; // skip label
-            for(int j = 0; j < thObsV.size() +  2; j++) 
+            for(unsigned int j = 0; j < thObsV.size() +  2; j++)
                 channels(i, j) = atof((*(++beg)).c_str());
         } else throw std::runtime_error("Error parsing " + filename + ": unrecognized keyword " + *beg);
 
@@ -75,7 +74,7 @@ double HiggsObservable::computeWeight()
 
     for(int i = 0; i < channels.GetNrows(); i++){
         double mu = 0, sum = 0.;
-        for (int j = 0; j < thObsV.size() - 1; j++){
+        for (unsigned int j = 0; j < thObsV.size() - 1; j++){
             mu += channels(i,j) * thObsV.at(j)->computeThValue();
             sum += channels(i,j);
         }

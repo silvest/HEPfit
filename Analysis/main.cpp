@@ -9,6 +9,7 @@
 #include <MonteCarlo.h>
 #include <GenerateEvent.h>
 #include <boost/program_options.hpp>
+//#include <mtbar.h>
 #ifdef _MPI
 #include <mpi.h>
 #endif
@@ -31,7 +32,6 @@ int main(int argc, char** argv)
     string FolderOut;
     int nIterations = 0;
     bool noMC;
-    bool checkTheoryRange = false;
 
     try {
         options_description desc("\nAllowed (positional) options");
@@ -48,7 +48,6 @@ int main(int argc, char** argv)
                 "output folder for Generate Event mode to be specified for printing to file, please specify with --output_folder <name>")
                 ("job_tag", value<string > ()->default_value(""),
                 "job tag, please specify with --job_tag <tag>")
-                ("thRange", "output the min and max of theory values to HistoLog.txt, please turn on with --thRange")
                 ("help", "help message")
                 ;
         string coderun = "\n *** SusyFit Routines ***\n"
@@ -103,7 +102,9 @@ int main(int argc, char** argv)
                 noMC = true;
                 FolderOut = vm["output_folder"].as<string > ();
                 nIterations = vm["it"].as<int > ();
-                GenerateEvent GE(ModelConf, FolderOut, JobTag, noMC);
+                ThObsFactory ThObsF;
+                ModelFactory ModelF;
+                GenerateEvent GE(ModelF, ThObsF, ModelConf, FolderOut, JobTag, noMC);
                 GE.generate(nIterations);
             }
             else if (!vm.count("noMC") && vm.count("mcconf"))
@@ -113,8 +114,12 @@ int main(int argc, char** argv)
                 noMC = false;
                 string MCMCConf = vm["mcconf"].as<string > ();
                 string FileOut = vm["rootfile"].as<string > ();
-                if (vm.count("thRange")) checkTheoryRange = true;
-                MonteCarlo MC(ModelConf, MCMCConf, FileOut, JobTag, checkTheoryRange);
+                
+                ThObsFactory ThObsF;
+                ModelFactory ModelF;
+//                ThObsF.addObsToFactory("mtbar", boost::factory<mtbar*>());
+                
+                MonteCarlo MC(ModelF, ThObsF, ModelConf, MCMCConf, FileOut, JobTag);
                 if (vm.count("test")){
                     MC.TestRun(rank);
                 } else {

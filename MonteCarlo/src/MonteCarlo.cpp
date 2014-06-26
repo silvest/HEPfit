@@ -11,6 +11,8 @@
 #include <BAT/BCAux.h>
 #include <BAT/BCLog.h>
 #include <BAT/BCSummaryTool.h>
+#include <ModelFactory.h>
+#include <ThObsFactory.h>
 #ifdef _MPI
 #include <mpi.h>
 #endif
@@ -18,12 +20,13 @@
 #include <sstream>
 #include <stdexcept>
 
-MonteCarlo::MonteCarlo(const std::string& ModelConf_i,
+MonteCarlo::MonteCarlo(
+ModelFactory& ModelF, ThObsFactory& ThObsF,
+                       const std::string& ModelConf_i,
                        const std::string& MonteCarloConf_i,
                        const std::string& OutFile_i,
-                       const std::string& JobTag_i,
-                       const bool checkTheoryRange_i)
-: myInputParser(), MCEngine(ModPars, Obs, Obs2D, CGO, ParaObs, checkTheoryRange_i)
+                       const std::string& JobTag_i)
+: myInputParser(ModelF, ThObsF), MCEngine(ModPars, Obs, Obs2D, CGO)
 {
     ModelConf = ModelConf_i;
     MCMCConf = MonteCarloConf_i;
@@ -32,6 +35,7 @@ MonteCarlo::MonteCarlo(const std::string& ModelConf_i,
     else OutFile = OutFile_i + JobTag + ".root";
     ObsDirName = "Observables" + JobTag;
     FindModeWithMinuit = false;
+    CalculateEvidence = false;
     PrintAllMarginalized = false;
     PrintCorrelationMatrix = false;
     PrintKnowledgeUpdatePlots = false;
@@ -49,7 +53,7 @@ void MonteCarlo::TestRun(int rank) {
     }
     
     if (rank == 0){
-        std::string ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, ParaObs);
+        std::string ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO);
         std::map<std::string, double> DP;
         if (Obs.size() == 0 && CGO.size() == 0) throw std::runtime_error("\nMonteCarlo::TestRun(): No observables or correlated Gaussian observables defined in SomeModel.conf file\n");
 
@@ -57,7 +61,7 @@ void MonteCarlo::TestRun(int rank) {
             DP[it->name] = it->ave;
         }
 
-        if (!myInputParser.getMyModel()->Init(DP)) {
+        if (!myInputParser.getModel()->Init(DP)) {
             throw std::runtime_error("ERROR: Parameter(s) missing in model initialization. \n");
         }
 
@@ -91,7 +95,7 @@ void MonteCarlo::Run(const int rank)
     try {
 
         /* set model parameters */
-        std::string ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO, ParaObs);
+        std::string ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO);
         int buffsize = 0;
         std::map<std::string, double> DP;
         for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
@@ -100,7 +104,7 @@ void MonteCarlo::Run(const int rank)
                 buffsize++;
         }
         buffsize++;
-        if (!myInputParser.getMyModel()->Init(DP))
+        if (!myInputParser.getModel()->Init(DP))
             throw std::runtime_error("ERROR: Parameter(s) missing in model initialization.\n");
 
         if (rank == 0) std::cout << std::endl << "Running in MonteCarlo mode...\n" << std::endl;
@@ -117,7 +121,7 @@ void MonteCarlo::Run(const int rank)
         }
 
         MCEngine.SetName(ModelName.c_str());
-        MCEngine.Initialize(myInputParser.getMyModel());
+        MCEngine.Initialize(myInputParser.getModel());
 
 #ifdef _MPI
         double *recvbuff = new double[buffsize];
@@ -153,7 +157,7 @@ void MonteCarlo::Run(const int rank)
                     for (unsigned int k = 0; k < pars.size(); k++) {
                         DPars[MCEngine.GetParameter(k)->GetName()] = pars[k];
                     }
-                    myInputParser.getMyModel()->Update(DPars);
+                    myInputParser.getModel()->Update(DPars);
 
                     int k = 0;
                     for (boost::ptr_vector<Observable>::iterator it = Obs.begin(); it < Obs.end(); it++){
@@ -203,7 +207,6 @@ void MonteCarlo::Run(const int rank)
                     it1 != CGO.end(); ++it1)
                 std::cout << "  " << it1->getName() << " containing "
                           << it1->getObs().size() << " observables." << std::endl;
-            std::cout << ParaObs.size() << " ModelParaVsObs defined." << std::endl;
             //MonteCarlo configuration parser
             std::ifstream ifile(MCMCConf.c_str());
             if (!ifile.is_open())
@@ -240,6 +243,11 @@ void MonteCarlo::Run(const int rank)
                     ++beg;
                     if (beg->compare("true") == 0) {
                         FindModeWithMinuit = true;
+                    }
+                } else if (beg->compare("CalculateEvidence") == 0) {
+                    ++beg;
+                    if (beg->compare("true") == 0) {
+                        CalculateEvidence = true;
                     }
                 } else if (beg->compare("PrintAllMarginalized") == 0) {
                     ++beg;
@@ -288,6 +296,19 @@ void MonteCarlo::Run(const int rank)
             if (FindModeWithMinuit)
                 MCEngine.FindMode(MCEngine.GetBestFitParameters());
 
+            // calculate the evidence
+            if (CalculateEvidence) {
+                // BAT default: 
+                //   kIntGrid for the number of free parameters <= 2;
+                //   otherwise, kIntMonteCarlo (or kIntCuba if available)
+                MCEngine.SetIntegrationMethod(BCIntegrate::kIntCuba);
+                //MCEngine.SetRelativePrecision(1.e-3);
+                //MCEngine.SetAbsolutePrecision(1.e-10);
+                MCEngine.SetNIterationsMin(10000);
+                MCEngine.Integrate();
+                BCLog::OutSummary(Form(" Evidence = %.6e", MCEngine.GetIntegral()));
+            }
+
             // draw all marginalized distributions into a PostScript file
             if (PrintAllMarginalized)
                 MCEngine.PrintAllMarginalized(("MonteCarlo_plots" + JobTag + ".ps").c_str());
@@ -297,7 +318,7 @@ void MonteCarlo::Run(const int rank)
 
             // print histograms
             MCEngine.PrintHistogram(out, ObsDirName);
-            
+
             BCSummaryTool myBCSummaryTool(&MCEngine);
 
             // draw the correlation matrix into an eps file
@@ -316,7 +337,7 @@ void MonteCarlo::Run(const int rank)
             // draw an overview plot of the parameters into an eps file
             if (PrintParameterPlot)
                 myBCSummaryTool.PrintParameterPlot(("ParamSummary" + JobTag + ".eps").c_str());
-            
+
             // print a LaTeX table of the parameters into a tex file
             //myBCSummaryTool.PrintParameterLatex(("ParamSummary" + JobTag + ".tex").c_str());
         

@@ -7,16 +7,9 @@
 
 #include "Alepton.h"
 
-
 double Alepton::computeThValue()
 {
-    double A_l = myEW.A_l(SM.ELECTRON);
-
-    /* NP contribution to the Zff vertex */
-    if (myEW.checkNPZff_linearized() && SM.ModelName().compare("StandardModel") != 0)
-        A_l = myEW.getMyEW_NPZff().Alepton(A_l);
-
-    return A_l;
+    return SM.A_f(SM.getLeptons(SM.ELECTRON));
 }
 
 

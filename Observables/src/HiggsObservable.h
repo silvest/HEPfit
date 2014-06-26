@@ -1,8 +1,8 @@
-/* 
- * File:   HiggsObservable.h
- * Author: silvest
+/*
+ * Copyright (C) 2014 SusyFit Collaboration
+ * All rights reserved.
  *
- * Created on March 18, 2014, 4:58 PM
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef HIGGSOBSERVABLE_H

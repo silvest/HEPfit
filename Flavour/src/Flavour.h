@@ -8,7 +8,6 @@
 #ifndef FLAVOUR_H
 #define	FLAVOUR_H
 
-#include <ThObsType.h>
 #include <StandardModel.h>
 #include "HeffDF2.h"
 #include "HeffDS1.h"
@@ -16,14 +15,10 @@
 
 using namespace gslpp;
 
-class Flavour : public ThObsType {
+class Flavour {
 public:
 
-    Flavour(const StandardModel& SM_i) : ThObsType(SM_i), 
-            HDF2(SM_i), HDS1(SM_i), HDB1(SM_i) {
-        
-        if(!SM_i.IsModelInitialized())
-            throw std::runtime_error("Model not initialized "); 
+    Flavour(const StandardModel& SM_i) : HDF2(SM_i), HDS1(SM_i), HDB1(SM_i) {
     };
 
     const HeffDF2& getHDF2() const {
@@ -89,9 +84,10 @@ public:
     
     
 private:
+    
     HeffDF2 HDF2;
     HeffDS1 HDS1;
-    HeffDB1 HDB1;  
+    HeffDB1 HDB1;
 };
 
 #endif	/* FLAVOUR_H */

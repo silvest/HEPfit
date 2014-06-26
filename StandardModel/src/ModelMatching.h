@@ -22,6 +22,7 @@
 class ModelMatching {
 public:
     
+    virtual ~ModelMatching() {};
     virtual std::vector<WilsonCoefficient>& CMdbd2() = 0;
     virtual std::vector<WilsonCoefficient>& CMdbs2() = 0;
     virtual std::vector<WilsonCoefficient>& CMdd2() = 0;

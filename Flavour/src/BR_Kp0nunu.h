@@ -10,6 +10,7 @@
 
 #include <ThObservable.h>
 #include "Flavour.h"
+#include <StandardModel.h>
 
 using namespace gslpp;
 
@@ -19,7 +20,7 @@ public:
      * constructor
      * @param Flavour
      */
-    BR_Kp0nunu(Flavour& Flavour): ThObservable(Flavour), myFlavour(Flavour){};
+    BR_Kp0nunu(StandardModel& SM_i): ThObservable(SM_i), mySM(SM_i){};
     
     /**
      * 
@@ -42,7 +43,8 @@ protected:
     complex BRKp0nunu(orders order, orders_ew order_ew);
     
 private:
-    Flavour& myFlavour;
+    
+    StandardModel& mySM;
 };
 
 #endif	/* BR_KP0NUNU_H */

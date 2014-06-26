@@ -7,14 +7,14 @@
 
 #include "Meson.h"
 
-Meson::Meson(double mass, double lifetime=5.e29, double decayconst=0.)
+Meson::Meson(double mass, double lifetime = 5.e29, double decayconst = 0.)
 {
     this->mass = mass;
     this->lifetime = lifetime;
     this->decayconst = decayconst;
 }
 
-Meson::~Meson() 
+Meson::~Meson()
 {
 }
 

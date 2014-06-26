@@ -10,7 +10,6 @@
 
 
 #include <StandardModel.h>
-#include "ThObsType.h"
 
 /**
  * @class ThObservable
@@ -28,17 +27,19 @@ public:
      * @brief Constructor.
      * @param[in] ObsType_i a reference to an object of ThObsType() class
      */
-    ThObservable(const ThObsType& ObsType_i);
+    ThObservable(const StandardModel& SM_i) : SM(SM_i) {};
     
     /**
      * @brief The copy constructor.
      */
-    ThObservable(const ThObservable& orig);
+    ThObservable(const ThObservable& orig) : SM(orig.SM) {};
     
     /**
      * @brief The default destructor.
      */
-    virtual ~ThObservable();
+    virtual ~ThObservable()
+    {    
+    };
     
     /**
      * @brief A member to be overloaded by the respective theory observable.
@@ -46,14 +47,7 @@ public:
      */
     virtual double computeThValue() = 0;
 
-    /**
-     * @brief The conversion factor from @f$ GeV^{-2} @f$ to @f$nb@f$.
-     */
-    static const double GeVminus2_to_nb;
-
 protected:
-    
-    const ThObsType& ObsType; ///< A reference to an object of ThObsType class.
     const StandardModel& SM; ///< A reference to an object of StandardMode class.
 };
 

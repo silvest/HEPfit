@@ -104,7 +104,6 @@ using namespace gslpp;
  * @cite Akhundov:1985fc, @cite Bardin:1986fi and @cite Bardin:1989di.
  */
 class EWSMOneLoopEW {
-    
 public:
 
     /**
@@ -227,7 +226,7 @@ public:
      * FZ(), FW_l() and FW_q()
      */
     complex deltaRho_rem_tmp(const complex u_f, const double Mw_i) const;
-    
+
     /**
      * @brief Remainder contribution of @f$O(\alpha)@f$ to the effective
      * couplings @f$\rho_Z^l@f$,
@@ -240,21 +239,7 @@ public:
      *
      * @sa deltaRho_rem_tmp()
      */
-    complex deltaRho_rem_l(const StandardModel::lepton l, const double Mw_i) const;
-
-    /**
-     * @brief Remainder contribution of @f$O(\alpha)@f$ to the effective
-     * couplings @f$\rho_Z^q@f$,
-     * denoted as @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha}@f$.
-     * @details This function handles the remainder contribution
-     * @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha}@f$ for @f$Z\to q\bar{q}@f$.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha}@f$
-     *
-     * @sa deltaRho_rem_tmp()
-     */
-    complex deltaRho_rem_q(const QCD::quark q, const double Mw_i) const;
+    complex deltaRho_rem_f(const Particle p, const double Mw_i) const;
 
     /**
      * @brief Remainder contribution of @f$O(\alpha)@f$ to the effective
@@ -288,8 +273,8 @@ public:
 
      */
     complex deltaKappa_rem_tmp(const double deltaf, const complex uf,
-                               const double Mw_i) const;    
-    
+            const double Mw_i) const;
+
     /**
      * @brief Remainder contribution of @f$O(\alpha)@f$ to the effective
      * couplings @f$\kappa_Z^l@f$,
@@ -302,22 +287,8 @@ public:
      *
      * @sa deltaKappa_rem_tmp()
      */
-    complex deltaKappa_rem_l(const StandardModel::lepton l, const double Mw_i) const;
-                                                  
-    /**
-     * @brief Remainder contribution of @f$O(\alpha)@f$ to the effective
-     * couplings @f$\kappa_Z^q@f$,
-     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha}@f$.
-     * @details This function handles the remainder contribution
-     * @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha}@f$ for @f$Z\to q\bar{q}@f$.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha}@f$
-     *
-     * @sa deltaKappa_rem_tmp()
-     */
-    complex deltaKappa_rem_q(const QCD::quark q, const double Mw_i) const;
-    
+    complex deltaKappa_rem_f(const Particle p, const double Mw_i) const;
+
     /**
      * @brief %EW radiative corrections to the widths of @f$W \to f_i \bar{f}_j@f$, 
      * denoted as @f$\rho^W_{ij}@f$. 
@@ -376,9 +347,9 @@ public:
      *
      * @attention The masses of virtual fermions are neglected.
      */
-    double rho_GammaW_tmp(const double Qi, const double Qj, 
-                          const double Mw_i) const;    
-    
+    double rho_GammaW_tmp(const double Qi, const double Qj,
+            const double Mw_i) const;
+
     /**
      * @brief %EW radiative corrections to the width of @f$W \to l_i \bar{l}_j@f$,
      * denoted as @f$\rho^W_{ij}@f$.
@@ -389,27 +360,13 @@ public:
      *
      * @sa rho_GammaW_tmp()
      */
-    double rho_GammaW_l(const StandardModel::lepton li, 
-                        const StandardModel::lepton lj, 
-                        const double Mw_i) const;
+    double rho_GammaW(const Particle pi,
+            const Particle pj,
+            const double Mw_i) const;
 
-    /**
-     * @brief %EW radiative corrections to the width of @f$W \to q_i \bar{q}_j@f$,
-     * denoted as @f$\rho^W_{ij}@f$.
-     * @param[in] qi name of an up-type quark (see QCD::quark)
-     * @param[in] qj name of a down-type quark (see QCD::quark)
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\rho^W_{ij}@f$
-     *
-     * @sa rho_GammaW_tmp()
-     */
-    double rho_GammaW_q(const QCD::quark qi, 
-                        const QCD::quark qj, 
-                        const double Mw_i) const;
 
-    
     ////////////////////////////////////////////////////////////////////////    
-       
+
     /**
      * @brief The bosonic contribution to the self-energy of the @f$W@f$ boson
      * in the Unitary gauge, @f$\overline{\Sigma}^{\mathrm{bos}}_{WW}(s)@f$.
@@ -423,7 +380,7 @@ public:
      * @return @f$\overline{\Sigma}^{\mathrm{bos}}_{WW}(s)@f$
      */
     complex SigmabarWW_bos(const double mu, const double s, const double Mw_i) const;
- 
+
     /**
      * @brief The fermionic contribution to the self-energy of the @f$W@f$ boson
      * in the Unitary gauge, @f$\overline{\Sigma}^{\mathrm{fer}}_{WW}(s)@f$.
@@ -437,7 +394,7 @@ public:
      * @return @f$\overline{\Sigma}^{\mathrm{fer}}_{WW}(s)@f$
      */
     complex SigmabarWW_fer(const double mu, const double s, const double Mw_i) const;
-    
+
     /**
      * @brief The bosonic contribution to the self-energy of the @f$Z@f$ boson
      * in the Unitary gauge, @f$\overline{\Sigma}^{\mathrm{bos}}_{ZZ}(s)@f$.
@@ -451,7 +408,7 @@ public:
      * @return @f$\overline{\Sigma}^{\mathrm{bos}}_{ZZ}(s)@f$
      */
     complex SigmabarZZ_bos(const double mu, const double s, const double Mw_i) const;
-    
+
     /**
      * @brief The fermionic contribution to the self-energy of the @f$Z@f$ boson
      * in the Unitary gauge, @f$\overline{\Sigma}^{\mathrm{fer}}_{ZZ}(s)@f$.
@@ -465,7 +422,7 @@ public:
      * @return @f$\overline{\Sigma}^{\mathrm{fer}}_{ZZ}(s)@f$
      */
     complex SigmabarZZ_fer(const double mu, const double s, const double Mw_i) const;
-    
+
     /**
      * @brief The bosonic contribution to the self-energy of the photon
      * in the Unitary gauge, @f$\overline{\Pi}^{\mathrm{bos}}_{\gamma\gamma}(s)@f$.
@@ -493,23 +450,8 @@ public:
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @return @f$\overline{\Pi}^{\mathrm{fer},l}_{\gamma\gamma}(s)@f$
      */
-    complex PibarGammaGamma_fer_l(const double mu, const double s, const StandardModel::lepton l) const;
+    complex PibarGammaGamma_fer(const double mu, const double s, const Particle p) const;
 
-    /**
-     * @brief The fermionic contribution to the self-energy of the photon
-     * in the Unitary gauge, associated with quark loops,
-     * @f$\overline{\Pi}^{\mathrm{fer},q}_{\gamma\gamma}(s)@f$.
-     * @details This function represents the @f$O(\alpha)@f$ fermionic contribution
-     * with quark loops to @f$\overline{\Pi}_{\gamma\gamma}(s)@f$,
-     * whose definition is given in @ref SeflEnergies "the detailed description"
-     * of the current class.
-     * @param[in] mu renormalization scale @f$\mu@f$
-     * @param[in] s momentum squared @f$s@f$
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return @f$\overline{\Pi}^{\mathrm{fer},q}_{\gamma\gamma}(s)@f$
-     */
-    complex PibarGammaGamma_fer_q(const double mu, const double s, const QCD::quark q) const;
-    
     /**
      * @brief The fermionic contribution to the self-energy of the photon
      * in the Unitary gauge,
@@ -552,9 +494,9 @@ public:
      */
     complex PibarZgamma_fer(const double mu, const double s, const double Mw_i) const;
 
-    
+
     ////////////////////////////////////////////////////////////////////////   
-    
+
     /**
      * @brief The derivative of the bosonic contribution to the self-energy of
      * the @f$W@f$ boson for @f$s=M_W^2@f$ in the Unitary gauge, 
@@ -566,7 +508,7 @@ public:
      * @return @f$\overline{\Sigma}^{\prime,\mathrm{bos}}_{WW}(M_W^2)@f$
      */
     complex SigmabarPrime_WW_bos_Mw2(const double mu, const double Mw_i) const;
-    
+
     /**
      * @brief The derivative of the fermionic contribution to the self-energy of
      * the @f$W@f$ boson for @f$s=M_W^2@f$ in the Unitary gauge,
@@ -578,7 +520,7 @@ public:
      * @return @f$\overline{\Sigma}^{\prime,\mathrm{fer}}_{WW}(M_W^2)@f$
      */
     complex SigmabarPrime_WW_fer_Mw2(const double mu, const double Mw_i) const;
-    
+
     /**
      * @brief The derivative of the bosonic contribution to the self-energy of
      * the @f$Z@f$ boson for @f$s=M_Z^2@f$ in the Unitary gauge,
@@ -590,7 +532,7 @@ public:
      * @return @f$\overline{\Sigma}^{\prime,\mathrm{bos}}_{ZZ}(M_Z^2)@f$
      */
     complex SigmabarPrime_ZZ_bos_Mz2(const double mu, const double Mw_i) const;
-    
+
     /**
      * @brief The derivative of the fermionic contribution to the self-energy of
      * the @f$Z@f$ boson for @f$s=M_Z^2@f$ in the Unitary gauge,
@@ -602,9 +544,9 @@ public:
      * @return @f$\overline{\Sigma}^{\prime,\mathrm{fer}}_{ZZ}(M_Z^2)@f$
      */
     complex SigmabarPrime_ZZ_fer_Mz2(const double mu, const double Mw_i) const;
-    
+
     ////////////////////////////////////////////////////////////////////////       
-    
+
     /**
      * @brief @f$\Delta\overline{\rho}@f$.
      * @details The quantity @f$\Delta\overline{\rho}@f$, which is associated with
@@ -622,7 +564,7 @@ public:
      * @return @f$\Delta\overline{\rho}\big|_{\mu}@f$
      */
     double DeltaRhobar(const double mu, const double Mw_i) const;
-    
+
     /**
      * @brief @f$\Delta\overline{\rho}_W@f$.
      * @details The quantity @f$\Delta\overline{\rho}_W@f$ is defined as
@@ -638,10 +580,10 @@ public:
      * @return @f$\Delta\overline{\rho}_W\big|_{\mu}@f$
      */
     double DeltaRhobarW(const double mu, const double Mw_i) const;
-    
-    
+
+
     ////////////////////////////////////////////////////////////////////////   
-    
+
     /**
      * @brief A test function.
      * @details @f$\Delta\overline{\rho}^{\mathrm{bos}}@f$ is given without
@@ -662,7 +604,7 @@ public:
      *
      * @attention The renormalization scale is fixed to be @f$\mu=M_W@f$.
      */
-    double TEST_DeltaRhobarW_bos(const double Mw_i) const;    
+    double TEST_DeltaRhobarW_bos(const double Mw_i) const;
 
 
     ////////////////////////////////////////////////////////////////////////    
@@ -744,7 +686,7 @@ public:
      * @return @f$\mathcal{F}_{Wn}^0@f$
      */
     complex FWn_0(const double s, const double Mw_i) const;
-    
+
     /**
      * @brief The form factor @f$\mathcal{F}_{Wa}^t@f$.
      * @details The form factor @f$\mathcal{F}_{Wa}^t@f$,
@@ -860,9 +802,9 @@ public:
      * @param[in] s momentum squared @f$s@f$
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\mathcal{F}_Z@f$
-     */      
+     */
     complex FZ(const double s, const double Mw_i) const;
-    
+
     /**
      * @brief The unified form factor @f$\mathcal{F}_W@f$ for @f$Z\to l\bar{l}@f$.
      * @details The so-called unified form factor @f$\mathcal{F}_W@f$, associated
@@ -886,50 +828,11 @@ public:
      * @param[in] l name of a lepton (see StandardModel::lepton)
      * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
      * @return @f$\mathcal{F}_W@f$
-     */  
-    complex FW_l(const double s, const StandardModel::lepton l, const double Mw_i) const;
+     */
+    complex FW(const double s, const Particle p, const double Mw_i) const;
 
-    /**
-     * @brief The unified form factor @f$\mathcal{F}_W@f$ for @f$Z\to q\bar{q}@f$.
-     * @details The so-called unified form factor @f$\mathcal{F}_W@f$, associated
-     * with radiative corrections to the @f$Z\to q\bar{q}@f$ vertex (@f$f\neq b@f$) 
-     * with a virtual @f$W@f$ boson as well as with virtual @f$W@f$ bosons, is
-     * given by
-     * @f[
-     * {\cal F}_W(s) = c_W^2 {\cal F}_{Wn}^0(s)
-     * - \frac{1}{2}\sigma_{q'}^a {\cal F}_{Wa}^0(s)
-     * - \frac{1}{2}\overline{{\cal F}}_{Wa}^0(s)\,,
-     * @f]
-     * where the suprescripts "0" denote the chiral limit,
-     * @f$\sigma_{q'}^a = |v_{q'} + a_{q'}|
-     * = 1 - 2|Q_{q'}|s_W^2 = 2c_W^2 - 1 + 2|Q_{q}| s_W^2@f$
-     * with @f$q'@f$ being the partner of @f$q@f$ in the @f$SU(2)_L@f$ doublet,
-     * and @f${\cal F}_{Wn}^0(s)@f$, @f${\cal F}_{Wa}^0(s)@f$
-     * and @f$\overline{{\cal F}}_{Wa}^0(s)@f$ correspond to the functions
-     * FWn_0(), FWa_0() and FbarWa_0(), respectively.
-     * In the case of @f$f=b@f$, the additional contributions originating from
-     * the heavy top-quark mass have to be taken into account:
-     * @f[
-     *  {\cal F}_W(s)
-     * = c_W^2 \left( {\cal F}_{Wn}^0(s) + {\cal F}_{Wn}^t(s) \right)
-     *   - \frac{1}{2}\sigma_{t}^a \left( {\cal F}_{Wa}^0(s) + {\cal F}_{Wa}^t(s) \right)
-     *   - \frac{1}{2} \left( \overline{{\cal F}}_{Wa}^0(s)
-     *   + \overline{{\cal F}}_{Wa}^t(s)\right), 
-     * @f]
-     * where @f${\cal F}_{Wn}^t(s)@f$, @f${\cal F}_{Wa}^t(s)@f$
-     * and @f$\overline{{\cal F}}_{Wa}^t(s)@f$ correspond to the functions
-     * FWn_t(), FWa_t() and FbarWa_t(), respectively.
-     * 
-     * See @cite Bardin:1999ak.
-     * @param[in] s momentum squared @f$s@f$
-     * @param[in] q name of a quark (see QCD::quark)
-     * @param[in] Mw_i the @f$W@f$-boson mass @f$M_W@f$
-     * @return @f$\mathcal{F}_W@f$
-     */  
-    complex FW_q(const double s, const QCD::quark q, const double Mw_i) const;    
-    
     ////////////////////////////////////////////////////////////////////////        
-    
+
     /**
      * @brief A test function for @f$\mathcal{F}_{Wn}@f$ with a finite fermion mass.
      * @param[in] s momentum squared @f$s@f$
@@ -938,14 +841,13 @@ public:
      * @return @f$\mathcal{F}_{Wn}@f$
      */
     complex TEST_FWn(const double s, const double mf, const double Mw_i) const;
-    
-    
+
+
     ////////////////////////////////////////////////////////////////////////    
 
 private:
-    const EWSMcache& cache;///< A reference to an object of type EWSMcache.
-    
-    
+    const EWSMcache& cache; ///< A reference to an object of type EWSMcache.
+
 };
 
 #endif	/* EWSMONELOOPEW_H */

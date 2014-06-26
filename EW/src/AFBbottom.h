@@ -10,7 +10,6 @@
 
 #include <stdexcept>
 #include <ThObservable.h>
-#include "EW.h"
 
 /**
  * @class AFBbottom 
@@ -37,8 +36,8 @@ public:
      * @brief Constructor.
      * @param[in] EW_i a reference to an object of type EW
      */
-    AFBbottom(const EW& EW_i) 
-    : ThObservable(EW_i), myEW(EW_i) 
+    AFBbottom(const StandardModel& SM_i) 
+    : ThObservable(SM_i)  
     {
     };
 
@@ -51,7 +50,7 @@ public:
 
     
 private:
-    const EW& myEW;///< A reference to an object of type EW.
+
 
 };
 

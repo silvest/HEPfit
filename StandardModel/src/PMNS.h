@@ -26,11 +26,11 @@ public:
     PMNS(std::string H_i);
     PMNS(const PMNS&);
     ~PMNS();
-    
+
     void setPMNS(double, double, double, double);
-  
+
     void getPMNS(matrix<complex> &) const;
-    
+
     // Gilman parameterization
     double gets12();
     double gets13();
@@ -39,17 +39,17 @@ public:
     double getc13();
     double getc23();
     double getdelta();
-    
+
     std::string getHierarchy();
-    
+
     // J_CP
     double getJcp();
-    
+
     // Sides
     /*double getRt(std::string H);
     double getRts(std::string H);
     double getRb(std::string H);*/
-    
+
 private:
     double s12;
     double s13;
@@ -58,7 +58,7 @@ private:
     double c12;
     double c23;
     double c13;
-    
+
     complex U11;
     complex U12;
     complex U13;
@@ -68,7 +68,7 @@ private:
     complex U31;
     complex U32;
     complex U33;
-    
+
     std::string H;
 
 };

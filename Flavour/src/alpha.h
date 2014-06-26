@@ -9,11 +9,12 @@
 #define	ALPHA_H
 
 #include <ThObservable.h>
-#include <ThObsType.h>
+
+
 
 class Alpha : public ThObservable {
 public:
-    Alpha(const ThObsType& ObsType) : ThObservable(ObsType) {};
+    Alpha(const StandardModel& SM_i) : ThObservable(SM_i) {};
 
     double computeThValue();
 };

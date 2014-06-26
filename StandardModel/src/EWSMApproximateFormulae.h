@@ -10,7 +10,7 @@
 
 #include <string>
 #include <math.h>
-#include "StandardModel.h"
+#include "EWSMcache.h"
 
 /**
  * @class EWSMApproximateFormulae
@@ -30,14 +30,14 @@
  */
 class EWSMApproximateFormulae {
 public:
-      
+
     /**
      * @brief Constructor.
      * @param[in] SM_i a reference to an object of type StandardModel
      */
-    EWSMApproximateFormulae(const StandardModel& SM_i);    
+    EWSMApproximateFormulae(const EWSMcache& cache_i);
 
-    
+
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -57,48 +57,17 @@ public:
      * @return the @f$W@f$-boson mass in units of GeV
      */
     double Mw() const;
-    
-    /**
-     * @brief @f$\sin^2\theta_{\rm eff}^\ell@f$ with the full two-loop %EW corrections.
-     * @details This function is based on the approximate formulae for the
-     * leptonic weak mixing angles presented in @cite Awramik:2006uz
-     * (see also @cite Awramik:2004ge), which include the complete two-loop
-     * %EW corrections as well as leading three-loop corrections. 
-     * The approximate formulae reproduce the full results to be better than
-     * @f$4.5\times 10^{-6}@f$ for the Higgs mass 10 GeV @f$\leq m_h\leq@f$ 1 TeV,
-     * if other inputs vary within their @f$2\sigma@f$ ranges of the
-     * following outdated data:
-     * @f$\alpha_s(M_Z^2) = 0.119\pm 0.002@f$,
-     * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.05907\pm 0.00036@f$,
-     * @f$M_Z = 91.1876\pm 0.0021@f$ GeV and
-     * @f$m_t = 172.5\pm 2.3@f$ GeV.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @return the effective weak mixing angle for @f$Z\to\ell\bar{\ell}@f$
-     */
-    double sin2thetaEff_l(const StandardModel::lepton l) const;
 
-    /**
-     * @brief @f$\sin^2\theta_{\rm eff}^q@f$ with the full two-loop %EW
-     * corrections (bosonic two-loop %EW corrections are missing for @f$q=b@f$).
-     * @details This function is based on the approximate formulae for the
-     * weak mixing angles presented in @cite Awramik:2006uz and @cite Awramik:2008gi,
-     * which include the complete two-loop %EW corrections as well as leading
-     * three-loop corrections. It is noted that bosonic two-loop %EW corrections
-     * are missing for @f$q=b@f$.
-     * The approximate formulae reproduce the full results to be better than
-     * @f$4.5\times 10^{-6}@f$ (@f$4.3\times 10^{-6}@f$) for the Higgs mass
-     * 10 GeV @f$\leq m_h\leq@f$ 1 TeV in the case of @f$q=u,d,s,c@f$ (@f$q=b@f$),
-     * if other inputs vary within their @f$2\sigma@f$ ranges of the
-     * following outdated data:
-     * @f$\alpha_s(M_Z^2) = 0.119\pm 0.002@f$,
-     * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.05907\pm 0.00036@f$,
-     * @f$M_Z = 91.1876\pm 0.0021@f$ GeV and
-     * @f$m_t = 172.5\pm 2.3@f$ GeV.
-     * @param[in] q name of a quark (see QCD::quark)
-     * @return the effective weak mixing angle for @f$Z\to q\bar{q}@f$
-     */
-    double sin2thetaEff_q(const QCD::quark q) const;    
-    
+    double sin2thetaEff(const Particle p) const
+    {
+        if (p.is("QUARK"))
+            return sin2thetaEff_q((QCD::quark) (p.getIndex() - 6));
+        else if (p.is("LEPTON"))
+            return sin2thetaEff_l((StandardModel::lepton) p.getIndex());
+        else
+            throw std::runtime_error("EWSMApproximateFormulae::sin2thetaEff() called with wrong argument");
+    }
+
     /**
      * @brief @f$\Delta r_{\rm rem}^{(\alpha^2)}@f$. 
      * @details This function is based on the approximate formula for the irreducible 
@@ -156,7 +125,7 @@ public:
      * @return irreducible fermionic two-loop %EW contribution to @f$\Delta\kappa_Z^b@f$
      */
     double DeltaKappa_b_TwoLoopEW_rem(const double Mw_i) const;
-    
+
     /**
      * @brief @f$R_b^0@f$. 
      * @details This function is based on the approximate formula for 
@@ -194,7 +163,7 @@ public:
      * @return @f$\Gamma_u/\Gamma_b@f$
      */
     double Gu_over_Gb_OLD() const;
-    
+
     /**
      * @brief @f$\Gamma_d/\Gamma_b@f$.
      * @details This function is based on the approximate formula for
@@ -278,10 +247,53 @@ public:
 
 
     ////////////////////////////////////////////////////////////////////////
-    
+
 private:
-    const StandardModel& SM;///< A reference to an object of type StandardModel.
-    
+    /**
+     * @brief @f$\sin^2\theta_{\rm eff}^\ell@f$ with the full two-loop %EW corrections.
+     * @details This function is based on the approximate formulae for the
+     * leptonic weak mixing angles presented in @cite Awramik:2006uz
+     * (see also @cite Awramik:2004ge), which include the complete two-loop
+     * %EW corrections as well as leading three-loop corrections. 
+     * The approximate formulae reproduce the full results to be better than
+     * @f$4.5\times 10^{-6}@f$ for the Higgs mass 10 GeV @f$\leq m_h\leq@f$ 1 TeV,
+     * if other inputs vary within their @f$2\sigma@f$ ranges of the
+     * following outdated data:
+     * @f$\alpha_s(M_Z^2) = 0.119\pm 0.002@f$,
+     * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.05907\pm 0.00036@f$,
+     * @f$M_Z = 91.1876\pm 0.0021@f$ GeV and
+     * @f$m_t = 172.5\pm 2.3@f$ GeV.
+     * @param[in] l name of a lepton (see StandardModel::lepton)
+     * @return the effective weak mixing angle for @f$Z\to\ell\bar{\ell}@f$
+     */
+    double sin2thetaEff_l(const StandardModel::lepton l) const;
+
+    /**
+     * @brief @f$\sin^2\theta_{\rm eff}^q@f$ with the full two-loop %EW
+     * corrections (bosonic two-loop %EW corrections are missing for @f$q=b@f$).
+     * @details This function is based on the approximate formulae for the
+     * weak mixing angles presented in @cite Awramik:2006uz and @cite Awramik:2008gi,
+     * which include the complete two-loop %EW corrections as well as leading
+     * three-loop corrections. It is noted that bosonic two-loop %EW corrections
+     * are missing for @f$q=b@f$.
+     * The approximate formulae reproduce the full results to be better than
+     * @f$4.5\times 10^{-6}@f$ (@f$4.3\times 10^{-6}@f$) for the Higgs mass
+     * 10 GeV @f$\leq m_h\leq@f$ 1 TeV in the case of @f$q=u,d,s,c@f$ (@f$q=b@f$),
+     * if other inputs vary within their @f$2\sigma@f$ ranges of the
+     * following outdated data:
+     * @f$\alpha_s(M_Z^2) = 0.119\pm 0.002@f$,
+     * @f$\Delta\alpha^{\ell+5q}(M_Z^2) = 0.05907\pm 0.00036@f$,
+     * @f$M_Z = 91.1876\pm 0.0021@f$ GeV and
+     * @f$m_t = 172.5\pm 2.3@f$ GeV.
+     * @param[in] q name of a quark (see QCD::quark)
+     * @return the effective weak mixing angle for @f$Z\to q\bar{q}@f$
+     */
+    double sin2thetaEff_q(const QCD::quark q) const;
+
+
+
+    const EWSMcache& mycache; ///< A reference to an object of type StandardModel.
+
 };
 
 #endif	/* EWSMAPPROXIMATEFORMULAE_H */

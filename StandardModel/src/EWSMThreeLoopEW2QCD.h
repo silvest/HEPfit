@@ -33,18 +33,17 @@ using namespace gslpp;
  * See also the description of EWSM class for their definitions. 
  */
 class EWSMThreeLoopEW2QCD {
-
 public:
- 
+
     /**
      * @brief Constructor.
      * @param[in] cache_i a reference to an object of type EWSMcache
      */
     EWSMThreeLoopEW2QCD(const EWSMcache& cache_i);
 
-    
+
     ////////////////////////////////////////////////////////////////////////
-    
+
     /**
      * @brief Leptonic contribution of @f$O(\alpha^2\alpha_s)@f$
      * to the electromagnetic coupling @f$\alpha@f$,
@@ -64,7 +63,7 @@ public:
      * @return @f$\Delta\alpha_{\mathrm{top}}^{\alpha^2\alpha_s}(s)=0@f$
      */
     double DeltaAlpha_t(const double s) const;
-    
+
     /**
      * @brief Leading three-loop contribution of @f$O(\alpha^2\alpha_s)@f$
      * to @f$\Delta\rho@f$, denoted as @f$\Delta\rho^{\alpha^2\alpha_s}@f$. 
@@ -88,17 +87,6 @@ public:
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^2\alpha_s)@f$
-     * to the effective couplings @f$\rho_Z^l@f$,
-     * denoted as @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha^2\alpha_s}@f$. 
-     * @details This contribution is not implemented, since it is tiny and negligible.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\rho_{\mathrm{rem}}^{l,\, \alpha^2\alpha_s}=0@f$
-     */
-    complex deltaRho_rem_l(const StandardModel::lepton l, const double Mw_i) const;
-
-    /**
-     * @brief Remainder contribution of @f$O(\alpha^2\alpha_s)@f$
      * to the effective couplings @f$\rho_Z^q@f$,
      * denoted as @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha^2\alpha_s}@f$.
      * @details This contribution is not implemented, since it is tiny and negligible.
@@ -106,18 +94,7 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\rho_{\mathrm{rem}}^{q,\, \alpha^2\alpha_s}=0@f$
      */
-    complex deltaRho_rem_q(const QCD::quark q, const double Mw_i) const;
-
-    /**
-     * @brief Remainder contribution of @f$O(\alpha^2\alpha_s)@f$
-     * to the effective couplings @f$\kappa_Z^l@f$,
-     * denoted as @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha^2\alpha_s}@f$. 
-     * @details This contribution is not implemented, since it is tiny and negligible.
-     * @param[in] l name of a lepton (see StandardModel::lepton)
-     * @param[in] Mw_i the @f$W@f$-boson mass
-     * @return @f$\delta\kappa_{\mathrm{rem}}^{l,\, \alpha^2\alpha_s}=0@f$
-     */
-    complex deltaKappa_rem_l(const StandardModel::lepton l, const double Mw_i) const;
+    complex deltaRho_rem_f(const Particle p, const double Mw_i) const;
 
     /**
      * @brief Remainder contribution of @f$O(\alpha^2\alpha_s)@f$
@@ -128,15 +105,15 @@ public:
      * @param[in] Mw_i the @f$W@f$-boson mass
      * @return @f$\delta\kappa_{\mathrm{rem}}^{q,\, \alpha^2\alpha_s}=0@f$
      */
-    complex deltaKappa_rem_q(const QCD::quark q, const double Mw_i) const;    
-    
-    
+    complex deltaKappa_rem_f(const Particle p, const double Mw_i) const;
+
+
     ////////////////////////////////////////////////////////////////////////        
-    
+
 private:
-    const EWSMcache& cache;///< A reference to an object of type EWSMcache.
-     
-    
+    const EWSMcache& cache; ///< A reference to an object of type EWSMcache.
+
+
 };
 
 #endif	/* EWSMTHREELOOPEW2QCD_H */

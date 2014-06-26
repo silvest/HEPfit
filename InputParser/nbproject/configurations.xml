@@ -5,7 +5,8 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>src/InputParser.h</itemPath>
-      <itemPath>src/ThFactory.h</itemPath>
+      <itemPath>src/ModelFactory.h</itemPath>
+      <itemPath>src/ThObsFactory.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -15,7 +16,8 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>src/InputParser.cpp</itemPath>
-      <itemPath>src/ThFactory.cpp</itemPath>
+      <itemPath>src/ModelFactory.cpp</itemPath>
+      <itemPath>src/ThObsFactory.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -88,9 +90,13 @@
       </item>
       <item path="src/InputParser.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/ThFactory.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/ModelFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/ThFactory.h" ex="false" tool="3" flavor2="0">
+      <item path="src/ModelFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -159,9 +165,13 @@
       </item>
       <item path="src/InputParser.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/ThFactory.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/ModelFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/ThFactory.h" ex="false" tool="3" flavor2="0">
+      <item path="src/ModelFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -230,9 +240,13 @@
       </item>
       <item path="src/InputParser.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="src/ThFactory.cpp" ex="false" tool="1" flavor2="0">
+      <item path="src/ModelFactory.cpp" ex="false" tool="1" flavor2="0">
       </item>
-      <item path="src/ThFactory.h" ex="false" tool="3" flavor2="0">
+      <item path="src/ModelFactory.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/ThObsFactory.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="tests/newsimpletest.cpp" ex="false" tool="1" flavor2="0">
       </item>

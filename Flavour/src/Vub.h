@@ -9,11 +9,10 @@
 #define	VUB_H
 
 #include <ThObservable.h>
-#include <ThObsType.h>
 
 class Vub : public ThObservable {
 public:
-    Vub(const ThObsType& ObsType) : ThObservable(ObsType) {};
+    Vub(const StandardModel& SM_i) : ThObservable(SM_i) {};
 
     double computeThValue();
 };

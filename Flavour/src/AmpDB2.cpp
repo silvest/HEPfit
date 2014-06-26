@@ -7,27 +7,27 @@
 
 #include "AmpDB2.h"
 
-AmpDB2::AmpDB2(Flavour& Flavour) : myFlavour(Flavour) {
+AmpDB2::AmpDB2(const StandardModel& SM_i) : mySM(SM_i) {
 }
 
 complex AmpDB2::AmpBd(orders order) {
-    if (myFlavour.getHDF2().getCoeffBd().getOrder() < order % 3)
+    if (mySM.getMyFlavour()->getHDF2().getCoeffBd().getOrder() < order % 3)
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed"); 
 
-    vector<complex> ** allcoeff = myFlavour.ComputeCoeffBd( 
-            myFlavour.getModel().getBBd().getMu(), 
-        myFlavour.getModel().getBBd().getScheme()); 
+    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBd( 
+            mySM.getBBd().getMu(),
+        mySM.getBBd().getScheme());
     
-    vector<double> me(myFlavour.getModel().getBBd().getBpars()); 
-    double MBd = myFlavour.getModel().getMesons(QCD::B_D).getMass();
-    double Mb = myFlavour.getModel().Mrun(myFlavour.getModel().getBBd().getMu(),
-                myFlavour.getModel().getQuarks(QCD::BOTTOM).getMass_scale(),
-                myFlavour.getModel().getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
-    double Md = myFlavour.getModel().Mrun(myFlavour.getModel().getBBd().getMu(),
-                myFlavour.getModel().getQuarks(QCD::DOWN).getMass_scale(),
-                myFlavour.getModel().getQuarks(QCD::DOWN).getMass(), FULLNNLO);
+    vector<double> me(mySM.getBBd().getBpars());
+    double MBd = mySM.getMesons(QCD::B_D).getMass();
+    double Mb = mySM.Mrun(mySM.getBBd().getMu(),
+                mySM.getQuarks(QCD::BOTTOM).getMass_scale(),
+                mySM.getQuarks(QCD::BOTTOM).getMass(), FULLNNLO);
+    double Md = mySM.Mrun(mySM.getBBd().getMu(),
+                mySM.getQuarks(QCD::DOWN).getMass_scale(),
+                mySM.getQuarks(QCD::DOWN).getMass(), FULLNNLO);
     double KBd = MBd/(Mb+Md)*MBd/(Mb+Md);
-    double Fb = myFlavour.getModel().getMesons(QCD::B_D).getDecayconst();
+    double Fb = mySM.getMesons(QCD::B_D).getDecayconst();
     me(0) *= 1./3.*MBd*Fb*Fb;
     me(1) *= -5./24.*KBd*MBd*Fb*Fb;
     me(2) *= 1./24.*KBd*MBd*Fb*Fb;
@@ -53,21 +53,21 @@ complex AmpDB2::AmpBd(orders order) {
 }
 
 complex AmpDB2::AmpBs(orders order) {
-    if (myFlavour.getHDF2().getCoeffBs().getOrder() < order % 3)
+    if (mySM.getMyFlavour()->getHDF2().getCoeffBs().getOrder() < order % 3)
         throw std::runtime_error("DmBd::computeThValue(): requires cofficient of order not computed"); 
 
-    vector<complex> ** allcoeff = myFlavour.ComputeCoeffBs(
-            myFlavour.getModel().getBBs().getMu(),
-            myFlavour.getModel().getBBs().getScheme());
+    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBs(
+            mySM.getBBs().getMu(),
+            mySM.getBBs().getScheme());
 
-    vector<double> me(myFlavour.getModel().getBBs().getBpars());
-    double MBs = myFlavour.getModel().getMesons(QCD::B_S).getMass();
-    double Mb = myFlavour.getModel().getQuarks(QCD::BOTTOM).getMass();
-    double Ms = myFlavour.getModel().Mrun(myFlavour.getModel().getBBs().getMu(),
-                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass_scale(),
-                myFlavour.getModel().getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
+    vector<double> me(mySM.getBBs().getBpars());
+    double MBs = mySM.getMesons(QCD::B_S).getMass();
+    double Mb = mySM.getQuarks(QCD::BOTTOM).getMass();
+    double Ms = mySM.Mrun(mySM.getBBs().getMu(),
+                mySM.getQuarks(QCD::STRANGE).getMass_scale(),
+                mySM.getQuarks(QCD::STRANGE).getMass(), FULLNNLO);
     double KBs = MBs/(Mb+Ms)*MBs/(Mb+Ms);
-    double Fbs = myFlavour.getModel().getMesons(QCD::B_S).getDecayconst();
+    double Fbs = mySM.getMesons(QCD::B_S).getDecayconst();
     me(0) *= 1./3.*MBs*Fbs*Fbs;
     me(1) *= -5./24.*KBs*MBs*Fbs*Fbs;
     me(2) *= 1./24.*KBs*MBs*Fbs*Fbs;

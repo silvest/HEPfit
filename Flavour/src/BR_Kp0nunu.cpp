@@ -17,14 +17,14 @@ double BR_Kp0nunu::computeThValue(){
 }
 
 complex BR_Kp0nunu::BRKp0nunu(orders order, orders_ew order_ew){
-    if (myFlavour.getHDS1().getCoeffDS1pnunu().getOrder() < order){
+    if (mySM.getMyFlavour()->getHDS1().getCoeffDS1pnunu().getOrder() < order){
         std::stringstream out;
         out << order;
         throw std::runtime_error("BRKp0nunu::computeThValue(): requires cofficient of "
                                  "order" + out.str() + "not computed");
     }
     
-    vector<complex> ** allcoeff = myFlavour.ComputeCoeffDS1pnunu();
+    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffDS1pnunu();
     
     switch(order_ew) {
         case NLO_ew:
