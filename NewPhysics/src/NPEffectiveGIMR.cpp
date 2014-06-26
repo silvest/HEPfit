@@ -944,22 +944,22 @@ double NPEffectiveGIMR::muggH(const double sqrt_s) const
 {
     double m_t = mtpole;
     //doulbe m_t = quarks[TOP].getMass();
-    //double m_b = quarks[BOTTOM].getMass();
+    double m_b = quarks[BOTTOM].getMass();
 
     complex dKappa_t = deltaG_hff(quarks[TOP]) / (-m_t / v());
-    //complex dKappa_b = deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
+    complex dKappa_b = deltaG_hff(quarks[BOTTOM]) / (-m_b / v());
 
     /* L_eff = G_eff_t_SM*hGG */
     complex G_eff_t_SM = AlsMz / 16.0 / M_PI / v() * AH_f(4.0 * m_t * m_t / mHl / mHl);
 
-    //double sigma_tt_SM = trueSM.computeSigmaggH_tt(sqrt_s);
-    //double sigma_bb_SM = trueSM.computeSigmaggH_bb(sqrt_s);
-    //double sigma_tb_SM = trueSM.computeSigmaggH_tb(sqrt_s);
-    //complex tmp = (2.0 * dKappa_t * sigma_tt_SM
-    //        + 2.0 * dKappa_b * sigma_bb_SM
-    //        + (dKappa_t + dKappa_b) * sigma_tb_SM)
-    //        / (sigma_tt_SM + sigma_bb_SM + sigma_tb_SM);
-    complex tmp = 2.0 * dKappa_t;
+    double sigma_tt_SM = trueSM.computeSigmaggH_tt(sqrt_s);
+    double sigma_bb_SM = trueSM.computeSigmaggH_bb(sqrt_s);
+    double sigma_tb_SM = trueSM.computeSigmaggH_tb(sqrt_s);
+    complex tmp = (2.0 * dKappa_t * sigma_tt_SM
+            + 2.0 * dKappa_b * sigma_bb_SM
+            + (dKappa_t + dKappa_b) * sigma_tb_SM)
+            / (sigma_tt_SM + sigma_bb_SM + sigma_tb_SM);
+    //complex tmp = 2.0 * dKappa_t;
 
     complex tmp2 = 2.0 * CHG / v() * v2_over_LambdaNP2 / G_eff_t_SM;
     return (1.0 + 2.0 * delta_h + tmp.real() + tmp2.real());
