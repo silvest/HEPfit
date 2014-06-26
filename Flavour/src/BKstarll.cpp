@@ -1,15 +1,8 @@
 /* 
-<<<<<<< HEAD
  * Copyright (C) 2014 SusyFit Collaboration
  * All rights reserved.
  *
  * For the licensing terms see doc/COPYING.
-=======
- * File:   BKstarll.cpp
- * Author: marco
- * 
- * Created on 16 giugno 2014, 15.30
->>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
  */
 
 #include "BKstarll.h"
@@ -20,7 +13,6 @@
 
 
 
-<<<<<<< HEAD
 BKstarll::BKstarll(const StandardModel& SM_i, int lep_i) : ThObservable(SM_i), mySM(dynamic_cast<const StandardModel&> (SM_i)) {
     GF = mySM.getGF();    
     ale=mySM.getAle();
@@ -38,10 +30,6 @@ BKstarll::BKstarll(const StandardModel& SM_i, int lep_i) : ThObservable(SM_i), m
     MW=mySM.Mw();
     lambda_t=mySM.computelamt();
     b=1.;                           //please check
-=======
-BKstarll::BKstarll(const StandardModel& SM_i) : ThObservable(SM_i), mySM(dynamic_cast<const StandardModel&> (SM_i)) {
-
->>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
 }
 
 
@@ -56,13 +44,8 @@ BKstarll::~BKstarll() {
 
 
 
-<<<<<<< HEAD
 complex BKstarll::N(){
     return -(4*GF*MB*ale*lambda_t)/(sqrt(2)*4*M_PI);
-=======
-double BKstarll::N(){
-    return -(4*GF*MB*e*e*lambda_t)/(sqrt(2)*16*M_PI*M_PI);
->>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
 }
 
 
@@ -75,11 +58,7 @@ double BKstarll::N(){
 
 
 gslpp::complex BKstarll::H_V(int i) {
-<<<<<<< HEAD
     return -gslpp::complex::i()*N()*( C9*V_L(i) + C9p*V_R(i) + MB*MB/q2*( 2*Mb/MB*( C7*T_L(i) 
-=======
-    return -gslpp::complex::i()*N()*( C9*V_L(i) + C9p*V_R(i) + MB*MB/q2*( 2*Mb_MSB/MB*( C7*T_L(i) 
->>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
             + C7p*T_R(i) ) - 16*M_PI*M_PI*h_lambda ) );
 }
 
@@ -92,31 +71,19 @@ gslpp::complex BKstarll::H_A(int i) {
 
 
 gslpp::complex BKstarll::H_S() {
-<<<<<<< HEAD
     return gslpp::complex::i()*N()*Mb/MW*( CS*S_L + CSp*S_R );
-=======
-    return gslpp::complex::i()*N()*Mb_MSB/MW*( CS*S_L + CSp*S_R );
->>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
 }
 
 
 
 gslpp::complex BKstarll::H_P() {
-<<<<<<< HEAD
     return gslpp::complex::i()*N()*( Mb/MW*( CS*S_L + CSp*S_R ) + 2*Mm*Mb/q2*( C10*( S_L - Ms/Mb*S_R ) + C10p*( S_R - Ms/Mb*S_L ) ) );
-=======
-    return gslpp::complex::i()*N()*( Mb_MSB/MW*( CS*S_L + CSp*S_R ) + 2*Mm*Mb_MSB/q2*( C10*( S_L - Ms/Mb*S_R ) + C10p*( S_R - Ms/Mb*S_L ) ) );
->>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
 }
 
 
 
 /*******************************************************************************
-<<<<<<< HEAD
  * Angular coefficients                                                         *
-=======
- * Anguar coefficients                                                         *
->>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
  * ****************************************************************************/
 
 
@@ -214,11 +181,7 @@ double BKstarll::Sigma(int i) {
 
 
 
-<<<<<<< HEAD
 P_1::P_1(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
-=======
-P_1::P_1(const StandardModel& SM_i) : BKstarll(SM_i) {  
->>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
 }
 
 double P_1::computeThValue() {
@@ -227,11 +190,7 @@ double P_1::computeThValue() {
 }
 
 
-<<<<<<< HEAD
 P_2::P_2(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
-=======
-P_2::P_2(const StandardModel& SM_i) : BKstarll(SM_i) {  
->>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
 }
 
 double P_2::computeThValue() {
@@ -239,11 +198,7 @@ double P_2::computeThValue() {
 }
 
 
-<<<<<<< HEAD
 P_3::P_3(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
-=======
-P_3::P_3(const StandardModel& SM_i) : BKstarll(SM_i) {  
->>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
 }
 
 double P_3::computeThValue() {
@@ -252,11 +207,7 @@ double P_3::computeThValue() {
 }
 
 
-<<<<<<< HEAD
 P_4Prime::P_4Prime(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
-=======
-P_4Prime::P_4Prime(const StandardModel& SM_i) : BKstarll(SM_i) {  
->>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
 }
 
 double P_4Prime::computeThValue() {
@@ -265,11 +216,7 @@ double P_4Prime::computeThValue() {
 }
 
 
-<<<<<<< HEAD
 P_5Prime::P_5Prime(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
-=======
-P_5Prime::P_5Prime(const StandardModel& SM_i) : BKstarll(SM_i) {  
->>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
 }
 
 double P_5Prime::computeThValue() {
@@ -278,11 +225,7 @@ double P_5Prime::computeThValue() {
 }
 
 
-<<<<<<< HEAD
 P_6Prime::P_6Prime(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
-=======
-P_6Prime::P_6Prime(const StandardModel& SM_i) : BKstarll(SM_i) {  
->>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
 }
 
 double P_6Prime::computeThValue() {
@@ -291,11 +234,7 @@ double P_6Prime::computeThValue() {
 }
 
 
-<<<<<<< HEAD
 GammaPrime::GammaPrime(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
-=======
-GammaPrime::GammaPrime(const StandardModel& SM_i) : BKstarll(SM_i) {  
->>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
 }
 
 double GammaPrime::computeThValue() {
@@ -304,30 +243,18 @@ double GammaPrime::computeThValue() {
 }
 
 
-<<<<<<< HEAD
 F_L::F_L(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i), mySM(SM_i) {
     lep = lep_i;
 }
 
 double F_L::computeThValue() {
     GammaPrime myGammaPrime(mySM, lep);
-=======
-F_L::F_L(const StandardModel& SM_i) : BKstarll(SM_i), mySM(SM_i) {  
-}
-
-double F_L::computeThValue() {
-    GammaPrime myGammaPrime(mySM);
->>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
     return (3.*Sigma(0) - Sigma(2))/(4.*myGammaPrime.computeThValue());
 
 }
 
 
-<<<<<<< HEAD
 M_1Prime::M_1Prime(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
-=======
-M_1Prime::M_1Prime(const StandardModel& SM_i) : BKstarll(SM_i) {  
->>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
 }
 
 double M_1Prime::computeThValue() {
@@ -336,11 +263,7 @@ double M_1Prime::computeThValue() {
 }
 
 
-<<<<<<< HEAD
 M_2Prime::M_2Prime(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
-=======
-M_2Prime::M_2Prime(const StandardModel& SM_i) : BKstarll(SM_i) {  
->>>>>>> 97e15c2d836f31cf6994885995100219a3d7c67a
 }
 
 double M_2Prime::computeThValue() {
