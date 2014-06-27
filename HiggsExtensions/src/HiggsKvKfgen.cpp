@@ -185,6 +185,9 @@ double HiggsKvKfgen::computeGammaTotalRatio() const
 
 double HiggsKvKfgen::computeKg(const double sqrt_s) const
 {
+    if (sqrt_s == 1.96)
+        return computeKt();
+
     double sigmatt_SM = trueSM.computeSigmaggH_tt(sqrt_s);
     double sigmabb_SM = trueSM.computeSigmaggH_bb(sqrt_s);
     double sigmatb_SM = trueSM.computeSigmaggH_tb(sqrt_s);
