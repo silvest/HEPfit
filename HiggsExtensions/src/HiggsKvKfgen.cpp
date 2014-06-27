@@ -79,7 +79,7 @@ double HiggsKvKfgen::obliqueU() const
 
 double HiggsKvKfgen::muggH(const double sqrt_s) const
 {
-    return (computeKg() * computeKg());
+    return (computeKg(sqrt_s) * computeKg(sqrt_s));
 }
 
 double HiggsKvKfgen::muVBF(const double sqrt_s) const
@@ -119,7 +119,13 @@ double HiggsKvKfgen::muttH(const double sqrt_s) const
 
 double HiggsKvKfgen::BrHggRatio() const
 {
-    return (computeKg() * computeKg() / computeGammaTotalRatio());
+    double gtt_SM = trueSM.computeGammaHgg_tt();
+    double gbb_SM = trueSM.computeGammaHgg_bb();
+    double gtb_SM = trueSM.computeGammaHgg_tb();
+    double Ggg_over_GggSM = (computeKt() * computeKt() * gtt_SM
+            + computeKb() * computeKb() * gbb_SM
+            + computeKt() * computeKb() * gtb_SM) / (gtt_SM + gbb_SM + gtb_SM);
+    return (Ggg_over_GggSM / computeGammaTotalRatio());
 }
 
 double HiggsKvKfgen::BrHWWRatio() const
@@ -159,7 +165,13 @@ double HiggsKvKfgen::BrHbbRatio() const
 
 double HiggsKvKfgen::computeGammaTotalRatio() const
 {
-    return (computeKg() * computeKg() * trueSM.computeBrHtogg()
+    double gtt_SM = trueSM.computeGammaHgg_tt();
+    double gbb_SM = trueSM.computeGammaHgg_bb();
+    double gtb_SM = trueSM.computeGammaHgg_tb();
+    double Ggg_over_GggSM = (computeKt() * computeKt() * gtt_SM
+            + computeKb() * computeKb() * gbb_SM
+            + computeKt() * computeKb() * gtb_SM) / (gtt_SM + gbb_SM + gtb_SM);
+    return (Ggg_over_GggSM * trueSM.computeBrHtogg()
             + computeKW() * computeKW() * trueSM.computeBrHtoWW()
             + computeKZ() * computeKZ() * trueSM.computeBrHtoZZ()
             + computeKZga() * computeKZga() * trueSM.computeBrHtoZga()
@@ -171,9 +183,15 @@ double HiggsKvKfgen::computeGammaTotalRatio() const
 
 ////////////////////////////////////////////////////////////////////////
 
-double HiggsKvKfgen::computeKg() const
+double HiggsKvKfgen::computeKg(const double sqrt_s) const
 {
-    return computeKt(); // Waiting for Spira's answer on Friday
+    double sigmatt_SM = trueSM.computeSigmaggH_tt(sqrt_s);
+    double sigmabb_SM = trueSM.computeSigmaggH_bb(sqrt_s);
+    double sigmatb_SM = trueSM.computeSigmaggH_tb(sqrt_s);
+    return (sqrt((computeKt() * computeKt() * sigmatt_SM
+            + computeKb() * computeKb() * sigmabb_SM
+            + computeKt() * computeKb() * sigmatb_SM)
+            / (sigmatt_SM + sigmabb_SM + sigmatb_SM)));
 }
 
 double HiggsKvKfgen::computeKW() const

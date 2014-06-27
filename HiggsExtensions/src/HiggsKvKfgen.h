@@ -178,7 +178,7 @@ protected:
      */
     virtual void setParameter(const std::string name, const double& value);
 
-    virtual double computeKg() const;
+    virtual double computeKg(const double sqrt_s) const;
 
     virtual double computeKW() const;
 
