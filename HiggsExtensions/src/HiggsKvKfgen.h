@@ -70,7 +70,7 @@
 class HiggsKvKfgen : public NPbase {
 public:
 
-    static const int NHKvKfgenvars = 4; ///< The number of the model parameters in %HiggsKvKf.
+    static const int NHKvKfgenvars = 5; ///< The number of the model parameters in %HiggsKvKf.
 
     /**
      * @brief A string array containing the labels of the model parameters in %HiggsKvKf.
@@ -206,7 +206,7 @@ protected:
 
     ////////////////////////////////////////////////////////////////////////
 private:
-    double Kv, Ku, Kd, Kl;
+    double Kv, Ku, Kd, Kl, BrHinv;
 };
 
 #endif	/* HIGGSKVKFGEN_H */

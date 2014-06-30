@@ -8,7 +8,7 @@
 #include "HiggsKvKfgen.h"
 
 const std::string HiggsKvKfgen::HKvKfgenvars[NHKvKfgenvars] = {
-    "Kv", "Ku", "Kd", "Kl"
+    "Kv", "Ku", "Kd", "Kl", "BrHinv"
 };
 
 HiggsKvKfgen::HiggsKvKfgen()
@@ -18,6 +18,7 @@ HiggsKvKfgen::HiggsKvKfgen()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Ku", boost::cref(Ku)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kd", boost::cref(Kd)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kl", boost::cref(Kl)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHinv", boost::cref(BrHinv)));
 }
 
 void HiggsKvKfgen::setParameter(const std::string name, const double& value)
@@ -30,6 +31,8 @@ void HiggsKvKfgen::setParameter(const std::string name, const double& value)
         Kd = value;
     else if (name.compare("Kl") == 0)
         Kl = value;
+    else if (name.compare("BrHinv") == 0)
+        BrHinv = value;
     else
         NPbase::setParameter(name, value);
 }
@@ -171,14 +174,15 @@ double HiggsKvKfgen::computeGammaTotalRatio() const
     double Ggg_over_GggSM = (computeKt() * computeKt() * gtt_SM
             + computeKb() * computeKb() * gbb_SM
             + computeKt() * computeKb() * gtb_SM) / (gtt_SM + gbb_SM + gtb_SM);
-    return (Ggg_over_GggSM * trueSM.computeBrHtogg()
+    return ((Ggg_over_GggSM * trueSM.computeBrHtogg()
             + computeKW() * computeKW() * trueSM.computeBrHtoWW()
             + computeKZ() * computeKZ() * trueSM.computeBrHtoZZ()
             + computeKZga() * computeKZga() * trueSM.computeBrHtoZga()
             + computeKgaga() * computeKgaga() * trueSM.computeBrHtogaga()
             + computeKtau() * computeKtau() * trueSM.computeBrHtotautau()
             + computeKc() * computeKc() * trueSM.computeBrHtocc()
-            + computeKb() * computeKb() * trueSM.computeBrHtobb());
+            + computeKb() * computeKb() * trueSM.computeBrHtobb())
+            / (1.0 - BrHinv));
 }
 
 ////////////////////////////////////////////////////////////////////////
