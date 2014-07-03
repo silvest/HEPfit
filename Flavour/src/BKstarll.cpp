@@ -175,6 +175,12 @@ double BKstarll::Sigma(int i) {
 
 
 
+double BKstarll::Delta(int i) {
+    return (I(i) - I_bar(i))/2;
+}
+
+
+
 /*******************************************************************************
  * Observables                                                                 *
  * ****************************************************************************/
@@ -239,6 +245,26 @@ GammaPrime::GammaPrime(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, le
 
 double GammaPrime::computeThValue() {
     return ((3.*Sigma(0) - Sigma(2)) + 2.*(3*Sigma(1) - Sigma(3)))/4.;
+
+}
+
+
+ACP::ACP(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i), mySM(SM_i) { 
+    lep = lep_i;
+}
+
+double ACP::computeThValue() {
+    GammaPrime myGammaPrime(mySM, lep);
+    return (3*Delta(0) - Delta(2) + 2 * ( 3*Delta(1) -Delta(3) ) )/(4.*myGammaPrime.computeThValue());
+
+}
+
+
+P3CP::P3CP(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
+}
+
+double P3CP::computeThValue() {
+    return - Delta(11)/(4*Sigma(3));
 
 }
 

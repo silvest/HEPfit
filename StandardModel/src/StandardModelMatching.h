@@ -407,6 +407,7 @@ private:
     //double MM;
     gslpp::matrix<complex> Vckm;
     complex lam_t;
+    double L;
     
     /**
      * 

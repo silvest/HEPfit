@@ -86,6 +86,7 @@ void StandardModelMatching::updateSMParameters()
     }
     Vckm = SM.getVCKM();
     lam_t = SM.computelamt();
+    L=2*log(Muw/Mw);
 
 }
 
@@ -1073,12 +1074,12 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
     switch (order){
         case NNLO:
         case NLO:
-            CWBKstarllArrayNLO[0] = 15.;
-            CWBKstarllArrayNLO[3] = E0t(x)-(2./3.);
+            CWBKstarllArrayNLO[0] = 15. + 6*L;
+            CWBKstarllArrayNLO[3] = E0t(x)-(2./3.) - (2./3.*L);
             CWBKstarllArrayNLO[6] = C7NLOeff(x);//-0.5 * A0t(x)- 23./36.;
             CWBKstarllArrayNLO[7] = C8NLOeff(x);//-0.5 * F0t(x)- 1./3.;
             CWBKstarllArrayNLO[8] = (1-4.*sw*sw) / sw *C0t(x) - 1./(sw*sw) *
-                                B0t(x) - D0t(x) + 38./27. + 1./(4.*sw*sw);
+                                B0t(x) - D0t(x) + 38./27. + 1./(4.*sw*sw) - (4./9.)*L;
             CWBKstarllArrayNLO[9] = 1./(sw*sw) * (B0t(x) - C0t(x)) -1./(4.*sw*sw);
         case LO:
             CWBKstarllArrayLO[1] = 1.;

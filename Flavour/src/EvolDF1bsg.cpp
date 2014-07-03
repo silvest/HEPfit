@@ -11,8 +11,8 @@
 
 EvolDF1bsg::EvolDF1bsg(unsigned int dim, schemes scheme, orders order,
              const StandardModel& model) : RGEvolutor(dim, scheme, order), model(model),
-             v(10,0.), vi(10,0.), js(10,0.), h(10,0.), gg(10,0.), s_s(10,0.),
-             jssv(10,0.), jss(10,0.), jv(10,0.), vij(10,0.), e(10,0.)  {
+             v(13,0.), vi(13,0.), js(13,0.), h(13,0.), gg(13,0.), s_s(13,0.),
+             jssv(13,0.), jss(13,0.), jv(13,0.), vij(13,0.), e(13,0.)  {
     
     /* magic numbers a & b */ 
     
@@ -28,10 +28,10 @@ EvolDF1bsg::EvolDF1bsg(unsigned int dim, schemes scheme, orders order,
     
     (ToEffectiveBasis(ToRescaleBasis(LO,nu,nd))).transpose().eigensystem(v,e);
     vi = v.inverse();
-    for(int i = 0; i < 10; i++){
+    for(int i = 0; i < 13; i++){
        a[L][i] = e(i).real();
-       for (int j = 0; j < 10; j++) {
-           for (int k = 0; k < 10; k++)  {
+       for (int j = 0; j < 13; j++) {
+           for (int k = 0; k < 13; k++)  {
                 b[L][i][j][k] = v(i, k).real() * vi(k, j).real();
                }
            }
@@ -42,8 +42,8 @@ EvolDF1bsg::EvolDF1bsg(unsigned int dim, schemes scheme, orders order,
     gg = vi * (ToEffectiveBasis(ToRescaleBasis(NLO,nu,nd))).transpose() * v;
     double b0 = model.Beta0(6-L);
     double b1 = model.Beta1(6-L);
-    for (int i = 0; i < 10; i++){
-        for (int j = 0; j < 10; j++){
+    for (int i = 0; i < 13; i++){
+        for (int j = 0; j < 13; j++){
             s_s.assign( i, j, (b1 / b0) * (i==j) * e(i).real() - gg(i,j));    
             if(fabs(e(i).real() - e(j).real() + 2. * b0)>0.00000000001){
                 h.assign( i, j, s_s(i,j) / (2. * b0 + e(i) - e(j)));
@@ -55,16 +55,16 @@ EvolDF1bsg::EvolDF1bsg(unsigned int dim, schemes scheme, orders order,
     vij = vi * js;
     jss = v * s_s * vi;
     jssv = jss * v;        
-    for (int i = 0; i < 10; i++){
-        for (int j = 0; j < 10; j++){
+    for (int i = 0; i < 13; i++){
+        for (int j = 0; j < 13; j++){
             if(fabs(e(i).real() - e(j).real() + 2. * b0) > 0.00000000001){
-                for(int k = 0; k < 10; k++){
+                for(int k = 0; k < 13; k++){
                         c[L][i][j][k] = jv(i, k).real() * vi(k, j).real();
                         d[L][i][j][k] = -v(i, k).real() * vij(k, j).real();
                         }
                     }
             else{    
-                for(int k = 0; k < 10; k++){
+                for(int k = 0; k < 13; k++){
                    c[L][i][j][k] = (1./(2. * b0)) * jssv(i, k).real() * vi(k, j).real();
                    d[L][i][j][k] = 0.;
                    }   
@@ -88,7 +88,7 @@ matrix<double> EvolDF1bsg::AnomalousDimension_M(orders order, unsigned int n_u,
     
     unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
   
-    matrix<double> gammaDF1(10,10, 0.);
+    matrix<double> gammaDF1(13,13, 0.);
    
     switch(order){
         
@@ -132,6 +132,12 @@ matrix<double> EvolDF1bsg::AnomalousDimension_M(orders order, unsigned int n_u,
     gammaDF1(8,8) = -2.*model.Beta0(nf); 
     
     gammaDF1(9,9) = -2.*model.Beta0(nf); 
+    
+    gammaDF1(10,10)= 1.;
+    
+    gammaDF1(11,11)= 1.;
+    
+    gammaDF1(12,12)= 1.;
     
     break;    
     case NLO:
@@ -202,6 +208,12 @@ matrix<double> EvolDF1bsg::AnomalousDimension_M(orders order, unsigned int n_u,
     gammaDF1(8,8) = -2.*model.Beta1(nf); 
     
     gammaDF1(9,9) = -2.*model.Beta1(nf); 
+    
+    gammaDF1(10,10)= 1.;
+    
+    gammaDF1(11,11)= 1.;
+    
+    gammaDF1(12,12)= 1.;
    
     break;
     default:
@@ -215,8 +227,8 @@ matrix<double> EvolDF1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
     /* matrix entries for the anomalous dimension in the Chetyrkin, Misiak and Munz basis,
        ref. hep-ph/9711280v1, hep-ph/0504194 */
     
-    matrix<double> mat(10, 0.);
-    matrix<double> mat1(10,0.);
+    matrix<double> mat(13, 0.);
+    matrix<double> mat1(13,0.);
     unsigned int nf = n_u + n_d;
     double z3 = gsl_sf_zeta_int(3);
     
@@ -290,7 +302,7 @@ matrix<double> EvolDF1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
 
 matrix<double> EvolDF1bsg::ToEffectiveBasis(matrix<double> mat) const{
     
-    gslpp::matrix<double> y(10, 0.);
+    gslpp::matrix<double> y(13, 0.);
     
     y(0,0) = 1.;
     y(1,1) = 1.;
@@ -302,6 +314,9 @@ matrix<double> EvolDF1bsg::ToEffectiveBasis(matrix<double> mat) const{
     y(7,7) = 1.;
     y(8,8) = 1.;
     y(9,9) = 1.;
+    y(10,10) = 1.;
+    y(11,11) = 1.;
+    y(12,12) = 1.;
     
     y(6,2) = -1./3.;
     y(6,3) = -4./9.;
@@ -358,7 +373,7 @@ matrix<double>& EvolDF1bsg::Df1Evolbsg(double mu, double M, orders order, scheme
     
  void EvolDF1bsg::Df1Evolbsg(double mu, double M, double nf, schemes scheme) {
 
-    matrix<double> resLO(10, 0.), resNLO(10, 0.), resNNLO(10, 0.);
+    matrix<double> resLO(13, 0.), resNLO(13, 0.), resNNLO(13, 0.);
 
     int L = 6 - (int) nf;
     double alsM = model.Als(M) / 4. / M_PI;
@@ -366,10 +381,10 @@ matrix<double>& EvolDF1bsg::Df1Evolbsg(double mu, double M, orders order, scheme
     
     double eta = alsM / alsmu;
     
-    for (int k = 0; k < 10; k++) {
+    for (int k = 0; k < 13; k++) {
         double etap = pow(eta, a[L][k] / 2. / model.Beta0(nf));
-        for (int i = 0; i < 10; i++){
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < 13; i++){
+            for (int j = 0; j < 13; j++) {
                 resNNLO(i, j) += 0.;
                 
                 if(fabs(e(i).real() - e(j).real() + 2. * model.Beta0(nf))>0.000000000001)  {
