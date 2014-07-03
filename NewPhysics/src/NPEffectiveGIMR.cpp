@@ -962,7 +962,7 @@ double NPEffectiveGIMR::muggH(const double sqrt_s) const
     complex tmp = 2.0 * dKappa_t;
 
     complex tmp2 = 2.0 * CHG / v() * v2_over_LambdaNP2 / G_eff_t_SM;
-    return (1.0 + 2.0 * delta_h + tmp.real() + tmp2.real());
+    return (1.0 + tmp.real() + tmp2.real());
 }
 
 double NPEffectiveGIMR::muVBF(const double sqrt_s) const
