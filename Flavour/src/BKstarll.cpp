@@ -13,17 +13,10 @@
 
 
 
-BKstarll::BKstarll(const StandardModel& SM_i, int lep_i) : ThObservable(SM_i), mySM(dynamic_cast<const StandardModel&> (SM_i)) {
+BKstarll::BKstarll(const StandardModel& SM_i, StandardModel::lepton lep_i) : ThObservable(SM_i), mySM(SM_i) {
     GF = mySM.getGF();    
     ale=mySM.getAle();
-    switch(lep_i){
-        case '0': Mm=mySM.getLeptons(StandardModel::ELECTRON).getMass();
-        case '1': Mm=mySM.getLeptons(StandardModel::MU).getMass();
-        default:
-            std::stringstream out;
-            out << lep_i;
-            throw std::runtime_error("Lep_i: index " + out.str() + "not implemented");
-    }
+    Mm=mySM.getLeptons(lep_i).getMass();
     MB=mySM.getMesons(QCD::B_D).getMass();
     Mb=mySM.getQuarks(QCD::BOTTOM).getMass();
     Ms=mySM.getQuarks(QCD::STRANGE).getMass();
@@ -187,7 +180,7 @@ double BKstarll::Delta(int i) {
 
 
 
-P_1::P_1(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
+P_1::P_1(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double P_1::computeThValue() {
@@ -196,7 +189,7 @@ double P_1::computeThValue() {
 }
 
 
-P_2::P_2(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
+P_2::P_2(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double P_2::computeThValue() {
@@ -204,7 +197,7 @@ double P_2::computeThValue() {
 }
 
 
-P_3::P_3(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
+P_3::P_3(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double P_3::computeThValue() {
@@ -213,7 +206,7 @@ double P_3::computeThValue() {
 }
 
 
-P_4Prime::P_4Prime(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
+P_4Prime::P_4Prime(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double P_4Prime::computeThValue() {
@@ -222,7 +215,7 @@ double P_4Prime::computeThValue() {
 }
 
 
-P_5Prime::P_5Prime(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
+P_5Prime::P_5Prime(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double P_5Prime::computeThValue() {
@@ -231,7 +224,7 @@ double P_5Prime::computeThValue() {
 }
 
 
-P_6Prime::P_6Prime(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
+P_6Prime::P_6Prime(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double P_6Prime::computeThValue() {
@@ -240,7 +233,7 @@ double P_6Prime::computeThValue() {
 }
 
 
-GammaPrime::GammaPrime(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
+GammaPrime::GammaPrime(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double GammaPrime::computeThValue() {
@@ -249,7 +242,7 @@ double GammaPrime::computeThValue() {
 }
 
 
-ACP::ACP(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i), mySM(SM_i) { 
+ACP::ACP(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i), mySM(SM_i) { 
     lep = lep_i;
 }
 
@@ -260,7 +253,7 @@ double ACP::computeThValue() {
 }
 
 
-P3CP::P3CP(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
+P3CP::P3CP(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double P3CP::computeThValue() {
@@ -269,7 +262,7 @@ double P3CP::computeThValue() {
 }
 
 
-F_L::F_L(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i), mySM(SM_i) {
+F_L::F_L(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i), mySM(SM_i) {
     lep = lep_i;
 }
 
@@ -280,7 +273,7 @@ double F_L::computeThValue() {
 }
 
 
-M_1Prime::M_1Prime(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
+M_1Prime::M_1Prime(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double M_1Prime::computeThValue() {
@@ -289,7 +282,7 @@ double M_1Prime::computeThValue() {
 }
 
 
-M_2Prime::M_2Prime(const StandardModel& SM_i, int lep_i) : BKstarll(SM_i, lep_i) {  
+M_2Prime::M_2Prime(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double M_2Prime::computeThValue() {

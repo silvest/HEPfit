@@ -28,7 +28,7 @@ HeffDB1::~HeffDB1() {
 }
 
 /*******************************************************************************
- * evolution Wilson Coefficienys b-> nonlep.                                   * 
+ * evolution Wilson Coefficients b-> nonlep.                                   * 
  * Buras base                                                                  *
  * deltaB=1   deltaC=0   deltaS=0                                              *
  ******************************************************************************/

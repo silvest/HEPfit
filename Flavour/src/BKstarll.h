@@ -24,7 +24,7 @@
  */
 class BKstarll : public ThObservable {
 public:
-    BKstarll(const StandardModel& SM_i, int lep_i);
+    BKstarll(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     virtual ~BKstarll();
     virtual double computeThValue()=0;
         /*dummy variables*/
@@ -228,7 +228,7 @@ public:
     /**
     * @brief \f$ P_{1} \f$ 
     */
-    P_1(const StandardModel& SM_i, int lep_i);
+    P_1(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     
     /**
@@ -246,13 +246,13 @@ public:
  * @copyright GNU General Public License
  * @details 
  */
-class P_2 : public BKstarll{
+class P_2 : public BKstarll {
 public:
     
     /**
     * @brief \f$ P_{2} \f$ 
     */
-    P_2(const StandardModel& SM_i, int lep_i);
+    P_2(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable P_2
@@ -275,7 +275,7 @@ public:
     /**
     * @brief \f$ P_{3} \f$ 
     */
-    P_3(const StandardModel& SM_i, int lep_i);
+    P_3(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable P_3
@@ -298,7 +298,7 @@ public:
     /**
     * @brief \f$ P'_{4} \f$ 
     */
-    P_4Prime(const StandardModel& SM_i, int lep_i);
+    P_4Prime(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable P'_4
@@ -322,7 +322,7 @@ public:
     * @brief \f$ P'_{5} \f$ 
     */
 
-    P_5Prime(const StandardModel& SM_i, int lep_i);
+    P_5Prime(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable P'_5
@@ -345,7 +345,7 @@ public:
     /**
     * @brief \f$ P'_{6} \f$ 
     */
-    P_6Prime(const StandardModel& SM_i, int lep_i);
+    P_6Prime(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
 
     /**
     * @return return the clean observable P'_6
@@ -368,7 +368,7 @@ public:
     /**
     * @brief \f$ Gamma' \f$ 
     */
-    GammaPrime(const StandardModel& SM_i, int lep_i);
+    GammaPrime(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable Gamma'
@@ -391,7 +391,7 @@ public:
     /**
     * @brief \f$ A_{CP} \f$ 
     */
-    ACP(const StandardModel& SM_i, int lep_i);
+    ACP(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable ACP
@@ -399,7 +399,7 @@ public:
     double computeThValue ();
     
     const StandardModel& mySM;
-    int lep;
+    StandardModel::lepton lep;
 };
 
 
@@ -417,7 +417,7 @@ public:
     /**
     * @brief \f$ P_3^{CP} \f$ 
     */
-    P3CP(const StandardModel& SM_i, int lep_i);
+    P3CP(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable P3CP
@@ -440,7 +440,7 @@ public:
     /**
     * @brief \f$ F_L \f$ 
     */
-    F_L(const StandardModel& SM_i, int lep_i);
+    F_L(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
 
     
     /**
@@ -449,7 +449,7 @@ public:
     double computeThValue ();
     
     const StandardModel& mySM;
-    int lep;
+    StandardModel::lepton lep;
 };
 
 
@@ -467,7 +467,7 @@ public:
     /**
     * @brief \f$ M'_1 \f$ 
     */
-    M_1Prime(const StandardModel& SM_i, int lep_i);
+    M_1Prime(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable M'_1
@@ -490,7 +490,7 @@ public:
     /**
     * @brief \f$ M'_2 \f$ 
     */
-    M_2Prime(const StandardModel& SM_i, int lep_i);
+    M_2Prime(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable M'_2
