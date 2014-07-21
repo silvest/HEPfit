@@ -1932,7 +1932,7 @@ public:
         } else if (sqrt_s == 8.0) {
             return 1.210; // in pb for Mh=125 GeV
         } else if (sqrt_s == 1.96) {
-            return computeSigmaVBF(sqrt_s)/computeSigmaVBF(7.)*computeSigmaWF(7.); // in pb for Mh=125 GeV
+            return computeSigmaVBF(sqrt_s)/computeSigmaVBF(7.)*computeSigmaWF(7.); // in the absence of individual cross sections for TeVatron we rescale the LHC ones
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaWF()");
     }
@@ -1951,7 +1951,7 @@ public:
         } else if (sqrt_s == 8.0) {
             return 0.417; // in pb for Mh=125 GeV
         } else if (sqrt_s == 1.96) {
-            return computeSigmaVBF(sqrt_s)/computeSigmaVBF(7.)*computeSigmaZF(7.); // in pb for Mh=125 GeV
+            return computeSigmaVBF(sqrt_s)/computeSigmaVBF(7.)*computeSigmaZF(7.); // in the absence of individual cross sections for TeVatron we rescale the LHC ones
         } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaZF()");
     }
