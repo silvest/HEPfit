@@ -1850,51 +1850,64 @@ public:
 
     /**
      * @brief The square of the top-quark contribution to the ggH cross section in the Standard Model.
-     * @details See Table 38 in ref. @cite Heinemeyer:2013tqa
+     * @details The values have been obtained from  M. Spira. See also Table 38
+     * in ref. @cite Heinemeyer:2013tqa, which are calculated with a scale choice of Mh.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\sigma_{ggH}^{tt}@f$ in pb
      */
     double computeSigmaggH_tt(const double sqrt_s) const
     {
         if (sqrt_s == 7.0) {
-            // Corrected the value in Table 38 of 1307.1347v2 [M. Spira, private communication]
-            // 4.355 --> 14.355
-            return 14.355; // in pb for Mh=125 GeV
-        } else if (sqrt_s == 8.0)
-            return 18.31; // in pb for Mh=125 GeV
-        else
+            //return 14.355; // in pb for Mh=125 GeV with a scale choice of Mh (corrected from the value in 1307.1347v2)
+            //return 15.89; // in pb for Mh=125 GeV with a scale choice of Mh/2
+            return 15.76; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+        } else if (sqrt_s == 8.0) {
+            //return 18.31; // in pb for Mh=125 GeV with a scale choice of Mh
+            //return 20.18; // in pb for Mh=125 GeV with a scale choice of Mh/2
+            return 20.02; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+        } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tt()");
     }
 
    /**
      * @brief The square of the bottom-quark contribution to the ggH cross section in the Standard Model.
-     * @details See Table 38 in ref. @cite Heinemeyer:2013tqa
+     * @details The values have been obtained from  M. Spira. See also Table 38
+     * in ref. @cite Heinemeyer:2013tqa, which are calculated with a scale choice of Mh.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\sigma_{ggH}^{bb}@f$ in pb
      */
     double computeSigmaggH_bb(const double sqrt_s) const
     {
-        if (sqrt_s == 7.0)
-            return 0.09528; // in pb for Mh=125 GeV
-        else if (sqrt_s == 8.0)
-            return 0.1206; // in pb for Mh=125 GeV
-        else
+        if (sqrt_s == 7.0) {
+            //return 0.09528; // in pb for Mh=125 GeV with a scale choice of Mh
+            //return 0.1079; // in pb for Mh=125 GeV with a scale choice of Mh/2
+            return 0.1057; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+    } else if (sqrt_s == 8.0) {
+            //return 0.1206; // in pb for Mh=125 GeV with a scale choice of Mh
+            //return 0.1357; // in pb for Mh=125 GeV with a scale choice of Mh/2
+            return 0.1330; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+    } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_bb()");
     }
 
    /**
      * @brief The top-bottom interference contribution to the ggH cross section in the Standard Model.
-     * @details See Table 38 in ref. @cite Heinemeyer:2013tqa
+     * @details The values have been obtained from  M. Spira. See also Table 38
+     * in ref. @cite Heinemeyer:2013tqa, which are calculated with a scale choice of Mh.
      * @param[in] sqrt_s the center-of-mass energy in TeV
      * @return @f$\sigma_{ggH}^{tb}@f$ in pb
      */
     double computeSigmaggH_tb(const double sqrt_s) const
     {
-        if (sqrt_s == 7.0)
-            return -0.8970; // in pb for Mh=125 GeV
-        else if (sqrt_s == 8.0)
-            return -1.125; // in pb for Mh=125 GeV
-        else
+        if (sqrt_s == 7.0) {
+            //return -0.8970; // in pb for Mh=125 GeV with a scale choice of Mh
+            //return -0.9726; // in pb for Mh=125 GeV with a scale choice of Mh/2
+            return -0.9609; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+        } else if (sqrt_s == 8.0) {
+            //return -1.125; // in pb for Mh=125 GeV with a scale choice of Mh
+            //return -1.206; // in pb for Mh=125 GeV with a scale choice of Mh/2
+            return -1.192; // in pb for Mh=125.5 GeV with a scale choice of Mh/2
+        } else
             throw std::runtime_error("Bad argument in StandardModel::computeSigmaggH_tb()");
     }
     

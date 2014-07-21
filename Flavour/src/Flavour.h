@@ -82,6 +82,9 @@ public:
         return HDB1.ComputeCoeffdmumu();
     }
     
+    vector<complex>** ComputeCoeffBKstarll(double mu, schemes scheme = NDR) {
+        return HDB1.ComputeCoeffBKstarll(mu, scheme);
+    }
     
 private:
     

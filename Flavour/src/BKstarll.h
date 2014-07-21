@@ -1,8 +1,8 @@
 /* 
- * File:   BKstarll.h
- * Author: marco
+ * Copyright (C) 2014 SusyFit Collaboration
+ * All rights reserved.
  *
- * Created on 16 giugno 2014, 15.30
+ * For the licensing terms see doc/COPYING.
  */
 
 #ifndef BKSTARLL_H
@@ -24,23 +24,22 @@
  */
 class BKstarll : public ThObservable {
 public:
-    BKstarll(const StandardModel& SM_i);
+    BKstarll(const StandardModel& SM_i, int lep_i);
     virtual ~BKstarll();
     virtual double computeThValue()=0;
         /*dummy variables*/
     double GF;            //Fermi constant
-    double e;             //electron charge
+    double ale;           //alpha electromagnetic
     double Mm;            //muon mass
     double MB;            //B meson mass
-    double Mb_MSB;        //b quark mass defined in the MSbar scheme
     double Mb;            //b quark mass
     double Ms;            //s quark mass
     double MW;            //W boson mass
-    double lambda_t;      //Vckm factor
+    complex lambda_t;     //Vckm factor
+    double b;             //BF of the decay K^* -> K pi
     double h_lambda;      //parameter that contains the contribution from the hadronic hamiltonian  
     double q2;            //q^2 of the decay
     double k2;            //square of the 3-momentum k
-    double b;             //BF of the decay K^* -> K pi
     double C7,C9,C7p,C9p; //WC
     double C10,C10p;      //WC
     double CS,CSp;        //WC
@@ -101,7 +100,8 @@ public:
     * @brief \f$ N \f$ 
     * @return return the helicity amplitude normalization factor N
     */
-    double N();
+    
+    complex N();
     
     
     /**
@@ -198,8 +198,15 @@ public:
     * @return return the CP avarage Sigma_i
     */
     double Sigma(int i);
-
     
+    
+    /**
+    * @brief \f$ Sigma_{i} \f$ 
+    * @param[in] i index of the angular coefficient I_i
+    * @return return the CP asymmetry Delta_i
+    */
+    double Delta(int i);
+
 
 private:
     const StandardModel& mySM;
@@ -221,7 +228,8 @@ public:
     /**
     * @brief \f$ P_{1} \f$ 
     */
-    P_1(const StandardModel& SM_i);
+    P_1(const StandardModel& SM_i, int lep_i);
+    
     
     /**
     * @return return the clean observable P_1
@@ -244,7 +252,7 @@ public:
     /**
     * @brief \f$ P_{2} \f$ 
     */
-    P_2(const StandardModel& SM_i);
+    P_2(const StandardModel& SM_i, int lep_i);
     
     /**
     * @return return the clean observable P_2
@@ -267,7 +275,7 @@ public:
     /**
     * @brief \f$ P_{3} \f$ 
     */
-    P_3(const StandardModel& SM_i);
+    P_3(const StandardModel& SM_i, int lep_i);
     
     /**
     * @return return the clean observable P_3
@@ -290,7 +298,7 @@ public:
     /**
     * @brief \f$ P'_{4} \f$ 
     */
-    P_4Prime(const StandardModel& SM_i);
+    P_4Prime(const StandardModel& SM_i, int lep_i);
     
     /**
     * @return return the clean observable P'_4
@@ -313,7 +321,8 @@ public:
     /**
     * @brief \f$ P'_{5} \f$ 
     */
-    P_5Prime(const StandardModel& SM_i);
+
+    P_5Prime(const StandardModel& SM_i, int lep_i);
     
     /**
     * @return return the clean observable P'_5
@@ -336,8 +345,8 @@ public:
     /**
     * @brief \f$ P'_{6} \f$ 
     */
-    P_6Prime(const StandardModel& SM_i);
-    
+    P_6Prime(const StandardModel& SM_i, int lep_i);
+
     /**
     * @return return the clean observable P'_6
     */
@@ -359,10 +368,59 @@ public:
     /**
     * @brief \f$ Gamma' \f$ 
     */
-    GammaPrime(const StandardModel& SM_i);
+    GammaPrime(const StandardModel& SM_i, int lep_i);
     
     /**
     * @return return the clean observable Gamma'
+    */
+    double computeThValue ();
+};
+
+
+/**
+ * @class BKstarll
+ * @ingroup flavour
+ * @brief A class for the clean observable Gamma'. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class ACP : public BKstarll{
+public:
+    
+    /**
+    * @brief \f$ A_{CP} \f$ 
+    */
+    ACP(const StandardModel& SM_i, int lep_i);
+    
+    /**
+    * @return return the clean observable ACP
+    */
+    double computeThValue ();
+    
+    const StandardModel& mySM;
+    int lep;
+};
+
+
+/**
+ * @class BKstarll
+ * @ingroup flavour
+ * @brief A class for the clean observable Gamma'. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class P3CP : public BKstarll{
+public:
+    
+    /**
+    * @brief \f$ P_3^{CP} \f$ 
+    */
+    P3CP(const StandardModel& SM_i, int lep_i);
+    
+    /**
+    * @return return the clean observable P3CP
     */
     double computeThValue ();
 };
@@ -382,7 +440,8 @@ public:
     /**
     * @brief \f$ F_L \f$ 
     */
-    F_L(const StandardModel& SM_i);
+    F_L(const StandardModel& SM_i, int lep_i);
+
     
     /**
     * @return return the clean observable F_L
@@ -390,7 +449,7 @@ public:
     double computeThValue ();
     
     const StandardModel& mySM;
-
+    int lep;
 };
 
 
@@ -408,7 +467,7 @@ public:
     /**
     * @brief \f$ M'_1 \f$ 
     */
-    M_1Prime(const StandardModel& SM_i);
+    M_1Prime(const StandardModel& SM_i, int lep_i);
     
     /**
     * @return return the clean observable M'_1
@@ -431,7 +490,7 @@ public:
     /**
     * @brief \f$ M'_2 \f$ 
     */
-    M_2Prime(const StandardModel& SM_i);
+    M_2Prime(const StandardModel& SM_i, int lep_i);
     
     /**
     * @return return the clean observable M'_2
@@ -442,3 +501,4 @@ public:
 
 #endif	/* BKSTARLL_H */
 
+    

@@ -8,7 +8,7 @@
 #include "HiggsKvKf.h"
 
 const std::string HiggsKvKf::HKvKfvars[NHKvKfvars] = {
-    "Kv", "Kf"
+    "Kv", "Kf", "BrHinv"
 };
 
 HiggsKvKf::HiggsKvKf()
@@ -16,6 +16,7 @@ HiggsKvKf::HiggsKvKf()
 {
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kv", boost::cref(Kv)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Kf", boost::cref(Kf)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("BrHinv", boost::cref(BrHinv)));
 }
 
 void HiggsKvKf::setParameter(const std::string name, const double& value)
@@ -24,6 +25,8 @@ void HiggsKvKf::setParameter(const std::string name, const double& value)
         Kv = value;
     else if (name.compare("Kf") == 0)
         Kf = value;
+    else if (name.compare("BrHinv") == 0)
+        BrHinv = value;
     else
         NPbase::setParameter(name, value);
 }
@@ -153,14 +156,15 @@ double HiggsKvKf::BrHbbRatio() const
 
 double HiggsKvKf::computeGammaTotalRatio() const
 {
-    return (computeKg() * computeKg() * trueSM.computeBrHtogg()
+    return ((computeKg() * computeKg() * trueSM.computeBrHtogg()
             + computeKW() * computeKW() * trueSM.computeBrHtoWW()
             + computeKZ() * computeKZ() * trueSM.computeBrHtoZZ()
             + computeKZga() * computeKZga() * trueSM.computeBrHtoZga()
             + computeKgaga() * computeKgaga() * trueSM.computeBrHtogaga()
             + computeKtau() * computeKtau() * trueSM.computeBrHtotautau()
             + computeKc() * computeKc() * trueSM.computeBrHtocc()
-            + computeKb() * computeKb() * trueSM.computeBrHtobb());
+            + computeKb() * computeKb() * trueSM.computeBrHtobb())
+            / (1.0 - BrHinv));
 }
 
 ////////////////////////////////////////////////////////////////////////

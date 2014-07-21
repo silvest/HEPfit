@@ -6,9 +6,6 @@
 # weights are given as |ggH fraction, VBF fraction, VH fraction|
 # ttH is computed as 1-ggH-VBF-VH
 ##################
-# CMS HIG-13-023: H->WW
-# http://arxiv.org/pdf/1312.1129v1.pdf
-##################
 MEASUREMENT 0j1j_7and8TeV | 0.972 0.016 0.011 | 0.82 -0.32 0.33
 MEASUREMENT Dijet_7and8TeV | 0.198 0.802 0.00 | 1.42 -0.56 0.70
 ##################
