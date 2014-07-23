@@ -1172,7 +1172,7 @@ double NPEffectiveGIMR::GammaHgagaRatio() const
             - 22299.0 * CuH_22r / LambdaNP2
             + 33042.0 * CuH_33r / LambdaNP2
             - 41583.0 * CeH_33r / LambdaNP2
-            + 5.09e7 * CHB / LambdaNP2
+            - 5.09e7 * CHB / LambdaNP2
             - 1.43e7 * CHW / LambdaNP2
             + 2.73e7 * CHWB / LambdaNP2
             + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));
