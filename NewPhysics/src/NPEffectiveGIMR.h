@@ -60,6 +60,12 @@ public:
      */
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
 
+    /**
+     * @brief @copybrief Model::setFlag()
+     * @copydetails Model::setFlag()
+     */
+    virtual bool setFlag(const std::string name, const bool value);
+
 
     ////////////////////////////////////////////////////////////////////////
 
@@ -189,6 +195,7 @@ protected:
     double CdH_11i, CdH_12i, CdH_13i, CdH_22i, CdH_23i, CdH_33i;
     double CLL_1221, CLL_2112;
     double Lambda_NP;
+    double MwInput;
 
     double LambdaNP2;
     double v2_over_LambdaNP2;
@@ -206,6 +213,8 @@ protected:
 
     ////////////////////////////////////////////////////////////////////////
 private:
+
+    bool FlagMwInput; ///< A boolean flag that is true if the W mass is taken as an input parameter.
 
     /**
      * @brief An internal boolean flag that is true if assuming lepton flavour
