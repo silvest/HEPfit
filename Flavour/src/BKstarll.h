@@ -215,7 +215,7 @@ private:
 
 
 /**
- * @class BKstarll
+ * @class P_1
  * @ingroup flavour
  * @brief A class for the clean observable P_1. 
  * @author SusyFit Collaboration
@@ -239,7 +239,7 @@ public:
 
 
 /**
- * @class BKstarll
+ * @class P_2
  * @ingroup flavour
  * @brief A class for the clean observable P_2. 
  * @author SusyFit Collaboration
@@ -262,7 +262,7 @@ public:
 
 
 /**
- * @class BKstarll
+ * @class P_3
  * @ingroup flavour
  * @brief A class for the clean observable P_3. 
  * @author SusyFit Collaboration
@@ -285,7 +285,7 @@ public:
 
 
 /**
- * @class BKstarll
+ * @class P_4Prime
  * @ingroup flavour
  * @brief A class for the clean observable P'_4. 
  * @author SusyFit Collaboration
@@ -308,7 +308,7 @@ public:
 
 
 /**
- * @class BKstarll
+ * @class P_5Prime
  * @ingroup flavour
  * @brief A class for the clean observable P'_5. 
  * @author SusyFit Collaboration
@@ -332,7 +332,7 @@ public:
 
 
 /**
- * @class BKstarll
+ * @class P_6Prime
  * @ingroup flavour
  * @brief A class for the clean observable P'_6. 
  * @author SusyFit Collaboration
@@ -355,7 +355,7 @@ public:
 
 
 /**
- * @class BKstarll
+ * @class GammaPrime
  * @ingroup flavour
  * @brief A class for the clean observable Gamma'. 
  * @author SusyFit Collaboration
@@ -378,7 +378,7 @@ public:
 
 
 /**
- * @class BKstarll
+ * @class ACP
  * @ingroup flavour
  * @brief A class for the clean observable Gamma'. 
  * @author SusyFit Collaboration
@@ -404,7 +404,7 @@ public:
 
 
 /**
- * @class BKstarll
+ * @class P3CP
  * @ingroup flavour
  * @brief A class for the clean observable Gamma'. 
  * @author SusyFit Collaboration
@@ -427,7 +427,7 @@ public:
 
 
 /**
- * @class BKstarll
+ * @class F_L
  * @ingroup flavour
  * @brief A class for the clean observable F_L. 
  * @author SusyFit Collaboration
@@ -454,7 +454,7 @@ public:
 
 
 /**
- * @class BKstarll
+ * @class M_1Prime
  * @ingroup flavour
  * @brief A class for the clean observable M'_1. 
  * @author SusyFit Collaboration
@@ -477,7 +477,7 @@ public:
 
 
 /**
- * @class BKstarll
+ * @class M_2Prime
  * @ingroup flavour
  * @brief A class for the clean observable M'_2. 
  * @author SusyFit Collaboration
