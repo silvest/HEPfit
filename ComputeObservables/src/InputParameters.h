@@ -91,11 +91,14 @@ private:
         DPars_IN["tBd"] = 0.;
         DPars_IN["MBs"] = 0.;
         DPars_IN["tBs"] = 0.;
+        DPars_IN["MKstar"] = 0.;
+        DPars_IN["tKstar"] = 0.;
         DPars_IN["MBp"] = 0.;
         DPars_IN["MK0"] = 0.;
         DPars_IN["MKp"] = 0.;
         DPars_IN["FK"] = 0.;
         DPars_IN["FBs"] = 0.;
+        DPars_IN["FKstar"] = 0.;
         DPars_IN["FBsoFBd"] = 0.;
         DPars_IN["BBsoBBd"] = 0.;
         DPars_IN["BBs1"] = 0.;

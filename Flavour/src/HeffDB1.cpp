@@ -18,7 +18,8 @@ HeffDB1::HeffDB1(const StandardModel & SM) :
         coeffnlep11 (10, NDR, NLO), coeffnlep11A(10, NDR, NLO), coeffnlep11B(4, NDR, NLO), coeffnlep10CC(10, NDR, NLO),
         coeffsmumu (6, NDR, NLO), coeffdmumu (6, NDR, NLO),
         coeffsnunu (1, NDR, NLO), coeffdnunu (1, NDR, NLO),
-        coeffBKstarll (19,NDR, NLO),
+        coeffBKstarll (13,NDR, NLO),
+        coeffprimeBKstarll (13, NDR, NLO),
         u(10, NDR, NLO, NLO_ew, SM),
         evolDF1BKstarll(13, NDR, NLO, SM),
         nlep (12, 0.), nlep2(10, 0.), nlepCC(4, 0.){
@@ -356,4 +357,27 @@ vector<complex>** HeffDB1::ComputeCoeffBKstarll(double mu, schemes scheme) {
     coeffBKstarll.setScheme(scheme);
    
     return coeffBKstarll.getCoeff();
+}
+
+
+vector<complex>** HeffDB1::ComputeCoeffprimeBKstarll(double mu, schemes scheme) {
+    
+    const std::vector<WilsonCoefficient>& mc = model.getMyMatching() -> CMprimeBKstarll();
+    
+    coeffprimeBKstarll.setMu(mu); 
+    
+    orders ordDF1 = coeffprimeBKstarll.getOrder();
+    for (unsigned int i = 0; i < mc.size(); i++){
+        for (int j = LO; j <= ordDF1; j++){
+            for (int k = LO; k <= j; k++){
+                coeffprimeBKstarll.setCoeff(*coeffprimeBKstarll.getCoeff(orders(j)) +
+                    evolDF1BKstarll.Df1Evolbsg(mu, mc[i].getMu(), orders(k), mc[i].getScheme()) *
+                    (*(mc[i].getCoeff(orders(j - k)))), orders(j));
+            }
+        }
+    }
+    
+    coeffprimeBKstarll.setScheme(scheme);
+   
+    return coeffprimeBKstarll.getCoeff();
 }

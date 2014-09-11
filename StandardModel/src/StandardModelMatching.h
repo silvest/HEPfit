@@ -95,6 +95,13 @@ public:
      * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l{-} \f$
      */
     virtual  std::vector<WilsonCoefficient>& CMBKstarll();
+    /** 
+     * 
+     * @brief operator basis: current current; qcd penguins; 
+     * magnetic and chromomagnetic penguins; semileptonic 
+     * @return Wilson coefficients, Misiak basis, for \f$ B \rightarrow K^* l^{+} l{-} \f$
+     */
+    virtual  std::vector<WilsonCoefficient>& CMprimeBKstarll();
     
     /** 
      * 
@@ -374,7 +381,7 @@ public:
     
 protected:
     std::vector<WilsonCoefficient> vmcdb, vmcds, vmcd2, vmck2, vmck, vmckcc;
-    std::vector<WilsonCoefficient> vmcbsg, vmcBKstarll, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
+    std::vector<WilsonCoefficient> vmcbsg, vmcBKstarll, vmcprimeBKstarll, vmcbnlep, vmcbnlepCC, vmcd1, vmcd1Buras;
     std::vector<WilsonCoefficient> vmckpnn, vmckmm, vmcbsnn, vmcbdnn, vmcbsmm, vmcbdmm;
     std::vector<WilsonCoefficient> vmcDL1;
     
@@ -388,7 +395,7 @@ private:
     double S18(double x) const;
     double ZDP(const double x, const double y) const;
     WilsonCoefficient mcdbd2, mcdbs2, mcdd2, mcdk2, mck, mckcc;
-    WilsonCoefficient mcbsg, mcBKstarll, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
+    WilsonCoefficient mcbsg, mcBKstarll, mcprimeBKstarll, mcbnlep, mcbnlepCC, mcd1, mcd1Buras;
     WilsonCoefficient mckpnn, mckmm, mcbsnn, mcbdnn, mcbsmm, mcbdmm;
     WilsonCoefficient mcDL1;
     

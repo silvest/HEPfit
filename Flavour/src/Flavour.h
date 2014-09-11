@@ -86,6 +86,10 @@ public:
         return HDB1.ComputeCoeffBKstarll(mu, scheme);
     }
     
+    vector<complex>** ComputeCoeffprimeBKstarll(double mu, schemes scheme = NDR) {
+        return HDB1.ComputeCoeffprimeBKstarll(mu, scheme);
+    }
+    
 private:
     
     HeffDF2 HDF2;

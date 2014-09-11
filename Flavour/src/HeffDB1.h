@@ -100,6 +100,14 @@ public:
      */
     vector<complex>** ComputeCoeffBKstarll(double mu, schemes scheme = NDR);
     
+    /**
+     * 
+     * @param mu is the low energy scale
+     * @param scheme indicates the renormalization scheme
+     * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Misiak basis, Chetyrkin et al hep-ph/9612313
+     */
+    vector<complex>** ComputeCoeffprimeBKstarll(double mu, schemes scheme = NDR);
+    
     WilsonCoefficient getCoeffnlep00() const {
         return coeffnlep00;
     }
@@ -153,7 +161,7 @@ private :
     WilsonCoefficient coeffnlep11, coeffnlep11A, coeffnlep11B, coeffnlep10CC;
     WilsonCoefficient coeffsmumu, coeffdmumu;
     WilsonCoefficient coeffsnunu, coeffdnunu;
-    WilsonCoefficient coeffBKstarll;
+    WilsonCoefficient coeffBKstarll, coeffprimeBKstarll;
     EvolDF1bsg evolDF1BKstarll;
     EvolDF1nlep u;
     

@@ -504,6 +504,7 @@ public:
         B_D, /**< @f$B_d@f$ meson */
         B_P, /**< @f$B^\pm@f$ meson */
         B_S, /**< @f$B_s@f$ meson */
+        K_star, /**< @f$K^*@f$ meson */
         MESON_END /**< The size of this enum. */
     };
 
@@ -519,7 +520,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 78; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 81; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored

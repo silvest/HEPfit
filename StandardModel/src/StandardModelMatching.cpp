@@ -23,7 +23,8 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mck(10, NDR, NLO),
         mckcc(10, NDR, NLO),
         mcbsg(10, NDR, NLO),
-        mcBKstarll(19, NDR, NLO),
+        mcBKstarll(13, NDR, NLO),
+        mcprimeBKstarll(13, NDR, NLO),
         mcbnlep(10, NDR, NLO, NLO_ew),
         mcbnlepCC(10, NDR, NLO),
         mcd1(10, NDR, NLO),
@@ -1024,12 +1025,12 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
     switch (mcBKstarll.getOrder()) {
         case NNLO:
         case NLO:
-            for (int j=0; j<19; j++){
+            for (int j=0; j<13; j++){
             mcBKstarll.setCoeff(j, co * SM.Als(Muw, FULLNLO) / 4. / M_PI * setWCBKstarll(j, xt,  NLO) , NLO);
             }
             std::cout<<std::endl;
         case LO:
-            for (int j=0; j<19; j++){
+            for (int j=0; j<13; j++){
             mcBKstarll.setCoeff(j, co * setWCBKstarll(j, xt,  LO), LO);
             }
             break;
@@ -1075,10 +1076,10 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
         case NNLO:
         case NLO:
             CWBKstarllArrayNLO[0] = 15. + 6*L;
-            CWBKstarllArrayNLO[3] = E0t(x)-(2./3.) - (2./3.*L);
+            CWBKstarllArrayNLO[3] = E0t(x)-(2./3.) + (2./3.*L);
             CWBKstarllArrayNLO[6] = C7NLOeff(x);//-0.5 * A0t(x)- 23./36.;
             CWBKstarllArrayNLO[7] = C8NLOeff(x);//-0.5 * F0t(x)- 1./3.;
-            CWBKstarllArrayNLO[8] = (1-4.*sw*sw) / sw *C0t(x) - 1./(sw*sw) *
+            CWBKstarllArrayNLO[8] = (1-4.*sw*sw) / (sw*sw) *C0t(x) - 1./(sw*sw) *
                                 B0t(x) - D0t(x) + 38./27. + 1./(4.*sw*sw) - (4./9.)*L;
             CWBKstarllArrayNLO[9] = 1./(sw*sw) * (B0t(x) - C0t(x)) -1./(4.*sw*sw);
         case LO:
@@ -1107,6 +1108,39 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
         }
 }
     
+
+
+/*******************************************************************************
+ * Wilson coefficients misiak primed base for B -> K^*ll                       * 
+ * operator basis: - current current                                           *         
+ *                 - qcd penguins                                              * 
+ *                 - magnetic and chromomagnetic penguins                      *         
+ *                 - semileptonic                                              * 
+ * ****************************************************************************/
+    std::vector<WilsonCoefficient>& StandardModelMatching::CMprimeBKstarll() 
+    {
+        vmcprimeBKstarll.clear();
+        switch (mcprimeBKstarll.getOrder()) {
+        case NNLO:
+        case NLO:
+            for (int j=0; j<13; j++){
+            mcprimeBKstarll.setCoeff(j, 0., NLO);
+            }
+            std::cout<<std::endl;
+        case LO:
+            for (int j=0; j<13; j++){
+            mcprimeBKstarll.setCoeff(j, 0., LO);
+            }
+            break;
+        default:
+            std::stringstream out;
+            out << mcprimeBKstarll.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMBKstrall(): order " + out.str() + "not implemented"); 
+    }
+        vmcprimeBKstarll.push_back(mcprimeBKstarll);
+        return(vmcprimeBKstarll);
+    }
+
 
 /******************************************************************************/
 
