@@ -4,10 +4,11 @@
 #include <EWObservables.h>
 #include <HiggsThObservables.h>
 #include <FlavourObservables.h>
+#include <LeptonFlavourObservables.h>
+#include <SUSYObservables.h>
 #include <ParamObs.h>
 
-ThObsFactory::ThObsFactory() {
-
+ThObsFactory::ThObsFactory(){
     //-----  Electroweak precision observables  -----
     obsThFactory["Mw"] = boost::factory<Mw*>();
     obsThFactory["GammaW"] = boost::factory<GammaW*>();
@@ -104,7 +105,7 @@ ThObsFactory::ThObsFactory() {
     obsThFactory["Smumu_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 4);
 //
 //    //-----  Lepton Flavour observables  -----
-//    obsThFactory["li_lj_gamma"] = boost::factory<li_lj_gamma*>(myLeptonFlavour);
+    obsThFactory["li_lj_gamma"] = boost::factory<li_lj_gamma*>();
 
     //-----  SM input parameters  -----
 //    obsThFactory["Mz"] = boost::factory<StandardModelParams*>(myMO, "Mz");
@@ -130,36 +131,30 @@ ThObsFactory::ThObsFactory() {
 //    }
 //
 //    //-----  SUSY spectra and observables  -----
-//    if (myModel.ModelName().compare("SUSY") == 0
-//            || myModel.ModelName().compare("SUSYMassInsertion") == 0
-//            || myModel.ModelName().compare("GeneralSUSY") == 0
-//            || myModel.ModelName().compare("pMSSM") == 0
-//            || myModel.ModelName().compare("MFV") == 0) {
-//        obsThFactory["OutputSLHAfromFH"] = boost::factory<OutputSLHAfromFH*>(myMO); // for debug
-//        obsThFactory["MHl"] = boost::factory<Mhiggs*>(myMO, 0);
-//        obsThFactory["MHh"] = boost::factory<Mhiggs*>(myMO, 1);
-//        obsThFactory["MHa"] = boost::factory<Mhiggs*>(myMO, 2);
-//        obsThFactory["MHp"] = boost::factory<Mhiggs*>(myMO, 3);
-//        obsThFactory["Msu1"] = boost::factory<Msup*>(myMO, 0);
-//        obsThFactory["Msu2"] = boost::factory<Msup*>(myMO, 1);
-//        obsThFactory["Msu3"] = boost::factory<Msup*>(myMO, 2);
-//        obsThFactory["Msu4"] = boost::factory<Msup*>(myMO, 3);
-//        obsThFactory["Msu5"] = boost::factory<Msup*>(myMO, 4);
-//        obsThFactory["Msu6"] = boost::factory<Msup*>(myMO, 5);
-//        obsThFactory["Msd1"] = boost::factory<Msdown*>(myMO, 0);
-//        obsThFactory["Msd2"] = boost::factory<Msdown*>(myMO, 1);
-//        obsThFactory["Msd3"] = boost::factory<Msdown*>(myMO, 2);
-//        obsThFactory["Msd4"] = boost::factory<Msdown*>(myMO, 3);
-//        obsThFactory["Msd5"] = boost::factory<Msdown*>(myMO, 4);
-//        obsThFactory["Msd6"] = boost::factory<Msdown*>(myMO, 5);
-//        obsThFactory["Mch1"] = boost::factory<Mchargino*>(myMO, 0);
-//        obsThFactory["Mch2"] = boost::factory<Mchargino*>(myMO, 1);
-//        obsThFactory["Mneu1"] = boost::factory<Mneutralino*>(myMO, 0);
-//        obsThFactory["Mneu2"] = boost::factory<Mneutralino*>(myMO, 1);
-//        obsThFactory["Mneu3"] = boost::factory<Mneutralino*>(myMO, 2);
-//        obsThFactory["Mneu4"] = boost::factory<Mneutralino*>(myMO, 3);
-//        obsThFactory["Mw_dRho"] = boost::factory<Mw_dRho*>(myMO);
-//    }
+    obsThFactory["OutputSLHAfromFH"] = boost::factory<OutputSLHAfromFH*>(); // for debug
+    obsThFactory["MHl"] = boost::bind(boost::factory<Mhiggs*>(), _1, 0);
+    obsThFactory["MHh"] = boost::bind(boost::factory<Mhiggs*>(), _1, 1);
+    obsThFactory["MHa"] = boost::bind(boost::factory<Mhiggs*>(), _1, 2);
+    obsThFactory["MHp"] = boost::bind(boost::factory<Mhiggs*>(), _1, 3);
+    obsThFactory["Msu1"] = boost::bind(boost::factory<Msup*>(), _1, 0);
+    obsThFactory["Msu2"] = boost::bind(boost::factory<Msup*>(), _1, 1);
+    obsThFactory["Msu3"] = boost::bind(boost::factory<Msup*>(), _1, 2);
+    obsThFactory["Msu4"] = boost::bind(boost::factory<Msup*>(), _1, 3);
+    obsThFactory["Msu5"] = boost::bind(boost::factory<Msup*>(), _1, 4);
+    obsThFactory["Msu6"] = boost::bind(boost::factory<Msup*>(), _1, 5);
+    obsThFactory["Msd1"] = boost::bind(boost::factory<Msdown*>(), _1, 0);
+    obsThFactory["Msd2"] = boost::bind(boost::factory<Msdown*>(), _1, 1);
+    obsThFactory["Msd3"] = boost::bind(boost::factory<Msdown*>(), _1, 2);
+    obsThFactory["Msd4"] = boost::bind(boost::factory<Msdown*>(), _1, 3);
+    obsThFactory["Msd5"] = boost::bind(boost::factory<Msdown*>(), _1, 4);
+    obsThFactory["Msd6"] = boost::bind(boost::factory<Msdown*>(), _1, 5);
+    obsThFactory["Mch1"] = boost::bind(boost::factory<Mchargino*>(), _1, 0);
+    obsThFactory["Mch2"] = boost::bind(boost::factory<Mchargino*>(), _1, 1);
+    obsThFactory["Mneu1"] = boost::bind(boost::factory<Mneutralino*>(), _1, 0);
+    obsThFactory["Mneu2"] = boost::bind(boost::factory<Mneutralino*>(), _1, 1);
+    obsThFactory["Mneu3"] = boost::bind(boost::factory<Mneutralino*>(), _1, 2);
+    obsThFactory["Mneu4"] = boost::bind(boost::factory<Mneutralino*>(), _1, 3);
+    obsThFactory["Mw_dRho"] = boost::factory<Mw_dRho*>();
 
 }
 

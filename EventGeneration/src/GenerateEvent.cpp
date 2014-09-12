@@ -247,7 +247,7 @@ void GenerateEvent::createDirectories()
 void GenerateEvent::initModel(){
     ModelName = myInputParser.ReadParameters(ModelConf, rank, ModPars, Obs, Obs2D, CGO);
     Mod = myInputParser.getModel();
-    if (Obs.size() == 0 && CGO.size() == 0 && rank == 0) std::cout << "\nGenerateEvent::generate(): No observables or correlated Gaussian observables defined in " + ModelConf +" file\n" << std::endl;
+    if (Obs.size() == 0 && CGO.size() == 0 && rank == 0) throw std::runtime_error("\nGenerateEvent::generate(): No observables or correlated Gaussian observables defined in " + ModelConf +" file\n");
     std::map<std::string, double> DP;
     for (std::vector<ModelParameter>::iterator it = ModPars.begin(); it < ModPars.end(); it++) {
         DP[it->name] = it->ave;

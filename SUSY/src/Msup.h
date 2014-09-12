@@ -24,8 +24,8 @@
 class Msup : public ThObservable {
 public:
 
-    Msup(const ThObsType& ObsType, const int ind)
-    : ThObservable(ObsType), index(ind)
+    Msup(const StandardModel& SM_i, const int ind)
+    : ThObservable(SM_i), index(ind)
     {
     };
 

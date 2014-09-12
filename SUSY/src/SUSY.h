@@ -10,11 +10,10 @@
 
 #include <gslpp.h>
 #include <StandardModel.h>
-#include "EWSUSY.h"
 #include "SUSYMatching.h"
 
 using namespace gslpp;
-
+class EWSUSY; // forward reference to EWSUSY class
 class FeynHiggsWrapper; // forward reference to FeynHiggsWrapper class
 class SUSYSpectrum; // forward reference to Spectrum class
 
@@ -43,7 +42,10 @@ public:
      */
     SUSY();
 
-    
+    /**
+     * @brief A SUSY destructor. 
+     */
+    ~SUSY();
     ///////////////////////////////////////////////////////////////////////////
     // Initialization
 
