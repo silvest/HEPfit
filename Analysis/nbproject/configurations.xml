@@ -36,8 +36,6 @@
     </logicalFolder>
     <itemPath>GeneralSUSY.conf</itemPath>
     <itemPath>HiggsKvKf.conf</itemPath>
-    <itemPath>HiggsKvKfgen.conf</itemPath>
-    <itemPath>HiggsKvgenKf.conf</itemPath>
     <itemPath>MFV.conf</itemPath>
     <itemPath>Model.conf</itemPath>
     <itemPath>MonteCarlo.conf</itemPath>
@@ -335,10 +333,6 @@
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKvKfgen.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKvgenKf.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -689,10 +683,6 @@
       </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="HiggsKvKfgen.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKvgenKf.conf" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Model.conf" ex="false" tool="3" flavor2="0">
@@ -1022,10 +1012,6 @@
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKvKfgen.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKvgenKf.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -1381,10 +1367,6 @@
       </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="HiggsKvKfgen.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKvgenKf.conf" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="Model.conf" ex="false" tool="3" flavor2="0">
@@ -1736,10 +1718,6 @@
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKvKfgen.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKvgenKf.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
       </item>
@@ -2093,10 +2071,6 @@
       <item path="GeneralSUSY.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="HiggsKvKf.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKvKfgen.conf" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="HiggsKvgenKf.conf" ex="false" tool="3" flavor2="0">
       </item>
       <item path="MFV.conf" ex="false" tool="3" flavor2="0">
       </item>

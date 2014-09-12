@@ -134,6 +134,37 @@ std::string InputParser::ReadParameters(const std::string filename,
             if (beg != tok.end())
                 std::cout << "WARNING: unread information in observable "
                     << Observables.back().getName() << std::endl;
+        } else if (type.compare("BinnedObservable") == 0) {
+            if (std::distance(tok.begin(), tok.end()) < 11)
+                throw std::runtime_error("ERROR: lack of information on "
+                    + *beg + " in " + filename);
+            Observable * bo = new Observable(ParseObservable(beg));
+            ++beg;
+            std::string distr = *beg;
+            if (distr.compare("file") == 0) {
+                std::string fname = *(++beg);
+                std::string histoname = *(++beg);
+                bo->setLikelihoodFromHisto(fname, histoname);
+            } else if (distr.compare("weight") == 0) {
+                ++beg;
+                bo->setAve(atof((*beg).c_str()));
+                ++beg;
+                bo->setErrg(atof((*beg).c_str()));
+                ++beg;
+                bo->setErrf(atof((*beg).c_str()));
+            } else if (distr.compare("noweight") == 0) {
+            } else
+                throw std::runtime_error("ERROR: wrong distribution flag in " + bo->getName());
+            bo->setDistr(distr);
+            ++beg;
+            bo->getTho()->setBinMin(atof((*beg).c_str()));
+            ++beg;
+            bo->getTho()->setBinMax(atof((*beg).c_str()));
+            Observables.push_back(bo);
+            ++beg;
+            if (beg != tok.end())
+                std::cout << "WARNING: unread information in observable "
+                    << Observables.back().getName() << std::endl;
         } else if (type.compare("Observable2D") == 0) {
             if (std::distance(tok.begin(), tok.end()) < 12)
                 throw std::runtime_error("ERROR: lack of information on "
