@@ -27,6 +27,7 @@
 #include <EpsilonK.h>
 #include <DmK.h>
 #include <EpsilonP_O_Epsilon.h>
+#include <BKstarll.h>
 
 #endif	/* FLAVOUROBSERVABLES_H */
 

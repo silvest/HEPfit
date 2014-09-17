@@ -9,18 +9,26 @@
 #include <gslpp.h>
 #include <gslpp_complex.h>
 #include <gsl/gsl_math.h>
-#include <gsl/gsl_integration.h>
+#include <boost/bind.hpp>
 
 
 
 
 
 BKstarll::BKstarll(const StandardModel& SM_i, StandardModel::lepton lep_i) : ThObservable(SM_i), mySM(SM_i) {
-    GF = mySM.getGF();    
+    lep = lep_i;
+}
+
+
+BKstarll::~BKstarll() {
+}
+
+void BKstarll::updateParameters(){
+    GF = mySM.getGF();
     ale=mySM.getAle();
-    Mm=mySM.getLeptons(lep_i).getMass();
+    Mm=mySM.getLeptons(lep).getMass();
     MB=mySM.getMesons(QCD::B_D).getMass();
-    MKstar=mySM.getMesons(QCD::K_star).getMass();   
+    MKstar=mySM.getMesons(QCD::K_star).getMass();
     Mb=mySM.getQuarks(QCD::BOTTOM).getMass();
     Ms=mySM.getQuarks(QCD::STRANGE).getMass();
     MW=mySM.Mw();
@@ -30,11 +38,7 @@ BKstarll::BKstarll(const StandardModel& SM_i, StandardModel::lepton lep_i) : ThO
     h[1]=.1;    // should be moved to conf file
     h[2]=.25;   // should be moved to conf file
     vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(Mb);   //check the mass scale, scheme fixed to NDR
-    vector<complex> ** allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBKstarll(Mb);   //check the mass scale, scheme fixed to NDR  
-}
-
-
-BKstarll::~BKstarll() {
+    vector<complex> ** allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBKstarll(Mb);   //check the mass scale, scheme fixed to NDR
 }
 
 
@@ -278,39 +282,49 @@ double BKstarll::I(int i, double q2) {
     double Mm2 = Mm*Mm;
     double beta2 = beta(q2)*beta(q2);
     
-    switch (i){
-        case '0':
-            return F(q2,b)*( ( H_V(0,q2).abs2() + H_A(0,q2).abs2() )/2  +  H_P(q2).abs2()  +  2*Mm2/q2*( H_V(0,q2).abs2() - H_A(0,q2).abs2() )  +  
-                beta2*H_S(q2).abs2() ); 
-        case '1':
-            return F(q2,b)*( (beta2 + 2)/8*( H_V(1,q2).abs2() + H_V(2,q2).abs2() + H_A(1,q2).abs2() + H_A(2,q2).abs2() )  +  
-                Mm2/q2*( H_V(1,q2).abs2() + H_V(2,q2).abs2() - H_A(1,q2).abs2() - H_A(2,q2).abs2() ) );
-        case '2':
-            return -F(q2,b)*beta2/2*( H_V(0,q2).abs2() + H_A(0,q2).abs2() );
-        case '3':
-            return F(q2,b)*beta2/8*( H_V(1,q2).abs2() + H_V(2,q2).abs2()  +  H_A(1,q2).abs2() + H_A(2,q2).abs2() );
-        case '4':
-            return -F(q2,b)/2*( ( H_V(1,q2)*H_V(2,q2).conjugate() ).real()  +  ( H_A(1,q2)*H_A(2,q2).conjugate() ).real() );
-        case '5':
-            return F(q2,b)*beta2/4*( ( (H_V(2,q2) + H_V(1,q2))*H_V(0,q2).conjugate() ).real()  +  ( (H_A(2,q2) + H_A(1,q2))*H_A(0,q2).conjugate() ).real() );
-        case '6':
-            return F(q2,b)*( beta(q2)/2*( ( (H_V(2,q2) - H_V(1,q2))*H_A(0,q2).conjugate() ).real()  +  ( (H_A(2,q2) - H_A(1,q2))*H_V(0,q2).conjugate() ).real() )  -
-                beta(q2)*Mm/sqrt(q2)*( H_S(q2).conjugate()*(H_V(1,q2) + H_V(2,q2)) ).real() );
-        case '7':
-            return F(q2,b)*beta(q2)*( H_V(2,q2)*H_A(2,q2).conjugate() - H_V(1,q2)*H_A(1,q2).conjugate() ).real();
-        case '8':
-            return 2*F(q2,b)*beta(q2)*Mm/sqrt(q2)*( H_S(q2).conjugate()*H_V(0,q2) ).real();
-        case '9':
-            return F(q2,b)*( beta(q2)/2*( ( (H_V(2,q2) + H_V(1,q2))*H_A(0,q2).conjugate() ).imag()  +  ( (H_A(2,q2) + H_A(1,q2))*H_V(0,q2).conjugate() ).imag() )  -
-                beta(q2)*Mm/sqrt(q2)*( H_S(q2).conjugate()*(H_V(2,q2) - H_V(1,q2)) ).imag() );
-        case '10':
-            return F(q2,b)*beta2/4*( ( (H_V(2,q2) - H_V(1,q2))*H_V(0,q2).conjugate() ).imag()  +  ( (H_A(2,q2) - H_A(1,q2))*H_A(0,q2).conjugate() ).imag() );
-        case '11':
-            return F(q2,b)*beta2/2*( ( H_V(1,q2)*H_V(2,q2).conjugate() ).imag()  +  ( H_A(1,q2)*H_A(2,q2).conjugate() ).imag() );
-        default:
-            std::stringstream out;
-            out << i;
-            throw std::runtime_error("I: index " + out.str() + "not implemented");
+    if (i < 10) {
+        switch (i){
+            case '0':
+                return F(q2,b)*( ( H_V(0,q2).abs2() + H_A(0,q2).abs2() )/2  +  H_P(q2).abs2()  +  2*Mm2/q2*( H_V(0,q2).abs2() - H_A(0,q2).abs2() )  +
+                                beta2*H_S(q2).abs2() );
+            case '1':
+                return F(q2,b)*( (beta2 + 2)/8*( H_V(1,q2).abs2() + H_V(2,q2).abs2() + H_A(1,q2).abs2() + H_A(2,q2).abs2() )  +
+                                Mm2/q2*( H_V(1,q2).abs2() + H_V(2,q2).abs2() - H_A(1,q2).abs2() - H_A(2,q2).abs2() ) );
+            case '2':
+                return -F(q2,b)*beta2/2*( H_V(0,q2).abs2() + H_A(0,q2).abs2() );
+            case '3':
+                return F(q2,b)*beta2/8*( H_V(1,q2).abs2() + H_V(2,q2).abs2()  +  H_A(1,q2).abs2() + H_A(2,q2).abs2() );
+            case '4':
+                return -F(q2,b)/2*( ( H_V(1,q2)*H_V(2,q2).conjugate() ).real()  +  ( H_A(1,q2)*H_A(2,q2).conjugate() ).real() );
+            case '5':
+                return F(q2,b)*beta2/4*( ( (H_V(2,q2) + H_V(1,q2))*H_V(0,q2).conjugate() ).real()  +  ( (H_A(2,q2) + H_A(1,q2))*H_A(0,q2).conjugate() ).real() );
+            case '6':
+                return F(q2,b)*( beta(q2)/2*( ( (H_V(2,q2) - H_V(1,q2))*H_A(0,q2).conjugate() ).real()  +  ( (H_A(2,q2) - H_A(1,q2))*H_V(0,q2).conjugate() ).real() )  -
+                                beta(q2)*Mm/sqrt(q2)*( H_S(q2).conjugate()*(H_V(1,q2) + H_V(2,q2)) ).real() );
+            case '7':
+                return F(q2,b)*beta(q2)*( H_V(2,q2)*H_A(2,q2).conjugate() - H_V(1,q2)*H_A(1,q2).conjugate() ).real();
+            case '8':
+                return 2*F(q2,b)*beta(q2)*Mm/sqrt(q2)*( H_S(q2).conjugate()*H_V(0,q2) ).real();
+            case '9':
+                return F(q2,b)*( beta(q2)/2*( ( (H_V(2,q2) + H_V(1,q2))*H_A(0,q2).conjugate() ).imag()  +  ( (H_A(2,q2) + H_A(1,q2))*H_V(0,q2).conjugate() ).imag() )  -
+                                beta(q2)*Mm/sqrt(q2)*( H_S(q2).conjugate()*(H_V(2,q2) - H_V(1,q2)) ).imag() );
+            default:
+                std::stringstream out;
+                out << i;
+                throw std::runtime_error("I: index " + out.str() + "not implemented");
+        }
+    } else {
+        int j = i - 10;
+        switch (j) {
+            case '0':
+                return F(q2,b)*beta2/4*( ( (H_V(2,q2) - H_V(1,q2))*H_V(0,q2).conjugate() ).imag()  +  ( (H_A(2,q2) - H_A(1,q2))*H_A(0,q2).conjugate() ).imag() );
+            case '1':
+                return F(q2,b)*beta2/2*( ( H_V(1,q2)*H_V(2,q2).conjugate() ).imag()  +  ( H_A(1,q2)*H_A(2,q2).conjugate() ).imag() );
+            default:
+                std::stringstream out;
+                out << j + 10;
+                throw std::runtime_error("I: index " + out.str() + "not implemented");
+        }
     }
 }
 
@@ -346,34 +360,36 @@ double BKstarll::Delta(int i, double q2) {
     return (I(i, q2) - I_bar(i, q2))/2;
 }
 
-
-
 /*******************************************************************************
  * Observables                                                                 *
  * ****************************************************************************/
 
 
 
-P_1::P_1(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
+P_1::P_1(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {
 }
 
 double P_1::computeThValue() {
-    /*
+    
+    updateParameters();
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    
+    gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
+    gsl_function F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma4, &(*this), _1 ) );
+    
     double avaSigma3, errSigma3, avaSigma4, errSigma4;
     gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-    F1.function = &P_1::Sigma3;
-    F1.params = 0;
-    gsl_integration_qags (&F1, 0, 2, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
     gsl_integration_workspace_free (w_sigma3);
 
     
     gsl_integration_workspace * w_sigma4 = gsl_integration_workspace_alloc (1000);
-    F2.function = &P_1::Sigma4;
-    F2.params = 0;
-    gsl_integration_qags (&F2, 0, 2, 0, 1e-7, 1000, w_sigma4, &avaSigma4, &errSigma4);
+    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma4, &avaSigma4, &errSigma4);
     gsl_integration_workspace_free (w_sigma4);
-    return avaSigma4/(2.*avaSigma3);*/
-    return Sigma(4,q2)/(2.*Sigma(3,q2));
+    
+    return avaSigma4/(2.*avaSigma3);
 }
 
 

@@ -10,13 +10,87 @@
 
 #include <math.h>
 #include "Flavour.h"
-//#include "StandardModelMatching.h"
 #include <StandardModel.h>
 #include <ThObservable.h>
 #include <gsl/gsl_integration.h>
+#include <assert.h>
+
 
 #define CUTOFF 10    //cutoff between LCSR and lattice values for Form Factors, in GeV^2
 
+/*******************************************************************************
+ * GSL Function Conversion BEGIN                                                  *
+ * ****************************************************************************/
+
+// Option 1. To be called with:
+//gsl_function_pp Fp( boost::bind(&Class::member_function, &class, _1) );
+//gsl_function *F = static_cast<gsl_function*>(&Fp);
+
+class gsl_function_pp : public gsl_function
+{
+public:
+    gsl_function_pp(std::function<double(double)> const& func) : _func(func){
+        function=&gsl_function_pp::invoke;
+        params=this;
+    }
+private:
+    std::function<double(double)> _func;
+    static double invoke(double x, void *params) {
+        return static_cast<gsl_function_pp*>(params)->_func(x);
+    }
+};
+
+
+//Option 2. To be used with:
+//gslFunction gslF = convertToGslFunction( boost::bind( &Class::member_function, &class, _1 ) );
+
+template<class F>
+static double gslFunctionAdapter( double x, void* p)
+{
+    // Here I do recover the "right" pointer, safer to use static_cast
+    // than reinterpret_cast.
+    F* function = static_cast<F*>( p );
+    return (*function)( x );
+}
+
+template<class F>
+gsl_function convertToGslFunction( const F& f )
+{
+    gsl_function gslFunction;
+    
+    const void* p = &f;
+    assert (p != 0);
+    
+    gslFunction.function = &gslFunctionAdapter<F>;
+    // Just to eliminate the const.
+    gslFunction.params = const_cast<void*>( p );
+    
+    return gslFunction;
+}
+
+//Option 3. To be used with:
+//Class* ptr2 = class;
+//auto ptr = [=](double x)->double{return ptr2->member_function(x);};
+//gsl_function_p<decltype(ptr)> Fp(ptr);
+//gsl_function *F = static_cast<gsl_function*>(&Fp);
+
+template< typename F >
+class gsl_function_p : public gsl_function {
+public:
+    gsl_function_p(const F& func) : _func(func) {
+        function = &gsl_function_p::invoke;
+        params=this;
+    }
+private:
+    const F& _func;
+    static double invoke(double x, void *params) {
+        return static_cast<gsl_function_p*>(params)->_func(x);
+    }
+};
+
+/*******************************************************************************
+ * GSL Function conversion END                                                     *
+ * ****************************************************************************/
 
 /**
  * @class BKstarll
@@ -30,6 +104,7 @@ class BKstarll : public ThObservable {
 public:
     BKstarll(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     virtual ~BKstarll();
+    void updateParameters();
     virtual double computeThValue()=0;
     
     double GF;            //Fermi constant
@@ -375,10 +450,20 @@ public:
     * @return return the CP asymmetry Delta_i
     */
     double Delta(int i, double q2);
+    
+    
+    double getSigma3(double q2){
+        return Sigma(3, q2);
+    };
+    
+    double getSigma4(double q2){
+        return Sigma(4, q2);
+    };
 
 
 private:
     const StandardModel& mySM;
+    StandardModel::lepton lep;
 
 };
 
@@ -397,19 +482,7 @@ public:
     /**
     * @brief \f$ P_{1} \f$ 
     */
-    P_1(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i = StandardModel::MU);
-    
-    
-    double Sigma3(double q2, void * p){
-        return Sigma(3, q2);
-    };
-
-    
-
-    
-    double Sigma4(double q2, void * p){
-        return Sigma(3, q2);
-    };
+    P_1(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     
     /**
@@ -417,6 +490,7 @@ public:
     */
     double computeThValue ();
     
+private:
     gsl_function F1, F2;
 };
 
