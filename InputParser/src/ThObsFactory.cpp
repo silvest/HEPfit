@@ -118,8 +118,8 @@ ThObsFactory::ThObsFactory(){
     obsThFactory["ACP_mu"] = boost::bind(boost::factory<ACP*>(), _1, StandardModel::MU);
     obsThFactory["P3CP_mu"] = boost::bind(boost::factory<P3CP*>(), _1, StandardModel::MU);
     obsThFactory["F_L_mu"] = boost::bind(boost::factory<F_L*>(), _1, StandardModel::MU);
-    //obsThFactory["M_1p_mu"] = boost::bind(boost::factory<M_1Prime*>(), _1, StandardModel::MU);
-    //obsThFactory["M_2p_mu"] = boost::bind(boost::factory<M_2Prime*>(), _1, StandardModel::MU);
+    obsThFactory["M_1p_mu"] = boost::bind(boost::factory<M_1Prime*>(), _1, StandardModel::MU);
+    obsThFactory["M_2p_mu"] = boost::bind(boost::factory<M_2Prime*>(), _1, StandardModel::MU);
 //
 //    //-----  Lepton Flavour observables  -----
     obsThFactory["li_lj_gamma"] = boost::factory<li_lj_gamma*>();

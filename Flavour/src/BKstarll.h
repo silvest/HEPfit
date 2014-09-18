@@ -333,7 +333,7 @@ public:
     
     
     /**
-    * @brief \f$ H_V \f$ 
+    * @brief \f$ H_V(\lambda) \f$ 
     * @param[in] i polarization lambda
     * @param[in] q2 q^2 of the decay
     * @return return the helicity amplitude H_V(lambda)
@@ -342,7 +342,7 @@ public:
 
 
     /**
-    * @brief \f$ H_A \f$ 
+    * @brief \f$ H_A(\lambda) \f$ 
     * @param[in] i polarization lambda
     * @param[in] q2 q^2 of the decay
     * @return return the helicity amplitude H_A(lambda)
@@ -444,95 +444,219 @@ public:
     
     
     /**
-    * @brief \f$ Sigma_{i} \f$ 
+    * @brief \f$ Delta_{i} \f$ 
     * @param[in] i index of the angular coefficient I_i
     * @param[in] q2 q^2 of the decay
     * @return return the CP asymmetry Delta_i
     */
     double Delta(int i, double q2);
     
-    
+    /**
+    * @brief \f$ Sigma_{0} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP average Sigma_0
+    */
     double getSigma0(double q2){
         return Sigma(0, q2);
     };
     
+    /**
+    * @brief \f$ Sigma_{1} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP average Sigma_1
+    */
     double getSigma1(double q2){
         return Sigma(1, q2);
     };
     
+    /**
+    * @brief \f$ Sigma_{2} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP average Sigma_2
+    */
     double getSigma2(double q2){
         return Sigma(2, q2);
     };
     
-    
+    /**
+    * @brief \f$ Sigma_{3} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP average Sigma_3
+    */
     double getSigma3(double q2){
         return Sigma(3, q2);
     };
     
+    /**
+    * @brief \f$ Sigma_{4} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP average Sigma_4
+    */    
     double getSigma4(double q2){
         return Sigma(4, q2);
     };
     
+    /**
+    * @brief \f$ Sigma_{5} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP average Sigma_5
+    */
     double getSigma5(double q2){
         return Sigma(5, q2);
     };
     
+    /**
+    * @brief \f$ Sigma_{6} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP average Sigma_6
+    */
     double getSigma6(double q2){
         return Sigma(6, q2);
     };
     
+    /**
+    * @brief \f$ Sigma_{7} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP average Sigma_7
+    */
     double getSigma7(double q2){
         return Sigma(7, q2);
     };
     
+    /**
+    * @brief \f$ Sigma_{9} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP average Sigma_9
+    */
     double getSigma9(double q2){
         return Sigma(9, q2);
     };
     
+    /**
+    * @brief \f$ Sigma_{11} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP average Sigma_11
+    */
     double getSigma11(double q2){
         return Sigma(11, q2);
     };
     
+    /**
+    * @brief \f$ Delta_{0} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP asymmetry Delta_0
+    */
     double getDelta0(double q2){
         return Delta(0, q2);
     };
     
+    /**
+    * @brief \f$ Delta_{1} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP asymmetry Delta_1
+    */
     double getDelta1(double q2){
         return Delta(1, q2);
     };
     
+    /**
+    * @brief \f$ Delta_{2} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP asymmetry Delta_2
+    */    
     double getDelta2(double q2){
         return Delta(2, q2);
     };
     
-    
+    /**
+    * @brief \f$ Delta_{3} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP asymmetry Delta_3
+    */
     double getDelta3(double q2){
         return Delta(3, q2);
     };
     
-    
+    /**
+    * @brief \f$ Delta_{11} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP asymmetry Delta_11
+    */
     double getDelta11(double q2){
         return Delta(11, q2);
     };
     
-    /*double getHV1(double q2){
-        return H_V(1, q2);
+    /**
+    * @brief \f$ |H_V(0)|^2 \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the square of the absolute value of the helicity amplitude H_V(0)
+    */
+    double getHV0_abs2(double q2){
+        return H_V(0, q2).abs2();
     };
     
-    double getHV2(double q2){
-        return H_V(2, q2);
+    /**
+    * @brief \f$ |H_V(1)|^2 \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the square of the absolute value of the helicity amplitude H_V(1)
+    */
+    double getHV1_abs2(double q2){
+        return H_V(1, q2).abs2();
     };
     
-    
-    double getHA1(double q2){
-        return H_A(1, q2);
+    /**
+    * @brief \f$ |H_V(2)|^2 \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the square of the absolute value of the helicity amplitude H_V(2)
+    */
+    double getHV2_abs2(double q2){
+        return H_V(2, q2).abs2();
     };
     
+    /**
+    * @brief \f$ |H_A(0)|^2 \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the square of the absolute value of the helicity amplitude H_A(0)
+    */
+    double getHA0_abs2(double q2){
+        return H_A(0, q2).abs2();
+    };
     
-    double getHA2(double q2){
-        return H_A(2, q2);
-    };*/
-
+    /**
+    * @brief \f$ |H_A(1)|^2 \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the square of the absolute value of the helicity amplitude H_A(1)
+    */
+    double getHA1_abs2(double q2){
+        return H_A(1, q2).abs2();
+    };
+    
+    /**
+    * @brief \f$ |H_A(2)|^2 \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the square of the absolute value of the helicity amplitude H_A(2)
+    */
+    double getHA2_abs2(double q2){
+        return H_A(2, q2).abs2();
+    };
+    
+    /**
+    * @brief \f$ |H_S|^2 \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the square of the absolute value of the helicity amplitude H_S
+    */
+    double getHS_abs2(double q2){
+        return H_S(q2).abs2();
+    }
+    
+    /**
+    * @brief \f$ |H_P|^2 \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the square of the absolute value of the helicity amplitude H_P
+    */
+    double getHP_abs2(double q2){
+        return H_P(q2).abs2();
+    }
 
 private:
     const StandardModel& mySM;
@@ -824,7 +948,7 @@ public:
     /**
     * @brief \f$ M'_1 \f$ 
     */
-    M_1Prime(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i = StandardModel::MU);
+    M_1Prime(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable M'_1
@@ -850,12 +974,15 @@ public:
     /**
     * @brief \f$ M'_2 \f$ 
     */
-    M_2Prime(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i = StandardModel::MU);
+    M_2Prime(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable M'_2
     */
     double computeThValue ();
+    
+private:
+    gsl_function F1, F2, F3, F4;
 };
 
 

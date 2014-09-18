@@ -33,12 +33,60 @@ void BKstarll::updateParameters(){
     Ms=mySM.getQuarks(QCD::STRANGE).getMass();
     MW=mySM.Mw();
     lambda_t=mySM.computelamt();
+    
+    a_0V=mySM.geta_0V();
+    a_1V=mySM.geta_1V();
+    dmV=mySM.getdmV();
+    a_0A0=mySM.geta_0A0();
+    a_1A0=mySM.geta_1A0();
+    dmA0=mySM.getdmA0();
+    a_0A1=mySM.geta_0A1();
+    a_1A1=mySM.geta_1A1();
+    dmA1=mySM.getdmA1();
+    a_0A12=mySM.geta_0A12();
+    a_1A12=mySM.geta_1A12();
+    dmA12=mySM.getdmA12();
+    a_0T1=mySM.geta_0T1();
+    a_1T1=mySM.geta_1T1();
+    dmT1=mySM.getdmT1();
+    a_0T2=mySM.geta_0T2();
+    a_1T2=mySM.geta_1T2();
+    dmT2=mySM.getdmT2();
+    a_0T23=mySM.geta_0T23();
+    a_1T23=mySM.geta_1T23();
+    dmT23=mySM.getdmT23();
+    
+    r_1V=mySM.getr_1V();
+    r_2V=mySM.getr_2V();
+    m_RV=mySM.getm_RV();
+    m_fit2V=mySM.getm_fit2V();
+    r_1A0=mySM.getr_1A0();
+    r_2A0=mySM.getr_2A0();
+    m_RA0=mySM.getm_RA0();
+    m_fit2A0=mySM.getm_fit2A0();
+    r_2A1=mySM.getr_2A1();
+    m_fit2A1=mySM.getm_fit2A1();
+    r_1A2=mySM.getr_1A2();
+    r_2A2=mySM.getr_2A2();
+    m_fit2A2=mySM.getm_fit2A2();
+    r_1T1=mySM.getr_1T1();
+    r_2T1=mySM.getr_2T1();
+    m_RT1=mySM.getm_RT1();
+    m_fit2T1=mySM.getm_fit2T1();
+    r_2T2=mySM.getr_2T2();
+    m_fit2T2=mySM.getm_fit2T2();
+    r_1T3t=mySM.getr_1T3t();
+    r_2T3t=mySM.getr_2T3t();
+    m_fit2T3t=mySM.getm_fit2T3t();
+    
+    h[0]=mySM.geth_0();
+    h[1]=mySM.geth_plus();
+    h[2]=mySM.geth_minus();
+    
     b=1.;                           //please check
-    h[0]=.5;    // should be moved to conf file
-    h[1]=.1;    // should be moved to conf file
-    h[2]=.25;   // should be moved to conf file
-    vector<complex> ** allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(Mb);   //check the mass scale, scheme fixed to NDR
-    vector<complex> ** allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBKstarll(Mb);   //check the mass scale, scheme fixed to NDR
+    
+    allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(Mb);   //check the mass scale, scheme fixed to NDR
+    allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBKstarll(Mb);   //check the mass scale, scheme fixed to NDR
 }
 
 
@@ -670,47 +718,73 @@ double F_L::computeThValue() {
 }
 
 
-M_1Prime::M_1Prime(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
+M_1Prime::M_1Prime(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double M_1Prime::computeThValue() {
-    /*
+    
     updateParameters();
     double q_min = getBinMin();
     double q_max = getBinMax();
     
     
-    gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getHV1, &(*this), _1 ) );
-    gsl_function F2 = convertToGslFunction( boost::bind( &BKstarll::getHV2, &(*this), _1 ) );
-    gsl_function F3 = convertToGslFunction( boost::bind( &BKstarll::getHA1, &(*this), _1 ) );
-    gsl_function F4 = convertToGslFunction( boost::bind( &BKstarll::getHA2, &(*this), _1 ) );
+    gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getHV1_abs2, &(*this), _1 ) );
+    gsl_function F2 = convertToGslFunction( boost::bind( &BKstarll::getHV2_abs2, &(*this), _1 ) );
+    gsl_function F3 = convertToGslFunction( boost::bind( &BKstarll::getHA1_abs2, &(*this), _1 ) );
+    gsl_function F4 = convertToGslFunction( boost::bind( &BKstarll::getHA2_abs2, &(*this), _1 ) );
     
-    double avaHV1, errHV1, avaHV2, errHV2, avaHA1, errHA1, avaHA2, errHA2;
-    gsl_integration_workspace * w_hv1 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_hv1, &avaHV1, &errHV1);
-    gsl_integration_workspace_free (w_hv1);
+    double avaHV1_abs2, errHV1_abs2, avaHV2_abs2, errHV2_abs2, avaHA1_abs2, errHA1_abs2, avaHA2_abs2, errHA2_abs2;
+    gsl_integration_workspace * w_hv1_abs2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_hv1_abs2, &avaHV1_abs2, &errHV1_abs2);
+    gsl_integration_workspace_free (w_hv1_abs2);
     
-    gsl_integration_workspace * w_hv2 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_hv1, &avaHV2, &errHV2);
-    gsl_integration_workspace_free (w_hv2);
+    gsl_integration_workspace * w_hv2_abs2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_hv1_abs2, &avaHV2_abs2, &errHV2_abs2);
+    gsl_integration_workspace_free (w_hv2_abs2);
     
-    gsl_integration_workspace * w_ha1 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_ha1, &avaHA1, &errHA1);
-    gsl_integration_workspace_free (w_ha1);
+    gsl_integration_workspace * w_ha1_abs2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_ha1_abs2, &avaHA1_abs2, &errHA1_abs2);
+    gsl_integration_workspace_free (w_ha1_abs2);
     
-    gsl_integration_workspace * w_ha2 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_ha2, &avaHA2, &errHA2);
-    gsl_integration_workspace_free (w_ha2);
+    gsl_integration_workspace * w_ha2_abs2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_ha2_abs2, &avaHA2_abs2, &errHA2_abs2);
+    gsl_integration_workspace_free (w_ha2_abs2);
     
-    return ( avaHV1.abs2() + avaHV2.abs2() - avaHA1.abs2() - avaHA2.abs2() )/( 2*( avaHV1.abs2() + avaHV2.abs2() + avaHA1.abs2() + avaHA2.abs2() ) );*/
-    return ( H_V(1,q2).abs2() + H_V(2,q2).abs2() - H_A(1,q2).abs2() - H_A(2,q2).abs2() )/( 2*( H_V(1,q2).abs2() + H_V(2,q2).abs2() + H_A(1,q2).abs2() + H_A(2,q2).abs2() ) );
-  
+    return ( avaHV1_abs2 + avaHV2_abs2 - avaHA1_abs2 - avaHA2_abs2 )/( 2*( avaHV1_abs2 + avaHV2_abs2 + avaHA1_abs2 + avaHA2_abs2 ) );
 }
 
 
-M_2Prime::M_2Prime(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
+M_2Prime::M_2Prime(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double M_2Prime::computeThValue() {
-    return ( q2/(2*Mm*Mm)*( H_P(q2).abs2() + beta(q2)*beta(q2)*H_S(q2).abs2() ) + H_V(0,q2).abs2() - H_A(0,q2).abs2() )/( H_V(0,q2).abs2() + H_A(0,q2).abs2() );  
+    
+    updateParameters();
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    
+    gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getHV0_abs2, &(*this), _1 ) );
+    gsl_function F2 = convertToGslFunction( boost::bind( &BKstarll::getHA0_abs2, &(*this), _1 ) );
+    gsl_function F3 = convertToGslFunction( boost::bind( &BKstarll::getHS_abs2, &(*this), _1 ) );
+    gsl_function F4 = convertToGslFunction( boost::bind( &BKstarll::getHP_abs2, &(*this), _1 ) );
+    
+    double avaHV0_abs2, errHV0_abs2, avaHA0_abs2, errHA0_abs2, avaHS_abs2, errHS_abs2, avaHP_abs2, errHP_abs2;
+    gsl_integration_workspace * w_hv0_abs2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_hv0_abs2, &avaHV0_abs2, &errHV0_abs2);
+    gsl_integration_workspace_free (w_hv0_abs2);
+    
+    gsl_integration_workspace * w_ha0_abs2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_ha0_abs2, &avaHA0_abs2, &errHA0_abs2);
+    gsl_integration_workspace_free (w_ha0_abs2);
+    
+    gsl_integration_workspace * w_hs_abs2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_hs_abs2, &avaHS_abs2, &errHS_abs2);
+    gsl_integration_workspace_free (w_hs_abs2);
+    
+    gsl_integration_workspace * w_hp_abs2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_hp_abs2, &avaHP_abs2, &errHP_abs2);
+    gsl_integration_workspace_free (w_hp_abs2);
+    
+    return ( q2/(2*Mm*Mm)*( avaHP_abs2 + beta(q2)*beta(q2)*avaHS_abs2 ) + avaHV0_abs2 - avaHA0_abs2 )/( avaHV0_abs2+ avaHA0_abs2 );  
 }

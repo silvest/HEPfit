@@ -37,7 +37,11 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "BK(3/2)6", "BK(3/2)7", "BK(3/2)8", "BK(3/2)9", "BK(3/2)10",
     "BKd_scale", "BKd_scheme",
     "ReA2_Kd", "ReA0_Kd", "Omega_eta_etap",
-    "Br_Kp_P0enu", "Br_Kp_munu", "Br_B_Xcenu", "DeltaP_cu", "IB_Kl", "IB_Kp"
+    "Br_Kp_P0enu", "Br_Kp_munu", "Br_B_Xcenu", "DeltaP_cu", "IB_Kl", "IB_Kp",
+    "a_0V", "a_1V", "dmV", "a_0A0", "a_1A0", "dmA0", "a_0A1", "a_1A1", "dmA1", "a_0A12", "a_1A12", "dmA12",
+    "a_0T1", "a_1T1", "dmT1", "a_0T2", "a_1T2", "dmT2", "a_0T23", "a_1T23", "dmT23",
+    "r_1V", "r_2V", "m_RV", "m_fit2V", "r_1A0", "r_2A0", "m_RA0", "m_fit2A0", "r_2A1", "m_fit2A1", "r_1A2", "r_2A2", "m_fit2A2",
+    "r_1T1", "r_2T1", "m_RT1", "m_fit2T", "r_2T2", "m_fit2T2", "r_1T3t", "r_2T3t", "m_fit2T3t"
 };
 
 QCD::QCD()
@@ -142,6 +146,54 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("DeltaP_cu", boost::cref(DeltaP_cu)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kl", boost::cref(IB_Kl)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kp", boost::cref(IB_Kp)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("h_0", boost::cref(h_0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("h_plus", boost::cref(h_plus)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("h_minus", boost::cref(h_minus)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0V", boost::cref(a_0V)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1V", boost::cref(a_1V)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmV", boost::cref(dmV)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0A0", boost::cref(a_0A0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1A0", boost::cref(a_1A0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmA0", boost::cref(dmA0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0A1", boost::cref(a_0A1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1A1", boost::cref(a_1A1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmA1", boost::cref(dmA1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0A12", boost::cref(a_0A12)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1A12", boost::cref(a_1A12)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmA12", boost::cref(dmA12)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0T1", boost::cref(a_0T1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1T1", boost::cref(a_1T1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmT1", boost::cref(dmT1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0T2", boost::cref(a_0T2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1T2", boost::cref(a_1T2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmT2", boost::cref(dmT2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0T23", boost::cref(a_0T23)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1T23", boost::cref(a_1T23)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmT23", boost::cref(dmT23)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_1V", boost::cref(r_1V)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2V", boost::cref(r_2V)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_RV", boost::cref(m_RV)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2V", boost::cref(m_fit2V)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_1A0", boost::cref(r_1A0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2A0", boost::cref(r_2A0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_RA0", boost::cref(m_RA0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2A0", boost::cref(m_fit2A0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2A1", boost::cref(r_2A1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2A1", boost::cref(m_fit2A1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_1A2", boost::cref(r_1A2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2A2", boost::cref(r_2A2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2A2", boost::cref(m_fit2A2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_1T1", boost::cref(r_1T1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2T1", boost::cref(r_2T1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_RT1", boost::cref(m_RT1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2T1", boost::cref(m_fit2T1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2T2", boost::cref(r_2T2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2T2", boost::cref(m_fit2T2)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_1T3t", boost::cref(r_1T3t)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2T3t", boost::cref(r_2T3t)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2T3t", boost::cref(m_fit2T3t)));
+
+
 }
 
 std::string QCD::orderToString(const orders order) const
@@ -409,6 +461,98 @@ void QCD::setParameter(const std::string name, const double& value)
         IB_Kl = value;
     else if (name.compare("IB_Kp") == 0)
         IB_Kp = value;
+    else if (name.compare("h_0") == 0)
+        h_0 = value;
+    else if (name.compare("h_plus") == 0)
+        h_plus = value;
+    else if (name.compare("h_minus") == 0)
+        h_minus = value;
+    else if (name.compare("a_0V") == 0)
+        a_0V = value;
+    else if (name.compare("a_1V") == 0)
+        a_1V = value;
+    else if (name.compare("dmV") == 0)
+        dmV = value;
+    else if (name.compare("a_0A0") == 0)
+        a_0A0 = value;
+    else if (name.compare("a_1A0") == 0)
+        a_1A0 = value;
+    else if (name.compare("dmA0") == 0)
+        dmA0 = value;
+    else if (name.compare("a_0A1") == 0)
+        a_0A1 = value;
+    else if (name.compare("a_1A1") == 0)
+        a_1A1 = value;
+    else if (name.compare("dmA1") == 0)
+        dmA1 = value;
+    else if (name.compare("a_0A12") == 0)
+        a_0A12 = value;
+    else if (name.compare("a_1A12") == 0)
+        a_1A12 = value;
+    else if (name.compare("dmA12") == 0)
+        dmA12 = value;
+    else if (name.compare("a_0T1") == 0)
+        a_0T1 = value;
+    else if (name.compare("a_1T1") == 0)
+        a_1T1 = value;
+    else if (name.compare("dmT1") == 0)
+        dmT1 = value;
+    else if (name.compare("a_0T2") == 0)
+        a_0T2 = value;
+    else if (name.compare("a_1T2") == 0)
+        a_1T2 = value;
+    else if (name.compare("dmT2") == 0)
+        dmT2 = value;
+    else if (name.compare("a_0T23") == 0)
+        a_0T23 = value;
+    else if (name.compare("a_1T23") == 0)
+        a_1T23 = value;
+    else if (name.compare("dmT23") == 0)
+        dmT23 = value;
+    else if (name.compare("r_1V") == 0)
+        r_1V = value;
+    else if (name.compare("r_2V") == 0)
+        r_2V = value;
+    else if (name.compare("m_RV") == 0)
+        m_RV = value;
+    else if (name.compare("m_fit2V") == 0)
+        m_fit2V = value;
+    else if (name.compare("r_1A0") == 0)
+        r_1A0 = value;
+    else if (name.compare("r_2A0") == 0)
+        r_2A0 = value;
+    else if (name.compare("m_RA0") == 0)
+        m_RA0 = value;
+    else if (name.compare("m_fit2A0") == 0)
+        m_fit2A0 = value;
+    else if (name.compare("r_2A1") == 0)
+        r_2A1 = value;
+    else if (name.compare("m_fit2A1") == 0)
+        m_fit2A1 = value;
+    else if (name.compare("r_1A2") == 0)
+        r_1A2 = value;
+    else if (name.compare("r_2A2") == 0)
+        r_2A2 = value;
+    else if (name.compare("m_fit2A2") == 0)
+        m_fit2A2 = value;
+    else if (name.compare("r_1T1") == 0)
+        r_1T1 = value;
+    else if (name.compare("r_2T1") == 0)
+        r_2T1 = value;
+    else if (name.compare("m_RT1") == 0)
+        m_RT1 = value;
+    else if (name.compare("m_fit2T1") == 0)
+        m_fit2T1 = value;
+    else if (name.compare("r_2T2") == 0)
+        r_2T2 = value;
+    else if (name.compare("m_fit2T2") == 0)
+        m_fit2T2 = value;
+    else if (name.compare("r_1T3t") == 0)
+        r_1T3t = value;
+    else if (name.compare("r_2T3t") == 0)
+        r_2T3t = value;
+    else if (name.compare("m_fit2T3t") == 0)
+        m_fit2T3t = value;
     else
         std::cout << "WARNING: unknown parameter " << name
             << " in model initialization" << std::endl;

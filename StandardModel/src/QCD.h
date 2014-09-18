@@ -520,7 +520,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 81; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 127; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -857,7 +857,238 @@ public:
     {
         return IB_Kp;
     }
+    
+    
+    double geth_0() const
+    {
+        return h_0;
+    }
+    
+    double geth_plus() const
+    {
+        return h_plus;
+    }
+    
+    double geth_minus() const
+    {
+        return h_minus;
+    }
+    
+    double geta_0V() const
+    {
+        return a_0V;
+    }
+    
+    double geta_1V() const
+    {
+        return a_1V;
+    }
+    
+    double getdmV() const
+    {
+        return dmV;
+    }
+    
+    double geta_0A0() const
+    {
+        return a_0A0;
+    }
+    
+    double geta_1A0() const
+    {
+        return a_1A0;
+    }
+    
+    double getdmA0() const
+    {
+        return dmV;
+    }
+    
+    double geta_0A1() const
+    {
+        return a_0A1;
+    }
+    
+    double geta_1A1() const
+    {
+        return a_1A1;
+    }
+    
+    double getdmA1() const
+    {
+        return dmA1;
+    }
+    
+    double geta_0A12() const
+    {
+        return a_0A12;
+    }
+    
+    double geta_1A12() const
+    {
+        return a_1A12;
+    }
+    
+    double getdmA12() const
+    {
+        return dmA12;
+    }
+    
+    double geta_0T1() const
+    {
+        return a_0T1;
+    }
+    
+    double geta_1T1() const
+    {
+        return a_1T1;
+    }
+    
+    double getdmT1() const
+    {
+        return dmT1;
+    }
+    
+    double geta_0T2() const
+    {
+        return a_0T2;
+    }
+    
+    double geta_1T2() const
+    {
+        return a_1T2;
+    }
+    
+    double getdmT2() const
+    {
+        return dmT2;
+    }
+    
+    double geta_0T23() const
+    {
+        return a_0T23;
+    }
+    
+    double geta_1T23() const
+    {
+        return a_1T23;
+    }
+    
+    double getdmT23() const
+    {
+        return dmT23;
+    }
 
+    
+    
+    double getr_1V() const
+    {
+        return r_1V;
+    }
+    
+    double getr_2V() const
+    {
+        return r_2V;
+    }
+    
+    double getm_RV() const
+    {
+        return m_RV;
+    }
+    
+    double getm_fit2V() const
+    {
+        return m_fit2V;
+    }
+
+    double getr_1A0() const
+    {
+        return r_1A0;
+    }
+    
+    double getr_2A0() const
+    {
+        return r_2A0;
+    }
+    
+    double getm_RA0() const
+    {
+        return m_RA0;
+    }
+    
+    double getm_fit2A0() const
+    {
+        return m_fit2A0;
+    }
+    
+    double getr_2A1() const
+    {
+        return r_2A1;
+    }
+    
+    double getm_fit2A1() const
+    {
+        return m_fit2A1;
+    }
+
+    double getr_1A2() const
+    {
+        return r_1A2;
+    }
+    
+    double getr_2A2() const
+    {
+        return r_2A2;
+    }
+    
+    double getm_fit2A2() const
+    {
+        return m_fit2A2;
+    }
+
+    double getr_1T1() const
+    {
+        return r_1T1;
+    }
+    
+    double getr_2T1() const
+    {
+        return r_2T1;
+    }
+    
+    double getm_RT1() const
+    {
+        return m_RT1;
+    }
+    
+    double getm_fit2T1() const
+    {
+        return m_fit2T1;
+    }
+    double getr_2T2() const
+    {
+        return r_2T2;
+    }
+    
+    double getm_fit2T2() const
+    {
+        return m_fit2T2;
+    }
+
+    double getr_1T3t() const
+    {
+        return r_1T3t;
+    }
+    
+    double getr_2T3t() const
+    {
+        return r_2T3t;
+    }
+    
+    double getm_fit2T3t() const
+    {
+        return m_fit2T3t;
+    }
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -1092,6 +1323,21 @@ protected:
     double Br_B_Xcenu;
     double BBsoBBd; ///< The ratio \f$ B_{B_s}/B_{B_d} \f$ necessary to compute \f$ B_{B_s} \f$. 
     double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$. 
+    double h_0, h_plus, h_minus;
+    double a_0V, a_1V, dmV;
+    double a_0A0, a_1A0, dmA0;
+    double a_0A1, a_1A1, dmA1;
+    double a_0A12, a_1A12, dmA12;
+    double a_0T1, a_1T1, dmT1;
+    double a_0T2, a_1T2, dmT2;
+    double a_0T23, a_1T23, dmT23;
+    double r_1V, r_2V, m_RV, m_fit2V;
+    double r_1A0, r_2A0, m_RA0, m_fit2A0;
+    double r_2A1, m_fit2A1;
+    double r_1A2, r_2A2, m_fit2A2;
+    double r_1T1, r_2T1, m_RT1, m_fit2T1;
+    double r_2T2, m_fit2T2;
+    double r_1T3t, r_2T3t, m_fit2T3t;
 
     double Nc; ///< The number of colours.
     double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.
