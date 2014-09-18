@@ -109,15 +109,15 @@ ThObsFactory::ThObsFactory(){
     obsThFactory["Smumu_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 4);
     //----- B to K* ll  -----
     obsThFactory["P_1_mu"] = boost::bind(boost::factory<P_1*>(), _1, StandardModel::MU);
-    //obsThFactory["P_2_mu"] = boost::bind(boost::factory<P_2*>(), _1, StandardModel::MU);
-    //obsThFactory["P_3_mu"] = boost::bind(boost::factory<P_3*>(), _1, StandardModel::MU);
-    //obsThFactory["P_4p_mu"] = boost::bind(boost::factory<P_4Prime*>(), _1, StandardModel::MU);
-    //obsThFactory["P_5p_mu"] = boost::bind(boost::factory<P_5Prime*>(), _1, StandardModel::MU);
-    //obsThFactory["P_6p_mu"] = boost::bind(boost::factory<P_6Prime*>(), _1, StandardModel::MU);
-    //obsThFactory["Gammap_mu"] = boost::bind(boost::factory<GammaPrime*>(), _1, StandardModel::MU);
-    //obsThFactory["ACP_mu"] = boost::bind(boost::factory<ACP*>(), _1, StandardModel::MU);
-    //obsThFactory["P3CP_mu"] = boost::bind(boost::factory<P3CP*>(), _1, StandardModel::MU);
-    //obsThFactory["F_L_mu"] = boost::bind(boost::factory<F_L*>(), _1, StandardModel::MU);
+    obsThFactory["P_2_mu"] = boost::bind(boost::factory<P_2*>(), _1, StandardModel::MU);
+    obsThFactory["P_3_mu"] = boost::bind(boost::factory<P_3*>(), _1, StandardModel::MU);
+    obsThFactory["P_4p_mu"] = boost::bind(boost::factory<P_4Prime*>(), _1, StandardModel::MU);
+    obsThFactory["P_5p_mu"] = boost::bind(boost::factory<P_5Prime*>(), _1, StandardModel::MU);
+    obsThFactory["P_6p_mu"] = boost::bind(boost::factory<P_6Prime*>(), _1, StandardModel::MU);
+    obsThFactory["Gammap_mu"] = boost::bind(boost::factory<GammaPrime*>(), _1, StandardModel::MU);
+    obsThFactory["ACP_mu"] = boost::bind(boost::factory<ACP*>(), _1, StandardModel::MU);
+    obsThFactory["P3CP_mu"] = boost::bind(boost::factory<P3CP*>(), _1, StandardModel::MU);
+    obsThFactory["F_L_mu"] = boost::bind(boost::factory<F_L*>(), _1, StandardModel::MU);
     //obsThFactory["M_1p_mu"] = boost::bind(boost::factory<M_1Prime*>(), _1, StandardModel::MU);
     //obsThFactory["M_2p_mu"] = boost::bind(boost::factory<M_2Prime*>(), _1, StandardModel::MU);
 //

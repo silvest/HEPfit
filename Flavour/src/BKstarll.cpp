@@ -72,12 +72,9 @@ double BKstarll::z(double q2){
 
 
 
-double BKstarll::lat_fit(double q2, double a_0, double a_1, double c_01, double c_01s, double dm){
-    double Mp, Meta;  //WARNING!!!
-    double dx = (Mp*Mp - 140*140) / pow(4*M_PI*132,2);
-    double dx_s = (Meta*Meta - 686*686) / pow(4*M_PI*132,2);
+double BKstarll::lat_fit(double q2, double a_0, double a_1, double dm){
     double P = 1 - q2/pow(MB + dm,2);
-    return 1 / P * ( a_0*(1 + c_01*dx + c_01s*dx_s) + a_1*z(q2) );
+    return 1 / P * ( a_0 + a_1*z(q2) );
 }
 
 
@@ -86,7 +83,7 @@ double BKstarll::V(double q2){
     if (q2<CUTOFF)
         return LCSR_fit1(q2, r_1V, r_2V, pow(m_RV, 2), m_fit2V);
     else
-        return lat_fit(q2, a_0V, a_1V, c_01V, c_01sV, dmV);
+        return lat_fit(q2, a_0V, a_1V, dmV);
 }
 
 
@@ -95,7 +92,7 @@ double BKstarll::A_0(double q2){
     if (q2<CUTOFF)
         return LCSR_fit1(q2, r_1A0, r_2A0, pow(m_RA0, 2), m_fit2A0);
     else
-        return lat_fit(q2, a_0A0, a_1A0, c_01A0, c_01sA0, dmA0);
+        return lat_fit(q2, a_0A0, a_1A0, dmA0);
 }
 
 
@@ -104,7 +101,7 @@ double BKstarll::A_1(double q2){
     if (q2<CUTOFF)
         return LCSR_fit3(q2, r_2A1, m_fit2A1);
     else
-        return lat_fit(q2, a_0A1, a_1A1, c_01A1, c_01sA1, dmA1);
+        return lat_fit(q2, a_0A1, a_1A1, dmA1);
 }
 
 
@@ -119,7 +116,7 @@ double BKstarll::T_1(double q2){
     if (q2<CUTOFF)
         return LCSR_fit1(q2, r_1T1, r_2T1, pow(m_RT1, 2), m_fit2T1);
     else
-        return lat_fit(q2, a_0T1, a_1T1, c_01T1, c_01sT1, dmT1);
+        return lat_fit(q2, a_0T1, a_1T1, dmT1);
 }
 
 
@@ -128,7 +125,7 @@ double BKstarll::T_2(double q2){
     if (q2<CUTOFF)
         return LCSR_fit3(q2, r_2T2, m_fit2T2);
     else
-        return lat_fit(q2, a_0T2, a_1T2, c_01T2, c_01sT2, dmT2);
+        return lat_fit(q2, a_0T2, a_1T2, dmT2);
 }
 
 
@@ -151,7 +148,7 @@ double BKstarll::V_L(int i, double q2){
             if (q2 < CUTOFF)
                 return 1 / ( 4*MKstar*MB*(MB + MKstar)*sqrt(q2) ) * ( pow((MB + MKstar),2)*(MB*MB - q2 - MKstar*MKstar)*A_1(q2) - lambda(q2)*A_2(q2) );
             else
-                return 4*MKstar/sqrt(q2)*lat_fit(q2, a_0A12, a_1A12, c_01A12, c_01sA12, dmA12);
+                return 4*MKstar/sqrt(q2)*lat_fit(q2, a_0A12, a_1A12, dmA12);
         case '1':
             return 1/2 * ( ( 1 + MKstar/MB)*A_1(q2) - sqrt(lambda(q2))/ ( MB* (MB + MKstar) ) * V(q2) );
         case '2':
@@ -177,7 +174,7 @@ double BKstarll::T_L(int i, double q2){
             if (q2 < CUTOFF)
                 return sqrt(q2)/(4*MB*MB*MKstar) * ( ( MB*MB+ 3*MKstar*MKstar - q2 ) * T_2(q2) - lambda(q2) / (MB*MB - MKstar*MKstar) * T_3(q2) );
             else
-                return 2*sqrt(q2)*MKstar/(MB + MKstar)*lat_fit(q2, a_0T23, a_1T23, c_01T23, c_01sT23, dmT23);
+                return 2*sqrt(q2)*MKstar/(MB + MKstar)*lat_fit(q2, a_0T23, a_1T23, dmT23);
         case '1':
             return (MB*MB - MKstar*MKstar) / ( 2*MB*MB ) * T_2(q2) - sqrt(lambda(q2)) / ( 2*MB*MB ) * T_1(q2);
         case '2':
@@ -393,86 +390,282 @@ double P_1::computeThValue() {
 }
 
 
-P_2::P_2(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
+P_2::P_2(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double P_2::computeThValue() {
-    return Sigma(7, q2)/(8.*Sigma(3, q2));
+    
+    updateParameters();
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    
+    gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma7, &(*this), _1 ) );
+    gsl_function F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
+    
+    double avaSigma7, errSigma7, avaSigma3, errSigma3;
+    gsl_integration_workspace * w_sigma7 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma7, &avaSigma7, &errSigma7);
+    gsl_integration_workspace_free (w_sigma7);
+
+    gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_workspace_free (w_sigma3);
+    
+    return avaSigma7/(8.*avaSigma3);
 }
 
 
-P_3::P_3(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
+P_3::P_3(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double P_3::computeThValue() {
-    return -Sigma(11, q2)/(4.*Sigma(3, q2));
-
+    
+    updateParameters();
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    
+    gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma11, &(*this), _1 ) );
+    gsl_function F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
+    
+    double avaSigma11, errSigma11, avaSigma3, errSigma3;
+    gsl_integration_workspace * w_sigma11 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma11, &avaSigma11, &errSigma11);
+    gsl_integration_workspace_free (w_sigma11);
+    
+    gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_workspace_free (w_sigma3);
+    
+    return -avaSigma11/(4.*avaSigma3);
 }
 
 
-P_4Prime::P_4Prime(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
+P_4Prime::P_4Prime(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double P_4Prime::computeThValue() {
-    return Sigma(5, q2)/sqrt(-Sigma(2, q2)*Sigma(3, q2));
+    
+    updateParameters();
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    
+    gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma5, &(*this), _1 ) );
+    gsl_function F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma2, &(*this), _1 ) );
+    gsl_function F3 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
+    
+    double avaSigma5, errSigma5, avaSigma2, errSigma2, avaSigma3, errSigma3;
+    gsl_integration_workspace * w_sigma5 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma5, &avaSigma5, &errSigma5);
+    gsl_integration_workspace_free (w_sigma5);
+    
+    gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma2, &avaSigma2, &errSigma2);
+    gsl_integration_workspace_free (w_sigma2);
+    
+    gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_workspace_free (w_sigma3);
+    
+    return avaSigma5/sqrt(-avaSigma2*avaSigma3);
    
 }
 
 
-P_5Prime::P_5Prime(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
+P_5Prime::P_5Prime(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double P_5Prime::computeThValue() {
-    return Sigma(6, q2)/(2.*sqrt(-Sigma(2, q2)*Sigma(3, q2)));
-
+    
+    updateParameters();
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    
+    gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma6, &(*this), _1 ) );
+    gsl_function F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma2, &(*this), _1 ) );
+    gsl_function F3 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
+    
+    double avaSigma6, errSigma6, avaSigma2, errSigma2, avaSigma3, errSigma3;
+    gsl_integration_workspace * w_sigma6 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma6, &avaSigma6, &errSigma6);
+    gsl_integration_workspace_free (w_sigma6);
+    
+    gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma2, &avaSigma2, &errSigma2);
+    gsl_integration_workspace_free (w_sigma2);
+    
+    gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_workspace_free (w_sigma3);
+    
+    return avaSigma6/(2.*sqrt(-avaSigma2*avaSigma3));
 }
 
 
-P_6Prime::P_6Prime(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
+P_6Prime::P_6Prime(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double P_6Prime::computeThValue() {
-    return -Sigma(9, q2)/(2.*sqrt(-Sigma(2, q2)*Sigma(3, q2)));
+    
+    updateParameters();
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    
+    gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma9, &(*this), _1 ) );
+    gsl_function F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma2, &(*this), _1 ) );
+    gsl_function F3 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
+    
+    double avaSigma9, errSigma9, avaSigma2, errSigma2, avaSigma3, errSigma3;
+    gsl_integration_workspace * w_sigma9 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma9, &avaSigma9, &errSigma9);
+    gsl_integration_workspace_free (w_sigma9);
+    
+    gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma2, &avaSigma2, &errSigma2);
+    gsl_integration_workspace_free (w_sigma2);
+    
+    gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_workspace_free (w_sigma3);
+    
+    return -avaSigma9/(2.*sqrt(-avaSigma2*avaSigma3));
  
 }
 
 
-GammaPrime::GammaPrime(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
+GammaPrime::GammaPrime(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double GammaPrime::computeThValue() {
-    return ((3.*Sigma(0, q2) - Sigma(2, q2)) + 2.*(3*Sigma(1, q2) - Sigma(3, q2)))/4.;
+    
+    updateParameters();
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    
+    gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma0, &(*this), _1 ) );
+    gsl_function F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma1, &(*this), _1 ) );
+    gsl_function F3 = convertToGslFunction( boost::bind( &BKstarll::getSigma2, &(*this), _1 ) );
+    gsl_function F4 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
+    
+    double avaSigma0, errSigma0, avaSigma1, errSigma1, avaSigma2, errSigma2, avaSigma3, errSigma3;
+    gsl_integration_workspace * w_sigma0 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma0, &avaSigma0, &errSigma0);
+    gsl_integration_workspace_free (w_sigma0);
+    
+    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma1, &avaSigma1, &errSigma1);
+    gsl_integration_workspace_free (w_sigma1);
+    
+    gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_sigma2, &avaSigma2, &errSigma2);
+    gsl_integration_workspace_free (w_sigma2);
+    
+    gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_workspace_free (w_sigma3);
+    
+    return ((3.*avaSigma0 - avaSigma2) + 2.*(3*avaSigma1 - avaSigma3))/4.;
 
 }
 
 
-ACP::ACP(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i), mySM(SM_i) { 
+ACP::ACP(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i), mySM(SM_i) { 
     lep = lep_i;
 }
 
 double ACP::computeThValue() {
-    GammaPrime myGammaPrime(mySM, q2, lep);
-    return (3*Delta(0, q2) - Delta(2, q2) + 2 * ( 3*Delta(1, q2) -Delta(3, q2) ) )/(4.*myGammaPrime.computeThValue());
+    
+    updateParameters();
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    
+    gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getDelta0, &(*this), _1 ) );
+    gsl_function F2 = convertToGslFunction( boost::bind( &BKstarll::getDelta1, &(*this), _1 ) );
+    gsl_function F3 = convertToGslFunction( boost::bind( &BKstarll::getDelta2, &(*this), _1 ) );
+    gsl_function F4 = convertToGslFunction( boost::bind( &BKstarll::getDelta3, &(*this), _1 ) );
+    
+    double avaDelta0, errDelta0, avaDelta1, errDelta1, avaDelta2, errDelta2, avaDelta3, errDelta3;
+    gsl_integration_workspace * w_delta0 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_delta0, &avaDelta0, &errDelta0);
+    gsl_integration_workspace_free (w_delta0);
+    
+    gsl_integration_workspace * w_delta1 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_delta1, &avaDelta1, &errDelta1);
+    gsl_integration_workspace_free (w_delta1);
+    
+    gsl_integration_workspace * w_delta2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_delta2, &avaDelta2, &errDelta2);
+    gsl_integration_workspace_free (w_delta2);
+    
+    gsl_integration_workspace * w_delta3 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_delta3, &avaDelta3, &errDelta3);
+    gsl_integration_workspace_free (w_delta3);
+    
+    GammaPrime myGammaPrime(mySM, lep);
+    
+    return (3*avaDelta0 - avaDelta2 + 2 * ( 3*avaDelta1 - avaDelta3 ) )/(4.*myGammaPrime.computeThValue());
 
 }
 
 
-P3CP::P3CP(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
+P3CP::P3CP(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
 double P3CP::computeThValue() {
-    return - Delta(11, q2)/(4*Sigma(3, q2));
+    
+    updateParameters();
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    
+    gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getDelta11, &(*this), _1 ) );
+    gsl_function F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
+    
+    double avaDelta11, errDelta11, avaSigma3, errSigma3;
+    gsl_integration_workspace * w_delta11 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_delta11, &avaDelta11, &errDelta11);
+    gsl_integration_workspace_free (w_delta11);
+    
+    gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_workspace_free (w_sigma3);
+    
+    return - avaDelta11/(4*avaSigma3);
 
 }
 
 
-F_L::F_L(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i), mySM(SM_i) {
+F_L::F_L(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i), mySM(SM_i) {
     lep = lep_i;
 }
 
 double F_L::computeThValue() {
-    GammaPrime myGammaPrime(mySM, q2, lep);
-    return (3.*Sigma(0, q2) - Sigma(2, q2))/(4.*myGammaPrime.computeThValue());
+    
+    updateParameters();
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    
+    gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma0, &(*this), _1 ) );
+    gsl_function F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma2, &(*this), _1 ) );
+    
+    double avaSigma0, errSigma0, avaSigma2, errSigma2;
+    gsl_integration_workspace * w_sigma0 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma0, &avaSigma0, &errSigma0);
+    gsl_integration_workspace_free (w_sigma0);
+    
+    gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma2, &avaSigma2, &errSigma2);
+    gsl_integration_workspace_free (w_sigma2);
+    
+    GammaPrime myGammaPrime(mySM, lep);
+    return (3.*avaSigma0 - avaSigma2)/(4.*myGammaPrime.computeThValue());
 
 }
 
@@ -481,6 +674,35 @@ M_1Prime::M_1Prime(const StandardModel& SM_i, double q2, StandardModel::lepton l
 }
 
 double M_1Prime::computeThValue() {
+    /*
+    updateParameters();
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    
+    gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getHV1, &(*this), _1 ) );
+    gsl_function F2 = convertToGslFunction( boost::bind( &BKstarll::getHV2, &(*this), _1 ) );
+    gsl_function F3 = convertToGslFunction( boost::bind( &BKstarll::getHA1, &(*this), _1 ) );
+    gsl_function F4 = convertToGslFunction( boost::bind( &BKstarll::getHA2, &(*this), _1 ) );
+    
+    double avaHV1, errHV1, avaHV2, errHV2, avaHA1, errHA1, avaHA2, errHA2;
+    gsl_integration_workspace * w_hv1 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_hv1, &avaHV1, &errHV1);
+    gsl_integration_workspace_free (w_hv1);
+    
+    gsl_integration_workspace * w_hv2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_hv1, &avaHV2, &errHV2);
+    gsl_integration_workspace_free (w_hv2);
+    
+    gsl_integration_workspace * w_ha1 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_ha1, &avaHA1, &errHA1);
+    gsl_integration_workspace_free (w_ha1);
+    
+    gsl_integration_workspace * w_ha2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_ha2, &avaHA2, &errHA2);
+    gsl_integration_workspace_free (w_ha2);
+    
+    return ( avaHV1.abs2() + avaHV2.abs2() - avaHA1.abs2() - avaHA2.abs2() )/( 2*( avaHV1.abs2() + avaHV2.abs2() + avaHA1.abs2() + avaHA2.abs2() ) );*/
     return ( H_V(1,q2).abs2() + H_V(2,q2).abs2() - H_A(1,q2).abs2() - H_A(2,q2).abs2() )/( 2*( H_V(1,q2).abs2() + H_V(2,q2).abs2() + H_A(1,q2).abs2() + H_A(2,q2).abs2() ) );
   
 }

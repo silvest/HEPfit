@@ -122,13 +122,13 @@ public:
     double qmin, qmax;
     
     /*lattice fit parameters*/
-    double a_0V, a_1V, c_01V, c_01sV, dmV;
-    double a_0A0, a_1A0, c_01A0, c_01sA0, dmA0;
-    double a_0A1, a_1A1, c_01A1, c_01sA1, dmA1;
-    double a_0A12, a_1A12, c_01A12, c_01sA12, dmA12;
-    double a_0T1, a_1T1, c_01T1, c_01sT1, dmT1;
-    double a_0T2, a_1T2, c_01T2, c_01sT2, dmT2;
-    double a_0T23, a_1T23, c_01T23, c_01sT23, dmT23;
+    double a_0V, a_1V, dmV;
+    double a_0A0, a_1A0, dmA0;
+    double a_0A1, a_1A1, dmA1;
+    double a_0A12, a_1A12, dmA12;
+    double a_0T1, a_1T1, dmT1;
+    double a_0T2, a_1T2, dmT2;
+    double a_0T23, a_1T23, dmT23;
     
     /*LCSR fit parameters*/
     double r_1V, r_2V, m_RV, m_fit2V;
@@ -195,7 +195,7 @@ public:
     * @param[in] q2 q^2 of the decay
     * @return return the lattice pole factor P(q^2,dm) from arXiv:1310.3722v3
     */
-    double lat_fit(double q2, double a_0, double a_1, double c_01, double c_01s, double dm);
+    double lat_fit(double q2, double a_0, double a_1, double dm);
     
     
     /**
@@ -452,6 +452,19 @@ public:
     double Delta(int i, double q2);
     
     
+    double getSigma0(double q2){
+        return Sigma(0, q2);
+    };
+    
+    double getSigma1(double q2){
+        return Sigma(1, q2);
+    };
+    
+    double getSigma2(double q2){
+        return Sigma(2, q2);
+    };
+    
+    
     double getSigma3(double q2){
         return Sigma(3, q2);
     };
@@ -459,6 +472,66 @@ public:
     double getSigma4(double q2){
         return Sigma(4, q2);
     };
+    
+    double getSigma5(double q2){
+        return Sigma(5, q2);
+    };
+    
+    double getSigma6(double q2){
+        return Sigma(6, q2);
+    };
+    
+    double getSigma7(double q2){
+        return Sigma(7, q2);
+    };
+    
+    double getSigma9(double q2){
+        return Sigma(9, q2);
+    };
+    
+    double getSigma11(double q2){
+        return Sigma(11, q2);
+    };
+    
+    double getDelta0(double q2){
+        return Delta(0, q2);
+    };
+    
+    double getDelta1(double q2){
+        return Delta(1, q2);
+    };
+    
+    double getDelta2(double q2){
+        return Delta(2, q2);
+    };
+    
+    
+    double getDelta3(double q2){
+        return Delta(3, q2);
+    };
+    
+    
+    double getDelta11(double q2){
+        return Delta(11, q2);
+    };
+    
+    /*double getHV1(double q2){
+        return H_V(1, q2);
+    };
+    
+    double getHV2(double q2){
+        return H_V(2, q2);
+    };
+    
+    
+    double getHA1(double q2){
+        return H_A(1, q2);
+    };
+    
+    
+    double getHA2(double q2){
+        return H_A(2, q2);
+    };*/
 
 
 private:
@@ -509,12 +582,15 @@ public:
     /**
     * @brief \f$ P_{2} \f$ 
     */
-    P_2(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i = StandardModel::MU);
+    P_2(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable P_2
     */
     double computeThValue ();
+    
+private:
+    gsl_function F1, F2;
 };
 
 
@@ -532,12 +608,15 @@ public:
     /**
     * @brief \f$ P_{3} \f$ 
     */
-    P_3(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i = StandardModel::MU);
+    P_3(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable P_3
     */
     double computeThValue ();
+    
+private:
+    gsl_function F1, F2;
 };
 
 
@@ -555,12 +634,15 @@ public:
     /**
     * @brief \f$ P'_{4} \f$ 
     */
-    P_4Prime(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i = StandardModel::MU);
+    P_4Prime(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable P'_4
     */
     double computeThValue ();
+    
+private:
+    gsl_function F1, F2, F3;
 };
 
 
@@ -579,12 +661,15 @@ public:
     * @brief \f$ P'_{5} \f$ 
     */
 
-    P_5Prime(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i = StandardModel::MU);
+    P_5Prime(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable P'_5
     */
     double computeThValue ();
+    
+private:
+    gsl_function F1, F2, F3;
 };
 
 
@@ -602,12 +687,15 @@ public:
     /**
     * @brief \f$ P'_{6} \f$ 
     */
-    P_6Prime(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i = StandardModel::MU);
+    P_6Prime(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
 
     /**
     * @return return the clean observable P'_6
     */
     double computeThValue ();
+    
+private:
+    gsl_function F1, F2, F3;
 };
 
 
@@ -625,12 +713,15 @@ public:
     /**
     * @brief \f$ Gamma' \f$ 
     */
-    GammaPrime(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i = StandardModel::MU);
+    GammaPrime(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable Gamma'
     */
     double computeThValue ();
+    
+private:
+    gsl_function F1, F2, F3, F4;
 };
 
 
@@ -648,7 +739,7 @@ public:
     /**
     * @brief \f$ A_{CP} \f$ 
     */
-    ACP(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i = StandardModel::MU);
+    ACP(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable ACP
@@ -657,6 +748,9 @@ public:
     
     const StandardModel& mySM;
     StandardModel::lepton lep;
+    
+private:
+    gsl_function F1, F2, F3, F4;
 };
 
 
@@ -674,12 +768,15 @@ public:
     /**
     * @brief \f$ P_3^{CP} \f$ 
     */
-    P3CP(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i = StandardModel::MU);
+    P3CP(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
     * @return return the clean observable P3CP
     */
     double computeThValue ();
+    
+private:
+    gsl_function F1, F2;
 };
 
 
@@ -697,7 +794,7 @@ public:
     /**
     * @brief \f$ F_L \f$ 
     */
-    F_L(const StandardModel& SM_i, double q2, StandardModel::lepton lep_i = StandardModel::MU);
+    F_L(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
 
     
     /**
@@ -707,6 +804,9 @@ public:
     
     const StandardModel& mySM;
     StandardModel::lepton lep;
+    
+private:
+    gsl_function F1, F2;
 };
 
 
@@ -730,6 +830,9 @@ public:
     * @return return the clean observable M'_1
     */
     double computeThValue ();
+    
+private:
+    gsl_function F1, F2, F3, F4;
 };
 
 
