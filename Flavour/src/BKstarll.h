@@ -516,7 +516,7 @@ public:
     * @return return the CP average Sigma_7
     */
     double getSigma7(double q2){
-        return Sigma(7, q2);
+        return I(7,q2,0);//Sigma(7, q2);
     };
     
     /**
@@ -873,8 +873,8 @@ public:
     
 private:
     gsl_function F1, F2, F3, F4;
-    gsl_function F5, F6, F7, F8;
-    double myGammaPrime;
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
 };
 
 
@@ -928,8 +928,8 @@ public:
     
 private:
     gsl_function F1, F2;
-    gsl_function F3,F4;
-    double myGammaPrime;
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
 };
 
 

@@ -404,7 +404,7 @@ double BKstarll::I(int i, double q2, int bar) {
                 return F(q2,b)*( beta(q2)/2*( ( (H_V(2,q2,bar) - H_V(1,q2,bar))*H_A(0,q2,bar).conjugate() ).real()  +  ( (H_A(2,q2,bar) - H_A(1,q2,bar))*H_V(0,q2,bar).conjugate() ).real() )  -
                                 beta(q2)*Mm/sqrt(q2)*( H_S(q2,bar).conjugate()*(H_V(1,q2,bar) + H_V(2,q2,bar)) ).real() );
             case 7:
-                return F(q2,b)*beta(q2)*( H_V(2,q2,bar)*H_A(2,q2,bar).conjugate() - H_V(1,q2,bar)*H_A(1,q2,bar).conjugate() ).real();
+                return F(q2,b)*beta(q2)*( H_V(2,q2,bar)*(H_A(2,q2,bar).conjugate()) - H_V(1,q2,bar)*(H_A(1,q2,bar).conjugate()) ).real();
             case 8:
                 return 2*F(q2,b)*beta(q2)*Mm/sqrt(q2)*( H_S(q2,bar).conjugate()*H_V(0,q2,bar) ).real();
             case 9:
@@ -655,12 +655,13 @@ double GammaPrime::computeThValue() {
     gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
     gsl_integration_workspace_free (w_sigma3);
     
-    return ((3.*avaSigma0 - avaSigma2) + 2.*(3*avaSigma1 - avaSigma3))/4.;
+    return ((3.*avaSigma0 - avaSigma2) + 2.*(3.*avaSigma1 - avaSigma3))/4.;
 
 }
 
 
-ACP::ACP(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) { 
+ACP::ACP(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i), mySM(SM_i) {
+    lep = lep_i;
 }
 
 double ACP::computeThValue() {
@@ -692,31 +693,11 @@ double ACP::computeThValue() {
     gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_delta3, &avaDelta3, &errDelta3);
     gsl_integration_workspace_free (w_delta3);
     
-    gsl_function F5 = convertToGslFunction( boost::bind( &BKstarll::getSigma0, &(*this), _1 ) );
-    gsl_function F6 = convertToGslFunction( boost::bind( &BKstarll::getSigma1, &(*this), _1 ) );
-    gsl_function F7 = convertToGslFunction( boost::bind( &BKstarll::getSigma2, &(*this), _1 ) );
-    gsl_function F8 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
-    
-    double avaSigma0, errSigma0, avaSigma1, errSigma1, avaSigma2, errSigma2, avaSigma3, errSigma3;
-    gsl_integration_workspace * w_sigma0 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F5, q_min, q_max, 0, 1e-7, 1000, w_sigma0, &avaSigma0, &errSigma0);
-    gsl_integration_workspace_free (w_sigma0);
-
-    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F6, q_min, q_max, 0, 1e-7, 1000, w_sigma1, &avaSigma1, &errSigma1);
-    gsl_integration_workspace_free (w_sigma1);
-    
-    gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F7, q_min, q_max, 0, 1e-7, 1000, w_sigma2, &avaSigma2, &errSigma2);
-    gsl_integration_workspace_free (w_sigma2);
-    
-    gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F8, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
-    gsl_integration_workspace_free (w_sigma3);
-    
-    myGammaPrime = ((3.*avaSigma0 - avaSigma2) + 2.*(3*avaSigma1 - avaSigma3))/4.;
-    
-    return (3*avaDelta0 - avaDelta2 + 2 * ( 3*avaDelta1 - avaDelta3 ) )/(4.*myGammaPrime);
+    GammaPrime myGammaPrime(mySM, lep);
+    myGammaPrime.setBinMin(q_min);
+    myGammaPrime.setBinMax(q_max);
+            
+    return (3.*avaDelta0 - avaDelta2 + 2. * ( 3*avaDelta1 - avaDelta3 ) )/(4.*myGammaPrime.computeThValue());
 
 }
 
@@ -733,22 +714,23 @@ double P3CP::computeThValue() {
     
     gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getDelta11, &(*this), _1 ) );
     gsl_function F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
-    
+
     double avaDelta11, errDelta11, avaSigma3, errSigma3;
     gsl_integration_workspace * w_delta11 = gsl_integration_workspace_alloc (1000);
     gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_delta11, &avaDelta11, &errDelta11);
     gsl_integration_workspace_free (w_delta11);
-    
+
     gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
     gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
     gsl_integration_workspace_free (w_sigma3);
-    
-    return - avaDelta11/(4*avaSigma3);
+
+    return - avaDelta11/(4.*avaSigma3);
 
 }
 
 
-F_L::F_L(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {
+F_L::F_L(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) , mySM(SM_i) {
+    lep = lep_i;
 }
 
 double F_L::computeThValue() {
@@ -770,22 +752,11 @@ double F_L::computeThValue() {
     gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma2, &avaSigma2, &errSigma2);
     gsl_integration_workspace_free (w_sigma2);
     
-    gsl_function F3 = convertToGslFunction( boost::bind( &BKstarll::getSigma1, &(*this), _1 ) );
-    gsl_function F4 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
+    GammaPrime myGammaPrime(mySM, lep);
+    myGammaPrime.setBinMin(q_min);
+    myGammaPrime.setBinMax(q_max);
     
-    double avaSigma1, errSigma1, avaSigma3, errSigma3;
-
-    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_sigma1, &avaSigma1, &errSigma1);
-    gsl_integration_workspace_free (w_sigma1);
-    
-    gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
-    gsl_integration_workspace_free (w_sigma3);
-    
-    myGammaPrime = ((3.*avaSigma0 - avaSigma2) + 2.*(3*avaSigma1 - avaSigma3))/4.;
-    
-    return (3.*avaSigma0 - avaSigma2)/(4.*myGammaPrime);
+    return (3.*avaSigma0 - avaSigma2)/(4.*myGammaPrime.computeThValue());
 
 }
 

@@ -1027,11 +1027,17 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
             for (int j=0; j<13; j++){
             mcBKstarll.setCoeff(j, SM.Als(Muw, FULLNLO) / 4. / M_PI * setWCBKstarll(j, xt,  NLO) , NLO);
             }
+            /*mcBKstarll.setCoeff(6, 0. , NLO);
+            mcBKstarll.setCoeff(8, 0. , NLO);
+            mcBKstarll.setCoeff(9, 0. , NLO);*/
             std::cout<<std::endl;
         case LO:
             for (int j=0; j<13; j++){
             mcBKstarll.setCoeff(j, setWCBKstarll(j, xt,  LO), LO);
             }
+            /*mcBKstarll.setCoeff(6, -0.305 , LO);
+            mcBKstarll.setCoeff(8, 4.24 , LO);
+            mcBKstarll.setCoeff(9, -4.312 , LO);*/
             break;
         default:
             std::stringstream out;
