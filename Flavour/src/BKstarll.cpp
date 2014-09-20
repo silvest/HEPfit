@@ -85,7 +85,7 @@ void BKstarll::updateParameters(){
     
     b=1.;                           //please check
     
-    allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(Mb);   //check the mass scale, scheme fixed to NDR
+    allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(Mb);   //check the mass scale, scheme fixed to NDR    mySM.getMuw()
     allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBKstarll(Mb);   //check the mass scale, scheme fixed to NDR
 }
 
@@ -193,13 +193,13 @@ double BKstarll::V_L(int i, double q2){
     switch (i){
         case 0:
             if (q2 < CUTOFF)
-                return 1 / ( 4*MKstar*MB*(MB + MKstar)*sqrt(q2) ) * ( pow((MB + MKstar),2)*(MB*MB - q2 - MKstar*MKstar)*A_1(q2) - lambda(q2)*A_2(q2) );
+                return 1. / ( 4*MKstar*MB*(MB + MKstar)*sqrt(q2) ) * ( pow((MB + MKstar),2)*(MB*MB - q2 - MKstar*MKstar)*A_1(q2) - lambda(q2)*A_2(q2) );
             else
                 return 4*MKstar/sqrt(q2)*lat_fit(q2, a_0A12, a_1A12, dmA12);
         case 1:
-            return 1/2 * ( ( 1 + MKstar/MB)*A_1(q2) - sqrt(lambda(q2))/ ( MB* (MB + MKstar) ) * V(q2) );
+            return 1./2. * ( ( 1. + MKstar/MB)*A_1(q2) - sqrt(lambda(q2))/ ( MB* (MB + MKstar) ) * V(q2) );
         case 2:
-            return 1/2 * ( ( 1 + MKstar/MB)*A_1(q2) + sqrt(lambda(q2))/ ( MB* (MB + MKstar) ) * V(q2) );
+            return 1./2. * ( ( 1. + MKstar/MB)*A_1(q2) + sqrt(lambda(q2))/ ( MB* (MB + MKstar) ) * V(q2) );
         default:
             std::stringstream out;
             out << i;
@@ -220,13 +220,13 @@ double BKstarll::T_L(int i, double q2){
     switch (i){
         case 0:
             if (q2 < CUTOFF)
-                return sqrt(q2)/(4*MB*MB*MKstar) * ( ( MB*MB+ 3*MKstar*MKstar - q2 ) * T_2(q2) - lambda(q2) / (MB*MB - MKstar*MKstar) * T_3(q2) );
+                return sqrt(q2)/(4.*MB*MB*MKstar) * ( ( MB*MB+ 3.*MKstar*MKstar - q2 ) * T_2(q2) - lambda(q2) / (MB*MB - MKstar*MKstar) * T_3(q2) );
             else
                 return 2*sqrt(q2)*MKstar/(MB + MKstar)*lat_fit(q2, a_0T23, a_1T23, dmT23);
         case 1:
-            return (MB*MB - MKstar*MKstar) / ( 2*MB*MB ) * T_2(q2) - sqrt(lambda(q2)) / ( 2*MB*MB ) * T_1(q2);
+            return (MB*MB - MKstar*MKstar) / ( 2.*MB*MB ) * T_2(q2) - sqrt(lambda(q2)) / ( 2.*MB*MB ) * T_1(q2);
         case 2:
-            return (MB*MB - MKstar*MKstar) / ( 2*MB*MB ) * T_2(q2) + sqrt(lambda(q2)) / ( 2*MB*MB ) * T_1(q2);
+            return (MB*MB - MKstar*MKstar) / ( 2.*MB*MB ) * T_2(q2) + sqrt(lambda(q2)) / ( 2.*MB*MB ) * T_1(q2);
         default:
             std::stringstream out;
             out << i;
@@ -387,10 +387,10 @@ double BKstarll::I(int i, double q2, int bar) {
     if (i < 10) {
         switch (i){
             case 0:
-                return F(q2,b)*( ( H_V(0,q2,bar).abs2() + H_A(0,q2,bar).abs2() )/2  +  H_P(q2,bar).abs2()  +  2*Mm2/q2*( H_V(0,q2,bar).abs2() - H_A(0,q2,bar).abs2() )  +
-                                beta2*H_S(q2,bar).abs2() );
+                return F(q2,b)*( ( H_V(0,q2,bar).abs2() + H_A(0,q2,bar).abs2() )/2  +  H_P(q2,bar).abs2()  +  2*Mm2/q2*( H_V(0,q2,bar).abs2() 
+                        - H_A(0,q2,bar).abs2() )  + beta2*H_S(q2,bar).abs2() );
             case 1:
-                return F(q2,b)*( (beta2 + 2)/8*( H_V(1,q2,bar).abs2() + H_V(2,q2,bar).abs2() + H_A(1,q2,bar).abs2() + H_A(2,q2,bar).abs2() )  +
+                return F(q2,b)*( (beta2 + 2.)/8.*( H_V(1,q2,bar).abs2() + H_V(2,q2,bar).abs2() + H_A(1,q2,bar).abs2() + H_A(2,q2,bar).abs2() )  +
                                 Mm2/q2*( H_V(1,q2,bar).abs2() + H_V(2,q2,bar).abs2() - H_A(1,q2,bar).abs2() - H_A(2,q2,bar).abs2() ) );
             case 2:
                 return -F(q2,b)*beta2/2*( H_V(0,q2,bar).abs2() + H_A(0,q2,bar).abs2() );
