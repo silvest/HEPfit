@@ -10,6 +10,8 @@
 #include <stdexcept>
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string/predicate.hpp>
+#include <chrono>
+#include <thread>
 #include <iostream>
 
 InputParser::InputParser(ModelFactory& ModF, ThObsFactory& ObsF) : myModelFactory(ModF), myObsFactory(ObsF)
@@ -115,16 +117,26 @@ std::string InputParser::ReadParameters(const std::string filename,
             ++beg;
             std::string distr = *beg;
             if (distr.compare("file") == 0) {
+                if (std::distance(tok.begin(), tok.end()) < 10)
+                throw std::runtime_error("ERROR: lack of information on "
+                    + *beg + " in " + filename);
                 std::string fname = *(++beg);
                 std::string histoname = *(++beg);
                 o->setLikelihoodFromHisto(fname, histoname);
             } else if (distr.compare("weight") == 0) {
+                if (std::distance(tok.begin(), tok.end()) < 11)
+                throw std::runtime_error("ERROR: lack of information on "
+                    + *beg + " in " + filename);
                 ++beg;
                 o->setAve(atof((*beg).c_str()));
                 ++beg;
                 o->setErrg(atof((*beg).c_str()));
                 ++beg;
                 o->setErrf(atof((*beg).c_str()));
+                if (o->getErrf() == 0. & o->getErrg() == 0){
+                    std::cout << "\nWARNING: The Gaussian and flat error in weight for " + o->getName() + " cannot both be 0. in the" + filename + " file.\n" << std::endl;
+                    std::this_thread::sleep_for( std::chrono::seconds( 5 ) );
+                }                
             } else if (distr.compare("noweight") == 0) {
             } else
                 throw std::runtime_error("ERROR: wrong distribution flag in " + o->getName());
@@ -135,23 +147,33 @@ std::string InputParser::ReadParameters(const std::string filename,
                 std::cout << "WARNING: unread information in observable "
                     << Observables.back().getName() << std::endl;
         } else if (type.compare("BinnedObservable") == 0) {
-            if (std::distance(tok.begin(), tok.end()) < 11)
+            if (std::distance(tok.begin(), tok.end()) < 10)
                 throw std::runtime_error("ERROR: lack of information on "
                     + *beg + " in " + filename);
             Observable * bo = new Observable(ParseObservable(beg));
             ++beg;
             std::string distr = *beg;
             if (distr.compare("file") == 0) {
+                if (std::distance(tok.begin(), tok.end()) < 12)
+                throw std::runtime_error("ERROR: lack of information on "
+                    + *beg + " in " + filename);
                 std::string fname = *(++beg);
                 std::string histoname = *(++beg);
                 bo->setLikelihoodFromHisto(fname, histoname);
             } else if (distr.compare("weight") == 0) {
+                if (std::distance(tok.begin(), tok.end()) < 13)
+                throw std::runtime_error("ERROR: lack of information on "
+                    + *beg + " in " + filename);
                 ++beg;
                 bo->setAve(atof((*beg).c_str()));
                 ++beg;
                 bo->setErrg(atof((*beg).c_str()));
                 ++beg;
                 bo->setErrf(atof((*beg).c_str()));
+                if (bo->getErrf() == 0. & bo->getErrg() == 0) {
+                    std::cout << "\nWARNING: The Gaussian and flat error in weight for " + bo->getName() + " cannot both be 0. in the" + filename + " file.\n" << std::endl;
+                    std::this_thread::sleep_for( std::chrono::seconds( 5 ) );
+                }
             } else if (distr.compare("noweight") == 0) {
             } else
                 throw std::runtime_error("ERROR: wrong distribution flag in " + bo->getName());
@@ -173,6 +195,9 @@ std::string InputParser::ReadParameters(const std::string filename,
             ++beg;
             std::string distr = *beg;
             if (distr.compare("file") == 0) {
+                if (std::distance(tok.begin(), tok.end()) < 14)
+                throw std::runtime_error("ERROR: lack of information on "
+                    + *beg + " in " + filename);
                 std::string fname = *(++beg);
                 std::string histoname = *(++beg);
                 o2.setLikelihoodFromHisto(fname, histoname);

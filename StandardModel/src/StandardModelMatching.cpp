@@ -1028,7 +1028,6 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
             for (int j=0; j<13; j++){
             mcBKstarll.setCoeff(j, co * SM.Als(Muw, FULLNLO) / 4. / M_PI * setWCBKstarll(j, xt,  NLO) , NLO);
             }
-            std::cout<<std::endl;
         case LO:
             for (int j=0; j<13; j++){
             mcBKstarll.setCoeff(j, co * setWCBKstarll(j, xt,  LO), LO);
@@ -1127,7 +1126,6 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
             for (int j=0; j<13; j++){
             mcprimeBKstarll.setCoeff(j, 0., NLO);
             }
-            std::cout<<std::endl;
         case LO:
             for (int j=0; j<13; j++){
             mcprimeBKstarll.setCoeff(j, 0., LO);

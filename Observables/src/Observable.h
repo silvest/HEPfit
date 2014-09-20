@@ -51,7 +51,7 @@ public:
     /**
      * @brief The default destructor.
      */
-    //virtual ~Observable();
+    virtual ~Observable();
     
     /**
      * @brief A method to access the computed theory value of the observable.
@@ -63,6 +63,16 @@ public:
      * @param[in] th the theoretical value of the observable
      */
     virtual double computeWeight(double th);
+    
+    /**
+     * @brief A method to compute the weight associated with the observable.
+     * @param[in] th1 the theoretical value of the first observable
+     * @param[in] th2 the theoretical value of the second observable
+     */
+    virtual double computeWeight(double th1, double th2)
+    {
+        return 0.0;
+    };
 
     /**
      * @brief A method to compute the weight associated with the observable.
@@ -169,6 +179,14 @@ public:
     {
         this->filename=filename; //real implementation will be done in extension
     }
+    
+    /**
+     * Set the parametric likelihood to be overloaded by HiggsObservable.
+     * @param filename the name of the config file
+     * @param thObsV a vector of ThObservables
+     */
+    virtual void setParametricLikelihood(std::string filename, std::vector<ThObservable*> thObsV)
+    {};
 
     /**
      * @brief A get method to access the name for the histogram of the observable.
