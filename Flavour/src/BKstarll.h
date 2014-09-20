@@ -336,34 +336,38 @@ public:
     * @brief \f$ H_V(\lambda) \f$ 
     * @param[in] i polarization lambda
     * @param[in] q2 q^2 of the decay
+    * @param[in] bar index to choose betwen regular coefficient (bar=0) and conjugated coefficient (bar=1)
     * @return return the helicity amplitude H_V(lambda)
     */
-    gslpp::complex H_V(int i, double q2);
+    gslpp::complex H_V(int i, double q2, int bar);
 
 
     /**
     * @brief \f$ H_A(\lambda) \f$ 
     * @param[in] i polarization lambda
     * @param[in] q2 q^2 of the decay
+    * @param[in] bar index to choose betwen regular coefficient (bar=0) and conjugated coefficient (bar=1)
     * @return return the helicity amplitude H_A(lambda)
     */
-    gslpp::complex H_A(int i, double q2);
+    gslpp::complex H_A(int i, double q2, int bar);
 
 
     /**
     * @brief \f$ H_S \f$ 
     * @param[in] q2 q^2 of the decay
+    * @param[in] bar index to choose betwen regular coefficient (bar=0) and conjugated coefficient (bar=1)
     * @return return the helicity amplitude H_S
     */
-    gslpp::complex H_S(double q2);
+    gslpp::complex H_S(double q2, int bar);
 
 
     /**
     * @brief \f$ H_P \f$ 
     * @param[in] q2 q^2 of the decay
+    * @param[in] bar index to choose betwen regular coefficient (bar=0) and conjugated coefficient (bar=1)
     * @return return the helicity amplitude H_P
     */
-    gslpp::complex H_P(double q2);
+    gslpp::complex H_P(double q2, int bar);
     
     
     /**
@@ -420,18 +424,10 @@ public:
     * @brief \f$ I_{i} \f$ 
     * @param[in] i index of the angular coefficient
     * @param[in] q2 q^2 of the decay
+    * @param[in] bar index to choose betwen regular coefficient (bar=0) and conjugated coefficient (bar=1)
     * @return return the angular coefficient I_i
     */
-    double  I(int i, double q2);
-    
-    
-    /**
-    * @brief \f$ I_{i} \f$ 
-    * @param[in] i index of the angular coefficient
-    * @param[in] q2 q^2 of the decay
-    * @return return the angular coefficient \bar{I}_i
-    */
-    double I_bar(int i, double q2);
+    double  I(int i, double q2, int bar);
     
     
     /**
@@ -592,7 +588,7 @@ public:
     * @return return the square of the absolute value of the helicity amplitude H_V(0)
     */
     double getHV0_abs2(double q2){
-        return H_V(0, q2).abs2();
+        return H_V(0, q2, 0).abs2();
     };
     
     /**
@@ -601,7 +597,7 @@ public:
     * @return return the square of the absolute value of the helicity amplitude H_V(1)
     */
     double getHV1_abs2(double q2){
-        return H_V(1, q2).abs2();
+        return H_V(1, q2, 0).abs2();
     };
     
     /**
@@ -610,7 +606,7 @@ public:
     * @return return the square of the absolute value of the helicity amplitude H_V(2)
     */
     double getHV2_abs2(double q2){
-        return H_V(2, q2).abs2();
+        return H_V(2, q2, 0).abs2();
     };
     
     /**
@@ -619,7 +615,7 @@ public:
     * @return return the square of the absolute value of the helicity amplitude H_A(0)
     */
     double getHA0_abs2(double q2){
-        return H_A(0, q2).abs2();
+        return H_A(0, q2, 0).abs2();
     };
     
     /**
@@ -628,7 +624,7 @@ public:
     * @return return the square of the absolute value of the helicity amplitude H_A(1)
     */
     double getHA1_abs2(double q2){
-        return H_A(1, q2).abs2();
+        return H_A(1, q2, 0).abs2();
     };
     
     /**
@@ -637,7 +633,7 @@ public:
     * @return return the square of the absolute value of the helicity amplitude H_A(2)
     */
     double getHA2_abs2(double q2){
-        return H_A(2, q2).abs2();
+        return H_A(2, q2, 0).abs2();
     };
     
     /**
@@ -646,7 +642,7 @@ public:
     * @return return the square of the absolute value of the helicity amplitude H_S
     */
     double getHS_abs2(double q2){
-        return H_S(q2).abs2();
+        return H_S(q2, 0).abs2();
     }
     
     /**
@@ -655,7 +651,7 @@ public:
     * @return return the square of the absolute value of the helicity amplitude H_P
     */
     double getHP_abs2(double q2){
-        return H_P(q2).abs2();
+        return H_P(q2, 0).abs2();
     }
     
     
@@ -877,8 +873,8 @@ public:
     
 private:
     gsl_function F1, F2, F3, F4;
-    gsl_function F5, F6, F7, F8;
-    double myGammaPrime;
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
 };
 
 
@@ -932,8 +928,8 @@ public:
     
 private:
     gsl_function F1, F2;
-    gsl_function F3,F4;
-    double myGammaPrime;
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
 };
 
 

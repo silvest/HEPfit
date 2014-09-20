@@ -10,8 +10,6 @@
 #include <stdexcept>
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string/predicate.hpp>
-#include <chrono>
-#include <thread>
 #include <iostream>
 
 InputParser::InputParser(ModelFactory& ModF, ThObsFactory& ObsF) : myModelFactory(ModF), myObsFactory(ObsF)
@@ -135,7 +133,6 @@ std::string InputParser::ReadParameters(const std::string filename,
                 o->setErrf(atof((*beg).c_str()));
                 if (o->getErrf() == 0. & o->getErrg() == 0){
                     std::cout << "\nWARNING: The Gaussian and flat error in weight for " + o->getName() + " cannot both be 0. in the" + filename + " file.\n" << std::endl;
-                    std::this_thread::sleep_for( std::chrono::seconds( 5 ) );
                 }                
             } else if (distr.compare("noweight") == 0) {
             } else
@@ -172,7 +169,6 @@ std::string InputParser::ReadParameters(const std::string filename,
                 bo->setErrf(atof((*beg).c_str()));
                 if (bo->getErrf() == 0. & bo->getErrg() == 0) {
                     std::cout << "\nWARNING: The Gaussian and flat error in weight for " + bo->getName() + " cannot both be 0. in the" + filename + " file.\n" << std::endl;
-                    std::this_thread::sleep_for( std::chrono::seconds( 5 ) );
                 }
             } else if (distr.compare("noweight") == 0) {
             } else
