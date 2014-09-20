@@ -32,7 +32,7 @@ void BKstarll::updateParameters(){
     Mb=mySM.getQuarks(QCD::BOTTOM).getMass();
     Ms=mySM.getQuarks(QCD::STRANGE).getMass();
     MW=mySM.Mw();
-    lambda_t=mySM.computelamt();
+    lambda_t=mySM.computelamt_s();
     
     a_0V=mySM.geta_0V();
     a_1V=mySM.geta_1V();
@@ -121,8 +121,7 @@ double BKstarll::z(double q2){
 
 
 double BKstarll::lat_fit(double q2, double a_0, double a_1, double dm){
-    double P = 1 - q2/pow(MB + dm,2);
-    return 1 / P * ( a_0 + a_1*z(q2) );
+    return 1 / (1 - q2/pow(MB + dm,2)) * ( a_0 + a_1*z(q2) );
 }
 
 
@@ -192,52 +191,54 @@ double BKstarll::T_3(double q2){
 
 double BKstarll::V_L(int i, double q2){
     switch (i){
-        case '0':
+        case 0:
             if (q2 < CUTOFF)
                 return 1 / ( 4*MKstar*MB*(MB + MKstar)*sqrt(q2) ) * ( pow((MB + MKstar),2)*(MB*MB - q2 - MKstar*MKstar)*A_1(q2) - lambda(q2)*A_2(q2) );
             else
                 return 4*MKstar/sqrt(q2)*lat_fit(q2, a_0A12, a_1A12, dmA12);
-        case '1':
+        case 1:
             return 1/2 * ( ( 1 + MKstar/MB)*A_1(q2) - sqrt(lambda(q2))/ ( MB* (MB + MKstar) ) * V(q2) );
-        case '2':
+        case 2:
             return 1/2 * ( ( 1 + MKstar/MB)*A_1(q2) + sqrt(lambda(q2))/ ( MB* (MB + MKstar) ) * V(q2) );
         default:
             std::stringstream out;
             out << i;
-            throw std::runtime_error("I: index " + out.str() + "not implemented");
+            throw std::runtime_error("I: index " + out.str() + " not implemented");
     }
 }
 
 
 
 double BKstarll::V_R(int i, double q2){
-    return -V_L(-i,q2);
+    if (i != 0) i=3-i;
+    return -V_L(i,q2);
 }
 
 
 
 double BKstarll::T_L(int i, double q2){
     switch (i){
-        case '0':
+        case 0:
             if (q2 < CUTOFF)
                 return sqrt(q2)/(4*MB*MB*MKstar) * ( ( MB*MB+ 3*MKstar*MKstar - q2 ) * T_2(q2) - lambda(q2) / (MB*MB - MKstar*MKstar) * T_3(q2) );
             else
                 return 2*sqrt(q2)*MKstar/(MB + MKstar)*lat_fit(q2, a_0T23, a_1T23, dmT23);
-        case '1':
+        case 1:
             return (MB*MB - MKstar*MKstar) / ( 2*MB*MB ) * T_2(q2) - sqrt(lambda(q2)) / ( 2*MB*MB ) * T_1(q2);
-        case '2':
+        case 2:
             return (MB*MB - MKstar*MKstar) / ( 2*MB*MB ) * T_2(q2) + sqrt(lambda(q2)) / ( 2*MB*MB ) * T_1(q2);
         default:
             std::stringstream out;
             out << i;
-            throw std::runtime_error("I: index " + out.str() + "not implemented");
+            throw std::runtime_error("I: index " + out.str() + " not implemented");
     }
 }
 
 
 
 double BKstarll::T_R(int i, double q2){
-    return -T_L(-i,q2);
+    if (i != 0) i=3-i;
+    return -T_L(i,q2);
 }
 
 
@@ -329,46 +330,47 @@ double BKstarll::I(int i, double q2) {
     
     if (i < 10) {
         switch (i){
-            case '0':
+            case 0:
                 return F(q2,b)*( ( H_V(0,q2).abs2() + H_A(0,q2).abs2() )/2  +  H_P(q2).abs2()  +  2*Mm2/q2*( H_V(0,q2).abs2() - H_A(0,q2).abs2() )  +
                                 beta2*H_S(q2).abs2() );
-            case '1':
+            case 1:
                 return F(q2,b)*( (beta2 + 2)/8*( H_V(1,q2).abs2() + H_V(2,q2).abs2() + H_A(1,q2).abs2() + H_A(2,q2).abs2() )  +
                                 Mm2/q2*( H_V(1,q2).abs2() + H_V(2,q2).abs2() - H_A(1,q2).abs2() - H_A(2,q2).abs2() ) );
-            case '2':
+            case 2:
                 return -F(q2,b)*beta2/2*( H_V(0,q2).abs2() + H_A(0,q2).abs2() );
-            case '3':
+            case 3:
                 return F(q2,b)*beta2/8*( H_V(1,q2).abs2() + H_V(2,q2).abs2()  +  H_A(1,q2).abs2() + H_A(2,q2).abs2() );
-            case '4':
+            case 4:
                 return -F(q2,b)/2*( ( H_V(1,q2)*H_V(2,q2).conjugate() ).real()  +  ( H_A(1,q2)*H_A(2,q2).conjugate() ).real() );
-            case '5':
+            case 5:
                 return F(q2,b)*beta2/4*( ( (H_V(2,q2) + H_V(1,q2))*H_V(0,q2).conjugate() ).real()  +  ( (H_A(2,q2) + H_A(1,q2))*H_A(0,q2).conjugate() ).real() );
-            case '6':
+            case 6:
                 return F(q2,b)*( beta(q2)/2*( ( (H_V(2,q2) - H_V(1,q2))*H_A(0,q2).conjugate() ).real()  +  ( (H_A(2,q2) - H_A(1,q2))*H_V(0,q2).conjugate() ).real() )  -
                                 beta(q2)*Mm/sqrt(q2)*( H_S(q2).conjugate()*(H_V(1,q2) + H_V(2,q2)) ).real() );
-            case '7':
+            case 7:
                 return F(q2,b)*beta(q2)*( H_V(2,q2)*H_A(2,q2).conjugate() - H_V(1,q2)*H_A(1,q2).conjugate() ).real();
-            case '8':
+            case 8:
                 return 2*F(q2,b)*beta(q2)*Mm/sqrt(q2)*( H_S(q2).conjugate()*H_V(0,q2) ).real();
-            case '9':
+            case 9:
                 return F(q2,b)*( beta(q2)/2*( ( (H_V(2,q2) + H_V(1,q2))*H_A(0,q2).conjugate() ).imag()  +  ( (H_A(2,q2) + H_A(1,q2))*H_V(0,q2).conjugate() ).imag() )  -
                                 beta(q2)*Mm/sqrt(q2)*( H_S(q2).conjugate()*(H_V(2,q2) - H_V(1,q2)) ).imag() );
+            
             default:
                 std::stringstream out;
                 out << i;
-                throw std::runtime_error("I: index " + out.str() + "not implemented");
+                throw std::runtime_error("I: index " + out.str() + " not implemented");
         }
     } else {
         int j = i - 10;
         switch (j) {
-            case '0':
+            case 0:
                 return F(q2,b)*beta2/4*( ( (H_V(2,q2) - H_V(1,q2))*H_V(0,q2).conjugate() ).imag()  +  ( (H_A(2,q2) - H_A(1,q2))*H_A(0,q2).conjugate() ).imag() );
-            case '1':
+            case 1:
                 return F(q2,b)*beta2/2*( ( H_V(1,q2)*H_V(2,q2).conjugate() ).imag()  +  ( H_A(1,q2)*H_A(2,q2).conjugate() ).imag() );
             default:
                 std::stringstream out;
                 out << j + 10;
-                throw std::runtime_error("I: index " + out.str() + "not implemented");
+                throw std::runtime_error("I: index " + out.str() + " not implemented");
         }
     }
 }
@@ -388,7 +390,7 @@ double BKstarll::I_bar(int i, double q2) {
     else{
         std::stringstream out;
         out << i;
-        throw std::runtime_error("I: index " + out.str() + "not implemented");
+        throw std::runtime_error("I: index " + out.str() + " not implemented");
     }   
 }
 
@@ -433,7 +435,7 @@ double P_1::computeThValue() {
     gsl_integration_workspace * w_sigma4 = gsl_integration_workspace_alloc (1000);
     gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma4, &avaSigma4, &errSigma4);
     gsl_integration_workspace_free (w_sigma4);
-    
+
     return avaSigma4/(2.*avaSigma3);
 }
 
@@ -604,7 +606,7 @@ double GammaPrime::computeThValue() {
     gsl_integration_workspace * w_sigma0 = gsl_integration_workspace_alloc (1000);
     gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma0, &avaSigma0, &errSigma0);
     gsl_integration_workspace_free (w_sigma0);
-    
+
     gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (1000);
     gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma1, &avaSigma1, &errSigma1);
     gsl_integration_workspace_free (w_sigma1);
@@ -622,8 +624,7 @@ double GammaPrime::computeThValue() {
 }
 
 
-ACP::ACP(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i), mySM(SM_i) { 
-    lep = lep_i;
+ACP::ACP(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) { 
 }
 
 double ACP::computeThValue() {
@@ -655,9 +656,31 @@ double ACP::computeThValue() {
     gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_delta3, &avaDelta3, &errDelta3);
     gsl_integration_workspace_free (w_delta3);
     
-    GammaPrime myGammaPrime(mySM, lep);
+    gsl_function F5 = convertToGslFunction( boost::bind( &BKstarll::getSigma0, &(*this), _1 ) );
+    gsl_function F6 = convertToGslFunction( boost::bind( &BKstarll::getSigma1, &(*this), _1 ) );
+    gsl_function F7 = convertToGslFunction( boost::bind( &BKstarll::getSigma2, &(*this), _1 ) );
+    gsl_function F8 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
     
-    return (3*avaDelta0 - avaDelta2 + 2 * ( 3*avaDelta1 - avaDelta3 ) )/(4.*myGammaPrime.computeThValue());
+    double avaSigma0, errSigma0, avaSigma1, errSigma1, avaSigma2, errSigma2, avaSigma3, errSigma3;
+    gsl_integration_workspace * w_sigma0 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F5, q_min, q_max, 0, 1e-7, 1000, w_sigma0, &avaSigma0, &errSigma0);
+    gsl_integration_workspace_free (w_sigma0);
+
+    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F6, q_min, q_max, 0, 1e-7, 1000, w_sigma1, &avaSigma1, &errSigma1);
+    gsl_integration_workspace_free (w_sigma1);
+    
+    gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F7, q_min, q_max, 0, 1e-7, 1000, w_sigma2, &avaSigma2, &errSigma2);
+    gsl_integration_workspace_free (w_sigma2);
+    
+    gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F8, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_workspace_free (w_sigma3);
+    
+    myGammaPrime = ((3.*avaSigma0 - avaSigma2) + 2.*(3*avaSigma1 - avaSigma3))/4.;
+    
+    return (3*avaDelta0 - avaDelta2 + 2 * ( 3*avaDelta1 - avaDelta3 ) )/(4.*myGammaPrime);
 
 }
 
@@ -689,8 +712,7 @@ double P3CP::computeThValue() {
 }
 
 
-F_L::F_L(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i), mySM(SM_i) {
-    lep = lep_i;
+F_L::F_L(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {
 }
 
 double F_L::computeThValue() {
@@ -712,8 +734,22 @@ double F_L::computeThValue() {
     gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma2, &avaSigma2, &errSigma2);
     gsl_integration_workspace_free (w_sigma2);
     
-    GammaPrime myGammaPrime(mySM, lep);
-    return (3.*avaSigma0 - avaSigma2)/(4.*myGammaPrime.computeThValue());
+    gsl_function F3 = convertToGslFunction( boost::bind( &BKstarll::getSigma1, &(*this), _1 ) );
+    gsl_function F4 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
+    
+    double avaSigma1, errSigma1, avaSigma3, errSigma3;
+
+    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_sigma1, &avaSigma1, &errSigma1);
+    gsl_integration_workspace_free (w_sigma1);
+    
+    gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_workspace_free (w_sigma3);
+    
+    myGammaPrime = ((3.*avaSigma0 - avaSigma2) + 2.*(3*avaSigma1 - avaSigma3))/4.;
+    
+    return (3.*avaSigma0 - avaSigma2)/(4.*myGammaPrime);
 
 }
 
@@ -768,6 +804,10 @@ double M_2Prime::computeThValue() {
     gsl_function F2 = convertToGslFunction( boost::bind( &BKstarll::getHA0_abs2, &(*this), _1 ) );
     gsl_function F3 = convertToGslFunction( boost::bind( &BKstarll::getHS_abs2, &(*this), _1 ) );
     gsl_function F4 = convertToGslFunction( boost::bind( &BKstarll::getHP_abs2, &(*this), _1 ) );
+    gsl_function F5 = convertToGslFunction( boost::bind( &BKstarll::beta, &(*this), _1 ) );
+    gsl_function F6 = convertToGslFunction( boost::bind( &BKstarll::getFactor, &(*this), _1 ) );
+
+
     
     double avaHV0_abs2, errHV0_abs2, avaHA0_abs2, errHA0_abs2, avaHS_abs2, errHS_abs2, avaHP_abs2, errHP_abs2;
     gsl_integration_workspace * w_hv0_abs2 = gsl_integration_workspace_alloc (1000);
@@ -786,5 +826,14 @@ double M_2Prime::computeThValue() {
     gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_hp_abs2, &avaHP_abs2, &errHP_abs2);
     gsl_integration_workspace_free (w_hp_abs2);
     
-    return ( q2/(2*Mm*Mm)*( avaHP_abs2 + beta(q2)*beta(q2)*avaHS_abs2 ) + avaHV0_abs2 - avaHA0_abs2 )/( avaHV0_abs2+ avaHA0_abs2 );  
+    double avabeta, errbeta, avafactor, errfactor;
+    gsl_integration_workspace * w_beta = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F5, q_min, q_max, 0, 1e-7, 1000, w_beta, &avabeta, &errbeta);
+    gsl_integration_workspace_free (w_beta);
+    
+    gsl_integration_workspace * w_factor = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F6, q_min, q_max, 0, 1e-7, 1000, w_factor, &avafactor, &errfactor);
+    gsl_integration_workspace_free (w_factor);
+    
+    return ( avafactor*( avaHP_abs2 + avabeta*avabeta*avaHS_abs2 ) + avaHV0_abs2 - avaHA0_abs2 )/( avaHV0_abs2+ avaHA0_abs2 );  
 }

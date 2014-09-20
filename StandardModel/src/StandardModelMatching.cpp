@@ -1005,7 +1005,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
     std::vector<WilsonCoefficient>& StandardModelMatching::CMBKstarll() 
     {    
     double xt = x_t(Muw);
-    complex co = (- 4. * GF / sqrt(2)) * SM.computelamt_s();
+    complex co = 1; //(- 4. * GF / sqrt(2)) * SM.computelamt_s();
     
     vmcBKstarll.clear();
     
@@ -1120,6 +1120,7 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
     std::vector<WilsonCoefficient>& StandardModelMatching::CMprimeBKstarll() 
     {
         vmcprimeBKstarll.clear();
+        mcprimeBKstarll.setMu(Muw);
         switch (mcprimeBKstarll.getOrder()) {
         case NNLO:
         case NLO:

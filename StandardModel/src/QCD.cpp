@@ -41,7 +41,8 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "a_0V", "a_1V", "dmV", "a_0A0", "a_1A0", "dmA0", "a_0A1", "a_1A1", "dmA1", "a_0A12", "a_1A12", "dmA12",
     "a_0T1", "a_1T1", "dmT1", "a_0T2", "a_1T2", "dmT2", "a_0T23", "a_1T23", "dmT23",
     "r_1V", "r_2V", "m_RV", "m_fit2V", "r_1A0", "r_2A0", "m_RA0", "m_fit2A0", "r_2A1", "m_fit2A1", "r_1A2", "r_2A2", "m_fit2A2",
-    "r_1T1", "r_2T1", "m_RT1", "m_fit2T", "r_2T2", "m_fit2T2", "r_1T3t", "r_2T3t", "m_fit2T3t"
+    "r_1T1", "r_2T1", "m_RT1", "m_fit2T1", "r_2T2", "m_fit2T2", "r_1T3t", "r_2T3t", "m_fit2T3t",
+    "h_0", "h_plus", "h_minus"
 };
 
 QCD::QCD()

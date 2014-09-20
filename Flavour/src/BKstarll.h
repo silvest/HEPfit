@@ -657,6 +657,11 @@ public:
     double getHP_abs2(double q2){
         return H_P(q2).abs2();
     }
+    
+    
+    double getFactor(double q2){
+        return q2/(2*Mm*Mm);
+    }
 
 private:
     const StandardModel& mySM;
@@ -870,11 +875,10 @@ public:
     */
     double computeThValue ();
     
-    const StandardModel& mySM;
-    StandardModel::lepton lep;
-    
 private:
     gsl_function F1, F2, F3, F4;
+    gsl_function F5, F6, F7, F8;
+    double myGammaPrime;
 };
 
 
@@ -926,11 +930,10 @@ public:
     */
     double computeThValue ();
     
-    const StandardModel& mySM;
-    StandardModel::lepton lep;
-    
 private:
     gsl_function F1, F2;
+    gsl_function F3,F4;
+    double myGammaPrime;
 };
 
 
@@ -983,6 +986,7 @@ public:
     
 private:
     gsl_function F1, F2, F3, F4;
+    gsl_function F5, F6;
 };
 
 
