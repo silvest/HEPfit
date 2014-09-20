@@ -264,8 +264,22 @@ complex BKstarll::N(){
 
 
 
-gslpp::complex BKstarll::H_V(int i, double q2) {
-    return -gslpp::complex::i()*N()*( (*(allcoeff[LO]) + *(allcoeff[NLO]))(8)*V_L(i,q2) 
+gslpp::complex BKstarll::H_V(int i, double q2, int bar) {
+    gslpp::complex n;
+    switch(bar){
+        case 0:
+            n = N();
+            break;
+        case 1:
+            n = N().conjugate();
+            break;
+        default:
+            std::stringstream out;
+            out << bar;
+            throw std::runtime_error("H_V: index " + out.str() + " not allowed for an Angular Coefficient");
+    }
+                    
+    return -gslpp::complex::i()*n*( (*(allcoeff[LO]) + *(allcoeff[NLO]))(8)*V_L(i,q2) 
             + (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(8)*V_R(i,q2) 
             + MB*MB/q2*( 2*Mb/MB*( (*(allcoeff[LO]) + *(allcoeff[NLO]))(6)*T_L(i,q2) 
             + (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(6)*T_R(i,q2) ) - 16*M_PI*M_PI*h[i] ) );
@@ -273,22 +287,64 @@ gslpp::complex BKstarll::H_V(int i, double q2) {
 
 
 
-gslpp::complex BKstarll::H_A(int i, double q2) {
-    return -gslpp::complex::i()*N()*( (*(allcoeff[LO]) + *(allcoeff[NLO]))(9)*V_L(i,q2) 
+gslpp::complex BKstarll::H_A(int i, double q2, int bar) {
+    gslpp::complex n;
+    switch(bar){
+        case 0:
+            n = N();
+            break;
+        case 1:
+            n = N().conjugate();
+            break;
+        default:
+            std::stringstream out;
+            out << bar;
+            throw std::runtime_error("H_A: index " + out.str() + " not allowed for an Angular Coefficient");
+    }
+     
+    return -gslpp::complex::i()*n*( (*(allcoeff[LO]) + *(allcoeff[NLO]))(9)*V_L(i,q2) 
             + (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(9)*V_R(i,q2) );
 }
 
 
 
-gslpp::complex BKstarll::H_S(double q2) {
-    return gslpp::complex::i()*N()*Mb/MW*( (*(allcoeff[LO]) + *(allcoeff[NLO]))(10)*S_L(q2) + 
+gslpp::complex BKstarll::H_S(double q2, int bar) {
+    gslpp::complex n;
+    switch(bar){
+        case 0:
+            n = N();
+            break;
+        case 1:
+            n = N().conjugate();
+            break;
+        default:
+            std::stringstream out;
+            out << bar;
+            throw std::runtime_error("H_S: index " + out.str() + " not allowed for an Angular Coefficient");
+    }
+     
+    return gslpp::complex::i()*n*Mb/MW*( (*(allcoeff[LO]) + *(allcoeff[NLO]))(10)*S_L(q2) + 
             (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(10)*S_R(q2) );
 }
 
 
 
-gslpp::complex BKstarll::H_P(double q2) {
-    return gslpp::complex::i()*N()*( Mb/MW*( (*(allcoeff[LO]) + *(allcoeff[NLO]))(11)*S_L(q2) 
+gslpp::complex BKstarll::H_P(double q2, int bar) {
+    gslpp::complex n;
+    switch(bar){
+        case 0:
+            n = N();
+            break;
+        case 1:
+            n = N().conjugate();
+            break;
+        default:
+            std::stringstream out;
+            out << bar;
+            throw std::runtime_error("H_S: index " + out.str() + " not allowed for an Angular Coefficient");
+    }
+     
+    return gslpp::complex::i()*n*( Mb/MW*( (*(allcoeff[LO]) + *(allcoeff[NLO]))(11)*S_L(q2) 
             + (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(11)*S_R(q2) ) 
             + 2*Mm*Mb/q2*( (*(allcoeff[LO]) + *(allcoeff[NLO]))(9)*( S_L(q2) - Ms/Mb*S_R(q2) ) 
             + (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(9)*( S_R(q2) - Ms/Mb*S_L(q2) ) ) );
@@ -323,7 +379,7 @@ double BKstarll::F(double q2, double b) {
 
 
 
-double BKstarll::I(int i, double q2) {
+double BKstarll::I(int i, double q2, int bar) {
 
     double Mm2 = Mm*Mm;
     double beta2 = beta(q2)*beta(q2);
@@ -331,29 +387,29 @@ double BKstarll::I(int i, double q2) {
     if (i < 10) {
         switch (i){
             case 0:
-                return F(q2,b)*( ( H_V(0,q2).abs2() + H_A(0,q2).abs2() )/2  +  H_P(q2).abs2()  +  2*Mm2/q2*( H_V(0,q2).abs2() - H_A(0,q2).abs2() )  +
-                                beta2*H_S(q2).abs2() );
+                return F(q2,b)*( ( H_V(0,q2,bar).abs2() + H_A(0,q2,bar).abs2() )/2  +  H_P(q2,bar).abs2()  +  2*Mm2/q2*( H_V(0,q2,bar).abs2() - H_A(0,q2,bar).abs2() )  +
+                                beta2*H_S(q2,bar).abs2() );
             case 1:
-                return F(q2,b)*( (beta2 + 2)/8*( H_V(1,q2).abs2() + H_V(2,q2).abs2() + H_A(1,q2).abs2() + H_A(2,q2).abs2() )  +
-                                Mm2/q2*( H_V(1,q2).abs2() + H_V(2,q2).abs2() - H_A(1,q2).abs2() - H_A(2,q2).abs2() ) );
+                return F(q2,b)*( (beta2 + 2)/8*( H_V(1,q2,bar).abs2() + H_V(2,q2,bar).abs2() + H_A(1,q2,bar).abs2() + H_A(2,q2,bar).abs2() )  +
+                                Mm2/q2*( H_V(1,q2,bar).abs2() + H_V(2,q2,bar).abs2() - H_A(1,q2,bar).abs2() - H_A(2,q2,bar).abs2() ) );
             case 2:
-                return -F(q2,b)*beta2/2*( H_V(0,q2).abs2() + H_A(0,q2).abs2() );
+                return -F(q2,b)*beta2/2*( H_V(0,q2,bar).abs2() + H_A(0,q2,bar).abs2() );
             case 3:
-                return F(q2,b)*beta2/8*( H_V(1,q2).abs2() + H_V(2,q2).abs2()  +  H_A(1,q2).abs2() + H_A(2,q2).abs2() );
+                return F(q2,b)*beta2/8*( H_V(1,q2,bar).abs2() + H_V(2,q2,bar).abs2()  +  H_A(1,q2,bar).abs2() + H_A(2,q2,bar).abs2() );
             case 4:
-                return -F(q2,b)/2*( ( H_V(1,q2)*H_V(2,q2).conjugate() ).real()  +  ( H_A(1,q2)*H_A(2,q2).conjugate() ).real() );
+                return -F(q2,b)/2*( ( H_V(1,q2,bar)*H_V(2,q2,bar).conjugate() ).real()  +  ( H_A(1,q2,bar)*H_A(2,q2,bar).conjugate() ).real() );
             case 5:
-                return F(q2,b)*beta2/4*( ( (H_V(2,q2) + H_V(1,q2))*H_V(0,q2).conjugate() ).real()  +  ( (H_A(2,q2) + H_A(1,q2))*H_A(0,q2).conjugate() ).real() );
+                return F(q2,b)*beta2/4*( ( (H_V(2,q2,bar) + H_V(1,q2,bar))*H_V(0,q2,bar).conjugate() ).real()  +  ( (H_A(2,q2,bar) + H_A(1,q2,bar))*H_A(0,q2,bar).conjugate() ).real() );
             case 6:
-                return F(q2,b)*( beta(q2)/2*( ( (H_V(2,q2) - H_V(1,q2))*H_A(0,q2).conjugate() ).real()  +  ( (H_A(2,q2) - H_A(1,q2))*H_V(0,q2).conjugate() ).real() )  -
-                                beta(q2)*Mm/sqrt(q2)*( H_S(q2).conjugate()*(H_V(1,q2) + H_V(2,q2)) ).real() );
+                return F(q2,b)*( beta(q2)/2*( ( (H_V(2,q2,bar) - H_V(1,q2,bar))*H_A(0,q2,bar).conjugate() ).real()  +  ( (H_A(2,q2,bar) - H_A(1,q2,bar))*H_V(0,q2,bar).conjugate() ).real() )  -
+                                beta(q2)*Mm/sqrt(q2)*( H_S(q2,bar).conjugate()*(H_V(1,q2,bar) + H_V(2,q2,bar)) ).real() );
             case 7:
-                return F(q2,b)*beta(q2)*( H_V(2,q2)*H_A(2,q2).conjugate() - H_V(1,q2)*H_A(1,q2).conjugate() ).real();
+                return F(q2,b)*beta(q2)*( H_V(2,q2,bar)*H_A(2,q2,bar).conjugate() - H_V(1,q2,bar)*H_A(1,q2,bar).conjugate() ).real();
             case 8:
-                return 2*F(q2,b)*beta(q2)*Mm/sqrt(q2)*( H_S(q2).conjugate()*H_V(0,q2) ).real();
+                return 2*F(q2,b)*beta(q2)*Mm/sqrt(q2)*( H_S(q2,bar).conjugate()*H_V(0,q2,bar) ).real();
             case 9:
-                return F(q2,b)*( beta(q2)/2*( ( (H_V(2,q2) + H_V(1,q2))*H_A(0,q2).conjugate() ).imag()  +  ( (H_A(2,q2) + H_A(1,q2))*H_V(0,q2).conjugate() ).imag() )  -
-                                beta(q2)*Mm/sqrt(q2)*( H_S(q2).conjugate()*(H_V(2,q2) - H_V(1,q2)) ).imag() );
+                return F(q2,b)*( beta(q2)/2*( ( (H_V(2,q2,bar) + H_V(1,q2,bar))*H_A(0,q2,bar).conjugate() ).imag()  +  ( (H_A(2,q2,bar) + H_A(1,q2,bar))*H_V(0,q2,bar).conjugate() ).imag() )  -
+                                beta(q2)*Mm/sqrt(q2)*( H_S(q2,bar).conjugate()*(H_V(2,q2,bar) - H_V(1,q2,bar)) ).imag() );
             
             default:
                 std::stringstream out;
@@ -364,9 +420,9 @@ double BKstarll::I(int i, double q2) {
         int j = i - 10;
         switch (j) {
             case 0:
-                return F(q2,b)*beta2/4*( ( (H_V(2,q2) - H_V(1,q2))*H_V(0,q2).conjugate() ).imag()  +  ( (H_A(2,q2) - H_A(1,q2))*H_A(0,q2).conjugate() ).imag() );
+                return F(q2,b)*beta2/4*( ( (H_V(2,q2,bar) - H_V(1,q2,bar))*H_V(0,q2,bar).conjugate() ).imag()  +  ( (H_A(2,q2,bar) - H_A(1,q2,bar))*H_A(0,q2,bar).conjugate() ).imag() );
             case 1:
-                return F(q2,b)*beta2/2*( ( H_V(1,q2)*H_V(2,q2).conjugate() ).imag()  +  ( H_A(1,q2)*H_A(2,q2).conjugate() ).imag() );
+                return F(q2,b)*beta2/2*( ( H_V(1,q2,bar)*H_V(2,q2,bar).conjugate() ).imag()  +  ( H_A(1,q2,bar)*H_A(2,q2,bar).conjugate() ).imag() );
             default:
                 std::stringstream out;
                 out << j + 10;
@@ -377,34 +433,14 @@ double BKstarll::I(int i, double q2) {
 
 
 
-double BKstarll::I_bar(int i, double q2) {
-    
-    if ( i==0 | i==1 | i==2 | i==3 | i==4 | i==5 | i==9)
-    {
-        return I(i, q2);
-    }
-    else if ( i==6 | i==7 | i==8 | i==10 | i==11)
-    {
-        return -I(i, q2);
-    }
-    else{
-        std::stringstream out;
-        out << i;
-        throw std::runtime_error("I: index " + out.str() + " not implemented");
-    }   
-}
-
-
-
-
 double BKstarll::Sigma(int i, double q2) {
-    return (I(i, q2) + I_bar(i, q2))/2;
+    return (I(i, q2,0) + I(i, q2,1))/2;
 }
 
 
 
 double BKstarll::Delta(int i, double q2) {
-    return (I(i, q2) - I_bar(i, q2))/2;
+    return (I(i, q2,0) - I(i, q2,1))/2;
 }
 
 /*******************************************************************************
