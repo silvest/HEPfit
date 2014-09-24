@@ -168,9 +168,12 @@ private:
         DPars_IN["IB_Kp"] = 0.;
         DPars_IN["tKl"] = 0.;
         DPars_IN["tKp"] = 0.;
-        DPars_IN["h_0"] = 0.;
-        DPars_IN["h_plus"] = 0.;
-        DPars_IN["h_minus"] = 0.;
+        DPars_IN["absh_0"] = 0.;
+        DPars_IN["absh_plus"] = 0.;
+        DPars_IN["absh_minus"] = 0.;
+        DPars_IN["argh_0"] = 0.;
+        DPars_IN["argh_plus"] = 0.;
+        DPars_IN["argh_minus"] = 0.;
         DPars_IN["a_0V"] = 0.;
         DPars_IN["a_1V"] = 0.;
         DPars_IN["dmV"] = 0.;
