@@ -660,6 +660,43 @@ double GammaPrime::computeThValue() {
     gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
     gsl_integration_workspace_free (w_sigma3);
     
+    return ((3.*avaSigma0 - avaSigma2) + 2.*(3.*avaSigma1 - avaSigma3))/4.;
+
+}
+
+
+BF::BF(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
+}
+
+double BF::computeThValue() {
+    
+    updateParameters();
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    
+    gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma0, &(*this), _1 ) );
+    gsl_function F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma1, &(*this), _1 ) );
+    gsl_function F3 = convertToGslFunction( boost::bind( &BKstarll::getSigma2, &(*this), _1 ) );
+    gsl_function F4 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
+    
+    double avaSigma0, errSigma0, avaSigma1, errSigma1, avaSigma2, errSigma2, avaSigma3, errSigma3;
+    gsl_integration_workspace * w_sigma0 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma0, &avaSigma0, &errSigma0);
+    gsl_integration_workspace_free (w_sigma0);
+
+    gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma1, &avaSigma1, &errSigma1);
+    gsl_integration_workspace_free (w_sigma1);
+    
+    gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_sigma2, &avaSigma2, &errSigma2);
+    gsl_integration_workspace_free (w_sigma2);
+    
+    gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_workspace_free (w_sigma3);
+    
     return ((3.*avaSigma0 - avaSigma2) + 2.*(3.*avaSigma1 - avaSigma3))/4./width_Bd;
 
 }

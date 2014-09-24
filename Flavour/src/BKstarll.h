@@ -853,6 +853,32 @@ private:
 
 
 /**
+ * @class BF
+ * @ingroup flavour
+ * @brief A class for the Branching Fraction. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class BF : public BKstarll{
+public:
+    
+    /**
+    * @brief \f$ Gamma' \f$ 
+    */
+    BF(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
+    
+    /**
+    * @return return the clean observable Gamma'
+    */
+    double computeThValue ();
+    
+private:
+    gsl_function F1, F2, F3, F4;
+};
+
+
+/**
  * @class ACP
  * @ingroup flavour
  * @brief A class for the clean observable Gamma'. 

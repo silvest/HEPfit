@@ -115,6 +115,7 @@ ThObsFactory::ThObsFactory(){
     obsThFactory["P_5p_mu"] = boost::bind(boost::factory<P_5Prime*>(), _1, StandardModel::MU);
     obsThFactory["P_6p_mu"] = boost::bind(boost::factory<P_6Prime*>(), _1, StandardModel::MU);
     obsThFactory["Gammap_mu"] = boost::bind(boost::factory<GammaPrime*>(), _1, StandardModel::MU);
+    obsThFactory["BF_mu"] = boost::bind(boost::factory<BF*>(), _1, StandardModel::MU);
     obsThFactory["ACP_mu"] = boost::bind(boost::factory<ACP*>(), _1, StandardModel::MU);
     obsThFactory["P3CP_mu"] = boost::bind(boost::factory<P3CP*>(), _1, StandardModel::MU);
     obsThFactory["F_L_mu"] = boost::bind(boost::factory<F_L*>(), _1, StandardModel::MU);
