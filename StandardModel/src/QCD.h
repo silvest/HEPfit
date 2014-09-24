@@ -520,7 +520,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 127; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 130; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -859,19 +859,34 @@ public:
     }
     
     
-    double geth_0() const
+    double getabsh_0() const
     {
-        return h_0;
+        return absh_0;
     }
     
-    double geth_plus() const
+    double getabsh_plus() const
     {
-        return h_plus;
+        return absh_plus;
     }
     
-    double geth_minus() const
+    double getabsh_minus() const
     {
-        return h_minus;
+        return absh_minus;
+    }
+    
+    double getargh_0() const
+    {
+        return argh_0;
+    }
+    
+    double getargh_plus() const
+    {
+        return argh_plus;
+    }
+    
+    double getargh_minus() const
+    {
+        return argh_minus;
     }
     
     double geta_0V() const
@@ -1323,7 +1338,7 @@ protected:
     double Br_B_Xcenu;
     double BBsoBBd; ///< The ratio \f$ B_{B_s}/B_{B_d} \f$ necessary to compute \f$ B_{B_s} \f$. 
     double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$. 
-    double h_0, h_plus, h_minus;
+    double absh_0, absh_plus, absh_minus, argh_0, argh_plus, argh_minus;
     double a_0V, a_1V, dmV;
     double a_0A0, a_1A0, dmA0;
     double a_0A1, a_1A1, dmA1;

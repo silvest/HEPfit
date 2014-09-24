@@ -114,11 +114,12 @@ public:
     double MKstar;        //K star meson mass
     double Mb;            //b quark mass
     double mu_b;          //b mass scale
+    double width_Bd;      //B meosn width
     double Ms;            //s quark mass
     double MW;            //W boson mass
     complex lambda_t;     //Vckm factor
     double b;             //BF of the decay K^* -> K pi
-    double h[3];          //parameter that contains the contribution from the hadronic hamiltonian  
+    complex h[3];         //parameter that contains the contribution from the hadronic hamiltonian  
     double q2;            //q^2 of the decay
     double qmin, qmax;
     

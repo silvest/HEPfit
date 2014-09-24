@@ -33,7 +33,8 @@ void BKstarll::updateParameters(){
     Ms=mySM.getQuarks(QCD::STRANGE).getMass();
     MW=mySM.Mw();
     lambda_t=mySM.computelamt_s();
-    mu_b = mySM.getMub();  
+    mu_b = mySM.getMub();
+    width_Bd = mySM.getMesons(QCD::B_D).computeWidth();
     
     a_0V=mySM.geta_0V();
     a_1V=mySM.geta_1V();
@@ -80,9 +81,9 @@ void BKstarll::updateParameters(){
     r_2T3t=mySM.getr_2T3t();
     m_fit2T3t=mySM.getm_fit2T3t();
     
-    h[0]=mySM.geth_0();
-    h[1]=mySM.geth_plus();
-    h[2]=mySM.geth_minus();
+    h[0]=mySM.getabsh_0() + gslpp::complex::i()*mySM.getargh_0();
+    h[1]=mySM.getabsh_plus() + gslpp::complex::i()*mySM.getargh_plus();
+    h[2]=mySM.getabsh_minus() + gslpp::complex::i()*mySM.getargh_minus();
     
     b=1.;                           //please check
     
@@ -659,7 +660,7 @@ double GammaPrime::computeThValue() {
     gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
     gsl_integration_workspace_free (w_sigma3);
     
-    return ((3.*avaSigma0 - avaSigma2) + 2.*(3.*avaSigma1 - avaSigma3))/4.;
+    return ((3.*avaSigma0 - avaSigma2) + 2.*(3.*avaSigma1 - avaSigma3))/4./width_Bd;
 
 }
 
