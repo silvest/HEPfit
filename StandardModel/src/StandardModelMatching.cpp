@@ -191,7 +191,7 @@ double StandardModelMatching::A0t(double x) const
 
 double StandardModelMatching::B0t(double x) const
 {
-    return( x / (4.* (1. - x) * (1. - x)) * log(x) + 1. / 4. * (1. - x) );
+    return( x / (4.* (1. - x) * (1. - x)) * log(x) + 1. / (4. * (1. - x)) );
 }
 
 double StandardModelMatching::C0t(double x) const
@@ -224,6 +224,29 @@ double StandardModelMatching::F0t(double x) const
     
     return ( (3. * x2) / (2. * xm3 * (1 - x)) * log(x) + ( 5. * x2 * x - 9. * x2 + 30. * x - 8)/
             (12. * xm3) );
+}
+
+double StandardModelMatching::B1t(double x, double mu) const
+{
+    double x2 = x * x;
+    double xm2 = pow(x - 1., 2);
+    double xm3 = pow(x - 1., 3);
+    
+    return (2. * x)/xm2 * gsl_sf_dilog(1.-1./x) + (3. * x2 + x)/xm3 * log(x) * log(x) + (-11. * x2 - 5. * x)/(3. * xm3) * log(x) +
+            (-3. * x2 + 19. * x)/(3. * xm2) + 16. * x * (2. * (x - 1.) - (1. + x) * log(x))/(4. * xm3) * log(mu / Mw);
+}
+
+double StandardModelMatching::C1t(double x, double mu) const
+{
+    double x2 = x * x;
+    double x3 = x * x2;
+    double x4 = x * x3;
+    double xm2 = pow(x - 1., 2);
+    double xm3 = pow(x - 1., 3);
+    
+    return (x3 + 4. * x)/xm2 * gsl_sf_dilog(1.-1./x) + (x4 - x3  + 20. * x2)/(2. * xm3) * log(x) * log(x) +
+            (-3. * x4 - 3. * x3 - 35. * x2 + x)/(3. * xm3) * log(x) + (4. * x3 + 7. * x2 + 29. * x)/(3. * xm2) -
+            16. * x * ((-4. + x)*xm2 + (2. + 8. * x)*log(x))/(8. * xm3) * log(mu / Mw);
 }
 
 double StandardModelMatching::Y0(double x) const
@@ -270,7 +293,7 @@ double StandardModelMatching::C7NLOeff(double x) const
     double Li2 = gsl_sf_dilog(1.-1./x);
     return( Li2 * ( -16. * x4 - 122. * x3 + 80. * x2 - 8. * x) / (9. * xm4) +
             (6. * x4 + 46. * x3 -28. * x2) / (3. * xm5) * logx * logx +
-            (-102. * x4 * x - 588. * x4 + 3244. * x2 - 1364. * x + 208.) / (81. * xm5) * logx +
+            (-102. * x4 * x - 588. * x4 - 2262. * x3 + 3244. * x2 - 1364. * x + 208.) / (81. * xm5) * logx +
             (1646. * x4 + 12205. * x3 - 10740. * x2 + 2509. * x - 436.) / (486. * xm4));
 }
 
@@ -286,7 +309,7 @@ double StandardModelMatching::C8NLOeff(double x) const
     double Li2 = gsl_sf_dilog(1.-1./x);
     return(Li2 * ( -4. * x4 + 40. * x3 + 41. * x2 + x) / (6. * xm4) +
             (-17. * x3 - 31. * x2) / (2. * xm5) * logx * logx +
-            (-210. * x * x4 + 1086. * x4 + 4893. * x3 + 2857. * x2 - 1994. * x + 280.)/(216. * xm5) * logx+
+            (-210. * x * x4 + 1086. * x4 + 4893. * x3 + 2857. * x2 - 1994. * x + 280.)/(216. * xm5) * logx +
             (737. * x4 - 14102. * x3 - 28209. * x2 + 610. * x - 508.) / (1296. * xm4));
 }
 
@@ -1056,7 +1079,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
 
 double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
 {    
-    sw =  sqrt( (M_PI * Ale )/( sqrt(2) * GF * Mw * Mw) ) ;
+    sw =  sqrt( sW2 ) ;
 
     if ( swa == sw && xcachea == x){
         switch (order){
@@ -1083,13 +1106,16 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
             CWBKstarllArrayNLO[3] = E0t(x)-(2./3.) + (2./3.*L);
             CWBKstarllArrayNLO[6] = C7NLOeff(x);//-0.5 * A0t(x)- 23./36.;
             CWBKstarllArrayNLO[7] = C8NLOeff(x);//-0.5 * F0t(x)- 1./3.;
-            CWBKstarllArrayNLO[8] = (1-4.*sw*sw) / (sw*sw) *C0t(x) - 1./(sw*sw) *
-                                B0t(x) - D0t(x) + 38./27. + 1./(4.*sw*sw) - (4./9.)*L;
-            CWBKstarllArrayNLO[9] = 1./(sw*sw) * (B0t(x) - C0t(x)) -1./(4.*sw*sw);
+            CWBKstarllArrayNLO[8] = 0.;//(1-4.*sw*sw) / (sw*sw) *C0t(x) - 1./(sw*sw) *
+                                //B0t(x) - D0t(x) + 38./27. + 1./(4.*sw*sw) - (4./9.)*L;
+            CWBKstarllArrayNLO[9] = (B1t(x,Muw) - C1t(x,Muw)) / sW2;
         case LO:
             CWBKstarllArrayLO[1] = 1.;
             CWBKstarllArrayLO[6] = C7LOeff(x);//0.;
             CWBKstarllArrayLO[7] = C8LOeff(x);//0.;
+            CWBKstarllArrayLO[8] = (1-4.*sW2) / (sW2) *C0t(x) - 1./(sW2) *
+                                B0t(x) - D0t(x) + 38./27. + 1./(4.*sW2) - (4./9.)*L;
+            CWBKstarllArrayLO[9] = 1./(sW2) * (B0t(x) - C0t(x)) -1./(4.*sW2);
             break;
         default:
             std::stringstream out;

@@ -29,10 +29,11 @@ void BKstarll::updateParameters(){
     Mm=mySM.getLeptons(lep).getMass();
     MB=mySM.getMesons(QCD::B_D).getMass();
     MKstar=mySM.getMesons(QCD::K_star).getMass();
-    Mb=mySM.getQuarks(QCD::BOTTOM).getMass();
+    Mb=mySM.getQuarks(QCD::BOTTOM).getMass();    // add the PS b mass
     Ms=mySM.getQuarks(QCD::STRANGE).getMass();
     MW=mySM.Mw();
     lambda_t=mySM.computelamt_s();
+    mu_b = mySM.getMub();  
     
     a_0V=mySM.geta_0V();
     a_1V=mySM.geta_1V();
@@ -85,8 +86,10 @@ void BKstarll::updateParameters(){
     
     b=1.;                           //please check
     
-    allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(Mb);   //check the mass scale, scheme fixed to NDR    mySM.getMuw()
-    allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBKstarll(Mb);   //check the mass scale, scheme fixed to NDR
+    allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR    mySM.getMuw()
+    allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
+    //std::cout << (*(allcoeff[LO]) +  *(allcoeff[NLO]))(9) << std::endl;
+
 }
 
 
@@ -184,7 +187,8 @@ double BKstarll::T_3tilde(double q2){
 
 
 double BKstarll::T_3(double q2){
-    return (MB*MB - MKstar*MKstar)/q2*(T_3tilde(q2) - T_2(q2));
+    //if (q2<2) return 2./(0.178168 - 0.202)*q2 + 0.202;
+    /*else*/ return (MB*MB - MKstar*MKstar)/q2*(T_3tilde(q2) - T_2(q2));
 }
 
 
@@ -717,7 +721,7 @@ double P3CP::computeThValue() {
 
     double avaDelta11, errDelta11, avaSigma3, errSigma3;
     gsl_integration_workspace * w_delta11 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_delta11, &avaDelta11, &errDelta11);
+    gsl_integration_qags (&F1, q_min, q_max, 1e-25, 1e-5, 1000, w_delta11, &avaDelta11, &errDelta11);   // integrational parameters tuned
     gsl_integration_workspace_free (w_delta11);
 
     gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
@@ -768,7 +772,7 @@ double M_1Prime::computeThValue() {
     
     updateParameters();
     double q_min = getBinMin();
-    double q_max = getBinMax();
+    /*double q_max = getBinMax();
     
     
     gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getHV1_abs2, &(*this), _1 ) );
@@ -791,9 +795,10 @@ double M_1Prime::computeThValue() {
     
     gsl_integration_workspace * w_ha2_abs2 = gsl_integration_workspace_alloc (1000);
     gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_ha2_abs2, &avaHA2_abs2, &errHA2_abs2);
-    gsl_integration_workspace_free (w_ha2_abs2);
+    gsl_integration_workspace_free (w_ha2_abs2);*/
     
-    return ( avaHV1_abs2 + avaHV2_abs2 - avaHA1_abs2 - avaHA2_abs2 )/( 2*( avaHV1_abs2 + avaHV2_abs2 + avaHA1_abs2 + avaHA2_abs2 ) );
+    return ( H_V(1,q_min,0).abs2() + H_V(2,q_min,0).abs2() - H_A(1,q_min,0).abs2() - H_A(2,q_min,0).abs2() )/
+            ( 2*( H_V(1,q_min,0).abs2() + H_V(2,q_min,0).abs2() + H_A(1,q_min,0).abs2() + H_A(2,q_min,0).abs2() ) );
 }
 
 
@@ -804,7 +809,7 @@ double M_2Prime::computeThValue() {
     
     updateParameters();
     double q_min = getBinMin();
-    double q_max = getBinMax();
+    /*double q_max = getBinMax();
     
     
     gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getHV0_abs2, &(*this), _1 ) );
@@ -840,7 +845,8 @@ double M_2Prime::computeThValue() {
     
     gsl_integration_workspace * w_factor = gsl_integration_workspace_alloc (1000);
     gsl_integration_qags (&F6, q_min, q_max, 0, 1e-7, 1000, w_factor, &avafactor, &errfactor);
-    gsl_integration_workspace_free (w_factor);
+    gsl_integration_workspace_free (w_factor);*/
     
-    return ( avafactor*( avaHP_abs2 + avabeta*avabeta*avaHS_abs2 ) + avaHV0_abs2 - avaHA0_abs2 )/( avaHV0_abs2+ avaHA0_abs2 );  
+    return ( q_min/(2*Mm*Mm)*( H_P(q_min,0).abs2() + beta(q_min)*beta(q_min)*H_S(q_min,0).abs2() ) + H_V(0,q_min,0).abs2() - H_A(0,q_min,0).abs2() )/
+            ( H_V(0,q_min,0).abs2() + H_A(0,q_min,0).abs2() );  
 }

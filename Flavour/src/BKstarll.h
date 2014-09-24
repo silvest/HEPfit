@@ -113,6 +113,7 @@ public:
     double MB;            //B meson mass
     double MKstar;        //K star meson mass
     double Mb;            //b quark mass
+    double mu_b;          //b mass scale
     double Ms;            //s quark mass
     double MW;            //W boson mass
     complex lambda_t;     //Vckm factor

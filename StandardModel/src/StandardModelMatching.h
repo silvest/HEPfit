@@ -227,6 +227,24 @@ public:
      * @param[in] x the square of the ratio between top mass and W mass
      */
     double E0t(double x)const;
+    
+    /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient for the semileptonic operator
+     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9901278v1
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double B1t(double x, double mu)const;
+    
+    /**
+     * 
+     * @brief loop function which appear in the Wilson coefficient for the magnetic operator
+     * in the non-effective Misiak basis, Misiak and Urban hep-ph/9901278v1
+     * @param[in] x the square of the ratio between top mass and W mass
+     * @param[in] mu the matching scale of the Wilson coefficients
+     */
+    double C1t(double x, double mu)const;
 
     /**
      *

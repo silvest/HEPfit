@@ -133,11 +133,11 @@ matrix<double> EvolDF1bsg::AnomalousDimension_M(orders order, unsigned int n_u,
     
     gammaDF1(9,9) = -2.*model.Beta0(nf); 
     
-    gammaDF1(10,10)= 1.;
+    gammaDF1(10,10)= -2.*model.Beta0(nf);
     
-    gammaDF1(11,11)= 1.;
+    gammaDF1(11,11)= -2.*model.Beta0(nf);
     
-    gammaDF1(12,12)= 1.;
+    gammaDF1(12,12)= -2.*model.Beta0(nf);
     
     break;    
     case NLO:
@@ -209,11 +209,11 @@ matrix<double> EvolDF1bsg::AnomalousDimension_M(orders order, unsigned int n_u,
     
     gammaDF1(9,9) = -2.*model.Beta1(nf); 
     
-    gammaDF1(10,10)= 1.;
+    gammaDF1(10,10)= -2.*model.Beta1(nf);
     
-    gammaDF1(11,11)= 1.;
+    gammaDF1(11,11)= -2.*model.Beta1(nf);
     
-    gammaDF1(12,12)= 1.;
+    gammaDF1(12,12)= -2.*model.Beta1(nf);
    
     break;
     default:
@@ -271,12 +271,12 @@ matrix<double> EvolDF1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
         case(NLO): 
             mat = AnomalousDimension_M(NLO, n_u, n_d);
             for (int i=0; i<6; i++){
-                for (int j=6; j<10; j++){
+                for (int j=6; j<13; j++){
                     mat(i,j) = mat1(i,j);
                 }
             }
-            for (int i=6; i<10; i++){
-                for (int j=6; j<10; j++){
+            for (int i=6; i<13; i++){
+                for (int j=6; j<13; j++){
                     mat(i,j) = mat(i,j) + 2. * (i==j) * model.Beta1(nf);
                 }
             }
@@ -284,12 +284,12 @@ matrix<double> EvolDF1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
         case(LO):
             mat = AnomalousDimension_M(LO, n_u, n_d);
             for (int i=0; i<6; i++){
-                for (int j=6; j<10; j++){
+                for (int j=6; j<13; j++){
                     mat(i,j) = AnomalousDimension_M(NLO, n_u, n_d)(i,j);
                 }
             }
-            for (int i=6; i<10; i++){
-                for (int j=6; j<10; j++){
+            for (int i=6; i<13; i++){
+                for (int j=6; j<13; j++){
                     mat(i,j) = mat(i,j) + 2. * (i==j) * model.Beta0(nf);
                 }
             }
