@@ -89,7 +89,7 @@ void BKstarll::updateParameters(){
     
     allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR    mySM.getMuw()
     allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
-    //std::cout << (*(allcoeff[LO]) +  *(allcoeff[NLO]))(9) << std::endl;
+    //std::cout << (*(allcoeff[LO]) +  *(allcoeff[NLO])) << std::endl;
 
 }
 

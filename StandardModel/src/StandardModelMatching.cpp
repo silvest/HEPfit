@@ -232,7 +232,7 @@ double StandardModelMatching::B1t(double x, double mu) const
     double xm2 = pow(x - 1., 2);
     double xm3 = pow(x - 1., 3);
     
-    return (2. * x)/xm2 * gsl_sf_dilog(1.-1./x) + (3. * x2 + x)/xm3 * log(x) * log(x) + (-11. * x2 - 5. * x)/(3. * xm3) * log(x) +
+    return (2. * x)/xm2 * gsl_sf_dilog(1.-x) + (3. * x2 + x)/xm3 * log(x) * log(x) + (-11. * x2 - 5. * x)/(3. * xm3) * log(x) +
             (-3. * x2 + 19. * x)/(3. * xm2) + 16. * x * (2. * (x - 1.) - (1. + x) * log(x))/(4. * xm3) * log(mu / Mw);
 }
 
@@ -244,9 +244,9 @@ double StandardModelMatching::C1t(double x, double mu) const
     double xm2 = pow(x - 1., 2);
     double xm3 = pow(x - 1., 3);
     
-    return (x3 + 4. * x)/xm2 * gsl_sf_dilog(1.-1./x) + (x4 - x3  + 20. * x2)/(2. * xm3) * log(x) * log(x) +
-            (-3. * x4 - 3. * x3 - 35. * x2 + x)/(3. * xm3) * log(x) + (4. * x3 + 7. * x2 + 29. * x)/(3. * xm2) -
-            16. * x * ((-4. + x)*xm2 + (2. + 8. * x)*log(x))/(8. * xm3) * log(mu / Mw);
+    return (x3 + 4. * x)/xm2 * gsl_sf_dilog(1.-x) + (x4 - x3  + 20. * x2)/(2. * xm3) * log(x) * log(x) +
+            (-3. * x4 - 3. * x3 - 35. * x2 + x)/(3. * xm3) * log(x) + (4. * x3 + 7. * x2 + 29. * x)/(3. * xm2) +
+            16. * x * (-8. + 7. * x + x3 - 2. * (1. + 4. * x) * log(x))/(8. * xm3) * log(mu / Mw);
 }
 
 double StandardModelMatching::Y0(double x) const
@@ -1050,16 +1050,10 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
             for (int j=0; j<13; j++){
             mcBKstarll.setCoeff(j, SM.Als(Muw, FULLNLO) / 4. / M_PI * setWCBKstarll(j, xt,  NLO) , NLO);
             }
-            /*mcBKstarll.setCoeff(6, 0. , NLO);
-            mcBKstarll.setCoeff(8, 0. , NLO);
-            mcBKstarll.setCoeff(9, 0. , NLO);*/
         case LO:
             for (int j=0; j<13; j++){
             mcBKstarll.setCoeff(j, setWCBKstarll(j, xt,  LO), LO);
             }
-            /*mcBKstarll.setCoeff(6, -0.305 , LO);
-            mcBKstarll.setCoeff(8, 4.24 , LO);
-            mcBKstarll.setCoeff(9, -4.312 , LO);*/
             break;
         default:
             std::stringstream out;
@@ -1104,15 +1098,14 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
         case NLO:
             CWBKstarllArrayNLO[0] = 15. + 6*L;
             CWBKstarllArrayNLO[3] = E0t(x)-(2./3.) + (2./3.*L);
-            CWBKstarllArrayNLO[6] = C7NLOeff(x);//-0.5 * A0t(x)- 23./36.;
-            CWBKstarllArrayNLO[7] = C8NLOeff(x);//-0.5 * F0t(x)- 1./3.;
-            CWBKstarllArrayNLO[8] = 0.;//(1-4.*sw*sw) / (sw*sw) *C0t(x) - 1./(sw*sw) *
-                                //B0t(x) - D0t(x) + 38./27. + 1./(4.*sw*sw) - (4./9.)*L;
+            CWBKstarllArrayNLO[6] = C7NLOeff(x);
+            CWBKstarllArrayNLO[7] = C8NLOeff(x);
+            CWBKstarllArrayNLO[8] = 0.;
             CWBKstarllArrayNLO[9] = (B1t(x,Muw) - C1t(x,Muw)) / sW2;
         case LO:
             CWBKstarllArrayLO[1] = 1.;
-            CWBKstarllArrayLO[6] = C7LOeff(x);//0.;
-            CWBKstarllArrayLO[7] = C8LOeff(x);//0.;
+            CWBKstarllArrayLO[6] = C7LOeff(x);
+            CWBKstarllArrayLO[7] = C8LOeff(x);
             CWBKstarllArrayLO[8] = (1-4.*sW2) / (sW2) *C0t(x) - 1./(sW2) *
                                 B0t(x) - D0t(x) + 38./27. + 1./(4.*sW2) - (4./9.)*L;
             CWBKstarllArrayLO[9] = 1./(sW2) * (B0t(x) - C0t(x)) -1./(4.*sW2);
