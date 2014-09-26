@@ -232,22 +232,46 @@ double StandardModelMatching::B1t(double x, double mu) const
     double x2 = x * x;
     double xm2 = pow(x - 1., 2);
     double xm3 = pow(x - 1., 3);
+    double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
+                        SM.getQuarks(QCD::TOP).getMass(), FULLNLO);
     
-    return (2. * x)/xm2 * gsl_sf_dilog(1.-x) + (3. * x2 + x)/xm3 * log(x) * log(x) + (-11. * x2 - 5. * x)/(3. * xm3) * log(x) +
-            (-3. * x2 + 19. * x)/(3. * xm2) + 16. * x * (2. * (x - 1.) - (1. + x) * log(x))/(4. * xm3) * log(mu / Mw);
+    return (-2. * x)/xm2 * gsl_sf_dilog(1.- 1./x) + (-x2 + 17. * x)/(3. * xm3)*log(x) + (13. * x + 3.)/(3. * xm2) + 
+            ( (2. * x2 + 2. * x)/xm3*log(x) + (4. * x)/xm2 ) * 2. * log(mu / mt);
+    /*(2. * x)/xm2 * gsl_sf_dilog(1.-x) + (3. * x2 + x)/xm3 * log(x) * log(x) + (-11. * x2 - 5. * x)/(3. * xm3) * log(x) +
+            (-3. * x2 + 19. * x)/(3. * xm2) + 16. * x * (2. * (x - 1.) - (1. + x) * log(x))/(4. * xm3) * log(mu / Mw);*/
 }
 
 double StandardModelMatching::C1t(double x, double mu) const
 {
     double x2 = x * x;
     double x3 = x * x2;
-    double x4 = x * x3;
     double xm2 = pow(x - 1., 2);
     double xm3 = pow(x - 1., 3);
+    double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
+                        SM.getQuarks(QCD::TOP).getMass(), FULLNLO);
     
-    return (x3 + 4. * x)/xm2 * gsl_sf_dilog(1.-x) + (x4 - x3  + 20. * x2)/(2. * xm3) * log(x) * log(x) +
+    return (-x3 - 4. * x)/xm2 * gsl_sf_dilog(1.- 1./x) + (3. * x3 + 14. * x2 + 23 * x)/(3. * xm3)*log(x) + 
+            (4. * x3 + 7. * x2 + 29. * x)/(3. * xm2) + ( (8. * x2 + 2. * x)/xm3*log(x) + (x3 + x2 + 8. * x)/xm2) * 2. * log(mu / mt);
+    /*(x3 + 4. * x)/xm2 * gsl_sf_dilog(1.-x) + (x4 - x3  + 20. * x2)/(2. * xm3) * log(x) * log(x) +
             (-3. * x4 - 3. * x3 - 35. * x2 + x)/(3. * xm3) * log(x) + (4. * x3 + 7. * x2 + 29. * x)/(3. * xm2) +
-            16. * x * (-8. + 7. * x + x3 - 2. * (1. + 4. * x) * log(x))/(8. * xm3) * log(mu / Mw);
+            16. * x * (-8. + 7. * x + x3 - 2. * (1. + 4. * x) * log(x))/(8. * xm3) * log(mu / Mw);*/
+}
+
+double StandardModelMatching::D1t(double x, double mu) const
+{
+    double x2 = x * x;
+    double x3 = x * x2;
+    double x4 = x * x3;
+    double xm4 = pow(x - 1., 4);
+    double xm5 = pow(x - 1., 5);
+    double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
+                        SM.getQuarks(QCD::TOP).getMass(), FULLNLO);
+    
+    return (380. * x4 - 1352. * x3 + 1656. * x2 - 784. * x + 256.)/(81. * xm4) * gsl_sf_dilog(1.- 1./x) +
+            (304. * x4 + 1716. * x3 - 4644. * x2 + 2768. * x - 720.)/(81. * xm5)*log(x) +
+            (-6175. * x4 + 41608. * x3 - 66723. * x2 + 33106. * x - 7000.)/(729. * xm4) *
+            ( (648. * x4 - 720. * x3 - 232. * x2 - 160. * x + 32.)/(81. * xm5)*log(x) + 
+            (-352. * x4 + 4912. * x3 - 8280. * x2 + 3304. * x - 880.)/(243. * xm4) ) * 2. * log(mu / mt);
 }
 
 double StandardModelMatching::Y0(double x) const
@@ -1101,8 +1125,9 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
             CWBKstarllArrayNLO[3] = E0t(x)-(2./3.) + (2./3.*L);
             CWBKstarllArrayNLO[6] = C7NLOeff(x);
             CWBKstarllArrayNLO[7] = C8NLOeff(x);
-            CWBKstarllArrayNLO[8] = 0.;
-            CWBKstarllArrayNLO[9] = (B1t(x,Muw) - C1t(x,Muw)) / sW2;
+            CWBKstarllArrayNLO[8] = (1-4.*sW2) / (sW2) *C1t(x,Muw) - 1./(sW2) * B1t(x,Muw) - D1t(x,Muw) + 1./sW2 + 524./729. - 
+                    128.*M_PI*M_PI/243. - 16.*L/3. -128.*L*L/81.;
+            CWBKstarllArrayNLO[9] = (B1t(x,Muw) - C1t(x,Muw)) / sW2 - 1./sW2;
         case LO:
             CWBKstarllArrayLO[1] = 1.;
             CWBKstarllArrayLO[6] = C7LOeff(x);
