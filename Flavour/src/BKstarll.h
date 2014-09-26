@@ -450,48 +450,57 @@ public:
     double Delta(int i, double q2);
     
     /**
-    * @brief \f$ Sigma_{0} \f$ 
+    * @brief \f$ Sigma_{1s} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP average Sigma_0
+    * @return return the CP average Sigma_1c
     */
     double getSigma0(double q2){
         return Sigma(0, q2);
     };
     
     /**
-    * @brief \f$ Sigma_{1} \f$ 
+    * @brief \f$ Sigma_{1c} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP average Sigma_1
+    * @return return the CP average Sigma_1s
     */
     double getSigma1(double q2){
         return Sigma(1, q2);
     };
     
     /**
-    * @brief \f$ Sigma_{2} \f$ 
+    * @brief \f$ Sigma_{2s} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP average Sigma_2
+    * @return return the CP average Sigma_2c
     */
     double getSigma2(double q2){
         return Sigma(2, q2);
     };
     
     /**
-    * @brief \f$ Sigma_{3} \f$ 
+    * @brief \f$ Sigma_{2c} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP average Sigma_3
+    * @return return the CP average Sigma_2s
     */
     double getSigma3(double q2){
         return Sigma(3, q2);
     };
     
     /**
-    * @brief \f$ Sigma_{4} \f$ 
+    * @brief \f$ Sigma_{3} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP average Sigma_4
+    * @return return the CP average Sigma_3
     */    
     double getSigma4(double q2){
         return Sigma(4, q2);
+    };
+    
+    /**
+    * @brief \f$ Sigma_{4} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP average Sigma_4
+    */
+    double getSigma5(double q2){
+        return Sigma(5, q2);
     };
     
     /**
@@ -499,17 +508,17 @@ public:
     * @param[in] q2 q^2 of the decay
     * @return return the CP average Sigma_5
     */
-    double getSigma5(double q2){
-        return Sigma(5, q2);
+    double getSigma6(double q2){
+        return Sigma(6, q2);
     };
     
     /**
-    * @brief \f$ Sigma_{6} \f$ 
+    * @brief \f$ Sigma_{6s} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP average Sigma_6
+    * @return return the CP average Sigma_6s
     */
-    double getSigma6(double q2){
-        return Sigma(6, q2);
+    double getSigma7(double q2){
+        return Sigma(7, q2);
     };
     
     /**
@@ -517,8 +526,8 @@ public:
     * @param[in] q2 q^2 of the decay
     * @return return the CP average Sigma_7
     */
-    double getSigma7(double q2){
-        return Sigma(7, q2);
+    double getSigma9(double q2){
+        return Sigma(9, q2);
     };
     
     /**
@@ -526,59 +535,50 @@ public:
     * @param[in] q2 q^2 of the decay
     * @return return the CP average Sigma_9
     */
-    double getSigma9(double q2){
-        return Sigma(9, q2);
-    };
-    
-    /**
-    * @brief \f$ Sigma_{11} \f$ 
-    * @param[in] q2 q^2 of the decay
-    * @return return the CP average Sigma_11
-    */
     double getSigma11(double q2){
         return Sigma(11, q2);
     };
     
     /**
-    * @brief \f$ Delta_{0} \f$ 
+    * @brief \f$ Delta_{1s} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_0
+    * @return return the CP asymmetry Delta_1s
     */
     double getDelta0(double q2){
         return Delta(0, q2);
     };
     
     /**
-    * @brief \f$ Delta_{1} \f$ 
+    * @brief \f$ Delta_{1c} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_1
+    * @return return the CP asymmetry Delta_1c
     */
     double getDelta1(double q2){
         return Delta(1, q2);
     };
     
     /**
-    * @brief \f$ Delta_{2} \f$ 
+    * @brief \f$ Delta_{2s} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_2
+    * @return return the CP asymmetry Delta_2s
     */    
     double getDelta2(double q2){
         return Delta(2, q2);
     };
     
     /**
-    * @brief \f$ Delta_{3} \f$ 
+    * @brief \f$ Delta_{2c} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_3
+    * @return return the CP asymmetry Delta_2c
     */
     double getDelta3(double q2){
         return Delta(3, q2);
     };
     
     /**
-    * @brief \f$ Delta_{11} \f$ 
+    * @brief \f$ Delta_{9} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_11
+    * @return return the CP asymmetry Delta_9
     */
     double getDelta11(double q2){
         return Delta(11, q2);
@@ -849,6 +849,34 @@ public:
     
 private:
     gsl_function F1, F2, F3, F4;
+};
+
+
+/**
+ * @class A_FB
+ * @ingroup flavour
+ * @brief A class for the clean observable A_{FB}. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class A_FB : public BKstarll{
+public:
+    
+    /**
+    * @brief \f$ Gamma' \f$ 
+    */
+    A_FB(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
+    
+    /**
+    * @return return the clean observable Gamma'
+    */
+    double computeThValue ();
+    
+private:
+    gsl_function F1;
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
 };
 
 

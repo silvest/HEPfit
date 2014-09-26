@@ -664,6 +664,31 @@ double GammaPrime::computeThValue() {
 }
 
 
+A_FB::A_FB(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i), mySM(SM_i) { 
+    lep = lep_i;
+}
+
+
+double A_FB::computeThValue() {
+    updateParameters();
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    gsl_function F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma7, &(*this), _1 ) );
+    
+    double avaSigma7, errSigma7;
+    gsl_integration_workspace * w_sigma7 = gsl_integration_workspace_alloc (1000);
+    gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma7, &avaSigma7, &errSigma7);
+    gsl_integration_workspace_free (w_sigma7);
+    
+    GammaPrime myGammaPrime(mySM, lep);
+    myGammaPrime.setBinMin(q_min);
+    myGammaPrime.setBinMax(q_max);
+            
+    return -3. * avaSigma7 / 4. / myGammaPrime.computeThValue();
+}
+
+
 BR_BKstarll::BR_BKstarll(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
