@@ -328,7 +328,7 @@ matrix<double> EvolDF1bsg::ToEffectiveBasis(matrix<double> mat) const{
     y(7,4) = 20.;
     y(7,5) = -10./3.;
     
-    y(8,3) = 4./3.;
+    y(8,2) = 4./3.;
     y(8,4) = 64./9.;
     y(8,5) = 64./27.; // Add terms proportional to Log(mb/mub))
     
