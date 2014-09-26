@@ -133,7 +133,7 @@ void MonteCarlo::Run(const int rank)
             sendbuff[0] = new double[1];
 
             std::vector<double> pars;
-            int obsbuffsize = Obs.size() + 2 * Obs2D.size() + 2 * ParaObs.size();
+            int obsbuffsize = Obs.size() + 2 * Obs2D.size();
             for (std::vector<CorrelatedGaussianObservables>::iterator it1 = CGO.begin(); it1 < CGO.end(); it1++)
                 obsbuffsize += it1->getObs().size();
             
@@ -172,10 +172,6 @@ void MonteCarlo::Run(const int rank)
                         std::vector<Observable> pino(it1->getObs());
                         for (std::vector<Observable>::iterator it = pino.begin(); it != pino.end(); ++it)
                             sbuff[k++] = it->computeTheoryValue();
-                    }
-                    for (std::vector<ModelParaVsObs>::iterator it = ParaObs.begin(); it < ParaObs.end(); it++) {
-                        sbuff[k++] = DPars[it->getParaName()];
-                        sbuff[k++] = it->computeTheoryValue();
                     }
                     MPI::COMM_WORLD.Gather(sbuff, obsbuffsize, MPI::DOUBLE, sendbuff[0], obsbuffsize, MPI::DOUBLE, 0);
                 }
