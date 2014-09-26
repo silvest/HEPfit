@@ -230,8 +230,8 @@ double StandardModelMatching::F0t(double x) const
 double StandardModelMatching::B1t(double x, double mu) const
 {
     double x2 = x * x;
-    double xm2 = pow(x - 1., 2);
-    double xm3 = pow(x - 1., 3);
+    double xm2 = pow(1. - x, 2);
+    double xm3 = pow(1. - x, 3);
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), FULLNLO);
     
@@ -245,8 +245,8 @@ double StandardModelMatching::C1t(double x, double mu) const
 {
     double x2 = x * x;
     double x3 = x * x2;
-    double xm2 = pow(x - 1., 2);
-    double xm3 = pow(x - 1., 3);
+    double xm2 = pow(1. - x, 2);
+    double xm3 = pow(1. - x, 3);
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), FULLNLO);
     
@@ -262,14 +262,14 @@ double StandardModelMatching::D1t(double x, double mu) const
     double x2 = x * x;
     double x3 = x * x2;
     double x4 = x * x3;
-    double xm4 = pow(x - 1., 4);
-    double xm5 = pow(x - 1., 5);
+    double xm4 = pow(1. - x, 4);
+    double xm5 = pow(1. - x, 5);
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), FULLNLO);
     
     return (380. * x4 - 1352. * x3 + 1656. * x2 - 784. * x + 256.)/(81. * xm4) * gsl_sf_dilog(1.- 1./x) +
             (304. * x4 + 1716. * x3 - 4644. * x2 + 2768. * x - 720.)/(81. * xm5)*log(x) +
-            (-6175. * x4 + 41608. * x3 - 66723. * x2 + 33106. * x - 7000.)/(729. * xm4) *
+            (-6175. * x4 + 41608. * x3 - 66723. * x2 + 33106. * x - 7000.)/(729. * xm4) +
             ( (648. * x4 - 720. * x3 - 232. * x2 - 160. * x + 32.)/(81. * xm5)*log(x) + 
             (-352. * x4 + 4912. * x3 - 8280. * x2 + 3304. * x - 880.)/(243. * xm4) ) * 2. * log(mu / mt);
 }
