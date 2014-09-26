@@ -251,7 +251,7 @@ matrix<double> EvolDF1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
     mat1(5,7) = - 923522./243. - 6031./486.*n_d*n_d + n_d*(-13247./1458. - 6031./243.*n_u)
                 -13247./1458.*n_u - 6031./486.*n_u*n_u;
     
-    mat1(0,8) = - 22357278./19683. + 14440./6561.*n_d + 144688./6561.*n_u + 6976./243.*z3;
+    mat1(0,8) = - 2357278./19683. + 14440./6561.*n_d + 144688./6561.*n_u + 6976./243.*z3;
     mat1(1,8) = - 200848./6561. - 23696./2187.*n_d + 30736./2187.*n_u - 3584./81.*z3;
     mat1(2,8) = - 1524104./6561. - 176./27.*n_d*n_d + 352./27.*n_u*n_u +
                 n_d*(257564./2187. + 176./27.*n_u - 128./3.*z3) - 256./81.*z3 + 
@@ -395,6 +395,8 @@ matrix<double>& EvolDF1bsg::Df1Evolbsg(double mu, double M, orders order, scheme
                     resNLO(i, j) += - c[L][i][j][k] * etap * alsmu * log(eta);    
                 }        
                 resLO(i, j) += b[L][i][j][k] * etap;
+                if (fabs(resLO(i, j)) < 1.e-12) {resLO(i, j) = 0.;}
+                if (fabs(resNLO(i, j)) < 1.e-12) {resNLO(i, j) = 0.;}
             }
         }
     }

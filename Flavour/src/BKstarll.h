@@ -860,16 +860,16 @@ private:
  * @copyright GNU General Public License
  * @details 
  */
-class BF : public BKstarll{
+class BR_BKstarll : public BKstarll{
 public:
     
     /**
-    * @brief \f$ Gamma' \f$ 
+    * @brief \f$B\to K^* l^+l^-\f$ 
     */
-    BF(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
+    BR_BKstarll(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     
     /**
-    * @return return the clean observable Gamma'
+    * @return the branching fraction of \f$B\to K^* l^+l^-\f$
     */
     double computeThValue ();
     

@@ -429,6 +429,7 @@ private:
     double BtNDR;
     double Mw;
     double sW2;
+    double mu_b;
     //double MM;
     gslpp::matrix<complex> Vckm;
     complex lam_t;

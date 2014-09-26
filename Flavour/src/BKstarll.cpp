@@ -81,15 +81,14 @@ void BKstarll::updateParameters(){
     r_2T3t=mySM.getr_2T3t();
     m_fit2T3t=mySM.getm_fit2T3t();
     
-    h[0]=mySM.getabsh_0() + gslpp::complex::i()*mySM.getargh_0();
-    h[1]=mySM.getabsh_plus() + gslpp::complex::i()*mySM.getargh_plus();
-    h[2]=mySM.getabsh_minus() + gslpp::complex::i()*mySM.getargh_minus();
+    h[0]=mySM.getabsh_0() * exp(gslpp::complex::i()*mySM.getargh_0());
+    h[1]=mySM.getabsh_plus() * exp(gslpp::complex::i()*mySM.getargh_plus());
+    h[2]=mySM.getabsh_minus() * exp(gslpp::complex::i()*mySM.getargh_minus());
     
     b=1.;                           //please check
     
-    allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR    mySM.getMuw()
+    allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
-    //std::cout << (*(allcoeff[LO]) +  *(allcoeff[NLO])) << std::endl;
 
 }
 
@@ -188,8 +187,8 @@ double BKstarll::T_3tilde(double q2){
 
 
 double BKstarll::T_3(double q2){
-    //if (q2<2) return 2./(0.178168 - 0.202)*q2 + 0.202;
-    /*else*/ return (MB*MB - MKstar*MKstar)/q2*(T_3tilde(q2) - T_2(q2));
+    if (q2 < 2.) return (0.178168 - 0.202)/2. * q2 + 0.202;
+    else return (MB*MB - MKstar*MKstar)/q2*(T_3tilde(q2) - T_2(q2));
 }
 
 
@@ -284,9 +283,9 @@ gslpp::complex BKstarll::H_V(int i, double q2, int bar) {
             throw std::runtime_error("H_V: index " + out.str() + " not allowed for an Angular Coefficient");
     }
                     
-    return -gslpp::complex::i()*n*( (*(allcoeff[LO]) + *(allcoeff[NLO]))(8)*V_L(i,q2) 
-            + (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(8)*V_R(i,q2) 
-            + MB*MB/q2*( 2*Mb/MB*( (*(allcoeff[LO]) + *(allcoeff[NLO]))(6)*T_L(i,q2) 
+    return -gslpp::complex::i()*n*( (*(allcoeff[LO]) + *(allcoeff[NLO]))(8)*V_L(i,q2)
+            + (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(8)*V_R(i,q2)
+            + MB*MB/q2*( 2*Mb/MB*( (*(allcoeff[LO]) + *(allcoeff[NLO]))(6)*T_L(i,q2)
             + (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(6)*T_R(i,q2) ) - 16*M_PI*M_PI*h[i] ) );
 }
 
@@ -469,12 +468,12 @@ double P_1::computeThValue() {
     
     double avaSigma3, errSigma3, avaSigma4, errSigma4;
     gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
     gsl_integration_workspace_free (w_sigma3);
 
     
     gsl_integration_workspace * w_sigma4 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma4, &avaSigma4, &errSigma4);
+    gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma4, &avaSigma4, &errSigma4);
     gsl_integration_workspace_free (w_sigma4);
 
     return avaSigma4/(2.*avaSigma3);
@@ -496,11 +495,11 @@ double P_2::computeThValue() {
     
     double avaSigma7, errSigma7, avaSigma3, errSigma3;
     gsl_integration_workspace * w_sigma7 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma7, &avaSigma7, &errSigma7);
+    gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma7, &avaSigma7, &errSigma7);
     gsl_integration_workspace_free (w_sigma7);
 
     gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
     gsl_integration_workspace_free (w_sigma3);
     
     return avaSigma7/(8.*avaSigma3);
@@ -522,11 +521,11 @@ double P_3::computeThValue() {
     
     double avaSigma11, errSigma11, avaSigma3, errSigma3;
     gsl_integration_workspace * w_sigma11 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma11, &avaSigma11, &errSigma11);
+    gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma11, &avaSigma11, &errSigma11);
     gsl_integration_workspace_free (w_sigma11);
     
     gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
     gsl_integration_workspace_free (w_sigma3);
     
     return -avaSigma11/(4.*avaSigma3);
@@ -549,15 +548,15 @@ double P_4Prime::computeThValue() {
     
     double avaSigma5, errSigma5, avaSigma2, errSigma2, avaSigma3, errSigma3;
     gsl_integration_workspace * w_sigma5 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma5, &avaSigma5, &errSigma5);
+    gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma5, &avaSigma5, &errSigma5);
     gsl_integration_workspace_free (w_sigma5);
     
     gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma2, &avaSigma2, &errSigma2);
+    gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma2, &avaSigma2, &errSigma2);
     gsl_integration_workspace_free (w_sigma2);
     
     gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
     gsl_integration_workspace_free (w_sigma3);
     
     return avaSigma5/sqrt(-avaSigma2*avaSigma3);
@@ -581,15 +580,15 @@ double P_5Prime::computeThValue() {
     
     double avaSigma6, errSigma6, avaSigma2, errSigma2, avaSigma3, errSigma3;
     gsl_integration_workspace * w_sigma6 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma6, &avaSigma6, &errSigma6);
+    gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma6, &avaSigma6, &errSigma6);
     gsl_integration_workspace_free (w_sigma6);
     
     gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma2, &avaSigma2, &errSigma2);
+    gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma2, &avaSigma2, &errSigma2);
     gsl_integration_workspace_free (w_sigma2);
     
     gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
     gsl_integration_workspace_free (w_sigma3);
     
     return avaSigma6/(2.*sqrt(-avaSigma2*avaSigma3));
@@ -612,15 +611,15 @@ double P_6Prime::computeThValue() {
     
     double avaSigma9, errSigma9, avaSigma2, errSigma2, avaSigma3, errSigma3;
     gsl_integration_workspace * w_sigma9 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma9, &avaSigma9, &errSigma9);
+    gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma9, &avaSigma9, &errSigma9);
     gsl_integration_workspace_free (w_sigma9);
     
     gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma2, &avaSigma2, &errSigma2);
+    gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma2, &avaSigma2, &errSigma2);
     gsl_integration_workspace_free (w_sigma2);
     
     gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
     gsl_integration_workspace_free (w_sigma3);
     
     return -avaSigma9/(2.*sqrt(-avaSigma2*avaSigma3));
@@ -645,19 +644,19 @@ double GammaPrime::computeThValue() {
     
     double avaSigma0, errSigma0, avaSigma1, errSigma1, avaSigma2, errSigma2, avaSigma3, errSigma3;
     gsl_integration_workspace * w_sigma0 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma0, &avaSigma0, &errSigma0);
+    gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma0, &avaSigma0, &errSigma0);
     gsl_integration_workspace_free (w_sigma0);
 
     gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma1, &avaSigma1, &errSigma1);
+    gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma1, &avaSigma1, &errSigma1);
     gsl_integration_workspace_free (w_sigma1);
     
     gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_sigma2, &avaSigma2, &errSigma2);
+    gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma2, &avaSigma2, &errSigma2);
     gsl_integration_workspace_free (w_sigma2);
     
     gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_qags (&F4, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
     gsl_integration_workspace_free (w_sigma3);
     
     return ((3.*avaSigma0 - avaSigma2) + 2.*(3.*avaSigma1 - avaSigma3))/4.;
@@ -665,10 +664,10 @@ double GammaPrime::computeThValue() {
 }
 
 
-BF::BF(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
+BR_BKstarll::BR_BKstarll(const StandardModel& SM_i, StandardModel::lepton lep_i) : BKstarll(SM_i, lep_i) {  
 }
 
-double BF::computeThValue() {
+double BR_BKstarll::computeThValue() {
     
     updateParameters();
     double q_min = getBinMin();
@@ -682,19 +681,19 @@ double BF::computeThValue() {
     
     double avaSigma0, errSigma0, avaSigma1, errSigma1, avaSigma2, errSigma2, avaSigma3, errSigma3;
     gsl_integration_workspace * w_sigma0 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma0, &avaSigma0, &errSigma0);
+    gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma0, &avaSigma0, &errSigma0);
     gsl_integration_workspace_free (w_sigma0);
 
     gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma1, &avaSigma1, &errSigma1);
+    gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma1, &avaSigma1, &errSigma1);
     gsl_integration_workspace_free (w_sigma1);
     
     gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_sigma2, &avaSigma2, &errSigma2);
+    gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma2, &avaSigma2, &errSigma2);
     gsl_integration_workspace_free (w_sigma2);
     
     gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_qags (&F4, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
     gsl_integration_workspace_free (w_sigma3);
     
     return ((3.*avaSigma0 - avaSigma2) + 2.*(3.*avaSigma1 - avaSigma3))/4./width_Bd;
@@ -720,19 +719,19 @@ double ACP::computeThValue() {
     
     double avaDelta0, errDelta0, avaDelta1, errDelta1, avaDelta2, errDelta2, avaDelta3, errDelta3;
     gsl_integration_workspace * w_delta0 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_delta0, &avaDelta0, &errDelta0);
+    gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_delta0, &avaDelta0, &errDelta0);
     gsl_integration_workspace_free (w_delta0);
     
     gsl_integration_workspace * w_delta1 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_delta1, &avaDelta1, &errDelta1);
+    gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_delta1, &avaDelta1, &errDelta1);
     gsl_integration_workspace_free (w_delta1);
     
     gsl_integration_workspace * w_delta2 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F3, q_min, q_max, 0, 1e-7, 1000, w_delta2, &avaDelta2, &errDelta2);
+    gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 1000, w_delta2, &avaDelta2, &errDelta2);
     gsl_integration_workspace_free (w_delta2);
     
     gsl_integration_workspace * w_delta3 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F4, q_min, q_max, 0, 1e-7, 1000, w_delta3, &avaDelta3, &errDelta3);
+    gsl_integration_qags (&F4, q_min, q_max, 1.e-5, 1.e-3, 1000, w_delta3, &avaDelta3, &errDelta3);
     gsl_integration_workspace_free (w_delta3);
     
     GammaPrime myGammaPrime(mySM, lep);
@@ -759,11 +758,11 @@ double P3CP::computeThValue() {
 
     double avaDelta11, errDelta11, avaSigma3, errSigma3;
     gsl_integration_workspace * w_delta11 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F1, q_min, q_max, 1e-25, 1e-5, 1000, w_delta11, &avaDelta11, &errDelta11);   // integrational parameters tuned
+    gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_delta11, &avaDelta11, &errDelta11);   // integrational parameters tuned
     gsl_integration_workspace_free (w_delta11);
 
     gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma3, &avaSigma3, &errSigma3);
+    gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
     gsl_integration_workspace_free (w_sigma3);
 
     return - avaDelta11/(4.*avaSigma3);
@@ -787,11 +786,11 @@ double F_L::computeThValue() {
     
     double avaSigma0, errSigma0, avaSigma2, errSigma2;
     gsl_integration_workspace * w_sigma0 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F1, q_min, q_max, 0, 1e-7, 1000, w_sigma0, &avaSigma0, &errSigma0);
+    gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma0, &avaSigma0, &errSigma0);
     gsl_integration_workspace_free (w_sigma0);
     
     gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
-    gsl_integration_qags (&F2, q_min, q_max, 0, 1e-7, 1000, w_sigma2, &avaSigma2, &errSigma2);
+    gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma2, &avaSigma2, &errSigma2);
     gsl_integration_workspace_free (w_sigma2);
     
     GammaPrime myGammaPrime(mySM, lep);

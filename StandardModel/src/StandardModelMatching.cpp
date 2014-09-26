@@ -88,6 +88,7 @@ void StandardModelMatching::updateSMParameters()
     Vckm = SM.getVCKM();
     lam_t = SM.computelamt();
     L=2*log(Muw/Mw);
+    mu_b = SM.getMub();
 
 }
 
@@ -1107,7 +1108,7 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
             CWBKstarllArrayLO[6] = C7LOeff(x);
             CWBKstarllArrayLO[7] = C8LOeff(x);
             CWBKstarllArrayLO[8] = (1-4.*sW2) / (sW2) *C0t(x) - 1./(sW2) *
-                                B0t(x) - D0t(x) + 38./27. + 1./(4.*sW2) - (4./9.)*L;
+                                B0t(x) - D0t(x) + 38./27. + 1./(4.*sW2) - (4./9.)*L + 8./9. * log(Mw/mu_b);
             CWBKstarllArrayLO[9] = 1./(sW2) * (B0t(x) - C0t(x)) -1./(4.*sW2);
             break;
         default:
