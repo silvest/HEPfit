@@ -454,18 +454,18 @@ void BKstarll::checkCache(double qmin, double qmax){
     
     it += 1 ;
     
-    if (I0_updated == 1) std::cout << I0_updated << " I0 " << it << std::endl;
-    if (I1_updated == 1) std::cout << I1_updated << " I1 " << it << std::endl;
-    if (I2_updated == 1) std::cout << I2_updated << " I2 " << it << std::endl;
-    if (I3_updated == 1) std::cout << I3_updated << " I3 " << it << std::endl;
-    if (I4_updated == 1) std::cout << I4_updated << " I4 " << it << std::endl;
-    if (I5_updated == 1) std::cout << I5_updated << " I5 " << it << std::endl;
-    if (I6_updated == 1) std::cout << I6_updated << " I6 " << it << std::endl;
-    if (I7_updated == 1) std::cout << I7_updated << " I7 " << it << std::endl;
-    if (I8_updated == 1) std::cout << I8_updated << " I8 " << it << std::endl;
-    if (I9_updated == 1) std::cout << I9_updated << " I9 " << it << std::endl;
-    if (I10_updated == 1) std::cout << I10_updated << " I10 " << it << std::endl;
-    if (I11_updated == 1) std::cout << I11_updated << " I11 " << it << "\n" <<std::endl;
+//    if (I0_updated == 1) std::cout << I0_updated << " I0 " << it << std::endl;
+//    if (I1_updated == 1) std::cout << I1_updated << " I1 " << it << std::endl;
+//    if (I2_updated == 1) std::cout << I2_updated << " I2 " << it << std::endl;
+//    if (I3_updated == 1) std::cout << I3_updated << " I3 " << it << std::endl;
+//    if (I4_updated == 1) std::cout << I4_updated << " I4 " << it << std::endl;
+//    if (I5_updated == 1) std::cout << I5_updated << " I5 " << it << std::endl;
+//    if (I6_updated == 1) std::cout << I6_updated << " I6 " << it << std::endl;
+//    if (I7_updated == 1) std::cout << I7_updated << " I7 " << it << std::endl;
+//    if (I8_updated == 1) std::cout << I8_updated << " I8 " << it << std::endl;
+//    if (I9_updated == 1) std::cout << I9_updated << " I9 " << it << std::endl;
+//    if (I10_updated == 1) std::cout << I10_updated << " I10 " << it << std::endl;
+//    if (I11_updated == 1) std::cout << I11_updated << " I11 " << it << "\n" <<std::endl;
     
 }
 
