@@ -131,7 +131,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 o->setErrg(atof((*beg).c_str()));
                 ++beg;
                 o->setErrf(atof((*beg).c_str()));
-                if (o->getErrf() == 0. & o->getErrg() == 0){
+                if (o->getErrf() == 0. && o->getErrg() == 0.){
                     std::cout << "\nWARNING: The Gaussian and flat error in weight for " + o->getName() + " cannot both be 0. in the " + filename + " file." << std::endl;
                 }                
             } else if (distr.compare("noweight") == 0) {
@@ -167,7 +167,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 bo->setErrg(atof((*beg).c_str()));
                 ++beg;
                 bo->setErrf(atof((*beg).c_str()));
-                if (bo->getErrf() == 0. & bo->getErrg() == 0) {
+                if (bo->getErrf() == 0. && bo->getErrg() == 0.) {
                     std::cout << "\nWARNING: The Gaussian and flat error in weight for " + bo->getName() + " cannot both be 0. in the " + filename + " file." << std::endl;
                 }
             } else if (distr.compare("noweight") == 0) {

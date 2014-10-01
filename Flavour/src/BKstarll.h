@@ -105,6 +105,7 @@ public:
     BKstarll(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
     virtual ~BKstarll();
     void updateParameters();
+    void checkCache( double qmin, double qmax);
     virtual double computeThValue()=0;
     
     double GF;            //Fermi constant
@@ -121,7 +122,6 @@ public:
     double b;             //BF of the decay K^* -> K pi
     complex h[3];         //parameter that contains the contribution from the hadronic hamiltonian  
     double q2;            //q^2 of the decay
-    double qmin, qmax;
     
     /*lattice fit parameters*/
     double a_0V, a_1V, dmV;
@@ -399,10 +399,10 @@ public:
     /**
     * @brief \f$ F \f$ 
     * @param[in] q2 q^2 of the decay
-    * @param[in] b BF of the decay K* -> K pi
+    * @param[in] b_i BF of the decay K* -> K pi
     * @return return the factor F used in the angular coefficients I_i
     */
-    double F(double q2, double b);
+    double F(double q2, double b_i);
     
     
     /**
@@ -664,7 +664,144 @@ public:
 private:
     const StandardModel& mySM;
     StandardModel::lepton lep;
+    int it;
+    
+protected:
+    
+    unsigned int N_updated;
+    vector<double> N_cache;
+    complex Nc_cache;
+    
+    unsigned int V_updated;
+    vector<double> V_cache;
+    
+    unsigned int A0_updated;
+    vector<double> A0_cache;
+    
+    unsigned int A1_updated;
+    vector<double> A1_cache;
+    
+    unsigned int A2_updated;
+    vector<double> A2_cache;
+    
+    unsigned int T1_updated;
+    vector<double> T1_cache;
+    
+    unsigned int T2_updated;
+    vector<double> T2_cache;
+    
+    unsigned int T3t_updated;
+    vector<double> T3t_cache;
+    
+    unsigned int T3_updated;
+    
+    unsigned int k2_updated;
+    vector<double> k2_cache;
+    
+    unsigned int z_updated;
+    
+    unsigned int lambda_updated;
+    double lambda_cache;
+    
+    unsigned int beta_updated;
+    double beta_cache;
+    
+    unsigned int F_updated;
+    
+    unsigned int VL1_updated;
+    unsigned int VL2_updated;
+    
+    unsigned int TL1_updated;
+    unsigned int TL2_updated;
 
+    unsigned int VR1_updated;
+    unsigned int VR2_updated;
+    
+    unsigned int TR1_updated;
+    unsigned int TR2_updated;
+    
+    unsigned int VL0_updated;
+    vector<double> VL0_cache;
+    
+    unsigned int TL0_updated;
+    vector<double> TL0_cache;
+    
+    unsigned int VR0_updated;
+    
+    unsigned int TR0_updated;
+    
+    unsigned int SL_updated;
+    vector<double> SL_cache;
+    
+    unsigned int SR_updated;
+    
+    unsigned int C_7_updated;
+    complex C_7_cache;
+
+    unsigned int C_9_updated;
+    complex C_9_cache;
+    
+    unsigned int C_10_updated;
+    complex C_10_cache;
+    
+    unsigned int C_7p_updated;
+    complex C_7p_cache;
+    
+    unsigned int C_9p_updated;
+    complex C_9p_cache;
+    
+    unsigned int C_10p_updated;
+    complex C_10p_cache;
+    
+    unsigned int C_S_updated;
+    complex C_S_cache;
+    
+    unsigned int C_P_updated;
+    complex C_P_cache;
+    
+    unsigned int C_Sp_updated;
+    complex C_Sp_cache;
+    
+    unsigned int C_Pp_updated;
+    complex C_Pp_cache;
+    
+    unsigned int H_V0updated;
+    vector<double> H_V0cache;
+    complex H_V0Ccache;
+    
+    unsigned int H_V1updated;
+    vector<double> H_V1cache;
+    complex H_V1Ccache;
+    
+    unsigned int H_V2updated;
+    vector<double> H_V2cache;
+    complex H_V2Ccache;
+    
+    unsigned int H_A0updated;
+    unsigned int H_A1updated;
+    unsigned int H_A2updated;
+    
+    unsigned int H_Supdated;
+    vector<double> H_Scache;
+    
+    unsigned int H_Pupdated;
+    vector<double> H_Pcache;
+    
+    unsigned int I0_updated;
+    unsigned int I1_updated;
+    unsigned int I2_updated;
+    unsigned int I3_updated;
+    unsigned int I4_updated;
+    unsigned int I5_updated;
+    unsigned int I6_updated;
+    unsigned int I7_updated;
+    unsigned int I8_updated;
+    unsigned int I9_updated;
+    unsigned int I10_updated;
+    unsigned int I11_updated;
+    
+    
+    
 };
 
 
@@ -690,8 +827,14 @@ public:
     */
     double computeThValue ();
     
+protected:
+    
+    
 private:
+    double sigma3_cache;
+    double sigma4_cache;
     gsl_function F1, F2;
+    double avaSigma3, errSigma3, avaSigma4, errSigma4;
 };
 
 
@@ -716,8 +859,14 @@ public:
     */
     double computeThValue ();
     
+protected:
+    
+    
 private:
+    double sigma3_cache;
+    double sigma7_cache;
     gsl_function F1, F2;
+    double avaSigma3, errSigma3, avaSigma7, errSigma7;
 };
 
 
@@ -742,8 +891,14 @@ public:
     */
     double computeThValue ();
     
+protected:
+    
+    
 private:
+    double sigma3_cache;
+    double sigma11_cache;
     gsl_function F1, F2;
+    double avaSigma3, errSigma3, avaSigma11, errSigma11;
 };
 
 
@@ -768,8 +923,15 @@ public:
     */
     double computeThValue ();
     
+protected:
+    
+    
 private:
+    double sigma2_cache;
+    double sigma3_cache;
+    double sigma5_cache;
     gsl_function F1, F2, F3;
+    double avaSigma2, errSigma2, avaSigma3, errSigma3, avaSigma5, errSigma5;
 };
 
 
@@ -795,8 +957,15 @@ public:
     */
     double computeThValue ();
     
+protected:
+    
+    
 private:
+    double sigma2_cache;
+    double sigma3_cache;
+    double sigma6_cache;
     gsl_function F1, F2, F3;
+    double avaSigma2, errSigma2, avaSigma3, errSigma3, avaSigma6, errSigma6;
 };
 
 
@@ -821,8 +990,15 @@ public:
     */
     double computeThValue ();
     
+protected:
+    
+    
 private:
+    double sigma2_cache;
+    double sigma3_cache;
+    double sigma9_cache;
     gsl_function F1, F2, F3;
+    double avaSigma2, errSigma2, avaSigma3, errSigma3, avaSigma9, errSigma9;
 };
 
 
@@ -845,10 +1021,19 @@ public:
     /**
     * @return return the clean observable Gamma'
     */
+    double computeGammaPrime(double qmin, double qmax);
     double computeThValue ();
     
+protected:
+    
+    
 private:
+    double sigma0_cache;
+    double sigma1_cache;
+    double sigma2_cache;
+    double sigma3_cache;
     gsl_function F1, F2, F3, F4;
+    double avaSigma0, errSigma0, avaSigma1, errSigma1, avaSigma2, errSigma2, avaSigma3, errSigma3;
 };
 
 
@@ -860,7 +1045,7 @@ private:
  * @copyright GNU General Public License
  * @details 
  */
-class A_FB : public BKstarll{
+class A_FB : public GammaPrime{
 public:
     
     /**
@@ -872,11 +1057,13 @@ public:
     * @return return the clean observable Gamma'
     */
     double computeThValue ();
+protected:
+    
     
 private:
-    gsl_function F1;
-    const StandardModel& mySM;
-    StandardModel::lepton lep;
+    double sigma7_cache;
+    gsl_function F5;
+    double avaSigma7, errSigma7;
 };
 
 
@@ -888,7 +1075,7 @@ private:
  * @copyright GNU General Public License
  * @details 
  */
-class BR_BKstarll : public BKstarll{
+class BR_BKstarll : public GammaPrime{
 public:
     
     /**
@@ -900,9 +1087,6 @@ public:
     * @return the branching fraction of \f$B\to K^* l^+l^-\f$
     */
     double computeThValue ();
-    
-private:
-    gsl_function F1, F2, F3, F4;
 };
 
 
@@ -914,7 +1098,7 @@ private:
  * @copyright GNU General Public License
  * @details 
  */
-class ACP : public BKstarll{
+class ACP : public GammaPrime{
 public:
     
     /**
@@ -927,10 +1111,16 @@ public:
     */
     double computeThValue ();
     
+protected:
+    
+    
 private:
+    double delta0_cache;
+    double delta1_cache;
+    double delta2_cache;
+    double delta3_cache;
     gsl_function F1, F2, F3, F4;
-    const StandardModel& mySM;
-    StandardModel::lepton lep;
+    double avaDelta0, errDelta0, avaDelta1, errDelta1, avaDelta2, errDelta2, avaDelta3, errDelta3;
 };
 
 
@@ -955,8 +1145,14 @@ public:
     */
     double computeThValue ();
     
+protected:
+    
+    
 private:
+    double delta11_cache;
+    double sigma3_cache;
     gsl_function F1, F2;
+    double avaDelta11, errDelta11, avaSigma3, errSigma3;
 };
 
 
@@ -982,10 +1178,16 @@ public:
     */
     double computeThValue ();
     
+protected:
+    
+    
 private:
-    gsl_function F1, F2;
-    const StandardModel& mySM;
-    StandardModel::lepton lep;
+    double sigma0_cache;
+    double sigma1_cache;
+    double sigma2_cache;
+    double sigma3_cache;
+    gsl_function F1, F2, F3, F4;
+    double avaSigma0, errSigma0, avaSigma1, errSigma1, avaSigma2, errSigma2, avaSigma3, errSigma3;
 };
 
 
