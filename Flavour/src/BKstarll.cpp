@@ -454,18 +454,18 @@ void BKstarll::checkCache(double qmin, double qmax){
     
     it += 1 ;
     
-//    if (I0_updated == 1) std::cout << I0_updated << " I0 " << it << std::endl;
-//    if (I1_updated == 1) std::cout << I1_updated << " I1 " << it << std::endl;
-//    if (I2_updated == 1) std::cout << I2_updated << " I2 " << it << std::endl;
-//    if (I3_updated == 1) std::cout << I3_updated << " I3 " << it << std::endl;
-//    if (I4_updated == 1) std::cout << I4_updated << " I4 " << it << std::endl;
-//    if (I5_updated == 1) std::cout << I5_updated << " I5 " << it << std::endl;
-//    if (I6_updated == 1) std::cout << I6_updated << " I6 " << it << std::endl;
-//    if (I7_updated == 1) std::cout << I7_updated << " I7 " << it << std::endl;
-//    if (I8_updated == 1) std::cout << I8_updated << " I8 " << it << std::endl;
-//    if (I9_updated == 1) std::cout << I9_updated << " I9 " << it << std::endl;
-//    if (I10_updated == 1) std::cout << I10_updated << " I10 " << it << std::endl;
-//    if (I11_updated == 1) std::cout << I11_updated << " I11 " << it << "\n" <<std::endl;
+    if (I0_updated == 1) std::cout << I0_updated << " I0 " << it << std::endl;
+    if (I1_updated == 1) std::cout << I1_updated << " I1 " << it << std::endl;
+    if (I2_updated == 1) std::cout << I2_updated << " I2 " << it << std::endl;
+    if (I3_updated == 1) std::cout << I3_updated << " I3 " << it << std::endl;
+    if (I4_updated == 1) std::cout << I4_updated << " I4 " << it << std::endl;
+    if (I5_updated == 1) std::cout << I5_updated << " I5 " << it << std::endl;
+    if (I6_updated == 1) std::cout << I6_updated << " I6 " << it << std::endl;
+    if (I7_updated == 1) std::cout << I7_updated << " I7 " << it << std::endl;
+    if (I8_updated == 1) std::cout << I8_updated << " I8 " << it << std::endl;
+    if (I9_updated == 1) std::cout << I9_updated << " I9 " << it << std::endl;
+    if (I10_updated == 1) std::cout << I10_updated << " I10 " << it << std::endl;
+    if (I11_updated == 1) std::cout << I11_updated << " I11 " << it << "\n" <<std::endl;
     
 }
 
@@ -833,8 +833,8 @@ double P_1::computeThValue() {
         avaSigma3 = sigma3_cache;
     } else {
         F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
+        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma3, &avaSigma3, &errSigma3);
         gsl_integration_workspace_free (w_sigma3);
         sigma3_cache = avaSigma3;
     }
@@ -843,8 +843,8 @@ double P_1::computeThValue() {
         avaSigma4 = sigma4_cache;
     } else {
         F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma4, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma4 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma4, &avaSigma4, &errSigma4);
+        gsl_integration_workspace * w_sigma4 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma4, &avaSigma4, &errSigma4);
         gsl_integration_workspace_free (w_sigma4);
         sigma4_cache = avaSigma4;
     }
@@ -867,8 +867,8 @@ double P_2::computeThValue() {
         avaSigma3 = sigma3_cache;
     } else {
         F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
+        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma3, &avaSigma3, &errSigma3);
         gsl_integration_workspace_free (w_sigma3);
         sigma3_cache = avaSigma3;
     }
@@ -877,8 +877,8 @@ double P_2::computeThValue() {
         avaSigma7 = sigma7_cache;
     } else {
         F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma7, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma7 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma7, &avaSigma7, &errSigma7);
+        gsl_integration_workspace * w_sigma7 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma7, &avaSigma7, &errSigma7);
         gsl_integration_workspace_free (w_sigma7);
         sigma7_cache = avaSigma7;
     }
@@ -901,8 +901,8 @@ double P_3::computeThValue() {
         avaSigma3 = sigma3_cache;
     } else {
         F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
+        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma3, &avaSigma3, &errSigma3);
         gsl_integration_workspace_free (w_sigma3);
         sigma3_cache = avaSigma3;
     }
@@ -911,8 +911,8 @@ double P_3::computeThValue() {
         avaSigma11 = sigma11_cache;
     } else {
         F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma11, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma11 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma11, &avaSigma11, &errSigma11);
+        gsl_integration_workspace * w_sigma11 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma11, &avaSigma11, &errSigma11);
         gsl_integration_workspace_free (w_sigma11);
         sigma11_cache = avaSigma11;
     }
@@ -935,8 +935,8 @@ double P_4Prime::computeThValue() {
         avaSigma2 = sigma2_cache;
     } else {
         F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma2, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma2, &avaSigma2, &errSigma2);
+        gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma2, &avaSigma2, &errSigma2);
         gsl_integration_workspace_free (w_sigma2);
         sigma2_cache = avaSigma2;
     }
@@ -944,8 +944,8 @@ double P_4Prime::computeThValue() {
         avaSigma3 = sigma3_cache;
     } else {
         F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
+        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma3, &avaSigma3, &errSigma3);
         gsl_integration_workspace_free (w_sigma3);
         sigma3_cache = avaSigma3;
     }
@@ -954,8 +954,8 @@ double P_4Prime::computeThValue() {
         avaSigma5 = sigma5_cache;
     } else {
         gsl_function F3 = convertToGslFunction( boost::bind( &BKstarll::getSigma5, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma5 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma5, &avaSigma5, &errSigma5);
+        gsl_integration_workspace * w_sigma5 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma5, &avaSigma5, &errSigma5);
         gsl_integration_workspace_free (w_sigma5);
         sigma5_cache = avaSigma5;
     }
@@ -979,8 +979,8 @@ double P_5Prime::computeThValue() {
         avaSigma2 = sigma2_cache;
     } else {
         F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma2, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma2, &avaSigma2, &errSigma2);
+        gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma2, &avaSigma2, &errSigma2);
         gsl_integration_workspace_free (w_sigma2);
         sigma2_cache = avaSigma2;
     }
@@ -988,8 +988,8 @@ double P_5Prime::computeThValue() {
         avaSigma3 = sigma3_cache;
     } else {
         F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
+        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma3, &avaSigma3, &errSigma3);
         gsl_integration_workspace_free (w_sigma3);
         sigma3_cache = avaSigma3;
     }
@@ -998,8 +998,8 @@ double P_5Prime::computeThValue() {
         avaSigma6 = sigma6_cache;
     } else {
         F3 = convertToGslFunction( boost::bind( &BKstarll::getSigma6, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma6 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma6, &avaSigma6, &errSigma6);
+        gsl_integration_workspace * w_sigma6 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma6, &avaSigma6, &errSigma6);
         gsl_integration_workspace_free (w_sigma6);
         sigma6_cache = avaSigma6;
     }
@@ -1022,8 +1022,8 @@ double P_6Prime::computeThValue() {
         avaSigma2 = sigma2_cache;
     } else {
         F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma2, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma2, &avaSigma2, &errSigma2);
+        gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma2, &avaSigma2, &errSigma2);
         gsl_integration_workspace_free (w_sigma2);
         sigma2_cache = avaSigma2;
     }
@@ -1031,8 +1031,8 @@ double P_6Prime::computeThValue() {
         avaSigma3 = sigma3_cache;
     } else {
         F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
+        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma3, &avaSigma3, &errSigma3);
         gsl_integration_workspace_free (w_sigma3);
         sigma3_cache = avaSigma3;
     }
@@ -1041,8 +1041,8 @@ double P_6Prime::computeThValue() {
         avaSigma9 = sigma9_cache;
     } else {
         F3 = convertToGslFunction( boost::bind( &BKstarll::getSigma9, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma9 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma9, &avaSigma9, &errSigma9);
+        gsl_integration_workspace * w_sigma9 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma9, &avaSigma9, &errSigma9);
         gsl_integration_workspace_free (w_sigma9);
         sigma9_cache = avaSigma9;
     }
@@ -1064,8 +1064,8 @@ double GammaPrime::computeGammaPrime(double qmin, double qmax) {
         avaSigma2 = sigma2_cache;
     } else {
         F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma2, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma2, &avaSigma2, &errSigma2);
+        gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma2, &avaSigma2, &errSigma2);
         gsl_integration_workspace_free (w_sigma2);
         sigma2_cache = avaSigma2;
     }
@@ -1073,8 +1073,8 @@ double GammaPrime::computeGammaPrime(double qmin, double qmax) {
         avaSigma3 = sigma3_cache;
     } else {
         F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
+        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma3, &avaSigma3, &errSigma3);
         gsl_integration_workspace_free (w_sigma3);
         sigma3_cache = avaSigma3;
     }
@@ -1083,8 +1083,8 @@ double GammaPrime::computeGammaPrime(double qmin, double qmax) {
         avaSigma0 = sigma0_cache;
     } else {
         F3 = convertToGslFunction( boost::bind( &BKstarll::getSigma0, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma0 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma0, &avaSigma0, &errSigma0);
+        gsl_integration_workspace * w_sigma0 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma0, &avaSigma0, &errSigma0);
         gsl_integration_workspace_free (w_sigma0);
         sigma0_cache = avaSigma0;
     }
@@ -1092,8 +1092,8 @@ double GammaPrime::computeGammaPrime(double qmin, double qmax) {
         avaSigma1 = sigma1_cache;
     } else {
         F4 = convertToGslFunction( boost::bind( &BKstarll::getSigma1, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F4, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma1, &avaSigma1, &errSigma1);
+        gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F4, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma1, &avaSigma1, &errSigma1);
         gsl_integration_workspace_free (w_sigma1);
         sigma1_cache = avaSigma1;
     }
@@ -1124,8 +1124,8 @@ double A_FB::computeThValue() {
         
     } else {
         F5 = convertToGslFunction( boost::bind( &GammaPrime::getSigma7, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma7 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F5, q_min, q_max, 1.e-20, 1.e-5, 1000, w_sigma7, &avaSigma7, &errSigma7);
+        gsl_integration_workspace * w_sigma7 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F5, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma7, &avaSigma7, &errSigma7);
         gsl_integration_workspace_free (w_sigma7);
         sigma7_cache = avaSigma7;
         
@@ -1164,8 +1164,8 @@ double ACP::computeThValue() {
         avaDelta2 = delta2_cache;
     } else {
         F1 = convertToGslFunction( boost::bind( &GammaPrime::getDelta2, &(*this), _1 ) );
-        gsl_integration_workspace * w_delta2 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_delta2, &avaDelta2, &errDelta2);
+        gsl_integration_workspace * w_delta2 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta2, &avaDelta2, &errDelta2);
         gsl_integration_workspace_free (w_delta2);
         delta2_cache = avaDelta2;
     }
@@ -1173,8 +1173,8 @@ double ACP::computeThValue() {
         avaDelta3 = delta3_cache;
     } else {
         F2 = convertToGslFunction( boost::bind( &GammaPrime::getDelta3, &(*this), _1 ) );
-        gsl_integration_workspace * w_delta3 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_delta3, &avaDelta3, &errDelta3);
+        gsl_integration_workspace * w_delta3 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta3, &avaDelta3, &errDelta3);
         gsl_integration_workspace_free (w_delta3);
         delta3_cache = avaDelta3;
     }
@@ -1183,8 +1183,8 @@ double ACP::computeThValue() {
         avaDelta0 = delta0_cache;
     } else {
         F3 = convertToGslFunction( boost::bind( &GammaPrime::getDelta0, &(*this), _1 ) );
-        gsl_integration_workspace * w_delta0 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 1000, w_delta0, &avaDelta0, &errDelta0);
+        gsl_integration_workspace * w_delta0 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta0, &avaDelta0, &errDelta0);
         gsl_integration_workspace_free (w_delta0);
         delta0_cache = avaDelta0;
     }
@@ -1192,8 +1192,8 @@ double ACP::computeThValue() {
         avaDelta1 = delta1_cache;
     } else {
         F4 = convertToGslFunction( boost::bind( &GammaPrime::getDelta1, &(*this), _1 ) );
-        gsl_integration_workspace * w_delta1 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F4, q_min, q_max, 1.e-5, 1.e-3, 1000, w_delta1, &avaDelta1, &errDelta1);
+        gsl_integration_workspace * w_delta1 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F4, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta1, &avaDelta1, &errDelta1);
         gsl_integration_workspace_free (w_delta1);
         delta1_cache = avaDelta1;
     }
@@ -1218,8 +1218,8 @@ double P3CP::computeThValue() {
         avaDelta11 = delta11_cache;
     } else {
         F1 = convertToGslFunction( boost::bind( &BKstarll::getDelta11, &(*this), _1 ) );
-        gsl_integration_workspace * w_delta11 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_delta11, &avaDelta11, &errDelta11);
+        gsl_integration_workspace * w_delta11 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta11, &avaDelta11, &errDelta11);
         gsl_integration_workspace_free (w_delta11);
         delta11_cache = avaDelta11;
     }
@@ -1227,8 +1227,8 @@ double P3CP::computeThValue() {
         avaSigma3 = sigma3_cache;
     } else {
         F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
+        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma3, &avaSigma3, &errSigma3);
         gsl_integration_workspace_free (w_sigma3);
         sigma3_cache = avaSigma3;
     }
@@ -1252,8 +1252,8 @@ double F_L::computeThValue() {
         avaSigma2 = sigma2_cache;
     } else {
         F1 = convertToGslFunction( boost::bind( &BKstarll::getSigma2, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma2, &avaSigma2, &errSigma2);
+        gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma2, &avaSigma2, &errSigma2);
         gsl_integration_workspace_free (w_sigma2);
         sigma2_cache = avaSigma2;
     }
@@ -1261,8 +1261,8 @@ double F_L::computeThValue() {
         avaSigma3 = sigma3_cache;
     } else {
         F2 = convertToGslFunction( boost::bind( &BKstarll::getSigma3, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma3, &avaSigma3, &errSigma3);
+        gsl_integration_workspace * w_sigma3 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma3, &avaSigma3, &errSigma3);
         gsl_integration_workspace_free (w_sigma3);
         sigma3_cache = avaSigma3;
     }
@@ -1271,8 +1271,8 @@ double F_L::computeThValue() {
         avaSigma0 = sigma0_cache;
     } else {
         F3 = convertToGslFunction( boost::bind( &BKstarll::getSigma0, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma0 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma0, &avaSigma0, &errSigma0);
+        gsl_integration_workspace * w_sigma0 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F3, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma0, &avaSigma0, &errSigma0);
         gsl_integration_workspace_free (w_sigma0);
         sigma0_cache = avaSigma0;
     }
@@ -1280,8 +1280,8 @@ double F_L::computeThValue() {
         avaSigma1 = sigma1_cache;
     } else {
         F4 = convertToGslFunction( boost::bind( &BKstarll::getSigma1, &(*this), _1 ) );
-        gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (1000);
-        gsl_integration_qags (&F4, q_min, q_max, 1.e-5, 1.e-3, 1000, w_sigma1, &avaSigma1, &errSigma1);
+        gsl_integration_workspace * w_sigma1 = gsl_integration_workspace_alloc (50);
+        gsl_integration_qags (&F4, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma1, &avaSigma1, &errSigma1);
         gsl_integration_workspace_free (w_sigma1);
         sigma1_cache = avaSigma1;
     }
