@@ -112,9 +112,9 @@ void BKstarll::updateParameters(){
     r_2T3t=mySM.getr_2T3t();
     m_fit2T3t=mySM.getm_fit2T3t();
     
-    h[0]=mySM.getabsh_0() * exp(gslpp::complex::i()*mySM.getargh_0());
-    h[1]=mySM.getabsh_plus() * exp(gslpp::complex::i()*mySM.getargh_plus());
-    h[2]=mySM.getabsh_minus() * exp(gslpp::complex::i()*mySM.getargh_minus());
+    h[0]=mySM.getabsh_0() + gslpp::complex::i()*mySM.getargh_0();
+    h[1]=mySM.getabsh_plus() + gslpp::complex::i()*mySM.getargh_plus();
+    h[2]=mySM.getabsh_minus() + gslpp::complex::i()*mySM.getargh_minus();
     
     b=1.;                           //please check
     
@@ -473,20 +473,20 @@ void BKstarll::checkCache(double qmin, double qmax){
  * Transverse Form Factors                                                     *
  * ****************************************************************************/
 double BKstarll::LCSR_fit1(double q2, double r_1, double r_2, double m_R2, double m_fit2){
-    return r_1/( 1 - q2/m_R2 ) + r_2/( 1 - q2/m_fit2 ) ;
+    return r_1/( 1. - q2/m_R2 ) + r_2/( 1. - q2/m_fit2 ) ;
 }
 
 
 
 double BKstarll::LCSR_fit2(double q2, double r_1, double r_2, double m_fit2){
-    return r_1/( 1 - q2/m_fit2 ) + r_2/pow( ( 1 - q2/m_fit2 ) ,2) ;
+    return r_1/( 1. - q2/m_fit2 ) + r_2/pow( ( 1. - q2/m_fit2 ) , 2.) ;
 
 }
 
 
 
 double BKstarll::LCSR_fit3(double q2, double r_2, double m_fit2){
-    return r_2/( 1 - q2/m_fit2 ) ; 
+    return r_2/( 1. - q2/m_fit2 ) ; 
 }
 
 
@@ -507,7 +507,7 @@ double BKstarll::lat_fit(double q2, double a_0, double a_1, double dm){
 
 double BKstarll::V(double q2){
     if (q2<CUTOFF)
-        return LCSR_fit1(q2, r_1V, r_2V, pow(m_RV, 2), m_fit2V);
+        return LCSR_fit1(q2, r_1V, r_2V, pow(m_RV, 2.), m_fit2V);
     else
         return lat_fit(q2, a_0V, a_1V, dmV);
 }
@@ -516,7 +516,7 @@ double BKstarll::V(double q2){
 
 double BKstarll::A_0(double q2){
     if (q2<CUTOFF)
-        return LCSR_fit1(q2, r_1A0, r_2A0, pow(m_RA0, 2), m_fit2A0);
+        return LCSR_fit1(q2, r_1A0, r_2A0, pow(m_RA0, 2.), m_fit2A0);
     else
         return lat_fit(q2, a_0A0, a_1A0, dmA0);
 }
@@ -540,7 +540,7 @@ double BKstarll::A_2(double q2){
 
 double BKstarll::T_1(double q2){
     if (q2<CUTOFF)
-        return LCSR_fit1(q2, r_1T1, r_2T1, pow(m_RT1, 2), m_fit2T1);
+        return LCSR_fit1(q2, r_1T1, r_2T1, pow(m_RT1, 2.), m_fit2T1);
     else
         return lat_fit(q2, a_0T1, a_1T1, dmT1);
 }
@@ -573,7 +573,7 @@ double BKstarll::V_L(int i, double q2){
     switch (i){
         case 0:
             if (q2 < CUTOFF)
-                return 1. / ( 4*MKstar*MB*(MB + MKstar)*sqrt(q2) ) * ( pow((MB + MKstar),2)*(MB*MB - q2 - MKstar*MKstar)*A_1(q2) - lambda(q2)*A_2(q2) );
+                return 1. / ( 4.*MKstar*MB*(MB + MKstar)*sqrt(q2) ) * ( pow((MB + MKstar),2.)*(MB*MB - q2 - MKstar*MKstar)*A_1(q2) - lambda(q2)*A_2(q2) );
             else
                 return 4*MKstar/sqrt(q2)*lat_fit(q2, a_0A12, a_1A12, dmA12);
         case 1:
@@ -639,7 +639,7 @@ double BKstarll::S_R(double q2){
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
 complex BKstarll::N(){
-    return -(4*GF*MB*ale*lambda_t)/(sqrt(2)*4*M_PI);
+    return -(4.*GF*MB*ale*lambda_t)/(sqrt(2.)*4.*M_PI);
 }
 
 
@@ -726,7 +726,7 @@ gslpp::complex BKstarll::H_P(double q2, int bar) {
      
     return gslpp::complex::i()*n*( Mb/MW*( (*(allcoeff[LO]) + *(allcoeff[NLO]))(11)*S_L(q2) 
             + (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(11)*S_R(q2) ) 
-            + 2*Mm*Mb/q2*( (*(allcoeff[LO]) + *(allcoeff[NLO]))(9)*( S_L(q2) - Ms/Mb*S_R(q2) ) 
+            + 2.*Mm*Mb/q2*( (*(allcoeff[LO]) + *(allcoeff[NLO]))(9)*( S_L(q2) - Ms/Mb*S_R(q2) ) 
             + (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(9)*( S_R(q2) - Ms/Mb*S_L(q2) ) ) );
 }
 
@@ -736,25 +736,25 @@ gslpp::complex BKstarll::H_P(double q2, int bar) {
  * Angular coefficients                                                         *
  * ****************************************************************************/
 double BKstarll::k2(double q2) {
-    return (pow(MB,4) + q2*q2 + pow(MKstar,4) -2*MKstar*MKstar*q2 -2*MB*MB*(q2 + MKstar*MKstar))/(4*MB*MB);
+    return (pow(MB,4.) + q2*q2 + pow(MKstar,4.) -2.*MKstar*MKstar*q2 -2.*MB*MB*(q2 + MKstar*MKstar))/(4.*MB*MB);
 }
 
 
 
 double BKstarll::beta(double q2) {
-    return sqrt(1-4*Mm*Mm/q2);
+    return sqrt(1-4.*Mm*Mm/q2);
 }
 
 
 
 double BKstarll::lambda(double q2) {
-    return 4*MB*MB*k2(q2);
+    return 4.*MB*MB*k2(q2);
 }
 
 
 
 double BKstarll::F(double q2, double b_i) {
-    return sqrt(lambda(q2))*beta(q2)*q2*b_i/(96*M_PI*M_PI*M_PI*MB*MB*MB);
+    return sqrt(lambda(q2))*beta(q2)*q2*b_i/(96.*M_PI*M_PI*M_PI*MB*MB*MB);
 }
 
 
@@ -767,33 +767,33 @@ double BKstarll::I(int i, double q2, int bar) {
 
     switch (i){
         case 0: // I1c
-            return F(q2,b)*( ( H_V(0,q2,bar).abs2() + H_A(0,q2,bar).abs2() )/2  +  H_P(q2,bar).abs2()  +  2*Mm2/q2*( H_V(0,q2,bar).abs2() 
+            return F(q2,b)*( ( H_V(0,q2,bar).abs2() + H_A(0,q2,bar).abs2() )/2.  +  H_P(q2,bar).abs2()  +  2.*Mm2/q2*( H_V(0,q2,bar).abs2() 
                     - H_A(0,q2,bar).abs2() )  + beta2*H_S(q2,bar).abs2() );
         case 1: // I1s
             return F(q2,b)*( (beta2 + 2.)/8.*( H_V(1,q2,bar).abs2() + H_V(2,q2,bar).abs2() + H_A(1,q2,bar).abs2() + H_A(2,q2,bar).abs2() )  +
                             Mm2/q2*( H_V(1,q2,bar).abs2() + H_V(2,q2,bar).abs2() - H_A(1,q2,bar).abs2() - H_A(2,q2,bar).abs2() ) );
         case 2: // I2c
-            return -F(q2,b)*beta2/2*( H_V(0,q2,bar).abs2() + H_A(0,q2,bar).abs2() );
+            return -F(q2,b)*beta2/2.*( H_V(0,q2,bar).abs2() + H_A(0,q2,bar).abs2() );
         case 3: // I2s
-            return F(q2,b)*beta2/8*( H_V(1,q2,bar).abs2() + H_V(2,q2,bar).abs2()  +  H_A(1,q2,bar).abs2() + H_A(2,q2,bar).abs2() );
+            return F(q2,b)*beta2/8.*( H_V(1,q2,bar).abs2() + H_V(2,q2,bar).abs2()  +  H_A(1,q2,bar).abs2() + H_A(2,q2,bar).abs2() );
         case 4: // I3
-            return -F(q2,b)/2*( ( H_V(1,q2,bar)*H_V(2,q2,bar).conjugate() ).real()  +  ( H_A(1,q2,bar)*H_A(2,q2,bar).conjugate() ).real() );
+            return -F(q2,b)/2.*( ( H_V(1,q2,bar)*H_V(2,q2,bar).conjugate() ).real()  +  ( H_A(1,q2,bar)*H_A(2,q2,bar).conjugate() ).real() );
         case 5: // I4
-            return F(q2,b)*beta2/4*( ( (H_V(2,q2,bar) + H_V(1,q2,bar))*H_V(0,q2,bar).conjugate() ).real()  +  ( (H_A(2,q2,bar) + H_A(1,q2,bar))*H_A(0,q2,bar).conjugate() ).real() );
+            return F(q2,b)*beta2/4.*( ( (H_V(2,q2,bar) + H_V(1,q2,bar))*H_V(0,q2,bar).conjugate() ).real()  +  ( (H_A(2,q2,bar) + H_A(1,q2,bar))*H_A(0,q2,bar).conjugate() ).real() );
         case 6: // I5
-            return F(q2,b)*( beta(q2)/2*( ( (H_V(2,q2,bar) - H_V(1,q2,bar))*H_A(0,q2,bar).conjugate() ).real()  +  ( (H_A(2,q2,bar) - H_A(1,q2,bar))*H_V(0,q2,bar).conjugate() ).real() )  -
+            return F(q2,b)*( beta(q2)/2.*( ( (H_V(2,q2,bar) - H_V(1,q2,bar))*H_A(0,q2,bar).conjugate() ).real()  +  ( (H_A(2,q2,bar) - H_A(1,q2,bar))*H_V(0,q2,bar).conjugate() ).real() )  -
                             beta(q2)*Mm/sqrt(q2)*( H_S(q2,bar).conjugate()*(H_V(1,q2,bar) + H_V(2,q2,bar)) ).real() );
         case 7: // I6s
             return F(q2,b)*beta(q2)*( H_V(2,q2,bar)*(H_A(2,q2,bar).conjugate()) - H_V(1,q2,bar)*(H_A(1,q2,bar).conjugate()) ).real();
         case 8: // I6c
-            return  2*F(q2,b)*beta(q2)*Mm/sqrt(q2)*( H_S(q2,bar).conjugate()*H_V(0,q2,bar) ).real();
+            return 2.*F(q2,b)*beta(q2)*Mm/sqrt(q2)*( H_S(q2,bar).conjugate()*H_V(0,q2,bar) ).real();
         case 9: // I7
-            return F(q2,b)*( beta(q2)/2*( ( (H_V(2,q2,bar) + H_V(1,q2,bar))*H_A(0,q2,bar).conjugate() ).imag()  +  ( (H_A(2,q2,bar) + H_A(1,q2,bar))*H_V(0,q2,bar).conjugate() ).imag() )  -
+            return F(q2,b)*( beta(q2)/2.*( ( (H_V(2,q2,bar) + H_V(1,q2,bar))*H_A(0,q2,bar).conjugate() ).imag()  +  ( (H_A(2,q2,bar) + H_A(1,q2,bar))*H_V(0,q2,bar).conjugate() ).imag() )  -
                             beta(q2)*Mm/sqrt(q2)*( H_S(q2,bar).conjugate()*(H_V(2,q2,bar) - H_V(1,q2,bar)) ).imag() );
         case 10: // I8
-            return F(q2,b)*beta2/4*( ( (H_V(2,q2,bar) - H_V(1,q2,bar))*H_V(0,q2,bar).conjugate() ).imag()  +  ( (H_A(2,q2,bar) - H_A(1,q2,bar))*H_A(0,q2,bar).conjugate() ).imag() );
+            return F(q2,b)*beta2/4.*( ( (H_V(2,q2,bar) - H_V(1,q2,bar))*H_V(0,q2,bar).conjugate() ).imag()  +  ( (H_A(2,q2,bar) - H_A(1,q2,bar))*H_A(0,q2,bar).conjugate() ).imag() );
         case 11: // I9
-            return F(q2,b)*beta2/2*( ( H_V(1,q2,bar)*H_V(2,q2,bar).conjugate() ).imag()  +  ( H_A(1,q2,bar)*H_A(2,q2,bar).conjugate() ).imag() );
+            return F(q2,b)*beta2/2.*( ( H_V(1,q2,bar)*H_V(2,q2,bar).conjugate() ).imag()  +  ( H_A(1,q2,bar)*H_A(2,q2,bar).conjugate() ).imag() );
         default:
             std::stringstream out;
             out << i;
@@ -1199,7 +1199,7 @@ double ACP::computeThValue() {
     }
     
             
-    return (3.*delta0_cache - delta2_cache + 2. * ( 3*delta1_cache - delta3_cache ) )/(4.*computeGammaPrime(q_min, q_max));
+    return (3.*delta0_cache - delta2_cache + 2. * ( 3.*delta1_cache - delta3_cache ) )/(4.*computeGammaPrime(q_min, q_max));
 
 }
 
@@ -1300,7 +1300,7 @@ double M_1Prime::computeThValue() {
     double q_min = getBinMin();
     
     return ( H_V(1,q_min,0).abs2() + H_V(2,q_min,0).abs2() - H_A(1,q_min,0).abs2() - H_A(2,q_min,0).abs2() )/
-            ( 2*( H_V(1,q_min,0).abs2() + H_V(2,q_min,0).abs2() + H_A(1,q_min,0).abs2() + H_A(2,q_min,0).abs2() ) );
+            ( 2.*( H_V(1,q_min,0).abs2() + H_V(2,q_min,0).abs2() + H_A(1,q_min,0).abs2() + H_A(2,q_min,0).abs2() ) );
 }
 
 
@@ -1312,6 +1312,6 @@ double M_2Prime::computeThValue() {
     updateParameters();
     double q_min = getBinMin();
     
-    return ( q_min/(2*Mm*Mm)*( H_P(q_min,0).abs2() + beta(q_min)*beta(q_min)*H_S(q_min,0).abs2() ) + H_V(0,q_min,0).abs2() - H_A(0,q_min,0).abs2() )/
+    return ( q_min/(2.*Mm*Mm)*( H_P(q_min,0).abs2() + beta(q_min)*beta(q_min)*H_S(q_min,0).abs2() ) + H_V(0,q_min,0).abs2() - H_A(0,q_min,0).abs2() )/
             ( H_V(0,q_min,0).abs2() + H_A(0,q_min,0).abs2() );  
 }
