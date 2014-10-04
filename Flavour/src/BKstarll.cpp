@@ -249,6 +249,7 @@ void BKstarll::checkCache(double qmin, double qmax){
         }
     } else {
         V_updated = 0;
+        A0_updated = 0;
         A1_updated = 0;
         T1_updated = 0;
         T2_updated = 0;
@@ -493,14 +494,14 @@ double BKstarll::LCSR_fit3(double q2, double r_2, double m_fit2){
 
 double BKstarll::z(double q2){
     double t_0 = 12.;
-    double t_p=pow(MB + MKstar,2);
+    double t_p=pow(MB + MKstar,2.);
     return ( sqrt(t_p - q2) - sqrt(t_p - t_0) ) / ( sqrt(t_p - q2) + sqrt(t_p - t_0) );
 }
 
 
 
 double BKstarll::lat_fit(double q2, double a_0, double a_1, double dm){
-    return 1 / (1 - q2/pow(MB + dm,2)) * ( a_0 + a_1*z(q2) );
+    return 1 / (1 - q2/pow(MB + dm,2.)) * ( a_0 + a_1*z(q2) );
 }
 
 
@@ -602,7 +603,7 @@ double BKstarll::T_L(int i, double q2){
             if (q2 < CUTOFF)
                 return sqrt(q2)/(4.*MB*MB*MKstar) * ( ( MB*MB+ 3.*MKstar*MKstar - q2 ) * T_2(q2) - lambda(q2) / (MB*MB - MKstar*MKstar) * T_3(q2) );
             else
-                return 2*sqrt(q2)*MKstar/(MB + MKstar)*lat_fit(q2, a_0T23, a_1T23, dmT23);
+                return 2*sqrt(q2)*MKstar/MB/(MB + MKstar)*lat_fit(q2, a_0T23, a_1T23, dmT23);
         case 1:
             return (MB*MB - MKstar*MKstar) / ( 2.*MB*MB ) * T_2(q2) - sqrt(lambda(q2)) / ( 2.*MB*MB ) * T_1(q2);
         case 2:
