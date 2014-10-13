@@ -859,34 +859,34 @@ public:
     }
     
     
-    double getabsh_0() const
+    double getReh_0() const
     {
-        return absh_0;
+        return reh_0;
     }
     
-    double getabsh_plus() const
+    double getReh_plus() const
     {
-        return absh_plus;
+        return reh_plus;
     }
     
-    double getabsh_minus() const
+    double getReh_minus() const
     {
-        return absh_minus;
+        return reh_minus;
     }
     
-    double getargh_0() const
+    double getImh_0() const
     {
-        return argh_0;
+        return imh_0;
     }
     
-    double getargh_plus() const
+    double getImh_plus() const
     {
-        return argh_plus;
+        return imh_plus;
     }
     
-    double getargh_minus() const
+    double getImh_minus() const
     {
-        return argh_minus;
+        return imh_minus;
     }
     
     double geta_0V() const
@@ -1338,7 +1338,7 @@ protected:
     double Br_B_Xcenu;
     double BBsoBBd; ///< The ratio \f$ B_{B_s}/B_{B_d} \f$ necessary to compute \f$ B_{B_s} \f$. 
     double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$. 
-    double absh_0, absh_plus, absh_minus, argh_0, argh_plus, argh_minus;
+    double reh_0, reh_plus, reh_minus, imh_0, imh_plus, imh_minus;
     double a_0V, a_1V, dmV;
     double a_0A0, a_1A0, dmA0;
     double a_0A1, a_1A1, dmA1;

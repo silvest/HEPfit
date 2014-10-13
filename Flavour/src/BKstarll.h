@@ -26,19 +26,19 @@
 //gsl_function_pp Fp( boost::bind(&Class::member_function, &class, _1) );
 //gsl_function *F = static_cast<gsl_function*>(&Fp);
 
-class gsl_function_pp : public gsl_function
-{
-public:
-    gsl_function_pp(std::function<double(double)> const& func) : _func(func){
-        function=&gsl_function_pp::invoke;
-        params=this;
-    }
-private:
-    std::function<double(double)> _func;
-    static double invoke(double x, void *params) {
-        return static_cast<gsl_function_pp*>(params)->_func(x);
-    }
-};
+//class gsl_function_pp : public gsl_function
+//{
+//public:
+//    gsl_function_pp(std::function<double(double)> const& func) : _func(func){
+//        function=&gsl_function_pp::invoke;
+//        params=this;
+//    }
+//private:
+//    std::function<double(double)> _func;
+//    static double invoke(double x, void *params) {
+//        return static_cast<gsl_function_pp*>(params)->_func(x);
+//    }
+//};
 
 
 //Option 2. To be used with:
@@ -74,19 +74,19 @@ gsl_function convertToGslFunction( const F& f )
 //gsl_function_p<decltype(ptr)> Fp(ptr);
 //gsl_function *F = static_cast<gsl_function*>(&Fp);
 
-template< typename F >
-class gsl_function_p : public gsl_function {
-public:
-    gsl_function_p(const F& func) : _func(func) {
-        function = &gsl_function_p::invoke;
-        params=this;
-    }
-private:
-    const F& _func;
-    static double invoke(double x, void *params) {
-        return static_cast<gsl_function_p*>(params)->_func(x);
-    }
-};
+//template< typename F >
+//class gsl_function_p : public gsl_function {
+//public:
+//    gsl_function_p(const F& func) : _func(func) {
+//        function = &gsl_function_p::invoke;
+//        params=this;
+//    }
+//private:
+//    const F& _func;
+//    static double invoke(double x, void *params) {
+//        return static_cast<gsl_function_p*>(params)->_func(x);
+//    }
+//};
 
 /*******************************************************************************
  * GSL Function conversion END                                                     *

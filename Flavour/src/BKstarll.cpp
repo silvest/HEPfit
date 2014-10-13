@@ -112,9 +112,9 @@ void BKstarll::updateParameters(){
     r_2T3t=mySM.getr_2T3t();
     m_fit2T3t=mySM.getm_fit2T3t();
     
-    h[0]=mySM.getabsh_0() + gslpp::complex::i()*mySM.getargh_0();
-    h[1]=mySM.getabsh_plus() + gslpp::complex::i()*mySM.getargh_plus();
-    h[2]=mySM.getabsh_minus() + gslpp::complex::i()*mySM.getargh_minus();
+    h[0]=mySM.getReh_0() + gslpp::complex::i()*mySM.getImh_0();
+    h[1]=mySM.getReh_plus() + gslpp::complex::i()*mySM.getImh_plus();
+    h[2]=mySM.getReh_minus() + gslpp::complex::i()*mySM.getImh_minus();
     
     b=1.;                           //please check
     
