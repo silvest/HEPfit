@@ -7,6 +7,7 @@
       <itemPath>src/EWSUSY.h</itemPath>
       <itemPath>src/FeynHiggsWrapper.h</itemPath>
       <itemPath>src/Mchargino.h</itemPath>
+      <itemPath>src/Mhiggs.h</itemPath>
       <itemPath>src/Mneutralino.h</itemPath>
       <itemPath>src/Msdown.h</itemPath>
       <itemPath>src/Msup.h</itemPath>
@@ -75,6 +76,8 @@
       </item>
       <item path="src/Mchargino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Mhiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Mneutralino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Msdown.h" ex="false" tool="3" flavor2="0">
@@ -136,6 +139,8 @@
       </item>
       <item path="src/Mchargino.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/Mhiggs.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/Mneutralino.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Msdown.h" ex="false" tool="3" flavor2="0">
@@ -196,6 +201,8 @@
       <item path="src/FeynHiggsWrapper.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Mchargino.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/Mhiggs.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/Mneutralino.h" ex="false" tool="3" flavor2="0">
       </item>
