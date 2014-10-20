@@ -48,17 +48,17 @@ bool FeynHiggsWrapper::SetFeynHiggsPars()
     /* Set the FeynHiggs SM input parameters */
     FHSetSMPara(&err,
                 1.0/mySUSY.alphaMz(),
-                mySUSY.AlsMz, mySUSY.GF,
-                mySUSY.leptons[StandardModel::ELECTRON].getMass(),
-                mySUSY.quarks[mySUSY.UP].getMass(),
-                mySUSY.quarks[mySUSY.DOWN].getMass(),
-                mySUSY.leptons[mySUSY.MU].getMass(),
-                mySUSY.quarks[mySUSY.CHARM].getMass(),
-                mySUSY.quarks[mySUSY.STRANGE].getMass(),
-                mySUSY.leptons[mySUSY.TAU].getMass(),
-                mySUSY.quarks[mySUSY.BOTTOM].getMass(),
-                Mw_FHinput, mySUSY.Mz,
-                mySUSY.lambda, mySUSY.A, mySUSY.rhob, mySUSY.etab);
+                mySUSY.getAlsMz(), mySUSY.getGF(),
+                mySUSY.getLeptons(StandardModel::ELECTRON).getMass(),
+                mySUSY.getQuarks(QCD::UP).getMass(),
+                mySUSY.getQuarks(QCD::DOWN).getMass(),
+                mySUSY.getLeptons(StandardModel::MU).getMass(),
+                mySUSY.getQuarks(QCD::CHARM).getMass(),
+                mySUSY.getQuarks(QCD::STRANGE).getMass(),
+                mySUSY.getLeptons(StandardModel::TAU).getMass(),
+                mySUSY.getQuarks(QCD::BOTTOM).getMass(),
+                Mw_FHinput, mySUSY.getMz(),
+                mySUSY.getLambda(), mySUSY.getA(), mySUSY.getRhob(), mySUSY.getEtab());
     if (err != 0) {
 #ifdef FHDEBUG
         std::cout << "FeynHiggsWrapper::SetFeynHiggsPars(): Error has been detected in SetPara.F:"

@@ -24,16 +24,16 @@
 class OutputSLHAfromFH : public ThObservable {
 public:
 
-    OutputSLHAfromFH(const ThObsType& ObsType)
-    : ThObservable(ObsType), output(true)
+    OutputSLHAfromFH(const StandardModel& SM_i)
+    : ThObservable(SM_i), output(true)
     {
     };
 
     double computeThValue()
     {
         if (output) {
-            (static_cast<const SUSY*> (&ObsType.getModel()))->getMyFH()->OutputSLHA("output.slha");
             output = false;
+            ((static_cast<const SUSY*> (&SM))->getMyFH()->OutputSLHA("output.slha"));
         }
 
         return 0.0;

@@ -40,7 +40,13 @@ SUSY::SUSY()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q", boost::cref(Q)));
 }
 
-
+SUSY::~SUSY(){
+    if (IsModelInitialized()) {
+            if (mySUSYMatching != NULL) delete(mySUSYMatching);
+            if (myFH != NULL) delete(myFH);
+            if (myEWSUSY != NULL) delete(myEWSUSY);
+        }
+}
 ///////////////////////////////////////////////////////////////////////////
 // Initialization
 
@@ -50,7 +56,7 @@ bool SUSY::InitializeModel()
     myFH = new FeynHiggsWrapper(*this);
     myEWSUSY = new EWSUSY(*this);
     setFlagStr("Mw", "NORESUM");
-    setModelInitialized(true);
+    setModelInitialized(StandardModel::InitializeModel());
     return(true);
 }
 

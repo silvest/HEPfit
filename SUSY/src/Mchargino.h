@@ -24,8 +24,8 @@
 class Mchargino : public ThObservable {
 public:
 
-    Mchargino(const ThObsType& ObsType, const int ind)
-    : ThObservable(ObsType), index(ind)
+    Mchargino(const StandardModel& SM_i, const int ind)
+    : ThObservable(SM_i), index(ind)
     {
     };
 

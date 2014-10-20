@@ -23,7 +23,8 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mck(10, NDR, NLO),
         mckcc(10, NDR, NLO),
         mcbsg(10, NDR, NLO),
-        mcBKstarll(19, NDR, NLO),
+        mcBKstarll(13, NDR, NLO),
+        mcprimeBKstarll(13, NDR, NLO),
         mcbnlep(10, NDR, NLO, NLO_ew),
         mcbnlepCC(10, NDR, NLO),
         mcd1(10, NDR, NLO),
@@ -87,6 +88,7 @@ void StandardModelMatching::updateSMParameters()
     Vckm = SM.getVCKM();
     lam_t = SM.computelamt();
     L=2*log(Muw/Mw);
+    mu_b = SM.getMub();
 
 }
 
@@ -190,7 +192,7 @@ double StandardModelMatching::A0t(double x) const
 
 double StandardModelMatching::B0t(double x) const
 {
-    return( x / (4.* (1. - x) * (1. - x)) * log(x) + 1. / 4. * (1. - x) );
+    return( x / (4.* (1. - x) * (1. - x)) * log(x) + 1. / (4. * (1. - x)) );
 }
 
 double StandardModelMatching::C0t(double x) const
@@ -223,6 +225,53 @@ double StandardModelMatching::F0t(double x) const
     
     return ( (3. * x2) / (2. * xm3 * (1 - x)) * log(x) + ( 5. * x2 * x - 9. * x2 + 30. * x - 8)/
             (12. * xm3) );
+}
+
+double StandardModelMatching::B1t(double x, double mu) const
+{
+    double x2 = x * x;
+    double xm2 = pow(1. - x, 2);
+    double xm3 = pow(1. - x, 3);
+    double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
+                        SM.getQuarks(QCD::TOP).getMass(), FULLNLO);
+    
+    return (-2. * x)/xm2 * gsl_sf_dilog(1.- 1./x) + (-x2 + 17. * x)/(3. * xm3)*log(x) + (13. * x + 3.)/(3. * xm2) + 
+            ( (2. * x2 + 2. * x)/xm3*log(x) + (4. * x)/xm2 ) * 2. * log(mu / mt);
+    /*(2. * x)/xm2 * gsl_sf_dilog(1.-x) + (3. * x2 + x)/xm3 * log(x) * log(x) + (-11. * x2 - 5. * x)/(3. * xm3) * log(x) +
+            (-3. * x2 + 19. * x)/(3. * xm2) + 16. * x * (2. * (x - 1.) - (1. + x) * log(x))/(4. * xm3) * log(mu / Mw);*/
+}
+
+double StandardModelMatching::C1t(double x, double mu) const
+{
+    double x2 = x * x;
+    double x3 = x * x2;
+    double xm2 = pow(1. - x, 2);
+    double xm3 = pow(1. - x, 3);
+    double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
+                        SM.getQuarks(QCD::TOP).getMass(), FULLNLO);
+    
+    return (-x3 - 4. * x)/xm2 * gsl_sf_dilog(1.- 1./x) + (3. * x3 + 14. * x2 + 23 * x)/(3. * xm3)*log(x) + 
+            (4. * x3 + 7. * x2 + 29. * x)/(3. * xm2) + ( (8. * x2 + 2. * x)/xm3*log(x) + (x3 + x2 + 8. * x)/xm2) * 2. * log(mu / mt);
+    /*(x3 + 4. * x)/xm2 * gsl_sf_dilog(1.-x) + (x4 - x3  + 20. * x2)/(2. * xm3) * log(x) * log(x) +
+            (-3. * x4 - 3. * x3 - 35. * x2 + x)/(3. * xm3) * log(x) + (4. * x3 + 7. * x2 + 29. * x)/(3. * xm2) +
+            16. * x * (-8. + 7. * x + x3 - 2. * (1. + 4. * x) * log(x))/(8. * xm3) * log(mu / Mw);*/
+}
+
+double StandardModelMatching::D1t(double x, double mu) const
+{
+    double x2 = x * x;
+    double x3 = x * x2;
+    double x4 = x * x3;
+    double xm4 = pow(1. - x, 4);
+    double xm5 = pow(1. - x, 5);
+    double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
+                        SM.getQuarks(QCD::TOP).getMass(), FULLNLO);
+    
+    return (380. * x4 - 1352. * x3 + 1656. * x2 - 784. * x + 256.)/(81. * xm4) * gsl_sf_dilog(1.- 1./x) +
+            (304. * x4 + 1716. * x3 - 4644. * x2 + 2768. * x - 720.)/(81. * xm5)*log(x) +
+            (-6175. * x4 + 41608. * x3 - 66723. * x2 + 33106. * x - 7000.)/(729. * xm4) +
+            ( (648. * x4 - 720. * x3 - 232. * x2 - 160. * x + 32.)/(81. * xm5)*log(x) + 
+            (-352. * x4 + 4912. * x3 - 8280. * x2 + 3304. * x - 880.)/(243. * xm4) ) * 2. * log(mu / mt);
 }
 
 double StandardModelMatching::Y0(double x) const
@@ -269,7 +318,7 @@ double StandardModelMatching::C7NLOeff(double x) const
     double Li2 = gsl_sf_dilog(1.-1./x);
     return( Li2 * ( -16. * x4 - 122. * x3 + 80. * x2 - 8. * x) / (9. * xm4) +
             (6. * x4 + 46. * x3 -28. * x2) / (3. * xm5) * logx * logx +
-            (-102. * x4 * x - 588. * x4 + 3244. * x2 - 1364. * x + 208.) / (81. * xm5) * logx +
+            (-102. * x4 * x - 588. * x4 - 2262. * x3 + 3244. * x2 - 1364. * x + 208.) / (81. * xm5) * logx +
             (1646. * x4 + 12205. * x3 - 10740. * x2 + 2509. * x - 436.) / (486. * xm4));
 }
 
@@ -285,7 +334,7 @@ double StandardModelMatching::C8NLOeff(double x) const
     double Li2 = gsl_sf_dilog(1.-1./x);
     return(Li2 * ( -4. * x4 + 40. * x3 + 41. * x2 + x) / (6. * xm4) +
             (-17. * x3 - 31. * x2) / (2. * xm5) * logx * logx +
-            (-210. * x * x4 + 1086. * x4 + 4893. * x3 + 2857. * x2 - 1994. * x + 280.)/(216. * xm5) * logx+
+            (-210. * x * x4 + 1086. * x4 + 4893. * x3 + 2857. * x2 - 1994. * x + 280.)/(216. * xm5) * logx +
             (737. * x4 - 14102. * x3 - 28209. * x2 + 610. * x - 508.) / (1296. * xm4));
 }
 
@@ -1004,7 +1053,6 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
     std::vector<WilsonCoefficient>& StandardModelMatching::CMBKstarll() 
     {    
     double xt = x_t(Muw);
-    complex co = (- 4. * GF / sqrt(2)) * SM.computelamt_s();
     
     vmcBKstarll.clear();
     
@@ -1024,13 +1072,12 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
     switch (mcBKstarll.getOrder()) {
         case NNLO:
         case NLO:
-            for (int j=0; j<19; j++){
-            mcBKstarll.setCoeff(j, co * SM.Als(Muw, FULLNLO) / 4. / M_PI * setWCBKstarll(j, xt,  NLO) , NLO);
+            for (int j=0; j<13; j++){
+            mcBKstarll.setCoeff(j, SM.Als(Muw, FULLNLO) / 4. / M_PI * setWCBKstarll(j, xt,  NLO) , NLO);
             }
-            std::cout<<std::endl;
         case LO:
-            for (int j=0; j<19; j++){
-            mcBKstarll.setCoeff(j, co * setWCBKstarll(j, xt,  LO), LO);
+            for (int j=0; j<13; j++){
+            mcBKstarll.setCoeff(j, setWCBKstarll(j, xt,  LO), LO);
             }
             break;
         default:
@@ -1051,7 +1098,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
 
 double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
 {    
-    sw =  sqrt( (M_PI * Ale )/( sqrt(2) * GF * Mw * Mw) ) ;
+    sw =  sqrt( sW2 ) ;
 
     if ( swa == sw && xcachea == x){
         switch (order){
@@ -1075,16 +1122,19 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
         case NNLO:
         case NLO:
             CWBKstarllArrayNLO[0] = 15. + 6*L;
-            CWBKstarllArrayNLO[3] = E0t(x)-(2./3.) - (2./3.*L);
-            CWBKstarllArrayNLO[6] = C7NLOeff(x);//-0.5 * A0t(x)- 23./36.;
-            CWBKstarllArrayNLO[7] = C8NLOeff(x);//-0.5 * F0t(x)- 1./3.;
-            CWBKstarllArrayNLO[8] = (1-4.*sw*sw) / sw *C0t(x) - 1./(sw*sw) *
-                                B0t(x) - D0t(x) + 38./27. + 1./(4.*sw*sw) - (4./9.)*L;
-            CWBKstarllArrayNLO[9] = 1./(sw*sw) * (B0t(x) - C0t(x)) -1./(4.*sw*sw);
+            CWBKstarllArrayNLO[3] = E0t(x)-(2./3.) + (2./3.*L);
+            CWBKstarllArrayNLO[6] = C7NLOeff(x);
+            CWBKstarllArrayNLO[7] = C8NLOeff(x);
+            CWBKstarllArrayNLO[8] = (1-4.*sW2) / (sW2) *C1t(x,Muw) - 1./(sW2) * B1t(x,Muw) - D1t(x,Muw) + 1./sW2 + 524./729. - 
+                    128.*M_PI*M_PI/243. - 16.*L/3. -128.*L*L/81.;
+            CWBKstarllArrayNLO[9] = (B1t(x,Muw) - C1t(x,Muw)) / sW2 - 1./sW2;
         case LO:
             CWBKstarllArrayLO[1] = 1.;
-            CWBKstarllArrayLO[6] = C7LOeff(x);//0.;
-            CWBKstarllArrayLO[7] = C8LOeff(x);//0.;
+            CWBKstarllArrayLO[6] = C7LOeff(x);
+            CWBKstarllArrayLO[7] = C8LOeff(x);
+            CWBKstarllArrayLO[8] = (1-4.*sW2) / (sW2) *C0t(x) - 1./(sW2) *
+                                B0t(x) - D0t(x) + 38./27. + 1./(4.*sW2) - (4./9.)*L + 8./9. * log(Mw/mu_b);
+            CWBKstarllArrayLO[9] = 1./(sW2) * (B0t(x) - C0t(x)) -1./(4.*sW2);
             break;
         default:
             std::stringstream out;
@@ -1107,6 +1157,39 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
         }
 }
     
+
+
+/*******************************************************************************
+ * Wilson coefficients misiak primed base for B -> K^*ll                       * 
+ * operator basis: - current current                                           *         
+ *                 - qcd penguins                                              * 
+ *                 - magnetic and chromomagnetic penguins                      *         
+ *                 - semileptonic                                              * 
+ * ****************************************************************************/
+    std::vector<WilsonCoefficient>& StandardModelMatching::CMprimeBKstarll() 
+    {
+        vmcprimeBKstarll.clear();
+        mcprimeBKstarll.setMu(Muw);
+        switch (mcprimeBKstarll.getOrder()) {
+        case NNLO:
+        case NLO:
+            for (int j=0; j<13; j++){
+            mcprimeBKstarll.setCoeff(j, 0., NLO);
+            }
+        case LO:
+            for (int j=0; j<13; j++){
+            mcprimeBKstarll.setCoeff(j, 0., LO);
+            }
+            break;
+        default:
+            std::stringstream out;
+            out << mcprimeBKstarll.getOrder();
+            throw std::runtime_error("StandardModelMatching::CMBKstrall(): order " + out.str() + "not implemented"); 
+    }
+        vmcprimeBKstarll.push_back(mcprimeBKstarll);
+        return(vmcprimeBKstarll);
+    }
+
 
 /******************************************************************************/
 

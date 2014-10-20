@@ -164,3 +164,4 @@ test2/
 .DS_Store
 .gitignore~
 Analysis/GeneratedEvents/
+Analysis/Observables/

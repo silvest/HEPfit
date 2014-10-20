@@ -24,8 +24,8 @@
 class Mw_dRho : public ThObservable {
 public:
 
-    Mw_dRho(const ThObsType& ObsType)
-    : ThObservable(ObsType)
+    Mw_dRho(const StandardModel& SM_i)
+    : ThObservable(SM_i)
     {
     };
 

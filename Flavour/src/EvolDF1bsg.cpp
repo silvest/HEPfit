@@ -133,11 +133,11 @@ matrix<double> EvolDF1bsg::AnomalousDimension_M(orders order, unsigned int n_u,
     
     gammaDF1(9,9) = -2.*model.Beta0(nf); 
     
-    gammaDF1(10,10)= 1.;
+    gammaDF1(10,10)= -2.*model.Beta0(nf);
     
-    gammaDF1(11,11)= 1.;
+    gammaDF1(11,11)= -2.*model.Beta0(nf);
     
-    gammaDF1(12,12)= 1.;
+    gammaDF1(12,12)= -2.*model.Beta0(nf);
     
     break;    
     case NLO:
@@ -209,11 +209,11 @@ matrix<double> EvolDF1bsg::AnomalousDimension_M(orders order, unsigned int n_u,
     
     gammaDF1(9,9) = -2.*model.Beta1(nf); 
     
-    gammaDF1(10,10)= 1.;
+    gammaDF1(10,10)= -2.*model.Beta1(nf);
     
-    gammaDF1(11,11)= 1.;
+    gammaDF1(11,11)= -2.*model.Beta1(nf);
     
-    gammaDF1(12,12)= 1.;
+    gammaDF1(12,12)= -2.*model.Beta1(nf);
    
     break;
     default:
@@ -251,7 +251,7 @@ matrix<double> EvolDF1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
     mat1(5,7) = - 923522./243. - 6031./486.*n_d*n_d + n_d*(-13247./1458. - 6031./243.*n_u)
                 -13247./1458.*n_u - 6031./486.*n_u*n_u;
     
-    mat1(0,8) = - 22357278./19683. + 14440./6561.*n_d + 144688./6561.*n_u + 6976./243.*z3;
+    mat1(0,8) = - 2357278./19683. + 14440./6561.*n_d + 144688./6561.*n_u + 6976./243.*z3;
     mat1(1,8) = - 200848./6561. - 23696./2187.*n_d + 30736./2187.*n_u - 3584./81.*z3;
     mat1(2,8) = - 1524104./6561. - 176./27.*n_d*n_d + 352./27.*n_u*n_u +
                 n_d*(257564./2187. + 176./27.*n_u - 128./3.*z3) - 256./81.*z3 + 
@@ -271,12 +271,12 @@ matrix<double> EvolDF1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
         case(NLO): 
             mat = AnomalousDimension_M(NLO, n_u, n_d);
             for (int i=0; i<6; i++){
-                for (int j=6; j<10; j++){
+                for (int j=6; j<13; j++){
                     mat(i,j) = mat1(i,j);
                 }
             }
-            for (int i=6; i<10; i++){
-                for (int j=6; j<10; j++){
+            for (int i=6; i<13; i++){
+                for (int j=6; j<13; j++){
                     mat(i,j) = mat(i,j) + 2. * (i==j) * model.Beta1(nf);
                 }
             }
@@ -284,12 +284,12 @@ matrix<double> EvolDF1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
         case(LO):
             mat = AnomalousDimension_M(LO, n_u, n_d);
             for (int i=0; i<6; i++){
-                for (int j=6; j<10; j++){
+                for (int j=6; j<13; j++){
                     mat(i,j) = AnomalousDimension_M(NLO, n_u, n_d)(i,j);
                 }
             }
-            for (int i=6; i<10; i++){
-                for (int j=6; j<10; j++){
+            for (int i=6; i<13; i++){
+                for (int j=6; j<13; j++){
                     mat(i,j) = mat(i,j) + 2. * (i==j) * model.Beta0(nf);
                 }
             }
@@ -327,6 +327,10 @@ matrix<double> EvolDF1bsg::ToEffectiveBasis(matrix<double> mat) const{
     y(7,3) = -1./6.;
     y(7,4) = 20.;
     y(7,5) = -10./3.;
+    
+    y(8,2) = 4./3.;
+    y(8,4) = 64./9.;
+    y(8,5) = 64./27.; // Add terms proportional to Log(mb/mub))
     
     return( (y.inverse()).transpose() * mat * y.transpose() );
     
@@ -395,6 +399,8 @@ matrix<double>& EvolDF1bsg::Df1Evolbsg(double mu, double M, orders order, scheme
                     resNLO(i, j) += - c[L][i][j][k] * etap * alsmu * log(eta);    
                 }        
                 resLO(i, j) += b[L][i][j][k] * etap;
+                if (fabs(resLO(i, j)) < 1.e-12) {resLO(i, j) = 0.;}
+                if (fabs(resNLO(i, j)) < 1.e-12) {resNLO(i, j) = 0.;}
             }
         }
     }

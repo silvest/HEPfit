@@ -24,8 +24,8 @@
 class Mneutralino : public ThObservable {
 public:
 
-    Mneutralino(const ThObsType& ObsType, const int ind)
-    : ThObservable(ObsType), index(ind)
+    Mneutralino(const StandardModel& SM_i, const int ind)
+    : ThObservable(SM_i), index(ind)
     {
     };
 

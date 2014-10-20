@@ -47,6 +47,8 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
             || (FlagLeptonUniversal && !FlagQuarkUniversal))
         throw std::runtime_error("Invalid arguments for NPEffectiveGIMR::NPEffectiveGIMR()");
 
+    FlagMwInput = false;
+
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CW", boost::cref(CW)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHG", boost::cref(CHG)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CHW", boost::cref(CHW)));
@@ -190,6 +192,8 @@ NPEffectiveGIMR::NPEffectiveGIMR(const bool FlagLeptonUniversal_in, const bool F
         ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("CdH_33i", boost::cref(CdH_33i)));
     }
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Lambda_NP", boost::cref(Lambda_NP)));
+    if (FlagMwInput)
+        ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("MwInput", boost::cref(MwInput)));
 }
 
 bool NPEffectiveGIMR::PostUpdate()
@@ -198,7 +202,10 @@ bool NPEffectiveGIMR::PostUpdate()
 
     LambdaNP2 = Lambda_NP * Lambda_NP;
     v2_over_LambdaNP2 = v() * v() / LambdaNP2;
-    cW_tree = Mw_tree() / Mz;
+    if (FlagMwInput)
+        cW_tree = MwInput / Mz;
+    else
+        cW_tree = Mw_tree() / Mz;
     cW2_tree = cW_tree * cW_tree;
     sW2_tree = 1.0 - cW2_tree;
     sW_tree = sqrt(sW2_tree);
@@ -586,6 +593,8 @@ void NPEffectiveGIMR::setParameter(const std::string name, const double& value)
         CLL_2112 = value;
     } else if (name.compare("Lambda_NP") == 0)
         Lambda_NP = value;
+    else if (name.compare("MwInput") == 0)
+        MwInput = value;
     else
         NPbase::setParameter(name, value);
 }
@@ -593,6 +602,12 @@ void NPEffectiveGIMR::setParameter(const std::string name, const double& value)
 bool NPEffectiveGIMR::CheckParameters(const std::map<std::string, double>& DPars)
 {
     if (FlagLeptonUniversal && FlagQuarkUniversal) {
+        if (FlagMwInput) {
+            if (DPars.find("MwInput") == DPars.end()) {
+                std::cout << "ERROR: Missing mandatory NPEffectiveGIMR_LFU_QFU parameter MwInput" << std::endl;
+                return false;
+            }
+        }
         for (int i = 0; i < NNPEffectiveGIMRVars_LFU_QFU; i++) {
             if (DPars.find(NPEffectiveGIMRVars_LFU_QFU[i]) == DPars.end()) {
                 std::cout << "ERROR: Missing mandatory NPEffectiveGIMR_LFU_QFU parameter "
@@ -603,6 +618,12 @@ bool NPEffectiveGIMR::CheckParameters(const std::map<std::string, double>& DPars
         //} else if (FlagLeptonUniversal && !FlagQuarkUniversal) {
         //} else if (!FlagLeptonUniversal && FlagQuarkUniversal) {
     } else if (!FlagLeptonUniversal && !FlagQuarkUniversal) {
+        if (FlagMwInput) {
+            if (DPars.find("MwInput") == DPars.end()) {
+                std::cout << "ERROR: Missing mandatory NPEffectiveGIMR parameter MwInput" << std::endl;
+                return false;
+            }
+        }
         for (int i = 0; i < NNPEffectiveGIMRVars; i++) {
             if (DPars.find(NPEffectiveGIMRVars[i]) == DPars.end()) {
                 std::cout << "ERROR: Missing mandatory NPEffectiveGIMR parameter"
@@ -614,6 +635,18 @@ bool NPEffectiveGIMR::CheckParameters(const std::map<std::string, double>& DPars
         throw std::runtime_error("Error in NPEffectiveGIMR::CheckParameters()");
 
     return (NPbase::CheckParameters(DPars));
+}
+
+bool NPEffectiveGIMR::setFlag(const std::string name, const bool value)
+{
+    bool res = false;
+    if (name.compare("MwInput") == 0) {
+        FlagMwInput = value;
+        res = true;
+    } else
+        res = NPbase::setFlag(name, value);
+
+    return (res);
 }
 
 
@@ -747,7 +780,10 @@ double NPEffectiveGIMR::obliqueU() const
 
 double NPEffectiveGIMR::Mw() const
 {
-    return (trueSM.Mw() - Mw_tree() / 4.0 / (cW2_tree - sW2_tree)
+    if (FlagMwInput)
+        return MwInput;
+    else
+        return (trueSM.Mw() - Mw_tree() / 4.0 / (cW2_tree - sW2_tree)
             *(4.0 * sW_tree * cW_tree * CHWB * v2_over_LambdaNP2
             + cW2_tree * CHD * v2_over_LambdaNP2
             + 2.0 * sW2_tree * DeltaGF()));
@@ -758,7 +794,10 @@ double NPEffectiveGIMR::GammaW() const
     double G0 = GF * pow(Mw(), 3.0) / 6.0 / sqrt(2.0) / M_PI;
     double GammaW_tree = (3.0 + 2.0 * Nc) * G0;
 
-    return (trueSM.GammaW()
+    if (FlagMwInput)
+        throw std::runtime_error("Write codes in NPEffectiveGIMR::GammaW()!");
+    else
+        return (trueSM.GammaW()
             - 3.0 * GammaW_tree / 4.0 / (cW2_tree - sW2_tree)
             *(4.0 * sW_tree * cW_tree * CHWB * v2_over_LambdaNP2
             + cW2_tree * CHD * v2_over_LambdaNP2
@@ -781,21 +820,34 @@ double NPEffectiveGIMR::deltaGL_f(const Particle p) const
     double I3p = p.getIsospin(), Qp = p.getCharge();
     double CHF1 = CHF1_diag(p);
     double CHF3 = CHF3_diag(p);
-    double NPdirect = -I3p / 4.0 * (CHD * v2_over_LambdaNP2 + 2.0 * DeltaGF())
-            - Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
-            *((4.0 * cW_tree / sW_tree * CHWB + CHD) * v2_over_LambdaNP2 + 2.0 * DeltaGF());
-    double NPindirect = -0.5 * (CHF1 - 2.0 * I3p * CHF3) * v2_over_LambdaNP2;
-    return (NPdirect + NPindirect);
+    double NPindirect;
+    if (FlagMwInput) {
+        NPindirect = -I3p / 4.0 * (CHD * v2_over_LambdaNP2 + 2.0 * DeltaGF())
+                + Qp * sW2_tree
+                * ((cW_tree / sW_tree * CHWB + (1.0 + cW2_tree) / 4.0 / sW2_tree * CHD) * v2_over_LambdaNP2 + 0.5 * DeltaGF());
+    } else {
+        NPindirect = -I3p / 4.0 * (CHD * v2_over_LambdaNP2 + 2.0 * DeltaGF())
+                - Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
+                *((4.0 * cW_tree / sW_tree * CHWB + CHD) * v2_over_LambdaNP2 + 2.0 * DeltaGF());
+    }
+    double NPdirect = -0.5 * (CHF1 - 2.0 * I3p * CHF3) * v2_over_LambdaNP2;
+    return (NPindirect + NPdirect);
 }
 
 double NPEffectiveGIMR::deltaGR_f(const Particle p) const
 {
     double Qp = p.getCharge();
     double CHf = CHf_diag(p);
-    double NPdirect = -Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
-            *((4.0 * cW_tree / sW_tree * CHWB + CHD) * v2_over_LambdaNP2 + 2.0 * DeltaGF());
-    double NPindirect = -0.5 * CHf*v2_over_LambdaNP2;
-    return (NPdirect + NPindirect);
+    double NPindirect;
+    if (FlagMwInput) {
+        NPindirect = Qp * sW2_tree
+                * ((cW_tree / sW_tree * CHWB + (1.0 + cW2_tree) / 4.0 / sW2_tree * CHD) * v2_over_LambdaNP2 + 0.5 * DeltaGF());
+    } else {
+        NPindirect = -Qp * sW2_tree / 4.0 / (cW2_tree - sW2_tree)
+                *((4.0 * cW_tree / sW_tree * CHWB + CHD) * v2_over_LambdaNP2 + 2.0 * DeltaGF());
+    }
+    double NPdirect = -0.5 * CHf*v2_over_LambdaNP2;
+    return (NPindirect + NPdirect);
 }
 
 
@@ -807,10 +859,15 @@ complex NPEffectiveGIMR::deltaGL_Wff(const Particle pbar, const Particle p) cons
         throw std::runtime_error("NPEffectiveGIMR::deltaGL_Wff(): Not implemented");
 
     double CHF3 = CHF3_diag(pbar);
-    double NPdirect = -cW2_tree / 4.0 / (cW2_tree - sW2_tree)
-            * ((4.0 * sW_tree / cW_tree * CHWB + CHD) * v2_over_LambdaNP2 + 2.0 * DeltaGF());
-    double NPindirect = CHF3 * v2_over_LambdaNP2;
-    return (NPdirect + NPindirect);
+    double NPindirect;
+    if (FlagMwInput) {
+        NPindirect = -0.5 * DeltaGF();
+    } else {
+        NPindirect = -cW2_tree / 4.0 / (cW2_tree - sW2_tree)
+                * ((4.0 * sW_tree / cW_tree * CHWB + CHD) * v2_over_LambdaNP2 + 2.0 * DeltaGF());
+    }
+    double NPdirect = CHF3 * v2_over_LambdaNP2;
+    return (NPindirect + NPdirect);
 }
 
 complex NPEffectiveGIMR::deltaGR_Wff(const Particle pbar, const Particle p) const
@@ -839,9 +896,15 @@ double NPEffectiveGIMR::deltaG2_hWW() const
 
 double NPEffectiveGIMR::deltaG3_hWW() const
 {
-    return (2.0 * cW2_tree * Mz * Mz / v()
-            * (delta_h - 1.0 / 2.0 / (cW2_tree - sW2_tree)
-            * ((4.0 * sW_tree * cW_tree * CHWB + cW2_tree * CHD) * v2_over_LambdaNP2 + DeltaGF())));
+    double NPindirect;
+    if (FlagMwInput) {
+        NPindirect = 2.0 * MwInput * MwInput / v() * (delta_h - 0.5 * DeltaGF());
+    } else {
+        NPindirect = 2.0 * cW2_tree * Mz * Mz / v()
+                * (delta_h - 1.0 / 2.0 / (cW2_tree - sW2_tree)
+                * ((4.0 * sW_tree * cW_tree * CHWB + cW2_tree * CHD) * v2_over_LambdaNP2 + DeltaGF()));
+    }
+    return NPindirect;
 }
 
 double NPEffectiveGIMR::deltaG1_hZZ() const
@@ -856,7 +919,9 @@ double NPEffectiveGIMR::deltaG2_hZZ() const
 
 double NPEffectiveGIMR::deltaG3_hZZ() const
 {
-    return (Mz * Mz / v() * (0.5 * CHD * v2_over_LambdaNP2 + delta_h - 0.5 * DeltaGF()));
+    double NPindirect = Mz * Mz / v() * (-0.5 * CHD * v2_over_LambdaNP2 + delta_h - 0.5 * DeltaGF());
+    double NPdirect = Mz * Mz / v() * CHD * v2_over_LambdaNP2;
+    return (NPindirect + NPdirect);
 }
 
 double NPEffectiveGIMR::deltaG1_hZA() const
@@ -1172,7 +1237,7 @@ double NPEffectiveGIMR::GammaHgagaRatio() const
             - 22299.0 * CuH_22r / LambdaNP2
             + 33042.0 * CuH_33r / LambdaNP2
             - 41583.0 * CeH_33r / LambdaNP2
-            + 5.09e7 * CHB / LambdaNP2
+            - 5.09e7 * CHB / LambdaNP2
             - 1.43e7 * CHW / LambdaNP2
             + 2.73e7 * CHWB / LambdaNP2
             + 30312.0 * (4.0 * CHbox / LambdaNP2 - CHD / LambdaNP2));

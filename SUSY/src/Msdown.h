@@ -24,8 +24,8 @@
 class Msdown : public ThObservable {
 public:
 
-    Msdown(const ThObsType& ObsType, const int ind)
-    : ThObservable(ObsType), index(ind)
+    Msdown(const StandardModel& SM_i, const int ind)
+    : ThObservable(SM_i), index(ind)
     {
     };
 

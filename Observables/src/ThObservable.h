@@ -27,7 +27,10 @@ public:
      * @brief Constructor.
      * @param[in] ObsType_i a reference to an object of ThObsType() class
      */
-    ThObservable(const StandardModel& SM_i) : SM(SM_i) {};
+    ThObservable(const StandardModel& SM_i) : SM(SM_i) {
+        min = 0;
+        max = 0;
+    };
     
     /**
      * @brief The copy constructor.
@@ -46,9 +49,27 @@ public:
      * class that calculates the value of the observable
      */
     virtual double computeThValue() = 0;
+    
+    void setBinMin(double min){
+        this->min = min;
+    };
+
+    void setBinMax(double max){
+        this->max = max;
+    };
+    
+    double getBinMin(){
+        return min;
+    };
+    
+    double getBinMax(){
+        return max;
+    };
 
 protected:
     const StandardModel& SM; ///< A reference to an object of StandardMode class.
+    double min;
+    double max;
 };
 
 #endif	/* THOBSERVABLE_H */

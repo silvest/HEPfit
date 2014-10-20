@@ -25,8 +25,8 @@
 class Mhiggs : public ThObservable {
 public:
 
-    Mhiggs(const ThObsType& ObsType, const int ind)
-    : ThObservable(ObsType), index(ind)
+    Mhiggs(const StandardModel& SM_i, const int ind)
+    : ThObservable(SM_i), index(ind)
     {
     };
 
