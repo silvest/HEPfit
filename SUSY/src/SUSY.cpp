@@ -28,6 +28,16 @@ SUSY::SUSY()
         U(2,2,0.), V(2,2,0.), N(4,4,0.),
         Ru(6,6,0.), Rd(6,6,0.), Rdresum(6,6,0.), Rn(6,6,0.), Rl(6,6,0.)
 {
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m1r", boost::cref(m1.real())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m1i", boost::cref(m1.imag())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m2r", boost::cref(m2.real())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m2i", boost::cref(m2.imag())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m3", boost::cref(m3)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("muHr", boost::cref(muH.real())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("muHi", boost::cref(muH.imag())));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHptree", boost::cref(mHptree)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("tanb", boost::cref(tanb)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("Q", boost::cref(Q)));
 }
 
 
