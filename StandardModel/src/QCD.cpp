@@ -42,7 +42,7 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "a_0T1", "a_1T1", "dmT1", "a_0T2", "a_1T2", "dmT2", "a_0T23", "a_1T23", "dmT23",
     "r_1V", "r_2V", "m_RV", "m_fit2V", "r_1A0", "r_2A0", "m_RA0", "m_fit2A0", "r_2A1", "m_fit2A1", "r_1A2", "r_2A2", "m_fit2A2",
     "r_1T1", "r_2T1", "m_RT1", "m_fit2T1", "r_2T2", "m_fit2T2", "r_1T3t", "r_2T3t", "m_fit2T3t",
-    "absh_0", "absh_plus", "absh_minus","argh_0", "argh_plus", "argh_minus"
+    "reh_0", "reh_plus", "reh_minus","imh_0", "imh_plus", "imh_minus"
 };
 
 QCD::QCD()
@@ -147,12 +147,12 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("DeltaP_cu", boost::cref(DeltaP_cu)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kl", boost::cref(IB_Kl)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kp", boost::cref(IB_Kp)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_0", boost::cref(reh_0)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_plus", boost::cref(reh_plus)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("absh_minus", boost::cref(reh_minus)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_0", boost::cref(imh_0)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_plus", boost::cref(imh_plus)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("argh_minus", boost::cref(imh_minus)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0", boost::cref(reh_0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_plus", boost::cref(reh_plus)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_minus", boost::cref(reh_minus)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0", boost::cref(imh_0)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_plus", boost::cref(imh_plus)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_minus", boost::cref(imh_minus)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0V", boost::cref(a_0V)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1V", boost::cref(a_1V)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmV", boost::cref(dmV)));
