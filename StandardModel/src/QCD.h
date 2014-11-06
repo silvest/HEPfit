@@ -1377,6 +1377,7 @@ private:
     mutable double logLambdaNLO_cache[9][CacheSize];
     mutable double mrun_cache[10][CacheSize]; ///< Cache for running quark mass.
     mutable double mp2mbar_cache[5][CacheSize]; ///< Cache for pole mass to msbar mass conversion.
+    bool unknownParameterWarning; ///< A flag to stop the unknown parameter warning after the first time.
 
     /**
      * @brief The strong coupling constant computed with using \f$\Lambda_{\rm QCD}\f$.

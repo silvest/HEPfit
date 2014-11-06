@@ -61,6 +61,7 @@ std::string InputParser::ReadParameters(const std::string filename,
         std::vector<CorrelatedGaussianObservables>& CGO)
 {
     modname = "";
+    int lineNo = 0;
     std::ifstream ifile(filename.c_str());
     if (!ifile.is_open())
         throw std::runtime_error("\nERROR: " + filename + " does not exist. Make sure to specify a valid model configuration file.\n");
@@ -68,6 +69,7 @@ std::string InputParser::ReadParameters(const std::string filename,
     bool IsEOF = false;
     do {
         IsEOF = getline(ifile, line).eof();
+        lineNo += 1;
         if (*line.rbegin() == '\r') line.erase(line.length() - 1); // for CR+LF
         if (line.empty() || line.at(0) == '#')
             continue;
@@ -82,11 +84,16 @@ std::string InputParser::ReadParameters(const std::string filename,
             myModel->InitializeModel();
             if (myModel->IsModelInitialized()) {
                 if (rank == 0) std::cout << "\nModel Initialized: " << modname << std::endl;
+                modeldefinedinfile = filename;
             } else {
                 throw std::runtime_error("\nERROR: " + modname + " not initialized successfully.\n");
             }
             modelset = 1;
             continue;
+        } else if (modelset == 1 && beg->compare(myModel->ModelName()) == 0) {
+            continue;
+//            std::cout << myModel->ModelName() << "THERE" << modname << std::endl;
+//            throw std::runtime_error("\nERROR: Model Name in file " + filename + " is not the same as that defined in file " + modeldefinedinfile + "...!!\n");
         }
 
         std::string type = *beg;
@@ -96,6 +103,10 @@ std::string InputParser::ReadParameters(const std::string filename,
                 throw std::runtime_error("ERROR: lack of information on "
                     + *beg + " in " + filename);
             std::string name = *beg;
+            if (checkDuplicateParameter[name].get<0>()) throw std::runtime_error("\nERROR: ModelParameter " + name + " appears more than once ...!! \n" +
+                                                                "1st Occurrence: Line No:" + boost::lexical_cast<std::string>(checkDuplicateParameter[name].get<2>()) + 
+                                                                " in file " + checkDuplicateParameter[name].get<1>() + ".\n"
+                                                                "2nd Occurrence: Line No:" + boost::lexical_cast<std::string>(lineNo) + " in file " + filename + ".\n");
             ++beg;
             double mean = atof((*beg).c_str());
             ++beg;
@@ -107,6 +118,7 @@ std::string InputParser::ReadParameters(const std::string filename,
             ModelPars.push_back(m);
             if (beg != tok.end())
                 std::cout << "WARNING: unread information in parameter " << name << std::endl;
+            checkDuplicateParameter[name] = boost::make_tuple (true, filename, lineNo);
         } else if (type.compare("Observable") == 0) {
             if (std::distance(tok.begin(), tok.end()) < 8)
                 throw std::runtime_error("ERROR: lack of information on "
@@ -132,7 +144,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 ++beg;
                 o->setErrf(atof((*beg).c_str()));
                 if (o->getErrf() == 0. && o->getErrg() == 0.){
-                    std::cout << "\nWARNING: The Gaussian and flat error in weight for " + o->getName() + " cannot both be 0. in the " + filename + " file." << std::endl;
+                    std::cout << "WARNING: The Gaussian and flat error in weight for " + o->getName() + " cannot both be 0. in the " + filename + " file.\n" << std::endl;
                 }                
             } else if (distr.compare("noweight") == 0) {
             } else
@@ -168,7 +180,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 ++beg;
                 bo->setErrf(atof((*beg).c_str()));
                 if (bo->getErrf() == 0. && bo->getErrg() == 0.) {
-                    std::cout << "\nWARNING: The Gaussian and flat error in weight for " + bo->getName() + " cannot both be 0. in the " + filename + " file." << std::endl;
+                    std::cout << "WARNING: The Gaussian and flat error in weight for " + bo->getName() + " cannot both be 0. in the " + filename + " file." << std::endl;
                 }
             } else if (distr.compare("noweight") == 0) {
             } else
@@ -359,8 +371,12 @@ std::string InputParser::ReadParameters(const std::string filename,
             ++beg;
             if (beg != tok.end())
                 std::cout << "WARNING: unread information in Flag " << flagname << std::endl;
+        } else if (type.compare("IncludeFile") == 0) {
+            ReadParameters(*beg, rank, ModelPars, Observables, Observables2D, CGO);
+            std::cout << "\nIncluding File: " + *beg << "\n"<< std::endl; 
+            ++beg;
         } else
-            throw std::runtime_error("\nERROR: wrong keyword " + type + " in config file. Make sure to specify a valid model configuration file.\n");
+            throw std::runtime_error("\nERROR: wrong keyword " + type + " in file " + filename + ". Make sure to specify a valid model configuration file.");
     } while (!IsEOF);
 
     if (modelset == 0)

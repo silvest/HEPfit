@@ -197,7 +197,7 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("r_2T3t", boost::cref(r_2T3t)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("m_fit2T3t", boost::cref(m_fit2T3t)));
 
-
+    unknownParameterWarning = true;
 }
 
 std::string QCD::orderToString(const orders order) const
@@ -223,6 +223,7 @@ std::string QCD::orderToString(const orders order) const
 bool QCD::Init(const std::map<std::string, double>& DPars)
 {
     Update(DPars);
+    unknownParameterWarning = false;
     return (CheckParameters(DPars));
 }
 
@@ -245,7 +246,7 @@ bool QCD::Update(const std::map<std::string, double>& DPars)
 
     for (std::map<std::string, double>::const_iterator it = DPars.begin(); it != DPars.end(); it++)
         setParameter(it->first, it->second);
-
+    
     if (UpdateError) return (false);
 
     if (!PostUpdate()) return (false);
@@ -564,8 +565,8 @@ void QCD::setParameter(const std::string name, const double& value)
     else if (name.compare("m_fit2T3t") == 0)
         m_fit2T3t = value;
     else
-        std::cout << "WARNING: unknown parameter " << name
-            << " in model initialization" << std::endl;
+        if (unknownParameterWarning)
+            std::cout << "WARNING: unknown parameter " << name << " in model initialization" << std::endl;
 }
 
 bool QCD::CheckParameters(const std::map<std::string, double>& DPars)
