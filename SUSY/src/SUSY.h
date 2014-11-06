@@ -575,7 +575,6 @@ protected:
 
     // quark and lepton masses at scale Q, computed in setYukawas()
     double mu_Q[3], md_Q[3], me_Q[3], mn_Q[3];
-
     
     ///////////////////////////////////////////////////////////////////////////
 private:    

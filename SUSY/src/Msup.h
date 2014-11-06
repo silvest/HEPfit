@@ -25,18 +25,20 @@ class Msup : public ThObservable {
 public:
 
     Msup(const StandardModel& SM_i, const int ind)
-    : ThObservable(SM_i), index(ind)
+    : ThObservable(SM_i), index(ind), mySUSY(static_cast<const SUSY*> (&SM_i))
     {
+        if (mySUSY->isModelSUSY() == false)
+            throw std::runtime_error("\nERROR: The msup mass spectrum can only be computed in a SUSY model. Please check your observables list.\n");
     };
 
     double computeThValue()
     {
-        return (sqrt((static_cast<const SUSY*> (&SM))->getMsu2()(index)));
+        return (sqrt(mySUSY->getMsu2()(index)));
     };
 
 private:
     const int index;
-
+    const SUSY * mySUSY;
 };
 
 #endif	/* MSUP_H */

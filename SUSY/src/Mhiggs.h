@@ -10,8 +10,6 @@
 
 #include <stdexcept>
 #include <ThObservable.h>
-
-
 #include "SUSY.h"
 
 /**
@@ -26,21 +24,23 @@ class Mhiggs : public ThObservable {
 public:
 
     Mhiggs(const StandardModel& SM_i, const int ind)
-    : ThObservable(SM_i), index(ind)
+    : ThObservable(SM_i), index(ind), mySUSY(static_cast<const SUSY*> (&SM_i))
     {
+        if (mySUSY->isModelSUSY() == false)
+            throw std::runtime_error("\nERROR: The Higgs mass spectrum can only be computed in a SUSY model. Please check your observables list.\n");
     };
 
     double computeThValue()
     {
         switch(index) {
             case 0:
-                return (static_cast<const SUSY*> (&SM))->getMHl();
+                return mySUSY->getMHl();
             case 1:
-                return (static_cast<const SUSY*> (&SM))->getMHh();
+                return mySUSY->getMHh();
             case 2:
-                return (static_cast<const SUSY*> (&SM))->getMHa();
+                return mySUSY->getMHa();
             case 3:
-                return (static_cast<const SUSY*> (&SM))->getMHp();
+                return mySUSY->getMHp();
             default:
                 throw std::runtime_error("Mhiggs::computeThValue(): undefined index");
         }
@@ -48,6 +48,7 @@ public:
 
 private:
     const int index;
+    const SUSY * mySUSY;
 };
 
 
