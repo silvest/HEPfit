@@ -473,11 +473,11 @@ void QCD::setParameter(const std::string name, const double& value)
     else if (name.compare("reh_minus") == 0)
         reh_minus = value;
     else if (name.compare("imh_0") == 0)
-        reh_0 = value;
+        imh_0 = value;
     else if (name.compare("imh_plus") == 0)
-        reh_plus = value;
+        imh_plus = value;
     else if (name.compare("imh_minus") == 0)
-        reh_minus = value;
+        imh_minus = value;
     else if (name.compare("a_0V") == 0)
         a_0V = value;
     else if (name.compare("a_1V") == 0)

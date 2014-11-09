@@ -92,8 +92,6 @@ std::string InputParser::ReadParameters(const std::string filename,
             continue;
         } else if (modelset == 1 && beg->compare(myModel->ModelName()) == 0) {
             continue;
-//            std::cout << myModel->ModelName() << "THERE" << modname << std::endl;
-//            throw std::runtime_error("\nERROR: Model Name in file " + filename + " is not the same as that defined in file " + modeldefinedinfile + "...!!\n");
         }
 
         std::string type = *beg;
@@ -183,6 +181,9 @@ std::string InputParser::ReadParameters(const std::string filename,
                     std::cout << "WARNING: The Gaussian and flat error in weight for " + bo->getName() + " cannot both be 0. in the " + filename + " file." << std::endl;
                 }
             } else if (distr.compare("noweight") == 0) {
+                ++beg;
+                ++beg;
+                ++beg;
             } else
                 throw std::runtime_error("ERROR: wrong distribution flag in " + bo->getName());
             bo->setDistr(distr);
