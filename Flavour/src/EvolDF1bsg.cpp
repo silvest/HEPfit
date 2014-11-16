@@ -9,10 +9,14 @@
 #include "EvolDF1bsg.h"
 #include <stdexcept>
 
-EvolDF1bsg::EvolDF1bsg(unsigned int dim, schemes scheme, orders order,
-             const StandardModel& model) : RGEvolutor(dim, scheme, order), model(model),
-             v(13,0.), vi(13,0.), js(13,0.), h(13,0.), gg(13,0.), s_s(13,0.),
-             jssv(13,0.), jss(13,0.), jv(13,0.), vij(13,0.), e(13,0.)  {
+EvolDF1bsg::EvolDF1bsg(unsigned int dim_i, schemes scheme, orders order,
+             const StandardModel& model) : dim(dim_i), RGEvolutor(dim_i, scheme, order), model(model),
+             v(dim_i,0.), vi(dim_i,0.), js(dim_i,0.), h(dim_i,0.), gg(dim_i,0.), s_s(dim_i,0.),
+             jssv(dim_i,0.), jss(dim_i,0.), jv(dim_i,0.), vij(dim_i,0.), e(dim_i,0.) {
+    if (dim != 13 ) throw std::runtime_error("ERROR: EvolDF1bsg can only be of dimension 13"); 
+    
+    matrix<double> matrixZero(13,13,0.);
+    for (int i = 0; i <= order; i++ ) Evol_cache.push_back(boost::make_tuple(matrixZero, matrixZero));
     
     /* magic numbers a & b */ 
     
@@ -28,10 +32,10 @@ EvolDF1bsg::EvolDF1bsg(unsigned int dim, schemes scheme, orders order,
     
     (ToEffectiveBasis(ToRescaleBasis(LO,nu,nd))).transpose().eigensystem(v,e);
     vi = v.inverse();
-    for(int i = 0; i < 13; i++){
+    for(int i = 0; i < dim; i++){
        a[L][i] = e(i).real();
-       for (int j = 0; j < 13; j++) {
-           for (int k = 0; k < 13; k++)  {
+       for (int j = 0; j < dim; j++) {
+           for (int k = 0; k < dim; k++)  {
                 b[L][i][j][k] = v(i, k).real() * vi(k, j).real();
                }
            }
@@ -42,8 +46,8 @@ EvolDF1bsg::EvolDF1bsg(unsigned int dim, schemes scheme, orders order,
     gg = vi * (ToEffectiveBasis(ToRescaleBasis(NLO,nu,nd))).transpose() * v;
     double b0 = model.Beta0(6-L);
     double b1 = model.Beta1(6-L);
-    for (int i = 0; i < 13; i++){
-        for (int j = 0; j < 13; j++){
+    for (int i = 0; i < dim; i++){
+        for (int j = 0; j < dim; j++){
             s_s.assign( i, j, (b1 / b0) * (i==j) * e(i).real() - gg(i,j));    
             if(fabs(e(i).real() - e(j).real() + 2. * b0)>0.00000000001){
                 h.assign( i, j, s_s(i,j) / (2. * b0 + e(i) - e(j)));
@@ -55,16 +59,16 @@ EvolDF1bsg::EvolDF1bsg(unsigned int dim, schemes scheme, orders order,
     vij = vi * js;
     jss = v * s_s * vi;
     jssv = jss * v;        
-    for (int i = 0; i < 13; i++){
-        for (int j = 0; j < 13; j++){
+    for (int i = 0; i < dim; i++){
+        for (int j = 0; j < dim; j++){
             if(fabs(e(i).real() - e(j).real() + 2. * b0) > 0.00000000001){
-                for(int k = 0; k < 13; k++){
+                for(int k = 0; k < dim; k++){
                         c[L][i][j][k] = jv(i, k).real() * vi(k, j).real();
                         d[L][i][j][k] = -v(i, k).real() * vij(k, j).real();
                         }
                     }
             else{    
-                for(int k = 0; k < 13; k++){
+                for(int k = 0; k < dim; k++){
                    c[L][i][j][k] = (1./(2. * b0)) * jssv(i, k).real() * vi(k, j).real();
                    d[L][i][j][k] = 0.;
                    }   
@@ -88,7 +92,7 @@ matrix<double> EvolDF1bsg::AnomalousDimension_M(orders order, unsigned int n_u,
     
     unsigned int nf = n_u + n_d; /*n_u/d = active type up/down flavor d.o.f.*/
   
-    matrix<double> gammaDF1(13,13, 0.);
+    matrix<double> gammaDF1(dim, dim, 0.);
    
     switch(order){
         
@@ -227,8 +231,8 @@ matrix<double> EvolDF1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
     /* matrix entries for the anomalous dimension in the Chetyrkin, Misiak and Munz basis,
        ref. hep-ph/9711280v1, hep-ph/0504194 */
     
-    matrix<double> mat(13, 0.);
-    matrix<double> mat1(13,0.);
+    matrix<double> mat(dim, 0.);
+    matrix<double> mat1(dim, 0.);
     unsigned int nf = n_u + n_d;
     double z3 = gsl_sf_zeta_int(3);
     
@@ -271,12 +275,12 @@ matrix<double> EvolDF1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
         case(NLO): 
             mat = AnomalousDimension_M(NLO, n_u, n_d);
             for (int i=0; i<6; i++){
-                for (int j=6; j<13; j++){
+                for (int j=6; j<dim; j++){
                     mat(i,j) = mat1(i,j);
                 }
             }
-            for (int i=6; i<13; i++){
-                for (int j=6; j<13; j++){
+            for (int i=6; i<dim; i++){
+                for (int j=6; j<dim; j++){
                     mat(i,j) = mat(i,j) + 2. * (i==j) * model.Beta1(nf);
                 }
             }
@@ -284,12 +288,12 @@ matrix<double> EvolDF1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
         case(LO):
             mat = AnomalousDimension_M(LO, n_u, n_d);
             for (int i=0; i<6; i++){
-                for (int j=6; j<13; j++){
+                for (int j=6; j<dim; j++){
                     mat(i,j) = AnomalousDimension_M(NLO, n_u, n_d)(i,j);
                 }
             }
-            for (int i=6; i<13; i++){
-                for (int j=6; j<13; j++){
+            for (int i=6; i<dim; i++){
+                for (int j=6; j<dim; j++){
                     mat(i,j) = mat(i,j) + 2. * (i==j) * model.Beta0(nf);
                 }
             }
@@ -302,7 +306,7 @@ matrix<double> EvolDF1bsg::ToRescaleBasis(orders order, unsigned int n_u, unsign
 
 matrix<double> EvolDF1bsg::ToEffectiveBasis(matrix<double> mat) const{
     
-    gslpp::matrix<double> y(13, 0.);
+    gslpp::matrix<double> y(dim, 0.);
     
     y(0,0) = 1.;
     y(1,1) = 1.;
@@ -336,8 +340,15 @@ matrix<double> EvolDF1bsg::ToEffectiveBasis(matrix<double> mat) const{
     
 }
 
-
 matrix<double>& EvolDF1bsg::Df1Evolbsg(double mu, double M, orders order, schemes scheme) {
+    for (int i = 0; i < 2; i++){
+//        std::cout << mu << "  " <<  mu_cache[i] << "  " << M << "  " << M_cache[i] << std::endl;
+//        std::cout << "ACCESSING CACHE" << std::endl;
+        if (mu == mu_cache[i] && M == M_cache[i]){
+            if (i == 0) return (Evol_cache[order]).get<0>();
+            if (i == 1) return (Evol_cache[order]).get<1>();
+        }
+    }
     switch (scheme) {
         case NDR:
             break;
@@ -348,10 +359,10 @@ matrix<double>& EvolDF1bsg::Df1Evolbsg(double mu, double M, orders order, scheme
             out << scheme;
             throw std::runtime_error("EvolDF1bsg::Df1Evolbsg(): scheme " + out.str() + " not implemented "); 
     }
-
+    
     if (mu == this->mu && M == this->M && scheme == this->scheme)
         return (*Evol(order));
-
+    
     if (M < mu) {
         std::stringstream out;
         out << "M = " << M << " < mu = " << mu;
@@ -371,13 +382,22 @@ matrix<double>& EvolDF1bsg::Df1Evolbsg(double mu, double M, orders order, scheme
         nf += 1.;
     }
     Df1Evolbsg(m_down, M, nf, scheme);
+    
+    mu_cache[0] = mu_cache[1];
+    M_cache[0] = M_cache[1];
+    Evol_cache[order].get<0>() = Evol_cache[order].get<1>();
+
+    mu_cache[1] = mu;
+    M_cache[1] = M;
+    Evol_cache[order].get<1>() = *Evol(order);
+    
     return (*Evol(order));
     
     }
     
  void EvolDF1bsg::Df1Evolbsg(double mu, double M, double nf, schemes scheme) {
 
-    matrix<double> resLO(13, 0.), resNLO(13, 0.), resNNLO(13, 0.);
+    matrix<double> resLO(dim, 0.), resNLO(dim, 0.), resNNLO(dim, 0.);
 
     int L = 6 - (int) nf;
     double alsM = model.Als(M) / 4. / M_PI;
@@ -385,10 +405,10 @@ matrix<double>& EvolDF1bsg::Df1Evolbsg(double mu, double M, orders order, scheme
     
     double eta = alsM / alsmu;
     
-    for (int k = 0; k < 13; k++) {
+    for (int k = 0; k < dim; k++) {
         double etap = pow(eta, a[L][k] / 2. / model.Beta0(nf));
-        for (int i = 0; i < 13; i++){
-            for (int j = 0; j < 13; j++) {
+        for (int i = 0; i < dim; i++){
+            for (int j = 0; j < dim; j++) {
                 resNNLO(i, j) += 0.;
                 
                 if(fabs(e(i).real() - e(j).real() + 2. * model.Beta0(nf))>0.000000000001)  {
