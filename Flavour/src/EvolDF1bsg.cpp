@@ -342,8 +342,6 @@ matrix<double> EvolDF1bsg::ToEffectiveBasis(matrix<double> mat) const{
 
 matrix<double>& EvolDF1bsg::Df1Evolbsg(double mu, double M, orders order, schemes scheme) {
     for (int i = 0; i < 2; i++){
-//        std::cout << mu << "  " <<  mu_cache[i] << "  " << M << "  " << M_cache[i] << std::endl;
-//        std::cout << "ACCESSING CACHE" << std::endl;
         if (mu == mu_cache[i] && M == M_cache[i]){
             if (i == 0) return (Evol_cache[order]).get<0>();
             if (i == 1) return (Evol_cache[order]).get<1>();
