@@ -226,8 +226,11 @@ bool StandardModel::PostUpdate()
     }
 
     /* Necessary for updating StandardModel parameters in StandardModelMatching */
-    if (ModelName() == "StandardModel")
+    if (ModelName() == "StandardModel"){
         myStandardModelMatching->updateSMParameters();
+    }
+    
+    myFlavour->updateParameters();
 
     return (true);
 }
