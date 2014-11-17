@@ -12,13 +12,20 @@
 #include "HeffDF2.h"
 #include "HeffDS1.h"
 #include "HeffDB1.h"
+#include "MVll.h"
 
 using namespace gslpp;
 
 class Flavour {
 public:
 
-    Flavour(const StandardModel& SM_i) : HDF2(SM_i), HDS1(SM_i), HDB1(SM_i) {
+    Flavour(const StandardModel& SM_i) : 
+        HDF2(SM_i), 
+        HDB1(SM_i), 
+        HDS1(SM_i), 
+        myMVll_mu(SM_i, StandardModel::MU), 
+        myMVll_el(SM_i, StandardModel::ELECTRON) 
+    {
     };
 
     const HeffDF2& getHDF2() const {
@@ -90,11 +97,24 @@ public:
         return HDB1.ComputeCoeffprimeBKstarll(mu, scheme);
     }
     
+    MVll getMVll(StandardModel::lepton lep_i){
+        if (lep_i == StandardModel::MU) return myMVll_mu;
+        else if (lep_i == StandardModel::ELECTRON) return myMVll_el;
+        else throw std::runtime_error("Flavour: Final states in MVll can only be muons and electrons");
+    }
+    
+    void updateParameters(){
+        myMVll_mu.updateParameters();
+        myMVll_el.updateParameters();
+    }
+    
 private:
     
     HeffDF2 HDF2;
-    HeffDS1 HDS1;
     HeffDB1 HDB1;
+    HeffDS1 HDS1;
+    MVll myMVll_mu;
+    MVll myMVll_el;
 };
 
 #endif	/* FLAVOUR_H */
