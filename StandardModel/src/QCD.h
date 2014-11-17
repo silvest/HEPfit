@@ -504,6 +504,7 @@ public:
         B_D, /**< @f$B_d@f$ meson */
         B_P, /**< @f$B^\pm@f$ meson */
         B_S, /**< @f$B_s@f$ meson */
+        PHI, /**< @f$\phi@f$ meson */
         K_star, /**< @f$K^*@f$ meson */
         MESON_END /**< The size of this enum. */
     };
@@ -520,7 +521,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 130; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 176; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -1104,6 +1105,222 @@ public:
     {
         return m_fit2T3t;
     }
+    
+    double geta_0Vphi() const
+    {
+        return a_0Vphi;
+    }
+    
+    double geta_1Vphi() const
+    {
+        return a_1Vphi;
+    }
+    
+    double getdmVphi() const
+    {
+        return dmVphi;
+    }
+    
+    double geta_0A0phi() const
+    {
+        return a_0A0phi;
+    }
+    
+    double geta_1A0phi() const
+    {
+        return a_1A0phi;
+    }
+    
+    double getdmA0phi() const
+    {
+        return dmVphi;
+    }
+    
+    double geta_0A1phi() const
+    {
+        return a_0A1phi;
+    }
+    
+    double geta_1A1phi() const
+    {
+        return a_1A1phi;
+    }
+    
+    double getdmA1phi() const
+    {
+        return dmA1phi;
+    }
+    
+    double geta_0A12phi() const
+    {
+        return a_0A12phi;
+    }
+    
+    double geta_1A12phi() const
+    {
+        return a_1A12phi;
+    }
+    
+    double getdmA12phi() const
+    {
+        return dmA12phi;
+    }
+    
+    double geta_0T1phi() const
+    {
+        return a_0T1phi;
+    }
+    
+    double geta_1T1phi() const
+    {
+        return a_1T1phi;
+    }
+    
+    double getdmT1phi() const
+    {
+        return dmT1phi;
+    }
+    
+    double geta_0T2phi() const
+    {
+        return a_0T2phi;
+    }
+    
+    double geta_1T2phi() const
+    {
+        return a_1T2phi;
+    }
+    
+    double getdmT2phi() const
+    {
+        return dmT2phi;
+    }
+    
+    double geta_0T23phi() const
+    {
+        return a_0T23phi;
+    }
+    
+    double geta_1T23phi() const
+    {
+        return a_1T23phi;
+    }
+    
+    double getdmT23phi() const
+    {
+        return dmT23phi;
+    }
+
+    
+    
+    double getr_1Vphi() const
+    {
+        return r_1Vphi;
+    }
+    
+    double getr_2Vphi() const
+    {
+        return r_2Vphi;
+    }
+    
+    double getm_RVphi() const
+    {
+        return m_RVphi;
+    }
+    
+    double getm_fit2Vphi() const
+    {
+        return m_fit2Vphi;
+    }
+
+    double getr_1A0phi() const
+    {
+        return r_1A0phi;
+    }
+    
+    double getr_2A0phi() const
+    {
+        return r_2A0phi;
+    }
+    
+    double getm_RA0phi() const
+    {
+        return m_RA0phi;
+    }
+    
+    double getm_fit2A0phi() const
+    {
+        return m_fit2A0phi;
+    }
+    
+    double getr_2A1phi() const
+    {
+        return r_2A1phi;
+    }
+    
+    double getm_fit2A1phi() const
+    {
+        return m_fit2A1phi;
+    }
+
+    double getr_1A2phi() const
+    {
+        return r_1A2phi;
+    }
+    
+    double getr_2A2phi() const
+    {
+        return r_2A2phi;
+    }
+    
+    double getm_fit2A2phi() const
+    {
+        return m_fit2A2phi;
+    }
+
+    double getr_1T1phi() const
+    {
+        return r_1T1phi;
+    }
+    
+    double getr_2T1phi() const
+    {
+        return r_2T1phi;
+    }
+    
+    double getm_RT1phi() const
+    {
+        return m_RT1phi;
+    }
+    
+    double getm_fit2T1phi() const
+    {
+        return m_fit2T1phi;
+    }
+    double getr_2T2phi() const
+    {
+        return r_2T2phi;
+    }
+    
+    double getm_fit2T2phi() const
+    {
+        return m_fit2T2phi;
+    }
+
+    double getr_1T3tphi() const
+    {
+        return r_1T3tphi;
+    }
+    
+    double getr_2T3tphi() const
+    {
+        return r_2T3tphi;
+    }
+    
+    double getm_fit2T3tphi() const
+    {
+        return m_fit2T3tphi;
+    }
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -1353,6 +1570,20 @@ protected:
     double r_1T1, r_2T1, m_RT1, m_fit2T1;
     double r_2T2, m_fit2T2;
     double r_1T3t, r_2T3t, m_fit2T3t;
+    double a_0Vphi, a_1Vphi, dmVphi;
+    double a_0A0phi, a_1A0phi, dmA0phi;
+    double a_0A1phi, a_1A1phi, dmA1phi;
+    double a_0A12phi, a_1A12phi, dmA12phi;
+    double a_0T1phi, a_1T1phi, dmT1phi;
+    double a_0T2phi, a_1T2phi, dmT2phi;
+    double a_0T23phi, a_1T23phi, dmT23phi;
+    double r_1Vphi, r_2Vphi, m_RVphi, m_fit2Vphi;
+    double r_1A0phi, r_2A0phi, m_RA0phi, m_fit2A0phi;
+    double r_2A1phi, m_fit2A1phi;
+    double r_1A2phi, r_2A2phi, m_fit2A2phi;
+    double r_1T1phi, r_2T1phi, m_RT1phi, m_fit2T1phi;
+    double r_2T2phi, m_fit2T2phi;
+    double r_1T3tphi, r_2T3tphi, m_fit2T3tphi;
 
     double Nc; ///< The number of colours.
     double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.
