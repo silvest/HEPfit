@@ -23,8 +23,8 @@ public:
         HDF2(SM_i), 
         HDB1(SM_i), 
         HDS1(SM_i), 
-        myMVll_mu(SM_i, StandardModel::MU), 
-        myMVll_el(SM_i, StandardModel::ELECTRON) 
+        myMVll_mu(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::MU), 
+        myMVll_el(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON) 
     {
     };
 
@@ -97,7 +97,7 @@ public:
         return HDB1.ComputeCoeffprimeBKstarll(mu, scheme);
     }
     
-    MVll getMVll(StandardModel::lepton lep_i){
+    MVll getMVll(StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i){
         if (lep_i == StandardModel::MU) return myMVll_mu;
         else if (lep_i == StandardModel::ELECTRON) return myMVll_el;
         else throw std::runtime_error("Flavour: Final states in MVll can only be muons and electrons");

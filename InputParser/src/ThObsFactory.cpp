@@ -108,20 +108,20 @@ ThObsFactory::ThObsFactory(){
     obsThFactory["Amumu_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 3);
     obsThFactory["Smumu_Bs"] = boost::bind(boost::factory<Bsmumu*>(), _1, 4);
     //----- B to K* ll  -----
-    obsThFactory["P_1_mu"] = boost::bind(boost::factory<P_1*>(), _1, StandardModel::MU);
-    obsThFactory["P_2_mu"] = boost::bind(boost::factory<P_2*>(), _1, StandardModel::MU);
-    obsThFactory["P_3_mu"] = boost::bind(boost::factory<P_3*>(), _1, StandardModel::MU);
-    obsThFactory["P_4p_mu"] = boost::bind(boost::factory<P_4Prime*>(), _1, StandardModel::MU);
-    obsThFactory["P_5p_mu"] = boost::bind(boost::factory<P_5Prime*>(), _1, StandardModel::MU);
-    obsThFactory["P_6p_mu"] = boost::bind(boost::factory<P_6Prime*>(), _1, StandardModel::MU);
-    obsThFactory["Gammap_mu"] = boost::bind(boost::factory<GammaPrime*>(), _1, StandardModel::MU);
-    obsThFactory["A_FB_mu"] = boost::bind(boost::factory<A_FB*>(), _1, StandardModel::MU);
-    obsThFactory["BR_BKstarmm"] = boost::bind(boost::factory<BR_BKstarll*>(), _1, StandardModel::MU);
-    obsThFactory["ACP_mu"] = boost::bind(boost::factory<ACP*>(), _1, StandardModel::MU);
-    obsThFactory["P3CP_mu"] = boost::bind(boost::factory<P3CP*>(), _1, StandardModel::MU);
-    obsThFactory["F_L_mu"] = boost::bind(boost::factory<F_L*>(), _1, StandardModel::MU);
-    obsThFactory["M_1p_mu"] = boost::bind(boost::factory<M_1Prime*>(), _1, StandardModel::MU);
-    obsThFactory["M_2p_mu"] = boost::bind(boost::factory<M_2Prime*>(), _1, StandardModel::MU);
+    obsThFactory["P_1_BdKstmu"] = boost::bind(boost::factory<P_1*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["P_2_BdKstmu"] = boost::bind(boost::factory<P_2*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["P_3_BdKstmu"] = boost::bind(boost::factory<P_3*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["P_4p_BdKstmu"] = boost::bind(boost::factory<P_4Prime*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["P_5p_BdKstmu"] = boost::bind(boost::factory<P_5Prime*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["P_6p_BdKstmu"] = boost::bind(boost::factory<P_6Prime*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["Gammap_BdKstmu"] = boost::bind(boost::factory<GammaPrime*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["A_FB_BdKstmu"] = boost::bind(boost::factory<A_FB*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["BR_BdKstmu"] = boost::bind(boost::factory<BR_BKstarll*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["ACP_BdKstmu"] = boost::bind(boost::factory<ACP*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["P3CP_BdKstmu"] = boost::bind(boost::factory<P3CP*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["F_L_BdKstmu"] = boost::bind(boost::factory<F_L*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["M_1p_BdKstmu"] = boost::bind(boost::factory<M_1Prime*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["M_2p_BdKstmu"] = boost::bind(boost::factory<M_2Prime*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
 //
 //    //-----  Lepton Flavour observables  -----
     obsThFactory["li_lj_gamma"] = boost::factory<li_lj_gamma*>();

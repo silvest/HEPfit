@@ -7,15 +7,11 @@
 
 #include "Flavour.h"
 #include "MVll.h"
-#include <gslpp.h>
 #include <gslpp_complex.h>
 #include <boost/bind.hpp>
 
 
-
-
-
-MVll::MVll(const StandardModel& SM_i, StandardModel::lepton lep_i) : mySM(SM_i),
+MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : mySM(SM_i),
         H_V0cache(2, 0.),
         H_V1cache(2, 0.),
         H_V2cache(2, 0.),
@@ -35,6 +31,8 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::lepton lep_i) : mySM(SM_i),
         TL0_cache(2, 0.)
 {
     lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
     I0_updated = 0;
     I1_updated = 0;
     I2_updated = 0;
@@ -69,36 +67,21 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::lepton lep_i) : mySM(SM_i),
 
 
 MVll::~MVll() {
-//    gsl_integration_workspace_free (w_sigma0);
-//    gsl_integration_workspace_free (w_sigma1);
-//    gsl_integration_workspace_free (w_sigma2);
-//    gsl_integration_workspace_free (w_sigma3);
-//    gsl_integration_workspace_free (w_sigma4);
-//    gsl_integration_workspace_free (w_sigma5);
-//    gsl_integration_workspace_free (w_sigma6);
-//    gsl_integration_workspace_free (w_sigma7);
-//    gsl_integration_workspace_free (w_sigma9);
-//    gsl_integration_workspace_free (w_sigma11);
-//    
-//    gsl_integration_workspace_free (w_delta0);
-//    gsl_integration_workspace_free (w_delta1);
-//    gsl_integration_workspace_free (w_delta2);
-//    gsl_integration_workspace_free (w_delta3);
-//    gsl_integration_workspace_free (w_delta11);
+/** Check to see if GSL pointers are released!!*/
 }
 
 void MVll::updateParameters(){
     GF = mySM.getGF();
     ale=mySM.getAle();
     Mlep=mySM.getLeptons(lep).getMass();
-    MB=mySM.getMesons(QCD::B_D).getMass();
-    MKstar=mySM.getMesons(QCD::K_star).getMass();
+    MB=mySM.getMesons(meson).getMass();
+    MKstar=mySM.getMesons(vectorM).getMass();
     Mb=mySM.getQuarks(QCD::BOTTOM).getMass();    // add the PS b mass
     Ms=mySM.getQuarks(QCD::STRANGE).getMass();
     MW=mySM.Mw();
     lambda_t=mySM.computelamt_s();
     mu_b = mySM.getMub();
-    width_Bd = mySM.getMesons(QCD::B_D).computeWidth();
+    width_Bd = mySM.getMesons(meson).computeWidth();
     
     a_0V=mySM.geta_0V();
     a_1V=mySM.geta_1V();
@@ -149,7 +132,7 @@ void MVll::updateParameters(){
     h[1]=mySM.getReh_plus() + gslpp::complex::i()*mySM.getImh_plus();
     h[2]=mySM.getReh_minus() + gslpp::complex::i()*mySM.getImh_minus();
     
-    b=1.;                           //please check
+    b=1.;                           //please check: might be vector specific!!
     
     allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
@@ -503,7 +486,7 @@ void MVll::checkCache(double qmin, double qmax){
 //    if (I0_updated == 1) std::cout << I0_updated << " I0 " << it << std::endl;
 //    if (I1_updated == 1) std::cout << I1_updated << " I1 " << it << std::endl;
 //    if (I2_updated == 1) std::cout << I2_updated << " I2 " << it << std::endl;
-//    if (I3_updated == 1) std::cout << I3_updated << " I3 " << it << std::endl;
+//    if (I3_updated == 0) std::cout << I3_updated << " I3 " << it << std::endl;
 //    if (I4_updated == 1) std::cout << I4_updated << " I4 " << it << std::endl;
 //    if (I5_updated == 1) std::cout << I5_updated << " I5 " << it << std::endl;
 //    if (I6_updated == 1) std::cout << I6_updated << " I6 " << it << std::endl;
@@ -861,9 +844,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
     
     switch(i){
         case 0:
-            if (I0_updated == 1) {
-                avaSigma0 = cacheSigma0[std::make_pair(q_min,q_max)];
-            } else {
+            if (I0_updated == 0) {
                 FS0 = convertToGslFunction( boost::bind( &MVll::getSigma0, &(*this), _1 ) );
                 gsl_integration_qags (&FS0, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma0, &avaSigma0, &errSigma0);
                 cacheSigma0[std::make_pair(q_min,q_max)] = avaSigma0;
@@ -871,9 +852,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
             return cacheSigma0[std::make_pair(q_min,q_max)];
             break;
         case 1:
-            if (I1_updated == 1) {
-                avaSigma1 = cacheSigma1[std::make_pair(q_min,q_max)];
-            } else {
+            if (I1_updated == 0) {
                 FS1 = convertToGslFunction( boost::bind( &MVll::getSigma1, &(*this), _1 ) );
                 gsl_integration_qags (&FS1, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma1, &avaSigma1, &errSigma1);
                 cacheSigma1[std::make_pair(q_min,q_max)] = avaSigma1;
@@ -881,9 +860,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
             return cacheSigma1[std::make_pair(q_min,q_max)];
             break;
         case 2:
-            if (I2_updated == 1) {
-                avaSigma2 = cacheSigma2[std::make_pair(q_min,q_max)];
-            } else {
+            if (I2_updated == 0) {
                 FS2 = convertToGslFunction( boost::bind( &MVll::getSigma2, &(*this), _1 ) );
                 gsl_integration_qags (&FS2, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma2, &avaSigma2, &errSigma2);
                 cacheSigma2[std::make_pair(q_min,q_max)] = avaSigma2;
@@ -891,19 +868,16 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
             return cacheSigma2[std::make_pair(q_min,q_max)];
             break;
         case 3:
-            if (I3_updated == 1) {
-                avaSigma3 = cacheSigma3[std::make_pair(q_min,q_max)];
-            } else {
+            if (I3_updated == 0) {
                 FS3 = convertToGslFunction( boost::bind( &MVll::getSigma3, &(*this), _1 ) );
                 gsl_integration_qags (&FS3, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma3, &avaSigma3, &errSigma3);
                 cacheSigma3[std::make_pair(q_min,q_max)] = avaSigma3;
+            } else {
             }
             return cacheSigma3[std::make_pair(q_min,q_max)];
             break;
         case 4:
-            if (I4_updated == 1) {
-                avaSigma4 = cacheSigma4[std::make_pair(q_min,q_max)];
-            } else {
+            if (I4_updated == 0) {
                 FS4 = convertToGslFunction( boost::bind( &MVll::getSigma4, &(*this), _1 ) );
                 gsl_integration_qags (&FS4, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma4, &avaSigma4, &errSigma4);
                 cacheSigma4[std::make_pair(q_min,q_max)] = avaSigma4;
@@ -911,9 +885,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
             return cacheSigma4[std::make_pair(q_min,q_max)];
             break;
         case 5:
-            if (I5_updated == 1) {
-                avaSigma5 = cacheSigma5[std::make_pair(q_min,q_max)];
-            } else {
+            if (I5_updated == 0) {
                 FS5 = convertToGslFunction( boost::bind( &MVll::getSigma5, &(*this), _1 ) );
                 gsl_integration_qags (&FS5, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma5, &avaSigma5, &errSigma5);
                 cacheSigma5[std::make_pair(q_min,q_max)] = avaSigma5;
@@ -921,9 +893,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
             return cacheSigma5[std::make_pair(q_min,q_max)];
             break;
         case 6:
-            if (I6_updated == 1) {
-                avaSigma6 = cacheSigma6[std::make_pair(q_min,q_max)];
-            } else {
+            if (I6_updated == 0) {
                 FS6 = convertToGslFunction( boost::bind( &MVll::getSigma6, &(*this), _1 ) );
                 gsl_integration_qags (&FS6, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma6, &avaSigma6, &errSigma6);
                 cacheSigma6[std::make_pair(q_min,q_max)] = avaSigma6;
@@ -931,9 +901,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
             return cacheSigma6[std::make_pair(q_min,q_max)];
             break;
         case 7:
-            if (I7_updated == 1) {
-                avaSigma7 = cacheSigma7[std::make_pair(q_min,q_max)];
-            } else {
+            if (I7_updated == 0) {
                 FS7 = convertToGslFunction( boost::bind( &MVll::getSigma7, &(*this), _1 ) );
                 gsl_integration_qags (&FS7, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma7, &avaSigma7, &errSigma7);
                 cacheSigma7[std::make_pair(q_min,q_max)] = avaSigma7;
@@ -941,9 +909,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
             return cacheSigma7[std::make_pair(q_min,q_max)];
             break;
         case 9:
-            if (I9_updated == 1) {
-                avaSigma9 = cacheSigma9[std::make_pair(q_min,q_max)];
-            } else {
+            if (I9_updated == 0) {
                 FS9 = convertToGslFunction( boost::bind( &MVll::getSigma9, &(*this), _1 ) );
                 gsl_integration_qags (&FS9, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma9, &avaSigma9, &errSigma9);
                 cacheSigma9[std::make_pair(q_min,q_max)] = avaSigma9;
@@ -951,9 +917,7 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
             return cacheSigma9[std::make_pair(q_min,q_max)];
             break;
         case 11:
-            if (I11_updated == 1) {
-                avaSigma11 = cacheSigma11[std::make_pair(q_min,q_max)];
-            } else {
+            if (I11_updated == 0) {
                 FS11 = convertToGslFunction( boost::bind( &MVll::getSigma11, &(*this), _1 ) );
                 gsl_integration_qags (&FS11, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma11, &avaSigma11, &errSigma11);
                 cacheSigma11[std::make_pair(q_min,q_max)] = avaSigma11;
@@ -974,9 +938,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max){
     
     switch(i){
         case 0:
-            if (I0_updated == 1) {
-                avaDelta0 = cacheDelta0[std::make_pair(q_min,q_max)];
-            } else {
+            if (I0_updated == 0) {
                 FD0 = convertToGslFunction( boost::bind( &MVll::getDelta0, &(*this), _1 ) );
                 gsl_integration_qags (&FD0, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta0, &avaDelta0, &errDelta0);
                 cacheDelta0[std::make_pair(q_min,q_max)] = avaDelta0;
@@ -984,9 +946,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max){
             return cacheDelta0[std::make_pair(q_min,q_max)];
             break;
         case 1:
-            if (I1_updated == 1) {
-                avaDelta1 = cacheDelta1[std::make_pair(q_min,q_max)];
-            } else {
+            if (I1_updated == 0) {
                 FD1 = convertToGslFunction( boost::bind( &MVll::getDelta1, &(*this), _1 ) );
                 gsl_integration_qags (&FD1, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta1, &avaDelta1, &errDelta1);
                 cacheDelta1[std::make_pair(q_min,q_max)] = avaDelta1;
@@ -994,9 +954,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max){
             return cacheDelta1[std::make_pair(q_min,q_max)];
             break;
         case 2:
-            if (I2_updated == 1) {
-                avaDelta2 = cacheDelta2[std::make_pair(q_min,q_max)];
-            } else {
+            if (I2_updated == 0) {
                 FD2 = convertToGslFunction( boost::bind( &MVll::getDelta2, &(*this), _1 ) );
                 gsl_integration_qags (&FD2, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta2, &avaDelta2, &errDelta2);
                 cacheDelta2[std::make_pair(q_min,q_max)] = avaDelta2;
@@ -1004,9 +962,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max){
             return cacheDelta2[std::make_pair(q_min,q_max)];
             break;
         case 3:
-            if (I3_updated == 1) {
-                avaDelta3 = cacheDelta3[std::make_pair(q_min,q_max)];
-            } else {
+            if (I3_updated == 0) {
                 FD3 = convertToGslFunction( boost::bind( &MVll::getDelta3, &(*this), _1 ) );
                 gsl_integration_qags (&FD3, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta3, &avaDelta3, &errDelta3);
                 cacheDelta3[std::make_pair(q_min,q_max)] = avaDelta3;
@@ -1014,9 +970,7 @@ double MVll::integrateDelta(int i, double q_min, double q_max){
             return cacheDelta3[std::make_pair(q_min,q_max)];
             break;
         case 11:
-            if (I11_updated == 1) {
-                avaDelta11 = cacheDelta11[std::make_pair(q_min,q_max)];
-            } else {
+            if (I11_updated == 0) {
                 FD11 = convertToGslFunction( boost::bind( &MVll::getDelta11, &(*this), _1 ) );
                 gsl_integration_qags (&FD11, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta11, &avaDelta11, &errDelta11);
                 cacheDelta11[std::make_pair(q_min,q_max)] = avaDelta11;

@@ -60,7 +60,7 @@ gsl_function convertToGslFunction( const F& f )
  */
 class MVll {
 public:
-    MVll(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
+    MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     virtual ~MVll();
     void updateParameters();
     void checkCache( double qmin, double qmax);
@@ -652,6 +652,8 @@ public:
 private:
     const StandardModel& mySM;
     StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
     int it;
     
     std::map<std::pair<double, double>, double > cacheSigma0;
