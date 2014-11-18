@@ -63,7 +63,7 @@ public:
     MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     virtual ~MVll();
     void updateParameters();
-    void checkCache( double qmin, double qmax);
+    void checkCache();
     //virtual double computeThValue()=0;
     
     double GF;            //Fermi constant
@@ -654,7 +654,7 @@ private:
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
-    int it;
+    int iter;
     
     std::map<std::pair<double, double>, double > cacheSigma0;
     std::map<std::pair<double, double>, double > cacheSigma1;
@@ -742,7 +742,6 @@ private:
     gsl_integration_workspace * w_delta3;
     gsl_integration_workspace * w_delta11;
     
-protected:
     
     unsigned int N_updated;
     vector<double> N_cache;
@@ -875,6 +874,23 @@ protected:
     unsigned int I9_updated;
     unsigned int I10_updated;
     unsigned int I11_updated;
+    
+    std::map<std::pair<double, double>, unsigned int > sigma0Cached;
+    std::map<std::pair<double, double>, unsigned int > sigma1Cached;
+    std::map<std::pair<double, double>, unsigned int > sigma2Cached;
+    std::map<std::pair<double, double>, unsigned int > sigma3Cached;
+    std::map<std::pair<double, double>, unsigned int > sigma4Cached;
+    std::map<std::pair<double, double>, unsigned int > sigma5Cached;
+    std::map<std::pair<double, double>, unsigned int > sigma6Cached;
+    std::map<std::pair<double, double>, unsigned int > sigma7Cached;
+    std::map<std::pair<double, double>, unsigned int > sigma9Cached;
+    std::map<std::pair<double, double>, unsigned int > sigma11Cached;
+    
+    std::map<std::pair<double, double>, unsigned int > delta0Cached;
+    std::map<std::pair<double, double>, unsigned int > delta1Cached;
+    std::map<std::pair<double, double>, unsigned int > delta2Cached;
+    std::map<std::pair<double, double>, unsigned int > delta3Cached;
+    std::map<std::pair<double, double>, unsigned int > delta11Cached;
     
     
     

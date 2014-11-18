@@ -45,7 +45,7 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     I9_updated = 0;
     I10_updated = 0;
     I11_updated = 0;
-    it = 0;
+    iter = 0;
     
     w_sigma0 = gsl_integration_workspace_alloc (50);
     w_sigma1 = gsl_integration_workspace_alloc (50);
@@ -67,6 +67,7 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
 
 
 MVll::~MVll() {
+    std::cout << "DESRTUCT" << std::endl;
 /** Check to see if GSL pointers are released!!*/
 }
 
@@ -84,7 +85,7 @@ void MVll::updateParameters(){
     width_Bd = mySM.getMesons(meson).computeWidth();
     
     switch(vectorM){
-        case QCD::K_star : {
+        case StandardModel::K_star :
             a_0V=mySM.geta_0V();
             a_1V=mySM.geta_1V();
             dmV=mySM.getdmV();
@@ -131,8 +132,8 @@ void MVll::updateParameters(){
             m_fit2T3t=mySM.getm_fit2T3t();
             
             b=1;
-        }
-        case QCD::PHI : {
+            break;
+        case StandardModel::PHI :
             a_0V=mySM.geta_0Vphi();
             a_1V=mySM.geta_1Vphi();
             dmV=mySM.getdmVphi();
@@ -179,7 +180,7 @@ void MVll::updateParameters(){
             m_fit2T3t=mySM.getm_fit2T3tphi();
             
             b= 0.489;
-        }
+            break;
         default:
             std::stringstream out;
             out << vectorM;
@@ -205,10 +206,31 @@ void MVll::updateParameters(){
     C_10p = (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(9);
     C_Sp = (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(10);
     C_Pp = (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(11);
-
+    
+    checkCache();
+    
+    std::map<std::pair<double, double>, unsigned int >::iterator it;
+    
+    if (I0_updated == 0) for (it = sigma0Cached.begin(); it != sigma0Cached.end(); ++it) it->second = 0;
+    if (I1_updated == 0) for (it = sigma1Cached.begin(); it != sigma1Cached.end(); ++it) it->second = 0;
+    if (I2_updated == 0) for (it = sigma2Cached.begin(); it != sigma2Cached.end(); ++it) it->second = 0;
+    if (I3_updated == 0) for (it = sigma3Cached.begin(); it != sigma3Cached.end(); ++it) it->second = 0;
+    if (I4_updated == 0) for (it = sigma4Cached.begin(); it != sigma4Cached.end(); ++it) it->second = 0;
+    if (I5_updated == 0) for (it = sigma5Cached.begin(); it != sigma5Cached.end(); ++it) it->second = 0;
+    if (I6_updated == 0) for (it = sigma6Cached.begin(); it != sigma6Cached.end(); ++it) it->second = 0;
+    if (I7_updated == 0) for (it = sigma7Cached.begin(); it != sigma7Cached.end(); ++it) it->second = 0;
+    if (I9_updated == 0) for (it = sigma9Cached.begin(); it != sigma9Cached.end(); ++it) it->second = 0;
+    if (I11_updated == 0) for (it = sigma11Cached.begin(); it != sigma11Cached.end(); ++it) it->second = 0;
+    
+    if (I0_updated == 0) for (it = delta0Cached.begin(); it != delta0Cached.end(); ++it) it->second = 0;
+    if (I1_updated == 0) for (it = delta1Cached.begin(); it != delta1Cached.end(); ++it) it->second = 0;
+    if (I2_updated == 0) for (it = delta2Cached.begin(); it != delta2Cached.end(); ++it) it->second = 0;
+    if (I3_updated == 0) for (it = delta3Cached.begin(); it != delta3Cached.end(); ++it) it->second = 0;
+    if (I11_updated == 0) for (it = delta11Cached.begin(); it != delta11Cached.end(); ++it) it->second = 0;
+    
 }
 
-void MVll::checkCache(double qmin, double qmax){
+void MVll::checkCache(){
     
     if (MB == k2_cache(0) && MKstar == k2_cache(1) ) {
         k2_updated = 1;
@@ -254,91 +276,85 @@ void MVll::checkCache(double qmin, double qmax){
         A2_cache(1) = r_2A2;
     }
     
-    if (qmax < CUTOFF) {
-        if (r_1V == V_cache(0) && r_2V == V_cache(1) ) {
-            V_updated = 1;
-        } else {
-            V_updated = 0;
-            V_cache(0) = r_1V;
-            V_cache(1) = r_2V;
-        }
-        
-        if (r_1A0 == A0_cache(0) && r_2A0 == A0_cache(1) ) {
-            A0_updated = 1;
-        } else {
-            A0_updated = 0;
-            A0_cache(0) = r_1A0;
-            A0_cache(1) = r_2A0;
-        }
-        
-        if ( r_2A1 == A1_cache(0) ) {
-            A1_updated = 1;
-        } else {
-            A1_updated = 0;
-            A1_cache(0) = r_2A1;
-        }
-        
-        if (r_1T1 == T1_cache(0) && r_2T1 == T1_cache(1) ) {
-            T1_updated = 1;
-        } else {
-            T1_updated = 0;
-            T1_cache(0) = r_1T1;
-            T1_cache(1) = r_2T1;
-        }
-        
-        if ( r_2T2 == T2_cache(0) ) {
-            T2_updated = 1;
-        } else {
-            T2_updated = 0;
-            T2_cache(0) = r_2T2;
-        }
-    } else if (qmin >= CUTOFF){
-        if (a_0V == V_cache(2) && a_1V == V_cache(3) ) {
-            V_updated = z_updated;
-        } else {
-            V_updated = 0;
-            V_cache(2) = a_0V;
-            V_cache(3) = a_1V;
-        }
-        
-        if (a_0A0 == A0_cache(2) && a_1A0 == A0_cache(3) ) {
-            A0_updated = z_updated;
-        } else {
-            A0_updated = 0;
-            A0_cache(2) = a_0A0;
-            A0_cache(3) = a_1A0;
-        }
-        
-        if (a_0A1 == A1_cache(1) && a_1A1 == A1_cache(2) ) {
-            A1_updated = z_updated;
-        } else {
-            A1_updated = 0;
-            A1_cache(1) = a_0A1;
-            A1_cache(2) = a_1A1;
-        }
-        
-        if (a_0T1 == T1_cache(2) && a_1T1 == T1_cache(3) ) {
-            T1_updated = z_updated;
-        } else {
-            T1_updated = 0;
-            T1_cache(2) = a_0T1;
-            T1_cache(3) = a_1T1;
-        }
-        
-        if (a_0T2 == T2_cache(1) && a_1T2 == T2_cache(2) ) {
-            T2_updated = z_updated;
-        } else {
-            T2_updated = 0;
-            T2_cache(1) = a_0T2;
-            T2_cache(2) = a_1T2;
-        }
+
+    if (r_1V == V_cache(0) && r_2V == V_cache(1) ) {
+        V_updated = 1;
     } else {
         V_updated = 0;
-        A0_updated = 0;
-        A1_updated = 0;
-        T1_updated = 0;
-        T2_updated = 0;
+        V_cache(0) = r_1V;
+        V_cache(1) = r_2V;
     }
+
+    if (r_1A0 == A0_cache(0) && r_2A0 == A0_cache(1) ) {
+        A0_updated = 1;
+    } else {
+        A0_updated = 0;
+        A0_cache(0) = r_1A0;
+        A0_cache(1) = r_2A0;
+    }
+
+    if ( r_2A1 == A1_cache(0) ) {
+        A1_updated = 1;
+    } else {
+        A1_updated = 0;
+        A1_cache(0) = r_2A1;
+    }
+
+    if (r_1T1 == T1_cache(0) && r_2T1 == T1_cache(1) ) {
+        T1_updated = 1;
+    } else {
+        T1_updated = 0;
+        T1_cache(0) = r_1T1;
+        T1_cache(1) = r_2T1;
+    }
+
+    if ( r_2T2 == T2_cache(0) ) {
+        T2_updated = 1;
+    } else {
+        T2_updated = 0;
+        T2_cache(0) = r_2T2;
+    }
+
+    if (a_0V == V_cache(2) && a_1V == V_cache(3) ) {
+        V_updated = V_updated * z_updated;
+    } else {
+        V_updated = 0;
+        V_cache(2) = a_0V;
+        V_cache(3) = a_1V;
+    }
+
+    if (a_0A0 == A0_cache(2) && a_1A0 == A0_cache(3) ) {
+        A0_updated = A0_updated * z_updated;
+    } else {
+        A0_updated = 0;
+        A0_cache(2) = a_0A0;
+        A0_cache(3) = a_1A0;
+    }
+
+    if (a_0A1 == A1_cache(1) && a_1A1 == A1_cache(2) ) {
+        A1_updated = A1_updated * z_updated;
+    } else {
+        A1_updated = 0;
+        A1_cache(1) = a_0A1;
+        A1_cache(2) = a_1A1;
+    }
+
+    if (a_0T1 == T1_cache(2) && a_1T1 == T1_cache(3) ) {
+        T1_updated = T1_updated * z_updated;
+    } else {
+        T1_updated = 0;
+        T1_cache(2) = a_0T1;
+        T1_cache(3) = a_1T1;
+    }
+
+    if (a_0T2 == T2_cache(1) && a_1T2 == T2_cache(2) ) {
+        T2_updated = T2_updated * z_updated;
+    } else {
+        T2_updated = 0;
+        T2_cache(1) = a_0T2;
+        T2_cache(2) = a_1T2;
+    }
+
     
     if (r_1T3t == T3t_cache(0) && r_2T3t == T3t_cache(1) ) {
         T3t_updated = 1;
@@ -372,38 +388,34 @@ void MVll::checkCache(double qmin, double qmax){
         SL_cache(1) = Ms;
     }
     
-    if (qmax < CUTOFF) {
-        VL0_updated = k2_updated * lambda_updated * A1_updated * A2_updated;
+
+    VL0_updated = k2_updated * lambda_updated * A1_updated * A2_updated;
+    VR0_updated = VL0_updated;
+    TL0_updated = k2_updated * lambda_updated * T2_updated * T3_updated;
+    TR0_updated = TL0_updated;
+
+    if (a_0A12 == VL0_cache(0) && a_1A12 == VL0_cache(1) && MKstar == VL0_cache(2) ){
+        VL0_updated = VL0_updated * z_updated;
         VR0_updated = VL0_updated;
-        TL0_updated = k2_updated * lambda_updated * T2_updated * T3_updated;
-        TR0_updated = TL0_updated;
-    } else if (qmin >= CUTOFF) {
-        if (a_0A12 == VL0_cache(0) && a_1A12 == VL0_cache(1) && MKstar == VL0_cache(2) ){
-            VL0_updated = z_updated;
-            VR0_updated = VL0_updated;
-        } else {
-            VL0_updated = 0;
-            VR0_updated = VL0_updated;
-            VL0_cache(0) = a_0A12;
-            VL0_cache(1) = a_1A12;
-            VL0_cache(2) = MKstar;
-        }
-        if (a_0T23 == TL0_cache(0) && a_1T23 == TL0_cache(1) ){
-            TL0_updated = k2_updated * z_updated;
-            TR0_updated = TL0_updated;
-        } else {
-            TL0_updated = 0;
-            TR0_updated = TL0_updated;
-            TL0_cache(0) = a_0T23;
-            TL0_cache(1) = a_1T23;
-            VL0_cache(2) = MKstar;
-        }
     } else {
         VL0_updated = 0;
-        VR0_updated = 0;
-        TL0_updated = 0;
-        TR0_updated = 0;
+        VR0_updated = VL0_updated;
+        VL0_cache(0) = a_0A12;
+        VL0_cache(1) = a_1A12;
+        VL0_cache(2) = MKstar;
     }
+
+    if (a_0T23 == TL0_cache(0) && a_1T23 == TL0_cache(1) ){
+        TL0_updated = TL0_updated * k2_updated * z_updated;
+        TR0_updated = TL0_updated;
+    } else {
+        TL0_updated = 0;
+        TR0_updated = TL0_updated;
+        TL0_cache(0) = a_0T23;
+        TL0_cache(1) = a_1T23;
+        VL0_cache(2) = MKstar;
+    }
+
     
     if (C_7 == C_7_cache) {
         C_7_updated = 1;
@@ -538,12 +550,12 @@ void MVll::checkCache(double qmin, double qmax){
     I10_updated = I5_updated;
     I11_updated = I7_updated;
     
-    it += 1 ;
-    
+    iter += 1 ;
+
 //    if (I0_updated == 1) std::cout << I0_updated << " I0 " << it << std::endl;
 //    if (I1_updated == 1) std::cout << I1_updated << " I1 " << it << std::endl;
 //    if (I2_updated == 1) std::cout << I2_updated << " I2 " << it << std::endl;
-//    if (I3_updated == 0) std::cout << I3_updated << " I3 " << it << std::endl;
+//    if (I3_updated == 1) std::cout << I3_updated << " I3 " << it << std::endl;
 //    if (I4_updated == 1) std::cout << I4_updated << " I4 " << it << std::endl;
 //    if (I5_updated == 1) std::cout << I5_updated << " I5 " << it << std::endl;
 //    if (I6_updated == 1) std::cout << I6_updated << " I6 " << it << std::endl;
@@ -906,90 +918,101 @@ double MVll::Delta(int i, double q2) {
 }
 
 double MVll::integrateSigma(int i, double q_min, double q_max){
+    
 
-    checkCache(q_min, q_max);
+    //checkCache(q_min, q_max);
+    std::pair<double, double > qbin = std::make_pair(q_min, q_max);
     
     switch(i){
         case 0:
-            if (I0_updated == 0) {
+            if (sigma0Cached[qbin] == 0) {
                 FS0 = convertToGslFunction( boost::bind( &MVll::getSigma0, &(*this), _1 ) );
                 gsl_integration_qags (&FS0, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma0, &avaSigma0, &errSigma0);
-                cacheSigma0[std::make_pair(q_min,q_max)] = avaSigma0;
+                cacheSigma0[qbin] = avaSigma0;
+                sigma0Cached[qbin] = 1;
             }
-            return cacheSigma0[std::make_pair(q_min,q_max)];
+            return cacheSigma0[qbin];
             break;
         case 1:
-            if (I1_updated == 0) {
+            if (sigma1Cached[qbin] == 0) {
                 FS1 = convertToGslFunction( boost::bind( &MVll::getSigma1, &(*this), _1 ) );
                 gsl_integration_qags (&FS1, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma1, &avaSigma1, &errSigma1);
-                cacheSigma1[std::make_pair(q_min,q_max)] = avaSigma1;
+                cacheSigma1[qbin] = avaSigma1;
+                sigma1Cached[qbin] = 1;
             }
-            return cacheSigma1[std::make_pair(q_min,q_max)];
+            return cacheSigma1[qbin];
             break;
         case 2:
-            if (I2_updated == 0) {
+            if (sigma2Cached[qbin] == 0) {
                 FS2 = convertToGslFunction( boost::bind( &MVll::getSigma2, &(*this), _1 ) );
                 gsl_integration_qags (&FS2, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma2, &avaSigma2, &errSigma2);
-                cacheSigma2[std::make_pair(q_min,q_max)] = avaSigma2;
+                cacheSigma2[qbin] = avaSigma2;
+                sigma2Cached[qbin] = 1;
             }
-            return cacheSigma2[std::make_pair(q_min,q_max)];
+            return cacheSigma2[qbin];
             break;
         case 3:
-            if (I3_updated == 0) {
+            if (sigma3Cached[qbin] == 0) {
                 FS3 = convertToGslFunction( boost::bind( &MVll::getSigma3, &(*this), _1 ) );
                 gsl_integration_qags (&FS3, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma3, &avaSigma3, &errSigma3);
-                cacheSigma3[std::make_pair(q_min,q_max)] = avaSigma3;
-            } else {
+                cacheSigma3[qbin] = avaSigma3;
+                sigma3Cached[qbin] = 1;
             }
-            return cacheSigma3[std::make_pair(q_min,q_max)];
+            return cacheSigma3[qbin];
             break;
         case 4:
-            if (I4_updated == 0) {
+            if (sigma4Cached[qbin] == 0) {
                 FS4 = convertToGslFunction( boost::bind( &MVll::getSigma4, &(*this), _1 ) );
                 gsl_integration_qags (&FS4, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma4, &avaSigma4, &errSigma4);
-                cacheSigma4[std::make_pair(q_min,q_max)] = avaSigma4;
+                cacheSigma4[qbin] = avaSigma4;
+                sigma4Cached[qbin] = 1;
             }
-            return cacheSigma4[std::make_pair(q_min,q_max)];
+            return cacheSigma4[qbin];
             break;
         case 5:
-            if (I5_updated == 0) {
+            if (sigma5Cached[qbin] == 0) {
                 FS5 = convertToGslFunction( boost::bind( &MVll::getSigma5, &(*this), _1 ) );
                 gsl_integration_qags (&FS5, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma5, &avaSigma5, &errSigma5);
-                cacheSigma5[std::make_pair(q_min,q_max)] = avaSigma5;
+                cacheSigma5[qbin] = avaSigma5;
+                sigma5Cached[qbin] = 1;
             }
-            return cacheSigma5[std::make_pair(q_min,q_max)];
+            return cacheSigma5[qbin];
             break;
         case 6:
-            if (I6_updated == 0) {
+            if (sigma6Cached[qbin] == 0) {
                 FS6 = convertToGslFunction( boost::bind( &MVll::getSigma6, &(*this), _1 ) );
                 gsl_integration_qags (&FS6, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma6, &avaSigma6, &errSigma6);
-                cacheSigma6[std::make_pair(q_min,q_max)] = avaSigma6;
+                cacheSigma6[qbin] = avaSigma6;
+                sigma6Cached[qbin] = 1;
             }
-            return cacheSigma6[std::make_pair(q_min,q_max)];
+            return cacheSigma6[qbin];
             break;
         case 7:
-            if (I7_updated == 0) {
+            if (sigma7Cached[qbin] == 0) {
                 FS7 = convertToGslFunction( boost::bind( &MVll::getSigma7, &(*this), _1 ) );
                 gsl_integration_qags (&FS7, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma7, &avaSigma7, &errSigma7);
-                cacheSigma7[std::make_pair(q_min,q_max)] = avaSigma7;
+                cacheSigma7[qbin] = avaSigma7;
+                sigma7Cached[qbin] = 1;
             }
-            return cacheSigma7[std::make_pair(q_min,q_max)];
+            return cacheSigma7[qbin];
             break;
         case 9:
-            if (I9_updated == 0) {
+            if (sigma9Cached[qbin] == 0) {
                 FS9 = convertToGslFunction( boost::bind( &MVll::getSigma9, &(*this), _1 ) );
                 gsl_integration_qags (&FS9, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma9, &avaSigma9, &errSigma9);
-                cacheSigma9[std::make_pair(q_min,q_max)] = avaSigma9;
+                cacheSigma9[qbin] = avaSigma9;
+                sigma9Cached[qbin] = 1;
             }
-            return cacheSigma9[std::make_pair(q_min,q_max)];
+            return cacheSigma9[qbin];
             break;
         case 11:
-            if (I11_updated == 0) {
+            if (sigma11Cached[qbin] == 0) {
                 FS11 = convertToGslFunction( boost::bind( &MVll::getSigma11, &(*this), _1 ) );
                 gsl_integration_qags (&FS11, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma11, &avaSigma11, &errSigma11);
-                cacheSigma11[std::make_pair(q_min,q_max)] = avaSigma11;
+                cacheSigma11[qbin] = avaSigma11;
+                sigma11Cached[qbin] = 1;
             }
-            return cacheSigma11[std::make_pair(q_min,q_max)];
+            return cacheSigma11[qbin];
             break;
         default:
             std::stringstream out;
@@ -1001,48 +1024,53 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
 
 double MVll::integrateDelta(int i, double q_min, double q_max){
     
-    checkCache(q_min, q_max);
-    
+    //checkCache(q_min, q_max);
+    std::pair<double, double > qbin = std::make_pair(q_min, q_max);
     switch(i){
         case 0:
-            if (I0_updated == 0) {
+            if (delta0Cached[qbin] == 0) {
                 FD0 = convertToGslFunction( boost::bind( &MVll::getDelta0, &(*this), _1 ) );
                 gsl_integration_qags (&FD0, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta0, &avaDelta0, &errDelta0);
-                cacheDelta0[std::make_pair(q_min,q_max)] = avaDelta0;
+                cacheDelta0[qbin] = avaDelta0;
+                delta0Cached[qbin] = 1;
             }
-            return cacheDelta0[std::make_pair(q_min,q_max)];
+            return cacheDelta0[qbin];
             break;
         case 1:
-            if (I1_updated == 0) {
+            if (delta1Cached[qbin] == 0) {
                 FD1 = convertToGslFunction( boost::bind( &MVll::getDelta1, &(*this), _1 ) );
                 gsl_integration_qags (&FD1, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta1, &avaDelta1, &errDelta1);
-                cacheDelta1[std::make_pair(q_min,q_max)] = avaDelta1;
+                cacheDelta1[qbin] = avaDelta1;
+                delta1Cached[qbin] = 1;
             }
-            return cacheDelta1[std::make_pair(q_min,q_max)];
+            return cacheDelta1[qbin];
             break;
         case 2:
-            if (I2_updated == 0) {
+            if (delta2Cached[qbin] == 0) {
                 FD2 = convertToGslFunction( boost::bind( &MVll::getDelta2, &(*this), _1 ) );
                 gsl_integration_qags (&FD2, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta2, &avaDelta2, &errDelta2);
-                cacheDelta2[std::make_pair(q_min,q_max)] = avaDelta2;
+                cacheDelta2[qbin] = avaDelta2;
+                delta2Cached[qbin] = 1;
             }
-            return cacheDelta2[std::make_pair(q_min,q_max)];
+            return cacheDelta2[qbin];
             break;
         case 3:
-            if (I3_updated == 0) {
+            if (delta3Cached[qbin] == 0) {
                 FD3 = convertToGslFunction( boost::bind( &MVll::getDelta3, &(*this), _1 ) );
                 gsl_integration_qags (&FD3, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta3, &avaDelta3, &errDelta3);
-                cacheDelta3[std::make_pair(q_min,q_max)] = avaDelta3;
+                cacheDelta3[qbin] = avaDelta3;
+                delta3Cached[qbin] = 1;
             }
-            return cacheDelta3[std::make_pair(q_min,q_max)];
+            return cacheDelta3[qbin];
             break;
         case 11:
-            if (I11_updated == 0) {
+            if (delta11Cached[qbin] == 0) {
                 FD11 = convertToGslFunction( boost::bind( &MVll::getDelta11, &(*this), _1 ) );
                 gsl_integration_qags (&FD11, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta11, &avaDelta11, &errDelta11);
-                cacheDelta11[std::make_pair(q_min,q_max)] = avaDelta11;
+                cacheDelta11[qbin] = avaDelta11;
+                delta11Cached[qbin] = 1;
             }
-            return cacheDelta11[std::make_pair(q_min,q_max)];
+            return cacheDelta11[qbin];
             break;
         default:
             std::stringstream out;

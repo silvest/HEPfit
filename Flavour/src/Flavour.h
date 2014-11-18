@@ -22,12 +22,14 @@ public:
     Flavour(const StandardModel& SM_i) : 
         HDF2(SM_i), 
         HDB1(SM_i), 
-        HDS1(SM_i), 
-        myMVll_mu(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::MU), 
-        myMVll_el(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON) 
+        HDS1(SM_i)
     {
+        myMVll_BdKstarmu = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+        myMVll_BdKstarel = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON);
+        myMVll_Bsphimu = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+        myMVll_Bsphiel = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON);
     };
-
+    
     const HeffDF2& getHDF2() const {
         return HDF2;
     }
@@ -97,15 +99,19 @@ public:
         return HDB1.ComputeCoeffprimeBKstarll(mu, scheme);
     }
     
-    MVll getMVll(StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i){
-        if (lep_i == StandardModel::MU) return myMVll_mu;
-        else if (lep_i == StandardModel::ELECTRON) return myMVll_el;
-        else throw std::runtime_error("Flavour: Final states in MVll can only be muons and electrons");
+    MVll* getMVll(StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) {
+        if (meson_i == StandardModel::B_D && vector_i == StandardModel::K_star && lep_i == StandardModel::MU) return myMVll_BdKstarmu;
+        if (meson_i == StandardModel::B_D && vector_i == StandardModel::K_star && lep_i == StandardModel::ELECTRON) return myMVll_BdKstarel;
+        if (meson_i == StandardModel::B_S && vector_i == StandardModel::PHI && lep_i == StandardModel::MU) return myMVll_BdKstarmu;
+        if (meson_i == StandardModel::B_S && vector_i == StandardModel::PHI && lep_i == StandardModel::ELECTRON) return myMVll_BdKstarel;
+        else throw std::runtime_error("Flavour: Decay channel not implemented.");
     }
     
     void updateParameters(){
-        myMVll_mu.updateParameters();
-        myMVll_el.updateParameters();
+        myMVll_BdKstarmu->updateParameters();
+        myMVll_BdKstarel->updateParameters();
+        myMVll_Bsphimu->updateParameters();
+        myMVll_Bsphiel->updateParameters();
     }
     
 private:
@@ -113,8 +119,10 @@ private:
     HeffDF2 HDF2;
     HeffDB1 HDB1;
     HeffDS1 HDS1;
-    MVll myMVll_mu;
-    MVll myMVll_el;
+    MVll* myMVll_BdKstarmu;
+    MVll* myMVll_BdKstarel;
+    MVll* myMVll_Bsphimu;
+    MVll* myMVll_Bsphiel;
 };
 
 #endif	/* FLAVOUR_H */
