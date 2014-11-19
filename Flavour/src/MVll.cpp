@@ -75,14 +75,14 @@ void MVll::updateParameters(){
     GF = mySM.getGF();
     ale=mySM.getAle();
     Mlep=mySM.getLeptons(lep).getMass();
-    MB=mySM.getMesons(meson).getMass();
-    MKstar=mySM.getMesons(vectorM).getMass();
+    MM=mySM.getMesons(meson).getMass();
+    MV=mySM.getMesons(vectorM).getMass();
     Mb=mySM.getQuarks(QCD::BOTTOM).getMass();    // add the PS b mass
     Ms=mySM.getQuarks(QCD::STRANGE).getMass();
     MW=mySM.Mw();
     lambda_t=mySM.computelamt_s();
     mu_b = mySM.getMub();
-    width_Bd = mySM.getMesons(meson).computeWidth();
+    width = mySM.getMesons(meson).computeWidth();
     
     switch(vectorM){
         case StandardModel::K_star :
@@ -232,14 +232,14 @@ void MVll::updateParameters(){
 
 void MVll::checkCache(){
     
-    if (MB == k2_cache(0) && MKstar == k2_cache(1) ) {
+    if (MM == k2_cache(0) && MV == k2_cache(1) ) {
         k2_updated = 1;
         z_updated = 1;
     } else {
         k2_updated = 0;
         z_updated = 0;
-        k2_cache(0) = MB;
-        k2_cache(1) = MKstar;
+        k2_cache(0) = MM;
+        k2_cache(1) = MV;
     }
     
     if (Mlep == beta_cache) {
@@ -249,22 +249,22 @@ void MVll::checkCache(){
         beta_cache = Mlep;
     }
     
-    if (MB == lambda_cache) {
+    if (MM == lambda_cache) {
         lambda_updated = k2_updated;
         F_updated = lambda_updated * beta_updated;
     } else {
         lambda_updated = 0;
         F_updated = 0;
-        lambda_cache = MB;
+        lambda_cache = MM;
     }
     
-    if (GF == N_cache(0) && ale == N_cache(1) && MB == N_cache(2) && lambda_t == Nc_cache ) {
+    if (GF == N_cache(0) && ale == N_cache(1) && MM == N_cache(2) && lambda_t == Nc_cache ) {
         N_updated = 1;
     } else {
         N_updated = 0;
         N_cache(0) = GF;
         N_cache(1) = ale;
-        N_cache(2) = MB;
+        N_cache(2) = MM;
         Nc_cache = lambda_t;
     }
     
@@ -394,7 +394,7 @@ void MVll::checkCache(){
     TL0_updated = k2_updated * lambda_updated * T2_updated * T3_updated;
     TR0_updated = TL0_updated;
 
-    if (a_0A12 == VL0_cache(0) && a_1A12 == VL0_cache(1) && MKstar == VL0_cache(2) ){
+    if (a_0A12 == VL0_cache(0) && a_1A12 == VL0_cache(1) && MV == VL0_cache(2) ){
         VL0_updated = VL0_updated * z_updated;
         VR0_updated = VL0_updated;
     } else {
@@ -402,7 +402,7 @@ void MVll::checkCache(){
         VR0_updated = VL0_updated;
         VL0_cache(0) = a_0A12;
         VL0_cache(1) = a_1A12;
-        VL0_cache(2) = MKstar;
+        VL0_cache(2) = MV;
     }
 
     if (a_0T23 == TL0_cache(0) && a_1T23 == TL0_cache(1) ){
@@ -413,7 +413,7 @@ void MVll::checkCache(){
         TR0_updated = TL0_updated;
         TL0_cache(0) = a_0T23;
         TL0_cache(1) = a_1T23;
-        VL0_cache(2) = MKstar;
+        VL0_cache(2) = MV;
     }
 
     
@@ -487,29 +487,29 @@ void MVll::checkCache(){
         C_Pp_cache = C_Pp;
     }
     
-    if (MB == H_V0cache(0) && Mb == H_V0cache(1) && h[0] == H_V0Ccache) {
+    if (MM == H_V0cache(0) && Mb == H_V0cache(1) && h[0] == H_V0Ccache) {
         H_V0updated = N_updated * C_9_updated * VL0_updated * C_9p_updated * VR0_updated * C_7_updated * TL0_updated * C_7p_updated * TR0_updated;
     } else {
         H_V0updated = 0;
-        H_V0cache(0) = MB;
+        H_V0cache(0) = MM;
         H_V0cache(1) = Mb;
         H_V0Ccache = h[0];
     }
     
-    if (MB == H_V1cache(0) && Mb == H_V1cache(1) && h[1] == H_V1Ccache) {
+    if (MM == H_V1cache(0) && Mb == H_V1cache(1) && h[1] == H_V1Ccache) {
         H_V1updated = N_updated * C_9_updated * VL1_updated * C_9p_updated * VR1_updated * C_7_updated * TL1_updated * C_7p_updated * TR1_updated;
     } else {
         H_V1updated = 0;
-        H_V1cache(0) = MB;
+        H_V1cache(0) = MM;
         H_V1cache(1) = Mb;
         H_V1Ccache = h[1];
     }
     
-    if (MB == H_V2cache(0) && Mb == H_V2cache(1) && h[2] == H_V2Ccache) {
+    if (MM == H_V2cache(0) && Mb == H_V2cache(1) && h[2] == H_V2Ccache) {
         H_V2updated = N_updated * C_9_updated * VL2_updated * C_9p_updated * VR2_updated * C_7_updated * TL2_updated * C_7p_updated * TR2_updated;
     } else {
         H_V2updated = 0;
-        H_V2cache(0) = MB;
+        H_V2cache(0) = MM;
         H_V2cache(1) = Mb;
         H_V2Ccache = h[2];
     }
@@ -591,14 +591,14 @@ double MVll::LCSR_fit3(double q2, double r_2, double m_fit2){
 
 double MVll::z(double q2){
     double t_0 = 12.;
-    double t_p=pow(MB + MKstar,2.);
+    double t_p=pow(MM + MV,2.);
     return ( sqrt(t_p - q2) - sqrt(t_p - t_0) ) / ( sqrt(t_p - q2) + sqrt(t_p - t_0) );
 }
 
 
 
 double MVll::lat_fit(double q2, double a_0, double a_1, double dm){
-    return 1 / (1 - q2/pow(MB + dm,2.)) * ( a_0 + a_1*z(q2) );
+    return 1 / (1 - q2/pow(MM + dm,2.)) * ( a_0 + a_1*z(q2) );
 }
 
 
@@ -672,7 +672,7 @@ double MVll::T_3(double q2){
                    
         }
     }
-    else return (MB*MB - MKstar*MKstar)/q2*(T_3tilde(q2) - T_2(q2));
+    else return (MM*MM - MV*MV)/q2*(T_3tilde(q2) - T_2(q2));
 }
 
 
@@ -681,13 +681,13 @@ double MVll::V_L(int i, double q2){
     switch (i){
         case 0:
             if (q2 < CUTOFF)
-                return 1. / ( 4.*MKstar*MB*(MB + MKstar)*sqrt(q2) ) * ( pow((MB + MKstar),2.)*(MB*MB - q2 - MKstar*MKstar)*A_1(q2) - lambda(q2)*A_2(q2) );
+                return 1. / ( 4.*MV*MM*(MM + MV)*sqrt(q2) ) * ( pow((MM + MV),2.)*(MM*MM - q2 - MV*MV)*A_1(q2) - lambda(q2)*A_2(q2) );
             else
-                return 4*MKstar/sqrt(q2)*lat_fit(q2, a_0A12, a_1A12, dmA12);
+                return 4*MV/sqrt(q2)*lat_fit(q2, a_0A12, a_1A12, dmA12);
         case 1:
-            return 1./2. * ( ( 1. + MKstar/MB)*A_1(q2) - sqrt(lambda(q2))/ ( MB* (MB + MKstar) ) * V(q2) );
+            return 1./2. * ( ( 1. + MV/MM)*A_1(q2) - sqrt(lambda(q2))/ ( MM* (MM + MV) ) * V(q2) );
         case 2:
-            return 1./2. * ( ( 1. + MKstar/MB)*A_1(q2) + sqrt(lambda(q2))/ ( MB* (MB + MKstar) ) * V(q2) );
+            return 1./2. * ( ( 1. + MV/MM)*A_1(q2) + sqrt(lambda(q2))/ ( MM* (MM + MV) ) * V(q2) );
         default:
             std::stringstream out;
             out << i;
@@ -708,13 +708,13 @@ double MVll::T_L(int i, double q2){
     switch (i){
         case 0:
             if (q2 < CUTOFF)
-                return sqrt(q2)/(4.*MB*MB*MKstar) * ( ( MB*MB+ 3.*MKstar*MKstar - q2 ) * T_2(q2) - lambda(q2) / (MB*MB - MKstar*MKstar) * T_3(q2) );
+                return sqrt(q2)/(4.*MM*MM*MV) * ( ( MM*MM+ 3.*MV*MV - q2 ) * T_2(q2) - lambda(q2) / (MM*MM - MV*MV) * T_3(q2) );
             else
-                return 2*sqrt(q2)*MKstar/MB/(MB + MKstar)*lat_fit(q2, a_0T23, a_1T23, dmT23);
+                return 2*sqrt(q2)*MV/MM/(MM + MV)*lat_fit(q2, a_0T23, a_1T23, dmT23);
         case 1:
-            return (MB*MB - MKstar*MKstar) / ( 2.*MB*MB ) * T_2(q2) - sqrt(lambda(q2)) / ( 2.*MB*MB ) * T_1(q2);
+            return (MM*MM - MV*MV) / ( 2.*MM*MM ) * T_2(q2) - sqrt(lambda(q2)) / ( 2.*MM*MM ) * T_1(q2);
         case 2:
-            return (MB*MB - MKstar*MKstar) / ( 2.*MB*MB ) * T_2(q2) + sqrt(lambda(q2)) / ( 2.*MB*MB ) * T_1(q2);
+            return (MM*MM - MV*MV) / ( 2.*MM*MM ) * T_2(q2) + sqrt(lambda(q2)) / ( 2.*MM*MM ) * T_1(q2);
         default:
             std::stringstream out;
             out << i;
@@ -732,7 +732,7 @@ double MVll::T_R(int i, double q2){
 
 
 double MVll::S_L(double q2){
-    return -sqrt(lambda(q2))/ ( 2*MB*(Mb + Ms) ) *A_0(q2);
+    return -sqrt(lambda(q2))/ ( 2*MM*(Mb + Ms) ) *A_0(q2);
 }
 
 
@@ -747,7 +747,7 @@ double MVll::S_R(double q2){
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
 complex MVll::N(){
-    return -(4.*GF*MB*ale*lambda_t)/(sqrt(2.)*4.*M_PI);
+    return -(4.*GF*MM*ale*lambda_t)/(sqrt(2.)*4.*M_PI);
 }
 
 
@@ -769,7 +769,7 @@ gslpp::complex MVll::H_V(int i, double q2, int bar) {
                     
     return -gslpp::complex::i()*n*( C_9*V_L(i,q2)
             + C_9p*V_R(i,q2)
-            + MB*MB/q2*( 2*Mb/MB*( C_7*T_L(i,q2)
+            + MM*MM/q2*( 2*Mb/MM*( C_7*T_L(i,q2)
             + C_7p*T_R(i,q2) ) - 16*M_PI*M_PI*h[i] ) );
 }
 
@@ -844,7 +844,7 @@ gslpp::complex MVll::H_P(double q2, int bar) {
  * Angular coefficients                                                         *
  * ****************************************************************************/
 double MVll::k2(double q2) {
-    return (pow(MB,4.) + q2*q2 + pow(MKstar,4.) -2.*MKstar*MKstar*q2 -2.*MB*MB*(q2 + MKstar*MKstar))/(4.*MB*MB);
+    return (pow(MM,4.) + q2*q2 + pow(MV,4.) -2.*MV*MV*q2 -2.*MM*MM*(q2 + MV*MV))/(4.*MM*MM);
 }
 
 
@@ -856,13 +856,13 @@ double MVll::beta(double q2) {
 
 
 double MVll::lambda(double q2) {
-    return 4.*MB*MB*k2(q2);
+    return 4.*MM*MM*k2(q2);
 }
 
 
 
 double MVll::F(double q2, double b_i) {
-    return sqrt(lambda(q2))*beta(q2)*q2*b_i/(96.*M_PI*M_PI*M_PI*MB*MB*MB);
+    return sqrt(lambda(q2))*beta(q2)*q2*b_i/(96.*M_PI*M_PI*M_PI*MM*MM*MM);
 }
 
 

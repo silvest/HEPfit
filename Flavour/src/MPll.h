@@ -5,13 +5,14 @@
  * For the licensing terms see doc/COPYING.
  */
 
-#ifndef MVLL_H
-#define	MVLL_H
+#ifndef MPLL_H
+#define	MPLL_H
 
 #include <math.h>
+#include "Flavour.h"
+#include "MVll.h"
 #include <StandardModel.h>
 #include <ThObservable.h>
-#include <gsl/gsl_math.h>
 #include <gsl/gsl_integration.h>
 #include <assert.h>
 
@@ -22,7 +23,29 @@
  * GSL Function Conversion BEGIN                                                  *
  * ****************************************************************************/
 
-template<class F>
+// Option 1. To be called with:
+//gsl_function_pp Fp( boost::bind(&Class::member_function, &class, _1) );
+//gsl_function *F = static_cast<gsl_function*>(&Fp);
+
+//class gsl_function_pp : public gsl_function
+//{
+//public:
+//    gsl_function_pp(std::function<double(double)> const& func) : _func(func){
+//        function=&gsl_function_pp::invoke;
+//        params=this;
+//    }
+//private:
+//    std::function<double(double)> _func;
+//    static double invoke(double x, void *params) {
+//        return static_cast<gsl_function_pp*>(params)->_func(x);
+//    }
+//};
+
+
+//Option 2. To be used with:
+//gslFunction gslF = convertToGslFunction( boost::bind( &Class::member_function, &class, _1 ) );
+
+/*template<class F>
 static double gslFunctionAdapter( double x, void* p)
 {
     // Here I do recover the "right" pointer, safer to use static_cast
@@ -44,40 +67,62 @@ gsl_function convertToGslFunction( const F& f )
     gslFunction.params = const_cast<void*>( p );
     
     return gslFunction;
-}
+}*/
+
+//Option 3. To be used with:
+//Class* ptr2 = class;
+//auto ptr = [=](double x)->double{return ptr2->member_function(x);};
+//gsl_function_p<decltype(ptr)> Fp(ptr);
+//gsl_function *F = static_cast<gsl_function*>(&Fp);
+
+//template< typename F >
+//class gsl_function_p : public gsl_function {
+//public:
+//    gsl_function_p(const F& func) : _func(func) {
+//        function = &gsl_function_p::invoke;
+//        params=this;
+//    }
+//private:
+//    const F& _func;
+//    static double invoke(double x, void *params) {
+//        return static_cast<gsl_function_p*>(params)->_func(x);
+//    }
+//};
 
 /*******************************************************************************
  * GSL Function conversion END                                                     *
  * ****************************************************************************/
 
 /**
- * @class MVll
+ * @class MPll
  * @ingroup flavour
  * @brief A class for the decay B -> K^*ll. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
  */
-class MVll {
+class MPll : public ThObservable {
 public:
-    MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
-    virtual ~MVll();
+    MPll(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
+    virtual ~MPll();
     void updateParameters();
-    void checkCache();
-    //virtual double computeThValue()=0;
+    //void checkCache( double qmin, double qmax);
+    virtual double computeThValue()=0;
     
     double GF;            //Fermi constant
     double ale;           //alpha electromagnetic
     double Mlep;          //muon mass
-    double MM;            //initial meson mass
-    double MV;            //final vector meson mass
+    double Me;            //electron mass
+    double Mmu;           //muon mass
+    double MB;            //B meson mass
+    double MK;            //K star meson mass
     double Mb;            //b quark mass
     double mu_b;          //b mass scale
-    double width;         //initial meson width
+    double width_Bd;      //B meosn width
     double Ms;            //s quark mass
     double MW;            //W boson mass
     complex lambda_t;     //Vckm factor
-    double b;             //BF of the decay V -> final states
+    double b;             //BF of the decay K^* -> K pi
     complex h[3];         //parameter that contains the contribution from the hadronic hamiltonian  
     double q2;            //q^2 of the decay
     
@@ -101,18 +146,6 @@ public:
 
     vector<complex> ** allcoeff;
     vector<complex> ** allcoeffprime;
-    
-    complex C_7;
-    complex C_9;
-    complex C_10;
-    complex C_S;
-    complex C_P;
-    
-    complex C_7p;
-    complex C_9p;
-    complex C_10p;
-    complex C_Sp;
-    complex C_Pp;
     
     
     
@@ -410,24 +443,6 @@ public:
     */
     double Sigma(int i, double q2);
     
-    /**
-    * @brief \f$ <Sigma_{i}> \f$ 
-    * @param[in] i index of the angular coefficient I_i
-    * @param[in] q_min minimum q^2 of the integral
-    * @param[in] q_max maximum q^2 of the integral
-    * @return return the CP average integral of Sigma_i from q_min to q_max
-    */
-    double integrateSigma(int i, double q_min, double q_max);
-    
-    /**
-    * @brief \f$ <Delta_{i}> \f$ 
-    * @param[in] i index of the angular coefficient I_i
-    * @param[in] q_min minimum q^2 of the integral
-    * @param[in] q_max maximum q^2 of the integral
-    * @return return the CP average integral of Delta_i from q_min to q_max
-    */
-    double integrateDelta(int i, double q_min, double q_max);
-    
     
     /**
     * @brief \f$ Delta_{i} \f$ 
@@ -652,96 +667,9 @@ public:
 private:
     const StandardModel& mySM;
     StandardModel::lepton lep;
-    StandardModel::meson meson;
-    StandardModel::meson vectorM;
-    int iter;
+/*    int it;
     
-    std::map<std::pair<double, double>, double > cacheSigma0;
-    std::map<std::pair<double, double>, double > cacheSigma1;
-    std::map<std::pair<double, double>, double > cacheSigma2;
-    std::map<std::pair<double, double>, double > cacheSigma3;
-    std::map<std::pair<double, double>, double > cacheSigma4;
-    std::map<std::pair<double, double>, double > cacheSigma5;
-    std::map<std::pair<double, double>, double > cacheSigma6;
-    std::map<std::pair<double, double>, double > cacheSigma7;
-    std::map<std::pair<double, double>, double > cacheSigma9;
-    std::map<std::pair<double, double>, double > cacheSigma11;
-    
-    std::map<std::pair<double, double>, double > cacheDelta0;
-    std::map<std::pair<double, double>, double > cacheDelta1;
-    std::map<std::pair<double, double>, double > cacheDelta2;
-    std::map<std::pair<double, double>, double > cacheDelta3;
-    std::map<std::pair<double, double>, double > cacheDelta11;
-    
-    double avaSigma0;
-    double avaSigma1;
-    double avaSigma2;
-    double avaSigma3;
-    double avaSigma4;
-    double avaSigma5;
-    double avaSigma6;
-    double avaSigma7;
-    double avaSigma9;
-    double avaSigma11;
-    
-    double errSigma0;
-    double errSigma1;
-    double errSigma2;
-    double errSigma3;
-    double errSigma4;
-    double errSigma5;
-    double errSigma6;
-    double errSigma7;
-    double errSigma9;
-    double errSigma11;
-    
-    double avaDelta0;
-    double avaDelta1;
-    double avaDelta2;
-    double avaDelta3;
-    double avaDelta11;
-    
-    double errDelta0;
-    double errDelta1;
-    double errDelta2;
-    double errDelta3;
-    double errDelta11;
-    
-    
-    gsl_function FS0;
-    gsl_function FS1;
-    gsl_function FS2;
-    gsl_function FS3;
-    gsl_function FS4;
-    gsl_function FS5;
-    gsl_function FS6;
-    gsl_function FS7;
-    gsl_function FS9;
-    gsl_function FS11;
-    
-    gsl_function FD0;
-    gsl_function FD1;
-    gsl_function FD2;
-    gsl_function FD3;
-    gsl_function FD11;
-    
-    gsl_integration_workspace * w_sigma0;
-    gsl_integration_workspace * w_sigma1;
-    gsl_integration_workspace * w_sigma2;
-    gsl_integration_workspace * w_sigma3;
-    gsl_integration_workspace * w_sigma4;
-    gsl_integration_workspace * w_sigma5;
-    gsl_integration_workspace * w_sigma6;
-    gsl_integration_workspace * w_sigma7;
-    gsl_integration_workspace * w_sigma9;
-    gsl_integration_workspace * w_sigma11;
-    
-    gsl_integration_workspace * w_delta0;
-    gsl_integration_workspace * w_delta1;
-    gsl_integration_workspace * w_delta2;
-    gsl_integration_workspace * w_delta3;
-    gsl_integration_workspace * w_delta11;
-    
+protected:
     
     unsigned int N_updated;
     vector<double> N_cache;
@@ -873,28 +801,186 @@ private:
     unsigned int I8_updated;
     unsigned int I9_updated;
     unsigned int I10_updated;
-    unsigned int I11_updated;
-    
-    std::map<std::pair<double, double>, unsigned int > sigma0Cached;
-    std::map<std::pair<double, double>, unsigned int > sigma1Cached;
-    std::map<std::pair<double, double>, unsigned int > sigma2Cached;
-    std::map<std::pair<double, double>, unsigned int > sigma3Cached;
-    std::map<std::pair<double, double>, unsigned int > sigma4Cached;
-    std::map<std::pair<double, double>, unsigned int > sigma5Cached;
-    std::map<std::pair<double, double>, unsigned int > sigma6Cached;
-    std::map<std::pair<double, double>, unsigned int > sigma7Cached;
-    std::map<std::pair<double, double>, unsigned int > sigma9Cached;
-    std::map<std::pair<double, double>, unsigned int > sigma11Cached;
-    
-    std::map<std::pair<double, double>, unsigned int > delta0Cached;
-    std::map<std::pair<double, double>, unsigned int > delta1Cached;
-    std::map<std::pair<double, double>, unsigned int > delta2Cached;
-    std::map<std::pair<double, double>, unsigned int > delta3Cached;
-    std::map<std::pair<double, double>, unsigned int > delta11Cached;
-    
-    
-    
+    unsigned int I11_updated;*/
 };
 
-#endif	/* MVLL_H */
 
+
+/**
+ * @class GammaPrime
+ * @ingroup flavour
+ * @brief A class for the clean observable Gamma'. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class GammaPrime : public MPll{
+public:
+    
+    /**
+    * @brief \f$ Gamma' \f$ 
+    */
+    GammaPrime(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
+    
+    /**
+    * @return return the clean observable Gamma'
+    */
+    double computeGammaPrime(double qmin, double qmax);
+    double computeThValue ();
+    
+protected:
+    
+    
+private:
+    gsl_function F1, F2, F3, F4;
+    double avaSigma0, errSigma0, avaSigma1, errSigma1, avaSigma2, errSigma2, avaSigma3, errSigma3;
+};
+
+
+/**
+ * @class A_FB
+ * @ingroup flavour
+ * @brief A class for the clean observable A_{FB}. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class A_FB : public GammaPrime{
+public:
+    
+    /**
+    * @brief \f$ Gamma' \f$ 
+    */
+    A_FB(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
+    
+    /**
+    * @return return the clean observable Gamma'
+    */
+    double computeThValue ();
+protected:
+    
+    
+private:
+    gsl_function F5;
+    double avaSigma7, errSigma7;
+};
+
+
+/**
+ * @class BF
+ * @ingroup flavour
+ * @brief A class for the Branching Fraction. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class BR_MPll : public GammaPrime{
+public:
+    
+    /**
+    * @brief \f$B\to K^* l^+l^-\f$ 
+    */
+    BR_MPll(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
+    
+    /**
+    * @return the branching fraction of \f$B\to K^* l^+l^-\f$
+    */
+    double computeThValue ();
+};
+
+
+/**
+ * @class ACP
+ * @ingroup flavour
+ * @brief A class for the clean observable Gamma'. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class ACP : public GammaPrime{
+public:
+    
+    /**
+    * @brief \f$ A_{CP} \f$ 
+    */
+    ACP(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
+    
+    /**
+    * @return return the clean observable ACP
+    */
+    double computeThValue ();
+    
+protected:
+    
+    
+private:
+    gsl_function F1, F2, F3, F4;
+    double avaDelta0, errDelta0, avaDelta1, errDelta1, avaDelta2, errDelta2, avaDelta3, errDelta3;
+};
+
+
+/**
+ * @class P3CP
+ * @ingroup flavour
+ * @brief A class for the clean observable Gamma'. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class P3CP : public MPll{
+public:
+    
+    /**
+    * @brief \f$ P_3^{CP} \f$ 
+    */
+    P3CP(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
+    
+    /**
+    * @return return the clean observable P3CP
+    */
+    double computeThValue ();
+    
+protected:
+    
+    
+private:
+    gsl_function F1, F2;
+    double avaDelta11, errDelta11, avaSigma3, errSigma3;
+};
+
+
+/**
+ * @class F_L
+ * @ingroup flavour
+ * @brief A class for the clean observable F_L. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class F_L : public MPll{
+public:
+    
+    /**
+    * @brief \f$ F_L \f$ 
+    */
+    F_L(const StandardModel& SM_i, StandardModel::lepton lep_i = StandardModel::MU);
+
+    
+    /**
+    * @return return the clean observable F_L
+    */
+    double computeThValue ();
+    
+protected:
+    
+    
+private:
+    gsl_function F1, F2, F3, F4;
+    double avaSigma0, errSigma0, avaSigma1, errSigma1, avaSigma2, errSigma2, avaSigma3, errSigma3;
+};
+
+
+
+#endif	/* MPLL_H */
+
+    
