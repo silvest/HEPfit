@@ -156,7 +156,7 @@ double BR_BKstarll::computeThValue() {
     double q_min = getBinMin();
     double q_max = getBinMax();
     
-    return computeGammaPrime(q_min, q_max)/mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->width_Bd;
+    return computeGammaPrime(q_min, q_max)/mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->width;
 }
 
 

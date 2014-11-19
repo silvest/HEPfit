@@ -295,7 +295,7 @@ private:
 /**
  * @class ACP
  * @ingroup flavour
- * @brief A class for the clean observable Gamma'. 
+ * @brief A class for the clean observable ACP. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
@@ -325,7 +325,7 @@ private:
 /**
  * @class P3CP
  * @ingroup flavour
- * @brief A class for the clean observable Gamma'. 
+ * @brief A class for the clean observable P3CP. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 

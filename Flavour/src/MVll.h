@@ -68,16 +68,16 @@ public:
     
     double GF;            //Fermi constant
     double ale;           //alpha electromagnetic
-    double Mlep;            //muon mass
-    double MB;            //B meson mass
-    double MKstar;        //K star meson mass
+    double Mlep;          //muon mass
+    double MM;            //initial meson mass
+    double MV;            //final vector meson mass
     double Mb;            //b quark mass
     double mu_b;          //b mass scale
-    double width_Bd;      //B meosn width
+    double width;         //initial meson width
     double Ms;            //s quark mass
     double MW;            //W boson mass
     complex lambda_t;     //Vckm factor
-    double b;             //BF of the decay K^* -> K pi
+    double b;             //BF of the decay V -> final states
     complex h[3];         //parameter that contains the contribution from the hadronic hamiltonian  
     double q2;            //q^2 of the decay
     
@@ -530,7 +530,7 @@ public:
     /**
     * @brief \f$ Delta_{1s} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_1s
+    * @return return the CP asymmetry Delta_1c
     */
     double getDelta0(double q2){
         return Delta(0, q2);
@@ -539,7 +539,7 @@ public:
     /**
     * @brief \f$ Delta_{1c} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_1c
+    * @return return the CP asymmetry Delta_1s
     */
     double getDelta1(double q2){
         return Delta(1, q2);
@@ -548,7 +548,7 @@ public:
     /**
     * @brief \f$ Delta_{2s} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_2s
+    * @return return the CP asymmetry Delta_2c
     */    
     double getDelta2(double q2){
         return Delta(2, q2);
@@ -557,7 +557,7 @@ public:
     /**
     * @brief \f$ Delta_{2c} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_2c
+    * @return return the CP asymmetry Delta_2s
     */
     double getDelta3(double q2){
         return Delta(3, q2);
