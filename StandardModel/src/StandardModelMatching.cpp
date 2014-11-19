@@ -89,7 +89,7 @@ void StandardModelMatching::updateSMParameters()
     lam_t = SM.computelamt();
     L=2*log(Muw/Mw);
     mu_b = SM.getMub();
-
+    
 }
 
 double StandardModelMatching::x_c(const double mu, const orders order) const 
@@ -103,6 +103,7 @@ double StandardModelMatching::x_t(const double mu, const orders order) const
 {
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), order);
+    std::cout << mt << " MT " << mu << "  " << SM.getQuarks(QCD::TOP).getMass_scale() << std::endl;
 #if SUSYFIT_DEBUG & 1
     std::cout << "mt(" << mu << "," << order << ")=" << mt << std::endl;
 #endif
@@ -214,8 +215,8 @@ double StandardModelMatching::E0t(double x) const
 {
 //***// CHECK THIS FUNCTION    double x2 = x * x;
     
-    return (x * (18. - 11. * x - x * x) / (12. * pow(1. - x, 3.) + x * x * (15. - 16. * x + 4. * x * x) /
-            (6. * pow(1. - x, 4.)) * log(x) - 2./3. * log(x)));
+    return (-9. * x * x + 16. * x - 4.) / (6. * pow((1.- x),4) ) * log(x) + (-7. * x * x * x - 21. * x * x + 42. * x + 4.)/(36 * pow((1. - x), 3));
+    //return (x * (18. - 11. * x - x * x) / (12. * pow(1. - x, 3.) + x * x * (15. - 16. * x + 4. * x * x) /(6. * pow(1. - x, 4.)) * log(x) - 2./3. * log(x)));
 }
 
 double StandardModelMatching::F0t(double x) const
@@ -233,7 +234,7 @@ double StandardModelMatching::B1t(double x, double mu) const
     double xm2 = pow(1. - x, 2);
     double xm3 = pow(1. - x, 3);
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
-                        SM.getQuarks(QCD::TOP).getMass(), FULLNLO);
+                        SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
     
     return (-2. * x)/xm2 * gsl_sf_dilog(1.- 1./x) + (-x2 + 17. * x)/(3. * xm3)*log(x) + (13. * x + 3.)/(3. * xm2) + 
             ( (2. * x2 + 2. * x)/xm3*log(x) + (4. * x)/xm2 ) * 2. * log(mu / mt);
@@ -248,7 +249,7 @@ double StandardModelMatching::C1t(double x, double mu) const
     double xm2 = pow(1. - x, 2);
     double xm3 = pow(1. - x, 3);
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
-                        SM.getQuarks(QCD::TOP).getMass(), FULLNLO);
+                        SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
     
     return (-x3 - 4. * x)/xm2 * gsl_sf_dilog(1.- 1./x) + (3. * x3 + 14. * x2 + 23 * x)/(3. * xm3)*log(x) + 
             (4. * x3 + 7. * x2 + 29. * x)/(3. * xm2) + ( (8. * x2 + 2. * x)/xm3*log(x) + (x3 + x2 + 8. * x)/xm2) * 2. * log(mu / mt);
@@ -265,7 +266,7 @@ double StandardModelMatching::D1t(double x, double mu) const
     double xm4 = pow(1. - x, 4);
     double xm5 = pow(1. - x, 5);
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
-                        SM.getQuarks(QCD::TOP).getMass(), FULLNLO);
+                        SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
     
     return (380. * x4 - 1352. * x3 + 1656. * x2 - 784. * x + 256.)/(81. * xm4) * gsl_sf_dilog(1.- 1./x) +
             (304. * x4 + 1716. * x3 - 4644. * x2 + 2768. * x - 720.)/(81. * xm5)*log(x) +
@@ -609,7 +610,7 @@ double StandardModelMatching::phi2(double x, double y) const{
     switch (mcdbd2.getOrder()) {
         case NNLO:
         case NLO:
-            mcdbd2.setCoeff(0, co * co * 4. * (SM.Als(Mut, FULLNLO) / 4. / M_PI * (S1(xt) +
+            mcdbd2.setCoeff(0, co * co * 4. * (SM.Als(Mut, FULLNLO) / 4. / M_PI * (S1(xt) + //* CHECK ORDER *//
                     (Bt + gamma0 * log(Mut / Mw)) * S0(xt, xt) + 2. * gammam * S0p(xt) * log(Mut / Mw))), NLO);
 #if SUSYFIT_DEBUG & 1
     std::cout << "Mw = " << Mw << " xt(muw=" << Muw << ")= " << xt << "matching of DB=2: S0(xt) = " << S0(xt) << 
@@ -659,7 +660,7 @@ double StandardModelMatching::phi2(double x, double y) const{
     switch (mcdbs2.getOrder()) {
         case NNLO:
         case NLO:          
-            mcdbs2.setCoeff(0, co * co * 4. * (SM.Als(Mut, FULLNLO) / 4. / M_PI * (S1(xt) +
+            mcdbs2.setCoeff(0, co * co * 4. * (SM.Als(Mut, FULLNLO) / 4. / M_PI * (S1(xt) + //* CHECK ORDER *//
                     (Bt + gamma0 * log(Mut / Mw)) * S0(xt, xt) + 2. * gammam * S0p(xt) * log(Mut / Mw))), NLO);
          case LO:
             mcdbs2.setCoeff(0, co * co * 4. * (S0(xt, xt) + GF / sqrt(2.) * czdp * czdp), LO);
@@ -723,7 +724,7 @@ double StandardModelMatching::phi2(double x, double y) const{
     switch (mcd1Buras.getOrder()) {
         case NNLO:
         case NLO:
-            mcd1Buras.setCoeff(0, SM.Als(Muw, FULLNLO) / 4. / M_PI  * 11./2. , NLO);
+            mcd1Buras.setCoeff(0, SM.Als(Muw, FULLNLO) / 4. / M_PI  * 11./2. , NLO); //* CHECK ORDER *//
             mcd1Buras.setCoeff(1, SM.Als(Muw, FULLNLO) / 4. / M_PI * (-11./6.) , NLO);
             for (int j=2; j<10; j++){
             mcd1Buras.setCoeff(j, 0., NLO);    
@@ -767,7 +768,7 @@ double StandardModelMatching::phi2(double x, double y) const{
     switch (mcd1.getOrder()) {
         case NNLO:
         case NLO:
-            mcd1.setCoeff(0, SM.Als(Muw, FULLNLO) / 4. / M_PI  * 15. , NLO);
+            mcd1.setCoeff(0, SM.Als(Muw, FULLNLO) / 4. / M_PI  * 15. , NLO); //* CHECK ORDER *//
             for (int j=1; j<10; j++){
             mcd1.setCoeff(j, 0., NLO);
             }
@@ -849,7 +850,7 @@ double StandardModelMatching::phi2(double x, double y) const{
         case NNLO:
         case NLO:
             for (int j=0; j<10; j++){
-                mck.setCoeff(j, lam_t * SM.Als(Muw, FULLNLO) / 4. / M_PI * 
+                mck.setCoeff(j, lam_t * SM.Als(Muw, FULLNLO) / 4. / M_PI * //* CHECK ORDER *//
                                 setWCbnlep(j, xt,  NLO), NLO);
                 mck.setCoeff(j, lam_t * Ale / 4. / M_PI *
                                 setWCbnlepEW(j, xt), NLO_ew);
@@ -952,7 +953,7 @@ double StandardModelMatching::phi2(double x, double y) const{
         case NNLO:
         case NLO:
             for (int j=0; j<10; j++){
-            mcbsg.setCoeff(j, co * SM.Als(Muw, FULLNLO) / 4. / M_PI * setWCbsg(j, xt,  NLO) , NLO);
+            mcbsg.setCoeff(j, co * SM.Als(Muw, FULLNLO) / 4. / M_PI * setWCbsg(j, xt,  NLO) , NLO);//* CHECK ORDER *//
             }
             std::cout<<std::endl;
         case LO:
@@ -1052,7 +1053,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
  * ****************************************************************************/
     std::vector<WilsonCoefficient>& StandardModelMatching::CMBKstarll() 
     {    
-    double xt = x_t(Muw);
+    double xt = x_t(Muw); //* ORDER FULLNNLO*//
     
     vmcBKstarll.clear();
     
@@ -1073,7 +1074,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
         case NNLO:
         case NLO:
             for (int j=0; j<13; j++){
-            mcBKstarll.setCoeff(j, SM.Als(Muw, FULLNLO) / 4. / M_PI * setWCBKstarll(j, xt,  NLO) , NLO);
+            mcBKstarll.setCoeff(j, SM.Als(Muw, FULLNNLO) / 4. / M_PI * setWCBKstarll(j, xt,  NLO) , NLO);
             }
         case LO:
             for (int j=0; j<13; j++){
@@ -1085,7 +1086,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
             out << mcBKstarll.getOrder();
             throw std::runtime_error("StandardModelMatching::CMBKstrall(): order " + out.str() + "not implemented"); 
     }
-    
+   
     vmcBKstarll.push_back(mcBKstarll);
     return(vmcBKstarll);
 }
@@ -1122,7 +1123,7 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
         case NNLO:
         case NLO:
             CWBKstarllArrayNLO[0] = 15. + 6*L;
-            CWBKstarllArrayNLO[3] = E0t(x)-(2./3.) + (2./3.*L);
+            CWBKstarllArrayNLO[3] = E0t(x) - (7./9.) + (2./3.* L);
             CWBKstarllArrayNLO[6] = C7NLOeff(x);
             CWBKstarllArrayNLO[7] = C8NLOeff(x);
             CWBKstarllArrayNLO[8] = (1-4.*sW2) / (sW2) *C1t(x,Muw) - 1./(sW2) * B1t(x,Muw) - D1t(x,Muw) + 1./sW2 + 524./729. - 
@@ -1133,7 +1134,7 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
             CWBKstarllArrayLO[6] = C7LOeff(x);
             CWBKstarllArrayLO[7] = C8LOeff(x);
             CWBKstarllArrayLO[8] = (1-4.*sW2) / (sW2) *C0t(x) - 1./(sW2) *
-                                B0t(x) - D0t(x) + 38./27. + 1./(4.*sW2) - (4./9.)*L + 8./9. * log(Mw/mu_b);
+                                B0t(x) - D0t(x) + 38./27. + 1./(4.*sW2) - (4./9.)*L + 8./9. * log(Muw/mu_b); 
             CWBKstarllArrayLO[9] = 1./(sW2) * (B0t(x) - C0t(x)) -1./(4.*sW2);
             break;
         default:
@@ -1238,7 +1239,7 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
         case NNLO:
         case NLO:
             for (int j=0; j<10; j++){
-                mcbnlep.setCoeff(j,co * lambda * SM.Als(Muw, FULLNLO) / 4. / M_PI * 
+                mcbnlep.setCoeff(j,co * lambda * SM.Als(Muw, FULLNLO) / 4. / M_PI * //* CHECK ORDER *//
                                 setWCbnlep(j, xt,  NLO), NLO);
                 mcbnlep.setCoeff(j, co * lambda * Ale / 4. / M_PI *
                                 setWCbnlepEW(j, xt), NLO_ew);
@@ -1347,7 +1348,7 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
     switch (mckpnn.getOrder()) {
         case NNLO:
         case NLO:
-            mckpnn.setCoeff(0, SM.Als(SM.getMut(), FULLNLO)/4./M_PI*lam_t.imag()*X1t(xt)/lambda5, NLO);
+            mckpnn.setCoeff(0, SM.Als(SM.getMut(), FULLNLO)/4./M_PI*lam_t.imag()*X1t(xt)/lambda5, NLO);//* CHECK ORDER *//
         case LO:
             mckpnn.setCoeff(0, lam_t.imag()*X0t(xt)/lambda5, LO);
             break;
@@ -1386,7 +1387,7 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
     switch (mckmm.getOrder()) {
         case NNLO:
         case NLO:
-            mckmm.setCoeff(0, SM.Als(Muw, FULLNLO)/4./M_PI*lam_t.real()*Y1(xt, Muw)/SM.getLambda(), NLO);
+            mckmm.setCoeff(0, SM.Als(Muw, FULLNLO)/4./M_PI*lam_t.real()*Y1(xt, Muw)/SM.getLambda(), NLO);//* CHECK ORDER *//
         case LO:
             mckmm.setCoeff(0, lam_t.real()*Y0(xt)/SM.getLambda(), LO);
             break;
@@ -1413,7 +1414,7 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
         case NNLO:
         case NLO:
             mcbsnn.setCoeff(0, (Vckm(2,1).abs() / Vckm(1,2).abs())*
-                                SM.Als(Muw, FULLNLO)/4./M_PI*X1t(xt), NLO);
+                                SM.Als(Muw, FULLNLO)/4./M_PI*X1t(xt), NLO);//* CHECK ORDER *//
         case LO:
             mcbsnn.setCoeff(0,  (Vckm(2,1).abs() / Vckm(1,2).abs())*
                                 X0t(xt), LO);
@@ -1441,7 +1442,7 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
         case NNLO:
         case NLO:
             mcbsnn.setCoeff(0, (Vckm(2,2).abs() / Vckm(1,2).abs()) *
-                                SM.Als(Muw, FULLNLO)/4./M_PI*X1t(xt), NLO);
+                                SM.Als(Muw, FULLNLO)/4./M_PI*X1t(xt), NLO);//* CHECK ORDER *//
         case LO:
             mcbsnn.setCoeff(0,  (Vckm(2,2).abs() / Vckm(1,2).abs()) *
                                 X0t(xt), LO);
@@ -1473,7 +1474,7 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
         case NNLO:
         case NLO:
             mcbsmm.setCoeff(0, (Vckm(2,2).conjugate() * Vckm(2,1)) *
-                                SM.Als(Muw, FULLNLO) / 4. / M_PI * Y1(xt, Muw) / sW2, NLO);
+                                SM.Als(Muw, FULLNLO) / 4. / M_PI * Y1(xt, Muw) / sW2, NLO);//* CHECK ORDER *//
         case LO:
             mcbsmm.setCoeff(0, (Vckm(2,2).conjugate() * Vckm(2,1)) *
                                 Y0(xt) / sW2, LO);
@@ -1501,7 +1502,7 @@ std::vector<WilsonCoefficient>& StandardModelMatching::CMbdmm() {
         case NNLO:
         case NLO:
             mcbdmm.setCoeff(0, (Vckm(2,2).conjugate() * Vckm(2,0)) *
-                            SM.Als(Muw, FULLNLO) / 4. / M_PI * Y1(xt, Muw) / sW2, NLO);
+                            SM.Als(Muw, FULLNLO) / 4. / M_PI * Y1(xt, Muw) / sW2, NLO);//* CHECK ORDER *//
         case LO:
             mcbdmm.setCoeff(0, (Vckm(2,2).conjugate() * Vckm(2,0)) *
                             Y0(xt) / sW2, LO);
@@ -1598,7 +1599,7 @@ double StandardModelMatching::setWCbnlepEW(int i, double x)
 complex StandardModelMatching::S0c() const 
 {
     double xc = x_c(SM.getMuc());
-    complex co = GF / 2. / M_PI * Mw_tree * SM.computelamc().conjugate();
+    complex co = GF / 2. / M_PI * Mw_tree * SM.computelamc().conjugate(); /* Mw_tree...?? */
     
     return(co * co * S0(xc, xc));
 }
