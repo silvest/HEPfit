@@ -530,7 +530,7 @@ public:
     /**
     * @brief \f$ Delta_{1s} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_1s
+    * @return return the CP asymmetry Delta_1c
     */
     double getDelta0(double q2){
         return Delta(0, q2);
@@ -539,7 +539,7 @@ public:
     /**
     * @brief \f$ Delta_{1c} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_1c
+    * @return return the CP asymmetry Delta_1s
     */
     double getDelta1(double q2){
         return Delta(1, q2);
@@ -548,7 +548,7 @@ public:
     /**
     * @brief \f$ Delta_{2s} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_2s
+    * @return return the CP asymmetry Delta_2c
     */    
     double getDelta2(double q2){
         return Delta(2, q2);
@@ -557,7 +557,7 @@ public:
     /**
     * @brief \f$ Delta_{2c} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_2c
+    * @return return the CP asymmetry Delta_2s
     */
     double getDelta3(double q2){
         return Delta(3, q2);
