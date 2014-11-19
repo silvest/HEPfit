@@ -33,11 +33,11 @@
             <sourceRootList/>
             <confList>
                 <confElem>
-                    <name>Debug</name>
+                    <name>Debug_MPI</name>
                     <type>1</type>
                 </confElem>
                 <confElem>
-                    <name>Debug_MPI</name>
+                    <name>Debug</name>
                     <type>1</type>
                 </confElem>
                 <confElem>

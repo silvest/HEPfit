@@ -103,7 +103,6 @@ double StandardModelMatching::x_t(const double mu, const orders order) const
 {
     double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
                         SM.getQuarks(QCD::TOP).getMass(), order);
-    std::cout << mt << " MT " << mu << "  " << SM.getQuarks(QCD::TOP).getMass_scale() << std::endl;
 #if SUSYFIT_DEBUG & 1
     std::cout << "mt(" << mu << "," << order << ")=" << mt << std::endl;
 #endif
