@@ -263,6 +263,14 @@ private:
         DPars_IN["r_1T3tphi"] = 0.;
         DPars_IN["r_2T3tphi"] = 0.;
         DPars_IN["m_fit2T3tphi"] = 0.;
+        DPars_IN["r_1_fplus"] = 0.;
+        DPars_IN["r_2_fplus"] = 0.;
+        DPars_IN["m_fit2_fplus"] = 0.;
+        DPars_IN["r_1_fT"] = 0.;
+        DPars_IN["r_2_fT"] = 0.;
+        DPars_IN["m_fit2_fT"] = 0.;
+        DPars_IN["r_2_f0"] = 0.;
+        DPars_IN["m_fit2_f0"] = 0.;
         
         return (DPars_IN);
     };

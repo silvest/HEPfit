@@ -521,7 +521,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 176; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 184; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -1321,6 +1321,46 @@ public:
     {
         return m_fit2T3tphi;
     }
+    
+    double getr_1_fplus() const
+    {
+        return r_1_fplus;
+    }
+
+    double getr_2_fplus() const
+    {
+        return r_2_fplus;
+    }
+    
+    double getm_fit2_fplus() const
+    {
+        return m_fit2_fplus;
+    }
+    
+    double getr_1_fT() const
+    {
+        return r_1_fT;
+    }
+
+    double getr_2_fT() const
+    {
+        return r_2_fT;
+    }
+    
+    double getm_fit2_fT() const
+    {
+        return m_fit2_fT;
+    }
+    
+    double getr_2_f0() const
+    {
+        return r_2_f0;
+    }
+    
+    double getm_fit2_f0() const
+    {
+        return m_fit2_f0;
+    }
     ////////////////////////////////////////////////////////////////////////
 
     /**
@@ -1584,6 +1624,9 @@ protected:
     double r_1T1phi, r_2T1phi, m_RT1phi, m_fit2T1phi;
     double r_2T2phi, m_fit2T2phi;
     double r_1T3tphi, r_2T3tphi, m_fit2T3tphi;
+    double r_1_fplus, r_2_fplus, m_fit2_fplus;
+    double r_1_fT, r_2_fT, m_R_fT, m_fit2_fT;
+    double r_2_f0, m_fit2_f0;
 
     double Nc; ///< The number of colours.
     double CF; ///< The Casimir factor in the \f$SU(N_c)\f$ gauge theory.

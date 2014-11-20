@@ -36,6 +36,15 @@ void MPll::updateParameters(){
     mu_b = mySM.getMub();
     width_Bd = mySM.getMesons(QCD::B_D).computeWidth();
     
+    r_1_fplus = mySM.getr_1_fplus();
+    r_2_fplus = mySM.getr_2_fplus();
+    m_fit2_fplus = mySM.getm_fit2_fplus();
+    r_1_fT = mySM.getr_1_fT();
+    r_2_fT = mySM.getr_2_fT();
+    m_fit2_fT = mySM.getm_fit2_fT();
+    r_2_f0 = mySM.getr_2_f0();
+    m_fit2_f0 = mySM.getm_fit2_f0();
+    
     h_0=mySM.getReh_0() + gslpp::complex::i()*mySM.getImh_0();
     
     b=1.;                           //please check
@@ -60,9 +69,38 @@ void MPll::updateParameters(){
 /*******************************************************************************
  * Transverse Form Factors                                                     *
  * ****************************************************************************/
+double MPll::LCSR_fit1(double q2, double r_1, double r_2, double m_fit2){
+    return r_1/( 1. - q2/m_fit2 ) + r_2/pow( ( 1. - q2/m_fit2 ) , 2.) ;
+}
+
+
+
+double MPll::LCSR_fit2(double q2, double r_2, double m_fit2){
+    return r_2/( 1. - q2/m_fit2 ) ; 
+}
+
+
+
+double MPll::f_plus(double q2){
+    return LCSR_fit1(q2, r_1_fplus, r_2_fplus, m_fit2_fplus);
+}
+
+
+
+double MPll::f_T(double q2){
+    return LCSR_fit1(q2, r_1_fT, r_2_fT, m_fit2_fT);
+}
+
+
+
+double MPll::f_0(double q2){
+    return LCSR_fit2(q2, r_2_f0, m_fit2_f0);
+}
+
+
+
 gslpp::complex MPll::V_L(double q2){
-    double f_plus;
-    return gslpp::complex::i()*f_plus;
+    return gslpp::complex::i()*f_plus(q2);
 }
 
 
@@ -74,8 +112,7 @@ gslpp::complex MPll::V_R(double q2){
 
 
 gslpp::complex MPll::T_L(double q2){
-    double f_T;
-    return gslpp::complex::i()* (2. * MB)/(MB + MK) * f_T;
+    return gslpp::complex::i()* (2. * MB)/(MB + MK) * f_T(q2);
 }
 
 
@@ -87,8 +124,7 @@ gslpp::complex MPll::T_R(double q2){
 
 
 double MPll::S_L(double q2){
-    double f0;
-    return ( 1 + Ms/Mb )/( 1 - Ms/Mb ) * ( MB*MB - MK*MK )/( sqrt(lambda(q2)) ) * f0;
+    return ( 1 + Ms/Mb )/( 1 - Ms/Mb ) * ( MB*MB - MK*MK )/( sqrt(lambda(q2)) ) * f_0(q2);
 }
 
 

@@ -51,10 +51,10 @@ public:
     complex h_0;          //parameter that contains the contribution from the hadronic hamiltonian  
     double q2;            //q^2 of the decay
     
-    /*lattice fit parameters*/
-    
-    
     /*LCSR fit parameters*/
+    double r_1_fplus, r_2_fplus, m_fit2_fplus;
+    double r_1_fT, r_2_fT, m_fit2_fT;
+    double r_2_f0, m_fit2_f0;
     
 
     vector<complex> ** allcoeff;
@@ -73,6 +73,49 @@ public:
     complex C_Pp;
     
     
+    /**
+    * @brief \f$ LCSR_fit2 \f$
+    * @param[in] q2 q^2 of the decay
+    * @param[in] r_1 fit parameter
+    * @param[in] r_2 fit parameter
+    * @param[in] m_fit2 fit parameter
+    * @return return the second fit function from arXiv:hep-ph/0412079v1
+    */
+    double LCSR_fit1(double q2, double r_1, double r_2, double m_fit2);
+    
+    
+    /**
+    * @brief \f$ LCSR_fit3 \f$
+    * @param[in] q2 q^2 of the decay
+    * @param[in] r_2 fit parameter
+    * @param[in] m_fit2 fit parameter
+    * @return return the third fit function from arXiv:hep-ph/0412079v1
+    */
+    double LCSR_fit2(double q2, double r_2, double m_fit2);
+    
+    
+    /**
+    * @brief \f$ f_+ \f$
+    * @param[in] q2 q^2 of the decay
+    * @return return the form factor f_+
+    */
+    double f_plus(double q2);
+    
+    
+    /**
+    * @brief \f$ f_T \f$
+    * @param[in] q2 q^2 of the decay
+    * @return return the form factor f_T
+    */
+    double f_T(double q2);
+    
+    
+    /**
+    * @brief \f$ f_0 \f$
+    * @param[in] q2 q^2 of the decay
+    * @return return the form factor f_0
+    */
+    double f_0(double q2);
     
     /**
     * @brief \f$ V_L \f$
@@ -381,9 +424,6 @@ private:
     gsl_function F1, F2;
     double avaSigma0, errSigma0, avaSigma2, errSigma2;
 };
-
-
-
 
 
 /**
