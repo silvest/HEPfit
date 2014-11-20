@@ -67,7 +67,6 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
 
 
 MVll::~MVll() {
-    std::cout << "DESRTUCT" << std::endl;
 /** Check to see if GSL pointers are released!!*/
 }
 
@@ -919,6 +918,11 @@ double MVll::Delta(int i, double q2) {
 
 double MVll::integrateSigma(int i, double q_min, double q_max){
     
+    if (mySM.getMyFlavour()->getUpdateFlag()){
+        updateParameters();
+        mySM.getMyFlavour()->setUpdateFlag(false);
+    }
+    
 
     //checkCache(q_min, q_max);
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
@@ -1024,7 +1028,11 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
 
 double MVll::integrateDelta(int i, double q_min, double q_max){
     
-    //checkCache(q_min, q_max);
+    if (mySM.getMyFlavour()->getUpdateFlag()){
+        updateParameters();
+        mySM.getMyFlavour()->setUpdateFlag(false);
+    }
+        
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
     switch(i){
         case 0:

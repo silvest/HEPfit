@@ -186,8 +186,11 @@ double StandardModelMatching::S1(double x) const
 
 double StandardModelMatching::A0t(double x) const
 {
-    return ( (-3. * x * x * x + 2. * x * x)/(2. * pow(1. - x, 4.)) * log(x) + (22. * x * x * x - 153. * x * x +
-            159. * x - 46.)/(36. * pow(1. - x, 3.)) );
+    double x2 = x * x;
+    double x3 = x2 * x;
+    
+    return ((-3. * x3 + 2. * x2)/(2. * pow(1. - x, 4.)) * log(x) + 
+            (22. * x3 - 153. * x2 + 159. * x - 46.)/(36. * pow(1. - x, 3.)));
 }
 
 double StandardModelMatching::B0t(double x) const
@@ -221,10 +224,29 @@ double StandardModelMatching::E0t(double x) const
 double StandardModelMatching::F0t(double x) const
 {
     double x2 = x * x;
-    double xm3 = pow(1 - x, 3);
+    double xm3 = (1. - x)*(1. - x)*(1. - x);
     
-    return ( (3. * x2) / (2. * xm3 * (1 - x)) * log(x) + ( 5. * x2 * x - 9. * x2 + 30. * x - 8)/
-            (12. * xm3) );
+    return ((3. * x2) / (2. * xm3 * (1. - x)) * log(x) + ( 5. * x2 * x - 9. * x2 + 30. * x - 8.)/
+            (12. * xm3));
+}
+
+double StandardModelMatching::A1t(double x, double mu) const
+{
+    double x2 = x * x;
+    double x3 = x * x * x;
+    double x4 = x * x * x * x;
+    double xm2 = pow(1. - x, 2);
+    double xm3 = xm2 * (1. - x);
+    double xm4 = xm3 * (1. - x);
+    double xm5 = xm4 * (1. - x);
+    double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
+                        SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+    
+    return ((32. * x4 + 244. * x3 - 160. * x2 + 16. * x)/9./xm4 * gsl_sf_dilog(1.- 1./x) +
+            (-774. * x4 - 2826. * x3 + 1994. *x2 - 130. * x + 8.)/81./xm5 * log(x) + 
+            (-94. * x4 - 18665. * x3 + 20682. * x2 - 9113. * x + 2006.)/243./xm4 +
+            ((-12. * x4 - 92. * x3 + 56. * x2)/3./(1.-x)/xm4 * log(x) + 
+            (-68. * x4 - 202. * x3 - 804. * x2 + 794. * x - 152.)/27./xm4) * 2. * log(mu/mt));
 }
 
 double StandardModelMatching::B1t(double x, double mu) const
@@ -272,6 +294,23 @@ double StandardModelMatching::D1t(double x, double mu) const
             (-6175. * x4 + 41608. * x3 - 66723. * x2 + 33106. * x - 7000.)/(729. * xm4) +
             ( (648. * x4 - 720. * x3 - 232. * x2 - 160. * x + 32.)/(81. * xm5)*log(x) + 
             (-352. * x4 + 4912. * x3 - 8280. * x2 + 3304. * x - 880.)/(243. * xm4) ) * 2. * log(mu / mt);
+}
+
+double StandardModelMatching::F1t(double x, double mu) const
+{
+    double x2 = x * x;
+    double x3 = x * x2;
+    double x4 = x * x3;
+    double xm4 = pow(1. - x, 4);
+    double xm5 = pow(1. - x, 5);
+    double mt = SM.Mrun(mu, SM.getQuarks(QCD::TOP).getMass_scale(), 
+                        SM.getQuarks(QCD::TOP).getMass(), FULLNNLO);
+    
+    return ((4. * x4 - 40. * x3 - 41. * x2 - x)/3./xm4 * gsl_sf_dilog(1.- 1./x) +
+            (-144. * x4 + 3177. * x3 + 3661. * x2 + 250. * x - 32.)/108./xm5 * log(x)
+            + (-247. * x4 + 11890. * x3 + 31779. * x2 - 2966. * x + 1016.)/648./xm4
+            + ((17. * x3 + 31. * x2)/xm5 * log(x) + (- 35. * x4 + 170. * x3 + 447. * x2  
+            + 338. * x - 56.)/18./xm4)* 2. * log(mu/mt));
 }
 
 double StandardModelMatching::Y0(double x) const
@@ -1123,15 +1162,15 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
         case NLO:
             CWBKstarllArrayNLO[0] = 15. + 6*L;
             CWBKstarllArrayNLO[3] = E0t(x) - (7./9.) + (2./3.* L);
-            CWBKstarllArrayNLO[6] = C7NLOeff(x);
-            CWBKstarllArrayNLO[7] = C8NLOeff(x);
+            CWBKstarllArrayNLO[6] = -0.5*A1t(x,Muw) + 713./243. + 4./81.*L - 4./9.*CWBKstarllArrayNLO[3];
+            CWBKstarllArrayNLO[7] = -0.5*F1t(x,Muw) + 91./324. - 4./27.*L - 1./6.*CWBKstarllArrayNLO[3];
             CWBKstarllArrayNLO[8] = (1-4.*sW2) / (sW2) *C1t(x,Muw) - 1./(sW2) * B1t(x,Muw) - D1t(x,Muw) + 1./sW2 + 524./729. - 
                     128.*M_PI*M_PI/243. - 16.*L/3. -128.*L*L/81.;
             CWBKstarllArrayNLO[9] = (B1t(x,Muw) - C1t(x,Muw)) / sW2 - 1./sW2;
         case LO:
             CWBKstarllArrayLO[1] = 1.;
-            CWBKstarllArrayLO[6] = C7LOeff(x);
-            CWBKstarllArrayLO[7] = C8LOeff(x);
+            CWBKstarllArrayLO[6] = -0.5*A0t(x) - 23./36.;
+            CWBKstarllArrayLO[7] = -0.5*F0t(x) - 1./3.;
             CWBKstarllArrayLO[8] = (1-4.*sW2) / (sW2) *C0t(x) - 1./(sW2) *
                                 B0t(x) - D0t(x) + 38./27. + 1./(4.*sW2) - (4./9.)*L + 8./9. * log(Muw/mu_b); 
             CWBKstarllArrayLO[9] = 1./(sW2) * (B0t(x) - C0t(x)) -1./(4.*sW2);

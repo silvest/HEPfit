@@ -28,6 +28,7 @@ public:
         myMVll_BdKstarel = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON);
         myMVll_Bsphimu = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
         myMVll_Bsphiel = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON);
+        updated = true;
     };
     
     const HeffDF2& getHDF2() const {
@@ -107,11 +108,12 @@ public:
         else throw std::runtime_error("Flavour: Decay channel not implemented.");
     }
     
-    void updateParameters(){
-        myMVll_BdKstarmu->updateParameters();
-        myMVll_BdKstarel->updateParameters();
-        myMVll_Bsphimu->updateParameters();
-        myMVll_Bsphiel->updateParameters();
+    void setUpdateFlag(bool updated_i){
+        updated = updated_i;
+    }
+    
+    bool getUpdateFlag(){
+        return updated;
     }
     
 private:
@@ -123,6 +125,7 @@ private:
     MVll* myMVll_BdKstarel;
     MVll* myMVll_Bsphimu;
     MVll* myMVll_Bsphiel;
+    bool updated;
 };
 
 #endif	/* FLAVOUR_H */

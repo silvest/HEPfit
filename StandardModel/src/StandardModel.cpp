@@ -230,7 +230,7 @@ bool StandardModel::PostUpdate()
         myStandardModelMatching->updateSMParameters();
     }
     
-    myFlavour->updateParameters();
+    myFlavour->setUpdateFlag(true);
 
     return (true);
 }
