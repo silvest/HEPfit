@@ -43,7 +43,7 @@ public:
     double MK;            //K star meson mass
     double Mb;            //b quark mass
     double mu_b;          //b mass scale
-    double width_Bd;      //B meosn width
+    double width_Bd;      //B meson width
     double Ms;            //s quark mass
     double MW;            //W boson mass
     complex lambda_t;     //Vckm factor
@@ -71,27 +71,6 @@ public:
     complex C_10p;
     complex C_Sp;
     complex C_Pp;
-    
-    
-    /**
-    * @brief \f$ LCSR_fit2 \f$
-    * @param[in] q2 q^2 of the decay
-    * @param[in] r_1 fit parameter
-    * @param[in] r_2 fit parameter
-    * @param[in] m_fit2 fit parameter
-    * @return return the second fit function from arXiv:hep-ph/0412079v1
-    */
-    double LCSR_fit1(double q2, double r_1, double r_2, double m_fit2);
-    
-    
-    /**
-    * @brief \f$ LCSR_fit3 \f$
-    * @param[in] q2 q^2 of the decay
-    * @param[in] r_2 fit parameter
-    * @param[in] m_fit2 fit parameter
-    * @return return the third fit function from arXiv:hep-ph/0412079v1
-    */
-    double LCSR_fit2(double q2, double r_2, double m_fit2);
     
     
     /**
@@ -240,11 +219,10 @@ public:
     /**
     * @brief \f$ F \f$ 
     * @param[in] q2 q^2 of the decay
-    * @param[in] b_i BF of the decay K* -> K pi
     * @param[in] Mlep mass of the lepton
     * @return return the factor F used in the angular coefficients I_i
     */
-    double F(double q2, double b_i, double Mlep);
+    double F(double q2, double Mlep);
     
     
     /**
@@ -360,6 +338,7 @@ public:
 
 private:
     const StandardModel& mySM;
+    MVll myMVll;
 };
 
 

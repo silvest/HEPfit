@@ -15,7 +15,7 @@
 
 
 
-MPll::MPll(const StandardModel& SM_i) : ThObservable(SM_i), mySM(SM_i){
+MPll::MPll(const StandardModel& SM_i) : ThObservable(SM_i), mySM(SM_i), myMVll(SM_i, QCD::B_D, QCD::K_star, StandardModel::MU){
 }
 
 
@@ -69,38 +69,26 @@ void MPll::updateParameters(){
 /*******************************************************************************
  * Transverse Form Factors                                                     *
  * ****************************************************************************/
-double MPll::LCSR_fit1(double q2, double r_1, double r_2, double m_fit2){
-    return r_1/( 1. - q2/m_fit2 ) + r_2/pow( ( 1. - q2/m_fit2 ) , 2.) ;
-}
-
-
-
-double MPll::LCSR_fit2(double q2, double r_2, double m_fit2){
-    return r_2/( 1. - q2/m_fit2 ) ; 
-}
-
-
-
 double MPll::f_plus(double q2){
-    return LCSR_fit1(q2, r_1_fplus, r_2_fplus, m_fit2_fplus);
+    return myMVll.LCSR_fit2(q2, r_1_fplus, r_2_fplus, m_fit2_fplus);
 }
 
 
 
 double MPll::f_T(double q2){
-    return LCSR_fit1(q2, r_1_fT, r_2_fT, m_fit2_fT);
+    return myMVll.LCSR_fit2(q2, r_1_fT, r_2_fT, m_fit2_fT);
 }
 
 
 
 double MPll::f_0(double q2){
-    return LCSR_fit2(q2, r_2_f0, m_fit2_f0);
+    return myMVll.LCSR_fit3(q2, r_2_f0, m_fit2_f0);
 }
 
 
 
 gslpp::complex MPll::V_L(double q2){
-    return gslpp::complex::i()*f_plus(q2);
+    return gslpp::complex::i() * sqrt(lambda(q2)) / (2*MB*sqrt(q2)) * f_plus(q2);
 }
 
 
@@ -112,7 +100,7 @@ gslpp::complex MPll::V_R(double q2){
 
 
 gslpp::complex MPll::T_L(double q2){
-    return gslpp::complex::i()* (2. * MB)/(MB + MK) * f_T(q2);
+    return gslpp::complex::i()  * sqrt(lambda(q2)*q2) / (MB*MB*(MB+MK)) * f_T(q2);
 }
 
 
@@ -124,7 +112,7 @@ gslpp::complex MPll::T_R(double q2){
 
 
 double MPll::S_L(double q2){
-    return ( 1 + Ms/Mb )/( 1 - Ms/Mb ) * ( MB*MB - MK*MK )/( sqrt(lambda(q2)) ) * f_0(q2);
+    return -( MB*MB - MK*MK )/(2*MB*(Mb + Ms)) * ( 1 + Ms/Mb )/( 1 - Ms/Mb ) * f_0(q2);
 }
 
 
@@ -247,8 +235,8 @@ double MPll::lambda(double q2) {
 
 
 
-double MPll::F(double q2, double b_i, double Mlep) {
-    return sqrt(lambda(q2))*beta(q2,Mlep)*q2*b_i/(96.*M_PI*M_PI*M_PI*MB*MB*MB);
+double MPll::F(double q2, double Mlep) {
+    return sqrt(lambda(q2))*beta(q2,Mlep)*q2/(96.*M_PI*M_PI*M_PI*MB*MB*MB);
 }
 
 
@@ -261,12 +249,12 @@ double MPll::I(int i, double q2, int bar, double Mlep) {
 
     switch (i){
         case 0: // I1c
-            return F(q2,b,Mlep)*( ( H_V(q2,bar).abs2() + H_A(q2,bar).abs2() )/2.  +  H_P(q2,bar,Mlep).abs2()  +  2.*Mlep2/q2*( H_V(q2,bar).abs2() 
+            return F(q2,Mlep)*( ( H_V(q2,bar).abs2() + H_A(q2,bar).abs2() )/2.  +  H_P(q2,bar,Mlep).abs2()  +  2.*Mlep2/q2*( H_V(q2,bar).abs2() 
                     - H_A(q2,bar).abs2() )  + beta2*H_S(q2,bar).abs2() );
         case 2: // I2c
-            return -F(q2,b,Mlep)*beta2/2.*( H_V(q2,bar).abs2() + H_A(q2,bar).abs2() );
+            return -F(q2,Mlep)*beta2/2.*( H_V(q2,bar).abs2() + H_A(q2,bar).abs2() );
         case 8: // I6c
-            return 2.*F(q2,b,Mlep)*beta(q2,Mlep)*Mlep/sqrt(q2)*( H_S(q2,bar).conjugate()*H_V(q2,bar) ).real();
+            return 2.*F(q2,Mlep)*beta(q2,Mlep)*Mlep/sqrt(q2)*( H_S(q2,bar).conjugate()*H_V(q2,bar) ).real();
         default:
             std::stringstream out;
             out << i;
