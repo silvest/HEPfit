@@ -52,17 +52,17 @@ void MPll::updateParameters(){
     allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
 
-    C_7 = (*(allcoeff[LO]) + *(allcoeff[NLO]))(6);
-    C_9 = (*(allcoeff[LO]) + *(allcoeff[NLO]))(8);
-    C_10 = (*(allcoeff[LO]) + *(allcoeff[NLO]))(9);
-    C_S = (*(allcoeff[LO]) + *(allcoeff[NLO]))(10);
-    C_P = (*(allcoeff[LO]) + *(allcoeff[NLO]))(11);
+    C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
+    C_9 = (*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8);
+    C_10 = (*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9);
+    C_S = (*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10);
+    C_P = (*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11);
     
-    C_7p = (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(6);
-    C_9p = (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(8);
-    C_10p = (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(9);
-    C_Sp = (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(10);
-    C_Pp = (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(11);
+    C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
+    C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8);
+    C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
+    C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10);
+    C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11);
     
 }
 
@@ -73,49 +73,33 @@ double MPll::f_plus(double q2){
     return myMVll.LCSR_fit2(q2, r_1_fplus, r_2_fplus, m_fit2_fplus);
 }
 
-
-
 double MPll::f_T(double q2){
     return myMVll.LCSR_fit2(q2, r_1_fT, r_2_fT, m_fit2_fT);
 }
-
-
 
 double MPll::f_0(double q2){
     return myMVll.LCSR_fit3(q2, r_2_f0, m_fit2_f0);
 }
 
-
-
 gslpp::complex MPll::V_L(double q2){
     return gslpp::complex::i() * sqrt(lambda(q2)) / (2*MB*sqrt(q2)) * f_plus(q2);
 }
-
-
 
 gslpp::complex MPll::V_R(double q2){
     return -V_L(q2);
 }
 
-
-
 gslpp::complex MPll::T_L(double q2){
     return gslpp::complex::i()  * sqrt(lambda(q2)*q2) / (MB*MB*(MB+MK)) * f_T(q2);
 }
-
-
 
 gslpp::complex MPll::T_R(double q2){
     return -T_L(q2);
 }
 
-
-
 double MPll::S_L(double q2){
     return -( MB*MB - MK*MK )/(2*MB*(Mb + Ms)) * ( 1 + Ms/Mb )/( 1 - Ms/Mb ) * f_0(q2);
 }
-
-
 
 double MPll::S_R(double q2){
     return -S_L(q2);
@@ -129,8 +113,6 @@ double MPll::S_R(double q2){
 complex MPll::N(){
     return -(4.*GF*MB*ale*lambda_t)/(sqrt(2.)*4.*M_PI);
 }
-
-
 
 gslpp::complex MPll::H_V(double q2, int bar) {
     gslpp::complex n;
@@ -151,8 +133,6 @@ gslpp::complex MPll::H_V(double q2, int bar) {
             + MB*MB/q2*( 2*Mb/MB*( C_7*T_L(q2) + C_7p*T_R(q2) ) - 16*M_PI*M_PI*h_0 ) );
 }
 
-
-
 gslpp::complex MPll::H_A(double q2, int bar) {
     gslpp::complex n;
     switch(bar){
@@ -171,8 +151,6 @@ gslpp::complex MPll::H_A(double q2, int bar) {
     return -gslpp::complex::i()*n*( C_10*V_L(q2) + C_10p*V_R(q2) );
 }
 
-
-
 gslpp::complex MPll::H_S(double q2, int bar) {
     gslpp::complex n;
     switch(bar){
@@ -190,8 +168,6 @@ gslpp::complex MPll::H_S(double q2, int bar) {
      
     return gslpp::complex::i()*n*Mb/MW*( C_S*S_L(q2) + C_Sp*S_R(q2) );
 }
-
-
 
 gslpp::complex MPll::H_P(double q2, int bar, double Mlep) {
     gslpp::complex n;
@@ -221,25 +197,17 @@ double MPll::k2(double q2) {
     return (pow(MB,4.) + q2*q2 + pow(MK,4.) -2.*MK*MK*q2 -2.*MB*MB*(q2 + MK*MK))/(4.*MB*MB);
 }
 
-
-
 double MPll::beta(double q2, double Mlep) {
-    return sqrt(1-4.*Mlep*Mlep/q2);
+    return sqrt(1. - 4.*Mlep*Mlep/q2);
 }
-
-
 
 double MPll::lambda(double q2) {
     return 4.*MB*MB*k2(q2);
 }
 
-
-
 double MPll::F(double q2, double Mlep) {
     return sqrt(lambda(q2))*beta(q2,Mlep)*q2/(96.*M_PI*M_PI*M_PI*MB*MB*MB);
 }
-
-
 
 double MPll::I(int i, double q2, int bar, double Mlep) {
 
@@ -262,16 +230,12 @@ double MPll::I(int i, double q2, int bar, double Mlep) {
     }
 }
 
-
-
 double MPll::Sigma(int i, double q2, double Mlep) {
-    return (I(i, q2, 0, Mlep) + I(i, q2, 1, Mlep))/2;
+    return (I(i, q2, 0, Mlep) + I(i, q2, 1, Mlep))/2.;
 }
 
-
-
 double MPll::Delta(int i, double q2, double Mlep) {
-    return (I(i, q2, 0, Mlep) - I(i, q2, 1, Mlep))/2;
+    return (I(i, q2, 0, Mlep) - I(i, q2, 1, Mlep))/2.;
 }
 
 /*******************************************************************************
@@ -289,12 +253,12 @@ double BR_MPll_e::computeBR_MPll_e(double qmin, double qmax) {
     
     F1 = convertToGslFunction( boost::bind( &MPll::getSigma2e, &(*this), _1 ) );
     gsl_integration_workspace * w_sigma2 = gsl_integration_workspace_alloc (50);
-    gsl_integration_qags (&F1, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma2, &avaSigma2, &errSigma2);
+    gsl_integration_qags (&F1, q_min, q_max, 1.e-20, 1.e-13, 50, w_sigma2, &avaSigma2, &errSigma2);
     gsl_integration_workspace_free (w_sigma2);
 
     F2 = convertToGslFunction( boost::bind( &MPll::getSigma0e, &(*this), _1 ) );
     gsl_integration_workspace * w_sigma0 = gsl_integration_workspace_alloc (50);
-    gsl_integration_qags (&F2, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma0, &avaSigma0, &errSigma0);
+    gsl_integration_qags (&F2, q_min, q_max, 1.e-20, 1.e-13, 50, w_sigma0, &avaSigma0, &errSigma0);
     gsl_integration_workspace_free (w_sigma0);
     
     return (3.*avaSigma0 - avaSigma2)/(4. * width_Bd);
