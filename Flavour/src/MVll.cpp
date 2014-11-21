@@ -194,17 +194,17 @@ void MVll::updateParameters(){
     allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
     
-    C_7 = (*(allcoeff[LO]) + *(allcoeff[NLO]))(6);
-    C_9 = (*(allcoeff[LO]) + *(allcoeff[NLO]))(8);
-    C_10 = (*(allcoeff[LO]) + *(allcoeff[NLO]))(9);
-    C_S = (*(allcoeff[LO]) + *(allcoeff[NLO]))(10);
-    C_P = (*(allcoeff[LO]) + *(allcoeff[NLO]))(11);
+    C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
+    C_9 =  ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8)) + 8./9. * log(mySM.getMuw()/mu_b);
+    C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
+    C_S = (*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10);
+    C_P = (*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11);
     
-    C_7p = (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(6);
-    C_9p = (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(8);
-    C_10p = (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(9);
-    C_Sp = (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(10);
-    C_Pp = (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(11);
+    C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
+    C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8);
+    C_10p = (*(allcoeffprime[LO]))(9) + (*(allcoeffprime[NLO]))(9);
+    C_Sp = (*(allcoeffprime[LO]))(10) + (*(allcoeffprime[NLO]))(10);
+    C_Pp = (*(allcoeffprime[LO]))(11) + (*(allcoeffprime[NLO]))(11);
     
     checkCache();
     
