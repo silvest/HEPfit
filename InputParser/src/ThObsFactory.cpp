@@ -141,6 +141,8 @@ ThObsFactory::ThObsFactory(){
     obsThFactory["BR_BKmu"] = boost::bind(boost::factory<BR_MPll_mu*>(), _1);
     obsThFactory["BR_BKe"] = boost::bind(boost::factory<BR_MPll_e*>(), _1);
     obsThFactory["R_BKll"] = boost::bind(boost::factory<R_MPll*>(), _1);
+    //----- B to K* gamma  -----
+    obsThFactory["BR_BKstgamma"] = boost::bind(boost::factory<BR_MVgamma*>(), _1, StandardModel::B_D, StandardModel::K_star);
 
 //
 //    //-----  Lepton Flavour observables  -----

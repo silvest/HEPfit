@@ -39,6 +39,7 @@
       <itemPath>src/HeffDS1.h</itemPath>
       <itemPath>src/M12D.h</itemPath>
       <itemPath>src/MPll.h</itemPath>
+      <itemPath>src/MVgamma.h</itemPath>
       <itemPath>src/MVll.h</itemPath>
       <itemPath>src/MVllObservables.h</itemPath>
       <itemPath>src/SJPsiK.h</itemPath>
@@ -89,6 +90,7 @@
       <itemPath>src/HeffDF2.cpp</itemPath>
       <itemPath>src/HeffDS1.cpp</itemPath>
       <itemPath>src/MPll.cpp</itemPath>
+      <itemPath>src/MVgamma.cpp</itemPath>
       <itemPath>src/MVll.cpp</itemPath>
       <itemPath>src/MVllObservables.cpp</itemPath>
       <itemPath>src/SJPsiK.cpp</itemPath>
@@ -278,6 +280,10 @@
       <item path="src/MPll.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/MPll.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/MVgamma.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/MVgamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/MVll.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -483,6 +489,10 @@
       </item>
       <item path="src/MPll.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="src/MVgamma.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/MVgamma.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="src/MVll.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/MVll.h" ex="false" tool="3" flavor2="0">
@@ -676,6 +686,10 @@
       <item path="src/MPll.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="src/MPll.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="src/MVgamma.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="src/MVgamma.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/MVll.cpp" ex="false" tool="1" flavor2="0">
       </item>

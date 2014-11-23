@@ -29,6 +29,7 @@
 #include <EpsilonP_O_Epsilon.h>
 #include <MVllObservables.h>
 #include <MPll.h>
+#include <MVgamma.h>
 
 #endif	/* FLAVOUROBSERVABLES_H */
 
