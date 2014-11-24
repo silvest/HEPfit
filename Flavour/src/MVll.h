@@ -76,9 +76,10 @@ public:
     double width;         //initial meson width
     double Ms;            //s quark mass
     double MW;            //W boson mass
-    complex lambda_t;     //Vckm factor
+    gslpp::complex lambda_t;     //Vckm factor
     double b;             //BF of the decay V -> final states
-    complex h[3];         //parameter that contains the contribution from the hadronic hamiltonian  
+    gslpp::complex h[3];         //parameter that contains the contribution from the hadronic hamiltonian 
+    gslpp::complex h_1[3];         //parameter that contains the contribution from the hadronic hamiltonian 
     double q2;            //q^2 of the decay
     
     /*lattice fit parameters*/
@@ -99,20 +100,20 @@ public:
     double r_2T2, m_fit2T2;
     double r_1T3t, r_2T3t, m_fit2T3t;
 
-    vector<complex> ** allcoeff;
-    vector<complex> ** allcoeffprime;
+    gslpp::vector<gslpp::complex> ** allcoeff;
+    gslpp::vector<gslpp::complex> ** allcoeffprime;
     
-    complex C_7;
-    complex C_9;
-    complex C_10;
-    complex C_S;
-    complex C_P;
+    gslpp::complex C_7;
+    gslpp::complex C_9;
+    gslpp::complex C_10;
+    gslpp::complex C_S;
+    gslpp::complex C_P;
     
-    complex C_7p;
-    complex C_9p;
-    complex C_10p;
-    complex C_Sp;
-    complex C_Pp;
+    gslpp::complex C_7p;
+    gslpp::complex C_9p;
+    gslpp::complex C_10p;
+    gslpp::complex C_Sp;
+    gslpp::complex C_Pp;
     
     
     
@@ -301,7 +302,7 @@ public:
     * @return return the helicity amplitude normalization factor N
     */
     
-    complex N();
+    gslpp::complex N();
     
     
     /**
@@ -744,34 +745,34 @@ private:
     
     
     unsigned int N_updated;
-    vector<double> N_cache;
-    complex Nc_cache;
+    gslpp::vector<double> N_cache;
+    gslpp::complex Nc_cache;
     
     unsigned int V_updated;
-    vector<double> V_cache;
+    gslpp::vector<double> V_cache;
     
     unsigned int A0_updated;
-    vector<double> A0_cache;
+    gslpp::vector<double> A0_cache;
     
     unsigned int A1_updated;
-    vector<double> A1_cache;
+    gslpp::vector<double> A1_cache;
     
     unsigned int A2_updated;
-    vector<double> A2_cache;
+    gslpp::vector<double> A2_cache;
     
     unsigned int T1_updated;
-    vector<double> T1_cache;
+    gslpp::vector<double> T1_cache;
     
     unsigned int T2_updated;
-    vector<double> T2_cache;
+    gslpp::vector<double> T2_cache;
     
     unsigned int T3t_updated;
-    vector<double> T3t_cache;
+    gslpp::vector<double> T3t_cache;
     
     unsigned int T3_updated;
     
     unsigned int k2_updated;
-    vector<double> k2_cache;
+    gslpp::vector<double> k2_cache;
     
     unsigned int z_updated;
     
@@ -796,71 +797,71 @@ private:
     unsigned int TR2_updated;
     
     unsigned int VL0_updated;
-    vector<double> VL0_cache;
+    gslpp::vector<double> VL0_cache;
     
     unsigned int TL0_updated;
-    vector<double> TL0_cache;
+    gslpp::vector<double> TL0_cache;
     
     unsigned int VR0_updated;
     
     unsigned int TR0_updated;
     
     unsigned int SL_updated;
-    vector<double> SL_cache;
+    gslpp::vector<double> SL_cache;
     
     unsigned int SR_updated;
     
     unsigned int C_7_updated;
-    complex C_7_cache;
+    gslpp::complex C_7_cache;
 
     unsigned int C_9_updated;
-    complex C_9_cache;
+    gslpp::complex C_9_cache;
     
     unsigned int C_10_updated;
-    complex C_10_cache;
+    gslpp::complex C_10_cache;
     
     unsigned int C_7p_updated;
-    complex C_7p_cache;
+    gslpp::complex C_7p_cache;
     
     unsigned int C_9p_updated;
-    complex C_9p_cache;
+    gslpp::complex C_9p_cache;
     
     unsigned int C_10p_updated;
-    complex C_10p_cache;
+    gslpp::complex C_10p_cache;
     
     unsigned int C_S_updated;
-    complex C_S_cache;
+    gslpp::complex C_S_cache;
     
     unsigned int C_P_updated;
-    complex C_P_cache;
+    gslpp::complex C_P_cache;
     
     unsigned int C_Sp_updated;
-    complex C_Sp_cache;
+    gslpp::complex C_Sp_cache;
     
     unsigned int C_Pp_updated;
-    complex C_Pp_cache;
+    gslpp::complex C_Pp_cache;
     
     unsigned int H_V0updated;
-    vector<double> H_V0cache;
-    complex H_V0Ccache;
+    gslpp::vector<double> H_V0cache;
+    gslpp::complex H_V0Ccache[2];
     
     unsigned int H_V1updated;
-    vector<double> H_V1cache;
-    complex H_V1Ccache;
+    gslpp::vector<double> H_V1cache;
+    gslpp::complex H_V1Ccache[2];
     
     unsigned int H_V2updated;
-    vector<double> H_V2cache;
-    complex H_V2Ccache;
+    gslpp::vector<double> H_V2cache;
+    gslpp::complex H_V2Ccache[2];
     
     unsigned int H_A0updated;
     unsigned int H_A1updated;
     unsigned int H_A2updated;
     
     unsigned int H_Supdated;
-    vector<double> H_Scache;
+    gslpp::vector<double> H_Scache;
     
     unsigned int H_Pupdated;
-    vector<double> H_Pcache;
+    gslpp::vector<double> H_Pcache;
     
     unsigned int I0_updated;
     unsigned int I1_updated;

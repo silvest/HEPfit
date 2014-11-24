@@ -47,7 +47,8 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "r_1Vphi", "r_2Vphi", "m_RVphi", "m_fit2Vphi", "r_1A0phi", "r_2A0phi", "m_RA0phi", "m_fit2A0phi", 
     "r_2A1phi", "m_fit2A1phi", "r_1A2phi", "r_2A2phi", "m_fit2A2phi", "r_1T1phi", "r_2T1phi", "m_RT1phi", "m_fit2T1phi", 
     "r_2T2phi", "m_fit2T2phi", "r_1T3tphi", "r_2T3tphi", "m_fit2T3tphi",
-    "reh_0", "reh_plus", "reh_minus","imh_0", "imh_plus", "imh_minus",
+    "reh_0", "reh_p", "reh_m","imh_0", "imh_p", "imh_m",
+    "reh_0_1", "reh_p_1", "reh_m_1","imh_0_1", "imh_p_1", "imh_m_1",
     "r_1_fplus", "r_2_fplus", "m_fit2_fplus", "r_1_fT", "r_2_fT", "m_fit2_fT", "r_2_f0", "m_fit2_f0"
 };
 
@@ -157,11 +158,17 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kl", boost::cref(IB_Kl)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("IB_Kp", boost::cref(IB_Kp)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0", boost::cref(reh_0)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_plus", boost::cref(reh_plus)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_minus", boost::cref(reh_minus)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_p", boost::cref(reh_p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_m", boost::cref(reh_m)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0", boost::cref(imh_0)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_plus", boost::cref(imh_plus)));
-    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_minus", boost::cref(imh_minus)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_p", boost::cref(imh_p)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_m", boost::cref(imh_m)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0_1", boost::cref(reh_0_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_p_1", boost::cref(reh_p_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_m_1", boost::cref(reh_m_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0_1", boost::cref(imh_0_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_p_1", boost::cref(imh_p_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_m_1", boost::cref(imh_m_1)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0V", boost::cref(a_0V)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1V", boost::cref(a_1V)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmV", boost::cref(dmV)));
@@ -534,16 +541,28 @@ void QCD::setParameter(const std::string name, const double& value)
         IB_Kp = value;
     else if (name.compare("reh_0") == 0)
         reh_0 = value;
-    else if (name.compare("reh_plus") == 0)
-        reh_plus = value;
-    else if (name.compare("reh_minus") == 0)
-        reh_minus = value;
+    else if (name.compare("reh_p") == 0)
+        reh_p = value;
+    else if (name.compare("reh_m") == 0)
+        reh_m = value;
     else if (name.compare("imh_0") == 0)
         imh_0 = value;
-    else if (name.compare("imh_plus") == 0)
-        imh_plus = value;
-    else if (name.compare("imh_minus") == 0)
-        imh_minus = value;
+    else if (name.compare("imh_p") == 0)
+        imh_p = value;
+    else if (name.compare("imh_m") == 0)
+        imh_m = value;
+    else if (name.compare("reh_0_1") == 0)
+        reh_0_1 = value;
+    else if (name.compare("reh_p_1") == 0)
+        reh_p_1 = value;
+    else if (name.compare("reh_m_1") == 0)
+        reh_m_1 = value;
+    else if (name.compare("imh_0_1") == 0)
+        imh_0_1 = value;
+    else if (name.compare("imh_p_1") == 0)
+        imh_p_1 = value;
+    else if (name.compare("imh_m_1") == 0)
+        imh_m_1 = value;
     else if (name.compare("a_0V") == 0)
         a_0V = value;
     else if (name.compare("a_1V") == 0)

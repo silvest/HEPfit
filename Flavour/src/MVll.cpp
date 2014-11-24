@@ -187,15 +187,19 @@ void MVll::updateParameters(){
     }
     
     
-    h[0]=mySM.getReh_0() + gslpp::complex::i()*mySM.getImh_0();
-    h[1]=mySM.getReh_plus() + gslpp::complex::i()*mySM.getImh_plus();
-    h[2]=mySM.getReh_minus() + gslpp::complex::i()*mySM.getImh_minus();
+    h[0]=mySM.geth_0();
+    h[1]=mySM.geth_p();
+    h[2]=mySM.geth_m();
+    
+    h_1[0]=mySM.geth_0_1();
+    h_1[1]=mySM.geth_p_1();
+    h_1[2]=mySM.geth_m_1();
     
     allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
     
     C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
-    C_9 =  ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8)) + 8./9. * log(mySM.getMuw()/mu_b);
+    C_9 =  ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8));
     C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
     C_S = (*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10);
     C_P = (*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11);
@@ -486,31 +490,34 @@ void MVll::checkCache(){
         C_Pp_cache = C_Pp;
     }
     
-    if (MM == H_V0cache(0) && Mb == H_V0cache(1) && h[0] == H_V0Ccache) {
+    if (MM == H_V0cache(0) && Mb == H_V0cache(1) && h[0] == H_V0Ccache[0] && h_1[0] == H_V0Ccache[1]) {
         H_V0updated = N_updated * C_9_updated * VL0_updated * C_9p_updated * VR0_updated * C_7_updated * TL0_updated * C_7p_updated * TR0_updated;
     } else {
         H_V0updated = 0;
         H_V0cache(0) = MM;
         H_V0cache(1) = Mb;
-        H_V0Ccache = h[0];
+        H_V0Ccache[0] = h[0];
+        H_V0Ccache[1] = h_1[0];
     }
     
-    if (MM == H_V1cache(0) && Mb == H_V1cache(1) && h[1] == H_V1Ccache) {
+    if (MM == H_V1cache(0) && Mb == H_V1cache(1) && h[1] == H_V1Ccache[0] && h_1[1] == H_V1Ccache[1]) {
         H_V1updated = N_updated * C_9_updated * VL1_updated * C_9p_updated * VR1_updated * C_7_updated * TL1_updated * C_7p_updated * TR1_updated;
     } else {
         H_V1updated = 0;
         H_V1cache(0) = MM;
         H_V1cache(1) = Mb;
-        H_V1Ccache = h[1];
+        H_V1Ccache[0] = h[1];
+        H_V1Ccache[1] = h_1[1];
     }
     
-    if (MM == H_V2cache(0) && Mb == H_V2cache(1) && h[2] == H_V2Ccache) {
+    if (MM == H_V2cache(0) && Mb == H_V2cache(1) && h[2] == H_V2Ccache[0] && h_1[2] == H_V2Ccache[1]) {
         H_V2updated = N_updated * C_9_updated * VL2_updated * C_9p_updated * VR2_updated * C_7_updated * TL2_updated * C_7p_updated * TR2_updated;
     } else {
         H_V2updated = 0;
         H_V2cache(0) = MM;
         H_V2cache(1) = Mb;
-        H_V2Ccache = h[2];
+        H_V2Ccache[0] = h[2];
+        H_V2Ccache[1] = h_1[2];
     }
     
     H_A0updated = N_updated * C_10_updated * VL0_updated * C_10p_updated * VR0_updated;
@@ -769,7 +776,7 @@ gslpp::complex MVll::H_V(int i, double q2, int bar) {
     return -gslpp::complex::i()*n*( C_9*V_L(i,q2)
             + C_9p*V_R(i,q2)
             + MM*MM/q2*( 2*Mb/MM*( C_7*T_L(i,q2)
-            + C_7p*T_R(i,q2) ) - 16*M_PI*M_PI*h[i] ) );
+            + C_7p*T_R(i,q2) ) - 16*M_PI*M_PI*(h[i] + h_1[i] * q2)) );
 }
 
 

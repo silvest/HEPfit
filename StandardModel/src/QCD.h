@@ -521,7 +521,7 @@ public:
         BOTTOM /**< Bottom quark */
     };
 
-    static const int NQCDvars = 184; ///< The number of model parameters in %QCD. 
+    static const int NQCDvars = 190; ///< The number of model parameters in %QCD. 
 
     /**
      * @brief An array containing the labels under which all %QCD parameters are stored
@@ -865,14 +865,14 @@ public:
         return reh_0;
     }
     
-    double getReh_plus() const
+    double getReh_p() const
     {
-        return reh_plus;
+        return reh_p;
     }
     
-    double getReh_minus() const
+    double getReh_m() const
     {
-        return reh_minus;
+        return reh_m;
     }
     
     double getImh_0() const
@@ -880,14 +880,74 @@ public:
         return imh_0;
     }
     
-    double getImh_plus() const
+    double getImh_p() const
     {
-        return imh_plus;
+        return imh_p;
     }
     
-    double getImh_minus() const
+    double getImh_m() const
     {
-        return imh_minus;
+        return imh_m;
+    }
+    
+    double getReh_0_1() const
+    {
+        return reh_0_1;
+    }
+    
+    double getReh_p_1() const
+    {
+        return reh_p_1;
+    }
+    
+    double getReh_m_1() const
+    {
+        return reh_m_1;
+    }
+    
+    double getImh_0_1() const
+    {
+        return imh_0_1;
+    }
+    
+    double getImh_p_1() const
+    {
+        return imh_p_1;
+    }
+    
+    double getImh_m_1() const
+    {
+        return imh_m_1;
+    }
+    
+    gslpp::complex geth_0() const
+    {
+        return reh_0 + gslpp::complex::i() * imh_0;
+    }
+
+    gslpp::complex geth_p() const
+    {
+        return reh_p + gslpp::complex::i() * imh_p;
+    }
+    
+    gslpp::complex geth_m() const
+    {
+        return reh_m + gslpp::complex::i() * imh_m;
+    }
+    
+    gslpp::complex geth_0_1() const
+    {
+        return reh_0_1 + gslpp::complex::i() * imh_0_1;
+    }
+
+    gslpp::complex geth_p_1() const
+    {
+        return reh_p_1 + gslpp::complex::i() * imh_p_1;
+    }
+    
+    gslpp::complex geth_m_1() const
+    {
+        return reh_m_1 + gslpp::complex::i() * imh_m_1;
     }
     
     double geta_0V() const
@@ -1595,7 +1655,8 @@ protected:
     double Br_B_Xcenu;
     double BBsoBBd; ///< The ratio \f$ B_{B_s}/B_{B_d} \f$ necessary to compute \f$ B_{B_s} \f$. 
     double FBsoFBd; ///< The ratio \f$ F_{B_s}/F_{B_d} \f$ necessary to compute \f$ F_{B_s} \f$. 
-    double reh_0, reh_plus, reh_minus, imh_0, imh_plus, imh_minus;
+    double reh_0, reh_p, reh_m, imh_0, imh_p, imh_m;
+    double reh_0_1, reh_p_1, reh_m_1, imh_0_1, imh_p_1, imh_m_1;
     double a_0V, a_1V, dmV;
     double a_0A0, a_1A0, dmA0;
     double a_0A1, a_1A1, dmA1;

@@ -1171,7 +1171,7 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
             CWBKstarllArrayLO[1] = 1.;
             CWBKstarllArrayLO[6] = -0.5*A0t(x) - 23./36.;
             CWBKstarllArrayLO[7] = -0.5*F0t(x) - 1./3.;
-            CWBKstarllArrayLO[8] = (1-4.*sW2) / (sW2) *C0t(x) - 1./(sW2) * B0t(x) - D0t(x) + 38./27. + 1./(4.*sW2) - (4./9.)*L; 
+            CWBKstarllArrayLO[8] = (1-4.*sW2) / (sW2) *C0t(x) - 1./(sW2) * B0t(x) - D0t(x) + 38./27. + 1./(4.*sW2) - (4./9.)*L + 8./9. * log(SM.getMuw()/mu_b); 
             CWBKstarllArrayLO[9] = 1./(sW2) * (B0t(x) - C0t(x)) -1./(4.*sW2);
             break;
         default:

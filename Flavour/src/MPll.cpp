@@ -45,9 +45,10 @@ void MPll::updateParameters(){
     r_2_f0 = mySM.getr_2_f0();
     m_fit2_f0 = mySM.getm_fit2_f0();
     
-    h_0=mySM.getReh_0() + gslpp::complex::i()*mySM.getImh_0();
+    h_0 = mySM.geth_0();
+    h_0_1 = mySM.geth_0_1();
     
-    b=1.;                           //please check
+    b = 1.;                           //please check
     
     allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
@@ -130,7 +131,7 @@ gslpp::complex MPll::H_V(double q2, int bar) {
     }
                     
     return -gslpp::complex::i()*n*( C_9*V_L(q2) + C_9p*V_R(q2)
-            + MB*MB/q2*( 2*Mb/MB*( C_7*T_L(q2) + C_7p*T_R(q2) ) - 16*M_PI*M_PI*h_0 ) );
+            + MB*MB/q2*( 2*Mb/MB*( C_7*T_L(q2) + C_7p*T_R(q2) ) - 16*M_PI*M_PI*(h_0 + h_0_1 * q2)) );
 }
 
 gslpp::complex MPll::H_A(double q2, int bar) {

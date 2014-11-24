@@ -24,7 +24,7 @@ MVgamma::~MVgamma() {
 void MVgamma::updateParameters(){
     GF = mySM.getGF();
     ale=mySM.getAle();
-    MM=mySM.getMesons(StandardModel::B_D).getMass();
+    MM=mySM.getMesons(meson).getMass();
     MV=mySM.getMesons(vectorM).getMass();
     Mb=mySM.getQuarks(QCD::BOTTOM).getMass();    // add the PS b mass
     Ms=mySM.getQuarks(QCD::STRANGE).getMass();
@@ -51,15 +51,14 @@ void MVgamma::updateParameters(){
     }
     
     
-    h[0]=mySM.getReh_plus() + gslpp::complex::i()*mySM.getImh_plus();    //h_plus
-    h[1]=mySM.getReh_minus() + gslpp::complex::i()*mySM.getImh_minus();  //h_minus
+    h[0]=mySM.geth_p();    //h_plus
+    h_1[1]=mySM.geth_m();  //h_minus
     
     allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
     
-    C_7 = (*(allcoeff[LO]) + *(allcoeff[NLO]))(6);
-    
-    C_7p = (*(allcoeffprime[LO]) + *(allcoeffprime[NLO]))(6);
+    C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
+    C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
     
 }
 
@@ -104,13 +103,13 @@ double MVgamma::T_R(int i){
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
 double MVgamma::H_V_plus2() {
-    return (C_7*T_L(1) + C_7p*T_R(1) - MM/(2*Mb)*16*M_PI*M_PI*h[0]).abs2();
+    return (C_7*T_L(1) + C_7p*T_R(1) - MM/(2*Mb)*16*M_PI*M_PI*(h[0] + h_1[0])).abs2();
 }
 
 
 
 double MVgamma::H_V_minus2() {
-    return (C_7*T_L(2) + C_7p*T_R(2) - MM/(2*Mb)*16*M_PI*M_PI*h[1]).abs2();
+    return (C_7*T_L(2) + C_7p*T_R(2) - MM/(2*Mb)*16*M_PI*M_PI*(h[1] + h_1[1])).abs2();
 }
 
 

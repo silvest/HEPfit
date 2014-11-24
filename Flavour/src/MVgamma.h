@@ -41,21 +41,22 @@ public:
     double width;         //initial meson width
     double Ms;            //s quark mass
     double MW;            //W boson mass
-    complex lambda_t;     //Vckm factor
+    gslpp::complex lambda_t;     //Vckm factor
     double b;             //BF of the decay V -> final states
-    complex h[2];         //parameter that contains the contribution from the hadronic hamiltonian
+    gslpp::complex h[2];         //parameter that contains the contribution from the hadronic hamiltonian
+    gslpp::complex h_1[2];         //parameter that contains the contribution from the hadronic hamiltonian
     double lambda;        //cinematic parameter
     
     /*LCSR fit parameters*/
     double r_1T1, r_2T1, m_RT1, m_fit2T1;
     double r_2T2, m_fit2T2;
     
-    vector<complex> ** allcoeff;
-    vector<complex> ** allcoeffprime;
+    gslpp::vector<complex> ** allcoeff;
+    gslpp::vector<complex> ** allcoeffprime;
     
-    complex C_7;
+    gslpp::complex C_7;
     
-    complex C_7p;
+    gslpp::complex C_7p;
     
     
     
