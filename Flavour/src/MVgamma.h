@@ -33,7 +33,6 @@ public:
     
     double GF;            //Fermi constant
     double ale;           //alpha electromagnetic
-    double Mlep;          //muon mass
     double MM;            //initial meson mass
     double MV;            //final vector meson mass
     double Mb;            //b quark mass
@@ -42,9 +41,7 @@ public:
     double Ms;            //s quark mass
     double MW;            //W boson mass
     gslpp::complex lambda_t;     //Vckm factor
-    double b;             //BF of the decay V -> final states
     gslpp::complex h[2];         //parameter that contains the contribution from the hadronic hamiltonian
-    gslpp::complex h_1[2];         //parameter that contains the contribution from the hadronic hamiltonian
     double lambda;        //cinematic parameter
     
     /*LCSR fit parameters*/
