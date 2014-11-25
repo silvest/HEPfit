@@ -34,6 +34,7 @@ public:
     double GF;            //Fermi constant
     double ale;           //alpha electromagnetic
     double MM;            //initial meson mass
+    double MM2;           // square of the initial meson mass
     double MV;            //final vector meson mass
     double Mb;            //b quark mass
     double mu_b;          //b mass scale
@@ -46,7 +47,6 @@ public:
     
     /*LCSR fit parameters*/
     double r_1T1, r_2T1, m_RT1, m_fit2T1;
-    double r_2T2, m_fit2T2;
     
     gslpp::vector<complex> ** allcoeff;
     gslpp::vector<complex> ** allcoeffprime;
@@ -64,41 +64,40 @@ public:
     double T_1();
 
     
-    /**
-    * @brief \f$ V \f$
-    * @return return the transverse form factor V(q^2)
-    */
-    double T_2();
-    
-    
-    /**
-    * @brief \f$ T_L \f$
-    * @param[in] i polarization
-    * @return return the helicity form factor T_L(lambda)
-    */
-    double T_L(int i);
+//    /**
+//    * @brief \f$ V \f$
+//    * @return return the transverse form factor V(q^2)
+//    */
+//    double T_2();
+//    
+//    
+//    /**
+//    * @brief \f$ T_L \f$
+//    * @param[in] i polarization
+//    * @return return the helicity form factor T_L(lambda)
+//    */
+//    double T_L(int i);
+//
+//
+//    /**
+//    * @brief \f$ T_R \f$ 
+//    * @param[in] i polarization
+//    * @return return the helicity form factor T_R(lambda)
+//    */
+//    double T_R(int i);
 
 
     /**
-    * @brief \f$ T_R \f$ 
-    * @param[in] i polarization
-    * @return return the helicity form factor T_R(lambda)
-    */
-    double T_R(int i);
-
-
-    /**
-    * @brief \f$ H_V(+) \f$ 
+    * @brief \f$ H_V(+) - H_V(-) \f$ 
     * @return return the helicity amplitude H_V(+)
     */
-    double H_V_plus2();
-    
+    complex H_V();
     
     /**
-    * @brief \f$ H_V(-) \f$ 
-    * @return return the helicity amplitude H_V(-)
+    * @brief \f$ H_V(+) - H_V(-)\f$ 
+    * @return return the helicity amplitude H_V(+)
     */
-    double H_V_minus2();
+    complex H_V_bar();
     
     
     
@@ -116,6 +115,25 @@ public:
     * @brief \f$ BR \f$ 
     */
     BR_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
+    
+    /**
+    * @return return the clean observable BR_e
+    */
+    double computeThValue ();
+
+private:
+    const StandardModel& mySM;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
+};
+
+class ACP_MVgamma : public MVgamma{
+public:
+    
+    /**
+    * @brief \f$ BR \f$ 
+    */
+    ACP_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i);
     
     /**
     * @return return the clean observable BR_e
