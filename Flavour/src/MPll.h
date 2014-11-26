@@ -32,7 +32,7 @@ public:
     MPll(const StandardModel& SM_i);
     virtual ~MPll();
     void updateParameters();
-    //void checkCache( double qmin, double qmax);
+    void checkCache();
     virtual double computeThValue()=0;
     
     double GF;            //Fermi constant
@@ -336,10 +336,212 @@ public:
         return Delta(2, q2, Mmu);
     };
     
+    /**
+    * @brief \f$ <Sigma_{i}> \f$ 
+    * @param[in] i index of the angular coefficient I_i
+    * @param[in] q_min minimum q^2 of the integral
+    * @param[in] q_max maximum q^2 of the integral
+    * @return return the CP average integral of Sigma_i from q_min to q_max
+    */
+    double integrateSigma_e(int i, double q_min, double q_max);
+    
+    /**
+    * @brief \f$ <Delta_{i}> \f$ 
+    * @param[in] i index of the angular coefficient I_i
+    * @param[in] q_min minimum q^2 of the integral
+    * @param[in] q_max maximum q^2 of the integral
+    * @return return the CP average integral of Delta_i from q_min to q_max
+    */
+    double integrateDelta_e(int i, double q_min, double q_max);
+    
+    /**
+    * @brief \f$ <Sigma_{i}> \f$ 
+    * @param[in] i index of the angular coefficient I_i
+    * @param[in] q_min minimum q^2 of the integral
+    * @param[in] q_max maximum q^2 of the integral
+    * @return return the CP average integral of Sigma_i from q_min to q_max
+    */
+    double integrateSigma_mu(int i, double q_min, double q_max);
+    
+    /**
+    * @brief \f$ <Delta_{i}> \f$ 
+    * @param[in] i index of the angular coefficient I_i
+    * @param[in] q_min minimum q^2 of the integral
+    * @param[in] q_max maximum q^2 of the integral
+    * @return return the CP average integral of Delta_i from q_min to q_max
+    */
+    double integrateDelta_mu(int i, double q_min, double q_max);
+    
 
 private:
     const StandardModel& mySM;
-    MVll myMVll;
+    int iter;
+    
+    unsigned int fplus_updated;
+    gslpp::vector<double> fplus_cache;
+    
+    unsigned int fT_updated;
+    gslpp::vector<double> fT_cache;
+    
+    unsigned int f0_updated;
+    double f0_cache;
+    
+    unsigned int k2_updated;
+    gslpp::vector<double> k2_cache;
+    
+    unsigned int beta_e_updated;
+    unsigned int beta_mu_updated;
+    gslpp::vector<double> beta_cache;
+    
+    unsigned int lambda_updated;
+    double lambda_cache;
+    
+    unsigned int F_e_updated;
+    unsigned int F_mu_updated;
+    
+    unsigned int VL_updated;
+    
+    unsigned int VR_updated;
+    
+    unsigned int TL_updated;
+    
+    unsigned int TR_updated;
+    
+    unsigned int SL_updated;
+    gslpp::vector<double> SL_cache;
+    
+    unsigned int SR_updated;
+    
+    unsigned int N_updated;
+    gslpp::vector<double> N_cache;
+    gslpp::complex Nc_cache;
+    
+    unsigned int C_7_updated;
+    gslpp::complex C_7_cache;
+
+    unsigned int C_9_updated;
+    gslpp::complex C_9_cache;
+    
+    unsigned int C_10_updated;
+    gslpp::complex C_10_cache;
+    
+    unsigned int C_7p_updated;
+    gslpp::complex C_7p_cache;
+    
+    unsigned int C_9p_updated;
+    gslpp::complex C_9p_cache;
+    
+    unsigned int C_10p_updated;
+    gslpp::complex C_10p_cache;
+    
+    unsigned int C_S_updated;
+    gslpp::complex C_S_cache;
+    
+    unsigned int C_P_updated;
+    gslpp::complex C_P_cache;
+    
+    unsigned int C_Sp_updated;
+    gslpp::complex C_Sp_cache;
+    
+    unsigned int C_Pp_updated;
+    gslpp::complex C_Pp_cache;
+    
+    unsigned int H_V0updated;
+    gslpp::vector<double> H_V0cache;
+    gslpp::complex H_V0Ccache[2];
+    
+    unsigned int H_A0updated;
+    
+    unsigned int H_Supdated;
+    gslpp::vector<double> H_Scache;
+    
+    unsigned int H_Pe_updated;
+    gslpp::vector<double> H_Pe_cache;
+    
+    unsigned int H_Pmu_updated;
+    gslpp::vector<double> H_Pmu_cache;
+    
+    unsigned int I0e_updated;
+    unsigned int I2e_updated;
+    unsigned int I8e_updated;
+    
+    
+    unsigned int I0mu_updated;
+    unsigned int I2mu_updated;
+    unsigned int I8mu_updated;
+    
+    std::map<std::pair<double, double>, unsigned int > sigma0eCached;
+    std::map<std::pair<double, double>, unsigned int > sigma2eCached;
+    
+    std::map<std::pair<double, double>, unsigned int > delta0eCached;
+    std::map<std::pair<double, double>, unsigned int > delta2eCached;
+    
+    std::map<std::pair<double, double>, unsigned int > sigma0muCached;
+    std::map<std::pair<double, double>, unsigned int > sigma2muCached;
+    
+    std::map<std::pair<double, double>, unsigned int > delta0muCached;
+    std::map<std::pair<double, double>, unsigned int > delta2muCached;
+    
+    double avaSigma0e;
+    double avaSigma2e;
+    
+    double errSigma0e;
+    double errSigma2e;
+    
+    double avaDelta0e;
+    double avaDelta2e;
+    
+    double errDelta0e;
+    double errDelta2e;
+    
+    double avaSigma0mu;
+    double avaSigma2mu;
+    
+    double errSigma0mu;
+    double errSigma2mu;
+    
+    double avaDelta0mu;
+    double avaDelta2mu;
+    
+    double errDelta0mu;
+    double errDelta2mu;
+    
+    gsl_function FS0e;
+    gsl_function FS2e;
+    
+    gsl_function FD0e;
+    gsl_function FD2e;
+    
+    gsl_function FS0mu;
+    gsl_function FS2mu;
+    
+    gsl_function FD0mu;
+    gsl_function FD2mu;
+    
+    gsl_integration_workspace * w_sigma0e;
+    gsl_integration_workspace * w_sigma2e;
+    
+    gsl_integration_workspace * w_delta0e;
+    gsl_integration_workspace * w_delta2e;
+    
+    gsl_integration_workspace * w_sigma0mu;
+    gsl_integration_workspace * w_sigma2mu;
+    
+    gsl_integration_workspace * w_delta0mu;
+    gsl_integration_workspace * w_delta2mu;
+    
+    std::map<std::pair<double, double>, double > cacheSigma0e;
+    std::map<std::pair<double, double>, double > cacheSigma2e;
+    
+    std::map<std::pair<double, double>, double > cacheDelta0e;
+    std::map<std::pair<double, double>, double > cacheDelta2e;
+    
+    std::map<std::pair<double, double>, double > cacheSigma0mu;
+    std::map<std::pair<double, double>, double > cacheSigma2mu;
+    
+    std::map<std::pair<double, double>, double > cacheDelta0mu;
+    std::map<std::pair<double, double>, double > cacheDelta2mu;
+    
 };
 
 
