@@ -146,13 +146,13 @@ double A_FB::computeThValue() {
 }
 
 
-BR_BKstarll::BR_BKstarll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : GammaPrime(SM_i, meson_i, vector_i, lep_i), mySM(SM_i) {  
+BR_MVll::BR_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : GammaPrime(SM_i, meson_i, vector_i, lep_i), mySM(SM_i) {  
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
 }
 
-double BR_BKstarll::computeThValue() {
+double BR_MVll::computeThValue() {
     double q_min = getBinMin();
     double q_max = getBinMax();
     
@@ -160,13 +160,13 @@ double BR_BKstarll::computeThValue() {
 }
 
 
-ACP::ACP(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : GammaPrime(SM_i, meson_i, vector_i, lep_i), mySM(SM_i) {
+ACP_MVll::ACP_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : GammaPrime(SM_i, meson_i, vector_i, lep_i), mySM(SM_i) {
     lep = lep_i;
     meson = meson_i;
     vectorM = vector_i;
 }
 
-double ACP::computeThValue() {
+double ACP_MVll::computeThValue() {
     
     double q_min = getBinMin();
     double q_max = getBinMax();

@@ -13,6 +13,7 @@
 #include "HeffDS1.h"
 #include "HeffDB1.h"
 #include "MVll.h"
+#include "MPll.h"
 
 using namespace gslpp;
 
@@ -28,6 +29,8 @@ public:
         myMVll_BdKstarel = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON);
         myMVll_Bsphimu = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
         myMVll_Bsphiel = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON);
+        myMPll_BdKmu = new MPll(SM_i, StandardModel::B_D, StandardModel::K_0, StandardModel::MU);
+        myMPll_BdKel = new MPll(SM_i, StandardModel::B_D, StandardModel::K_0, StandardModel::ELECTRON);
         updated = true;
     };
     
@@ -108,6 +111,12 @@ public:
         else throw std::runtime_error("Flavour: Decay channel not implemented.");
     }
     
+    MPll* getMPll(StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i) {
+        if (meson_i == StandardModel::B_D && pseudoscalar_i == StandardModel::K_0 && lep_i == StandardModel::MU) return myMPll_BdKmu;
+        if (meson_i == StandardModel::B_D && pseudoscalar_i == StandardModel::K_0 && lep_i == StandardModel::ELECTRON) return myMPll_BdKel;
+        else throw std::runtime_error("Flavour: Decay channel not implemented.");
+    }
+    
     void setUpdateFlag(bool updated_i){
         updated = updated_i;
     }
@@ -125,6 +134,8 @@ private:
     MVll* myMVll_BdKstarel;
     MVll* myMVll_Bsphimu;
     MVll* myMVll_Bsphiel;
+    MPll* myMPll_BdKmu;
+    MPll* myMPll_BdKel;
     bool updated;
 };
 

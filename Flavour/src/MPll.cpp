@@ -5,6 +5,7 @@
  * For the licensing terms see doc/COPYING.
  */
 
+#include "Flavour.h"
 #include "MPll.h"
 #include <gslpp.h>
 #include <gslpp_complex.h>
@@ -15,37 +16,28 @@
 
 
 
-MPll::MPll(const StandardModel& SM_i) : ThObservable(SM_i), mySM(SM_i),
+MPll::MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i) : mySM(SM_i),
         N_cache(3, 0.),
         fplus_cache(2, 0.),
         fT_cache(2, 0.),
         k2_cache(2, 0.),
-        beta_cache(2, 0.),
         SL_cache(2, 0.),
         H_V0cache(2, 0.),
         H_Scache(2, 0.),
-        H_Pe_cache(4, 0.),
-        H_Pmu_cache(4, 0.)
+        H_P_cache(4, 0.)
 {
-    I0e_updated = 0;
-    I2e_updated = 0;
-    I8e_updated = 0;
-    I0mu_updated = 0;
-    I2mu_updated = 0;
-    I8mu_updated = 0;
-    iter = 0;
+    lep = lep_i;
+    meson = meson_i;
+    pseudoscalar = pseudoscalar_i;
+    I0_updated = 0;
+    I2_updated = 0;
+    I8_updated = 0;
     
-    w_sigma0e = gsl_integration_workspace_alloc (50);
-    w_sigma2e = gsl_integration_workspace_alloc (50);
+    w_sigma0 = gsl_integration_workspace_alloc (50);
+    w_sigma2 = gsl_integration_workspace_alloc (50);
     
-    w_delta0e = gsl_integration_workspace_alloc (50);
-    w_delta2e = gsl_integration_workspace_alloc (50);
-    
-    w_sigma0mu = gsl_integration_workspace_alloc (50);
-    w_sigma2mu = gsl_integration_workspace_alloc (50);
-    
-    w_delta0mu = gsl_integration_workspace_alloc (50);
-    w_delta2mu = gsl_integration_workspace_alloc (50);
+    w_delta0 = gsl_integration_workspace_alloc (50);
+    w_delta2 = gsl_integration_workspace_alloc (50);
 }
 
 
@@ -55,25 +47,32 @@ MPll::~MPll() {
 void MPll::updateParameters(){
     GF = mySM.getGF();
     ale=mySM.getAle();
-    Me=mySM.getLeptons(StandardModel::ELECTRON).getMass();
-    Mmu=mySM.getLeptons(StandardModel::MU).getMass();
-    MB=mySM.getMesons(QCD::B_D).getMass();
-    MK=mySM.getMesons(QCD::K_0).getMass();
+    Mlep=mySM.getLeptons(lep).getMass();
+    MM=mySM.getMesons(meson).getMass();
+    MP=mySM.getMesons(pseudoscalar).getMass();
     Mb=mySM.getQuarks(QCD::BOTTOM).getMass();    // add the PS b mass
     Ms=mySM.getQuarks(QCD::STRANGE).getMass();
     MW=mySM.Mw();
     lambda_t=mySM.computelamt_s();
     mu_b = mySM.getMub();
-    width_Bd = mySM.getMesons(QCD::B_D).computeWidth();
+    width = mySM.getMesons(meson).computeWidth();
     
-    r_1_fplus = mySM.getr_1_fplus();
-    r_2_fplus = mySM.getr_2_fplus();
-    m_fit2_fplus = mySM.getm_fit2_fplus();
-    r_1_fT = mySM.getr_1_fT();
-    r_2_fT = mySM.getr_2_fT();
-    m_fit2_fT = mySM.getm_fit2_fT();
-    r_2_f0 = mySM.getr_2_f0();
-    m_fit2_f0 = mySM.getm_fit2_f0();
+    switch(pseudoscalar){
+        case StandardModel::K_0 :
+            r_1_fplus = mySM.getr_1_fplus();
+            r_2_fplus = mySM.getr_2_fplus();
+            m_fit2_fplus = mySM.getm_fit2_fplus();
+            r_1_fT = mySM.getr_1_fT();
+            r_2_fT = mySM.getr_2_fT();
+            m_fit2_fT = mySM.getm_fit2_fT();
+            r_2_f0 = mySM.getr_2_f0();
+            m_fit2_f0 = mySM.getm_fit2_f0();
+            break;
+        default:
+            std::stringstream out;
+            out << pseudoscalar;
+            throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
+    }
     
     h_0 = mySM.geth_0();
     h_0_1 = mySM.geth_0_1();
@@ -99,17 +98,11 @@ void MPll::updateParameters(){
     
     std::map<std::pair<double, double>, unsigned int >::iterator it;
     
-    if (I0e_updated == 0) for (it = sigma0eCached.begin(); it != sigma0eCached.end(); ++it) it->second = 0;
-    if (I2e_updated == 0) for (it = sigma2eCached.begin(); it != sigma2eCached.end(); ++it) it->second = 0;
+    if (I0_updated == 0) for (it = sigma0Cached.begin(); it != sigma0Cached.end(); ++it) it->second = 0;
+    if (I2_updated == 0) for (it = sigma2Cached.begin(); it != sigma2Cached.end(); ++it) it->second = 0;
     
-    if (I0e_updated == 0) for (it = delta0eCached.begin(); it != delta0eCached.end(); ++it) it->second = 0;
-    if (I2e_updated == 0) for (it = delta2eCached.begin(); it != delta2eCached.end(); ++it) it->second = 0;
-    
-    if (I0mu_updated == 0) for (it = sigma0muCached.begin(); it != sigma0muCached.end(); ++it) it->second = 0;
-    if (I2mu_updated == 0) for (it = sigma2muCached.begin(); it != sigma2muCached.end(); ++it) it->second = 0;
-    
-    if (I0mu_updated == 0) for (it = delta0muCached.begin(); it != delta0muCached.end(); ++it) it->second = 0;
-    if (I2mu_updated == 0) for (it = delta2muCached.begin(); it != delta2muCached.end(); ++it) it->second = 0;
+    if (I0_updated == 0) for (it = delta0Cached.begin(); it != delta0Cached.end(); ++it) it->second = 0;
+    if (I2_updated == 0) for (it = delta2Cached.begin(); it != delta2Cached.end(); ++it) it->second = 0;
     
 }
 
@@ -138,37 +131,28 @@ void MPll::checkCache(){
         f0_cache = r_2_f0;
     }
     
-    if (MB == k2_cache(0) && MK == k2_cache(1) ) {
+    if (MM == k2_cache(0) && MP == k2_cache(1) ) {
         k2_updated = 1;
     } else {
         k2_updated = 0;
-        k2_cache(0) = MB;
-        k2_cache(1) = MK;
+        k2_cache(0) = MM;
+        k2_cache(1) = MP;
     }
     
-    if (Mmu == beta_cache(0)) {
-        beta_mu_updated = 1;
+    if (Mlep == beta_cache) {
+        beta_updated = 1;
     } else {
-        beta_mu_updated = 0;
-        beta_cache(0) = Mmu;
+        beta_updated = 0;
+        beta_cache = Mlep;
     }
     
-    if (Me == beta_cache(1)) {
-        beta_e_updated = 1;
-    } else {
-        beta_e_updated = 0;
-        beta_cache(1) = Me;
-    }
-    
-    if (MK == lambda_cache) {
+    if (MP == lambda_cache) {
         lambda_updated = k2_updated;
-        F_e_updated = lambda_updated * beta_e_updated;
-        F_mu_updated = lambda_updated * beta_mu_updated;
+        F_updated = lambda_updated * beta_updated;
     } else {
         lambda_updated = 0;
-        F_e_updated = 0;
-        F_mu_updated = 0;
-        lambda_cache = MK;
+        F_updated = 0;
+        lambda_cache = MP;
     }
     
     VL_updated = k2_updated * fplus_updated;
@@ -189,13 +173,13 @@ void MPll::checkCache(){
         SL_cache(1) = Ms;
     }
     
-    if (GF == N_cache(0) && ale == N_cache(1) && MB == N_cache(2) && lambda_t == Nc_cache) {
+    if (GF == N_cache(0) && ale == N_cache(1) && MM == N_cache(2) && lambda_t == Nc_cache) {
         N_updated = 1;
     } else {
         N_updated = 0;
         N_cache(0) = GF;
         N_cache(1) = ale;
-        N_cache(2) = MB;
+        N_cache(2) = MM;
         Nc_cache = lambda_t;
     }
     
@@ -269,11 +253,11 @@ void MPll::checkCache(){
         C_Pp_cache = C_Pp;
     }
     
-    if (MB == H_V0cache(0) && Mb == H_V0cache(1) && h_0 == H_V0Ccache[0] && h_0_1 == H_V0Ccache[1]) {
+    if (MM == H_V0cache(0) && Mb == H_V0cache(1) && h_0 == H_V0Ccache[0] && h_0_1 == H_V0Ccache[1]) {
         H_V0updated = N_updated * C_9_updated * VL_updated * C_9p_updated * VR_updated * C_7_updated * TL_updated * C_7p_updated * TR_updated;
     } else {
         H_V0updated = 0;
-        H_V0cache(0) = MB;
+        H_V0cache(0) = MM;
         H_V0cache(1) = Mb;
         H_V0Ccache[0] = h_0;
         H_V0Ccache[1] = h_0_1;
@@ -289,35 +273,19 @@ void MPll::checkCache(){
         H_Scache(1) = MW;
     }
     
-    if (Mb == H_Pe_cache(0) && MW == H_Pe_cache(1) && Me == H_Pe_cache(2) && Ms == H_Pe_cache(3)) {
-        H_Pe_updated = N_updated * C_P_updated * SL_updated * C_Pp_updated * SR_updated * C_10_updated * C_10p_updated;
+    if (Mb == H_P_cache(0) && MW == H_P_cache(1) && Mlep == H_P_cache(2) && Ms == H_P_cache(3)) {
+        H_P_updated = N_updated * C_P_updated * SL_updated * C_Pp_updated * SR_updated * C_10_updated * C_10p_updated;
     } else {
-        H_Pe_updated = 0;
-        H_Pe_cache(0) = Mb;
-        H_Pe_cache(1) = MW;
-        H_Pe_cache(2) = Me;
-        H_Pe_cache(3) = Ms;   
+        H_P_updated = 0;
+        H_P_cache(0) = Mb;
+        H_P_cache(1) = MW;
+        H_P_cache(2) = Mlep;
+        H_P_cache(3) = Ms;   
     }
     
-    if (Mb == H_Pmu_cache(0) && MW == H_Pmu_cache(1) && Mmu == H_Pmu_cache(2) && Ms == H_Pmu_cache(3)) {
-        H_Pmu_updated = N_updated * C_P_updated * SL_updated * C_Pp_updated * SR_updated * C_10_updated * C_10p_updated;
-    } else {
-        H_Pmu_updated = 0;
-        H_Pmu_cache(0) = Mb;
-        H_Pmu_cache(1) = MW;
-        H_Pmu_cache(2) = Mmu;
-        H_Pmu_cache(3) = Ms;   
-    }
-    
-    I0e_updated = F_e_updated * H_V0updated * H_A0updated * H_Pe_updated * beta_e_updated * H_Supdated;
-    I2e_updated = F_e_updated * beta_e_updated * H_V0updated * H_A0updated;
-    I8e_updated = F_e_updated * beta_e_updated * H_Supdated * H_V0updated;
-    
-    I0mu_updated = F_mu_updated * H_V0updated * H_A0updated * H_Pmu_updated * beta_mu_updated * H_Supdated;
-    I2mu_updated = F_mu_updated * beta_mu_updated * H_V0updated * H_A0updated;
-    I8mu_updated = F_mu_updated * beta_mu_updated * H_Supdated * H_V0updated;
-    
-    iter += 1 ;
+    I0_updated = F_updated * H_V0updated * H_A0updated * H_P_updated * beta_updated * H_Supdated;
+    I2_updated = F_updated * beta_updated * H_V0updated * H_A0updated;
+    I8_updated = F_updated * beta_updated * H_Supdated * H_V0updated;
     
 }
 
@@ -337,7 +305,7 @@ double MPll::f_0(double q2){
 }
 
 gslpp::complex MPll::V_L(double q2){
-    return gslpp::complex::i() * sqrt(lambda(q2)) / (2*MB*sqrt(q2)) * f_plus(q2);
+    return gslpp::complex::i() * sqrt(lambda(q2)) / (2*MM*sqrt(q2)) * f_plus(q2);
 }
 
 gslpp::complex MPll::V_R(double q2){
@@ -345,7 +313,7 @@ gslpp::complex MPll::V_R(double q2){
 }
 
 gslpp::complex MPll::T_L(double q2){
-    return gslpp::complex::i()  * sqrt(lambda(q2)*q2) / (MB*MB*(MB+MK)) * f_T(q2);
+    return gslpp::complex::i()  * sqrt(lambda(q2)*q2) / (MM*MM*(MM+MP)) * f_T(q2);
 }
 
 gslpp::complex MPll::T_R(double q2){
@@ -353,7 +321,7 @@ gslpp::complex MPll::T_R(double q2){
 }
 
 double MPll::S_L(double q2){
-    return -( MB*MB - MK*MK )/(2*MB*(Mb + Ms)) * ( 1 + Ms/Mb )/( 1 - Ms/Mb ) * f_0(q2);
+    return -( MM*MM - MP*MP )/(2*MM*(Mb + Ms)) * ( 1 + Ms/Mb )/( 1 - Ms/Mb ) * f_0(q2);
 }
 
 double MPll::S_R(double q2){
@@ -366,7 +334,7 @@ double MPll::S_R(double q2){
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
 complex MPll::N(){
-    return -(4.*GF*MB*ale*lambda_t)/(sqrt(2.)*4.*M_PI);
+    return -(4.*GF*MM*ale*lambda_t)/(sqrt(2.)*4.*M_PI);
 }
 
 gslpp::complex MPll::H_V(double q2, int bar) {
@@ -385,7 +353,7 @@ gslpp::complex MPll::H_V(double q2, int bar) {
     }
                     
     return -gslpp::complex::i()*n*( C_9*V_L(q2) + C_9p*V_R(q2)
-            + MB*MB/q2*( 2*Mb/MB*( C_7*T_L(q2) + C_7p*T_R(q2) ) - 16*M_PI*M_PI*(h_0 + h_0_1 * q2)) );
+            + MM*MM/q2*( 2*Mb/MM*( C_7*T_L(q2) + C_7p*T_R(q2) ) - 16*M_PI*M_PI*(h_0 + h_0_1 * q2)) );
 }
 
 gslpp::complex MPll::H_A(double q2, int bar) {
@@ -424,7 +392,7 @@ gslpp::complex MPll::H_S(double q2, int bar) {
     return gslpp::complex::i()*n*Mb/MW*( C_S*S_L(q2) + C_Sp*S_R(q2) );
 }
 
-gslpp::complex MPll::H_P(double q2, int bar, double Mlep) {
+gslpp::complex MPll::H_P(double q2, int bar) {
     gslpp::complex n;
     switch(bar){
         case 0:
@@ -449,35 +417,35 @@ gslpp::complex MPll::H_P(double q2, int bar, double Mlep) {
  * Angular coefficients                                                         *
  * ****************************************************************************/
 double MPll::k2(double q2) {
-    return (pow(MB,4.) + q2*q2 + pow(MK,4.) -2.*MK*MK*q2 -2.*MB*MB*(q2 + MK*MK))/(4.*MB*MB);
+    return (pow(MM,4.) + q2*q2 + pow(MP,4.) -2.*MP*MP*q2 -2.*MM*MM*(q2 + MP*MP))/(4.*MM*MM);
 }
 
-double MPll::beta(double q2, double Mlep) {
+double MPll::beta(double q2) {
     return sqrt(1. - 4.*Mlep*Mlep/q2);
 }
 
 double MPll::lambda(double q2) {
-    return 4.*MB*MB*k2(q2);
+    return 4.*MM*MM*k2(q2);
 }
 
-double MPll::F(double q2, double Mlep) {
-    return sqrt(lambda(q2))*beta(q2,Mlep)*q2/(96.*M_PI*M_PI*M_PI*MB*MB*MB);
+double MPll::F(double q2) {
+    return sqrt(lambda(q2))*beta(q2)*q2/(96.*M_PI*M_PI*M_PI*MM*MM*MM);
 }
 
-double MPll::I(int i, double q2, int bar, double Mlep) {
+double MPll::I(int i, double q2, int bar) {
 
     double Mlep2 = Mlep*Mlep;
-    double beta2 = beta(q2,Mlep)*beta(q2,Mlep);
+    double beta2 = beta(q2)*beta(q2);
     
 
     switch (i){
         case 0: // I1c
-            return F(q2,Mlep)*( ( H_V(q2,bar).abs2() + H_A(q2,bar).abs2() )/2.  +  H_P(q2,bar,Mlep).abs2()  +  2.*Mlep2/q2*( H_V(q2,bar).abs2() 
+            return F(q2)*( ( H_V(q2,bar).abs2() + H_A(q2,bar).abs2() )/2.  +  H_P(q2,bar).abs2()  +  2.*Mlep2/q2*( H_V(q2,bar).abs2() 
                     - H_A(q2,bar).abs2() )  + beta2*H_S(q2,bar).abs2() );
         case 2: // I2c
-            return -F(q2,Mlep)*beta2/2.*( H_V(q2,bar).abs2() + H_A(q2,bar).abs2() );
+            return -F(q2)*beta2/2.*( H_V(q2,bar).abs2() + H_A(q2,bar).abs2() );
         case 8: // I6c
-            return 2.*F(q2,Mlep)*beta(q2,Mlep)*Mlep/sqrt(q2)*( H_S(q2,bar).conjugate()*H_V(q2,bar) ).real();
+            return 2.*F(q2)*beta(q2)*Mlep/sqrt(q2)*( H_S(q2,bar).conjugate()*H_V(q2,bar) ).real();
         default:
             std::stringstream out;
             out << i;
@@ -485,15 +453,15 @@ double MPll::I(int i, double q2, int bar, double Mlep) {
     }
 }
 
-double MPll::Sigma(int i, double q2, double Mlep) {
-    return (I(i, q2, 0, Mlep) + I(i, q2, 1, Mlep))/2.;
+double MPll::Sigma(int i, double q2) {
+    return (I(i, q2, 0) + I(i, q2, 1))/2.;
 }
 
-double MPll::Delta(int i, double q2, double Mlep) {
-    return (I(i, q2, 0, Mlep) - I(i, q2, 1, Mlep))/2.;
+double MPll::Delta(int i, double q2) {
+    return (I(i, q2, 0) - I(i, q2, 1))/2.;
 }
 
-double MPll::integrateSigma_e(int i, double q_min, double q_max){
+double MPll::integrateSigma(int i, double q_min, double q_max){
     
     if (mySM.getMyFlavour()->getUpdateFlag()){
         updateParameters();
@@ -504,22 +472,22 @@ double MPll::integrateSigma_e(int i, double q_min, double q_max){
     
     switch(i){
         case 0:
-            if (sigma0eCached[qbin] == 0) {
-                FS0e = convertToGslFunction( boost::bind( &MPll::getSigma0e, &(*this), _1 ) );
-                gsl_integration_qags (&FS0e, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma0e, &avaSigma0e, &errSigma0e);
-                cacheSigma0e[qbin] = avaSigma0e;
-                sigma0eCached[qbin] = 1;
+            if (sigma0Cached[qbin] == 0) {
+                FS0 = convertToGslFunction( boost::bind( &MPll::getSigma0, &(*this), _1 ) );
+                gsl_integration_qags (&FS0, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma0, &avaSigma0, &errSigma0);
+                cacheSigma0[qbin] = avaSigma0;
+                sigma0Cached[qbin] = 1;
             }
-            return cacheSigma0e[qbin];
+            return cacheSigma0[qbin];
             break;
         case 2:
-            if (sigma2eCached[qbin] == 0) {
-                FS2e = convertToGslFunction( boost::bind( &MPll::getSigma2e, &(*this), _1 ) );
-                gsl_integration_qags (&FS2e, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma2e, &avaSigma2e, &errSigma2e);
-                cacheSigma2e[qbin] = avaSigma2e;
-                sigma2eCached[qbin] = 1;
+            if (sigma2Cached[qbin] == 0) {
+                FS2 = convertToGslFunction( boost::bind( &MPll::getSigma2, &(*this), _1 ) );
+                gsl_integration_qags (&FS2, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma2, &avaSigma2, &errSigma2);
+                cacheSigma2[qbin] = avaSigma2;
+                sigma2Cached[qbin] = 1;
             }
-            return cacheSigma2e[qbin];
+            return cacheSigma2[qbin];
             break;
         default:
             std::stringstream out;
@@ -529,7 +497,7 @@ double MPll::integrateSigma_e(int i, double q_min, double q_max){
     
 }
 
-double MPll::integrateDelta_e(int i, double q_min, double q_max){
+double MPll::integrateDelta(int i, double q_min, double q_max){
     
     if (mySM.getMyFlavour()->getUpdateFlag()){
         updateParameters();
@@ -539,182 +507,26 @@ double MPll::integrateDelta_e(int i, double q_min, double q_max){
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
     switch(i){
         case 0:
-            if (delta0eCached[qbin] == 0) {
-                FD0e = convertToGslFunction( boost::bind( &MPll::getDelta0e, &(*this), _1 ) );
-                gsl_integration_qags (&FD0e, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta0e, &avaDelta0e, &errDelta0e);
-                cacheDelta0e[qbin] = avaDelta0e;
-                delta0eCached[qbin] = 1;
+            if (delta0Cached[qbin] == 0) {
+                FD0 = convertToGslFunction( boost::bind( &MPll::getDelta0, &(*this), _1 ) );
+                gsl_integration_qags (&FD0, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta0, &avaDelta0, &errDelta0);
+                cacheDelta0[qbin] = avaDelta0;
+                delta0Cached[qbin] = 1;
             }
-            return cacheDelta0e[qbin];
+            return cacheDelta0[qbin];
             break;
         case 2:
-            if (delta2eCached[qbin] == 0) {
-                FD2e = convertToGslFunction( boost::bind( &MPll::getDelta2e, &(*this), _1 ) );
-                gsl_integration_qags (&FD2e, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta2e, &avaDelta2e, &errDelta2e);
-                cacheDelta2e[qbin] = avaDelta2e;
-                delta2eCached[qbin] = 1;
+            if (delta2Cached[qbin] == 0) {
+                FD2 = convertToGslFunction( boost::bind( &MPll::getDelta2, &(*this), _1 ) );
+                gsl_integration_qags (&FD2, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta2, &avaDelta2, &errDelta2);
+                cacheDelta2[qbin] = avaDelta2;
+                delta2Cached[qbin] = 1;
             }
-            return cacheDelta2e[qbin];
+            return cacheDelta2[qbin];
             break;
         default:
             std::stringstream out;
             out << i;
             throw std::runtime_error("integrateDelta_e: index " + out.str() + " not implemented"); 
     }
-}
-
-double MPll::integrateSigma_mu(int i, double q_min, double q_max){
-    
-    if (mySM.getMyFlavour()->getUpdateFlag()){
-        updateParameters();
-        mySM.getMyFlavour()->setUpdateFlag(false);
-    }
-    
-    std::pair<double, double > qbin = std::make_pair(q_min, q_max);
-    
-    switch(i){
-        case 0:
-            if (sigma0muCached[qbin] == 0) {
-                FS0mu = convertToGslFunction( boost::bind( &MPll::getSigma0mu, &(*this), _1 ) );
-                gsl_integration_qags (&FS0mu, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma0mu, &avaSigma0mu, &errSigma0mu);
-                cacheSigma0mu[qbin] = avaSigma0mu;
-                sigma0muCached[qbin] = 1;
-            }
-            return cacheSigma0mu[qbin];
-            break;
-        case 2:
-            if (sigma2muCached[qbin] == 0) {
-                FS2mu = convertToGslFunction( boost::bind( &MPll::getSigma2mu, &(*this), _1 ) );
-                gsl_integration_qags (&FS2mu, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma2mu, &avaSigma2mu, &errSigma2mu);
-                cacheSigma2mu[qbin] = avaSigma2mu;
-                sigma2muCached[qbin] = 1;
-            }
-            return cacheSigma2mu[qbin];
-            break;
-        default:
-            std::stringstream out;
-            out << i;
-            throw std::runtime_error("MVll::integrateSigma_mu: index " + out.str() + " not implemented");
-    }
-    
-}
-
-double MPll::integrateDelta_mu(int i, double q_min, double q_max){
-    
-    if (mySM.getMyFlavour()->getUpdateFlag()){
-        updateParameters();
-        mySM.getMyFlavour()->setUpdateFlag(false);
-    }
-        
-    std::pair<double, double > qbin = std::make_pair(q_min, q_max);
-    switch(i){
-        case 0:
-            if (delta0muCached[qbin] == 0) {
-                FD0mu = convertToGslFunction( boost::bind( &MPll::getDelta0mu, &(*this), _1 ) );
-                gsl_integration_qags (&FD0mu, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta0mu, &avaDelta0mu, &errDelta0mu);
-                cacheDelta0mu[qbin] = avaDelta0mu;
-                delta0muCached[qbin] = 1;
-            }
-            return cacheDelta0mu[qbin];
-            break;
-        case 2:
-            if (delta2muCached[qbin] == 0) {
-                FD2mu = convertToGslFunction( boost::bind( &MPll::getDelta2mu, &(*this), _1 ) );
-                gsl_integration_qags (&FD2mu, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta2mu, &avaDelta2mu, &errDelta2mu);
-                cacheDelta2mu[qbin] = avaDelta2mu;
-                delta2muCached[qbin] = 1;
-            }
-            return cacheDelta2mu[qbin];
-            break;
-        default:
-            std::stringstream out;
-            out << i;
-            throw std::runtime_error("integrateDelta_mu: index " + out.str() + " not implemented"); 
-    }
-}
-/*******************************************************************************
- * Observables                                                                 *
- * ****************************************************************************/
-
-
-BR_MPll_e::BR_MPll_e(const StandardModel& SM_i) : MPll(SM_i) {  
-}
-
-double BR_MPll_e::computeBR_MPll_e(double qmin, double qmax) {
-    
-    double q_min = qmin;
-    double q_max = qmax;
-    
-    return (3.*integrateSigma_e(0,q_min,q_max) - integrateSigma_e(2,q_min,q_max))/(4. * width_Bd);
-}
-
-double BR_MPll_e::computeThValue(){
-    
-    updateParameters();
-    
-    double q_min = getBinMin();
-    double q_max = getBinMax();
-    
-    return computeBR_MPll_e(q_min, q_max);
-}
-
-BR_MPll_mu::BR_MPll_mu(const StandardModel& SM_i) : BR_MPll_e(SM_i) {  
-}
-
-double BR_MPll_mu::computeBR_MPll_mu(double qmin, double qmax) {
-    
-    double q_min = qmin;
-    double q_max = qmax;
-    
-    return (3.*integrateSigma_mu(0,q_min,q_max) - integrateSigma_mu(2,q_min,q_max))/(4. * width_Bd);
-}
-
-double BR_MPll_mu::computeThValue(){
-    
-    updateParameters();
-    
-    double q_min = getBinMin();
-    double q_max = getBinMax();
-    
-    return computeBR_MPll_mu(q_min, q_max);
-}
-
-
-R_MPll::R_MPll(const StandardModel& SM_i) : BR_MPll_mu(SM_i) {  
-}
-
-double R_MPll::computeThValue() {
-    
-    updateParameters();
-    
-    double q_min = getBinMin();
-    double q_max = getBinMax();
-    
-    return computeBR_MPll_e(q_min, q_max)/computeBR_MPll_mu(q_min, q_max);
-}
-
-ACP_e::ACP_e(const StandardModel& SM_i) : BR_MPll_e(SM_i){
-}
-
-double ACP_e::computeThValue() {
-    
-    updateParameters();
-    
-    double q_min = getBinMin();
-    double q_max = getBinMax();
-    
-    return (3.*integrateDelta_e(0, q_min, q_max) - integrateDelta_e(2, q_min, q_max))/(4.*computeBR_MPll_e(q_min, q_max)* width_Bd);
-}
-
-ACP_mu::ACP_mu(const StandardModel& SM_i) : BR_MPll_mu(SM_i){
-}
-
-double ACP_mu::computeThValue() {
-    
-    updateParameters();
-    
-    double q_min = getBinMin();
-    double q_max = getBinMax();
-    
-    return (3.*integrateDelta_mu(0, q_min, q_max) - integrateDelta_mu(2, q_min, q_max))/(4.*computeBR_MPll_e(q_min, q_max)* width_Bd);
 }

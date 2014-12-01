@@ -9,8 +9,6 @@
 #define	MPLL_H
 
 #include <math.h>
-#include "Flavour.h"
-#include "MVll.h"
 #include <StandardModel.h>
 #include <ThObservable.h>
 #include <gsl/gsl_integration.h>
@@ -27,23 +25,21 @@
  * @copyright GNU General Public License
  * @details 
  */
-class MPll : public ThObservable {
+class MPll{
 public:
-    MPll(const StandardModel& SM_i);
+    MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i);
     virtual ~MPll();
     void updateParameters();
     void checkCache();
-    virtual double computeThValue()=0;
     
     double GF;            //Fermi constant
     double ale;           //alpha electromagnetic
-    double Me;            //electron mass
-    double Mmu;           //muon mass
-    double MB;            //B meson mass
-    double MK;            //K star meson mass
+    double Mlep;          //muon mass
+    double MM;            //initial meson mass
+    double MP;            //final pseudoscalar meson mass
     double Mb;            //b quark mass
     double mu_b;          //b mass scale
-    double width_Bd;      //B meson width
+    double width;         //initial meson width
     double Ms;            //s quark mass
     double MW;            //W boson mass
     complex lambda_t;     //Vckm factor
@@ -186,10 +182,9 @@ public:
     * @brief \f$ H_P \f$ 
     * @param[in] q2 q^2 of the decay
     * @param[in] bar index to choose betwen regular coefficient (bar=0) and conjugated coefficient (bar=1)
-    * @param[in] Mlep mass of the lepton
     * @return return the helicity amplitude H_P
     */
-    gslpp::complex H_P(double q2, int bar, double Mlep);
+    gslpp::complex H_P(double q2, int bar);
     
     
     /**
@@ -203,10 +198,9 @@ public:
     /**
     * @brief \f$ beta \f$ 
     * @param[in] q2 q^2 of the decay
-    * @param[in] Mlep mass of the lepton
     * @return return the factor beta used in the angular coefficients I_i
     */
-    double beta (double q2, double Mlep);
+    double beta (double q2);
     
     
     /**
@@ -220,10 +214,9 @@ public:
     /**
     * @brief \f$ F \f$ 
     * @param[in] q2 q^2 of the decay
-    * @param[in] Mlep mass of the lepton
     * @return return the factor F used in the angular coefficients I_i
     */
-    double F(double q2, double Mlep);
+    double F(double q2);
     
     
     /**
@@ -239,101 +232,62 @@ public:
     * @param[in] i index of the angular coefficient
     * @param[in] q2 q^2 of the decay
     * @param[in] bar index to choose betwen regular coefficient (bar=0) and conjugated coefficient (bar=1)
-    * @param[in] Mlep mass of the lepton
     * @return return the angular coefficient I_i
     */
-    double  I(int i, double q2, int bar, double Mlep);
+    double  I(int i, double q2, int bar);
     
     
     /**
     * @brief \f$ Sigma_{i} \f$ 
     * @param[in] i index of the angular coefficient I_i
     * @param[in] q2 q^2 of the decay
-    * @param[in] Mlep mass of the lepton
     * @return return the CP average Sigma_i
     */
-    double Sigma(int i, double q2, double Mlep);
+    double Sigma(int i, double q2);
     
     
     /**
     * @brief \f$ Delta_{i} \f$ 
     * @param[in] i index of the angular coefficient I_i
     * @param[in] q2 q^2 of the decay
-    * @param[in] Mlep mass of the lepton
     * @return return the CP asymmetry Delta_i
     */
-    double Delta(int i, double q2, double Mlep);
+    double Delta(int i, double q2);
     
     /**
-    * @brief \f$ Sigma_{1s} \f$ 
+    * @brief \f$ Sigma_{1c} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP average Sigma_1c for electron channel
+    * @return return the CP average Sigma_1c
     */
-    double getSigma0e(double q2){
-        return Sigma(0, q2, Me);
+    double getSigma0(double q2){
+        return Sigma(0, q2);
     };
     
     /**
-    * @brief \f$ Sigma_{1s} \f$ 
+    * @brief \f$ Sigma_{2c} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP average Sigma_1c for muon channel
+    * @return return the CP average Sigma_2c
     */
-    double getSigma0mu(double q2){
-        return Sigma(0, q2, Mmu);
+    double getSigma2(double q2){
+        return Sigma(2, q2);
     };
     
     /**
-    * @brief \f$ Sigma_{2s} \f$ 
+    * @brief \f$ Delta_{1c} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP average Sigma_2c for electron channel
+    * @return return the CP asymmetry Delta_1c
     */
-    double getSigma2e(double q2){
-        return Sigma(2, q2, Me);
+    double getDelta0(double q2){
+        return Delta(0, q2);
     };
     
     /**
-    * @brief \f$ Sigma_{2s} \f$ 
+    * @brief \f$ Delta_{2c} \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the CP average Sigma_2c for muon channel
-    */
-    double getSigma2mu(double q2){
-        return Sigma(2, q2, Mmu);
-    };
-    
-    /**
-    * @brief \f$ Delta_{1s} \f$ 
-    * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_1c for electron channel
-    */
-    double getDelta0e(double q2){
-        return Delta(0, q2, Me);
-    };
-    
-    /**
-    * @brief \f$ Delta_{1s} \f$ 
-    * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_1c for muon channel
-    */
-    double getDelta0mu(double q2){
-        return Delta(0, q2, Mmu);
-    };
-    
-    /**
-    * @brief \f$ Delta_{2s} \f$ 
-    * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_2c for electron channel
+    * @return return the CP asymmetry Delta_2c
     */    
-    double getDelta2e(double q2){
-        return Delta(2, q2, Me);
-    };
-    
-    /**
-    * @brief \f$ Delta_{2s} \f$ 
-    * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_2c for muon channel
-    */    
-    double getDelta2mu(double q2){
-        return Delta(2, q2, Mmu);
+    double getDelta2(double q2){
+        return Delta(2, q2);
     };
     
     /**
@@ -343,7 +297,7 @@ public:
     * @param[in] q_max maximum q^2 of the integral
     * @return return the CP average integral of Sigma_i from q_min to q_max
     */
-    double integrateSigma_e(int i, double q_min, double q_max);
+    double integrateSigma(int i, double q_min, double q_max);
     
     /**
     * @brief \f$ <Delta_{i}> \f$ 
@@ -352,30 +306,14 @@ public:
     * @param[in] q_max maximum q^2 of the integral
     * @return return the CP average integral of Delta_i from q_min to q_max
     */
-    double integrateDelta_e(int i, double q_min, double q_max);
-    
-    /**
-    * @brief \f$ <Sigma_{i}> \f$ 
-    * @param[in] i index of the angular coefficient I_i
-    * @param[in] q_min minimum q^2 of the integral
-    * @param[in] q_max maximum q^2 of the integral
-    * @return return the CP average integral of Sigma_i from q_min to q_max
-    */
-    double integrateSigma_mu(int i, double q_min, double q_max);
-    
-    /**
-    * @brief \f$ <Delta_{i}> \f$ 
-    * @param[in] i index of the angular coefficient I_i
-    * @param[in] q_min minimum q^2 of the integral
-    * @param[in] q_max maximum q^2 of the integral
-    * @return return the CP average integral of Delta_i from q_min to q_max
-    */
-    double integrateDelta_mu(int i, double q_min, double q_max);
+    double integrateDelta(int i, double q_min, double q_max);
     
 
 private:
     const StandardModel& mySM;
-    int iter;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson pseudoscalar;
     
     unsigned int fplus_updated;
     gslpp::vector<double> fplus_cache;
@@ -389,15 +327,13 @@ private:
     unsigned int k2_updated;
     gslpp::vector<double> k2_cache;
     
-    unsigned int beta_e_updated;
-    unsigned int beta_mu_updated;
-    gslpp::vector<double> beta_cache;
+    unsigned int beta_updated;
+    double beta_cache;
     
     unsigned int lambda_updated;
     double lambda_cache;
     
-    unsigned int F_e_updated;
-    unsigned int F_mu_updated;
+    unsigned int F_updated;
     
     unsigned int VL_updated;
     
@@ -455,239 +391,49 @@ private:
     unsigned int H_Supdated;
     gslpp::vector<double> H_Scache;
     
-    unsigned int H_Pe_updated;
-    gslpp::vector<double> H_Pe_cache;
+    unsigned int H_P_updated;
+    gslpp::vector<double> H_P_cache;
     
-    unsigned int H_Pmu_updated;
-    gslpp::vector<double> H_Pmu_cache;
+    unsigned int I0_updated;
+    unsigned int I2_updated;
+    unsigned int I8_updated;
     
-    unsigned int I0e_updated;
-    unsigned int I2e_updated;
-    unsigned int I8e_updated;
+    std::map<std::pair<double, double>, unsigned int > sigma0Cached;
+    std::map<std::pair<double, double>, unsigned int > sigma2Cached;
     
+    std::map<std::pair<double, double>, unsigned int > delta0Cached;
+    std::map<std::pair<double, double>, unsigned int > delta2Cached;
     
-    unsigned int I0mu_updated;
-    unsigned int I2mu_updated;
-    unsigned int I8mu_updated;
+    double avaSigma0;
+    double avaSigma2;
     
-    std::map<std::pair<double, double>, unsigned int > sigma0eCached;
-    std::map<std::pair<double, double>, unsigned int > sigma2eCached;
+    double errSigma0;
+    double errSigma2;
     
-    std::map<std::pair<double, double>, unsigned int > delta0eCached;
-    std::map<std::pair<double, double>, unsigned int > delta2eCached;
+    double avaDelta0;
+    double avaDelta2;
     
-    std::map<std::pair<double, double>, unsigned int > sigma0muCached;
-    std::map<std::pair<double, double>, unsigned int > sigma2muCached;
+    double errDelta0;
+    double errDelta2;
     
-    std::map<std::pair<double, double>, unsigned int > delta0muCached;
-    std::map<std::pair<double, double>, unsigned int > delta2muCached;
+    gsl_function FS0;
+    gsl_function FS2;
     
-    double avaSigma0e;
-    double avaSigma2e;
+    gsl_function FD0;
+    gsl_function FD2;
     
-    double errSigma0e;
-    double errSigma2e;
+    gsl_integration_workspace * w_sigma0;
+    gsl_integration_workspace * w_sigma2;
     
-    double avaDelta0e;
-    double avaDelta2e;
+    gsl_integration_workspace * w_delta0;
+    gsl_integration_workspace * w_delta2;
     
-    double errDelta0e;
-    double errDelta2e;
+    std::map<std::pair<double, double>, double > cacheSigma0;
+    std::map<std::pair<double, double>, double > cacheSigma2;
     
-    double avaSigma0mu;
-    double avaSigma2mu;
+    std::map<std::pair<double, double>, double > cacheDelta0;
+    std::map<std::pair<double, double>, double > cacheDelta2;
     
-    double errSigma0mu;
-    double errSigma2mu;
-    
-    double avaDelta0mu;
-    double avaDelta2mu;
-    
-    double errDelta0mu;
-    double errDelta2mu;
-    
-    gsl_function FS0e;
-    gsl_function FS2e;
-    
-    gsl_function FD0e;
-    gsl_function FD2e;
-    
-    gsl_function FS0mu;
-    gsl_function FS2mu;
-    
-    gsl_function FD0mu;
-    gsl_function FD2mu;
-    
-    gsl_integration_workspace * w_sigma0e;
-    gsl_integration_workspace * w_sigma2e;
-    
-    gsl_integration_workspace * w_delta0e;
-    gsl_integration_workspace * w_delta2e;
-    
-    gsl_integration_workspace * w_sigma0mu;
-    gsl_integration_workspace * w_sigma2mu;
-    
-    gsl_integration_workspace * w_delta0mu;
-    gsl_integration_workspace * w_delta2mu;
-    
-    std::map<std::pair<double, double>, double > cacheSigma0e;
-    std::map<std::pair<double, double>, double > cacheSigma2e;
-    
-    std::map<std::pair<double, double>, double > cacheDelta0e;
-    std::map<std::pair<double, double>, double > cacheDelta2e;
-    
-    std::map<std::pair<double, double>, double > cacheSigma0mu;
-    std::map<std::pair<double, double>, double > cacheSigma2mu;
-    
-    std::map<std::pair<double, double>, double > cacheDelta0mu;
-    std::map<std::pair<double, double>, double > cacheDelta2mu;
-    
-};
-
-
-
-/**
- * @class Branching Fraction for electron channel
- * @ingroup flavour
- * @brief A class for the clean observable BR_e. 
- * @author SusyFit Collaboration
- * @copyright GNU General Public License
- * @details 
- */
-class BR_MPll_e : public MPll{
-public:
-    
-    /**
-    * @brief \f$ BR_e \f$ 
-    */
-    BR_MPll_e(const StandardModel& SM_i);
-    
-    /**
-    * @return return the clean observable BR_e
-    */
-    double computeBR_MPll_e(double qmin, double qmax);
-    double computeThValue ();
-    
-protected:
-    
-    
-private:
-    gsl_function F1, F2;
-    double avaSigma0, errSigma0, avaSigma2, errSigma2;
-};
-
-
-/**
- * @class Branching Fraction for muon channel
- * @ingroup flavour
- * @brief A class for the clean observable BR_mu. 
- * @author SusyFit Collaboration
- * @copyright GNU General Public License
- * @details 
- */
-class BR_MPll_mu : public BR_MPll_e{
-public:
-    
-    /**
-    * @brief \f$ BR_mu \f$ 
-    */
-    BR_MPll_mu(const StandardModel& SM_i);
-    
-    /**
-    * @return return the clean observable BR_mu
-    */
-    double computeBR_MPll_mu(double qmin, double qmax);
-    double computeThValue ();
-    
-protected:
-    
-    
-private:
-    gsl_function F1, F2;
-    double avaSigma0, errSigma0, avaSigma2, errSigma2;
-};
-
-
-/**
- * @class ratio between BR for electron and muon channels
- * @ingroup flavour
- * @brief A class for the Branching Fraction ratio. 
- * @author SusyFit Collaboration
- * @copyright GNU General Public License
- * @details 
- */
-class R_MPll : public BR_MPll_mu{
-public:
-    
-    /**
-    * @brief \f$ BR_e/BR_mu \f$ 
-    */
-    R_MPll(const StandardModel& SM_i);
-    
-    /**
-    * @return the ratio between branching fractions of \f$ B\to K e^+ e^- \f$ and \f$ B\to K \mu^+ \mu^- \f$
-    */
-    double computeThValue ();
-};
-
-
-/**
- * @class ACP for electron channel
- * @ingroup flavour
- * @brief A class for the clean observable ACP_e. 
- * @author SusyFit Collaboration
- * @copyright GNU General Public License
- * @details 
- */
-class ACP_e : public BR_MPll_e{
-public:
-    
-    /**
-    * @brief \f$ A_{CP} \f$ 
-    */
-    ACP_e(const StandardModel& SM_i);
-    
-    /**
-    * @return return the clean observable ACP_e
-    */
-    double computeThValue ();
-    
-protected:
-    
-    
-private:
-    gsl_function F1, F2;
-    double avaDelta0, errDelta0, avaDelta2, errDelta2;
-};
-
-
-/**
- * @class ACP for muon channel
- * @ingroup flavour
- * @brief A class for the clean observable ACP_mu. 
- * @author SusyFit Collaboration
- * @copyright GNU General Public License
- * @details 
- */
-class ACP_mu : public BR_MPll_mu{
-public:
-    
-    /**
-    * @brief \f$ A_{CP} \f$ 
-    */
-    ACP_mu(const StandardModel& SM_i);
-    
-    /**
-    * @return return the clean observable ACP_mu
-    */
-    double computeThValue ();
-    
-protected:
-    
-    
-private:
-    gsl_function F1, F2;
-    double avaDelta0, errDelta0, avaDelta2, errDelta2;
 };
 
 #endif	/* MPLL_H */

@@ -270,13 +270,13 @@ private:
  * @copyright GNU General Public License
  * @details 
  */
-class BR_BKstarll : public GammaPrime{
+class BR_MVll : public GammaPrime{
 public:
     
     /**
     * @brief \f$B\to K^* l^+l^-\f$ 
     */
-    BR_BKstarll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    BR_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
     * @return the branching fraction of \f$B\to K^* l^+l^-\f$
@@ -300,13 +300,13 @@ private:
  * @copyright GNU General Public License
  * @details 
  */
-class ACP : public GammaPrime{
+class ACP_MVll : public GammaPrime{
 public:
     
     /**
     * @brief \f$ A_{CP} \f$ 
     */
-    ACP(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    ACP_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
     * @return return the clean observable ACP
