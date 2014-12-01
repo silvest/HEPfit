@@ -8,12 +8,8 @@
 #ifndef MVGAMMA_H
 #define	MVGAMMA_H
 
-#include <math.h>
 #include <StandardModel.h>
 #include <ThObservable.h>
-#include <gsl/gsl_math.h>
-#include <gsl/gsl_integration.h>
-#include <assert.h>
 
 
 

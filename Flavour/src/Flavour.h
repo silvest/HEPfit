@@ -14,6 +14,7 @@
 #include "HeffDB1.h"
 #include "MVll.h"
 #include "MPll.h"
+#include <boost/tuple/tuple.hpp>
 
 using namespace gslpp;
 
@@ -27,11 +28,17 @@ public:
     {
         myMVll_BdKstarmu = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
         myMVll_BdKstarel = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON);
-        myMVll_Bsphimu = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
-        myMVll_Bsphiel = new MVll(SM_i, StandardModel::B_D, StandardModel::K_star, StandardModel::ELECTRON);
+        myMVll_Bsphimu = new MVll(SM_i, StandardModel::B_S, StandardModel::PHI, StandardModel::MU);
+        myMVll_Bsphiel = new MVll(SM_i, StandardModel::B_S, StandardModel::PHI, StandardModel::ELECTRON);
         myMPll_BdKmu = new MPll(SM_i, StandardModel::B_D, StandardModel::K_0, StandardModel::MU);
         myMPll_BdKel = new MPll(SM_i, StandardModel::B_D, StandardModel::K_0, StandardModel::ELECTRON);
-        updated = true;
+        
+        update_BdKstarmu = true;
+        update_BdKstarel = true;
+        update_Bsphimu = true;
+        update_Bsphiel = true;
+        update_BdKmu = true;
+        update_BdKel = true;
     };
     
     const HeffDF2& getHDF2() const {
@@ -106,8 +113,8 @@ public:
     MVll* getMVll(StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) {
         if (meson_i == StandardModel::B_D && vector_i == StandardModel::K_star && lep_i == StandardModel::MU) return myMVll_BdKstarmu;
         if (meson_i == StandardModel::B_D && vector_i == StandardModel::K_star && lep_i == StandardModel::ELECTRON) return myMVll_BdKstarel;
-        if (meson_i == StandardModel::B_S && vector_i == StandardModel::PHI && lep_i == StandardModel::MU) return myMVll_BdKstarmu;
-        if (meson_i == StandardModel::B_S && vector_i == StandardModel::PHI && lep_i == StandardModel::ELECTRON) return myMVll_BdKstarel;
+        if (meson_i == StandardModel::B_S && vector_i == StandardModel::PHI && lep_i == StandardModel::MU) return myMVll_Bsphimu;
+        if (meson_i == StandardModel::B_S && vector_i == StandardModel::PHI && lep_i == StandardModel::ELECTRON) return myMVll_Bsphiel;
         else throw std::runtime_error("Flavour: Decay channel not implemented.");
     }
     
@@ -117,12 +124,33 @@ public:
         else throw std::runtime_error("Flavour: Decay channel not implemented.");
     }
     
-    void setUpdateFlag(bool updated_i){
-        updated = updated_i;
+    void setUpdateFlag(StandardModel::meson meson_i, StandardModel::meson meson_j, StandardModel::lepton lep_i, bool updated_i){
+        if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::MU) {update_BdKstarmu = updated_i; return;}
+        if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::ELECTRON) {update_BdKstarel = updated_i; return;}
+        if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::MU) {update_Bsphimu = updated_i; return;}
+        if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::ELECTRON) {update_Bsphiel = updated_i; return;}
+        if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_0 && lep_i == StandardModel::MU) {update_BdKmu = updated_i; return;}
+        if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_0 && lep_i == StandardModel::ELECTRON) {update_BdKel = updated_i; return;}
+        else throw std::runtime_error("Flavour: Wrong update flag requested.");
     }
     
-    bool getUpdateFlag(){
-        return updated;
+    bool getUpdateFlag(StandardModel::meson meson_i, StandardModel::meson meson_j, StandardModel::lepton lep_i){
+        if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::MU) return update_BdKstarmu;
+        if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_star && lep_i == StandardModel::ELECTRON) return update_BdKstarel;
+        if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::MU) return update_Bsphimu;
+        if (meson_i == StandardModel::B_S && meson_j == StandardModel::PHI && lep_i == StandardModel::ELECTRON) return update_Bsphiel;
+        if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_0 && lep_i == StandardModel::MU) return update_BdKmu;
+        if (meson_i == StandardModel::B_D && meson_j == StandardModel::K_0 && lep_i == StandardModel::ELECTRON) return update_BdKel;
+        else throw std::runtime_error("Flavour: Wrong update flag requested.");
+    }
+    
+    void setSMupdated(){
+        update_BdKstarmu = true;
+        update_BdKstarel = true;
+        update_Bsphimu = true;
+        update_Bsphiel = true;
+        update_BdKmu = true;
+        update_BdKel = true;
     }
     
 private:
@@ -136,7 +164,12 @@ private:
     MVll* myMVll_Bsphiel;
     MPll* myMPll_BdKmu;
     MPll* myMPll_BdKel;
-    bool updated;
+    bool update_BdKstarmu;
+    bool update_BdKstarel;
+    bool update_Bsphimu;
+    bool update_Bsphiel;
+    bool update_BdKmu;
+    bool update_BdKel;
 };
 
 #endif	/* FLAVOUR_H */

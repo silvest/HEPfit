@@ -7,8 +7,6 @@
 
 #include "Flavour.h"
 #include "MVgamma.h"
-#include <gslpp_complex.h>
-#include <boost/bind.hpp>
 
 
 MVgamma::MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i) : ThObservable(SM_i), mySM(SM_i){

@@ -463,9 +463,9 @@ double MPll::Delta(int i, double q2) {
 
 double MPll::integrateSigma(int i, double q_min, double q_max){
     
-    if (mySM.getMyFlavour()->getUpdateFlag()){
+    if (mySM.getMyFlavour()->getUpdateFlag(meson, pseudoscalar, lep)){
         updateParameters();
-        mySM.getMyFlavour()->setUpdateFlag(false);
+        mySM.getMyFlavour()->setUpdateFlag(meson, pseudoscalar, lep, false);
     }
     
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
@@ -499,9 +499,9 @@ double MPll::integrateSigma(int i, double q_min, double q_max){
 
 double MPll::integrateDelta(int i, double q_min, double q_max){
     
-    if (mySM.getMyFlavour()->getUpdateFlag()){
+    if (mySM.getMyFlavour()->getUpdateFlag(meson, pseudoscalar, lep)){
         updateParameters();
-        mySM.getMyFlavour()->setUpdateFlag(false);
+        mySM.getMyFlavour()->setUpdateFlag(meson, pseudoscalar, lep, false);
     }
         
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
