@@ -98,7 +98,7 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Misiak basis, Chetyrkin et al hep-ph/9612313
      */
-    vector<complex>** ComputeCoeffBKstarll(double mu, schemes scheme = NDR);
+    vector<complex>** ComputeCoeffBMll(double mu, schemes scheme = NDR);
     
     /**
      * 
@@ -106,7 +106,7 @@ public:
      * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Misiak basis, Chetyrkin et al hep-ph/9612313
      */
-    vector<complex>** ComputeCoeffprimeBKstarll(double mu, schemes scheme = NDR);
+    vector<complex>** ComputeCoeffprimeBMll(double mu, schemes scheme = NDR);
     
     WilsonCoefficient getCoeffnlep00() const {
         return coeffnlep00;
@@ -144,8 +144,8 @@ public:
         return u;
     }
     
-    EvolDF1bsg getUDF1BKstarll() const {
-        return evolDF1BKstarll;
+    EvolDF1bsg getUDF1BMll() const {
+        return evolDF1BMll;
     }
 
     const StandardModel& GetModel() const {
@@ -161,21 +161,21 @@ private :
     WilsonCoefficient coeffnlep11, coeffnlep11A, coeffnlep11B, coeffnlep10CC;
     WilsonCoefficient coeffsmumu, coeffdmumu;
     WilsonCoefficient coeffsnunu, coeffdnunu;
-    WilsonCoefficient coeffBKstarll, coeffprimeBKstarll;
-    EvolDF1bsg evolDF1BKstarll;
+    WilsonCoefficient coeffBMll, coeffprimeBMll;
+    EvolDF1bsg evolDF1BMll;
     EvolDF1nlep u;
     
     //StandardModelMatching& standardmodelmatching;
     
-    double BKstarll_mu_cache;
-    std::vector<double> BKstarll_Mu_cache;
-    schemes BKstarll_scheme_cache;
-    std::vector<WilsonCoefficient> BKstarll_WC_cache;
+    double BMll_mu_cache;
+    std::vector<double> BMll_Mu_cache;
+    schemes BMll_scheme_cache;
+    std::vector<WilsonCoefficient> BMll_WC_cache;
     
-    double BKstarllprime_mu_cache;
-    std::vector<double> BKstarllprime_Mu_cache;
-    schemes BKstarllprime_scheme_cache;
-    std::vector<WilsonCoefficient> BKstarllprime_WC_cache;
+    double BMllprime_mu_cache;
+    std::vector<double> BMllprime_Mu_cache;
+    schemes BMllprime_scheme_cache;
+    std::vector<WilsonCoefficient> BMllprime_WC_cache;
     
     gslpp::vector<complex> nlep, nlep2, nlepCC;
 };

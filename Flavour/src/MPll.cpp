@@ -79,8 +79,8 @@ void MPll::updateParameters(){
     
     b = 1.;                           //please check
     
-    allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
-    allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
+    allcoeff = mySM.getMyFlavour()->ComputeCoeffBMll(mu_b);   //check the mass scale, scheme fixed to NDR
+    allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBMll(mu_b);   //check the mass scale, scheme fixed to NDR
 
     C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
     C_9 = (*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8);

@@ -58,8 +58,8 @@ void MVgamma::updateParameters(){
     h[0]=mySM.geth_p();    //h_plus
     h[1]=mySM.geth_m();    //h_minus
     
-    allcoeff = mySM.getMyFlavour()->ComputeCoeffBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
-    allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBKstarll(mu_b);   //check the mass scale, scheme fixed to NDR
+    allcoeff = mySM.getMyFlavour()->ComputeCoeffBMll(mu_b);   //check the mass scale, scheme fixed to NDR
+    allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBMll(mu_b);   //check the mass scale, scheme fixed to NDR
     
     C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
     C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);

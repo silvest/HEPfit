@@ -23,8 +23,8 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mck(10, NDR, NLO),
         mckcc(10, NDR, NLO),
         mcbsg(10, NDR, NLO),
-        mcBKstarll(13, NDR, NLO),
-        mcprimeBKstarll(13, NDR, NLO),
+        mcBMll(13, NDR, NLO),
+        mcprimeBMll(13, NDR, NLO),
         mcbnlep(10, NDR, NLO, NLO_ew),
         mcbnlepCC(10, NDR, NLO),
         mcd1(10, NDR, NLO),
@@ -59,8 +59,8 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
     
     
     for(int j=0; j<19; j++){
-        CWBKstarllArrayLO[j] = 0.;
-        CWBKstarllArrayNLO[j] = 0.;
+        CWBMllArrayLO[j] = 0.;
+        CWBMllArrayNLO[j] = 0.;
     }
     
     Nc = SM.getNc();
@@ -1089,44 +1089,44 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
  *                 - magnetic and chromomagnetic penguins                      *         
  *                 - semileptonic                                              * 
  * ****************************************************************************/
-    std::vector<WilsonCoefficient>& StandardModelMatching::CMBKstarll() 
+    std::vector<WilsonCoefficient>& StandardModelMatching::CMBMll() 
     {    
     double xt = x_t(Muw); //* ORDER FULLNNLO*//
     
-    vmcBKstarll.clear();
+    vmcBMll.clear();
     
-    switch (mcBKstarll.getScheme()) {
+    switch (mcBMll.getScheme()) {
         case NDR:
         //case HV:
         //case LRI:
         break;
         default:
             std::stringstream out;
-            out << mcBKstarll.getScheme();
+            out << mcBMll.getScheme();
             throw std::runtime_error("StandardModel::CMBKstrall(): scheme " + out.str() + "not implemented"); 
     }
 
-    mcBKstarll.setMu(Muw);
+    mcBMll.setMu(Muw);
     
-    switch (mcBKstarll.getOrder()) {
+    switch (mcBMll.getOrder()) {
         case NNLO:
         case NLO:
             for (int j=0; j<13; j++){
-            mcBKstarll.setCoeff(j, SM.Als(Muw, FULLNNLO) / 4. / M_PI * setWCBKstarll(j, xt,  NLO) , NLO);
+            mcBMll.setCoeff(j, SM.Als(Muw, FULLNNLO) / 4. / M_PI * setWCBMll(j, xt,  NLO) , NLO);
             }
         case LO:
             for (int j=0; j<13; j++){
-            mcBKstarll.setCoeff(j, setWCBKstarll(j, xt,  LO), LO);
+            mcBMll.setCoeff(j, setWCBMll(j, xt,  LO), LO);
             }
             break;
         default:
             std::stringstream out;
-            out << mcBKstarll.getOrder();
+            out << mcBMll.getOrder();
             throw std::runtime_error("StandardModelMatching::CMBKstrall(): order " + out.str() + "not implemented"); 
     }
    
-    vmcBKstarll.push_back(mcBKstarll);
-    return(vmcBKstarll);
+    vmcBMll.push_back(mcBMll);
+    return(vmcBMll);
 }
         
 
@@ -1135,7 +1135,7 @@ double StandardModelMatching::setWCbsg(int i, double x, orders order)
  * Wilson coefficients calcoulus, misiak base for B -> K^*ll                    *  
  * *****************************************************************************/
 
-double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
+double StandardModelMatching::setWCBMll(int i, double x, orders order)
 {    
     sw =  sqrt( sW2 ) ;
 
@@ -1143,10 +1143,10 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
         switch (order){
         case NNLO:
         case NLO:
-            return ( CWBKstarllArrayNLO[i] );
+            return ( CWBMllArrayNLO[i] );
             break;
         case LO:
-            return ( CWBKstarllArrayLO[i] );
+            return ( CWBMllArrayLO[i] );
             break;
         default:
             std::stringstream out;
@@ -1160,19 +1160,19 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
     switch (order){
         case NNLO:
         case NLO:
-            CWBKstarllArrayNLO[0] = 15. + 6*L;
-            CWBKstarllArrayNLO[3] = E0t(x) - (7./9.) + (2./3.* L);
-            CWBKstarllArrayNLO[6] = -0.5*A1t(x,Muw) + 713./243. + 4./81.*L - 4./9.*CWBKstarllArrayNLO[3];
-            CWBKstarllArrayNLO[7] = -0.5*F1t(x,Muw) + 91./324. - 4./27.*L - 1./6.*CWBKstarllArrayNLO[3];
-            CWBKstarllArrayNLO[8] = (1-4.*sW2) / (sW2) *C1t(x,Muw) - 1./(sW2) * B1t(x,Muw) - D1t(x,Muw) + 1./sW2 + 524./729. - 
+            CWBMllArrayNLO[0] = 15. + 6*L;
+            CWBMllArrayNLO[3] = E0t(x) - (7./9.) + (2./3.* L);
+            CWBMllArrayNLO[6] = -0.5*A1t(x,Muw) + 713./243. + 4./81.*L - 4./9.*CWBMllArrayNLO[3];
+            CWBMllArrayNLO[7] = -0.5*F1t(x,Muw) + 91./324. - 4./27.*L - 1./6.*CWBMllArrayNLO[3];
+            CWBMllArrayNLO[8] = (1-4.*sW2) / (sW2) *C1t(x,Muw) - 1./(sW2) * B1t(x,Muw) - D1t(x,Muw) + 1./sW2 + 524./729. - 
                     128.*M_PI*M_PI/243. - 16.*L/3. -128.*L*L/81.;
-            CWBKstarllArrayNLO[9] = (B1t(x,Muw) - C1t(x,Muw)) / sW2 - 1./sW2;
+            CWBMllArrayNLO[9] = (B1t(x,Muw) - C1t(x,Muw)) / sW2 - 1./sW2;
         case LO:
-            CWBKstarllArrayLO[1] = 1.;
-            CWBKstarllArrayLO[6] = -0.5*A0t(x) - 23./36.;
-            CWBKstarllArrayLO[7] = -0.5*F0t(x) - 1./3.;
-            CWBKstarllArrayLO[8] = (1-4.*sW2) / (sW2) *C0t(x) - 1./(sW2) * B0t(x) - D0t(x) + 38./27. + 1./(4.*sW2) - (4./9.)*L + 8./9. * log(SM.getMuw()/mu_b); 
-            CWBKstarllArrayLO[9] = 1./(sW2) * (B0t(x) - C0t(x)) -1./(4.*sW2);
+            CWBMllArrayLO[1] = 1.;
+            CWBMllArrayLO[6] = -0.5*A0t(x) - 23./36.;
+            CWBMllArrayLO[7] = -0.5*F0t(x) - 1./3.;
+            CWBMllArrayLO[8] = (1-4.*sW2) / (sW2) *C0t(x) - 1./(sW2) * B0t(x) - D0t(x) + 38./27. + 1./(4.*sW2) - (4./9.)*L + 8./9. * log(SM.getMuw()/mu_b); 
+            CWBMllArrayLO[9] = 1./(sW2) * (B0t(x) - C0t(x)) -1./(4.*sW2);
             break;
         default:
             std::stringstream out;
@@ -1183,10 +1183,10 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
     switch (order){
         case NNLO:
         case NLO:
-            return ( CWBKstarllArrayNLO[i] );
+            return ( CWBMllArrayNLO[i] );
             break;
         case LO:
-            return ( CWBKstarllArrayLO[i] );
+            return ( CWBMllArrayLO[i] );
             break;
         default:
             std::stringstream out;
@@ -1204,28 +1204,28 @@ double StandardModelMatching::setWCBKstarll(int i, double x, orders order)
  *                 - magnetic and chromomagnetic penguins                      *         
  *                 - semileptonic                                              * 
  * ****************************************************************************/
-    std::vector<WilsonCoefficient>& StandardModelMatching::CMprimeBKstarll() 
+    std::vector<WilsonCoefficient>& StandardModelMatching::CMprimeBMll() 
     {
-        vmcprimeBKstarll.clear();
-        mcprimeBKstarll.setMu(Muw);
-        switch (mcprimeBKstarll.getOrder()) {
+        vmcprimeBMll.clear();
+        mcprimeBMll.setMu(Muw);
+        switch (mcprimeBMll.getOrder()) {
         case NNLO:
         case NLO:
             for (int j=0; j<13; j++){
-            mcprimeBKstarll.setCoeff(j, 0., NLO);
+            mcprimeBMll.setCoeff(j, 0., NLO);
             }
         case LO:
             for (int j=0; j<13; j++){
-            mcprimeBKstarll.setCoeff(j, 0., LO);
+            mcprimeBMll.setCoeff(j, 0., LO);
             }
             break;
         default:
             std::stringstream out;
-            out << mcprimeBKstarll.getOrder();
+            out << mcprimeBMll.getOrder();
             throw std::runtime_error("StandardModelMatching::CMBKstrall(): order " + out.str() + "not implemented"); 
     }
-        vmcprimeBKstarll.push_back(mcprimeBKstarll);
-        return(vmcprimeBKstarll);
+        vmcprimeBMll.push_back(mcprimeBMll);
+        return(vmcprimeBMll);
     }
 
 

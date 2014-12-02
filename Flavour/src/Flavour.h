@@ -102,12 +102,12 @@ public:
         return HDB1.ComputeCoeffdmumu();
     }
     
-    vector<complex>** ComputeCoeffBKstarll(double mu, schemes scheme = NDR) {
-        return HDB1.ComputeCoeffBKstarll(mu, scheme);
+    vector<complex>** ComputeCoeffBMll(double mu, schemes scheme = NDR) {
+        return HDB1.ComputeCoeffBMll(mu, scheme);
     }
     
-    vector<complex>** ComputeCoeffprimeBKstarll(double mu, schemes scheme = NDR) {
-        return HDB1.ComputeCoeffprimeBKstarll(mu, scheme);
+    vector<complex>** ComputeCoeffprimeBMll(double mu, schemes scheme = NDR) {
+        return HDB1.ComputeCoeffprimeBMll(mu, scheme);
     }
     
     MVll* getMVll(StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) {
