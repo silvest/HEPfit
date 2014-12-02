@@ -23,6 +23,19 @@ HeffDB1::HeffDB1(const StandardModel & SM) :
         u(10, NDR, NLO, NLO_ew, SM),
         evolDF1BKstarll(13, NDR, NLO, SM),
         nlep (12, 0.), nlep2(10, 0.), nlepCC(4, 0.){
+    
+    for (unsigned int i = 0; i < 6; i++) {
+        BKstarll_WC_cache.push_back(coeffBKstarll);
+        BKstarll_Mu_cache.push_back(0.);
+    }
+    BKstarll_mu_cache = 0.;
+    
+    for (unsigned int i = 0; i < 6; i++) {
+        BKstarllprime_WC_cache.push_back(coeffprimeBKstarll);
+        BKstarllprime_Mu_cache.push_back(0.);
+    }
+    BKstarllprime_mu_cache = 0.;
+    
 }
 
 HeffDB1::~HeffDB1() {
@@ -339,12 +352,37 @@ vector<complex>** HeffDB1::ComputeCoeffdnunu() {
 
 vector<complex>** HeffDB1::ComputeCoeffBKstarll(double mu, schemes scheme) {
     
+    coeffBKstarll.setScheme(scheme);
+    orders ordDF1 = coeffBKstarll.getOrder();   
+    
     const std::vector<WilsonCoefficient>& mc = model.getMyMatching() -> CMBKstarll();
+    
+    if(mu == BKstarll_mu_cache && scheme == BKstarll_scheme_cache) {
+        int check = 0;
+        for (unsigned int i = 0; i < mc.size(); i++){
+            if (mc[i].getMu() == BKstarll_Mu_cache[i]){
+                for (int j = LO; j <= ordDF1; j++){
+                    for (int k = LO; k <= j; k++){
+                        for (int l = 0; l < 13; l++) {
+                            check = 1;
+                            check *= ((*(mc[i].getCoeff(orders(j - k))))(l) == (*(BKstarll_WC_cache[i].getCoeff(orders(j - k))))(l));
+                        }
+                    }
+                }
+            }
+        }
+        if (check == 1) return coeffBKstarll.getCoeff();
+    } 
+    
+    BKstarll_mu_cache = mu;
+    BKstarll_scheme_cache = scheme;
+    BKstarll_WC_cache.clear();
+    BKstarll_WC_cache = mc;
     
     coeffBKstarll.setMu(mu); 
     
-    orders ordDF1 = coeffBKstarll.getOrder();
     for (unsigned int i = 0; i < mc.size(); i++){
+        BKstarll_Mu_cache[i] = mc[i].getMu();
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
                 coeffBKstarll.setCoeff(*coeffBKstarll.getCoeff(orders(j)) +
@@ -354,20 +392,43 @@ vector<complex>** HeffDB1::ComputeCoeffBKstarll(double mu, schemes scheme) {
         }
     }
     
-    coeffBKstarll.setScheme(scheme);
-   
     return coeffBKstarll.getCoeff();
 }
 
 
 vector<complex>** HeffDB1::ComputeCoeffprimeBKstarll(double mu, schemes scheme) {
     
+    coeffprimeBKstarll.setScheme(scheme);
+    orders ordDF1 = coeffprimeBKstarll.getOrder();  
+    
     const std::vector<WilsonCoefficient>& mc = model.getMyMatching() -> CMprimeBKstarll();
+    
+    if(mu == BKstarllprime_mu_cache && scheme == BKstarllprime_scheme_cache) {
+        int check = 0;
+        for (unsigned int i = 0; i < mc.size(); i++){
+            if (mc[i].getMu() == BKstarllprime_Mu_cache[i]){
+                for (int j = LO; j <= ordDF1; j++){
+                    for (int k = LO; k <= j; k++){
+                        for (int l = 0; l < 13; l++) {
+                            check = 1;
+                            check *= ((*(mc[i].getCoeff(orders(j - k))))(l) == (*(BKstarllprime_WC_cache[i].getCoeff(orders(j - k))))(l));
+                        }
+                    }
+                }
+            }
+        }
+        if (check == 1) return coeffprimeBKstarll.getCoeff();
+    }
+    
+    BKstarllprime_mu_cache = mu;
+    BKstarllprime_scheme_cache = scheme;
+    BKstarllprime_WC_cache.clear();
+    BKstarllprime_WC_cache = mc;
     
     coeffprimeBKstarll.setMu(mu); 
     
-    orders ordDF1 = coeffprimeBKstarll.getOrder();
     for (unsigned int i = 0; i < mc.size(); i++){
+        BKstarllprime_Mu_cache[i] = mc[i].getMu();
         for (int j = LO; j <= ordDF1; j++){
             for (int k = LO; k <= j; k++){
                 coeffprimeBKstarll.setCoeff(*coeffprimeBKstarll.getCoeff(orders(j)) +
@@ -377,7 +438,6 @@ vector<complex>** HeffDB1::ComputeCoeffprimeBKstarll(double mu, schemes scheme) 
         }
     }
     
-    coeffprimeBKstarll.setScheme(scheme);
    
     return coeffprimeBKstarll.getCoeff();
 }
