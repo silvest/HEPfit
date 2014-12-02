@@ -15,9 +15,6 @@ EvolDF1bsg::EvolDF1bsg(unsigned int dim_i, schemes scheme, orders order,
              jssv(dim_i,0.), jss(dim_i,0.), jv(dim_i,0.), vij(dim_i,0.), e(dim_i,0.) {
     if (dim != 13 ) throw std::runtime_error("ERROR: EvolDF1bsg can only be of dimension 13"); 
     
-    matrix<double> matrixZero(13,13,0.);
-    for (int i = 0; i <= order; i++ ) Evol_cache.push_back(boost::make_tuple(matrixZero, matrixZero));
-    
     /* magic numbers a & b */ 
     
     for(int L=2; L>-1; L--){
@@ -341,12 +338,7 @@ matrix<double> EvolDF1bsg::ToEffectiveBasis(matrix<double> mat) const{
 }
 
 matrix<double>& EvolDF1bsg::Df1Evolbsg(double mu, double M, orders order, schemes scheme) {
-    for (int i = 0; i < 2; i++){
-        if (mu == mu_cache[i] && M == M_cache[i]){
-            if (i == 0) return (Evol_cache[order]).get<0>();
-            if (i == 1) return (Evol_cache[order]).get<1>();
-        }
-    }
+    
     switch (scheme) {
         case NDR:
             break;
@@ -380,14 +372,6 @@ matrix<double>& EvolDF1bsg::Df1Evolbsg(double mu, double M, orders order, scheme
         nf += 1.;
     }
     Df1Evolbsg(m_down, M, nf, scheme);
-    
-    mu_cache[0] = mu_cache[1];
-    M_cache[0] = M_cache[1];
-    Evol_cache[order].get<0>() = Evol_cache[order].get<1>();
-
-    mu_cache[1] = mu;
-    M_cache[1] = M;
-    Evol_cache[order].get<1>() = *Evol(order);
     
     return (*Evol(order));
     
