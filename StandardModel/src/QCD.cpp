@@ -49,7 +49,8 @@ const std::string QCD::QCDvars[NQCDvars] = {
     "r_2T2phi", "m_fit2T2phi", "r_1T3tphi", "r_2T3tphi", "m_fit2T3tphi",
     "reh_0", "reh_p", "reh_m","imh_0", "imh_p", "imh_m",
     "reh_0_1", "reh_p_1", "reh_m_1","imh_0_1", "imh_p_1", "imh_m_1",
-    "r_1_fplus", "r_2_fplus", "m_fit2_fplus", "r_1_fT", "r_2_fT", "m_fit2_fT", "r_2_f0", "m_fit2_f0"
+    "r_1_fplus", "r_2_fplus", "m_fit2_fplus", "r_1_fT", "r_2_fT", "m_fit2_fT", "r_2_f0", "m_fit2_f0",
+    "reh_0_MP", "imh_0_MP", "reh_0_1_MP", "imh_0_1_MP"
 };
 
 QCD::QCD()
@@ -169,6 +170,10 @@ QCD::QCD()
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0_1", boost::cref(imh_0_1)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_p_1", boost::cref(imh_p_1)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_m_1", boost::cref(imh_m_1)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0_MP", boost::cref(reh_0_MP)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0_MP", boost::cref(imh_0_MP)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("reh_0_1_MP", boost::cref(reh_0_1_MP)));
+    ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("imh_0_1_MP", boost::cref(imh_0_1_MP)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_0V", boost::cref(a_0V)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("a_1V", boost::cref(a_1V)));
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("dmV", boost::cref(dmV)));
@@ -563,6 +568,14 @@ void QCD::setParameter(const std::string name, const double& value)
         imh_p_1 = value;
     else if (name.compare("imh_m_1") == 0)
         imh_m_1 = value;
+    else if (name.compare("reh_0_MP") == 0)
+        reh_0_MP = value;
+    else if (name.compare("imh_0_MP") == 0)
+        imh_0_MP = value;
+    else if (name.compare("reh_0_1_MP") == 0)
+        reh_0_1_MP = value;
+    else if (name.compare("imh_0_1_MP") == 0)
+        imh_0_1_MP = value;
     else if (name.compare("a_0V") == 0)
         a_0V = value;
     else if (name.compare("a_1V") == 0)

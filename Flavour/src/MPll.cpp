@@ -74,8 +74,8 @@ void MPll::updateParameters(){
             throw std::runtime_error("MPll: pseudoscalar " + out.str() + " not implemented");
     }
     
-    h_0 = mySM.geth_0();
-    h_0_1 = mySM.geth_0_1();
+    h_0 = mySM.geth_0_MP();
+    h_0_1 = mySM.geth_0_1_MP();
     
     b = 1.;                           //please check
     
