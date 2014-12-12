@@ -352,8 +352,8 @@ gslpp::complex MPll::H_V(double q2, int bar) {
             throw std::runtime_error("H_V: index " + out.str() + " not allowed for an Angular Coefficient");
     }
                     
-    return -gslpp::complex::i()*n*( C_9*V_L(q2) + C_9p*V_R(q2)
-            + MM*MM/q2*( 2*Mb/MM*( C_7*T_L(q2) + C_7p*T_R(q2) ) - 16*M_PI*M_PI*(h_0 + h_0_1 * q2)) );
+    return -gslpp::complex::i()*n*( ( C_9 + mySM.getMyFlavour()->getMVll(QCD::B_D, QCD::K_star, StandardModel::MU)->Y(q2) )*V_L(q2) 
+            + C_9p*V_R(q2) + MM*MM/q2*( 2*Mb/MM*( C_7*T_L(q2) + C_7p*T_R(q2) ) - 16*M_PI*M_PI*(h_0 + h_0_1 * q2)) );
 }
 
 gslpp::complex MPll::H_A(double q2, int bar) {

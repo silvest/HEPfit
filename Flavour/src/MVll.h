@@ -72,6 +72,7 @@ public:
     double MM;            //initial meson mass
     double MV;            //final vector meson mass
     double Mb;            //b quark mass
+    double Mc;            //c quark mass
     double mu_b;          //b mass scale
     double width;         //initial meson width
     double Ms;            //s quark mass
@@ -103,6 +104,12 @@ public:
     gslpp::vector<gslpp::complex> ** allcoeff;
     gslpp::vector<gslpp::complex> ** allcoeffprime;
     
+    gslpp::complex C_1;
+    gslpp::complex C_2;
+    gslpp::complex C_3;
+    gslpp::complex C_4;
+    gslpp::complex C_5;
+    gslpp::complex C_6;
     gslpp::complex C_7;
     gslpp::complex C_9;
     gslpp::complex C_10;
@@ -301,8 +308,26 @@ public:
     * @brief \f$ N \f$ 
     * @return return the helicity amplitude normalization factor N
     */
-    
     gslpp::complex N();
+    
+    
+    /**
+    * 
+    * @brief \f$ h(q^2,m) \f$
+    * @param[in] q2 q^2 of the decay
+    * @param[in] m mass
+    * @return return the h(q^2,m) function involved into C_9^eff
+    */
+    gslpp::complex H(double q2, double m);
+    
+    
+    /**
+    * 
+    * @brief \f$ Y(q^2) \f$
+    * @param[in] q2 q^2 of the decay
+    * @return return the Y(q^2) function involved into C_9^eff
+    */
+    gslpp::complex Y(double q2);
     
     
     /**
@@ -811,6 +836,24 @@ private:
     
     unsigned int SR_updated;
     
+    unsigned int C_1_updated;
+    gslpp::complex C_1_cache;
+
+    unsigned int C_2_updated;
+    gslpp::complex C_2_cache;
+    
+    unsigned int C_3_updated;
+    gslpp::complex C_3_cache;
+    
+    unsigned int C_4_updated;
+    gslpp::complex C_4_cache;
+    
+    unsigned int C_5_updated;
+    gslpp::complex C_5_cache;
+    
+    unsigned int C_6_updated;
+    gslpp::complex C_6_cache;
+    
     unsigned int C_7_updated;
     gslpp::complex C_7_cache;
 
@@ -840,6 +883,9 @@ private:
     
     unsigned int C_Pp_updated;
     gslpp::complex C_Pp_cache;
+    
+    unsigned int Yupdated;
+    gslpp::vector<double> Ycache;
     
     unsigned int H_V0updated;
     gslpp::vector<double> H_V0cache;
