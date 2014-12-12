@@ -191,6 +191,48 @@ void MPll::checkCache(){
         Nc_cache = lambda_t;
     }
     
+    if (C_1 == C_1_cache) {
+        C_1_updated = 1;
+    } else {
+        C_1_updated = 0;
+        C_1_cache = C_1;
+    }
+    
+    if (C_2 == C_2_cache) {
+        C_2_updated = 1;
+    } else {
+        C_2_updated = 0;
+        C_2_cache = C_2;
+    }
+    
+    if (C_3 == C_3_cache) {
+        C_3_updated = 1;
+    } else {
+        C_3_updated = 0;
+        C_3_cache = C_3;
+    }
+    
+    if (C_4 == C_4_cache) {
+        C_4_updated = 1;
+    } else {
+        C_4_updated = 0;
+        C_4_cache = C_4;
+    }
+    
+    if (C_5 == C_5_cache) {
+        C_5_updated = 1;
+    } else {
+        C_5_updated = 0;
+        C_5_cache = C_5;
+    }
+    
+    if (C_6 == C_6_cache) {
+        C_6_updated = 1;
+    } else {
+        C_6_updated = 0;
+        C_6_cache = C_6;
+    }
+    
     if (C_7 == C_7_cache) {
         C_7_updated = 1;
     } else {
@@ -349,11 +391,11 @@ double MPll::S_R(double q2){
 /*******************************************************************************
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
-complex MPll::N(){
+gslpp::complex MPll::N(){
     return -(4.*GF*MM*ale*lambda_t)/(sqrt(2.)*4.*M_PI);
 }
 
-gslpp::complex MVll::H(double q2, double m){
+gslpp::complex MPll::H(double q2, double m){
     double x = 4.*m*m/q2;
     gslpp::complex par;
     
@@ -363,7 +405,7 @@ gslpp::complex MVll::H(double q2, double m){
     return - 4./9. * ( log( m*m / q2 ) - 2./3. - x ) - 4./9. * (-2. + x) * par;
 }
 
-gslpp::complex MVll::Y(double q2){
+gslpp::complex MPll::Y(double q2){
     return 4./3. * C_3 + 64./9. * C_5 + 64./27. * C_6 - 1./2. * H(q2,0.) * ( C_3 + 4./3.*C_4 + 16. * C_5 + 64./3.*C_6 )
             + H(q2, Mc) * ( 4./3.*C_1 + C_2 + 6.*C_3 + 60.*C_5 ) - 1./2. * H(q2, Mb) * ( 7.*C_3 + 4./3.*C_4 + 76.*C_5 + 64./3.*C_6 );
 }

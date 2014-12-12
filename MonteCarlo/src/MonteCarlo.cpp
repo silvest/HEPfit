@@ -265,7 +265,11 @@ void MonteCarlo::Run(const int rank)
                     if (beg->compare("true") == 0) {
                         PrintParameterPlot = true;
                     }
-
+                } else if (beg->compare("OrderParameters") == 0) {
+                    ++beg;
+                    if (beg->compare("false") == 0) {
+                        MCEngine.MCMCSetFlagOrderParameters(false);
+                    }                    
                 } else
                     throw std::runtime_error("\nERROR: Wrong keyword in MonteCarlo config file: " + *beg + "\n Make sure to specify a valid Monte Carlo configuration file.\n");
             } while (!IsEOF);

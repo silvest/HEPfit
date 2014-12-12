@@ -155,7 +155,7 @@ public:
     * @return return the helicity amplitude normalization factor N
     */
     
-    complex N();
+    gslpp::complex N();
     
     
     /**
