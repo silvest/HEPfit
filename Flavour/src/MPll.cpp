@@ -18,6 +18,7 @@
 
 MPll::MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_i) : mySM(SM_i),
         N_cache(3, 0.),
+        Ycache(3, 0.),
         fplus_cache(2, 0.),
         fT_cache(2, 0.),
         k2_cache(2, 0.),
@@ -51,6 +52,7 @@ void MPll::updateParameters(){
     MM=mySM.getMesons(meson).getMass();
     MP=mySM.getMesons(pseudoscalar).getMass();
     Mb=mySM.getQuarks(QCD::BOTTOM).getMass();    // add the PS b mass
+    Mc=mySM.getQuarks(QCD::CHARM).getMass();
     Ms=mySM.getQuarks(QCD::STRANGE).getMass();
     MW=mySM.Mw();
     lambda_t=mySM.computelamt_s();
@@ -82,6 +84,12 @@ void MPll::updateParameters(){
     allcoeff = mySM.getMyFlavour()->ComputeCoeffBMll(mu_b);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBMll(mu_b);   //check the mass scale, scheme fixed to NDR
 
+    C_1 = (*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0);
+    C_2 =  ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1));
+    C_3 = ((*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2));
+    C_4 = (*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3);
+    C_5 =  ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
+    C_6 = ((*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5));
     C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
     C_9 = (*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8);
     C_10 = (*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9);
@@ -253,8 +261,16 @@ void MPll::checkCache(){
         C_Pp_cache = C_Pp;
     }
     
+    if (Mb == Ycache(0) && Mc == Ycache(1) ) {
+        Yupdated = C_1_updated * C_2_updated * C_3_updated * C_4_updated * C_5_updated * C_6_updated;
+    } else {
+        Yupdated = 0;
+        Ycache(0) = Mb;
+        Ycache(1) = Mc;
+    }
+    
     if (MM == H_V0cache(0) && Mb == H_V0cache(1) && h_0 == H_V0Ccache[0] && h_0_1 == H_V0Ccache[1]) {
-        H_V0updated = N_updated * C_9_updated * VL_updated * C_9p_updated * VR_updated * C_7_updated * TL_updated * C_7p_updated * TR_updated;
+        H_V0updated = N_updated * C_9_updated * Yupdated * VL_updated * C_9p_updated * VR_updated * C_7_updated * TL_updated * C_7p_updated * TR_updated;
     } else {
         H_V0updated = 0;
         H_V0cache(0) = MM;
@@ -337,6 +353,21 @@ complex MPll::N(){
     return -(4.*GF*MM*ale*lambda_t)/(sqrt(2.)*4.*M_PI);
 }
 
+gslpp::complex MVll::H(double q2, double m){
+    double x = 4.*m*m/q2;
+    gslpp::complex par;
+    
+    if (x>1.) par = sqrt(x - 1.) * atan( 1. / sqrt(x - 1.) );
+    else par = sqrt(1. - x) * ( log( ( 1. + sqrt(1. - x) ) / sqrt(x) ) - gslpp::complex::i()*M_PI/2.);
+    
+    return - 4./9. * ( log( m*m / q2 ) - 2./3. - x ) - 4./9. * (-2. + x) * par;
+}
+
+gslpp::complex MVll::Y(double q2){
+    return 4./3. * C_3 + 64./9. * C_5 + 64./27. * C_6 - 1./2. * H(q2,0.) * ( C_3 + 4./3.*C_4 + 16. * C_5 + 64./3.*C_6 )
+            + H(q2, Mc) * ( 4./3.*C_1 + C_2 + 6.*C_3 + 60.*C_5 ) - 1./2. * H(q2, Mb) * ( 7.*C_3 + 4./3.*C_4 + 76.*C_5 + 64./3.*C_6 );
+}
+
 gslpp::complex MPll::H_V(double q2, int bar) {
     gslpp::complex n;
     switch(bar){
@@ -352,7 +383,7 @@ gslpp::complex MPll::H_V(double q2, int bar) {
             throw std::runtime_error("H_V: index " + out.str() + " not allowed for an Angular Coefficient");
     }
                     
-    return -gslpp::complex::i()*n*( ( C_9 + mySM.getMyFlavour()->getMVll(QCD::B_D, QCD::K_star, StandardModel::MU)->Y(q2) )*V_L(q2) 
+    return -gslpp::complex::i()*n*( ( C_9 + Y(q2) )*V_L(q2) 
             + C_9p*V_R(q2) + MM*MM/q2*( 2*Mb/MM*( C_7*T_L(q2) + C_7p*T_R(q2) ) - 16*M_PI*M_PI*(h_0 + h_0_1 * q2)) );
 }
 
