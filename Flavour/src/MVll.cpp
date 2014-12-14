@@ -57,6 +57,7 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     w_sigma6 = gsl_integration_workspace_alloc (50);
     w_sigma7 = gsl_integration_workspace_alloc (50);
     w_sigma9 = gsl_integration_workspace_alloc (50);
+    w_sigma10 = gsl_integration_workspace_alloc (50);
     w_sigma11 = gsl_integration_workspace_alloc (50);
     
     w_delta0 = gsl_integration_workspace_alloc (50);
@@ -200,17 +201,17 @@ void MVll::updateParameters(){
     allcoeff = mySM.getMyFlavour()->ComputeCoeffBMll(mu_b);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBMll(mu_b);   //check the mass scale, scheme fixed to NDR
     
-    C_1 = (*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0);
-    C_2 =  ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1));
+    C_1 = ((*(allcoeff[LO]))(0) + (*(allcoeff[NLO]))(0));
+    C_2 = ((*(allcoeff[LO]))(1) + (*(allcoeff[NLO]))(1));
     C_3 = ((*(allcoeff[LO]))(2) + (*(allcoeff[NLO]))(2));
-    C_4 = (*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3);
-    C_5 =  ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
+    C_4 = ((*(allcoeff[LO]))(3) + (*(allcoeff[NLO]))(3));
+    C_5 = ((*(allcoeff[LO]))(4) + (*(allcoeff[NLO]))(4));
     C_6 = ((*(allcoeff[LO]))(5) + (*(allcoeff[NLO]))(5));
-    C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
-    C_9 =  ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8));
+    C_7 = ((*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6));
+    C_9 = ((*(allcoeff[LO]))(8) + (*(allcoeff[NLO]))(8));
     C_10 = ((*(allcoeff[LO]))(9) + (*(allcoeff[NLO]))(9));
-    C_S = (*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10);
-    C_P = (*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11);
+    C_S = ((*(allcoeff[LO]))(10) + (*(allcoeff[NLO]))(10));
+    C_P = ((*(allcoeff[LO]))(11) + (*(allcoeff[NLO]))(11));
     
     C_7p = (*(allcoeffprime[LO]))(6) + (*(allcoeffprime[NLO]))(6);
     C_9p = (*(allcoeffprime[LO]))(8) + (*(allcoeffprime[NLO]))(8);
@@ -231,6 +232,7 @@ void MVll::updateParameters(){
     if (I6_updated == 0) for (it = sigma6Cached.begin(); it != sigma6Cached.end(); ++it) it->second = 0;
     if (I7_updated == 0) for (it = sigma7Cached.begin(); it != sigma7Cached.end(); ++it) it->second = 0;
     if (I9_updated == 0) for (it = sigma9Cached.begin(); it != sigma9Cached.end(); ++it) it->second = 0;
+    if (I10_updated == 0) for (it = sigma10Cached.begin(); it != sigma10Cached.end(); ++it) it->second = 0;
     if (I11_updated == 0) for (it = sigma11Cached.begin(); it != sigma11Cached.end(); ++it) it->second = 0;
     
     if (I0_updated == 0) for (it = delta0Cached.begin(); it != delta0Cached.end(); ++it) it->second = 0;
@@ -1092,6 +1094,15 @@ double MVll::integrateSigma(int i, double q_min, double q_max){
                 sigma9Cached[qbin] = 1;
             }
             return cacheSigma9[qbin];
+            break;
+        case 10:
+            if (sigma10Cached[qbin] == 0) {
+                FS10 = convertToGslFunction( boost::bind( &MVll::getSigma10, &(*this), _1 ) );
+                gsl_integration_qags (&FS10, q_min, q_max, 1.e-5, 1.e-3, 50, w_sigma10, &avaSigma10, &errSigma10);
+                cacheSigma10[qbin] = avaSigma10;
+                sigma10Cached[qbin] = 1;
+            }
+            return cacheSigma10[qbin];
             break;
         case 11:
             if (sigma11Cached[qbin] == 0) {

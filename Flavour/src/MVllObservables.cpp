@@ -107,6 +107,22 @@ double P_6Prime::computeThValue() {
 }
 
 
+P_8Prime::P_8Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : ThObservable(SM_i), mySM(SM_i) {  
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double P_8Prime::computeThValue() {
+    
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    return -mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(10,q_min,q_max)/(sqrt(-mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(2,q_min,q_max)*mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(3,q_min,q_max)));
+ 
+}
+
+
 GammaPrime::GammaPrime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : ThObservable(SM_i), mySM(SM_i) {  
     lep = lep_i;
     meson = meson_i;
@@ -238,4 +254,116 @@ double M_2Prime::computeThValue() {
     
     return ( q_min/(2.*mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->Mlep*mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->Mlep)*( mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_P(q_min,0).abs2() + mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->beta(q_min)*mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->beta(q_min)*mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_S(q_min,0).abs2() ) + mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V(0,q_min,0).abs2() - mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A(0,q_min,0).abs2() )/
             ( mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_V(0,q_min,0).abs2() + mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->H_A(0,q_min,0).abs2() );  
+}
+
+
+S_3::S_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : GammaPrime(SM_i, meson_i, vector_i, lep_i), mySM(SM_i) {
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+
+double S_3::computeThValue() {
+
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(4,q_min,q_max) / computeGammaPrime(q_min, q_max);
+}
+
+
+S_4::S_4(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : GammaPrime(SM_i, meson_i, vector_i, lep_i), mySM(SM_i) {
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+
+double S_4::computeThValue() {
+
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(5,q_min,q_max) / computeGammaPrime(q_min, q_max);
+}
+
+
+S_5::S_5(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : GammaPrime(SM_i, meson_i, vector_i, lep_i), mySM(SM_i) {
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+
+double S_5::computeThValue() {
+
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(6,q_min,q_max) / computeGammaPrime(q_min, q_max);
+}
+
+
+S_7::S_7(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : GammaPrime(SM_i, meson_i, vector_i, lep_i), mySM(SM_i) {
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+
+double S_7::computeThValue() {
+
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(9,q_min,q_max) / computeGammaPrime(q_min, q_max);
+}
+
+
+S_8::S_8(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : GammaPrime(SM_i, meson_i, vector_i, lep_i), mySM(SM_i) {
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+
+double S_8::computeThValue() {
+
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(10,q_min,q_max) / computeGammaPrime(q_min, q_max);
+}
+
+
+S_9::S_9(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : GammaPrime(SM_i, meson_i, vector_i, lep_i), mySM(SM_i) {
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+
+double S_9::computeThValue() {
+
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(11,q_min,q_max) / computeGammaPrime(q_min, q_max);
+}
+
+
+A_9::A_9(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : GammaPrime(SM_i, meson_i, vector_i, lep_i), mySM(SM_i) {
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+
+double A_9::computeThValue() {
+
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDelta(11,q_min,q_max) / computeGammaPrime(q_min, q_max);
 }

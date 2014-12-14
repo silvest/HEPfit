@@ -201,6 +201,36 @@ private:
 
 
 /**
+ * @class P_8Prime
+ * @ingroup flavour
+ * @brief A class for the clean observable P'_8. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class P_8Prime : public ThObservable{
+public:
+    
+    /**
+    * @brief \f$ P'_{6} \f$ 
+    */
+    P_8Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+
+    /**
+    * @return return the clean observable P'_6
+    */
+    double computeThValue ();
+   
+private:
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
+
+};
+
+
+/**
  * @class GammaPrime
  * @ingroup flavour
  * @brief A class for the clean observable Gamma'. 
@@ -442,6 +472,215 @@ private:
 
 };
 
+
+/**
+ * @class S_3
+ * @ingroup flavour
+ * @brief A class for the clean observable S_1. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class S_3 : public GammaPrime{
+public:
+    
+    /**
+    * @brief \f$ Gamma' \f$ 
+    */
+    S_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    
+    /**
+    * @return return the clean observable Gamma'
+    */
+    double computeThValue ();
+   
+private:
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
+
+};
+
+
+/**
+ * @class S_4
+ * @ingroup flavour
+ * @brief A class for the clean observable S_2. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class S_4: public GammaPrime{
+public:
+    
+    /**
+    * @brief \f$ Gamma' \f$ 
+    */
+    S_4(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    
+    /**
+    * @return return the clean observable Gamma'
+    */
+    double computeThValue ();
+   
+private:
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
+
+};
+
+
+/**
+ * @class S_5
+ * @ingroup flavour
+ * @brief A class for the clean observable S_5. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class S_5 : public GammaPrime{
+public:
+    
+    /**
+    * @brief \f$ Gamma' \f$ 
+    */
+    S_5(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    
+    /**
+    * @return return the clean observable Gamma'
+    */
+    double computeThValue ();
+   
+private:
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
+
+};
+
+
+/**
+ * @class S_7
+ * @ingroup flavour
+ * @brief A class for the clean observable S_7. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class S_7 : public GammaPrime{
+public:
+    
+    /**
+    * @brief \f$ Gamma' \f$ 
+    */
+    S_7(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    
+    /**
+    * @return return the clean observable Gamma'
+    */
+    double computeThValue ();
+   
+private:
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
+
+};
+
+
+/**
+ * @class S_8
+ * @ingroup flavour
+ * @brief A class for the clean observable S_8. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class S_8 : public GammaPrime{
+public:
+    
+    /**
+    * @brief \f$ Gamma' \f$ 
+    */
+    S_8(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    
+    /**
+    * @return return the clean observable Gamma'
+    */
+    double computeThValue ();
+   
+private:
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
+
+};
+
+
+/**
+ * @class S_9
+ * @ingroup flavour
+ * @brief A class for the clean observable S_9. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class S_9 : public GammaPrime{
+public:
+    
+    /**
+    * @brief \f$ Gamma' \f$ 
+    */
+    S_9(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    
+    /**
+    * @return return the clean observable Gamma'
+    */
+    double computeThValue ();
+   
+private:
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
+
+};
+
+
+/**
+ * @class A_9
+ * @ingroup flavour
+ * @brief A class for the clean observable A_9. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class A_9 : public GammaPrime{
+public:
+    
+    /**
+    * @brief \f$ Gamma' \f$ 
+    */
+    A_9(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    
+    /**
+    * @return return the clean observable Gamma'
+    */
+    double computeThValue ();
+   
+private:
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
+
+};
 
 #endif	/* MVLLOBSERVABLES_H */
 

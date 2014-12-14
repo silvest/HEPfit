@@ -545,6 +545,15 @@ public:
     };
     
     /**
+    * @brief \f$ Sigma_{8} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP average Sigma_8
+    */
+    double getSigma10(double q2){
+        return Sigma(10, q2);
+    };
+    
+    /**
     * @brief \f$ Sigma_{9} \f$ 
     * @param[in] q2 q^2 of the decay
     * @return return the CP average Sigma_9
@@ -691,6 +700,7 @@ private:
     std::map<std::pair<double, double>, double > cacheSigma6;
     std::map<std::pair<double, double>, double > cacheSigma7;
     std::map<std::pair<double, double>, double > cacheSigma9;
+    std::map<std::pair<double, double>, double > cacheSigma10;
     std::map<std::pair<double, double>, double > cacheSigma11;
     
     std::map<std::pair<double, double>, double > cacheDelta0;
@@ -708,6 +718,7 @@ private:
     double avaSigma6;
     double avaSigma7;
     double avaSigma9;
+    double avaSigma10;
     double avaSigma11;
     
     double errSigma0;
@@ -719,6 +730,7 @@ private:
     double errSigma6;
     double errSigma7;
     double errSigma9;
+    double errSigma10;
     double errSigma11;
     
     double avaDelta0;
@@ -743,6 +755,7 @@ private:
     gsl_function FS6;
     gsl_function FS7;
     gsl_function FS9;
+    gsl_function FS10;
     gsl_function FS11;
     
     gsl_function FD0;
@@ -760,6 +773,7 @@ private:
     gsl_integration_workspace * w_sigma6;
     gsl_integration_workspace * w_sigma7;
     gsl_integration_workspace * w_sigma9;
+    gsl_integration_workspace * w_sigma10;
     gsl_integration_workspace * w_sigma11;
     
     gsl_integration_workspace * w_delta0;
@@ -931,6 +945,7 @@ private:
     std::map<std::pair<double, double>, unsigned int > sigma6Cached;
     std::map<std::pair<double, double>, unsigned int > sigma7Cached;
     std::map<std::pair<double, double>, unsigned int > sigma9Cached;
+    std::map<std::pair<double, double>, unsigned int > sigma10Cached;
     std::map<std::pair<double, double>, unsigned int > sigma11Cached;
     
     std::map<std::pair<double, double>, unsigned int > delta0Cached;
