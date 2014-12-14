@@ -825,7 +825,8 @@ gslpp::complex MVll::H(double q2, double m){
     if (x>1.) par = sqrt(x - 1.) * atan( 1. / sqrt(x - 1.) );
     else par = sqrt(1. - x) * ( log( ( 1. + sqrt(1. - x) ) / sqrt(x) ) - gslpp::complex::i()*M_PI/2.);
     
-    return - 4./9. * ( log( m*m / q2 ) - 2./3. - x ) - 4./9. * (-2. + x) * par;
+    if (x == 0.) return 8. / 27. * (1. + 3. * gslpp::complex::i() * M_PI);
+    else return - 4./9. * ( log( m*m / q2 ) - 2./3. - x ) - 4./9. * (-2. + x) * par;
 }
 
 

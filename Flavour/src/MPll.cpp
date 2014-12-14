@@ -60,7 +60,7 @@ void MPll::updateParameters(){
     width = mySM.getMesons(meson).computeWidth();
     
     switch(pseudoscalar){
-        case StandardModel::K_0 :
+        case StandardModel::K_P :
             r_1_fplus = mySM.getr_1_fplus();
             r_2_fplus = mySM.getr_2_fplus();
             m_fit2_fplus = mySM.getm_fit2_fplus();
@@ -402,12 +402,13 @@ gslpp::complex MPll::H(double q2, double m){
     if (x>1.) par = sqrt(x - 1.) * atan( 1. / sqrt(x - 1.) );
     else par = sqrt(1. - x) * ( log( ( 1. + sqrt(1. - x) ) / sqrt(x) ) - gslpp::complex::i()*M_PI/2.);
     
-    return - 4./9. * ( log( m*m / q2 ) - 2./3. - x ) - 4./9. * (-2. + x) * par;
+    if (x == 0.) return 8. / 27. * (1. + 3. * gslpp::complex::i() * M_PI);
+    else return - 4./9. * ( log( m*m / q2 ) - 2./3. - x ) - 4./9. * (-2. + x) * par;
 }
 
 gslpp::complex MPll::Y(double q2){
     return 4./3. * C_3 + 64./9. * C_5 + 64./27. * C_6 - 1./2. * H(q2,0.) * ( C_3 + 4./3.*C_4 + 16. * C_5 + 64./3.*C_6 )
-            + H(q2, Mc) * ( 4./3.*C_1 + C_2 + 6.*C_3 + 60.*C_5 ) - 1./2. * H(q2, Mb) * ( 7.*C_3 + 4./3.*C_4 + 76.*C_5 + 64./3.*C_6 );
+            /*+ H(q2, Mc) * ( 4./3.*C_1 + C_2 + 6.*C_3 + 60.*C_5 ) - 1./2. * H(q2, Mb) * ( 7.*C_3 + 4./3.*C_4 + 76.*C_5 + 64./3.*C_6 )*/;
 }
 
 gslpp::complex MPll::H_V(double q2, int bar) {
