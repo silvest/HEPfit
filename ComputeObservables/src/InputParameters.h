@@ -96,6 +96,7 @@ private:
         DPars_IN["Mphi"] = 0.;
         DPars_IN["tphi"] = 0.;
         DPars_IN["MBp"] = 0.;
+        DPars_IN["tBp"] = 0.;
         DPars_IN["MK0"] = 0.;
         DPars_IN["MKp"] = 0.;
         DPars_IN["FK"] = 0.;
