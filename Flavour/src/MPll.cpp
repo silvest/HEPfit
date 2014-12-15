@@ -371,7 +371,7 @@ gslpp::complex MPll::V_R(double q2){
 }
 
 gslpp::complex MPll::T_L(double q2){
-    return gslpp::complex::i()  * sqrt(lambda(q2)*q2) / (MM*MM*(MM+MP)) * f_T(q2);
+    return gslpp::complex::i()  * sqrt(lambda(q2)*q2) / (2.*MM*MM*(MM+MP)) * f_T(q2);
 }
 
 gslpp::complex MPll::T_R(double q2){
