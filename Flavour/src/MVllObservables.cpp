@@ -172,7 +172,7 @@ double BR_MVll::computeThValue() {
     double q_min = getBinMin();
     double q_max = getBinMax();
     
-    return computeGammaPrime(q_min, q_max)/mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->width;
+    return computeGammaPrime(q_min, q_max)/mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->width / ( q_max - q_min );
 }
 
 

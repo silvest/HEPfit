@@ -33,7 +33,7 @@ double BR_MPll::computeThValue(){
     double q_min = getBinMin();
     double q_max = getBinMax();
     
-    return computeBR_MPll(q_min, q_max, lep);
+    return computeBR_MPll(q_min, q_max, lep) / ( q_max - q_min );
 }
 
 R_MPll::R_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2) : BR_MPll(SM_i, meson_i, pseudoscalar_i, lep_1), mySM(SM_i) {  
