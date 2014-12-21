@@ -443,6 +443,15 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, Observable& it,
         const std::string OutputDir)
 {
     std::string HistName = it.getName();
+    double min = thMin[it.getThname()];
+    double max = thMax[it.getThname()];
+    
+    if (min == -std::numeric_limits<double>::max() && max == std::numeric_limits<double>::max()) 
+        Histo1D[HistName]->GetHistogram()->SetAxisRange(min, max);
+    else if (min == -std::numeric_limits<double>::max())
+        Histo1D[HistName]->GetHistogram()->SetAxisRange(min, it.getMax());
+    else if (max == std::numeric_limits<double>::max())
+        Histo1D[HistName]->GetHistogram()->SetAxisRange(it.getMin(), max);
     if (Histo1D[HistName]->GetHistogram()->Integral() > 0.0) {
         std::string fname = OutputDir + "/" + HistName + ".pdf";
         //        BCH1D* pippo =  Histo1D[HistName];
@@ -457,8 +466,6 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, Observable& it,
         HistoLog << "WARNING: The histogram of "
             << it.getThname() << " is empty!" << std::endl;
 
-    double min = thMin[it.getThname()];
-    double max = thMax[it.getThname()];
     HistoLog.precision(10);
     HistoLog << "  [min, max]=[" << min << ", " << max << "]" << std::endl;
     HistoLog.precision(6);
