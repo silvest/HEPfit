@@ -160,6 +160,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 throw std::runtime_error("ERROR: lack of information on "
                     + *beg + " in " + filename);
             Observable * bo = new Observable(ParseObservable(beg));
+            bo->setObsType(2);
             ++beg;
             std::string distr = *beg;
             if (distr.compare("file") == 0) {
@@ -239,6 +240,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 throw std::runtime_error("ERROR: lack of information on "
                     + *beg + " in " + filename);
             HiggsObservable * ho = new HiggsObservable(ParseObservable(beg));
+            ho->setObsType(1);
             ++beg;
             std::string distr = *beg;
             if (distr.compare("parametric") == 0) {

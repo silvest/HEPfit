@@ -568,13 +568,15 @@ std::string MonteCarloEngine::computeStatistics()
 {
     std::ostringstream StatsLog;
     StatsLog << "\nWARNING: These statistics should be taken as representative only!!\n" << std::endl;
-    StatsLog << "Name\tmean +/- rms\tmin\tmax\n" << std::endl;
-    StatsLog.precision(10);
+    StatsLog << "Name\tmean +/- rms\tmin\tmax\t(bin_min\tbin_max)\n" << std::endl;
+    StatsLog.precision(6);
     for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
             it < Obs_ALL.end(); it++) {
         obs_mean[it->getName()] = obs_mean[it->getName()]/n_iter;
         obs_var[it->getName()] = sqrt(obs_var[it->getName()]/n_iter - obs_mean[it->getName()] * obs_mean[it->getName()]);
-        StatsLog << it->getName() << ": " << obs_mean[it->getName()] << " +/- " << obs_var[it->getName()] << "\t" << thMin[it->getName()] << "\t" << thMax[it->getName()] << std::endl;
+        StatsLog << it->getName() << ": " << obs_mean[it->getName()] << " +/- " << obs_var[it->getName()] << "\t" << thMin[it->getName()] << "\t" << thMax[it->getName()];
+        if (it->getObsType() == 2) StatsLog << "\t" << it->getTho()->getBinMin() << "\t" << it->getTho()->getBinMax() << std::endl;
+        else StatsLog << std::endl;
     }
     return StatsLog.str().c_str();
 }
