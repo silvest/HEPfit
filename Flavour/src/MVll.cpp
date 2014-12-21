@@ -561,7 +561,7 @@ void MVll::checkCache(){
     }
     
     if (MM == H_V1cache(0) && Mb == H_V1cache(1) && h[1] == H_V1Ccache[0] && h_1[1] == H_V1Ccache[1]) {
-        H_V1updated = N_updated * C_9_updated * VL1_updated * C_9p_updated * VR1_updated * C_7_updated * TL1_updated * C_7p_updated * TR1_updated;
+        H_V1updated = N_updated * C_9_updated * Yupdated * VL1_updated * C_9p_updated * VR1_updated * C_7_updated * TL1_updated * C_7p_updated * TR1_updated;
     } else {
         H_V1updated = 0;
         H_V1cache(0) = MM;
@@ -571,7 +571,7 @@ void MVll::checkCache(){
     }
     
     if (MM == H_V2cache(0) && Mb == H_V2cache(1) && h[2] == H_V2Ccache[0] && h_1[2] == H_V2Ccache[1]) {
-        H_V2updated = N_updated * C_9_updated * VL2_updated * C_9p_updated * VR2_updated * C_7_updated * TL2_updated * C_7p_updated * TR2_updated;
+        H_V2updated = N_updated * C_9_updated * Yupdated * VL2_updated * C_9p_updated * VR2_updated * C_7_updated * TL2_updated * C_7p_updated * TR2_updated;
     } else {
         H_V2updated = 0;
         H_V2cache(0) = MM;
