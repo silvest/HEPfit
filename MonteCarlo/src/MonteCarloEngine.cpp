@@ -55,9 +55,12 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
             histo->GetXaxis()->SetTitle(it->getLabel().c_str());
             BCH1D * bchisto = new BCH1D(histo);
             Histo1D[HistName] = bchisto;
-            thMin[it->getThname()] = std::numeric_limits<double>::max();
-            thMax[it->getThname()] = -std::numeric_limits<double>::max();
+            thMin[it->getName()] = std::numeric_limits<double>::max();
+            thMax[it->getName()] = -std::numeric_limits<double>::max();
         }
+        n_iter = 0;
+        obs_mean[it->getName()] = 0;
+        obs_var[it->getName()] = 0;
     }
     for (std::vector<Observable2D>::iterator it = Obs2D_ALL.begin();
             it < Obs2D_ALL.end(); it++) {
@@ -99,8 +102,8 @@ void MonteCarloEngine::Initialize(Model* Mod_i)
                 histo->GetXaxis()->SetTitle(it->getLabel().c_str());
                 BCH1D * bchisto = new BCH1D(histo);
                 Histo1D[HistName] = bchisto;
-                thMin[it->getThname()] = std::numeric_limits<double>::max();
-                thMax[it->getThname()] = -std::numeric_limits<double>::max();
+                thMin[it->getName()] = std::numeric_limits<double>::max();
+                thMax[it->getName()] = -std::numeric_limits<double>::max();
             }
         }
     }
@@ -309,12 +312,15 @@ void MonteCarloEngine::MCMCIterationInterface()
                 int k = 0;
                 // fill the histograms for observables
                 int ko = 0, kweight = 0;
+                n_iter++;
                 for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
                         it < Obs_ALL.end(); it++) {
                     double th = buff[il][k++];
                     /* set the min and max of theory values */
-                    if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
-                    if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
+                    if (th < thMin[it->getName()]) thMin[it->getName()] = th;
+                    if (th > thMax[it->getName()]) thMax[it->getName()] = th;
+                    obs_mean[it->getName()] = obs_mean[it->getName()] + th;
+                    obs_var[it->getName()] = obs_var[it->getName()] + th * th;
                     Histo1D[it->getName()]->GetHistogram()->Fill(th);
                     if (!it->isTMCMC()) {
                         obval[index_chain[il] * kmax + ko++] = th;
@@ -340,8 +346,8 @@ void MonteCarloEngine::MCMCIterationInterface()
                             it != pino.end(); ++it) {
                         double th = buff[il][k++];
                         /* set the min and max of theory values */
-                        if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
-                        if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
+                        if (th < thMin[it->getName()]) thMin[it->getName()] = th;
+                        if (th > thMax[it->getName()]) thMax[it->getName()] = th;
                         Histo1D[it->getName()]->GetHistogram()->Fill(th);
                     }
                 }
@@ -369,12 +375,15 @@ void MonteCarloEngine::MCMCIterationInterface()
 
         // fill the histograms for observables
         int k = 0, kweight = 0;
+        n_iter++;
         for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
                 it < Obs_ALL.end(); it++) {
             double th = it->computeTheoryValue();
             /* set the min and max of theory values */
-            if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
-            if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
+            if (th < thMin[it->getName()]) thMin[it->getName()] = th;
+            if (th > thMax[it->getName()]) thMax[it->getName()] = th;
+            obs_mean[it->getName()] = obs_mean[it->getName()] + th;
+            obs_var[it->getName()] = obs_var[it->getName()] + th * th;
             Histo1D[it->getName()]->GetHistogram()->Fill(th);
             if (!it->isTMCMC()) {
                 obval[i * kmax + k] = th;
@@ -402,8 +411,8 @@ void MonteCarloEngine::MCMCIterationInterface()
                     it != pino.end(); ++it) {
                 double th = it->computeTheoryValue();
                 /* set the min and max of theory values */
-                if (th < thMin[it->getThname()]) thMin[it->getThname()] = th;
-                if (th > thMax[it->getThname()]) thMax[it->getThname()] = th;
+                if (th < thMin[it->getName()]) thMin[it->getName()] = th;
+                if (th > thMax[it->getName()]) thMax[it->getName()] = th;
                 Histo1D[it->getName()]->GetHistogram()->Fill(th);
             }
         }
@@ -443,15 +452,9 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, Observable& it,
         const std::string OutputDir)
 {
     std::string HistName = it.getName();
-    double min = thMin[it.getThname()];
-    double max = thMax[it.getThname()];
-    
-    if (min == -std::numeric_limits<double>::max() && max == std::numeric_limits<double>::max()) 
-        Histo1D[HistName]->GetHistogram()->SetAxisRange(min, max);
-    else if (min == -std::numeric_limits<double>::max())
-        Histo1D[HistName]->GetHistogram()->SetAxisRange(min, it.getMax());
-    else if (max == std::numeric_limits<double>::max())
-        Histo1D[HistName]->GetHistogram()->SetAxisRange(it.getMin(), max);
+    double min = thMin[it.getName()];
+    double max = thMax[it.getName()];
+
     if (Histo1D[HistName]->GetHistogram()->Integral() > 0.0) {
         std::string fname = OutputDir + "/" + HistName + ".pdf";
         //        BCH1D* pippo =  Histo1D[HistName];
@@ -461,10 +464,10 @@ void MonteCarloEngine::PrintHistogram(BCModelOutput & out, Observable& it,
         Histo1D[HistName]->Print(fname.c_str());
         std::cout << fname << " has been created." << std::endl;
         out.Write(Histo1D[HistName]->GetHistogram());
-        CheckHistogram(*Histo1D[HistName]->GetHistogram(), it.getThname());
+        CheckHistogram(*Histo1D[HistName]->GetHistogram(), it.getName());
     } else
         HistoLog << "WARNING: The histogram of "
-            << it.getThname() << " is empty!" << std::endl;
+            << it.getName() << " is empty!" << std::endl;
 
     HistoLog.precision(10);
     HistoLog << "  [min, max]=[" << min << ", " << max << "]" << std::endl;
@@ -561,3 +564,17 @@ void MonteCarloEngine::PrintCorrelationMatrix(const std::string filename)
     out.close();
 }
 
+std::string MonteCarloEngine::computeStatistics()
+{
+    std::ostringstream StatsLog;
+    StatsLog << "\nWARNING: These statistics should be taken as representative only!!\n" << std::endl;
+    StatsLog << "Name\tmean +/- rms\tmin\tmax\n" << std::endl;
+    StatsLog.precision(10);
+    for (boost::ptr_vector<Observable>::iterator it = Obs_ALL.begin();
+            it < Obs_ALL.end(); it++) {
+        obs_mean[it->getName()] = obs_mean[it->getName()]/n_iter;
+        obs_var[it->getName()] = sqrt(obs_var[it->getName()]/n_iter - obs_mean[it->getName()] * obs_mean[it->getName()]);
+        StatsLog << it->getName() << ": " << obs_mean[it->getName()] << " +/- " << obs_var[it->getName()] << "\t" << thMin[it->getName()] << "\t" << thMax[it->getName()] << std::endl;
+    }
+    return StatsLog.str().c_str();
+}

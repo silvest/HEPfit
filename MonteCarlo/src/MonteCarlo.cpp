@@ -350,6 +350,12 @@ void MonteCarlo::Run(const int rank)
             outHistoLog.open((ObsDirName + "/HistoLog.txt").c_str(), std::ios::out);
             outHistoLog << MCEngine.getHistoLog();
             outHistoLog.close();
+            
+            // print statistics for the theory values of the observables into a text file
+            std::ofstream outStatLog;
+            outHistoLog.open((ObsDirName + "/Statistics.txt").c_str(), std::ios::out);
+            outHistoLog << MCEngine.computeStatistics();
+            outHistoLog.close();
 
             /* Number of events */
             std::stringstream ss;

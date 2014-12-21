@@ -39,11 +39,9 @@ Observable InputParser::ParseObservable(boost::tokenizer<boost::char_separator<c
     while ((pos = label.find("~", pos + 1)) != std::string::npos)
         label.replace(pos, 1, " ");
     ++beg;
-    if ((*beg).compare("min") == 0) min = -std::numeric_limits<double>::max();
-    else min = atof((*beg).c_str());
+    min = atof((*beg).c_str());
     ++beg;
-    if ((*beg).compare("max") == 0) max = std::numeric_limits<double>::max();
-    else max = atof((*beg).c_str());
+    max = atof((*beg).c_str());
     ++beg;
     std::string toMCMC = *beg;
     bool tMCMC;
