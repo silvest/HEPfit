@@ -234,9 +234,6 @@ private:
     int NumOfUsedEvents; ///< The number of events for which the model is successfully updated and hence used for the MCMC run.
     int NumOfDiscardedEvents; ///< The number of events for which the update of the model fails and these events are not used for the MCMC run.
     int rank; ///< Rank of the process for a MPI run. Value is 0 for a serial run.
-    unsigned int n_iter; ///<< Number of theory values used in the histograms.
-    std::map<std::string, double> obs_mean; ///<< A map to compute the mean of the observables
-    std::map<std::string, double> obs_var; ///<< A map to compute the rms of the observables
     
 };
 
