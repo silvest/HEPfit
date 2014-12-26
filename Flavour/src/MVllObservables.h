@@ -246,7 +246,7 @@ public:
     */
     GammaPrime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
-    double computeGammaPrime(double qmin, double qmax);
+    double computeGammaPrime(double qmin, double qmax, StandardModel::lepton lep);
     
     /**
     * @return return the clean observable Gamma'
@@ -319,6 +319,66 @@ private:
     StandardModel::meson meson;
     StandardModel::meson vectorM;
     
+};
+
+
+/**
+ * @class R_K^*
+ * @ingroup flavour
+ * @brief A class for the Branching Fraction ratio. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class R_MVll : public BR_MVll{
+public:
+    
+    /**
+    * @brief \f$ BR_mu/BR_e \f$ 
+    */
+    R_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2);
+    
+    /**
+    * @return the ratio between branching fractions of \f$ B\to K^* \mu^+ \mu^- \f$ and \f$ B\to K^* e^+ e^- \f$
+    */
+    double computeThValue ();
+    
+private:
+    const StandardModel& mySM;
+    StandardModel::lepton lep1;
+    StandardModel::lepton lep2;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
+};
+
+
+/**
+ * @class R_6
+ * @ingroup flavour
+ * @brief A class for the Branching Fraction ratio. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class R_6 : public ThObservable{
+public:
+    
+    /**
+    * @brief \f$ \Sigma_6,mu / \Sigma_6,e \f$ 
+    */
+    R_6(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2);
+    
+    /**
+    * @return the ratio between Sigma_6 of \f$ B\to K^* \mu^+ \mu^- \f$ and \f$ B\to K^* e^+ e^- \f$
+    */
+    double computeThValue ();
+    
+private:
+    const StandardModel& mySM;
+    StandardModel::lepton lep1;
+    StandardModel::lepton lep2;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
 };
 
 
