@@ -852,7 +852,7 @@ gslpp::complex MVll::H_V(int i, double q2, int bar) {
             out << bar;
             throw std::runtime_error("H_V: index " + out.str() + " not allowed for an Angular Coefficient");
     }
-                    
+
     return -gslpp::complex::i()*n*( (C_9 + Y(q2))*V_L(i,q2)
             + C_9p*V_R(i,q2)
             + MM*MM/q2*( 2*Mb/MM*( C_7*T_L(i,q2)

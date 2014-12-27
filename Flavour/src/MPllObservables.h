@@ -46,7 +46,7 @@ private:
 
 
 /**
- * @class ratio between BR for electron and muon channels
+ * @class R_K
  * @ingroup flavour
  * @brief A class for the Branching Fraction ratio. 
  * @author SusyFit Collaboration
@@ -57,12 +57,12 @@ class R_MPll : public BR_MPll{
 public:
     
     /**
-    * @brief \f$ BR_e/BR_mu \f$ 
+    * @brief \f$ BR_mu/BR_e \f$ 
     */
     R_MPll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson pseudoscalar_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2);
     
     /**
-    * @return the ratio between branching fractions of \f$ B\to K e^+ e^- \f$ and \f$ B\to K \mu^+ \mu^- \f$
+    * @return the ratio between branching fractions of \f$ B\to K \mu^+ \mu^- \f$ and \f$ B\to K e^+ e^- \f$ 
     */
     double computeThValue ();
     
