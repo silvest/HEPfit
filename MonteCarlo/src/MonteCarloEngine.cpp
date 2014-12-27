@@ -143,7 +143,7 @@ void MonteCarloEngine::DefineParameters()
     // parameters.at(i) or parameters[i], where i is the index
     // of the parameter. The indices increase from 0 according to the
     // order of adding the parameters.
-    if (rank == 0) std::cout << "Parameters varied in Monte Carlo:" << std::endl;
+    if (rank == 0) std::cout << "\nParameters varied in Monte Carlo:" << std::endl;
     int k = 0;
     for (std::vector<ModelParameter>::const_iterator it = ModPars.begin();
             it < ModPars.end(); it++) {

@@ -378,7 +378,7 @@ std::string InputParser::ReadParameters(const std::string filename,
                 std::cout << "WARNING: unread information in Flag " << flagname << std::endl;
         } else if (type.compare("IncludeFile") == 0) {
             ReadParameters(*beg, rank, ModelPars, Observables, Observables2D, CGO);
-            std::cout << "\nIncluding File: " + *beg << "\n"<< std::endl; 
+            std::cout << "\nIncluding File: " + *beg << std::endl; 
             ++beg;
         } else
             throw std::runtime_error("\nERROR: wrong keyword " + type + " in file " + filename + ". Make sure to specify a valid model configuration file.");
