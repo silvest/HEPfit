@@ -353,13 +353,13 @@ S_4::S_4(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
     vectorM = vector_i;
 }
 
-
+/*Returns experimental value, defined according to 1308.1707*/
 double S_4::computeThValue() {
 
     double q_min = getBinMin();
     double q_max = getBinMax();
 
-    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(5,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
+    return -mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(5,q_min,q_max) / computeGammaPrime(q_min, q_max, lep) /2.;
 }
 
 
@@ -401,13 +401,13 @@ S_8::S_8(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
     vectorM = vector_i;
 }
 
-
+/*Returns experimental value, defined according to 1308.1707*/
 double S_8::computeThValue() {
 
     double q_min = getBinMin();
     double q_max = getBinMax();
 
-    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(10,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
+    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(10,q_min,q_max) / computeGammaPrime(q_min, q_max, lep) / 2.;
 }
 
 
