@@ -59,41 +59,29 @@ public:
     */
     double T_1();
 
-    
-//    /**
-//    * @brief \f$ V \f$
-//    * @return return the transverse form factor V(q^2)
-//    */
-//    double T_2();
-//    
-//    
-//    /**
-//    * @brief \f$ T_L \f$
-//    * @param[in] i polarization
-//    * @return return the helicity form factor T_L(lambda)
-//    */
-//    double T_L(int i);
-//
-//
-//    /**
-//    * @brief \f$ T_R \f$ 
-//    * @param[in] i polarization
-//    * @return return the helicity form factor T_R(lambda)
-//    */
-//    double T_R(int i);
-
-
     /**
-    * @brief \f$ H_V(+) - H_V(-) \f$ 
+    * @brief \f$ H_V(+) \f$ 
     * @return return the helicity amplitude H_V(+)
     */
-    complex H_V();
+    complex H_V_p();
     
     /**
-    * @brief \f$ H_V(+) - H_V(-)\f$ 
+    * @brief \f$ H_V(-) \f$ 
+    * @return return the helicity amplitude H_V(-)
+    */
+    complex H_V_m();
+    
+    /**
+    * @brief \f$ H_V(+) \f$ 
     * @return return the helicity amplitude H_V(+)
     */
-    complex H_V_bar();
+    complex H_V_p_bar();
+    
+    /**
+    * @brief \f$ H_V(-)\f$ 
+    * @return return the helicity amplitude H_V(-)
+    */
+    complex H_V_m_bar();
     
     
     

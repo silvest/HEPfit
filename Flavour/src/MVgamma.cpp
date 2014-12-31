@@ -79,12 +79,20 @@ double MVgamma::T_1(){
 /*******************************************************************************
  * Helicity amplitudes                                                         *
  * ****************************************************************************/
-complex MVgamma::H_V() {
-    return lambda_t * ((C_7 - C_7p) *T_1() * lambda / MM2 - MM/(2*Mb)*16*M_PI*M_PI*(h[0] + h[1]));
+complex MVgamma::H_V_m() {
+    return lambda_t * (C_7 *T_1() * lambda / MM2 - MM/(2*Mb)*16*M_PI*M_PI*h[1]);
 }
 
-complex MVgamma::H_V_bar() {
-    return lambda_t.conjugate() * ((C_7 - C_7p) *T_1() * lambda / MM2 - MM/(2*Mb)*16*M_PI*M_PI*(h[0] + h[1]));
+complex MVgamma::H_V_p() {
+    return lambda_t * (- C_7p *T_1() * lambda / MM2 - MM/(2*Mb)*16*M_PI*M_PI*h[0]);
+}
+
+complex MVgamma::H_V_m_bar() {
+    return lambda_t.conjugate() * (C_7 *T_1() * lambda / MM2 - MM/(2*Mb)*16*M_PI*M_PI*h[1]);
+}
+
+complex MVgamma::H_V_p_bar() {
+    return lambda_t.conjugate() * (- C_7p *T_1() * lambda / MM2 - MM/(2*Mb)*16*M_PI*M_PI*h[0]);
 }
 
 /*******************************************************************************
@@ -100,7 +108,7 @@ BR_MVgamma::BR_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, 
 double BR_MVgamma::computeThValue(){
     updateParameters();
     
-    return ale * pow(GF * Mb / (4 * M_PI * M_PI), 2.) * MM * lambda /(4. * width) * (H_V().abs2() + H_V_bar().abs2());
+    return ale * pow(GF * Mb / (4 * M_PI * M_PI), 2.) * MM * lambda /(4. * width) * (H_V_p().abs2() + H_V_m().abs2() + H_V_p_bar().abs2() + H_V_m_bar().abs2());
 }
 
 ACP_MVgamma::ACP_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i) : mySM(SM_i), MVgamma(SM_i, meson_i, vector_i) {
@@ -111,5 +119,5 @@ ACP_MVgamma::ACP_MVgamma(const StandardModel& SM_i, StandardModel::meson meson_i
 double ACP_MVgamma::computeThValue(){
     updateParameters();
     
-    return (H_V().abs2() - H_V_bar().abs2()) / (H_V().abs2() + H_V_bar().abs2());
+    return ((H_V_p().abs2() + H_V_m().abs2() - H_V_p_bar().abs2() - H_V_m_bar().abs2())) / (H_V_p().abs2() + H_V_m().abs2() + H_V_p_bar().abs2() + H_V_m_bar().abs2());
 }
