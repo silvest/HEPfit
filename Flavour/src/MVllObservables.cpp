@@ -385,7 +385,7 @@ S_7::S_7(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel:
     vectorM = vector_i;
 }
 
-
+/*Returns experimental value, defined according to 1308.1707*/
 double S_7::computeThValue() {
 
     double q_min = getBinMin();
