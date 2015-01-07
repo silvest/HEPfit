@@ -391,7 +391,7 @@ double S_7::computeThValue() {
     double q_min = getBinMin();
     double q_max = getBinMax();
 
-    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(9,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
+    return -mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateSigma(9,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
 }
 
 
