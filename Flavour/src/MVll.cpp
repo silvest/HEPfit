@@ -832,7 +832,7 @@ gslpp::complex MVll::H(double q2, double m){
 
 
 gslpp::complex MVll::Y(double q2){
-    return 4./3. * C_3 + 64./9. * C_5 + 64./27. * C_6 - 1./2. * H(q2,0.) * ( C_3 + 4./3.*C_4 + 16. * C_5 + 64./3.*C_6 )
+    return  - 1./2. * H(q2,0.) * ( C_3 + 4./3.*C_4 + 16. * C_5 + 64./3.*C_6 )
             + H(q2, Mc) * ( 4./3.*C_1 + C_2 + 6.*C_3 + 60.*C_5 ) - 1./2. * H(q2, Mb) * ( 7.*C_3 + 4./3.*C_4 + 76.*C_5 + 64./3.*C_6 );
 }
 
@@ -936,7 +936,7 @@ double MVll::k2(double q2) {
 
 
 double MVll::beta(double q2) {
-    return sqrt(1-4.*Mlep*Mlep/q2);
+    return sqrt(1.-4.*Mlep*Mlep/q2);
 }
 
 
