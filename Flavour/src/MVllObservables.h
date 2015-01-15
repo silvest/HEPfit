@@ -804,6 +804,83 @@ private:
 
 };
 
+class Vp_Vm : public ThObservable{
+public:
+    
+   Vp_Vm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+
+   double computeThValue();
+
+private:
+   const StandardModel& mySM;
+   StandardModel::lepton lep;
+   StandardModel::meson meson;
+   StandardModel::meson vectorM;
+
+};
+
+
+class Tp_Tm : public ThObservable{
+public:
+
+   Tp_Tm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+
+   double computeThValue();
+
+private:
+   const StandardModel& mySM;
+   StandardModel::lepton lep;
+   StandardModel::meson meson;
+   StandardModel::meson vectorM;
+
+};
+
+class V0_m_T0_V0_p_T0 : public ThObservable{
+public:
+    
+   V0_m_T0_V0_p_T0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+
+   double computeThValue();
+
+private:
+   const StandardModel& mySM;
+   StandardModel::lepton lep;
+   StandardModel::meson meson;
+   StandardModel::meson vectorM;
+
+};
+
+class Vm_m_Tm_Vm_p_Tm : public ThObservable{
+public:
+    
+   Vm_m_Tm_Vm_p_Tm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+
+   double computeThValue();
+
+private:
+   const StandardModel& mySM;
+   StandardModel::lepton lep;
+   StandardModel::meson meson;
+   StandardModel::meson vectorM;
+
+};
+
+class V0_m_S_V0_p_S : public ThObservable{
+public:
+    
+   V0_m_S_V0_p_S(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+
+   double computeThValue();
+
+private:
+   const StandardModel& mySM;
+   StandardModel::lepton lep;
+   StandardModel::meson meson;
+   StandardModel::meson vectorM;
+
+};
+
+
 #endif	/* MVLLOBSERVABLES_H */
 
     

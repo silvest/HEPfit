@@ -172,7 +172,7 @@ double BR_MVll::computeThValue() {
     double q_min = getBinMin();
     double q_max = getBinMax();
     
-    return computeGammaPrime(q_min, q_max, lep)/mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->width / ( q_max - q_min );
+    return computeGammaPrime(q_min, q_max, lep)/mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->width;// / ( q_max - q_min );
 }
 
 
@@ -440,4 +440,79 @@ double A_9::computeThValue() {
     double q_max = getBinMax();
 
     return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDelta(11,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
+}
+
+Vp_Vm::Vp_Vm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : ThObservable(SM_i), mySM(SM_i) {
+   lep = lep_i;
+   meson = meson_i;
+   vectorM = vector_i;
+}
+
+double Vp_Vm::computeThValue() {
+
+
+   double q_min = getBinMin();
+   double q_max = getBinMax();
+
+   return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(0,q_min,q_max)/mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(2,q_min,q_max);
+}
+
+Tp_Tm::Tp_Tm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : ThObservable(SM_i), mySM(SM_i) {
+   lep = lep_i;
+   meson = meson_i;
+   vectorM = vector_i;
+}
+
+double Tp_Tm::computeThValue() {
+
+
+   double q_min = getBinMin();
+   double q_max = getBinMax();
+
+   return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(1,q_min,q_max)/mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(3,q_min,q_max);
+}
+
+V0_m_T0_V0_p_T0::V0_m_T0_V0_p_T0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : ThObservable(SM_i), mySM(SM_i) {
+   lep = lep_i;
+   meson = meson_i;
+   vectorM = vector_i;
+}
+
+double V0_m_T0_V0_p_T0::computeThValue() {
+
+
+   double q_min = getBinMin();
+   double q_max = getBinMax();
+
+   return 2.*mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(5,q_min,q_max)/mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(8,q_min,q_max);
+}
+
+Vm_m_Tm_Vm_p_Tm::Vm_m_Tm_Vm_p_Tm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : ThObservable(SM_i), mySM(SM_i) {
+   lep = lep_i;
+   meson = meson_i;
+   vectorM = vector_i;
+}
+
+double Vm_m_Tm_Vm_p_Tm::computeThValue() {
+
+
+   double q_min = getBinMin();
+   double q_max = getBinMax();
+
+   return 2.*mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(4,q_min,q_max)/mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(7,q_min,q_max);
+}
+
+V0_m_S_V0_p_S::V0_m_S_V0_p_S(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : ThObservable(SM_i), mySM(SM_i) {
+   lep = lep_i;
+   meson = meson_i;
+   vectorM = vector_i;
+}
+
+double V0_m_S_V0_p_S::computeThValue() {
+
+
+   double q_min = getBinMin();
+   double q_max = getBinMax();
+
+   return 2.*mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(6,q_min,q_max)/mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(9,q_min,q_max);
 }

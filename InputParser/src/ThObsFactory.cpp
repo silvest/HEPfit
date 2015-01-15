@@ -171,6 +171,12 @@ ThObsFactory::ThObsFactory(){
     //----- B to PHI gamma  -----
     obsThFactory["BR_Bphigamma"] = boost::bind(boost::factory<BR_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
     obsThFactory["ACP_Bphigamma"] = boost::bind(boost::factory<ACP_MVgamma*>(), _1, StandardModel::B_S, StandardModel::PHI);
+    
+    obsThFactory["Tp_Tm"] = boost::bind(boost::factory<Tp_Tm*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["Vp_Vm"] = boost::bind(boost::factory<Vp_Vm*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["V0_m_T0_V0_p_T0"] = boost::bind(boost::factory<V0_m_T0_V0_p_T0*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["Vm_m_Tm_Vm_p_Tm"] = boost::bind(boost::factory<Vm_m_Tm_Vm_p_Tm*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
+    obsThFactory["V0_m_S_V0_p_S"] = boost::bind(boost::factory<V0_m_S_V0_p_S*>(), _1, StandardModel::B_D, StandardModel::K_star, StandardModel::MU);
 
 //
 //    //-----  Lepton Flavour observables  -----

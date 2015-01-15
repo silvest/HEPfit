@@ -443,6 +443,15 @@ public:
     * @param[in] q_max maximum q^2 of the integral
     * @return return the CP average integral of Sigma_i from q_min to q_max
     */
+    double integrateFF(int i, double q_min, double q_max);
+    
+    /**
+    * @brief \f$ <Sigma_{i}> \f$ 
+    * @param[in] i index of the angular coefficient I_i
+    * @param[in] q_min minimum q^2 of the integral
+    * @param[in] q_max maximum q^2 of the integral
+    * @return return the CP average integral of Sigma_i from q_min to q_max
+    */
     double integrateSigma(int i, double q_min, double q_max);
     
     /**
@@ -683,6 +692,46 @@ public:
     double getFactor(double q2){
         return q2/(2*Mlep*Mlep);
     }
+    
+   double getV0_m_T0(double q2){
+       return V_L(0,q2)-T_L(0,q2);
+   };
+   
+   double getV0_p_T0(double q2){
+       return V_L(0,q2)+T_L(0,q2);
+   };
+
+   double getVp(double q2){
+       return V_L(1,q2);
+   };
+
+   double getVm(double q2){
+       return V_L(2,q2);
+   };
+
+   double getVm_m_Tm(double q2){
+       return V_L(2,q2)-T_L(2,q2);
+   };
+   
+   double getVm_p_Tm(double q2){
+       return V_L(2,q2)+T_L(2,q2);
+   };
+
+   double getTp(double q2){
+       return T_L(1,q2);
+   };
+
+   double getTm(double q2){
+       return T_L(2,q2);
+   };
+
+   double getV0_m_S(double q2){
+       return V_L(0,q2)-S_L(q2);
+   };
+   
+   double getV0_p_S(double q2){
+       return V_L(0,q2)+S_L(q2);
+   };
 
 private:
     const StandardModel& mySM;
@@ -708,6 +757,17 @@ private:
     std::map<std::pair<double, double>, double > cacheDelta2;
     std::map<std::pair<double, double>, double > cacheDelta3;
     std::map<std::pair<double, double>, double > cacheDelta11;
+    
+    std::map<std::pair<double, double>, double > cacheVp;
+    std::map<std::pair<double, double>, double > cacheVm;
+    std::map<std::pair<double, double>, double > cacheTp;
+    std::map<std::pair<double, double>, double > cacheTm;
+    std::map<std::pair<double, double>, double > cacheVm_m_Tm;
+    std::map<std::pair<double, double>, double > cacheVm_p_Tm;
+    std::map<std::pair<double, double>, double > cacheV0_m_T0;
+    std::map<std::pair<double, double>, double > cacheV0_p_T0;
+    std::map<std::pair<double, double>, double > cacheV0_m_S;
+    std::map<std::pair<double, double>, double > cacheV0_p_S;
     
     double avaSigma0;
     double avaSigma1;
@@ -745,6 +805,27 @@ private:
     double errDelta3;
     double errDelta11;
     
+    double avaVp;
+    double avaTp;
+    double avaVm;
+    double avaTm;
+    double avaVm_m_Tm;
+    double avaVm_p_Tm;
+    double avaV0_m_T0;
+    double avaV0_p_T0;
+    double avaV0_m_S;
+    double avaV0_p_S;
+    
+    double errVp;
+    double errTp;
+    double errVm;
+    double errTm;
+    double errVm_m_Tm;
+    double errVm_p_Tm;
+    double errV0_m_T0;
+    double errV0_p_T0;
+    double errV0_m_S;
+    double errV0_p_S;
     
     gsl_function FS0;
     gsl_function FS1;
@@ -764,6 +845,17 @@ private:
     gsl_function FD3;
     gsl_function FD11;
     
+    gsl_function FVp;
+    gsl_function FVm;
+    gsl_function FTp;
+    gsl_function FTm;
+    gsl_function FVm_m_Tm;
+    gsl_function FVm_p_Tm;
+    gsl_function FV0_m_T0;
+    gsl_function FV0_p_T0;
+    gsl_function FV0_m_S;
+    gsl_function FV0_p_S;
+    
     gsl_integration_workspace * w_sigma0;
     gsl_integration_workspace * w_sigma1;
     gsl_integration_workspace * w_sigma2;
@@ -782,6 +874,16 @@ private:
     gsl_integration_workspace * w_delta3;
     gsl_integration_workspace * w_delta11;
     
+    gsl_integration_workspace * w_Vp;
+    gsl_integration_workspace * w_Vm;
+    gsl_integration_workspace * w_Tp;
+    gsl_integration_workspace * w_Tm;
+    gsl_integration_workspace * w_Vm_m_Tm;
+    gsl_integration_workspace * w_Vm_p_Tm;
+    gsl_integration_workspace * w_V0_m_T0;
+    gsl_integration_workspace * w_V0_p_T0;
+    gsl_integration_workspace * w_V0_m_S;
+    gsl_integration_workspace * w_V0_p_S;
     
     unsigned int N_updated;
     gslpp::vector<double> N_cache;
@@ -954,6 +1056,16 @@ private:
     std::map<std::pair<double, double>, unsigned int > delta3Cached;
     std::map<std::pair<double, double>, unsigned int > delta11Cached;
     
+    std::map<std::pair<double, double>, unsigned int > VpCached;
+    std::map<std::pair<double, double>, unsigned int > TpCached;
+    std::map<std::pair<double, double>, unsigned int > VmCached;
+    std::map<std::pair<double, double>, unsigned int > TmCached;
+    std::map<std::pair<double, double>, unsigned int > Vm_m_TmCached;
+    std::map<std::pair<double, double>, unsigned int > Vm_p_TmCached;
+    std::map<std::pair<double, double>, unsigned int > V0_m_T0Cached;
+    std::map<std::pair<double, double>, unsigned int > V0_p_T0Cached;
+    std::map<std::pair<double, double>, unsigned int > V0_m_SCached;
+    std::map<std::pair<double, double>, unsigned int > V0_p_SCached;
     
     
 };
