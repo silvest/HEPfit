@@ -436,14 +436,14 @@ public:
     */
     double Sigma(int i, double q2);
     
+    
     /**
-    * @brief \f$ <Sigma_{i}> \f$ 
+    * @brief \f$ Delta_{i} \f$ 
     * @param[in] i index of the angular coefficient I_i
-    * @param[in] q_min minimum q^2 of the integral
-    * @param[in] q_max maximum q^2 of the integral
-    * @return return the CP average integral of Sigma_i from q_min to q_max
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP asymmetry Delta_i
     */
-    double integrateFF(int i, double q_min, double q_max);
+    double Delta(int i, double q2);
     
     /**
     * @brief \f$ <Sigma_{i}> \f$ 
@@ -463,14 +463,28 @@ public:
     */
     double integrateDelta(int i, double q_min, double q_max);
     
+    /**
+    * i values:
+    * 0 = V_+
+    * 1 = T_+
+    * 2 = V_-
+    * 3 = T_-
+    * 4 = V_- - T_-
+    * 5 = V_0 - T_0
+    * 6 = V_0 - S
+    * 7 = V_- + T_-
+    * 8 = V_0 + T_0
+    * 9 = V_0 + S
+    */
     
     /**
-    * @brief \f$ Delta_{i} \f$ 
-    * @param[in] i index of the angular coefficient I_i
-    * @param[in] q2 q^2 of the decay
-    * @return return the CP asymmetry Delta_i
+    * @brief \f$ <Sigma_{i}> \f$ 
+    * @param[in] i index of the form factor
+    * @param[in] q_min minimum q^2 of the integral
+    * @param[in] q_max maximum q^2 of the integral
+    * @return return the integral of a form factor from q_min to q_max
     */
-    double Delta(int i, double q2);
+    double integrateFF(int i, double q_min, double q_max);
     
     /**
     * @brief \f$ Sigma_{1s} \f$ 
@@ -688,50 +702,104 @@ public:
         return H_P(q2, 0).abs2();
     }
     
-    
+    /**
+    * @brief \f$ q^2/(2*Ml*Ml) \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the factor q^2/(2*Ml*Ml)
+    */
     double getFactor(double q2){
         return q2/(2*Mlep*Mlep);
     }
     
-   double getV0_m_T0(double q2){
-       return ((2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2)) - ((2. * pow(MM, 3.))/sqrt(q2 * lambda(q2)) * T_L(0,q2));
-   };
-   
-   double getV0_p_T0(double q2){
-       return ((2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2)) + ((2. * pow(MM, 3.))/sqrt(q2 * lambda(q2)) * T_L(0,q2));
-   };
-
-   double getVp(double q2){
-       return V_L(1,q2);
-   };
-
-   double getVm(double q2){
-       return V_L(2,q2);
-   };
-
-   double getVm_m_Tm(double q2){
-       return V_L(2,q2)-T_L(2,q2);
-   };
-   
-   double getVm_p_Tm(double q2){
-       return V_L(2,q2)+T_L(2,q2);
-   };
-
-   double getTp(double q2){
-       return T_L(1,q2);
-   };
-
-   double getTm(double q2){
-       return T_L(2,q2);
-   };
-
-   double getV0_m_S(double q2){
-       return ((2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2)) - ((-2. * MM * (Mb + Ms))/sqrt(lambda(q2)) * S_L(q2));
-   };
-   
-   double getV0_p_S(double q2){
-       return ((2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2)) + ((-2. * MM * (Mb + Ms))/sqrt(lambda(q2)) * S_L(q2));
-   };
+    /**
+    * @brief \f$ V0 - T0 \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the form factors difference V0 - T0
+    */
+    double getV0_m_T0(double q2){
+        return ((2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2)) - ((2. * pow(MM, 3.))/sqrt(q2 * lambda(q2)) * T_L(0,q2));
+    };
+    
+    /**
+    * @brief \f$ V0 + T0 \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the form factors sum V0 + T0
+    */
+    double getV0_p_T0(double q2){
+        return ((2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2)) + ((2. * pow(MM, 3.))/sqrt(q2 * lambda(q2)) * T_L(0,q2));
+    };
+    
+    /**
+    * @brief \f$ V_+ \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the form factor V_+
+    */
+    double getVp(double q2){
+        return V_L(1,q2);
+    };
+    
+    /**
+    * @brief \f$ V_- \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the form factor V_-
+    */
+    double getVm(double q2){
+        return V_L(2,q2);
+    };
+    
+    /**
+    * @brief \f$ V_- - T_- \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the form factors difference V_- - T_-
+    */
+    double getVm_m_Tm(double q2){
+        return V_L(2,q2)-T_L(2,q2);
+    };
+    
+    /**
+    * @brief \f$ V_- + T_- \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the form factors sum V_- + T_-
+    */
+    double getVm_p_Tm(double q2){
+        return V_L(2,q2)+T_L(2,q2);
+    };
+    
+    /**
+    * @brief \f$ T_+ \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the form factor T_+
+    */
+    double getTp(double q2){
+        return T_L(1,q2);
+    };
+    
+    /**
+    * @brief \f$ T_- \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the form factor T_-
+    */
+    double getTm(double q2){
+        return T_L(2,q2);
+    };
+    
+    /**
+    * @brief \f$ V0 - S \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the form factors difference V0 - S
+    */
+    double getV0_m_S(double q2){
+        return ((2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2)) - ((-2. * MM * (Mb + Ms))/sqrt(lambda(q2)) * S_L(q2));
+    };
+    
+    /**
+    * @brief \f$ V0 + S \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the form factors sum V0 + S
+    */
+    double getV0_p_S(double q2){
+        return ((2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2)) + ((-2. * MM * (Mb + Ms))/sqrt(lambda(q2)) * S_L(q2));
+    };
 
 private:
     const StandardModel& mySM;

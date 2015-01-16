@@ -212,12 +212,12 @@ class P_8Prime : public ThObservable{
 public:
     
     /**
-    * @brief \f$ P'_{6} \f$ 
+    * @brief \f$ P'_{8} \f$ 
     */
     P_8Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
 
     /**
-    * @return return the clean observable P'_6
+    * @return return the clean observable P'_8
     */
     double computeThValue ();
    
@@ -274,12 +274,12 @@ class A_FB : public GammaPrime{
 public:
     
     /**
-    * @brief \f$ Gamma' \f$ 
+    * @brief \f$ A_{FB} \f$ 
     */
     A_FB(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @return return the clean observable Gamma'
+    * @return return the clean observable A_FB
     */
     double computeThValue ();
    
@@ -304,7 +304,7 @@ class BR_MVll : public GammaPrime{
 public:
     
     /**
-    * @brief \f$B\to K^* l^+l^-\f$ 
+    * @brief \f$BR_{B \to K^* l^+l^-}\f$ 
     */
     BR_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
@@ -334,7 +334,7 @@ class F_L : public GammaPrime{
 public:
     
     /**
-    * @brief \f$ F_L \f$ 
+    * @brief \f$ F_{L} \f$ 
     */
     F_L(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
@@ -367,7 +367,7 @@ class R_MVll : public GammaPrime{
 public:
     
     /**
-    * @brief \f$ BR_mu/BR_e \f$ 
+    * @brief \f$ BR_{mu}/BR_{e} \f$ 
     */
     R_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2);
     
@@ -397,12 +397,12 @@ class RL_MVll : public F_L{
 public:
     
     /**
-    * @brief \f$ BR_mu/BR_e \f$ 
+    * @brief \f$ BR_{mu,L}/BR_{e,L} \f$ 
     */
     RL_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2);
     
     /**
-    * @return the ratio between branching fractions of \f$ B\to K^* \mu^+ \mu^- \f$ and \f$ B\to K^* e^+ e^- \f$
+    * @return the ratio between longitudinal branching fractions of \f$ B\to K^* \mu^+ \mu^- \f$ and \f$ B\to K^* e^+ e^- \f$
     */
     double computeThValue ();
     
@@ -427,12 +427,12 @@ class RT_MVll : public F_L{
 public:
     
     /**
-    * @brief \f$ BR_mu/BR_e \f$ 
+    * @brief \f$ BR_{mu/,TBR_{e,T} \f$ 
     */
     RT_MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2);
     
     /**
-    * @return the ratio between branching fractions of \f$ B\to K^* \mu^+ \mu^- \f$ and \f$ B\to K^* e^+ e^- \f$
+    * @return the ratio between transverse branching fractions of \f$ B\to K^* \mu^+ \mu^- \f$ and \f$ B\to K^* e^+ e^- \f$
     */
     double computeThValue ();
     
@@ -457,7 +457,7 @@ class R_6 : public ThObservable{
 public:
     
     /**
-    * @brief \f$ \Sigma_6,mu / \Sigma_6,e \f$ 
+    * @brief \f$ \Sigma_{6,mu} / \Sigma_{6,e} \f$ 
     */
     R_6(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_1, StandardModel::lepton lep_2);
     
@@ -547,7 +547,7 @@ class M_1Prime : public ThObservable{
 public:
     
     /**
-    * @brief \f$ M'_1 \f$ 
+    * @brief \f$ M'_{1} \f$ 
     */
     M_1Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
@@ -577,7 +577,7 @@ class M_2Prime : public ThObservable{
 public:
     
     /**
-    * @brief \f$ M'_2 \f$ 
+    * @brief \f$ M'_{2} \f$ 
     */
     M_2Prime(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
@@ -598,7 +598,7 @@ private:
 /**
  * @class S_3
  * @ingroup flavour
- * @brief A class for the clean observable S_1. 
+ * @brief A class for the observable S_3. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
@@ -607,12 +607,12 @@ class S_3 : public GammaPrime{
 public:
     
     /**
-    * @brief \f$ Gamma' \f$ 
+    * @brief \f$ S_{3} \f$ 
     */
     S_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @return return the clean observable Gamma'
+    * @return return the observable S_3
     */
     double computeThValue ();
    
@@ -628,7 +628,7 @@ private:
 /**
  * @class S_4
  * @ingroup flavour
- * @brief A class for the clean observable S_2. 
+ * @brief A class for the observable S_4. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
@@ -637,12 +637,12 @@ class S_4: public GammaPrime{
 public:
     
     /**
-    * @brief \f$ Gamma' \f$ 
+    * @brief \f$ S_{4} \f$ 
     */
     S_4(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @return return the clean observable Gamma'
+    * @return return the observable S_4
     */
     double computeThValue ();
    
@@ -658,7 +658,7 @@ private:
 /**
  * @class S_5
  * @ingroup flavour
- * @brief A class for the clean observable S_5. 
+ * @brief A class for the observable S_5. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
@@ -667,12 +667,12 @@ class S_5 : public GammaPrime{
 public:
     
     /**
-    * @brief \f$ Gamma' \f$ 
+    * @brief \f$ S_{5} \f$ 
     */
     S_5(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @return return the clean observable Gamma'
+    * @return return the observable S_5
     */
     double computeThValue ();
    
@@ -688,7 +688,7 @@ private:
 /**
  * @class S_7
  * @ingroup flavour
- * @brief A class for the clean observable S_7. 
+ * @brief A class for the observable S_7. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
@@ -697,12 +697,12 @@ class S_7 : public GammaPrime{
 public:
     
     /**
-    * @brief \f$ Gamma' \f$ 
+    * @brief \f$ S_{7} \f$ 
     */
     S_7(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @return return the clean observable Gamma'
+    * @return return the observable S_7
     */
     double computeThValue ();
    
@@ -718,7 +718,7 @@ private:
 /**
  * @class S_8
  * @ingroup flavour
- * @brief A class for the clean observable S_8. 
+ * @brief A class for the observable S_8. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
@@ -727,12 +727,12 @@ class S_8 : public GammaPrime{
 public:
     
     /**
-    * @brief \f$ Gamma' \f$ 
+    * @brief \f$ S_{8} \f$ 
     */
     S_8(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @return return the clean observable Gamma'
+    * @return return the observable S_8
     */
     double computeThValue ();
    
@@ -748,7 +748,7 @@ private:
 /**
  * @class S_9
  * @ingroup flavour
- * @brief A class for the clean observable S_9. 
+ * @brief A class for the observable S_9. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
@@ -757,12 +757,12 @@ class S_9 : public GammaPrime{
 public:
     
     /**
-    * @brief \f$ Gamma' \f$ 
+    * @brief \f$ S_{9} \f$ 
     */
     S_9(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @return return the clean observable Gamma'
+    * @return return the observable S_9
     */
     double computeThValue ();
    
@@ -778,7 +778,7 @@ private:
 /**
  * @class A_9
  * @ingroup flavour
- * @brief A class for the clean observable A_9. 
+ * @brief A class for the observable A_9. 
  * @author SusyFit Collaboration
  * @copyright GNU General Public License
  * @details 
@@ -787,12 +787,12 @@ class A_9 : public GammaPrime{
 public:
     
     /**
-    * @brief \f$ Gamma' \f$ 
+    * @brief \f$ A_{9} \f$ 
     */
     A_9(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
     
     /**
-    * @return return the clean observable Gamma'
+    * @return return the observable A_9
     */
     double computeThValue ();
    
@@ -804,79 +804,153 @@ private:
 
 };
 
+
+/**
+ * @class Vp_Vm
+ * @ingroup flavour
+ * @brief A class for the ratio V_+/V_-. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class Vp_Vm : public ThObservable{
 public:
     
-   Vp_Vm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
-
-   double computeThValue();
+    /**
+    * @brief \f$ V_{+}/V_{-} \f$ 
+    */
+    Vp_Vm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    
+    /**
+    * @return return the ratio V_+/V_-
+    */
+    double computeThValue();
 
 private:
-   const StandardModel& mySM;
-   StandardModel::lepton lep;
-   StandardModel::meson meson;
-   StandardModel::meson vectorM;
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
 
 };
 
 
+/**
+ * @class Tp_Tm
+ * @ingroup flavour
+ * @brief A class for the ratio T_+/T_-. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class Tp_Tm : public ThObservable{
 public:
-
-   Tp_Tm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
-
-   double computeThValue();
+    
+    /**
+    * @brief \f$ T_{+}/T_{-} \f$ 
+    */
+    Tp_Tm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    
+    /**
+    * @return return the ratio T_+/T_-
+    */
+    double computeThValue();
 
 private:
-   const StandardModel& mySM;
-   StandardModel::lepton lep;
-   StandardModel::meson meson;
-   StandardModel::meson vectorM;
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
 
 };
 
+
+/**
+ * @class V0_m_T0_V0_p_T0
+ * @ingroup flavour
+ * @brief A class for the ratio (V_0 - T_0) / (V_0 + T_0). 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class V0_m_T0_V0_p_T0 : public ThObservable{
 public:
     
-   V0_m_T0_V0_p_T0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
-
-   double computeThValue();
+    /**
+    * @brief \f$ (V_{0} - T_{0}) / (V_{0} + T_{0}) \f$ 
+    */
+    V0_m_T0_V0_p_T0(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    
+    /**
+    * @return return the ratio (V_0 - T_0) / (V_0 + T_0)
+    */
+    double computeThValue();
 
 private:
-   const StandardModel& mySM;
-   StandardModel::lepton lep;
-   StandardModel::meson meson;
-   StandardModel::meson vectorM;
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
 
 };
 
+
+/**
+ * @class Vm_m_Tm_Vm_p_Tm
+ * @ingroup flavour
+ * @brief A class for the ratio (V_- - T_-) / (V_- + T_-). 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class Vm_m_Tm_Vm_p_Tm : public ThObservable{
 public:
     
-   Vm_m_Tm_Vm_p_Tm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    /**
+    * @brief \f$ (V_{-} - T_{-}) / (V_{-} + T_{-}) \f$ 
+    */
+    Vm_m_Tm_Vm_p_Tm(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
 
-   double computeThValue();
+    /**
+    * @return return the ratio (V_- - T_-) / (V_- + T_-)
+    */
+    double computeThValue();
 
 private:
-   const StandardModel& mySM;
-   StandardModel::lepton lep;
-   StandardModel::meson meson;
-   StandardModel::meson vectorM;
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
 
 };
 
+
+/**
+ * @class V0_m_S_V0_p_S
+ * @ingroup flavour
+ * @brief A class for the ratio (V_0 - S) / (V_0 + S). 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
 class V0_m_S_V0_p_S : public ThObservable{
 public:
     
-   V0_m_S_V0_p_S(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    /**
+    * @brief \f$ (V_{0} - S) / (V_{0} + S) \f$ 
+    */
+    V0_m_S_V0_p_S(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
 
-   double computeThValue();
+    /**
+    * @return return the ratio (V_0 - S) / (V_0 + S)
+    */
+    double computeThValue();
 
 private:
-   const StandardModel& mySM;
-   StandardModel::lepton lep;
-   StandardModel::meson meson;
-   StandardModel::meson vectorM;
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
 
 };
 
