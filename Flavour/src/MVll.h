@@ -694,11 +694,11 @@ public:
     }
     
    double getV0_m_T0(double q2){
-       return V_L(0,q2)-T_L(0,q2);
+       return ((2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2)) - ((2. * pow(MM, 3.))/sqrt(q2 * lambda(q2)) * T_L(0,q2));
    };
    
    double getV0_p_T0(double q2){
-       return V_L(0,q2)+T_L(0,q2);
+       return ((2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2)) + ((2. * pow(MM, 3.))/sqrt(q2 * lambda(q2)) * T_L(0,q2));
    };
 
    double getVp(double q2){
@@ -726,11 +726,11 @@ public:
    };
 
    double getV0_m_S(double q2){
-       return V_L(0,q2)-S_L(q2);
+       return ((2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2)) - ((-2. * MM * (Mb + Ms))/sqrt(lambda(q2)) * S_L(q2));
    };
    
    double getV0_p_S(double q2){
-       return V_L(0,q2)+S_L(q2);
+       return ((2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2)) + ((-2. * MM * (Mb + Ms))/sqrt(lambda(q2)) * S_L(q2));
    };
 
 private:
