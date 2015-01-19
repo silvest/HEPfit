@@ -826,7 +826,7 @@ double MVll::T_R(int i, double q2){
 
 
 double MVll::S_L(double q2){
-    return -sqrt(lambda(q2))/ ( 2*MM*(Mb + Ms) ) *A_0(q2);
+    return -sqrt(lambda(q2))/ ( 2.*MM*(Mb + Ms) ) *A_0(q2);
 }
 
 
