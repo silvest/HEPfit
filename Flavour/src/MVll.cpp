@@ -120,13 +120,13 @@ void MVll::updateParameters(){
             a_0T23=mySM.geta_0T23();
             a_1T23=mySM.geta_1T23();
             dmT23=mySM.getdmT23();
-    
+            
             r_1V=mySM.getr_1V();
             r_2V=mySM.getr_2V();
             m_RV=mySM.getm_RV();
             m_fit2V=mySM.getm_fit2V();
             r_1A0=mySM.getr_1A0();
-            r_2A0=mySM.getr_2A0();
+            r_2A0=(MM * (r_2A1 - r_1A2 - r_2A2) + MV * (r_2A1 + r_1A2 + r_2A2))/2.*MV - r_1A0;//mySM.getr_2A0();
             m_RA0=mySM.getm_RA0();
             m_fit2A0=mySM.getm_fit2A0();
             r_2A1=mySM.getr_2A1();
@@ -138,7 +138,7 @@ void MVll::updateParameters(){
             r_2T1=mySM.getr_2T1();
             m_RT1=mySM.getm_RT1();
             m_fit2T1=mySM.getm_fit2T1();
-            r_2T2=mySM.getr_2T2();
+            r_2T2= mySM.getr_1T3t() + mySM.getr_2T3t();//mySM.getr_2T2();
             m_fit2T2=mySM.getm_fit2T2();
             r_1T3t=mySM.getr_1T3t();
             r_2T3t=mySM.getr_2T3t();
@@ -168,13 +168,13 @@ void MVll::updateParameters(){
             a_0T23=mySM.geta_0T23phi();
             a_1T23=mySM.geta_1T23phi();
             dmT23=mySM.getdmT23phi();
-
+            
             r_1V=mySM.getr_1Vphi();
             r_2V=mySM.getr_2Vphi();
             m_RV=mySM.getm_RVphi();
             m_fit2V=mySM.getm_fit2Vphi();
             r_1A0=mySM.getr_1A0phi();
-            r_2A0=mySM.getr_2A0phi();
+            r_2A0=(MM * (r_2A1 - r_1A2 - r_2A2) + MV * (r_2A1 + r_1A2 + r_2A2))/2.*MV - r_1A0;//mySM.getr_2A0phi();
             m_RA0=mySM.getm_RA0phi();
             m_fit2A0=mySM.getm_fit2A0phi();
             r_2A1=mySM.getr_2A1phi();
@@ -186,7 +186,7 @@ void MVll::updateParameters(){
             r_2T1=mySM.getr_2T1phi();
             m_RT1=mySM.getm_RT1phi();
             m_fit2T1=mySM.getm_fit2T1phi();
-            r_2T2=mySM.getr_2T2phi();
+            r_2T2=mySM.getr_1T3tphi() + mySM.getr_2T3tphi(); //mySM.getr_2T2phi();
             m_fit2T2=mySM.getm_fit2T2phi();
             r_1T3t=mySM.getr_1T3tphi();
             r_2T3t=mySM.getr_2T3tphi();
@@ -755,7 +755,7 @@ double MVll::T_3tilde(double q2){
 
 
 double MVll::T_3(double q2){
-    if (q2 < 2.) {
+    /*if (q2 < 2.) {
         switch(vectorM){
             case QCD::K_star : return (0.178168 - 0.202)/2. * q2 + 0.202;
             case QCD::PHI : return (0.14667 - 0.175)/2. * q2 + 0.175;
@@ -766,7 +766,8 @@ double MVll::T_3(double q2){
                    
         }
     }
-    else return (MM*MM - MV*MV)/q2*(T_3tilde(q2) - T_2(q2));
+    else*/
+    return (MM*MM - MV*MV)/q2*(T_3tilde(q2) - T_2(q2));
 }
 
 

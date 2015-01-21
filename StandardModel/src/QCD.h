@@ -1106,7 +1106,7 @@ public:
     {
         return m_fit2V;
     }
-
+    
     double getr_1A0() const
     {
         return r_1A0;
@@ -1136,7 +1136,7 @@ public:
     {
         return m_fit2A1;
     }
-
+    
     double getr_1A2() const
     {
         return r_1A2;
@@ -1151,7 +1151,7 @@ public:
     {
         return m_fit2A2;
     }
-
+    
     double getr_1T1() const
     {
         return r_1T1;
@@ -1171,6 +1171,7 @@ public:
     {
         return m_fit2T1;
     }
+    
     double getr_2T2() const
     {
         return r_2T2;
@@ -1180,7 +1181,7 @@ public:
     {
         return m_fit2T2;
     }
-
+    
     double getr_1T3t() const
     {
         return r_1T3t;
