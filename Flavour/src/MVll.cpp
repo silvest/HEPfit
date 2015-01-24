@@ -46,6 +46,23 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     I9_updated = 0;
     I10_updated = 0;
     I11_updated = 0;
+    
+    VL1_updated = 0;
+    VL2_updated = 0;
+    TL1_updated = 0;
+    TL2_updated = 0;
+    VR1_updated = 0;
+    VR2_updated = 0;
+    TR1_updated = 0;
+    TR2_updated = 0;
+    VL0_updated = 0;
+    TL0_updated = 0;
+    VR0_updated = 0;
+    TR0_updated = 0;
+    SL_updated = 0;
+    SR_updated = 0;
+    
+    
     iter = 0;
     
     w_sigma0 = gsl_integration_workspace_alloc (50);
@@ -89,12 +106,12 @@ void MVll::updateParameters(){
     Mlep=mySM.getLeptons(lep).getMass();
     MM=mySM.getMesons(meson).getMass();
     MV=mySM.getMesons(vectorM).getMass();
+    mu_b = mySM.getMub();
     Mb=mySM.getQuarks(QCD::BOTTOM).getMass();    // add the PS b mass
     Mc=mySM.getQuarks(QCD::CHARM).getMass(); 
     Ms=mySM.getQuarks(QCD::STRANGE).getMass();
     MW=mySM.Mw();
     lambda_t=mySM.computelamt_s();
-    mu_b = mySM.getMub();
     width = mySM.getMesons(meson).computeWidth();
     
     switch(vectorM){
@@ -780,6 +797,7 @@ double MVll::V_L(int i, double q2){
             else
                 return 4*MV/sqrt(q2)*lat_fit(q2, a_0A12, a_1A12, dmA12);
         case 1:
+            //return 0.;
             return 1./2. * ( ( 1. + MV/MM)*A_1(q2) - sqrt(lambda(q2))/ ( MM* (MM + MV) ) * V(q2) );
         case 2:
             return 1./2. * ( ( 1. + MV/MM)*A_1(q2) + sqrt(lambda(q2))/ ( MM* (MM + MV) ) * V(q2) );
@@ -803,12 +821,15 @@ double MVll::T_L(int i, double q2){
     switch (i){
         case 0:
             if (q2 < CUTOFF)
+                //return q2/(MM*MM) * V_L(0,q2);
                 return sqrt(q2)/(4.*MM*MM*MV) * ( ( MM*MM+ 3.*MV*MV - q2 ) * T_2(q2) - lambda(q2) / (MM*MM - MV*MV) * T_3(q2) );
             else
                 return 2*sqrt(q2)*MV/MM/(MM + MV)*lat_fit(q2, a_0T23, a_1T23, dmT23);
         case 1:
+            //return V_L(1,q2);
             return (MM*MM - MV*MV) / ( 2.*MM*MM ) * T_2(q2) - sqrt(lambda(q2)) / ( 2.*MM*MM ) * T_1(q2);
         case 2:
+            //return V_L(2,q2);
             return (MM*MM - MV*MV) / ( 2.*MM*MM ) * T_2(q2) + sqrt(lambda(q2)) / ( 2.*MM*MM ) * T_1(q2);
         default:
             std::stringstream out;
@@ -854,8 +875,8 @@ gslpp::complex MVll::H(double q2, double m){
     if (x>1.) par = sqrt(x - 1.) * atan( 1. / sqrt(x - 1.) );
     else par = sqrt(1. - x) * ( log( ( 1. + sqrt(1. - x) ) / sqrt(x) ) - gslpp::complex::i()*M_PI/2.);
     
-    if (x == 0.) return 8. / 27. * (1. + 3. * gslpp::complex::i() * M_PI);
-    else return - 4./9. * ( log( m*m / q2 ) - 2./3. - x ) - 4./9. * (-2. + x) * par;
+    if (x == 0.) return (8./ 27. + 4./9. * gslpp::complex::i() * M_PI - 4./9. * log(q2/mu_b/mu_b));
+    else return - 4./9. * ( log( m*m/mu_b/mu_b ) - 2./3. - x ) - 4./9. * (2. + x) * par;
 }
 
 
