@@ -464,6 +464,15 @@ public:
     double integrateDelta(int i, double q_min, double q_max);
     
     /**
+    * @brief \f$ <h_{\lambda}> \f$ 
+    * @param[in] lambda index of the correction h_lambda
+    * @param[in] q_min minimum q^2 of the integral
+    * @param[in] q_max maximum q^2 of the integral
+    * @return return the correction h_lambda from q_min to q_max
+    */
+    double integrateh_lambda(int lambda, double q_min, double q_max);
+    
+    /**
     * i values:
     * 0 = V_+
     * 1 = T_+
@@ -703,15 +712,6 @@ public:
     }
     
     /**
-    * @brief \f$ q^2/(2*Ml*Ml) \f$ 
-    * @param[in] q2 q^2 of the decay
-    * @return return the factor q^2/(2*Ml*Ml)
-    */
-    double getFactor(double q2){
-        return q2/(2*Mlep*Mlep);
-    }
-    
-    /**
     * @brief \f$ V0 - T0 \f$ 
     * @param[in] q2 q^2 of the decay
     * @return return the form factors difference V0 - T0
@@ -800,6 +800,70 @@ public:
     double getV0_p_S(double q2){
         return ((2. * MM * sqrt(q2))/sqrt(lambda(q2)) * V_L(0,q2)) + ((-2. * MM * (Mb + Ms))/sqrt(lambda(q2)) * S_L(q2));
     };
+    
+    /**
+    * @brief \f$ h_0 \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the correction h_0
+    */
+    double geth0(double q2){
+        return h[0].abs() + q2*h_1[0].abs();
+    };
+    
+    /**
+    * @brief \f$ h_+ \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the correction h_+
+    */
+    double gethp(double q2){
+        return h[1].abs() + q2*h_1[1].abs();
+    };
+    
+    /**
+    * @brief \f$ h_- \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the correction h_-
+    */
+    double gethm(double q2){
+        return h[2].abs() + q2*h_1[2].abs();
+    };
+    
+    /**
+    * @brief \f$ q^2/(2*Ml*Ml) \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the factor q^2/(2*Ml*Ml)
+    */
+    double getDeltaC9_1_Coeff(double q2){
+        return -16*pow(MM,3.)*(MM + MV)*pow(M_PI,2.)/(sqrt(lambda(q2)) * V(q2) * q2);
+    }
+    
+    /**
+    * @brief \f$ q^2/(2*Ml*Ml) \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the factor q^2/(2*Ml*Ml)
+    */
+    double getDeltaC9_2_Coeff(double q2){
+        return -16*pow(MM,3.)*pow(M_PI,2.)/((MM + MV) * A_1(q2) * q2);
+    }
+    
+    /**
+    * @brief \f$ q^2/(2*Ml*Ml) \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the factor q^2/(2*Ml*Ml)
+    */
+    double getDeltaC9_3_Coeff1(double q2){
+        return 64*pow(MM,3.)*pow(M_PI,2.)*MV*sqrt(q2)*(MM + MV)/(lambda(q2) * A_2(q2) * q2);
+    }
+    
+    /**
+    * @brief \f$ q^2/(2*Ml*Ml) \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the factor q^2/(2*Ml*Ml)
+    */
+    double getDeltaC9_3_Coeff2(double q2){
+        return - 16*pow(MM,3.)*pow(M_PI,2.)*(MM + MV) * (MM*MM - q2 - MV*MV)/(lambda(q2) * A_2(q2) * q2);
+    }
+    
 
 private:
     const StandardModel& mySM;
@@ -836,6 +900,15 @@ private:
     std::map<std::pair<double, double>, double > cacheV0_p_T0;
     std::map<std::pair<double, double>, double > cacheV0_m_S;
     std::map<std::pair<double, double>, double > cacheV0_p_S;
+    
+    std::map<std::pair<double, double>, double > cacheh0;
+    std::map<std::pair<double, double>, double > cacheh1;
+    std::map<std::pair<double, double>, double > cacheh2;
+    
+    std::map<std::pair<double, double>, double > cacheDC9_1_coeff;
+    std::map<std::pair<double, double>, double > cacheDC9_2_coeff;
+    std::map<std::pair<double, double>, double > cacheDC9_3_coeff1;
+    std::map<std::pair<double, double>, double > cacheDC9_3_coeff2;
     
     double avaSigma0;
     double avaSigma1;
@@ -895,6 +968,24 @@ private:
     double errV0_m_S;
     double errV0_p_S;
     
+    double avah0;
+    double avah1;
+    double avah2;
+    
+    double errh0;
+    double errh1;
+    double errh2;
+    
+    double avaDC9_1_coeff;
+    double avaDC9_2_coeff;
+    double avaDC9_3_coeff1;
+    double avaDC9_3_coeff2;
+    
+    double errDC9_1_coeff;
+    double errDC9_2_coeff;
+    double errDC9_3_coeff1;
+    double errDC9_3_coeff2;
+    
     gsl_function FS0;
     gsl_function FS1;
     gsl_function FS2;
@@ -924,6 +1015,15 @@ private:
     gsl_function FV0_m_S;
     gsl_function FV0_p_S;
     
+    gsl_function Fh0;
+    gsl_function Fh1;
+    gsl_function Fh2;
+    
+    gsl_function FDC9_1_coeff;
+    gsl_function FDC9_2_coeff;
+    gsl_function FDC9_3_coeff1;
+    gsl_function FDC9_3_coeff2;
+    
     gsl_integration_workspace * w_sigma0;
     gsl_integration_workspace * w_sigma1;
     gsl_integration_workspace * w_sigma2;
@@ -952,6 +1052,15 @@ private:
     gsl_integration_workspace * w_V0_p_T0;
     gsl_integration_workspace * w_V0_m_S;
     gsl_integration_workspace * w_V0_p_S;
+    
+    gsl_integration_workspace * w_h0;
+    gsl_integration_workspace * w_h1;
+    gsl_integration_workspace * w_h2;
+    
+    gsl_integration_workspace * w_DC9_1_coeff;
+    gsl_integration_workspace * w_DC9_2_coeff;
+    gsl_integration_workspace * w_DC9_3_coeff1;
+    gsl_integration_workspace * w_DC9_3_coeff2;
     
     unsigned int N_updated;
     gslpp::vector<double> N_cache;
@@ -1135,6 +1244,14 @@ private:
     std::map<std::pair<double, double>, unsigned int > V0_m_SCached;
     std::map<std::pair<double, double>, unsigned int > V0_p_SCached;
     
+    std::map<std::pair<double, double>, unsigned int > h0Cached;
+    std::map<std::pair<double, double>, unsigned int > h1Cached;
+    std::map<std::pair<double, double>, unsigned int > h2Cached;
+    
+    std::map<std::pair<double, double>, unsigned int > DC9_1_coeffCached;
+    std::map<std::pair<double, double>, unsigned int > DC9_2_coeffCached;
+    std::map<std::pair<double, double>, unsigned int > DC9_3_coeff1Cached;
+    std::map<std::pair<double, double>, unsigned int > DC9_3_coeff2Cached;
     
 };
 

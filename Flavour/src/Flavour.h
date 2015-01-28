@@ -102,6 +102,10 @@ public:
         return HDB1.ComputeCoeffdmumu();
     }
     
+    vector<complex>** ComputeCoeffsgamma(double mu, schemes scheme = NDR) {
+        return HDB1.ComputeCoeffsgamma(mu, scheme);
+    }
+    
     vector<complex>** ComputeCoeffBMll(double mu, schemes scheme = NDR) {
         return HDB1.ComputeCoeffBMll(mu, scheme);
     }

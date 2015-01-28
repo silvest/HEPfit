@@ -22,6 +22,7 @@
 #include <SJPsiPhi.h>
 #include <Bdmumu.h>
 #include <Bsmumu.h>
+#include <Bsgamma.h>
 #include <M12D.h>
 #include <ArgD.h>
 #include <EpsilonK.h>

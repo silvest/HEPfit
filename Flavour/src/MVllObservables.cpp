@@ -516,3 +516,55 @@ double V0_m_S_V0_p_S::computeThValue() {
 
    return 2.*mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(6,q_min,q_max)/mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateFF(9,q_min,q_max);
 }
+
+
+Delta_C9_1::Delta_C9_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : ThObservable(SM_i), mySM(SM_i) {
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double Delta_C9_1::computeThValue() {
+    
+
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh_lambda(3,q_min,q_max)/(q_max - q_min)*
+            (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh_lambda(2,q_min,q_max) - mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh_lambda(1,q_min,q_max))/(q_max - q_min);
+}
+
+
+Delta_C9_2::Delta_C9_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : ThObservable(SM_i), mySM(SM_i) {
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double Delta_C9_2::computeThValue() {
+    
+
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh_lambda(4,q_min,q_max)/(q_max - q_min)*
+            (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh_lambda(2,q_min,q_max) + mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh_lambda(1,q_min,q_max))/(q_max - q_min);
+}
+
+
+Delta_C9_3::Delta_C9_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : ThObservable(SM_i), mySM(SM_i) {
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double Delta_C9_3::computeThValue() {
+    
+
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh_lambda(5,q_min,q_max)/(q_max - q_min) * mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh_lambda(0,q_min,q_max)/(q_max - q_min) + 
+            mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh_lambda(6,q_min,q_max)/(q_max - q_min) *
+            (mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh_lambda(2,q_min,q_max) + mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateh_lambda(1,q_min,q_max))/(q_max - q_min);
+}

@@ -22,7 +22,7 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
         mcdk2(5, NDR, NLO),
         mck(10, NDR, NLO),
         mckcc(10, NDR, NLO),
-        mcbsg(10, NDR, NLO),
+        mcbsg(13, NDR, NLO),
         mcBMll(13, NDR, NLO),
         mcprimeBMll(13, NDR, NLO),
         mcbnlep(10, NDR, NLO, NLO_ew),
@@ -47,8 +47,6 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
     
 
     for (int j=0; j<10; j++) {
-        CWbsgArrayLO[j] = 0.;
-        CWbsgArrayNLO[j] = 0.;
         CWD1ArrayLO[j] = 0.; 
         CWD1ArrayNLO[j] = 0.;
         CWbnlepArrayLOqcd[j] = 0.;
@@ -61,6 +59,11 @@ StandardModelMatching::StandardModelMatching(const StandardModel & SM_i)
     for(int j=0; j<19; j++){
         CWBMllArrayLO[j] = 0.;
         CWBMllArrayNLO[j] = 0.;
+    }
+    
+    for(int j=0; j<13; j++){
+        CWbsgArrayLO[j] = 0.;
+        CWbsgArrayNLO[j] = 0.;
     }
     
     Nc = SM.getNc();
@@ -970,7 +973,7 @@ double StandardModelMatching::phi2(double x, double y) const{
  std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() 
 {    
     double xt = x_t(Muw);
-    complex co = (- 4. * GF / sqrt(2)) * SM.computelamt_s();
+    complex co = (- 4. * GF / sqrt(2)) * SM.computelamt_s(); //* CHECK IF THIS IS ALREADY IMPLEMENTED IN THE OBSERVABLE *//
     
     vmcbsg.clear();
     
@@ -990,12 +993,12 @@ double StandardModelMatching::phi2(double x, double y) const{
     switch (mcbsg.getOrder()) {
         case NNLO:
         case NLO:
-            for (int j=0; j<10; j++){
+            for (int j=0; j<13; j++){
             mcbsg.setCoeff(j, co * SM.Als(Muw, FULLNLO) / 4. / M_PI * setWCbsg(j, xt,  NLO) , NLO);//* CHECK ORDER *//
             }
             std::cout<<std::endl;
         case LO:
-            for (int j=0; j<10; j++){
+            for (int j=0; j<13; j++){
             mcbsg.setCoeff(j, co * setWCbsg(j, xt,  LO), LO);
             }
             break;

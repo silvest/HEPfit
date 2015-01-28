@@ -96,6 +96,14 @@ public:
      * 
      * @param mu is the low energy scale
      * @param scheme indicates the renormalization scheme
+     * @return short distance contribution to the rare decay \f$ b \rightarrow s \gamma \f$
+     */
+    vector<complex>** ComputeCoeffsgamma(double mu, schemes scheme = NDR);
+    
+    /**
+     * 
+     * @param mu is the low energy scale
+     * @param scheme indicates the renormalization scheme
      * @return the effective hamiltonian at the scale mu B -> K^*ll decay, Misiak basis, Chetyrkin et al hep-ph/9612313
      */
     vector<complex>** ComputeCoeffBMll(double mu, schemes scheme = NDR);
@@ -140,6 +148,10 @@ public:
         return coeffdnunu;
     }
     
+    WilsonCoefficient getCoeffsgamma() const {
+        return coeffsgamma;
+    }
+    
     EvolDF1nlep getUDF1() const {
         return u;
     }
@@ -161,11 +173,17 @@ private :
     WilsonCoefficient coeffnlep11, coeffnlep11A, coeffnlep11B, coeffnlep10CC;
     WilsonCoefficient coeffsmumu, coeffdmumu;
     WilsonCoefficient coeffsnunu, coeffdnunu;
+    WilsonCoefficient coeffsgamma;
     WilsonCoefficient coeffBMll, coeffprimeBMll;
-    EvolDF1bsg evolDF1BMll;
+    EvolDF1bsg evolDF1BMll, evolDF1Bsgamma;
     EvolDF1nlep u;
     
     //StandardModelMatching& standardmodelmatching;
+    
+    double Bsgamma_mu_cache;
+    std::vector<double> Bsgamma_Mu_cache;
+    schemes Bsgamma_scheme_cache;
+    std::vector<WilsonCoefficient> Bsgamma_WC_cache;
     
     double BMll_mu_cache;
     std::vector<double> BMll_Mu_cache;

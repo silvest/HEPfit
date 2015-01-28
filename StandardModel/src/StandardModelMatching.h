@@ -512,7 +512,7 @@ private:
      */
     double phi2 (double x, double y) const;
     
-    double CWbsgArrayLO[10], CWbsgArrayNLO[10];
+    double CWbsgArrayLO[13], CWbsgArrayNLO[13];
     double CWBMllArrayLO[19], CWBMllArrayNLO[19];
     double CWD1ArrayLO[10], CWD1ArrayNLO[10];
     double CWbnlepArrayLOqcd[10], CWbnlepArrayNLOqcd[10];
