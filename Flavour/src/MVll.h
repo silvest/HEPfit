@@ -635,6 +635,15 @@ public:
     * @param[in] q2 q^2 of the decay
     * @return return the CP asymmetry Delta_9
     */
+    double getDelta7(double q2){
+        return Delta(7, q2);
+    };
+    
+    /**
+    * @brief \f$ Delta_{9} \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the CP asymmetry Delta_9
+    */
     double getDelta11(double q2){
         return Delta(11, q2);
     };
@@ -888,6 +897,7 @@ private:
     std::map<std::pair<double, double>, double > cacheDelta1;
     std::map<std::pair<double, double>, double > cacheDelta2;
     std::map<std::pair<double, double>, double > cacheDelta3;
+    std::map<std::pair<double, double>, double > cacheDelta7;
     std::map<std::pair<double, double>, double > cacheDelta11;
     
     std::map<std::pair<double, double>, double > cacheVp;
@@ -938,12 +948,14 @@ private:
     double avaDelta1;
     double avaDelta2;
     double avaDelta3;
+    double avaDelta7;
     double avaDelta11;
     
     double errDelta0;
     double errDelta1;
     double errDelta2;
     double errDelta3;
+    double errDelta7;
     double errDelta11;
     
     double avaVp;
@@ -1002,6 +1014,7 @@ private:
     gsl_function FD1;
     gsl_function FD2;
     gsl_function FD3;
+    gsl_function FD7;
     gsl_function FD11;
     
     gsl_function FVp;
@@ -1040,6 +1053,7 @@ private:
     gsl_integration_workspace * w_delta1;
     gsl_integration_workspace * w_delta2;
     gsl_integration_workspace * w_delta3;
+    gsl_integration_workspace * w_delta7;
     gsl_integration_workspace * w_delta11;
     
     gsl_integration_workspace * w_Vp;
@@ -1231,6 +1245,7 @@ private:
     std::map<std::pair<double, double>, unsigned int > delta1Cached;
     std::map<std::pair<double, double>, unsigned int > delta2Cached;
     std::map<std::pair<double, double>, unsigned int > delta3Cached;
+    std::map<std::pair<double, double>, unsigned int > delta7Cached;
     std::map<std::pair<double, double>, unsigned int > delta11Cached;
     
     std::map<std::pair<double, double>, unsigned int > VpCached;

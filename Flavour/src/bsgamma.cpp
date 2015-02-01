@@ -17,9 +17,13 @@ void Bsgamma::computeCoeff(orders order){
     
     switch(order) {
         case FULLNNLO: //coeff = ;
-        case FULLNLO: //coeff = ;
-        case LO: //coeff = ;
-        break;
+        case FULLNLO: 
+            C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
+            //coeff = ;
+        case LO: 
+            C_7 = (*(allcoeff[LO]))(6);
+            coeff = C_7.abs2();
+            break;
         default:
             std::stringstream out;
             out << order;
@@ -36,7 +40,6 @@ void Bsgamma::computeGamma(orders order){
     lambda_t=mySM.computelamt_s();
     
     computeCoeff(order);
-    coeff=1.;
     
     Gamma = GF*GF*pow(Mb,5.)*ale*lambda_t.abs2()/(32. * pow(M_PI,4.)) * coeff;
     Gamma_conj = GF*GF*pow(Mb,5.)*ale*(lambda_t.conjugate()).abs2()/(32. * pow(M_PI,4.)) * coeff;

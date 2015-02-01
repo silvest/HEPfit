@@ -80,6 +80,7 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     w_delta1 = gsl_integration_workspace_alloc (50);
     w_delta2 = gsl_integration_workspace_alloc (50);
     w_delta3 = gsl_integration_workspace_alloc (50);
+    w_delta7 = gsl_integration_workspace_alloc (50);
     w_delta11 = gsl_integration_workspace_alloc (50);
     
     w_Vp = gsl_integration_workspace_alloc (50);
@@ -1329,6 +1330,15 @@ double MVll::integrateDelta(int i, double q_min, double q_max){
                 delta3Cached[qbin] = 1;
             }
             return cacheDelta3[qbin];
+            break;
+        case 7:
+            if (delta7Cached[qbin] == 0) {
+                FD7 = convertToGslFunction( boost::bind( &MVll::getDelta7, &(*this), _1 ) );
+                gsl_integration_qags (&FD7, q_min, q_max, 1.e-5, 1.e-3, 50, w_delta7, &avaDelta7, &errDelta7);
+                cacheDelta7[qbin] = avaDelta7;
+                delta7Cached[qbin] = 1;
+            }
+            return cacheDelta7[qbin];
             break;
         case 11:
             if (delta11Cached[qbin] == 0) {

@@ -34,6 +34,9 @@ public:
     gslpp::complex lambda_t;
     double coeff;
     gslpp::vector<gslpp::complex> ** allcoeff;
+    gslpp::complex C_2;
+    gslpp::complex C_7;
+    gslpp::complex C_8;
     int obs;
     
     double Gamma;

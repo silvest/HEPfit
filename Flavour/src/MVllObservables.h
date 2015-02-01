@@ -776,6 +776,36 @@ private:
 
 
 /**
+ * @class A_6
+ * @ingroup flavour
+ * @brief A class for the observable A_6. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class A_6 : public GammaPrime{
+public:
+    
+    /**
+    * @brief \f$ A_{6} \f$ 
+    */
+    A_6(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+    
+    /**
+    * @return return the observable A_6
+    */
+    double computeThValue ();
+   
+private:
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
+
+};
+
+
+/**
  * @class A_9
  * @ingroup flavour
  * @brief A class for the observable A_9. 

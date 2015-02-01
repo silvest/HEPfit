@@ -973,7 +973,7 @@ double StandardModelMatching::phi2(double x, double y) const{
  std::vector<WilsonCoefficient>& StandardModelMatching::CMbsg() 
 {    
     double xt = x_t(Muw);
-    complex co = (- 4. * GF / sqrt(2)) * SM.computelamt_s(); //* CHECK IF THIS IS ALREADY IMPLEMENTED IN THE OBSERVABLE *//
+    complex co = 1.; // (- 4. * GF / sqrt(2)) * SM.computelamt_s(); THIS SHOULD ALREADY BE IMPLEMENTED IN THE OBSERVABLE 
     
     vmcbsg.clear();
     

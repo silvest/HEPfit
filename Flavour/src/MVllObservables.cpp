@@ -427,6 +427,22 @@ double S_9::computeThValue() {
 }
 
 
+A_6::A_6(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : GammaPrime(SM_i, meson_i, vector_i, lep_i), mySM(SM_i) {
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+
+double A_6::computeThValue() {
+
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDelta(7,q_min,q_max) / computeGammaPrime(q_min, q_max, lep);
+}
+
+
 A_9::A_9(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : GammaPrime(SM_i, meson_i, vector_i, lep_i), mySM(SM_i) {
     lep = lep_i;
     meson = meson_i;
