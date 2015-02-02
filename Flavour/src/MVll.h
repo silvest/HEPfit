@@ -811,66 +811,66 @@ public:
     };
     
     /**
-    * @brief \f$ h_0 \f$ 
+    * @brief \f$ Delta_{C9,1}^1 \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the correction h_0
+    * @return return the first factor of Delta_C9_1
     */
-    double geth0(double q2){
-        return h[0].abs() + q2*h_1[0].abs();
-    };
-    
-    /**
-    * @brief \f$ h_+ \f$ 
-    * @param[in] q2 q^2 of the decay
-    * @return return the correction h_+
-    */
-    double gethp(double q2){
-        return h[1].abs() + q2*h_1[1].abs();
-    };
-    
-    /**
-    * @brief \f$ h_- \f$ 
-    * @param[in] q2 q^2 of the decay
-    * @return return the correction h_-
-    */
-    double gethm(double q2){
-        return h[2].abs() + q2*h_1[2].abs();
-    };
-    
-    /**
-    * @brief \f$ q^2/(2*Ml*Ml) \f$ 
-    * @param[in] q2 q^2 of the decay
-    * @return return the factor q^2/(2*Ml*Ml)
-    */
-    double getDeltaC9_1_Coeff(double q2){
-        return -16*pow(MM,3.)*(MM + MV)*pow(M_PI,2.)/(sqrt(lambda(q2)) * V(q2) * q2);
+    double getDeltaC9_1_1(double q2){
+        return -16*pow(MM,3.)*(MM + MV)*pow(M_PI,2.)/(sqrt(lambda(q2)) * V(q2) * q2) * (h[2].abs() + q2*h_1[2].abs());
     }
     
     /**
-    * @brief \f$ q^2/(2*Ml*Ml) \f$ 
+    * @brief \f$ Delta_{C9,2}^1 \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the factor q^2/(2*Ml*Ml)
+    * @return return the second factor of Delta_C9_1
     */
-    double getDeltaC9_2_Coeff(double q2){
-        return -16*pow(MM,3.)*pow(M_PI,2.)/((MM + MV) * A_1(q2) * q2);
+    double getDeltaC9_1_2(double q2){
+        return 16*pow(MM,3.)*(MM + MV)*pow(M_PI,2.)/(sqrt(lambda(q2)) * V(q2) * q2) * (h[1].abs() + q2*h_1[1].abs());
     }
     
     /**
-    * @brief \f$ q^2/(2*Ml*Ml) \f$ 
+    * @brief \f$ Delta_{C9,1}^2 \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the factor q^2/(2*Ml*Ml)
+    * @return return the first factor of Delta_C9_2
     */
-    double getDeltaC9_3_Coeff1(double q2){
-        return 64*pow(MM,3.)*pow(M_PI,2.)*MV*sqrt(q2)*(MM + MV)/(lambda(q2) * A_2(q2) * q2);
+    double getDeltaC9_2_1(double q2){
+        return -16*pow(MM,3.)*pow(M_PI,2.)/((MM + MV) * A_1(q2) * q2) * (h[2].abs() + q2*h_1[2].abs());
     }
     
     /**
-    * @brief \f$ q^2/(2*Ml*Ml) \f$ 
+    * @brief \f$ Delta_{C9,2}^2 \f$ 
     * @param[in] q2 q^2 of the decay
-    * @return return the factor q^2/(2*Ml*Ml)
+    * @return return the second factor of Delta_C9_2
     */
-    double getDeltaC9_3_Coeff2(double q2){
-        return - 16*pow(MM,3.)*pow(M_PI,2.)*(MM + MV) * (MM*MM - q2 - MV*MV)/(lambda(q2) * A_2(q2) * q2);
+    double getDeltaC9_2_2(double q2){
+        return -16*pow(MM,3.)*pow(M_PI,2.)/((MM + MV) * A_1(q2) * q2) * (h[1].abs() + q2*h_1[1].abs());
+    }
+    
+    /**
+    * @brief \f$ Delta_{C9,1}^3 \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the first factor of Delta_C9_3
+    */
+    double getDeltaC9_3_1(double q2){
+        return 64*pow(MM,3.)*pow(M_PI,2.)*MV*(MM + MV)/(lambda(q2) * A_2(q2) * sqrt(q2)) * (h[0].abs() + q2*h_1[0].abs());
+    }
+    
+    /**
+    * @brief \f$ Delta_{C9,2}^3 \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the second factor of Delta_C9_3
+    */
+    double getDeltaC9_3_2(double q2){
+        return - 16*pow(MM,3.)*pow(M_PI,2.)*(MM + MV) * (MM*MM - q2 - MV*MV)/(lambda(q2) * A_2(q2) * q2) * (h[2].abs() + q2*h_1[2].abs());
+    }
+    
+    /**
+    * @brief \f$ Delta_{C9,3}^3 \f$ 
+    * @param[in] q2 q^2 of the decay
+    * @return return the third factor of Delta_C9_3
+    */
+    double getDeltaC9_3_3(double q2){
+        return - 16*pow(MM,3.)*pow(M_PI,2.)*(MM + MV) * (MM*MM - q2 - MV*MV)/(lambda(q2) * A_2(q2) * q2) * (h[1].abs() + q2*h_1[1].abs());
     }
     
 
@@ -911,14 +911,13 @@ private:
     std::map<std::pair<double, double>, double > cacheV0_m_S;
     std::map<std::pair<double, double>, double > cacheV0_p_S;
     
-    std::map<std::pair<double, double>, double > cacheh0;
-    std::map<std::pair<double, double>, double > cacheh1;
-    std::map<std::pair<double, double>, double > cacheh2;
-    
-    std::map<std::pair<double, double>, double > cacheDC9_1_coeff;
-    std::map<std::pair<double, double>, double > cacheDC9_2_coeff;
-    std::map<std::pair<double, double>, double > cacheDC9_3_coeff1;
-    std::map<std::pair<double, double>, double > cacheDC9_3_coeff2;
+    std::map<std::pair<double, double>, double > cacheDC9_1_1;
+    std::map<std::pair<double, double>, double > cacheDC9_1_2;
+    std::map<std::pair<double, double>, double > cacheDC9_2_1;
+    std::map<std::pair<double, double>, double > cacheDC9_2_2;
+    std::map<std::pair<double, double>, double > cacheDC9_3_1;
+    std::map<std::pair<double, double>, double > cacheDC9_3_2;
+    std::map<std::pair<double, double>, double > cacheDC9_3_3;
     
     double avaSigma0;
     double avaSigma1;
@@ -980,23 +979,21 @@ private:
     double errV0_m_S;
     double errV0_p_S;
     
-    double avah0;
-    double avah1;
-    double avah2;
+    double avaDC9_1_1;
+    double avaDC9_1_2;
+    double avaDC9_2_1;
+    double avaDC9_2_2;
+    double avaDC9_3_1;
+    double avaDC9_3_2;
+    double avaDC9_3_3;
     
-    double errh0;
-    double errh1;
-    double errh2;
-    
-    double avaDC9_1_coeff;
-    double avaDC9_2_coeff;
-    double avaDC9_3_coeff1;
-    double avaDC9_3_coeff2;
-    
-    double errDC9_1_coeff;
-    double errDC9_2_coeff;
-    double errDC9_3_coeff1;
-    double errDC9_3_coeff2;
+    double errDC9_1_1;
+    double errDC9_1_2;
+    double errDC9_2_1;
+    double errDC9_2_2;
+    double errDC9_3_1;
+    double errDC9_3_2;
+    double errDC9_3_3;
     
     gsl_function FS0;
     gsl_function FS1;
@@ -1028,14 +1025,13 @@ private:
     gsl_function FV0_m_S;
     gsl_function FV0_p_S;
     
-    gsl_function Fh0;
-    gsl_function Fh1;
-    gsl_function Fh2;
-    
-    gsl_function FDC9_1_coeff;
-    gsl_function FDC9_2_coeff;
-    gsl_function FDC9_3_coeff1;
-    gsl_function FDC9_3_coeff2;
+    gsl_function FDC9_1_1;
+    gsl_function FDC9_1_2;
+    gsl_function FDC9_2_1;
+    gsl_function FDC9_2_2;
+    gsl_function FDC9_3_1;
+    gsl_function FDC9_3_2;
+    gsl_function FDC9_3_3;
     
     gsl_integration_workspace * w_sigma0;
     gsl_integration_workspace * w_sigma1;
@@ -1067,14 +1063,13 @@ private:
     gsl_integration_workspace * w_V0_m_S;
     gsl_integration_workspace * w_V0_p_S;
     
-    gsl_integration_workspace * w_h0;
-    gsl_integration_workspace * w_h1;
-    gsl_integration_workspace * w_h2;
-    
-    gsl_integration_workspace * w_DC9_1_coeff;
-    gsl_integration_workspace * w_DC9_2_coeff;
-    gsl_integration_workspace * w_DC9_3_coeff1;
-    gsl_integration_workspace * w_DC9_3_coeff2;
+    gsl_integration_workspace * w_DC9_1_1;
+    gsl_integration_workspace * w_DC9_1_2;
+    gsl_integration_workspace * w_DC9_2_1;
+    gsl_integration_workspace * w_DC9_2_2;
+    gsl_integration_workspace * w_DC9_3_1;
+    gsl_integration_workspace * w_DC9_3_2;
+    gsl_integration_workspace * w_DC9_3_3;
     
     unsigned int N_updated;
     gslpp::vector<double> N_cache;
@@ -1259,14 +1254,13 @@ private:
     std::map<std::pair<double, double>, unsigned int > V0_m_SCached;
     std::map<std::pair<double, double>, unsigned int > V0_p_SCached;
     
-    std::map<std::pair<double, double>, unsigned int > h0Cached;
-    std::map<std::pair<double, double>, unsigned int > h1Cached;
-    std::map<std::pair<double, double>, unsigned int > h2Cached;
-    
-    std::map<std::pair<double, double>, unsigned int > DC9_1_coeffCached;
-    std::map<std::pair<double, double>, unsigned int > DC9_2_coeffCached;
-    std::map<std::pair<double, double>, unsigned int > DC9_3_coeff1Cached;
-    std::map<std::pair<double, double>, unsigned int > DC9_3_coeff2Cached;
+    std::map<std::pair<double, double>, unsigned int > DC9_1_1Cached;
+    std::map<std::pair<double, double>, unsigned int > DC9_1_2Cached;
+    std::map<std::pair<double, double>, unsigned int > DC9_2_1Cached;
+    std::map<std::pair<double, double>, unsigned int > DC9_2_2Cached;
+    std::map<std::pair<double, double>, unsigned int > DC9_3_1Cached;
+    std::map<std::pair<double, double>, unsigned int > DC9_3_2Cached;
+    std::map<std::pair<double, double>, unsigned int > DC9_3_3Cached;
     
 };
 

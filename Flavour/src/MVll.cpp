@@ -94,14 +94,13 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     w_V0_p_T0 = gsl_integration_workspace_alloc (50);
     w_V0_p_S = gsl_integration_workspace_alloc (50);
     
-    w_h0 = gsl_integration_workspace_alloc (50);
-    w_h1 = gsl_integration_workspace_alloc (50);
-    w_h2 = gsl_integration_workspace_alloc (50);
-    
-    w_DC9_1_coeff = gsl_integration_workspace_alloc (50);
-    w_DC9_2_coeff = gsl_integration_workspace_alloc (50);
-    w_DC9_3_coeff1 = gsl_integration_workspace_alloc (50);
-    w_DC9_3_coeff2 = gsl_integration_workspace_alloc (50);
+    w_DC9_1_1 = gsl_integration_workspace_alloc (50);
+    w_DC9_1_2 = gsl_integration_workspace_alloc (50);
+    w_DC9_2_1 = gsl_integration_workspace_alloc (50);
+    w_DC9_2_2 = gsl_integration_workspace_alloc (50);
+    w_DC9_3_1 = gsl_integration_workspace_alloc (50);
+    w_DC9_3_2 = gsl_integration_workspace_alloc (50);
+    w_DC9_3_3 = gsl_integration_workspace_alloc (50);
 }
 
 
@@ -234,6 +233,10 @@ void MVll::updateParameters(){
     h_1[0]=mySM.geth_0_1();
     h_1[1]=mySM.geth_p_1();
     h_1[2]=mySM.geth_m_1();
+    
+    std::cout << (h[0].abs() + h_1[0].abs()) << std::endl;
+    std::cout << (h[1].abs() + h_1[1].abs()) << std::endl;
+    std::cout << (h[2].abs() + h_1[2].abs()) << std::endl;
     
     allcoeff = mySM.getMyFlavour()->ComputeCoeffBMll(mu_b);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBMll(mu_b);   //check the mass scale, scheme fixed to NDR
@@ -1366,67 +1369,67 @@ double MVll::integrateh_lambda(int lambda, double q_min, double q_max){
     std::pair<double, double > qbin = std::make_pair(q_min, q_max);
     switch(lambda){
         case 0:
-            if (h0Cached[qbin] == 0) {
-                Fh0 = convertToGslFunction( boost::bind( &MVll::geth0, &(*this), _1 ) );
-                gsl_integration_qags (&Fh0, q_min, q_max, 1.e-5, 1.e-3, 50, w_h0, &avah0, &errh0);
-                cacheh0[qbin] = avah0;
-                h0Cached[qbin] = 1;
+            if (DC9_1_1Cached[qbin] == 0) {
+                FDC9_1_1 = convertToGslFunction( boost::bind( &MVll::getDeltaC9_1_1, &(*this), _1 ) );
+                gsl_integration_qags (&FDC9_1_1, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC9_1_1, &avaDC9_1_1, &errDC9_1_1);
+                cacheDC9_1_1[qbin] = avaDC9_1_1;
+                DC9_1_1Cached[qbin] = 1;
             }
-            return cacheh0[qbin];
+            return cacheDC9_1_1[qbin];
             break;
         case 1:
-            if (h1Cached[qbin] == 0) {
-                Fh1 = convertToGslFunction( boost::bind( &MVll::gethp, &(*this), _1 ) );
-                gsl_integration_qags (&Fh1, q_min, q_max, 1.e-5, 1.e-3, 50, w_h1, &avah1, &errh1);
-                cacheh1[qbin] = avah1;
-                h1Cached[qbin] = 1;
+            if (DC9_1_2Cached[qbin] == 0) {
+                FDC9_1_2 = convertToGslFunction( boost::bind( &MVll::getDeltaC9_1_2, &(*this), _1 ) );
+                gsl_integration_qags (&FDC9_1_2, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC9_1_2, &avaDC9_1_2, &errDC9_1_2);
+                cacheDC9_1_2[qbin] = avaDC9_1_2;
+                DC9_1_2Cached[qbin] = 1;
             }
-            return cacheh1[qbin];
+            return cacheDC9_1_2[qbin];
             break;
         case 2:
-            if (h2Cached[qbin] == 0) {
-                Fh2 = convertToGslFunction( boost::bind( &MVll::gethm, &(*this), _1 ) );
-                gsl_integration_qags (&Fh2, q_min, q_max, 1.e-5, 1.e-3, 50, w_h2, &avah2, &errh2);
-                cacheh2[qbin] = avah2;
-                h2Cached[qbin] = 1;
+            if (DC9_2_1Cached[qbin] == 0) {
+                FDC9_2_1 = convertToGslFunction( boost::bind( &MVll::getDeltaC9_2_1, &(*this), _1 ) );
+                gsl_integration_qags (&FDC9_2_1, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC9_2_1, &avaDC9_2_1, &errDC9_2_1);
+                cacheDC9_2_1[qbin] = avaDC9_2_1;
+                DC9_2_1Cached[qbin] = 1;
             }
-            return cacheh2[qbin];
+            return cacheDC9_2_1[qbin];
             break;
         case 3:
-            if (DC9_1_coeffCached[qbin] == 0) {
-                FDC9_1_coeff = convertToGslFunction( boost::bind( &MVll::getDeltaC9_1_Coeff, &(*this), _1 ) );
-                gsl_integration_qags (&FDC9_1_coeff, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC9_1_coeff, &avaDC9_1_coeff, &errDC9_1_coeff);
-                cacheDC9_1_coeff[qbin] = avaDC9_1_coeff;
-                DC9_1_coeffCached[qbin] = 1;
+            if (DC9_2_2Cached[qbin] == 0) {
+                FDC9_2_2 = convertToGslFunction( boost::bind( &MVll::getDeltaC9_2_2, &(*this), _1 ) );
+                gsl_integration_qags (&FDC9_2_2, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC9_2_2, &avaDC9_2_2, &errDC9_2_2);
+                cacheDC9_2_2[qbin] = avaDC9_2_2;
+                DC9_2_2Cached[qbin] = 1;
             }
-            return cacheDC9_1_coeff[qbin];
+            return cacheDC9_2_2[qbin];
             break;
         case 4:
-            if (DC9_2_coeffCached[qbin] == 0) {
-                FDC9_2_coeff = convertToGslFunction( boost::bind( &MVll::getDeltaC9_2_Coeff, &(*this), _1 ) );
-                gsl_integration_qags (&FDC9_2_coeff, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC9_2_coeff, &avaDC9_2_coeff, &errDC9_2_coeff);
-                cacheDC9_2_coeff[qbin] = avaDC9_2_coeff;
-                DC9_2_coeffCached[qbin] = 1;
+            if (DC9_3_1Cached[qbin] == 0) {
+                FDC9_3_1 = convertToGslFunction( boost::bind( &MVll::getDeltaC9_3_1, &(*this), _1 ) );
+                gsl_integration_qags (&FDC9_3_1, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC9_3_1, &avaDC9_3_1, &errDC9_3_1);
+                cacheDC9_3_1[qbin] = avaDC9_3_1;
+                DC9_3_1Cached[qbin] = 1;
             }
-            return cacheDC9_2_coeff[qbin];
+            return cacheDC9_3_1[qbin];
             break;
         case 5:
-            if (DC9_3_coeff1Cached[qbin] == 0) {
-                FDC9_3_coeff1 = convertToGslFunction( boost::bind( &MVll::getDeltaC9_3_Coeff1, &(*this), _1 ) );
-                gsl_integration_qags (&FDC9_3_coeff1, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC9_3_coeff1, &avaDC9_3_coeff1, &errDC9_3_coeff1);
-                cacheDC9_3_coeff1[qbin] = avaDC9_3_coeff1;
-                DC9_3_coeff1Cached[qbin] = 1;
+            if (DC9_3_2Cached[qbin] == 0) {
+                FDC9_3_2 = convertToGslFunction( boost::bind( &MVll::getDeltaC9_3_2, &(*this), _1 ) );
+                gsl_integration_qags (&FDC9_3_2, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC9_3_2, &avaDC9_3_2, &errDC9_3_2);
+                cacheDC9_3_2[qbin] = avaDC9_3_2;
+                DC9_3_2Cached[qbin] = 1;
             }
-            return cacheDC9_3_coeff1[qbin];
+            return cacheDC9_3_2[qbin];
             break;
         case 6:
-            if (DC9_3_coeff2Cached[qbin] == 0) {
-                FDC9_3_coeff2 = convertToGslFunction( boost::bind( &MVll::getDeltaC9_3_Coeff2, &(*this), _1 ) );
-                gsl_integration_qags (&FDC9_3_coeff2, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC9_3_coeff2, &avaDC9_3_coeff2, &errDC9_3_coeff2);
-                cacheDC9_3_coeff2[qbin] = avaDC9_3_coeff2;
-                DC9_3_coeff2Cached[qbin] = 1;
+            if (DC9_3_3Cached[qbin] == 0) {
+                FDC9_3_3 = convertToGslFunction( boost::bind( &MVll::getDeltaC9_3_3, &(*this), _1 ) );
+                gsl_integration_qags (&FDC9_3_3, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC9_3_3, &avaDC9_3_3, &errDC9_3_3);
+                cacheDC9_3_3[qbin] = avaDC9_3_3;
+                DC9_3_3Cached[qbin] = 1;
             }
-            return cacheDC9_3_coeff2[qbin];
+            return cacheDC9_3_3[qbin];
             break;
         default:
             std::stringstream out;
