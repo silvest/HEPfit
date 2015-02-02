@@ -234,10 +234,6 @@ void MVll::updateParameters(){
     h_1[1]=mySM.geth_p_1();
     h_1[2]=mySM.geth_m_1();
     
-    std::cout << (h[0].abs() + h_1[0].abs()) << std::endl;
-    std::cout << (h[1].abs() + h_1[1].abs()) << std::endl;
-    std::cout << (h[2].abs() + h_1[2].abs()) << std::endl;
-    
     allcoeff = mySM.getMyFlavour()->ComputeCoeffBMll(mu_b);   //check the mass scale, scheme fixed to NDR
     allcoeffprime = mySM.getMyFlavour()->ComputeCoeffprimeBMll(mu_b);   //check the mass scale, scheme fixed to NDR
     
