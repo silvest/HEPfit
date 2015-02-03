@@ -851,7 +851,7 @@ public:
     * @return return the real part of \f$ Delta C_9^3 \f$
     */
     double getDeltaC9_3_re(double q2){
-        return (64.*pow(MM,3.)*pow(M_PI,2.)*MV*(MM + MV)/(lambda(q2) * A_2(q2) * sqrt(q2)) * (h[0] + q2*h_1[0]).real()
+        return (64.*pow(MM,3.)*pow(M_PI,2.)*MV*(MM + MV)/(lambda(q2) * A_2(q2) * sqrt(q2)) * (h[0] + q2*h_1[0])
               -16.*pow(MM,3.)*pow(M_PI,2.)*(MM + MV) * (MM*MM - q2 - MV*MV)/(lambda(q2) * A_2(q2) * q2) * ((h[2] + q2*h_1[2]) + (h[1] + q2*h_1[1]))).real();
     }
 
@@ -861,7 +861,7 @@ public:
     * @return return the imaginary part of \f$ Delta C_9^3 \f$
     */
     double getDeltaC9_3_im(double q2){
-        return (64.*pow(MM,3.)*pow(M_PI,2.)*MV*(MM + MV)/(lambda(q2) * A_2(q2) * sqrt(q2)) * (h[0] + q2*h_1[0]).imag()
+        return (64.*pow(MM,3.)*pow(M_PI,2.)*MV*(MM + MV)/(lambda(q2) * A_2(q2) * sqrt(q2)) * (h[0] + q2*h_1[0])
               -16.*pow(MM,3.)*pow(M_PI,2.)*(MM + MV) * (MM*MM - q2 - MV*MV)/(lambda(q2) * A_2(q2) * q2) * ((h[2] + q2*h_1[2]) + (h[1] + q2*h_1[1]))).imag();
     }   
 
