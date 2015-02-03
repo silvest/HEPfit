@@ -65,6 +65,10 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     DC9_1updated = 0;
     DC9_2updated = 0;
     DC9_3updated = 0;
+    
+    DC7_1updated = 0;
+    DC7_2updated = 0;
+    DC7_3updated = 0;
 
     iter = 0;
     
@@ -104,6 +108,13 @@ MVll::MVll(const StandardModel& SM_i, StandardModel::meson meson_i, StandardMode
     w_DC9_2_im = gsl_integration_workspace_alloc (50);
     w_DC9_3_re = gsl_integration_workspace_alloc (50);
     w_DC9_3_im = gsl_integration_workspace_alloc (50);
+    
+    w_DC7_1_re = gsl_integration_workspace_alloc (50);
+    w_DC7_1_im = gsl_integration_workspace_alloc (50);
+    w_DC7_2_re = gsl_integration_workspace_alloc (50);
+    w_DC7_2_im = gsl_integration_workspace_alloc (50);
+    w_DC7_3_re = gsl_integration_workspace_alloc (50);
+    w_DC7_3_im = gsl_integration_workspace_alloc (50);
 }
 
 
@@ -301,6 +312,10 @@ void MVll::updateParameters(){
     if (DC9_2updated == 0) for (it = DC9_2Cached.begin(); it != DC9_2Cached.end(); ++it) it->second = 0;
     if (DC9_3updated == 0) for (it = DC9_3Cached.begin(); it != DC9_3Cached.end(); ++it) it->second = 0;
     
+    if (DC7_1updated == 0) for (it = DC7_1Cached.begin(); it != DC7_1Cached.end(); ++it) it->second = 0;
+    if (DC7_2updated == 0) for (it = DC7_2Cached.begin(); it != DC7_2Cached.end(); ++it) it->second = 0;
+    if (DC7_3updated == 0) for (it = DC7_3Cached.begin(); it != DC7_3Cached.end(); ++it) it->second = 0;
+    
 }
 
 void MVll::checkCache(){
@@ -446,9 +461,11 @@ void MVll::checkCache(){
     TR2_updated = TL1_updated;
     
     if (Mb == SL_cache(0) && Ms == SL_cache(1) ){
+        Mb_Ms_updated = 1;
         SL_updated = lambda_updated * A0_updated;
         SR_updated = SL_updated;
     } else {
+        Mb_Ms_updated = 0;
         SL_updated = 0;
         SR_updated = SL_updated;
         SL_cache(0) = Mb;
@@ -691,6 +708,10 @@ void MVll::checkCache(){
     DC9_1updated = lambda_updated * V_updated * h1_updated * h2_updated;
     DC9_2updated = lambda_updated * A1_updated * h1_updated * h2_updated;
     DC9_3updated = lambda_updated * A2_updated * h1_updated * h2_updated * h0_updated;
+    
+    DC7_1updated = lambda_updated * T1_updated * h1_updated * h2_updated * Mb_Ms_updated;
+    DC7_2updated = lambda_updated * T2_updated * h1_updated * h2_updated * Mb_Ms_updated;
+    DC7_3updated = lambda_updated * T2_updated * T3_updated * h1_updated * h2_updated * h0_updated * Mb_Ms_updated;
     
     iter += 1 ;
 
@@ -1424,5 +1445,54 @@ double MVll::integrateDC9(int i, double q_min, double q_max){
             std::stringstream out;
             out << i;
             throw std::runtime_error("integrateDC9: index " + out.str() + " not implemented"); 
+    }
+}
+
+double MVll::integrateDC7(int i, double q_min, double q_max){
+    
+    if (mySM.getMyFlavour()->getUpdateFlag(meson, vectorM, lep)){
+        updateParameters();
+        mySM.getMyFlavour()->setUpdateFlag(meson, vectorM, lep, false);
+    }
+        
+    std::pair<double, double > qbin = std::make_pair(q_min, q_max);
+    switch(i){
+        case 0:
+            if (DC7_1Cached[qbin] == 0) {
+                FDC7_1_re = convertToGslFunction( boost::bind( &MVll::getDeltaC7_1_re, &(*this), _1 ) );
+                gsl_integration_qags (&FDC7_1_re, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC7_1_re, &avaDC7_1_re, &errDC7_1_im);
+                FDC7_1_im = convertToGslFunction( boost::bind( &MVll::getDeltaC7_1_im, &(*this), _1 ) );
+                gsl_integration_qags (&FDC7_1_im, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC7_1_im, &avaDC7_1_im, &errDC7_1_im);
+                cacheDC7_1[qbin] = sqrt(avaDC7_1_re * avaDC7_1_re + avaDC7_1_im * avaDC7_1_im);
+                DC7_1Cached[qbin] = 1;
+            }
+            return cacheDC7_1[qbin];
+            break;
+        case 1:
+            if (DC7_2Cached[qbin] == 0) {
+                FDC7_2_re = convertToGslFunction( boost::bind( &MVll::getDeltaC7_2_re, &(*this), _1 ) );
+                gsl_integration_qags (&FDC7_2_re, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC7_2_re, &avaDC7_2_re, &errDC7_2_re);
+                FDC7_2_im = convertToGslFunction( boost::bind( &MVll::getDeltaC7_2_im, &(*this), _1 ) );
+                gsl_integration_qags (&FDC7_2_im, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC7_2_im, &avaDC7_2_im, &errDC7_2_im);
+                cacheDC7_2[qbin] = sqrt(avaDC7_2_re * avaDC7_2_re + avaDC7_2_im * avaDC7_2_im);
+                DC7_2Cached[qbin] = 1;
+            }
+            return cacheDC7_2[qbin];
+            break;
+        case 2:
+            if (DC7_3Cached[qbin] == 0) {
+                FDC7_3_re = convertToGslFunction( boost::bind( &MVll::getDeltaC7_3_re, &(*this), _1 ) );
+                gsl_integration_qags (&FDC7_3_re, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC7_3_re, &avaDC7_3_re, &errDC7_3_re);
+                FDC7_3_im = convertToGslFunction( boost::bind( &MVll::getDeltaC7_3_im, &(*this), _1 ) );
+                gsl_integration_qags (&FDC7_3_im, q_min, q_max, 1.e-5, 1.e-3, 50, w_DC7_3_im, &avaDC7_3_im, &errDC7_3_im);
+                cacheDC7_3[qbin] = sqrt(avaDC7_3_re * avaDC7_3_re + avaDC7_3_im * avaDC7_3_im);
+                DC7_3Cached[qbin] = 1;
+            }
+            return cacheDC7_3[qbin];
+            break;
+        default:
+            std::stringstream out;
+            out << i;
+            throw std::runtime_error("integrateDC7: index " + out.str() + " not implemented"); 
     }
 }

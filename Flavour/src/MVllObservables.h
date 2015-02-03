@@ -1037,18 +1037,18 @@ public:
     * @return return the factor Delta_C9_2
     */
     double computeThValue();
-
+    
 private:
     const StandardModel& mySM;
     StandardModel::lepton lep;
     StandardModel::meson meson;
     StandardModel::meson vectorM;
-
+    
 };
-
-
-
-/**
+    
+    
+    
+    /**
  * @class Delta_C9_3
  * @ingroup flavour
  * @brief A class for the correction to C9 Delta_C9_3. 
@@ -1076,6 +1076,98 @@ private:
     StandardModel::meson vectorM;
 
 };
+
+/**
+ * @class Delta_C7_1
+ * @ingroup flavour
+ * @brief A class for the correction to C7 Delta_C7_1. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class Delta_C7_1 : public ThObservable{
+public:
+    
+    /**
+    * @brief \f$ \Delta_{C7}^1 \f$ 
+    */
+    Delta_C7_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+
+    /**
+    * @return return the factor Delta_C7_1
+    */
+    double computeThValue();
+
+private:
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
+
+};
+
+
+
+/**
+ * @class Delta_C7_2
+ * @ingroup flavour
+ * @brief A class for the correction to C7 Delta_C7_2. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class Delta_C7_2 : public ThObservable{
+public:
+    
+    /**
+    * @brief \f$ \Delta_{C7}^2 \f$ 
+    */
+    Delta_C7_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+
+    /**
+    * @return return the factor Delta_C7_2
+    */
+    double computeThValue();
+    
+private:
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
+    
+};
+    
+    
+    
+/**
+ * @class Delta_C7_3
+ * @ingroup flavour
+ * @brief A class for the correction to C7 Delta_C7_3. 
+ * @author SusyFit Collaboration
+ * @copyright GNU General Public License
+ * @details 
+ */
+class Delta_C7_3 : public ThObservable{
+public:
+    
+    /**
+    * @brief \f$ \Delta_{C7}^3 \f$ 
+    */
+    Delta_C7_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i);
+
+    /**
+    * @return return the factor Delta_C7_3
+    */
+    double computeThValue();
+
+private:
+    const StandardModel& mySM;
+    StandardModel::lepton lep;
+    StandardModel::meson meson;
+    StandardModel::meson vectorM;
+
+};
+
 
 #endif	/* MVLLOBSERVABLES_H */
 

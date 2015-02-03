@@ -580,3 +580,50 @@ double Delta_C9_3::computeThValue() {
     
     return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDC9(2,q_min,q_max)/(q_max - q_min);
 }
+
+Delta_C7_1::Delta_C7_1(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : ThObservable(SM_i), mySM(SM_i) {
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double Delta_C7_1::computeThValue() {
+    
+
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDC7(0,q_min,q_max)/(q_max - q_min);
+}
+
+
+Delta_C7_2::Delta_C7_2(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : ThObservable(SM_i), mySM(SM_i) {
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double Delta_C7_2::computeThValue() {
+    
+
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+
+    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDC7(1,q_min,q_max)/(q_max - q_min);
+}
+
+
+Delta_C7_3::Delta_C7_3(const StandardModel& SM_i, StandardModel::meson meson_i, StandardModel::meson vector_i, StandardModel::lepton lep_i) : ThObservable(SM_i), mySM(SM_i) {
+    lep = lep_i;
+    meson = meson_i;
+    vectorM = vector_i;
+}
+
+double Delta_C7_3::computeThValue() {
+    
+
+    double q_min = getBinMin();
+    double q_max = getBinMax();
+    
+    return mySM.getMyFlavour()->getMVll(meson, vectorM, lep)->integrateDC7(2,q_min,q_max)/(q_max - q_min);
+}
