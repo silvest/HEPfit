@@ -7,11 +7,10 @@
 
 #include <StandardModelMatching.h>
 #include "THDM.h"
-//#include "THDMcache.h"
 
 const std::string THDM::THDMvars[NTHDMvars] = {"mHp","sin_ba","lambda6","lambda7","mA","m12_2","tanb","mH"};
 
-THDM::THDM() : StandardModel(), mycache() {   
+THDM::THDM() : StandardModel() {   
     mycache = new THDMcache();
     
     ModelParamMap.insert(std::pair<std::string, boost::reference_wrapper<const double> >("mHp", boost::cref(mHp)));
@@ -27,6 +26,7 @@ THDM::THDM() : StandardModel(), mycache() {
 THDM::~THDM(){
     if (IsModelInitialized()) {
             if (myTHDMMatching != NULL) delete(myTHDMMatching);
+            if (mycache != NULL) delete(mycache);
         }
 }
 
