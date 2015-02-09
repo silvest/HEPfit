@@ -101,7 +101,7 @@ bool THDM::PostUpdate()
     }
 
     /* Necessary for updating StandardModel parameters in StandardModelMatching,
-     * and SUSY and SUSY-derived parameters in SUSYMatching */
+     * and THDM and THDM-derived parameters in THDMMatching */
     myTHDMMatching->StandardModelMatching::updateSMParameters();
     myTHDMMatching->updateTHDMParameters();
 
