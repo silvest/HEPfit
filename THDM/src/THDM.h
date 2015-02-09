@@ -9,11 +9,12 @@
 #define	THDM_H
 
 #include <StandardModel.h>
+#include "THDMMatching.h"
 #include "THDMcache.h"
 
 
 using namespace gslpp;
-//class THDMcache; //forward reference to THDMcache class
+class THDMcache; //forward reference to THDMcache class
 
 /**
  * @class THDM
@@ -28,15 +29,28 @@ public:
     static const std::string THDMvars[NTHDMvars];
     
     /**
-     * @brief SUSY constructor
+     * @brief THDM constructor
      */
     THDM();
     
-    virtual bool Update(const std::map<std::string, double>& DPars);
+    /**
+     * @brief THDM destructor
+     */
+    ~THDM();
+    
+    virtual bool InitializeModel();
     
     virtual bool Init(const std::map<std::string, double>& DPars);
     
+    virtual bool PreUpdate();
+    
+    virtual bool Update(const std::map<std::string, double>& DPars);
+    
+    virtual bool PostUpdate();
+    
     virtual bool CheckParameters(const std::map<std::string, double>& DPars);
+    
+    virtual bool setFlag(const std::string name, const bool value);
     
     ///////////////////////////////////////////////////////////////////////////
     
@@ -44,13 +58,13 @@ public:
      * 
      * @return the down-type VEV
      */
-    double v1();
+    double v1() const;
 
     /**
      *
      * @return the up-type VEV
      */
-    double v2();
+    double v2() const;
     
     ///////////////////////////////////////////////////////////////////////////
 
@@ -62,39 +76,23 @@ public:
      *
      * @return cos beta
      */
-    double GetCosb() const {
+    double getCosb() const {
         return cosb;
     }
-    
-    /**
-     * @brief set tan beta, sin beta and cos beta
-     * @param cosb cos beta
-     */
-    void SetCosb(double cosb);
 
     /**
      *
      * @return charged Higgs mass
      */
-    double GetMHp() const {
+    double getMHp() const {
         return mHp;
     }
-
-    
-    /**
-     * @brief set the charged Higgs mass
-     * @param mHp charged Higgs mass
-     */
-    void SetMHp(double mHp) {
-        this->mHp = mHp;
-    }
-    
     
     /**
      *
      * @return sin beta
      */
-    double GetSinb() const {
+    double getSinb() const {
         return sinb;
     }
 
@@ -102,113 +100,56 @@ public:
      *
      * @return \f$\tan \beta$\f
      */
-    double GetTanb() const {
+    double getTanb() const {
         return tanb;
     }
 
     /**
-     * @brief set tan beta, sin beta and cos beta
-     * @param tanb tan beta
-     */
-    void SetTanb(double tanb) {
-        this->tanb = tanb;
-    }
-
-    
-    /**
      *
      * @return Higgs potential parameter \f$\lambda6$\f (reference arXiv:0902.0851v2)  
      */
-    double GetLambda6() const {
+    double getLambda6() const {
         return lambda6;
-    }
-
-    /**
-     * @brief set lambda6
-     * @param lambda6 lambda6 
-     */
-    void SetLambda6(double lambda6) {
-        this->lambda6 = lambda6;
     }
 
     /**
      *
      * @return \f$lambda_7$\f 
      */
-    double GetLambda7() const {
+    double getLambda7() const {
         return lambda7;
-    }
-
-    /**
-     * @brief set lambda7
-     * @param lambda7 lambda7 
-     */
-    void SetLambda7(double lambda7) {
-        this->lambda7 = lambda7;
     }
 
     /**
      *
      * @return parameter of the Higgs potential \f$m_{12}^2$\f 
      */
-    double GetM12_2() const {
+    double getM12_2() const {
         return m12_2;
-    }
-
-    /**
-     * @brief set \f$m_{12}^2$\f
-     * @param m12_2 \f$m_{12}^2$\f
-     */
-    void SetM12_2(double m12_2) {
-        this->m12_2 = m12_2;
     }
 
     /**
      *
      * @return mass pseudoscalar Higgs A 
      */
-    double GetMA() const {
+    double getMA() const {
         return mA;
-    }
-
-    /**
-     * @brief set mA
-     * @param mA \f$m_A$\f 
-     */
-    void SetMA(double mA) {
-        this->mA = mA;
     }
 
     /**
      *
      * @return mass heavy neutral scalar Higgs 
      */
-    double GetMH() const {
+    double getMH() const {
         return mH;
-    }
-
-    /**
-     * @brief set mH
-     * @param mH \f$m_H$\f 
-     */
-    void SetMH(double mH) {
-        this->mH = mH;
     }
 
     /**
      *
      * @return \f$\sin(\beta-\alpha)$\f 
      */
-    double GetSin_ba() const {
+    double getSin_ba() const {
         return sin_ba;
-    }
-
-    /**
-     * @brief set sin_ba
-     * @param sin_ba \f$\sin(\beta-\alpha)$\f 
-     */
-    void SetSin_ba(double sin_ba) {
-        this->sin_ba = sin_ba;
     }
     
     
@@ -225,9 +166,11 @@ public:
 protected: 
     
     virtual void setParameter(const std::string, const double&);
-    THDMcache mycache;
+    THDMcache * mycache;
 
-    private:
+private:
+
+    THDMMatching* myTHDMMatching;
     
     //double DeltaS, DeltaT, DeltaU;
     
@@ -238,7 +181,7 @@ protected:
     //double Mw_i, Mw2;
     //double cos2_ba, sin2_ba;   
     
-    bool requireCKM, requireYe, requireYn;
+    //bool requireCKM, requireYe, requireYn;
     
     ////////////////////////////////////////////////////////////////////////////
     /*One-loop functions*/
