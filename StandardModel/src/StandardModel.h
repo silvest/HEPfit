@@ -2511,6 +2511,10 @@ protected:
      * @return @f$R_V^h@f$
      */
     double RVh() const;
+    
+    bool requireCKM; ///< An internal flag to control whether the %CKM matrix has to be recomputed.
+    bool requireYe; ///< An internal flag to control whether the charged-lepton Yukawa matrix has to be recomputed.
+    bool requireYn; ///<  An internal flag to control whether the neutrino Yukawa matrix has to be recomputed.
 
 
     ////////////////////////////////////////////////////////////////////////    
@@ -2536,9 +2540,6 @@ private:
     std::string FlagRhoZ; ///< A string for the model flag %RhoZ.
     std::string FlagKappaZ; ///< A string for the model flag %KappaZ.
 
-    bool requireCKM; ///< An internal flag to control whether the %CKM matrix has to be recomputed.
-    bool requireYe; ///< An internal flag to control whether the charged-lepton Yukawa matrix has to be recomputed.
-    bool requireYn; ///<  An internal flag to control whether the neutrino Yukawa matrix has to be recomputed.
 
 
     ////////////////////////////////////////////////////////////////////////     
