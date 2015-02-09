@@ -93,7 +93,7 @@ SUSYMatching::SUSYMatching(const SUSY & SUSY_i) :
 
 void SUSYMatching::updateSUSYParameters()
 {
-    mySUSY.getCKM().getCKM(myCKM);
+    myCKM = mySUSY.getVCKM();
     myRu = mySUSY.getRu();
     myRd = mySUSY.getRd();
     myRl = mySUSY.getRl();
