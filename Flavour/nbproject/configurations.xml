@@ -334,6 +334,11 @@
       <item path="src/alpha_2a.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="src/bsgamma.cpp" ex="false" tool="1" flavor2="0">
+        <ccTool>
+          <incDir>
+            <pElem>../LoopFunctions/src</pElem>
+          </incDir>
+        </ccTool>
       </item>
       <item path="src/bsgamma.h" ex="false" tool="3" flavor2="0">
       </item>
