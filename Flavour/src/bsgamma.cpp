@@ -15,6 +15,86 @@ Bsgamma::Bsgamma(const StandardModel& SM_i, int obsFlag): ThObservable(SM_i), my
     else throw std::runtime_error("obsFlag in bsgamma can only be 1 (BR) or 2 (A_{CP})");
 }
 
+double Bsgamma::H1(double E0, double Mu){
+    double z=2*E0/Mb;
+    double z2=z*z;
+    double z3=z2*z;
+    double L=log(Mu/Mb);
+    
+    return -4./9. * (-1. + z) * (16. - 12.*L - 4.*M_PI*M_PI - 30.*z - 3.*z2 + 2.*z3 + 3.*(-3. + 2.*z + z2)*log(1. - z));
+}
+
+double Bsgamma::f(double rho){
+    double rho2 = rho*rho;
+    double Li2 = gsl_sf_dilog(rho);
+    double Li2sqrt = gsl_sf_dilog(sqrt(rho));
+    Polylogarithms myPolylog;
+    
+    return - M_PI*M_PI/9.*(162.*sqrt(rho) + 70.*pow(rho,3./2.) - 36.*rho2) + 32./9.*rho*log(rho) + 2./9.*(25. + 27.*rho2)*log(rho)*log(rho)
+            + 4./9.*log(rho)*log(rho)*log(rho) - 4./9.*(31. + 27.*rho2)*log(1. - rho)*log(rho)
+            - 4./9.*sqrt(rho)*(81. + 35.*rho)*atanh(sqrt(rho))*log(rho) - 2./9.*(62. + 81.*sqrt(rho) + 35.*pow(rho,3./2.) + 54.*rho2)*Li2
+            + 8./3.*log(rho)*Li2 + 8./9.*sqrt(rho)*(81. + 35.*rho)*Li2sqrt - 16./3.*myPolylog.Li3(rho) + 5578./81. + 172./9.*rho;
+}
+
+double Bsgamma::H2NH(double E0, double Mu){
+    double z=2*E0/Mb;
+    double z2=z*z;
+    double z3=z2*z;
+    double L=log(Mu/Mb);
+    double zeta3 = gsl_sf_zeta_int(3);
+    
+    return 4./243. * (-1. + z) * (-3563. - 216.*L*L + 348.*M_PI*M_PI - 36.*L*(-3. + 4.*M_PI*M_PI + 30.*z + 3.*z2 - 2.*z3) 
+            + 108.*L*(-3. + 2.*z + z2)*log(1. - z) + 216.*zeta3);
+}
+
+double Bsgamma::H2NL(double E0, double Mu){
+    double z=2*E0/Mb;
+    double z2=z*z;
+    double z3=z2*z;
+    double L=log(Mu/Mb);
+    double lg = log(1. - z);
+    double lg2 = lg*log(1. - z);
+    double Li2 = gsl_sf_dilog(z);
+    Polylogarithms myPolylog;
+    double zeta3 = gsl_sf_zeta_int(3);
+    
+    return -32./1296. * (-1. + z) * (-251 - 72.*L + 144.*L*L + 128.*M_PI*M_PI + 96.*L*M_PI*M_PI + 720*z + 720.*L*z + 246.*z2 
+            + 72.*L*z2 - 84.*z3 - 48.*L*z3 + 426.*lg + 216.*L*lg - 24.*M_PI*M_PI*lg - 264.*z*lg - 144.*L*z*lg - 186.*z2*lg
+            - 72.*L*z2*lg + 24.*z3*lg - 162.*lg2 + 108.*z*lg2 + 54.*z2*lg2 + 144.*lg2*log(z) + 
+            36.*(6. + 2.*z + z2 + 4.*lg)*Li2 + 288.*myPolylog.Li3(1. - z) + 144.*zeta3);
+}
+
+double Bsgamma::H2NV(double E0, double Mu){
+    double z=2*E0/Mb;
+    double z2=z*z;
+    double z3=z2*z;
+    double rho = Mc*Mc/Mb/Mb;
+    double L=log(Mu/Mb);
+    
+    return 2./81. * (-1. + z) * (-27.*f(rho) + 72.*L - 144.*L*L - 124.*M_PI*M_PI - 96.*L*M_PI*M_PI - 720.*L*z - 72.*L*z2 + 48.*L*z3
+            + 72.*L*(-3. + 2.*z + z2)*log(1. - z) + 2.*log(rho)*(-493. + 12.*M_PI*M_PI + 180.*z + 18.*z2 - 12.*z3 
+            - 18.*(-3. + 2.*z + z2)*log(1. - z)));
+}
+
+double Bsgamma::H2(double E0, double Mu){
+    return  NH*H2NH(E0,Mu) + NL*H2NL(E0,Mu) + NV*H2NV(E0,Mu);// + CF*H2a(E0,Mu) + CA*H2na(E0,Mu);
+}
+
+double Bsgamma::G77(orders order, double E0, double Mu){
+    switch(order){
+        case FULLNNLO:
+            return 1. + SM.Als(Mu, FULLNNLO)/(4. * M_PI) * H1(E0, Mu) + pow(SM.Als(Mu, FULLNNLO)/(4. * M_PI), 2.) * H2(E0, Mu);
+        case FULLNLO:
+            return 1. + SM.Als(Mu, FULLNLO)/(4. * M_PI) * H1(E0, Mu);
+        case LO:
+            return 1.;
+        default:
+            std::stringstream out;
+            out << order;
+            throw std::runtime_error("Bsgamma::G77(): order " + out.str() + " not implemented");
+    }
+}
+
 double Bsgamma::Phi1(double rho){
     double y = (1. - sqrt(1. - 4*rho)) / (1. + sqrt(1. - 4*rho));
     
@@ -165,7 +245,7 @@ double Bsgamma::G78(orders order, double E0, double Mu){
         default:
             std::stringstream out;
             out << order;
-            throw std::runtime_error("Bsmumu::G78(): order " + out.str() + " not implemented");
+            throw std::runtime_error("Bsgamma::G78(): order " + out.str() + " not implemented");
     }
 }
 
@@ -177,21 +257,21 @@ void Bsgamma::computeCoeff(orders order){
         case FULLNNLO: 
             C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);// + (*(allcoeff[NNLO]))(6);
             C_8 = (*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7);// + (*(allcoeff[NNLO]))(7);
-            coeff = C_7.abs2() + (C_7*C_8).abs()*G78(FULLNNLO,E0,mu_b);
+            coeff = C_7.abs2()*G77(FULLNNLO,E0,mu_b) + (C_7*C_8).real()*G78(FULLNNLO,E0,mu_b);
             break;
         case FULLNLO: 
             C_7 = (*(allcoeff[LO]))(6) + (*(allcoeff[NLO]))(6);
             C_8 = (*(allcoeff[LO]))(7) + (*(allcoeff[NLO]))(7);
-            coeff = C_7.abs2() + (C_7*C_8).abs()*G78(FULLNLO,E0,mu_b);
+            coeff = C_7.abs2()*G77(FULLNLO,E0,mu_b) + (C_7*C_8).real()*G78(FULLNLO,E0,mu_b);
             break;
         case LO: 
             C_7 = (*(allcoeff[LO]))(6);
-            coeff = C_7.abs2();
+            coeff = C_7.abs2()*G77(LO,E0,mu_b);
             break;
         default:
             std::stringstream out;
             out << order;
-            throw std::runtime_error("Bsmumu::computeAmpSq(): order " + out.str() + " not implemented");
+            throw std::runtime_error("Bsgamma::computeCoeff(): order " + out.str() + " not implemented");
     }
 }
 

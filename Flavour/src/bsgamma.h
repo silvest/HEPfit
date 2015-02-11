@@ -33,6 +33,87 @@ public:
     
     
     /**
+    * @brief \f$ H1 \f$
+    * @param[in] E0 energy cutoff
+    * @param[in] Mu mass scale
+    * @return return the function H^(1) obtained integrating the equations from arXiv:hep-ph/0607316v1v2
+    */
+    double H1(double E0, double Mu);
+    
+    
+    /**
+    * @brief \f$ f \f$
+    * @param[in] rho squared ratio of charm mass over bottom mass
+    * @return return the function f from arXiv:hep-ph/0611123v1
+    */
+    double f(double rho);
+    
+    
+    /**
+    * @brief \f$ H2a \f$
+    * @param[in] E0 energy cutoff
+    * @param[in] Mu mass scale
+    * @return return the function H^(2,a) obtained integrating the equations from arXiv:hep-ph/0607316v1v2
+    */
+    double H2a(double E0, double Mu);
+    
+    
+    /**
+    * @brief \f$ H2na \f$
+    * @param[in] E0 energy cutoff
+    * @param[in] Mu mass scale
+    * @return return the function H^(2,na) obtained integrating the equations from arXiv:hep-ph/0607316v1v2
+    */
+    double H2na(double E0, double Mu);
+    
+    
+    /**
+    * @brief \f$ H2NH \f$
+    * @param[in] E0 energy cutoff
+    * @param[in] Mu mass scale
+    * @return return the function H^(2,NH) obtained integrating the equations from arXiv:hep-ph/0607316v1v2
+    */
+    double H2NH(double E0, double Mu);
+    
+    
+    /**
+    * @brief \f$ H2NV \f$
+    * @param[in] E0 energy cutoff
+    * @param[in] Mu mass scale
+    * @return return the function H^(2,NV) obtained integrating the equations from arXiv:hep-ph/0611123v1
+    */
+    double H2NV(double E0, double Mu);
+    
+    
+    /**
+    * @brief \f$ H2NL \f$
+    * @param[in] E0 energy cutoff
+    * @param[in] Mu mass scale
+    * @return return the function H^(2,NL) obtained integrating the equations from arXiv:hep-ph/0607316v1v2
+    */
+    double H2NL(double E0, double Mu);
+    
+    
+    /**
+    * @brief \f$ H2 \f$
+    * @param[in] E0 energy cutoff
+    * @param[in] Mu mass scale
+    * @return return the function H^(2) obtained integrating the equations from arXiv:hep-ph/0607316v1v2 and arXiv:hep-ph/0611123v1
+    */
+    double H2(double E0, double Mu);
+    
+    
+    /**
+    * @brief \f$ G77 \f$
+    * @param[in] order perturbation theory order
+    * @param[in] E0 energy cutoff
+    * @param[in] Mu mass scale
+    * @return return the function G_{77} obtained integrating the equations from arXiv:hep-ph/0607316v1v2 and arXiv:hep-ph/0611123v1
+    */
+    double G77(orders order, double E0, double Mu);
+    
+    
+    /**
     * @brief \f$ dY1 \f$
     * @param[in] E0 energy cutoff
     * @return return the function \delta Y^1 from arXiv:0805.3911
